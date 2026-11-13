@@ -1,54 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794554393;
-	b=U/myqVe8u45BC7WVzFsxU3jPG7Smo5Ms12LiI4BkqgYsb5izhDS9YvrCQH2YlR6gMV7l
-	 HdsI1Do10aeT9QyAt6fWmKKL0UYdQ7vYLjtWjpovv7579gkH3z5wNfRGWovqR+Ax8vuvx
-	 ybCZYZwzoCp4bqko+yW2wNNXvZKLNYbtBVic7TkoUHpp7qc4ARW8x2pKJuYp1twUU8BF0
-	 MWQyneQhXpbliGIFKEncxS+pahENHq7Ohokm5Dd2ddHO+JidOMKABdxuz/dxVKSrnqMyQ
-	 k/Pw6j9POg/ooaybv+xxWRW0hubs29F+q3gYVpuWi8k0yL7uhLrH9HlmOjyWZy/EB4w==
+	t=1794554423;
+	b=kesdtOVYqLePn6StNlvxZ5jzVh/SvQ39IV9EStc+IZFqBTA+Ho92I0crVtjLE9qaNZAP
+	 stfuBeCJEaR96tZgU0UNRzSZojpthzy28PY7xCQz2Sp1ewaRNdIVkwUJnhNjecHeNa4qF
+	 rzPwUJvrLTWoYHu6/pxCMct9we8yaV8yEokTBuxUgkNqekDYCEXR9zpgQJMdBFaVUp9io
+	 QwwZXATO/x6qaV+r7IFvAkEgVFri0TAvNUtu5YsXpCSpjHqLlLYZMmpd7oWcsckjbfdfQ
+	 juwszTwM+U9LrarBkiOgllzOlSDMF4vFaYQcp63xwdwJbeHS6B1YrZb86VKPF4/Hzig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794554393;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=NImTOund7I1UAbtUhNpwSFZMAy/nW2gw4woQxmofC1Y=;
-	b=W/JRNDDIDFhxAxXc4GMtj21JtOoihiRB1PrgbnLyPrtYb0AU93dmGmAJzpiUooR8N2B4
-	 hquLuwazXFy1LqhB4yYHIR4LI+wuPV6uFyauhXSfg8TN5pc5qD7oMwjXiTpUKHYprPNpV
-	 mETJsqZLXkhrTh25TwaanXyrxuDtdvReXikUaHTD04uPmJtbuqpr4L1Syqmx//BuNrnVf
-	 40QkQskf2jyQUzxhmehSYgrowAMWg2DUUGN3T551oCh5mz6X6x3ri0SecFP7M6SAGMSDG
-	 oCP3qBV+tZ16dNaW+iYm3G+gCyD2KcUrWAKWOVmwYxX+x3LoyoT95VBwr0jbdrZpN9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794554423;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=4ukC9+RmyKpMCoo2Ej2X50ZCe3RffRo8JS7sjMrz5b4=;
+	b=yeW6YJYWR6k2aPkkjJAwDVUjBbrXJid/k5xRNV4jxK0Ohh0BdfG4YooxYEOhu2bTVU0T
+	 uTdwtZ/o39Ng4mfODJItaK9U1Q4QpSF+1/4IvsFwDRrFPs/xqd4L/tqcMhn295y2e6etD
+	 tQYr8PuhSjkJ1TtYmF/dmCJEjNSyfvVlwk6x8n5gTOLkV573Jj3u1HG2vD77oyf0iifEh
+	 ZRJdK+umAitU3dr3ggo1M4jzgpxlY/zk8Gyi9192y1fH97ZfflLe6fZRyDzhHMGiaFbOO
+	 MXRDAvchvUbFTkQ3QACBZ3U3pHZAO2OyjscdRYQbyxKFFwBvsyqUhRS2CrNRW6fS8Nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.200
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=UI+4bgJh;
+	arc=none smtp.remote-ip=209.85.219.52
+Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 682BE606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:19:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 682BE606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4cc89e86e4dso901524b6e.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:19:53 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD712606A327
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:20:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD712606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=UI+4bgJh
+Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-91f0274f88cso11463406d6.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:20:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1794554421; x=1795159221; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4ukC9+RmyKpMCoo2Ej2X50ZCe3RffRo8JS7sjMrz5b4=;
+        b=UI+4bgJhJNbQhv7pU4fivQjQTQX/aGehNq+O6Ule9LAPUv/kSn+3YzDkzwyt4xo/KE
+         FpX9HfqzRh+tmlh2VTaVA3asUfXtHtlE0JM9aPwNIMPqxB8GcjZm7uyxxGGajyQ6+1jW
+         Q7ie2diUq1P+2uyPtd41hNiWtCIgs9VWfCpBZyoQm/Y75/mhzlg5SEz4NbRTLVZNYMA8
+         ZVN8drMKsYzx5jyJv6iYsc5aw/JIYvGPg1xCesOhxeSz87YUpVgMXl9dAYzqwbX0Jp7w
+         R8E1X5RG+MSEQaNiTQDkjzrQeoswpV3AO66T2E+dCiN1dcN8HlW+CaFQJoMvaGU7fxYT
+         PVzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794554392; x=1795159192;
-        h=content-type:to:from:subject:message-id:date:mime-version
+        d=1e100.net; s=20260707; t=1794554421; x=1795159221;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NImTOund7I1UAbtUhNpwSFZMAy/nW2gw4woQxmofC1Y=;
-        b=0NcEb0kh7j+xOjEy1naDmnotiA5hhXP6gXypE4Kw7xxYTCzFhgoPiPQyS12XVUtGrc
-         OziVHZNbYw8QQtOXEsxbJ4u8B1nQpi3+cSo43BECidb3V6KMAsbm6mwcKEY8AdbjM2EM
-         pa+7zrRoHOYptgUUaCWj+8t5FN7zWTqDYZlcGITpW5+rrPyChgu2q9qZs7yzqlUviEJm
-         QtUDgaE8KO2R3D5kKYyNPSyzSRSPItIH/rQMmNFDdJU3SQsGw0QrzIVWPo24GEO4JllD
-         NdWAo6JP629DBgRMeVeXW/XAdNtTs1Dj9W9LdBdGlkxO90ivk3QE76HoQ61RRi+bZ+UT
-         0faQ==
-X-Forwarded-Encrypted: i=1; AL+hErEOCJEJLWhD6oQv3av1nydontvKogCqUKWZu5ohpVk0YEw/g5IIAKAiZQiu1ACPNZmkelooho1ThCVBsDU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9K6TjNCHzDXD0SeljKdJj5oJypWko88DFpDu+ZSNArf/i7bsBI
-	LIlkN7K42yQC99YtmH/uon/e82onx/49Wgk3XVBqKZGwxZbeSfWF27Z90sLbzx76j8wM+pOuZPa
-	KcpZMX3Bj5mHILFbMqnB7lM8eHAXJDG9vdei3w4lqgB2UXfxU96l/0mtYEEg=
+        bh=4ukC9+RmyKpMCoo2Ej2X50ZCe3RffRo8JS7sjMrz5b4=;
+        b=vdSzf+6WdHH29io7efT90cTQDQP0S9hovPTMCcDFy2cHa4n9he4CzuCgQ4MQSACxtD
+         UxYEvqfNxoje2GJ7MSpE3hQ6JIfKvcRcylHVY7jYX7LDSw6kVHgbfiKNTSl+Cd5BEXbB
+         QZGzY8LEKX5+QUlj705SQEe4tEyulKTu8fXgxni6+sB6jhFskJTIzs1UXH14JFmo/Y+U
+         vxxZgk2X1SH0NPMy//T2uvXLvTp87veVQlqaI57mfZhjDnjky1+wvcmkq70usjVly+T0
+         CEZNNTcVW7DCJGIyBM1W3CoPWuNFOpb8cAju/dUVZXoqL64SKsLkjctUAsqC1h2i+bql
+         bzAw==
+X-Forwarded-Encrypted: i=1; AL+hErGM6cJCFT13eBQtpevzzSfALaaheKAmkO+2Sp0C4EgZNB8szOqnMR1p3jaeqifdtPR68oGrJFGD2F2Sq3M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8+9uC0vVTPEjuQxTYtG1kGvkxFFSa8AKTEaVehv8QfK+ofSf2A
+	llvTzQFMLJtSbUcvbh51WKA2EUc4iKJa+OoHUFnOmyxFQtPIvRqLCc/FSY/LKzYowVU=
+X-Gm-Gg: AYBFou0y+VDEM59wW6K1ZQOr+AG/ZGZRCJ1aLdEgDaUPR1423a538eq1DgfXurjzWb3
+	m0tlM9w+Fk+vxwRryFzOHCovB+47ijUBJm5lTLfVYXTR2w6BKONSbdrmSB5aHt2U/9Fx9oNxnmu
+	5chT2QaC+ckLEBfRRAj3JHo2MG/HdNW9XZzXkkqalnwn2q6RfXlyOTt+kIzELqkjPOnoT4SdVlv
+	qhOxrA+2j++UX3TTZuRy1G9lonRzEexq+343YrmYcV7lv8kjMVyfQwdypQv73AkgvjFf68OvoKq
+	LMKFTn03LMPWFfBqj4FN2zLS3mfJ7o6gW5gyT0MVJPaRYx3c7jLGzKDHcYi/OKc3Ea6UZCc0w7O
+	v/2Bu4kC63PeO8BSDecmw7UAUXRftPEAYMWnVvnORm5YUnXZe/oHPYcr2P0BPwNDbiMC57/7riM
+	XrYnaHWBc+To604o6HDtWQDFhmzci7iSbpPhTKxE45APappqmdWfM7MTjR2BqcsrhUMulyKjKqx
+	9md8KSEF50e7LWg+GUXfe440MsPe2N9hczAQHprY2FXd8UAWWt/xJgmj/T+QF75qNjlRJNt/AE2
+	AR3LAOGs5CGzhNiMwCj6S8okXSn89shH5IJWbzgcDSjZQY9WViwP6AXKSnC+Yt+h2a+vyCiDWH6
+	hbK4LboXyLfsMTH18OYd+/+NherfaNQ==
+X-Received: by 2002:a05:6214:c46:b0:917:a1a7:6369 with SMTP id 6a1803df08f44-91f24198eaemr24969396d6.22.1794554421464;
+        Thu, 12 Nov 2026 23:20:21 -0800 (PST)
+Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23d614b4sm14297636d6.18.2026.11.12.23.20.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 23:20:20 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,268 +89,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:13ce:b0:4f5:aa1c:d934 with SMTP id
- 5614622812f47-56e64cf7e79mr1513625b6e.38.1794554392407; Thu, 12 Nov 2026
- 23:19:52 -0800 (PST)
-Date: Thu, 12 Nov 2026 23:19:52 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af6ba18.c3c214cc.692fa.00e5.GAE@google.com>
-Subject: [syzbot] [btrfs?] [ntfs3?] memory leak in __pcs_replace_empty_main
-From: syzbot <syzbot+527fed49e5b988882c9a@syzkaller.appspotmail.com>
-To: almaz.alexandrovich@paragon-software.com, dsterba@suse.com, 
-	linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	ntfs3@lists.linux.dev, radu@rendec.net, syzkaller-bugs@googlegroups.com, 
-	tglx@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [RFC v2 1/1] mm: add source selector to memory.reclaim
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: Li Zhe <lizhe.67@bytedance.com>
+Cc: akpm@linux-foundation.org, david@kernel.org, gourry@gourry.net, 
+ joshua.hahnjy@gmail.com, ljs@kernel.org, mhocko@suse.com, 
+ muchun.song@linux.dev, rakie.kim@sk.com, roman.gushchin@linux.dev, 
+ shakeel.butt@linux.dev, weixugc@google.com, ying.huang@linux.alibaba.com, 
+ ziy@nvidia.com, cgroups@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org
+In-Reply-To: <20261102070440.16262-2-lizhe.67@bytedance.com>
+References: <20261102070440.16262-1-lizhe.67@bytedance.com>
+ <20261102070440.16262-2-lizhe.67@bytedance.com>
+Date: Fri, 13 Nov 2026 02:20:20 -0500
+Message-Id: <179455442014.482102.4069329165987986914.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-Hello,
+On 2026-11-02 15:04 +0800, Li Zhe wrote:
+> +	Specifying a source value constrains where proactive reclaim applies
+> +	pressure. Currently only source=nodes:<nodelist> is supported. For
+> +	example::
+> +
+> +	  echo "1G source=nodes:0-1" > memory.reclaim
+> +
+> +	This reclaims memory of the target cgroup resident on nodes 0-1.
 
-syzbot found the following issue on:
+you buried the fact that you want to allow source=zswap in your cover
+letter. I was confused by nodes: was needed here until i re-read.
 
-HEAD commit:    8a65162514fb Merge tag 'driver-core-7.4-rc2' of git://git...
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=149c9409580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=4361b1bb937ae1c4
-dashboard link: https://syzkaller.appspot.com/bug?extid=527fed49e5b988882c9a
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=129c9409580000
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/4cd10f0ff0b1/disk-8a651625.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/055634bde6e5/vmlinux-8a651625.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/523697a102d6/bzImage-8a651625.xz
-mounted in repro #1: https://storage.googleapis.com/syzbot-assets/6cf790da15a7/mount_0.gz
-  fsck result: OK (log: https://syzkaller.appspot.com/x/fsck.log?x=17c154d9580000)
-mounted in repro #2: https://storage.googleapis.com/syzbot-assets/9fee673d5c4a/mount_11.gz
-  fsck result: OK (log: https://syzkaller.appspot.com/x/fsck.log?x=1161e7a5580000)
-mounted in repro #3: https://storage.googleapis.com/syzbot-assets/5f1986de5655/mount_13.gz
-
-AI-generated root cause summary:
-In SLUB's per-CPU sheaves (PCS) implementation (mm/slub.c), struct slab_sheaf
-objects allocated via __alloc_empty_sheaf() are tracked as standard heap
-allocations by kmemleak. When an rcu_free sheaf reaches capacity in
-__kfree_rcu_sheaf(), it is detached from pcs->rcu_free and queued for deferred
-cleanup via call_rcu(&rcu_sheaf->rcu_head, rcu_free_sheaf). While queued, the
-only pointer to the sheaf exists in RCU's segmented callback list
-(rcu_data.cblist); if any earlier callback in the singly-linked list resides in
-memory untracked or unscanned by kmemleak (such as struct slab allocated in
-struct page, SLAB_NOLEAKTRACE objects, or already-freed objects), kmemleak
-cannot traverse the chain. Because recycled sheaves retain their early-boot
-allocation timestamps, kmemleak exceeds its scan age threshold and falsely
-reports these in-flight sheaves as unreferenced memory leaks.
-
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=527fed49e5b988882c9a
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+527fed49e5b988882c9a@syzkaller.appspotmail.com
-
-BUG: memory leak
-unreferenced object 0xffff88810005f600 (size 512):
-  comm "swapper/0", pid 0, jiffies 4294937296
-  hex dump (first 32 bytes):
-    e0 79 f0 2b 81 88 ff ff 20 00 b4 81 ff ff ff ff  .y.+.... .......
-    00 12 04 00 81 88 ff ff 3c 00 00 00 00 00 00 00  ........<.......
-  backtrace (crc 9e0404a6):
-    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook mm/slub.c:4733 [inline]
-    slab_alloc_node mm/slub.c:5033 [inline]
-    __do_kmalloc_node mm/slub.c:5530 [inline]
-    __kmalloc_flags_noprof+0x42c/0x570 mm/slub.c:5719
-    _kmalloc_flags_noprof mm/slab.h:55 [inline]
-    __alloc_empty_sheaf mm/slub.c:2854 [inline]
-    alloc_empty_sheaf mm/slub.c:2874 [inline]
-    __pcs_replace_empty_main+0x260/0x2e0 mm/slub.c:4806
-    alloc_from_pcs mm/slub.c:4887 [inline]
-    slab_alloc_node mm/slub.c:5021 [inline]
-    __kmalloc_cache_noprof+0x370/0x3f0 mm/slub.c:5676
-    _kmalloc_noprof include/linux/slab.h:991 [inline]
-    _kzalloc_noprof include/linux/slab.h:1312 [inline]
-    __irq_domain_alloc_fwnode+0x37/0x160 kernel/irq/irqdomain.c:97
-    irq_domain_alloc_named_fwnode include/linux/irqdomain.h:271 [inline]
-    arch_early_irq_init+0x1c/0x70 arch/x86/kernel/apic/vector.c:803
-    start_kernel+0x9c5/0xc10 init/main.c:1150
-    x86_64_start_reservations+0x24/0x30 arch/x86/kernel/head64.c:310
-    x86_64_start_kernel+0xce/0xd0 arch/x86/kernel/head64.c:291
-    common_startup_64+0x13e/0x158
-
-BUG: memory leak
-unreferenced object 0xffff8881009c5000 (size 512):
-  comm "kthreadd", pid 2, jiffies 4294937342
-  hex dump (first 32 bytes):
-    a0 5c 9b 2a 81 88 ff ff 20 00 b4 81 ff ff ff ff  .\.*.... .......
-    00 12 04 00 81 88 ff ff 3c 00 00 00 00 00 00 00  ........<.......
-  backtrace (crc 3e15a3c6):
-    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook mm/slub.c:4733 [inline]
-    slab_alloc_node mm/slub.c:5033 [inline]
-    __do_kmalloc_node mm/slub.c:5530 [inline]
-    __kmalloc_flags_noprof+0x42c/0x570 mm/slub.c:5719
-    _kmalloc_flags_noprof mm/slab.h:55 [inline]
-    __alloc_empty_sheaf mm/slub.c:2854 [inline]
-    alloc_empty_sheaf mm/slub.c:2874 [inline]
-    __pcs_replace_empty_main+0x260/0x2e0 mm/slub.c:4806
-    alloc_from_pcs mm/slub.c:4887 [inline]
-    slab_alloc_node mm/slub.c:5021 [inline]
-    __kmalloc_cache_node_noprof+0x381/0x410 mm/slub.c:5695
-    _kmalloc_node_noprof include/linux/slab.h:1196 [inline]
-    __get_vm_area_node+0xe9/0x1f0 mm/vmalloc.c:3270
-    __vmalloc_node_range_noprof+0x1e1/0xd90 mm/vmalloc.c:4112
-    __vmalloc_node_noprof+0x71/0x90 mm/vmalloc.c:4213
-    alloc_thread_stack_node kernel/fork.c:359 [inline]
-    dup_task_struct kernel/fork.c:931 [inline]
-    copy_process+0x527/0x3060 kernel/fork.c:2150
-    kernel_clone+0x101/0x710 kernel/fork.c:2798
-    kernel_thread+0x80/0xb0 kernel/fork.c:2859
-    create_kthread kernel/kthread.c:459 [inline]
-    kthreadd+0x186/0x250 kernel/kthread.c:817
-    ret_from_fork+0x219/0x490 arch/x86/kernel/process.c:158
-    ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-BUG: memory leak
-unreferenced object 0xffff888102d99800 (size 512):
-  comm "kworker/u8:3", pid 235, jiffies 4294937447
-  hex dump (first 32 bytes):
-    f0 6b 9d 2a 81 88 ff ff 20 00 b4 81 ff ff ff ff  .k.*.... .......
-    00 12 04 00 81 88 ff ff 3c 00 00 00 00 00 00 00  ........<.......
-  backtrace (crc 282505aa):
-    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook mm/slub.c:4733 [inline]
-    slab_alloc_node mm/slub.c:5033 [inline]
-    __do_kmalloc_node mm/slub.c:5530 [inline]
-    __kmalloc_flags_noprof+0x42c/0x570 mm/slub.c:5719
-    _kmalloc_flags_noprof mm/slab.h:55 [inline]
-    __alloc_empty_sheaf mm/slub.c:2854 [inline]
-    alloc_empty_sheaf mm/slub.c:2874 [inline]
-    __pcs_replace_full_main+0xf7/0x330 mm/slub.c:6094
-    free_to_pcs mm/slub.c:6147 [inline]
-    slab_free mm/slub.c:6633 [inline]
-    kfree+0x353/0x390 mm/slub.c:6923
-    call_usermodehelper_freeinfo kernel/umh.c:43 [inline]
-    umh_complete kernel/umh.c:57 [inline]
-    call_usermodehelper_exec_async+0x1c7/0x1f0 kernel/umh.c:117
-    ret_from_fork+0x219/0x490 arch/x86/kernel/process.c:158
-    ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-BUG: memory leak
-unreferenced object 0xffff888101943a00 (size 512):
-  comm "kdevtmpfs", pid 27, jiffies 4294937449
-  hex dump (first 32 bytes):
-    b0 c3 b7 0b 81 88 ff ff 20 00 b4 81 ff ff ff ff  ........ .......
-    00 4a 04 00 81 88 ff ff 20 00 00 00 00 00 00 00  .J...... .......
-  backtrace (crc 6be06b44):
-    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook mm/slub.c:4733 [inline]
-    slab_alloc_node mm/slub.c:5033 [inline]
-    __do_kmalloc_node mm/slub.c:5530 [inline]
-    __kmalloc_flags_noprof+0x42c/0x570 mm/slub.c:5719
-    _kmalloc_flags_noprof mm/slab.h:55 [inline]
-    __alloc_empty_sheaf mm/slub.c:2854 [inline]
-    alloc_empty_sheaf mm/slub.c:2874 [inline]
-    __kfree_rcu_sheaf+0x1aa/0x2d0 mm/slub.c:6282
-    kfree_rcu_sheaf mm/slab_common.c:1689 [inline]
-    kvfree_call_rcu+0x1ef/0x3a0 mm/slab_common.c:2044
-    ma_free_rcu lib/maple_tree.c:173 [inline]
-    ma_free_rcu+0x29/0x40 lib/maple_tree.c:170
-    mas_topiary_node lib/maple_tree.c:1829 [inline]
-    mas_topiary_node lib/maple_tree.c:1817 [inline]
-    mas_topiary_replace+0xc49/0x1560 lib/maple_tree.c:1928
-    mas_wmb_replace+0x3c/0x630 lib/maple_tree.c:2114
-    mas_wr_split+0xcda/0x1650 lib/maple_tree.c:3502
-    mas_wr_store_entry+0x520/0xf60 lib/maple_tree.c:3575
-    mas_insert lib/maple_tree.c:3819 [inline]
-    mas_alloc_cyclic+0x481/0xa30 lib/maple_tree.c:3862
-    mtree_alloc_cyclic+0xc7/0x140 lib/maple_tree.c:5975
-    simple_offset_add+0x5c/0xd0 fs/libfs.c:296
-    shmem_mknod+0x1df/0x260 mm/shmem.c:4092
-    vfs_mknod+0x229/0x460 fs/namei.c:5287
-    handle_create drivers/base/devtmpfs.c:283 [inline]
-    handle drivers/base/devtmpfs.c:435 [inline]
-    devtmpfs_work_loop+0x292/0x64b drivers/base/devtmpfs.c:450
-    devtmpfsd+0x3a/0x50 drivers/base/devtmpfs.c:492
-    kthread+0x150/0x1a0 kernel/kthread.c:436
-
-BUG: memory leak
-unreferenced object 0xffff888102d98200 (size 512):
-  comm "kworker/0:1", pid 11, jiffies 4294937453
-  hex dump (first 32 bytes):
-    f0 6b 99 2a 81 88 ff ff 20 00 b4 81 ff ff ff ff  .k.*.... .......
-    00 12 04 00 81 88 ff ff 3c 00 00 00 00 00 00 00  ........<.......
-  backtrace (crc 946da91f):
-    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook mm/slub.c:4733 [inline]
-    slab_alloc_node mm/slub.c:5033 [inline]
-    __do_kmalloc_node mm/slub.c:5530 [inline]
-    __kmalloc_flags_noprof+0x42c/0x570 mm/slub.c:5719
-    _kmalloc_flags_noprof mm/slab.h:55 [inline]
-    __alloc_empty_sheaf mm/slub.c:2854 [inline]
-    alloc_empty_sheaf mm/slub.c:2874 [inline]
-    __pcs_replace_full_main+0xf7/0x330 mm/slub.c:6094
-    free_to_pcs mm/slub.c:6147 [inline]
-    slab_free mm/slub.c:6633 [inline]
-    kfree+0x353/0x390 mm/slub.c:6923
-    vfree mm/vmalloc.c:3549 [inline]
-    vfree+0xa8/0x390 mm/vmalloc.c:3521
-    delayed_vfree_work+0x29/0x40 mm/vmalloc.c:3451
-    process_one_work+0x2b7/0x5c0 kernel/workqueue.c:3495
-    process_scheduled_works kernel/workqueue.c:3578 [inline]
-    worker_thread+0x255/0x4a0 kernel/workqueue.c:3659
-    kthread+0x150/0x1a0 kernel/kthread.c:436
-    ret_from_fork+0x219/0x490 arch/x86/kernel/process.c:158
-    ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-BUG: memory leak
-unreferenced object 0xffff8881024bee00 (size 512):
-  comm "softirq", pid 0, jiffies 4294937453
-  hex dump (first 32 bytes):
-    70 66 90 2a 81 88 ff ff 20 00 b4 81 ff ff ff ff  pf.*.... .......
-    00 12 04 00 81 88 ff ff 3c 00 00 00 00 00 00 00  ........<.......
-  backtrace (crc 3d09b414):
-    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook mm/slub.c:4733 [inline]
-    slab_alloc_node mm/slub.c:5033 [inline]
-    __do_kmalloc_node mm/slub.c:5530 [inline]
-    __kmalloc_flags_noprof+0x42c/0x570 mm/slub.c:5719
-    _kmalloc_flags_noprof mm/slab.h:55 [inline]
-    __alloc_empty_sheaf mm/slub.c:2854 [inline]
-    alloc_empty_sheaf mm/slub.c:2874 [inline]
-    __pcs_replace_full_main+0xf7/0x330 mm/slub.c:6094
-    free_to_pcs mm/slub.c:6147 [inline]
-    slab_free mm/slub.c:6633 [inline]
-    kfree+0x353/0x390 mm/slub.c:6923
-    security_task_free+0x6e/0x130 security/security.c:2827
-    __put_task_struct+0x9f/0x260 kernel/fork.c:792
-    rcu_do_batch kernel/rcu/tree.c:2650 [inline]
-    rcu_core+0x269/0x720 kernel/rcu/tree.c:2919
-    handle_softirqs+0x114/0x330 kernel/softirq.c:669
-    __do_softirq kernel/softirq.c:703 [inline]
-    invoke_softirq kernel/softirq.c:542 [inline]
-    __irq_exit_rcu+0xb5/0xf0 kernel/softirq.c:786
-    instr_sysvec_irq_work arch/x86/kernel/irq_work.c:17 [inline]
-    sysvec_irq_work+0x73/0x80 arch/x86/kernel/irq_work.c:17
-    asm_sysvec_irq_work+0x1a/0x20 arch/x86/include/asm/idtentry.h:710
-
-connection error: failed to recv *flatrpc.ExecutorMessageRawT: EOF
-** replaying previous printk message **
-
+As Joshua mentioned, i don't think you need the separate cover letter,
+and I agree this is far too long for the proposed change.
 
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+When I asked for testing, I wasn't concerned with the functionality,
+I was asking what problem this actually solves. performance? fairness?
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+Shaping the distribution of memory is neat and clearly works, but why
+does userspace want this?
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+The interface "lacking flexibility" is not a problem in and of itself.
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
+I CAN see why you might want to proactively shape what data is swapped.
+Let me give you an example:
 
-If you want to undo deduplication, reply with:
-#syz undup
+---
+The global node reclaim interfaces allow us to put pressure on distinct
+nodes - which lets us shape which node is swapped from first.
+
+Example: node0-1=DRAM, node2-3:CXL
+
+  echo 1G > node2/reclaim   # swap from CXL
+  echo 1G > node3/reclaim   # swap from CXL
+  echo 1G > node0/reclaim   # demote to CXL
+  echo 1G > node1/reclaim   # demote to CXL
+
+But the memcg.reclaim interface only allows us to pressure the complete
+set of cpuset.mems nodes for that memcg
+
+  cat cpuset.mems           # 0-3
+  echo 1G > memory.reclaim  # makes progress from any of 0-3
+
+Presently, proactive reclaim iterates nodes in node or fallback order,
+meaning it attempts to make progress from the fastest node possible
+first - which attempts to demote by default.  If the lower nodes are
+full, this demotion will fail and we'll swap directly from the top tier,
+which is (presumably) warmer than the bottom tiers.
+
+Enable source-bound reclaim in the memory.reclaim interface so that user
+space can have the same control over memcg memory tiers that global
+proactive reclaim has.
+
+  echo 2G source=nodes:2-3 > memory.reclaim  # [z]swap from CXL
+  echo 2G source=nodes:0-1 > memory.reclaim  # demote to CXL
+
+This lets user proactive reclaim to target the coldest memory first
+rather than preferring to reclaim from node0 first and potentially
+swap out memory warmer than what is present on a CXL tier.
+---
+
+With this, you might be able to demonstrate fewer refaults and less
+DRAM (node0) memory consumed by zswap. These are clear benefits.
+
+I would argue that memory.reclaim should operate this way anyway,
+and that would could make proactive reclaim do this by default, but
+I could see the policy bits in userland being useful as well
+
+Performance may not be the only reason you want this, but you need to
+help me understand what you're trying to accomplish.
+
+-- 
+~Gregory
+
