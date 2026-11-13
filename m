@@ -1,66 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.59.177.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794531724;
-	b=S5lImEt16Obz6oDXCUZ1rN9PdqvrBIwN0l55wDR7bat+ElUaTBLTjBTxqv+Rgp5AMoE1
-	 80caYEYVB5O21nwFU4tqFRk1nI7FD7gVoVBaUjvGuT1nn2KCxAJTcVu8SO4L1f7zABfOF
-	 b3kkTYQNvUMKpgcCA54+AtQbH0FwCWVqNziDWR/Crb/vP6dOx86VH5sUlwe2ce4uNN4TZ
-	 tmWOWeY4eyaYO50bTW+dYhYAPkWsgobXHMQLa3LEiylQYlsdGgn9wDVFir+K3d4tXIcPo
-	 gKSqLhRe5yKBE0rm6YkMSQ9gvxpl05O1LCdn/Ktr2BPM2W5Hwe5+SZhvwdtxSW9YdKw==
+	b=a5cEmaC7lfXWCMvxmBpGjUzVXGFrXovHpE316v7QRsHuVs9Xp6MS8diI1qG2kvlor8T4
+	 CFY9Pn11HtNLDOvEgJqyGzW/SFI7zOvMn+sQ4/o9TlvGej5zk2g8y+l4rQClhylOruZRQ
+	 oKZ6+3jhE2jxFG3rlu4A+Zf5TuoHF7t77UOawx4loT8ZI1I67jm5qVVxf3HQU3Y/Ba6/v
+	 pucxhhaKIHSEz3h1gBTVBvlknPCbO6/S4EcZry974ZSgMgaQqdRqegtR2PbBlRGbBUQMp
+	 2ZpT5iWAoA2S8F3Sf8cM9NeSH0LrNJeiyr/a4S0hawIhEAeaN0uHQtG6JbI6onQuLCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794531724;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=MbV0nYCvQjonoY9GqSdbwd6uyf8l/vnEpP6Gg+I3jek=;
-	b=F/GpotZlNnO9v98XnkQvjAklbdLLaCPVQ2+yfHdaL42wVihAUxPdTF6byZ34v+fSCJgc
-	 vrj+0WyeH4ewf73eTZhDHLVvjPxDcEnmW0Kb+tGzHWeFhyWR827bk7btduAn4woqDo1aG
-	 qjNDmTrVLkY7BL3AnG6VsZyVKXpBJzou3RVNT/didfYfoaf9QYGGXsY0CQrLVcIFnZBP0
-	 qgxJrHLmuZrWxYwnhK0GrXEuIbOZadPlubUjMFKPSL0nFxRA7+e+Ga4YKxVLT3AsFzrq1
-	 fA3CBVybrp42TsJBkWTVF4LctHPsx2I7F8BYX0Wee3qMfi4yhzE/hvkXDPvT4bFwmkg==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=QuB4gRralS9yFslodv3QC7A77JieK5X8DdVq10Sbwss=;
+	b=qAgEDuUsDYB1ZMsBkcW3M44yosZbf61NnrHynDihkLlw2bPt1oGfIJ3Gpc0Z/BBGMzhr
+	 J8WaSC0qiJvmeX2Gi/6fQhAioUYPlAPxEJZ+qASLCuesOqqBzXGXJejVvMFQLEc3qXJLJ
+	 s1xx6MNhKtModjuqu87CUiCuONmtyK/qNo3HGpdbHxANNvVMLsyx74WQ0qfOcozNipAc3
+	 ORgV7wlrbB2cTJnpuAQN7dq+STw7uooqUS0Vf/LTeVHf+tP0S+PgUH7Ajtzdw6sCw/TLs
+	 dKAX+WAusVDOcCfcHqHyEdEpHlRoT9yxhzNaVeKfP30agC5vDFDrt0qb0Z8jBxI+/zg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=gTrK0sm9;
-	arc=none smtp.remote-ip=52.59.177.22
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rujr5uv4;
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE282606A321;
-	Fri, 13 Nov 2026 01:01:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE282606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17398606A327
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 01:02:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17398606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=gTrK0sm9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1794531703;
-	bh=MbV0nYCvQjonoY9GqSdbwd6uyf8l/vnEpP6Gg+I3jek=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=gTrK0sm9FwPWze3VR6plnfneCjBCbbvPu6TqZbZWmQfRnJhJ0VGpyIXezwYek3PBi
-	 b6XPKQn7ri896s+z6igEA3j7tu/0Q+46mG9LyP7HNGHD5HVdwvj5UaHbcLjV2PPFNw
-	 N/WFAi+6AoR93PJoG1/E7Ox9/+37l1iFJL5avaOY=
-X-QQ-mid: zesmtpsz4t1794531699t37acbc69
-X-QQ-Originating-IP: IOQ6sw8ZhMxrz8Vfdt49he8dY5M/9y3F1itoJ/5IrEw=
-Received: from PEC004119 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 13 Nov 2026 09:01:37 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 3981416717420647714
-EX-QQ-RecipientCnt: 6
-From: tuhaowen <tuhaowen@uniontech.com>
-To: rafael@kernel.org
-Cc: pavel@kernel.org,
-	lenb@kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	tuhaowen <tuhaowen@uniontech.com>
-Subject: [PATCH] PM: hibernate: Restore PM notifiers on snapshot open failure
-Date: Fri, 13 Nov 2026 09:01:34 +0800
-Message-ID: <10852BF0B4974597+20261113010134.1408010-1-tuhaowen@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rujr5uv4
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-36e90071735so72773eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:02:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794531723; x=1795136523; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=QuB4gRralS9yFslodv3QC7A77JieK5X8DdVq10Sbwss=;
+        b=rujr5uv4KHlwWU2yiG5TIjDlYxdpRT7n72g+1OQ3nBEPBHqnw9DubRlOabZkuOrKMh
+         RwfFkjuDDnX7TWjdUqMie9mWpjujh4a1Al5OR4HTAi7FRlpGGpH/Ny70IthtWL0BTMmQ
+         C8ZKswI8HOW0CBBj01MtiKKGiu2h27KGiS5u9NmZ0VftDPmEmCtk1pfybuWaKwfGGDQH
+         3on5gn2jm4O1IKNZ6D+xgFEOygeTUpXV/eeU/cWP5KZuvNsunYs3KLrD1k1XJGl7T4pu
+         0QyGlue/SdNYX6yT4haGJRiefjE6BE8b3PV+6JUF96BFNu3V7swh6kdDZygjonIOBur6
+         JtmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794531723; x=1795136523;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QuB4gRralS9yFslodv3QC7A77JieK5X8DdVq10Sbwss=;
+        b=BG0Tq3gLKBA69ZVF4iPGGHMd4cSvRjtlHLVTCarRQD56mPEP2px2dgCI5gx7dFowSM
+         2exW/3iPDiX3E0PcL+hAr5p0Y7QhWIhXKeKsfy0M60qADFPEXQziVC1gsWOMhjCXUgyM
+         RYoG7S1DT5zRSz9qaCFz6biKPCddxaEq/skv65JpFRymmbzjqw0+LhFij3vIkYXJVPin
+         tBS3YbGtBlWkAihVa8AKIu5Tga5JQVtBXtUr7Fjypt0ATKguoC8evRqNujvK4j4Gip9V
+         UBoBypSbSMn6AybgF2+N9lgZxIzmoPrzmch1kfg1cbRAqJWPiAJRa2H/L9au2Ek4uBtn
+         ZBPA==
+X-Forwarded-Encrypted: i=1; AL+hErE6owJoraFedYzHdxhUHRKxqeVugRwwLF5envnmMLppuHiHUVsEwDWcjbwPQ9B/pZez+CAt1svvg2LTDjM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8mdCzO7yITg/D0aqblswW5Q+1bgLEzREl5ARbIvtk6kvHExf/H
+	C96unkmGjRmXranbiOBoTMjsoFXtZ1beYcLhdhNpIpBpzofQxCUUyS1M
+X-Gm-Gg: AYBFou2kCw9c1+5WaXNeKiW52pP8D2PrY1vMSGvfDEYqDLXrJW55RyqY2mVex8WbaF+
+	b5SGlS2nMDRPiYY06O910u9C94b5fPWpXKjNq9YgXD2HR3hYfTcCN8j2hbI0rCq9SylEz2PGlSU
+	tp/qXeb3tjhAmcKXS/gQa9Utcu6deOK/Wjn+5CNclPrmX+CuO2H9idVRtaJ4GxTsev2cTvPmVrU
+	KLj/ncUw0awKZJIH1KBCNrjqlbLy7QdfhiscmvrdrAT/CPVbWz23ixsgU9i3JAo8iCh3u5j1MS0
+	Ey036uzCpguLnA3CZyNyUxhcXjKv0F7q/OObY71Scje3V+u6qmlyxrdNfKy1qJKyV+cDSaCL+6d
+	Nonbjeok02RxhyrZDn1lRa9gzJg0dl2E5rPJrD7aIu225M4dJbfhZzsViizaeM7iTxz4S/ldvtx
+	wdYXowqKQo/jx17v9/PVObMDygRTeI0fAFiKY4cnCMCMjgPoPQSQbR/NNaI7vK0Oa/hTTIJpO6V
+	j+9kymBiX2KqdhOFs/p/6XEV4jTvmDy2oKbpJdWqy1qW2nkswQ2hMpzlw4u9PV8CVb5r3ajruLh
+	gw44xPJ8b1f95DGUv5xX4Ek9b0HxJzAov924YoVEwF7kobV17tcHpDU67/dVf9hFtNF6endxlY1
+	cnY0PxVyhZKlP
+X-Received: by 2002:a05:7300:c00e:20b0:35e:d21c:f33e with SMTP id 5a478bee46e88-379651ecb3emr1356356eec.1.1794531722833;
+        Thu, 12 Nov 2026 17:02:02 -0800 (PST)
+Received: from o6.lan ([2602:fce1:44f:115e::])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955332ae7sm4453590eec.8.2026.11.12.17.01.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 17:02:02 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,65 +89,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: MNbA5mkmBXEJt5quiIHHPKscnR5sId0xT3lkKlysIJeYYaS9ixObZIin
-	6WVP5m9zMLWgb1yexso5CKCLR1QzQ7XnOIYOEMNTF6hpHvYqNX25VbGfrPQlfLc5oAKYYc9
-	lMQrAyDsMQF2ZR/UhjcxFpNlz3RzaAIyCgXiySdCJH0/4WwcRcvZyigx1SbficUYiG289K7
-	/gAATsJy2bsjI8ZJPNrRLfirnWYQVa6Rjxg5BEmAMcMXhIQ/IU9I3vsGn2Z3N0cXEX806LJ
-	0AxeFfYvRdovEGI13bR6zbU9xvXfHcoz4MQTG2u4xqWs+Ltfei1Jx1A/3qcIvVCI8IAQB5m
-	YAp56f9oAVtSYZa+7Tn3Ll+ueycXHiEnpAXOlGvxZPSTvLI6YUiylfs9HfgwNfVqzk3uqF8
-	vX+/RN5LggVi0PQfPHESxA3wYAC/xz7qszjNC7wb21HYJAChADYwO0Pu7FXZ6Gr2GaRGy2+
-	397RQmwVhBqF8gH5S5NJZUtXkOK0pjMr8cbg2krTd3RwwuYPieqEGS5NpF43nvsM7Z/PmQ5
-	cXARKGDmX4Oimu6txZOOIZQ2RAJXfyQLrkymc9ubIC3TlGAnsO1Yi/09XO9LrpCj4s4zIkL
-	J5SCLi2oXYOa3fY/xQni88HNl7jHjA7nr0PgvxRFuI0cwDtZFUm4c1aOBH7Yk1Z2Mu9s2c+
-	fJlmvE1IImFOo8JT/hWUOZVNUbnMSzB8tfrSX/QFyFUJfA0lcg7275PWwMwPCasHsCqCKBR
-	tvjQKbq2Xheg9KIlL9sHtIoypcx9H6MbY1Lu72PqzhvtpY0WDdKyBoF2PBgO6jsgohfRIIz
-	R9TANNtA8l1n4jGgRm8jGhKCjyVWMq1QYmHaPZd2qSWLxeO76DBpeDQFRS0ihKZsr5lw/5d
-	73nC7+rzCQZTYfcfl3vlyZ5fmEf8zlYH3NUPg8J2KJn7dNjZQJVB7DchLKcriKG4D3xz9Yd
-	TyRnPlv8pGOxk4kw5UG0qcimAwA06BMPdXXh5HwUwQA5qmiyggZqQWlyCXICl+fqVOSglgQ
-	NdRe/kcwrVMYdmvans
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3] mm/zsmalloc: remove CONFIG_ZSMALLOC_STAT
+From: Xueyuan Chen <xueyuan.chen21@gmail.com>
+To: Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: Xueyuan Chen <xueyuan.chen21@gmail.com>, 
+ Minchan Kim <minchan@kernel.org>, 
+ Sergey Senozhatsky <senozhatsky@chromium.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Alex Shi <alexs@kernel.org>, 
+ Yanteng Si <si.yanteng@linux.dev>, Dongliang Mu <dzm91@hust.edu.cn>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Helen Koike <helen.fornazier@gmail.com>, 
+ Vignesh Raman <vignesh.raman@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ linux-mm@kvack.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-s390@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ Nhat Pham <nphamcs@gmail.com>
+In-Reply-To: <d812b71d-b7ec-496f-9404-add2282105a6-agordeev@linux.ibm.com>
+References: <20261111-zsmalloc_stat-v3-1-2d85ed51570e@gmail.com>
+ <d812b71d-b7ec-496f-9404-add2282105a6-agordeev@linux.ibm.com>
+Date: Fri, 13 Nov 2026 09:01:51 +0800
+Message-Id: <179453171134.2553194.3867422839676762696.b4-reply@b4>
+X-Mailer: b4 0.16.0
 
-Opening /dev/snapshot for writing calls the PM_RESTORE_PREPARE
-notifiers before allocating the basic memory bitmaps. If the allocation
-fails, snapshot_open() returns an error without sending PM_POST_RESTORE.
-The release callback is not called after a failed open, so it cannot undo
-the preparation either.
+On 2026-11-12 13:29 +0100, Alexander Gordeev wrote:
+> On Wed, Nov 11, 2026 at 08:41:26PM +0800, Xueyuan Chen wrote:
+> > CONFIG_ZSMALLOC_STAT only controls the debugfs interface. The class
+> > counters are updated regardless of this option.
+> > 
+> > Remove the CONFIG_ZSMALLOC_STAT guards and rely on the debugfs API
+> > stubs when CONFIG_DEBUG_FS=n. Skip statistics setup silently when
+> > debugfs is unavailable.
+> > 
+> > Remove the Kconfig entry and replace the existing CONFIG_ZSMALLOC_STAT
+> > settings with CONFIG_DEBUG_FS=y. Update the English and Chinese
+> > documentation to match, and clarify the pool name in the debugfs path.
+> > 
+> > Suggested-by: Nhat Pham <nphamcs@gmail.com>
+> > Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+> > Signed-off-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+> ...
+> >  arch/s390/configs/debug_defconfig                |  2 +-
+> >  arch/s390/configs/defconfig                      |  2 +-
+> ...
+> > diff --git a/arch/s390/configs/debug_defconfig b/arch/s390/configs/debug_defconfig
+> > index d44674b63715..83193ef8efb9 100644
+> > --- a/arch/s390/configs/debug_defconfig
+> > +++ b/arch/s390/configs/debug_defconfig
+> > @@ -100,7 +100,7 @@ CONFIG_UNIXWARE_DISKLABEL=y
+> >  CONFIG_IOSCHED_BFQ=y
+> >  CONFIG_BINFMT_MISC=m
+> >  CONFIG_ZSWAP=y
+> > -CONFIG_ZSMALLOC_STAT=y
+> > +CONFIG_DEBUG_FS=y
+> >  CONFIG_SLAB_BUCKETS=y
+> >  CONFIG_SLUB_STATS=y
+> >  # CONFIG_COMPAT_BRK is not set
+> > diff --git a/arch/s390/configs/defconfig b/arch/s390/configs/defconfig
+> > index e00e252d4694..694a309377d5 100644
+> > --- a/arch/s390/configs/defconfig
+> > +++ b/arch/s390/configs/defconfig
+> > @@ -94,7 +94,7 @@ CONFIG_UNIXWARE_DISKLABEL=y
+> >  CONFIG_IOSCHED_BFQ=y
+> >  CONFIG_BINFMT_MISC=m
+> >  CONFIG_ZSWAP=y
+> > -CONFIG_ZSMALLOC_STAT=y
+> > +CONFIG_DEBUG_FS=y
+> >  CONFIG_SLAB_BUCKETS=y
+> >  # CONFIG_COMPAT_BRK is not set
+> >  CONFIG_MEMORY_HOTPLUG=y
+> 
+> So DEBUG_FS is selected unconditionally? Please, drop this for s390.
+CONFIG_ZSMALLOC_STAT used to select DEBUG_FS, so I added
+CONFIG_DEBUG_FS=y to keep the stats available.
 
-In particular, the firmware loader enables firmware caching during
-PM_RESTORE_PREPARE and relies on PM_POST_RESTORE to reset the cache state
-and schedule the cached firmware for release. An allocation failure can
-therefore leave firmware caching enabled after the restore attempt has
-already failed.
+OK, I'll drop those lines from the s390 defconfigs in v4.
+> 
+> > --  
+> > Best regards,
+> > Xueyuan
+> 
+> Thanks!
+> 
+> 
 
-The robust notifier call only rolls back failures within the notifier
-chain. It does not cover a subsequent failure to allocate the bitmaps.
-Send PM_POST_RESTORE for that failure, after a successful prepare call,
-so that the notifiers can undo their preparation without being called
-twice when the prepare notification itself fails.
-
-Fixes: 70d932985757 ("notifier: Fix broken error handling pattern")
-Signed-off-by: tuhaowen <tuhaowen@uniontech.com>
----
- kernel/power/user.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/kernel/power/user.c b/kernel/power/user.c
-index 6e4f40e49319..e7e8016a4f1a 100644
---- a/kernel/power/user.c
-+++ b/kernel/power/user.c
-@@ -87,6 +87,8 @@ static int snapshot_open(struct inode *inode, struct file *filp)
- 		error = pm_notifier_call_chain_robust(PM_RESTORE_PREPARE, PM_POST_RESTORE);
- 		if (!error) {
- 			error = create_basic_memory_bitmaps();
-+			if (error)
-+				pm_notifier_call_chain(PM_POST_RESTORE);
- 			data->free_bitmaps = !error;
- 		}
- 	}
--- 
-2.50.1
 
