@@ -1,54 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794539309;
-	b=VQ+hUtNyTnhH8DNGKGdqJYvkl2/3ZpkTnS0x9BI/1xeTyLNn/z0qjt2s5gBc8i7HYdX5
-	 waoy5++knx61rlRpuHnCSG9tAGtiqG3RrKtJZ9rpO+YrapFSc7yrwdEE+yB8YgzfwvJ0Z
-	 RlfLvSYm63t7nBxWJqPrdyn135JhSDkWmW8uHQIh7+RsaNeMBEk7AC6NYLT7QxBGCURC6
-	 90OP7F5rX5Cv8MQsgvX85yrSalgBk0vbk1o9crkG+uW578Q0WM727jhcg2NRpYff812ok
-	 6PqxlZpLHhe+nVZ5wgBvUDKIwMKMjKOwbO4MZAKPQGw3LuHyEs4jFHYKLbq8z3djY9w==
+	t=1794539518;
+	b=ib+voWgkQD+/4uVSUy3WJFUVmDyhNAF4dkckVkyomBUH6/G4MOVygF8mT/y+BA3ILUk1
+	 Svg5n00NoHN9SLv6uX5B0Iyl/dh924YHc+KoVjYVKNioxp9npM6Rau3qMT/l80O1JFf1u
+	 pCD/pMSfWlO7y+m0pTTZDibplNIMKKCOch7hy8he24qglMsdT3ymYJqfqUVwKC6mGaVE5
+	 2uixX0hHgw19yN5lgCK6TmO1cUFnAtz/oOizYAKU004BW6OfezMNFCvrFZVmOglaHZO4B
+	 /3IR+N47eoknp8UVhHCHsMBIUQdkXNzFXcEbnmrbMBBXWT6BcqnREgZ5E6yllwif+FQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794539309;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=xh12Ec73501aJdZldZTaVOfppvQ19TVeVwb3Yqc67Do=;
-	b=ZrhTNNlqPeUZ92FQo/fbnzUjTP63gcYgMiviNqxnWXz+4ddaSCEgz9ZmSsTS6yk7tHac
-	 4pVWivSrGLMZpy4cKMWt7SE2ig3gquZx+oLInopIoTgkaLvOeg3GnG6rU2Fco3oeSSYRl
-	 flUZzqBTjxKP3Yho0Gaxo/WNalUuK8EqLpJ+D+nqz4CuWe6fMLXgjQU+S6PjaAeaHCq3R
-	 vCqZWKjQSDv31vcTWOyEKtuAJcwLyPCXzT1c+f6GLDhreaHU6i7A1ROywmy8wPTP3xOWg
-	 ZTLkCoMl9xftOqCvZtnAh1kxbeTDamZLqxEyibYqencbXmmCyV7jwqFmuTs7FVRgRXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794539518;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:CC:Subject:To:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=7s9q7iT7517JA05XtS0w28CIONg1wuhBMt23qJEENZs=;
+	b=pzwx8o99aO30emfmkoWKs15z3fQWP/BgOtgyZ/uRGNHwB4GG0Au7YUvgwdLdz2Chocva
+	 PbhhDtgiJQE2ZGjVoK8z4Uex2g/FbJMQzX+THHehve/f2POBBQ476z937TNRkRlE/Ta3E
+	 M/PEFp8XHU2Ro8b/GUso1ydgmETKFoRsHbTtKGcZrD13DVc/d9+vBT3gKn5HAMC7PfyzO
+	 mFDQJw5+kI/kFP38LYfNl2n3JXMMkyii57QRrQYHS/jfGAsDsvzacWeq5AZDuSM9SQmQy
+	 4Cp7w0a2DeTZDnAKUi3/d8f3ZP3mhPLdSQdAeMH0bOetFA4mQlyJ/cio7HrnGRMTl3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Xgq8tYcW;
-	arc=none smtp.remote-ip=95.215.58.14
-Received: from mta1.migadu.com (out-14.mta1.migadu.com [95.215.58.14])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=hNyI4iAH;
+	arc=none smtp.remote-ip=113.46.200.216
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C107D606A32A
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:08:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C107D606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C0E4606A323;
+	Fri, 13 Nov 2026 03:11:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C0E4606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Xgq8tYcW
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=i7wdYt1YR5CVX/6t3vNtMl/JvBAliVHJFFa19DKBkmU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794539306; v=1; x=1795144106;
- b=Xgq8tYcWRueqF4ojil24saUe27PEkfMEboQlmmXHzBbCEFdoMphPGlA7z+KF5LxNoRJ53C4I
- c7c1wCTWWNlU9bZZ/J1beBn6dPSShj3qKON2n9tIWv/bWD/o7GffX/NGF+peDJeNZruMY0E1yXJ
- UfekAJ1ZoVD0ofGejP4IHN7k=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0da06881c7ca0ca3;
-	Fri, 13 Nov 2026 03:08:26 +0000
-X-Mizu-Trace-ID: 0da06881c7ca0ca3
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <1c6137c0-297a-4993-b386-6e8a1824d8dc@linux.dev>
-Date: Fri, 13 Nov 2026 11:08:12 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=hNyI4iAH
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=7s9q7iT7517JA05XtS0w28CIONg1wuhBMt23qJEENZs=;
+	b=hNyI4iAHu65O2kVvjmnV6j7d9OWJa28UdjhM/6Op2xE6PL/dCkRxZEVFLB6wdaUwSfMvxsvni
+	PmYQP5u1YQBXXzniPY9pFmvkNpYN7dcn4bm+XF7X1HSC8tWm7DTSoZ6jesMehxNGjBIadfH95ME
+	BatOpRj2i8L+T+HiBXoikbk=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jQj2c2PKwz1T4lB;
+	Fri, 13 Nov 2026 11:11:20 +0800 (CST)
+Received: from kwepemo500018.china.huawei.com (unknown [7.202.195.199])
+	by mail.maildlp.com (Postfix) with ESMTPS id 85BFA4057A;
+	Fri, 13 Nov 2026 11:11:52 +0800 (CST)
+Received: from [10.67.121.233] (10.67.121.233) by
+ kwepemo500018.china.huawei.com (7.202.195.199) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Fri, 13 Nov 2026 11:11:48 +0800
+Message-ID: <23712c53-4b0e-47b7-b080-a8b5e5584a1d@huawei.com>
+Date: Fri, 13 Nov 2026 11:11:47 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,105 +62,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (macOS/Intel)
-Subject: Re: [PATCH v2] mm/mglru: yield the lru_lock earlier in
- fill/drain_evictable()
-To: Baolin Wang <baolin.wang@linux.alibaba.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>,
- Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
- Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Cc: Hui Zhu <zhuhui@kylinos.cn>
-References: <20261113020132.274013-1-hui.zhu@linux.dev>
- <a72af87a-0f10-4717-9d50-2d3480c32caf@linux.alibaba.com>
-Content-Language: en-US
-From: Hui Zhu <hui.zhu@linux.dev>
-In-Reply-To: <a72af87a-0f10-4717-9d50-2d3480c32caf@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+CC: <shaojijie@huawei.com>, <davem@davemloft.net>, <edumazet@kernel.org>,
+	<pabeni@redhat.com>, <andrew+netdev@lunn.ch>, <shenjian15@huawei.com>,
+	<liuyonglong@huawei.com>, <chenhao418@huawei.com>,
+	<yangshuaisong@h-partners.com>, <ningwei15@huawei.com>,
+	<netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v4 net 0/4] net: hns3: fix multiple bugs in reset/error
+ paths
+To: Jakub Kicinski <kuba@kernel.org>, <netdev-bot+sinfo@kernel.org>
+References: <20261111125810.3359030-1-shaojijie@huawei.com>
+ <179440206352.2168702.1328392786936670574@kernel.org>
+ <20261112110631.2ec2d378@kernel.org>
+From: Jijie Shao <shaojijie@huawei.com>
+In-Reply-To: <20261112110631.2ec2d378@kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemo500018.china.huawei.com (7.202.195.199)
 
 
-2026/11/13 10:50, Baolin Wang :
->
->
-> On 11/13/26 10:01 AM, Hui Zhu wrote:
->> From: Hui Zhu <zhuhui@kylinos.cn>
->>
->> lru_gen_change_state() migrates folios in batches of up to
->> MAX_LRU_BATCH (4096) folios under lruvec_lock_irq().  A full batch
->> keeps local interrupts off for up to about a millisecond, and CPUs
->> contending for the same lru_lock spin with interrupts disabled for
->> that long.
->>
->> The caller already reschedules between batches, but a batch itself
->> only ends after 4096 folios.  Stop it early when a resched is
->> pending, or when the lock has waiters and the current hold has moved
->> at least MIN_LRU_BATCH folios; the caller restarts where it left off.
->> TIF_NEED_RESCHED can still be set with interrupts off: a remote
->> resched_curr() sets it directly in the target's thread_info. The
->> minimum batch avoids lock bouncing under sustained contention, while
->> a waiter now waits ~15us instead of ~1ms.
->>
->> This follows lru_gen_look_around() in this file, security/keys/gc.c
->> and jbd2_log_do_checkpoint(), and commit 6e9be217a3ce ("mm/mglru:
->> use a smaller batch for reclaim").
->>
->> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
->> ---
->> Changlog:
->> v2:
->> Also yield on lock contention after a minimum batch (Kairui Song).
->>
->>   mm/vmscan.c | 10 ++++++++--
->>   1 file changed, 8 insertions(+), 2 deletions(-)
->>
->> diff --git a/mm/vmscan.c b/mm/vmscan.c
->> index 6a1af9b92349..c1231925159f 100644
->> --- a/mm/vmscan.c
->> +++ b/mm/vmscan.c
->> @@ -5533,7 +5533,10 @@ static bool fill_evictable(struct lruvec *lruvec)
->>               success = lru_gen_add_folio(lruvec, folio, !active);
->>               VM_WARN_ON_ONCE(!success);
->>   -            if (!--remaining)
->> +            /* stop early to shorten the irq-off section */
->> +            if (!--remaining || need_resched() ||
->> +                (MAX_LRU_BATCH - remaining >= MIN_LRU_BATCH &&
->> +                 spin_is_contended(&lruvec->lru_lock)))
->>                   return false;
->
-> IIUC, Kairui's point[1] is to just drop the 'MAX_LRU_BATCH - remaining 
-> >= MIN_LRU_BATCH' condition, no?
->
-> if (!--remaining || need_resched() || 
-> spin_is_contended(&lruvec->lru_lock))
->
-> [1] 
-> https://lore.kernel.org/all/CAMgjq7CUMuNSdCXZ7_kDdo9+0BFvPNHuO=mq=ct_Q5YUyyckvQ@mail.gmail.com/ 
->
+on 2026/11/13 3:06, Jakub Kicinski wrote:
+> On Wed, 11 Nov 2026 13:01:03 +0000 netdev-bot+sinfo@kernel.org wrote:
+>> Please do not repost the series just to address the above. Instead,
+>> reply to this email with the missing information, so that reviewers
+>> can take it into account. If the series needs another revision for
+>> other reasons, please include the information in the commit messages
+>> then.
+> Please make sure you include the answers to these questions in the
+> cover letter if you repost
 
-Not quite.  [1] was about the extra `moved` counter in the version
-discussed on the v1 thread; Kairui was fine with the rest.  Since
-`remaining` counts down from MAX_LRU_BATCH and one call is exactly one
-lock hold, `MAX_LRU_BATCH - remaining` is the number of folios moved
-in the current hold, so the condition is just `moved >= MIN_LRU_BATCH`
-without the extra variable.
+ok,
 
-The minimum-batch test itself is a response to Michal's lock bouncing
-concern [2].  Without it, under sustained contention the loop could
-yield after every single folio: each yield costs an unlock, a requeue
-and a restart (microseconds), while one folio move costs a few hundred
-nanoseconds, so the migration could slow down by tens of times, with
-cgroup_lock and cpus_read_lock held throughout.  With it, each hold
-moves at least MIN_LRU_BATCH (64) folios, i.e. does ~15us of work
-before it may hand the lock over, while a waiter still waits only
-~15us instead of the ~1ms of a full MAX_LRU_BATCH batch.
+Patch 1: found in internal code review. Not hit at runtime - it needs
+devm_kcalloc() to fail after get_vector() has succeeded.
 
-[2] https://lore.kernel.org/all/avV0IbvSx4iuv0tF@tiehlicka/
+Patch 2: found by Sashiko on v2. Error path only, not hit at runtime.
 
-Best,
-Hui
+Patch 3: real customer issue. Under memory pressure the RX ring filled
+up, no more RX interrupts came in and the interface went dead. No stack
+trace, the interface going dead was the only symptom. Reproduced and
+fixed on EVB.
+
+Patch 4: hit on a lab EVB while reading the debugfs queue files during
+reset/unload. NULL pointer dereference, machine hung.
+
+All four were built and tested on a Huawei Kunpeng evaluation board (EVB)
+with the on-board hns3 NIC. Patch 1 and 2 were not exercised on the
+failure path.
+
+Thanks,
+Jijie Shao
+
 
