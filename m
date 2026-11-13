@@ -1,96 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794575173;
-	b=TEir0H0AJlvMOAxp2H+YXQednXHM9QcwOfYL80h/8BwWALHsry0K4jNZCW8rqGMlEhZS
-	 sKk4yrD6ql7Pe1UPBke2ueDz6LS0aEInBWNZ0/SFOySeb4B8DQfAqxhII9jIFsmLR4dWS
-	 IPUYyzUvM9IrWLx3Ovs+FoCIQJ1DUYKiBveBgGTG2BkhW32ZodD8WAZT+UzvaAdlwoFgk
-	 KgV0V/jnmef11Ku/ouQuxSMMJW1JOuQpvPQaFgI+aZmn9jPGmSD0Ka1rGLTbJkgE4bsDM
-	 EsMsNLMbWV1SLMRbr6igs5yz5UxI0l3JM8BxoEvQIy4wKxWfUu1u8TXGrPU+TvSIXLQ==
+	t=1794575178;
+	b=uxdBVHUn4AEMX0hHMyDkGrqi9jhOJqHFtRNK3I7X9KMh6kQdIkPDRwdVse5msEVhxG+B
+	 uUdSiae3O6XCtBzhMYYj7+FEWQe0Zvwi4N3E9YisOjA8gBoD5Kg7gJFazIDNHMZ5nFA5w
+	 HKb1uK9ljdvathH6lbh2K2MPzuClK/i5gcYxHGSAm8h2kL0+1h6XHkxN2JRwi8r4TLl1/
+	 AMUdHzkFpDF/9B/yGUuaukbzX6Z5udygwrWgqgT2BY7kkVJZVngVDPdVbsPgAf197Oxdp
+	 l5qpvFJxMeJgXipIzLRWneM2q1umG/ZHifG6tCNKzbyuJcuene6+z9rJTz6SXgledgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794575173;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xT6/02hBaUasCAGFwUh5CvkWepBMBoWWF+g72TdI+6U=;
-	b=Q5F1eTWZdvW4xQ8C12NhPRH3/eJKrvZrd264CGc9L3sNZE7HyUiK4wVbHRfaIp4q+q6k
-	 uHlumsVqGB0k7XSM07OwfhnE1SrY66HGHJMo4p7Ceq1RxYetpFayYJqoKMvK3328n5lZc
-	 Xp7clXH2PdzlkU1CBnwjHobUjOlwSI5UDOGAqYKvl48Bvjbp/uLxFPCbgDyyh/Y8RVwpw
-	 b4NIvXzGBwaJot3OTF7PsvHbGrU9LkNp0ABocAMgqihetDIvZKiZ07L1IhCwiGqTKynZs
-	 zGgWUSvqua0N85PM1kfuZpHPQTg1Y9gKur+97viSz2CGR8Ojk3QMlWX+gz8b+NesdEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794575178;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=jwHoe529S1Onorcf95sntE8Ze/cWn9Pu+Cx6R/UvQ6Y=;
+	b=ZJ0ZEsD9DAMIvhHN7kJIvxxicUsaMXFCDQxyZgAPu6aUi1YEHAsaMbZOziTbf9N/wPT3
+	 UADomQ7GpdWY4koohP+epTDKhq8CTTlahIZX5f+zmnhIdCSpbKE53J1GwJubUmKyvMiR/
+	 JZLTsgHciPJIvrvt4R6N8mG9baGuiuk0F8XfotG/2RMcfbo9PHg3tNPkUE8qIChLwOwr8
+	 xjs6zu2FY8M+36iT2bgo8THpQQmDu6HAzbcPV2hsYfzwh2ElReRj+SS5Yey4tM3pF9hmj
+	 8JMlZvdySApVV6CInDCgNryZ3cEs9QwPWhJhMhf8N8bwEcZvj9tgICDeGTMiMYDJx/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=szGE0f2s;
-	arc=none smtp.remote-ip=74.125.82.41
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gondor.apana.org.au;
+	spf=pass smtp.mailfrom=gondor.apana.org.au;
+	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=TmBLJlTh;
+	arc=none smtp.remote-ip=180.181.231.80
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14B24606A333
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:06:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14B24606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38A50606A333;
+	Fri, 13 Nov 2026 13:06:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38A50606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=szGE0f2s
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1b3beeaf6f9so911331c88.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:06:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794575172; x=1795179972; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xT6/02hBaUasCAGFwUh5CvkWepBMBoWWF+g72TdI+6U=;
-        b=szGE0f2sDdz7zizHw00OIhnLmttcjLzq+fmK03Qm6UIeDQozwmDO9eNZaxd3+j5WxC
-         jF4E4tzQgp/um6BybEXLqDGaSQU6By3vXHi2EERVvOm5CUt8Pml93np13AvfdMPtRANC
-         Vzvf7sENZ1XTvCkpuERYMfGqxUpQH4CjcNgIFnNF1HXbAkHkZmcSN/TN86m2Jk07UrG4
-         V+dz/bZR6xsTE/hhznn3ZfUbZEjL+kbpqzTT0MyfI23zUD+Z2sXPUZddRLIMD7OH7KMd
-         CbTxNTmtYcttV5Px5NAZ+7MQlULX15g4zmZfbpVdpWSMUPCSz1iC6NKZPx6pubAkVdDT
-         DiXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794575172; x=1795179972;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xT6/02hBaUasCAGFwUh5CvkWepBMBoWWF+g72TdI+6U=;
-        b=GhA3uHbVOly6nTD6GKijXYsR19eaQJOhsHtbj8kg24vEp6sJIbJ6c1T1QYY66C7Sl0
-         vPoF9twCLs43ErNTOmANJ2aFpvcll5XilL1vPfK3cv/SdavkWs0bEBG8OSiLn4/DeiBS
-         G8+CGPB3PkL7HwKpKYpIQ23KmJ3pJxOBA7JbQ1TWMBVnpVnfrfnLhBMTLasWJvUoLnmt
-         Yvqs6+rc4VCRdifHdyL9Pcyfw2sCW57hptnTxZZ9HVcXLVUrMsZY/Xgl6tXp3vCks38l
-         uhnttUfDu9i4HzJ+Ul959cyibp9ChgfMhDKbbSemKqz+gB0YlagJwiwR9Ua/jbBP7ShV
-         ocuA==
-X-Forwarded-Encrypted: i=1; AL+hErGKcyRxfovhtQb7H8QxKKIKBEcGxHnJvL0PkvTl/rkDNXaT39M0hTcjDdp3yTqWxy0bzRijfna2nqpEAk8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8v+GaAvhhQQnkEU61ICOLwJeIiyem4SmZNrEyTKpm1r8xjJANl
-	k9Qq96PtoLm8jXorWDLaAhAUdLYfD+FoZYP/K/zYwRWvMVxYpKxI4WmM
-X-Gm-Gg: AYBFou3AyFCculSBcn0toqudll1iX6gPG0+SRDudVGLDRizE/gtvjntycQO9Yba8DxK
-	cMbJKp/HJTxbDHxDvATrLKIdTWKOcRj1T5Lvw6XFxZtVSPM9LCEFkZLol2dcK3gPftGM9g3UHqC
-	QuH/WrlWaF2dI8Eg45hIzUpNloxvrt6bc8Vox8hVSYn6lX8TWK6DH1UbRoj0osFr2NPlB6LapUr
-	+PnLgPScisgwdWo66uib8c5MmmIUTzXMHVv4q+/iqQLxnXv72qxq0zYaQxn4TuuA9euAOFGETk8
-	FVQIeEnFdOjoKAcgjGEw4qqlx+TpXbkCtZe9RNeBKO8mShkOTaTDdpSd9l/ihJlkPsFprhmgSs+
-	uGanmWSQAQ7LDqXqnCTeaoJ1WML1d4qegTvBtUlDZNM/nzwc02o9FtDTuyepT9QI+TodJJmsfqo
-	p+cpx4ONlNvO5zcwHPiXGRWLO2BOMi69ezwUxD4kDLJ6yiA2GlyaY7trtaXSSIQwTNFR94nI52P
-	W7jnCyp/Mj4AD9YlGnzVmYXCNwQYTsoyU7llMXVRBjTX/EsAGuwQ0D5QuhqQgW1/vUeRmRotW93
-	b6Z5F4ViAyBvkxFEcMN7Xy3Wr3cM
-X-Received: by 2002:a05:693c:8310:b0:36e:3ebb:7ef3 with SMTP id 5a478bee46e88-37968d8a404mr2101819eec.39.1794575171781;
-        Fri, 13 Nov 2026 05:06:11 -0800 (PST)
-Received: from joyboy.. ([2405:201:1:3910:76e1:e2b5:93b5:6091])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563df84fsm14704860eec.20.2026.11.13.05.06.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 05:06:11 -0800 (PST)
-From: Rishiraj Rajgor <rishirajrajgor@gmail.com>
-To: vaibhav.sr@gmail.com,
-	mgreer@animalcreek.com,
-	johan@kernel.org,
-	elder@kernel.org,
-	gregkh@linuxfoundation.org
-Cc: greybus-dev@lists.linaro.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Rishiraj Rajgor <rishirajrajgor@gmail.com>
-Subject: [PATCH] staging: greybus: audio_manager: add newline to sysfs_emit formats
-Date: Fri, 13 Nov 2026 18:33:24 +0530
-Message-Id: <20261113130324.34353-1-rishirajrajgor@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=TmBLJlTh
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=jwHoe529S1Onorcf95sntE8Ze/cWn9Pu+Cx6R/UvQ6Y=; 
+	b=TmBLJlTh1FeKjLkLPm+HHsGhV+fAsunf0ozVrHRPgqezsSYw0BattDdpIxDPoGTALZWrt2hQPBS
+	VVfddYRhSfSSUlyCieeKf3kpCoIhagd0AQHUJglogq8CJVA70n0yNcYSflX1znFRp9b8XbyhojSrj
+	OJGNTOeMrpjqod1nD6vCfWm5VzAwgunJAutqzQG5rlJcWnOTg6qd8eVQMirwMukLIdk6MBhq6vJtU
+	OSERd2nB5lVgOJ1SILHUazjGbYK1sj/H2F9HjvUz89atDkt9fmGr3sqnQFsAnoUMbap7i3NTvV2Q4
+	PfyXR/WfGd4/4PaqSqUqsr3t5+3B/u38OAiw==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xRqyn-0000000EfIm-2qRf;
+	Fri, 13 Nov 2026 21:06:10 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 13 Nov 2026 21:06:09 +0800
+Date: Fri, 13 Nov 2026 21:06:09 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: "lianfeng.ouyang" <lianfeng.ouyang@starfivetech.com>
+Cc: Olivia Mackall <olivia@selenic.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-crypto@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v11 0/6] hwrng: starfive - fixes and JHB100 support
+Message-ID: <avcLQWhT7gpR-Tym@gondor.apana.org.au>
+References: <20261103073252.3028-1-lianfeng.ouyang@starfivetech.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,79 +68,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103073252.3028-1-lianfeng.ouyang@starfivetech.com>
 
-According to sysfs guidelines and checkpatch SYSFS_EMIT rule, sysfs
-show functions should terminate outputs with a newline. The show
-functions in audio_manager_module.c omit the newline character from
-their sysfs_emit() format strings.
+On Tue, Nov 03, 2026 at 03:32:46PM +0800, lianfeng.ouyang wrote:
+> From: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+> 
+> This series adds support for the TRNG on the StarFive JHB100 SoC. The
+> JHB100 needs the clocks gated before the reset is asserted, so the
+> driver grows per-compatible match data describing the power-down
+> ordering.
+> 
+> Earlier versions of this series carried all of that in the JHB100
+> patch, which made it hard to review. Since v10 it is split up:
+> 
+>   1: dt-bindings for the new compatible (unchanged)
+>   2: runtime PM / power teardown fix
+>   3: SEU reseed moved out of the interrupt handler, command
+>      serialisation, IRQ lifecycle
+>   4: include and cleanup tidy-up, no functional change
+>   5: match data and the JHB100 compatible
+>   6: MAINTAINERS
+> 
+> Changes in v1:
+>  - Remove jh8100-trng and Fix the compatible description in .yaml
+>  - add JHB100 and fix clk/reset teardown logic code
+> 
+> Changes in v2:
+>  - Balance the PM via pm_runtime_set_active() in ->probe
+>  - Add devm_add_action_or_reset() to register a resource rollback function
+> 
+> Changes in v3:
+>  - Supplement .yaml commit message
+>  - Add pm_runtime_get_if_active() to check PM in irq
+>  - Balances pm_runtime_get/put calls in init, read, and cleanup paths
+>  - Add per-compatible match data for the teardown order
+> 
+> Changes in v4:
+>  - Modify .yaml commit information to non point description
+>  - serialise the command sequences with a mutex.
+> 
+> Changes in v5:
+>  - Run the reseed from a workqueue instead of hard IRQ context.
+>  - Balance the probe reset_control_deassert() via a ->cleanup flag in the
+>    PM suspend/resume callbacks (was skipped when already suspended).
+>  - Use devm_pm_runtime_set_active_enabled() instead of manual PM enable.
+>  - Register the IRQ after clk/reset/PM setup; reuse
+>     starfive_trng_release() on request_irq() failure.
+>  - Check reset_control_deassert();
+>  - drop of_match_ptr() from the match table.
+> 
+> Changes in v6:
+>  - check lock in starfive_trng_read() using mutex_trylock when wait is 0
+> 
+> Changes in v7:
+>  - using mutex_trylock when wait is 0, otherwise use mutex_lock()
+> 
+> Changes in v8:
+>  - rebase patches against the latest tree
+> 
+> Changes in v9:
+>  - Fixed the PM runtime reference leak in starfive_trng_read()
+>  - Drop redundant pm_runtime_get/put calls from the interrupt
+>      handler (starfive_trng_irq).
+>  - Use DEFINE_RUNTIME_DEV_PM_OPS() and pm_ptr() for power
+>      management operations.
+>  - Split clock/reset control into starfive_trng_power_on/off()
+>  - Track power state with clk_on/rst_deassert/initialized/need_reseed
+>       instead of open-coded clk control.
+>  - IRQ now requested with IRQF_NO_AUTOEN and enabled only after init
+>       succeeds.
+>  - LFSR_LOCKUP no longer schedules work from hard IRQ: set need_reseed
+>       flag and let starfive_trng_reseed_work() handle reseed on a
+>       freezable workqueue.
+>  - starfive_trng_cmd() takes timeout + wait args; read path checks idle,
+>       reseeds on need_reseed, retries once on lockup, returns 0 for
+>       non-blocking.
+>  - Protect ctrl-cmd sequences with mutex + lockdep_assert_held.
+>  - Cleanup/suspend disables IE, clears ISTAT, synchronize_irq() before
+>       gating clocks/reset.
+> 
+> Changes in v10:
+>  - Split the driver change into fixes, cleanup and the JHB100 addition.
+>  - starfive_trng_init() only enables the interrupt line once and clears
+>    trng->initialized on failure; starfive_trng_cleanup() only disables
+>    the line if init left it enabled. Fixes the unbalanced enable_irq()
+>    when the device is deselected and quickly reselected, and the double
+>    disable_irq() after a failed init.
+>  - Non-blocking reads re-queue the reseed work instead of assuming it
+>    is pending, and starfive_trng_irq_clear() queues it when it clears a
+>    lockup. Fixes the stall of non-blocking reads after a lockup seen
+>    outside the interrupt handler or a failed reseed.
+>  - Do not include <linux/mod_devicetable.h>, <linux/platform_device.h>
+>    already provides struct of_device_id.
+>  - Describe the header rearrangement in the commit log.
+>  - Rebased on top of ace145efdd80.
+> 
+> Changes in v11:
+>  - starfive_trng_cmd() acks RAND_RDY/SEED_DONE in ISTAT and calls
+>    synchronize_irq() before re-arming its completion, so that the late
+>    completion interrupt of a command that timed out cannot complete
+>    the next command. The v10 commit log claimed this case was already
+>    covered; it was not.
+>  - starfive_trng_irq_clear() only queues the reseed work while the
+>    device is initialised, so the suspend run from ->cleanup() and from
+>    the runtime PM teardown on unbind can no longer queue the work after
+>    it has been cancelled.
+> 
+> Lianfeng Ouyang (6):
+>   dt-bindings: rng: starfive,jh7110-trng: add jhb100, drop jh8100
+>   hwrng: starfive - fix runtime PM and power teardown handling
+>   hwrng: starfive - move the SEU reseed out of the interrupt handler
+>   hwrng: starfive - tidy up includes and drop unused code
+>   hwrng: starfive - add JHB100 support
+>   MAINTAINERS: update the StarFive TRNG driver maintainer
+> 
+>  .../bindings/rng/starfive,jh7110-trng.yaml    |  10 +-
+>  MAINTAINERS                                   |   2 +-
+>  drivers/char/hw_random/jh7110-trng.c          | 587 +++++++++++++-----
+>  3 files changed, 434 insertions(+), 165 deletions(-)
+> 
+> --
+> 2.43.0
 
-Add a terminating newline to all sysfs_emit() format strings in
-gb_audio_module_*_show() functions.
-
-Signed-off-by: Rishiraj Rajgor <rishirajrajgor@gmail.com>
----
- drivers/staging/greybus/audio_manager_module.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/staging/greybus/audio_manager_module.c b/drivers/staging/greybus/audio_manager_module.c
-index dc90cc2d2..5737f2a32 100644
---- a/drivers/staging/greybus/audio_manager_module.c
-+++ b/drivers/staging/greybus/audio_manager_module.c
-@@ -75,7 +75,7 @@ static void gb_audio_module_release(struct kobject *kobj)
- static ssize_t gb_audio_module_name_show(struct gb_audio_manager_module *module,
- 					 struct gb_audio_manager_module_attribute *attr, char *buf)
- {
--	return sysfs_emit(buf, "%s", module->desc.name);
-+	return sysfs_emit(buf, "%s\n", module->desc.name);
- }
- 
- static struct gb_audio_manager_module_attribute gb_audio_module_name_attribute =
-@@ -84,7 +84,7 @@ static struct gb_audio_manager_module_attribute gb_audio_module_name_attribute =
- static ssize_t gb_audio_module_vid_show(struct gb_audio_manager_module *module,
- 					struct gb_audio_manager_module_attribute *attr, char *buf)
- {
--	return sysfs_emit(buf, "%d", module->desc.vid);
-+	return sysfs_emit(buf, "%d\n", module->desc.vid);
- }
- 
- static struct gb_audio_manager_module_attribute gb_audio_module_vid_attribute =
-@@ -93,7 +93,7 @@ static struct gb_audio_manager_module_attribute gb_audio_module_vid_attribute =
- static ssize_t gb_audio_module_pid_show(struct gb_audio_manager_module *module,
- 					struct gb_audio_manager_module_attribute *attr, char *buf)
- {
--	return sysfs_emit(buf, "%d", module->desc.pid);
-+	return sysfs_emit(buf, "%d\n", module->desc.pid);
- }
- 
- static struct gb_audio_manager_module_attribute gb_audio_module_pid_attribute =
-@@ -103,7 +103,7 @@ static ssize_t gb_audio_module_intf_id_show(struct gb_audio_manager_module *modu
- 					    struct gb_audio_manager_module_attribute *attr,
- 					    char *buf)
- {
--	return sysfs_emit(buf, "%d", module->desc.intf_id);
-+	return sysfs_emit(buf, "%d\n", module->desc.intf_id);
- }
- 
- static struct gb_audio_manager_module_attribute
-@@ -114,7 +114,7 @@ static ssize_t gb_audio_module_ip_devices_show(struct gb_audio_manager_module *m
- 					       struct gb_audio_manager_module_attribute *attr,
- 					       char *buf)
- {
--	return sysfs_emit(buf, "0x%X", module->desc.ip_devices);
-+	return sysfs_emit(buf, "0x%X\n", module->desc.ip_devices);
- }
- 
- static struct gb_audio_manager_module_attribute
-@@ -125,7 +125,7 @@ static ssize_t gb_audio_module_op_devices_show(struct gb_audio_manager_module *m
- 					       struct gb_audio_manager_module_attribute *attr,
- 					       char *buf)
- {
--	return sysfs_emit(buf, "0x%X", module->desc.op_devices);
-+	return sysfs_emit(buf, "0x%X\n", module->desc.op_devices);
- }
- 
- static struct gb_audio_manager_module_attribute
+All applied.  Thanks.
 -- 
-2.34.1
-
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
