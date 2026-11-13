@@ -1,72 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.10.208.61
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794587292;
-	b=MeGTtwA2sd9tUaNIh9C9kyuhnoU/xtm14CphkBMRtcmjDDqyEIxToIJiKgGU3zCanbXW
-	 ZDtSTArBl7w/ody5cEZ4M9Zd7FTeA9C6LNO09lKxNNJh6K6uka/taQugb8vK8zls6lpLJ
-	 7Bkr2BaM9kXzRJkzMIjffQbIJduA1YLi/BAdxfgHUavTWLiQDVGRFacMovtvvAawSw3wx
-	 AJ+H2FMxhm2WXNQz3EpBCKCsToIoLOUx+CUh05SoKAlRoSBnllsky2KN3x3q39vfrGabM
-	 DhazG79gjlbxinwVPsVJ+EMrcz/BbHCSZ4cunByNVM8pX8hSf377oSDgnjIxWV6jh0Q==
+	t=1794587303;
+	b=uyFs6FIB6cUwvSHvxSAMzxUcGah+39BjzXmOLFiJ0Hhxm2zekQ+ZPr17NDv/yWpfuO6N
+	 w43nHseP8rCDSMqtDuaTEi1w/HJbAmGLotInTGQu2ZVsxPTG7YcxuowxP3DfSVEeID8kw
+	 8cr7MJuqi+TBXtPQAhi/ZYJchkTjydYf3VGCRh3YPU6hYXis4GubKflCqU3C2XGd2Ng+F
+	 UnYqIoWZlLZcvYVbNOpvY6InAQCCIZ79Mo7Fpbn70bwBxvvQpIFeHDNjqK3w8iNxE2C+r
+	 YT90Ff8FCD1Nf+YzrfimBaZiHJDJNI1wk0ij2nkTiRWihT2asB9O9r/Y0HCR4PDTqlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794587292;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
-	bh=tOlvYcBwUhpqk/13BBmFCTufeBPDGQymskMs2i9cfbc=;
-	b=E6qKD46AavMW4hXxm+cS67fF56qBoBe54fOmUy046Zgi1or3Uw1qqJgpibIRqtNtVcAp
-	 CQGFhMaSJUrcPDl3njp793bvDEGgySzE0cX8+ZNPGXM4h7EEIuyPIVM56EnpNdcLdRUhU
-	 HMVkIkVAt31C2OLEJnlYdcD0+HJ1dvLPNcK14cFswp7NagnGS/cuKfXVQ+D7+kgyQTz3T
-	 B19oLMQ/aSLONvORSFJ6I0lUPjT8fiqNMuV4MU8qYlVXWF68PgiyKfdwMTDAFRBtE1EMC
-	 ydT7vvDchw9WzZyNt7s6h6LIvkb/531qZwLOz9csL53g7Ao3mEIUX5ach7MUCsdYluQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794587303;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=oVjHsSJnI32gsi62IORtdTOjPWH7UtaoD2O+G5+4p6c=;
+	b=FXhmAgf1kYZ6PwFVstaQZqgDzSALhUg7wK/ggto8PSwxSNOUy+rF6+gsHlvoagAND6uj
+	 9jHSVnooBW2JlptbiJ6xkm5F77OThJ9tHwvZOHGYB6t9Ejd+l4kvs8hKHql8RGSE9xKaG
+	 Oinl7Aw/owX1EN5vTaRQ8CHRG/m+9CvV48GJy5wieBR2MKI90/tt5nK1a8EZV1AhvOy+4
+	 VU7eCmQbB3y7l91l55UPEO6CH6v2kJSmwsyr3WqwunveyuEWEi/E9DVuSzEbUk4JYaQRx
+	 /i8MHEr7/mMWqGdwc3iCA5IVIfot3tU8bitkybMwLUmalNGVKviIAcah2wlqPryJ+KA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mandelbit.com;
-	spf=pass smtp.mailfrom=mandelbit.com;
-	dkim=pass header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b="wSZ/kX/U";
-	arc=none smtp.remote-ip=195.10.208.61
-Received: from mout-b-201.mailbox.org (mout-b-201.mailbox.org [195.10.208.61])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=k6J4Eiac;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E862606A33B;
-	Fri, 13 Nov 2026 16:28:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E862606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mandelbit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40F76606A323;
+	Fri, 13 Nov 2026 16:28:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40F76606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=wSZ/kX/U
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-b-201.mailbox.org (Postfix) with ESMTPS id 4jR2js5Vb0zLlrH;
-	Fri, 13 Nov 2026 17:28:01 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
-	s=MBO0001; t=1794587281;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tOlvYcBwUhpqk/13BBmFCTufeBPDGQymskMs2i9cfbc=;
-	b=wSZ/kX/UyLKEEpZlXV8Tf89DFbTBNy1G3ePGh4RC2FcXVdR5dytwsfUzmRaGqIPnkAeMQy
-	3Vjt8SaXqOvZoCu/eGT3eqvJgc+9qlecrRDJDponimxqzBPloywELNfzHh8naK8KURkJ8E
-	15T0t48H6vKrp7iSb3PMSLOqJVjaaS8PTV4Qx5XKDkCqoSekVqfHjAAt0cosm0UBFSmuXr
-	fZThX8/sclUtesFTLk6RV3eTw5l4mQvM1rTSboUrlWkSjtcWculi/qyPl421c3qPZ3c2K6
-	BFu/tIGU0/DXt8+HpRAHa6att1fcOGeyKbTcoLHEJzNap/AHE8m8fqzOWEDdrw==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of ralf@mandelbit.com designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=ralf@mandelbit.com
-From: Ralf Lici <ralf@mandelbit.com>
-To: Ralf Lici <ralf@mandelbit.com>
-Cc: Herbert Xu <herbert@gondor.apana.org.au>,
-	linux-crypto@vger.kernel.org,
-	Antoine Tenart <atenart@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH crypto 2/2] crypto: safexcel - Map AEAD buffers with accurate DMA directions
-Date: Fri, 13 Nov 2026 17:27:51 +0100
-Message-ID: <20261113162752.186189-1-ralf@mandelbit.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261020120042.359215-1-ralf@mandelbit.com>
-References: <20261020120042.359215-1-ralf@mandelbit.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=k6J4Eiac
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794587303; x=1826123303;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=3rOUS3iehnNsPxQbbRnzZKCyix4huWoVr2RynSHzw+Y=;
+  b=k6J4EiacdOP8a1nceXd8iDU+kzyc3cFzqb6l4Y6pJhcA0hr7AxyAayk7
+   sAN+BS6nhnvxiek1OOisHgwBuV/lvDNlavrJabqLrWHXUjlBnzi/m6x0W
+   yB3Dda5LFlxLIREsgEgbimETPjE9NI4g0fxpL9gADQKXZBQzHqCPacKN6
+   lEnTGLnQTZ5uYEbVHFhbNja714XMY/YE/sVYHvpEmMyoAoIpvJoZKUL/c
+   KDymzqXJgxhYv5w2gUZhKtg5NyIWQ3kexAg4tAwM64Cq8z14uKhqvcq6D
+   W3lumWihbpE6xgg11F4JEUK8Rnrm2YW4JDZdOjVwUP7J3d7oigZAqjSnk
+   A==;
+X-CSE-ConnectionGUID: 5YCkNVdJScOfd6hcFcIrug==
+X-CSE-MsgGUID: 5TkXX387RE6IAPqoh2HnlQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3471713"
+X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
+   d="scan'208";a="3471713"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 08:28:22 -0800
+X-CSE-ConnectionGUID: 98uHgAxrRwuvD7TBI0jFoA==
+X-CSE-MsgGUID: wiSuJyN9RiGKpAjmjTIesQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
+   d="scan'208";a="9277191"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.148])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 08:28:17 -0800
+Date: Fri, 13 Nov 2026 18:28:14 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Luca Weiss <luca.weiss@fairphone.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laxman Dewangan <ldewangan@nvidia.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Jens Reidel <adrian@mainlining.org>,
+	Casey Connolly <casey.connolly@linaro.org>,
+	Val Packett <val@packett.cool>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 3/5] thermal/drivers/generic-adc: Allow probe without
+ TZ registration
+Message-ID: <avc6niMcZC0TV4QD@ashevche-desk.local>
+References: <20261113-bat-temp-adc-v3-0-743979a8fd90@fairphone.com>
+ <20261113-bat-temp-adc-v3-3-743979a8fd90@fairphone.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,21 +99,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jR2js5Vb0zLlrH
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261113-bat-temp-adc-v3-3-743979a8fd90@fairphone.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Herbert,
+On Fri, Nov 13, 2026 at 04:56:44PM +0100, Luca Weiss wrote:
+> If the devicetree node is not referenced in a zone under /thermal-zones,
+> devm_thermal_of_zone_register() will fail with -ENODEV.
+> 
+> Since the driver is now also registering as an IIO device[0], allow the
+> probe to continue without the thermal zone.
+> 
+> We also can't use gadc_thermal_get_temp() anymore because we haven't
+> necessarily initialized tz_dev.
 
-A gentle ping on this. Does the tested failure with the fully
-DMA_BIDIRECTIONAL mapping address your concern, or do you still see a
-problem with the per-entry DMA direction approach?
+...
 
-If the approach looks reasonable, I can respin the series with the
-physical/logical layout and the A/B result described explicitly in the
-commit message.
+>  	if (IS_ERR(gti->tz_dev)) {
+>  		ret = PTR_ERR(gti->tz_dev);
+> -		if (ret != -EPROBE_DEFER)
+> -			dev_err(dev,
+> -				"Thermal zone sensor register failed: %d\n",
+> -				ret);
+> -		return ret;
+> -	}
+> +		if (ret != -ENODEV)
+> +			return ret;
+>  
+> -	devm_thermal_add_hwmon_sysfs(dev, gti->tz_dev);
 
-Thanks!  
+> +		dev_info(dev, "Thermal zone sensor register failed: %d\n",
+> +			 ret);
+
+It fits one line.
+
+> +	} else {
+> +		devm_thermal_add_hwmon_sysfs(dev, gti->tz_dev);
+> +	}
+
+Can we write it as
+
+	ret = PTR_ERR_OR_ZERO(gti->tz_dev);
+	if (ret == -ENODEV)
+		dev_info(dev, "Thermal zone sensor register failed: %d\n", ret);
+	else if (ret)
+		return ret;
+	else
+		devm_thermal_add_hwmon_sysfs(dev, gti->tz_dev);
+
+?
 
 -- 
-Ralf Lici
-Mandelbit Srl
+With Best Regards,
+Andy Shevchenko
+
+
