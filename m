@@ -1,112 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794602755;
-	b=1gcqwAJjlOyi5QpB/IuIZrR4G859m3aa3O9OqB6KhP/+/aMTn+ZbNjT0EVSnQLLQKz4N
-	 Z0CXXkTL1225EgumpglSw3pf1M5vo1wjrP+vmHfZ7pMIzELohznZxEs0B+mm6VFqKSBjg
-	 VycrErbJydnTcOcW0JwfUMfYwimWHb2P+G2/83bNR2lBPH6c4V8qS7+41czGu7nCh8X+J
-	 zX5EsMHLnUh1hIowUu96I+28aZz0tj57NlLyYmNmgGqVKOc3zgSQ962a02B7qFz63IdAS
-	 YkSdXmcY/5LpL461uUdUucUEJZS4q3fOut0Iy7jkNpV8xmYJkr4BDtFrGyNazt1MlwQ==
+	t=1794602790;
+	b=H0SLvFBPTu88Q9dFY+hOeIbl3HK47HmlkH3+jGqft0nhuWf3EzddStNcX0ETP7/1aPMR
+	 suMZ1ovKoIC4Sj7cI9Huc0g8ItvYaVIaM/y2O51VlpTro5IxZLPVrMj0QcZ5GdaEl3tov
+	 sEkWHeCfBuI89ZfVE0ihGL7m5xe2YgKKsyFoQPXXd9lEK+XbGOrrxe+0GU7K050lLHtOd
+	 USUOnfJr58+QNkbQyR0zVMB45fs/JlGZ1mriFwyQDhJJ6O49L/UwcHduyuho4VQtxlv9T
+	 qprVO0NzOzcrzfkmEHAwCPWGreC2cRr0ljAbSXIU2Wp2lVP0sGB8e+Dres7zXflswZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794602755;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:From:To:Cc:References:
-	 Content-Language:Organization:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=b8GYNp9h1BN6LZCaFYnOi9RO+fehzDHVEHwdAXLSsuk=;
-	b=V3LiYkZXIeooTJK+f5YAbbsRLYjazYpDoMI8/PfdQ4009DSAX4Hf8Li8srA0jkzhhgFq
-	 PWbGxtq5faZ38JLP1N0Boo+Ho2KnN0sfHt+7wYN9JEVfZ7upuxycAnL/ypL8AkQ9UzZwi
-	 K+ZQ7cRAy20I8Y6aIBVMINs6AJZzpPfQlvIUI97BdhxOJbiga0xtd5WwaI72VWdvR1ETs
-	 8/hJZiGkxtQ77jUrg+xHeaCGVMwggt8MV7Cvp5zGeS+RjVgMzEA15B2VdFwPiuA+kGiIf
-	 XS+6U5Whw/kCekwon9gpI7vUC0LtfDgtYKxMisb3RSMSN/OGqgsj21z9OkNE3LrkT9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794602790;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=u0kNAvCspH9EaUBvP1pTOUH586X9hQ4TYzWVN7ycUbQ=;
+	b=K8bIeY8TO9J8FiiE4apgRzTaHL5540jFUD9zkHC4m+HRuuEawwjOVkU7bfNd2S/zC2qk
+	 VKgdKGf3B2/Pg45Fb6wU8HEl+nia2WQZi+nUuA2UU406fuvlkz30oa3UuW93LYbH1rf5d
+	 Rc95awDhlnltqzFz6Pe1V7lFmNL0SZ7eWwiOR24jt16hcvmsRWTMA8Ab//iz5oMEYn+sP
+	 Xhl1UFz5aogDTR0TArYa4C7HE2/XIcsDw/lq2kjGVgDTT4839QkCNM9sfWMkHrnUS/8up
+	 3Ei/BAVZ+0mNGilDp67/B9mUEoeICAvMLR4d8zgoiossQkmnbotwo8sw5Uos1zHVg+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VXmdwO09;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Onaae1lG;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1F41606A338
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:45:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1F41606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=S9tH+J5k;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 412CD606A323;
+	Fri, 13 Nov 2026 20:46:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 412CD606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VXmdwO09;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Onaae1lG
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADKK6RI184103
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:45:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	b8GYNp9h1BN6LZCaFYnOi9RO+fehzDHVEHwdAXLSsuk=; b=VXmdwO09mKW3S/x7
-	+wEETAizqcfOdCmVksYiKAMMhQWrf7IC3qpiAIDefnCV0TTrYQO+R5Eb+tl0zjEg
-	he3zfJ7lkuESA7BZyVmMg57NxOvxb5P4C58dfVAQPM0z9NIb0oVpEJRKbyg50gbD
-	feXOft05NYpxwrw/WfkvGll4+YdpVgKQ1A5l36nYKVTekTJsw1zxH1SfdfI/Q03k
-	9TZ3dqYlPc1L/xJaeNLsJ7qxzG33VnLOuibXnGcag8J4X1dAHwBJTmqBRaXtXllE
-	d5XOtILggd9s+D/cZNEm8rUlnPxZshrEzxOvvMs2THAAdJ3bHBwk/wiOBCZm6Xw2
-	ZDOufw==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hx6ma8unp-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:45:54 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-36efb506f29so1490643eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:45:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794602753; x=1795207553; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :content-language:references:cc:to:from:subject:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=b8GYNp9h1BN6LZCaFYnOi9RO+fehzDHVEHwdAXLSsuk=;
-        b=Onaae1lGNOEN7jdMfTLsV/pXQVx/0MlEAe48h8hw7biWEbxWf9EYmuLYT4SBo8CmWj
-         yBrOTMWc48C6J+EDIqoX3q4X09pgmLrq9J796aVEK5r3Ldz9ipIlv/pceaLCHa4qGJHd
-         YsQ33LqN+gjWQB+78HKKEO0nZwAqfR7lgcbgn3pjLB+6kNb1v9Vu9prZvp3MtIZU/pwu
-         +ENGvcSz+UqVsQV4qGXvuVsjKrbN5G0Ai5dpM5lj/vVJJqd71BBQmjyJse+lvXQ1vqZ3
-         oaSlqb+EO2UNTG2uIKe6so8GsE3nBY10vQ6mMUXn0cKVazKF64QRPVajAMs8O9tMoITw
-         6APQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794602753; x=1795207553;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :content-language:references:cc:to:from:subject:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=b8GYNp9h1BN6LZCaFYnOi9RO+fehzDHVEHwdAXLSsuk=;
-        b=GG3B7jAyxjyS9EcEwjALdH0mY+Ly2GJF+hntC/NNPbQMRKqRoNadYiTJlkpMIXD5UR
-         m6KO9G09Lt6Kqdnt7htKR58DHA++2U8ksKXXWvKLmCSREL9ErR4DNFSrcb2Hg+cPJMVY
-         VzKf0u0VdaSH8yfdEbBMKjwvj3w/oNqPRxrVSf0UI6YrPBO1a6Ht0E359nDs/iS9wiAu
-         U9MPnaF99BN+Q6GtJa9T6Rc+d/v2u5zgU6I/Grff1JkvMzh/RyrP3xlG99dvmDmRgGYG
-         C+Y7Uzsq+FgzmvQIPQ+ccnzOD50nuf4fShWJbFW5y5e6xqj2eTDyITTCj3+XK5ZF0+lv
-         Z+ww==
-X-Forwarded-Encrypted: i=1; AL+hErFbNuT+8HnqfR6R8Vh+RaPdS+nsta5iy/52TdfrWHPdnIyD9WDXIDUVL6TxNehDPhsJpUCaOz3UFXax9UQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9lgUNL+ZPqFVPHfGOidz12HTcyK5r3t5lI3RcpiCtz7G7hQMNQ
-	aTU5/Z8yLZvJAXyl+VUIo8JyCvIlTpqSFgjco2WaLyJYK7g9CeWNMH4crqeCXVlJ/ytTO9pXqy0
-	1XbTxg1cSGV1CSHr15WRv1JLhbjAm8iTgseOAZionQFbjZhtGFLv+p4m6K0AYYXSkY6g=
-X-Gm-Gg: AYBFou34l2WCaQNu3iJPSt+BBDOxR4IFllZ+ITxCV12+Zjw3UprLr/U0lYw3sNBjK4a
-	nsBnAabhIISEtmBolsIyAgZEN0jGX/zzmjrCAo/Nr31Vv9yDj7DIuZmEhQVYqzUPHN9dPqx23n0
-	7vw2yl2aAOmBbYSlJ+n83GBPOvwoLIatNfKRh6RaxHAF6IXxUH97/U+eBd5w9AZiJ9RHS2pTtP6
-	qS7wACniLyggMIHzJK+M7G235FF29vTmLu2EQ0r+CY4WrjiVT3rwAo+lIqyrwMf36OaMWCjJrkV
-	Ang3batjx5f9pLmQONq4OWlN4r89CWjoBuruYZOD+ow9L8oOACFSGKcbmrrdExmlAVM9YVInFuL
-	m77Dack2uUcLQG3yR5AxUVwEnkp9kK6gBuuv7+Uc3OlWNvlKi4fkdP5fxwDGG6lVeRiVb0LTzWI
-	2tIg==
-X-Received: by 2002:a05:7301:4614:b0:36a:12bb:7f8e with SMTP id 5a478bee46e88-379655d45c1mr2796749eec.13.1794602753185;
-        Fri, 13 Nov 2026 12:45:53 -0800 (PST)
-X-Received: by 2002:a05:7301:4614:b0:36a:12bb:7f8e with SMTP id 5a478bee46e88-379655d45c1mr2796723eec.13.1794602752466;
-        Fri, 13 Nov 2026 12:45:52 -0800 (PST)
-Received: from [192.168.29.10] ([49.37.154.218])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955332a77sm9032968eec.4.2026.11.13.12.45.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 12:45:52 -0800 (PST)
-Message-ID: <1317a8b2-2f12-416c-aa12-8d0262e0d3c9@oss.qualcomm.com>
-Date: Sat, 14 Nov 2026 02:15:46 +0530
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=S9tH+J5k
+Received: by linux.microsoft.com (Postfix, from userid 1006)
+	id D022120B7166; Fri, 13 Nov 2026 12:46:19 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com D022120B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1794602779;
+	bh=u0kNAvCspH9EaUBvP1pTOUH586X9hQ4TYzWVN7ycUbQ=;
+	h=From:To:Cc:Subject:Date:From;
+	b=S9tH+J5ksPnvLvzRTVNhlRJDHh23jDnIbZ5YZnisyRpXaDLUJvuok9p0X1BYaF6JK
+	 9oy3rIfbPb5G6c18bwDsvTrQXDjnLj5CfsvLtC2X5tRfK1mdwFllxwkV4OdTrshZio
+	 Prmwgq78eJar8BvIL8O+qCcxC1bJfyYL4bCMiKPU=
+From: Haiyang Zhang <haiyangz@linux.microsoft.com>
+To: linux-hyperv@vger.kernel.org,
+	netdev@vger.kernel.org,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Wei Hu <weh@microsoft.com>,
+	Konstantin Taranov <kotaranov@microsoft.com>,
+	Simon Horman <horms@kernel.org>,
+	Long Li <longli@microsoft.com>,
+	Erni Sri Satya Vennela <ernis@linux.microsoft.com>,
+	Aditya Garg <gargaditya@linux.microsoft.com>,
+	Dipayaan Roy <dipayanroy@linux.microsoft.com>,
+	Manish Awasthi <mawasthi@linux.microsoft.com>,
+	Breno Leitao <leitao@debian.org>,
+	linux-kernel@vger.kernel.org,
+	linux-rdma@vger.kernel.org
+Cc: paulros@microsoft.com,
+	stable@vger.kernel.org
+Subject: [PATCH net] net: mana: Set 1 usec / 1 comp as default and minimum interrupt moderation
+Date: Fri, 13 Nov 2026 12:44:04 -0800
+Message-ID: <20261113204427.1922848-1-haiyangz@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.7
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,109 +76,290 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/6] tee: optee: Register TEE devices on the platform
- bus
-From: Harshal Dev <harshal.dev@oss.qualcomm.com>
-To: Eric Biggers <ebiggers@kernel.org>,
-        Bjorn Andersson
- <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>,
-        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
-        Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
-        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-        Sumit Garg <sumit.garg@oss.qualcomm.com>,
-        Selvam Sathappan Periakaruppan <selvam.periakaruppan@oss.qualcomm.com>,
-        Jens Wiklander <jens.wiklander@oss.qualcomm.com>
-Cc: Basant Kumar <basantk@qti.qualcomm.com>, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
-        op-tee@lists.trustedfirmware.org
-References: <20261111-ice-migrate-tee-svc-v2-0-29d19f6c92ab@oss.qualcomm.com>
- <20261111-ice-migrate-tee-svc-v2-4-29d19f6c92ab@oss.qualcomm.com>
- <197d7d58-9791-483f-9a7f-40747f44d1ee@oss.qualcomm.com>
-Content-Language: en-US
-Organization: Qualcomm
-In-Reply-To: <197d7d58-9791-483f-9a7f-40747f44d1ee@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: 7-xsslhI2_sI-lx7R5qKzQlR9fh8sCIW
-X-Authority-Analysis: v=2.4 cv=RbcFmFtv c=1 sm=1 tr=0 ts=6af77702 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=KJEteu+P7FD/DYblE0u4eA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=b45o4kL6AAAA:8 a=EUspDBNiAAAA:8 a=EpkGB4z7we3iSK_TefgA:9 a=QEXdDO2ut3YA:10
- a=PxkB5W3o20Ba91AHUih5:22 a=dhdsR-PFWuPJUldTnwXm:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA4MiBTYWx0ZWRfX12HDtB/YeeQK
- JrrMHZWlkNua32QtveLAnTGMIcLyilS2fohrW8nsq+s19LOSWpqnYsky10rgMe/3WMnnnsCn821
- vGVhas8RuPrp4UjNmmLSTFTEg2Laq63pLOYi3/YkIXG3+2J+HpypVrVWD8PZmGYQTvlvvTylpga
- d8k2IQFqaPfb+Nw8Q7khkbhIKoAsDvQrq5RfZHIa4GqPpwMWUlulqOkbnb4QWdadAAmRDDqBdHV
- jjQKMdwS9kBFIfRDNlGs7e7wlR8DsAEdTfECvczYjDZ21BksgiuZr4bdVT+QHridR+fkNZg1s8B
- 6volGldnRFmoxpJEaUHeuvmq9ir+aEHlvAPtbrdaOCtqodFkf1F+J86bMuSXRnAv8pY4RbYrs0Q
- VfiYw2cWB/pQUTWyqz+GVvjg3DT5kNaOXd6UMnOHJkgcSGbzobylWEPQrI7l9o/huxeu5ka5JSG
- AkT84nXc1E1kad3U0Sw==
-X-Proofpoint-ORIG-GUID: 7-xsslhI2_sI-lx7R5qKzQlR9fh8sCIW
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA4MiBTYWx0ZWRfX1ogEfgKdX2HZ
- lN0cinbwlBL5DjY4rTNoiMW0ixPuWB9jR91lG5qSedW940evdM4tniWz2hfXjv41YGYq5QjK25Z
- GQumUyo4nwR1OjEPpr6+P/7+QNW0fMo=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-13_06,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 phishscore=0 adultscore=0 suspectscore=0
- clxscore=1015 lowpriorityscore=0 bulkscore=0 malwarescore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130082
+Content-Transfer-Encoding: 8bit
 
-Hi,
+From: Haiyang Zhang <haiyangz@microsoft.com>
 
-On 11-11-2026 08:27 pm, Harshal Dev wrote:
-> + op-tee@lists.trustedfirmware.org, Jens Wiklander <jens.wiklander@oss.qualcomm.com>
-> 
-> On 11-11-2026 07:47 pm, Harshal Dev wrote:
->> The Qualcomm Inline Crypto Engine (ICE) driver is an independent platform
->> driver which polls on availability of a TEE interface (SCM driver) before
->> checking if the ICE secure service is supported by QTEE by querying the
->> qcom_scm_ice_available() API.
->>
->> The TEE subsystem currently does not provide any way to notify regarding
->> the availability of a TEE interface, i.e. whether QCOMTEE or OPTEE have
->> probed. And so when migrating to the TEE subsystem via an ICE TEE client
->> driver, ICE needs to defer probe until the OPTEE ICE Pseudo TA becomes
->> available on the TEE bus. This means that for OPTEE builds without the
->> ICE PTA, the ICE driver would indefintely defer probe and the dependent
->> UFS/SDHC storage driver will fail to come online.
->>
->> Add support for optionally registering the back-end TEE devices which
->> represent a particular TEE (say OPTEE) on the platform bus via the
->> tee_platform_device_register() API. 
+The existing code sets interrupt moderation defaults to 0 usec and 0
+completions, which may cause CQ starvation of our NIC HW, and TX time
+out error like:
+mana 7870:00:00.0 ens1: NETDEV WATCHDOG: CPU: 14: transmit queue 4 timed out 63434 ms
 
-I've been thinking a bit more about this. Instead of introducing a new
-API on the TEE subsystem for re-registering the back-end TEE device on a
-platform/auxiliary bus, can we just register the (OP)TEE device on the TEE
-bus itself once all the Pseudo TAs have been enumerated?
+To fix, change the default and minimal rx/tx usecs and frames to 1.
+When the HW supports interrupt moderation, reject ethtool rx/tx usecs
+and frames below 1.
+Also clamp the values written by mana_gd_ring_dim() to [1, max], so
+no caller, including the DIM work, programs a zero value.
+On the HW without interrupt moderation support, do not request CQ
+moderation, the usecs and frames stay at 0, and cannot be modified by
+ethtool.
+The PF capability is queried again when the device resumes from a
+reset or suspend, so re-initialize these settings before re-attaching
+the vPorts.
 
-This could be a reserved device with a reserved UUID that the client drivers
-cannot interact with via the usual tee_open_session() function, and would be
-returned an error.
+Advertise this change to the PF with the new driver capability flag
+GDMA_DRV_CAP_FLAG_1_SET_MIN_INTR_MOD_VALUE.
 
-A TEE client driver who wants to be notified once all the PTAs have been
-enumerated on the TEE bus can register for this reserved OPTEE UUID and be
-informed of this event via its registered probe() function for this device.
+Cc: stable@vger.kernel.org
+Fixes: 433f482add31 ("net: mana: Add Interrupt Moderation support")
+Signed-off-by: Haiyang Zhang <haiyangz@microsoft.com>
+---
+ .../net/ethernet/microsoft/mana/gdma_main.c   |  5 ++
+ drivers/net/ethernet/microsoft/mana/mana_en.c | 76 +++++++++++++------
+ .../ethernet/microsoft/mana/mana_ethtool.c    | 26 +++++--
+ include/net/mana/gdma.h                       |  6 +-
+ include/net/mana/mana.h                       |  9 ++-
+ 5 files changed, 88 insertions(+), 34 deletions(-)
 
-The TEE back-end device would be a sort of "end-of-line" marker for all the
-PTAs on the TEE bus.
-
-Let me know your thoughts.
-
-Regards,
-Harshal
-
->> This allows drivers which poll on
->> TEE secure interface availability to be notified even if the TEE service
->> itself is not supported.
->>
->> Signed-off-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
->> ---
-
+diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+index ab942d5bfe05..10be69e97ceb 100644
+--- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
++++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+@@ -646,6 +646,11 @@ void mana_gd_ring_dim(struct gdma_queue *cq, u32 mod_usec, bool mod_usec_vld,
+ 	struct gdma_context *gc = cq->gdma_dev->gdma_context;
+ 	u32 dim_val;
+ 
++	mod_usec = clamp_t(u32, mod_usec, MANA_INTR_MODR_USEC_MIN,
++			   MANA_INTR_MODR_USEC_MAX);
++	mod_comps = clamp_t(u32, mod_comps, MANA_INTR_MODR_COMP_MIN,
++			    MANA_INTR_MODR_COMP_MAX);
++
+ 	/* Convert the DIM values to doorbell parameters */
+ 	dim_val = FIELD_PREP(MANA_INTR_MODR_USEC_MAX, mod_usec) |
+ 		  FIELD_PREP(MANA_INTR_MODR_COMP_MASK, mod_comps);
+diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
+index 7e9223143fc7..95bf153c3e1a 100644
+--- a/drivers/net/ethernet/microsoft/mana/mana_en.c
++++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
+@@ -2515,9 +2515,6 @@ static void mana_rx_dim_work(struct work_struct *work)
+ 	cur_moder = net_dim_get_rx_moderation(dim->mode, dim->profile_ix);
+ 	cq = container_of(dim, struct mana_cq, dim);
+ 
+-	cur_moder.usec = min_t(u16, cur_moder.usec, MANA_INTR_MODR_USEC_MAX);
+-	cur_moder.pkts = min_t(u16, cur_moder.pkts, MANA_INTR_MODR_COMP_MAX);
+-
+ 	mana_gd_ring_dim(cq->gdma_cq, cur_moder.usec, true,
+ 			 cur_moder.pkts, true);
+ 
+@@ -2533,9 +2530,6 @@ static void mana_tx_dim_work(struct work_struct *work)
+ 	cur_moder = net_dim_get_tx_moderation(dim->mode, dim->profile_ix);
+ 	cq = container_of(dim, struct mana_cq, dim);
+ 
+-	cur_moder.usec = min_t(u16, cur_moder.usec, MANA_INTR_MODR_USEC_MAX);
+-	cur_moder.pkts = min_t(u16, cur_moder.pkts, MANA_INTR_MODR_COMP_MAX);
+-
+ 	mana_gd_ring_dim(cq->gdma_cq, cur_moder.usec, true,
+ 			 cur_moder.pkts, true);
+ 
+@@ -2871,10 +2865,15 @@ static int mana_create_txq(struct mana_port_context *apc,
+ 		cq_spec.modr_ctx_id = 0;
+ 		cq_spec.attached_eq = cq->gdma_cq->cq.parent->id;
+ 
+-		/* DIM setting can be changed at runtime */
+-		cq_spec.req_cq_moderation = true;
+-		cq_spec.cq_moderation_usec = apc->intr_modr_tx_usec;
+-		cq_spec.cq_moderation_comp = apc->intr_modr_tx_comp;
++		/* Request CQ moderation only if HW supports it.
++		 * DIM setting can be changed at runtime.
++		 */
++		if (gc->pf_cap_flags1 &
++		    GDMA_PF_CAP_FLAG_1_DYN_INTERRUPT_MODERATION) {
++			cq_spec.req_cq_moderation = true;
++			cq_spec.cq_moderation_usec = apc->intr_modr_tx_usec;
++			cq_spec.cq_moderation_comp = apc->intr_modr_tx_comp;
++		}
+ 
+ 		err = mana_create_wq_obj(apc, apc->port_handle, GDMA_SQ,
+ 					 &wq_spec, &cq_spec,
+@@ -3206,10 +3205,14 @@ static struct mana_rxq *mana_create_rxq(struct mana_port_context *apc,
+ 	cq_spec.modr_ctx_id = 0;
+ 	cq_spec.attached_eq = cq->gdma_cq->cq.parent->id;
+ 
+-	/* DIM setting can be changed at runtime */
+-	cq_spec.req_cq_moderation = true;
+-	cq_spec.cq_moderation_usec = apc->intr_modr_rx_usec;
+-	cq_spec.cq_moderation_comp = apc->intr_modr_rx_comp;
++	/* Request CQ moderation only if HW supports it.
++	 * DIM setting can be changed at runtime.
++	 */
++	if (gc->pf_cap_flags1 & GDMA_PF_CAP_FLAG_1_DYN_INTERRUPT_MODERATION) {
++		cq_spec.req_cq_moderation = true;
++		cq_spec.cq_moderation_usec = apc->intr_modr_rx_usec;
++		cq_spec.cq_moderation_comp = apc->intr_modr_rx_comp;
++	}
+ 
+ 	err = mana_create_wq_obj(apc, apc->port_handle, GDMA_RQ,
+ 				 &wq_spec, &cq_spec, &rxq->rxobj);
+@@ -3894,6 +3897,40 @@ int mana_detach(struct net_device *ndev, bool from_close)
+ 	return 0;
+ }
+ 
++/* Match the interrupt moderation settings to the PF capability, which is
++ * queried again when the device resumes from a reset or suspend. Must be
++ * called before the queues are created.
++ */
++static void mana_init_intr_modr(struct mana_port_context *apc)
++{
++	struct gdma_context *gc = apc->ac->gdma_dev->gdma_context;
++
++	if (!(gc->pf_cap_flags1 &
++	      GDMA_PF_CAP_FLAG_1_DYN_INTERRUPT_MODERATION)) {
++		apc->intr_modr_rx_usec = 0;
++		apc->intr_modr_rx_comp = 0;
++		apc->intr_modr_tx_usec = 0;
++		apc->intr_modr_tx_comp = 0;
++		apc->rx_dim_enabled = false;
++		apc->tx_dim_enabled = false;
++		return;
++	}
++
++	/* Keep the current settings, unless they were never initialized
++	 * because the port was probed without the capability.
++	 */
++	if (apc->intr_modr_rx_usec && apc->intr_modr_rx_comp &&
++	    apc->intr_modr_tx_usec && apc->intr_modr_tx_comp)
++		return;
++
++	apc->intr_modr_rx_usec = MANA_INTR_MODR_USEC_DEF;
++	apc->intr_modr_rx_comp = MANA_INTR_MODR_COMP_DEF;
++	apc->intr_modr_tx_usec = MANA_INTR_MODR_USEC_DEF;
++	apc->intr_modr_tx_comp = MANA_INTR_MODR_COMP_DEF;
++	apc->rx_dim_enabled = MANA_ADAPTIVE_RX_DEF;
++	apc->tx_dim_enabled = MANA_ADAPTIVE_TX_DEF;
++}
++
+ static int mana_probe_port(struct mana_context *ac, int port_idx,
+ 			   struct net_device **ndev_storage)
+ {
+@@ -3924,15 +3961,7 @@ static int mana_probe_port(struct mana_context *ac, int port_idx,
+ 	apc->cqe_coalescing_enable = 0;
+ 	apc->cqe8_coalescing_enable = 0;
+ 
+-	/* Initialize interrupt moderation settings if supported by HW */
+-	if (gc->pf_cap_flags1 & GDMA_PF_CAP_FLAG_1_DYN_INTERRUPT_MODERATION) {
+-		apc->intr_modr_rx_usec = MANA_INTR_MODR_USEC_DEF;
+-		apc->intr_modr_rx_comp = MANA_INTR_MODR_COMP_DEF;
+-		apc->intr_modr_tx_usec = MANA_INTR_MODR_USEC_DEF;
+-		apc->intr_modr_tx_comp = MANA_INTR_MODR_COMP_DEF;
+-		apc->rx_dim_enabled = MANA_ADAPTIVE_RX_DEF;
+-		apc->tx_dim_enabled = MANA_ADAPTIVE_TX_DEF;
+-	}
++	mana_init_intr_modr(apc);
+ 
+ 	mutex_init(&apc->vport_mutex);
+ 	apc->vport_use_count = 0;
+@@ -4256,6 +4285,7 @@ int mana_probe(struct gdma_dev *gd, bool resuming)
+ 			enable_work(&apc->queue_reset_work);
+ 			netdev_lock(ac->ports[i]);
+ 			apc->link_cfg_error = 1;
++			mana_init_intr_modr(apc);
+ 			netdev_unlock(ac->ports[i]);
+ 			err = mana_attach(ac->ports[i]);
+ 			rtnl_unlock();
+diff --git a/drivers/net/ethernet/microsoft/mana/mana_ethtool.c b/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
+index 4068e08acb16..96aabf7a8f08 100644
+--- a/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
++++ b/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
+@@ -505,9 +505,12 @@ static int mana_set_coalesce(struct net_device *ndev,
+ 	bool dim_changed = false;
+ 	struct gdma_context *gc;
+ 	u32 max_cqe_frames;
++	bool modr_sup;
+ 	int err;
+ 
+ 	gc = apc->ac->gdma_dev->gdma_context;
++	modr_sup = gc->pf_cap_flags1 &
++		   GDMA_PF_CAP_FLAG_1_DYN_INTERRUPT_MODERATION;
+ 	max_cqe_frames = gc->cqe8_coalescing_sup ? MANA_CQE_COAL_PKTS_8 :
+ 						   MANA_RXCOMP_OOB_NUM_PPI;
+ 
+@@ -517,7 +520,7 @@ static int mana_set_coalesce(struct net_device *ndev,
+ 	if ((ec->use_adaptive_rx_coalesce || ec->use_adaptive_tx_coalesce ||
+ 	     ec->rx_coalesce_usecs || ec->tx_coalesce_usecs ||
+ 	     ec->rx_max_coalesced_frames || ec->tx_max_coalesced_frames) &&
+-	    !(gc->pf_cap_flags1 & GDMA_PF_CAP_FLAG_1_DYN_INTERRUPT_MODERATION)) {
++	    !modr_sup) {
+ 		NL_SET_ERR_MSG(extack,
+ 			       "Interrupt Moderation is not supported by HW");
+ 		return -EOPNOTSUPP;
+@@ -534,18 +537,27 @@ static int mana_set_coalesce(struct net_device *ndev,
+ 		return -EINVAL;
+ 	}
+ 
+-	if (ec->rx_coalesce_usecs > MANA_INTR_MODR_USEC_MAX ||
+-	    ec->tx_coalesce_usecs > MANA_INTR_MODR_USEC_MAX) {
++	/* Without the HW capability, only zero values pass the check above */
++	if (modr_sup &&
++	    (ec->rx_coalesce_usecs < MANA_INTR_MODR_USEC_MIN ||
++	     ec->tx_coalesce_usecs < MANA_INTR_MODR_USEC_MIN ||
++	     ec->rx_coalesce_usecs > MANA_INTR_MODR_USEC_MAX ||
++	     ec->tx_coalesce_usecs > MANA_INTR_MODR_USEC_MAX)) {
+ 		NL_SET_ERR_MSG_FMT(extack,
+-				   "coalesce usecs must be <= %lu",
++				   "coalesce usecs must be between %d and %lu",
++				   MANA_INTR_MODR_USEC_MIN,
+ 				   MANA_INTR_MODR_USEC_MAX);
+ 		return -EINVAL;
+ 	}
+ 
+-	if (ec->rx_max_coalesced_frames > MANA_INTR_MODR_COMP_MAX ||
+-	    ec->tx_max_coalesced_frames > MANA_INTR_MODR_COMP_MAX) {
++	if (modr_sup &&
++	    (ec->rx_max_coalesced_frames < MANA_INTR_MODR_COMP_MIN ||
++	     ec->tx_max_coalesced_frames < MANA_INTR_MODR_COMP_MIN ||
++	     ec->rx_max_coalesced_frames > MANA_INTR_MODR_COMP_MAX ||
++	     ec->tx_max_coalesced_frames > MANA_INTR_MODR_COMP_MAX)) {
+ 		NL_SET_ERR_MSG_FMT(extack,
+-				   "coalesce frames must be <= %lu",
++				   "coalesce frames must be between %d and %lu",
++				   MANA_INTR_MODR_COMP_MIN,
+ 				   MANA_INTR_MODR_COMP_MAX);
+ 		return -EINVAL;
+ 	}
+diff --git a/include/net/mana/gdma.h b/include/net/mana/gdma.h
+index 29d152e18596..6191ddddc27f 100644
+--- a/include/net/mana/gdma.h
++++ b/include/net/mana/gdma.h
+@@ -776,6 +776,9 @@ enum {
+ /* Driver supports handling throttled EQEs */
+ #define GDMA_DRV_CAP_FLAG_1_THROTTLED_EVENT_QUEUE BIT_ULL(32)
+ 
++/* Enforce min 1 usec, 1 frames for Interrupt Moderation */
++#define GDMA_DRV_CAP_FLAG_1_SET_MIN_INTR_MOD_VALUE BIT_ULL(33)
++
+ /* Capabilities in the PCI-only group below rely on dynamic MSI-X allocation
+  * and on the servicing and reset paths reached through
+  * mana_schedule_serv_work(). Transports that provide neither leave
+@@ -801,7 +804,8 @@ enum {
+ 	 GDMA_DRV_CAP_FLAG_1_EQ_MSI_UNSHARE_MULTI_VPORT | \
+ 	 GDMA_DRV_CAP_FLAG_1_DYN_INTERRUPT_MODERATION | \
+ 	 GDMA_DRV_CAP_FLAG_1_NON_CONTIGUOUS_BUFFERS | \
+-	 GDMA_DRV_CAP_FLAG_1_THROTTLED_EVENT_QUEUE)
++	 GDMA_DRV_CAP_FLAG_1_THROTTLED_EVENT_QUEUE | \
++	 GDMA_DRV_CAP_FLAG_1_SET_MIN_INTR_MOD_VALUE)
+ 
+ #define GDMA_DRV_CAP_FLAGS2 0
+ 
+diff --git a/include/net/mana/mana.h b/include/net/mana/mana.h
+index 218d540bc994..84afc4199e87 100644
+--- a/include/net/mana/mana.h
++++ b/include/net/mana/mana.h
+@@ -74,9 +74,12 @@ enum mana_priv_flag_bits {
+ /* 8-pkt mode packs up to 2 packets per PPI entry */
+ #define MANA_CQE_COAL_PKTS_8 8
+ 
+-/* Default/max interrupt moderation settings */
+-#define MANA_INTR_MODR_USEC_DEF 0
+-#define MANA_INTR_MODR_COMP_DEF 0
++/* Default/min interrupt moderation settings */
++#define MANA_INTR_MODR_USEC_DEF 1
++#define MANA_INTR_MODR_COMP_DEF 1
++
++#define MANA_INTR_MODR_USEC_MIN 1
++#define MANA_INTR_MODR_COMP_MIN 1
+ 
+ #define MANA_ADAPTIVE_RX_DEF true
+ #define MANA_ADAPTIVE_TX_DEF true
+-- 
+2.53.0
 
