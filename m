@@ -1,79 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794551528;
-	b=fkh52C9AgPHyv+InS5jd9RJdkygQ2x/5pSQ6oigjr6pkoIr9Bd/IJqImFgZwFLaY+tnq
-	 50SdqnWjXwZyY3LwUCgpf6K2u4nLD6lmHOtDxrPF2d1nenOJ1ExTFea7wYEqPhDMWjpdw
-	 guND8qlzyMsjbfnOQH7REnrvl3y1YcbNEZFumEoDWn/y+qFyL/F11XH11NKONzJgzeOA2
-	 YV7t+oYM8S1nylhdcTqlNPu9B3E86GR+o9JKGT0DZoy5ynxi7IwnqEdpeuSG8aZQbWCO5
-	 TzR/L9tKL55sG/Wxzi9C5hzjvGGQOInAnbDLBTpJcnrZRS6ps57JrOOKTHeS2Dvq96w==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794551526;
+	b=q3GducJ85xGzNpMLvEThtEnDVEWvfBVYfkrTT04gvlVUWX53JiQrWZki4AspHBaP0XR8
+	 9qlc7+VhdxeRP2lGWz297v2/N+78xj5hXOv5Olk46puixmZME9YGbBpIM9kNIFIp9Kl31
+	 d7mxjfszZo7OQ8tdX94qwZ/7FOlFVTVtcBAQDc/ehu6jaZpnO+2+eSQF1aQCMOoZXJwp4
+	 Aaw+FLMLljaGoxlDkUDtKv1oYzJ2jiMtFEGLZ6yQjL0PPtVSF/RqlXoXByYZdL18CdF9e
+	 7mFHBv7c2zHfjo1VJZ81nBA6zsdq07Kk7wTuXx52SuFUEjHHbSMvcRvdUAJLExpuDBQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794551528;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794551526;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=jqz2nyeOMGchFiW/BjgXSI0UrChSzao81eZB5OrUoIM=;
-	b=nCFjnuXC2f+g/4qRFjtnDyIdxaG3riEOuBYIu8B4XG3+cP0x3gVcQTs9W9Fy5vd7ux3R
-	 eQZyxXT3TtOna8Pzc/YYt7wb6Wn/rcQTEmMTm0Y3qOj7S7qElGwUg8AWtMYrY5sxv1tEd
-	 nRwRf3hPmEDy2lTbdzX68wvXQLUXftkJoP04ErRF9GGJgHaZc1F/ktnQlxlQY1V0e6Tw5
-	 pLtmtdubkwloqLXSfkElnbS2fMnWXC3e+gp/+A6RCUsa0187gu6yEMmYYpYA/cd3XK+GD
-	 eIjTGTCCgiETxKGCZdxvsrJoYM6AqRdSy7iRlX1uwxrpCj270XSFFEAfX8XQYgE8Abg==
+	bh=YmWFfab+E2ZaatuW5a+x18MB647hdFjiS4Sr9Z50EvA=;
+	b=T20R8bY/wT9as0+vssMK04jxQWOjDV46ZgYfjFp2nCMquyWhNj37TVMUn/u5ua6nXPvn
+	 hNy6ge1nOyos8lBjDhir7GIP26jEIrU6CBAHJJRBA9Z+6L7Hj3lfGVZDR5dzmXa0l9RTR
+	 Y12Pj9k7GOzzcbH1y6TKw0nLYp+ox8guVWlPaRYH2saoZFyZfKIukgTeFWCPkbuDebQUx
+	 p4OUOiB75UhAF3a68YQej+aYh9KHRNxUSJhjiQvuoUZ3kXS0zOoXm/rH4qbzAlWusUrX0
+	 M6nfldXhPGTo5ngLjSL6sln8+IYK0dhXmxj4FKZW6A1PhYYc+8sPzqnWqBNDCY80xhA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SC1fB+HW;
-	arc=fail smtp.remote-ip=100.103.45.18
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FmSKI5IH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39158606A8A8;
-	Fri, 13 Nov 2026 06:32:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04AA0606A323;
+	Fri, 13 Nov 2026 06:32:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SC1fB+HW
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FmSKI5IH
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794551527;
-	b=nhgCIWNcDLlfANKppFUMliAEJezajLuzcUV9nJJjAg38ccRl0t+gwXcUlqU65uAKtc5p
-	 dkExPj0x+hz5CstY/BulGEsSWavwn7VafAmrf48KekVy6A+6VDK69sL2W797eMWi29BW/
-	 mpzfhJbxTJt9BxFflDEeV5WcANXD0qf7cp6z3aHqXGVrknI8eqJ+SXvpnvws8lAA4EubG
-	 cj8S/VeELBCOdqloAH5VH/ZI4N15a0M0D7EKhoXq3zeiLwzgFzipwPWPuU1Kv843jKysV
-	 t/ITsqyNtC3boHJp8iyoWmp1+MWpKAOQ0MF81fEpB0Uu6AJIkox5gTYgTNfnRbyfeHw==
+	t=1794551525;
+	b=3qpkTm6RDWUBMtonSz3wFXHNF5YPYhm4Gjz8O6QbjrSDuIp/AwTy1ShNJ7Jc/TFkD5oQ
+	 6IfwVXlgraIEIsFzF+mHRSLQPgPpk8SQwX8Nitxu6CSjsYb8TvMhcDu8p3H4ACY7wQwCF
+	 m3q67hKyz58DnAVqL0oy/kzxg8dSu8Xo+/UNC3FlPprwknakB7FzYEmUvFi44Wr93mSvG
+	 DyVjdi7g9RZ2AU2idTyk5x5/V4mR2Fl5sKjT56Xn9TcCL7Qt257bwR9rg5c/XfKuht5LH
+	 Prwx2YI4FOtblPGnQj0bFmHmsGDOUGhDwAZgkJ1CYftukazL6ikETOxux859pnTwfSg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794551527;
+	c=relaxed/relaxed; t=1794551525;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To;
-	bh=jqz2nyeOMGchFiW/BjgXSI0UrChSzao81eZB5OrUoIM=;
-	b=mFExMn2zd+0xenwYUXdtoQ+LdXbDmUuRMBN1cIhopKPbqtK8Yahpty4+8087J9dnlGXh
-	 HQt5iASntEqIDnEvZhKNCp5rosCUqrZ6NlJS6pT/DQA177csMIPzGcCSuDhyGVumgah00
-	 52GlAjZTF12qYzjUyxGSgU5CMWezGekTPeNTJoYeHP9WNCO4kCSZa+Mp3DV1c8iWu09Vi
-	 EmPiDhY2xBOdv15DLQZ27/ov4zAI/yj4JslIWaAtSnoBLjpzZO5oOxu4chFUVXCd5jOrw
-	 X5oHhJnAzqNy4q6bIJDdRJMNX3YBZkWYoICjMrf51Qwt2nkwDdg9ZKt+rGV0Z1unUqw==
+	bh=YmWFfab+E2ZaatuW5a+x18MB647hdFjiS4Sr9Z50EvA=;
+	b=kQ+Rpw9t+BiPanHfUeB6YCbrO4ZRE6+9WldWG1/Pu2Ra3nK5Xh4T+TqJplodpAWEP/3W
+	 rlp4iXps7FH3cU022w9t/sNGiCFlmz55br+YCqXmUsSPi9p2uVg+o4iMLQIt7Rszn4YUu
+	 aMz/WWOMswgeg/+aurHOQCJbGQuKQTWbRpyVLVpdGD72faRsApCn3kgtwCZlWrAnejeb6
+	 WkH4uhu8atNlsXVrEqoNCoxUbhhn6Ft297SSa5tJ/1QBImuqafEg0eggHo6MtaitmGI22
+	 /CBycs/XtIi26K9+TZvrpQTER9+ZkGcOKZ/xj5c1WbOh7htE+OQSSIGi8L6O0xjJl/g==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 266111F000C7;
+	by smtp.kernel.org (Postfix) with ESMTPS id 134871F000C6;
 	Fri, 13 Nov 2026 06:32:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794551527;
-	bh=jqz2nyeOMGchFiW/BjgXSI0UrChSzao81eZB5OrUoIM=;
+	s=k20260515; t=1794551525;
+	bh=YmWFfab+E2ZaatuW5a+x18MB647hdFjiS4Sr9Z50EvA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=SC1fB+HW5QR0Ac80+kyjxYIqyuyDy37iGh3aj97WkTsywNhMeyeFLv8lezSn8Ux16
-	 tXGE1hHJr/Kr/u4wMxzYMyydh1pPpu0ygct9/eBg8nEEBJBuu70aASwdIEwNhNKUID
-	 4KYxip89zRh7SoKtKohtj9p+8uEwCw84pMm6IWi4KKZ1UHvQu0SrpT6+uR7VnzC+np
-	 7veWO6lRyx+sJX0AZqyFb1JAaw7LGlCV5AWS9s1jNl/C14Vbq2LcEYkf8iRC7lmwUv
-	 b97XBXJJsDLF0UG6lPZzSdzug6gPZ/LtN+rbPXlbsXP3i4/6ngUBY2ank2Mrn4LrT2
-	 s16yn91KeLZtA==
+	b=FmSKI5IHR3BKfOo4RG3denXlTh6lraS4v2dsEjan0JLaqw4NRXQQmxkDKZpgk3j89
+	 gUpVW+R8uENx3ddYVXUsO4rTrZXXM6YwGjMWZqrXa0eAMKPiM0w7BjEQmCAubclyVR
+	 Wih0/dJaOYWylNmALwZkXo7KJAcl8YGPoRUsDf7QNjFFnr3Lqdkt+LtMB9xUV1bY0Z
+	 X+rKh9W90lhX2tdw6tbUwQG/VXFdW71M0ZIc3TFIB15pUa8wtpB3onuKXxkQj0MED7
+	 tKp+N5Bl92xK+xqL7d8iw0TJQ12gPiw9WY4lkXl5a1gfnhqZNIuKlyjkCcxQhWXqEz
+	 A1fzDvRTqneKA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A2FC447630;
+	by lkml.kernel.org (Postfix) with ESMTP id 7BF6047622;
 	Fri, 13 Nov 2026 06:32:04 +0000 (UTC)
 From: Michael Reeves via B4 Relay <devnull+michael.reeves077.gmail.com@kernel.org>
-Date: Fri, 13 Nov 2026 06:31:57 +0000
-Subject: [PATCH wireless-next 3/4] wifi: brcmfmac: Add support for the 6
- GHz band
+Date: Fri, 13 Nov 2026 06:31:55 +0000
+Subject: [PATCH wireless-next 1/4] wifi: brcmfmac: Add support for 6 GHz
+ chanspecs
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,7 +85,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-6ghz-v1-3-0b9a67e413a9@gmail.com>
+Message-Id: <20261113-6ghz-v1-1-0b9a67e413a9@gmail.com>
 References: <20261113-6ghz-v1-0-0b9a67e413a9@gmail.com>
 In-Reply-To: <20261113-6ghz-v1-0-0b9a67e413a9@gmail.com>
 To: Arend van Spriel <arend.vanspriel@broadcom.com>
@@ -94,11 +94,11 @@ Cc: asahi@lists.linux.dev, linux-wireless@vger.kernel.org,
  linux-kernel@vger.kernel.org, Michael Reeves <michael.reeves077@gmail.com>, 
  Daniel Berlin <dberlin@dberlin.org>, Yureka Lilian <yureka@cyberchaos.dev>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794551523; l=17895;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794551523; l=5582;
  i=michael.reeves077@gmail.com; s=20261107; h=from:subject:message-id;
- bh=4HGnRZlOV1Uoe1+y4vgiN4RfdWJVHn7IKIQ27irK3Hw=;
- b=+xPrKBMnZVgrNeWQefdqqtcLBHqPOhSyffBtstDjBmqqfNQcaEEq43+KifzyowNftGtSPNOWw
- P6XdTfDI0i8BNMSwv6NKHZHDDO76KBoWxRLmES5WIHzHfZeqTNEn3LF
+ bh=I8Dn0B0/ZXLgxEeo25bE3yyy9LMgsSW2UPLw3KLxDLs=;
+ b=LZss0WT+9OEW4S9grQeQ8nmkxYR13aw4wu/oUAidV5zoJ7w/4lzEYIrqNm8wLW340YT4q5zqx
+ Pj2ESOlsrqaBvdtfIky5MS8yLiKIep/fVL9sEGa/I3qWwtD4KQYI9a2
 X-Developer-Key: i=michael.reeves077@gmail.com; a=ed25519;
  pk=ykwkLcuByJYb/cdLc2UuoYP03pIzwrscEZg30+4tJL8=
 X-Endpoint-Received: by B4 Relay for michael.reeves077@gmail.com/20261107
@@ -108,498 +108,155 @@ Reply-To: michael.reeves077@gmail.com
 
 From: Daniel Berlin <dberlin@dberlin.org>
 
-While firmware may report 6 GHz support in its band list, the driver
-currently ignores the capability.
+Although the AC chanspec format defines a band value for 6 GHz, the
+driver currently neither encodes nor decodes it.
 
-Enable 6 GHz band support when reported by the firmware and HE is
-enabled. This includes registering 6 GHz channels, populating band
-bandwidth capabilities, adding regulatory rules, and parsing 6 GHz
-chanspecs in channel lists and scan results.
+Extend the chanspec encoder and decoder to support the 6 GHz band,
+replacing the obsolete and unused 3 GHz definition. Populate the band
+when converting cfg80211 channels to chanspecs.
 
-Exclude 6 GHz channels from PNO lists for now, as legacy PNO identifies
-channels strictly by channel number, which collides with 2.4 GHz and 5
-GHz channel numbering.
+Additionally, initialise channel structures prior to encoding in the P2P
+path, as the encoder now requires a valid band field.
 
 Tested-by: Yureka Lilian <yureka@cyberchaos.dev>
 Signed-off-by: Daniel Berlin <dberlin@dberlin.org>
 Co-developed-by: Michael Reeves <michael.reeves077@gmail.com>
 Signed-off-by: Michael Reeves <michael.reeves077@gmail.com>
 ---
- .../broadcom/brcm80211/brcmfmac/cfg80211.c         | 229 +++++++++++++++------
- .../net/wireless/broadcom/brcm80211/brcmfmac/pno.c |   3 +
- .../broadcom/brcm80211/include/brcmu_wifi.h        |   1 +
- 3 files changed, 166 insertions(+), 67 deletions(-)
+ .../broadcom/brcm80211/brcmfmac/cfg80211.c         | 28 +++++++++++++---------
+ .../net/wireless/broadcom/brcm80211/brcmfmac/p2p.c |  6 ++---
+ .../net/wireless/broadcom/brcm80211/brcmutil/d11.c |  7 +++++-
+ .../broadcom/brcm80211/include/brcmu_d11.h         |  3 ++-
+ 4 files changed, 28 insertions(+), 16 deletions(-)
 
 diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-index 12545ae15e9e..90db55c0ab7a 100644
+index b0eaf96413b7..c4ef4f6d3a06 100644
 --- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
 +++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-@@ -5,6 +5,7 @@
- 
- /* Toplevel file. Relies on dhd_linux.c to send commands to the dongle. */
- 
-+#include <linux/bitfield.h>
- #include <linux/kernel.h>
- #include <linux/etherdevice.h>
- #include <linux/module.h>
-@@ -181,6 +182,14 @@ static struct ieee80211_rate __wl_rates[] = {
- 	.max_power		= 30,				\
+@@ -326,6 +326,21 @@ static u8 nl80211_band_to_fwil(enum nl80211_band band)
+ 	return 0;
  }
  
-+#define CHAN6G(_channel, _freq) {\
-+	.band = NL80211_BAND_6GHZ,\
-+	.center_freq = (_freq),\
-+	.hw_value = (_channel),\
-+	.max_antenna_gain = 0,\
-+	.max_power = 30,\
-+}
-+
- static struct ieee80211_channel __wl_2ghz_channels[] = {
- 	CHAN2G(1, 2412), CHAN2G(2, 2417), CHAN2G(3, 2422), CHAN2G(4, 2427),
- 	CHAN2G(5, 2432), CHAN2G(6, 2437), CHAN2G(7, 2442), CHAN2G(8, 2447),
-@@ -197,6 +206,29 @@ static struct ieee80211_channel __wl_5ghz_channels[] = {
- 	CHAN5G(153), CHAN5G(157), CHAN5G(161), CHAN5G(165)
- };
- 
-+static struct ieee80211_channel __wl_6ghz_channels[] = {
-+	CHAN6G(2, 5935), CHAN6G(1, 5955), CHAN6G(5, 5975),
-+	CHAN6G(9, 5995), CHAN6G(13, 6015), CHAN6G(17, 6035),
-+	CHAN6G(21, 6055), CHAN6G(25, 6075), CHAN6G(29, 6095),
-+	CHAN6G(33, 6115), CHAN6G(37, 6135), CHAN6G(41, 6155),
-+	CHAN6G(45, 6175), CHAN6G(49, 6195), CHAN6G(53, 6215),
-+	CHAN6G(57, 6235), CHAN6G(61, 6255), CHAN6G(65, 6275),
-+	CHAN6G(69, 6295), CHAN6G(73, 6315), CHAN6G(77, 6335),
-+	CHAN6G(81, 6355), CHAN6G(85, 6375), CHAN6G(89, 6395),
-+	CHAN6G(93, 6415), CHAN6G(97, 6435), CHAN6G(101, 6455),
-+	CHAN6G(105, 6475), CHAN6G(109, 6495), CHAN6G(113, 6515),
-+	CHAN6G(117, 6535), CHAN6G(121, 6555), CHAN6G(125, 6575),
-+	CHAN6G(129, 6595), CHAN6G(133, 6615), CHAN6G(137, 6635),
-+	CHAN6G(141, 6655), CHAN6G(145, 6675), CHAN6G(149, 6695),
-+	CHAN6G(153, 6715), CHAN6G(157, 6735), CHAN6G(161, 6755),
-+	CHAN6G(165, 6775), CHAN6G(169, 6795), CHAN6G(173, 6815),
-+	CHAN6G(177, 6835), CHAN6G(181, 6855), CHAN6G(185, 6875),
-+	CHAN6G(189, 6895), CHAN6G(193, 6915), CHAN6G(197, 6935),
-+	CHAN6G(201, 6955), CHAN6G(205, 6975), CHAN6G(209, 6995),
-+	CHAN6G(213, 7015), CHAN6G(217, 7035), CHAN6G(221, 7055),
-+	CHAN6G(225, 7075), CHAN6G(229, 7095), CHAN6G(233, 7115)
-+};
-+
- /* Band templates duplicated per wiphy. The channel info
-  * above is added to the band during setup.
-  */
-@@ -212,6 +244,12 @@ static const struct ieee80211_supported_band __wl_band_5ghz = {
- 	.n_bitrates = wl_a_rates_size,
- };
- 
-+static const struct ieee80211_supported_band __wl_band_6ghz = {
-+	.band = NL80211_BAND_6GHZ,
-+	.bitrates = wl_a_rates,
-+	.n_bitrates = wl_a_rates_size,
-+};
-+
- /* This is to override regulatory domains defined in cfg80211 module (reg.c)
-  * By default world regulatory domain defined in reg.c puts the flags
-  * NL80211_RRF_NO_IR for 5GHz channels (for * 36..48 and 149..165).
-@@ -220,7 +258,7 @@ static const struct ieee80211_supported_band __wl_band_5ghz = {
-  * domain are to be done here.
-  */
- static const struct ieee80211_regdomain brcmf_regdom = {
--	.n_reg_rules = 4,
-+	.n_reg_rules = 5,
- 	.alpha2 =  "99",
- 	.reg_rules = {
- 		/* IEEE 802.11b/g, channels 1..11 */
-@@ -233,7 +271,9 @@ static const struct ieee80211_regdomain brcmf_regdom = {
- 		/* IEEE 802.11a, channel 36..64 */
- 		REG_RULE(5150-10, 5350+10, 160, 6, 20, 0),
- 		/* IEEE 802.11a, channel 100..165 */
--		REG_RULE(5470-10, 5850+10, 160, 6, 20, 0), }
-+		REG_RULE(5470 - 10, 5850 + 10, 160, 6, 20, 0),
-+		/* IEEE 802.11ax, 6 GHz */
-+		REG_RULE(5935 - 10, 7115 + 10, 160, 6, 20, 0), }
- };
- 
- /* Note: brcmf_cipher_suites is an array of int defining which cipher suites
-@@ -319,6 +359,8 @@ static u8 nl80211_band_to_fwil(enum nl80211_band band)
- 		return WLC_BAND_2G;
- 	case NL80211_BAND_5GHZ:
- 		return WLC_BAND_5G;
-+	case NL80211_BAND_6GHZ:
-+		return WLC_BAND_6G;
- 	default:
- 		WARN_ON(1);
- 		break;
-@@ -341,6 +383,18 @@ static u8 nl80211_band_to_chanspec_band(enum nl80211_band band)
- 	}
- }
- 
-+static enum nl80211_band chanspec_band_to_nl80211(u8 band)
++static u8 nl80211_band_to_chanspec_band(enum nl80211_band band)
 +{
 +	switch (band) {
-+	case BRCMU_CHAN_BAND_6G:
-+		return NL80211_BAND_6GHZ;
-+	case BRCMU_CHAN_BAND_5G:
-+		return NL80211_BAND_5GHZ;
++	case NL80211_BAND_2GHZ:
++		return BRCMU_CHAN_BAND_2G;
++	case NL80211_BAND_5GHZ:
++		return BRCMU_CHAN_BAND_5G;
++	case NL80211_BAND_6GHZ:
++		return BRCMU_CHAN_BAND_6G;
 +	default:
-+		return NL80211_BAND_2GHZ;
++		WARN_ON_ONCE(1);
++		return BRCMU_CHAN_BAND_2G;
 +	}
 +}
 +
  static u16 chandef_to_chanspec(struct brcmu_d11inf *d11inf,
  			       struct cfg80211_chan_def *ch)
  {
-@@ -3347,7 +3401,9 @@ static bool brcmf_chanspec_supported(struct brcmf_cfg80211_info *cfg, u16 chansp
- 		return true;
- 
- 	return band == BRCMU_CHSPEC_D11AC_BND_2G ||
--	       band == BRCMU_CHSPEC_D11AC_BND_5G;
-+	       band == BRCMU_CHSPEC_D11AC_BND_5G ||
-+	       (band == BRCMU_CHSPEC_D11AC_BND_6G &&
-+		cfg_to_wiphy(cfg)->bands[NL80211_BAND_6GHZ]);
- }
- 
- static s32 brcmf_inform_single_bss(struct brcmf_cfg80211_info *cfg,
-@@ -3374,20 +3430,17 @@ static s32 brcmf_inform_single_bss(struct brcmf_cfg80211_info *cfg,
- 	if (!brcmf_chanspec_supported(cfg, le16_to_cpu(bi->chanspec)))
- 		return 0;
- 
--	if (!bi->ctl_ch) {
--		ch.chspec = le16_to_cpu(bi->chanspec);
--		cfg->d11inf.decchspec(&ch);
-+	ch.chspec = le16_to_cpu(bi->chanspec);
-+	cfg->d11inf.decchspec(&ch);
-+	if (!bi->ctl_ch)
- 		bi->ctl_ch = ch.control_ch_num;
--	}
- 	channel = bi->ctl_ch;
--
--	if (channel <= CH_MAX_2G_CHANNEL)
--		band = NL80211_BAND_2GHZ;
--	else
--		band = NL80211_BAND_5GHZ;
-+	band = chanspec_band_to_nl80211(ch.band);
- 
- 	freq = ieee80211_channel_to_frequency(channel, band);
- 	bss_data.chan = ieee80211_get_channel(wiphy, freq);
-+	if (!bss_data.chan)
-+		return 0;
- 	bss_data.boottime_ns = ktime_to_ns(ktime_get_boottime());
- 
- 	notify_capability = le16_to_cpu(bi->capability);
-@@ -3459,7 +3512,7 @@ static s32 brcmf_inform_ibss(struct brcmf_cfg80211_info *cfg,
- 	struct brcmf_pub *drvr = cfg->pub;
- 	struct ieee80211_channel *notify_channel;
- 	struct brcmf_bss_info_le *bi = NULL;
--	struct ieee80211_supported_band *band;
-+	enum nl80211_band band;
- 	struct cfg80211_bss *bss;
- 	struct brcmu_chan ch;
- 	u8 *buf = NULL;
-@@ -3493,12 +3546,9 @@ static s32 brcmf_inform_ibss(struct brcmf_cfg80211_info *cfg,
- 	ch.chspec = le16_to_cpu(bi->chanspec);
- 	cfg->d11inf.decchspec(&ch);
- 
--	if (ch.band == BRCMU_CHAN_BAND_2G)
--		band = wiphy->bands[NL80211_BAND_2GHZ];
--	else
--		band = wiphy->bands[NL80211_BAND_5GHZ];
-+	band = chanspec_band_to_nl80211(ch.band);
- 
--	freq = ieee80211_channel_to_frequency(ch.control_ch_num, band->band);
-+	freq = ieee80211_channel_to_frequency(ch.control_ch_num, band);
- 	cfg->channel = freq;
- 	notify_channel = ieee80211_get_channel(wiphy, freq);
- 
-@@ -5843,6 +5893,9 @@ static int brcmf_cfg80211_get_channel(struct wiphy *wiphy,
- 	case BRCMU_CHAN_BAND_5G:
- 		band = NL80211_BAND_5GHZ;
- 		break;
-+	case BRCMU_CHAN_BAND_6G:
-+		band = NL80211_BAND_6GHZ;
-+		break;
+@@ -385,17 +400,7 @@ static u16 chandef_to_chanspec(struct brcmu_d11inf *d11inf,
+ 	default:
+ 		WARN_ON_ONCE(1);
  	}
+-	switch (ch->chan->band) {
+-	case NL80211_BAND_2GHZ:
+-		ch_inf.band = BRCMU_CHAN_BAND_2G;
+-		break;
+-	case NL80211_BAND_5GHZ:
+-		ch_inf.band = BRCMU_CHAN_BAND_5G;
+-		break;
+-	case NL80211_BAND_60GHZ:
+-	default:
+-		WARN_ON_ONCE(1);
+-	}
++	ch_inf.band = nl80211_band_to_chanspec_band(ch->chan->band);
+ 	d11inf->encchspec(&ch_inf);
  
- 	switch (ch.bw) {
-@@ -6563,7 +6616,7 @@ brcmf_bss_roaming_done(struct brcmf_cfg80211_info *cfg,
- 	struct brcmf_cfg80211_connect_info *conn_info = cfg_to_conn(cfg);
- 	struct wiphy *wiphy = cfg_to_wiphy(cfg);
- 	struct ieee80211_channel *notify_channel = NULL;
--	struct ieee80211_supported_band *band;
-+	enum nl80211_band band;
+ 	brcmf_dbg(TRACE, "chanspec: 0x%x\n", ch_inf.chspec);
+@@ -409,6 +414,7 @@ u16 channel_to_chanspec(struct brcmu_d11inf *d11inf,
+ 
+ 	ch_inf.chnum = ieee80211_frequency_to_channel(ch->center_freq);
+ 	ch_inf.bw = BRCMU_CHAN_BW_20;
++	ch_inf.band = nl80211_band_to_chanspec_band(ch->band);
+ 	d11inf->encchspec(&ch_inf);
+ 
+ 	return ch_inf.chspec;
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/p2p.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/p2p.c
+index 813cc15d8b87..06e0d90b194a 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/p2p.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/p2p.c
+@@ -958,7 +958,7 @@ brcmf_p2p_discover_listen(struct brcmf_p2p_info *p2p, u16 channel, u32 duration)
+ {
+ 	struct brcmf_pub *drvr = p2p->cfg->pub;
+ 	struct brcmf_cfg80211_vif *vif;
+-	struct brcmu_chan ch;
++	struct brcmu_chan ch = {};
+ 	s32 err = 0;
+ 
+ 	vif = p2p->bss_idx[P2PAPI_BSSCFG_DEVICE].vif;
+@@ -1092,7 +1092,7 @@ static s32 brcmf_p2p_act_frm_search(struct brcmf_p2p_info *p2p, u16 channel)
+ 	u32 channel_cnt;
+ 	u16 *default_chan_list;
+ 	u32 i;
+-	struct brcmu_chan ch;
++	struct brcmu_chan ch = {};
+ 
+ 	brcmf_dbg(TRACE, "Enter\n");
+ 
+@@ -2031,7 +2031,7 @@ static void brcmf_p2p_get_current_chanspec(struct brcmf_p2p_info *p2p,
+ {
+ 	struct brcmf_if *ifp;
+ 	u8 mac_addr[ETH_ALEN];
+-	struct brcmu_chan ch;
++	struct brcmu_chan ch = {};
  	struct brcmf_bss_info_le *bi;
- 	struct brcmu_chan ch;
- 	struct cfg80211_roam_info roam_info = {};
-@@ -6596,12 +6649,9 @@ brcmf_bss_roaming_done(struct brcmf_cfg80211_info *cfg,
- 	ch.chspec = le16_to_cpu(bi->chanspec);
- 	cfg->d11inf.decchspec(&ch);
+ 	u8 *buf;
  
--	if (ch.band == BRCMU_CHAN_BAND_2G)
--		band = wiphy->bands[NL80211_BAND_2GHZ];
--	else
--		band = wiphy->bands[NL80211_BAND_5GHZ];
-+	band = chanspec_band_to_nl80211(ch.band);
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmutil/d11.c b/drivers/net/wireless/broadcom/brcm80211/brcmutil/d11.c
+index 1e2b1e487eb7..6cd43920fe67 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmutil/d11.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmutil/d11.c
+@@ -87,7 +87,9 @@ static void brcmu_d11ac_encchspec(struct brcmu_chan *ch)
+ 			0, d11ac_bw(ch->bw));
  
--	freq = ieee80211_channel_to_frequency(ch.control_ch_num, band->band);
-+	freq = ieee80211_channel_to_frequency(ch.control_ch_num, band);
- 	notify_channel = ieee80211_get_channel(wiphy, freq);
- 
- done:
-@@ -7207,6 +7257,10 @@ static int brcmf_construct_chaninfo(struct brcmf_cfg80211_info *cfg,
- 		for (i = 0; i < band->n_channels; i++)
- 			band->channels[i].flags = IEEE80211_CHAN_DISABLED;
- 	band = wiphy->bands[NL80211_BAND_5GHZ];
-+	if (band)
-+		for (i = 0; i < band->n_channels; i++)
-+			band->channels[i].flags = IEEE80211_CHAN_DISABLED;
-+	band = wiphy->bands[NL80211_BAND_6GHZ];
- 	if (band)
- 		for (i = 0; i < band->n_channels; i++)
- 			band->channels[i].flags = IEEE80211_CHAN_DISABLED;
-@@ -7229,6 +7283,8 @@ static int brcmf_construct_chaninfo(struct brcmf_cfg80211_info *cfg,
- 			band = wiphy->bands[NL80211_BAND_2GHZ];
- 		} else if (ch.band == BRCMU_CHAN_BAND_5G) {
- 			band = wiphy->bands[NL80211_BAND_5GHZ];
-+		} else if (ch.band == BRCMU_CHAN_BAND_6G) {
-+			band = wiphy->bands[NL80211_BAND_6GHZ];
- 		} else {
- 			bphy_err(drvr, "Invalid channel Spec. 0x%x.\n",
- 				 ch.chspec);
-@@ -7406,11 +7462,17 @@ static void brcmf_get_bwcap(struct brcmf_if *ifp, u32 bw_cap[])
- 		bw_cap[NL80211_BAND_2GHZ] = band;
- 		band = WLC_BAND_5G;
- 		err = brcmf_fil_iovar_int_query(ifp, "bw_cap", &band);
--		if (!err) {
--			bw_cap[NL80211_BAND_5GHZ] = band;
-+		if (err) {
-+			WARN_ON(1);
- 			return;
- 		}
--		WARN_ON(1);
-+		bw_cap[NL80211_BAND_5GHZ] = band;
-+		if (!ifp->drvr->wiphy->bands[NL80211_BAND_6GHZ])
-+			return;
-+		band = WLC_BAND_6G;
-+		err = brcmf_fil_iovar_int_query(ifp, "bw_cap", &band);
-+		if (!err)
-+			bw_cap[NL80211_BAND_6GHZ] = band;
- 		return;
- 	}
- 	brcmf_dbg(INFO, "fallback to mimo_bw_cap info\n");
-@@ -7436,7 +7498,7 @@ static void brcmf_get_bwcap(struct brcmf_if *ifp, u32 bw_cap[])
- }
- 
- static void brcmf_update_ht_cap(struct ieee80211_supported_band *band,
--				u32 bw_cap[2], u32 nchain)
-+				u32 bw_cap[], u32 nchain)
- {
- 	band->ht_cap.ht_supported = true;
- 	if (bw_cap[band->band] & WLC_BW_40MHZ_BIT) {
-@@ -7463,7 +7525,7 @@ static __le16 brcmf_get_mcs_map(u32 nchain, int supp)
- }
- 
- static void brcmf_update_vht_cap(struct ieee80211_supported_band *band,
--				 u32 bw_cap[2], u32 nchain, u32 txstreams,
-+				 u32 bw_cap[], u32 nchain, u32 txstreams,
- 				 u32 txbf_bfe_cap, u32 txbf_bfr_cap)
- {
- 	__le16 mcs_map;
-@@ -7595,6 +7657,18 @@ static void brcmf_update_he_cap(struct ieee80211_supported_band *band,
- 		mcs->tx_mcs_160 = cpu_to_le16(0xffff);
+ 	ch->chspec &= ~BRCMU_CHSPEC_D11AC_BND_MASK;
+-	if (ch->chnum <= CH_MAX_2G_CHANNEL)
++	if (ch->band == BRCMU_CHAN_BAND_6G)
++		ch->chspec |= BRCMU_CHSPEC_D11AC_BND_6G;
++	else if (ch->chnum <= CH_MAX_2G_CHANNEL)
+ 		ch->chspec |= BRCMU_CHSPEC_D11AC_BND_2G;
+ 	else
+ 		ch->chspec |= BRCMU_CHSPEC_D11AC_BND_5G;
+@@ -222,6 +224,9 @@ static void brcmu_d11ac_decchspec(struct brcmu_chan *ch)
  	}
  
-+	if (band->band == NL80211_BAND_6GHZ) {
-+		u16 capa;
-+
-+		capa = FIELD_PREP(IEEE80211_HE_6GHZ_CAP_MIN_MPDU_START,
-+				  IEEE80211_HT_MPDU_DENSITY_8) |
-+		       FIELD_PREP(IEEE80211_HE_6GHZ_CAP_MAX_AMPDU_LEN_EXP,
-+				  IEEE80211_VHT_MAX_AMPDU_1024K) |
-+		       FIELD_PREP(IEEE80211_HE_6GHZ_CAP_MAX_MPDU_LEN,
-+				  IEEE80211_VHT_CAP_MAX_MPDU_LENGTH_11454);
-+		data->he_6ghz_capa.capa = cpu_to_le16(capa);
-+	}
-+
- 	band->n_iftype_data = 1;
- 	band->iftype_data = data;
- }
-@@ -7617,7 +7691,11 @@ static int brcmf_setup_wiphybands(struct brcmf_cfg80211_info *cfg)
- 	struct wiphy *wiphy = cfg_to_wiphy(cfg);
- 	u32 nmode;
- 	u32 vhtmode = 0;
--	u32 bw_cap[2] = { WLC_BW_20MHZ_BIT, WLC_BW_20MHZ_BIT };
-+	u32 bw_cap[NUM_NL80211_BANDS] = {
-+		[NL80211_BAND_2GHZ] = WLC_BW_20MHZ_BIT,
-+		[NL80211_BAND_5GHZ] = WLC_BW_20MHZ_BIT,
-+		[NL80211_BAND_6GHZ] = WLC_BW_20MHZ_BIT,
-+	};
- 	u32 rxchain;
- 	u32 nchain;
- 	int err;
-@@ -7636,9 +7714,9 @@ static int brcmf_setup_wiphybands(struct brcmf_cfg80211_info *cfg)
- 	} else {
- 		brcmf_get_bwcap(ifp, bw_cap);
- 	}
--	brcmf_dbg(INFO, "nmode=%d, vhtmode=%d, bw_cap=(%d, %d)\n",
-+	brcmf_dbg(INFO, "nmode=%d, vhtmode=%d, bw_cap=(%d, %d, %d)\n",
- 		  nmode, vhtmode, bw_cap[NL80211_BAND_2GHZ],
--		  bw_cap[NL80211_BAND_5GHZ]);
-+		  bw_cap[NL80211_BAND_5GHZ], bw_cap[NL80211_BAND_6GHZ]);
+ 	switch (ch->chspec & BRCMU_CHSPEC_D11AC_BND_MASK) {
++	case BRCMU_CHSPEC_D11AC_BND_6G:
++		ch->band = BRCMU_CHAN_BAND_6G;
++		break;
+ 	case BRCMU_CHSPEC_D11AC_BND_5G:
+ 		ch->band = BRCMU_CHAN_BAND_5G;
+ 		break;
+diff --git a/drivers/net/wireless/broadcom/brcm80211/include/brcmu_d11.h b/drivers/net/wireless/broadcom/brcm80211/include/brcmu_d11.h
+index f6344023855c..aae75329e266 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/include/brcmu_d11.h
++++ b/drivers/net/wireless/broadcom/brcm80211/include/brcmu_d11.h
+@@ -81,12 +81,13 @@
+ #define BRCMU_CHSPEC_D11AC_BND_MASK	0xc000
+ #define BRCMU_CHSPEC_D11AC_BND_SHIFT	14
+ #define  BRCMU_CHSPEC_D11AC_BND_2G	0x0000
+-#define  BRCMU_CHSPEC_D11AC_BND_3G	0x4000
++#define  BRCMU_CHSPEC_D11AC_BND_6G	0x4000
+ #define  BRCMU_CHSPEC_D11AC_BND_4G	0x8000
+ #define  BRCMU_CHSPEC_D11AC_BND_5G	0xc000
  
- 	err = brcmf_fil_iovar_int_get(ifp, "rxchain", &rxchain);
- 	if (err) {
-@@ -7674,11 +7752,14 @@ static int brcmf_setup_wiphybands(struct brcmf_cfg80211_info *cfg)
- 		if (band == NULL)
- 			continue;
+ #define BRCMU_CHAN_BAND_2G		0
+ #define BRCMU_CHAN_BAND_5G		1
++#define BRCMU_CHAN_BAND_6G		2
  
--		if (nmode)
--			brcmf_update_ht_cap(band, bw_cap, nchain);
--		if (vhtmode)
--			brcmf_update_vht_cap(band, bw_cap, nchain, txstreams,
--					     txbf_bfe_cap, txbf_bfr_cap);
-+		if (band->band != NL80211_BAND_6GHZ) {
-+			if (nmode)
-+				brcmf_update_ht_cap(band, bw_cap, nchain);
-+			if (vhtmode)
-+				brcmf_update_vht_cap(band, bw_cap, nchain,
-+						     txstreams, txbf_bfe_cap,
-+						     txbf_bfr_cap);
-+		}
- 		if (he_enable)
- 			brcmf_update_he_cap(band, &cfg->he_iftype_data[i],
- 					    bw_cap, nchain);
-@@ -7928,6 +8009,27 @@ static void brcmf_wiphy_wowl_params(struct wiphy *wiphy, struct brcmf_if *ifp)
- #endif
- }
- 
-+static struct ieee80211_supported_band *
-+brcmf_alloc_band(const struct ieee80211_supported_band *tmpl,
-+		 const struct ieee80211_channel *channels, size_t n_channels)
-+{
-+	struct ieee80211_supported_band *band;
-+
-+	band = kmemdup(tmpl, sizeof(*tmpl), GFP_KERNEL);
-+	if (!band)
-+		return NULL;
-+
-+	band->channels = kmemdup(channels, n_channels * sizeof(*channels),
-+				 GFP_KERNEL);
-+	if (!band->channels) {
-+		kfree(band);
-+		return NULL;
-+	}
-+	band->n_channels = n_channels;
-+
-+	return band;
-+}
-+
- static int brcmf_setup_wiphy(struct wiphy *wiphy, struct brcmf_if *ifp)
- {
- 	struct brcmf_pub *drvr = ifp->drvr;
-@@ -8041,41 +8143,36 @@ static int brcmf_setup_wiphy(struct wiphy *wiphy, struct brcmf_if *ifp)
- 			if (wiphy->bands[NL80211_BAND_2GHZ])
- 				break;
- 
--			band = kmemdup(&__wl_band_2ghz, sizeof(__wl_band_2ghz),
--				       GFP_KERNEL);
-+			band = brcmf_alloc_band(&__wl_band_2ghz,
-+						__wl_2ghz_channels,
-+						ARRAY_SIZE(__wl_2ghz_channels));
- 			if (!band)
- 				return -ENOMEM;
--
--			band->channels = kmemdup(&__wl_2ghz_channels,
--						 sizeof(__wl_2ghz_channels),
--						 GFP_KERNEL);
--			if (!band->channels) {
--				kfree(band);
--				return -ENOMEM;
--			}
--
--			band->n_channels = ARRAY_SIZE(__wl_2ghz_channels);
- 			wiphy->bands[NL80211_BAND_2GHZ] = band;
- 			break;
- 		case WLC_BAND_5G:
- 			if (wiphy->bands[NL80211_BAND_5GHZ])
- 				break;
- 
--			band = kmemdup(&__wl_band_5ghz, sizeof(__wl_band_5ghz),
--				       GFP_KERNEL);
-+			band = brcmf_alloc_band(&__wl_band_5ghz,
-+						__wl_5ghz_channels,
-+						ARRAY_SIZE(__wl_5ghz_channels));
- 			if (!band)
- 				return -ENOMEM;
-+			wiphy->bands[NL80211_BAND_5GHZ] = band;
-+			break;
-+		case WLC_BAND_6G:
-+			/* cfg80211 requires HE on the 6 GHz band */
-+			if (wiphy->bands[NL80211_BAND_6GHZ] ||
-+			    !brcmf_he_enabled(ifp))
-+				break;
- 
--			band->channels = kmemdup(&__wl_5ghz_channels,
--						 sizeof(__wl_5ghz_channels),
--						 GFP_KERNEL);
--			if (!band->channels) {
--				kfree(band);
-+			band = brcmf_alloc_band(&__wl_band_6ghz,
-+						__wl_6ghz_channels,
-+						ARRAY_SIZE(__wl_6ghz_channels));
-+			if (!band)
- 				return -ENOMEM;
--			}
--
--			band->n_channels = ARRAY_SIZE(__wl_5ghz_channels);
--			wiphy->bands[NL80211_BAND_5GHZ] = band;
-+			wiphy->bands[NL80211_BAND_6GHZ] = band;
- 			break;
- 		default:
- 			brcmf_dbg(INFO, "ignoring unsupported band %u\n",
-@@ -8610,13 +8707,11 @@ static void brcmf_free_wiphy(struct wiphy *wiphy)
- 			kfree(wiphy->iface_combinations[i].limits);
- 	}
- 	kfree(wiphy->iface_combinations);
--	if (wiphy->bands[NL80211_BAND_2GHZ]) {
--		kfree(wiphy->bands[NL80211_BAND_2GHZ]->channels);
--		kfree(wiphy->bands[NL80211_BAND_2GHZ]);
--	}
--	if (wiphy->bands[NL80211_BAND_5GHZ]) {
--		kfree(wiphy->bands[NL80211_BAND_5GHZ]->channels);
--		kfree(wiphy->bands[NL80211_BAND_5GHZ]);
-+	for (i = 0; i < NUM_NL80211_BANDS; i++) {
-+		if (!wiphy->bands[i])
-+			continue;
-+		kfree(wiphy->bands[i]->channels);
-+		kfree(wiphy->bands[i]);
- 	}
- #if IS_ENABLED(CONFIG_PM)
- 	if (wiphy->wowlan != &brcmf_wowlan_support)
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pno.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pno.c
-index d9fc94076791..ba62ab41bae1 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pno.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pno.c
-@@ -278,6 +278,9 @@ static int brcmf_pno_get_bucket_channels(struct cfg80211_sched_scan_request *r,
- 	int i, err = 0;
- 
- 	for (i = 0; i < r->n_channels; i++) {
-+		/* bare channel numbers cannot identify 6 GHz channels */
-+		if (r->channels[i]->band == NL80211_BAND_6GHZ)
-+			continue;
- 		if (n_chan >= BRCMF_NUMCHANNELS) {
- 			err = -ENOSPC;
- 			goto done;
-diff --git a/drivers/net/wireless/broadcom/brcm80211/include/brcmu_wifi.h b/drivers/net/wireless/broadcom/brcm80211/include/brcmu_wifi.h
-index c465208c4331..aa692dcc00d6 100644
---- a/drivers/net/wireless/broadcom/brcm80211/include/brcmu_wifi.h
-+++ b/drivers/net/wireless/broadcom/brcm80211/include/brcmu_wifi.h
-@@ -93,6 +93,7 @@
- #define	WLC_BAND_5G			1	/* 5 Ghz */
- #define	WLC_BAND_2G			2	/* 2.4 Ghz */
- #define	WLC_BAND_ALL			3	/* all bands */
-+#define	WLC_BAND_6G			4	/* 6 Ghz */
- 
- #define CHSPEC_CHANNEL(chspec)	((u8)((chspec) & WL_CHANSPEC_CHAN_MASK))
- #define CHSPEC_BAND(chspec)	((chspec) & WL_CHANSPEC_BAND_MASK)
+ enum brcmu_chan_bw {
+ 	BRCMU_CHAN_BW_20,
 
 -- 
 2.56.0
