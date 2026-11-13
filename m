@@ -1,47 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794584678;
-	b=Hb3+zozKsrkgvEf9xr2TaxO7ZlAODnRsBSeO0ZnoOMShPMO2DLyEBCULilM/EYmLtbfr
-	 o4TQG6nMqU5u5xJ/NccfOqQC8j+UpQ6bSCaCf7/Vw+WYbYalOEivDuJcl8/E7bDmlGh8v
-	 hdP6U4zG8LHIc/mBW3d7tY4qHBicxR/Iojqep/r0O8eLKNwxMG8vbNArL6tweIWcnBesZ
-	 TiWovhxHVd19DMX3Ol483HIKlM7pOdXvRlBNWTsnKKhfVACRO2WxzkQs7eA7N8PltRbg7
-	 b+NKLruvwajg7WQcbff/V0/S0hp1W00W5j3Xd2iwUwIt/E2PTbMdj3tQ6bdR4gENNwQ==
+	t=1794584681;
+	b=Jx001Q+pNrxao6gc4IbIoWICPaAk7zoIZ1Le/VoAbJjL0Jz0ebSRFJ/xJRIGS9N71rRi
+	 rdWXcyolZm/AtrHsZ2Iuy9g2sa0fqON5hB9wFvgp05JKaWm/R9l8jtVpHs3PoXE7m8Kva
+	 2mPr2Rv5m39tGUVDGsg+B+133Yj0gUVbIGXm2DdfFYD6csPVRYk9m0czWdWGLN38jz6C/
+	 oQ0gaTjgJT51rIjoj4nvbO22m0Y6GQOiitJRgUYF2CQCABfWd9OHlAnZS1JZGJiOPDNiQ
+	 V+++YmCSsrgG/7sIun034BsDL/5tLnFGT0BKzkbjCf6WtMS8oBd7gMkiTLWYllpO8nQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794584678;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=PbD4AtMB8bc+XYwJsGjxS6XrtV8DXvidAzLVTNW7qq0=;
-	b=GBr/gQYvlwSx54HZUFWSVCnCUkJOVWe9a09bit5qWUwnUClVdeAZlvGaVIN0owB3P0Qw
-	 w5nfq2xZjjF9O71g8RAFOISPjOx8XFFXJ6TEfwzyIFX69XwWyxItciOXouhenv/vTxC0A
-	 2DW/nv6oVyu2HA2kz3ev0G7CEl/XNcKnacw1XHX5U8475g6EqCCnmrw0dIAzGva/coGKf
-	 VZ0xHRGP+KD304CzeGnmfWP3ci1yR4WfClJWppBZtnHrO209s0vvl2bV/2n7Egscy4+cD
-	 DjMqI5ycCyZsC0Al6pNBYokLo6poZTnQW1dtOO63yWWW9U5eAzjaj4pSJM5f5xASIlQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794584681;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=k3fq7sobyjyzCNZzJN1bjMh/9ywA3Vs0nu6XoBVK3sc=;
+	b=WgkeHHlJdQbuIMR5vsV62z04HcLjRBK4cF3Q0NszFpN/3/pAOqI/ucZPyWPG268YaGbH
+	 gpIdlwWRATfau1yzawVU2x8yXhTToH8Ima8+haTg7PLrrfl3ap5jqpPTAIUJrqte0mDcP
+	 q3KrT+nW2hWO86vwro7qwtzw95Y3mTlkev35ifppqdTpqGAX7rCSYQfmQNaXFnmXMMsgn
+	 8tz02NnfoU+QmsGWu0xUX1y1ru0jMzph61pmSj6wrb9ufLv0vLUP+fGUrSC921y19OoLI
+	 3+aQ9h8xQcfwABvoRpXVnsPlquYbGagPQAwtTlONZUs41fRZqE7bHrK8xZOveEJKM7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D+6TskSy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Slc2SJQy;
+	arc=none smtp.remote-ip=209.85.216.42
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50A9D606A327;
-	Fri, 13 Nov 2026 15:44:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AA8B606A887
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:44:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AA8B606A887
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D+6TskSy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 446111F000C4;
-	Fri, 13 Nov 2026 15:44:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794584678;
-	bh=PbD4AtMB8bc+XYwJsGjxS6XrtV8DXvidAzLVTNW7qq0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=D+6TskSyn0FKpFu5tg/C7jAmpR5r/CKULYkdn4H71AEu0ZAs9GFKfxg7OI7ZpOVRP
-	 PjKWss5sth0A9kyeIT+Xw650IetB4HFv44Fcbc83BAOBuG1CEUizlfVq7hXMptDdkB
-	 S6LonQFgC5YlwuVsEcMamNf0FmLS4x11t3ePv6T4BrvdqlMLSlSITqks+AX2DUR/tU
-	 Uaew2SvQbL8Ifz3lxo+XwVuecy1lCOsirWJbbk3MonDPJ7ApEh4AyKuSE/HLjy0dRx
-	 5C/kV1s5GzQMpBi4muWFF3VXOCHh7qpkf9DC1XD4lh8bHu2DNMIXtl3hSBBmOZDHoA
-	 HdVlrjdk+Kb5Q==
-Message-ID: <5a61c395-9eef-4c97-99a5-30f434ad2c7e@kernel.org>
-Date: Fri, 13 Nov 2026 16:44:29 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Slc2SJQy
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3b0d0b80fb9so1070472a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:44:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794584680; x=1795189480; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=k3fq7sobyjyzCNZzJN1bjMh/9ywA3Vs0nu6XoBVK3sc=;
+        b=Slc2SJQy0o+vUZrOsbK+aKIq4EI0IHDy5IaM1eGdDPfCjxpZVYHQRuNfeHwqf6EE6t
+         uwe+ey69VctbElih+X+LuaQG0m6fCoNJ6X0jubKAuhE5NmAp4SnGSOD4nPq0XCLxiMLF
+         1Gfyzm+E0NbITwpwTA15YJLNWbWKeIWKus8Mknj8dneQl0DuwXpSaSxle+DK0ZJqIJx5
+         oa9djP2LKWzb142nfgp2ONsXcM4CZTBRZB4cOdKcqB+B5c4GTwiiVobD+iH3BnvlarRv
+         Xdr3E6WRS8XlHl2uVy24nNE8+GDhFQGkJgMTw1bBsJIO8CbaCnKvlkVgYMU+tVgfroam
+         OTmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794584680; x=1795189480;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=k3fq7sobyjyzCNZzJN1bjMh/9ywA3Vs0nu6XoBVK3sc=;
+        b=MGay+uZAwBzi8sestEztsidPhBAUS/0jUR0ePcTJRelN6JZBrkf16NYBYti1SnZS4j
+         9/dsCLuUBMB0txp4tzSq27Ld7GxYDpHh5qydirkwW7Ws8XKACATkYIZf9RdlrQ+mQ/Ow
+         JuY7wJ57sb6vl7zaPmGwO6S//C3t7qB/ECZ+Rf2l+RVM5DR2VjgG0vFVUN2X/keWlrcN
+         H65Uuc+XoPSnguptdqaM4qoY+hKdCvFf7j8+0ZgrXEtnCTgWNfvF1y15F53lqe0ol12L
+         1AL/0IGTseVPROPfiplYTtHMgh7zDUguNdIqz1i0bXmJATV7F1LT2iWAymgFPtCNAFNO
+         H0zw==
+X-Forwarded-Encrypted: i=1; AL+hErGKI6N+F45mToBWNUnWc1TZ3VXb4uiwoRzCfuA1C++JPejRFhmoGYED7iTXGPJMAgLOPn2M0xH/rnEw6sE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8U3PMamHBRkdAjHDqtKrcQHuypx87oN6+UkdKaZrG0uc2cFvQY
+	6j7eosFihQpHlfrwcEx41YwUokkEUEKKib3lpPu0qi4WajYkCKZpShWpo/EJ+Q==
+X-Gm-Gg: AYBFou2K37Tn10YhIhWqWeEwRe8QSqCAX5pnLyVKXqkk9s561J/5erFsawVb7xGW/kw
+	LNRCQs00oDhbKGXsZaTEZuWUCkL2kQ3Ds5oauFbxNAwp9I3Q9I+VQvyxBSWQuAfo9r1sKGAaZMO
+	1S5u9UwLOMkxAT2+BEbKGpsPlOJlW8vhU3aQaHeGuouZueq01NZOArxPjh0T/LIIL8xtwwn0gTo
+	Uwo0+5uYuvsGIoGXjrlKPlG6HlLrsX8Bg59bSxMYncVm9UtUBBZcfG7g3spatIaRC/XEoiBuK0n
+	h70H2RmijDbF9apkvYD9DW8ANg6vGXCu5cRVr55K2HnVwtICuz7WIhruBN2XW1YD/Ya7rFLU6mz
+	pap/2VwFUVmGA1+BFUzMyAAsUc4GtSzYrEghpJr1Ksge0WmsNuG+emqd8a+jCFwroF4kBqLjNbq
+	q98tStiexpsUeh3mAv2MrO2ASAwU9qrLFXNA/UacekrnokzP4sahniJPFThQTUS96w8P5aRQjq4
+	+fNJ0yndB91MUxd+0iuPm2DOkgldZqotuUd+ZG4NQ/8lNpQIi0NVWZFE/9hfqab4xfMoYkkxv/u
+	VMHqdE3LlZV0GfYy5QX8bUPeYy8cXn306L/wKJtnrKfJ4PdMaYXRHE9gthvTCARZLy5JLOs=
+X-Received: by 2002:a17:90a:d44e:b0:3ac:8527:3fc5 with SMTP id 98e67ed59e1d1-3b1b081b149mr2743869a91.3.1794584679691;
+        Fri, 13 Nov 2026 07:44:39 -0800 (PST)
+Received: from localhost (218-35-178-218.cm.dynamic.apol.com.tw. [218.35.178.218])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b3b110c0sm2064587a91.3.2026.11.13.07.44.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 07:44:39 -0800 (PST)
+From: Kurt Lin <lylin1023@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Shuah Khan <shuah@kernel.org>
+Cc: Kevin Brodsky <kevin.brodsky@arm.com>,
+	Alexey Dobriyan <adobriyan@gmail.com>,
+	Swarup Laxman Kotiaklapudi <swarupkotikalapudi@gmail.com>,
+	linux-kselftest@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Kurt Lin <lylin1023@gmail.com>
+Subject: [PATCH v2] selftests/proc: proc-empty-vm: handle CPUs without protection keys
+Date: Fri, 13 Nov 2026 23:44:11 +0800
+Message-ID: <20261113154411.568272-1-lylin1023@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261109151912.156518-1-lylin1023@gmail.com>
+References: <20261109151912.156518-1-lylin1023@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,120 +103,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] arm64: dts: qcom: add device tree for Asus Vivobook
- 16 X1607QA
-To: yass27106 <yass27106@gmail.com>, andersson@kernel.org,
- broonie@kernel.org, srini@kernel.org, konradybcio@kernel.org
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- vkoul@kernel.org, tiwai@suse.com, perex@perex.cz, lgirdwood@gmail.com,
- pierre-louis.bossart@linux.dev, yung-chuan.liao@linux.intel.com,
- abelvesa@kernel.org, linux-arm-msm@vger.kernel.org,
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <01b2c920412848ab85493acc2d4f5fc1@gmail.com>
- <5cfd0705da5845b88ffe6d9e8bfeb966@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <5cfd0705da5845b88ffe6d9e8bfeb966@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 13/11/2026 14:24, yass27106 wrote:
-> arch/arm64/boot/dts/qcom/Makefile             |   1 +
+On x86 CPUs without protection keys, pkey_alloc() fails with ENOSPC,
+as documented in pkey_alloc(2). protection_key_support() only expects
+ENOSYS or EINVAL, so the test fails on such machines, e.g. an Intel
+Core i5-7200U:
 
-Please run scripts/checkpatch.pl on the patches and fix reported
-warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
-patches and (probably) fix more warnings. Some warnings can be ignored,
-especially from --strict run, but the code here looks like it needs a
-fix. Feel free to get in touch if the warning is not clear.
+  protection_key_support: error: rv -1, errno 28
 
-Please read submitting patches document to understand DCO.
+Before commit dee87e09b0dd ("x86/pkeys: Fix pkey_alloc() return value
+when pkeys are not supported"), the first pkey_alloc() call on such
+CPUs wrongly returned EINVAL, so the failure only shows up on kernels
+with that fix.
 
-Looks like completely corrupted anonymous patch.
+Treat ENOSPC as "no protection key support" as well. Keep accepting
+EINVAL for kernels before v7.3.
 
->  .../x1p42100-asus-vivobook-16-x1607qa.dts     | 239 ++++++++++++++++++
->  2 files changed, 240 insertions(+)
->  create mode 100644 arch/arm64/boot/dts/qcom/x1p42100-asus-vivobook-16-x1607qa.dts
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-> index 88230c4e00e..7332a73dbac 100644
-> --- a/arch/arm64/boot/dts/qcom/Makefile
-> +++ b/arch/arm64/boot/dts/qcom/Makefile
-> @@ -509,6 +509,7 @@ x1e80100-qcp-el2-dtbs	:= x1e80100-qcp.dtb x1-el2.dtbo
->  dtb-$(CONFIG_ARCH_QCOM)	+= x1e80100-qcp.dtb x1e80100-qcp-el2.dtb
->  x1p42100-asus-vivobook-s15-el2-dtbs	:= x1p42100-asus-vivobook-s15.dtb x1-el2.dtbo
->  dtb-$(CONFIG_ARCH_QCOM)	+= x1p42100-asus-vivobook-s15.dtb x1p42100-asus-vivobook-s15-el2.dtb
-> +dtb-$(CONFIG_ARCH_QCOM)	+= x1p42100-asus-vivobook-16-x1607qa.dtb
->  x1p42100-asus-zenbook-a14-el2-dtbs	:= x1p42100-asus-zenbook-a14.dtb x1-el2.dtbo
->  dtb-$(CONFIG_ARCH_QCOM)	+= x1p42100-asus-zenbook-a14.dtb x1p42100-asus-zenbook-a14-el2.dtb
->  x1p42100-asus-zenbook-a14-lcd-el2-dtbs	:= x1p42100-asus-zenbook-a14-lcd.dtb x1-el2.dtbo
-> diff --git a/arch/arm64/boot/dts/qcom/x1p42100-asus-vivobook-16-x1607qa.dts b/arch/arm64/boot/dts/qcom/x1p42100-asus-vivobook-16-x1607qa.dts
-> new file mode 100644
-> index 00000000000..fc572d779b3
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/x1p42100-asus-vivobook-16-x1607qa.dts
-> @@ -0,0 +1,239 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +/* Hybrid device tree for ASUS Vivobook 16 X1607QA (X1P-42-100).
-> + * Base: proven x1p42100-asus-vivobook-s15 (panel, USB, boot path).
-> + * Transplanted from x126100-asus-vivobook-16: audio stack
-> + * (WCD9385 codec, WSA8845 speakers, soundwire, sndcard) + firmware paths.
-> + */
-> +
-> +/dts-v1/;
-> +
-> +#include "purwa.dtsi"
-> +#include "x1-asus-vivobook-s15.dtsi"
-> +
-> +/ {
-> +	model = "ASUS Vivobook 16 (X1607QA)";
-> +	compatible = "asus,vivobook-16-x1607qa", "qcom,x1p42100";
+An AI coding assistant (Claude) was used to analyze the failure and to
+draft the fix and this changelog. Tested on v7.4-rc1 on the machine
+above; the test now passes.
 
-Missing bindings.
+Fixes: bf5add391eeb ("proc: test ProtectionKey in proc-empty-vm test")
+Reviewed-by: Kevin Brodsky <kevin.brodsky@arm.com>
+Signed-off-by: Kurt Lin <lylin1023@gmail.com>
+---
+v2:
+- Mention commit dee87e09b0dd, which made the failure visible (Kevin)
+- Add Reviewed-by from Kevin
 
-Best regards,
-Krzysztof
+v1: https://lore.kernel.org/linux-kselftest/20261109151912.156518-1-lylin1023@gmail.com/
+
+ tools/testing/selftests/proc/proc-empty-vm.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/tools/testing/selftests/proc/proc-empty-vm.c b/tools/testing/selftests/proc/proc-empty-vm.c
+index b3f898aab4ab..a9d3c973a663 100644
+--- a/tools/testing/selftests/proc/proc-empty-vm.c
++++ b/tools/testing/selftests/proc/proc-empty-vm.c
+@@ -77,6 +77,9 @@ static int protection_key_support(void)
+ 	} else if (rv == -1 && errno == EINVAL) {
+ 		// ospke=n
+ 		return 0;
++	} else if (rv == -1 && errno == ENOSPC) {
++		// CPU without protection keys
++		return 0;
+ 	} else {
+ 		fprintf(stderr, "%s: error: rv %ld, errno %d\n", __func__, rv, errno);
+ 		exit(EXIT_FAILURE);
+-- 
+2.56.0
+
