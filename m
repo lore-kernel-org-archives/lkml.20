@@ -1,75 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794577817;
-	b=znaLcw6To1bRlLmY0d/Rde1/L4pMAazXA5OO+/YitHb18ahRqgtAQ5czHzkesOhMS1L+
-	 PZ47QD8Y7AC94VS8NrX5cf+yOt7aH+1cr2O7LaD+YGQG+3XoFeovVLCynQUcSQUZkicML
-	 /ZYZWOxxCByWytW0ZHtbfnIZwSIdNgNjIHH8iF0cjqwjUdUu6GiwxLF9dtTlKt0FM8Fa0
-	 DEEcCDEwGMSeqRLm7UR1yJyfXQ7aI8nJUnGpA0indHXYIpwWUuQiQVc4jeZPeTOAKbBVG
-	 8tByVSw0uPelrCYvtM1C/Ft84zajK6zOFHjdPNT4mNmFuziq4OdFPPekyllE7IEbl3w==
+	t=1794577825;
+	b=Z6YCugCV3IYOZX8xkRovtZhYCoHbASaOSbY3ehp8/535y3O0jXCxy6FQUgRz8XRRro2C
+	 dpGQDmm/yV0WqTQMRvLa/e1pXYbt/8G/WJcjHU2IhCb/QiUKIu3L/7Xfc7hOiLqWfRHk0
+	 Y058gz20XaDQJjjhMoQh5xZ37wyMk7K3wSgtq7Kc+ep1ck7ILp0StoiLguJSlXlZDfMsr
+	 G+FZ6GBICZ9WwGul5hetLhRQaK44GrrVDRx5u/wIV21a3coqhpPV2OuXpNCHtuseWY+E2
+	 QcbDA2KWNPewkuDhgPPhMAwvzU4GAyLMg0iYTovTo9dGni8TTVkIb8AAYlEkXWOXgYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794577817;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794577825;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=jb7nyjamFgcgVR3nOIWVWhlGLSSmfYZaeBbucH4zfgQ=;
-	b=PXBWBgOAzndX9VegRNCaV/0r0z/u7bqYhEvVwGs5yjfvALjWUmxvgRiXEnu6di3afeJA
-	 O1EMzDlRbyxv3AJnYd4Zj0rH6yPzqL9cPFCzmbSh2DaPBQv89bB5q5R/lNkGgWFygJOqC
-	 FP9ZfdO7Py7XGIa1pcIqNeuTdwtsAk1kwsU3ff+0KSiZG+nqQHu4oGrgatjNcGhAd4URO
-	 7CK4ZUQCoKTAgLyhCbmd2fDP4omWa58S6+K4bCQPB/V8gV3LO4HmyYeMxmNeNpC5b4cvm
-	 Ct7g5m9tzBsIckr6c1J0DgBGvnCjga5jsj/01WIcSKel6s0tfrMkdnxNtIt0rx1PgKQ==
+	bh=Zqxp8I5tFMzdgWo41Sp5SqieihB7XXuPvOoZVDMQ8Uo=;
+	b=5GyF64RYjAHwcqxKfGuDmse52wItyKno7JSMPV/kzMOsTXos6bIBvPw2H+eSl/BeI9WP
+	 hMFcYwfabr0gaV0jVMmp8AhvjDvUbNo1BXa0kZM1BTSAzjV3wleaoqomSJzqdrnTR+XPb
+	 zZFO3naiE6jx/L7zEHt590yVhowVMblv2mFWnfLmXNh8bqKcGr+3mfZZ/00L7VuqDQ1Wd
+	 cXyEkJsEtC60SZlq1Y6gdhLuSnz2S7tDtxn7dylf9ShKJ876LZ3lR1vm007XfeIrhwrQd
+	 EhcsJleBO5smqDHL4ehckUCSOxrVY090viNG2lDSjtV8Uo13YL1jUeny1MWJCrxen5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JQcimdpd;
-	arc=none smtp.remote-ip=209.85.214.197
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lUTG+q5X;
+	arc=none smtp.remote-ip=209.85.216.70
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E744B606A887
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:50:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E744B606A887
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B647660A260C
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:50:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B647660A260C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JQcimdpd
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2ed2c307e62so17435065ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:50:16 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lUTG+q5X
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3b07b06027eso1374229a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:50:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794577816; x=1795182616; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794577824; x=1795182624; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=jb7nyjamFgcgVR3nOIWVWhlGLSSmfYZaeBbucH4zfgQ=;
-        b=JQcimdpd5VGkIluNchEtbtDbMjOM0kaWOiF9OJuCXa1gzUYQbxhfNWYZSf8UG6BoUE
-         KWfsDT3+Xb61Hj/Ai8x+SlmIPU13fa8jZChlmYlcgPcNoC5SYprvuAprp7m2kDl+bWo9
-         vH4uRPmu0yHl/VfZAOjwtu6yXv45abZRnTVq4gxrUaaKGnKR+g6l4YHkK9MJ85a+rn62
-         Ouukbw0P6DGIXQDUrjneLcBnPBiP3T4P/Hgdv5QKlnIKAJ3EqdpsjTm7xpwcyUOK894G
-         i5eZP+RqvdlSV22PezaQJOMqueiv8csxBJufcNMo5uXwOFosPtd1/hGXV/U43BpPKiHC
-         zXxQ==
+        bh=Zqxp8I5tFMzdgWo41Sp5SqieihB7XXuPvOoZVDMQ8Uo=;
+        b=lUTG+q5XI2MbQizU4uwiiAtAgyxFq9jqb1nNLCQ4ABT8K/of110pEqsw45kldSobU3
+         hUeo0mqy7S6d99KSGMX3p7yIwBFkpdKmi+s1HIJsecVqHqKr24Zd7i5MB5gxYkDQQlN0
+         61GHtDIdgOdg6IrtkR2hAgBCFEzOyE0r+CS9pKgc+XTETvrlLlDhf6JepZxYEB6v2bjq
+         UiDjgfinC2q3pkT+ihsPR5TWCRJSz8Sh0KF3aVBT4/GhRNTkQQB1BG4BhQwt+FiOrW4e
+         Y9wfwb4DjWJldkYGUA6U5DSTItcYh8k+pfE7b+Vo7GxYGUgtR5skyh2l6USA337axdOV
+         JEUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794577816; x=1795182616;
+        d=1e100.net; s=20260707; t=1794577824; x=1795182624;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jb7nyjamFgcgVR3nOIWVWhlGLSSmfYZaeBbucH4zfgQ=;
-        b=PvYOOQ3c60bAtouCkbO4Tvo6kUDEx29XgGvJ2QFQXIENIn8yUr9/b+Ap/5aA4Xdc/z
-         mhO0CxSGB0wy1qO80CO+6VfDk60IdNx1+UlfVOU29TrK6h9JRgZYDPpdkbvcEgUjEQar
-         BIlM/c6poUqss8R6LaDzfINWwQw6PawvryFVBesanqrjeGQ+Thkwh0BXVyciAyx33ThF
-         aBdXWkqEEAETzlIgA3wtW85gP3os0A58PPh1kTeIGRaPfP4E2+b28LH/atLG1TraL8bS
-         xdaIfvnXudiVtRDvWZy07X9wcjrmFhM7e081NZCL6btHilO9qOsFp+xw/EwviN5l8lM5
-         pVYw==
-X-Forwarded-Encrypted: i=1; AL+hErFlfIbQBJWurHYTWYtudV0RuleM5b0D9ApT87m5Q+zBmK1ypkF4cRtO5DObAjeXaBekg9U9trPlXt2Q/s0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/8WP+M+sw0qQy6eNBaj0XvlLKoH/XeORdG1km2OnbqimpRwHvQ
-	2qxzsoM9p7VY7CNp7QXuQZhtZzG57qKccc5XqCp0PYZXQZ1aI/LjNT46RQ84WmUfog+cdeW2QQU
-	22b3WzA==
-X-Received: from plnm14.prod.google.com ([2002:a17:902:fdae:b0:2e8:ea16:c701])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:41c6:b0:2ed:205e:eabc
- with SMTP id d9443c01a7336-2ee0dad02dfmr27151415ad.32.1794577816132; Fri, 13
- Nov 2026 05:50:16 -0800 (PST)
-Date: Fri, 13 Nov 2026 05:46:52 -0800
-In-Reply-To: <20261024174525.1218244-1-sashal@kernel.org>
+        bh=Zqxp8I5tFMzdgWo41Sp5SqieihB7XXuPvOoZVDMQ8Uo=;
+        b=TT6FJaJ/Rlhz1SUARJ9idY50LnYW9WGSTNP1W22qcgGstXyrbOF3//+8Z1YXi2UVBY
+         W7VliprbMvsnLwR+KuWaUf6jukOswsLvW+D0Zy6D2EAcPMia3q6ImrhPe2NGYvk2CXyM
+         WoMHNiCH3KFxZLFgdLoSdn0gtaAgZTdLb0LOpBCpetdswDt4sTC5db3EeFB8sOxAvLcB
+         oYXRQiz9xDwRuJEmsr0veVuTon6MsqsaqUCA0FDoVWBNnODIL+TsowZZsL7ikjvsaT/F
+         ph9zif1TtgmNczfPMNURHW3dox3CK7TFBs9DnCBrbzHAa80rUlQFmWGQ6URV0D9zbHGQ
+         PBkA==
+X-Forwarded-Encrypted: i=1; AL+hErHvgD1dP+Rb3v7L0Bi6TnASic8uwPxvDL7AhDWqqoFHljFCT1u2HX9V9Me74ED737TzZumDGI/Re1Cu0xs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+khvlgdyi1kTL3GC51sKUam1+MRlQO+8tvZo51W45M0ADQEctn
+	umlNICvpvyV5ZAU6W9mlGh8JOVsQv8k/dWx0ns3r18cZ8zNH6aEuCHCePaxGPT5Am0Y6eVcn1zS
+	9tYlYHQ==
+X-Received: from pjblk18.prod.google.com ([2002:a17:90b:33d2:b0:3b0:b36b:66fb])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4acb:b0:3a4:f75d:d194
+ with SMTP id 98e67ed59e1d1-3b1b0a20d40mr2509161a91.36.1794577823926; Fri, 13
+ Nov 2026 05:50:23 -0800 (PST)
+Date: Fri, 13 Nov 2026 05:46:54 -0800
+In-Reply-To: <20261022193808.557206-1-seanjc@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,33 +79,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-References: <20261024174525.1218244-1-sashal@kernel.org>
+References: <20261022193808.557206-1-seanjc@google.com>
 X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <179441787535.77103.9188676623707194015.b4-ty@b4>
-Subject: Re: [PATCH] KVM: x86: Compute the max guest TSC frequency from the
- current tsc_khz
+Message-ID: <179441775604.76179.10722589436007929167.b4-ty@b4>
+Subject: Re: [PATCH] KVM: x86: Ratelimit all I/O APIC and local APIC kernel
+ log messages
 From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Sasha Levin <sashal@kernel.org>
-Cc: Vitaly Kuznetsov <vkuznets@redhat.com>, Jim Mattson <jmattson@google.com>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Chris Mason <mason@kernel.org>, Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>, 
+	Josef Bacik <josef@toxicpanda.com>
 Content-Type: text/plain; charset="utf-8"
 
-On Sat, 24 Oct 2026 13:45:25 -0400, Sasha Levin wrote:
-> KVM computes the highest frequency that KVM_SET_TSC_KHZ accepts once,
-> during vendor init, from the tsc_khz of the time. When KVM is built in,
-> that runs before tsc_refine_calibration_work() refines tsc_khz, about a
-> second later. If refinement raises tsc_khz, the cap stays below what the
-> maximum scaling ratio gives for the refined frequency, and
-> KVM_SET_TSC_KHZ rejects frequencies that set_tsc_khz() would accept, as
-> set_tsc_khz() computes the ratio from the current tsc_khz.
+On Thu, 22 Oct 2026 12:38:08 -0700, Sean Christopherson wrote:
+> Ratelimit all of the kernel messages in the APIC code, as every single one
+> can be triggered at will by the guest.
+> 
+> Opportunistically use the more modern APIs so that the messages are run
+> through pr_fmt(), i.e. get prefixed with KVM's name and info.
+> 
 > 
 > [...]
 
 Applied to kvm-x86 misc, thanks!
 
-[1/1] KVM: x86: Compute the max guest TSC frequency from the current tsc_khz
-      https://github.com/kvm-x86/linux/commit/87ea335ed2bc
+[1/1] KVM: x86: Ratelimit all I/O APIC and local APIC kernel log messages
+      https://github.com/kvm-x86/linux/commit/48f7e6d7ef7f
 
 --
 https://github.com/kvm-x86/linux/tree/next
