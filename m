@@ -1,68 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794579978;
-	b=aEOR4ad+iQaC8fm6pj0d51zJ04NTkN7sPspJrF8NsWhGqFtoe+Gi8L01jSD7ce/4sCX8
-	 RJD7bLkU2Rh6BQ67PmzgTxfubHSz2VJYOH3RpZKqEG0J1+JFa74rTusMhKYrm5t3X3mQX
-	 Vp81jLcAXMdxLe9+AJobHEt2uxBydingyXV1B97vAj2pwECT4bdyISP23xIbP+OEWTNQ/
-	 9O4vbxHankGfR5dxjmx6mE4GrYnnkj2QoRV7mdwWYEDp1Jb9euSF/uZnx87QZaFk1znNa
-	 1aApAxYvgu316jbdpfByyrYPst8s5eXyQcA9OPVQMvPGABSNnr7TOSRvMUNOmRK1uvg==
+	t=1794580044;
+	b=qnIYcoffncz/cTakCYuLmgwjVwFO4uHFWOSEgsHf6pJ2qhWPNkuwiKBd82OSLtZgCVXm
+	 4PAnOsuNS0Ctw/IV+7vU5CkHam5rZqjXIqQ3yTHi8SGjkI7po6EvKt8cjIeSK3ri0HLS3
+	 JRB9zohiGAfy/KdZvoG2KexY8bxCxFkwAul/VA1SKhgBpVu+pngGPGHfTzDSnlPyJ5Eyy
+	 aRTRhLkyjeBLIoss0TepVrOkrjDRRzKdy857z/yGPMZOENT3GDsFXaPLwqij/rgpd+QDj
+	 Rq5WGW96CrE4GE9ezMONoQWtVu0RiQT/k4U4OWnmbPRCN5d4fHEmkJ637qUQ9tdWuqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794579978;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=/nLM1fyb4CYFtb+qcD/HqclcdUuwKJWI/0V/2uveRrs=;
-	b=sabwucwPF72usLaAV408AbdAeA0cA5R4pYMv338CPVKuVhOP5+cUVdktk2GoQJQvTWcZ
-	 aD+FNugdpwpFFDSXhZostf1m+T8Bchv2qgnkm6Uw8A4KBJKC5IcdmHPtugrM/7XERxWcI
-	 5rVv8Gi/VTt0XdiZPpe5ipqLeR7HJqOSXll4/fI24V4X7qEdDqYjzW3+NZvA+SW/fiiSR
-	 OI+2zC/5p7ManSRT40EHs+A9HuqpmAcPCsihZpVrVvMmw1+mqpU/RCsCpmII86Ttl7jP+
-	 IEqRvoPXtbKwhKTLZxZi0aPK/5sWWC0TG5oU2NLmtctotIC4SPDo3Xul5C3pungzUMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794580044;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type;
+	bh=V0GkDZJ9WagRHOVr0qBoHtl+w2PkPL3ZPFIC2izcDKQ=;
+	b=EDaxfQRefMP1qr5xJJG4Yt/NStMUQy3S0l7XTIea/MvGAcde4K5VF1hzkJhMiIlTa60u
+	 HHtZuoI23T7FwQ6tY6cBwnD1SCq0CXvPJWSs2IODWbe0Demt0w6+5BOHuo0k+dfEEtHMG
+	 KZ4n6FIowYIEyIb9wWQv2ucXjDma4CxnrFpPqzipArf8lILSgEWiD9pehE+Ce/ZNDf74U
+	 w8F9l7WhPPUIaPnUoYgYu7D3hl0RNvMT07bEHmKOz9Z9zghGF1HrzjZz7mdcknHff1z9e
+	 IM2WLOkDaTgIvh8/Pr8OnCmw2mzgPq/JRhFMZ8/Cjb52PK7Fxf16882f4oUcXW2315Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Gy7XBSKK;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="bT7WbSA/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D77F8606A32D
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:26:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D77F8606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9067E606A323;
+	Fri, 13 Nov 2026 14:27:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Gy7XBSKK
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id EAA88C79A9F
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:26:18 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 4AB2160015;
-	Fri, 13 Nov 2026 14:26:16 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B836711BC040F;
-	Fri, 13 Nov 2026 15:26:14 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794579975; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=/nLM1fyb4CYFtb+qcD/HqclcdUuwKJWI/0V/2uveRrs=;
-	b=Gy7XBSKKfWqxxd7xixK/0PFMoyUbEgTqGprmUvQTCLWbMtQ6FGbthTeuqSb3Sy9pHt4FbB
-	HpixdHuw3qRscYQ2VjmcDpT3gtxPM8loPEDl6njNN+9cUTdNikCaPHkBeWpTBvD/foGEZK
-	RwHqCrrBzUaCYTN9QLx3Z7pgXP44sZU51YmOcig6dsZ/Fq5QuuJEv96xvJJx0jWjVjTHgm
-	dQypJaRa7RWfJEhYR1zmxv/mciNbW+rQOra330YojJ1INxZKvJuswGQ0Peovt50YuRFf+w
-	siKDfPKZqE8DPpM9mvWBX6SZp8Zh+shp2N1UnFLA2UAvrB1ebTZmVPzobQwNBA==
-From: Paul Cercueil <paul.cercueil@bootlin.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Paul Cercueil <paul.cercueil@bootlin.com>
-Subject: [PATCH 2/2] Bluetooth: btusb: Prevent conditional compilation
-Date: Fri, 13 Nov 2026 15:26:00 +0100
-Message-ID: <20261113142600.74004-2-paul.cercueil@bootlin.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261113142600.74004-1-paul.cercueil@bootlin.com>
-References: <20261113142600.74004-1-paul.cercueil@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bT7WbSA/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 885FB1F000C4;
+	Fri, 13 Nov 2026 14:27:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794580044;
+	bh=V0GkDZJ9WagRHOVr0qBoHtl+w2PkPL3ZPFIC2izcDKQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=bT7WbSA/umsDZfx2FRvT6CH5Bu8Szs0PSsjId5PDN6B4Cc2xeDsFfpA1+x7hB/nDI
+	 lgKbnOYFagHTDe+M+cS2eD1bNng8EN81+ouHkp7aqrgTKlhdpwgtdpBdDOjGfHv1kb
+	 DUNnXDPwYHofAYU6l7TGQ5CMBa36lFDR4nDt92x5FPSXRnM+usGTdGZ7e/RNUX1dM1
+	 l7U+RhlFezTxG1gDpNTGIoAjxt8NndCx9OWDLH7Hqw9C/FvxOy+vy4tO9pXcwLgpvi
+	 aUKAxXPCRW7j47loohxm04OlQXkvlZRmumEBNPnhmGs5jpF9SCY99FhBcl2bQZMOBY
+	 4QI4GlWvatuig==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Yazen Ghannam <yazen.ghannam@amd.com>
+Cc: Borislav Petkov <bp@alien8.de>, syzbot
+ <syzbot+74de56995244fe32ffe2@syzkaller.appspotmail.com>,
+ linux-kernel@vger.kernel.org, peterz@infradead.org,
+ syzkaller-bugs@googlegroups.com, Tony Luck <tony.luck@intel.com>,
+ linux-edac@vger.kernel.org
+Subject: [PATCH V3 RFC] x86/mce: Serialize sysfs controls against CPU hotplug
+In-Reply-To: <87jymzxaj7.ffs@fw13>
+References: <6a7ec39f.5b0d2c79.2ef4ef.0002.GAE@google.com>
+ <87ik58la9w.ffs@fw13> <20260817235553.GAaoOfieqJBZTsAn3N@fat_crate.local>
+ <20260818001840.GBaoOk4Mz_mmZYK2rK@fat_crate.local> <878q63lrqr.ffs@fw13>
+ <874iec22sf.ffs@fw13> <87y0bhy5h8.ffs@fw13>
+ <20261029165636.GA5110@yaz-khff2.amd.com> <87jymzxaj7.ffs@fw13>
+Date: Fri, 13 Nov 2026 15:27:20 +0100
+Message-ID: <87h5hkst6f.ffs@fw13>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,136 +64,278 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain
 
-Use IS_ENABLED() when possible instead of #ifdef macro guards.
-It makes the code cleaner, and the compiler will still discard the code
-blocks if the corresponding configuration option is disabled.
+syzbot reported a NULL pointer dereference in the CPU hotplug code. It
+is caused by the lack of synchronizaton between CPU hotplug and MCE
+sysfs controls, which allows the sysfs controls to reenable not only the
+timer, but also the CMCI reporting on a CPU which is about to go out. A
+similar issue exists in the CPU online path where the timer can be
+enabled via sysfs control before the CPU runs the initialization of the
+timer.
 
-Note the small change where we now check for
-"IS_ENABLED(CONFIG_PM) && data->oob_wake_irq". These code paths were
-dead when CONFIG_PM was not set, and I'm not sure the compiler was
-seeing that.
+Prevent this by:
 
-Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
+  1) Tracking per CPU active state which prevents sysfs operations
+     on CPUs which are not set active
+
+  2) Serialize against CPU hotplug with a trylock() to avoid a circular
+     lock dependency between sysfs internal protections and the CPU
+     hotplug operations.
+
+This ensures that the sysfs operations always see consistent CPU online
+state and the timer and CMCI are shut down at the time when the CPU goes
+offline and re-enabled when the CPU starts without interfering with the
+sysfs operations.
+
+Fixes: 9af43b54ab45 ("x86, mce: sysfs entries for new mce options")
+Reported-by: syzbot+74de56995244fe32ffe2@syzkaller.appspotmail.com
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Closes: https://lore.kernel.org/all/6a7ec39f.5b0d2c79.2ef4ef.0002.GAE@google.com
 ---
- drivers/bluetooth/btusb_main.c | 35 ++++++++++------------------------
- 1 file changed, 10 insertions(+), 25 deletions(-)
+V3: Change it back to the initial per CPU state approach and serialize
+    against hotplug with a trylock() to address the sashiko findings
+    and the reports from various folks
 
-diff --git a/drivers/bluetooth/btusb_main.c b/drivers/bluetooth/btusb_main.c
-index 92a78a7e6039..295c743f42f7 100644
---- a/drivers/bluetooth/btusb_main.c
-+++ b/drivers/bluetooth/btusb_main.c
-@@ -3220,7 +3220,6 @@ static int btusb_mtk_shutdown(struct hci_dev *hdev)
+V2: Use the seperate hotplug state as sashiko rightfully pointed out
+    that taking the sysfs mutex in the hotplug callback can deadlock
+    against the device creation/deletion.
+---
+--- a/arch/x86/kernel/cpu/mce/core.c
++++ b/arch/x86/kernel/cpu/mce/core.c
+@@ -1734,8 +1734,13 @@ int memory_failure(unsigned long pfn, in
+  */
+ static unsigned long check_interval = INITIAL_CHECK_INTERVAL;
+ 
+-static DEFINE_PER_CPU(unsigned long, mce_next_interval); /* in jiffies */
+-static DEFINE_PER_CPU(struct timer_list, mce_timer);
++struct mce_poll_state {
++	struct timer_list	timer;
++	unsigned long		next_interval;
++	bool			active;
++};
++
++static DEFINE_PER_CPU(struct mce_poll_state, mce_poll_state);
+ 
+ static void __start_timer(struct timer_list *t, unsigned long interval)
+ {
+@@ -1764,12 +1769,13 @@ static bool should_enable_timer(unsigned
+ 
+ static void mce_timer_fn(struct timer_list *t)
+ {
+-	struct timer_list *cpu_t = this_cpu_ptr(&mce_timer);
++	struct mce_poll_state *pst = this_cpu_ptr(&mce_poll_state);
+ 	unsigned long iv;
+ 
+-	WARN_ON(cpu_t != t);
++	if (WARN_ON_ONCE(&pst->timer != t))
++		return;
+ 
+-	iv = __this_cpu_read(mce_next_interval);
++	iv = pst->next_interval;
+ 
+ 	if (mce_available(this_cpu_ptr(&cpu_info)))
+ 		mc_poll_banks();
+@@ -1786,7 +1792,7 @@ static void mce_timer_fn(struct timer_li
+ 	if (mce_get_storm_mode()) {
+ 		__start_timer(t, HZ);
+ 	} else if (should_enable_timer(iv)) {
+-		__this_cpu_write(mce_next_interval, iv);
++		pst->next_interval = iv;
+ 		__start_timer(t, iv);
+ 	}
+ }
+@@ -1798,14 +1804,14 @@ static void mce_timer_fn(struct timer_li
+  */
+ void mce_timer_kick(bool storm)
+ {
+-	struct timer_list *t = this_cpu_ptr(&mce_timer);
++	struct mce_poll_state *pst = this_cpu_ptr(&mce_poll_state);
+ 
+ 	mce_set_storm_mode(storm);
+ 
+ 	if (storm)
+-		__start_timer(t, HZ);
++		__start_timer(&pst->timer, HZ);
+ 	else
+-		__this_cpu_write(mce_next_interval, check_interval * HZ);
++		pst->next_interval = check_interval * HZ;
+ }
+ 
+ /* Must not be called in IRQ context where timer_delete_sync() can deadlock */
+@@ -1814,7 +1820,7 @@ static void mce_timer_delete_all(void)
+ 	int cpu;
+ 
+ 	for_each_online_cpu(cpu)
+-		timer_delete_sync(&per_cpu(mce_timer, cpu));
++		timer_delete_sync(&per_cpu(mce_poll_state.timer, cpu));
+ }
+ 
+ static void __mcheck_cpu_mce_banks_init(void)
+@@ -2070,29 +2076,27 @@ static void __mcheck_cpu_clear_vendor(st
+ 	}
+ }
+ 
+-static void mce_start_timer(struct timer_list *t)
++static void mce_start_timer(struct mce_poll_state *pst)
+ {
+ 	unsigned long iv = check_interval * HZ;
+ 
+ 	if (should_enable_timer(iv)) {
+-		this_cpu_write(mce_next_interval, iv);
+-		__start_timer(t, iv);
++		pst->next_interval = iv;
++		__start_timer(&pst->timer, iv);
+ 	}
+ }
+ 
+-static void __mcheck_cpu_setup_timer(void)
++static void __mcheck_cpu_init_timer(void)
+ {
+-	struct timer_list *t = this_cpu_ptr(&mce_timer);
++	struct mce_poll_state *pst = this_cpu_ptr(&mce_poll_state);
+ 
+-	timer_setup(t, mce_timer_fn, TIMER_PINNED);
++	mce_start_timer(pst);
+ }
+ 
+-static void __mcheck_cpu_init_timer(void)
++static void mce_setup_timer(struct mce_poll_state *pst)
+ {
+-	struct timer_list *t = this_cpu_ptr(&mce_timer);
+-
+-	timer_setup(t, mce_timer_fn, TIMER_PINNED);
+-	mce_start_timer(t);
++	timer_setup(&pst->timer, mce_timer_fn, TIMER_PINNED);
++	mce_start_timer(pst);
+ }
+ 
+ bool filter_mce(struct mce *m)
+@@ -2259,7 +2263,6 @@ void mcheck_cpu_init(struct cpuinfo_x86
+ 
+ 	mca_cfg.initialized = 1;
+ 
+-	__mcheck_cpu_setup_timer();
+ 	__mcheck_cpu_init_generic();
+ 	__mcheck_cpu_init_vendor(c);
+ 	__mcheck_cpu_init_prepare_banks();
+@@ -2452,6 +2455,8 @@ static void mce_cpu_restart(void *data)
+ {
+ 	if (!mce_available(raw_cpu_ptr(&cpu_info)))
+ 		return;
++	if (!this_cpu_read(mce_poll_state.active))
++		return;
+ 	__mcheck_cpu_init_generic();
+ 	__mcheck_cpu_init_prepare_banks();
+ 	__mcheck_cpu_init_timer();
+@@ -2471,6 +2476,8 @@ static void mce_disable_cmci(void *data)
+ {
+ 	if (!mce_available(raw_cpu_ptr(&cpu_info)))
+ 		return;
++	if (!this_cpu_read(mce_poll_state.active))
++		return;
+ 	cmci_clear();
+ }
+ 
+@@ -2478,6 +2485,8 @@ static void mce_enable_ce(void *all)
+ {
+ 	if (!mce_available(raw_cpu_ptr(&cpu_info)))
+ 		return;
++	if (!this_cpu_read(mce_poll_state.active))
++		return;
+ 	cmci_reenable();
+ 	cmci_recheck();
+ 	if (all)
+@@ -2532,9 +2541,13 @@ static ssize_t set_bank(struct device *s
+ 
+ 	b->ctl = new;
+ 
++	if (!cpus_read_trylock())
++		return -EBUSY;
++
+ 	mutex_lock(&mce_sysfs_mutex);
+ 	mce_restart();
+ 	mutex_unlock(&mce_sysfs_mutex);
++	cpus_read_unlock();
+ 
+ 	return size;
+ }
+@@ -2548,6 +2561,9 @@ static ssize_t set_ignore_ce(struct devi
+ 	if (kstrtou64(buf, 0, &new) < 0)
+ 		return -EINVAL;
+ 
++	if (!cpus_read_trylock())
++		return -EBUSY;
++
+ 	mutex_lock(&mce_sysfs_mutex);
+ 	if (mca_cfg.ignore_ce ^ !!new) {
+ 		if (new) {
+@@ -2562,6 +2578,7 @@ static ssize_t set_ignore_ce(struct devi
+ 		}
+ 	}
+ 	mutex_unlock(&mce_sysfs_mutex);
++	cpus_read_unlock();
+ 
+ 	return size;
+ }
+@@ -2575,6 +2592,9 @@ static ssize_t set_cmci_disabled(struct
+ 	if (kstrtou64(buf, 0, &new) < 0)
+ 		return -EINVAL;
+ 
++	if (!cpus_read_trylock())
++		return -EBUSY;
++
+ 	mutex_lock(&mce_sysfs_mutex);
+ 	if (mca_cfg.cmci_disabled ^ !!new) {
+ 		if (new) {
+@@ -2588,6 +2608,7 @@ static ssize_t set_cmci_disabled(struct
+ 		}
+ 	}
+ 	mutex_unlock(&mce_sysfs_mutex);
++	cpus_read_unlock();
+ 
+ 	return size;
+ }
+@@ -2602,10 +2623,14 @@ static ssize_t store_int_with_restart(st
+ 	if (check_interval == old_check_interval)
+ 		return ret;
+ 
++	if (!cpus_read_trylock())
++		return -EBUSY;
++
+ 	mutex_lock(&mce_sysfs_mutex);
+ 	mce_restart();
+ 	mutex_unlock(&mce_sysfs_mutex);
+ 
++	cpus_read_unlock();
  	return ret;
  }
  
--#ifdef CONFIG_PM
- /* Configure an out-of-band gpio as wake-up pin, if specified in device tree */
- static int marvell_config_oob_wake(struct hci_dev *hdev)
- {
-@@ -3262,12 +3261,6 @@ static int marvell_config_oob_wake(struct hci_dev *hdev)
+@@ -2757,21 +2782,23 @@ static int mce_cpu_dead(unsigned int cpu
  
+ static int mce_cpu_online(unsigned int cpu)
+ {
+-	struct timer_list *t = this_cpu_ptr(&mce_timer);
++	struct mce_poll_state *pst = this_cpu_ptr(&mce_poll_state);
+ 
+ 	mce_device_create(cpu);
+ 	mce_threshold_create_device(cpu);
+ 	mce_reenable_cpu();
+-	mce_start_timer(t);
++	mce_setup_timer(pst);
++	pst->active = true;
  	return 0;
  }
--#else
--static inline int marvell_config_oob_wake(struct hci_dev *hdev)
--{
--	return 0;
--}
--#endif
  
- static int btusb_set_bdaddr_marvell(struct hci_dev *hdev,
- 				    const bdaddr_t *bdaddr)
-@@ -4044,7 +4037,6 @@ static int btusb_bcm_set_diag(struct hci_dev *hdev, bool enable)
- 	return submit_or_queue_tx_urb(hdev, urb);
- }
- 
--#ifdef CONFIG_PM
- static irqreturn_t btusb_oob_wake_handler(int irq, void *priv)
+ static int mce_cpu_pre_down(unsigned int cpu)
  {
- 	struct btusb_data *data = priv;
-@@ -4110,12 +4102,6 @@ static int btusb_config_oob_wake(struct hci_dev *hdev)
+-	struct timer_list *t = this_cpu_ptr(&mce_timer);
++	struct mce_poll_state *pst = this_cpu_ptr(&mce_poll_state);
  
- 	return ret;
- }
--#else
--static inline int btusb_config_oob_wake(struct hci_dev *hdev)
--{
--	return 0;
--}
--#endif
- 
- static void btusb_check_needs_reset_resume(struct usb_interface *intf)
- {
-@@ -4547,12 +4533,15 @@ static int btusb_probe(struct usb_interface *intf,
- 	hdev->wakeup  = btusb_wakeup;
- 	hdev->hci_drv = &btusb_hci_drv;
- 
--	err = btusb_config_oob_wake(hdev);
--	if (err)
--		goto err_put_reset;
-+	if (IS_ENABLED(CONFIG_PM)) {
-+		err = btusb_config_oob_wake(hdev);
-+		if (err)
-+			goto err_put_reset;
-+	}
- 
- 	/* Marvell devices may need a specific chip configuration */
--	if (id->driver_info & BTUSB_MARVELL && data->oob_wake_irq) {
-+	if (IS_ENABLED(CONFIG_PM)
-+	    && id->driver_info & BTUSB_MARVELL && data->oob_wake_irq) {
- 		err = marvell_config_oob_wake(hdev);
- 		if (err)
- 			goto err_disable_wakeup;
-@@ -4837,7 +4826,7 @@ static int btusb_probe(struct usb_interface *intf,
- err_kill_tx_urbs:
- 	usb_kill_anchored_urbs(&data->tx_anchor);
- err_disable_wakeup:
--	if (data->oob_wake_irq) {
-+	if (IS_ENABLED(CONFIG_PM) && data->oob_wake_irq) {
- 		device_init_wakeup(&data->udev->dev, false);
- 		free_irq(data->oob_wake_irq, data);
- 	}
-@@ -4876,7 +4865,7 @@ static void btusb_disconnect(struct usb_interface *intf)
- 
- 	hci_unregister_dev(hdev);
- 
--	if (data->oob_wake_irq) {
-+	if (IS_ENABLED(CONFIG_PM) && data->oob_wake_irq) {
- 		device_init_wakeup(&data->udev->dev, false);
- 		free_irq(data->oob_wake_irq, data);
- 	}
-@@ -5076,7 +5065,6 @@ static int btusb_resume(struct usb_interface *intf)
- 	return err;
- }
- 
--#ifdef CONFIG_DEV_COREDUMP
- static void btusb_coredump(struct device *dev)
- {
- 	struct btusb_data *data = dev_get_drvdata(dev);
-@@ -5085,7 +5073,6 @@ static void btusb_coredump(struct device *dev)
- 	if (hdev->dump.coredump)
- 		hdev->dump.coredump(hdev);
- }
--#endif
- 
- static struct usb_driver btusb_driver = {
- 	.name		= "btusb",
-@@ -5097,11 +5084,9 @@ static struct usb_driver btusb_driver = {
- 	.supports_autosuspend = 1,
- 	.disable_hub_initiated_lpm = 1,
- 
--#ifdef CONFIG_DEV_COREDUMP
- 	.driver = {
--		.coredump = btusb_coredump,
-+		.coredump = PTR_IF(IS_ENABLED(CONFIG_DEV_COREDUMP), btusb_coredump),
- 	},
--#endif
- };
- 
- module_usb_driver(btusb_driver);
--- 
-2.47.3
-
++	pst->active = false;
+ 	mce_disable_cpu();
+-	timer_delete_sync(t);
++	timer_shutdown_sync(&pst->timer);
+ 	mce_threshold_remove_device(cpu);
+ 	mce_device_remove(cpu);
+ 	return 0;
