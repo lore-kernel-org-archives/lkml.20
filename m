@@ -1,55 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794564695;
-	b=5TwTKDr10oFpVRu51FPgAM5XxVPgeiije1tewTCbzGc4Z7dnQnY4UThSzm8xqHQJ3cCt
-	 HedDrcp47SdqCS6XvQj8X1PDnTZayoGRwtN/71lakDodDX6khJOo4alJHNc/6STtvNGyg
-	 dgpVv2AUYforAZ5qAtbB/PKbxcmAtokNGkTMXZ2c/U/SUVWEDylVuI/+HMdYl/PWUlK9d
-	 inC7lpLpA4HF/KD3INrSg715bwCc6Rzh+TOkWUkLMPA5v/lEkQe+23yI9qrVr5VrQ21c9
-	 jX45sTr3RDiljUkhc+s+ouTNCYIkIeZX1Z0d5t+HA18ceHMlCNxzWLjaBxR6Ii5qU5w==
+	t=1794564705;
+	b=Lall0n1ClyBCRg/zl2P15AIxM0NeQQS+bggVPHXvJSbWLzNQWZe62v10ym53wGW3yZzL
+	 6LqgoVi0xtDTwPT+ak5xCrApfIfWoh3chFHVzdpAxb7IJcvfU1/6gL8Jk4ANM7To2ea4t
+	 HvHD0ojITgbnwAhq8fJ8Uy9WPYmmbfBy5W71fuaIWHQWsYmWzgXiW8XgtKs3kw4hPPhmo
+	 6lDGGzcUhRe442lTCwxi+cFL/gu1EUkmXn4U/U2OFF7duRGeviONCg/SyuIQ7YEDiJfew
+	 3BmQqJgmr69yIpPTkM9M3WjozPIoKREzzZrclQE9NXhwmVCnUYAOF3CFkmhTLcMBYCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794564695;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=c5kWoRfoh+LID+vIMXgha8z+pQ8NIChzIfvaIu/18OQ=;
-	b=U4q79R/RXIjsf9zOx6bLoD/OywGQ0pSTKesZF08TUC1uR2sh5v4yy4QJu5u0RO2qb1DY
-	 mzTs7U2IPOhWXMPzhr2oiyVFrZAs1O+XdxFRbMnF+LBLTo5ep2e56rIQ6GaIOBBzDCsVp
-	 3DMvh18HrwtxGuiufodzNeOURPXleylXSNfP6vrpjIf9/d1pln88e051F5icCbbFe/Kh2
-	 15qSm01JKz7DpAYs+HiDz7IHVnhyxFO3Tcn6kfrLOYVFqXiF5LIK/wNRvA2pSIY+uDsAL
-	 P1d5LZa7cUWG/DyliXLs7I/Y5umwG9HV4DEeU3DDUuL0sVO3oY3gW/3Exi7PDClijbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794564705;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=gXMsjTg9KyNTuX1cuQ9yr2iJq2/VClhNCtHhh+FL0ZU=;
+	b=BS9GKFwwRgtmvoI2CWxpYYn4Y7LlEISEOq09Hb9Cq8V6Ebu54QIVi0u3ZJhQo77ChaRN
+	 IRM6Ol0MS12QeHncmHJxGk6KE5ANil5XWVO5bI7q2z5IN3rSO5nffHWCd/crDb2+NZYlW
+	 cIeGqpzejqADFP2Kqc0zIduRRQ/5HOPYWnZM1bjSw5toCCMyxqnIok5EpVIKSxu/FPpbg
+	 MH4amuYSKkGCJlQAzxfd3k75TN4RLkn0GSihhsxJfUHLjo2nycxoyz27o+JG7sElbosZ8
+	 rXZVGlDefzl7uhSPyvTBZjK9wbzgI1lYtkw8uvqQLIAxDiulhvsX96oQ8CFQkL2SlRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YVfrwGb7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=amutable.com;
+	spf=pass smtp.mailfrom=amutable.com;
+	dkim=pass header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=BADxd+iU;
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B333606A8A3
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:11:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9148C606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:11:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9148C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amutable.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YVfrwGb7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C610B1F00927
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:11:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794564694;
-	bh=c5kWoRfoh+LID+vIMXgha8z+pQ8NIChzIfvaIu/18OQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=YVfrwGb73VBd/mLLVth1dbc+CKZgt/nfR7trq3JvDURbVPM88IHuNK4v+2g7Yt6xe
-	 8TVrG6j3pw3Povif5CHNl0Ov4qX3JPFeIsEt4dbI4V6H34DWMcEfF0xKdpRLQ4Ybxm
-	 2UI5U6Z/P4MSaKw2PTrRBN4i7tAYUUQqRw9KC8+jtGw+l1617PQYrJqgI8MwMjXgC+
-	 uOto5Sqha6sV4NCrnJKFIdysqQzbvBIuyke+5he3GcLRuB36FGs37RrXl56CNhWBVO
-	 FBGHScyeX/XqH3y5R0xhOeeZprbuudAvWMJ3sxKIZmD4DNa2E4v7sPsl0uwcdzE0qf
-	 8+VoX66/yAI+Q==
-Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-6deb848ddd7so1028321eaf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:11:34 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEnxxKtSKsCAmcd8QIE4odXKqt7gGMEf3FBjJVMbAElVWP2t4C7xnhfovGu4Uvyw6o+V7d33/bSaEgxSCM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+99FAmXgQSSSaV4IU1BzQjLvPtDJCQemDbVaYyD8cppJD8Y0gP
-	nMakeIw9ja4AflFzqR7dcFV1tj4mtOHShSnxLWZtJ6hPeAD4w1pZJLx2ib/1+V5kIX3+5TDGXrI
-	LtWUx1fqh2FkL4y5pa1SUOXw7r+/SGXQ=
-X-Received: by 2002:a05:6820:c2cb:10b0:700:8d6d:93fe with SMTP id
- 006d021491bc7-71ab50158a9mr835957eaf.38.1794564693938; Fri, 13 Nov 2026
- 02:11:33 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=BADxd+iU
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48e09aa5264so307491f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:11:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amutable-com.20260707.gappssmtp.com; s=20260707; t=1794564703; x=1795169503; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=gXMsjTg9KyNTuX1cuQ9yr2iJq2/VClhNCtHhh+FL0ZU=;
+        b=BADxd+iUI5Bylfm9xHmZjb4pgHg0fbyWkyp8vNCt747iYknkt4pGGRNYLQ78EH/z4x
+         Vbi/Jq3+E8iOs58TJRk6WPlWSpFf2OpeZbjgHeXjXzKeHm9XnJ+eEvU2VLt6liCBRq7I
+         79Td6VY4SiSTAXWOIivpd5ztVkC+DBAB/J4OfHn49+YeU7s/KQ9yNfnwb8sPZOTKoGu0
+         Zirp8LScbJznGaQAXzatlGuiy/pBfqScnET/jGobuhYjlwMbyAqyeVJ7smTe1nJkO+dB
+         h89eeA8CIS4pNdPKyjqDo55n+EKX5qBSzrC2C/95dZzzzQLBvHRJ+46c+P8Bzg/7r93a
+         +u0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794564703; x=1795169503;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gXMsjTg9KyNTuX1cuQ9yr2iJq2/VClhNCtHhh+FL0ZU=;
+        b=VpLLIOtqItnAio0E2wJpaj63ZJkg+JY63o9bnk3xLxNNax/se00+ibKixzXk+jFY4q
+         3afZ+OM2R8xjhl+GNjB4Ub04iJriHqpcdvXWp0EwDX2b0BVeS87Bh5zJ7+f76V6eZfYV
+         43ceXjrUAkDCTpm8RrK6oCXpLlMME/sF22wwkF3o3XKnKDXjZb3JboAZy/hUBZF0BaWo
+         6jUGwC1cjwXBpl2sHa5WS6JlkN6iRVMU2SMOjakioY+dRotJGbtwbwwLUhCpC/n1Oan0
+         y0q/ds7QyyF6GihiQ9lm6up7S0CDIwajjv9aBNZODp0c0crExp0ZkOUju7BzfhS0NCrZ
+         s/yQ==
+X-Forwarded-Encrypted: i=1; AL+hErEVOnRZ4Vro9u4wjqZMb9kH7zi6xAQP6VYycH1WwlUzqLBZ+lHnPGJTQW6wuJdSEkxweAXMSQQikPmJvPg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9TT2jwKJR+OHARAMRh/FqyKMfG5BaGOyezkaK4R1F81qIV5JLT
+	zd14z8l7Oy1rJq0FmhV6+b88b6j9DZFj1RoQYzQMpiFU1W483MeIEfHHrcK3dliSB5Dm
+X-Gm-Gg: AYBFou2zP2SbyGu+7upvjrsVxGnsgAuNwQEWzk5q4ob2ccMm8cuTSuxrszgLUBLXbdE
+	IGQWlqt82swx1zZ4mvMjw0G2cx39WCAxqsd38gy7nsTC6U4jG6H3j4dR9e2GhyEb+xaWYNVbJfd
+	p3X36jnVMlvMgJ/iRUyGWZadLcAqWDIfsImSc3/BkfizZX7lz5Z/ozquPVrWz7LMwNDLhyGsnVY
+	3I5feKkHtPHyVSVsrrV/9tKtu3cbyuBWCDKVpZEZRckwIjrbiq6ZmW26Ed9g95RIKHPmcQkthFl
+	XpSnT/7CH8xTUeJGdgMza+ghNGqRq3kujYilTezeR1aTOm0K+JN1jiaK0WgfJQZ+r7eGRt8bgsg
+	t4nA3lgD9TsmRLbullkyLveOs86LPg+fvUTU6qOekgE1DB1JE4WkbSI/WBh/oLWzALOdBdsvVdq
+	nu2VDaKWMvR+DNTaVdcDlJTLm6bn7Vf9AGS+dw73WIUmyzH1CelwM3bQJk/0kAo2UoDOXxAWpnC
+	bpPdMVBIlEzK8yQrkW5VOTDKdrKie830N/AaHt8jcl7EfIY1Rapofgo+wnYaSzxH/F1+hBUR/rI
+	JQjW3afivKujDxqZZ2oCyQZyjSNZMOHkZvWxj4NBCfaHN37YEwni3fIajApEkXo=
+X-Received: by 2002:a05:6000:2501:b0:488:88ec:59c3 with SMTP id ffacd0b85a97d-49c73259cc3mr5012611f8f.14.1794564703010;
+        Fri, 13 Nov 2026 02:11:43 -0800 (PST)
+Received: from [10.0.0.233] (tmo-086-54.customers.d1-online.com. [80.187.86.54])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f1c1797sm4931434f8f.11.2026.11.13.02.11.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 02:11:42 -0800 (PST)
+Message-ID: <ff6d2a8c8623f5476d5c352dac1ad98ab3da303c.camel@amutable.com>
+Subject: Re: [PATCH RFC 18/41] selinux: use fc_init_pseudo() for selinuxfs
+From: Alexander Mikhalitsyn <alex@amutable.com>
+To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
+Cc: Jann Horn <jannh@google.com>, Chris Mason <mason@kernel.org>, Josef
+ Bacik	 <josef@toxicpanda.com>, Christoph Hellwig <hch@lst.de>, 
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org,
+ target-devel@vger.kernel.org, 	driver-core@lists.linux.dev,
+ linux-mm@kvack.org, bpf@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, selinux@vger.kernel.org, 
+	apparmor@lists.ubuntu.com, linux-nfs@vger.kernel.org,
+ netdev@vger.kernel.org, 	fuse-devel@lists.linux.dev,
+ linux-efi@vger.kernel.org, 	xen-devel@lists.xenproject.org,
+ ocfs2-devel@lists.linux.dev, 	linux-s390@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, 	linux-usb@vger.kernel.org, Amir Goldstein
+ <amir73il@gmail.com>, 	linux-erofs@lists.ozlabs.org,
+ linux-kselftest@vger.kernel.org
+Date: Fri, 13 Nov 2026 11:11:40 +0100
+In-Reply-To: <20261110-work-loop-pseudo-v1-18-4c998976c6c7@kernel.org>
+References: <20261110-work-loop-pseudo-v1-0-4c998976c6c7@kernel.org>
+	 <20261110-work-loop-pseudo-v1-18-4c998976c6c7@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,37 +114,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261030-clegoffic-pinctrl-scmi-gpio-v1-0-52d92843ad97@baylibre.com>
- <20261030-clegoffic-pinctrl-scmi-gpio-v1-7-52d92843ad97@baylibre.com>
-In-Reply-To: <20261030-clegoffic-pinctrl-scmi-gpio-v1-7-52d92843ad97@baylibre.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 13 Nov 2026 11:11:17 +0100
-X-Gmail-Original-Message-ID: <CAD++jLmS1Et_B_U2W5W3GAx8ge5V+B5innksqKwxYnBzh=JPag@mail.gmail.com>
-X-Gm-Features: AclHuK9gw9rzvmJfnK1wHvLc_pWsubTkRQG1I-TXfEXhLtnbQg50tNAfCDomXWw
-Message-ID: <CAD++jLmS1Et_B_U2W5W3GAx8ge5V+B5innksqKwxYnBzh=JPag@mail.gmail.com>
-Subject: Re: [PATCH 07/11] pinctrl: scmi: give no groups to pin-only functions
-To: =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clegoffic@baylibre.com>
-Cc: Sudeep Holla <sudeep.holla@kernel.org>, Cristian Marussi <cristian.marussi@arm.com>, 
-	Peng Fan <peng.fan@nxp.com>, Oleksii Moisieiev <oleksii_moisieiev@epam.com>, 
-	Andy Shevchenko <andy@kernel.org>, Dhruva Gole <d-gole@ti.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 30, 2026 at 4:58=E2=80=AFPM Cl=C3=A9ment Le Goffic
-<clegoffic@baylibre.com> wrote:
+On Tue, 2026-11-10 at 10:14 +0100, Christian Brauner wrote:
+> Initialize selinuxfs as a pseudo filesystem. This raises SB_I_PSEUDO
+> and
+> SB_I_NOEXEC. selinuxfs never holds executables. SB_I_NOEXEC also
+> refuses PROT_EXEC mappings but the status and policy files are only
+> ever mapped for reading.
+>=20
+> But selinuxfs needs device nodes. The kernel replaces file
+> descriptors
+> with /sys/fs/selinux/null on exec via dentry_open() which doesn't
+> care
+> about SB_I_NODEV. Android init however opens /sys/fs/selinux/null by
+> path as /dev/null doesn't exist yet at that point. So clear
+> SB_I_NODEV
+> again in sel_fill_super().
+>=20
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-> For a pin-only function PINCTRL_LIST_ASSOCIATIONS returns pins, but the
-> driver registered them as groups. Register pin-only functions without
-> groups.
->
-> Fixes: eb524cb651b7 ("pinctrl: Implementation of the generic scmi-pinctrl=
- driver")
-> Signed-off-by: Cl=C3=A9ment Le Goffic <clegoffic@baylibre.com>
-
-
-Patch applied for fixes.
-
-Yours,
-Linus Walleij
+Reviewed-by: Alexander Mikhalitsyn <alex@amutable.com>
+   I.=20
+> ---
+> =C2=A0security/selinux/selinuxfs.c | 5 +++++
+> =C2=A01 file changed, 5 insertions(+)
+>=20
+> diff --git a/security/selinux/selinuxfs.c
+> b/security/selinux/selinuxfs.c
+> index 310e19efff1d..d7ae853b6d68 100644
+> --- a/security/selinux/selinuxfs.c
+> +++ b/security/selinux/selinuxfs.c
+> @@ -18,6 +18,7 @@
+> =C2=A0#include <linux/vmalloc.h>
+> =C2=A0#include <linux/fs.h>
+> =C2=A0#include <linux/fs_context.h>
+> +#include <linux/pseudo_fs.h>
+> =C2=A0#include <linux/hex.h>
+> =C2=A0#include <linux/mount.h>
+> =C2=A0#include <linux/mutex.h>
+> @@ -1852,6 +1853,9 @@ static int sel_fill_super(struct super_block
+> *sb, struct fs_context *fc)
+> =C2=A0 /* last one */ {"", NULL, 0}
+> =C2=A0 };
+> =C2=A0
+> + /* Android init opens the null device below by path. */
+> + sb->s_iflags &=3D ~SB_I_NODEV;
+> +
+> =C2=A0 ret =3D selinux_fs_info_create(sb);
+> =C2=A0 if (ret)
+> =C2=A0 goto err;
+> @@ -1955,6 +1959,7 @@ static const struct fs_context_operations
+> sel_context_ops =3D {
+> =C2=A0
+> =C2=A0static int sel_init_fs_context(struct fs_context *fc)
+> =C2=A0{
+> + fc_init_pseudo(fc);
+> =C2=A0 fc->ops =3D &sel_context_ops;
+> =C2=A0 return 0;
+> =C2=A0}
