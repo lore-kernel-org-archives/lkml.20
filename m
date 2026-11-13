@@ -1,45 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=134.95.86.58
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794582271;
-	b=C5CpXJpIpuBjxYwujm6NBIC1h4wLp1EFJDQq1HvnSiN6u9K16FDaMNg6an/UtWoQlBct
-	 3ah3/xmFOKda/P+V99lNOZQy4es+NEmvGhDEmmpeU5Q0cT7IgNvgoSQ5X2LjIODJS+Uo6
-	 SI4brRMUuoYfjBVLTSVA73Z8ioQY9zrZxanj+6njiJido4zZPrN/BsF7VDVgyq4pwKY7R
-	 B3iZERjfjarQJ69SIKTFHYFQ+1VJYfc3u7u52lKosNQG69SziXNyM02g2Mz3SyeedvnMl
-	 UQH0ELfx0JjSEFJaElPR0NDTujx6CrBleNNFvj30qhBv2YpsjKVJAltG5fkIRfcvrfg==
+	t=1794582281;
+	b=WqOT8DFSDEp0Sy09DyS7bboZyQsVrV6GpbHs16TWdFIt0aweYXl39j4iKFEQ2nU0JjyN
+	 7WTtFmeHjpYvKutq2HTqUbCgjPK38858TqDnR2cZeV8hSzVqZ3vctmAOYKSAR58U50md8
+	 gs0zB++PFe+KlSvhbj7I28alZklnwLCrusVHeexte5ez4XIl7oBwwiCmah7z4CIrFVONe
+	 mWH25SYTX/dnHXboKZJF7ENG0cGjcyA6TQ6Q2zSP0XnEuTm4e7IjILkK3pXFgo19urdDP
+	 9pDpJ2OIiZ1CU/80gf27VlzergpBMgy86s9n0uA6VH48SIueLku8HSKz3c+un8NM9Jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794582271;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=sgPMa0gfUkHGd4z3V4+VQDpi46qRVCGX1U55gKcCsUo=;
-	b=zSJURHILnI8Nz+y7/zb5D1zPjiZ9BCIoQ/oxgDBBzpBxaW+iQydatLbxNeL862fKYJ1Q
-	 j9i3C4IowrtKvoxRdcqvdoWb0/pMDAn/LDIZN1927fJBygZS1x2ttWQf5e7jzuVwsTHAc
-	 0vUfs+SydK9m6oHsNMSnPvkUMrr37usVN8vfQiO8/DBmBHiLeUee4nNox+j6BrI7L4v6T
-	 sfZEV+CPIFWFvXaSBzz4CptImsYsose/40SqUGKal90QB+zhezarQjXtEQ+j/UgN7O7w3
-	 f5wfwOl8LSHfeKfkk701bI9uNWXhXxLzxzQ/2ngEw3oxbVXpo5HVwXi3o6hrOwmCVjg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794582281;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IPAS-Result:IronPort-Data:IronPort-HdrOrdr:X-Talos-CUID:
+	 X-Talos-MUID:X-IronPort-Anti-Spam-Filtered:X-IronPort-AV:Received:
+	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:To:Cc:
+	 References:Subject:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Scanned-By;
+	bh=I48ZfHOS9BJP4vzduWQIG8oFmvz0f4zxKM14ZpffZKo=;
+	b=NIM5gYs1dmFmpFIPk+5bmB9r2p9SJbkAzsdffF5K44eGC0ik3V/KJgqLwXjIDfN5v0lo
+	 RBDc9TYo3PqWj8hnzO/ZZqLyw2q5/7f3V0SRzeAXO39iXKm8e1cZSFwQe1t/1Elf/odux
+	 g85Hqk4nXTY75PTzhIkR8lehKosmzfhRZHdz8XzsTwqHLfmHRuRTbei17Hk+nXVEnLwpG
+	 cYxSPOJHQEZ+kWQOivqdps6xYJ5DvLd89nvcQsR2x/LStiXfc7ND2VYfZc8Xf49dpjnTn
+	 VYC5uSMfFyGRRp6NDtZp91itSY6/WMHMN3trLwyz0o+/rHy0lGRCd9ggY9TTJFJ5mOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PwsniD4d;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=uni-koeln.de;
+	spf=pass smtp.mailfrom=uni-koeln.de;
+	dkim=pass header.d=uni-koeln.de header.i=@uni-koeln.de header.a=rsa-sha256 header.s=2023 header.b=izfbBsLy;
+	arc=none smtp.remote-ip=134.95.86.58
+Received: from mail-out-v1.uni-koeln.de (mail-out-v1.uni-koeln.de [134.95.86.58])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13855606A323;
-	Fri, 13 Nov 2026 15:04:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 305CF606A884;
+	Fri, 13 Nov 2026 15:04:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 305CF606A884
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uni-koeln.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uni-koeln.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PwsniD4d
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 373331F000C9;
-	Fri, 13 Nov 2026 15:04:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794582270;
-	bh=sgPMa0gfUkHGd4z3V4+VQDpi46qRVCGX1U55gKcCsUo=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=PwsniD4dQpxIsCOvehTyNAXtJMfW84ZVyioVwHePgUMQyHqFrExRtQpY85htQs5bn
-	 kB2niv6dZfJyQ/y5+RghW32Mi+jK5QytdkZPgBrST9MqVW3tn2qcUfE8GEDf8b4agx
-	 n7TU69avjyfovkA4xNlQRKl5hwfNPX6okKoETMnFA1WyD/5fBTuPO7BTZy2oNEvzPC
-	 SDFRGw3GLcZVsgjyp7zCmi4dBQEQCDcWrd789iIOKN0QkQH9f72lcC5aj5wBmlwcH4
-	 KFxGSoLt7inCmlRHb/ErcTv/Vj8V0zmB1nx/YotfkBJuMwGEX+tgf+HoHXDxiSIW02
-	 ynO4m9dmBvlWQ==
+	dkim=pass (2048-bit key, unprotected) header.d=uni-koeln.de header.i=@uni-koeln.de header.a=rsa-sha256 header.s=2023 header.b=izfbBsLy
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=uni-koeln.de; i=@uni-koeln.de; q=dns/txt; s=2023;
+  t=1794582280; x=1826118280;
+  h=message-id:date:mime-version:to:cc:references:subject:
+   from:in-reply-to:content-transfer-encoding;
+  bh=I48ZfHOS9BJP4vzduWQIG8oFmvz0f4zxKM14ZpffZKo=;
+  b=izfbBsLyGi3v3ep01VcbrhMo17U/HY9cJt9kQfmqGER4zXMDQaPzvTOI
+   1LnI1jRP8d9EJfl92f/2eq8grJ/ThVhrMAWrZ8TL9fr5W2kqMYbl+pztC
+   bkgcOLYTk2V2oRKUQUjDUdVWRRWk0gf+0k1IWvb6Po14n4ivg90vvmceH
+   enozl8fHsBIdxYvMuhDijbVxfRHZesqXNmjvt4Brv+FOXeRHUOdP+RsoE
+   fRj2UOCRBqEnry4tyJyTL0uJ8gkOURn9OKGY6V/qVpSw0wzq3qZXYwl6z
+   RWpQUgte6Xb4ZN0Bv7YdKZeAJKjvGNTUiBxEJ2CS+Wrc1W/6eoO7MaocI
+   w==;
+X-CSE-ConnectionGUID: 76Eze8kmThO6vYap5AEjDg==
+X-CSE-MsgGUID: w+BTNXzmQq2NB5jilYqvTg==
+X-IPAS-Result: =?us-ascii?q?A+B/BQDcJfdq/wCiACoSAIIYWh4BAQsSDIIFC4oPkCoBA?=
+ =?us-ascii?q?QEBAQEGgT6LeJQrDwEPAQFRBAEBhQUCjh8oNwYOAQIEAwIDAQEBAQEBAQEBA?=
+ =?us-ascii?q?QEBCgEBBgEBAQEBAQYFgSGGCVOQEwIBAyMPAQVBEAsaAiYCAlYbAQGCfoJ1u?=
+ =?us-ascii?q?zqBMoEB3kmBdBWBCi6IYgGFeAEbhGKBP4EQgRUnC4JJMT6FEIMPgmoEgiKBD?=
+ =?us-ascii?q?IJchTqILIc1Unh4LAFVExcLBwWBJUMDgQYjSwUtHYEjIR0XER5YGwYFEiAqQ?=
+ =?us-ascii?q?ENbgRKBBV2BKyhdAQIfRi0VgXUCglGBIwJbAgFJQQ4HRVMJJUMSRyQiCBIJA?=
+ =?us-ascii?q?RMaLAqBGjU8CSYEOxUMWwwLGgUaRwgCCwIMdCgREBMdHiQvBRomPhsKgQ4Fb?=
+ =?us-ascii?q?T03CgsZBD2WfIECGxyCf1cBkguDNZBIn1wGgjqBaqFjBkKXVBCRaIEmmQikJ?=
+ =?us-ascii?q?IR1AgoHGYF+gX9xgW2BSlIZD44uFtIbgTUBAQcCBw4DC4FokX4BAQ?=
+IronPort-Data: A9a23:wA5msakvQo5BwXPSiptHnqjo5gyiJkRdPkR7XQ2eYbSJt1+Wr1Gzt
+ xJJUTqBafreYGakfd11O9m/80hTvZ7Xz9BqQVM+rntmQ1tH+JHPbTi7wuUcHAvJd5GeExg3h
+ yk6QoOdRCzhZiaE/n9BCpC48z8hk/nOGeqkYAL9EngZbRd+Tys8gg5Ulec8g4p56fC0GArlV
+ ena+qUzA3f7nWQrWo4ow/jb8k025a2p4GpwUmEWPJingneOzxH5M7pHTU2BByOQapVZGOe8W
+ 9HCwNmRlkvF/w0gA8+Sib3ydEsHWNb6ZWBiXVIPBsBOKjAbzsAD+v5T2Mg0MC+7uB3V9zxF8
+ +ihgLTrIesf0gwgr8xGO/VQO3kW0aSrY9YrK1Dn2SCY5xWun3cBX5yCAWluVbD09NqbDkkRq
+ 9EKJWAOayyDoLyo8bujF8BBhOgseZyD0IM34hmMzBnCCOo+BJfeX+DQ5YAexi0iwN1IHLPdY
+ Mcdb3xjYXwsYTUVMw9PWptkxL/63iumKW8K8QvFzUY0yzG7IAhZ1bXsK9fTc4aiWMNU20Wfq
+ 2bAuWj0av0fHIfGkmLdqyn87gPJtTy4cr40JK+9z+cwpnfOxG0XOQQIaVTu9JFVjWb7AbqzM
+ Xc85iEupLQ77kCDQdz0Xhn+q3mB1jYVXdZKEvx88wGA1KHU7gCaAUAFSCJMbJots8pebTAoz
+ ESCltftFBRgtbSUTTSW8bL8hTO7PzMaBWwPfykJSU0C+daLiIA3lhWJTN95Dq+zg9vdHTD23
+ iDMrS4iirFVhskOv4259FvAmzXqo5/PQg8d5wnaV3mi6Al+bZSpIYev7DDz6ftNBIWUVF+Mu
+ D4Dgcf2xOQPC4yd0S+AWuMAGJm36Pufdj7Rm1hiG98m7TvF03qie51ApTRzKEZgGtgLdCWvY
+ 0LJvw5VophJMxOCaKR3boK4AewpwLLmGNCjUerbBvJIY5NxcwuO5wl0YlKQ0mXkkUxql6wjU
+ b+Ddc+wA3EADOFr1juoSv1Ywe917j4xyHmVRp3hyRmjl72Eaxa9Ur4GOUGPKOk46L6fiAHU9
+ ctPccqM1xhbFub5Z0H/78gNLEwNM2QTCpX/qsgRfemGSjeKA0k6DuPJhLQ8Z8l/n/sTjP3au
+ Gy7Wwpbz1f7gzvLJG1md0xeVV8mZr4nxVpTAMDmFQ/AN6QLCWp30JoiSg==
+IronPort-HdrOrdr: A9a23:zStah68/zp80i+IneDluk+DjI+orL9Y04lQ7vn2ZLiYlFfBw9v
+ re+MjzuiWVtN98Yh0dcLO7WZVoI0msl6KdiLN5VdzOYOCMghrKEGgN1+TfKnHbdRHWx6p06Z
+ pAN5JfMbTLZ2ST/K3BkWyF+7pM+qjgzJyV
+X-Talos-CUID: 9a23:78YEI29PgCkukAgjdteVvxFKN9IoIn7Y8Hf3fVGJAH40YZCXZVDFrQ==
+X-Talos-MUID: 9a23:KfXyQAoAZiKVwPc7XH4ezy4hHvtO07arMVlXt79buciABDVuBzjI2Q==
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-AV: E=Sophos;i="6.27,211,1787004000"; 
+   d="scan'208";a="31300138"
+Received: from smtp-out-rh7.rrz.uni-koeln.de ([IPv6:2a00:a200:0:12::118])
+  by mail-out-v1.uni-koeln.de with ESMTP/TLS/ECDHE-ECDSA-AES256-GCM-SHA384; 13 Nov 2026 16:04:31 +0100
+Received: from smtp-auth-rh8.rrz.uni-koeln.de (smtp-auth-rh8.rrz.uni-koeln.de [IPv6:2a00:a200:0:10::196])
+	by smtp-out.rrz.uni-koeln.de (8.14.7/8.14.7) with ESMTP id 6ADF4TjZ040570;
+	Fri, 13 Nov 2026 16:04:29 +0100
+Received: from [IPV6:2a00:6020:4cbb:ef00:67c9:8c15:7e4f:3b9d] ([IPv6:2a00:6020:4cbb:ef00:67c9:8c15:7e4f:3b9d])
+	(authenticated as user meisena2 using CRAM-MD5 bits=0)
+	by smtp-auth.uni-koeln.de (8.15.2/8.15.2) with ESMTPSA id 6ADF4SdN1399821
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 13 Nov 2026 16:04:29 +0100
+Message-ID: <be6f70a3-5792-4a4b-9f03-591869fb9786@uni-koeln.de>
+Date: Fri, 13 Nov 2026 16:04:28 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,62 +105,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 2/2] ASoC: qcom: lpass macro / soundwire: retry
- deferred clock acquisition
-From: Mark Brown <broonie@kernel.org>
-To: yass27106 <yass27106@gmail.com>
-Cc: andersson@kernel.org, broonie@kernel.org, srini@kernel.org, 
- konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
- conor+dt@kernel.org, vkoul@kernel.org, tiwai@suse.com, perex@perex.cz, 
- lgirdwood@gmail.com, pierre-louis.bossart@linux.dev, 
- yung-chuan.liao@linux.intel.com, abelvesa@kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <90d9d32bd8d44c4f97ca3af4e1bc5481@gmail.com>
-References: <5cfd0705da5845b88ffe6d9e8bfeb966@gmail.com>
- <90d9d32bd8d44c4f97ca3af4e1bc5481@gmail.com>
-Date: Fri, 13 Nov 2026 15:04:24 +0000
-Message-Id: <179458226469.68977.13033139550086904479.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1338; i=broonie@kernel.org;
- h=from:subject:message-id; bh=Huy88cvQigqlAYWxi787wZEnKg9GQefuC/xm2h+O+EU=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLK+q/3smnypgc3b89wtTfbIWf8evWM/3fn+d223w8KtE
- lO3cWtf6ChlYRDjYpAVU2SJy+J+WV/yeg3fwYVtMHNYmUCGMHBxCsBE/rMy/HeXvJjdseXpWfU8
- /v1HzrK0L6hJvN7zckdy5ZKN6/6GHqxkZPiRFD/JbNqj1WXyfiEnH+XZnXjIbZ5mZ7Dyue7ypxv
- v8TEAAA==
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+User-Agent: Mozilla Thunderbird
+To: tchatard@gmail.com
+Cc: andriy.shevchenko@intel.com, djrscally@gmail.com, hansg@kernel.org,
+        ilpo.jarvinen@linux.intel.com, jacopo.mondi@ideasonboard.com,
+        lee@kernel.org, linux-kernel@vger.kernel.org,
+        linux-media@vger.kernel.org, mchehab@kernel.org,
+        nicholas@rothemail.net, platform-driver-x86@vger.kernel.org,
+        sakari.ailus@linux.intel.com, v.vitovt@gmail.com
+References: <20260827201611.99825-1-tchatard@gmail.com>
+Subject: Re: [PATCH v9 0/6] Enable cameras on Dell Latitude 5285 2-in-1
+Content-Language: de-DE
+From: Matthias Eisenacher <meisena2@uni-koeln.de>
+In-Reply-To: <20260827201611.99825-1-tchatard@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.3
 
-> drivers/soundwire/qcom.c           | 37 +++++++++++++++++++++++-
->  sound/soc/codecs/lpass-rx-macro.c  | 45 ++++++++++++++++++++++++++----
->  sound/soc/codecs/lpass-tx-macro.c  | 45 ++++++++++++++++++++++++++----
->  sound/soc/codecs/lpass-va-macro.c  | 43 +++++++++++++++++++++++++---
->  sound/soc/codecs/lpass-wsa-macro.c | 45 ++++++++++++++++++++++++++----
->  5 files changed, 195 insertions(+), 20 deletions(-)
+Hi Thierry,
 
-You've not provided a Signed-off-by for this so I can't do anything with
-it, please see Documentation/process/submitting-patches.rst for details
-on what this is and why it's important.
+Thanks for this work. A short report from a Dell Latitude 5290 2-in-1
+(same platform as the 5285), in case it helps to extend this series
+to the 5290.
 
-There's also no changelog here.
+I did not apply this series. Instead I tested the minimal changes
+needed for the front camera on the 5290:
 
-> +/*
-> + * Bounded retry for deferred clock providers. Clock-provider registration
-> + * does not trigger deferred-probe retries, so a consumer that loses the
-> + * probe-order race stays deferred forever. Wait up to 30 s for providers
-> + * that are registered milliseconds later.
-> + */
-> +static struct clk *clk_get_retry(struct device *dev, const char *id)
-> +{
-> +	struct clk *c;
-> +	int i;
+- Linux Mint 22 (Ubuntu 24.04 base), kernel 7.0.0-43-generic (HWE)
+- Added a DMI entry for "Latitude 5290 2-in-1" to
+   int3472_tps68470_board_data_table, reusing
+   dell_7212_tps68470_board_data
+- Booted with acpi_enforce_resources=lax as a stand-in for your
+   intel-lpss quirk. Without it I get the same I2C4 conflict as on
+   the 5285:
 
-This obviously isn't something that should be open coded in drivers,
-this is going to be happening all over the place.  The clock API and
-driver core need to be adjusted so that we trigger deferred probe runs
-when new resources appear.
+   ACPI Warning: SystemMemory range 0x00000000FE028000-0x00000000FE0281FF
+   conflicts with OpRegion 0x00000000FE028000-0x00000000FE028207
+   (\_SB.PCI0.GEXP.BAR0)
+   intel-lpss INT3446:00: probe with driver intel-lpss failed with error -16
 
--- 
-Mark Brown <broonie@kernel.org>
+With both changes the front camera (OV5670/INT3479) works: cam -l
+lists "Internal front camera (\_SB_.PCI0.LNK0)", and I get video via
+libcamerasrc/GStreamer and in Zoom (via libcamerify). The rear camera
+was not tested.
+
+DMI: sys_vendor "Dell Inc.", product_name "Latitude 5290 2-in-1",
+board 09WJPW.
+
+So the 5290 seems to need the same intel-lpss quirk plus board data.
+Vitalii's tree has 5290 board data; would it make sense to add the
+5290 DMI matches to this series or to a follow-up? I'm happy to test
+patches on the 5290.
+
+Thanks,
+Matthias
