@@ -1,61 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794743020;
-	b=ev5fjiby86XqwtcfJ0h60ktkXHCgHY2wbi7CdP4BHGhZoOKm5c/zSumUBFpQsl5VGmaT
-	 bqBi0N78AoWuGAjvbzdns77KLkjlImA/gDMWHuUVULfXM+xH7gLcgqI0rEymU6xE+WV42
-	 opMV2dmFD5cE3OQ1yL0frpwVjhZ34p1c+6EZ1Ms+FPU0tQrAyN5HnvgGooDY6lJC0Vj4d
-	 5M3DiRiniEmM05YawwHHvXg222gsafH/E1EjMx9vodksq3Q5TIeEEaw8jXAY9S1u2kRm8
-	 FWy223+evJFXllHpl4lv0EkSpsWIWZYHwbgs7VDOjfCPcJk+i1bnv8KTW/Ovi/Y/0og==
+	t=1794743018;
+	b=p8cyG1gzfB7h6ouRcYOyvafmaYqAKgIc7bYXIbwvO1qMeGSekoXzbbE77nBj/JEHaBxJ
+	 92r735ix+eJFElxI6uYuDwezSEv0fHyl6hKFqB7WivrLIDWVFrGzeSHiIiv1jHmtSaBoU
+	 kp/KpXQEBPRHQ/aup33igsEMLjTGpLkgViI21GwBCts0Ej7TmvGokV0pYkxJQL3GI6GEY
+	 5tJniJx6Rnt+FpXMqTYvmRpyoWVKcpjfJdkol6gj/aBtTTfg9lKGAtGAZFvwx+nASbq20
+	 tDv5BFzmnD0+n0+LnPDba+AeiPtHSZo3f02eEiIj8HAjJy7AfBxNtyPzOhdZXdgwH5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794743020;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794743018;
 	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
 	 Subject:Message-Id:Date:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=ox2hY5QH3jmgosgum8+KLHMofQ09oXBIrh5AAI9umjs=;
-	b=EyW27dbIrI13aHKScKQsgvu4CmAOmk5CpqH8R5335XfcgMCiTxClYmHyjEer7CIgwPCu
-	 WZDL8xknasa8TTKtzlrZI9LCn+yb9UbJY9QcmBGVlbGGt4nRqGtANuqs+FV63zSKHqGNy
-	 Mb8HW07nXgi73qEhXMVCzifpsztPcrbFEEBOLil7U8sf1X/iuwgYgPfF1kwTGorJUGgWT
-	 zT7E5JH0nV5dltwRpXoDqMddUG/aKl2CyYYMwNBa2Rerz9XHYuXjdre8SDAfq56aU3Zon
-	 K2PEkurvGxx5GvMTVj2TZoxPe+njLp/hNf2Acj8vt3QZjxyzGJo8YV8YHhj9phGQXcA==
+	bh=IDJZnOK3vJIvUBVAsm4+nAHt9LxvFnq9d2VS6waLUKw=;
+	b=IJyOmgBv5W0drtouBUzT/DXb/mFagi/NY9QI0C9KJ/dJ1WPh91IcrBJEBycf7p5HRyJB
+	 WMp8U/JyCwUDXRFCdXeaTkIf0eDgvV2dJnBwxRj9liCwqMhkVaqN4MR73bVdqZKG1vis/
+	 teAEXXkA7j6dFFd+j8u+SDdRAjfKEZDyD8L6hC2BT/CdKJiEPo0LO14rKdP6xGK9SqySd
+	 tL5Bs5d4UiWomp70nageIQXxbLBP47l+47rDCargRTHLuu8j0Q6FgOHgFuXjuSglm5Dr1
+	 dYLWsznnVmCYPKF/zeAgcztkrMS2NA8L2WCb0RmpNclHwicu3uN7XDzecgmsslgWvoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DhVWqplR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n4zRGnXs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F990606A339;
-	Sun, 15 Nov 2026 11:43:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EDF3606A323;
+	Sun, 15 Nov 2026 11:43:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DhVWqplR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D75A1F000C7;
-	Sun, 15 Nov 2026 11:43:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n4zRGnXs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3ECA1F000C5;
+	Sun, 15 Nov 2026 11:43:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794743020;
-	bh=ox2hY5QH3jmgosgum8+KLHMofQ09oXBIrh5AAI9umjs=;
+	s=k20260515; t=1794743017;
+	bh=IDJZnOK3vJIvUBVAsm4+nAHt9LxvFnq9d2VS6waLUKw=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=DhVWqplRc+i7a6wdBHIvf95NOR5h8jw8MQl2lhLwBwQX1dEXAJwipsf/63/MLyHPX
-	 BZ+B/gcK40oNdm0Lh6k6exCp+SX0WEcukedmCta/oB3ZOglV6jeZ5Iz7G/2kV58fAx
-	 fkuA23zdFd1HTS151C7xhPWdpBhbcGW19EBSGmwV7r6ncvPf6H/9qGVEskZYkK7tJw
-	 zpokrk2Fy+SjsNrlUF9RXhJM8uk2xUCgj2MUbPKOf4IDHbYbjGMvCS3lQKYmTO99ib
-	 GIWx+1z/GKu+SsCwRuB+GPcQo4VJIWM7SUYr3TyRUox28oNKEdgV45z82pw5ESDCRD
-	 cDjQYSmLR3XYQ==
+	b=n4zRGnXsD5P0kob+1C3053DbdoCZM0vPyIV4LS3m2rJvYB0AqVLtBmeRvxS9/5I3H
+	 tOqpiQTKhLtZRceh71kPrhdpAyFLM0vX9rMVzT71VeHayLWPiOHPTwXrfbYQ7uKj2Q
+	 HVACaybOZdQkuqbdnLyXcG7MvzOf2JBwnnNDFJJC7DJ6aJo2WLp4cpNPpyop9Tav/r
+	 02MWs3W5Fa2lLkKun66UWBVR4S4N2ErkNX958qoC9zKSw1ItbTerchlMElYP1Uazlw
+	 VU4sjwgxyn8LVGP4ztLGMkJZHrchNXmguq/ldy0vw2EGY1X/P4Ds522oxoBBmT6ZUj
+	 HchRXLDSCTvrg==
 Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 62DFC3366C17;
-	Sun, 15 Nov 2026 11:43:38 +0000 (GMT)
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 04EA03366BF3;
+	Sun, 15 Nov 2026 11:43:36 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: Zhu Jun <zhujun2@cmss.chinamobile.com>
-Cc: daniel@zonque.org, haojian.zhuang@gmail.com, robert.jarzmik@free.fr, 
- lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, 
- linux-arm-kernel@lists.infradead.org, linux-sound@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261112071757.154652-1-zhujun2@cmss.chinamobile.com>
-References: <20261112071757.154652-1-zhujun2@cmss.chinamobile.com>
-Subject: Re: [PATCH] ASoC: pxa-ssp: Release the SSP port when clock lookup
- fails
-Message-Id: <179460578277.448985.9924511056534604173.b4-ty@b4>
-Date: Fri, 13 Nov 2026 21:36:22 +0000
+To: cezary.rojewski@intel.com, liam.r.girdwood@linux.intel.com, 
+ peter.ujfalusi@linux.intel.com, yung-chuan.liao@linux.intel.com, 
+ kai.vehmanen@linux.intel.com, Jude Gyimah <jude.gyimah87@gmail.com>
+Cc: pierre-louis.bossart@linux.dev, perex@perex.cz, tiwai@suse.com, 
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261104135142.3723042-1-jude.gyimah87@gmail.com>
+References: <20261104135142.3723042-1-jude.gyimah87@gmail.com>
+Subject: Re: [PATCH] ASoC: Intel: kmb_platform: select BITREVERSE
+Message-Id: <179460491917.448985.14839714163958999777.b4-ty@b4>
+Date: Fri, 13 Nov 2026 21:21:59 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,17 +67,17 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1131; i=broonie@kernel.org;
- h=from:subject:message-id; bh=gtSTmb7rNo9CHbbtSfMn4Vd2lX/MEhlHdywA0vrj8cs=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJ+znq18m/mWXudbSx+h6QWyKX9l8jgOhSlnmV+P/fef
- JOkJ/tWdpSyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAizyQZGS4LJ/7ZsvpGdJte
- dMgcxX8z73CwrBTfZVOoMoFTK9P3gT/D/+KIAqaS2fG5hsGa1u4G2pOsLPeHFyc4n157+9eBRTb
- +rAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1105; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=8sAnkIpgW/EySCqNp8v5gaRusRx3+qfgeXz9uO2jDJ4=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJ+znp+8GZh1pWO/1UT5zv2W6y9056xMmz26eW3j9WUy
+ dQxlf7n6ChlYRDjYpAVU2SJy+J+WV/yeg3fwYVtMHNYmUCGMHBxCsBEdoUwMrzsy3+4fVOxiGl4
+ 47R2B/b4bbGdMcfe1WnuOHA27s+L08EM/ytDHz26mHLjJ6NC6L/D5682f++PlZT/cEqs5eN8lmp
+ +aQ4A
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Thu, 12 Nov 2026 15:17:57 +0800, Zhu Jun wrote:
-> ASoC: pxa-ssp: Release the SSP port when clock lookup fails
+On Wed, 04 Nov 2026 14:51:42 +0100, Jude Gyimah wrote:
+> ASoC: Intel: kmb_platform: select BITREVERSE
 
 Applied to
 
@@ -86,8 +85,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: pxa-ssp: Release the SSP port when clock lookup fails
-      https://git.kernel.org/broonie/sound/c/7072cf805de6
+[1/1] ASoC: Intel: kmb_platform: select BITREVERSE
+      https://git.kernel.org/broonie/sound/c/098ca46ed476
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
