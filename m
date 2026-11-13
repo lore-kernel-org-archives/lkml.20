@@ -1,79 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794557041;
-	b=kuerOzgeWAhMqB6GHgYVGaOvSRU8Sf6KXy1R1jgQG3PPOrlhDB/SpJ6UL8mCZKAZeFUB
-	 Pzx3bYIpOdW5JvZdC7hvXY9Am3AujhBSa4JFsgYg7H9/+Q7TPWH8YpQFkU/uamS9DpIDF
-	 36NGfFid7s75wl+DYYcj0aDZ/GxqBUYz7ehNTOzsWWiWhS8DXf93Kj/cNsJrpGu6nHBA+
-	 te3FZ2UJBVDohOYUKh/JMaAJQp7gw+kKOsNJSZ8fLlXxEmaTF5MYDEshbx+8F3kG7KRNJ
-	 D4wwOiuoRBPhdlvNbfS/rtOx6mqORhK+U9gSCh+LXgHD2iQ89VyuUxSM5RD+mRvpV4g==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.167.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794557151;
+	b=4ar5sjW1rujW81D+LHjnBF2jPQVk9zZ3rEXgEc5XUiIbj/v3dVxZfbZd3FC4xoBTegx/
+	 iE0w5vvuMJ0iguPpZXKFT0SGKIzMR4zxswJUuxKktn3dJGDWNpUPgflyUxArDKUmQrfdJ
+	 4OG1hKRtmAVP2Y3wdwSzI1M4CEx4yqSVvakj7lOzDYIh0vhbMG104Gc+Yx9fROaKbF6AO
+	 Acmq63RlTyMr3tZFACeVVIHGbU8MhmrLWFiTNSFoKWJKpZVQ25GRCKxqc9YrXTwxAwIMX
+	 RlFlOQzqONIbqbctHLbqd3xivZ0+ZUsb7f81NHYnhZTDt7UCORqJyMFJUmtuhJdA/xA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794557041;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=9aTGmfKoZNcf7jTTJ6RvYLx/icbQQbPWjeg9zDfJi4c=;
-	b=kSEYZSTkwUOdJ5lVhZjWMqQG+j6yf72Ra/YFQ9hjSXza5WodAYkBPJjDTNRdzQOYZ/m+
-	 PFBsOk/SzhqdwsHJVacs+Wd+29LglANZcxTPX+cbRs3auZutY3HhHZt9cAAqcadM8JASI
-	 gvMpFZ530vfxaF6XSxi+kMxRDXPtPA761vcxi2OPfLUEYeQvWGRp5etgAzErACwNKo/xf
-	 xOKE6HBCdAxCLjFTgGeMAJPhzqzH3kS7ggu766L7vjpHhvCNZ/5omh9fApP+U+hg6Mr0k
-	 G7mHHANcRm5WhyJrDUKi0DZCc3USbk2VpYSiryXW7b5AVP3m5VUt6+jDgQEK1TcE00g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794557151;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=oqtjBd2wESHyMO5oAovp1QSWx1cXP9Xallbgkc48A7Y=;
+	b=ehrEInLcfg6hV/ztdhRGRebp1KwCDgZEvof4EHdtD+ejQndB9dCHk0xTGAwDejqxcJHD
+	 3vyxgCUcMBgQWPRTvGzYRbQmuZ6zVdPEtf1SFKF6QnMqVcafH032t23u8yeNJqninxWJk
+	 FD0E80HnWPwlBsIMrQvpCcHCA5EDvsO0SlSh87I2HtNcYWhlEgnUoIZ5kvwKRZonhkWyD
+	 KgQAcezryaGyEAcud5g7AREBmhSicX5wFYJfa960DaiLkju4kSlQjkyZGUHHNQ3mQwRC9
+	 7YtaWKKmwD7dz77XNqDOkqsK4sypcn4Qxk1+vdaKcYTtLcOwVmwN9rHW5bX2z7dUIFw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lshj+DVG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24E85606A31C;
-	Fri, 13 Nov 2026 08:04:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lshj+DVG
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794557040;
-	b=aDZ11lWe/UBD4fk0CacR1o9ZDEaMZaFxyLQeAW7m47XJpMaSmngp4V3KeBQlSFz7mQS9
-	 ogatGEwlvzNIG2SQqCXWjEzicXtmEaOnUclk9cVskuioGs+ZPf11Lb8EowQ8k7Fu1wKNv
-	 DcBggL40GwPPRxmLUAApSKvdD6IWgYc6pZ6UBT+GK9+6Uixi3ls5gbA/4qW3Pi/BYCSsY
-	 8fWwwrjkcie/1SMPzesi+Kx5hHDkZnULp8nIu7/3PaG6N5NloDxJzQjtSE80o0eHizWpz
-	 c7pAnlZi3nCRZjZTgOFqzdOOKb2zBDIzxXrmEVmhF828ZW0fihmaOILmlsRGTVFM9Fw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794557040;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=9aTGmfKoZNcf7jTTJ6RvYLx/icbQQbPWjeg9zDfJi4c=;
-	b=CLb78VPBIaQiDt4pdhTp3RCeRt4CCy+yrW/3ycyIxsSLIz0rZFt39u1PHamF0Zb57Pab
-	 54tCQAJU+3ML/Iwv7wqA/GB/1JHu63fWP5GDja4s6lVcOhB7ikPjoa0YHxUvqfX++FFXA
-	 3raYk1H3+s5biXYqUn1f7E9d+FOisz1ChGW2adSy3pZQGb9tACUWU0bnfX6PwiLmG0tY2
-	 Ay/kdpYK/2BYlSDcnzpv5zfUpCPl+RQQHl04j1tyT/xucRlZU+ZI/Nqc4fAjS80t/Klq0
-	 eKZDAPnUaohQMzuoRjNjkdMwEVzPl+4PxkCkmVVMNBLVFrRJ2Lvz0RhccE+5TYq6Bgg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FHl5FeOi;
+	arc=fail smtp.remote-ip=209.85.167.53
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 2F37A1F000C4;
-	Fri, 13 Nov 2026 08:04:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794557040;
-	bh=9aTGmfKoZNcf7jTTJ6RvYLx/icbQQbPWjeg9zDfJi4c=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=Lshj+DVGf0XV1Tpuw1oQGOhRWKoxja3uypxUI7JFYTfBY8+dtB37Fy2nLiMssT9K2
-	 SSdZ0e4mzTWtso4A41qtaq5r2MJGjo2dRlppLZ/nKEcNQze6rrPKCQv99zjmu56scS
-	 6ckA3oqx6lXVo32UlKzoVwlPMEpeQXBXU5XfKLm6r4okwVZvmSUSwic6icDeot4bgB
-	 SbHdlqMQ/optq5iGe6ToRR4KJiDoOVCfPJcuJkMQZ062lG10A8KvFmEl8EFlN2ysGu
-	 D2MLbp05W31lVL6hfXBMeo95h+m8kvfBzOELSa0Nech0lWYNAynbCS7YBa6pHJQkAx
-	 J60EE6L/W3G0w==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 81E564769E;
-	Fri, 13 Nov 2026 08:03:59 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Fri, 13 Nov 2026 08:04:00 +0000
-Subject: [PATCH net-next] net: stmmac: dwmac-sun8i: Defer probe when the
- EPHY clock is not ready
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA1DC606A327
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:05:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA1DC606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FHl5FeOi
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5be4716d76fso79394e87.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:05:50 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794557149; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qqITeCPplr4Vn/3+VZF4yk4U+bIV0Qn5+m24gRfVHkmlMx/w13n92fFBvHDWLvxPkh
+         aeDrg2h1FuZBbk82P7rzyYKCdgAPeX9FSsVR8h0eD9xy8Owd+NACyET8z1LTP9tt8lyp
+         KOz7byYPSVZQwkuXIcENdYeZiwks4V0EzPIxIHgGFr589FA+Skst09Uh6T0eWMNjb/V+
+         vw4SoFSCzHGigGGAc9trWy+FuBEhkx/rLhYzfHQB2CZBiKMT4HnQSrS0tTddVCKyBSK3
+         yMaIBMh1zVHdz92QyKgtUItRdqT9ZGXvW8+z4IzNbrecEZI0vedIgcl8r/L9ZRY9FptH
+         Yu5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=oqtjBd2wESHyMO5oAovp1QSWx1cXP9Xallbgkc48A7Y=;
+        fh=LYuFtnqH/7ziBLfz0BQwRo2TX8MxbducgPzHjvwumis=;
+        b=TGryAY8tnTrtpyaZPwBUSUnpkxHXGB+eWq7NFwUEqAuU0pTPRnWlASahd8azaKNIBh
+         jX+U8lOwoQm1lo19aKazxLGqSFz+zx5HW3Cko6/sn2eLFMp7OIEbT4dUcb13IAUGHX6c
+         fAUGWTz8CQNhZJT1+SlJBV6KNr4nfL9TdQRkDmQK7nyjJwTnQKpw1GOD+/FJgn6OQ72P
+         9bODu4YZAaPTouAG5QFTeXqJJX9rgN9+ztM4XeoWFVwZt5/iwqgr6eAnO7e6ywvyDqgZ
+         1cFJndBYaTf18Im7xWpAo4Li38curIN+asQbam2A0/kGsnCeb9KYa4PsykJiDMPc5+Dy
+         LGWA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794557149; x=1795161949; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oqtjBd2wESHyMO5oAovp1QSWx1cXP9Xallbgkc48A7Y=;
+        b=FHl5FeOijEJd+VdBtfrSXvIzf5TZ/XUmT4e+4SdIe4MSTR84j8yWGY07hR712hVUSz
+         S3NWvU13WGbrjZo/yvud+wVPiRXHNSuhv0WsTXzx5Z9an4bjC+k0usNYURpdj2lMahRl
+         gnsrpehRXhWm9KcEMxopNQ2yrhrPdimZesOW5j4U14jAJr47b6/72C+5zIwK2caWbZj/
+         s91BmOR6K90dlVXLYweHA3CeDFFXSEbsYN7XjtTEU9sFZ/FTnjCPHmaBFhDfqjymwytI
+         R1YteHu3cP9OP1lpbg5OTTNXcc6E5j+R8BHkxQmaO3OvQOtu+KumIURAWjpN8KwyKijp
+         AQPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794557149; x=1795161949;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=oqtjBd2wESHyMO5oAovp1QSWx1cXP9Xallbgkc48A7Y=;
+        b=uAszDe5mbY49DmtBXce22FXwAzTFV+LKWxhWLZziYwzyduzjJhDKgXjf/hm1BLktnE
+         in5ts5CgHzQ2uVipd+dDlE/BskZKnPFEiGKTCENg5zm9g9z5DSdjtcLo7XfkojPTJTVD
+         hEiCXj4k7QyMTly8G5zgkhypgVK86a2RVtFAywehIg14sJo3U943eDsKbaEn9JkXl49B
+         68jBinH6nAH6nyjxcxYDIOUZ1pisLKORzFatduGdLhJ72My1BMJA97jmlp3r7t0NPnqp
+         d5mwcSqalrl0Ap1h4b/PZp2yYldkfKhY/aMtIXeKFiUnk9c4YSNUkAGbsFj2Vf5KKNJr
+         gzdA==
+X-Forwarded-Encrypted: i=1; AL+hErFCDFw8M4XmxOP+E+uT3CYRVH7oXIPlPhY1ghxEanLAFgMi/WdcenuF/+GIAa1ukIJv/rNZR0doXyFBMXg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/yxouy8Ug0U+uHkWLgMTppG03Tnc36TkeRn2lS/WVIFiEnLs/n
+	MbDqtzFsQFitjbHPCQGtxDHjFz9N3Ug25B8Th2VwiCKIKM0p7TCvGxAfmpesvuyk70MNFbNMaIE
+	mtnRI33JBCNLSibkDn37DOMPo1IZjnW4=
+X-Gm-Gg: AYBFou3EjNZSD5/hmCRCI7IiW3YFIo/ZvYZJNti/Dp7+WoVGUtEaRk/spMWhb3nNP8C
+	PlfPagbQ/TpvuDuiMFxDoUbn0HwkgGN4Od850TCgYYKPeOv/AnkTQFe29Q95GoWtHPDPUo3Qp1P
+	junDI3HIxEffbG+dqv148ToeBVa3/M0kipcIYKhgOdHLhlBe+9jagcD31TtGv7gMIFYYz8s8mWx
+	G+8codXfgAhEixFhMcQBHIs37kGU7njcKT/dXAS8jlKKhvF3YW1mdjXro57MQPMcpAvpBPowWmb
+	BKmg+H+AgWG1nEff7bl1Mts92X9Omm4P+PUbqMqWWvivwSYkuzJL9UyaaVL6gJli6jyMt1PUOgO
+	bpKlJKDqujouAtial9ODIYxcxmpjEdDOZWdfA9I6NUZddfymBah2L3xWrigMK59yM0kPpb/c=
+X-Received: by 2002:a05:6512:402a:b0:5bf:b65b:8598 with SMTP id
+ 2adb3069b0e04-5c1709b1f34mr794456e87.3.1794557149007; Fri, 13 Nov 2026
+ 00:05:49 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,95 +103,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-b4-sun8i-emac-ephy-defer-v1-1-12a8591702fe@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMwQ6CMBAFf4Xs2U0obQj4K8ZDKQ9ZEyvpFoMh/
- LtVj5PJzE6KJFA6VzslvETlGQuYU0Vh9vEGlrEwNXXTGmMsD451jZ0wHj4wlvnNIyYkdl0dbG9
- 7h9ZTyZeESbbf+kIRmSO2TNe/0XW4I+TvmY7jAySUWp6GAAAA
-X-Change-ID: 20261113-b4-sun8i-emac-ephy-defer-480c39394e6a
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- Corentin Labbe <clabbe.montjoie@gmail.com>
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- linux-kernel@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794557039; l=2284;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=3vOWWV9l/RPEbbthTMkW1C/XCstj8pm3YVWcUELiCkk=;
- b=Zh00xt2IqE0H4WmqmMEFzkuWSzcVdr9Qa1Qf6eTGMm86i/HvyogK5dSaE/9LQJc9xcVZIiy9D
- Q9zA4UQMzy0DKdbTShY1TsZo15qzneFaut3ohv/froP6aUhibJFsMIG
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
-
+References: <20261112-iommu-probe-race-v1-1-8c0b986b7e6e@gmail.com>
+ <CAEy9hNXRwH9qD-=Gj3NiY=ZVrVq02hAj0dPU+o8YfEmCcbSdNg@mail.gmail.com> <472df1c1-e1fb-454a-96bf-4a01dcd383aa@arm.com>
+In-Reply-To: <472df1c1-e1fb-454a-96bf-4a01dcd383aa@arm.com>
 From: Arun Iyengar <aiyengar1990@gmail.com>
+Date: Fri, 13 Nov 2026 00:05:35 -0800
+X-Gm-Features: AclHuK_Zihm1Bupd39qxey-TRk2fUNcW0Um962FEVnw_RYjI9CzqXZG7YgfHzoU
+Message-ID: <CAEy9hNUW+o_6jN8=7RB7e-6afyiZOzLZ9DQpFOKTQCoPfvDD9w@mail.gmail.com>
+Subject: Re: [PATCH] iommu: Don't let a driver bind while bus_iommu_probe()
+ still probes its device
+To: Robin Murphy <robin.murphy@arm.com>
+Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	"Rob Herring (Arm)" <robh@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Tudor Ambarus <tudor.ambarus@linaro.org>, iommu@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-get_ephy_nodes() skips an internal PHY node on any of_clk_get() error.
-If the EPHY clock provider is not registered yet, the node is skipped,
-the function returns -ENODEV and the probe fails for good. The reset
-lookup right below already returns -EPROBE_DEFER in this case.
+> [...] What we could really do
+> with - which might now be viable with the recent atomic device flags -
+> is a specific indicator that a device has got far enough into binding a
+> driver to be past the point of waiting or an IOMMU. The
+> BUS_NOTIFY_BIND_DRIVER call is in fact in more or less the right place
+> for that, so we could potentially do the flag management from
+> iommu_bus_notifier() rather than clutter up the driver core with yet
+> more hooks, but the flag itself can't be in dev->iommu [...]
 
-Return -EPROBE_DEFER for the clock too. Other clock errors still skip
-the node, as before.
+Thanks, that makes sense. v2 will add a device flag that
+iommu_bus_notifier() sets on BIND_DRIVER and clears on
+DRIVER_NOT_BOUND and UNBOUND_DRIVER, and test it instead of
+dev->driver.
 
-Fixes: 9f93ac8d4085 ("net-next: stmmac: Add dwmac-sun8i")
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
----
-Reported by the Sashiko review bot while it reviewed my MDIO mux error
-path fix for this driver:
-https://sashiko.dev/#/bug/linux-98384c14-541e-410e-a074-fff5e98b3820
+The flag alone doesn't keep the binder out, though. Its dma_configure
+runs before BIND_DRIVER, and while the replay has dropped the lock it
+finds the replay's dev->iommu or fwspec and goes on to probe. So I'd
+also defer the binder in of_iommu_configure() and
+acpi_iommu_configure_id() while a replay runs, using a separate "probe
+in progress" mark in dev->iommu that is set only during the replay.
 
-Only the H3/H5 and V3s variants (soc_has_internal_phy) reach this code.
-With the in-tree device trees the EPHY clock comes from the same CCU as
-the EMAC clock and reset, so the EMAC probe already waits for that CCU
-and this cannot fail there. It matters when the EPHY clock comes
-from a provider that probes later. Build-tested only (W=1, arm64 and
-arm); I have no board with the internal PHY.
+Does that match what you have in mind?
 
-This patch was developed with Claude (Anthropic) as a coding assistant:
-it checked the report against the code and wrote the fix and the commit
-message. I reviewed it.
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-index 2ece7ba9dd73..8163e49fa7ad 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
-@@ -801,8 +801,13 @@ static int get_ephy_nodes(struct stmmac_priv *priv)
- 		struct clk *ephy_clk;
- 
- 		ephy_clk = of_clk_get(iphynode, 0);
--		if (IS_ERR(ephy_clk))
-+		if (IS_ERR(ephy_clk)) {
-+			if (PTR_ERR(ephy_clk) == -EPROBE_DEFER) {
-+				of_node_put(mdio_internal);
-+				return -EPROBE_DEFER;
-+			}
- 			continue;
-+		}
- 		gmac->rst_ephy = of_reset_control_get_exclusive(iphynode, NULL);
- 		if (IS_ERR(gmac->rst_ephy)) {
- 			ret = PTR_ERR(gmac->rst_ephy);
-
----
-base-commit: 573af801552999954caa8347e4490b04cf4763f0
-change-id: 20261113-b4-sun8i-emac-ephy-defer-480c39394e6a
-
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
-
-
+Arun
