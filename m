@@ -1,108 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794582376;
-	b=W4DRRDe4wE6QE3vcmqiCgClxNqoPQI6DdZo8BXMaBdMmvotXosjZC+feJ95I1iRNKqSd
-	 oKu2cPzD3xnzrPOgAllDmOvf+VGmalaKDDJyv7jxYQru4BlDpnQ3iF2lNrE1+au/s52hv
-	 22LxtO7vgcWyvsIF4puftAHwjjXin3v0gX/5C50zWkCRaoCKbZY0jaq0STQ8itumyPxAN
-	 izZCyZzsb2PxBszrSdV4ycQjvL54Vr2eX0gk0w9lrhlT1Xy7K0p+TjsngSfbS+bue1fpM
-	 WftyWhVdcU5W40v06vPU1MR8T1+tS2tr3Cjwo3yLbXbEcDfuaUK3phreKWzP5MXDqkQ==
+	t=1794582380;
+	b=Kx0tEbQ4j0A8ktNW5hCHy3XVXkQX6Ibk/uRWuAr8rPtCyqQgAJiA01AD5Armgy7JxU8i
+	 qsUqT//+/gIAs326LO1oSPqNlDk+teF0dLoxNvR2UGxf4IfKDd5K0qhpZMfWH2VWv+3dC
+	 QRuLXRFA9wn+gTwLbPE+tDQi4qttrJcXU+3+X+zndPSoAQ1L+CreYGe13UiFvAEWsA3cO
+	 ii2w+Cjbo6aE9EZOwlgl/dK/NIVSsfEEWP75iI92xyrrrGVU9KhspenM+FAdnMyb7Xwr9
+	 15E16aYxaC3RE6/6Qu6NW7/sBQmWBlbNbNhecg3rHp55up0S7wM2NDPUb+qZFgUi8/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794582376;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=i696Qr9U2GcHUK/UnqEEL6xoYz649l6h3FsqJ59+e8g=;
-	b=cLI5QyQp6N+V9eEemuRUriJETmqqp/YRgmqrWVgu6Gbuu73Y+mIZKHl4ZgVCUJCd6UJQ
-	 0AST/Ic21riOCXYJrRghTpBTSInfx4Jf7yqOgG+Ws0vZoVIQfs6EAZXM+eBEW8BWAoa1F
-	 K/2E9dtLBZsqscDP1Si31ilp/apM/jLt+IEY2p4O7SIkYA1DArqrcJM1pmIHaRoWINXcL
-	 no6AHXuMSCWjP8Igxil1wy581DrEy5KubQ/zXj0vn0lMK2kQJsaB616zjMFn9rm5D8Tcu
-	 BxApc1/otCRqdyBVws9ETQG2ScwGZgAabTxzFPXXkmpe9hqRiR+6pVYhTHMN7mgiZgg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794582380;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=zSkaJp+jm7VGY1BsoqIkTEeAapZepwmppRz6H7Yg+iw=;
+	b=qDVv2kSpkfq/CieQRVaLqcpobDvHue7VNs5u8XCl2SgzOdvGA5TKmBwHZnhy7p9iz1f8
+	 PhGj/uUUzKqyuEebeDB+wbJYfmsWX48iCNhwiXJ+Rvs8SEmyHXwraX8iu/773y++nAfiI
+	 +gQR4AtvyWNG/7iHfKW3LeVsTTDxiFYgLfoMxFap0EoZ/7sbf9uckXVo8U0Pu93DutllF
+	 IF1ModCALp8aiz7ZNxidwrk4Cf8n/UIJtky0fJt+bnhnm3t9VitF5HzgJUv78OsN55y+t
+	 gcfaa0iGfCtlQj2T15KcC5KHYaVN5+bEcdK+a2DagbLVxhdbjlQj9e/v5yWSjG7vBIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UIYgjrC2;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="A8mZ5/b4";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05E1D60A261B
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:06:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05E1D60A261B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1196606A88E;
+	Fri, 13 Nov 2026 15:06:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UIYgjrC2
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a2167bd087so7626025e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:06:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794582374; x=1795187174; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=i696Qr9U2GcHUK/UnqEEL6xoYz649l6h3FsqJ59+e8g=;
-        b=UIYgjrC2IgYrQ+gxpOzcd72bMdyu6bvVXHiTCouFwp7FslxN2r9mV6fWs8/Q4u/D8p
-         K9fMSTR67qzM4/YEBQp9iGf2SyAptLhr2po+4doJ87U/uf4gsasLtISCHvbVjaGhq0/c
-         lY6UecF/ek3c45FsmzySbB5FO/sZosjkGDgLi0bbso6WtXY3eLdFfXf2eJIsUmSykx07
-         OE75xv7zJqzNX9vroa5/r0o852RsFEfZnmu/jORy/8mzh7pZr/7qjY+U6vFbS/yBVRM4
-         UVwA1O5sZ8NapMGirfeYUy9aNm+hfo/H4t0SgcQfAzLjZSCmafqzKcvOuVanFV595J9u
-         XY/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794582374; x=1795187174;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=i696Qr9U2GcHUK/UnqEEL6xoYz649l6h3FsqJ59+e8g=;
-        b=O01qtKia4SP2n7OUrQgIx6Xt3YKDn4fAYA7QlPQkFL5LZjtCD0RTUeaQnRuw91BwUf
-         QTDxOeFn+MHJ+07Qv/bRD/3dQBoCiuqj62Q0kJlqObbIHP/6i+GGdM08ADjvZ7SCRmcd
-         XD1+dCrfdWGZ94OiCDA2eIoynaKIjULTC7o4O75vat8HxBqQ4rw6SEj1sRwDonsxajGZ
-         sns8+4iAuSNB9jqf3zgSU1fAyt+lxYQAwRCUKLZxym1iwX+//lgqsypEwaGrljK4Uwsl
-         jrYbOsZ1QRkSA/cRYOaXHndrgFQ/wg3K7je/k5M1nPhY+ktKE0vyZ+VlxgCka3wxaimw
-         ywog==
-X-Forwarded-Encrypted: i=1; AL+hErG2iH8POgDEmbP1fDlGOmW132MA8Cvo/dDtwAEDA0NTjAouD7Eppjw8rAI7HftMeu0h9FbvD45SR+/fn6w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/w1qrM/qaK2I4kAfA7GkjswtmYjjsHCYqWQRcuUynqbULwsUpW
-	rO9IKycgiinYnuzP9VNM8nk47iKYSD/TMA9rozIh0mU4DaHIs96HvnXs
-X-Gm-Gg: AYBFou1NDOiEr29kz6vSWPAAGtlhHBF6BE4WM9pg8CMPwmQMh8Xm0s72llOTcTShaNz
-	QkOyo0lbji4tiIZUQHMJabGagYGCcAi4WOCf9EDVyez9Me5Q8FgoUoiEJko8KwBIn41SQBL/XPk
-	H3MN9iNGwZNwEj3d0MOUrn/ErWo0zd3SS1XTIruZAWgpXvG+KMT8Zf542WCBAjzyG7/ihcCHQkC
-	GZCxfUZDoR3yHRX7XHP8hAi19ExedkmlxVNozhZxboW9s+ACHVqwm4ye7dk/QmrBll4dsZc6r+D
-	5ucI+aXWEI8jZvf5nzKRoDUi/opSJ0cJe2zo5/Ns5PtcQwzv8lVys8pcMozyz9xhK0xaAOfyia6
-	DCZ30io4DYaN9czzcYTtP917ACXY4HDai9SeF0OPM71mQfVW4q03mncHsrpv+PI3sbeV1iCHeSx
-	gq5Pee+Vf1f+K4nLbZnSp6qoHZNMo2YCukgbkiNXf4qBynfWou6T45iAkCpfB/ljKPeK5JOHDE6
-	Wy8KiWX5FvOHrH1Bbh8MKqn/sblTsY1rqJTkA/XoPKwHrpqL7A0AIskQw1+irMN04jBUKI9mJ6x
-	slgfskHFz56E2GfWZukG0F2Ro6jfcWV88bhJhtRN8sZpUHGoMJZ6MW3DI+h5Yn1Awn76oYF6Mr7
-	Bkw==
-X-Received: by 2002:a05:600c:1c28:b0:4a1:faa1:3813 with SMTP id 5b1f17b1804b1-4bb55a812dbmr68819625e9.27.1794582374202;
-        Fri, 13 Nov 2026 07:06:14 -0800 (PST)
-Received: from andreayoga.wind3.hub ([31.189.56.146])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb56680ea9sm44176485e9.0.2026.11.13.07.06.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 07:06:13 -0800 (PST)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: Juri Lelli <juri.lelli@redhat.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Andrea Parri <parri.andrea@gmail.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Dario Faggioli <raistlin@linux.it>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A8mZ5/b4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 697521F000C4;
+	Fri, 13 Nov 2026 15:06:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794582379;
+	bh=zSkaJp+jm7VGY1BsoqIkTEeAapZepwmppRz6H7Yg+iw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=A8mZ5/b4AiSvyz6/B/8zSAW1/U9SJynHtgtKejCgG5EpkOD9+YgLt0aLp0SOBjxW2
+	 Cadfb9Qu5OxfiGL1P5hVAlvcKdMuAqk/xyk17aBJQ5qt17NW+Ojih1LQXuCBALv0jT
+	 wMjV2vpC3gOpoDE8m+yQ250RpaEm/DfUYTBjf35F5ebkLvwIBZJrxGX/PUorR9uu6j
+	 KLPl7IjppPs5a0w02rDVmlJouH1qS48Nh19CWUHF3KwYyE0XKKTvqLGaHRmw5q0gSG
+	 UYZ1+5RkDK7PyllfB8kQ9AURhVOsJj2DEQ/cjEpTUSGOR8z7kU14zTeZRjBqVUCXM6
+	 dx4SvXhdjTyug==
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Ingo Molnar <mingo@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	James Clark <james.clark@linaro.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Clark Williams <williams@redhat.com>,
 	linux-kernel@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev
-Subject: Re: [PATCH] sched/deadline: Check SCHED_DEADLINE affinity under the rq lock
-Date: Fri, 13 Nov 2026 16:06:07 +0100
-Message-ID: <20261113150608.9233-1-parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261105164856.29698-1-parri.andrea@gmail.com>
-References: <20261105164856.29698-1-parri.andrea@gmail.com>
+	linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@redhat.com>
+Subject: [PATCH v1 06/12] perf annotate: Print the stats after the annotations
+Date: Fri, 13 Nov 2026 12:05:47 -0300
+Message-ID: <20261113150555.1163049-7-acme@kernel.org>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261113150555.1163049-1-acme@kernel.org>
+References: <20261113150555.1163049-1-acme@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,17 +68,119 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 05, 2026 at 05:48:43PM +0100, Andrea Parri wrote:
+From: Arnaldo Carvalho de Melo <acme@redhat.com>
 
-[...]
+The instruction stats are printed before the loop that accounts them,
+so 'perf annotate --code-with-type --insn-stat' always shows zeros.
+The data type counters are updated in --code-with-type mode too, but
+only --data-type mode accounts their total, so they are incomplete
+there.
 
-Gentle ping.  Juri, Sebastian, any comments on this one?
+Print both after the annotation loops, the data type part only with
+--data-type.
 
-Mathieu's v5 [1] touches the same code; I replied about the overlap
-on his patch 18 [2].
+Fixes: 58824fa0087e1cb7 ("perf annotate: Add --insn-stat option for debugging")
+Fixes: 61a9741e9f78c64c ("perf annotate: Add --type-stat option for debugging")
+Cc: Namhyung Kim <namhyung@kernel.org>
+Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+---
+ tools/perf/builtin-annotate.c            | 10 ++--
+ tools/perf/tests/shell/annotate_stats.sh | 58 ++++++++++++++++++++++++
+ 2 files changed, 63 insertions(+), 5 deletions(-)
+ create mode 100755 tools/perf/tests/shell/annotate_stats.sh
 
-[1] https://lore.kernel.org/20261108185406.1549770-1-mathieu.desnoyers@efficios.com/
-[2] https://lore.kernel.org/20261108185406.1549770-19-mathieu.desnoyers@efficios.com/
+diff --git a/tools/perf/builtin-annotate.c b/tools/perf/builtin-annotate.c
+index 331adbdbd635917d..973f4950abd6f917 100644
+--- a/tools/perf/builtin-annotate.c
++++ b/tools/perf/builtin-annotate.c
+@@ -414,11 +414,6 @@ static void hists__find_annotations(struct hists *hists,
+ 	struct rb_node *nd = rb_first_cached(&hists->entries), *next;
+ 	int key = K_RIGHT;
+ 
+-	if (ann->type_stat)
+-		print_annotate_data_stat(&ann_data_stat);
+-	if (ann->insn_stat)
+-		print_annotate_item_stat(&ann_insn_stat, "Instruction");
+-
+ 	while (nd) {
+ 		struct hist_entry *he = rb_entry(nd, struct hist_entry, rb_node);
+ 		struct annotation *notes;
+@@ -660,6 +655,11 @@ static int __cmd_annotate(struct perf_annotate *ann)
+ 		hists__find_annotations(hists, pos, ann);
+ 	}
+ 
++	if (ann->data_type && ann->type_stat)
++		print_annotate_data_stat(&ann_data_stat);
++	if (ann->insn_stat)
++		print_annotate_item_stat(&ann_insn_stat, "Instruction");
++
+ 	if (use_browser == 2) {
+ 		void (*show_annotations)(void);
+ 
+diff --git a/tools/perf/tests/shell/annotate_stats.sh b/tools/perf/tests/shell/annotate_stats.sh
+new file mode 100755
+index 0000000000000000..82d2becdff141138
+--- /dev/null
++++ b/tools/perf/tests/shell/annotate_stats.sh
+@@ -0,0 +1,58 @@
++#!/bin/bash
++# perf annotate instruction stats test
++# SPDX-License-Identifier: GPL-2.0
++
++set -e
++
++perfdata=$(mktemp /tmp/__perf_test.perf.data.XXXXX)
++perfout=$(mktemp /tmp/__perf_test.perf.out.XXXXX)
++
++cleanup()
++{
++	rm -f "$perfdata" "$perfout"
++	trap - EXIT TERM INT
++}
++
++trap_cleanup()
++{
++	echo "Unexpected signal in ${FUNCNAME[1]}"
++	cleanup
++	exit 1
++}
++trap trap_cleanup EXIT TERM INT
++
++# No point in recording if the PMU cannot do memory events.
++if perf mem record -o /dev/null -- true 2>&1 | \
++		grep -q "failed: no PMU supports the memory events"; then
++	cleanup
++	exit 2
++fi
++if ! perf mem record -o /dev/null -- true 2>/dev/null; then
++	echo "Skip: cannot record memory events on this PMU"
++	cleanup
++	exit 2
++fi
++
++if ! perf mem record -o "$perfdata" -- perf test -w datasym > /dev/null 2>&1; then
++	echo "FAIL: perf mem record"
++	cleanup
++	exit 1
++fi
++
++if ! perf annotate --code-with-type --insn-stat -i "$perfdata" --stdio \
++		--percent-limit 1 > "$perfout" 2>/dev/null; then
++	echo "FAIL: perf annotate"
++	cleanup
++	exit 1
++fi
++
++# The instruction stats are accounted while the instructions are
++# displayed; printing them before the display loop shows zeros.
++if ! grep -Eq '^total [1-9][0-9]*,' "$perfout"; then
++	echo "FAIL: instruction stats not accounted"
++	cleanup
++	exit 1
++fi
++
++echo "instruction stats accounted"
++cleanup
+-- 
+2.56.0
 
-Thanks,
-  Andrea
