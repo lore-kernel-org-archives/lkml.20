@@ -1,79 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.10.208.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794567547;
-	b=cIsF75p/En6Shagwk/i5i6EnsZc5ns3CLgqb4JI4iA+4YB0KPU45QPsZuhUF1G8PWfMo
-	 C4f60pyJTfAfPcoIgQrImoqOrK4CuWfCqqQqZB/7Venyyv/qshKb/9diWGvRoSmX+bXcI
-	 2+0ngZoLb4nZZuAFChXOTR30UWdp+g4MrRdErWeqYmNvNyWvkfrmCOFpq0CXXQl7XsUO1
-	 LAWlPSIkRZ47A8XVfr1CXtDo+f4sGRPbfodzjc8puAn79qyU7CmniKOdp0baxja7CxySM
-	 VgPPrCMbt7M6aQ6oWLA4TzMh9m689JFbw/q9ky7mCNrLel2xkaPVtYlKUh8kFqn9xCw==
+	t=1794567572;
+	b=Sowt9RwvnJCQMnca7CjpKzE5oTgZA3+2McpC5fZS41NDTFZZ2Tx+pajFn8QRZlxOSTmS
+	 C8TGre94RYVq8/bYW+TYeyr40TqtTpzM7boeuTe8HOhdBwFFKjb16uKk7sw+gmIGtvNpD
+	 4m771Pdr3Z/6lb6jDSHNGYgG00xt8QDPHrUozqRo9XXGHNMp7FxJ8Nb8N00HYUlnMo8As
+	 wYhQteIdnUghxxmt5x5C+a85bjS6py5xSO1bBWkRN1COvmTHwIwtN+DHrsXu/HfXE34M4
+	 gwQprwCNvNFwwAygWhUEG2IhdAnkZ7/55R4TNISVW82RpziVGisqvmj4bKoG5LpowFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794567547;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
-	bh=glKruA5muTr4k5zyDKpMfaKEQatBb9MU3FU/gWAzl6U=;
-	b=Hp3aSQHAJWzqiQpUuX1miqe8xmrcqc6HYpgjH7W+9vYEy9awW5FcHTYqYuOQAEpCOs3J
-	 NPM4s9TWMz9SoW2nPFpK4hP9vpRekVAwZs4fB/0VJ6xDERmUPzymEHKa2wGJkEbX+qcoH
-	 3gUMnxgn2b+ZmRj3Fr1dVma/ZAAbwPqmRJ+mNzNtwyDEnwQfYijZ5XtWVCcqodGheYIc4
-	 oS4GJmw8/hnd8lH9/oPQVWLNHkiicNVV7CVILMBvuObdrBOv9+ANwlLQVMKM8LuheWVz1
-	 jc0d2pyEP5y4b7syIfGL/XZ6hR/2p6TrqOyyj0vBwC/voEqBp1uWwCHY7ApEQACY3AQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794567572;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=oo7RjrzXgo/CEjpliqz3gqGyxd1KPs7Uh1SXdbTUxR0=;
+	b=UBD66G2z/VATEiJdqPV7k0nkf5CMp2Wtg/ZDyzyT8Zy7iPtezza12/d7Tk2gQhlNhild
+	 k0DPcpu+VDU3a0HxPrV50nxMvV6mb2oN46AnjYzh4UiO+8oirAXp7Np2Zg+lXNWcv6if5
+	 Jh5T0Lm2nBxuqu2Bq/IzZwxJ0GXusorYbQrgdq5NzCSqjRO+tFlZmM9Ckt37IoV3qNyj0
+	 +b7+UQ5KQHU06Zu7MQBEA+gdlZPQSSUKw8u0f4JkNCLNcVIUk/IDXnZEAmwLSoLkVxn5Y
+	 cZMNcaRyw4ErKA4ip1LVOKfulh38fe7BSAhUSIuprzuwplYIH54SqJsnRczWspZ1+WQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mandelbit.com;
-	spf=pass smtp.mailfrom=mandelbit.com;
-	dkim=pass header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=ClZB++I9;
-	arc=none smtp.remote-ip=195.10.208.55
-Received: from mout-b-110.mailbox.org (mout-b-110.mailbox.org [195.10.208.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC11D606B26C;
-	Fri, 13 Nov 2026 10:59:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC11D606B26C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mandelbit.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=eHdmZKVl;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B91A8606A339;
+	Fri, 13 Nov 2026 10:59:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B91A8606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=ClZB++I9
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-b-110.mailbox.org (Postfix) with ESMTPS id 4jQvQ0026wzNmD9;
-	Fri, 13 Nov 2026 11:58:48 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
-	s=MBO0001; t=1794567528;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=glKruA5muTr4k5zyDKpMfaKEQatBb9MU3FU/gWAzl6U=;
-	b=ClZB++I9/DL5q3UOhzm5ne4XL5kAB3pQHYGawyeMbkNlt/W4/XOlaDtsslcXdTfo1q+v2Q
-	CvZoFJF5COMcKf+InnoKOhb8SjDv+Eeuc7p0keMxQGoctyUTOeLcgAjPKcFyH0+TvHLR4i
-	B3OMkA7T5MpQM+S39Geys+tiFmoyKvoCehIKW859vmdOSp7ovCJHNmllMEPJOx3t25g6Yz
-	uwPZ587vMzM8m2BBb5Ux79Jjj5/6vAfFDXhLH6R0y+JeusamCp/9b+rQi6r7wpvE/47I1M
-	AkHCkaJBAruEXgAGqEGp9wkJnAlMGNbP4lJ8cvk8fWXa+fior//AXn1shxZnkg==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of antonio@mandelbit.com designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=antonio@mandelbit.com
-From: Antonio Quartulli <antonio@mandelbit.com>
-To: intel-wired-lan@lists.osuosl.org
-Cc: Antonio Quartulli <antonio@mandelbit.com>,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	"Yan, Zheng" <zheng.z.yan@intel.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net 3/3] igb: only allow runtime PM if the device can wake up
-Date: Fri, 13 Nov 2026 11:58:33 +0100
-Message-ID: <20261113105835.3821433-3-antonio@mandelbit.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261113105835.3821433-1-antonio@mandelbit.com>
-References: <20261113105835.3821433-1-antonio@mandelbit.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=eHdmZKVl
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2E9DE1C0A;
+	Fri, 13 Nov 2026 02:59:28 -0800 (PST)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C858E3F673;
+	Fri, 13 Nov 2026 02:59:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794567571; bh=XUZhmq3u2xNG1YGicKKUsCPDU/uHI8M/joODV72JgGs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=eHdmZKVlUeRxbO1js0VxizZUUCi7kGK+xvO/6P5sh6DJZKnORb99eLSQS/SQghozh
+	 ktmmK0lqA7D3BO5kICPE1q4y7Jf8241rP8coqLJZp9JJ52aQ6jw7jbkOOwJMXtJgi4
+	 tJDI3pvxprJULRN9Te+ZFfeWCxGLIRRfLB1jHb1s=
+Date: Fri, 13 Nov 2026 10:59:28 +0000
+From: Leo Yan <leo.yan@arm.com>
+To: Ian Rogers <irogers@google.com>
+Cc: James Clark <james.clark@linaro.org>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Mike Leach <mike.leach@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>,
+	coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 10/14] perf cs-etm: Synthesize exception entries
+ separately from branches
+Message-ID: <20261113105928.GN9176@e132581.arm.com>
+References: <20261030-perf_cs_etm_fix_non_taken-v3-0-7629b52ab047@arm.com>
+ <20261030-perf_cs_etm_fix_non_taken-v3-10-7629b52ab047@arm.com>
+ <CAP-5=fUMwOb6Gj+5DOu9-yNmthDz5ghAqrzmZ4ACX0g+9WB59w@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,56 +69,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jQvQ0026wzNmD9
+In-Reply-To: <CAP-5=fUMwOb6Gj+5DOu9-yNmthDz5ghAqrzmZ4ACX0g+9WB59w@mail.gmail.com>
 
-igb lets the device be runtime suspended even if it can't signal a
-wake-up from D3. Such a device doesn't notice the link coming back, so
-the port stays down until it is resumed from user space.
+Hi Ian,
 
-Allow runtime PM only if pci_dev_run_wake() is true, as e1000e and
-r8169 do. Devices that can't wake up no longer runtime suspend, even
-with power/control set to auto.
+On Thu, Nov 12, 2026 at 11:07:55PM -0800, Ian Rogers wrote:
 
-Fixes: 749ab2cd1270 ("igb: add basic runtime PM support")
-Cc: stable@vger.kernel.org
-Closes: https://bugzilla.ipfire.org/show_bug.cgi?id=13562
-Signed-off-by: Antonio Quartulli <antonio@mandelbit.com>
----
-Note: igc may have the same issue: igc_probe() also allows runtime PM
-regardless of pci_dev_run_wake(). We didn't have igc hardware to test a
-fix with, so no igc patch is sent for now.
+[...]
 
- drivers/net/ethernet/intel/igb/igb_main.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+> Hi Leo,
+> 
+> After commit 9648f9fc3525 ("perf cs-etm: Synthesize exception entries
+> separately from branches") in perf-tools-next, perf's build-test
+> (`make -C tools/perf O=/tmp/build CORESIGHT=1`, i.e. `make_with_coresight_O`)
+> with GCC 15.2.0 (`gcc (Debian 15.2.0-14) 15.2.0`, `-O3`) fails with:
+> 
+>   In function ‘cs_etm__t32_instr_size’,
+>       inlined from ‘cs_etm__instr_size’ at util/cs-etm.c:1390:10,
+>       inlined from ‘cs_etm__copy_insn’ at util/cs-etm.c:1572:21:
+>   util/cs-etm.c:1381:28: error: ‘instrBytes’ may be used uninitialized
+>  [-Werror=maybe-uninitialized]
+>    1381 |         return ((instrBytes[1] & 0xF8) >= 0xE8) ? 4 : 2;
+>             |                  ~~~~~~~~~~^~~
+>   util/cs-etm.c: In function ‘cs_etm__copy_insn’:
+>   util/cs-etm.c:1372:12: note: ‘instrBytes’ declared here
+>    1372 |         u8 instrBytes[2];
+>             |            ^~~~~~~~~~
+> 
+> The uninitialized `instrBytes` in cs_etm__t32_instr_size() is actually
+> pre-existing from commit a7ee4d625ede ("perf cs-etm: Support for ARM
+> A32/T32 instruction sets in CoreSight trace"): cs_etm__frontend_mem_access()
+> (via __cs_etm__mem_access()) can return 0 without writing to instrBytes
+> when thread__find_map(), map__dso(), or dso__data_read_offset() fails.
+> The changes around cs_etm__copy_insn() in this patch just shifted GCC's
+> -O3 inlining enough for it to inline __cs_etm__mem_access() and spot the
+> uninitialized read of instrBytes[1].
+> 
+> Zero-initializing `u8 instrBytes[2] = {};` (similar to instr16/instr32 in
+> cs_etm__is_svc_instr()) or checking that cs_etm__frontend_mem_access() read
+> ARRAY_SIZE(instrBytes) bytes before inspecting instrBytes[1] should fix it.
 
-diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethernet/intel/igb/igb_main.c
-index 4d97399..59f59da 100644
---- a/drivers/net/ethernet/intel/igb/igb_main.c
-+++ b/drivers/net/ethernet/intel/igb/igb_main.c
-@@ -3677,7 +3677,11 @@ static int igb_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 
- 	dev_pm_set_driver_flags(&pdev->dev, DPM_FLAG_NO_DIRECT_COMPLETE);
- 
--	pm_runtime_put_noidle(&pdev->dev);
-+	/* A device that can't wake up wouldn't notice the link coming back
-+	 * while runtime suspended
-+	 */
-+	if (pci_dev_run_wake(pdev))
-+		pm_runtime_put_noidle(&pdev->dev);
- 	return 0;
- 
- err_register:
-@@ -3900,7 +3904,8 @@ static void igb_remove(struct pci_dev *pdev)
- 	struct igb_adapter *adapter = netdev_priv(netdev);
- 	struct e1000_hw *hw = &adapter->hw;
- 
--	pm_runtime_get_noresume(&pdev->dev);
-+	if (pci_dev_run_wake(pdev))
-+		pm_runtime_get_noresume(&pdev->dev);
- #ifdef CONFIG_IGB_HWMON
- 	igb_sysfs_exit(adapter);
- #endif
--- 
-2.56.0
+See the series to fix the issue:
+https://lore.kernel.org/linux-perf-users/20261113-perf_fix_gcc15_failure-v1-0-eae592c5ff64@arm.com/T/#mcbc1b4ce7284c9575b273d504354ac733bcf39aa
 
+Thanks for sharing the log and analysis.
