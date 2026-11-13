@@ -1,86 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.178
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794600867;
-	b=CD3sTGZkKOx4GfMjwbOIE8Xf10v3ZoYIfwLETxzPZmxstZfRafldJgcUfuB09ZpqjlYm
-	 n1ENv7s+X06QrtsqBQVpwxHre6PjscY7/R5hmI9+7JXkKMhmX9NwBrRr4mjFGR28Q5hF6
-	 Q3xuWePd3SRRpuHEER+LALNNn33a+mdAkKT0tpGDaf4u4w8qg7oI+S1tfjUHWLWnF+xST
-	 +oqwxKdEY1AYHHC3UKXNrCVC5pv1h373pexDKI9IFq1CU7qR0h8yG7Lmq+iX2fQXy3Yag
-	 Qg+XCpnLYWKn1hpfXFIQwTw0wpBCJbwpnxQ44oRzkKbHVF4RrgfAqJN4KmJVOtWuSjA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794600867;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=IREpwUTT7bykH5+IUb0NspcAIFcgrOxudi44OIMVnbQ=;
-	b=yD7YG394JmNfPq6qe5/9ThfvauDhyEDNYe+ZPUXqXLRJwc1tAE97HVJKtMonFox04tic
-	 OGobYRUgr9AFPe7TKGE2aUD7YUEfF73PxccYRoIoTBI82F2BAAZ9171Ta1WcujYXAc0uM
-	 CZvxlt5ZeCwkbp1ZlAcQmfI+ntp2eHwfYFH00i9QviMIQM363l3kASQSAxZVgLEiZbhpN
-	 z29MsvdRjS2tETiT46KSQ9mXS3a/hzUgU6vHQp4TxWsGOuVMNggjhMZbg2LJZHg5ZZvnf
-	 hCGTEGPFy37/SNix3Rjmo0WZXu7tMu6heKz7+tuWNPyaQlJ1af1WkDTr5UspcCmEk3g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=avQtpBAZ;
-	arc=none smtp.remote-ip=209.85.160.178
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794600902;
+	b=1M5dxFFE/rRcto42nXOhtclCoCXJ/mo26Fyn36sEgxXEpwJKmB49w0sPbshogA2HhHHt
+	 /Y+yh1hzotn6PCEHsXoAXlrfBpRWtIqaEDlmqvH+o2B0LlJNrX1fhwnp48YBN/Q6DMbpo
+	 Oe/Wb/7m3ViuJ4JRQKUuATfhLJqrRsadZqH2ahv8fHfi14v5l6+UGchp+GJI52GfjOS9G
+	 Kh/evnKK3jROnPDOag/78n1PPAjKTxhbk4ZopMNQC3bP+SNkUlbjt33Pgy52LT0eu7hFT
+	 TOg6ebgFuGQhLM3cLEW84u4KnubTviTc9T9huBZ3+lQ2GN6VaG/NmgXW7rSUFc2SQGA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794600902;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=AAo9Q3VQrLylyCTPQs8zy2hqWw0i0HrVtcUrV/cI8uQ=;
+	b=WRVTjoGkiF5SKpi+4gs/sQ/zFy+gj0z2AdVRGNcs/5Uex/GtVAGojdMf64QZMf9l1k25
+	 gZrEC/ohuAnEG9RghlhrbZ2MxzwzKapeK4NBvqH7uUtoBvnPdHU3LeXGKshp9HbxMWmjB
+	 /jCpWspIAQQHd4czfiazDMb0+McmT1WkWirylhBMI1BAqrFLGDx0DIx3sf+bYlYRCG+fY
+	 Xm/gYbe2nkYVQVcH6DldZglxA9aLSHt6rldS5k2yWIsU0CeGFkVxbIQMtZPfEhp/yLH3R
+	 srqADJUWM7MIXHHq2+RyVGtWOdwjRbF/Z1AqxaI0SD8Kqe4FKb86VthONO8BRXPJt9g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KbTBSfVJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EA2E606A32E;
+	Fri, 13 Nov 2026 20:15:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KbTBSfVJ
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794600901;
+	b=G7d88/hoUQPKQHsPSmfF/iiwHVkwG3HuNhNIhdMzzoKSvxz9i3wkhsJMVpDqpFjlAwGE
+	 TM21QIVm+fl3eBwyRSWpIhHeJsE6xqPx4pGnbSkqMQUYaruiV7oPdhw9Kn1MD8TGgX936
+	 agH8xfkh95pYwU+ukFO6c/vQ16GtdaELhhI20BD52Lh6Sv7BDH0+UeTvlEHJZERv9DidU
+	 lL960vxIEn9VgwMZizwzUNpX6OHymCzqh1yHb8ASF1jZh8/CHHUuECNBHH88m9aBQ2vtU
+	 AX6I4CIo3lDaa9AxxsN67iXnDpZPKcoXiDi8gOVRGNoaeHncYAY3ioIi57IxED/Aqaw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794600901;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=AAo9Q3VQrLylyCTPQs8zy2hqWw0i0HrVtcUrV/cI8uQ=;
+	b=nPIH4ThaHfeXVjsZJsfy6P6VhuFMB3WeEimlxbZyLLXCAkSmsAk934pQBsn1aPDT1jVb
+	 dSyQ8En3SiO0ViVZwdCkGLO7ujA61yThAtJ+UQ2cef5VlnjLHS5Rz7ouZovYiOybyNN2/
+	 XIdi7dWvW2ngEk5h3ge4fRmg+HUFkoi48IGdVPQJYH/2/yfULy3fqGXuOhFPYJPX+nPjY
+	 a8MwjUnrQbXK6fKe423VQA7CtRWPOHpurRffBn2rXfZWvZb6KnBjhNXRvUKSDTXgqBxHt
+	 OV8vt1gWml7psAXuJT0Yse5vls1vi1Gm0qgav4t7m10RXfXPcJVlH0W03xi2rKKsZ6g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71DEC606A32E
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:14:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71DEC606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=avQtpBAZ
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-55c5b6584ceso432391cf.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:14:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1794600865; x=1795205665; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=IREpwUTT7bykH5+IUb0NspcAIFcgrOxudi44OIMVnbQ=;
-        b=avQtpBAZPfEDqkIVPJOxO/FX6YrVkSyt1wasGP5+pHZd1sbxP6p4/fowNtLi+Ds02r
-         FcWScsbzFzhdkGVBM2PcMgcW6GYLBbqaSfwb4ZTzYiyRRnMtfhiUDdsXvhe8vTf94Kz2
-         y3JZwId+WmppCuW3UXtYZw2tq0XRT7Ys2J7cc+TMK4LI2kmhTg7nH7t9Wu3+R/vXb8qu
-         nAsd5Wn5b6IQBiyXBsNvdjL6/dED/4npskrtsmbqtRlCChJ/6qwe8NxSoGYxxcY+X61g
-         vgmYAgRJi9KH3o0bBX/f0KMYlOVmXfH1fVLOHIDAaTGntHtEpKFYn/uZTQV2dkiijfQw
-         3YGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794600865; x=1795205665;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IREpwUTT7bykH5+IUb0NspcAIFcgrOxudi44OIMVnbQ=;
-        b=Wm7yrbVhnfHWxdG/BYiQyjbmaExXSZIk6vq8gGVcY0ZDBwD69uSVnsll2ivYcy1k3K
-         MUt9M9VNXMCw1S7Ns7KZWpRwnDhOIvvPcm7vXHlUpRf4ZeI+GEGOIwrSKE9ZTP6DZvTt
-         uJetMfwjviMGxkxPSe7HDxV6tpmtjp5AESJsAMKphKWVJev5uPnr8f75FnJBlBeWTgJV
-         pczHbWP/u5YDjXstr5F9icbcIcXSNaP95gZSEF+FwBAiU4yiUOty1FnGQ68n8cGvtLuS
-         3RiPx96R05Iy37a38YNwyYZLqG+FvQwIRS6pgTNGbgjr4ctrq95AzNpnM8apkzi7LZ/X
-         T45g==
-X-Forwarded-Encrypted: i=1; AL+hErEGUGYKP3UNJrw9X2hMcFyKM2yWe5EssyVWFihLNLNTtrXLOuIn/lKo+LEA5JSkro0IEnWt8/k0JXGL6k4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+0aKJa/QBc65IC3q9+D3zDv34FXc7V6PpD+qwAeUSJJ6GUEhGD
-	DYEBDPTO56axVPUeRXOZ+YIFykMtY94StfCqIhoq7qDPen/l9Ufnm5cwu7ZFuovd9VGiyxfSUSf
-	iTdKy
-X-Gm-Gg: AYBFou1AQhwiCRSnTmrK5X4OjBgWcUqNrqVThQ1UWESnrflYNN5+0AJ+UBrWCnfj52A
-	/qlqauhWuNcIdgFNqyQv+gYZ3DZtFiEUfKqySSKe2KMrqXv6K0B2BNNJq/SRXP8pvcuk5QGWBd0
-	w9rG80Wfv+DcTddjEw3+bp0K/8ink9qPYLqHaCPxviBkdxpV+rXJ2vPJlVts6HWJ2VyFZpudp7U
-	0QEntNdnP31Ic7JsK8MWKCm0Gc/JELycs3JvJkXf8nemrzhvbMjGhv6G+J/8mOxKbGzWcsdZb/E
-	Bv1DeuB3FmCKvTqlQDpgrfqDLKM5bv8ggVGQrEyxP1JFpo+nNgRCE9Svu/XAgOR0yeHf4efkJjW
-	N29AWX0grArhDKQIg4u6wY8tBD3UlOWRVvXkTyfnufq6TCT+czIXQwuFu6kGpUyMRhpN+Dx/CPg
-	M4ceBsXXdZoI+HMG1fhl15oRe47Q84y1hQaLyvZZiWkEGaDxB6gkyIrUsP1mlNZca4vc8OmkdFn
-	nCTPU++CmrqZSq9n3KDuUtGrT88os7GVTvnZ1TLKLgrvgzz+GZj14jAqb9BkK12RoJDctTcL/wP
-	mCe+Q2fv46UyKJYwxmIxr/jfACdaHFIpHc4VatR7MNrStIbaZVWRHI5dY4mZwr0gA1hxeczBxQB
-	qhf8Lha54RVqSsbYOycuoCs2km1nvRQ==
-X-Received: by 2002:a05:622a:4cc6:b0:535:a5fa:ee02 with SMTP id d75a77b69052e-55ac9e5bae5mr51686311cf.66.1794600865181;
-        Fri, 13 Nov 2026 12:14:25 -0800 (PST)
-Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55ad0a231d1sm25865101cf.15.2026.11.13.12.14.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 12:14:24 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id 3A0431F000C4;
+	Fri, 13 Nov 2026 20:15:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794600901;
+	bh=AAo9Q3VQrLylyCTPQs8zy2hqWw0i0HrVtcUrV/cI8uQ=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=KbTBSfVJMDncH7HQ/yoQaH8rJov1C3+hQf1IZWXpgMvHtewFXsrDJWEbOZuZHzAND
+	 UTsGtYrpCKl6xq67NNC30glNT+Ul5DU2i0r9jl1a7GUuhwWyhQEwXaJ/wEB3EK8Cjm
+	 2E6PTLm2pQJBJQayOBFZewVuu29cJG2fmYLlbsJGPzgS5oknfW0m/hVjmSE1MBH/g8
+	 ygdZtgeDaojidyKHBFM/+fBQ5AUtvGhbBQER+gmoRN1rJzW/joPv4Cvy0U+2Rc6k5P
+	 1asAgJYAQ40cR+B4tN5u/QpN5Uq8BQFWpbrz+GJcJ3Me8KsPqqIDnpPWNy3xvmOmxP
+	 1wqwzsAVOMGMg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 8B36F49AA3;
+	Fri, 13 Nov 2026 20:15:00 +0000 (UTC)
+From: =?utf-8?q?Dani=C3=ABl_Trujillo_via_B4_Relay?= <devnull+datrujillo.nvidia.com@kernel.org>
+Date: Fri, 13 Nov 2026 20:15:43 +0000
+Subject: [PATCH bpf] bpf: mask speculative out-of-bounds skb helper loads
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,55 +83,162 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] mm/mempolicy: ignore a bind policy whose nodes have no
- memory
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: Zi Yan <ziy@nvidia.com>
-Cc: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, kernel-team@meta.com, 
- akpm@linux-foundation.org, david@kernel.org, joshua.hahnjy@gmail.com, 
- rakie.kim@sk.com, ying.huang@linux.alibaba.com
-In-Reply-To: <D1684A69-FC68-45E4-8349-9D5E5A327053@nvidia.com>
-References: <20261113192642.2618878-1-gourry@gourry.net>
- <D1684A69-FC68-45E4-8349-9D5E5A327053@nvidia.com>
-Date: Fri, 13 Nov 2026 15:14:23 -0500
-Message-Id: <179460086396.482102.9206100238305098014.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+Message-Id: <20261113-cbpf-ind-nospec-v1-bpf-v1-1-764ac4c14573@nvidia.com>
+X-B4-Tracking: v=1; b=H4sIAO5v92oC/yWMSw7CMAwFr1K9NZZwi8rnKohF6zhgFmkUQ4VU9
+ e6ksJzRe7PAtZg6Ls2CorO5TakC7xrIY0h3JQuV0e7bnpk7kjFHshQoTZ5VaGbaTNefQzgco5y
+ GiHrORaN9fuEr6gC3v/T3+FR5bUms6xcJrs+sfwAAAA==
+X-Change-ID: 20261113-cbpf-ind-nospec-v1-bpf-369dd47fc8af
+To: Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+ Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, 
+ John Fastabend <john.fastabend@gmail.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>
+Cc: bpf@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Dani=C3=ABl_Trujillo?= <datrujillo@nvidia.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794600943; l=4789;
+ i=datrujillo@nvidia.com; s=20261008; h=from:subject:message-id;
+ bh=IrkM3A5rzY7Lrf7aX7/eWswOO8MwkLehIVbqhgYc0eI=;
+ b=yv1ifv5IFVTISmKtkoz2U0m3t/XpoQQNbWEsj72vF7o4NyVJgZqZGb9+Jk1Dx1T8OPQ5NulY8
+ IoTM7o5LAd7DiMUQTNIeNKu5gXHCV6pYBrPOvcO/d26dnI5SmenVi9K
+X-Developer-Key: i=datrujillo@nvidia.com; a=ed25519;
+ pk=AP24zUwENFy2geglpKJAA8oaT41tkteCL9hTWGd88rs=
+X-Endpoint-Received: by B4 Relay for datrujillo@nvidia.com/20261008 with
+ auth_id=1128
+X-Original-From: =?utf-8?q?Dani=C3=ABl_Trujillo?= <datrujillo@nvidia.com>
+Reply-To: datrujillo@nvidia.com
+Content-Transfer-Encoding: 8bit
 
-On 2026-11-13 14:47 -0500, Zi Yan wrote:
-> On 13 Nov 2026, at 14:26, Gregory Price (Meta) wrote:
-> 
-> > apply_policy_zone() assumes that policy->nodes intersects N_MEMORY, so
-> > it reads a bind policy with no N_HIGH_MEMORY node as movable-only.
-> >
-> > On systems with CONFIG_CPUSETS=n, nothing rebinds policies when memory
-> > is removed, so offlining all memory on the nodes a bind policy names
-> > leaves it with none. The policy is then treated as movable-only, and
-> > movable allocations are restricted to nodes without memory.
-> >
-> > This results in allocations failures, a VM_FAULT_OOM leak, and then
-> > an infinitely retrying fault that hangs the process.
-> >
-> >   page allocation failure: order:0, mode:0x140dca ... nodemask=2
-> >   Huh VM_FAULT_OOM leaked out to the #PF handler. Retrying PF
-> >
-> > Ignore a bind policy whose nodes have no memory. policy_nodemask()
-> > already ignores a bind policy that does not intersect the cpuset.
-> > This covers hugetlb's policy_mbind_nodemask() as well.
-> >
-> > If the nodes regain memory, the policy applies again.
-> >
-> > CPUSETS=n with HOTREMOVE=y is unlikely a common configuration, so this
-> > isn't marked for stable.
-> 
-> Also no Fixes?
->
+From: Daniël Trujillo <datrujillo@nvidia.com>
 
-It wasn't quite obvious what to tag exactly.  Since I don't think it's
-worth backporting, wasn't sure I should bother spending time on the
-Fixes tag.
+The fast paths in bpf_skb_load_helper_{8,16,32}() check whether the
+requested bytes fit before loading from data + offset. For indirect loads,
+packet data can determine the offset. A mispredicted check can cause a
+transient out-of-bounds load, as Jin et al. independently demonstrated
+for bpf_skb_load_helper_32() in BeeBox (USENIX Security 2024).
 
--- 
-~Gregory
+A classic BPF filter can shift the loaded value and use it as another
+indirect load’s offset (BPF_LSH, BPF_TAX, then BPF_IND),
+creating a data-dependent cache footprint.
+
+Leakage was demonstrated with instrumentation that delays branch
+resolution with a CLFLUSH before the mispredicted branch and makes the
+leaked location deterministic for reproducible measurement. In that
+setup, an unprivileged process that attached a classic BPF socket filter
+was able to recover kernel values from userspace using Prime+Probe. A
+real-world attacker would likely need to delay branch resolution, which
+was not demonstrated end-to-end without the added CLFLUSH.
+
+Mask the load address when the converted offset falls outside the
+permitted range. This removed the leakage in the described setup.
+Derive the lower bound from the network and MAC header
+positions. An out-of-bounds transient offset dereferences NULL instead
+of a potential secret.
+
+Masking increased the time for a filter with
+64 indirect byte loads by roughly 36% in a direct in-kernel test
+(280% with LFENCE). In a loopback UDP test with the same filter, the
+overhead was roughly 6% (21% with LFENCE).
+
+Fixes: e0cea7ce988c ("bpf: implement ld_abs/ld_ind in native bpf")
+Signed-off-by: Daniël Trujillo <datrujillo@nvidia.com>
+---
+Requesting fix for stable.
+---
+ net/core/filter.c | 36 +++++++++++++++++++++++++++++++++---
+ 1 file changed, 33 insertions(+), 3 deletions(-)
+
+diff --git a/net/core/filter.c b/net/core/filter.c
+index 1a60a2a70e2d..c50e94df79b3 100644
+--- a/net/core/filter.c
++++ b/net/core/filter.c
+@@ -28,6 +28,7 @@
+ #include <linux/in.h>
+ #include <linux/inet.h>
+ #include <linux/netdevice.h>
++#include <linux/nospec.h>
+ #include <linux/if_packet.h>
+ #include <linux/if_arp.h>
+ #include <linux/gfp.h>
+@@ -240,6 +241,32 @@ static int bpf_skb_load_helper_convert_offset(const struct sk_buff *skb, int off
+ 	return INT_MIN;
+ }
+ 
++static __always_inline const void *
++bpf_skb_load_nospec(const struct sk_buff *skb, const void *data,
++		    int headlen, int offset, int len)
++{
++	/* An unset mac_header is maximal and cannot lower the bound. */
++	int header = min(skb->network_header, skb->mac_header);
++	int lower = min(0, header - (int)skb_headroom(skb));
++	unsigned long index, size, mask;
++
++	/* Normalize [lower, headlen) to a zero-based range. */
++	index = (unsigned long)(long)offset - (unsigned long)(long)lower;
++	size = (unsigned long)(long)headlen - (unsigned long)(long)lower;
++
++	OPTIMIZER_HIDE_VAR(index);
++	OPTIMIZER_HIDE_VAR(size);
++
++	/* Check the start and the number of bytes remaining. */
++	mask = array_index_mask_nospec(index, size);
++	/* Each caller passes a constant width, so inlining eliminates this branch. */
++	if (len > 1)
++		mask &= array_index_mask_nospec(len - 1, size - index);
++
++	/* Out-of-bounds transient offsets select NULL as the load address. */
++	return (const void *)(((unsigned long)data + (long)offset) & mask);
++}
++
+ BPF_CALL_4(bpf_skb_load_helper_8, const struct sk_buff *, skb, const void *,
+ 	   data, int, headlen, int, offset)
+ {
+@@ -251,7 +278,8 @@ BPF_CALL_4(bpf_skb_load_helper_8, const struct sk_buff *, skb, const void *,
+ 		return -EFAULT;
+ 
+ 	if (headlen - offset >= len)
+-		return *(u8 *)(data + offset);
++		return *(const u8 *)bpf_skb_load_nospec(skb, data, headlen,
++							  offset, len);
+ 	if (!skb_copy_bits(skb, offset, &tmp, sizeof(tmp)))
+ 		return tmp;
+ 	else
+@@ -276,7 +304,8 @@ BPF_CALL_4(bpf_skb_load_helper_16, const struct sk_buff *, skb, const void *,
+ 		return -EFAULT;
+ 
+ 	if (headlen - offset >= len)
+-		return get_unaligned_be16(data + offset);
++		return get_unaligned_be16(bpf_skb_load_nospec(skb, data,
++							 headlen, offset, len));
+ 	if (!skb_copy_bits(skb, offset, &tmp, sizeof(tmp)))
+ 		return be16_to_cpu(tmp);
+ 	else
+@@ -301,7 +330,8 @@ BPF_CALL_4(bpf_skb_load_helper_32, const struct sk_buff *, skb, const void *,
+ 		return -EFAULT;
+ 
+ 	if (headlen - offset >= len)
+-		return get_unaligned_be32(data + offset);
++		return get_unaligned_be32(bpf_skb_load_nospec(skb, data,
++							 headlen, offset, len));
+ 	if (!skb_copy_bits(skb, offset, &tmp, sizeof(tmp)))
+ 		return be32_to_cpu(tmp);
+ 	else
+
+---
+base-commit: 7f1e33230b7c7a55318765862b255b41e5c97cfb
+change-id: 20261113-cbpf-ind-nospec-v1-bpf-369dd47fc8af
+
+Best regards,
+--  
+Daniël Trujillo <datrujillo@nvidia.com>
+
 
