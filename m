@@ -1,120 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.29
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794608880;
-	b=vH2Mt1PiqLfXfESHkSY318qN3SPON9Tk0jEjfIpVEJW/nrueUbC+hG4z64ehPsD+BfpC
-	 nBd4ii947LnOsSz0VI45s7jhyYGfitrUnS2oWbtRPdOiz7zlXxfghpA0p/ZTJ/yiybWj9
-	 L23PzrDTHYpfJhmVXUTL212yP/RK+kUyixAXUmzTWhd5pk5gFHkGqfYQJa4NijFMOFgu3
-	 AiMoothCQSEprgYxOoHr/jNJgJDb33tiRlVqYGhxELPyWdc8Bl5M5oHQUqcxVZ6QQsSuQ
-	 gBn5HP9QVHM7lufdJ4mhYc2zzdSMib7t0oqeE9aMqRfKrZprTHN0MPJH/MrniBlENFg==
+	t=1794608888;
+	b=42Gh0NV56pE/FYGL+SjEuKn8rryqLIO2ggOxDO5IWxRWs8NHOM2Py2BU81P9i6alLf1L
+	 rQqg3rFJCjGT6VKJQgbjHrNHI5+bCeBKUpURM5PtLDZwAnjr0chZdewKF9gJeI+/lzYP+
+	 8IW9O/+GG0JcQTk8IpqlTwdCbk4C4hHk+hTbP7jsA8MRM57BfxVW6QQG+5LFTnxOCt4IC
+	 dfMoioLSLx9Hjz9WmJ/r6Day5bPGgfrX4v2jlOguFNtBtlUMIWVSPxLkD5MN8njvbzcIO
+	 LjnbrVKusuFxBrRMDNeQH5BX1EU3PlPig5HF0EMBjsH6DJs17+KhA9pL/9yF8V6v2ig==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794608880;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:Date:From:To:CC:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794608888;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
 	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
 	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
 	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
 	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=rwIedolhmVBWAJLaTlhsxuSZ2r+MC+t25ryrT44emfc=;
-	b=MekoJ/ASefIr+fuGM3IvB7GRCWyD8ohNp/daAP1dKAownT6cuaZbk4TEYey457uK8XEX
-	 8T/JzhOhnCSw3cwC8rzuVk4REwxfMrO5k4/S3fTUEuwKpT+f8UaEUTBXGvk05z4lrQokb
-	 RIGlOYr2NXETnbGWfIEK9sAbSWDWXW6mlUDbs0rKB0noR5mj1hWvXo6/q6VrZmwVHgLve
-	 OMQsr10gPq34QeBwsFRzWsuUzaLy1JTl53w9pZAUsuxr2HyPAxUq91e5HhSL0WLePpCGw
-	 1B4JMMaMUQ9yUfG3rWaxNulF4IwI3IPLU7VrGjsZu/oAMMQidJyJRNQ+cwT+HeDuByg==
+	bh=RqIEWjfG4J6PmmibRxaZso0rmJQgfGOK0OLkrIkYtvI=;
+	b=CNkmlwl+VqP5c9FYS5UTNdqSyVYF83465i97ZZUN9IRpB8wgUU3E5ZyBcNBFb4U7AJa0
+	 pBst1fb9cJffqq+MAzA5Ezf5/mpgExqu5M7Od6iEkwShOaJefK3cloPuplRhGUVWSUWf+
+	 0PZg47PT3C89rSiwlxmWykgyeTLjrgOPb7oiu1Z8kN6UUVPAq+B48hubErOrP4ZJ4cxbk
+	 brygY6nnEhm1CtexG/p2OOhkauq59eYYj9V3nD4lWIkjNoPPzAerYF5fe/vWc98UyA6U+
+	 ZDl6HBcSeoSES1FzJlXLiGbBYeDIA9AX8Oa4xeaLp7yMf0+5p7YhJYOOIn4knHPl/Tg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=nvidia.com;
 	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=BFIkAYjp;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.18
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010018.outbound.protection.outlook.com [40.93.198.18])
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=HGXFYVZD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.29
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011029.outbound.protection.outlook.com [40.93.194.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48994606A89E
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:28:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48994606A89E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA515606A88E;
+	Fri, 13 Nov 2026 22:28:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA515606A88E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=BFIkAYjp
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=HGXFYVZD
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=D78Lc5uXR+xUIFWslIjQaHHamRTANt6Z0wUqul+7sgvt3hd9MkotApGuvsiTh4B4OeJTT6r+D2M1e4Osbsky8b6L2i5/debNrws56x50vlbO1DU00npCCj95W/gt2pIXunD+oGOLCUuUurxQOetvDS5siqJLVKE+/gF+lTzcxh1mmT52FgtZg+KmCR1PZvWQd1bc1J4k7choeKf29H3v4MpO+UnRR87l0wlYCJOqxijIj1iAoQxbxGr/KxGuTYLOZ3wWbWEKfhBJOLksbq+INv+8W4CUeUFoBi+VoJ5XuvDnZL8VZH3RbgTQekLD6h9FdSKnRJX8VbihTn0Yg8Pl7Q==
+ b=mOm+F2jaT3S3XnctW+dPVcuo+nB4XyL+RsHXGTzalf16LWbazw33LqbYvaHDfimk2SyZh1/erk9z/Q89pMaeBXSS5ttNIBek35Y08OV4Q2R7AxO0QYGDYe6Ra0bMTpgLuMs/r1VA4oMdAzdBhSHyt7v6CuYExgrvsZxGCNB3RrsYYBA5T1GWVn/5u4pvQWhcd/9dXqbdjHBVqJyYnCwIth3AZ44FUL3KuSmQi2xGdV1B6Lf2yyRSEdb+eer4EAOOLk09pRNdxt7ASI0Ymp4YtRALzyhoutdn5yZhW9NmG7Mh1+vHhHmJdm0Kmks98k1ET+CWvb2vywaNjddCrkPenQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rwIedolhmVBWAJLaTlhsxuSZ2r+MC+t25ryrT44emfc=;
- b=guoyGolE6M/Sm1lPpzvGk2iCQK1R/WXcnTSK/H8T6neVAL9QQfYjyPxtp3IZMSUn9JJM3wi0rJwr7XcofZG+hya010Zt0E4TwqU3U/t7zalCbGAIQoxmP143an0XMSuj0CaL8dRBPyE2EdSInlUdPF7gAWZkcIk6BE2wNVmhLpYM6pKhhXvbE8uoUw69P/S8NlzzmUlBGYIkzGfiOD7SOfVMSlruClnwgEyMFDSVs8cKn0TE3hHzB9QsrfXqplLjFcVlK6727tuEU/s2qNM9tbp6dRczDgEfFQn/wdM1O4CYG15rtEY3vXG8JAbi5P/QdBNA2eXe6bI8I6StBaUpLQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=google.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
+ bh=RqIEWjfG4J6PmmibRxaZso0rmJQgfGOK0OLkrIkYtvI=;
+ b=fa71gLDeARGvWw2P+7I/qAVWRTTNZaDHoP0eKcwlqjoqb/RaZecPVAVp2cTYIEs47J1md+ytFPUwZl4RqUjRxMq5mkSggmpVflWDVC/rNoJB3X12NXHbX8m0+hDThnFjLh/sOUf9VapXt1Hg05dI/Ar+gcsKd6fUB9G53kYvIpPlqYXeifK+dcMBSlqjnBiBh+UeMfZL+UMW1vmD+/14hT09ULjPTtyTLT9rf2728h3CFiGb7q6JsfUW2N6Vufm+fCL+jrt5BOcbum8ILvMG3yXjbsy7DM8LZ+mCOLtALdXR/VhOPrWcSWYJ1ARXdCUWzP2A7GUCmbxPs8vHJovARQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rwIedolhmVBWAJLaTlhsxuSZ2r+MC+t25ryrT44emfc=;
- b=BFIkAYjpghwxy8E9MBv3+MVIPuovj7LYmsqnMkC2bg0jvD0sY2JflaZxunATvAH5AdYbCkeF2D1k4NJ4xQRTL00BqCTqYdob6nSj4L+8z6Bv7z6tnhAX8RTIS+r/jKLVyRJ/RaySQvTDH8sUwy+4z83/MKmqtqGjxnQa6/a4fQabKNdk7mxZ30UpnQWnNUOLpi39C3PYzBLgRcTxswtpQrKmb2Wu4nTUsKwBE5VtKunxa7bNxahGEfXH0dgk8MgwmxlcgYgRWZxV6OsajSy/I1cP/oqdnwWm/+YAYdlR+t5fE8rSQmZF9L0A+pj/iVzOTQD7wcJVcnt0LUM1Z4PRFw==
-Received: from SJ0PR13CA0045.namprd13.prod.outlook.com (2603:10b6:a03:2c2::20)
- by LV2PR12MB5872.namprd12.prod.outlook.com (2603:10b6:408:173::12) with
+ bh=RqIEWjfG4J6PmmibRxaZso0rmJQgfGOK0OLkrIkYtvI=;
+ b=HGXFYVZDWpTpYDQhsx9MJISati8Sf0cuji0+0b3YUhYkeFJMolq8wdvnaFD4ykV7sJEGyp1koBcM6W9jSx5bGi/t+SeoJoTTxZMrfJxSL511eylhrT+T7B675eupFDTfawNM9X5AYlm+Jxd5HQd9fN7JucGQTxBUMvdaN7NPUEjzLm/ms0rH1Kdwh7MlGk+nJ4hRqdhLFdyquGEBnBNhhj8gVJZ+sM4nIW+jX1HkmesTcRy7BCewY8y6HIQYhk6zKhKHXn6NNGI9/ucdWwML74xX21LHeYBEqy3Ou2mYQMofSuyBqHEO8k8xrDgQ23V4XoNtfg8/G8U0T0NU4dznew==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH0PR12MB5089.namprd12.prod.outlook.com (2603:10b6:610:bc::8)
+ by IA3PR12MB660778.namprd12.prod.outlook.com (2603:10b6:208:61d::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Fri, 13 Nov
- 2026 22:26:55 +0000
-Received: from BY1PEPF0001AE19.namprd04.prod.outlook.com
- (2603:10b6:a03:2c2:cafe::9c) by SJ0PR13CA0045.outlook.office365.com
- (2603:10b6:a03:2c2::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Fri, 13
- Nov 2026 22:26:54 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- BY1PEPF0001AE19.mail.protection.outlook.com (10.167.242.101) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 13 Nov 2026 22:26:54 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Fri, 13 Nov
- 2026 09:44:56 -0800
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Fri, 13 Nov
- 2026 09:29:14 -0800
-Received: from nvidia.com (10.127.8.14) by mail.nvidia.com (10.129.68.8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
- Transport; Fri, 13 Nov 2026 09:29:12 -0800
-Date: Fri, 13 Nov 2026 09:29:10 -0800
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: Mostafa Saleh <smostafa@google.com>
-CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<kvmarm@lists.linux.dev>, <iommu@lists.linux.dev>, <catalin.marinas@arm.com>,
-	<will@kernel.org>, <maz@kernel.org>, <oliver.upton@linux.dev>,
-	<joey.gouly@arm.com>, <suzuki.poulose@arm.com>, <yuzenghui@huawei.com>,
-	<joro@8bytes.org>, <jgg@ziepe.ca>, <mark.rutland@arm.com>,
-	<qperret@google.com>, <tabba@google.com>, <vdonnefort@google.com>
-Subject: Re: [PATCH v9 11/25] iommu/arm-smmu-v3-kvm: Add the kernel driver
-Message-ID: <avdI5olRpBdKeE9C@nvidia.com>
-References: <20261015200903.2735565-1-smostafa@google.com>
- <20261015200903.2735565-12-smostafa@google.com>
- <auzvygiGRTWgJXzF@nvidia.com>
- <avGk0ilyJh3obmKx@google.com>
- <avJidXM9yQOX4VBJ@nvidia.com>
- <avL016l_xASN5paR@google.com>
- <avNhekBYqiiZ9IM2@nvidia.com>
- <avW_9A48mtnK383x@google.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Fri, 13 Nov
+ 2026 22:28:01 +0000
+Received: from CH0PR12MB5089.namprd12.prod.outlook.com
+ ([fe80::cb31:7ebf:51e3:d9f6]) by CH0PR12MB5089.namprd12.prod.outlook.com
+ ([fe80::cb31:7ebf:51e3:d9f6%4]) with mapi id 15.21.0615.008; Fri, 13 Nov 2026
+ 22:28:01 +0000
+From: David Cemin <dcemin@nvidia.com>
+To: hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com,
+	W_Armin@gmx.de
+Cc: mpearson-lenovo@squebb.ca,
+	derekjohn.clark@gmail.com,
+	xy-jackie@139.com,
+	ikepanhc@gmail.com,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	ldemarchi@nvidia.com
+Subject: [RFC PATCH 0/3] platform: lenovo: architecture independent home for the Lenovo WMI drivers
+Date: Fri, 13 Nov 2026 14:27:52 -0800
+Message-ID: <20261113222755.1696567-1-dcemin@nvidia.com>
+X-Mailer: git-send-email 2.56.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SJ0PR03CA0245.namprd03.prod.outlook.com
+ (2603:10b6:a03:3a0::10) To CH0PR12MB5089.namprd12.prod.outlook.com
+ (2603:10b6:610:bc::8)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -124,62 +101,159 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <avW_9A48mtnK383x@google.com>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE19:EE_|LV2PR12MB5872:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0998d419-047f-43ab-d986-08df41d53890
+X-MS-TrafficTypeDiagnostic: CH0PR12MB5089:EE_|IA3PR12MB660778:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2238761d-a862-4d03-f8a7-08df41d5606a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
- BCL:0;ARA:13230040|36860700016|23010399003|7416014|1800799024|82310400026|376014|4143699003|11063799006|56012099006|18002099003|22082099003|261009223027099003|261028144727099003|261022075727099003|261026121527099003|261026140227099003|261021135927099003|261022105027099003|10067099003;
+ BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|18002099003|6133799003|261009223027099003|11063799006|10067099003|56012099006|261022075727099003|261021123027099003|261102123227099003|261102130727099003|261028144727099003|261021121427099003|261026121527099003|261022105027099003|261026140227099003;
 X-Microsoft-Antispam-Message-Info:
- kRS3y3YnBAK0bGxdf3RkQQldEc6lzbrzJtBep0ik2nzf2TQvH5cxMi+RvzgUtEg49lqs6DtGtPmPZqXHqCgCP4FMtk5k7GhFymQQVdF1Z7E4dCLQbSWkt6vAhUw+S4ZswxoDfTVpqZpl4jLbCSqyg8fEOlvA29J+1Og70C6ofDImx46FFnkAvSrZUAwEiF84lQZEKg5A/viSBe4nJOozzMqM7PSBCz7ot/0lQGfBIzxb12dEAhhahwLM6UBwj5GzRpFl7GKjORHOB+xibwpPnWJeGkTslv0/ACBuHlD02qXKuL8U3nFXGr02eZ2Ywir1rCZj/bHAnpn8Rvm0FU5RIx3nFmDBXAPVaP4d44bL6uRX09Nh5LDO9rZL9g0EZqJ0ET2cXgSh3UobJhh8oRCN/0s1ENi6uWww2DPuRHZQBJlOdtSvyQcs0wRIgPJvmc7rMtcgz8lkwqqVAu0WsRyNIqS11Ua2i6e8lbO7gRC4ne+XCvlC++0nzIO6ser6ie0gKEkQGJlIh5YDSq8GNDIj2Fp8s0kc984Pzo6Ja5mPcYzv9F6jc7hrYm90rYj8pDOlspLT2AOTB7pX+h3UvuXLd5fEH+uaGO4yWCFvXim65sIvIPfvkcQGszFo8WO6CbiSWHc/WtFlq4YROUpihxD+kKNPc9sA+ey1T2V2/bAvfLx5/IBolnqH3ETeJGy58Lnzk+f0fn5wlNnosv59qnHPaw==
+ AW+C4mQoXNBYt2o7sYaKD7tCDve0EKaVdYoxY7hmU5pfX3AM68DdhGAMmgSBed0dxxMGWj7zHajSQgb/qZDI7YCFnu7Xes7Dc0tzo4XudrTmdIRRycM+myXyV3WNUT7AtrwkHn3bF9QTt7Xhljtc4dUDobmk9j6KDRaGzYb1ODqrOaqqRGOUi34xX7eQhGjyktBTyOS2771njb8wz+LGBy5ipAls9FYLXVsCxMh4giTw/wYo53ActtZOIBvStfveGM0hkk9EkrLcu7j+WxbUjN+bI5bMgHtZMBaNosE/1F4SHC0/3w6AK859ok26613tc/8Of5DmtHqwPwbUXUqF+k/EBUzCRAomfg42rcCHTD6niOwIHcaQUVCP3HhDsZfehFvCTH4B/lw7bJ2CoFw1WB/apiEBOmBsGfjVqvBYysY1eFF8AZOxOOa5ZotkBQTjALhF1kTD5SvTaAE9/grKh90QZs1639gCf64A5XFC8YrW1xz3AKUoJ7Bos2PKd1yOWhrcBuuArmQxiC3YmDsWgg0iosoNwWhOtZNIy/IJum/eEwE5e/cAcT3A/GY0Y49bVIaGC+nx5QzBtnHIvytMROMhuwL2A4SEyUkwBfkoIhPOfrnORKLF3nNTpb47fSdgoREvg+qU2bMnTjIeZc3OjC/Na8cTntHF5TmfRwR7hD8=
 X-Forefront-Antispam-Report:
- CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(7416014)(1800799024)(82310400026)(376014)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003)(261009223027099003)(261028144727099003)(261022075727099003)(261026121527099003)(261026140227099003)(261021135927099003)(261022105027099003)(10067099003);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH0PR12MB5089.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(18002099003)(6133799003)(261009223027099003)(11063799006)(10067099003)(56012099006)(261022075727099003)(261021123027099003)(261102123227099003)(261102130727099003)(261028144727099003)(261021121427099003)(261026121527099003)(261022105027099003)(261026140227099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
- s0i2F2RLk6FN4xSn7aeNLrnkDE6XpwSfKyjAVIEfoVPq3nS+1awJkL/QpHmdkckwNE7FPZszH4G9gwkcXlHJYxSfEi3EO+7ejXxcKwkdE26MKb2GU5ZMDZmMGboKssyx5cVrD8PuySfqfgXfr9hoLbtxbqalDzda2nu2tCiHXVKMmQmAmWRKc2VAKd/HvaqwnX60FOxuKvDaZ8Xqh3me/FfZBIpJuxFP/KrEg4hJgBW7KpZSNyH8WRoKpyCb8ddleOl5GHkiy/uJJQXMTAk4v42hY/jCxxCvm5Ue0coQeV7/jXVjA+z7oYUB5H2pvFN6emhvYJO2UQQthfy3k/gwMDBL/ziDcfJK2f72M8UlHTuQ4u883/Ik/4gIBbOsIadSl0OPDwnyUlKfsWEHe+zcBBo6DwzkxXhqJev1yh5n3gHjy8AMI8gQHLgsrGfLrlWt
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 22:26:54.2359
+ =?us-ascii?Q?4ftU+UnfmgI1hIq1BeEwb0RK6Ffeh1rMbrh+XWBpxbEhL6G1DfePZ41SYk/f?=
+ =?us-ascii?Q?Sxtk2VZCb8DtsnVGmJP9IcD7ax3f6U2j160e/UGe/fRg70I4yviH2Dk79uZN?=
+ =?us-ascii?Q?k7WUz9cJmj5Ru85k0Wp4pzKxxiyX+L8RXWGbQB+jkA0VjwEcWXhNtR7bcCW+?=
+ =?us-ascii?Q?E9nIbEW+hQWgtY50pD0wPxkUaa1/9c5QUWwd6glKKVmIfct4s9De3Y+z5x80?=
+ =?us-ascii?Q?GNrMxBaT/jzxBvR/36hoegPBotCFuRsjtRvxBxEfMX6lIAiurddzZqb8E/6w?=
+ =?us-ascii?Q?J+Pt3xwh4sk6hXQgK/0O34VV2vwgHoRKwnEgl2HyHYjZGGbI9DJKywQ11OIS?=
+ =?us-ascii?Q?QM/cYLyK7FekD1JJ8R9nFJAPWknpKXCn708/RuddGo7Euor87UVWrbUWJZJe?=
+ =?us-ascii?Q?Iu18J+zhcU3QNEdZ9UO+mBoVEvq0lTnrsYyWErlfA0X7Gp/EggGxCD7eMr4e?=
+ =?us-ascii?Q?TsYz0tmx4rXqYzOH9Iz1y2gvhRqLswfvDh7YEYEGFn0pRYIj8kXhAuS7wqyZ?=
+ =?us-ascii?Q?W+Kf6dSwyyWFFETbdYRcPn7J3EzspMYefYbIrnIG+sfT4EMyHYiQC7cDjS7j?=
+ =?us-ascii?Q?5psvOKcAowPd4rypeuHmqjjGWgvkrmQZEmHS0+UC4KvdSAVn7klCCGBicbaF?=
+ =?us-ascii?Q?ZzuR51v0MbOWr6cv4zyhuPtno53O+BbED/GI9dZKUDKG1Ef9LBRHN//vtL3a?=
+ =?us-ascii?Q?09MalL7Sa+lzv/HGy32EyTKL70cKfc2dzXDHsLorCzmr3yg1yiRrTruigIQO?=
+ =?us-ascii?Q?op8UFbD/Ytn0mqjIP+JlLeEJBFJ/c1VJS7xi0jaSBKtulWF1Tp9MsX5dE1TX?=
+ =?us-ascii?Q?PVm6MWdfUrUwrK/a4hMvQgoyzm8hFWFj/NTwtRUBBCqMUki2tazBwx7z699n?=
+ =?us-ascii?Q?TRVBIujwWMmZof2b5ZXvuReGQlShXr04B0g9lKEjx1YvPitmnONqX1pDwynA?=
+ =?us-ascii?Q?ETSLPFTPTbVylz9uRHLJmhc/RiemWs2D6r4ePz25Fu3xGC9MOoPRPboQXnfg?=
+ =?us-ascii?Q?9vPIiTb7VZxdo4o1uYBax9kQfzgP4AddVf+dBA9WfTG84y/nnfMANes6Gy2o?=
+ =?us-ascii?Q?7DnSUiAcxLsO/XSHPA9KrC7fhTsBmBZPMpAzMXPnlNzCMRBd2Xj4RRZgu5jb?=
+ =?us-ascii?Q?RaKcQABMbo8x90QCca9lD9wklgQweKD/4zK8U7YoPGbVoblVyuJb8F/UxXdm?=
+ =?us-ascii?Q?/2tXLwt7LaTJEo4ibHF7msuj4hv9t3sZsc3dOgwiJB+lVTbTWkSjEV1w0YWk?=
+ =?us-ascii?Q?h2F3e+YajE+187fFztG3qKvbZG6RZZEKBlpTT9wevVTNxox3ymjssIZIKPm3?=
+ =?us-ascii?Q?L+tP8pBA2SXD62WNnBV+n7IhMyuW62UM6MSjnbqSOhjWq1oephzhhDWv0Brs?=
+ =?us-ascii?Q?VQMAt5u6WX4f/zqYfPWMoHAPrWMXbUAljBwrGCMURRRohhrjTsnd+/91usx8?=
+ =?us-ascii?Q?W3ipxAvqPOXTMBXTd4uOn6ru4D+U8mtVkOkf4zgegB+zO9W2EfA/ui2ogf3/?=
+ =?us-ascii?Q?C9oBtVWZdmpH0wkRrfAgiGlqT/jmL/jHH0NYANvt9GKUOQYyzaTz1WIlAAcj?=
+ =?us-ascii?Q?xwQJ465MmSTn0WPvrEEUdxdlw3hM9MjVEu88hSehXuD6mM4PWlhjV0IDcbDI?=
+ =?us-ascii?Q?yC5Iosr5zyNz1yh5zOirWMMsamsocsAjgg2zpozBId+j4uN51g6QJkDtr7W0?=
+ =?us-ascii?Q?gsJKtAyjoftJT3Neg7WIpBrMlOO/Wa7xh9bsIJIkBHxy87VuK2az91LypF6C?=
+ =?us-ascii?Q?bd2qiDbm/g=3D=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2238761d-a862-4d03-f8a7-08df41d5606a
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5089.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 22:28:01.2923
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0998d419-047f-43ab-d986-08df41d53890
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
- BY1PEPF0001AE19.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5872
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CPTyRlVsdoIUixk114R/LEme/OCd6Pw6I+zR6SGdVa+6d0pkP+2URyq0HiE/XzAsEmBOSmm9lQ5gAIM8KfExmg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR12MB660778
 X-OriginatorOrg: Nvidia.com
 
-On Thu, Nov 12, 2026 at 01:32:36PM +0000, Mostafa Saleh wrote:
-> On Tue, Nov 10, 2026 at 10:24:58AM -0800, Nicolin Chen wrote:
-> > On Tue, Nov 10, 2026 at 10:41:27AM +0000, Mostafa Saleh wrote:
-> > > In Android, in that case, pKVM clears the FW (called pvmfw) that loads
-> > > the protected VM and authenticate it so any protected VM knows the
-> > > system is not trusted. This part is not upstream yet. [1]
-> > 
-> > You might want to double check a dual-SMMU case, where one gets
-> > accepted by pkvm driver and the other fails and so bound to the
-> > main driver.
-> > 
-> > It seems the pkvm driver would still pkvm_iommu_register_driver
-> > and carry on with an untrusted SMMU. Would it also clear the FW
-> > and mark the system as not trusted?
-> > 
-> 
-> That shouldn't be possible, if one SMMU fail the whole thing will
-> and the driver should clean up after as the probe is done through:
-> 	ret = platform_driver_probe(&smmuv3_nesting_driver, smmuv3_nesting_probe);
+Lenovo now ships ACPI based arm64 laptops whose firmware exposes the
+same ACPI-WMI interfaces as the x86 IdeaPad and Legion machines: the Fn
+key event GUID consumed by ideapad-laptop, the hotkey utility GUID used
+for the microphone mute LED, and the GameZone, Other Mode and capability
+data GUIDs behind the thermal operation modes. Since 884d53763d30
+("platform/wmi: Remove dependency on CONFIG_X86") the ACPI-WMI core
+builds on arm64, but the Lenovo WMI drivers still live under
+drivers/platform/x86, which is gated by X86_PLATFORM_DEVICES, so none of
+that code can be used where the firmware is.
 
-Hmm, if I read __platform_driver_probe correctly:
- * __driver_attach() doesn't propagate ret from driver_probe_device()
-   via bus_for_each_dev to the caller
- * bus_for_each_dev(..., is_bound_to_driver) at the end also returns
-   true, as one SMMU is bound to the driver while the other failed
-?
+This series:
+  1. moves the architecture independent Lenovo WMI drivers into a new
+     drivers/platform/lenovo directory, following drivers/platform/surface
+     which exists for the same reason (Surface ships x86 and arm64);
+     ideapad-laptop, thinkpad_acpi, think-lmi and the Yoga tablet drivers
+     stay under x86 because they need i8042, port I/O or x86 only devices;
+  2. adds a small WMI hotkeys driver for the Fn key event GUID on machines
+     where ideapad-laptop cannot bind;
+  3. makes ideapad-laptop's own WMI event driver decline the GUIDs when
+     the IdeaPad VPC device is absent, since it can never report events
+     there.
 
-Nicolin
+Patch 2 was tested on a Lenovo Yoga 9 2-in-1 16 (arm64): microphone
+mute, airplane mode, the Smart Key, the Smart Connect key and the Fn+Q
+operation mode key all report input events. The same key set is dead on
+a Lenovo Yoga Pro 9 (arm64) today and uses the same GUID.
+Patches 1 and 3 are compile tested on x86_64 and arm64 (defconfig plus
+all LENOVO_WMI options as modules).
+
+Two questions I would like the maintainers' view on before this goes
+further:
+
+  a. Is a vendor directory (drivers/platform/lenovo, like surface) the
+     right home, or should the architecture independent Lenovo WMI
+     drivers move under drivers/platform/wmi next to the core instead?
+  b. Should the Fn key event handling stay a separate small driver, or
+     be factored out of ideapad-laptop so x86 and arm64 share one path?
+     ideapad-laptop handles the event only when its VPC platform driver
+     is bound, and the arm64 machines expose none of the VPC interface
+     it is built on (no _CFG, VPCR/VPCW, DYTC or HALS/SALS), so making
+     it the single driver means gating most of its probe. Two smaller
+     options: lift ideapad-laptop's own Fn key wmi_driver and keymap
+     into this file and let ideapad-laptop register for the events it
+     still wants (Fn lock LED, DYTC cycle), or the hid-asus/asus-wmi
+     shape where a companion WMI module exports the event to a
+     subsystem driver. The keymap in patch 2 duplicates entries of
+     ideapad-laptop's table on purpose until that is decided.
+
+Patch 2 declines to bind when the IdeaPad VPC device (VPC2004) is
+present, so machines handled by ideapad-laptop keep it; patch 3 is the
+mirror on the ideapad-laptop side. The new MAINTAINERS entry uses
+platform-driver-x86, the list that already covers drivers/platform/arm64,
+the ACPI-WMI core and the other Lenovo WMI drivers.
+
+
+David Cemin (3):
+  platform: lenovo: move the architecture independent WMI drivers out of
+    x86
+  platform: lenovo: add WMI hotkeys driver
+  platform/x86: ideapad-laptop: do not bind the WMI event devices
+    without the VPC
+
+ MAINTAINERS                                   |   9 +-
+ drivers/platform/Kconfig                      |   2 +
+ drivers/platform/Makefile                     |   1 +
+ drivers/platform/lenovo/Kconfig               | 101 ++++++++++++
+ drivers/platform/lenovo/Makefile              |  23 +++
+ .../platform/{x86 => }/lenovo/wmi-camera.c    |   0
+ .../platform/{x86 => }/lenovo/wmi-capdata.c   |   0
+ .../platform/{x86 => }/lenovo/wmi-capdata.h   |   0
+ .../platform/{x86 => }/lenovo/wmi-events.c    |   0
+ .../platform/{x86 => }/lenovo/wmi-events.h    |   0
+ .../platform/{x86 => }/lenovo/wmi-gamezone.c  |   0
+ .../platform/{x86 => }/lenovo/wmi-helpers.c   |   0
+ .../platform/{x86 => }/lenovo/wmi-helpers.h   |   0
+ .../{x86 => }/lenovo/wmi-hotkey-utilities.c   |   0
+ drivers/platform/lenovo/wmi-hotkeys.c         | 151 ++++++++++++++++++
+ drivers/platform/{x86 => }/lenovo/wmi-other.c |   0
+ drivers/platform/x86/lenovo/Kconfig           |  67 --------
+ drivers/platform/x86/lenovo/Makefile          |   7 -
+ drivers/platform/x86/lenovo/ideapad-laptop.c  |   8 +
+ 19 files changed, 294 insertions(+), 75 deletions(-)
+ create mode 100644 drivers/platform/lenovo/Kconfig
+ create mode 100644 drivers/platform/lenovo/Makefile
+ rename drivers/platform/{x86 => }/lenovo/wmi-camera.c (100%)
+ rename drivers/platform/{x86 => }/lenovo/wmi-capdata.c (100%)
+ rename drivers/platform/{x86 => }/lenovo/wmi-capdata.h (100%)
+ rename drivers/platform/{x86 => }/lenovo/wmi-events.c (100%)
+ rename drivers/platform/{x86 => }/lenovo/wmi-events.h (100%)
+ rename drivers/platform/{x86 => }/lenovo/wmi-gamezone.c (100%)
+ rename drivers/platform/{x86 => }/lenovo/wmi-helpers.c (100%)
+ rename drivers/platform/{x86 => }/lenovo/wmi-helpers.h (100%)
+ rename drivers/platform/{x86 => }/lenovo/wmi-hotkey-utilities.c (100%)
+ create mode 100644 drivers/platform/lenovo/wmi-hotkeys.c
+ rename drivers/platform/{x86 => }/lenovo/wmi-other.c (100%)
+
+
+base-commit: 2800868f63227c8237d70c41e70d441c919620d6
+-- 
+2.56.1
+
