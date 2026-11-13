@@ -1,109 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.229.2
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794572529;
-	b=nqPaja73VV8xi2hrUTZl16qmRIMMlAOaJqD6v8Vd73EHxf917JebBtsLViR7wHAjQe+z
-	 ag6QO6hj6z/7KGwAp1Hq2eI/YitjzvLwkJJQmuFjZYyW79BpIvstP4SqrQz+zZDLwpRve
-	 nGTv3pOwNap7ZFWYYegHDebU3pdsCqVS56xMYpdXvYEnf8+YwYdryENfzV8KQ/3jc1p6O
-	 nxEgNvNgPoG3Ua8um9Bv+Tn4Y7mxSY1J/pjXTJv836wajceDUd1upZhkkIEiYUHQQ4kjG
-	 kaxUrgtGdsqiGXDLvDcI6pmyGk3LWO0kv0D6UxkXN1Q9fSd74lgD2WWzSUqp3MDJqSQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794572529;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=78nAysjoaDtQWbeNAJ6YC3Wc/O4N7z/owR9sdQST1SE=;
-	b=kDWj81ao947bK3QYgiD4d3x9DPjpGRl9ZvPHotx4vlfgF62QxR9DkfIxzG5+P2yCmOga
-	 Pgc92aXB5x+HOy742DMVN8gRjzZWvPGI3JnW7wTCmeQpLOC3j+ASPMsVv/BRwi6giPv9I
-	 ItYXAL9PPTb9JegZdMNJV2HcMSI+DLTgxnId9fXIUEFev5wZfe+W3E3msd0PAmMpD8cxy
-	 Q/Rg1cP+VxGEAAIMadL4VuK+5I2smsEMo1i68l5G0+UxhZJ+b7K1gYbfMXkkpQAxxob+u
-	 q68qI4AWwWCjkZrnaTsuT0WQOgphV+Focz87PW2fJ6WMurjylsCjSywqWXdcnv3J+9Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bp.renesas.com;
-	spf=pass smtp.mailfrom=bp.renesas.com;
-	dkim=pass header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=cpniYR7E;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.229.2
-Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010002.outbound.protection.outlook.com [52.101.229.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9386E606A88C;
-	Fri, 13 Nov 2026 12:22:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9386E606A88C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794572558;
+	b=tcCS7sd/OaNnil8iLS4oy1oHPtn4QTl7fTkoASSuHJvBjwje1QBSMamGUeEPM0x1n2XA
+	 dWblhr+OOGNIoKrY7fOnDP2hA6QNQWlzV6Np3k+KjKqk38kas5Mr42TWxbmiex62bXBab
+	 5hBa7Kmy8LrI+1v2pAvysxDWsKHkWOpnplsDnD5thL0CxRApnbVF9YCCyN7rXynSvaG4G
+	 0y97oPtNL6/aIOk5bWyBed57gEs4/6FubOrD+tbdyAshmf5ZUB0jqiHw6eYndV5twG92r
+	 rwj6M1QgxnjtLXVl7iJqaiqC5tLsxDD2dPPEpbEh24Gmcm0/LkH7xaxaq8DpQzLRInQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794572558;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:From:To:Cc:References:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=YAo1zLlVLhEKAZuXE48Hr4BJxq1QQre46sURKuvBtZU=;
+	b=SJ6MY+fwUH1jLTSnWgwy3OspobpHrxOEMEJGRUe2r/50o9zMjdfkhPjFEANXS/yBxDnR
+	 jFuqLdVd8ZVbuam+vJEDVHKQ7NE7TNTkucMFRh/GabJT3C8C5nDPKGiFtT74Ih05R2riL
+	 svUISMhaPkcMbCUWcqy/qeZFpH/sHwUimA0p6yjnSdCFiCnUpUP+iQcgqOPf9YK8cTM9+
+	 lPJzPsUl7EUrc3C8kulwEAjOn/7BtWkphXBOfXeIyTKFB0gWCg7prSCKaDouC1yfP0/DA
+	 S3TrlaNv0J7L7wNVmJsDUvPxr+qBWP56NRlF8QcUaO8/5OoM4rbzYMntgMVANnWCnhQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=WIbCwbfA;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5015A606A321;
+	Fri, 13 Nov 2026 12:22:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5015A606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.a=rsa-sha256 header.s=selector1 header.b=cpniYR7E
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=t4YUW8pStJag7DKvPNmh7D119f5jgKLaH7BbAI6MBqL6e2PZJdvzsjaUiUuQR7M2yLvM518Du0AKUzYBHsHfGVOY+cC1TVSAGe13DGncwLvwENOuqZhMFNKgUgfGUMhbr2TFgfHA6MRBW/WDPLzdQI0DvFBhsR8+K6YOBrFUY+Z6l0yFNMkJZjGRbmzUBLADz/B09maZ8HtL8yK4vsXI1V8/RK4/kDs35sk3kPiQz5f6bnDvIHZlFLTdMzxKyeq6YcHqqgGy6z83AC5HfDPjjzEBteiM6skOVU2v2zJJeYZL+GIPWcY3kuKZd4MRB6SaqoODRd7TcInaoJkDl93Jtg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=78nAysjoaDtQWbeNAJ6YC3Wc/O4N7z/owR9sdQST1SE=;
- b=GXSP79rP8h3aEWQI6BbM/+4wfBEy2LaQQevWWXKPmQEpPCHEstasKGJ/UsR59zFIaNub84rXSTlZUoDOWSuOevd+jyys1P3JhyXDuIPHW+pN+OL8kOyEDMdcODQnbEkllUME3jQx1W0WXstTsevbZuSSBJmJ9KDpw9sULdzraNhcdbBTF51nieZ9xl9iziU5ObOiNbyBL0NOlolaMndX+m+FF/dOl1XPuuCXPyChgQH3NWzt7tqYDrQx+wxbXBXO5YYlX4DgZp1NBgaB12zSxpzQFF7dkuqk9WlHePKlZgcNKPAVKVqRO0SK7MPvxzEdKlMKTqNv8uDrG6IvESdeiQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=78nAysjoaDtQWbeNAJ6YC3Wc/O4N7z/owR9sdQST1SE=;
- b=cpniYR7Eg1wmFfmCq6bf2JUS+y/fBn4cYuuXYLN6FHiJKwoHZUKfknEWCouterwuDiWgEg5EqS2h+hqinoSV2A45lE/2a1xySJaduNPC2gXKM1jiyQ9/+c8lWxzbF2xhM8SE23mYYlbxsk7glcnygrYsW8y08U4tIWK2gu7eV78=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-Received: from OSOPR01MB295138.jpnprd01.prod.outlook.com
- (2603:1096:604:521::15) by TY4PR01MB14799.jpnprd01.prod.outlook.com
- (2603:1096:405:25e::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
- 2026 12:22:03 +0000
-Received: from OSOPR01MB295138.jpnprd01.prod.outlook.com
- ([fe80::4f0e:fd0e:ff2b:b180]) by OSOPR01MB295138.jpnprd01.prod.outlook.com
- ([fe80::4f0e:fd0e:ff2b:b180%7]) with mapi id 15.21.0615.009; Fri, 13 Nov 2026
- 12:22:03 +0000
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-To: tomm.merciai@gmail.com,
-	prabhakar.mahadev-lad.rj@bp.renesas.com
-Cc: linux-renesas-soc@vger.kernel.org,
-	biju.das.jz@bp.renesas.com,
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v10 12/12] arm64: dts: renesas: r9a09g047: Add DU{0,1} nodes
-Date: Fri, 13 Nov 2026 13:20:08 +0100
-Message-ID: <85c8a5e4be1f68ff858998b426445e4e20c8c52c.1794502191.git.tommaso.merciai.xr@bp.renesas.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <cover.1794502191.git.tommaso.merciai.xr@bp.renesas.com>
-References: <cover.1794502191.git.tommaso.merciai.xr@bp.renesas.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: AS4P195CA0038.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:20b:65a::21) To OSOPR01MB295138.jpnprd01.prod.outlook.com
- (2603:1096:604:521::15)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=WIbCwbfA
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9A2C31476;
+	Fri, 13 Nov 2026 04:22:33 -0800 (PST)
+Received: from [10.0.130.226] (e127648.arm.com [10.0.130.226])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C81883F673;
+	Fri, 13 Nov 2026 04:22:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794572556; bh=yB5ajDPNptziBf+odg2BIJNAT+vLRPACZNNj0y93rgY=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+	b=WIbCwbfAZKuEZf5VjMgWhddgKK7MG5/woeeR99YjgyjLprk78IyhER8/0h6973w9m
+	 XGw6Xw02GM5GenxoCwqPb1Ax+shBUUNFiUJYxrvwf/blUKNogqwTt4Z09zqKhBfzf7
+	 WFcP8N5MeN58splei0WXW2oYqIgZe6sNTKU5wu/o=
+Message-ID: <2b72fea4-b2ba-4ae5-91e8-d5830f024b2f@arm.com>
+Date: Fri, 13 Nov 2026 12:22:32 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,164 +53,211 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OSOPR01MB295138:EE_|TY4PR01MB14799:EE_
-X-MS-Office365-Filtering-Correlation-Id: 933e269e-91f1-4317-e129-08df4180b939
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|52116014|366016|23010399003|18002099003|22082099003|261009223027099003|11063799006|56012099006|10067099003|261102123227099003|261022105027099003|261026140227099003|261028144727099003|261022075727099003|261021121427099003|261026121527099003|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	WLn4OIT6TQDgQ5MJKHW2xS4XkTDxvUz0vrcFZSK5w3d3SElgdY8ZmrmEBbEROCDZsFQj+Z0PJVCfEo4f/QZevilcKEnd4LUwDHqgKW1QX4FTcpOu3cJbVDAO4UM5+TBEwioVN4TCmwnzIWny6BAVwGhLqNVXRyBW2IAJ9IF3Ecy0Lf2OTfKcK4j7R1wFsBb4ga7NmUzUqBb7bk+CF2mfmmBjyrZRgVdXU9B2trfjMDDMS/e7T0AN9XQUdpVpUPz47oKkIRNQqOiOXBvMTljihQkEXiIGHr+TM1i9DRe4rz8Cb09aSDQwfm9hPlLI/RfSJX/hQgwkx+gyKEZxgo4eLJ+E/5szv5K+zjjF0N13pSZbPVHnv4bn2+y9g2C0fY8e54If/9v1xdELmfgtQYeGz9gmiB71e825+HQLwSfBFSK3ENuuG34YI4Sic7lXuVxeJRHbeDIcHFtlpaXcshxzbVsVaRUx+EEu8iNCOdMmjRPeO++s2SUTDDLF3Cm4Wt5M8scO60TbGLfKjXpW9XfM8xZq14no9uUyb5XHVHUlumnGhDAzp49I9JLUZ6qcvfUHY0DBI/UNj0+Z4CNK9c81MsqXuv5iACs6gqFv4pvOK6f2GJJA2DUjpEP3xunHG4dRyd/JXEF0Ywc/LAg72WWg+8aQSebedkIF3DKvqDHTt5kscFaMLsQKfGZCyiI8LaPRaap04MFofQrUiQap+FcuhgR9PTApetBubUBF0BQ0gB4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OSOPR01MB295138.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(52116014)(366016)(23010399003)(18002099003)(22082099003)(261009223027099003)(11063799006)(56012099006)(10067099003)(261102123227099003)(261022105027099003)(261026140227099003)(261028144727099003)(261022075727099003)(261021121427099003)(261026121527099003)(38350700014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?5ta3FY1xhEl/Nlw7RN84Fla386geyz/e8j5g6QRt/KgZYHI7U/2U27zN+ipV?=
- =?us-ascii?Q?tEWP1hEgSdg4wzsW322BYkWjDQm3lEwXKsYR9PA43DW0O1WJkYiQxEZSVe23?=
- =?us-ascii?Q?TW1LbGPRuuCPvEOzlgUREJM43ti9jY4CKz8bdlk9Pdfswzkc/XPxIVCCHdFc?=
- =?us-ascii?Q?t+uSgbfBO2XU6JiKKLDvMYRNzuZR37F7pxF0EQr3m/HThm9QgRJGWzCewJta?=
- =?us-ascii?Q?Op3Mff66hAT/B7Ryu7xHTnTp23o/m5Fp7TvOYTZ96RnuitT1QWFLLczejcnB?=
- =?us-ascii?Q?Cl7cMRWOwDuhl8TKS287EZxMeqXAcxJq9hWh8rxYzEPsf0diuSpr5rkeqFJj?=
- =?us-ascii?Q?csrtA9gsYNi8m/41n7uxIN62f5NWMNOOIQlDLXwu46VTy82bfEdAX0g7BZok?=
- =?us-ascii?Q?dTo9Yf173moX5KZ5uCdN+msiLmaphCGKfGWboH2QIVjRizT75H9+jWAoqf/p?=
- =?us-ascii?Q?zcbaae2L9AbvUmp9dbnXdvW47Llzlbl5MethSTltX6kRveXZqTFls4vEmxTM?=
- =?us-ascii?Q?jc1IiIKSxG8gwv+0pXcIAm1KP6o8hbi/NXYafgq1IEr6TYHKL0RTA+Fkq76w?=
- =?us-ascii?Q?se9YXCTA3tGSWGBjQO9aRSrtHgmaazXrupPe1A13uz1BoJfJiNgmjIoWxxcK?=
- =?us-ascii?Q?z33g8FIpENjfkyRWEKAZsZakyYqhPvbrc+13J1Jj4h0gof2n+LoGNsBvOC9E?=
- =?us-ascii?Q?joqadJZROo9f16Dp01Ayom/PtsCWjAY4XqxoUc6wovIf2j3ATq2VmfH/CdUl?=
- =?us-ascii?Q?BWC3OOdogWUaLrjWZF3wynA1jINODgceQiItj/VpCimc3bZpEV486dbrL7UZ?=
- =?us-ascii?Q?cM3c0WsCdPEMWfypYiqOtwksAHq2wFmLbTZQfZjE92KJJoyLKvXbNJjS6WHk?=
- =?us-ascii?Q?jo9gM8KOrsEzg+sZLzDBa6IHrwuEbeADmPqmTV4lJSIQTYXL9cYr9yby4Qgp?=
- =?us-ascii?Q?aftNmN9zMtzcWcWbtm5NyTCr4KG96kViMpDqiAYaeGo3R5RPkx1RmDtnsjic?=
- =?us-ascii?Q?OsjLjEJ1SsjP4kJeLzwa+VwmVyiYk7YuMGL9kCUMumGnsxTXMXmS6W01koci?=
- =?us-ascii?Q?aGr7ajeTxlPNQTuJSlLax86qL0jat+0vKk//8JQqy7wQomAraQtRCclZxTky?=
- =?us-ascii?Q?NecTUiy4T210CHrUoXGd3La99QJ7Ur70xatVf8czUWbwhvZz+fokXek87RBD?=
- =?us-ascii?Q?V0VMeYkiZRgE2tptyhi2xNjLjfiYKoqzHRPtKvXTDMcieTGbjN8bjuhq4ar4?=
- =?us-ascii?Q?93TCSt2b22QF2fQfUkwSZOggQnuJuu27M/uWR3Gn0sN0w8kxuapr/YnzsxZb?=
- =?us-ascii?Q?5Iz6GuwC+DaeqdjRhXvgaZEJpnyr75fZrB2j2n0FuDoWLEzqj8UBBH8sIAgq?=
- =?us-ascii?Q?at3QlVk8QBAdtJtME94LB6UFcLy85oGo4q9ezxG/3ER5mIhcwRpXpywBUcOa?=
- =?us-ascii?Q?vVS1QyxBsuN0JjdJGo3DC0ZNpEAfp2vOfCXp9FjZEPqcM/wpWXIjdPStBf3t?=
- =?us-ascii?Q?CsClvx/EC4J8EjNjm8LJnhT9PI8LVCiO+qn/oxVMiNZPWu0ZKuTJntA7Yric?=
- =?us-ascii?Q?HWHQtm3O784Tg5HrOfMnqkQ6Sv6GDPuUa5L07/TXMdabHdiUBTp2MHJo7Lc9?=
- =?us-ascii?Q?hM66git9LH5U82wGGKIgveiIvr0rIkWoOfP9g42pJL8RR+vxj2FlMD86FiYt?=
- =?us-ascii?Q?81wRHjjbEhGjxfhZ8JNxaaguXCtbAb12I2yNlonD8VIvRSOUAsv7BjVrMKc3?=
- =?us-ascii?Q?sLmLLIbpnwQosk5rdx2COU470aNpVo1Z5HYnaSQRy+r3NjlPXgT7?=
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 933e269e-91f1-4317-e129-08df4180b939
-X-MS-Exchange-CrossTenant-AuthSource: OSOPR01MB295138.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 12:22:03.2076
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VJ5wMr+eYmmdoH2sqkBlHxGZa63smh45y9RJZImuhYQTqqwyQRmaozK6DjWzXf58Uagym1SA3WTjNn3NKhOJ2fNOmAtNHw8FUg4wTtv5bH+kM75zEHBLH3H5mA81K+qX
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4PR01MB14799
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ACPI: CPPC: Scale EPP values to the register width
+From: Christian Loehle <christian.loehle@arm.com>
+To: Mario Limonciello <superm1@kernel.org>,
+ "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Cc: viresh.kumar@linaro.org, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, zhanjie9@hisilicon.com,
+ zhangpengjie2@huawei.com, Sumit Gupta <sumitg@nvidia.com>
+References: <20261112131316.827708-1-christian.loehle@arm.com>
+ <592580a1-ba88-4e22-b586-4aa2425f9760@arm.com>
+ <CAJZ5v0gXjngKSxX0Ku2wccWj9+oDQ7YqS6ziFZXDzMgm5GjVzg@mail.gmail.com>
+ <f8d23034-0d28-4726-829e-51cf687e5589@arm.com>
+ <37efae02-1f49-45ff-9e51-5a6a921ed1d5@kernel.org>
+ <4d9261e9-fc66-4197-b3ba-edcc98ffaaf7@arm.com>
+Content-Language: en-US
+In-Reply-To: <4d9261e9-fc66-4197-b3ba-edcc98ffaaf7@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Add DU{0,1} nodes to RZ/G3E SoC DTSI.
+On 11/12/26 17:19, Christian Loehle wrote:
+> On 11/12/26 17:11, Mario Limonciello wrote:
+>> On 11/12/26 08:05, Christian Loehle wrote:
+>>> On 11/12/26 14:01, Rafael J. Wysocki (Intel) wrote:
+>>>> On Thu, Nov 12, 2026 at 2:58 PM Christian Loehle
+>>>> <christian.loehle@arm.com> wrote:
+>>>>>
+>>>>> On 11/12/26 13:13, Christian Loehle wrote:
+>>>>>> The EPP sysfs interface uses 0-255, but ACPI permits 4-8 bit fields.
+>>>>>> Writing 128 to a 4- or 6-bit SystemMemory field currently succeeds but
+>>>>>> stores zero, selecting maximum performance.
+>>>>>>
+>>>>>> Scale writes to supported narrow EPP registers and normalize reads to
+>>>>>> 0-255. Cover both EPP setters and cppc_get_perf() so saved firmware values
+>>>>>> round-trip correctly.
+>>>>>>
+>>>>>> Fixes: 922607a2b462 ("cpufreq: CPPC: Add support for autonomous selection")
+>>>>>> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+>>>>>> ---
+>>>>>>   .../ABI/testing/sysfs-devices-system-cpu      |  5 ++
+>>>>>>   drivers/acpi/cppc_acpi.c                      | 46 +++++++++++++++++--
+>>>>>>   2 files changed, 47 insertions(+), 4 deletions(-)
+>>>>>>
+>>>>>> diff --git a/Documentation/ABI/testing/sysfs-devices-system-cpu b/Documentation/ABI/testing/sysfs-devices-system-cpu
+>>>>>> index d219fc27a0c9..c63b5cfd993c 100644
+>>>>>> --- a/Documentation/ABI/testing/sysfs-devices-system-cpu
+>>>>>> +++ b/Documentation/ABI/testing/sysfs-devices-system-cpu
+>>>>>> @@ -322,6 +322,11 @@ Description:     Energy performance preference
+>>>>>>                performance increase/decrease and the result of the hardware's
+>>>>>>                energy efficiency and performance optimization policies.
+>>>>>>
+>>>>>> +             For supported EPP registers narrower than eight bits, values are
+>>>>>> +             scaled and rounded to the nearest hardware preference.
+>>>>>> +             Reads use the same 0-255 scale and may differ from the requested
+>>>>>> +             value due to the reduced precision.
+>>>>>> +
+>>>>>>                Writing to this file only has meaning when Autonomous Selection is
+>>>>>>                enabled.
+>>>>>>
+>>>>>> diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
+>>>>>> index 11a9f9eb6b4a..10b52163eb56 100644
+>>>>>> --- a/drivers/acpi/cppc_acpi.c
+>>>>>> +++ b/drivers/acpi/cppc_acpi.c
+>>>>>> @@ -38,6 +38,7 @@
+>>>>>>   #include <linux/iopoll.h>
+>>>>>>   #include <linux/ktime.h>
+>>>>>>   #include <linux/list.h>
+>>>>>> +#include <linux/math64.h>
+>>>>>>   #include <linux/mutex.h>
+>>>>>>   #include <linux/rbtree.h>
+>>>>>>   #include <linux/rwsem.h>
+>>>>>> @@ -2841,6 +2842,25 @@ int cppc_get_highest_perf(int cpunum, u64 *highest_perf)
+>>>>>>   }
+>>>>>>   EXPORT_SYMBOL_GPL(cppc_get_highest_perf);
+>>>>>>
+>>>>>> +/* Keep the EPP interface on an 8-bit scale, including firmware readback. */
+>>>>>> +static u64 cppc_scale_epp(const struct cpc_register_resource *reg,
+>>>>>> +                       u64 epp, bool to_reg)
+>>>>>> +{
+>>>>>> +     unsigned int width = reg->cpc_entry.reg.bit_width;
+>>>>>> +     u32 max;
+>>>>>> +
+>>>>>> +     if (reg->type != ACPI_TYPE_BUFFER || width < 4 || width >= 8)
+>>>>>> +             return epp;
+>>>>>> +
+>>>>>> +     max = BIT(width) - 1;
+>>>>>> +     if (to_reg)
+>>>>>> +             return DIV_ROUND_CLOSEST_ULL(epp * max,
+>>>>>> +                                          CPPC_EPP_ENERGY_EFFICIENCY_PREF);
+>>>>>> +
+>>>>>> +     return DIV_ROUND_CLOSEST_ULL(epp * CPPC_EPP_ENERGY_EFFICIENCY_PREF,
+>>>>>> +                                  max);
+>>>>>> +}
+>>>>>> +
+>>>>>>   /**
+>>>>>>    * cppc_get_epp_perf - Get the epp register value.
+>>>>>>    * @cpunum: CPU from which to get epp preference value.
+>>>>>> @@ -2850,7 +2870,15 @@ EXPORT_SYMBOL_GPL(cppc_get_highest_perf);
+>>>>>>    */
+>>>>>>   int cppc_get_epp_perf(int cpunum, u64 *epp_perf)
+>>>>>>   {
+>>>>>> -     return cppc_get_reg_val(cpunum, ENERGY_PERF, epp_perf);
+>>>>>> +     struct cpc_desc *cpc_desc = per_cpu(cpc_desc_ptr, cpunum);
+>>>>>> +     int ret;
+>>>>>> +
+>>>>>> +     ret = cppc_get_reg_val(cpunum, ENERGY_PERF, epp_perf);
+>>>>>> +     if (!ret)
+>>>>>> +             *epp_perf = cppc_scale_epp(&cpc_desc->cpc_regs[ENERGY_PERF],
+>>>>>> +                                        *epp_perf, false);
+>>>>>> +
+>>>>>> +     return ret;
+>>>>>>   }
+>>>>>>   EXPORT_SYMBOL_GPL(cppc_get_epp_perf);
+>>>>>>
+>>>>>> @@ -3150,6 +3178,7 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
+>>>>>>        bool auto_sel_non_pcc;
+>>>>>>        bool epp_pcc;
+>>>>>>        bool epp_non_pcc;
+>>>>>> +     u64 epp;
+>>>>>>        int ret;
+>>>>>>
+>>>>>>        if (!cpc_desc) {
+>>>>>> @@ -3159,6 +3188,7 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
+>>>>>>
+>>>>>>        auto_sel_reg = &cpc_desc->cpc_regs[AUTO_SEL_ENABLE];
+>>>>>>        epp_set_reg = &cpc_desc->cpc_regs[ENERGY_PERF];
+>>>>>> +     epp = cppc_scale_epp(epp_set_reg, perf_ctrls->energy_perf, true);
+>>>>>>        if (!enable && auto_sel_reg->type == ACPI_TYPE_INTEGER &&
+>>>>>>            auto_sel_reg->cpc_entry.int_value == 1)
+>>>>>>                return -EOPNOTSUPP;
+>>>>>> @@ -3177,7 +3207,7 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
+>>>>>>                        return ret;
+>>>>>>        }
+>>>>>>        if (epp_non_pcc) {
+>>>>>> -             ret = cpc_write(cpu, epp_set_reg, perf_ctrls->energy_perf);
+>>>>>> +             ret = cpc_write(cpu, epp_set_reg, epp);
+>>>>>>                if (ret)
+>>>>>>                        return ret;
+>>>>>>        }
+>>>>>> @@ -3205,7 +3235,7 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
+>>>>>>                }
+>>>>>>
+>>>>>>                if (epp_pcc) {
+>>>>>> -                     ret = cpc_write(cpu, epp_set_reg, perf_ctrls->energy_perf);
+>>>>>> +                     ret = cpc_write(cpu, epp_set_reg, epp);
+>>>>>>                        if (ret)
+>>>>>>                                goto out_unlock;
+>>>>>>                }
+>>>>>> @@ -3235,9 +3265,17 @@ EXPORT_SYMBOL_GPL(cppc_set_epp_perf);
+>>>>>>    */
+>>>>>>   int cppc_set_epp(int cpu, u64 epp_val)
+>>>>>>   {
+>>>>>> +     struct cpc_desc *cpc_desc = per_cpu(cpc_desc_ptr, cpu);
+>>>>>> +
+>>>>>>        if (epp_val > CPPC_EPP_ENERGY_EFFICIENCY_PREF)
+>>>>>>                return -EINVAL;
+>>>>>>
+>>>>>> +     if (!cpc_desc)
+>>>>>> +             return -ENODEV;
+>>>>>> +
+>>>>>> +     epp_val = cppc_scale_epp(&cpc_desc->cpc_regs[ENERGY_PERF],
+>>>>>> +                              epp_val, true);
+>>>>>> +
+>>>>>>        return cppc_set_reg_val(cpu, ENERGY_PERF, epp_val);
+>>>>>>   }
+>>>>>>   EXPORT_SYMBOL_GPL(cppc_set_epp);
+>>>>>> @@ -3496,7 +3534,7 @@ int cppc_get_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls)
+>>>>>>                if (ret)
+>>>>>>                        goto out_err;
+>>>>>>        }
+>>>>>> -     perf_ctrls->energy_perf = energy_perf;
+>>>>>> +     perf_ctrls->energy_perf = cppc_scale_epp(energy_perf_reg, energy_perf, false);
+>>>>>>
+>>>>>>        if (CPC_SUPPORTED(auto_sel_reg)) {
+>>>>>>                ret = cpc_read(cpu, auto_sel_reg, &auto_sel);
+>>>>>
+>>>>> +CC Sumit's actual email, sorry about that.
+>>>>
+>>>> So I'm assuming that this one is for Sumit to pick up and send again
+>>>> along with a new version of
+>>>>
+>>>> https://lore.kernel.org/linux-acpi/20261112080442.4007723-1-sumitg@nvidia.com/
+>>>>
+>>>> Or please let me know if that is not the case.
+>>>
+>>> Yup, while it fixes an issue by itself technically, I don't think there
+>>> are any affected platforms.
+>>> I'm hoping that Sumit this (and the limit-write-at-init) patch as a series
+>>> for all our convenience (and hopefully to get Sashiko to review them too).
+>>> (I guess I should've mentioned that in the notes.)
+>>>
+>>> And sorry about ACPI/CPPC having such high traffic lately, I'm expecting once
+>>> we've got the issues ironed out and the new features supported it'll be a
+>>> lot more boring :)
+>>
+>> So the basic idea with this patch that the userspace interface is always 8 bit so higher level software will not need to know the lower level implementation detail at the expense of some granularity.
+>>
+>> Makes sense to me, but I'd like to know how realistic this hardware is going to be.  If it's purely hypothetical hardware; how about proposing to ASWG that this field must always be 8 bit?
+> 
+> Good point, IMO it's hypothetical hardware that hopefully doesn't and won't exist.
+> I'll try to raise this through that channel as well.
 
-Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
----
-v9->v10:
- - Removed display-subsystem node and du*_ports, updated commit body
-   accordingly.
 
-v8->v9:
- - Split du into du0 and du1 node and added newly display_subsystem node.
+Quick update on this, after proposing it, Souvik came back and made me aware that
+we've already proposed this:
+https://github.com/tianocore/edk2/issues/10838
 
-v7->v8
- - New patch
-
- arch/arm64/boot/dts/renesas/r9a09g047.dtsi | 74 ++++++++++++++++++++++
- 1 file changed, 74 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/renesas/r9a09g047.dtsi b/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
-index 737bf1c60451..0c9c6842e5d0 100644
---- a/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
-+++ b/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
-@@ -2239,6 +2239,80 @@ csi2cru: endpoint@0 {
- 			};
- 		};
- 
-+		du0: display@16460000 {
-+			compatible = "renesas,r9a09g047-du";
-+			reg = <0 0x16460000 0 0x10000>;
-+			interrupts = <GIC_SPI 882 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&cpg CPG_MOD 0xed>,
-+				 <&cpg CPG_MOD 0xee>,
-+				 <&cpg CPG_MOD 0xef>;
-+			clock-names = "aclk", "pclk", "vclk";
-+			power-domains = <&cpg>;
-+			resets = <&cpg 0xdc>;
-+			renesas,vsps = <&vspd0 0>;
-+			status = "disabled";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					du0_out_dsi: endpoint {
-+					};
-+				};
-+
-+				port@2 {
-+					reg = <2>;
-+					du0_out_lvds0: endpoint {
-+					};
-+				};
-+
-+				port@3 {
-+					reg = <3>;
-+					du0_out_lvds1: endpoint {
-+					};
-+				};
-+			};
-+		};
-+
-+		du1: display@16490000 {
-+			compatible = "renesas,r9a09g047-du";
-+			reg = <0 0x16490000 0 0x10000>;
-+			interrupts = <GIC_SPI 922 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&cpg CPG_MOD 0x1a8>,
-+				 <&cpg CPG_MOD 0x1a9>,
-+				 <&cpg CPG_MOD 0x1aa>;
-+			clock-names = "aclk", "pclk", "vclk";
-+			power-domains = <&cpg>;
-+			resets = <&cpg 0x11e>;
-+			renesas,vsps = <&vspd1 0>;
-+			status = "disabled";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					du1_out_dsi: endpoint {
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+					du1_out_rgb: endpoint {
-+					};
-+				};
-+
-+				port@3 {
-+					reg = <3>;
-+					du1_out_lvds1: endpoint {
-+					};
-+				};
-+			};
-+		};
-+
- 		fcpvd0: fcp@16470000 {
- 			compatible = "renesas,r9a09g047-fcpvd",
- 				     "renesas,fcpv";
--- 
-2.54.0
-
+I guess forget about $SUBJECT after all and I'll probe-fail <8bit and get the amd-pstate
+handling correct.
