@@ -1,88 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794586734;
-	b=WZFeMZg95ad+2gwNolefZw1wXKWqUt3biacgVbz2BXfT8c9Bcl02cbemnDjzcIp4x/In
-	 cAeczq/UpmPXu+6yjHIrRE6EwP76Xyy+baiMLcpSfb5FPE69gKFzOTaXQEKIo6AiTjrau
-	 RPMJIFtwnuab6qAQ6/N4hjPJ8/VOHjcqNwIFtR0MzcpheW0VewH3MU4C37UYJyoZPpDDl
-	 dawfyDCTS1/j63jEfk2w6Sp2y6+chNkLgeKUiJVt1QMpZiFOwWDUadTy16vnpJwogqICl
-	 wvg8EWxvCwL8k2wOp6Md6Xk33HHK+LszCyA4mwgfCXRRSW8fgsfZZ8JwpUOoYK6ioKg==
+	t=1794586737;
+	b=yY7NlNJnR9lcZIXd7bO9nB8JtFDcw7uaUpTSPCixhBim5llQNkTAJ6OynWI6ays/cYMl
+	 hOXRX6nzlG5BfaW4bRmofiEtHMg5NHz0Y3qeRF84gMm/CYfCLT61QONYKdNscqAd5cg5P
+	 IxKICG9ftubDtO+PAvWvIVitNrpbL/XyGGBFt+5ra8rESKpSDykv6B9BRc3UwbyG+wGWo
+	 yG9G7gQl/lgIb//4idOUseFT7qMFSM+26d0QjYl9yQzmItAFBc6cF4qfFVea8EwomF/f/
+	 Fw5Qs5/rP6n5x+5R/Pp4VTpnBuvJ1317aa1h29hRc0INym1rcd6zF8TgjmlrZxZABvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794586734;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=UF3XkSOJCFJlsWU70e9avLdLbzGyliPN/EWmezicW5E=;
-	b=uanvmlrhjO1HTlBbdIZ/4DX9ECY1YRzm7Rr92sX2n4GgiqJ5ghhNNFxXj7e7yrJpGeIJ
-	 u/tzWydUCT1uygwKOuLodsB1HWepzT/G67BZLrN7BasAfOE3D4WZREzaT0opU6UiX8t76
-	 rqGze5ECprnEdFQnU+Gd9voSFTgwUC57voQpk8iRrhN9sGr9vB2y2kWBNBezgEo+e+i2S
-	 tfxqbcOjFa/LaaWIRjz1uG5EAOVVnw3SggTpzjQX0wsAy05KTBE+SPCdiLOdmF3IZyJo5
-	 2HL5GtcpsLlL7fuuso9nr4vk/dB2oTEH31oWhHIEC57f+tTUclz9xRx13fgQy/6G3MA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794586737;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=gfKCKZttULbLUSYKjLw2rQpWRQy7369BlI6NWLima74=;
+	b=tGx1GBmjLYoibRAQ3Fc0JU07qUr0HayS3Tj+CHTOA4Cl+yx/OK4BxZLMq+hNTeyKBX8u
+	 0F3SzYss+GZOb+aYZiTZEnvFwuenqGMOVrlMStFYpHTQrZOluxWOEupnOHKe6SMFn46Z0
+	 U7aIDWHF4qeZM+UrP0I2Ob0U53aywQulydbKEbAlOVelINjx3Sd5tlJkAQ+F6sIRacBsm
+	 g4qYVwKRBMZPyXcFN50/83SroWUbFw20n81zQ2Dr+PT/MNxVJMUB7H4nXeT+8vPyMa45r
+	 wRESAjmXW/aoWwaTJwLGUtljY2SEt7iGcW51GWXi4BVsqZBB0NVQCDCcoMAvIlP6Xww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="MxxP8/Ph";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vibe2WIA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 9CC456070FE5;
-	Fri, 13 Nov 2026 16:18:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64E98606BAAE
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:18:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MxxP8/Ph
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 8FCA51F000C5;
-	Fri, 13 Nov 2026 16:18:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vibe2WIA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF1591F000C7;
+	Fri, 13 Nov 2026 16:18:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794586734;
-	bh=UF3XkSOJCFJlsWU70e9avLdLbzGyliPN/EWmezicW5E=;
-	h=From:To:Cc:Subject:Date;
-	b=MxxP8/Ph/KS1LFHpDWerePGTKIngjNbG6iBFIjEBm2/ir2X00T/UPpzgFZHi3uKj6
-	 5KbodPC6OoTXLCFlX9vqCBOtKwRNQK2tJ3DjiXkQzcGACkjSuqpDD4czCpvDcyHB/1
-	 uUaITBznOUO7w9y3apZV55UtolWUkut2Jh80gty2zOymZOSdoEf7DVvXMAZhEweJcO
-	 29k2/KGgLWJZkq9H2BT95AmwkPzYTCiNQFC+gKbppbBsJi/3RXuCvBHNp6v3MVe3zh
-	 ApAGGRdq7Fmy2CqfImYeWln0MAehnMg0TC3YfQ9leHnoW+ljizLqLLvlL+8YNPdwc0
-	 X/kEncZyrtEDg==
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: Jarkko Sakkinen <jarkko@kernel.org>,
-	bpf@vger.kernel.org,
-	dm-devel@lists.linux.dev,
-	fsverity@lists.linux.dev,
-	keyrings@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	Alasdair Kergon <agk@redhat.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Alex Shi <alexs@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Benjamin Marzinski <bmarzins@redhat.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Dongliang Mu <dzm91@hust.edu.cn>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Eric Biggers <ebiggers@kernel.org>,
-	Ignat Korchagin <ignat@linux.win>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	James Morris <jmorris@namei.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Mike Snitzer <snitzer@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Paul Moore <paul@paul-moore.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Song Liu <song@kernel.org>,
-	"Theodore Y. Ts'o" <tytso@mit.edu>,
-	Yanteng Si <si.yanteng@linux.dev>,
-	Yonghong Song <yonghong.song@linux.dev>
-Subject: [PATCH v10 0/3] KEYS: Replace assoc_array with rhashtable
-Date: Fri, 13 Nov 2026 18:18:33 +0200
-Message-ID: <20261113161836.3587552-1-jarkko@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	s=k20260515; t=1794586737;
+	bh=gfKCKZttULbLUSYKjLw2rQpWRQy7369BlI6NWLima74=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Vibe2WIAY0fix0GPxjAhXr5IAODiFtxZhTL6hkbMoPswB8Z/QjgQa5K6AQAOsa4f1
+	 e+uAs5WkrJgP7rMWQHuPujIsc8ylsI4yJQOIXwOCjzn1A75l7fNQkw310CvkvijR36
+	 lLtjvMZ7B3j36t2y2nTxZ0stUyuupSMR4h+eazWcTCeIke1ypglK7wlYA+z6MPeLxq
+	 jHt0ChQ1YqiOkr/PGa9uZ7DIVGvktcDmQXALJWrzvhBOcCr+yhRFiAjzPLO0kMrnmt
+	 VJ3C0n4Mh7ykyJb2v9jT9EWTN8wgzzQsjDVToJVInkJ8qbWNeX0JyBA+ptZw78dAkV
+	 9x9Cfbut/O4Gw==
+Date: Fri, 13 Nov 2026 16:18:47 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Eliav Farber <farbere@amazon.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, x86@kernel.org, 
+	William Kucharski <william.kucharski@linux.dev>, Vishal Moola <vishal.moola@gmail.com>, 
+	Alex Williamson <alex@shazbot.org>, Matthew Wilcox <willy@infradead.org>, 
+	Peter Xu <peterx@redhat.com>, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/4] mm/huge_memory: don't warn when a page table
+ blocks a huge pfn insert
+Message-ID: <avcsfhWktvKxQlkW@gremlin>
+References: <20261112051440.16140-1-farbere@amazon.com>
+ <20261112051440.16140-4-farbere@amazon.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,191 +70,197 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112051440.16140-4-farbere@amazon.com>
 
-The keyrings subsystem is the sole user of assoc_array. It has over 1700
-lines of code, no test suite, and a long history of bugs, with LLMs now
-finding more.
+TL;DR is I feel like maybe I need to take this over as I'm not confident
+you understand this...
 
-This unfortunate outcome has evolved over time by large from the shortage
-of in-kernel callers, time bandwidth and 3rd party contributors.  What the
-keyrings subsystem needs is just a generic key-value store, which performs
-well with sparse key sets. Replace assoc_array with an rhashtable-backed
-keyring index and remove assoc_array from the kernel.
+On Thu, Nov 12, 2026 at 05:14:39AM +0000, Eliav Farber wrote:
+> insert_pmd() and insert_pud() treat a non-empty entry at their own level
 
-CHANGES
-=======
+Non-empty reads quite strangely. I'd say present but non-present !=
+!pmd_none().
 
-v10:
-- No changes since the previous round. This is a sanity check round
-  given the lack of feedback to v9. I'll apply these patch very soon,
-  unless nothing (relevant) comes up fast.
+And the code is just... so terrible.
 
-v9:
-- Replace __free(kfree) with explicit cleanup so early goto out paths
-  cannot bypass initialization of the link pointer. Preserve kleave()
-  tracing on all exit paths.
+It seems to assume that softleaves don't exist so don't bother to care
+about that, for one.
 
-v8:
-- Fixed broken rebase.
-- Restructured __key_link_begin() a bit as a response to a minor
-  complaint from Sashiko.
-- Fixed a minor glitch in __key_link_begin(): now also first invariant
-  invokes kleave() on failure.
+I'm not sure if this fix is sufficient, actually.
 
-v7:
-- Rebased.
+> as a leaf and compare its PFN against the one being inserted. A page
+> table installed by a concurrent order-0 fault also makes the entry
+> non-empty, and pmd_pfn()/pud_pfn() then report the PFN of that table,
+> which never matches. insert_pmd() warns unless the entry is the huge
+> zero PMD, and insert_pud() warns on any mismatch.
+>
+> A VM_PFNMAP mapping with both ->fault and ->huge_fault can produce the
 
-v6:
-- Eric Biggers: Set .insecure_elasticity = true in keyring_link_params and
-  drop the -EBUSY retry loop in __key_link_begin().
-- Addeded Reviewed-by's from Eric Bigger and Ignat Korchagin.
+Please refer to non-deprecated VMA flags in new code.
 
-v5:
-- Eric Biggers: Include <linux/jhash.h> explicitly in keyring.c.
-- Eric Biggers: Document why hashing type/domain_tag pointers with SipHash
-  and truncating the digest to 32 bits are safe.
-- Eric Biggers: Rework the commit message for "KEYS: Replace assoc_array
-  with rhashtable", including behavioral and operational changes.
-- Retry rhashtable_insert_fast() on transient -EBUSY in __key_link_begin().
+> mixed orders: an order-0 fault installs a page table over an address
 
-v4:
-- Eric Biggers: Correct the kerneldoc summary for keyring_is_empty().
-- Eric Biggers: Truncate keyring_index_key hash to u32 and drop index_id.
-- Eric Biggers, David Howells: Use a proper struct instead of a two-element
-  array to pass the edits.
-- Eric Biggers: __keyring_link(): Call key_put() in the rollback of
-  rhashtable_replace_fast().
-- Eric Biggers: Retract from using __free(kfree) in keyring_get_index().
-- Eric Biggers: Reuse keyring_link_key() in keyring_obj_cmpfn().
-- Eric Biggers: Document why keyring_index_free() uses queue_rcu_work().
-- Eric Biggers: Fix the commit message for "KEYS: Replace assoc_array with
-  rhashtable".
+'the mixed orders'? What does that mean?
 
-v3:
-- Since David is away for the next week I decided to address the
-  low hanging fruit that I reported myself.
-- Unified and sanitized function and variable naming and removed
-  unnecessary asymmetry e.g., by renaming keyring_remove_all_links
-  as keyring_index_free, 'links' as 'index' and '_edit' as 'edit'.
-- Flattened the implementation by refactoring out some useless
-  wrappers and other constructs.
-- Addressed continuation after triggered WARN_ON() on at the three
-  sites that I've described in my email response to the previous
-  patch set version.
-- Reworked keyring_read() so that it triggers the scheduler between
-  the iterations.
-- Dropped "Assisted-by: LLM" tag because checkpatch.pl told me so.
+> while a concurrent huge fault on the same address reaches insert_pmd().
+> Changing an mm's THP policy while another thread faults the same PMD,
+> for example with prctl(PR_SET_THP_DISABLE), is enough to do it.
 
-v2:
-- Tried to address all the issues pointed out by David and Eric. Tell me
-  if something was ignored, as that would be an unintentional mishap.
-- Updated and trimmed the source code comments.
-- For assoc_array_edit I decided to go with two-element pointer array,
-  which shifts a bit what David suggested.
-- Dropped is_keyring flag. It was so obvious call so I mention it here
-  just in case because too obvious maxes out my self-doubt ;-)
-- Used cleanup.h primitives where I possibly could especially in order
-  to make fallible initializations more bug-resistant.
-- The already-ack'd bug fixes are included but will be dropped as soon
-  as I've sent them over to Linus.
+OK that's useful information. Terrible.
 
-VERSIONS
-========
+I wonder if actually there are other bugs that will surface because this
+takes the mmap write lock but concurrent faults are permitted.
 
-- v9:
-  https://lore.kernel.org/keyrings/20261110053323.2936729-1-jarkko@kernel.org/k
-- v8:
-  https://lore.kernel.org/keyrings/20261110044043.2608600-1-jarkko@kernel.org/
-- v7:
-  https://lore.kernel.org/keyrings/20261110033738.2495880-1-jarkko@kernel.org/
-- v6:
-  https://lore.kernel.org/keyrings/20261107195605.3929659-1-jarkko@kernel.org/
-- v5:
-  https://lore.kernel.org/keyrings/20261105031401.956609-1-jarkko@kernel.org/
-- v4:
-  https://lore.kernel.org/keyrings/20261029232437.2581640-1-jarkko@kernel.org/
-- v3:
-  https://lore.kernel.org/keyrings/20261025001105.1824178-1-jarkko@kernel.org/
-- v2:
-  https://lore.kernel.org/keyrings/20261023120953.1206778-1-jarkko@kernel.org/
-- v1:
-  https://lore.kernel.org/keyrings/20261016215326.4110064-1-jarkko@kernel.org/
+Maybe we need to make PR_SET_THP_DISABLE take every single VMA's write lock
+in the mm first...
 
+Even that is dubious as new VMAs can come into existence while you do that
+:))
 
-Cc: bpf@vger.kernel.org
-Cc: dm-devel@lists.linux.dev
-Cc: fsverity@lists.linux.dev
-Cc: keyrings@vger.kernel.org
-Cc: linux-doc@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-kselftest@vger.kernel.org
-Cc: linux-security-module@vger.kernel.org
-Cc: Alasdair Kergon <agk@redhat.com>
-Cc: Alexei Starovoitov <ast@kernel.org>
-Cc: Alex Shi <alexs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Andrii Nakryiko <andrii@kernel.org>
-Cc: Benjamin Marzinski <bmarzins@redhat.com>
-Cc: Daniel Borkmann <daniel@iogearbox.net>
-Cc: David Howells <dhowells@redhat.com>
-Cc: Dongliang Mu <dzm91@hust.edu.cn>
-Cc: Eduard Zingerman <eddyz87@gmail.com>
-Cc: Emil Tsalapatis <emil@etsalapatis.com>
-Cc: Eric Biggers <ebiggers@kernel.org>
-Cc: Ignat Korchagin <ignat@linux.win>
-Cc: Ihor Solodrai <ihor.solodrai@linux.dev>
-Cc: James Morris <jmorris@namei.org>
-Cc: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: Jiri Olsa <jolsa@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>
-Cc: Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Martin KaFai Lau <martin.lau@linux.dev>
-Cc: Mike Snitzer <snitzer@kernel.org>
-Cc: Mikulas Patocka <mpatocka@redhat.com>
-Cc: Paul Moore <paul@paul-moore.com>
-Cc: Randy Dunlap <rdunlap@infradead.org>
-Cc: "Serge E. Hallyn" <serge@hallyn.com>
-Cc: Shuah Khan <skhan@linuxfoundation.org>
-Cc: Song Liu <song@kernel.org>
-Cc: "Theodore Y. Ts'o" <tytso@mit.edu>
-Cc: Yanteng Si <si.yanteng@linux.dev>
-Cc: Yonghong Song <yonghong.song@linux.dev>
+Ah well. I guess correct thing is to handle races like this as best we can.
 
-Jarkko Sakkinen (3):
-  KEYS: Introduce keyring_is_empty()
-  KEYS: Replace assoc_array with rhashtable
-  lib: Remove assoc_array
+>
+> Compare the PFN only for a leaf entry. A page table is not an error, so
+> take the existing out_unlock path, which returns VM_FAULT_NOPAGE and
+> lets the access refault onto the smaller entry.
 
- Documentation/core-api/assoc_array.rst        |  564 ------
- Documentation/core-api/index.rst              |    1 -
- .../zh_CN/core-api/assoc_array.rst            |  473 -----
- .../translations/zh_CN/core-api/index.rst     |    1 -
- drivers/md/dm-verity-verify-sig.c             |    2 +-
- fs/verity/signature.c                         |    2 +-
- include/keys/keyring-type.h                   |    1 -
- include/linux/assoc_array.h                   |   88 -
- include/linux/assoc_array_priv.h              |  178 --
- include/linux/key-type.h                      |    1 -
- include/linux/key.h                           |   29 +-
- kernel/bpf/keys.c                             |    2 +-
- lib/Kconfig                                   |   14 -
- lib/Makefile                                  |    1 -
- lib/assoc_array.c                             | 1724 -----------------
- security/keys/Kconfig                         |    1 -
- security/keys/internal.h                      |   14 +-
- security/keys/key.c                           |   22 +-
- security/keys/keyring.c                       | 1013 +++++-----
- security/keys/request_key.c                   |    8 +-
- .../dm-verity/test-dm-verity-keyring.sh       |    2 +-
- 21 files changed, 490 insertions(+), 3651 deletions(-)
- delete mode 100644 Documentation/core-api/assoc_array.rst
- delete mode 100644 Documentation/translations/zh_CN/core-api/assoc_array.rst
- delete mode 100644 include/linux/assoc_array.h
- delete mode 100644 include/linux/assoc_array_priv.h
- delete mode 100644 lib/assoc_array.c
+Sorry this paragraph is just word salad LLM-ish code-as-prose, delete it.
+
+This commit message is really poor - it's too long, and what it goes into
+detail about is mostly useless.
+
+Pare it down into a form that demonstrates understanding of the page fault
+code. Make the actual explainy bit as small as possible.
+
+And you haven't answered key questions:
+
+- What real-world workload were you doing when you encountered this?
+
+- Or was it code inspection? Or was it an LLM? Assisted-by might be gone
+  but you are strongly encouraged to explain this even if below the --- in
+  the patch...
+
+- What are the actual runtime implications for users?
+
+- Why did you decide to not do anything about the other flaws here?
+
+- What parts of the kernel are actually vulnerable to this? E.g.
+  https://elixir.bootlin.com/linux/v7.3.1/A/ident/vmf_insert_pfn_pmd
+
+Anyway, there's lots of broken stuff here though.
+
+insert_pmd() seems to ignore the fact that PMD softleaves exist. Maybe
+that's not possible in this code path... but... I don't see how it's not?
+
+So this just seems terribly broken overall.
+
+>
+> Fixes: f9e54c3a2f5b ("vfio/pci: implement huge_fault support")
+
+A commit message that goes into excruciating detail describing the code I
+can literally scroll down and look at, but zero comment on why this fixes
+target was chosen.
+
+Presumably the first user that made this possible? I guess? Or no?
+
+Do I as a reviewer have to go figure it out?
+
+Please try to make our lives easier :)
+
+> Signed-off-by: Eliav Farber <farbere@amazon.com>
+> Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+> ---
+>  mm/huge_memory.c | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
+>
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index eb913acb03b7..052c50dadc48 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -1643,6 +1643,14 @@ static vm_fault_t insert_pmd(struct vm_area_struct *vma, unsigned long addr,
+>  		const unsigned long pfn = fop.is_folio ? folio_pfn(fop.folio) :
+>  					  fop.pfn;
+>
+> +		/*
+> +		 * A concurrent order-0 fault may have installed a PTE table
+> +		 * here, which pmd_pfn() would report as the PFN of the table
+> +		 * itself. Only a leaf entry can be compared.
+> +		 */
+
+I hate this comment so much.
+
+It's what I see so often from LLM output too... you're going on to say what
+_would_ have happened if you _didn't_ do what you just did on the
+_assumption_ that reader has zero understanding of page tables and fault
+handling, and that the code (of course) will _never_ change.
+
+It's adding nothing.
+
+'Only a leaf entry can be compared' especially... it just reads like an
+annotation from somebody/something that doesn't understand page table/fault
+handling code.
+
+Anyway delete both please.
+
+> +		if (!pmd_leaf(*pmd))
+> +			goto out_unlock;
+
+ * @VM_FAULT_NOPAGE:		->fault installed the pte, not return page
+
+Is this still the correct return value?
+
+I imagine it's effectively saying 'this is not what we expected ah well
+carry on'.
+
+But what if it's a softleaf... Presumably it's somehow not possible for it
+to be a PMD softleaf entry... but ugh.
+
+The assumption here in the code is so bogus though. One can experience a
+concurrent huge fault no?
+
+So:
+
+			if (pmd_pfn(*pmd) != pfn) {
+				WARN_ON_ONCE(!is_huge_zero_pmd(*pmd));
+				goto out_unlock;
+			}
+
+Is still completely broken isn't it? You could well find a leaf, installed
+by a concurrent huge fault handler, and trigger a warning couldn't you?
+
+Or is that somehow prevented?
+
+I also don't get why an existing unexpected entry is totally fine if !write
+let's not check anything...
+
+It feels like the real fix is something more substantial.
+
+Maybe better for me to take this over...
+
+> +
+>  		if (write) {
+>  			if (pmd_pfn(*pmd) != pfn) {
+>  				WARN_ON_ONCE(!is_huge_zero_pmd(*pmd));
+> @@ -1770,6 +1778,14 @@ static vm_fault_t insert_pud(struct vm_area_struct *vma, unsigned long addr,
+>  		const unsigned long pfn = fop.is_folio ? folio_pfn(fop.folio) :
+>  					  fop.pfn;
+>
+> +		/*
+> +		 * A concurrent order-0 fault may have installed a PMD table
+> +		 * here, which pud_pfn() would report as the PFN of the table
+> +		 * itself. Only a leaf entry can be compared.
+> +		 */
+> +		if (!pud_leaf(*pud))
+> +			goto out_unlock;
+> +
+>  		if (write) {
+>  			if (WARN_ON_ONCE(pud_pfn(*pud) != pfn))
+>  				goto out_unlock;
+> --
+> 2.47.3
+>
 
 --
-2.47.3
-
+Cheers, Lorenzo
