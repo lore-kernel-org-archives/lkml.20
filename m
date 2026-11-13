@@ -1,108 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794602850;
-	b=iSnb8P5u/2Dtg3lRJKmiIGd700vMTWTIElSpFRk/VjqhS7FvYTFGJV+4eNBZB34TRh16
-	 xJ8L+cg/7j+lcK4vOTcLxy34cd5hITbv01WDoNTs3XjMPAzlTVxasbJzjcvPLY6QZGRvq
-	 GWVNPUZVHTYbIuSVMjgshQd0azQsUNs26wliq03ZEhS9E+RJDcWJWDJPDD0td8i4grtFH
-	 PJ2aL2DpMK3rOI6BOLMliQzSW6hsB7PGirU3/6USHjWJs9QHdi9Ispvrf6wQmEkbgooct
-	 X5RodIZlrIbxrG5hkjlgi4d1OMSMYKw3kvFGvux77uLk6phU5Yh0Wlt3QFTsitfySXw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794602850;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=CeJdUlTarSzl0zOxcgqdgSz/hfHd0m5LVHMetEyWCNA=;
-	b=OtQGTiBOnFzfCZ6NhzZ8/ZFMEBuGhBuNmbJ2bm6UrDY6qIQbKkBF8kd/AsM8lF/hTngc
-	 iH7olAzUcid4l7ayVXdrlEMG2dWSFwzLq2/y5DokFu8CCdDKuKFB0fucKwE+u/YXKDhhd
-	 U1FzUew5X3Oqe7WWyFEddAyuB2zrH5Bg4/lFpgZ68NDasn+Lnu+5+Y2UDi09XHtNLIvO6
-	 HLwTyZvk74qX6IGS4av4OXgdbhx6xYfW+aX9l6DhhPOgyE/wLUOOkghR5OPssD/TG0AZp
-	 l3l+no0MngxJPRf90Bq7GQsikXMQkB82Hj/RtykyP/t40S0zE1RbO2/OsyU52akrtwA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HOa0xz5C;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.56
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794602866;
+	b=TFjYBKU15dyx/RPwHy/g3UIp4w8CWwD7gfWKIC0sdYi/iwtDZarEmVw/2Ky5RY5IVuan
+	 FBbDTyL7cJO61rys+j2gJX82pwD3MY5eCcMlCngQ3TA5+/JcAM8NGEygh74ZgiLwO9o76
+	 DeSOlNhlV1B+2paqO71jXlAlFetu5CpcQoPSmVSzfv0/OGexgkrsLdO05r9w4rqmRCYF8
+	 dyZYkQjCRwxlnqb1h1C3PU5V6RgBaXkT5yhsBOxnNGB34nPU58HjSI+Qir22A2/S+VjUY
+	 Q3SH2I6LYYH66eKZw0b7i/bZIfHICjW+WQLvriMto7iQQ/COI/QMstEZG+FdekrJnMQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794602866;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=qSCLUYfxv0YxlcMWt1/YlAznD3EieJ6zKQzwGjLFTsQ=;
+	b=KGtsgH1Ik4mClkAL4PtxlOIunbEk2YlpYhfFHgJj0Tav4Yxvjcl6kV66Adb06XITToxp
+	 57m1k79L6va39FjJUJG6JTDbBFpc//bK94mYHzPXPz+PeTbIjqj9VU3UmY/Ae9B5z/OLa
+	 xgsNLJqEh5b9iW5kDt1LDL5r37M3OfUsWS0e87+Cfn+nOdJT5ubCS/zhW9mXQg14YWKFx
+	 8dcjOba3/BYYawpq2i1IgoUif1ReslRbhZEi28FKeQQBQFeFlBWBSWqrwRNN2Prj2LXi8
+	 4EhS360Qrz+cV+rERcEhJbMaob1wiC77/7w63VXWh6t5tYVxUW3HrcHqSfxR1WOlPLw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=NodoeaJz;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.56
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013056.outbound.protection.outlook.com [40.107.162.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19F03606A333
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:47:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19F03606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73816606A323;
+	Fri, 13 Nov 2026 20:47:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73816606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HOa0xz5C
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so19487495e9.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:47:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794602848; x=1795207648; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CeJdUlTarSzl0zOxcgqdgSz/hfHd0m5LVHMetEyWCNA=;
-        b=HOa0xz5CaajXNfqsSinjEBnqsTd3zDgusNh1FN+lGgT74mWgIm4hcwwuMzztBbiAAN
-         u/iGoCH1rFxlDuqyheK5kTvmTReDP/cZGM6lLsJ2XZgJD/lws+lBV+9Edl77Jsni0l4n
-         2B1LP3/1DhN3MvVrqircDS+8C2JAb9lEEKI8UPmZSqWo92a46R4At/DK105OFKnmXpO1
-         N90m1p9DWSO6EMGdX91BpffxqI5rCw9tnCCaHmUF3DH6BpBlOPoIFNmRoGVrw1UZF3n1
-         LdGf+zJq/3WtF/giNdjextaagZkKp+TQf3dSoM2tdSymFJ59kN0foVdIEA3WrMhDzeit
-         K55w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794602848; x=1795207648;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CeJdUlTarSzl0zOxcgqdgSz/hfHd0m5LVHMetEyWCNA=;
-        b=Me8KCkMQSx/BfN3MSAC6JabdPyQQHeoG59MUhjTGHZmtDXX6saQy2xRgJUFEgl5lc0
-         TW5Uj5/82NWAX7CKWgw6MS4asxcouQFBf2GixGO84xJT07czuz2Cm8X+v0KgloKa+xXE
-         WtCvIKMrx7zKHyxjKD2eekzCJP59e7+yz+DKWXPmvOMBMsuG2GHgAcuQq8mNmjCuQxLn
-         1jiyZeoiqafbDgZdoIIEnGqOC+KWUxbGp5S4kSwTmRIj6ygdQd08icR/EGpJTLCWkyzd
-         wIrAAmOtIT7RcTADOQol1sBmqE8RgiafnnWdJMZNZzMIjJ55l+aY21mo/FHBVnJdWDZM
-         bFtw==
-X-Forwarded-Encrypted: i=1; AL+hErGN/2Qz5LInci8kggzkJWk5bVshH6g3vqAMl3PakCnN/9/+I1R6dATL29CMNskvH79skpcYVyLRBT+FEN8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9zEzRih7eW9974bRIudX9Jt+rQE9C2tfg02PhxHp0p+yy/Z8N9
-	YI7BnJpFB4HJ/j0U9MiXbzDmvdC0I7Yur9FC1j6/eRD5bdlZEtWNWLR2
-X-Gm-Gg: AYBFou0PC1sXbUH+NJl2U2KRATV0/5Ffbv//xRFwat0QYgnoNLdudajE85myxFC640k
-	UN222aH1f62wwR5JG20lb0KNLJKvO3x+A1ykPqa/iVscDR0Wk7EBwcM95JziVXFnXnDFVosRm1c
-	ur/SPejGpXK7aSmkwLjqiNW9lkwuplgYqNABq9aomZeTAANqWp1JA0cwt9fEqOHuED77c06zlcT
-	UJjHtBvcN1heU6/N5Z1vaRZzQaQualRrwl+HxhLYxQ4LtTJZ1Lo60+4YfqcGIKEeIQAWpld2ZQS
-	K+NIEmEHDutOFBIY8bs9TsTQ/n+QXBiRaiKWaNd/5zhqZhiBQ116Qcoo0F9ZyD5sizyuuBtM9Qa
-	S75goYl9Sc18/y3qvJam6R85gi2yHmxOhJ/z29BR4U2Eu7CUkyjFNRh+rC40hXNsfWHWpfBGLhr
-	+Igk6PBNK3SYGY5/TYqtxTrC8bsS08/i6ZTUmHrAaKn8NN80qsNSgs3GPiRSbo85Jvyj3in8B4X
-	RnCcTWSN0hfoglN3JwQC2QrLDBLCwDWnBaC+MO924JLKLTq4IjNZVETrUo0/DzuzX5oKn4kKscS
-	PNeWo2j3Hy4WfwIWVAoUvT6GMlxNlbfcs10KqyUEXI58seNRiLJFdIOA832j5i6UfP6x7xOXLtm
-	FUoWq5HXX
-X-Received: by 2002:a05:600c:3b9d:b0:4bb:5dbf:af06 with SMTP id 5b1f17b1804b1-4bb5dbfb103mr44986715e9.9.1794602848265;
-        Fri, 13 Nov 2026 12:47:28 -0800 (PST)
-Received: from osama ([2a02:908:186:df80:be86:db23:a9d4:f15e])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c609c8a77sm7282165f8f.49.2026.11.13.12.47.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 12:47:27 -0800 (PST)
-From: Osama Abdelkader <osama.abdelkader@gmail.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>,
-	Steven Price <steven.price@arm.com>,
-	Liviu Dudau <liviu.dudau@arm.com>,
-	Akash Goel <akash.goel@arm.com>,
-	Karunika Choo <karunika.choo@arm.com>,
-	Lukas Zapolskas <lukas.zapolskas@arm.com>,
-	Chris Diamand <chris.diamand@arm.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Heiko Stuebner <heiko@sntech.de>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Cc: Osama Abdelkader <osama.abdelkader@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] drm/panthor: Fix race when retrieving the new chunk in panthor_heap_grow()
-Date: Fri, 13 Nov 2026 21:47:16 +0100
-Message-ID: <20261113204717.35195-1-osama.abdelkader@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261113110217.6c1513be@fedora1.home>
-References: <20261113110217.6c1513be@fedora1.home>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=NodoeaJz
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=X1sZYt6dhz8yg2ZFoH5dUYZK++dvljQWKuLtIUKkYrae0eoPu42jQfDBo+Z16101xQF0qKMgL/h98TOUKlXFBqoyuOGJSjmVvksgUtSomdciUUMZPRxEr1+QvqwVy2xwhVba+tFi2L+iRitWCA/IyjfwS9Plm7jZ5tGSdpPxUPTlJJ/du0ZNAKkfpbKqNKFb9g1PVl7f/9KYXock/0R9dpMvpAboxKiovYWpFceiNu/oQks5g+I16lEQwwU0XRlG/dbi92zKujd01nQbKYaMpSs3qZmrsdf5oJrl75H1hJXiAE+Zk6ftNBpdPZT6yWrO8FDHR7xAvlKXJ2iWkppMOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qSCLUYfxv0YxlcMWt1/YlAznD3EieJ6zKQzwGjLFTsQ=;
+ b=VBnBBGQTUBK/Wmc8dhVLm33pucrLyXbI92MSjcVsDZMVHGuoLjr2H9yvAs23G/lmGHgbVTdGYDKqa1zd71pGwJoIvPgbPfIZ+bgtG/rUZaKPWdf9RHux/k4PYEjfTMlF5vIOyYcgfD6S/npuVVeyGvHU9bVKY+JEIclCxaVaqhuYcrqToXklOtNvzkUL5IOeICdhfkmIjC2uF2ec1fWebXlsinAsc488Q1dbBMtwXbdGySyfyPpFwbAVaOS8Njc0ndvN6GDHpPsSYSpUPCleeXyMJHLbML9UBFT0ZK9oK8o0BFhapwml6fm9p4c+LwWBdMBTpMpktMktoy6MC24bCg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qSCLUYfxv0YxlcMWt1/YlAznD3EieJ6zKQzwGjLFTsQ=;
+ b=NodoeaJzZfODZanmyk8CJ4tRbH2AIKPdHgkxxu9YA5S8PDno593TccqlUioX0HWWLQWk9DmIJgFGteO48+aIB/VLluQVjmSNLbxwR3nAXfalb50cQlJmFDVmbbBheNQtuInHoKoc1PaoTvizZ2UW8QF6AfjEjTAED4R8EAu/y0q1lzx4b666i9xQ/orwGQbiWApraVIiEQsFNWEP7GovVCkhSuC3FLkSNRk05OmRBrtbeokbkwAqiKarfnepp7rTzpt8zvHApSfwqqaXSCD7iRLa5nwRNpy0z2kjByVJPEfihsbQcO1/2xKDFY4bFtVRrGIEBP6GdssDEppe2EfN1w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by AM9PR04MB8713.eurprd04.prod.outlook.com (2603:10a6:20b:43c::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 13 Nov
+ 2026 20:47:39 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.009; Fri, 13 Nov 2026
+ 20:47:38 +0000
+Date: Fri, 13 Nov 2026 15:47:32 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Allen Pais <allen.lkml@gmail.com>, dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
+Subject: Re: [PATCH] dmaengine: mmp_tdma: Release IRQs before channel
+ tasklets and storage
+Message-ID: <avd3ZIw9mqQ2p9j6@lizhi-Precision-Tower-5810>
+References: <20261011202406.1869441-1-mhun512@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261011202406.1869441-1-mhun512@gmail.com>
+X-ClientProxiedBy: DS7PR06CA0018.namprd06.prod.outlook.com (2603:10b6:8:2a::9)
+ To MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,155 +96,158 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AM9PR04MB8713:EE_
+X-MS-Office365-Filtering-Correlation-Id: 340de2a1-9d1c-4e85-fe36-08df41c75ac7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|19092799006|23010399003|376014|18002099003|10067099003|22082099003|3023799007|6133799003|11063799006|5023799004|56012099006|261021121427099003|261102123227099003|260925021911599003|261026121527099003|261028144727099003|261021123027099003|261009223027099003|261022105027099003|260925022911599003|261026140227099003|260925021311599003;
+X-Microsoft-Antispam-Message-Info:
+	OsDTyyT3FcbXlI404KKt15w33RKgx4qzMmyFn1HIpDkflUwPrPl55WEAfM2uJoAuZXJy8hhB5T/Koqj0sj4QnRmhXoASqs/NoQqYwc7VZWb77DMQ0eW1AnX+h4Aso+P6NewrHGY6k7BXiH7yTt5qtvyLp+ZWk0TbCxhEV7OGJpbn2X4ZdcytZKFurmfb13vG3f1X0WIKRgLOb/0DUg+r9HrkuJ645Q7yVfLT7z0V76cG32p0MVAVseYmoCZZrABZS+C4iwqoLWTmdgUzVaxCb1ufkwo0gwPBwjDQoNQqNNb8sXqMCLAFWEqdiayOzjfQuRQ9IGAS4yf2W0qA7+TcgXeyiKzQkenwmqX9gZAIuzIr5+DLkt0N6hSg7mXApXdfAbaVEWnpsNJDCtlLwgMn856rmB1lEaz6gt+IcLB0pZBBDF2bnZ4BtoAsnfnz+oll6MHgjomnUFbjPC9nDhDk73FYMHmkDMNxGodtn34kd5nAwgQDlOIc+7MBTuJXZcscfs+XFoi7gPkdimalVFTq+dc+QZ73mYXKyvPmKTEylUpPJuJ6q9MYJQJkKm4wGmRa8uYMZfdRLBcfFK1rJLwvYaAr3qGfxDw3Tdfg3eUEj7yXWU6TuM6B+m5etUuObVaD
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(19092799006)(23010399003)(376014)(18002099003)(10067099003)(22082099003)(3023799007)(6133799003)(11063799006)(5023799004)(56012099006)(261021121427099003)(261102123227099003)(260925021911599003)(261026121527099003)(261028144727099003)(261021123027099003)(261009223027099003)(261022105027099003)(260925022911599003)(261026140227099003)(260925021311599003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?L1ZHJ60fF+FJodhp4lFpwm7ER62cD+vD668Hyrlcrb13G3bOqQGlXtGZpB2j?=
+ =?us-ascii?Q?6qrQIsotZ5EdIepTww5+3S5OOIlQAQJv1s0Ivz386L8tidomr1ItD2MZl8mf?=
+ =?us-ascii?Q?8xeygjDTGXKUGWunQ+SlYVzsiW+MCHau6SC6nBSxt93GPc8t0tbuPs936s28?=
+ =?us-ascii?Q?FU21BCzWAECJD+GRb0jh3s7SxNdCPCde6a1/wOJtClDd1XlTL5mhP3xWF60v?=
+ =?us-ascii?Q?aze8hy12nSoan9UHRC3uxO15okxdMwbqaPdG8X2gTQPYvKYvJik5KW2IxWkZ?=
+ =?us-ascii?Q?ly94yIuQIsyYtDWt7n7Nbo4rhmHaLmnNkVAqbufL12wMaTUh60laYRTOcjb4?=
+ =?us-ascii?Q?2qbf+KHYezjw7C6R/qRaN5zzrkUv+/dn/Ah/OLAY5XG1/7VPDm/xlH/jfegD?=
+ =?us-ascii?Q?ZQ6LDGCcksQM+6H3/i0k4XQ5NWZ50h4073S6vfK+cd0lb9yScNJboM3RMP1c?=
+ =?us-ascii?Q?msDIA99yt1CtW77uTCBXXbQ8sDSw3GsUNtAkydOMLH9F0NDZqUX0FnBdONHP?=
+ =?us-ascii?Q?wv8iA/6Cr44hd3v1XgHAMAo5cILRhzy2IpD/OHvY/N0BmLWqo+6W9bnhLbBc?=
+ =?us-ascii?Q?VZXL/ZD7KzwPgkXKHQ2rkjLkvqggh4Uwpm317K2Nfw8VnxaqnF74y/iKmME3?=
+ =?us-ascii?Q?2vntZu3jlO8aMSJAr8mY8LWIQCaGv/jE835RDtCUiVJddQl9zHYdNsGUG+Gg?=
+ =?us-ascii?Q?LHNcbVUwmiI8jlTwChb2lP28DBforVT8cB2wb+ioXiDB3/EqCywWWG9bF+2k?=
+ =?us-ascii?Q?vfOiMkq7arp+oN//vxbgNY8xDapSc/M16+V1MF+rfCfoC8oGVc58bKVBqtIA?=
+ =?us-ascii?Q?uzer67z4ZWCPtH0hP8SIeaofQhjBiOevL0GdRgpVVQarJyOr2sdw+63whm+N?=
+ =?us-ascii?Q?gksAHoFSQ5HbBMzajgBahznnvRswzcY+luhUBUR1RQT8rLfkNiwg2pg9NWGD?=
+ =?us-ascii?Q?UA9E01RNBSVCN6tXTe3DzvN8OnCEcJVnwsx6Krwq2eHZOxMRX+sZKkfWykOy?=
+ =?us-ascii?Q?V0mnbLNXmz5NizYtfzylNpj9vs7kh+nKm2x0P1I5MPB+aN+aFh7faOY144CB?=
+ =?us-ascii?Q?peZewwmEpU6sY2tQilzS2P3k8i/cFa7M/C4BM2+kzywLqzUWiWHp7+CgYKBT?=
+ =?us-ascii?Q?zrS1+y6e9NvB1Yam+4WdjcsycKh5Lr2OUNRE419h/7oR3eRpM5PXMzxJh2Km?=
+ =?us-ascii?Q?5pxz+VodUAxKk4mCsxfRqT1hH7wdwnG9VA76RWYHaMY35zNHtrGbtKHvIWgM?=
+ =?us-ascii?Q?jzST5F72y93yAZIsH+s3t07DUIzHHvNEgFfSOL3TDprulJfY/Dqz0QhtqGuG?=
+ =?us-ascii?Q?byxRX9Q+mG5LvK+sSM6Vw5o1bl6VKRCCPQiT6Ckh5yTA8N8VR0n1bzsBpKJX?=
+ =?us-ascii?Q?fKLmuXpwXtfx66FruF8pdeI1+K0KisbxOZfsRjp32PBdDPBZ2hGdCWVkTFK+?=
+ =?us-ascii?Q?SP3gM5XYn26itfoj4f1x6XyeV2TbSCL8KkdPt8DhWqGLOHmZLuo3ozQivgLA?=
+ =?us-ascii?Q?x0sfPzZaSV3o3xqwgVX8+vNSC6g8ANW46coZsCs215ZcXX81GL+etUGbh5du?=
+ =?us-ascii?Q?KntPmpKKRvPi/RfSD9MT9OPc6VLPUoPiIXGohIqJh+yq1pSz0hKEwyL4QUOz?=
+ =?us-ascii?Q?2dgRM4B7FFYfodRg+x2tCG6zL4EYwHFwakRqw1SjignooirEL+LuevTioAKQ?=
+ =?us-ascii?Q?hOMQMK3WD0Chpi86sQvYwAn9ggx7ufU/qbcgAEpjGcU/+8IwJK1arxvgwC0T?=
+ =?us-ascii?Q?Rb/2sc1NWBhh0fBEqpfLcV/n6cfjMJM8mOh/EHTAw7x5AYWFQkcc?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 340de2a1-9d1c-4e85-fe36-08df41c75ac7
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 20:47:38.9465
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6X8os/mMqVE2xV8+HFILwIDvYgAcnUODywOkJ3H/BMVkSS6T02SUdNOvMYQGCws+4q8H1UahqHKyYxDt0mHnqCtB04sdo2AGHIIyfsJivY04ZBIPKdrI82BCy48FYc4i
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8713
 
-panthor_heap_grow() allocates a new chunk with panthor_alloc_heap_chunk(),
-which adds the chunk at the head of heap->chunks under heap->lock, and
-then drops the lock. panthor_heap_grow() then assumes the head of the
-list is the chunk it just added, and reads its GPU VA through
-list_first_entry() without holding heap->lock.
+On Sun, Oct 11, 2026 at 04:24:06PM -0400, Myeonghun Pak wrote:
+> The shared IRQ is requested before the channels are initialized and
+> released after their storage is freed. Its handler can therefore
+> dereference NULL pointers or freed channel state. Pending tasklets can
+> also outlive the channels.
+>
+> Initialize both channels before requesting the shared IRQ and add managed
+> tasklet cleanup for each channel. This releases IRQs before draining each
+> tasklet and freeing its channel storage.
+>
+> This issue was found by static analysis.
+>
+> Fixes: c6da0ba8dfc8 ("dmaengine: mmp_tdma: add mmp tdma support")
+> Assisted-by: LLM
 
-panthor_heap_grow() and panthor_heap_return_chunk() only take pool->lock
-in read mode, and tiler OOM events of different groups are processed in
-parallel on the unbound heap_alloc_wq. If two groups use the same heap
-context, they can modify the chunk list concurrently:
+This tag already removed.
 
-  group A OOM work                     group B OOM work
-  alloc C_A, list_add()
-                                       alloc C_B, list_add()
-  list_first_entry() -> C_B
-                                       group scheduled out:
-                                       panthor_heap_return_chunk(C_B)
-                                         list_del(), destroy BO, kfree()
-  C_B->bo                              <- use-after-free
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> ---
 
-Even without the free, both groups end up being handed the same chunk,
-and the chunk allocated by group A is never linked to the heap context.
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-Fix this by having panthor_alloc_heap_chunk() return the GPU VA of the
-chunk it allocated, retrieved before the chunk is published in the list,
-instead of looking it up afterwards. Do the same for the initial chunks
-allocated by panthor_heap_create(), so the first chunk GPU VA is
-returned by panthor_alloc_heap_chunks() rather than retrieved from the
-list.
-
-Fixes: 9cca48fa4f89 ("drm/panthor: Add the heap logical block")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5.5
-Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
----
-v2:
-- Always write chunk_gpu_va in panthor_alloc_heap_chunk().
-- Have panthor_alloc_heap_chunks() return the first chunk GPU VA, and drop
-  the list_first_entry() lookup in panthor_heap_create().
-
- drivers/gpu/drm/panthor/panthor_heap.c | 39 +++++++++++++++-----------
- 1 file changed, 23 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/gpu/drm/panthor/panthor_heap.c b/drivers/gpu/drm/panthor/panthor_heap.c
-index 99311abdf1e9..febc18b43af8 100644
---- a/drivers/gpu/drm/panthor/panthor_heap.c
-+++ b/drivers/gpu/drm/panthor/panthor_heap.c
-@@ -139,7 +139,8 @@ static void panthor_free_heap_chunk(struct panthor_heap_pool *pool,
- 
- static int panthor_alloc_heap_chunk(struct panthor_heap_pool *pool,
- 				    struct panthor_heap *heap,
--				    bool initial_chunk)
-+				    bool initial_chunk,
-+				    u64 *chunk_gpu_va)
- {
- 	struct panthor_heap_chunk *chunk;
- 	struct panthor_heap_chunk_header *hdr;
-@@ -181,6 +182,14 @@ static int panthor_alloc_heap_chunk(struct panthor_heap_pool *pool,
- 
- 	panthor_kernel_bo_vunmap(chunk->bo);
- 
-+	/*
-+	 * Retrieve the GPU VA before the chunk becomes visible in the heap
-+	 * chunk list: once heap->lock is released, a concurrent grow or
-+	 * return_chunk on the same heap can modify the list, and the chunk
-+	 * can be freed.
-+	 */
-+	*chunk_gpu_va = panthor_kernel_bo_gpuva(chunk->bo);
-+
- 	mutex_lock(&heap->lock);
- 	list_add(&chunk->node, &heap->chunks);
- 	heap->chunk_count++;
-@@ -210,13 +219,19 @@ static void panthor_free_heap_chunks(struct panthor_heap_pool *pool,
- 
- static int panthor_alloc_heap_chunks(struct panthor_heap_pool *pool,
- 				     struct panthor_heap *heap,
--				     u32 chunk_count)
-+				     u32 chunk_count,
-+				     u64 *first_chunk_gpu_va)
- {
- 	int ret;
- 	u32 i;
- 
-+	/*
-+	 * Chunks are inserted at the head of the list, so the last chunk
-+	 * allocated is the first chunk of the heap.
-+	 */
- 	for (i = 0; i < chunk_count; i++) {
--		ret = panthor_alloc_heap_chunk(pool, heap, true);
-+		ret = panthor_alloc_heap_chunk(pool, heap, true,
-+					       first_chunk_gpu_va);
- 		if (ret)
- 			return ret;
- 	}
-@@ -280,7 +295,6 @@ int panthor_heap_create(struct panthor_heap_pool *pool,
- 			u64 *first_chunk_gpu_va)
- {
- 	struct panthor_heap *heap;
--	struct panthor_heap_chunk *first_chunk;
- 	struct panthor_vm *vm;
- 	int ret = 0;
- 	u32 id;
-@@ -315,15 +329,11 @@ int panthor_heap_create(struct panthor_heap_pool *pool,
- 	heap->max_chunks = max_chunks;
- 	heap->target_in_flight = target_in_flight;
- 
--	ret = panthor_alloc_heap_chunks(pool, heap, initial_chunk_count);
-+	ret = panthor_alloc_heap_chunks(pool, heap, initial_chunk_count,
-+					first_chunk_gpu_va);
- 	if (ret)
- 		goto err_free_heap;
- 
--	first_chunk = list_first_entry(&heap->chunks,
--				       struct panthor_heap_chunk,
--				       node);
--	*first_chunk_gpu_va = panthor_kernel_bo_gpuva(first_chunk->bo);
--
- 	down_write(&pool->lock);
- 	/* The pool has been destroyed, we can't create a new heap. */
- 	if (!pool->vm) {
-@@ -437,8 +447,8 @@ int panthor_heap_grow(struct panthor_heap_pool *pool,
- {
- 	u64 offset = heap_gpu_va - panthor_kernel_bo_gpuva(pool->gpu_contexts);
- 	u32 heap_id = (u32)offset / panthor_heap_ctx_stride(pool->ptdev);
--	struct panthor_heap_chunk *chunk;
- 	struct panthor_heap *heap;
-+	u64 chunk_gpu_va;
- 	int ret;
- 
- 	if (offset > U32_MAX || heap_id >= MAX_HEAPS_PER_POOL)
-@@ -473,14 +483,11 @@ int panthor_heap_grow(struct panthor_heap_pool *pool,
- 	 * further jobs in this queue fail immediately instead of having to
- 	 * wait for the job timeout.
- 	 */
--	ret = panthor_alloc_heap_chunk(pool, heap, false);
-+	ret = panthor_alloc_heap_chunk(pool, heap, false, &chunk_gpu_va);
- 	if (ret)
- 		goto out_unlock;
- 
--	chunk = list_first_entry(&heap->chunks,
--				 struct panthor_heap_chunk,
--				 node);
--	*new_chunk_gpu_va = (panthor_kernel_bo_gpuva(chunk->bo) & GENMASK_ULL(63, 12)) |
-+	*new_chunk_gpu_va = (chunk_gpu_va & GENMASK_ULL(63, 12)) |
- 			    (heap->chunk_size >> 12);
- 	ret = 0;
- 
--- 
-2.53.0
-
+> Compile-tested with GCC, W=1 (arm). No runtime testing.
+>
+> This fix overlaps with Allen Pais's DMAengine BH v3 conversion. If that
+> series lands first, the cleanup should use dmaengine_kill_bh().
+> Link: https://lore.kernel.org/r/3cd07c8bcab908e352bf1570fb7a3c24cc0fe516.1786384168.git.allen.lkml@gmail.com/
+>
+>  drivers/dma/mmp_tdma.c | 28 ++++++++++++++++++++--------
+>  1 file changed, 20 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/dma/mmp_tdma.c b/drivers/dma/mmp_tdma.c
+> index ba03321..965cdd6 100644
+> --- a/drivers/dma/mmp_tdma.c
+> +++ b/drivers/dma/mmp_tdma.c
+> @@ -353,6 +353,13 @@ static void dma_do_tasklet(struct tasklet_struct *t)
+>  	dmaengine_desc_get_callback_invoke(&tdmac->desc, NULL);
+>  }
+>
+> +static void mmp_tdma_kill_tasklet(void *data)
+> +{
+> +	struct mmp_tdma_chan *tdmac = data;
+> +
+> +	tasklet_kill(&tdmac->tasklet);
+> +}
+> +
+>  static void mmp_tdma_free_descriptor(struct mmp_tdma_chan *tdmac)
+>  {
+>  	struct gen_pool *gpool;
+> @@ -562,6 +569,7 @@ static int mmp_tdma_chan_init(struct mmp_tdma_device *tdev,
+>  					int type, struct gen_pool *pool)
+>  {
+>  	struct mmp_tdma_chan *tdmac;
+> +	int ret;
+>
+>  	if (idx >= TDMA_CHANNEL_NUM) {
+>  		dev_err(tdev->dev, "too many channels for device!\n");
+> @@ -584,6 +592,9 @@ static int mmp_tdma_chan_init(struct mmp_tdma_device *tdev,
+>  	tdmac->status = DMA_COMPLETE;
+>  	tdev->tdmac[tdmac->idx] = tdmac;
+>  	tasklet_setup(&tdmac->tasklet, dma_do_tasklet);
+> +	ret = devm_add_action_or_reset(tdev->dev, mmp_tdma_kill_tasklet, tdmac);
+> +	if (ret)
+> +		return ret;
+>
+>  	/* add the channel to tdma_chan list */
+>  	list_add_tail(&tdmac->chan.device_node,
+> @@ -666,14 +677,6 @@ static int mmp_tdma_probe(struct platform_device *pdev)
+>  		return -ENOMEM;
+>  	}
+>
+> -	if (irq_num != chan_num) {
+> -		irq = platform_get_irq(pdev, 0);
+> -		ret = devm_request_irq(&pdev->dev, irq,
+> -			mmp_tdma_int_handler, IRQF_SHARED, "tdma", tdev);
+> -		if (ret)
+> -			return ret;
+> -	}
+> -
+>  	/* initialize channel parameters */
+>  	for (i = 0; i < chan_num; i++) {
+>  		irq = (irq_num != chan_num) ? 0 : platform_get_irq(pdev, i);
+> @@ -682,6 +685,15 @@ static int mmp_tdma_probe(struct platform_device *pdev)
+>  			return ret;
+>  	}
+>
+> +	/* Release the shared IRQ before draining and freeing the channels. */
+> +	if (irq_num != chan_num) {
+> +		irq = platform_get_irq(pdev, 0);
+> +		ret = devm_request_irq(&pdev->dev, irq, mmp_tdma_int_handler,
+> +				       IRQF_SHARED, "tdma", tdev);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+>  	dma_cap_set(DMA_SLAVE, tdev->device.cap_mask);
+>  	dma_cap_set(DMA_CYCLIC, tdev->device.cap_mask);
+>  	tdev->device.dev = &pdev->dev;
