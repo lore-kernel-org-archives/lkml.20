@@ -1,79 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794559507;
-	b=DivJOLT8jvWjqcvoyyGoEY+BeBaJDWlIilE1mc3QvIwxzQTW+KXa4pOCg7MndHcXJfRN
-	 /dBK+K1i8WxrKvOFxekaiIWnpH+Cylig2HbVc3abOS513RS5rshp35mmq1F75zhAnsx0R
-	 9Zy6S8lkssNAT7/u/oP/0P+ijwkTNW4PBl4GNJ60yCKABrsNqA1/myar7zLuCE7AxAVKG
-	 cZn2z1OALCZjLTHv0b1J95pJShHjdgrWBIlVL61Hk5e3Hec3Zv50l2gBouKWXamNUnYjQ
-	 ZMLfD9KBKBpyIs9SJx0PqY9GdZNw16+0vTqnNgGnWdw0bNSK6tx28/vka8Z3YFkLphw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794559507;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=AGOtK77h1IMEUh2ILX1I4QN6zn+UjhgWbqlbQNGAxok=;
-	b=hiajifNAJt4oDSjICvm/zZfj3yb32zqkWr4cwTd73+WZS+18WLf0eACZB5B2yGi8XPkE
-	 o+xVY6QhlVcN1Paym63e47kL/JnHoyAZcylVsGG6uA/mjq90GQYLIfZOmQqP2OxVb/hXJ
-	 ndRYv/Re2ChWMAshnsOiewNqC9rppX6qw6MiEBs0BtTNBPwdBBI6sbK9SaJkQvoM2O14i
-	 vpbZvSBNAN/FcJAahYOgiu00uAQ6nh+6cv8Vpht8EItu0B5g4WvrGhQdNd0vRsOuS23o3
-	 177QYO+wvKzCkn9tNtWwUXoiytss9rCf9LuWga6vdTo63s4UZo7lyATCBm+dtOnj+lw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U6xb33TA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 903C060A6F77;
-	Fri, 13 Nov 2026 08:45:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U6xb33TA
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794559507;
-	b=NmHekQ1a8gJEKefNT4z8v1nsbrWa3Rr8oPugmfwN+eZSSPM13PHVYgKcOkrIVgNkk9rB
-	 GrGFpqWAJwHbqZMS3BhAih+0fyhw2SvVy13NBlMDgKaAf+9ntCOxy7EU1N0Z2cZH02cYj
-	 cMZB37BHcM/qw9C3fsFd/Z9s2c5HAKlI5mi5WPpREwa+Vj/10HTNjTwDEs8wD/aWyA9Mm
-	 srK2wcSsw1Q/2HjIe94imWdDOBqvPzekqx4n7Wz/7bZia2jSaFSH0iGmeJD19a9ywwmIJ
-	 oZNmdSl9Iu7SoRkhKt6CbZ3sxvJaFTahkvKWH1/3Blo3wyCTUMi8PWLG9SJ8HMnsF5g==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794559507;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=AGOtK77h1IMEUh2ILX1I4QN6zn+UjhgWbqlbQNGAxok=;
-	b=3IxqA4na3pnfpbkR7M4r3AMpmsGVPVjmYarPh45UiEmksxTrHov+5eu8mH8zKNAUTtU/
-	 H6QIwVSi3NXvmSwmDdStAYLM//VxN8scgVtxh334XW6IEEwEOKnyMGxvfK9LGUZu73zVg
-	 C3d2QXcEJL8joor41R4L/shGrMLWxtTfjvgVLSMt76lX0iCI4icswA8VDYNLDBzhK/hut
-	 XPUOHmRiztyrL0KRvxh7BSZ9qAxAxjF0aG5DU8UIdHpEmlIXlNDgQuEiTu4f8PLQ3u7Ca
-	 ZQThfwi83poemAf/JHP6BelsWfoPwRougdZZNBDKz+rCsrM1Zs/OrYuqqECw1+WoLKQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794559562;
+	b=cleYV9/mHgaTcxI0p5qfL86aat6/5srRbihZ+IJ16ITwZueBDuUBMZYMB5YY7XneAsqZ
+	 uRNW9C5yHHoXTIEIBwYfUZt6TAJC16TL21ad2zuHjVeIRLNbxmTlkm8iNNm0laaI6Fn7W
+	 7+6E/P6LaU6Bh70icTwBMQed/mBQibJWEC/yVshPuVgdmDM40mu14i2+AWy2stYCsp7YR
+	 QBCpQ8LBJTsBZR8DniOhUdgdm8TLqF6LpCIGjJlOp8JgJO3bH3FKWe2umd3dz+YyJADT5
+	 Qq/vjH6MDfbE6P+KuKgD6Y+A2NSwPNB/idu4ZzbW2YyNGpanAMHeMk9mjIQj+W9pMQA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794559562;
+	h=DMARC-Filter:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=+uM+ZJu79iI/GTnBz7rZQfjffm0TQRskgZytweI8nI8=;
+	b=qNqIWZ9F/9TI6phxqeIqljIonjY/t1XVzvSvjFwAl54SQNsaArUHuNqBXrGcp59oQ4CO
+	 /hgYdcPs2CK0yAykawe82t9RxoLch/vg+QTOpchwBZNGYhbQkFAi7bUlSn95X+WJr1aQe
+	 nBrp6YRO1DOd//Ki+spZP71dn/7GW2kE46lweEIkxaq+khBnRUfQJxnWp1iRqyJ7huopG
+	 U9t6bW2zyF+Fe7CEB7nJ7cRC/06RC6gVgjd1ChEteBRjV9TKpDMEafASuSSRa/p2Jwull
+	 YeZfnPQRKUU6qjwaDdq4rLgLECS87YksE4jS6zHGPOGNoCj9hxI3zNBybanEcty8uvg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=KW1FINwp;
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1C0041F000C7;
-	Fri, 13 Nov 2026 08:45:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794559507;
-	bh=AGOtK77h1IMEUh2ILX1I4QN6zn+UjhgWbqlbQNGAxok=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=U6xb33TAxfuLZluegmNIW64e08evLCOkFt2cRYfTjulfFD2j8pG2tqOZGRdQulV2K
-	 3Oq+1+i3W/LPlehEIsLvMa04yvX3Uvbgqj3RCrUWcYKQXvB7yV0+Lc9NKahFY5HbhF
-	 C2SU2XAk1/ZN6qTAJkp5F2vXP8Y9liBFQ/Kd8eRV4U7rX0+u6ugmQZAlUWULIAFj2V
-	 nUopOqJ2ULPcyqZn36LCX0SVljvFrUv9dSE+FcXbItIkLY5pwioaKST7oXTt+Ez0hD
-	 T+nFTXgjv4+eZWxGSlC53uXjk+XC/9jUelRDGxWKzeX5TAdVFvTgsbvF8vpIBdScw9
-	 eS/L2/441qEaA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 84085476C8;
-	Fri, 13 Nov 2026 08:45:05 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Fri, 13 Nov 2026 08:45:05 +0000
-Subject: [PATCH v3 1/3] dt-bindings: iommu: arm,smmu-v3: Allow a clock and
- a reset
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD941606A321;
+	Fri, 13 Nov 2026 08:46:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD941606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=KW1FINwp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=+uM+ZJu79iI/GTnBz7rZQfjffm0TQRskgZytweI8nI8=;
+	b=KW1FINwpzed/XI8006sAlC6zQtBeRL+G16OYeQQfHbd39a6W1zJ8hIJ2/szfh3
+	wKryEDG1T9LmSJMBXWzAff09xS8mPPA8vxOkVzBImS6Gu//DhOzzvqhDipeZq8RZ
+	rMWOgZybUytPUjZsDjwrRjvTtgStR1WZhTOZ4Z2sxnkT8=
+Message-ID: <6e7fd20e-918a-49cd-9634-78fc01249825@163.com>
+Date: Fri, 13 Nov 2026 16:45:25 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,70 +51,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-smmu-v3-pcie-pd-v3-1-39eb4f919529@gmail.com>
-References: <20261113-smmu-v3-pcie-pd-v3-0-39eb4f919529@gmail.com>
-In-Reply-To: <20261113-smmu-v3-pcie-pd-v3-0-39eb4f919529@gmail.com>
-To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Niklas Cassel <cassel@kernel.org>
-Cc: Pranjal Shrivastava <praan@google.com>, 
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-rockchip@lists.infradead.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Shawn Lin <shawn.lin@rock-chips.com>, Simon Xue <xxm@rock-chips.com>, 
- Finley Xiao <finley.xiao@rock-chips.com>, 
- Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794559505; l=1030;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=SG9fFTOzKpSkhJ/pzr/TczrngVXDEsaz0Xd0nLP1l2E=;
- b=zvewCNzhQBIlNRliWXhF1vEqy3EpLyfIGKH2wQS/4ZlC1ARQC9YQRNNt7njPZkT4WDvEAYCao
- bsnfPcnNH6jCEB8J8orvs1j2essY7HehjzB1vsoPLxYRSLVFFNSdjHv
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] exfat: fix iomap mapping when writeback races with
+ truncate
+To: Youling Tang <youling.tang@linux.dev>, Namjae Jeon
+ <linkinjeon@kernel.org>, Sungjong Seo <sj1557.seo@samsung.com>
+Cc: Yuezhang Mo <yuezhang.mo@sony.com>, exfat@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Youling Tang <tangyouling@kylinos.cn>,
+ stable@vger.kernel.org
+References: <20261113080658.2440516-1-youling.tang@linux.dev>
+ <20261113080658.2440516-2-youling.tang@linux.dev>
+From: Chi Zhiling <chizhiling@163.com>
+In-Reply-To: <20261113080658.2440516-2-youling.tang@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:_____wD3v74lzvZqbKqMGw--.46913S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7KFWfAFykZFyxCFWkZw43ZFb_yoW8CFW8pr
+	Z8K3WrKF43Xa47uF4rWrs8Zw1Fv3Z7KF1UXw4F93y5u34DtF1SkF9F9Fy5u3W3Jw4kCF40
+	qFZ5Kr17WwnrCFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Us18PUUUUU=
+X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC+AYVsmr2ziZguAAA31
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+On 11/13/26 4:06 PM, Youling Tang wrote:
+> From: Youling Tang <tangyouling@kylinos.cn>
+> 
+> __exfat_iomap_begin() reads i_size twice: once to detect a range that
+> starts beyond EOF, and once to clamp the mapping to EOF.  A concurrent
+> truncate can shrink i_size between the two reads, so the clamp can
+> produce a negative length.  The unsigned cluster index subtraction then
+> underflows, making exfat_map_cluster() believe it has to allocate a huge
+> number of clusters and report a hole.
+> 
+> Fix this by reading i_size once for both the EOF check and the
+> block-aligned clamp.
+> 
+> Fixes: 82a81a7352bc ("exfat: add iomap buffered I/O support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Youling Tang <tangyouling@kylinos.cn>
 
-The RK3588 PCIe MMU-600 has a clock (ACLK_MMU_PCIE) and a reset
-(SRST_A_MMU_PCIE) in the CRU. When no PCIe controller holds the clock,
-it is gated as unused and the SMMU stops responding. Allow one clock and
-one reset.
+Looks good to me:
 
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
----
- Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Reviewed-by: Chi Zhiling <chizhiling@kylinos.cn>
 
-diff --git a/Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml b/Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml
-index 3c044e4f03d4..9ab80142a485 100644
---- a/Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml
-+++ b/Documentation/devicetree/bindings/iommu/arm,smmu-v3.yaml
-@@ -63,6 +63,14 @@ properties:
- 
-   msi-parent: true
- 
-+  clocks:
-+    maxItems: 1
-+    description:
-+      Clock of the SMMU's register and memory interfaces.
-+
-+  resets:
-+    maxItems: 1
-+
-   nvidia,cmdqv:
-     description: |
-       A phandle to its pairing CMDQV extension for an implementation on NVIDIA
-
--- 
-2.55.0
-
+> ---
+>   fs/exfat/iomap.c | 9 +++++----
+>   1 file changed, 5 insertions(+), 4 deletions(-)
+> 
+> diff --git a/fs/exfat/iomap.c b/fs/exfat/iomap.c
+> index 4e6f3ed9dcc8..11823591b3a8 100644
+> --- a/fs/exfat/iomap.c
+> +++ b/fs/exfat/iomap.c
+> @@ -51,8 +51,10 @@ static int __exfat_iomap_begin(struct inode *inode, loff_t offset, loff_t length
+>   	bool balloc = false;
+>   
+>   	if (!may_alloc) {
+> +		loff_t isize = i_size_read(inode);
+> +
+>   		/* Completely beyond EOF. Treat as hole */
+> -		if (i_size_read(inode) <= offset) {
+> +		if (offset >= isize) {
+>   			iomap->type = IOMAP_HOLE;
+>   			iomap->addr = IOMAP_NULL_ADDR;
+>   			iomap->offset = offset;
+> @@ -61,9 +63,8 @@ static int __exfat_iomap_begin(struct inode *inode, loff_t offset, loff_t length
+>   		}
+>   
+>   		/* Clamp length if the requested range goes beyond i_size */
+> -		if (offset + length > i_size_read(inode))
+> -			length = round_up(i_size_read(inode),
+> -					  i_blocksize(inode)) - offset;
+> +		if (offset + length > isize)
+> +			length = round_up(isize, i_blocksize(inode)) - offset;
+>   	}
+>   
+>   	num_clusters = exfat_bytes_to_cluster_round_up(sbi,
 
