@@ -1,73 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.111
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.209.128.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794535300;
-	b=MNq/V2UpmK6y5fQS28dmpJ7PZISOSBjBOw10iC9oDlsIIWRIRq54xChxwiXvKl788tLt
-	 nclkx/7rXLGdO2L/DSujkQI2NyoUfHn6hix/re6oFP4dhhzWljk8VNVXEsfk9UKU4zLH1
-	 AVTmZJdD39JHnJsQ8woAzWQjuUiDelHNIrXhmlPKnyf0mbEy0zog5ON/JwixRctYe5A0S
-	 j3Y9iGASfbh8daEoukmCPG7PM39sveP11duKY5CCIXhZaLDALU4mYUCwT/ddRtBlLlpez
-	 cRJ4fGYwU+Wuay/dyNCT3ZAXR4/s4edAIntYVtyoN/1+9bB7yN6O6D+l7wqlPTxiztQ==
+	t=1794535396;
+	b=4LrowbdPHFwDcBt2AGimdAWRuxgFoVCusUEe03USTM8WYZAxvRcomLMiBl7GOoMjvGpY
+	 3XaL97W46dpqWmVu2ItAcRT1urzbq2PwykX1l6HhH1NroRttLAuBYD/mkpx/QkVdNybcX
+	 GgHcT6pr3aZcqofEnyCGnYb24hY6FVHJSJ+biYG3SUPiFRgrA5kFJO3oFzVFCxe31CZUV
+	 hPVvdkRfNCaQniYTwpsyCBWZMDlG/i1sAvPmrqgrkn3dvR3aDz1yjQdV1TEJ7EI4+LART
+	 gI6SKVM0tTMVlBf0y3ADDT1kIdHdd2frlcgqDJzyeQXFcl8Se7p0PFGqn/Ed1o3uyxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794535300;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=+XENL97JZ5WlH8CS4X3HjVZPICr7WyHaHAeuB5MXbDg=;
-	b=a2AUa/Wxwc8NsYDauLbshehEo90keQ9XWAQPqIkmeeFalsYDhgCw82/l3blRzKIhxc8k
-	 8VzH83dPkVTnZKBEfeS/ydA8JUTgbDCDTD0u+nD/HkC/cGiw+SnOj6B0mjZLiuVPKmH2U
-	 ahwU+lxyqOwfZ+6PftOgrQ43nxmDHrgEisuf0Svu8gZw2ANuYuEGeHjE/0ktWrJkIjrXJ
-	 iyyrAqy4XMJGU9kjoOsz7qQPyrXE7U7/t6TIP8bGBoqlojx6X/BDxrKN097cxK81G/e+3
-	 R8+Pg4KM+FQR8kvCXG4MBZflp0wlU5cF4kcx3y78ISctgDv/FgfQxeZsefcCXBpFsXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794535396;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
+	 X-HM-Spam-Status:DKIM-Signature;
+	bh=2yRMouvHM4a05izOhD8UAJhMpR/Nv3hy0kmuRjqTsS0=;
+	b=ihto/17WaFGTXlCUPINrB1Yj2HY7jhM21QavIz73TKP3q660oGNbQ+YltlbfuYa32q3Z
+	 qNfm9I/ghAbSTN1mrW5WHV2BL/uhpKsATs0T24YgAe4AdR9Aniyk0hUmZYOyZ+bWR4d1o
+	 AqWmH7ZR6XuyXT8io0qQV5LSaOySljZ84/k1Cr7oAttwPzsUqQHaSGVERx4YeIT1K1WHC
+	 Bt36CAzQADKh9wggiwiHXmzwt1bBwu8iUbXOXtuTiO23Vu7xjsmeguMj/xFL6+6Dj8Sdi
+	 RtvLcdGnZljLvan7iXBbJI9wnzmzumd7MRuT1bFZXXFj/yXkcjijb/MW7BABkz5N2ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LmdpTGXU;
-	arc=none smtp.remote-ip=91.218.175.111
-Received: from mta0.migadu.com (out-111.mta0.migadu.com [91.218.175.111])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b="cux/RLhd";
+	arc=none smtp.remote-ip=103.209.128.100
+Received: from mail-m128100.netease.com (mail-m128100.netease.com [103.209.128.100])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7DB8606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:01:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7DB8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB803606A321
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:03:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB803606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LmdpTGXU
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=R2j6tp93Fg7E7OEyVaIZBnzP1Orh5kRBAZflasE6mHU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794535297; v=1; x=1795140097;
- b=LmdpTGXULYSoS8ateoj12Yqnr8MFsE6nyU+iFJQAgrSXYujepC3HKsZ6hQWLsXGLG59ZTee7
- xbeaH2Wgyr0t1a/lx+MdPr6biHK39qzLPjOzZKUJibqyTyxIQ0wIvgTCrKEh1E8YBuI/diPMDbJ
- +QKUxTMd47hKufEH+r9bhFVM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c96d663c8789d4dd;
-	Fri, 13 Nov 2026 02:01:37 +0000
-X-Mizu-Trace-ID: c96d663c8789d4dd
-X-Migadu-Flow: FLOW_OUT
-From: "Hui Zhu" <hui.zhu@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	David Hildenbrand <david@kernel.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Kairui Song <kasong@tencent.com>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Cc: Hui Zhu <zhuhui@kylinos.cn>
-Subject: [PATCH v2] mm/mglru: yield the lru_lock earlier in fill/drain_evictable()
-Date: Fri, 13 Nov 2026 10:01:32 +0800
-Message-ID: <20261113020132.274013-1-hui.zhu@linux.dev>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=cux/RLhd
+Received: from [172.16.12.74] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 5484f6ba6;
+	Fri, 13 Nov 2026 10:03:03 +0800 (GMT+08:00)
+Message-ID: <a5b52d95-7fa2-4148-aa02-cfee6f195e1a@rock-chips.com>
+Date: Fri, 13 Nov 2026 10:03:01 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,66 +48,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/9] drm/rockchip: vop2: Fix the HDMI sync polarity on
+ RK3588
+To: aiyengar1990@gmail.com, Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, Andy Yan
+ <andyshrk@163.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Piotr Zalewski <pZ010001011111@proton.me>,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261112-vop2-fixes-v2-0-8218c1cf8ac8@gmail.com>
+ <20261112-vop2-fixes-v2-3-8218c1cf8ac8@gmail.com>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <20261112-vop2-fixes-v2-3-8218c1cf8ac8@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0aa1d2a4e0a503a8kunm80fbc02f473c1
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTEgZVktPSUtOHktJHUkeHlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=cux/RLhdEL9vzjCYZTxGA7XZvFMhySw1imRGjuTXATiePVhVQlIg6iqCsMd2ya3Ce40+JGvTvb6GcwHJprfLAmmcqepp/gpQu3glqJRd9eOvuUXOFZKrNE0NuHSnPUYPB//LAmjkdaURy8uevm+sR9XEbyAYolryMwDneUGHmjY=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=2yRMouvHM4a05izOhD8UAJhMpR/Nv3hy0kmuRjqTsS0=;
+	h=date:mime-version:subject:message-id:from;
 
-From: Hui Zhu <zhuhui@kylinos.cn>
+Hi Arun,
 
-lru_gen_change_state() migrates folios in batches of up to
-MAX_LRU_BATCH (4096) folios under lruvec_lock_irq().  A full batch
-keeps local interrupts off for up to about a millisecond, and CPUs
-contending for the same lru_lock spin with interrupts disabled for
-that long.
+On 11/12/2026 4:33 PM, Arun Iyengar via B4 Relay wrote:
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+> 
+> rk3588_set_intf_mux() passes the POLFLAG bits of the mode to
+> rk3588_get_hdmi_pol(), which decodes them as DRM mode flags: the
+> VSYNC_POSITIVE bit is taken for DRM_MODE_FLAG_NHSYNC and POLFLAG_DCLK_INV
+> for DRM_MODE_FLAG_NVSYNC. As a result GRF_VO1_CON0 marks the HSYNC of
+> every +HSync/+VSync mode (e.g. all 1080p, 2160p CTA modes) as negative
+> and both syncs of -HSync/-VSync modes (e.g. 720x480, 640x480) as
+> positive.
 
-The caller already reschedules between batches, but a batch itself
-only ends after 4096 folios.  Stop it early when a resched is
-pending, or when the lock has waiters and the current hold has moved
-at least MIN_LRU_BATCH folios; the caller restarts where it left off.
-TIF_NEED_RESCHED can still be set with interrupts off: a remote
-resched_curr() sets it directly in the target's thread_info.  The
-minimum batch avoids lock bouncing under sustained contention, while
-a waiter now waits ~15us instead of ~1ms.
+The commit msg confuses me. POLFLAG_DCLK_INV has no relation to 
+DRM_MODE_FLAG_NVSYNC.
 
-This follows lru_gen_look_around() in this file, security/keys/gc.c
-and jbd2_log_do_checkpoint(), and commit 6e9be217a3ce ("mm/mglru:
-use a smaller batch for reclaim").
+For the RK3588, the polarity relationship is:
 
-Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
----
-Changlog:
-v2:
-Also yield on lock contention after a minimum batch (Kairui Song).
+DRM_MODE_FLAG_NHSYNC -> Set HDMI hsync polarity bit
+DRM_MODE_FLAG_NVSYNC -> Set HDMI vsync polarity bit
+DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE -> No valid HDMI dclk polarity bit
 
- mm/vmscan.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+> 
+> The bits in GRF_VO1_CON0 are set for a negative sync; that is how the
+> vendor kernel programs them (vop2_get_hdmi_pol(), called with the mode
+> flags, sets them for DRM_MODE_FLAG_NHSYNC/NVSYNC on RK3588). Decode the
+> POLFLAG bits accordingly.
+> 
+> Fixes: 5a028e8f062f ("drm/rockchip: vop2: Add support for rk3588")
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+> ---
+>   drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 10 +++++++---
+>   1 file changed, 7 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+> index 659fd0a3ab63..7c48b440cb29 100644
+> --- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+> +++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+> @@ -1687,12 +1687,16 @@ static u32 rk3588_get_mipi_port_mux(int vp_id)
+>   		return 0;
+>   }
+>   
+> -static u32 rk3588_get_hdmi_pol(u32 flags)
+> +/*
+> + * The HDMI sync polarity bits in GRF_VO1_CON0 are set for an active low
+> + * (negative) sync.
+> + */
+> +static u32 rk3588_get_hdmi_pol(u32 polflags)
+>   {
+>   	u32 val;
+>   
+> -	val = (flags & DRM_MODE_FLAG_NHSYNC) ? BIT(HSYNC_POSITIVE) : 0;
+> -	val |= (flags & DRM_MODE_FLAG_NVSYNC) ? BIT(VSYNC_POSITIVE) : 0;
+> +	val = (polflags & BIT(HSYNC_POSITIVE)) ? 0 : BIT(HSYNC_POSITIVE);
+> +	val |= (polflags & BIT(VSYNC_POSITIVE)) ? 0 : BIT(VSYNC_POSITIVE);
+>   
+>   	return val;
+>   }
+> 
 
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 6a1af9b92349..c1231925159f 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -5533,7 +5533,10 @@ static bool fill_evictable(struct lruvec *lruvec)
- 			success = lru_gen_add_folio(lruvec, folio, !active);
- 			VM_WARN_ON_ONCE(!success);
- 
--			if (!--remaining)
-+			/* stop early to shorten the irq-off section */
-+			if (!--remaining || need_resched() ||
-+			    (MAX_LRU_BATCH - remaining >= MIN_LRU_BATCH &&
-+			     spin_is_contended(&lruvec->lru_lock)))
- 				return false;
- 		}
- 	}
-@@ -5562,7 +5565,10 @@ static bool drain_evictable(struct lruvec *lruvec)
- 			VM_WARN_ON_ONCE(!success);
- 			lruvec_add_folio(lruvec, folio);
- 
--			if (!--remaining)
-+			/* stop early to shorten the irq-off section */
-+			if (!--remaining || need_resched() ||
-+			    (MAX_LRU_BATCH - remaining >= MIN_LRU_BATCH &&
-+			     spin_is_contended(&lruvec->lru_lock)))
- 				return false;
- 		}
- 	}
--- 
-2.53.0
+With the commit msg modification:
+
+Reviewed-by: Damon Ding <damon.ding@rock-chips.com>
+
+Best regards,
+Damon
 
