@@ -1,94 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794560803;
-	b=sv0V24PBKbGj0Aik/CuES0aNRLmrhn1ZYE9M6bZa7HrnOXUrJS12545QnXa7mT/54/Eg
-	 ppvKMr/sRH7UDkQzMrYbtP289pASlNCZfDfGI0Em5xGj+AIV4GQyTupZM7PYr9O1FQNO2
-	 qEZ38tlPedaGO1q5Ce3sfy1R8vYgjLo08turlq82vVpdhw0Qq3hU/QNYZOj65VY6Xp6KP
-	 iPPIEE/qxAyP7ahZqzCNKht9FLuH+NTtJHV0IamkP+sTKqxi2NCe0K3z7hm/hOv4d9NuX
-	 GLIUqEKEz8qO02FgVRk1rMzqNWTR/Zg3vIP0i5wbSySeR9BwlvIpn+K879XV00NxQuw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794560803;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794560812;
+	b=TG7wSnacZPE7DAcCDFJQlBNnNdA+9aK1mnKDeXdIgRGtgrK/1vP/KygBm/M5mRQ0tqsu
+	 pGOXqO9in9O+7WwOQuYW8sdR7PEb5NnZqidP7MUqD+aMqGmLdQo4zy+Gap+cxZl3X4gsW
+	 BxhjbplVR6vvaWwUB06HRYKsFHZADAHxOxWCBgyqDHKVrOhv+0uzrkhGNMLeYT7Y8Bn5A
+	 nzcMuZatQqz/WpYPpn3tBLKvh19ZkitZA4my/zWt/rCQqVLRlb4muI3kCTfCyJGO4OTE8
+	 B94gClgh98820dDEQmqVpoVfPFTraYcesCQ/C2F7nt1zLDG+vG3taWUBH4KeFZPNEfA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794560812;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=yR4iZDKf1+Vf0ovm389mmcqGuYYva2In1RmaTbco9xM=;
-	b=45Dz9bu6BmqDz0XDxCr8yYfLZOwr5l0v01+s/JT2YTaZ5kC8Niv9NTRFBJWJwXkzYtf0
-	 6qaPN4cxPccSb24fDuGP9vMDr8VOxMs2gA/vBktQ7gytJsa7d5l8eSmYsjQvtujtCxsf5
-	 AQ8ni9mfdW0aZHOWGCH9+VFWePBY9Vn7sl4sviigYzjCGphgVoSUoPKpLiAxfWDk7uOlY
-	 osjWShUBVMK9y8ixLtlX1cb5gNwR8N0j7az5V/JOPTqG1EVMGU4yW2MyCXQgsYvBWAzzk
-	 G4bTCd7tyiMMaZFryBBLh9XYTt/Xg0n6wOMJ3yvIH2/2+PyKawwEp+IOv7nCxxGlsyA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="LD/kQkxN";
-	arc=none smtp.remote-ip=74.125.82.46
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=vtfYfPkpsM3aevCNl4mNbvXtj6ZUPVZ9KyzCjRAl4TM=;
+	b=hyAO6edFDdVb32jDy5KAAs1Ul2g6ca1RMCVIdFLffMTSGfIoiwc81fdZkzPVrU5V9/PK
+	 mKTxDLq9LvGOc4MTSaOES5RB/GnwyDWWl+Me/ok7QXYXwa9h0N/TRJO9w4qSNr5M0M2vl
+	 /TqfGfzOYy3yuXPTIGDrFHe5tsGpPPEAeHXGcUVHp0ZtRPrRGSBmcK6l9UAe9wkImpfOW
+	 aFF7w7Ak6CCyy3rxe0I93JS1Ar/Fnh34Gg5wFW54gJaKT7FnNsWoh95sBfcFob9+LzwdB
+	 xklbsXYa1d7YEsLOYA9Zsy38pq4lm1g03PHcHCZxOUFXy2QiiPG15IiPa1NfrKmrjVQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=qZMvMuN6;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.41
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A27F2606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:06:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A27F2606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8AD9606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:06:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8AD9606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LD/kQkxN
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1b244fb7fffso685599c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 01:06:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=qZMvMuN6
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4d427836e9so111270766b.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 01:06:51 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794560810; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rFBOhsZuROrIhMbIG2kk+Sp7HNYhK+GUOsShWKydj82bcGCkldSXwiBMTqSxvSfczw
+         ZhFvVfBuSAWtcfJooRh7346/OGBIWGffieB6pSJGmTpjRz2fbJirwb0ylFrvZKmTgwxY
+         E4zSJz2HMZcIz5cP1rJF7AoXsQlKkPh5VGLatEwEcq7N8WkfB8b8yxLbFYv1eRaEoplm
+         vR36J3e4DncROiruUM6jJOlTWAsee0WWwhjtnyTt+gk+TCBH/Ny+YFx8dgfkna5pcTzV
+         2WJYwfBaToW0JjsZP/Klfqfjp3qNGmrAN945JAuHckGrEsMvHx0H2M4qqWnwx0bWW+sO
+         ZPKw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=vtfYfPkpsM3aevCNl4mNbvXtj6ZUPVZ9KyzCjRAl4TM=;
+        fh=G9MuJoG5/7GppHELvPCA1b9dUQsRadcsMs9B1YZv/bY=;
+        b=o1ZZANltZHLJemhfQ53OhCAINBy/MAepYUjV8Dp0Uc/uYF8edxmCVUWOdzB6LHfVdM
+         q54PpkpuFK/HZ6S1DpXtVSN4VSAcC30FKIlQeow38fFVXEr8Rema7SlMQMRKpsppoe0N
+         Smujuanf2itdvm4t4d4KN62DiM7jmt4x1hz4gKcyuLiwrA7ifs9DAJrYNQWvi2zQLr0L
+         cvxa1CuuYjF2cOkCvWi+D6zeDADthqIjAnAcTFUs9Fy4roow0r5kJDC7j7ct+wjoR9Li
+         46qCOMXDQ1xQgWeCQxO2JbGLCvzOh4EhY5rzjSsJ5jKW5knpjvmm7VDYOe7zQzJbto78
+         3cyA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794560802; x=1795165602; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yR4iZDKf1+Vf0ovm389mmcqGuYYva2In1RmaTbco9xM=;
-        b=LD/kQkxNUSUYz5GtHET+4tkjmJ1aM+dLc5LFSvVRdL8gI36pz2MfxpgTVXcDGovrcF
-         RK7AybNnjXY0CJGK1faKowrPJRWVEd+LVcjmJBJZ+OLci9TxbtvwWeh1B1MIbHpICHsC
-         SKI7SsGmQEmIw9KaNxhIcqp9r2Bu1yWyoyGpgRXnr5lJjJeg+nTBy9JBMrtVVRy8Qd3C
-         5bleGrQzw2C0eEoD3g8YkOaxKTF3xlqz3JtprY78XKLptrhanOPH219EZwk/KaG06J6Q
-         rEQ9bRyMvkuvu+SH2eUcqYv0tF4HLWFsjnV9z0UgSoO+0VqRzf6qpMCnF+L/f9vxPsLp
-         /2LA==
+        d=linaro.org; s=google; t=1794560810; x=1795165610; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vtfYfPkpsM3aevCNl4mNbvXtj6ZUPVZ9KyzCjRAl4TM=;
+        b=qZMvMuN6mF9hs+FYGXmLcF4W7l8B9TZOEm23Bx6Dx9QSxdpB91QNO2XOT4Dj2GvCBE
+         lE12t2JBRd2XMRu0ECziNZNvKYOEDPd7AHI676/89O+qJXIahxDHCAD6oNVBONFjsWC3
+         Onu6zaQ5Mh3+v6nJZFCXfFHDU3sFLrvA8QxoKQsfZHstZoiWm+x0iTD0NcUf8AgO+Hoa
+         vWGrDP/MLf8pA89B8fkUQzKmiCHcH6lHJHCXtFrKUr8iDTgETpaD5iHE9vyR9lCQxLis
+         TpU/mKCM8hu+GdZHxjT6+1GlgJxobUrAG0thSyXWAKClkxpllZnTsv459Z3cqx7tk2u+
+         5kRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794560802; x=1795165602;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yR4iZDKf1+Vf0ovm389mmcqGuYYva2In1RmaTbco9xM=;
-        b=wWE1XKusrVH3/S8Q7Cr9x/pPHyuw5vO44uuD1BU703CAMvketZggBveDNtwyPZpCN5
-         zDk3kYmKiBh8cMkeSMZ727pJv91Voh2LGwz3GwL9/0LK6MwLtjwCmyR8+wRFG6do4yIq
-         9IxwCU/vqtEzIbVCsQESn0JJa2ZieGj1as8sBsDP2BBsgNeeS17tKRvFhhMFzcLg/j9A
-         YD/DwTm7lHQDdIP1tqyAQ3UVccIk8qhcQkT6m43MqaRZwhfbrpJro+8gFjeFQSQR1ccG
-         fn3Ri5vHEZXVqoAJrvecnEPyWm8vsyHLfJHC7BkeqLhCKdxgYOGu4Aq2azYDHMH1lbbX
-         8kIA==
-X-Gm-Message-State: APuU4Z8yn4j2C3CmlOt9lc+WuQOEXq+t3cuC1DXHGPtjOFYzNtQe+/ha
-	S54mxIFQh/JPfDnBOsAS9AGCQmDsFsV1JjwKKIZ/0QCZOELVQm9zkvYu
-X-Gm-Gg: AYBFou2ROJMUMq233LFFo0Iwh4wt5eiDv/HCKInNpyjpeVdpVJycfrpdB/Z5UEU/238
-	m1QrGbLam65iSDkOPkL/BmKydAFsLVEsKtlJp+BcVCmLkkB/wT6uox4nKDS/0IvyVlVyDmpYcrg
-	HnRdeTpmF1LMqBX7ho3+7qcP6Cdi8sWDthopHU0uTljGgDezf1IisK6rypQhO2pEwQd0GmKODhn
-	bQLQDtCpJUuFOt2OaAs41XJLszmnTZg2nn1579zLFPmV7g/8nt+2V40L4va5zsEy5NFjhJa3Km5
-	lW/8j+JDilT6yIA7eU2k/hEFcL9SV7lm8QLSUHe1jpfzxrSZ7uA5UKNcypt1pnpJKoSKHJxfxEx
-	8VYgfLhirTbggYC33aF7A2+AJxymQkbG78DkwYHCnCeLaQr563ptrh6Qa1lxDYFks+BhSeNN7r9
-	23/n7BQXxsLvYT+n8BqVg4LM6FKsXXLRwoxZmJyluPPD2c1M616Rv/S4RH8lKEa7iwhBNd+mbP3
-	L/Gjpf+l8FgZnGerWU5jePRuFHyDPMJltvsJEy+b9synmPIq2jj83J4HThaptywDKAicgcniNfa
-	cVRuENGiBp+b5BQlzkQ0/WTroSv154nki6wxbCup3wnPGTdDb6hQ
-X-Received: by 2002:a05:701b:205b:20b0:1ae:59d6:91cd with SMTP id a92af1059eb24-1b50313ab0emr1801317c88.38.1794560801726;
-        Fri, 13 Nov 2026 01:06:41 -0800 (PST)
-Received: from localhost.localdomain ([103.149.158.176])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50316e008sm5522272c88.6.2026.11.13.01.06.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 01:06:41 -0800 (PST)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: tiwai@suse.de
-Cc: linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	perex@perex.cz,
-	sreekuttan2156239@gmail.com
-Subject: Re: Gentle Reminder: Pending Patch Review
-Date: Fri, 13 Nov 2026 09:06:19 +0000
-Message-ID: <20261113090619.2873-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <87bj7tqi8q.wl-tiwai@suse.de>
-References: <87bj7tqi8q.wl-tiwai@suse.de>
+        d=1e100.net; s=20260707; t=1794560810; x=1795165610;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=vtfYfPkpsM3aevCNl4mNbvXtj6ZUPVZ9KyzCjRAl4TM=;
+        b=NJhSqrGCa671W1n+pSCcNOg1idTMYUUdQjsGBLHoGZT0F3Od8I8tSEf0HGS/EeNFJr
+         lakjZ8NeXL4oNMDSENoKDWmixZtcZVwZObH8N9mEBzLHwXDlPJtiYTBvL5pTycb/QD4p
+         rOavlOO29Ivm0hL+hYS85/8d9JtGUZTRda3W9FT+jwbFOSRAcbvtRCk0+C7WCZ/4/ZR/
+         Nsq52pBO6WaTXs25i1lYsoVkIeThMUHG9uqhEv1V45bldDGWnxAV54L92hlwbwNtq9Ai
+         cr0cf4hw/VaXDFfdHkTpOJXaC3tNUeFJHatVxMAFuKV8GGvl82sziAsXgBEkjqzf59VR
+         YwjQ==
+X-Forwarded-Encrypted: i=1; AL+hErG8Wbd44mMU3k/6V6I4Ood0xE/fsQQE1OKMcaCC+rNDz8VJLtLHZNx+aMowG1t96AlxX4j7Cr6QV8rFp2s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8vUYUNJiPIecB9LYa0rfwOh7aWgQe+Tczn84nFYFbzqug2wMmv
+	FbL5eHfALWWH6CAKfml9u++VxmHWWbAfCMKFpcpGH0R2BYhVfPNP43nLkqL7YqXN5m8z8n+Bh7/
+	t0G3GFsBKih+JYzfPEI2jNESG1BUc4L+ddvmpGC/jKg==
+X-Gm-Gg: AYBFou2KPYqkXRG+H51SN3PyzOz8BWslkQji/4cPpysi/z2r48KlXw+qql5PgPizIxo
+	8lLt9oOxHc3eqIYcm0ruipIm7CAGzZRQiINJNLIhdHC2rp/h3inug0DQzqa+vxiai3ih9zuHI0m
+	0IEGmj0E4W3wTIvpVUJoOI91sb9lXobZNU/iTqqpPLhE96Qk1tdB6PBGbNFm6zrnyATgP3eMQWa
+	9xtt21jQlIj4cU+w82yL3Ok64BV8oMzhr1FyWNJfPkAeWMmOUQm0N++08TAc6zjLfJodugewfTk
+	baQuuUCjnhHa/sJ20HDKWlG6xdWzlXVsaHM3MRxkbir84zSuUwF3Jgm0oXDbP7hDdKz9A7ovB2z
+	yGvwYtxGxV3I4WBBzsZHW0peZ0u5qv+H8JFew5ydvTb1ZrSisTSvv8vJ61fonOLv/2wRAo90=
+X-Received: by 2002:a17:907:930a:b0:c40:19dc:a24d with SMTP id
+ a640c23a62f3a-c5096344fa5mr156377366b.9.1794560809980; Fri, 13 Nov 2026
+ 01:06:49 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,15 +103,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261106151947.3991524-1-vincent.guittot@linaro.org>
+ <20261106151947.3991524-9-vincent.guittot@linaro.org> <6033be91-bdb6-ce15-5b65-eef73256d175@open-hieco.net>
+In-Reply-To: <6033be91-bdb6-ce15-5b65-eef73256d175@open-hieco.net>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Fri, 13 Nov 2026 10:06:37 +0100
+X-Gm-Features: AclHuK-1b2VQHyP72RlSkoAcwpr-03tXyP2Sbt0wcavFo0b3c-Gjf1clcwW5VHA
+Message-ID: <CAKfTPtCYEgz0cVWLWt+S6+2uwjwsM3xZmjg1oQG7u5CYD9muPA@mail.gmail.com>
+Subject: Re: [PATCH 08/20 v3] sched/fair: Add push task mechanism for fair
+To: Li kunyu <likunyu@open-hieco.net>
+Cc: mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com, 
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, 
+	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
+	linux-kernel@vger.kernel.org, lukasz.luba@arm.com, rafael@kernel.org, 
+	linux-pm@vger.kernel.org, tj@kernel.org, void@manifault.com, 
+	arighi@nvidia.com, changwoo@igalia.com, sched-ext@lists.linux.dev, 
+	qyousef@layalina.io, christian.loehle@arm.com, pierre.gondois@arm.com, 
+	sshegde@linux.ibm.com, kayracizmeci@gmail.com, tim.c.chen@linux.intel.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Takashi,
+On Fri, 13 Nov 2026 at 09:47, Li kunyu <likunyu@open-hieco.net> wrote:
+>
+> Hi,
+>
+> On 2026/11/6 23:19, Vincent Guittot wrote:
+> > /*
+> >   * select_task_rq_fair: Select a target runqueue for the task.
+> >   * There are 2 ways to select the target runqueue:
+> > @@ -10552,6 +10712,18 @@ static void put_prev_task_fair(struct rq *rq, struct task_struct *prev, struct t
+> >       cfs_rq->curr = NULL;
+> >       if (se->on_rq)
+> >               __enqueue_entity(cfs_rq, se);
+> > +
+> > +     if (next) {
+> > +             /*
+> > +              * The previous task might be eligible for being pushed on another cpu
+> > +              * if it is still active.
+> > +              */
+> > +             if (next != prev)
+> > +                     fair_add_pushable_prev(rq, prev, next);
+> > +
+> > +             if (next->sched_class != &fair_sched_class)
+> > +                     fair_queue_push_tasks(rq);
+> > +     }
+>
+> Regarding if (next->sched_class != &fair_sched_class) - would it be more
+> semantically correct to change it to if (sched_class_above(next->sched_class,
+> &fair_sched_class))? The current code migrates all CFS tasks on the current rq
+> whenever the next task is not of the fair class; I think it would be more
+> appropriate to do this only when the next task has a higher scheduling priority.
 
-Thanks for the update. Understood.
+I'm not sure to get your point.
 
-I'll wait until the procfs refactoring is complete and follow up on the patch afterward.
+We want to look for a possibly better CPU for prev when it's put back
+in the runnable list. If next is a fair task we queue the call back in
+set_next_task_fair()  after having set next task but if next is not a
+fair task, we queue the callback right now so it will be called after
+swicthing to the not fair task.
+That being said we can probably unconditionnaly queue it there
 
-Thanks for your time!
-
-Best regards,
-Sreeraj
+>
+> I'm not sure whether my understanding is correct.
+>
+> --
+> thanks,
+> kunyu
