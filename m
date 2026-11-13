@@ -1,100 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794585553;
-	b=r+qAKcWrbvtmUGWjICGYUTPED5ViYlhFzQAc98bZ2IZ/9hhpU1fqG+jkho2wkocNQZ5k
-	 jq3BqDhFqxGGppn2TcwCRCUrDFAxyB2P1wAGTAMf3h2CokXw++8YMMXpy5mplm08PNVyQ
-	 phJ0fIViEo/eKw4dsY1baNWq50sF1VCmjFND8O/S9u0thRjrozBSO+6dYXUU3sRyFCg2a
-	 c3WIoFBWdHxLbjHhjF7uZMIDVEufO/xBrm52XJi4CQaFXPr6KxRYvW4pSjUhpNeAUyFER
-	 mCuhWzhYvJRUcTOi1LUUQ0BryLoI9m6S+HcSdl6oGSJR1tVyEA1pygECKeI1DFP0Q5g==
+	b=yM2zxEOyzFERjoaYSnQEHPOqnKL+tr70mksV44DZiFc4e/mWEbEYS5jIsa2XHizezOBv
+	 c3eYNrgRt/hy5nq9G7vxfHNG3Dq9rHxI07fjxdHPDW+lx5/75RiR+TTlKfonmmYC0fXLz
+	 YxDneelwrGY0/Nl3Isc/vAqE8DsTIt8MfZSBvnS8aSZA59hCIUm1zB1QfOBxoXIfRm0Qe
+	 7tGgYIjSn8w+odXQnsmfFpH2l1LrRbOFYg68xHtvhYWv2G/fPpamXj2xwI1ZL2qsbCJyy
+	 v2vxBVupEVkPiEsMvO4O3wSCQcIaovM+38vgnPE4qOiH9lBNUjAaEy7C+eeZOMnSYLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794585553;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 User-Agent:MIME-Version:Content-Type:X-Spam-Flag:X-Spam-Level:
-	 X-Spamd-Result:X-Spam-Score;
-	bh=Gx7M6jt6z9Omn/e+tHtHZM2LLzdH97mZcDmy9T8YAF0=;
-	b=3YuatQmT5OelFmwuyC3gquNOCpr8FSCEYFe1RfyGZHa6iJwhTvdWnrF+Vh+pYfI3WN2z
-	 cAInBpydEWV3418uJ6qqJ1msyKAf0zXGP2Hcryk0a5Lr2G6LSs51Ejhaz5t1vG8FFpS9Z
-	 44EJEThTQCPDBrcEQx/VVTixEujiwQmebCexJfy7jMVr68WF82APpeFt0Tf9pn2O7ych2
-	 fv3WcoXb4tAQtuIJFAmUAXui7iSZJA7gLe1vN/53oCba2EgCCyj+CzUNHvODEi0YgmwfB
-	 DTe3qE0KyjWeWnfb4Mkww4XAF3iJI8eI/Atmj2gnBVWmgDROA8GeiBmAU6E1rQ4JBUw==
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
+	bh=v7OsVuI68toVGxoukGdn/ITq8yHt6b7No6mV5OpaB5c=;
+	b=ROyOsX3kGZk1FacxmUZ3sltyzS+q2QmOW0UtZurPnDQRFDMMt2wyvdPtiNQyiux5TwNU
+	 CkXpV1XX1x4KjcfdnPDij02wr8cdrTHa2d/0321l31JBOiVawYdBh/PnspSvj4XfeWevz
+	 5KCUUIaLClKnB6Rnv74PbDyq2OdzjGm9GmuYuA2tz700HyXZMNB25nCOAOFDvHJu36JI+
+	 tzJfa8oT91b8vIKXURxlq2gGxNL8ZfCcGpZ9lHY83yFuwoHEoVm0S0BcnBATIZ6S1subt
+	 QP7v1i5zG95D7gPDXayNcwiLJ8elabyRnglm9wONfxfI/N3xVD1zcTpwXacDZjkotWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Fz8lVVzq;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hpTMlQ0C;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Fz8lVVzq;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hpTMlQ0C;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="dds/nnYe";
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98056606BA8A;
-	Fri, 13 Nov 2026 15:59:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98056606BA8A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28DFC606BA86
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:59:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28DFC606BA86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Fz8lVVzq;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hpTMlQ0C;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Fz8lVVzq;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hpTMlQ0C
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=dds/nnYe
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794585552;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=v7OsVuI68toVGxoukGdn/ITq8yHt6b7No6mV5OpaB5c=;
+	b=dds/nnYenJkJZ5Bnw01AAn1PAMpCU+p4+2IlFhS01OdpiGrfZ+RubzoZhIUyrmyoUcPv5t
+	dVlFzfa96NLqkZ+iY+tDMEu62zTqrk8O6ewGkto/WfAaupyKDKNHJMnmcg342ugDTJHed+
+	fUBlcGuQYb5/A/o4z5fLyxH6NBkrYj0=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-693-Ntv96ZN_OVapg2RQPilAHA-1; Fri,
+ 13 Nov 2026 10:59:08 -0500
+X-MC-Unique: Ntv96ZN_OVapg2RQPilAHA-1
+X-Mimecast-MFC-AGG-ID: Ntv96ZN_OVapg2RQPilAHA_1794585545
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id BF0FF1F79B;
-	Fri, 13 Nov 2026 15:59:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794585550; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type;
-	bh=Gx7M6jt6z9Omn/e+tHtHZM2LLzdH97mZcDmy9T8YAF0=;
-	b=Fz8lVVzqif0Z9k567b4F0Xqe+BA0Am+LsemDnSZ2aotLBU5EYD/5fAIEGMJG/Bm+xTjpjL
-	TmFW6RW4zUKs8uW0IBAcPrArQOLezsGPpDV6QduxQttNevXG6iTysjTiWBJYfJnVSs7DyF
-	nBZh02UgaUz2YX/6PzazX6OvxABRPQE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794585550;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type;
-	bh=Gx7M6jt6z9Omn/e+tHtHZM2LLzdH97mZcDmy9T8YAF0=;
-	b=hpTMlQ0CDiVMjFEbmaj1fKLwRV59PilYfNJD9CRWGIITLs0FOf6uwY7Fr+pRy/ZYDBtjVj
-	H6RIQzhWpoNBXYAA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794585550; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type;
-	bh=Gx7M6jt6z9Omn/e+tHtHZM2LLzdH97mZcDmy9T8YAF0=;
-	b=Fz8lVVzqif0Z9k567b4F0Xqe+BA0Am+LsemDnSZ2aotLBU5EYD/5fAIEGMJG/Bm+xTjpjL
-	TmFW6RW4zUKs8uW0IBAcPrArQOLezsGPpDV6QduxQttNevXG6iTysjTiWBJYfJnVSs7DyF
-	nBZh02UgaUz2YX/6PzazX6OvxABRPQE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794585550;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type;
-	bh=Gx7M6jt6z9Omn/e+tHtHZM2LLzdH97mZcDmy9T8YAF0=;
-	b=hpTMlQ0CDiVMjFEbmaj1fKLwRV59PilYfNJD9CRWGIITLs0FOf6uwY7Fr+pRy/ZYDBtjVj
-	H6RIQzhWpoNBXYAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6BDDC1344A;
-	Fri, 13 Nov 2026 15:59:10 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id //VwEs4z92rLVgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Fri, 13 Nov 2026 15:59:10 +0000
-Date: Fri, 13 Nov 2026 16:59:09 +0100
-Message-ID: <87pkw8pvsi.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Linux Sound Mailing List <linux-sound@vger.kernel.org>, Linux Kernel
- Mailing List <linux-kernel@vger.kernel.org>
-Subject: [GIT PULL] sound fixes for 7.4-rc3
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 306AE1955F3E;
+	Fri, 13 Nov 2026 15:59:04 +0000 (UTC)
+Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 4DC441956040;
+	Fri, 13 Nov 2026 15:58:58 +0000 (UTC)
+Message-ID: <4cdb4452-f11f-4e56-b03a-6d751dcfb62b@redhat.com>
+Date: Fri, 13 Nov 2026 10:58:57 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,200 +70,155 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-12.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,gmail.com,vger.kernel.org];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_DN_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -12.30
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 19/29] cgroup/cpuset: Wait for an attach before
+ rebuilding the sched domains
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ juri.lelli@redhat.com, peterz@infradead.org, mingo@redhat.com,
+ vincent.guittot@linaro.org
+Cc: linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
+ boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
+ bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
+ kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
+ mathieu.poirier@linaro.org, ridong.chen@linux.dev, tj@kernel.org,
+ hannes@cmpxchg.org, mkoutny@suse.com, shuah@kernel.org,
+ bigeasy@linutronix.de, clrkwllms@kernel.org, parri.andrea@gmail.com,
+ m.szyprowski@samsung.com, kayracizmeci@gmail.com, weihengqiuu@gmail.com,
+ cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev, stable@vger.kernel.org
+References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
+ <20261108185406.1549770-20-mathieu.desnoyers@efficios.com>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <20261108185406.1549770-20-mathieu.desnoyers@efficios.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-Linus,
+On 11/8/26 1:53 PM, Mathieu Desnoyers wrote:
+> cpuset_can_attach() reserves the bandwidth of the deadline tasks it
+> moves in the destination root domain. cpuset_attach() moves their
+> bandwidth later, on the strength of that reservation.
+>
+> Commit 75f7a25ec6bb ("cgroup/cpuset: Prevent race between task attach
+> and cpuset state change") lets cpuset_attach() rely on what
+> cpuset_can_attach() set up. The writes of cpus, mems and cpus.partition
+> wait for an attach in progress, in wait_attach_done_lock(). CPU hotplug
+> cannot run in between either: it takes cpus_write_lock, and the attach
+> holds cpus_read_lock throughout.
+>
+> But a rebuild of the sched domains does not wait. A write of
+> sched_rt_runtime_us and the energy model rebuild them through
+> rebuild_sched_domains(). The cgroup v1 writes of sched_load_balance and
+> sched_relax_domain_level, and hk_sd_workfn(), use cpuset_full_lock().
+>
+> In this example, a rebuild drops the reservation. T is a deadline task
+> asleep in root domain R. Thread A moves T to a partition root P, which
+> has a root domain of its own. Thread B writes sched_rt_runtime_us:
+>
+>    A                                      B
+>
+>    cpuset_can_attach()
+>      takes cpuset_mutex
+>      cpuset_reserve_dl_bw()
+>        P's total_bw += T's bandwidth
+>      drops cpuset_mutex
+>                                           rebuild_sched_domains()
+>                                             takes cpuset_mutex
+>                                             dl_rebuild_rd_accounting()
+>                                               clears R's and P's total_bw
+>                                               counts T in R (not moved yet)
+>                                             drops cpuset_mutex
+>    cpuset_attach()
+>      takes cpuset_mutex
+>      cpuset_attach_task(T)
+>        set_cpus_allowed_dl(T)
+>          R's total_bw -= T's bandwidth
+>          records a CPU of P
+>
+> P now lacks the bandwidth of T, and admits deadline tasks beyond its
+> capacity. When T leaves P, P's total_bw underflows. In testing, the
+> race left a destination admitting 3 tasks of 10% too many, or P
+> admitting no task at all.
+>
+> Fix this by waiting for an attach in progress in
+> rebuild_sched_domains_cpuslocked() and in cpuset_full_lock(). The
+> latter then takes its locks in the order of the writes of cpus and
+> cpus.partition. A rebuild from CPU hotplug finds no attach in progress.
+> The online, offline and kill of a cpuset never wait: they hold
+> cgroup_mutex, which the attach holds throughout.
+>
+> The move_vs_rebuild case of deadline_bw_test, added later in this
+> series, tests this race. Without this patch, it fails in 5 of 8 VMs with
+> 8 CPUs. With it, the case passes in 8 of 8. The next patch needs this
+> wait too: without it, it would give back a reservation that a rebuild
+> dropped already.
+>
+> Found by the Sashiko AI reviews of v2 (the race) and v3 (the cgroup v1
+> writes) of this series.
+>
+> Fixes: 2ef269ef1ac0 ("cgroup/cpuset: Free DL BW in case can_attach() fails")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+> ---
+>   kernel/cgroup/cpuset.c | 16 +++++++++++++---
+>   1 file changed, 13 insertions(+), 3 deletions(-)
+>
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 194a438e25c3..51b6be460794 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -296,17 +296,20 @@ void lockdep_assert_cpuset_lock_held(void)
+>   	lockdep_assert_held(&cpuset_mutex);
+>   }
+>   
+> +static void wait_attach_done_lock(void) __acquires(&cpuset_mutex);
+> +
+>   /**
+>    * cpuset_full_lock - Acquire full protection for cpuset modification
+>    *
+>    * Takes both CPU hotplug read lock (cpus_read_lock()) and cpuset mutex
+> - * to safely modify cpuset data.
+> + * to safely modify cpuset data. Waits for an attach in progress before
+> + * it takes cpuset mutex.
+>    */
+>   void cpuset_full_lock(void)
+>   {
+>   	mutex_lock(&cpuset_top_mutex);
+>   	cpus_read_lock();
+> -	mutex_lock(&cpuset_mutex);
+> +	wait_attach_done_lock();
+>   }
+>   
+>   void cpuset_full_unlock(void)
+> @@ -1005,7 +1008,14 @@ void rebuild_sched_domains_locked(void)
+>   
+>   static void rebuild_sched_domains_cpuslocked(void)
+>   {
+> -	mutex_lock(&cpuset_mutex);
+> +	/*
+> +	 * Wait for an attach in progress. cpuset_can_attach() has reserved
+> +	 * the deadline bandwidth of the moving tasks in their new root
+> +	 * domain, and cpuset_attach() moves it on the strength of that
+> +	 * reservation. A rebuild of the accounting in between would drop
+> +	 * the reservation.
+> +	 */
+> +	wait_attach_done_lock();
+>   	rebuild_sched_domains_locked();
+>   	mutex_unlock(&cpuset_mutex);
+>   }
 
-please pull sound fixes for v7.4-rc3 from:
+I agree that rebuild_sched_domains() should wait for an in-progress 
+attach operation. The change to cpuset_full_lock(), however, is not 
+really necessary. This cpuset_full_lock() is now mainly used for 
+operations like cpuset_css_online() that are initiated from the cgroup 
+side where cgroup_mutex should have been held. IOW, an attach operation 
+which requires holding cgroup_mutex cannot happen in parallel. The only 
+exception is hk_sd_workfn() which is a work item for updating the 
+housekeeping cpumasks from hotplug which has no dependency on an attach 
+operation.
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git tags/sound-7.4-rc3
-
-The topmost commit is bca568589ad118a9b0bac086760baee2a41976a5
-
-----------------------------------------------------------------
-
-sound fixes for 7.4-rc3
-
-A collection of small fixes as usual.  A couple of regression fixes
-are included in addition to the various quirks and device-specific
-fixes.
-
-* ALSA Core:
-- PCM: Fix potential inconsistent PCM state reporting after XRUN
-
-* HD-audio:
-- Fix sysfs hint parser
-- Revert CS4208 fixup for MacBookAir 7,2 due to regressions
-- ACPI _DSD fixes for CS35L41 side-codec on various HP laptops
-- Device quirks for Acer (Predator, TravelLite) and Dell (Pro QC1255,
-  XPS 8940)
-
-* USB-audio:
-- Fix for USB controller bugs reporting oversized packets
-- Fix UAF on disconnect in caiaq
-- Quirks for NiceHCK Octave DAC and RYDZ Technology Piva AC20
-
-* ASoC:
-- Fix a regression due to the conversion to devm_kzalloc_flex() that
-  initialized the counter unexpectedly
-- Copy DAI link names into card device to survive component rebind
-- SOF: Fix pin format memory leak in IPC4 process widget setup,
-- SOF: Support alternatively signed firmware loading on AMD platforms
-- AMD: Guard SoundWire context with NULL checks in IRQ handlers
-- AMD: SoundWire support on LG gram 16Z95U,  fix speaker pop noise on
-  ACP3x with ES83xx codecs, quirks for Acer, ASUS, Huawei, and Lenovo
-- Qualcomm: Fix headset jack at card rebind, PCM position fix on q6asm
-- Apple: Fix clock selection for clock consumer FEs in MCA driver
-- Intel: SoundWire jack-detection quirk for Dell Latitude 9420
-- Codecs: Fixes for CS43130 (power down on close), ES9356 (gain dB
-  scale), and MAX98090 (preserve mic boost)
-
-----------------------------------------------------------------
-
-Andrew Davison (1):
-      ALSA: hda: Fix [codec] ID matching in patch files for IDs with bit 31 set
-
-Angel J (1):
-      ALSA: hda/realtek: Fix the Dell XPS 8940 headset microphone
-
-Baoli Zhang (1):
-      ASoC: SOF: ipc4-topology: Fix pin format leak in process widget setup
-
-Devajith Jijush (1):
-      ALSA: hda/conexant: Add quirk for Acer TravelLite TL05-41M
-
-Emanuele Ghidoli (1):
-      ASoC: soc-core: reset rtd->num_components after allocation
-
-Fa-Iz Faadhillah Ibrahim (1):
-      ALSA: hda/realtek: Update quirk for Acer Predator PHN16-72
-
-Gichoon Han (1):
-      ALSA: usb-audio: Drop capture packets with bogus actual_length
-
-HyeongJun An (1):
-      ASoC: Intel: sof_sdw: Add quirk for Dell Latitude 9420
-
-Jaehoon Kim (2):
-      ASoC: amd: acp: Add ACP70 ACPI flag override for LG gram 16Z95U
-      ASoC: amd: acp70: Add rt713 + rt1320 SoundWire machine for LG gram 16Z95U
-
-Janne Grunau (1):
-      ASoC: apple: mca: Fix clock selection for clock consumer FEs
-
-Jude Gyimah (1):
-      ALSA: aw2-alsa: select SND_PCM
-
-Kailang Yang (1):
-      ALSA: hda/realtek - remove headphone MIC support for Dell Pro QC1255
-
-LiangCheng Wang (1):
-      ASoC: max98090: keep the MIC boost across mic input power-up
-
-Lianqin Hu (1):
-      ALSA: usb-audio: Add iface reset and delay quirk for RYDZ Technology Piva AC20
-
-Mario Limonciello (1):
-      ASoC: SOF: amd: Load alternatively signed firmware with an "_l" suffix
-
-Michael McAllister (1):
-      ASoC: qcom: q6asm: Reset PCM positions when preparing a stream
-
-Mikael Magnusson (1):
-      ALSA: pcm: update state after xrun
-
-Olivier Louvignes (1):
-      ASoC: cs43130: Power the playback path down when the stream closes
-
-Samuel Leyva (2):
-      ASoC: amd: acp: Add DMI quirk for Huawei MateBook D 14 (NBM-WXX9)
-      ASoC: amd: acp: es83xx: Enable speaker amplifier after the codec output
-
-Sergei Nizovtsev (1):
-      ALSA: caiaq: Kill EP1 URB before unregistering the input device
-
-Shengyu Qu (1):
-      ALSA: usb-audio: Add native DSD support for NiceHCK Octave
-
-Stefan Binding (1):
-      ALSA: hda: cs35l41: Override malformed _DSD properties for various laptops
-
-Takashi Iwai (1):
-      Revert "ALSA: hda/cs420x: Add CS4208 fixup for MacBookAir 7,2"
-
-Tyler Baker (2):
-      ASoC: soc-core: copy the DAI link names into the card
-      ASoC: qcom: x1e80100: recreate the headset jack on card rebind
-
-Viacheslav-Illia Detsyk (1):
-      ASoC: amd: yc: Add DMI quirk for Acer Nitro AN16-41
-
-Vijendar Mukunda (2):
-      ASoC: amd: ps: guard adata->sdw dereferences with NULL check in IRQ handler
-      ASoC: SOF: amd: guard adata->sdw dereferences with NULL check in IRQ handler
-
-Zachary Huang (1):
-      ASoC: es9356: fix the capture gain dB scale
-
-Zhang Heng (3):
-      ASoC: amd: yc: Fall back to DMI quirk table when _WOV returns 0
-      ASoC: amd: yc: Add DMI quirk for ASUS TUF Gaming A16 FA607NUQ
-      ASoC: amd: acp: Add Lenovo Legion 5 15AGP11 to ACP70 override table
-
----
- sound/core/pcm_native.c                            |  8 ++-
- sound/hda/codecs/cirrus/cs420x.c                   |  2 -
- sound/hda/codecs/conexant.c                        | 12 ++++
- sound/hda/codecs/realtek/alc269.c                  | 21 ++----
- sound/hda/codecs/realtek/alc882.c                  | 10 +++
- .../hda/codecs/side-codecs/cs35l41_hda_property.c  | 22 +++++-
- sound/hda/common/sysfs.c                           |  5 +-
- sound/pci/Kconfig                                  |  1 +
- sound/soc/amd/acp-config.c                         | 28 ++++++++
- sound/soc/amd/acp/acp3x-es83xx/acp3x-es83xx.c      | 24 +++++--
- sound/soc/amd/acp/amd-acp70-acpi-match.c           | 83 ++++++++++++++++++++++
- sound/soc/amd/ps/pci-ps.c                          | 32 +++++----
- sound/soc/amd/yc/acp6x-mach.c                      | 16 ++++-
- sound/soc/apple/mca.c                              | 10 ++-
- sound/soc/codecs/cs43130.c                         |  2 -
- sound/soc/codecs/es9356.c                          |  4 +-
- sound/soc/codecs/max98090.c                        | 22 +++---
- sound/soc/intel/boards/sof_sdw.c                   | 10 +++
- sound/soc/qcom/qdsp6/q6asm-dai.c                   |  3 +
- sound/soc/qcom/qdsp6/q6asm.c                       |  2 +
- sound/soc/qcom/x1e80100.c                          | 18 +++++
- sound/soc/soc-core.c                               | 22 ++++++
- sound/soc/sof/amd/acp.c                            | 61 ++++++++++++----
- sound/soc/sof/amd/acp.h                            |  2 +
- sound/soc/sof/ipc4-topology.c                      |  2 +-
- sound/usb/caiaq/device.c                           | 11 ++-
- sound/usb/pcm.c                                    |  6 ++
- sound/usb/quirks.c                                 |  4 ++
- 28 files changed, 367 insertions(+), 76 deletions(-)
+Cheers,
+Longman
 
