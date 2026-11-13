@@ -1,89 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794532006;
-	b=qF5zruYwJUEJpipIz6GggLlItVbTE226gFfVGPLMxG2z1aXzwjV/ICgg1p6u+LkrYgTF
-	 CGT3tvwrgTX3bz03zgimSeDwWiXlzcQaGitQq5V2oFAEnyKO0X/pd85+9Uu4nrFfzrAEA
-	 W9KpIJ5XcGWjpi9EsLIm3D/8ZF8sfKDoDFMHEiXMJfMuO+kGZgGT/oNH96NyTtj2YM/ke
-	 t+Dfbmje2BVCB5wWrbSTtLwqYrIsRCO8nCzdtenl1CYtI5ao8S+H2uKnG3ljn4F6EbIRd
-	 mqdsW5XzM/wGAD1/7XBsPRmPCn4KoaQb4QGpXssLJNMuoYpmn6Oo1LO5fMNdsd7ybrQ==
+	t=1794532011;
+	b=AojvDmhxwU8RxyqqUy4dI4JvwVnzUomzYg5CY25WYLN+NkX7qZuFD+C9PC8H/QTuoKdr
+	 cPJYLmeTkK8K/KgljSDrxWIlt3E8eE4CLVVMEyEjZfpiNWO60WepEPxH11ugHwuzsY5b/
+	 ec3N7Es7V9zpJ7UNKVP0ctdKgNhIjgbNEgCSz3nIP7R/cUJ7Xe5TOmH0VuoOIPQzNt0ow
+	 Ic1hrQ7zYL3jNn0mKlbapq1jNQN8eqnyVQdQaAZVcaqm9nqjtMNja06JOCHY/33jZdV4j
+	 +dFoBivzr5ckZoLMa3dzD5f0Rxja77/3gY6kzK2YD0eE6f59ONAFTNWTl0LP537xe5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794532006;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794532011;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=W5PK+MTjJ8QnNJmv5+ZxwNMS4FNWBwBOn4Y8MNye8DI=;
-	b=PMzybbCTrSHHLIm7YO0U3wM6W5R7g+XCYmaWss3i2pdLs1w+Ysu8pajrhSGu+kwfPrHQ
-	 4mJhFd3eF6FE4wV6W+cM4DEoDc0APBUEP5SkAHb5z2GyGrmGZEpO51D7uqUxKJL/3XwP0
-	 w0lvf+8MEeQ5x63wVBVqWC7WFuoA7F1zl6dNAvvY8DmXErZEiwmNBatYOEAEMKFq0MnJD
-	 zCryaBvrrMnnEwhOYdeCZJjAFbsn6dT8CaeAOTJ2EGvBGiS+3kCQ0TOuoUzFAHyxwxRzD
-	 kayVBfFm1+Rb0rGHXqfxa3BHH5OmdtRgQ/zCxpaTMMnGD6rrkLQW4ReZOdXTH/cX3IQ==
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=qsRcq006kznSbODYyPr37a0gzcSf2O+ljpuPup5IPJ0=;
+	b=5Qmy/ma4VTt/LPx+CXmrQNrW4Zft4Wu5lBRB6apqWIfkV5ZdkJu5LCsnr4hCAAGT1FaI
+	 xpuMH51unhMWx91L/xsTDstb3aQMhHyCuBrrpvYNtC0qJP10aDzrmSuSL3cvg1uVYibMa
+	 ZnA31b/+f52RG7rcZsXyr27a4m9thpSPWL94BoWSDfJ5lGj2o2kahv2MMUbAAjCV4dZv4
+	 ZYA5y6SlE740YiqT4QaaYy/oY61y5xzenQtHblxkyKJcPvaECkXnbORrlox3KNtWOlOJE
+	 ihIaMh4psL1jttjLv747WStc0t2LKt7SLFj1NDN6nu5UyK1J8xrQc++LkhL9Vixj+gQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=V0VjU1tQ;
-	arc=none smtp.remote-ip=209.85.208.176
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dUs5Z2Pc;
+	arc=none smtp.remote-ip=209.85.208.174
+Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com [209.85.208.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D0C606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 01:06:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1D0C606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA66606A327
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 01:06:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DA66606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=V0VjU1tQ
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3ace304021eso4707151fa.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:06:45 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dUs5Z2Pc
+Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3ac97e45a79so3841371fa.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:06:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794532004; x=1795136804; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W5PK+MTjJ8QnNJmv5+ZxwNMS4FNWBwBOn4Y8MNye8DI=;
-        b=V0VjU1tQLLJkjueeoPfkTlmlkeaB02KmEMy+MsgOfH06p0dwxgCigKh5MlzbVho4Yi
-         Vhh5w+A2/I6rUEnI13RRxv7t81uX+zl9ClBTuBvv+GpRi5u0sgHhQQNV7wtCFnAp+4kd
-         JxGrWmqiczmCq3aKGz0IM/DKUONETaHBzMkPyzitmtSGaJihlGU9zBKbvdAxxltgt9xh
-         YRLuXk/kLc5BDKWRfh/z+f9tdWl3uZfSbSyFspJN5jJLDrI77elnfCnFaAKIKOVoRSf7
-         rl+5beN3oaf4kX3wKeAMmy4rWXb12nbBgrE8EucSWGCDK2u2WiRlY0CHUR+88LLSc9Ce
-         0Ifg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794532004; x=1795136804;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794532009; x=1795136809; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=W5PK+MTjJ8QnNJmv5+ZxwNMS4FNWBwBOn4Y8MNye8DI=;
-        b=rk7i2bkDVHyiFM95nYJCuaBuDYEteMmEB5KoJFJNdxaRx/aYhwNiYVHRnx7aTNAYpe
-         pfSAE1xLroltoI4GdT1IKwMsMP4rapRPWgqtVA/iWaKHAaCLNN34EFkLMFV/oBblZM1o
-         nkCMGiquBcMMPh6uQQFxTUfvpZ5eYzG5duVlGetEQo/mBTLK7T+ZciW+RKE4i5XnYov7
-         TsTu87itWlfufqjiWDKtXcvQ0Urc+8Ryi+4K8LahYYHfhai92b3PpQoDmC3Avf+8+PaR
-         JuhB45cFlxrOGONEKJxboBHLFIeZO6NsXQmOPUue+eWnrl5HE+pII3ydWBViKMvSnoXw
-         gsaw==
-X-Gm-Message-State: APuU4Z+wySEMbPOwWItUGsIOG0VWEKHun8VcmidC49Y9GPXz5DymRhel
-	EvWCyIUi6P7J8pxM9s6CTH+oFLOT68lK40yVBu4mrmjrOpwUrPAtsgimbe5x2iSubw0=
-X-Gm-Gg: AYBFou0jjVbb24EeJLBCiCCrXgpLfyQybA9wlrKF5M+rp2U1+o69A+0ketCK698XR87
-	U+vksq1pcGM77PMtoNEWIIenwJo/jrvAtVa149zBbeoRqgGN6Cbijp75OWYFJaw0dhM76p5nSUx
-	0CBuv7zRK0mg48z5Yf531qdzDwC9g1TrvGLdLqvFewALYG1JF2YIPtWsJmm2MyasgRCzOETbQQ3
-	zurCBRgUnS8aRbCo6J2aYM3nI5Kikkmdc4hg+u0kGXrS/wn8af3psKXYFQgtWnRlstnHaw9CWdR
-	5MuyWz+ZOjIYg7PVqYkyOpHHmXhrXYKW1LjYtmdmJw+WEhBs7BO8UteqD+cPuKc1KFKJqoFS2q9
-	2ocMxhzEs0StycfNt8UqEfLrGwYN7jxSDEqkHUyQCxmSNuFHAMWPH8FLW+ARMZorzrfcBHqqDQr
-	0u9OdQHuop1kHD4swO/3ktF9sCsd1+hC7PdcGL8zwrGWb3SLBOth4mighDmPCRtku/sodKCZ0tw
-	QURiIW0p6jmkULTUsJyIdW5dPImtPKvNYjUVd3iU3P7Wuq6J59e8GBP0/BbLep02gigjIaTamSP
-	I/aNkYcA3pmpw9MftGieX5yX0HOurJ2iNDfK3ANRbvPcD2nICpT3SL4hJMf1VrLiBZ4Vpigg7wX
-	Aw9+0UJiZFQ==
-X-Received: by 2002:a2e:8a89:0:b0:3a9:9b0b:b781 with SMTP id 38308e7fff4ca-3ae2b52a663mr4220581fa.27.1794532003913;
-        Thu, 12 Nov 2026 17:06:43 -0800 (PST)
+        bh=qsRcq006kznSbODYyPr37a0gzcSf2O+ljpuPup5IPJ0=;
+        b=dUs5Z2PcWekw0bytilGUjpxAefF9gWqB0a64O2qBknbzWt3gaYFEOJcx4eLSclNTbJ
+         D5QrzxnP2bNhcnqo6iMAMOYIAQual3brYLaiIKo5YOnwXJUUu56UpEtdbqt0dqtGumLp
+         bG++fykzEQ+wQxWac08+0ViEVsZy522grqD2B5BaoQKXeaVlsU4Zv+Y/aKBYcAnqsVyI
+         aA/aVFue1JDTKOp8L21gNxfNd8R3FZg+i2WDXSUFCvbsBNyu4Tb8OwvX/D+1cg0ixNIP
+         u/X1DyRcCaqLNkOelSoaExcNxWxCk+rOvarjIvdr0jAWuVUTZh20tgefJ+aOzlMjcuM0
+         LDrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794532009; x=1795136809;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qsRcq006kznSbODYyPr37a0gzcSf2O+ljpuPup5IPJ0=;
+        b=dHUta+iAnyJFVSLZAh5k40L80yzGACq5dvKF0ayDPOw+J98P4LgnOyfEsjEeerPYHs
+         RfVpUuOd8Tkg9vobob948h34y3tILZybqVxuKej+PJFcQosOt595hNPr31PKnx6+gZp6
+         7Ju/hf7fPqvy8aAZP5qzQpg4efWNMgUYDEWxMp5liin+NS5wtGZiR/SXArSvGMIxPzwW
+         YHd0+DfFE3LGlvsxz5wsb0Fdg3tYWjhWfpv7oRmvrEBHRgRthwC3sQkJkXQWdJ/Sj8W3
+         4GN8zhvaKwb/7ZYVmcnKQ2kDAq2Qjb1Vo59t0mWgeiG3MtN8QxTu3BQqwWmJoM3OzroC
+         RKcw==
+X-Gm-Message-State: APuU4Z/V1WudLZcnhPj4KYYmZRdvncKtIo2EfKRNQxI4TpfxV9lW+OPy
+	vVKMKJL2cF/YZsVjzsGI8chb7ryJTzOBbla48aJOCk7XZdLnWWJF4rho
+X-Gm-Gg: AYBFou3KbZomKVi8z4Q0xxxyAgsB0lfs5bpGs+Rgr0QLktASB7oWaxNbPJj5CDSgadi
+	zabDAhVj4bVfT1W/GZZau1R6IJf6laaxkyMN8hSjphMTC1Ts7G0qC0ohUXu3oOS5umBWgP6P2qd
+	Nh/ISYuP70vW53a34gHtj9LkJC+t9ES+JnZQNmGhI79KVzGBtWvggba+jEvGmpnNsl2uvRzVcBr
+	B4r/0yxWsQG35O40TN87fMkpFtHDbME7Hx5qlp0sOdffLPGMQsL27g30tr1IpOEtNcn3tOIvz6J
+	4zT/+LBDMmKDFWOc7+6GSR50TLRjr5bkZeqdka4IrqSzCd47EU/Odh6Bl9PQoS6uWxqqhkey1ru
+	neN9fxtBytdO7kE8+RIlksVGeolWItFLng4f/ht6ggitm7uStfXokP7iGoRJUlNqM2/EPzR4Gfo
+	dq6uKloB4E3T6l7p1zrbZF1axfw1mV2IvF4JR2qGia++FojQ4xNDNEMtA6xKDCAJoL2cVeDHKGw
+	eKf5Rl0xR/ayAm1ofMOX/V4NSHJtIxAccMMPGgxJYQ5544gnZcTyfO+5QR3atPKclt+T+dO+JXE
+	rtQEtZ+r4qizXJpCWph7X/dKik8iS6G7ClMp25c7L6aoB7lZqyZCICmg79elqWBIj7BO7uEBHXl
+	CyLl2+xM4PQ==
+X-Received: by 2002:a05:651c:41d4:b0:3a9:8167:62a with SMTP id 38308e7fff4ca-3ae2b53f3d3mr4406631fa.28.1794532009135;
+        Thu, 12 Nov 2026 17:06:49 -0800 (PST)
 Received: from SafoStation ([31.40.65.49])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae2b7d183bsm3133941fa.31.2026.11.12.17.06.41
-        for <linux-kernel@vger.kernel.org>
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae2b7d183bsm3133941fa.31.2026.11.12.17.06.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 17:06:42 -0800 (PST)
+        Thu, 12 Nov 2026 17:06:47 -0800 (PST)
 From: Safocl Stollmannovic <safocl88@gmail.com>
-To: 
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH v2 00/10] Remove redundant extern declarations
-Date: Fri, 13 Nov 2026 05:06:05 +0400
-Message-ID: <20261113010631.139191-1-safocl88@gmail.com>
+To: Russell King <linux@armlinux.org.uk>
+Cc: linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v2 01/10] ARM: fix duplicate extern declarations
+Date: Fri, 13 Nov 2026 05:06:06 +0400
+Message-ID: <20261113010631.139191-2-safocl88@gmail.com>
 X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261113010631.139191-1-safocl88@gmail.com>
+References: <20261113010631.139191-1-safocl88@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,70 +99,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series removes unnecessary extern keywords from function declarations
-that use asmlinkage across various architectures and core subsystems.
-
-In C, function declarations at file scope have external linkage by
-default, making the explicit extern keyword redundant. Additionally,
-asmlinkage already expands to extern "C" when __cplusplus is defined,
-so combining it with extern results in duplicate linkage specifiers.
-
-Changes in v2:
-- Fix commit messages corrupted by shell expansion in v1.
-- Clarify the rationale based on C linkage rules and asmlinkage macro
-  expansion rather than C++ module compilation.
-- Format the Bugzilla URL using the standard Link: tag.
+Compiling a kernel module with a C++ compiler results in a "duplicate
+extern specifier" error.
+This occurs because the code contains `extern asmlinkage`, and `asmlinkage`
+expands to `extern C` when processed by a C++ compiler.
+Since the code already contains sections that respond to a C++ compiler,
+I believe it is a perfectly valid approach to gradually move toward a state
+where kernel modules can be compiled by a C++ compiler without any issues.
+The `extern` specifier must be removed.
 
 Link: https://bugzilla.kernel.org/show_bug.cgi?id=222257
 
-Safocl Stollmannovic (10):
-  ARM: fix duplicate extern declarations
-  loongarch: fix duplicate extern declarations
-  microblaze: fix duplicate extern declarations
-  MIPS: fix duplicate extern declarations
-  openrisc: fix duplicate extern declarations
-  riscv: fix duplicate extern declarations
-  x86: fix duplicate extern declarations
-  drivers: fix duplicate extern declarations
-  sched/preempt: fix duplicate extern declarations
-  kernel: fix duplicate extern declarations
+Signed-off-by: Safocl Stollmannovic <safocl88@gmail.com>
+---
+ arch/arm/include/asm/bug.h     | 2 +-
+ arch/arm/include/asm/opcodes.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
- arch/arm/include/asm/bug.h                |  2 +-
- arch/arm/include/asm/opcodes.h            |  2 +-
- arch/loongarch/include/asm/idle.h         |  2 +-
- arch/loongarch/include/asm/smp.h          |  4 +-
- arch/loongarch/include/asm/switch_to.h    |  2 +-
- arch/microblaze/include/asm/entry.h       |  2 +-
- arch/microblaze/kernel/microblaze_ksyms.c |  2 +-
- arch/mips/cavium-octeon/setup.c           |  2 +-
- arch/mips/include/asm/bmips.h             |  2 +-
- arch/mips/include/asm/idle.h              |  2 +-
- arch/mips/include/asm/paccess.h           |  4 +-
- arch/mips/include/asm/ptrace.h            |  4 +-
- arch/mips/include/asm/smp.h               |  2 +-
- arch/mips/include/asm/switch_to.h         |  2 +-
- arch/mips/kernel/r4k-bugs64.c             |  2 +-
- arch/mips/kernel/signal-common.h          |  8 ++--
- arch/mips/kernel/traps.c                  | 50 +++++++++++------------
- arch/openrisc/kernel/process.c            |  2 +-
- arch/riscv/include/asm/string.h           | 24 +++++------
- arch/riscv/kernel/process.c               |  4 +-
- arch/riscv/kernel/stacktrace.c            |  2 +-
- arch/x86/include/asm/efi.h                |  2 +-
- arch/x86/include/asm/gsseg.h              |  2 +-
- arch/x86/include/asm/preempt.h            |  8 ++--
- arch/x86/include/asm/processor.h          |  2 +-
- arch/x86/include/asm/suspend.h            |  2 +-
- arch/x86/um/sys_call_table_32.c           |  4 +-
- arch/x86/um/sys_call_table_64.c           |  4 +-
- drivers/soc/bcm/brcmstb/pm/pm.h           |  6 +--
- include/asm-generic/preempt.h             |  4 +-
- include/linux/lockdep.h                   |  2 +-
- include/linux/printk.h                    |  6 +--
- include/linux/sched/task.h                |  2 +-
- include/linux/start_kernel.h              |  2 +-
- include/linux/suspend.h                   |  4 +-
- 35 files changed, 88 insertions(+), 88 deletions(-)
-
---
+diff --git a/arch/arm/include/asm/bug.h b/arch/arm/include/asm/bug.h
+index ba8d9d7d2..985857d65 100644
+--- a/arch/arm/include/asm/bug.h
++++ b/arch/arm/include/asm/bug.h
+@@ -82,7 +82,7 @@ void hook_ifault_code(int nr, int (*fn)(unsigned long, unsigned int,
+ 				       struct pt_regs *),
+ 		     int sig, int code, const char *name);
+ 
+-extern asmlinkage void c_backtrace(unsigned long fp, int pmode,
++asmlinkage void c_backtrace(unsigned long fp, int pmode,
+ 				   const char *loglvl);
+ 
+ struct mm_struct;
+diff --git a/arch/arm/include/asm/opcodes.h b/arch/arm/include/asm/opcodes.h
+index 38e3eabff..afa29833f 100644
+--- a/arch/arm/include/asm/opcodes.h
++++ b/arch/arm/include/asm/opcodes.h
+@@ -8,7 +8,7 @@
+ 
+ #ifndef __ASSEMBLY__
+ #include <linux/linkage.h>
+-extern asmlinkage unsigned int arm_check_condition(u32 opcode, u32 psr);
++asmlinkage unsigned int arm_check_condition(u32 opcode, u32 psr);
+ #endif
+ 
+ #define ARM_OPCODE_CONDTEST_FAIL   0
+-- 
 2.56.1
+
