@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794585560;
-	b=uEDpNICiuofChcqYaXPfe0imL20UMHdsqIndPjDoEvNVEZLCz1kfNJ0SCl9KZaKfaj1G
-	 lP9hJWcq4ZSqJrhzks6nAGK86ySCzgbcKuxJ9iLqZ9qz2QRhlEKBPnsY6ND2Pzj/a8VlE
-	 2sRJ9rMcXzxHBkaDhe6QiX1cAEK1VEeJFNacTlEJFwLt1uFe0kq26+biPvgU7L4HA6rbt
-	 vn2xnC1H9n1A6zpGrpVxeOaWexLwdv9L2VYJInkNzeXTCvIb2ZLjAB4wTDiX/X6WCkRF7
-	 jzMJxJDq07CPWPSChxPJyyfe7UM2b/2L9B35tuZYRwfw4WFqKsxiYXV5vjutLulsF6A==
+	t=1794585561;
+	b=bDJcK8XS32JwCGMqpymcWCFxjc6yuGZQRT/RQsFUo2OD6uDA+ztBvH9QlvJWBesFHrr9
+	 BurnfCKKHvYB51JI9qKMOWA4FaAheKIUpEjBTvtWf/ldwoqc1MsNsGIWFnjSW8mdJHTaW
+	 PvWmVsgVgSP5FR9iRU0zuAFgWGmf+J/O+YjfT31za3ZKM9yvx05QoYhEEumwBubW/sB8W
+	 1lPVcYPGlCquU4ibnDaAWgklNLLxw/ot55KZtkPeIyluPyoe+l1X3eEzRCdzUlJeWlO7u
+	 /0jP/McHLcr8QSrO2TOYuPsC8vNqDdniYPc6UQKeGeLT/R+zKHlT5uwKTSIkoh56Hmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794585560;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794585561;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=CQfzRALCDpL4DLVl9bz2Iqb7R2/WHPaCJ3qKGqNNiOc=;
-	b=TIcleFBsiVZeZu99n2n7fXrnexGjes8wu+ZOfnpnBG4pygVPvtNimCTY5mSBZbhiiSyv
-	 Rai3xuhBTDuVbQnbaY/HYkgVk+9JeF1hvPlOJ0kqJpyRuXHJjsZVvGSEtzYIJqVWrf86P
-	 djvJ6INJRQsyzwWh7d5TA3nQbjxBC8ru8E7O9sNA7i8rPRXkJ9ultZRl4A/n8JeKokQY6
-	 2QimL5xlCHygPLLv09ZkwCIXyTPkvGH2QKVetpLOqdCKYMWzBYLsT9o1INeLDFlimzFJU
-	 tRxl2mQBQG8dXIRdHdG7Ne1I3jGt5ajcNPTGLEEyN0UXTh3xT1UpEB7dE2dlO5YsMYQ==
+	bh=BUQE0kUGDk8M7CIw9MtJvjFLkWAN6uJ898YNqYUmUwc=;
+	b=4CHVUo5fiBc+mTO+6K1XRgRN+G9e90dXZVqoLgFe4UjNzkiQmAXia0AL2ooMFW2zH5u+
+	 CqwVStBSVJaLm3sxMbHri2GKB+exyqfC1r6DeKLHHpIpqtpc4klUO+d6i4yJjeOLr47uH
+	 b5KhxwNj2feZVxOk9objqOLSD79HYfnQS2tlsu9Rs/kuKiUCIlWo6CWDd1P/EE6NQaKem
+	 Z9vGu3TYFXUc+wTx0LKsaU3x97LfTtt0SixwMQerqz+bf8QZSnzBB+4yLIuD9IG6iN2fH
+	 BStdo/0pF7K7JCzlPiziM2UExRXx3Yx2dw6tivIJ0oZ4ALB+a5ytrCgS0BnvxK8oxVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ucla.edu;
 	spf=pass smtp.mailfrom=g.ucla.edu;
-	dkim=pass header.d=g-ucla-edu.20260707.gappssmtp.com header.i=@g-ucla-edu.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=oPQDozaR;
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	dkim=pass header.d=g-ucla-edu.20260707.gappssmtp.com header.i=@g-ucla-edu.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=M0MsmaQf;
+	arc=none smtp.remote-ip=74.125.82.42
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB4B4606C56B
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:59:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB4B4606C56B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8A97606BAA7
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:59:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8A97606BAA7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ucla.edu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=g.ucla.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=g-ucla-edu.20260707.gappssmtp.com header.i=@g-ucla-edu.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=oPQDozaR
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3720addb068so1782841eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:59:19 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=g-ucla-edu.20260707.gappssmtp.com header.i=@g-ucla-edu.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=M0MsmaQf
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1b50a4bd2f3so978656c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:59:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=g-ucla-edu.20260707.gappssmtp.com; s=20260707; t=1794585559; x=1795190359; darn=vger.kernel.org;
+        d=g-ucla-edu.20260707.gappssmtp.com; s=20260707; t=1794585560; x=1795190360; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CQfzRALCDpL4DLVl9bz2Iqb7R2/WHPaCJ3qKGqNNiOc=;
-        b=oPQDozaRzv8xcZNqKtSvTaZvitqnaOLWu6w/oJHoe6ez3uLgeneg74t0SppSml/W8d
-         fg7/yjLcUm5nwCcBP1CuccAM7mJynV6uG43TO/KMNJwq37zuzw7yUSD2FTsqA0qQeua0
-         IvTJRs2ThIH27XNuwh6ReJ4stm+2nV+PURxddEtQMtzNDYLh4MOLXrlq+xar/m/eyU7A
-         hgPsSo/8nKXX0s6LNumOMl6R2ayGCEIUJvaqmhFmyw/NJoxcIoq/FKR94HMMtn1oI57q
-         znEDTiwxmdLzeTTc45ESLgE1LfDqpCwffuiM8fnC2wAQM+cEu/AaxOcT/kI8146W96+e
-         fWMg==
+        bh=BUQE0kUGDk8M7CIw9MtJvjFLkWAN6uJ898YNqYUmUwc=;
+        b=M0MsmaQfXw3SdSpoPe4h9XZ18fSnFZFRBfnciYbJlZ8Z2sT9qqqEsxgy6D1Em8vb/X
+         i8bPYhD0lRLuPsmuMG584W1QX194l3camiQjotLmnO9LeRXZ8pjDh20XQOvMOsZR3LnY
+         bYbOHpOFbOlOzIGsZ/xd1QlLuzSockK/FE1TWemfVQPqYuQyMWciOebTmeIRZ89oJx4R
+         G14UNvtnS7ymyTbN2es1Oa46SHoriheYmi6SAM1Wb0r6fpbiwoMpCqm3dkLvHAAZE8fz
+         yB3JN+iOVjlTQZBZDLByWXWWXyJCGyp1DK+9xv/LT+X+lGHpC2aOWCc/CKnenIj/bvRa
+         IMsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794585559; x=1795190359;
+        d=1e100.net; s=20260707; t=1794585560; x=1795190360;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=CQfzRALCDpL4DLVl9bz2Iqb7R2/WHPaCJ3qKGqNNiOc=;
-        b=wP12yXfH7avUZP7mXs5dj/R2IbvtVfGI8x6rtn3fZjtQxCySX2sPfmn6SpFV/kspmW
-         2p/cInutdjD6TZLPru5QtFt0Eg3Th6DX/a/a/xEBq3lvhr8c+6F+q7B/WorHblqfR+XH
-         q/61RrgEqZL2bg7FeWfBdM60qdrX6ePyYNonrUD2gVAQjjD+X32Ete4U6wVJbZ+d6AiH
-         NJN8wXN3CMRaxkqLnybu/PQ3pej+FwiQtCDIUy2npbjgx4Lt8bKsQ8UmX/3eVjSlyvUv
-         ZuhUvqrQyH9lB7z+oR9E5ReV+W2yJrRP4JdYTqPUsYt/P3SkELt0cB5ZkHy3jt1jepMv
-         Hq4Q==
-X-Forwarded-Encrypted: i=1; AL+hErESSU0C1DabXpCpUHjV65TCm9iT6P6OdbMq6X6caCV+J2+NdnCBHTknqdFbrWUaxiKxfEGaCb9DBGVv+a4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8GbWzD7n6ptV0ZG17r+xBpw2aVT6+H34BRABp/U4lV2mqnGBOk
-	es7UA3BbGm+ZYBaEJmnOfHpt9THbY86CPX5WmlUadaBTPDuwbZDpdlQltBdfxbXjEkU=
-X-Gm-Gg: AYBFou0Xo63VrAu5uYsKwtftLlihRxOIN+4uOlB0pMJoGI5LAlCbkY/kXe2B/1iK/I0
-	s4jFI7yA/wuX+nFub3r/iB0etiTopp4Xr0St4ivNcngMDWb3uFrlPP86Fm5Lr8UKCJr1QlH6ZHj
-	OIcqQW2o7DJ5ebmoLPn+a8CPf4ORv8bMp/5wJpbFKCzYzPlfJIv+eDjZVOc7T0vbLjBqEkuB1xq
-	hGnW9mdxA6U4KLYV+YxxBSj41DTnt6ICnhOrVa35KJShDgfLu0bQW3ikyS6PE85ZWU3gSwHXAN5
-	5kFIBfnR52JAxfZWRQxbS6Lpd46sw+rrhsTb6x+KZ79jp9uKjzshYEGFaDn6uILXl+PMgUPHm78
-	VWGcq4x35l6qBWalVIt6++vWr4kKRuNRrn6vztWkAXnI7zxAO/RnzqfUuEK+BRgzWPl/df0FRtE
-	pGFnMdYPYalkw/iwH/UuODI9rVFiwDuk598oaSxjEDRlHFhDh9ozJ1IVb90LI+RMPn0qdAQ0QvH
-	2tp49UYUjOvKz2OZZdiPgFmgu6OPxoDfQZeRyzet6fKnDLYi6FbpbtOQVRd5x80XLrEFKIcDzbN
-	RA2sLdStsG51Vy6S6Vuax/23fPdqeg==
-X-Received: by 2002:a05:7022:f109:b0:1ad:4ef5:ffed with SMTP id a92af1059eb24-1b50313d936mr2385378c88.38.1794585558544;
-        Fri, 13 Nov 2026 07:59:18 -0800 (PST)
+        bh=BUQE0kUGDk8M7CIw9MtJvjFLkWAN6uJ898YNqYUmUwc=;
+        b=BQnP+vjITVjgfv1p3q0nSmt7rCWRXFRcdIJHzHD4wum5F+15IPQjRObwGvlAy9cr9Y
+         DsbrCDuli2EZatSF/rzS9m1LkNeDgxjdj+ADH9fh9NsAQSzc5BXRqYX7XBnzWWEYntvO
+         ZDLpnFGnuIuml2SOc45gU53xzAShjRBB2X8rkjCwjDoM7WBIOYJuPKrQx95NGGj2L679
+         K9n+/podGhKfrAFEQ0XOUnYmEyYLv56JICFDmQCuxjFaF0NWkUxUoaERhLcvltmmfVhE
+         CedD4Zv9C2NG82/MAa6vR9Pb0j4dwwGFV9p7iyWsx0JhGAYv3uzeT3RVZvh4nybgvwSU
+         e+UA==
+X-Forwarded-Encrypted: i=1; AL+hErGHMpHcwKU5wdTdbZR1cS/VvTDnM9bVsyI7aFjzUHcjspx+E/3IfCcAtv5srw0cSg3NeqhluODaVdukEfI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z96A6wX5PsFBTsgPwimFCaV4gXhojIsWNjPAViLBEA2r5S2CLhC
+	jEOWJTNmf5LRU2NkJxTcd6JnEAN6XZyE6pDqM2lJ3qKuf9x9GJYRoHDwlYhyXiqZ7XI=
+X-Gm-Gg: AYBFou3YzqrOCmoqiujR1ImFMfM+P2mj+IWsdhSzxSYtqwUIju79lKzkVHEYtFtVreI
+	shtRscpTDl2XnfMGeLBbpI1rTh8Z7a5OAkucps+nNgQs8aJjQNQt7Qi0KOZ9330blI/GGTczhz/
+	dFPwYLRLyxMRFfYAvEerMAI/yLJu2dVdNuoXuNx+1+VWa3yQwNfPQZYZYDuNsBIqsfX0kbTj85p
+	ov0c6UR3OjhZfb/SrKHQe1gRnqk5TqQHAKl+3xEAK12gypeXGJ/Br4oa9pJO2MuAlk7q8/kx26F
+	6YCTyxLuwsRfHF8um28iZ6TfPeovqs3W9uJNbrQrEiVP84kHtIGiDhicICuZCbt7mr/VlOb0dAQ
+	x0P87IfmAVra5ZGjsTeWgRU8kZXCEWyuW89xYmgHgsaHSnvoCVii3yBwQJ1JwDnxUwwl89p2BUa
+	dH5G3GSQ/KD75/YljXvubS47a+rdaS+xlXYg4Lb1FOKDzRN1Q2iEmjwmdDw7i3CUUJ8zP6Pc/Q4
+	OOkQ3g/4QMLQ46cT5zRtmm1dVFO8MNmk1NQ1XTvQ/+7SwzpDIlYHTWIiV/11uxrmKLu6RUNulW5
+	qu6to4YW7nGk8TPpI8jclYvd7WqPCQ==
+X-Received: by 2002:a05:701b:4590:20b0:1b3:b53e:b4c5 with SMTP id a92af1059eb24-1b503137aafmr2631085c88.38.1794585559658;
+        Fri, 13 Nov 2026 07:59:19 -0800 (PST)
 Received: from [127.0.1.1] ([131.179.95.34])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031bc518sm7868383c88.15.2026.11.13.07.59.15
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031bc518sm7868383c88.15.2026.11.13.07.59.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 07:59:16 -0800 (PST)
+        Fri, 13 Nov 2026 07:59:18 -0800 (PST)
 From: Jason Angelov <jasonangelov@ucla.edu>
-Date: Fri, 13 Nov 2026 07:58:56 -0800
-Subject: [PATCH 2/3] mm/damon/tests/core-kunit: test
- DAMOS_FILTER_TYPE_AGE_MS in damos_filter_for_ops()
+Date: Fri, 13 Nov 2026 07:58:57 -0800
+Subject: [PATCH 3/3] mm/damon/tests/core-kunit: test
+ DAMOS_FILTER_TYPE_AGE_MS interval changes
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-test-age-ms-filter-v1-2-b99eab2f71bb@ucla.edu>
+Message-Id: <20261113-test-age-ms-filter-v1-3-b99eab2f71bb@ucla.edu>
 References: <20261113-test-age-ms-filter-v1-0-b99eab2f71bb@ucla.edu>
 In-Reply-To: <20261113-test-age-ms-filter-v1-0-b99eab2f71bb@ucla.edu>
 To: SJ Park <sj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>
@@ -102,35 +102,119 @@ Cc: damon@lists.linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  Jason Angelov <jasonangelov@ucla.edu>
 X-Mailer: b4 0.14.3
 
-DAMOS_FILTER_TYPE_AGE_MS is core filter, not ops filter.
-add kunit test covering this rejection.
+DAMOS_FILTER_TYPE_AGE_MS defines an inclusive range for age in
+milliseconds to filter for target regions.
+Aggregation interval can be changed by users or intervals
+auto-tuning features.
+
+Add a kunit test for each:
+
+- convert region age to milliseconds, correct behavior at boundaries
+for defined filter range
+- DAMOS_FILTER_TYPE_AGE_MS filter keeps correct behavior even when
+aggregation interval changes
 
 Signed-off-by: Jason Angelov <jasonangelov@ucla.edu>
 ---
- mm/damon/tests/core-kunit.h | 6 ++++++
- 1 file changed, 6 insertions(+)
+ mm/damon/tests/core-kunit.h | 81 +++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 81 insertions(+)
 
 diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
-index 0eb5dcdba0ae..fb84d30a712d 100644
+index fb84d30a712d..6de7c2531702 100644
 --- a/mm/damon/tests/core-kunit.h
 +++ b/mm/damon/tests/core-kunit.h
-@@ -1832,6 +1832,11 @@ static void damon_test_valid_probe_params(struct kunit *test)
- 	damon_destroy_ctx(ctx);
+@@ -1837,6 +1837,86 @@ static void damos_test_age_ms_filter_is_core(struct kunit *test)
+ 	KUNIT_EXPECT_FALSE(test, damos_filter_for_ops(DAMOS_FILTER_TYPE_AGE_MS));
  }
  
-+static void damos_test_age_ms_filter_is_core(struct kunit *test)
++static void damos_test_age_ms_filter_interval_changes(struct kunit *test)
 +{
-+	KUNIT_EXPECT_FALSE(test, damos_filter_for_ops(DAMOS_FILTER_TYPE_AGE_MS));
++	/* Filter window: 200-400 ms.  Start: 100 ms interval, age 0. */
++	struct damos_filter filter = {
++		.type = DAMOS_FILTER_TYPE_AGE_MS,
++		.matching = true,
++		.range_min = 200,
++		.range_max = 400,
++	};
++	struct damon_attrs attrs = {
++		.sample_interval = 5000,
++		.aggr_interval = 100000,
++		.min_nr_regions = 3,
++		.max_nr_regions = 3,
++	};
++	struct damon_ctx *ctx;
++	struct damon_target *t;
++	struct damon_region *r;
++	int err;
++
++	ctx = damon_new_ctx();
++	if (!ctx)
++		kunit_skip(test, "ctx alloc fail");
++	t = damon_new_target();
++	if (!t) {
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "target alloc fail");
++	}
++	damon_add_target(ctx, t);
++	r = damon_new_region(0, DAMON_MIN_REGION_SZ);
++	if (!r) {
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "region alloc fail");
++	}
++	damon_add_region(r, t);
++	KUNIT_EXPECT_EQ(test, damon_set_attrs(ctx, &attrs), 0);
++
++	/* below window: age 1 = 100 ms */
++	r->age = 1;
++	KUNIT_EXPECT_FALSE(test, damos_filter_match(ctx, t, r, &filter,
++			ctx->min_region_sz, &err));
++
++	/* inside window: age 2 = 200 ms */
++	r->age = 2;
++	KUNIT_EXPECT_TRUE(test, damos_filter_match(ctx, t, r, &filter,
++			ctx->min_region_sz, &err));
++
++	/*
++	 * change aggregation interval 100 -> 200 ms:
++	 * inside window: age rescaled 2 -> 1, still 200 ms
++	 */
++	attrs.aggr_interval = 200000;
++	KUNIT_EXPECT_EQ(test, damon_set_attrs(ctx, &attrs), 0);
++	KUNIT_EXPECT_EQ(test, r->age, 1u);
++	KUNIT_EXPECT_TRUE(test, damos_filter_match(ctx, t, r, &filter,
++			ctx->min_region_sz, &err));
++
++	/* inside window: age 2 = 400 ms. */
++	r->age = 2;
++	KUNIT_EXPECT_TRUE(test, damos_filter_match(ctx, t, r, &filter,
++			ctx->min_region_sz, &err));
++
++	/*
++	 * change aggregation interval 200 -> 50 ms:
++	 * inside window: age rescaled 2 -> 8, still 400 ms.
++	 */
++	attrs.aggr_interval = 50000;
++	KUNIT_EXPECT_EQ(test, damon_set_attrs(ctx, &attrs), 0);
++	KUNIT_EXPECT_EQ(test, r->age, 8u);
++	KUNIT_EXPECT_TRUE(test, damos_filter_match(ctx, t, r, &filter,
++			ctx->min_region_sz, &err));
++
++	/* above window: age 9 = 450 ms. */
++	r->age = 9;
++	KUNIT_EXPECT_FALSE(test, damos_filter_match(ctx, t, r, &filter,
++			ctx->min_region_sz, &err));
++
++	damon_destroy_ctx(ctx);
 +}
 +
  static void damos_test_filter_out(struct kunit *test)
  {
  	struct damon_target *t;
-@@ -2593,6 +2598,7 @@ static struct kunit_case damon_test_cases[] = {
- 	KUNIT_CASE(damon_test_commit_ctx),
+@@ -2599,6 +2679,7 @@ static struct kunit_case damon_test_cases[] = {
  	KUNIT_CASE(damon_test_commit_ctx_keeps_quota),
  	KUNIT_CASE(damon_test_valid_probe_params),
-+	KUNIT_CASE(damos_test_age_ms_filter_is_core),
+ 	KUNIT_CASE(damos_test_age_ms_filter_is_core),
++	KUNIT_CASE(damos_test_age_ms_filter_interval_changes),
  	KUNIT_CASE(damos_test_filter_out),
  	KUNIT_CASE(damos_test_apply_scheme_filtered_sz),
  	KUNIT_CASE(damos_test_apply_scheme_filter_sz_unchanged),
