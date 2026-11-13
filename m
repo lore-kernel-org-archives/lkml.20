@@ -1,98 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794539991;
-	b=a/seH2x3Sdg99k82yqRpDRYwvlGRQHVoB1VRXVTj2KB3lAXdVhOjqbnk5IuL9bQL5Kwe
-	 W88vvdtJxhwt5Kk3Prlk6yWQl6KrpjrdNx7zCvZ4J7t901qkbHFHD9Xb6qaB9IthbQ2fJ
-	 lB6x5kHfwnZhiJogV6rv5Pr1lH5jpejedrVlAqgFsZiGBLQ2Umb60Se3Fez8UjXbljzSz
-	 4rToP/BZEOn88DQOd6zCav028MPdVFRxRY0Aj3n0dp6wo9jeYULKdKh3OPLKhtfyZRNNh
-	 gG69QhVW4nQWfFxzigV/gYv3vDE7jgEkPfzoKwqf53gvsknXs4vAfLUsit14QFNpyHw==
+	t=1794540067;
+	b=zgaLKS16Uln/+R+3w9ER/oJhw4QmAi6bXNpQoT0CRCfSH3zcMqnvCnXUrq7of+cyP1Dv
+	 RuTUyZaTg5mE5dMWufAi1cjKyANOAVZidCImlPAh9ly5bUagBId1kme0RiPJ40Hq+qrfs
+	 7ayEzuPo34D/oS4B7jpdV8RsAl58QBupjpOPN1HFZixkHC0aSY4kVjA3cSmd1mEUmglAt
+	 YvWnDgR9DVrYlp4EbfU8vKi3hmFT46NwN/EtKOhtSHgddiuyQWgichuCB5/OSpb8EpGQh
+	 Q/efyyv3JZB+L10wM7e8tMy8AtparX7irPgPFecF6FDfFFgJoG2rdVc2V+5zaP/y+kw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794539991;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=voIys8EwQkhUIwCPX9c3iOQmu5IoCkbo4OFDmG1MZKU=;
-	b=oyoqCJX/xobERDt0VjgCMxIUX5QBThFeFqS0F/LhCE3SLbaMvyTUyGuN9HFiY5GvwfRE
-	 fMKAdG71TDX7miAg+NzPr0r/QE7tc6muPYYr948lteexsiuAVdeQCUWL23tVUZw3hlaF0
-	 ZAGRdR0d8OiIgd5fSpfT7HYhKDqSeHzn+GGQQ/VYWKirZPISRHVlel7vr+ZoRI6FrK8Fp
-	 xyOEfk1YfUskfD7vuuSxAeoYumwGJJCcTOz/skhDknwQ6gwlhGg1nynahY8f9lNng0etO
-	 UxiKhIgoH5/2P24MzHLEnuH533otXQDA4dWQi/odMq/p7Q5gkw1hCmdKb6NADk9EQiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794540067;
+	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
+	 In-Reply-To:References:Subject:From:To:Cc:Date;
+	bh=nBJkOQ2q2zXYUFL1OoXZyx/MF8UrYnWwNyMJqNuazjo=;
+	b=JMbjqW6DCB+OTXi4xNk58VGx0yIhTuqz2f5CTLDJiS1kn4llTuqwpc6Xx43WRFpeAbEO
+	 qWkC/29R0U4ltq9xP2fzOkpQhM8OVk+X2o1WRzmWFSbvDyj14KlqlgthEJICqq840dSF4
+	 b55ukYblqlV9QPVBhc8poLSZNtlk2d2ooxg7iw06UKk4B3cEIC7nkKX6CkCZC8WoM3l2C
+	 GG09SA9ngX0AB0udK/RCqMLWq/Dfb/i+sEjrURuQNVRJPoTvaVrBiUV3txsmDoE0a6oi7
+	 ojcn55vLTwlsiUQyr9eosI9+juNX3yQQ/zY6S3kWmmSPVpG6S9sKNt9NlSyKhOGRyKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=inbDH7TG;
-	arc=none smtp.remote-ip=209.85.210.178
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CdHvpMVO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AE4F606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:19:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AE4F606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4AFC606A321;
+	Fri, 13 Nov 2026 03:21:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=inbDH7TG
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8a070781f63so184500b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 19:19:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794539991; x=1795144791; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=voIys8EwQkhUIwCPX9c3iOQmu5IoCkbo4OFDmG1MZKU=;
-        b=inbDH7TGQaS8YIhofdyopjaj2vvIPI0MTAVjELPvx6T6yv1rExDdkos8qLpXEzBV8s
-         rxjjuabXt9Yk1UQfzs/6nVzU8OqKotcTOuwtPs6quzFFqFvd3g26xehO7hCtbIFbEHvG
-         XzrnV0CaAiiDqw5y2bz09mWyTLLB4NlNw5oW3Uat+GXEqGRxgb0M2Z2FLdgXGNsKljLH
-         10Uf8DjwaXdkPK93j0BNkU2N/w3iGR3O+45l97ydQCR6qVMOqmYat9Sd6tFFdycaJT1n
-         sFDsiOm51XoRPLfzQWd5DVgadoQCH+7WGh+zac5y6UpmlEMd2ZANkGOEff2vVS9TWX0u
-         R75Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794539991; x=1795144791;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=voIys8EwQkhUIwCPX9c3iOQmu5IoCkbo4OFDmG1MZKU=;
-        b=y/DBTuiLSLMknYhRhvyRwSnXM1ARdcaMXk+t+TNwlETxtlcc2RFLbb9cajtNIgsXt3
-         GCdVLi+Ep7hBlTAuDyh3xBDmy+b97uRKTBNWCbmRugcuuxBY/zkzcHgXWVqPyhUolxae
-         pKH9PK637ykCdSA3J8kHexp2/xKpSUZf+GjRJQ0+nup7sVMbN079VI9wTXMH1PTp9nSC
-         Nwj6df7Y4FjLKRNBZJF2grdKQdNyH3fjWi1cXyACpB1S+QHsJLkyhnA5JbSzjsseMFLg
-         MZbbgRJPV6senyBViINLKqxZ9Q+4jqlkNuvbk4N0MbEgO7qKyemSXmgGQHJujSTylgS/
-         7TRg==
-X-Forwarded-Encrypted: i=1; AL+hErGust2KrZs0uGJ4d+4+5EkwCC7R/wVDnnnvDnFWz51stMtT5AjKJfOy/TiKrE3i9Z5yihPoffOWclQ7JIM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/vQBVKx+QFnqxglVdcJ7ZlYQCeR4IiPKoP6V5kTe7mvyHRm5Vs
-	I10WSKlswk5QhqCIGnFc3OtOhwteP17i9FJIod26kLx8RRLRti8/N0zh
-X-Gm-Gg: AYBFou1xwLQxAI24axirhdpPupqb6ywf4YGn3staxdW3ibF5QLpNWHwWm73aX46aX3/
-	k/JTdngNqikar+LCn9uFbQSke3CE8dGPeo+5dKrMTjYjEQ16Jw2iM/sRF+5+idSD6/4L5rl8CBe
-	zCer+5YTHB6fx7fYPSJ5CmAsak3EFbUNBzf7k7fTYXLfqdCFTgf3R/0h26tJnJUCgzUaa5sUKjo
-	fxpXVTq4zzcaggxhwDTl/RVRwH2V+ncTBy7FW8BrV9e/AkbA+iCbeZgExkTRtGiMp4DRlK1J8I2
-	uBavsgDCIvClmXnc4FdkhXO8llGK/iyCsrORJDzM2NXTH52dEyAJvR7gXzIcya92dBWi4LeArKR
-	a97WTz1IiVzeUGP9oaKq4kn3TBNFB2RFgHxRuVBCGkJfNf4gVl0Pf1cnfIvQR7IRSUDgTW1QPZT
-	cD/lJRLep53MDg8YEFnhjO10O5G9SwdWRQdqRLsljWCdGc7raCe1Zc2DJBMw3aC7FmKgwC0Z+Rg
-	0ysyfUrjl38zzM1Uh3hPUug4SJnjbQ3SW7Jtq2F8DM/kbptBup/9lTR2U076I8wZRhsXtMVWMSh
-	ivLTQROyt4kJgadMj2ccuUZHtIaAws/ez0lLQr5z8TCuAdJ1
-X-Received: by 2002:a05:6a00:1989:b0:89e:33ba:54ce with SMTP id d2e1a72fcca58-8beb753d177mr1447093b3a.46.1794539990691;
-        Thu, 12 Nov 2026 19:19:50 -0800 (PST)
-Received: from rigel (106-68-220-184.tpgi.com.au. [106.68.220.184])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed243e643sm388162b3a.42.2026.11.12.19.19.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 19:19:50 -0800 (PST)
-Date: Fri, 13 Nov 2026 11:19:43 +0800
-From: Kent Gibson <warthog618@gmail.com>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Adrian Ambrozewicz <aambrozewicz@nvidia.com>,
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3 5/5] gpio: cdev: don't overwrite the whole flags field
- when configuring lines
-Message-ID: <20261113031943.GA39484@rigel>
-References: <20261110-gpio-desc-flags-atomic-v3-0-2f463bce8086@oss.qualcomm.com>
- <20261110-gpio-desc-flags-atomic-v3-5-2f463bce8086@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CdHvpMVO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A3FB1F000C4;
+	Fri, 13 Nov 2026 03:21:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794540067;
+	bh=nBJkOQ2q2zXYUFL1OoXZyx/MF8UrYnWwNyMJqNuazjo=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=CdHvpMVOGwgKWscIuQ8A3utOk5wIvk9pNV3isIPQKIVvP7qZLeQ09PPM1jl4OCfW2
+	 GnUpjRI1szJQFZaPeZ4oPKHZjBrS9FnBX2IOPHP4Ds5ua/kdAc3nbEJBMTCESILE/6
+	 EKNPtRM+cn2/pwdfWkcTyAUB2a4PHTgFazJuX+2f+YdI+jSzMkluOoza4b7UIf2Em+
+	 6f4fUNzWKC4IjewaQSSmLyvjaZUE8eCur7GUBd/ScTZPZo40bSv/0KAbSPBoPbC/fx
+	 kVa86sjSwKHykASdtIzY1XVv4hjnOLJOg2EhiGyJfrtzJsmYEKscZY/ABX3CXLdAVt
+	 XLyxF1OnKFCYQ==
+Content-Type: multipart/mixed; boundary="===============5694792853191233504=="
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,34 +49,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110-gpio-desc-flags-atomic-v3-5-2f463bce8086@oss.qualcomm.com>
+Message-Id: <964189cada1029ecd88ceace91964d377836638fc7796c40636426b1d2ccbe00@mail.kernel.org>
+In-Reply-To: <20261113024447.922683-2-k.chen@smail.nju.edu.cn>
+References: <20261113024447.922683-2-k.chen@smail.nju.edu.cn>
+Subject: Re: [PATCH bpf v2 2/2] selftests/bpf: Test that a drained dmabuf iterator keeps returning NULL
+From: bot+bpf-ci@kernel.org
+To: k.chen@smail.nju.edu.cn,yonghong.song@linux.dev,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
+Cc: bpf@vger.kernel.org,linux-kernel@vger.kernel.org,tjmercier@google.com,sumit.semwal@linaro.org,christian.koenig@amd.com,phasta@kernel.org,linux-media@vger.kernel.org,dri-devel@lists.freedesktop.org,linaro-mm-sig@lists.linaro.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Fri, 13 Nov 2026 03:21:05 +0000 (UTC)
 
-On Tue, Nov 10, 2026 at 02:47:05PM +0100, Bartosz Golaszewski wrote:
-> linehandle_flags_to_desc_flags() and
-> gpio_v2_line_config_flags_to_desc_flags() read the flags word with
-> READ_ONCE(), modify the local copy and write it back with WRITE_ONCE().
-> 
-> The per-request config_mutex does not exclude sysfs, the irq core or
-> drivers touching the same descriptor, so bits they set or clear
-> concurrently can be lost.
-> 
-> Build the mask of bits owned by the line configuration and their new
-> values locally and apply them with gpiod_update_flags(). The whole
-> group changes in a single atomic step.
-> 
-> While at it: rename the functions whose semantics changed from
-> "conversion" to "flags update" accordingly.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: b7adfb6076ff ("gpio: cdev: update flags at once when reconfiguring from user-space")
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> ---
+--===============5694792853191233504==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Reviewed-by: Kent Gibson <warthog618@gmail.com>
+> selftests/bpf: Test that a drained dmabuf iterator keeps returning NULL
 
-for the series.
+TL;DR: Commit message only: the test is credited to T.J. Mercier, but no
+From:, Co-developed-by: or Signed-off-by: names him; the review asks whether
+those tags should be added.
 
-Cheers,
-Kent.
+>     selftests/bpf: Test that a drained dmabuf iterator keeps returning NULL
+>
+>     The BPF iterator docs in bpf_iterators.rst specify that the next
+>     function of an open-coded iterator should keep returning NULL after it
+>     has been returned once.
+>     Add a subtest that checks this for the dmabuf iterator.  It drains an
+>     iterator, calls bpf_iter_dmabuf_next() once more and checks that the
+>     result is NULL.  The dma-bufs the test creates keep the list from being
+>     empty, so an iterator that starts over would return one of them.
+>     The existing open_coded subtest uses bpf_for_each(), which stops at the
+>     first NULL and never calls next() on a drained iterator.
+>     The selftest was originally posted by T.J. Mercier in the v1 thread:
+>     Link: https://lore.kernel.org/bpf/CABdmKX09vLG4U-7FwF-vm_iTy1AjGUPXka08KhWE+qJ0J=XGMA@mail.gmail.com/
+>     Signed-off-by: Kang Chen <k.chen@smail.nju.edu.cn>
+
+The changelog says the selftest was originally posted by T.J. Mercier, but
+the only trailer is the submitter's Signed-off-by.  Nothing names the
+original author: there is no From:, no Co-developed-by: with a matching
+Signed-off-by:, and no Suggested-by:.
+
+Documentation/process/submitting-patches.rst says Co-developed-by: is used
+to give attribution to co-authors, and that every Co-developed-by: must be
+immediately followed by a Signed-off-by: of the associated co-author.
+
+Should this carry Co-developed-by: and Signed-off-by: tags from T.J.
+Mercier (or have him as the From: author), depending on what he agreed to
+in the v1 thread?
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/43356758506
+--===============5694792853191233504==--
