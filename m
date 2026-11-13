@@ -1,74 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.136.161.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794588929;
-	b=wh2EdPMI4VLjQP2x+aFf6s4niquMeebOKEltehuX96LeroX5r1vDUMSGep41alybLSzt
-	 OnBHdpixSI+pYC0VbvA7kRCmuvpOG9e3/TK0unCSs++QY2tzRFJwjDwiQ0Nm72kxU2y1p
-	 17mepLPTK0Nt3umGIqYLylLnGrVu7/PprnoD2aEK3gx0NoHotszPGT07zRo5SNwZCotbk
-	 2T5ThwHMzVDwNFY8V1FAGC8oHAcELOeeS5tcgFJYpCioVaHyPPrsNadPov8fu7elcRhpf
-	 fyOm/tEVOj6o25IUdMHxLG22mBz5xRU09C7etlVLPzWBiAp0iCq18RYTsGvBypaCZ6w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794588929;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=71rB/jeQ4Dqg3UoF5AV9mpnYgAhLE4wiM6MLTcN/nLo=;
-	b=Az5q5b0knF3tAtpbDyos1BfxaqdGzaKzntC3jlEVRIVw57CsZe95N2SifAhVKc0PpY5v
-	 yFwhrJGS2PiWHPAVGNeOMSCejvXE0+iUtG+umRaZL3M1Pmc6Qe6/BF0YYMRgZgc4ydkm9
-	 Q58Hj4LaZKdmHjKoqkuYk+X5m5WTf6zR+W8da1k9OsSaOAQpuo7rvjcrSmMKuZFa33CWf
-	 rLMiw6HSEoy5QWN7X96JwA6/O73mtRstuqnvs3CEKtc/BuZy7is6UUVSMqt6VibQf3lEj
-	 1NzlOuyjIEuppBiAxTq5KG6zi14NaPtGJwPa1qIYKMfw/JxauUhCM7YMgOgdupxO31A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.unibo.it;
-	spf=pass smtp.mailfrom=cs.unibo.it;
-	dkim=pass header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=rw5OK60f;
-	arc=none smtp.remote-ip=130.136.161.50
-Received: from mail.virtlab.unibo.it (mail.virtlab.unibo.it [130.136.161.50])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 65FBD606A89A;
-	Fri, 13 Nov 2026 16:55:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65FBD606A89A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cs.unibo.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unibo.it
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.68
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794588945;
+	b=Ffgtwq4H2bY/WxzAmOsthronkVBtn0rG5XAH3VCCoUm1V4RNoiS5Xik4tZ77ca9QcwER
+	 h5oKPpsmdxgASBkkRL27R/Ao9KGo/cKhBTxIt10eRS84idbuheIMftwalq9BeAFvLNCCy
+	 bF+rhExhvX46dbrhr2OcQAJ0F2KFfW+8gyv2Qmbotz8IQsEC2OTdrTie0kFLmSuZexXNp
+	 WihpW/3qQfEqj+WYaT6g8SAi92FPdRwwktAsSx7VKoEAmgnsrPbtaVigTdAdia5WBzDGr
+	 XtyJCo26wuFI7fWdwh1kpPJNHZ4VuEXpJ+jpoJotyLs3oNQntphXcp1kIH61+AUn6FA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794588945;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=JWBil+fWcdvuTyW2MhTfWQR4I93IYTQnS43aQSZakwI=;
+	b=5DHCjTbR2bl0RYDsbhxRmV9OkKX4BuaPkbnis0b/kAv2R/++zvfyAG7lXJB0mgz65jAp
+	 fRWFSIolw46MDp943vi49Fmrfz/BK342wHzYuSYeMb4qBIEeVaRqy0wO7nVQhI/a8UubK
+	 cJwZoyFflp35I1Tbf7ks4ND3UauLT6gHuhQngQgmsFmlD43ZeFmxs0T0sxBy8WCgCgHGY
+	 t05AFY3bJmqKgXOJdioMF8NXDl+/ArIHfZxiJvLz+VFAjVeaxhShmJ+gmkKRSGWZ7xnJ+
+	 dEIbMNDg2GHAKzFbBcaI4TLy463IONGFiCLSFkBpNceSpnMqrpwoqKpTSLe1HMX12OQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=T2zxH0rX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.68
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013068.outbound.protection.outlook.com [52.101.83.68])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2D46606A333;
+	Fri, 13 Nov 2026 16:55:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2D46606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=rw5OK60f
-Received: from eipi10.cs.unibo.it (host0.studiodavoli.it [109.234.61.1])
-	by mail.virtlab.unibo.it (Postfix) with ESMTPA id AB6401C025B;
-	Fri, 13 Nov 2026 17:55:20 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=cs.unibo.it;
-	s=virtlab; t=1794588921;
-	bh=SChBcdrJlogBMXg3d4rRZsXyKf0PIZtbwEr5Ng5xtEU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=rw5OK60fhD5pJRyqzG3XRwUi1bFm9DE7Oy9RcM6h5Yx/92yBYXcnxd7SHV/uIah48
-	 Wj88gHdjDeJeO8ZOV3+AzLfV6pr4amr8GDzY10IvJT3ZzXtJoAaVxo42CxDwXYotFU
-	 Wz3lFtLSBIKOIoUJ/f0VjXOElGReMT0s78kwTiSY=
-From: Renzo Davoli <renzo@cs.unibo.it>
-To: linux-kernel@vger.kernel.org
-Cc: Davide Berardi <berardi.dav@gmail.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	=?UTF-8?q?Michal=20Such=C3=A1nek?= <msuchanek@suse.de>,
-	Kees Cook <kees@kernel.org>,
-	Andy Lutomirski <luto@amacapital.net>,
-	Will Drewry <wad@chromium.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Shuah Khan <shuah@kernel.org>,
-	"Dmitry V . Levin" <ldv@strace.io>,
-	Alexey Gladkov <legion@kernel.org>,
-	Eugene Syromyatnikov <evgsyr@gmail.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-s390@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	strace-devel@lists.strace.io,
-	Renzo Davoli <renzo@cs.unibo.it>
-Subject: [PATCH v10 1/3] seccomp: let the tracer skip a syscall independently of its number
-Date: Fri, 13 Nov 2026 17:55:03 +0100
-Message-ID: <20261113165509.229869-2-renzo@cs.unibo.it>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261113165509.229869-1-renzo@cs.unibo.it>
-References: <20261113165509.229869-1-renzo@cs.unibo.it>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=T2zxH0rX
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Y62KbfBVuUZtHkJntfGGmrlTNX48K4+wC7sU5w1jLuzDUejAtr0Z1iyOaciS6sTUZg6XVpBGaxpNRXT7K4C0DROmvD+cusrVDCmEpEWrlYYOG24eU4uuX2mr58q0MW1MQoDeJfzshT2T/uCYxKHbsg+nuj8FSrdmcKQglvcO0PhICf72Zm+9dyGhFRIz3F2mWhvVIICrbPeGDrqdJawV0vQ6PobfYpltf4rmysmrwjrH+Jg+htj67wTuSXWpiaZzWy8RnBM+i93HoAzNtEXbSUB48kIuZC9NEgZZBYYGOyLnAgYv3MAGHkn+hVxYrj+KZd0cT72qASVZDDzK1mUKWA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JWBil+fWcdvuTyW2MhTfWQR4I93IYTQnS43aQSZakwI=;
+ b=pekNRsT6ydOApclsszupc+4jY7MU2138CoD2tO+37QOBP5cCWcJ0h5z5mX91xQ8vfu1anTl8tkqc7/0o8Hgc4PEQgsbvuzEOEPElKQt+xaByGxeDxLY7sc/7Io644PjWhPytNkFuAa9wk40zEZAZVQhvrmXddUYGJi5qM8t2rMjayE94kvvTyE5Z6dyeFSliwfRQYeMDQNgiu5WtYc003rQh+8qN/7apWW/7QMeffEv4VUJiUkXLvySk07+80E0NuLek1pi4FeFuA8qpjcRVzPD1/kmeLauHMptw6l34P8GnIOCyI30e+2ARLzX2q13GtFg7XPE1AJrlRFxiPxTSoQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JWBil+fWcdvuTyW2MhTfWQR4I93IYTQnS43aQSZakwI=;
+ b=T2zxH0rX+IPIgkQC6Ygih7jgJ/WvW4udyuyPq/004r2iP8oCuZSCcjxr5wDn+50FvOJE2mqa6ZMQzoWOBKaN1OUDUvSamWJEUeEtNtW8Bvohod5zJilGPIECRnaKIMTvIUF3t9yQM8gahnyTDXnQTYAWtI2En9sEoeX16lVmGfVe2gyIJ5PUeGA39Ph3laaPEE7pOstiqiN+sRqHxoGbP/Vrt0upH98adB/cQt9qudNDHyBmz7e8Wh4692K53yUWqqw1m1eWZT1DU8lA8/NEkmO1b+BbVIa/U++8eYS8HA23dUzlYpiYYyELC2FKFhTgWfLPOWuORFEYsZ66Y/IN3Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by DU4PR04MB11816.eurprd04.prod.outlook.com (2603:10a6:10:626::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Fri, 13 Nov
+ 2026 16:55:41 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.009; Fri, 13 Nov 2026
+ 16:55:41 +0000
+Date: Fri, 13 Nov 2026 11:55:33 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Nathan Lynch <nathan.lynch@amd.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	David Rientjes <rientjes@google.com>, John.Kariuki@amd.com,
+	Jonathan Cameron <jic23@kernel.org>,
+	Kinsey Ho <kinseyho@google.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	PradeepVineshReddy.Kodamati@amd.com,
+	Shivank Garg <shivankg@amd.com>,
+	Stephen Bates <Stephen.Bates@amd.com>,
+	Tycho Andersen <tycho@kernel.org>, Wei Huang <wei.huang2@amd.com>,
+	Wei Xu <weixugc@google.com>, dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
+Subject: Re: [PATCH v4 15/25] dmaengine: sdxi: Per-context access key (AKey)
+ table entry allocator
+Message-ID: <avdBBeK30h1caE-L@lizhi-Precision-Tower-5810>
+References: <20261103-sdxi-base-v4-0-3668ccc7aab8@amd.com>
+ <20261103-sdxi-base-v4-15-3668ccc7aab8@amd.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103-sdxi-base-v4-15-3668ccc7aab8@amd.com>
+X-ClientProxiedBy: DS7P221CA0042.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:8:25e::18) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,149 +107,166 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DU4PR04MB11816:EE_
+X-MS-Office365-Filtering-Correlation-Id: 220a77f7-0d05-4bf0-38c1-08df41a6f370
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|376014|7416014|1800799024|19092799006|22082099003|18002099003|4143699003|56012099006|261009223027099003|261022105027099003|261021121427099003|261026140227099003|261102123227099003|261028144727099003|11063799006|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	27AmWR/43n6LsPABuISJD6fCftNCWWH9OqZj2Tc2F/AhWalFGIP0oL56vO6mJV0brHn1yzKjI+9i1dIJ2xrY7nN0/BUHICSKC5Xprn7D6/6Dj3Lxtx1DuP7JtxazM9cGx3TkVnJsSS2nTD/DVVdvPNBP1Lr1WbFK6X5FkZmVXCWdCpNTu1SEGGJDo8c4+cEBXdddelbYX7plFHhXRNM/KLhsHdn4CBuevgqCsRjp6QkQoFgDUM2QZ5CiWqrkcptiQ2Ou5afeIpo4rZHQ/K0kVqY5h6+2M1EdSZTbpZt827W8bzOIK3FrqLK5/i+BSJ61AYBnOmO61FrDDG4MvVJz5NJojzMcGRSeCdfi/RfcNe0fvx6yjZJDjfDwS3zj62cvzxj/psiwMJBN1yx/sJo3lA9MlzXdCqAYXR8gItnN1YEfgyrtzzcFaTbFzcF02YO4Sn9BH/sxvkAm3KaMYqansoJRqKVawjz47Z66X+8Rd5nTZkh0oKCElCm6jkX3EzZ6XZsGgmsuwMBYIhcZytjhzpp5K0NmLRrHD368vOjezNnz6F8L4pG7TgQ0txmckkK8PjexctKt0WtDErxjFJMSAAwzdYC3iqWvKKCD2yBOUWDiK7luzPRij1xHzcUJ/WW0UeOlQeHJLavKULDiX+EJNb+jWkdyvwrdAx9j8QLhh7I=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(19092799006)(22082099003)(18002099003)(4143699003)(56012099006)(261009223027099003)(261022105027099003)(261021121427099003)(261026140227099003)(261102123227099003)(261028144727099003)(11063799006)(6133799003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?wdJiBsbLewE4ZahFDByw124OZDVlOJ/Z0ydP8Puoq2lbPysCkE6IiiRJDXpR?=
+ =?us-ascii?Q?1jOQcwgJ18exqJS+QXyP5GeEBFX4YF02+GU2mylj0X00vQhRtmoLzf3PTBSY?=
+ =?us-ascii?Q?UcYfsqDTDLTxu+qM9JkCmsNSjFHz79DC+RjJkjf7xNmQ7su9r/7t5+lpfa/O?=
+ =?us-ascii?Q?4MWwpNoycTClOnXwDO3GKg67WU/3XVciqJImXPAu8/W3D16NSeHaKMR+88ok?=
+ =?us-ascii?Q?1/6tCguesNIX3wh4wcGcsCsEHtCyeodrO6iq5n3vfpgWI6aMi9AwNoWRfSLp?=
+ =?us-ascii?Q?GtTe1ULaZa1mMjr9xHX8NSmrRP7t2dB2mG2KKpRZzzLsTmQrFvsqp5SfRzzk?=
+ =?us-ascii?Q?nO2OS3xCg/uh1B38DnYXiudQ/2qDcE8WUKENWHRrgVZ7QfTppNOI+rntfMhK?=
+ =?us-ascii?Q?fyjmQ8LqTnJph7JzsL/2uMZJSCqYCTGjz4oLPkoqaQ40x6ona0RLqKXMgnf0?=
+ =?us-ascii?Q?X9Fge6PcCUq8dt9mw8/PC2PgyLJeH/hPZ/CmHsnSK+hKx5sJgGcDZDB0pnGr?=
+ =?us-ascii?Q?LUlVX2EYd2EmUheeLt7eViQrhKH/3NgxKQSEi0PvriAyzdF8jW/D6WDKtSL6?=
+ =?us-ascii?Q?TaUArH5oOCGPPQPRZC2Q/FxSKM30horFuQZmFWR20BBqoTUiG5fthLrTQ+Ib?=
+ =?us-ascii?Q?4RyLE3tKhVCEGSLhlUk95EFOVSRZ2VMm+HrNZV8t6vB5SymYgnc3xnpWlRZk?=
+ =?us-ascii?Q?Jz/EQuGqoNA2QX2aduxdmkKVYQvurfhkf1GsVgh9nBKkYGu8ZZykQfpIbvbC?=
+ =?us-ascii?Q?iErHMCfJcFaXjzRK7rjYjUcazNB2UD7dNWIL4dHWjEgN0cdUPfn784+YWHtQ?=
+ =?us-ascii?Q?Rqe+0c062Tm42eGIHi81yjBuYdZelsY/OyFMQ/qUrRBphcTzDrdwvFrgwDyE?=
+ =?us-ascii?Q?tVSR7MQQdN9Ks/iuGBXkCKkXTAzs2/Lp8YB8888eMimJ+5tRyXVPsVqF4Gv8?=
+ =?us-ascii?Q?+YmmSqQJG+fz+itTOM1n18JPZ3MrZ2H3fg8ilg5Co4Eh3aSZLFRAN6iUpFvH?=
+ =?us-ascii?Q?2ykP54MmbtM9A+/n1M5Q25KzX3bTvpwCuw56SDPdo8S8wjyFKAyc7zBU04Lb?=
+ =?us-ascii?Q?Wc8dSB4RDDzuyE/ZRuT1nX1K+Gn/pdC9QBjn3TsbpJVuhESPjfXS9Q69Z/52?=
+ =?us-ascii?Q?4sNp/+aO5kdX8uR88Kvh78xXuyM9n4qqzwJAqgsW3zoPYkdssO/fsUegoHlf?=
+ =?us-ascii?Q?oZ5vVOtDFVQbDzQKrHxbfuQqwDJS94/iPH8d/eJrs65eGDJVTi1AqqY+ylWJ?=
+ =?us-ascii?Q?jXkpyUiEmcw7FI93yPjcmXZA4Uau1lUA6++NT18z926scL9Vu1BY5Dp7QZdk?=
+ =?us-ascii?Q?7G2r5Tr54r/AavPXew2BUDFsp4onBoOV9pZ+sEULnx2ZmtnHDMYnBpbzT7t9?=
+ =?us-ascii?Q?MamI3BXNQVF/UYq5a60PjPAw5NOnojTmWBaTHvX/fsQHRZtH/SYOSoJpJaea?=
+ =?us-ascii?Q?Gj7WzPh7OxaKnZMGXJDB5Ymc9rU1xC+IARo7+1NV1flGosTjcSbZMhP7d2jt?=
+ =?us-ascii?Q?Ub7U0SSRcLLWbviDHmMZuWnLbJuxP4iXOabpvekeEM7UgEMjyt2tSRQuxWFH?=
+ =?us-ascii?Q?/SvcrCobukAernwBUuFbR1FQOgxgL/Iej7x0V3FFhQqWwmzEXJIStBTR7xJf?=
+ =?us-ascii?Q?yC057xe1EzS6T25q/yjN99Otx6l3oLxs4UKXtNnF5ewMTGL1hYFbp35TjyHU?=
+ =?us-ascii?Q?UWPS682JKNsbHtMUjjZyUSG2twy8x812QfeeO3nPSUOpf//ZpTMBl6+2QGFY?=
+ =?us-ascii?Q?+ZgsQCwEu2vJMyNGdBi6HQF1YhXoPQp30/t4mOMV066/XXCWVXl9?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 220a77f7-0d05-4bf0-38c1-08df41a6f370
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 16:55:41.5170
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wnnEqOO4cVRMBH0+8hzc2C/5nkHeDEJH5y9UPUSsXveKPq0ZORIUEAsOPI2HXVcyCqOavN+hJQufCt967I3VOTykTeK6dJIFgTMqpE1sZjF+QsgZO4KY2FYXcopz6KHi
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB11816
 
-From: Davide Berardi <berardi.dav@gmail.com>
+On Tue, Nov 03, 2026 at 08:49:56PM -0600, Nathan Lynch wrote:
+> Each SDXI context has a table of access keys (AKeys). SDXI descriptors
+> submitted to a context may refer to an AKey associated with that
+> context by its index in the table. AKeys describe properties of the
+> access that the descriptor is to perform, such as PASID or a target
+> SDXI function, or an interrupt to trigger.
+>
+> Use a per-context IDA to keep track of used entries in the table.
+> Provide sdxi_alloc_akey(), which claims an AKey table entry for the
+> caller to program directly; sdxi_akey_index(), which returns the
+> entry's index for programming into descriptors the caller intends to
+> submit; and sdxi_free_akey(), which clears the entry and makes it
+> available again.
+>
+> The DMAengine provider uses one AKey for copy-buffer access and completion
+> interrupts.
+>
+> Co-developed-by: Wei Huang <wei.huang2@amd.com>
+> Signed-off-by: Wei Huang <wei.huang2@amd.com>
+> Signed-off-by: Nathan Lynch <nathan.lynch@amd.com>
+> ---
 
-At a PTRACE_EVENT_SECCOMP stop the tracer can only skip the system call
-by setting its number to -1, which seccomp reads back with
-syscall_get_nr().  This depends on how each architecture lays out the
-syscall number and the return value in the registers:
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
- - on some architectures the syscall number shares a register with the
-   return value (e.g. v0 on MIPS), so setting the return value after the
-   number would overwrite the skip request, and each of them needs its
-   own way to keep it (MIPS keeps a copy of the number in thread_info);
-
- - on s390 syscall_get_nr() returns the low 16 bits of int_code, so -1
-   is read back as 65535: seccomp does not skip the call but runs the
-   filters again on syscall 65535, which kills the task if the filter
-   denies unknown syscalls.
-
-Add a per-task flag which the tracer sets with
-seccomp_ptrace_skip_syscall() while the tracee is stopped at the
-PTRACE_EVENT_SECCOMP stop, after it has set the return value.  When the
-tracee resumes, seccomp skips the system call like for
-SECCOMP_RET_ERRNO, which every architecture already handles without
-touching the return value.
-
-The flag is cleared by the tracee before the stop and written by the
-tracer only while the tracee is stopped, so it needs no locking: the
-wake-up of the tracee orders it like the registers written by the
-tracer.
-
-The next patch uses this in PTRACE_SET_SYSCALL_INFO.
-
-Suggested-by: Michal Suchánek <msuchanek@suse.de>
-Assisted-by: claude-opus-5-5
-Signed-off-by: Renzo Davoli <renzo@cs.unibo.it>
----
- include/linux/seccomp.h       | 33 +++++++++++++++++++++++++++++++++
- include/linux/seccomp_types.h |  4 ++++
- kernel/seccomp.c              | 11 ++++++++++-
- 3 files changed, 47 insertions(+), 1 deletion(-)
-
-diff --git a/include/linux/seccomp.h b/include/linux/seccomp.h
-index 3b6cc376fff5..0dd0a6960e96 100644
---- a/include/linux/seccomp.h
-+++ b/include/linux/seccomp.h
-@@ -76,6 +76,32 @@ static inline int seccomp_mode(struct seccomp *s)
- #ifdef CONFIG_SECCOMP_FILTER
- extern void seccomp_filter_release(struct task_struct *tsk);
- extern void get_seccomp_filter(struct task_struct *tsk);
-+
-+/**
-+ * seccomp_ptrace_skip_syscall - make a tracee skip the current system call
-+ * @tsk: tracee stopped at a PTRACE_EVENT_SECCOMP stop
-+ *
-+ * Must only be called by the tracer of @tsk while @tsk is stopped at a
-+ * PTRACE_EVENT_SECCOMP stop, after it has set the return value of the system
-+ * call.  When the tracee resumes, the system call is skipped and the return
-+ * value is left untouched, like with SECCOMP_RET_ERRNO.
-+ */
-+static inline void seccomp_ptrace_skip_syscall(struct task_struct *tsk)
-+{
-+	tsk->seccomp.ptrace_skip = true;
-+}
-+
-+/**
-+ * seccomp_ptrace_syscall_skipped - check for seccomp_ptrace_skip_syscall()
-+ * @tsk: tracee stopped at a PTRACE_EVENT_SECCOMP stop
-+ *
-+ * Return: true if the tracer requested to skip the system call during the
-+ * current PTRACE_EVENT_SECCOMP stop of @tsk.
-+ */
-+static inline bool seccomp_ptrace_syscall_skipped(struct task_struct *tsk)
-+{
-+	return tsk->seccomp.ptrace_skip;
-+}
- #else  /* CONFIG_SECCOMP_FILTER */
- static inline void seccomp_filter_release(struct task_struct *tsk)
- {
-@@ -85,6 +111,13 @@ static inline void get_seccomp_filter(struct task_struct *tsk)
- {
- 	return;
- }
-+static inline void seccomp_ptrace_skip_syscall(struct task_struct *tsk)
-+{
-+}
-+static inline bool seccomp_ptrace_syscall_skipped(struct task_struct *tsk)
-+{
-+	return false;
-+}
- #endif /* CONFIG_SECCOMP_FILTER */
- 
- #if defined(CONFIG_SECCOMP_FILTER) && defined(CONFIG_CHECKPOINT_RESTORE)
-diff --git a/include/linux/seccomp_types.h b/include/linux/seccomp_types.h
-index cf0a0355024f..4bdb8424055b 100644
---- a/include/linux/seccomp_types.h
-+++ b/include/linux/seccomp_types.h
-@@ -18,11 +18,15 @@ struct seccomp_filter;
-  *
-  *          @filter must only be accessed from the context of current as there
-  *          is no read locking.
-+ * @ptrace_skip: set by the tracer while the task is stopped at a
-+ *               PTRACE_EVENT_SECCOMP stop to request that the system call is
-+ *               skipped, after it has set the return value.
-  */
- struct seccomp {
- 	int mode;
- 	atomic_t filter_count;
- 	struct seccomp_filter *filter;
-+	bool ptrace_skip;
- };
- 
- #else
-diff --git a/kernel/seccomp.c b/kernel/seccomp.c
-index 3eecba5ccdef..31a7772ebb7d 100644
---- a/kernel/seccomp.c
-+++ b/kernel/seccomp.c
-@@ -1314,6 +1314,7 @@ static bool __seccomp_filter(int this_syscall, const bool recheck_after_trace)
- 		}
- 
- 		/* Allow the BPF to provide the event message */
-+		current->seccomp.ptrace_skip = false;
- 		ptrace_event(PTRACE_EVENT_SECCOMP, data);
- 		/*
- 		 * The delivery of a fatal signal during event
-@@ -1327,7 +1328,15 @@ static bool __seccomp_filter(int this_syscall, const bool recheck_after_trace)
- 		 */
- 		if (fatal_signal_pending(current))
- 			goto skip;
--		/* Check if the tracer forced the syscall to be skipped. */
-+		/*
-+		 * Check if the tracer forced the syscall to be skipped, either
-+		 * with seccomp_ptrace_skip_syscall(), which does not depend on
-+		 * how the architecture encodes the syscall number and the
-+		 * return value in the registers, or by setting the syscall
-+		 * number to -1.
-+		 */
-+		if (current->seccomp.ptrace_skip)
-+			goto skip;
- 		this_syscall = syscall_get_nr(current, current_pt_regs());
- 		if (this_syscall < 0)
- 			goto skip;
--- 
-2.55.0
-
+>  drivers/dma/sdxi/context.c |  3 +++
+>  drivers/dma/sdxi/context.h | 24 ++++++++++++++++++++++++
+>  2 files changed, 27 insertions(+)
+>
+> diff --git a/drivers/dma/sdxi/context.c b/drivers/dma/sdxi/context.c
+> index b26eec3805fb..956bb06f9499 100644
+> --- a/drivers/dma/sdxi/context.c
+> +++ b/drivers/dma/sdxi/context.c
+> @@ -15,6 +15,7 @@
+>  #include <linux/dma-mapping.h>
+>  #include <linux/dmapool.h>
+>  #include <linux/errno.h>
+> +#include <linux/idr.h>
+>  #include <linux/iommu.h>
+>  #include <linux/slab.h>
+>  #include <linux/types.h>
+> @@ -57,6 +58,7 @@ static void sdxi_free_cxt(struct sdxi_cxt *cxt)
+>  				  cxt->akey_table, cxt->akey_table_dma);
+>  	if (cxt->sq)
+>  		sdxi_sq_free(sdxi, cxt->sq);
+> +	ida_destroy(&cxt->akey_ida);
+>  	kfree(cxt->ring_state);
+>  	kfree(cxt);
+>  }
+> @@ -73,6 +75,7 @@ static struct sdxi_cxt *sdxi_alloc_cxt(struct sdxi_dev *sdxi)
+>  		return NULL;
+>
+>  	cxt->sdxi = sdxi;
+> +	ida_init(&cxt->akey_ida);
+>
+>  	cxt->ring_state = kzalloc_obj(*cxt->ring_state, GFP_KERNEL);
+>  	if (!cxt->ring_state)
+> diff --git a/drivers/dma/sdxi/context.h b/drivers/dma/sdxi/context.h
+> index 14ce4f5f9b74..cad5a153ec22 100644
+> --- a/drivers/dma/sdxi/context.h
+> +++ b/drivers/dma/sdxi/context.h
+> @@ -6,7 +6,10 @@
+>  #ifndef DMA_SDXI_CONTEXT_H
+>  #define DMA_SDXI_CONTEXT_H
+>
+> +#include <linux/array_size.h>
+>  #include <linux/dma-mapping.h>
+> +#include <linux/idr.h>
+> +#include <linux/string.h>
+>  #include <linux/types.h>
+>
+>  #include "hw.h"
+> @@ -32,6 +35,7 @@ struct sdxi_cxt {
+>  	struct sdxi_cxt_ctl *cxt_ctl;
+>  	dma_addr_t cxt_ctl_dma;
+>
+> +	struct ida akey_ida;
+>  	struct sdxi_akey_table *akey_table;
+>  	dma_addr_t akey_table_dma;
+>
+> @@ -54,4 +58,24 @@ static inline bool sdxi_cxt_is_admin(const struct sdxi_cxt *cxt)
+>  	return cxt == to_admin_cxt(cxt);
+>  }
+>
+> +static inline struct sdxi_akey_ent *sdxi_alloc_akey(struct sdxi_cxt *cxt)
+> +{
+> +	unsigned int max = ARRAY_SIZE(cxt->akey_table->entry) - 1;
+> +	int idx = ida_alloc_max(&cxt->akey_ida, max, GFP_KERNEL);
+> +
+> +	return idx < 0 ? NULL : &cxt->akey_table->entry[idx];
+> +}
+> +
+> +static inline unsigned int sdxi_akey_index(const struct sdxi_cxt *cxt,
+> +					   const struct sdxi_akey_ent *akey)
+> +{
+> +	return akey - &cxt->akey_table->entry[0];
+> +}
+> +
+> +static inline void sdxi_free_akey(struct sdxi_cxt *cxt, struct sdxi_akey_ent *akey)
+> +{
+> +	memset(akey, 0, sizeof(*akey));
+> +	ida_free(&cxt->akey_ida, sdxi_akey_index(cxt, akey));
+> +}
+> +
+>  #endif /* DMA_SDXI_CONTEXT_H */
+>
+> --
+> 2.56.0
+>
