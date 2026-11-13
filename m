@@ -1,77 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794602588;
-	b=301FbrBK0u9vVzHxBxN6mpw9+TCHb9aK6aKKSXIjcy0PTD+wfK47r5OgW8VC0MPLE4Cz
-	 yVKGtpUstVxTBISlNsxbRFfEJBCVx4mq6FdRd3/8oE+BFH0ijqSPen9wdiLGJj2/JXSzJ
-	 0SzJWupiIwLV8RWATceIF6toGmeQnJ50SGaEc2ZQd+zBQ4eBcNO9SXrPKSrccXVXRAP8Q
-	 JlvPriYK1ti5q+z1S5wfnjaJ1JZFLwYkIpWgLaeOFhpOzt7k+svucJs0jkHWl81WLDbGf
-	 uRzXAJz8u57RL+fWFetpGzJkT0cl+JhAuFwidKF0Twzfn47lxZ0pAkTCGEy+5P8eSow==
+	t=1794602653;
+	b=fIKENJeFwv/XfSjkqMd/gzM1io5hEaKat1X8iiMR32ArUiw7pxxF3nMxDoBfVq2Ht6OG
+	 6xKUAAiZmW3LI3102APg6Wx+fWoVo0gkHXGEz3bAjm9BHoyC6MtMRFIQ3p+O8K77CFPs2
+	 UI4Y9sSi4qiUG3rCI4Fp3FQzcBtQRisB3gxkPP/nD4JeX/2Tu899Bl6aQKxSO/OpsvjFW
+	 dUsJ6CyfMD7tH/AxiuBNa1wqZrCZ356Muk8rcPulH6Liq0fj1eY323mTsCCY0v1v0YYvs
+	 0jP98o003lHV4YF9JPwCUfFfWfZE3oUA1eR0vIgAOPKHu9c1T+o6D99hFtr7REu2JBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794602588;
-	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
-	 X-UI-Sender-Class:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:
-	 UI-OutboundReport;
-	bh=TanOtqqbIG2hjOzbHVB+6cLC1rC3H/7pAKOSHH915KE=;
-	b=knr6w//1Rve5T6Hui2nMW/XCjahHAPjMQJug4BfD00L+QCE5Gahpozy3N8rj+WlNcOL0
-	 5jqaS3H/BeooYCwBXCE7CgXGyWKcxo3BRbuy3lNraYaamhjNVHvXUcaawGM6tSVQr5vyh
-	 LzlXzNR7+EZBfvRj98MZ26M1WwJ3F9mfPQePa5HLMLziYHu5Wc9UxDHpywQ6EL1PaDT2x
-	 HN0JFe7GlfCeCyQKoCU6jSdbT3iQD0GndJyubB2BdYg4CB1Mjowp1ojQSe5+yo2Ne/hOA
-	 TnM8wx6R9RwbZQ5waT//JLRayWIWVknIFIJYeEUg2nVwlfTXCI9yORkQSi5w/Y/QxPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794602653;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=NhL/M8HEMn0PgEwzPCvcTjQTkSJqxruxvyvf5fU6t/s=;
+	b=GrnlsOScfqfbP+fB72rIXIjGf0zQ0XzQxfANLvkbEqHdkLDseL2hi0nRdl9phPZVxROv
+	 jcq5yO0eDYko4ANYFXA/UjEqy9KPd49KK3z0MFjpzKjTMkmBaD5F9oAdsrZBpBphE4tjN
+	 s5Gd634EN2T8k9RXMJU+p4oO8itQVK2+hK4h+8OZvrYn1n8vaFVl2ZiWN5s8dFwsnin4F
+	 K7ZTOkLQn+2Zm8Yh31rKPITMvJmQDRfJ+Y8gW6LlophFNo6UXYWJL17Bp3S5+GJilVOqm
+	 1YRy99UfnAUFPQiAE3M5dLtxON+f1II3JiiLGA8Y3PWxSOnY9G/gbEWwrQS2ORp8CpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmx.de;
-	spf=pass smtp.mailfrom=gmx.de;
-	dkim=pass header.d=gmx.de header.i=w_armin@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=q52O5wSQ;
-	arc=none smtp.remote-ip=212.227.17.20
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=RBpqL0ec;
+	arc=none smtp.remote-ip=209.85.219.49
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2529606A334
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:43:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2529606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B680606A327
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:44:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B680606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=w_armin@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=q52O5wSQ
-DKIM2-Signature:  i=1; m=1; t=1794602585;
- mf=PFdfQXJtaW5AZ214LmRlPg==;
- rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
- d=gmx.de;
- s=s31663417:rsa-sha256:cWBhYcgfUt2LcKM3ALFCAVgCjB9d
-   L5nWBEUzbIqin1EzkjLRNrQEVMWAsMpfegMeZwNsXlzhiYzVhVNKJLio6CIq1HD8zI1UhliqvJ7
-   AnqOY0Q20YIfFeb6HxKsDQRJRq4bBh1eD9Z5JE6bikni6ftx+xSewqBuXI72fmXStq6j82fPtKa
-   Wlox7ic8iXmdW6NNDFNzgq3AO3FVY6hn26SJMOEFZqXf162toMO3NdrS2rEujkX3maMAw58OoBS
-   aIk+lmZIZpYk+URVuo6Te8LM6M1dbCIykzw3hx8O76tekxPBabMmatppYB3nUTK6NSRDmd1cqSx
-   fzQp0xwG24JffQ==;
-Message-Instance:  m=1;
- h=sha256:
-   2qj2+eiig9lLp4oPODpaOQXt4W4iX5l17j43gLf6uNM=:
-   IyNqo5CBPARaIWaOvWFREKYBNUrrioCd76U/ouJL2OQ=,
-  sha512:
-   SAm4/Hdt6A+Og7y5BNsqywpsmVITVqiHZK0zuqGd2eNNKSS3wvbRvqkJ6/PwrFyNxZm+pD7AOZN52zBzTNHcdw==:
-   I7E4VePICpu2i2CzuFmQiNDCUnx/J4cWSP+xrjybOAglj/r/7xWSW9g7mkshwJHh8JXnevRHdR65lrO2Oltpmw==;
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1794602577; x=1795207377; i=w_armin@gmx.de;
-	bh=TanOtqqbIG2hjOzbHVB+6cLC1rC3H/7pAKOSHH915KE=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=q52O5wSQlx0sWnlJjILwRVD2ES5m2TVRBheIj8HIvadPo8QeDmqHHEyDgP8roUHv
-	 XTdTvAPdBYrMsMOreiYp6ALzQSp6oFg6GLypr4n1QTK2E68XZx8lzFUXzugUHJIp7
-	 xjyYxPm3qj3pECB3w5h36xCZ8SjQzA9g3V+NpCIXwge1QNXruqw8aqQWyISGebNLL
-	 22+tsfw3r1xaCqfNE/KF0t8HU7ZrkyYhPcFgOTIdZPLrXaUSRtbaozzS+Qi8AP4sI
-	 CDJw/MyRU2Kmjo+Zha93GxCv39DWYt+qd6Nm/kRwdOhox1pHyxGhiM2kwEd9HpyUJ
-	 NoqU2HypI3S8CoEBpA==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MSKu0-1x3fwH36Yi-00NQFa; Fri, 13
- Nov 2026 21:42:57 +0100
-Message-ID: <6ac5ca43-25db-4843-8317-dee4cd55c627@gmx.de>
-Date: Fri, 13 Nov 2026 21:42:56 +0100
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=RBpqL0ec
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91eb3fea2a9so21697566d6.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:44:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1794602652; x=1795207452; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=NhL/M8HEMn0PgEwzPCvcTjQTkSJqxruxvyvf5fU6t/s=;
+        b=RBpqL0ec73lueiGVkPbG1IHqA/miVhGt/x78w0yuwuDBNEkC9OOEfuktHThNoxMzVX
+         lEvekudGBBlWCuLH66HiQ6c3TH0C0kY7BRvuMJYO7RNsIeQnqBXAzvWt+6DJEdzekP8F
+         dtd0byVRQC4qVGHuRQRcWHekZJU5cZZR2pT41sfu0D2VVOCcwrjNy6CfwVnDT9wJNaBp
+         3j7ECdgERpI7+oLaPrDtP0BkTV6Stz2Q/u1OqG4IUa9w470NCAK7r7hIGdSgRpn3Ap4N
+         jwI8XukywKVjkgaoD6hqy79iAK9/XG6F8QD6k1tdKDtXHxf+LN/i5T4RyMkE4okbmnGN
+         QLBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794602652; x=1795207452;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NhL/M8HEMn0PgEwzPCvcTjQTkSJqxruxvyvf5fU6t/s=;
+        b=ZZbMuxu/JSDufipXyae3tpvmfYKhnXicrQCNAiouF/jUNcGSxNjzSOwKZLZrWYyunJ
+         oAGgf9ExciEQCDcvkwpXkfimrDQtJ8CI6s9JrnpkErFHB3f59Jn/IMdIFx2lLD1AIeJa
+         sVs/Be2SrqhbPh+qp9odSrX91sAzpnYPYskPdJrhUppoxN5PcTWw/MZQMn1Gwns+TZQP
+         faVjc9m+lpQahDJBQGFeWZTp1UQ5M0ER9T/aZWntv/l2rAxucUJy26QoSffZUFma3hh8
+         gOFmLOQTe/ItKHMc1Y4HmBIwzw6ykUkrhxDuuGcNYQjF6EtMoJxGng7O9ldx8W4k7yh3
+         F4dA==
+X-Forwarded-Encrypted: i=1; AL+hErHUn2TpaLKNolR1xVGDBOkyrMTTIccjUsk/Z2FNv1YWPXBMQJ3j93AchK9b7vQbS4QlIXhtVwJUZvH6K2s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9HJD8V6nAP2zLK5owAPY4O5Lbc/yw6DgQYFzpfprewK7GxAR/j
+	qOrwWVfaQ7SgU3XPvWTMa2DEUM/ACR/jNEOzHnA96ZZylVGvhUCITQstyS/OCe2TpVA=
+X-Gm-Gg: AYBFou3CrcnOsGbn7D6GWYpJCzf26zpYxlqvl+ljKc8PSs1eYFl6Ql/1iH/HvhoJ5Vz
+	J7Y2pgv2kIq/WQmPEJ9k2p3vUIl6kuHJuwdM+oHgQtUXX3WmRGG5iHvDbIwrqp/mvfq806Ztnk7
+	vCzxJEUGVSzKTjDzfEUxJ0dinphpc3i17Jl1QzukY6+IiVs1jG4noxns8fA7BlbT3u9nf1lb048
+	AN6Ylc0cz0ub8mpF1kTlGoqkB7inwMzj2udO5ebJ1KF/0/ZgYad2rpyTeobQ6uHufNBnt5QFTUD
+	2rh6m7dcy+Sq84ugsDjSxsF0lOWd8IP104DC4BruKt/xVCrJ+f+JWLNv7ZJFJy1k1u1N1v97Ybi
+	6pYm2XtdgNUxeoQM3BfVmpX0I/xoPsGmwwJXgjGUDfLeKJ+/STBVhVwXwttUsqCiRf7wKqcdom6
+	U9+NacnDyHhFC9LntKD1SB7EG/ZFZctB+G4sleDNcZCi//n2xQil8v8+mMyx/98tn1ZXpTuHXn6
+	2/JCPniRPoZMCI77jxamY3bnbLZ9XYaheMhtrcRsVi9wR8G5kJBNcEqW4LgYP5vSCEBQHq2upIU
+	XCjwZl3N/lCBGQsJ+/9qoq8hgTG9pxJotkk5ZeIWNSNHyw4oWviLmdUP+M/Dd2YeBqGAWlC42j/
+	bi6htJA4=
+X-Received: by 2002:a05:6214:450e:b0:91e:b670:f9f5 with SMTP id 6a1803df08f44-91f2401477fmr56726586d6.3.1794602652059;
+        Fri, 13 Nov 2026 12:44:12 -0800 (PST)
+Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23db49c5sm28150796d6.41.2026.11.13.12.44.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 12:44:11 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,226 +89,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] platform/x86: uniwill-laptop: Remove cTGP control from
- unsupported devices
-To: Werner Sembach <wse@tuxedocomputers.com>, Hans de Goede
- <hansg@kernel.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?=
- <ilpo.jarvinen@linux.intel.com>
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261113144749.59958-1-wse@tuxedocomputers.com>
-Content-Language: en-US
-From: Armin Wolf <W_Armin@gmx.de>
-In-Reply-To: <20261113144749.59958-1-wse@tuxedocomputers.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:vjgrq9umqFD7C37f6B0afrCRtEJW16YW32Yum8qNVTHEjMzD4BI
- B6NlD2F5gSTNK0o8TwWXcTgxOuBfjsXbXklbMFjLee6xo49qnfmItV/xj9M0dPn2QiVcYRv
- t4rbCNr0ssIQARi3BS6mVAXtLyekTaVgTI1b3WNRjRN3Aaa1dA2/6IMp4j8ULK6C/JonjyA
- SAGZdqwKXYLH1lv9/5ItA==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:IOleVDsH7VE=;h60pbShfBk3fys+U54lJZqXLUYt
- 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
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v5 5/7] sched/numa: scan PID-inactive VMAs for
+ promotion
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: "Gregory Price (Meta)" <gourry@gourry.net>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+ akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
+ liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
+ mhocko@suse.com, peterz@infradead.org, juri.lelli@redhat.com, 
+ vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org, 
+ bsegall@google.com, mgorman@techsingularity.net, mingo@kernel.org, 
+ vschneid@redhat.com, kprateek.nayak@amd.com, ziy@nvidia.com, 
+ baolin.wang@linux.alibaba.com, nico.pache@linux.dev, ryan.roberts@arm.com, 
+ dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev, 
+ usama.arif@linux.dev, kas@kernel.org, joshua.hahnjy@gmail.com, 
+ rakie.kim@sk.com, ying.huang@linux.alibaba.com, matthew.brost@intel.com, 
+ byungchul@sk.com, apopple@nvidia.com, jannh@google.com, pfalcato@suse.de, 
+ hannes@cmpxchg.org, osalvador@suse.de, raghavendra.kt@amd.com, 
+ stable@vger.kernel.org
+In-Reply-To: <179434297609.2530531.2349001562856798404.b4-reply@b4>
+References: <20261110150446.2452975-1-gourry@gourry.net>
+ <20261110150446.2452975-6-gourry@gourry.net>
+ <179434297609.2530531.2349001562856798404.b4-reply@b4>
+Date: Fri, 13 Nov 2026 15:44:10 -0500
+Message-Id: <179460265050.482102.15374067770225444971.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-Am 13.11.26 um 15:47 schrieb Werner Sembach:
-> Some devices like the InfinityBook Pro series have Dynamic Boost support=
-,
-> but the cTGP setting is actually ignored.
->=20
-> This commit adds the ability to still initialize DB, but hide the noop c=
-TGP
-> sysfs attribute and applies this to the respective devices.
+On 2026-11-10 15:36 -0500, Gregory Price (Meta) wrote:
+> On 2026-11-10 10:04 -0500, Gregory Price (Meta) wrote:
+> ... snip ...
+> 
+> Sashiko report feedback
+> > --- a/kernel/sched/fair.c
+> > +++ b/kernel/sched/fair.c
+> > @@ -4249,7 +4249,7 @@ static bool vma_needs_placement_scan(struct vm_area_struct *vma)
+> >  	 * threads can help scan this vma, force a vma scan.
+> >  	 */
+> >  	if (READ_ONCE(mm->numa_scan_seq) >
+> > -	   (vma->numab_state->prev_scan_seq + get_nr_threads(current)))
+> > +	   (vma->numab_state->prev_placement_scan_seq + get_nr_threads(current)))
+> >  		return true;
+> ... snip ...
+> > +		if (placement_scan)
+> > +			vma->numab_state->prev_placement_scan_seq = mm->numa_scan_seq;
+> 
+> Sashiko took issue with these skips, but its reported impact is
+> overstated.  It tries to point out a pre-existing condition:
+> 
+>   prev_scan_seq skips an update on a rare corner condition, but
+>   now the same skip applies to prev_placement_scan_seq.
+> 
+> In modes 1 (placement) and 2 (tiering), the behavior is exactly the
+> same as it was.
+> 
+> In mode 3 (placement + tiering) the result is that the starvation
+> counter isn't reset - but everything still works anyway because the
+> VMA is still being scanned.
+> 
+> I can follow up with *another* commit, but it's really low impact.
+> Not sure it's worth the churn.
+> 
 
-IMHO the cTGP setting only works with the official NVidia driver and=20
-nvidia-powerd running in the background. Also there currently is a tiny
-issue with cTGP support, do you have a acpidump from one of the affected=
-=20
-machines?
+I will refresh this next week and just address it in another commit.
 
-Thanks,
-Armin Wolf
-
-> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
-> ---
->   drivers/platform/x86/uniwill/uniwill-acpi.c | 26 ++++++++++++++-------
->   1 file changed, 17 insertions(+), 9 deletions(-)
->=20
-> diff --git a/drivers/platform/x86/uniwill/uniwill-acpi.c b/drivers/platf=
-orm/x86/uniwill/uniwill-acpi.c
-> index e2a6a704e942e..c0a75bc6e66db 100644
-> --- a/drivers/platform/x86/uniwill/uniwill-acpi.c
-> +++ b/drivers/platform/x86/uniwill/uniwill-acpi.c
-> @@ -366,10 +366,12 @@
->   #define UNIWILL_FEATURE_PRIMARY_FAN		BIT(8)
->   #define UNIWILL_FEATURE_SECONDARY_FAN		BIT(9)
->   #define UNIWILL_FEATURE_NVIDIA_CTGP_CONTROL	BIT(10)
-> -#define UNIWILL_FEATURE_USB_C_POWER_PRIORITY	BIT(11)
-> -#define UNIWILL_FEATURE_KEYBOARD_BACKLIGHT	BIT(12)
-> -#define UNIWILL_FEATURE_AC_AUTO_BOOT		BIT(13)
-> -#define UNIWILL_FEATURE_USB_POWERSHARE		BIT(14)
-> +/* Mutually exclusive with the cTGP control feature */
-> +#define UNIWILL_FEATURE_NVIDIA_DB_SUPPORT_ONLY	BIT(11)
-> +#define UNIWILL_FEATURE_USB_C_POWER_PRIORITY	BIT(12)
-> +#define UNIWILL_FEATURE_KEYBOARD_BACKLIGHT	BIT(13)
-> +#define UNIWILL_FEATURE_AC_AUTO_BOOT		BIT(14)
-> +#define UNIWILL_FEATURE_USB_POWERSHARE		BIT(15)
->  =20
->   enum usb_c_power_priority_options {
->   	USB_C_POWER_PRIORITY_CHARGING =3D 0,
-> @@ -1004,7 +1006,9 @@ static int uniwill_nvidia_ctgp_init(struct uniwill=
-_data *data)
->   {
->   	int ret;
->  =20
-> -	if (!uniwill_device_supports(data, UNIWILL_FEATURE_NVIDIA_CTGP_CONTROL=
-))
-> +	if (!uniwill_device_supports_any(data,
-> +					 UNIWILL_FEATURE_NVIDIA_CTGP_CONTROL |
-> +					 UNIWILL_FEATURE_NVIDIA_DB_SUPPORT_ONLY))
->   		return 0;
->  =20
->   	ret =3D regmap_write(data->regmap, EC_ADDR_CTGP_DB_CTGP_OFFSET, 0);
-> @@ -2577,7 +2581,9 @@ static int uniwill_suspend_usb_powershare(struct u=
-niwill_data *data)
->  =20
->   static int uniwill_suspend_nvidia_ctgp(struct uniwill_data *data)
->   {
-> -	if (!uniwill_device_supports(data, UNIWILL_FEATURE_NVIDIA_CTGP_CONTROL=
-))
-> +	if (!uniwill_device_supports_any(data,
-> +					 UNIWILL_FEATURE_NVIDIA_CTGP_CONTROL |
-> +					 UNIWILL_FEATURE_NVIDIA_DB_SUPPORT_ONLY))
->   		return 0;
->  =20
->   	return regmap_clear_bits(data->regmap, EC_ADDR_CTGP_DB_CTRL,
-> @@ -2686,7 +2692,9 @@ static int uniwill_resume_usb_powershare(struct un=
-iwill_data *data)
->  =20
->   static int uniwill_resume_nvidia_ctgp(struct uniwill_data *data)
->   {
-> -	if (!uniwill_device_supports(data, UNIWILL_FEATURE_NVIDIA_CTGP_CONTROL=
-))
-> +	if (!uniwill_device_supports_any(data,
-> +					 UNIWILL_FEATURE_NVIDIA_CTGP_CONTROL |
-> +					 UNIWILL_FEATURE_NVIDIA_DB_SUPPORT_ONLY))
->   		return 0;
->  =20
->   	return regmap_set_bits(data->regmap, EC_ADDR_CTGP_DB_CTRL,
-> @@ -2910,7 +2918,7 @@ static struct uniwill_device_descriptor phxtqxx_ph=
-xagxx_phxaqxx_phxpgxx_descript
->   		    UNIWILL_FEATURE_GPU_TEMP |
->   		    UNIWILL_FEATURE_PRIMARY_FAN |
->   		    UNIWILL_FEATURE_SECONDARY_FAN |
-> -		    UNIWILL_FEATURE_NVIDIA_CTGP_CONTROL |
-> +		    UNIWILL_FEATURE_NVIDIA_DB_SUPPORT_ONLY |
->   		    UNIWILL_FEATURE_USB_C_POWER_PRIORITY |
->   		    UNIWILL_FEATURE_KEYBOARD_BACKLIGHT,
->   	.kbd_led_single_color =3D true,
-> @@ -3106,7 +3114,7 @@ static int phxarxx_phxaqxx_probe(struct uniwill_da=
-ta *data)
->  =20
->   	if (value & HAS_GPU)
->   		data->features |=3D UNIWILL_FEATURE_GPU_TEMP |
-> -				  UNIWILL_FEATURE_NVIDIA_CTGP_CONTROL;
-> +				  UNIWILL_FEATURE_NVIDIA_DB_SUPPORT_ONLY;
->  =20
->   	return 0;
->   };
+-- 
+~Gregory
 
