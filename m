@@ -1,88 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794601445;
-	b=MGavQCB0HFNGq2naTUav3w0WdM/ZN09gp8Y1fbOGnCVwSRMKM7FkSJgnJB77g2U6KuR+
-	 FwEARqbth29f2j9fljEnZMxTBENO7Nf/TpKz1gKUTljFDkvV0YeIf9WmMR6TddWj7IDKR
-	 BIVckByt3OA7kgjSXrV82endzlRFm6amUxWyk+vcgS1qLeAgw/5xMbktGAF0k5jhthOVG
-	 a+WSVXy3TP0MeeUafGKDe7jvwslcHRZuBcUkYaKTNEYenFXEKgdSaomlmbJ7Ed/Ivp3FB
-	 RjZ7lOYz0J1AgkV6q1FKDjZvhpaa/F1WM13WPqGylOaYYM08hZKuYRZOkaNRC08wZfg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794601445;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=11pzDrSvy8pN7juNxI1TqFg/ZMo6mlfjRdUwJqxTnJU=;
-	b=uyVTkjC6n5pFLuALh6R9mqKd8H3tqlR4mf4CWW0iCHM17S7NjHHt8YQmd+eaezT+vfJi
-	 HmovgoPxQieVF4C+U9pILUYGOiWzFHUeYu0aYzMo6zYlTKIkQzni+NmV5ybIbJwjDyKO7
-	 5eBN/CPDAyupvCbxiWIK/SumhLuda+3z32krP6Qqk5FHWO4iwsTK+MfOn+gJGiKzZn3O0
-	 gVrVSGTY2Pdau0BVMA/+JXhYzwPzlHxfiKb5wvp9kon+1EpK6i3sDroIFoyV1R+9Tv4nn
-	 P0NWSaGW/Y1/3kSX/j98iC2BI3ZBt8234EUkXE/oqLdHqPuW2YG59WGe5sEIiQyLKxA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TIVvuyfg;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.66
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794601463;
+	b=vzyD5cioEInvglzrnGCpgrZkrt2lmQSh7p0ux0XHtLGqZalVc4LNveRTrNCLRdZKAtUF
+	 vraucjkqwUxlsNEoAJwgSagsumlgzNs9Af1V6RDSBq5jDd693EuAqB9umkP3/Mk4AuP91
+	 VEEbJFV8J2Ba8j92o3qRMCa1G/eYtIAPmjLXerjpSgb1AwT9uwdRhGbqioSPh3Uo6Svmz
+	 EFj1L84W2c4G8PumYiqWCIm47DEVr7ickNDYcBxP8W9FGdt7gZFGco24GEMziqiE/Oo00
+	 s5ArUEV9cR5+srnoIza3YykdX0ZSDCcIXnhg+CECN4c0JqKMw8kcdXwFEDPviFzjXUA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794601463;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=SbaZ7Na8awbYtOZSM801aBFhAfKp/KzswHg05zNfWBY=;
+	b=gkWvTGtKtBeqUGgLe+pUneqHFt9L82+cErjM6SQ3EEZevdxL0sbTlNx3eATbuJ4n1Fu5
+	 Nw1e3iNEJ7n0DXCYCQksooz3hIRYiOvYluYQW1SI2tkgYJ1YDrid1EQ5o4MaDPXFb7Uv6
+	 z5VzQ1FbQNcQEV0SuOx5yel42QFYnoXUq+rlOZVJDbKQxIOvIkp3lDwH9J5Rx1v/A+du6
+	 jNNIeixyxPbnyLlHtyM9esQMJF3bWyIq8UlBJH/ANHq4Zg2t72mB2E4dnOurnxGLSVVUW
+	 cheT095iP0HiVNyqTWbW2Jbk4PlLlkOcwiPhN/CgAsut4iIc1TGmH9mDketRNBItVXw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Xd+sYFDn;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.66
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013066.outbound.protection.outlook.com [40.107.162.66])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B72660A261A
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:24:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B72660A261A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A94D606A337;
+	Fri, 13 Nov 2026 20:24:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A94D606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TIVvuyfg
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so18719685e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:24:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794601443; x=1795206243; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=11pzDrSvy8pN7juNxI1TqFg/ZMo6mlfjRdUwJqxTnJU=;
-        b=TIVvuyfgpZi5DMjjNMj9tV9pARWEk5hqVnUHOIGVemowXnFkJWwKHP+DEYDXvfoKlU
-         sYyD/6PlQqRUZl5p057WVQqTjOt+VXV7kq7fL7ELEg7+WL0pTZZzz5qBotepgw7Bv4t8
-         XcIRcrZfTrWmFGHxafUne9CgGLVKBOFsR3WsHvXQ49WAqAYpAe3Dnwj6oHY/tWBZaCBs
-         3ZCsN1sAX5RKmnXuU646pSqjXiwb0WpcmPiduXV1PaoJARIwXRIQ3jcD8N6T15eFAAV8
-         0Qu18ldKn8aYwBEzMuVRgnmxKwG9/8C94njOEgQCuClLnqqAxElQF2FkfByaaI5JVCHf
-         yCtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794601443; x=1795206243;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=11pzDrSvy8pN7juNxI1TqFg/ZMo6mlfjRdUwJqxTnJU=;
-        b=KgkmWkDDLv3/AjmwVCM9qkpdd1S7ddrzOmKrnEiqiCND8GhJxyHh3Z3ciO388L8X3f
-         hxDWMQrXgghWquvA4pR0G2lmgRfO3K21xwnbBEuzjjCJLPstDwL/ISAF9PnblUG6W0XR
-         MtTbPiPlvJNwmRsqQY0xaxeSLRobN5BZ81gQmS+BzcNJAwoi8XMWa0jxnRplN/jCQBpY
-         ScVgYIja3znDlEffyBTVAFZ8vm76P35LbByPgkRzEtCut03xxc2OMcjb4eX52Qijs5mA
-         Q7dTscL1ILVoLSCvrlCYeMBXdstX5FTPaXE2Gi3VFoqtZoJAdOUIUP2Sn6x7ohZxqxeu
-         x3eA==
-X-Forwarded-Encrypted: i=1; AL+hErF9iOf4dI+f3Ke4Vy2B2iugRyhjDMkQXgW8EmdfctyVxTgtPI4fYD29V+5od6OfixwG4OCpOZY33NBl0Q8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/JhMXwsPSMzsGS6STqwMDqC2kWRSGoAHTjFmi9lAoO+Km17FV/
-	zJ8Y8RB9DMS5ucYZtzs5XBRKFu2weYuwq9luPaqfCfGPsozPt2DY6qT1
-X-Gm-Gg: AYBFou398X/kOj/G/tojWbemxf9Mkl1o6NK2HRAWM06PKSuBducwR4cg7zEOgicsvJv
-	SWJyZn+bsHtofEYZEOGX07VWIQ2+/+devYuIPI5/XrW/bjulj1I3trMNL0hT7NXDmNXSfmkNCRu
-	go8YSKsN9DaJYa4T94X4SiK9OPvXuB8KlQHZLGGHv/aRNyxQsgF7yWMQ52g0phhenuMo/MiMxIr
-	MExGZyIR5Fg5kpYNwbmLwwzUqtxBHFg7HCUiqjcvMJcQc3eozvJHSJcvKVVuVyXSpRataaThqYM
-	GaucIbuZ8DRv5dBwTLknGDxhSrlSaJW8sFP5/QkyMdNMvvgX7IO3rCrBQhTwEfdLuobQ3ewmLt4
-	/OYoeGE4jcF9wm/r6AHSFHPd1l59VNP79fSAn3Fg8sQwWy45GV1KZnx/TRhk6KVdLlMiIqPAHnY
-	2XTxCZTyLRn59xYKODC+LYoUCLwp8jvwVSGDyqhz36kM2HdPA93TUjwUQhQbm4MyxT+qYwd+7St
-	sIk23OWUb11ZXm2Jv+ZF0k5SuARhu1tn4kLGUPpst9StkSG5VyYQwNzi6kOSL45UvPAF9DlYlQh
-	vJiTLnESLq+td1oxMcu4LX+/dBVsW6E6jn7cxun4IchlbrV3AeI2TA==
-X-Received: by 2002:a05:600c:1d06:b0:4a2:190f:cf6a with SMTP id 5b1f17b1804b1-4bb55ab3403mr73006955e9.35.1794601442864;
-        Fri, 13 Nov 2026 12:24:02 -0800 (PST)
-Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb55ae5299sm95755415e9.11.2026.11.13.12.24.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 12:24:02 -0800 (PST)
-From: =?utf-8?q?G=C3=BCnther_Noack?= <gnoack3000@gmail.com>
-Date: Fri, 13 Nov 2026 21:23:27 +0100
-Subject: [PATCH v3 5/5] landlock: Clarify implicit handling of
- LANDLOCK_ACCESS_FS_REFER
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Xd+sYFDn
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nD+5JfUfr+vLc1Ea/25/X0h5p2MkcGmRHkffldL4R2c5yujD10GawlWGci+06jpo+go+TMD+lhn2/ZqiXUq42Efyw1zX+mZvbFIEfFlcF9Oku2/csEDF53NHvDKUXUnjd1B4XuUA0UNK/XDuSYXEsZil9c4AstX8lgZHnf1vSMnJWuEaGvSpwik5nduj+N3zLZ+v/BgwuND4Q1AmIR3bLQ1SOpNWX42EhX/9cbFp+/7WZMR7anAL/qW41w9p5LVKeGYCJX1A6nKyjpXuBEKoNJFFQa3anUQJCLkkg4s1GH56SzTDi62e91kO6kU1gpAiURnk/kROZ1N55drmUvH+Rg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SbaZ7Na8awbYtOZSM801aBFhAfKp/KzswHg05zNfWBY=;
+ b=E2+X32nenC4SipwHaqsy3obdejCRyKK8+8eVHvaZD0EJ3zfLdHXDSuJYhF1OpU3YxTxf6kOZOtV7xvy0xSzs4ZRrpqRsZDAjH+bBkk6uK6YIVsP9rmZIXjTydCao6fPMT4QKvjZLO5cx57E16bFsQv88y8EkR4KUJIj0WKvEYQI+7CP2MEqdqbdMBddjVW4gY3K8SrDt8wDaKLV7GeaEtOBDJwClCGi5DmDVcN4zeHBxb0LKT71/u4qCuNu4JMpwV8ENQDimx60+5Sqmh8FP7Gp1YYfknztfS6+lJAc3jQ4FgMKA0y5UJXAEn1yrNogf7jAp/TC1V9DVbNzv21FsAA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SbaZ7Na8awbYtOZSM801aBFhAfKp/KzswHg05zNfWBY=;
+ b=Xd+sYFDnMfpZh0LZlVpxxRfVpD2z5S2BVyVa5MJzZw64DM5+poZsC9vJ94Kw2RYmrQT71+MyI5NLPUA/P/xq48vo5A0pUR2rwzljbOIgAwR18b/PaIlubfZTQ6cfiKL88EjfjjJdAw3AWQJ789PUPWWo0/E9mAVOn/7ElvkSLL1BgOh6bBj+lA2E/SteaKzR0a/80hZKSh7nZY8jOlsig/sOkyhoTJ3t/PFfvikH5sKiFAZXWmGNPncR0bWiYQOu2hSnDnJojJsAf65sKL299/5lN/9Zep8gfGYx+OCEa2ldqKhS5BskpL6RPkj587lAcI8/d3KgE+d+ofDVYYGUqQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by GV2PR04MB11589.eurprd04.prod.outlook.com (2603:10a6:150:2b1::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
+ 2026 20:24:19 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.009; Fri, 13 Nov 2026
+ 20:24:19 +0000
+Date: Fri, 13 Nov 2026 15:24:11 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>, Arnd Bergmann <arnd@arndb.de>,
+	Maxime Ripard <mripard@kernel.org>,
+	Jens Kuske <jenskuske@gmail.com>,
+	Jean-Francois Moine <moinejf@free.fr>,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	Chengfeng Ye <cyeaa@connect.ust.hk>,
+	Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>,
+	dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 8/9] dmaengine: sun6i: synchronize callbacks before
+ releasing channel resources
+Message-ID: <avdx68eCt4X8ID-u@lizhi-Precision-Tower-5810>
+References: <20261023-submit-sun6i-dma-lifetime-next-v1-v3-0-ef1acb0be768@gmail.com>
+ <20261023-submit-sun6i-dma-lifetime-next-v1-v3-8-ef1acb0be768@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023-submit-sun6i-dma-lifetime-next-v1-v3-8-ef1acb0be768@gmail.com>
+X-ClientProxiedBy: DSSP220CA0010.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:3d3::9)
+ To MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,130 +106,143 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261113-b4-landlock-refer-nonfs-layer-v3-5-02d7e42bcdfd@gmail.com>
-References: <20261113-b4-landlock-refer-nonfs-layer-v3-0-02d7e42bcdfd@gmail.com>
-In-Reply-To: <20261113-b4-landlock-refer-nonfs-layer-v3-0-02d7e42bcdfd@gmail.com>
-To: =?utf-8?q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-Cc: Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
- "Serge E. Hallyn" <serge@hallyn.com>, 
- Konstantin Meskhidze <konstantin.meskhidze@huawei.com>, 
- Shuah Khan <shuah@kernel.org>, Dwi Siswanto <me@dw1.io>, 
- linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, 
- =?utf-8?q?G=C3=BCnther_Noack?= <gnoack3000@gmail.com>
-X-Mailer: b4 0.15.2
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|GV2PR04MB11589:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8125fc95-a116-4e3b-3c79-08df41c418a9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|19092799006|23010399003|10067099003|11063799006|4143699003|56012099006|261021123027099003|261021121427099003|261026140227099003|261022105027099003|261022075727099003|261028144727099003|261009223027099003|261102123227099003|22082099003|18002099003|41080700001;
+X-Microsoft-Antispam-Message-Info:
+	QBQRZCwlzDe3+J4gXa8opIBOHwXtAf8yQ1Wv/41UC8IIRh2z5yeYg69Ye3ooKn41aJXnuNq18HgcQVGLes/4cXi+SUXxxHBcETdJ7UBzuugCxbTplBLGZmM8iePZTROhLg4pehAZo/fBHT6tDcwQD5atL5+OE6Pa5d9my4fhDZPY/4yvmK4hQ55FMz4FvfgNhyuzVAJgsC9/TCF25diHvLH1B2CX6KOH3dCkahsa6MnG8JoWbvQ8mUpnpjGSoue83EizpMZpHkf6saybAGXlNrUef5DkTpfZEKDJdD0XWbpMryMuJeHlrgbh1hLc7EfkrpEULwi6EIjbpe7n2/cRRLnKr6tBJbeA6toZ10y5LTXfMqkXRjsACCVppe9G4lIxVVMiEV8f2sjFP9+9NfM2i1200AZVdgCzjurrrur6TW/8Ifo1SMYSsK66ODZ6tJEu/S0BMSrKxieSm7Z5c+R+gDhEEKzHAnMk3C2Z1l/u+DW58P2dC6j7zbncFgjHcGJDosYbqtW3Pc41ZP0eQFzNElowezAc3mF1uI0UcnLTGPifltibsUr91NPyhR9JhnGKO37+3k1LeVncxDxBN6zMVcLSGl+H83pF5CO/Y8bN+K+EWSauJZ4ptU9zwiQFyoqMhDyoBiZzQ4iAnetQzoQM4nR2MgGZV2k59xWnDyUy/33W3KNzhDrG/JQxio+r6RDDDsfSgzjUC8QspdywsHzGhpLMe5eMH40sut2y0ov8bYE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(19092799006)(23010399003)(10067099003)(11063799006)(4143699003)(56012099006)(261021123027099003)(261021121427099003)(261026140227099003)(261022105027099003)(261022075727099003)(261028144727099003)(261009223027099003)(261102123227099003)(22082099003)(18002099003)(41080700001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?YqsBxWjSRpHgYmJD7nndktycnmozZ3T2oyZAGK66z7TidillZ6BLGkQyzWjy?=
+ =?us-ascii?Q?ZOHPnNFgJ6JGEoVkIxi7WWIfFuHclkfzJslLvvsH9uS8HKpoxuaHRMXNzm7x?=
+ =?us-ascii?Q?rrSvhmDyj1h/voTLvVI2Cgf/e8zigyLu+8cwS6qCzhOw/zU4s7DT0buSwoVk?=
+ =?us-ascii?Q?/f5aSyIOVOgEvVdamheGGBlboebXVFpnhRMsO53NtJpaa+IcyEDcCNZ1meSh?=
+ =?us-ascii?Q?HuzTB5s+NF3kcLA1vBl3zZRm57Sz6kdtrM9qztqeM/Ho/7M3+SjsA6erPUOa?=
+ =?us-ascii?Q?6JFgSRyr+g5RTHnOtmtpTdmkZEveluJXl6nrY9OnyukNzC1bukEr+Ec6aJt8?=
+ =?us-ascii?Q?bDxsHrvWJDbT5X9Q7IW37S02FE3GFwuesHFWhck1RgNFqdW99HTn6T1em9qX?=
+ =?us-ascii?Q?mjptbU0d2bIu/J+A6wgKmfv0DHaFBaZUq2r/2jJBXKCHJuSmA1yxOojl/s95?=
+ =?us-ascii?Q?KEiKtCqwO86nJvu/p1oK2JPEThOewBv43Lj+yr7CaZOOw7MSwU1S2YSM8Nph?=
+ =?us-ascii?Q?J/AQuuvwEVriJtmfqvWK3k+29WUbjwlr1zWfcHlOmYTkx1Hw3mV45Lc+Jej2?=
+ =?us-ascii?Q?WWE1pbbrx4a0CltUVGmtBdIKc2lxpogfegfc5DIscJKVTHz88tBTa3K44TLR?=
+ =?us-ascii?Q?8IRyYIjzuJoCb4Do87Khukxg1C17ZZj8kqzkV5vRizBBHVC6bPWQDCAkQZzi?=
+ =?us-ascii?Q?pKmnzCVjl6trh2EimXwn1xCRSXkKS3sqeVhBD/yWAqmNT5rPsHHoq4LjxFyJ?=
+ =?us-ascii?Q?cdf8jbnHDaYy6EmjxcqOmFJFJ80B27WIhUwjJMc1pW8hTG9EmmllJUKOOLfk?=
+ =?us-ascii?Q?3hzYLVqFNTi3HvqQxy/C7dsCf/8d6D0BmixQgjH3F2b3U2RZsPIIOSxRSLNB?=
+ =?us-ascii?Q?tJ8rmI1tuRDujN3Juj3PkizSkTRa64qJ4A3w1fAs6oOSg2QKYfq/KlO4Q+Ar?=
+ =?us-ascii?Q?YW+pOgKTkx0rtt9NLoxVeI0iO8CpRYXPD3+GWSBAZLz0FfUxmm6WTRImbw4B?=
+ =?us-ascii?Q?pahT9WVKu+zkL4SGaPiYP7W+6CSWxZvK0Ota7TDTyc0/rnmAOJFzoP2X3gEK?=
+ =?us-ascii?Q?qmgpFpCE9WrsmosA0Yi3pjSpPD6qYuLCUb3uhMOB2yIQEmmBDZWRsfhdrQBy?=
+ =?us-ascii?Q?8cG3+iNOvFYF0m3JJQrzaqax52wv3f+5VbFPkTtZswBMK18fqMk8kXGhg1Ut?=
+ =?us-ascii?Q?Zl7aAoG+rzYvX86kPs2Nu+AQUQOByyxrNz1IIeaD5jynAunW2C8uddyIPK9m?=
+ =?us-ascii?Q?+B8Ie3ncjmwRvFyJVexqpFJrIWSB2VXwudz7raQb/S958Epkizm7MrJrd9L9?=
+ =?us-ascii?Q?ukk4bygU/+3THpIlFuUfCMZpINH2C3Hjdrrz3xrc7czkjNb41Eaj4sIV4xdB?=
+ =?us-ascii?Q?Ym1F4emsNVlWuIXkzZezMip0hErOsM9b08DIP5rJTYpW3LXcOLBcvqBAYDxK?=
+ =?us-ascii?Q?2tJbb6tFOUc+qeQ20SvHBns7i4YFM1P1kZVJUQ5ZwSM/w1jy8PdndEdIkMnt?=
+ =?us-ascii?Q?6RsoXcRrsLAwtBeMK2MnIIdmL62M3NUInAVFcOcJxknhgIHmiCEhPKvL73zY?=
+ =?us-ascii?Q?xA51PS3bGZ3BYtXQBJuTXsCgxKNF3Tx9KyojPz6TdN7T6499+FnKL8FHrqhK?=
+ =?us-ascii?Q?dxq+dZRGvbkRxkqoHmPRyqzf+gcLP6bb+5UUfjHZGXB26h/fCBb8o8iugtRO?=
+ =?us-ascii?Q?yTbAJdnAeUBLLdIq82tCUKc+AbMN2CWyndGUE73fUbq0O5lc2Y+vadgR1y2V?=
+ =?us-ascii?Q?IhNo4siHUmDyXEwpBQNCBIl0JuhIwQ5wiI0AvYbXA08a1SMWJHuu?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8125fc95-a116-4e3b-3c79-08df41c418a9
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 20:24:19.3718
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WkzRatBMyUgVmlSOwG5yOvqCevimpZBP9REI8D0rK6wkgZgQmr4AYNzmEAwwH7XEFacRasR7ThhwLLkehmtOWqFfP0pUcPXI/XwwHUBBAomxj2uoaVLnvT8JOcuY6s9c
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR04MB11589
 
-The LANDLOCK_ACCESS_FS_REFER right is handled implicitly in a ruleset,
-but only if any other filesystem access right is declared as handled
-in the given ruleset.
+On Fri, Oct 23, 2026 at 05:38:27PM -0600, James Hilliard wrote:
+> The driver has no device_synchronize callback. dmaengine_terminate_sync()
+> therefore returns after stopping the channel without waiting for the
+> virtual-channel tasklet. That tasklet may already have removed completed
+> descriptors from the shared list and be executing their callbacks. For
+> example, serial8250_release_dma() frees the RX buffer and unmaps the TX
+> buffer immediately after terminate_sync(), while those callbacks can
+> still access them.
+>
+> Use vchan_dma_synchronize() for device_synchronize. Channel termination
+> excludes the interrupt handler and allocator before detaching the channel,
+> so they cannot schedule another completion for that transfer. Also stop
+> the channel and synchronize when freeing its resources.
+>
+> Keep terminated cyclic descriptors on desc_terminated until synchronization
+> finishes. vchan_complete() may retain that descriptor outside vc.lock.
+> Ordinary active descriptors have not published a callback and can still be
+> freed by terminate_all(). This avoids accumulating descriptors on each
+> 8250 partial-RX flush, which uses the atomic termination API.
+>
+> Fixes: 555859308723 ("dmaengine: sun6i: Add driver for the Allwinner A31 DMA controller")
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> ---
 
-The old documentation was still a remnant from the times when
-filesystem access rights were the only access rights that existed in
-Landlock, but it became misleading when we introduced additional types
-of access rights.
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-Fixes: fff69fb03dde ("landlock: Support network rules with TCP bind and connect")
-Signed-off-by: Günther Noack <gnoack3000@gmail.com>
----
- include/uapi/linux/landlock.h              | 17 +++++++++--------
- security/landlock/access.h                 | 13 +++++++------
- tools/testing/selftests/landlock/fs_test.c |  7 ++++---
- 3 files changed, 20 insertions(+), 17 deletions(-)
-
-diff --git a/include/uapi/linux/landlock.h b/include/uapi/linux/landlock.h
-index 24510e5d8479..7e38b9d1bf12 100644
---- a/include/uapi/linux/landlock.h
-+++ b/include/uapi/linux/landlock.h
-@@ -22,10 +22,10 @@
-  * enacted.  Vice versa, access rights that are not specifically listed here are
-  * not going to be denied by this ruleset when it is enacted.
-  *
-- * For historical reasons, the %LANDLOCK_ACCESS_FS_REFER right is always denied
-- * by default, even when its bit is not set in @handled_access_fs.  In order to
-- * add new rules with this access right, the bit must still be set explicitly
-- * (cf. `Filesystem flags`_).
-+ * For historical reasons, as soon as any filesystem access right is handled in
-+ * @handled_access_fs, the %LANDLOCK_ACCESS_FS_REFER right is always denied as
-+ * well.  In order to add new rules with this access right, the bit must still
-+ * be set explicitly (cf. `Filesystem flags`_).
-  *
-  * The explicit listing of *handled access rights* is required for backwards
-  * compatibility reasons.  In most use cases, processes that use Landlock will
-@@ -462,10 +462,11 @@ struct landlock_capability_attr {
-  *   This access right is available since the second version of the Landlock
-  *   ABI.
-  *
-- *   This is the only access right which is denied by default by any ruleset,
-- *   even if the right is not specified as handled at ruleset creation time.
-- *   The only way to make a ruleset grant this right is to explicitly allow it
-- *   for a specific directory by adding a matching rule to the ruleset.
-+ *   This is the only access right which is denied by default by any ruleset
-+ *   that handles filesystem access rights, even if the right is not specified
-+ *   as handled at ruleset creation time.  The only way to make a ruleset grant
-+ *   this right is to explicitly allow it for a specific directory by adding a
-+ *   matching rule to the ruleset.
-  *
-  *   In particular, when using the first Landlock ABI version, Landlock will
-  *   always deny attempts to reparent files between different directories.
-diff --git a/security/landlock/access.h b/security/landlock/access.h
-index f9eaa2f53686..789ccfd9f669 100644
---- a/security/landlock/access.h
-+++ b/security/landlock/access.h
-@@ -18,10 +18,11 @@
- #include "limits.h"
- 
- /*
-- * All access rights that are denied by default whether they are handled or not
-- * by a ruleset/layer.  This must be ORed with the .handled field of all
-- * domain->layers[] entries when we need to get the absolute handled access
-- * masks, see landlock_upgrade_handled_layer_config().
-+ * All filesystem access rights that are denied by default as soon as any other
-+ * filesystem access right is handled, even if the access right is not
-+ * explicitly declared to be handled itself.  This must be ORed with the
-+ * .handled field of all domain->layers[] entries when we need to get the
-+ * absolute handled access masks, see landlock_upgrade_handled_layer_config().
-  */
- /* clang-format off */
- #define _LANDLOCK_ACCESS_FS_INITIALLY_DENIED ( \
-@@ -178,8 +179,8 @@ static inline struct layer_config
- landlock_upgrade_handled_layer_config(struct layer_config layer_config)
- {
- 	/*
--	 * All access rights that are denied by default whether they are
--	 * explicitly handled or not.
-+	 * All filesystem access rights that are denied by default
-+	 * as soon as any other filesystem access right is handled.
- 	 */
- 	if (layer_config.handled.fs)
- 		layer_config.handled.fs |= _LANDLOCK_ACCESS_FS_INITIALLY_DENIED;
-diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
-index 6d9baab0fae8..48c1f896dc9a 100644
---- a/tools/testing/selftests/landlock/fs_test.c
-+++ b/tools/testing/selftests/landlock/fs_test.c
-@@ -3034,8 +3034,8 @@ TEST_F_FORK(layout1, reparent_exdev_layers_rename1)
- 
- 	/*
- 	 * Moving the file2_s1d3 file below dir_s2d3 is denied because the
--	 * second layer does not handle REFER, which is always denied by
--	 * default.
-+	 * second layer does not handle REFER, which is always denied as soon as
-+	 * any other filesystem access right is handled.
- 	 */
- 	ASSERT_EQ(-1, rename(file2_s1d3, file1_s2d3));
- 	ASSERT_EQ(EXDEV, errno);
-@@ -3073,7 +3073,8 @@ TEST_F_FORK(layout1, reparent_exdev_layers_rename2)
- 	ASSERT_EQ(EXDEV, errno);
- 	/*
- 	 * Modifying the layout is now denied because the second layer does not
--	 * handle REFER, which is always denied by default.
-+	 * handle REFER, which is always denied as soon as any other filesystem
-+	 * access right is handled.
- 	 */
- 	ASSERT_EQ(-1, rename(file2_s1d2, file1_s2d3));
- 	ASSERT_EQ(EXDEV, errno);
-
--- 
-2.56.1
-
+>  drivers/dma/sun6i-dma.c | 21 +++++++++++++--------
+>  1 file changed, 13 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/dma/sun6i-dma.c b/drivers/dma/sun6i-dma.c
+> index 25987f550707..b83138745bd1 100644
+> --- a/drivers/dma/sun6i-dma.c
+> +++ b/drivers/dma/sun6i-dma.c
+> @@ -999,12 +999,20 @@ static int sun6i_dma_terminate_all(struct dma_chan *chan)
+>  	if (pchan && pchan->desc) {
+>  		struct virt_dma_desc *vd = &pchan->desc->vd;
+>
+> -		vchan_terminate_vdesc(vd);
+> +		/* A cyclic callback may still hold this descriptor outside vc.lock. */
+> +		if (vchan->cyclic)
+> +			vchan_terminate_vdesc(vd);
+> +		else
+> +			list_add_tail(&vd->node, &head);
+>  	}
+>
+>  	vchan->cyclic = false;
+>  	vchan->paused = false;
+> -	vchan_get_all_descriptors(&vchan->vc, &head);
+> +	/* Leave terminated cyclic descriptors for the sleepable synchronize. */
+> +	list_splice_tail_init(&vchan->vc.desc_allocated, &head);
+> +	list_splice_tail_init(&vchan->vc.desc_submitted, &head);
+> +	list_splice_tail_init(&vchan->vc.desc_issued, &head);
+> +	list_splice_tail_init(&vchan->vc.desc_completed, &head);
+>
+>  	if (pchan) {
+>  		writel(DMA_CHAN_ENABLE_STOP, pchan->base + DMA_CHAN_ENABLE);
+> @@ -1103,14 +1111,10 @@ static void sun6i_dma_issue_pending(struct dma_chan *chan)
+>
+>  static void sun6i_dma_free_chan_resources(struct dma_chan *chan)
+>  {
+> -	struct sun6i_dma_dev *sdev = to_sun6i_dma_dev(chan->device);
+>  	struct sun6i_vchan *vchan = to_sun6i_vchan(chan);
+> -	unsigned long flags;
+> -
+> -	spin_lock_irqsave(&sdev->lock, flags);
+> -	list_del_init(&vchan->node);
+> -	spin_unlock_irqrestore(&sdev->lock, flags);
+>
+> +	sun6i_dma_terminate_all(chan);
+> +	vchan_dma_synchronize(chan);
+>  	vchan_free_chan_resources(&vchan->vc);
+>  }
+>
+> @@ -1483,6 +1487,7 @@ static int sun6i_dma_probe(struct platform_device *pdev)
+>  	sdc->slave.device_pause			= sun6i_dma_pause;
+>  	sdc->slave.device_resume		= sun6i_dma_resume;
+>  	sdc->slave.device_terminate_all		= sun6i_dma_terminate_all;
+> +	sdc->slave.device_synchronize		= vchan_dma_synchronize;
+>  	sdc->slave.src_addr_widths		= sdc->cfg->src_addr_widths;
+>  	sdc->slave.dst_addr_widths		= sdc->cfg->dst_addr_widths;
+>  	sdc->slave.directions			= BIT(DMA_DEV_TO_MEM) |
+>
+> --
+> 2.53.0
+>
