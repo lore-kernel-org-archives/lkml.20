@@ -1,99 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.171
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794576308;
-	b=GTjkupokRis5kjuO8Qf1zfCiHv4M0o6Ky9zy1Yol/0EuZfvaR5WUjTRSalOpKWJoOIkk
-	 R+rVGG+/UXJGBUlsZhLHgjnsgj+Db33NQcUG17NtHN8pvjlnQ6RrQ9j3vrpMCIMcCgkoa
-	 4NZYkpuZRMwTRe96AKIHgXtZtac0N5eaZ8tRm3blIijJeUNOUA18B36mpHxlbNuOt0LAI
-	 0D0UowId2aEDNqlnuZczj9SvIeKWYpMAUC15umHSg1YlAMlVBWk579dWYg/ZUiWNAdt5R
-	 69Azoq9CUHxABti8KKkxRXjm/oa+vaf8thUvX0Z5G+9yietnHgUeR1j1A53JeMy2ORg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794576308;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=I7/mj3A4GX0Fnjufd1AYb3hkH0efHKhQVdz09tQZfZs=;
-	b=EWw8Ojhx0HlmlhpSGnBNsnhXNA3txLz8stkHAN4X8jGABwTtbowew6HzMsw87a5xtI6e
-	 GgPd6kxBI2Yg/b+tn3l4457VmK8tiF2NqooQgSzWLoJdFKW0i0qmeRYk0QyE2fAHfkE/e
-	 srEr5Ezv0kOtur73iXGQPkyMx95ZbYk0gGhc04tIDvuvEiu6kXDCp38QrDjYiuuH2sQ9H
-	 P/mPE5mF+9VYh7n/Pqm1nyOXki28QUvG+nAPr7Pyg50TeqBFI/dZHvec+5bqg7HpbgtfN
-	 AAlbnUhoWlRaMrjmAFoeEOQsxqWcuFl9KhspqhD/iZx3knyP8O5i97LgFIop49nmu+Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zPfUO5Uv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.171
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794576365;
+	b=RfpV+RwbtV5yYU3z+bBhazQzOlJanQJggAyQIl20S++v2q4er5orDNTeaKAFL2fF1ptG
+	 XB/BlIOl3H3uWdghOnHa4ZKP1lx3Ft7cRxXcp4gSdVcFY1VFLpyjZGprEi7Jx9rrTD0bq
+	 wi/a9ltSQoU4PmycO8r+3efk4vrNQP+V7fmFYs487GG3+K96OIpWHkVzfSQ7TfiuJuw8L
+	 p9yaex3vGD7mIEjQ2MlZjTpCvgzq1MPv0y1fynTV6BOkbFuSWEIwrFT6s7X8uw2Zcc5nd
+	 Fqxa8lU5OSCPwWM2lrGR9Gl+pCgnnSzxpV6w33iM0tuJZKYTu5tn8RLmOhDTZ8KG/Lw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794576365;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=uozLgHIJcCRVIWGDkYXRUzxamxNdBt+/LrMuLz+mwMI=;
+	b=kQjOyHovK9lNfsXUsjbxEWupYeq6V+xhTpVDUZfdbp+REmgyUn92+Y94mh5RSqGfbPNU
+	 VDgsMrLhlkt4E7YW/HxS7g5VFg3nNvUF08tlNxfjexXltCV0Ok+9BdP9CNJiGmuOz2UJC
+	 dP+WCf2cIgJV2+7fmOCuj4yWk0qwzlERDj/cA1akXAszsye2FlRj/3SSMP6KCazCaTAee
+	 MZolefCFIISvMrWInO/Id89NvXI2w9LE9Y3xK4SvMAgyyxUZGDKxEvEoosvXOrcxZS28b
+	 qRxN815+t02bMv5vK5e46wS/fN3gETDsGIYKnhCObjo4W9B4EdjxEQ3tm2HhYbR/7Zg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gduD1r5A;
+	arc=none smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F52606B577
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:25:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92F52606B577
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BDA3606A339;
+	Fri, 13 Nov 2026 13:26:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BDA3606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zPfUO5Uv
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cd62c570b5dso1239274a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:25:08 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794576308; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cYAe24JlUeoYR1mjKll95Uyi220KjB5DYVJIoOnY7DA2Dn/hgszapCIEz+J7b9PL0M
-         fG/9p3lL5SsM0vYvQcpnicp9grmn1uIKEkqK3o+fi27NoV3baz9CWfgoR8GpwCCI/X4A
-         fLprBT9KI7d+0izur8LGpzrOMuqtSlu8wHMBHqlJPnw/7406422fq2/mJgPXf65Qv9gG
-         HXlW49t6efIo/vpjzoMOHOvh3gSpInmJjPTC1TfG2j7Ond81aeZfCiTgUDYdpMS21BRE
-         qx0tMSHFWQObapP3KhAfLiK+01M0r4rMovVFIrqsda+QZHafLabn2ttefBMfWOlzf3af
-         xbFQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=I7/mj3A4GX0Fnjufd1AYb3hkH0efHKhQVdz09tQZfZs=;
-        fh=ZfB5GSNbSln6yGRJq7rnmn/UQTd0Oufoq0SveZ7kEbA=;
-        b=MoGyvGoIuRicmDwfMQ4WtP1eJFIM6SAFSzdCRgYtHYH38AIm8XDVX6LEGTwl88tBWL
-         JbkebjENfi6+JQGDBQRsm3gSz43+XuyG7U87hDxj7/mPAmJbGDpt/BBMpR/DQdMXRRJn
-         +uVPu75oBk5DSlsUvQo5GWNDbQopgUY/E2Rqc1a8l2UnWmC15mwjAC1IzWMl76+SSj/d
-         TDLAgWU8wbX9vqXn2XEEpiu+kH/2kor0RZeoitESLEPXK9yAElTo5l55MkXiEm0GTy1l
-         dkBoPfApxHwUbXunwkRcqYw+GEb5cacBye4NldpeDgN8T3G9Q+4PSpjRBK/kBsyFLybW
-         6bQg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794576308; x=1795181108; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=I7/mj3A4GX0Fnjufd1AYb3hkH0efHKhQVdz09tQZfZs=;
-        b=zPfUO5UvqcBR2FNacPMuUTq26YY2GRrlBt33eHQz1ImceJ4LHszUfOGyIjlhgGMDFt
-         61Dg6G//C3CGsNm8Jwa9C5sjLsY9gCBJi5jtHBTSMTuKLsRD7igxfV/F7lUJB5JLMbg+
-         RcFGqK2A685ZGpZtAjqSMiWTf3S9VTCBJ/b/Mek61mqMh7gz8piorIiTUC7EBdlDlTqk
-         gXt9p4RrIUpyleZxfwzjxNOL7B4jOj5ufcISHVmIifrTZ9SrSI+r8NoPs9re0uabg25m
-         7xpt8j3uzsTU7fNSm1OPj0u1UacP5ZxKXh00fPThuzwyvfsLCQcSKVJ8n7EO4HMM4yxi
-         QIYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794576308; x=1795181108;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=I7/mj3A4GX0Fnjufd1AYb3hkH0efHKhQVdz09tQZfZs=;
-        b=WAbbof+kkVHLH6iGpOTsRf3RQ3xdgAAhvsgrj7ZMyGW1fh/b7cPn+kPQPWSKynNzSS
-         eRdP0bRDjEt6arolrIrK1E2PhBFUM2sQIt/exVEecus/pOeKIgcqbk44Eaq6QOroD5Rm
-         6i1jcdsOso+rA0xm1WgYs4cfBGgGMrQm7t7Ciu3KVdsGj/2Ei6cQiUX56vv7xxwknRJb
-         uh41pBL2P0kRgXCjx0UTe7xGX2K3o0+ItsP7OSpfAWV03Z3RDkji07YYJwWkF2NRL9Es
-         Ru3lnujc75OvrgGun89stIfWfCZr4tIIAYf2KfY3w2P75Y9i+HVdouUjvUMf7+oXtHV/
-         qz5w==
-X-Forwarded-Encrypted: i=1; AL+hErFQ9Pz7vR38M8vtTjlOy+Ue38UWV2fScqNohq2pNqbNJ9ulWx1RJlIL2XKRLlkR8dyxYBKLydZlg160PSQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+dQHcd19FvflRT7Lg55rLxUDeFofHR2hTIwE/Ppd1rSKTHm+Rh
-	1tBxDgSe6a1puudFZiot2aALWCnN0X8PTV0kZjgeHj8aTndsz6G/I1Bl+XzzWLpjbFSnQ04RJjM
-	KDKpDAoV8dqWtYoSvGcCZtA6Q7DTmaw==
-X-Gm-Gg: AYBFou1nCDByhe/9RHsMUDKlNZd3PsRFNzds9c63JT44/zwsIv1Gdydbk0MeytM7CT9
-	1WHpsLph+VGwSVYaqPOhT2t50LfLTa4q2Iw3fuUE8BwxZ4e7b1RefEOE0Wgls66mc1dNMAOfFQF
-	d7yTmiqUFDxE8wZx6XjIBcFBBpC37fskp831USin9jeU6OtYyov/F481tVZa7gqndAKsf8NFu/G
-	TVu+Wzz7KlaX3MTRB9rIq1I1vwtvB+Giqd4AfQoCWYJZiB4jO4SDx4X8dbb4sYELJSi0XI7IJpB
-	iWkl1+U3B1YiUwJWV3GN84arJleLWEEL3VKlCPvLW0aCYwBH9vAoWqnvDjOIrAlcBTkRPTLwhXr
-	6Rer26DfT4m7y6CG5WvT3aTxIjvvWCzTUySL4
-X-Received: by 2002:a17:902:f60b:b0:2e9:5c29:995e with SMTP id
- d9443c01a7336-2ee0dc2bdb6mr25549575ad.41.1794576307662; Fri, 13 Nov 2026
- 05:25:07 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gduD1r5A
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794576364; x=1826112364;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=JHDAA9GQ4cle8mcEUojmH66XcPzPvCOf30Osct56EHk=;
+  b=gduD1r5AnvwflVvtZveQnXzKMIvXEzKXzhs1ZHf/HFwdsNAyr8Wzk4BE
+   JnKkBXo78AVaPLvrkmxvV//e/rqyaBy+9JVEaWoAJUWzTEUahOelGJ9u3
+   iJUYG9cmrWHaYElzCJXMs/MEnMAMRbRPekPYH3y467QmpUbyjRDIcjTE0
+   QO4CjYDddHiw5ODVLLXaiRBnBLw9QJ9n9o3WJ3+lWzbwJdNJk/TBfeO2m
+   ijmFYeuLy4KyOUPBt6oEaw66BRPdTU9xW6e9mSbKHhHQB3QVUUQwud1HE
+   VxKvvOE4Ctaiz1z7xFHXrTQzXDVxR4j1q9BBGqL6j+nefvJ7D165m9plB
+   A==;
+X-CSE-ConnectionGUID: ryXcCur4T5+hrAx54OAOCA==
+X-CSE-MsgGUID: 1hzw80O1TyqbC3PdSyI3ww==
+X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3391427"
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="3391427"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 05:26:04 -0800
+X-CSE-ConnectionGUID: Er+W26QyRNC/UrHD4NE/dg==
+X-CSE-MsgGUID: QkWApvgoRmGXBcHIZhw0QA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="10698097"
+Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
+  by fmviesa011.fm.intel.com with ESMTP; 13 Nov 2026 05:25:58 -0800
+Date: Fri, 13 Nov 2026 21:17:42 +0800
+From: Xu Yilun <yilun.xu@linux.intel.com>
+To: Ankit Agrawal <ankita@nvidia.com>
+Cc: linux-cxl@vger.kernel.org, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dave@stgolabs.net, jic23@kernel.org,
+	dave.jiang@intel.com, alison.schofield@intel.com,
+	vishal.l.verma@intel.com, jgg@nvidia.com, aneesh.kumar@kernel.org,
+	aik@amd.com, iweiny@kernel.org, ming.li@zohomail.com,
+	icheng@nvidia.com, bhelgaas@google.com, smadhavan@nvidia.com,
+	ilpo.jarvinen@linux.intel.com,
+	Smita.KoralahalliChannabasappa@amd.com,
+	andriy.shevchenko@linux.intel.com, linux-coco@lists.linux.dev,
+	terry.bowman@amd.com, nik.borisov@suse.com, brads@mainlining.org,
+	lukas@wunner.de, rrichter@amd.com, gourry@gourry.net
+Subject: Re: [RFC PATCH v2 1/5] PCI/TSM: Create MMIO descriptors via TDISP
+ Report
+Message-ID: <avcN9pz4mCRKA5zM@yilunxu-OptiPlex-7050>
+References: <20261105152909.53452-1-ankita@nvidia.com>
+ <20261105152909.53452-2-ankita@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,27 +89,169 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111-sm5714-fuel-gauge-v1-0-b9d163fff6ff@gmail.com>
- <20261111-sm5714-fuel-gauge-v1-2-b9d163fff6ff@gmail.com> <20261113-fuzzy-awesome-shellfish-2d93c0@quoll>
- <CAARotke5983-NFonNAnLbpzhEU2QZ=mt9CSNi=CdBxVshcpD_A@mail.gmail.com> <b72ccd2c-d26a-4559-b09f-1a0a2207add8@kernel.org>
-In-Reply-To: <b72ccd2c-d26a-4559-b09f-1a0a2207add8@kernel.org>
-From: Asdlerto Korry <korryasdlerto@gmail.com>
-Date: Fri, 13 Nov 2026 15:24:55 +0200
-X-Gm-Features: AclHuK-uu1jJJ5-OWPL6fdC7q-L5bATE3bIoG-NpwgnpCOGdUy-cDFX7oyzGFms
-Message-ID: <CAARotke3nDJfYEG0Qskrj0uXAXCGyTE7rq-y8mR7daPFdCZjDA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] power: supply: Add Silicon Mitus SM5714 fuel gauge driver
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-pm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105152909.53452-2-ankita@nvidia.com>
 
-Hi Krzysztof,
+On Thu, Nov 05, 2026 at 03:29:05PM +0000, Ankit Agrawal wrote:
+> After pci_tsm_bind() and pci_tsm_lock() the low level TSM driver is
+> expected to populate the TDISP GET_DEVICE_INTERFACE_REPORT response
+> payload for the device.
+> 
+> Add pci_tsm_mmio_alloc()/pci_tsm_mmio_free() to parse that report into
+> a set of encrypted MMIO ranges, and pci_tsm_mmio_setup()/
+> pci_tsm_mmio_teardown() to mark those ranges as encrypted in iomem via
+> a new encrypted_iomem_resource tree (IORES_DESC_ENCRYPTED). With those
+> descriptors the TSM driver can use pci_tsm_mmio_setup() to inform
+> ioremap() how to map the device per the device expectations. The VM
+> is expected to validate the interface with the relying party before
+> accepting the device for operation.
+> 
+> pci_tsm_mmio_alloc() also recovers the obfuscated starting address for
+> each encrypted MMIO range, since the VM is never disclosed the HPA
+> that correlates to the GPA of the device's MMIO. The obfuscated
 
-You are right, sorry. I missed the series from Nizat Mikayilli posted
-on Nov 8. Please disregard this one.
+I think we need to make clear why we need to parse the obfuscated
+addresses like this. IIUC what the guest really needs are the BarID &
+the offset within the Bar, so that it knows exactly where the MMIO range
+lies. That requires the obfuscation never affects the address bits
+for the in-Bar offset. Thus the MRO should be Bar aligned. And since
+there is only one MRO across all MMIO ranges, it has to be aligned to the
+largest Bar size.
 
-I will review and test Nizat's patches on the Galaxy M52 instead.
+> address is BAR aligned.
 
-Best regards,
-Asdlerto
+The obfuscated address is not BAR aligned, the MRO should be Bar aligned.
+
+> 
+> BAR alignment is not mandated by the PCI TDISP specification. So this
+> relies on the TSM implementation: the MMIO reporting offset (MRO) it
+> programs must be a multiple of the largest BAR size so that the
+> in-BAR offset of a reported range can be recovered as
+> (reported address % BAR size). Arm CCA specifies this in DEN0137
+> section A9.6.2 ("This algorithm assumes that the MRO value is a
+> multiple of the BAR size") and recommends the RMM pick
+> MRO = x * 2^n with 2^n >= the largest BAR size.
+> 
+
+I think the following doesn't belong to the changelog, could be put
+under ---
+
+> Based on an original patch by Aneesh Kumar K.V [1], and cherry-picked
+> from Dan Williams' upstream commit [2]. Major functional differences
+> from Dan's posting is due to the lack of evidence-store infrastructure
+> yet (device_evidence / DEVICE_EVIDENCE_TYPE_REPORT). The
+> pci_tsm_mmio_alloc() takes the raw report bytes directly from the caller
+> instead of pulling them from a device evidence store.
+> 
+> Link: https://lore.kernel.org/linux-coco/20251117140007.122062-8-aneesh.kumar@kernel.org/ [1]
+> Link: https://lore.kernel.org/all/20260705220819.2472765-15-djbw@kernel.org/ [2]
+> 
+> Signed-off-by: Ankit Agrawal <ankita@nvidia.com>
+> Reviewed-by: Bradley Morgan <brads@mainlining.org>
+> ---
+>  drivers/pci/tsm.c       | 239 ++++++++++++++++++++++++++++++++++++++++
+>  include/linux/ioport.h  |   2 +
+>  include/linux/pci-tsm.h |  33 ++++++
+>  kernel/resource.c       |   8 ++
+>  4 files changed, 282 insertions(+)
+> 
+> diff --git a/drivers/pci/tsm.c b/drivers/pci/tsm.c
+> index 5fdcd7f2e820..d074bfd18d40 100644
+> --- a/drivers/pci/tsm.c
+> +++ b/drivers/pci/tsm.c
+> @@ -9,11 +9,16 @@
+>  #define dev_fmt(fmt) "PCI/TSM: " fmt
+>  
+>  #include <linux/bitfield.h>
+> +#include <linux/overflow.h>
+>  #include <linux/pci.h>
+>  #include <linux/pci-doe.h>
+>  #include <linux/pci-tsm.h>
+> +#include <linux/range.h>
+> +#include <linux/sizes.h>
+> +#include <linux/slab.h>
+>  #include <linux/sysfs.h>
+>  #include <linux/tsm.h>
+> +#include <linux/unaligned.h>
+
+Didn't find it needed.
+
+>  #include <linux/xarray.h>
+>  #include "pci.h"
+
+[...]
+
+> +int pci_tsm_mmio_setup(struct pci_dev *pdev, struct pci_tsm_mmio *mmio)
+> +{
+> +	int i;
+> +
+> +	device_lock_assert(&pdev->dev);
+> +	if (pdev->dev.driver)
+> +		return -EBUSY;
+> +
+> +	for (i = 0; i < mmio->nr; i++) {
+> +		struct resource *res = pci_tsm_mmio_resource(mmio, i);
+> +		int j;
+> +
+> +		if (resource_size(res) == 0 || !(res->flags & IORESOURCE_MEM))
+> +			break;
+> +
+> +		/* Only require the caller to set the range, init remainder */
+> +		*res = DEFINE_RES_NAMED_DESC(res->start, resource_size(res),
+> +					     pci_name(pdev), IORESOURCE_MEM,
+> +					     IORES_DESC_ENCRYPTED);
+> +
+> +		for (j = 0; j < PCI_NUM_RESOURCES; j++)
+
+You've changed to pci_dev_for_each_resource in Patch 3, why not change
+it here? Then Patch 3 would be clearer.
+
+> +			if (resource_contains(pci_resource_n(pdev, j), res))
+> +				break;
+> +
+> +		/* Request is outside of device MMIO */
+> +		if (j >= PCI_NUM_RESOURCES)
+> +			break;
+> +
+> +		if (insert_resource(&encrypted_iomem_resource, res) != 0)
+> +			break;
+> +	}
+> +
+> +	if (i == mmio->nr)
+> +		return 0;
+> +
+> +	mmio_teardown(mmio, i);
+> +
+> +	return -EINVAL;
+> +}
+> +EXPORT_SYMBOL_GPL(pci_tsm_mmio_setup);
+> +
+
+[...]
+
+> +/**
+> + * struct pci_tsm_mmio_entry - an encrypted MMIO range
+> + * @res: MMIO address range (typically Guest Physical Address, GPA)
+> + * @tsm_offset: Host Physical Address, HPA obfuscation offset added by the TSM.
+> + *		Translates report addresses to GPA.
+> + */
+> +struct pci_tsm_mmio_entry {
+> +	struct resource res;
+> +	u64 tsm_offset;
+
+As mentioned [1], could you replace tsm_offset by mmio_range_index
+according to this patch [2]
+
+[1] https://lore.kernel.org/all/atIY1Joa%2F%2F+hCRcr@yilunxu-OptiPlex-7050/
+[2] https://lore.kernel.org/all/20260924041032.1096569-8-zhenzhong.duan@intel.com/
+
+
+Others LGTM.
+
+BTW: Is it possible we merge this patch alone when we collect enough
+reviews? This is about PCIe TSM and several other series depend on it.
+
+
+Thanks,
+Yilun
