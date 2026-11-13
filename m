@@ -1,75 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794577787;
-	b=xYfCmGb9x+j7AbdKseSOl4V74ELXyBhZ5csUXSvJ1hkRJcY3/DQplpHR0Z+g0UoOBhPq
-	 3be5nVJj9Erlf34EOuW6ZcqapU0wEC2T30twBSOKRcpWEfpa62sT1goGtnN25Hjk12I61
-	 cAqWd6Q/e9/e4qNM/7W1NXbkFd2SnyM+Q94d5lzkc7XS04iwtwTvmTel8OC2qbyw9BGth
-	 M80cng9CL1HEDJcbhFIjaeaIzW4cTFJuvzxMF1EghCYLOc/XgSMOXOslcCDNQlHZKC86d
-	 Mj/qG8IJ1TZeCJtPgfO0bE3+bi7Y1pIyR3UW03fzRIKwq635Y3LoTjCBA4tUVi/6luw==
+	t=1794577793;
+	b=IX+cD+y/fpOvUVrtlI/v1EKBtIepCMjh7nnPdmnV7R7QFqM3nSGt5hHKOpPSF6zZzE7J
+	 PPukto4WkeZMXtAu4z9F8+oZmS8d5uty3ecHQ5CP8ycUB3AWTu5FaoPfWT9iTEu3uDcUG
+	 zLay3jhyKdyD4ZrCtd2o1y34w/Jedl3pLMAvrFcTo6YoH2qAYXYUqUqAsajhCyS8AaAxL
+	 7FSB0rg/G8JH97JGVPwKeRQSxopmwi+PTq7zZv1GCnC69S/IuovXx4tGodoEk7i0KeCk+
+	 rDMu2ZwHpRUsNnTL4Mal3yD4OhKTFW7g4WtdLPEhXIB4rJ1+8fiZlPAIDYD8YbwtbSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794577787;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794577793;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=JhiXYpkQzjLGTthVjpwYYHAyy2NJiDkV7bui1K5fAuo=;
-	b=XONq/btrsyZTeQnsdYViibjFeVjPPhacJ51jeM26rEzkB1HgZWXNqMyZg+f7YJ4HElwi
-	 D8d9neuqfJSqcHR+PuHZoF6L8N1lCHUb7xSRCN4NkdntwcTDkrLsDPxLZq27ZvpxGe0hu
-	 EC3s7uy2QUKZMBi4hXsq7yn6FCXr7zioclPC4eFm9ycsDLcHGzC+QFchle5PFH84Ecv1n
-	 ir1YqdamQGL1kqXjxRu0v3ByR82f0xlgNwrinut18pVrJn+RrVEyYWFjiKO9QU07TYTpx
-	 IPm6I4bWrOaPfFAMY7SMvfhuMcwAdhYMzFLo8gk0RKIwOFsdteeGyWc42htS0D6uGbg==
+	bh=b69T+QcugpATwxwKqdMEujcVwSj6b7odGHK++WaklpQ=;
+	b=ETMYeSq25CfiZ52HXft7mMlNxqpGSh/3zJJ7Ru1lj6bRsmImSpzNB/QwqmdDNBAKpMie
+	 wyXhpsCH9MhAGg2OpN8uOT+6u60CIhsVnm3pu6EknvD1SmeX5/GXFsV62YUZIPxUmmhY8
+	 QaO/cXEsg91ubjkrigE14PCStDXoN4TO1oCUjJr4wQLeVJVDLlrLSoSJNVeAxc1psTaxD
+	 ltHxLkXgMJfEhdlTrM3PD9OcDloPszsxqj59mnKE5aiuf9BFsitL6F5SVcKaxYiZKylR/
+	 EGEhDTevPBuuOU/ggeNccwi3Br4gvbNPRS54M9TbxuYV5lKGbHOQweSaNeoZtTNpbXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="Zog8kNj/";
-	arc=none smtp.remote-ip=209.85.214.197
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NTpCEFA5;
+	arc=none smtp.remote-ip=209.85.214.198
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 632DE606A32D
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:49:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 632DE606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2751360A2622
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:49:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2751360A2622
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Zog8kNj/
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2ee184a2474so4046865ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:49:47 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NTpCEFA5
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2ed2c307e62so17425595ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:49:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794577787; x=1795182587; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794577792; x=1795182592; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=JhiXYpkQzjLGTthVjpwYYHAyy2NJiDkV7bui1K5fAuo=;
-        b=Zog8kNj//F+tJ47iZ4rd/vRdwfHcPmZr5PIpEYASYfSU0uIpdAaAQbKb2iSjKuGrJC
-         LmUEbEK0fotsAIirWG4OVuVjWqDlP7pjuqWSA8ipK/qrk7DYRZNuaVDxOvHgO8kfS5gP
-         iAjTP1uaV81zzy4WrR3/1ArFc86+k1PfnfcpRkgSeqWInm7zP0pERW/SD5cgU0GHTp/g
-         QLtTRskr0/3u+qWWtQxU1Y2cafkDY01Es0N0hG0T1L7SoYF7+CpvMvrqir+NdpRFWV0W
-         0f7V7cL5Svjza55mLbBuxfs/sAB4CwLy/CiFck2gS9zBwaFsk35GRMhzzzKtluEwoiP7
-         jd7w==
+        bh=b69T+QcugpATwxwKqdMEujcVwSj6b7odGHK++WaklpQ=;
+        b=NTpCEFA58Pmno0zFLkNqa0oGWJF88P9imPpX+E5AfxnbiWWMyRW94nDaKo2SeeyO2z
+         AEmG42yTokrScGY8bygZhWASPfhMBRlJNvopg4rmHLGqeCo5EErL4aBV8IPLWCOAbkXb
+         WKSJQifPR1F6o15fMlysacrd7L/eAK8UD9l8TLU9G4ZOe1sxu0VplnQLXoqPXfR4W6xb
+         TeTg46VFw3TYiKkAPaKZTktAJHqfZRLsb4QE02M6F4qKhfWWJJT3xpkwspmHYWMKsC/c
+         xpl0nmxvcm4WN8udxn0oZF/OgDhrQ6MfSn2WOBzjU3h9dm+gG7w5uLzbYsFiCrAMnSsF
+         0qVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794577787; x=1795182587;
+        d=1e100.net; s=20260707; t=1794577792; x=1795182592;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JhiXYpkQzjLGTthVjpwYYHAyy2NJiDkV7bui1K5fAuo=;
-        b=HTBOcC+yQxb5YDNOj5tJKUsIUuhuwGQYkxInB3vAUEKuasI0s4ndp2MyLSdFt3S7bM
-         1P1w35J1H30Url2xzrW9sv3P719wF0gsyi1MILDvVBn3de3ATTY1903P+miiyWntCLVo
-         mCUN0PIHHoQsOTjoQRym4P58tHjo10wfSvjYT2mRXIandGK79JC7OI/oE1YHphneIYU3
-         3Tc9++05ap1p/u+rpmKo0Ruplz+TLCjCHjgcRH/176i0NIRyTQLO1FrznLmkl3L30LMf
-         3VlvnbSUVVXRvMrnTjOFvQSmsaJz/9AxnkZIhyWw+refWWtVWklGGTQ3ZwiRTZQyJEtS
-         f2dg==
-X-Forwarded-Encrypted: i=1; AL+hErGChEcHaPrJbEdtakmJwj6Alm97SLfE8s9D3TEvQ4hMqXiw22WnWNwuJTsxDWPhDt+iyW6CtI+pll9CttI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9h5zb00JVhARabCJXNa8+9l8maOGBgBdWRe4zhg/l1RfgCXw//
-	6sf6cL1zq/kt2jMmb24B+9mYkkyWq5YaiQbe2GmbE7WufT3lnVAcsWhkN5xmCV0XfrASSFXvGH9
-	sp+fKVQ==
-X-Received: from plnd4.prod.google.com ([2002:a17:903:1984:b0:2e9:6b18:1067])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:eccc:b0:2e8:e17d:c8c3
- with SMTP id d9443c01a7336-2ee0dcd18admr25455115ad.62.1794577786632; Fri, 13
- Nov 2026 05:49:46 -0800 (PST)
-Date: Fri, 13 Nov 2026 05:46:44 -0800
-In-Reply-To: <20261027001600.2742995-1-ingyujang25@korea.ac.kr>
+        bh=b69T+QcugpATwxwKqdMEujcVwSj6b7odGHK++WaklpQ=;
+        b=zKttVm6G3dBzUwcN7HqTqdw1LinnYEJ+jrdz86ZMXdi5fBsTpFCSFoMM1DSKS0ZS8w
+         ZMzfBPOFBYJVyqP+mcLbrKq6OFDvw/XY7eSr6ETIqWQTFYmnTtCDXuVXhNKQFTc/txg6
+         nC5xs+aw5d/vuKVPhopEnko+Yvl52ugHKkS/EARTBKmalsna4o0rY9CpHHL9XZs7jszb
+         aK9mhQ19enAojTMjfL59GcqaetX5PxUqlsNnW8TfRi6wQdd5tACdh0KeCs9dxbMCXbJ/
+         DtPw5S4W4PdPZrfgKzrwKAXlNA8bkAjZ+qzgvX2LblX46uhIRokKAmh72X9jmsOXbQvL
+         hwfA==
+X-Forwarded-Encrypted: i=1; AL+hErEZw2TGv/c2PLNDuNFxKbn5u476YHYC2TqC42dbOKrM0HG95CC4gk44VzsCOEYEO98iU+QLgByzYdFRwc8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z919KYWpdioBbu3HF4aDKcnxH3exD9bsJo65wC+mPz1z5SQKrKI
+	tqsDNN9IBrIEEHL1J851kBBl4dj+0U322vtBrOrXfQLjh2YaE7qwrUewykjY/Nzlk6/omWxbpbE
+	lnlVavw==
+X-Received: from plpw11.prod.google.com ([2002:a17:902:9a8b:b0:2e9:db6f:41b3])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:1846:b0:2d9:599e:df95
+ with SMTP id d9443c01a7336-2ee0d6600acmr27342415ad.3.1794577792313; Fri, 13
+ Nov 2026 05:49:52 -0800 (PST)
+Date: Fri, 13 Nov 2026 05:46:46 -0800
+In-Reply-To: <20261104212456.9835-1-laurian.iacob@yahoo.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,32 +79,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-References: <20261027001600.2742995-1-ingyujang25@korea.ac.kr>
+References: <20261104212456.9835-1-laurian.iacob@yahoo.com>
 X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <179441787804.77218.13995076862430553653.b4-ty@b4>
-Subject: Re: [PATCH] KVM: x86: Move PIT existence checks into the PIT ioctl helpers
+Message-ID: <179441817794.79965.13636393461318165442.b4-ty@b4>
+Subject: Re: [PATCH] KVM: x86: Fix spelling typo 'RECIEVED' to 'RECEIVED'
 From: Sean Christopherson <seanjc@google.com>
 To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Ingyu Jang <ingyujang25@korea.ac.kr>
+	Laurian Iacob <laurian.iacob@yahoo.com>
 Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
 	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+	"H . Peter Anvin" <hpa@zytor.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="utf-8"
 
-On Tue, 27 Oct 2026 09:16:00 +0900, Ingyu Jang wrote:
-> kvm_vm_ioctl_get_pit() and kvm_vm_ioctl_get_pit2() always return 0,
-> so the error checks on their return values in kvm_arch_vm_ioctl()
-> never trigger.
+On Wed, 04 Nov 2026 23:24:56 +0200, Laurian Iacob wrote:
 > 
-> Move the !kvm->arch.vpit checks from the callers into the PIT ioctl
-> helpers, so that these error checks handle the missing PIT case.
-> 
-> [...]
+
 
 Applied to kvm-x86 misc, thanks!
 
-[1/1] KVM: x86: Move PIT existence checks into the PIT ioctl helpers
-      https://github.com/kvm-x86/linux/commit/9e03a08bda04
+[1/1] KVM: x86: Fix spelling typo 'RECIEVED' to 'RECEIVED'
+      https://github.com/kvm-x86/linux/commit/1d58c6b5db04
 
 --
 https://github.com/kvm-x86/linux/tree/next
