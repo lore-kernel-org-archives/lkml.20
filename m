@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794613961;
-	b=J0Y0etJR0kl645zhTT+07xgzBCkUVqTUqYkfbud6I0+piRb8PiplFE0TkC6rPdIHoYyU
-	 lXK4y+ExEk3Lqlinj7EaCyYXH/anWrp2WvbQWa90v+abo5KVRFW+BJq60U4L6+Uyc6YOI
-	 OpayKh1bdqpb4024r7FWY7WxfhIWHXLlu7Yt/u6C17ehvLppVLqe8/Fuhy2MrPMEOA8dp
-	 7pd6/1onhAOF5jx6AdQXAtSUKnfE1VQ61YXIGXq/ly8AbOdG43L+XnbL04LRdJTuFLL0n
-	 6zvWCGkMwMDatN2wXtyxBLxr75NkI/suL5rS+1RCCf7o8LvOWdzk5jrz9DFFx5kqaMQ==
+	t=1794613963;
+	b=IsFV2tnHP92u82a8RGE8J41ZsUktDkcx6yd+v5wKzJUfysBy3rJEu/q9ylS/aQRl0lTC
+	 UnoJI2DsZ/uAvWALMvq9UoDKhXA7Ezbt4V+RRH+aj8pZsYboYhil3eu7O0KvWKLfB895a
+	 y/hvNss7XaE3otwx+twyVoeRrzJdRikMuh58Uzcy1Eulg9rNuztXBxM0y0wrCUECHnTKK
+	 hlyqTfWeujE6bCN0O472OPhxFLfMPPCyfJ4lWyZN09LZ1eCU9ojzPTxkA2EyBdG/kv9KS
+	 VgXmw4Dis38IIFf7X6LCavhCFWfF8gdzHy2buFbql6kygv+cUenutD8QZP4zWXmojYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794613961;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794613963;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=V6Dc06AwxOqv+YtietBML1RlnbCWLY7fPYdPiA+3csI=;
-	b=0gUIPMkMw4lOHJuU8TmQ9BY00xKWhVFZPiWul0/pWsRNOkOZvK36IAgYELRhiF53W+QM
-	 8E5QpaS7mudQjcDfpW8a+Fu2Afh3tk8FSDZeSflGCdo2CDdZUgFSAx4YayKtFjJSq1Lxc
-	 YuYoC7Kg8WVZW4+Re+IJW/8iOpHZxdEa9sGQbnFghgpipab1kSX2m0i8khC8Gq7md8CW7
-	 JooCIb/vWuJFYGqMgnUqr7cuclSUWOu8vUCNBqvYi/2Imkt4Y9RkMAghPsnipAdt+g3+r
-	 O4Gh5PdLDv6XgbbqXHsfnJyOQBf/A1SiBdtE3m9z98i8cuu/WxSzqDO5v87s3DdwX5w==
+	bh=3p/H7+3mLYBSagCd63fdFoeAPEOAgkODxSqUC7rZWUE=;
+	b=VV3d6bs1GlJojKhG+Ma9iwUl58e5qvJn2ndVx7D4p07sUrsUnihjm7uWjDIqhqMD6Emt
+	 iYeAuCSgIdQUpA6JbqqC6gPsj944reVMf+ZMZ2WQannXRDQUzU56NBR2cWqrDMCIlXEwA
+	 0npqIqmG02R0sM7dRJWOtyyoO2//q5+DPhCRkLnpGXnRuIs8AW2VZWktGLuw2AugaP1Fd
+	 fsDlFWrpURhbiPFMAKW7tMCGW2UgQvTvba7cyHdrRZr1ynH9ejECkLv91U/HO9ye1/oN9
+	 0fECBx/K5W3+dJzh1GO+31XTpl4tGd8EkhXv+R2qxfgzYiSVLJehaWXZkKj1CIMr79A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w3ugJfw2;
-	arc=none smtp.remote-ip=209.85.128.180
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O4NDFoxd;
+	arc=none smtp.remote-ip=74.125.224.50
+Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 362FA606A336
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04721606A323
 	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 23:52:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 362FA606A336
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04721606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w3ugJfw2
-Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8b31261e8a9so11670357b3.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O4NDFoxd
+Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-67c6f1019a3so1955781d50.0
         for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:52:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794613960; x=1795218760; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794613961; x=1795218761; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=V6Dc06AwxOqv+YtietBML1RlnbCWLY7fPYdPiA+3csI=;
-        b=w3ugJfw2ZTzMYbivsmi1uKf3npL493vWnoIGJmOy+ortWUWKDwjoM0SGo7bdErtOTY
-         IJJwCKJKzcxJuVjxPaaQcK4ps9ySYu3f0/NHz3AvPfs945gSnfC2Shln8yUkzPZVg/bi
-         2LfaqUzzNcbs58sNBreA2XKVgD4oqvtL9LtTkcxt8Xf2cqJaZJTbqfyZDCgwpn8pTk0p
-         urGPHgeZT+92APrhELBmks+/D76Spb6L6ybqgBs9FuhnU+ZJbDX+533URmuLMkzHuzHK
-         X53pv3OC1k/JyUv71TdFuGTmpph6Eii8RbHr7eTrxhCFoeWh/0bP8OKrREjXwTX7d8s3
-         AVig==
+        bh=3p/H7+3mLYBSagCd63fdFoeAPEOAgkODxSqUC7rZWUE=;
+        b=O4NDFoxdiwuh67ucR34xOGFoDKcH+10vhdASzWIUCDUkbfgYgcg4dGRlpeqIiBG1Ex
+         +kpk5rKpN+BhB5JNu3KzH7W7OFZo/csKBNr+7kc1Q+Zx4C/qDsJhHbK20A6AYDH9kU2x
+         YZGd6rO2YAvp7fPMpxEO7+z+pA26Ia5CBXSP5W5xTT+F1CaCyCv5YtlCY9QKlMrEBKBx
+         0FDZbnW6ex9JmNEuXJRQcezMrJFbLrLyo0XF/XaOdPTsUg417pczMmyFo17/u1V1oHr2
+         JKr0tTrrSkbfJggWwm/2YwtOKy47FenWk2BeC6ShwQ7zJ5c32IURvRSNNJKExz4FaFuy
+         nltg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794613960; x=1795218760;
+        d=1e100.net; s=20260707; t=1794613961; x=1795218761;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=V6Dc06AwxOqv+YtietBML1RlnbCWLY7fPYdPiA+3csI=;
-        b=BP+rKAebzZwUT3WYZf79bXZky7XXqzlQ4LDpOgI1w490QEkr9NQ7asaEyrsapjxixn
-         IeR+IueCPrq2OW99OeEfnLEs2O6zKYGRsL6z/DQdl7C4BOX20Tj2uRFNvxDT0ocdY/aK
-         P2ga3lIR9a55v3KNrceeWCshZy3hRHstZydEsdyH66ACHy6qOxD5fiVUWmtytmmKXXZa
-         55IRiyn0nYvzbWdhdgcfNZCD6n25Cb0hGt5vZmYPyjCRoAe0uW2eyCnO0xr7MeYdCC+n
-         MHsTPcTpI98bKk5eD4SH6AXPtwybIPqXCc/nG2zMsH/RkRoTLycZnQWSLerczcujNZ0k
-         mD0g==
-X-Forwarded-Encrypted: i=1; AL+hErFp7TsVy8sojIYN6rCxlh5ieNUESh0q8q4Bt5wGvCOPzfFgDT1YnNJBVD9cpTXb2NHpHTZPcBG1ZDj/v0Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9W+3tBsTnnCmEgFrL9Y16cIDCAIlSh+w6M5Q24QvZ+Duz0pxHV
-	xtdxeMtWZmglM1HuTvvYL+7Hq0T03ImZPqTfyKB8Zi+2gQgkol5zHQ+G
-X-Gm-Gg: AYBFou1YvRoCL9UMPzbxnIz2qbYtoZRQmJbL9wHlil6E3ktvtQno7zxfBtyX6URUJ6V
-	EynJN3xzaWK5Rlv/vJAtc+7C0VJ6/8+/M2mENn6TkOPLUckb8BClo/1odfXeaXpeSxpykZoc4q5
-	gpGmsm9v9FeOClGhZ6y0lE7YkdR0yTdLAR4I9gYcqwoG/AjD1Yeng1hIMHo+I900DNvHZuAW7Ya
-	7DWI+jKWeId4sDYSygpJD/Do8HAjcuvLoMhg1QEg/X5YJ9O83OsVH86beWtvB4OBMSmDXOvR7cB
-	iDS21qE+yRNy4i8klNQbjrOk64Cvex9IQbEEYal41muPj1xVkCP4P2rLaetbmWL+I42UOSRHW7i
-	ZWXMXDsdKl4laugtQimqP0E+u8DewG62bL8is3Qr/pnEr61hfcQuteAxOkvc4scini+A1JShsai
-	CBTcPiBGneyH8vs//42Cc0V4pjeHyHax/5Jkxwv7AiW0Z1ld2EE4CS5+S34uWf0mU4i/8Qk28J3
-	3Wxm/9ZGANjMivOlgOv6GjQzlx9zYn9GRNGsIRZcGOAvpxCXPONeaEABl6TZcYESs6KlGe5Zaug
-	bz1O6uxAcoB4ww0z1MWEK9WKBvcNZctpp6ZYz+ji2z9RRAppYJPZW74jo06w
-X-Received: by 2002:a05:690c:8d07:b0:8b3:5eaf:29fa with SMTP id 00721157ae682-8b4aa3d36dbmr26756697b3.55.1794613960093;
-        Fri, 13 Nov 2026 15:52:40 -0800 (PST)
-Received: from localhost ([2a03:2880:10ff:5c::])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa9870f7sm32719387b3.24.2026.11.13.15.52.39
+        bh=3p/H7+3mLYBSagCd63fdFoeAPEOAgkODxSqUC7rZWUE=;
+        b=wD2tTUthauzIIHQeRRBios38CFD+XKupQiEhVzeA7QVuY3zO7psm/5aXKPJ65MWKKm
+         n8RD5L00bUhDB5DqiHBVNaMQ4oVyZoNLrFcsVtxQZ5viTvr8csRnC+S63h9Yc4tZ18a9
+         iijWd6ov5iaoDvU4L1rxO4Wzko4R7yxv0dDJwlHG7kQeQPB0qlFBl7VE/dwWid32SRdL
+         FI6PpAmm4ucWB1I0WehksA161PgGDQawCGitc0RSL+KR20FeDWewjvYF6y9kz3C11oFG
+         ras/U2vaM9vBZ+4d2dHy7vqg+RBp2GiMnOIOJDKA+9h306aU1/cCgEhMU4DFdFfhhUaW
+         8g1Q==
+X-Forwarded-Encrypted: i=1; AL+hErFE/owcCTb6pii2YJrZosyHN2V6YQR531A5SKF/B7uLfz0TGwD8/2Ei4Mk2VBUtIg9ubMyWUDI9+F0tIks=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/DK3j8RXl+8G7eZgweFXba2rQEtxtzyawQ2GZ1UMTLz6AFXPJI
+	bOSiRzz9DBXNNuPilXP7JfwVHOlAeF+7TOZMKlG+zHrccWxfieg3tF0S
+X-Gm-Gg: AYBFou1RS9itFbdAZ7Kbj+Px47AD7FMjdOUiqPNm49T7ifZ/Qa+Ah0BuPPtmntujPcP
+	fNcrJ1sOaZrquU+oj/luwDCb+3YRWN2hGQdHwEFlY5ZZbdr5I8v3jSwo+/k9D5uWcfEzW94XAnf
+	nwlCXqDM0Xr+54YDtIeYBh3AeUTdDgq8duvXYnopAfxI8Tv9L+jK0dbhpnpLyl6i2Mmcm1MKHBp
+	Gcjy76xnVAi9zklFQaACwkDJncs1gK2i6wLdLugxH8F6PQvqdX6kkfXObGR3LmkZeUkF4yDZUeW
+	1p6UATLO+tq0NIHE5P63NAlCcB15q4rQO7zReXnRmoJUbaFxMjV4reNo+wTpf1vll4eh59hjjHP
+	wWEXBH/M30OGM4b5jQnOW5VBd/y+cdyX8FSTJ7WsS2HRUoU1FVloRENAu5R1dUmS+Gcc87fLfO5
+	5KornTfzLhZ1vakxSFUVl+Snmr8X/cdb83b/NWvh2HLiGjY2c9WcCU3V2exucp9jHP+F+JIQpW5
+	egj4fUTFQGIlseOKtT8Ukb9e+7GkOafP5nx4A50IJsFFMLEttXEQNlqkA6SZ6VM1+9sfG/baiA1
+	pHKHHEtLuSbEkx1iQfj3qy+6HOIJnYeQa+9l/vupHAr9mBwon3OwvXFuGpeu
+X-Received: by 2002:a05:690e:168e:b0:679:ba40:efab with SMTP id 956f58d0204a3-67d895e5acfmr2112919d50.29.1794613961145;
+        Fri, 13 Nov 2026 15:52:41 -0800 (PST)
+Received: from localhost ([2a03:2880:10ff:45::])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67d8a5cac43sm3428687d50.14.2026.11.13.15.52.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 15:52:39 -0800 (PST)
+        Fri, 13 Nov 2026 15:52:40 -0800 (PST)
 From: Joshua Hahn <joshua.hahnjy@gmail.com>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	Vlastimil Babka <vbabka@kernel.org>,
@@ -95,9 +95,9 @@ Cc: Lorenzo Stoakes <ljs@kernel.org>,
 	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
 	kernel-team@meta.com
-Subject: [PATCH 1/3] mm/page_alloc: drop unused gfp_mask from zone_watermark_fast()
-Date: Fri, 13 Nov 2026 15:52:34 -0800
-Message-ID: <20261113235238.3595412-2-joshua.hahnjy@gmail.com>
+Subject: [PATCH 2/3] mm/page_alloc: move the kswapd node skip check into a helper
+Date: Fri, 13 Nov 2026 15:52:35 -0800
+Message-ID: <20261113235238.3595412-3-joshua.hahnjy@gmail.com>
 X-Mailer: git-send-email 2.53.1
 In-Reply-To: <20261113235238.3595412-1-joshua.hahnjy@gmail.com>
 References: <20261113235238.3595412-1-joshua.hahnjy@gmail.com>
@@ -112,68 +112,93 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-zone_watermark_fast() has not used its gfp_mask argument since commit
-2973d8229b78 ("mm: discard __GFP_ATOMIC") switched the watermark boost
-check from __GFP_ATOMIC to ALLOC_MIN_RESERVE.
+get_page_from_freelist() checks many conditions for each zone, often
+with a big comment block explaining the conditions.
 
-Remove the argument, no functional changes intended.
+Move the kswapd check and its comment into should_skip_kswapd_zone() to
+make the zone iteration cleaner to read.
+
+While moving this, also resolve a checkpatch warning which complains of
+a waitqueue_active() call with no corresponding comment explaining why
+the lockless use is OK in this case.
+
+No functional change intended.
 
 Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
 ---
- mm/page_alloc.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
+ mm/page_alloc.c | 44 ++++++++++++++++++++++++++------------------
+ 1 file changed, 26 insertions(+), 18 deletions(-)
 
 diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 9e1261521b6a3..4d829e5eac49d 100644
+index 4d829e5eac49d..2fe49f3c0de13 100644
 --- a/mm/page_alloc.c
 +++ b/mm/page_alloc.c
-@@ -3675,7 +3675,7 @@ bool zone_watermark_ok(struct zone *z, unsigned int order, unsigned long mark,
+@@ -3785,6 +3785,29 @@ static inline unsigned int alloc_flags_cma(gfp_t gfp_mask)
+ 	return ALLOC_DEFAULT;
+ }
  
- static inline bool zone_watermark_fast(struct zone *z, unsigned int order,
- 				unsigned long mark, int highest_zoneidx,
--				unsigned int alloc_flags, gfp_t gfp_mask)
-+				unsigned int alloc_flags)
- {
- 	long free_pages;
- 
-@@ -3877,7 +3877,7 @@ get_page_from_freelist(gfp_t gfp_mask, unsigned int order, int alloc_flags,
- 		    !waitqueue_active(&zone->zone_pgdat->kswapd_wait)) {
- 			mark = wmark_pages(zone, kswapd_watermark);
- 			if (!zone_watermark_fast(zone, order, mark,
--					ac->highest_zoneidx, 0, gfp_mask)) {
-+					ac->highest_zoneidx, 0)) {
- 				skipped_kswapd_nodes = true;
- 				continue;
++/*
++ * If kswapd is already active on a node and the zone is below its kswapd
++ * watermark for this request, keep looking for other nodes that might be idle.
++ * This can happen if another process has NUMA bindings and is causing kswapd
++ * wakeups on only some nodes. Avoid accidental "node_reclaim_mode"-like
++ * behavior in this case.
++ */
++static bool should_skip_kswapd_zone(struct zone *zone, unsigned int order,
++				    const struct alloc_context *ac)
++{
++	unsigned long mark;
++
++	/* Lockless check, a stale result only affects zone selection */
++	if (waitqueue_active(&zone->zone_pgdat->kswapd_wait))
++		return false;
++
++	if (sysctl_numa_balancing_mode & NUMA_BALANCING_MEMORY_TIERING)
++		mark = promo_wmark_pages(zone);
++	else
++		mark = high_wmark_pages(zone);
++	return !zone_watermark_fast(zone, order, mark, ac->highest_zoneidx, 0);
++}
++
+ /*
+  * get_page_from_freelist goes through the zonelist trying to allocate
+  * a page.
+@@ -3796,9 +3819,6 @@ get_page_from_freelist(gfp_t gfp_mask, unsigned int order, int alloc_flags,
+ 	struct zoneref *z;
+ 	struct zone *zone;
+ 	struct pglist_data *last_pgdat = NULL;
+-	enum zone_watermarks kswapd_watermark =
+-		sysctl_numa_balancing_mode & NUMA_BALANCING_MEMORY_TIERING ?
+-		WMARK_PROMO : WMARK_HIGH;
+ 	bool last_pgdat_dirty_ok = false;
+ 	bool no_fallback;
+ 	bool skip_kswapd_nodes = nr_online_nodes > 1;
+@@ -3865,22 +3885,10 @@ get_page_from_freelist(gfp_t gfp_mask, unsigned int order, int alloc_flags,
  			}
-@@ -3897,8 +3897,7 @@ get_page_from_freelist(gfp_t gfp_mask, unsigned int order, int alloc_flags,
- 
- 		mark = high_wmark_pages(zone);
- 		if (zone_watermark_fast(zone, order, mark,
--					ac->highest_zoneidx, alloc_flags,
--					gfp_mask))
-+					ac->highest_zoneidx, alloc_flags))
- 			goto try_this_zone;
- 		else
- 			set_bit(ZONE_BELOW_HIGH, &zone->flags);
-@@ -3906,8 +3905,7 @@ get_page_from_freelist(gfp_t gfp_mask, unsigned int order, int alloc_flags,
- check_alloc_wmark:
- 		mark = wmark_pages(zone, alloc_flags & ALLOC_WMARK_MASK);
- 		if (!zone_watermark_fast(zone, order, mark,
--				       ac->highest_zoneidx, alloc_flags,
--				       gfp_mask)) {
-+				       ac->highest_zoneidx, alloc_flags)) {
- 			if (cond_accept_memory(zone, order, alloc_flags))
- 				goto try_this_zone;
- 
-@@ -5245,7 +5243,7 @@ unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
- 		mark = wmark_pages(zone, alloc_flags & ALLOC_WMARK_MASK) + nr_pages - nr_populated;
- 		if (zone_watermark_fast(zone, 0,  mark,
- 				zonelist_zone_idx(ac.preferred_zoneref),
--				alloc_flags, gfp)) {
-+				alloc_flags)) {
- 			break;
  		}
  
+-		/*
+-		 * If kswapd is already active on a node and the zone is below
+-		 * its kswapd watermark for this request, keep looking for
+-		 * other nodes that might be idle. This can happen if another
+-		 * process has NUMA bindings and is causing kswapd wakeups on
+-		 * only some nodes. Avoid accidental "node_reclaim_mode"-like
+-		 * behavior in this case.
+-		 */
+ 		if (skip_kswapd_nodes &&
+-		    !waitqueue_active(&zone->zone_pgdat->kswapd_wait)) {
+-			mark = wmark_pages(zone, kswapd_watermark);
+-			if (!zone_watermark_fast(zone, order, mark,
+-					ac->highest_zoneidx, 0)) {
+-				skipped_kswapd_nodes = true;
+-				continue;
+-			}
++		    should_skip_kswapd_zone(zone, order, ac)) {
++			skipped_kswapd_nodes = true;
++			continue;
+ 		}
+ 
+ 		cond_accept_memory(zone, order, alloc_flags);
 -- 
 2.53.1-Meta
 
