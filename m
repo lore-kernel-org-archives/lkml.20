@@ -1,101 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794530157;
-	b=Bgpxx3HoH1qLyxJdx82wq2+OI2jcty3bBYGHT4Sr/8S+l6C+WNisyjUMDsvUM9U8SxF9
-	 fJSdeRShpTg9lk3fwGy+xZTxlxPSSoy5GsQQ1h3p4if+hflxWLu0xw2F8JajcLRKtorcS
-	 gF46ezY440Ytgi2grdIBNXHyQVLvLY4SJmSgBRC4ybGFCByvCoIFJrtGRhJHoC8xzClXb
-	 PtJ0DQlEcBF/HciBTJy2E7RSh0j8HX9G2gytH5flryDj8i75r5Mu76CP/CYNyqdNEEgjI
-	 TRsGqIIuC0/hTwCKyz82cu+MdeDG1GyqNLrECljdMUPMQWFIvo8D7vffmMNsh+yd5gQ==
+	t=1794530164;
+	b=2L75FINd+oONTEQvznF68QNRi0kSxBh8GGyYPj1hvmTGilpwFijJP7hcjGoxDO0KpXmb
+	 1cJJttU9Nq1hFC9hg2RxvnChdjmECii3zNcQTMaPVjMqjwUGRozjK7omvX4zpi9rEd/7k
+	 Xa+GRTyWvHBs4Co7U81dby/548LgTqwtRoZHaMfSvk5QxkVxLMDuFv2bw1ZEcPWAH+xqW
+	 pdLO2JvM33gv5nrq9At6wqaBsRnisEFItay+gYeyjkHQtnEAFNo6WGOhUlriX9ye0ZMnJ
+	 yL7zsmCLxYkN4W9VvzC5SyVDftC5dAliyGAS6hS9Z+LojCaM9ZFhJeAFDbe0qDErTHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794530157;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794530164;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=kTNrEmxNbCnmj9l3gKKv43Fyixiy3ZR1yX2zY41P3W0=;
-	b=0CJoCJAC7T2veRyLJ5ZOZovLAUcRo6reDqEe6dK3XO21hP1Kv4hq5wnNhC8Jl8V3TCQQ
-	 WsYzYoT2J0tsMsREc6eI0U1lKsAg8sAq2W/+h3da+7OImWjfeHbBdRC6FvIClHVX0XP9q
-	 16BIKZvVf8RVKOnsNQpSIGDSaC83UKZ8EE1ItG7oHCK3QIc3CeyOx8S3WkIg2OM1pbvRi
-	 dwjRiRvumsL7jhsVWga1NJimzYReCWXxVXj9S5bTSzadNhbU7w/9XVaBK3xt9IyYDrUEN
-	 fvqCp5Vx2DoWYWjzAEIKheTVzw6wSp8yDTQLf6YNHpwGh7huxxWF72ZpH8DirUKh2sg==
+	bh=T2Yx0PhHKFT6VpgC4niEb4VKLhOeq/cZMiaB12P/Kdw=;
+	b=hU0NUFKLusPe5o+Y2tcfI5L//9IlAJjbyyh6c2M+F6Tx0svmsaOKiBBtyXTfA+wyRGaZ
+	 Nswlftx+ZSYPjuILKNt9cgZh9iLF5AhbRogdaEOpX1iawJALgZ7uC0jZzTrUFFOm8eZOB
+	 u7cbtvSrmBU7tOuvRndAhmH2zGwT/dPeP0gMcYkw/leoHTQVD/amZBIjs9Xm+PXYpe9l5
+	 PJ0MdA/GBR8CpdM9zfXZWzj+bDH8CL04jBl2uyKaevGCHJ5UBJeQ5poKuu4MKdZMXq2xX
+	 hBTW0z7qNKSKnuS2QGB1hOfT63LP0re5F/Mo48ZpNNNr9TsCLc0Z5YVFFbyWc1fqEbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pm4bRzhY;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="nCsxS/12";
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A14D7606C25A
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:35:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A14D7606C25A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 569ED606A8AE
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:36:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 569ED606A8AE
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pm4bRzhY
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-491971ac844so386940f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:35:56 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nCsxS/12
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so2525975e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:36:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794530155; x=1795134955; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794530163; x=1795134963; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=kTNrEmxNbCnmj9l3gKKv43Fyixiy3ZR1yX2zY41P3W0=;
-        b=pm4bRzhY2y3ustnK/cV3mx2MU4TpafN1DP6eVrVfEWP6zwyrwZ8WcDJbBpaSn4PCS1
-         q9/VX/T7EbPj4GABXhTxz1EpjBBlJ5C6LjvWS8+R1MyrkwtZqFceJNwX44oFw+7COG4F
-         1gfOA+vK6jEPJTD/xSnbdkkUcNMj3shVBA1DlbgDKzaydRB4LWv4xwEw4b0FU73Ik21N
-         +vouDhlWEkCOD4DZamc4To4pzA8LXBUO2O7oFaIdM7cWs47aP2/ISYgSiypk/Ibch+NN
-         iUQoIvdKBDkOBgZw/fIiTtBmgSBvjcKDT5zuJIZZ/Wp8eQMkuKNaarb7YNm3NG1cX3MH
-         ShMQ==
+        bh=T2Yx0PhHKFT6VpgC4niEb4VKLhOeq/cZMiaB12P/Kdw=;
+        b=nCsxS/12HM6zIm2voL6T0fZN9ba/jyGuCSu6/T0qOz6MES+nue9pT69TRSZHygY/6G
+         Zuommhdrv7QntgQjMhS4SdD7u9ir9BR2ccu62h+LrEhRixUlvkilIxUpyuUilN9tGQ9h
+         oEh6/KXSG1xXfYP3zVqD5GdeL6mRoUpc/HGayhc5xozEP05w7y9qs4NbW0IQRCBJKQaD
+         oJUTgVvfXRglAMwiunYL47KNTvK+JK+BEMIzcsFnYQKG7oDKO89NTglKVk6nQpRe7q4e
+         /QYG+WAeNqCnqctcBN5vFJKg3dmvrBo96jCrkwZiAOCRMbc6zYnm7S7aoNs+6F7keeSb
+         2N4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794530155; x=1795134955;
+        d=1e100.net; s=20260707; t=1794530163; x=1795134963;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=kTNrEmxNbCnmj9l3gKKv43Fyixiy3ZR1yX2zY41P3W0=;
-        b=k3IWk9LNs7AodjAqQcrhGp0FeWYI4HV+Kq3cg0hzESTi9xPTYpcjAmkeH6/oa6ue3T
-         lTwKf9z2X3e7ZNFJPJnYt2jzaRdpiigXFOYDYXbwC/gwGmKiBvQPsDCEWJVb7iaIWDiY
-         uUIuyF4PdNw4eWMgqpFVGpTLEFSJ/PqFDYQ35BR5EntrsyxSNcCBLZTwE9yGgdVsvxOT
-         HX8K2JZd3aLyotMA2gCDBPzVqMYpHWVAS3DkguQmPhU679kEiRRP83AL0Iz4FDe7jwvX
-         c1oI/DhgKLmpgoiAKwiTW5hU5U9zhhFXHAbZrfX6W4dU3ZzxK8NtBcugjjy6N9ewyli4
-         QbhA==
-X-Forwarded-Encrypted: i=1; AL+hErHDMzJDNFh1IrXJdhlgzz4Eva786Sws3fW7T8HuzpDlvq2IYIicvon1HEjz9GtTWjHNj/XVCS3c/9kce5Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z843wSCAbOScmYUM32RYqI992GOabFf48IMan2yOrBGI+F0Ahm1
-	lT54TPGG9uCaOesYinAUS/o2HmCf7u+/vRWRe5imF+7ErCqWSn0jdpQh
-X-Gm-Gg: AYBFou3r/uhVjG6gjwvAn2Zj8/K6xLDiFohcFxQrSU3aTEHHrk3edzlIgkbgLl1HOg4
-	ncSIpsmLV1pJnRr0kDMXDRFoYea36F8D1D5OFJfSVxOIvVIQ93nMdJeZkKjs4BZSb3HVbk1P7g/
-	Nu3j9Pr5RB2OsyvBLoFbzc8aleW97E3mthDwrV4XvzmNNm+pFy1nWYOAttcBpZJbA9coIdZP5iA
-	o49oDBbuba4JoE/uBw/l4gsIe36MAdgFPct0axaImYZ7ElYWdQLw981B/c7OsaMQGi5M9GmIfeS
-	OP0JTPqKdMZuQnaaZPdLiCd7RHa/k/B8g+Y89CNcgzrn6b3xVYwgmnkK4as+hFyHaJb8QiFSJYu
-	bNYF4NDCxlvyHxQvTzcv+sQzTrsU+pb2mlbX4LKww8n5b+Iwnnxgruo7Lj9BDkTehTab6JyGrZf
-	J3HKpk3kE/u96lyBs8wNUd189CRM1sNRNbp7xx0YMaE+FR5cEJW9vFxrx+MzP5Fekn6ODSyrkv2
-	G//mWYEEwcjnHhB+6G9XNVi3re/jTYClwbrYoRKoOv+PCpMcwk/1TVjX3PdRYLsihUgI/vDmHuX
-	wiemfatV4U2QiSoRE8Eo499MqsFYyeHB2t1MAgYyt6zKhKI+YgM/Mz/rGt+OtuH8s0whec/9OPP
-	e8FjnTzFNmUbzs4CIL6GDZT/aaQMp0O7wJP8WWACM4pt7nPC2ukd3dkHZ+yuMTnXM1Cf2siwU/z
-	VKKWqxm6tIVSh0Sji+
-X-Received: by 2002:a05:6000:2508:b0:498:a72d:c097 with SMTP id ffacd0b85a97d-49c70ed7c56mr2426773f8f.19.1794530155089;
-        Thu, 12 Nov 2026 16:35:55 -0800 (PST)
+        bh=T2Yx0PhHKFT6VpgC4niEb4VKLhOeq/cZMiaB12P/Kdw=;
+        b=uVCMJm7l8lpHnY1H9sYf2Rf3+uoRbGl82H8RBsI6kQ8jByyJD0xKK2I3/N49vvp2yW
+         qaWK5RRrUJapZ/uzrPhZOOIC2sXHhF4CozpnHpI2sGxEkYxktmN1kX3JQIGC3ZSt8T4F
+         HIy3eRYUjZu1RJNDVTrTv14irV5v6Ppb82j6vZ9KcOi7BzCzdaF/o46GlnY72D1QtliX
+         ssPvv/k67cqP5xEMk68xJ6rVmWcqhmx8gR3r2lzoLuJyBISnbMaBo/qaK9Tyje2BPodc
+         9DBZLuYU9YEkITmwCX+vDvtCwDdyFeus1217ql5ZkEwErk0Y87qCFBkCKJJ1UbkGs6UK
+         eCqA==
+X-Forwarded-Encrypted: i=1; AL+hErEApQW3K8eLYCpX+vtaTKGjEaYOb1Az/5cgY/UHnz6Dfg7Wj61Sr1el/14T6A9mzxwS8fCbsVW7TR6M1/E=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8/qCuCsrolkRf1kanerCTuAmlEYpbD4Me2JEA7jYxyRfaePCfv
+	gh+TZjF3yaywyGhm9N+Pr+Yrgz+lNxDuCpHSLWtMgRnD04S9xnBX3D7F2WHB/9oyqjA=
+X-Gm-Gg: AYBFou12NDsZwvQB26HhJeUfSd78VEH2rwjaLPSIl7uqp39grVnW3mTmsehtfQeEzIp
+	nohUSYSlNQCYxUZKj61/9guLFiF00ZWbMYA2Aei4zG/63TrWTLdG4jbqdMiljNfJP9wQXsnD2cJ
+	JdfNJ6TqaAJZLFlJGOUxcbyAVCiFU+nEauuoZQcfHEq1xWOPYUc81cg2hYDWSojGqHqKoz8PyD6
+	bkVcFui42fUgPAJisKw72tn+3G0S3g33UQ4kNEEjrxdutOdsF9s+Jh7uTEhgMFfcadzMtuym2gc
+	p4EtAe2SbUxEVFV2hm3lY9OeRh6AAfQWB+iKVmXg5d0+MUsdGPfS2CfwCyoPJrY90t+FSqp6IEd
+	wq+q9BcHI+RSKRhxdNqY00ugJVwBjUQiRtTFZUFssslBxxbRy02tCf6ivlZBmHAKtGu6S35X1UX
+	LdXYrb9q0qz4vaNTgszArpAfWam+jsBneeKwhSTImuE9B+9hJ86nD8apuUtQ+1YKtK5UHGMJoB9
+	Ls76H0wp58w5CCyJHB6mdAOSt91Y2SlzSqgj5Fcwa4OiVUTnNCE7AYfExPqAGLxPZgi43J/b3J9
+	JIWv8E2/FiAPrtGXN4JjoayiVLFw1jXNEhc4x0yVmz7yqTNxnr6wvoNX8QNW/rtTg5mFYe3vVTC
+	fR73tZvIL4GsKIUw0ztJdZt0SQMMdZ15Ydu1bIRt/8HPhSP/opROMXQ7CeenrcGZmYMRNfFaBeF
+	oH2tkSenbCzo7bT4SJTg==
+X-Received: by 2002:a05:600c:870f:b0:4ba:495c:3798 with SMTP id 5b1f17b1804b1-4bb55af1377mr17409355e9.35.1794530162764;
+        Thu, 12 Nov 2026 16:36:02 -0800 (PST)
 Received: from navid-pc ([2a01:4b00:a856:6220::a11])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c7da37b19sm1497029f8f.5.2026.11.12.16.35.54
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d03b104sm2145402f8f.6.2026.11.12.16.36.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 16:35:54 -0800 (PST)
+        Thu, 12 Nov 2026 16:36:01 -0800 (PST)
 From: Navid Ghahremani <ghahramani.navid@gmail.com>
-To: =?UTF-8?q?Stefan=20D=C3=B6singer?= <stefandoesinger@gmail.com>
+To: =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
 Cc: linux-arm-kernel@lists.infradead.org,
 	arnd@arndb.de,
 	krzk@kernel.org,
-	Mark Brown <broonie@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	linux-spi@vger.kernel.org
-Subject: Re: [PATCH v2 20/24] spi: zx: Add ZTE ZX family SPI flash controller driver
-Date: Fri, 13 Nov 2026 00:35:53 +0000
-Message-ID: <20261113003553.3661566-1-ghahramani.navid@gmail.com>
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v2 08/24] gpio: Add ZTE ZX279128S GPIO driver
+Date: Fri, 13 Nov 2026 00:36:00 +0000
+Message-ID: <20261113003600.3661907-1-ghahramani.navid@gmail.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <jjb8MyAPSXaXqHtedDkkwQ@gmail.com>
-References: <20261014072109.1759502-1-ghahramani.navid@gmail.com> <20261014072109.1759502-21-ghahramani.navid@gmail.com> <jjb8MyAPSXaXqHtedDkkwQ@gmail.com>
+In-Reply-To: <PSg3JObRTl2eiB9vIwNJDQ@gmail.com>
+References: <20261014072109.1759502-1-ghahramani.navid@gmail.com> <20261014072109.1759502-9-ghahramani.navid@gmail.com> <PSg3JObRTl2eiB9vIwNJDQ@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,42 +110,18 @@ Content-Transfer-Encoding: 8bit
 
 Hi Stefan,
 
-Thanks for looking at the changes. Since you plan to submit the driver
-yourself, I am dropping the SPI patches from my series, so this is just
-to answer your questions.
-
 Stefan Dösinger wrote:
-> So IOW, this function should primarily configure ZX_QSPI_TIMING_REG. If the
-> target clock can't be achieved with the controller input clock (e.g. divider
-> is larger than ZX_QSPI_TIMING_REG supports or clock rate is lower than
-> requested SPI speed), then a change to the wclk is in order.
+> Fyi, there is also Documentation/devicetree/bindings/gpio/gpio-mmio.yaml,
+> which allows you to put this directly into the DTS without a driver shim.
 
-Agreed. I only changed the wclk because that is what worked on my
-board, and I never checked whether ZX_QSPI_TIMING_REG has a divider.
+I looked at it. gpio-mmio.yaml has no clocks property, and on this SoC
+the GPIO bank has a register clock gate in lsp0crpm. If no driver holds
+that clock, the clock framework turns it off as unused at the end of
+boot, so I would rather keep the small driver.
 
-> > +	ctrl->min_speed_hz = clk_round_rate(qspi->wclk, 1);
-> > +	ctrl->max_speed_hz = 50000000;
-> This looks wrong - the max speed is probably the highest possible wclk rate,
-> the lowest speed the lowest possible wclk rate divided by the highest possible
-> divider.
-
-Agreed.
-
-> > +	/* Ensure proper data sampling point */
-> > +	reg = readl_relaxed(qspi->io_base + ZX_QSPI_TIMING_REG);
-> > +	if (!FIELD_GET(GENMASK(17, 16), reg)) {
-> > +		reg |= FIELD_PREP(GENMASK(17, 16), 1);
-> > +		writel_relaxed(reg, qspi->io_base + ZX_QSPI_TIMING_REG);
-> > +	}
-> I don't know what this is doing. Can you elaborate?
-
-That value came over from the earlier driver I used on this board,
-which always wrote 1 to bits 17:16. There is no public register
-documentation for this SoC, so I kept it, and v2 only writes it when
-the field reads 0. The sampling point in the comment is my guess at
-what it does and I have not tried other values. If it matters for your
-driver, I can try 0 to 3 on my board and tell you which ones read the
-flash correctly.
+The other open question is the IRQs. You and Linus talked in the RFC
+thread about whether this GPIO block has working IRQs. I have not
+tested that yet and will reply in that thread once I have.
 
 Best regards,
 Navid
