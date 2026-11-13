@@ -1,112 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.139.74
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794608824;
-	b=p2AnpsLKxRU/J9Zd0DgEc7QCa2jSFVEBLOk9dz5tsCXEM5G3bK2Rs4/QtcGhPSih27NS
-	 CUPNDBsFjVQ9Nb+lqLz2hZv1KGiDK/7Xm0mrDqahG+cP2zbPFAKg6FVEe18og12vKP/7w
-	 y+lyYXH+mzgnsHne18tRelphbQWcwnLvmwghbPjWYrrFjmgZcmVx7KEQa+7kW5NEr2HjT
-	 2B1FKqNScr5neG1tScdQ252VqPMqBA4OaOjG5cN4O8uTPmxJz1TsoqcMmGtm7KMDefdDS
-	 ft1WwZoGRi5Rk2ZjeTvkyi1z8mgRRDFThdchrXJh7xr/JrPbm2zJ8pMEULf7QYS6p9g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794608824;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=d3ajvUnUKvbfDkC0sZyMQAhOCqZi8Pjte/39RE1cKJ8=;
-	b=doAzBE/QsHPeBBBM+NOm7JJJ0acA9GZ/ulQSNTcjNxSlhwvCnIv8vMytMxqiL06o3SnN
-	 Cjk6aGUE6GyHN7T7Jf7X91oG9N21xUDetomi6N0/Dmfso6/ByfK9yo/tesog3hXwaBwNq
-	 mVj9SEbn5OuI2DtEpKoEnedaQ3i+FWLUb6nAWegqZd0ZlnTlYdB5XdNXS300Sa3IrV+lj
-	 90KE1A3Yz0jU9KhztB98Lj8UAYQncGxviMqhT0bTEyvIvyyy7ZWNcphuUAn2Z/3KPgBMa
-	 +/4gOqUqoKIsxtsd7O0dXR5t3QBXYoTW/jhWiXG456p3rJn3/OAGF09qelPF2aXDhNA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=columbia.edu;
-	spf=pass smtp.mailfrom=columbia.edu;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=HGicbANG;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=u0UsTmDL;
-	arc=none smtp.remote-ip=148.163.139.74
-Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794608874;
+	b=XWJVxoGOi5XDJULjhBwC13ZRD5Nby9UotqqLdD3bJq+cK/BrGRnAZQiPS/EJGXJaRCDs
+	 bp++maIE8Rup0WhuUScRmcuri6d1roaZ7Q6vzgpZiFdbTojKxfSqrvoTHqhJ3/RaF2di/
+	 qMeWRNcAdKTTjeeYDpRuGzXhUVcKsCs+OSFnzJJ6fIiROrJY2Wimb1Es0cPBC1Qxb03Hb
+	 60PiIwquaSAu1/V+fqpmdcpPmTvNx9Obo44AxjFm0mL3QoKg4lnw79Uq3UXo+Azp3FxXx
+	 mmnfti2cyB8Y9sGY+cnG0MEX46A7O7hk785zccoEkjUKbEIHw6VA0IWIUYV76wEyEWQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794608874;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:
+	 Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=zbuPc0OoAZ7ponEmKQKwRM1Aj93AVVBpwHllhPZs6NY=;
+	b=Y08YFm/+H3crfdnYU6CYkDiSvnuXvHRYl0cOTeh2WRRHSrTnLIVuZoScvcfyuAv3mDWg
+	 Ckc38P4ZMHV4iBMKcNurFpmYEpyXyLqu1CniTg+yb0ZDUXGHFYKM7wTPGfgIQjlvotjFl
+	 Zi8yJ3ebtxfiT1uJFBIr+SGCo7gF697tj4LCRwwNUZjvLHLbxbwPPTuIQuReFodRXgLGn
+	 lk4l4XVnIEHS+9UopnLtqS8u0oOteS6PRyvpdrAO2UhtnZFhtAu4KeLW8epHYTiAzunJE
+	 gRszjvTltoQgKl8CNXzm/O36gmfEe/orzmyiqe6i1ttPe13uuAb7AxtO7m6xIDTxL7w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ttGeHoyb;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.43
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012043.outbound.protection.outlook.com [40.107.200.43])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D591606A889
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:27:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D591606A889
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28175606A32E
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:27:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28175606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=HGicbANG;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=u0UsTmDL
-Received: from pps.filterd (m0167077.ppops.net [127.0.0.1])
-	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADLmXtS2962893
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:27:03 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=d3aj
-	vUnUKvbfDkC0sZyMQAhOCqZi8Pjte/39RE1cKJ8=; b=HGicbANGO9fUbtt/aiBn
-	O0sACCFk6E8cmIzgCKsA6nhZEdR0F7t9f2sulpxbXAbF/IKZuu/jWZ3k1aHAMYl5
-	Gyzsr6ysglkRCuVhPwS0miRm3Jc69PfXSLEEw0dUQD0DyScKj225DNGi7R7gEFH6
-	TW9XgQgXErQ+NRu6TcRjYquK5cRK/B656dBLMGr0L3iUfXE3Rt9siZxNJzWSSmBp
-	l0DbMRJvG/SyMolN8iAnTNIsXWNZQnRoIU2TYs5MHLlwvvlSyXx58IBELc6AlaZb
-	pG1aBzZYZSS7kZrJ6b5exQE9kIATQ80gcBS2/hSSkq+YnAnjo6KL8ZZAHA0U5tVt
-	sA==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
-	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4hxa3u0pev-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:27:02 -0500 (EST)
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-91f0f4c70cdso22612076d6.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:27:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1794608822; x=1795213622; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=d3ajvUnUKvbfDkC0sZyMQAhOCqZi8Pjte/39RE1cKJ8=;
-        b=u0UsTmDLKYO6k/GFcpFNcNv1WPSYSVTlOm2DbH238vHUR4sYPucywXaRgIJR0uVvP1
-         UrzegtEVdrCW2naF1A3u9fWYNl//kQlIJw0z2Tj6MmBUWrqYgWdwxmJW4RM/4liPJl1v
-         INQVKg51ZEVQnaQw4sJhfagC/iA54AbyYpS3tebRJqGexBaP5XVHSSli2JQeKesqMxs4
-         GcLAiOG5BAGDvjayPf+GBcIIWTnCw9kCnASclf7sz7qm447EzuwqNGWx8I1QNXgR6CHT
-         ZCD6ZeWYoLeRg705bJkgqQVkdoXZXkrU/CJXvpRUv6uBAu54DgnGQOse14GXsyU0k7RE
-         INtw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794608822; x=1795213622;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=d3ajvUnUKvbfDkC0sZyMQAhOCqZi8Pjte/39RE1cKJ8=;
-        b=xQLS4VQggLKbaXPi9Isr+xBCd3ffjxAxuKH8jMnYGpU2aTOAedG8PORE9pU8GIPn5l
-         qCDMDUxPgl5WUUcDLRfe//AS9IpxXj+BR8hAO+sOX1a2YYdzjrEZ41BJ2B4v9aAlwqRP
-         VGVIJYarsS1Exjnu2uGf8sYxKzxSqD25dmBMzj0H7W/bRLmufO7zGjgbJi7HfCnAfG2I
-         jVvE1OGtMOVKYhX9BymnsbGJXPDLtkpQGsvSEDOQtVhuSQ0ok4K4/HC4wcAYc7TwOK95
-         WNNHngqVmGGDk8Vhde+E9+YTt51shs9OvQeu/r34ykXBZSb16cm1aJD3aPQHDGNMaJ1t
-         0umg==
-X-Forwarded-Encrypted: i=1; AL+hErHl66jX9by+fUahWe9fDbdAY1/cwvfPntdTS1VJVYpqgHs7I2jeZEhO4EV2kMOQKg6GCcOcWJuqkC41gQA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z94Hs5eqCg5BB6ozjUO+uqwypcnLZpeZg6167RuhYadto+LHTOQ
-	PNn6n0i0ENhp1kseLCx8okJwJxbBp7UoaWbfG0mYmrKD0Gp9X6BlcxRAmBIDHHqBSuWia1hl4hi
-	x3G2c4jcmhzK/eC89/w/VWH6hnxKo4tWqHEaskTolsK+JgpcyHiigFyvyDlP9VA==
-X-Gm-Gg: AYBFou0Pm/pImhe1l8Fi3rP+y4C00hnsiDYFXi0N4BodgaVHF3fnEGQx8hilgypPVTd
-	IktkTdXcwJC+mGiJwNgpDgZ0RzeGp4QOuOAnmEbFpOnuuNePNYKBIOaekCVRLrw7CITv7/2QXiz
-	+mAlta0G8LSr5njxf6kgqwHcpaG0ST+GJymV0XPvNd7ACr8IVFG92DfgXNx3sR0gBf8nWeYbM+B
-	SUP6RCaJXTWTrQ7YYThvw1woTkAw8+DmkJ/utc3uPWH3Et7CzNZIeK2IDCXDnwNrbSDVQ1Dxhtb
-	yrP54qmSzZFhQ2HQw2YhkPXRNVFd0Hq8C+J1/aBhgU5t+YRFv8BmLp6qwmbTqh4ujSsmF+UifkU
-	4RYx4vpsIJSoR3G5gQiNyeOIQM3XEh3c91dkS799DKNzGN8qeLtvFMdsBRvzyZ7l9hSkaF7kvrv
-	SB7zVoXUbR0I5uwLkLO0NK3pOQ/GY=
-X-Received: by 2002:a05:6214:8093:b0:91f:26f7:281b with SMTP id 6a1803df08f44-91f26f72946mr45436836d6.43.1794608822135;
-        Fri, 13 Nov 2026 14:27:02 -0800 (PST)
-X-Received: by 2002:a05:6214:8093:b0:91f:26f7:281b with SMTP id 6a1803df08f44-91f26f72946mr45436426d6.43.1794608821604;
-        Fri, 13 Nov 2026 14:27:01 -0800 (PST)
-Received: from [10.207.116.169] (nat-128-59-178-153.net.columbia.edu. [128.59.178.153])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23d73258sm30148506d6.24.2026.11.13.14.27.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 14:27:01 -0800 (PST)
-Message-ID: <c3a51a9c-083d-4c76-9a62-b7a6fe69a121@columbia.edu>
-Date: Fri, 13 Nov 2026 17:26:59 -0500
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ttGeHoyb
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YoCttBzSC9UB2A4w2UWpSN3x8/wz9KwrSU5rz2bWyUSRDhVEeLsthxw0ou9T1Qu1mH6dY9xCqVo5Fn0lngQSCIbaXucU4Vk+iNsd8hfy/oAS7RqofuateMdxAhydbnyCI0zycZ9gdCgWzr5lb4EMBJfqBEGjU6WgAgGyq8o83P9dP0wsfOuhqesdwS8OuRSt0PrRs+lXgM89kkH7GWbO4W69oUJv8W6JwZXz2dc8vdNaobMEW2MAuJvrnu7+2MRxS6pK17RwBx4K1I7He/CcDjtBBtYikCnsXhyu/JcS3X5rhGHtsFuwntggEnMkBtIOIHqVWJ+19dtwd9vcsTFuVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zbuPc0OoAZ7ponEmKQKwRM1Aj93AVVBpwHllhPZs6NY=;
+ b=ilLH+GuxgGtC24sKToAKMyMqndZSvEdFsBrRHSD8tKTbwsYpkgxrPPAr3SIKFhyCgJP7gxrQOglPZv2q0oOiagEQhqi8Pfdt68VMDMrE5d7Hjc8mkNMARa7eSNKk2ewwIETAJMDtvu9XgUE1zBrAN287J8eA8QeFMipJbsKLmOb7eGMRjN3xBRBd1Lxk7qOi4lvW/agwpLx3t0fqYltutr0X4wUONngYbaQROM4now9U5jLySVyIvBEZkYtRWJEgklYXJdINLVOgjUvsb6K7LBEK+xqF/EvGtwgdHZwOLNEWyIfZsBD71QMSy29dV9R2eIaIa/ls9kn6eGN1wG6VaA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zbuPc0OoAZ7ponEmKQKwRM1Aj93AVVBpwHllhPZs6NY=;
+ b=ttGeHoybh12BWixcAMXorFi3xkvpuv7qzQCOZhgPO7dnmsufA8E6B8frU7S66z+Tmq5PZXGXyBylJ1v0eRCV97VLoUaEZsewiKxFfu97NHRoahRd3gokFsFxlrh3VjbRSgQjBsz6TisTQzt9PP3FyUx7UlRzx/Z2nrAMcAiVrDw=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS5PPF18A985A10.namprd12.prod.outlook.com
+ (2603:10b6:f:fc00::645) by PH7PR12MB8014.namprd12.prod.outlook.com
+ (2603:10b6:510:27c::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
+ 2026 22:27:40 +0000
+Received: from DS5PPF18A985A10.namprd12.prod.outlook.com
+ ([fe80::dd24:2a58:c0d0:b183]) by DS5PPF18A985A10.namprd12.prod.outlook.com
+ ([fe80::dd24:2a58:c0d0:b183%6]) with mapi id 15.21.0615.007; Fri, 13 Nov 2026
+ 22:27:38 +0000
+Message-ID: <65222154-22bf-4f31-a050-b7c0f0c99284@amd.com>
+Date: Fri, 13 Nov 2026 17:27:36 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Hold the VRR vblank reference only on
+ active CRTCs
+To: Hugo Sales <hugo@hsal.es>, harry.wentland@amd.com, sunpeng.li@amd.com,
+ siqueira@igalia.com, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org
+Cc: alex.hung@amd.com, mario.kleiner.de@gmail.com,
+ nicholas.kazlauskas@amd.com, ray.wu@amd.com, bhawanpreet.lakha@amd.com,
+ chiahsuan.chung@amd.com, jerry.zuo@amd.com, Aric.Cyr@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261031143351.3222033-1-hugo@hsal.es>
+Content-Language: en-US
+From: Ivan Lipski <ivan.lipski@amd.com>
+Organization: AMD Inc.
+In-Reply-To: <20261031143351.3222033-1-hugo@hsal.es>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT3PR01CA0085.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:84::16) To DS5PPF18A985A10.namprd12.prod.outlook.com
+ (2603:10b6:f:fc00::645)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,144 +103,272 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 08/12] mm/migrate_device: do not migrate a uffd-protected
- zero page
-To: "Gregory Price (Meta)" <gourry@gourry.net>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-        Mike Rapoport
- <rppt@kernel.org>, Peter Xu <peterx@redhat.com>,
-        James Houghton <jthoughton@google.com>,
-        Andrea Arcangeli <aarcange@redhat.com>,
-        Suren Baghdasaryan <surenb@google.com>,
-        Balbir Singh <balbirs@nvidia.com>,
-        "Liam R. Howlett" <liam@infradead.org>,
-        Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
-        Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
-        =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?=
- <mirq-linux@rere.qmqm.pl>,
-        Andrei Vagin <avagin@gmail.com>,
-        Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>,
-        Muhammad Usama Anjum <usama.anjum@arm.com>,
-        David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
-        Matthew Brost <matthew.brost@intel.com>,
-        Joshua Hahn <joshua.hahnjy@gmail.com>,
-        Byungchul Park <byungchul@sk.com>,
-        Ying Huang <ying.huang@linux.alibaba.com>,
-        Alistair Popple <apopple@nvidia.com>,
-        Baolin Wang <baolin.wang@linux.alibaba.com>,
-        Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
-        Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
-        Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
-        Kiryl Shutsemau <kas@kernel.org>, Chris Down <chris@chrisdown.name>,
-        Muchun Song <muchun.song@linux.dev>,
-        Oscar Salvador <osalvador@suse.de>,
-        =?UTF-8?Q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>,
-        Michal Hocko <mhocko@suse.com>, Mike Kravetz <mike.kravetz@oracle.com>,
-        linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-        linux-fsdevel@vger.kernel.org
-References: <20261111-uffd-state-fixes-v1-0-00713d368976@columbia.edu>
- <20261111-uffd-state-fixes-v1-8-00713d368976@columbia.edu>
- <179454988585.482102.2051616940227067987.b4-reply@b4>
-Content-Language: en-US
-From: Tal Zussman <tz2294@columbia.edu>
-In-Reply-To: <179454988585.482102.2051616940227067987.b4-reply@b4>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: Z7hdqw8E8qOrAH7wz0CdBEq5lg7Q8Le8
-X-Proofpoint-GUID: Z7hdqw8E8qOrAH7wz0CdBEq5lg7Q8Le8
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA4OSBTYWx0ZWRfXxRtJP3T7TpCC
- bqPN81f7eXqPvGpzNust1Q7rtQc2HBCr0Sq1BG41APU5FaH4e2LNImpLM/KBxtbPnwEd9UVj97B
- cRFV8ey5Lc0j4FPZnUV/7nWGMiqaEH0fIfbeDGoL78peaEhkL5KDC+xBmwWhfAzndScU6LCnC7g
- ICrpmPZJI39CbpnMw+m7VSI+6KLretxAfAyG3cRT2LHFzdjzZ+4lzEcptbO+cUbocxEW5zH4jvj
- 9VbEaQ+BE4I+gRSxs8p58Rgq8CarOrvROiD1eN6UqpWO4r7np8vKTDvYsap77t9ijCAtyPBYBmY
- xhIoKRlcJgPfbzT+AvOiuH/ymb5IPVPPQP8r0EBkrYseRZf489VFbgPcIAINiZUqdZo6Fvu4I+I
- QPdnPGXf3hIivexKBDRMrmWK11emLF7f9XYwfsn+ESeF/N2U+1kgZNrgIrXFJdyGUO10eixS3II
- nt1cyCmFqmy1CbWZ+Bw==
-X-Authority-Analysis: v=2.4 cv=KPfPn1Fo c=1 sm=1 tr=0 ts=6af78eb6 cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=Y+j3KQtDOE8TDC6EXH/Ajw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=QOCMdifcju39GKoXhKua:22
- a=zVEXuFSi5soEGCQpuH4A:9 a=QEXdDO2ut3YA:10 a=1HOtulTD9v-eNWfpl4qZ:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA4OSBTYWx0ZWRfX4inTYDcGnM5V
- m2zt8wcMVWGgLGXaQszUW1fuMNNbhkhGzBMrhJT1sWuKOoabOEPqhbs/SZBI8gbOZB196K/4wQA
- VLjT8f4/Xy6bxf+y2FY6cnARUog3WNT2/vyps7izMpSRuXa3P+2M
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11965
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=10 lowpriorityscore=10 bulkscore=10 spamscore=0
- priorityscore=1501 phishscore=0 clxscore=1015 suspectscore=0 malwarescore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611130089
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS5PPF18A985A10:EE_|PH7PR12MB8014:EE_
+X-MS-Office365-Filtering-Correlation-Id: deb46995-8ef2-438a-079a-08df41d552f3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|1800799024|376014|366016|23010399003|10067099003|11063799006|56012099006|261021135927099003|261021123027099003|261021121427099003|261022105027099003|261009223027099003|261102123227099003|261026140227099003|261028144727099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+ TI7l+EmD8eluMldjdwSbhWLPDbs+z6VvXnd7y/uObywkWkrZ/fIxhIY8C3QMFjlqYT0G3Fyl17OV3IGeYzNqkX+j6djbKHPEq55f1HzIh/y8SJxwnxfElQSrLdjDX0rgdSyHfepWneWnOu7LGQ7e4loVPk4ZL36sCfjFiGufCg17VBXDrhdHwMwn1QYbafPQ4RyXXVKzKpHcY1Uhos09z7ym5r6tU2gsOfVL4UtyIQeZasnBcwxp38EFZ65goSEFesEgeaBbG4Vgpn9WZu+3qzDU1fwPFrPwAAOggNMmOmgpqBIzHn+YO3iegByU9HxhhmHUqnwtTATg9jyOdw43c7EK9jEex/tDrY0jtYqdepHjVofRyHVvqDyBkLqL/EX8DXmyr2tL/DS3ePY1qmim/Tn0GheaBuFKYCn/lfqludu6+onG6h+/TJX5Lgg+BpqVnPRU9G+L7ov4Njk+OHys0PsdpZGstDfUjP3xBjYBJElhRrq+UM4LWrxLy+uHQvC6k9vjDWL6rTmiZedLyCpF4DJeJdREp8VF3cVVtAooyQa4bRJr0pt5sUDmLP0VwZR3vo/VtkjyWxTH3O/lu8WKd+AdelrH6wMTyzWgjGnxhbxmCuJKsxRqse55RS3XaYRDjXUW65IY6V0jZyhhjfGwRc0HD2fsQspKNgSd+0/m2ms=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS5PPF18A985A10.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(10067099003)(11063799006)(56012099006)(261021135927099003)(261021123027099003)(261021121427099003)(261022105027099003)(261009223027099003)(261102123227099003)(261026140227099003)(261028144727099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?utf-8?B?cWlCdTZLSHF4bklDdGpIYm5Da2pxNEJzTmVHcDVIV1cxT1d2MWp3QW90WEFt?=
+ =?utf-8?B?bTVOTUNBVmVwU2w4Rms4eU5lVG91THBvQ01kUGJwaTc2Rm9tL3pUUDRtam9N?=
+ =?utf-8?B?WW1teVA1RHJ1NjZxRGlBTkd1a2k1TWJSMmhLYy9qR3pFQ2FkV0pNZ05XRjFu?=
+ =?utf-8?B?dDZqd1VMdWIrNUZpdTJ0clRDaHlzMk54WGVzR3BtNlF1Y2N2NnFIbUlLdFBT?=
+ =?utf-8?B?S3JXSjRyMVlXRWlhWjEyNjkvWFpnY2doNnpQU1h6Lys5Q3VRZllrRThhd2tp?=
+ =?utf-8?B?MkpVR3BRaEhXS1N5R3k2K0YwM09lcjVHdmYyOEFZN2dnUU9tNzZiMFk0cjVq?=
+ =?utf-8?B?V1BBWEg1NjdYNFRHa3VFRk1XeWgyZk5YaUVVOUZxMU5XU241RTNBNjZKdFVT?=
+ =?utf-8?B?RlhmQzRzMUZ6bzBTa2FpQmFBck9CME8zd1pNcWZaa29GNk5pbFVEL2xwQTBZ?=
+ =?utf-8?B?cmh0STZSTkJTK2dTY0dVTEgwMXlGL1ZNUmNEaVd2VmVHN2FIOWhVMHBuZ25s?=
+ =?utf-8?B?OWRVY21JRE5pS1RGV1RmTndWc3hjTXg5bFc1YUpZWkFvclJyWUQySUVmN3lF?=
+ =?utf-8?B?VnFIaHUxbERPNmhScHNOMU5ITkYrVjltbXRzeXRXOUxkRWlnSWxDL3AweU1L?=
+ =?utf-8?B?Tlk4eGtqbGNXRG1hTWdJTk5JeEFsbm1rTktmamZWdVdBSzhXOG15UGlpa2Nw?=
+ =?utf-8?B?RmFyYlA5dmtURzhHRGgwNklZeFNWSXI0dE8rNXV6OHFYang1MTNNL1JPQmdD?=
+ =?utf-8?B?SXZuR0dMSU5oamhudWt5VWk3UGtObDJPNHQ1M0VTOXd5dFhCc0xhK2NGMm5x?=
+ =?utf-8?B?aXZEZ1ZaZTlINzlQeXhKQjM1QjlSWFlWMjhpWjdLNEFpRUFnYTBlMW5DdE5K?=
+ =?utf-8?B?T1RsRWRTQWgyRHkxZXhpT3YzL0R4REl3TW90aE1MUVlWNkthT2NQU3FOSGxH?=
+ =?utf-8?B?bHdBczZWK2VSSi81S25xR29qTFQ4TW1ZamxQTnVFbmVjN1p1NWk2cXJkZ1N1?=
+ =?utf-8?B?WkcvTWJjZ2RobXdkcEtBeVFTalZXSUl2TFlDeXYyeVQvRjNTWGd4ZkUzSjR2?=
+ =?utf-8?B?blRYMmZnTHMzUGxQQTZGU251MnppME9VMEpUblExUGxOdmN6L29TUy80K0g0?=
+ =?utf-8?B?dFRQazNDOXQyQW1ualNSMEx3MVpVNi93ZFNJd2EvR2o2M1E2L1c0UEQ4dVhF?=
+ =?utf-8?B?cnZPK3RsVEt1M0JoaUMrTnZIczBlek5MVXJ2NWc3RGkwc0FRZXJxK0VZM0oy?=
+ =?utf-8?B?L0tkVkI1bWZ0Vml6ZVorRm15V0NWNG03akNVUjRucEpheXJSdDFxMUswTUcr?=
+ =?utf-8?B?dGhJVE1TdytueVFlVXNoUjQxWFAybytFU0krN1VON1cxZUdneHZoY1lxTkhH?=
+ =?utf-8?B?akRFMk8zYWhwYktpVmZXcXdvTmZQbjNhRkRNNGJWQkpzc0twVDdCdGp0cnJK?=
+ =?utf-8?B?KzB2VUFGMXMrZGVKVERIWGlrV1BPTmFNaDVUeHFzcWNaeDc3eURtVkI1aUNB?=
+ =?utf-8?B?cDBTMTlrVU1IVlN3d25MYXhKMEFZWGFwNENHQUYrWXlyRkZodzVRSnZGMmdS?=
+ =?utf-8?B?eUJQWnNDU3BTTTBnOFNrdHFTY2tRZGtZNzNxQXhxOGtuOVNOVXZ5YVQwL0hZ?=
+ =?utf-8?B?Qmh6Y0NKV0lETXZNRFZ1aHdmZE05NWZqN3N1eldlY0ZtTmlMREc0VFhYVWtC?=
+ =?utf-8?B?YmlZS0JyclI2cnZKTWMvOEJnYlZHU1FrMGtoWTloOVRXZFIwYkhkZEpLTGdU?=
+ =?utf-8?B?a0hwTFExa1Q3UzViK0VyL3R6SXFXZnBZd0VROTBYWWtpSi9SYjNTdnFZUVJh?=
+ =?utf-8?B?Tit6S25sV0lSUjVjQzU3d0R0V3gvSDI0bGN4MWVicUd4MnNka25lZithdkE0?=
+ =?utf-8?B?SDAxdkRHdVpNUHA1ZGwwTG1EWmJROWhKOGxXNHkzTW5VeFRZd1VoeXdvUTh2?=
+ =?utf-8?B?UWMwc0JYZ2lORWdmVThNL29EY1piUE1WY1pZSldSS0ZOcm55YkMxRENDL201?=
+ =?utf-8?B?QW9CU0x0OVpMYzJuRklsYjNOTjdXTEhvNGVmTU1JMTJtWU1XeHdsbDB3U0xZ?=
+ =?utf-8?B?M2hoVzI5Qmo5RGVZL0lxaGlrWGRILytVd1VGbm51SnpRMGJEUmU3ZW5lV01O?=
+ =?utf-8?B?bFh0bThRM3JCREE5V2ZvOFlpZitmSkpGME9KR04zcFZUVzRwMU5sSVhMS0dN?=
+ =?utf-8?B?S3VzNFE5RXJsa0xkMGs4NndEUi9TaCtQTll5eHJqWGszb0oxWnFQVy9DM2li?=
+ =?utf-8?B?cjI4UmNpb0U1dE5XbSttUjhPV3FSWVMyRW8wZUhyNnJIQjJHMjh5c3ZPbkth?=
+ =?utf-8?B?blZ6cU16Y0xFb3N1QVh0QklkNTFkWTRuWVNlaUxKMkdNY0cvc3RLdz09?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: deb46995-8ef2-438a-079a-08df41d552f3
+X-MS-Exchange-CrossTenant-AuthSource: DS5PPF18A985A10.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 22:27:38.7258
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: I07yKZuM8IeBhDfGlbzjMhjId3CaU2BJOm9RE+3WuAFmRz1ITsC4uyju2v9L4YoomGJB7drFFrXQm9YpU6wpSw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8014
+X-OriginatorOrg: amd.com
 
-On 11/13/26 1:04 AM, Gregory Price (Meta) wrote:
-> On 2026-11-11 12:55 -0500, Tal Zussman wrote:
->> migrate_vma_setup() installs a migration entry for each page it
->> collects, which carries the uffd bit over to the new PTE. However, a PTE
->> that maps the zero page is left in place without a migration entry.
->> migrate_vma_insert_page() later overwrites it with a new PTE that is
->> built only from the VMA flags, so the uffd-wp bit or the RWP PAGE_NONE
->> protection of the old PTE is lost. The same applies to the huge zero
->> PMD.
->> 
->> Once a driver has migrated such a zero page, writes and accesses to it
->> no longer fault into userfaultfd, so the manager misses them. With async
->> tracking, PAGEMAP_SCAN unconditionally reports the page as written or
->> accessed.
->> 
->> This requires a driver that migrates memory to a device.
->> 
->> To fix it, do not mark a zero page for migration if its entry has the
->> uffd bit set in a VMA registered for WP or RWP. The driver sees an
->> address that was not migrated, which drivers already have to deal with.
->> 
->> The uffd bit can also be set after the zero page was collected, as
->> write-protecting only takes the mmap lock for read. So check again under
->> the page table lock in migrate_vma_insert_page() and
->> migrate_vma_insert_huge_pmd_page().
->> 
-> 
-> Similar to last patch, this changelog could be improved.  My best
-> attempt at summarizing:
-> 
-> """
-> Device migration replaces a zero-page mapping with a fresh entry,
-> losing its userfaultfd WP or RWP protection.
-> 
-> Don't migrate the uffd-protected zero pages.
-> 
-> Skip protected zero pages during collection. Check again under the
-> page-table lock before insertion, because another thread can apply
-> protection after collection finishes.
-> 
-> The alternative ...
-> """
-> 
 
-Thanks, I'll trim it along these lines.
 
-> I have concerns with this:
+On 10/31/26 10:33, Hugo Sales wrote:
+> amdgpu_dm_handle_vrr_transition() takes a vblank reference when a CRTC
+> state turns VRR on and drops it when a later state turns it off. It only
+> looks at freesync_config.state, and disabling a CRTC keeps that state,
+> so a suspend or DPMS off with VRR active keeps the reference
 > 
->> The alternative would be to carry the uffd state over in
->> migrate_vma_insert_page() and migrate_vma_insert_huge_pmd_page(). Not
->> migrating the zero page is simpler, and a zero page that is protected by
->> userfaultfd in a range that a driver migrates should be rare.
+> On resume, drm_atomic_helper_resume() first calls drm_mode_config_reset(),
+> which swaps the CRTC state for a zeroed one. The restored state then goes
+> from VRR_STATE_UNSUPPORTED to active and takes a second reference, and
+> the first is never dropped. The vblank irq stays on for good, so the CRTC
+> never idles and PSR is never entered
 > 
-> This basically force-fails a migration of a uffd protected zero page.
+> A VRR change on a disabled CRTC can't take the reference at all, since
+> vblank is off there and drm_crtc_vblank_get() fails with a WARN
 > 
-> Wouldn't we expect this to cause drivers to fail to make progress if
-> they require that page to be resident on the device?  Not sure we want
-> to force drivers to try to handle this special case (if they even can).
+> On a Cezanne laptop with VRR always on, each suspend added one to the
+> eDP CRTC's vblank refcount, and it stayed at 1 rather than 0 after VRR
+> was turned off again
 > 
-> We'll need some input from the migrate_device/GPU folks.
+> Treat VRR as active for the reference only while the CRTC is active too.
+> Disabling the CRTC then drops it and enabling it takes it again, which
+> balances suspend, resume and DPMS, and the get only happens once
+> manage_dm_interrupts() has turned vblank on
 > 
+> Fixes: 66b0c973d7f7 ("drm/amd/display: Prevent vblank irq disable while VRR is active. (v3)")
+> Signed-off-by: Hugo Sales <hugo@hsal.es>
 
-Yeah, makes sense. I can implement the alternative approach, but testing
-for this is a little tricky without the right devices... I might drop this
-patch and send it separately with the GPU folks on Cc.
+Reviewed-by: Ivan Lipski <ivan.lipski@amd.com>
 
-> -- 
-> ~Gregory
+> ---
 > 
+> Tested on an ASUS ROG Flow X13 (GV301QH, Cezanne, DCN 2.1) with VRR
+> set to always on in Hyprland. bpftrace on drm_handle_vblank showed the eDP
+> CRTC's vblank refcount go up by one on every suspend before this patch.
+> With it, the refcount reads the same before and after a systemctl
+> suspend, and drops to 0 once VRR is turned off
+> 
+> dm_test_handle_vrr_transition_round_trip now sets base.active on both
+> states, since an inactive CRTC no longer takes the reference. The
+> three new cases cover the CRTC turning off and on with VRR left on
+> 
+> amdgpu_dm KUnit on amd-staging-drm-next (ba496bb83788) passes apart
+> from dm_mst_test_dsc_link_bpp_between_limits and the two
+> dm_test_crtc_enable_vblank_ips_restore cases, which fail or panic in
+> drm_vblank_restore() without this patch as well
+> 
+>   .../display/amdgpu_dm/amdgpu_dm_freesync.c    | 12 ++-
+>   .../amdgpu_dm/tests/amdgpu_dm_freesync_test.c | 98 +++++++++++++++++++
+>   2 files changed, 108 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+> index 386ba88c57c6a..ee8a11f62a0d3 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+> @@ -414,8 +414,16 @@ void amdgpu_dm_handle_vrr_transition(struct amdgpu_display_manager *dm,
+>   				     struct dm_crtc_state *new_state)
+>   {
+>   	struct amdgpu_device *adev = dm->adev;
+> -	bool old_vrr_active = amdgpu_dm_crtc_vrr_active(old_state);
+> -	bool new_vrr_active = amdgpu_dm_crtc_vrr_active(new_state);
+> +	/*
+> +	 * A disabled CRTC keeps its freesync state, but drm_crtc_vblank_get()
+> +	 * fails there because vblank is off. Hold the reference only while
+> +	 * the CRTC is active as well, which also covers resume, where the
+> +	 * reset state lost track of the reference taken before suspend
+> +	 */
+> +	bool old_vrr_active = old_state->base.active &&
+> +			      amdgpu_dm_crtc_vrr_active(old_state);
+> +	bool new_vrr_active = new_state->base.active &&
+> +			      amdgpu_dm_crtc_vrr_active(new_state);
+>   
+>   	/* Only DCE gates vupdate on VRR, keep it enabled for DCN */
+>   	bool vrr_gates_vupdate = amdgpu_ip_version(adev, DCE_HWIP, 0) == 0;
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
+> index 710cdc7f40bf8..3268bdb1043ba 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
+> @@ -855,8 +855,10 @@ static void dm_test_handle_vrr_transition_round_trip(struct kunit *test)
+>   	mutex_init(&adev->dm.dc_lock);
+>   
+>   	old_state.base.crtc = &acrtc->base;
+> +	old_state.base.active = true;
+>   	old_state.stream = stream;
+>   	new_state.base.crtc = &acrtc->base;
+> +	new_state.base.active = true;
+>   	new_state.stream = stream;
+>   	new_state.freesync_config.state = VRR_STATE_ACTIVE_VARIABLE;
+>   
+> @@ -867,6 +869,99 @@ static void dm_test_handle_vrr_transition_round_trip(struct kunit *test)
+>   	KUNIT_EXPECT_EQ(test, atomic_read(&vblank->refcount), 0);
+>   }
+>   
+> +/*
+> + * Runs a transition on a CRTC whose vblank is on with two references held,
+> + * so a get or put never has to enable or disable it, and returns the
+> + * refcount afterwards
+> + */
+> +static int dm_test_vrr_transition_refcount(struct kunit *test,
+> +					   bool old_active, enum mod_vrr_state old_vrr,
+> +					   bool new_active, enum mod_vrr_state new_vrr)
+> +{
+> +	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
+> +	struct amdgpu_display_manager *dm = dm_kunit_alloc_dm(test);
+> +	struct dm_crtc_state *old_state, *new_state;
+> +	struct drm_crtc *crtc;
+> +	int refcount;
+> +
+> +	KUNIT_ASSERT_EQ(test, drm_vblank_init(&adev->ddev, 1), 0);
+> +	adev->ip_versions[DCE_HWIP][0] = IP_VERSION(2, 1, 0);
+> +	dm->adev = adev;
+> +	mutex_init(&dm->dc_lock);
+> +
+> +	crtc = kunit_kzalloc(test, sizeof(*crtc), GFP_KERNEL);
+> +	KUNIT_ASSERT_NOT_NULL(test, crtc);
+> +	crtc->dev = &adev->ddev;
+> +
+> +	old_state = kunit_kzalloc(test, sizeof(*old_state), GFP_KERNEL);
+> +	new_state = kunit_kzalloc(test, sizeof(*new_state), GFP_KERNEL);
+> +	KUNIT_ASSERT_NOT_NULL(test, old_state);
+> +	KUNIT_ASSERT_NOT_NULL(test, new_state);
+> +	old_state->base.crtc = crtc;
+> +	old_state->base.active = old_active;
+> +	old_state->freesync_config.state = old_vrr;
+> +	new_state->base.crtc = crtc;
+> +	new_state->base.active = new_active;
+> +	new_state->freesync_config.state = new_vrr;
+> +
+> +	adev->ddev.vblank[0].enabled = true;
+> +	atomic_set(&adev->ddev.vblank[0].refcount, 2);
+> +
+> +	amdgpu_dm_handle_vrr_transition(dm, old_state, new_state);
+> +	refcount = atomic_read(&adev->ddev.vblank[0].refcount);
+> +
+> +	/* drm_vblank_init_release() warns if vblank is still enabled */
+> +	adev->ddev.vblank[0].enabled = false;
+> +	atomic_set(&adev->ddev.vblank[0].refcount, 0);
+> +
+> +	return refcount;
+> +}
+> +
+> +/**
+> + * dm_test_vrr_transition_crtc_off_drops_ref - Test disabling the CRTC drops the ref
+> + * @test: The KUnit test context
+> + *
+> + * Disabling the CRTC keeps the freesync state, as on suspend or DPMS off.
+> + * The reference must still be dropped, since resume restores the state from
+> + * a reset one and takes a new reference
+> + */
+> +static void dm_test_vrr_transition_crtc_off_drops_ref(struct kunit *test)
+> +{
+> +	KUNIT_EXPECT_EQ(test,
+> +			dm_test_vrr_transition_refcount(test, true, VRR_STATE_ACTIVE_VARIABLE,
+> +							false, VRR_STATE_ACTIVE_VARIABLE),
+> +			1);
+> +}
+> +
+> +/**
+> + * dm_test_vrr_transition_crtc_on_takes_ref - Test enabling the CRTC takes the ref
+> + * @test: The KUnit test context
+> + *
+> + * Covers resume, where the old state is a reset one, and DPMS on
+> + */
+> +static void dm_test_vrr_transition_crtc_on_takes_ref(struct kunit *test)
+> +{
+> +	KUNIT_EXPECT_EQ(test,
+> +			dm_test_vrr_transition_refcount(test, false, VRR_STATE_UNSUPPORTED,
+> +							true, VRR_STATE_ACTIVE_VARIABLE),
+> +			3);
+> +}
+> +
+> +/**
+> + * dm_test_vrr_transition_crtc_off_keeps_ref - Test no ref change while off
+> + * @test: The KUnit test context
+> + *
+> + * A disabled CRTC has vblank off, so a VRR change there must neither take
+> + * nor drop a reference
+> + */
+> +static void dm_test_vrr_transition_crtc_off_keeps_ref(struct kunit *test)
+> +{
+> +	KUNIT_EXPECT_EQ(test,
+> +			dm_test_vrr_transition_refcount(test, false, VRR_STATE_UNSUPPORTED,
+> +							false, VRR_STATE_ACTIVE_VARIABLE),
+> +			2);
+> +}
+> +
+>   static struct kunit_case amdgpu_dm_freesync_tests[] = {
+>   	/* amdgpu_dm_is_timing_unchanged_for_freesync */
+>   	KUNIT_CASE(dm_test_timing_unchanged_null_args),
+> @@ -910,6 +1005,9 @@ static struct kunit_case amdgpu_dm_freesync_tests[] = {
+>   	/* amdgpu_dm_handle_vrr_transition */
+>   	KUNIT_CASE(dm_test_handle_vrr_transition_inactive),
+>   	KUNIT_CASE(dm_test_handle_vrr_transition_round_trip),
+> +	KUNIT_CASE(dm_test_vrr_transition_crtc_off_drops_ref),
+> +	KUNIT_CASE(dm_test_vrr_transition_crtc_on_takes_ref),
+> +	KUNIT_CASE(dm_test_vrr_transition_crtc_off_keeps_ref),
+>   	{}
+>   };
+>   
+
+-- 
+Thanks,
+Ivan Lipski
 
