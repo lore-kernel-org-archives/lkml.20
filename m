@@ -1,47 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794596208;
-	b=lVetO3ynY6ExFrE+o1mXPXbkzzMA1LSk55WH47vaJjc9wOcsn2vVvwaTniMtX/GEVtln
-	 yjceynUO975L4msZYBjQfO2smZWA1JjtVeu55tMEDqVlTlvnu5KRq1Z5GSisSsi3w/h9J
-	 QoRfvdQB5MYssBJ3VDGOQWDLUY6OFlyfAix6oC9k/fhRT6DM/DXDWJFFEQ+2hhTtZU6jh
-	 v4h4XBHGY5CN2GRABKCybGh4nYPwbncGnQLrB29swbNjiP26TBiEI7YbXTPy+XvW//iLz
-	 KYYgDnFXRgO/ZzZZ+0yCXfXR5TgOGIkW9fWW1bkkqSoPdqZV6BYIHomZMgADPApzfGQ==
+	t=1794596210;
+	b=zGhzRGquJLXc/YmbkAlD3av425VSk8fsxy0R1KrT6KNkHm2UFfch14na9mrZKxPcTD5J
+	 9lG32e8XUCBYddH/cqThiwF2SspRhdBt11H53qGoi1ggw859WiUEvZlS35QcfmQ5WiNfb
+	 znN1e01Clr0RHOjJtJW7VuraY0vYhcUZsaHn6o2QlV+hXggx17eYZMcucI5zamTYNdGG4
+	 czOJRSrvmDdoCiBkogtfTgqiLlxMUd3W5IeiCMtMfpGGSpDDXwE9bp4V2hKsPecTX5OGy
+	 z04QuQIPfWkv0KgppNRTRhIB98QQ4pLGwesxCJtxzgqLN5vzA8OLjutac62iXFaFhtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794596208;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=EaBAv/H8BT4vm7qZdZm8f+J1eyq2A3r6KggVt6sufuE=;
-	b=2CHVE0b/thIQmpzYPaJR68omrf3DkAWUJVdYDC2LJrxXSpJeSaXcGGnPsnSU9XowlaKQ
-	 TLF6r/CW637OBpABkN19X965tBiemEJiRfEET/B3hZr+CYhbdRboqzcI012ZznBbou5+v
-	 OkhSBTJTXAwi8nhKWfwc9Txb12lhGSc//wm90+71fFUGWE30QB8y6AI/XhsOhq1yQnYEX
-	 5GuZoAVWax/wWsNgXO5M4XlR7gFcXoHbZfUYRF79YZviPcQdQ9v57cb4VDRh5bYcxq4VD
-	 FK4Cz5V9J1tINsHEyWu9yFWyMrmcOrJ7rf4gnFnGdtjriLiBZqtnC/7XSX3YUTxiRzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794596210;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=8b2BNlI9D/dTvm+pNy8yi6bMbbcURwn+cQ+yjC30tMI=;
+	b=HZ+plUOnNSAJujTuTOELbwo01VvFX22nvYHPb6W5mZpLArnRutOkZh8OOgxZPkhEeRqO
+	 VsmaHTCCWMgcDQG9YyQZ0PHDJLAWuUaQLBk8K+AXeY0mXTBj5EiXVIeKX5cK0VN7EVUmB
+	 OIFSEl5s14TPqJLezSSi7xZm3S96/c5cCQ/JkoWDaM5YKIqLMsiK7A1aDR8EdTYq3pXS0
+	 CKrIzWYiTOL4sUhJUN8xVsJt8q3zzyNYeyt5UeWHWle76zT374SoXDPNS7vj10jtszvSS
+	 HzwhkiB1/xH6DgLJmMMgwVnuvzmxskqikUrmjnSQkr2wyHCmSGCnUU/0tFIVFOEDo2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AaE1y4q+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bXI2J06z;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DBA1606B35D;
-	Fri, 13 Nov 2026 18:56:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 433C5606B353
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:56:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AaE1y4q+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 240ED1F000C6;
-	Fri, 13 Nov 2026 18:56:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bXI2J06z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C55B1F000C4;
+	Fri, 13 Nov 2026 18:56:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794596207;
-	bh=EaBAv/H8BT4vm7qZdZm8f+J1eyq2A3r6KggVt6sufuE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=AaE1y4q++14YE+IhwkDHq526uKCelbaOwgasfvvC4nM/4hAhiYAO7UK+ijyX/ar2K
-	 RcF9z3EyMuug76TE2MqnPN2zWnCcm8jTzvzD51ZgEqYsfg4/t8IDDX/GqFCDl1vhrC
-	 lS03Ce5DsUfiByziqXEoTJGp4FyelH9mFjJ21U3K8rzL71dB1L5jvKvnw29yWtG/k5
-	 oYaPu+ChzIYEEiYVssqHg9c1J3lM2qqyA0QQlJtW1QlWTTSRsyYTAN3TebDz5DbyaE
-	 mgC+QvXuFWfDMfwcVSWr1BdmY9ZPFHBKLQBXw41STjLTQz9S41ytt6jjSxenfIWl17
-	 oTSsNoPlU4QMQ==
-Message-ID: <603cd8e0-c2c5-4c1e-85c4-d0a5ceda8d4c@kernel.org>
-Date: Fri, 13 Nov 2026 19:56:37 +0100
+	s=k20260515; t=1794596209;
+	bh=8b2BNlI9D/dTvm+pNy8yi6bMbbcURwn+cQ+yjC30tMI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bXI2J06zqS4ZMTGM2ywcmXZMT6M5NchVfkrpb3+jmFMX0GouWWfQtvL19PqvwjRbG
+	 uXyoa+cGma3kCNC6ndYJrY0oeLu9Ensr4Ya6TdLkoVSKIoAg8Uzuo2l5h7p3eO3fXp
+	 O0tUN/ofRqvlsoMR3ByVCopBGWCCl8MoU/OxIAhtAuPe9ph5A5vPhbEDhuqhzebBKP
+	 sLhtxxhU22vHjynQLcTIt0S/UgbOpgNIAuIC/q/JJe0rbe2SMV8TYQRSJh4sWcUNbp
+	 +jtNJCGMK4Y5TLQlTTlzMNVHmq81BpoSASl9pq7xE7J+ggD4khO99VH1MB+QpgMrWO
+	 e9M1HLuIaAPCg==
+From: "Barry Song (Xiaomi)" <baohua@kernel.org>
+To: akpm@linux-foundation.org,
+	linux-mm@kvack.org
+Cc: axelrasmussen@google.com,
+	baolin.wang@linux.alibaba.com,
+	baoquan.he@linux.dev,
+	hannes@cmpxchg.org,
+	hui.zhu@linux.dev,
+	kasong@tencent.com,
+	kunwu.chan@gmail.com,
+	liam@infradead.org,
+	lianux.mm@gmail.com,
+	linux-kernel@vger.kernel.org,
+	liuxiang.277@bytedance.com,
+	lyugaofei@xiaomi.com,
+	mhocko@kernel.org,
+	mhocko@suse.com,
+	qi.zheng@linux.dev,
+	ridong.chen@linux.dev,
+	rppt@kernel.org,
+	ryncsn@gmail.com,
+	shakeel.butt@linux.dev,
+	surenb@google.com,
+	wangzicheng@honor.com,
+	weixugc@google.com,
+	yuanchu@google.com,
+	zhangbo56@xiaomi.com,
+	zhuhui@kylinos.cn,
+	sidchintamaneni@gmail.com,
+	"Barry Song (Xiaomi)" <baohua@kernel.org>
+Subject: [PATCH v8 12/16] mm/mglru: Restrict eviction accounting to eligible zones
+Date: Sat, 14 Nov 2026 02:55:37 +0800
+Message-Id: <20261113185541.70203-13-baohua@kernel.org>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+In-Reply-To: <20261113185541.70203-1-baohua@kernel.org>
+References: <20261113185541.70203-1-baohua@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,94 +84,164 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/9] mm: keep writable entries writable on protection
- changes
-To: =?UTF-8?Q?Carlos_L=C3=B3pez?= <clopez@suse.de>, kvm@vger.kernel.org,
- linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-riscv@lists.infradead.org, seanjc@google.com, pbonzini@redhat.com,
- akpm@linux-foundation.org, peterx@redhat.com, ljs@kernel.org,
- imbrenda@linux.ibm.com, borntraeger@linux.ibm.com, frankja@linux.ibm.com,
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>
-References: <20261112142039.907090-2-clopez@suse.de>
- <20261112142039.907090-6-clopez@suse.de>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261112142039.907090-6-clopez@suse.de>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 11/12/26 15:20, Carlos López wrote:
-> change_protection() applies vma->vm_page_prot, which lacks the write bit
-> for CoW and write-notified mappings. MM_CP_TRY_CHANGE_WRITABLE makes
-> entries writable again if a write fault would only set the write bit.
-> In shared mappings, it relies on the dirty bit for this, as a clean
-> entry might still need a write fault to notify the FS.
-> 
-> However, this misses clean entries that were already writable. For
-> example, a uffd-wp unprotect makes shmem PTEs read-only if they were
-> mapped by a read fault before uffd-wp was registered, so the next write
-> to each of them faults.
+For both lruvec_evictable_size() and lru_gen_imbalanced(),
+only count eligible zones up to sc->reclaim_idx. This avoids
+overestimating the number of pages available for scanning and
+allows aging to proceed more promptly when eligible zones
+contain few folios.
 
-See my other reply, adding such optimizations without any motivation why we
-should even care is not really what we want.
+lru_gen_age_node() uses lruvec_is_reclaimable() to determine
+whether any memcg has generations old enough to reclaim under
+min_ttl. If none are reclaimable, it may trigger OOM. However,
+lruvec_is_reclaimable() also uses lruvec_is_sizable() to
+estimate the LRU size.
 
-Drop it from your series and keep the MM changes to a bare minimum please.
+Previously, lruvec_is_sizable() counted folios across all zones.
+With accounting now restricted to zones up to sc->reclaim_idx,
+the estimated size may be significantly smaller, potentially
+leading to premature OOM.
 
-Or is there a real dependency for your work?
+To avoid this, skip the sizing check when reclaim is restricted
+to zones below ZONE_NORMAL. As in __alloc_pages_may_oom(),
+triggering OOM for low-zone allocations is generally pointless.
 
+Furthermore, defer the sizing check until reclaim reaches a
+very low sc->priority to reduce the risk of premature OOM.
+
+Co-developed-by: Bo Zhang <zhangbo56@xiaomi.com>
+Signed-off-by: Bo Zhang <zhangbo56@xiaomi.com>
+Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
+---
+ mm/trace_vmscan.h |  4 ++--
+ mm/vmscan.c       | 26 ++++++++++++++++----------
+ mm/vmscan.h       |  5 +++--
+ 3 files changed, 21 insertions(+), 14 deletions(-)
+
+diff --git a/mm/trace_vmscan.h b/mm/trace_vmscan.h
+index 565c56428364..9dafdb5bd3ce 100644
+--- a/mm/trace_vmscan.h
++++ b/mm/trace_vmscan.h
+@@ -488,9 +488,9 @@ TRACE_EVENT(mm_mglru_aging,
+ 			unsigned long seq = max_seq - MAX_NR_GENS + 1 + i;
+ 
+ 			__entry->nr_anon[i] =
+-				lruvec_gen_size(lrugen, LRU_GEN_ANON, seq);
++				lruvec_gen_size(lrugen, LRU_GEN_ANON, seq, MAX_NR_ZONES);
+ 			__entry->nr_file[i] =
+-				lruvec_gen_size(lrugen, LRU_GEN_FILE, seq);
++				lruvec_gen_size(lrugen, LRU_GEN_FILE, seq, MAX_NR_ZONES);
+ 		}
+ 		__entry->nid = lruvec_pgdat(lruvec)->node_id;
+ 		__entry->priority = sc->priority;
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 9071f8889b5c..6ed47089a330 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -4205,8 +4205,8 @@ static void set_initial_priority(struct pglist_data *pgdat, struct scan_control
+ 	sc->priority = clamp(priority, DEF_PRIORITY / 2, DEF_PRIORITY);
+ }
+ 
+-static void lruvec_evictable_size(struct lruvec *lruvec, int swappiness,
+-				  unsigned long nr[])
++static void lruvec_evictable_size(struct lruvec *lruvec, struct scan_control *sc,
++				  int swappiness, unsigned long nr[])
+ {
+ 	int type;
+ 	unsigned long seq;
+@@ -4219,7 +4219,7 @@ static void lruvec_evictable_size(struct lruvec *lruvec, int swappiness,
+ 
+ 	for_each_evictable_type(type, swappiness) {
+ 		for (seq = min_seq[type]; seq <= max_seq; seq++)
+-			nr[type] += lruvec_gen_size(lrugen, type, seq);
++			nr[type] += lruvec_gen_size(lrugen, type, seq, sc->reclaim_idx + 1);
+ 	}
+ }
+ 
+@@ -4228,7 +4228,7 @@ static bool lruvec_is_sizable(struct lruvec *lruvec, struct scan_control *sc)
+ 	unsigned long total, sizes[ANON_AND_FILE];
+ 	int swappiness = get_swappiness(lruvec, sc);
+ 
+-	lruvec_evictable_size(lruvec, swappiness, sizes);
++	lruvec_evictable_size(lruvec, sc, swappiness, sizes);
+ 	total = sizes[LRU_GEN_ANON] + sizes[LRU_GEN_FILE];
+ 
+ 	/* whether the size is big enough to be helpful */
+@@ -4247,7 +4247,13 @@ static bool lruvec_is_reclaimable(struct lruvec *lruvec, struct scan_control *sc
+ 	if (mem_cgroup_below_min(NULL, memcg))
+ 		return false;
+ 
+-	if (!lruvec_is_sizable(lruvec, sc))
++	/*
++	 * As in __alloc_pages_may_oom(), avoid triggering OOM for low-zone
++	 * allocations. Also, defer the LRU size check until reclaim reaches
++	 * a very low priority to avoid premature OOM.
++	 */
++	if (sc->priority <= 1 && sc->reclaim_idx >= ZONE_NORMAL &&
++	    !lruvec_is_sizable(lruvec, sc))
+ 		return false;
+ 
+ 	gen = lru_gen_from_seq(evictable_min_seq(min_seq, swappiness));
+@@ -5088,9 +5094,9 @@ static bool lru_gen_imbalanced(struct lruvec *lruvec, struct scan_control *sc,
+ 	for_each_evictable_type(type, swappiness) {
+ 		unsigned long seq;
+ 
+-		youngest[type] = lruvec_gen_size(lrugen, type, max_seq);
++		youngest[type] = lruvec_gen_size(lrugen, type, max_seq, sc->reclaim_idx + 1);
+ 		for (seq = min_seq[type]; seq < max_seq; seq++)
+-			old[type] += lruvec_gen_size(lrugen, type, seq);
++			old[type] += lruvec_gen_size(lrugen, type, seq, sc->reclaim_idx + 1);
+ 	}
+ 
+ 	/* the vast majority of pages sit in the youngest gen */
+@@ -5143,7 +5149,7 @@ static void lru_gen_prepare_scan(struct lruvec *lruvec, struct scan_control *sc,
+ {
+ 	unsigned long total;
+ 
+-	lruvec_evictable_size(lruvec, swappiness, nr_to_scan);
++	lruvec_evictable_size(lruvec, sc, swappiness, nr_to_scan);
+ 	total = nr_to_scan[LRU_GEN_ANON] + nr_to_scan[LRU_GEN_FILE];
+ 
+ 	total = apply_proportional_protection(memcg, sc, total);
+@@ -5854,7 +5860,7 @@ static int lru_gen_seq_show(struct seq_file *m, void *v)
+ 			char mark = full && seq < min_seq[type] ? 'x' : ' ';
+ 
+ 			seq_printf(m, " %10lu%c",
+-				   lruvec_gen_size(lrugen, type, seq), mark);
++				   lruvec_gen_size(lrugen, type, seq, MAX_NR_ZONES), mark);
+ 		}
+ 
+ 		seq_putc(m, '\n');
+@@ -5907,7 +5913,7 @@ static int run_eviction(struct lruvec *lruvec, unsigned long seq, struct scan_co
+ 		if (sc->nr_reclaimed >= nr_to_reclaim)
+ 			return 0;
+ 
+-		lruvec_evictable_size(lruvec, swappiness, nr_to_scan);
++		lruvec_evictable_size(lruvec, sc, swappiness, nr_to_scan);
+ 		lru_gen_balance_scan(lruvec, swappiness,
+ 				     nr_to_reclaim - sc->nr_reclaimed, nr_to_scan);
+ 
+diff --git a/mm/vmscan.h b/mm/vmscan.h
+index c6b583fc7493..2599d7c614ac 100644
+--- a/mm/vmscan.h
++++ b/mm/vmscan.h
+@@ -119,12 +119,13 @@ struct scan_control {
+ #ifdef CONFIG_LRU_GEN
+ /* The number of pages of @type in the generation @seq, summed over all zones */
+ static inline unsigned long lruvec_gen_size(struct lru_gen_folio *lrugen,
+-					    int type, unsigned long seq)
++					    int type, unsigned long seq,
++					    int max_zone)
+ {
+ 	int gen = lru_gen_from_seq(seq);
+ 	unsigned long size = 0;
+ 
+-	for (int zone = 0; zone < MAX_NR_ZONES; zone++)
++	for (int zone = 0; zone < max_zone; zone++)
+ 		size += max(READ_ONCE(lrugen->nr_pages[gen][type][zone]), 0L);
+ 
+ 	return size;
 -- 
-Cheers,
+2.39.3 (Apple Git-146)
 
-David
