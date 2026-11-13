@@ -1,69 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.10.4.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.59.177.22
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794550063;
-	b=TbYrsIfY47DcgvzUBmcskaqAVUXWKMq0TVo3Hf8HG+DXjAKoOR5/yLtfKaqr53CQxEEh
-	 IJ/vbqPfWHoiZ3STgycxVo1MT22XHDO6yBojN5ODX51izQrx8HArHiXSqcRcM3s3a+ayb
-	 tx9W5H2zVVryfGxEu50zWP/4sHlL0ZIGyQTu7Axg9Dx8fS4l/zzvHwPi+qdXQaSlqen7/
-	 0GpcNoK8b9OwLrZdFwKFnBK2rY1lytqXL1diIdnTHfpAHg8yoDx2gwWH9rxsmF7PZh5gB
-	 t/1YbayKX+5ci6smsKaZ5kNWxLYToKHY6PGiOhzhB+R7ZHsWVC8ll5rAYEaCGhkAhNg==
+	t=1794550088;
+	b=hmnm4TQ5IbBvFKn9fItuEYWNPoUeiqILvCgDivUnInhMjEjMvCSWj8umuxMAS9/ZDoZW
+	 BpVB63Ird+KwRObMdGC4SRudNiSblZjggYSUIVH+vqboZEj7LaLufW2XKfbUc6lA/IN4z
+	 UEMZVaUF4SxmQZMzF5i0j0/q3agXfzHPnv2YgS3pexBa8Or0FfLQ0XwDV7Ch8VOiKjWrw
+	 HW4cMPSHBE4QVPv5gwtOCyCXl0b5Zbt1DcO/l9lzDtB5sTXItXeayftEimnHJZg6r026o
+	 Y1u6ra97ufTkq1miqIGYoKxxq5sTvu1sVXjcHY77QVqhCzs3nguHhWbp1TeSbD7esbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794550063;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-TM-AS-Product-Ver:X-TM-AS-Result:
-	 X-TMASE-MatchedRID:X-TM-AS-User-Approved-Sender:
-	 X-TM-AS-User-Blocked-Sender:X-TMASE-Result:X-TMASE-Version:
-	 X-TM-SNTS-SMTP;
-	bh=KgxanPyLG1oE6QUC51vvwCcoOIoWUeqHJFzBqSVEx8A=;
-	b=tSWtddYZXZjDueR81UvFprd/6Rxd3lWNEClSMH7OKrhEQOD77jGCDBGP33jOVY2VScuu
-	 ve71rCGUjXnA2nz2aPPgldYKOanKnHxi48NdDnecFGdtef6r/xmmYVTyI/UwJRS4tze0H
-	 iju4KfHcYsap+HoPJ7yh5pm21JgQBtJs3T/sZXPrILIv1NobaQDa6pSI7BqpaSJy1FGkr
-	 0Cgd0krDEgvDfi3lDXSxD+EhaQhnjyScGawIBId2S5Msz5pnex3Ojcx9NjlicLUzokqIP
-	 mHKoRoB6je2bB/PskzgqrBe73fLTZhEQOevQZMcDv39t7L0D7+J1vvPa38ULuAHpIXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794550088;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=wllpHAZYNSNkCt57+HHHYsgQEPuFI+eTbDLLhojO5E8=;
+	b=nJnSQfb4iyfJ/O7xH/H4BQui3LtuMBg5fo+yX/rZYCV7PKDlGzcfyFT4jTLpqT2RlgIq
+	 Ncxm3OBvt45mtQzWQK89tvx1TjCi8tWqtes92qVh0sNyhFWaNDBIqkutcY9b5n+YX516Y
+	 lt7B2w0xOZJFCxNk/SLFKBEZH9tgHkjJhxTJtFATHpyIgQMpFVa51V1kcLhykXpg+UfEI
+	 vxGuMFNeqLixtwAVtJTnfCn2ZvHFmLdocFvqMrRiP50smxdwuPZjQbOO9htCJvWfTFe1a
+	 jOIucGrB27LpXNZLqQ1cDpwZEakGoWs49WgUqjGaTOTg6zWBdZVPaCGKdQYcGpiwh1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=asmedia.com.tw;
-	spf=pass smtp.mailfrom=asmedia.com.tw;
-	dkim=pass header.d=asmedia.com.tw header.i=@asmedia.com.tw header.a=rsa-sha256 header.s=asmediacomtw header.b=qWERUPRv;
-	arc=none smtp.remote-ip=103.10.4.13
-Received: from ms.asus.com (ms.asus.com [103.10.4.13])
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b="Pl9/Revv";
+	arc=none smtp.remote-ip=52.59.177.22
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB0EC606A321;
-	Fri, 13 Nov 2026 06:07:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB0EC606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=asmedia.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asmedia.com.tw
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 438FA606A321;
+	Fri, 13 Nov 2026 06:08:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 438FA606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=asmedia.com.tw header.i=@asmedia.com.tw header.a=rsa-sha256 header.s=asmediacomtw header.b=qWERUPRv
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=asmedia.com.tw; i=@asmedia.com.tw; q=dns/txt;
-  s=asmediacomtw; t=1794550063; x=1826086063;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=kESxTKefuWiEkIIdkkSEjVtoE/CLYY1e2PeOpFjFCz4=;
-  b=qWERUPRvuI0vxmyOx0XUvMiRUVN/GKJIbze6os+7RG7MM0ittZ7k0cEQ
-   YWAjAjghf/e1asSaKWbN1YiZnSyWl2xv1KzcHeGmN5SghcyqNCdBwHfD6
-   F+yqb91y8u3MqKyg8hPvP9TGq0W6TmAJ3Hs3nB5OO/ZvuNJNhFPJ4X5ob
-   o=;
-X-CSE-ConnectionGUID: wWDM4HShRLCIk00GgJcbjA==
-X-CSE-MsgGUID: f49iQX8ET4GILGfKqsAdJw==
-Received: from apza006tmd.corpnet.asus ([172.22.47.66])
-  by ms.asus.com with ESMTP; 13 Nov 2026 14:07:20 +0800
-Received: from mymail.asus.com (42.79.126.46) by APZA006TMD.corpnet.asus
- (172.22.47.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Fri, 13 Nov
- 2026 14:07:18 +0800
-From: Szuying Chen <Chloe_Chen@asmedia.com.tw>
-To: <linusw@kernel.org>, <Markus.Elfring@web.de>,
-	<linux-gpio@vger.kernel.org>, <brgl@kernel.org>
-CC: <linux-kernel@vger.kernel.org>, <Yd_Tseng@asmedia.com.tw>,
-	<Jesse1_Chang@asmedia.com.tw>, <Richard_Hsu@asmedia.com.tw>, Szuying Chen
-	<Chloe_Chen@asmedia.com.tw>
-Subject: RE: RE: [PATCH v3] gpio: amdptpci: add support for AMD PT PCI controller
+	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=Pl9/Revv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1794550037;
+	bh=wllpHAZYNSNkCt57+HHHYsgQEPuFI+eTbDLLhojO5E8=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=Pl9/RevvsMlSHBVs2R+kcCwWmKUoJbVyWBLKwBKUXlpSMYTYNLNjTzA8C7YBRjwxp
+	 2+fZ11LD5vsuKdy5suKatg9jS8HCjJ5Hx+lhuq+5aXCFyoEHCniL5BsZ6pHIiZLZlc
+	 GEwt7q13FanjKbJQu1yLiXv5inDRlv2ej/M9+fx4=
+X-QQ-mid: zesmtpgz5t1794550022tb8788a0c
+X-QQ-Originating-IP: 6UGuInMOY/d7vEfDBEDyZH5feZhcASUzl3QIHaKoVsY=
+Received: from PEC004119 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 13 Nov 2026 14:07:00 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 2535765206702016621
+EX-QQ-RecipientCnt: 7
+From: Haowen Tu <tuhaowen@uniontech.com>
+To: broonie@kernel.org
+Cc: lgirdwood@gmail.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Haowen Tu <tuhaowen@uniontech.com>
+Subject: [PATCH] ASoC: ak4375: Power off the codec if runtime resume fails
 Date: Fri, 13 Nov 2026 14:06:59 +0800
-Message-ID: <20261113060700.4127-1-Chloe_Chen@asmedia.com.tw>
-X-Mailer: git-send-email 2.48.1
+Message-ID: <8C4BD8E710508D85+20261113060659.1497641-1-tuhaowen@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,67 +72,66 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: APZA002EXB.corpnet.asus (172.22.6.14) To
- APZA006TMD.corpnet.asus (172.22.47.66)
-X-TM-AS-Product-Ver: SMEX-14.0.0.3239-9.1.2019-30316.004
-X-TM-AS-Result: No-10--14.867700-8.000000
-X-TMASE-MatchedRID: +mH4VGfbtsxu4DGBDoAs85GPSO6O5JCagKzitR6I0vS4jV9yUdXXgZ0i
-	AknL6Q/Z0bs03Cj/zdbJbpWeSB+0RtZSVIh2F3SJ39nur6FlBV43RfriMbLZ1hERyafywvMoBK5
-	jsahkTKn+DLKQ2zS90DIdfNkCBOiLQtOofzK6nhO7/BkSrGh1ljSSxxZ1ewmwZAvO4QbJLKOQ+u
-	G18dpupfx3IL7oOgVqyrzRjZhtElOvngkjHjojpAqMtasBG2xzmuMpo5XKw2858Sarp97J84ckZ
-	T5abrxuV93NVRFdgSfmji6nqi0orDLPaFtwcF939eSlccz0Gku+z+D0qBfeLusO3zrvD+9awACm
-	bLFOQ7c=
-X-TM-AS-User-Approved-Sender: No
-X-TM-AS-User-Blocked-Sender: No
-X-TMASE-Result: 10--14.867700-8.000000
-X-TMASE-Version: SMEX-14.0.0.3239-9.1.2019-30316.004
-X-TM-SNTS-SMTP:
-	60F52F02C5E85A09FC7FC9409B0FF82CE6C5264498604BF7A42B3D3736557EB02000:8
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: M4XCXY8dla+qkSZ5YbHjeUhdk8wCSBrjHbfeqDibfjpAkhuCi/U6wvJi
+	NSVoJ7BD18c0RORpBfXNy5fYvoyqseYf3sH1Si+jWyNLGUY3muyFAy9YC1r9c3p176VJewL
+	HnYNc7suaos49SkMNYPF+OhysvNaZhVcWm6QJoEuBJFg9nmbsD6l7QyoMhhRazSoJwiGzMB
+	fsJFM5xETfOuHf+Yp3hWaE3w2pmMOIBT01FZsLzzcDdjBEFsVq4B6R4qrvAayC2J6P3qKbg
+	f7/wv8S8HDSNoK5tyVKA66n4eK9cihdagEIHYUZwq7jqvWCq+s3OydR7H90tJX00HwsbO59
+	un8KGG61uqDgTJY1ApSd2PBQkchgZaass+D6tC7RTNSm0Q4z4bKBTI9k2c9amFyTfBkfu1U
+	0o1x7UQ+yecwQW7fZmu5AnaNsuLN2gV3mxsf4iWG8AIsM3MWxqXxkZBoPiX3N7tvT3JyqcJ
+	PeEj4Yq7Ib+34W94ew+Y0U/C0eyhUGmsxplHR7EdiVIXv00R92ovDrB0sKvVpjuCZlL31yJ
+	yewk4acVQN41aR8iBYAy2DotkvAEYxsfnP5GbLV4Q3PEStt11SqY1tAL80OOzyUtOkGMoV9
+	xhYJzUZGqr7qcvHMo2wkSEhVokuILOIQs8PWZIUY25StOCaKXL4r830iZn+tSIiT3QdfiDD
+	HHr4IK5YkUUuIjRAhuudaeDNV1F+y0mDJzoR1vShNKDR7maB6SyV6JZ7vvp3hAYiiFuvkHJ
+	aHxYdvTbgLnZckCh5u4K6NEmH/aJ1aTtT+rFhknZFf3aY0j1aHHeUIJX3OD9GfpFBRDZ3Th
+	lkCOVw7eSZBw0qceu5vTrGwJVj56EvetpEpiLhci9Q6zhv4Dfrj/IAdZN6A2YOVdKHbULdL
+	mTMidwek7LVMAQOmi7ZvkRcPsEXerRdHBeeZ7dO871L3wjTaPuYM2SfqJnp0uAF7RpQIGXD
+	CCyQEjnDbD3YCdTQzV04fUsqS+PJPUKXNRQcD92acvG2zohR9vxwxT/RGESYREqtU+DFqon
+	3SEmbLdVFsgbkEjBKBDt8SG4rSrOWDU2aWtRJRcF2vUJjJd78iSpW83GpRSs9ebvRmSpiCB
+	lzx+7Mo6G146afIfDcSO2/DY1HKNe0LvA==
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
-Hi Linus,
+ak4375_runtime_resume() powers on the codec and leaves cache-only mode
+before synchronizing the register cache. If regcache_sync() fails, it
+returns the error without undoing either operation.
 
-Thanks for the review and feedback.
+The runtime PM core leaves the device suspended on a resume error, so
+there is no matching runtime suspend callback to disable the supplies.
+The codec remains powered and register accesses still reach the hardware
+even though restoring its state failed.
 
->> +#include <linux/bits.h>
->> +#include <linux/compiler.h>
+Restore cache-only mode and power off the codec on a cache sync error,
+leaving it in the same state as before the resume attempt.
 
->Why this include?? Add a comment next to it why it is included if this is really necessary.
+Fixes: 53778b8292b5 ("ASoC: Add AK4375 support")
+Signed-off-by: Haowen Tu <tuhaowen@uniontech.com>
+---
+ sound/soc/codecs/ak4375.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-Not need will drop it in V4.
-
->> +#include <linux/kernel.h>
-
->I think this generic include should not be used in new code, use specific includes.
-
-Agreed, I will replace it with the specific headers in v4.
-
->> +static int pt27_irq_reqres(struct irq_data *d) {
->> +       struct gpio_chip *gc   = irq_data_get_irq_chip_data(d);
->> +       irq_hw_number_t   hwirq = irqd_to_hwirq(d);
->> +       int ret;
->> +
->> +       ret = gpiochip_reqres_irq(gc, hwirq);
->> +       return ret;
->> +}
->> +
->> +static void pt27_irq_relres(struct irq_data *d) {
->> +       struct gpio_chip *gc   = irq_data_get_irq_chip_data(d);
->> +       irq_hw_number_t   hwirq = irqd_to_hwirq(d);
->> +
->> +       gpiochip_relres_irq(gc, hwirq); }
-
->These are reimplementations of gpiochip_irq_reqres() and gpiochip_irq_relres() so use these instead?
-
-Agreed these are redundant as they stand.
-However, v3 does not keep the device in D0 while an IRQ is in use,
-so I will extend the callbacks to hold a runtime PM reference in v4.
-They can't be replaced by the generic helpers.
-
->Eh? Get rid of this horrid footer.
-Sorry about that! I have asked our IT team to disable this disclaimer
-for external emails, so it should be gone from v4 onward.
-
-Best regards,
-Szuying
+diff --git a/sound/soc/codecs/ak4375.c b/sound/soc/codecs/ak4375.c
+index 28cc41014bd9..469b81c5daca 100644
+--- a/sound/soc/codecs/ak4375.c
++++ b/sound/soc/codecs/ak4375.c
+@@ -460,7 +460,14 @@ static int ak4375_runtime_resume(struct device *dev)
+ 	regcache_cache_only(ak4375->regmap, false);
+ 	regcache_mark_dirty(ak4375->regmap);
+ 
+-	return regcache_sync(ak4375->regmap);
++	ret = regcache_sync(ak4375->regmap);
++	if (ret) {
++		regcache_cache_only(ak4375->regmap, true);
++		ak4375_power_off(ak4375);
++		return ret;
++	}
++
++	return 0;
+ }
+ 
+ static const struct snd_soc_component_driver soc_codec_dev_ak4375 = {
+-- 
+2.50.1
 
