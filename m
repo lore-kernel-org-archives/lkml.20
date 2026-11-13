@@ -1,103 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794542608;
-	b=fGBZx5hEO9yZcuRPC5VHjTZQKDUdy9gNRc1h0vtsdkpJW5e1lE3/ZRXQeYkXBAgP7i3N
-	 5sbhcjbZGpjE5uIsmpb2gcONd/R34IuJziTK7rpsBZwBxpmCDrYHT3+Nq/iYAba/dKScW
-	 FPiE9BbigiPsqqnrkOtmDHYKfcWBEOe5xHzCiIVzCr6hIKttJnieKcG3dZT4+wTuBKXzd
-	 E7HXxi1QOBPH6bkbI8kalniIm9L8tPbtxaXE9vNbkr+cEXxDAxA1tWCmLz7ZBDxceUMDA
-	 byPKIMb0jVJVbU+pNQolclcvJ+SAWFoqn/W7JG6VMjPzIRpEKWssKAR1FSeV+hry8/w==
+	t=1794542729;
+	b=yCNc8hkmhQZzphnTDHSRZ1nD2zybP4339pbSFKxfW18BZ/fWa23Y/7YxM0TfGoSGWEIU
+	 we/32KeJGiR4WaPpCbZ2zz6QoGuQ7KOUexi1XiEchaNqyulMVUI14PwcoWAqBb+WABTIJ
+	 Wo1rxdb6MGqQUk4/CD4cUAyGVNsG8gG3sEJ3eot4EFfvI1tJqCeh8F2hjFD0TiFdQVnck
+	 fcetXgBxRsqDDbKrLCecUetqV/AG58GO6Am40iga8y9gYyLoMTProqsPD3JB8mrUz3Spa
+	 ljyxRQB4GHs5Mft2cFbX0AVUi44RzQORQ4vs62XF6gNNYlgqraEhN3gPQS+yZ/dN8ew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794542608;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=h3VfCHvLvqBO4sImZGoV5l6BeIrK2r9kHf+KVVKvjY8=;
-	b=P2ODnO+XaT20pgAnrNFiDUmLrP/qBUQPmb5ezdNQweHa++CfMZtmFrc345cely+lBjaw
-	 q/z0XjD7LiocQUXcvXkjy+JFRg2eACwhW13EAUjtlu5/94PkiocZbB3G1DzfnZtRg32o5
-	 aeLKuPSODE0jYKBp4+gdG2uQauKwm2jHrcTCNeFhpxOPQ1rLbY9iBpBJyaeRzWXn5/ucy
-	 mu9XeRIe8Rz9gpAMczpy62p7TPe4s5r8cPgkOiQ5mvfXCt+9Q0WD2xxs57N+acILJGoLr
-	 Q0IUpO4vHSw0C8u2Gx4OETrQ762T1UjTkHyWXcOWSvnN8YRX23vYMXaLGgbZsYZ2v5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794542729;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
+	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=cSjwYB1H/33/pIUhMAid93PsP5KSpJh4krFm9dk6wmw=;
+	b=f9Mn3aMUOeZbTjTwdO/kRZMR04cjKJNtf4+UXZpDteNhzUFX7dNIGnDr7EwPN/GDRtjs
+	 BBRiatOfcpf4gPcOnw1ieBUaT81tJTNQ7CYNaXiVvbAStOO0SmQyi+Z5BJdzJFpq0R892
+	 71N03zW8ibpVHb77RdrWZqckUyGTRmJx+ggRhbarKJlDXe1TBTSke1HuugB6Y92vq/6p3
+	 vCF/mSmiknl0PLSdyFfyw+k7RABmXH1niUeXlogAqIYXLcqCeCkzJLOfKwN+jcfl+cejS
+	 B7XjCFfn96DIQq/9Gu92LlTC+ctvUYZpsIhH2MiTauQkrnkK8JQIYWvCoREEAxUMGQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vHwZtRru;
-	arc=none smtp.remote-ip=209.85.219.46
-Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=sSSBTmRC;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=wRcPyN8a;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6022F606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 04:03:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6022F606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4615F606A323;
+	Fri, 13 Nov 2026 04:05:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4615F606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vHwZtRru
-Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-91e98301805so9859436d6.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:03:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794542607; x=1795147407; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=h3VfCHvLvqBO4sImZGoV5l6BeIrK2r9kHf+KVVKvjY8=;
-        b=vHwZtRruk+RPcP4KnyJvGie743X+cb87JYRyMRIztxJcSvzuMGOg2/QY+mafApaTKY
-         WZGKPjjzdXPJ6L8lamwekoV/8UeypJJtGuzE3HKrUSNgpZEYOPqL+zhOxQuo3ihjpIvF
-         CDgcnEf4pWI1kXbDbUkwLfbFB14yAGtXx2LYcHTK2HtcnYvkBI8fqev/iKw+F8noMYTx
-         oOWuym4pWtANXjlM37wyRJ98J3uuRRJ0/eCqrKgDEXt5tPgMgpYyi6Pw0nRkrgNN4DQb
-         v2FVbTAEgF/RLYmTxDAsUV72yuxQbZj7Xen9gafXdKTXG1J7HG7OziCMfo6M6s0fbKHq
-         y82g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794542607; x=1795147407;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=h3VfCHvLvqBO4sImZGoV5l6BeIrK2r9kHf+KVVKvjY8=;
-        b=2MtmDyri+icqAbQB/Mj8CRlLMhTGgkM0bCbw1pHRnNS659GcseE/DDalga1qlFmdLm
-         PQoyr0m1riKX0RUV4Gg2KN5ErPEJXmGziCG2RFgVm5c2EKY8/yMbJeIZokP0WP8GrkSl
-         sSPA/EcDCAVpiP80ZEU0iF1zvoDB72jOh5GLQUC/VG1NM7vS4ZqBRgoLTBHrfxV1M5A+
-         NvytBA328sHoVhODPR/6f2YtE/U//+51/dd14y0hgqdgLzB38fdEBXixiXUSVUgarrSv
-         pAeLj43U/BubB4klpRLFG7xdVxdieC6RvStaMgt3+LwD7L+6vel2EXDXXXxQdsJZ6tyq
-         te3g==
-X-Forwarded-Encrypted: i=1; AL+hErFu25AB4n2rb3E1t6mZswlMZS4iKeUvNFcOPkalu+jwoFv6drOjsPxBiY5+LiJfFNONsn1P6ojgi0Vipnk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+IKr5u02dIzyEvWKC85iMR46Sbezrv4plJhdwVTKP1y8h04cis
-	/Unf4E53w9GP7P+yxmy3KNioNuyCafEVLJCgQa6Ue1XeC91tIUWL0Xan
-X-Gm-Gg: AYBFou3bE9+Q/ukiZ1DOChenZ9APPDlf/54tk73RsnBi2Cn3P5GtIX+krv+P6/pFZN3
-	ESmNUGlFpH+N7W+KEhde7GK8LNMRHpmi+H5rFCK4U1CM14x41cNRognL+L69+6kwpLETfS1W8/9
-	VOdfWoZf7gNxTUZiWRTh2cQc5sd/O3kcbQf24JWNkLOuuEcpDo7yPP7ld++b2zHA802WsjQm0se
-	MYapY5yFap+vZsEXTVqU0gV75M/vtaIY45nDR7JP3/qW37YQt1YyemDB4Jg1pqG5T0vURWke2ab
-	EHZNt0zRW4oJM+Kbsd8A46r6EiAzXxpjjRICvyWWZ4NQpWuUf+yaHyNuU+4bCXV5yhbrdtJfKOr
-	auKV2P4Py59REe4MYE11t2p6OQXrbYT50lN7CBMoK1w8w1Lr4AjQonow/ykJxK3Mr+vAL8yulU+
-	Jv+2F0g+f77iBFsAwOOua1XzNL8zuPAJwTHCKiYvE5LP+qte7AdLxLK7dfPwHlBPCgFaayXem05
-	ljPz3uP1+zL8K3DtLPuEiNpX1VbMPvCFKIdap9Bt2qrWASqx1+7joqPUNrX7Q5+j0QLJ9Bw6vZ4
-	gPlmE+r/E01pa8verXddGv8+NW+V0gRifbRT4P1M7ALs0Wr4V7sy0HdcqQacu06fJZ1QDyDmM8v
-	E5c4zzbQ5XfPLnsF9Dwa7
-X-Received: by 2002:a05:6214:850d:10b0:91c:60e8:a8ab with SMTP id 6a1803df08f44-91f241f6b64mr16509716d6.37.1794542607209;
-        Thu, 12 Nov 2026 20:03:27 -0800 (PST)
-Received: from linux.. ([8.34.174.240])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23db49c5sm11193506d6.41.2026.11.12.20.03.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 20:03:26 -0800 (PST)
-From: Changyul Lee <lcy8047@gmail.com>
-To: Saeed Mahameed <saeedm@nvidia.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Tariq Toukan <tariqt@nvidia.com>,
-	Mark Bloch <mbloch@nvidia.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Moshe Shemesh <moshe@nvidia.com>,
-	Aya Levin <ayal@nvidia.com>,
-	netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Changyul Lee <lcy8047@gmail.com>
-Subject: [PATCH net] net/mlx5e: Hold sync_lock while resetting VXLAN ports
-Date: Thu, 12 Nov 2026 23:03:23 -0500
-Message-ID: <20261113040323.2090829-1-lcy8047@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=sSSBTmRC;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=wRcPyN8a
+Date: Fri, 13 Nov 2026 04:05:24 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794542727;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cSjwYB1H/33/pIUhMAid93PsP5KSpJh4krFm9dk6wmw=;
+	b=sSSBTmRCpi0eiAS4KAqr8V5qDfn/JyZfMtdIhS7Z3Q7+UdVOzoDO3JgbJbAVzIuLXrFsEx
+	JfGy3rxlJ1EH6oweewdlXWxlGnywMZve4IXHlQN0Sa5KBNEAExoNTsGbKOaxLVHBZ462kP
+	y3bEgzjeHjiQ40pJdlE5i/yNt48+itVIEVZ8CkMYRTp4YdxQVGdiUnssvVMD56XXWPifIq
+	oeSznuYKxwyyApZoycCEtHdHL4aID2p+p7p5p/nYrkriTt1nkskzp71TKX77HusCGhQZtb
+	528v16otET/etAWdDmvjzIfzaatJc7Za30yfnWucTPUAFAFzQqCbOuKdS8YEQQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794542727;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cSjwYB1H/33/pIUhMAid93PsP5KSpJh4krFm9dk6wmw=;
+	b=wRcPyN8aNyAWUnahwuKvbtQEFgPKmtGUFvZPwFQ56tTrsxbI7cnpvuuWQjjQESDsXl/WVz
+	04wdOMtRNkBlcbCw==
+From: "tip-bot2 for Hengyu Liang" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: x86/urgent] x86/video: Preserve the default VGA fallback for
+ legacy modes
+Cc: Hengyu Liang <hengyul@cs.unc.edu>, "Borislav Petkov (AMD)" <bp@alien8.de>,
+ "Mario Limonciello (AMD)" <superm1@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, stable@vger.kernel.org,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261103031630.2085194-1-hengyul@cs.unc.edu>
+References: <20261103031630.2085194-1-hengyul@cs.unc.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,88 +80,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <179454272497.2969448.17262198902355060931.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-mlx5_vxlan_reset_to_default() walks vxlan->htable without sync_lock
-and calls mlx5_vxlan_del_port() for each user port. mlx5e_nic_disable()
-and mlx5e_uplink_rep_disable() call it after rtnl_unlock(), so the
-udp_tunnel_nic work can run mlx5e_vxlan_unset_port() at the same time.
-If that removes and frees the entry saved as the next one in
-hash_for_each_safe(), the walk then reads freed memory.
+The following commit has been merged into the x86/urgent branch of tip:
 
-Hold sync_lock over the whole walk, and add __mlx5_vxlan_del_port() for
-callers that already hold it.
+Commit-ID:     3b4c98b47ba7c3c57bcf54fb85f54a854622041c
+Gitweb:        https://git.kernel.org/tip/3b4c98b47ba7c3c57bcf54fb85f54a85462=
+2041c
+Author:        Hengyu Liang <hengyul@cs.unc.edu>
+AuthorDate:    Mon, 02 Nov 2026 22:16:30 -05:00
+Committer:     Borislav Petkov (AMD) <bp@alien8.de>
+CommitterDate: Thu, 12 Nov 2026 20:01:18 -08:00
 
-Fixes: c5eb51adf06b ("net/mlx5e: Fix VXLAN synchronization after function reload")
-Signed-off-by: Changyul Lee <lcy8047@gmail.com>
+x86/video: Preserve the default VGA fallback for legacy modes
+
+Commit
+
+  596b3678326d ("x86/video: Only fall back to vga_default_device() without sc=
+reen info")
+
+made video_is_primary_device() rely exclusively on screen_info resources
+whenever any are available.
+
+However, screen_info_resources() also returns legacy I/O and memory ranges for
+VGA text modes. These ranges are not PCI BARs, so pci_find_resource() does not
+find them and the default VGA fallback is skipped. As a result, no device is
+primary in VGA text mode.
+
+On a SeaBIOS QEMU guest with bochs and VKMS, the boot VGA (bochs) loses its
+DRM boot_display attribute. VKMS registers fb0 and bochs registers fb1. VKMS
+is not a PCI device, so it is not primary either. With no primary device,
+fbcon keeps the console on fb0 and never remaps it to bochs. This can be
+checked with:
+
+  cat /sys/class/drm/card1/boot_display
+  stty -F /dev/tty1 size
+
+Without the fix, boot_display is missing and tty1 is 48 rows by 128 columns.
+With it, boot_display contains 1 and tty1 is 50 rows by 160 columns. VKMS only
+makes the console part visible. Without VKMS, tty1 has the same size with and
+without the fix, but boot_display is still missing without it.
+
+Use resource-based selection only for linear framebuffers. Fall back to
+vga_default_device() for legacy display modes, while keeping EFI and VESA
+framebuffer ownership authoritative.
+
+Fixes: 596b3678326d ("x86/video: Only fall back to vga_default_device() witho=
+ut screen info")
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20261103031630.2085194-1-hengyul@cs.unc.edu
 ---
-Found with a static analysis tool we are developing.
+ arch/x86/video/video-common.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Compile-tested only, with x86_64_defconfig plus MLX5_CORE_EN and W=1.
-
- .../ethernet/mellanox/mlx5/core/lib/vxlan.c   | 24 ++++++++++++-------
- 1 file changed, 15 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lib/vxlan.c b/drivers/net/ethernet/mellanox/mlx5/core/lib/vxlan.c
-index c2292cab4592..b953bbc4925c 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/lib/vxlan.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/lib/vxlan.c
-@@ -121,25 +121,29 @@ int mlx5_vxlan_add_port(struct mlx5_vxlan *vxlan, u16 port)
- 	return 0;
- }
- 
--int mlx5_vxlan_del_port(struct mlx5_vxlan *vxlan, u16 port)
-+static int __mlx5_vxlan_del_port(struct mlx5_vxlan *vxlan, u16 port)
- {
- 	struct mlx5_vxlan_port *vxlanp;
--	int ret = 0;
- 
--	mutex_lock(&vxlan->sync_lock);
-+	lockdep_assert_held(&vxlan->sync_lock);
- 
- 	vxlanp = vxlan_lookup_port(vxlan, port);
--	if (WARN_ON(!vxlanp)) {
--		ret = -ENOENT;
--		goto out_unlock;
--	}
-+	if (WARN_ON(!vxlanp))
-+		return -ENOENT;
- 
- 	hash_del_rcu(&vxlanp->hlist);
- 	synchronize_rcu();
- 	mlx5_vxlan_core_del_port_cmd(vxlan->mdev, port);
- 	kfree(vxlanp);
-+	return 0;
-+}
-+
-+int mlx5_vxlan_del_port(struct mlx5_vxlan *vxlan, u16 port)
-+{
-+	int ret;
- 
--out_unlock:
-+	mutex_lock(&vxlan->sync_lock);
-+	ret = __mlx5_vxlan_del_port(vxlan, port);
- 	mutex_unlock(&vxlan->sync_lock);
- 	return ret;
- }
-@@ -185,12 +189,14 @@ void mlx5_vxlan_reset_to_default(struct mlx5_vxlan *vxlan)
- 	if (!mlx5_vxlan_allowed(vxlan))
- 		return;
- 
-+	mutex_lock(&vxlan->sync_lock);
- 	hash_for_each_safe(vxlan->htable, bkt, tmp, vxlanp, hlist) {
- 		/* Don't delete default UDP port added by the HW.
- 		 * Remove only user configured ports
- 		 */
- 		if (vxlanp->udp_port == IANA_VXLAN_UDP_PORT)
- 			continue;
--		mlx5_vxlan_del_port(vxlan, vxlanp->udp_port);
-+		__mlx5_vxlan_del_port(vxlan, vxlanp->udp_port);
- 	}
-+	mutex_unlock(&vxlan->sync_lock);
- }
-
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
--- 
-2.43.0
-
+diff --git a/arch/x86/video/video-common.c b/arch/x86/video/video-common.c
+index 8ed82ff..b8f8334 100644
+--- a/arch/x86/video/video-common.c
++++ b/arch/x86/video/video-common.c
+@@ -45,7 +45,7 @@ bool video_is_primary_device(struct device *dev)
+=20
+ #ifdef CONFIG_SCREEN_INFO
+ 	numres =3D screen_info_resources(si, res, ARRAY_SIZE(res));
+-	if (numres > 0) {
++	if (numres > 0 && __screen_info_has_lfb(screen_info_video_type(si))) {
+ 		for (i =3D 0; i < numres; ++i) {
+ 			if (!(res[i].flags & IORESOURCE_MEM))
+ 				continue;
