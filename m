@@ -1,69 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.78.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794594397;
-	b=P+5/H8Un8yNsN9UvhWl/JmyB2raYiHhWZaSuNQKr7VlFsFSpKXC8+nm4TiNwcvK8hlnp
-	 7dOsrRqHXlFKSJNxxLHo8vBUqE/hmqN/oHp9jHZkFn1i0FykinbIPRbr3rf0tCo2MhofR
-	 icLGL5X5j6Ph0V+oAvhy+/LqsiD/A5gfGVyYcnVpRlxmQr7KK6HtEnirFyU+256W6yN1S
-	 PeyRvZ6nDbnsxNETuOfP5K+Xdjg/7ApR2sKFnzw2FchiJVPhYzNSkmIh9zNKp/nP8kHf0
-	 up6oHv9cURWyiJqClgMViRIpHNw3LiQqnbMlMMUk72II9+q/03DCzJCdPMBAtJBCG6g==
+	t=1794594399;
+	b=igwubqh6/xELtTusIutjIzqpS1CaL2ur9C2Jeaa+aschJSzpNOyxOTXj18z7F/T3ldom
+	 vofLoU5A2+r8PHEa8/E8OHmsimhs8nuActCi9OaGP14B4EN4PY7W3HqAE/1rNz9JXF2D3
+	 VCbE83sYrD5Flpdw4jFMNn8F4oW1OzC5wY3A5Jx6o4qpSAMUORI5hSF//o+eAJJ9ySWUJ
+	 I5PyhPmEpN95oxnxgcbekR2WuzgEc55dQMi/N+zujySFiQgG4QKOk3Pfy+z8ybKexMGUH
+	 iyXjbHXRFQFqBamKDhrzAG+5BLw7n+ngq/YofoBcVbjs6Mtxnkr5AhP9h9fk9gng7Mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794594397;
-	h=DMARC-Filter:Received:X-ICL-RepId:Dkim-Signature:
-	 mail-alias-created-date:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Info-Out:X-JNJ;
-	bh=dI9CrGLsTqSXRz033vXozfBoNgpgi99PpoTMTGjh9Vo=;
-	b=LJYoHueGUWwggiR41KlkNnr/W8MP8fNz1k8l/mQOqNOFvfn80aEtBYa5ha6p+9ijfmTG
-	 xjQ6DL8niadLkiKlXfmrjUXKVt48mD9UsTxkvxHCaltxbQKlug+T91TT4BsJPskDBljXD
-	 R9wzOZY1M5LeGHRGrl8KWzKMTk5Bat7AwP8jR+rheZ+Ls6FIlhQW03E7J/ED0HJ+8rag5
-	 jV2q7qCmnxc6iSv5jA9I2Ac+87c0ZQA8iARO5siIJ886xBJqV+M85pi1d9/rqbaoW4GYH
-	 8aEMBDN3UZFaWdWSb0c4npFk+Fm4aL7br2gCsiQOI78hGamN+fA/r+9BOI4DcDE+33A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794594399;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
+	bh=j/cyH+I8JbWGr5y7TfZ1fzTJDNXAOvaKoNeDeX1cLxg=;
+	b=IdYix+jAJr00zIf/+Xobb5d4rwBSqKnL2BU/hX9UHjauofHAGU2/aOw5xPlr2mqMoPui
+	 Yl7pAG/u9B05nBFzQQofLwmLGCfIvxoQcCROVa1dAuzNbTAunpIPIA2wUGvECbKXVjAuh
+	 Vj7ffP8dRGoGDXmvFm/aC2MYa+fwU6RUYUR7mcbNFXFWY9w/fZdqjGp40xLyL4JLe2SbV
+	 DKzdSV+G523PSP5V5zRD2ZlHBqvF0QA1k6i3MTn4z7t7MUiLcNCZsCfuk7KcTQzE9N8Jl
+	 ++8cZQ4ClUAcEhc6Q2+4GLvg81q19Vca4kBtbbXxm/htUkf5/aLOOr3ZjAhwzK/jgSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=tawheed.cc;
-	spf=pass smtp.mailfrom=tawheed.cc;
-	dkim=pass header.d=tawheed.cc header.i=@tawheed.cc header.a=rsa-sha256 header.s=sig1 header.b=mahuntdM;
-	arc=none smtp.remote-ip=57.103.78.16
-Received: from outbound.st.icloud.com (st-2002b-snip4-3.eps.apple.com [57.103.78.16])
+	dmarc=pass header.from=infradead.org;
+	spf=none smtp.mailfrom=desiato.srs.infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=oqb9qBbL;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41E3A60A2602
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:26:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41E3A60A2602
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tawheed.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tawheed.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EC73606C149;
+	Fri, 13 Nov 2026 18:26:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EC73606C149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tawheed.cc header.i=@tawheed.cc header.a=rsa-sha256 header.s=sig1 header.b=mahuntdM
-Received: from outbound.st.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-east-1a-20-percent-0 (Postfix) with ESMTPS id F30F618001EE;
-	Fri, 13 Nov 2026 18:26:32 +0000 (UTC)
-X-ICL-RepId: 01a1d629-4b2f-7b9e-b69a-293cfbdd438f
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tawheed.cc; s=sig1; t=1794594396; x=1826130396; bh=dI9CrGLsTqSXRz033vXozfBoNgpgi99PpoTMTGjh9Vo=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=mahuntdMmfpuw3bFEZi9OFd0mKNYKGjHh7Q8gnaFNpaui5MCiJf+cjsWiGN7mbf6m3IU8UKImkaCpHAzbEKd1wkRVnHvali9+5PA7glkMuJajF4HnJam2VryL/MJ7zTsAsZyl3mW3aIbRV/++ny3b9HMZgilH/N+dNlaDacwjXrWG2Pc/zrYuHcDFuFRY2ErvElf69KniALMqz4XZZfPzTbtkamQwryGWewb1iwbt58Xs4gf+x0GGd9WwogH4exK8IhFGMMnqUM+cMBRE5k4DazlWR/rJ7YOitRtRATJsuEoB50ed2ijzmbrYOcUiAtYhs1HYHNtpATO2MBORv2ctg==
-mail-alias-created-date: 1711150425226
-Received: from DESKTOP-HUABEFD.localdomain (unknown [17.156.216.30])
-	by p00-icloudmta-asmtp-us-east-1a-20-percent-0 (Postfix) with ESMTPSA id 8937D180078F;
-	Fri, 13 Nov 2026 18:26:31 +0000 (UTC)
-From: Tawheed Makhdoomi <_@tawheed.cc>
-To: Val Packett <val@packett.cool>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=oqb9qBbL
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
+	Reply-To:Content-Type:Content-ID:Content-Description;
+	bh=j/cyH+I8JbWGr5y7TfZ1fzTJDNXAOvaKoNeDeX1cLxg=; b=oqb9qBbLcyFRFld14uYWjtCayL
+	AN3z/nzQ9Nwv+qMPkfYzvER/Q6aj+KsXb0xcDtyCZVlk7KLKENSZnsDADr0rAH8Kf9cnHybdsrm56
+	q2B9QNHKOmeg3RTuBOV0eXIowU7ogn/RsBZysvkMsSYqj7stBXOiQIvyoVZH3gjySgbr2RhnXMixz
+	v8Gk+Un3Ld2Yy/W/tBcmJu/+RS6/yN1gjFmqnpzwJc0BWVG1wRCtlAc5TbVnGtOQyagsle+vrKws4
+	o9PbqYnhPRjpmNzIxNh4Xet/3kkwS5mfI5em/aRlb7dbOycG8V4Zs1406FgRF529RYxcf4W7GC6qd
+	I5WRM+GQ==;
+Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xRvyU-0000000BeOc-16c6;
+	Fri, 13 Nov 2026 18:26:30 +0000
+Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
+	id 1xRvyR-00000000LYd-3rMe;
+	Fri, 13 Nov 2026 18:26:07 +0000
+From: David Woodhouse <dwmw2@infradead.org>
+To: =?UTF-8?q?J=C3=B6rg=20R=C3=B6del?= <joro@8bytes.org>
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	ashish.kalra@amd.com,
+	michael.roth@amd.com,
+	nsaenz@amazon.com,
+	anelkz@amazon.de,
+	James.Bottomley@HansenPartnership.com,
+	Melody Wang <huibo.wang@amd.com>,
+	kvm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-remoteproc@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] arm64: dts: qcom: sc8180x: Add SLPI remoteproc node
-Date: Fri, 13 Nov 2026 13:26:26 -0500
-Message-ID: <20261113182627.471-1-_@tawheed.cc>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261104080200.135431-1-val@packett.cool>
-References: <20261104080200.135431-1-val@packett.cool>
+	kvmarm@lists.linux.dev,
+	loongarch@lists.linux.dev,
+	linux-mips@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	kvm-riscv@lists.infradead.org,
+	x86@kernel.org,
+	coconut-svsm@lists.linux.dev,
+	joerg.roedel@amd.com,
+	Mushahid Hussain <hmushi@amazon.co.uk>,
+	Sriram Nambakam <snambakam@linux.microsoft.com>,
+	David Woodhouse <dwmw@amazon.co.uk>
+Subject: [RFC PATCH 13/13] KVM: selftests: Cover plane state sharing
+Date: Fri, 13 Nov 2026 11:26:07 -0700
+Message-ID: <20261113182607.82813-14-dwmw2@infradead.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261113182607.82813-1-dwmw2@infradead.org>
+References: <20260608144252.351443-1-joro@8bytes.org>
+ <20261113182607.82813-1-dwmw2@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,46 +91,211 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: mGp5AN0oL4jc5qfSJDfMafTZIJoIqxTt
-X-Proofpoint-GUID: mGp5AN0oL4jc5qfSJDfMafTZIJoIqxTt
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA3MyBTYWx0ZWRfXymTOOyKhiqpU
- vPioYShANhJ5AGc2fwQU+Y3n6piF87jXdkbAPivPc3RB74UoZZBqFiIioKBUtvClvmlZoYWoWgy
- qoIz8uSmLxlBzfw5WObgCyTBBXhp3yI=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA3MyBTYWx0ZWRfXyquMNojkEPHd
- AgXqQYajxQkP27DNes6qa7jTG1dGs9nxzSgot9o5FMt1IVf6nUJ2fokky1uqNidkL7eMVu2Vb3x
- 1nNVFtj1CEfl2qnaQ8xV0tXFtQrlnfUqo/B2aRJ0goOKBognZjCgql6h7blRlO3EAcNAfeRuwV1
- kMXeaLp+Xp9fCGgLaiPMqVl9WNEj33iVsSU1C+X//oekj3k2/JjNYpyh5+PUiHs9N1y0Ha0lE/L
- IFBf8OfspM1FTGf9luOt08d+R+IzqvF/XssgdsyYT1/pDbHsMd6GZtBx7LDUj6O5HYgAAYQzE97
- SxyQTLINul41IfLUdN8Fh6TskIu7GDzVJO1ik2x3uEcxK+N3gFJGcz79AFXXkw=
-X-Authority-Info-Out: v=2.4 cv=L/WI0OT8 c=1 sm=1 tr=0 ts=6af7565a
- cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
- a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=MKtGQD3n3ToA:10 a=1oJP67jkp3AA:10
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=HxOO8S7qDNDRVQTpMkN7:22
- a=xMDwETJtoVPTnyRVXtnQ:22 a=OXmT9jt3cf_crHWiQK8A:9
-X-JNJ: AAAAAAAB+510s+9+VnB+PpZXfRy9ykg2Jb27Jg6ffRKiZGzEp0f+VK8PyuC0W/2On3OSIy
- 4W5FaqvWhfY+iL4NFIl6UDl9KIWuW8QJcm/QMgJU+PaZwy9msLoVh+RZ11I65lrjA2hnPz
- Zx0KOpI12PQoCYdZ5mEWjckQmS4oPYPrxHqA+8n4VWsCVlqg7/eizIRdQ+/KzTzMGySaVe
- AWu3EyMfwD0E1YCC8ViwIVgyRBT48PVYC9KYGlaDzUKXzmpfBnv0BCp5CdOh+d+0Ln8WBN
- FYcKCXBfeRPX9YVAy0tMXcYkNmhyA0nMhy9q+r3fizxY1WjW0znqBlITgaVN5LV6CCGX1r
- oY1bW3M3Up8VLw3QMkdqmExEUJY1i3B+Znzk39r/ut/S/zOf4bIENrJbI8D8NPa+EdgIDk
- PooGfV9pyDHhmc0hjHCkaUGff3G8vMxuN+HP/p0uqihTbeMhwJyHip+s1Qg2Mbtj2VB4zu
- r26HSVoD5WAsTDYsoX1iYkiG7+3/lzWI+3uWUU1pl0rsMSJMhyLn9JNoUfPEusLXOHWAJ9
- d2WQuFg7gIBuNzmJoio/RfGtiZ81GkMGQjrYSb+dpQfcRgMBMR+ft3YibxO902wl60onKB
- 6vV7AC2yHi6Z16r3WXm/8pmZdGcJ5FzoV3aUSkVhxmRpFwvJBQt0NevpYgKY2/ErhDdbpj
- BCPyLSIRQDTn151VGUFr97A+eQYqDvrlP4gCXh7BabiE/AaJD66hpPwtO3SZ+tn3DDh9f3
- poquSKtQo01hZaJC4H/kZkpaBa/TqxzH8Mpy9awsYPdOCvl4lsdUNYZGpCXgQuRBR/746w
- lmGcEepZPYh8khzaEVpCU/dxl8zqiwIJEdYLgb4iDoZt4p/Zmr7zuK4j9icIpE8F5Hk+cF
- 1dnqYCG083gmTpHoitZXp6KBoX5xaJJL4fnFBIOrOh1npFms7scD76dt6yRSE5NaZcFF09
- 39tTVPBBcjXtvehtY6A7FvTDy3uIgRohKmMVVZZp0Tcv3jC+1e3/XF3nv8unf3VH0Bq0kC
- iCXc6KSNz9H6qAWX/N5I0SjBmPnLSSaWYzOcvw4WvH68Jft/CWN1cZRnJB5Sy11zkzoank
- WyEJaCWWx8mGaoKxRQ4MwPeV13Scc+C8lAqMvNFpHx0i68etEx9Y8DUj+xQeCNiP7FAoqy
- D2JAmzkVpK9CLK1MyNe8vSYgNsPDnglLoshd4Hp9a4hVLppUz9PsWIj21BUi1DNdvs/Pw3
- rQXv8uNQlHP7n2YPjFEfzkfEW9JkBoDDiMHe0YjrKgDE97ULSFTz/mAsZbQdPttLdQpok3
- VpdnqYGo1YJ/S5wC/VhcSO0FIXZg==
+Sender: David Woodhouse <dwmw2@infradead.org>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
-On a Microsoft Surface Pro X SQ1 (sc8180x, "cambria"), with this patch on
-top of uwu-next, the SLPI boots with the machine's own qcslpi8180.mbn and
-stays up: it came up in 44 of 44 boots where the firmware was reachable,
-with no crashes. I haven't exercised any sensor clients on it yet.
+From: David Woodhouse <dwmw@amazon.co.uk>
 
-Tested-by: Tawheed Makhdoomi <_@tawheed.cc> # Surface Pro X SQ1 (cambria)
+Check the KVM_CAP_PLANES share mask: KVM_CAP_PLANES_SHARE reports
+XCR0|DR6 on the system fd, 0 on a VM fd before the opt-in and the
+enabled bits after it; an unknown bit and a non-zero args[2] fail with
+EINVAL, and a second opt-in with another mask fails with EEXIST.
+
+Then, with no sharing and with XCR0 and DR6 shared, write XCR0 and DR6
+through plane 0 before creating a plane-1 twin, and check that the twin
+inherits them only when shared; write them through plane 1 and check
+plane 0; and have plane 1 write DR6 with MOV (real mode, plane 0 held)
+and check that plane 0 sees the guest's value only when DR6 is shared.
+
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+---
+ tools/testing/selftests/kvm/x86/planes_test.c | 159 +++++++++++++++++-
+ 1 file changed, 157 insertions(+), 2 deletions(-)
+
+diff --git a/tools/testing/selftests/kvm/x86/planes_test.c b/tools/testing/selftests/kvm/x86/planes_test.c
+index dd3c251f0b7a..02242cc7d576 100644
+--- a/tools/testing/selftests/kvm/x86/planes_test.c
++++ b/tools/testing/selftests/kvm/x86/planes_test.c
+@@ -3,8 +3,8 @@
+  * Test the KVM_CAP_PLANES opt-in and the plane lifecycle uAPI: plane
+  * creation bounds, plane vCPU creation, the independence of
+  * per-plane vCPU register state, the Hyper-V VP index of a plane
+- * vCPU created after KVM_SET_CPUID, and KVM_SET_CPUID2 once a twin
+- * has run.
++ * vCPU created after KVM_SET_CPUID, KVM_SET_CPUID2 once a twin has
++ * run, and the KVM_CAP_PLANES share mask.
+  */
+ #include <errno.h>
+ #include <string.h>
+@@ -434,6 +434,154 @@ static void test_cpuid_after_twin_ran(void)
+ 	kvm_vm_free(vm);
+ }
+ 
++static int __enable_planes_share(struct kvm_vm *vm, u64 count, u64 share, u64 arg2)
++{
++	struct kvm_enable_cap cap = {
++		.cap = KVM_CAP_PLANES,
++		.args = { count, share, arg2 },
++	};
++
++	return __vm_ioctl(vm, KVM_ENABLE_CAP, &cap);
++}
++
++/*
++ * KVM_CAP_PLANES_SHARE reports the supported share bits on the system fd
++ * and the enabled ones on a VM fd.  Unknown bits and a non-zero args[2]
++ * are refused, and like the count the mask is set once.
++ */
++static void test_share_opt_in(void)
++{
++	u64 defined = KVM_PLANE_SHARE_XCR0 | KVM_PLANE_SHARE_DR6;
++	u64 unknown = ~defined & -~defined;
++	struct kvm_vm *vm;
++
++	TEST_ASSERT_EQ(kvm_check_cap(KVM_CAP_PLANES_SHARE), defined);
++
++	vm = vm_create_barebones_irqchip(true);
++	TEST_ASSERT_EQ(vm_check_cap(vm, KVM_CAP_PLANES_SHARE), 0);
++	TEST_ASSERT_EQ(__enable_planes_share(vm, 2, unknown, 0), -1);
++	TEST_ASSERT_EQ(errno, EINVAL);
++	TEST_ASSERT_EQ(__enable_planes_share(vm, 2, 0, 1), -1);
++	TEST_ASSERT_EQ(errno, EINVAL);
++	TEST_ASSERT_EQ(vm_check_cap(vm, KVM_CAP_PLANES), 1);
++
++	TEST_ASSERT_EQ(__enable_planes_share(vm, 2, KVM_PLANE_SHARE_DR6, 0), 0);
++	TEST_ASSERT_EQ(vm_check_cap(vm, KVM_CAP_PLANES_SHARE), KVM_PLANE_SHARE_DR6);
++	TEST_ASSERT_EQ(__enable_planes_share(vm, 2, KVM_PLANE_SHARE_XCR0, 0), -1);
++	TEST_ASSERT_EQ(errno, EEXIST);
++	TEST_ASSERT_EQ(vm_check_cap(vm, KVM_CAP_PLANES_SHARE), KVM_PLANE_SHARE_DR6);
++	kvm_vm_free(vm);
++}
++
++static u64 get_xcr0(int fd)
++{
++	struct kvm_xcrs xcrs = {};
++
++	TEST_ASSERT_EQ(ioctl(fd, KVM_GET_XCRS, &xcrs), 0);
++	TEST_ASSERT_EQ(xcrs.nr_xcrs, 1);
++	return xcrs.xcrs[0].value;
++}
++
++static void set_xcr0(int fd, u64 xcr0)
++{
++	struct kvm_xcrs xcrs = { .nr_xcrs = 1, .xcrs[0] = { .xcr = 0, .value = xcr0 } };
++
++	TEST_ASSERT_EQ(ioctl(fd, KVM_SET_XCRS, &xcrs), 0);
++}
++
++static u64 get_dr6(int fd)
++{
++	struct kvm_debugregs dbg;
++
++	TEST_ASSERT_EQ(ioctl(fd, KVM_GET_DEBUGREGS, &dbg), 0);
++	return dbg.dr6;
++}
++
++static void set_dr6(int fd, u64 dr6)
++{
++	struct kvm_debugregs dbg;
++
++	TEST_ASSERT_EQ(ioctl(fd, KVM_GET_DEBUGREGS, &dbg), 0);
++	dbg.dr6 = dr6;
++	TEST_ASSERT_EQ(ioctl(fd, KVM_SET_DEBUGREGS, &dbg), 0);
++}
++
++/*
++ * With @share, a write through one plane is seen through the other, and a
++ * plane vCPU created later starts with plane 0's value; without it each
++ * plane keeps its own.  Checked for XCR0 and DR6 by ioctl, and for DR6 by
++ * a guest MOV in plane 1 (real mode, at CODE_GPA, with plane 0 held).
++ */
++static void test_share_state(u64 share)
++{
++	static const u8 mov_dr6[] = {
++		0x66, 0xb8, 0xf4, 0x0f, 0xff, 0xff,	/* mov $0xffff0ff4, %eax */
++		0x0f, 0x23, 0xf0,			/* mov %eax, %dr6 */
++		0xe6, 0x10,				/* out %al, $0x10 */
++	};
++	bool xcr0_shared = share & KVM_PLANE_SHARE_XCR0;
++	bool dr6_shared = share & KVM_PLANE_SHARE_DR6;
++	u64 hold = KVM_PLANE_RUN_STATE_USER_HOLD, none = 0;
++	struct kvm_plane_vcpu *vcpu1;
++	struct kvm_plane *plane;
++	struct kvm_sregs sregs;
++	struct kvm_vcpu *vcpu0;
++	struct kvm_regs regs;
++	struct kvm_vm *vm;
++
++	vm = vm_create_barebones_irqchip(true);
++	TEST_ASSERT_EQ(__enable_planes_share(vm, 2, share, 0), 0);
++	plane = vm_plane_add(vm, 1);
++	vcpu0 = __vm_vcpu_add(vm, 0);
++	vcpu_init_cpuid(vcpu0, kvm_get_supported_cpuid());
++
++	/* Plane 0 first, then a plane-1 twin that inherits or not. */
++	set_xcr0(vcpu0->fd, XFEATURE_MASK_FP | XFEATURE_MASK_SSE);
++	set_dr6(vcpu0->fd, 0xffff0ff1);
++	vcpu1 = __vm_plane_vcpu_add(vcpu0, plane);
++	TEST_ASSERT_EQ(get_xcr0(vcpu1->fd), xcr0_shared ?
++		       XFEATURE_MASK_FP | XFEATURE_MASK_SSE : XFEATURE_MASK_FP);
++	TEST_ASSERT_EQ(get_dr6(vcpu1->fd), dr6_shared ? 0xffff0ff1 : 0xffff0ff0);
++
++	/* A write through plane 1. */
++	set_xcr0(vcpu1->fd, XFEATURE_MASK_FP);
++	set_dr6(vcpu1->fd, 0xffff0ff2);
++	TEST_ASSERT_EQ(get_xcr0(vcpu0->fd), xcr0_shared ?
++		       XFEATURE_MASK_FP : XFEATURE_MASK_FP | XFEATURE_MASK_SSE);
++	TEST_ASSERT_EQ(get_dr6(vcpu0->fd), dr6_shared ? 0xffff0ff2 : 0xffff0ff1);
++
++	/* A guest write of DR6 in plane 1. */
++	vm_userspace_mem_region_add(vm, VM_MEM_SRC_ANONYMOUS, CODE_GPA, 1, 1, 0);
++	memcpy(addr_gpa2hva(vm, CODE_GPA), mov_dr6, sizeof(mov_dr6));
++	plane_vcpu_ioctl(vcpu1, KVM_GET_SREGS, &sregs);
++	sregs.cs.selector = 0;
++	sregs.cs.base = 0;
++	plane_vcpu_ioctl(vcpu1, KVM_SET_SREGS, &sregs);
++	plane_vcpu_ioctl(vcpu1, KVM_GET_REGS, &regs);
++	regs.rip = CODE_GPA;
++	plane_vcpu_ioctl(vcpu1, KVM_SET_REGS, &regs);
++
++	vcpu_ioctl(vcpu0, KVM_SET_PLANE_RUN_STATE, &hold);
++	plane_vcpu_ioctl(vcpu1, KVM_SET_PLANE_RUN_STATE, &none);
++	TEST_ASSERT_EQ(__vcpu_run(vcpu0), 0);
++	TEST_ASSERT_EQ(vcpu0->run->exit_reason, KVM_EXIT_IO);
++	TEST_ASSERT_EQ(vcpu0->run->io.port, 0x10);
++	vcpu0->run->immediate_exit = 1;
++	TEST_ASSERT_EQ(__vcpu_run(vcpu0), -1);
++	TEST_ASSERT_EQ(errno, EINTR);
++	vcpu0->run->immediate_exit = 0;
++
++	TEST_ASSERT(get_dr6(vcpu1->fd) & BIT(2),
++		    "plane 1 DR6 0x%lx lacks the B2 bit the guest wrote",
++		    (unsigned long)get_dr6(vcpu1->fd));
++	if (dr6_shared)
++		TEST_ASSERT_EQ(get_dr6(vcpu0->fd), get_dr6(vcpu1->fd));
++	else
++		TEST_ASSERT_EQ(get_dr6(vcpu0->fd), 0xffff0ff1);
++
++	kvm_vm_free(vm);
++}
++
+ int main(int argc, char *argv[])
+ {
+ 	TEST_REQUIRE(kvm_has_cap(KVM_CAP_PLANES));
+@@ -445,6 +593,13 @@ int main(int argc, char *argv[])
+ 	test_plane_lifecycle();
+ 	test_late_twin_vp_index();
+ 	test_cpuid_after_twin_ran();
++	test_share_opt_in();
++	if (kvm_cpu_has(X86_FEATURE_XSAVE)) {
++		test_share_state(0);
++		test_share_state(KVM_PLANE_SHARE_XCR0 | KVM_PLANE_SHARE_DR6);
++	} else {
++		print_skip("XSAVE not supported, plane state sharing");
++	}
+ 
+ 	return 0;
+ }
+-- 
+2.50.1
+
