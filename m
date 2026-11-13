@@ -1,92 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794597587;
-	b=ukoAeiOFUuNv/BR1BlUSCywYo2SWFiaVqSsDrxFHDp0UE9uFWOrRj6FdGNbulf6AwOQG
-	 B7enhboeFYzb+TkE9MX6b510WDL0PjmnavEmBeVYgTBnSmve2736l6DnacHcFzlh8niGO
-	 JMoATpXyem14F+GVwJChQbvwIHVVdtmpcTvN/guF0YBxZnBOd335frTDJGpDxWTBfC1U8
-	 kEVPGWsizpKtKju3RgWt3+9dgquQ7sK3ZaSweBFt1RQPUzbCZB1Dq7xnku/tJxxdwsx6G
-	 DdhUAAt5e7taPr//dUO1T7OXoPv+/HYTTNsWgGEc8S27rHH7mLQszsMEH+A2WITZkeg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794597587;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=JIdyVUUoBkth+M+cx5jVMKNmaLvwy5ueEkwAsdvKPlg=;
-	b=AY0AtgCIAFsp4tmWUHdVnLrKcn2st4DSZyxrAD4VExA3Zy4Ptjkj5i6qpveauliRVE11
-	 S5GoLnWeoDhHXsJYWpikxMNMdNl97eoI4jwcNB7zd6isxRlp6RkuU+Zwj4jU84q2wyr6i
-	 3rnsuGsw1D6rD3LLsCme8cCxs91hQv9wjGrGCrOW1K9nkkTaj0vZMZfgZfdnjNnnwEnCl
-	 OjQvcCsy1nOv68FCZYH3JBPgorpjZYJA7OLFAizhD3J/a+ryXFLchnAPAPfpQWRrV4Z70
-	 /RbXC0QdziZCzeAyrQtu9TMYD5CzUMj7Qk+2uOCWhMEJJAPAZVsHmgxMGnUZS2KAvgw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="QfL5VWA/";
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.8
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794597629;
+	b=JwNXdho9Nv5m5xLto1faDXUpSk4jpeLKLxYvnVBwHK3cDZvDrevoTI80M5oVqsE8R5jl
+	 A7MOvaCFejWScnDyaYtOlRwB22Bk9nyk8NCfMpjZ4daIGJeyn+s9AwaQmBhvG4/icnKMS
+	 KnG1Y2Q33DQfL/yIhy/m+FIOO9aVNXGmiQZHdDphvNquL/hNil73ymiErhWfP3yvtgGuT
+	 8W8THfirry3wo7x0AkaVFkiqhql7tPlqNbinXlCPObCIdL+gJLzrlpL+zgFt/AB81pJUb
+	 eGjCoaZoC+zNsL9+Atxqh/P8duYtXJPGDFh0E0GgTvDQ4onmNyL/T1sMzFF+iLn8fnA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794597629;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=i8mATEgb7FP1jtazj7G+exG9ZqQUhU3gGC7fk6iJPFc=;
+	b=W104XN3o7dGKLuTLFE60tOXrk0sVyjVJJrvbeSsfpJQWIvOgQpE5AStjwprT9g19PnRN
+	 Bb+rb51hOqSkJRCqmqxMaYdYoMgYoGzfx446jNQoaN0Z1TflezsGRFT98N9YfEFkPgGXI
+	 RH78V7fNuydtG63gDUvfcybupaGa8AHgSzVe/9Xjph0iZTdbvMYvHr3nZdTsF+ZnnYY8g
+	 xYdAnIgEm1GP9r4A7dXmFTgrcnxpp3HiJ+N3IUavMLLAx+Gv1HXO9Lt3vEVr4HRNcLTYY
+	 oIQ2wSlMXil4F0BUyYj7KnMsPlzwoRcu/UOMHbYvNEpdP45/9O6IhWZPMRdvpxW1BDg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=R2uHGz3z;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.8
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013008.outbound.protection.outlook.com [52.101.72.8])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C7FF606A327
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:19:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C7FF606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E498606A335;
+	Fri, 13 Nov 2026 19:20:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E498606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QfL5VWA/
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-36e795af1d4so952260eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:19:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794597586; x=1795202386; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JIdyVUUoBkth+M+cx5jVMKNmaLvwy5ueEkwAsdvKPlg=;
-        b=QfL5VWA/nL0RQ2xzGEmq7QPpQdiNu3GFP8kHjLbveC/iK8iJj4xQ3GcH7XhRjpNH+X
-         IvXTHms9Nu75NgiRFsSKmsrmdoaf+Ulyyls5wR910QieBP10L1evwBUQuMGSGt4vbl7f
-         oP9auovrHLGFx/LD413AGNnInlQ2OzhCBnzPG5IBKXDkhRBTGLOw+M3BSZsBmBqRPzVI
-         phk6QNFzPDlKMgLCWCvFbe4Gc8GBqqToSQk9vIlZQXOWj7df4G7nWs4P/LpYXGikUfES
-         cG3JZftDnV+ZWihFOf+LYeSXJ6lg3HIHVBrhZw0EsE561ERa8WFGIy2JLY+72Ot3LF0a
-         L4VQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794597586; x=1795202386;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JIdyVUUoBkth+M+cx5jVMKNmaLvwy5ueEkwAsdvKPlg=;
-        b=Y0/JLwkJQ1UcldUm6JOO9pIqs4csKZVUBjbVPtzU/7PBgEKcmwJM/AnFK33vTd9q05
-         NbC8Jg1blAYTvhrjZTjnbv6nJa1Sr0vSbXYrI++ADrIYpUS5qfwOPxQKDV1rODAJNbwR
-         TBfJmsW9C2Xhhf71jNpaA7xug+fX0B5TKuB8XztRdRSZsttqkYYPuq4QfH9P/NGimVSL
-         LiOLY2utZNpliUYkUhdRSfujEPLJVGpDTMXAgyMezScTZx7iNF5GKk4M90jghxK99/GD
-         vxIAzDuKoxUDcT4Z+kVkh1VthzYV9gA76aKjms5xC6Aa9/Q0hy0aFmtFYz2N93rC62xJ
-         RgEg==
-X-Forwarded-Encrypted: i=1; AL+hErGBrdsbIDrd3WTQZCu/3wypUrqkM1uUoGz4dEMBkTqKKMpqMSbZJdmH0/GEQycX9itdOl//z3lunBJRz9o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+vxqs6Jpr/06fh0M6+7mv7P8nCBNn2UcE7wxHsTifCe10SN4NK
-	GRAcYHr0yECCMLEtF1p3B+mMYaXojICavo0JTfmHCMsq5WJPOnP6hksFOVy41A==
-X-Gm-Gg: AYBFou1cndFe1iAeu1AHG/FhoT+2SbV/cCtgFZAk+58NSxoGoU+DOuqzs/mhfGebnix
-	UBgLKBNolP8jxmzHy8gnI/JiDyCqVQRGQhyPYHevbmo0Ej5bEkMC9WWuidRPBCQZ9LIFnuj1mpD
-	ID5bBkbq8cnCd5FQVZiDfWSGw9g+8syNm/uo6mHka2IzUROIE01x0BEC9evUWJ4/AFfCjPVKk+D
-	X0uWh0FZmECKm2RA7vmraIvikULw4Ss9tUMFYUQOTfkRgLLQTv+IvvuH68WHpDtBeLr0gjD8Miw
-	MHkG60ZA40SBxpCqF0MHjWs19OSkPLjvePxRxzV0xyPv4rhaOBwe8np4mKMxt7fMmgsb0c5dsaj
-	/LMByEM+C9HyU6jcIzBe/JDfticVmn0y4Q2BmbsLT8iI/qaqNtep0mrGYT1mFSoacdcJy+n/tNW
-	+xk5FONZSpmGUy1Us7qMeIkdBKxRaf7rn05GcnjMKJ3HprnsorPtJG4ATDQBc8fvx32f+Qeihhl
-	gC3Z69f6u4gfas2aXlFxPg8iL+F1ofTXXmmjrjrkk9QZUIEpYMvVSdN8N/98OWojxgPb/tL20sz
-	ykXKu6Noy2qxo1v1LXWiB2DCiRptv3s=
-X-Received: by 2002:a05:693c:60cd:b0:376:fa06:573e with SMTP id 5a478bee46e88-379658c795emr3191436eec.5.1794597586075;
-        Fri, 13 Nov 2026 11:19:46 -0800 (PST)
-Received: from eldorado ([2600:8802:b00:1f88::287])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3797f98b9b2sm9084971eec.6.2026.11.13.11.19.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 11:19:45 -0800 (PST)
-From: Florian Fainelli <f.fainelli@gmail.com>
-To: linux-mips@vger.kernel.org
-Cc: macro@orcam.me.uk,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v2] MIPS: SiByte: Fix missing function prototypes
-Date: Fri, 13 Nov 2026 11:19:02 -0800
-Message-ID: <20261113191933.477395-1-f.fainelli@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=R2uHGz3z
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=arUd0LgYcKvqgQDIpidj/8ejULShQEt9LovlSbjQWX/fm0MyiR7onmtUIuDw2M1tcsk7LyU/Nhg5+yt9ILtEo3OyM8y6As+fYmGADB4l7KlKlsm1oG8gQtSWjewjEhvZOzEmwFJ3jD66rnfsTBXLeYSfTTnoOuxMsu61KkNBPRgHsWsaBtm8hyqCjqOTCZDpbTTdTZTi5SCNbn3YwJUR7d0rSX1tSQ9jM48zlnwbfpcUTf+ceCKhyyWUXViEcmhj3k626uTcdZuaqyyLhijjYX9u1EkXT6V7TKz9ks7ZE66aNQnVJBH7oGrNkXV5RQw6vZ+CDEI18RsIOOJyhB1iPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=i8mATEgb7FP1jtazj7G+exG9ZqQUhU3gGC7fk6iJPFc=;
+ b=soSoUJAX/0WlqaKCCUCNFBaawuuDgbwi/ifoEzPu6cNuVhwmBAzxeTAmCl2aermMoRxwHL5vnWWhVb0y6g0hpFPaGNzuFWoO5mZcWDWGOEyVQKEDUYvgZYS6FJj7ZL/0U8P9nI453r+ZujDCL/kndtBIqovPnRiIvQTQuKwmO0cYHEOpkNZMytC4tO/+mODYaI5Eyj0NNZ5WHJKsqL2Dj/LYSqw+9lUxR67Q3sm40taihN+JvK5yKdHfxCRndb3OZonbWGN9tKeaohl8lzMOiufsTMlbFCn8pimT9f8ndLXXqVZ4F17ZxI6Q+ZU2fe0m5xx9IQ227DrNVRueqLfnCA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=i8mATEgb7FP1jtazj7G+exG9ZqQUhU3gGC7fk6iJPFc=;
+ b=R2uHGz3z2knNMujrsr8WU1VApvEAOE8p0Lv1oCKk1d2xL9wYRAeae78vnc0SSKsGrGIJUZliCN8JjyzMAu+yJykM7Vk6hcLoD6dqXEInd6HqXkaq7DLt44UcHniDE1NWE104M8rlYeLEpkKoLevwYr/JUPYNKNPYgF3SCFwO4WO5+992Kcr4SAThG6+xxihtOd7J1oqJ33OJrz4CO3Jqz27zMiVahGXEzJX0KdTCIyFYaMDZ/5EQrXO93/RytSoGkVLl4Ym6HldlDJV3gx9+26TkfId/ImFKU++uAH2aDo4cvN+0w/FKovGc98BKrhLbUOMQ3jLNRkR7tj6oypKJCw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by AMDPR04MB11680.eurprd04.prod.outlook.com (2603:10a6:20b:71a::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
+ 2026 19:20:26 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.009; Fri, 13 Nov 2026
+ 19:20:25 +0000
+Date: Fri, 13 Nov 2026 14:20:17 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Viresh Kumar <vireshk@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Dan Williams <djbw@kernel.org>,
+	Serge Semin <fancer.lancer@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	dmaengine@vger.kernel.org, linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>
+Subject: Re: [PATCH v6 04/10] dmaengine: dw: extract hardware-LLP residue
+ calculation
+Message-ID: <avdi8eRgwmN1wZM-@lizhi-Precision-Tower-5810>
+References: <20261103-submit-dw-dma-synchronize-v1-v6-0-2ee0c348224d@gmail.com>
+ <20261103-submit-dw-dma-synchronize-v1-v6-4-2ee0c348224d@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103-submit-dw-dma-synchronize-v1-v6-4-2ee0c348224d@gmail.com>
+X-ClientProxiedBy: DM6PR01CA0019.prod.exchangelabs.com (2603:10b6:5:296::24)
+ To MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,340 +105,163 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AMDPR04MB11680:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6ef200fc-11c5-4498-aebf-08df41bb2b62
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|366016|23010399003|19092799006|10067099003|11063799006|4143699003|56012099006|261022105027099003|261028144727099003|261026140227099003|261022075727099003|261021121427099003|261021123027099003|261102123227099003|261009223027099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	SqK8BiR/REcb/uT657pMfv/SspnMLBRdkX4ExY5rkggig3TWGlbd3D47WpADB9P8n9jFnBa9g7zlo7CLkzYjsLlb+nHAPJRTkf7ihK7boHwY/zzL5hYpiYWZ1GiQOwzNH1KT689Wu7fIpJeBtNYhWmPJyDVajjoXVBAx3p8+rrGbl47ku7Z7oFiSJSkLh6j+xOVYChpZis8lMfLyb0yMpsnwHulFwICh8JvL7rzksnWprWkjdHJXY7J6LRaNqLlXeNmsuD4AQ2tvX5j4F13cuhHQJc+BBSv8wSip4p13q/xPJ7+UsJKvyu7ed6HSQGyy6LnRMq8lbyfveD3os7bLUmjazPsQ4GzjQ81S428Wf5B6UPA3ns55ySsa60s2WGNcKOrOtMlqTpr3z1+LtrnVHfI8x86dWvPfBRO3GnT4Vt7sZNeP75uiBw6TJeLd1uoJMKxNT5O7QArUJCziFRE+9uD15TkMgXRCf/cY8SSuJWIFyfsGjoDDbJzS+x4jBIYciVfjKkhBP0e4VEJpyWMR4NALf/njaUsdisD8+XeE3T1gdtrAYwCC3cRzOYnZrpI5ciXZWuHri54IqnDigD008jQbxK7EHtSyIpID024GIzIe2PVklkvV63ciIxFBJqm3/bL0eH9ulha05DFwYs+yQ7wPOeJxR5u9kI0aunAA23s=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(23010399003)(19092799006)(10067099003)(11063799006)(4143699003)(56012099006)(261022105027099003)(261028144727099003)(261026140227099003)(261022075727099003)(261021121427099003)(261021123027099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?+uofQGubsoenezpAeuJOANE6nFcYi7BOQpzsWmGJfwGlyuMxkU1bNLNevYbG?=
+ =?us-ascii?Q?DlkTRRm34tGWc1yyklMLulw8qb5EsdOa/znqUqfwibiyfEv5w1+TuVTxRXXx?=
+ =?us-ascii?Q?TLP0Y9yD0HP+SQUFPHeNAv6q5G2VB0ytU9AOatqxzqWFBDgSs1cRTPDcW1Hl?=
+ =?us-ascii?Q?pWJEeklnUsl/yLQrOsdu6ltJ3neWW56I+J4pQXiEv7w24Vp9qfX4DP5M7YUZ?=
+ =?us-ascii?Q?k8Bkb4klO3Ykm8UtrjF7aLDk3kq/sJhjKiUPZZ7abFUOoajOVnI1ugU55kJA?=
+ =?us-ascii?Q?kf+cTSEOw/Z+fYjh+/ArkrvA89r+hy87YWQ/7GrWbgcNlIXUAyU9GB0x6OqY?=
+ =?us-ascii?Q?M0DUX6fQWpErDcxwaZ2VTVO7oIurJ4mKAETeO/6p1SSR4mgJ6p7V397s1V/+?=
+ =?us-ascii?Q?eqTcb3GyHVE58Vh73CzQ+pjX5FYQH9ShaDSCkRuYprGKyhNTRio7ivG7hhr3?=
+ =?us-ascii?Q?KKOeupTbnnd6z8TPbbQL9JKMJEKirHkz3ZLqB377PmFQN8/mDe5r9BnWvl9n?=
+ =?us-ascii?Q?UfaCslcrPFu67FXKmHikwU9i3Zv9z80U59dR9OwZHxU70Da57LJPsy555G08?=
+ =?us-ascii?Q?hifShUzCCSUqjohwVHjg7GrHEKNaw1jyguj7hfT7eUvyoKRq5YY+GYVSTvFu?=
+ =?us-ascii?Q?b3K2mdKlJXR1dHSYtk//SZLAFj42Fvz0iT9Yn/RBh6//Az52+Yaqh+t/Vkb0?=
+ =?us-ascii?Q?cXD8mLIbVW9NGVMw9f8gDT829zGFQrvEBWnBaClrbSRgGeADrS7Fis2nLfuO?=
+ =?us-ascii?Q?+LoRC7oxjshlo3xPIWMYzkJwe4HJCYkpCEK4vrDHfoWSExHeOXnCQJiBA4dr?=
+ =?us-ascii?Q?6RzzhgwK3SwbEcyYJ58ycliP63WsdlUglymp0DPExGNAcxij0T46Q5nOJAZO?=
+ =?us-ascii?Q?nGMlURW7ujTOygd8uyqaXkpZDRZ+G7sEfwfRUc+6zxshM6fQ5tnBtgUtyVy6?=
+ =?us-ascii?Q?M6xvheYuljjXaSq6raX2UY6TXTyqe92XFz2JW/Rg4oLlrmdNHIONdjlueID6?=
+ =?us-ascii?Q?H0j+k/FwCox2RHkuAe4iV1gygEHalC6HNwcTlYSMoXLcKuPLG9xu6luciyWh?=
+ =?us-ascii?Q?J7ol1+YXppQBcQwQ5G37KZ4ZkD5GzD3o38jw4ADriCslwP53XtBHaFf2bmIf?=
+ =?us-ascii?Q?J4TPU380QDCkGlL0Hx+V5aqqF094VqrG0P0z0zEcX2ZW0O4fVc1KiZLPire5?=
+ =?us-ascii?Q?YiHbCARbc6qy0c42xr5+nYfsxAWUPEqOMgHl1ZYTZPMLcHZM4ckKa/3Ymc8g?=
+ =?us-ascii?Q?A+3tM3/r28jiuilEm3VY0Muw1hs6zilfk90NeCwZ9Qy37PjtAVbdOjiTM56w?=
+ =?us-ascii?Q?iLS2xjXEg6l2SUQR/wInKu5O725ORmjiwtHt/PhBXyw29awvXHcHGrOYQDWa?=
+ =?us-ascii?Q?AWHwwwLVXz41jSw4mOMAuCOTb7ZFXM6knPAvbTj1hI00tC6pADGVgBch33PM?=
+ =?us-ascii?Q?s0Skih21aQJ80V402R24bZ9beBUcpowpPn/ILWfKiBM+vTmqo3pLmLxgsuQi?=
+ =?us-ascii?Q?75XUVqBpt4uzIxNeihobNZmXY3iIu7rpanhmZ5EcrVkGfjmJR+tIgDrEwmeq?=
+ =?us-ascii?Q?z3Ew3cG54sXhIJVrIgnFb1CFvCAYPs1vz+EhP7oBVKfBBKaMkLFJa+m2gwK9?=
+ =?us-ascii?Q?XFCHCimYElOuiqYfqWJTdzxuyvIpEH+A6uUx13zMn1GOPu9i36HAl0vCsFMb?=
+ =?us-ascii?Q?1/TtbQZkq5Z6eyCkldn9yB/SuqxFBMaCIYYnJkYSc0DLWttniARjLmxyxQpN?=
+ =?us-ascii?Q?GDK7/21Z6kFZazNyKo97hoahYV5Lx1zrDOmE82QCA/xzprMN5yhp?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6ef200fc-11c5-4498-aebf-08df41bb2b62
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 19:20:25.3673
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: l7waBociCkqo1qRPfqaaYYCOAzm0HmIinS0qNZMIZcl2LFC9WE2h0p7Du52JaknTKvI/M+rQSozN/3Bje/buvtPN8VOCveRUcMa0cFRbO2pCXngzAxylp+8R+XyWlO3a
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMDPR04MB11680
 
-The SB1250 SWARM build reports missing prototypes for platform time
-initialization, SoC setup, IRQ and SMP helpers, and both RTC backends.
+On Tue, Nov 03, 2026 at 03:26:06PM -0700, James Hilliard wrote:
+> From: Serge Semin <fancer.lancer@gmail.com>
+>
+> Move the hardware-LLP residue calculation into
+> dwc_get_hard_llp_desc_residue() so it can be reused independently of
+> completion handling.
+>
+> Keep the scanner's LLP snapshot, descriptor updates and early returns
+> unchanged. The helper reports whether it found the current descriptor,
+> including when that descriptor has zero residue, rather than using the
+> residue value as a completion indication.
+>
+> Signed-off-by: Serge Semin <fancer.lancer@gmail.com>
+> [james: extract the calculation without changing scanner behavior]
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> ---
 
-Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
----
-Changes in v2:
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-- corrected warning reported by kbuild test robot by gating the
-  inclusion of sb1250.h to avoid warnings on bcm63xx_defconfig
-
- arch/mips/include/asm/sibyte/sb1250.h  | 17 +++++++++++++++++
- arch/mips/mm/cerr-sb1.c                |  2 --
- arch/mips/mm/tlbex.c                   | 11 +++++++----
- arch/mips/sibyte/bcm1480/irq.c         |  4 +---
- arch/mips/sibyte/bcm1480/smp.c         |  6 +-----
- arch/mips/sibyte/bcm1480/time.c        |  4 ++--
- arch/mips/sibyte/common/bus_watcher.c  |  2 +-
- arch/mips/sibyte/sb1250/irq.c          |  4 +---
- arch/mips/sibyte/sb1250/smp.c          |  6 +-----
- arch/mips/sibyte/sb1250/time.c         |  4 ++--
- arch/mips/sibyte/swarm/rtc.h           | 15 +++++++++++++++
- arch/mips/sibyte/swarm/rtc_m41t81.c    |  1 +
- arch/mips/sibyte/swarm/rtc_xicor1241.c |  1 +
- arch/mips/sibyte/swarm/setup.c         | 18 ++----------------
- 14 files changed, 52 insertions(+), 43 deletions(-)
- create mode 100644 arch/mips/sibyte/swarm/rtc.h
-
-diff --git a/arch/mips/include/asm/sibyte/sb1250.h b/arch/mips/include/asm/sibyte/sb1250.h
-index de4b352256c8..ff97e77d4fe7 100644
---- a/arch/mips/include/asm/sibyte/sb1250.h
-+++ b/arch/mips/include/asm/sibyte/sb1250.h
-@@ -32,9 +32,26 @@ extern unsigned int soc_type;
- extern unsigned int periph_rev;
- extern unsigned int zbbus_mhz;
- 
-+void sb1_cache_error(void);
-+
-+#ifdef CONFIG_SIBYTE_BUS_WATCHER
-+void check_bus_watcher(void);
-+#endif
-+
-+int sb1250_m3_workaround_needed(void);
-+void sb1250_setup(void);
-+void sb1250_clockevent_init(void);
-+void sb1250_clocksource_init(void);
-+void sb1250_mailbox_interrupt(void);
-+
- extern void sb1250_mask_irq(int cpu, int irq);
- extern void sb1250_unmask_irq(int cpu, int irq);
- 
-+void bcm1480_setup(void);
-+void sb1480_clockevent_init(void);
-+void sb1480_clocksource_init(void);
-+void bcm1480_mailbox_interrupt(void);
-+
- extern void bcm1480_time_init(void);
- extern void bcm1480_mask_irq(int cpu, int irq);
- extern void bcm1480_unmask_irq(int cpu, int irq);
-diff --git a/arch/mips/mm/cerr-sb1.c b/arch/mips/mm/cerr-sb1.c
-index a3c02df19f6f..6842244ac85b 100644
---- a/arch/mips/mm/cerr-sb1.c
-+++ b/arch/mips/mm/cerr-sb1.c
-@@ -158,8 +158,6 @@ static void check_bus_watcher(void)
- 		printk("Bus watcher indicates no error\n");
- 	}
- }
--#else
--extern void check_bus_watcher(void);
- #endif
- 
- asmlinkage void sb1_cache_error(void)
-diff --git a/arch/mips/mm/tlbex.c b/arch/mips/mm/tlbex.c
-index 69ea54bdc0c3..03a9b03c3d3a 100644
---- a/arch/mips/mm/tlbex.c
-+++ b/arch/mips/mm/tlbex.c
-@@ -37,6 +37,9 @@
- #include <asm/regdef.h>
- #include <asm/uasm.h>
- #include <asm/setup.h>
-+#ifdef CONFIG_SB1_PASS_2_WORKAROUNDS
-+#include <asm/sibyte/sb1250.h>
-+#endif
- #include <asm/tlbex.h>
- 
- static int mips_xpa_disabled;
-@@ -84,13 +87,13 @@ static inline int r4k_250MHZhwbug(void)
- 	return 0;
- }
- 
--extern int sb1250_m3_workaround_needed(void);
--
- static inline int __maybe_unused bcm1250_m3_war(void)
- {
--	if (IS_ENABLED(CONFIG_SB1_PASS_2_WORKAROUNDS))
--		return sb1250_m3_workaround_needed();
-+#ifdef CONFIG_SB1_PASS_2_WORKAROUNDS
-+	return sb1250_m3_workaround_needed();
-+#else
- 	return 0;
-+#endif
- }
- 
- static inline int __maybe_unused r10000_llsc_war(void)
-diff --git a/arch/mips/sibyte/bcm1480/irq.c b/arch/mips/sibyte/bcm1480/irq.c
-index 4c18a2c755d2..ab329a15d690 100644
---- a/arch/mips/sibyte/bcm1480/irq.c
-+++ b/arch/mips/sibyte/bcm1480/irq.c
-@@ -198,7 +198,7 @@ static struct irq_chip bcm1480_irq_type = {
- #endif
- };
- 
--void __init init_bcm1480_irqs(void)
-+static void __init init_bcm1480_irqs(void)
- {
- 	int i;
- 
-@@ -303,8 +303,6 @@ void __init arch_init_irq(void)
- 	change_c0_status(ST0_IM, imask);
- }
- 
--extern void bcm1480_mailbox_interrupt(void);
--
- static inline void dispatch_ip2(void)
- {
- 	unsigned long long mask_h, mask_l;
-diff --git a/arch/mips/sibyte/bcm1480/smp.c b/arch/mips/sibyte/bcm1480/smp.c
-index 5861e50255bf..ea491f45d9ac 100644
---- a/arch/mips/sibyte/bcm1480/smp.c
-+++ b/arch/mips/sibyte/bcm1480/smp.c
-@@ -46,7 +46,7 @@ static void *mailbox_0_regs[] = {
- /*
-  * SMP init and finish on secondary CPUs
-  */
--void bcm1480_smp_init(void)
-+static void bcm1480_smp_init(void)
- {
- 	unsigned int imask = STATUSF_IP4 | STATUSF_IP3 | STATUSF_IP2 |
- 		STATUSF_IP1 | STATUSF_IP0;
-@@ -83,8 +83,6 @@ static void bcm1480_send_ipi_mask(const struct cpumask *mask,
-  */
- static void bcm1480_init_secondary(void)
- {
--	extern void bcm1480_smp_init(void);
--
- 	bcm1480_smp_init();
- }
- 
-@@ -94,8 +92,6 @@ static void bcm1480_init_secondary(void)
-  */
- static void bcm1480_smp_finish(void)
- {
--	extern void sb1480_clockevent_init(void);
--
- 	sb1480_clockevent_init();
- 	local_irq_enable();
- }
-diff --git a/arch/mips/sibyte/bcm1480/time.c b/arch/mips/sibyte/bcm1480/time.c
-index e6450d79fb4f..42db437af306 100644
---- a/arch/mips/sibyte/bcm1480/time.c
-+++ b/arch/mips/sibyte/bcm1480/time.c
-@@ -4,8 +4,8 @@
-  */
- #include <linux/init.h>
- 
--extern void sb1480_clockevent_init(void);
--extern void sb1480_clocksource_init(void);
-+#include <asm/time.h>
-+#include <asm/sibyte/sb1250.h>
- 
- void __init plat_time_init(void)
- {
-diff --git a/arch/mips/sibyte/common/bus_watcher.c b/arch/mips/sibyte/common/bus_watcher.c
-index a296d2c51841..5df4c82ac2a5 100644
---- a/arch/mips/sibyte/common/bus_watcher.c
-+++ b/arch/mips/sibyte/common/bus_watcher.c
-@@ -189,7 +189,7 @@ static irqreturn_t sibyte_bw_int(int irq, void *data)
- 	return IRQ_HANDLED;
- }
- 
--int __init sibyte_bus_watcher(void)
-+static int __init sibyte_bus_watcher(void)
- {
- 	memset(&bw_stats, 0, sizeof(struct bw_stats_struct));
- 	bw_stats.status_printed = 1;
-diff --git a/arch/mips/sibyte/sb1250/irq.c b/arch/mips/sibyte/sb1250/irq.c
-index 57943fe3ac03..8108ead0cea8 100644
---- a/arch/mips/sibyte/sb1250/irq.c
-+++ b/arch/mips/sibyte/sb1250/irq.c
-@@ -179,7 +179,7 @@ static struct irq_chip sb1250_irq_type = {
- #endif
- };
- 
--void __init init_sb1250_irqs(void)
-+static void __init init_sb1250_irqs(void)
- {
- 	int i;
- 
-@@ -266,8 +266,6 @@ void __init arch_init_irq(void)
- 	change_c0_status(ST0_IM, imask);
- }
- 
--extern void sb1250_mailbox_interrupt(void);
--
- static inline void dispatch_ip2(void)
- {
- 	unsigned int cpu = smp_processor_id();
-diff --git a/arch/mips/sibyte/sb1250/smp.c b/arch/mips/sibyte/sb1250/smp.c
-index 7a794234e3d7..950d2e1c0de7 100644
---- a/arch/mips/sibyte/sb1250/smp.c
-+++ b/arch/mips/sibyte/sb1250/smp.c
-@@ -35,7 +35,7 @@ static void *mailbox_regs[] = {
- /*
-  * SMP init and finish on secondary CPUs
-  */
--void sb1250_smp_init(void)
-+static void sb1250_smp_init(void)
- {
- 	unsigned int imask = STATUSF_IP4 | STATUSF_IP3 | STATUSF_IP2 |
- 		STATUSF_IP1 | STATUSF_IP0;
-@@ -72,8 +72,6 @@ static inline void sb1250_send_ipi_mask(const struct cpumask *mask,
-  */
- static void sb1250_init_secondary(void)
- {
--	extern void sb1250_smp_init(void);
--
- 	sb1250_smp_init();
- }
- 
-@@ -83,8 +81,6 @@ static void sb1250_init_secondary(void)
-  */
- static void sb1250_smp_finish(void)
- {
--	extern void sb1250_clockevent_init(void);
--
- 	sb1250_clockevent_init();
- 	local_irq_enable();
- }
-diff --git a/arch/mips/sibyte/sb1250/time.c b/arch/mips/sibyte/sb1250/time.c
-index 8b63000a4dd5..3f7f64fe5690 100644
---- a/arch/mips/sibyte/sb1250/time.c
-+++ b/arch/mips/sibyte/sb1250/time.c
-@@ -4,8 +4,8 @@
-  */
- #include <linux/init.h>
- 
--extern void sb1250_clocksource_init(void);
--extern void sb1250_clockevent_init(void);
-+#include <asm/time.h>
-+#include <asm/sibyte/sb1250.h>
- 
- void __init plat_time_init(void)
- {
-diff --git a/arch/mips/sibyte/swarm/rtc.h b/arch/mips/sibyte/swarm/rtc.h
-new file mode 100644
-index 000000000000..64b8db786575
---- /dev/null
-+++ b/arch/mips/sibyte/swarm/rtc.h
-@@ -0,0 +1,15 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+#ifndef _SIBYTE_SWARM_RTC_H
-+#define _SIBYTE_SWARM_RTC_H
-+
-+#include <linux/time64.h>
-+
-+int xicor_probe(void);
-+int xicor_set_time(time64_t t);
-+time64_t xicor_get_time(void);
-+
-+int m41t81_probe(void);
-+int m41t81_set_time(time64_t t);
-+time64_t m41t81_get_time(void);
-+
-+#endif /* _SIBYTE_SWARM_RTC_H */
-diff --git a/arch/mips/sibyte/swarm/rtc_m41t81.c b/arch/mips/sibyte/swarm/rtc_m41t81.c
-index afe1e3460bd4..e70ec1870674 100644
---- a/arch/mips/sibyte/swarm/rtc_m41t81.c
-+++ b/arch/mips/sibyte/swarm/rtc_m41t81.c
-@@ -17,6 +17,7 @@
- #include <asm/sibyte/sb1250_regs.h>
- #include <asm/sibyte/sb1250_smbus.h>
- 
-+#include "rtc.h"
- 
- /* M41T81 definitions */
- 
-diff --git a/arch/mips/sibyte/swarm/rtc_xicor1241.c b/arch/mips/sibyte/swarm/rtc_xicor1241.c
-index e2164200ceec..5bb2bc6a57d2 100644
---- a/arch/mips/sibyte/swarm/rtc_xicor1241.c
-+++ b/arch/mips/sibyte/swarm/rtc_xicor1241.c
-@@ -17,6 +17,7 @@
- #include <asm/sibyte/sb1250_regs.h>
- #include <asm/sibyte/sb1250_smbus.h>
- 
-+#include "rtc.h"
- 
- /* Xicor 1241 definitions */
- 
-diff --git a/arch/mips/sibyte/swarm/setup.c b/arch/mips/sibyte/swarm/setup.c
-index 38c90b5e8754..a910961ad967 100644
---- a/arch/mips/sibyte/swarm/setup.c
-+++ b/arch/mips/sibyte/swarm/setup.c
-@@ -35,28 +35,14 @@
- #include <asm/sibyte/sb1250_genbus.h>
- #include <asm/sibyte/board.h>
- 
--#ifdef CONFIG_SIBYTE_BCM1x80
--extern void bcm1480_setup(void);
--#elif defined(CONFIG_SIBYTE_SB1250) || defined(CONFIG_SIBYTE_BCM112X)
--extern void sb1250_setup(void);
--#else
--#error invalid SiByte board configuration
--#endif
--
--extern int xicor_probe(void);
--extern int xicor_set_time(time64_t);
--extern time64_t xicor_get_time(void);
--
--extern int m41t81_probe(void);
--extern int m41t81_set_time(time64_t);
--extern time64_t m41t81_get_time(void);
-+#include "rtc.h"
- 
- const char *get_system_type(void)
- {
- 	return "SiByte " SIBYTE_BOARD_NAME;
- }
- 
--int swarm_be_handler(struct pt_regs *regs, int is_fixup)
-+static int swarm_be_handler(struct pt_regs *regs, int is_fixup)
- {
- 	if (!is_fixup && (regs->cp0_cause & 4)) {
- 		/* Data bus error - print PA */
--- 
-2.53.0
-
+>  drivers/dma/dw/core.c | 58 +++++++++++++++++++++++++++++----------------------
+>  1 file changed, 33 insertions(+), 25 deletions(-)
+>
+> diff --git a/drivers/dma/dw/core.c b/drivers/dma/dw/core.c
+> index 2d69fab06601..5a1caca7ad68 100644
+> --- a/drivers/dma/dw/core.c
+> +++ b/drivers/dma/dw/core.c
+> @@ -267,6 +267,38 @@ static inline u32 dwc_get_sent(struct dw_dma_chan *dwc)
+>  	return dw->block2bytes(dwc, ctlhi, ctllo >> 4 & 7);
+>  }
+>
+> +static bool dwc_get_hard_llp_desc_residue(struct dw_dma_chan *dwc,
+> +				       struct dw_desc *desc, dma_addr_t llp)
+> +{
+> +	struct dw_desc *child;
+> +
+> +	/* Initial residue value */
+> +	desc->residue = desc->total_len;
+> +
+> +	/* Check first descriptors addr */
+> +	if (desc->txd.phys == DWC_LLP_LOC(llp))
+> +		return true;
+> +
+> +	/* Check first descriptors llp */
+> +	if (lli_read(desc, llp) == llp) {
+> +		/* This one is currently in progress */
+> +		desc->residue -= dwc_get_sent(dwc);
+> +		return true;
+> +	}
+> +
+> +	desc->residue -= desc->len;
+> +	list_for_each_entry(child, &desc->tx_list, desc_node) {
+> +		if (lli_read(child, llp) == llp) {
+> +			/* Currently in progress */
+> +			desc->residue -= dwc_get_sent(dwc);
+> +			return true;
+> +		}
+> +		desc->residue -= child->len;
+> +	}
+> +
+> +	return false;
+> +}
+> +
+>  static void dwc_scan_descriptors(struct dw_dma *dw, struct dw_dma_chan *dwc)
+>  {
+>  	dma_addr_t llp;
+> @@ -354,34 +386,10 @@ static void dwc_scan_descriptors(struct dw_dma *dw, struct dw_dma_chan *dwc)
+>  	dev_vdbg(dmaengine_chan_dev(&dwc->chan), "%s: llp=%pad\n", __func__, &llp);
+>
+>  	list_for_each_entry_safe(desc, _desc, &dwc->active_list, desc_node) {
+> -		/* Initial residue value */
+> -		desc->residue = desc->total_len;
+> -
+> -		/* Check first descriptors addr */
+> -		if (desc->txd.phys == DWC_LLP_LOC(llp)) {
+> -			spin_unlock_irqrestore(&dwc->lock, flags);
+> -			return;
+> -		}
+> -
+> -		/* Check first descriptors llp */
+> -		if (lli_read(desc, llp) == llp) {
+> -			/* This one is currently in progress */
+> -			desc->residue -= dwc_get_sent(dwc);
+> +		if (dwc_get_hard_llp_desc_residue(dwc, desc, llp)) {
+>  			spin_unlock_irqrestore(&dwc->lock, flags);
+>  			return;
+>  		}
+> -
+> -		desc->residue -= desc->len;
+> -		list_for_each_entry(child, &desc->tx_list, desc_node) {
+> -			if (lli_read(child, llp) == llp) {
+> -				/* Currently in progress */
+> -				desc->residue -= dwc_get_sent(dwc);
+> -				spin_unlock_irqrestore(&dwc->lock, flags);
+> -				return;
+> -			}
+> -			desc->residue -= child->len;
+> -		}
+> -
+>  	}
+>
+>  	/* Residue describes source reads; only RAW.XFER completes a transfer. */
+>
+> --
+> 2.53.0
+>
