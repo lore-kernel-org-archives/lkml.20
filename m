@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794575958;
-	b=uexu3ip0bOmpHMJ5WAi6HlSYcLENdN44RNnUvPtO8C5XM2HBgTXUOZrsmASPfeuUfDPo
-	 1a97UMO+ISRpMM6GrZz9MtNpQhUgI7Lyb8tH/7Hi7Sl6H8+fT9EHeszQWTQBMcGEGsTkv
-	 z0uaT0w9+FwGVkzCIO2cG6CdUbZYbir5qLoWwgqfrppsdpzr2ZytObfmriOhbKUtYU5ce
-	 wXlYDWZK2QitEm3x30yNnPYBC2s0IR4xXChxsoB+9TQ4wC5dqTSlAVs898FE4fD8n1OJK
-	 1a8Nb7YkkVwj8Rw6UWcgklnEKjV/XYl8aP1/dFQBbT7xc6RLVbJgYQ4SGFtUN1w8cQA==
+	t=1794575959;
+	b=Iq8Y/HxWV4aeoHlMTLtxmM83GaPU6yex3p4whP0GXUKs8B102sinHxch+vuNXCT/uYnK
+	 RpLrVbq/uM9LFo2TWx01gz4zOEo+Z36X5ytwDGW5/NlGsZkRJLHnB3YT4cmV3aBezKAkY
+	 +7YysYq/izZ86+bd3h9HKCV8TO0HwWUNZzBjXfKodp/6ibCpXM0SVltwioXwQ5/a4ENVy
+	 QmenOjpbvb1OHM9BBBx+1C90RgGb9dOBG3CFn8i1CtwA8ZBgm5ziPBpKXBSZWcMAfvFMV
+	 7dCJa/4kaYb3H54gu0vc21pTdI8QV1oA5NFj10pQLO+vznOefW7BUDb11RT6AOrV8NA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794575958;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794575959;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=WJKqb9lbHcL4EmdzdUnYQ7GHUDciH6wBpPPSXp/2ZaA=;
-	b=LED6dsMiZsrf/lORBVpfcD6uCEuWHIVMMKQgIepKrKF+5tFJUM7zi/RZpy7aHA5lUjzb
-	 +B9v8SgdqHzTiDfcE2mfOTntF4uOJaEYfQ+j8ZJrzuaKpOOeIgbxlTYPF28vmWxFsfqhg
-	 3/7QIUqC1sJrwhK/AO4tuzr8UOvtBaUtEMsIacj/Lm0+A2iwCwihD2vzOrsOLmAMzkFIO
-	 cIq6SL6AHI6IwX00eazKrfufgtjtX/6GD1HhNkFgZHQE3FhuiCRMoFnDfGFk/8Bbb1clp
-	 ksFbu+MJCEZU6Qnp/F/axjcIWt2ZrbktT7EqHt92Mr4nS9h1bdU2F8v3DWtdIFABsLA==
+	bh=rF8sHZW1cTd+n7KcEI4fz6GZGwqe6JLJYuwVImB7MOs=;
+	b=WUu/PErKJsITwxYhPiOZskwIgpQ4aDZ6oeXzy8I4fkRYrb7JTOsvmtisBkel+BzrRQg7
+	 CCznAPSbrCXMzzMxL36LSbqo9mYqHn6WJQhv08Vj6ARLmha3WfjdC9Q2I8MpdNCHV+9YX
+	 0RrRN2qdeTjTJXBpfLVf0XD7vq2iO6hChfXRqhktEMvrl1Xl83loZ3HgNFV9P8GwpsNnM
+	 2eEwAvhK7lZ+YEdm8oHcS3LhbzyxpNJh8QL+v4s28vmth5wLuP9FhVmYcTV46GsHcXtRy
+	 li+P1CQLFhTWJvvon5vuN0urZkD7xcD5EQGSnqOzYKgry+7QDx35GAPIkalepdQF9eQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=GeDgDgQk;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b="ke/WldX3";
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A83DC60A263D;
-	Fri, 13 Nov 2026 13:19:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A83DC60A263D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE51A60A3833;
+	Fri, 13 Nov 2026 13:19:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE51A60A3833
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=GeDgDgQk
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=ke/WldX3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1794575950;
-	bh=WJKqb9lbHcL4EmdzdUnYQ7GHUDciH6wBpPPSXp/2ZaA=;
+	s=smtpout1; t=1794575951;
+	bh=rF8sHZW1cTd+n7KcEI4fz6GZGwqe6JLJYuwVImB7MOs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=GeDgDgQkhR8H9wrXhxpw3EnCLN1j0ZFk8vSEPiUbspOyaGv/SrVqoNp4Q6LumzqwG
-	 AAhagJzJ2QLF2eSBqqFbyZqT0vgWIPKDGr6xh+xBb8xBeLkHI83+xGvZt9qISZP7k5
-	 j4QCTqmLkvyRbQlvJ0gEcXXZ9foq9oUddml5KAaUQRU/1VxtCkkeyC8fUY/3IEzSXH
-	 PX+lbE9tbLLQFTKGEN8vUJUZHOZNDu0NxbddxuHnhs7K2m6509TENkc9D6SNl/CAvR
-	 z1ZQuXfiM5ap5TcLM+C/ezNtxxiwsTkzpmwj+jGY+JAMcJx509VBQ8DgIHjdhnh1te
-	 okrhdLYQjnMFA==
+	b=ke/WldX3JBgxKcwhYBb3NTyi/mUvQ9ZayfSipdAFZc8OgdnL8D0WmUuxiHAcl8Zee
+	 bFTp2OfOxExpfd0RtnJpw41k2jY6AInGEyd03eZqQ/DZv4AlV1FBy+XC5DKrndK0Db
+	 Wi2AJkE1kO9d9JhYHs2eh/oiRoiCgfz3PBac1PLEYh38VgVO3oEFl31sppyj0y+1Q0
+	 lVvMfSJvX1Ma55UDCcyOz6RoLpxwCsP3dRIbJ4iLFdpjMhk1AqkzCHp2sW7e1szloA
+	 q6TBmCvblSnU04VymINRWRm2J84VnBJnbKc1aeCV0xBfRiAEa2lWv60nniww+z9eez
+	 l0Udy70JVCr7g==
 Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jQyWy5LwhzQ2k;
-	Fri, 13 Nov 2026 08:19:10 -0500 (EST)
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jQyWz0DbJzPtq;
+	Fri, 13 Nov 2026 08:19:11 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: Peter Zijlstra <peterz@infradead.org>,
 	Ingo Molnar <mingo@redhat.com>
@@ -123,11 +123,10 @@ Cc: linux-kernel@vger.kernel.org,
 	Naveen N Rao <naveen@kernel.org>,
 	"David S. Miller" <davem@davemloft.net>,
 	Masami Hiramatsu <mhiramat@kernel.org>,
-	linux-trace-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [RFC PATCH 09/16] parisc: membarrier: Add full memory barrier in switch_mm()
-Date: Fri, 13 Nov 2026 08:18:56 -0500
-Message-Id: <20261113131903.157186-10-mathieu.desnoyers@efficios.com>
+	linux-trace-kernel@vger.kernel.org
+Subject: [RFC PATCH 10/16] Documentation/membarrier: Update the per-architecture barrier list
+Date: Fri, 13 Nov 2026 08:18:57 -0500
+Message-Id: <20261113131903.157186-11-mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261113131903.157186-1-mathieu.desnoyers@efficios.com>
 References: <20261113131903.157186-1-mathieu.desnoyers@efficios.com>
@@ -142,133 +141,77 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The expedited membarrier commands need a full memory barrier after
-the scheduler stores to rq->curr, before the CPU returns to
-user-space. membarrier() skips the IPI to a CPU which it sees running
-another mm. This barrier orders the user-space accesses of the
-incoming thread after that check. See scenario (A) in
-kernel/sched/membarrier.c.
+membarrier.rst lists how each architecture provides the full memory
+barrier after the store to rq->curr. The list misses several SMP
+architectures.
 
-parisc has no dedicated barrier. It used to get it from
-smp_store_release() in finish_task() and from spin_unlock() in
-finish_lock_switch(). The first one issued a SYNC instruction. The
-second one issued an LDCW instruction, which is strongly ordered.
+Add csky, openrisc, sh and xtensa. They use the generic
+smp_store_release(). It issues smp_mb() before the store.
+finish_task() uses it.
 
-Both are ordered stores since v5.9:
+LoongArch and parisc now provide the barrier with
+membarrier_arch_switch_mm(). Add them next to powerpc and riscv.
 
- - commit 157e9afcc4fa ("Revert "parisc: Revert "Release spinlocks
-   using ordered store"""),
- - commit e96ebd589deb ("parisc: Implement __smp_store_release and
-   __smp_load_acquire barriers").
+State the rule which both broke: an architecture which weakens
+smp_store_release() or spin_unlock() must provide the barrier another
+way.
 
-Linux runs with the PSW O bit clear. The PA-RISC 2.0 architecture
-then allows plain loads and stores to be weakly ordered. It orders an
-ordered store before a following ordered load, not before a following
-plain load. So an ordered store is not a full barrier.
+Update the matching comment in __schedule().
 
-Nothing else is a full barrier on a switch between two user
-processes. switch_mm_irqs_off() only writes control and space
-registers.
-
-The PA-RISC 2.0 manual lists the strongly ordered accesses: I/O
-space, pages with the TLB U-bit set, LDCW, LDCD, the TLB purges and
-SYNC. MTCTL, MTSP and RFI are not among them.
-
-This was found by reading the code and the architecture manual. On a
-PA-RISC 2.0 SMP machine, a thread which is scheduled in would run
-user-space code without the promised barrier. User-space would see a
-memory ordering failure: the caller of an expedited membarrier command
-would miss a recent store of that thread. PA-RISC 1.1 is strongly
-ordered and not affected.
-
-Do as powerpc and riscv: add membarrier_arch_switch_mm() and call it
-from switch_mm_irqs_off() when the mm changes. It issues smp_mb()
-only when the next mm registered for an expedited command.
-
-Compile-tested only.
-
-Fixes: 157e9afcc4fa ("Revert "parisc: Revert "Release spinlocks using ordered store""")
-Fixes: e96ebd589deb ("parisc: Implement __smp_store_release and __smp_load_acquire barriers")
-Cc: stable@vger.kernel.org
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 ---
- arch/parisc/Kconfig                   |  1 +
- arch/parisc/include/asm/membarrier.h  | 33 +++++++++++++++++++++++++++
- arch/parisc/include/asm/mmu_context.h |  2 ++
- 3 files changed, 36 insertions(+)
- create mode 100644 arch/parisc/include/asm/membarrier.h
+ Documentation/scheduler/membarrier.rst | 14 ++++++++++----
+ kernel/sched/core.c                    | 10 ++++++----
+ 2 files changed, 16 insertions(+), 8 deletions(-)
 
-diff --git a/arch/parisc/Kconfig b/arch/parisc/Kconfig
-index 77f67028ad89..3d6b4cc8d6a5 100644
---- a/arch/parisc/Kconfig
-+++ b/arch/parisc/Kconfig
-@@ -13,6 +13,7 @@ config PARISC
- 	select ARCH_HAS_DMA_ALLOC if PA11
- 	select ARCH_HAS_DMA_OPS
- 	select ARCH_HAS_ELF_RANDOMIZE
-+	select ARCH_HAS_MEMBARRIER_CALLBACKS
- 	select ARCH_HAS_STRICT_KERNEL_RWX
- 	select ARCH_HAS_STRICT_MODULE_RWX
- 	select ARCH_HAS_UBSAN
-diff --git a/arch/parisc/include/asm/membarrier.h b/arch/parisc/include/asm/membarrier.h
-new file mode 100644
-index 000000000000..822dcadaf9bb
---- /dev/null
-+++ b/arch/parisc/include/asm/membarrier.h
-@@ -0,0 +1,33 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef _ASM_PARISC_MEMBARRIER_H
-+#define _ASM_PARISC_MEMBARRIER_H
-+
-+static inline void membarrier_arch_switch_mm(struct mm_struct *prev,
-+					     struct mm_struct *next,
-+					     struct task_struct *tsk)
-+{
-+	/*
-+	 * Only need the full barrier when switching between processes.
-+	 * Barrier when switching from kernel to userspace is not
-+	 * required here, given that it is implied by mmdrop(). Barrier
-+	 * when switching from userspace to kernel is not needed after
-+	 * store to rq->curr.
-+	 */
-+	if (IS_ENABLED(CONFIG_SMP) &&
-+	    likely(!(atomic_read(&next->membarrier_state) &
-+		     (MEMBARRIER_STATE_PRIVATE_EXPEDITED |
-+		      MEMBARRIER_STATE_GLOBAL_EXPEDITED))))
-+		return;
-+
-+	/*
-+	 * The membarrier system call requires a full memory barrier
-+	 * after storing to rq->curr, before going back to user-space.
-+	 *
-+	 * Nothing else provides it on this path. spin_unlock() and
-+	 * smp_store_release() are ordered stores. PA-RISC 2.0 does not
-+	 * order an ordered store with a following weakly ordered load.
-+	 */
-+	smp_mb();
-+}
-+
-+#endif /* _ASM_PARISC_MEMBARRIER_H */
-diff --git a/arch/parisc/include/asm/mmu_context.h b/arch/parisc/include/asm/mmu_context.h
-index c9187fe836a3..42ff1b9444f1 100644
---- a/arch/parisc/include/asm/mmu_context.h
-+++ b/arch/parisc/include/asm/mmu_context.h
-@@ -4,6 +4,7 @@
+diff --git a/Documentation/scheduler/membarrier.rst b/Documentation/scheduler/membarrier.rst
+index 2387804b1c63..c5f6f4f57331 100644
+--- a/Documentation/scheduler/membarrier.rst
++++ b/Documentation/scheduler/membarrier.rst
+@@ -28,12 +28,18 @@ architectures are as follows.
+  - alpha, arc, arm, hexagon, mips rely on the full barrier implied by
+    spin_unlock() in finish_lock_switch().
  
- #include <linux/mm.h>
- #include <linux/sched.h>
-+#include <linux/sched/mm.h>
- #include <linux/atomic.h>
- #include <linux/spinlock.h>
- #include <asm-generic/mm_hooks.h>
-@@ -51,6 +52,7 @@ static inline void switch_mm_irqs_off(struct mm_struct *prev,
- 		struct mm_struct *next, struct task_struct *tsk)
- {
- 	if (prev != next) {
-+		membarrier_arch_switch_mm(prev, next, tsk);
- #ifdef CONFIG_TLB_PTLOCK
- 		/* put physical address of page_table_lock in cr28 (tr4)
- 		   for TLB faults */
++ - csky, openrisc, sh, xtensa rely on the generic smp_store_release(),
++   which issues a full barrier before the store.  finish_task() uses it.
++
+  - arm64 relies on the full barrier implied by switch_to().
+ 
+- - powerpc, riscv, s390, sparc, x86 rely on the full barrier implied by
+-   switch_mm(), if mm is not NULL; they rely on the full barrier implied
+-   by mmdrop(), otherwise.  On powerpc and riscv, switch_mm() relies on
+-   membarrier_arch_switch_mm().
++ - loongarch, parisc, powerpc, riscv, s390, sparc, x86 rely on the full
++   barrier implied by switch_mm(), if mm is not NULL; they rely on the full
++   barrier implied by mmdrop(), otherwise.  On loongarch, parisc, powerpc and
++   riscv, switch_mm() relies on membarrier_arch_switch_mm().
++
++An architecture which overrides smp_store_release() or spin_unlock() with
++something weaker than a full barrier must provide this barrier another way.
+ 
+ The barrier matches a full barrier in the proximity of the membarrier system call
+ entry, cf. membarrier_{private,global}_expedited().
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index df6d15cf7109..9985c95ecd73 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -7367,10 +7367,12 @@ static void __sched notrace __schedule(int sched_mode)
+ 		 * Here are the schemes providing that barrier on the
+ 		 * various architectures:
+ 		 * - mm ? switch_mm() : mmdrop() for x86, s390, sparc, PowerPC,
+-		 *   RISC-V.  switch_mm() relies on membarrier_arch_switch_mm()
+-		 *   on PowerPC and on RISC-V.
+-		 * - finish_lock_switch() for weakly-ordered
+-		 *   architectures where spin_unlock is a full barrier,
++		 *   RISC-V, LoongArch, PA-RISC.  switch_mm() relies on
++		 *   membarrier_arch_switch_mm() on PowerPC, RISC-V,
++		 *   LoongArch and PA-RISC.
++		 * - finish_task() and finish_lock_switch() for weakly-ordered
++		 *   architectures where smp_store_release() or spin_unlock
++		 *   is a full barrier,
+ 		 * - switch_to() for arm64 (weakly-ordered, spin_unlock
+ 		 *   is a RELEASE barrier),
+ 		 *
 -- 
 2.47.3
 
