@@ -1,88 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794595425;
-	b=tzbKYh5KqbJdwiIgmHm6+cJmyrHiww/sy9O8jPTX665XxlOVcf7Z0jtRKB9ucrYCr7Ej
-	 j8+ZocnCdgvik4v9M/cFagM0vygWGTVT+atQOz96nld2q3P549xEHnU6I6lrCIFltkbLD
-	 /T4XDuca6qfofg5HeuEnzzkXlrMEIG7RdN+x77aJVNXXdkzuEkwAZ8kxLQ7sUwbOmb7t1
-	 4MgBYtbwdAU9QJxeZ9nt7Qsw2KquwNYgOemV5BNQMVNg7FJ4NCz5ktUHPUHYWKz6b7qXw
-	 S/A5Tw2u2cXajbHc18WkZK+6MRvGhPlgXumHn6MByaNatoORWUf9lwfDCsa1rk+s/mg==
+	t=1794595613;
+	b=KVVGNWbeheEbgWNq2H2zsvepdJGJR7fuKhwJzpnjz5bbL9/pE54dFmfTmzUWru6p9zXo
+	 GhG9HiukIVAPyZRkA26uqr0GRkdp207R4CqIDxp7haVcLlOpQU1nbDaLZe3TETIpw4uih
+	 xdmeetZcRH+oftbD0/ElORsrbY0xoQMrYYsuciUo8TZXFiKjgMOXgrD2GgaUj9k2/GmfX
+	 y/U227uG+w13of6LKE10f1qNZnLPuOA+DRDDzMcJ/1Ipd8+h/iPKhsp3II4Fp56w+iepB
+	 h40tOAtydEcRsbCc1FJ13DNs9x95VYPRxmzB28C69vnhoNAMDHVipXria8Y1Nu5QyjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794595425;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=B2+DnKoed/3axURwhBA7JYRjlV0Q+DlCdWZGm6h7Zxg=;
-	b=5IhGZ3/xqUpw7tcV0aUqMizzcWweOawba+T9qqvVP6hiD3XR9PROygTmM2rpWuAY5/Hi
-	 4+3DFMWAT3VrJfJ9FMp2rFPKKX1NWKzDVR5jukTF8C8h1fJK0VuSVKPP5q7JjHsuNzpv5
-	 IVQI4+cXN/ohYnKyRZvFCefq5Hfykfdf8YihnL6AmeNkvKUkyoOJ66gV8orYdQFaVaDQp
-	 29hagSzBGl+StKjMXsX+nyHKe0AmVD3gu4v0rFClhOtnkPMOKhkcnL92QGx2sPOymnMuG
-	 R6y9SPCmuobHWjChd/CMirAg5k3DpRr7+Pi8g5O5bxvfYstqCcgZj2+ty5Tvvmle5Rg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794595613;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=jnDAeo7CmnNaA/656fOLCkXGnntEEKJb98BwVbdJVSA=;
+	b=P1iGf1dijJURXKGAhVG++iaVpmY1XCTJlvaRucdXFJkPKbr6laByyWZZmXAonabNoLXt
+	 7nmoH3k6WiZUAjQpvbhGfchpAkEZ5te6ehk92UGDFqGfz4388AAb6+js0154QYSHgv/fW
+	 GBGMMSDhKRMBbb2qcdNuZYeRwyFZSq7jkub8qoQtjLM1XIZj/go8kq+P45d8eVbGly6pM
+	 JC9gCZ1aB+wI6CJZ/dRsb/WN18v5C8IZcdCTBVvMiz8V0sw11KetM0v5LDgKZ1QAim+uv
+	 4i5Cctnk6TVG0a8U2X4uo5vppU9/pazLLJg+UU34QEqku3ebwu9Tvg+klaIgL2mzjdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Kh7xgRb1;
-	arc=none smtp.remote-ip=209.85.214.171
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	dmarc=pass header.from=packett.cool;
+	spf=pass smtp.mailfrom=packett.cool;
+	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=wKqlIfso;
+	arc=none smtp.remote-ip=91.218.175.52
+Received: from mta0.migadu.com (out-52.mta0.migadu.com [91.218.175.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43DDA606BDE3
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:43:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43DDA606BDE3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4F80606A335
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:46:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4F80606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Kh7xgRb1
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e98798cbddso10596405ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:43:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794595424; x=1795200224; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=B2+DnKoed/3axURwhBA7JYRjlV0Q+DlCdWZGm6h7Zxg=;
-        b=Kh7xgRb1QUKSAPrSkw9d5aIlc54rk65xgTssxlagqncf3mHLtIOy7FPS6tpXwVWRvO
-         gB1XmzJJGAAGel5n9T7NXeEghD7gyFuku9yHizAKTRxYh4sP0nmem6wLMKIEnz/lL5C5
-         T4/gTHkLlihdIp79czjJvLAeRhGS0IcU9scyERSXKhW3/U4yjaY2BBkhPy1wfI3+0Vkq
-         XazFTO2s0RHn3w7AYA30fStEBSnw9lUt2y4DpoB68zDydqvkZ/ZdB0WJnxTOA4aF/XzB
-         kABVT1/rwXQv6HzqOVVIpu/WW5CGmG2YWz/MMh4105NBKhGMHeG/zl3rkPJ7+oyxCMMP
-         4bLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794595424; x=1795200224;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=B2+DnKoed/3axURwhBA7JYRjlV0Q+DlCdWZGm6h7Zxg=;
-        b=0F+LvtGaTJxNHxEYdlxj34I9E69qyu95+j01BEWzj/Ay9kWSqJBbEvKsmiYX8G2wCg
-         mbQzOPdHn49k0mJ7uIQstvK9GKSHLYLxcH7sopRF+dwTyTZeqSwASF1Gq9P8YKmGxcRB
-         xXCNfgxysywziSZT8yEmWMocmJyXaK1cwmd8RWZkU4MB/QlLeLMn/aAkm2d/Frix1jXF
-         7D/w1unTPu6qL3ykHSeCGbXhqpf1Ccm9PIuAYA8tABO5FPeJAmCEdaOP53nqNkqDe6SO
-         9TULG5WlC2BNKN71QwegwD/Jywm5NViMV2HsHmoXZZvzw8pYLIVOdZKxKqrOUlf5KUKT
-         taVg==
-X-Forwarded-Encrypted: i=1; AL+hErEPtnZ8PfeP3yX8D/ESiPM9cFNdXlZqXD10xoQ7pGnj2wb0kaYK3ELpSmG6mwbRJ6c3olewuwhIFL5hOAw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+XL+1Jfo4OGhdf8NukdD2jYVJ1BHqoeSFfHgmku1VjeG8swK3u
-	jr56kN5NVl4bj29P8PggdXAgXMrY5VAECTUcsw+/7xg9TkJ8oI74PJK0
-X-Gm-Gg: AYBFou1cWxBZLIhe1V5LhPNtaTx3CEJdqjoVWF/h7yryDyZniOwIVIeoUypNLIwXAk0
-	uWXXjR10OhUFQ1OsG0jh70zUci2Abb8jhXSY45EKl5jBWHkLhX/g8no/a8Vbxvz7nanUMqcGsLp
-	+YPofqXc+y8sw0VAQhwaY4NFzACNLSsToshq+Q4Mq/04V5oSddDwzJvHy3VyPRWcOcEPilsGoTl
-	G13v6IZqMAjcC4Es93L/0b7WT1O1/DGj+U26K3El5fRiyBiyReZzWvUIDIX+5wXg8rucZGrcXR5
-	eHVzPyh+l04QQiHntGueGo6FAkIe2jwJ38RH8MG6X3XUBpPO50DS7gexZfx6F6Yq+nQCx3AoZAk
-	Ax8paMnZ0BX+qHseFT+u+7L3wL2oKucC4g5/WeXJQ0KEr81V4iGVMPqHKFhqZcMx8722prwwElW
-	SW6n/MRdCDHO6GoRc+7AYoeS3I/lmsppJsxsDoHzMnlfk2+V1SRGOf3oD2o2QFMcf1xfthE+QwQ
-	rDxDzgULV4m0TpyL8EbBh+nTLxkhp7r7sBoTjywsIRtUXRaj5ESjwA8VYK81et/9NaLx0j7j0GT
-	Ityk2f12MougviLwrGNeRVZw2HK2ok6+rSlgjyvlCXXvJKOdxMLljBtF
-X-Received: by 2002:a17:903:3d0d:b0:2e9:734c:5027 with SMTP id d9443c01a7336-2ee0de41b52mr35325395ad.15.1794595424503;
-        Fri, 13 Nov 2026 10:43:44 -0800 (PST)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0fa14f7esm13391505ad.70.2026.11.13.10.43.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 10:43:43 -0800 (PST)
-Message-ID: <e068c222-eec8-4dcc-bf7e-d91ae2ef175b@gmail.com>
-Date: Fri, 13 Nov 2026 10:43:42 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=wKqlIfso
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=YRNPDyKnF5AAnH1Nkcj0IpcYyCLG3qMSgftkaQIlJjM=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794595610; v=1; x=1795200410;
+ b=wKqlIfsoAs0iiPyqGpYb1eUg2O8du+8UjqsDMtpATzTB6foPKYrKEZW3X/GCT6x0Htk3RdMS
+ rYqKk+9j35v5d7UF3Lgka/03jO7vWIae3pT1pqTd3i4mQfDNs8KV5Ho9Rdi1FIH34bCAKLKvKOz
+ Xpm868QO4MtJl7TzQeub6Z4v2Sin4Ltb5EMgyE6mw2mhX8JMm5q7T7KHupDQ5lM0SIvgtD1QKEB
+ yDfLlLnJSWRsFseTjO/pr746/CI5K1dLg8uSdw1YRFRXnF8Iuxl+fqd+QTIRhwy73cr0NDLmqtG
+ kF8OuSRi46q4kYjbqTbjjdB5YLwzVG2yLa+YGTyNhu13g==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e856afca2a42441d;
+	Fri, 13 Nov 2026 18:46:50 +0000
+X-Mizu-Trace-ID: e856afca2a42441d
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <4ce436ed-63b7-4764-afc5-dc5ffa4f0ba1@packett.cool>
+Date: Fri, 13 Nov 2026 15:46:40 -0300
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,39 +61,145 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/4] MIPS: Skip generic IPI setup for platform-specific
- callbacks
-To: linux-mips@vger.kernel.org
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Paul Burton <paulburton@kernel.org>, Paul Cercueil <paul@crapouillou.net>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>,
- =?UTF-8?B?5ZGo55Cw5p2wIChaaG91IFlhbmppZSk=?= <zhouyanjie@wanyeetech.com>,
- Jiaxun Yang <jiaxun.yang@flygoat.com>,
- open list <linux-kernel@vger.kernel.org>,
- "open list:COMMON CLK FRAMEWORK" <linux-clk@vger.kernel.org>,
- hns@goldelico.com, paul@boddie.org.uk
-References: <20261113184210.470320-1-f.fainelli@gmail.com>
- <20261113184210.470320-3-f.fainelli@gmail.com>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20261113184210.470320-3-f.fainelli@gmail.com>
+Subject: Re: [PATCH v3 3/6] arm64: dts: qcom: kodiak: Add GEM_NOC interconnect
+ for adreno SMMU
+To: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org
+References: <20260706-smmu_interconnect_addition-v3-0-afdca0125a65@oss.qualcomm.com>
+ <20260706-smmu_interconnect_addition-v3-3-afdca0125a65@oss.qualcomm.com>
+ <h6opbtr2ced3sannj3ym573qc2sjk7ek3clpto5j5mtqfrfk6w@34sk2zraoqtj>
+ <807f145d-88d3-460a-9862-b63fe2a52cf7@oss.qualcomm.com>
+ <a4f5sod3aflubxkk4mm4k5ozddydqcnqeac4s6vnozkd2nvxbi@hmh6zclsw5z3>
+ <4e5a3d82-b946-4490-885a-ea7061939c32@oss.qualcomm.com>
+ <ak5qkRKk2eHHLYmo@baldur>
+ <2c21041d-f84c-4fa7-a977-555f9203d8b5@oss.qualcomm.com>
+Content-Language: en-US
+From: Val Packett <val@packett.cool>
+In-Reply-To: <2c21041d-f84c-4fa7-a977-555f9203d8b5@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/13/26 10:42, Florian Fainelli wrote:
-> A generic MIPS kernel can select a platform SMP backend with direct IPI
-> callbacks instead of an IPI IRQ domain. The XBurst backend uses CP0
-> mailboxes, so generic IPI allocation would find no domain and BUG when
-> more than one CPU is present.
-> 
-> Skip generic IPI initialization when neither selected send callback uses
-> the generic implementation. Keep initialization when either callback
-> uses generic IRQ IPIs, and retain the existing single-CPU shortcut.
-> 
-> Sashiko AI reported the XBurst integration issue; Codex assisted with
-> the change and extracted-function/build checks.
+Hi,
 
-Argh sorry I missed adding my Signed-off-by tag here..
--- 
-Florian
+On 7/17/26 8:40 AM, Bibek Kumar Patro wrote:
+>
+>
+> On 7/8/2026 8:56 PM, Bjorn Andersson wrote:
+>> On Wed, Jul 08, 2026 at 03:31:07PM +0530, Bibek Kumar Patro wrote:
+>>>
+>>>
+>>> On 7/7/2026 10:14 PM, Dmitry Baryshkov wrote:
+>>>> On Tue, Jul 07, 2026 at 06:37:24PM +0530, Bibek Kumar Patro wrote:
+>>>>>
+>>>>>
+>>>>> On 7/6/2026 11:12 PM, Dmitry Baryshkov wrote:
+>>>>>> On Mon, Jul 06, 2026 at 10:26:36PM +0530, Bibek Kumar Patro wrote:
+>>>>>>> On Kodiak platforms, the Adreno SMMU requires a bandwidth vote on
+>>>>>>> the GEM_NOC path (MASTER_GPU_TCU -> SLAVE_EBI1) before its 
+>>>>>>> registers
+>>>>>>> are accessible. Without this vote, the SMMU may become unreachable,
+>>>>>>> leading to intermittent probe failures and runtime issues.
+>>>>>>>
+>>>>>>> Add the required interconnect to ensure reliable register access.
+>>>>>>>
+>>>>>>> Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+>>>>>>> ---
+>>>>>>>     arch/arm64/boot/dts/qcom/kodiak.dtsi | 2 ++
+>>>>>>>     1 file changed, 2 insertions(+)
+>>>>>>>
+>>>>>>> diff --git a/arch/arm64/boot/dts/qcom/kodiak.dtsi 
+>>>>>>> b/arch/arm64/boot/dts/qcom/kodiak.dtsi
+>>>>>>> index 90e50c245c0c..721526f023dd 100644
+>>>>>>> --- a/arch/arm64/boot/dts/qcom/kodiak.dtsi
+>>>>>>> +++ b/arch/arm64/boot/dts/qcom/kodiak.dtsi
+>>>>>>> @@ -3389,6 +3389,8 @@ adreno_smmu: iommu@3da0000 {
+>>>>>>>                 power-domains = <&gpucc GPU_CC_CX_GDSC>;
+>>>>>>>                 dma-coherent;
+>>>>>>> +            interconnects = <&gem_noc MASTER_GPU_TCU 
+>>>>>>> QCOM_ICC_TAG_ALWAYS
+>>>>>>> +                     &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
+>>>>>>
+>>>>>> Why is it ALWAYS? Would it be better to declare it as ACTIVE_ONLY 
+>>>>>> and
+>>>>>
+>>>>> Added QCOM_ICC_TAG_ALWAYS, to hold the vote in SLEEP bucket as well
+>>>>> preventing gem_noc going to sleep when icc_set_bw is being called.
+>>>>
+>>>> _why_?
+>>>>
+>>>
+>>> Now when i think of where we implemented the hooks, ALWAYS is not 
+>>> needed. We
+>>> should keep it ACTIVE_ONLY since we are already voting it
+>>> back in resume pah. I'll fix it in next revision.
+>>>
+>>
+>> The path is between the SMMU and DDR, so clearly it has to do with the
+>> TCU's ability to fetch things from DDR.
+>>
+>
+> Yes as you rightly mentioned, this series is helping to resolve the 
+> race in TCU DDR clink
+>
+>> ACTIVE_ONLY states that the vote should only be applied when the
+>> application subsystem (CPUSS) is not in low-power mode (CPU is active).
+>>
+>> So, are you saying that in all cases that cpuidle might select such
+>> low-power state the GPU TCU is "stopped", and does not need to perform
+>> any memory transactions?
+>>
+>
+> I rechecked the architectural block diagram, GPU TCU is
+> independent of the CPUSS, unlike system TCU.
+>
+> This means CPUSS can be powered down while the GPU TCU remains voted 
+> up. While this series was intended to avoid a DDR voting race between the
+> GPU TCU and its clients, using ACTIVE_ONLY could have possibly
+> introduced a race between CPUSS and the GPU TCU itself.
+>
+> Thanks for catching this in my reply Bjorn.
+>
+> ACTIVE_ONLY would have been suitable for system TCU (apps_smmu)
+> for which the interconnect field is anyways not needed, but
+> unsuitable for GPU TCU.
+>
+>>
+>> To me these two are orthogonal and TAG_ALWAYS is logically correct, but
+>> perhaps there's some practical dependency that I'm missing?
+>>
+>
+> We can ignore my acknowledgment [1] on previous response, Dmitry.
+> ALWAYS TAG is correct here instead of ACTIVE_ONLY in the interconnect 
+> field for adreno SMMU. 
+
+
+This series seems to help with a really annoying bug on Kodiak phones 
+like sm7325-motorola-dubai where often boot would hang when initializing 
+the display panel (so it took a few reboots to successfully boot the 
+device).
+
+And indeed it only helps with the ALWAYS tag..
+
+I've had this patch applied for a while (without even realizing that it 
+fixed that!! thought the issue was gone because of something else) and 
+today I went around kodiak.dtsi trying to remove unnecessary ALWAYS 
+votes… first boot after changing this tag to ACTIVE_ONLY and boom, hang.
+
+
+Tested-by: Val Packett <val@packett.cool> # sm7325-motorola-dubai
+
+(for patch 2 i.e. the driver code as well)
+
+
+Thanks,
+~val
+
