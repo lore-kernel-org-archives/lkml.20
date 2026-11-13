@@ -1,47 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794576022;
-	b=utJ0IZbaD3/yijNCJTaMXgmMIAjKJLcFeUjwrlkfJxRyKuB7NCZ6DHEMpTx988Md81O3
-	 c2lRYj7b9N0WjTXQhU2yG4d4gp2S62rD/bioKEDVMioP4HRjhiN8T74dWbyFwJvgot4t5
-	 6Fc7PVAE+tCr/BawDUWSS6h5Lewx0RrKyBA6jAnnhdAL3QVT8hXgs0ui7YQctxcD/Zef3
-	 fIaw5JpKU4jHKnlGoTu+9TDzG35f8oh+gmO9F0hiNMjjy0pQdeG84WMbRuL9uhJW1xZNd
-	 /Qp/Z3Ufs8Qs1An0Cvt6wFDY7EyQ6TWPRqWKJ+MEI4MKxx4dO2l4uoqKzUK5/eTUJxg==
+	t=1794576037;
+	b=fhKLOpyu2y2TDA3LhidQ+YvYIxYrtET6jToENoQVfUv2lxc9i5uH6yfUsv6ETAJEXmym
+	 2xxFfaNvCzhIshaMtwkXUlBUQi7wQq/1xExpHcEhNPepW7sPn0+RNr4hwBp0+ZdlSNXym
+	 en3HtSKD71khjT/rm/Vv5aVMzaORU4aS7O09pQf/+gwcm+sou6XYptk/hsGAqGLTxaMYb
+	 JEeN2EffQfqKOLcs28xmT/fhNp7IcA9DaX2X410cSiTyJR8XKfqgKcmCNuLwgh0mrZmwS
+	 tSaBuJlMTdrwhkN8Xii8NSY/tQ48OWuCH6NrSBXb4Mlq4sYiulfPYKoQo1o8n4l9Q4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794576022;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=FqUL6WwFMsKVYZsc6fUiuxiEIZc0EI2CRK5bQ4oB51A=;
-	b=WGPbYLH9wkyuR0XEgEcfHv9srWqV3TfNQH0cHKK6gvqXx/CSP5OKwG9DcysWZYEjGgCr
-	 UWzF2Hh3hWFWKmw/TlD0ZDNlYbCfqXaTOESC9NKgccM1Qf1urusDojtnSZxwtaIHnI1Hl
-	 yTrHCFNYbqPCbxIC2qpXLUFpjafBuzSQXVNfvGpybhSj8AcN3iHGTJPHCYbIya8oEGXER
-	 +wdKGGbUHqwukikwNo+EX/mUsu8WzbgoyBiVeC9gMPvoGGHaywE8B79LY8eZ1d6M3Y7Gq
-	 7FILiOsB3ipJxMuNuyefUe8yHH3HU11fHHAN+fLhG3AWV/o8lhIf8IhLYVr0PV7rmhg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794576037;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=j0OFUyWGFsnHOx/jru7yE6httZZaLm6I3BJksdA09jw=;
+	b=sSAuAuctM7Z2SzyIlC2skSupohZK8rtUFyZhfN3t84Y3P/bARta6DA30gCfgbNCyN0ie
+	 qoO5LydJx96e99FEJXPGTPJfeooN4gHYmCilmRrTkzn4g8qAEGyRDt0wm6YInsmx9+xif
+	 rd8O3rkmX8ysfc4zFHq4wA/m0J4f/7YfynzRHCiIEJaUptPs5dAg6HA8Orde5yumIXsly
+	 vUbVXB7ruxXdV1bGmA4eDJ2AUwrnS0fgQPJ47DHyRLuPmWaktd8ZjQ+Z9oF7cJzQiNfDw
+	 JrelyBhE0LsIKVO4on0dLyFnOXkbzLD4vwYHp5OcHlA87DzfeopVreQyXXbdiMzzckg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m4KpwJ3H;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=KX4t3g0e;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68FDE606AB8F;
-	Fri, 13 Nov 2026 13:20:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D18F9606A8A3;
+	Fri, 13 Nov 2026 13:20:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D18F9606A8A3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m4KpwJ3H
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7642D1F000C4;
-	Fri, 13 Nov 2026 13:20:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794576022;
-	bh=FqUL6WwFMsKVYZsc6fUiuxiEIZc0EI2CRK5bQ4oB51A=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=m4KpwJ3HMu8IEJe37/dqMEBiuIKYQNEiPAErcix/L4S8IBwrVFztu8MraiCZnHIcK
-	 Ug3UaLyoARX6eM1nZr1xhJEL5edMzdsK2EnQ/NhSZ/PF1gFC4zoLEwhJvVI4vn3X0D
-	 HJCFAuvMtMlvMSjmPGQpnXvVbHqLmbKyEwVVJdsUOC57t5uSyP+Pfs82Gjzdr970ua
-	 8oYAJOcSDhh/ZtsQtuy+wpyhhYlJwXKlmucwViObPVOSVLDoMwsowijArswpG+pWz0
-	 DaYnjqrlOGe32d6tS//cF7fsf9/LRTtbKb5v24VpVvsnqSArrMIY4+yf9m39KMTiNa
-	 NY+6B/naH/Biw==
-Message-ID: <78f8179c-89c8-4f26-8fe1-580ec4e73684@kernel.org>
-Date: Fri, 13 Nov 2026 14:20:10 +0100
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=KX4t3g0e
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=j0OFUyWGFsnHOx/jru7yE6httZZaLm6I3BJksdA09jw=; b=KX4t3g0eJVWmTu/lZOhr4WiZLw
+	eBCvGBf9DJXjnXkHFtAmz0vu18yN+3KV/Se0HIulgfV06weLz1jv7ZUHlf2oDwl9J5A49sy5d9kYk
+	wg7lMUpxFrBxFhcq2GNdITdVQdaX47/esrDXL42b/tHRDOJoxFpOj4ja46nxokezBufI=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xRrCW-00GHU2-1L; Fri, 13 Nov 2026 14:20:20 +0100
+Date: Fri, 13 Nov 2026 14:20:20 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Srinivas Neeli <srinivas.neeli@amd.com>
+Cc: Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Michal Simek <michal.simek@amd.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Eric Dumazet <edumazet@kernel.org>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rt-devel@lists.linux.dev, git@amd.com,
+	neelisrinivas18@gmail.com
+Subject: Re: [PATCH net-next v4 1/8] dt-bindings: net: add Xilinx TSN
+ Endpoint Ethernet MAC
+Message-ID: <13864fbe-6cd1-4d70-afee-bd3d3be163f3@lunn.ch>
+References: <20261113-patches_v2_external-v4-0-56bb26f042a4@amd.com>
+ <20261113-patches_v2_external-v4-1-56bb26f042a4@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,109 +78,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 5/5] iommu/of: Add support for "iommu-ranges" on a
- device node
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Vasant Hegde <vasant.hegde@amd.com>,
- Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- David Woodhouse <dwmw2@infradead.org>, Lu Baolu <baolu.lu@linux.intel.com>,
- Jean-Philippe Brucker <jpb@kernel.org>, Rob Herring <robh@kernel.org>,
- Saravana Kannan <saravanak@kernel.org>,
- Tomasz Nowicki <tomasz.nowicki@caviumnetworks.com>,
- Eric Auger <eric.auger@redhat.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Joerg Roedel
- <jroedel@suse.de>, Srinath Mannam <srinath.mannam@broadcom.com>,
- Oza Pawandeep <quic_poza@quicinc.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Alex Williamson <alex@shazbot.org>
-Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
- virtualization@lists.linux.dev, devicetree@vger.kernel.org,
- kvm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-media@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-References: <20261106-add_iommu_ranges-v7-0-5c0f72083e52@oss.qualcomm.com>
- <20261106-add_iommu_ranges-v7-5-5c0f72083e52@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261106-add_iommu_ranges-v7-5-5c0f72083e52@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261113-patches_v2_external-v4-1-56bb26f042a4@amd.com>
 
-On 06/11/2026 18:14, Vikash Garodia wrote:
-> Reserving an IOVA address using "iommu-addresses" requires it to be
-> placed in the reserved-memory node. But when "iommu-addresses" is the
-> only property being described and there is no backing "reg" (i.e. no
-> actual reserved system memory), it does not really belong under
-> /reserved-memory. A device IOVA range is specific to its own address
-> space, and does not describe the system physical memory to make it
-> qualify under reserved-memory. Given this, place "iommu-addresses"
-> inside reserved-memory only when it is paired with a "reg", otherwise,
-> define it within the device own node. It was discussed here:
-> https://lore.kernel.org/all/662f7093-fb0a-4564-9ca0-98e03e68ba9a@kernel.org
-> 
-> Existing "iommu-addresses" property expects a phandle, which does
-> not make sense when the property is defined within the device node.
-> "iommu-ranges" was introduced to specify the device specific IOVA ranges
-> when there is no backing "reg".
-> 
-> Suggested-by: Rob Herring <robh@kernel.org>
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> ---
->  drivers/iommu/of_iommu.c | 107 +++++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 107 insertions(+)
-> 
+> +      xlnx,max-learning-entries:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        minimum: 256
+> +        maximum: 1920
+> +        default: 1920
+> +        description:
+> +          Maximum number of addresses the hardware address learning engine
+> +          can learn on each network port (MAC1 and MAC2). This is the
+> +          MAX_LEARNING_ENTRIES IP configuration parameter, and no register
+> +          reports it. The endpoint port does not take part in hardware
+> +          address learning.
+
+Is this a synthesis parameter? No other switch that i know of has it
+in DT. The driver hard codes the value based on the compatible. Why
+does that not work for you?
+
+> +      mdio-1:
+> +        $ref: /schemas/net/mdio.yaml#
+> +        description:
+> +          MDIO bus controller for MAC1. Registers reside inside the mac1
+> +          reg-names window.
+> +        unevaluatedProperties: false
+> +
+> +      mdio-2:
+> +        $ref: /schemas/net/mdio.yaml#
+> +        description:
+> +          MDIO bus controller for MAC2. Registers reside inside the mac2
+> +          reg-names window.
+> +        unevaluatedProperties: false
+
+How hard coded into the design is the number of ports? The way the DT
+is structured, it does not seem easy to add another port. It is more
+normal to put all port properties within one node, so you just need to
+cookie cutter that node, not add new nodes all other the place.
+
+> +        switch@38000 {
+> +            compatible = "xlnx,tsn-switch";
+> +            reg = <0x38000 0x8000>,
+> +                  <0x00000 0x14000>,
+> +                  <0x20000 0x14000>;
+> +            reg-names = "switch", "mac1", "mac2";
+
+> +            mdio-1 {
+> +                #address-cells = <1>;
+> +                #size-cells = <0>;
+> +                phy0: ethernet-phy@0 {
+> +                    reg = <0>;
+> +                };
+> +            };
+> +
+> +            mdio-2 {
+> +                #address-cells = <1>;
+> +                #size-cells = <0>;
+> +                phy1: ethernet-phy@1 {
+> +                    reg = <1>;
+> +                };
+> +            };
+
+Interesting that this is address 1, where as the other is address 0.
+Just to be sure, there are two fully independent MDIO bus masters?
+
+This 
 
 
-Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
+> +
+> +            ethernet-ports {
+> +                #address-cells = <1>;
+> +                #size-cells = <0>;
+> +
+> +                ethernet-port@0 {
+> +                    reg = <0>;
+> +                    ethernet = <&ep_mac>;
+> +                    phy-mode = "internal";
+> +
+> +                    fixed-link {
+> +                        speed = <1000>;
+> +                        full-duplex;
+> +                    };
+> +                };
+> +
+> +                ethernet-port@1 {
+> +                    reg = <1>;
+> +                    phy-handle = <&phy0>;
+> +                    phy-mode = "rgmii-id";
+> +                };
+> +
+> +                ethernet-port@2 {
+> +                    reg = <2>;
+> +                    phy-handle = <&phy1>;
+> +                    phy-mode = "rgmii-id";
 
-Best regards,
-Krzysztof
+Are these two PHY internal or external? Using rgmii internally is O.K,
+but odd. Normally 'GMII' or 'internal' would be used.
+
+    Andrew
