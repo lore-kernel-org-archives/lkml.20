@@ -1,55 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794582278;
-	b=3P0Q8y5S1Ykc03TSK9PK/PILNlTr4u9NzWJwxB9qepfQCrT2WsmklyzxKPDfWR+z7c4N
-	 /Z6+rwEGehYwRJg6y73Y8VfZaV1mg32viDyTiacREfjZtm+F7JnkCYNjGpsForss0P8fu
-	 xDfaSmQdsOP5YwN5BCJCb98pBOfTxMdoz5CAR5q3WqWVIZMeKc9yvCeI7RuINSQgQCvmL
-	 CFXx8zF9XmgN3uf5jZrebUGXROe33kdOGpeZyGDzVFAB3LfeG2l4CZziKHS+Os9PI9z5i
-	 goRGeXdgjC8QtfR0BGhOjbgx5sQlAxCHjnMkyHEWUOZRyLdj7+UBDCIBievh88vSciA==
+	t=1794582299;
+	b=2VWAh1JwQR7s8No+aPRHTnKC3Y3+gYJL+HhmeNIUZAckGtYTdilt4tExwrAWELajSw4l
+	 6tdpVm+1Eaugg0o/VtAMjep9oQUnPG+aYEgxjJE0Cs0q+pRTZeSulQAmDVGxWgXOup9j3
+	 KgZwdRn6B4z49KzTX9ND+2IISENAQhRkOxYhsVtM5SZmDHTE3R1Rm8fJrtCEgia0Imkmx
+	 VvIRji/DnlD5AXYhuQcQs8LEnUcNgymiKrVWjLy6T4BFYc3u8N1f3bdLz4y8p8WZRKufN
+	 lsuvSkO2xM87fMf3Hup56vstgUra00jP6B4Vob62E1pUmAiRuh7CwH/UQw5B8LWNCHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794582278;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=kbBjRgmT9qgWX9JcAIks0NFFYmbsdb28Bgdoa2Ns/l0=;
-	b=WfN5HIv2niB0RaIBMg35qSHdSpvmZO/lZtNVYOEY7gDdMwWszGjuOxvq38FrUY3D+5KF
-	 uuDp6HKTWekaLKzAVStW4d17SM/AN029K4QSINF6b0McnUXE30QaD8hLD4EAxbg+C4peg
-	 i3HGpx3V+YChk9ZY1EWUTKn2ivwhIf0Dnt41bxN0im/IjpChBJRla+5ZfC4pZjMW2Hhp+
-	 MQ8Emm8lCoTIr34DTRiNadFQ4TF0glxl9lL3NjssaFfI68DIMOeK/9V4b2l7fP1EF+6ji
-	 II4AFjk/hJIxxyfG7cCXJdQTkTBI3lynWt1s76I+fBgCOPnX9vLo1iw3FnWbek46C/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794582299;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=B8r08F7CiB7ffv9nMyjitdMPnpUkVfo5F2a5rSdsPRU=;
+	b=TF9khxjK0Q+rd625ogLkNU+uIQmwYBl3n/1Hc9891zEsCH5IGtk9KzJqs7Paay/XCMiG
+	 J3WluSuLe5hadBXObrieEQBsC/eVprf5Q6N1yHHbDBPsTbqbqPycm/B4JeiYdf88qLyi2
+	 o/EuB24mbSxvPlcnHqY5P6a2EAUzpgK+CzZjJeiFPO4pzNM+tVjChTs4lH8+L1ealEnze
+	 2/qYyctiT3xpG7n4WP5Ms1db27juSyRQXTJyZ0OfQ2cxEtqXrXIGLlDBbiGxvpHqwU5rD
+	 tpaafw3ATGixWXkmUR4tNtWdlS7uu/83skvA5qDWDv7a5Sfg8p0lX9m1oXVZXQpNp7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IrCrDKxV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bYgohbRp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6B26606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:04:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41816606A327;
+	Fri, 13 Nov 2026 15:04:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IrCrDKxV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92AFD1F000D4
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:04:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bYgohbRp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 290F21F000C4;
+	Fri, 13 Nov 2026 15:04:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794582278;
-	bh=kbBjRgmT9qgWX9JcAIks0NFFYmbsdb28Bgdoa2Ns/l0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=IrCrDKxV/9wVP7o1A7Uwwq7KjWFyRCJl3dAQ7/g7gWaijgrPjFRCRmhQlBLdWVcBH
-	 Y0JBHhUopPngdNXRgzXWeyCUbHm2ANpWsFzJs6UoBzYMjNJ9DuO58pg/jwr8b17Aee
-	 MqnJ7Fal6xcUQ6DroTmn7ezlWMbttYPwdkEbnbIMZZClr0LaaNjSyFXp+J/u7zUiEH
-	 X6kVqlDG+lBoaY0er8P3dIrFDfdGFRIOI+jmHy8D1rRS8/+xAdIjpZygXcULlQAbxi
-	 NxZykgby/i4t778qxSQH6v0jKBhX430t8ut1zBjsQpPQhGn83TTnDiuGmjaKqvwnw1
-	 D2VrlneApiEKg==
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3adfc004920so16114691fa.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:04:38 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHcWfHZlaj720pderHiv9h8GwV6i7Xe/79wxK/kzuXyNAFSji9+ezk6ZoLt9Yq67v7ICwHTCJ6DeHaHOrg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/dGFOtehJ5QLwwNe7LPE5OpfOjhSAmPhbXdpq1QeJT3asErYX5
-	gP+SWbknCShVI4qPRzEqBOq36hBrMgHMWcj6i1vb6ZexCWUqQFIoNjip0wzeEN04KtjBdRCoYJ7
-	HfzvpBtZqWrDKJhxrkkbvgYI+85K/zoQ=
-X-Received: by 2002:a05:6512:3c9f:b0:5bf:d0d5:3b12 with SMTP id
- 2adb3069b0e04-5c1709e535bmr1462462e87.42.1794582276836; Fri, 13 Nov 2026
- 07:04:36 -0800 (PST)
+	s=k20260515; t=1794582299;
+	bh=B8r08F7CiB7ffv9nMyjitdMPnpUkVfo5F2a5rSdsPRU=;
+	h=Date:From:To:Cc:Subject;
+	b=bYgohbRpqfTSVPU9py74kJDFrB0f+rwZBzdt09wkyYuwX/owpnqmtCwnyP0WtxIu6
+	 t6J/ZUzwsx4lXy/FFFwBcrD0qPveet4WhZy23dq6GIgCogGPu37gNsFfgRiGvVBPGx
+	 y7PA0KhMP4we7RRsiSrWe1gmJJ2614Ol36yZmZ3Yb3m0ncpXFGJj21TBsUyiY6WQT0
+	 GrbnPkvo+9axP+6urQS5vOX18MwVIMqh+uAd7NzTsUnax9K6PpJmzoees/7RKpFWW3
+	 ++xr61te7pzISob/ApKJS9V5Sb2iYGt6ldvTYOAnwfgXb44OPGpMylPjxdBDfDFISd
+	 IkM4PjDJnY6Qg==
+Date: Fri, 13 Nov 2026 15:04:55 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Arnd Bergmann <arnd@arndb.de>, Thomas Huth <thuth@redhat.com>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: build failure after merge of the asm-generic tree
+Message-ID: <avcnFxad0xS5KrZs@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,331 +55,150 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111220803.3953790-1-sumitg@nvidia.com>
-In-Reply-To: <20261111220803.3953790-1-sumitg@nvidia.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 13 Nov 2026 16:04:24 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0hJExw-TYyF-TtEeuZ9kw3v5cm=H3Q=vLLqQ51V0Xn8Mg@mail.gmail.com>
-X-Gm-Features: AclHuK_uNNKHpJk3ChlalQ1s4LPVs3H0vhMDhZKt2eCu7idDfJ7Nkp1Kg8j37kg
-Message-ID: <CAJZ5v0hJExw-TYyF-TtEeuZ9kw3v5cm=H3Q=vLLqQ51V0Xn8Mg@mail.gmail.com>
-Subject: Re: [PATCH v6] cpufreq: CPPC: Add autonomous mode boot parameter support
-To: Sumit Gupta <sumitg@nvidia.com>
-Cc: rafael@kernel.org, viresh.kumar@linaro.org, zhanjie9@hisilicon.com, 
-	zhenglifeng1@huawei.com, christian.loehle@arm.com, 
-	maciej.wieczor-retman@intel.com, pawel.chmielewski@intel.com, lenb@kernel.org, 
-	corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, 
-	linux-pm@vger.kernel.org, linux-acpi@vger.kernel.org, 
-	acpica-devel@lists.linux.dev, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, treding@nvidia.com, 
-	jonathanh@nvidia.com, vsethi@nvidia.com, ksitaraman@nvidia.com, 
-	sanjayc@nvidia.com, mochs@nvidia.com, bbasu@nvidia.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="zH5JWtwHrMr3/R3d"
+Content-Disposition: inline
 
-On Wed, Nov 11, 2026 at 11:08=E2=80=AFPM Sumit Gupta <sumitg@nvidia.com> wr=
-ote:
->
-> Configuring autonomous selection and Energy Performance Preference (EPP)
-> at every boot currently requires per-policy sysfs writes.
->
-> Add the 'cppc_cpufreq.auto_sel_mode' boot parameter to enable autonomous
-> selection during policy initialization and optionally set EPP. In
-> autonomous mode, the platform selects the performance level within the
-> MIN and MAX limits, which the driver sets from the policy limits. The EPP
-> hint guides that selection.
->
-> The parameter accepts:
-> - performance: enable autonomous selection and set EPP to 0x00
-> - balance_performance: enable it and set EPP to 0x80
-> - balance_power: enable it and set EPP to 0xc0
-> - power: enable it and set EPP to 0xff
-> - default_epp: enable it and preserve firmware EPP
-> - disabled: preserve the firmware configuration (default)
->
-> Warn about unrecognized values and ignore them.
->
-> Skip policies without autonomous-selection support. The driver enables
-> autonomous selection before writing EPP, as the platform may ignore EPP
-> while autonomous selection is disabled.
->
-> Record successful writes so the existing online and resume paths reapply
-> the requested values. The offline and suspend paths restore the saved
-> firmware values, including during driver unload.
->
-> Signed-off-by: Sumit Gupta <sumitg@nvidia.com>
-> ---
-> This is based on the "Preserve OSPM-set registers" [1] and
-> "ospm_nominal_perf" [2] series, which are applied for 7.5.
->
-> v5 -> v6:
-> - Split "Set CPPC Enable register in cpu_init" into a separate fix [3].
-> - Accept strings only (Pierre [4]).
-> - Move the setup into cppc_cpufreq_setup_auto_sel_mode() and check
->   autonomous selection support first (Pierre [4]).
-> - Drop the last_governor check, as init() now runs only for a new
->   policy (Pierre [4]).
-> - Drop the MIN/MAX seeding, Desired hint and policy->min/max override,
->   as init() and the governor already set valid values (Pierre [4]).
-> - Apply the parameter at the end of init(), after the usual
->   performance controls write.
-> - Save auto_sel and EPP through the saved-register code from [1]
->   (Sashiko [5]).
-> - Drop the cppc_cpufreq_exit() loop that cleared auto_sel on all
->   present CPUs (Pierre [4], Sashiko [5]).
-> - Enable autonomous selection before writing EPP.
-> - Set EPP also when firmware has already enabled autonomous selection.
-> - Add the balance_power (0xc0) and power (0xff) modes.
-> - Ignore an unrecognized value instead of treating it as disabled.
->
-> v5: https://lore.kernel.org/lkml/20260623080652.3353386-1-sumitg@nvidia.c=
-om/
-> [1] https://lore.kernel.org/lkml/20261106193304.3347374-1-sumitg@nvidia.c=
-om/
-> [2] https://lore.kernel.org/lkml/20261109195400.3600561-1-sumitg@nvidia.c=
-om/
-> [3] https://lore.kernel.org/lkml/20261110101246.3665797-1-sumitg@nvidia.c=
-om/
-> [4] https://lore.kernel.org/lkml/f61f592a-bc9c-4a83-bde1-e999c8101c36@nvi=
-dia.com/
-> [5] https://sashiko.dev/#/patchset/20260623080652.3353386-1-sumitg@nvidia=
-.com
->
->  .../admin-guide/kernel-parameters.txt         |  26 ++++
->  drivers/cpufreq/cppc_cpufreq.c                | 120 ++++++++++++++++++
->  include/acpi/cppc_acpi.h                      |   2 +
->  3 files changed, 148 insertions(+)
->
-> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentat=
-ion/admin-guide/kernel-parameters.txt
-> index 0b3c140babd9..5714c0d30fce 100644
-> --- a/Documentation/admin-guide/kernel-parameters.txt
-> +++ b/Documentation/admin-guide/kernel-parameters.txt
-> @@ -1015,6 +1015,32 @@ Kernel parameters
->                         Format:
->                         <first_slot>,<last_slot>,<port>,<enum_bit>[,<debu=
-g>]
->
-> +       cppc_cpufreq.auto_sel_mode=3D
-> +                       [ACPI,CPU_FREQ] Enable ACPI CPPC autonomous perfo=
-rmance
-> +                       selection on all CPUs at boot. In autonomous mode=
-, the
-> +                       platform selects the performance level within the=
- CPPC
-> +                       Minimum and Maximum Performance limits. The drive=
-r sets
-> +                       these limits from scaling_min_freq and scaling_ma=
-x_freq.
-> +                       The Energy Performance Preference (EPP) hint guid=
-es the
-> +                       platform toward performance (0x00) or energy effi=
-ciency
-> +                       (0xff).
-> +                       Requires the ACPI CPPC Autonomous Selection Enabl=
-e
-> +                       register. EPP is set only if the platform impleme=
-nts it.
-> +                       Format: <string>
-> +                         performance:
-> +                                 enable autonomous selection, set EPP to=
- 0x00
-> +                         balance_performance:
-> +                                 enable autonomous selection, set EPP to=
- 0x80
-> +                         balance_power:
-> +                                 enable autonomous selection, set EPP to=
- 0xc0
-> +                         power:
-> +                                 enable autonomous selection, set EPP to=
- 0xff
-> +                         default_epp:
-> +                                 enable autonomous selection, keep firmw=
-are EPP
-> +                         disabled:
-> +                                 keep the firmware configuration (defaul=
-t)
-> +                       An unrecognized value is ignored with a warning.
-> +
->         cpuidle.off=3D1   [CPU_IDLE]
->                         disable the cpuidle sub-system
->
-> diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufre=
-q.c
-> index a62589c0674f..c9bed93cf0c9 100644
-> --- a/drivers/cpufreq/cppc_cpufreq.c
-> +++ b/drivers/cpufreq/cppc_cpufreq.c
-> @@ -238,6 +238,58 @@ static void cppc_cpufreq_apply_saved_regs(struct cpu=
-freq_policy *policy,
->                                              saved_type);
->  }
->
-> +/* Autonomous Selection boot parameter modes */
-> +enum {
-> +       AUTO_SEL_MODE_DISABLED,
-> +       AUTO_SEL_MODE_PERFORMANCE,
-> +       AUTO_SEL_MODE_BALANCE_PERFORMANCE,
-> +       AUTO_SEL_MODE_BALANCE_POWER,
-> +       AUTO_SEL_MODE_POWER,
-> +       AUTO_SEL_MODE_DEFAULT_EPP,
-> +};
-> +
-> +static const char * const auto_sel_mode_names[] =3D {
-> +       [AUTO_SEL_MODE_DISABLED]                =3D "disabled",
-> +       [AUTO_SEL_MODE_PERFORMANCE]             =3D "performance",
-> +       [AUTO_SEL_MODE_BALANCE_PERFORMANCE]     =3D "balance_performance"=
-,
-> +       [AUTO_SEL_MODE_BALANCE_POWER]           =3D "balance_power",
-> +       [AUTO_SEL_MODE_POWER]                   =3D "power",
-> +       [AUTO_SEL_MODE_DEFAULT_EPP]             =3D "default_epp",
-> +};
-> +
-> +static int auto_sel_mode;
-> +
-> +static int auto_sel_mode_set(const char *val, const struct kernel_param =
-*kp)
-> +{
-> +       int *mode =3D kp->arg;
-> +       int ret;
-> +
-> +       ret =3D sysfs_match_string(auto_sel_mode_names, val);
-> +       if (ret < 0) {
-> +               pr_warn("Invalid auto_sel_mode \"%s\", ignoring it\n", va=
-l);
-> +               return 0;
-> +       }
-> +
-> +       *mode =3D ret;
-> +       return 0;
-> +}
-> +
-> +static int auto_sel_mode_get(char *buffer, const struct kernel_param *kp=
-)
-> +{
-> +       int *mode =3D kp->arg;
-> +
-> +       return sysfs_emit(buffer, "%s\n", auto_sel_mode_names[*mode]);
-> +}
-> +
-> +static const struct kernel_param_ops auto_sel_mode_ops =3D {
-> +       .set =3D auto_sel_mode_set,
-> +       .get =3D auto_sel_mode_get,
-> +};
-> +
-> +module_param_cb(auto_sel_mode, &auto_sel_mode_ops, &auto_sel_mode, 0444)=
-;
-> +MODULE_PARM_DESC(auto_sel_mode,
-> +                "Autonomous selection mode: performance, balance_perform=
-ance, balance_power, power, default_epp, disabled");
-> +
->  #ifdef CONFIG_ACPI_CPPC_CPUFREQ_FIE
->  static enum {
->         FIE_UNSET =3D -1,
-> @@ -938,6 +990,72 @@ static u32 cppc_cpufreq_effective_nominal(struct cpu=
-freq_policy *policy)
->         return (u32)ospm_nominal;
->  }
->
-> +/*
-> + * Apply the auto_sel_mode boot parameter in init(). Enable autonomous
-> + * selection unless it is already enabled. Then set EPP for the selected=
- mode.
-> + *
-> + * Enable auto_sel before writing EPP, as the platform may ignore EPP wh=
-ile
-> + * autonomous selection is disabled. Save each value written, so that on=
-line()
-> + * and resume() write it again.
-> + */
-> +static void cppc_cpufreq_setup_auto_sel_mode(struct cpufreq_policy *poli=
-cy)
-> +{
-> +       struct cppc_policy_state *st =3D cppc_cpufreq_policy_state(policy=
-);
-> +       struct cppc_cpudata *cpu_data =3D policy->driver_data;
-> +       unsigned int cpu =3D policy->cpu;
-> +       u64 auto_sel, epp;
-> +       int ret;
-> +
-> +       if (auto_sel_mode =3D=3D AUTO_SEL_MODE_DISABLED)
-> +               return;
-> +
-> +       /* U64_MAX means the platform does not implement the register. */
-> +       auto_sel =3D st->regs[CPPC_SAVED_AUTO_SEL][CPPC_SAVED_FIRMWARE];
-> +       if (auto_sel =3D=3D U64_MAX) {
-> +               pr_info_once("Autonomous selection is not supported, igno=
-ring auto_sel_mode\n");
-> +               return;
-> +       }
-> +
-> +       if (!auto_sel) {
-> +               ret =3D cppc_set_auto_sel(cpu, true);
-> +               if (ret) {
-> +                       pr_warn("Failed to enable auto_sel for CPU%u (%d)=
-\n",
-> +                               cpu, ret);
-> +                       return;
-> +               }
-> +               cppc_cpufreq_save_requested(policy, CPPC_SAVED_AUTO_SEL, =
-true);
-> +       }
-> +       cpu_data->perf_ctrls.auto_sel =3D true;
-> +
-> +       switch (auto_sel_mode) {
-> +       case AUTO_SEL_MODE_PERFORMANCE:
-> +               epp =3D CPPC_EPP_PERFORMANCE_PREF;
-> +               break;
-> +       case AUTO_SEL_MODE_BALANCE_PERFORMANCE:
-> +               epp =3D CPPC_EPP_BALANCE_PERFORMANCE_PREF;
-> +               break;
-> +       case AUTO_SEL_MODE_BALANCE_POWER:
-> +               epp =3D CPPC_EPP_BALANCE_POWER_PREF;
-> +               break;
-> +       case AUTO_SEL_MODE_POWER:
-> +               epp =3D CPPC_EPP_ENERGY_EFFICIENCY_PREF;
-> +               break;
-> +       default:
-> +               /* default_epp keeps the EPP value set by firmware. */
-> +               return;
-> +       }
-> +
-> +       /* EPP is optional. */
-> +       ret =3D cppc_set_epp(cpu, epp);
-> +       if (ret) {
-> +               if (ret !=3D -EOPNOTSUPP)
-> +                       pr_warn("Failed to set EPP for CPU%u (%d)\n", cpu=
-, ret);
-> +               return;
-> +       }
-> +       cpu_data->perf_ctrls.energy_perf =3D epp;
-> +       cppc_cpufreq_save_requested(policy, CPPC_SAVED_EPP, epp);
-> +}
-> +
->  static int cppc_cpufreq_cpu_init(struct cpufreq_policy *policy)
->  {
->         unsigned int cpu =3D policy->cpu;
-> @@ -1058,6 +1176,8 @@ static int cppc_cpufreq_cpu_init(struct cpufreq_pol=
-icy *policy)
->         }
->         cpu_data->perf_limits_valid =3D true;
->
-> +       cppc_cpufreq_setup_auto_sel_mode(policy);
-> +
->         cppc_cpufreq_cpu_fie_init(policy);
->         return 0;
->
-> diff --git a/include/acpi/cppc_acpi.h b/include/acpi/cppc_acpi.h
-> index 2cec54b4d2e2..3d47c07f494b 100644
-> --- a/include/acpi/cppc_acpi.h
-> +++ b/include/acpi/cppc_acpi.h
-> @@ -42,6 +42,8 @@
->  #define CPPC_AUTO_ACT_WINDOW_SIG_CARRY_THRESH 129
->
->  #define CPPC_EPP_PERFORMANCE_PREF              0x00
-> +#define CPPC_EPP_BALANCE_PERFORMANCE_PREF      0x80
-> +#define CPPC_EPP_BALANCE_POWER_PREF            0xC0
->  #define CPPC_EPP_ENERGY_EFFICIENCY_PREF                0xFF
->
->  #define CPPC_PERF_LIMITED_DESIRED_EXCURSION    BIT(0)
-> --
 
-Applied as 7.5 material, thanks!
+--zH5JWtwHrMr3/R3d
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+Hi all,
+
+After merging the asm-generic tree, today's linux-next build
+(arm64 kselftest) failed like this:
+
+  CC       vdso_test_chacha
+/usr/include/asm-generic/int-ll64.h: Assembler messages:
+/usr/include/asm-generic/int-ll64.h:20: Error: unknown mnemonic `typedef' -- `typedef __signed__ char __s8'
+/usr/include/asm-generic/int-ll64.h:21: Error: unknown mnemonic `typedef' -- `typedef unsigned char __u8'
+/usr/include/asm-generic/int-ll64.h:23: Error: unknown mnemonic `typedef' -- `typedef __signed__ short __s16'
+/usr/include/asm-generic/int-ll64.h:24: Error: unknown mnemonic `typedef' -- `typedef unsigned short __u16'
+/usr/include/asm-generic/int-ll64.h:26: Error: unknown mnemonic `typedef' -- `typedef __signed__ int __s32'
+/usr/include/asm-generic/int-ll64.h:27: Error: unknown mnemonic `typedef' -- `typedef unsigned int __u32'
+/usr/include/asm-generic/int-ll64.h:30: Error: unknown mnemonic `__extension__' -- `__extension__ typedef __signed__ long long __s64'
+/usr/include/asm-generic/int-ll64.h:31: Error: unknown mnemonic `__extension__' -- `__extension__ typedef unsigned long long __u64'
+/usr/include/linux/posix_types.h:25: Error: unknown mnemonic `typedef' -- `typedef struct{'
+/usr/include/linux/posix_types.h:26: Error: unknown mnemonic `unsigned' -- `unsigned long fds_bits[1024/(8*sizeof(long))]'
+/usr/include/linux/posix_types.h:27: Error: junk at end of line, first unrecognized character is `}'
+/usr/include/linux/posix_types.h:30: Error: unknown mnemonic `typedef' -- `typedef void(*__kernel_sighandler_t)(int)'
+/usr/include/linux/posix_types.h:33: Error: unknown mnemonic `typedef' -- `typedef int __kernel_key_t'
+/usr/include/linux/posix_types.h:34: Error: unknown mnemonic `typedef' -- `typedef int __kernel_mqd_t'
+/usr/lib/linux/uapi/arm64/asm/posix_types.h:5: Error: unknown mnemonic `typedef' -- `typedef unsigned short __kernel_old_uid_t'
+/usr/lib/linux/uapi/arm64/asm/posix_types.h:6: Error: unknown mnemonic `typedef' -- `typedef unsigned short __kernel_old_gid_t'
+/usr/include/asm-generic/posix_types.h:15: Error: unknown mnemonic `typedef' -- `typedef long __kernel_long_t'
+/usr/include/asm-generic/posix_types.h:16: Error: unknown mnemonic `typedef' -- `typedef unsigned long __kernel_ulong_t'
+/usr/include/asm-generic/posix_types.h:20: Error: unknown mnemonic `typedef' -- `typedef __kernel_ulong_t __kernel_ino_t'
+/usr/include/asm-generic/posix_types.h:24: Error: unknown mnemonic `typedef' -- `typedef unsigned int __kernel_mode_t'
+/usr/include/asm-generic/posix_types.h:28: Error: unknown mnemonic `typedef' -- `typedef int __kernel_pid_t'
+/usr/include/asm-generic/posix_types.h:32: Error: unknown mnemonic `typedef' -- `typedef int __kernel_ipc_pid_t'
+/usr/include/asm-generic/posix_types.h:36: Error: unknown mnemonic `typedef' -- `typedef unsigned int __kernel_uid_t'
+/usr/include/asm-generic/posix_types.h:37: Error: unknown mnemonic `typedef' -- `typedef unsigned int __kernel_gid_t'
+/usr/include/asm-generic/posix_types.h:41: Error: unknown mnemonic `typedef' -- `typedef __kernel_long_t __kernel_suseconds_t'
+/usr/include/asm-generic/posix_types.h:45: Error: unknown mnemonic `typedef' -- `typedef int __kernel_daddr_t'
+/usr/include/asm-generic/posix_types.h:49: Error: unknown mnemonic `typedef' -- `typedef unsigned int __kernel_uid32_t'
+/usr/include/asm-generic/posix_types.h:50: Error: unknown mnemonic `typedef' -- `typedef unsigned int __kernel_gid32_t'
+/usr/include/asm-generic/posix_types.h:59: Error: unknown mnemonic `typedef' -- `typedef unsigned int __kernel_old_dev_t'
+/usr/include/asm-generic/posix_types.h:72: Error: unknown mnemonic `typedef' -- `typedef __kernel_ulong_t __kernel_size_t'
+/usr/include/asm-generic/posix_types.h:73: Error: unknown mnemonic `typedef' -- `typedef __kernel_long_t __kernel_ssize_t'
+/usr/include/asm-generic/posix_types.h:74: Error: unknown mnemonic `typedef' -- `typedef __kernel_long_t __kernel_ptrdiff_t'
+/usr/include/asm-generic/posix_types.h:79: Error: unknown mnemonic `typedef' -- `typedef struct{'
+/usr/include/asm-generic/posix_types.h:80: Error: unknown mnemonic `int' -- `int val[2]'
+/usr/include/asm-generic/posix_types.h:81: Error: junk at end of line, first unrecognized character is `}'
+/usr/include/asm-generic/posix_types.h:87: Error: unknown mnemonic `typedef' -- `typedef __kernel_long_t __kernel_off_t'
+/usr/include/asm-generic/posix_types.h:88: Error: unknown mnemonic `typedef' -- `typedef long long __kernel_loff_t'
+/usr/include/asm-generic/posix_types.h:89: Error: unknown mnemonic `typedef' -- `typedef __kernel_long_t __kernel_old_time_t'
+/usr/include/asm-generic/posix_types.h:90: Error: unknown mnemonic `typedef' -- `typedef __kernel_long_t __kernel_time_t'
+/usr/include/asm-generic/posix_types.h:91: Error: unknown mnemonic `typedef' -- `typedef long long __kernel_time64_t'
+/usr/include/asm-generic/posix_types.h:92: Error: unknown mnemonic `typedef' -- `typedef __kernel_long_t __kernel_clock_t'
+/usr/include/asm-generic/posix_types.h:93: Error: unknown mnemonic `typedef' -- `typedef int __kernel_timer_t'
+/usr/include/asm-generic/posix_types.h:94: Error: unknown mnemonic `typedef' -- `typedef int __kernel_clockid_t'
+/usr/include/asm-generic/posix_types.h:95: Error: unknown mnemonic `typedef' -- `typedef char*__kernel_caddr_t'
+/usr/include/asm-generic/posix_types.h:96: Error: unknown mnemonic `typedef' -- `typedef unsigned short __kernel_uid16_t'
+/usr/include/asm-generic/posix_types.h:97: Error: unknown mnemonic `typedef' -- `typedef unsigned short __kernel_gid16_t'
+/usr/include/linux/types.h:12: Error: unknown mnemonic `typedef' -- `typedef __signed__ __int128 __s128 __attribute__((aligned(16)))'
+/usr/include/linux/types.h:13: Error: unknown mnemonic `typedef' -- `typedef unsigned __int128 __u128 __attribute__((aligned(16)))'
+/usr/include/linux/types.h:31: Error: unknown mnemonic `typedef' -- `typedef __u16 __le16'
+/usr/include/linux/types.h:32: Error: unknown mnemonic `typedef' -- `typedef __u16 __be16'
+/usr/include/linux/types.h:33: Error: unknown mnemonic `typedef' -- `typedef __u32 __le32'
+/usr/include/linux/types.h:34: Error: unknown mnemonic `typedef' -- `typedef __u32 __be32'
+/usr/include/linux/types.h:35: Error: unknown mnemonic `typedef' -- `typedef __u64 __le64'
+/usr/include/linux/types.h:36: Error: unknown mnemonic `typedef' -- `typedef __u64 __be64'
+/usr/include/linux/types.h:38: Error: unknown mnemonic `typedef' -- `typedef __u16 __sum16'
+/usr/include/linux/types.h:39: Error: unknown mnemonic `typedef' -- `typedef __u32 __wsum'
+/usr/include/linux/types.h:55: Error: unknown mnemonic `typedef' -- `typedef unsigned __poll_t'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:88: Error: unknown mnemonic `struct' -- `struct user_pt_regs{'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:89: Error: unknown mnemonic `__u64' -- `__u64 regs[31]'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:90: Error: unknown mnemonic `__u64' -- `__u64 sp'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:91: Error: unknown mnemonic `__u64' -- `__u64 pc'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:92: Error: unknown mnemonic `__u64' -- `__u64 pstate'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:93: Error: junk at end of line, first unrecognized character is `}'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:95: Error: unknown mnemonic `struct' -- `struct user_fpsimd_state{'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:96: Error: unknown mnemonic `__uint128_t' -- `__uint128_t vregs[32]'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:97: Error: unknown mnemonic `__u32' -- `__u32 fpsr'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:98: Error: unknown mnemonic `__u32' -- `__u32 fpcr'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:99: Error: unknown mnemonic `__u32' -- `__u32 __reserved[2]'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:100: Error: junk at end of line, first unrecognized character is `}'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:102: Error: unknown mnemonic `struct' -- `struct user_hwdebug_state{'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:103: Error: unknown mnemonic `__u32' -- `__u32 dbg_info'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:104: Error: unknown mnemonic `__u32' -- `__u32 pad'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:105: Error: unknown mnemonic `struct' -- `struct {'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:106: Error: unknown mnemonic `__u64' -- `__u64 addr'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:107: Error: unknown mnemonic `__u32' -- `__u32 ctrl'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:108: Error: unknown mnemonic `__u32' -- `__u32 pad'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:109: Error: junk at end of line, first unrecognized character is `}'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:110: Error: junk at end of line, first unrecognized character is `}'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:114: Error: unknown mnemonic `struct' -- `struct user_sve_header{'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:115: Error: unknown mnemonic `__u32' -- `__u32 size'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:116: Error: unknown mnemonic `__u32' -- `__u32 max_size'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:117: Error: unknown mnemonic `__u16' -- `__u16 vl'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:118: Error: unknown mnemonic `__u16' -- `__u16 max_vl'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:119: Error: unknown mnemonic `__u16' -- `__u16 flags'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:120: Error: unknown mnemonic `__u16' -- `__u16 __reserved'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:121: Error: junk at end of line, first unrecognized character is `}'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:253: Error: unknown mnemonic `struct' -- `struct user_pac_mask{'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:254: Error: unknown mnemonic `__u64' -- `__u64 data_mask'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:255: Error: unknown mnemonic `__u64' -- `__u64 insn_mask'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:256: Error: junk at end of line, first unrecognized character is `}'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:260: Error: unknown mnemonic `struct' -- `struct user_pac_address_keys{'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:261: Error: unknown mnemonic `__uint128_t' -- `__uint128_t apiakey'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:262: Error: unknown mnemonic `__uint128_t' -- `__uint128_t apibkey'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:263: Error: unknown mnemonic `__uint128_t' -- `__uint128_t apdakey'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:264: Error: unknown mnemonic `__uint128_t' -- `__uint128_t apdbkey'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:265: Error: junk at end of line, first unrecognized character is `}'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:267: Error: unknown mnemonic `struct' -- `struct user_pac_generic_keys{'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:268: Error: unknown mnemonic `__uint128_t' -- `__uint128_t apgakey'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:269: Error: junk at end of line, first unrecognized character is `}'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:273: Error: unknown mnemonic `struct' -- `struct user_za_header{'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:274: Error: unknown mnemonic `__u32' -- `__u32 size'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:275: Error: unknown mnemonic `__u32' -- `__u32 max_size'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:276: Error: unknown mnemonic `__u16' -- `__u16 vl'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:277: Error: unknown mnemonic `__u16' -- `__u16 max_vl'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:278: Error: unknown mnemonic `__u16' -- `__u16 flags'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:279: Error: unknown mnemonic `__u16' -- `__u16 __reserved'
+/usr/lib/linux/uapi/arm64/asm/ptrace.h:280: Error: junk at end of line, first unrecognized character is `}'
+make[1]: *** [../lib.mk:230: /tmp/next/arm64_kselftest/kselftest/vDSO/vdso_test_chacha] Error 1
+
+Caused by commit
+
+   625b37748a148 (treewide: Stop defining __ASSEMBLY__ for assembler files)
+
+I have used the tree from next-20261112 instead.
+
+--zH5JWtwHrMr3/R3d
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr3JxYACgkQJNaLcl1U
+h9DcTAgAgzSMmq47eN/JS2TLfCVr8CsTcM2Am3diWK9vj9Z3gJ4GaZk7RXtXx/to
+fsS85Eju1VSEF9eFMHRBNEpMq8uV4Zyv1iIvDERxuFB0QgSdIgRsR64VDyA1WFMG
+PhI+9H3SEcpNFRH5PVeR4aLxapAPM+1Z+b2l6n1q9lYk3wKBs3AOxRVSVBhkNUeY
+R6gEcrrGLH8H+CxUJG9h5qf42QCytSwSmb1gAtLJ+dO3Tjj4sm5PhPMsBqzP8qEa
+QKS6aCznmAp99LPQ4RMuayHXLYXWMuVtgwo9Q+DEu/oPpWhs6ua+dW4/6BG9I57I
+dEAIskZUJdbybKrfKjPF1oY80DBZHA==
+=/PK9
+-----END PGP SIGNATURE-----
+
+--zH5JWtwHrMr3/R3d--
