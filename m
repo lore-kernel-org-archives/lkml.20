@@ -1,101 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.171
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794539862;
-	b=EHSXgv55KNns1owQyzDmaVMbj3wBDcT5xEFfrHf6h/Y1b4rtJpc/edpJhTua8qS79tcm
-	 AurPI73Ef2wDi0izRWe7xm1bmRSLgzCSM1I3eL+Vge+5L0oc7zSxYgjJCXER1bjp+3cYo
-	 t1KInjEAs2S1oIgsGH/Vo34RZySUUf2RnolYIjGiDLxPXfrykXuuO9D/QSRUKSJivglN0
-	 CFQdwQnvT3t9L20hfunij7Eyp9MnfSf+8A6O7YujBMM96rLX6Sw0H/jkBx5nFPH42imQ/
-	 qDbm8MpCO1RLCreqLnnDXCARxZpguLaIkhRYN+DiR+L1x7S8/DsJUNk97FG5m5X179Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794539862;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=n5967ZDHxZDdRDcuY4ilKzGF/DOGAuv3g8MurJqoARQ=;
-	b=LGFpWBJXUu21NBfrlylN7bXxW+FkFu3FZSbyjhE85zolrEgtH2kvCD0doBazgbEKCMKD
-	 X4CX7wk+dgAUlj5ufwmG90XYS9tl3k5Tv8OsveeVQpUOHE/KfgY0tHyqeHKL84bkPGcNt
-	 30zf/HDrZVvhrB2TDpkSx6HJnXfln+wcGLAmqWA/PG50b9YuhQ9IiIeJqiC84IpeFUZtw
-	 aSdqupNMDPnW0yFtcP4Y9bLtPV0S2A6J34rHB6R5kHwKNObeNVFLcvmW1B5oPvRhudxkW
-	 kiPskFZ/fnT39eEPeF7C2TxELi1A4Byq7i/N+/lO2rb2urwDHi074aK3/D1hnUNhDUw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=kacws6zS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.171
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794539895;
+	b=SJLVQD0DMjwLY8BjD6kwL0wSIty0efQtVuc5/sD+DCtBh+JKslFNiy5zsW24LqSzKxVk
+	 m0P3+pnta5wxmhm7XaxB9dVKzHIHi2cu5Xgv3wYGsPJY0EuaZEwaw9H+wz2UCYN2h73eX
+	 9TCnlfV54V3epIAy4CeWYPCQOkwpfHQtQvW3OnW6JE6hHZASydCUBRhmekNIULes4i+7H
+	 CMRNixzqvVvvpfSLVeJWFhiCa4X+FN+7p6xMQhn8pyvTo/veHN2VK6ZCe5kaUyAuyGFYv
+	 L0zBugbHJuKqU7EE3NFtijYI/6L/vX7kSjfg4bWsqtygGMMSQGvE/1t0WCBasUuaq+Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794539895;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=nWc0P3UFTmQDnMEzGX9xP/Vkt43l2zO1TjQschvRNFw=;
+	b=QsTyYcvxKjyDht2sz2TdqEbWCAxQNBI9Oz5pdwY3dJCgpKJI0J2Mj/ApoKbg5NPDLBmk
+	 jUhL1Ujr/MeNnr0TKpVT9DQrhp2Kn05oH2KNQ+qitBIGAMGIqrJOJPeVAys6nIIingFXk
+	 Em9BeQvbk/iBH444igCelQKZVOXoWTftVhk8WjU7vacGCTfhOFXJSLyX9WLBnRyWtXdQc
+	 4FgPD5jfTEXaIP1anlf12zLy1/PMMnSvLBN3DdKkCS5/i9xVbxANW4LXAfmB5+AGE8Xi2
+	 g8SQx75QanApLSWYYnljYkhH5DcSUNxUa6fIq0igtK/eD2l605G8qTdncOWKQpePRuw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=SkHtkpHe;
+	arc=none smtp.remote-ip=220.197.31.3
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F206B606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:17:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F206B606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9DF2606A323;
+	Fri, 13 Nov 2026 03:18:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9DF2606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=kacws6zS
-Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-5383c97c8cfso105941cf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 19:17:41 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794539861; cv=none;
-        d=google.com; s=arc-20260327;
-        b=AsfPweGOTOSIRZ6FGnckzzUk6psU/hE0UVcThT3ILnPWqWw/N7cwC8J3DN8xiOCARp
-         2Kg4CnUQLNZquJmO0gRw2dTJAZBbZPOWwEgtJTobH3MkF1gz+xEtmWkx5mS6YmAEdVKh
-         a43nH1pytpR8YSwzqoEmmH0M11DhdwDluGTIoOtQT0NYCzWTsaaDj+FXn4kpT44eSlYM
-         HiBzxSTknsBLft0lQc+Xu8fuFCDvd3+QrOsb9IpTYwm3I6XaetEKL1+FBLclKGl0f2SS
-         pX09yhHwOuznu5U33H4ERQPg3ndGf09wfT7iwNIsZrpb66NELsPTlOVrpPxDtnIV8mof
-         hlCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=n5967ZDHxZDdRDcuY4ilKzGF/DOGAuv3g8MurJqoARQ=;
-        fh=dni5XrcwRU9TEtA/9LVdpmP80RE9Z754j6uxYGyUSYc=;
-        b=XIF0/hqfzRfMHe7vRNRcnQTWMVAM2WGOOSnqihB0/Iexz3n3+n5Bjq/lNB2Hy48lWf
-         J+GiKc+bMFJuqs2YVuDtxUtSMd+lq9IMItBhbo9Oo3Bubl6TqqQj4sw8SDy7Yy98rtkL
-         d7It+v8EqVaQoP72BQbndNbYDIfy6yTJss/fbxfTkVIRGqbw+v6kcZshUnoOlu1Qkgue
-         32RrCKRbUtHCubt6b66Bwl0dzVHfFAlsesHSlM/dYDhcOyVM/MDBdV5aNEL++Do3neXg
-         g40a2pdk5Fo6PIWYxpF+jrfR8PtMsjWqQ6/TF9f6lQHCsgNENfvS1T7GWGgxnRZAorSb
-         ZTZg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794539861; x=1795144661; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=n5967ZDHxZDdRDcuY4ilKzGF/DOGAuv3g8MurJqoARQ=;
-        b=kacws6zS3CUOml5rgSdg5Iy/JIAu/IqgMh0TTw942+GgstlfOTYQXqmSOCcYRIMSSs
-         By37LIJToULz2MSya5/aju0y8rtGK2ylVUzOQgiyxfP1rMNobgbhfSXe5BG4AE6y4ok+
-         HtZMOySBK2CHpmTv+iJpW2X7KjG37HpTgrTpoelkd+r1T0TYDiPJRf+kdYeofRq/M4FS
-         8Jfx+LTfeScilR+uMOTQfcnqe3srE5WbfnGY9NhHEXslham6nsM31YJIBGUPVQFgCKJ3
-         xpIK0MyTqMkJVVcMKx/Os123vHcDqnBXFSZKxQCWt/ZkTAejO1AwDMUwWSKHeWvWiMWb
-         ePEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794539861; x=1795144661;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=n5967ZDHxZDdRDcuY4ilKzGF/DOGAuv3g8MurJqoARQ=;
-        b=U0aR3tCYh+1bRBisrEHBZuuaaChOYdGC1ohZbW99M43kqI2sGR+iIO1Oiav+0oDp7w
-         Inq1+lAiiG7iB1AI/TC1I94kdCtDdGFSVXmlVEx8w4tSScfEtEX5YF6PasURm+D5DqwB
-         E0n/IYALfc+zt9sRWgIxNICGtEUM/GQYcQGwOCdUBUGlhIrjn8oN4gjr8kG+y6bCrpRk
-         +MM6XdVp/+2MiJRXlE/8LTI7npTMI6dcnVbO9Ha1IANiKsD/b7oZSyro6QpgcEnsssg+
-         9sheRNcUiLbEknmgevDSmc+SCn7oX7S0RGEXbnAs0FhQc57+TTQUP3bP3NPPe5nU1CnW
-         aufA==
-X-Forwarded-Encrypted: i=1; AL+hErHrOi7XKMW2fq6s8t027FQndRGpWCICl6x7OSpftfzPpQzqPtQoGi/k0UdY3JGpzMstxyUoEbiB1/HENn8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+qS7lKC8+nAKTOzmvykteGH82twYM3A0VLgQU3Qx1ajuXcJusu
-	isB31OVaSpiZtG+quAOseKsrgkI9FQy39AXNRGWqgLS0pXmQg2n6URlZOLjKcAYpSdM1Wpm9H3P
-	/brtuKzf0FJX1zsqRvCiigdINNGYPwykW4L6CjkdChUh3FzL9dbaZ0TWhI0Q=
-X-Gm-Gg: AYBFou2KxP2f53HxGlCtZ/F6c3kPkD+JoDDUiPmL4p+Q6t9UX0duP2Z7EK1jHNt4FXm
-	1d5Y5I6VI1FnqzJLWLMbogyLrctT/wVxTy1emuzX5aVFbM4Z3Tigfg539gqEOC+FKX2oXa7Or/l
-	2PixmbeZFwfwgQ/R48sjbNkq+SLt01IsCrTUw5KFXGjZ8pHfQFSPsmCJYL/04GL5ew74SzUu8uE
-	yL9y1HUzQt1OIqMXDgla2nzH8VfnT3hnWl8T0ff2kHDxrmjTenW3WkgjPh4rnDo7gppRG19V12w
-	aJ1m4qa54DWtXKcegxa5KkOpbd8R1frvfmpvfVHrBugMZfYuJYLC3wVxLYhrXLWvepIPQAU4arM
-	e04szBMX3lZwWcJ0LSmOOB5ZPHQ0MOsamev/vYF0zL6pBgHEOCJtnMORIsx4tLKv6PgU0fRUuI+
-	la3wb55pYjUkR1pvPr
-X-Received: by 2002:a05:622a:408d:b0:530:e335:4ef with SMTP id
- d75a77b69052e-55ad7e74d7dmr3502411cf.2.1794539860114; Thu, 12 Nov 2026
- 19:17:40 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=SkHtkpHe
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
+	Content-Type; bh=nWc0P3UFTmQDnMEzGX9xP/Vkt43l2zO1TjQschvRNFw=;
+	b=SkHtkpHe9wM7wgDnQK6Qoe9I9l8fg5eO32VI8Z1bz2QqC/p1UyynDqK0mnEIhn
+	i85mUDWMKZBnnXr5UunAJ8OpoVbr3cIxsV5443gtc+PiMXz0gdEvkCCNParCD70U
+	QomXl5BziBGv/g6h/etTMqfTE/0Md0fnoxZg7kAF2awdw=
+From: Chaosheng Qu <quchaosheng000406@163.com>
+To: netdev-bot+sashiko@kernel.org
+Cc: Robin van der Gracht <robin@protonic.nl>, Oleksij Rempel <o.rempel@pengutronix.de>, Oliver Hartkopp <socketcan@hartkopp.net>, Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de, linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>
+Subject: Re: [PATCH net v9 1/4] can: j1939: serialize cancel and rearm of the receive timer
+Date: Fri, 13 Nov 2026 11:17:24 +0800
+Message-ID: <179453984495.31919.9405526133383541519@163.com>
+In-Reply-To: <179453125694.488853.2205573161282115259@kernel.org>
+References: <20261111-j1939-edpo-v9-v9-1-e779ca334a81@163.com> <179453125694.488853.2205573161282115259@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,62 +57,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261112140101.647-1-adrianhuang0701@gmail.com>
- <20261112183727.68afda9533aff699eea12cdd@linux-foundation.org> <CAJuCfpEqQQb1_UkWH50tgbdVz9KZ2anfCGWsvvoYFsnC_KHcjg@mail.gmail.com>
-In-Reply-To: <CAJuCfpEqQQb1_UkWH50tgbdVz9KZ2anfCGWsvvoYFsnC_KHcjg@mail.gmail.com>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Thu, 12 Nov 2026 19:17:26 -0800
-X-Gm-Features: AclHuK_2-9zUyKpx_ep8Hdpnolqj806Xeb68SWZdKXrDA-5ZStmcnD2-HIkJzN0
-Message-ID: <CAJuCfpH57DNEb5ckB_c4QTWiiHVGSHNhB=S6HFdjvJ6GgGNSnw@mail.gmail.com>
-Subject: Re: [PATCH mm-unstable 1/1] fs/proc/task_mmu: advance seq_file
- position on interrupted VMA lookup
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: "Adrian Huang (Lenovo)" <adrianhuang0701@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, 
-	Pedro Falcato <pfalcato@suse.de>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, ahuang12@lenovo.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3P6ZYgfZq7eHFGw--.4133S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWw47Cr13Kry8uF18Xr18Krg_yoWrJr1xpF
+	W3Kry7tr4DGr4F9w4xZF18XryS9r4fJr4fX3W7Kry3A398CF4jvFy5K3y0gFZrAr97u34a
+	9a1jg3sxWFs0ya7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Uelk3UUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5BvORGr2gVs8wgAA3N
 
-On Thu, Nov 12, 2026 at 7:13=E2=80=AFPM Suren Baghdasaryan <surenb@google.c=
-om> wrote:
->
-> On Thu, Nov 12, 2026 at 6:37=E2=80=AFPM Andrew Morton <akpm@linux-foundat=
-ion.org> wrote:
-> >
-> > On Thu, 12 Nov 2026 22:01:01 +0800 "Adrian Huang (Lenovo)" <adrianhuang=
-0701@gmail.com> wrote:
-> >
-> > > Commit 5631da56c9a8 ("fs/proc/task_mmu: read proc/pid/maps under
-> > > per-vma lock") introduced the possibility of returning -EINTR
-> > > from proc_get_vma() when the VMA lookup is interrupted.
-> >
-> > OK, but what's causing the interruption?
-> >
-> > > When this happens in m_next(), proc_get_vma() returns an error
-> > > pointer without updating the position index. Consequently,
-> > > seq_read_iter() reports:
-> > >
-> > >   seq_file: buggy .next function m_next did not update position index
-> > >
-> > > The above buggy message is reproduced by the following command:
-> > >
-> > >   # stress-ng --vma 0 -t 60
-> >
-> > afaict "stress-ng -t" can send SIGALRM, but mmap_read_lock_killable()
-> > only responds to fatal signals.
-> >
-> > So please clarify: exactly what is causing this to happen?
->
-> Also I don't think stress-ng --vma 0 -t 60 command reads maps, smaps
-> or smaps_rollup files by itself but I might be mistaken. It would be
-> nice to get more details on how this gets reproduced.
+Hi,
 
-Just after sending this I found
-https://github.com/ColinIanKing/stress-ng/blob/master/stress-vma.c#L536,
-so I stand corrected. Still, it would be nice to know how exactly this
-issue is reproduced.
+Replying once for the series rather than per patch.
 
->
-> >
-> >
+1/4
+
+The High holds. hrtimer_try_to_cancel() returns -1 while the callback runs
+and leaves alone a timer that was requeued from inside it, so an arm that
+races the expiry still takes a second reference for a single queued timer.
+The list lock does not help, because the running callback sits on the other
+side of it.
+
+The three Mediums hold as well. Deactivating on a WAITING_ABORT cancel does
+leave the abort rxtimer queued on a DONE session, and that expiry takes the
+generic else branch and queues a second RX_ABORT. j1939_tp_rxtimer() reads
+session->state before taking the lock, and with try_to_cancel() no longer
+waiting, a concurrent cancel can change state underneath it; the callback
+then calls __j1939_session_cancel() again, which puts a second abort frame on
+the bus and overwrites session->err. And the message is wrong in two places:
+before this patch j1939_session_cancel() called j1939_tp_set_rxtimeout(), it
+did not hand-roll get + hrtimer_start(), only j1939_tp_rxtimer() did; and it
+replaces the 1809c82aa073 workaround without saying so.
+
+The pre-existing txtimer leak is real too: j1939_tp_schedule_txtimer() takes
+a reference per hrtimer_start() with no cancel in front, and the do_cts_eoma
+path in j1939_xtp_rx_dat_one() calls it that way, so duplicate DAT frames in
+one softirq batch leak the same reference.
+
+So 1/4 needs the reference pinned across the whole queued and running
+lifetime of the timer, not the queued part alone: a flag owned by
+active_session_list_lock, where the clear-to-set transition takes the
+reference and the callback drops it, and both armers and the callback test it
+under the lock. That also fixes the state check in j1939_tp_rxtimer() and
+lets the WAITING_ABORT deactivate go away. It is a rewrite, not another pass
+at this hunk, so it will not be a v10 tomorrow. Zihan Xi is working the same
+reference-lifetime problem and Oleksij has asked him to sync with Tetsuo; I
+will see where that lands before sending and say so in the cover letter.
+
+2/4
+
+The abort code rests on a false premise. J1939_ECU_LOCAL_SRC is set from the
+source address alone in j1939_can_recv(), so a second node using our address,
+or a raw frame injected on the interface, is delivered to the transmitter
+session. It sent no CTS, yet the session is aborted with ECTS_TOO_BIG and
+that reason goes out on the bus. Once j1939_xtp_rx_cts_one() bounds the
+packet number, pkt.tx_acked cannot exceed pkt.total - 1, so the next version
+uses BAD_EDPO_OFFSET for both roles and drops the split. The comment will
+name j1939_xtp_rx_cts_one() instead of "4/4", and the "bounds the
+receiver-side writer only" wording goes.
+
+4/4
+
+The changelog describes the wrong current behaviour. An oversized
+ETP.CM_CTS already ends in ECTS_TOO_BIG: j1939_xtp_rx_cts_one() stores pkt-1
+in pkt.tx_acked, j1939_session_tx_dpo() copies it into the DPO, and the local
+echo reaches the transmitter branch with session->transmission set. What
+changes is that the out-of-range DPO is no longer sent on the bus. The visible
+change is the TP case: there is no DPO, so pkt.tx >= pkt.total made
+j1939_session_tx_dat() return -ENOBUFS and the session ran until the 1250ms
+rxtimer aborted with TIMEOUT or the retry limit ended it with -ENETUNREACH.
+That leads the new changelog. The comment and the role split follow 2/4.
+
+3/4
+
+Both nits accepted: WARN_ON_ONCE(!se_skb) and session->err = -EBADMSG instead
+of the silent drop, and the comment in j1939_xtp_rx_dpo_one() rewritten as
+part of the EDPO patch.
+
+Thanks,
+Chaosheng
+
+pw-bot: cr
+
