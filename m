@@ -1,76 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.236
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794532723;
-	b=dxmteGGRSuvTLFPQcAV7YPI4NNHk8bLH7aPdBTe9IkWIOC7bzvHMkoLFPLSVtktd1shZ
-	 af8CrnzW0Cu/0b3dFLWPMIbRyIQCnOO/l3LNeMYNt+ct+w04jmvYNR10JTJQvpZGe0Uua
-	 VQDacM1CMFVN1eVLxtgX6zmQUeIJmbX+NwwpQGYPq90gTJ1JTlD288HuksU6xmIbX/F9u
-	 6QkRBw34gwT1xLTC9CWiAKzcpWo3z4sn5wejRGsLAE78If0NlGXKemPu1rWsGOnObXLg/
-	 hM5vBGFpAKOuEDnWon4ZeFnzU7WybK/2m/Btw465t9p7fwag/foEJ8Ke2TFxq4fQEcg==
+	t=1794532804;
+	b=JxrYKBGQ/dG/9B4vJ6XjvrUG7/UPhBhMOZwG19aV4xkCOVi+tvUZlL1SE01nC5gQZEa3
+	 FYg/rvpeKVrEXs7k0QJQEYoJcE9xNZwKLpnLnis8Tgj7AKJtnSL+tsa7/ufmsOQtExeoa
+	 sHVs8qsGJRSW/s1DmvpoJwJdGug6KDTFzV2aTDd+aW+nWwMX8ayA0VAvNFT/oiRRsyvHT
+	 eYuEprSi01H8lPHvFDL+EMdDBVu+qUxjz99Blse8NicvS6+nsaEq4Y2RD1RmEuFIaQl72
+	 vq6Fg1PgduzKuJ4bzA5DaRX4GndBkHHnlZ/4qhvo4zr0WsaM0P1N7fQVW8U+hkXnROw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794532723;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:X-OQ-MSGID:Date:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=VweIZJncufI4qxiNi9la2hhpX8UP/VSqawVkGohdoqk=;
-	b=RxPBbCSrT40PLqoS4QLscNBsropkK1hX678M/p7VaBr8SNUMvQvnd6TNk0cF5p2H/8D1
-	 2IihU8wWMHwjqIXpWGW2AQAsb6flP+NiQlRdrxljV4QsytJAk5V43n5iwj4THcd9e2cAl
-	 cLKV8VFZfJwgEwE9SavgOjj1YplJUkxxwiY2aok+egUkOP/BF1Fvu6GZ3odGBYHZ+qEMa
-	 1H245V1otSiEpVbCblDwWCqbHqE1GL6bM3opEmWQCdyvvrP/Bwr4S5xBIiPvATsZ79/gu
-	 jkYFy8RwLif8G8G0kqk1c8i8HQkRsEgahuJQ+dlVG9+3EobYFUW6gzBlJCuKjCrg2jA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794532804;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ihVMGHo1BmleIkV3EOT0D9R5nIHHW1mYzBlrGw9jfGs=;
+	b=YOJjSfBAcAi8Do1iZZ592g7botkhepTrLxWnX4jEwYHiP+i2dGwv4xU8Hmdop4MQqruv
+	 PEJF7G1BrbMdrr7kotMQbnM9wLNzAZ0klaD6bjK+i35bAGLgkFl1uxLbzwcLYqR+V3s05
+	 tgNOnLmSksLvBvt7pK0ZeHebIjWrISZYLNUj8XjpcfuuyPWxxBV7twA/uH4G82YM5ge9L
+	 5+EHgbSUyiDOHOx1hVTyW5RWZO7uiACrmc1dSbnb/9+CGlrbfmdaZzhDNUoHVLthuSb1z
+	 x0Scp0JfSZaYfV0YQLs9iWzHA8X/c7W2IqFoJdFmUra/lEhDv+rqKA2fBPLir4oISbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=f7DA52wh;
-	arc=none smtp.remote-ip=203.205.221.236
-Received: from out203-205-221-236.mail.qq.com (out203-205-221-236.mail.qq.com [203.205.221.236])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hJVTzpjW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA4A5606A327;
-	Fri, 13 Nov 2026 01:18:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA4A5606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0FF5606A323;
+	Fri, 13 Nov 2026 01:20:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=f7DA52wh
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794532713; bh=VweIZJncufI4qxiNi9la2hhpX8UP/VSqawVkGohdoqk=;
-	h=From:To:Cc:Subject:Date;
-	b=f7DA52whRu9zxhNwY4n3Cu7FwzU4eW9eGVN2IAUcerOAaOfMdPGiCSbx6g9BJYYB2
-	 NW7amMXa+FnA1FaOWFTXY2MY3WlPfHuku2aBSyoKduEyD+bRb0J3pB8q8xNOdKmLfK
-	 vaFrCULY0TmesGG8ru6XutZyhooeuJKX690LzzAc=
-Received: from [172.18.4.77] ([202.113.185.209])
-	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
-	id 4A0010BF; Fri, 13 Nov 2026 09:18:32 +0800
-X-QQ-mid: xmsmtpt1794532712tv1r7dmz9
-Message-ID: <tencent_F85118A9AFDF9B230D4E8FA672510A3E2F08@qq.com>
-X-QQ-XMAILINFO: MllZffuBkEb50UofCUAfNsgu6HZLmSUutpfhL45iu8NQOHT2+DMp7KMvx9Y0vp
-	 bqChCpGuqMxSVrp9LehunMcRd4WZ+XoB7sBYk2YXHSoPAqcc9OP3UIkekywmBTx4XYVR87WD+yYI
-	 l5PcmWTvAmslYOm+UwjJutw8F7ZseeWogsVEQ7tCb2kJLrxeR0NEhTg6+OjgKxE8T5N8Oe0X+QJm
-	 2gTS6N5mx3yKwETPsAXEAaFvBYGiKWAKAHqFDRgo1S7eDaTUfSB9udbkruGA1ihsCsqRMwHgnzqF
-	 RuZdTa0YLQigKL5gAEckIYIqomnw3Yq4xca7Zs13yOVG3Do8Egjt7rLdLNSNYsrv5vtjztA0wdnx
-	 FytvrD51fZPTTqkax2mVG+8MkozJnzRcG/9+J3fyqotBcYn5ctLtVyzBlciJXbf5nlDPMz9NTTDt
-	 dkDpgo6vZu3Z+FCMWkBtB4eY26/usavi545oLbAbs0AUWWc+Zd1JWWiYnf57TPpiUTJY0LBnKQ7m
-	 Y15JSX63s9bXpRPyvqDwoaq6CvA1abgich3GSR7AxJL0Nbml3ouIMIrxRjKYUZV/0He4I1ygyUqH
-	 pxvctqka9D14L8ODT172e4FHlF/q5Ad+gWw1zvVZEc0kJ+5RUphvhLqhH+ccn5CUAuh/+VSWWgB9
-	 2RJ7GAx1t0sf6PPq21sDkW7Bz8u/eLCmUMdVsJcnTIQ+ME7IR/N/PpIRIOXxwXqM/9oCS+cifmEg
-	 wLccQS6lgp+DK8U28OmLGytzvxWp80xHH6CNyMZ4gnrdro/HyYcI5A3Xwv8QIHi8NCFK3EFWT0sC
-	 wSoIoh3G9ZF7kh4SF+xmtSLt5c8adoQzOLkHGPEB1ak9StbeY1GMxeSXd8x+0nNvFBKP0onsVgJU
-	 nbet1czU9InAAyLuqqlHomTstISSZAePjQVh/Zz/f0bSidEIINTv6VkwbZEm5viWsgWC6BUXmSUG
-	 Yuz6VeO4Yzk9s0lrbmvANI0L3XdJZT7m7Wlekp3U4nKGw9be5VNhHqIPF1sm2Z1yQjy3RbcF+Nd1
-	 U8TT2Ibsvz9fOsGm3cOQ0lioEQ1m7kIlCrr3+h4Gix1F/qFyyosZA62WVhCc291FrJur2OqAKwM5
-	 LUdN4t
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-From: Guikun Yang <yangguikun19@qq.com>
-To: Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Yangtao Li <frank.li@vivo.com>, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [Bug report] hfsplus: extents-tree search_key buffer is 24 bytes but
- hfs_bnode_read_key() bounds key reads against 518 - slab OOB write on fsync
-X-OQ-MSGID: <c44-hfsplus-extkey-oob-20261112@qq.com>
-Date: Thu, 12 Nov 2026 22:00:00 +0800
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hJVTzpjW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8EB91F000C4;
+	Fri, 13 Nov 2026 01:20:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794532803;
+	bh=ihVMGHo1BmleIkV3EOT0D9R5nIHHW1mYzBlrGw9jfGs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=hJVTzpjWkmPY0v3/KVrmMhVkRvcRtGSnUzNTZ/4hUNWmc4LjO4zfXjHbuQ8hV8/vZ
+	 fK613O872Bdx0JJDQbaC6RZByiVHo3JEmetLyjkqhMmed5YIm7QfOo9U2+8YQIyYIP
+	 McBQcK0R3OisJdmCy+DxZu10DZwPCmkpWrxgk+IIqTyPKtnbelc9NDsirKVYXqABxK
+	 6/yHEticQ5mzgqTM1XcQTP7mKSpQElkjVaaq5PyqWG+t07ZzTCg4b0nXRTvoZaFa0C
+	 BtQtOdduxum2riLmUmP0Q/PrY0L/0nQNZR+Pur30+AB3eBl6gb+rx3OaUS8VgvMHEE
+	 0q1cZyhyLzmZA==
+Date: Fri, 13 Nov 2026 01:19:57 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Akhilesh Patil <akhilesh.patil@linux.dev>
+Cc: andy@kernel.org, krzk+dt@kernel.org, dlechner@baylibre.com,
+ robh@kernel.org, crofts@kernel.org, conor+dt@kernel.org,
+ alexandre.belloni@bootlin.com, linux-kernel@vger.kernel.org,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-rtc@vger.kernel.org, akhileshpatilvnit@gmail.com,
+ akhilesh@ee.iitb.ac.in
+Subject: Re: [PATCH v4] MAINTAINERS: Update Akhilesh Patil Email address
+Message-ID: <20261113011957.5d8836ff@jic23-hlaptop>
+In-Reply-To: <20261112091641.GA3643677@u5ce4748bae3b54.ant.amazon.com>
+References: <20261112091641.GA3643677@u5ce4748bae3b54.ant.amazon.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,139 +63,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi,
+On Thu, 12 Nov 2026 09:16:41 +0000
+Akhilesh Patil <akhilesh.patil@linux.dev> wrote:
 
-Appending to a file on a crafted HFS+ image ends in a
-slab-out-of-bounds write into a 24-byte allocation. The extents tree
-sizes its search key buffer from max_key_len, but
-hfs_bnode_read_key() bounds the copy against the generic union size
-(518), so any on-disk key length between 10 and 516 passes the bound
-check and overflows the extents-tree buffer - and the reject path
-itself memsets 518 bytes into the same 24-byte allocation.
+> Move to my new linux.dev email address akhilesh.patil@linux.dev
+> I plan to use this email for kernel development going forward.
+> Also update email address in few yaml and driver source files.
+> 
+> Signed-off-by: Akhilesh Patil <akhilesh.patil@linux.dev>
 
-  BUG: KASAN: slab-out-of-bounds in hfsplus_bnode_read+0x30/0x5f0
-  Write of size 502 at addr ffff888005fb4100 by task init/1
-   hfsplus_bnode_read -> hfs_bnode_read_key
-   hfs_brec_insert -> __hfsplus_ext_write_extent
-   hfsplus_ext_write_extent -> hfsplus_write_inode
-   hfsplus_file_fsync -> do_fsync
-  Allocated by task 1:
-   hfsplus_find_init (kzalloc 24) -> hfsplus_ext_write_extent
-  The buggy address is located 0 bytes inside of
-   allocated 24-byte region, cache kmalloc-32
+I can pick this one up with an rtc ack, or it can go through that
+tree. I don't mind which.
 
-## The size mismatch
-
-hfs_find_init() sizes the search key per tree (fs/hfsplus/bfind.c:22):
-
-  ptr = kzalloc(tree->max_key_len * 2 + 4, GFP_KERNEL);
-
-The extents tree's max_key_len is validated at mount to
-HFSPLUS_EXT_KEYLEN - 2 = 10 (fs/hfsplus/btree.c:318), so its search
-key is 24 bytes. The catalog tree's is 516*2+4 = 1036.
-
-hfs_bnode_read_key() bounds the read with the generic key union
-(fs/hfsplus/bnode.c):
-
-  if (node->type == HFS_NODE_LEAF || ...)
-          key_len = hfs_bnode_read_u16(node, off) + 2;   /* raw disk u16 */
-  else
-          key_len = tree->max_key_len + 2;
-
-  if (key_len > sizeof(hfsplus_btree_key) || key_len < 1) {
-          memset(key, 0, sizeof(hfsplus_btree_key));     /* 518 */
-          pr_err("hfsplus: Invalid key length: %u\n", key_len);
-          return;
-  }
-  hfs_bnode_read(node, key, off, key_len);
-
-sizeof(hfsplus_btree_key) is the union of cat (518), attr (268) and
-ext (12) keys - 518. That bound is correct only where the buffer is
-the catalog one. For the extents tree it means:
-
-- key_len 10..516 passes the check and memcpy writes key_len bytes
-  into a 24-byte allocation (502 with a crafted key length of 500)
-- key_len 517..65535, or any odd value, takes the reject path, which
-  memsets 518 bytes into the same 24-byte allocation
-
-Both paths are out-of-bounds writes; the second one fires even for a
-"rejected" key.
-
-## Why the disk value reaches this point
-
-The bnode loader validates key_size only against the record entry
-size (fs/hfsplus/bnode.c:601):
-
-  key_size = hfs_bnode_read_u16(node, off) + 2;
-  if (key_size >= entry_size || key_size & 1)
-          goto node_error;
-
-A record with key length 500 in a 3814-byte slot passes: 502 < 3814
-and even. The binary-search path that does check against
-max_key_len (hfs_brec_keylen(), fs/hfsplus/brec.c:71) only runs for
-the records it probes; placing the crafted record's cnid above the
-search key keeps the search converging past it without ever probing
-it. When an insert then forces a node split, hfs_bnode_split() moves
-records verbatim into the new node, and brec.c:169 calls
-
-  hfs_bnode_read_key(new_node, fd->search_key, 14);
-
-on the new node's first record - the crafted one - with no
-max_key_len bound in between.
-
-## Reproducer
-
-The trigger is write(2) + fsync on a file whose data fork has 8
-extents followed by a non-contiguous allocation, forcing
-hfsplus_ext_write_extent() to insert into the extents tree and split
-the crafted leaf:
-
-  # positive: ext leaf rec2 key_len = 500
-  python3 mk_hfsplus_ext.py base_file.img run.img
-  python3 trigger_write.py run.img pos.log     # KASAN OOB write 502
-
-  # negative: same image, only that field differs
-  python3 mk_hfsplus_ext.py base_file.img run.img neg   # key_len = 10
-  python3 trigger_write.py run.img neg.log      # clean, write returns 4096
-
-The negative control differs from the positive image in exactly one
-field - the crafted key length - and parses normally, printing
-"vda1 <lv...>"-equivalent extents output with no KASAN report.
-Positive 4/4, negative 3/3. Each run regenerates from the base image
-(the mount consumes it by writing the real extents tree back).
-
-## Relation to the existing fixes
-
-bb5e07cb92 ("hfs/hfsplus: fix slab-out-of-bounds in
-hfs_bnode_read_key", 2024) added the 518 bound and the memset reject
-path after syzbot hit the same function through fs/hfs and the
-catalog tree, where the buffer is 1036 bytes and the bound holds.
-The extents tree's buffer (24 bytes) was never covered by that fix -
-the bound is larger than the buffer it protects, so the check is
-inert there and the reject path is itself an overflow.
-
-## Suggested fix
-
-Bound against the actual buffer, not the union:
-
-  if (key_len > tree->max_key_len + 2 || key_len < 1) {
-          memset(key, 0, tree->max_key_len + 2);
-          pr_err("hfsplus: Invalid key length: %u\n", key_len);
-          return;
-  }
-
-This covers both the memcpy and the reject-path memset for every
-tree with one change. The extents tree additionally can never see
-a key_len above 12 on a well-formed volume (HFSPLUS_EXT_KEYLEN),
-so max_key_len + 2 is the natural bound.
-
-The reproducer (image builder for positive and negative cases,
-serial logs) is available on request.
-
-Tested on 7.3.0; fs/hfsplus/bnode.c is unchanged in current
-mainline as of 2026-11-12.
+Acked-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 
 Thanks,
-Guikun Yang
+
+Jonathan
+
+> ---
+> 
+> Changes in v4: 
+> - No source change.
+> - Added entire change log for all versions.
+> - Link to v3: 
+> https://lore.kernel.org/linux-iio/20261110052942.GA2505113@u5ce4748bae3b54.ant.amazon.com/
+> 
+> Changes in v3: 
+> - Fixed order of entry in .mailmap
+> - Link to v2: 
+> https://lore.kernel.org/all/20261109104443.GA531570@u5ce4748bae3b54.ant.amazon.com/ 
+> 
+> Changes in v2:
+> - Updated email ID in relevant device tree source files and driver source files.
+> - Link to v1: 
+> https://lore.kernel.org/linux-iio/20261109063924.GA118887@u5ce4748bae3b54.ant.amazon.com/
+> 
+>  .mailmap                                                      | 1 +
+>  .../devicetree/bindings/iio/pressure/aosong,adp810.yaml       | 2 +-
+>  Documentation/devicetree/bindings/rtc/st,m41t93.yaml          | 2 +-
+>  MAINTAINERS                                                   | 2 +-
+>  drivers/iio/pressure/adp810.c                                 | 4 ++--
+>  5 files changed, 6 insertions(+), 5 deletions(-)
+> 
+> diff --git a/.mailmap b/.mailmap
+> index 7fb33babc931..d09fd3708023 100644
+> --- a/.mailmap
+> +++ b/.mailmap
+> @@ -27,6 +27,7 @@ Adrian Bunk <bunk@stusta.de>
+>  Ajay Kaher <ajay.kaher@broadcom.com> <akaher@vmware.com>
+>  Akhil P Oommen <akhilpo@oss.qualcomm.com> <akhilpo@codeaurora.org>
+>  Akhil P Oommen <akhilpo@oss.qualcomm.com> <quic_akhilpo@quicinc.com>
+> +Akhilesh Patil <akhilesh.patil@linux.dev> <akhilesh@ee.iitb.ac.in>
+>  Alan Cox <alan@lxorguk.ukuu.org.uk>
+>  Alan Cox <root@hraefn.swansea.linux.org.uk>
+>  Aleksandar Markovic <aleksandar.markovic@mips.com> <aleksandar.markovic@imgtec.com>
+> diff --git a/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml b/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
+> index ad5f26ce5043..ca4d4210f609 100644
+> --- a/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
+> +++ b/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
+> @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+>  title: aosong adp810 differential pressure sensor
+>  
+>  maintainers:
+> -  - Akhilesh Patil <akhilesh@ee.iitb.ac.in>
+> +  - Akhilesh Patil <akhilesh.patil@linux.dev>
+>  
+>  description:
+>    ADP810 is differential pressure and temperature sensor. It has I2C bus
+> diff --git a/Documentation/devicetree/bindings/rtc/st,m41t93.yaml b/Documentation/devicetree/bindings/rtc/st,m41t93.yaml
+> index bdd995c5c1f4..837679dc01ac 100644
+> --- a/Documentation/devicetree/bindings/rtc/st,m41t93.yaml
+> +++ b/Documentation/devicetree/bindings/rtc/st,m41t93.yaml
+> @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+>  title: ST M41T93 RTC and compatible
+>  
+>  maintainers:
+> -  - Akhilesh Patil <akhilesh@ee.iitb.ac.in>
+> +  - Akhilesh Patil <akhilesh.patil@linux.dev>
+>  
+>  description:
+>    ST M41T93 is spi based Real Time Clock (RTC) with time, date,
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 222b7fc2c3aa..3aa8fa3c068f 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -4095,7 +4095,7 @@ F:	Documentation/devicetree/bindings/iio/chemical/aosong,ags02ma.yaml
+>  F:	drivers/iio/chemical/ags02ma.c
+>  
+>  AOSONG ADP810 DIFFERENTIAL PRESSURE SENSOR DRIVER
+> -M:	Akhilesh Patil <akhilesh@ee.iitb.ac.in>
+> +M:	Akhilesh Patil <akhilesh.patil@linux.dev>
+>  L:	linux-iio@vger.kernel.org
+>  S:	Maintained
+>  F:	Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
+> diff --git a/drivers/iio/pressure/adp810.c b/drivers/iio/pressure/adp810.c
+> index 82aa433548d2..832df6ba0ee3 100644
+> --- a/drivers/iio/pressure/adp810.c
+> +++ b/drivers/iio/pressure/adp810.c
+> @@ -1,6 +1,6 @@
+>  // SPDX-License-Identifier: GPL-2.0-only
+>  /*
+> - * Copyright (c) 2025 Akhilesh Patil <akhilesh@ee.iitb.ac.in>
+> + * Copyright (c) 2025 Akhilesh Patil <akhilesh.patil@linux.dev>
+>   *
+>   * Driver for adp810 pressure and temperature sensor
+>   * Datasheet:
+> @@ -219,6 +219,6 @@ static struct i2c_driver adp810_driver = {
+>  };
+>  module_i2c_driver(adp810_driver);
+>  
+> -MODULE_AUTHOR("Akhilesh Patil <akhilesh@ee.iitb.ac.in>");
+> +MODULE_AUTHOR("Akhilesh Patil <akhilesh.patil@linux.dev>");
+>  MODULE_DESCRIPTION("Driver for Aosong ADP810 sensor");
+>  MODULE_LICENSE("GPL");
 
