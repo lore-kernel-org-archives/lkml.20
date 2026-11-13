@@ -1,106 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794589614;
-	b=SHzvQVdOBrHtZMcb+lxcMrqI5VoMeMUATM8p+50y5tk2HmuwVk567VfiHK9nJfHR5CRI
-	 /MZ//krji2BFrxYVxCDIDsyE1aEB7OIMBM/P2L+OI0t8xGMPDO6rAMDiWwC4725k2pPBy
-	 KDu6gcb6/gn3k4IZd5wTmSQ0swR/ebetAr9OBgiEUyWKd+qr1Llz0f1hs3Y0h4nMta152
-	 vPJOeKwIOvpz4ExGWxM+4grzE/gSv1cQAOCsy4kc4OwBWm2RvzF3+E5YDYvalj2ng9+uv
-	 pkR+vPkCsukyTiL8AuWpO4DHGlgDvfc3CeYuZUdMnqUHiSSm32EvreQthxDLTSGV8pA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794589614;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=/Kki3X4dpm9KxQ2mH9Sq8u46jfClQkMQattSavxbdrg=;
-	b=i25Xa3RXj9v56F4nX6kb6XN9lXjKU7BMWuxbAf1HgkMSEbQ2ABJyAC2HxFpr5KHFWSYj
-	 EawlAxIDx5teBJ4a7pv1GT4CSsLzxW16JuqT6p4WvzkPLuOtuljcikTVLGs9QA+azpReo
-	 QpymlQ7rhJz1llJ0aSdJ3smbSmQi0nApqgC5bU5hrb09K8rWqskS+rZVDWiPOv2ka5GEG
-	 ksO7T+8b+tl1zl9VgGw5Tm+ia0cSF6Xt8ob6/SXdNzxVnMJPPlOSxlTJpFkzx7aS+f2mY
-	 Q5Gs+/riO2QU/oA4Cpj8dJYM3Wd1zyrulfA0i4U2MvwpBRuLCwOWtMYybVfN8hGEnJA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="Ekzg/bbg";
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=DN0A8kzP;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.63
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794589658;
+	b=i9G92tQIsOxmXQ+GsTID/5yxEVnfppPId3A32V9iIxjJOyq2whY4UIOlXlQSB52rtp7R
+	 1uidONtwOFt/0GgbGVUSmim3xuWo2+vUmaxgpCO4CgtfxlHCkPPYNZub9Lrb5/mabUCGo
+	 EkEKDPgg68NPA31whQH6Oo1WZ5vyO5DJnX+FNYMpCN9DqrTEWR6o2QefKdGCNoHoVAAQi
+	 gEL/ekgV6ry3/8GFGWf+NoizNfBELZv5mVQoMutvXcWZFZdWjSj8YB29Pgb6iMDrjdwki
+	 dw6QEbcxYjRT4pGMwN7wq0x11HfDanyXybgoosnaTS+D8m+pxiGSsXjwe8yuahygF6g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794589658;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:To:CC:Subject:Message-ID:Date:MIME-Version:Content-Type:
+	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Va6mJYMfTUHu0VrWZSpoDOznU+fZCjqE4tbceYDWUwE=;
+	b=eg8zxVct7PEG04ycFDazlMTUUU3GKsb+vXwDrbx4l7buWHa6OJbqfSJ0oR7JgI0zG9X1
+	 ExX62vvgAMunTwaGGw598YA/qrmd5t/pPqO0/VrZiY0AjvAlysJ9MlXC/Q0MSAfhAOrUe
+	 lD3wXsTT9DRPWhzDslUHMfzcXdng0EQHk0hXTQN8ZUAgizXFhAJfdz4aAt9KFbTBqu3yO
+	 D5IOrc6Vd2yTI1mgRG/Sp6LlIc6KFvB19z27NFZ2o9JwtFkT9VRHtFuI6rMW1qCdcBmv0
+	 gOW89ldzK5mUZufwSXL+9bVzbXUWsOsl8OTJEAM3pxoVCInNGvvdMXE6V6kwK3NcHcg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=axis.com;
+	spf=pass smtp.mailfrom=axis.com;
+	dkim=pass header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=hJFY6m8p;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.63
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010063.outbound.protection.outlook.com [52.101.84.63])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55F8B606A334
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:06:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55F8B606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11644606A32D;
+	Fri, 13 Nov 2026 17:07:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11644606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Ekzg/bbg;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=DN0A8kzP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794589613;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=/Kki3X4dpm9KxQ2mH9Sq8u46jfClQkMQattSavxbdrg=;
-	b=Ekzg/bbgkihF+aYzObecGMCLkF+PV4ImBG3tKDtW1XNLgZ5O9/O+RQUwAqgCAZCZVLwjRK
-	4c+wm49gm/rfTr5Rx50iG44af2EPbMQxo+uJiMizSoK3crn46Q5KTQWCauT55Ub0Viz5ax
-	1BRzJQ/PDnXIGBUVZEqhpivP/Z2D3SQ=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-49-YorxFobPMf2D8hzCeq5CvA-1; Fri, 13 Nov 2026 12:06:50 -0500
-X-MC-Unique: YorxFobPMf2D8hzCeq5CvA-1
-X-Mimecast-MFC-AGG-ID: YorxFobPMf2D8hzCeq5CvA_1794589609
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a1fdde384cso6349685e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:06:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794589609; x=1795194409; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=/Kki3X4dpm9KxQ2mH9Sq8u46jfClQkMQattSavxbdrg=;
-        b=DN0A8kzP7RKo5fQGq5KIDkrbwb79NY3IE65mhKRVjpzPSTFMS9eMdYv6wgN7jB03k8
-         S5OFWCcwkMw5tCtB16JOMgqvqLtXGNFC2gmc8g41p0IXmkraV2y7AcK3Q39pBERBptw6
-         IWS40Bc1CIAH64kHFFyf+RGmHxuIJ0fhyAxUWfHmKevHbVfSUm4F6PNY8oAnX3S42pyp
-         SUyXtLrVzeJSsN3MLTG9GmVNGNR3xgl2nw0Gm3n8mbAgJZVZapgbaQfXKj2fb2ZIkM3i
-         J6/228HRBxCKwci4uHO4D2EJeBiJnknWP//bRZo/7Q623qGSFAYF1puHjnZTsRalv9ym
-         ZErQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794589609; x=1795194409;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=/Kki3X4dpm9KxQ2mH9Sq8u46jfClQkMQattSavxbdrg=;
-        b=PG9C1SamaumLwcsbUS47CmX1KlfUQg+iVLzQRPE1LNvHDuNhuGuCadEVtQYVmzVKgD
-         qrm0EMcMHHtkfc67iwyuRSIMfKeOuTHjiF+7sHv9fr/weYYKI0FkFaEfi4zDr1mldXPZ
-         aU8czVbJlK4IYmhn4ULLnILMrnbwEXSKzt5LkIgLN+HFc6NZgtH8H/7VENXssjxw9bwF
-         OaGipjntCFEohgW2rifgxyRBHoCQTfMQNm4iHeQxVG0/LlhAS+E0QpQMQq1J4tq4s9Fs
-         jwCpkXSWfjPBcznAwhCWO/JOrKwDkLBHFO23I891VWw/qvCPi5D6HD3aJ+fWywgPu6Wx
-         WcDQ==
-X-Gm-Message-State: APuU4Z9jLU24RYy67Odcuoj1f14QExdVQLsV5cjuAocqAbPFUtPUk1ym
-	9lLCMFMICFw++Olq2RFxlKHxUX3CjjRz+NdExDyHWBEAiXcc4k+fpyirgFQ8C2WRlmgvmwcUikq
-	sGbnHMyKysBMHCwG3aRvlgPBT6YIpbNGEJCtILUn/s4bwFpmiED/3s3uymCUCXcKiJQ==
-X-Gm-Gg: AYBFou0mW6n/b0Tk7X2gIL23GsVr48G3mFDAyx/ArNHv8iwLsIs1VvJyIKE4mejvJ7O
-	TgcckOrtXYsmFDXTekqiWbdAp4TfAdpBJuhkNCs9wJDj/54cBncOoqrZR/rPJ9lg4NGw2DD5zNi
-	S5FCHqfdHnZNlOY4wWqp7vsEAs9p+0GvmnNC8QiZOFYJ5R85s0mXBAlyHurMJeNAivfHEjPJN2H
-	1vpe37615sBrAtTDgAIr+MmeTFvZwYVUXrDO5H2tOx5Z3jxNfwt7R45tv6RRQ2TOzTrRseJiXXI
-	MnwJzPtpUiG/bNw0XYJOE8QPySMv2kAUtIS6jf1++t6YBJM6fJmnbj6Njw+OMyIepjciJipkofq
-	09CSN27cEnmNW6B/sJl6pgyVvwoxbCNnhIoHEtvITXbAavGESn+CRsA/HYsC2n9Xl//QRhRD4xG
-	naOtOPAWcBeNs=
-X-Received: by 2002:a05:600c:c84:b0:4a5:e6fd:65e5 with SMTP id 5b1f17b1804b1-4bb55aa3a2dmr71557525e9.31.1794589609300;
-        Fri, 13 Nov 2026 09:06:49 -0800 (PST)
-X-Received: by 2002:a05:600c:c84:b0:4a5:e6fd:65e5 with SMTP id 5b1f17b1804b1-4bb55aa3a2dmr71556725e9.31.1794589608889;
-        Fri, 13 Nov 2026 09:06:48 -0800 (PST)
-Received: from [192.168.0.19] (217.red-88-4-146.dynamicip.rima-tde.net. [88.4.146.217])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f7828a4sm6409906f8f.23.2026.11.13.09.06.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 09:06:47 -0800 (PST)
-From: Sergio Lopez <slp@redhat.com>
-Date: Fri, 13 Nov 2026 18:04:40 +0100
-Subject: [PATCH] vsock/vmci: reject datagram binds in local network
- namespaces
+	dkim=pass (1024-bit key, unprotected) header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=hJFY6m8p
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BPDY7htVTtv2QldSOzHbOO68NOMQffX46JeRAjy8wDYRirOIt/v7QoljIrdubSuTS6n+5b25kM4kqZYk4Wf1ZQCCnuPY7FnA2XB4neHR8aH8g/0R5w+xkjczahftSoUToyJ4oUUAFgbLrUx0X7t1csykIS64Msw/nAKI0tJaibUg2Zx2jOdHNovJocagh3RO56gnayWncgRHjfLhlGPQINTThGd9GvHoRXmAJXFjUiGWx5PPUgxXOZEal09DN6Fe+ELBE1WyWvQqGU45hYVcFfEcrV8HbwIgFDf78HQCQDmIHO0NT7Hj9KvPKOujLrRfxqgDmTTdTgAk6SFhqHtzjw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Va6mJYMfTUHu0VrWZSpoDOznU+fZCjqE4tbceYDWUwE=;
+ b=WWPxy41jrRweQdg3mM+IwtNPuoiNyFh5vBgWGaAFCAZySaTkMVcg4s+/iNytVDbQB9tqtSmF9XmC21fA0dtrjmnAFT/eypdSEPyslFnEjWSh2LDU3gSK8cqw18x4hpoGXepdFMrd7flbzo4rn8K71OD51SL9q/AxrxkT7ER6AeSOTLhk9kWr9xrxsXMkdfgqPNzK15uOKflAeMyLpCbO2nh21355WFESPgpb270Z2XzhIOjTVb9PIGsRUuRKMyiPEKXCpH/FvG+gbDF20M9NXE3EUOWWqPLEQ6apncoPe5zC8NUF3y2G84pUlkn31btdLbxgMJptijUW6cioGXs7yA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 195.60.68.100) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=axis.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=axis.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Va6mJYMfTUHu0VrWZSpoDOznU+fZCjqE4tbceYDWUwE=;
+ b=hJFY6m8pt02bsDGrS/uq/iECzgUOCP2ns90C8iEtJxxYl1OZkNkCabwbdXQ/HeYkpGqDkWfnyDSzzEyiCfo5txgOifHTaJFcUbQaEW+fwSgxozp/l0S3meTsqbYwgUnxYYEaoJyZLDCSTDcFE0mw+jROwi9vw8L08MTJ3CuSktQ=
+Received: from DB8P191CA0004.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:130::14)
+ by DU0PR02MB7971.eurprd02.prod.outlook.com (2603:10a6:10:34f::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
+ 2026 17:07:32 +0000
+Received: from DU2PEPF00028D01.eurprd03.prod.outlook.com
+ (2603:10a6:10:130:cafe::92) by DB8P191CA0004.outlook.office365.com
+ (2603:10a6:10:130::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Fri, 13
+ Nov 2026 17:07:32 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 195.60.68.100) smtp.mailfrom=axis.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=axis.com;
+Received-SPF: Pass (protection.outlook.com: domain of axis.com designates
+ 195.60.68.100 as permitted sender) receiver=protection.outlook.com;
+ client-ip=195.60.68.100; helo=mail.axis.com; pr=C
+Received: from mail.axis.com (195.60.68.100) by
+ DU2PEPF00028D01.mail.protection.outlook.com (10.167.242.185) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 13 Nov 2026 17:07:32 +0000
+Received: from pc67007-2609 (10.4.0.13) by se-mail10w.axis.com (10.20.40.10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Fri, 13 Nov
+ 2026 18:06:10 +0100
+From: Waqar Hameed <waqar.hameed@axis.com>
+To: Sebastian Reichel <sre@kernel.org>
+CC: <kernel@axis.com>, <linux-kernel@vger.kernel.org>,
+	<linux-pm@vger.kernel.org>
+Subject: [PATCH] MAINTAINERS: Add TI BQ25630 battery charger driver
+Message-ID: <d94273dbcb55dfed01f75a02e9d0f28aea390ddb.1794579149.git.waqar.hameed@axis.com>
+Date: Fri, 13 Nov 2026 18:06:10 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,96 +102,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-vsock-vmci-netns-isolation-v1-1-ced02054ea61@redhat.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avErBtIjYSuEi1CpxoqDSckiO6et
- HyL/x8QSkwCffVAoszCMRSougK3TmEhZF8MutGdUspglug2zIdjDHQFQZa4T1fJ0FLbWaO989Z
- AGZyJZr7/+TC+7we3RtBCbAAAAA==
-X-Change-ID: 20261113-vsock-vmci-netns-isolation-7e46732dcd73
-To: Bryan Tan <bryan-bt.tan@broadcom.com>, 
- Vishnu Dasa <vishnu.dasa@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Stefano Garzarella <sgarzare@redhat.com>, 
- Bobby Eshleman <bobbyeshleman@meta.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, "Michael S. Tsirkin" <mst@redhat.com>
-Cc: linux-kernel@vger.kernel.org, virtualization@lists.linux.dev, 
- netdev@vger.kernel.org, stable@vger.kernel.org, 
- Sergio Lopez <slp@redhat.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2143; i=slp@redhat.com;
- h=from:subject:message-id; bh=KbQnqpP7rtV1X6O9hhQI+C1Zj1a1cacc8D6sCunHM3M=;
- b=owEBbQKS/ZANAwAKAfRpJ40vDAI1AcsmYgBq90Ol4hWRYE7DbdCG5kDAinIgd4TLSotKXr8+l
- VPEwubE0OiJAjMEAAEKAB0WIQS+1fz3US2GgJFC6KL0aSeNLwwCNQUCavdDpQAKCRD0aSeNLwwC
- NTBrEACV2PMED4/7MyILMjnxuQfgS6QtiXtgSOjXHHrW3NfewioLlE1yJq6GEI03bNZP+lqKNQR
- AccWn/H2lR3qiABFWlijCpj1bJ6X26crcqVK0PEnG0KLdQkz356ogEpbDZtka1wFJR8w2JDhbRh
- Ys3iF93SvftH8KvSXnk+4rtMnbeUgKgHuL36L9XydhATObsweqMwrKlFJsNMdNpfOAJcpnxaAYg
- OqRFXGGO7Os0d1wmnsJL1uW/b/rMPdDxqWa6DTa1fPo4y4eqlIeWBO7HN7/pkHF7/tyUN+1DH/3
- MQkWZwr+IHTEuF7W29ASzuHcYsauRC2kn9sOFhkT/sEIRAo2exPo7Z9R/WQujO5VG2ZyhvFeWMg
- ymJ2iO2YcbzSPwiuXvjCBEPbht32xQmpRGvFMC/Cc7ZLvKZ0h+62sIROMdWZdi+keTkFZfCLn7O
- hHs6bbahrRf96RF/J30sUH/2kZ5Jkq6gROnToNOk1HJK3bjL/CyMOoTohBR3sR0+uZOaH69RTRl
- 8ZSXuy0vIkwZM68jjduCnqtEMeMi8JT2yvpqyV6cq/IXhBqvQ7Jw/1Ik9hioviwwfvY5KyGML9i
- tK5qfhNnseLN7nPGYt4cCJRlBOfE7RajO1maGZq0JO+9wSiQa49D/53RC5VP+bmBLvPGjbT7C05
- ixnW7xHwBAI1d5g==
-X-Developer-Key: i=slp@redhat.com; a=openpgp;
- fpr=BED5FCF7512D86809142E8A2F469278D2F0C0235
+Content-Type: text/plain
+X-ClientProxiedBy: se-mail10w.axis.com (10.20.40.10) To se-mail10w.axis.com
+ (10.20.40.10)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PEPF00028D01:EE_|DU0PR02MB7971:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3f51ec44-07e8-4364-eddd-08df41a89b40
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|1800799024|23010399003|376014|18002099003|261009223027099003|56012099006|11063799006|261102123227099003|261026140227099003|261021135927099003|261026121527099003|261022105027099003|261028144727099003|261021121427099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	uLL+hOLM3sNG9qldqC6pwtEvyipBHIwl6wHKncCy3ly1SHERE5j14lKs60n/EI01f4Xn//blwD9LOsRR2zPtkDOiE67m/u4wmzt9njXLD1j+MmO62+KPUJRe/aRxfEzrVB42WpPwkmm4JHAjuUTiAUQIMK/kwCA2+2a6CZ3/NmpiR0UN64w3WPZvyimk0gvv/VBLoEEsBreMUfXxB8B44iIs5f04j/iU1z2S96KDg49kb0SyyqhCzQXBY2l0yzvTkYiHjRoKT8nR06O05UHHaROCKYmORpwCpDPBkmdnpUmS9FHQ91gNPLKUrJmeYsUMgiqhxLNXKBvr7UO7IqS2eyvrujLZubQAH4rRw23FkKktkYyNYbJSuNyvGLy6SkQDXSJYW33nAZnfPDkVSuaXBzV6teJccS1tQIzv31SA4zswMjlptfDBKc/K0vv6WMPdvAdXQym/ZdpyDngP773XdpVNN3JInOVOz42GDdjvO/ZRRtrXpibwZYK0tcZ97xFtRXfaiZpiN3XAXV3b97T2b4Dqo7OKGnqAwSgi0U+/Eo2p7ad4hcGTqcmUp3lVHytvrBaFrNHfPoVYxBBxa+oyChCV/tXq+rjxRHHTpOOLbkIlX9PigU7EDSjvxnBJR/7HkyJaBR8i93l8ITVbNB4fzuOY0rFeHqt2pMiSRLKolvj7BAqEjzgA5PPe9RTBqAnVX4DWkB3FVPTzroVqhA+oiQ==
+X-Forefront-Antispam-Report:
+	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(1800799024)(23010399003)(376014)(18002099003)(261009223027099003)(56012099006)(11063799006)(261102123227099003)(261026140227099003)(261021135927099003)(261026121527099003)(261022105027099003)(261028144727099003)(261021121427099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	3zKkMIMwBmJKQIhYy9tb9haEoDg8afMyTdVXi6F5Ydb/XiBzdmM/n43SuH9hkgjbK+/lzh/ToiCaFnhkjv5w7BSNOu1/ieqY9u2rK487kPJrWlxDvAumavnudBhgXzI/pq6T6I1QCNAjoNTINQkUJkydGMcokA6ofDFXhMSQlgxQ0g6TINoXMs1MkwTe7OIdDpdSbZDF3cDDYnoCEtDsDFxK80KFPPOYDp+KTBmdFSeuKaz+z120SeQPI7Uozk4mm6hsek4Dc9fUr1Kxgl4h0j80GlckGPNsUB5t7fvp1c2QBAr6C6Z06UaCsbgh6TMdgUD2gWIDrd3DqCdLU1k5VvZ5PyKWegvVpLZzo48em/qB2CcDTsnP5SDI4Gz+T2icWnGof9gDZUqgobwyGjS7rpJYcYKxfUIouAmZ9lGNc6pYqLtz9j6dONnVdhgz1uOv
+X-OriginatorOrg: axis.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 17:07:32.4446
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3f51ec44-07e8-4364-eddd-08df41a89b40
+X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af;Ip=[195.60.68.100];Helo=[mail.axis.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DU2PEPF00028D01.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR02MB7971
 
-VMCI already rejects datagram sends from local network namespaces, but a
-datagram bind still creates a receive handle in VMCI's global port space.
-A VMCI sender outside the namespace can therefore deliver to the local
-socket. Its handle also prevents a global-namespace socket from binding
-the same port.
+Axis Communications has resources dedicated to maintain, test and review
+this driver. Thus, add myself and the company kernel mailing list to
+help out with this.
 
-Reject VMCI datagram binds in local namespaces. No namespace-local
-datagram transport exists, so EOPNOTSUPP reflects the available receive
-paths. The receive callback also rejects any local-mode socket as a
-defensive check.
-
-In a KASAN/lockdep QEMU guest, a reproducer observed cross-namespace
-delivery and the global port collision before the fix. After the fix,
-local bind returns EOPNOTSUPP, the global bind succeeds, and a global
-VMCI datagram still reaches the global socket.
-
-Fixes: eafb64f40ca4 ("vsock: add netns to vsock core")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/all/sashiko-outbox-212907@kernel.org/
-Signed-off-by: Sergio Lopez <slp@redhat.com>
+Signed-off-by: Waqar Hameed <waqar.hameed@axis.com>
 ---
- net/vmw_vsock/vmci_transport.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ MAINTAINERS | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/net/vmw_vsock/vmci_transport.c b/net/vmw_vsock/vmci_transport.c
-index 1f186e8f8364..282131544c42 100644
---- a/net/vmw_vsock/vmci_transport.c
-+++ b/net/vmw_vsock/vmci_transport.c
-@@ -627,6 +627,8 @@ static int vmci_transport_recv_dgram_cb(void *data, struct vmci_datagram *dg)
- 	 * outside of the create and destruct socket functions.
- 	 */
- 	vsk = vsock_sk(sk);
-+	if (!vsock_net_mode_global(vsk))
-+		return VMCI_ERROR_NO_ACCESS;
- 	if (!vmci_transport_allow_dgram(vsk, dg->src.context))
- 		return VMCI_ERROR_NO_ACCESS;
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 7070cf5dbfe98..f9a0cba48c31f 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -28178,6 +28178,14 @@ L:	linux-omap@vger.kernel.org
+ S:	Maintained
+ F:	drivers/thermal/ti-soc-thermal/
  
-@@ -1697,6 +1699,10 @@ static int vmci_transport_dgram_bind(struct vsock_sock *vsk,
- 	u32 flags;
- 	int err;
- 
-+	/* VMCI handles are global and cannot serve local namespaces. */
-+	if (!vsock_net_mode_global(vsk))
-+		return -EOPNOTSUPP;
++TI BQ25630 BATTERY CHARGER DRIVER
++M:	Waqar Hameed <waqar.hameed@axis.com>
++L:	linux-pm@vger.kernel.org
++L:	kernel@axis.com
++S:	Supported
++F:	Documentation/devicetree/bindings/power/supply/ti,bq25630.yaml
++F:	drivers/power/supply/bq25630_charger.c
 +
- 	/* VMCI will select a resource ID for us if we provide
- 	 * VMCI_INVALID_ID.
- 	 */
+ TI BQ27XXX POWER SUPPLY DRIVER
+ F:	drivers/power/supply/bq27xxx_battery.c
+ F:	drivers/power/supply/bq27xxx_battery_i2c.c
 
----
-base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
-change-id: 20261113-vsock-vmci-netns-isolation-7e46732dcd73
-
-Best regards,
+base-commit: 6d582d78fad9d828e575ca0cdcff8ea47a77220b
 -- 
-Sergio Lopez <slp@redhat.com>
+2.43.0
 
