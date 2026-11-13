@@ -1,81 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.96.220.36
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794567202;
-	b=ypTGtgbyxaYheuURbXS0xFX5Vfnydtf2XXZCVvC80wH2LYRLigloUTrwwpSQ20HVrr17
-	 VuQZq3NxZ/DHBjpruwuOuds05sSVT6tYkCxomkfBGhTXgnlFssnZMdfjD11oyfvOoFgmf
-	 sPLbdit3K2x6PAZfJdTgHrKYM3v8KyRacVCZFF8jg7aDMFXNMYcshVH0QyE5ex2OR5si7
-	 W73H/Uw2AE/G1jwqmLkMwTv2tCYmEaeaiftR0IXhcnLUo9ioBsVlmlZZ7M9KZ0+PciGg7
-	 WECuLxh+gD1/mAzdeU3MvE0BHVAl/NPW5I5dv2NZPD8wRyW+0ddvtNQDFxQj3bgdadA==
+	t=1794567226;
+	b=cBbkVg58ZIwqvFM1+PSAZBE5YFzBAenl9+BrCW23BU69oAetq7TZX281qsGOTfhYxa5m
+	 XmLws5DriVrVa79TmoyPQZUNqkRtp2XioUUoT04o8bocrX5ofJ1ERQTABEzX6GQwmC3Kg
+	 Nx+2OcYYMVQW03GfzxrQ+OQ0qz1qnMoExYHPUZeupvDFrt8MtDC5oWMtnJZx+4BrVdIHj
+	 7fkQsLl/nldX6QPNrJY88/Qd/jbgVNE8zkC4E1inPTXgz+MyUxrKoe/5t+hCKI2rkHEPw
+	 ZZmAvX5i4lYMm3uy8GpvQayI2gbVNtmOGYCIYQpIZBfTNameemwW0GoHnCFYfkli07Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794567202;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:Received:DKIM-Filter:
-	 DKIM-Signature:Received:Received:Date:From:To:CC:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To:X-ClientProxiedBy;
-	bh=G4uEKZRwUfb5zvd/yMth27AlEvMkO2zJDK4qdfnK/fc=;
-	b=BUQTKceTF43zt0PcujPBTtt/pB9wqFslBA1dl58TgfukIYWtWDqgM33xRXgtQMtyGvID
-	 rUfn0586Ee+pvUkW+QVkItRLGRbxXiRfTlGAITQXck0VmWE3xO6A4sHLAggi4EJG+aeUM
-	 cF/94iQqwKsVHUrmUR/HBzDD+d5nWzzg68+/swKjhWhYECympmPQsHtFXsWxLW3PWibKO
-	 7eUoKtAl/wLU6PpQjC1MP68L160Hk7wbfPn3HZcRT/fSeUH2SNGDK9eRcGd2oadEt+1su
-	 3+Qnr6hrPPrlN/OR3+n9uusv79EmEJ3+AHzhwHt2z6tKsDuV3BoxtPplsqTO+stdz+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794567226;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:
+	 X-Msg-Generator:Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:
+	 cpgsPolicy:X-CFilter-Loop:X-CMS-RootMailID:References;
+	bh=+NP2Sc9QfAH27QKUaoXkjp0qHnyNnKKBhYsb0OsmWbM=;
+	b=3LCkk6fOPIVbdoqpcGyXK3rtdb1KxpNPLq+KEPNafxYKnpDMSVh2I5uokAHhkvG+ZmJM
+	 ZTE8+8HSm3IYk7aLFGxCxG47gpPZxz+vp4C3IAWoDxSb+rUiPzwA0KSBKfa3LQYpupodz
+	 jd6m2sdRPOKNd+h//ptgsvI3CwtioYS5/U1Xs7Iuo8AcQqYdfzl0lwu62fPjQbYZiixc9
+	 dDBqgosIWvWJVmgFFFzJ4i9lvqqFid1Y+kVjcdGAE9OctpI96cK9V+kKSC1r5YcV6cl+8
+	 Mno1HaqD5XUcT+VZKmPjT2CC0CwsjCmh8X0bvL7nXpci2LHrp756Wg90uzww3XWB+lw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=secunet.com;
-	spf=pass smtp.mailfrom=secunet.com;
-	dkim=pass header.d=secunet.com header.i=@secunet.com header.a=rsa-sha256 header.s=202301 header.b=CcsiSJnE;
-	arc=none smtp.remote-ip=62.96.220.36
-Received: from mx1.secunet.com (mx1.secunet.com [62.96.220.36])
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=rRDNizMD;
+	arc=none smtp.remote-ip=203.254.224.25
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC866606A8B9;
-	Fri, 13 Nov 2026 10:53:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC866606A8B9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=secunet.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 950AF606A8BF
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:53:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 950AF606A8BF
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=secunet.com header.i=@secunet.com header.a=rsa-sha256 header.s=202301 header.b=CcsiSJnE
-Received: from localhost (localhost [127.0.0.1])
-	by mx1.secunet.com (Postfix) with ESMTP id A326C208BB;
-	Fri, 13 Nov 2026 11:53:14 +0100 (CET)
-X-Virus-Scanned: by secunet
-Received: from mx1.secunet.com ([127.0.0.1])
- by localhost (mx1.secunet.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id Lhe_RJqkQRYP; Fri, 13 Nov 2026 11:53:13 +0100 (CET)
-Received: from EXCH-01.secunet.de (rl1.secunet.de [10.32.0.231])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mx1.secunet.com (Postfix) with ESMTPS id A5D11208A5;
-	Fri, 13 Nov 2026 11:53:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.secunet.com A5D11208A5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secunet.com;
-	s=202301; t=1794567193;
-	bh=G4uEKZRwUfb5zvd/yMth27AlEvMkO2zJDK4qdfnK/fc=;
-	h=Date:From:To:CC:Subject:References:In-Reply-To:From;
-	b=CcsiSJnEutChhlxtaqO8Y0vnf8Gwp+NMl72TqQu/RsLOUeZTAPL7VZJt97Cpls2HZ
-	 PgRHZme/RzV05+AeykbuWQgcyKCtcKUvuGwNBrNrczYxxx8zHrWGsT0BzSAtVIU858
-	 nLCExdnZubTnQVVZq5YK+Pq596pra9S0nt8ct3upfXmM+EHA1s2rZW8k+wtOaJbiTX
-	 u/oIE9bdKAbop0Wu2+m3/GVnDIM3xkVhjh63w5vgZJ0diukr/+4zN8VPJh+vU47Oya
-	 hovgZUscAzI8JkHue7bq08Gwtl5ZcQDV0keyF0sFL74RIv2t0b50rKWtq/ratW6tP+
-	 wCUVA48j9Ffig==
-Received: from gauss4 (10.182.7.102) by EXCH-01.secunet.de (10.32.0.171) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 13 Nov
- 2026 11:53:12 +0100
-Received: (nullmailer pid 60005 invoked by uid 1000);
-	Fri, 13 Nov 2026 10:53:11 -0000
-Date: Fri, 13 Nov 2026 11:53:11 +0100
-From: Steffen Klassert <steffen.klassert@secunet.com>
-To: =?iso-8859-1?B?Suly6W15?= Jean <jeremy.jean@oss.cyber.gouv.fr>
-CC: Florian Westphal <fw@strlen.de>, Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>, David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: Re: [PATCH net v4 2/2] xfrm: fix selector matching for IPv6 atomic
- fragments
-Message-ID: <avbsF2Fmc2G4Nztg@gauss4>
-References: <20261109213803.1785516-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <20261109213803.1785516-6-Jeremy.Jean@oss.cyber.gouv.fr>
- <avW9OrfvkAF99uP_@strlen.de>
- <4231ca089dfd7e7ec42d85f9e72ac535@oss.cyber.gouv.fr>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=rRDNizMD
+Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261113105343epoutp02cbf24893827722fe6b229a688be7d364~nlWGqSl2J0752207522epoutp027
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:53:43 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261113105343epoutp02cbf24893827722fe6b229a688be7d364~nlWGqSl2J0752207522epoutp027
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1794567223;
+	bh=+NP2Sc9QfAH27QKUaoXkjp0qHnyNnKKBhYsb0OsmWbM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=rRDNizMDhuC0YrE80JfrzGWKuj4stjsLCQYyetT1AIWQm59bTMUMusplHw5J6vc3r
+	 cmhT9kpSisjzrLaG/r3G3jNBNgyp9YDs//BziIf/ELYlyFnlgO7qY4MyJxArpW+0xF
+	 DYGwjpxl+9FZH61zWvBLAXqCBsvTPNihLZLsiWQQ=
+Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
+	epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
+	20261113105342epcas5p23b9906156baf48daf6def2360cc7a3de~nlWFu0ori1645616456epcas5p2Z;
+	Fri, 13 Nov 2026 10:53:42 +0000 (GMT)
+Received: from epcas5p2.samsung.com (unknown [182.195.38.95]) by
+	epsnrtp02.localdomain (Postfix) with ESMTP id 4jQvJ53n0Qz2SSKX; Fri, 13 Nov
+	2026 10:53:41 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261113104847epcas5p1d970255218f1ca78b19690bfd097f303~nlRy0o_DM0455004550epcas5p1g;
+	Fri, 13 Nov 2026 10:48:47 +0000 (GMT)
+Received: from bose.samsungds.net (unknown [107.108.83.9]) by
+	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261113104844epsmtip2f002bc3207e882b2bbec4d82de94f3f1~nlRwQ9dOK2503625036epsmtip2I;
+	Fri, 13 Nov 2026 10:48:44 +0000 (GMT)
+From: Raghav Sharma <raghav.s@samsung.com>
+To: krzk@kernel.org, s.nawrocki@samsung.com, cw00.choi@samsung.com,
+	peter.griffin@linaro.org, alim.akhtar@samsung.com, sboyd@kernel.org,
+	bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, robh@kernel.org,
+	conor+dt@kernel.org, raghav.s@samsung.com
+Cc: linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, is.gandhi@samsung.com, ts.amit@samsung.com,
+	pokala.reddy@samsung.com
+Subject: [PATCH v3 06/14 RESEND] clk: samsung: clk-pll: Add support for
+ pll_4313
+Date: Fri, 13 Nov 2026 16:36:04 +0530
+Message-Id: <20261113110612.3265841-7-raghav.s@samsung.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261113110612.3265841-1-raghav.s@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,29 +84,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <4231ca089dfd7e7ec42d85f9e72ac535@oss.cyber.gouv.fr>
-X-ClientProxiedBy: EXCH-03.secunet.de (10.32.0.183) To EXCH-01.secunet.de
- (10.32.0.171)
+X-CMS-MailID: 20261113104847epcas5p1d970255218f1ca78b19690bfd097f303
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: REQ_APPROVE
+CMS-TYPE: 105P
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-543,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261113104847epcas5p1d970255218f1ca78b19690bfd097f303
+References: <20261113110612.3265841-1-raghav.s@samsung.com>
+	<CGME20261113104847epcas5p1d970255218f1ca78b19690bfd097f303@epcas5p1.samsung.com>
 
-On Thu, Nov 12, 2026 at 02:33:35PM +0100, Jérémy Jean wrote:
-> On 2026-11-12 14:20, Florian Westphal wrote:
-> > Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr> wrote:
-> > > +		if ((flkeys.control.flags & FLOW_DIS_IS_FRAGMENT) &&
-> > > +		    ipv6_find_hdr(skb, &offset, -1, NULL, &fh_flags) >= 0 &&
-> > > +		    (fh_flags & IP6_FH_F_FRAG) &&
-> > > +		    !(fh_flags & IP6_FH_F_NON_ATOMIC)) {
-> > 
-> > Since you need to send a new version anyway, maybe avoid
-> > double-neg, i.e.: (fh_flags & IP6_FH_F_ATOMIC) ?
-> 
-> Thanks for the advice, I will consider this for the next iteration.
+From: Alim Akhtar <alim.akhtar@samsung.com>
 
-When resending, please make sure to also Cc the new ipsec mailing list
-so that the ipsec patchwork can track it:
+PLLs 4313 are found in the Exynos8855 SoC and it is similar
+to pll_531x except for CON8 offset, so re-using code for
+pll_4313
 
-ipsec@lists.linux.dev
+Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
+Signed-off-by: Raghav Sharma <raghav.s@samsung.com>
+---
+ drivers/clk/samsung/clk-pll.c | 11 ++++++++++-
+ drivers/clk/samsung/clk-pll.h |  1 +
+ 2 files changed, 11 insertions(+), 1 deletion(-)
 
-Thanks!
+diff --git a/drivers/clk/samsung/clk-pll.c b/drivers/clk/samsung/clk-pll.c
+index 3d837bd74355..7b0756127306 100644
+--- a/drivers/clk/samsung/clk-pll.c
++++ b/drivers/clk/samsung/clk-pll.c
+@@ -1306,7 +1306,15 @@ static unsigned long samsung_pll531x_recalc_rate(struct clk_hw *hw,
+ 	u64 mdiv, fout = parent_rate;
+ 
+ 	pll_con0 = readl_relaxed(pll->con_reg);
+-	pll_con8 = readl_relaxed(pll->con_reg + 20);
++	if (pll->type == pll_4313) {
++		/* Offset for PLL_CON8 which hold FDIV different for PLL_4313
++		 * which is PLL_LOCKTIME_OFFSET - 0x4
++		 */
++		pll_con8 = readl_relaxed(pll->lock_reg - 4);
++	} else {
++		pll_con8 = readl_relaxed(pll->con_reg + 20);
++	}
++
+ 	mdiv = (pll_con0 >> PLL531X_MDIV_SHIFT) & PLL531X_MDIV_MASK;
+ 	pdiv = (pll_con0 >> PLL531X_PDIV_SHIFT) & PLL531X_PDIV_MASK;
+ 	sdiv = (pll_con0 >> PLL531X_SDIV_SHIFT) & PLL531X_SDIV_MASK;
+@@ -1729,6 +1737,7 @@ static void __init _samsung_clk_register_pll(struct samsung_clk_provider *ctx,
+ 	case pll_309:
+ 	case pll_531x:
+ 	case pll_4311:
++	case pll_4313:
+ 		init.ops = &samsung_pll531x_clk_ops;
+ 		break;
+ 	case pll_1031x:
+diff --git a/drivers/clk/samsung/clk-pll.h b/drivers/clk/samsung/clk-pll.h
+index 2457cf47c109..4825e1f5b9db 100644
+--- a/drivers/clk/samsung/clk-pll.h
++++ b/drivers/clk/samsung/clk-pll.h
+@@ -49,6 +49,7 @@ enum samsung_pll_type {
+ 	pll_0718x,
+ 	pll_0732x,
+ 	pll_4311,
++	pll_4313,
+ 	pll_1017x,
+ 	pll_1031x,
+ 	pll_a9fracm,
+-- 
+2.34.1
+
