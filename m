@@ -1,106 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.196
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794559915;
-	b=zju3FYIjpkZ6BK/Oyv3smANrCBwr8Eah0D3CFWCJJg7SPGseAvErBVWzOfOUrx5YyC/L
-	 KQPwQs2+vmxV25M+1YSTVZYKk8w5h/8sx41X3lpeh0IYPGQU2bD1f6D+loaYUKzXjsIaV
-	 ppVaSdywczqdtPW7tjrXN4Gh0UZ8ymvN8AvoWya1kSWo1LyrbEELfr5G3qHm+bzLQl25c
-	 ysCjiJ7m7yw6a+QexiOmCrDllmrH1FkEwayykLEknODst2jHcjJvljGWcADmSz03F5+vJ
-	 f7SdOK1A9lK8G0QFVj0KHUj7X89C+4zkmyy5qfjF8acNmiJvI0iqtzdeue6JRG+Y9Dg==
+	t=1794559920;
+	b=JxjqEuWnTwmf8EMb8Gj018uizDAnJvuC6YIadi9tnXUXSpUC754dCzGQg8xs6Ncc5U6S
+	 k0JzG2mIlVH/6T/J5oKFQo1iDEcTrYuTMDNkxVuT0ou2yfvxUW+LHQiSeT0kbTvif/YG0
+	 CGchxoyTfv4VLpeRIJw3zIGyiiqLmA1fqNFPhPagYjUrwrlaZeOTYvPl8Z67pPikV0r54
+	 csBZkG0c9vS59fqxmzHV2Mo37Ke+L9bOC2E38NZ9E8JW8NrbYnpKdfsSEr7sLHcOLzbD0
+	 YFR3tCRbRIryHiF7tA3F5Rz/T6dQgpYuzGSIlFOaJXRd4/DQzs55HkCLPk16HLXLqcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794559915;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794559920;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:Message-ID:In-Reply-To:References:From:Subject:To:Cc:
-	 MIME-Version:Content-Type:Content-Disposition:User-Agent;
-	bh=+SHVtZshJgR7EfVrq7tFY+459hSuxkLyCsM2otXIkPk=;
-	b=U1eQXCz5cx4zZov/moI7nkHUDAlLu46BlvEyZoe5ugqj2we6nh3ncXZXeLARjaM7fRzQ
-	 C7fgbTpoFkVwgIOpMlIAP5LEmk2ShHSLEQ3LQiKwC9vkx/EBAWWaZ50boDKIXS7IDETfF
-	 VmAgG5eZtnr675eD49d09ppsSq3eduHQu32vOYKPXf/UjDYjXXc2GfukR1I8YlWXf7qnB
-	 uwrdzF9lQ9bPX99JoC9oauZFiq9MD8uMfRgn09/6d+jX1MrAMYtcOGOMnzGUt8jo6ikpC
-	 7pe+eGly3WATxtlR6pnNg8zloTw4d4de98yjcgwJV99RGGJqVp1Gx1R8R/9HxPduw/Q==
+	 Date:From:To:Cc:Subject:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Disposition:Message-ID:User-Agent;
+	bh=d8ixB8K8R172rrdk/LmhJTXU2lsskw0hIUmehvKI8Xk=;
+	b=j0m2uu+jQULGP1O+/Fk6HK9a/YIy98laiLjxWWeNpGmfasR21zJnpLlKVmYBFJD+GSe/
+	 CBV7w7UOx3RLTaeW2gAT2sbXut0ByqZp1hxGVvV03HmCWiygYwNHHVX8VrXk5+5u2RkJC
+	 MUaNwxBTexN5U9CF2ujJfGfaE4ZksTkoVtQX0Fg14FcVhhUUYpezLzkiQeuBOJ0an+7As
+	 QJmXEy8wuW8zO0fJ91cWyP0WRozO8Qzc9FwZEMG9xyxFZNtZINDwIqL26j6SCaqaklbFb
+	 Pj8TiuCRrdc02stIT0XBjQbjXaY3Pi+egZ7z3swWGVQ50WU7iQj7IQsG3mL4Qi0gK1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chrisdown.name;
 	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=UZ6Lxa1P;
-	arc=none smtp.remote-ip=209.85.216.48
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=wo3tKroa;
+	arc=none smtp.remote-ip=74.125.227.196
+Received: from mail-pi2-f4.google.com (mail-pi2-f4.google.com [74.125.227.196])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1044606A333
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:51:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1044606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12E31606A33F
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:51:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12E31606A33F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=UZ6Lxa1P
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3b0b3438540so754054a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:51:54 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=wo3tKroa
+Received: by mail-pi2-f4.google.com with SMTP id 41be03b00d2f7-cdd8c1fdf4aso209256a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:51:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1794559914; x=1795164714; darn=vger.kernel.org;
-        h=user-agent:content-disposition:content-type:mime-version:cc:to
-         :subject:from:references:in-reply-to:message-id:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=+SHVtZshJgR7EfVrq7tFY+459hSuxkLyCsM2otXIkPk=;
-        b=UZ6Lxa1PUPFlQVfHsq8c4m+2pmWrQpf5qKptnm6fWXQtGzJ1GxA+h4RU1RifcD8L+F
-         3o0oYyP6cZbGmcMPFFUXPBM191qbaSnV2nR4Hd8iU0y/zl367LGLUboXN1ozRQM7gDCn
-         ONv0EgoF0C36SeCQU2kBjmyW3a8AwTaLcjI9s=
+        d=chrisdown.name; s=google; t=1794559919; x=1795164719; darn=vger.kernel.org;
+        h=user-agent:message-id:content-disposition:content-type:mime-version
+         :references:in-reply-to:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=d8ixB8K8R172rrdk/LmhJTXU2lsskw0hIUmehvKI8Xk=;
+        b=wo3tKroanTXQku0Q5OnfqMKYq9yZNuO+X2W6SNK/K+KqSIfeJq373T/eDUMzD8F+qW
+         OTb5E8QNC8pMyltEE9uat7XEZhHW3BimWbhRUIriZmN9YvErn51CndJIq1p4y/4bQBll
+         TE99QnuUYAnr6Qc5BzQga+/sZqg5s55Lntf3o=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794559914; x=1795164714;
-        h=user-agent:content-disposition:content-type:mime-version:cc:to
-         :subject:from:references:in-reply-to:message-id:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1794559919; x=1795164719;
+        h=user-agent:message-id:content-disposition:content-type:mime-version
+         :references:in-reply-to:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+SHVtZshJgR7EfVrq7tFY+459hSuxkLyCsM2otXIkPk=;
-        b=V3joJiWnpY8ijpt8jATikI9kMQd71zW7o4MM4FIOcuT5Qu6ugyVDAVq5mh3SCDaTq1
-         y792ZxF8NmODXQ1zm+GliKWYg/MSZbV4HKXyl0OXvofLZzXsPWiaaLRosW5EMMDTCxxW
-         JTOx3rd0l7xgfYsYlnJDpox184G24Bm3gJziHOvOHW71MWSVZdq8v1dzsv2QuQr7hBpo
-         t5WSm6zg7oCfonS0a5wwggmy/B5glQY2uBm/1aIUuFvKhOHMi78EPBkDri2Mgq17QG1d
-         kBOATOlqnMDhfnPWSoC84ejURZYRF2aZMt6IAQx2tck0jcesc0LezoG14sdeAnftwqkc
-         XjbQ==
-X-Forwarded-Encrypted: i=1; AL+hErGCwvM6N4KskS6wXDac8P6JZwClFJbQHvJTRVXCD+1O3hGYQ4CO5Rp89ZO7w+scfsWdccZUGSMuE62p8/Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+u+uQi1i6xoJFZk1EnZ0nYBB1dA32X8Qd+XaDDSRXHRZH/ltH8
-	Og6/BviZZeyXjaJuGZiRP62TLhIHMllpxEXp/WUkwPfXEBg/4wRkJkkPhfFYqgI0464=
-X-Gm-Gg: AYBFou3BZ1dzIyBzbhTbe31PvOUnffUcpNT+KlaSE4joVnmYJvavgEMfyk1NK9A59Bo
-	SPGDHRbbnj+0shg0cOpd/4fFHGtYEKZh9r37x6GWXrCJawfgfKunJgFhcMc4M4ofhf9wnselHLS
-	wEMKZyi9WeBp/ThTLkf4RsXwvl6I7KD5/rLVM9xOSJy2b4iBFCPL/nvURpXzgrRzyrucp6eI8lO
-	VAOlYE47E+odfkF0yI4wOskJRGRuK2qCBvAjQHYF5g7FSkvsFTzPFSw8ljPCcJWlJn4CtFPYHTY
-	RtqrqOdJVHBnv0koBZ7MCnckCaIgWusazU9v4w0hGw1W8a3apz4IzRh3Dw6m4S3q4m62QQxDLsv
-	GLn8XapponrvAlaAKEPgcp8vh78jGxT103kXIFo8zJW3HtUhQ0u/f5mcMNEaeu5EOw9gchqXggr
-	VXXQLu9QrmLkRHeeVu5n2UTliquJ+8MkvhgmY7a4VzLvRdurseWtKSqi3cYCaOl9jldFHqO74Hz
-	pQ2skeKKrORvbGivG7FB1Vrv6/Y6HSQPcs+iE0wtDU5F7SLVNoLw9D266vuEgXSOiTy2xRn5tqx
-	fR4CzG2N4vOhGTPLl3iD+Wk7iA9tXL3G7/X8vZI05rtWShquPjxfVzNvcqyOqeyUpY8kUbmGw4V
-	CG0VBEWUHWTOeX0q877Se9iH3UdAMsQDetXtID+OwdBJcLUdh2BltI85R59CQ75My+4t5NOoq7D
-	oKrmM59tMuP3a0gs+Uiwz+ZD0OG+wA4NC0FKWHdVoZNu0UoEkZWpgbqQm6388=
-X-Received: by 2002:a17:90b:37cf:b0:3ac:9e76:aa76 with SMTP id 98e67ed59e1d1-3b1b09f3b85mr1586733a91.13.1794559914380;
-        Fri, 13 Nov 2026 00:51:54 -0800 (PST)
+        bh=d8ixB8K8R172rrdk/LmhJTXU2lsskw0hIUmehvKI8Xk=;
+        b=0KKASeBGnbcR6B9g6whNWgOulZYudNcI3GF48yADZH4T9TDB8EVjyhwTmywzUo/yjp
+         zshyUNHzKYrBMBCGnimYuumi/KJ4+6Z1XCWJWbGxKv/IxB/4LPYHK76Mo2nv98Bgl/8T
+         1/wKt/amL9UQeAu/55uYTIO5WffklQeTahwdosPoJunDiK1ORKGjrBDVfExopBHU5Eju
+         zr5dmHWaV1WngWk93R2EqGj8NQEAHtIvIhF+WDAkTiG4Pnlw59j/+ScwmVWjMBaytHLy
+         uIgCo+7jxW0MlZknEpf3oHPXiVlHXWlQeMF8yCJs6Hqaprkmc+fl23/aI650ohArlDQz
+         /Qcg==
+X-Forwarded-Encrypted: i=1; AL+hErHm/QHNIOzOWMB6WNBvLftbMmUVA6RC/KrWd/JdNT3jP+VIxTq5GEywb7hUtz+WVrlMRkv1H1kYGPKMPqQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8pjTZDN+CHm/JFsygM3zH0EbZxEI7bbIv9EMtD5UEDwarfYKHT
+	2FmE4xTvwgmWWjKxm+W4eKQzp4+imB8wwUVp+slM5QK68KG2vd39wj4OYF6VJFl2Ey4=
+X-Gm-Gg: AYBFou3CDxO018LOOafW2pTcUpCBuVymle21FYdJ7yehD/6xdTejifuDfCE8yUMCY36
+	QmvGRDaVKr0fcRkz+C4r8d8KfbNwgPt9FwnkQLgXq5tmzqux3KFRcvjnvloZFEIrK31vV2Aj6zA
+	PALdGU+qU6p33E0a9/YkOX7ZFpVjU+UoQRrvXRBRh7hEOYaxkctOcG6B/taCABe9K8dmW+t0gJ0
+	/FjarCeYUuGhnkgEPAcbPgUXdUmiQjsIv+XWw6fLXxg4eKtrMhwcbIB9o4VUUAOf4fbrSCJwmyq
+	tSY9illJhPw/UnyRTjq2iuq+RoIg+rPG2Q6UuJCTOprzCmdub/gLX0qsD/09ano03owjV2i6zNs
+	5dfql/m3ijABmlEH+nP/15ZBDyliYYsDOWk+n2698NKlsJe403gPINjp09lcmkcDEK4FZGYb+9k
+	yQXiTDTB7KFsnDqGy0G2zp3FWaBmkUg2lDFOFYpH/lhtha2AqVadwVz//zUfVomoMJVnJKXe9PF
+	dhZd75X9ODIUvKeZlpvPS/QP8ofU0I/9Pn1B6Hm5tiJ1U0GexZzfFvFhsO0vd2WbMUpO/SlWEln
+	Q8nMoOyfpbCJfuy7LjNrhYw7AgL9CEkcDwUtmFRieSBFFuxJX4DclCveFqHzotisIpJq3bVUeVu
+	ey2t37GlVMsMjAfmTzdA79LoQ+qZVrl7+Pn7ZBCak2o0dJ8AwBcMz3c8RO7e0XjrQ12k4asI30V
+	0ylMBDTeaNxRSDqWoF/PLUfKohgNYeSnN80lvjTd03tXmA5lTCNvcZPoP+q2c=
+X-Received: by 2002:a05:6a21:798f:b0:3e2:1a24:fb85 with SMTP id adf61e73a8af0-3f7a4dbd84bmr1333192637.1.1794559919456;
+        Fri, 13 Nov 2026 00:51:59 -0800 (PST)
 Received: from [172.22.0.2] ([50.175.87.158])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b3b708adsm1115279a91.4.2026.11.13.00.51.51
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cddc186f472sm907794a12.6.2026.11.13.00.51.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 00:51:53 -0800 (PST)
-Date: Fri, 13 Nov 2026 00:51:47 -0800
-Message-ID: <ef93230b8a053d234bcb02392f505ae4b0968e6f.1794506262.git.chris@chrisdown.name>
-In-Reply-To: <cover.1794506262.git.chris@chrisdown.name>
-References: <cover.1794506262.git.chris@chrisdown.name>
+        Fri, 13 Nov 2026 00:51:58 -0800 (PST)
+Date: Fri, 13 Nov 2026 00:51:54 -0800
 From: Chris Down <chris@chrisdown.name>
-Subject: [PATCH v3 6/6] slub_kunit: Add a test for the kmalloc_partition boot
- parameter
-To: Vlastimil Babka <vbabka@kernel.org>,
-    Harry Yoo <harry@kernel.org>,
-    Andrew Morton <akpm@linux-foundation.org>
-Cc: Hao Li <hao.li@linux.dev>,
-    Christoph Lameter <cl@gentwo.org>,
-    David Rientjes <rientjes@google.com>,
-    Roman Gushchin <roman.gushchin@linux.dev>,
-    Kees Cook <kees@kernel.org>,
-    Marco Elver <elver@google.com>,
-    GONG Ruiqi <gongruiqi@huaweicloud.com>,
-    Jonathan Corbet <corbet@lwn.net>,
-    linux-mm@kvack.org,
-    linux-hardening@vger.kernel.org,
-    linux-doc@vger.kernel.org,
-    linux-kernel@vger.kernel.org,
-    kernel-team@meta.com
+To: Kees Cook <kees@kernel.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, Marco Elver <elver@google.com>, GONG Ruiqi <gongruiqi@huaweicloud.com>, Jonathan Corbet <corbet@lwn.net>, linux-mm@kvack.org, linux-hardening@vger.kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH v2 2/6] mm/slab: Enable SLAB_FREELIST_RANDOM by default
+In-Reply-To: <202610302113.FB347BE5@keescook>
+References: <cover.1793253633.git.chris@chrisdown.name> <6bdc161bd869ead04b3b9a651ef6a83882ecbea3.1793253633.git.chris@chrisdown.name> <202610302113.FB347BE5@keescook>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,115 +94,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Disposition: inline
+Message-ID: <20261113005154.79ad6432034bf65c@chrisdown.name>
 User-Agent: Mutt/2.4.3 (cc9e3943) (2026-10-09)
 
-Check that the kmalloc partitions are separate caches by default, and
-alias the normal kmalloc caches when they're turned off with
-kmalloc_partition=0. The test is skipped on kernels built without
-CONFIG_KMALLOC_PARTITION_CACHES.
+Hi Kees,
 
-Make kmalloc_partition_enabled global and export it to KUnit so that
-the test can see it.
+Kees Cook writes:
+>Again, just like it should be. I wonder, though, don't these 2 changes
+>undercut the goal of making these boot-time selectable?
 
-Signed-off-by: Chris Down <chris@chrisdown.name>
----
- lib/tests/slub_kunit.c | 45 ++++++++++++++++++++++++++++++++++++++++++
- mm/slab.h              |  1 +
- mm/slab_common.c       |  3 ++-
- 3 files changed, 48 insertions(+), 1 deletion(-)
+I don't think so. The goal is to stop needing separate images for hosts
+with different needs. It was never to make every option switchable for
+its own sake. For these two, the only real argument for leaving them out
+was CPU cost, and with sheaves that cost doesn't show up at the system
+level [1]. So turning them on everywhere removes the reason to build
+without them at all. Anyone who still wants them off can still say n at
+build time.
 
-diff --git a/lib/tests/slub_kunit.c b/lib/tests/slub_kunit.c
-index 1af3f087134f..61227c242ae2 100644
---- a/lib/tests/slub_kunit.c
-+++ b/lib/tests/slub_kunit.c
-@@ -334,6 +334,50 @@ static void test_slab_buckets(struct kunit *test)
- 	kfree(p);
- }
- 
-+/*
-+ * Each partition copy is a separate cache, unless the copies were disabled
-+ * with kmalloc_partition=0: then they alias the KMALLOC_NORMAL caches.
-+ */
-+static void test_kmalloc_partition(struct kunit *test)
-+{
-+	enum kmalloc_cache_type type;
-+	struct kmem_cache *s;
-+	unsigned int idx;
-+	bool found;
-+	void *p;
-+
-+	if (!IS_ENABLED(CONFIG_KMALLOC_PARTITION_CACHES))
-+		kunit_skip(test, "requires CONFIG_KMALLOC_PARTITION_CACHES");
-+
-+	for (type = KMALLOC_PARTITION_START + 1; type <= KMALLOC_PARTITION_END; type++) {
-+		for (idx = 0; idx < ARRAY_SIZE(kmalloc_caches[type]); idx++) {
-+			struct kmem_cache *normal = kmalloc_caches[KMALLOC_NORMAL][idx];
-+			struct kmem_cache *part = kmalloc_caches[type][idx];
-+
-+			if (!kmalloc_partition_enabled) {
-+				KUNIT_EXPECT_PTR_EQ(test, part, normal);
-+			} else if (normal) {
-+				KUNIT_EXPECT_NOT_NULL(test, part);
-+				KUNIT_EXPECT_PTR_NE(test, part, normal);
-+			}
-+		}
-+	}
-+
-+	p = kmalloc(64, GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, p);
-+	s = virt_to_slab(p)->slab_cache;
-+	idx = kmalloc_index(64);
-+	if (!kmalloc_partition_enabled) {
-+		KUNIT_EXPECT_PTR_EQ(test, s, kmalloc_caches[KMALLOC_NORMAL][idx]);
-+	} else {
-+		found = false;
-+		for (type = KMALLOC_PARTITION_START; type <= KMALLOC_PARTITION_END; type++)
-+			found |= s == kmalloc_caches[type][idx];
-+		KUNIT_EXPECT_TRUE_MSG(test, found, "allocated from %s", s->name);
-+	}
-+	kfree(p);
-+}
-+
- #if defined(CONFIG_PERF_EVENTS) || (defined(CONFIG_KPROBES) && defined(CONFIG_SMP))
- #define NR_ITERATIONS 1000
- #define NR_OBJECTS 1000
-@@ -528,6 +572,7 @@ static struct kunit_case test_cases[] = {
- 	KUNIT_CASE(test_leak_destroy),
- 	KUNIT_CASE(test_krealloc_redzone_zeroing),
- 	KUNIT_CASE(test_slab_buckets),
-+	KUNIT_CASE(test_kmalloc_partition),
- #ifdef CONFIG_PERF_EVENTS
- 	KUNIT_CASE_SLOW(test_kmalloc_nolock_and_friends_perf),
- #endif
-diff --git a/mm/slab.h b/mm/slab.h
-index 6a28951f6d5d..2a9d6a9a9948 100644
---- a/mm/slab.h
-+++ b/mm/slab.h
-@@ -391,6 +391,7 @@ extern struct list_head slab_caches;
- extern struct kmem_cache *kmem_cache;
- 
- extern bool slab_buckets_enabled;
-+extern bool kmalloc_partition_enabled;
- 
- /* A table of kmalloc cache names and sizes */
- extern const struct kmalloc_info_struct {
-diff --git a/mm/slab_common.c b/mm/slab_common.c
-index 20b066d61703..d0695e4d2ab6 100644
---- a/mm/slab_common.c
-+++ b/mm/slab_common.c
-@@ -781,8 +781,9 @@ unsigned long random_kmalloc_seed __ro_after_init;
- EXPORT_SYMBOL(random_kmalloc_seed);
- #endif
- 
--static bool kmalloc_partition_enabled __ro_after_init =
-+bool kmalloc_partition_enabled __ro_after_init =
- 	IS_ENABLED(CONFIG_KMALLOC_PARTITION_CACHES);
-+EXPORT_SYMBOL_IF_KUNIT(kmalloc_partition_enabled);
- 
- static int __init setup_kmalloc_partition(char *str)
- {
--- 
-2.56.1
+SLAB_BUCKETS and KMALLOC_PARTITION_CACHES are different. Their cost is
+memory, which is real and doesn't go away with sheaves, so those are the
+ones where a boot time switch makes sense.
 
+[1] https://lore.kernel.org/r/auITixAJMfLtfa7i@chrisdown.name
+
+Thanks for the review!
+
+Chris
