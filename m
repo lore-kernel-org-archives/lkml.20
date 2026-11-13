@@ -1,100 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794552779;
-	b=PFIB6yhfbQGgNrsorRxUijyMvV6aKf0c8JDmpv0pW+m9cd4bMLXhxG2YKYyjH/rwGY0q
-	 HTQ7J9FQz794EqQNos21xJcF4/ItlSkh4XuAXUNkjdVbJxtRqcANL2H1ACLCasdZrl2Kg
-	 FKQQi8Yx1zyn1KGlL2LRdckfwLUZonPqbamTrxlEaJ2FOVXipfrnm7HSuvjcBu5C122xe
-	 fdN5zWVQ2XnLRSkci4ceA6lkD6ep0bKcphnwXQA/WqYUGSfUOKd2an3+8eopnTq+a7GKA
-	 yOq0qUBDyqM6N663eUiimWJkMNx8/oT/tQXllJpeid4Ypr+TA6IxiO4dUzSK7xyYiDg==
+	t=1794552822;
+	b=cmc7AxzGYV0Ls441RKnG3KP2AbBzVwcs0/28DrB8euvgVD1W1aaWx3+YEK4wwun8CfC4
+	 LsG+RYuCMi9o64ku2TCFc4QUkQXIdDvBnCHE8m3kDTdqCwKMAmaD14GEKF681xFZWL3tO
+	 IF8prxqIOCmT6dT92/PKfcxmU01eKCMNiRQQiJCJSwUWUDkAcdBvTBAc++ntmHMkhqsVe
+	 KlkkkkxhkIGkXUBL5opRygzFD4kpMuj+0tG600yxdKTkUIbIH/+9gEbaHpQCbuZHaWY2G
+	 AgZbSUi4EmHfEBuutT+Cxcj4u4grl+eG8irUL7/exEsxNOrje2UF2UTtQCpnGsaOvvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794552779;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794552822;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=VIJHAgcH0kNWNFXAVV2FGeNxRIHtnxTUPfAN1k4v8u4=;
-	b=rsW6BDWTiwjPT+WGEBBkhraHgMcDraWlwDSHJyhSo1DxVZpCfZIoDljNmHfx3iOdJbTy
-	 OB1MoewdnB+Vw7wDGC+BRQamrNqR3lOWba8En/Kd8fTE2YIahtZgKkOLZ23NqngdDM97n
-	 SKnLqrqf44h0P9sm4P/nSu8s8ekMSq/5GlFNUpZCNL6G8Z3jICZ9Jyb7IgfnzjcRcaXM0
-	 etDeSziyFvSLleEA3czzFsV9tmJFllcFii+Nnbo2pdY6pXm9h/nmPaJieeOcxq+N/85P6
-	 dOTJ0oiOSXtSwPRFAAAOfij62jtSXvauAqzXkmbd0mxBAbCzeFE5fEEk+bVsMB2KD7A==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=7Q39/lqYC3Xf6FzX/Bx2LJs4jpalM5B4swG5E0jDvX4=;
+	b=XVQ+UkXm0q0r0N4wys+tgUPkB3CaNA9bcvPDSN6gHQE9bBYODfJYAc6q97DyBR6ueRYi
+	 9Q5poNgtCNhC4WPKXu5qBsAYzd3LVYPQLwVwA5Guf1bHlCPYSZZHe8t/LmqUGPRo5m6Nr
+	 b70F/m0RaKhUUxCFl1KPo0x2VAM23+SvqW1Yfs5e5aioXeo8k8LreJGYCZW8xXurMZlH0
+	 XJYzuXFYaGQ3LcjXGXJ76nu+VwaPBtNscZCmjwVrQgqIU+ryQhCw6JN1jrAQfRG1j0qut
+	 DYWpzrcjznzaPkbx/JysWKIRqbowmjM5CNG3LqEFPgC1O1B5197sGf5up7nyhsuBRoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Rk08dtVx;
-	arc=none smtp.remote-ip=209.85.210.181
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--sarthakkukreti.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="fLT/mju8";
+	arc=none smtp.remote-ip=74.125.82.197
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAEB4606A332
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:52:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAEB4606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FECF606A327
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:53:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FECF606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sarthakkukreti.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Rk08dtVx
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8b8ecfa886bso848618b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:52:58 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fLT/mju8
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-30c0d568830so933743eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:53:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794552778; x=1795157578; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VIJHAgcH0kNWNFXAVV2FGeNxRIHtnxTUPfAN1k4v8u4=;
-        b=Rk08dtVx4lCFtpfuuUl022D9CDEsg7463Ro0IujuUYYx0m+kLT1CYmxAom5uSHr29v
-         dCBzY40erU72AEmYZjsChyYPPs9v7+tzmoAscD0rqe2YEWRz86PFXu2a1f8LmQwOqHFa
-         UoIHRK+mPc1SdThfCKBSOALw9CLE1bno63yygSz71zhk2CJ8g1SYBdPSGMHqt5I3wyea
-         eKG2DAo6NYR04C8ur/j4D+iVHaWqNUaPLz+88sNWa2ApY7UOx0jLt6ZLE1dfv2TLdRR8
-         z7WVn+eNOcdA3JPfUEd3thgmGJRy2aJqlORvzl1yPryjxW/L8GnFovsQn6DURi68aaiV
-         mzqg==
+        d=google.com; s=20260707; t=1794552821; x=1795157621; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7Q39/lqYC3Xf6FzX/Bx2LJs4jpalM5B4swG5E0jDvX4=;
+        b=fLT/mju85eYKEUfFdmTx0l+yDJBeLhsZrB0BgQcZDYREdLBxANpYfqgBbkRqE/+OEI
+         7Zw7zvgVOb1UU4H0aCEWxG/tMn0T28mpPryeiGNoq3LxCA4sn9HKpfUsKqx4rHDH2L94
+         lSgmyhHzYNJ+WKcV2QaJNthyNWxkKBResUzLfP7fCX1v87zgSWQSBMyTTMj1AQszBN+h
+         U6oV/jKnj91tqkW3Q8MA70cmQ2iYNhR8QLLTB5WG+SQqRHWUmYhIfxkmmofS3gL4NG0D
+         lnSbtK833Lag7hqRfDHNKSMVwXIrkY/DlboIN0JxcgIWu99CULyCWIHsnRM0RvTRqJTp
+         uwxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794552778; x=1795157578;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VIJHAgcH0kNWNFXAVV2FGeNxRIHtnxTUPfAN1k4v8u4=;
-        b=jnvqTGZ0oRE7tS4C/ubb1JJDuSYPXa/ESen/J2ja2llK3/Xz1uKlTC7ZWsdseMSL29
-         Qfw3jMMhjkKx6zwTyIB+nAi0Tdv0S5zX6lOWiuI9BQLDvzFsz/QPBGFlnegStcBTJBEV
-         sTYUvnn8jRZ5EgsoF1ar4MVMoUkc4i8t8skaEOSmZCdXL+YkOrT+HyhZbk3HHUiegiZy
-         EaeTYhy9kn08+SLr2OcYyEGywJDZF1p2yphF+iex9gT7Ta6zyQs21S3Lk7jQ6sQRsz1E
-         OsqGKq8c+kPy2OVkO4A9Q2uja0AoS8YJotTqhs1d/8uCqHRbZQHUb2fqPg1S+PLfu1tu
-         8W+Q==
-X-Forwarded-Encrypted: i=1; AL+hErEdD4nW6BC/xD0nN6/mBqXv54ER7x4xeKLLSZevcCkZqyjq7FVHp7UlJCvSfsYoxKOuonfDZ2W7mwyGSTw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+HLtNgU05cuzfDlnfw2ENBaISbq5W8DrYb34NLNKMlaLjGH3z8
-	IeE12XeXOjhWW5t1gWT00Y9P/bOmt8NPlDfRqjpf18lXAvp7HY6MOAYp
-X-Gm-Gg: AYBFou1G1xblAxZMH4Pfm2UhviWsAk9q8FM95TESdWgAuxf05H3+ybFZg9opJj1Drgo
-	+uzGjqh8magzIWF3IrQC9/vnmfenA03oL7QKfSiWyHG1/8eDgNxlz6uE4wzZLMazTFsAPbIVRjE
-	gdWjRspAm8k3WZxyAXpdWylusgOqDRn9YGtBUKhTz88pwRfSrKIkOLIOXqypQUzcQZxv/TnZ1eM
-	RcYTEKzM/uLuXhV977SaS/bvia+I4acazVT+XXIvUZKmyG69ngap+/UZIqE66Qzo5rf1eeGwXD9
-	QYWgY9zuJp8iWWAkV8SKKbsj/XL/ayTtqMDAq10TK5gjaaNpOnbst/Qx51rYVGTndSkb5MzWLXs
-	y0cC7INSETZE+PcyeqqcYLxsRUC0pgvvmZ9ZMieggw4Ix+qm7hajSdnzEOP2ezld40KKKoaFEVE
-	2pvfYxDx7tLeK51dPpjxMdvO/NCdyeR8e4/kXOhYN+CirmIn56FlQeZCETsnsbYLM77SKq515Q8
-	pcxIvwr3zil53eNzQvX+dYi1ClDAA1AxMkrhh7CA9COy/RKQD/GIAD0Omx2q/RPyFPIUHRPbJsK
-	s5eTGkv/LCk1AHr390D8
-X-Received: by 2002:a17:90b:5910:b0:3ae:3b3d:c617 with SMTP id 98e67ed59e1d1-3b1b0cc8f69mr806113a91.29.1794552777743;
-        Thu, 12 Nov 2026 22:52:57 -0800 (PST)
-Received: from a1-free ([161.33.196.121])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b3d279d8sm869257a91.2.2026.11.12.22.52.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 22:52:57 -0800 (PST)
-From: TAKANO Mitsuhiro <takano32@gmail.com>
-To: linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>
-Cc: James Clark <james.clark@linaro.org>,
-	Ian Rogers <irogers@google.com>,
-	John Garry <john.garry@linux.dev>,
-	Ilkka Koskinen <ilkka@os.amperecomputing.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	TAKANO Mitsuhiro <takano32@gmail.com>
-Subject: [PATCH v2] perf vendor events arm64 AmpereOneX: Fix misspelled PublicDescription keys
-Date: Fri, 13 Nov 2026 06:52:53 +0000
-Message-ID: <20261113065253.746615-1-takano32@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261108183846.3804875-1-takano32@gmail.com>
-References: <20261108183846.3804875-1-takano32@gmail.com>
+        d=1e100.net; s=20260707; t=1794552821; x=1795157621;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7Q39/lqYC3Xf6FzX/Bx2LJs4jpalM5B4swG5E0jDvX4=;
+        b=YPVbV1n1NYqGJF8iHT4zXCytVlGs4GGtOxIfAvwpVw5hKpkfKH7rilYX7EmoWfcfQW
+         pT7vc79Jb8ajv7m2P7iiatx+/dneCBXRGfOUMoa5iHYojbTJDjxh6vr+uCvdswl4ZwGo
+         AAYrMLPBWpylr99iZW0QXNjUu93gJ4SbQ/mhXYyry+LwurvHGT6+BhgbvxT+VzfmkJ3/
+         jI/1T+0D8+52S9KRqMGxKNkmd0kucczaJUcKA7msm3/m7u4uxOxfO+DpkQ8EPVXTUR9O
+         86hpExHAMErjbPmEl31lVME05/9Hsi9iKQ0ZS4usRO+PM9vOTPhwKW0YNEr2w0kQcu9y
+         GGyw==
+X-Forwarded-Encrypted: i=1; AL+hErFqCd+I2MnPmG5gX8Q068fBd+37FBxOZMgW6AmtlFqwEHFIigjE5UJDgweykU+HytZTuBvwNAL3OE5soVM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+L5O4sVR+B4+b6hPRVWNkP0lUNBYHAdUhChYbq/9xodWUMeRfn
+	SictJCclr+m2iCNSF36ITdJts6BLqccfujm96FSe4Sk5uz7xAF6jD54AuzIbGh1d2eGxsuGzJcD
+	C/BqUlgtcQhmJOPme56pa3rpxWi4TcUaou15+5g==
+X-Received: from dycmq8.prod.google.com ([2002:a05:7301:788:b0:369:fbca:f649])
+ (user=sarthakkukreti job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7301:6185:20b0:379:3c04:2cdd with SMTP id 5a478bee46e88-379686a7f3amr1357207eec.31.1794552820371;
+ Thu, 12 Nov 2026 22:53:40 -0800 (PST)
+Date: Thu, 12 Nov 2026 22:53:30 -0800
+In-Reply-To: <20261113065332.929085-1-sarthakkukreti@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,158 +78,206 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261113065332.929085-1-sarthakkukreti@google.com>
+X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
+Message-ID: <20261113065332.929085-2-sarthakkukreti@google.com>
+Subject: [PATCH 1/3] libfs: reject casefolded names that fold to ".", "..", or empty
+From: Sarthak Kukreti <sarthakkukreti@google.com>
+To: "Theodore Ts'o" <tytso@mit.edu>, Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>
+Cc: Gabriel Krisman Bertazi <krisman@collabora.co.uk>, Eric Biggers <ebiggers@google.com>, 
+	Dmitry Torokhov <dtor@google.com>, linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org, 
+	linux-f2fs-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org, 
+	Sarthak Kukreti <sarthakkukreti@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Sixteen of the 28 entries in mmu.json spell PublicDescription as
-"PublicDescrition"; the other 12 spell it correctly.  jevents.py reads
-only the keys it asks for by name, so those 16 fields are dead.
+Unicode normalization and casefolding (utf8_casefold()) strips code
+points with the Default_Ignorable_Code_Point property, such as U+202E
+(RIGHT-TO-LEFT OVERRIDE) or U+200B (ZERO WIDTH SPACE). As a result:
 
-Fixing them does not change the perf list output: every one of the 16
-entries has a BriefDescription with the same text, and jevents.py drops
-the long description when it equals the brief one (jevents.py:405).
-Running jevents.py for arm64 before and after this change gives a
-byte-identical generated string table (1580383 bytes both times).
+1. A filename consisting of "." or ".." followed by ignorable characters
+   (e.g. ".\xe2\x80\xae" or "..\xe2\x80\xae") bypasses VFS special-entry
+   handling during path walk, but casefolds to "." or "..".
+2. A filename consisting solely of ignorable characters (e.g.
+   "\xe2\x80\xae") casefolds to the empty string "" (length 0), causing
+   any two distinct ignorable-only filenames to compare and hash as
+   equal.
 
-The file becomes self-consistent again, and the field works if the brief
-text is ever changed on its own.  No text, name, code or expression
-changes.
+Update generic_ci_d_hash(), generic_ci_d_compare(), generic_ci_match(),
+and generic_ci_validate_strict_name() to reject case-insensitive
+hashing, matching, and creation of filenames that casefold to "", ".",
+or "..", while preserving exact byte-equality matches (such as NFS
+export lookups of literal ".."). Using a 3-byte stack buffer with
+utf8_casefold() detects all three cases in O(1) space without heap
+allocations.
 
-Written with Hermes Agent, an LLM assistant; the author reviewed it and
-ran the generator as described.  perf was built, not run against
-hardware.
-
-Signed-off-by: TAKANO Mitsuhiro <takano32@gmail.com>
+Fixes: c843843e714c ("fs: Add standard casefolding support")
+Co-developed-by: Dmitry Torokhov <dtor@google.com>
+Signed-off-by: Dmitry Torokhov <dtor@google.com>
+Signed-off-by: Sarthak Kukreti <sarthakkukreti@google.com>
 ---
-v2: rebased on 7.4-rc2.  The arm64 string table generated with
-    jevents.py is byte identical before and after the change
-    (1580383 bytes), measured again on this base.
+ fs/libfs.c         | 50 ++++++++++++++++++++++++++++++++++++++++++----
+ include/linux/fs.h | 31 ++++++++++++++++------------
+ 2 files changed, 64 insertions(+), 17 deletions(-)
 
- .../arch/arm64/ampere/ampereonex/mmu.json     | 32 +++++++++----------
- 1 file changed, 16 insertions(+), 16 deletions(-)
-
-diff --git a/tools/perf/pmu-events/arch/arm64/ampere/ampereonex/mmu.json b/tools/perf/pmu-events/arch/arm64/ampere/ampereonex/mmu.json
-index 66d83b680651..9457f9be4ecc 100644
---- a/tools/perf/pmu-events/arch/arm64/ampere/ampereonex/mmu.json
-+++ b/tools/perf/pmu-events/arch/arm64/ampere/ampereonex/mmu.json
-@@ -30,37 +30,37 @@
-         "BriefDescription": "Data TLB translation cache hit on S2L2 walk cache entry"
-     },
-     {
--        "PublicDescrition": "Data TLB translation cache hit on S2L1 walk cache entry",
-+        "PublicDescription": "Data TLB translation cache hit on S2L1 walk cache entry",
-         "EventCode": "0xd805",
-         "EventName": "MMU_D_TRANS_CACHE_HIT_S2L1_WALK",
-         "BriefDescription": "Data TLB translation cache hit on S2L1 walk cache entry"
-     },
-     {
--        "PublicDescrition": "Data TLB translation cache hit on S2L0 walk cache entry",
-+        "PublicDescription": "Data TLB translation cache hit on S2L0 walk cache entry",
-         "EventCode": "0xd806",
-         "EventName": "MMU_D_TRANS_CACHE_HIT_S2L0_WALK",
-         "BriefDescription": "Data TLB translation cache hit on S2L0 walk cache entry"
-     },
-     {
--        "PublicDescrition": "Data-side S1 page walk cache lookup",
-+        "PublicDescription": "Data-side S1 page walk cache lookup",
-         "EventCode": "0xd807",
-         "EventName": "MMU_D_S1_WALK_CACHE_LOOKUP",
-         "BriefDescription": "Data-side S1 page walk cache lookup"
-     },
-     {
--        "PublicDescrition": "Data-side S1 page walk cache refill",
-+        "PublicDescription": "Data-side S1 page walk cache refill",
-         "EventCode": "0xd808",
-         "EventName": "MMU_D_S1_WALK_CACHE_REFILL",
-         "BriefDescription": "Data-side S1 page walk cache refill"
-     },
-     {
--        "PublicDescrition": "Data-side S2 page walk cache lookup",
-+        "PublicDescription": "Data-side S2 page walk cache lookup",
-         "EventCode": "0xd809",
-         "EventName": "MMU_D_S2_WALK_CACHE_LOOKUP",
-         "BriefDescription": "Data-side S2 page walk cache lookup"
-     },
-     {
--        "PublicDescrition": "Data-side S2 page walk cache refill",
-+        "PublicDescription": "Data-side S2 page walk cache refill",
-         "EventCode": "0xd80a",
-         "EventName": "MMU_D_S2_WALK_CACHE_REFILL",
-         "BriefDescription": "Data-side S2 page walk cache refill"
-@@ -90,61 +90,61 @@
-         "BriefDescription": "Level 2 instruction translation buffer allocation"
-     },
-     {
--        "PublicDescrition": "Instruction TLB translation cache hit on S1L2 walk cache entry",
-+        "PublicDescription": "Instruction TLB translation cache hit on S1L2 walk cache entry",
-         "EventCode": "0xd901",
-         "EventName": "MMU_I_TRANS_CACHE_HIT_S1L2_WALK",
-         "BriefDescription": "Instruction TLB translation cache hit on S1L2 walk cache entry"
-     },
-     {
--        "PublicDescrition": "Instruction TLB translation cache hit on S1L1 walk cache entry",
-+        "PublicDescription": "Instruction TLB translation cache hit on S1L1 walk cache entry",
-         "EventCode": "0xd902",
-         "EventName": "MMU_I_TRANS_CACHE_HIT_S1L1_WALK",
-         "BriefDescription": "Instruction TLB translation cache hit on S1L1 walk cache entry"
-     },
-     {
--        "PublicDescrition": "Instruction TLB translation cache hit on S1L0 walk cache entry",
-+        "PublicDescription": "Instruction TLB translation cache hit on S1L0 walk cache entry",
-         "EventCode": "0xd903",
-         "EventName": "MMU_I_TRANS_CACHE_HIT_S1L0_WALK",
-         "BriefDescription": "Instruction TLB translation cache hit on S1L0 walk cache entry"
-     },
-     {
--        "PublicDescrition": "Instruction TLB translation cache hit on S2L2 walk cache entry",
-+        "PublicDescription": "Instruction TLB translation cache hit on S2L2 walk cache entry",
-         "EventCode": "0xd904",
-         "EventName": "MMU_I_TRANS_CACHE_HIT_S2L2_WALK",
-         "BriefDescription": "Instruction TLB translation cache hit on S2L2 walk cache entry"
-     },
-     {
--        "PublicDescrition": "Instruction TLB translation cache hit on S2L1 walk cache entry",
-+        "PublicDescription": "Instruction TLB translation cache hit on S2L1 walk cache entry",
-         "EventCode": "0xd905",
-         "EventName": "MMU_I_TRANS_CACHE_HIT_S2L1_WALK",
-         "BriefDescription": "Instruction TLB translation cache hit on S2L1 walk cache entry"
-     },
-     {
--        "PublicDescrition": "Instruction TLB translation cache hit on S2L0 walk cache entry",
-+        "PublicDescription": "Instruction TLB translation cache hit on S2L0 walk cache entry",
-         "EventCode": "0xd906",
-         "EventName": "MMU_I_TRANS_CACHE_HIT_S2L0_WALK",
-         "BriefDescription": "Instruction TLB translation cache hit on S2L0 walk cache entry"
-     },
-     {
--        "PublicDescrition": "Instruction-side S1 page walk cache lookup",
-+        "PublicDescription": "Instruction-side S1 page walk cache lookup",
-         "EventCode": "0xd907",
-         "EventName": "MMU_I_S1_WALK_CACHE_LOOKUP",
-         "BriefDescription": "Instruction-side S1 page walk cache lookup"
-     },
-     {
--        "PublicDescrition": "Instruction-side S1 page walk cache refill",
-+        "PublicDescription": "Instruction-side S1 page walk cache refill",
-         "EventCode": "0xd908",
-         "EventName": "MMU_I_S1_WALK_CACHE_REFILL",
-         "BriefDescription": "Instruction-side S1 page walk cache refill"
-     },
-     {
--        "PublicDescrition": "Instruction-side S2 page walk cache lookup",
-+        "PublicDescription": "Instruction-side S2 page walk cache lookup",
-         "EventCode": "0xd909",
-         "EventName": "MMU_I_S2_WALK_CACHE_LOOKUP",
-         "BriefDescription": "Instruction-side S2 page walk cache lookup"
-     },
-     {
--        "PublicDescrition": "Instruction-side S2 page walk cache refill",
-+        "PublicDescription": "Instruction-side S2 page walk cache refill",
-         "EventCode": "0xd90a",
-         "EventName": "MMU_I_S2_WALK_CACHE_REFILL",
-         "BriefDescription": "Instruction-side S2 page walk cache refill"
-
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+diff --git a/fs/libfs.c b/fs/libfs.c
+index 27d7dc16fcb0..54296dfb8444 100644
+--- a/fs/libfs.c
++++ b/fs/libfs.c
+@@ -1801,8 +1801,11 @@ int generic_ci_d_compare(const struct dentry *dentry, unsigned int len,
+ {
+ 	const struct dentry *parent;
+ 	const struct inode *dir;
++	const struct unicode_map *um;
+ 	union shortname_store strbuf;
++	unsigned char buf[3];
+ 	struct qstr qstr;
++	int cf_len;
+ 
+ 	/*
+ 	 * Attempt a case-sensitive match first. It is cheaper and
+@@ -1821,6 +1824,19 @@ int generic_ci_d_compare(const struct dentry *dentry, unsigned int len,
+ 	if (!dir || !IS_CASEFOLDED(dir))
+ 		return 1;
+ 
++	if (name_is_dot_dotdot(str, len) ||
++	    name_is_dot_dotdot(name->name, name->len))
++		return 1;
++
++	/*
++	 * utf8_strncasecmp() only matches if both names casefold to the same
++	 * byte sequence, so checking @name covers @qstr as well.
++	 */
++	um = dentry->d_sb->s_encoding;
++	cf_len = utf8_casefold(um, name, buf, sizeof(buf));
++	if (cf_len == 0 || (cf_len > 0 && name_is_dot_dotdot(buf, cf_len)))
++		return 1;
++
+ 	qstr.len = len;
+ 	qstr.name = str;
+ 	/*
+@@ -1839,7 +1855,7 @@ int generic_ci_d_compare(const struct dentry *dentry, unsigned int len,
+ 		barrier();
+ 	}
+ 
+-	return utf8_strncasecmp(dentry->d_sb->s_encoding, name, &qstr);
++	return utf8_strncasecmp(um, name, &qstr);
+ }
+ EXPORT_SYMBOL(generic_ci_d_compare);
+ 
+@@ -1855,13 +1871,21 @@ int generic_ci_d_hash(const struct dentry *dentry, struct qstr *str)
+ 	const struct inode *dir = READ_ONCE(dentry->d_inode);
+ 	struct super_block *sb = dentry->d_sb;
+ 	const struct unicode_map *um = sb->s_encoding;
++	unsigned char buf[3];
+ 	int ret;
+ 
+ 	if (!dir || !IS_CASEFOLDED(dir))
+ 		return 0;
+ 
+ 	ret = utf8_casefold_hash(um, dentry, str);
+-	if (ret < 0 && sb_has_strict_encoding(sb))
++	if (ret < 0) {
++		if (sb_has_strict_encoding(sb))
++			return -EINVAL;
++		return 0;
++	}
++
++	ret = utf8_casefold(um, str, buf, sizeof(buf));
++	if (ret == 0 || (ret > 0 && name_is_dot_dotdot(buf, ret)))
+ 		return -EINVAL;
+ 	return 0;
+ }
+@@ -1934,10 +1958,28 @@ int generic_ci_match(const struct inode *parent,
+ 	    !memcmp(name->name, dirent.name, dirent.len))
+ 		goto out;
+ 
+-	if (folded_name->name)
++	if (name_is_dot_dotdot(dirent.name, dirent.len) ||
++	    name_is_dot_dotdot(name->name, name->len) ||
++	    (folded_name->name &&
++	     (!folded_name->len ||
++	      name_is_dot_dotdot(folded_name->name, folded_name->len)))) {
++		res = 1;
++		goto out;
++	}
++
++	if (folded_name->name) {
+ 		res = utf8_strncasecmp_folded(um, folded_name, &dirent);
+-	else
++	} else {
++		unsigned char buf[3];
++		int cf_len = utf8_casefold(um, name, buf, sizeof(buf));
++
++		if (cf_len == 0 ||
++		    (cf_len > 0 && name_is_dot_dotdot(buf, cf_len))) {
++			res = 1;
++			goto out;
++		}
+ 		res = utf8_strncasecmp(um, name, &dirent);
++	}
+ 
+ out:
+ 	kfree(decrypted_name.name);
+diff --git a/include/linux/fs.h b/include/linux/fs.h
+index f9d1e05e8ae6..84f5ce2bb9ad 100644
+--- a/include/linux/fs.h
++++ b/include/linux/fs.h
+@@ -3356,28 +3356,26 @@ int generic_ci_d_compare(const struct dentry *dentry, unsigned int len,
+  * generic_ci_validate_strict_name - Check if a given name is suitable
+  * for a directory
+  *
+- * This functions checks if the proposed filename is valid for the
+- * parent directory. That means that only valid UTF-8 filenames will be
+- * accepted for casefold directories from filesystems created with the
+- * strict encoding flag.  That also means that any name will be
+- * accepted for directories that doesn't have casefold enabled, or
+- * aren't being strict with the encoding.
++ * This function checks if the proposed filename is valid for the
++ * parent directory. Names that casefold to "", ".", or ".." are
++ * rejected for all casefolded directories. When the filesystem is
++ * created with the strict encoding flag, only valid UTF-8 filenames
++ * are accepted for casefolded directories.
+  *
+  * @dir: inode of the directory where the new file will be created
+  * @name: name of the new file
+  *
+  * Return:
+- * * True: if the filename is suitable for this directory. It can be
+- *   true if a given name is not suitable for a strict encoding
+- *   directory, but the directory being used isn't strict
+- * * False if the filename isn't suitable for this directory. This only
+- *   happens when a directory is casefolded and the filesystem is strict
+- *   about its encoding.
++ * * True: if the filename is suitable for this directory.
++ * * False: if the filename isn't suitable for this directory.
+  */
+ static inline bool generic_ci_validate_strict_name(struct inode *dir,
+ 						   const struct qstr *name)
+ {
+-	if (!IS_CASEFOLDED(dir) || !sb_has_strict_encoding(dir->i_sb))
++	unsigned char buf[3];
++	int len;
++
++	if (!IS_CASEFOLDED(dir))
+ 		return true;
+ 
+ 	/*
+@@ -3387,6 +3385,13 @@ static inline bool generic_ci_validate_strict_name(struct inode *dir,
+ 	if (WARN_ON_ONCE(!dir->i_sb->s_encoding))
+ 		return true;
+ 
++	len = utf8_casefold(dir->i_sb->s_encoding, name, buf, sizeof(buf));
++	if (len == 0 || (len > 0 && name_is_dot_dotdot(buf, len)))
++		return false;
++
++	if (!sb_has_strict_encoding(dir->i_sb))
++		return true;
++
+ 	return !utf8_validate(dir->i_sb->s_encoding, name);
+ }
+ #else
 -- 
-2.53.0
+2.56.0.611.g1030f0b940-goog
 
