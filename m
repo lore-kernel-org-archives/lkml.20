@@ -1,98 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.5
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794589521;
-	b=N2x6h5xK9UizQlRvCB2oalW9PdjSFyei8Z4MYi0HW6xmwZ0A8S6fooqHrq46esH0FikZ
-	 Vexee2+PIfmS/WoMDqb5Dh+6OWyndVdLrpwP1fD0wlnzOKcSvx4WTPakQagTHpWiz+i9P
-	 QLb0nieP4e3RIGeX7VRh6qhMzZAdvRwL7F9qrEE73GnRaTRdhh8kunXslKTHgmPN+YyPi
-	 BYfHZ4JmGg73/23yIsJ/C4154qPavKWPF1rLVg6GKqdD1KqEX1RjyZMtS1bgkITrb7Ywt
-	 WQvdaMTPMCCPR0zp5K2s/xK5IqR7s2X4quLTFrAL0nS6lKYMpMgizhoOrgKV+MiS3KQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794589521;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:CC:Subject:Message-ID:Date:MIME-Version:Content-Type:
-	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=+4mING0Rex+jtkx55aNx+cqpDXz5klhmvjWXbUn/VKM=;
-	b=FMvHF6e5+i2GE8CxAn9iWzKsf5+AAX/oNjwa6oo9tP08RevZNbDbfmxgCyXbE3UBtQ+b
-	 nAN5qwdgdo2lixqhFeb/tJk0+K/k1a2Qn8wmjLR8yBHkFn1cB5Oknh3bQU8TRm7mLGIBx
-	 yT/AKRQzgKj43mzI7phVvAAv8d3MWbjGc4W2m8deEj6cd8p078SH+HeFlmrDcj41Sj6cn
-	 uSxJqAHUrPK71mV3LmgsPynInQqNhGyGPNdqkjCTvxaN4VV5YB5w90BdWEiEY5ru6o/Gh
-	 LeijKhIDK6wrQ2+kXjLO8AJHPv+16QOUVTLJEvzG534NZBmXP3M0M4hkoGYIM2f7N/g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=axis.com;
-	spf=pass smtp.mailfrom=axis.com;
-	dkim=pass header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=HpJ1SV1o;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.5
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011005.outbound.protection.outlook.com [52.101.65.5])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794589547;
+	b=0RgATvpKhv/QUsk89Wqgula75JNi+qox7VG+4+f158tYVnk5ulxFULYSAi9QDskJkIsL
+	 ymLF6GZsrYtuX7OuadfLJAhfJpqbXGwnAEI7JQFFaIAvXmj5QvzABLNRcbfm29EDGpe29
+	 pkLkl+PjZ7YguDtLpQzQHeH+tpsFE2fsGdicuHcGacxkQgOeX7pzol+7rx0mozNG525HW
+	 +gPHADtmYJwrN5h0+YB9wha3fOrSuJ3pbr/vZR/yKXTD1o93hkyhW5WiAoLlq4nQiPc10
+	 BoJ5x8yZbqi02lDsaBPsPSKsLdV04761MdmN3hvCf5TepWsA5CpiQcUO7JKLqHnPM5g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794589547;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 Sender:X-SRS-Rewrite;
+	bh=ESsgt/TRagJZAJHymZDUQcxn7gpvuI5G4jdddBBCKdU=;
+	b=REsKHxTbFQq2tR1AZTUmUUuwGRBEkn3PQtLUN+tIiqNg1LzWX33/yUEmr1iLfMe0l5na
+	 GxM6gVpkIQ21a9uylw97bNwuzYLt36IQgdK2f5vJJ65KVFhO3e6oCtUxPmT4HacDdKJJu
+	 8lu1C98MxjAAtXWB6z4JnHUmjGgMWKDBzuUuB/p1w/hV8owxbEYcOg6+Se9RTpKLjGekN
+	 SW3V+5EMvwphjyryaY3LZ8+MYphqRhPkFZzrpKZzCh5HVZL6gG4DTWiAknCQnhXD0MaqE
+	 R41SMduN8rdjJXxhbYMAos35kcmO12birF24bs2yxK25t14r5aHNr/btZgDASm2BJ1g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=infradead.org;
+	spf=none smtp.mailfrom=casper.srs.infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=nnRGQxL7;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7EC2606A32E;
-	Fri, 13 Nov 2026 17:05:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7EC2606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF71B606A335;
+	Fri, 13 Nov 2026 17:05:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF71B606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=HpJ1SV1o
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tXwdT8ZsCKGH2vfZTuWVzWiNPv+XZxYns3s7waQSVLAlzSIQSbjTaH+I7RbInOmvtEZeIsd5crw3yRSCniAr/dljj3ehlBXcmYPHcOqvn4OstnCvgfB+mZeoVODxRzXiu1cHKDmBq2RJtAG5L+p9zZfP+m2svG3cWexnnGElmR6n2NrvHV8wRMu4xG05crLFxos0Z5C//HBPYYyD8+BLUvIWTloYMjvq44YahwjpNQcfxAHLz96cXHZApFkU4PttoZbXs/HobYPAqc3kYP0sHb5dxLuHsyQftNkgvZX2pbFhwihAH0I8EQzzAIpdI0FudS9zwDVIqbg0whSVU/J/vQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+4mING0Rex+jtkx55aNx+cqpDXz5klhmvjWXbUn/VKM=;
- b=wf8rHCK60/8pFu4CifEYXqU4m/d9uTy5D3PhlhjEJGCFpP5cZUBQYh/Muc377/0P+xjGI0jjsIN03v8jHPILSXlplK94fmLZ9XA7QKowapTraNSzrtmL0fiVpiG41TIJOZpxzyoFoamuLJBsKkDuJFBZYOLBuwuhRx8rd7O9Ku2W8QRN6eqDP1si8r4aUouWwiy59DSQYFg/tV20TtTyK60w+VLAScbgctzK5mxt8O7ddq++VBQCsJ8pQxGSCpJe17zr6xzZiPJ26mpCDgn9lMltY0wDYCVCw1Frs4TtU3q2cKI3uXxQ/YagcSziZSOaarMhFlLBoSXF+X4LumUFKg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 195.60.68.100) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=axis.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=axis.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+4mING0Rex+jtkx55aNx+cqpDXz5klhmvjWXbUn/VKM=;
- b=HpJ1SV1opH+W4CM6GMzW2yQXAr2wPX5rlPyXg2e73vPihgFY/OY1TEFGS+eTU12HsIb0shmkIxtY9/YqnxROYxdwCwP6iAgTNgMeFdHlqNmD+civH+inkn8xY38ILKjXzYcB7Ef9QSZrf8bz8On9VNLpbC0UCb2UV4WlPqwNUAA=
-Received: from AS8P250CA0008.EURP250.PROD.OUTLOOK.COM (2603:10a6:20b:330::13)
- by AM7PR02MB6418.eurprd02.prod.outlook.com (2603:10a6:20b:1bb::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
- 2026 17:05:16 +0000
-Received: from ZR1PEPF0000E462.eurprd04.prod.outlook.com
- (2603:10a6:20b:330:cafe::36) by AS8P250CA0008.outlook.office365.com
- (2603:10a6:20b:330::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Fri, 13
- Nov 2026 17:05:16 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 195.60.68.100) smtp.mailfrom=axis.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=axis.com;
-Received-SPF: Pass (protection.outlook.com: domain of axis.com designates
- 195.60.68.100 as permitted sender) receiver=protection.outlook.com;
- client-ip=195.60.68.100; helo=mail.axis.com; pr=C
-Received: from mail.axis.com (195.60.68.100) by
- ZR1PEPF0000E462.mail.protection.outlook.com (10.167.241.52) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 13 Nov 2026 17:05:12 +0000
-Received: from pc67007-2609 (10.4.0.13) by se-mail10w.axis.com (10.20.40.10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Fri, 13 Nov
- 2026 18:05:01 +0100
-From: Waqar Hameed <waqar.hameed@axis.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-CC: <kernel@axis.com>, <linux-kernel@vger.kernel.org>,
-	<linux-rtc@vger.kernel.org>
-Subject: [PATCH] MAINTAINERS: Add Epson RX8111 RTC driver
-Message-ID: <9e4b67c34feb7a57ba2999b0600b4b44714aaa64.1794583440.git.waqar.hameed@axis.com>
-Date: Fri, 13 Nov 2026 18:05:01 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=nnRGQxL7
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Content-Type:
+	Content-ID:Content-Description:In-Reply-To:References;
+	bh=ESsgt/TRagJZAJHymZDUQcxn7gpvuI5G4jdddBBCKdU=; b=nnRGQxL706oJDJc4leNwyszS7C
+	3F7+EAyJOvvo0NLCWCwiNOo4jvShMeGhJF1UAfwUGBhd0v8EGgV8P5ZhmVxWO5vdDeMJioq2KdqEH
+	115DeZjJIJ6GR5dbCLSbkE/vXGx4KPY3ScdMjeOvigvtcutMaxPnW2FCgZL53iLX+oX3bBBpvgxl3
+	C6Vqm2PfHuZdo2lUtPooCtCIkKdvEXuLL3BJvI6RAuuO1Rv0n/B8jBWrQyPqYhuxJYRZyjoNwU8m2
+	KLZLNizNSSSuagkCHjiPYWHJCMH53j9QRkd6oUaQpDSemI2U1XRUSwaYEi+UiAR9N6hSIskCowDd7
+	x+ZAfOMQ==;
+Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xRuiV-00000003oWA-4BTT;
+	Fri, 13 Nov 2026 17:05:36 +0000
+Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
+	id 1xRuiV-00000000KcG-36IQ;
+	Fri, 13 Nov 2026 17:05:35 +0000
+From: David Woodhouse <dwmw2@infradead.org>
+To: kvm@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-hyperv@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Marcelo Tosatti <mtosatti@redhat.com>,
+	Joerg Roedel <joro@8bytes.org>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	Thara Gopinath <tgopinath@linux.microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Michael Kelley <mhklinux@outlook.com>,
+	Nicolas Saenz Julienne <nsaenz@amazon.com>,
+	Nikolas Wipper <nik.wipper@gmx.de>,
+	Mushahid Hussain <hmushi@amazon.co.uk>,
+	Sriram Nambakam <snambakam@linux.microsoft.com>,
+	Zack Rusin <zack.rusin@broadcom.com>,
+	Doug Covelli <doug.covelli@broadcom.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Paul Durrant <paul@xen.org>,
+	Xin Li <xin@zytor.com>,
+	Francesco Lavra <flavra@baylibre.com>,
+	=?UTF-8?q?Radim=20Kr=C4=8Dm=C3=A1=C5=99?= <rkrcmar@ventanamicro.com>,
+	Liran Alon <liran.alon@oracle.com>,
+	Arbel Moshe <arbel.moshe@oracle.com>,
+	David Woodhouse <dwmw@amazon.co.uk>
+Subject: [PATCH v2 0/4] KVM: x86: hyper-v: Forward unimplemented hypercalls to userspace
+Date: Fri, 13 Nov 2026 10:05:31 -0700
+Message-ID: <20261113170535.79246-1-dwmw2@infradead.org>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,65 +101,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: se-mail10w.axis.com (10.20.40.10) To se-mail10w.axis.com
- (10.20.40.10)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZR1PEPF0000E462:EE_|AM7PR02MB6418:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5300f1c4-9988-420e-b3e6-08df41a847a1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|23010399003|376014|1800799024|18002099003|261009223027099003|11063799006|261021135927099003|56012099006|10067099003|261102123227099003|261026140227099003|261028144727099003|261022105027099003|261021121427099003;
-X-Microsoft-Antispam-Message-Info:
-	eUR9b9j3Xk2uNG5TciCOnKHWy4Zds1DKYOMH0KmkdpXPIE14FKLIfZ8Zue6H9Uz8NYKcIlOS2Bwa06Y/ntzTvSlJHakjtqQcF7LED4qj9sWGZPlwoJ410FSWSvwwmNoUXPvMnumCScpFJ+EO0VGLyI7GpeXFwatQUaRfMh4IJME/EA340Th3Mcl4UUWgRO+dpSc+bLi21zI+emPyX+YtpB+GV5AVJrxNNErkBXjF4mbGT+5VdT3f48C6XC010tNN7T1P3lsm61gKC0EYiUz+ech1alGWw1dXKt2nExV4qEL8b+dZvDm9X7I4rCxT0krYjBtnlSDLgWDM3xe1d4ZUVhddTVozpCq8adbQzP9m0Ai6mdrofQlGNWOX0NPsUxZck9RnWAtPu3uGTD38cagMQhm8LsUzBKk8SXOYnc72AQlMu7nSh0VD48K0cBHr1lhLDlE2i0gCupeNLTZ5/WYaP47XjFmbnO08ft6tSrU4MK/dbjZTkrJldZkhW0IFDOyWyEiAgQJ/UKKY4b/wdrXl3rN4VXrPeXAnzoQpvSvsbCEQ19NFo+XTFmB4JIX9hXdWw0v16m3Tcx4BJNBC+RpoETQcyIIVERL9e+2mdLe2/GFBuxei6Fn1kGpmfzFZ9eglM6gW3hNTTG7aqlCZYbIOLWxlmggfX++xES3n4elB6LLewWVly/YP7MRjDBXFR3ZaFHinRjlD6uAM0hhRCMB9Yg==
-X-Forefront-Antispam-Report:
-	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(23010399003)(376014)(1800799024)(18002099003)(261009223027099003)(11063799006)(261021135927099003)(56012099006)(10067099003)(261102123227099003)(261026140227099003)(261028144727099003)(261022105027099003)(261021121427099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	uM4iCfoaw071x0dQN8SOKbk06ew8Q8Gv3x4URY5ZVmDox63o5lmgKkCUqJkKxOJhtOo4FVmSmyRB58Mm36QU8p9WBvr52KZ8KGy1jJktF+EdByhiX9YpnPxl85IjZiwLnfcW0tFuSvbnF1pJATIv/9Sl1xezH5pYSeweQpNx6tHmHeKjb8o1zQFWHVdaQXH9aMwwh0HlKfWzbJTLpj0hlfSsnra1cL1rffSYkMZp6qVvOFWicwGZCSvWNEkBcE09F9otG3uA+puWef3NSHgLmN0AVz3Wtrbo/XTn9aFtRRfKXrATiXhC3aYTmIH1/SAkN5GmPGs6oWyJo0o8FSeqfiU5I0BIGH6L9rIvacG1l3/69EVBELAemo51ZF1UtzDn+cIGqjQjTnp/ms2Gp6F8vmgEDsCg/ojFi5y9DUGTAbMIXn2Hf9CUCaRjHJ5+rf6s
-X-OriginatorOrg: axis.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 17:05:12.1026
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5300f1c4-9988-420e-b3e6-08df41a847a1
-X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af;Ip=[195.60.68.100];Helo=[mail.axis.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	ZR1PEPF0000E462.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR02MB6418
+Content-Transfer-Encoding: 8bit
+Sender: David Woodhouse <dwmw2@infradead.org>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-Axis Communications has resources dedicated to maintain, test and review
-this driver. Thus, add myself and the company kernel mailing list to
-help out with this.
+From: David Woodhouse <dwmw@amazon.co.uk>
 
-Signed-off-by: Waqar Hameed <waqar.hameed@axis.com>
----
- MAINTAINERS | 7 +++++++
- 1 file changed, 7 insertions(+)
+KVM implements a fixed set of Hyper-V hypercalls and fails every other
+code with HV_STATUS_INVALID_HYPERCALL_CODE. A VMM that wants to
+implement more of the TLFS, such as the VSM hypercalls Windows uses for
+Virtualization Based Security, never sees them.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 7070cf5dbfe98..520438faa8dbd 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -9998,6 +9998,13 @@ L:	linuxppc-dev@lists.ozlabs.org
- S:	Maintained
- F:	drivers/tty/ehv_bytechan.c
- 
-+EPSON RX8111 RTC DRIVER
-+M:	Waqar Hameed <waqar.hameed@axis.com>
-+L:	linux-rtc@vger.kernel.org
-+L:	kernel@axis.com
-+S:	Supported
-+F:	drivers/rtc/rtc-rx8111.c
-+
- EPSON S1D13XXX FRAMEBUFFER DRIVER
- M:	Kristoffer Ericson <kristoffer.ericson@gmail.com>
- S:	Maintained
+This series adds KVM_CAP_HYPERV_FORWARD_HCALL. As with KVM_CAP_XEN_HVM
+and KVM_CAP_EXIT_HYPERCALL, KVM_CHECK_EXTENSION returns a bitmask of
+features and KVM_ENABLE_CAP takes the subset to enable, rejecting any
+bit the kernel does not report. The first feature,
+KVM_HYPERV_HCALL_FORWARD_UNKNOWN, sends the hypercalls KVM does not
+implement, and extended hypercalls in fast form, out through the
+existing KVM_EXIT_HYPERV_HCALL exit, whose format does not change at
+all. Further mask bits will follow for HvCallVtlCall and HvCallVtlReturn
+on VMs with planes, so that KVM can handle VTL transitions in the
+kernel.
 
-base-commit: 6d582d78fad9d828e575ca0cdcff8ea47a77220b
+Patch 2 lets userspace cancel the pending completion of a hypercall
+that exited to userspace, with a new KVM_VCPUEVENT_CANCEL_HCALL flag on
+KVM_SET_VCPU_EVENTS. The guest then re-executes the hypercall, unless
+the same ioctl queued an exception to be delivered at it. That is how a
+VMM makes a hypercall raise #UD (or #PF with CR2, or anything else the
+events machinery can queue), which the TLFS specifies for some invalid
+uses, instead of returning a status. It is independent of the rest of
+the series: in v1 this was a #UD request flag in the hcall exit itself,
+but the KVM_EXIT_VMWARE series [1] wants the same for other exits and
+other vectors, and KVM_SET_VCPU_EVENTS already knows how to queue every
+exception shape, so v2 adds only the cancel primitive and lets the
+existing machinery do the rest. KVM_SET_VCPU_EVENTS has no flag
+discovery, so KVM_CHECK_EXTENSION(KVM_CAP_VCPU_EVENTS) becomes a
+feature mask (bit 0 keeps truth-value checks working, bit 1 advertises
+the cancel). The KVM_VCPUEVENT_ namespace so far only holds VALID_*
+field gates; if the action flag wants a different name, I am not
+attached to this one.
+
+Patch 3 reports HV_X64_HYPERCALL_XMM_OUTPUT_AVAILABLE, since a VMM
+handling a forwarded fast hypercall can write the XMM output itself.
+Patch 4 adds the Hyper-V forwarding selftest; the generic cancel error
+paths come with patch 2's own selftest.
+
+v1->v2:
+ - Drop KVM_HYPERV_HCALL_RAISE_UD, KVM_HYPERV_HCALL_UD and the hcall
+   exit's flags field; cancel the completion through
+   KVM_SET_VCPU_EVENTS instead (patch 2).
+ - Selftests: a generic vcpu_events_cancel_test, and forwarding-test
+   legs for cancel+#UD (RIP and RAX untouched), cancel alone (the
+   hypercall exits a second time), and EBUSY with nothing cancellable
+   pending.
+
+The series is based on v7.4-rc2. Tested on a bare-metal AMD EPYC
+(Zen 4) system: vcpu_events_cancel_test and hyperv_forward_hcall pass,
+as do hyperv_clock, hyperv_cpuid, hyperv_extended_hypercalls,
+hyperv_features, hyperv_ipi, hyperv_tlb_flush and hyperv_svm_test, plus
+triple_fault_event_test and nested_exceptions_test for the
+KVM_SET_VCPU_EVENTS change. Not yet retested on Intel.
+
+[1] https://lore.kernel.org/all/90467782be23b83fd3e9a6afe2f1d2149eaf9db9.1794374897.git.zack.rusin@broadcom.com/
+
+David Woodhouse (4):
+  KVM: x86: hyper-v: Add KVM_CAP_HYPERV_FORWARD_HCALL
+  KVM: x86: Let userspace cancel a pending hypercall completion
+  KVM: x86: hyper-v: Advertise XMM fast hypercall output
+  KVM: selftests: Add Hyper-V hypercall forwarding test
+
+ Documentation/virt/kvm/api.rst                |  73 ++++
+ arch/x86/include/asm/kvm_host.h               |   4 +
+ arch/x86/include/uapi/asm/kvm.h               |   7 +
+ arch/x86/kvm/hyperv.c                         |  14 +-
+ arch/x86/kvm/hyperv.h                         |   8 +
+ arch/x86/kvm/x86.c                            |  51 ++-
+ include/uapi/linux/kvm.h                      |   4 +
+ tools/testing/selftests/kvm/Makefile.kvm      |   2 +
+ .../selftests/kvm/x86/hyperv_forward_hcall.c  | 337 ++++++++++++++++++
+ .../kvm/x86/vcpu_events_cancel_test.c         | 119 +++++++
+ 10 files changed, 616 insertions(+), 3 deletions(-)
+ create mode 100644 tools/testing/selftests/kvm/x86/hyperv_forward_hcall.c
+ create mode 100644 tools/testing/selftests/kvm/x86/vcpu_events_cancel_test.c
+
 -- 
-2.43.0
+2.50.1
 
