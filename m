@@ -1,80 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794576482;
-	b=xxYVc+snwKlJvaqZR1TjskgKRahxQToSq2Lw8OQZcbMq7Juj6hU+QlbALzkTJ69ff22g
-	 wPspk1nOI2iBpBuTpx432HkHeKETkcp31XwqD6y5AqOZS6c16EoqCQB8ue5sdNv1dPa8l
-	 WCIVB63rXFYE7M8wA0n+ECBOxogS9mgF7gxQ8eGAsm7LXouihBvAMbazuwAwMa+ddLwfs
-	 qMtSD7gvf3oOkPFoppD5RU9GgbSusmryaiZYxr6Bchnkut6NlLCtvdW73k/yiRUiW49rK
-	 bRuMidsZ+n9A9HVBeZXdCIg+dCWFPkvKfQhCiFQmjBzBIRFDNm+QQfaF6cC6K0lXzMw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794576482;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=W0QA3/P8oDUZY2+s6+4g1qU6clbKe+MnPLTSzZtiRR4=;
-	b=H71en/4Eg+VYhqaIvpGdxnJu4wTE4qvzd9T7D8tPYFj8RFT7RdT7iL1MTOX/KiZzkbM3
-	 mM5R3xgcxEQ3FvTIZF+pHc0fZAqCJ7zwnRSUOj4wGobiEhcC9kpmUbHMzm3H6j3S4RhR7
-	 cWNpAxTgk34VbVcWF/c6m8RvzfYWQww4OmijziwrOHQmJa9ZvkrnJ7Ov6eaICYBDsY/aF
-	 +59n4vyT5T1g5aAPo2JeibyeGT24UBsWdoW7gkVooLaL9B7zzTy58GApPWVf6UBTbt+dm
-	 EmRGX4XIbW91F3OE/A8vosPxDp34OOgwTRr/egYMwKXiqKoMXZmOGqZYfeRbGx1rweQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fq7Z93cN;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F2AE60A5BFD;
-	Fri, 13 Nov 2026 13:28:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fq7Z93cN
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794576482;
-	b=kwabG08jNKy+L/zTTygo3wDzjrcbFToEqUw7QyUNRLBNYMwkThF3Lc5FjQuBycsvVEOU
-	 xUHUguMdtzZsdl714TBk1a89ApYjax75k6tEZsIIGrrM8v1Vi0XxUBEz4Dlre5VHqII+H
-	 /a4DJhoxf3WzHyE26xgHHUbcah91j0ZcxjmZUwl80ZId5S/O2x3yEeErwgF8IkH+M602f
-	 G4Ao9XWmGY0yLB0WEJjc0ND1JdkWdW+TTBVy1RxFO7blg8fUfn6CvRcYdjvKqBsMmRnew
-	 ZrD+JXXywCds51C3Oc0uyfoc0Gx/tz0j/258BAIFHHca5ih7BBv+VoF5vaYOo9OhtPw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794576482;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=W0QA3/P8oDUZY2+s6+4g1qU6clbKe+MnPLTSzZtiRR4=;
-	b=x8cJDtnvZXkOVV84gd4Vmln7/z5ZZFMYFPzZOwfCJKjG3TeG/SwnGOIVqXY0j2jAxQnv
-	 ixNMy212Yd+kQ9cWKmqrv9ZnG3Dg54RHie0NHyWKVMlA6hKcn1A270tmkJygslG/8VNKg
-	 ZbFPpqUulnPNEqRwmQvc9UbLDHUJhen+9gLlYTUpg0qPhOgkn8tbZgPcK7e9UnFWzTgcw
-	 FRaU3Ib9U0GC15cFLx0JsIR5glL0FOO6wVfEJ4+yf7hMV2kg+BF/8u5OczTTOpVFNgmfN
-	 akUPzzyJNOjzRL8/cq4UZ9Qt+uG7SD+cIyEVOf7axK7ObarwWGGcGbAMVFPQI2vhBOg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.156
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794576491;
+	b=dx55xJpm2HB9x3CCJ3ISuy7mf4lE8uvcqs/QBBBlECjNRQJx/07/UdpvP0FP9pmMuggg
+	 z1NuW34R9mCMj+Y1Seh8lzI2XuGrUm2B/0HpPfBWKO5HPO7d8N/jCp7sB8i+TRfDQh3tQ
+	 AyvKg2HpsnOKPo3+zSlhUbvv6VyeaJe5tC0jETA5DlAJdwMEoSJRYPv7rfBTe5GF7mnpB
+	 rbUI1aaPcqRsN7OGULcaSzMPID0HxEdt0sJ3CxWxvAhnLL2hWQf6EKV6wXnpNc8YZ/Dm1
+	 errFWtkjWUCSu005mkbV/1zLlfR6vC7qWG8hGns9lMEfYyzRFx1HWQMK9eTNP5RhTqw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794576491;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=9LjiGBOCX96rSSNvEfoUYGWvZrwuFjXNaoxWrBLQT6A=;
+	b=AWH8l0tmktlJXFqt8il2FzUt7WEplV6aVdlgwCPIQve3G6mNM/sp+BEhO7R2Vo9T6BbO
+	 buf2CopKZ6PRVMm1wz3LRKx4777dtOvhpodcvV0DKLFQiReyakyHx+Q3Rw4DCjhTTHuMZ
+	 TAMIvj4AglLYyi8QRE+qnLDraKyKeTVJbHMCdZ6Lnmu8RpqHJ+7Gs8zB4wciizMwWuBp4
+	 aFZOTe9L4A2iFwH2TWGN6x5oPSEV87wVGFCrGuTWiIql8+kzruC737YlbhcOP3C0p6cn9
+	 aizH44G6tGbhMcnDedX2hd5UwQ+Q8h9qgbpEl6wWAhhJmob0FQ+MHhXrYUpzV2iRL9g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=N0YpG+6V;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Ov0C+g5q;
+	arc=none smtp.remote-ip=103.168.172.156
+Received: from fhigh-a5-smtp.messagingengine.com (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E88D81F000C8;
-	Fri, 13 Nov 2026 13:28:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794576482;
-	bh=W0QA3/P8oDUZY2+s6+4g1qU6clbKe+MnPLTSzZtiRR4=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=fq7Z93cN6rQGivRWdpVD7ATUU0Giv3hVk0smZscl4iRpQ3sQyeBIw6fvQTINSPj9U
-	 3cRchTygBxevoYsgK+9r8IsLWPbBvxzdlbU55xnzExxLLwgIEeqqo/VDyyMuQmsaz5
-	 YrgY4SneBazd0/fb0N7b1/pLf6Kkf8T54kxPqWA4EMrdgDe61ez7/RTrSiYils82Kk
-	 NPijsOVJbYLHXBU0Of1mfMFoNR3wp5GJgfjP83s770HDZhgP7C/mnv/EbYmFfqBe6F
-	 gpaAQ++uxUGQw0h2T5IK41SDbRMbzburWuEGh1jbLS2RIh1WzdD5nJf3LaeXdYUQNn
-	 mnlioaRVGP8qQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 497D7477C9;
-	Fri, 13 Nov 2026 13:28:00 +0000 (UTC)
-From: Ghennadi Procopciuc via B4 Relay <devnull+ghennadi.procopciuc.oss.nxp.com@kernel.org>
-Subject: [PATCH RFC 0/2] firmware: arm_scmi: clock: stop discovering every
- clock at boot
-Date: Fri, 13 Nov 2026 15:27:45 +0200
-Message-Id: <20261113-b4-scmi-clk-on-demand-v1-0-7fd162097b57@oss.nxp.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72C8D606B563
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:28:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72C8D606B563
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=N0YpG+6V;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Ov0C+g5q
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 6791A140010D
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:28:09 -0500 (EST)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Fri, 13 Nov 2026 08:28:09 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794576482;
+	 x=1794662882; bh=9LjiGBOCX96rSSNvEfoUYGWvZrwuFjXNaoxWrBLQT6A=; b=
+	N0YpG+6VotxmnaMHi3/JC2VdweYEB7M8XRDkaof1NUGOOcd0ZBtmR9r/lMmcYckv
+	EOcvdPvz2o3IaVYaMO3UffHmetwLHTJ0/3zxtjhEQd5VOdayFxW7UIrUl/pxJNKd
+	4kdMs3Jz83wfA/zXnSoxeXAUPq1WyxtvKHIO9qXFJyC36EUUc65djl4ts8Ivz85H
+	u8UII1h0IdXQ12zdPLCnAQmAde50Da7Udy9ijunLM57mxGQzxKxhIpjWznZOZA98
+	87w2sRKcK3nYCP9x5vxmWKyuWJ1X8G1RpuLB9N4rushPYrIItGdsfDK/CdWIu7an
+	VxxuUBie12c6guR2UrRnvA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794576482; x=
+	1794662882; bh=9LjiGBOCX96rSSNvEfoUYGWvZrwuFjXNaoxWrBLQT6A=; b=O
+	v0C+g5qI9tqFVe2d85pPGKqA+YvASu2BW8zrxQKSSqQg13rvrpm/2QZNtgQe2OM9
+	g2EfTzMrDzcZjjkyd7gSjpYA/0LBhZmezlnCI2vxI3EYhE45NbG3LIBWMqVU/iVP
+	6JiBhtl6gHglEpqIMgGRtMffnrTbdsP6VMpglQMXLWmf45DuAW4NfrNB6TbXvrrH
+	B11c4W79p65GZdDuB/PrluWyuQfZAUUu84klK530xk3aXBqqN7SbP/f7/lUTkoAC
+	GzRlSVJjJKcXLnzXJQQPTbGT0A01XL1PvmBSdNF8d3htGwV+NERn0eyC59qvetI3
+	J7rQuIqDwG3GO1vl3dr9Q==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794576482; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:befxScpLydbIhIvmCrnKkq+j5Eqyrr1VzYZ/Aa+MYm55/H+
+	tXkajbhWLckMHZjv0UtZFRR7auN4dhWnRGsRVNcLXGV5hU4o4OvcRZMd06V7nW3W
+	GNRBZNuD6p6S+OJ4l3wy+Jd/9DH3Fue+vkuNIZkxGlF6+o+yJwJV4GCu21cL9drf
+	JW9lVUAyI3JDRLiqqa7ba9YHYvc13oS7CLY5KkZBfOHGDHq4V9gCFrFgcXMUFRb0
+	AD03M32mFk09B4zdDZzcFBiJEskWmbrWw+gtIh3MP3rzHWYtG43Yg6CnMIx/PtoQ
+	jHPgw/uTStbjqyl8Pf9eXnlEjkCkhSU7vqXiGhg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:+RjTD/Q6NsCEgZiZA8pRig93q5sJxLp5l6HZSEV+DLA=:O/OcHSU8JkRF9PSdP1ksG6mZ2UARTkzPpJRFqU1qOjI=;
+X-ME-Sender: <xms:WhD3auR40-FcGgLStJFAEfcRvrMX8H0mvFM410_VV1FS_ePeLU19Tg>
+    <xme:WhD3aukkZitBMSw0JDPCHF2enaff40UalIqHetZytUZZoz0QwbSiM6fvxx0JiQ9ex
+    Hyc7pInqRfaKe6cOLxuInmZ24kvcCI314Al9tWrn7W61VyduTfYvOtK>
+X-ME-Proxy-Cause: dmFkZTEFJNUm4FXXB3dty2rNQcE/EDDYqXdEkDcBe16pFUwLRr8Gp2x7ZSZu7gpf0p9f3Y
+    4d3ODBGKp/oGuX3xSeKhp3H+liRpNaxKLVbDIUNvU0I8zLx5fVOuQww3Hz2rhgRfM84oAQ
+    8k9XMWFDehywM8dzGAaWn0vmtnRDaTStO47BqZE5YhQVXiLdlnIY690QOItxDwiBdv9MMU
+    Z7UBxInI0ppBw6Hzow2yH3bF1UoA8At/iSCZ/JZhU5L9ecn3HGyThco2v/BekIAmvRmWJn
+    nqjGEapPHQzjNwlOabfCBHeMGt0FdoKp8KmgOym8Z5y0YmImYFgOmkdj7tnXi6IxKTWRD0
+    FbDPdpE4QNo6ffD4xFhSS1Xh34bByPoh6wcTCQeK3fm/52BwrTKvIEyJHoO+HeR8MyM+W0
+    NyMk8FRVDuj7m/xh9ao5EA7sxN/q2x+5PRZ26NAHI/Qo7U/0iWi1x07RBjIQhu5ZVY7A6A
+    6llRu3LXnxwAf2QcHbVGqiJAj83dWlPQssUKTurtC84L+XkNoEuw4KfIxLQHwoyU0H3vW8
+    q7+OKIuSNeUqb4GIfWSfcB5DlxiE+KxnQrb/r8Nbe7Ocjyr7+oCMrSVg2CuiLbOshXKZWu
+    eE0hF5SgnEempN0hxu1pQPY2zmLIoXsGm/rC9GYOfy4sdCJD92ElePHltaCg
+X-ME-Proxy: <xmx:XRD3an1fDyF-neVerilFGd5u0Zop4xn_s-2N7L6zT8xywKb734yc0g>
+    <xmx:XRD3avdB-CET59b-lFOEC3kIhpBrb1VS0j98K6ijbHfbYkv_YljGyg>
+    <xmx:XRD3agY-q1NvVxBmJthtyWKnQP9znqQPX5d7i8tFfmRNv17Yxic3aA>
+    <xmx:XRD3asVKYxec1BSUm6fqriuiDdr9xHzbjhrW20-xFWGhJQj7zhit-Q>
+    <xmx:YhD3apEu49FoFTAFU0avFw9DZejfgIEmbd-iCLg5FOUGeyh2yVwZFjGp>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 6893A32A0099; Fri, 13 Nov 2026 08:27:54 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,202 +115,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+X-ThreadId: A1iXVo9thhaB
+Date: Fri, 13 Nov 2026 14:27:14 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Andrew Davis" <afd@ti.com>, "Russell King" <linux@armlinux.org.uk>,
+ "Catalin Marinas" <catalin.marinas@arm.com>, "Will Deacon" <will@kernel.org>,
+ "Mark Rutland" <mark.rutland@arm.com>,
+ "Thomas Bogendoerfer" <tsbogend@alpha.franken.de>,
+ "Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>,
+ "Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>,
+ "Philipp Zabel" <p.zabel@pengutronix.de>
+Cc: linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
+ linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Message-Id: <c7d332ad-09df-42ca-a73d-2dc48ff2c245@app.fastmail.com>
+In-Reply-To: <20261112214223.765100-1-afd@ti.com>
+References: <20261112214223.765100-1-afd@ti.com>
+Subject: Re: [PATCH] reset: Remove ARCH_HAS_RESET_CONTROLLER Kconfig symbol
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAFIQ92oC/yWMzQrCMBAGX6V8ZxeaGqv1KvgAXsVDflZdtalkV
- YTSdzfqcQZmRihnYcW6GpH5JSpDKmBmFcLZpROTxMJo6qY1xszJW9LQC4XblYZEkXuXIi2WtnM
- t193KW5T2nvko7993j912g8Nf6tNfODy+R0zTByfIzQl+AAAA
-X-Change-ID: 20261113-b4-scmi-clk-on-demand-5749a6e098b4
-To: Brian Masney <bmasney+clk@redhat.com>, 
- Sudeep Holla <sudeep.holla@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Cristian Marussi <cristian.marussi@arm.com>
-Cc: linux-doc@vger.kernel.org, Alberto Ruiz <aruizrui@redhat.com>, 
- linux-arm-kernel@lists.infradead.org, Christophe Lizzi <clizzi@redhat.com>, 
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- arm-scmi@vger.kernel.org, Eric Chanudet <echanude@redhat.com>, 
- Enric Balletbo <eballetb@redhat.com>, NXP S32 Linux Team <s32@nxp.com>, 
- Jonathan Corbet <corbet@lwn.net>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794576479; l=7652;
- i=ghennadi.procopciuc@oss.nxp.com; s=20261113; h=from:subject:message-id;
- bh=gZgo2l01v/+zPm3N88ysUMp9g86TRzNGPYo8Hm6Qk38=;
- b=9AWQ7Q2v3OeyoO3YTe7FJBR77MmPpmc1ggiEMtaHHuI4QIyO91hZuUaZzWFcMP8zWie1IbxOY
- jpOEuuJuf+3AazK8/0su5lhkhraXfu9ORUhf67LNP2x5doPVHfPgng4
-X-Developer-Key: i=ghennadi.procopciuc@oss.nxp.com; a=ed25519;
- pk=hNLk4ZpONFOVJg3NdDWRU2LtaL+HBg4W2I1KU0+XBmo=
-X-Endpoint-Received: by B4 Relay for
- ghennadi.procopciuc@oss.nxp.com/20261113 with auth_id=1509
-X-Original-From: Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>
-Reply-To: ghennadi.procopciuc@oss.nxp.com
 
-Hi all,
+On Thu, Nov 12, 2026, at 22:42, Andrew Davis wrote:
+> Many ARCH_HAS_* symbols change some behavior based on what an ARCH
+> supports, but ARCH_HAS_RESET_CONTROLLER is used only to set a default
+> for RESET_CONTROLLER. Those ARCH symbols that select this can skip the
+> middleman and directly select RESET_CONTROLLER, and many already do.
+>
+> Replace all selection of this symbol with a direct selection of
+> RESET_CONTROLLER when it is not already in the selection list. In the
+> latter case when RESET_CONTROLLER is also already selected we can simply
+> remove the ARCH_HAS_RESET_CONTROLLER without changing existing behavior.
 
-At probe, the SCMI clock protocol and clk-scmi discover and register
-every clock the platform reports, whether or not a Linux consumer
-references it. On platforms that report hundreds of clocks, this can
-add tens of milliseconds or more to every boot.
+This is fine
 
-This is sent as RFC to get feedback on the direction before a final
-version. The questions are listed at the end.
+> Some ARCHs "select" this symbol when they actually "depend on" the
+> RESET_CONTROLLER framework to build, in those cases the indirect select
+> could lead to broken randconfig builds. In cases when it is not needed
+> for building the ARCH code, these selections can be switched to the weaker
+> "imply" to allow it deselected for minimal builds without reset support.
+> Additional checking will be needed to find such cases.
 
-The problem
-===========
+Please don't recommend the use of 'imply', this is rarely what you
+want and everyone misunderstands what it does.
 
-For each clock, probe sends a fixed number of messages:
+If you want to have a default, please add another symbol and use
+that as the default value, such as
 
-  - CLOCK_ATTRIBUTES, in scmi_clock_protocol_init()
-  - CLOCK_GET_PERMISSIONS, if the platform supports it
-  - CLOCK_DESCRIBE_RATES, at least once even with the bounded iterators
-  - CLOCK_POSSIBLE_PARENTS_GET and CLOCK_NAME_GET, when applicable
-  - CLOCK_RATE_GET, from __clk_core_init() at registration
-
-The total cost is about N_clocks x messages_per_clock x message_latency.
-It grows with the number of clocks the platform reports, not with the
-number of clocks Linux uses. Three properties make it worth addressing:
-
-1. It is paid on every boot. The result does not change between boots
-   with the same firmware, but nothing is cached. Every cold boot, warm
-   reboot or kexec pays it again, and so does every VM that has its own
-   SCMI clock provider.
-
-2. It is on the critical path. scmi_clocks_probe() runs synchronously
-   and registers the provider only at the end. Every consumer of an SCMI
-   clock waits for the whole set to be discovered, and through fw_devlink
-   so do the devices that depend on those consumers. A storage controller
-   that needs one clock to mount the root filesystem waits for hundreds.
-
-3. Most of the work is for clocks Linux has no use for. SoCs that run
-   several agents or partitions on one SCMI server often report the full
-   clock space to every agent. An agent may have only a dozen clocks
-   referenced in its device tree, and may not even be allowed to control
-   the others, but it still discovers and registers all of them.
-
-clk_disable_unused() adds to this. It walks every registered clock and,
-for clocks with an is_prepared op, sends CLOCK_CONFIG_GET for each one,
-including clocks Linux can never disable.
-
-An example: NXP S32N79
-======================
-
-S32N79 is one platform where the problem shows up. It is used here only
-because it was the platform at hand for measurements; any platform with
-a large SCMI clock space and a non-trivial message latency has the same
-profile.
-
-  - Transport: arm,scmi-smc, one channel, SCMI clock protocol v2.1.
-  - The platform reports 432 clocks to the Linux agent.
-  - The device tree references 4 of them.
-  - All 432 have state, rate and parent control forbidden for this agent.
-
-Before this series:
-
-  Window                                Messages   Time in SCMI
-  ------------------------------------  --------   ------------
-  protocol init (devm_protocol_get)         1300       76.7 ms
-    CLOCK_ATTRIBUTES                         432       26.2 ms
-    CLOCK_DESCRIBE_RATES                     432       25.8 ms
-    CLOCK_GET_PERMISSIONS                    432       24.5 ms
-    version and attributes                     4        0.2 ms
-  registration + __clk_core_init()           432       26.0 ms
-    CLOCK_RATE_GET                           432       26.0 ms
-  scmi_clocks_probe() total                 1732      102.7 ms
-                                                     (103.5 ms wall)
-  clk_disable_unused()                       432       25.8 ms
-    CLOCK_CONFIG_GET                         432       25.6 ms
-    CLOCK_CONFIG_SET                           0
-
-  - The average cost of a message is about 59 us, and it is about the
-    same for every message type, so the fixed per-call cost of the
-    transport and firmware dominates.
-  - About 99% of the probe time is spent waiting for the platform.
-  - The clk_disable_unused() pass sends 432 queries and then disables
-    nothing, because no clock can be gated by this agent.
-  - Together that is about 129 ms of SCMI clock traffic before user
-    space starts, for 4 clocks that are actually used.
-
-Expected with this series and dt_referenced_only=1:
-
-  Window                                Messages   Time (expected)
-  ------------------------------------  --------   ---------------
-  scmi_clocks_probe()                         72       ~4.3 ms
-  clk_disable_unused()                        17       ~1.0 ms
-
-The proposed solution
-=====================
-
-The idea is to stop discovering the clocks that Linux does not use. It
-takes two steps:
-
-  - The SCMI clock protocol discovers a clock the first time a caller
-    uses it, instead of discovering all of them at protocol init.
-  - On request, clk-scmi registers only the clocks referenced by
-    enabled device tree nodes, plus their parents. The other clocks
-    are never discovered. This mode is off by default and is enabled
-    with the dt_referenced_only module parameter.
-
-TI's sci-clk already does something similar: it registers only the
-clocks referenced in the device tree, with a Kconfig option to probe all
-of them from firmware instead (commit 8e48b33f9def, "clk: keystone:
-sci-clk: probe clocks from DT instead of firmware").
-
-What dt_referenced_only gives up:
-
-  - clk_summary and debugfs list only the registered clocks.
-  - Disabled nodes are skipped, as in sci-clk. A device tree overlay
-    that references an SCMI clock ID not present at probe time, or that
-    enables a disabled node, is not supported yet. Support can be added
-    if this approach is agreed on.
-  - A clock referenced only from a property other than "clocks",
-    "assigned-clocks" and "assigned-clock-parents" is not registered.
-
-What discovery on first use gives up, with and without
-dt_referenced_only:
-
-  - No clock is discovered yet when the protocol events are registered,
-    so the support for the rate notifications is checked per clock only
-    when a notifier is enabled. A notifier for an event that the
-    platform implements, but that no clock supports, is no longer
-    rejected with -EOPNOTSUPP at registration. It fails with -EINVAL
-    when it is enabled, after the clocks it covers are discovered. No
-    in-tree driver registers SCMI clock notifiers. This can be addressed
-    if this approach is agreed on.
-
-Questions
-=========
-
-The aim of this RFC is to agree on the direction first. The details of
-the implementation can follow in a later version.
-
-1. Is it acceptable to discover and register only the SCMI clocks that
-   the device tree references, instead of every clock the platform
-   reports?
-
-2. If so, should this stay in SCMI, or become a generic mechanism in the
-   clock framework that other firmware-backed clock providers can share?
-
-Any feedback, including "this should be done differently", is welcome.
-
-Thanks,
-Ghennadi
-
----
-Ghennadi Procopciuc (2):
-      firmware: arm_scmi: clock: discover clock domains on first use
-      clk: scmi: optionally register only clocks referenced in the device tree
-
- Documentation/admin-guide/kernel-parameters.txt |   7 ++
- drivers/clk/Kconfig                             |  11 ++
- drivers/clk/clk-scmi.c                          | 120 +++++++++++++++++-
- drivers/firmware/arm/scmi/clock.c               | 160 ++++++++++++++++++------
- include/linux/scmi_protocol.h                   |   4 +-
- 5 files changed, 254 insertions(+), 48 deletions(-)
----
-base-commit: 49c49ca0c4d02848a9576f72c4741c38c5ba09de
-change-id: 20261113-b4-scmi-clk-on-demand-5749a6e098b4
-
-Best regards,
---  
-Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>
+config ARCH_WANT_RESET_CONTROLLER
+      bool
 
 
+
+       Arnd
