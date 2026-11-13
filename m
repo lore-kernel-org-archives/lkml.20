@@ -1,85 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794582964;
-	b=16hj0vue3nHWhg+AdzfJhqJN1vwxzmVgt9X/PjZqkYy/XVkMnrm1/31r0jHGbB5YrwTL
-	 8AubwjE/HHfE5DgtWOavZKgVOQLgUyljTw6SbFaqOzZvG4O0xfUA/bxnQQi+AuamDG1jS
-	 F2xn+YBMbJWuzZxhgM9Im0cjNUG+jVIkTOPAxNC4fL6BLtw3IlJW/SF6vYJ2zOuCyTLVC
-	 pJ0DZqPbMNN4Q9CCM7/eNuLC+bnIOpiT2F02Xbpmqx22lJk/l0OC21eVyXMwzHWBYxVkK
-	 EcejNoNSd/N9QSuyVFh+JMnB1MQIzum9QA8jEi5vSYlZrS2vBFtYj4ydOKSh4msPKRw==
+	t=1794582987;
+	b=Ijv9D365/pJK+mI5zKtjAhFgIk+3laf9alD9I2yh/K5GIL71Xj9qiYxwCzrQhUn+UzTG
+	 6Z2N2MgI5TuxO01Asql8bwvzXy3RG/nzbzVk1AIZulpBCz+dqbB5ZHYISUAj+K3WoY22P
+	 Ixo3oAARqezAc401v0/xAtGUXr6FBjE0ogy7Kv3XjRHv3iPH/5giYaoUIBpND1CO0Vshg
+	 1x40eOPwR3TWzm7+WLEu0WwoOmzA0HzPspf5jxvgbb4W3RX5od8QUBNFpD0Rwer6a22UX
+	 ZfOMCjXpKY3GJ8xdwgShkGVF8m/sRnszfOmjVNbCc0y7hODKxLi8KSGjrw/YipwWGiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794582964;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=lEK8nUBi0jVe9yX+WITeGcdHbn0xNGCiuHof4jLotTQ=;
-	b=WYQKdAtMZU2sX5zsjJ2xxaoDll86m3kvWiKD8g3bHrHJf6H8dIVEY674CC2OL7O6OkAg
-	 GcR5IVqfM2NIBXuPmeaaf+ZvuAr86PztTjWofjs0oOoriUvw4neCAFl6y8+6fYW/4tW4q
-	 dNISHyDKjkHrKNABuHGZywREq/mV9FR6BM6+o+UsFrpchjEm64BxfqunGvZdnaKPxGPUL
-	 7hlVV2cw42HMp5OZEutSqbpwVMcJcV17Hc8oRk4e9Phgfj7RemMAVNyATsi4T6Dr7zWZQ
-	 RsgOuyqOOnQkGcTqc66RO2f1WEbkCeCHn18F4v2GaEcZVCwNCKkrTL82GI91VbaGjAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794582987;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=ktnsD4SbfZG5fT0ARspw7vKZ7u9IS5o+7RTlylOq7n8=;
+	b=XWUXnOIO2D/dmGNKiDrMILhQvHENCFsjfNMaiypQG9docfwAfq+lv35W5RmiBO3Q1BrR
+	 WI7wpbTEN9X3/aCgn957MPIC30A/GqLWDoro/ou/renQqCP4SmwqwnA5HJlkXNqcf0DLT
+	 hCwiYki8zFEL8SKmQA7DEiXvHrjvqoPYau3wzQAvwgv9L/f3VPCincOlAkS8KTZHkp5S+
+	 n4TLiaaj6JpgzDDHe2nkI7ftryUXYz08dhG+1LTxLhUocVW2ecN5YqkWl2/u4ytSSOpYa
+	 OKEAlRrcD6UUY0vBnC6YMSrIRCE/+qOdwdNrC5eQBbaa1TE+hl932R9BqxwfvgE55YQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=wBcQKjQh;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bjxVhsbT;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FA2360A261E;
-	Fri, 13 Nov 2026 15:16:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FA2360A261E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0DD3606A33B;
+	Fri, 13 Nov 2026 15:16:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=wBcQKjQh
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 69DE4C4F755;
-	Fri, 13 Nov 2026 15:15:59 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 6A50E60015;
-	Fri, 13 Nov 2026 15:15:56 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A94E611BC16F7;
-	Fri, 13 Nov 2026 16:15:45 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794582954; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=lEK8nUBi0jVe9yX+WITeGcdHbn0xNGCiuHof4jLotTQ=;
-	b=wBcQKjQha5kRC2ZJsMhTWDfUu2moG31bAk+T/0Ckg2P/WmUsk7GbmC8AzhDVmJSejs6VJr
-	AwVUTSC2mt0tRT18jis20nSjXVMpqQcYd2mN6b3TnUwZwUAq0fRnqr55HJTZT7jsHWOhDu
-	Z+Ffh8OH/k/C0J0kGV+JhEO9kkHVkuPdnd7DHZXll8WzbmgZEP9etIuQwm69T4OWjz6L3P
-	E5AYKDAod3BGCbCNa1POjznGimiOvyO3nj6qX+MLbyT+QEqxMIM7oKSV3VSW5v4fTxvl3g
-	mATGi6gZQ7ON33+qdSyUFaUGjvEpDJTE73yfDbc6Rj+rwjkwsEP9sAaLeasUhw==
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Rodolfo Giometti <giometti@enneenne.com>,
-	Marcelo Schmitt <marcelo.schmitt@analog.com>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Angelo Dureghello <adureghello@baylibre.com>,
-	Tobias Sperling <tobias.sperling@softing.com>,
-	Eason Yang <j2anfernee@gmail.com>,
-	Marilene Andrade Garcia <marilene.agarcia@gmail.com>,
-	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
-	duje@dujemihanovic.xyz,
-	Joshua Crofts <crofts@kernel.org>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
-	Victor Chernyakin <chernyakin.victor.j@outlook.com>,
-	herve.codina@bootlin.com,
-	thomas.petazzoni@bootlin.com,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 0/2] iio: adc: add driver for Texas Instruments TLA2528 adc
-Date: Fri, 13 Nov 2026 16:15:40 +0100
-Message-ID: <20261113151543.2241604-1-maxime.chevallier@bootlin.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bjxVhsbT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D04241F000C4;
+	Fri, 13 Nov 2026 15:16:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794582986;
+	bh=ktnsD4SbfZG5fT0ARspw7vKZ7u9IS5o+7RTlylOq7n8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=bjxVhsbTKKdKLiB8eDSW+qOk+hPjLfwZgnaOExWjpbbZ+1rq/NmjxExC/ugoRFQke
+	 MbL523e5h66zdzti4yndJ43geSb7EDP4snVVG1Jy5qeaaEKGNV15ahvGGdi1pyfkg+
+	 tKvel5C6MPg/fzFFGM4OPTpRtjF2utN5or7qpSzQ19qRuZAmolFV4zDEC//7E7zNfq
+	 OlKvrWLkUMrp0/8YjIHK4LcvpeaIgLcx2hnsxT/zmlNTAnzAVzwBTGY6I7AtMGwF7Y
+	 HpTTUzxldC0DK49OLn3575DtCBRgFGAo+jA3fyCJRKMX2zuhC6DbhMEynAOTRZQXmk
+	 gxzmVtj6S/71Q==
+From: Lee Jones <lee@kernel.org>
+To: Sean Young <sean@mess.org>, Lee Jones <lee@kernel.org>, 
+ Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Roman Vivchar <rva333@protonmail.com>
+Cc: linux-media@vger.kernel.org, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261102-6768-irled-v1-1-c7064f3afed1@protonmail.com>
+References: <20261102-6768-irled-v1-1-c7064f3afed1@protonmail.com>
+Subject: Re: (subset) [PATCH 1/2] dt-bindings: leds: irled: pwm-ir-tx: add
+ power supply support
+Message-Id: <179458298352.73259.16790444663025222206.b4-ty@b4>
+Date: Fri, 13 Nov 2026 15:16:23 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,57 +65,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-Mailer: b4 0.16-dev-ad80c
 
-Hi everyone,
+On Mon, 02 Nov 2026 17:22:56 +0200, Roman Vivchar wrote:
+> On some boards, the IR LED is connected to a switchable power rail, such
+> as an eMMC supply. If this regulator is disabled, IR transmission fails.
+> 
+> Add an optional power-supply property to document this regulator.
 
-This is V4 for the TI TLA2528 driver, for the ADC part. This new
-revision contains a small amount of changes, after the reviews from
-Joshua, Andy, Jonathan, and sashiko.
+Applied, thanks!
 
-Thanks everyone for the quick feedback,
+[1/2] dt-bindings: leds: irled: pwm-ir-tx: add power supply support
+      commit: 3aec3445e63e3bc1cfd7c198b903d01b5bb9b27e
 
-Maxime
-
-V4:
-  - Return -EIO on a short read in tla2528_read(), from Joshua
-  - Drop mod_devicetable.h, include asm/byteorder.h
-  - Rename vref_mv to vref_mV
-  - Drop the L: entry in MAINTAINERS
-
-V3: https://lore.kernel.org/r/20261104125726.1754980-1-maxime.chevallier@bootlin.com
-  - Require channels to be described
-  - Use guard()
-  - Add Datasheet link
-  - Drop the unused registers
-  - Use named initializers in the id table
-  - Collect Conor's Ack
-
-V2: https://lore.kernel.org/r/20261030164705.297354-1-maxime.chevallier@bootlin.com
-  - Describe AVDD and DVDD in the bindings instead of vref.
-  - Add gpio-controller
-  - Allow describing individual ADC channels
-  - Switch to regmap with caching
-  - Reset the chip at probe time
-  - Small cleanups following all the reviews
-  - Moved MAINTAINERS to patch 1
-
-V1: https://lore.kernel.org/linux-iio/20251223155534.220504-1-maxime.chevallier@bootlin.com/
-
-Maxime Chevallier (2):
-  dt-bindings: iio: adc: add Texas Instruments TLA2528
-  iio: adc: add driver for Texas Instruments TLA2528 adc
-
- .../bindings/iio/adc/ti,tla2528.yaml          |  91 ++++++++
- MAINTAINERS                                   |   6 +
- drivers/iio/adc/Kconfig                       |  12 +
- drivers/iio/adc/Makefile                      |   1 +
- drivers/iio/adc/ti-tla2528.c                  | 218 ++++++++++++++++++
- 5 files changed, 328 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/iio/adc/ti,tla2528.yaml
- create mode 100644 drivers/iio/adc/ti-tla2528.c
-
--- 
-2.56.0
+--
+Lee Jones [李琼斯]
 
