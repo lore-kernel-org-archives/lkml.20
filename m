@@ -1,88 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.179
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794605059;
-	b=cwCkzZ4aUCZIHPx+PZ9RDvEBUXlK/0TX+DcZtvtNAz0dZBcbo1kSYPOTeLaVndLGMEby
-	 44tXV22AA3Vq+1okDdZoerKxG5Eyjqg5oAGCIdZvX+rysZKZgAaOiogRCmTW2xzgRb7rR
-	 fxL2TZY3oHq/ZiIhygPRS67a8gGeI2wqFmdndbvzxT7XMOIw8XluivOTw/CMxbHgyo0n+
-	 ln9lqpWDqRyLEzvQ6HvJMvOLYq5Hi74KGmacK7n2cwAS1Y6ZTGxvcrWoaw6nX9sVjckUy
-	 by6A6EA/4T3tI8c0JF/e/ln3w/BRYD8JYQZEd84IifeOeEEsb9nRJiUprhyPdOT8YiA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794605059;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=IdFSo6JzzG9qQGdtD5ihKLoQ40g+bsnor4ELUYyg40E=;
-	b=nn3CfnRxwxNAMfZd+k1iw0GQ1+PRRvKblkoBUMWiaE/5T2vkZb4ZATkclTKtOL5XDmTy
-	 4LLaj2RV3ncgCqLKnx400qiE7zBjhvFA3VnwPoEGsOxkSxqBlM97mpPeAsy9YgH90IsMD
-	 VHMqGHDskvT/UJIshM/R4AJ5RCinfM01REHeTt1v8cu+GA6rCgBhuzTsnCe/5ab3JJQXo
-	 Ac/W9NYGGTpHwzta9RGxU9MtR8cQxLE/AZFYshsyALOgjtGS0mVhCKxTjo40iKwy0fJcH
-	 kviS9Kh2qqcSF292a4SOXeC78St1EZviQ9fVrx8OO0p8BGIZc4FPeSdKFxRVlGx/U9A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RIO3iS2R;
-	arc=none smtp.remote-ip=209.85.128.179
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.36
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794605097;
+	b=HwnETMPNoqaz8ODe719dHPUNLmY4L0QILkQ8whE7xi9hkEm7JAGdIoqtolZdG7SUYwm3
+	 t9tRDOAuIz8VbqjU54i7OfFD6E6Edt8WAQSTJD81iZhwomiKOKckUHfDZfpHtNOGXEZm2
+	 12kUfjUa0wU7X/belKUucfcLTmiPx6RJlzdU5Y6iwoBG1JjM+XkssQ16u9f1W7pFwDCJN
+	 6WK8YrCvomQ1IaS/Aqp1GC3QDGfyTqQvBLA2ITNQgiA4COvMB2E+NpBwG3e0cBRrbN04W
+	 vbbXKof5Z4XFH86T54x2idQFyP4xHHuIC8oQjveeHFHEojEyoXGOXZmAWsEdGKnmzUg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794605097;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=tqbenaJBLexQ34JxbkENCu7nq1W+2e4OJKqhDGZzuKk=;
+	b=EwYBMYnmFHrmouacoA2vmi8QT8lsI98xCLM+TTP4Gl5hc3zUhC4t5I6w/zL4lhlJkQzH
+	 puSAetEF6yj6tdL0kPRZmozyaajecYc6pagwgvK+dSaNAWNLMBn+62Bn2D3D5DWwne5oX
+	 nrdRk+hyyT8lZXDh9Q6sJXxsEzO2bMneRqObkArD7/41AUfom9tQIhnOnSib6m7dKyBe7
+	 UxE5z4aMkOF9vRm/xZf0i/vY8m9uLJQIJq1nRgLLbHjIPnAg6tPMtX57fAhVpFgKNxIny
+	 tKuYWLYcEIZseAH6TaLe514f9VCdLM23AICL/dDfTIIhUJh0M4SkKFmxKe/VSQgwZQQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="KTeGA/Ms";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.36
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011036.outbound.protection.outlook.com [52.101.70.36])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 489E2606A8A3
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:24:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 489E2606A8A3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 987E2606A323;
+	Fri, 13 Nov 2026 21:24:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 987E2606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RIO3iS2R
-Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-8b335ef6441so14170557b3.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:24:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794605057; x=1795209857; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IdFSo6JzzG9qQGdtD5ihKLoQ40g+bsnor4ELUYyg40E=;
-        b=RIO3iS2RV7Tpg6eCUSLoRhHJjC8HOazmZ5idRahgh/6DI5mndK/odzajLwB5rXS2PB
-         fO5JCXtYGxzIdmG5nIvtJwb4sUEuN71rlTc9poJIFgr0r7/vstHZMF9uwSG2u4JYwZxT
-         Qfq7sXk0V3t0DGySNP+FYF7c5tQzLp89rLSJlV4s8cbn9PdIMPfKC4brIz1z8u4CahCx
-         OrRo+rnTFuxrGIdaA4+J69IEh7d/YdQAaQ6QFxqpZGrmcYhwGCGyod9Gyc+mKS7WOmac
-         2e9B9JTwqYgR39wbJw0wzEZLEIKZxVt6oShjzGylmejTQrKlIrcwHxbH6Qfb6hN7FjMX
-         njBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794605057; x=1795209857;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IdFSo6JzzG9qQGdtD5ihKLoQ40g+bsnor4ELUYyg40E=;
-        b=YBMK22dUtprG5Ye017NweDcz5dcrG1hSCH7pB38CGVJc25FQVfDWtKYis6l8+/cSqb
-         fppkzTO1nxGJ0bCcVDwkyWee+QgxOKh2v76QoXCEu/E7//80w7vTCSjtxBVYBygGoH5q
-         WKuIvbPOxgQ4tGqSt3lGBDhdEv53L0CDST5i+yPe+XRiigiEd59NLoC11meN3pQaDVF0
-         4KOjffhZsj8SkFys9MSTsKqKwiP1UE7WtyGtDkUOgb0eePV9EmCfjnD8MLHto0UIyVzV
-         y3uj3x8Xnd9WGZXViEb8gHPBHMtIKDxvXKP1rz1s9bjDW0scFniCPoymCmkO8kc+EGEE
-         S+7A==
-X-Forwarded-Encrypted: i=1; AL+hErHMvWx6cevaR+1XoePXWqpNNd6VeKSm5MCwy9kjByZRswgC+7kDK4T6nStIT7nECWwEiWq2AG8f7umO/rA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+IE6mVWOb37VMyJpq91fvZCF3lmJqL2n3NlfTwX6n3SFms3Ujw
-	LQXp5FjokbIVzaMrwbTIrPHyYhK3akzlobPqi8gzg0BwnxNZAEx/qQoW
-X-Gm-Gg: AYBFou34ObgWzxsauW4FTsyPZFFZvn4rT1adKZiUmURuVRjCGrO0hX6li72ThY3BEDC
-	QxnErH+09mmDXkO0r35tE+cGskh1qma7DHKTQ/LCq0ioxpRdlYzBr0iDCNznAr5PlMQgMolP6mZ
-	upJhKcFAwhWo8o9T51ykLcfwRUGEE6+omiSqgfCyvmEjTBS3eoC6TYjF8llFGFsYf9jRodOgfD2
-	O8MjEH54DnRlbIdwhwEYBU1Aw28/1Vp357o+K+jZOE6qk1ilnYGMRPdYk6mx5JL2MQOlHy3nrZc
-	O6BNVNTpSeMvoJILO3cV/sCYwked1aM/TLGWZ7tAxb7zdF98T4AsFlfIS7evNBrWiKPq+25/Vry
-	RPBTjbe/5FdgPST6pwjhhExXenzlLSq9ClDLIJ9x8jJ4yOjqHOFu5iBYDM3tDK38JCdMG2IF4/u
-	CrlDi/c/pUsYr2mdzyNdF2zoCNxfgEGbH2JQm+9R05mbH1ImqRiHE+NEnZqte25y3M5U3kEe2Gq
-	w2QqR6iDIqs4gdranRxyO2YprPa9i0by0vCU56aUKH4/6pXrSpzyaueeHVR3P7Fl/GS6fY0zCQ1
-	G949GmjASn9hhjWcofKpo3nLPu2MXYy7lA==
-X-Received: by 2002:a05:690c:f85:b0:8b3:2af9:11f9 with SMTP id 00721157ae682-8b4aa2dd1a7mr23701777b3.26.1794605057150;
-        Fri, 13 Nov 2026 13:24:17 -0800 (PST)
-Received: from [127.0.1.1] ([187.15.141.223])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aaa1361fsm29539357b3.43.2026.11.13.13.24.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 13:24:16 -0800 (PST)
-From: Nicholas Dudar <main.kalliope@gmail.com>
-Date: Fri, 13 Nov 2026 16:24:11 -0500
-Subject: [PATCH bpf-next 2/2] bpf, parisc: Add support for BPF_MOVSX in the
- parisc32 JIT
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=KTeGA/Ms
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=o4zYcvpiA2l8u/4k5C7ibekDA+uIhaqilK+Z6yj773t04RZUpq/iMjFdxF5RmCJ8sEJ9KUntW8bDDsQKLNgj/6Jt++cSPvWbx27ijwNR2bHhJsn1TgXgWcAGGyvBVdV+pxee7tRV6Ctdn1f0m/dl29knJ0nBuSTGfGjg0tNpbGJZ3gF7d9Xm+On+kF1FudThSnDff0Qwmi6ZurywPbFzC5b45BT+vVOr0qCRXRXXrXkJtB4qZjdAG88lC/siOyG0J0Qqt2/u6e3bqZE5LHwVog6IlrhnZMWAskOpYjxxhXfQC0yB9sVRkuoR3Ce1eS4VozmQnRlzYeujzFyVE/D14A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tqbenaJBLexQ34JxbkENCu7nq1W+2e4OJKqhDGZzuKk=;
+ b=yTn0jDA1OPNJGh7aOqm0Zi9iZmLmpOkzR7OoVPMo+SGvDYUY3o769T5APeyTiVur3Xj/G1wzSHJ7sguaS5eEmtM9HBqmV4U7gQqvGhgzzOONKSXi/QRlC30dbIcWZbufTcZFzp3iFvU/ONrlRdiNyNi3/AqgTUAJnb+LxRAvP3pBNgRDtht6Yjk5jQm6mNE7++Nh4JpEwvRLrjApyHmvID3FonDuUZf6eU8FVk3erw72kVD7SKhoc0DBqPyYvZGwoi4+7f5OE39XFM8rowBQwRI309heHX8EL7BL5NH7CaU0n/9pw3KlnRrf/sc+QthRt72zMLvlU65KT9z8MRMYNw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tqbenaJBLexQ34JxbkENCu7nq1W+2e4OJKqhDGZzuKk=;
+ b=KTeGA/MsBCwLkXE4nxACV6ZvJlA4oKxrgRGcKA2+d9YdKmUWXp5bv2EysBcw4P6SBuym2t39kLuQX7Hzi/M9RpIdTLWTlMw9q+QnsuzLIVh/TSVGiQCRohy5Lj8fBFUJQ3tvyTOJRqVRYe1TADaYi5jFyLUfYBSnNCRYrteaiveRjQuVKCXedGeGwDLbQBD9/ibOTB056iOguzB/ipQUsqzLe3FtZxa/Kz6j9plK87EKsy1u/PtO4LFccl4tf5BTCMmNjWVFznv8wx9RdQqk0RlzFdWNPFh1MWNX6WwG1VEw8xfmIfVCN3MJz5T7WEM0PG3UGT8t+qgKQ8pH1/U/6g==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by PAXPR04MB8655.eurprd04.prod.outlook.com (2603:10a6:102:21e::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.9; Fri, 13 Nov
+ 2026 21:24:52 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.009; Fri, 13 Nov 2026
+ 21:24:52 +0000
+Date: Fri, 13 Nov 2026 15:24:42 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: vjardin@free.fr
+Cc: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	NXP S32 Linux Team <s32@nxp.com>, Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+	imx@lists.linux.dev, Vladimir Oltean <vladimir.oltean@nxp.com>
+Subject: Re: [PATCH v3 3/5] soc: fsl: guts: add the RCW override of any RCWSR
+Message-ID: <aveAGsPO3rBqccLj@SMW015318>
+References: <20261108-for-upstream-lx2160a-rcw-pinmux-v1-v3-0-5a0063f1da9e@free.fr>
+ <20261108-for-upstream-lx2160a-rcw-pinmux-v1-v3-3-5a0063f1da9e@free.fr>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261108-for-upstream-lx2160a-rcw-pinmux-v1-v3-3-5a0063f1da9e@free.fr>
+X-ClientProxiedBy: DS1P220CA0013.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:455::8)
+ To MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,120 +106,185 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-parisc_bpf_jit_movsx_20261112-v1-2-7ecc33cdf1b2@gmail.com>
-References: <20261113-parisc_bpf_jit_movsx_20261112-v1-0-7ecc33cdf1b2@gmail.com>
-In-Reply-To: <20261113-parisc_bpf_jit_movsx_20261112-v1-0-7ecc33cdf1b2@gmail.com>
-To: Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
- Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- Helge Deller <deller@gmx.de>
-Cc: Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, bpf@vger.kernel.org, 
- linux-parisc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Nicholas Dudar <main.kalliope@gmail.com>
-X-Mailer: b4 0.16.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PAXPR04MB8655:EE_
+X-MS-Office365-Filtering-Correlation-Id: 07353583-612b-4eaf-da6c-08df41cc8e0e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|19092799006|366016|7416014|23010399003|376014|6133799003|22082099003|10067099003|18002099003|3023799007|11063799006|261028144727099003|56012099006|4143699003|261021121427099003|261026140227099003|261026121527099003|261009223027099003|261022105027099003|261102123227099003|261022075727099003|261102130727099003|41080700001|15866825006;
+X-Microsoft-Antispam-Message-Info:
+	VHe74ec1s1zrhZI93dUjk18ZMw3MJ4QNJB78fkgfyztYe3AiPunyj1BJgUY9BH2GantBQzc3jOdI31WPlTyabOP0MQe3jSlttx203mP3xezX0Iasl5OYTqHkFrSihE425ZTSGkQbERXBIoiyZqMEUBKNBMNwhup1oIFstJvHf2D4O2fEKWiyxl/UNFiv2anHAM31iH5ZDL+VUOotj7xJc8rxoYvEhgUkhulCqNhjKeraanlxHX/9XdRPntYMXOHIU8+sZVcTB+TnAonyGop9XDSiIoCnwcWD0ZoX3T3FnUEqczqk/9PK4RocmUFJYySXoG5VGAALZ/WT/3n62ILUw9wc2JFeoitGngOy90XVJAYwc/oD4sBQLwjzTA0E1/+j/t52qs3zd1jokiXMqs+GDwDiE6/rAgxLFPPLxzGyNAyuo5KZLdWhO06w/I1MBW/PZqnhW7vKEmHh/pvs4SryEWh3+wPAVl8T8UjahtM4O48siEu35KM65Ym3qkZT7k4JA7VFwuiFCWi9qA+2NSEpRzVMM2BvPYyeyjoD2EpqdWeVFHoJ4yCslYmpTtLLAeJE0cZ+mRN18xXmrbLHWiUIY/AiAHp4TnUViKjFA9xwpvBqSA8MGBGYVCM8R9k3qGluP2Qs1w/mVUC8ZQBLcP4a/r7109TRDxiQgbRozkA6etot2fl849BbtxuD9LhKYeRnt0BcjJIjsnGxPHYM6rMJN/wh3slHQL7EmQLxOww6Fw/Pa1KnRn/sIEauBWH2mz5B
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(366016)(7416014)(23010399003)(376014)(6133799003)(22082099003)(10067099003)(18002099003)(3023799007)(11063799006)(261028144727099003)(56012099006)(4143699003)(261021121427099003)(261026140227099003)(261026121527099003)(261009223027099003)(261022105027099003)(261102123227099003)(261022075727099003)(261102130727099003)(41080700001)(15866825006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?GuNQBJFkreTYsngsXmx7y8GYkb8bqSeEd3krjz1sW8MDN2m1AUpUOIIyJYEo?=
+ =?us-ascii?Q?JamnLPa29wo24Yi/DUtnH0QYqitr/YhNAJVlDfp8sYGBSpBcIyQcRReiVvmd?=
+ =?us-ascii?Q?d02S20BtfFmVTxvCLyKoRUjtYvfuiS8/2BfvWx733j7/ZrdVzXKedRN7Jokw?=
+ =?us-ascii?Q?CSID+505rHfwcMjFbwShLAC3v5tYzX9jub5gb06lP8B6qkb4KZpfrJZtRx5H?=
+ =?us-ascii?Q?kRHpEKAVueHvpEoYuqOn6rld5ryG9CD7D/l6FqmPyztqyPrU0ubUM+el4CDt?=
+ =?us-ascii?Q?Fnhvd8mUSN6y/0JfIjLWrBMRYrEWx3qJsDXkoSfNy8UIp/39EF7Kurr02HnN?=
+ =?us-ascii?Q?RSaWKMZ6dSEOGSSG5NFhNNu5YeTNotoPoxM/xnGkcGRXla49ZBgB3gUxN+E9?=
+ =?us-ascii?Q?RIVHOBb/5dj7kf1BR2VTvXlASxtIFEMnjNZd8tVZ0nvbIpCIUCTkFhk0kjob?=
+ =?us-ascii?Q?OvulTn9wsiDG4QlLCWIZblwkOCghPofsuZGbcMKndFZo6+QSIxAMEDlUexu/?=
+ =?us-ascii?Q?XosiP5grjy6JdYMKvZXvweI8U3BHBua0d3WOCqEObK/mAZLw/RLiguAv1ksh?=
+ =?us-ascii?Q?7zgWr33ETgL8SjT7FyvY9Wf5kSB5bYdT/10PAIOmOSPk9OJ6mM4b2U0hOrxn?=
+ =?us-ascii?Q?psi1xm2gd6NwLjGVoaq0H9dDaoDsCLT9wIywO/ZuWsnaBtO9FhlFBGPpZVg+?=
+ =?us-ascii?Q?rr8V6Tjnhde2mgAlbkqpgwzyGiDgXVqEwrOFTFAAjN8BjqC8lv20ntTx/OpP?=
+ =?us-ascii?Q?jelnlAdGszwdjjNaSnCYIl5x7UXpMBQtHvrGG/q3JxuFi9d+HsmZjmsEpPvz?=
+ =?us-ascii?Q?ZlJyJPjWcXhqaXBaVau67B0g+dFqPmvBW8pC4eVJDad8cFPtvH1IZRbWrRAk?=
+ =?us-ascii?Q?z6mou8sfMWm7ewR1OKpHNUK+ZTIZMw7o4Gl0lpMogGJdwanbC/WKeWj5auio?=
+ =?us-ascii?Q?wTfDOBl8UOatAefs0w9DxA8+2LTn51J2IzcIffYU+atsVrDxjnaunnsmEZ71?=
+ =?us-ascii?Q?3gMbww7YuVwAEeuGFtOVSRLYxcgfREByMtEO5v8Ci1AAGqIutYWQf86/Xjzs?=
+ =?us-ascii?Q?V00faFtAoOOLsLsLvB8h66z4b2vJrB5iUYcWkpA4AoYT9mbEdz7h7xGo3NNL?=
+ =?us-ascii?Q?dRDsrVIJOA8CalH7hP9Kc0qno14Sajtd9Bap4PbXmpPju6nGwIVkdQVEovBu?=
+ =?us-ascii?Q?TNBLtV+L0k2UO+bSoGHfY3AWO5WZxECmt2a28RBj/mk100+BOjOpm4pgoOpW?=
+ =?us-ascii?Q?p23HoHrAV9kOSd/G+OdNwwUnVVF6sda9uept9P3LL5UrmV06SIw1qbcWDbUJ?=
+ =?us-ascii?Q?Wds6enP1rywS7HhX6uPHzF3i61rrQsFX/da7EaAf94F7uiyf6DMMhFe/SfYs?=
+ =?us-ascii?Q?JP1UymkelvG6brZJUFBCLifWHToOvAwrcKT8Xx8UTQuCwPy8Bm3cPyNHhzHJ?=
+ =?us-ascii?Q?H981vd07rOXT1hROs/G8Ux5Qd8FtIhAUDvvAIztyCtnFWgxkZ5coUh3X7QIm?=
+ =?us-ascii?Q?LBwKINMo3Kfnah1tfOkrNF5r5BpfB/MjWDFVjrUlgLZ5a10ipih1wrCt/DC8?=
+ =?us-ascii?Q?9tcgmuE5c67oKscuizKDGupHGiaI6ZHJxYlW8Eh9ZtEexE5kHMsMaIyLlnHw?=
+ =?us-ascii?Q?ReyiVh4xxnUPMq4RZzsHuoUquPEjVJtKoogWjydP7dFMOITvXEYqigjOxKfl?=
+ =?us-ascii?Q?3rTsewBFwParUhaQvtFZDEE8iBoUyHs5uBf3AuNea2n4ghpUQObGYh3xqLtV?=
+ =?us-ascii?Q?Iqm40trIXTJRUPtbRMMaC9DvxunT2aukqEgTCM2t0YZ9Bz6SRe+B?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 07353583-612b-4eaf-da6c-08df41cc8e0e
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 21:24:52.4331
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: q9deMreC95ePZE2ipxwGrSe9mI/FUtKZC9g1Yt4Hrbh2YATVWvOgVKZRiRGmet/XKR9O5nkKEqSC1m3BmdSoZqxMuYDzr8zrjBvXfHhG79/jHGKDlKW3/neWrop51dhg
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8655
 
-RFC9669 defines BPF_MOV | BPF_X with an offset of 8, 16 or 32 as a
-sign-extending move, dst = (s8,s16,s32)src. The parisc32 JIT handles it
-like an ordinary register move, so r0 = (s8)r0 with 0x80 gives 128
-instead of -128.
+On Sun, Nov 08, 2026 at 11:06:51AM +0100, Vincent Jardin via B4 Relay wrote:
+> From: Vincent Jardin <vjardin@free.fr>
+>
+> fsl_guts_rcw_rmw() only serves the SerDes lane modes. Export it for
+> other fields of the RCW:
+>  - fsl_guts_rcw_read() reads a status register
+>  - fsl_guts_rcw_override() changes fields of one under rcwcr_lock and
+>    waits for the status register to follow
+>  - fsl_guts_rcw_override_supported() tells whether the DCSR view of DCFG,
+>    which holds the override registers, is mapped
+>
+> Signed-off-by: Vincent Jardin <vjardin@free.fr>
+> ---
 
-Add emit_movsx_r(). It sign-extends the low 8 or 16 bits of the source
-low word with extrw,s, or copies the low word for a 32-bit extension,
-and fills the high word with the sign for ALU64. For ALU32,
-bpf_put_reg32() zeroes the high word unless the verifier inserts the
-zero extension.
+Supposed go through pinctrl tree
 
-Under QEMU on a 32-bit kernel, with test_progs built as a static 32-bit
-binary with jit_insns only:
+Acked-by: Frank Li <Frank.li@nxp.com>
 
-  # ./test_progs -t jit_insns -w 0
-  [...]
-  #201/33  jit_insns/movsx:OK
-  [...]
-  Summary: 0/40 PASSED, 0 SKIPPED, 2/12 FAILED
 
-Without this change jit_insns/movsx fails as well. The 12 failures left
-fail without this change too.
-
-Signed-off-by: Nicholas Dudar <main.kalliope@gmail.com>
----
- arch/parisc/net/bpf_jit_comp32.c | 41 +++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 40 insertions(+), 1 deletion(-)
-
-diff --git a/arch/parisc/net/bpf_jit_comp32.c b/arch/parisc/net/bpf_jit_comp32.c
-index eea0a34a3bfe..9cfbff3e58bb 100644
---- a/arch/parisc/net/bpf_jit_comp32.c
-+++ b/arch/parisc/net/bpf_jit_comp32.c
-@@ -705,6 +705,35 @@ static void emit_alu_r32(const s8 *dst, const s8 *src,
- 	bpf_put_reg32(dst, rd, ctx);
- }
- 
-+/* dst = sign_extend(src, width) */
-+static void emit_movsx_r(const s8 *dst, const s8 *src,
-+			 struct hppa_jit_context *ctx, u8 width, bool is64)
-+{
-+	const s8 *tmp1 = regmap[TMP_REG_1];
-+	const s8 *tmp2 = regmap[TMP_REG_2];
-+	const s8 *rs = bpf_get_reg32(src, tmp2, ctx);
-+	const s8 *rd;
-+
-+	if (is64)
-+		rd = bpf_get_reg64_ref(dst, tmp1, false, ctx);
-+	else
-+		rd = bpf_get_reg32_ref(dst, tmp1, ctx);
-+
-+	/* Low word: sign-extend the field, or copy it for a 32-bit extension */
-+	if (width == 32)
-+		emit_hppa_copy(lo(rs), lo(rd), ctx);
-+	else
-+		emit(hppa_extrws(lo(rs), 31, 32 - width, lo(rd)), ctx);
-+
-+	if (is64) {
-+		/* High word: copies of the sign bit */
-+		emit(hppa_extrws(lo(rd), 0, 31, hi(rd)), ctx);
-+		bpf_put_reg64(dst, rd, ctx);
-+	} else {
-+		bpf_put_reg32(dst, rd, ctx);
-+	}
-+}
-+
- static int emit_branch_r64(const s8 *src1, const s8 *src2, s32 paoff,
- 			   struct hppa_jit_context *ctx, const u8 op)
- {
-@@ -1145,7 +1174,12 @@ int bpf_jit_emit_insn(const struct bpf_insn *insn, struct hppa_jit_context *ctx,
- 	switch (code) {
- 	/* dst = src */
- 	case BPF_ALU64 | BPF_MOV | BPF_X:
--
-+		if (off == 8 || off == 16 || off == 32) {
-+			/* Sign-extending mov: dst = (s8,s16,s32)src */
-+			emit_movsx_r(dst, src, ctx, off, true);
-+			break;
-+		}
-+		fallthrough;
- 	case BPF_ALU64 | BPF_ADD | BPF_X:
- 	case BPF_ALU64 | BPF_ADD | BPF_K:
- 
-@@ -1196,6 +1230,11 @@ int bpf_jit_emit_insn(const struct bpf_insn *insn, struct hppa_jit_context *ctx,
- 			emit_zext64(dst, ctx);
- 			break;
- 		}
-+		if (off == 8 || off == 16) {
-+			/* Sign-extending mov32: dst = (s8,s16)src */
-+			emit_movsx_r(dst, src, ctx, off, false);
-+			break;
-+		}
- 		fallthrough;
- 	/* dst = dst OP src */
- 	case BPF_ALU | BPF_ADD | BPF_X:
-
--- 
-2.53.0
-
+>  drivers/soc/fsl/guts.c   | 73 ++++++++++++++++++++++++++++++++++++++++++++++++
+>  include/linux/fsl/guts.h |  3 ++
+>  2 files changed, 76 insertions(+)
+>
+> diff --git a/drivers/soc/fsl/guts.c b/drivers/soc/fsl/guts.c
+> index 28361c63e26c..d2e3f66d0da4 100644
+> --- a/drivers/soc/fsl/guts.c
+> +++ b/drivers/soc/fsl/guts.c
+> @@ -369,6 +369,79 @@ int fsl_guts_lane_set_mode(int serdes_idx, int lane, enum lynx_lane_mode lane_mo
+>  }
+>  EXPORT_SYMBOL_NS_GPL(fsl_guts_lane_set_mode, "FSL_GUTS");
+>
+> +/**
+> + * fsl_guts_rcw_read() - read a RCW status register
+> + * @index: one-based index, RCWSR1 to RCWSR32
+> + * @val: the value read
+> + *
+> + * Return: 0 on success, -ENODEV before the DCFG block is mapped,
+> + * -EINVAL when @index is not 1 to 32
+> + */
+> +int fsl_guts_rcw_read(unsigned int index, u32 *val)
+> +{
+> +	if (!soc.dcfg_ccsr)
+> +		return -ENODEV;
+> +	if (index < 1 || index > ARRAY_SIZE(soc.dcfg_ccsr->rcwsr))
+> +		return -EINVAL;
+> +
+> +	*val = fsl_guts_read(&soc.dcfg_ccsr->rcwsr[index - 1]);
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_NS_GPL(fsl_guts_rcw_read, "FSL_GUTS");
+> +
+> +/**
+> + * fsl_guts_rcw_override() - override fields of a RCW
+> + * @index: one-based index of the RCWSR and RCWCR pair
+> + * @val: the new value of the fields, in place
+> + * @mask: the fields to change
+> + *
+> + * The fields outside @mask keep the value the status register shows. The
+> + * override register is written and the status register polled until it
+> + * shows the result, as fsl_guts_lane_set_mode() does for a SerDes lane.
+> + *
+> + * Context: takes rcwcr_lock, shared with fsl_guts_lane_set_mode(), and
+> + * busy-polls the status register for up to RCW_TIMEOUT_US. Does not
+> + * sleep; must not be called from interrupt context.
+> + *
+> + * Return: 0 on success, -EOPNOTSUPP without a DCSR mapping of DCFG,
+> + * negative error otherwise
+> + */
+> +int fsl_guts_rcw_override(unsigned int index, u32 val, u32 mask)
+> +{
+> +	int err;
+> +
+> +	if (!soc.dcfg_ccsr)
+> +		return -ENODEV;
+> +	if (!soc.dcfg_dcsr)
+> +		return -EOPNOTSUPP;
+> +	if (index < 1 || index > ARRAY_SIZE(soc.dcfg_ccsr->rcwsr))
+> +		return -EINVAL;
+> +
+> +	spin_lock(&soc.rcwcr_lock);
+> +	err = fsl_guts_rcw_rmw(index - 1, val & mask, mask);
+> +	spin_unlock(&soc.rcwcr_lock);
+> +	if (err)
+> +		pr_err("RCW override of RCWSR%u failed: %pe\n", index,
+> +		       ERR_PTR(err));
+> +
+> +	return err;
+> +}
+> +EXPORT_SYMBOL_NS_GPL(fsl_guts_rcw_override, "FSL_GUTS");
+> +
+> +/**
+> + * fsl_guts_rcw_override_supported() - can a Reset Configuration Word be
+> + *				       overridden?
+> + *
+> + * Return: true when the DCFG block is mapped with its DCSR view, the
+> + * second reg of the dcfg node, which holds the override registers
+> + */
+> +bool fsl_guts_rcw_override_supported(void)
+> +{
+> +	return soc.dcfg_ccsr && soc.dcfg_dcsr;
+> +}
+> +EXPORT_SYMBOL_NS_GPL(fsl_guts_rcw_override_supported, "FSL_GUTS");
+> +
+>  static u64 fsl_guts_get_soc_uid(const char *compat, unsigned int offset)
+>  {
+>  	struct device_node *np;
+> diff --git a/include/linux/fsl/guts.h b/include/linux/fsl/guts.h
+> index 8d5ffb985fee..7127de897c23 100644
+> --- a/include/linux/fsl/guts.h
+> +++ b/include/linux/fsl/guts.h
+> @@ -142,6 +142,9 @@ int fsl_guts_lane_validate(int serdes_idx, int lane,
+>  			   enum lynx_lane_mode lane_mode);
+>  int fsl_guts_lane_set_mode(int serdes_idx, int lane,
+>  			   enum lynx_lane_mode lane_mode);
+> +int fsl_guts_rcw_read(unsigned int index, u32 *val);
+> +int fsl_guts_rcw_override(unsigned int index, u32 val, u32 mask);
+> +bool fsl_guts_rcw_override_supported(void);
+>
+>  /* Alternate function signal multiplex control */
+>  #define MPC85xx_PMUXCR_QE(x) (0x8000 >> (x))
+>
+> --
+> 2.43.0
+>
+>
+>
