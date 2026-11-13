@@ -1,72 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794565813;
-	b=FtcUSCa3xXR//Nemvvf1EPzxfsE0Mt9eXvrRoLIPNhYdbi13kHKee6MabdkGRrtrdIeK
-	 DB/+jZm2GX/gkxZbO7t0NzFR0ItC/k7FD9XoIOFBOUwcGPBDRMDtgYcC0RTBzabbR6gzf
-	 NibrDd1OYCIuvSwEVUSsdBIM2NftURsWjgJKjY5vuGDLKSQWk7hPjljpDeQl2vTpb8apG
-	 KxVIX5KaPvbivsEvXuHt+YVz4RP6Afch4fqqdnn1LUV4TNWgze1ErsbLb+8kxt9/h8oiu
-	 PppxC0znq1YYVXrLXBWM19BFa1HpQ/4NwzVdXXm1kcnedcpL3yp4SamEgbJjJpBM0aA==
+	t=1794565851;
+	b=EoLqF5h+/TK90K6m6JJxb8ENDZ4NuT5omC9GzYIVyy6pehBkvz9zkIFWRRn8UywbX67z
+	 3chHNy6ik1FkUakb2n3DO97yMXV1cIU2dUScTtrp7N7pqqP05AFS43jjIYSORwc8kOqwK
+	 Ny1XCPe3ICJdZxt0YQb8j2YqRutSb1d5EYXrkd1grlSBtE5I7x17f8NFsVNtO2AJzqd52
+	 JkBwPpJ4QSdxw+X648XMoFseVnfg3hqyT86glnnrK4uiNJd+mfCtB/OZiS1n/y9pnHIqO
+	 cyl9x9C/7BvWBrLjL6tYwCElL2bnT7Y1M3FBZVMjGd5bGq9I/LpyQhyckiV5lvbyA/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794565813;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794565851;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Onr+sY6kcwIMhOVzt4cQhVPIJDQGs2ul9JBzovMMmy4=;
-	b=faTBWiGm9Cmjl3xCbySBmZxUIEf30kNRHza+qsHsSu3Uv2N9QDfGYtWtp7I6l1UF/W2+
-	 oc/1GdvLwIYMMHnDkWM6oWqSDvYrwOPjamaqlOSnDnE909StoMcm/9d4Oh2/vYu/t0BMi
-	 p01keFokqAybC+PFUkB+b6mkTwwydgRCBAEP3bHw1Q2d4u3xWVNm/CgDMcEdCazp2xUTu
-	 sAUNg6B5PBWXHP2KDwDLXN/B/pfjP5MJWc17Ur1sZszDrHPv5KJJwAuD1R9Sn5HDojg/O
-	 tcXQAnQHM7Jh8esxmfxb+2KrGcVmYQvpTLorVk17raFhTHXdqkXTVSMO54vmWEYLMAw==
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer;
+	bh=YVyO34/+vwkp8pkrCOkfsJrmVw+ShcRwN5uH3EK9AOQ=;
+	b=vwAZpR8VQu7DG81aZSk0ZVmXmKKD5cT3p0DQUBWHH48tsJT3MUna5BfIZdfYnJJ5ocEq
+	 3+PAoObwuFgSwcQ5Sv473B+u3qQr6sn5TwB6wBJiL1QiMbK4RSmG3psSr+ZTgJJ/CHGbZ
+	 ZDgzZBwsET/jWEQwCsR0zzyjR98KHk8Kmop6Rbj3eHij1yIT3q5xtwz3n31u+tpprX941
+	 +0ZJdLzGtn1FIie07LUnCarGqxYcSKac575mWa9kIymquxAFfa+MSTUEhKvXHMHPUK+Xo
+	 5r8fw1tf/ZI8tFZruhitWrZ/uFD95FN8g/26U/lkv+/MBhJkqgX7sDFUQcP/9DyePdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WyW6dvkX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LtqXe8qJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC165606A32D;
-	Fri, 13 Nov 2026 10:30:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1DAE606A31C;
+	Fri, 13 Nov 2026 10:30:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WyW6dvkX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF7ED1F000C4;
-	Fri, 13 Nov 2026 10:30:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LtqXe8qJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2B041F000C4;
+	Fri, 13 Nov 2026 10:30:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794565813;
-	bh=Onr+sY6kcwIMhOVzt4cQhVPIJDQGs2ul9JBzovMMmy4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WyW6dvkXp3VMY6ez01G39IuLblyIP0eftCaqkFX/CgDfI+LyRX8V+6PGJO4eq8NWx
-	 BeRaEb9ub7lPdisSDGlmbTz1SHcjJNUqBvxAIqNfvULRWlm42ILlcnn2hhuRDX6dQD
-	 u5z3OOZ9vIxD0Gy6ZNXiSNa96efIzTx1w9VQOfvlGPlqidpWyPs+oxOHwXwN6KrbiU
-	 /clX6zx4cJJByxgmh3qnGIXp2vG6ndspOQZflQWsZVdfWX6ba1KTjaWURmhAjKSgQg
-	 dxAPOsw3YBGfgkBQ0r5FRdw6VML2hHYehcu86PfLiTnqLxBaf+sNALfskE1g//Fn8t
-	 gozLfOdTK2qeQ==
-Date: Fri, 13 Nov 2026 11:30:10 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Stanislav Aleksandrov <lightofmysoul@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>, 
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, Lee Jones <lee@kernel.org>, 
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-	"Joerg Roedel (AMD)" <joro@8bytes.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Wesley Cheng <wesley.cheng@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>, 
-	Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, 
-	Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
-	Lukasz Luba <lukasz.luba@arm.com>, Georgi Djakov <djakov@kernel.org>, 
-	Sibi Sankar <sibi.sankar@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, mfd@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	iommu@lists.linux.dev, linux-usb@vger.kernel.org, linux-phy@lists.infradead.org, 
-	linux-scsi@vger.kernel.org, linux-crypto@vger.kernel.org, linux-pm@vger.kernel.org
-Subject: Re: [PATCH 14/17] dt-bindings: interconnect: OSM L3: Add Halliday
- EPSS L3 compatible
-Message-ID: <20261113-quizzical-ivory-gharial-1fcb14@quoll>
-References: <20261109-halliday-dts-v1-0-289114ab8197@gmail.com>
- <20261109-halliday-dts-v1-14-289114ab8197@gmail.com>
+	s=k20260515; t=1794565850;
+	bh=YVyO34/+vwkp8pkrCOkfsJrmVw+ShcRwN5uH3EK9AOQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=LtqXe8qJjoCs6EgAPAbRpq91b52a2VyeQM1Gmbh1aszCIQsHw90zu2II0XhvZBVPf
+	 MYe4sCeWsUIT4Qk1u+8y141B9pvooL1UVPFd4jVeuj583/dWSS0d8wIZXTRqeo8Cmr
+	 jX0clMTXPzsOgqjpxbfc1oq46h+KocQFM3MQ934rxvl7SR7DdRoDmc6Oxb3/xmKe2C
+	 wl8K8UDU/hOCVkeESaZt2xwyECXACM3PlylmDK3o568qfqNsFmFKM3uzFK4Va3DPl2
+	 ljQeGJWVYW2W0/PMV9BcmlO9j3pNwLvEEUbnzib0+EcpdDyUPufXUZKKoMr92Uz2ED
+	 0eedJIL8aZeJQ==
+Date: Fri, 13 Nov 2026 11:30:34 +0100
+From: Daniel Gomez <da.gomez@kernel.org>
+To: Arthur Simchaev <arthur.simchaev@sandisk.com>
+Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>, Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org, Andres Freund <andres@anarazel.de>, Pankaj Raghav <pankaj.raghav@linux.dev>, GOST <gost.dev@samsung.com>, Daniel Gomez <da.gomez@samsung.com>, Avi.Shchislowski@sandisk.com, Alex.Lemberg@sandisk.com
+Subject: Re: [PATCH RFC 1/2] block: add BLK_FEAT_ATOMIC_WRITE_MULTI
+Message-ID: <20261113103711.1-da.gomez@kernel.org>
+In-Reply-To: <20261103093849.203851-1-arthur.simchaev@sandisk.com>
+References: <20260929-nvme-mam-v1-1-48dcbe79cece@samsung.com> <20261103093849.203851-1-arthur.simchaev@sandisk.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,19 +57,40 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261109-halliday-dts-v1-14-289114ab8197@gmail.com>
+X-Mailer: lorebird
 
-On Mon, Nov 09, 2026 at 12:33:26AM +0000, Stanislav Aleksandrov wrote:
-> Document the EPSS L3 interconnect on the Qualcomm Halliday SoC.
-> 
-> Signed-off-by: Stanislav Aleksandrov <lightofmysoul@gmail.com>
-> ---
->  Documentation/devicetree/bindings/interconnect/qcom,osm-l3.yaml | 1 +
->  1 file changed, 1 insertion(+)
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Best regards,
-Krzysztof
+On 2026-11-03T11:38:49+02:00, Arthur Simchaev <arthur.simchaev@sandisk.com> wrote:
+> On Tue, Sep 29, 2026 at 01:17:11PM +0200, Daniel Gomez wrote:
+> [...]
+> > diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
+> > index d003a9d2d1f6c..92efd4ff67f26 100644
+> > --- a/include/linux/blkdev.h
+> > +++ b/include/linux/blkdev.h
+> > @@ -360,6 +360,9 @@ typedef unsigned int __bitwise blk_features_t;
+> >  #define BLK_FEAT_RAID_PARTIAL_STRIPES_EXPENSIVE \
+> >  	((__force blk_features_t)(1u << 15))
+> >  
+> > +/* device writes each atomic write boundary window of a command atomically */
+> > +#define BLK_FEAT_ATOMIC_WRITE_MULTI	((__force blk_features_t)(1u << 16))
+>
+> With this flag set, a request with REQ_ATOMIC may now carry several independent
+> atomic writes rather than one. Code that looks at REQ_ATOMIC on a request (e.g.
+> blk_insert_cloned_request(), or a future SCSI WRITE ATOMIC user) needs to know
+> that. Could the comment here (or Documentation/block/) spell out what REQ_ATOMIC
+> means on a merged request, and what a driver must guarantee before setting the
+> flag?
+
+Makes sense. I'll update accordingly on both places.
+
+>
+> It might also be useful to expose the feature in sysfs next to the other
+> atomic_write_* attributes, so users can tell whether merging across boundaries
+> is active on a device.
+
+TBH, I was initially hesitant with the idea of adding another attribute.
+I'll add it and if we find it not useful we can drop it during review
+time.
+
 
