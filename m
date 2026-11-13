@@ -1,79 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794605199;
-	b=ckwUmUze1Q/mQw6Pexa8x2MnU1SGWAOsVM9yY0o/dRI1V0lJprEKjgo14mJJ+qF29oh7
-	 nNR7tLIShu/+NH18PNPESnwFrba+3jXwdigBrID7/tZkclvh58s2ajzNg9l/UKNRoIhP2
-	 bd5JjZFNKXhENva1mt9P1ihYKoJ+VS62duj52hTRBSQqSnr0ApQQdum8qCDocui7+1/3I
-	 aZi3s2ZcyYRgFG5enHefORqLS3kEYCOOqLK3guA6KcBBF6sSLrAGV0qtzry08JDjcbQQm
-	 I+qHRsgjbpgyzW0qN1ef7otXDd0zbRvg0nrfDwC9dUYZy3OjKt43zk+ucZSaj/yUBRg==
+	b=Y+VrRFw4/lvgLO8KX2NsVSfRReFvGgkaOyHSHaxRAt8lGDnl04uxWHZElMUpHGC8e4nc
+	 6aNmWh6781KI5jWuxCOW2PmgKlI49STSZKrrmSu/kNNrCC6t6SKgNfzTkDckpg+3CMcy7
+	 f4p92iL85Hyo2uvamJwt73qep79MfK/flbCM+qMMn73SXrovvFP8ueH9Fzto4wAwmV4mH
+	 lJAOAfvbZ/11ufPUs7n0dL4scTMOdjrkxRLQJakN6JDmToPyG1U8k5OmNxnpy78HfmKcR
+	 JpgxW15r+VTpDzOEY+we3XMXsR0eBbHCw/pZtmm8GR7MlOQm6e5pHeKLr0kMStX/KWg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794605199;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=7SXTfTYuGz/k0372PRCBUnT3oCcPkvMRjviGYp1DMZE=;
-	b=tSa1w0dR7NwwwsQ0HbK52niPSRUadv6/qJf9b7z3AgEawcCzkiSqs5sr122R9LpmMSPn
-	 wYsWhUYaxSgeHvIRUDUzjC+9BbdkMa02yMNhnIzVt/6TY+PmaDvWTBT1THg7CD91d0L02
-	 HNwpAW2nzCC6aqxVZNM+KnxhvcOMqcoG9SN1Oqc2oW8siyLcxmKdtPwGze3EeruZX75K/
-	 eyyKeiRGb72hKCSo/TL7aHQhG5RYK9T3srA5ZGSm1zflsJ8PSRiydgIAHaz9r12xLSnYz
-	 iv36+/3QZNPc5m0HB1N7tfNmVgo4W1agZtunMpKFd+Ilkc4irLDTMCWfaZrcu5U8MfA==
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=6XYL3m7pR3XD5gcmbX6twLNHi5++AAkwL0wMnUcMCNQ=;
+	b=3/g7fwH4bZEpKL/vjyJuokAy0cTxUKOz9JGMQPwFMNulQxSm3oERPZIjvHIN/H84P5/V
+	 uTasYWPoAG7HMidPvOLJbT/PEtwAc2MT+wc4LbhZ1AHf0xh4Uhwm8zbP6krzx3TWyrg4Y
+	 Pw5FaIDPiKVKrFfybpj11vbnEoywWNhDM1qMg1QoFtUnfDMcuVe2NOMPgRk8hEzj49mEJ
+	 w7qX1GR+1f4yvlNmDLyC/OEw7ZB3EqzIsJILVh6XiBzt0ZIr/R5Lj1O4pPUQ8oiulUNOA
+	 zVKec5K6i8Y78CoYFjsXSIRFHiYAhHQ8Rdc8vk2EFi0Xlj9hPftEWVKkFNyLGkDm3kA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JdHX5lHv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lQZMDQ4M;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC650606A8A1;
-	Fri, 13 Nov 2026 21:26:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C971606A8B4;
+	Fri, 13 Nov 2026 21:26:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JdHX5lHv
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lQZMDQ4M
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794605198;
-	b=N6UpFfDmghc7dxkZAWR9umdFWCWbhlgYF0HP0XCiRJ/ugGp5RpKuFIyMt7Ehpwug1fPD
-	 tHkPo1rfEP7DXjkIRAwiEOlOu2OLgoo//bSa9NY9lUeZBQwh9qGpLaztvWyO808b3b8eC
-	 XwlLEJgMmArpWJqCAfqwJxs9ydXJqdPREhbOLaWyPj2Xt5sNOnwqEiYVE2OhHRJLTW9dr
-	 Gy4uxyOCXPQONGNNH07Gowh5VhfDMMb3IwfS1j0GmjgwW/vPg30DCo5a3ozQfJyvesKxx
-	 u8O1NU1ZtFMscWuDfU561oJYpcwsofZWa6gCPKM1Zpu3OJE6JK4WgU7P3NIA6zH8VTw==
+	t=1794605199;
+	b=zwVYN0MwUAH0RUFiuR4FaGH706a2K0w3E6C5TV24J7debfJgLpzfnJpGWOD9DHevCZq1
+	 TO/lWr96llMbb4DNONPjT6zHjzAaHAD5PuzNPN1C2vb9OInq1IpAn0DgIGtkFxQJbuA/U
+	 9gTbgpQBVP0XPT0/t8JYcB0hvASqR9WKBixYaqYZy3MVz0BKQGU3zOYgezVJYgqea9eQQ
+	 sxECD2kvLsyskQr8HaOeXXtGyvvhbvDUFe+8lqxYymONeGweran61baKg7UKxJFeS+ISe
+	 DxzaAWFSmdtsS/eAbpd0eT1hxBd6AZbIUy/NdHOCcMh1xW/VUAG9Nfc6hD1lpvTuU6Q==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794605198;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=7SXTfTYuGz/k0372PRCBUnT3oCcPkvMRjviGYp1DMZE=;
-	b=FrDjOBjpQTPMnHm7YTgqUQ+/DFx+UaCJFyhtODekjvha7HlcisdI5Inv+m8/pHfsQRyP
-	 CVJrW+1iyd9E3zAE+MEw5nIE3r5OgQNwU4O9NhEYSK3HpMOsnQzuu0y/VOuhhq3wYbP5o
-	 6QWI1snt2Qj0/8LjByedKqdmN2nTnSCSgUM3eFyYYkLhgKvcjvjYaphUfp2g2CuWisjNv
-	 wJ70Uv6EyRzUbvujunOFXR3IbKSaFWa5K7Fmyyqn/MsP92N2RDfqofDSVXiEN3nEZyw4Q
-	 noseg2Hc7ZXS2qFP1yKSrnJQqPRidveGbGs9+2Czjz5zFn+zyZ7jRVE8w1TzdU/jCNQ==
+	c=relaxed/relaxed; t=1794605199;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=6XYL3m7pR3XD5gcmbX6twLNHi5++AAkwL0wMnUcMCNQ=;
+	b=aW32Z7rjGn5BlKbLe5edI+84i/LHwQY3e0O4evm5OGuCxV6SgoZ2z9WDN0W3DvWPN42H
+	 3jET9XXtjuQCJlGi1fJOos4Xg/ug24o1t8cSpZjcXhuxvZZ44ayB9D2DG0M5wZFIJP/50
+	 sIY601oXoq/pVpanBolTXgtD9UiwbA3QlPQ9YYeYpiMIjlOyuINAVOjcLblCBMHsYKxAr
+	 E/ksmG4T6svmr+s9nccknhJXH682fzVDTBwyQKHYgpRpKlhw6waVBsjgxdWX/dKy6UgGB
+	 eRaApUMoi/ggo/W9bUH4qD0VDTv9NpWzexDRLPZLxXlN+wqW5kS5FSL1RLJ1gaXGAfQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 083061F00925;
-	Fri, 13 Nov 2026 21:26:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794605198;
-	bh=7SXTfTYuGz/k0372PRCBUnT3oCcPkvMRjviGYp1DMZE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=JdHX5lHvhJPflC8T6XnF9LEc4FniRm8lc7T44e/uUkmcFXxaC9+Bz4+Hb4OLzhPiL
-	 aCK+gr0hoz1IqdYAsioG2a0g0oY04scqTP8Nkrbo5gLdzhNSyxG8/1JcvcE9WWGJgR
-	 BoVE5a78WQb4U+L6xToFsjsdX6uQM/IriPB3zLgJ9HkeF4ss45RQi0DBJAEH+/KL57
-	 BJiuTKhmF7hkvnGInhBk0JHVhBH9Ob1h7Gf+A/Tjc73u02uug1YbqvlI7qnJ1+8D8h
-	 U8Ot9e2lmQYnFg4mcAqFsmaiRTRAWgQRvt/yCfKomHI7KSt7wybx96CtaxlWhplDqX
-	 6LwAJofIIGs9g==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 7794D49B2A;
+	by smtp.kernel.org (Postfix) with ESMTPS id 73F451F000C5;
 	Fri, 13 Nov 2026 21:26:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794605199;
+	bh=6XYL3m7pR3XD5gcmbX6twLNHi5++AAkwL0wMnUcMCNQ=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=lQZMDQ4MTntkn55cSd4mrJU1tc44GgQmig8hNnszUECieY07GJNb8EgAhtS4PpZN3
+	 LQZTdWR1YAywc7ZOKsRDwjS/DEYU00xmM5RhuYLi8hsp9Rs/ZWEaOyMy44hRy5KnAU
+	 OcF+jyttVaAAmtwXVBmd5Ku26GEm7WOvfebgy2Af4csez949LgPcxWvMnEEh49SQ7U
+	 CnrHTRBLJySnHhdeXOIVo6NOxPZ+HYzLIR2ZaIGg7cPvkh+EDqCxKvMutrs9K/pf7N
+	 BqxU7wD0xE2RX5GfYtubs16Pyk8lMFZNdCdFBgjPBhqABEeO8TCIAfWawaH5IlGn0F
+	 4sptIQ3bLthsw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C658249B12;
+	Fri, 13 Nov 2026 21:26:35 +0000 (UTC)
 From: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>
-Date: Sat, 14 Nov 2026 05:26:23 +0800
-Subject: [PATCH RFC 7/8] mm/huge_memory: walk the after-split anon folios
- in reverse order
+Subject: [PATCH RFC 0/8] mm/huge_memory: clean up and speed up large folio
+ splitting
+Date: Sat, 14 Nov 2026 05:26:16 +0800
+Message-Id: <20261114-swap-thp-split-v1-0-dfa8d4fa448d@tencent.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,9 +85,11 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261114-swap-thp-split-v1-7-dfa8d4fa448d@tencent.com>
-References: <20261114-swap-thp-split-v1-0-dfa8d4fa448d@tencent.com>
-In-Reply-To: <20261114-swap-thp-split-v1-0-dfa8d4fa448d@tencent.com>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDS0NT3eLyxALdkowC3eKCnMwSXYM0C7MkU1OTJBOjVCWgpoKi1LTMCrC
+ B0UpBbs5KsRDB4tKkrNTkEpBRUGVFqYWlQOtKIGpja2sBcGOPo4wAAAA=
+X-Change-ID: 20260915-swap-thp-split-0f86b554b42e
 To: linux-mm@kvack.org
 Cc: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
@@ -105,70 +108,96 @@ Cc: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
  linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
  Kairui Song <kasong@tencent.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794605194; l=2204;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794605194; l=3345;
  i=kasong@tencent.com; s=kasong-sign-tencent; h=from:subject:message-id;
- bh=b73U95HEn/sFMHZHf5dLhjLZSLi/GMxez+2xE4t43Nc=;
- b=70EsV5Uha41PjuPYxhWxWFvxuyMQ0o4A1mtGI917jUBg/etMrn8S6YMm7q+tJXy9XsBoKFNy5
- KgC9YTrm+YIDDLdn2hg/4O0StaQTY/e7i5dpk8foYPEWf6bNteg3Zi7
+ bh=/AbmnhDe2IJOrI78TkMUD1kXfK1J0O/e9ZtX3/CBXHc=;
+ b=ZvIY7X4nvjD93wMA1BdYlQtatOQkZhI09urInLIAqNDsnRzPPbovJU2IFJM/8GMfgHOgpdduy
+ bFeZZpGL/5QDNi+NWOuQeujVOGwfqIr1SpMs/ffdtk2+JnI4XBof3iu
 X-Developer-Key: i=kasong@tencent.com; a=ed25519;
  pk=kCdoBuwrYph+KrkJnrr7Sm1pwwhGDdZKcKrqiK8Y1mI=
 X-Endpoint-Received: by B4 Relay for kasong@tencent.com/kasong-sign-tencent
  with auth_id=562
 X-Original-From: Kairui Song <kasong@tencent.com>
 Reply-To: kasong@tencent.com
-Content-Transfer-Encoding: 7bit
 
-From: Kairui Song <kasong@tencent.com>
+Hi all,
 
-Just like the file folio, walk the after-split range with folio_prev()
-so the pieces are queued in ascending reclaim order where the forward
-walk left them descending, and the cached "next" goes away. All of its
-users either expects an ascending or do not care.
+This series slghtly cleans up the large folio split path and reduces
+its overhead: uniformly splitting PMD sized file folios to order 0
+is over 20% faster.
+
+I realize this might not be the best time for pushing more optimizations,
+but I am posting this as an early RFC as it adds two helpers, folio_prev()
+and xas_prev_canonical(), and uses them to walk the after-split folios
+in reverse, saving a few local variables, avoiding a for-loop pitfall [1],
+and publishing the folios with a single Xarray walk.
+
+Walking backwards also changes the order the pieces are put on the LRU or
+the reclaim list: they are now in ascending order instead of descending,
+which is the actually intended order. The effect was not very
+measurable though.
+
+New code is mostly the two helpers and an Xarray selftest. The change to
+mm/huge_memory.c is LOC-neutral.
+
+Worth noting (not part of the series): I found these useful while
+preparation for supporting all kinds of folio splitting folios in the
+swap cache. I also tried to get rid of lruvec lock for the splitting,
+or at least decouple the lock and reduce lock scope of it. It turns out,
+not cleanly doable at this moment, and the main blocker is: MGLRU.
+MGLRU will read a folio's size without holding a ref, solely depending
+on the LRU lock to stabilize. To improve this, another rework of MGLRU's
+reclaim progress is needed (which will also cover the problem fount by
+the MGLRU-FG series that MGLRU sometime have a higher contention than
+CLRU on reclaim isolation).
+
+Testing
+=======
+
+Split overhead on a 32 vCPU x86-64 KVM guest, 31 GiB RAM, 4K base
+pages, 2M THP.  Split a 1 GiB shmem file (512 PMD-sized folios)
+uniformly to order 0 through /sys/kernel/debug/split_huge_pages and
+time that single write with bash's `time`.  Medians over 12
+interleaved rounds per kernel
+
+Test script:
+   mount -t tmpfs -o size=2G,huge=always tmpfs /mnt
+   fallocate -l 1G /mnt/big
+   time echo /mnt/big,0x0,0x40000,0 > /sys/kernel/debug/split_huge_pages
+   rm -f /mnt/big
+   umount /mnt
+
+Result:
+                        Before        After
+real                    17 ms        13 ms   (-24%)
+sys                     17 ms        13 ms   (-24%)
+
+End to end test showed no regression.
 
 Signed-off-by: Kairui Song <kasong@tencent.com>
 ---
- mm/huge_memory.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+Kairui Song (8):
+      mm: add folio_prev()
+      xarray: add xas_prev_canonical()
+      mm/huge_memory: avoid an unnecessary folio size reading
+      mm/huge_memory: walk the after-split file folios in reverse order
+      mm/huge_memory: publish split folios by walking backwards
+      mm/huge_memory: rearrange split routine handling for better optimization
+      mm/huge_memory: walk the after-split anon folios in reverse order
+      mm/huge_memory: walk the folios reversely for the release loop
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index e16b93318613..2ff201a5e5f3 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -4076,7 +4076,7 @@ static int __folio_freeze_split_anon(struct folio *folio,
- 	struct folio *end_folio = folio_next(folio);
- 	struct swap_cluster_info *ci = NULL;
- 	const int old_order = folio_order(folio);
--	struct folio *new_folio, *next;
-+	struct folio *new_folio;
- 	struct anon_vma *anon_vma = NULL;
- 	enum ttu_flags ttu_flags = 0;
- 	struct lruvec *lruvec;
-@@ -4137,15 +4137,15 @@ static int __folio_freeze_split_anon(struct folio *folio,
- 	ret = __split_frozen_folio(folio, new_order, split_at, NULL, split_type);
- 
- 	/*
--	 * Unfreeze the after-split folios and put them back to the right
--	 * place. Keep the head @folio frozen until the end: sub entries
--	 * in swap cache must be updated first, so a concurrent
--	 * swap_cache_get_folio() cannot return the head folio for a sub
--	 * entry (folio_try_get() will fail on the head @folio until unfreeze).
-+	 * Unfreeze the after-split folios and put them back, keeping @folio
-+	 * frozen until every sub entry in the swap cache is repointed, so
-+	 * that a racing swap_cache_get_folio() cannot folio_try_get() the
-+	 * head.  Backward is also the reclaim order: the pieces queue just
-+	 * before @folio on the LRU, or at the tail of @list, both drained
-+	 * from the tail.
- 	 */
--	for (new_folio = folio_next(folio); new_folio != end_folio;
--	     new_folio = next) {
--		next = folio_next(new_folio);
-+	for (new_folio = folio_prev(end_folio); new_folio != folio;
-+	     new_folio = folio_prev(new_folio)) {
- 		zone_device_private_split_cb(folio, new_folio);
- 		folio_ref_unfreeze(new_folio,
- 				   folio_swapcache_ref_count(new_folio) + 1);
+ include/linux/mm.h     |  23 +++++++++++
+ include/linux/xarray.h |  49 +++++++++++++++++++++++
+ lib/test_xarray.c      |  97 +++++++++++++++++++++++++++++++++++++++++++++
+ lib/xarray.c           |   8 ----
+ mm/huge_memory.c       | 105 +++++++++++++++++++++++++------------------------
+ 5 files changed, 222 insertions(+), 60 deletions(-)
+---
+base-commit: fae273e48c398c56b819151a607a6c8792dadef0
+change-id: 20260915-swap-thp-split-0f86b554b42e
 
--- 
-2.56.1
+Best regards,
+--  
+Kairui Song <kasong@tencent.com>
 
 
