@@ -1,58 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=204.191.154.188
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794543519;
-	b=j4i3qWZ4miWhsaNqNUSSxizbNlQZ4cw0/vjgbiXJ3m2Kyn4wnZXVY9LkiwCiDNyVj9eK
-	 o0yxVUmaDA3+yRw9YMJt/Eczw+k+1hq49gXbepp99uPNEEdRPAhicstT03XGXiEsvEx66
-	 Jdk+G1vLJ+YBN2cSDFH7jgN8TtAvLvuC3A0Au/KKzeiuILWbyPqiy0k3nEqj2Mk/2b+dg
-	 SLtuxM2jcs9K6pV+jOd9F/oryeikSnRt374Ts0r185qyowSjpN6hg8UkFbtYQtL6Sy/Rz
-	 QN+aJjO7fhU6rwgnmDZg9+j1uuch0h9Oi/RKs5qrqYEb9t7XDYglsy+w8WHGFWRQSwQ==
+	t=1794543607;
+	b=MTUFeNZCDIoifXVAkMB0iVTBR/CQJkhwXJWaOKOXAgKplmWzL4X+W0vmjh7S8/t2SRI8
+	 D25zSi2VxUhM7aZrYi5HDBLYJOKe1US1GMNzuAL+hwcE5nPkedgIJNEHBODaJ3Z0WbZFQ
+	 5SU++GOW2e7e+kYmY4oiaeTfn8nNNp6KWT75DoXnRh1z6lGOVuVgm/DQL0cfb1sdqAGF/
+	 FwyAYU1klIoOT+Kvls4byyTnhfTkfAzRsZyCcMdJp8K7e0b9kdPEUIR/H0G2yl4wzn94c
+	 hDNaKe8TRlAE20xJep+zsP2vpS5uwzsQR3G03oo1ABvs/77ab9Zw8HIL1boMMKkN78w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794543519;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-SA-Exim-Connect-IP:
-	 X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:X-Spam-Checker-Version:
-	 X-Spam-Level:X-Spam-Status:Subject:X-SA-Exim-Version:
-	 X-SA-Exim-Scanned;
-	bh=ZiYALzwBjI65tTTQSXY2U+ySmJs1lqd9md75ReSDjlI=;
-	b=RVEVr5DUf2Hx/aHS2/7ac/TmC9EP9RYaf8loOb2FZAoouX2mhrv+jnJRU+HggH8MXTXS
-	 ezifIhjMMi+DE4cOHOPA+DfZXBlbuRMkIzsu+7eyFaP5Ln6fIFmUPJJ87WPg6G0tIyj9b
-	 7ZuitI+hLO493+fOWR4iDtF+T84LW4Kr1bOKqMxbKkjeZzBiAAyY7+/neOYBtRYlF7P/Q
-	 semkonf34IiRC2ZjCintLtvS74tUnUEkNrjcZHBza6HiNSynxaniYY2e9GIj72iTvmDHE
-	 SswSmHCU4+modtSOCcSWiZm5GRMwD2yz6E3m6NnjrInkbmEZjL1lz81a0asuriJrJHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794543607;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=dYyr6kASLUC/BUfTOqaEjVuuLM5YzVSIiMSIdWbr0Xo=;
+	b=1jYog7NknYRvajrB69ISRpkEf790B6qWOJ59EQLFAm3Tdi4+QmZKnXZS+cwdT2dT2UjP
+	 f3VylmGqRwd55l9gUFVWFZ3QSwX74jq5DnECTLBtlAzaZj7e+crHRGBL2TC/v2DcL5w1b
+	 mcOK3tUBfrOBGl7srNjYcjb18ZVlCbPM8n6x5kKbRf7thaJ8ds1mbW9DIPdZVDRs/8N9k
+	 cN6kcNSy5qlm9bIPa2VUy4NW4jXA5TjeUm0WeA8Ezawhcf01cckBPG8AIWRcX1cwEVrn4
+	 Ykpaf/i3uUfVaBuSk4Y7pOTNo+srrIXvNLgWAsDlvJ5hCAWsozvEjDjHOGRbXpguGyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=deltatee.com;
-	spf=pass smtp.mailfrom=deltatee.com;
-	dkim=pass header.d=deltatee.com header.i=@deltatee.com header.a=rsa-sha256 header.s=20200525 header.b=sqJVO9Oh;
-	arc=none smtp.remote-ip=204.191.154.188
-Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--rickyniu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=DvFdHR7w;
+	arc=none smtp.remote-ip=209.85.214.198
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 420B7606A31C;
-	Fri, 13 Nov 2026 04:18:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 420B7606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B48BF606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 04:20:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B48BF606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--rickyniu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.a=rsa-sha256 header.s=20200525 header.b=sqJVO9Oh
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
-	MIME-Version:Date:Message-ID:content-disposition;
-	bh=ZiYALzwBjI65tTTQSXY2U+ySmJs1lqd9md75ReSDjlI=; b=sqJVO9OhFJFFp5d+CorT0gFFwx
-	gQHtm0rP9jBKdo5gtNhPuLDVJFyS5i84cybGKtUoyz1fhqHNy/GRDTRJWNgzdqFTWEyGhMkX/IdYX
-	1gczl9YxmBvNI3QYA9KvCiNAWLYKnpgv/dbGuxQdmfjTnj+SrMaiu9Ge6b2Zzu3cJj3uIAscyiV2Z
-	gGz+MjtR0Ub8ypP0wa3inb778TZZgjDpL3fgNIJjKwllEUMLxQ7GC61J0NW/qoFJgAi8vPToPSlrb
-	Ptdylv4aBTXI6DXk9fq3Si66BLJQ8a5feCTMk2q9JmLUpH879Zp+OriFt9ucCWJscZvyIYeC/6V5J
-	pp72RlUg==;
-Received: from [104.157.31.28] (helo=[192.168.1.251])
-	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.98.2)
-	(envelope-from <logang@deltatee.com>)
-	id 1xRik9-00000002SeY-3ZkQ;
-	Thu, 12 Nov 2026 22:18:32 -0600
-Message-ID: <029ccd27-68df-4e0a-bf27-3b40f68e91c6@deltatee.com>
-Date: Thu, 12 Nov 2026 22:17:50 -0600
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=DvFdHR7w
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2e8e16d22d8so10191825ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:20:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794543606; x=1795148406; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dYyr6kASLUC/BUfTOqaEjVuuLM5YzVSIiMSIdWbr0Xo=;
+        b=DvFdHR7wF5OPmGnkgRHeJm+Fetrr9YhAoKZRNghdtZBLBWDE/1aZXq4tRCYmiZfo5W
+         qUvuodEuRLLyqnjPAcYVpA8rprEaKlGnkCtTUtR9BC1AJcshvyHcjzLJ8WGrNdGeXGVU
+         oxD1Sc78PXLk6m/kSrYGk1IB1PvEI369qjs0+WCFQ62I7NGPEpPKk3Cj4tDdifNXVYMe
+         SqMCk6nPkholguWDteciZz4mKf7lbLG/cIy8iLY3k8TMMDFw+Jbzd2OqnNYXMOnV+n/L
+         l8hRcDZNJBWNilbJn+ZseGAgjEvf3fSJ1hqBb64PxWMHA0QQxzwlOFNjZe0WlMQegCuV
+         toug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794543606; x=1795148406;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dYyr6kASLUC/BUfTOqaEjVuuLM5YzVSIiMSIdWbr0Xo=;
+        b=pbOa1HPrLO+WoTb8BZKbeT5BMQYTE1n7DvHQiK6KEuJR/Az0xvvnys5L+lWrdxlD42
+         NR9bP17LWiI6YKxgLKW4nSKUh2DNqar+zw3EFmnLXABjEYnh2uSvl587o5nWUYUWEO2e
+         5qEVE/0IKJdAlxkDII7NsA4qDUGPeXzOdzRIQGuFKjHPlbHQtOi1isIOq9ii5/LtgTeR
+         xpvWKBLcCri9hRR4E5isTC5Yy1k/eww465awXDgsvEybtqqWMEjm+TxZNYi6EhQ2GStK
+         4iy+xDZRB5YRVqOOhYS/9jgUA0/D88bxjkGi5hVbvsqrKzOQr7BMDRiCI6bfe+PGUKfB
+         LHmw==
+X-Forwarded-Encrypted: i=1; AL+hErH/0gE3DCIZT3x59Z30pfhlY9yO/q9q3Jaz8Q9Lnsw0TqRoyNeT4R6fo+/zWKN/rLSqm8wrVDtcC03vDCU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/k3vz8o1n55wHZz8u1iDuFvOFe39qTJOmdfFXoFy2tX/D6BlOY
+	5ZATpNvZUjVUeommVGzxl7PB7EgSpqa25hTaUV3s17If420GRn5LzGlTKPhbZlkvE3y0ofjq4pc
+	LbsIlbWBBWfYbCw==
+X-Received: from pla14.prod.google.com ([2002:a17:902:ffce:b0:2ea:7f9c:2ce])
+ (user=rickyniu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:902:ccc4:b0:2ed:118e:7faa with SMTP id d9443c01a7336-2ee0de19c7cmr12354605ad.37.1794543605590;
+ Thu, 12 Nov 2026 20:20:05 -0800 (PST)
+Date: Fri, 13 Nov 2026 04:02:37 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,80 +75,42 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Pavel Popov <pavel.e.popov@intel.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Peter Huewe <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
- Tom Lendacky <thomas.lendacky@amd.com>,
- Herbert Xu <herbert@gondor.apana.org.au>
-Cc: Leon Romanovsky <leon@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Arnd Bergmann <arnd@arndb.de>, Len Brown <lenb@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- "David S . Miller" <davem@davemloft.net>, x86@kernel.org,
- linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org,
- linux-integrity@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-arch@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261111234821.4814-1-pavel.e.popov@intel.com>
- <20261111234821.4814-4-pavel.e.popov@intel.com>
-From: Logan Gunthorpe <logang@deltatee.com>
-Content-Language: en-CA
-In-Reply-To: <20261111234821.4814-4-pavel.e.popov@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-SA-Exim-Connect-IP: 104.157.31.28
-X-SA-Exim-Rcpt-To: pavel.e.popov@intel.com, rafael@kernel.org, viresh.kumar@linaro.org, jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com, tursulin@ursulin.net, alexander.deucher@amd.com, christian.koenig@amd.com, hansg@kernel.org, ilpo.jarvinen@linux.intel.com, peterhuewe@gmx.de, jarkko@kernel.org, thomas.lendacky@amd.com, herbert@gondor.apana.org.au, leon@kernel.org, bhelgaas@google.com, arnd@arndb.de, lenb@kernel.org, sakari.ailus@linux.intel.com, jgg@ziepe.ca, airlied@gmail.com, simona@ffwll.ch, davem@davemloft.net, x86@kernel.org, linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org, intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, platform-driver-x86@vger.kernel.org, linux-integrity@vger.kernel.org, linux-crypto@vger.kernel.org, linux-arch@vger.kernel.org, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: logang@deltatee.com
-X-Spam-Level: 
-Subject: Re: [PATCH 3/7] drm/amdgpu: Include <asm/cpu_device_id.h>
- unconditionally
-X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
-X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
+Mime-Version: 1.0
+Message-ID: <20261113041948.1280304-1-rickyniu@google.com>
+Subject: [PATCH 0/2] usb: Fix giveback_urb_bh deadlock on URB dequeue
+From: Chien Kun Niu <rickyniu@google.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Mathias Nyman <mathias.nyman@intel.com>
+Cc: Alan Stern <stern@rowland.harvard.edu>, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Chien Kun Niu <rickyniu@google.com>
+Content-Type: text/plain; charset="UTF-8"
+
+We hit a CPU hardlockup during reboot while usbnet was unlinking
+queued RX URBs on a halted xHCI controller.
+
+In xhci_urb_dequeue(), the err_giveback path releases xhci->lock and
+restores interrupts before calling usb_hcd_giveback_urb(). Because
+usb_hcd_giveback_urb() takes bh->lock with plain spin_lock(), an
+interrupt arriving on the same CPU can deadlock on bh->lock either in
+usb_hcd_irq() or when softirq runs usb_giveback_urb_bh().
+
+Patch 1 switches usb_hcd_giveback_urb() to spin_lock_irqsave() since
+bh->lock is also acquired in hardirq and BH contexts.
+
+Patch 2 keeps xhci->lock held across usb_hcd_giveback_urb() in
+xhci_urb_dequeue(), matching xhci_giveback_urb_in_irq() and keeping
+per-endpoint URB giveback ordering serialized.
+
+The two patches are independent and can be applied in either order.
+
+Chien Kun Niu (2):
+  usb: core: hcd: Disable IRQs when taking bh->lock
+  xhci: Give back URB under lock in xhci_urb_dequeue()
+
+ drivers/usb/core/hcd.c  | 5 +++--
+ drivers/usb/host/xhci.c | 2 +-
+ 2 files changed, 4 insertions(+), 3 deletions(-)
 
 
-
-On 2026-11-11 5:48 p.m., Pavel Popov wrote:
-> <asm/cpu_device_id.h> now has a generic version, so the #ifdef
-> CONFIG_X86 around the include is no longer needed.
-> 
-> <asm/intel-family.h> is included by <asm/cpu_device_id.h>.
-> 
-> Signed-off-by: Pavel Popov <pavel.e.popov@intel.com>
-> ---
-> Depends on <asm-generic/cpu_device_id.h> from [1]; please apply after
-> it is in mainline.
-> 
-> [1] https://lore.kernel.org/r/20261111234439.4098-1-pavel.e.popov@intel.com
-> 
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 ---
->  1 file changed, 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 19a566187df..fc4e7273630 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -88,10 +88,7 @@
->  
->  #include <drm/drm_drv.h>
->  
-> -#if IS_ENABLED(CONFIG_X86)
-> -#include <asm/intel-family.h>
->  #include <asm/cpu_device_id.h>
-> -#endif
->  
-I don't see the corresponding addition of adding the cpu_device_id.h.
-The commit message doesn't mention that. Am I missing something here?
-
-Logan
+base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
+-- 
+2.56.0.567.gdb80ae8cd5-goog
