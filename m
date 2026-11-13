@@ -1,86 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794574565;
-	b=hRmhlaDp7mapc9xFX7iO2EkKYWQkUIAdtW6BXwAUJmZxslt66dYEHzZZx62Fb4zwDmT8
-	 NZiHqFZLEtBbN1LP99/0LCyJZsOcnsZeKbFaEyaGi7MzgSUVGbTZfFzYYUbFiMW5PdtvK
-	 CivLwi0cZIJsXsJQg1mKR89PVwJI0OL/FIs+9XzUKtECWaKiCEbHFT4ywiWNr20xZO2bd
-	 KEDPs2LuDd6zsuK8X37QNvmLVFbD88RkTm8erftoBMHRUH8b2tqL9KZnsiH7bnj0QQeos
-	 aJTgiE6hglz/IX65WIBWDbRl+v2ozvUXzbq10VG6H7z2UBlWjncleETkXbQKA/Ofd0w==
+	t=1794574624;
+	b=vtmB94RPO6FQd538ANf2A7B0Y0tqFJzh3H9tQz8OQ9091gd/ukrhatJQcfa4eRMNzF6K
+	 aRq1tbSZJOZ0cTI0pkr6fwPdhoFA3uUErHIRrN+NVW5ZFjNbJpgCMzK9Qmo2tbzeI/raY
+	 zOowbf2w7BvLw1OAYa5AhrsuNZuRnIzEOahWgm9WloRi2NlruUSbs2MzKrybMyaOQ1uc4
+	 xLwU19t1fZaUuE7cSqTtbFz+mo9P/SM3M8B9H+LZiY4cktmg0EyHcqMnTSB9mWOFjQnc3
+	 rna7MPjAd6w+gQeqP07TB1GGVcmzp0Wha2YZzBfAXIBBCnYMdBIZGu/U2qMzco7VK+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794574565;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=4tSzNT5XSWSixiegslDJk3QLG0Zr8jciuO7mZR0zc5I=;
-	b=Si+dgTwp8zhnXev2MLMJC7AAOIu6ol63xQWDZxMAnIIftmVtZ670IeS2Q5OaGx9um1+z
-	 W0jcL1jBUoaM2oIp15DyhSYzkHZY3+g4FyPg/DK+gw8rb2Xb60OD4gjjz275TcXPg6F3X
-	 H9oZQ5v7g1b1GJZZaPew/YoDab4CDvEAl4PySwV/xxeGJ29VL8k001MrSvvfTEeQ/iRWH
-	 6SdOs+Hz73PxrS0aCI9+3+n62oIJXek5FBHlYt52PabLHKmZq5u0n0apCJJzzh4072BBD
-	 WcSCVZMcB6qs0XVvKERwH+9Mg2G6MQh84GCVjy47KHPodXtq9CmCv6XrVIJzuba+Eqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794574624;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=UFW11CE2+fUhenv8lk9VuUbA+Kdqs1KCmSCPY5Hz71g=;
+	b=TF8DIqRWluzVBvO1kJfyp6ZH4MPNnLZ4maWZOyIBOj6ZvPOi6UimkGjZSWbEkLz943DW
+	 1eGXQjkkM0qk5wNdUgHbkGiK9Rl/pNzfU+MO+H/v9FplNNojh/h/VJppwleLIjsg/3BgB
+	 NRwEbutsbJ6jBeBMRCnujYza3sZDNnTJ2mq7p03uhUhhQo9y3hNK2Fga6l1bgLSHOUjNC
+	 R4nhGv+NMfrYhnB+joLCZSZjeRa8WfaHyCpm5bULAEStKhDKC2PTsZdxTS3n/TncY5/ll
+	 MC4eCzt9zob443Pv/QZQoewH9lHgjSGu1kcitbhyuqNj1GTIwqk+CVda6GEBe/nk3fA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lvj4yY1l;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Nk9UrQAA;
+	arc=none smtp.remote-ip=209.85.214.179
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1745D606A331
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:56:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 131B5606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:57:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 131B5606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lvj4yY1l
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1F9B1F000C5;
-	Fri, 13 Nov 2026 12:56:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794574564;
-	bh=4tSzNT5XSWSixiegslDJk3QLG0Zr8jciuO7mZR0zc5I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lvj4yY1lMbAfCFEKpUy46MLT7MIRUMSw/9DvQi0lCqCyfEEWLXHLjrYGbcbvlyUgd
-	 Ee42FemA5b21zkdvvm2EAcIpaf0CjIEWN/7EUqsJjyBITnPtmVDcsG4MPROXfIcQFH
-	 YctRCRfK3yh8tnV6DyDCnIiemj6ANeOP5P89LsEZ75NDg646Bnpu6/VKcK8z8UH3Wj
-	 UHidyE1JlCdHLM1Gxtue3BpiaLFJ5AEJKZF3ACXzZxQreCex3EyZXGaYou4/uM0qna
-	 q9HmZIM31Sgl9Ew8S87KOh/SHp2hHnSzP38MwKYuY4xgcOd1he+AXwpFMLvfpsL3my
-	 TU28frsWTH7IQ==
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfauth.ams.internal (Postfix) with ESMTP id BD18B198003A;
-	Fri, 13 Nov 2026 07:55:59 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Fri, 13 Nov 2026 07:56:02 -0500
-X-ME-Sender: <xms:3wj3apbkmeonf4y5wE7ksEA3GtTBf57EWzkWE5neafKKC3LIBFU7qQ>
-    <xme:3wj3at7H_CSaBiiK8MxPCWEXxuf8_32SjEpBm7p6t46otfyshxxW0DySGHZC2nRx6
-    o3CnKqCMg3AcqUsOLjzzWxJ3gE-E_jODyZZW59-0WOiS1ywFfQoHSLq>
-X-ME-Received: <xmr:3wj3aoCjT6qOBmsBWaEBbadIi4IKYX-_viGElTeJ1FBxXk8-jPLWXELZq88>
-X-ME-Proxy-Cause: dmFkZTEALCY8BjEB9962J19+FFzaFn7/mDszJU/f0IQoJYE08F9eNi9AROuRlq7pU2+FXD
-    zoNVXqKBs3ph2NtrQiIbObaLyrIngOHx7B+sdK6iQ+jfItZBvkvsFLopEHbvs6okBQgb5T
-    T3FhlyqhoGdVKxR9UvwevmGemWC2pw9RXWPJmT/hEImGxMrfJhZLPtavP/c6QdWQg/A6b8
-    X5O11D6kkCylwxWMIUDUmx1JRIy29fX8Rzvm50e/adyzuWb9S0hJRhcuwm+lPAtw8FuGn4
-    rju8p9vVIWIvL96aJgoJcn0XKhXQzZ1uUAuAH7wCb597h85mktgUj4cIXuqKo5YXHCqSYw
-    ObzBzC+xeGRFdSq8OK9Iw179SQq7JXdMgizRPjcfc7bMNY4T6epVxNLGOJxv3xUQSLR/64
-    Zxw6vhBrfWdMRycJp9of5fwiEuNbYcgfNCpCp0cn3gxt62aAog+aWCJXFmQAiNZCZkWG9B
-    lWC/3udG+aiOLf/DbuEx2ykJWJHQaSgwcHKmqXrBVIxChV1yPNGmyFR+DbWWQVtVmpRQwj
-    NtZPNHIr8/CvIjr/tdwg11qigVVQJPIqaWNhPn6ysx/4QZa61YdCJv4sA2APKR+gfMKL8v
-    obEc1lTb9YEpWYZIrpyfGF/TB6GjA8e8r0Isgz4pTIYFCflmX0V2H1dmabRA
-X-ME-Proxy: <xmx:3wj3ak6FPmng3aMbspqR6Igf0D2sIbQk1-6WorKrbKKADDHG0AAPMQ>
-    <xmx:3wj3anJXJB8Zybw1x9dD0vuFCyrMwqOETaiw83FKYEJZqKOlm8gtEA>
-    <xmx:3wj3aoxiwa_YTR87D7tSQQJSTL7TiZczR50Ez5E-b68EkZsa0J6kjA>
-    <xmx:3wj3anFPKaQGh8qkS1LHsQZRjpVPAb0cT7GRfwH9jf9WeNj9M__Iug>
-    <xmx:3wj3aoklSg9r9EGOP_SJS-KycWDomPYN6vpd9TXmeUML4jPK2OXNFZsy>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 13 Nov 2026 07:55:58 -0500 (EST)
-Date: Fri, 13 Nov 2026 12:55:57 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Pankaj Gupta <pankaj.gupta@amd.com>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H . Peter Anvin" <hpa@zytor.com>, Tom Lendacky <thomas.lendacky@amd.com>, 
-	Ard Biesheuvel <ardb@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
-	linux-kernel@vger.kernel.org, Mike Rapoport <rppt@kernel.org>, linux-mm@kvack.org, 
-	linux-efi@vger.kernel.org, Pankaj.gupta.linux@gmail.com, stable@vger.kernel.org
-Subject: Re: [PATCH v2] x86/unaccepted_memory: Do not accept ranges that are
- no longer E820 RAM
-Message-ID: <avcIhKCXFo8Pn01U@thinkstation>
-References: <20261113105554.199912-1-pankaj.gupta@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Nk9UrQAA
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2e987a2ba0cso4402125ad.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 04:57:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794574623; x=1795179423; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UFW11CE2+fUhenv8lk9VuUbA+Kdqs1KCmSCPY5Hz71g=;
+        b=Nk9UrQAAeFLsnTKMzVvAeSI0D9fVT5PKtZAKDEqUF+zGFyKb3SmRKoso44dE3HHAgU
+         vD5sB4msnfLkk6JeMGxTnp+lWRHZJ9oSlmRayqqSihctqh8rHZ0d9gHQLHCNgsA3+s7Y
+         PBKq5OY75McV+r+FJyKs91BW0gVEmraTuk3H5Om25ORN0woMdtxU3ZPEHzfDPSW84hlU
+         y/dSGTLU8yPSxYzXnvLLa0tOvgqGdyW43TLQnMVhwCdAs/UCbXAtdjntoDRIWQn6S/lS
+         +kupnnOI/PrEANESBoe3CQBxok3RcLkGdUV6DlVi2lV7TwhaPcgObjih1Y0axbDNUNHk
+         gLgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794574623; x=1795179423;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UFW11CE2+fUhenv8lk9VuUbA+Kdqs1KCmSCPY5Hz71g=;
+        b=y8WlTnZpqYKSKXWQhcImVdXTobP29v1drCAaXK8teoi87RObOMf0V+QUCYRCk4+h+h
+         aksdHACHLXcPZVmz2Ls1lq6qcdtvll9HIoYF/oHq0NSS1hv6mVIE42056jJNK5+wZK08
+         b6y2v+Sl0LDZIsyxRap7Ed7un2u1RD9sU0/NTRK+o/voqdpdvbALjBTwq85BrNZjrwuP
+         Rcfx8Ld9OmPY0iZZsMQxPQhai/KxSXgcRLiyG5w/jpIb80lZKUbuaZFSKNannflkPX6Y
+         4+2hilwgk51ekzhwI3cAvcLag0WGjg0rzgGHUA7vPm5RIzsIKVsC0benWidTbbfszWXC
+         FF/w==
+X-Forwarded-Encrypted: i=1; AL+hErGJJZ201cRCPmkt5LuKa9D2SPJ1WhnpCtVky0ld4b05azpy0aPdMlHzFVte10LXdgMwa0dS6Q+pU6Sx0eU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8SBlfms1ceZo2v+eK9YeY6a/3m496AEHkEfbxxCOAOFRv17Nd5
+	sgAR+w3KWp5Nn9Jvcblvf3rQKIVnGNNGuoNJSBQUcpzP/nJ2RnsWSDah
+X-Gm-Gg: AYBFou20QNhYpZmYFWTONBzd9APZmLHgu8/IWa8jKLjnx38zu7sRROOoFcETpGgd3qf
+	TBze4IJCslAGjfXapP+oni1njvlJXjUULG+8FOb3gA7MyDKCh8jpC5pbxzeujAWlvCMyYT8oa6I
+	mMMePq6hZrmPfDiKMjeay3KtTHQHvmKztqyHIJgm5T8y6uPgS6xA+0AFg22wWJu67M5gDyTGFlR
+	Ri23KHJDTHfz2P7anPupk58gwjksdk+3yOaLwbELpD16QyKRzEQS7KgfAT3k69Lt20BEqDMclOn
+	okUDVVg57cLBylnp3duxu1bJarmNTTxVtKjXgz7xxW9cyDTq+qmMCIddskfnzpIwtIiBywE2QID
+	9G0MHaa4fTdqt/+1xVJOoK1h2JdTyAuLBwTHQT4DH9WW0T12GhXLkVf9MkkPU3ITwS/VxUeT3mb
+	nnaGflzsUL3EznUrMmXuITONSIF1F6L0aTd3OLydB57FM+1BYc1R7MYY0NUDdQNkcEAjqKOexsZ
+	t0B9y+ozhPd2eX0ABqeRBNgTRKEnGU0DpNC4j9cY5IEzAQEM7LYZtXZZRuCMXua9qEqZTvo3EAB
+	AP7CVplECL59XCeuuZSvbLo5cc+YluJgLGFGNl/c4wyNbmTL8NSGC0Q=
+X-Received: by 2002:a17:903:1844:b0:2ed:2104:9a6f with SMTP id d9443c01a7336-2ee0dac323cmr24731165ad.22.1794574623291;
+        Fri, 13 Nov 2026 04:57:03 -0800 (PST)
+Received: from localhost.localdomain ([223.167.122.23])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f4acd77sm9593215ad.3.2026.11.13.04.56.55
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 13 Nov 2026 04:57:02 -0800 (PST)
+From: Chuang Wang <nashuiliang@gmail.com>
+To: 
+Cc: Chuang Wang <nashuiliang@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Stanislav Fomichev <sdf.kernel@gmail.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	netdev@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v13] net: reduce ARFS flow updates by checking LLC affinity
+Date: Fri, 13 Nov 2026 20:56:34 +0800
+Message-ID: <20261113125643.2255-1-nashuiliang@gmail.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,31 +106,197 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261113105554.199912-1-pankaj.gupta@amd.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 13, 2026 at 04:55:54AM -0600, Pankaj Gupta wrote:
-> Accept only whole pages of E820 RAM, and clear the bitmap bits only for the
-> units in which memory was accepted.
+When an application migrates to a different CPU, RFS records the new
+CPU in the global rps_sock_flow_table via rps_record_sock_flow().  On
+the next packet of a flow, get_rps_cpu() notices the change and calls
+set_rps_cpu() to update the per-queue flow entry.  With Accelerated
+RFS (ARFS), set_rps_cpu() also invokes the driver's ndo_rx_flow_steer()
+callback so that the NIC steers the flow to a queue close to the new
+CPU.
 
-A bit in the bitmap covers the whole unit. If the hole doesn't start and
-end on a unit boundary, the unit at its edge is only partly accepted, but
-its bit gets cleared. The rest of the unit stays unaccepted and nothing
-records it.
+Threads that migrate frequently trigger this on every migration.  For
+drivers like mlx5, each steering call serialises on an internal lock
+(arfs_lock), and under heavy load the contention on that lock can
+outweigh the benefit of the steering update itself.
 
-This kernel never touches the hole, but the next one can. memmap= and mem=
-only edit e820_table. kexec_file_load() hands the next kernel
-e820_table_kexec, which is copied before the command line is parsed and
-still has the hole as RAM. The next kernel finds RAM with a clear bit and
-uses it. memmap=1M$0x1fff00000, then kexec into a kernel without it.
+This patch introduces a cache-aware update strategy: the hardware
+steering update is skipped when the flow's previous target CPU and the
+new one share the same Last Level Cache (LLC), as cache locality for
+the application is preserved either way. The per-queue flow bookkeeping
+(rflow->cpu) is still updated, so RFS keeps steering packets to the CPU
+the application is running on. A new sysctl, net.core.arfs_llc_affinity,
+is added to toggle this feature (default: off).
 
-On TDX this is new. tdx_accept_memory() works on physical addresses, so
-today the hole is accepted together with the rest of the unit and the
-bitmap stays correct. Only SNP needs the direct mapping.
+Performance Test Results:
+The patch was tested in a K8s environment (AMD CPU 128*2, 16-core Pod
+with CPU pinning, mlx5 NIC) using brpc[1] echo_server and rpc_press.
 
-A unit cannot be half accepted. Given that, should we go with what Ard
-suggested and refuse memmap= holes in unaccepted memory instead?
+rpc_press Commands:
 
+  for i in {1..8}; do
+    ./rpc_press -proto=./echo.proto -method=example.EchoService.Echo
+    -server=<IP>:8000 -input='{"message":"hello"}'
+    -qps=0 -thread_num=512 -connection_type=pooled &
+  done
+
+Monitor mlx5e_rx_flow_steer frequency:
+
+  /usr/share/bcc/tools/funccount -i 1 mlx5e_rx_flow_steer
+
+Frequency of mlx5e_rx_flow_steer (via funccount[2]):
+
+  Before: ~200,000 counts/sec
+  After:       ~10 counts/sec (reduced by ~99%)
+
+[1] https://github.com/apache/brpc/
+[2] https://github.com/iovisor/bcc/blob/master/tools/funccount.py
+
+Signed-off-by: Chuang Wang <nashuiliang@gmail.com>
+---
+v13 -> v12:
+- add rflow->filter != RPS_NO_FILTER check in set_rps_cpu, per Simon Horman
+v11 -> v12:
+- drop the comment block above the LLC check, per Jakub Kicinski
+- guard the arfs_llc_affinity declaration, definition and sysctl entry
+  with CONFIG_RFS_ACCEL
+- document the sysctl in Documentation/networking/scaling.rst, per Jakub Kicinski
+v10 -> v11:
+- rename the sysctl from net.core.rps_feat_llc_affinity to
+  net.core.arfs_llc_affinity, per Neal Cardwell
+v9 -> v10:
+- move the LLC check from rps_record_sock_flow() into set_rps_cpu(),
+  so that only the ARFS hardware steering is skipped while rflow->cpu
+  is still updated, per Eric Dumazet
+- drop the sock_rps_record_flow_hash()/sock_rps_record_flow() exports,
+  which are no longer needed
+v6 -> v9:
+- simplify code and fix errors in AI submissions, per Simon Horman
+v5 -> v6:
+- remove the multi-check 'old_val == new_val', per Xuan Zhuo
+- fix 'modpost: "sock_rps_record_flow_hash" [drivers/net/tun.ko]
+  undefined!', per kernel test robot
+- fix 'tcp.c:(.text+0x3e90): undefined reference to
+  `sock_rps_record_flow'', per kernel test robot
+v4 -> v5:
+- fix 'modpost: "rps_llc_check" [net/sctp/sctp.ko] undefined!', per
+  kernel test robot
+v3 -> v4:
+- add rps_llc_check, per Eric Dumazet
+v2 -> v3:
+- patch net -> net-next, per Jakub Kicinski
+v1 -> v2:
+- add rps_feat_llc_affinity; add brpc tests
+ Documentation/networking/scaling.rst |  9 +++++++++
+ include/net/rps.h                    |  4 ++++
+ net/core/dev.c                       | 15 +++++++++++++--
+ net/core/sysctl_net_core.c           |  9 +++++++++
+ 4 files changed, 35 insertions(+), 2 deletions(-)
+
+diff --git a/Documentation/networking/scaling.rst b/Documentation/networking/scaling.rst
+index 6c9836000a8d..d85fe7a9e9bf 100644
+--- a/Documentation/networking/scaling.rst
++++ b/Documentation/networking/scaling.rst
+@@ -468,6 +468,15 @@ of CPU to queues is automatically deduced from the IRQ affinities
+ configured for each receive queue by the driver, so no additional
+ configuration should be necessary.
+ 
++When the flow's previous target CPU and the new target CPU share the
++last level cache (LLC), the hardware steering update can be skipped,
++since the application's cache locality is preserved either way. This
++reduces contention on driver-internal locks when application threads
++migrate frequently between CPUs sharing an LLC. The functionality
++remains disabled until explicitly enabled through::
++
++  /proc/sys/net/core/arfs_llc_affinity
++
+ 
+ Suggested Configuration
+ ~~~~~~~~~~~~~~~~~~~~~~~
+diff --git a/include/net/rps.h b/include/net/rps.h
+index e33c6a2fa8bb..ff2f490a4e9a 100644
+--- a/include/net/rps.h
++++ b/include/net/rps.h
+@@ -13,6 +13,10 @@
+ extern struct static_key_false rps_needed;
+ extern struct static_key_false rfs_needed;
+ 
++#ifdef CONFIG_RFS_ACCEL
++extern struct static_key_false arfs_llc_affinity;
++#endif
++
+ /*
+  * This structure holds an RPS map which can be of variable length.  The
+  * map is an array of CPUs.
+diff --git a/net/core/dev.c b/net/core/dev.c
+index 3b60b15e2175..6d3dd2d9ae82 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -5217,6 +5217,10 @@ EXPORT_SYMBOL(rps_needed);
+ struct static_key_false rfs_needed __read_mostly;
+ EXPORT_SYMBOL(rfs_needed);
+ 
++#ifdef CONFIG_RFS_ACCEL
++struct static_key_false arfs_llc_affinity __read_mostly;
++#endif
++
+ static u32 rfs_slot(u32 hash, rps_tag_ptr tag_ptr)
+ {
+ 	return hash_32(hash, rps_tag_to_log(tag_ptr));
+@@ -5254,7 +5258,7 @@ static bool rps_flow_is_active(struct rps_dev_flow *rflow,
+ 
+ static struct rps_dev_flow *
+ set_rps_cpu(struct net_device *dev, struct sk_buff *skb,
+-	    struct rps_dev_flow *rflow, u16 next_cpu, u32 hash)
++	    struct rps_dev_flow *rflow, u16 old_cpu, u16 next_cpu, u32 hash)
+ {
+ 	if (next_cpu < nr_cpu_ids) {
+ 		u32 head;
+@@ -5273,6 +5277,13 @@ set_rps_cpu(struct net_device *dev, struct sk_buff *skb,
+ 		if (!skb_rx_queue_recorded(skb) || !dev->rx_cpu_rmap ||
+ 		    !(dev->features & NETIF_F_NTUPLE))
+ 			goto out;
++
++		if (static_branch_unlikely(&arfs_llc_affinity) &&
++		    old_cpu < nr_cpu_ids && cpu_online(old_cpu) &&
++		    cpus_share_cache(old_cpu, next_cpu) &&
++		    READ_ONCE(rflow->filter) != RPS_NO_FILTER)
++			goto out;
++
+ 		rxq_index = cpu_rmap_lookup_index(dev->rx_cpu_rmap, next_cpu);
+ 		if (rxq_index == skb_get_rx_queue(skb))
+ 			goto out;
+@@ -5402,8 +5413,8 @@ static int get_rps_cpu(struct net_device *dev, struct sk_buff *skb,
+ 		    (tcpu >= nr_cpu_ids || !cpu_online(tcpu) ||
+ 		     ((int)(READ_ONCE(per_cpu(softnet_data, tcpu).input_queue_head) -
+ 		      rflow->last_qtail)) >= 0)) {
++			rflow = set_rps_cpu(dev, skb, rflow, tcpu, next_cpu, hash);
+ 			tcpu = next_cpu;
+-			rflow = set_rps_cpu(dev, skb, rflow, next_cpu, hash);
+ 		}
+ 
+ 		if (tcpu < nr_cpu_ids && cpu_online(tcpu)) {
+diff --git a/net/core/sysctl_net_core.c b/net/core/sysctl_net_core.c
+index 9226b96f2e89..64ae4c07f1b1 100644
+--- a/net/core/sysctl_net_core.c
++++ b/net/core/sysctl_net_core.c
+@@ -562,6 +562,15 @@ static struct ctl_table net_core_table[] = {
+ 		.mode		= 0644,
+ 		.proc_handler	= rps_sock_flow_sysctl
+ 	},
++#ifdef CONFIG_RFS_ACCEL
++	{
++		.procname	= "arfs_llc_affinity",
++		.data		= &arfs_llc_affinity.key,
++		.maxlen		= sizeof(arfs_llc_affinity.key),
++		.mode		= 0644,
++		.proc_handler	= proc_do_static_key
++	},
++#endif
+ #endif
+ #ifdef CONFIG_NET_FLOW_LIMIT
+ 	{
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+2.47.3
+
