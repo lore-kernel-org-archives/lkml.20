@@ -1,56 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794541683;
-	b=k3awmEohQqcPGpDAwkonRNodBgPDg1LLcqZssG/wrtLZ2YNoM93m7gfCIZo9ww6NMpYE
-	 R/llQQko0XYeTz9K97zeTG6TYELQOvncC4mT8GjLlN4oZVtPTTLK6G07HhzOJhN859rRt
-	 k0W1Q8nM+Ur1tGFx2TEIPD/hEuRCE3P3n0brYpWlNdYAaYvT33EP+30HG+mSRb0Y3oqOy
-	 D19we53AYiJEPFdsbnLiPQb3F8D8Zk90b8aXryuT1xhHW6OnqGzAGKp4AZCyy9C1A6Pj6
-	 L/hkCBEebqt/yjoWEVBcGyBK5sEAdwwwEhi1Pl1/+WFr8uiFX9q/MBt+gwANJP8L/sg==
+	t=1794541834;
+	b=iJO6n6uNfScedLwVXs4dUskvXOLm1MawiJHD4zt3NUuJPlUsTNq2fiKmC1cU+y5kPSK0
+	 d0utR6rkeWnVvqtnFC01/EPoSCjE/h+B+cY3BKuo/OPjID24fNSGNifrW5wJoIuw4jzl/
+	 eAjzH7D+UvjdGhpV7maDa/1RLlS81bKwHMMdqf4BWJVR137lBsS+ziyYzx/zTSqT8eahC
+	 2NTb71Xn3kJbs6qHZH5pGFj2jy53sUK7fv+Pv+PwrpkS/yw2jVBilC3lqPVh2O+guTxOr
+	 lzp04jOYh80mSTiHUTT17opsn7zVPzX4Sg8zAnEkdWE5cG5lOhXIaxw3PG0jsuXLK9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794541683;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
-	 X-Mailer:X-NTES-SC:Content-Transfer-Encoding:Content-Type:
-	 MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=1LqCBd9c7mRu6DcuxkfC61cv1R8HOtdJaHzWaHAAbSg=;
-	b=zmwWGFNzGyev8xQNFDpLmHzh1mEScpnRjqpwKqs2Vjx5+ftRLVmljoYkly595ANHwXKZ
-	 Vx1Bisx0osc5HYn6bxrH8qSPNvw5LHt+WTddKVzK3u1muTfp8NQie/vZVjjJDqY0Ubr1k
-	 fRcH3DGxitpr6nhrRCKoEYD/FfAD1ZNyrEoyiYvvG1E7QYTCWjZp7Rxo6/35dtZ4vW0fk
-	 NV8lYjnfA3xIRhRtXQqiGI+QUMulEeZEFKtnJXblY2HQ8pSimifAwa6WYZGXe94UgrZeZ
-	 hQoZ8cKCXg+QOVzdAwK1KxSXG+P5SWeKL2hCq3+0sQQvIpnGNnqN9HBo+jDkB+3SQlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794541834;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=I88pmf1i9KwkUDAp+VlFVURLkgncDv2aMPZAk6UPui8=;
+	b=nqG7RolbgPys2EToJskCXU7lngUvIWk0hUoM1GUc5a/57yLGpI8X3KVN/dIGuyu8XYFH
+	 gGkCFCNZG7LkquG5laLoevtYAd1UWv7yudsOJpskXvyDRbzZXrOm8/YHLBBIFWr+dO199
+	 /OD2+AXLxesPKvwsIYgb13lY4gcBWpNLYduqIxUJTv44ao6iX//+7Q/YTciw2srA9KXje
+	 ovgqT7Y2WN14MP1I6ivYGmjT6W/514lAXQatHwFSxO04XYfNfy7Nh8Us2NgsPnzMuBHiJ
+	 Te9o3Dlc4UIWPQ1SBDFD7q6cucgYlx3truE6s7V36o5Snkt4x8ODJp564FFbIU9fczg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=PZOwlTN2;
-	arc=none smtp.remote-ip=220.197.31.2
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=fR5zRllt;
+	arc=none smtp.remote-ip=115.124.30.124
+Received: from out30-124.freemail.mail.aliyun.com (out30-124.freemail.mail.aliyun.com [115.124.30.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CB84606A33A
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:48:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CB84606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B31B6606A31C;
+	Fri, 13 Nov 2026 03:50:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B31B6606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=PZOwlTN2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=1LqCBd9c7mRu6DcuxkfC61cv1R8HOtdJaHzWaHAAbSg=; b=P
-	ZOwlTN2dOIqm10Ji2fHOJ+n7409+2Tqjsy63pcFUrdYWgYpQVg5uxiibDOOqiAN4
-	5cA6L/uwsqa29IgwivI3YbxIorVL/MLU+itKQLrv8Q9noavfUYeS5lEG2wW4+HpL
-	zN2RXN2T+B/9gs/W9JBC1jnWHHL2j3tqMCqeieHsbI=
-Date: Fri, 13 Nov 2026 11:47:22 +0800 (CST)
-From: CJ <firefly0158@163.com>
-To: mark@fasheh.com, jlbec@evilplan.org, joseph.qi@linux.alibaba.com
-Cc: ocfs2-devel@oss.oracle.com, linux-kernel@vger.kernel.org
-Subject: kernel BUG in ocfs2_reserve_suballoc_bits on v7.3-rc2
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-X-NTES-SC: AL_Qu2SBvmfvk4v5CSYbOkdmEsTju82UcS4ufQl245Xc98Fnj/m0QAgUkVjHWLvy8SkMRGyrhS9cglw1fpzYbBy3fS9sil+8ORfBQxB7asxLg==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=fR5zRllt
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1794541827; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=I88pmf1i9KwkUDAp+VlFVURLkgncDv2aMPZAk6UPui8=;
+	b=fR5zRlltmIF5MgKPIDQqh8jEr3/TFIiKd6JjOutBLv7vw8kQIqV3YMSHsqsNf9b0GcM2t+CXHO42zAiN3Yr9z/C/1t0uqU37kEvPsGyF/TYllFpAST85iO7eJ1jKVXe7jKB2Eqrln0XBbjQU1TNvTHRXHTMAz1q9p9BMVBQBki0=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=xiangzao@linux.alibaba.com;NM=1;PH=DS;RN=12;SR=0;TI=SMTPD_---0XEdmoxy_1794541819;
+Received: from banye.tbsite.net(mailfrom:xiangzao@linux.alibaba.com fp:SMTPD_---0XEdmoxy_1794541819 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 13 Nov 2026 11:50:27 +0800
+From: Yuanhe Shu <xiangzao@linux.alibaba.com>
+To: jarkko@kernel.org,
+	dave.hansen@linux.intel.com,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	hpa@zytor.com
+Cc: x86@kernel.org,
+	linux-sgx@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kexec@lists.infradead.org,
+	challvy.tee@gmail.com,
+	xiangzao@linux.alibaba.com
+Subject: [PATCH v2] x86/crash: Disable SGX in the kdump kernel
+Date: Fri, 13 Nov 2026 11:50:19 +0800
+Message-ID: <20261113035019.3747461-1-xiangzao@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,37 +68,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <14bb82fe.33fe.1a1d30462b6.Coremail.firefly0158@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:hygvCgDX_75KiPZqcl02AA--.1742W
-X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC+QqMPmr2iEphSwAA31
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
 
-CkhpLAoKCkkgYW0gcmVwb3J0aW5nIGEga2VybmVsIEJVRyBpbiBvY2ZzMl9yZXNlcnZlX3N1YmFs
-bG9jX2JpdHMuIEl0IGlzIHN0aWxsIHJlcHJvZHVjaWJsZSBvbgpMaW51eCB2Ny4zLXJjMiAoSEVB
-RCBkZjI5MDgwOTBjZGEzNjhiMDFmZjQzNzA5ZjUxODkwMDc2YzU2MTU3KSB3aXRoIGEgc3l6a2Fs
-bGVyIHJlcHJvZHVjZXIuCnN5emJvdCBvcmlnaW5hbGx5IHJlcG9ydGVkICJrZXJuZWwgQlVHIGlu
-IG9jZnMyX3Jlc2VydmVfc3ViYWxsb2NfYml0cyIgb24gbGludXgtNi4xCihodHRwczovL3N5emth
-bGxlci5hcHBzcG90LmNvbS9idWc/ZXh0aWQ9NDg3ZTM5MzA0MTI5MzIxZGQyNTMpLiBUaGUgdGFy
-Z2V0IGNvbnNvbGUgc2hvd3MgYSBtYXRjaGluZyBmYWlsdXJlIHNpZ25hdHVyZS4KCgpUaGUgcmVw
-cm9kdWNlciBtb3VudHMgYSBjcmFmdGVkIE9DRlMyIGltYWdlIGFuZCBjcmVhdGVzIGEgZmlsZSwg
-cmVhY2hpbmcgdGhlIG1ldGFkYXRhIHN1YmFsbG9jYXRvciB3aGlsZSByZXNlcnZpbmcgYmxvY2tz
-IGZvciB0aGUgbmV3IGlub2RlLgoKCk9uIHRoZSB0YXJnZXQsIHRoZSBrZXJuZWwgcmVwb3J0czoK
-wqAgT29wczogaW52YWxpZCBvcGNvZGU6IDAwMDAgWyMxXSBTTVAgS0FTQU4gTk9QVEkKwqAgUklQ
-OiBvY2ZzMl9yZXNlcnZlX3N1YmFsbG9jX2JpdHMKCgpUaGUgZGlhZ25vc3RpYyBwYXRoIGlzIG9j
-ZnMyX3Jlc2VydmVfbmV3X21ldGFkYXRhX2Jsb2NrcyAtPiBvY2ZzMl9jYWxjX3hhdHRyX2luaXQg
-LT4gb2NmczJfbWtub2QgLT4gb2NmczJfY3JlYXRlLgpJdCBzaGFyZXMgNSBrZXkgc3RhY2sgZnJh
-bWVzIHdpdGggdGhlIG9yaWdpbmFsIGtlcm5lbCBCVUcKcmVwb3J0LCBpbmNsdWRpbmcgb2NmczJf
-cmVzZXJ2ZV9uZXdfbWV0YWRhdGFfYmxvY2tzLCBvY2ZzMl9ta25vZCwgb2NmczJfY3JlYXRlLCBw
-YXRoX29wZW5hdC4KCgpUaGlzIGxvb2tzIGxpa2UgdGhlIHN1YmFsbG9jYXRvciBoaXR0aW5nIGFu
-IGludmFyaWFudCBmYWlsdXJlIHdoaWxlIHJlc2VydmluZyBtZXRhZGF0YSBibG9ja3MgZm9yIGEg
-bmV3IGlub2RlLgoKClRoaXMgaXMgYSBmb2xsb3ctdXAgZm9yIGFuIGV4aXN0aW5nIHN5emJvdCBy
-ZXBvcnQgYW5kIGRlc2NyaWJlcyBhbgpvYnNlcnZlZCBmYWlsdXJlLCBub3QgYSBiaXNlY3RlZCBy
-b290IGNhdXNlLgoKClJlcHJvZHVjZXI6CsKgIEMgcmVwcm9kdWNlcjogaHR0cHM6Ly9wYXN0ZWJp
-bi5jb20vcmF3L0h3dERybWF6CgoKY29uc29sZSBvdXRwdXQ6IGh0dHBzOi8vcGFzdGViaW4uY29t
-L3Jhdy9QM25LQ2V0ZwprZXJuZWwgY29uZmlnOiBodHRwczovL3N5emthbGxlci5hcHBzcG90LmNv
-bS90ZXh0P3RhZz1LZXJuZWxDb25maWcmeD1iMWFkYzBiZmRlMmQ4YTRhCgoKS2VybmVsOgrCoCBI
-RUFEIGNvbW1pdDogZGYyOTA4MDkwY2RhMzY4YjAxZmY0MzcwOWY1MTg5MDA3NmM1NjE1NwrCoCBn
-aXQgdHJlZTogbGludXgtc3RhYmxlCsKgIGtlcm5lbCB2ZXJzaW9uOiA3LjMuMC1yYzIKwqAgdGVz
-dGVkIHRhZzogdjcuMy1yYzIKCgpMZXQgbWUga25vdyBpZiB5b3UgbmVlZCBtb3JlIGRldGFpbHMg
-b3IgdGVzdGluZy4KCgpUaGFua3MuCgo=
+The kdump capture kernel cannot use SGX: EPC memory is e820-reserved,
+so it is not part of the crash dump, and no enclave will ever run
+during dump capture.  Yet sgx_init() runs unconditionally and pays the
+full EPC bookkeeping: sgx_setup_epc_section() allocates one struct
+sgx_epc_page (32 bytes) per 4K EPC page, i.e. EPC/128, plus a memremap
+of the whole EPC range.
+
+The capture kernel has no memory other than the crashkernel
+reservation.  On a VM with 15.5G EPC the bookkeeping alone costs
+124 MB of vmalloc - nearly half of the stock crashkernel=256M -
+and the cost scales with EPC size, not RAM.
+
+That is enough to break kdump outright: with the default 256M the
+capture kernel OOMs in early userspace (udevadm and journald are killed
+before the root device is enumerated) and no vmcore is produced, while
+512M works.  With this change the same 256M reservation captures a
+complete vmcore; SGX initializes as usual on normal boots.
+
+Clear X86_FEATURE_SGX from an x86 early handler for elfcorehdr=, which
+only the capture kernel receives, so sgx_init() bails out on its
+existing capability check and no kdump knowledge leaks into the SGX
+code.  Like nosgx, it has to be an early parameter: clearing a feature
+after alternatives are patched is too late.
+
+Reported-by: Challvy Tee <challvy.tee@gmail.com>
+Suggested-by: Dave Hansen <dave.hansen@linux.intel.com>
+Signed-off-by: Yuanhe Shu <xiangzao@linux.alibaba.com>
+---
+v1: https://lore.kernel.org/r/20261111123942.3842771-1-xiangzao@linux.alibaba.com/
+
+- Clear X86_FEATURE_SGX from an x86 elfcorehdr= early handler instead
+  of checking is_kdump_kernel() in sgx_init() (Dave Hansen); retitled
+  to x86/crash accordingly.
+
+ arch/x86/kernel/crash_dump_64.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/arch/x86/kernel/crash_dump_64.c b/arch/x86/kernel/crash_dump_64.c
+index 32d710f7eb84..4a275b969f3c 100644
+--- a/arch/x86/kernel/crash_dump_64.c
++++ b/arch/x86/kernel/crash_dump_64.c
+@@ -12,6 +12,8 @@
+ #include <linux/io.h>
+ #include <linux/cc_platform.h>
+ 
++#include <asm/cpufeature.h>
++
+ static ssize_t __copy_oldmem_page(struct iov_iter *iter, unsigned long pfn,
+ 				  size_t csize, unsigned long offset,
+ 				  bool encrypted)
+@@ -62,3 +64,15 @@ ssize_t elfcorehdr_read(char *buf, size_t count, u64 *ppos)
+ 	return read_from_oldmem(&iter, count, ppos,
+ 				cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT));
+ }
++
++/*
++ * elfcorehdr= is passed only to the capture kernel.  Turn off the
++ * features it has no use for.
++ */
++static int __init kdump_disable_features(char *arg)
++{
++	/* SGX metadata for a large EPC can exhaust crashkernel memory. */
++	setup_clear_cpu_cap(X86_FEATURE_SGX);
++	return 0;
++}
++early_param("elfcorehdr", kdump_disable_features);
+-- 
+2.43.7
+
