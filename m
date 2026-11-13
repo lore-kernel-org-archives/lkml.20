@@ -1,44 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.209.128.57
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.171.160.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794541957;
-	b=HnZwukuMMwI3TL/IFbzppoouKdLIIcoHFyr/2FbdF2wqyVGNqpSYb64gMccLUD+XCAlC
-	 EdnAeuF/YWfQuiCuR7+QbobUki1RucYN1ty+5IWFz6UCxweeE4cvMGqzuI2IFxiTfNgc5
-	 kNRATBIfYBcxn7FoiQjiyALvpeApBq4tTzd/Mq9XUrAGjoQc3+FU0UXKbU+hLZ6VBxoXu
-	 nEYmKr3h6AK4/lMEkqYaUZGRQjdu/oyuQVJhf/D2nxBHbuMwnAxCBu4IyoEwZ/NaguooM
-	 NbikTH3mF50EiELrKw5snuEa3wG1/OTOx9YeTDCmqxbJXRa8n5ex90Rdt6bI/KqVpYg==
+	t=1794542004;
+	b=4fiauxfg49Y+joaC4nQypmZYzm4wlr+bDbwgvFEgmowUGLPmlPf9J7pbv2CeGNoBMbhC
+	 lAbbDA9EtG6ygLhgt9ivHTmHTi30xfNpo6fH9Gqx3rwsSgbr/yqEoXsHpazDtWFKhzhsf
+	 x4nEC/l45I1qLKsveydLLYmNxGrlhnZAbyW6T55BRu/nj1GwiF5Y9DkeQlaqKxUC2ZRor
+	 kgRs9/fUT6c/8jQpnL0sz0q6bbYNVLN/IQIOJImzl9k6MhxRIntWev6CKGoDYn02rXBcd
+	 SwVSxfLc+Bz8pZk3MSnJUnhT85UOGw8IAuPpzT5ClztaxHqYmZsFuqsjfBFXwR351JA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794541957;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=I/Un0HSYvSN4LWf6wdzviavGlXnUoXtD6ZJh2utLOeY=;
-	b=ttBy7w7RkQDCxeS8YqOvKNH4JCmwYmExbeZit+NSMDRPHOD0SWkkPLm7wHx6uvDrflJO
-	 e6aDyogoz7rFv3fUBj/nXwv8kWRecYFKlQtzKTNLGBbjWq4A/p1zrO9GWPseb8Mx62hWG
-	 bb0RRb7lBGyaqOGF6PujPFvDtGUakedf5JBhqKEp04ZRH+E+CgwSdXWB8G+iXNqNCMuY9
-	 MBRzQJprtjTKR09aIcZDKm7U7v/tw7ASooKMicVACx42nYhiF3NH2GODiTI35UNad4qIq
-	 KSk4zMEefOF0toMrsgj89i5tQDu7oL3G+OG5TFHyqxFyBA7VWd+25ClXrsURSfNCrIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794542004;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 User-Agent:MIME-Version:Content-Type;
+	bh=WOL1Pzs+vLk1dTn0v2qm2WPGTBXeQlLGRYfNPm6pFlo=;
+	b=BfQuUkw28vg39tUphWT4FYq/9L0En/hHKMCanT5+vhk3pslklKtgAcf6VT/5yTiuEPl8
+	 F3V0lgVWw1/gRL95FNfFzh5AsuBt4CUQnBbV6yzOxLhr0yZg5GZ99u56ynzWXczxMdDk6
+	 OiOCaZ6t1RQK760SfFSW1Csxpoj3e2QztlfQDZLKs7AWNlr9KTwVdXQNb5cfG5EV9anSd
+	 oCCoq4ZGAJa4KK+out5lFNTi4Rjuuf3Alf6Bg/OPbTwBN4hyMevbIxbU7qljv/duaue9G
+	 ZL8AXv0NvdEh3g7A8VoC9vkVjDJ66YiFjumtJIfuCIxL08HAjj6alA8rEsFifXMEndw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=TM1+YWes;
-	arc=none smtp.remote-ip=103.209.128.57
-Received: from mail-m12857.netease.com (mail-m12857.netease.com [103.209.128.57])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=mail.parknet.co.jp;
+	spf=pass smtp.mailfrom=parknet.co.jp;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=Zj7U1TY4;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=EX7627Bj;
+	arc=none smtp.remote-ip=210.171.160.6
+Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6385B606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:52:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6385B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62F70606A31C;
+	Fri, 13 Nov 2026 03:53:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62F70606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=TM1+YWes
-Received: from [172.16.12.74] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 54890abe1;
-	Fri, 13 Nov 2026 11:52:26 +0800 (GMT+08:00)
-Message-ID: <0a09d26f-7dc3-4066-a8e4-577bba4c3511@rock-chips.com>
-Date: Fri, 13 Nov 2026 11:52:25 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=Zj7U1TY4;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=EX7627Bj
+Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
+	by mail.parknet.co.jp (Postfix) with ESMTPSA id E6C9120BD282;
+	Fri, 13 Nov 2026 12:53:20 +0900 (JST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114; t=1794542001;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WOL1Pzs+vLk1dTn0v2qm2WPGTBXeQlLGRYfNPm6pFlo=;
+	b=Zj7U1TY4mcGtqkcsA0dYLXeO3Utxj8CpUyvyaOWTpj0MBnWD9ehYntofMvk6BeigSK9keN
+	3Z8wnhnZEyW23oWlDXhT7hbieYa1EuDjPKCPFuh/tV3LK6E/2RCmdE0iAR8+px7s67niPi
+	DCF6/DMYOEWX6VH8g0X7zPj1U3nyJa9RFBUNFOpC6mn5js3iOv5ArRqHlFmqZ9vN3h0gRt
+	1f/dvQE93QMU3TaWIKmgVOgzUkz7rkQlZwjl8bYEKPj3h6NhsxraBmIfR5irX/DVgUT6+G
+	8JM5z1KFyrTYo0wUPG/jBybC2y966ZemarntKHeOhZ3hL/F7VKgxTqK16xr2Lw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114-ed25519; t=1794542001;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WOL1Pzs+vLk1dTn0v2qm2WPGTBXeQlLGRYfNPm6pFlo=;
+	b=EX7627BjwPXS/UEqZjjR48ioBHGAkRUpmYFw5boXP5eGG8UH1Dg4VH2d0ZFg0GsHpOrZY8
+	fPE6og3/H6rfZgDw==
+Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
+	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id 73733E0007F;
+	Fri, 13 Nov 2026 12:53:20 +0900 (JST)
+Received: by devron.myhome.or.jp (Postfix, from userid 1000)
+	id 652CE2200082; Fri, 13 Nov 2026 12:53:20 +0900 (JST)
+From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+To: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+Cc: linux-fsdevel@vger.kernel.org,  brauner@kernel.org,  djwong@kernel.org,
+  hch@lst.de,  linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 1/8] fat: support FIEMAP
+In-Reply-To: <avZoxGZC5VxiPJtV@DESKTOP-PJTTJ93.localdomain>
+References: <20261031164326.278125-1-matheus.aalmeida@inf.ufrgs.br>
+	<20261031164326.278125-2-matheus.aalmeida@inf.ufrgs.br>
+	<87tslrtlyu.fsf@mail.parknet.co.jp>
+	<avU3IRmswObU2pH6@DESKTOP-PJTTJ93.localdomain>
+	<87cxsaabf2.fsf@mail.parknet.co.jp>
+	<avZoxGZC5VxiPJtV@DESKTOP-PJTTJ93.localdomain>
+Date: Fri, 13 Nov 2026 12:53:20 +0900
+Message-ID: <87h5hl75fz.fsf@mail.parknet.co.jp>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,86 +85,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 7/9] drm/rockchip: vop2: Find the first mixer of a
- video port with Esmart3 too
-To: aiyengar1990@gmail.com, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, Andy Yan
- <andyshrk@163.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Piotr Zalewski <pZ010001011111@proton.me>,
- Chaoyi Chen <chaoyi.chen@rock-chips.com>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261112-vop2-fixes-v2-0-8218c1cf8ac8@gmail.com>
- <20261112-vop2-fixes-v2-7-8218c1cf8ac8@gmail.com>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <20261112-vop2-fixes-v2-7-8218c1cf8ac8@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa1d30905bd03a8kunm1257125f5c8f0
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSRpNVk9MGk9KHR5MSx1MHlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=TM1+YWeskbqPHRQQ9YlXevdQcPWiqoKGHCklEddPVz51Gg6CNkFSDbaCs8MSIKTixgvOqSzXnSrDsWs08S5WcDwUB1oIvBFo76F6GgfMCoDDi8H5e8JxsZpkNYaeLtL4V/G+QPlcf5BZRHppat45UpF8FjHEJUL90vHWQPlC30s=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=I/Un0HSYvSN4LWf6wdzviavGlXnUoXtD6ZJh2utLOeY=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain
 
-On 11/12/2026 4:33 PM, Arun Iyengar via B4 Relay wrote:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
-> 
-> vop2_find_start_mixer_id_for_vp() looks for the first layer that holds a
-> window of the video port, but for_each_set_bit() takes the number of bits
-> to search, and ROCKCHIP_VOP2_ESMART3 is the highest window id, so Esmart3
-> is never found. A video port whose bottom layer shows Esmart3 then starts
-> its alpha setup at the mixer of a higher layer, or, if Esmart3 is its
-> only window, past all layers, and programs mixers of other video ports.
-> 
-> Add ROCKCHIP_VOP2_MAX_LAYER_ID after the last window id and search up to
-> it.
-> 
-> Fixes: d3fe9aa49585 ("drm/rockchip: vop2: Use OVL_LAYER_SEL configuration instead of use win_mask calculate used layers")
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-> ---
->   drivers/gpu/drm/rockchip/rockchip_drm_vop2.h | 1 +
->   drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 2 +-
->   2 files changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-> index ccbfbdb8d246..290990632388 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-> @@ -857,6 +857,7 @@ enum vop2_layer_phy_id {
->   	ROCKCHIP_VOP2_CLUSTER3,
->   	ROCKCHIP_VOP2_ESMART2,
->   	ROCKCHIP_VOP2_ESMART3,
-> +	ROCKCHIP_VOP2_MAX_LAYER_ID,
->   	ROCKCHIP_VOP2_PHY_ID_INVALID = -1,
->   };
->   
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
-> index 83203d18865b..088c1f3a972f 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
-> @@ -1889,7 +1889,7 @@ static int vop2_find_start_mixer_id_for_vp(struct vop2_video_port *vp)
->   
->   	for (i = 0; i < 31; i += 4) {
->   		match = false;
-> -		for_each_set_bit(phys_id, &win_mask, ROCKCHIP_VOP2_ESMART3) {
-> +		for_each_set_bit(phys_id, &win_mask, ROCKCHIP_VOP2_MAX_LAYER_ID) {
->   			win = vop2_find_win_by_phys_id(vop2, phys_id);
->   			if (win->data->layer_sel_id[vp->id] == ((layer_sel >> i) & 0xf)) {
->   				match = true;
-> 
+Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br> writes:
 
-Reviewed-by: Damon Ding <damon.ding@rock-chips.com>
+> On Thu, Nov 12, 2026 at 02:03:45PM +0900, OGAWA Hirofumi wrote:
+>>Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br> writes:
+>>
+>>
+>>[...]
+>>
+>>>>>  	if (fat_cache_lookup(inode, cluster, &cid, fclus, dclus) < 0) {
+>>>>> -		/*
+>>>>> -		 * dummy, always not contiguous
+>>>>> -		 * This is reinitialized by cache_init(), later.
+>>>>> -		 */
+>>>>> -		cache_init(&cid, -1, -1);
+>>>>> +		/* Cache the contiguous prefix from the known first cluster. */
+>>>>> +		cache_init(&cid, 0, *dclus);
+>>>>
+>>>>Doesn't this add a needless cache? 0 is cached in the inode itself,
+>>>>isn't it? (and can be waste small fatent cache slots?)
+>>>>
+>>>
+>>> This is mostly for caching the number of contiguous clusters starting
+>>> from 0. i_start only really tells us the first cluster of the file. I'm
+>>> not exactly sure of the best way to approach this, though. I guess we
+>>> can skip caching when its a one cluster range in this case?
+>>>
+>>> What do you think?
+>>
+>>Ah, sure. I think because it is fat_cache_lookup() and stuff are
+>>implemented for nr_cont == 1. So I think better way would be supporting
+>>the range lookup in whole cache stuff. (however, it can be relatively
+>>complex)
+>>
+>>Thanks.
+>>
+>
+> It seems like exfat had to solve a similar problem a while back:
+> https://lore.kernel.org/linux-fsdevel/20260114121250.615064-1-chizhiling@163.com/
+>
+> Maybe I can work on porting some of that to fat. Would you rather it be
+> in a separate series or just add it to the iomap series?
 
-Best regards,
-Damon
+It would be good to add with introducing nr_cont, so iomap is fine.
 
+Maybe looks like exfat implementation doesn't handle rare case. It would
+be assuming next cache is not contiguous. Actually next cache can be
+contiguous.
+
+Thanks.
+-- 
+OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
