@@ -1,85 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794602653;
-	b=fIKENJeFwv/XfSjkqMd/gzM1io5hEaKat1X8iiMR32ArUiw7pxxF3nMxDoBfVq2Ht6OG
-	 6xKUAAiZmW3LI3102APg6Wx+fWoVo0gkHXGEz3bAjm9BHoyC6MtMRFIQ3p+O8K77CFPs2
-	 UI4Y9sSi4qiUG3rCI4Fp3FQzcBtQRisB3gxkPP/nD4JeX/2Tu899Bl6aQKxSO/OpsvjFW
-	 dUsJ6CyfMD7tH/AxiuBNa1wqZrCZ356Muk8rcPulH6Liq0fj1eY323mTsCCY0v1v0YYvs
-	 0jP98o003lHV4YF9JPwCUfFfWfZE3oUA1eR0vIgAOPKHu9c1T+o6D99hFtr7REu2JBQ==
+	t=1794602659;
+	b=EYI0b7EKnyjICB0K2yoKKgJBzpZgS7g1aBHdCBcF99lxjwZQmzxrDQ+Zb8YkgG1BiSRd
+	 uKn45CBlypMVn03p/jipsTdz5Nhh1dIZd/GifJx4/54h+yBLgYXKMaHeJhLp8eTms8mCT
+	 4RldjJGmGK9yHwckhZMDxq2L2sZG8KGmkZnvuQItOfZC3s47EerujZb71+ST8h3eQxkJ/
+	 Y1bmZuBxZH4BhkGXTrbj/HziWYAhEzi600k/ABYCc4aVvAkwjpvPPtVKaXVUYPKwAhPog
+	 r7VesUNiSIyKnAFXzU/66GtjlsxlvDXLZaBlx++mw5DOERBm9vBM+yLaAi0MG9Eez+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794602653;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794602659;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=NhL/M8HEMn0PgEwzPCvcTjQTkSJqxruxvyvf5fU6t/s=;
-	b=GrnlsOScfqfbP+fB72rIXIjGf0zQ0XzQxfANLvkbEqHdkLDseL2hi0nRdl9phPZVxROv
-	 jcq5yO0eDYko4ANYFXA/UjEqy9KPd49KK3z0MFjpzKjTMkmBaD5F9oAdsrZBpBphE4tjN
-	 s5Gd634EN2T8k9RXMJU+p4oO8itQVK2+hK4h+8OZvrYn1n8vaFVl2ZiWN5s8dFwsnin4F
-	 K7ZTOkLQn+2Zm8Yh31rKPITMvJmQDRfJ+Y8gW6LlophFNo6UXYWJL17Bp3S5+GJilVOqm
-	 1YRy99UfnAUFPQiAE3M5dLtxON+f1II3JiiLGA8Y3PWxSOnY9G/gbEWwrQS2ORp8CpQ==
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=+uv+L7OAudjAmToaLXTh5oGW0PlHMIwK3Z4W9S5viPY=;
+	b=POcpYKaFdJOXdkC7rs9MGVAmv9Ijacd55DnRTdYpXxDK8Mb18QWyV9G+j96fni36BgDB
+	 84dcLOVvoaQ1Ij4/OGbzj8yyJk9MuhcCjd3g9NJ69JtZnKNVdQBrNNDw3kFNadd0Jg3z2
+	 fI4y8PdFbBJnqEg7gzMxDidxmigjoo5TRFmEN/px2TKigtM/LXv+hjslR8RHGBXULMbwP
+	 JXbhfnAGL+s58w0tSvuPPf8g58sZARSlfHm1DyZ992hxbTtXUeBWkJKpdA+oTjHL3JLHE
+	 ZFOVS4cTzeThjVBOCcubWKjp+mIECY3wGVTJwjmPctYO0FjfvtJ/QjaNnD9ZsAt5UiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=RBpqL0ec;
-	arc=none smtp.remote-ip=209.85.219.49
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=jZNhYjjk;
+	arc=none smtp.remote-ip=209.85.218.42
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B680606A327
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:44:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B680606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8729606A330
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:44:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8729606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=RBpqL0ec
-Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91eb3fea2a9so21697566d6.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:44:12 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=jZNhYjjk
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c45551fa84eso358198166b.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:44:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1794602652; x=1795207452; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=NhL/M8HEMn0PgEwzPCvcTjQTkSJqxruxvyvf5fU6t/s=;
-        b=RBpqL0ec73lueiGVkPbG1IHqA/miVhGt/x78w0yuwuDBNEkC9OOEfuktHThNoxMzVX
-         lEvekudGBBlWCuLH66HiQ6c3TH0C0kY7BRvuMJYO7RNsIeQnqBXAzvWt+6DJEdzekP8F
-         dtd0byVRQC4qVGHuRQRcWHekZJU5cZZR2pT41sfu0D2VVOCcwrjNy6CfwVnDT9wJNaBp
-         3j7ECdgERpI7+oLaPrDtP0BkTV6Stz2Q/u1OqG4IUa9w470NCAK7r7hIGdSgRpn3Ap4N
-         jwI8XukywKVjkgaoD6hqy79iAK9/XG6F8QD6k1tdKDtXHxf+LN/i5T4RyMkE4okbmnGN
-         QLBw==
+        d=chromium.org; s=google; t=1794602657; x=1795207457; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+uv+L7OAudjAmToaLXTh5oGW0PlHMIwK3Z4W9S5viPY=;
+        b=jZNhYjjkjfdZYnCu4G9uc/1vAQfRKhdK8wrMMCiHVk0UeD2bqkAXh1fQzicGRvvsl+
+         Y4Pul0kohzZGWDJx1xraVCSk52D1Y/kTiA69+HYuIIuSbQcFSMB3qhFdb2Hxulnte9/J
+         CzrpqAB08sn/A7LC/u3ALBOeISwyoBLAa9HDk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794602652; x=1795207452;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1794602657; x=1795207457;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NhL/M8HEMn0PgEwzPCvcTjQTkSJqxruxvyvf5fU6t/s=;
-        b=ZZbMuxu/JSDufipXyae3tpvmfYKhnXicrQCNAiouF/jUNcGSxNjzSOwKZLZrWYyunJ
-         oAGgf9ExciEQCDcvkwpXkfimrDQtJ8CI6s9JrnpkErFHB3f59Jn/IMdIFx2lLD1AIeJa
-         sVs/Be2SrqhbPh+qp9odSrX91sAzpnYPYskPdJrhUppoxN5PcTWw/MZQMn1Gwns+TZQP
-         faVjc9m+lpQahDJBQGFeWZTp1UQ5M0ER9T/aZWntv/l2rAxucUJy26QoSffZUFma3hh8
-         gOFmLOQTe/ItKHMc1Y4HmBIwzw6ykUkrhxDuuGcNYQjF6EtMoJxGng7O9ldx8W4k7yh3
-         F4dA==
-X-Forwarded-Encrypted: i=1; AL+hErHUn2TpaLKNolR1xVGDBOkyrMTTIccjUsk/Z2FNv1YWPXBMQJ3j93AchK9b7vQbS4QlIXhtVwJUZvH6K2s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9HJD8V6nAP2zLK5owAPY4O5Lbc/yw6DgQYFzpfprewK7GxAR/j
-	qOrwWVfaQ7SgU3XPvWTMa2DEUM/ACR/jNEOzHnA96ZZylVGvhUCITQstyS/OCe2TpVA=
-X-Gm-Gg: AYBFou3CrcnOsGbn7D6GWYpJCzf26zpYxlqvl+ljKc8PSs1eYFl6Ql/1iH/HvhoJ5Vz
-	J7Y2pgv2kIq/WQmPEJ9k2p3vUIl6kuHJuwdM+oHgQtUXX3WmRGG5iHvDbIwrqp/mvfq806Ztnk7
-	vCzxJEUGVSzKTjDzfEUxJ0dinphpc3i17Jl1QzukY6+IiVs1jG4noxns8fA7BlbT3u9nf1lb048
-	AN6Ylc0cz0ub8mpF1kTlGoqkB7inwMzj2udO5ebJ1KF/0/ZgYad2rpyTeobQ6uHufNBnt5QFTUD
-	2rh6m7dcy+Sq84ugsDjSxsF0lOWd8IP104DC4BruKt/xVCrJ+f+JWLNv7ZJFJy1k1u1N1v97Ybi
-	6pYm2XtdgNUxeoQM3BfVmpX0I/xoPsGmwwJXgjGUDfLeKJ+/STBVhVwXwttUsqCiRf7wKqcdom6
-	U9+NacnDyHhFC9LntKD1SB7EG/ZFZctB+G4sleDNcZCi//n2xQil8v8+mMyx/98tn1ZXpTuHXn6
-	2/JCPniRPoZMCI77jxamY3bnbLZ9XYaheMhtrcRsVi9wR8G5kJBNcEqW4LgYP5vSCEBQHq2upIU
-	XCjwZl3N/lCBGQsJ+/9qoq8hgTG9pxJotkk5ZeIWNSNHyw4oWviLmdUP+M/Dd2YeBqGAWlC42j/
-	bi6htJA4=
-X-Received: by 2002:a05:6214:450e:b0:91e:b670:f9f5 with SMTP id 6a1803df08f44-91f2401477fmr56726586d6.3.1794602652059;
-        Fri, 13 Nov 2026 12:44:12 -0800 (PST)
-Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23db49c5sm28150796d6.41.2026.11.13.12.44.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 12:44:11 -0800 (PST)
+        bh=+uv+L7OAudjAmToaLXTh5oGW0PlHMIwK3Z4W9S5viPY=;
+        b=lAJdltw7C8SxZ4oCPBdgX4XV6K4cBlvmKb7vGpO3S6MP1mC0TqCYFrBteK4XtwzwV/
+         tbfqobKfZpEjEt3r4uHwF8J+e1ZSHysWVinNlPA6eaXinBX1gdpzj56rethKBxUp1v+8
+         v/mN1yA0R18LGd42WJRiU8jbUCL1BdGsu3qbIMyKaGyYNzR4MGLz7jtqcVVkh1g6kzXo
+         Jow3JfHEZu4sGYkebQPIegAuUv0GMHa6WVL8yg+lX6gVDXiI6cDQnJTCL7Nk8Gp6tghF
+         rts/qRbUuoCXgd18BRMEsGff2jTbss3ilRU1ekZKm/z6+Gegum4RMSPFFb3ou9egjP7r
+         kdFA==
+X-Forwarded-Encrypted: i=1; AL+hErF75h7FEQJfj/3kepCDoWI8jnCWrdrbwLDGzy9Fky3pJawsFyD6aeFdmsSrJduMTbkztrx01nLO0UpKwkI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8xoPRgcL0NyRVG34WAUiOq7NQg1jvGM0tRuubKExYDHkAcYd4J
+	6um6vz4evPQCTF1x+bI2zzsXoc4dfVKjg2T9485+m8wXJFjfjsBB5QCTaDmZi/QZwCPw2JUfEcA
+	w8F1+TmnK
+X-Gm-Gg: AYBFou1GvWn4wJZlOfSzbk5HfxDfPregcmSfnR/J5wsK2veJd8V+ZVQj5yLDMx2m0kS
+	+PPNo9wALsnAo+VknpOLkyrABWS+DJSosXqb2RpCguM6jf2jStDJOXIkeQUSeqxjJshttRJdzge
+	rOlaSu+/7ZXt4sd6SedkLu49SN9i5QMEhnN9dg60g00UfpqcqBVYnvijOLCJAp0CLdjw5e7ofLS
+	klmVTqARmGXldlxvw35dfp9iI+xoUNTDdJ2iVuBN7EYo02RYi03ai1XHe2IXWlBOzsEfJVgeIYB
+	95CGYYQN8Cy6+OC/FwNpgF6KgeNs9rxBqAl9X+GR24cu8NbQAjggxQwJz22yTwX5Pv+4GFgcEzS
+	n8a/rLsvbnb/+CRZ93yqYB2x6BXL+Sfyu/UCXkO28DI7dGxLvjPtuvX2Zqv8JVJWj+3CYJB28mn
+	ZDpaFMrg1BJOhuOehqunVdAHVLyMIZx0ODSy7URzV7rpGBN5nzAmb+jXfKo8g14uynWrQ/jXcD1
+	HCZo5m+F9Ed22xihrezH9V8SPVKVJ6ND0lDc455imWNONM1sGQIOI3Mz+Vni0WfBcZiqczkJ9DI
+	OcFxgkfX6z9FpRZnI4sVjvDsDqdaUpMWzp2GXwHHIOET7FbpYWEOzdthx116L5Kci0st
+X-Received: by 2002:a17:907:608f:b0:c43:eae5:ee80 with SMTP id a640c23a62f3a-c5096398b03mr313266266b.17.1794602657238;
+        Fri, 13 Nov 2026 12:44:17 -0800 (PST)
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com. [209.85.221.49])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c23c35easm1382390a12.14.2026.11.13.12.44.15
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 13 Nov 2026 12:44:15 -0800 (PST)
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-4922dbcee23so661529f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:44:15 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEzE+ZIkp68bqbdyhFhNEXXY4istQfubQavRlRvDm1zG632W5BhlunK7vvOuYwjFOytkrNzovPLTw5uJo0=@vger.kernel.org
+X-Received: by 2002:a05:6000:288c:b0:49d:1ce3:1849 with SMTP id
+ ffacd0b85a97d-49d1ce31d46mr5760381f8f.21.1794602654360; Fri, 13 Nov 2026
+ 12:44:14 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,71 +94,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v5 5/7] sched/numa: scan PID-inactive VMAs for
- promotion
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: "Gregory Price (Meta)" <gourry@gourry.net>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
- akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
- liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
- mhocko@suse.com, peterz@infradead.org, juri.lelli@redhat.com, 
- vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org, 
- bsegall@google.com, mgorman@techsingularity.net, mingo@kernel.org, 
- vschneid@redhat.com, kprateek.nayak@amd.com, ziy@nvidia.com, 
- baolin.wang@linux.alibaba.com, nico.pache@linux.dev, ryan.roberts@arm.com, 
- dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev, 
- usama.arif@linux.dev, kas@kernel.org, joshua.hahnjy@gmail.com, 
- rakie.kim@sk.com, ying.huang@linux.alibaba.com, matthew.brost@intel.com, 
- byungchul@sk.com, apopple@nvidia.com, jannh@google.com, pfalcato@suse.de, 
- hannes@cmpxchg.org, osalvador@suse.de, raghavendra.kt@amd.com, 
- stable@vger.kernel.org
-In-Reply-To: <179434297609.2530531.2349001562856798404.b4-reply@b4>
-References: <20261110150446.2452975-1-gourry@gourry.net>
- <20261110150446.2452975-6-gourry@gourry.net>
- <179434297609.2530531.2349001562856798404.b4-reply@b4>
-Date: Fri, 13 Nov 2026 15:44:10 -0500
-Message-Id: <179460265050.482102.15374067770225444971.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+References: <20261110092112.4262-1-architmore303@gmail.com>
+In-Reply-To: <20261110092112.4262-1-architmore303@gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 13 Nov 2026 12:44:02 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=XawknyTLYf03ZqZc60BDsNEDxAstnkV4QgYCeK18jDhA@mail.gmail.com>
+X-Gm-Features: AclHuK9JxAszYSinmvA_zJ13Hp-Zoq-_E998DOGudeZBRwUONg1E-ifiWCpJu88
+Message-ID: <CAD=FV=XawknyTLYf03ZqZc60BDsNEDxAstnkV4QgYCeK18jDhA@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/panel: kingdisplay-kd097d04: Use
+ mipi_dsi_*_multi() functions
+To: Archit More <architmore303@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	Akash Sukhavasi <akash.sukhavasi@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2026-11-10 15:36 -0500, Gregory Price (Meta) wrote:
-> On 2026-11-10 10:04 -0500, Gregory Price (Meta) wrote:
-> ... snip ...
-> 
-> Sashiko report feedback
-> > --- a/kernel/sched/fair.c
-> > +++ b/kernel/sched/fair.c
-> > @@ -4249,7 +4249,7 @@ static bool vma_needs_placement_scan(struct vm_area_struct *vma)
-> >  	 * threads can help scan this vma, force a vma scan.
-> >  	 */
-> >  	if (READ_ONCE(mm->numa_scan_seq) >
-> > -	   (vma->numab_state->prev_scan_seq + get_nr_threads(current)))
-> > +	   (vma->numab_state->prev_placement_scan_seq + get_nr_threads(current)))
-> >  		return true;
-> ... snip ...
-> > +		if (placement_scan)
-> > +			vma->numab_state->prev_placement_scan_seq = mm->numa_scan_seq;
-> 
-> Sashiko took issue with these skips, but its reported impact is
-> overstated.  It tries to point out a pre-existing condition:
-> 
->   prev_scan_seq skips an update on a rare corner condition, but
->   now the same skip applies to prev_placement_scan_seq.
-> 
-> In modes 1 (placement) and 2 (tiering), the behavior is exactly the
-> same as it was.
-> 
-> In mode 3 (placement + tiering) the result is that the starvation
-> counter isn't reset - but everything still works anyway because the
-> VMA is still being scanned.
-> 
-> I can follow up with *another* commit, but it's really low impact.
-> Not sure it's worth the churn.
-> 
+Hi,
 
-I will refresh this next week and just address it in another commit.
+On Tue, Nov 10, 2026 at 1:21=E2=80=AFAM Archit More <architmore303@gmail.co=
+m> wrote:
+>
+>     The mipi_dsi_dcs_*() and mipi_dsi_generic_write() functions used
+>     by this driver are deprecated in favor of their _multi() counterparts=
+,
+>     as noted in Documentation/gpu/todo.rst.
+>
+>     Convert disable(), unprepare(), and prepare() to use the _multi() API=
+s.
+>
+> Signed-off-by: Archit More <architmore303@gmail.com>
+> ---
+>  .../drm/panel/panel-kingdisplay-kd097d04.c    | 50 ++++++-------------
+>  1 file changed, 15 insertions(+), 35 deletions(-)
 
--- 
-~Gregory
+I didn't look at your patch in any detail because it didn't apply to
+drm-misc-next and I noticed that it appears to be doing the same thing
+as the already landed commit 7877fc6d086f ("drm/panel:
+kingdisplay-kd097d04: Use mipi_dsi_*_multi(); fix minor bugs"), AKA:
 
+https://lore.kernel.org/all/20261012-mipi-multi-series-v1-2-6a29add1ec92@gm=
+ail.com/
+
+I had some follow-up requests for patches in that series. You can see:
+
+https://lore.kernel.org/all/CAD=3DFV=3DUSBt_pE--C0P1=3DPZt+iaoTpgNebZ+DXP=
+=3DdKb-8VUcoVQ@mail.gmail.com/
+
+Maybe you want to take those on?
+
+-Doug
