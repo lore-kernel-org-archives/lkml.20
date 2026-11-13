@@ -1,60 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.59.177.22
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794534834;
-	b=bLLMxXDtukp9qxw/EvevosRA7tDTRujdKHwuC20sv7lQvTsTZciGhujGGu8AFsP8csnC
-	 wieQx+Tt5eISLR51zwroCiHnsixNEkK0x4GjH46LIreb8QFwMe7fz87dABom56sTKyTaD
-	 91+7ZWgQZjcGEtw9VN0kVPz5HRvIgHuhLr+gBTQgcb2AZ+ykOzv44+QsF8+VOButbX7gd
-	 vM+pei25ch18cWcuXccSpWslBh6WpMjKrEjTDjspT5FYb00jfmr6tVbTIN4lVLK+k5Vki
-	 EEq1s1C2/VIEpAx03UkSm4vq3pxuQ1NeIXpfgCW1KPCrGW3Ck6Po/iSjnc5Pskl/JPw==
+	t=1794534956;
+	b=Tei2ACfpP8oQBsvZQIhcNVG7FzeFi8SN3kosg+9ftKqhswUJ5Cd5MFijtiHnkoUL+b4n
+	 g5zxoThaJCu9rbt+cFh3QmJM7L8jhkDFpfvK//3l7aAH5mrnexg/w2Ao8xMwuxGClgw4w
+	 rLHydcOelZQzWDBvRXWB56Ybkg5aODquSurNgSKuFv97LXsm0ZuOGq3b6h0KUH7jciHHY
+	 V4bsUheCGUxRkZ394EhHbnK1P9eriW0Gm+GEXPKynywM7LHKGjnrlUcz10fYrtBUTzEqj
+	 GEmEwDcrK9ZSBK7RzeHCpF1GkUDaCdm+s6sHQ/VlvA7N9A+S078raqWICTzdEzWd+ig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794534834;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=DJGW9+6zznTnsyPYZZe/qVXufV83u2YocM25E6tMsGc=;
-	b=4sQ2yGHnaUrxKXcLS928kzVhkzImJiolSa4C81zajld557v7Y4Fb3pvg9/i/LbtZGSMW
-	 l61DI+nD3ecbnt5BNjqAXULnhz60e4Apbn2BODXEuwpj/IsxBwlfIgcBSQKbE+z0n2qxG
-	 WnQIzNgsxU4umoTDNfYEkvt/6tgAJzX+ZgcikVk8igNI3b6O5/ZdlJCXAqv1DGUw8xCpW
-	 0GA7/YWPMLYhUFbr6bCJuOtl07uUKhWNbq420kQN6NNrIhU4g6vNae0GTMA23Ma8JxzLZ
-	 ZZ8x1M7pwhNsyQvsyTB2FFMS2LZUisI3eHvAIrIqx1iOjq7CSJ6B3JNxHH0SvYKe7lg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794534956;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=OPVnRqpTHebad2QkXGy3h5+QsenN8z5dT5kf8ubaV8k=;
+	b=ZdfVrcdYYngkdrXX6iSjdu6hdyeyNAJl50WBB535KUdAwSTFGCrCKH4UYGaWQ1VbqOaj
+	 8SH3588NFq1Jh0rBLuWklYGn/2jxxvJV0JRmOzpsjqt65lOLrdGxv21g2QMY51QAJpmMQ
+	 /Rdj5CBVujUCNlEPPSsnbmxF6Pp6lG7V7zI+NI6IBWFZDQHnFwI4lkYQQgU/FjnLfCnHO
+	 bM6FOvtR0hHEO7qkjS3wNV5SrgvbnR9qOCQDKspekxAA2gsq9IBolsTJGhfUEy7PPThhz
+	 VBdC9FkmA5M6VTEORpmPP+fVFGyEp5ciyGK1sIO4b6tcq1FbFn6zbl/5vHbsaNs0hHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G+c7WqgT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=I0avXFhw;
+	arc=none smtp.remote-ip=52.59.177.22
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B95A4606A31C;
-	Fri, 13 Nov 2026 01:53:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92D1B606A321;
+	Fri, 13 Nov 2026 01:55:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92D1B606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G+c7WqgT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E700E1F000C4;
-	Fri, 13 Nov 2026 01:53:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794534834;
-	bh=DJGW9+6zznTnsyPYZZe/qVXufV83u2YocM25E6tMsGc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=G+c7WqgTV6j00Wcllc5IjpzxFwZEPNBztFkyixxZAYsI5bl96nLbmBxtY+D/a1Fvl
-	 NvgGUrKnLRdqKb3YfItix7EGTbEA/cZGvSsRuXmbh5eN7acwd3VwmwLIeQzMEdKrte
-	 MXH4ygAiIaKaI/RV27ChUX/sg2fqSYs3uiNHS6JGuNlDXdyCVOryq1G4jCKbz8llRa
-	 /0Ezhwn2UvfUW+J9GGJynG39Njnq2IJo8/8sFXItdpt+anyKooIIXugbbqNV9B557Y
-	 j0k7WAfiGL90ri/MdMPqhqjqWGdWwvp940nf6gYnV5yMs3drh4d36V0tAUjXetrFU3
-	 5ovpanT3IdbAw==
-Date: Fri, 13 Nov 2026 01:53:48 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Arnav Kapoor <kapoorarnav43@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Andy Shevchenko
- <andriy.shevchenko@intel.com>, Gwendal Grignou <gwendal@chromium.org>,
- Stephen Boyd <swboyd@chromium.org>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] iio: proximity: sx9360: reject out-of-range
- hardware gain values
-Message-ID: <20261113015348.75a452bb@jic23-hlaptop>
-In-Reply-To: <20261111164041.341776-3-kapoorarnav43@gmail.com>
-References: <20261111164041.341776-1-kapoorarnav43@gmail.com>
-	<20261111164041.341776-3-kapoorarnav43@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=I0avXFhw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1794534925;
+	bh=OPVnRqpTHebad2QkXGy3h5+QsenN8z5dT5kf8ubaV8k=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=I0avXFhwPlprgQRbmyMhrSQRARKj7Qk51780huf/b7+BQMpWSrYcWv1IE5Lnwdrab
+	 RYWsnULM9zodC8wljLr43FmmDEMM4WUwxhOvEM1wdukgwI+NChZ4DCLA747Dz681Ud
+	 WFGceSHWvOzgRCe6kH8uhaJ7KtdXjtEUJaqvH5ls=
+X-QQ-mid: zesmtpgz4t1794534921t09f7b086
+X-QQ-Originating-IP: BNbGlNhiX7t/CY6avIAYr07FoQmMU75+ALunTodvuL8=
+Received: from PEC004119 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 13 Nov 2026 09:55:19 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 16852835858368441093
+EX-QQ-RecipientCnt: 8
+From: Haowen Tu <tuhaowen@uniontech.com>
+To: gupt21@gmail.com
+Cc: jikos@kernel.org,
+	bentiss@kernel.org,
+	dmitry.torokhov@gmail.com,
+	linux-i2c@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Haowen Tu <tuhaowen@uniontech.com>
+Subject: [PATCH v2] HID: mcp2221: Keep IIO initialization retries per device
+Date: Fri, 13 Nov 2026 09:55:17 +0800
+Message-ID: <E306BF64E970F03A+20261113015517.1434489-1-tuhaowen@uniontech.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <4861CDE55CCD8365+20261113014036.1430473-1-tuhaowen@uniontech.com>
+References: <4861CDE55CCD8365+20261113014036.1430473-1-tuhaowen@uniontech.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,68 +74,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: N+lcjVkupHXi+3DdIL5WC8FFj2T5DJD5fczTGw/ZrgdWDzk3rhXU8WdE
+	6tF/UWN3dhIf03O8iBnlfKEpFdb4NFg8LKCpLPcB/JlrB3XIDNgqD7o+MEhEKrqhUQVvlQt
+	Kx4NGwiu36MLTLKrcDwLfdcHc3OPGfqNR2EJtl4K+MZhKz6SwsfCyQvPJwUY9byV8omgT/S
+	a6A3dFduC0pkg6fQaGDOreNVHLwJnuT2doA8jG/9JMQU5F/lbrd8xZQWAU4xjzuG24yoJj9
+	fkLLzrNbALaTYTi/skmDblAGaLHP5MjyhDByIUBMluWwNAJamf4UdER3MiDurlGFsQOfbQg
+	ZfNCHJ3beXuL6cRq7IlfGjsT+D/oqVwN8ZmOgO/WLqfHgwPvgnKJnkeMXF9tJPJtpZ0c/kL
+	LYbfPJD4hrASUs78EPnLIyKYf2wqWMU3utVbT4DL1X2TYh1u1tPD4E4qQILCT7Lg9fYL48b
+	PWb4lfO4QYTcBHqdxbYtCto3hXb4upZ/uWRrRfv1CemCUdsAwMwwgs2YIihP7rwyG/Uplsb
+	AjIHFBOvjAl83I0TaNouYdFHPyHJVyX29hq12ou2qLO5z6IQAHCaartStxrs7V6Ksa3GMi1
+	ZY965DgYW38lNpji8Wl03aqaghrJF+WCgkksElVQtRLL7SQ2tpcArdoURYxBxB0yV7iKFuL
+	h30gKJUzA1EpSWmrzRCvPk///mSMUTLHVyUxZ3MwTQD7tMrvzH4O39K+UapAeiIY7J0GrMI
+	/J4U2iDV+j4BCfOckWDRj6ErwFqBR4u7yGqbSp4nDMhJQXEVvbZxzPzzUF4bvydd55/tRXy
+	Mwgl1gFJF47a+xjfC726D713kkHOOBg4WJhWVlbTkBwCOXhd9YjSLUSUK+K27NgfGw1K2fz
+	47oxY0yuvGXOenlIaFI0M/ALDSTmrPI5I/gzbNWJEpPX7j35aYvCt1ZGZmbepc2uRmuhxqv
+	OLSDuNpmNuaMfKlPDbLV4bKeX9CRPTQBqLia2WmMe3fJQp5uBjXIhLSu/kJ/ttmhYYTYEz4
+	kKo30xnpuFvchb5HPQn607KFOi6GCDqI/PbTj4nACVBnA3xDd2gp4Vq6Y7De3nUP8QmGnx9
+	2tvs7VPJdftaKQ23MtOcSACsVmzRwGJLvCl6uMJwmYG
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 
-On Wed, 11 Nov 2026 22:10:37 +0530
-Arnav Kapoor <kapoorarnav43@gmail.com> wrote:
+mcp_init_work() uses a static retry counter, so all MCP2221 devices share
+the same retry budget. Initializing one device can exhaust the retries
+available to another device, including a new instance after unplugging
+and reconnecting the bridge.
 
-> sx9360_write_gain() passes the value from userspace to ilog2() and then
-> FIELD_PREP() into the 3-bit PROX_CTRL0 gain field without checking it,
-> so some values silently program a gain unrelated to the one requested,
-> and the write still reports success:
-> 
->   - 16 to 255 write gain codes 4 to 7, which the driver does not
->     advertise, and the next read reports gains of 16 to 128;
->   - 256 and larger wrap around in the field, e.g. 256 sets a gain of 1;
->   - 0 and negative values write code 7 (read back as 128), because
->     ilog2(0) is -1 and a negative int becomes a large unsigned value.
-> 
-> Return -ERANGE for values <= 0 and for values above the gain of 8 code.
-> FIELD_FIT() is not enough here, as the field also holds codes 4 to 7,
-> which the driver doesn't support. Values between the supported gains
-> of 1, 2, 4 and 8 are still rounded down, as before.
-> 
-> Fixes: 1cdb4c47f7f5 ("iio:proximity:sx9360: Add sx9360 support")
-> Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
-The whole off by one thing you had an RFC for can be handled
-on top of this which is just making sure existing values actually
-fit etc.
+When the counter reaches zero, the post-decrement also changes it to -1.
+A subsequent instance that receives -EAGAIN will then keep rescheduling
+its initialization work instead of stopping at the intended limit.
+Different devices can also update the shared counter concurrently.
 
-Applied to the testing branch of iio.git.
+Store the retry budget in struct mcp2221 and initialize it before queuing
+the IIO initialization work. Check for exhaustion before decrementing so
+the counter stays at zero once the retry limit is reached.
 
-Thanks,
+Fixes: 960f9df7c620 ("HID: mcp2221: add ADC/DAC support via iio subsystem")
+Signed-off-by: Haowen Tu <tuhaowen@uniontech.com>
+---
+Changes in v2:
+- Correct the author's name and Signed-off-by to Haowen Tu.
+- No code changes.
 
-Jonathan
+v1: https://lore.kernel.org/all/4861CDE55CCD8365+20261113014036.1430473-1-tuhaowen@uniontech.com/
 
-> ---
->  drivers/iio/proximity/sx9360.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/drivers/iio/proximity/sx9360.c b/drivers/iio/proximity/sx9360.c
-> index 2a9b37df8f62..22b6b751c0a3 100644
-> --- a/drivers/iio/proximity/sx9360.c
-> +++ b/drivers/iio/proximity/sx9360.c
-> @@ -68,6 +68,7 @@
->  #define SX9360_REG_PROX_CTRL0_PHM	0x41
->  #define SX9360_REG_PROX_CTRL0_GAIN_MASK	GENMASK(5, 3)
->  #define SX9360_REG_PROX_CTRL0_GAIN_1		0x80
-> +#define SX9360_REG_PROX_CTRL0_GAIN_8		0x3
->  #define SX9360_REG_PROX_CTRL0_RAWFILT_MASK	GENMASK(2, 0)
->  #define SX9360_REG_PROX_CTRL0_RAWFILT_1P50	0x01
->  #define SX9360_REG_PROX_CTRL1		0x42
-> @@ -625,7 +626,13 @@ static int sx9360_write_gain(struct sx_common_data *data,
->  {
->  	unsigned int gain, reg;
->  
-> +	if (val <= 0)
-> +		return -ERANGE;
-> +
->  	gain = ilog2(val);
-> +	if (gain > SX9360_REG_PROX_CTRL0_GAIN_8)
-> +		return -ERANGE;
-> +
->  	reg = SX9360_REG_PROX_CTRL0_PHR + chan->channel;
->  	gain = FIELD_PREP(SX9360_REG_PROX_CTRL0_GAIN_MASK, gain);
->  
+ drivers/hid/hid-mcp2221.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/hid/hid-mcp2221.c b/drivers/hid/hid-mcp2221.c
+index 3f05d6e288f9..f8f4788ba935 100644
+--- a/drivers/hid/hid-mcp2221.c
++++ b/drivers/hid/hid-mcp2221.c
+@@ -136,6 +136,7 @@ struct mcp2221 {
+ 	u8 gpio_dir;
+ 	u8 mode[4];
+ #if IS_REACHABLE(CONFIG_IIO)
++	unsigned int iio_init_retries;
+ 	struct iio_chan_spec iio_channels[3];
+ 	u16 adc_values[3];
+ 	u8 adc_scale;
+@@ -1190,7 +1191,6 @@ static void mcp_init_work(struct work_struct *work)
+ 	struct iio_dev *indio_dev;
+ 	struct mcp2221 *mcp = container_of(work, struct mcp2221, init_work.work);
+ 	struct mcp2221_iio *data;
+-	static int retries = 5;
+ 	int ret, num_channels;
+ 
+ 	hid_hw_power(mcp->hdev, PM_HINT_FULLON);
+@@ -1238,8 +1238,9 @@ static void mcp_init_work(struct work_struct *work)
+ 	mutex_unlock(&mcp->lock);
+ 	hid_hw_power(mcp->hdev, PM_HINT_NORMAL);
+ 
+-	if (!retries--)
++	if (!mcp->iio_init_retries)
+ 		return;
++	mcp->iio_init_retries--;
+ 
+ 	/* Device is not ready to read SRAM or FLASH data, try again */
+ 	schedule_delayed_work(&mcp->init_work, msecs_to_jiffies(100));
+@@ -1346,6 +1347,7 @@ static int mcp2221_probe(struct hid_device *hdev,
+ #endif
+ 
+ #if IS_REACHABLE(CONFIG_IIO)
++	mcp->iio_init_retries = 5;
+ 	INIT_DELAYED_WORK(&mcp->init_work, mcp_init_work);
+ 	if (!gpio_mode_enforce)
+ 		schedule_delayed_work(&mcp->init_work, msecs_to_jiffies(100));
+-- 
+2.50.1
 
