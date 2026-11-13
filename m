@@ -1,98 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794532429;
-	b=aEu0vmjUcdsUmeLLqz9D8y1Kak1/ReMyydvMpp1ipSjPuT42xs0Y1XlMD1bVqIy2xNgS
-	 fIU9veUrlBl90BTLqAfVh4I9zWCCB7rwEe/0Uo4M9lcvswuQPw7pChPsbFlQi/8s80FQG
-	 X+OCJjlIu2XwC9S197UCkWuHeiE1VXchXR/9r7z42JsJe3L1+tAaremYTs3xCKCGch495
-	 GZC4cDye6KtQx9j885QRswAqHDOWAQi0kEeEt3EBySrnLyB5iFRQSTO4WKFWOtO8W8Rm7
-	 qFOFP/4l1oObAJNlEZd8JyXIvBSrqg0bhmokGU9dKD9TXz37r5qphf7CDM/g0FVX84A==
+	t=1794532484;
+	b=jqC95rCENYEMOz9SrYbIcxijzK3JGGfn4p7sP2VzQeTemwUJHllg6Pfcqy82NpcAWPme
+	 bZn9SNbyd8mzTlnBmsZGV+yaxJyzItK3WtDgBHSjjK2IeUsSaZp60urh/ColIAcr+hwIS
+	 LERThJF7vyO+178L5Xeae4s8Gt/aJOPQcLoQ6L7iq0U3J1MIOD3VPOKDBr1eY19tRPxRs
+	 hY893jw+xhUpW70DFIqCL7DGkdP8Bq8C11DOLDBRAQQVOtX/7/+N9z1/Ks+azEKBlaYQm
+	 8TCyb44qVHdgD5UDf2bIINFM+7xYuWqzd26z4QPDhm1O7ZWKQveqWPx5o+XFoWWqvhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794532429;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794532484;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Sc5ygLidAeVc1fVLnxfVzT8pc+Zr0/C2OuXAjLAj5yE=;
-	b=samrxbrC/kLTFs1Lho74t3HzX60+jteEgtWfYFVy6pQGMAXtlkbPyivjgrqlvaQBSH9R
-	 lwDNCd6/iMla1WJ+snLrD7F5HLvcq9xkq24/O5dtYThazCuTHooKqgiyCGy/ODYgYqgFs
-	 2FShf0Ky8opQhwHdOtXJzDu14EfBRW3P1Pc98NrN51UMcVzYiyS1z+x4K8CdRvCTPa1q/
-	 srwdia3YY8ZQcURKSKm7orqDgb5/MzmzeSlp485H2apwOdgh2rmmZk9SmwGt+ITwThMMM
-	 e6Ql9ux2kkMZMBRPeRbDGtIyXWtNfuCaxO/xkmBoQHr4Y2WjG+PjDm/5zqb5hyh7Kxg==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=3rjAI+sJDwgrDrNdAFFa1hcjaCbxcDShwUBEuorOLOg=;
+	b=mGrKjM+x6ViJUl68v1oujHkDzris80a0WLv/KxvUjSggEKIvRMjEqM7Wtl4KUgfhtQws
+	 3pFJ70sjD6Jv65eO/ZPG9GwGKp2ZAxSF4WaZVSnhoXinZ907yS+yHQvh4advhme2kCBob
+	 TD207qztZxDqVba+rhf63kgoCLukmBll+3Dc8AxvWbtjdw8kmnfac6IyPNDy9/aRzpQYi
+	 yp/Zmcci21rjYXVTblwUGRL4ZY56AqKTh0UQYrXlRckRMNU13Qix660Zem/46/W0UXh8Y
+	 DP+RSSVsDtC1/+caR9BjCqFNu4zGkcDbLopZBMj8L+A+h8w74wLDz1u5HUpydHlmrGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hlXfrmYC;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=QRPrL000;
+	arc=none smtp.remote-ip=74.125.82.45
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F7B7606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 01:13:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F7B7606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14A5D606A327
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 01:14:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14A5D606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hlXfrmYC
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso4870535e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:13:48 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=QRPrL000
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-15ea896ddc8so491065c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:14:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794532427; x=1795137227; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Sc5ygLidAeVc1fVLnxfVzT8pc+Zr0/C2OuXAjLAj5yE=;
-        b=hlXfrmYCQW0yWzGjrBwqAOEDYipKPP1+CZXPVrQdF0f9bnR6+43Z+bKQS6bZj/e9PU
-         CgH3o8G8EhNDFlO5Ns7E5e4rz6oM5RcA/hMysCr9qHdOlsIoTi7hbklNQK4gJvkgUD6m
-         EGsEVFU2xm1Rcyxqhpn+d9dpjcMRTNGlecx1h6772BeB+wdUV3K3EXfxAru/qrLkXYqr
-         mopxtT5uDoVm7Vyo1nuOIXIFo+2id+X4zFRXfIrzW7D8VkqXNzjbaSWEA75iwLfhmLDZ
-         wmN9sRoW4NmBkgIOP6ViEnYOY0MCY8ujBUUbSmahSP78PDqixll8kHy/UTUK3YpZI0Bd
-         CLOQ==
+        d=chromium.org; s=google; t=1794532482; x=1795137282; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3rjAI+sJDwgrDrNdAFFa1hcjaCbxcDShwUBEuorOLOg=;
+        b=QRPrL0000yqqXjBWHqNbRcWasjWbFOVo9y3hyLWAJfY5LWYvqk7Wu6LE0XENCCaS2a
+         2gDKt9Tmj+gDju+E4i8Ox0fY6gAs66i9q++F5eYp07XycK2OqpdK+ddESitSF1AQz2BC
+         1fy3zZ1rbxWPfFY32jKlkMebj26wY+vxNJZuc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794532427; x=1795137227;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Sc5ygLidAeVc1fVLnxfVzT8pc+Zr0/C2OuXAjLAj5yE=;
-        b=wsaMY3AENcxzhI5QfocjmHQarPzPnNjNGBTHtyWVZO2+PAUiIL1m9DfWFAu46BoW5I
-         s0pG+u+0qjprHn5AwvVRIjxwOkrM/TXRgOz4xaCO5kMvuaqS9A7epo2Vq/9eomfCpyCI
-         TvV46k1hK4a5R68hrgQHxlaoAvhucTsLfnte8kXRWFnRFK6GTnxuoFBcMXTiciPzESLb
-         4Fcw7ycVQjbTZa4ETBSDMl9SrEqmcWIqJLeqcsXgy9UTyFdDAELiHvRjUHGgtP6U0x54
-         nSqQrEgtqaK24oZmM6F+Ab2nXvwLqYoYwNysZfZ+xChtLQuLQLMJZcHS1GYd2hDaAPUK
-         DNbA==
-X-Forwarded-Encrypted: i=1; AL+hErHW5GMuJFdz0/H2QfbWOG7/gLtQBdACe5jitlvvdEZQB/PP6SRB7MJVWKgFMAoMTJOZG4nYH28aqybiQIA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9YiC4M/BPUhv6OcMqTtdXlmrjL5450EYD58vet2ZVT+5WQa7cu
-	JqIXBH/459j4os7U2e+kW7f9fXWE0PTJ0CueaKIVBSP1EqxEIFLobiRo
-X-Gm-Gg: AYBFou0pjo9wGq6/AdqoeoUIHZVqES9JSZkwye5PNFqxy8eoc0BZLrHnFdjNDQgc01z
-	8aBXSoOKu1emlwV5+Y7Ch/HscsR19YoKvTfSXWU2GrithKR2hisyMOMzPLTn4HnIZjYzHXJo2rH
-	bANdv5Fu0s18WWBt7Z8z3zjsB0vdTRtYIbF8xcifQfGY8xpRypssjB91xKUb8tYRzUSTY8kYbnw
-	d6iuqrH/t1aJBUo5d75Gk5UDg7r0B4qRzyRPQgJbqd5TCV/WzXOm7SDJOX2GMy0h4gst4fz7woA
-	9jj08YIO6gJOqC/5q09JeepRoZW7hHn6w+pE7IdcZMQz2y5xXmMHiIgKuzfcHAuwQZtzAcr3nop
-	VGYB7+cl3VDUdem68WM//DtZdqrRAdU9/zweHNfD9uefiZpx4jQIdoX3v3OzEvqXitNV4PC0Jce
-	SRGGPxSmTn6gOXMPXA3l+yTjhR4tqUvPdll3TH6i06CZBYSi2UNkotqPAQFfiX6mstsBgff071y
-	2zEoKftQAuE5prNsms7kgupvzCu9gyJ+RQN8lCW1t520HPa7IdlDO2ApbzlBDnyOs9qVolhpcpZ
-	F9fwjqtnEliibQVVDUE2vxetAiY5kZ7Z7M/3FyUHA8E3+4sosSlRV1mchfVevSQcg8yzf3gYe9K
-	rDrWyYKJQOfSrjPSBZY0eoeKewQnBxQnh3uvgxz7c6mU2U2SHZToapHTkqkkool8uaG8AlUVMTj
-	oQRc0aU6ASLvDSTpvuBG+/XtGTgBFMBztQd/s=
-X-Received: by 2002:a05:600d:82c6:b0:4a7:9006:b176 with SMTP id 5b1f17b1804b1-4bb55c5f5f5mr21265355e9.7.1794532427325;
-        Thu, 12 Nov 2026 17:13:47 -0800 (PST)
-Received: from MBP-von-Karl.localdomain (dynamic-2a02-3100-a440-c701-58be-494d-aade-0870.310.pool.telefonica.de. [2a02:3100:a440:c701:58be:494d:aade:870])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb55acdccfsm21838685e9.8.2026.11.12.17.13.46
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 12 Nov 2026 17:13:46 -0800 (PST)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Song Liu <song@kernel.org>,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] tracing: Keep preemption disabled until the recursion bit is cleared
-Date: Fri, 13 Nov 2026 02:13:33 +0100
-Message-Id: <20261113011333.20813-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        d=1e100.net; s=20260707; t=1794532482; x=1795137282;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3rjAI+sJDwgrDrNdAFFa1hcjaCbxcDShwUBEuorOLOg=;
+        b=vcJywQRH9NIxb+OXjHnU9e2AoT6nVVy7hfH88lewxx3NlyWe+gR5ZNHR8Qgb+bGNR4
+         S6OzLHEBwtdB4spBGzmEowy6MSdZKojP/gxUoB66mtOjlIY0jf/Z0OGI/QiRXssmBXJ0
+         av6ie5eXnm5tmVmPmOgr1/8KhSoykKWQUzyZ56CqvxCi8l4CAEE13YAT8+wsdtYgT7Wo
+         JwaLez0D7WtaxwY8EvQeabSFtmzusr5NUK9SohDiO8cvotpALICj8S/OARPAdsDCj7yr
+         zsaStv2LGwnXyUxjwfwvJqrwk4sX+iHMLeFOpRUevYbs4FVYBcDWTJFyVggXaPAaII/w
+         KwZw==
+X-Forwarded-Encrypted: i=1; AL+hErHlDeuuRbHGDM9anbdaPuuRQ/XwCcqMLuXi0JdHC+KddmtC0T8+Bos0NTiSlLAkDdBDjPf/4OrOFeauP/k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/lUOHU0iFIRdt73EdZJjbzO/K3435clrb/R6qPAcq/GzBCaqVx
+	EVF/uVa7oMvqGHpjLxp8bvp+9nJz/BcBlA1lLaCIatMZzrQ9a/TSC5F8QVA0hoDVXQ==
+X-Gm-Gg: AYBFou0gdUMcl2XYOwD6rut/GIiVV5tMuq1j9+usa+pdZpzxUwiZMtUd958qYAMACGn
+	NbHQUx6QrGGe27DSKkIiEPE/T9b/GjaJvMUWREbBLVcEbTxHNHzIUrqpM3ceFbMJK+bASuCcjuz
+	9h99wta4yum3Pn/HQoeVUiEvo/6doA8FDxH93q5yFmoovqHlUB9l7+ZiFmApPfLXLqgPVuE6BVq
+	xdxpQtA3w/kJCpXs97iPiJsLHtp9xEt9hfX3I/0QjNW2KJHQsnBUFTcWyuJMbsEyD/XXKEcCFLS
+	5lD1OROS4uCCSg8WhXxoWfc0nKmeoHlc8GGtmZmeMLajSPFrREj68mEuBAclOqZkFOViZDUpao7
+	gwB6KNqucs+cPqUrI2dGAqT0WBUGbkUZeI9/pPmZ2EB+KmsGAi610niwjAN1smtJ81UJ+wtYvOM
+	hYECK7EI8UnWwrIu1WIbdDQo/by8yRvbpjhDl186f1J18YTGG2D9sqeW65Hd752ohKrWhBFeWm/
+	/P7DfRk0WBE4Z7E2hozzKE2bNzuqohbmpazONJN2OylRlVaCZCsEG7K+s/rz6XdeTfAb/kMHeOT
+	C+1mNrBQJFqOnNtqKez2zyFzv1l7R4D+pJAKP6e8XSAdkJWdh6+F/R9AXPn/SCXWHisEgl5zjqT
+	e8muB/rzsnAIOgA==
+X-Received: by 2002:a05:7023:a41:b0:183:e993:7901 with SMTP id a92af1059eb24-1b5030abd48mr1019806c88.17.1794532482087;
+        Thu, 12 Nov 2026 17:14:42 -0800 (PST)
+Received: from localhost ([2a00:79e0:2e7c:8:616b:3e06:cec4:c2f9])
+        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-1b50309b2b5sm2265698c88.1.2026.11.12.17.14.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 12 Nov 2026 17:14:41 -0800 (PST)
+Date: Thu, 12 Nov 2026 17:14:38 -0800
+From: Brian Norris <briannorris@chromium.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Thomas Gleixner <tglx@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	devicetree@vger.kernel.org,
+	Tudor Ambarus <tudor.ambarus@linaro.org>,
+	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
+	linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Radu Rendec <radu@rendec.net>,
+	linux-arm-kernel@lists.infradead.org,
+	Mariano Marciello <mmarciello@google.com>,
+	Douglas Anderson <dianders@chromium.org>, linux-clk@vger.kernel.org,
+	Jakub =?utf-8?B?R8WCb3dhY2tp?= <jglow@google.com>
+Subject: Re: [PATCH 2/9] dt-bindings: soc: google: Add Google Tensor CPM
+ binding
+Message-ID: <avZkfg6WMlMzOxpn@google.com>
+References: <20261026214359.3122870-1-briannorris@chromium.org>
+ <20261026144346.2.Ib692ddd35c1dbea1757d9b1db6c1c7e938fc4ea6@changeid>
+ <20261028-rapid-daffodil-rat-0adc6a@quoll>
+ <aulIoq2oVjJ3DVzL@google.com>
+ <d4a430de-715a-4936-8adb-35ff57a52b5f@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,127 +113,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d4a430de-715a-4936-8adb-35ff57a52b5f@kernel.org>
 
-Function tracing can drop calls in interrupt entry and exit code, such
-as irq_enter_rcu(), because it wrongly detects recursion.
+Hi Krzysztof,
 
-trace_test_and_set_recursion() sets the recursion bit before it
-disables preemption, and trace_clear_recursion() enables preemption
-before it clears the bit. If the task is preempted in either window,
-the scheduler's traced functions find the bit still set and take the
-transition bit meant for interrupt entry and exit code. An interrupt
-that arrives during one of these callbacks then finds both bits taken.
+On Thu, Nov 05, 2026 at 07:54:22PM +0100, Krzysztof Kozlowski wrote:
+> On 03/11/2026 03:36, Brian Norris wrote:
+> > On Wed, Oct 28, 2026 at 02:19:23PM +0100, Krzysztof Kozlowski wrote:
+> >> On Mon, Oct 26, 2026 at 02:43:40PM -0700, Brian Norris wrote:
+> > 
+> >>> --- /dev/null
+> >>> +++ b/include/dt-bindings/interrupt-controller/irq-cpm-google.h
+> >>> @@ -0,0 +1,16 @@
+> >>> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+> >>> +/*
+> >>> + * This header provides constants for CPM IRQ.
+> >>> + *
+> >>> + * Copyright 2025-2026 Google LLC
+> >>> + *
+> >>> + */
+> >>> +#ifndef _DT_BINDINGS_INTERRUPT_CONTROLLER_IRQ_CPM_H
+> >>> +#define _DT_BINDINGS_INTERRUPT_CONTROLLER_IRQ_CPM_H
+> >>> +
+> >>> +#define CPM_IRQ_RTC_ALARM_NO			0
+> >>
+> >> Keep naming consistent. Clocks has _CLK suffix, so this should not use
+> >> prefix.
+> >>
+> >>
+> >>> +#define CPM_IRQ_AOC_MIN				7
+> >>
+> >> Anyway, ABI constants should be indexed from 0 and incremented by 1.
+> > 
+> > What do you mean by this? Do I need to make up names for the
+> > unused IDs between 0 and 7? On an initial search, I don't believe they
+> > have any meaning at all. Does that mean I should make up some kind of
+> > "RESERVED_<N>" naming here?
+> 
+> No, I meant CPM_IRQ_AOC_MIN is 1.
+> 
+> > 
+> > Between 7 and 156, these are just ... 150 different "service numbers"
+> > within the AOC (Always On Connectivity) subsystem. I can name them
+> > AOC_0, AOC_1, ... AOC_149 if that helps.
+> > 
+> > Or are you suggesting that I pack the actual use cases (so, 0 and 7-157)
+> > into 0-151? I thought it was valuable to directly use the firmware
+> > indexing where possible; if I change those, then the indexing loses its
+> > inherent meaning, and we also have to add another layer of translation.
+> 
+> We do not use hardware numbers as bindings and ABI, because that's
+> pointless - no benefits, only risks. Similarly you do not define GIC
+> interrupt numbers, pinctrl pin numbers, MMIO addresses as bindings. None
+> of these bind anything between DTS and software, so not a binding.
 
-Disable preemption before setting the bit and enable it after clearing
-the bit. The preempt count helpers then run outside the recursion
-protection, so they must not be traced.
+OK, I see your point about the distinction between hardware numbers and
+bindings. So are firmware-protocol-defined numbers more like hardware
+numbers or bindings?
 
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-Patch 12 of my larger RFC series [1] also moved the RCU check and the
-trace_recursion read. This version only moves the preempt calls.
+> There are some exceptions like SCMI firmware, but that's not the case here.
 
-Assisted by an LLM.
+It's funny you mention that, because that's exactly what Jerome compared
+this to in the clk, reset, and pmdomain portions.
 
-No Fixes tag. Most callers had the same ordering before ce5e48036c9e
-("ftrace: disable preemption when recursion locked") moved the preempt
-calls into these helpers.
+These values are used literally in the firmware interface, so I'd
+consider them very similar to SCMI firmware protocol IDs (and, not that
+different to hardware IDs, if you consider the "firmware" as essentially
+unchangeable). And if I change this to *not* be literal firmware IDs,
+then Jerome's suggestions on patch 5 (to imitate SCMI, and to defer more
+control to the firmware) become more difficult.
 
-The preempt count helpers are __always_inline, except on arm64, where
-inline implies notrace and Song Liu's series adds an explicit
-notrace [2].
+If I do keep these as literal firmware IDs: does that mean you'd prefer
+these not be in dt-bindings/? Many of them (especially the IRQ IDs
+you're pointing at) are not needed at all in the kernel side; they serve
+more as naming documentation than anything else. I can just inline them
+into the DTS. But I'd prefer having macro names for LPCM IDs and
+similar, as it vastly helps DTS readability.
 
-Tested on v7.4-rc2 in QEMU TCG with PREEMPT, PROVE_LOCKING and
-FTRACE_RECORD_RECURSION, running the function and then the
-function_graph tracer while forking processes. On x86_64 and arm64, a
-test module also sent IPIs to a CPU inside an ftrace callback.
+> > 
+> >>> +#define CPM_IRQ_AOC_MAX				156
+> >>> +#define CPM_IRQ_AP_GDMC_WAKE			157
+> >>> +
+> >>> +#endif  /* _DT_BINDINGS_INTERRUPT_CONTROLLER_IRQ_CPM_H */
+> > 
+> > 
+> >>> --- /dev/null
+> >>> +++ b/include/dt-bindings/soc/google,lga-lpcm.h
+> >>> @@ -0,0 +1,54 @@
+> >>> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+> >>> +
+> >>> +#ifndef __DT_BINDINGS_SOC_GOOGLE_LGA_LPCM_H
+> >>> +#define __DT_BINDINGS_SOC_GOOGLE_LGA_LPCM_H
+> >>> +
+> >>> +/*
+> >>> + * LPCM IDs of each SSWRP.
+> >>> + */
+> >>> +#define LGA_LPCM_CPM			0
+> >>
+> >> What are all these?
+> > 
+> > The binding doc says:
+> > 
+> >       Each reset is specified by an LPCM ID (cell 1) and a reset ID (cell 2).
+> >       See <dt-bindings/soc/google,lga-lpcm.h> for LPCM IDs and
+> >       <dt-bindings/reset/google,lga-cpm-reset.h> for reset IDs.
+> > 
+> > and
+> > 
+> >       Each clock is specified by an LPCM ID (cell 1) and a clock ID (cell
+> >       2). See <dt-bindings/soc/google,lga-lpcm.h> for LPCM IDs and
+> >       <dt-bindings/clock/google,lga-cpm.h> for clock IDs.
+> > 
+> > These are the IDs used in the firmware interface to talk about these
+> > things, as many of the SoC resources involved (clocks, resets, power
+> > domains) are grouped in this way (by subsystem (SSWRP / LPCM), and then
+> > with indexing within each subsystem).
+> > 
+> > In reading again, I see that the definitions and explanation of these
+> > terms and the SoC organization are split a bit between the pmdomain
+> > commit message and the binding doc. Where would you prefer I elaborate
+> > more? In the binding doc, the comments here, or both?
+> 
+> I just try to understand their placement. Bindings should not be in the
+> soc directory, except a few things without clear subsystem owner. If
+> this applies for both clocks and resets, maybe this could be firmware,
 
-Calls dropped as recursion, two boots each (function / function_graph):
+Maybe firmware, maybe power? LPCM is "Local Power and Clock Manager",
+and I believe there's essentially 1 LPCM (microcontroller) within each
+top-level power domain.
 
-                 v7.4-rc2       + this patch
-  x86_64         0-12 / 14      0 / 0
-  arm64          4 / 6          0 / 0
+Brian
 
-This also reduces use of the transition bit, which Steven would like to
-see removed [3]. The remaining users are mostly interrupt entry and exit
-code, which the early-hardirq series [4] is meant to cover.
-
-Functions on other architectures that needed the transition bit,
-whether they got it or were dropped, counted by a test-only hunk:
-
-                 v7.4-rc2     + this patch
-  i386           123 / 123    13 / 14
-  ARMv7          118 / -      3 / -
-  riscv64        115 / 116    17 / 18
-  ppc64le        84 / 90      6 / 8
-  ppc32          67 / 89      3 / 5
-  mips32         76 / -       7 / -
-  mips64         87 / 107     5 / 7
-  sparc64        70 / 87      3 / 5
-  loongarch64    114 / 119    11 / 15
-  s390x          15 / 19      3 / 4
-
-FTRACE_STARTUP_TEST passed with this patch on x86_64 and arm64, and
-gave the same results as v7.4-rc2 on i386, ARMv7, riscv64, ppc64le and
-loongarch64.
-
-No result on PA-RISC (crashes) and sh4 (does not boot), or for
-function_graph on ARMv7 and mips32. Baseline v7.4-rc2 behaves the same.
-s390x traced only scheduler and interrupt entry functions, because full
-tracing stalls under TCG. csky, microblaze and xtensa were only built.
-
-[1] https://lore.kernel.org/all/20261022051654.79224-13-kmehltretter@gmail.com/
-[2] https://lore.kernel.org/all/20261023011049.1164625-1-song@kernel.org/
-[3] https://lore.kernel.org/all/20261015084821.3fcf69bf@gandalf.local.home/
-[4] https://lore.kernel.org/all/20261028033127.82193-1-kmehltretter@gmail.com/
-
- include/linux/trace_recursion.h | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
-
-diff --git a/include/linux/trace_recursion.h b/include/linux/trace_recursion.h
-index e6ca052b2a85a..a7c66313bf360 100644
---- a/include/linux/trace_recursion.h
-+++ b/include/linux/trace_recursion.h
-@@ -132,6 +132,8 @@ static __always_inline int trace_test_and_set_recursion(unsigned long ip, unsign
- 	if (trace_warn_on_no_rcu(ip))
- 		return -1;
- 
-+	preempt_disable_notrace();
-+
- 	bit = trace_get_context_bit() + start;
- 	if (unlikely(val & (1 << bit))) {
- 		/*
-@@ -145,6 +147,7 @@ static __always_inline int trace_test_and_set_recursion(unsigned long ip, unsign
- 		bit = TRACE_CTX_TRANSITION + start;
- 		if (val & (1 << bit)) {
- 			do_ftrace_record_recursion(ip, pip);
-+			preempt_enable_notrace();
- 			return -1;
- 		}
- 	}
-@@ -153,8 +156,6 @@ static __always_inline int trace_test_and_set_recursion(unsigned long ip, unsign
- 	current->trace_recursion = val;
- 	barrier();
- 
--	preempt_disable_notrace();
--
- 	return bit;
- }
- 
-@@ -163,9 +164,9 @@ static __always_inline int trace_test_and_set_recursion(unsigned long ip, unsign
-  */
- static __always_inline void trace_clear_recursion(int bit)
- {
--	preempt_enable_notrace();
- 	barrier();
- 	trace_recursion_clear(bit);
-+	preempt_enable_notrace();
- }
- 
- /**
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-
--- 
-2.39.5 (Apple Git-154)
-
+> but another point is that you should not need these in DTS. Somehow you
+> split one clock/reset ID into two - LPCM ID and clock/reset ID. Just
+> don't, unless you want to say that for example LSION_CLI16_UART_CLK is
+> in multiple LPCM places?
