@@ -1,80 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794597280;
-	b=USkQNjuTwvghaJSJM3Le0iShAFdPlzL4bBdWhHhfN51SvIDiQW4oR1H2PYDv+LTai7xk
-	 FkrE8zaWT1pzPRpEhdqV6Wj101O9LntoetY5jnhsHALXLjzI08n5l5wnthSccAnOU9o4b
-	 EtGkEU69y9uiqbpkv24J00rhqylekeYVvII+jnePtXvQl1Fa+Q41uYg2yg21HJg0Qy0OK
-	 ZNiYCf+nl2II7V67QKSZG4vNQPGdHsrm7sKJcZusyLff4Kq5TDDkABznB+pIY2GNDwWKc
-	 c9bjayVesaOCbE7gsQKpZSxYJDiYBPhN1keupx2To+XT1cjeQzN62qJ6oUhzOIPRHOA==
+	t=1794597281;
+	b=211j1nP8wlzilhLAokwU14kbRQ4uoTmIK8UB2s7GdluY3WKwMUjfCm39GCkdgayQHjNL
+	 FxSFUzt6cf4iBWzcGcfzxtN8SBCCa0lXW6tSuaC2mdxDQG0pXJ8wKhsZd6H3sJcOkoKWp
+	 wifXkrPQRraXo6CZLln2Jb6NBGSbyc73gwNYP31UzUmtBbaZMfeSomjxK6++0fo9EkHOM
+	 7y0Dl7nIEMRnOjr5IorSBS3uVhfrsniigmRksaDs2ejToyt0/uam4mUHQ1o13NgxYpVV5
+	 OyUqXSqIbV2wXTsm5nZTU3zNOkCVYfSpupruxXaIBgkaVNHlwU/wBfb6ZF8ClYncc9A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794597280;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=ewn4nCsmxQKS4ciDscnEf8cddbaRp74HJH3ImWn4V/c=;
-	b=Vdon2yVtDJOPbyJC2zdzoi4W/MLLCQ3+3CEeR5oNYt0AOgJbvOdn7K4a+nwGH0PzaGnj
-	 AALuUmiRqzg3u4W6Va59vP8qZAFd4kVVsPpwXHBELuPddWMDrS3lMStiQoN3QyRG2WfBg
-	 YRE7u1zkOuGjSbWDXp53paZdTa6mt6m/FyE02zrnR91Ya44vRXAr9ucWY9TX70Ov/fwNY
-	 W9xLjOdi1eB/YdAcPVU6feG3y9vA32GLEeyODIju5a9id8seurrSVumsEpnNw8dTBk5L4
-	 FFlcuiVZceUh0DABPo7BjM7F9PbiWwnJ5/tSqiovjHOkRDGeeh0pl4EPGR/7vY0TOgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794597281;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=0vuC0HXdhJi2U2e5EQRK1y2F3FGA2AVTGSGqR2ChWaU=;
+	b=3G4yItCyZUA6ZlNxwNx6ExrcwQRRfGtRYgBCaVtmqzxoGVnJRSIKBXNvmHYLOZ5ArBkg
+	 o17E6cZg/bHPe9zLOHoaPF2vi30vlfdvxDl5LDO4dx0jSsBlMez8JDH45FGe+/62tm/ja
+	 ZuPWdJa6uOXF2AztQJnA9sV2FHf7iy94oFZf4Itw2Fv+yrm6X0vUZN3iki415Gan7l1i7
+	 0F4TL2LBb5gwLSSl/Rn3oyz1vZlL/v6nwfM7b7y9s+UxmVY9WrdGRNncxTsXQ2r6/jECi
+	 t98zjtRGH6cVKtjBswYrMzoNBiKETulppgZrkhY8fcT+8hUlm9lzglOlC40LBmmLC8g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wam+U6lO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LoymBqFW;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A61FB606A323;
-	Fri, 13 Nov 2026 19:14:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D6B6606A886;
+	Fri, 13 Nov 2026 19:14:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wam+U6lO
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LoymBqFW
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794597280;
-	b=OTcouzTjMNULNZzPO29Q/ZPtKf2W6DfMGfhWtham93/Q+Y9fvzawjd0Cfl7VYot6ZaiK
-	 RpzQDLlLr17gARI0UwkCi3IXmlnTeivPt3BXxeMUgHMAfeeiUm8DLET/i5/BAjHd4z2rd
-	 ald9+dcuvOvpaN2/bpNUG4HxhWUmkt8rRWciDyoo7f623e/ywAImpqKwpXpJjOtwcap7E
-	 FH/LwwB25XnVcJK4E4QKdP8oKEjwtpxgD2f6/o/68SZS+uINCcQG95vF4t691J+yTCNVJ
-	 tLGbz9HKGpuCINobAIVG22fd+EVplu6eDbjVsKIJ6WXVgKbJWj6FJ4/ji462O9ijtSA==
+	t=1794597281;
+	b=T0H3zpJ7UFfQP3KkGZubriKC7I2jeCAXHdbGHDT9fGtYwiA4+Mw7rTacK98eDpOElcrj
+	 sp/gFE9f3BVyv89G7oMa/LR2V+vsRhKH+J8YKeay7Qn1TGUqYm5PJJff6xQFdJv44Svg6
+	 9nWNv/qiYfULhPEyijoOMlXN2TduN9dOzs2ePT/a9BfUjedBKaUuagLWmmWqAzmao795y
+	 RGIF/6O9S0sXLejShJoCAco3Wkeu+X4JFJKEMNiU3Jhww88QjXuxlcJMrNp9g1UtaZxqU
+	 A1InZVAheyDKuA4GDdaook0UH2ksIlFDFZ59hklw+3oIIC9dgI8yFYyDdOKIEGBY6Wg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794597280;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=ewn4nCsmxQKS4ciDscnEf8cddbaRp74HJH3ImWn4V/c=;
-	b=F1rNn+OkPEl1/v7E//47mWnHSjdgDTurn/5ELJ3Io2pOenyXSDEbi9qYcIoE+dZ14SBp
-	 Ln+7j53CkY5XdOVfvktK6Z3JvQ0t83l6xoUUjYMeyKJ6jyhZKSZ6YKwWi0KyuBZvr+NWm
-	 4UzWg3/SeUg/vNocey7A39QQYJPNIfB0/z9QDwHGRKivKRC1CyvCwpxtg8sxK45vz9Fsb
-	 he0uC/EbvEZcj5lMehjK7S+5MQvavj+jAEv5xF6ybQXuj4/IYJUjhP3w+7g01T3otn4hZ
-	 gSseTmcJgoB3IQfaqW761JrU3ouJWZ9oaan/TpL8okfdBBwdQ7Z8cEcFRsPZBvlvsxQ==
+	c=relaxed/relaxed; t=1794597281;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=0vuC0HXdhJi2U2e5EQRK1y2F3FGA2AVTGSGqR2ChWaU=;
+	b=PZl8FrtPEjIytXW0jXklj4Zy+T1B9Yk3ZqAD2+sQkeX2kpT6tzSVoKxIaTcq2eIENe85
+	 rjqRid7+Ig2i/TDKhYjhKLOzLpl+rnpk7TnyvKMrWbysXUpMdCuQKUAB1QuajUEmbBakj
+	 le4va69F5TtGwTV6OQ+Oype3QBQBQcpesdZ90AS9VNr5QYc7A4hoGcLCB2u0iArm8uw8T
+	 KVN3kF0AYQTSrSM/r7cwcqH5mnkC/zcEzgvuvHWbAMdO247mWAnjr+3CCKQL8Y2CkmhWn
+	 qt8gnbXYRUqICtVh0zuDjfIXIk5okAtweb9SP0zjAMtTS1BikhFdaZAWNzgEY43SZVw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id EBF641F000C4;
-	Fri, 13 Nov 2026 19:14:39 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 159101F000C6;
+	Fri, 13 Nov 2026 19:14:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794597280;
-	bh=ewn4nCsmxQKS4ciDscnEf8cddbaRp74HJH3ImWn4V/c=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=Wam+U6lO5/CdCTpd1kiKzJY0hDq3mivn+DmU+A1T6mvlAHQ6Am7WzQADu8Gdw/yHf
-	 xe56pbgrJsFygjG7aHXRPoc7p5LXa1FyJP5+ttIYd8DRsCUXGuh7rx6I8FtSU3SV+H
-	 TBCV6gHS5MlmRrfJE1Gl9YbLKaYQ0psMViC1hHegnNw9K7l9WJt15Nsz4G/Qi5rWRg
-	 z+Zjuumpsj4aOamPv585oiv/+i0GNCclcFXuMg9Qqw8ULOJvh4u6Vs7I4Kqc/USTGx
-	 LqF8JPzwY6QIWj+BLSntkk8AGVwnl3Vov1soAx417a3ZLZiLcKSo7FmGlYnsjbC8Lq
-	 vKCbfroC/uQ8A==
+	s=k20260515; t=1794597281;
+	bh=0vuC0HXdhJi2U2e5EQRK1y2F3FGA2AVTGSGqR2ChWaU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=LoymBqFW9dWqelJitY0i1EGyllRfuXOXnJDsnnWa3UMkqdcU1tbZ7lgd+ESs/ZkZN
+	 ZGmAF6E9MltvqXjMnj5dUzv7rdosi4gHTwJQ5dZIBLNeRZdZTO3hVzyKFTjP3/xBcO
+	 XY4uqUvjdBnAntT+VrWnIHNUcfZSbF83rdVVqgm9kkmQRabpZazUI55tG1gFLsgjSG
+	 ZFcoUe+GKiDFx5RDo2OZfebTLxF0rQJ+/iCtCKpMNagTCu4dwSBDMwpsrkK0Bl/CMg
+	 CI6lOq7eYn1W3dbJ9BUqz/iqQXwCNJ5MbL+P1xjvhl/nhGPh0JIr7EUmfe8RNdXJtU
+	 uKJYmuQ7AnKiQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 6C07E49A8B;
+	by lkml.kernel.org (Postfix) with ESMTP id 982F149A8F;
 	Fri, 13 Nov 2026 19:14:39 +0000 (UTC)
 From: Patrick Fischer via B4 Relay <devnull+admin.tsv-stahl-riesa.de@kernel.org>
-Subject: [PATCH RFC wireless-next 0/2] wifi: wl18xx: Stop querying the
+Date: Fri, 13 Nov 2026 20:14:21 +0100
+Subject: [PATCH RFC wireless-next 2/2] wifi: wl18xx: Stop querying the
  firmware statistics
-Date: Fri, 13 Nov 2026 20:14:19 +0100
-Message-Id: <20261113-upstream-wl18xx-fw-stats-v1-0-cbdf50739185@tsv-stahl-riesa.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,99 +84,498 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNTQ6CMBCFr0Jm7SSUBYhbEw/glrgo7VTHYCWdY
- psQ7m7Rt/te3s8KQoFJ4FStEOjDwm9fQB0qMA/t74RsC0NTN60qwmWWGEi/ME3qmDO6hBJ1FDR
- dbftWW+tMD6U+B3Kcf9MDXC/n3UscaCIR9JQj3P4pWcYnmbi/wLZ9AYIYETOSAAAA
-X-Change-ID: 20261111-upstream-wl18xx-fw-stats-c70d96addfc9
+Message-Id: <20261113-upstream-wl18xx-fw-stats-v1-2-cbdf50739185@tsv-stahl-riesa.de>
+References: <20261113-upstream-wl18xx-fw-stats-v1-0-cbdf50739185@tsv-stahl-riesa.de>
+In-Reply-To: <20261113-upstream-wl18xx-fw-stats-v1-0-cbdf50739185@tsv-stahl-riesa.de>
 To: linux-wireless@vger.kernel.org
 Cc: Johannes Berg <johannes@sipsolutions.net>, 
  Svyatoslav Ryhel <clamor95@gmail.com>, linux-kernel@vger.kernel.org, 
  Patrick Fischer <admin@tsv-stahl-riesa.de>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794597277; l=3601;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794597278; l=20495;
  i=admin@tsv-stahl-riesa.de; s=20261020; h=from:subject:message-id;
- bh=xIHoochWWNIF1OBob5awdmieWYZJ3MmNdz4ox+BKRs8=;
- b=BmDcxnz+qaJUpjLNVd8On1QPe2mIV1DXo7LzCwM1yRoUmMe5yxROT9sVe8G970/EbTZszzu5O
- C5mIKHRaG3LDMC4ogmvhz8WI2xSPKaspkryZ/IbnNI/1zGFDcA5nYV3
+ bh=1wiF6aNv2p1N9mwscpVB5z2J4z5RrkOG2uKyYiPJFPE=;
+ b=TJAdnm79wdhy9KbnOGat+F71zCdhPdBWkaTsNNIORyGahgQ/09qCVSVUT2s+rVj9lk6wAGSjj
+ 6yaKQ52QpnVDTqwnbEL1y+rzY/yS5vUpBEPGJWwNi0Owa8r7Kh/CnU8
 X-Developer-Key: i=admin@tsv-stahl-riesa.de; a=ed25519;
  pk=D+v6EloYcEY9PIUHFyTM5sqcGIU/fIXzLUdkR8vjAtk=
 X-Endpoint-Received: by B4 Relay for admin@tsv-stahl-riesa.de/20261020 with
  auth_id=1251
 X-Original-From: Patrick Fischer <admin@tsv-stahl-riesa.de>
 Reply-To: admin@tsv-stahl-riesa.de
+Content-Transfer-Encoding: 7bit
 
-On a WL1801 (Tegra Note 7, firmware 8.9.0.0.83) the answer to
-ACX_STATISTICS overwrites both event mailboxes. struct
-wl18xx_acx_statistics is 1100 bytes, the command mailbox 740 bytes,
-and the two 180-byte event mailboxes sit right behind it
-(0xb007f8, +740, +920 on this chip). An event that is waiting in a
-mailbox while the statistics are read is then handled with statistics
-counters as its vector and data. I ran into it as a NULL pointer
-dereference in wlcore_event_rssi_trigger() with a P2P device; the fix
-for that crash went out separately earlier today [1].
+From: Patrick Fischer <admin@tsv-stahl-riesa.de>
 
-What I measured, with a test kernel that logs the mailbox addresses and
-can change the requested length at run time:
+The firmware writes its answer to ACX_STATISTICS into the command
+mailbox. struct wl18xx_acx_statistics is 1100 bytes, but the command
+mailbox is only WL18XX_CMD_MAX_SIZE (740) bytes, and the two event
+mailboxes of 180 bytes each follow right behind it. On a WL1801 with
+firmware 8.9.0.0.83, reading the chip memory before and after one query
+shows the response running through both event mailboxes, up to the end
+of the second one:
 
-- idle, chip memory read through debugfs "mem" before and after one
-  query: the pipeline counters (bytes 952-1000 of the statistics) show
-  up in event mailbox B after every query, also when only 740 bytes are
-  requested. The firmware ignores the requested length.
-- 600 s iperf3 upload with the statistics read once a second: 50 bogus
-  RSSI trigger events with 1100 bytes, 24 with 740 bytes, all from
-  mailbox B and all with statistics content. Without the statistics
-  reads: none.
+  command mailbox  0xb007f8
+  event mailbox A  0xb00adc  (+740)
+  event mailbox B  0xb00b90  (+920)
 
-So the only fix I see on the host side is not to send ACX_STATISTICS
-on wl18xx at all, which is what this series does. Patch 1 lets wlcore
-run without firmware statistics, patch 2 drops them from wl18xx.
+Asking for only 740 bytes does not help, the firmware writes the whole
+structure anyway.
 
-Why RFC:
+If an event is waiting in a mailbox at that moment, the event handler
+then reads statistics counters as the event vector and event data and
+acts on them. With the firmware statistics read once a second through
+debugfs during an iperf3 upload, there were 50 such bogus RSSI trigger
+events in 600 seconds, and 24 when only 740 bytes were requested. With
+a P2P device one of them crashed the driver in
+wlcore_event_rssi_trigger().
 
-- It removes the wl18xx fw_stats debugfs files. If someone knows a
-  firmware setting or version where the command mailbox is big enough,
-  or another way to get the statistics, I would rather do that.
-- I kept the statistics structures in wl18xx/acx.h as documentation of
-  the firmware interface. I can drop them as well.
-- Should patch 2 go to stable? It fixes corrupted events, but only for
-  people who read the debugfs statistics.
+The statistics have been bigger than the command mailbox since they
+were resized for the new firmware API in 2012. Stop querying them: drop
+the fw_stats debugfs files and clear_fw_stats, and leave fw_stats_len 0
+so that wlcore neither allocates the buffer nor creates fw_stats_raw.
 
-Tested on the same Tegra Note 7 with v7.3 plus these two patches (the
-touched files are the same in v7.3 and wireless-next): wl18xx/fw_stats,
-clear_fw_stats and fw_stats_raw are gone, the other debugfs files are
-still there; unloading and reloading wl18xx works and the station
-reassociates. The same 600 s iperf3 upload, with the monitoring script
-still trying to read the statistics once a second, ran at 46.7 Mbit/s
-with no RSSI trigger event, no oops, no recovery and 0 failed frames.
-Build-tested with W=1 for arm (gcc, clang) and arm64 (clang).
-
-[1] https://lore.kernel.org/r/20261113-upstream-wlcore-p2p-rssi-v1-1-754bd625daca@tsv-stahl-riesa.de
-
-Tool use (see Documentation/process/generated-content.rst): these
-patches, the changelogs and this letter were prepared with an LLM
-coding assistant (Claude Code). It worked out the mailbox layout from
-the driver source and my logs, wrote the test tooling, the changes and
-the texts from my measurements and instructions. I reviewed the
-changes and ran the tests on the device.
-
+Fixes: c5d94169e818 ("wl18xx: use new fw stats structures")
+Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
 ---
-Patrick Fischer (2):
-      wifi: wlcore: Allow lower drivers without firmware statistics
-      wifi: wl18xx: Stop querying the firmware statistics
-
  drivers/net/wireless/ti/wl18xx/acx.c     |  24 ---
  drivers/net/wireless/ti/wl18xx/acx.h     |   5 -
  drivers/net/wireless/ti/wl18xx/debugfs.c | 333 +------------------------------
  drivers/net/wireless/ti/wl18xx/main.c    |   1 -
- drivers/net/wireless/ti/wlcore/debugfs.c |  18 +-
- 5 files changed, 14 insertions(+), 367 deletions(-)
----
-base-commit: 5dbf2415ca9821a611d09308e3b29d2c37e7cd77
-change-id: 20261111-upstream-wl18xx-fw-stats-c70d96addfc9
+ 4 files changed, 1 insertion(+), 362 deletions(-)
 
-Best regards,
---  
-Patrick Fischer <admin@tsv-stahl-riesa.de>
+diff --git a/drivers/net/wireless/ti/wl18xx/acx.c b/drivers/net/wireless/ti/wl18xx/acx.c
+index 07f3008cf727..15755e81da9b 100644
+--- a/drivers/net/wireless/ti/wl18xx/acx.c
++++ b/drivers/net/wireless/ti/wl18xx/acx.c
+@@ -73,30 +73,6 @@ int wl18xx_acx_set_checksum_state(struct wl1271 *wl)
+ 	return ret;
+ }
+ 
+-int wl18xx_acx_clear_statistics(struct wl1271 *wl)
+-{
+-	struct wl18xx_acx_clear_statistics *acx;
+-	int ret = 0;
+-
+-	wl1271_debug(DEBUG_ACX, "acx clear statistics");
+-
+-	acx = kzalloc_obj(*acx);
+-	if (!acx) {
+-		ret = -ENOMEM;
+-		goto out;
+-	}
+-
+-	ret = wl1271_cmd_configure(wl, ACX_CLEAR_STATISTICS, acx, sizeof(*acx));
+-	if (ret < 0) {
+-		wl1271_warning("failed to clear firmware statistics: %d", ret);
+-		goto out;
+-	}
+-
+-out:
+-	kfree(acx);
+-	return ret;
+-}
+-
+ int wl18xx_acx_peer_ht_operation_mode(struct wl1271 *wl, u8 hlid, bool wide)
+ {
+ 	struct wlcore_peer_ht_operation_mode *acx;
+diff --git a/drivers/net/wireless/ti/wl18xx/acx.h b/drivers/net/wireless/ti/wl18xx/acx.h
+index cba195911978..e2a1e0ebff5b 100644
+--- a/drivers/net/wireless/ti/wl18xx/acx.h
++++ b/drivers/net/wireless/ti/wl18xx/acx.h
+@@ -282,10 +282,6 @@ struct wl18xx_acx_statistics {
+ 	struct wl18xx_dfs_stats			dfs;
+ } __packed;
+ 
+-struct wl18xx_acx_clear_statistics {
+-	struct acx_header header;
+-};
+-
+ enum wlcore_bandwidth {
+ 	WLCORE_BANDWIDTH_20MHZ,
+ 	WLCORE_BANDWIDTH_40MHZ,
+@@ -390,7 +386,6 @@ int wl18xx_acx_host_if_cfg_bitmap(struct wl1271 *wl, u32 host_cfg_bitmap,
+ 				  u32 sdio_blk_size, u32 extra_mem_blks,
+ 				  u32 len_field_size);
+ int wl18xx_acx_set_checksum_state(struct wl1271 *wl);
+-int wl18xx_acx_clear_statistics(struct wl1271 *wl);
+ int wl18xx_acx_peer_ht_operation_mode(struct wl1271 *wl, u8 hlid, bool wide);
+ int wl18xx_acx_set_peer_cap(struct wl1271 *wl,
+ 			    struct ieee80211_sta_ht_cap *ht_cap,
+diff --git a/drivers/net/wireless/ti/wl18xx/debugfs.c b/drivers/net/wireless/ti/wl18xx/debugfs.c
+index ac756318e8ea..8f847b7806dc 100644
+--- a/drivers/net/wireless/ti/wl18xx/debugfs.c
++++ b/drivers/net/wireless/ti/wl18xx/debugfs.c
+@@ -18,163 +18,6 @@
+ #include "cmd.h"
+ #include "debugfs.h"
+ 
+-#define WL18XX_DEBUGFS_FWSTATS_FILE(a, b, c) \
+-	DEBUGFS_FWSTATS_FILE(a, b, c, wl18xx_acx_statistics)
+-#define WL18XX_DEBUGFS_FWSTATS_FILE_ARRAY(a, b, c) \
+-	DEBUGFS_FWSTATS_FILE_ARRAY(a, b, c, wl18xx_acx_statistics)
+-
+-
+-WL18XX_DEBUGFS_FWSTATS_FILE(error, error_frame_non_ctrl, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(error, error_frame_ctrl, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(error, error_frame_during_protection, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(error, null_frame_tx_start, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(error, null_frame_cts_start, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(error, bar_retry, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(error, num_frame_cts_nul_flid, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(error, tx_abort_failure, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(error, tx_resume_failure, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(error, rx_cmplt_db_overflow_cnt, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(error, elp_while_rx_exch, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(error, elp_while_tx_exch, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(error, elp_while_tx, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(error, elp_while_nvic_pending, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(error, rx_excessive_frame_len, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(error, burst_mismatch, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(error, tbc_exch_mismatch, "%u");
+-
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, tx_prepared_descs, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, tx_cmplt, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, tx_template_prepared, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, tx_data_prepared, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, tx_template_programmed, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, tx_data_programmed, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, tx_burst_programmed, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, tx_starts, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, tx_stop, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, tx_start_templates, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, tx_start_int_templates, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, tx_start_fw_gen, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, tx_start_data, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, tx_start_null_frame, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, tx_exch, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, tx_retry_template, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, tx_retry_data, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE_ARRAY(tx, tx_retry_per_rate,
+-				  NUM_OF_RATES_INDEXES);
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, tx_exch_pending, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, tx_exch_expiry, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, tx_done_template, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, tx_done_data, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, tx_done_int_template, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, tx_cfe1, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, tx_cfe2, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, frag_called, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, frag_mpdu_alloc_failed, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, frag_init_called, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, frag_in_process_called, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, frag_tkip_called, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, frag_key_not_found, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, frag_need_fragmentation, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, frag_bad_mblk_num, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, frag_failed, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, frag_cache_hit, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(tx, frag_cache_miss, "%u");
+-
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx, rx_beacon_early_term, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx, rx_out_of_mpdu_nodes, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx, rx_hdr_overflow, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx, rx_dropped_frame, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx, rx_done, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx, rx_defrag, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx, rx_defrag_end, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx, rx_cmplt, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx, rx_pre_complt, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx, rx_cmplt_task, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx, rx_phy_hdr, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx, rx_timeout, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx, rx_rts_timeout, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx, rx_timeout_wa, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx, defrag_called, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx, defrag_init_called, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx, defrag_in_process_called, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx, defrag_tkip_called, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx, defrag_need_defrag, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx, defrag_decrypt_failed, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx, decrypt_key_not_found, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx, defrag_need_decrypt, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx, rx_tkip_replays, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx, rx_xfr, "%u");
+-
+-WL18XX_DEBUGFS_FWSTATS_FILE(isr, irqs, "%u");
+-
+-WL18XX_DEBUGFS_FWSTATS_FILE(pwr, missing_bcns_cnt, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(pwr, rcvd_bcns_cnt, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(pwr, connection_out_of_sync, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE_ARRAY(pwr, cont_miss_bcns_spread,
+-				  PWR_STAT_MAX_CONT_MISSED_BCNS_SPREAD);
+-WL18XX_DEBUGFS_FWSTATS_FILE(pwr, rcvd_awake_bcns_cnt, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(pwr, sleep_time_count, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(pwr, sleep_time_avg, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(pwr, sleep_cycle_avg, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(pwr, sleep_percent, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(pwr, ap_sleep_active_conf, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(pwr, ap_sleep_user_conf, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(pwr, ap_sleep_counter, "%u");
+-
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx_filter, beacon_filter, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx_filter, arp_filter, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx_filter, mc_filter, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx_filter, dup_filter, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx_filter, data_filter, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx_filter, ibss_filter, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx_filter, protection_filter, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx_filter, accum_arp_pend_requests, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(rx_filter, max_arp_queue_dep, "%u");
+-
+-WL18XX_DEBUGFS_FWSTATS_FILE_ARRAY(rx_rate, rx_frames_per_rates, 50);
+-
+-WL18XX_DEBUGFS_FWSTATS_FILE_ARRAY(aggr_size, tx_agg_rate,
+-				  AGGR_STATS_TX_AGG);
+-WL18XX_DEBUGFS_FWSTATS_FILE_ARRAY(aggr_size, tx_agg_len,
+-				  AGGR_STATS_TX_AGG);
+-WL18XX_DEBUGFS_FWSTATS_FILE_ARRAY(aggr_size, rx_size,
+-				  AGGR_STATS_RX_SIZE_LEN);
+-
+-WL18XX_DEBUGFS_FWSTATS_FILE(pipeline, hs_tx_stat_fifo_int, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(pipeline, enc_tx_stat_fifo_int, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(pipeline, enc_rx_stat_fifo_int, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(pipeline, rx_complete_stat_fifo_int, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(pipeline, pre_proc_swi, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(pipeline, post_proc_swi, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(pipeline, sec_frag_swi, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(pipeline, pre_to_defrag_swi, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(pipeline, defrag_to_rx_xfer_swi, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(pipeline, dec_packet_in, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(pipeline, dec_packet_in_fifo_full, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(pipeline, dec_packet_out, "%u");
+-
+-WL18XX_DEBUGFS_FWSTATS_FILE_ARRAY(pipeline, pipeline_fifo_full,
+-				  PIPE_STATS_HW_FIFO);
+-
+-WL18XX_DEBUGFS_FWSTATS_FILE_ARRAY(diversity, num_of_packets_per_ant,
+-				  DIVERSITY_STATS_NUM_OF_ANT);
+-WL18XX_DEBUGFS_FWSTATS_FILE(diversity, total_num_of_toggles, "%u");
+-
+-WL18XX_DEBUGFS_FWSTATS_FILE(thermal, irq_thr_low, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(thermal, irq_thr_high, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(thermal, tx_stop, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(thermal, tx_resume, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(thermal, false_irq, "%u");
+-WL18XX_DEBUGFS_FWSTATS_FILE(thermal, adc_source_unexpected, "%u");
+-
+-WL18XX_DEBUGFS_FWSTATS_FILE_ARRAY(calib, fail_count,
+-				  WL18XX_NUM_OF_CALIBRATIONS_ERRORS);
+-WL18XX_DEBUGFS_FWSTATS_FILE(calib, calib_count, "%u");
+-
+-WL18XX_DEBUGFS_FWSTATS_FILE(roaming, rssi_level, "%d");
+-
+-WL18XX_DEBUGFS_FWSTATS_FILE(dfs, num_of_radar_detections, "%d");
+-
+ static ssize_t conf_read(struct file *file, char __user *user_buf,
+ 			 size_t count, loff_t *ppos)
+ {
+@@ -217,34 +60,6 @@ static const struct file_operations conf_ops = {
+ 	.llseek = default_llseek,
+ };
+ 
+-static ssize_t clear_fw_stats_write(struct file *file,
+-			      const char __user *user_buf,
+-			      size_t count, loff_t *ppos)
+-{
+-	struct wl1271 *wl = file->private_data;
+-	int ret;
+-
+-	mutex_lock(&wl->mutex);
+-
+-	if (unlikely(wl->state != WLCORE_STATE_ON))
+-		goto out;
+-
+-	ret = wl18xx_acx_clear_statistics(wl);
+-	if (ret < 0) {
+-		count = ret;
+-		goto out;
+-	}
+-out:
+-	mutex_unlock(&wl->mutex);
+-	return count;
+-}
+-
+-static const struct file_operations clear_fw_stats_ops = {
+-	.write = clear_fw_stats_write,
+-	.open = simple_open,
+-	.llseek = default_llseek,
+-};
+-
+ static ssize_t radar_detection_write(struct file *file,
+ 				     const char __user *user_buf,
+ 				     size_t count, loff_t *ppos)
+@@ -399,155 +214,9 @@ static const struct file_operations radar_debug_mode_ops = {
+ int wl18xx_debugfs_add_files(struct wl1271 *wl,
+ 			     struct dentry *rootdir)
+ {
+-	struct dentry *stats, *moddir;
++	struct dentry *moddir;
+ 
+ 	moddir = debugfs_create_dir(KBUILD_MODNAME, rootdir);
+-	stats = debugfs_create_dir("fw_stats", moddir);
+-
+-	DEBUGFS_ADD(clear_fw_stats, stats);
+-
+-	DEBUGFS_FWSTATS_ADD(error, error_frame_non_ctrl);
+-	DEBUGFS_FWSTATS_ADD(error, error_frame_ctrl);
+-	DEBUGFS_FWSTATS_ADD(error, error_frame_during_protection);
+-	DEBUGFS_FWSTATS_ADD(error, null_frame_tx_start);
+-	DEBUGFS_FWSTATS_ADD(error, null_frame_cts_start);
+-	DEBUGFS_FWSTATS_ADD(error, bar_retry);
+-	DEBUGFS_FWSTATS_ADD(error, num_frame_cts_nul_flid);
+-	DEBUGFS_FWSTATS_ADD(error, tx_abort_failure);
+-	DEBUGFS_FWSTATS_ADD(error, tx_resume_failure);
+-	DEBUGFS_FWSTATS_ADD(error, rx_cmplt_db_overflow_cnt);
+-	DEBUGFS_FWSTATS_ADD(error, elp_while_rx_exch);
+-	DEBUGFS_FWSTATS_ADD(error, elp_while_tx_exch);
+-	DEBUGFS_FWSTATS_ADD(error, elp_while_tx);
+-	DEBUGFS_FWSTATS_ADD(error, elp_while_nvic_pending);
+-	DEBUGFS_FWSTATS_ADD(error, rx_excessive_frame_len);
+-	DEBUGFS_FWSTATS_ADD(error, burst_mismatch);
+-	DEBUGFS_FWSTATS_ADD(error, tbc_exch_mismatch);
+-
+-	DEBUGFS_FWSTATS_ADD(tx, tx_prepared_descs);
+-	DEBUGFS_FWSTATS_ADD(tx, tx_cmplt);
+-	DEBUGFS_FWSTATS_ADD(tx, tx_template_prepared);
+-	DEBUGFS_FWSTATS_ADD(tx, tx_data_prepared);
+-	DEBUGFS_FWSTATS_ADD(tx, tx_template_programmed);
+-	DEBUGFS_FWSTATS_ADD(tx, tx_data_programmed);
+-	DEBUGFS_FWSTATS_ADD(tx, tx_burst_programmed);
+-	DEBUGFS_FWSTATS_ADD(tx, tx_starts);
+-	DEBUGFS_FWSTATS_ADD(tx, tx_stop);
+-	DEBUGFS_FWSTATS_ADD(tx, tx_start_templates);
+-	DEBUGFS_FWSTATS_ADD(tx, tx_start_int_templates);
+-	DEBUGFS_FWSTATS_ADD(tx, tx_start_fw_gen);
+-	DEBUGFS_FWSTATS_ADD(tx, tx_start_data);
+-	DEBUGFS_FWSTATS_ADD(tx, tx_start_null_frame);
+-	DEBUGFS_FWSTATS_ADD(tx, tx_exch);
+-	DEBUGFS_FWSTATS_ADD(tx, tx_retry_template);
+-	DEBUGFS_FWSTATS_ADD(tx, tx_retry_data);
+-	DEBUGFS_FWSTATS_ADD(tx, tx_retry_per_rate);
+-	DEBUGFS_FWSTATS_ADD(tx, tx_exch_pending);
+-	DEBUGFS_FWSTATS_ADD(tx, tx_exch_expiry);
+-	DEBUGFS_FWSTATS_ADD(tx, tx_done_template);
+-	DEBUGFS_FWSTATS_ADD(tx, tx_done_data);
+-	DEBUGFS_FWSTATS_ADD(tx, tx_done_int_template);
+-	DEBUGFS_FWSTATS_ADD(tx, tx_cfe1);
+-	DEBUGFS_FWSTATS_ADD(tx, tx_cfe2);
+-	DEBUGFS_FWSTATS_ADD(tx, frag_called);
+-	DEBUGFS_FWSTATS_ADD(tx, frag_mpdu_alloc_failed);
+-	DEBUGFS_FWSTATS_ADD(tx, frag_init_called);
+-	DEBUGFS_FWSTATS_ADD(tx, frag_in_process_called);
+-	DEBUGFS_FWSTATS_ADD(tx, frag_tkip_called);
+-	DEBUGFS_FWSTATS_ADD(tx, frag_key_not_found);
+-	DEBUGFS_FWSTATS_ADD(tx, frag_need_fragmentation);
+-	DEBUGFS_FWSTATS_ADD(tx, frag_bad_mblk_num);
+-	DEBUGFS_FWSTATS_ADD(tx, frag_failed);
+-	DEBUGFS_FWSTATS_ADD(tx, frag_cache_hit);
+-	DEBUGFS_FWSTATS_ADD(tx, frag_cache_miss);
+-
+-	DEBUGFS_FWSTATS_ADD(rx, rx_beacon_early_term);
+-	DEBUGFS_FWSTATS_ADD(rx, rx_out_of_mpdu_nodes);
+-	DEBUGFS_FWSTATS_ADD(rx, rx_hdr_overflow);
+-	DEBUGFS_FWSTATS_ADD(rx, rx_dropped_frame);
+-	DEBUGFS_FWSTATS_ADD(rx, rx_done);
+-	DEBUGFS_FWSTATS_ADD(rx, rx_defrag);
+-	DEBUGFS_FWSTATS_ADD(rx, rx_defrag_end);
+-	DEBUGFS_FWSTATS_ADD(rx, rx_cmplt);
+-	DEBUGFS_FWSTATS_ADD(rx, rx_pre_complt);
+-	DEBUGFS_FWSTATS_ADD(rx, rx_cmplt_task);
+-	DEBUGFS_FWSTATS_ADD(rx, rx_phy_hdr);
+-	DEBUGFS_FWSTATS_ADD(rx, rx_timeout);
+-	DEBUGFS_FWSTATS_ADD(rx, rx_rts_timeout);
+-	DEBUGFS_FWSTATS_ADD(rx, rx_timeout_wa);
+-	DEBUGFS_FWSTATS_ADD(rx, defrag_called);
+-	DEBUGFS_FWSTATS_ADD(rx, defrag_init_called);
+-	DEBUGFS_FWSTATS_ADD(rx, defrag_in_process_called);
+-	DEBUGFS_FWSTATS_ADD(rx, defrag_tkip_called);
+-	DEBUGFS_FWSTATS_ADD(rx, defrag_need_defrag);
+-	DEBUGFS_FWSTATS_ADD(rx, defrag_decrypt_failed);
+-	DEBUGFS_FWSTATS_ADD(rx, decrypt_key_not_found);
+-	DEBUGFS_FWSTATS_ADD(rx, defrag_need_decrypt);
+-	DEBUGFS_FWSTATS_ADD(rx, rx_tkip_replays);
+-	DEBUGFS_FWSTATS_ADD(rx, rx_xfr);
+-
+-	DEBUGFS_FWSTATS_ADD(isr, irqs);
+-
+-	DEBUGFS_FWSTATS_ADD(pwr, missing_bcns_cnt);
+-	DEBUGFS_FWSTATS_ADD(pwr, rcvd_bcns_cnt);
+-	DEBUGFS_FWSTATS_ADD(pwr, connection_out_of_sync);
+-	DEBUGFS_FWSTATS_ADD(pwr, cont_miss_bcns_spread);
+-	DEBUGFS_FWSTATS_ADD(pwr, rcvd_awake_bcns_cnt);
+-	DEBUGFS_FWSTATS_ADD(pwr, sleep_time_count);
+-	DEBUGFS_FWSTATS_ADD(pwr, sleep_time_avg);
+-	DEBUGFS_FWSTATS_ADD(pwr, sleep_cycle_avg);
+-	DEBUGFS_FWSTATS_ADD(pwr, sleep_percent);
+-	DEBUGFS_FWSTATS_ADD(pwr, ap_sleep_active_conf);
+-	DEBUGFS_FWSTATS_ADD(pwr, ap_sleep_user_conf);
+-	DEBUGFS_FWSTATS_ADD(pwr, ap_sleep_counter);
+-
+-	DEBUGFS_FWSTATS_ADD(rx_filter, beacon_filter);
+-	DEBUGFS_FWSTATS_ADD(rx_filter, arp_filter);
+-	DEBUGFS_FWSTATS_ADD(rx_filter, mc_filter);
+-	DEBUGFS_FWSTATS_ADD(rx_filter, dup_filter);
+-	DEBUGFS_FWSTATS_ADD(rx_filter, data_filter);
+-	DEBUGFS_FWSTATS_ADD(rx_filter, ibss_filter);
+-	DEBUGFS_FWSTATS_ADD(rx_filter, protection_filter);
+-	DEBUGFS_FWSTATS_ADD(rx_filter, accum_arp_pend_requests);
+-	DEBUGFS_FWSTATS_ADD(rx_filter, max_arp_queue_dep);
+-
+-	DEBUGFS_FWSTATS_ADD(rx_rate, rx_frames_per_rates);
+-
+-	DEBUGFS_FWSTATS_ADD(aggr_size, tx_agg_rate);
+-	DEBUGFS_FWSTATS_ADD(aggr_size, tx_agg_len);
+-	DEBUGFS_FWSTATS_ADD(aggr_size, rx_size);
+-
+-	DEBUGFS_FWSTATS_ADD(pipeline, hs_tx_stat_fifo_int);
+-	DEBUGFS_FWSTATS_ADD(pipeline, enc_tx_stat_fifo_int);
+-	DEBUGFS_FWSTATS_ADD(pipeline, enc_rx_stat_fifo_int);
+-	DEBUGFS_FWSTATS_ADD(pipeline, rx_complete_stat_fifo_int);
+-	DEBUGFS_FWSTATS_ADD(pipeline, pre_proc_swi);
+-	DEBUGFS_FWSTATS_ADD(pipeline, post_proc_swi);
+-	DEBUGFS_FWSTATS_ADD(pipeline, sec_frag_swi);
+-	DEBUGFS_FWSTATS_ADD(pipeline, pre_to_defrag_swi);
+-	DEBUGFS_FWSTATS_ADD(pipeline, defrag_to_rx_xfer_swi);
+-	DEBUGFS_FWSTATS_ADD(pipeline, dec_packet_in);
+-	DEBUGFS_FWSTATS_ADD(pipeline, dec_packet_in_fifo_full);
+-	DEBUGFS_FWSTATS_ADD(pipeline, dec_packet_out);
+-	DEBUGFS_FWSTATS_ADD(pipeline, pipeline_fifo_full);
+-
+-	DEBUGFS_FWSTATS_ADD(diversity, num_of_packets_per_ant);
+-	DEBUGFS_FWSTATS_ADD(diversity, total_num_of_toggles);
+-
+-	DEBUGFS_FWSTATS_ADD(thermal, irq_thr_low);
+-	DEBUGFS_FWSTATS_ADD(thermal, irq_thr_high);
+-	DEBUGFS_FWSTATS_ADD(thermal, tx_stop);
+-	DEBUGFS_FWSTATS_ADD(thermal, tx_resume);
+-	DEBUGFS_FWSTATS_ADD(thermal, false_irq);
+-	DEBUGFS_FWSTATS_ADD(thermal, adc_source_unexpected);
+-
+-	DEBUGFS_FWSTATS_ADD(calib, fail_count);
+-
+-	DEBUGFS_FWSTATS_ADD(calib, calib_count);
+-
+-	DEBUGFS_FWSTATS_ADD(roaming, rssi_level);
+-
+-	DEBUGFS_FWSTATS_ADD(dfs, num_of_radar_detections);
+ 
+ 	DEBUGFS_ADD(conf, moddir);
+ 	DEBUGFS_ADD(radar_detection, moddir);
+diff --git a/drivers/net/wireless/ti/wl18xx/main.c b/drivers/net/wireless/ti/wl18xx/main.c
+index d087d9c72f91..8bfb8358823d 100644
+--- a/drivers/net/wireless/ti/wl18xx/main.c
++++ b/drivers/net/wireless/ti/wl18xx/main.c
+@@ -1952,7 +1952,6 @@ static int wl18xx_setup(struct wl1271 *wl)
+ 	wl->hw_min_ht_rate = WL18XX_CONF_HW_RXTX_RATE_MCS0;
+ 	wl->fw_status_len = sizeof(struct wl18xx_fw_status);
+ 	wl->fw_status_priv_len = sizeof(struct wl18xx_fw_status_priv);
+-	wl->stats.fw_stats_len = sizeof(struct wl18xx_acx_statistics);
+ 	wl->static_data_priv_len = sizeof(struct wl18xx_static_data_priv);
+ 
+ 	if (num_rx_desc_param != -1)
+
+-- 
+2.56.0
 
 
