@@ -1,92 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794552411;
-	b=weBCEkUk83U/nnl/23Qi9wUjDt8NOJBkl49mqRuiogqlX3hQAJ3zPOmhjSyZ5ymo8P/Y
-	 Nw8swX6QzyEzivOrEt57XYsVeBdHyuEKCI9Y5smt4sUx9JZVAjsN2k94kYxoV8VrPaapI
-	 NRHbgABWtwTEp3MzZavLGyLNNhLUYCUs04C2nBNE7/ZtVV5Zy1Q+KXqqJ0RPpHoW4zc2Q
-	 iRRwfX6v0iNxjsHKm858c49o3ABJXvjKD4DUvwtuiNd1Y0GW892UuTH7FR9asnBcYsNtb
-	 lnxYuw1I8hFyCgvJYGPvqOML5eznTio42wOHnQetJ7NU+iz0ckoQh+T2uGYGm/9RcBQ==
+	t=1794552480;
+	b=XKaDPFMcebmBuOEAUCaWOYZUjZaL4OKdXkEpyMToZMlQI3sioixoZ4327SzLVQzZuE0O
+	 zMQKyZHGj2NY7orlCDrPgmKaXxwiXSkcp7jKJUEWtK/DG/g8wxH6rj8XwhAML/aHOK4px
+	 FC3Cusc9jafLz/AmgHV8begY1cmcEsQBopWH7V7ZtxY912GS3dJJwh9rIJsMjXOZ/80rJ
+	 ZSwpQ6k7sd8oih54GiGIBvQC4VxVBKIg1gEuD7At5N+pLuvbTrS6NCrq2UVfAtRkmS3yk
+	 82tQiWKGfpHOOzL/q/I6DZVzqFCzsZMUE3CMiV/H4DEh+qCA8Hkvyzigseq184gbRKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794552411;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=GTUBLPeqm9O6jPD8kLy/taX+gmnNGDm5WEYH9XnBy0M=;
-	b=uTndVoXdGsEpeWpqUwhuYrJfWco6nTzeHUy6DBlrbWYdQrtUbRUDOH+FiE5s7tnVO/vL
-	 Kg8zJXu0kxiwK2/JXRaO0ab8LQ/Uga3Lv+nIdjCgqbfoRDkGSwTxK0b0lTWxRyi09VGGR
-	 LZ7dUogjiPWE6cwHcOTrWl92PCJLAk99TsEdKnsITTg2G8xJ0DXIZcGzPwp9DKI6LdrPb
-	 m4CqW2j+y87jh2KhHB9anYNN3GP0ljKqm5K+oNgGhdqQCf9O5PXbyBBEjZ5J9ptdTF4+R
-	 hMfpnrqtovUIbySLhKuBuskRdAMV85G3K3fiOqi2O8RL30NqdDDh7flgDQJ7IQ3s6IQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794552480;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=2V+tV4ewaynofE8kPco4QPP/Avu9AgLsEkRfsCohWsI=;
+	b=142WiTD4BRMgA6iB+Z+Bn+rDWo9aRHe3coPMyV4+h8q01tflnqcNwUqoJUTX4m9uBZAZ
+	 /KKqdK/Jx1BWZ8y5WBI3LS4dEy8xjn2+nONDaFT7JIpufHIy6eTZ8uuFZp4o1UwcZQvEu
+	 1auJR4Z3t8v5zJa4G7Rjw1X8hraZmlWQKyYg9i8WZNAfauAD5VYuYBD8EmjIMu/R36yw/
+	 yJYmAhtraUFCY5RUZ2i0IfbWqP12pfXz9eO3gi6HjnpxB/pgM0UUf7X+bcE/N5GFXxoTa
+	 x9W1aiBrfoyr2TsV+zYo4cKMmTGLZWx/Oq92ri2JzOggk5V6l72Y2iQY7TmvtJiUW7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="WT++/oA0";
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB7D1606A33A
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:46:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB7D1606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=sCJ9eEuX;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 869A2606A321
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:47:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 869A2606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WT++/oA0
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so3919125e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:46:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794552409; x=1795157209; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GTUBLPeqm9O6jPD8kLy/taX+gmnNGDm5WEYH9XnBy0M=;
-        b=WT++/oA0vxnctUW92478QUirej1tXwpX3z2mO4oGFC/lk9QdCKVL71ewazttEdstdz
-         DisQtY+tSVq39VuVseV9i591FItGuFQnWR3ojwY2xN75+WB88fReanrjvTcQ4F46Qj3B
-         MKgyloNwwjBAILm6KqWQoNSEgobuhfegs+Kf0tr/V5gFiP8RtSKLtMjEmvFlJRqodZW5
-         81Lz4Qjt8Rn4WizeCeHOtlnb0ZYjUmi3LBx/AojsSkjP8oW6Iu4nb7LyZClpt8WGvIYA
-         0fFSKBtVJaDAcc1wgz/6p1oV4gL5s8b0sDXuQDPocJ0QHJasrBq8ZtM937YMlYHrklFb
-         BtQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794552409; x=1795157209;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GTUBLPeqm9O6jPD8kLy/taX+gmnNGDm5WEYH9XnBy0M=;
-        b=OnujDA3Wn4mtwr/rBEp1jwmujLwaVfWucRVelj1P7cxDtr62Ew8UyDpymj5QvGIx1+
-         KAmLDwywTaX99VX9hvRknT+dbVovC2vJJnuTrubq/8tynnYyXMuiFhnHghAqNDX/h6kh
-         X2ycP5NJ/xaylhB/ob93BFtBbjgSCWn4YGN1IlgmOqc83A4aEE6hcik6iAPnPxDlnTZZ
-         zq1C0Ev3e7ZbjVfIIwPKa4y3lgPbYOE6B9mLgMi+nRMvECWE1fN31Pv3HrV8sxfXQ0kc
-         gu7QOtgB1hgxaC1t5lgvx/V4Eum05ZD1blPSukos0ngavjvBHiVC2jym/xebuk3nR+lh
-         n39w==
-X-Forwarded-Encrypted: i=1; AL+hErGpLu48FGT0lQfcd7zhuR9GzAoy+BH6xKlriPQm/1NzzttRoled68tWlq0ILPd7kXE2d77jpu/p8CePlC8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/STG343+fwgQBgCCnHqTrFoAccuFZ+rl3/P7qFwc5nYuhFplAj
-	aNZsiJfyzAeCzQRfv9C7D0hC7TIjDkPTWsNwmxyAmo71fMCJHDqmdCm+
-X-Gm-Gg: AYBFou3LLpQhjFdWNEP8hQOtG5Iiu+sHO8nJABgTEsG0oSfWz/GX8GHGsK7AvWMKiRb
-	1qf0Vw1JXF38mNje5yby4Gx2tShBRehJ5NdkSiaHPGxH9LyRMiQ2Jp1REwFbNjYVsQ26spJy4E+
-	5/pR47VhDe0lRADGopk//FrbK+7ppui1ttp1FVuzRBsSYnhoaOXSJh29u6086FqYVYQvujKd7jJ
-	91pamfbPvWBurr0D9WXsaGRrB8G1GquLK6kVO5+KDGrsH/fgIs+G9lIEqfNkaC7wPDCQ/v9Mfii
-	yteSlFDaKEocPCqeY/VZvWuBG9nPgViE8HDtkvlDZlJFKxbp6Bb6hFWOs3ByBIVVSALgzGpaZnr
-	8fFiOUiwU3V0IJ+2/qx7TUFOb9vNehZa1PlKoMY301ayprVEULwAo/EW8x2zOGZU2RhAEibAmes
-	kV07aE9goinBNzrTRbZ80sIchKm9YnMc5IDwZgNab18EAEO9NwGt8W9ovKmNFLgbWYRwK2JKacX
-	J+NousOd7mqwrQJ5UTfIxSVYGLPaeWnaIT3DqH6iikWFUUs6W2L76GMN5Zvtq1qTLYjRo7W0Gjy
-	Z2xshPeHtIGXBW/l66mr9wxZD5zYZOAw+Q==
-X-Received: by 2002:a05:600c:548b:b0:4a2:1364:252b with SMTP id 5b1f17b1804b1-4bb55ab07c6mr30002985e9.35.1794552408980;
-        Thu, 12 Nov 2026 22:46:48 -0800 (PST)
-Received: from kreach.multipass ([77.37.5.67])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e252f7fsm136496525e9.2.2026.11.12.22.46.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 22:46:48 -0800 (PST)
-From: Jude Gyimah <jude.gyimah87@gmail.com>
-To: perex@perex.cz,
-	tiwai@suse.com
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jude Gyimah <jude.gyimah87@gmail.com>
-Subject: [PATCH] ALSA: aw2-alsa: select SND_PCM
-Date: Fri, 13 Nov 2026 07:46:14 +0100
-Message-ID: <20261113064614.15045-1-jude.gyimah87@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=sCJ9eEuX
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C066616F2;
+	Thu, 12 Nov 2026 22:47:55 -0800 (PST)
+Received: from localhost (a085714.arm.com [10.164.19.28])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0EFBB3F85F;
+	Thu, 12 Nov 2026 22:47:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794552478; bh=5i7fDyuQrBPfqbfudFwvrfilL8nz8d+trbu034WceBU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=sCJ9eEuXBnkpPB+5xYYSTJZKQIv2FyOza6IduZmLGvxBm/AjRigGwtWQ0bh8UmagQ
+	 TbYwfJoXNo+ZuQpa2iGOFgo5MFSasfVKaJiXzi8QljIpJh8j533RoyPp5LSAlsh8rA
+	 wz0XuEGtjc868dTQbbtg4WNXfApl4kI2T02vXAYo=
+Date: Fri, 13 Nov 2026 12:17:55 +0530
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: linux-arm-kernel@lists.infradead.org, catalin.marinas@arm.com, 
+	will@kernel.org
+Cc: Ryan Roberts <ryan.roberts@arm.com>, 
+	Mark Rutland <mark.rutland@arm.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Linu Cherian <linu.cherian@arm.com>, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH V4 0/4] arm64/mm: Convert pgtable READ_ONCE() as
+ pxdp_get()
+Message-ID: <ikp346hhtfkswk4gabydkaxgtuvoygrj75clezzv25r2j7t6gz@q32fppupesvt>
+References: <20261105043403.3326445-1-anshuman.khandual@arm.com>
+ <vtaekdnpxd5avhpv3hlmeswwq5raf57ila2qyilxvddu3w5nnq@lkenzauzv7hy>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,47 +65,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <vtaekdnpxd5avhpv3hlmeswwq5raf57ila2qyilxvddu3w5nnq@lkenzauzv7hy>
 
-Several stanzas in sound/pci/Kconfig select SND_PCM.
-SND_AW2 selects nothing at all.
+On Fri, Nov 13, 2026 at 08:58:51AM +0530, Anshuman Khandual wrote:
+> On Thu, Nov 05, 2026 at 10:03:59AM +0530, Anshuman Khandual wrote:
+> > Route READ_ONCE() accesses on pgtable entries via level specific generic MM
+> > pxdp_get() helpers which platforms could then override when required. These
+> > accessors on arm64, will help in ensuring page table accesses are performed
+> > in an atomic manner while reading 128 bit page table entries later. But for
+> > now they just default to READ_ONCE(), thus preserving existing behaviour on
+> > current D64 translation a well.
+> > 
+> > This is similar to generic MM where all atomic accesses have already been
+> > converted from READ_ONCE() into pgtable level specific accessors.
+> > 
+> > These are preparatory patches for D128 enablement, although standing their
+> > own for D64 translation as well. These patches are split from earlier D128
+> > V1 series. There are no functional changes here, and besides mm kselftests
+> > do not show any regression.
+> > 
+> > https://lore.kernel.org/linux-mm/20260729122452.3797443-1-anshuman.khandual@arm.com/
+> > 
+> > This series applies on v7.4-rc1 and have been hosted below for reference.
+> > 
+> > git@git.gitlab.arm.com:linux-arm/linux-anshuman.git (arm64_pxdp_get_v4)
+> > 
+> > Changes in V4:
+> > 
+> > - Dropped all pxdp_get() platform overrides per Catalin
+> > - Moved pmdp_test_and_clear_young() and [pud|p4d]_offset[_phys]()
+> >   helpers inside arch/arm64/mm/mmu.c to avoid build problems
+> > - Updated all commit messages as required
+> 
+> This series has run into some KASAN fault issues during boot with 5 level
+> pgtables but also unlike Sashio suggestions these would require more code
+> churn to fix. Please find the details below.
+> 
+> https://lore.kernel.org/all/ohyhflzuoxdemccemutoosmj5hsfwylrlt6tvnyehulerk7gf3@ada6wu4zrzkp/
+> 
+> NOTE: somehow Sashiko had dropped LAKML from the thread although it shows
+> up in MM list.
+> 
+> Given the above scenario, I would suggest falling back on the V3 series,
+> that defined and override pxdp_get() helpers for arm64 platform. Although
+> similar to generic MM default fallback, they prevented code movement into
+> arch/arm64/mm/mmu.c file causing these KASAN issues in the first place.
+> 
+> https://lore.kernel.org/all/20260924062214.1635078-1-anshuman.khandual@arm.com/
+> 
+> V3 series apples cleanly, builds, boots and also clears MM selftests on
+> v7.4-rc2 as well.
 
-aw2-alsa calls snd_pcm_new, which sound/core/pcm.c provides under SND_PCM.
+The following upstream commit had changed pxdp_get() arguments as 'const'
+(since V3 was posted) which would now require similar changes to be made
+in all platform overrides for pxdp_get().
 
-  aw2-alsa.c:(.text+0x554): undefined reference to `snd_pcm_new'
+48bd5dc504cc ("constify arguments in default pxdp_get()")
 
-4 symbols are undefined in all.
+Hence will repost V3 series as V5 after changing the arguments as 'const
+pgprot_t *' if there are no other conerns.
 
-The driver can be built into vmlinux while SND_PCM is a module, in which
-case the symbols are not there at link time.
-
-Select rather than depend on: SND_PCM has no prompt of its own and is only
-ever enabled by a select, so a depends on would leave SND_AW2
-unselectable.
-
-Reproduced on v7.3, arm64, with CONFIG_SND_AW2=y and CONFIG_SND_PCM=m.
-
-Found with kreach, a static check that compares what Kconfig allows
-against the symbols the compiled objects actually reference.
-
-Fixes: 98f2a97f207a ("[ALSA] Emagic Audiowerk 2 ALSA driver.")
-Signed-off-by: Jude Gyimah <jude.gyimah87@gmail.com>
----
- sound/pci/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/sound/pci/Kconfig b/sound/pci/Kconfig
-index 6366f72b3667..9c192d51ff44 100644
---- a/sound/pci/Kconfig
-+++ b/sound/pci/Kconfig
-@@ -141,6 +141,7 @@ config SND_AU8830
- 
- config SND_AW2
- 	tristate "Emagic Audiowerk 2"
-+	select SND_PCM
- 	help
- 	  Say Y here to include support for Emagic Audiowerk 2 soundcards.
- 
--- 
-2.43.0
-
+> 
+> > 
+> > Changes in V3:
+> > 
+> > https://lore.kernel.org/all/20260924062214.1635078-1-anshuman.khandual@arm.com/
+> > 
+> > - Added overrides for pxdp_get() and replaced remaining READ_ONCE()
+> > - Updated all commit messages as required
+> > - Dropped previous tags
+> > 
+> > Changes in V2:
+> > 
+> > https://lore.kernel.org/all/20260922061638.3967467-1-anshuman.khandual@arm.com/
+> > 
+> > - Rebased on v7.3-rc4 along with all latest dependencies
+> > - Updated commit messages per Ryan
+> > - Added tags from Ryan
+> > 
+> > Changes in V1:
+> > 
+> > https://lore.kernel.org/all/20260903060657.2717457-1-anshuman.khandual@arm.com/
+> > 
+> > Cc: Catalin Marinas <catalin.marinas@arm.com>
+> > Cc: Will Deacon <will@kernel.org>
+> > Cc: Ryan Roberts <ryan.roberts@arm.com>
+> > Cc: Mark Rutland <mark.rutland@arm.com>
+> > Cc: Lorenzo Stoakes <ljs@kernel.org>
+> > Cc: Andrew Morton <akpm@linux-foundation.org>
+> > Cc: David Hildenbrand <david@kernel.org>
+> > Cc: Mike Rapoport <rppt@kernel.org>
+> > Cc: Linu Cherian <linu.cherian@arm.com>
+> > Cc: linux-arm-kernel@lists.infradead.org
+> > Cc: linux-kernel@vger.kernel.org
+> > Cc: linux-mm@kvack.org
+> > 
+> > Anshuman Khandual (4):
+> >   arm64/mm: Use pmdp_get() for PMD accesses
+> >   arm64/mm: Use pudp_get() for PUD accesses
+> >   arm64/mm: Use p4dp_get() for P4D accesses
+> >   arm64/mm: Use pgdp_get() for PGD accesses
+> > 
+> >  arch/arm64/include/asm/pgtable.h | 38 +++----------
+> >  arch/arm64/mm/fault.c            |  8 +--
+> >  arch/arm64/mm/fixmap.c           |  6 +-
+> >  arch/arm64/mm/hugetlbpage.c      | 10 ++--
+> >  arch/arm64/mm/kasan_init.c       | 18 +++---
+> >  arch/arm64/mm/mmu.c              | 97 ++++++++++++++++++++++----------
+> >  arch/arm64/mm/pageattr.c         |  8 +--
+> >  arch/arm64/mm/trans_pgd.c        | 14 ++---
+> >  8 files changed, 108 insertions(+), 91 deletions(-)
+> > 
+> > -- 
+> > 2.43.0
+> > 
