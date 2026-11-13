@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794577309;
-	b=25stamU3NIxG2l99TIyonVCDWrwJoMHgDRg6U0vCABpTdzoJOdzAoEYxgzl+47MhaEVp
-	 pSpfty+uysHymyNmWW5I5idLHNihINxhZVMGNTbo2e5+Vez6uDmTi3dUfwELCiPkyhgxd
-	 HQbnRNtDA+cih6GQB9HlZ/P3sJRyb4bvpi/TjBKC0qNq5AM6xdF/gT4IrlMEkmclFQVZF
-	 inClMfdeuG3FyqxLcBiVtNcdD9f/0rEAJd5GxOKERTKYgWv1yFDxE0iEAlOpoLbWbJ4xM
-	 w2fA4q0W8MZG2YdP4uN246yhAWg2JnqLLZnCLqslH2SZQVcT2gvBaxR1Zn9cgInr/7Q==
+	t=1794577311;
+	b=aOxdHCEiymtguKELMHekZdMWite944xU/RCgSeg/9XgXxbjZ/AUh+muEemGJCpgo3mI1
+	 9Vg+b1r3G0m6/xl/Uo7prh3V6weNpHjvIamMAccc1nFmGB2D0lEijIVvXhSrPSuBeDzLH
+	 4vRst1uHsPN4D0E8dHfjYOtHF45dyST7j4LEN29HV/8lmSig7ivdp10OyEabUf25wc1eG
+	 uT0XIpx6AIpTa5iBWpQ6HVQD8P7RMikwFI+8jRUjBln/38Jpv79K4CrNQdyfqNOfbX3aE
+	 hZV6R+6ywT+IsxltWXCJO8f3g7D6SkqmJSw5x0bZlSwS1DAGadEglaFU0UzQmISSvzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794577309;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794577311;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=1qdXLDixObaSZ2/WCIJj1BuYdNawvlBmhGgHCHla1gc=;
-	b=rH31H5wRyUf2RQaVApBbPGJxo9xFqsINqcax2gZFIH12+KcZvCHBUUYY55UIutlSSAZ6
-	 Z6v8DaVr00C1269VukPA/TnqAZ7P2DfWDsbaD8p+5zS6lEqG7YluM39sOJ+gMrcv+c8dL
-	 RRlInlVTXufQnT+2jFha4x1nOgMlhmro0y58bRe3X/9MT48hlGXEJGPm+cIpvMX2XKe4G
-	 9KorrTJ+TcW9Kko/81pEQk3jhfUd5Ka1Hi2AoXHvazCaIeUVv2GFK6IG4RNnkrD1c9H7h
-	 gplarmJBqIcoOIkqOu8Wk5lz6/2oCDbo7JjiJo7io8or2Jmz+Ht/JpJyck/gb6qNrGA==
+	bh=rRzxZ7iwIOBiePG4SAdV6CBwDY3sN40DF+M08C7qQ2Q=;
+	b=JkIGwCPiq9DjRV8PSsYbHDXXbZj5tu5hPqizwS+GMfnImxE9GZMKHXiinX58Km8zLBQr
+	 rFk+KArdZmTVY3iqqwM+aL50HH6XtiVgriW9JXZ8jLA5wUkf0UfrWvbG0sK8rMvqwbaEt
+	 LC9WBZ4Koo8dEkSRuZHFtZmJvnkjL/s7P16e9JNR7ClH+h8NKKFbkjDAPKnOZjkiH8HsK
+	 LK2iBtKte4IU3Dpg0YwiIPLaAlpgbOjLXPLYOh4oi/pNVTrx5Es5X0oDIVUfsLe+EW9Ya
+	 zqPKzjIEYOCE4LuLA3VUphRLrGfKcVuJ2EeelRHAu//d/wiD6/OZLE1ATNQQYuNG1eQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="jEG/n34B";
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=jUACTdpg;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 227EC606A894
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:41:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 227EC606A894
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75D80606A890
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:41:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75D80606A890
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=jEG/n34B
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=jUACTdpg
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id EACF4C79A9F;
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 430F71A1655;
 	Fri, 13 Nov 2026 13:41:49 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 4D8A360015;
-	Fri, 13 Nov 2026 13:41:47 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D8BDB11BC1D61;
-	Fri, 13 Nov 2026 14:41:43 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 10E3660015;
+	Fri, 13 Nov 2026 13:41:49 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 324EF11BC1D6A;
+	Fri, 13 Nov 2026 14:41:46 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794577305; h=from:subject:date:message-id:to:cc:mime-version:
+	t=1794577308; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=1qdXLDixObaSZ2/WCIJj1BuYdNawvlBmhGgHCHla1gc=;
-	b=jEG/n34BWhUxmxizHU+OPKl1Wntaqj+5fVi3wxtaqMXJvjuMbruPg1yD/u6uwZBgHu287A
-	3bbAsvU7EB3+1Srp1U1Th0ZJfWiCXNYf5g+btnyi3aHQeFwbmi47WEk2FQ5mYGMlcDhPO3
-	nDQvqcq4HCrtPulcIQNAdi3DGmqTyzegkhOiC0heymuY60u0TGH7WaRbgfgtebNcD+uVN9
-	v+Mloulp5Dcxoi2lTqsJIrHxynaRPtF2vjgcuYeG0JdoQCLtWETSflGAGf+EJvTm0ydhKZ
-	2YO5CTBdAOMkA8RIrD+UiwGnMFrhmpacSmUGCnfGvi1hhn9hIgVKpC082m9blA==
+	bh=rRzxZ7iwIOBiePG4SAdV6CBwDY3sN40DF+M08C7qQ2Q=;
+	b=jUACTdpg3zWvRaZ7tFlqW/ZXczkhs5gQqFb+6mEsqvzJGbrRmxxLTgjHarRNBJ8VyZsoRM
+	+3w6YBu2zNYc9a8EhYbn3HncUJmOKIF120cFPTr2XnRCoJsrVzf9scMWE+aJFWBqZ5zqI2
+	4xu8ohvMCig1fvpUblg3jkYaSwS5QYxVyC49c/LuYzjwiVJ6qfdobidIwcpkHMPOyUncZC
+	OK15VHzmir5YwryxFB5zVm1iaOJrSxHzXm14F/H1vMTO4sRMIoTwAqoMQJn892s369uohq
+	TGLwdUpyn6qRDFZJ0MocIPBwt6U7wMQGM1hc/A9ZINRFACH6TiL0p0QNN5VqRw==
 From: Paul Cercueil <paul.cercueil@bootlin.com>
 To: Robert Richter <rric@kernel.org>,
 	Andi Shyti <andi.shyti@kernel.org>
@@ -60,11 +60,10 @@ Cc: linux-i2c@vger.kernel.org,
 	Umesh Kumar <ukumar@marvell.com>,
 	Shashank Gupta <shashankg@marvell.com>,
 	Tanmay Jagdale <tanmay@marvell.com>,
-	stable@vger.kernel.org,
 	Paul Cercueil <paul.cercueil@bootlin.com>
-Subject: [PATCH v2 1/4] i2c: octeon: Fix infinite loop in clock divisor calculation
-Date: Fri, 13 Nov 2026 14:41:25 +0100
-Message-ID: <20261113134128.58826-2-paul.cercueil@bootlin.com>
+Subject: [PATCH v2 2/4] i2c: octeon: Add error state recovery
+Date: Fri, 13 Nov 2026 14:41:26 +0100
+Message-ID: <20261113134128.58826-3-paul.cercueil@bootlin.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261113134128.58826-1-paul.cercueil@bootlin.com>
 References: <20261113134128.58826-1-paul.cercueil@bootlin.com>
@@ -82,44 +81,79 @@ X-Last-TLS-Session-Version: TLSv1.3
 
 From: Tanmay Jagdale <tanmay@marvell.com>
 
-When mdiv_min is unsigned, the signed mdiv_idx variable is cast to
-unsigned as well in the inner loop condition comparison, leading to an
-infinite loop.
+Whenever a Bus Error state occurs, trigger a software recovery to
+attempt to return to a working state.
 
-Fixes: 03240f826b02 ("i2c: thunderx: Support for High speed mode")
-Cc: stable@vger.kernel.org
 Signed-off-by: Tanmay Jagdale <tanmay@marvell.com>
 Co-developed-by: Paul Cercueil <paul.cercueil@bootlin.com>
 Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
 
 ---
 
-v2: New patch
+v2: No change
 ---
- drivers/i2c/busses/i2c-octeon-core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/i2c/busses/i2c-octeon-core.c | 27 ++++++++++++++-------------
+ 1 file changed, 14 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/i2c/busses/i2c-octeon-core.c b/drivers/i2c/busses/i2c-octeon-core.c
-index 93a49e4637ec..85e18ca2410e 100644
+index 85e18ca2410e..c4f80d178c2a 100644
 --- a/drivers/i2c/busses/i2c-octeon-core.c
 +++ b/drivers/i2c/busses/i2c-octeon-core.c
-@@ -823,14 +823,14 @@ int octeon_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num)
- /* calculate and set clock divisors */
- void octeon_i2c_set_clock(struct octeon_i2c *i2c)
- {
--	int tclk, thp_base, inc, thp_idx, mdiv_idx, ndiv_idx, foscl, diff;
-+	int tclk, thp_base, inc, thp_idx, mdiv_idx, mdiv_min, ndiv_idx, foscl, diff;
- 	bool is_plat_otx2;
- 	/*
- 	 * Find divisors to produce target frequency, start with large delta
- 	 * to cover wider range of divisors, note thp = TCLK half period and
- 	 * ds is OSCL output frequency divisor.
- 	 */
--	unsigned int thp, mdiv_min, mdiv = 2, ndiv = 0, ds = 10;
-+	unsigned int thp, mdiv = 2, ndiv = 0, ds = 10;
- 	unsigned int delta_hz = INITIAL_DELTA_HZ;
+@@ -205,6 +205,17 @@ static int octeon_i2c_hlc_wait(struct octeon_i2c *i2c)
+ 	return 0;
+ }
  
- 	is_plat_otx2 = octeon_i2c_is_otx2(to_pci_dev(i2c->dev));
++static int octeon_i2c_recovery(struct octeon_i2c *i2c)
++{
++	int ret;
++
++	ret = i2c_recover_bus(&i2c->adap);
++	if (ret)
++		/* recover failed, try hardware re-init */
++		ret = octeon_i2c_init_lowlevel(i2c);
++	return ret;
++}
++
+ static int octeon_i2c_check_status(struct octeon_i2c *i2c, int final_read)
+ {
+ 	u8 stat;
+@@ -265,8 +276,9 @@ static int octeon_i2c_check_status(struct octeon_i2c *i2c, int final_read)
+ 		return -EOPNOTSUPP;
+ 
+ 	case STAT_TXDATA_NAK:
+-	case STAT_BUS_ERROR:
+ 		return -EIO;
++	case STAT_BUS_ERROR:
++		return octeon_i2c_recovery(i2c) ? -EIO : -EAGAIN;
+ 	case STAT_TXADDR_NAK:
+ 	case STAT_RXADDR_NAK:
+ 	case STAT_AD2W_NAK:
+@@ -277,24 +289,13 @@ static int octeon_i2c_check_status(struct octeon_i2c *i2c, int final_read)
+ 		/* Set BUS_MON_RST to reset bus monitor */
+ 		mode |= BUS_MON_RST_MASK;
+ 		octeon_i2c_writeq_flush(mode, i2c->twsi_base + OCTEON_REG_MODE(i2c));
+-		return -EIO;
++		return octeon_i2c_recovery(i2c) ? -EIO : -EAGAIN;
+ 	default:
+ 		dev_err(i2c->dev, "unhandled state: %d\n", stat);
+ 		return -EIO;
+ 	}
+ }
+ 
+-static int octeon_i2c_recovery(struct octeon_i2c *i2c)
+-{
+-	int ret;
+-
+-	ret = i2c_recover_bus(&i2c->adap);
+-	if (ret)
+-		/* recover failed, try hardware re-init */
+-		ret = octeon_i2c_init_lowlevel(i2c);
+-	return ret;
+-}
+-
+ /**
+  * octeon_i2c_start - send START to the bus
+  * @i2c: The struct octeon_i2c
 -- 
 2.47.3
 
