@@ -1,75 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794577866;
-	b=BnotfS1Us0vGPr72Dc6vAL9G902hQMdwRjE/DAQiX7kMXzJzeNNCAhZss14YgfpljmgH
-	 MaKm1OzJzDn5OyiGx33Hs+KwFMRlMJyZTZ3Y5Gw6BpGhCNIU2EuU2hzwj3N0wywB0U02T
-	 9pzpj/iwZvX3342UECgH9kmT7kOnzjfL3nK9GcJ1b2pRbw0VE9bUrxljn9Oun6+kaLYHz
-	 w5UifvjYfgdkTX0lJOTBuXIEjYXArbYNdW1ZbrtkBgHWnNeCWGby6Rlswo+b+lZ+o2wg4
-	 h2mmFFUgnAvM/2sQ1M5msBdeIxblcrJDML9pJUtiuMJRiq4wfchouVbbKZ+G3oiGFkA==
+	t=1794577872;
+	b=o2tCncGEkSWymPmJp4bYmU69S76w3Dp8umpMVaX0ACOC5dUodTlrBK4beWcPrAg6oGWn
+	 JllAQWQ5g2zu5EWYaSovySxOe8R6dxO/4CdkEKFxfy85FBnmDQwA6Es3JiUgeEt+kQvaE
+	 yT7xlY+FGYC2y8s5CxHRdo0g3izgONL7dunqprOj3HBU27p51ekxgF3ohii579hnBDcap
+	 sFGe3JXsfF6iZ3/uLc8eri6fHo7Ka9n1Se4X8siNLyq5lbYX/RUEkLJNQQ+RafqxCc7i7
+	 7PAadu2iXWFUBE+lKzOtBybE8DEFwURmiY8yqzi69RrppFL/t9X9bspYQjy71Xzuxew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794577866;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794577872;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=kXcht9P+JlFAWDjvNBwE3nXsYUOs8z+TyJ2+cP3q9Yw=;
-	b=27bM3JkICrG9CpI7PtSsvODPb2CSDHh5VNE91cQ1zTAux15SbMFVWLlplRLG0TnKGYkF
-	 TBFpYiVO2iOJaGRMNIWD5wE9/HpccHSXkj9NxQ98/effm6nyBGf4IoWauwFHVVPxAfg/E
-	 L9zjftg6Cvf0+G3Xczrs/MT8nTwJIbIVzBaVZXA51EKj1q8arhXjdrzu756N41q5zwWmm
-	 nsbXm5SvgWO+U8dpRJYcvhYb6DWi/9gkMDGhJgYvUpsJZYVGXTS0femoVc8lNLx4Yj+OV
-	 cgnNQK39cDMS6X630+1a5v5azmsdvNNd3rnvDjqR9QzNtwcXDNpIr92Vmrq3qAtNhYg==
+	bh=e7yA3YWoAnnKTfnIvqWXC9kbQySfcwLKR4KGL8avuCM=;
+	b=kg9E4fHEhGQPW10/wxEm9185Ph0brQQp6jxpqy/T+aKcO2ojkaAadabuRwTTISRLDX8l
+	 WdbR/GKETzrfJrj6AaNPDeLKA/4QS2+sKZKxkCooG8eIHYfDOj5c/1nLRbdKtHy84Fam5
+	 pGPa86PK8eKGHKcaBCBjknjrE0g9ZUplbWuELYQFl2wGw/Fw7tr71UZ0JMt4e9r+YOTad
+	 1Klus2dfOvhWAOfFyVT2i1FFqnlHIqiJcwl/u+gKyApR4TQ51A4QYxkNtsrT/tcmzxkOE
+	 Qs+UbuxiZRUhGih+HtBy4Aq2uyt/ibzNNbwAHE1D+OkIASPru0PnoCCiIemE9shp5mA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=omzjmy47;
-	arc=none smtp.remote-ip=209.85.216.70
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=f6FL9RFe;
+	arc=none smtp.remote-ip=209.85.215.197
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D16D7606A32D
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:51:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D16D7606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 688A260A381B
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:51:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 688A260A381B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=omzjmy47
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ac8f449d1bso766094a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:51:05 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=f6FL9RFe
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc4ac5feaa4so652878a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:51:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794577865; x=1795182665; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794577872; x=1795182672; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=kXcht9P+JlFAWDjvNBwE3nXsYUOs8z+TyJ2+cP3q9Yw=;
-        b=omzjmy47L2fSY2Y5fdXegm4426L+6ApFXYiWB6LN1Mc5oWkRVfyCO6E2LgqN9lQ7dL
-         HI1q44cMbtFmX//vHoaDda0vaS6GzVkzcfgAyyv04Lim/nb8G8/nDgjF/u3urE+g3G5+
-         ym63ZUYL3nHosUBKGwMw0gWSJ+fIOhWRwfOSSeNcz832T0OB5usjffeRL3HZd8oLnFE7
-         Hajg1uoCmFMoN5Jg3TPtuCkH7PNd3+9gFHreuhCCRJ0u2CMtGswQpABzbPlJSIZtFVFp
-         y/mBBMgT6z2Jf0yjOlxEAfDVeTs0aVY9li8mGbltauIjwQB/o/KA+tIQV9TizZPHveeu
-         bUHQ==
+        bh=e7yA3YWoAnnKTfnIvqWXC9kbQySfcwLKR4KGL8avuCM=;
+        b=f6FL9RFe9dT5BTTHOxUtFUHctuKpRMPCjvr59NaB2celnu9uvuowEEMYsXUnDFkxmz
+         F780pnluzhvn/Ufb04pZmVsAIAsbVi2yDNhhk0VT4fCBsBSU6IWsk5tAp5QhlDG5FoiO
+         M9geHwQEGdslbJHpDQX+9FNKegbqmb3UiYa9ZIbYLsjDcbeQdKSbnuhsCPyNotH6/NHA
+         GlOefFoaqpARmbRCk8JFLzazJcYPy/7irScXbRXekOmBAqUcKTZIscfgkKkOQxc0QPrE
+         TIpZ4FGZTfiEuipZnTSXNoP4tAB6cKf/stTe6ttxHey0pOGXA7EXM/deyP5PXJLH1Ekz
+         vgIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794577865; x=1795182665;
+        d=1e100.net; s=20260707; t=1794577872; x=1795182672;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=kXcht9P+JlFAWDjvNBwE3nXsYUOs8z+TyJ2+cP3q9Yw=;
-        b=iF5jBw3nwtbhc0oYhMBODsaR1I1XB3cTFa/0Ov21zXgpFaPrPIhmZpBOsMr0hf1sao
-         EManVASMEIMsFluf5Oqf1zCg5H9twhfPt5zNI6BaDOpKbx4lwlE94WT+8dbsRvbtnuGG
-         Wwvkf8fI4eZvLuU1Nbh8kN35K0bisUVxFzTJS6l+pylwWo5mUsLhBM/zNCODd5IazWdf
-         SatKMHKCB8tZNUck1LjBmA/vtLRc+EMCuLmQdD4zshCcD8GLexjNlBCejiYhpT7WnmuA
-         fStJBTZ8PONDciR+Aecqo1F/vhlTu3XjQf00jmEtZDwEOv6GpNDQ8dW3cGLdYjG26kht
-         CyMQ==
-X-Forwarded-Encrypted: i=1; AL+hErE/wIqRUuq1oE+uNin8MuXdTbt4wpuabH0DRTXyah5Pyuu3rcVKoVPJo3HGQyfSJEJXsfmSevpg7+gKBJg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Y3PC9K1LbN98vV7/eMz+bIya9JsMd8UDGXVX8jZY8AcO7Dh1g
-	VLFOan6pMCr6+cNATV46YGg/jijl/saSoy0FLa9Nrez8wtBL0FjbWg8oFRjMk0apoxfSTuo+VQ1
-	5SmfYOg==
-X-Received: from pjbqd6.prod.google.com ([2002:a17:90b:3cc6:b0:3b0:979d:e867])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:5906:b0:3b0:934c:5e41
- with SMTP id 98e67ed59e1d1-3b1b0b4acecmr2199158a91.29.1794577864940; Fri, 13
- Nov 2026 05:51:04 -0800 (PST)
-Date: Fri, 13 Nov 2026 05:47:06 -0800
-In-Reply-To: <eef6bc34bdf7391c5d3eb4b1ba5e97819e22ae8f.1791542392.git.priyankamani2100@gmail.com>
+        bh=e7yA3YWoAnnKTfnIvqWXC9kbQySfcwLKR4KGL8avuCM=;
+        b=wNEtQQxpzZUvaYJHTX+jdjS4+6iM7wgjLbezviKOGh6m5sEyryYRrO46Knizk7uCh1
+         iarWWjehzy7a1cN8VVJxPWnU5RG8LNykGNlZcRZhih0XDwtAPNYO4AKmMEi2mnAP1Bmn
+         x36FxVh4FGHVrRGHozQqblyeNaObu3gb6peQbemq1IiQE8TE+9nVMW5gtloBskeTiLYg
+         4TtelZPSXBLs5AsZnSeXL42U+MfN6tlwI/ViHoIUZ4GrLQeEmtB1sPXXstBLHSw1zXj8
+         8bZ/i3K7MludUcyHeWGjHpENHRRsBFRjFbQKcwlzz7sBX79Rxc4WKVyyR+LL89CgsJ2b
+         xmMA==
+X-Forwarded-Encrypted: i=1; AL+hErFLEzBS9bE02xJSukHiGliWfd0k32WlWh6Gsl7GaUnaPw5/MbHlQ7hYXRgjlqwUHc1fUCqsT4cbdyjAzJ0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8CP9B9uKNMvfGdDPyuQZJMFq7qjE6ZHFQgp0QsgrNQ4E0sKyVk
+	LKIS90sGnR8ct9Cl210pIgclzTNmY+KXq3HcemWMhxZ4yeRaRSqF6LSUBqP1NFgDLQmnWzJ0mlg
+	kZP6hsQ==
+X-Received: from pglf35.prod.google.com ([2002:a63:1023:0:b0:cd6:23e7:ad7a])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:7e0c:b0:3eb:7346:7662
+ with SMTP id adf61e73a8af0-3f7a85d9db6mr1963054637.64.1794577871573; Fri, 13
+ Nov 2026 05:51:11 -0800 (PST)
+Date: Fri, 13 Nov 2026 05:47:08 -0800
+In-Reply-To: <20261110203330.11789-1-seanjc@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,35 +79,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-References: <eef6bc34bdf7391c5d3eb4b1ba5e97819e22ae8f.1791542392.git.priyankamani2100@gmail.com>
+References: <20261110203330.11789-1-seanjc@google.com>
 X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <179441834884.81867.15216676468170040644.b4-ty@b4>
-Subject: Re: [PATCH] KVM: selftests: Fix ndata size check in test_mmio_during_vectoring
+Message-ID: <179441798938.78395.321265981492593275.b4-ty@b4>
+Subject: Re: [PATCH] KVM: selftests: Override memmove() to prevent "magic"
+ references to memcpy()
 From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Priyanka Mani <priyankamani2100@gmail.com>
-Cc: Shuah Khan <shuah@kernel.org>, Ivan Orlov <iorlov@amazon.com>, kvm@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="utf-8"
 
-On Fri, 09 Oct 2026 11:30:17 +0000, Priyanka Mani wrote:
-> test_mmio_during_vectoring() verifies that KVM reports the faulting GPA in
-> run->internal.data[3] when an emulated MMIO access occurs during event
-> vectoring.  kvm_prepare_event_vectoring_exit() always fills five entries
-> (info2, reason, info1, gpa, last_vmentry_cpu), i.e. internal.ndata is 5.
+On Tue, 10 Nov 2026 12:33:30 -0800, Sean Christopherson wrote:
+> Override memmove() along with the other string operations to prevent the
+> compiler from generating a reference to the built-in memcpy() when using
+> musl as the libc with a static build, which utlimately results in an error
+> during linking due to a duplicate memcpy symbol:
 > 
-> The test, however, checks "ndata != 4" before dereferencing data[3].  That
-> predicate does not actually validate the array size: it passes for ndata ==
-> 3, where data[3] is out of bounds yet is read just below, and it spuriously
-> fails if ndata were ever exactly 4.  It only happens to work today because
-> KVM returns 5.
+>   ld.lld: error: duplicate symbol: memcpy
+>   >>> defined at string_override.c:23 (lib/string_override.c:23)
+>   >>>            $BUILD/build/selftests/c/lib/string_override.o:(memcpy)
+>   >>> defined at memcpy.lo:(.text+0x0) in archive $BUILD/build/musl/lib/libc.a
+>   clang: error: linker command failed with exit code 1 (use -v to see invocation)
+>   make: *** [Makefile.kvm:382: $BUILD/build/selftests/c/demand_paging_test] Error 1
 > 
 > [...]
 
 Applied to kvm-x86 selftests, thanks!
 
-[1/1] KVM: selftests: Fix ndata size check in test_mmio_during_vectoring
-      https://github.com/kvm-x86/linux/commit/509f344f9480
+[1/1] KVM: selftests: Override memmove() to prevent "magic" references to memcpy()
+      https://github.com/kvm-x86/linux/commit/5a588219fe45
 
 --
 https://github.com/kvm-x86/linux/tree/next
