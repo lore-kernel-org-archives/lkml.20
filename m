@@ -1,120 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794606579;
-	b=0W+anMQ+JTIBX695csUZi1mgso+/I9hQl8x25nQNjwu38VSbVSLnTIfn3l/Z0+yR05Ej
-	 pGsHIdeqVW/NgjNnwh3QxAq9ZdTGl8oPfek9TIzQFhfsFvMKTD1u5dK1H3z5bo5ejld1S
-	 kUgQffBNhpzThga4GKUlLb/KWNNeVynO9uIZYTgl9eiQJv9faZFzl/h1OY+ExuUTFUgz2
-	 PmbLGGJXql7m2YS/DPCW9PcNMwkE07xhHJoxHh5qgecbXrY2TGLb377PbL6xRJr6Aogpd
-	 tf5GDP7blnO8a5memb4UXHlVDlPq93Uj7Dxhhdg4nRd4dwiwqFB8N1yh9NKktCzTAJw==
+	b=pEZDHh2HxM2jiPx2CHfmYI6EnzuHgJfNtZM8gzU/4PzBm4n/HHBogfWULakmetoEiebZ
+	 KFLDLpEqAh2VIY13cuLWrl63HDf34WHzXc8Hp7i+HU1mBuGl/5hXjSAAV0ALoukFvlQ9Y
+	 EDohsq5k37w2tPIwjBTNGZz9b2L1m2SxO61dwLxB5lDUTq8Nl8qRX+2E0SGCVEJft0s3z
+	 rvbaRSxURwNonlLls+21MPq9bVtBer3VnfX0rsEj7LmtPKHkhw0hIXF+HYVDfivVwwStf
+	 frBLNBD4/BiiKutfunOHcprV/CVtag3LSX9ZI8JFyqSiWpCPq1SHWRGGVw2V2rLuioQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794606579;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
-	 MIME-Version;
-	bh=Dlag7MRnimQp/VdUsSYNeNxTfLzNTam8qkTAMMPdLYU=;
-	b=H0UzHdRTPlb9w6U000Qg5tBTyriGMK9FpWo5yX9OwSYsyuppbjY81jIxHpsYsXRslutc
-	 uHaxknoWn94B0+Zq+98WDCMFME9IzQCLnf6EaOuuiAfyt4rk0d/OoZizYLfnwdteiDzm5
-	 W59C2FO1knzkdJugoWJYGN5cJ7PMatUBUmgl1XZaX20nOMCnx1MbqCV8wGgiQnjFjhy76
-	 iHCZ1LMT+1zSuciaUsaPjSXKnjuU/CdMD5KTZmsMYqQduxcpp6bZGpsFF5Ixk81vZ6asN
-	 2dxua39t3Q/y+CsefT2lBA058bJKEJqqFZJjSs1KlKi4r/J2SnhLqtDqEsCSm7RBobg==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=jq86rbtmHCfGTCXyNqVfJhMxh4HVi2BgNiFw4kBONdY=;
+	b=rss1WLpfo6LhekbtsR2CLWTWx0aHTqCxwDniX0aotKQgWBPeCjnfU9PTp41J0Tty4CjY
+	 Jq5RzxIUuj6IBXrdTSwGvC6dDuIc1WfHzYnE6p3Fg474QC2F7CJ685cgvPm9FUh3jSEVX
+	 MT3v8OdKmwYZ6Dh+yNMs4qzxL0xuthWH3LAZaksGt1GWRK4a/n5gxo81/MWrnFvJ3+qJ3
+	 tXB4hAKMa50DeE4Z/7st3VvnnT22DAVpundChHbbX3+q2/+IYMDnn9KNmZCY9LK5bZh3J
+	 lFDh+p9Jf6y1UNVdkwZVndzBowvfFVgqxr381am+dLa8xDE3C/KX2i5BKF89US8/c6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=fxXz9ruH;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=lRioWVEm;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=MRc+sJEo;
+	arc=none smtp.remote-ip=209.85.214.198
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E1EF60A3801
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:49:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E1EF60A3801
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD8560A2639
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:49:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AD8560A2639
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=fxXz9ruH;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=lRioWVEm
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794606576;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Dlag7MRnimQp/VdUsSYNeNxTfLzNTam8qkTAMMPdLYU=;
-	b=fxXz9ruHgrcIYZqgFbdUwHx3ncmqakHZQnegAQohNDmBLmp9ThmM55g+Q/xKUSJ/klduRY
-	PoAlFaQwbvDkiJEwF2R9GvKa9k09/E955iRRD064tN5bJRIAj1NZlrvuoMK9Yy9ZAyprrP
-	b8qKN8RNXGbqgxPTmhzY1ZZ4tqW7POQ=
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com
- [209.85.210.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-57-Kg0724XpNP2pQvCy-RSq1A-1; Fri, 13 Nov 2026 16:49:35 -0500
-X-MC-Unique: Kg0724XpNP2pQvCy-RSq1A-1
-X-Mimecast-MFC-AGG-ID: Kg0724XpNP2pQvCy-RSq1A_1794606574
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-8615bdcc5cfso1949648a34.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:49:35 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=MRc+sJEo
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2e95f8543c9so17869615ad.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:49:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794606574; x=1795211374; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Dlag7MRnimQp/VdUsSYNeNxTfLzNTam8qkTAMMPdLYU=;
-        b=lRioWVEmAanVEmYr9P09LSzVnkES4jrotyxrKBS8/YJbB3iwj/jfsd97sfkJ+Fqi/B
-         PiGWbDCGqZXXIuOaQ/TX2T4DJCCQ+bTHS5aCc2t6r5paNN1wlKcFgAzNbaCS4/KgdbZs
-         302IY8gFJ0GkDnaxeoZlkGJyTxEYT57TZ1HVFTTbqNRyUm9UIY5UCeRvPryzmkO93LAo
-         CspufFPmwklTu5sDDu4JtSHDxjT9iIh3dumszRnPY4iu2jVaBIL/iiRX4P4Nam7sgp59
-         +UxghOZeWyUz23NFypMMbKO5eAgxzII4epjuKfq1UItb0oMUzYQEqqTeJTguHfgN1u2t
-         dIuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794606574; x=1795211374;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1794606578; x=1795211378; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Dlag7MRnimQp/VdUsSYNeNxTfLzNTam8qkTAMMPdLYU=;
-        b=kXY8NnHIHlE+Os90tVhR3vME56ECKU8boNRJMbE4LZkgygpOwtD1ZjfKKEikJzb+T5
-         MMBu8t20ktu4a/JMXJ9fOPq3KstXKDy/nMDeTHxY5dqfTfFEjzzRhvGmvWpGybrSiig9
-         0XmmlKkzIWjEdxEXmlWUnbsS+a4sh257WCtGc8YKkDyQtsdWIaytNQb3gWKFUXwFZO+/
-         lcVA4zlLX7aY7cxDYWTl/ePDjzuqCdvcjoiuTnLKN4xNld4/XBpRHrOCVzvE5LGlOFDa
-         p+FWQFGWCCxxOIUiwsq/VT+X3IWqOoOg6/vsfBvBI2MZRcyUEoRR4tP6A9MV5fI2hIlL
-         XShQ==
-X-Forwarded-Encrypted: i=1; AL+hErGv05Y4/qcDOMg6ZNYw80++TLAuwPpO+w/dJMDHUWh2gMAinX5Gq4YrtKM1uvPiMfFvykq9Ddr2KuLaEpo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9vOciJZefxuJxzjuvj1Sy36Jp/7KLr07hez8T4TvPkJct5Ivo8
-	+fFDlNT2BfRBKTDMbbb7lfmc9ocoUvW6jpgcLbSRKrCOa9PZks7EMHTjfW1AFCyUZw0TwGywRsa
-	z8KFGQe1ZjflzmxisqKKnmE3jDhcqU30gO96ZodISF9SL1T7UZVh0rYSKNrvRBojFIg==
-X-Gm-Gg: AYBFou1+K0+jj/7Z6oAaTeGnQZBNr26QO2kDwQRxIXUhf0uCs77O94cuxN8vyOUr5nT
-	axaFvXpnTffvoXEX2gjLHyU/CtKU3O+FmitGZ7d2sjLv9e55oFKBl+aOSbh7Q9Dfpuv+NM3vgJC
-	BcyaWlssbzoeZs355Xt0lzCVQOMOsYScWdg0v1AS/F6YxcidW5HPrOTD3a/PYm3AKl2lhM//rOf
-	lKiYxLTdzutnnApublaroHn1X9fPpYeSVamZnn40/CleMTOWFwIrNh45Y8pH324Ms8tv+c4pW6I
-	7oZgFdQ2jCVYvJVnWds7X0i6kUu9vRxEv2wQDSfcuA7AX2EXsdqr550HrRtZMkWq/990NK2Whpo
-	OzSbHzi48eIbc6Oqu7VUfZDzXqdXjcrEiW0xGxJFC8928YmSq5eJxKyXvaE6XAIPL+DSLNIHBvq
-	Z7PSi3b3UjgCV74//dHFzR0ZFsuRAx
-X-Received: by 2002:a05:6830:230c:b0:81f:da91:c984 with SMTP id 46e09a7af769-8628984ffd3mr5321301a34.11.1794606574268;
-        Fri, 13 Nov 2026 13:49:34 -0800 (PST)
-X-Received: by 2002:a05:6830:230c:b0:81f:da91:c984 with SMTP id 46e09a7af769-8628984ffd3mr5321261a34.11.1794606573813;
-        Fri, 13 Nov 2026 13:49:33 -0800 (PST)
-Received: from crwood-thinkpadp16vgen1.minnmso.csb (71-34-16-191.mpls.qwest.net. [71.34.16.191])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-862881a965esm3363739a34.25.2026.11.13.13.49.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 13:49:33 -0800 (PST)
-Message-ID: <c03ddcb736c86c7fa16d8beeb8af9ecb6343d9f5.camel@redhat.com>
-Subject: Re: [PATCH v6 02/10] tracing/osnoise: start_kthread: Always check
- OSN_WORKLOAD
-From: Crystal Wood <crwood@redhat.com>
-To: Chaosheng Qu <chaosheng.qu.linux@gmail.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>, Gabriele Monaco
- <gmonaco@redhat.com>, 	linux-trace-kernel@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Fri, 13 Nov 2026 15:49:32 -0600
-In-Reply-To: <179447882048.254241.2527227025791137084@gmail.com>
-References: <20261028220120.4005187-3-crwood@redhat.com>
-	 <179447882048.254241.2527227025791137084@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+        bh=jq86rbtmHCfGTCXyNqVfJhMxh4HVi2BgNiFw4kBONdY=;
+        b=MRc+sJEogaGVA9SE2NRCCcYksZyuJqR/PLrq6+5Nwc3H4l6q4lg9fAXTdEanuXfYp0
+         5ttWZfAACGa7sKq5FqtE9hj+kTwKW5V/gyKVBlOb4NicWuuR/Te9tMGIszd5CJZDaH1H
+         fb+7r4yw5v6kaGB9+ADQGpapUMw2ASvMlEnQWPOwfhY+mTsoVu94ct0vr81PcKG+CSHj
+         d6f6VzTlsz2EXHdQ9dAsV3m3wTySam4g98+C5W2CAA/LZADSC8dsUrapLFU3adQ72YCx
+         q63zeOZBkgBbK0/5vHnydbBXv+bTXhYPo9/tzloVaUCaFlPV5y0omqLjiky1cJaECsU6
+         j+Pw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794606578; x=1795211378;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jq86rbtmHCfGTCXyNqVfJhMxh4HVi2BgNiFw4kBONdY=;
+        b=OxE1vNDAOKoOEV3R6z3kJDETnHF5xTFkIsbt0vGnc4EmDuSrcrZpEEcYouozorLvnz
+         4n1p3Or8e5TVeoR5BPrybinomjtVeDbi5SGKYc0ca3APnLagbJDc+cQsTLBAuAgyyC2M
+         Y6QbwjW4xOfJAmbsZ7k1ZsLLUFUYNLjbmsOvDxVwMeUbExuQ6QV21NJRJnubbB2RfFVw
+         CaXRKOLDMajI05kVYQqGdjZrCN+wAGpae6dgK0vgRAWl8d+y3JAPaeQSnnVA7AAOmmtT
+         Z686FqJD43hDoZ7LHeR6z2F3bvH8LDygfoOmuwGefQ0MzFCGCNaxq1FbxSFLRn/fBmVh
+         qoYw==
+X-Forwarded-Encrypted: i=1; AL+hErHHpMb5peKDmIRvCW/iPfGa8Su5HbNXdUQUUHh0WR7cW5/Bp8eaIFnNb4kw7qu3Za3qur+be6DiAnSf5Es=@vger.kernel.org
+X-Gm-Message-State: APuU4Z++R7uQp21fDeRzSGchCZywamO9ihBKAbptc9PpX0fKg6hZchAV
+	m+rsJwX8buTCtr1fIEzHvfqi1z/AsA4QWcBgoMmNYOkhdkSwcQVmFW9oKOzwCGe2j3V6CBHUwwI
+	GgqFychFyvA==
+X-Received: from pllo11.prod.google.com ([2002:a17:902:778b:b0:2e9:4bf0:5f17])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:e80e:b0:2ed:2176:244f
+ with SMTP id d9443c01a7336-2ee0df868acmr37197735ad.51.1794606577577; Fri, 13
+ Nov 2026 13:49:37 -0800 (PST)
+Date: Fri, 13 Nov 2026 13:48:34 -0800
+In-Reply-To: <20261113214850.3329699-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,70 +78,158 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+References: <20261113214850.3329699-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
+Message-ID: <20261113214850.3329699-11-irogers@google.com>
+Subject: [PATCH v1 10/26] perf ftrace: Use generic hashmap for profile_hash
+From: Ian Rogers <irogers@google.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
+Cc: Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 2026-11-12 at 18:20 +0800, Chaosheng Qu wrote:
-> On Wed, 28 Oct 2026 17:01:20 -0500
-> Crystal Wood <crwood@redhat.com> wrote:
->=20
-> > We can get here on timerlat with OSN_WORKLOAD cleared via
-> > osnoise_hotplug_workfn().
->=20
-> Confirming this from the other side, because it is worse than a stray
-> thread.  On 7.3-rc7, with `rtla timerlat top -q -c 0,1` and cpu1 cycled
-> offline and back online mid-run, the CPU coming up installs a
-> "timerlat/1" kthread even though OSN_WORKLOAD is clear.  stop_kthread()
-> picks the teardown path from the *current* OSN_WORKLOAD, so when the
-> trace stops it takes the user-thread branch for that kthread:
->=20
->     WARNING: at stop_kthread+0xc6/0xd0, CPU#1: rtla/57
->     WARNING: at __put_task_struct+0xdf/0x100, CPU#1: timerlat/1/72
->     WARNING: at free_task+0x7d/0x90, CPU#1: kthreadd/2
->     BUG: kernel NULL pointer dereference, address: 0000000000000018  (rep=
-eated)
->=20
-> kill_pid() plus put_task_struct() is only right for the user thread,
-> which owns the reference taken in timerlat_fd_open().  A kthread is owned
-> by kthread_stop(), so the extra put frees it while it is still running.
-> A plain offline (never bringing the CPU back) does not reproduce it,
-> because nothing calls start_kthread() then.  So 02/10 fixes a null-deref
-> here, not just a redundant thread.
+Convert perf_ftrace::profile_hash to DECLARE_HASHMAP(ftrace_profile_map,
+char *, struct ftrace_profile_data *) and use the typed hashmap__* and
+hashmap__for_each() wrappers.
 
-If you stop at patch 2 I'm sure you'll find other ways to make it go
-boom too :-)
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ tools/perf/builtin-ftrace.c | 43 ++++++++++++++++++++++---------------
+ tools/perf/util/ftrace.h    |  7 ++++--
+ 2 files changed, 31 insertions(+), 19 deletions(-)
 
-> One thing about the series itself:
->=20
-> 02/10 sets osn->sampling, but `struct osnoise_variables *osn` is not
-> declared in start_kthread() until 04/10:
->=20
->     @@ -2053,15 +2081,18 @@ static int start_kthread(unsigned int cpu)
->     +	struct osnoise_variables *osn =3D cpu_osn_var(cpu);
->=20
-> so 02/10 alone does not compile with CONFIG_OSNOISE_TRACER=3Dy.  Sashiko
-> flagged this on v6 and it looks like it is still there in the posted
-> version.  I applied 02/10 on its own on 7.3-rc7 to be sure:
-
-This should be fixed in v7.  Not sure what you meant by "the posted
-version" other than v6 itself.
-
->=20
->     kernel/trace/trace_osnoise.c: In function 'start_kthread':
->     kernel/trace/trace_osnoise.c:2043:25: error: 'osn' undeclared (first =
-use in this function)
->      2043 |                         osn->sampling =3D true;
->=20
->     +	if (!test_bit(OSN_WORKLOAD, &osnoise_options)) {
->     +		if (!timerlat_enabled())
->     +			osn->sampling =3D true;
->=20
-> Either move the "osn" declaration into 02/10, or keep
-> `cpu_osn_var(cpu)->sampling` in this patch and let 04/10 switch it.  The
-> second keeps each patch buildable on its own, which helps anyone
-> bisecting the series.
-
-I moved the declaration into patch 1, which seemed more appropriate
-given that patch is all about cleaning up the per-cpu references.
-
--Crystal
+diff --git a/tools/perf/builtin-ftrace.c b/tools/perf/builtin-ftrace.c
+index ac0107f5b891..02b4bf12451e 100644
+--- a/tools/perf/builtin-ftrace.c
++++ b/tools/perf/builtin-ftrace.c
+@@ -1228,7 +1228,7 @@ static int prepare_func_profile(struct perf_ftrace *ftrace)
+ 	ftrace->graph_tail = 1;
+ 	ftrace->graph_verbose = 0;
+ 
+-	ftrace->profile_hash = hashmap__new(profile_hash, profile_equal, NULL);
++	ftrace->profile_hash = ftrace_profile_map__new(profile_hash, profile_equal, NULL);
+ 	return ftrace->profile_hash ? 0 : -ENOMEM;
+ }
+ 
+@@ -1347,17 +1347,22 @@ enum perf_ftrace_profile_sort_key {
+ 
+ static enum perf_ftrace_profile_sort_key profile_sort = PFP_SORT_TOTAL;
+ 
++struct ftrace_profile_entry {
++	char *name;
++	struct ftrace_profile_data *data;
++};
++
+ static int cmp_profile_data(const void *a, const void *b)
+ {
+-	const struct hashmap_entry *e1 = *(const struct hashmap_entry **)a;
+-	const struct hashmap_entry *e2 = *(const struct hashmap_entry **)b;
+-	struct ftrace_profile_data *p1 = e1->pvalue;
+-	struct ftrace_profile_data *p2 = e2->pvalue;
++	const struct ftrace_profile_entry *e1 = a;
++	const struct ftrace_profile_entry *e2 = b;
++	struct ftrace_profile_data *p1 = e1->data;
++	struct ftrace_profile_data *p2 = e2->data;
+ 	double v1, v2;
+ 
+ 	switch (profile_sort) {
+ 	case PFP_SORT_NAME:
+-		return strcmp(e1->pkey, e2->pkey);
++		return strcmp(e1->name, e2->name);
+ 	case PFP_SORT_AVG:
+ 		v1 = p1->st.mean;
+ 		v2 = p2->st.mean;
+@@ -1386,8 +1391,10 @@ static int cmp_profile_data(const void *a, const void *b)
+ 
+ static void print_profile_result(struct perf_ftrace *ftrace)
+ {
+-	struct hashmap_entry *entry, **profile;
+-	size_t i, nr, bkt;
++	struct ftrace_profile_entry *profile;
++	size_t i, nr;
++	char *key;
++	struct ftrace_profile_data *val;
+ 
+ 	nr = hashmap__size(ftrace->profile_hash);
+ 	if (nr == 0)
+@@ -1400,20 +1407,22 @@ static void print_profile_result(struct perf_ftrace *ftrace)
+ 	}
+ 
+ 	i = 0;
+-	hashmap__for_each_entry(ftrace->profile_hash, entry, bkt)
+-		profile[i++] = entry;
++	hashmap__for_each(ftrace->profile_hash, key, val) {
++		profile[i].name = key;
++		profile[i].data = val;
++		i++;
++	}
+ 
+ 	assert(i == nr);
+ 
+-	//cmp_profile_data(profile[0], profile[1]);
+ 	qsort(profile, nr, sizeof(*profile), cmp_profile_data);
+ 
+ 	printf("# %10s %10s %10s %10s   %s\n",
+ 	       "Total (us)", "Avg (us)", "Max (us)", "Count", "Function");
+ 
+ 	for (i = 0; i < nr; i++) {
+-		const char *name = profile[i]->pkey;
+-		struct ftrace_profile_data *p = profile[i]->pvalue;
++		const char *name = profile[i].name;
++		struct ftrace_profile_data *p = profile[i].data;
+ 
+ 		printf("%12.3f %10.3f %6"PRIu64".%03"PRIu64" %10.0f   %s\n",
+ 		       p->st.n * p->st.mean / 1000, p->st.mean / 1000,
+@@ -1422,12 +1431,12 @@ static void print_profile_result(struct perf_ftrace *ftrace)
+ 
+ 	free(profile);
+ 
+-	hashmap__for_each_entry(ftrace->profile_hash, entry, bkt) {
+-		free((char *)entry->pkey);
+-		free(entry->pvalue);
++	hashmap__for_each(ftrace->profile_hash, key, val) {
++		free(key);
++		free(val);
+ 	}
+ 
+-	hashmap__free(ftrace->profile_hash);
++	ftrace_profile_map__free(ftrace->profile_hash);
+ 	ftrace->profile_hash = NULL;
+ }
+ 
+diff --git a/tools/perf/util/ftrace.h b/tools/perf/util/ftrace.h
+index 950f2efafad2..5ed52e66b8cb 100644
+--- a/tools/perf/util/ftrace.h
++++ b/tools/perf/util/ftrace.h
+@@ -3,12 +3,15 @@
+ 
+ #include <linux/list.h>
+ 
++#include "hashmap.h"
+ #include "target.h"
+ 
+ struct evlist;
+-struct hashamp;
++struct ftrace_profile_data;
+ struct stats;
+ 
++DECLARE_HASHMAP(ftrace_profile_map, char *, struct ftrace_profile_data *);
++
+ struct perf_ftrace {
+ 	struct evlist		*evlist;
+ 	struct target		target;
+@@ -18,7 +21,7 @@ struct perf_ftrace {
+ 	struct list_head	graph_funcs;
+ 	struct list_head	nograph_funcs;
+ 	struct list_head	event_pair;
+-	struct hashmap		*profile_hash;
++	struct ftrace_profile_map	*profile_hash;
+ 	unsigned long		percpu_buffer_size;
+ 	bool			inherit;
+ 	bool			use_nsec;
+-- 
+2.56.1.703.gf848ed807c-goog
 
