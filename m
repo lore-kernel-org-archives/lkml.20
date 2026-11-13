@@ -1,55 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=92.121.32.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794582992;
-	b=eOKHk97f3dJe5eQvZ8ReQFwpv9x88+g5iiJ16sLn/gjdGcPzEo/BoRTCe6u2velI7u1N
-	 gnncsaSL4Unto1odTsaVlGb6L7cSGZNVx3pbFOgc21tTs/n1bZ/5I3gMdEA1nhYfQI3oV
-	 w0Usbs+bGyMA/EqNYM9wEAwRfLTz6v/sDizi2RGo02d9ffdTR60P7VlQQl+GEN8Q/SaGl
-	 2RGTwEqPQ0MSxQcb8rngTGMRbMY/R7ZHkDRfaHVcDka+IVqAfZ1X7EVUB6xItgmyLznGl
-	 KDqKsEp49etivVRGs+1BrHARBQDr0VJWWW/CEMzOkV61kZWESswMOA7t6+eLkWWfYLg==
+	t=1794583017;
+	b=RrrO+ZIRxMHNDHDHBtndo+TPGFxapKH+fYK21Ky3c3DDzP61nNA6DDzGdkLQXt/g06wm
+	 t/OjQk1OqAStaQ23QBH1Sl15eW95dklTKCN7k5TukhuVXgSPtbyfx+vmZZRJlwF2NcvRM
+	 z+MCx/AIxw117K/tLi4bzGlVi6+MK7ws7vtEDo3Wp3bDXsaskIxobg6JixMNGWzOlQEM9
+	 1PblbIFTrH6bUIUh0K9cut3lQP/jtUsLC/2hxbVTEqbb0gJo6s++nFrqCe/NlOoSxx7Nf
+	 yQU7bh+ERFnE3p9bj5sFCJ3DqBuKlVZcRvRPxOOpbQ19AFSGR70A8YRPJjPlYxFI7Uw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794582992;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer;
-	bh=neIsIOYrXedUz1G3zWq1jiKbezCseAxykAXroLao1Js=;
-	b=eoLm9KS8RiVCSaAgv/UZOxf07NBYlsoJZ5kl1U1cjKYPsyGPk9DvJnD4ofKvUnlQgABe
-	 CzNIp82IkYHr8AH11IjHb1OHkFB/52mEPV3H3hmQN0DPAjZmddVnNdLNvh0BWMzDsvhNz
-	 CxglSXQyvuoUKN8acwCiH6rGU8rNDOmBN9GK3fvxAQU3XDR43gpVc/euw9C9OQQd7rk3Y
-	 EkamosJbD8DcrdwB2DPxmqzdLcxIEnNurM+3em6Y0EXg+EUM7exW/0codEy9RgPq2Z39f
-	 FjkgjiCXQZLFDv8Fw+LPpvhnXeo49sowdkoNn2eHZqnDEI7ab3uBK1xyVf6pqctTvtw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794583017;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:Received:DKIM-Filter:
+	 DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=rRQOqc0GZd5tQdW7FSO2PqP+kKXJUKP7tyAXns2ykuo=;
+	b=eXaFSkILmp60F/5Ut33brFpbn8JJ3htAkvIVnfwFJm45GN5y5+iy5aOTVCQlfCfBQREv
+	 yWU0pHlMQ70YMNB2EE3mZOR4kK1xLsqzEwTYxE7I3aa+ZD5PRl9bU6xuww2AS4GGX76ap
+	 J7tLRCyh1XzhVCW4M2uyEjt3Tz4e5TI+Iylwi+WdjbkLEVBHvETtM3GHv6H40VQGJR3tC
+	 FwaxojLBxss/xcAyp6rNzobT87v6nVgXHpXXQr5m8kB59TCSCe/5PIQgoyWSjh8GPg0ix
+	 H1vxWg7Bi5AR651nb7+LeKfVdh5wFlCFxpZKrRuD5qDevNYVC58aIZGLyHKfMLvwT7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=g0YWM1Ge;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	dmarc=pass header.from=nxp.com;
+	spf=pass smtp.mailfrom=nxp.com;
+	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=nselector2 header.b="nl/c556e";
+	arc=none smtp.remote-ip=92.121.32.55
+Received: from inva130.nxp.com (inva130.nxp.com [92.121.32.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BBCF606A8A6;
-	Fri, 13 Nov 2026 15:16:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BBCF606A8A6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43B25606A893;
+	Fri, 13 Nov 2026 15:16:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43B25606A893
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=g0YWM1Ge
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Subject:Date:From:From:Reply-To;
-	bh=neIsIOYrXedUz1G3zWq1jiKbezCseAxykAXroLao1Js=; t=1794582991; x=2109942991; 
-	b=g0YWM1GeAI8bQbRzwstzLCALraKLhcmcKY/Pygrf6f4Jmn81Lmp+iSbSjY5wSJ95nvc38+gAj9n
-	6u88hlagPvzD/rDOr/epn5tBH4jRRflINpZOFTkOcoEWjs64a52pgf2HT81ZPOF36Y5FkbRAgJDs4
-	51kppX+0mKBSjUCsMT3NxTVTh+lBJ5jpsosz6VUBF61O3teikG+9HaqTmEHQBHeSABOT45SAJV2XO
-	LsDrEhT5nXN/bKOl6wz1QMpzjFrftX3O8kirgwGiwB/U3vAEqFKZpiQe/vKScItPrDxtmwYUnJoJf
-	0m7XvkKZdqj9AL+cYK9Cx2qYJB6xVSsQNYfQ==;
-Received: from 186-249-149-121.shared.desktop.com.br ([186.249.149.121] helo=[127.0.1.1])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1xRt0o-00AEXe-JG; Fri, 13 Nov 2026 16:16:22 +0100
-From: Mauricio Faria de Oliveira <mfo@igalia.com>
-Date: Fri, 13 Nov 2026 12:17:33 -0300
-Subject: [PATCH] wifi: rtw88: fix skb leak in hw_scan probe request length
- check
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=nselector2 header.b=nl/c556e
+Received: from localhost (localhost [127.0.0.1])
+	by inva130.nxp.com (Postfix) with ESMTP id 4528660193F7;
+	Fri, 13 Nov 2026 16:12:40 +0100 (CET)
+X-Virus-Scanned: amavis at nxp.com
+Received: from inva130.nxp.com ([127.0.0.1])
+ by localhost (inva130.nxp.com [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id xk983Pls3qEc; Fri, 13 Nov 2026 16:12:39 +0100 (CET)
+Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com [134.27.226.22])
+	by inva130.nxp.com (Postfix) with ESMTP id 8DDAA6076D34;
+	Fri, 13 Nov 2026 16:02:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 inva130.nxp.com 8DDAA6076D34
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com;
+	s=nselector2; t=1794582164;
+	bh=rRQOqc0GZd5tQdW7FSO2PqP+kKXJUKP7tyAXns2ykuo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=nl/c556ebd9ke7HOGgEJqno0lmg9sGdds6j7WHarlTOWJy3z582Z4rl/mgvK9BdAq
+	 vE10xMi9oHkDDF/qqxNCOeKBfla9QZUgCgRPwTMW53caRAEZ2QMSen5uUCbNr84zAR
+	 d8rkke9O5DyhKqihF1rb1G/JQt8FJ1ivfWSlhgF+inXL2OvPSC8SwS0Zqx0ziMHwmg
+	 Fb4BCVN8j1FJFoG86gcVEpqom5iJDE14fBzBnGpg+roN1/KYYYMqq9Wfj0QxLH+w/f
+	 tyebf2xdsw5c3MLmrVmxn9QBxHHjWHTISIxTfED9aoKGLNtFIoYHzYBfApFrrOfYxx
+	 KXVMwGKIJc7Dg==
+Received: from lsv15141.swis.ro-buh01.nxp.com (lsv15141.swis.ro-buh01.nxp.com [10.162.246.138])
+	by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 527052034B;
+	Fri, 13 Nov 2026 16:02:43 +0100 (CET)
+From: Claudiu Manoil <claudiu.manoil@nxp.com>
+To: netdev@vger.kernel.org
+Cc: s32@nxp.com,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v4 5/6] arm64: dts: s32n79-rdb: enable NETC IEP18
+Date: Fri, 13 Nov 2026 17:02:36 +0200
+Message-Id: <6f1ea6caef6ca01c9a6384cd1024384d31848c53.1794581338.git.claudiu.manoil@nxp.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1794581338.git.claudiu.manoil@nxp.com>
+References: <cover.1794581338.git.claudiu.manoil@nxp.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,78 +86,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-rtw88-hw-scan-skb-leak-v1-1-3bd47562abf6@igalia.com>
-X-B4-Tracking: v=1; b=H4sIAAwq92oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDQ0Mj3aKScgsL3Yxy3eLkxDzd4uwk3ZzUxGxdy1RzQ1OTlNQ04xRTJaD
- mgqLUtMwKsMHRsbW1AHH+e7RoAAAA
-X-Change-ID: 20261112-rtw88-hw-scan-skb-leak-9e7154def3d5
-To: linux-wireless@vger.kernel.org
-Cc: Ping-Ke Shih <pkshih@realtek.com>, Po-Hao Huang <phhuang@realtek.com>, 
- Kalle Valo <kvalo@kernel.org>, kernel-dev@igalia.com, 
- linux-kernel@vger.kernel.org, Mauricio Faria de Oliveira <mfo@igalia.com>
-X-Mailer: b4 0.14.2
+Content-Transfer-Encoding: 8bit
 
-In _rtw_hw_scan_update_probe_req(), if the first loop fails (goto out;) the
-skb is leaked. It does not reach kfree_skb() at the end of the loop body or
-in the second loop (out:) since it is unlinked from probe_req_list.
+Enable the NETC v4 ECAM bus #18 on the S32N79-RDB board so that the
+ENETC v4 Pseudo-MAC port (PPM) PF and VF instances are probed.
 
-Fix the leak by calling kfree_skb() if the first loop fails.
-
-In /sys/kernel/debug/kmemleak, after simulating the failure:
-
-  unreferenced object 0xffff88810965a000 (size 232):
-    comm "iw", pid 4729, jiffies 4345008185
-    hex dump (first 32 bytes):
-      00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-      00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-    backtrace (crc 20f7de11):
-      kmem_cache_alloc_node_noprof+0x302/0x380
-      __alloc_skb+0x74/0x2f0
-      skb_copy+0x57/0xe0
-      rtw_hw_scan_update_probe_req+0xff/0x230
-      rtw_hw_scan_prehandle+0x4e/0x180
-      rtw_hw_scan_offload+0x186/0x1d0
-      rtw_ops_hw_scan+0x61/0xb0
-      drv_hw_scan+0x81/0x130
-      __ieee80211_start_scan+0x2e0/0x760
-      rdev_scan+0x42/0x100
-      nl80211_trigger_scan+0x53b/0x730
-      genl_family_rcv_msg_doit+0x103/0x160
-      genl_rcv_msg+0x1b5/0x2c0
-      netlink_rcv_skb+0x52/0x100
-      genl_rcv+0x28/0x40
-      netlink_unicast+0x26d/0x3b0
-
-This leak exists in the first loop since the function was introduced, and
-still happened with the addition of the second loop, in these two commits:
-
-Fixes: 10d162b2ed39 ("rtw88: 8822c: add ieee80211_ops::hw_scan")
-Fixes: d95984b5580d ("rtw88: fix memory overrun and memory leak during hw_scan")
-Signed-off-by: Mauricio Faria de Oliveira <mfo@igalia.com>
+Signed-off-by: Claudiu Manoil <claudiu.manoil@nxp.com>
 ---
- drivers/net/wireless/realtek/rtw88/fw.c | 1 +
- 1 file changed, 1 insertion(+)
+v4: none
+v3: none
+v2: none
 
-diff --git a/drivers/net/wireless/realtek/rtw88/fw.c b/drivers/net/wireless/realtek/rtw88/fw.c
-index 945fedcd375b62b4110ab631e87889bb84e2f16b..09b5836540c41e80a5fecca0f781aa45c6327cc0 100644
---- a/drivers/net/wireless/realtek/rtw88/fw.c
-+++ b/drivers/net/wireless/realtek/rtw88/fw.c
-@@ -2061,6 +2061,7 @@ static int _rtw_hw_scan_update_probe_req(struct rtw_dev *rtwdev, u8 num_probes,
- 		skb_unlink(skb, probe_req_list);
- 		rtw_fill_rsvd_page_desc(rtwdev, skb, RSVD_PROBE_REQ);
- 		if (skb->len > page_size * page_cnt) {
-+			kfree_skb(skb);
- 			ret = -EINVAL;
- 			goto out;
- 		}
+ arch/arm64/boot/dts/freescale/s32n79-rdb.dts | 4 ++++
+ 1 file changed, 4 insertions(+)
 
----
-base-commit: 7e1392a42ea288d70a266f6553fe06f57f8647ea
-change-id: 20261112-rtw88-hw-scan-skb-leak-9e7154def3d5
-
-Best regards,
+diff --git a/arch/arm64/boot/dts/freescale/s32n79-rdb.dts b/arch/arm64/boot/dts/freescale/s32n79-rdb.dts
+index 1feccd61258e..897ba24ac03a 100644
+--- a/arch/arm64/boot/dts/freescale/s32n79-rdb.dts
++++ b/arch/arm64/boot/dts/freescale/s32n79-rdb.dts
+@@ -68,3 +68,7 @@ &usdhc0 {
+ 	no-sdio;
+ 	status = "okay";
+ };
++
++&netc_iep18 {
++	status = "okay";
++};
 -- 
-Mauricio Faria de Oliveira <mfo@igalia.com>
+2.34.1
 
