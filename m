@@ -1,11 +1,11 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.196
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794602116;
-	b=wxR0CXhxrCqvlEm4/aWC/6orQFKpPxfac83GSPfPtzwZ8hHR5CRujDhY5InXZJGvsSij
-	 q+PFYaCZCqsuGXGxmLBo8cnc8nYI/aUFyLuwf+b/mfHfcDBp7uEvQxqbMhqz0Av8tIR87
-	 AA3txBc3dvcaP5b/kgRURQX9u+hH35KpnbOy8H4v2DPeAZt6/txW4UsD1BvqmBzP+VgMo
-	 AADlrkuPxc34km1Dd0HrAJiIdExHv0Vl4AlLMAeEXH/f5dCgb1OOgNgs6KAnWYGfEMUi0
-	 soBR+4OyQ+9L0ybdr3G7XL/ip9X0QQR3k4Of42zz0Y+6olKkrZpayEV26X0DziySnNg==
+	b=CnvQQeCEHluyORFA38U/Sr4Dyix2X4stLLH3Pe897HdAUv8/dCUPIhUhHYM7A4M1kqZb
+	 /J/0MiJN+yRWRtIZy42Zpqgg/tZ/zU9Pz+NsYGu9FaYfWlLfiZz7/xHerQdDAo3MAcYUg
+	 jlaboY2p1s+6G0cYYmY5He34/2zQ9xVUQXZNnexsSss/dUAA5aqKxGfTfo7jgaIQPgz8O
+	 mHshyrEPgTGd9BVLwCLGU0OMzGJkAz/wjdLqDye7EKtfBjw6SeSqTBxYfJW5eCspy/5Yd
+	 pAE9o9fLzC2zPJOPNkV1VQPnnynnCeWakLtkgjPRH66vWOoZi8UNnvWBO/206Akct0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794602116;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
@@ -13,77 +13,77 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=6cKcdP6ZFsbUpqGoJa0cKoc76Hw0duCjesAc2W0YCc0=;
-	b=agQC4JXOQ/0z9mK31yBMVMJ2tXl4JstmGVnOaYDVnIouUXx+0BKQl3qGiJG2QsFjqtTn
-	 cLDRzsayNqPWJ32L3trsTLUWrnSse5jP5Iyl9JyfU29PrNKI8HnDEM41BZ1oYs0LMy/IG
-	 6PRXMPlGscrJvVVfcGsDfzfuJItUencHJEX2sZ13kN2RLANA/5GE1uavE856rQYEuQqRa
-	 H+Crt2m9CZoZIgHUAuk1by+P06SXJwLLp+xwGj6rcUMhJ9TilqpkPviKbnwV9oPvVg/m4
-	 Kp5BiPLB0vck13F/qYz+O1f1Dcnc+iIHpZ/fIPB4v8yd1DzImFevDErn9dxMTRNGOnw==
+	bh=v4l0l6/0LSTjMRIJU8wqE1PZYCYMuyzVKSvXtjgLdxw=;
+	b=kC0K4aPqim1Ajy0VaquBZmh9/ACdtSggABupGrBe+GGOoaSl+uyZAtpoU4EorNRBefWG
+	 e26lGD0Io64agMBZVmzncRUcIeHQR4lsm3JDj2yTn/KUQyK6uVbE+zKdehYz+o/rXEzre
+	 m/ntQOnHK3ihbZRP2Bfx78RSa+eo/L/Cf7iOnKseq3pLAlFenXm69YcV3iDxxeCzeXwro
+	 uL2J68VcUdml+KCoNTyWK0f5bjtPYIoz/Pylxzk1Tjjey9HnuVFYGCFnpYfUKcCj4fS0a
+	 wXDXccwtiNl3FPPIi3Qi6pOTkWommyUd1yl7JHg2uEyPhQ1OmO1pL/ep1m57TyRU8VQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JyARAhSR;
-	arc=none smtp.remote-ip=74.125.231.200
-Received: from mail-oi2-f8.google.com (mail-oi2-f8.google.com [74.125.231.200])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ySgiZkB7;
+	arc=none smtp.remote-ip=209.85.167.196
+Received: from mail-oi1-f196.google.com (mail-oi1-f196.google.com [209.85.167.196])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75AB8606A335
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:35:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75AB8606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C40F606A889
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:35:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C40F606A889
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JyARAhSR
-Received: by mail-oi2-f8.google.com with SMTP id 5614622812f47-5187c752f46so586251b6e.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:35:14 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ySgiZkB7
+Received: by mail-oi1-f196.google.com with SMTP id 5614622812f47-4b28d9537bcso1744546b6e.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:35:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794602113; x=1795206913; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794602115; x=1795206915; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6cKcdP6ZFsbUpqGoJa0cKoc76Hw0duCjesAc2W0YCc0=;
-        b=JyARAhSRNNQZm/PQ8PycF6gvp+ozKGUNMr+qEuggpUblBZNKsUaYmg6O62DVZ+dOwj
-         PbDGEeYJCNqtwQlhhGVES9upVFcZjYtaqnUYMg/EkjMNHK58ZKgln4EKWTcndpMxeesk
-         uhSs92sVD9ub5eLQiAt2XK+VXJcuxTUXdX8aPOoVq5Ob2VrQ5frB3OKL9HU/aVBrJAR+
-         VAeJo3YDhGyFj+Vh8R5uYis16dJMJC9Z6HOAVBCtI/CpibWHjASiDUhmu/N50CHdp34S
-         NjW9C37iCVouYwntzFqj7UHsjtJVj41dfAKoN3zuL+oPButyoLj+fUaakJF+YfKUNagB
-         Zz/w==
+        bh=v4l0l6/0LSTjMRIJU8wqE1PZYCYMuyzVKSvXtjgLdxw=;
+        b=ySgiZkB7BCqGrgohYd+sTkPA5ZgC0kFB6wcMtolG1eyoxdzwb3khT2CbDiQcwPJvOt
+         Sa9KE9w8C+vV5dfU8AKU54E9RgA+h98OvU65JPR4I3CcmGKRG63xoqiy8YmCWCRCtVzZ
+         58zZWWwA91hka3O9HZmDRZFHZ0DIyC+5EQCTJTWVadY/JclKCA1XQjap5UL8FfM50XFL
+         e5UKOoKs4szQKmIFAoWQMI1BQjY1FaSKY4bQbTzuk8NdGWrVDvrL/UropW6A9P6qXQxI
+         MnYTWBKH9sNN6d6lkiZ1lbzNb+w0Q78C4MxYJW0/zvJSgOTrc0/arPb7p8AsGO1ihauS
+         DWYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794602113; x=1795206913;
+        d=1e100.net; s=20260707; t=1794602115; x=1795206915;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6cKcdP6ZFsbUpqGoJa0cKoc76Hw0duCjesAc2W0YCc0=;
-        b=Tu8xrUXoNZayBn3VIzqsDefh8OZGb8fj46w8dSnxcqm2gShlAUTs1XmSEoCrZBsUqV
-         DeY4koaQ+F4SBaTBptkT6H8TimmpMbVCYFLHzQnClHi2hyFfc0SXn5PMb7JQaoyfzRK4
-         iwOCMTEFHkM+xlF9ZBTRMi43GtkXn/Jaqb0zk11BlCuMZgUN39BXHl1wvIP0Y1OTb08y
-         4+H4MMfWFsy2TE3t7oP7hSeyFRGoV+VQrfZkvUfi8o9lzwlSJh0vLTO467Z0sFaMKZ5j
-         bQpW9Ia3rjbV6bIKy08DT4HpLoR9eXz7BQx+MONZJYPj9PeNNyTFpe0pGYOD2Zt2oi2F
-         29dg==
-X-Forwarded-Encrypted: i=1; AL+hErFOrEhFeaAqGD5Fck2nUJEa3KLXfvfG156tDY1RN2RF3qmJt03UgRkSfcYFRSjAJyN563vPiX2ahvaWzNE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+hTfymiuCZNjUchhFDh3IsW45dpDAkPUtoKwS1teKK3KRSICkE
-	aeCb/HElQ+LTgSkxRRFotazCM/XEwQWMqjv/pkq4UnpizB/v30X6Si+8
-X-Gm-Gg: AYBFou1SDAv+7ot8SKsXbjQTMy4dcHIlty/1573vm0ApPStbNzYbZ0YyfwrtjhVQTDD
-	AmcrWnLvmABNtkeRpLRz/3j7Azm6Ih8DS/fy3lpg9SiH/gb4GfuDDWjnSmpagMaaPx7kTBmx/nr
-	XOIlmAs3EjM3Ji4qphvDKctHdSGmnHLrM92lrzRShJWIovfkBwQeXhDULbBBfE+rNO9iZ6i95ua
-	NqD96f3d1ItWG67Lj36aaMdt8yWHLw8MS6OskbvL8rjhMsTC3NNhbv0mZMQJaWm4leEy5OCPjzF
-	nQjW5Zg8q2rSSWivrRAibeGA/1bAOAfQU1amhFjc9H/2kzLrUKXfxbNkTnWRgC7XwgKgtyD/iP8
-	mxcxQusodO9PVsjDL3yxiEQUO5hc4JhZM3GV5h30lsg7l08biQ83yIC550yN0iBv8v4l9wUuNSq
-	Ipb9kAsExt0/FVMGL/GB03ztnMid6yJCP57/rcrXA1PLwWnZhFjNeuNAkutcj9vne1cmSCF1lrS
-	B99nCj8lhvQlmEr5g4ZAf8TBSJkrM5ZSbTTCsoZHGksyK3poBrAyzCxz5R0uuEZ/TpD5VQAn2ql
-	WmmS5RGhpu52TXWbnGGFQDvkQ4mz+fbQZQeaxZJfihzRzatTUPzQEzK6ma55fY8hiGZ5WcFn9Vi
-	IhuysWzd6bseNN4X85A0=
-X-Received: by 2002:a05:6808:10cd:b0:4ed:7045:d3bc with SMTP id 5614622812f47-56e641d6c13mr3204181b6e.32.1794602113421;
-        Fri, 13 Nov 2026 12:35:13 -0800 (PST)
+        bh=v4l0l6/0LSTjMRIJU8wqE1PZYCYMuyzVKSvXtjgLdxw=;
+        b=U78FQM+AVdkqk2OnRdGzvOaDI+lqtmZcrMan/2cLLFKAh5fl3teUDWjgRB0s+6tepK
+         3T0i9rSj3YCLDiUZGk5bn3q6u2/dU2jhK70lkgvljX8/KB1k2h0HSt0oT0VBCD2pXugL
+         Clt3Ou46pThCadd0S7EP0+JFb5HXklC95nabWs78S3O+aOuAQZuksenilfXbI1kw4aNt
+         1KSS1IQPc1Oq3ciW7U3zmk2v7Zfja3FNb7+KEMT7BXHoMdFeXSEeVIrEOxIqchSkmnWF
+         GgpRAkqrv+hMuPq5vN+JdnwHhj//FwZ+9KmaVCoMxajfGSgh9LdJ5CRPJb6AdVONA41b
+         TBsg==
+X-Forwarded-Encrypted: i=1; AL+hErHkjjKUgmZckPkuZO5eqnCTzTSUN23zw6ipFWt/CywBc+yma6yKhDZLyrThW6j7kuaxyISlKF9vRbFL4EA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/qL69WAB9iYzvuSIBdUUd1899z8Bjy2xYRFRtETuVqN6zh51sz
+	j4W+gIVHdeIpmT4BL6OgLB6v//LECIQ8LN36HadhjLS/od2kKNtFaHg/
+X-Gm-Gg: AYBFou1wQbwY1zZfLwVZsndvgltIjD3pCiCvQ29Aw2OHZAkl6asPaAZhxECwqhO8ZUV
+	PSzUrlwHrm9AROWv69Ksoj6erWqRfgMtCHfhSRwSzHdyVkscsP8eenfwdZRXIZgcQ3OghpAYb50
+	EhQPjyyH1AebRGcekNGGO8zWuX2dryCHhNBVJ1L1XfcSI/lw0iV4rHGSNf1qdRMidtq1DiTklEL
+	mPAqjBpv+uEpCTITJN2wN3fkIvnbEXt6AdBfdJTBqDp8drsHA9hmMXHPlNKUS5wXv585CEVyDBF
+	KGkyhW7Ry38si6/00OrbSd/Ww7dtlpQiy4OvZpYo+0WhiJahQhh8e1+rQSweW0Nb0tEsm812p4+
+	2Zov7JdxQ28qcOw/mcOL3PsI6LIphk3wZ5xFFRiK7c+aqdHWRW1QFdbpNgcay5UFZXgBu+hlJEc
+	+ACB8DMiRHx4JfrWNh93P5W4pUXlg7p7CwlKwNUnaEgHkJiZQE+cnnLQ4J0CS+NtgGxkKJ4mdYj
+	Qlajk6VUNq50uo4CsI/zIdNQmKXbCUYA1/ZDv9BGVL/K3qqzGrcOOlvrc87cjruUlf5LOk0WSRT
+	h6H+OwCN5mFGORs4jz1Ugb7spxpAYZN3SzmKRwRSYStiIiracCrh3zQRM7j+oS8mrXmF60P5upk
+	f06wn4/75nc2ScDm4LRQ=
+X-Received: by 2002:a05:6808:1691:b0:4d6:9133:cfea with SMTP id 5614622812f47-56cd8ed24a4mr4376780b6e.47.1794602115430;
+        Fri, 13 Nov 2026 12:35:15 -0800 (PST)
 Received: from [10.10.18.223] (wsip-64-207-253-118.tu.ok.cox.net. [64.207.253.118])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-56e70c58f9bsm2712225b6e.13.2026.11.13.12.35.11
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-56e70c58f9bsm2712225b6e.13.2026.11.13.12.35.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 12:35:13 -0800 (PST)
+        Fri, 13 Nov 2026 12:35:14 -0800 (PST)
 From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Fri, 13 Nov 2026 14:34:55 -0600
-Subject: [PATCH RESEND 1/2] clk: mediatek: mt8173: fix the FHCTL DDS mask
+Date: Fri, 13 Nov 2026 14:34:56 -0600
+Subject: [PATCH RESEND 2/2] clk: mediatek: mt6795: fix the FHCTL DDS mask
  width
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -96,7 +96,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-mt8173-fix-dds-mask-width-v1-1-c8d1e3288df9@gmail.com>
+Message-Id: <20261113-mt8173-fix-dds-mask-width-v1-2-c8d1e3288df9@gmail.com>
 References: <20261113-mt8173-fix-dds-mask-width-v1-0-c8d1e3288df9@gmail.com>
 In-Reply-To: <20261113-mt8173-fix-dds-mask-width-v1-0-c8d1e3288df9@gmail.com>
 To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
@@ -108,49 +108,45 @@ Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
  Ryan Brue <ryanbrue.dev@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794602109; l=1762;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794602109; l=1505;
  i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=+CADWjqc22AUSeVeKeNbBWk6vnVbnoxXOpZ/q/waG+w=;
- b=iLQXE6+fT67k/1+QXFmsj0CBbRIh+BBShAboAlWwKdNv6JETp70VldtQbm1fwLYVRqDFJsRNd
- EbaohlTqIw/A4R5rO4Jb0oapwZN+1s1+IeGmBrmEnDmvq7F1aGrFtC+
+ bh=6k5SPDasHR10JbeQ/goG0GjfXjoojCF7pZ/1g9TWB+w=;
+ b=GGeJS8jm21rjpv1QyTbpsKBtZCTmbEes2ARBh8p1OfaWD0t2XZ4J3BHySxW23bkyOdUv48ruh
+ PRoIkzSIg1UAt0oRD1ii2tTNNj083KeKa67msj2r1YTGbGXjFo0ryOP
 X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
  pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-MT8173's hoppable PLLs have pcwbits = 21, so the FHCTL DDS field is bits
-20:0, but FH() declares .dds_mask = GENMASK(21, 0). Bit 21 of FHCTL_MON is
-a status bit that comes up once a hop has settled, and new_dds from
-mtk_pll_calc_values() is always 21-bit, so the poll in hopping_hw_flow()
-never matches and every hop runs to the 1000 us timeout. The PLL does reach
-the requested rate and clk_change_rate() discards the error, so the cost is
-1 ms of atomic polling plus a warning and a register dump on each rate
-change.
+All eight PLLs in mt6795's pllfhs[] have pcwbits = 21, so the FHCTL DDS
+field is bits 20:0, but _FH() declares .dds_mask = GENMASK(21, 0). As on
+MT8173, new_dds from mtk_pll_calc_values() is always 21-bit, so admitting
+bit 21 of FHCTL_MON into the poll in hopping_hw_flow() can only make it
+time out. The same mask feeds the CON1 write-back and fhctl_set_ssc_regs().
 
-Six MMPLL rate changes on an Amazon Fire HD 10 (2017) all time out with
-GENMASK(21, 0), MON reading the requested DDS with bit 21 set, and all pass
-with GENMASK(20, 0).
+Unlike MT8173 this path has a user: mt6795-sony-xperia-m5.dts switches
+FHCTL on for mainpll, mpll and msdcpll, with SSC.
 
-mt8186, mt8192 and mt8195 share the constant but are correct, as their
-hoppable PLLs really are 22-bit. mt6795 is fixed in the next patch.
+Found by inspection while fixing MT8173. I have no MT6795 hardware, so
+this one is untested.
 
-Fixes: 45a5cbe05d1f ("clk: mediatek: mt8173: Add support for frequency hopping through FHCTL")
+Fixes: f222a1baec5f ("clk: mediatek: mt6795: Add support for frequency hopping through FHCTL")
 Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
 ---
- drivers/clk/mediatek/clk-mt8173-apmixedsys.c | 2 +-
+ drivers/clk/mediatek/clk-mt6795-apmixedsys.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/clk/mediatek/clk-mt8173-apmixedsys.c b/drivers/clk/mediatek/clk-mt8173-apmixedsys.c
-index d7d416172ab3..327240cd34fb 100644
---- a/drivers/clk/mediatek/clk-mt8173-apmixedsys.c
-+++ b/drivers/clk/mediatek/clk-mt8173-apmixedsys.c
-@@ -100,7 +100,7 @@ enum fh_pll_id {
+diff --git a/drivers/clk/mediatek/clk-mt6795-apmixedsys.c b/drivers/clk/mediatek/clk-mt6795-apmixedsys.c
+index 123d5d7fea85..ff01cfefc31f 100644
+--- a/drivers/clk/mediatek/clk-mt6795-apmixedsys.c
++++ b/drivers/clk/mediatek/clk-mt6795-apmixedsys.c
+@@ -79,7 +79,7 @@ enum fh_pll_id {
  			.fh_id = _fhid,					\
  			.fh_ver = FHCTL_PLLFH_V1,			\
  			.fhx_offset = _offset,				\
 -			.dds_mask = GENMASK(21, 0),			\
 +			.dds_mask = GENMASK(20, 0),			\
- 			.slope0_value = 0x6003c97,			\
- 			.slope1_value = 0x6003c97,			\
+ 			.slope0_value = _slope,				\
+ 			.slope1_value = _slope,				\
  			.sfstrx_en = BIT(2),				\
 
 -- 
