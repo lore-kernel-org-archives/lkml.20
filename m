@@ -1,93 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.153.30
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794596194;
-	b=iw31aHPTNmhxF086ROHN73BSkE+s1hpPmmVqOlYGL5mWxX5hmJeKSXDt9835o6OGh6xj
-	 kLGhvusqvmoHg9WM8gTpCJtwZEMlYUhZg4YjNRGdXz5LuTO1hIe0jXHVYFffAV7pUtbBX
-	 /SEhl3YASsyND1qmFhVUtDFGPRfKa1eAy5xtiV1mlKfomV9fhUYXk7tYpUqF0SPBq8d9w
-	 OW2ppDXxLY6ME36rPIhiU7eJ5eMMAYUsrWsMW3+dw+BT/th4e+wXIkchha0F5/Wt2DVsu
-	 0biNjxCYeKLUSCQjBCvqQBGUZKHs/B/UycYfK4D+G00e35dHESW+9zoh4LCTN3h3pfw==
+	t=1794596200;
+	b=q0g9YkOG5RhG++3ow7wjVyC936w2NmVr+8m9/CA8+FsPuNU45R2WZOf3PGOcIoZRzW2O
+	 RID6HAFJpgdYDXvxVPGMBxT+FhTx30c5+TDh1k3/g25y8Lco9MJNT0ZXJGDaxAl6TObx2
+	 i0vt5k29ePIfzZjKNe4+s8lXBTOxvsU7P1h4TaPNmB56Q0sylMXIkCTFl4OIPnse+8qHA
+	 ebf9N5Bbr8pEod/ClEAzEaIKRDMmb8bfhTSiKNaAgATTrl7UwgTAUnCWHz9bL8QMrk7TX
+	 SxymCcvC6y5qi0iPC20hMcLb10B/fIXoT5kdIzW+rbx1S3/LRQp4+GJaihoRvSP7sNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794596194;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version;
-	bh=0Odt5eAU6DCn218cfHnRmHnBSXJD+xBpr6lIOdgFlls=;
-	b=5n6+L06+lTv3hIUBdAWt5wR747382F3r0FOOKPuViatFt0jDlB9X2+/IdiVXaXwbiX9H
-	 l04rEg2CVMDZHaijUKAsJoOhPqa4jEy2R1Phx1BeHAId78/d5m2h8DtDGwOUNk/nhu73v
-	 7QfO5v8uekuQluxZq9mLIMgGwYIU8jTnMALLeb9sxIvp/A5MtOEAWLyt756AqzYDqODS7
-	 dpOCihcJ7YkPLOciXUjuf7dGTGw5AL9lpDPkX4nsqJjDtumltreFu7GMFmbc7uNBW+hws
-	 vxWKpG0eHOz5baLcXvd/kVdZV37ZGCOglPNVczCk/E86Q+pck8UbJ72PPLVUvZhJYIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794596200;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=NW8nmh3F61gF8JllerIuj4vC7Vf5nVwoCNHth2XqrMk=;
+	b=gTXwtdz+NZ77DIusOHLnQsfMIHVshSlli96g/I8iXJ0yU0nGQaTU7wYNJZUGuf/jRReK
+	 gU2D5nQgozF+LA8CAT/jxaOvBRQX1GxGSyCLgKgTIABG35O8ZqkHiAZqkGgVX0wYQpWSC
+	 hudoBSp+xJWz8EgMLTS0C9em5iLDT1RyMq2j1ue5IB/8B3gZOp4GH1gV4AoI9RDOFZm6h
+	 Yz8R57IqGtuFC9Et5ZrjhDo/tS4Pr422zKO/DZG9fWP7I+/ZnQ3Ocs3I2gUEXZXDfYI79
+	 RXVn9nnxZ4WdCA2gACCmlEcmQhpUCGpJd1H5xnrGjLG2Ty+rr0rwVlS26QCxGbT7bFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=meta.com;
-	spf=pass smtp.mailfrom=meta.com;
-	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b="K3w/+hjX";
-	arc=none smtp.remote-ip=67.231.153.30
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nmMwfM2f;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E2B16071076;
-	Fri, 13 Nov 2026 18:56:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E2B16071076
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 268FA606B2E9
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:56:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=K3w/+hjX
-Received: from pps.filterd (m0528004.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADFShxI2379543;
-	Fri, 13 Nov 2026 10:56:01 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	pps82601-s2048-2026-q3; bh=0Odt5eAU6DCn218cfHnRmHnBSXJD+xBpr6lIO
-	dgFlls=; b=K3w/+hjX/YfTlbyWJtYykF2M8oVyFMhC/91W3qIzySeCYnPPAoGXx
-	cVVHhjNO96yjesirTDfROojFPmEQ9XZli8vKZ6Tn8+8GrXr2a1Ra67oFYAXcWtnN
-	asCaS8kDDgVbmgvyHCLl21OyrS3GM2SVPUsXc5Rn1BkBh1PjQJaelQajHmixhwhK
-	2j+kj2p/Tu8VTJV2TvDYudSu1dZc0DuuHYwYLZ/aPbVU6qGSjqJEuFECIxOeG20i
-	5KWi52ig7OcSAFh3owIQDbYw5k1aQW2diVvpZmIkCQ6z7xoC1NfOeK0BKe8DeMw5
-	M9uy8wNNifazqzCTj89JBHoKSLzTGOjBg==
-Received: from mail.thefacebook.com ([163.114.134.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hwnm16etv-4
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Fri, 13 Nov 2026 10:56:01 -0800 (PST)
-Received: from localhost (2620:10d:c085:208::7cb7) by mail.thefacebook.com
- (2620:10d:c08b:78::c78f) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Fri, 13 Nov
- 2026 18:55:59 +0000
-From: Todd Freed <toddfreed@meta.com>
-To: <netdev@vger.kernel.org>, <toddfreed@meta.com>
-CC: "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet
-	<edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni
-	<pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-        Daniel Zahka
-	<daniel.zahka@gmail.com>,
-        Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-        Wei Wang <weiwan@google.com>, Jamal Hadi Salim <jhs@mojatatu.com>,
-        Jiri Pirko
-	<jiri@resnulli.us>, Alexei Starovoitov <ast@kernel.org>,
-        Daniel Borkmann
-	<daniel@iogearbox.net>,
-        Andrii Nakryiko <andrii@kernel.org>,
-        Martin KaFai Lau
-	<martin.lau@linux.dev>,
-        John Fastabend <john.fastabend@gmail.com>,
-        "Stanislav
- Fomichev" <sdf@fomichev.me>,
-        Sabrina Dubroca <sd@queasysnail.net>,
-        "Boris
- Pismenny" <borisp@nvidia.com>, <bpf@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-Subject: [PATCH net 1/3] net/sched: act_mirred: don't send decrypted skbs from egress to ingress
-Date: Fri, 13 Nov 2026 10:55:51 -0800
-Message-ID: <20261113185553.171059-2-toddfreed@meta.com>
-X-Mailer: git-send-email 2.53.1
-In-Reply-To: <20261113185553.171059-1-toddfreed@meta.com>
-References: <20261113185553.171059-1-toddfreed@meta.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nmMwfM2f
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C7951F000C5;
+	Fri, 13 Nov 2026 18:56:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794596199;
+	bh=NW8nmh3F61gF8JllerIuj4vC7Vf5nVwoCNHth2XqrMk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nmMwfM2fOnmhhn2bfnthfL58t+QqotwcdXDg1Yu4FmA7EJFnZRc6ZKqdsp1ShiERG
+	 npdWCP9NL7van4Fc4H8pMh7LQq7Pw8SfTTHsox9ZsRyIiPFqD8/xnfgvUxIyK0feCK
+	 ncDWah39lfjfEWnGzkKBiDQciDMeGZv769d0BpeRh3O5Jfyh36fZgQIWU8WeYGncjU
+	 Unhdft4P/n0NICrqjCpzl7AuKUV9cJjYXZHvsF+LWnubzOrYu9hSlBtVEcze+v+o1q
+	 jHi1NFLjHilJj+ifYu1hJIBR1/I/5en7NdiYlpCENS7X8nmf2smkBhOO5VCTJ6GnJq
+	 GPVxHPaPhht2A==
+From: "Barry Song (Xiaomi)" <baohua@kernel.org>
+To: akpm@linux-foundation.org,
+	linux-mm@kvack.org
+Cc: axelrasmussen@google.com,
+	baolin.wang@linux.alibaba.com,
+	baoquan.he@linux.dev,
+	hannes@cmpxchg.org,
+	hui.zhu@linux.dev,
+	kasong@tencent.com,
+	kunwu.chan@gmail.com,
+	liam@infradead.org,
+	lianux.mm@gmail.com,
+	linux-kernel@vger.kernel.org,
+	liuxiang.277@bytedance.com,
+	lyugaofei@xiaomi.com,
+	mhocko@kernel.org,
+	mhocko@suse.com,
+	qi.zheng@linux.dev,
+	ridong.chen@linux.dev,
+	rppt@kernel.org,
+	ryncsn@gmail.com,
+	shakeel.butt@linux.dev,
+	surenb@google.com,
+	wangzicheng@honor.com,
+	weixugc@google.com,
+	yuanchu@google.com,
+	zhangbo56@xiaomi.com,
+	zhuhui@kylinos.cn,
+	sidchintamaneni@gmail.com,
+	Barry Song <baohua@kernel.org>
+Subject: [PATCH v8 10/16] mm/mglru: Run aging when pages are rare outside the youngest gen
+Date: Sat, 14 Nov 2026 02:55:35 +0800
+Message-Id: <20261113185541.70203-11-baohua@kernel.org>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+In-Reply-To: <20261113185541.70203-1-baohua@kernel.org>
+References: <20261113185541.70203-1-baohua@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,69 +85,88 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA3NSBTYWx0ZWRfX95d7GKYfK5rZ
- TM2kvRnKGzRTUNjW+znRKGLx4cOCN0zBeQa73Swzdzeij2oTr04Ova3yWwGtoIbeIE6aw+m7mpq
- DIHvsrVrMi9qjpkTG1ktNVrjL8Qs9RQ=
-X-Proofpoint-ORIG-GUID: 1EWEQP8KQcrHGdiMYVDH1R1suqxS51Fx
-X-Authority-Analysis: v=2.4 cv=acv0Dhot c=1 sm=1 tr=0 ts=6af75d41 cx=c_pps
- a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=GbPsI2Ihf5RTnMjR_gZv:22 a=VabnemYjAAAA:8 a=OYNTlRyxvniuHvjL9cQA:9
- a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA3NSBTYWx0ZWRfX15vq8irdOh8F
- jvqZ5vnPEVkg7PGc1V5JJ+FkRGE6JNKuUXmgxIR+H+0oLWy/a8NTSOrCtpT0uCaPU75CnOSIbeC
- Sa6WVnFjKUdrnIWTNGvv4LJU7eqbG4T0E6qvdT1WDciYcvlT4t6vUo5wDx9DnWaLjgqYa0u7WuY
- Sru1+DhGlq3AkbskkLwJ9zfLmJpUJO4UiyD8ILbENWPAni6QvE/J+BquVtHaVWoStq/Vmpgcewc
- xL36fdcpKibFDQ3yz5fQ6/wMNzHTds891TEwfpLpFo6JGAgVzKevvu0ghKnsUzXGLrhFVA0SA8t
- 0mEoinNX4fFqlYnweU2SMw2sWEvvCkWhOSJVU+ejbnva5x7MTliEv5upI0qQ7febrfMl/6PHBOP
- utuMkvTx+/CMkd1imY1+SVRGexAZW31fxcDhP8Eax/nluz7TZB7jc88jkD2zFNI1pWeBmYr5kll
- ws0yRhsfvsbHp85J+RQ==
-X-Proofpoint-GUID: 1EWEQP8KQcrHGdiMYVDH1R1suqxS51Fx
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-13_05,2026-11-11_03,2025-10-01_01
 
-On transmit, skb->decrypted means that the device must encrypt the
-packet, e.g. a packet of a kTLS or PSP device offload socket.
+From: Gaofei Lyu <lyugaofei@xiaomi.com>
 
-On receive, skb->decrypted means that the device decrypted the packet,
-and kTLS device offload trusts it as such (tls_device_decrypted()).
+Run aging when the total number of pages outside the youngest
+generation across both types falls below 1/MAX_NR_GENS of the number
+of pages in the youngest generation. For extreme swappiness values
+such as 1 and 200, also consider the balance of the corresponding
+type.
 
-A packet which mirred redirects or mirrors from egress to ingress keeps
-the bit. On ingress, it then claims to have been decrypted by the device,
-although it was never encrypted, and its payload, which was to be
-encrypted before leaving the host, could then be forwarded in cleartext.
+This improves reclaim efficiency, especially at extreme swappiness
+values, while reducing system time.
 
-Clearing skb->decrypted would not work, because that is what indicates
-intent to encrypt the packet.
+To avoid the overhead of aging, we only allow imbalance-based aging
+when the reclaim priority is low enough that we might reclaim the
+youngest generation.
 
-Don't send decrypted skbs from egress to ingress: a redirected one is
-dropped, a mirrored one isn't copied.
-
-Fixes: 414776621d10 ("net/tls: prevent skb_orphan() from leaking TLS plain text with offload")
-Signed-off-by: Todd Freed <toddfreed@meta.com>
+Signed-off-by: Gaofei Lyu <lyugaofei@xiaomi.com>
+Co-developed-by: Barry Song (Xiaomi) <baohua@kernel.org>
+Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
 ---
- net/sched/act_mirred.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ mm/vmscan.c | 41 ++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 40 insertions(+), 1 deletion(-)
 
-diff --git a/net/sched/act_mirred.c b/net/sched/act_mirred.c
-index 1c98e4d81ebe..52c3eeab381a 100644
---- a/net/sched/act_mirred.c
-+++ b/net/sched/act_mirred.c
-@@ -285,6 +285,12 @@ static int tcf_mirred_to_dev(struct sk_buff *skb, struct tcf_mirred *m,
- 		goto err_cant_do;
- 	}
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 8bdc88748959..59957fab915b 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -5073,6 +5073,41 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+ 	return scanned;
+ }
  
-+	/* On transmit, decrypted asks the device to encrypt the packet. Sent
-+	 * to ingress, the packet would read as decrypted by the device.
-+	 */
-+	if (unlikely(want_ingress && !at_ingress && skb_is_decrypted(skb)))
-+		goto err_cant_do;
++static bool lru_gen_imbalanced(struct lruvec *lruvec, struct scan_control *sc,
++		int swappiness)
++{
++	unsigned long youngest[ANON_AND_FILE] = {0}, old[ANON_AND_FILE] = {0};
++	struct lru_gen_folio *lrugen = &lruvec->lrugen;
++	DEFINE_MAX_SEQ(lruvec);
++	DEFINE_MIN_SEQ(lruvec);
++	int type;
 +
- 	/* we could easily avoid the clone only if called by ingress and clsact;
- 	 * since we can't easily detect the clsact caller, skip clone only for
- 	 * ingress - that covers the TC S/W datapath.
++	if (sc->priority > DEF_PRIORITY / 2)
++		return false;
++
++	for_each_evictable_type(type, swappiness) {
++		unsigned long seq;
++
++		youngest[type] = lruvec_gen_size(lrugen, type, max_seq);
++		for (seq = min_seq[type]; seq < max_seq; seq++)
++			old[type] += lruvec_gen_size(lrugen, type, seq);
++	}
++
++	/* the vast majority of pages sit in the youngest gen */
++	if (youngest[LRU_GEN_ANON] + youngest[LRU_GEN_FILE] >
++	    (old[LRU_GEN_ANON] + old[LRU_GEN_FILE]) * MAX_NR_GENS)
++		return true;
++
++	/* Swappiness extremes: the corresponding type matters */
++	if (swappiness == MIN_SWAPPINESS + 1)
++		return youngest[LRU_GEN_FILE] > old[LRU_GEN_FILE] * MAX_NR_GENS;
++
++	if (swappiness == MAX_SWAPPINESS)
++		return youngest[LRU_GEN_ANON] > old[LRU_GEN_ANON] * MAX_NR_GENS;
++
++	return false;
++}
++
+ static bool should_run_aging(struct lruvec *lruvec, unsigned long max_seq,
+ 			     struct scan_control *sc, int swappiness)
+ {
+@@ -5087,7 +5122,11 @@ static bool should_run_aging(struct lruvec *lruvec, unsigned long max_seq,
+ 		return false;
+ 
+ 	/* better to run aging even though eviction is still possible */
+-	return evictable_min_seq(min_seq, swappiness) + MIN_NR_GENS == max_seq;
++	if (evictable_min_seq(min_seq, swappiness) + MIN_NR_GENS == max_seq)
++		return true;
++
++	/* run aging when folios outside the youngest gen are rare */
++	return lru_gen_imbalanced(lruvec, sc, swappiness);
+ }
+ 
+ static void lru_gen_prepare_scan(struct lruvec *lruvec, struct scan_control *sc,
 -- 
-2.53.1-Meta
+2.39.3 (Apple Git-146)
 
