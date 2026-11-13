@@ -1,105 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794601339;
-	b=0palir3C8kD7e1M4ZF/UMVMhfV0ALnRRXzX5nqGL+OsTl3jDEX5qUdJKdpz5Wn/opKIs
-	 G55Orh38dO3mRqqcbtyZsO2P06PMWH48JkOnZbTi61l+BfpT6lz+YXuuziAxYMeJvj3tW
-	 KvUoXcsaYOQSiGrlaZk+fU2xpF19hs3D4YSkmFdqqQGefgfC/YRvMtTm538dXe9KigHKX
-	 K77L3NMYJzxeyrSb47n3NwG4h3oPY+0UJFm9oRmz1gPPKPUtSFRm2aVRgwGAfmWyP6KKt
-	 zXG8kC2p2yijTDoRRYo0TZMmHrBHU90pa349XGiBgeNZUMZlN8yW/ppy6VDYBKZ+mQQ==
+	t=1794601352;
+	b=nkuPIjnuf7bpHm6COEzAYz0qSYQ3OwQ34ALkAtPWxM6UsXvUt4eQGcxAv7r90/2Ufggf
+	 MjFMvYyvzNzJ/UXZbWOUankTgnvkBJ6bU6BhIMza88L0K8XmwhU3jLFRbFMCCAyEmwAtK
+	 0A+J1QWFaM+P6FebCQuiwoj9SYcR2WuFkh0JQzMiEmRxgA2wdABWLumqvMgaoGUp5/W5q
+	 cTZXDWIFyD9OmYZUP6+bEod1UqXv+dYELMttUseyNYjI/wrN1Us0Bw2+d+1eDVKyD+qBt
+	 6AsYX7MFNtjjPuPIpzmDse11Ta7T2BQdFd+Wl3QoalwmhQhSs/H8OUgM1KvvMK/ptaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794601339;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=e9XTism2h6GI5PEf3nzwBx2axJe/PDQpM09YQnNfZH0=;
-	b=IayZWP5MLSAe1RbWtOSy02EpmqVm9op6QT8h2SD5ANsRI96aWSHiLvPqVvoghAiY4zJ0
-	 vq3d3TiuDO82SmiAxe/Y5PbpwClyX9pLbjg5izc+B9KxjN3U47bCAS6s72Lq2WTForFnY
-	 kGHSxpTPPXM2tB2xOzSvcNJ4Or/n/O8YZKa5aZMGnVxO6PYnbrFCsXB5fPWvP1LYZzkN0
-	 Jrhd8VuMHh49mSW4tGa2e+fS6WGbqPDOibOsvXdIeksrY98igxr6iQNP4ZUvV580DolBb
-	 +9yVRIaVranOZXKdkTAsScDaZmRhfCY0OM5/52Zx1bpS60MO8Hc3C3grvpchMUk5hyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794601352;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=fZBLWHhKZStR4J0kgZ8KXl8AdK3ThP4v2+4JtoQHNqU=;
+	b=1zG4Ft3wvMZafI1QdJ1X2Ewo15+c/Gv+VIwX1pfg7VIyKUDuEHvpX+BNwkVwLBmQDsej
+	 scWl61qHdX7XQWi6xYYemUgMf38o2aG8mXu5CTYiJ959LVLIS/rJbOpPtlt7wAW8xQ5dx
+	 wEdKUdQiOyt/EsKM+hBlk7thcE0w8ZZ2LVw+RSdJKQxuqlnHVyZXP5SM0zx/HnvOapsA0
+	 i2eL5WypEjdS5m06d01w7B2qglTkRI1Udko15PbmjvFhOv1dIAfu29mNDvRZ/9dIiGocn
+	 KcomiKVSvm/hKwjcweR9A8dAHQ+4mrH9VjWVGe1zTbgIg5GoQAZumRUCUxXbldYTd1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LpREJwCt;
-	arc=none smtp.remote-ip=74.125.229.5
-Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eelJ0Ehg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89A67606A327
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:22:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89A67606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA395606A327;
+	Fri, 13 Nov 2026 20:22:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LpREJwCt
-Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-36caa19b0ffso606303eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:22:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794601337; x=1795206137; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=e9XTism2h6GI5PEf3nzwBx2axJe/PDQpM09YQnNfZH0=;
-        b=LpREJwCtrnK7Eiqzb4f/1THoEjElqDwm2lkFHnjYviKx/56ONT1jzBZVgpJSV/uqj3
-         MvLDZl/7u8i1w39T6tT4486Fem3k99YZ5BLy0pIirLAzYlPOnzjV3LdbRqIWkiQWEw5T
-         4JVT+c8vI9qL1ToLnzaXPEg9ZeAY7aR4BoVIPKURMRnKB6aqGWD57RxStkAJUpNJgIVU
-         EISm+PfhbJrYHt+2bUY1RRBN/QL8U0Qxx096MCSAqUYCSPmB8MeUvVwTbdnPoEX0Rhiv
-         6vOBkawWL4rduchCEHDlTjzTEOEt5i4FLiPbEbuNLMZruMbCrhNtq6qeIIRLLFQ0heLT
-         aBqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794601337; x=1795206137;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=e9XTism2h6GI5PEf3nzwBx2axJe/PDQpM09YQnNfZH0=;
-        b=foWUnYNq/+FcSw3Cv5eyzBZj1Xq2vBj2+63yfJKrAbZ6lULHk4XoHXuY+wVuxNbNas
-         n5AdUbGYrRnGpHQq6p7qh+9q3j6BN00fw43qEm5QFEpmmh9M68IuQ+2JwW93pIlHXizs
-         B2FTBHVgzw9jn6PfIzFRQoo/cyqoxojUX3Qp/goMEaPuNR+VZD83HZcKK6i4GGOPZN7h
-         f3PM28zqhZmkoBE6E8Z2wgacgBSHqjZLzsD8pdG2UFeFMrwI5XW8wwVcW5/wp0EAiFBy
-         wubVN2Hv78zZZVEeM4G4qA25fqBeq4cTpVQDB4muvY636ahh00A5y7zOT/DZj+1Wb8+8
-         DdNA==
-X-Forwarded-Encrypted: i=1; AL+hErE+KmctavQS67Xp2zgKeO0R+/s5PYyhmXm0geyOP2wMoQj/H8WTlvZCQwZLvBamLekiSN1Hzf5UpBx0lho=@vger.kernel.org
-X-Gm-Message-State: APuU4Z91mMORJ5SenRwOyyzI0xfCRh1YR1lBb4FKvSGOGkr6Eco+ZB9A
-	JtBQgvSjv0r0mu3ASzYJl+OtjTIzAgb8MQPh5L/qu0IBmOlGYp8oSpOg
-X-Gm-Gg: AYBFou1q3XB+a99QK/vXhWKWClWeWp5CjdL1ls0VwStAWmkvyRorkn4ZlqA1OfC53Mz
-	VXBRNDZMEABA/NS5/T3+fTjVENN2LAUyYfzPFoC6YhfGtRrK8KyiYLK7JkvLAVDPgR9at7GhSv9
-	rsaofBhbW9WuaV2FbBEQTHkL4HeclK3yoeXTCsztUdnKGoGB+O/iRynJV8GhB2uHu1CpRQJ02o5
-	SP1uwts27CWuuyQ8Ndd18uUtrDzeSwH5yYuKo5LpU+s3lqzs9uWL2GO/o8ZjLGsMHVeIvwWZUrZ
-	EPAjdebl6IfaYkdeT2z11fOz2d55gsP9oE0Y8ZihLFXIk3QtAnuYGxga1n1h97lDHdQouQkxjn4
-	KtT2nWnW/gMTdpLWvITH3ORLp7/sDwqX+i6bl6FjQE+sUGhNZ0l8qmjWpp/stZiT9KxL3o1oaPo
-	r01AWqzi4fcduYifO08IVd3a+tty4XL41fILjHc5Uum/DqNTl+jCvbkEosIPzriHUYqO7jhM92c
-	pgZ6kAKEzKGB4pHWS3IRQTUrf4+0dHQnL/x3rrT2RRp3v/AaKigkGYy9+9cGyOSNwFga+42W8vR
-	0QVEQk0p2CN3rPcmbWphEMc=
-X-Received: by 2002:a05:693c:2585:b0:369:ef63:ea95 with SMTP id 5a478bee46e88-37966e3a7e4mr2520589eec.6.1794601337204;
-        Fri, 13 Nov 2026 12:22:17 -0800 (PST)
-Received: from localhost ([2a03:2880:9ff:43::])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795591f4f8sm9979449eec.13.2026.11.13.12.22.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 12:22:16 -0800 (PST)
-Date: Fri, 13 Nov 2026 12:21:27 -0800
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-To: Breno Leitao <leitao@debian.org>
-Cc: "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Kuniyuki Iwashima <kuniyu@google.com>, Willem de Bruijn <willemb@google.com>, 
-	Neal Cardwell <ncardwell@google.com>, Daniel Borkmann <daniel@iogearbox.net>, 
-	John Fastabend <john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, 
-	Martin KaFai Lau <martin.lau@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
-	Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH net-next 1/3] net/tcp-ao: convert the getsockopt helpers
- to sockopt_t
-Message-ID: <avdxDgmlDBTRgqM0@devvm16445.scu0.facebook.com>
-References: <20261112-getsockopt_phase7-v1-0-1eb759dd0929@debian.org>
- <20261112-getsockopt_phase7-v1-1-1eb759dd0929@debian.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eelJ0Ehg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 725111F000CD;
+	Fri, 13 Nov 2026 20:22:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794601352;
+	bh=fZBLWHhKZStR4J0kgZ8KXl8AdK3ThP4v2+4JtoQHNqU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=eelJ0Ehg04DJnjRcI5vV8i/R2cvAgWEc4w7TDjR82Zqf9Mrurdi0U2ViM8LCDluqc
+	 oDQWu74h0bM84pqGElumjpFz2Z6u9BHuy/sxJFFgFwMeaeD/MWzz3Stu6qLLYiRPDr
+	 aLzekm0yKnWTs+ts5d0hdLYEGQYf2Nd07SIJmG2jXYSQ3RH0RbA/T48Ft618xXZgAt
+	 n3V2xlNky96ihS/K8lvBfqcAqh15I8CF3y6SLp+hqFk04XYUvRVwZAsCKb3zCzS/Ai
+	 Dhc5ck670LitBKhZiVAT8iWPM+6tXP43Vhy9sq+NYLD2fyDrbyelvLcmcX2Pli0xGs
+	 MZ0Petu9Db8YA==
+Message-ID: <835c18d0-bee3-41e8-aa46-05dc7c1ebc64@kernel.org>
+Date: Fri, 13 Nov 2026 21:22:18 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,226 +51,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261112-getsockopt_phase7-v1-1-1eb759dd0929@debian.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/15] mm/hugetlb: various fixes
+To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Mel Gorman <mgorman@suse.de>,
+ Andy Whitcroft <apw@canonical.com>, Miaohe Lin <linmiaohe@huawei.com>,
+ Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>,
+ Hugh Dickins <hughd@google.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, Vivek Kasireddy
+ <vivek.kasireddy@intel.com>, Dave Airlie <airlied@redhat.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Peter Xu <peterx@redhat.com>,
+ Breno Leitao <leitao@debian.org>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Gerd Hoffmann <kraxel@redhat.com>, linux-doc@vger.kernel.org,
+ linux-arch@vger.kernel.org, linux-s390@vger.kernel.org,
+ luojiajun <luojiajun3@huawei.com>, Josef Bacik <josef@toxicpanda.com>,
+ stable@kernel.org, Chris Mason <mason@kernel.org>,
+ Daehyeon Ko <4ncienth@gmail.com>, stable@vger.kernel.org
+References: <20261028-fixes_hugetlb-v1-0-a0a033db180f@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261028-fixes_hugetlb-v1-0-a0a033db180f@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 11/12, Breno Leitao wrote:
-> TCP_AO_GET_KEYS, TCP_AO_INFO and TCP_AO_REPAIR are read through
-> tcp_ao_get_mkts(), tcp_ao_get_sock_info() and tcp_ao_get_repair(),
-> reached from do_tcp_getsockopt() and from nowhere else. Convert them to
-> sockopt_t. While do_tcp_getsockopt() still carries a sockptr_t pair, it
-> calls them through tcp_ao_get_sockptr(), which builds the sockopt_t and
-> writes optlen back.
-> 
-> TCP_AO_GET_KEYS and TCP_AO_INFO read a versioned struct from optval.
-> Only a user buffer gets there, as BPF's sol_tcp_sockopt() takes no
-> TCP-AO option, so they keep reading it with copy_struct_from_user(),
-> now on iter_in.ubuf. A kernel buffer gets -EINVAL, as in
-> sockopt_expand_out().
-> 
-> TCP_AO_GET_KEYS is sized by a field in optval rather than by optlen:
-> optlen is the size of one entry, and nkeys says how many entries the
-> buffer holds. The match count then goes into the first entry's nkeys,
-> past optlen when the caller's struct is shorter than that field.
-> 
-> Userspace relies on this, so sockopt_expand_out() grows optval for the
-> reply, as for MCAST_MSFILTER. The growth is bounded by the keys on the
-> socket, not by nkeys alone: sockopt_expand_out() refuses a reply above
-> MAX_RW_COUNT, and a large nkeys would otherwise get -EINVAL.
-> 
-> iter_out only moves forward, so the entries are written in turn and the
-> bytes past each one are skipped, as before. The match count is written
-> last, through a copy of iter_out saved at the head of optval.
-> 
-> A reply that still needs more than MAX_RW_COUNT bytes now fails with
-> -EINVAL. With two keys on the socket, that takes entries of about 1 GiB.
-> 
-> TCP_AO_INFO and TCP_AO_REPAIR now write optlen back on success, with
-> the value they were given. TCP_AO_GET_KEYS stores optlen after nkeys
-> instead of before it, which only shows when one of the two writes
-> faults.
-> 
-> Signed-off-by: Breno Leitao <leitao@debian.org>
-> ---
->  include/net/tcp_ao.h | 13 ++++-----
->  net/ipv4/tcp.c       | 28 +++++++++++++++++--
->  net/ipv4/tcp_ao.c    | 77 ++++++++++++++++++++++++++++++----------------------
->  3 files changed, 76 insertions(+), 42 deletions(-)
-> 
-> diff --git a/include/net/tcp_ao.h b/include/net/tcp_ao.h
-> index 9a2333e62e9940..0e1edd777a600a 100644
-> --- a/include/net/tcp_ao.h
-> +++ b/include/net/tcp_ao.h
-> @@ -210,9 +210,9 @@ void tcp_ao_calc_traffic_key(const struct tcp_ao_key *mkt, u8 *traffic_key,
->  void tcp_ao_destroy_sock(struct sock *sk, bool twsk);
->  void tcp_ao_time_wait(struct tcp_timewait_sock *tcptw, struct tcp_sock *tp);
->  bool tcp_ao_ignore_icmp(const struct sock *sk, int family, int type, int code);
-> -int tcp_ao_get_mkts(struct sock *sk, sockptr_t optval, sockptr_t optlen);
-> -int tcp_ao_get_sock_info(struct sock *sk, sockptr_t optval, sockptr_t optlen);
-> -int tcp_ao_get_repair(struct sock *sk, sockptr_t optval, sockptr_t optlen);
-> +int tcp_ao_get_mkts(struct sock *sk, sockopt_t *sopt);
-> +int tcp_ao_get_sock_info(struct sock *sk, sockopt_t *sopt);
-> +int tcp_ao_get_repair(struct sock *sk, sockopt_t *sopt);
->  int tcp_ao_set_repair(struct sock *sk, sockptr_t optval, unsigned int optlen);
->  enum skb_drop_reason tcp_inbound_ao_hash(struct sock *sk,
->  			const struct sk_buff *skb, unsigned short int family,
-> @@ -334,18 +334,17 @@ static inline void tcp_ao_connect_init(struct sock *sk)
->  {
->  }
->  
-> -static inline int tcp_ao_get_mkts(struct sock *sk, sockptr_t optval, sockptr_t optlen)
-> +static inline int tcp_ao_get_mkts(struct sock *sk, sockopt_t *sopt)
->  {
->  	return -ENOPROTOOPT;
->  }
->  
-> -static inline int tcp_ao_get_sock_info(struct sock *sk, sockptr_t optval, sockptr_t optlen)
-> +static inline int tcp_ao_get_sock_info(struct sock *sk, sockopt_t *sopt)
->  {
->  	return -ENOPROTOOPT;
->  }
->  
-> -static inline int tcp_ao_get_repair(struct sock *sk,
-> -				    sockptr_t optval, sockptr_t optlen)
-> +static inline int tcp_ao_get_repair(struct sock *sk, sockopt_t *sopt)
->  {
->  	return -ENOPROTOOPT;
->  }
-> diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
-> index a1f89c1fa2ae51..552e8fe22e7e20 100644
-> --- a/net/ipv4/tcp.c
-> +++ b/net/ipv4/tcp.c
-> @@ -4492,6 +4492,25 @@ struct sk_buff *tcp_get_timestamping_opt_stats(const struct sock *sk,
->  	return stats;
->  }
->  
-> +/* Bridge the sockptr_t pair of do_tcp_getsockopt() to a TCP-AO getter. */
-> +static int tcp_ao_get_sockptr(struct sock *sk,
-> +			      int (*get)(struct sock *sk, sockopt_t *sopt),
-> +			      sockptr_t optval, sockptr_t optlen)
-> +{
-> +	struct kvec kvec;
-> +	sockopt_t sopt;
-> +	int err;
-> +
-> +	err = sockptr_to_sockopt(&sopt, optval, optlen, &kvec);
-> +	if (err)
-> +		return err;
-> +
-> +	err = get(sk, &sopt);
-> +	if (!err && copy_to_sockptr(optlen, &sopt.optlen, sizeof(int)))
-> +		err = -EFAULT;
-> +	return err;
-> +}
-> +
->  int do_tcp_getsockopt(struct sock *sk, int level,
->  		      int optname, sockptr_t optval, sockptr_t optlen)
->  {
-> @@ -4830,16 +4849,19 @@ int do_tcp_getsockopt(struct sock *sk, int level,
->  	case TCP_AO_REPAIR:
->  		if (!tcp_can_repair_sock(sk))
->  			return -EPERM;
-> -		return tcp_ao_get_repair(sk, optval, optlen);
-> +		return tcp_ao_get_sockptr(sk, tcp_ao_get_repair,
-> +					  optval, optlen);
->  	case TCP_AO_GET_KEYS:
->  	case TCP_AO_INFO: {
->  		int err;
->  
->  		sockopt_lock_sock(sk);
->  		if (optname == TCP_AO_GET_KEYS)
-> -			err = tcp_ao_get_mkts(sk, optval, optlen);
-> +			err = tcp_ao_get_sockptr(sk, tcp_ao_get_mkts,
-> +						 optval, optlen);
->  		else
-> -			err = tcp_ao_get_sock_info(sk, optval, optlen);
-> +			err = tcp_ao_get_sockptr(sk, tcp_ao_get_sock_info,
-> +						 optval, optlen);
->  		sockopt_release_sock(sk);
->  
->  		return err;
-> diff --git a/net/ipv4/tcp_ao.c b/net/ipv4/tcp_ao.c
-> index bb7bbc20ba3fad..af33042478f9a8 100644
-> --- a/net/ipv4/tcp_ao.c
-> +++ b/net/ipv4/tcp_ao.c
-> @@ -2054,14 +2054,11 @@ int tcp_v4_parse_ao(struct sock *sk, int cmd, sockptr_t optval, int optlen)
->  	return tcp_parse_ao(sk, cmd, AF_INET, optval, optlen);
->  }
->  
-> -/* tcp_ao_copy_mkts_to_user(ao_info, optval, optlen)
-> +/* tcp_ao_copy_mkts_to_user(ao_info, sopt)
->   *
->   * @ao_info:	struct tcp_ao_info on the socket that
->   *		socket getsockopt(TCP_AO_GET_KEYS) is executed on
-> - * @optval:	pointer to array of tcp_ao_getsockopt structures in user space.
-> - *		Must be != NULL.
-> - * @optlen:	pointer to size of tcp_ao_getsockopt structure.
-> - *		Must be != NULL.
-> + * @sopt:	optval and optlen of that getsockopt(), described below.
->   *
->   * Return value: 0 on success, a negative error number otherwise.
->   *
-> @@ -2091,29 +2088,31 @@ int tcp_v4_parse_ao(struct sock *sk, int cmd, sockptr_t optval, int optlen)
->   */
->  static int tcp_ao_copy_mkts_to_user(const struct sock *sk,
->  				    struct tcp_ao_info *ao_info,
-> -				    sockptr_t optval, sockptr_t optlen)
-> +				    sockopt_t *sopt)
->  {
->  	struct tcp_ao_getsockopt opt_in, opt_out;
->  	struct tcp_ao_key *key, *current_key;
->  	bool do_address_matching = true;
->  	union tcp_ao_addr *addr = NULL;
->  	int err, l3index, user_len;
-> +	unsigned int nr_keys = 0;
->  	unsigned int max_keys;	/* maximum number of keys to copy to user */
-> -	size_t out_offset = 0;
->  	size_t bytes_to_write;	/* number of bytes to write to user level */
-> +	struct iov_iter head;
->  	u32 matched_keys;	/* keys from ao_info matched so far */
-> -	int optlen_out;
-> +	size_t reply_len;
->  	__be16 port = 0;
->  
-> -	if (copy_from_sockptr(&user_len, optlen, sizeof(int)))
-> -		return -EFAULT;
-> +	user_len = sopt->optlen;
->  
->  	if (user_len <= 0)
->  		return -EINVAL;
->  
->  	memset(&opt_in, 0, sizeof(struct tcp_ao_getsockopt));
-> -	err = copy_struct_from_sockptr(&opt_in, sizeof(opt_in),
-> -				       optval, user_len);
-> +	if (WARN_ON_ONCE(!iter_is_ubuf(&sopt->iter_in)))
-> +		return -EINVAL;
-> +	err = copy_struct_from_user(&opt_in, sizeof(opt_in), sopt->iter_in.ubuf,
-> +				    user_len);
->  	if (err < 0)
->  		return err;
->  
-> @@ -2214,6 +2213,21 @@ static int tcp_ao_copy_mkts_to_user(const struct sock *sk,
->  	}
->  
->  	bytes_to_write = min_t(int, user_len, sizeof(struct tcp_ao_getsockopt));
-> +
+On 10/28/26 21:13, David Hildenbrand (Arm) wrote:
+> These fixes almost finished me.
 
-[..]
+Muchun, Oscar, should I respin with an un-rfc of patch #14?
 
-> +	/* The reply is up to nkeys entries, user_len apart, with the match
-> +	 * count in the first entry's nkeys, so it can outgrow optlen. Size it
-> +	 * by the keys on the socket rather than by the caller's nkeys.
-> +	 */
-> +	hlist_for_each_entry_rcu(key, &ao_info->head, node,
-> +				 lockdep_sock_is_held(sk))
-> +		nr_keys++;
-> +	reply_len = max(array_size(min(max_keys, nr_keys), user_len),
-> +			offsetofend(struct tcp_ao_getsockopt, nkeys));
-> +	err = sockopt_expand_out(sopt, reply_len);
-> +	if (err)
-> +		return err;
-> +	head = sopt->iter_out;
+-- 
+Cheers,
 
-Is that faster / cleaner / more preferable than calling sockopt_expand_out
-on every iteration hlist_for_each_entry_rcu below?
+David
