@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794596234;
-	b=ZH1Vmm0sb9agrdNb/sgqphFf/V6crvm7mnkE/JOa6RjhyEM2V9x2DiviOdNDG2CuunKH
-	 KewF6qJySUOLJP1CuQrP51499gCrUBPL9DrBSLlXrDWVDLk0Y7VFzx4WuFTmqtiybxB78
-	 B9ONHq+pHpY3yTKpgU25CMIMdZauO5tPkONtNFSg0P3oAFvnxa+zwychWmIwydMQ+1km4
-	 rvYJRadUFp+LuLJNhy15q36rUwNma0S7HqLFeMdNzClYncs4uwbUAuUw6alHYqAAS5CC7
-	 iUtGURqWPfB61MZKmNrwCWs8De28lujGyLxdPsIGbN4MOHp94aMwcx7jFPlx0+LiQkw==
+	t=1794596236;
+	b=qTJ5ZsB2Bh6WsZvwJFkdJ7V1usp3s4duzdwAmeD8nrhOXzCk4yroOjnEqfFoTer4Ftyp
+	 ChFzrEXb7ucMTAlRC8dLYEXUwkTO1R/vRNt2Ywug1CoL7faOfKa3L6jRoPhl+UM35/6bb
+	 HpdSkyDliMG70209KQ2fw2fpXj8EwPlEf4YxVaWZi+d8k8mc5z5fBEtiYVm3y/BXuYfwe
+	 /XzPfY2CbjdViTD6NYPeuJD9rpVmPAeV2rAHYJi7bmszmlP3FO6hqu1PrynA0k/L4EH3K
+	 olrF0+WTP/2ssNKvjCw8uWp8bQF1oJlne8U7FkdsA7KheQAn/7UfI1a89/aJA9IdmJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794596234;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794596236;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=TvCJCDZ1w+NnQ3WWtAE5fKPBEjh4gdc9x1Sa5mH/xTw=;
-	b=DuwFCj5gDs+LNnEs6EdSo+ogqT6V98cCVSjLDYagceQa7u6Q796TRbshVnsKBZxLZuOk
-	 ZN9m+4B9LBZAhSl3hYOsJBdaYYqnKfDpUzD7xGENYmcCLs03whl8CmOPTRhbZN3kwJbCx
-	 b7qNQxnxpcFWptuevLW8iUIn4uDwRJ+0UuGAbGSz5hk/9J53C3TtY3acKBvJrkBfDXHzR
-	 ExVKnfFGQji7pnyFpCDQuLKialvaBP+nG5+Bvx00tijzSegddbdm9ujqSzcxpu0DeN4TG
-	 1jdbaGDxPlhgML2vfgvVbeFID9MSJnnq34zb3O19EVV1LIpqFQnB8dtar+UJyhjlA/Q==
+	bh=ONhjpTFPtQ0dZVvMCyXrWyUMz7z7tu2awXqAUU0j9nA=;
+	b=jPF63manvpIYnpB4Ov77uoV9DJXvaBB0r6E5UKqYVKpZfZkXS3uHdyp15Hwz3+qMarMV
+	 XheS6ftyVP/vJjN2ibErUZPq83QmvJiRttiUdgZqEMMlGVpD32Co2x2hT94EgLmE/bfpN
+	 dW1A4/NfYCBi/qoZ4D9fRyWkQ5MLEgDnZ8odEK6AzIIFgeLqExUqqm6uJeCR1gWfUe4M4
+	 rt6mXbRrcV1xg2RBt1pZ93YLwfvW+ZBIAAsjq5bufyE42wSJWaz9r2nhv/aOdLMm0SzOx
+	 Yfgd8xNksQMYkdP5fEbZJAWW7lEMX7iHoaWn+45V6aP72oQviDGO92xPZsBHfuDszEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=readmodwrite.com;
 	spf=none smtp.mailfrom=readmodwrite.com;
-	dkim=pass header.d=readmodwrite-com.20260707.gappssmtp.com header.i=@readmodwrite-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=AYDY8SGL;
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	dkim=pass header.d=readmodwrite-com.20260707.gappssmtp.com header.i=@readmodwrite-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=EU7LD0Q3;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BF7B606B63B
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:57:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BF7B606B63B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91213606E349
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:57:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91213606E349
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readmodwrite.com
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=readmodwrite.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=readmodwrite-com.20260707.gappssmtp.com header.i=@readmodwrite-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=AYDY8SGL
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-492fcbfaa88so672286f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:57:13 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=readmodwrite-com.20260707.gappssmtp.com header.i=@readmodwrite-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=EU7LD0Q3
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-491846221ffso1391293f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:57:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=readmodwrite-com.20260707.gappssmtp.com; s=20260707; t=1794596232; x=1795201032; darn=vger.kernel.org;
+        d=readmodwrite-com.20260707.gappssmtp.com; s=20260707; t=1794596234; x=1795201034; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=TvCJCDZ1w+NnQ3WWtAE5fKPBEjh4gdc9x1Sa5mH/xTw=;
-        b=AYDY8SGL+CPIlLer8lbVk2sFfRWvCcg3DXVRfT5jdpRV3gaE2x3qYhDvF/0+rOa889
-         rUxhPWWXq6jKggfhSSuKitGS/OqbPGcTdNA1MQIUwfXjjVyziTmVpsiO5Ki21Q+h8tSy
-         rsUWZjp7vTOpmICVpbET11dvtI4A9NB7wWmSYXe6xSrcPoRrRDWCuvezdbqOlRDfLNoz
-         moh4c3o0r2r7F96TITy5K+541KMTh2n5YttWk0wUUEzLkKQeiaO96GyJHCXRixslzUKZ
-         4KaNNy9WwXm5fXFe94WCQ1G7qQz7jELE8dBnJeZBmum0CrGt84r2Vp/DrWoAoJgPJpVr
-         m1Dg==
+        bh=ONhjpTFPtQ0dZVvMCyXrWyUMz7z7tu2awXqAUU0j9nA=;
+        b=EU7LD0Q34y2/GmFiEKNBMr3nwrGJYv2eZY+xul22wSGPC5XGyZ2SGA5uE20prbBt6Y
+         GLbOExslgBk3vHJ4nU9hENpzvNntnZB7kFQm8R5vddMamvxrt8ZlcMzHezmvNNki0+qS
+         NdWI+Fh7oHuC1EljM1zlmVAsi1LWw0So5snM++RK6KC/saHwtKBDoVFQDRRj3MFJJNF+
+         glHEpu/W35eqKg1MngK6wCPdqDZqF0bjZFuORY8wLOg31C3x3GonFe5MDGTnF2oh8FhT
+         E7mj9dtd41ZAwSUUK0OUuYbawTyY1DR6yTaQYDd+iAKhX59Eu0u5FtXQSJBCqwyfX1tM
+         ogsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794596232; x=1795201032;
+        d=1e100.net; s=20260707; t=1794596234; x=1795201034;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TvCJCDZ1w+NnQ3WWtAE5fKPBEjh4gdc9x1Sa5mH/xTw=;
-        b=qjsIkzCwHkd7lOv0rjRAp9O9gGY8/vXLgF2IjwwlyBN8qvB+yVqf8IhOtURcveU2aT
-         uVSblnYiKhJu4/Q/Jr19x+oTX4HAozX3cxGdyx70tCuNQ+jEG+HIn/8xTjBuBX3qE1Lj
-         HsHr5HoIUdB1YYUuHIrnHhAfUFCLkdvosZjvrEmJcOGbhNfVHHfMkmW2LT1XZzsQqaLv
-         76zZE+d6GK0Btc0/xp+KB+V6A9fIMhrwkPDSJCnQSIRVts5wXhhefv0vddmh3aARX/MY
-         UUQTPsXOjjzCEkT++vMMlZpzkjHXAybF1gpw6cJmUcrjtjzL2IMN63hD2vZWVNSyIIEf
-         M/lw==
-X-Forwarded-Encrypted: i=1; AL+hErHqnCmnqN6ZxjgZ6WLFX04LUnsSgwgaL704jSwCd2XnAqyEjt8DinV3uLtVB9E3IMIfczRECjglgvszKTw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+0M9GQObymuT8J8oo4ymIs0mi7v9vjtmNEx9IE/MSrDF2vi79c
-	WtJFqXTPWsWO3NLQDhBuO8c2z4hKG/gwTsV4rec8iNdTI7vk6z7MCw44X60PQ6j924c=
-X-Gm-Gg: AYBFou3gYaNGxbtfHctjvGIu5LijSoS5oBudvVobhJ3OI7OwzQYEELLHHqw3bGO11b6
-	vALizxTFw4MFLpkQkSDby3r+ZiZCQ3PAGaZTP7cSRwLSPZLqKlLTic/5YKo58qkBzvEu/P3I0jf
-	N2+7vr5voBlUCW0ULhsWbhSiEcFbUTRpocMmGtZ4xIGVT11OuZ76RjjYENxbvYss5aOv3nkGDzr
-	M9xuGG/dBZWYD7EAK3x+XTW+weE18X8qLsCkK/pnVThToAmxqaW0V9+OTPAOnMAIOKI9t6dsH8A
-	DRjno1rL2aRsE8vRk8c5P5MtscoPNYXYugTFYT2y1BmutZejiy2nagLNvAL8NgMgnRswMm57ecL
-	NNveKRPYilsGIQViFl88gcnXBaxEqHVfM2UqHSK6ZpxaQic8ucBVfGgrf6L5Q/JCOwiaLJxq5AQ
-	CEfiXMdfdWunZJXPu5hDHYu1nwCMCFtDPkcYpM4tmu+KI2vKDHQGTQpqjmEoh3/ZhSSi/c4WCRx
-	bXt90u7alf/+faCcvKc6CPK1Gp67rQdIOJpML9yynnbogMZxHhl9BxniAka5z9J4X+6kU9a3cJh
-	HNnFtqCBqiEhCcO45GXb3r3020enPA==
-X-Received: by 2002:a05:6000:228a:b0:48e:3647:c35d with SMTP id ffacd0b85a97d-49c7381ade0mr8401708f8f.21.1794596232455;
-        Fri, 13 Nov 2026 10:57:12 -0800 (PST)
+        bh=ONhjpTFPtQ0dZVvMCyXrWyUMz7z7tu2awXqAUU0j9nA=;
+        b=Eq2y7tUU/3e+ojvgwMGgQ91kgMPkHyutUQ1ujpBXgoMj1QmV5TzPnBgfUUOJIHcUFu
+         WVtFFf27dQULiB5PIpeLYf+Kf4v1YdHJzjwQF+UdxDEj4uXj1NNT7hFsdl9zgswbRiXK
+         DJWHQrxTcEIbp6IsWePiYxMKnrbeGfQ+shu1Exn02tEKxN/Rr6/PN8WLapO3c830uKuq
+         VsXuUNjG2eyhNMitcfQLrkdxHCpmHjuo+scQBASl023oiMmw6cxWqHKtN8OkVN6LoWu/
+         1vIv4XvuOGFL82ccM6U9tPTxJvbtDg3pg1cvlfRbuyzGFeX6cEOMUgCpLTYgFmHg4zgj
+         dZyQ==
+X-Forwarded-Encrypted: i=1; AL+hErGeTlrIOAxcCMuaAumQ8b0AySSLkM5J/e6sXKNU2E1A0S/JQkCxHe0IgSwxpLCwujkT7GdOLn4bBJuO/Hg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9amVIlVK3NUDArxYt6imZayAK/Fq6l6YDr00CwxJmL6h7p5mQa
+	4DocuDuILBFnaMvycyRXFEfx5hQbWF5YickPtQasJP5wTrvNqOgjT/Qf441PwbX7mJk=
+X-Gm-Gg: AYBFou14zMDTMXB12pnhf9tdOf7YAIxg06/kGK24qbhJox4VBcCzIjhPcM0PnituVKH
+	4VOu49qv8bu1qjOU5rBw50WE8GQtN3gT2WEszP5ptvrhIuGnB8tRTohzG96BgqHBFgzGCxJgLBC
+	5wA9Mqx+uwFrY9aPlxGjos+bI7JHowuf4s/L6Y9OA3usFLIQK4LkWwOQbFHhGGIc2fq4mEoPxfJ
+	WFcIr6gTuCUfv9ObZ4S9BDDlLH1w80wHS19ZrWAtQz0lJkr4tyt/EdcbVkBckNmK9iH89H+Rujo
+	3qNzKydTY/6Lz5fHoADVXTCnWMIjXDxjF/5Gh4QKDYmXv/Q0jlwvc77h426bWLnfK24TymCS3K9
+	aIlUqpQkHRSu9qdW5vbb7/l5tEqSFNgGO4tVtaAxT6R0HrWN9YJJaHpYoOWJ+Xs1GLgP2LUDQjX
+	9GxrUVk/JmJZWqDjgHtQY6tGPjDaJn9l+24ZU2wKm8iWma3IV45MwfmFDwISA5MwZ4rEnXsN/Xq
+	9gHBr0LKzkfhiuwqfnQZFl0V0KhxGgR1rr7l73LM7n8OmFvtr1NIHOPljXYlBTE/deRElSvquA9
+	vlQH9y+X8E2eJSY5nvITO6c0HrBFkQ==
+X-Received: by 2002:a05:6000:4b0b:b0:48e:20f9:8d75 with SMTP id ffacd0b85a97d-49c72c9c398mr7102565f8f.48.1794596233904;
+        Fri, 13 Nov 2026 10:57:13 -0800 (PST)
 Received: from matt-Precision-5490.. ([2a09:bac6:37a8:ec8::179:1b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f5972a7sm6417589f8f.21.2026.11.13.10.57.11
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f5972a7sm6417589f8f.21.2026.11.13.10.57.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 10:57:11 -0800 (PST)
+        Fri, 13 Nov 2026 10:57:13 -0800 (PST)
 From: Matt Fleming <matt@readmodwrite.com>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	Marco Elver <elver@google.com>
@@ -93,9 +93,9 @@ Cc: Alexander Potapenko <glider@google.com>,
 	kasan-dev@googlegroups.com,
 	kernel-team@cloudflare.com,
 	Matt Fleming <mfleming@cloudflare.com>
-Subject: [PATCH v3 04/10] mm/slub: use stack_depot_fetch_into() for owner tracking
-Date: Fri, 13 Nov 2026 18:56:56 +0000
-Message-ID: <20261113185702.1332171-5-matt@readmodwrite.com>
+Subject: [PATCH v3 05/10] drm/locking: print deadlock backtraces with stack_depot_snprint()
+Date: Fri, 13 Nov 2026 18:56:57 +0000
+Message-ID: <20261113185702.1332171-6-matt@readmodwrite.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261113185702.1332171-1-matt@readmodwrite.com>
 References: <20261113185702.1332171-1-matt@readmodwrite.com>
@@ -112,68 +112,46 @@ Content-Transfer-Encoding: 8bit
 
 From: Caleb Kan <ckan@cloudflare.com>
 
-SLUB owner tracking stores allocation and free stacks as persistent stack
-depot handles. Compressed frames must be decompressed before use, so
-__kmem_obj_info() and the alloc_traces and free_traces debugfs files
-cannot use stack_depot_fetch().
+When a modeset lock acquisition returns -EDEADLK, DRM saves the call chain
+and prints it if the caller later attempts another lock or drops its locks
+without first calling drm_modeset_backoff(). This diagnostic currently
+fetches the saved stack through stack_depot_fetch().
 
-Use stack_depot_fetch_into() with TRACK_ADDRS_COUNT-sized local arrays.
-This matches the save-side limit. Keep the existing KS_ADDRS_COUNT copy
-limit and debugfs formatting unchanged. Continue
-to copy or print no frames when the fetch returns zero.
+Later patches compress the frames of persistent stack depot records and
+remove stack_depot_fetch(), which cannot return a pointer to them.
+Use stack_depot_snprint() to format the stack. Keep the PAGE_SIZE
+buffer and leave the warning text, existing indentation, and backtrace
+unchanged.
 
 Signed-off-by: Caleb Kan <ckan@cloudflare.com>
 [mfleming: reworded for compressed frames]
 Signed-off-by: Matt Fleming <mfleming@cloudflare.com>
 ---
- mm/slub.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/drm_modeset_lock.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/mm/slub.c b/mm/slub.c
-index cd671b934719..32e6597a5c03 100644
---- a/mm/slub.c
-+++ b/mm/slub.c
-@@ -8328,12 +8328,12 @@ void __kmem_obj_info(struct kmem_obj_info *kpp, void *object, struct slab *slab)
- #ifdef CONFIG_STACKDEPOT
- 	{
- 		depot_stack_handle_t handle;
--		unsigned long *entries;
-+		unsigned long entries[TRACK_ADDRS_COUNT];
- 		unsigned int nr_entries;
+diff --git a/drivers/gpu/drm/drm_modeset_lock.c b/drivers/gpu/drm/drm_modeset_lock.c
+index e14814c30d8c..f48b02379b71 100644
+--- a/drivers/gpu/drm/drm_modeset_lock.c
++++ b/drivers/gpu/drm/drm_modeset_lock.c
+@@ -94,16 +94,13 @@ static noinline depot_stack_handle_t __drm_stack_depot_save(void)
+ static void __drm_stack_depot_print(depot_stack_handle_t stack_depot)
+ {
+ 	struct drm_printer p = drm_dbg_printer(NULL, DRM_UT_KMS, "drm_modeset_lock");
+-	unsigned long *entries;
+-	unsigned int nr_entries;
+ 	char *buf;
  
- 		handle = READ_ONCE(trackp->handle);
- 		if (handle) {
--			nr_entries = stack_depot_fetch(handle, &entries);
-+			nr_entries = stack_depot_fetch_into(handle, entries, ARRAY_SIZE(entries));
- 			for (i = 0; i < KS_ADDRS_COUNT && i < nr_entries; i++)
- 				kpp->kp_stack[i] = (void *)entries[i];
- 		}
-@@ -8341,7 +8341,7 @@ void __kmem_obj_info(struct kmem_obj_info *kpp, void *object, struct slab *slab)
- 		trackp = get_track(s, objp, TRACK_FREE);
- 		handle = READ_ONCE(trackp->handle);
- 		if (handle) {
--			nr_entries = stack_depot_fetch(handle, &entries);
-+			nr_entries = stack_depot_fetch_into(handle, entries, ARRAY_SIZE(entries));
- 			for (i = 0; i < KS_ADDRS_COUNT && i < nr_entries; i++)
- 				kpp->kp_free_stack[i] = (void *)entries[i];
- 		}
-@@ -10031,12 +10031,14 @@ static int slab_debugfs_show(struct seq_file *seq, void *v)
- #ifdef CONFIG_STACKDEPOT
- 		{
- 			depot_stack_handle_t handle;
--			unsigned long *entries;
-+			unsigned long entries[TRACK_ADDRS_COUNT];
- 			unsigned int nr_entries, j;
+ 	buf = kmalloc(PAGE_SIZE, GFP_NOWAIT | __GFP_NOWARN);
+ 	if (!buf)
+ 		return;
  
- 			handle = READ_ONCE(l->handle);
- 			if (handle) {
--				nr_entries = stack_depot_fetch(handle, &entries);
-+				nr_entries =
-+					stack_depot_fetch_into(handle, entries,
-+							       ARRAY_SIZE(entries));
- 				seq_puts(seq, "\n");
- 				for (j = 0; j < nr_entries; j++)
- 					seq_printf(seq, "        %pS\n", (void *)entries[j]);
+-	nr_entries = stack_depot_fetch(stack_depot, &entries);
+-	stack_trace_snprint(buf, PAGE_SIZE, entries, nr_entries, 2);
++	stack_depot_snprint(stack_depot, buf, PAGE_SIZE, 2);
+ 
+ 	drm_printf(&p, "attempting to lock a contended lock without backoff:\n%s", buf);
+ 
 -- 
 2.43.0
 
