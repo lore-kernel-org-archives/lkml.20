@@ -1,66 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794575485;
-	b=tgi2OH9oipzWq2cF8/oYjnyw6nffjGCJXMgPD/2rEnU+bN1OmZ9f8tqp93LtBjGyeEXJ
-	 bE4i8vZLlB6jmf7WiEb03KsPze1VD8nCul+7K6ogABF3OXgXZ3MsLiNXXuVjZXPOrYkVl
-	 WxSEvqr13UTqEjw5qZadcW4E9IN3Nx02R/H4fC0wDIY7oZOS917ZOVLsqc5tLnOH+AQQX
-	 Bu0h0QLId/e0wRQWwklCa9CYLa645SFXGIHzTzq65Lbmlnt/EJe+V1Kn7NAzahDMEJtx1
-	 p1qsCCCwCx1ZGow7QhQk5Bq44EkdZFQLyYEipuLMTsRDyS7OQjv+3WYA/RwKBdAm8/A==
+	t=1794575500;
+	b=vU1SvFRo5Epe70xdtZshrzYHTLrmVUBIsdH+Jgjh/bHV7RYOTLE6q/OLVwLnHa+KDqPX
+	 3XMQ+u6eTY/rAJUUXlbGuR6qeMZRlcvgbVfmuVYCkpJZJPWK7Es9OaxGvZqNOKhyS2shR
+	 9H8BLSUdPYhRE0x5UWTIb5HoaiY7OHVjpVof4/lukB2me5A+GwmKkNg3+q2YKAMrBHK2k
+	 bT+NoyFHZSwwxpIPc7XYYz7/yCXLrWH1y5hLuMYk4L/J7axJeUewYwL1TaUNpT6b8w1kM
+	 JQRKpDQRTxUp7TGSgoVpMktDDg4oKoPc7xqr3o9H/1t54p6QAWoBxL1KP9mxBZGIH5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794575485;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:X-Mailer:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=qFtqGYTUNjzUMFsrvi1S0kj12LfH81X2ePo6PmzMZ8s=;
-	b=DqCiClDDVM128NrZGRWE6hA5Od3cOrmPDQ8D41UlMjuoq8oq4k4mL0eFPi58imTm9oED
-	 p22PTVGclRYNeqrIc/0Ta36GTcg25Nv3Ek68zB8mLQ4kGfaHcMQT3i7EOIiPW8Q+qbP4I
-	 Hqve1nJYrgfT+SiCyTVQmiIxcI/xcJ/UwVutpTNUZ9Cz1/JENg3HhD8xjTYEZFErU7IZy
-	 qNy771HvrWctATQw0fOSOYLW/ENWgmHeJXYhEPu2qfZFyoHEJCfnH6qspqOPO3DNizED/
-	 KU3AODmSM6R2GPQhCYw38Sk8ILoUy/xQrWWjyynSCdTdw9BdENB4nzhPyRreNg2BXiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794575500;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=UJJGqVjSBQwrXCt5oO1oVp31bm2wr0tRxTzs6y+s5eY=;
+	b=iQ2fofjGwAm8s/O7r7hvbnpEQzOn3cbPDIL4NjBfuMsK7OC8RxDTTaZd4RA43N5/id9r
+	 B3a2psO9X6O0V0rUPSJPYBjp3OCdVLFY8Nz6nI3LILfB6ZvhAP+qPDAsU8ij+lYcKiLXS
+	 fWHRbbkQP8gUAVFzLgbq+nUMdXrtt2wGEW3T9wi9XDEkUhnM6Pz94stmK+Vmz8kBrLwvA
+	 jnsfraS7vxdXQHI6/qyAJJ1q/GjVdtJ9Nh3H/8iD7QmaBxeSyMpDQuwj/Zsr2m7AKsp8A
+	 3rK9J5sPNdqp7ELiP7lytDtR/xv2qJmSH98V3ceJGCwUCedhqOXRFT9ihagu0mFS7FQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J4dEznPn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HhntSPDz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A0D260A2622;
-	Fri, 13 Nov 2026 13:11:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68156606A339;
+	Fri, 13 Nov 2026 13:11:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J4dEznPn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4935A1F000CB;
-	Fri, 13 Nov 2026 13:11:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HhntSPDz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 151971F000C4;
+	Fri, 13 Nov 2026 13:11:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794575485;
-	bh=qFtqGYTUNjzUMFsrvi1S0kj12LfH81X2ePo6PmzMZ8s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=J4dEznPnZVV05l9En6yqvyZDvjtEy+Q5xoLBHeTu6rXs99d3+spn7QkVa9mBt8yoK
-	 SwwfyWimhp7A4uocyxYg8ByLb13Ne9Kc9uwo9vAov+jE93Py0ib7eVN7aZ+5yuqepq
-	 Ew9F76GbfloXcIYf60ui0ecN4MNSqko/s6D2CAS8b84CSGYKqoOvY7iKayjN/5ArjJ
-	 Bf4kbEYNs34bkb12aepNeLQ819B9/dg3KL3vC0Q76EaNfZGnf0ZNGYseWkC0XSA+5O
-	 LCOlrx639rbHgTtJujt2dn3yKWUeuwOPJtSQZTZVG4YyiDXpclAmr9eUrNYGB1LaCn
-	 J1RGlWwQ0aQEA==
-Date: Fri, 13 Nov 2026 14:11:17 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-hardening@vger.kernel.org
-Cc: Alejandro Colomar <alx@kernel.org>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
-	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: [PATCH v5 7/7] string: Implement strstarts() with strprefix()
-Message-ID: <382a44f7c68672ecead2436d9f569ee23f383830.1794574496.git.alx@kernel.org>
-X-Mailer: git-send-email 2.55.0
-References: <cover.1794574496.git.alx@kernel.org>
+	s=k20260515; t=1794575500;
+	bh=UJJGqVjSBQwrXCt5oO1oVp31bm2wr0tRxTzs6y+s5eY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=HhntSPDz4hBtYpgjSDSSVhehC3ugFdt3d8uKPZhC9zPonuqtlUMxXtQgAXMu51sk+
+	 c6XaBX4mO0q+UZo6swHPzJFo/cu1cNYby+GumuSJb/pVqWa6M9JH4jlEBT/Exzl7GL
+	 ilydPvL3dZGNK7a2kUtrXtR0vCyfsSfrp37MQPRL04JKFaIyA2wxO0cy5ZJPxSTlr0
+	 v8iYKnqyavXMWdSClMn6YoV3XhTdrYpDGEwipYibWKjBD7yNxpuoauoWKAYDDvAG18
+	 HB+RxkZpbQXP1mMGqKExpbXk0lrd8Hkf6F0/bRiOljbAPatD7c8Cs1nGKblzyWcaU1
+	 yoMV4p8by0Ezg==
+Message-ID: <3e4b6491-2b58-4b9c-90ad-0912f47cb217@kernel.org>
+Date: Fri, 13 Nov 2026 14:11:30 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,87 +51,157 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="7k3j24klskngolpj"
-Content-Disposition: inline
-In-Reply-To: <cover.1794574496.git.alx@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 4/5] iommu/of: Require reg for iommu-addresses
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Vasant Hegde <vasant.hegde@amd.com>,
+ Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ David Woodhouse <dwmw2@infradead.org>, Lu Baolu <baolu.lu@linux.intel.com>,
+ Jean-Philippe Brucker <jpb@kernel.org>, Rob Herring <robh@kernel.org>,
+ Saravana Kannan <saravanak@kernel.org>,
+ Tomasz Nowicki <tomasz.nowicki@caviumnetworks.com>,
+ Eric Auger <eric.auger@redhat.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Joerg Roedel
+ <jroedel@suse.de>, Srinath Mannam <srinath.mannam@broadcom.com>,
+ Oza Pawandeep <quic_poza@quicinc.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Alex Williamson <alex@shazbot.org>
+Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
+ virtualization@lists.linux.dev, devicetree@vger.kernel.org,
+ kvm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-media@vger.kernel.org, Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+References: <20261106-add_iommu_ranges-v7-0-5c0f72083e52@oss.qualcomm.com>
+ <20261106-add_iommu_ranges-v7-4-5c0f72083e52@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261106-add_iommu_ranges-v7-4-5c0f72083e52@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+On 06/11/2026 18:14, Vikash Garodia wrote:
+> The "iommu-addresses" property describes an identity 1:1 mapping between
+> an IOVA range and the physical memory specified by "reg" in the same
+> reserved-memory node. Without "reg", there is no physical memory to map.
+
+This looks like ABI break.
+
+> 
+> The DT schema now requires "reg" whenever "iommu-addresses" is present.
+> Align the kernel implementation with this requirement.
+> https://github.com/devicetree-org/dt-schema/pull/207
+> 
+> An identity mapping requires matching IOVA and "reg" ranges. Reject
+> mismatched ranges and report an error.
+> 
+> Suggested-by: Rob Herring <robh@kernel.org>
+> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> ---
+>  drivers/iommu/of_iommu.c | 32 +++++++++++++++-----------------
+>  1 file changed, 15 insertions(+), 17 deletions(-)
+> 
+> diff --git a/drivers/iommu/of_iommu.c b/drivers/iommu/of_iommu.c
+> index 6675fc900e6c2d55b34c61dc9effaeb48e24f18f..00b02c19f27e195fc36c4bc1d91253255147c9ab 100644
+> --- a/drivers/iommu/of_iommu.c
+> +++ b/drivers/iommu/of_iommu.c
+> @@ -174,19 +174,12 @@ iommu_resv_region_get_type(struct device *dev,
+>  {
+>  	phys_addr_t end = start + length - 1;
+>  
+> -	/*
+> -	 * IOMMU regions without an associated physical region cannot be
+> -	 * mapped and are simply reservations.
+> -	 */
+> -	if (phys->start >= phys->end)
+> -		return IOMMU_RESV_RESERVED;
+> -
+>  	/* may be IOMMU_RESV_DIRECT_RELAXABLE for certain cases */
+>  	if (start == phys->start && end == phys->end)
+>  		return IOMMU_RESV_DIRECT;
+>  
+> -	dev_warn(dev, "treating non-direct mapping [%pr] -> [%pap-%pap] as reservation\n", phys,
+> -		 &start, &end);
+> +	dev_err(dev, "non-direct mapping [%pr] -> [%pap-%pap] is not supported\n", phys,
+> +		&start, &end);
+>  	return IOMMU_RESV_RESERVED;
+>  }
+>  
+> @@ -211,12 +204,14 @@ void of_iommu_get_resv_regions(struct device *dev, struct list_head *list)
+>  		struct resource phys;
+>  		int size;
+>  
+> -		memset(&phys, 0, sizeof(phys));
+> +		maps = of_get_property(it.node, "iommu-addresses", &size);
+> +		if (!maps)
+> +			continue;
+>  
+>  		/*
+> -		 * The "reg" property is optional and can be omitted by reserved-memory regions
+> -		 * that represent reservations in the IOVA space, which are regions that should
+> -		 * not be mapped.
+> +		 * "iommu-addresses" must be used in combination with a "reg" that provides
+> +		 * the physical address and size of this memory region, for an identity 1:1
+> +		 * IOVA mapping to that physical memory.
+>  		 */
+>  		if (of_property_present(it.node, "reg")) {
+>  			err = of_address_to_resource(it.node, 0, &phys);
+> @@ -225,11 +220,11 @@ void of_iommu_get_resv_regions(struct device *dev, struct list_head *list)
+>  					it.node, err);
+>  				continue;
+>  			}
+> -		}
+> -
+> -		maps = of_get_property(it.node, "iommu-addresses", &size);
+> -		if (!maps)
+
+I miss the point why you are moving this part. Irrespective to actual
+ABI break, why do you nee to check for iommu-addresses before?
 
 
---7k3j24klskngolpj
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-hardening@vger.kernel.org
-Cc: Alejandro Colomar <alx@kernel.org>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
-	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: [PATCH v5 7/7] string: Implement strstarts() with strprefix()
-Message-ID: <382a44f7c68672ecead2436d9f569ee23f383830.1794574496.git.alx@kernel.org>
-References: <cover.1794574496.git.alx@kernel.org>
-MIME-Version: 1.0
-In-Reply-To: <cover.1794574496.git.alx@kernel.org>
-
-The compiler should be able to optimize out the unused pointer
-arithmetic done at the end, so performance-wise this shouldn't change
-anything.
-
-This change de-duplicates the almost-identical implementations,
-and better shows the relationship between the two functions.
-
-Signed-off-by: Alejandro Colomar <alx@kernel.org>
----
- include/linux/string.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/include/linux/string.h b/include/linux/string.h
-index b1468d3913f6..015d2c7ee6c2 100644
---- a/include/linux/string.h
-+++ b/include/linux/string.h
-@@ -608,7 +608,7 @@ static inline const char *strprefix(const char *s, cons=
-t char *prefix)
-  */
- static inline bool strstarts(const char *str, const char *prefix)
- {
--	return strncmp(str, prefix, strlen(prefix)) =3D=3D 0;
-+	return strprefix(str, prefix);
- }
-=20
- /**
---=20
-2.55.0
-
-
---7k3j24klskngolpj
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr3DHUACgkQ64mZXMKQ
-wqnLwA//WtiQCSR9YMqBx8L2aue7x9Qj4+hXDLVCAOfRvOmsHqkxBdQ9cY2xZ6/F
-MOuH0+c33PPFNENCj7SbrYKc4x3ri2/whEiBiROfYElLAHkglecYr2Z8dfEPL/hq
-SWajYY8WTuthJgrEKwI+b2iGgmCMHOD+DkJkXiPfTCqUZduwlWCFAC2h2Tut7m+E
-OVo811ViJnxlql6eXP4e8Xvcl3k16/3VXEygU/4YkqaImGb7eZQ/ZP+S8ApewcY5
-44y9K5GgLpg0HjeoGPOqkG2gr6hZi4rR36mMKzLJI7TDOtMBz+xCHk0PlgBstypK
-yzYZ7bjYfW8AH+ZpeGYc+RHsfb5s1xPgAVcpJ8lWGPcq2ZtfFRcv02AV6mN/vsit
-4cfFJti2mHDkDxM3LI05PjEuBrrCRnqDF06ZldgEawPztY2GWWnuGJS3y7oq2EhR
-W3Z7xDUbgvT57Ol7deOjSrpKhiJ4w4NEh100CgsolfGuM4RZCNwq9dRmRZpXebiq
-+GYlzTIFpIO/pnDTGscV47S0uUtQby629SCsx5k6yKs+RFI7jPGu95ucm0aBgOAS
-o4057EKqRReM32gmpi+WOPgoz7O3F4JwFC6R5kr+VKnd8EOlRbXes2EzHHcNgRVt
-pr0SbVQ0dpARbz0mXxKFlgX8lvoMReU4VDtn15UATo/PUq9pY0g=
-=sI0e
------END PGP SIGNATURE-----
-
---7k3j24klskngolpj--
+Best regards,
+Krzysztof
