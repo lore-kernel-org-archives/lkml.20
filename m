@@ -1,101 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.173
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794551414;
-	b=PxAnm05mYhOkgWZ1THpL3NPXbsrJKvOUEF+Vdkcai/Sidmen7/Rop9vsSd3CtjuHm4t6
-	 asIg762p7f89cgYFcrNgcySmPM9erv//YsQpWGgZM+KVQrJ2RjkQcaOVnsgap8j42K+Vj
-	 Y9Hnjar2u1x5x7Z0YJe7ykxn1wAS4hJpuTau3P/VxTU8lKFkhLKXcp5/JpMwJVqPYdNJl
-	 ztYI9E9vdrJGgWLYf2lz8AuENe/036d36Tv2FHagZsxaPGsUaFvl6zTyHoGqlNVg/R1NA
-	 4Y2h/uH5R4sQQYLcbv1JJurHdrnGFdFhjCQ87icASdcE6SQ1Gflbh3JcNg2Q13WUONg==
+	t=1794551526;
+	b=IaX3ldjZHisGdEjhlL3DFQAnbQhFhyppTeAq0cS+j5gXBr1dHASVr+NMiuhT/4XPglb5
+	 Eb9PV5imDHFTmvehSmo9iwGN6s7WTmVUxe4ZurASGBHsnaasHQQ+qoVexWXj0vDqobQh5
+	 PNvC36mUrBATclRg/ks7lAonkC8nApqd70TOBLSx60H/UtuKkD877Ki2ldbF8ZgtQelRg
+	 383NZ/A0Bxwx5amxKzoD46IBPNKDWXQZQinHg8YRykMOcSXPEx7PDL5IyUF0U0GaLkx5h
+	 BYKDCFk/i2+eRn8fYNfpdfrd1WwL9XASDuZbmmWO6Kw8uUiltMmeMX68DgPSD0L61aw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794551414;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=DPecgQc9IrDFB6t3fU9sDhl6pEXoErsugQYzriIpc5g=;
-	b=qhjLFYgvbQYr/FpjKSiS8OtG1ZHa0KUmonKwKnP6cH1ETqP1diauiIY6+aLaZhkEchZE
-	 EPk7ux1NbTsJVBhxUXJ/mGUh3J0BXzNoQU+0ykkRBdYwSZIk5TJfT7tTwoFosJSlE1mwl
-	 F610suyW74+wTf/tFe90Gx4dy6ImRI4I/rlm84ca5bFJSQancHrd+JsPSACDtMRJHjrqa
-	 zzTSgUNXIsy4Tmu/C0N4InLVs9E46Dq1HoXCFDU1LupoexXgarGS0W1cGQPrDzuMt4dYM
-	 N+XChdht//4ZLcUfkLGdlHu/lt0AVlbhlvTlxQrmaJ82XOslYJZKMfPvh6Sw4705GuA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794551526;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=HvA7+WtaTN4yvDTr9nDTm4lyRhrTIF/PJJOZl8KDOik=;
+	b=lY9hG2Qdmj6zCunwVFWA+o5gevnK3ZLTzYzV0+LsShs5FHuO+khrJAMSpf4eWkgJRbCc
+	 7ESpIFwT7QWAFk1pwbepSilzPevHg8297z26ORYB0qERV2YECb4UDgmo9CCst599d27vr
+	 Ee8uuIcBz1yj40v/+3CVUE4xyjgSOuhhsZCKZOT0zj09YN/Z4lj8BrsCDCUQ9bW+sim3U
+	 rea01hYgzWZ3yRL787/WGAt6w/q4Ujljitvy+HWBmQt/B4+dxxZKeFuglUR4UH4wXODOU
+	 KRkCfJseLef+4/hVHzuEDFvxqPolVPB6BZlikKmPEvCKQ1KJhKqdner/JxYiXQrJCug==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=brainfault.org;
-	spf=none smtp.mailfrom=brainfault.org;
-	dkim=pass header.d=brainfault.org header.i=@brainfault.org header.a=rsa-sha256 header.s=google header.b=CISkgUyd;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.173
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f+aDS7k5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04ABE606A327;
+	Fri, 13 Nov 2026 06:32:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f+aDS7k5
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794551525;
+	b=vcpUF/GPNfQyKvEkAdFJMOcczup+OBeKGccuN2pgPZ6Bo130pVVNVzAiBQf7/h/ggzqs
+	 wOiVn67QtvlNrzlc3xBuvRu7Kz/DfuB0qJfgwNs+wX9jZtLCXcmXK2H9Ak8pzIPB3mwsf
+	 TR22ShEgqmmrbTx9elM+HGptpxFK0cTIB3t+XFF0fsAHSJjAfEV1+Vk0CCF5+Hhwj2X2+
+	 CZRtGRFExc+9m3OMXCFjT5UdfdeeAK6oO+ZdbW8H7xLcX3hhTfw2Gg2Oyz3mchyQtHU7j
+	 wVWcEs3uxRVFPgSBFRwhxsK4BbRXAKvH3IyTHSBurT1jmhvxujL23oC7NT2gWgLB/KA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794551525;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=HvA7+WtaTN4yvDTr9nDTm4lyRhrTIF/PJJOZl8KDOik=;
+	b=saEmvdwjUSUW5froWWihB0yTvg9/0Z0pQoCMlHzrRME8nXZEnKXY1OXvanb1y66pH13W
+	 SFhRbIur2T0xRaBFkmiO3cwSr3g9nsq/EhcnX/t+lfIBIFp+fH3CloSi6yZAtZ+I2grpj
+	 Pnqg0U37jTN+UQvDuD4uwSNyVHaJl8x260Ipn2zM7H//u9lGiBILNYQzyRRGN/xwCU9Ip
+	 nIrfINc2gFD1uMEToEWZFVY6vnr5w8MZbACdSB0b0z40jbVE12wAK0/OQwsXmQF3DCNn6
+	 ajPB0GzMwQKKQiaIQ23ViB5P8HqYPQDBSnu3gw3qkdXxOW1Y6qb40YuB5yWWRc9t/Og==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D01606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:30:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7D01606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.a=rsa-sha256 header.s=google header.b=CISkgUyd
-Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3ad0102edd4so7660911fa.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:30:13 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794551412; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mcBVWA5TWq4cVW8x4ORn9LN7HDjHI3Ptr2EvRo1UW6hcbGAzhtlp15/zjvP3TbVBeD
-         YlXnPoLW201PKXAqwG3XQJE9txPEmWIdvVGfkyOsu7cjNonEPhxo2Pk8jIvKfCmpnFxF
-         pGqLe+EVkcuyXM7bXq6B8QRNRPr9xINQAApQgw3ISPp7XW6hPROlrKzm5eh6wHCqMLbb
-         tpFD9/mLv88Lg6+QYtz6gcxrum1M4Hm86bOAQ8LgBPrQicjKIRT0JJO7xT4/RUvs94mt
-         Gxh6Yj3KdgA97T/xDHnjnrc+IXKBP7tyj7RU5wYOVvI5MhOel1LZZAHHvGIFHoNlqTrb
-         q8TQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=DPecgQc9IrDFB6t3fU9sDhl6pEXoErsugQYzriIpc5g=;
-        fh=cX/K9czPjVNjIaCpR8Znsb9a4Dv83w4sd8k5vijL7Vc=;
-        b=Gnwc2SUWJ07ljL04FPFm6fMuExobvn7uxV4NB7iWAdSb6OHC1OYmpJwPnmeW4iSjHY
-         f+13oAhPGDYfO1D9eBsIJ8sr2kmC+AoBQDf495oSFl0BRxKrhT5n218krN/VBhhmhvtc
-         XSkVUVYaWy5Ubj31eAclBX5NDW+DfpBGe1szsPDVXXKuirm5j1mPw9fPbXw2rYD3zEuH
-         KFYDQ4STau2gQY5imBg86LlQpmIz6kgYWVERYsMQ/nViZxTGqo+06CXN5XyZhe+3EmDt
-         NQGjuf44yOF69SWH2s+1DaXnoodT+XjLXL0iNI+ajJrSJsmLm5lkG7rCEi1yve4Zqr6U
-         7PGQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brainfault.org; s=google; t=1794551412; x=1795156212; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DPecgQc9IrDFB6t3fU9sDhl6pEXoErsugQYzriIpc5g=;
-        b=CISkgUydz5u2X77u78uCB1fRwoqbwfnH7RNmDCopYJjHDuyVTgOKMzYZCTkmUevY3g
-         3K5gvlQXqrBOx+waPEU20+MtV3M9UX4Ii1fRaHcNSwqHFX/t58xEIIo43Q5/5oat3alL
-         UFWy4s0BgaccGuhvrccPxulBiqx7gFYq9Yi+vvFNKVVZiNyeV/5V2Blol/QBCuMOJ6ir
-         ZeLzky/15YFIooTxDnd5PsFWe7BzdueFp5Fpw8AldUWc4Zoj5yPa8n8UVjdDd7H4zd7j
-         Z3qky2hKscrFwxxJYOYEm+t9zLlgaXK9fnKUk1rCo2A5XxFP0oHrA/TpJMTUZNjV3FSU
-         vVHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794551412; x=1795156212;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DPecgQc9IrDFB6t3fU9sDhl6pEXoErsugQYzriIpc5g=;
-        b=FApy5Y5pu73Y8qKXCdABZWtqFoHkrlhsHdgqApUyIpnjHau/DysLYdZ9CknACj+IHf
-         OY2SHH3woty91BhiFRzel6YBb2hxS01ZGYJQRGir9++ZoPTPwKrGpDu3jcOuaUmyM2Xk
-         0SZkKWFq7g3tfwl2nSgzuI8RHvTR09JKC+Pt02pIBbgz3xwzQpBqbg5aRP9K8iuPPWpB
-         wd0jJvprMnE7BabOugqhoticr2FRFKbVWSUDg0CUPzEJ1OY3YsY4dBG3ouwnI0c6wp4L
-         eqwkprk4LCWmSOT+BY+U5thAx6ilWotfpZ1FTHCOdtGcZtDcsj61Cj6vREJhs8IIpDbF
-         y/Qw==
-X-Forwarded-Encrypted: i=1; AL+hErEtnxOtXuGakXJBuXZ0oo/vped64Z4rOm6ZXDUar4/3jRd9d6Zhr3EukNNR8L95N+Ya9fhJnTEWgXrNqqk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8TZtF2BTuSEE23eUTqAhErOe4nZk6mLOwFY2OS/dd8GgedpaHW
-	biLYW1DWI3ADT0GUnPAJO8/2c60iYiZUkipmnk7JIHV1VQGDXexFXQcci9Q3tVTnUiFUdmVmNHt
-	TZrK1uZ0RyRO4D7P30xTRpq80u4nqge/YTJvr62aWZg==
-X-Gm-Gg: AYBFou2hMIG0TLh2Plz+iS8vIvdH9z3BzokHHKFcSDPgjh6sy1lar7veNyjUlw3BoXv
-	aq7H5WLBNWmMgUyYjqluhWdNTXNiG1uWkUifOWh8Bs3OgKOdKpa4GZp1lqNrP/G2d67L1gFk5Pe
-	nso3AImbStQtwfp+9MOAGCYo2HVYpcZFTBNCS0UtFIq+c1pqB0Eu61Z66I+k5w0t82/fzFebfeH
-	DaG1mXFtin7mUUVPT2Q+qlv7FTbS+15kRalcutTeOtyt74oIipn9DboVbpZU9qf9k+/PQAV0Xg3
-	SXcXYCoerKb5+nCzlMr4zqzoIQC7AUUMughZDY0vpbeOMy7bBFsDp6R/W4zmCcOYud/eQUwcm5e
-	ff3DLOf/8C27hx3KV5xGLFNI/S4r0eV78HBkdKj79f8Dok5rGHzkMYdm+nLiiIv+4BFB0UiJVzy
-	5sLoR6KWpku9F3TTq3bTUNTlHBq1A+7I4hrgCM+sqEaBrcKrH0+4iYIcGv
-X-Received: by 2002:a05:651c:a182:b0:3ad:f0bb:344c with SMTP id
- 38308e7fff4ca-3ae2b4cd92dmr4405361fa.10.1794551411872; Thu, 12 Nov 2026
- 22:30:11 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id 12EC71F000C4;
+	Fri, 13 Nov 2026 06:32:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794551525;
+	bh=HvA7+WtaTN4yvDTr9nDTm4lyRhrTIF/PJJOZl8KDOik=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=f+aDS7k5SUBuukbwNgPRJ6SwsIcIgb3o37wEMnPB5cZKRpaqw/OItTtWpXMay8Csf
+	 GpW0c429Csx4tT3A3WBpiX2F1ZcxnEDxfTobg0dZOk9/tSB+HsAh3wGRnMY+FDmx1L
+	 idEkgIx6gF/Df4TaxUlYtenclRZW1H4h4Ndxu37aghUwIwYjrA2MJb/6oO19iKpdXj
+	 1uUuQnlh6zsK83iwZOgpS2QOirkmB2Ww5ruIr9TI7eAVROmS2EDaoguGEbZhoHL/PG
+	 qA6tb050xl4X3vJyQpJWuLHOmjU7eZkZoAfdU5n4smLBJoQUuc7Cmdyj0l91fL8Hce
+	 8aWrW+Wi3HUGQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 647CA47628;
+	Fri, 13 Nov 2026 06:32:04 +0000 (UTC)
+From: Michael Reeves via B4 Relay <devnull+michael.reeves077.gmail.com@kernel.org>
+Subject: [PATCH wireless-next 0/4] wifi: brcmfmac: Add support for 6 GHz
+ operation
+Date: Fri, 13 Nov 2026 06:31:54 +0000
+Message-Id: <20261113-6ghz-v1-0-0b9a67e413a9@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,115 +84,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261022025248.477832-1-jinyue.li@linux.alibaba.com>
-In-Reply-To: <20261022025248.477832-1-jinyue.li@linux.alibaba.com>
-From: Anup Patel <anup@brainfault.org>
-Date: Fri, 13 Nov 2026 11:59:59 +0530
-X-Gm-Features: AclHuK8NiJX_tgbZANqAwiOjegb650NzlAml5enSgYn0fBkXeJUfWcHpMs2vGKY
-Message-ID: <CAAhSdy13okqRhJLCygqZajrwDTa64gJt=SnCcZPRQxRd5E=WKQ@mail.gmail.com>
-Subject: Re: [PATCH] RISC-V: KVM: Fix double free of the split page cache
-To: Li Jinyue <jinyue.li@linux.alibaba.com>
-Cc: kvm-riscv@lists.infradead.org, kvm@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	atish.patra@linux.dev, pjw@kernel.org, palmer@dabbelt.com, 
-	aou@eecs.berkeley.edu, alex@ghiti.fr, wang.yechao255@zte.com.cn, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQ6CMBQFr0Le2iYWIhCvYlyU8oBvTDX9KATC3
+ a2wnMxkViijUHHNVkR+ReUVEthTBj+40NNImxj5OS+ttYUp+2Exrm4vdeWawnsipe/ITuZ9c8M
+ kkU+qmsB5xP3Q+mke9ON/hW37AfWOKtx3AAAA
+X-Change-ID: 20261113-6ghz-a8d587ab3cce
+To: Arend van Spriel <arend.vanspriel@broadcom.com>
+Cc: asahi@lists.linux.dev, linux-wireless@vger.kernel.org, 
+ brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com, 
+ linux-kernel@vger.kernel.org, Michael Reeves <michael.reeves077@gmail.com>, 
+ Daniel Berlin <dberlin@dberlin.org>, Yureka Lilian <yureka@cyberchaos.dev>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794551523; l=1842;
+ i=michael.reeves077@gmail.com; s=20261107; h=from:subject:message-id;
+ bh=O2HbX3PGoxwHaTzbO9NvLzP3Q0NQYtRhPhMh4oU9kEY=;
+ b=lpongLP+YiC0s/OvTNBUYPbK8V7Ti1fI4slD5KFcSIQVYpJMBlgTvJiZHV0uHW+ThRZJLLo4Q
+ XJAEiUAm+87DmvZDEUY3SDYprUoQ4KrQo/2ch8hLJ9cr5EKTqF2NU+M
+X-Developer-Key: i=michael.reeves077@gmail.com; a=ed25519;
+ pk=ykwkLcuByJYb/cdLc2UuoYP03pIzwrscEZg30+4tJL8=
+X-Endpoint-Received: by B4 Relay for michael.reeves077@gmail.com/20261107
+ with auth_id=1442
+X-Original-From: Michael Reeves <michael.reeves077@gmail.com>
+Reply-To: michael.reeves077@gmail.com
 
-On Thu, Oct 22, 2026 at 8:22=E2=80=AFAM Li Jinyue <jinyue.li@linux.alibaba.=
-com> wrote:
->
-> kvm_riscv_mmu_free_pgd() frees pgd_split_page_cache after dropping
-> mmu_lock. It is reached from kvm_arch_flush_shadow_all(), i.e. from the
-> MMU notifier ->release() callback, which can run concurrently for the
-> same VM from exit_mmap() and from mmu_notifier_unregister() in
-> kvm_destroy_vm(). The stage-2 teardown is serialized by mmu_lock and the
-> second caller finds kvm->arch.pgd already cleared, but both callers then
-> go on to free the cache, and kvm_mmu_free_memory_cache() does not
-> tolerate concurrent callers:
->
->   BUG: KASAN: double-free in kvfree+0x28/0x32
->   ...
->    kfree+0xc4/0x428
->    kvfree+0x28/0x32
->    kvm_mmu_free_memory_cache+0x178/0x246
->    kvm_riscv_mmu_free_pgd+0x20e/0x2b4
->    kvm_arch_flush_shadow_all+0x1a/0x24
->    kvm_mmu_notifier_release+0x36/0x7c
->    __mmu_notifier_release+0x182/0x66a
->    exit_mmap+0x7f8/0x8c4
->    mmput+0x7e/0x2fc
->    do_exit+0x57a/0x22b4
->   ...
->   Freed by task 15956 on cpu 3 at 8926.103524s:
->   ...
->    kvm_mmu_free_memory_cache+0x178/0x246
->    kvm_riscv_mmu_free_pgd+0x20e/0x2b4
->    kvm_arch_flush_shadow_all+0x1a/0x24
->    kvm_mmu_notifier_release+0x36/0x7c
->    mmu_notifier_unregister+0xf0/0x328
->    kvm_put_kvm+0x32a/0x7b8
->    kvm_vm_release+0x3a/0x50
->    __fput+0x330/0x974
->
-> The cache only feeds huge page splitting from VM ioctls, so it does not
-> need to be released together with the page table. Free it from
-> kvm_arch_destroy_vm() instead, which runs once after the MMU notifier
-> has been unregistered, as arm64 and x86 already do. The error path in
-> kvm_arch_init_vm() is not affected because the cache cannot have been
-> filled at that point.
->
-> Found by syzkaller.
->
-> Fixes: 6c7f75ef096a ("RISC-V: KVM: Add the split page cache for ioctl con=
-text")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Li Jinyue <jinyue.li@linux.alibaba.com>
+Hi Arend, all,
 
-LGTM.
+This series adds support for 6 GHz (Wi-Fi 6E) operation to brcmfmac.
 
-Reviewed-by: Anup Patel <anup@brainfault.org>
+It includes HE capability advertisement, 6 GHz chanspec and band
+handling and PNO version 3 support. The PNO support is required to avoid
+channel-number collisions with 2.4/5 GHz during scheduled scans.
 
-Queued this as fix for Linux-7.4-rcX
+It is adapted from our downstream work in the Asahi kernel by Daniel
+Berlin, but reworked to make the code cleaner and more maintainable.
 
-Thanks,
-Anup
+As I don't have a 6 GHz AP to test with, Yureka Lilian tested this
+series on my behalf, on her Apple Silicon M3 Mac (BCM4388). Connection
+and use of a 6 GHz network was successful, without regressions on 2.4 
+GHz or 5 GHz operation.
 
-> ---
->  arch/riscv/kvm/mmu.c | 2 --
->  arch/riscv/kvm/vm.c  | 2 ++
->  2 files changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/arch/riscv/kvm/mmu.c b/arch/riscv/kvm/mmu.c
-> index 3e955d808743..74dece22d172 100644
-> --- a/arch/riscv/kvm/mmu.c
-> +++ b/arch/riscv/kvm/mmu.c
-> @@ -798,8 +798,6 @@ void kvm_riscv_mmu_free_pgd(struct kvm *kvm)
->
->         if (pgd)
->                 free_pages((unsigned long)pgd, get_order(kvm_riscv_gstage=
-_pgd_size));
-> -
-> -       kvm_mmu_free_memory_cache(&kvm->arch.pgd_split_page_cache);
->  }
->
->  void kvm_riscv_mmu_update_hgatp(struct kvm_vcpu *vcpu)
-> diff --git a/arch/riscv/kvm/vm.c b/arch/riscv/kvm/vm.c
-> index a9f083feeb76..a7e1b518257a 100644
-> --- a/arch/riscv/kvm/vm.c
-> +++ b/arch/riscv/kvm/vm.c
-> @@ -54,6 +54,8 @@ void kvm_arch_destroy_vm(struct kvm *kvm)
->         kvm_destroy_vcpus(kvm);
->
->         kvm_riscv_aia_destroy_vm(kvm);
-> +
-> +       kvm_mmu_free_memory_cache(&kvm->arch.pgd_split_page_cache);
->  }
->
->  int kvm_vm_ioctl_irq_line(struct kvm *kvm, struct kvm_irq_level *irql,
->
-> base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-> --
-> 2.25.1
->
+Thank you for your time,
+Michael
+
+Signed-off-by: Michael Reeves <michael.reeves077@gmail.com>
+---
+Daniel Berlin (2):
+      wifi: brcmfmac: Add support for 6 GHz chanspecs
+      wifi: brcmfmac: Add support for the 6 GHz band
+
+Michael Reeves (2):
+      wifi: brcmfmac: Advertise HE capabilities
+      wifi: brcmfmac: Add support for PNO version 3
+
+ .../broadcom/brcm80211/brcmfmac/cfg80211.c         | 477 +++++++++++++++------
+ .../broadcom/brcm80211/brcmfmac/cfg80211.h         |   2 +
+ .../broadcom/brcm80211/brcmfmac/fwil_types.h       |  68 +++
+ .../net/wireless/broadcom/brcm80211/brcmfmac/p2p.c |   6 +-
+ .../net/wireless/broadcom/brcm80211/brcmfmac/pno.c | 147 ++++++-
+ .../net/wireless/broadcom/brcm80211/brcmfmac/pno.h |  41 +-
+ .../net/wireless/broadcom/brcm80211/brcmutil/d11.c |   7 +-
+ .../broadcom/brcm80211/include/brcmu_d11.h         |   3 +-
+ .../broadcom/brcm80211/include/brcmu_wifi.h        |   1 +
+ 9 files changed, 585 insertions(+), 167 deletions(-)
+---
+base-commit: 3c311bf321442d4c4f452a1a08bc9efce242a1f9
+change-id: 20261113-6ghz-a8d587ab3cce
+
+Best regards,
+--  
+Michael Reeves <michael.reeves077@gmail.com>
+
+
