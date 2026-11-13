@@ -1,50 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794568421;
-	b=Jb+DtodTL55Hxz5mH8JfMhMxD+UNOI45qMOrVsRz5IkVffH/23ezqYiMoU/G/AdwDSRq
-	 eQpF1MdG/cg0zi/kk0lkJQxIUxIgbs0FH0/gitbxXFU0lNvKv2HBuLGKAcCi1hrL9Pln3
-	 biQXJtMWh/zmt5zhQ7UMadcS/Mc/CiTNpBWi8OZCwkeB+aVqFGsLgD0XLjIv+O9IXUdH8
-	 YRJELnezejIACgR+SzwjcsLwwY1DZP+a5dGHtbZkpBUnGU04rRALvBFJOF1E8cneonJpU
-	 0IZuhLUY72YewP+h3F4dLCaipdS2SzvMjUslcgU1Cst0xBnjMFprsalrra3rIP+Rnew==
+	t=1794568438;
+	b=FzxmM9mUSXY5qIC5GxWVUOWUfX61v2vCVZXQPiog0qWym//OPCQvLlpMvCJF7ofLqrTD
+	 TEFGiq4+1Me8K/BpOrA84pBf92z9UCx06Bwt3bhBIUpAGQ+vsGZdMACN3S5GwhZPJSJud
+	 FFgFJ3k5b+CnwMnxCl4EI1oyWBKZFYtoa2WSv+/qkwTYguV8xh5ySGZmSIFaq/JVjVUCx
+	 RUyKsgKf9G8z0lJUT69zmByifDMZJ2oafiqMtd8QlMEJyYeEIWqT+nzlWY+9Vte+8TGRO
+	 zZPylRZH2pOHe4z6l8FXQrCi9E8BwfwsnBIC/LASmHu08SjINUqSuXervd9vMHG2S9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794568421;
-	h=DMARC-Filter:DKIM-Signature:Subject:Mime-Version:Received:From:
-	 Content-Language:In-Reply-To:Content-Type:Date:X-Lms-Return-Path:
-	 X-Original-From:References:User-Agent:Content-Transfer-Encoding:To:Cc:
-	 Message-Id;
-	bh=5z3kRYBTZmascmZC3oBJ58Ce4ddSnbuJ0JbdYHj/1JU=;
-	b=5NtfFbeP0ARiwhga8+hUhSR4UA9fVMy1958Nwz7nwZpRXTkYV7kqP7LrAc1I7N1B28C7
-	 InRRLXHUDyp1rbEQGgwoMuPSOCYY4rWc+vlxq2hdf8j52njoDKnl0U3JpzNAlYpv4ejBx
-	 tpvdWs7T186OYil8PNKUjDKQqZcHC0MtznCbZmpioLzvAuC+cRZEjFeDfN+LXe9T56LGT
-	 Y6CKLIruy690HYth200TuvnC3r8D9veO1Ajz2e2Lt5PxgKdIfalvHdw3n3F/vy1oD3wmU
-	 gPCLR2oYwD/OI4vIMM1qoOJkZJiqjXjP1MUhWlP3S4pHnvcgksaG+1dC9e/iEOvI/VQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794568438;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=y3FPWWAh+XQ+2S0Pz3gDOIXu/qT9hKjIxiZNoW7QkJI=;
+	b=zwdYQZ06PU8raV+a/D+WJX4e3r79Yl7uglqbvH0YAP35pfTRYnveiLVQvWGlJn98CUNi
+	 4cI9xHOrYZRFxgc7FtLWpK1asdp18z6wtvyWSn5GnnwCvNg4WLhr8HEXpTzgppqRM2ZcW
+	 j8NR7c/kQs5wVSQSPGPnmUZRMaenr3tJzWg/KLqq9YjE5b7r+zG11SVTsf9Nk4BujRE8y
+	 kidiRZe1ZbCHUZO4hH3s34qkNqZ+L95d+uNNufAH9khYPc3BR5LPfAIKZWhpXnZ2WJ3I5
+	 QGYatj6aY6OCeuz0n81hlk1Fj1Ur3s5yzshOaXybXDB6xBW7i2zdt+jcLzIGUIOVAjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=lanxincomputing.com;
-	spf=pass smtp.mailfrom=lanxincomputing.com;
-	dkim=pass header.d=lanxincomputing-com.20200927.dkim.feishu.cn header.i=@lanxincomputing-com.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=2RJOnBmK;
-	arc=none smtp.remote-ip=209.127.231.37
-Received: from va-2-37.ptr.blmpb.com (va-2-37.ptr.blmpb.com [209.127.231.37])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ejxNbzvJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F8A9606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:13:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F8A9606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lanxincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lanxincomputing.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 686D1606A31C;
+	Fri, 13 Nov 2026 11:13:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lanxincomputing-com.20200927.dkim.feishu.cn header.i=@lanxincomputing-com.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=2RJOnBmK
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=lanxincomputing-com.20200927.dkim.feishu.cn; t=1794568414;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=5z3kRYBTZmascmZC3oBJ58Ce4ddSnbuJ0JbdYHj/1JU=;
- b=2RJOnBmKuMtUQ3+7IjG6Woaz9wyDDKqGAWaPEXWgDpQ6L0ZMktXmmcskyvJgoPA1s8ySnU
- XOGqIVBBbQzYPgnjEtbRYedF7VAboqEbExRMDAyiy2wfZHspHWHcn6iofRahw+d6UdPeGS
- I8PP/wrNOGlTgaEKF7GuVQWQXftQJYychqFFQivbPyXwjIEu1EsU2md39CVBs8DZKgKK0y
- qkxnp+itHCmfHcS16ymXylwInrux69aSf5sOCcvlyQVDdlKE9ECuZqndzOKu+6cAGzu1Df
- nkn0/avjcVxiIoZckUUsXepzV4VNTUhzQkYJGkEmjYLEzzD4CvbfkMZUGiOspg==
-Subject: Re: [PATCH v4] RISC-V: KVM: Serialize and atomize the IMSIC's TOPEI read-and-clear operation
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ejxNbzvJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 355701F000C4;
+	Fri, 13 Nov 2026 11:13:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794568438;
+	bh=y3FPWWAh+XQ+2S0Pz3gDOIXu/qT9hKjIxiZNoW7QkJI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ejxNbzvJykUJdmXXU7mV3nntqpauhii1G/iQkTNy0J9UAmWUQOBZOLhtC4/ewQd7+
+	 9P7oLMsqlavGCLNFMPSIh+q29NgUzXcnfHlTgJ7om/cFLGhx0pbIQJWkClKNAMTOCE
+	 emCBZVd23uwJEB9TvP26O3r3fyoSW5CCfx6ZL3/bkp5CW4uqPcKOknIqNGUyC9uQ2T
+	 e/06w9oFn+oGozFNwG7GIyIYo0VIhVfMgW/AL1SiBZHq+PWRVwh2hGjuPTMoPhhMUx
+	 pEvGl2zGEliBMD8v/YOef3fx5sjN33attpSBomDC6rsuNZ0gPvS4PHvNZHDO2fWwAv
+	 J30xQj6QBMEhg==
+Date: Fri, 13 Nov 2026 12:13:54 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Asdlerto Korry <korryasdlerto@gmail.com>
+Cc: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-pm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] power: supply: Add Silicon Mitus SM5714 fuel gauge
+ driver
+Message-ID: <20261113-fuzzy-awesome-shellfish-2d93c0@quoll>
+References: <20261111-sm5714-fuel-gauge-v1-0-b9d163fff6ff@gmail.com>
+ <20261111-sm5714-fuel-gauge-v1-2-b9d163fff6ff@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,151 +58,37 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Received: from [127.0.0.1] ([123.120.5.129]) by smtp.feishu.cn with ESMTPS; Fri, 13 Nov 2026 19:13:31 +0800
-From: "BillXiang" <xiangwencheng@lanxincomputing.com>
-Content-Language: en-US
-In-Reply-To: <sashiko-outbox-212624@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 13 Nov 2026 19:13:29 +0800
-X-Lms-Return-Path: <lba+26af6f0dc+28a652+vger.kernel.org+xiangwencheng@lanxincomputing.com>
-X-Original-From: BillXiang <xiangwencheng@lanxincomputing.com>
-References: <20261113101358.3007601-1-xiangwencheng@lanxincomputing.com> <sashiko-outbox-212624@kernel.org>
-User-Agent: Mozilla Thunderbird
-Content-Transfer-Encoding: 7bit
-To: "Anup Patel" <anup@brainfault.org>
-Cc: <xb@ultrarisc.com>, <atish.patra@linux.dev>, <pjw@kernel.org>, 
-	<palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>, 
-	<pbonzini@redhat.com>, <graf@amazon.com>, 
-	<kvm-riscv@lists.infradead.org>, <kvm@vger.kernel.org>, 
-	<linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Message-Id: <44886809-744d-4e4d-9a55-45e2fcc6dd08@lanxincomputing.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261111-sm5714-fuel-gauge-v1-2-b9d163fff6ff@gmail.com>
 
-On 11/13/2026 6:34 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issues to consider:
-> - [High] RISC-V: KVM: stale topei passed to
->    __imsic_swfile_extirq_update()
-> - [High] RISC-V: KVM: imsic->swfile dereferenced before !imsic check in
->    inject
-> - [Low] RISC-V: KVM: missing Fixes trailer on IMSIC TOPEI serialization
->    fix
-> --
+On Wed, Nov 11, 2026 at 05:35:00PM +0200, Asdlerto Korry wrote:
+> Add a driver for the fuel gauge of the Silicon Mitus SM5714. The gauge
+> keeps its results in an internal SRAM that is read through an address
+> and a data register. The driver only reads: it reports the state of
+> charge, the battery voltage (now, average and open-circuit), the current
+> (now and average) and the temperature. The conversions follow the vendor
+> driver.
 > 
-> commit 322bd38f6016b31c1cdf5b875effdce4436f4b2f
-> Author: BillXiang <xiangwencheng@lanxincomputing.com>
+> The temperature reported by the gauge rises with the charge current, so
+> the battery temperature is read from the thermistor ADC channel when the
+> devicetree provides one.
 > 
->> RISC-V: KVM: Serialize and atomize the IMSIC's TOPEI read-and-clear operation
->>
->> The TOPEI read-and-clear must be atomic with respect to
->> interrupt injection (set_bit in EIP). Otherwise an
->> interrupt injected between the topei read and the
->> clear_bit could be silently dropped.
->>
->> Signed-off-by: BillXiang <xiangwencheng@lanxincomputing.com>
+> The gauge interrupt is not used, power_supply_changed() is reported once
+> a minute.
 > 
-> [Severity: Low]
-> Since this fixes a race in the IMSIC software file TOPEI handling, should
-> it include:
-> 
->    Fixes: db8b7e97d613 ("RISC-V: KVM: Add in-kernel virtualization of AIA IMSIC")
-> 
->> diff --git a/arch/riscv/kvm/aia_imsic.c b/arch/riscv/kvm/aia_imsic.c
->> index 302938972aa0e..f4cc1691e0478 100644
->> --- a/arch/riscv/kvm/aia_imsic.c
->> +++ b/arch/riscv/kvm/aia_imsic.c
->> @@ -526,26 +526,25 @@ static void imsic_vsfile_cleanup(struct imsic *imsic)
->>   		kvm_riscv_aia_free_hgei(old_vsfile_cpu, old_vsfile_hgei);
->>   }
->>   
->> -static void imsic_swfile_extirq_update(struct kvm_vcpu *vcpu)
->> +static void __imsic_swfile_extirq_update(struct kvm_vcpu *vcpu, u32 topei)
->>   {
->>   	struct imsic *imsic = vcpu->arch.aia_context.imsic_state;
->>   	struct imsic_mrif *mrif = imsic->swfile;
->> -	unsigned long flags;
->> -
->> -	/*
->> -	 * The critical section is necessary during external interrupt
->> -	 * updates to avoid the risk of losing interrupts due to potential
->> -	 * interruptions between reading topei and updating pending status.
->> -	 */
->> -
->> -	raw_spin_lock_irqsave(&imsic->swfile_extirq_lock, flags);
->>   
->> -	if (imsic_mrif_atomic_read(mrif, &mrif->eidelivery) &&
->> -	    imsic_mrif_topei(mrif, imsic->nr_eix, imsic->nr_msis))
->> +	if (imsic_mrif_atomic_read(mrif, &mrif->eidelivery) && topei)
->>   		kvm_riscv_vcpu_set_interrupt(vcpu, IRQ_VS_EXT);
->>   	else
->>   		kvm_riscv_vcpu_unset_interrupt(vcpu, IRQ_VS_EXT);
->> +}
->> +
->> +static void imsic_swfile_extirq_update(struct kvm_vcpu *vcpu)
->> +{
->> +	struct imsic *imsic = vcpu->arch.aia_context.imsic_state;
->> +	struct imsic_mrif *mrif = imsic->swfile;
->> +	unsigned long flags;
->>   
->> +	raw_spin_lock_irqsave(&imsic->swfile_extirq_lock, flags);
->> +	__imsic_swfile_extirq_update(vcpu, imsic_mrif_topei(mrif, imsic->nr_eix, imsic->nr_msis));
->>   	raw_spin_unlock_irqrestore(&imsic->swfile_extirq_lock, flags);
->>   }
->>   
->> @@ -830,12 +829,15 @@ int kvm_riscv_vcpu_aia_imsic_rmw(struct kvm_vcpu *vcpu, unsigned long isel,
->>   	struct imsic_mrif_eix *eix;
->>   	int r, rc = KVM_INSN_CONTINUE_NEXT_SEPC;
->>   	struct imsic *imsic = vcpu->arch.aia_context.imsic_state;
->> +	unsigned long flags;
->>   
->>   	/* If IMSIC vCPU state not initialized then forward to user space */
->>   	if (!imsic)
->>   		return KVM_INSN_EXIT_TO_USER_SPACE;
->>   
->>   	if (isel == KVM_RISCV_AIA_IMSIC_TOPEI) {
->> +		raw_spin_lock_irqsave(&imsic->swfile_extirq_lock, flags);
->> +
->>   		/* Read pending and enabled interrupt with highest priority */
->>   		topei = imsic_mrif_topei(imsic->swfile, imsic->nr_eix,
->>   					 imsic->nr_msis);
->> @@ -852,16 +854,20 @@ int kvm_riscv_vcpu_aia_imsic_rmw(struct kvm_vcpu *vcpu, unsigned long isel,
->>   					  eix->eip);
->>   			}
->>   		}
->> +		if (wr_mask)
->> +			__imsic_swfile_extirq_update(vcpu, topei);
-> 
-> [Severity: High]
-> Does this pass the pre-clear interrupt ID in topei to
-> __imsic_swfile_extirq_update() instead of re-reading imsic_mrif_topei()
-> after clear_bit()?
-> 
-> When a guest claims the last pending interrupt in imsic->swfile via a
-> TOPEI write, topei still holds the non-zero ID that was just cleared from
-> eix->eip.  __imsic_swfile_extirq_update() then calls
-> kvm_riscv_vcpu_set_interrupt(vcpu, IRQ_VS_EXT) instead of unsetting
-> IRQ_VS_EXT, leaving IRQ_VS_EXT asserted and causing spurious guest
-> external interrupt traps.
-> 
-> [ ... ]
-> 
->> @@ -959,6 +965,7 @@ int kvm_riscv_vcpu_aia_imsic_inject(struct kvm_vcpu *vcpu,
->>   	unsigned long flags;
->>   	struct imsic_mrif_eix *eix;
->>   	struct imsic *imsic = vcpu->arch.aia_context.imsic_state;
->> +	struct imsic_mrif *mrif = imsic->swfile;
->>   
->>   	/* We only emulate one IMSIC MMIO page for each Guest VCPU */
->>   	if (!imsic || !iid || guest_index ||
-> 
-> [Severity: High]
-> Does imsic->swfile dereference a NULL imsic pointer before the !imsic
-> check below?  If a vCPU is created after aia_init(), its imsic_state is
-> NULL and injecting an MSI to that vCPU will crash the host kernel instead
-> of returning -ENODEV.
-> 
+> Signed-off-by: Asdlerto Korry <korryasdlerto@gmail.com>
+> ---
+>  MAINTAINERS                              |   7 +
+>  drivers/power/supply/Kconfig             |  13 ++
+>  drivers/power/supply/Makefile            |   1 +
+>  drivers/power/supply/sm5714_fuel_gauge.c | 315 +++++++++++++++++++++++++++++++
+>  4 files changed, 336 insertions(+)
+>
 
-Ignore this version.
+This was already sent.
 
-Regards,
-Bill
+Best regards,
+Krzysztof
+
