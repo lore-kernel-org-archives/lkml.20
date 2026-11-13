@@ -1,55 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794593929;
-	b=ce/8FBAllg7ZaXpHIThn2+/XgWw+7irvYSnuOSR5zo5JZnwqeTFehHBbdKCgkzgev6Dz
-	 zSHdvHl26H9abbuoZXq0nK6eUo19gp0zbUGQwzJ4zRM3NgRd9AiX6EHbSUSqts4tyglT1
-	 yqrcrcSATHeYsAyHD68ENg4O4m/W/yNKq/OAlobtu60VoWD5PAVuyQD2yB29T20nzAw5S
-	 lYUgnJpCLPto+gTJuSEgIGJBh2k8ayiCBzoODBbfE8AajZYNGN11G+c7p0b4H7Z1yYW2z
-	 9wkoqM8Og7dYmK9L1hLGgarTHIVhV8KcvkhAU/I6ANL4Q72ikGGT6y5ktgkkNvSmv7Q==
+	t=1794593948;
+	b=eJdSpmBwAwWGT60N4eLUSlSpDX24/W1dE1Zvp0wc2e2gTGhMqFsGAbsLlJXAflfWHkJU
+	 p0pAVzZilGsGHd+hZg+m+1Eiy3Cl0G+GofgAPTs8T7ixQM/FVIiS6UcKbpj4Di+soo6Ke
+	 Hu4z+sfajBukeQwBkG7M9PnOoUL3Z1NHv0V2d7Jt7aRX3DyxWlEHmP0IVbQVCtTbG3uaP
+	 RK2hFfQmUGje1Hhr3IEFTXyj+Tk979ASo3pHekHR8yGORdxssqh/juGlMoBnGwbkOb99Z
+	 0RbBwJ6Kla+wfevFNF+3d4Nld4/8jU6R0bChLIDK5P/Pd1K/0nExyFlzkOGCeLdf8Lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794593929;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:Cc:To:
-	 From:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=YMmgQJzMtgBLpA0dIqJ/1stJoQj5sUUq2ttQetzsqvg=;
-	b=0WS7oTdPwrCZpP3vKmwXB7oAm5tzavdoc24iauhRHWh+uNc3T8Ff24+/tRBwwSADKydn
-	 KfB2XJp+LoislNb6vSNCzc3362RHnNZv72T21kEGHFyXbW5+a9pXShpRmErfHIYb+6tWY
-	 0gPXjrKNUWk2fmIvnWFRX7n7xJQ1zZDSFGmjH+09wDrOnPFNlGJ/WtfPuskMslDtM1MG7
-	 tUzJuPT6UHityg1dLbmaqiE41Mc+jGI3FHTCe/vDR/LV70NVlCqySbExRrdh92Nq9ephJ
-	 u5F8e2/IBvIgdEhxDmquFKngXLDmlwfsS8H9Ic/JuacF1dGqveeZtJiMMcDt8dLEBTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794593948;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=tY3hrmAgaHjp3VWbBdwPfASlyBa0YGJnlba8Eg0Cs1k=;
+	b=rAQi7fb2NycjxzrmhoM+CgKLgHY13uO93mIu36juFYWcuEcaxC21mI1Cs/jUmReq4ZAJ
+	 kiEE0JD8Q+g3v17ocQWVFTMh0optSLVkJhhDCnWyDuYbDvFtk3Y34J812LqkCh2CHJ6E/
+	 gILR+zOdeEDYVZWQkH4QhgaodxhsLfQ9iccIW4x5I8s3uC/FOaDrxXmFit/NJSULETTM7
+	 zOj/p4KObaHJLZFmUgi1bDhAHeUPUBFoulBsQFQ9J50aGwuz8jusqZZ8GMsoIuOcnMvHQ
+	 xmSCIBEnJCfKHKq57OC7NknxekKTvtuPozFEq4UtJB2uqYIFfXiYMeQOTXUfhmshVOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=g0BsCETI;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eYRPkJPQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D479606A887
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:18:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D479606A887
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A391A606A32E;
+	Fri, 13 Nov 2026 18:19:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=g0BsCETI
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id DB11A4E415AD;
-	Fri, 13 Nov 2026 18:18:46 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8D04A60015;
-	Fri, 13 Nov 2026 18:18:46 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 079F711BC17F0;
-	Fri, 13 Nov 2026 19:18:32 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794593921; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=YMmgQJzMtgBLpA0dIqJ/1stJoQj5sUUq2ttQetzsqvg=;
-	b=g0BsCETI93Z/vfFeXyPOJ+wzeIFI6lkh5ApLVBfCqngmB8VuE3lgNx75ASl9xFGzHvNAdg
-	krnVf3mAFlgbjTFnYU0f9dpTgSjMOe72qiAe0g1vpjRYz6eJVqyClQDdCRdekbA3FjCL4q
-	DBNU/2YFYRhaaZ7t7HcHnuzAkJ1bUw7cq8reOM0XCoGUq8fUgW+6xap8gO4HDWfi3MtEfq
-	1ayZ91VLFHUfLD1vH+ZriMiLXZk/fDrQchCULwXig+YrX8fvt+IuWlV9VX4DjD62/nh5Yk
-	UABhQ5nIjbbNUbuTZWTBJqRzRMOHwiTVqTh5X5ewzQSoREPEJ+jISsu9igODXw==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eYRPkJPQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 063D81F000C4;
+	Fri, 13 Nov 2026 18:19:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794593948;
+	bh=tY3hrmAgaHjp3VWbBdwPfASlyBa0YGJnlba8Eg0Cs1k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eYRPkJPQkjFvhY8zmvJejgxxwbsSwaTH7o9dcrvqgqJ5oOVKOjdjgMShiszXa6s93
+	 1wEntHNdNRS9yRE39+lEB9jRJkI7uMynlGYah6lg+aB+X2jHNeAxYPreCfG10wSewp
+	 k1N/bM/MYYGQCeqTzYIjDca9zc61yP8C3XQfboCJ5DJA97mNygBAxugNOC2zKg+FLh
+	 nrXMWTZG42Ce38C0gjxQkyZnkULKsgJxruipU4ortDxiXaGnnGBcDBGNUZTCt4qGmz
+	 fcrncca+Hcx1S/5jbHhqXzSZOdfrZvdiIq5SrZ84Qlt7jmUbL02YMUvyxUq77jjvBJ
+	 61IUU7aRZ2sVw==
+Date: Fri, 13 Nov 2026 19:19:04 +0100
+From: Niklas Cassel <cassel@kernel.org>
+To: shao.mingyin@zte.com.cn
+Cc: dlemoal@kernel.org, linux-ide@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH RESEND 0/5] ata: fix platform driver probe, removal and
+ locking issues
+Message-ID: <avdUmHKYnEyju1N1@ryzen>
+References: <20261114020305026WLIRBj8VPB4JcDv_dhOQO@zte.com.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,110 +56,63 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 13 Nov 2026 19:18:32 +0100
-Message-Id: <DMUAG5X9SJS5.3IJRLV67X9SXH@bootlin.com>
-Subject: Re: [PATCH net-next v6 2/2] net: macb: distribute evenly Tx SRAM
- segments
-Cc: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Nicolai
- Buchwitz" <nb@tipi-net.de>, "Paolo Valerio" <pvalerio@redhat.com>,
- "Vladimir Kondratiev" <vladimir.kondratiev@mobileye.com>, "Gregory CLEMENT"
- <gregory.clement@bootlin.com>, =?utf-8?q?Beno=C3=AEt_Monin?=
- <benoit.monin@bootlin.com>, "Tawfik Bayouk" <tawfik.bayouk@mobileye.com>,
- "Thomas Petazzoni" <thomas.petazzoni@bootlin.com>,
- =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-To: "Conor Dooley" <conor.dooley@microchip.com>, "Andrew Lunn"
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
- Dumazet" <edumazet@kernel.org>, "Jakub Kicinski" <kuba@kernel.org>, "Paolo
- Abeni" <pabeni@redhat.com>, "Russell King" <linux@armlinux.org.uk>
-From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261113-macb-set-channels-v6-0-5de59d9e7f02@bootlin.com>
- <20261113-macb-set-channels-v6-2-5de59d9e7f02@bootlin.com>
-In-Reply-To: <20261113-macb-set-channels-v6-2-5de59d9e7f02@bootlin.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261114020305026WLIRBj8VPB4JcDv_dhOQO@zte.com.cn>
 
-On Fri Nov 13, 2026 at 6:32 PM CET, Th=C3=A9o Lebrun wrote:
-> +/*
-> + * Distribute evenly available segments across queues. The computation i=
-s
-> + * complex because (1) segments are counted in powers of two and (2) a q=
-ueue
-> + * can only use up to 8 segments. There are four types of cases:
-> + *  - Sharing all segments equally is doable. Take num_queues=3D4 and
-> + *    num_segments=3D16. Each queue will get 2^2=3D4 segments.
-> + *  - Sharing all segments is doable. Take num_queues=3D5 and num_segmen=
-ts=3D16.
-> + *    Three queues will get 2^2=3D4 segments and two will get 2^1=3D2 se=
-gments.
-> + *  - Sharing all segments is not doable because not enough queues are
-> + *    available. Take num_queues=3D1 and num_segments=3D16; queue 0 can =
-only have 8
-> + *    segments.
-> + *  - Sharing all segments is not doable because not enough segments are
-> + *    available. Take num_queues=3D4 and num_segments=3D2.
-> + *
-> + * We start by computing the power each queue will have. For num_queues=
-=3D5 and
-> + * num_segments=3D16, each queue will have at least 2^1 segments. That l=
-eaves us
-> + * with remaining_segments=3D6. If we increase the power for a queue, we=
- get a
-> + * delta of 2 (2^2-2^1). The first three queues will therefore be advant=
-aged
-> + * and each have 2^2 segments. The remaining 2 queues will only have 2^1
-> + * segments.
-> + */
-> +static u32 gem_sram_distribute_segments(unsigned int num_queues,
-> +					unsigned int num_segments)
-> +{
-> +	unsigned int pow, remaining_segments, i;
-> +	unsigned int num_advantaged_queues =3D 0;
-> +	u32 val =3D 0;
-> +
-> +	/* When growing the max # of queues, make sure to return a u64 here and
-> +	 * to write into GEM_TXQSEGALLOC_UPPER.
-> +	 */
-> +	static_assert(MACB_MAX_QUEUES =3D=3D 8);
-> +
-> +	/* pow=3D0 for all queues. ilog2(0) is dangerous. */
-> +	if (num_queues >=3D num_segments)
-> +		return 0;
-> +
-> +	pow =3D min_t(unsigned int, ilog2(num_segments / num_queues), 3);
-> +	remaining_segments =3D num_segments - num_queues * (1U << pow);
-> +
-> +	/* We can only distribute remaining segments if (1) there are remaining
-> +	 * segments and (2) we did not reach the max segments per queue (2^3).
-> +	 */
-> +	if (remaining_segments !=3D 0 && pow !=3D 3) {
-> +		unsigned int delta =3D (1U << (pow + 1)) - (1U << pow);
-> +
-> +		num_advantaged_queues =3D remaining_segments / delta;
-> +	}
-> +
-> +	for (i =3D 0; i < num_advantaged_queues; i++)
-> +		val |=3D field_prep(GEM_TXQSEGALLOC_MASK(i), pow + 1);
-> +	for (i =3D num_advantaged_queues; i < num_queues; i++)
-> +		val |=3D field_prep(GEM_TXQSEGALLOC_MASK(i), pow);
-> +
-> +	return val;
-> +}
+Hello Shao,
 
-This implementation doesn't use all segments if
-num_segments > 8*num_queues. Reported by Nicolai and discussed here [0].
-I don't think any hardware lands in that case, but let's fix the bug.
-I will let some time pass before iterating.
+On Sat, Nov 14, 2026 at 02:03:05AM +0800, shao.mingyin@zte.com.cn wrote:
+> The ATA platform drivers in this series have independent defects in
+> their probe, removal or locking paths.  They share the same shape:
+> state established in probe is not checked, torn down or serialized
+> consistently.
+> 
+> Patch 1 fixes recursive locking in the IXP4xx CF PIO callback, which
+> can hang the first data transfer, including IDENTIFY during probe.  Patch 2
+> returns the host activation error from the Buddha probe path instead of
+> reporting a successful bind.  Patch 3 makes the QorIQ and Seattle
+> drivers inherit ahci_platform_ops so that host teardown runs host_stop.
+> Patch 4 stops only the Gemini SATA bridges that started successfully.
+> Patch 5 serializes the controller-wide SGPIO update in the Seattle LED
+> callback.
+> 
+> Each patch touches one driver, except patch 3, which covers the QorIQ
+> and Seattle AHCI platform drivers.  The patches are independent and any
+> subset can be applied; the order lists the more severe failures first.
+> 
+> All five patches carry QEMU A/B test descriptions after the --- line.
+> 
+> This is a resend of [1].  Patches 1/5 and 3/5 lost their final
+> context line in transport, so git apply reported a corrupt patch;
+> 5/5 had the same trailing line.  The diff content is unchanged; all
+> five patches now end with the format-patch signature, which keeps the
+> blank context line in place.  Sorry for the noise.
+> 
+> [1] https://lore.kernel.org/all/20261112221230052E8YTrPU5pi8AJJy6dnh9E@zte.com.cn/
+> 
+> Shao Mingyin (5):
+>   ata: pata_ixp4xx_cf: avoid recursive locking in the PIO callback
+>   ata: pata_buddha: propagate host activation errors
+>   ata: ahci: release QorIQ and Seattle platform resources on removal
+>   ata: pata_ftide010: stop only successfully started Gemini bridges
+>   ata: ahci_seattle: serialize SGPIO register updates
+> 
+>  drivers/ata/ahci_qoriq.c     |  2 +-
+>  drivers/ata/ahci_seattle.c   |  8 ++++----
+>  drivers/ata/pata_buddha.c    |  6 ++----
+>  drivers/ata/pata_ftide010.c  | 37 +++++++++++++++++++------------------
+>  drivers/ata/pata_ixp4xx_cf.c |  5 +----
+>  5 files changed, 27 insertions(+), 31 deletions(-)
+> 
+> ---
+> base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
 
-[0]: https://lore.kernel.org/all/1113dac19771ff7881b60bfdd14b0af6@tipi-net.=
-de/
+This series looks good to me.
 
-Thanks,
+Unless any review comment shows up, I will apply it early next week.
 
---
-Th=C3=A9o Lebrun, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
 
+Kind regards,
+Niklas
