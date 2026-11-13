@@ -1,55 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.238
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794578765;
-	b=wMIsX/uIfG3zatQbMyBDKTmRIcgwWnGTX5pEfxICSIO4DT2WmoIjDErICvWdgn3PsdsH
-	 epHsud/HBk61xkm4Tvq7Auxv58KGCDYWQcfH39nHHGukVtalaSUKqQkfUfx5ghm5omlfm
-	 Zp31MYaVClK4WPdC3Qf/Hi32NIFzdolIvb8Lx7sa9L6NUWOfFAApHT44Xv6VDPGP/mSCg
-	 f31C1szQdrr1vv6BmoN5ws2j5lN7WBswx57w4edq3r4Q0g2As3me93Maz0UZe14wzLGKO
-	 6QSb7H1xuIk7/rL/Lb22dWKYgKMranKKpmtLfEGZZjAZKYR8U2C9Sg5bBVc+5Ss9Ruw==
+	t=1794578768;
+	b=n6zHt7z4fqfxUfgNhIBWMZujHBzSF8eNhvet0c6csAva2d+lswg2/OYXiBQz7zX+j+sT
+	 JBLIaAGeCZz4n9xBLpP89PE/ihwcvLG0l51xvPtm9ju7K9oGv10shcIp7qIfcmwHQX6Be
+	 JGPv7G27Sd7C49Vy3UGLfwPRN4MH2Kewsx3sllySIcu00Zs++H9RpholXN68ZpVumzKOz
+	 jxGIBuH/vOqfuUy4z7B+UK2gAfY2XcpnPq4ZZXV6UMIPLBnQFo5AS5xSnwwixMh9qHBzH
+	 Ld9CmNiXO/NOJ0W9hXnNxC5M8brBixNKWbzpD08SBiGvdkcmGbjjXyItlPVMZcSQjkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794578765;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer;
-	bh=C0kDAcJ25HEa7l+lmxjvOALQB9PoPJwZxNqhGvdBIOo=;
-	b=q5qrDdvoioZTQGn+tbWFSle0ZWLgtbJnMphKKpaJR6tVhUqBlFTU0c+ZZxPvewRKsswu
-	 OqLEyhASQTG9xBAfyib6XlNkwx5rXvv+GyvCBbA+gc7T1irdHZmJnBhTexx1zm2JsCiWX
-	 ojmZDhizZDuL76uL3cHBb8D3W1ZK7Op+TjGPCbp8aNW1LPYkvMEDsrYk6Ijky9Ta5nwva
-	 N0zWn3kshMjmWTrdz62yCqdCw8TeOEyP/6EFPi3xJIzA76OVQN7kedCWApiaCdzCwmEVh
-	 ftlpsuW61hTsoByYpp8cM7dnQzkQrZN3Lm2Bvik2Gk9siRCWlbdpXQPUR3ntFGBVarQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794578768;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=uOLxAE8UpwveT9Vb046h/+v+ZBvoRBoYnk4ZAFK6wgI=;
+	b=m6HLeexjWGFSxKqz41KckhYK4sG6VW4SFlZNU9YGaLbtYG28AhNp/NSx8YthWJlHKKkb
+	 k8EVxMnBDU3Jw2en4lXC/QFut2V+Vq/bsWZARaDqGbYteLh17UA1IU61ub2ttF0TQGLnc
+	 ZhJ5XMGeNF4vk0NaBUQbnrmBFe5ktXZ9o+kBORtX+pV3/H6ZZJJy4TedTQBSe2Ytlwy1v
+	 hHT1lZBK0vLYdMuagjaFXuDsBtbHMiLA4KPvrzU8nmN2mr73HfhltJtuGfvc8iRc2/icP
+	 aU/lZc4Og38ttIwVxSGAu7pjfBkMDb74IPHdtyX0WWY3rXXmzakf/scNDaMNhmHR8Fg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=OnAYOR2w;
-	arc=none smtp.remote-ip=91.218.175.238
-Received: from mta0.migadu.com (out-238.mta0.migadu.com [91.218.175.238])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QJDlC0WP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8941606A887
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:06:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8941606A887
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C33DD606A32D;
+	Fri, 13 Nov 2026 14:06:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=OnAYOR2w
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=S2jAsuhfj6x/gYRYbnNnnd58G4n/8un6QgXDeo7I9G4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794578762; v=1; x=1795183562;
- b=OnAYOR2wblsYQNNJ8SK38nknhGg4OTXrCLx8q80sBgTfhsMsSqZEQgkIN05XaH6SljFdz8p/
- nuQO9pw39Nf4qoRFu942ox28aLS2L6FM2WDO/bhUVYWzz5sN/uDBj+d8zcf+Lka7skpsO8KqvLD
- 43BrnEWWU4uQFIweDUANqKOo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 19a0522a90f91ab5;
-	Fri, 13 Nov 2026 14:05:59 +0000
-X-Mizu-Trace-ID: 19a0522a90f91ab5
-X-Migadu-Flow: FLOW_OUT
-From: Hangbin Liu <hangbin.liu@linux.dev>
-Date: Fri, 13 Nov 2026 22:04:19 +0800
-Subject: [PATCH net-next 4/6] bonding: factor out slave publication
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QJDlC0WP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD3501F000C5;
+	Fri, 13 Nov 2026 14:06:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794578768;
+	bh=uOLxAE8UpwveT9Vb046h/+v+ZBvoRBoYnk4ZAFK6wgI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=QJDlC0WPT2BDwWoKDtYgDcMV4xy5wu1QPk/1sy7FBzRWy0JnC+5L1dpxbUygfitRH
+	 DEJ+7IWgRSov5AlWtf4bH1pu1V5UnEkZ23ZBFehQVulmNUGJ6kdmbFJWEPGiMeR/Yh
+	 DUrGwLzKhAuFgz8+HVjfLQd4WxrQ8/UJ13nozQVAO+Uui3hqr36ZrNEeup8gYFx1Ya
+	 g4pUB47QMPJjHxQOequlh8kNaQPy3q/6R97yVZt45wJFwI0Zt03xNgZFYCPpyOTxyN
+	 MLuA5XRAybko6c+dC7Prl73a/2paQDP0edBpJmc95ZN9/5KDpw3kAbi3rXS4GD5Ji6
+	 lET+RJpeE75pQ==
+From: Lee Jones <lee@kernel.org>
+To: Lee Jones <lee@kernel.org>, Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+Cc: Support Opensource <support.opensource@diasemi.com>, 
+ mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Manivannan Sadhasivam <mani@kernel.org>, 
+ Cristian Ciocaltea <cristian.ciocaltea@gmail.com>, 
+ linux-actions@lists.infradead.org, Aaro Koskinen <aaro.koskinen@iki.fi>, 
+ Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
+ linux-omap@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ linux-stm32@st-md-mailman.stormreply.com, 
+ linux-arm-kernel@lists.infradead.org, patches@opensource.cirrus.com
+In-Reply-To: <cover.1793377422.mfd.git.liguangshuo@mail.sdu.edu.cn>
+References: <cover.1793377422.mfd.git.liguangshuo@mail.sdu.edu.cn>
+Subject: Re: (subset) [PATCH 0/6] mfd: Fix potential cleanup ordering and
+ lifetime bugs
+Message-Id: <179457876458.61698.7594247052314866900.b4-ty@b4>
+Date: Fri, 13 Nov 2026 14:06:04 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,103 +69,39 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-bond_enslave_restruct-v1-4-364c549e78db@kylinos.cn>
-References: <20261113-bond_enslave_restruct-v1-0-364c549e78db@kylinos.cn>
-In-Reply-To: <20261113-bond_enslave_restruct-v1-0-364c549e78db@kylinos.cn>
-To: Jay Vosburgh <jv@jvosburgh.net>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Jesper Dangaard Brouer <hawk@kernel.org>, 
- John Fastabend <john.fastabend@gmail.com>, 
- Stanislav Fomichev <sdf@fomichev.me>
-Cc: Hangbin Liu <hangbin.liu@linux.dev>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
- Hangbin Liu <hangbin.liu@linux.dev>
-X-Mailer: b4 0.16.0
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16-dev-ad80c
 
-From: Hangbin Liu <liuhangbin@kylinos.cn>
+On Sat, 31 Oct 2026 00:54:23 +0800, Guangshuo Li wrote:
+> Remove child devices while their IRQ providers are still available, and
+> avoid deleting a managed IRQ chip twice.
+> 
+> The changed driver objects were build-tested. No hardware testing was
+> performed.
+> 
+> Guangshuo Li (6):
+>   mfd: da9055: Fix potential use-after-free during removal
+>   mfd: atc260x: Fix potential use-after-free on probe failure
+>   mfd: palmas: Fix potential IRQ action leaks on removal
+>   mfd: stmpe: Fix potential use-after-free during removal
+>   mfd: stmfx: Fix potential IRQ action leaks on removal
+>   mfd: wm8994: Fix potential use-after-free during removal
+> 
+> [...]
 
-Factor the publication step of bond_enslave() into bond_publish_slave()
-so the infallible "commit point" of the function is explicit and cannot
-be interleaved with new fallible code by accident.
+Applied, thanks!
 
-No functional change.
+[1/6] mfd: da9055: Fix potential use-after-free during removal
+      commit: e8fe9e8397a935554eb61504934c76f9f7c32fc8
+[2/6] mfd: atc260x: Fix potential use-after-free on probe failure
+      commit: dc3431a385007486413d1194d36ebe9d83790b78
+[4/6] mfd: stmpe: Fix potential use-after-free during removal
+      commit: 259e272733575dbb4946829ad06eef6782ae91be
+[5/6] mfd: stmfx: Fix potential IRQ action leaks on removal
+      commit: 1235c2932f71553486eab2b76dbf40806cd2d345
+[6/6] mfd: wm8994: Fix potential use-after-free during removal
+      commit: 4c46825cdb45520f3a25f760e5c95f7b08191221
 
-Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
----
- drivers/net/bonding/bond_main.c | 49 ++++++++++++++++++++++++-----------------
- 1 file changed, 29 insertions(+), 20 deletions(-)
-
-diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
-index f696a0d15034..bb3752683456 100644
---- a/drivers/net/bonding/bond_main.c
-+++ b/drivers/net/bonding/bond_main.c
-@@ -1884,6 +1884,34 @@ void bond_xdp_set_features(struct net_device *bond_dev)
- 	xdp_set_features_flag(bond_dev, val);
- }
- 
-+/* Make the fully prepared slave visible to the rest of the bonding
-+ * code.  All fallible steps of bond_enslave() must have completed
-+ * before this runs: error paths never undo the publication.
-+ */
-+static void bond_publish_slave(struct bonding *bond, struct slave *slave)
-+{
-+	/* Must called before bond_update_slave_arr() or bond_select_active_slave() */
-+	WRITE_ONCE(bond->slave_cnt, bond->slave_cnt + 1);
-+	netdev_compute_master_upper_features(bond->dev, true);
-+	bond_set_carrier(bond);
-+
-+	/* Needs to be called before bond_select_active_slave(), which will
-+	 * remove the maddrs if the slave is selected as active slave.
-+	 */
-+	bond_slave_ns_maddrs_add(bond, slave);
-+
-+	if (bond_uses_primary(bond)) {
-+		block_netpoll_tx();
-+		bond_select_active_slave(bond);
-+		unblock_netpoll_tx();
-+	}
-+
-+	/* broadcast mode uses the all_slaves to loop through slaves. */
-+	if (bond_mode_can_use_xmit_hash(bond) ||
-+	    BOND_MODE(bond) == BOND_MODE_BROADCAST)
-+		bond_update_slave_arr(bond, NULL);
-+}
-+
- /* enslave device <slave> to bond device <master> */
- int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
- 		 struct netlink_ext_ack *extack)
-@@ -2341,26 +2369,7 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
- 
- 	bond_xdp_set_features(bond_dev);
- 
--	/* Must called before bond_update_slave_arr() or bond_select_active_slave() */
--	WRITE_ONCE(bond->slave_cnt, bond->slave_cnt + 1);
--	netdev_compute_master_upper_features(bond->dev, true);
--	bond_set_carrier(bond);
--
--	/* Needs to be called before bond_select_active_slave(), which will
--	 * remove the maddrs if the slave is selected as active slave.
--	 */
--	bond_slave_ns_maddrs_add(bond, new_slave);
--
--	if (bond_uses_primary(bond)) {
--		block_netpoll_tx();
--		bond_select_active_slave(bond);
--		unblock_netpoll_tx();
--	}
--
--	/* broadcast mode uses the all_slaves to loop through slaves. */
--	if (bond_mode_can_use_xmit_hash(bond) ||
--	    BOND_MODE(bond) == BOND_MODE_BROADCAST)
--		bond_update_slave_arr(bond, NULL);
-+	bond_publish_slave(bond, new_slave);
- 
- 	slave_info(bond_dev, slave_dev, "Enslaving as %s interface with %s link\n",
- 		   bond_is_active_slave(new_slave) ? "an active" : "a backup",
-
--- 
-2.56.0
+--
+Lee Jones [李琼斯]
 
