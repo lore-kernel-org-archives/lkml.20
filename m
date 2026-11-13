@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794566575;
-	b=sv0qHppVmq8JZ3RROtBVp45878ejXybrSFMRmgIwt2Mz54n8a8VPpmfOImEhLKiEXTA2
-	 fHfm8LClgU582o60Zrdf/LlW8Bh4fBOGD6SEvIj4Yp7UhGNOfgFpRmAKt7jtKvmA05N6N
-	 J32WTMj4CmeHBEsBFWajaHa1DCdSAwOXH65nkK73DtzMrhp3bEwS1Fuc8LBbXcpdo9REN
-	 o3kt5bwo5fsyGe3dFQUy5zs603SeQzgv/W2726dOKjdrv6dXjLVJ86p8T0h3zU0Envu3J
-	 j0TAWSOHtgWQuuFX4TGx11E9IiSYN3re5vF6Thbz001pUz0zkfoAoR8ZUePMJ+bvhtA==
+	t=1794566588;
+	b=1naenTG6/0h0qgqvis/YTPh7xWvcqyQKd/zoEg2P2XW9Dti9nXOD/MRlK7G0Cy+9BijV
+	 ynLdL5BQN0D+xCMa2vv6Uhik/pPnUN0MCpX/zBPkTG9Wj6vNNt/FV9k5mk8tQDjJLP7IW
+	 gBxZ8CwGudUhGDOaxqc3VRqaK4uaAYG1DJgk+tnZjsab5crhMztlNT4NLm8UC5E5i6cS8
+	 JEYqKwYyOswfh2y2nKqfyrhr4Wb5EvC1S+WxtETYwm7aEPYPCCs/BvLysFrJGcRvxO8nz
+	 onxp0vSsGkUWWJtphC/wYrN0dLCAvmpFACw0xeQFweGffCmTd2AfBAJtBzRJkIutFvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794566575;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794566588;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=u7WW7iP4sN/wF3RS+/Ap4tO0z7VMpUQdhoY2VfeZ9lk=;
-	b=fT9v2cyps/bsVVbotvDX7QDMQT8+A+NQ7wU+FZbqcRlsWRhQ7OZZ6U984kbcNhN5LPF7
-	 1jMCx81sNRtkFtSxOHm4rDRZ5l6qpB+ZuPqdkjF0V6MiogFY0gqoJ+X0dZoi2oVdlPULO
-	 E/u3cvVIRkPs/X+eWFWtHtEf16v4PCA5U1+jKB+0j/OBLenPGTLWpEpJ/VEXct9KHcwzh
-	 Oydem5zwpKGlFmwkja8EFege4kM0iihNleAo1jQ5guTn9tJhzhV1LQ+8/4V2AVY7Nvlkt
-	 TmAZboBbnA9MriOzZpXh0oJ//+OUzh04wiPSaJpGrL3CRjVnzNdkHdW49cqmdMLfdqw==
+	bh=dOJ4YdEhB/LjAz+Uew5SnjVvbdRDY4A19cwQljrlPC0=;
+	b=CoS/DTY72sOSjQvw/cUoGD+KTByog1Kz1Z3NXhIDKCzURXhiF6iCx7o8xLF+w/H5uWBP
+	 8UK3oT1CT5syr3kj6IE4wttOGAy9vzSJ0VfX569v8PrXt7xgdcdk2PVSuLkY/zdbX2CZi
+	 uZLpoCaFd53Fhp3qVhBNo6iZHzwh2kaWP61AtEKBFoWl7LMZHwVgCsFSWtlgyzKjBdwDs
+	 g0oLVl1T0Vmb6AtK0tkBxDb+OYRHKXlln/3CLNc7qmHi9FrJ2FhE4FNk7BHZyBY4Ng06q
+	 HjF44fHCLA2EaWMmwIpd7tQgbaSCMOw0j8XGcNn/xFs4jAEve1Vu4zt2lUWWQ6NcK4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nO85NbcE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="DTFZn/MR";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7FA9606A334;
-	Fri, 13 Nov 2026 10:42:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1C48606A33B;
+	Fri, 13 Nov 2026 10:43:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nO85NbcE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E55061F000C4;
-	Fri, 13 Nov 2026 10:42:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DTFZn/MR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CD941F000C4;
+	Fri, 13 Nov 2026 10:43:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794566574;
-	bh=u7WW7iP4sN/wF3RS+/Ap4tO0z7VMpUQdhoY2VfeZ9lk=;
+	s=k20260515; t=1794566588;
+	bh=dOJ4YdEhB/LjAz+Uew5SnjVvbdRDY4A19cwQljrlPC0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nO85NbcEEuqYfdzjPA9oiWvFS4bhNDhobhQUh7trZs6cJmy+JSN5DH6VpGMIDd5/k
-	 KQoQ519FgjW/4NxFLsF3qgdt9T/yvsPe/L94Bh5nMJfBhmXQRbJhQoyMpkoEPTVtl+
-	 b0b7MIt4LFWU8GSROUqKZlbqGRA/BR6pUzHsJcny2K4eXnF9+TwzAr9McsMJnav3Ym
-	 TVre3lsdoBbwpugDBXoZnHP0L7x7OBmuPSF4qDbCqMEhX6+3mJWx8TsW06Ml57bsIl
-	 8G4Oh5XNWptR+WfOf0EmFeKq78GW3bkG5K5ApqDPXZTivovAy9GcV6faaQafgQenV4
-	 9uYdsqBO0ilIw==
-Date: Fri, 13 Nov 2026 11:42:51 +0100
+	b=DTFZn/MRumNrYpwcL/0t5cWb4FDPpsRQyYBaBbgFprDvOXoaojNU7Z/H9l6awyRfy
+	 br3VA5AIRX1RbzSqE9Wh+nka3X49BF0BoOg8mxEv5Ol45+RLGaa3ot1MrgeEiK77B7
+	 pJCwUqqKUreFbT1Mk9O2DbVx5yOhuFCHTMLuta8eiB5hscstZlzjGIE21jgH31VUhM
+	 23DejZ0QBor5b6EH31de6wEIBTnqlPG3fd83q/5KZM7FvESciFVconGW+h6PwwGxoq
+	 vT5RvSUX8hDP4O2fuKu/Xd7qcE136pf5ws/l235ljjMi44QIlgwiQbVbdjX3pbJMLu
+	 n84ljOHNkKskA==
+Date: Fri, 13 Nov 2026 11:43:04 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Val Packett <val@packett.cool>
 Cc: Bjorn Andersson <andersson@kernel.org>, 
@@ -50,10 +50,10 @@ Cc: Bjorn Andersson <andersson@kernel.org>,
 	"Guilherme G. Piccoli" <gpiccoli@igalia.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
 	phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/6] dt-bindings: arm: qcom: Add Motorola Moto G9 Play
-Message-ID: <20261113-dainty-pastel-sawfly-75bcff@quoll>
+Subject: Re: [PATCH 2/6] dt-bindings: arm: qcom: Add Motorola Moto G9 Power
+Message-ID: <20261113-annoying-curvy-coua-8e89bd@quoll>
 References: <20261109221453.658316-1-val@packett.cool>
- <20261109221453.658316-2-val@packett.cool>
+ <20261109221453.658316-3-val@packett.cool>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,11 +65,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261109221453.658316-2-val@packett.cool>
+In-Reply-To: <20261109221453.658316-3-val@packett.cool>
 
-On Mon, Nov 09, 2026 at 07:14:30PM -0300, Val Packett wrote:
-> Add compatibles for the Moto G9 Play smartphone, codename "guamp".
-> There are several display panel variants, start with the Holitech one
+On Mon, Nov 09, 2026 at 07:14:31PM -0300, Val Packett wrote:
+> Add compatibles for the Moto G9 Power smartphone, codename "cebu".
+> There are several display panel variants, start with the Tianma one
 > which will be the first one to get an upstream device tree.
 > 
 > Signed-off-by: Val Packett <val@packett.cool>
