@@ -1,96 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794531700;
-	b=qPrDcLd4K8oReNGp57EkHVL9BF6eF8LXX5dEhO/5V1K0Ltpnc/ktfWGQU5lFioFX0jlG
-	 U2p0YY5yJjx4yZ8hecUL4hjHhABNtNOtN4XVt4vFB2WmgIC7zZq1fCw5K/xpD76yF/SUQ
-	 hqXZRan2llW0u6Fm8gr3xlYYim7aY3D09yezlsq/USTAfxfQ9LSUhyVaLiKUsG9/ttHMz
-	 cTj5wxHUTtAVsLHM3/VHr2b0oPgiX4zHZ9f4y+WMtvElGhLXLvVoxxceHwMlXOU1GiLtB
-	 3PlNuYU+UaGisk6ac3P5ViewOXJbAFIiX2TauAIGaL2XVRAH9vOGUeqw6M+SrdX4lOA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794531700;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=xsqNy8x4lmXAXvHwF9gkwZoG25xYnfN0MsYpVbWeuyQ=;
-	b=hCkxHqW8cvCPxIVngV3BYCkLZzW9ZM77W9m7SAXSQWXm3dTArS2c+AgH+nKhDkWsoUnt
-	 XLWdewo6646IkQHAygFvuI3/FL4qXcDvVzqMUnLtZhkPu+cb7P7T1Z+YSx3IJEdQaxB44
-	 uqr5WOy0wr+NK8+6Ye+DvS0DRlPxrnCr8x2s11E43ihYqbPc51bfwBVgMj6xWLy0TMQ/7
-	 Q+MjSBQ1Q7EDFnSRcXIlFOvtBoosijgjqe0Io+L2PN/BPqRr+XMD6pstU4Kny8/DlRNQX
-	 +MX7mWvapvFlrQIDUqgJwQGPPoaKgAGuElL+euuchJlrKsxAc49VqGn/6Ybg+XXiv2w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=joelfernandes.org;
-	spf=pass smtp.mailfrom=joelfernandes.org;
-	dkim=pass header.d=joelfernandes.org header.i=@joelfernandes.org header.a=rsa-sha256 header.s=google header.b=G1jbsG+S;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.59.177.22
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794531724;
+	b=S5lImEt16Obz6oDXCUZ1rN9PdqvrBIwN0l55wDR7bat+ElUaTBLTjBTxqv+Rgp5AMoE1
+	 80caYEYVB5O21nwFU4tqFRk1nI7FD7gVoVBaUjvGuT1nn2KCxAJTcVu8SO4L1f7zABfOF
+	 b3kkTYQNvUMKpgcCA54+AtQbH0FwCWVqNziDWR/Crb/vP6dOx86VH5sUlwe2ce4uNN4TZ
+	 tmWOWeY4eyaYO50bTW+dYhYAPkWsgobXHMQLa3LEiylQYlsdGgn9wDVFir+K3d4tXIcPo
+	 gKSqLhRe5yKBE0rm6YkMSQ9gvxpl05O1LCdn/Ktr2BPM2W5Hwe5+SZhvwdtxSW9YdKw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794531724;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=MbV0nYCvQjonoY9GqSdbwd6uyf8l/vnEpP6Gg+I3jek=;
+	b=F/GpotZlNnO9v98XnkQvjAklbdLLaCPVQ2+yfHdaL42wVihAUxPdTF6byZ34v+fSCJgc
+	 vrj+0WyeH4ewf73eTZhDHLVvjPxDcEnmW0Kb+tGzHWeFhyWR827bk7btduAn4woqDo1aG
+	 qjNDmTrVLkY7BL3AnG6VsZyVKXpBJzou3RVNT/didfYfoaf9QYGGXsY0CQrLVcIFnZBP0
+	 qgxJrHLmuZrWxYwnhK0GrXEuIbOZadPlubUjMFKPSL0nFxRA7+e+Ga4YKxVLT3AsFzrq1
+	 fA3CBVybrp42TsJBkWTVF4LctHPsx2I7F8BYX0Wee3qMfi4yhzE/hvkXDPvT4bFwmkg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=gTrK0sm9;
+	arc=none smtp.remote-ip=52.59.177.22
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05586606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 01:01:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05586606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=joelfernandes.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=joelfernandes.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE282606A321;
+	Fri, 13 Nov 2026 01:01:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE282606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=joelfernandes.org header.i=@joelfernandes.org header.a=rsa-sha256 header.s=google header.b=G1jbsG+S
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a5036bbac7so1943695e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:01:39 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794531698; cv=none;
-        d=google.com; s=arc-20260327;
-        b=k5b6hG0iBcDGm7wMd73PMnWGa++niGgWQBCSaywLuHnmOqK8tEe6drJxet9yv7qEJf
-         OoXIIM7h6Ui+x9KVx0i1TypVDNuyfqFkU/5rNQ/j779xyS/Y6VatXdHYe2nCh10JexF+
-         n7mpNO97fOr7jvtV00zfTWxXKHI7pBMWH3DG0Qf003nyaD6hIJQpTWowVlr4rJ33xD/N
-         u2oJSZNRIPdrJmyEowMYwF2hkIM3H5xOjw9iqAUdgGaD/rQ8zc0FM1SoKM7MQVt2QhjS
-         wbAKX9++T07BJcgrLEhE6S84O6d3Rg5lN2o7GjwLql3/8jotQiXJO/F0dUulXDGlzDGp
-         GWfA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=xsqNy8x4lmXAXvHwF9gkwZoG25xYnfN0MsYpVbWeuyQ=;
-        fh=N9BrhhOJX6ly6mI7IZB5T5b0Wg1/kYTgr9/aJTVLGyU=;
-        b=ovKAd66V8XBhKY//5udYIho6lWAJp9iXRrVqEBVPaACWx1TQTIsEpg0QrF+2jFu5Md
-         ZDSQT+dyCApMNl6/xkSra4Ah9TnSdgAClnjf1XTtKWASFPeJfRt5oR/tvqev74a8aDq0
-         r4U0CdpyhHihvBQwOnu/hE1RDkEa+SdaC7+4AEQuvJ50krQkno7mJmNX2IPKBN2eUDjx
-         I4w5LUFAGcNTstqDuccGExjNBgUuw08z8c0HdZ+i4HVSnfmYYZoMfD0f2JhvlGOPGfK0
-         zZn61MYLFdZALB6sZVucOHr3tSE0roYDRqxDaTCph1+HVgXY7uqnpNKuliTKxFXZXvFm
-         pN0A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=joelfernandes.org; s=google; t=1794531698; x=1795136498; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xsqNy8x4lmXAXvHwF9gkwZoG25xYnfN0MsYpVbWeuyQ=;
-        b=G1jbsG+SSau2XzDeW1OBYgcZTEKbYsSnIFjCz5jzxju2YOgwgfGuinOztdcmDgtqWf
-         gs2+QeCPNvtJ/fn1ygL0g7bEy34oR7Y0N3LEL4YlJ9fDk3GdFupL6jpH7jf55PP3vmfg
-         a2MC+9Pbb3enm3e5qIZT7H9J+PCKaYqIYCk1o=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794531698; x=1795136498;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xsqNy8x4lmXAXvHwF9gkwZoG25xYnfN0MsYpVbWeuyQ=;
-        b=EbujbfHz7DhIFbJ8lCslzy1a0O72dGNdRbFCHYuIyYhxoDDEu99C4qzWt20YagCyn5
-         pV7STe0fxLc7oliC96lla/d6LW7Lrs1+7RMQrWWhNVD/2OpHMKHFGXJpOLv/AUMbHPJL
-         RYBwNUJBTm5tjqQu8Xk2t4sC/UQTSB7wt/T+X6NnoPuWIcK1ESPJV5IbHBLpdvpLYWY9
-         sGaKFWYrobe4jKMuxDwTnPGrM4oM4UkXitN+ZnZT+Nij1CmbI02ADG5T3E7OJdanvznf
-         0nwuQw4Y/dQ9CaqUss6pFsDE/stz87XJH71382F+L9iihJSWeQzEU7sNgTsTeWEqa/PP
-         78Bg==
-X-Gm-Message-State: APuU4Z+YU8NsN3UbtoPnJsVQ8wU0a85/8LrovCMOD3S6JSi8+UFuhO3h
-	/9rBe83U9+KNgZolLRJO2W3KwSpUq95SK6s3jC2JGtsML63GexKjPZpC58T8ugWnTLkDx7lHyys
-	+YSZoSattjmDS6Rn9JYb+htJmNoned2iXecaaBguaeQItr0cPnicY
-X-Gm-Gg: AYBFou0hwj9vQqFDFneHPYLuSlaSP08QryWneCaYAMgWo98tTwZpgyxSCImtv/jM6Id
-	07mZ0qZnba4Eb0ah84L9h2O7S+6l4XeosDYKYzrfUqbgZEue1belLzrL6Oq7DOYaQAy6skyBf0a
-	DFB7aLAbqc5PcUmHyzCPupNi8m+ovnlQaQ4Bn9uC2ez3IWpPet1XHvw29fA1I4Qsz2KXC9ba4hq
-	GTmwqF7TbaxydJ0CAoQ5O3Aqqq/ThZnPDbk3+JnCoQnZTPqaYlF77Zc3J7ZO4I9prY9M7mzlwXR
-	bK10Gu3aHPlfdE8XpWN41CtW9HReAU8/41q70Cbz3LTfBFLV4/CKsd5nuXOOGkLkk3wgIpd1tGu
-	4VNvXZ4EphM3TYFwMTodO1VbkFXxAZinoMQIt1XWJXYKyH8x8z9aPH2MotnI=
-X-Received: by 2002:a05:600c:8b8c:b0:4a2:1197:1de0 with SMTP id
- 5b1f17b1804b1-4bb55a7a460mr17515855e9.19.1794531698338; Thu, 12 Nov 2026
- 17:01:38 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=gTrK0sm9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1794531703;
+	bh=MbV0nYCvQjonoY9GqSdbwd6uyf8l/vnEpP6Gg+I3jek=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=gTrK0sm9FwPWze3VR6plnfneCjBCbbvPu6TqZbZWmQfRnJhJ0VGpyIXezwYek3PBi
+	 b6XPKQn7ri896s+z6igEA3j7tu/0Q+46mG9LyP7HNGHD5HVdwvj5UaHbcLjV2PPFNw
+	 N/WFAi+6AoR93PJoG1/E7Ox9/+37l1iFJL5avaOY=
+X-QQ-mid: zesmtpsz4t1794531699t37acbc69
+X-QQ-Originating-IP: IOQ6sw8ZhMxrz8Vfdt49he8dY5M/9y3F1itoJ/5IrEw=
+Received: from PEC004119 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 13 Nov 2026 09:01:37 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 3981416717420647714
+EX-QQ-RecipientCnt: 6
+From: tuhaowen <tuhaowen@uniontech.com>
+To: rafael@kernel.org
+Cc: pavel@kernel.org,
+	lenb@kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	tuhaowen <tuhaowen@uniontech.com>
+Subject: [PATCH] PM: hibernate: Restore PM notifiers on snapshot open failure
+Date: Fri, 13 Nov 2026 09:01:34 +0800
+Message-ID: <10852BF0B4974597+20261113010134.1408010-1-tuhaowen@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,57 +70,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261113004946.2758197-1-jfern@kernel.org> <20261113004946.2758197-5-jfern@kernel.org>
-In-Reply-To: <20261113004946.2758197-5-jfern@kernel.org>
-From: Joel Fernandes <joel@joelfernandes.org>
-Date: Thu, 12 Nov 2026 20:01:25 -0500
-X-Gm-Features: AclHuK-BlMNbouTRIZA68HB056zVMIxCfaWWRZW7PBno_ghygL1wLUmiCANRO7s
-Message-ID: <CAEXW_YTY1rjYH8FwvLvc1JbOQYDuXTP7BEE0a6eoRfu+-ZC6-g@mail.gmail.com>
-Subject: Re: [PATCH for-v7.5 4/5] rcu-tasks: Use pr_debug() for callback
- contend/collapse messages
-To: Joel Fernandes <jfern@kernel.org>
-Cc: linux-kernel@vger.kernel.org, "Paul E . McKenney" <paulmck@kernel.org>, 
-	Frederic Weisbecker <frederic@kernel.org>, Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, 
-	Josh Triplett <josh@joshtriplett.org>, Boqun Feng <boqun@kernel.org>, 
-	Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Lai Jiangshan <jiangshanlai@gmail.com>, 
-	Zqiang <qiang.zhang@linux.dev>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, rcu@vger.kernel.org, 
-	Song Liu <song@kernel.org>, linux-doc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: MNbA5mkmBXEJt5quiIHHPKscnR5sId0xT3lkKlysIJeYYaS9ixObZIin
+	6WVP5m9zMLWgb1yexso5CKCLR1QzQ7XnOIYOEMNTF6hpHvYqNX25VbGfrPQlfLc5oAKYYc9
+	lMQrAyDsMQF2ZR/UhjcxFpNlz3RzaAIyCgXiySdCJH0/4WwcRcvZyigx1SbficUYiG289K7
+	/gAATsJy2bsjI8ZJPNrRLfirnWYQVa6Rjxg5BEmAMcMXhIQ/IU9I3vsGn2Z3N0cXEX806LJ
+	0AxeFfYvRdovEGI13bR6zbU9xvXfHcoz4MQTG2u4xqWs+Ltfei1Jx1A/3qcIvVCI8IAQB5m
+	YAp56f9oAVtSYZa+7Tn3Ll+ueycXHiEnpAXOlGvxZPSTvLI6YUiylfs9HfgwNfVqzk3uqF8
+	vX+/RN5LggVi0PQfPHESxA3wYAC/xz7qszjNC7wb21HYJAChADYwO0Pu7FXZ6Gr2GaRGy2+
+	397RQmwVhBqF8gH5S5NJZUtXkOK0pjMr8cbg2krTd3RwwuYPieqEGS5NpF43nvsM7Z/PmQ5
+	cXARKGDmX4Oimu6txZOOIZQ2RAJXfyQLrkymc9ubIC3TlGAnsO1Yi/09XO9LrpCj4s4zIkL
+	J5SCLi2oXYOa3fY/xQni88HNl7jHjA7nr0PgvxRFuI0cwDtZFUm4c1aOBH7Yk1Z2Mu9s2c+
+	fJlmvE1IImFOo8JT/hWUOZVNUbnMSzB8tfrSX/QFyFUJfA0lcg7275PWwMwPCasHsCqCKBR
+	tvjQKbq2Xheg9KIlL9sHtIoypcx9H6MbY1Lu72PqzhvtpY0WDdKyBoF2PBgO6jsgohfRIIz
+	R9TANNtA8l1n4jGgRm8jGhKCjyVWMq1QYmHaPZd2qSWLxeO76DBpeDQFRS0ihKZsr5lw/5d
+	73nC7+rzCQZTYfcfl3vlyZ5fmEf8zlYH3NUPg8J2KJn7dNjZQJVB7DchLKcriKG4D3xz9Yd
+	TyRnPlv8pGOxk4kw5UG0qcimAwA06BMPdXXh5HwUwQA5qmiyggZqQWlyCXICl+fqVOSglgQ
+	NdRe/kcwrVMYdmvans
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-RECHKSPAM: 0
 
-On Thu, Nov 12, 2026 at 7:49=E2=80=AFPM Joel Fernandes <jfern@kernel.org> w=
-rote:
->
-> From: Song Liu <song@kernel.org>
->
-> Commit 5de907d24919 ("rcu-tasks: Disable callback contend/collapse
-> messages by default") added the rcupdate.rcu_task_collapse_debug module
-> parameter to gate the three pr_info() messages that report RCU Tasks
-> switching between CPU-0 and per-CPU callback queuing.
->
-> The kernel already has a mechanism for debug-only messages that are off
-> by default: pr_debug().  Use pr_debug() for these messages, and remove
-> the rcu_task_collapse_debug module parameter, its documentation, and
-> its boot-time announcement.
->
-> The messages stay off by default.  On CONFIG_DYNAMIC_DEBUG=3Dy kernels,
-> they can be enabled at boot with:
->
->   dyndbg=3D"file kernel/rcu/tasks.h +p"
->
-> or at runtime with:
->
->   echo 'file kernel/rcu/tasks.h +p' > /proc/dynamic_debug/control
->
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Song Liu <song@kernel.org>
-> Signed-off-by: Joel Fernandes <jfern@kernel.org>
+Opening /dev/snapshot for writing calls the PM_RESTORE_PREPARE
+notifiers before allocating the basic memory bitmaps. If the allocation
+fails, snapshot_open() returns an error without sending PM_POST_RESTORE.
+The release callback is not called after a failed open, so it cannot undo
+the preparation either.
 
-Btw, even though I included this in the 'for-7.5', I am planning to
-send it for 7.4-rc as we discussed, so please ignore it in this set.
+In particular, the firmware loader enables firmware caching during
+PM_RESTORE_PREPARE and relies on PM_POST_RESTORE to reset the cache state
+and schedule the cached firmware for release. An allocation failure can
+therefore leave firmware caching enabled after the restore attempt has
+already failed.
 
-thanks,
+The robust notifier call only rolls back failures within the notifier
+chain. It does not cover a subsequent failure to allocate the bitmaps.
+Send PM_POST_RESTORE for that failure, after a successful prepare call,
+so that the notifiers can undo their preparation without being called
+twice when the prepare notification itself fails.
 
-Joel Fernandes
+Fixes: 70d932985757 ("notifier: Fix broken error handling pattern")
+Signed-off-by: tuhaowen <tuhaowen@uniontech.com>
+---
+ kernel/power/user.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/kernel/power/user.c b/kernel/power/user.c
+index 6e4f40e49319..e7e8016a4f1a 100644
+--- a/kernel/power/user.c
++++ b/kernel/power/user.c
+@@ -87,6 +87,8 @@ static int snapshot_open(struct inode *inode, struct file *filp)
+ 		error = pm_notifier_call_chain_robust(PM_RESTORE_PREPARE, PM_POST_RESTORE);
+ 		if (!error) {
+ 			error = create_basic_memory_bitmaps();
++			if (error)
++				pm_notifier_call_chain(PM_POST_RESTORE);
+ 			data->free_bitmaps = !error;
+ 		}
+ 	}
+-- 
+2.50.1
+
