@@ -1,66 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794558884;
-	b=FvwajmlMklnkRtAkoDRShXgIPI8QDcVv5l5oazC4feUkZgaAhcq/H51EwOfRk55EvKsf
-	 8r/k6cUkbNsV4F/OWhNY+WS1t4w4noouD+ssbycrx9Hhh28u421U4LRVoc/99BbxpnLNm
-	 jXJ+bIiY0TD56czG1QTwjyMfyKiHJvI+zWzT2PtLlAiuIexvTnU3PGGsfMPyqB1+8yAvr
-	 5kDLsbKKueqHPmmqrw5cpaTYx44N2cY4D/n5zPYZ0sdcNwbYZmSITCDSulp9VDVKYZq3W
-	 YkMWTX8vsmD8OB5neXHzNwFnLBMSE5CIAzmZGi9BZs/mOAuDWuHgqjRqxfP2pIMkaeg==
+	t=1794558885;
+	b=CaKX6eJfRiRwnPshMnY+qrUgc0J27olLx/3CZbgG+S1VetisY0FBr/dSXFiJ6QRoA/N+
+	 rn79VJyI1RBBgM/yv3fFwXza1lgLy5NjuYsNC6JGHQK0XC3deDNBAO4dEhPh3coYIkkPP
+	 j2PdgTzyjkTcif3hyPsGgR+1Gh1ENbdOI6VrMLePuRq8GS8/K1UHSVA2IbJ05SHw/Vuzw
+	 S60EMwdVWMzHI/Xh5E+r/WYmGTY7bWjnXX3vPpkY/77xFrrMdqNjL4JnluWxFS5JAUXzE
+	 z2TpnPv3ZOHYpGhlhoPjvrPVpwsDc6WxsgM/GAKKo3YmWionYb6vYmEX3t0YJ5jFXMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794558884;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
-	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=tqmxNmR9sdF/mCrxZwXbkrGr4U8K+GGx99H7vvL2bZc=;
-	b=HK3NzN5PPFrf/wGhXSr5nOX+QAyTGckyOccXGP9oanDpZXm3mFYS1q7/gQSOI5BuBCuT
-	 hMBGQqTi37auv3rPwKp8iXoeVrZdixq+mbLxJeAzNJ+roUliUKpAnlDo3vxQLUgzHI+Mg
-	 Us/G+9v+ZS2k+CowTMQ+zYXt07WvEJMQ5AIi4RaXcoytxM9xQ5Ltmm5otnNyO4INa2cCg
-	 wMiXfKiGc+xtxES8P0SiNmshpqXGlFXQsQXhWGa7cAzVv8l4+vtAAE5ZSlzeKtDMJyzI2
-	 DLfxxOm7YegwIqKMcFQ0vy+Jqced2WZs+pXiNNxrKk2jVa44rfsJ7dth/Txt0Uurahg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794558885;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id:X-Mailer:X-Last-TLS-Session-Version;
+	bh=nLcP4qFeNLouEfcFHqryAopJvdLx1pDFyoiPx7iQi5s=;
+	b=lAVKSBNTzII+2WoDRhfraJ1KD9G+uXnLeFINxI3vv1A5VTWbnGWQm5Ul2xHc2UUwUUS+
+	 JCXpsf2Y5KwvXg1ndCCCjcD59T5hm05pJ+EglfJojBG7ohrHtQGUJxycUusSIfJwIw8Bg
+	 R5mAq9fY/LYHEkpk3QRI2IBX2QSpTbF9+qOSextapj/wZhGNNJbh8uujgzouAoCVk75QR
+	 3vM5JYFJAEhefP+6czlRRDJo/Rpj9HI3ID8885aTgHknEcfACq/D420XjYm+N0n+w6MiM
+	 fjy/mh5yhk8Kn+EO4VFmAvnqVUWKHDHZYQP8tKb41/c8NxOzeTDmF+w2Q2VhqnU1VLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=Cj8URl5m;
-	arc=none smtp.remote-ip=160.30.148.34
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=jCkrKTkJ;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68C54606A88A;
-	Fri, 13 Nov 2026 08:34:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68C54606A88A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 771FC606B1CC;
+	Fri, 13 Nov 2026 08:34:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 771FC606B1CC
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=Cj8URl5m
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jQrCj0nxLz4yjSx;
-	Fri, 13 Nov 2026 16:34:41 +0800 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794558881;
-	bh=EeJgTp3gDNk3CHuo2TOVqLIjmK59AK/kiIZbXuxrLXg=;
-	h=Date:From:To:Cc:Subject;
-	b=Cj8URl5m94I/ndWuQmwwyYZkWkHp8erBql/yqJJbIhDewfd9d7gClig7bZLOEmsGG
-	 tlLDTrEHUTBl6LBmiHTHHNzXMMMLv9G5tPLa1zHWPOkF2imAUu1UuyYcY0uc1c+dLj
-	 hufj56JXi5qlcgFouso6HpVt8sdhQpjKVxX1w2D6CB8OD0FOa86jxOHr1iDugl1vIz
-	 eNiV062BodjZqH6esYrBCViUW1q/GZdTBcSPMUF2E5PjjD7b+Pa+CD8Qa+/WfAtoDR
-	 BVIk7LUPX3qND7lCrvVa+MpFIG2DZGiGjH1R+KXPxG9sCa39woC1sheKqNkLJPhVKk
-	 n8ltGpB4jVFmA==
-Received: from xaxapp04.zte.com.cn ([10.99.98.157])
-	by mse-fl1.zte.com.cn with SMTP id 6AD8YRLU065935;
-	Fri, 13 Nov 2026 16:34:27 +0800 (+08)
-	(envelope-from hu.shengming@zte.com.cn)
-Received: from mapi (xaxapp04[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Fri, 13 Nov 2026 16:34:30 +0800 (CST)
-X-Zmail-TransId: 2afb6af6cb967e2-719c9
-X-Mailer: Zmail v1.0
-Message-ID: <20261113163430071vxN-ZVM94Ib9cZ18HMyHa@zte.com.cn>
-Date: Fri, 13 Nov 2026 16:34:30 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=jCkrKTkJ
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 62A7CC4F774;
+	Fri, 13 Nov 2026 08:34:45 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C8B28601D5;
+	Fri, 13 Nov 2026 08:34:42 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6D95C11BC06F0;
+	Fri, 13 Nov 2026 09:34:39 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794558882; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=nLcP4qFeNLouEfcFHqryAopJvdLx1pDFyoiPx7iQi5s=;
+	b=jCkrKTkJ6QntopfsCVx823gb7wx1QWSubytve2jZR5DHrBI86oUpTLuYKxTJcyOckDIn8Q
+	hqgT0HrVRA8aF33hwVhKx9bEnJVwBm3JeV5zNlcSSur/y+LTadEhSR0RFX92RHAUgiOZdP
+	L1WMeUYmc5CuO6R70gWZwGvtr672ys3rO5jewh1rk/E9I+K8Hk1sq146EGEnaOVnP54zvu
+	EbAXMMD3j1EOmhqA+E4rje/6WcR5uT2EglFv65T5WQjOqzU6r1a2V3KJHp+imahldsxXG/
+	WdiJyhA+zX0X35beD1SFoa4eT3te76FuG6568Kelqjz7cwy+Y+xEhGpG7mYXxA==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,81 +58,34 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <hu.shengming@zte.com.cn>
-To: <will@kernel.org>, <mark.rutland@arm.com>
-Cc: <pawel.moll@arm.com>, <arnd@arndb.de>,
-        <linux-arm-kernel@lists.infradead.org>,
-        <linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <zhang.run@zte.com.cn>, <he.qifeng1@zte.com.cn>
-Subject: =?UTF-8?B?W1BBVENIXSBwZXJmL2FybS1jY246IFNldCB1cCB0aGUgRFQgYmFzZSBiZWZvcmUgcmVxdWVzdGluZyB0aGUgSVJR?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6AD8YRLU065935
-X-TLS: YES
-X-ENVELOPE-SENDER: hu.shengming@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Fri, 13 Nov 2026 16:34:41 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF6CBA1.000/4jQrCj0nxLz4yjSx
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] backlight: Fix kernel-doc
+From: "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>
+To: Manuel Ebner <manuelebnerli@mailbox.org>
+Cc: Thomas Richard <thomas.richard@bootlin.com>, Lee Jones <lee@kernel.org>, 
+ Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, 
+ Helge Deller <deller@gmx.de>, Petri Karhula <petri.karhula@novatron.fi>, 
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261112192744.850142-1-manuelebnerli@mailbox.org>
+References: <20261112192744.850142-1-manuelebnerli@mailbox.org>
+Date: Fri, 13 Nov 2026 09:34:18 +0100
+Message-Id: <179455885818.1992209.12136301208667386859.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Qifeng He <he.qifeng1@zte.com.cn>
+> This comment describes a struct as a kernel-doc. Format as such, fixing:
+>   $ ./scripts/kernel-doc --none drivers/video/backlight/cgbc_bl.c
+>   Warning: drivers/video/backlight/cgbc_bl.c:29 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+>    * CGBC backlight driver data
 
-arm_ccn_probe() requests the CCN interrupt before arm_ccn_pmu_init()
-has initialised ccn->dt.base.  The interrupt is level-triggered, so a
-pending overflow (for example one left behind by a previous kernel
-across kexec) is delivered as soon as devm_request_irq() unmasks it.
-arm_ccn_pmu_overflow_handler() then dereferences the NULL dt->base:
+Please add driver name in commit title:
 
-  NULL pointer dereference at virtual address 0x198
-  pc : arm_ccn_pmu_overflow_handler+0x20
-  lr : arm_ccn_irq_handler+0x13c
+backlight: cgbc_bl: Fix kernel-doc
 
-Set up dt->base as soon as the CCN MN block is mapped, before the
-interrupt can be requested.  The rest of the DT/PMU setup stays in
-arm_ccn_pmu_init(); before the PMU is registered the handler only
-needs dt->base and the zero-initialised pmu_counters array, so it is
-safe to take the interrupt during that window.
-
-Fixes: a33b0daab73a ("bus: ARM CCN PMU driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Qifeng He <he.qifeng1@zte.com.cn>
-Signed-off-by: Shengming Hu <hu.shengming@zte.com.cn>
----
- drivers/perf/arm-ccn.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/perf/arm-ccn.c b/drivers/perf/arm-ccn.c
-index 0c69165e0041..3cbdda843b59 100644
---- a/drivers/perf/arm-ccn.c
-+++ b/drivers/perf/arm-ccn.c
-@@ -1213,8 +1213,10 @@ static int arm_ccn_pmu_init(struct arm_ccn *ccn)
- 	char *name;
- 	int err;
-
--	/* Initialize DT subsystem */
--	ccn->dt.base = ccn->base + CCN_REGION_SIZE;
-+	/*
-+	 * Initialize the DT subsystem; dt.base was set up in
-+	 * arm_ccn_probe() before the IRQ was requested.
-+	 */
- 	spin_lock_init(&ccn->dt.config_lock);
- 	writel(CCN_DT_PMOVSR_CLR__MASK, ccn->dt.base + CCN_DT_PMOVSR_CLR);
- 	writel(CCN_DT_CTL__DT_EN, ccn->dt.base + CCN_DT_CTL);
-@@ -1463,6 +1465,14 @@ static int arm_ccn_probe(struct platform_device *pdev)
- 	if (IS_ERR(ccn->base))
- 		return PTR_ERR(ccn->base);
-
-+	/*
-+	 * The CCN interrupt is level-triggered and may already be pending,
-+	 * e.g. an overflow left by a previous kernel across kexec.  The
-+	 * handler can run as soon as devm_request_irq() below installs it,
-+	 * and it dereferences dt->base, so set it up before that.
-+	 */
-+	ccn->dt.base = ccn->base + CCN_REGION_SIZE;
-+
- 	irq = platform_get_irq(pdev, 0);
- 	if (irq < 0)
- 		return irq;
 -- 
-2.25.1
+Best Regards,
+Thomas Richard
+
