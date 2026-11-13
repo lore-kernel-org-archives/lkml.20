@@ -1,89 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794584200;
-	b=UOecTTLux3u/Lw39XlwKnb5DnFrRyyXL4ijJdT1NnsfLl4WmbchgPERnfN6GPsG7wznZ
-	 iltAFTaC/C1pnbUkfVpWsKhAAdpMTLWLNK84NYzcGRoWD6bNw3UpdDHxOVvuyTGi2t4u4
-	 VC7zC4qkIV4dnbEBFBrgezwcnCszG8FaTN4Gv1G02+eT36FZkyKr1Qqm2WOprNqokjopt
-	 Wxvsp8LToGVnSLWcaGXUETS8hXb9c4G23qt1tv8zTUUtmZWL2Ca2VBFH0waFJHIG9Tv6f
-	 GroWDmMVGm5dXFhVg/S8fszRwreuvHbxBNljATBEVJrMFAbuCHfnFP+JnGRKbMYVYQQ==
+	t=1794584210;
+	b=WE+whdBXnlJZHV/XQToPR1MDqHjdaI7a3AEL8YaJjxHCV2ILDXSDHfHV6yyPk4oXuBZ3
+	 55LdXlizWZwc+UczehiBqVvSDATRjk83K+75ywbNP0gtlQeyGx0Z2mRLCfXydMUC6ne5B
+	 7nTXcHrzrmrsRsEv44Sm/oMAJOpxxxyvLaNI+vSeQ8UydLayA/KoUPt+eR4c/CE4a7ZX6
+	 dJQA0dtUHUj3Z1eNEWGIo2zbBnL6/YvvEOIlWxqf8I56DiEdITbhwp1r6NpS0tpEhAhUQ
+	 1ICTeWdenel9Y0uEca8ZmEVaArCqpxDY7BwPpz/mtZi5nmInaZ65cZPrDfzbheTP3SQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794584200;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=x62ZihgS7kh4nWdNrWclZKqO2BrkWNZR/gkUNOF/E3Q=;
-	b=SGsfAXCmo8q2tNPFZf7lNZhIGbAzkDgpez6T57r3MxG28KVn8QxbqeaSnPFM6KzIOC9x
-	 PmSOOQ8/8XDOcX36oFbZZ8zpHxzL+nYZUaSDqZNaLQqkRWPrY5yzOCkURVrZLahy3SrZu
-	 WaO6usVsVybSyxvFkx/EAHASSIe91xwwiFnJi5eKITxChI2ysGdITjoYYYfqDaSG7TIWV
-	 3wIDKcxZDDyvk0pi4S5ZVprtm26VPLzAl4ful2lazuavarf6ojDLrD4X2svzdOn6gnyPX
-	 1SeybBwmfg62TuX6R6t5OJrnnGpx2CMSrZ/0hkZ33uxnSvfcq1LkvSpVy90R8VitoIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794584210;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=7KZb1cW74jmBUh+q3Ymrsz3p/VddcH/rPDY7TKp0j3s=;
+	b=orHSt8jhw2eMiIC9IE9nrTp9faqu52Yg4Tvc40F2D1yoPf/+ZlK121NucOjCjpao6FBR
+	 n6m+QcuPSMntlW4Mu8eP7zG3QYNpMq6Lpw8CNvzCTcxXAMnoG106sWpzB4n2SOB6frTkQ
+	 +dg+vA2pVtUechr/yaVRTm2+QRIMNryiicXThYSJdWIf0OMw/nRSBsO6r7m0ACyh9wY+y
+	 odVSxwfNCQhZS8Hi2YdRjXwymRaCyTYaz3DNoskUPZEQyDcYLc/CtNZ5w1BeRTGV8k4t5
+	 M6GJgOWcIUWTfY2NFP5SIYWnbu+CWxvn3EPsYv8Uev64qWQTqXUCmYAKD/15WiLyPog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rOwFdNzH;
-	arc=none smtp.remote-ip=209.85.208.180
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SzeuJCyX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B7F9606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:36:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B7F9606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D7FF606A331;
+	Fri, 13 Nov 2026 15:36:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rOwFdNzH
-Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3ab3b29a1d4so14921691fa.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:36:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794584198; x=1795188998; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=x62ZihgS7kh4nWdNrWclZKqO2BrkWNZR/gkUNOF/E3Q=;
-        b=rOwFdNzH/fyJv94XjX1UieKx8ePFP8iuZ7nP4Ih6XTpFMPP/l6PmZbpLrStQb/Ejbb
-         SB2PTsN7A/l1Y4z5fNNxcv4gkf/VPebjCxm1aUE+9wAHG000TkHrndxkA0+z0d0dXCZg
-         kaRKYraNW2gB6WcJp8h3+yoXHLyfR4UAlI5z1YEgK11EAg8u1LcnD8VqPrmODmZYMw90
-         37xoGDhB7724r6OLL6En9NLUqfD+aOrgp05SWbCiyUua9YX+kieQcuMsKnEi9gQbJsyJ
-         GjzEFTZrCtDeL1vkX/LZ1KOjgUjtPNMsUb3oZPy+++9COmIMLAYtDC9aB2lnGZpa4T7x
-         mkAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794584198; x=1795188998;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=x62ZihgS7kh4nWdNrWclZKqO2BrkWNZR/gkUNOF/E3Q=;
-        b=vT7v3XBVn6Mjdhf0oy+DJ9cucwMq2p7cmBW1JTSTLViDE3X3QG5eIlbwRjPz9tVbEs
-         dQixT76MmobYGCHeKn22HXCujPqCdMQrez8NKEF/ACKgUr0jJotlRz5/5RRHYTchpeYh
-         1F8KHEjsXDEOP0rLoyF3XdFuNft4B25WEphTPyRkdtblCT1czS3j3L68/5E/s8tbsX1b
-         ZIqJh5F1qbgEZpvzUyqlRqmwfotOILrXeOqaKrxRzIJebHl7CaAPqhjmPwZLA+e+uSG8
-         0IXAOVRqkPSbBs9HkTvcO0aB0ZNIVDjMwugAV/jOastM19PQslC1rBVzhIh85K3zMlwM
-         RYHA==
-X-Forwarded-Encrypted: i=1; AL+hErG4RAj2xEOWgIPovlt3MBQbHgDqzefav+acgko90c6VMGoumJweW/V28cG+WiSyxIHfWSulfLz1jIWlAdI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9n/w0UN3IeC8P8hzYNBdQD8Os62MSXOQLWAj8zy39CMB5Ewpwl
-	ZBsNhr9QU+NCwIR7p20q6DbZfukMNOf+7EwrVcaBSe5N2grBxBua8ITh
-X-Gm-Gg: AYBFou3J5weATz94P1UwTy9SX4dbzVJRCV3tYNpgPGD5Vp2Dtcw05lDgRSiSzXMVkVN
-	pYNsrMrB6gafEcdIvwZ5VV2Zb/PSUP/7IYh1MFSDHrx+nU17oi3iv/1Pmz6H2XEib+TjHjtwz5G
-	bs8oEODI7TmnaZjyDFm5LI8nTCPRTRoeEJOcIlZWxFrqwUxZrNGwa5fj2csHbo7QIeehE5S4iSU
-	DsZsi5vLH42XcA4EwCWfY55emqhUx+YAXB5hoUkY7OPcPN2ouyU6SjyUqSxh+ifdIAREruldG+l
-	KGTcftcQvl11N5GEEHPH68kAw62QgYbAWEFLdk1yK5cLe1FHX5UAZ80AjLGELvT2VmCfaTG6qzW
-	/1oBgAx7MhmXuLT3IOzvc78UCbBurl7aili5rTHYZM7rFqw9J4s+RJ9aRVVn/mL4UHXfzmBATfO
-	4+u8xi+pXunOw51kjkodxnjJNO+g1GskPcBSvvty69lFFX9fzncXOlx3l9YaI3SMYwqEJIfIlki
-	j+/wVjoTktonDH3B7GcuR1dyLO3B61Y4AFCllYpc4NJXyfFbeQxShI1F+iPPYxG4Nsv1MAblbiN
-	ykJzCbmTxUy01fakxK6901D8wXFcWmzLk2sNvVnhpPlUhRIjpKAIVm0ozMt8gxg/2+k6tylFSSC
-	4lyCh9ABLw7GQ+xuePnpe1pazHcIseVU=
-X-Received: by 2002:a05:651c:1596:b0:3ac:97e4:4987 with SMTP id 38308e7fff4ca-3ae2b4c77cemr10278541fa.7.1794584198178;
-        Fri, 13 Nov 2026 07:36:38 -0800 (PST)
-Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae2b7808cbsm9395051fa.14.2026.11.13.07.36.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 07:36:37 -0800 (PST)
-Message-ID: <ef47542e-308c-4211-9b42-ba2de13f5f82@gmail.com>
-Date: Fri, 13 Nov 2026 17:36:36 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SzeuJCyX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAF0C1F000C5;
+	Fri, 13 Nov 2026 15:36:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794584209;
+	bh=7KZb1cW74jmBUh+q3Ymrsz3p/VddcH/rPDY7TKp0j3s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SzeuJCyXPvEmsQ7fCLXFQyKc9fCoYgbv4b2fg6a/axB8WbgUj45/rnQzFOHWdOMh4
+	 pMnmE3MjjbWqibccZd1cqcYJfNL/MlWqthfdJhsM9hwBIsGMv1ATXHpTz4pUUjoyWA
+	 ec/7dYVjDx+F2/1pxEpxieL9huCmKmz3sMvZHj2E216Rh9v9jof+u8m8OLrnYgEnhg
+	 Ca+xIcm77WxSYI02AcjAy10VW+4WUfcZY6ACTofkkd8+ohU+tJJTtL6Yh8sTdUvQyt
+	 /IBQVxM4FMm11tls3IcW9zfV8BjZFcZQ7RnQheOjv157gon6W7udn64HnrnB7SlxxJ
+	 HhYwgS1iCPVng==
+Date: Fri, 13 Nov 2026 16:36:46 +0100
+From: Niklas Cassel <cassel@kernel.org>
+To: shao.mingyin@zte.com.cn
+Cc: dlemoal@kernel.org, linux-ide@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3 1/4] ata: libata-scsi: reject reserved bits in 32-byte
+ passthru
+Message-ID: <avcujpOaXJPfjgxQ@ryzen>
+References: <20261112220113627e1oAXj5lbAzyI0Xe6Joud@zte.com.cn>
+ <20261112220120113cXLhRk6iDVvhfgGPoZ5vJ@zte.com.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,57 +58,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] iio: adc: add driver for Texas Instruments TLA2528
- adc
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Rodolfo Giometti <giometti@enneenne.com>,
- Marcelo Schmitt <marcelo.schmitt@analog.com>,
- Antoniu Miclaus <antoniu.miclaus@analog.com>,
- Angelo Dureghello <adureghello@baylibre.com>,
- Tobias Sperling <tobias.sperling@softing.com>,
- Eason Yang <j2anfernee@gmail.com>,
- Marilene Andrade Garcia <marilene.agarcia@gmail.com>,
- Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
- duje@dujemihanovic.xyz, Joshua Crofts <crofts@kernel.org>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
- Victor Chernyakin <chernyakin.victor.j@outlook.com>,
- herve.codina@bootlin.com, thomas.petazzoni@bootlin.com,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261113151543.2241604-1-maxime.chevallier@bootlin.com>
- <20261113151543.2241604-3-maxime.chevallier@bootlin.com>
-Content-Language: en-US, en-AU, en-GB, en-BW
-From: Matti Vaittinen <mazziesaccount@gmail.com>
-In-Reply-To: <20261113151543.2241604-3-maxime.chevallier@bootlin.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112220120113cXLhRk6iDVvhfgGPoZ5vJ@zte.com.cn>
 
-On 13/11/2026 17:15, Maxime Chevallier wrote:
-> Add a new driver for the TI TLA2528 ADC chip. It has 8 12-bit
-> channels, that can also be configured as 16-bit averaging channels.
+On Thu, Nov 12, 2026 at 10:01:20PM +0800, shao.mingyin@zte.com.cn wrote:
+> From: Shao Mingyin <shao.mingyin@zte.com.cn>
 > 
-> This is a very simple driver, allowing reading raw values for each
-> channel. GPIO mode isn't supported for now, as well as buffered mode and
-> the 16-bit averaging mode.
+> ATA PASS-THROUGH(32) has no MULTIPLE_COUNT field. Byte 1 is CONTROL,
+> and bits 7:5 are reserved or obsolete. Interpreting these bits as a
+> multiple count can issue spurious count mismatch warnings for multiple
+> commands instead of rejecting the invalid CDB.
 > 
-> Co-developed-by: Rodolfo Giometti <giometti@enneenne.com>
-> Signed-off-by: Rodolfo Giometti <giometti@enneenne.com>
-> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-This looks very familiar to me. I am pretty sure I've reviewed this. Is 
-there a reason the RB-tag wasn't carried over? (Sorry if I've missed 
-some change(s))!
+> Reject nonzero byte 1 bits 7:5 with field pointer 1. Skip the CDB count
+> comparison for the 32-byte form while retaining the device multiple-mode
+> check. Also point to byte 10 for invalid PROTOCOL. The 12- and 16-byte
+> MULTIPLE_COUNT checks remain unchanged.
+> 
+> Fixes: b1ffbf854e08 ("libata: Support for an ATA PASS-THROUGH(32) command.")
+> Suggested-by: Niklas Cassel <cassel@kernel.org>
+> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+> ---
+> Changes in v3 (Damien Le Moal):
+> - Reject nonzero reserved/obsolete bits 7:5 of byte 1 with fp=1.
+> - Retain the short-CDB count and device multiple-mode checks.
+> - Update the subject, description and CONTROL-byte test expectations.
+> v2: https://lore.kernel.org/all/20261111223129430zClEJF8TDgu_h8ZYM843Q@zte.com.cn/
+> 
+> Validation on x86-64 with GCC 13 and UBSAN: a userspace harness compiles
+> ata_scsi_pass_thru() verbatim with SCSI/device stubs. All 256 CONTROL
+> values are checked for both non-multiple and multiple commands. Nonzero
+> bits 7:5 are rejected with field pointer 1; values with those bits clear
+> are accepted without count warnings. The device multiple-mode check and
+> 12-/16-byte count checks still pass. Field pointers are observed helper
+> arguments; sense construction and device access use stubs.
+> 
+>  drivers/ata/libata-scsi.c | 25 +++++++++++++++----------
+>  1 file changed, 15 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
+> index a61fb03312793ca94d81d8061a16c66e786c4cf3..0bc147cf4c0fa50c7d5b84029b7fb1a548c6f1a3 100644
+> --- a/drivers/ata/libata-scsi.c
+> +++ b/drivers/ata/libata-scsi.c
+> @@ -3388,7 +3388,7 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+>  
+>  	tf->protocol = ata_scsi_map_proto(cdb[1 + cdb_offset]);
+>  	if (tf->protocol == ATA_PROT_UNKNOWN) {
+> -		fp = 1;
+> +		fp = 1 + cdb_offset;
+>  		goto invalid_fld;
+>  	}
+>  
+> @@ -3573,27 +3573,32 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+>  		goto invalid_fld;
+>  	}
+>  
+> -	/* sanity check for pio multi commands */
+> +	/* Sanity check for pio multi commands (not supported with ATA 32). */
 
-Yours,
-   -- Matti
+This comment is misleading.
 
--- 
-Matti Vaittinen
-Linux kernel developer at ROHM Semiconductors
-Oulu Finland
+READ/WRITE MULTIPLE commands are still accepted with the 32-byte CDB, it is
+only the count comparison that will be skipped.
 
-~~ When things go utterly wrong vim users can always type :help! ~~
+libata reads dev->multi_count from IDENTIFY word 59, during probe/revalidate,
+and after receiving a ATA_CMD_SET_MULTI command.
+
+The MULTI_COUNT field is obsolete for 12-byte and 16-byte CDBs in SAT-6
+(tables 203 and 209), and the 32-byte CDB has no such field (table 210).
+
+The MULTI_COUNT field was only compared with dev->multi_count, and
+if there was a mismatch, libata simply printed a warning:
+"invalid multi_count %u ignored", yet the command was still sent and
+limited by dev->multi_count (see e.g. ata_pio_sectors() for SFF
+controllers).
+
+
+> +	if (cdb[0] == VARIABLE_LENGTH_CMD && (cdb[1] & 0xe0)) {
+> +		fp = 1;
+> +		goto invalid_fld;
+> +	}
+
+In the 32-byte CDB, byte 1 is CONTROL (SAT-6 r2 spec, table 210), and its
+bits 7:6 are vendor specific (6.5, table 10), not reserved or obsolete as
+the commit message says.
+
+The reserved bits in place of MULTIPLE_COUNT are bits 7:5 of byte 10.
+
+So I think the test should be:
+
+if (cdb[0] == VARIABLE_LENGTH_CMD && (cdb[10] & 0xe0)) {
+	fp = 10;
+	goto invalid_fld;
+}
+
+
+Kind regards,
+Niklas
