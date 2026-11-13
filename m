@@ -1,78 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794549400;
-	b=cCWhNPve+9OEKMbjq2LuyWe3ehoc1MM7kjAzogmtmqLli53r/TSBWp2lQ7vCU83j2VRt
-	 wJEuMMF6KSF7QHb9olO+P4gusRMNOirGH7nAVxbCHn+wWsCyf3217bsRCCZ6yECARSVws
-	 GwZjjIXDMHhdRu7jXPXuuchhrlu3m+7fZFoPJ3pPu+iNsE5ctpWobfX+xWKUu/xX1wkVt
-	 V5WYudg2vB3KuS63X0VtriumP4FZpZjWqcxV6cCyYqAjl/0oO/4+vavcNziKFUIHYaYZ7
-	 lNRxro8Vg7frU+fzrOmA+1Dy0ekCDVM7nf/8m/zax1qWFxzHMT0Kj/KXNYFuDtAKecg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794549400;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=HwrcHRtAJfqjSpoRajOLzZBVTSUtN5vyn4Kyg1YEW20=;
-	b=IQjpxPlCYeHXviblkXAnh26q9Msin42fCm0sZ9ciN7d92B7RJ+7qovJDWKl8vcCW5yv7
-	 2wbH1uD1xDVzosH7KQOZ829jXumh/SY9l3FJbAl/hAS28XlxvqFPxLlcWjgiLPwIGjYkL
-	 2JBQ5ma2AQkJmE3xl6reZS1ppS3FKtWxR/dU5aoivqYOu2Gpy+NYuK9V39BLZHFVAQij8
-	 dzBwlEiuB10pZvLf0DeWrS8TrjgjVidZhTIm4K4bvawyv9cOJoN5B10XG71scqL301v0W
-	 c5dtvPY8Vf2yoiC60avhuZolMSV8EOEJwih+78C6kT1uZfbOalC3QY/amXDgvDOYPHw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TYC9vcXY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 637B7606A89C;
-	Fri, 13 Nov 2026 05:56:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TYC9vcXY
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794549400;
-	b=265UMH/L1tpCAAXUhblFLQPGEkqbkz+chVXjuk+M4niADeSTBMGIvBSG3d4YQmJyF22C
-	 ZsPelmF57f6gb3HY9IPxF4/oeGdiWBmLDzHbV1igj8WooWvexIWt5U+WtPLW7I7JY9rfd
-	 Pxh6bJv3owz6B4UJVwQkZy/nM3bQXJjie0WvLrvCDqGICV3hCDzlvktvaBuAEn8hKRRyw
-	 ev+M+ep88notbaX9yoOUrSF1fYGF6RR86L4rs+s+f7FIgfK6pBRNovbHeNQQt3ikz6lH+
-	 uwqI3sr9LUmatL6NorV9sBsoVVQlCAfOac+0mKaarVYRYoyaHU8k0bt2aqiFDmGkL3A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794549400;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=HwrcHRtAJfqjSpoRajOLzZBVTSUtN5vyn4Kyg1YEW20=;
-	b=ZIzxns/7049oD9q5euE+JYa0QbulUVsVD9uL7+wo7BGKMIQ1QI1+YwozoeppXuz1qug4
-	 UaIODU9kl1ELOmZWTMzc9/qRnaakBbKKNte0+mysgFKWp893SffJL5l0BT6CB5FE4YvJ9
-	 cRzd9ybRdSLsqQjKZedQPQPcuSBPyK4HtQY3Nr2KwsFxFF7E9J3X2N7q7gaw6zDLgfsCR
-	 ODdl8kDRvNqi+wgHihfHLa9QXHP36NS2VmvdyZn84l9CrEvPRtvQwGWxghPWtRPFEtogB
-	 s98yOigXwXO10TjDw9uuvmhiSMtfCOjBpC8mguZS/W17gQ3hvqqZ5B/j9runjSziaLQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.188.123
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794549464;
+	b=tbWLXb/a/V4i+XrYRyws2NFJ9MaVeGeIBvRYbhztoglg6OGvQsRC/cqXFLz9dOhXoBfb
+	 oF+jKKxpaLqL3Xqi5//ObS6LLpyVOIj/R0mpXAKozQA3iiyMoWC4z9ll1NTZH5t67/lbv
+	 iucovnWYDt4NyFEtqb7JadPHKL3BXFo9tBFRYoVKN09i/a6NhgOE3gL9EvET7RMyfdoKr
+	 APDvk25YaC4NJpCDI8qprAo1FuivNiazU1u9JaUgxFsO00U72yqL7wMrI+eOiGnSSHEHu
+	 c3fFCo/XmkVemua26cx26Cds1GwTmbIM0mWytEisUVfBL9Fhaz+Mavtm/kLhGQjRNQQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794549464;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:
+	 X-Google-DKIM-Signature:X-Forwarded-Encrypted:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:X-Received:Received:From:To:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=SZhpgh6Yq01P39/1qSrQzNSaVxZcNgrejNPHx6b5Ek0=;
+	b=Op2DQ1th5eX/leSucQU6HB1f5yLTFisdw30Stzjt1y/eO+sgNbZITz040EJTEJWSZD4G
+	 PdKsnr5BVXvXSiDL41pKENkw6abwjn6djz6p7dtJb1Q0OAzAnxiMc5rxxM1czdQUt4/SE
+	 p+MQBhSuhEnXvCgn9XnUD/xHYJIOltzXgzhpg4vCprLdSc6Dx7hmSfzfJI6PUCu8tickM
+	 qIRFOyoYiCrlqvV523bS99VEVymWrpLpMjyNS447zjWMsMpRaBtz0euxugI53jwdMpBCx
+	 PrSYF4Yyx16zoKPqljA+AIqfEKaXPos8ZJMHV6efDDrr8Rxx6k3FgHLPWDKydkoay/A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=canonical.com;
+	spf=pass smtp.mailfrom=canonical.com;
+	dkim=pass header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=DHK9g3r4;
+	arc=none smtp.remote-ip=185.125.188.123
+Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 302521F000C8;
-	Fri, 13 Nov 2026 05:56:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794549400;
-	bh=HwrcHRtAJfqjSpoRajOLzZBVTSUtN5vyn4Kyg1YEW20=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=TYC9vcXYbOvPVSF9ZQAjlPD69W0/i2KTYWJ/ABAZKUxdmQDu37L35Ukuv542PRI81
-	 ny/PbNzP3q/ifafRFxWoraNsr3YnfhSnUPw39SHDGao15geHcJXy7XAQauqqlk8QTA
-	 Yk+XC6G/Mgi3JogDMWba3lAFswcm3oWrrFXMI1RiVgyrW0xn03w9O+Se3EvkjFmMGT
-	 pwm4VdNZuVsiz6+Ei6Nt9JgHP0CFmVerM3ea0NRZOxzedrxnwl1nrr/TuEF4lk5t5t
-	 FXCk0WCzzpoYyZ0JQG9Pn3/98qIDqwzRdsszA8Rv5+mfviyIahSHM1D4lJ7TZQ5+yU
-	 XEIhHL9PU/ZDQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id AED4E47613;
-	Fri, 13 Nov 2026 05:56:37 +0000 (UTC)
-From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
-Date: Fri, 13 Nov 2026 11:26:37 +0530
-Subject: [PATCH v3 4/6] dt-bindings: display/msm: Add SM7250 MDSS
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16058606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:57:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16058606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (4096-bit key, unprotected) header.d=canonical.com header.i=@canonical.com header.a=rsa-sha256 header.s=20251003 header.b=DHK9g3r4
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 424DC4105A
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:57:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1794549461;
+	bh=SZhpgh6Yq01P39/1qSrQzNSaVxZcNgrejNPHx6b5Ek0=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=DHK9g3r4ddk1k9N0M6ToMb+990a/BtpM8f66rMTPl60gOK3uzpBahVd+q8Eey6quW
+	 FcusPpKKTxtqJsndm3oEzoxjdADD2r0kUxlYCpUfJSiTnOQLv8DwAH4Nc4N2WZLNOl
+	 km7KT4HTJIWzX7gvSiTKYCYtB8UTcB33DVj5EoCqB8fyg7KBwoaeTmIil1xklWxC5F
+	 q5mlsIrw8EqNdBRfT0xko4AsVQUWoQ63tnJMThnXV2Qcad0LFuCNMWQxXAjXMGr1R1
+	 y+YkHAH2rcU5TViI3NQSiYXFnDyDxmCo8E9N22/NLkr6Vkf6lGddbJ9U6R25EWBXFI
+	 bxYFFVIIyaiJuntbsEN6VhNo1Xc/qThW3eRy4MMJaaV2fpP+zYgJVNq7z9GtN5CxvO
+	 SEkBDyOSO/fcw6X+/DC4twgKqYpT5fZJ+0NFtCztkEgo1bYlyi/KgKdINg/m0zkxwJ
+	 caGSpyPGiUZpscaJVFZ3qoorwMQznG9IEt969/0ec1/9XJ5aL0LMhSJ8jBwWrLpdcJ
+	 RFrRBeUM3IFHwg8QR8E+LzacyRy8f9EpOtMkZAVdJHVbEu28qWgMFQYbCs6DU49SYk
+	 dXvbxompLP4zj2biK88edgnL3HwkjmrH9Gg0Zx3ODl0ZUcMbOryJXr0ksI/jK2dJ1C
+	 uPUA9Hu8VzOdrJr2Ghvq0uMc=
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3b09a466295so435554a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:57:41 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794549459; x=1795154259;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=SZhpgh6Yq01P39/1qSrQzNSaVxZcNgrejNPHx6b5Ek0=;
+        b=XH3JW9C0tLrSno3DUZXqLfsPmd7Xct1YgLSpElPablxaoAanfxG70burs2Jkr2XBlS
+         UvDhFuYcxoHDyjc4Wfj1fmb07oQ47PEY6z1AdVLJrjCBrylG2Qmm57yt3IUKrehiLxrk
+         q3jpxeH0R3q2egyoJQwP7uPNanzN1gNhO6DJRml5K+xLz9v6Q2EPsKoVVJ/zForDQ+oE
+         6EQXxsPC/FGkV+W6WIvIrwNewvEJJ6UT+u1j66aPKfjJWdJQctdIM454dF/z6ybKY9rc
+         EGZzeNP3cTbtUm/ucN/Pxn6BC9yqJNo/xx2NN68HVBXsXdAfROxGBZxSMHTvC6px3Jh+
+         r1Yg==
+X-Forwarded-Encrypted: i=1; AL+hErFjQ8NO/dUEapOIU2qrApvAawfstmiejh9+92fkVWJoQ+Zy99ki90l/4dRsUczlHrznwHrsZv2gArQzmF4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9+sRBv3LUWQZVa7xY45uQrDcB4JuY7Xv2Vsb4AYfNuquymAF1F
+	PRpUZNeKhovefwUwtiKmPzZwW0wf9dxySrsR/MDhlPO23sx3rYV232pUWQexxIuAS7rMq5M04XW
+	hZ/4ccYPhusG4z2tSDeYYLWqxTwhnWkwAdjIbfKVktK1dqp71zVDpvFXTmxI/LXFaE8tu55Udrc
+	ESVBtLbQ==
+X-Gm-Gg: AYBFou3j0HSg/Yl+0Gl9TFTWkdbQFzxciHYpXafoPL00O4Dghoj4EGgXVebSXefSYPH
+	gKpZluBqNEz4ZuT6DQVoko/Ts4sV6tT5DoUI8MrQcxSJsDzXwusegMQL5ORHIHya/v+MuvQdnrt
+	5Xh+Pj/3RkhLCysSm5FyMTcjMEYd92+ki0U13kz08nYwsofNes6ECZIsM6EUDpYOUEvDp6YnrBt
+	1lhRmA/TkFzsCLEDIs6kJvvX2I+0Q8l/CkGIpYzl0SW+OCH4ocexp8iogLMGKkS7UK2kmn1J9Dk
+	WUFs3GBgbOFhRVUD4Aoe9XBfuafv0MB/xFgRdPa/Ne5DDlfPQ+mY5yimHMGAcOrsFmq6fj5J7or
+	rKMtHcV1PsKKFDcG262cL56IIb0rwaT3k482RsR3o0GkWAQXONDb2U/r9z+DteE9t15sKyJzQ1f
+	qFTPfTkmyUPIKkmdsOeUj0S6qWDyhbBxmh8gNDKIPbmLZ0HTCiVKgjlXDVJKhGqRRabBgjDAKvX
+	yyptcqVddIi/+/SXOgvgHA6ZfugaqpWJGsuPBhJyaTkT4VxKYge79QGVpHSPThYEpbWv2tSgMLG
+	P6DIFiav4YI1PA==
+X-Received: by 2002:a17:90b:2251:b0:3a0:7261:d58e with SMTP id 98e67ed59e1d1-3b1b0a408bamr1337229a91.22.1794549459291;
+        Thu, 12 Nov 2026 21:57:39 -0800 (PST)
+X-Received: by 2002:a17:90b:2251:b0:3a0:7261:d58e with SMTP id 98e67ed59e1d1-3b1b0a408bamr1337206a91.22.1794549458569;
+        Thu, 12 Nov 2026 21:57:38 -0800 (PST)
+Received: from u-ThinkPad-X1-Extreme-Gen-4i ([103.155.100.2])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b3eaf732sm756324a91.3.2026.11.12.21.57.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 21:57:38 -0800 (PST)
+From: Aaron Ma <aaron.ma@canonical.com>
+To: Mark Pearson <mpearson-lenovo@squebb.ca>,
+	"Derek J. Clark" <derekjohn.clark@gmail.com>,
+	Rong Zhang <i@rong.moe>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] platform/x86: lenovo-wmi-other: Deconflict battery with thinkpad_acpi
+Date: Fri, 13 Nov 2026 13:57:26 +0800
+Message-ID: <20261113055726.952551-1-aaron.ma@canonical.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,420 +112,155 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-dpu-sm7250-v3-4-30bdec59d204@brar.si>
-References: <20261113-dpu-sm7250-v3-0-30bdec59d204@brar.si>
-In-Reply-To: <20261113-dpu-sm7250-v3-0-30bdec59d204@brar.si>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Krishna Manikandan <quic_mkrishn@quicinc.com>, Ishu Brar <patches@brar.si>, 
- Kuogee Hsieh <quic_khsieh@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794549395; l=12347;
- i=patches@brar.si; h=from:subject:message-id;
- bh=FCzKCAyjtUbncX98ZGqsF/puuy1SAMwDIJos+SAVy5Q=;
- b=ahOXINMrq/mZhcGWqB78HDpJ+zUkgVYXxfrrREGufwGFBgm6Zi0Vh21GKZaZf/JTr8j7jcJ1z
- 8vjK7jPxy4BAHJUY0bUGHyiXop0w3TahSfk1gqo9PgX+sIoHaWEWhha
-X-Developer-Key: i=patches@brar.si; a=ed25519;
- pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
-X-Endpoint-Received: by B4 Relay for patches@brar.si/default with
- auth_id=1189
-X-Original-From: Ishu Brar <patches@brar.si>
-Reply-To: patches@brar.si
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Ishu Brar <patches@brar.si>
+ThinkPads expose battery charge thresholds and charge_behaviour through
+thinkpad_acpi's ACPI battery hook using raw sysfs attribute groups. The
+Lenovo WMI "Other Mode" driver also registers a power_supply_ext for
+charge_behaviour and charge_types on systems advertising those WMI
+capabilities.
 
-Add the binding for the SM7250 Mobile Display Subsystem. It has the
-same clocks and children as the SM8250 one, so it is modeled on
-qcom,sm8250-mdss.yaml. The example uses the SM8250 clock and
-interconnect headers, as the SM7250 ones are not upstream yet.
+When lenovo-wmi-other registers first, thinkpad_acpi fails to create a
+duplicate charge_behaviour sysfs attribute and unregisters its battery
+extension. Conversely, registering or updating any power_supply_ext on
+the same battery runs sysfs_update_groups(), which removes standard
+power-supply attributes not owned by power_supply_core and wipes out
+thinkpad_acpi's charge_control_start_threshold,
+charge_control_end_threshold, and charge_behaviour files.
 
-Signed-off-by: Ishu Brar <patches@brar.si>
+Deconflict both ideapad_laptop (VPC2004 with GBMD and SBMC) and
+thinkpad_acpi (LEN0268, LEN0068, or IBM0068 with BDSG and BICG) via a
+per-driver table guarded by IS_ENABLED() in Kconfig, and update the
+force_load_psy_ext description accordingly.
+
+Fixes: 9ca8fc065b88b ("platform/x86: lenovo-wmi-other: Add WMI battery charge limiting")
+Reviewed-by: Derek J. Clark <derekjohn.clark@gmail.com>
+Co-developed-by: Rong Zhang <i@rong.moe>
+Signed-off-by: Rong Zhang <i@rong.moe>
+Signed-off-by: Aaron Ma <aaron.ma@canonical.com>
 ---
- .../bindings/display/msm/qcom,sm7250-mdss.yaml     | 361 +++++++++++++++++++++
- 1 file changed, 361 insertions(+)
+Changes in v3:
+- Wrap deconfliction table entries in #if IS_ENABLED(CONFIG_*) and drop
+  driver_enabled, as suggested by Rong Zhang.
+- Group deconfliction entries per driver (HIDs list + methods list).
 
-diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm7250-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm7250-mdss.yaml
-new file mode 100644
-index 000000000000..b2d0833a423d
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/msm/qcom,sm7250-mdss.yaml
-@@ -0,0 +1,361 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/msm/qcom,sm7250-mdss.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Qualcomm SM7250 Display MDSS
-+
-+maintainers:
-+  - Ishu Brar <patches@brar.si>
-+
-+description:
-+  SM7250 MSM Mobile Display Subsystem(MDSS) that encapsulates
-+  sub-blocks like DPU display controller, DSI and DP interfaces etc. Device tree
-+  bindings of MDSS are mentioned for SM7250 target.
-+
-+$ref: /schemas/display/msm/mdss-common.yaml#
-+
-+properties:
-+  compatible:
-+    const: qcom,sm7250-mdss
-+
-+  clocks:
-+    items:
-+      - description: Display AHB clock from gcc
-+      - description: Display hf axi clock
-+      - description: Display sf axi clock
-+      - description: Display core clock
-+
-+  clock-names:
-+    items:
-+      - const: iface
-+      - const: bus
-+      - const: nrt_bus
-+      - const: core
-+
-+  iommus:
-+    maxItems: 1
-+
-+  interconnects:
-+    items:
-+      - description: Interconnect path from mdp0 port to the data bus
-+      - description: Interconnect path from mdp1 port to the data bus
-+      - description: Interconnect path from CPU to the reg bus
-+
-+  interconnect-names:
-+    items:
-+      - const: mdp0-mem
-+      - const: mdp1-mem
-+      - const: cpu-cfg
-+
-+patternProperties:
-+  "^display-controller@[0-9a-f]+$":
-+    type: object
-+    additionalProperties: true
-+    properties:
-+      compatible:
-+        const: qcom,sm7250-dpu
-+
-+  "^displayport-controller@[0-9a-f]+$":
-+    type: object
-+    additionalProperties: true
-+    properties:
-+      compatible:
-+        items:
-+          - const: qcom,sm7250-dp
-+          - const: qcom,sm8350-dp
-+
-+  "^dsi@[0-9a-f]+$":
-+    type: object
-+    additionalProperties: true
-+    properties:
-+      compatible:
-+        items:
-+          - const: qcom,sm7250-dsi-ctrl
-+          - const: qcom,mdss-dsi-ctrl
-+
-+  "^phy@[0-9a-f]+$":
-+    type: object
-+    additionalProperties: true
-+    properties:
-+      compatible:
-+        const: qcom,dsi-phy-7nm
-+
-+required:
-+  - compatible
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/qcom,dispcc-sm8250.h>
-+    #include <dt-bindings/clock/qcom,gcc-sm8250.h>
-+    #include <dt-bindings/clock/qcom,rpmh.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interconnect/qcom,icc.h>
-+    #include <dt-bindings/interconnect/qcom,sm8250.h>
-+    #include <dt-bindings/power/qcom,rpmhpd.h>
-+
-+    display-subsystem@ae00000 {
-+        compatible = "qcom,sm7250-mdss";
-+        reg = <0x0ae00000 0x1000>;
-+        reg-names = "mdss";
-+
-+        interconnects = <&mmss_noc MASTER_MDP_PORT0 QCOM_ICC_TAG_ALWAYS
-+                         &mc_virt SLAVE_EBI_CH0 QCOM_ICC_TAG_ALWAYS>,
-+                        <&mmss_noc MASTER_MDP_PORT1 QCOM_ICC_TAG_ALWAYS
-+                         &mc_virt SLAVE_EBI_CH0 QCOM_ICC_TAG_ALWAYS>,
-+                        <&gem_noc MASTER_AMPSS_M0 QCOM_ICC_TAG_ACTIVE_ONLY
-+                         &config_noc SLAVE_DISPLAY_CFG QCOM_ICC_TAG_ACTIVE_ONLY>;
-+        interconnect-names = "mdp0-mem", "mdp1-mem", "cpu-cfg";
-+
-+        power-domains = <&dispcc MDSS_GDSC>;
-+
-+        clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+                 <&gcc GCC_DISP_HF_AXI_CLK>,
-+                 <&gcc GCC_DISP_SF_AXI_CLK>,
-+                 <&dispcc DISP_CC_MDSS_MDP_CLK>;
-+        clock-names = "iface", "bus", "nrt_bus", "core";
-+
-+        interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
-+        interrupt-controller;
-+        #interrupt-cells = <1>;
-+
-+        iommus = <&apps_smmu 0x820 0x402>;
-+
-+        #address-cells = <1>;
-+        #size-cells = <1>;
-+        ranges;
-+
-+        display-controller@ae01000 {
-+            compatible = "qcom,sm7250-dpu";
-+            reg = <0x0ae01000 0x8f000>,
-+                  <0x0aeb0000 0x2008>;
-+            reg-names = "mdp", "vbif";
-+
-+            clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+                     <&gcc GCC_DISP_HF_AXI_CLK>,
-+                     <&dispcc DISP_CC_MDSS_MDP_CLK>,
-+                     <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
-+            clock-names = "iface", "bus", "core", "vsync";
-+
-+            assigned-clocks = <&dispcc DISP_CC_MDSS_VSYNC_CLK>;
-+            assigned-clock-rates = <19200000>;
-+
-+            operating-points-v2 = <&mdp_opp_table>;
-+            power-domains = <&rpmhpd RPMHPD_CX>;
-+
-+            interrupt-parent = <&mdss>;
-+            interrupts = <0>;
-+
-+            ports {
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+
-+                port@0 {
-+                    reg = <0>;
-+                    dpu_intf1_out: endpoint {
-+                        remote-endpoint = <&dsi0_in>;
-+                    };
-+                };
-+
-+                port@1 {
-+                    reg = <1>;
-+                    dpu_intf2_out: endpoint {
-+                        remote-endpoint = <&dsi1_in>;
-+                    };
-+                };
-+            };
-+
-+            mdp_opp_table: opp-table {
-+                compatible = "operating-points-v2";
-+
-+                opp-200000000 {
-+                    opp-hz = /bits/ 64 <200000000>;
-+                    required-opps = <&rpmhpd_opp_low_svs>;
-+                };
-+
-+                opp-300000000 {
-+                    opp-hz = /bits/ 64 <300000000>;
-+                    required-opps = <&rpmhpd_opp_svs>;
-+                };
-+
-+                opp-345000000 {
-+                    opp-hz = /bits/ 64 <345000000>;
-+                    required-opps = <&rpmhpd_opp_svs_l1>;
-+                };
-+
-+                opp-460000000 {
-+                    opp-hz = /bits/ 64 <460000000>;
-+                    required-opps = <&rpmhpd_opp_nom>;
-+                };
-+            };
-+        };
-+
-+        dsi@ae94000 {
-+            compatible = "qcom,sm7250-dsi-ctrl", "qcom,mdss-dsi-ctrl";
-+            reg = <0x0ae94000 0x400>;
-+            reg-names = "dsi_ctrl";
-+
-+            interrupt-parent = <&mdss>;
-+            interrupts = <4>;
-+
-+            clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK>,
-+                     <&dispcc DISP_CC_MDSS_BYTE0_INTF_CLK>,
-+                     <&dispcc DISP_CC_MDSS_PCLK0_CLK>,
-+                     <&dispcc DISP_CC_MDSS_ESC0_CLK>,
-+                     <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+                     <&gcc GCC_DISP_HF_AXI_CLK>;
-+            clock-names = "byte",
-+                          "byte_intf",
-+                          "pixel",
-+                          "core",
-+                          "iface",
-+                          "bus";
-+
-+            assigned-clocks = <&dispcc DISP_CC_MDSS_BYTE0_CLK_SRC>,
-+                              <&dispcc DISP_CC_MDSS_PCLK0_CLK_SRC>;
-+            assigned-clock-parents = <&dsi0_phy 0>, <&dsi0_phy 1>;
-+
-+            operating-points-v2 = <&dsi_opp_table>;
-+            power-domains = <&rpmhpd RPMHPD_CX>;
-+
-+            phys = <&dsi0_phy>;
-+            phy-names = "dsi";
-+
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            ports {
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+
-+                port@0 {
-+                    reg = <0>;
-+                    dsi0_in: endpoint {
-+                        remote-endpoint = <&dpu_intf1_out>;
-+                    };
-+                };
-+
-+                port@1 {
-+                    reg = <1>;
-+                    dsi0_out: endpoint {
-+                        remote-endpoint = <&panel0_in>;
-+                        data-lanes = <0 1 2 3>;
-+                    };
-+                };
-+            };
-+
-+            dsi_opp_table: opp-table {
-+                compatible = "operating-points-v2";
-+
-+                opp-187500000 {
-+                    opp-hz = /bits/ 64 <187500000>;
-+                    required-opps = <&rpmhpd_opp_low_svs>;
-+                };
-+
-+                opp-300000000 {
-+                    opp-hz = /bits/ 64 <300000000>;
-+                    required-opps = <&rpmhpd_opp_svs>;
-+                };
-+
-+                opp-358000000 {
-+                    opp-hz = /bits/ 64 <358000000>;
-+                    required-opps = <&rpmhpd_opp_svs_l1>;
-+                };
-+            };
-+        };
-+
-+        dsi0_phy: phy@ae94400 {
-+            compatible = "qcom,dsi-phy-7nm";
-+            reg = <0x0ae94400 0x200>,
-+                  <0x0ae94600 0x280>,
-+                  <0x0ae94900 0x260>;
-+            reg-names = "dsi_phy",
-+                        "dsi_phy_lane",
-+                        "dsi_pll";
-+
-+            #clock-cells = <1>;
-+            #phy-cells = <0>;
-+
-+            clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+                     <&rpmhcc RPMH_CXO_CLK>;
-+            clock-names = "iface", "ref";
-+            vdds-supply = <&vreg_dsi_phy>;
-+        };
-+
-+        dsi@ae96000 {
-+            compatible = "qcom,sm7250-dsi-ctrl", "qcom,mdss-dsi-ctrl";
-+            reg = <0x0ae96000 0x400>;
-+            reg-names = "dsi_ctrl";
-+
-+            interrupt-parent = <&mdss>;
-+            interrupts = <5>;
-+
-+            clocks = <&dispcc DISP_CC_MDSS_BYTE1_CLK>,
-+                     <&dispcc DISP_CC_MDSS_BYTE1_INTF_CLK>,
-+                     <&dispcc DISP_CC_MDSS_PCLK1_CLK>,
-+                     <&dispcc DISP_CC_MDSS_ESC1_CLK>,
-+                     <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+                     <&gcc GCC_DISP_HF_AXI_CLK>;
-+            clock-names = "byte",
-+                          "byte_intf",
-+                          "pixel",
-+                          "core",
-+                          "iface",
-+                          "bus";
-+
-+            assigned-clocks = <&dispcc DISP_CC_MDSS_BYTE1_CLK_SRC>,
-+                              <&dispcc DISP_CC_MDSS_PCLK1_CLK_SRC>;
-+            assigned-clock-parents = <&dsi1_phy 0>, <&dsi1_phy 1>;
-+
-+            operating-points-v2 = <&dsi_opp_table>;
-+            power-domains = <&rpmhpd RPMHPD_CX>;
-+
-+            phys = <&dsi1_phy>;
-+            phy-names = "dsi";
-+
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            ports {
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+
-+                port@0 {
-+                    reg = <0>;
-+                    dsi1_in: endpoint {
-+                        remote-endpoint = <&dpu_intf2_out>;
-+                    };
-+                };
-+
-+                port@1 {
-+                    reg = <1>;
-+                    dsi1_out: endpoint {
-+                        remote-endpoint = <&panel1_in>;
-+                        data-lanes = <0 1 2 3>;
-+                    };
-+                };
-+            };
-+        };
-+
-+        dsi1_phy: phy@ae96400 {
-+            compatible = "qcom,dsi-phy-7nm";
-+            reg = <0x0ae96400 0x200>,
-+                  <0x0ae96600 0x280>,
-+                  <0x0ae96900 0x260>;
-+            reg-names = "dsi_phy",
-+                        "dsi_phy_lane",
-+                        "dsi_pll";
-+
-+            #clock-cells = <1>;
-+            #phy-cells = <0>;
-+
-+            clocks = <&dispcc DISP_CC_MDSS_AHB_CLK>,
-+                     <&rpmhcc RPMH_CXO_CLK>;
-+            clock-names = "iface", "ref";
-+            vdds-supply = <&vreg_dsi_phy>;
-+        };
-+    };
-+...
+Changes in v2:
+- Consolidate IdeaPad and ThinkPad deconfliction into a table of ACPI
+  device IDs, method pairs, and driver configuration checks, as suggested
+  by Derek J. Clark.
+- Check GBMD and SBMC for IdeaPads, and BDSG and BICG for ThinkPads,
+  instead of relying only on ThinkPad ACPI device presence.
+- Check whether the corresponding driver is enabled before looking up
+  its ACPI device, including for ideapad_laptop.
+- Update the force_load_psy_ext description to cover both drivers.
 
+v2: https://lore.kernel.org/platform-driver-x86/20261112074823.853819-1-aaron.ma@canonical.com/
+v1: https://lore.kernel.org/platform-driver-x86/20261111083529.727285-1-aaron.ma@canonical.com/
+
+ drivers/platform/x86/lenovo/wmi-other.c | 66 ++++++++++++++++++++-----
+ 1 file changed, 53 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/platform/x86/lenovo/wmi-other.c b/drivers/platform/x86/lenovo/wmi-other.c
+index bd64e7b44669d..340159df5f7cc 100644
+--- a/drivers/platform/x86/lenovo/wmi-other.c
++++ b/drivers/platform/x86/lenovo/wmi-other.c
+@@ -189,10 +189,10 @@ MODULE_PARM_DESC(relax_fan_constraint,
+ static bool force_load_psy_ext;
+ module_param(force_load_psy_ext, bool, 0444);
+ MODULE_PARM_DESC(force_load_psy_ext,
+-	"This option will skip checking if the ideapad_laptop driver will conflict "
++	"This option will skip checking if the ideapad_laptop or thinkpad_acpi driver will conflict "
+ 	"with adding an extension to set the battery charge behavior and battery charge "
+ 	"control end threshold. It will also skip checking if the BIOS reports that "
+-	"those features are fully supported. It is recommended to blacklist the ideapad "
++	"those features are fully supported. It is recommended to blacklist the conflicting "
+ 	"driver before using this option.");
+ 
+ /* ======== HWMON (component: lenovo-wmi-capdata 00 & fan) ======== */
+@@ -905,17 +905,41 @@ static acpi_status lwmi_acpi_match(acpi_handle handle, u32 lvl,
+ 	return AE_CTRL_TERMINATE;
+ }
+ 
++struct lwmi_psy_deconflict {
++	char * const *hids;
++	char * const *methods;
++};
++
++#if IS_ENABLED(CONFIG_IDEAPAD_LAPTOP) || IS_ENABLED(CONFIG_THINKPAD_ACPI)
++#define LWMI_PSY_DECONFLICT_STRS(...) \
++	((char * const[]) { __VA_ARGS__, NULL })
++#endif
++
++static const struct lwmi_psy_deconflict lwmi_psy_deconflict_list[] = {
++#if IS_ENABLED(CONFIG_IDEAPAD_LAPTOP)
++	{
++		.hids = LWMI_PSY_DECONFLICT_STRS("VPC2004"),
++		.methods = LWMI_PSY_DECONFLICT_STRS("GBMD", "SBMC"),
++	},
++#endif /* IS_ENABLED(CONFIG_IDEAPAD_LAPTOP) */
++#if IS_ENABLED(CONFIG_THINKPAD_ACPI)
++	{
++		.hids = LWMI_PSY_DECONFLICT_STRS("LEN0268", "LEN0068", "IBM0068"),
++		.methods = LWMI_PSY_DECONFLICT_STRS("BDSG", "BICG"),
++	},
++#endif /* IS_ENABLED(CONFIG_THINKPAD_ACPI) */
++};
++
+ /**
+  * lwmi_om_psy_ext_init() - Hooks power supply extension to device battery
+  * @priv: Pointer to the lwmi_om_priv drvdata.
+  *
+- * Checks if the ideapad_laptop driver is going to manage charge attributes first,
+- * then if not, hooks the battery to our WMI methods if they are supported.
++ * Checks if the ideapad_laptop or thinkpad_acpi driver is going to manage
++ * charge attributes first, then if not, hooks the battery to our WMI methods
++ * if they are supported.
+  */
+ static void lwmi_om_psy_ext_init(struct lwmi_om_priv *priv)
+ {
+-	static const char * const ideapad_hid = "VPC2004";
+-	acpi_handle handle = NULL;
+ 	unsigned int props = 0;
+ 	int ret;
+ 
+@@ -928,14 +952,30 @@ static void lwmi_om_psy_ext_init(struct lwmi_om_priv *priv)
+ 	if (force_load_psy_ext)
+ 		goto load_psy_ext;
+ 
+-	/* Deconflict ideapad_laptop driver */
+-	ret = acpi_get_devices(ideapad_hid, lwmi_acpi_match, &handle, NULL);
+-	if (ret)
+-		return;
++	for (unsigned int i = 0; i < ARRAY_SIZE(lwmi_psy_deconflict_list); i++) {
++		const struct lwmi_psy_deconflict *entry = &lwmi_psy_deconflict_list[i];
+ 
+-	if (handle && acpi_has_method(handle, "GBMD") && acpi_has_method(handle, "SBMC")) {
+-		dev_dbg(&priv->wdev->dev, "ideapad_laptop driver manages battery for device\n");
+-		return;
++		for (unsigned int j = 0; entry->hids[j]; j++) {
++			const char *hid = entry->hids[j];
++			acpi_handle handle = NULL;
++			bool has_methods = true;
++
++			ret = acpi_get_devices(hid, lwmi_acpi_match, &handle, NULL);
++			if (ret || !handle)
++				continue;
++
++			for (unsigned int k = 0; entry->methods[k]; k++) {
++				has_methods = acpi_has_method(handle, entry->methods[k]);
++				if (!has_methods)
++					break;
++			}
++			if (!has_methods)
++				continue;
++
++			dev_dbg(&priv->wdev->dev, "ACPI device %s manages battery for device\n",
++				hid);
++			return;
++		}
+ 	}
+ 
+ load_psy_ext:
 -- 
-2.56.1
-
+2.53.0
 
