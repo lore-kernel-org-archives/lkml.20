@@ -1,71 +1,150 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794560490;
-	b=ZeGGOt9vpZD8nLAblmmlcrxj/m4n6cVFJOcntD7BfbIX7KOEbohYPn+/lWoTGkXuCBCC
-	 VW2BV1JWR6g0VLCHJ9aLu6+luRmxSopzk/3UoDhUGhLIEoMmlsJfggIjkNXnTbwyHu5Kf
-	 vtpsCr8ipqSg/cHkdZ7hU1BpUBBPGGo98A6iTQxdOIRLHRkgzCiJJHK1Irj1wDMN94itK
-	 F8QS7jXYKCi9VjzdI4pti+MlvsT/juyHgTall1R9cMQtsd9dGxYAMKUALE2GE9J0qUBJb
-	 Umd6MT4KpzCBAZKEtf0hunvtXEsuySN3mTYItoMkQoRMQ7pcJUDWaSeKEaoDFnDSpfw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794560490;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=FQCbRlPwcdgGqjavqN5PuhdDIKeapOrS6kVQSOGe7JU=;
-	b=iu6lFP8IKhaRk5SA7LLIzp8J62HBzcSclk5aqYpulY3WpDz+FUBnSgGCIcvv2p+IdvLa
-	 aLw4xqtk2wrM5gSWDUwX8CplZMff8fCXx3JWKEhnAHUG+WK0BlT+dr42uBrAtNWtbS4Mw
-	 +tzH3/vGSh4INamdDroxHmokrwPfsJZiGKbjWlnUXzb8XJX2tZoXCInGvvR/BF3PJGaVZ
-	 jTP7e+h7tJ6orgxxfqSQp47pOR+avnw1CVHxzNAIY0L9N7QbMMWkcaTMj78tmLN3zEZhE
-	 hl5eYauNZgFvN/D8C5nXVcN8qfu9lA9tTJKy3W/MpNePhx4ep5fPqzrY9jTI8iOZFSA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=XCGb7FJl;
-	arc=none smtp.remote-ip=111.22.67.135
-Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BD5A8606A33A;
-	Fri, 13 Nov 2026 09:01:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD5A8606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.81
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794560501;
+	b=lkLToRuV8Y8ncIlQA5c/QKDkyux/6iXXC5VscO2WiK/YaM5sH4R4bUrm6DIm1XMECD/D
+	 mT0kSFKP+vf0c/NTRlbGv3FpfYh6CGvN9od4mJsMq23k0gxbwI6+fozdZ4cIRP7P8YXhf
+	 koCsf/L8n/urwLNelNTCtXUBYv6ZLVb/oqSLNZlY8G0xXWizmiUHddkvHUlWMcPG5V/Gj
+	 3l/iq96uvbH4pnrdFimbIkvS87Cx4X3D30Yaf+378jjU2ErPHsnoA0yDS+Gl4nI8g2u30
+	 XGpVZF5kTrwXqsCE4+4Z0QME9nudWSDrZuWVWsa8TaBljKQRF9tZOD4H5p+E1zvkF0g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794560501;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=ClOJP3Vfon+7zyTmqN+42zRtp/WiDI67PrjSerHQXgg=;
+	b=NPy2Gy+WHR8xOzBPisqpOu23di+Cd1x6NUCs8H/zmTBNWrSidWs0Uf29UK9VKUwfuEiM
+	 T8ZvwryYOGgy7CzND+C1sEKanlV7gXq74OglAL2NhD7sz9HddXRR9xAuIQWbMjcwRbDTW
+	 SmYVaWRPaNm75gZbJ2J5OISpLLEZpEfYsfbVWKDVYeMO3Rpz9vu7lgf870twyFULtMXn6
+	 d+GcU1yi4HJsmvQS+HSjYJw167cvTcc/Dr1wP8gsLnBm9Mby57D/3einNhGHlR+oQX+9/
+	 JHmLXAQGerNqcdQRX8dQFak9K9AORgr8ACEAvpfRh/ty1+3oSQMtHiWiZG7GBtb1oOw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=aspeedtech.com;
+	spf=pass smtp.mailfrom=aspeedtech.com;
+	dkim=pass header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b="J53zv//N";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.81
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023081.outbound.protection.outlook.com [52.101.127.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43FC2606A332;
+	Fri, 13 Nov 2026 09:01:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43FC2606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=XCGb7FJl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=XCGb7FJllbslpYYu9bYY/WMjlvLUqDIGRaBkHy0vubCxTl8Yo0kw/dlI4zYLd6Yqk5izKUBbEXq34
-	 HhedsFnfsjZES6wyRRRlbpdiGAA8XEWm/Gm9RlhPNsWcR/u/m1Ugl8AqmTzUNCQ+YGJl0nTCreZDJM
-	 vaAOfGtZXOWmdEqs=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36af6d1e40d7-b6ab7;
-	Fri, 13 Nov 2026 17:01:25 +0800 (CST)
-X-RM-TRANSID:2ee36af6d1e40d7-b6ab7
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.net (unknown[223.64.115.200])
-	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16af6d1e30e4-1f973;
-	Fri, 13 Nov 2026 17:01:25 +0800 (CST)
-X-RM-TRANSID:2ee16af6d1e30e4-1f973
-From: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
-To: Jiri Pirko <jiri@resnulli.us>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Hangbin Liu <hangbin.liu@linux.dev>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	sunwenbo@cmss.chinamobile.com,
-	1342116488@qq.com
-Subject: [PATCH net v3] team: validate the length of U32 and S32 option data
-Date: Fri, 13 Nov 2026 17:01:08 +0800
-Message-Id: <20261113090108.175889-1-sunwenbo@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.33.0
+	dkim=pass (2048-bit key, unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=J53zv//N
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eMmBDLkHQdj0RHnhfy/cVGy0lrWR9hGH7qul05sSha32n259GiVAexA9b7Tc4HmD/kJuRulb+iQayoVOVrvBk/R23ZZAeEvoKR2LwmDl/aVqCfBHK5A9WbQXH+f/5ojSMFtuByk2kveDm5kZOtvYFfo5sYm68Bd0l1AfnMF0BIOvMF4DihD10xBmwBMDyoCCf2r+G8GvxseVUd9CzWWd0yWCV0qOI/qJXa51ZDJWtaGeBMoFcGr0RRdrN79uwldhbpTubzwYzz5vx3eBAd1DsHPedGPO/Psa2+Y3eDddD/X5iv4snKOFKdvVglEesdLEryl2E5iulfNcCTA03CvOCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ClOJP3Vfon+7zyTmqN+42zRtp/WiDI67PrjSerHQXgg=;
+ b=Zff78qnooE4+50YXHO0ppa00aoXgdLdGg/eX6lVmHdcY1Sn4z+TJZ6r2syO0mSR33BQYr9UGn4SAhT9+COJznuVK4n6+mAc4+tRBsNkiJPYx4xqcp316cat2sv75GRirGfrsSbdadF/BiO8meZQsQz7aBJ6QIFjVw1CK5Z20AkWBSS9eg3D4nO6HHXwshKe9bmE2P1wQM9e9reHAQmIaOFfKUSuN/xBQu+x6wPeKwwWPuaYNDE32gp6uz6w2WqqR6d3HrecNntpoWtWqx4nTQ6acJiEn8mKqEd4DmtjBHyMMG6qiscRGNf9oRJ0HAE4hwMOmRzJLn0XRmIc/bCw3xA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
+ header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ClOJP3Vfon+7zyTmqN+42zRtp/WiDI67PrjSerHQXgg=;
+ b=J53zv//NQ1Ca7QFxOCapa4mSS10Q8ZvkGlymw+znPWLLjpOxbwvYPJGi8DdJe62cEpsACqURPpyYaeE12nmSmbiZ2BihIKBmEfmbUydQAB7QtLKPpANUGdUh55Eq7+3ttkie7s4nQFSpmxedCcU1CYuIGWmfgJEGq7zcINIG00ukpuCk6IhWSlbzOJMQxt3qhoMzgxJ8TRpEX+cbe+VBgXrmUwnX/54yxSdpm2QMTGevE2GWd4MEdwZgB0ig2MPljMN7MzcRl6yD7lbWT9n4xmjDhzDiXarlTkTD8g1EZCfSD3VBW3VG92kba4XD0fTGFHp15LUgN+Fr3mA7YrH8YA==
+Received: from KL1PR06MB6942.apcprd06.prod.outlook.com (2603:1096:820:129::9)
+ by OSNPR06MB8518.apcprd06.prod.outlook.com (2603:1096:604:495::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.0; Fri, 13 Nov
+ 2026 09:01:37 +0000
+Received: from KL1PR06MB6942.apcprd06.prod.outlook.com
+ ([fe80::5058:b315:12b6:d44f]) by KL1PR06MB6942.apcprd06.prod.outlook.com
+ ([fe80::5058:b315:12b6:d44f%6]) with mapi id 15.21.0615.007; Fri, 13 Nov 2026
+ 09:01:37 +0000
+From: Jammy Huang <jammy_huang@aspeedtech.com>
+To: Myeonghun Pak <mhun512@gmail.com>, Eddie James <eajames@linux.ibm.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+CC: Joel Stanley <joel@jms.id.au>, Andrew Jeffery
+	<andrew@codeconstruct.com.au>, Ryan Chen <ryan_chen@aspeedtech.com>, Billy
+ Tsai <billy_tsai@aspeedtech.com>, "linux-media@vger.kernel.org"
+	<linux-media@vger.kernel.org>, "openbmc@lists.ozlabs.org"
+	<openbmc@lists.ozlabs.org>, "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"
+	<linux-aspeed@lists.ozlabs.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, Ijae Kim <ae878000@gmail.com>
+Subject: RE: [PATCH v2 2/2] media: aspeed: drain IRQ work before stopping the
+ engine
+Thread-Topic: [PATCH v2 2/2] media: aspeed: drain IRQ work before stopping the
+ engine
+Thread-Index: AQHdcNAacPW34AflK0GKSOOWj4eNn7cqF/JA
+Date: Fri, 13 Nov 2026 09:01:37 +0000
+Message-ID:
+ <KL1PR06MB6942FDCF4F29809B40AF0AD6F17F2@KL1PR06MB6942.apcprd06.prod.outlook.com>
+References: <20261109235731-aspeed-v2-0-mhun512@gmail.com>
+ <20261109235731-aspeed-v2-2-mhun512@gmail.com>
+In-Reply-To: <20261109235731-aspeed-v2-2-mhun512@gmail.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=aspeedtech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: KL1PR06MB6942:EE_|OSNPR06MB8518:EE_
+x-ms-office365-filtering-correlation-id: 6283b2f1-8b53-49e9-baaa-08df4164b986
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|376014|7416014|366016|1800799024|38070700021|56012099006|261022105027099003|261021121427099003|261021123027099003|261022075727099003|261026140227099003|261026121527099003|4143699003|261028144727099003|261102123227099003|10067099003|261009220027099003|261009221227099003|261009221727099003|261009223027099003|261009223327099003|22082099003|18002099003;
+x-microsoft-antispam-message-info:
+ i3nvAWnyv6eX5A9LDIkDzPvZh1VRRAEESxaZbftgRZp/922RwT0/9DkdIwhZA1jKeXTChtVAoSflZRVhsEhQOiRVJw43AW1+o38g42gpp9aF4LhDjR6C1k5XEmrkKmCnMAqrgwyGRc6+BmrG3dBnHDmkfIkco2ZVjkY0eNEMaIX3Ri+Do7lTc7i20skR3gCenzfum1kUvrJHLtU2O1yqIc9r26z6gyTCFBKxwo0BmL0pKyswguO2FJYRoI1Akts5LTarDv3MCrsA40TQl4Ex0o9lvay9AoOoorYqw3u5nwzJZleb5qwFjtQpRkvtZjKTggs1qwljvBhuxD+6I/6xspWQYaOGEC8PEo/HU3cpkqU0edqro2Klu1STtoOZS0YqwHn1d/usX9Od8lCZoYvi36yXFlGI1zw6mtJmJ3e3N7XYW2z4iciO7uTNyiwpV7Es4258yLRnl8rx0aw7CrbpNzGpLG9jWZmUQsM6eC0qFOFVnl5V0ojoXtWtzgRPa8lmdQNJr+sUECaBwzBfd/msc4/zxjmgBg1K/4a4GQQsC5l4KQZfUwO5czS9EgwfSsAzXjuaeg+A9l32i0x+A278TsgjrM25ruxVI+l6omyDqDN3AfsWN2KHoU6m8uKCOe9yAqxktQXNnRktCBbXTORvSD9Xqssr4fHVVtjDm+yHKPhoIUvECHWcwYoZMY1D5TrBJDAF7PiqqtVVf7oaPE3cRl1cig5Sx28TO0I1BeutHdk=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR06MB6942.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(38070700021)(56012099006)(261022105027099003)(261021121427099003)(261021123027099003)(261022075727099003)(261026140227099003)(261026121527099003)(4143699003)(261028144727099003)(261102123227099003)(10067099003)(261009220027099003)(261009221227099003)(261009221727099003)(261009223027099003)(261009223327099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?fxJF/GBecuGZXxXivnZyIB0QZCxrR914UWYIR9auL5lTWAyIAvq7zzJCip1p?=
+ =?us-ascii?Q?krM23FDpsKmhEJa+TQLnmgBRKAsxKSnsuI3Y57b/Mg4GHL7vlZE/WperLJuw?=
+ =?us-ascii?Q?qXxwJReM5KtlgL0QjaWR3VtD3GBAP3Nm4QMxqkr7KLnzbfHWdPEgsLmo7MPX?=
+ =?us-ascii?Q?rTwd6nuM/kUtwvJHNbdvDB7fSQsXpLG1i5iOCXbcoBUdH9ETAgvfrrKfTjvR?=
+ =?us-ascii?Q?2iNKUcIYe9zRstn6/AhcGlMX7ghssrZLnj5cL2TbCALlyUtFcO5D4AASMYrt?=
+ =?us-ascii?Q?ErwgU/GyG9S906oq3SZZOK65zpw8XzUfD9CWR80OVFz/ysvOmdU3/2fAFPdy?=
+ =?us-ascii?Q?IvLyF6pan3qaoPstR6rA3F7DtJYx+S7KisLR1JlMRP64MaiABl3OrMTct9B1?=
+ =?us-ascii?Q?obn01aVIazUJ0R8Kre+9jtsDvc50JUzLRPBNuKA1TAVauJHd/dNraCPeucfY?=
+ =?us-ascii?Q?fmnIyN9pxh68tMW1nzFxxt8DRLDX1lUURY3RBxyxgW3EVIXenuHqQKdBDlXi?=
+ =?us-ascii?Q?a/IuhbhwF1UQBJSisOn4XPxLadBGpq/dMFqPKIOTXNSBNtPPDEVuA2sYau9l?=
+ =?us-ascii?Q?Gqe3bHQe6q2AXoHt6NJaUNAX5m9Udz4E0S6dV0sSJ7DNFTYt8RuJowVu+6/T?=
+ =?us-ascii?Q?hObZXR+KadM+rKbPrBxR0UaVji4Qe5gZ9lYWYtrKbKj5nTX0GLZTfzrTIkog?=
+ =?us-ascii?Q?PtU7ttFuRvIlweZH6mVh+JmxKDsUyJz0+70XJiatNnCZUyxn03jp1tii6GTf?=
+ =?us-ascii?Q?lu71S/WxyB7GGFQU5KehYahswe7wk+rxCbHaqgXiUcox3OvXp7A1qeRrSSIM?=
+ =?us-ascii?Q?DT9qiC7t5xOkyUHMvBVl9biKzrXL2LRN6vHX9Mtmhg9CkESFTYPEJxrGiXnM?=
+ =?us-ascii?Q?tBG6Q04ggRTkv2CsRyemmQUtEeo5FEjuEFKa+2bDxyb4F22tUsxkdeQ08FK+?=
+ =?us-ascii?Q?1ZQrIBrHgUD576ApDfrzzrbORu2qxxOgVnmDtAqqNZm3PZzYR6egZWD+a0hd?=
+ =?us-ascii?Q?BQEoZzGOxP+clwjOufnLEhOMjhc59aMNAHnFm77kh0TuWN04acj9JgpbkAgn?=
+ =?us-ascii?Q?T0fq4RSHncMINlVe2RTpts6a8OPt6ROhMYNmKfDyfa6UMaH/YgOD9m6J4BfY?=
+ =?us-ascii?Q?mbEmKcAUK9M0Od8NhR6mb1z29oiJc/AYlmyl1ntRS474YWJk/2NDpDmJp5fP?=
+ =?us-ascii?Q?zX2rXR6Ka1NfodfNYPOnpwxogwfpyS1aS4tj8D/1zEMhkH+nls9dliBbTXay?=
+ =?us-ascii?Q?vWAL7B1z45FNw8SEyv1jDzEy7c/j69ypuaGe7YhwpSfR2WRsq6obvCxs+RRD?=
+ =?us-ascii?Q?nLIaJm1XnQKTuZ/3aXmUHMIAoqrxsSKwA2CGVm+YHnL18+1YqTBOajesNg2Y?=
+ =?us-ascii?Q?b/FCt/sQb/7komXm4xghiYllFLeLYgN7mSeoJx5mVhtq4KpFJwVWjAyt4M/W?=
+ =?us-ascii?Q?k4PKvxoNP3QgEaSgKOc41DNpeN1HGk2HbCUo6ONEZKusBLOUo1tuSHe3F1qR?=
+ =?us-ascii?Q?rPvvKeXkmcgo5UwT3m+iEkyQAxmZrXAJthcHgIQpJTRaFw3f/syejr2wPEy2?=
+ =?us-ascii?Q?cALQLQK0TvMjm++6inh7G9vovuphuSE7dE9Zj1uoLFaBntkwxDD8PKBP6N81?=
+ =?us-ascii?Q?JxNvihBZNufxjcnQQxKk5vR93duY48GHREQL6z9i2++zhZiCaq9kYV9dtJ7Z?=
+ =?us-ascii?Q?CZOrEHTs/UII48dp3HcN8PMJDrCrb/H6HBygQbYWewCZjQR0aHDnxLqks2TB?=
+ =?us-ascii?Q?hPO4TSJFcA=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,85 +154,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked:
+	yQk9adyvWBLhXCuYkuZhjKHRQHpJcyD8d3MEo5WuBSqohuD2xaRc1FU2hguDzeGQR3elT+mpkOQnxHPvA9z1RsXj6N7I64zwGfYHZN2EptP4cWEqoFHsoMPWdM9iTqAJJ0iji1GYNn0xQTb9Fo8UETmocEIpCtuvsTWobCfrODRaB/oGBLxYNWk42X80nTAkhMmtefosjBtasy8Zdy0dmL+FPwZnmN+X0xRKdUalXetpDgKNXqoLrHlQJKFUimClq/1VOhsycti+C/iTxbIZzTNiE6DMxG75IpUSV+HITi5bJ1xhq65urkUrM9VnYAs8UZrD91q2hhKYFzrRG/VhiA==
+X-OriginatorOrg: aspeedtech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: KL1PR06MB6942.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6283b2f1-8b53-49e9-baaa-08df4164b986
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Nov 2026 09:01:37.4759
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: lo02Ek88oihxVsh7xmf7CYwoQvpxNIz+L8YEPQPVPlOvnLc8hoAbNHXrARxkAQTwgCa/18Sfl5VPc9dEL4gZK8Gk2p+oTtE3l0rGnZS4mZs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSNPR06MB8518
 
-In team_nl_options_set_doit(), the policy for TEAM_ATTR_OPTION_DATA in
-team_attr_option_nl_policy is NLA_BINARY because the payload layout
-varies with the option type.
+Hi Myeonghun,
 
-For TEAM_OPTION_TYPE_U32 and TEAM_OPTION_TYPE_S32, the payload is
-read directly with nla_get_u32(attr_data) and nla_get_s32(attr_data)
-without checking its attribute length. When userspace supplies a
-truncated attribute (0 to 3 bytes), nla_get_u32() or nla_get_s32()
-performs an out-of-bounds read past the attribute buffer. Conversely,
-oversized payloads (> 4 bytes) would also have trailing bytes
-silently ignored instead of being rejected as invalid input.
+>=20
+> Last close cancels resolution work while its IRQ producer is still live.
+> A handler can queue work after cancellation and buffer cleanup. The worke=
+r
+> can then turn clocks back on after stop has cleared VIDEO_STOPPED.
+The stop() and worker changes look right to me. The release reorder
+doesn't seem needed; details below.
 
-Validate that nla_len(attr_data) equals sizeof(u32) or sizeof(s32)
-for TEAM_OPTION_TYPE_U32 and TEAM_OPTION_TYPE_S32 respectively, and
-return -EINVAL otherwise, consistent with how NLA_U32/NLA_S32
-attributes are validated and similar to commit 5bef3ac184b5 ("team:
-better TEAM_OPTION_TYPE_STRING validation").
+Series structure: this patch fixes a real race, while 1/2 is hardening
+for a probe path that can't currently hit the problem. Please add the
+irq field here and put this patch first, so it can be backported on
+its own with the Fixes: tag, independent of how 1/2 changes.
 
-This issue was identified with the assistance of an LLM-based code
-review of Netlink option handlers in the team driver, confirmed by
-sending malformed U32 (notify_peers_count) and S32 (priority) option
-attributes on a UML kernel, and verified after the patch that
-invalid lengths (0..3, 5, and 8 bytes) are rejected with -EINVAL while
-valid 4-byte options still work as expected.
+>=20
+> Release the VB2 queue before shutting down the engine, since streamoff ca=
+n
+> need capture and mode-detect interrupts. Disable and join the IRQ, drain =
+work,
+> stop the engine and free its buffers before re-enabling the IRQ. Check
+> VIDEO_STOPPED before enabling clocks in the worker.
+>=20
+> Fixes: d2b4387f3bdf ("media: platform: Add Aspeed Video Engine driver")
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> ---
+> No hardware testing.
+>=20
+> Changes in v2:
+> - Split normal last-close ordering into a separate patch.
+> - Balance IRQ disable/enable within stop; add no reopen state.
+>=20
+>  drivers/media/platform/aspeed/aspeed-video.c | 14 +++++++++-----
+>  1 file changed, 9 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/drivers/media/platform/aspeed/aspeed-video.c
+> b/drivers/media/platform/aspeed/aspeed-video.c
+> --- a/drivers/media/platform/aspeed/aspeed-video.c
+> +++ b/drivers/media/platform/aspeed/aspeed-video.c
+> @@ -1423,6 +1423,7 @@
+>  static void aspeed_video_stop(struct aspeed_video *video)  {
+>  	set_bit(VIDEO_STOPPED, &video->flags);
+> +	disable_irq(video->irq);
+>  	cancel_delayed_work_sync(&video->res_work);
+OK. One side effect: if res_work is already in
+aspeed_video_get_resolution(), it waits for a mode-detect IRQ that
+can't arrive, so close may block for about MODE_DETECT_TIMEOUT while
+holding video_lock. That's acceptable around a mode change, but please
+add a comment here and mention it in the commit message.
 
-Built with W=1 on UML, x86_64 allmodconfig, and x86_64 allyesconfig with
-zero new warnings or errors.
+>=20
+>  	aspeed_video_off(video);
+> @@ -1438,6 +1439,7 @@
+>=20
+>  	video->v4l2_input_status =3D V4L2_IN_ST_NO_SIGNAL;
+>  	video->flags =3D 0;
+> +	enable_irq(video->irq);
+>  }
 
-Fixes: 3d249d4ca7d0 ("net: introduce ethernet teaming device")
-Fixes: 69821638b274 ("team: add signed 32-bit team option type")
-Signed-off-by: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
----
+>=20
+>  static int aspeed_video_querycap(struct file *file, void *fh, @@ -1847,1=
+1
+> +1849,11 @@
+>  	struct aspeed_video *video =3D container_of(dwork, struct aspeed_video,
+>  						  res_work);
+>=20
+> -	aspeed_video_on(video);
+> -
+>  	/* Exit early in case no clients remain */
+>  	if (test_bit(VIDEO_STOPPED, &video->flags))
+>  		goto done;
+> +
+> +	aspeed_video_on(video);
+Looks fine for me.
 
-Changes in v3:
-- Add Fixes: 69821638b274 ("team: add signed 32-bit team option type") for
-  the TEAM_OPTION_TYPE_S32 check, as suggested by Hangbin Liu.
-- Rebase onto latest mainline (7e1392a42ea2) with no functional code
-  changes.
-- Link to v2: https://lore.kernel.org/r/20261112090030.172342-1-sunwenbo@cmss.chinamobile.com
+>=20
+>  	aspeed_video_init_regs(video);
+>=20
+> @@ -1901,15 +1903,17 @@
+>=20
+>  static int aspeed_video_release(struct file *file)  {
+> +	bool last;
+>  	int rc;
+>  	struct aspeed_video *video =3D video_drvdata(file);
+>=20
+>  	mutex_lock(&video->video_lock);
+>=20
+> -	if (v4l2_fh_is_singular_file(file))
+> +	last =3D v4l2_fh_is_singular_file(file);
+> +	rc =3D _vb2_fop_release(file, NULL);
+> +
+> +	if (last)
+>  		aspeed_video_stop(video);
+> -
+> -	rc =3D _vb2_fop_release(file, NULL);
+I don't see what this fixes. In the original order, stop() gates the
+clocks, which halts the engine, and clears VIDEO_FRAME_INPRG, so
+stop_streaming() returns the buffers right away without needing any
+interrupt.
 
-Changes in v2:
-- Check exact length (!= sizeof(u32) / != sizeof(s32)) instead of
-  only rejecting truncated payloads (<), as suggested by Hangbin Liu.
-- Extended the UML test to also cover oversized option payloads.
-- Link to v1: https://lore.kernel.org/r/20261111085924.360720-1-sunwenbo@cmss.chinamobile.com
+With the new order, closing while streaming can wait up to
+STOP_TIMEOUT, then reset and re-run mode detect (another
+MODE_DETECT_TIMEOUT), only for stop() to shut everything down.
 
- drivers/net/team/team_core.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Please drop this hunk and update the commit message and changelog to
+match.
 
-diff --git a/drivers/net/team/team_core.c b/drivers/net/team/team_core.c
-index cfb833c307c1..65ac25e97ae3 100644
---- a/drivers/net/team/team_core.c
-+++ b/drivers/net/team/team_core.c
-@@ -2834,6 +2834,10 @@ int team_nl_options_set_doit(struct sk_buff *skb, struct genl_info *info)
- 			ctx.info = opt_inst_info;
- 			switch (opt_type) {
- 			case TEAM_OPTION_TYPE_U32:
-+				if (nla_len(attr_data) != sizeof(u32)) {
-+					err = -EINVAL;
-+					goto team_put;
-+				}
- 				ctx.data.u32_val = nla_get_u32(attr_data);
- 				break;
- 			case TEAM_OPTION_TYPE_STRING:
-@@ -2853,6 +2857,10 @@ int team_nl_options_set_doit(struct sk_buff *skb, struct genl_info *info)
- 				ctx.data.bool_val = attr_data ? true : false;
- 				break;
- 			case TEAM_OPTION_TYPE_S32:
-+				if (nla_len(attr_data) != sizeof(s32)) {
-+					err = -EINVAL;
-+					goto team_put;
-+				}
- 				ctx.data.s32_val = nla_get_s32(attr_data);
- 				break;
- 			default:
--- 
-2.33.0
-
-
-
+Thanks,
+Jammy>=20
+>  	mutex_unlock(&video->video_lock);
+>=20
