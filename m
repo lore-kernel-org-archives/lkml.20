@@ -1,64 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794583674;
-	b=O5Nu8sQtJ8SRLS6k9COJnwa7rq96/pW1Tbd1P0PJIhep80/eYCIOKL4zB9uPD81OkrPI
-	 Eph9+uEKqFN8dGNnElyoTcOXIwWpM8YRpfg7Q0fU+9q0dCVYsJEqZIGfSp00MR/eje2Oy
-	 USTsdO7+wtMO/CMijjG8WRfRYzastwkF9ulhhp3QWgdXNYovoeN6ffR2HqYmLGmdIwpWH
-	 KxxQszoUv1jUSUnz18SRhCp5K6oP66LXyrDNXBBWKBnywJnL9F6SaDxkbs4iyz7obfOQP
-	 QCIXpT/89ymOv1OSHDbPJTtGk8z/mYY0NbDZs2xmC9MRExaNrq8u+LbH9wLgRELg/4A==
+	t=1794583799;
+	b=BO55aWP2L24WkE/ww5gPSoIw0Xp2JA9kvNr5cQI+qZ7SGFB0Sjj3fYBJECRRagKacV26
+	 xJDjPrwbQ2el871YiHD3OV3gZLdGvxVVoCIyfREB6Rf3KRve+fKD3j7ZWBL79I7yZWTS+
+	 fYdacyKrbHLqD/s2eVzA/xYYd1zis6/F8R2khkRVgfbHZnFKJ6IOTyOcZkfaxSInqTjdY
+	 xDnc1ZVyVOUL0aD5drYEgMSCyox9FD/UzVhY4nJkCKcOrW5sgPVBOsz3XHTUbXfq0DENy
+	 ESiOCE5ndFsdYqWXm8A2mELxAwzWpjmrkC7ErkTuLTsgATnD3SBFxYcuterujqlk2Jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794583674;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=oVTc5I6nKpBiLsItkBZmeShBR8ASpkDeEBpnWBZ++aw=;
-	b=m6F3t6n3XYiMNFEoaj8kMDwHpHc8hJNYjROiUWYAxAuz/u1Ei5s//SF15YyU7QNhh7/6
-	 wdILSK8hD1UQJGb56zaekRHHsmN4UoKXltJ2YpPiREgtH5sUL7Om7Bg5otm5Qp+LoJTL3
-	 Rev0GIxN51VTHIjxAAREizDk7H8qjxuva4pYkAc9kzS/W4D9cUFdVb8cesOz/J+kFO/UE
-	 gF+JXFdZRXyUK0FAwBbm5dsESAiOsf+f4sGJBC1UAZ5kuzF9C9nEcVUlOgbZAGxBXS7+B
-	 eYT7O4RghRyHDA8dujnnkyYMEs7VuYMBXWKno6kydGdlHUoJCNKBQgJ/5z2VVC27fPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794583799;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=y10UPbdNlDVF95qsQ4tRtVklD4BMc2Opox3gPoickLs=;
+	b=T8bYGK3MHVYqTXDAF4bUwcZb44Oy7Hh3ZHyPyEwwt1ogKEEKwa2PGif9/GGDqCfxSNZN
+	 SMj4Erzus7e/0eOs+BnqRQUyrPfx214kNXgNH1qKmqLH7VbK9UkEvmnHvKn/QPiRS99LR
+	 4MgDJaR0/D9kBcoDUj9nDZ7oDLTd4PYh4vXgCscr9DHrnKJSpFVpL/jIlaEfmV77aYSrN
+	 ch6zcPMITQ5Z6s6s6yYz22CCxSbx4VaC3RgbNIIWHCkK3/mhfuXawwF/OMhzekJKvYJ1M
+	 rDaDD4NL49MniTlBw/rpDdIIulu7g8F3a6NzVn+P5WAS6Q0HfoNZoFstb7LqRJcHtQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=obM15AJ9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LyXQkSWL;
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12538606A323;
-	Fri, 13 Nov 2026 15:27:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6650B606A323;
+	Fri, 13 Nov 2026 15:29:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6650B606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=obM15AJ9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 235AF1F000C4;
-	Fri, 13 Nov 2026 15:27:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794583673;
-	bh=oVTc5I6nKpBiLsItkBZmeShBR8ASpkDeEBpnWBZ++aw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=obM15AJ90mGlXY/jE5a+ZdaDpkOl09kD4/+UEDD4fs3RMqLfyai7TDkxlo5ytFngD
-	 lWeFQgTP8x228dv+DxTVIzxtOEtBciMIvLOdq8wc8cjDHX7doFqgFN0Ou5iVOYnNd/
-	 Bjun3K6a48m4jKMfn2e0sWnoLEaIgzMEgkDua2AkdIMCo/N7faKrLk7711OjMO91eJ
-	 0jdOMgannOdxAj6X4GWFpGz9J+sDZwW19wG9y7nct4vVovsQ2H+f5ylB3iWeO5nYQL
-	 mD/drX6lP1j3xSm7iZQD0g0VF0kXa/aUh7nW4+JjNgjOCNhrlhK4XOUXx0Wfxnr7M5
-	 FdFsPV8k4fjFg==
-From: netdev-bot+sinfo@kernel.org
-To: Tariq Toukan <tariqt@nvidia.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org,
- Paolo Abeni <pabeni@redhat.com>, Akiva Goldberger <agoldberger@nvidia.com>,
- Gal Pressman <gal@nvidia.com>, Leon Romanovsky <leon@kernel.org>,
- open list <linux-kernel@vger.kernel.org>, linux-rdma@vger.kernel.org,
- Mark Bloch <mbloch@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>,
- Shay Drory <shayd@nvidia.com>, Simon Horman <horms@kernel.org>
-Subject: Re: [PATCH net] net/mlx5: IFC, enlarge active_port field to support 8
- port LAG
-Date: Fri, 13 Nov 2026 15:27:52 +0000
-Message-ID: <179458367272.2168702.15400963269849864687@kernel.org>
-In-Reply-To: <20261112182940.3655773-1-tariqt@nvidia.com>
-References: <20261112182940.3655773-1-tariqt@nvidia.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LyXQkSWL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794583799; x=1826119799;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=4UoFfOdNoHzDW5dONAdVBVFBQ21o+FDPZlZ39D+M/k0=;
+  b=LyXQkSWLkXSpZmjkqAGwTkch8UEk6OnCL9xTw7EnK0SvwLKvGPukBYsT
+   JkfXthmXYkQ9KHGchoAbkZZNJWG31KHnvcpPc6c8+CR60omYCGtk53pVi
+   +1uLNyhcO7zRmag2A9gh0g4dyqXOY7T1GyK23YDRqamBYGyo9KBX1HpOf
+   wceVV39ut3KhGMpQDrJ7y72aXcNkJq504dWaFUGFqCzuj7FoKhEyT/LSO
+   NSnJBMw3SGYtFe8jax9vdiGLclO/a8MIJIjbQ6f6gEXkXMQ4QlXCiC2mA
+   csYFyahvxTBJZw55tggvV1OSlhmg8MZ53gQBgswTP2OjTos+ixNudU8Pv
+   A==;
+X-CSE-ConnectionGUID: GZJCfuq2RoWPoBYRSwSChQ==
+X-CSE-MsgGUID: MlpmzjcIRaqGZG8Ez3NuXQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3401913"
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="3401913"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 07:29:58 -0800
+X-CSE-ConnectionGUID: 1OPjOIRmSl2FQ9IImJjirQ==
+X-CSE-MsgGUID: KjPwKkavTLOuksIYEloHeA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="8767460"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.148])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 07:29:56 -0800
+Date: Fri, 13 Nov 2026 17:29:53 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Breno Leitao <leitao@debian.org>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>, catalin.marinas@arm.com,
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	kernel-team@meta.com
+Subject: Re: [PATCH] gpiolib: fix leaked descriptor labels in
+ gpiodev_release()
+Message-ID: <avcs8emo3oWpYGBG@ashevche-desk.local>
+References: <20261113-gpio-label-leak-v1-1-c6c00f8ebfff@debian.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,25 +81,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261113-gpio-label-leak-v1-1-c6c00f8ebfff@debian.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi!
+On Fri, Nov 13, 2026 at 06:38:28AM -0800, Breno Leitao wrote:
+> We are seeing kmemleak report a leaked descriptor label on linux-next.
+> 
+>   unreferenced object 0xffff0005d420f280 (size 32):
+>     comm "gpio-cdev-uaf", pid 21987, jiffies 4297166145
+>     backtrace (crc 7ff222d9):
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+>       kmemleak_alloc+0x40/0xd0
+>       __kmalloc_noprof+0x300/0x670
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+Unneeded in the report
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by LLM and not proven at runtime). If it was triggered
-   please include the symptoms, like the stack trace or kernel messages.
+>       desc_set_label+0x50/0x190
+>       gpiod_request_commit+0x1e8/0x358
+>       gpiod_request+0x88/0x290
+>       gpio_ioctl+0x7e4/0x1b48
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+>       __arm64_sys_ioctl+0xc10/0x1360
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+Ditto.
+
+As documented in Submitting Patches, leave only significant lines in
+the backtrace.
+
+> The test requests a line, removes the gpio-sim chip under it, and only
+> then closes the request. By that time gpiochip_remove() has cleared
+> gdev->chip, so gpiod_free_commit() skips desc_set_label(desc, NULL), and
+> gpiodev_release() frees the descriptor array without the labels still
+> attached to it.
+> 
+> Free those labels in gpiodev_release(). No reader can reach the
+> descriptors once the device is released, so they can be freed directly
+> rather than through call_srcu(). gdev->descs is NULL there when
+> gpiochip_add_data_with_key() failed to allocate it.
+
+Hmm... There are so many patches are flying in this area. Can you for the
+starter elaborate which Linux Next tag you are using?
+
+...
+
+> +	unsigned int i;
+
+It's okay do define it inside the for-loop.
+
+...
+
+> +	/* Lines released after the chip was removed still hold their label. */
+> +	for (i = 0; gdev->descs && i < gdev->ngpio; i++)
+> +		kfree(rcu_access_pointer(gdev->descs[i].label));
+
+Sounds to me like something that Bart addressed very recently.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
