@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.196
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794559920;
-	b=JxjqEuWnTwmf8EMb8Gj018uizDAnJvuC6YIadi9tnXUXSpUC754dCzGQg8xs6Ncc5U6S
-	 k0JzG2mIlVH/6T/J5oKFQo1iDEcTrYuTMDNkxVuT0ou2yfvxUW+LHQiSeT0kbTvif/YG0
-	 CGchxoyTfv4VLpeRIJw3zIGyiiqLmA1fqNFPhPagYjUrwrlaZeOTYvPl8Z67pPikV0r54
-	 csBZkG0c9vS59fqxmzHV2Mo37Ke+L9bOC2E38NZ9E8JW8NrbYnpKdfsSEr7sLHcOLzbD0
-	 YFR3tCRbRIryHiF7tA3F5Rz/T6dQgpYuzGSIlFOaJXRd4/DQzs55HkCLPk16HLXLqcw==
+	t=1794559927;
+	b=kv/4YtrpcvVSVSjBth8ynGzWug24QirzJMd20zSdyJRZazqGt3Wlsq2MH53cL1FIpmpV
+	 JHNPPyiZxPfdpD3t+QHNbsKzfCKYcMfdvfd9Z5eVCTO5q+FHbMmEVEX7IHTENjCCI2vpM
+	 2dnWvNM/+hBM2ivmVtclwAxtf5iX13gLdVc4C42yv1O7f5OYBpvGwOb+i78SzQsJsC5G0
+	 7KSUbCdK14jlav34+vqfTOf7HBuCQEpvRssx5Fsgv5ht02H8KViFg5C6w8RT9DOpAWrCN
+	 bsp0SX8k6oaQhB6iBvgyOxBXJXlbRfQncT1UcBnwTrpS0HFiZHVXmdEo++CTfK83TVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794559920;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794559927;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:In-Reply-To:References:MIME-Version:
 	 Content-Type:Content-Disposition:Message-ID:User-Agent;
-	bh=d8ixB8K8R172rrdk/LmhJTXU2lsskw0hIUmehvKI8Xk=;
-	b=j0m2uu+jQULGP1O+/Fk6HK9a/YIy98laiLjxWWeNpGmfasR21zJnpLlKVmYBFJD+GSe/
-	 CBV7w7UOx3RLTaeW2gAT2sbXut0ByqZp1hxGVvV03HmCWiygYwNHHVX8VrXk5+5u2RkJC
-	 MUaNwxBTexN5U9CF2ujJfGfaE4ZksTkoVtQX0Fg14FcVhhUUYpezLzkiQeuBOJ0an+7As
-	 QJmXEy8wuW8zO0fJ91cWyP0WRozO8Qzc9FwZEMG9xyxFZNtZINDwIqL26j6SCaqaklbFb
-	 Pj8TiuCRrdc02stIT0XBjQbjXaY3Pi+egZ7z3swWGVQ50WU7iQj7IQsG3mL4Qi0gK1Q==
+	bh=bwUDB2KW6o606MZkDo/fjGb0dXbOTwa5lnzMBFGM+38=;
+	b=zsE+Rh1xruUz1flwU9EdgChHcJ3u8QrGJZ99KdZ1ec8+zZeLtzku7/hzPSTpqkRsboRd
+	 Ojw7qAefLhvQUrE+NJpSR+18GEeURwabh0qjAaXQ7jHr/ARGM3skZor6BcgUtymfjKl+I
+	 herPSjtAuh6AaxYJRYywtEXf26MkajRB6Vl+2L6BdRGdkxJb+z6t48xI+JAZXUMQRCsvR
+	 4GxvqhfeFs+RErpWUQSi2/GgZt9yNfvE2+mpuXX+Q1TPRBF60Acss8iGEsYQfdNSMCSDq
+	 ZWnNpWKFTL1IxoAj11ByJ/qsnYtDp45aooyIpBKmeGlQBMhbKxyqpW54iZkn4Zc+Jnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chrisdown.name;
 	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=wo3tKroa;
-	arc=none smtp.remote-ip=74.125.227.196
-Received: from mail-pi2-f4.google.com (mail-pi2-f4.google.com [74.125.227.196])
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=qfYTAkPa;
+	arc=none smtp.remote-ip=74.125.227.137
+Received: from mail-pj2-f9.google.com (mail-pj2-f9.google.com [74.125.227.137])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12E31606A33F
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:51:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12E31606A33F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BADA4606A884
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:52:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BADA4606A884
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=wo3tKroa
-Received: by mail-pi2-f4.google.com with SMTP id 41be03b00d2f7-cdd8c1fdf4aso209256a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:51:59 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=qfYTAkPa
+Received: by mail-pj2-f9.google.com with SMTP id 98e67ed59e1d1-3b1a38a5088so195955a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:52:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1794559919; x=1795164719; darn=vger.kernel.org;
+        d=chrisdown.name; s=google; t=1794559926; x=1795164726; darn=vger.kernel.org;
         h=user-agent:message-id:content-disposition:content-type:mime-version
          :references:in-reply-to:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=d8ixB8K8R172rrdk/LmhJTXU2lsskw0hIUmehvKI8Xk=;
-        b=wo3tKroanTXQku0Q5OnfqMKYq9yZNuO+X2W6SNK/K+KqSIfeJq373T/eDUMzD8F+qW
-         OTb5E8QNC8pMyltEE9uat7XEZhHW3BimWbhRUIriZmN9YvErn51CndJIq1p4y/4bQBll
-         TE99QnuUYAnr6Qc5BzQga+/sZqg5s55Lntf3o=
+        bh=bwUDB2KW6o606MZkDo/fjGb0dXbOTwa5lnzMBFGM+38=;
+        b=qfYTAkPaHlJoKZndJ1amhv8QdpihkbMCquLcZkhGlKDUylG8GW0BZvSAikFffhjx0t
+         ii9EpRoXoEVeVC9qma7452DsMHJMLibW+zE9u831VDMGj9Z9IWM/6pd+uf+2NLS0IVgc
+         ZwzONvdSovIkb4u/wurJ2rUTWJNcZZjBVVUVY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794559919; x=1795164719;
+        d=1e100.net; s=20260707; t=1794559926; x=1795164726;
         h=user-agent:message-id:content-disposition:content-type:mime-version
          :references:in-reply-to:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=d8ixB8K8R172rrdk/LmhJTXU2lsskw0hIUmehvKI8Xk=;
-        b=0KKASeBGnbcR6B9g6whNWgOulZYudNcI3GF48yADZH4T9TDB8EVjyhwTmywzUo/yjp
-         zshyUNHzKYrBMBCGnimYuumi/KJ4+6Z1XCWJWbGxKv/IxB/4LPYHK76Mo2nv98Bgl/8T
-         1/wKt/amL9UQeAu/55uYTIO5WffklQeTahwdosPoJunDiK1ORKGjrBDVfExopBHU5Eju
-         zr5dmHWaV1WngWk93R2EqGj8NQEAHtIvIhF+WDAkTiG4Pnlw59j/+ScwmVWjMBaytHLy
-         uIgCo+7jxW0MlZknEpf3oHPXiVlHXWlQeMF8yCJs6Hqaprkmc+fl23/aI650ohArlDQz
-         /Qcg==
-X-Forwarded-Encrypted: i=1; AL+hErHm/QHNIOzOWMB6WNBvLftbMmUVA6RC/KrWd/JdNT3jP+VIxTq5GEywb7hUtz+WVrlMRkv1H1kYGPKMPqQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8pjTZDN+CHm/JFsygM3zH0EbZxEI7bbIv9EMtD5UEDwarfYKHT
-	2FmE4xTvwgmWWjKxm+W4eKQzp4+imB8wwUVp+slM5QK68KG2vd39wj4OYF6VJFl2Ey4=
-X-Gm-Gg: AYBFou3CDxO018LOOafW2pTcUpCBuVymle21FYdJ7yehD/6xdTejifuDfCE8yUMCY36
-	QmvGRDaVKr0fcRkz+C4r8d8KfbNwgPt9FwnkQLgXq5tmzqux3KFRcvjnvloZFEIrK31vV2Aj6zA
-	PALdGU+qU6p33E0a9/YkOX7ZFpVjU+UoQRrvXRBRh7hEOYaxkctOcG6B/taCABe9K8dmW+t0gJ0
-	/FjarCeYUuGhnkgEPAcbPgUXdUmiQjsIv+XWw6fLXxg4eKtrMhwcbIB9o4VUUAOf4fbrSCJwmyq
-	tSY9illJhPw/UnyRTjq2iuq+RoIg+rPG2Q6UuJCTOprzCmdub/gLX0qsD/09ano03owjV2i6zNs
-	5dfql/m3ijABmlEH+nP/15ZBDyliYYsDOWk+n2698NKlsJe403gPINjp09lcmkcDEK4FZGYb+9k
-	yQXiTDTB7KFsnDqGy0G2zp3FWaBmkUg2lDFOFYpH/lhtha2AqVadwVz//zUfVomoMJVnJKXe9PF
-	dhZd75X9ODIUvKeZlpvPS/QP8ofU0I/9Pn1B6Hm5tiJ1U0GexZzfFvFhsO0vd2WbMUpO/SlWEln
-	Q8nMoOyfpbCJfuy7LjNrhYw7AgL9CEkcDwUtmFRieSBFFuxJX4DclCveFqHzotisIpJq3bVUeVu
-	ey2t37GlVMsMjAfmTzdA79LoQ+qZVrl7+Pn7ZBCak2o0dJ8AwBcMz3c8RO7e0XjrQ12k4asI30V
-	0ylMBDTeaNxRSDqWoF/PLUfKohgNYeSnN80lvjTd03tXmA5lTCNvcZPoP+q2c=
-X-Received: by 2002:a05:6a21:798f:b0:3e2:1a24:fb85 with SMTP id adf61e73a8af0-3f7a4dbd84bmr1333192637.1.1794559919456;
-        Fri, 13 Nov 2026 00:51:59 -0800 (PST)
+        bh=bwUDB2KW6o606MZkDo/fjGb0dXbOTwa5lnzMBFGM+38=;
+        b=DdRSVi1vbdNMUGdb4kPJzDTF0jqXhL74p+eykAeW0c4NE641M8tq6I+fNB/6geR223
+         nCowcZO2XsUmEs9sPxOe7OPE0ATDVVeR4DqfyKFUAFUfOH2F2oEBRExkNijVFCWNv/6f
+         s3OMfPL9uJ8B1daI7TUVnwpd552m0GdNNd30wUiwaHSdkAY/FR3F5bsPGhU9cn8cSdKi
+         ffnfeUvhE4WPjlmX/M0hqFC3DmJl9yynHkMwNCbjB8AqW3/WiDFiuLzE9kVvDwiyZvn6
+         N+vlT63PKJa3tqHGLkx9lZqvHC/VTGgKXmfB/IxWDjwl8rbIc2mS7LDpWll76FLzTghh
+         57pg==
+X-Forwarded-Encrypted: i=1; AL+hErFM3AUUvWmwzjyR0gAhlrt1vBv7OBFTecHli28VubDQwchoZKLfd+bFDWLBlb/n/AOECXwu1Mq3DzJUsBs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/FDsWUXVJoM8JPdRHaaCr+NJWXlKgUCyg3HHam5kspuAYONBWu
+	Q3bW6zwlRxh7bXeR2UqQiP6VYjtUajEpK1hU6to7LUbB4F22GeLmXbFZd6C1auoxeys=
+X-Gm-Gg: AYBFou3KrxBcNA52jKpBs+0RsImoHcO+x2+edUnjCb8Kd/zQ+0aLeRYCC/dDIzLEZqs
+	9wEYZg0QgkUjTsXSQ9dlaDaDPN1jVqnSW0FMLThQWuVVsv5FKK69tgY9xJh5SiX6GtuYOEOyXvs
+	el9/eVqVTMz/kKYVDudCIv8TTRdp0NsujRQy1uK8n5aLPh6N6784KEf5Dz8m9I+Nwx5SxT6vODD
+	7TwjfRil7niR/DbQh/3CQTh99Zz5zj/vO2OQJ8KVJa+Du+A/jnTGuHvY515oPUDwBsQ4XamQZBX
+	++STyhYNFZXYCXSmS3aeWW4YHslqUG28XcO60oIhvNeLZGPzY10S3dcc/HZTt45WQwmol8PlacZ
+	g3CtcdORLFuXoWJvNZoWiVI+R7ViihACE/CAQ/JzShLkg9aN3p2H9HBY12ikONrCPpyj3oKsVs5
+	SLmrQRMHjg5hmBirAxULU/3SQnK9KM6vRyuQSG3JYgakC689nVGm5tTk96NyfNNUdGyY6Vl77v6
+	npLnxHpkFRNnvNHpS0R0XxlS6PJDJ/uGNmDcACvru2EXPsIYTd7aMZAU6Zph/gAwinsM1OgOxF3
+	zfpnb0CX7kS45QXWLQwQ1Aiuo0VKz0HdOXN+R++SDAREkVnboDKcabrvoKUHqpsdN0DJysM1KFd
+	Z68rMNazh2j7kCxsNDQ5ziQiDdpLRQ3KH+yxUDavmjTlZ7+WT2uvPXj5Vy0Bh2qO+RH8OGychO8
+	s1wFoKfkmvEkyNfdVIJMY9s4lvjqVat+kfromaFkRLE2MvBvksjhWFpYGnPXY=
+X-Received: by 2002:a17:90b:3148:b0:3ab:2d17:51c5 with SMTP id 98e67ed59e1d1-3b1b07ff58amr1597563a91.6.1794559926135;
+        Fri, 13 Nov 2026 00:52:06 -0800 (PST)
 Received: from [172.22.0.2] ([50.175.87.158])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cddc186f472sm907794a12.6.2026.11.13.00.51.58
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197d0f497sm8791005a91.8.2026.11.13.00.52.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 00:51:58 -0800 (PST)
-Date: Fri, 13 Nov 2026 00:51:54 -0800
+        Fri, 13 Nov 2026 00:52:05 -0800 (PST)
+Date: Fri, 13 Nov 2026 00:51:59 -0800
 From: Chris Down <chris@chrisdown.name>
 To: Kees Cook <kees@kernel.org>
 Cc: Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, Marco Elver <elver@google.com>, GONG Ruiqi <gongruiqi@huaweicloud.com>, Jonathan Corbet <corbet@lwn.net>, linux-mm@kvack.org, linux-hardening@vger.kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH v2 2/6] mm/slab: Enable SLAB_FREELIST_RANDOM by default
-In-Reply-To: <202610302113.FB347BE5@keescook>
-References: <cover.1793253633.git.chris@chrisdown.name> <6bdc161bd869ead04b3b9a651ef6a83882ecbea3.1793253633.git.chris@chrisdown.name> <202610302113.FB347BE5@keescook>
+Subject: Re: [PATCH v2 3/6] mm/slab: Support disabling SLAB_BUCKETS at boot
+In-Reply-To: <202610302115.8C7AD110@keescook>
+References: <cover.1793253633.git.chris@chrisdown.name> <9a68a4d95830352ad3821437c2e22c30a673055b.1793253633.git.chris@chrisdown.name> <202610302115.8C7AD110@keescook>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,29 +96,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Disposition: inline
-Message-ID: <20261113005154.79ad6432034bf65c@chrisdown.name>
+Message-ID: <20261113005159.840c7b1a6049a81b@chrisdown.name>
 User-Agent: Mutt/2.4.3 (cc9e3943) (2026-10-09)
 
 Hi Kees,
 
 Kees Cook writes:
->Again, just like it should be. I wonder, though, don't these 2 changes
->undercut the goal of making these boot-time selectable?
+>I thought the issue here was about calling convention (i.e. with
+>CONFIG_SLAB_BUCKETS Vlastimil had suggested making the argument lists
+>for the call chain shorter by dropping the bucket argument entirely).
 
-I don't think so. The goal is to stop needing separate images for hosts
-with different needs. It was never to make every option switchable for
-its own sake. For these two, the only real argument for leaving them out
-was CPU cost, and with sheaves that cost doesn't show up at the system
-level [1]. So turning them on everywhere removes the reason to build
-without them at all. Anyone who still wants them off can still say n at
-build time.
+I think you might be thinking of Harry's kmalloc_params idea from the
+slab_alloc_context thread [1], which would fold the bucket and token
+arguments into one struct. That's a separate thing. This patch can't
+change the calling convention: with slab_buckets=0 the kmem_buckets
+argument is still passed down, it's just NULL, so kmalloc_slab() picks
+the normal caches.
 
-SLAB_BUCKETS and KMALLOC_PARTITION_CACHES are different. Their cost is
-memory, which is real and doesn't go away with sheaves, so those are the
-ones where a boot time switch makes sense.
+What this patch is about is being able to build one image with
+CONFIG_SLAB_BUCKETS=y and not pay for the separate caches on hosts which
+don't want them. Harry measured that at about 1 MiB after boot [2], so
+it's the smaller of the two, but it's the same "needs a separate kernel"
+problem as kmalloc_partition=.
 
-[1] https://lore.kernel.org/r/auITixAJMfLtfa7i@chrisdown.name
+>Regardless, I still prefer this being a static branch so we don't end
+>up with a needless rodata global check.
 
-Thanks for the review!
+The flag is only read in kmem_buckets_create() and
+create_kmalloc_caches(), when a set of buckets is created. It isn't read
+on the allocation path. Allocations never look at it: they just get the
+NULL that kmem_buckets_create() returned. So a static key wouldn't save
+anything at runtime. Also, some architectures (arm, for example) parse
+early params before jump_label_init(). So we'd still need the bool, and
+would have to flip the key later as init_on_alloc does.
+
+Is there somewhere else you had in mind for it?
+
+[1] https://lore.kernel.org/r/e650e125-5f6c-4de7-88b5-9da666bb0a4e@kernel.org
+[2] https://lore.kernel.org/r/179312451613.474906.1475329637924619088@kernel.org
+
+Thanks!
 
 Chris
