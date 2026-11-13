@@ -1,90 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794602209;
-	b=hgpAUQYznKb0LvGd53RvJ3xHiev5HO+QzQ0SZGhy339rAqTLPUCl9fS4waHsWlHkVEUq
-	 zXVJ8G5JgBAVYkb6blzrnKdVRMassZ4ZLK8GQX44EEqWg3ixcdrIVaXjvxphJmf26YyPM
-	 ANuX2+8KLlV75TtRl56ftyuTpOXdWtEfpv0tP1RlP/VzrFtX/IF3ohPPyYali07ZBf3NQ
-	 LCSGwZbmxf8iigi2JcLB70zscRKUOOPfj7LRdX3gRJtBdOJyM1padGPc+KB45CrSx3Vd1
-	 siskq3lHTrINViaki4LfVvgiDYf/LG8D2f/AQSFhrkHclLsxP2PFbuubIAkWIS7P4Kg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794602209;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794602237;
+	b=IxLP01j3ODgwauH7X6kZfDqa2w0xXeFWDj+bPMsDhPDPkjcsNSHaUtP6w42HMHjYipIV
+	 wnr9VZTy8UgnPvxwxQwMSl95HEg8n6EoRYHRT6laA3E3JbyWgjbwRNhm+daPzqIY4O46s
+	 OFpcJqn02OGBYReuFzGz2Qb6AIi9/0SioErgYWVx0f2UEWZyY3pVevnC6/iHQMq0HuEAF
+	 NJJJdFvRGLsC8Utu49GmSYQnc+edPr7n8IPt5PMRxUkgsIzA3tilpvr+xtZc6JLViQW2t
+	 xUqgOMFNumo8A3SgM6hVacf+ujxLo2x06N2AILOlHlMsljRMK35E8jWhzlZ9h7sNutQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794602237;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=1y8NVjB34PyHWKL2vr54yws1Tup4C1XdntOkDoibOvc=;
-	b=DU0mYNp/3iE4nvnkgzTKncUFsRYMjO1A9V9oN/gKD2i+MatOrpMp86wzcuaad8E3DN5M
-	 bd4FRDjJsneMBDQ6sYEL2NPQk8WIYoy1LJ1pWHOIT1XBDWDxG+EQCanfeKKaNeZJTSto2
-	 AysOO7WloRznb2hInveVbHPZ9tFTZ6+JJUVeMHwHqcCeOy+3oC+fRw04osAq1c10NzRFN
-	 s3JKGkNjiIdph0uADx45ANTDTBFyDyvnl3TnAh66yQUJid3zJscIMT7+hMBDSCVPtiVYI
-	 +qaPMF9v/bYJIqC+76jCe3Gi0Lr0ZF9pt+Q1dEtuAc974cYawqV4yJqclxwpVqmEGEw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=IS7YJq7a;
-	arc=none smtp.remote-ip=209.85.208.49
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=Q0zmMS95Y2iOsvCJTAiye2FTSJmpfdS8NTIq4CrS7fg=;
+	b=kT7K0tO6gaUwjuAPTCQskvX0tjgQQh5K3pLcVIPa5bgt9+FpbmQ60bHx/E1hbSCi2ors
+	 5KAkAETUuPvgJxDBx/bNfyf4w+YJY74hBnmzZYdiB8oye0fMsv4rYChzU9ykaRFf7doZC
+	 emSkLlv80CblgppJ7cg7/+HPV2y+4jgxuWmBbnPUWH/SgJ19cR6sGe/tYf0F29OkyMXn7
+	 ObvYdTtU8o5KAHISE66gCtyaHpqFgDdEwXRihlFKSYNeG6d4xiSePpggXO3e1YcTLOUGB
+	 4w6wxV/ZllT2LE+e1urxHD84WkucrZMoKOsxbSKsL2lx/ZsoBCOHo/NMqQbU3NQhvSA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ceb14J6a;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B80F0606A32E
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:36:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B80F0606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A929606A32D
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:37:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A929606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=IS7YJq7a
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b7a488a0a4so1968617a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:36:48 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ceb14J6a
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c4395d31228so296542666b.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:37:17 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794602236; cv=none;
+        d=google.com; s=arc-20260327;
+        b=EHzbTUo1evq5lNYuk3PDAGma94LDDmk33nKNOqjSVmtHiS4+4epD4BdmM3b2EbBO5V
+         GGfdhLNaVJWR7Pt5gH4TSOi7M0jic7oqjNeHsgZ6WUw/EKUdjq27bQmisHss53NAceTu
+         dbindt0sHmbZvWAgXpXHJ4tMxm9E43C5p3RLg9FvKjmo0wEG8221U6DpA8jJf8Hx3JQJ
+         zdJGh1Zv4XquXezsBHPwqfK2diV0tigHx29bVLOsR9OEQPEmhQxlW1moViKb1XRWkXMg
+         Z6tikyibNRx4Aay14r5ho8xxK92kWAyk2ZRNiPyi2hQSx4QQwBmglHRKKV4BMPEWxivO
+         88/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=Q0zmMS95Y2iOsvCJTAiye2FTSJmpfdS8NTIq4CrS7fg=;
+        fh=8xWzjrRW1yMnamQZ+UpOhkpLY8YHOjynMQMgDv8HwXk=;
+        b=b6iaoRKRvV1gY9kOJPPOT71SIuGTNbONWAY7Ya+Lg+2vCIuK+w7LhuENgHKcbrDOQr
+         pKm6DHH4bgSDfFY+H/Cd76kNO8Xvs5f/a1+NzydQ7cPqqgWNG+VfbiTgSCvwz49tcu18
+         8Cgg6U8zKg2BUI3PNs0liV8JxoPH2sog+S+u5mJEiVFiwRYKm0jgvYpWtatJ0s+pCCQg
+         j90LWYBK72PgVRMCO6l7HwLyCp/wJcHvDBObvpBmNRMOXzrGU4bKRtsRZQbnJMjwed1f
+         seIKlOPSSlQw/uAHeY1uzOu3hixHyND8jIejHg48NNdhZSWVlR+f3IQS0g6mu/9P7MB6
+         m+Dg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794602207; x=1795207007; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1y8NVjB34PyHWKL2vr54yws1Tup4C1XdntOkDoibOvc=;
-        b=IS7YJq7a4iBtGdKJN4xwUmtpG5AV3XcQbinTVTGHPX9cqnnQEbkcC36NMQa1V6q8S4
-         PhD9IcmC78b+p1V9KBrtmtjgDofAom8B5sfj6ntxu9xZXt6MSCBbP+Ij5Q6VxAI7FnI8
-         ScjpvPYC2fT89Oe8kKttkMAUNSUPD4LW8uXmk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794602207; x=1795207007;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1794602236; x=1795207036; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1y8NVjB34PyHWKL2vr54yws1Tup4C1XdntOkDoibOvc=;
-        b=gHdjbooEKAXE4IsMTlIbC1tCV24tEKt7i8mDsMWgAUdGW7u5JIwj2jt9cMRYRXLmZv
-         6XSVJEJzupouMHNDhAKUxHqF58pvMFyKw62CUyi+diNxaQbbSWs9RnUpMRd696M/2si8
-         jJM6srWWe8F0wNOQlb5Xzj5qleRFWxtn9L4qODUm207ONRbHek06lJvhK6QM3EQM7hrJ
-         hFNHpITabwJmLuC29WmZGHnfTOIK41TOKHyJD+qlucmiwfiup+JNok2dRksosPhV43YE
-         NBGYS9FQe8jKOja6uEgrI5OUwjxpxRyQD2AbD0dh+DaAfVSaBgStEPNArrlzXD4Jx86M
-         IMLQ==
-X-Forwarded-Encrypted: i=1; AL+hErFEFJosSneKlFS9uryeAeVE7Q1S+M1EuRCXoLgjGVo/NSPO5yek9aggwl91gKA/I55n3CQvcaUuN3oIzYQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z88S4iA/ONpQwrAw20yOOzSWsyD3J00/aMjkTBX+6DTVe8Y/AkI
-	drnD1bEy+7kWeWDxDmLzirMFWVKrnDPadsusCW1+e4sRLQxW3A/z81vW2tYWxEPrcW2QDittRuE
-	3vEaconBb
-X-Gm-Gg: AYBFou3QFt01URIadMNwAnEG526nMO7DPm6B71dA/skp0wAarKN8mHBLQhMdVOvUKhV
-	sKasYDHTbsOCqvdASRQKo04YNuqzKfHkgYQQMmnOe+W/e6+EhRRbNFzNgaV2uXLuYL76iJL3RDD
-	9UNrU+El7V7DT9ufYTHxbQNkcIaWGSBSPOZDBS0Epx+Mmk7ftWx8Ng77oJOG5pI8VR0YpS3s4Q7
-	9L3ceBRhKCe6L82mPYT5BdlBjOehaqovcRu2h7yKiMbFckdKAR/zV75cWb3tViAdFLIMQNOhzED
-	lkvq1JO8MLMG0tGvauRi5LbRD9wkjC2jcN+hERFVaikgfyrLH9/ua4Gz3AGZIjnwCdMCYG6O/nc
-	tYBoM1COEIy9GZDUkytkHnriRcN08eWqZbdf5PIkbTKuUa12pT535SzCOrxjMW2Ve1JB4Wj+t6/
-	DKdENx2iXNjjRhMj21Ekc6TqIBQaNd01ZrFUHrFcZlyAOba/Dfr++E0ABdnX/e7uM59E7VRrp63
-	JLwT+aPEeXiXdiUQldK6RwOgHxChGskfIy93Fo1KIzcyFuoUvUW/D7Ok01h+d/zIMaIU2VwsVLt
-	Tm+K9aRFZO7v1USEwCZ4Ot/CHlWb3mWD0fm9JoSUtMlfFobMWAXSphtYnCWUmLiVLHHW
-X-Received: by 2002:aa7:c9ca:0:b0:6b5:911a:f4be with SMTP id 4fb4d7f45d1cf-6b7c0bbe4e3mr2395578a12.13.1794602206963;
-        Fri, 13 Nov 2026 12:36:46 -0800 (PST)
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com. [209.85.128.46])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c23d6ffbsm1377132a12.21.2026.11.13.12.36.43
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 12:36:44 -0800 (PST)
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso19335575e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:36:43 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHNHmwoo6KTxufLPoEi34o6YPNntAJFFnbJbRefSKplEe3+YdA0ijc06mv/4ytTVn62fzJlaWjpdzdqYKI=@vger.kernel.org
-X-Received: by 2002:a05:600d:82c6:b0:4a7:9006:b176 with SMTP id
- 5b1f17b1804b1-4bb55c5f5f5mr89863295e9.7.1794602202883; Fri, 13 Nov 2026
- 12:36:42 -0800 (PST)
+        bh=Q0zmMS95Y2iOsvCJTAiye2FTSJmpfdS8NTIq4CrS7fg=;
+        b=ceb14J6aCiub8PwS3mQUNXCY86BMGZZQN0L1eWWeFCdjdbQZHzYli0Me/XBqFJklt9
+         XX+If23LQbF5WHPiMWO8ua7VpEW7IhWILPW1GW9spI/dcCYFiMts30JmZND/SnlNFFH4
+         S5SPkdaqTj5jyb7Fs7Da96CnEC4YLZ699XdNoh6D30NY4HloKgLGZr78cCGDsb5k4Vko
+         sHZCrPg6/C58dnhlVfWwFyJamWaNhSJmmel16hhiMUjUPh3cynRPiusEyPn+IflD1z8s
+         wDArTtpsxB8ee5rurZ4JN7V5z3m7nGPitzpVn1fcQUF4J4Ko1jIgJqxn8ug812tScxKG
+         M8+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794602236; x=1795207036;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Q0zmMS95Y2iOsvCJTAiye2FTSJmpfdS8NTIq4CrS7fg=;
+        b=0c9hwrvKXAlR25xbQM+1TDgtalmKNGx0mq8PshOId+QLe7fBnNLVCdp4UvgJQNDkfI
+         hHE+0PlZhcE4h9CdPKlnCs5EzoQwIBLXJpytg19H7ZwvbR12aVnv8QezCyg4aoy6bfdY
+         Jx3jrtN+awYtpL+OEg+swQwB4H+ejydR9jA1VgWhIKhmvRHRI/uBryNrYvoVvOf93p35
+         MO48CkuIHuoiOpVi5c2fDposUwNFJAQpanFFJRjJESQvZdl0tee+vYDod9DUFkr/Obfd
+         KFbMVMfGamQe9C7do3CqTKyjSb9lzlpveKM7M6xtj2GplWkhfCn6yvEZrBGtwj6ug0qK
+         jbyQ==
+X-Forwarded-Encrypted: i=1; AL+hErGYPGcXDz6Q5YjYzPFMMLG+xNTsTdc4yPoRkNYnJHI0BZpzDtKaEykKf54IhNCRMGmmT/F7kfWPJznway8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+hhouhLlR/CZ1O5WLOgZ80KNwjT+agg2N0p9LVm6d/PsbjzcAN
+	U6Mu2pPn3sgA6WH2ZNZYil1HU7dXC9vGgpH54N8iX+Pp9Bq8Qv2R/rNB+WbbF3qmVaJqBeJT65D
+	wBdK3l/vGxgIJV/AYysoHdDQHaKiyZv/duaYZSWU6
+X-Gm-Gg: AYBFou0i9+3sE1P2i8VLP0oy2/YpKb1gGMIlaKkBhh5dXa6JezGiqL7oUsf92XnI1d5
+	++3ol+7EBwUxEjoYmbqG31KaxdXbRnAHs9Rdol5U5o+2cTeVhWvPIHlShZS0JlXUW3WEfsPSOt1
+	Yp3Uoc/6rKMUxsYx03lAGtxzSgQosy6WiuGM6OJdV+W8AL3AXXI1/iwg1ar2dR4+OW673WNv/99
+	h3l0kYzrN254HHSHl21JPqRzpeQzDGVLNqKQeHVGSYslGPe30KhjbcMWYzEiL6rvzU2deIYkQIJ
+	Fx9c0pESt7Gx/D1hAhWWaPufynB3qFn7HbRc+MLwdMQ/VqDbsVZOz0kAzMCqcfOkQB+JpJbOZyO
+	CGMKeR8gscwIlSIo8Xq+qYMlyI6FlawyDKuFxOw==
+X-Received: by 2002:a17:906:c14e:b0:c3f:c878:7c1d with SMTP id
+ a640c23a62f3a-c5096307650mr316429966b.9.1794602235243; Fri, 13 Nov 2026
+ 12:37:15 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,70 +103,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261113171540.446-1-_@tawheed.cc>
-In-Reply-To: <20261113171540.446-1-_@tawheed.cc>
-From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 13 Nov 2026 12:36:30 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=UXEDzjuBF8QK0MccAkCB35MUXEoAhzCFgViUr2xtpOMw@mail.gmail.com>
-X-Gm-Features: AclHuK9vk6BRndli2ewuhNI9ERAXzJsRsPjpVZzz0vGOWMoLJS_4XyO0TtIZQ8Q
-Message-ID: <CAD=FV=UXEDzjuBF8QK0MccAkCB35MUXEoAhzCFgViUr2xtpOMw@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/panel-edp: Add LGD LP129WT112684 panel
-To: Tawheed Makhdoomi <_@tawheed.cc>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261113195553.2220562-1-joshwash@google.com>
+In-Reply-To: <20261113195553.2220562-1-joshwash@google.com>
+From: Joshua Washington <joshwash@google.com>
+Date: Fri, 13 Nov 2026 12:37:03 -0800
+X-Gm-Features: AclHuK9ptA2Q7NDGZ-JiCdfTID2_a3zpW-s80Ltd9yW31n9tVs_J6wRqHrbt7_I
+Message-ID: <CALuQH+XPebJ67K9ntdYoruXdLH0tSt7EFkesfd_=3ATNJiQBwQ@mail.gmail.com>
+Subject: Re: [PATCH net] gve: fix checksum state and gso_segs of HW-GRO packets
+To: netdev@vger.kernel.org
+Cc: Harshitha Ramamurthy <hramamurthy@google.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Jordan Rhee <jordanrhee@google.com>, 
+	Ankit Garg <nktgrg@google.com>, Tim Hostetler <thostet@google.com>, 
+	Willem de Bruijn <willemb@google.com>, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Praveen Kaligineedi <pkaligineedi@google.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi,
+This patch is missing my signoff. I will respin, adding the singoff
+and removing the reviewed-by, after the 24 hour period.
 
-On Fri, Nov 13, 2026 at 9:16=E2=80=AFAM Tawheed Makhdoomi <_@tawheed.cc> wr=
-ote:
->
-> Add the LG Display LP129WT112684 12.9" 2880x1920 eDP panel used in the
-> Microsoft Surface Pro X (SQ1). Without this entry the panel is driven
-> with the conservative fallback timings and probe hits the "Unknown
-> panel" WARN.
->
-> I don't have a datasheet for this panel, so the timings are a guess
-> based on similar panels: delay_200_500_e200_d200 is what the other LGD
-> 12.9" panel in the table (0x06b2, LP129WT232166) and most other LGD
-> entries use. With this entry the panel is detected and the display comes
-> up on every one of the 38 boots logged so far on my Surface Pro X (SQ1).
->
-> EDID, read from /sys/class/drm/card1-eDP-1/edid:
->
-> 00 ff ff ff ff ff ff 00 30 e4 55 05 a0 28 09 00
-> 00 1c 01 04 a5 1b 12 78 03 ee 95 a3 54 4c 99 26
-> 0f 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-> 01 01 01 01 01 01 de 8a 40 78 b0 80 37 70 30 20
-> 55 04 12 b7 10 00 00 19 00 00 00 fd 00 1e 3c 00
-> 00 24 04 0a 48 14 14 14 14 00 00 00 00 fe 00 4c
-> 47 44 5f 44 56 31 2e 30 5f 0a 20 20 00 00 00 fe
-> 00 4c 50 31 32 39 57 54 31 31 32 36 38 34 00 41
->
->   Manufacturer: LGD
->   Model: 0x0555
->   Made in: 2018
->   Alphanumeric data strings: 'LGD_DV1.0_', 'LP129WT112684'
->   DTD 1: 2880x1920 60.000 Hz 3:2 (274 mm x 183 mm), pixel clock 355.50 MH=
-z
->
-> Signed-off-by: Tawheed Makhdoomi <_@tawheed.cc>
-> ---
-> Changes in v2:
-> - Include the EDID in the commit message.
-> - Say explicitly that the timings are a guess (no datasheet) and how
->   they were picked, as Doug asked.
-> - v1: https://lore.kernel.org/r/20261112154444.417-1-_@tawheed.cc
->
->  drivers/gpu/drm/panel/panel-edp.c | 1 +
->  1 file changed, 1 insertion(+)
-
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
-
-Pushed to drm-misc-next:
-
-[1/1] drm/panel-edp: Add LGD LP129WT112684 panel
-      commit: fc72cd52fb284f3707fa36a68ea5a22543a51d71
+-- Josh
