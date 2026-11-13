@@ -1,67 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.219
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794558927;
-	b=zISRYiNaeXxEIJ6j1rOct5ZBGFSLY1SCW7QMGDuzMuYxIOBqQf9OJooI3JZWl7y90bqZ
-	 E5f2fKs9O3YtIkuIit6s8vrgL8bzk9kPN409GEH8Wyfd7zc68lzn8bw2ju5gzeE0j95uV
-	 4JMOwC4NXjSa/bekcQgLtP7Gi7sXB1wH7bEFxevyyRor+bR3e8brKfMpciWReb6ZGL/vT
-	 4oSUHr8+A6zT8My4iM6xygMkx2gYhWxmt6AJ4kTOKEY5Gu4uTRWVoyQk5nB+Jf+boPAg1
-	 XIe09i+JokdHJqV1Iz0VjCT4WxSwouKP570ghFjUu+ZdExJtDDDH4TZU6JcDLZ1XtmQ==
+	t=1794558938;
+	b=d8/2E/jpAWgv/0nYVNdybdkR7jhAaeuWgQ3wCGRNVkln1HxU7TGJxHUl6OQfyW+Uvjiq
+	 7dAzX29L7bzGTJvX1eishAAZbPO70/CfDgihkS8yeq9b9NYwxmmnXpztpnkyFEmakWx+U
+	 7zYi8Rm4f9pJjg1nkboTG/PHbaml5M7SFROQT1PosHufCOjyBVN/ukDMkqC3cJh0e/1dT
+	 +KkAPWcxc1t1R3zzugTf9M82lBiDoWrLwYkfBHEPA06qNxxni/DDJ417R4HzqTzido1XK
+	 nIm6i3W6TFJT7FF1ZeL6Fgs2NzKPaQRlG2JsqtssFMFOcBVUQ2T87XCmhKWrRg6c3tg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794558927;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=P041H6z1vzHatZCrDx9Oq3C51UiEWBIWHceYiGp/3Yo=;
-	b=PvupLEuET4SBttx2PRujDfMz1Z2DxWTf03SElXkmXKHWxgJrrnpddVGWy0urt4cu0NuD
-	 9BeLwYhBoafzdRGvBljyREoggVshXiRfBQW/hPjw2FigfuRvQm9OzH9QOKmUnvFwRUYr2
-	 zOZlZ50ql9thJDj8Eir+w0HJZ7DOC1R8Lf7aA92jjBKdS3tAoaP+22qjXS2aUQTMCAjd5
-	 prmynZQ4EO6PvRDibKUuPi4jyzEhJY6sdJjoabpXMlMM1RVMnC9DY6vusUpJwdW29VhD7
-	 hXtNbJ4cMKa/fqo8u54bXRiNBTuX3KlvlPdxG47irbQhwFC8dTx95aEeUu6x8IMzLYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794558938;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:
+	 References:Date:Message-ID:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version;
+	bh=h1CW13lpZYVm0wmdDSJrVvfHw1mdjy5FAwj4xQLmKNs=;
+	b=DpsxGI3OkdX5Ma6ql5tNAlhFRLBAZRv/59T5n4z9i+xX0XsLE8iEncv/aXrGSUppLpfj
+	 w5X2obvdDgviBuDCFFuhjrDYn45mcXQo+L7F4JIj5gbQYvXr8XJi/nkwF4DhbyxESKJZT
+	 jBmONHHXYp+Nsb1jtVfEgXyZJ9pSlsE9GPD4R8S36B26d0bEZPzRR4YbfH2KQMGxW/5e/
+	 eMVTPbwkaOVrI9qe7/jGM0IsFHwWFLg9mfImXTjmi/yjDQpOuS6pUgH3vQWq3Z8I+kHfI
+	 aDzWPF2EeqJIhP7TXE3ggFQ7mUTBuYTkaZRRBCLCGb5LSc7Vdq/n7d/jKpM5CEpZQ9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=PmajVDeD;
-	arc=none smtp.remote-ip=113.46.200.219
-Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
+	dmarc=pass header.from=free.fr;
+	spf=pass smtp.mailfrom=free.fr;
+	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=aH3LPVz6;
+	arc=none smtp.remote-ip=212.27.42.4
+Received: from smtp4-g21.free.fr (smtp4-g21.free.fr [212.27.42.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 556DC606A327
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:35:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 556DC606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D598606A8B6;
+	Fri, 13 Nov 2026 08:35:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D598606A8B6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=PmajVDeD
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=P041H6z1vzHatZCrDx9Oq3C51UiEWBIWHceYiGp/3Yo=;
-	b=PmajVDeDmzyjLDIgPuLZlhfihSY4EZlzpBr00bO9xeepo6A+cePsGPqsS/lsPSy2amQ9VyAYY
-	WaWcspIfdqd8IBRhV+mACUgy/7yYG7RC7CQRd/goL6HJ4dXcWZ9jE263Cldg1O7mqo7uwvEp8u7
-	BkVboGZogokjSG4NI41z2XQ=
-Received: from mail.maildlp.com (unknown [172.19.162.223])
-	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4jQrDG3T94z1prR6;
-	Fri, 13 Nov 2026 16:35:10 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 6091A40575;
-	Fri, 13 Nov 2026 16:35:20 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 13 Nov
- 2026 16:35:19 +0800
-From: tizi4590 <ruanjinjie@huawei.com>
-To: <james.morse@arm.com>, <ben.horgan@arm.com>, <reinette.chatre@intel.com>,
-	<fenghuay@nvidia.com>, <tony.luck@intel.com>, <Dave.Martin@arm.com>,
-	<babu.moger@amd.com>, <will@kernel.org>, <jic23@kernel.org>,
-	<gshan@redhat.com>, <bp@alien8.de>, <x86@kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-CC: <ruanjinjie@huawei.com>
-Subject: [PATCH v2 0/2]  fs/resctrl: Fix two counter ID bugs.
-Date: Fri, 13 Nov 2026 16:35:04 +0800
-Message-ID: <20261113083506.4129060-1-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=aH3LPVz6
+Received: from reply-fuse-freeze-v3.eml (unknown [195.154.25.110])
+	(Authenticated sender: test75@free.fr)
+	by smtp4-g21.free.fr (Postfix) with ESMTPSA id 7636519F744;
+	Fri, 13 Nov 2026 09:35:22 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1794558930;
+	bh=xSHknQ9ZUP7jZdL/cJzlcRIMwVR4CszQSFP2C1kwJ74=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=aH3LPVz6thNZPJqM2Cr1TyDKxdY5idurjG9T1p+j/xi1F3mi8zasW8F/66Ykv0toH
+	 nfkZqSGVfv8OYqGwwTMh7Y63ZwffqbxqLwABBRnHUbnwQb7lJJyR7eSsIu1bTDNeEK
+	 +o41Wo1mjX6q+85SAMppAzs4Dhzpd+4qxvjQFINLZjGN/CbkqwZ00rbUDCgTTrEkpB
+	 BEFiG3M+2GVHLLSu4rfQ814FikOpXxC9FhK+YjS4EnMizv76MKN+ExeMQwytpAIh0E
+	 D2YdhJ8v4yfw98du5KkilGGx8LtcLOrxezgGqtL9W+Ax0pj4Pe1fToizTrxJHSpfBT
+	 Y6V8CcmpceHaw==
+From: test75@free.fr
+To: Miklos Szeredi <miklos@szeredi.hu>
+Cc: Peter Zijlstra <peterz@infradead.org>, Sergey Senozhatsky <senozhatsky@chromium.org>, "Rafael J. Wysocki" <rafael@kernel.org>, fuse-devel@lists.linux.dev, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-pm@vger.kernel.org
+Subject: Re: [PATCH v2] fuse: permit freezing while waiting for request answer
+In-Reply-To: <CAJfpegtv6=40SEsbeVU3RpmjwZSY-FLvCg7mcxf6k7djFZrPHA@mail.gmail.com>
+References: <20260819023542.561653-1-senozhatsky@chromium.org> <20260820084933.GA4036497@noisy.programming.kicks-ass.net> <aobDGgivy43cz7xQ@google.com> <20260820091018.GA4120091@noisy.programming.kicks-ass.net> <aobGRjc7SE1rwIHu@google.com> <20260820093402.GB1837346@noisy.programming.kicks-ass.net> <aobKfyGHkdMcleoc@google.com> <20260820104111.GC1837346@noisy.programming.kicks-ass.net> <CAJfpegsSzOqs1zkhB9GZxsT5HT1zXDbHsZNEbA7P7mxe0w2dng@mail.gmail.com> <20260821083000.GF687043@noisy.programming.kicks-ass.net> <CAJfpegvRw0Emd=2hsEeg3AvYaLgRBUbMdo-=eUMa3FRFfnetgA@mail.gmail.com> <20260821145752.GG687043@noisy.programming.kicks-ass.net> <CAJfpegtv6=40SEsbeVU3RpmjwZSY-FLvCg7mcxf6k7djFZrPHA@mail.gmail.com>
+Date: Fri, 13 Nov 2026 09:33:50 +0100
+Message-ID: <179455883014.1731541.16877509095558539853@free.fr>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,29 +66,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemk200008.china.huawei.com (7.202.194.74)
 
-Use the domain's counter ID for arm mpam driver, and give a monitor
-domain the counters the groups already use
+Hi Miklos,
 
-Changes in v2:
-- Fix the mpam bug in mpam_resctrl.c.
-- Link to v1: https://lore.kernel.org/all/20261106094537.2337188-1-ruanjinjie@huawei.com/
+(Resending in-thread; my first attempt on Oct 23 lost its threading
+headers and missed fuse-devel. Sorry for the noise.)
 
-Jinjie Ruan (2):
-  arm_mpam: resctrl: Use the domain's counter ID
-  fs/resctrl: Give a monitor domain the counters the groups already use
+A field report on the contended case you raised, with one
+data point for the "optionally freezable VFS locks" idea.
 
- drivers/resctrl/mpam_internal.h |  15 ---
- drivers/resctrl/mpam_resctrl.c  | 195 ++++++++++++--------------------
- fs/resctrl/internal.h           |   2 +
- fs/resctrl/monitor.c            | 121 +++++++++++++++++++-
- fs/resctrl/rdtgroup.c           |   4 +
- 5 files changed, 196 insertions(+), 141 deletions(-)
+Setup: Ubuntu 26.04, 7.0.0-38-generic, Framework 13 (AMD, s2idle),
+systemd 259, rclone 1.60 FUSE mounts (Google Drive, SMB, SFTP).
 
--- 
-2.34.1
+On lid close, a gvfs backend thread was in statx() on an rclone mount.
+The rclone server was not frozen. It was waiting on the network, and
+NetworkManager takes the Wi-Fi down as part of the sleep sequence, so
+the request never completed (the same hidden dependency as the
+sshfs/ssh example upthread). With the lid closed, logind retried every
+~100 s for 6 hours, about 210 failed cycles:
 
+  Freezing user space processes failed after 20.003 seconds (3 tasks refusing to freeze, wq_busy=0):
+  task:pool-906  state:D  pid:153003 tgid:6222 ppid:4922
+   request_wait_answer+0xd8/0x280
+   __fuse_simple_request+0x11f/0x370
+   fuse_lookup_name+0xd6/0x260
+   fuse_lookup+0x9d/0x1e0
+   __lookup_slow+0x86/0x150
+   lookup_slow+0x3c/0x60
+   link_path_walk+0x348/0x410
+   path_lookupat / filename_lookup / vfs_statx / do_statx
+  task:pool-907  state:D  pid:171158 tgid:6222 ppid:4922
+   request_wait_answer+0xd8/0x280
+   __fuse_simple_request+0x11f/0x370
+   fuse_dentry_revalidate+0x146/0x410
+   lookup_fast+0x15c/0x170
+   link_path_walk / ... / do_statx
+  task:pool-908  state:D  pid:197388 tgid:6222 ppid:4922
+   d_alloc_parallel+0x37b/0x460
+   __lookup_slow+0x5d/0x150
+   lookup_slow+0x3c/0x60
+   link_path_walk / ... / do_statx
+
+pool-906 and pool-907 would be covered by v2. pool-906 holds the
+parent's i_rwsem shared at freeze time, which is your contended case.
+
+pool-908 is the one I wanted to point out. It does not wait on
+i_rwsem: it waits in d_alloc_parallel() for the in-lookup dentry
+owned by pool-906, and as far as I can tell d_wait_lookup() sleeps
+TASK_UNINTERRUPTIBLE. So making i_rwsem and s_vfs_rename_mutex
+freezable for fuse would still leave this suspend failing; the
+in-lookup wait would need the same treatment.
+
+This pattern looks common on desktops: indexers and trash/thumbnail
+daemons stat the same directory from several threads. The same
+signature appears 1,000+ times in this machine's journal since April
+(gvfsd-trash, localsearch-extractor as clients). Full logs available
+on request, and I am happy to test patches on this machine.
+
+Thanks,
+Phil
