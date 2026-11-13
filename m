@@ -1,88 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794596866;
-	b=R0CLbbgEMl7Gp+iyaufWRgQoGM0iInIMlbn3FniTCqsYj/FtJU2Vq1402ndmmhWJfuIb
-	 BKndyFnMQeEUjXfJGtW9049no7dn8g3/YLW4GdOm4ExcVLMzIVBMutViq0fMoY85epy1E
-	 MXdeaG0ofst6GpMZP+WoC6q9Sdcxv0uMJwkKtpNkNXXrhmlRmLT/h4n8IDWn1URR75emK
-	 4Bu3TyXCNIt9gRJzvbP38hPkAer3kbc6xpkyjkX758EpqochM+WkdqLdUpSQMLhZIta5b
-	 JyRHAjJGoNNA+0zYddc8CX64kQnDKfErxaggU34WDpsD40zyVEEwo9UbNdaK7PdRg6Q==
+	t=1794596864;
+	b=s28pIPN1HXE59oZD0ibB6EMQqO6cDR4K5skA7NMh+c99KVQV/uOzCkgYkmyi9WXvTdwH
+	 gBVhi/Nh+XaVGWCsUYBnfsqdj2Ov+xLg/XkYOrMzkMP3p51lhSVkKnKHNt65/IwUvM/8o
+	 FBJN8s/WE7F7gjOxr3B/kFMVZ3drfjMP7mFe0cwdOhmn7qmJY7COzKF0pWWoY96gO7KpW
+	 tauKJ3Zf1jD+/vL0d0V+XQQX4Fh62WPLf1HC71w0HgampUzw1G9sw17oqhl5vvV8bgw+w
+	 QXQ7QpUINqhFrezo9MLHPfs7p9Dr8mxFXQKdKmzwVmmpBu44/F179oTMH2O1ORcaEww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794596866;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=X0kISij2dA5dG+ZLDMffjTugHXeo/ScalkLGjjtZzlg=;
-	b=p1L1v2y03RccS8DnMfZLGUP5ezXaxb3qxmPgZ6zxv7ORvVSjqUm3md7g9hgL7NrEzWBa
-	 neWgFacGf33O6zbHqeMM3HvWu8ppKIhj2ZOkLJowy8OXg9b0SQ7Vro2PTiMIsobCMlyUp
-	 NgMkrXPO/Ri7r53s+4GYWmN23dqf2Wr1rmtRG5FWUaxodAqr7Bds+t/WtOizsSu4Hfq8X
-	 MKYW5LJE8/PpyXVRBho3FUG4Jtb65414KPaMLxs+NBJ/HswBBO8HxYGLzCO+GJTCaTFO6
-	 0hMBCWAra2A3GQqh5T9zvgjZxQcw9xMbqOgf8USIJvb2qgYq9d0/rsK01oy//YZVMYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794596864;
+	h=DMARC-Filter:Message-ID:DKIM-Signature:DKIM-Signature:Subject:From:
+	 To:Cc:Date:In-Reply-To:References:Organization:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=HUWxRSNQt/U1xRTYDTiSTmQlq8PC+DwLe0ilelIqGno=;
+	b=EXaDixNTww0+yCw6p30cEQMAJZnQhpPTy06YTZUl4ReP3krn2Vc3kYbZeqeBMbWWiyre
+	 Z8RpY158ie/PCdkE8DiZzTIGyioWoGtOqo1V3IxP2p1W9/GvYfgbqd1z1/eDRLl+sk3Pv
+	 97uwf0fJmz1/dhNDJHi8dhW5wG+AmeQW/0wFvXT8zsUZeALsR82coqQozYlY41pk/PaLm
+	 GWqUlYljTvVHOakdBhRYsrym027j8AJitDKjwAD2pZF8sNbKFYHw5kws+HYSkiuWWacfn
+	 lpG5U8156X4PCWL8J7+XW+dXhQvEBcYUPhD5H6b6FxFtpNdJ6Iz0PTK9SWkmaaI4eUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Vm6v1RTE;
-	arc=none smtp.remote-ip=209.85.218.47
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=WYY41mQK;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=VWpC1hAE;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9C3E606A8A4
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:07:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9C3E606A8A4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6087606A32E;
+	Fri, 13 Nov 2026 19:07:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6087606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Vm6v1RTE
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c468bd799ecso247793266b.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:07:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794596864; x=1795201664; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=X0kISij2dA5dG+ZLDMffjTugHXeo/ScalkLGjjtZzlg=;
-        b=Vm6v1RTEA4FWJq25ASY1lb5MR5BgXMe4qoAyAKawSq9cDnRLqH/msUZtMegpu8mO31
-         3alveRSeEqOlea3xa03rZSdDRmVsFWBqx0LvtXUYw2yHjLyfgd/DRtnPA2Kv33PBvdzq
-         6/D04/Ychb3xeD7h2lFwdXVW9kehjlwqs6tQqZ6ir45YeFHjeC9p+tqjQCCzhCBM80Gc
-         dDUSPmVKWoIld4xsa0FObxQKQoUQqEjgaxbgyLvcnnwHmjG7pd8skw7SxHTHjtYmY7Vu
-         m8wlHEZ/BrlQKb0qUoRYpWhitGlL0IDd03p5YchHAQXI015wKWpYldCg/LZsRoMg6eGb
-         Q1Og==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794596864; x=1795201664;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=X0kISij2dA5dG+ZLDMffjTugHXeo/ScalkLGjjtZzlg=;
-        b=17+xQWyMGsgLqB/W5PjzXdzP5TZDaH7fNddcREc9Q4Ia47yf3ahiXsoHwLfnlKDCmf
-         1jN2DBh6bJZPCtC0bJY87OtVZAKOue8ERxMHx+O0LVOsm4wgSdC2Hp1n5mG8KjNnjXPR
-         gL2hEY4cyffuT7Dmijgfove2NhllYIymSRGgw7MMvYDiG2oqAtyYtUoecnidJXoO+pAG
-         hiYK1LgSgOwo2gjzvRTOP3Oeki/jw5sTc2vtWN7ccSCjrvYD3j9nHcVxyEs0kxdIJWc/
-         UXnioucenkaUQoJvdWIo12DecqO7xUc4d5q2MRuXx734rcS9aLDDuWESm/qWCaV14sLh
-         20ZQ==
-X-Forwarded-Encrypted: i=1; AL+hErEi90sqROLzirPPYQXNimDoIn4PgED0qijJ84wcG7NaMp85i8za4bcWZc4KiA3qiRcfiQ4BbHhQOw82Mu8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+MBqAWfoonGlqiNbh9ZAIIi104i6ULaHV/kGs3pM49Iv4D/COE
-	yJ8Uf6JE4hzRxCIlBVc9ogq9fSjsWPCmq/NzYiGKCFagC91KoeiJRJ07
-X-Gm-Gg: AYBFou1teXRSH5N1SVYhTCceEUBt0eZets7yGZ2E2qFLd/sNipftusATufUtkMjrE23
-	sSCS5JJJNLdsdnlUWKcoBGfQ9Qv62UitTlQiiAFrV1UHWQSV2TBJmzBkObG+8L4LcBvQUnnoHbU
-	DGODvG4NfvhqHx1ueF+EjYvj5fXym5Mu6SrNzx4Q4+i9Nz5M8oHqyMnONp4TD+4zBsjryOUjpFh
-	n5VrR8dhOPKVIYgvFnGsDTyBISlvjASctxKD2PflfOftWmeEu7fvIS1b/ywfXkZB1lWTgovSFZA
-	LAz4tN0TQN8eueJXuZozX0eVpxyiR9mZcAixBKh5mjqCLPtHNhCce9r7CwKTKaTel9l4E64aTBQ
-	fRcUkPB+Kd+TnMm6YlIw6RiSYLrzELb41oatEQrItxkLo0Ri+JQ8+1gWXTtlnEUjuOZkR/ydr3L
-	ndiZOggjhGW7iUsCQ09YSVxOWSowz0vTFCqzbpXV2PZf82ZrqraEWj0sWUO7XnaZDc97u4cTvMI
-	sGWbTV5hSF6eIfyaQWVqaobAHA4RJHguyKA3JL9NrD4LW4G8vUph9GN81ItNFBowiYP7puxYsVy
-	Rhv+AQ931A9yNOctue1Y4fwMDp37LMYghz0cHIr6JDgA841ryZC+AKnMMaXRyLOv
-X-Received: by 2002:a17:907:9305:b0:c2e:4e08:19ab with SMTP id a640c23a62f3a-c50963d50e5mr310340266b.16.1794596864130;
-        Fri, 13 Nov 2026 11:07:44 -0800 (PST)
-Received: from [192.168.1.100] ([163.245.50.16])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b23b09sm129444166b.26.2026.11.13.11.07.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 11:07:43 -0800 (PST)
-From: Alexander Letuchiy <asalde.le1@gmail.com>
-Date: Fri, 13 Nov 2026 22:04:57 +0300
-Subject: [PATCH v2 1/9] dt-bindings: arm: mediatek: Add MT6895 and Xiaomi
- Poco X4 GT
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=WYY41mQK;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=VWpC1hAE
+Message-ID: <fe5b70739f9263e651562f6ed295b05e53f59704.camel@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794596862;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HUWxRSNQt/U1xRTYDTiSTmQlq8PC+DwLe0ilelIqGno=;
+	b=WYY41mQK698YIIT7dHjzOuGnuiulRvHQvF8ybAKAT6Edkrsecfky9I0j2UclWLMsCkFS2G
+	dqQXSYFv3OAmBN6ysOLvObOka/o4KrJDzj/R1U7dVGWuS61zGFkfEXjZay2IkMLRy+unFX
+	98Zdh9U3lQSr9BeKN/IrQFNvDIsa9xcchjPN6/Qkg34i7+a7CaHkOkwFGRN9su4RiCx9rG
+	snuI3vprqG+2UPNqSHJO4tqrv7TSHlBPZlN+CUPExY+8xx9oW1p6hBGdsgG3e7a4awjChG
+	v/0A+Z7euBpW6GClwy/sIs+Q0m0uZcPqDehRxtM/L3W8xhMrhPymqC0OGv+h7A==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794596862;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HUWxRSNQt/U1xRTYDTiSTmQlq8PC+DwLe0ilelIqGno=;
+	b=VWpC1hAEBti0QIMScZND8VCicAOhC9dLpzAYpryeEac6v6pvfVqQYoSoWn9ZTRM9xjLcoW
+	tclGxiPB+xfCSqDA==
+Subject: Re: [PATCH net-next v4 3/8] dt-bindings: net: dsa: Add SoC-e SWIP
+ switch function
+From: Vasilij Strassheim <v.strassheim@linutronix.de>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, Vladimir
+ Oltean <olteanv@gmail.com>,  "David S. Miller" <davem@davemloft.net>, Jakub
+ Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+ <horms@kernel.org>, Russell King <linux@armlinux.org.uk>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, Eric
+ Dumazet <edumazet@kernel.org>, Lee Jones <lee@kernel.org>,
+ devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, mfd@lists.linux.dev,  Martin Kaistra
+ <martin.kaistra@linutronix.de>, Benedikt Spranger <b.spranger@linutronix.de>
+Date: Fri, 13 Nov 2026 20:07:41 +0100
+In-Reply-To: <20261112-unselfish-congenial-waxbill-c7f9e3@quoll>
+References: 
+	<20261105-devel-vstrassheim-soce-dsa-ml-v4-0-02f3cde2afa1@linutronix.de>
+	 <20261105-devel-vstrassheim-soce-dsa-ml-v4-3-02f3cde2afa1@linutronix.de>
+	 <20261112-unselfish-congenial-waxbill-c7f9e3@quoll>
+Organization: Linutronix GmbH
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,60 +89,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-initial-mt6895-v2-1-4ab0aa9fa391@gmail.com>
-References: <20261113-initial-mt6895-v2-0-4ab0aa9fa391@gmail.com>
-In-Reply-To: <20261113-initial-mt6895-v2-0-4ab0aa9fa391@gmail.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Sean Wang <sean.wang@mediatek.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, 
- Wim Van Sebroeck <wim@linux-watchdog.org>, 
- Guenter Roeck <linux@roeck-us.net>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, 
- Mattijs Korpershoek <mkorpershoek@kernel.org>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Kees Cook <kees@kernel.org>, 
- Tony Luck <tony.luck@intel.com>, 
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- linux-serial@vger.kernel.org, linux-watchdog@vger.kernel.org, 
- linux-input@vger.kernel.org, phone-devel@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Alexander Letuchiy <asalde.le1@gmail.com>
-X-Mailer: b4 0.15.2
 
-Add the compatible for the MediaTek MT6895 (Dimensity 8000/8100) SoC,
-along with the Xiaomi xaga board based on it, which is sold as Xiaomi
-Poco X4 GT, Redmi Note 11T Pro/Pro+ and Redmi K50i.
+On Thu, 2026-11-12 at 11:33 +0100, Krzysztof Kozlowski wrote:
+> On Thu, Nov 05, 2026 at 03:16:47PM +0100, Vasilij Strassheim wrote:
+> > Add a binding for the Ethernet switch function integrated into SoC-e
+> > SWIP cores.
+> >=20
+> > Signed-off-by: Vasilij Strassheim <v.strassheim@linutronix.de>
+> > ---
+> >  .../bindings/net/dsa/soce,swip-switch.yaml         | 96 ++++++++++++++=
+++++++++
+> >  1 file changed, 96 insertions(+)
+> >=20
+> > diff --git a/Documentation/devicetree/bindings/net/dsa/soce,swip-switch=
+.yaml b/Documentation/devicetree/bindings/net/dsa/soce,swip-switch.yaml
+> > new file mode 100644
+> > index 000000000000..daac779c466d
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/net/dsa/soce,swip-switch.yaml
+> > @@ -0,0 +1,96 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/net/dsa/soce,swip-switch.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: SoC-e SWIP FPGA Ethernet switch function
+> > +
+> > +maintainers:
+> > +  - Vasilij Strassheim <v.strassheim@linutronix.de>
+> > +
+> > +description:
+> > +  Ethernet switch function of the SoC-e Switch IP (SWIP) FPGA core. Th=
+e port
+> > +  count and presence of VLAN and STP register blocks depend on the FPG=
+A
+> > +  synthesis configuration.
+> > +
+> > +$ref: dsa.yaml#/$defs/ethernet-ports
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: soce,swip-switch-00-04-0c-10
+> > +    description:
+> > +      This compatible identifies the register layout; its suffix gives
+> > +      the offsets of the core version and feature identification
+> > +      registers (0x00, 0x04, 0x0c, and 0x10). Port counts and optional
+> > +      features depend on the FPGA synthesis configuration and are
+> > +      detected at runtime using this register layout.
+> > +
+> > +  reg: false
+> > +
+> > +  reg-names: false
+>=20
+> I don't get why do you need these two above?
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Alexander Letuchiy <asalde.le1@gmail.com>
----
- Documentation/devicetree/bindings/arm/mediatek.yaml | 4 ++++
- 1 file changed, 4 insertions(+)
+They are redundant here. I will remove/fix them as part of the binding
+update once we have agreed on whether to keep the MFD model.
 
-diff --git a/Documentation/devicetree/bindings/arm/mediatek.yaml b/Documentation/devicetree/bindings/arm/mediatek.yaml
-index 180e6e4948e7..28180ed0e815 100644
---- a/Documentation/devicetree/bindings/arm/mediatek.yaml
-+++ b/Documentation/devicetree/bindings/arm/mediatek.yaml
-@@ -72,6 +72,10 @@ properties:
-               - archermind,mt6797-x20-dev
-               - mediatek,mt6797-evb
-           - const: mediatek,mt6797
-+      - items:
-+          - enum:
-+              - xiaomi,xaga
-+          - const: mediatek,mt6895
-       - items:
-           - enum:
-               - bananapi,bpi-r64
+>=20
+> > +
+> > +  ethernet-ports:
+> > +    type: object
+> > +    patternProperties:
+> > +      '^ethernet-port@[0-9a-f]+$':
+> > +        type: object
+> > +
+> > +        properties:
+> > +          reg:
+> > +            maximum: 30
+> > +            description: Switch port index, from 0 through 30.
+> > +
+> > +          phy-mode:
+> > +            enum:
+> > +              - mii
+> > +              - gmii
+> > +              - rmii
+> > +              - rgmii
+> > +              - rgmii-id
+> > +              - rgmii-rxid
+> > +              - rgmii-txid
+> > +
+> > +        required:
+> > +          - reg
+> > +          - phy-mode
+>=20
+> Best regards,
+> Krzysztof
+>=20
 
--- 
-2.56.0
+Thanks,
+Vasilij
 
+pw-bot: changes-requested
