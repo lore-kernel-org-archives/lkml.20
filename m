@@ -1,103 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794581850;
-	b=Ju41hj4wPxwDb2AZft7DJXBgZ2lMx0tqqXShoQ9gSiDm9jiRhGb3wfbVU6EELAnQ6E6k
-	 glj8sHwzoCQa+MQRT1FhSpUi9PvnVADqDRcWs7Dp9Rs9A6ff0OtHLZX3lit9u4TRsKJoB
-	 MvMUDPkJ5B65yxZ7zBsK+MVz6rnre4vU7yLNZx7oO2vv7QHMmjFMluhWHhDJi/NDTSm9c
-	 b6oTF9JrfsqrEB0eFqi2pWPgdlsHl2Hy0VTG5up9SnUfBxgwvyGxB3OAAXQbCMUalAfCE
-	 6IwrvNPsUOj1GYKcaydQVIrCxpumQqpUEzDRlQzALSnW0cfPUkywRm/1+QpMkLXmWqg==
+	t=1794581875;
+	b=OFX7cRRMltAUsWz76A8M/EzH+1zSMwzDIpOVZdWJ1rv8S5L+nAqVZfiikmUmvc+ZMvDq
+	 SfKhmgxl1HKLq4RXkeEvzPBj44QsPql+xaLWocmQQ13fdfkhTsgvQeS+brXxqgyran8F8
+	 WTsxT4RzZUytPBZSsxhRZ1qgEeu3AmDpW/6Rgf1SiY0ye5LLF6HYqoNzJqvwkzA8P4SqM
+	 JUE1QOd/xS510ivqyesMD4cawwAHvuLVd14qz77Hubc8bjJofBCoiSwmEnOV3g4CIMaOi
+	 C7c3EgEd7IkPJ03Y1ekvq99uEqMY4jefPwl60akUQhcIgoYs+es9l9Q8aj4TEgx9OHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794581850;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=lZnQS5vzjGFgkIk1Rz40qxA1rsbMTGKx4DvpvdhHSZU=;
-	b=dcsgvBuXKN9va63hMaiNH2Hv/tT3sObiofxA6Am4PbTtKsZhQaQv+1Zwee/zQTd2TL1Y
-	 wVVgi1bWCyiW+Ib2bufhPIsQy4RqGQA+EAKxgUc0D6BhVpEK++pydTLSGBGpnAYeRsfYT
-	 QIru3syTWK3FDmncAg75SuoK9gaFuucclrGscOEMH12y3eFcZjnR+I+CYmAholJ6NpMV4
-	 IVEmx7LzB0uz46CCaDBCg5zt7Mnk16bPHac24LWO+Q1FVUOYjqE13MYSPPr/phPCCZDKo
-	 1tiNDn49R72WrEw2Yj8C45dI8ITUv7icwyZ4hAZM95GaPXRW5j18zb2gpCKZl0+Plfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794581875;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=MNEGNx8Nxxbr//T9ff/bwvhh07TTp18CTfVVXdbjar4=;
+	b=jX/m1lchOYhzVOEhZVehjMc24a5sGOoIWIDp/raNxba0f8MoTFZlkLY4Bfmvz4OjOxIC
+	 f4Kgg/xEGKg9m263lEd8PGC7LRa5RRmBwEGYl71X/C8kPln/+Vt5mqXghzi39uhIZ/lD1
+	 hy0yyAlOJZNpyOTMyg0kdktcbh1toVlqzYfC6YTLZ3+7/zrX7rkpLZgoGVvhr1eKCJ74d
+	 WX9YRibU4F8oxZ6/lQpEDhXR9UDLCZ7Om51EQSjHOtSA8dYNfuXQkQ6bsmhEYOP8XMSHq
+	 ekkt/W1H8JB/w2N1hacghMge254g4RemH1zXyqyDSViT7cu3SZve3PiZ/GbbxarLwGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=K9CSmkJY;
-	arc=none smtp.remote-ip=209.85.218.42
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KaNa+Mkn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8E35606A33B
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:57:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8E35606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA1F6606A330;
+	Fri, 13 Nov 2026 14:57:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=K9CSmkJY
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c50a2efbe1dso180423366b.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:57:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794581848; x=1795186648; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lZnQS5vzjGFgkIk1Rz40qxA1rsbMTGKx4DvpvdhHSZU=;
-        b=K9CSmkJYNmtAbvWCYPrP+SDpZMQQ0xdsPYXo8PsLi7q0i7Is28YK2oObjdZIdIT9Hy
-         oUZeGt2AyBbZItYfe9wK+vYDeM1J8WQInwUA6ANAfPmVZ6W3eHYOh2uFtetiapb8VA7z
-         2hJQEzbUki2GkUe54rvHxcY47jRM7YZ9kawcYDZpTB1ajp4LEuTAmkgk6NQg2C0JRwhT
-         FJuYRGnfvm0iGRi94tXz55orMhZs2oscRwq261Ud/F+R9cedJFud5B4MJ3u8ZUVekYRC
-         XXw54HRwFyv2zeglylezSoT/W0SPhglx0UvxuGoBYFkIqAwretjToNI1b3jjRZTQzKP5
-         Wdog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794581848; x=1795186648;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lZnQS5vzjGFgkIk1Rz40qxA1rsbMTGKx4DvpvdhHSZU=;
-        b=IwUCewDRXUmcKUU3wt+kjktDoCQjF/eg47+b0UWwmSwX2C7F6Fx98lyQJleGNiuJj8
-         QnqZ1QsmHAd1ekUWiiJPD+r6ZugHyWRIYBX2SF7+lXCE/k/tFFyB6HwL82lbsiGO9b4b
-         N+yvfiFwHTSnmVMuwFZqI1INozNgZy3/d9wuqE/Xe212HnvR0Ov5Vqf/bZm6wjuYq+TN
-         803uva1/sd2lIx1xbkT1N1tTvtbdR+EeYhUcWaYU1zqBWZ+veSc/YZuQ0zgQnKlRZrEw
-         17n9edUU38lW030Oa++udoUZs5q3KBfqOs4lVHmQPd6ArNWtmWohrOt4Bt2hMSXcS7yK
-         KHHA==
-X-Forwarded-Encrypted: i=1; AL+hErF0jzJFWk9xuA5zcpqZD2V2R9qSLXi6bIED91b5F3odSxg2vJZ/Y6ULTwEJPxz+nFg3K65OoCL57egKQmY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8axzhJsGHo7bKShltqf/vKlFXKeg2z1cnmdMdxOsL3O/wXD8bn
-	UMqLcs0w0fDUzzuuW+4hNst6sERga5Q5c/OUOFPo9jiB9AG7JINuXJ4g
-X-Gm-Gg: AYBFou0NwxNv05JwHRUBVGA45iTdE7cDixhPjO9QfuwnFkFEhjgaAcln2w81JJsMa02
-	NR5Db5fQ3QW30Xkt0wI0Zj4/cPVpC0ffBApl6DVKz9yiU71vRY+oJ0rmYYZkIEMExHg73CBO8Qy
-	TmtxB9I+bsfSNtqf4mhZKWMbcl1nGJ2ZdgdZXS5FppqXYeL3mE/9OwDRNEStevkHKyHldAy9p3I
-	v3RzyOX9k0vtfyDhkt6XAqy3OpLP8T4ly537LbxcbAB00de2rpPebb2qNgv8LviN6Pw8u0WXTE2
-	3g4BAgoS3EgNXrjQVWYn+NXcWHgA/z7GqwAbSNbEcOk8AqFx1/b4d5bRoesi0Rf/4G8ISUkgbr9
-	hrIolRDepCzUHmSDUUkrVzqKya/Pz8gzrIfoZW0xtIjxmy8wDVAGQahNfxaDhTxCC3XfxlQjJ/R
-	J2+42BFxJEkF26mi1omMxFP2EmSwmY6rTG6reuz7LVk9dOFg1/BXlL+hQDDN9J0oeVXLKgpwUvo
-	7xp81kEZw8hXFQ+nak8l2K6tRoFcoDlGLpU+YDt9NIrJoFiySTn3K5pc/ED11wLNb0OhgRCQ1md
-	eI0t6ZmBX2eUsWbcJJkHWfBOthBzEnSwCCh2HRjsU6e/nOvYaMSk7bjp00KQX12u9BlZALDbK4y
-	d9V+WLgzYQUwhi9zsvo5RL+nyMIOY8KOb
-X-Received: by 2002:a17:907:3d51:b0:c34:c5e8:1dc5 with SMTP id a640c23a62f3a-c5096312247mr256633166b.20.1794581848001;
-        Fri, 13 Nov 2026 06:57:28 -0800 (PST)
-Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b2369asm109937066b.25.2026.11.13.06.57.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 06:57:27 -0800 (PST)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Prashant Gaikwad <pgaikwad@nvidia.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: linux-clk@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH v1 0/2] clk: tegra114: Add CSI pad clock gates
-Date: Fri, 13 Nov 2026 16:57:06 +0200
-Message-ID: <20261113145708.261530-1-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KaNa+Mkn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 871CF1F000C4;
+	Fri, 13 Nov 2026 14:57:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794581875;
+	bh=MNEGNx8Nxxbr//T9ff/bwvhh07TTp18CTfVVXdbjar4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=KaNa+MknasCg7079/xexkYZRSd4mlzXTBjFK5ZW8m6/qvxqs3I+Cefo+Hfbertz3p
+	 ilPgR7qZO30ErQCa2xGXhfk9Gh/awpXX8ViFvj+OAwgIHhW6euA+w9NSoHZJChp6Uc
+	 nW1l74Bm3mvv/Ro4uMaFlhTJWo3yZgWH25pqMpQxl4tz5QKEgLFIOrIi+fJ5DYGxcY
+	 TY/Ejv68yxscP09zCt1OIbg77V0OyoR5NrSXyXBrBSkdYjVoG8iU/Kvbqt+iuFquQG
+	 HNKrK451BuPm21Ns0xN3oM8L+zatjlxjMTlVnxLYQBA2D6fXGRfEi+I7E+q6sP2BMa
+	 nxMB1dByzDZYg==
+Message-ID: <cdde4ee5-930c-4982-ac79-ac52570c37e9@kernel.org>
+Date: Fri, 13 Nov 2026 15:57:49 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,22 +51,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCHv3 2/4] dt-bindings: edac: altera: agilex5: document new
+ edac support
+To: Dinh Nguyen <dinguyen@kernel.org>
+Cc: bp@alien8.de, tony.luck@intel.com, rounakdas2025@gmail.com,
+ niravkumar.l.rabara@altera.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, linux-edac@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20261112215342.2476801-1-dinguyen@kernel.org>
+ <20261112215342.2476801-2-dinguyen@kernel.org>
+ <20261113-laughing-crouching-hawk-5bccca@quoll>
+ <2440a2e6-5d06-4642-b722-ac3baf5b8097@kernel.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <2440a2e6-5d06-4642-b722-ac3baf5b8097@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Tegra114 has CSI pad bits in both PLLD and PLLD2 clocks that are required
-for the correct work of the CSI block. Add CSI pad A and pad B clock gates
-with PLLD/PLLD2 parents, respectively.
+On 13/11/2026 14:29, Dinh Nguyen wrote:
+> Hi Krzysztof,
+> 
+> On 11/13/26 02:18, Krzysztof Kozlowski wrote:
+>> On Thu, Nov 12, 2026 at 03:53:40PM -0600, Dinh Nguyen wrote:
+>>> +  - if:
+>>> +      properties:
+>>> +        compatible:
+>>> +          contains:
+>>> +            const: altr,socfpga-agilex5-ecc-manager
+>>> +    then:
+>>> +      properties:
+>>> +        interrupts:
+>>> +          minItems: 1
+>>> +          maxItems: 7
+>>
+>> Why is this flexible? Wasn't before and changelog explains nothing.
+>>
+> Sorry, but I'm having difficulty understanding your comment here. 
+> Doesn't the minItems as 1 specify that the 
+> "altr,socfpga-agilex5-ecc-manager" must have at least 1 interrupts 
+> specified, and up to 7?
+> 
+> My changelog also specifies "up to 7 named interrupts".
 
-This change is similar to Tegra30 pad clocks and is required for CSI block.
+So is my question: why is this number flexible?
 
-Svyatoslav Ryhel (2):
-  dt-bindings: clock: tegra114: Add IDs for CSI pad clocks
-  clk: tegra114: Add CSI pad clock gates
-
- drivers/clk/tegra/clk-tegra114.c         | 11 +++++++++++
- include/dt-bindings/clock/tegra114-car.h |  3 ++-
- 2 files changed, 13 insertions(+), 1 deletion(-)
-
--- 
-2.53.0
-
+Best regards,
+Krzysztof
