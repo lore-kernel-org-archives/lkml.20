@@ -1,57 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794592834;
-	b=Z2NfqQ0D6q9ryP4z6zMdkztqKVtDA7FQF1dpJ/1jbuK1ZY3xGCwuGqCWOpuwC7qD/M50
-	 4ksshtG6AzdyPOAxhKaVYaDnFIdPC9Ii6dlhGKIaJN1ERSdgDggNItMox9SOzdk9KJqG+
-	 rmDkXiNxL8k8O4Pq8iCh0vzAWMByaJIFwyXhG8ASc2Y7tuNSmQ+urnqgw7jnGoXMBswVN
-	 5tFjPFEt4dNtucPjgYZtszW0lcbnmD+zNxN4p/sGUmBLsXOBOG1J+mHumGCVmvtfkhekO
-	 Gh7NW3N7Xs2fszbnliBPn0VJZ6Q0mA3esQmwkA7F3nhPaBrCbfdfgOsMbt1iKYOdBpw==
+	b=bL97WmDUHIqnXrQ0H87OIPx3lx154ORGa2yqwYn79FfvsZ/GmfELMDaDznka0Rv4KVr4
+	 kviHA+/7C7VZ0KyNp/uZrQcSUPdXAml9g8FXknAO3WUSNsdZ0tIIj4uQHU1K/qvIHCqHM
+	 tAwE3hKYq9nBiemxpPsYV6pyv6cfmisV70E2IA/zk2IIn4UixHDN00Vq+QWt0mDliOOpF
+	 IqT/brl1oIVmLF99foOCvE90qOIMfwM1Okvve0B8yMCebhc2iFypt2OVY7JZwPt2DZZHv
+	 Y06ZsjqpnvvS7clsvNq1VlQTe05h8ATmMeQF7Jm2ZFAinM0pzr1CZYEmZMkJnBwULgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794592834;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Tw0lREbHvrQFePK47mNtizeFz33aFjFULtXTtRVDf8E=;
-	b=NKlPXegZ4E85AdIImdoaJrfo2haTNCn7LqBPZuG42jFzPqceWBR4+PvqX5f05vgN6c7v
-	 RIFedawISy5Sqvr8Q4EcTqlg/s9LW7m4q/hJwhmJ0c66MUGT7c0sQVJSxs+dqs3xEEBCK
-	 nNI0OHYQPqDOKojTgZ88IMQnT/vPGQ13Nc0zhtJ3EOTV7dppa+yl3h9xHLwnqalL+88rI
-	 YGY5+HTtJJirO0cyOHsPg2TM1L2Dx0Gud8NtimXprrInzqeoGOE8p8LHzkoJYPxqwJz1x
-	 6DXS2FzX7jfNQA75UCXS36zorMPwUtqq6KVfMvkqf8vNRCfymQ6+6OIJu7hBibRzmDg==
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=wffAUGeXkpM9DBN00xj3RLADzpErFXu9VnwWWNZmffA=;
+	b=xu6/Wdl6vyfEh3Spc+rvYb2nWbxXMGS8nzWE/6UpOuwbneg8VBDPjTrWEoxptuOvdhv9
+	 7PfR0aTP9JdVfVsTXJ7Oaw96g30cxcLpU9H2u1/e/O+/xSUajQK2r6lkRUvFzeETLPSrr
+	 5q8xaPOtYbut6Ur5zNInjfEWm6k0Vi/iMFiYQBTWZpovjMj2OahhqlvCE/WyQAg83VB4x
+	 JnS4Cc68X3vCrRu8h3cuWUnNm8jDtmwAz9HYxeqeRcD3ILZ/P4wHY2tCdgMY4tmOfF4/K
+	 izdHkRM9rZO6c9q7OjOrx670o9McHlLfbp+ox8gEe+LDm71wXbYcJBj7WTETLzG1APA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PZFf9qxK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YoG+fQx5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53282606B440;
-	Fri, 13 Nov 2026 18:00:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99A84606B447
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:00:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PZFf9qxK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42FD21F00935;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YoG+fQx5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFD711F00ADB;
 	Fri, 13 Nov 2026 18:00:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794592834;
-	bh=Tw0lREbHvrQFePK47mNtizeFz33aFjFULtXTtRVDf8E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PZFf9qxKTXcw96rvkG+t9eR71AToG06GLwSh4mGQZmF2a5CetWYzr/DfvvmtHpEv8
-	 L0tNQLds0AVt0hk12a4EVSoFeVgnqvxHr8ovSmEVDzw3eAW/STAGGAZ0KW2F3geMM+
-	 iJqunplwuIrCkvkPlNMzgH5ifiBUUFKlmf7T5CJGqDJ3qF/OOOKC5gRaZ7ZC4LIh+J
-	 wbLVuNqs5JB8YBfI9igczSGzP/5aL91Q4N8oapp2WUbp2T53w4sgYEaTJrYpa/d9Or
-	 wjWYzs+QqvvOPC3+j4Er4Fws0Rxfk9OWDH00eRsFXXFdT2b7uKXPbFfP53J77zuoIW
-	 IDh3KRuBpRrfg==
-Date: Fri, 13 Nov 2026 18:00:29 +0000
-From: Simon Horman <horms@kernel.org>
-To: shaos <shawnq1@163.com>
-Cc: jhs@mojatatu.com, Jiri Pirko <jiri@resnulli.us>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net/sched: sch_dualpi2: avoid double memory
- accounting on peek
-Message-ID: <20261113180029.GB18859@horms.kernel.org>
-References: <20261022144758.65248-1-shawnq1@163.com>
- <20261109163655.301509-1-shawnq1@163.com>
+	bh=wffAUGeXkpM9DBN00xj3RLADzpErFXu9VnwWWNZmffA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=YoG+fQx5cqRfBHjchRbUDm9q1z2QKTCNzt/tyV2FGSinVNusSFLlus8oMeE9zAVtw
+	 sjtQDI1ONN5/ck80FBckICwM519oY1msHI0PfdA3HUPsNlVQJBGtrGj3I5v/rxjXOV
+	 SMaHjLQIKpjbybTM7JTMP31iOEDUquLi3ni4A3STGSB/TH0bOPIyIgPU09ARYesYUJ
+	 P0/Rmmz1/NGijSvTQwj39iSfBsM4HDLdG52NMYh/FNPhb2f/ELQF19FdO3otR6/wES
+	 9NZz34kGXHHSJdG1MBhrnh/Jlxknvwpq8FZy0QlsoABMWEt5gf8m382b1dG3jFTOCK
+	 jCP2/+nJg8duw==
+From: Vincent Mailhol <mailhol@kernel.org>
+Date: Fri, 13 Nov 2026 18:59:58 +0100
+Subject: [PATCH v2 2/2] x86/numa: Add CPU_SUP_AMD dependency for legacy AMD
+ NUMA
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,81 +53,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109163655.301509-1-shawnq1@163.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261113-processor_select_is_not_an_expert_feature-v2-2-ae630b1f2e28@kernel.org>
+References: <20261113-processor_select_is_not_an_expert_feature-v2-0-ae630b1f2e28@kernel.org>
+In-Reply-To: <20261113-processor_select_is_not_an_expert_feature-v2-0-ae630b1f2e28@kernel.org>
+To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>
+Cc: linux-kernel@vger.kernel.org, Vincent Mailhol <mailhol@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=795; i=mailhol@kernel.org;
+ h=from:subject:message-id; bh=+91VWgNSx8kEfb2jmxHYqUHRvGsH7Fo42sk1AkY3SE0=;
+ b=owGbwMvMwCV2McXO4Xp97WbG02pJDFnfA2w+lZ7oPRKx7LD1KrGyvY/lqk80xS+/mVs4v6NAc
+ rP2/h/pHRNZGMS4GCzFFFmWlXNyK3QUeocd+msJM4eVCWSItEgDAxCwMPDlJuaVGukY6ZlqG+oZ
+ Ahk6RgxcnAIw1bf5GBkO8b81DAk0+rYv8vP1tacl9T60KZTIaoho3wrwV21ePHEuwz87rv0iMUK
+ u2vYH73QvyJv6elvcnXsJ+zi3iM1rLI7Wm8sJAA==
+X-Developer-Key: i=mailhol@kernel.org; a=openpgp;
+ fpr=ED8F700574E67F20E574E8E2AB5FEB886DBB99C2
 
-On Mon, Nov 09, 2026 at 04:36:55PM +0000, shaos wrote:
-> qdisc_dequeue_internal() removes skbs from gso_skb without invoking
-> the qdisc dequeue callback. Their truesize was already subtracted
-> when they were first dequeued for peek or requeued after a transmit
-> failure. dualpi2_change() currently subtracts it again while trimming
-> the queue, wrapping the u32 memory_used counter.
-> 
-> Skip the second decrement when the skb comes from gso_skb. Packets
-> dequeued directly from the C-queue still need the accounting here;
-> the L-queue path is unchanged.
-> 
-> The issue was identified by LLM-assisted source analysis and
-> reproduced with a purpose-built rtnetlink/AF_PACKET test in QEMU.
-> The test uses CAP_NET_ADMIN in a user-created network namespace and
-> CAP_NET_RAW for its AF_PACKET sender. It does not modify the kernel
-> or use error injection.
-> 
-> On Linux 7.4-rc2, the unpatched reproducer wrapped memory_used to
-> 4294964992 and subsequent packets remained rejected after restoring
-> the memory limit. With this patch, the counter remains valid and a
-> packet is accepted after restoring the limit.
-> 
-> The modified sch_dualpi2.o builds with W=1 under allmodconfig and
-> allyesconfig. Full-tree W=1 builds stop on unrelated warnings in
-> lib/tests/stackinit_kunit.c, arch/x86/kernel/callthunks.c, and
-> net/8021q/vlan.c. The QEMU regression passes; tc-testing was not run.
-> 
-> Fixes: 8f9516daedd6 ("sched: Add enqueue/dequeue of dualpi2 qdisc")
-> Link: https://lkml.iu.edu/hypermail/linux/kernel/2610.2/16461.html
-> Signed-off-by: shaos <shawnq1@163.com>
-> ---
->  net/sched/sch_dualpi2.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
-> 
-> diff --git a/net/sched/sch_dualpi2.c b/net/sched/sch_dualpi2.c
-> index 4947def7c49ef..ccf6359eeebc3 100644
-> --- a/net/sched/sch_dualpi2.c
-> +++ b/net/sched/sch_dualpi2.c
-> @@ -909,14 +909,20 @@ static int dualpi2_change(struct Qdisc *sch, struct nlattr *opt,
->  	while (qdisc_qlen(sch) > sch->limit ||
->  	       q->memory_used > q->memory_limit) {
->  		struct sk_buff *skb = NULL;
-> +		bool already_dequeued;
->  
->  		if (qdisc_qlen(sch) > qdisc_qlen(q->l_queue)) {
-> +			already_dequeued = skb_peek(&sch->gso_skb);
-> +
->  			skb = qdisc_dequeue_internal(sch, true);
->  			if (unlikely(!skb)) {
->  				WARN_ON_ONCE(1);
->  				break;
->  			}
-> -			WRITE_ONCE(q->memory_used, q->memory_used - skb->truesize);
-> +			/* A peeked or requeued skb was already accounted. */
-> +			if (!already_dequeued)
-> +				WRITE_ONCE(q->memory_used,
-> +					   q->memory_used - skb->truesize);
+The legacy AMD NUMA probe reads topology from an Opteron northbridge.
 
-It strikes me that this change is incomplete.
+It is only useful when AMD CPUs are supported, so gate it with
+CPU_SUP_AMD.
 
-I think the loads and stores of q->memory_used and q->memory_limit
-should be consistently annotated, stashing the value of reads
-in local variables to avoid re-reads as appropriate.
+Signed-off-by: Vincent Mailhol <mailhol@kernel.org>
+---
+ arch/x86/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Perhaps the resulting change is too wide to be a strict fix for the bug
-at hand. But that does at least seem necessary within this function.
-
->  			rtnl_qdisc_drop(skb, sch);
->  		} else if (qdisc_qlen(q->l_queue)) {
->  			skb = qdisc_dequeue_internal(q->l_queue, true);
-> 
+diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+index 91b3bc7deafd..1bf39880d3fc 100644
+--- a/arch/x86/Kconfig
++++ b/arch/x86/Kconfig
+@@ -1524,7 +1524,7 @@ config NUMA
+ config AMD_NUMA
+ 	def_bool y
+ 	prompt "Old style AMD Opteron NUMA detection"
+-	depends on X86_64 && NUMA && PCI
++	depends on X86_64 && NUMA && PCI && CPU_SUP_AMD
+ 	help
+ 	  Enable AMD NUMA node topology detection.  You should say Y here if
+ 	  you have a multi processor AMD system. This uses an old method to
 
 -- 
-pw-bot: changes-requested
+2.56.1
+
