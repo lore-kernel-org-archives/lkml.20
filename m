@@ -1,102 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794530185;
-	b=2iAm3Rngoeh2qeVELeeYHNwfIlqKSEi96W6lB3cP26NdqkvtXsSspcRAJJi2gOAP6IB6
-	 L5QfN2LSe1bSXBZQYPtAFUJUsxyUiZtYnkBQ0na4/GFlwZbxH3EeQYtKO4cD0m99wgdKA
-	 GDzzDpUseykfwiIhA7HoltuZWhQjjiK1Pku5FcFh0r9/xHVn6bisOR+yt8I9mVxz2Fo6B
-	 GMswtOG0cK8u0hnibOjTDyjW4N8Ym1l5vQ42IF/b7BlSPHqcFhWXBkunAG7OiFQ2+SFFP
-	 azQ5fqusuzXwvD3DU4Tc4S6xeBHF5P7XD8i82iwUImuwt5jzs0aa1mffRQWK3dmdtRQ==
+	t=1794530205;
+	b=sgx4YBk9BGma0yJ43eK5YljAhzgJm7nuf+EbeEeIlq7cgB6E7Drq5V7o5X+G+rrNxycN
+	 KhbitvNBnrrmONmlZBSxKg0ZoOmnEeA012v6ocLIiA7H/EiaS94xDHXSgD7BWQFQFnmIo
+	 nOQkxDEOEySLNnKzj9Mu3CYOvcVGZ9FqwOvqleMjQZc/vC8tTrFe7PS0Q/EO59jSrLG9S
+	 CnSML1pdVu2CU6v8fDIn3VHJeg/UBnet278PrtwhwbYavimO4/NqXMxZmt2s3lxbMdjSg
+	 d7NYN0fQFVcyBR/sm66Ak69xf/+MhSO/pdU/c9WFzsvHI3IT5KaZtLNI+KDAu94FpzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794530185;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794530205;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Y9drITw7mklCpATzJbjXqv85fDqlLK/bIxmCKSq+IOc=;
-	b=lYmAQBWav6rVR4Pmqo9gNoHtIMu9lVBLzaxXg/L30PvVhiBOXf+fm5qiS+0RmWguiuhX
-	 p5u0Z6beLsL+UlbMYLMJ6bA01tuFPLcuPgeVUSQQnZLCcf7y/XacDZmMzOg3mjxghFg91
-	 QOtyadHTsf3DCeUVtTRqbT9IK0BfRj72bIp+LK3Ii5OPN9ychnb1cU5KXpwLle00S3FYr
-	 5kA6DdbZvJtWMSj9hQAoXMTs+z9Fypp+BQ47EcG4qoDnoTje+1PiPbz5RecpTCz+di/aU
-	 U3GGe7o+Q43gNbpPrTbI0EL3ALiQl1JBH0cDWnG7BQ+uIW76SWHwX+B/ac/o5YA9c4A==
+	bh=RGmNdmvX7GyDyj3rjdj61uFnaluwz5zplmLJm2EDWYg=;
+	b=3Ln9FCdZnKXV82fmjzrFNfkurzM6cFzPJbDrqStS3eg8MpprdAnG1dSCfb6sGbrZyN1Z
+	 EpHI3nU0sYdarh/cFyh2kVxske6QoOWkT2RFKLjOkEQd/6T3NHmO87pKXSucfLaCaFe8W
+	 xILlnac8Dn+w7dtENzmtPjoMFgtGXmotP2YHbzk5jSPtDoGplfaiEEwWdcdX02KZbqakL
+	 Ftj8yDnvhhzs74gyzfAqUmQ12Ybp64pr4hLam4FbAhCQU1SzMVrWdEkLit9jsO7HuwAxm
+	 7CyWaFtt+5cMxifLtt9dklhV62ZpPlrE4DzgU+YKg2VYBQq05E7vZq1pYlDuBRMRl9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c20milHc;
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="WWf/6nlP";
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D838A606A8B2
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:36:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D838A606A8B2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C86F606A88D
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:36:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C86F606A88D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c20milHc
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-497614c95f0so155347f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:36:24 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WWf/6nlP
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4bb55cda775so1006565e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:36:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794530183; x=1795134983; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794530204; x=1795135004; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Y9drITw7mklCpATzJbjXqv85fDqlLK/bIxmCKSq+IOc=;
-        b=c20milHcs/ecpUyoygEbAtxUeymxvS/4c9tw/IMWIGVkUZpyOkjDWjcbNQtRjCLUdH
-         lQA+oMCDS68wlxm6oqMNbmMv3pnj8F5legDld/DbxHJrPP2nZw8hjo+BcIKE7+R59LFw
-         wSptjbueisx+xqR6JYDuVibVa5nzlotEuPFkOH0xGor+ZNDIe/XhaoGQM5sl+71vSe3g
-         PbijRFWWBTIsvscc3Y7jT6lkx7JH+3Jr15ri5EwueEHGGq3jXrwj/Ey+xTgk0l3ozNX/
-         Fzu9JJj/mjnOAOrnJ4NBLwsIfVJFVVqcei5Z78iTZL0GZqoJQvdWtoplKikoe/86MxXy
-         E1DA==
+        bh=RGmNdmvX7GyDyj3rjdj61uFnaluwz5zplmLJm2EDWYg=;
+        b=WWf/6nlP0UfxD9vc8OJ9Z6fdrrsrhpUaHSohcrqqbtodLwuON6B84uadHnw0yh4QAa
+         6SbvRbxibFnRfRVxb5gU4Dkf/eSNX0HuI3Th0VEQCqo7j7OmCl029F4km4y+eM2u6M15
+         opihwMscPccw5DKudOQR8+OXADxW5RGchhEVhPmFkNGtsP5Wa8jKFwh3uUaRma3FU7eI
+         00Uqqtb9Oa9BxFPaWKWUIU6D6v9Vro9GK/yFfyuFGr0vOnvfBRY+YzCaOKmieq3sHtxb
+         aU/K1zSPQ54sq3KRmMKTgm3qoT1F6Jzq9hq/UBrOAKUS16RN3qAt0fMfqqpndbCJN4ND
+         m3bw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794530183; x=1795134983;
+        d=1e100.net; s=20260707; t=1794530204; x=1795135004;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Y9drITw7mklCpATzJbjXqv85fDqlLK/bIxmCKSq+IOc=;
-        b=QCY134aILCcGAE/wWy41LlcqQ/iI3IfiHRiZZhOHUKHEQDs7ivBb8fvjTHAA7icW1i
-         a5DK+3ElLx0wle8l7ZM0+UhrwdCjaHU7iqz567VP7SNR45W1oG8aq+mgQVFgVjMhxDnC
-         yoUW2Gg849kYdEWEhsVLypMkJizUbh4GT8hzs2MY/yEQs6kpZonlhc9LUV4L1fTlWKWC
-         Nig/sph/k9+xKrf/RLyr+NasSYpBu169smpp4lO9D1PXYXsfZxbutu3U40O/DDMxrogA
-         23krUUzzd5WrIB+SaP/Kc4rPnxq7pkcSzbBsXVHJJwqf9Q7sMUoGr0EUYx1fmlfCPuqq
-         BBnw==
-X-Forwarded-Encrypted: i=1; AL+hErGCHiGkDsinz1WzzfLckd1TryA0T2yuYPUUjxHch+yQ1FQiUj8MvqBeG0yjtsbIzcxyGDG4TNefMB3YUcE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8iwpASag4hnuXblfiCEgTj6WOaacHz8r4jBk3FtoBo3Sqex8QE
-	zgGUbZyPH9F4s8Xc2Xake36W1Q2NYQBcT9BGmMkqeDJPk0Xm/BYo9mPa
-X-Gm-Gg: AYBFou3CyjEgYJX6vNhwXANP2GI4UaWHDOMvarirXWC3AH33aeLW1qTxaIWS7QBWg9w
-	BLoS52LuDWc3tw/5QVYOtnzJdJdBEuJ13mamyIlWPqMN+2rnrywg8BMU0BHkpN7iUDl7It6lsjF
-	BdYqtknvy7en+OPoL8vTZM/R96IF1oHyzs1WK+XRNzvD7UGq5SQx7n29l7jzXm4Y0d0HboBHLc9
-	+6vrENDTeStKhZIjmAxbaMAIM6eQm4dGqGdP5PLSHKVs5xJ+OaZvUPxi/ysswFcvwTOKXMfR/6f
-	KeZWvThY7iVv0K0iXpPmrWdXMbuZkEFHwdXIS18wslDyHpu/7au6JNplg30JPlp2TXfgdODWTTD
-	ojsbo7yq7amFpZjgAr1zkRGv6Xusg0PRW6smY0r8px2m0S71wnIcafpwY86RdG5QT9+kZxz6eeA
-	HfcviiGAXp92+QEq9dGjjJyyne4L0UfrD/YjWGWjd/3AOogX8C5OnbCIRaoFJ9XQPRZVFr/gTlX
-	HS+DCdSzPjYfJo+6vaqIjFi4X5+4c4cumMpPqrD/56bBgniJ1ifJSNhR96THU9G73vlW+zo/M8I
-	QNH/AoapDTwF/S6zUZndPJxY1p1ptpaBEUtSgCoIa2I/sluAupAoSu48mO1ru5A+ijxqN2tJC6Y
-	5hkvFYQiPHk7j2mLvUopSj85heBYpEqzaI9Ucn7XwY6RAsAEFEKEXjAlCUW0+l60aV/cxQeSPlr
-	/cQgFLfFYLy53Zy0WA
-X-Received: by 2002:a05:600c:6208:b0:4a4:fc8c:cfd9 with SMTP id 5b1f17b1804b1-4bb55a66467mr17360805e9.25.1794530183276;
-        Thu, 12 Nov 2026 16:36:23 -0800 (PST)
+        bh=RGmNdmvX7GyDyj3rjdj61uFnaluwz5zplmLJm2EDWYg=;
+        b=sPMY2MtHt21fR5FSVRbymION41zeFGvwM7WqodgODKgp3Z+U8ZXOEEHweT9ooFem9w
+         Is+LUMHWBrz2o0gGnrW1aXn/RcIkVZyKS774K7nDhWsyWnE5pDytpOqoxH+Kkx29/C0V
+         +daFmMoIng8IuWV1Yyh925xes+aBCImBDB/bC5vAmeRlvPhX322jOsKAI0Si3McIYpsk
+         JKkj4EOYPEdhQNzkeRSslmaQcNMdGzlk5gssAAyi02FsD2t+8eyxUkq0goU0BnY7he0d
+         ZWXltBCGBRYkBycwCbnMV5ZK/UMDaPTr1QagvUIC6CVH54ZWUGdLAvGa/BWCvdZ5dIEb
+         4N5g==
+X-Forwarded-Encrypted: i=1; AL+hErEuqA0rxhO8/HPS5OwJCYm0TPElF3sGKTd1gFF+lUwPhu7RDC57Si7P57h5Oluh/l6piVg1n6A5quKeojM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9x5oUaCO+TIL4NpGrcz9m5iErLa/3a3fnFvxMIeIv4+DGzffkc
+	Yo3MX42vVLTzNx20056r1vjorqOQRwOhJKftxvRjDuajacaW30mW+rFY
+X-Gm-Gg: AYBFou2zH2i9AqcIoAqVSVsxM8KQOcbNnzQ6yuAW0ih8lg3IO7nHNaO7sSch0Wtnj0y
+	YGZOWAuMwAwY1BOqv9PqVW4CJv/FXxSbxSCWB0231eicFuYDCgtbGb+gEAIe8grwQ6BwnxAkUGY
+	/b8hN/FycN2D78/0dFjFc6l5T11KAaYahaHJPaDEpQi4o/6IqYXBit0Oie+wYBQFNhINfIpJUvZ
+	7JwvWyUXInG8PYrekJrmWY+j8/waeKDpAF0h6h0dy+fDj2H5c6PIdwDXyge3qq8B/KfGblXdtV1
+	Ox3UCi7y9bgMrBo99FJAM5i+7CIFa+FpN46xXNwqvhlJtSNB0dRGr7SoS5Ky4G+Nj5g+gXCUL6D
+	Dh2Ho1HFpN2X1y+/vE6BIxr7XYScefEGc8uXnbyVwYwo4fOe6MNfxMSe+ao/2Yj3o1RafXVgKFZ
+	bIPhRaLui5KqMh+WndA0JV207L5CCWxihdSgEmXB87F8AMiUhILzHuKcCc7AQzn33vpaPdAGy+v
+	OA+BXebwbebzGxI+tf5JKqTikzHws7Pq8RcgI/+J19Ig1nQrnB92F35OauULmxRzanxoKXxL1Tu
+	Dv/KvBQtFtSlP0n+F64xbHwbbZluLqDtTaIpRbX/gzp5DBgfDycgKN123VhmO54lDhuYMBfYz/0
+	1W9HHDoHwS5nigCQ3Ty/Cv/nlmIhTEMz+agekqR+TYKrvWkKJU05D6u0rPZEQaqc5wukvxTlk7J
+	6MO99SemyRzmrmINtVMLwd+LScHqbVewRaulJdrA==
+X-Received: by 2002:a05:600c:1906:b0:4a1:c6f5:2450 with SMTP id 5b1f17b1804b1-4bb55ac2a34mr19676755e9.17.1794530203716;
+        Thu, 12 Nov 2026 16:36:43 -0800 (PST)
 Received: from navid-pc ([2a01:4b00:a856:6220::a11])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e2538b9sm188421765e9.1.2026.11.12.16.36.22
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb571f976esm3282945e9.3.2026.11.12.16.36.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 16:36:22 -0800 (PST)
+        Thu, 12 Nov 2026 16:36:43 -0800 (PST)
 From: Navid Ghahremani <ghahramani.navid@gmail.com>
 To: Agustin Santiago Isasmendi <isasmendi.agus@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org,
+Cc: linux@armlinux.org.uk,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
 	arnd@arndb.de,
 	stefandoesinger@gmail.com,
 	krzk@kernel.org,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org
-Subject: Re: [PATCH v2 11/24] phy: zte: Add ZTE ZX279128S PCIe PHY driver
-Date: Fri, 13 Nov 2026 00:36:22 +0000
-Message-ID: <20261113003622.3663361-1-ghahramani.navid@gmail.com>
+	robh@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] ARM: l2c: honour status = "disabled" on the L2 cache node
+Date: Fri, 13 Nov 2026 00:36:41 +0000
+Message-ID: <20261113003641.3664652-1-ghahramani.navid@gmail.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261106101307.3936492-2-isasmendi.agus@gmail.com>
-References: <20261014072109.1759502-1-ghahramani.navid@gmail.com> <20261014072109.1759502-12-ghahramani.navid@gmail.com> <20261106101307.3936492-2-isasmendi.agus@gmail.com>
+In-Reply-To: <20261112072953.989664-1-isasmendi.agus@gmail.com>
+References: <20261112072953.989664-1-isasmendi.agus@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,19 +110,19 @@ Content-Transfer-Encoding: 8bit
 
 Hi Agustin,
 
-Agustin Santiago wrote:
-> On my unit both read back 0 after boot: there seems to be no register
-> at 0x1b0/0x1b4 in the top CRM. The vendor kernel writes these two
-> values into the port 1 controller's "ctrl" window instead
-> (0x09600000 + 0x1b4, then + 0x1b0); with this series those read
-> 0x00203c78 / 0x0c46c24a. The link trains anyway (the MT7916 enumerates
-> at 2.5 GT/s), so it may only matter for signal margin, but as written
-> the writes have no effect.
+I tested v2 as posted on my ZTE ZXHN H3600 with 512 MiB and an L2C-310
+r3p3, running 6.18.60 with the OpenWrt patches for this board and
+booted with kexec.
 
-You are right, thank you. I checked the stock kernel and it maps
-0x09600000 for port 1 and writes both values there. My first driver
-took that mapping for the top CRM and v2 kept the mistake. The PCIe
-series will write them to the port 1 ctrl window.
+With the cache node enabled the cache comes up as before. With the node
+disabled the kernel reports that the L2C is disabled by the device tree
+and leaves the cache off, and the board ran 10 minutes of Wi-Fi
+receive, Ethernet send and PCIe config reads on both CPUs together
+without a hang. Like in my earlier test, the previous kernel had already
+turned the cache off before the kexec, so this does not show what the
+boot loader leaves, but you checked that part on your unit.
+
+Tested-by: Navid Ghahremani <ghahramani.navid@gmail.com>
 
 Best regards,
 Navid
