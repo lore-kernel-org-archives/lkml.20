@@ -1,55 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794557741;
-	b=pfbM6IojaNS+kZ1LEgfMG4T6D9O6BKVEzp+wVsbUpxCBHraRBoIHkAoa4AveHXyHoaft
-	 a0j8JzwTEZcxqxteA8NH7wKm/PH3KNNwSqp2Kw/WekVRPYOfCwXorioXsa9N5Y9YRmYqm
-	 7Gfqj2MpyQcRCOs+IKS3bCuyxEhBFqxu0lHJ3MdBK4sn1q9VjaARJqsin8pAI4T6zO21F
-	 QpWRbYxyOaPS+0OfwkmpbsGq+D7i1GX+PH92msy0cbmvzfNe1qjFhC3yGL412LOytV6rN
-	 BxMo3q0cTKJP5I/w1+fXz1TUCqflJAKCdC10r78awaSoIJ+6aYJf1MN/PZUQlcw3a/w==
+	t=1794557774;
+	b=BIAugMmHGDx2mFlx0oboSMFYLAQoLIf5fhvKVumXNZpRWmcE1U/zOkrURidyMcqro+cm
+	 4QBfNeuVJhIlPM4D101h9YWYaTJL//Z3QDVv28vqYcZlSi5XJdoufLNPSldG+4b8Xpia0
+	 tYvlJvpabR9G4jPGDnJqEZbX9Mp2DGSfrar6Rs2wM2qL9gkzSDc0wLKtUiSW1nahe/Xro
+	 1CBPaU8PutmonggClvWQBXiC5sRVH8poVidJYOO4IkeyHqEYf2eyPpGgad97ArpElmKrN
+	 UWGzIUhAhs5NEahYmJQGXBOwMTvJvr3fMWpEvQy0oLSvNSeTVTQbd7vP3T4sgtyVEyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794557741;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:To:From:
-	 Subject:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=ChSZe9dWQG2rTZceNI3AoXdcsbHWLSpanJhGWsIdQk0=;
-	b=M79Bqs7cV50Ox5H2UzIYBYfBOK6BTuagDlbZTmQko7uH6k5CJcwlUC0UE2Tv4fRxFpvp
-	 jNT6VnWiPeyLdc256Ewxv+DcpxSnSDeYx5nEK3wfvo2Y4mGYWmP+UQXprKhE0quKtRtbc
-	 L/vZOMEu/LKsD2Clt12fX1ivFt5tCy0v8RUJlpliE4lPNGrxvwbdHWgy9VTlCLAxK4Znx
-	 UfplwK3aLpW457pK8qR+zzO7i29oPAQbFHcqmgqDUhV3GEnlK/jlhgQLtcHLyk72E+IMX
-	 gGifGXNfTskXBfAeMFCBAbJvXog+izxB+3VyhuBLpOiSsXAhdiZ7BufNfVuOgDTY+oA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794557774;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=9U8aC1QAz9A7FHMAgGcgXCwjyuajaml/x5tjK2P7TO0=;
+	b=nl9GeykJ4Pn+USoU/AY+r6UDk12a0FdZmJxBoiIaV93XpASfoyHpY3b846xgm5iR1tqj
+	 a5dcE4d7tanKqKx+MvnY6oCognmtnkcNzL0x9NZ5pucePX3mBgQmakhmz1wuFFVEjLXxN
+	 3TROUyI8gqKEHzRppQKRrVEeXJ25UT2Lo+z73+aJswmZByF3Z8butvbeMSJdwh+tchjHG
+	 SzK96ila5xr1KgVgy48z7hXnE39kwEhqw0j/O7ZcS7XYZbW87T2v7LAVM6yF3B/LLrpc8
+	 NCPftV1CnNWYiGlftmEXYA6v9f/BmQhetX95jC6wUHmh0hFcqE2zMhwNAL0tBeDBYQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=G4WiEn+p;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XwAtRhqm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B34A606A330
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:15:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B34A606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FE3C606A321;
+	Fri, 13 Nov 2026 08:16:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=G4WiEn+p
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 4B4074E415A1;
-	Fri, 13 Nov 2026 08:15:39 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 18260601D5;
-	Fri, 13 Nov 2026 08:15:39 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3D76211BC1163;
-	Fri, 13 Nov 2026 09:15:30 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794557737; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=ChSZe9dWQG2rTZceNI3AoXdcsbHWLSpanJhGWsIdQk0=;
-	b=G4WiEn+pmfOBwJs65vqSsvkhqD62IUCPiYZL2GOCFj5XsJV7LQ2DTeVYkYESfPf3pMqFIz
-	FjOWkYdMi5tRKeYwy9huxoEU/Jesf31q2d4bRqYo5cRnNXEoTvnoxKTNODSVrTnSmM8KM2
-	m5xDwoK5twjVlIyzhaoe2Xofiw+WWgNlBYJLsyLD+S2e6xBcm6ZuXZgx2cDOLWHZeYJ7v5
-	FoPhn0PA55DE9DvNuRQ5p0SI/3+tkYWFgjkSnqMtX2q2F6TDkLkz4iEwZTucoDJx/tdYKZ
-	iKRzL5hdZhpXA80F6nw7TZlao5i9jHi5t0mtoRn7sbc32OIAP9ZkBlGlrDWYzA==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XwAtRhqm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05A3B1F000C5;
+	Fri, 13 Nov 2026 08:16:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794557773;
+	bh=9U8aC1QAz9A7FHMAgGcgXCwjyuajaml/x5tjK2P7TO0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XwAtRhqm/46Poatyah/AeXbWbrpA8kEStrR7ZmF0vhoAneIEHkWjyUbKFhsuvVQGO
+	 uA1i0FIzugDj9yEgPM1jBfsOzFBZoj/jXdHzn84/47ly+mgTINgVVVCdtEBm3YkPR2
+	 njK8peGsRM73X7LxKXV7ZSQbqNeXyvzE5rufDFNaxrjrC/x74OnibONarmnBRqiDzs
+	 yjVawsxx5+Qom/pooTwLFSNZy97lwwEFRWdt70WALWEBcZflowqCiFq+Go8Lad0BiK
+	 ZI5+DIZ3b7cG8OjhvA2xreCDYeG4EJkGKyhi9PUe8PWV+8HCLJjJEl0avMsYat+Kmu
+	 VOqUoYi08rgcQ==
+Date: Fri, 13 Nov 2026 09:16:10 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Joonhoe Kim <26rote@gmail.com>
+Cc: gregkh@linuxfoundation.org, Thinh.Nguyen@synopsys.com, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org, 
+	konradybcio@kernel.org, heikki.krogerus@linux.intel.com, abel.vesa@oss.qualcomm.com, 
+	abelvesa@kernel.org, wesley.cheng@oss.qualcomm.com, krishna.kurapati@oss.qualcomm.com, 
+	konrad.dybcio@oss.qualcomm.com, dmitry.baryshkov@oss.qualcomm.com, neil.armstrong@linaro.org, 
+	val@packett.cool, balaji.kalkonda@oss.qualcomm.com, tvlad744@gmail.com, 
+	effeffe99@gmail.com, prashanth.k@oss.qualcomm.com, yongxing.mou@oss.qualcomm.com, 
+	linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] usb: dwc3: qcom: Use the UTMI clock as PIPE clock
+ in DisplayPort-only modes
+Message-ID: <20261113-artificial-quixotic-firefly-84baef@quoll>
+References: <20261112113838.506-1-26rote@gmail.com>
+ <20261112113838.506-3-26rote@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,120 +64,179 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 13 Nov 2026 09:15:30 +0100
-Message-Id: <DMTXMG427D7Z.MVUAQQE9B08W@bootlin.com>
-Cc: <tessolveupstream@gmail.com>, <andrzej.hajda@intel.com>,
- <neil.armstrong@linaro.org>, <rfoss@kernel.org>,
- <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
- <jernej.skrabec@gmail.com>, <maarten.lankhorst@linux.intel.com>,
- <mripard@kernel.org>, <tzimmermann@suse.de>, <airlied@gmail.com>,
- <simona@ffwll.ch>, <marex@denx.de>, <valentin@compulab.co.il>,
- <philippe.schenker@toradex.com>, <alexander.stein@ew.tq-group.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-To: "Francesco Dolcini" <francesco@dolcini.it>, "Ernest Van Hoecke"
- <ernestvanhoecke@gmail.com>, <regressions@lists.linux.dev>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v3 1/1] drm: bridge: ti-sn65dsi83: Fix DSI mode flags
- for stable LVDS output
-X-Mailer: aerc 0.22.0
-References: <60a24977-b181-40e4-bcf6-38b65af293e2@gmail.com>
- <DI18PL73UQKR.2YZVZ21V69H7O@bootlin.com>
- <e88af0b7-388d-4b0a-8eb2-a367e24e84fb@gmail.com>
- <DIMMKNT9RHYM.1BRF1S1V5SIKI@bootlin.com>
- <1716be56-ac43-440b-a5df-58cbf571ba95@gmail.com>
- <DINH3J2SM26P.3KE6GE9VPB1OC@bootlin.com>
- <3hfae2i2i2toxbo7hg2if6pztaswgnfj65xfm2c4ofljc6jhua@slaqoewn4mxq>
- <DLATMIFKDMHV.24XNMCRI2ZKBI@bootlin.com>
- <20261024095405.GA5692@francesco-nb>
- <sqilixoei4yw4z52r52vbwfggyjnhdzz62vz3vshrx6wbppa2v@izyujkfcrb6q>
- <20261113073658.GA12065@francesco-nb>
-In-Reply-To: <20261113073658.GA12065@francesco-nb>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261112113838.506-3-26rote@gmail.com>
 
-Hello Francesco, Ernest,
+On Thu, Nov 12, 2026 at 08:38:38PM +0900, Joonhoe Kim wrote:
+> @@ -336,16 +346,19 @@ static void dwc3_qcom_enable_interrupts(struct dwc3_qcom *qcom)
+>  		dwc3_qcom_enable_port_interrupts(&qcom->ports[i]);
+>  }
+>  
+> -static void dwc3_qcom_select_utmi_clk(struct dwc3_qcom *qcom)
+> +static void dwc3_qcom_select_utmi_clk(struct dwc3_qcom *qcom, bool utmi)
+>  {
+> -	/* Configure dwc3 to use UTMI clock as PIPE clock not present */
+>  	dwc3_qcom_setbits(qcom->qscratch_base, QSCRATCH_GENERAL_CFG,
+>  			  PIPE_UTMI_CLK_DIS);
+>  
+>  	usleep_range(100, 1000);
+>  
+> -	dwc3_qcom_setbits(qcom->qscratch_base, QSCRATCH_GENERAL_CFG,
+> -			  PIPE_UTMI_CLK_SEL | PIPE3_PHYSTATUS_SW);
+> +	if (utmi)
+> +		dwc3_qcom_setbits(qcom->qscratch_base, QSCRATCH_GENERAL_CFG,
+> +				  PIPE_UTMI_CLK_SEL | PIPE3_PHYSTATUS_SW);
+> +	else
+> +		dwc3_qcom_clrbits(qcom->qscratch_base, QSCRATCH_GENERAL_CFG,
+> +				  PIPE_UTMI_CLK_SEL | PIPE3_PHYSTATUS_SW);
+>  
+>  	usleep_range(100, 1000);
+>  
+> @@ -353,6 +366,38 @@ static void dwc3_qcom_select_utmi_clk(struct dwc3_qcom *qcom)
+>  			  PIPE_UTMI_CLK_DIS);
+>  }
+>  
+> +static bool dwc3_qcom_utmi_clk_selected(struct dwc3_qcom *qcom)
+> +{
+> +	return readl(qcom->qscratch_base + QSCRATCH_GENERAL_CFG) &
+> +	       PIPE_UTMI_CLK_SEL;
+> +}
+> +
+> +static void dwc3_qcom_update_pipe_clk(struct dwc3_qcom *qcom)
+> +{
+> +	lockdep_assert_held(&qcom->pipe_clk_lock);
+> +
+> +	if (qcom->mode_switch && !qcom->utmi_as_pipe_clk &&
+> +	    qcom->dp_only != dwc3_qcom_utmi_clk_selected(qcom))
+> +		dwc3_qcom_select_utmi_clk(qcom, qcom->dp_only);
+> +}
+> +
+> +static void dwc3_qcom_defer_mux(struct dwc3_qcom *qcom)
+> +{
+> +	guard(mutex)(&qcom->pipe_clk_lock);
 
-On Fri Nov 13, 2026 at 8:36 AM CET, Francesco Dolcini wrote:
-> +regression list
->
-> Hello all,
->
-> On Thu, Oct 29, 2026 at 04:50:39PM +0100, Ernest Van Hoecke wrote:
->> On Sat, Oct 24, 2026 at 11:54:05AM +0200, Francesco Dolcini wrote:
->> > On Wed, Sep 09, 2026 at 03:30:53PM +0200, Luca Ceresoli wrote:
->> > > On Fri Sep 4, 2026 at 2:02 PM CEST, Ernest Van Hoecke wrote:
->> > > >> > Also, from our testing, when using:
->> > > >> >
->> > > >> > dsi->mode_flags =3D MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_B=
-URST |
->> > > >> >           MIPI_DSI_MODE_VIDEO_NO_HSA | MIPI_DSI_MODE_NO_EOT_PAC=
-KET;
->> > > >> >
->> > > >> > we are not able to get display output.
->> > > >>
->> > > >> This is the case for the panel I worked on as well. In the practi=
-ce we both
->> > > >> observe that non-burst mode is what fixes the panel, but there is=
- no clear
->> > > >> explanation of the reason in the docs (that's what I hope to disc=
-over from
->> > > >> TI).
->> > > >>
->> > > > I am testing a DSI panel on our Verdin iMX8MP module, and noticed =
-that
->> > > > this caused a regression.
->> >
->> > [...]
->> >
->> > > > I think we'll need to either revert this and later apply both toge=
-ther
->> > > > when ready, or apply the second patch now as well. Right now, it b=
-roke
->> > > > the DSI panel behind a TI sn65dsi83 bridge on v7.3-rc1.
->> > >
->> > > Reverting is surely the last resort. If you can answer the above que=
-stions
->> > > it would be good, maybe we find out reverting is not necessary, and =
-worst
->> > > case we'll revert with better understanding on what went wrong, and =
-maybe
->> > > come up with a new fix that doesn't regress.
->> >
->> > What's the status of this regression?
->>
->> I still need to test and look into this, that will happen either in
->> December as I'm off in November, or by someone else in the team. Sorry
->> for the delay.
->
-> Luca: I think we should revert this for the moment, the regression is
-> real, and I do not see an immediate way forward.
+Why aren't you using simple and most readable mutex lock/unlock? guard()
+is not more readable.
 
-I hoped to get better info from Ernest. The commit looks correct so chances
-are that regression is caused but other bugs (incorrect timings, inaccurate
-clocks, etc).
+> +	qcom->mux_deferred = true;
+> +}
+> +
+> +static void dwc3_qcom_undefer_mux(struct dwc3_qcom *qcom)
+> +{
+> +	guard(mutex)(&qcom->pipe_clk_lock);
 
-That said, why don't you just send a revert patch?
+Here it makes sense, but other places, why?
 
-Don't forget to add to the commit message:
+> +
+> +	if (qcom->is_suspended)
+> +		return;
+> +
+> +	qcom->mux_deferred = false;
+> +	dwc3_qcom_update_pipe_clk(qcom);
+> +}
+> +
+>  static int dwc3_qcom_suspend(struct dwc3_qcom *qcom, bool wakeup)
+>  {
+>  	u32 val;
+> @@ -413,7 +458,10 @@ static int dwc3_qcom_resume(struct dwc3_qcom *qcom, bool wakeup)
+>  	 * clock ("failed to enable ep0out").
+>  	 */
+>  	if (qcom->utmi_as_pipe_clk)
+> -		dwc3_qcom_select_utmi_clk(qcom);
+> +		dwc3_qcom_select_utmi_clk(qcom, true);
+> +
+> +	scoped_guard(mutex, &qcom->pipe_clk_lock)
+> +		dwc3_qcom_update_pipe_clk(qcom);
+>  
+>  	/* Clear existing events from PHY related to L2 in/out */
+>  	for (i = 0; i < qcom->num_ports; i++) {
+> @@ -446,6 +494,52 @@ static irqreturn_t qcom_dwc3_resume_irq(int irq, void *data)
+>  	return IRQ_HANDLED;
+>  }
+>  
+> +static int dwc3_qcom_mux_set(struct typec_mux_dev *mux,
+> +			     struct typec_mux_state *state)
+> +{
+> +	struct dwc3_qcom *qcom = typec_mux_get_drvdata(mux);
+> +	bool dp = state->mode >= TYPEC_STATE_MODAL && state->alt &&
+> +		  state->alt->svid == USB_TYPEC_DP_SID;
+> +
+> +	guard(mutex)(&qcom->pipe_clk_lock);
+> +
+> +	if (state->mode == TYPEC_STATE_SAFE) {
+> +		qcom->dp_active = false;
+> +	} else if (dp) {
+> +		if (state->mode == TYPEC_DP_STATE_C ||
+> +		    state->mode == TYPEC_DP_STATE_E)
+> +			qcom->dp_only = true;
+> +		else if (!qcom->dp_active)
+> +			qcom->dp_only = false;
+> +		qcom->dp_active = true;
+> +	} else if (!qcom->dp_active) {
+> +		qcom->dp_only = false;
+> +	}
+> +
+> +	if (!qcom->mux_deferred)
+> +		dwc3_qcom_update_pipe_clk(qcom);
+> +
+> +	return 0;
+> +}
+> +
+> +static int dwc3_qcom_mux_register(struct dwc3_qcom *qcom)
+> +{
+> +	struct typec_mux_desc desc = {};
+> +
+> +	if (!IS_ENABLED(CONFIG_TYPEC) ||
+> +	    !device_property_present(qcom->dev, "mode-switch"))
+> +		return 0;
+> +
+> +	desc.drvdata = qcom;
+> +	desc.fwnode = dev_fwnode(qcom->dev);
+> +	desc.set = dwc3_qcom_mux_set;
+> +
+> +	qcom->mode_switch = true;
+> +	qcom->mux = typec_mux_register(qcom->dev, &desc);
+> +
+> +	return PTR_ERR_OR_ZERO(qcom->mux);
+> +}
+> +
+>  static int dwc3_qcom_request_irq(struct dwc3_qcom *qcom, int irq,
+>  				 const char *name)
+>  {
+> @@ -625,7 +719,6 @@ static int dwc3_qcom_probe(struct platform_device *pdev)
+>  	struct resource		res;
+>  	struct resource		*r;
+>  	int			ret;
+> -	bool			ignore_pipe_clk;
+>  	bool			wakeup_source;
+>  
+>  	qcom = devm_kzalloc(&pdev->dev, sizeof(*qcom), GFP_KERNEL);
+> @@ -688,11 +781,10 @@ static int dwc3_qcom_probe(struct platform_device *pdev)
+>  	 * Disable pipe_clk requirement if specified. Used when dwc3
+>  	 * operates without SSPHY and only HS/FS/LS modes are supported.
+>  	 */
+> -	ignore_pipe_clk = device_property_read_bool(dev,
+> -				"qcom,select-utmi-as-pipe-clk");
+> -	qcom->utmi_as_pipe_clk = ignore_pipe_clk;
+> -	if (ignore_pipe_clk)
+> -		dwc3_qcom_select_utmi_clk(qcom);
+> +	qcom->utmi_as_pipe_clk =
 
- * accurate description of what hardware breaks, with pipeline components
- * panel timings (or, better, panel datasheet URL with that info)
- * exact kernel version (upstream kernel tag or SHA-1)
- * clocks used and measured on the lines
- * difference observed before/after the patch on the cables and in software
- * any other detail of your investigation
+You use some odd formatting, making this unreadable. That's one line,
+eventually wrapped.
 
-I understand some of these info might need time to gather. But right now
-every patch fixes some panels and breaks others. If we want this driver to
-work with all hardware at some point we have to start doing some
-investigation.
+I don't get why you are changing these lines in the first place. Mixing
+style changes and actual code changes make it difficult to spot the
+differenec, but the code looks the same, no?
 
-Luca
+> +		device_property_read_bool(dev, "qcom,select-utmi-as-pipe-clk");
+> +	if (qcom->utmi_as_pipe_clk)
+> +		dwc3_qcom_select_utmi_clk(qcom, true);
+>  
+>  	qcom->mode = usb_get_dr_mode(dev);
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Best regards,
+Krzysztof
+
