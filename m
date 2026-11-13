@@ -1,85 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.205
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794546510;
-	b=HMEEu8gsX6leByuxtUDzXk/6l+zAamF2mTPrEMq4Ojyt62XfMy5G3mSGNVtZhBylmkNV
-	 1+UYtj7obNwGKn/nb8p03nEBNpb+nmZ8BN/f0aKF/6ppPpoIV4Blhz8fu227P8zR5XmTP
-	 LArtkDxmtoT774D5oRDhfAhuf+zsJ+VS/XhLLTc1IEpk3vYXdkp7WhQYZfj0zmHrIMCFs
-	 P4SJnZswlzjU+8cFM+3+uCxKMqBZIW2mWHcrLhMkO9GsrylB+faMzU4iMt6OV6ZDN4Y0d
-	 rlQZDoba89nmds587DhnvRcVPS7W1p9SJ19ueuaCA+LVSmMlm8GFkG1ncI2GG9CuIlg==
+	t=1794546545;
+	b=Yy3k9lRwuka0Fzmy3m9RJ9gPqGqXVuvIDo4DFK3a/Bkn7IY1He7CCyQKbOt9ZLdKjiwV
+	 MxbsShNHHgDRgbZlrAWK7DF7RVF1/ii7usVBacOVylfIqX1vrNNloT/E+BDI65jQhvzE9
+	 QTzac0PAX6td3zuFvOeS6G1sSJ3xIdBJdQaXDWtwbJH668gfQ5EOFl8AXBXryZJl946no
+	 tc+yc+epRODMQoBy/AL2QmzgTWQ6mFUgQOdu0zhFbXuvl/bRPGPzG0chIZz7yYwrFyH5Y
+	 +ileVgkj5VFb3BUnsE9j+l2L3KpqlbDhFwXzvgyJtSv9D6Wu1gIdAuLPCxfnvtuRkAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794546510;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=LmFjzwEPLh1WnvAWN35VH6q9XGy6Q88rO7whGWc3zyY=;
-	b=J7G7WEa5/6bdi7tJCXzfXLnGGPGd4rSMvlND8IeQ7MBrPew+A4/hu/VkESoPKdxLKITi
-	 KnLl34pK7MfJ/NGSFU6krPvBtZ4wA3OEdkzl1BVUURXdAnZ855iueZC5LgXXKKwH0IYTK
-	 EpsrGNVCf4qY8nVVl1aQA8W7xFqG7TIbNJC1eWUktv+sEpm8W6nPBUoHOFYgnfKVFZbTQ
-	 QUNLjRmdPHVNOUrePnhlXTo8k8kqejcv0lih6ptsIAuojd0X1JJFvjTftmn6uZ5B/jXcQ
-	 q5Zug8fQmz4QSJxf7B7fBAxjIkV4cUZG5624yuu8ICb57CrYwA8fbOvptugDzJ3uMng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794546545;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
+	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
+	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
+	 In-Reply-To:X-QQ-mid;
+	bh=5Dp2IENZXY8vor5OQbmzVoL9tS9zDPmNAgbX16sKuWM=;
+	b=t/0K5QK/tRvmLLa30nkUkYhSY0KchktoxdW0HNJpQgYjYEeDFG66BcV2+t60q9nLbVQP
+	 5A55GDcjwcPp+FqNszCw7tQRtdZjn1InoXHGmk6ivyRBukoETISH/tNiA5/epotiwxJb2
+	 l4DaEiEAyYb0+nfgDycaYwpn8Ran/bh2Qu3gqDTg0OWpp0z05w5Z3xTMd+1qar8dsCLYZ
+	 GF1dDcXpLHuvj9YC7WY0hTw41fSso8vfUoPscmH6Du+IN22vpe+uN4qPo9+Uvf91+gmDd
+	 O2QQvE0vA4lBgZVOAnITzU4somRAl1eNsqT/MJ7VcFLoIbDF+FuexjXkqtwGAjGKUoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=iKzF8SE4;
-	arc=none smtp.remote-ip=209.85.222.172
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=otsdPddm;
+	arc=none smtp.remote-ip=203.205.221.205
+Received: from out203-205-221-205.mail.qq.com (out203-205-221-205.mail.qq.com [203.205.221.205])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94791606A88F
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:08:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94791606A88F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F967606A321;
+	Fri, 13 Nov 2026 05:09:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F967606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=iKzF8SE4
-Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-93f20b304c0so83970385a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:08:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1794546508; x=1795151308; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=LmFjzwEPLh1WnvAWN35VH6q9XGy6Q88rO7whGWc3zyY=;
-        b=iKzF8SE4igTO5PjE/vkTiUA/wc411ldVAWTTtqWvysMLBnScY6X1rKvxfKsCnViAp/
-         h8cj5pP2Qw9AjaHlKmiDrNdR1fGFREemtkoKNcCZhqvK+xjqQXJJAo9yPRqD0Q6oPhzF
-         2ypLTwvEiWk13ynC86wAHvvfOpEWGCghPcpUHfjIvhStdVf8ckeiIUQU61sKG5PRsQiX
-         HPrPhqTkkWFXxcHMe7pu/LTzpgdlHxHAFVRZr7LJ5npL2CnVw2QBII4GZ0pZcUBMK4VF
-         rMtA3e9cW2ujyEuULVSYOEA6g5bWxbvWPmz5g8zhiHKhVy0HsrI5+9L4G1ubVt19UN+M
-         SMbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794546508; x=1795151308;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LmFjzwEPLh1WnvAWN35VH6q9XGy6Q88rO7whGWc3zyY=;
-        b=poF9pLdcNT2oLuMX1g4AGiQmFVP+cDE6Vl8hib8PFuBhvYoVzfaH0oJa8Ln+dRldJc
-         j8Okaahes+9v636///xZ7G/swrsZXrDKPXh4RDZ9cGIBiiPfbj/vYvx/XjTJgk3iM6DB
-         kmkljmDtLwfPyLJK/eUBdcOn9hilE2bZ4ia4rzEmsZYazzepjxD5I7e4KJkNzLA0I9t0
-         GdiM7v/0O05EjvyCuP0Idzc31/BCk3OanIXFqafbpunEciZ5XHUw7hUqobC4UzX31mcM
-         E/TBICVbbeV9kDuQC2xHMaxIzU0FMkteNifXXKlqyYmTSJElFhf1wcNYxxxaLTGGtFLw
-         dzaQ==
-X-Forwarded-Encrypted: i=1; AL+hErHHPJ8BlNWwedSnRjh7U1jzXsPNPcBOx1rWveMl1LgpYJiO5AKk98cj0qZ4dmvcWn10V4NicZXEm9pflKA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/bo9UJWULNj762ShCjwnbPPH7US4c+4eniIZmbjz1a+5ZDQSnc
-	xyl6DaObvydA0FuR85h56TF+mahL6ZYM4CuUoNPXbLZDIa7SNvPax10vTIPcTC3iHfY=
-X-Gm-Gg: AYBFou3lyGoDHgRSKF62vO75lkNmvAXRmG4wUEG5+YFOU4mMuWDiiqWZWYt/X6MOFAF
-	m253gX7y582wWltGdvGhv10u/TSNRFnvJAdy69PRrTvgESIR3NYqkk+6NXayS3ySQhF7pp2e47W
-	9IJUQXR36V6Nc1sQx5MGrGDCKtCt14eqkFLSOPb7Aj0GgUYwxVKyzOhwPNOIAcwEcb5BIAMNkcD
-	MrgMQQI52fFp2AvXbhBETDW1ps1RIg+A/ztXAqfTZE5OHO5NRudBK0nn7YPrppyi6WLGhhLVrYw
-	9XmMoxIR5qPSd8WTr+rkE+mSsy9xa7OIEGR6nRK0GbX1KsrW17ud8ua+HVLvzFEP31B7iVVeC9O
-	2ErPayiNY8uJ9qwQ+gSYD9qMeS1SG+MtXlwrzsKDBEfNPkP7zWpyMILrhEjGFn1oq/6fThq9yas
-	elBXBhKkNvisqRbCTzhBgEgnNGgnrGXHdhpdudt8e9ga8QcG4uWzSHD87049CyJMMcPB49+G7P2
-	hsgTybSnuhAo0Cf6kdudjStbTIV/sUbwFn7xccHY7UIOeh/AiIkrUFkl/OY6DAAkLVDLs6JOTzd
-	xjqN+5MtwdfctuUwsGjb34uXedEcpq4SGXnqZt+xMX+jJHLV0M9kCnmaFtz7VOpUMDdGyDs8P2x
-	UkQYRyXfxlX4BIKtUiM8ZMh0w7Qichw==
-X-Received: by 2002:a05:620a:2987:b0:93f:2a56:2772 with SMTP id af79cd13be357-9494bcbc465mr254819685a.78.1794546508039;
-        Thu, 12 Nov 2026 21:08:28 -0800 (PST)
-Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23d452b0sm12300596d6.11.2026.11.12.21.08.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 21:08:27 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=otsdPddm
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794546540; bh=5Dp2IENZXY8vor5OQbmzVoL9tS9zDPmNAgbX16sKuWM=;
+	h=From:To:Cc:Subject:Date:References:In-Reply-To;
+	b=otsdPddmRQeT+X5rLWjdUH3qgWfurnnL665INmuBmWvN57pDiYDOrSWpx8jTFUxlD
+	 fUiMGZcePYTsXUO2djmGY8Mbs/bjCxd6fZ2nF1tiE9b7k4oF9WumvHH4fI05Jzoaal
+	 LAN44/zOOrcoeeYn9ahWolD/LUahlc4PPttNE5HU=
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-XMAILINFO: Nc5/rdswZ3xKSNAXNUazFI95a8UiJLoXzHexhkY/+iv7Dp45u0g3b4eGgS8eS9
+	 0owDJrRS0VqSesJrxHCup9iP71RVuztm9/kBOm9UYgEmvlEi7UNvzoAp6JJrUJBh1Av65Uv0tJwam
+	 ku+DAMQlhUHRSDFm4g0yJX53FVtc8L8ATWt8PKqbYtd56C77OpGSyM9vhfjYuaQHz7GQ+ek21Rwjf
+	 kgEUafJQ9wiqfTkr9EfsUxR6RvcNYOPns04V4Pgfojxwt8woUDTxeHyF1VHLyaOGr823UhwN30wta
+	 NhlxHWkEHlaQ5tbcv/bhhfCXJhYWdi1bjkxMjQpZ777W61tMaHLkDE6jImBJo4SBwTPFSAg/SvbDS
+	 GNN66WRB90V1VpeX39sH/kJvz6m6B6+wMvTWJjqPg6hnr1fZiQr0+04GvJQBgZS3jUzHddIxRzUAU
+	 S+kdrXRl2FtzD80EODeTo2MzUDG+5xLfFZDB/xyWIlOpyr1UXSjZr4QGa7SKL+am1HFzHihFY9/4r
+	 3c7izJ7L8C44y4YudG8hVwjwPwJeaOkOn6YQz0EyEb+qmdCEr55vX9F5ftxALxwb8NgTuPuJDc3DS
+	 9Drv9JWDiAJQL43LovOEm0BkXHHSxHnD21oJxWa0rU7JRhKucc0E7G1i0QPWWQ12L5aReEZ+eFE07
+	 uJlM2k68hP1nfQhY401tA/37lLJ4HOfW1qpQsSjaF0hXV1/97niLXvk1TbxfR3Bd7l/ziOS0xP6hu
+	 4T4iapXSkwX9ffHn0buc4JzTyN+puCX/h0IYHfrVjvZvPw6KmOkgx+T5LV97pJVXsO+anRs5e7CDY
+	 fvKwQIcYQ0qzXwo/aGvVj8/B4fc8bn/vbHRfOJ68Xs0TUoVuAsSlNpdTXwhPqjdmddIL13B4sMDAb
+	 QDjf1hFgBZOdm/cINbkT4YwgdMEqHhmc9I3ZtupR3FhSr+bm8b/SvXNxFDJjX6D3Tg5Cc3dZtr2I4
+	 fzHI5xQLBbIn5yuLknjm5xuwRhtxklzWBK93aAPnNq36u2AwUOA1P3MBrpGqf4T1bgS5+rUh5WBjF
+	 8ePJ+oA5tULHaN2CbPN4P+AEcAcqU3w3PxnMwN9PXKF39rgc=
+From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
+To: "=?utf-8?B?bmV0ZGV2LWJvdCtzYXNoaWtv?=" <netdev-bot+sashiko@kernel.org>
+Cc: "=?utf-8?B?bWts?=" <mkl@pengutronix.de>, "=?utf-8?B?a2VybmVs?=" <kernel@pengutronix.de>, "=?utf-8?B?bWFpbGhvbA==?=" <mailhol@kernel.org>, "=?utf-8?B?aGVpa28=?=" <heiko@sntech.de>, "=?utf-8?B?c29ja2V0Y2Fu?=" <socketcan@hartkopp.net>, "=?utf-8?B?ZGF2ZW0=?=" <davem@davemloft.net>, "=?utf-8?B?ZWR1bWF6ZXQ=?=" <edumazet@kernel.org>, "=?utf-8?B?a3ViYQ==?=" <kuba@kernel.org>, "=?utf-8?B?cGFiZW5p?=" <pabeni@redhat.com>, "=?utf-8?B?aG9ybXM=?=" <horms@kernel.org>, "=?utf-8?B?Y29yYmV0?=" <corbet@lwn.net>, "=?utf-8?B?c2toYW4=?=" <skhan@linuxfoundation.org>, "=?utf-8?B?cmR1bmxhcA==?=" <rdunlap@infradead.org>, "=?utf-8?B?d2c=?=" <wg@grandegger.com>, "=?utf-8?B?bGludXgtY2Fu?=" <linux-can@vger.kernel.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, 
+	"=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?bGludXgtZG9j?=" <linux-doc@vger.kernel.org>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>
+Subject: Re: [PATCH net v9 04/10] can: dev: check netif_running() before bus-off recovery
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,65 +68,48 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 05/12] fs/proc/task_mmu: write-protect device-private
- THPs in PAGEMAP_SCAN
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Tal Zussman <tz2294@columbia.edu>, 
- Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>, 
- Peter Xu <peterx@redhat.com>, James Houghton <jthoughton@google.com>, 
- Andrea Arcangeli <aarcange@redhat.com>, 
- Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- =?utf-8?q?Micha=C5=82_Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>, 
- Andrei Vagin <avagin@gmail.com>, Stephen Rothwell <sfr@canb.auug.org.au>, 
- Arnd Bergmann <arnd@arndb.de>, Muhammad Usama Anjum <usama.anjum@arm.com>, 
- David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Chris Down <chris@chrisdown.name>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- =?utf-8?q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>, 
- Michal Hocko <mhocko@suse.com>, Mike Kravetz <mike.kravetz@oracle.com>, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org
-In-Reply-To: <avYQteUm963AKJQ7@gremlin>
-References: <20261111-uffd-state-fixes-v1-0-00713d368976@columbia.edu>
- <20261111-uffd-state-fixes-v1-5-00713d368976@columbia.edu>
- <avYQteUm963AKJQ7@gremlin>
-Date: Fri, 13 Nov 2026 00:08:26 -0500
-Message-Id: <179454650651.482102.17667443707760097412.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Fri, 13 Nov 2026 13:08:57 +0800
+X-Priority: 3
+Message-ID: <tencent_7BC3801D441CBFA5A6369A1F19AD848B9107@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+References: <20261111-rockchip-canfd-restart-close-v9-4-6643f3825ba3@qq.com>
+	<179452272955.488853.2430789088711910750@kernel.org>
+In-Reply-To: <179452272955.488853.2430789088711910750@kernel.org>
+X-QQ-mid: xmsezb41-0t1794546537tvcfyebl0
 
-On 2026-11-12 19:34 +0000, Lorenzo Stoakes (ARM) wrote:
-> On Wed, Nov 11, 2026 at 12:55:13PM -0500, Tal Zussman wrote:
-> > but does nothing for a device-private THP. The PMD never gets the uffd
-> > bit.
-> 
-> Sigh yeah. Device-private feels like another 'just have to happen to know to
-> update X million open-coded parts of the code'.
-> 
-> We really need to find a way to abstract this stuff.
->
-
-I've poked at it a bit, but zone device creates this issue in many
-places. The core issue is really that softleaf can mean 20 things,
-and the number of things has been piled on heavily.
-
-I don't know how we solve this, it's just a rats nest of complexity
-at this point.
-
--- 
-~Gregory
+SGksCgo+IFtTZXZlcml0eTogSGlnaF0KPiBDYW4gYSByZXN0YXJ0IHdvcmtlciBwYXNzIHRo
+aXMgY2hlY2sgYW5kIHN0aWxsIHJlc3RhcnQgdGhlIGNvbnRyb2xsZXIKPiB3aGlsZSBuZG9f
+c3RvcCgpIGlzIHJ1bm5pbmc/CgpZZXMuIFdpdGggcmVzdGFydC1tcyBlbmFibGVkLCBhIHdv
+cmtlciBjYW4gcGFzcyB0aGUgcnVubmluZyBjaGVjayBiZWZvcmUKY2xvc2UgY2xlYXJzIF9f
+TElOS19TVEFURV9TVEFSVC4gRmxleENBTiBjYWxscyBjbG9zZV9jYW5kZXYoKSBhZnRlcgpo
+YXJkd2FyZSBhbmQgb2ZmbG9hZCB0ZWFyZG93biwgc28gYW4gYWRtaXR0ZWQgd29ya2VyIGNh
+biBmbHVzaCBlY2hvIHNrYnMKZHVyaW5nIHRlYXJkb3duIG9yIHJlc3RhcnQgYW4gYWxyZWFk
+eSBzdG9wcGVkIGNoaXAuCgpUaGlzIHJhY2UgcHJlZGF0ZXMgdGhlIHBhdGNoLiBUaGUgcnVu
+bmluZyBjaGVja3MgbmFycm93IHRoZSB3aW5kb3cgYnV0CmRvIG5vdCBzZXJpYWxpemUgYW4g
+YWxyZWFkeSBhZG1pdHRlZCBjYWxsYmFjayB3aXRoIGNsb3NlLiBUaGlzIHBhdGNoCmRvZXMg
+bm90IGludHJvZHVjZSBvciB3aWRlbiB0aGUgcmFjZSBhbmQgZG9lcyBub3QgZml4IHRoYXQg
+c2h1dGRvd24Kb3JkZXJpbmcgaW4gb3RoZXIgZHJpdmVycy4gQSBjb21wbGV0ZSBmaXggbXVz
+dCB3YWl0IGZvciBhY3RpdmUgcmVjb3ZlcnkKYmVmb3JlIGRpc21hbnRsaW5nIGl0cyByZXNv
+dXJjZXMuIFRoZSBSb2NrY2hpcCBmb2xsb3ctdXAgcGF0Y2hlcyBhZGRyZXNzCnRoYXQgZHJp
+dmVyJ3Mgc2h1dGRvd24gb3JkZXJpbmcuCgpbU2V2ZXJpdHk6IEhpZ2hdCj4gQ2FuIHJlc3Rh
+cnRfd29yayBzdGlsbCBiZSBxdWV1ZWQgYWZ0ZXIgY2xvc2VfY2FuZGV2KCkgaGFzIGFscmVh
+ZHkKPiBjYW5jZWxsZWQgaXQ/CgpZZXMuIEhJMzExMCBjYWxscyBjbG9zZV9jYW5kZXYoKSBi
+ZWZvcmUgZnJlZV9pcnEoKS4gSXRzIElSUSB0aHJlYWQgY2FuCnNhbXBsZSB0aGUgcnVubmlu
+ZyBzdGF0ZSBiZWZvcmUgY2xvc2UgYW5kIGVucXVldWUgYWZ0ZXIgY2FuY2VsbGF0aW9uLgpB
+IGZhc3QgcmVvcGVuIGNhbiB0aGVuIGV4ZWN1dGUgc3RhbGUgcmVjb3ZlcnkgYW5kIGZsdXNo
+IGN1cnJlbnQgZWNobwplbnRyaWVzOyByZW1vdmFsIGNhbiBsZWF2ZSBkZWxheWVkIHdvcmsg
+cmVmZXJyaW5nIHRvIGZyZWVkIGNhbl9wcml2LgpDbGVhbmluZyB1cCB0aGUgZHJpdmVyJ3Mg
+cHJpdmF0ZSB3b3JrcXVldWUgZG9lcyBub3QgY2FuY2VsIHRoZSBDQU4gY29yZSdzCmRlbGF5
+ZWQgd29yay4KClRoaXMgcHJvZHVjZXIvY2FuY2VsIG9yZGVyaW5nIGFsc28gcHJlZGF0ZXMg
+dGhlIHBhdGNoIGFuZCBpcyB1bmNoYW5nZWQKYnkgaXQuIFRoZSBydW5uaW5nIGNoZWNrcyBy
+ZWR1Y2UgcmVjb3ZlcnkgYXR0ZW1wdHMgYnV0IGNhbm5vdCBwcm90ZWN0CmZyZWVkIG1lbW9y
+eS4gUXVpZXNjaW5nIHByb2R1Y2VycyBiZWZvcmUgdGhlIGZpbmFsIGNhbmNlbGxhdGlvbiwg
+b3IKcHJldmVudGluZyBsYXRlIGVucXVldWVzLCByZXF1aXJlcyBhIHNlcGFyYXRlIGxpZmV0
+aW1lIGZpeCBvdXRzaWRlIHRoaXMKcGF0Y2guCgpCZXN0IHJlZ2FyZHMsCkN1bmhhbyBMdQ==
 
