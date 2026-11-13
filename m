@@ -1,93 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794580658;
-	b=sUmBgwy6Xf1LGsRUh8m8OAiuGMRojymzI/k3ffCdnDjud4jAXw5rjqwczrVhcjj2BlDM
-	 vjha4Ud6aaKVukDazhGOiotEQbyKzJ5GdOrSjJRr3cGa41zr0OSeiSpyuPU1V3NNq4u04
-	 1/atPz0KBnwHSU8T55iOzUwAPhv7Eq7HCKfHdufpguwWDqTvmNtP89s0jIMoqLk5W4Uxk
-	 5IcON5nQdqYljQUSlxScStZJizTN2FG/WPlxCu3MftLLicFfPSM3gS8iRzsUHTYI3Tnj7
-	 oKaIyWju3qps7+sUFE0wzlqh2QDmnoP/Wmbj5Iwms5wTA5CCvCVXzDRak7Fnf3M+JFw==
+	t=1794580672;
+	b=TXp6QzTPF0zVN53daD2Ii3gkb87jmOwBCbAnSMJLvAfHTa7T3TBqfD1emGwhhn5yR+rv
+	 jnNJM5FyA8jIXI3NEq0Fbgg0LQw7xeuG0XosAUmTMhhlHniFGXB4ytbvXp2doJF43GjxC
+	 AHd8UDEhhH3/ygotNo005Y8k1eTtMjN040qpwX5gweyXTYVRG1H5sOleGPKilqIthfO4e
+	 YX73Ejj+qfp0haJdrQo9Ws+jKt1aQ1eLi5ROYO6PizVN/Gd2IJGZ9XSCcDLy9LigKdnpv
+	 7tSluoy3CcpTBFnirbtggh83JmI8aVLt546++F1aNIKwdwlqgQtRyhyfReLxUthg3zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794580658;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=C5Ue2mVGxATydDR5iWTMkIC6d9KHtdsgRln9EnTdDBs=;
-	b=3DRWt638UJ6di+m4CxpIsCBybfZ98ShbBI/5yC83EM9ncRSbxZtOh002x76shVOeQ3J3
-	 23+dI5lWkv8ezRPB4BeY2PctNxGqHPaj8E7Ti6gLYoCLqun77QBAW/opdXSn2+iejNgTx
-	 W9DNFTC0N/pJQixsrIE4l98piadWptt+C15hIKzUpjAgCkpMLywn7ER1Hlf4WpuEuqMEs
-	 tOWLhkx2seEvwfum0/JU7ulpIithWd18wSu3clem1YVXxZxBJZ/WlIvSJNCGYipdosT/A
-	 TBqcaHDXHoBOgE2iCVr+EzNao4KVsy91/7g5wyM0H9NGA6SAyb+4USYOmYOK3j5HS5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794580672;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Debian-User;
+	bh=0XOYwcnTL1OrqwBoF5MD4vzS7pPsc+EeLqlZVee7Az8=;
+	b=cJJA0ieQnZsNKQNn7YZP2mGKcMo55OlO6ztqSU7ZXNGx5TihtEtsl4dJy/XZuRkVb9Gb
+	 JSJjubG2HEzHQ1cDv6V7xKo7LG3Jl7XBIPBCV/KyRKYZ3C23SbgUabytQq2/PbjNKaJBV
+	 1HxwE/oeqnKY6alvKS0PQFchv+w8p8JHLC1JFyJXUY+QFM8S6BaI+yyj8HXgorMmnF4Sz
+	 ncQytyq4cRFac9j4VEEKSCau31ZkuDKcgqUVeOJDCBzovxaCiukRqsq1nPqf+rhm4FEHj
+	 z/O1sSVuufYUyNSzjebOluO0+2WZvKuCjLxLlPsQmJWDNzYE8o9+FY6p66+H5tvsWfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="fR/cvMLW";
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=Zq5VOko1;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91185606A337
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:37:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91185606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4108E606A327
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:37:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4108E606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fR/cvMLW
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso7283595e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:37:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794580657; x=1795185457; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C5Ue2mVGxATydDR5iWTMkIC6d9KHtdsgRln9EnTdDBs=;
-        b=fR/cvMLWcPQ7Dt0s1+l+PfgNjFp5LpZYfttC9dV6TdHJWL4PCPHyXvFUDlUEimVhzi
-         Gdr+lDiT6lDYge68ePK3Ty92DDjuhcAfG8YuNwYR/h7JcbN3HmA+QtSwI7xCIbtyvXNj
-         kc4/cb6T2zTzepYH8xEwRbPsEJ+nE+G56111bbFyFAY6dRgjRNmkqorydJ9TlWfDdWar
-         puYwABjAHaipF6mOpt9k84MYN/z7UR7b/QfX9yQ41xxCu8zyE+C790qhqfUtXduF8gOO
-         ScJt/R4Q1NPpobtpIgQ5zXaE56yXLq7qcBT5qmPUmLrTp5fGD4UZWC3sLZtutQs6SJzO
-         8Qjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794580657; x=1795185457;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=C5Ue2mVGxATydDR5iWTMkIC6d9KHtdsgRln9EnTdDBs=;
-        b=tPt0b6SJrUvqD7vEpAaMdK9/ku9P1E/myRCgIAqzxjQMwEswYlPSumEhyxPDR225aL
-         m/ORHUBa8mLFn8ogVJgeAD5nH7HQ31ZmqX44vbLbRRU0q0M1WtRaImFcx2h2c/1ApW3Y
-         4vxKmjTKCKGgWXEpiJjVCHfmYEwNoO/jX1pg2FLVm1OuGCrQL90MAfCIsnIGVQRM5N0K
-         pYaTC0UCbIqYDUp18us+f94VEMH0DMY5JaZsh0amD6bh8hdCCtVQer1h0jBudyuOZDI6
-         R9rf05NnWwiX/HN5XdSBCyLv3XkZE2g6qWxojcyxFDULYtjcbYELFf0OrR3p47h2jdqb
-         eLew==
-X-Forwarded-Encrypted: i=1; AL+hErEc84Rn3FqKnbRriTv4JZwy08Do7wNLdEqB7y7z+r+SGCxz/l712Gvp8UP6fJ4qrcJYpJkmhc1C/UU9lqA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/aGCmWAmXCffkan0zNDga4qUrUPaWhFWHiJzIrWSYPA3Vx1/gK
-	09DA747PiDaqMbxfHNSa2maLJ6E/CvPSROT16nfIChrEyhOxcFsoUT/d
-X-Gm-Gg: AYBFou1t4dsqVCVJK/2HOislGPBQDYB2J87kuQ4SIodWKsWL8GMnIO03pWdiTYoB09F
-	67SlaAcNsGhdUJJ92VK32IgsQPcDsnT+JyE7m3TwmpQbnzu1JChqR+fxZWkOPwWQMTK6X29Clwd
-	ViGC7aX+B0KAbVf45md15MlwQ7ahF/ZYilDBlsPxD1mxIUyNRt9CwDTIHtiPdpRnccCEryKQ0Ah
-	CzV3cnhUhjncR0H3riZS4avX6GESMXelq+rs6ky4+fPZWDI/Txu6X+8fNbKNhcb9jNrc/VWSf2f
-	Zf7bkwWhau4oRFfqu7APn5KKo2oCeV47wb0erXW6reV8AAb8qlPysWhwZ0WvqTZIY102i+Rx90U
-	f6IqPNZhh9O4N88ORJp00VTeTsH90cKECU5BSKYTORxb81E4FdMWWzomfuNHGkEC5h47CDSgXBa
-	M6G2g0/ZvKAixEaraWFRyRAP+ExAURI89LFai+PbkmbYAe8zM6+HDipNs+8AVEC7/9ptu+sVuhX
-	rthZXsyjGiZl7dt9RLPDXhdRSKa68bpCp8gTJgeagjfNgDqgH4cM+xq41Y7P+QO5mKf8TExonzy
-	X1yh1CdxeJtg3HNJUiIT2J4C++LCDFzv7g0ntQgg/HOPw17axZRgJ+np+Dbf/wCDm44IKbc6c1y
-	LA0pR0XD4
-X-Received: by 2002:a05:600c:19d4:b0:4a3:18ca:806 with SMTP id 5b1f17b1804b1-4bb55a5af8cmr59550145e9.20.1794580656582;
-        Fri, 13 Nov 2026 06:37:36 -0800 (PST)
-Received: from beelink0 (host86-181-68-246.range86-181.btcentralplus.com. [86.181.68.246])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb55a68c65sm68940435e9.2.2026.11.13.06.37.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 06:37:35 -0800 (PST)
-From: Graeme Harker <graeme.harker@gmail.com>
-To: geert@linux-m68k.org
-Cc: linux-m68k@lists.linux-m68k.org,
-	linux-kernel@vger.kernel.org,
-	tsbogend@alpha.franken.de,
-	Graeme Harker <graeme.harker@gmail.com>
-Subject: [PATCH] m68k: irq: Fix irq numbering in m68k_setup_user_interrupt()
-Date: Fri, 13 Nov 2026 14:37:31 +0000
-Message-ID: <20261113143731.167962-1-graeme.harker@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=Zq5VOko1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=0XOYwcnTL1OrqwBoF5MD4vzS7pPsc+EeLqlZVee7Az8=; b=Zq5VOko1cqLkfQ1tl0TxKx+U2A
+	BrO5sDde1GL987KYcCiZwORFRaGRhWCRND/AA578kmIGBySGWMwPNnlzU/9ATdsmtkxhEBpFefRZz
+	4eAgodYBVNWYi3E/dHCgZjxg8CLVCsyRbKkxAScbXEBWa9eSerzNOz4Z5YHdUu+bmu9i3IXw8PsqB
+	VzZzEzFwhfgWyt8xWLOozoDBEoj+hbOhZZYiftGHSnDTo8qmcGd3qPmmeRUs+EmoXToM+iH9R5Ik6
+	C5ygjQUx32+dq0wZOcKkGebrW9jMqBBpyhKw+iLR2bNNg8Z70A08/7aiXypNP1zy9xK+VLeS8cnK0
+	QoFW6AnQ==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xRsPK-00Eoyu-1M;
+	Fri, 13 Nov 2026 14:37:39 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Fri, 13 Nov 2026 06:36:56 -0800
+Subject: [PATCH v2] slab: allow sheaves for SLAB_NOLEAKTRACE caches
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,60 +62,172 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261113-kmemleak_sheaves-v2-1-8c557c66cec2@debian.org>
+X-B4-Tracking: v=1; b=H4sIAI0g92oC/2XNQQrCMBBA0auEWSeSSaxiVr2HFEnN2Ay1jSQSl
+ NK7iwVXbv/i/QUKZaYCTiyQqXLhNIMTRgq4Rj8PpDiAE2C0OSCiVuNE0538eCmRfKWiettYbE7
+ og0GQAh6ZbvzayHMnBUQuz5Tf26Hit/4w849VVKhor8mGo+1NY9tAPft5l/IA3bquH7N2RnixA
+ AAA
+X-Change-ID: 20261110-kmemleak_sheaves-b3531591ad21
+To: Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>, 
+ Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
+ David Rientjes <rientjes@google.com>, 
+ Roman Gushchin <roman.gushchin@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+ Catalin Marinas <catalin.marinas@arm.com>, Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5590; i=leitao@debian.org;
+ h=from:subject:message-id; bh=hN7KC4nK5Owv04cUEbTFEZmP1bJF9lU4vD0yO9GIm/I=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq9yCu2z4dCHL6XE56dE2MUCgkEVLAj1Z+LJhfW
+ majOQNI4FSJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCavcgrgAKCRA1o5Of/Hh3
+ bUc6D/0ZOJiCyW6pVOZ/cMjO7dBGkn2UfsOs6ldvc4qdXQN8pbTs1ii0zdkGn07hDDXVyIhMK90
+ 3m/myaBOg+2MAVJzAkninWIt4Lnty27m9Ym3PyFdViyCliK89JMwjZgkXY58gJEzHjetIrngSoh
+ e+jh3G7JJuF7QFJNU915x70w6YxU/Mu+HJ5DdHiTtw3LmgAkPo/v4dIvQcaWItsDv4mMwscaUK8
+ Hbk2SnE6Xww0YOBA3ll6DxVCPQ7oXf5NNFVc5mfnrHXl915zyat1dlD1K0SM3VJdZfV1FkxTSDq
+ zXl2uJl0vXmK5MMIRgH5r4rHNDYtQ0KcFo43xVhFB5R+ifz+RK8hFymOQk8ACQ7FHnCnmDBNVei
+ 9SEB1of1uGVYkUtHEFMoNMK+5q1YWzDIDkU+hdic1n07vUVSHM5DjpAA/6v/hxPgRKWiPPMaKnP
+ OXRH+tmLR8RkgL2fU/3Tq95DY9zYeLRR/X1aY0J24RC2nUJSFLTplqFbT9Xys2/Rx3yACzAOELC
+ JPOsKCJf49ECIJpTTg5kYCOBwG50rsA0+SNBDjAkvkfOEaPjXXlcL55wKMntQNFYDCEfhXCAa4l
+ x5PcZRf77L53EqyeEsURk67CRn6A1cRY+Hk76Ekw4v6BnsySZ19iiktMoFgdylDtT5rSYPmM5jH
+ n0t6paLCJ7yRGDg==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-m68k_setup_user_interrupt() is meant to set up the user vector
-interrupts IRQ_USER to IRQ_USER + cnt - 1, as its BUG_ON() check
-assumes.  Since the change to irq_set_chip_and_handler(), however, it
-sets up interrupts 0 to cnt - 1 instead, having lost the IRQ_USER
-offset on the way.
+This is a patch that makes kmemleak cheaper to run, by letting
+kmemleak's own metadata cache use a _new_ sheaves type. The flag only
+makes that possible without recursion.
 
-The VME boards pass a count of 192, so the user vector interrupts they
-use are still covered.  Sun-3 passes 128 but requests IRQ_USER + 127,
-interrupt 135, which has been left without a chip, so its vec255
-handler has failed to register ever since.  All of them have also had
-user_irq_chip put on the autovector interrupts 1 to 7.  A machine with
-only a few user vectors, such as one with a single vectored interrupt
-source and cnt = 1, is left with its interrupt on handle_bad_irq().
+The cost today:
+  * every allocation kmemleak tracks needs one kmemleak_object from
+    object_cache. An RCU callback frees it later.
 
-Restore the offset.  Only tested on a machine that calls this with
-cnt = 1; the VME, Sun-3, Atari and Apollo callers have not been
-tested.
+Why that's slow:
+  * object_cache has no sheaves, so each of those allocations and frees
+    goes to the shared slab lists under n->list_lock.
+     - On meta's fleet kmemleak kernels, list_lock is the second most
+       contended lock, after kmemleak_lock.
+     - About 88% of that wait is RCU callbacks freeing kmemleak objects.
 
-Fixes: 378f7ca6aa22 ("m68k/irq: Vector ints need a valid interrupt handler")
-Signed-off-by: Graeme Harker <graeme.harker@gmail.com>
-Assisted-by: Claude:claude-opus-5.5
+Why sheaves aren't allowed:
+  * a sheaf is a kmalloc object. Tracking it makes kmemleak allocate
+    another kmemleak_object, which needs a sheaf, and so on.
+
+When I reported the recursion in [1], I suggested keeping
+SLAB_NOLEAKTRACE caches away from sheaves, and commit e47c897a2949
+("slab: add sheaves to most caches") did that. It stopped the
+recursion, but it took the sheaves away from the whole cache, although
+only the kmemleak tracking of the sheaf itself recursed.
+
+Commit 17c38c88294d ("slab: remove cpu (partial) slabs usage from
+allocation paths"), from the same series, then left these caches with
+no per-CPU caching at all.
+
+In hindsight, skipping kmemleak only for the
+sheaf itself, as the new SLAB_ALLOC_NO_LEAKTRACE does, would have been
+the better fix.
+
+The sheaf is allocated with SLAB_ALLOC_NO_RECURSE as well, like kmalloc
+sheaves. Without it, a backing kmalloc cache that needs a new sheaf of
+its own allocates it with SLAB_ALLOC_NO_LEAKTRACE too. kmemleak then
+does not track that sheaf, and can report objects queued in it by
+kfree_rcu() as leaks.
+
+SLAB_ALLOC_NO_RECURSE also skips allocation tagging, so mark the codetag
+of these sheaves empty on free, as is done for kmalloc sheaves.
+
+Link: https://lore.kernel.org/all/aW_NK2NXVgtuzCVH@gmail.com/ [1]
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+Signed-off-by: Breno Leitao <leitao@debian.org>
 ---
-The machine with cnt = 1 is a homebrew 68030 board whose support is
-not upstream: one vectored interrupt source (a 68681 DUART, vector 64),
-which stayed on handle_bad_irq() until this change.
+Changes in v2:
+- Fix sashiko findings:
+  - Set SLAB_ALLOC_NO_RECURSE along with SLAB_ALLOC_NO_LEAKTRACE, so the
+    flag stays off the kmalloc cache's own sheaf allocation, per Catalin
+    Marinas.
+  - Mark the codetag of SLAB_NOLEAKTRACE sheaves empty on free, per
+    Catalin Marinas.
+- Link to v1: https://patch.msgid.link/20261112-kmemleak_sheaves-v1-1-e40e3d73b253@debian.org
+---
+ mm/slab.h |  1 +
+ mm/slub.c | 22 +++++++++++++---------
+ 2 files changed, 14 insertions(+), 9 deletions(-)
 
-The Sun-3 statement is from reading the code, not from running it:
-sun3_init_IRQ() passes 128, so interrupts 0-127 got the chip, and then
-requests IRQ_USER + 127 = 135.
+diff --git a/mm/slab.h b/mm/slab.h
+index e94ac63d10dc03..7b20f10aa46a2e 100644
+--- a/mm/slab.h
++++ b/mm/slab.h
+@@ -23,6 +23,7 @@
+ #define SLAB_ALLOC_NEW_SLAB	0x02 /* a flag for alloc_slab_obj_exts() */
+ #define SLAB_ALLOC_NO_RECURSE	0x04 /* prevent kmalloc() recursion */
+ #define SLAB_ALLOC_NO_OBJ_EXT	0x08 /* prevent obj_exts array allocation */
++#define SLAB_ALLOC_NO_LEAKTRACE	0x10 /* skip kmemleak tracking */
+ 
+ #define SLAB_FREE_DEFAULT	0x00 /* no flags */
+ #define SLAB_FREE_NOLOCK	0x01 /* spinning not allowed */
+diff --git a/mm/slub.c b/mm/slub.c
+index 8369853ddca721..b927cd684ec656 100644
+--- a/mm/slub.c
++++ b/mm/slub.c
+@@ -2850,6 +2850,14 @@ static struct slab_sheaf *__alloc_empty_sheaf(struct kmem_cache *s, gfp_t gfp,
+ 	if (s->flags & SLAB_KMALLOC)
+ 		alloc_flags |= SLAB_ALLOC_NO_RECURSE;
+ 
++	/*
++	 * kmemleak allocates its metadata from SLAB_NOLEAKTRACE caches, so
++	 * tracking their sheaves would recurse into kmemleak. NO_RECURSE stops
++	 * NO_LEAKTRACE from reaching the kmalloc cache's own sheaf allocation.
++	 */
++	if (s->flags & SLAB_NOLEAKTRACE)
++		alloc_flags |= SLAB_ALLOC_NO_LEAKTRACE | SLAB_ALLOC_NO_RECURSE;
++
+ 	sheaf_size = struct_size(sheaf, objects, capacity);
+ 	sheaf = kmalloc_flags(sheaf_size, gfp | __GFP_ZERO, alloc_flags, NUMA_NO_NODE);
+ 
+@@ -2883,7 +2891,7 @@ static void __free_empty_sheaf(struct kmem_cache *s, struct slab_sheaf *sheaf,
+ 	 * warning, therefore replace NULL with CODETAG_EMPTY to indicate
+ 	 * that the extension for this sheaf is expected to be NULL.
+ 	 */
+-	if (s->flags & SLAB_KMALLOC)
++	if (s->flags & (SLAB_KMALLOC | SLAB_NOLEAKTRACE))
+ 		mark_obj_codetag_empty(sheaf);
+ 
+ 	VM_WARN_ON_ONCE(sheaf->size > 0);
+@@ -4727,7 +4735,8 @@ bool slab_post_alloc_hook(struct kmem_cache *s, gfp_t flags, size_t size,
+ 		if (init && p[i] && !is_kfence_address(p[i]))
+ 			memset(p[i], 0, zero_size);
+ 
+-		if (alloc_flags_allow_spinning(ac->alloc_flags))
++		if (alloc_flags_allow_spinning(ac->alloc_flags) &&
++		    !(ac->alloc_flags & SLAB_ALLOC_NO_LEAKTRACE))
+ 			kmemleak_alloc_recursive(p[i], s->object_size, 1,
+ 						 s->flags, init_flags);
+ 		kmsan_slab_alloc(s, p[i], init_flags);
+@@ -7987,13 +7996,8 @@ static unsigned int calculate_sheaf_capacity(struct kmem_cache *s,
+ 	if (IS_ENABLED(CONFIG_SLUB_TINY) || s->flags & SLAB_DEBUG_FLAGS)
+ 		return 0;
+ 
+-	/*
+-	 * Bootstrap caches can't have sheaves for now (SLAB_NO_SHEAVES).
+-	 * SLAB_NOLEAKTRACE caches (e.g., kmemleak's object_cache) must not
+-	 * have sheaves to avoid recursion when sheaf allocation triggers
+-	 * kmemleak tracking.
+-	 */
+-	if (s->flags & (SLAB_NO_SHEAVES | SLAB_NOLEAKTRACE))
++	/* Bootstrap caches can't have sheaves for now (SLAB_NO_SHEAVES). */
++	if (s->flags & SLAB_NO_SHEAVES)
+ 		return 0;
+ 
+ 	/*
 
-Build-tested on m68k master (v7.4-rc2) with multi_defconfig,
-sun3_defconfig and virt_defconfig.
+---
+base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
+change-id: 20261110-kmemleak_sheaves-b3531591ad21
 
- arch/m68k/kernel/ints.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/arch/m68k/kernel/ints.c b/arch/m68k/kernel/ints.c
-index cf2b13488476..eb41aace61d4 100644
---- a/arch/m68k/kernel/ints.c
-+++ b/arch/m68k/kernel/ints.c
-@@ -97,7 +97,8 @@ void __init m68k_setup_user_interrupt(unsigned int vec, unsigned int cnt)
- 	BUG_ON(IRQ_USER + cnt > NR_IRQS);
- 	m68k_first_user_vec = vec;
- 	for (i = 0; i < cnt; i++)
--		irq_set_chip_and_handler(i, &user_irq_chip, handle_simple_irq);
-+		irq_set_chip_and_handler(IRQ_USER + i, &user_irq_chip,
-+					 handle_simple_irq);
- 	*user_irqvec_fixup = vec - IRQ_USER;
- 	flush_icache();
- }
-
-base-commit: 8c9ddebb300c719362a52a2d465f44e7d055778d
--- 
-2.53.0
+Best regards,
+--  
+Breno Leitao <leitao@debian.org>
 
