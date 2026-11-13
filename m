@@ -1,99 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794588397;
-	b=Mzb5mui76g/PXRGbQmV6+5J4Szz2MTvBaqiS7k8Nw1ul4tuTRHqM73vc7fVg7dPYJlGe
-	 OOnZ3A0d/VU7sKvJb+PKMqW07DhccZOuKlo6Hd0h3VQAbR/+KkJIs8sU6HYHMN6sCCLJC
-	 KZycFTuqt6RZT12QrFkpsNZz1sdlgnXcl2bOxKFyBlXbiGdEKxbo/JT73d0cLUUh7PZbD
-	 f8/3vuSJRvwrH8TJpBOIZYw5BqNQoXKdhbJGWmrNz3Nv088qnutvSDL7Q6DK6RQlqotja
-	 iSBlkeZ21E8vVA8ujOsoE3ZfTw5BIoejhKU76cTVqjW4bIVMYpeFwyAkSyNjdqaQqmQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794588397;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794588450;
+	b=3vRlrquPxo5yOoi2DYqzPriTz0KtaeH0rbeo8kFI5sop0kBp+Shf+ZmGiy/BrK5AxBtw
+	 z9xcQS1cR8Bo1iN2BgfXa9r5BT3S2e+p70kpYIKiGR1o7fpvlN30J0fyuvJx9zuZgoka2
+	 pXY1FYwjWmfW/ASX91F4iryzNPAfa8w0BwsJt2TP1GKO/casufJjfcHqErZqN4mmCrUa/
+	 uYb/CIBV3q06iuKTZ/aQ2TkYW/dU+V5Eu/Pjjp0IYnxD5Y9pBBiwjIuOjznkWXwFATmMR
+	 rPCyx+01sRIhR/EYJPfkJ+imAU3zKXpW2GWQo+L43oyrvtW/LMT9VlOXj7Co4GQheYA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794588450;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=PoDV0KjgP3E1TDHsMfvgVh/hKwNzYfobSY5qYswUHZI=;
-	b=euomun0CuAQ6bvvZ6dWyQD4MfBR8gmZKX/hgSMM8gMB59xtGRyl3rDvz3sE6nHmEJDWx
-	 ag63S10d1mMTkpsLdnOYk9uHNkaRuIjqww5QTittF4y1D/fGn+UeWs/g/recpZfwDcvCq
-	 vEbgKLEsjt/IgWkh4gv0K0OqWZYsP69/V+UBnrtMk91JoF5UufjaaCEa5eUwFmQLacCCG
-	 gJ2UvG28GG2UmEEfY5R4Ir4HaSAg9ru6qWsOZMwGU7GZlsG9/x24lYai7LLOHH8LlAntO
-	 W7yGQlQzl+Tn7EdZspyXD5GEa2bjkKE6PFMUS8YbDpmdwvnWuQDKP3WFV67Jpz1RvSQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=iv+OQwbi;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=5A95SHcauoTnuHojbhqI9VffDrdxRgwLa4QkgyckIoA=;
+	b=OI4UPKbVb3S06mMst2CeSQ9qNgMPmROjIn0SimDDec0PRXQrmO7MlZbFFHMrMaR3KAGY
+	 MM5VfOxilWUlDaL5ct4oL4KiZeVuOyDUqw7lvFYqwcnSdsx/EahgON5kJhoYc/ys72pfk
+	 9PF0IBAkcQBMDdKqJxn9eLVwvq0YMUdPADwsOl24beyT8t8LTV8N49Pbksw3D8PPWGTBf
+	 mBHdKfJFOZrtc+lWq23+c2bsPQgJGO1zrSlDAbpuyLSdHXy/0KLbLrTgkO9JqVwgnYzU7
+	 Tga5hr7VEdwKM4ZhG8YAyKEf0lCVHCX+HlFCRFBkDGAFQQPswXnMr1kRBijlTWeWSPA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jlfjqfLf;
+	arc=none smtp.remote-ip=209.85.215.172
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1C4E606F5DA
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:46:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1C4E606F5DA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09A64606A883
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:47:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09A64606A883
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=iv+OQwbi
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b633ddfad6so2282959a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:46:36 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794588395; cv=none;
-        d=google.com; s=arc-20260327;
-        b=iY4prhzlgc6WDw27XE21eWh/5zHrdUhbfldmi/UrCN+YBMjdCvpQ221zDeFgoxP+20
-         Z5da2h98Am3FpGJ5h7IlOOmxb5/LynWc5EBS6b6zZsdG+m06c6ha/B17A3CA4RJe8pOK
-         YtboJkm211ZqLN+2A8z0Rqq7lQUoseimE9phi/4pk+50tBm96xQnal5fN1wtjQC8MryX
-         hZbbhKXR5NElxV6sA/Ek/ue6Q833ZnzubVPbn3Uk7YBkiv1uGSbJdrt+adSzEemxWCWA
-         yVhlOz5NKeQQNoG22gmxbryvvlTdpiSY8V7hRPrml+wj5RitideslaXrMWjNcVp2mCrc
-         HoVg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=PoDV0KjgP3E1TDHsMfvgVh/hKwNzYfobSY5qYswUHZI=;
-        fh=RRo3T4TytY/H6zjNYpFLAMr/USOMnG5lE37Apfz8d58=;
-        b=l9OnCmbHG9POiqUFASfdor7HIx00UBuDTHfNJ1vE863jeB1GufopENX74iOjD/Lrwr
-         ju9TWvzv1e7x6gZgwx13lfiSDytgQ8+E1fGDWU8ckoZC1ICj8weJKBtb0gSbkVvxWcGR
-         qS7cS67GG0You+BxdjcSwvLIxLwfhkAus+1szxfPC50LMfuUYGoDGcc+eU5plNf8cTbH
-         KNW0Hrjkq470XES582FHxU2VOK0VdEP5os1OYRl+/upy3zKivTAH17l1M/O7MeOXBCiI
-         moVdc+GEc5zgbS6m/PBBb3cs76Ykncjvl5KpmWEPIBpMptbb63/h3nnA50oJdEHky5nb
-         WJHg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jlfjqfLf
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cdb9d5c1c8eso1172811a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:47:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794588395; x=1795193195; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PoDV0KjgP3E1TDHsMfvgVh/hKwNzYfobSY5qYswUHZI=;
-        b=iv+OQwbi4cghQpC0jKft/CSqfDiS1Ihc9bfUHcjUtiUmUBegPlwVr/Ul8v16P5x1Oa
-         WJ2xfkXeIZqSRMcmRIzFnK1FCmeyxWVAIN2VXSDib1ZkUH3H2LU/Mip8ClkyAAhJIoT2
-         uPY+i1hFWgOsylJs945u0z0AG0T/5ilAOzPbwa+bAykSn4GOP5UArt1jcWlNkZso2IzX
-         CRiSokmPrLmTrrWNUe1r/OIJGNSh9i7KzU/GU1Dh6QEuNwGrKE3ZKB/sOkvKeqEk411k
-         rndIDYoU9jL3kD+f7zNtbLiby6wstIJPZzPp+JZSwdoACWmvyFq1F6zTwoR/yjpV55pa
-         jhuw==
+        d=gmail.com; s=20260707; t=1794588449; x=1795193249; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=5A95SHcauoTnuHojbhqI9VffDrdxRgwLa4QkgyckIoA=;
+        b=jlfjqfLfYOy1yFLSilCSpkrKAGpO52d/W8N5CvfIvgF9xg8ctmCnObko507JQk7OtD
+         2MAUHkf83N1p0ojbIKNYQLSHweUidf6UP+DYAOskK7J0gyLR80KqcIM+4ERXRttlCpT4
+         kHC8EYq8VErFwOm1iYGiuz/UmXLuwlRjLxTCI4pGdt2WSmLFYRi4FwYKas/lHaJVw/a4
+         V7cEQ0mbn8Bu+DDvRElYNoczoOP+KP5fjQL5AobmL/8IfYDvL38IgZHVcWJj/a8e4UUV
+         dqMSQQYLptGT+TBS3VzDx+pntiw5AExtkDo1F/Dv2y4E+hatnI3ObDBDMs07WG6aJ6k3
+         9oZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794588395; x=1795193195;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=PoDV0KjgP3E1TDHsMfvgVh/hKwNzYfobSY5qYswUHZI=;
-        b=jbG8cKvLO7Nd3p2jVjoMliRJITkDQ6YcHswTZfB56gelMoSH+Wan2KFqn1QDycKILh
-         NyCaHudsV2ysxiRODczfeqtDAWvAwyg8vhqy5bwW0bflUP76DnUOX/vVo9AMRg0MQ6eD
-         397ekMWMwjXd96iRimW8nFaVL1lreiGJqieHmiRwA5h+kIPu2t+XAQclXm2BnXhINMuH
-         elDntdDWtPkaTpOV9B8C14cK+0tSKWrbG/rWPZx7jEHbm1PwGSvx9ZGyS9HL3UyLmqYA
-         3mKDL3YPjTX+omEXLK0RFG/c5j28/lJnh8DaT5T55mocnbboSPuZnEIvZojq5FG1cmyb
-         oU9A==
-X-Forwarded-Encrypted: i=1; AL+hErE/Rytb3gcXmGFcvpEUrPpQ1kFIs6dZLrje+nMH5qitYiOpcjF+Af0Nqf8xBYku+1Fm97/w25iocFcgc1s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+NJxpaAOiCbXVF92MCTVL//RAEXh+nT5tcidp2znf8OeusU/b/
-	qQBgBLEc8En65AFolSMK71WWBkY3gUpasVlXfrM9YwOWVSXZrSwhD6+mpVkrMMwjrFUQ/Khr4Dn
-	hp/RNrM4LwtpxDcOFtN+lUhnbVwYYiQtCeZeHbKgAcQ==
-X-Gm-Gg: AYBFou29LfowEMKTxyGmMaonkE+H/xOI5QWCsLXJjWDWxmOGyEaKvqPkMCNdhH3CGS1
-	rMYA6PkQtWHoZF3e/FwCBea6sO8Unhj2hdQ8QS9x5t1PGg66dvPJV9awHupz6O1Df11eUEhJIpY
-	f3Gd06d/G5Id+voctAKEbp5w5VPu2ipOy6elwaVRgB8pDE6LFfCcf7nbu1HAru8IaSvobXBwBJq
-	upTC92LDu7o1y5GWPemG1WWfogdn2VKgRUd8YbadlNOP9a7q7Tx0WC8xNGqyqSv5/v8ahLC3rnw
-	0tqVLvv7jXgWfBH9r2BbZvSW2dGuPFuUvSQ6jJJs934SfQC3mHZ4ERXNkySkYRDHpwDii33ivnG
-	zVeLwU40wz9saxo3g8betS033ScMNmJodDd60t66TcWfqce9rckWn7fhaEIUyqd9vDHXZVg==
-X-Received: by 2002:a05:6402:a6c4:10b0:6b4:7b28:858b with SMTP id
- 4fb4d7f45d1cf-6b7c0be1709mr2033159a12.19.1794588394028; Fri, 13 Nov 2026
- 08:46:34 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794588449; x=1795193249;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=5A95SHcauoTnuHojbhqI9VffDrdxRgwLa4QkgyckIoA=;
+        b=R56/22WoWRgLpPWHAjH3SgQUKrRs3ZuEqPmjXZDRMk/H9+Mkmyw3aqoeqWoZsxLK8p
+         XeOuY0Qnyn9D+fuMFFvZELUReuBzpNJBvur5eB5NEcQddLklrJjKszyUKdxCk8KjMp88
+         1VYaAPHvy+H1GfH5Kr8rsB4Moe/Bqe1VeeIfQlES8pcuibCpuye8iNvQ1rewqFdeyP/o
+         AyO3jmnfa225jJltTFCCkXpuVRNnZ036kRQIROPqW4ZFF2BNqUiItTjvInujhwdqbYWa
+         PScqJBilUCRaz+mtN9WkMUGDzGD3dTOQzfWXxNFeA2LjA6IRkLWBTJuwpfcBMLpfDjbx
+         AVrA==
+X-Forwarded-Encrypted: i=1; AL+hErFIxANELZRXfQYFSgxYoEA0GVL/kC6pIz4C5cUcF5rzxPxiIM9nYAXghtKGxrgakoIa/f8mZno3wGJlpbU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8v5O9gK0Z1tIhtmPynh8ly9MHiG8WbGaT2qxUf7LqEmR2U4RQt
+	nrYhId5Ypv/cWd1nKYCl9NNS2m9fcqBvFoJZrmi+2aelfJcaYvmPH94X
+X-Gm-Gg: AYBFou2ct7X+IR6Og6mf8sbIoKMVdV7r4vwDktNFz6srYQidSdZs0eA5nMrLlbtCu4x
+	SB6xL6lk0FlxvkWZ/AiESYZ8mYB3RUETIVGWTKft9VDJsicgCcui2ILE/nKfTf2FeIxMyI9ha8x
+	YpU4VS6Fqj71oHdz4pKlV3CXUtzy3JSKh2iw4vkvAmdak8LPrq6r/PXE+sBDBzLPon5CMFmV1af
+	7M0HS6dxXJhKLetVI42gx8QmFLbUFdnwQABnJDyGc81Sc5eVz4niYmgfLDoEkJJwRjKOvRraU+J
+	rMX9KnMyU2ilUojgSgyOMDyBnBHNEmdkCYYJYZn/ebvgFwmcpcSXz6S29breGrstYUxX+t/Wihc
+	BhmkQT7FAxgVVQJW5Rr9tQuM8qNEczkJ6qdckIRUEDHcAsw01f7ZvwDHVcffF0CiFsps23Sy9Zj
+	4fqFMyDusYZwQeaOtXqSU6GwlsvefJXsZ0qzjKrBYc06VS8/3o1n8KM9SLBosgswYcAQ6S7dDQg
+	hfRJ2+LIMiy8yclWLbiNDGsM/ujsEmQg0VZ5hosQzG9cooKV2N5Gqlf91sc8+Ryy1Yk2cWPKeo2
+	znos//3h+IqWhw7rxeWAWUKloXUe7AfwIH7AuH00+/GWwiNxVd+a8rJ9LgiFcjbSmNymX+WYRvo
+	6g1UooGmgU7KshLbduRELeNV3Og==
+X-Received: by 2002:a17:90b:4b88:b0:3ac:80de:44e8 with SMTP id 98e67ed59e1d1-3b1b0ccc955mr2999783a91.43.1794588449260;
+        Fri, 13 Nov 2026 08:47:29 -0800 (PST)
+Received: from junjungu-PC.localdomain ([2408:820c:9009:b6e2:c438:aa16:9bcb:8e43])
+        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-3b1aeb179fasm5208924a91.4.2026.11.13.08.47.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 08:47:28 -0800 (PST)
+From: Felix Gu <ustc.gu@gmail.com>
+Date: Sat, 14 Nov 2026 00:47:18 +0800
+Subject: [PATCH] spi: sunplus-sp7021: use
+ devm_reset_control_get_exclusive_deasserted()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,114 +93,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260929-exynos850-acpm-node-cpufreq-v1-0-5a86c1d404b8@linaro.org>
- <20260929-exynos850-acpm-node-cpufreq-v1-1-5a86c1d404b8@linaro.org>
- <7b5dded4-c475-40dd-b5c4-5086bab4162e@linaro.org> <DLSMQGCHNINR.ZPYVN1SR0GM2@linaro.org>
- <8e305a3a-c30d-4862-9da4-8c763b9f88a0@linaro.org> <DMS1ELJMVBTB.2I2J926XE5V3S@linaro.org>
-In-Reply-To: <DMS1ELJMVBTB.2I2J926XE5V3S@linaro.org>
-From: Peter Griffin <peter.griffin@linaro.org>
-Date: Fri, 13 Nov 2026 16:46:21 +0000
-X-Gm-Features: AclHuK_ez23rl1EP1_wg4tzOti-KVedDElMJmYIu226TUJ8WPAQv2T8gyYll0Ws
-Message-ID: <CADrjBPq79Dn5pv-2wdcG5b9rNb4NHatzGGZMrfAkF1L0ZD1mHQ@mail.gmail.com>
-Subject: Re: [PATCH 1/2] arm64: dts: exynos850: Add ACPM firmware node
-To: Alexey Klimov <alexey.klimov@linaro.org>
-Cc: Tudor Ambarus <tudor.ambarus@linaro.org>, Sam Protsenko <semen.protsenko@linaro.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Thomas Turner <tturner@lineageos.org>, 
-	linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Juan Yescas <jyescas@google.com>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261114-sunplus-reset-cleanup-v1-1-115e32fe8c1a@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBG4auQWTtJhyAQr2JcQP2RIaQ2HWpMC
+ He36vJbvLeTISmMLtVOCS81fYYCOVXk5yE8wHovptrVrYg0bDnENRsnGDb2K4aQI7eTOzedG53
+ 0oNLGhEnfv+/19rflcYHfvjM6jg8hFew4eQAAAA==
+X-Change-ID: 20261114-sunplus-reset-cleanup-6f05470b018e
+To: Li-hao Kuo <lhjeff911@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Felix Gu <ustc.gu@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794588443; l=2080;
+ i=ustc.gu@gmail.com; s=20261030; h=from:subject:message-id;
+ bh=JcZjEJ1TO/syuDGRI66mvFtAh2Bdb9V+mCpS/CvpiNg=;
+ b=0ZOADtSIFnLqUjn6nFxYBbpXzP7GerWKdiSC4u2ccRs/jro+2b1l2OrKvkF8aH6tzL9ttaNjT
+ YDdXrg0g4ahAefejX6yx9y/+UBqmabD6ku+cXGhPs8QRJd6zBx7Kvre
+X-Developer-Key: i=ustc.gu@gmail.com; a=ed25519;
+ pk=fjDJtbnSeysEBjmOfNYqYUUDS6g7Tfov9W5oGngTBfo=
 
-Hi Alexey,
+Use devm_reset_control_get_exclusive_deasserted() to replace the
+explicit reset acquisition, deassertion, and cleanup action registered
+with devm_add_action_or_reset().
 
-> >> Eventually to have some sensible/working ->recalc_rate() for ACPM
-> >> cpucl{0,1} clocks.
-> >>
-> >> Which is needed, for instance, for cpufreq_dt because it registers with:
-> >>
-> >> static struct cpufreq_driver dt_cpufreq_driver = {
-> >>         .flags = CPUFREQ_NEED_INITIAL_FREQ_CHECK |
-> >>                  CPUFREQ_IS_COOLING_DEV,
-> >>
-> >> Don't know if it answers the question (if I understood it correctly)?
-> >>
-> >
-> > Thanks, Alexey. I see now that clk-acpm.c uses pdata.fw_name on the
-> > parent (acpm_ipc) DT node to link the ACPM clocks to the CMU PLLs for
-> > ->recalc_rate(). Could you please clarify a few things in the commit
-> > message (and below):
->
-> Thanks for the good questions. You hit the exact pain points we have been
-> debugging on hardware with cpufreq-dt and Panfrost devfreq.
->
-> > 1. Physically, CLK_FOUT_CPUCL{0,1}_PLL are not input clocks feeding the
-> >    APM hardware, they are the PLLs that ACPM reconfigures behind the
-> >    scenes. Meanwhile, acpm_clk_register() sets num_parents = 1 and
-> >    pdata.fw_name = name for all 9 clocks in exynos850_acpm_clks[].
-> >    Since the DT node only lists "cpucl0" and "cpucl1", won't the other
-> >    7 ACPM clocks (mif, int, g3d, aud, cam, disp, cp) remain permanently
-> >    orphaned in CCF with rate = 0?
->
-> Correct. Is it a problem now since there are no "clients" or consumers or
-> users of these clocks?
->
-> Or do you suggest to link them all to parents clocks to have a sensible
-> rate?
+This simplifies reset handling and removes the custom reset assertion
+callback while preserving reset assertion during cleanup.
 
-Since your implementation relies on CCF to get the clock rates I think
-you have two options:
-1) Only register ACPM clocks that have a corresponding CCF implementation.
-2) Add the missing CCF clocks for the ACPM clocks you are registerring
+Signed-off-by: Felix Gu <ustc.gu@gmail.com>
+---
+ drivers/spi/spi-sunplus-sp7021.c | 18 +++---------------
+ 1 file changed, 3 insertions(+), 15 deletions(-)
 
-Should CCF's ability to set the rate for these ACPM-managed clocks
-also be restricted? It seems undesirable to have two entities (Linux
-and ACPM) able to set the clock rate, with the possible exception of
-it being useful for debugging. These limitations should also be
-clearly mentioned in the commit message or cover letter.
+diff --git a/drivers/spi/spi-sunplus-sp7021.c b/drivers/spi/spi-sunplus-sp7021.c
+index 54431c363bbc..abb272dd7250 100644
+--- a/drivers/spi/spi-sunplus-sp7021.c
++++ b/drivers/spi/spi-sunplus-sp7021.c
+@@ -393,11 +393,6 @@ static int sp7021_spi_target_transfer_one(struct spi_controller *ctlr, struct sp
+ 	return ret;
+ }
+ 
+-static void sp7021_spi_reset_control_assert(void *data)
+-{
+-	reset_control_assert(data);
+-}
+-
+ static int sp7021_spi_controller_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+@@ -463,17 +458,10 @@ static int sp7021_spi_controller_probe(struct platform_device *pdev)
+ 	if (IS_ERR(pspim->spi_clk))
+ 		return dev_err_probe(dev, PTR_ERR(pspim->spi_clk), "clk get fail\n");
+ 
+-	pspim->rstc = devm_reset_control_get_exclusive(dev, NULL);
++	pspim->rstc = devm_reset_control_get_exclusive_deasserted(dev, NULL);
+ 	if (IS_ERR(pspim->rstc))
+-		return dev_err_probe(dev, PTR_ERR(pspim->rstc), "rst get fail\n");
+-
+-	ret = reset_control_deassert(pspim->rstc);
+-	if (ret)
+-		return dev_err_probe(dev, ret, "failed to deassert reset\n");
+-
+-	ret = devm_add_action_or_reset(dev, sp7021_spi_reset_control_assert, pspim->rstc);
+-	if (ret)
+-		return ret;
++		return dev_err_probe(dev, PTR_ERR(pspim->rstc),
++				     "failed to get and deassert reset\n");
+ 
+ 	ret = devm_request_irq(dev, pspim->m_irq, sp7021_spi_host_irq,
+ 			       IRQF_TRIGGER_RISING, pdev->name, pspim);
 
->
-> > 2. Does bypass_acpm_exynos850_get_rate() actually return the updated rate
-> >    after clk_set_rate()? When ACPM changes the PLL frequency via IPC,
-> >    CCF is unaware that the parent clock (fout_cpucl0_pll) changed in
-> >    hardware. Even with CLK_GET_RATE_NOCACHE on the ACPM clock,
-> >    __clk_recalc_rates() only reads the cached core->parent->rate without
-> >    calling ->recalc_rate() on the parent itself. Won't parent_rate remain
-> >    stuck at the initial boot frequency?
->
-> This was already asked and seems there are no answers. The problem with
-> stale rate is present.
-> https://lore.kernel.org/linux-samsung-soc/DLAZXSNZK6QC.1VFAX37XCXBOV@linaro.org/
+---
+base-commit: 793807ca13bf3072fc6d16ce6d90e9ab9beff2a5
+change-id: 20261114-sunplus-reset-cleanup-6f05470b018e
 
-The question was sent on September 9th, but the series adding support
-into ACPM was sent on September 15th
-(https://lore.kernel.org/lkml/20260915-exynos850-acpm-clk-v2-0-ffad4a6b3fb1@linaro.org/).
-The limitation about get_rate returning stale values should have been
-clearly stated in the cover letter or commit messages.
+Best regards,
+--  
+Felix Gu <ustc.gu@gmail.com>
 
->
-> Any suggestions?
-
-For the benefit of the ML, we discussed this topic off list. The
-consensus was to try and make CCF walk the clock tree, recalculating
-clock rates from the SFRs without using any cached values (as ACPM
-could have changed the SFRs of PLLs, dividers, etc., behind Linux's
-back).
-
-That should in theory mean that clk_summary will always report the
-correct clock rates for everything in the clock tree and we won't
-report (or make decisions) based on stale values.
-
-> > 3. In drivers/clk/samsung/clk-exynos850.c, cpucl0_cmu_info and
-> >    cpucl1_cmu_info still set `.manual_plls = true`.
-> >    Does that conflict with ACPM firmware managing the CPU PLLs?
->
-> I don't know yet what to do with that. I didn't encounter any problems
-> yet because of this. Is it related to early initialisation only?
-> I thought that exynos CMU driver doesn't touch PLL clocks after init.
-
-You should check this with downstream sources and the TRM.
-
-regards,
-
-Peter
