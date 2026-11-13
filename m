@@ -1,83 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794589886;
-	b=Cg55RgZ47fAVRwNnFVlGR0p4jbNRgTibDwHdY92V8upi0D49nPFItupJaL3eo11PXaBp
-	 BAlokeYB01E8FsYAkAg66iJ/WcYqgHDedwq/iI6wxK9yOL+7sHe9S4bS+tDRpR6spd+WE
-	 7JcrHuproHJfWPDc37+w1GA5q1umdRLyjvZASxUtnt/bK/Ev27WsyjVabUmSg9VPaPS1M
-	 Xz5vCjHzA8n7d9PPXJb7zLZvvpOzIP7AJU3bi/WFDnX1Eh+EoayyKmXnZgiQmu5ZCANA1
-	 B41NYIsEekFmjER4Ln72QvLcoNAo6VG9iteFvUrCtotoqIiUQCk43kF3G87M/24TJCg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794589886;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=eeySqJ6NUrXSgAYigTDXkgs9x3xogv1758TcVbxxaWs=;
-	b=QPox4ZIkYJQysQMQDzHMLZj3eV2UK4ae+Lg6GpNBFKIw5EwTpk//2ILFGDHcnyfJdYfc
-	 LYvYIBEPCvrMzdscITy4XwK8Hx07vmX2tydO2SPEXCGwsZAlluNOA9AQq4zA7GKc6/1fS
-	 okVN6CjqgahKZAU326B+eXqdnlAiY1q1/kNxP06veaifHlK0HpGDi8lor67G4oC+70R5y
-	 8K+grZzN1II+jTIynKOSeReaECt8MMfaPKjtT6AxXM14V7s8joIzQSTlGCWr0Lph8+Fvt
-	 RuL43vRV0XjWzeG9+PnlWd/9dyx8jb5M3XB86Y7af9O86nYbZ3MrojTKlD91LbCjpUQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QcM6XTBb;
-	arc=none smtp.remote-ip=192.198.163.19
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.182
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794589919;
+	b=H1aYVmYi1LGaouxTIAng0OnUY/pvdSXYY+OalfUdeAQx0i6gcXEBYv4BpA46xQzFR0GD
+	 kvWE2O6JOtktgwgFc9xWGAB00U6LUfFsEVD8YLlOzyzjRjEPDSQIkoVmaBy6H9UPqSlyn
+	 Ib9P3Yqg6ol/BZAZvxgdmOWYDsmf94MLJMCUHOpz5EFWGWqn6CbiMnv3dJYFPiSzaw8dc
+	 O+Ra2QHBKZuuLhaZ9I0pBHgNQOe7rcF/f3s3DUiEayHfaCjazFRr3WnmmDLAfALytUAA7
+	 SGVimXgzoOO6tp9UVshDjb4yY5ZJxJmJT69bhIKTAFFByGytuIjbwvHoH5J6Mu21HbQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794589919;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=V4LsAq7DB5D+COJ4bQL/G858UvTmKQbRXPHjpExqCZg=;
+	b=RAsE8VtbO647t4wYzRcAQ61NED4S1LusKJKXeRXAh+C+UcU51YtacSUaPTBUrf83o/B2
+	 tbswkc8auFOPBHL4Q9xjbvVwS7ekky+ZvpEz8xujB4S7YuChACFD1wVrGVC5CPZL6ZUW6
+	 fDFYZuy0ul1gWVaejczWJBbyFJ97FRdeelPNKCCoNeEYkgZEAT1p3J6CA8vKTxovWuZ0n
+	 2um2w6O2m2wrX4Mcq/2ko1Oe6SJA4Zfab43gCGSoup2+Ya3LUWWj0MHay32UtCnZ42r2B
+	 /EhXyZlC8+ALLH8FFbEIqYBL02VsXDob1yOJUWhhjxSdWzu1BwXcM4Okbv+SLOHWIDg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BKMK0KZH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86497606A330
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:11:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86497606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96C66606A331
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:11:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96C66606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QcM6XTBb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794589884; x=1826125884;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=CgpZyVAyt+Qd7pZ3YLkFhQMR5yXckSnAKIR8/gt9wgA=;
-  b=QcM6XTBbGgeQd5qUjrrYXZUmiFMAikZwwkEnC/h5jNH+vuSTXCh2YOr5
-   LGSa+9h97dFt1UcSDCuGHqXKKWdEL0zjukm2EyXL7BnNdH+UXn9KSoVzB
-   7dxe4gV/f12Mkw9mvhhvcGrew1fVqTC05yu17VsWyFCBUKZOwNpePE1w6
-   aXFjGytvXZA81tIEBe9tyeoW3Xa3aVi9JDesDFigavPqY5oSmPziiPQBK
-   aN9enMSiBc2/baMxxoiwRZtX5LwSrADyVG7soaM+kchJcveidTiIP/9GX
-   ZU776gHxgdMD0WBejG2pylCOD7Hq95TWYto+kB8kylMicqntcWfYxaiMi
-   A==;
-X-CSE-ConnectionGUID: cVOYcmDjS92ZI/+m1GPqCw==
-X-CSE-MsgGUID: 9GVz+olCRrORakszCj5lJw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3500238"
-X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
-   d="scan'208";a="3500238"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 09:11:23 -0800
-X-CSE-ConnectionGUID: R/Etu5amTUaDe9kfeyWTEw==
-X-CSE-MsgGUID: lFSp4hyoQT2vw8iR/tj7TQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
-   d="scan'208";a="8782953"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa008.jf.intel.com with ESMTP; 13 Nov 2026 09:11:20 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xRuo1-000000013PL-1kla;
-	Fri, 13 Nov 2026 17:11:17 +0000
-Date: Sat, 14 Nov 2026 01:10:22 +0800
-From: kernel test robot <lkp@intel.com>
-To: Baolin Wang <baolin.wang@linux.alibaba.com>, akpm@linux-foundation.org,
-	david@kernel.org, hannes@cmpxchg.org, kasong@tencent.com
-Cc: oe-kbuild-all@lists.linux.dev, baohua@kernel.org,
-	axelrasmussen@google.com, yuanchu@google.com, weixugc@google.com,
-	baoquan.he@linux.dev, qi.zheng@linux.dev, shakeel.butt@linux.dev,
-	mhocko@kernel.org, baolin.wang@linux.alibaba.com,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm: mglru: use pte_table_clamped_end() helper to
- calculate the end
-Message-ID: <202611140137.58xBD8xH-lkp@intel.com>
-References: <b2386c5da61f9a15e60daa421b033bc1e0bcdd41.1794481498.git.baolin.wang@linux.alibaba.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BKMK0KZH
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-36eb1cb7aabso1557814eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:11:58 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794589917; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MKuaeODTH64vTuHjHObALEfg2rje//AkzU4YY2qdbcs5QJZG2adJXG7y0b02zGBi7j
+         PMWzErh/FnJMuremp/BZgG16I9wJ7XwvNPIsAyOvimOk8N9TZ0y+7qkllMi3Pk+B/+OD
+         dtn01txzL7hdMO1jIk7hYJQAdqQb1od5gZk8M9NBm8AQXL0TYzaCm9EWZmyOhvgSyEjL
+         71ug12r0GAhLwL36YezMyfgj8/uS9hMbpJVOEQ/0iCqUkGZJgVFj0AWRrdqNqNouUryw
+         Hfrv24LqDl+96F9ZMEHcmlDxKn/dJlgKaSBP8SNQHhJGAQIK65jvOI9mH+pVu+wbX4Tq
+         mXDw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=V4LsAq7DB5D+COJ4bQL/G858UvTmKQbRXPHjpExqCZg=;
+        fh=mCTPyLhB2IOiN42dq3IH3uDnGBZ9HIVSWQMlDc9+E+E=;
+        b=eXuH7ZxNYjJvOQFwO5YKOWRplZjYaMfbquicm5UwGwPTOLhmwR3NohBZs7GdoIVXOz
+         doveLoR46LfNgzNxnbOOFll4IrGWTvoHVCauPWIzioYgctTOpVnnn7h7gv9n3WK+ogKx
+         PQG6HE9vvL3d4WgkDDK+W4VURLs8PGljrDW6jsmnC9Qpyf/A9j5ZnjeXM37yHHvocUFV
+         aIy1M9cL5kLF0d5Yh41QCzaxy5i96l/2aiwt3NeN3+mH1KxbeG7CKnrISGCvZecPLI1O
+         iYFM7jKapiwZ/QaUouPoly5TEZs59fXfiflTsVIi0tR9hO97dgsJdJMJgc3JWTAr+loa
+         30bg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794589917; x=1795194717; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=V4LsAq7DB5D+COJ4bQL/G858UvTmKQbRXPHjpExqCZg=;
+        b=BKMK0KZHW40/xANMJhU06GwcU6etbuyihKhRyBvi0ST3A8FuQivvgdkodfiBKcBOdV
+         aMCGMMTE5m12VtsXoFl5J98xuKOy/qUFuZdNldWNAqBLhjWCZEiJZs8BHwkI8iHqoo9q
+         gR03Ozblb3tiuLmNzMmZgDS+XGmTdMY0CNIayn7+tYVZEcjPlMumRTEoAVu/JqYmT4cj
+         RVUEddBEbOrcUaoPhFb87pmNDCRHjLvwFLUCL4loYnY8mSY3euX/Zh7epYqE0poECM5Y
+         UQE/a+QU6/80+vW2xQio/J87Zx2mcrURhG5tVx38FWMUMYa0VV/dq0hvSn30ahSOmfYu
+         C61A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794589917; x=1795194717;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=V4LsAq7DB5D+COJ4bQL/G858UvTmKQbRXPHjpExqCZg=;
+        b=rg9RuQs2nrGY7kACwyYoOVUsEQxHVYkyV9B/RUYzQlZl72+XaH0G1J1cSu7Q3ZU/GG
+         ModsAN/rJSjv0Sq5NL4xfcnHU5nyTyKbG1+MMXkK+utv5x5oM6JOOwEmkN2oZfWGECbI
+         GyAN67OxfExPsL9nq6BcaNses/drbJrll2HWOe4yy9D/vkrJZRtK8hQHf2FyrDFCI2Hw
+         GMF4PlolcXh21dHWzgbjfWzD0PmQnxpRIh2hvEe131sCYfVsttbp/YZ34s9btc9L0OoK
+         9D13UDUFHA2sAY3UHiBzOx3LSjhfPDjOaavmRNFW22mwJ6vHwRCcoWH7c5yT8q3LYN4u
+         Hpzw==
+X-Forwarded-Encrypted: i=1; AL+hErGeiUhccnPqcbfFsl0vem0Wydyzjyxlp4+0H8YXq8pTSgnXDwOnlpeMzidxZMLiSFSrWdTDDpv86y3JGOk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9UVtte2s+Sz763jx3OKZdeHU+FRLs8+MdqeAtA90bSFcVLKxol
+	BJdQgrU6ivC8tPtVq+oGf/3CpKZiynvZBf3+kn3KAfryC0bmjsfajFqcHHKwkkxU4acVxKRxs9I
+	xymukyj2HTdald39smg4ufbYI4VE7bjY=
+X-Gm-Gg: AYBFou0W+hxbzVv9MNGhD++4TwskEFVhmge0oy+yBVhbV9u28UQ9qy3ABZ5to0tFsTd
+	A86jXMkDJGEYAq5Y/r6LEWMjh7Od7s8k8dQ8kjgFkOGbXYm4KGESEAbyGSQONHj+VyD1pdSzl/n
+	C/MYl7XVPkalmnWa3dFviwAykrQQUlFztxrNOKtr0dlz/ABMM8w6QH/T7843Q0xwsFNTIpU0WzK
+	0qJ3GcWcczDW8XBSKPx6kNmTsHf7APx5x9oF97EOv0KY+nXEdK1m5VFg7oL1YjRWPZRg1Gx1jVs
+	R/5LgMKbMkW14Dm7DXnKlDHAUPpGVdnghZxaBHB45wSg+m2OZma7SPmyq3Q1LZYtpdy/ctjUN4X
+	6mlvpIdkS6LOPHQk3TYsbvDvzb0ya7j9kmx/C3+2eoMqm2By8ZPOQCEbapBA+rH2dnAk=
+X-Received: by 2002:a05:693c:88db:20b0:36a:1e9e:ae61 with SMTP id
+ 5a478bee46e88-379684ae78cmr2588635eec.38.1794589917373; Fri, 13 Nov 2026
+ 09:11:57 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,162 +104,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b2386c5da61f9a15e60daa421b033bc1e0bcdd41.1794481498.git.baolin.wang@linux.alibaba.com>
+References: <20261112214738.3002458-1-joshua.hahnjy@gmail.com> <ba5dd85a-20a3-4f76-a929-4fc2df8fecf0@kernel.org>
+In-Reply-To: <ba5dd85a-20a3-4f76-a929-4fc2df8fecf0@kernel.org>
+From: Joshua Hahn <joshua.hahnjy@gmail.com>
+Date: Fri, 13 Nov 2026 09:11:45 -0800
+X-Gm-Features: AclHuK9fy_F2qf_MxokR_kjguv7xtRDWNK8DAsF7IEyYQ9lXs95btzddWkzOKuY
+Message-ID: <CAN+CAwNsqWpPoag_XE6bxbrfi6m71xw1NS_wc3h_ShZjNspSjg@mail.gmail.com>
+Subject: Re: [PATCH v3] mm/page_alloc: only skip kswapd nodes below their
+ kswapd watermark
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Gregory Price <gourry@gourry.net>, 
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>, 
+	"Jose A . Perez de Azpillaga" <azpijr@gmail.com>, Daniel Hodges <hodgesd@meta.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kernel-team@meta.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Baolin,
+On Fri, Nov 13, 2026 at 1:18=E2=80=AFAM Vlastimil Babka (SUSE)
+<vbabka@kernel.org> wrote:
+>
+> On 11/12/26 22:47, Joshua Hahn wrote:
+> > Commit 19c5fb83f2a4 ("mm: page_alloc: avoid kswapd thrashing due to
+> > NUMA restrictions") makes get_page_from_freelist() skip any node with
+> > kswapd running to avoid piling on already-pressured nodes.
+> >
+> > This assumes that kswapd was woken to create free space, although kswap=
+d
+> > can be woken up for other reasons, like higher order allocation
+> > failures. Thus, fragmented nodes with failed high order allocations wil=
+l
+> > always wake up kswapd and direct order-0 allocations to the fallback
+> > path, even when there is free space.
+> >
+> > This behavior was observed on 2-NUMA Meta production workloads where
+> > faults would pile on already pressured remote nodes while stranding
+> > memory on the relatively empty local node, causing unnecessary pressure=
+.
+> >
+> > Only skip nodes with kswapd running if the node is under the relevant
+> > low-memory watermark.
+> >
+> > On a 2-NUMA VM with a 60G node0 and a 20G node1, with THP enabled=3Dalw=
+ays
+> > and defrag=3Ddefer, I ran a process that prefers allocating on node0.
+> > With a fragmented node0:
+> > - Before the patch, 66% of faults were served from node0
+> > - After the patch, 100% of faults were served from node0
+> >
+> > Fixes: 19c5fb83f2a4 ("mm: page_alloc: avoid kswapd thrashing due to NUM=
+A restrictions")
+> > Suggested-by: Daniel Hodges <hodgesd@meta.com>
+> > Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+> > Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+> > Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > Acked-by: Gregory Price (Meta) <gourry@gourry.net>
+> > Acked-by: Zi Yan <ziy@nvidia.com>
+> > Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+> > ---
+> > v2 --> v3:
+> > - Shortening cover letter, suggested by Gregory and Johannes
+> > - Collect signatures
+> >
+> > v1 --> v2:
+> > - Added a Fixes tag and separated this from the other cleanup patches
+> > - Check zone_watermark_fast with no flag to match the call in
+> >   pgdat_balanced().
+> > - Calculates mark outside the zone_watermark_fast check to match the
+> >   style for the other zone checks.
+> > - Wordsmithing commit message to explain the unaddressed gap.
+> > - Yes, this is ugly. I have another series to clean this code up but
+> >   I wanted this to be a feature-minimal patch so that it could be
+> >   easily backported. Things will be much prettier once those are landed=
+.
+>
+> Easily backported, but there's no Cc stable. So I'm adding it as it seems
+> useful enough for LTS kernels. But at the same time not urgent for rcX ho=
+tfix.
 
-kernel test robot noticed the following build errors:
+Ah sorry about that Vlastimil, yes, there should be a Cc stable. Thank
+you for your help!
+Joshua
 
-[auto build test ERROR on akpm-mm/mm-everything]
+> Applied to page_alloc/for-next, thanks.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Baolin-Wang/mm-mglru-use-pte_table_clamped_end-helper-to-calculate-the-end/20261112-191239
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
-patch link:    https://lore.kernel.org/r/b2386c5da61f9a15e60daa421b033bc1e0bcdd41.1794481498.git.baolin.wang%40linux.alibaba.com
-patch subject: [PATCH] mm: mglru: use pte_table_clamped_end() helper to calculate the end
-config: x86_64-rhel-9.4-ltp (https://download.01.org/0day-ci/archive/20261114/202611140137.58xBD8xH-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261114/202611140137.58xBD8xH-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611140137.58xBD8xH-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   mm/vmscan.c: In function 'lru_gen_look_around':
->> mm/vmscan.c:4343:15: error: implicit declaration of function 'pte_table_clamped_end' [-Wimplicit-function-declaration]
-    4343 |         end = pte_table_clamped_end(addr, vma->vm_end);
-         |               ^~~~~~~~~~~~~~~~~~~~~
-
-
-vim +/pte_table_clamped_end +4343 mm/vmscan.c
-
-  4296	
-  4297	/******************************************************************************
-  4298	 *                          rmap/PT walk feedback
-  4299	 ******************************************************************************/
-  4300	
-  4301	/*
-  4302	 * This function exploits spatial locality when shrink_folio_list() walks the
-  4303	 * rmap. It scans the adjacent PTEs of a young PTE and promotes hot pages. If
-  4304	 * the scan was done cacheline efficiently, it adds the PMD entry pointing to
-  4305	 * the PTE table to the Bloom filter. This forms a feedback loop between the
-  4306	 * eviction and the aging.
-  4307	 */
-  4308	bool lru_gen_look_around(struct page_vma_mapped_walk *pvmw, unsigned int nr)
-  4309	{
-  4310		int i;
-  4311		bool dirty;
-  4312		unsigned long start;
-  4313		unsigned long end;
-  4314		struct lru_gen_mm_walk *walk;
-  4315		struct folio *last = NULL;
-  4316		int young = nr;
-  4317		pte_t *pte = pvmw->pte;
-  4318		unsigned long addr = pvmw->address;
-  4319		struct vm_area_struct *vma = pvmw->vma;
-  4320		struct folio *folio = pfn_folio(pvmw->pfn);
-  4321		struct mem_cgroup *memcg;
-  4322		struct pglist_data *pgdat = folio_pgdat(folio);
-  4323		struct lruvec *lruvec;
-  4324		struct lru_gen_mm_state *mm_state;
-  4325	
-  4326		lockdep_assert_held(pvmw->ptl);
-  4327		VM_WARN_ON_ONCE_FOLIO(folio_test_lru(folio), folio);
-  4328	
-  4329		if (!test_and_clear_young_ptes_notify(vma, addr, pte, nr))
-  4330			return false;
-  4331	
-  4332		if (spin_is_contended(pvmw->ptl))
-  4333			return true;
-  4334	
-  4335		/* exclude non-mm-backed VMAs containing anon pages from COW */
-  4336		if (!vma_is_mm_backed(vma))
-  4337			return true;
-  4338	
-  4339		/* avoid taking the LRU lock under the PTL when possible */
-  4340		walk = current->reclaim_state ? current->reclaim_state->mm_walk : NULL;
-  4341	
-  4342		start = max(addr & PMD_MASK, vma->vm_start);
-> 4343		end = pte_table_clamped_end(addr, vma->vm_end);
-  4344	
-  4345		if (end - start == PAGE_SIZE)
-  4346			return true;
-  4347	
-  4348		if (end - start > MIN_LRU_BATCH * PAGE_SIZE) {
-  4349			if (addr - start < MIN_LRU_BATCH * PAGE_SIZE / 2)
-  4350				end = start + MIN_LRU_BATCH * PAGE_SIZE;
-  4351			else if (end - addr < MIN_LRU_BATCH * PAGE_SIZE / 2)
-  4352				start = end - MIN_LRU_BATCH * PAGE_SIZE;
-  4353			else {
-  4354				start = addr - MIN_LRU_BATCH * PAGE_SIZE / 2;
-  4355				end = addr + MIN_LRU_BATCH * PAGE_SIZE / 2;
-  4356			}
-  4357		}
-  4358	
-  4359		memcg = get_mem_cgroup_from_folio(folio);
-  4360		lruvec = mem_cgroup_lruvec(memcg, pgdat);
-  4361		mm_state = get_mm_state(lruvec);
-  4362	
-  4363		lazy_mmu_mode_enable();
-  4364	
-  4365		pte -= (addr - start) / PAGE_SIZE;
-  4366	
-  4367		for (i = 0, addr = start; addr != end;
-  4368		     i += nr, pte += nr, addr += nr * PAGE_SIZE) {
-  4369			unsigned long pfn;
-  4370			pte_t ptent = ptep_get(pte);
-  4371	
-  4372			nr = 1;
-  4373			pfn = get_pte_pfn(ptent, vma, addr, pgdat);
-  4374			if (pfn == -1)
-  4375				continue;
-  4376	
-  4377			folio = get_pfn_folio(pfn, memcg, pgdat);
-  4378			if (!folio)
-  4379				continue;
-  4380	
-  4381			if (folio_test_large(folio)) {
-  4382				const unsigned int max_nr = (end - addr) >> PAGE_SHIFT;
-  4383	
-  4384				nr = folio_pte_batch_flags(folio, NULL, pte, &ptent,
-  4385							   max_nr, FPB_MERGE_YOUNG_DIRTY);
-  4386			}
-  4387	
-  4388			if (!test_and_clear_young_ptes_notify(vma, addr, pte, nr))
-  4389				continue;
-  4390	
-  4391			if (last != folio) {
-  4392				walk_update_folio(walk, vma, lruvec, last, dirty);
-  4393	
-  4394				last = folio;
-  4395				dirty = false;
-  4396			}
-  4397	
-  4398			if (pte_dirty(ptent))
-  4399				dirty = true;
-  4400	
-  4401			young += nr;
-  4402		}
-  4403	
-  4404		walk_update_folio(walk, vma, lruvec, last, dirty);
-  4405	
-  4406		lazy_mmu_mode_disable();
-  4407	
-  4408		/* feedback from rmap walkers to page table walkers */
-  4409		if (mm_state && suitable_to_scan(i, young))
-  4410			update_bloom_filter(mm_state, READ_ONCE(lruvec->lrugen.max_seq),
-  4411					    pvmw->pmd);
-  4412	
-  4413		mem_cgroup_put(memcg);
-  4414	
-  4415		return true;
-  4416	}
-  4417	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+: -)
