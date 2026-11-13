@@ -1,49 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.225.138
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794565561;
-	b=EYCF0Jcew3kvCLVMvw0EH+bDrG+B5gcHQvmcbiXjqz+ykws6e2l5TU+X29XOZL1s5/aq
-	 06qVbH3mjfUHa/3pub/r3DfIzZDQzTvmgeCQLJ5gtI/gd5zcp/hp8lElA9wn6fZpFwkES
-	 qWuet1bbf39m0Gl7am3miErbfqiSVpqbBvU58ol30GfoJU0+NRW0DFPgzAMgZ5s4rUdIm
-	 se/IwlG3m3nirkoSIE5Rd5SYD8dQaPRKqMf8IOQKnAT4Fby+VS+fooEF1ISYTCEmsdF1O
-	 StHxYK4Hm9Jmj7vVWcsasZVz+q9FOWCDFRIsjLnCmddMkCiMh4V1rkNPw4pm8imdFgQ==
+	t=1794565562;
+	b=4mAqbk4ZlEBHUA7jyx+Eh4wKew8E8McLzBeDf6QXo2vLTbqLY2jbRtnQz1/TLtDTDEek
+	 PQBQrtsLfSOuF6g/7nb0JKMx5/dQ617Mwyr0Y5ujRSzdDu6kucBeZ6U3yxsarK0TL9HTN
+	 2b1K/FL8m+Axfa3HpEa6533gES5a7IrzFBJVpTOvGkM9U1fq3hDCtcB9MUbmIIbn8ftGH
+	 6pinwAzdjCacXf/ZqpJQc3s/ukaD8iiTpiL5u3QlXl0qlHwpjAb/vLYB+bzIxgrYzcU6W
+	 iW/8Y9IzLvEg+s3i3h0VUnN04sPBKcY/RFBROnycgpSgeyhEXoSQuOM0m7e4xmvWrGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794565561;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=PujtvIjLoeXZpAZ6ifkKMStRo7NhiyUQ5xqJMqtqeRE=;
-	b=CQKZ90yl60QHhc1QZVJZbp42P96SBh+9AcIyYgkTaxKSiHss8ADFkK4P6p4c2MQ/GoZY
-	 weiN13QPJgZQjwYrVJWIGNTaLK3UGDPAts/2OULW8iLxxkaDEF04mFI9bmlV8dd5bhpav
-	 KKHJ8LuHoQ+cS3BC0zlh8fkEwMairq1v+CMCJa1qoSRc6bnT89xdTZ+CH3hKqsBgSpUCK
-	 cESv35C3tjBQQL0BG9+maqADILbIJo0Zu3MjLe70CS8r/K4JIllv/qywnX/zBKEGC0Xr8
-	 jkQV3LeKzEz4pfO9NwltWV+ORY+4HVK+f8GAtb/kktnBo22Hk8uFpeZmgKp9bjZN39g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794565562;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=5OyDtStyAeBedN7jaZpmypaL0n4+GQJgji3UYOQMX7Y=;
+	b=WxyqWjxogtSW7E07qydtlXOF0lSXfxQH4WXAKSl5XtBbk4yEOSkCeV5IHEp5xR51YCJf
+	 ZSZfe6CaxWmI7YFCIj3zxQg330NpaxSuPu6ZDYJiRjMEx7//KN+Rrjcva1btUdDr8T27H
+	 efso4Q3UQvAeeEt2tfHo9M3IgT34LHCDudOnnOxAp2nWztSiPja/9gaDjKn8cNWii6Gw7
+	 vp1Zf3PgfzFjHmIVc5km9GEiLhVI9xmWdpzmhtILfLFY0j//2O6GTopiNz3CIeyQMNI3G
+	 wvUIJhG1BdifSHAPgIPlNASIunGSOJ/5YR03ob0l+8rC1ugR7gc90X4bGUSSs2Susjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=CZsPsK21;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 90FD5606A33A;
-	Fri, 13 Nov 2026 10:25:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90FD5606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=none header.from=amutable.com;
+	spf=pass smtp.mailfrom=amutable.com;
+	dkim=pass header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=EhCy1rjV;
+	arc=none smtp.remote-ip=74.125.225.138
+Received: from mail-wm2-f10.google.com (mail-wm2-f10.google.com [74.125.225.138])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D01F8606A893
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:26:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D01F8606A893
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amutable.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=CZsPsK21
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BAA101595;
-	Fri, 13 Nov 2026 02:25:55 -0800 (PST)
-Received: from [10.57.67.215] (unknown [10.57.67.215])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BFC423F673;
-	Fri, 13 Nov 2026 02:25:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794565558; bh=MXaBCEW7pnYGChTYZdIgJBCmAhhgs3Be++fXRUvle/s=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=CZsPsK217kMIzDBOUH8frK2y78qdNaP8TEK8V1qTXBqKdywXLc7wioa7djEL8kiC3
-	 bDLR89rSX+/VSGjPNQWj7taS1y6dwOpqL57jT19QvVxCQsTdJyDgGZbofGrQdrR5VY
-	 F+enLVQAYImo+YbS2H/ik+QLfWRYSKdYPhAmH/R0=
-Message-ID: <2246263b-a872-4a65-803d-ef1e031522f9@arm.com>
-Date: Fri, 13 Nov 2026 10:25:55 +0000
+	dkim=pass (2048-bit key) header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=EhCy1rjV
+Received: by mail-wm2-f10.google.com with SMTP id 5b1f17b1804b1-49ff9833fedso1224245e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:26:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amutable-com.20260707.gappssmtp.com; s=20260707; t=1794565560; x=1795170360; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=5OyDtStyAeBedN7jaZpmypaL0n4+GQJgji3UYOQMX7Y=;
+        b=EhCy1rjVxVdFrlqlBXdnWdhZOgju6UqPO7MHP0T5eDQlLH3bu4fGnJjBmSeu+X4e2W
+         fqknndYp9WUsPcSw+hMOJQKeOCVQ26f4CApHOuaHiz0ZnrEcpw06GAGjRX2e/v0KskXR
+         kPbczhlJA2JL/E3RYwJYZ55bjMsTqV1bcwrFG/iNBMGzSlTlhWz25UxyOw6nI4axYZSB
+         u0krz81cE8qJBpZN+Gj0XIkGJFuZa0vCttP7+3dXPKfvLd7fzcQdMwTNK/JaleYs6P1m
+         dJAReh6EvrYwFB4nFlJdvgjX0mrHV5c8k7KozarvFnbaOIXtcKdLHY5nOcL1YTJjLQtf
+         x2BQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794565560; x=1795170360;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5OyDtStyAeBedN7jaZpmypaL0n4+GQJgji3UYOQMX7Y=;
+        b=2eZuZkZtFvg1VFi4cs6kZvYPtauPwPPTTltqTP6ljkKh4b6tHYVh/sXeLg/Fiqvm/T
+         mZ2uOMlqzN52FG6QY9I332srmjINc1Yq085Dh9IaclbTxQIw4b7iHSHLAmsYItg7uxQo
+         Nr2ukyU6tZ8z6w/XqydWoZSb1sMgF75RDXkb6pbna2jGwfQc4PK3C+jtsnfutk1HDSvl
+         KrtOazGhzJ8Ev/Tdmi1qkT8riv1Ou1YuJNtbRJuIrAcT0F/D/U8HwQn+UnVd7YuX95Fx
+         8ZBpT4mwFbSSitexjHUwOFfPAKJaG3DergxdULxHbloVxJlCMFxQXn/X26//S5lBCwnA
+         vdTA==
+X-Forwarded-Encrypted: i=1; AL+hErFv/2mpn5ypQ0k75CkAL/Z0KAPB3LdMxLVgHlGeVU5sy9w+BKT6Sw/X7Ak9XSezA79HQIkKtw40qg1yF70=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+qTAn3QUyJLjBzlDtDcdk3fiyYxtf1Z35fjyw5ZTpUF6KhGIEQ
+	nL9VtEiujK1QZCaMtdfTaIxAFeJNq2YKPwZm7HTWlNpzEmKEVM3iNuHbofZArVZL6XpX
+X-Gm-Gg: AYBFou0l8yI8M6yMlaj3hV+d8SKlDE+LbFKJZwVNaLXq3F3kUauviEesWr3j4v1mFTY
+	IacTngBSuoez+1M+UU3eFAxqNXu36YRU94iYtDVPj3DQ+VC8dYxq43VugbP1YS8M2TSfTH9YjtI
+	9+pvkyQ14e6fWRqyWZ6RqdpzonwfcFXHKdnsx8slJC2ETZwqAGr9N2o6MjJkBJn2MoxRgdh8+hq
+	jluF3kd5L7ycUHpaH1O1KPviLAH1MhKF0aoG3VyT+BNVPKymQ5Vi/5IsI5NcPQl/SwM2iplmQXw
+	VeBwchabakjY1fuZCQDoZXt8NlIB5NPdUu4FcfALzOt6uWL+X7iEIfM6KU2niH5SxapP9sM/TxV
+	oz0yAopF+2z8Urb52IvpUxkWwNusemWijKpM20hXAhTsLU5vGRgOZrwC3aaRiDuytPgsM7Lx5VN
+	LB1RYkMEDG3KK4k0TSt29G6WNEZw8aTjFHGppU5fXHw9Uxf3goa45k4g0ZuQk8kNHcisCzj0iA8
+	3wGby67uBxHEnqyu+BN+No+amkLXTsh9LquY1qgtDzaWEzbzkqyJpYf2FtnFttvykWonc6uDD3U
+	+w50Cz7HM1i7tOaqPu954/qQshaE3cAS3oodZa9T/HuP3KrVY30Fl4H9VTd/JOo=
+X-Received: by 2002:a05:600c:4e49:b0:4a1:78c5:79f5 with SMTP id 5b1f17b1804b1-4bb55aa999dmr38995625e9.33.1794565560090;
+        Fri, 13 Nov 2026 02:26:00 -0800 (PST)
+Received: from [10.0.0.233] (tmo-086-54.customers.d1-online.com. [80.187.86.54])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e2538b9sm244439965e9.1.2026.11.13.02.25.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 02:25:59 -0800 (PST)
+Message-ID: <fb1d72cf25d10a960da627f6d93a3e041820ed3a.camel@amutable.com>
+Subject: Re: [PATCH RFC 38/41] fuse: refuse files on pseudo filesystems as
+ passthrough backing files
+From: Alexander Mikhalitsyn <alex@amutable.com>
+To: Christoph Hellwig <hch@lst.de>, Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, Jann Horn <jannh@google.com>, Chris Mason
+	 <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>, 
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org,
+ target-devel@vger.kernel.org, 	driver-core@lists.linux.dev,
+ linux-mm@kvack.org, bpf@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, selinux@vger.kernel.org, 
+	apparmor@lists.ubuntu.com, linux-nfs@vger.kernel.org,
+ netdev@vger.kernel.org, 	fuse-devel@lists.linux.dev,
+ linux-efi@vger.kernel.org, 	xen-devel@lists.xenproject.org,
+ ocfs2-devel@lists.linux.dev, 	linux-s390@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, 	linux-usb@vger.kernel.org, Amir Goldstein
+ <amir73il@gmail.com>, 	linux-erofs@lists.ozlabs.org,
+ linux-kselftest@vger.kernel.org
+Date: Fri, 13 Nov 2026 11:25:57 +0100
+In-Reply-To: <20261111151202.GA11391@lst.de>
+References: <20261110-work-loop-pseudo-v1-0-4c998976c6c7@kernel.org>
+	 <20261110-work-loop-pseudo-v1-38-4c998976c6c7@kernel.org>
+	 <20261111151202.GA11391@lst.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,60 +116,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 02/10] coresight: Move CS_LOCK/CS_UNLOCK to
- linux/coresight.h
-Content-Language: en-GB
-To: Songwei Chai <songwei.chai@oss.qualcomm.com>, andersson@kernel.org,
- alexander.shishkin@linux.intel.com, mike.leach@linaro.org,
- konrad.dybcio@oss.qualcomm.com, james.clark@arm.com, krzk+dt@kernel.org,
- conor+dt@kernel.org
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
- devicetree@vger.kernel.org, gregkh@linuxfoundation.org,
- songchai@qti.qualcomm.com
-References: <20261113024935.3173715-1-songwei.chai@oss.qualcomm.com>
- <20261113024935.3173715-3-songwei.chai@oss.qualcomm.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <20261113024935.3173715-3-songwei.chai@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 13/11/2026 02:49, Songwei Chai wrote:
-> CORESIGHT_LAR and the CS_LOCK()/CS_UNLOCK() helpers implement the
-> generic ARM CoreSight Software Lock Access Register sequence, which
-> is also present on non-CoreSight-labelled components that follow the
-> same architecture (e.g. the Qualcomm TGU). Keeping them private to
-> coresight-priv.h forces such drivers to duplicate the exact same
-> definitions instead of reusing them.
-> 
-> Move CORESIGHT_LAR, CS_LOCK() and CS_UNLOCK() into the public
-> include/linux/coresight.h so they can be shared outside of
-> drivers/hwtracing/coresight/ as well.
-> 
-> Suggested-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> Signed-off-by: Songwei Chai <songwei.chai@oss.qualcomm.com>
-> ---
->   drivers/hwtracing/coresight/coresight-priv.h | 19 -------------------
->   include/linux/coresight.h                    | 19 +++++++++++++++++++
->   2 files changed, 19 insertions(+), 19 deletions(-)
-> 
-> diff --git a/drivers/hwtracing/coresight/coresight-priv.h b/drivers/hwtracing/coresight/coresight-priv.h
-> index dddac946659f..0d3f6229b282 100644
-> --- a/drivers/hwtracing/coresight/coresight-priv.h
-> +++ b/drivers/hwtracing/coresight/coresight-priv.h
-> @@ -23,7 +23,6 @@ extern const struct device_type coresight_dev_type[];
->   #define CORESIGHT_ITCTRL	0xf00
->   #define CORESIGHT_CLAIMSET	0xfa0
->   #define CORESIGHT_CLAIMCLR	0xfa4
-> -#define CORESIGHT_LAR		0xfb0
->   #define CORESIGHT_LSR		0xfb4
->   #define CORESIGHT_DEVARCH	0xfbc
->   #define CORESIGHT_AUTHSTATUS	0xfb8
+Hi Christoph,
 
-Move all of these register defs above to linux/coresight.h. We can keep
-them in a central place, in linux/coresight.h and drop patch 3
-
-Suzuki
+On Wed, 2026-11-11 at 16:12 +0100, Christoph Hellwig wrote:
+> I've seen setups where people use fuse to mediate access to sysfs
+> sysfs in odd ways.=C2=A0 No idea if that's still around, but if so, this
+> patch will break it.
 
 
+Oh, that's painful. Do they use backing files for that?
+It's a relatively new feature in FUSE...
+
+Kind regards,
+Alex
