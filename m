@@ -1,59 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794594708;
-	b=hcCzNlU4RlG+umdSiGgUMOHo60R2LwAKgnt8v6YymeudY1tp5E1enobK/+c3Clm5q49x
-	 KP9APQnISqNeoQUfVzPqS5u6zUgt5Syp8mC6ld+zEfGMSzXk61Cz7Nn0xXkrwxGhpZUIz
-	 bjQEaqkmZozPBCkkIxFslRXIfZvCr2ZMMLyIIyxUnymk5ZnQwHiwWlcO/tJ4zJmyo2X3x
-	 k5hkd8p0IUpKpFoORsYn1ZYiRUKAb7VRAMPnWZGP7lwdOn+4xDK4bD66W0HwyngL7ZE1S
-	 tHYxgIAmmQl36kCXPNaw2Bs5uzziGi35qpEYmr6vepIuy7pnP0wLZA4ZZoZFNsglfpA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794594708;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=6QmC8vorvLwJYtE6+Q2xmdT3OYo3ht5KIlfcBfVgKIA=;
-	b=H4r8l75BVyTu5spYfvD4fGLZWMli6bXdQBlwBzUgCpBZ/MV/rctrAYmXr3EyOieUvDUh
-	 1wTAtBINhMvODD5is1B6qul64QCMO7q/i3SXi2+G8WZ7JUi5x8RhhRJE6Z4t7M0FYnUQ1
-	 LFkrvhRHHglroCcdkyT9QOfhH1CNxeYkyvquTlhBix8ShIOppVluzi3IplbvKQVeELz3V
-	 X6cTKtFPu7+yZDe6+G/5KP3tSM2wt892vvHzO/BFuczSuATOolKYxbxTRaX2ImsyBjWf2
-	 OaLRdxlzKiwmbiMpzqnTMqpCpRUU9eHtLIskB5BP8NzQCIwJzpYs6H4+K78W43j2Duw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kGBcjhXs;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.29
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794594719;
+	b=dMoSMP0O5Rm/CrZagJ03Z+BKyuxo/+IiK1MOG8PSmOiYARY+yPDM9JdN66/HFty5n8Gh
+	 Sx+dxbVb9kpq6Apqtj0Ly/5nb4HFQnycWoPtnW86dp6ZuB3MukK7k/TT+iXyRC2IK7cOC
+	 7JKDGSbTBleNNbJTNiEahJgFb7y3coL2xRPXf1IbAoChvdX21HVFh0oj21QkvAxKW+6gY
+	 5dIjbqkl26CKApVOysi+zU/tIqDFfQ0NOc8zLkc1JqKjGAJctgdVYaxgcEZ2CTdNI3Q+1
+	 n38awtMEhZ9nb6fYe5y22eBCR4xZR+fWAsrDccXYkjFl15jdPld9jiDu1v5fWRgotpw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794594719;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 Content-Language:To:CC:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=PbhVfXxNXaG4rCR1ipbi4fA3zeWDtSwEJ1r9zZQVVS8=;
+	b=cuVfKF4NNvV93OEdTM3ofnbTptF8jCD+ttslS8A+0qMbUOOxh09RXq7ehKjhnR9Cw9yo
+	 ptjqC6I704Zmfa/L5XKTpDrfVpC1Fd7RzL9BFocHaoBGAewGSwklPL4tKIRY5VBJhryzy
+	 /WIHb+shA5h0xzUMCBYP3bswe5+CGnMt2u6Br5N4V+uuxH/hGzCMXu8oPKM+s79O+nKkp
+	 BijnobnVVyPZSArkTPl4SkRLI9jqSKoM5wJio3zTtc5BjXtDHg0rF4ftY8sk/0FOrTJeT
+	 PT4g4M3o3772NzFiN0ZgNH444z5aJVoLU9dtqGvtuDRB3bnhelFCadh/EqQP/Y+/KgA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=LV9mnBql;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.29
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010029.outbound.protection.outlook.com [40.93.198.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id D0E27606A330;
-	Fri, 13 Nov 2026 18:31:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7469606A8A2;
+	Fri, 13 Nov 2026 18:31:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7469606A8A2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kGBcjhXs
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E031D1F000C7;
-	Fri, 13 Nov 2026 18:31:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794594708;
-	bh=6QmC8vorvLwJYtE6+Q2xmdT3OYo3ht5KIlfcBfVgKIA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kGBcjhXs4PtnKLBL8BviXA0cr6/6Z0ecWZC4emCg1JuF56vS2fryeSbjtjRU1L8Ca
-	 949Vn4eXBCIRdyrWZL2bfyhcWGk2AS/HF51EDy6zTC6yitVVSEeuCv15o2XAj9qgRG
-	 LfOjRo4GErTL0xUThlWFAsI/ZYU6f5pf89PB2VAJ9SbmhbpkbqrceLFGsyMa0z9pT2
-	 mfhPDpdOg70S3VYRGhY3b6wLF2zv6AhQSBBqEEqx5NopgWP2NI5ZClf921dNTlOXqs
-	 Du84AXZfY9DXTJH77Amg5M3jq74Sp6WRBxQ4nT/+c2JwfOJ4tXUlNPYyhn8JGM48Fl
-	 tI5sZPyJ/rrHQ==
-Date: Fri, 13 Nov 2026 20:31:44 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Yeoreum Yun <yeoreum.yun@arm.com>,
-	Stuart Yoder <stuart.yoder@arm.com>, apais@microsoft.com,
-	rlmenge@gmail.com, hargar@linux.microsoft.com,
-	linux-integrity@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v1 1/1] tpm: tpm_crb_ffa: Only register driver when ACPI
- TPM2 uses FF-A
-Message-ID: <avdXkLKJwuNv0vZ4@kernel.org>
-References: <20261112233807.70664-1-sidchintamaneni@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=LV9mnBql
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qtwIjE1qRgr+CAibk8qrcPkXzg5D9xiHvu5/qhaA0TBAVbe9xtT7kvVRcWlda9las9UUvFw5XCZPG45tIyS0jRPG29fqoSbjncq70jnjbQBJS1FrqyhOnYj82JeCuCM/4dxDm8/KjE0L9YpA1GJl5Dgln31ldDUeXjzxJ41IDHmfmT5zIrL8cVipLe+qVPZODr+9ytPcjGaAF53aqwVkzbnXA28lm+lHOt1QHEbQxHSVOTc+e8V6pM8FCs5fKfomz+Q6Z6FvV2xT446GJsfvsmUlbkgvqSBPXlUW7Db9U94mRY0FQR7U15hJPue7U1RDkJTclSZB+B+8r8Wsfjf4Qw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PbhVfXxNXaG4rCR1ipbi4fA3zeWDtSwEJ1r9zZQVVS8=;
+ b=LOLc0Bul/+TkwaPlMv0RrEPQk+AsODh/+GwxICRIz5F5qUsC0D09Q+eoMbOwC0YL50sbh7UFpSVpislbxaeQsBhyeGpNvAHjaPwOgvpqw9aIbxTKCMm5b3cJxoW4Srzlr/V20DN/Dtg+RzSokN7Ozjjd9uWnLvedlZYrsESDFQPA0FR/t5SjhgLuCUXvrfxwM/wb0oSiRWqZ4t/LGathNCtdnqkVjWMZqus7+cqidAOzz9oIbwcFOYM3AZtSSLmmpo1j6NfygKIz/VgyRXdVIYzhw7in2SMePwGERJQFD4W8WUY2HZvN3AwS29NPEC5m9/aONlM/+t9AMChDSwcP4Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PbhVfXxNXaG4rCR1ipbi4fA3zeWDtSwEJ1r9zZQVVS8=;
+ b=LV9mnBqlC70pkrCGlCX9rwizVc7HusqWoGQiCZo8O0IMtEQw6xMnR9vy0jnYlbNudxIxWugEmULPLM+1rHnL7lCaNvn7Pc7Un3HWYpflUFOakl/wUgpU/HgArMIIKOSifAd7CjrqFswMAdCwN+drn6wAqPAQilNlMeE9wYhBlVA=
+Received: from SJ0PR13CA0235.namprd13.prod.outlook.com (2603:10b6:a03:2c1::30)
+ by LV8PR12MB9136.namprd12.prod.outlook.com (2603:10b6:408:18e::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
+ 2026 18:07:09 +0000
+Received: from BY1PEPF000264B0.namprd02.prod.outlook.com
+ (2603:10b6:a03:2c1:cafe::93) by SJ0PR13CA0235.outlook.office365.com
+ (2603:10b6:a03:2c1::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.0 via Frontend Transport; Fri, 13
+ Nov 2026 18:07:08 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BY1PEPF000264B0.mail.protection.outlook.com (10.167.242.119) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 13 Nov 2026 18:07:08 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 13 Nov
+ 2026 12:07:08 -0600
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 13 Nov
+ 2026 12:07:07 -0600
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Fri, 13 Nov 2026 12:07:06 -0600
+Message-ID: <0fd2665a-5817-8188-5b35-74bc50ae7891@amd.com>
+Date: Fri, 13 Nov 2026 10:07:06 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,174 +105,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="AD514XYzylQTXZCK"
-Content-Disposition: inline
-In-Reply-To: <20261112233807.70664-1-sidchintamaneni@gmail.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH RESEND V1 0/4] accel/amdxdna: Add AIE4 debug buffer
+ support
+Content-Language: en-US
+To: David Zhang <yidong.zhang@amd.com>, <quic_jhugo@quicinc.com>,
+	<karol.wachowski@linux.intel.com>, <max.zhen@amd.com>, <ogabbay@kernel.org>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+CC: <sonal.santan@amd.com>, <mario.limonciello@amd.com>, David Airlie
+	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	<linux-hardening@vger.kernel.org>
+References: <20261104224302.643329-1-yidong.zhang@amd.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20261104224302.643329-1-yidong.zhang@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PEPF000264B0:EE_|LV8PR12MB9136:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8728b169-5bd1-4b98-f4ea-08df41b0eed3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|7416014|376014|1800799024|23010399003|18002099003|22082099003|261009223027099003|11063799006|56012099006|10067099003|261102123227099003|261026140227099003|261028144727099003|261022105027099003|261021123027099003|261021121427099003;
+X-Microsoft-Antispam-Message-Info:
+	j6wFgbKzIj7I6nEaubVwVH4j15L5QoDtR7pIgosl6nt/i8t8QZxA0joYvbZpUTHxMIk9wZSgoUU93emKHGDwoneeBE1379vuxsNQyM/3Fhc3IEINTexh/spNLosL9vt5V68Ik8ncB1lhj4hj8wdGSsy1zb4mcuUz2/HMAoi1To4T/aZaMAJHjga/xktpwwmjSxSP5vh4OB6IOHYGbLBeDIxSkAOLk/z9UgxLYCaWq3nrZH83Devjeis0Mq559ryIgWWkylvZuLQblkF5xidOE5B0+ijAqGwouwHpjEXQhLod/D7oxvzm3X0Uc/OB4Vi6/2vt1fDCupvWGqSqS4JWZ9IP6k3zI7Uc0vBFyiizm65KwelJPUMWNFvI/VghDyzujSQNBSlDGP4C1fBlAycITPxNaR0+hon3MDO8HveeNzPR733U7Mz3i+0A8iBchfEnIKf0CeQaJUF3cFyvYVBfkwWEUu/LAoyl6BVH1S3kO7mObP1P06LzPs/qk1mA2gZf7ncwSNWYjISDJUKPBviRD5hk22TzXujqf6ysdU15izM2Vr1G3C9LzFecmUHbu5wuPFsKnL5JV6M0CN830zk7QiHy9buBo9vFBK1prENoH9yMSQHwL6RnDxLOKyNzShAJnxXWsC4mrP7XoTarg3Hxj1qavRDAqRCTtUrtsG+uTmQkSI2+2I0qtoq8QHri7CB+AK8t6WQHol9gIgjerZC23g==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(7416014)(376014)(1800799024)(23010399003)(18002099003)(22082099003)(261009223027099003)(11063799006)(56012099006)(10067099003)(261102123227099003)(261026140227099003)(261028144727099003)(261022105027099003)(261021123027099003)(261021121427099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	qB19EGDrb/lW74VqcqnJCmjIszUq+HuZG5Sees4WAU9Fqco4Ts0TgtMyxNAGqDlAt4W6o/dGvK6H4q5qtv7S2802qyqjGS2iy47NOVzzHbFb6MteVM54yGxcS8+SvUGRcqwFwI9OGlebbUa3eEN4Hco4No3QUQZtWUSHHq1MxrKTe8LpYjHZ4ozGRDuclgYqwqowHdWAPpFBaqt7hRD6DgmtByN4udmKQfzHz8fmSw6CCldqhgguBreIY08CWPM300hnz6By1gpdXK9osuxgCCPz2v/Ye5iLFHP5BBv/KNxSxfkezdvcGnj2e2H4luMpPNEeJJiLHhVQ/ucIiYh+BTi0l+0o9jPGT4Hv618ASZQsjzlCiT/rB2HcedINo4CQEg8B1sJisiZCa34X7pf5OMPnLFw1W8x9E15jKdLhI4+vzGZpqYJRzkl0ZJ/npq2/
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 18:07:08.6116
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8728b169-5bd1-4b98-f4ea-08df41b0eed3
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BY1PEPF000264B0.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9136
 
+Applied patches to drm-misc-next
 
---AD514XYzylQTXZCK
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Thu, Nov 12, 2026 at 11:38:07PM +0000, Siddharth Chintamaneni wrote:
-> Prior to commit 677042afb97a ("tpm: tpm_crb_ffa: revert defered_probed
-> when tpm_crb_ffa is built-in"), built-in tpm_crb_ffa only registered
-> tpm_crb_ffa_driver from tpm_crb_ffa_init() after crb_acpi_probe()
-> confirmed start_method == ACPI_TPM2_CRB_WITH_ARM_FFA. After that
-> commit, tpm_crb_ffa unconditionally registers on the FF-A bus at
-> device_initcall time (and when loaded as a module) without checking
-> the platform's ACPI TPM2 table.
-> 
-> A platform's firmware may expose a TPM CRB over FF-A Secure Partition
-> for UEFI boot services while advertising a non-FF-A start method to
-> the OS in the ACPI TPM2 table. When the ACPI TPM2 table designates a
-> non-FF-A start method, Linux has no consumer for tpm_crb_ffa and
-> should not probe the FF-A TPM service.
-> 
-> On Microsoft Cobalt 200 systems, the ACPI TPM2 table does not use
-> ACPI_TPM2_CRB_WITH_ARM_FFA, yet ffa_init() discovers the FF-A TPM
-> partition and tpm_crb_ffa_probe() unconditionally sends
-> CRB_FFA_GET_INTERFACE_VERSION via FFA_MSG_SEND_DIRECT_REQ2/REQ SMC.
-> That request wedges the calling CPU in Secure World (with Non-Secure
-> interrupts and GICv3 pseudo-NMIs masked), hanging boot with an RCU CPU
-> stall:
-> 
->   [    5.507519] ARM FF-A: Driver version 1.2
->   [    5.507519] ARM FF-A: Firmware version 1.2 found
->   [    5.507551] ARM FF-A: Notification setup failed -61, not enabled
->   [    7.150580] Freeing initrd memory: 293640K
->   [   65.515248] rcu: INFO: rcu_preempt detected stalls on CPUs/tasks:
->   [   65.521346] rcu:     10-...0: (3 GPs behind) idle=dd9c/1/0x4000000000000000 softirq=37/37 fqs=5262
->   [   65.530031] rcu:              hardirqs   softirqs   csw/system
->   [   65.535589] rcu:      number:        0          0            0
->   [   65.541146] rcu:     cputime:        0          0            0   ==> 30028(ms)
->   [   65.548102] rcu:     (detected by 66, t=15010 jiffies, g=-951, q=1384 ncpus=132)
->   [   65.555228] Sending NMI from CPU 66 to CPUs 10:
->   [   75.560686] After 10 seconds, these CPUS still haven't responded to the NMI: 10
-> 
-> Check the ACPI TPM2 table in tpm_crb_ffa_driver_init() and return
-> -ENODEV before calling ffa_register() unless the table is present and
-> specifies ACPI_TPM2_CRB_WITH_ARM_FFA, matching the check_acpi_tpm2()
-> pattern in tpm_tis.c. This ensures Linux only issues FF-A TPM requests
+On 11/4/26 14:42, David Zhang wrote:
+> This series adds AIE4 debug buffer support, which the xrt-smi validate
+> gemm test uses to read the per-core results, and the AIE4 CERT firmware
+> version query.
 >
-> when ACPI advertises the FF-A start method (for both built-in and
-> modular builds), while preserving normal FF-A bus probing on platforms
-> that use CRB over FF-A.
-> 
-> Fixes: 677042afb97a ("tpm: tpm_crb_ffa: revert defered_probed when tpm_crb_ffa is built-in")
-> Fixes: eb93f0734ef1 ("tpm_crb: ffa_tpm: Implement driver compliant to CRB over FF-A")
-
-Pick the older.
-
-I attached a prepending patch that caches the start method, which can be
-later used in tpm_tis and tpm_crb.
-
-So that totals four patches:
-
-1. My patch.
-2. Your fix using the cached value.
-3. tpm_tis update to use the cached value.
-4. tpm_crb update to use the cached value.
-
-Fast-forward when these are in the mainline, I can send my change with
-Stable-dep-of tag to stable@vger.kernel.org.
-
-Br, Jarkko
-
---AD514XYzylQTXZCK
-Content-Type: text/x-diff; charset=us-ascii
-Content-Disposition: attachment;
-	filename="0001-tpm-Cache-TPM2-start-method.patch"
-
-From fc841edc9b4036bed36126dbdc7fdd41cee185c8 Mon Sep 17 00:00:00 2001
-From: Jarkko Sakkinen <jarkko@kernel.org>
-Date: Fri, 13 Nov 2026 20:18:42 +0200
-Subject: [PATCH] tpm: Cache TPM2 start method
-
-Both tpm_tis and tpm_crb have duplicate code for retrieving the start
-method from TPM2 ACPI table. Eagerly cache the start method already at chip
-creation. The cached chip->start_method can then be used by the leaf
-drivers; or ignored depending on the requirements.
-
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
----
- drivers/char/tpm/tpm-chip.c | 36 +++++++++++++++++++++++++++++-------
- include/linux/tpm.h         |  1 +
- 2 files changed, 30 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/char/tpm/tpm-chip.c b/drivers/char/tpm/tpm-chip.c
-index 0be5dbfaa72e..540dd366effc 100644
---- a/drivers/char/tpm/tpm-chip.c
-+++ b/drivers/char/tpm/tpm-chip.c
-@@ -256,18 +256,24 @@ int tpm_class_shutdown(struct device *dev)
- }
- 
- /**
-- * tpm_chip_alloc() - allocate a new struct tpm_chip instance
-- * @pdev: device to which the chip is associated
-- *        At this point pdev mst be initialized, but does not have to
-- *        be registered
-- * @ops: struct tpm_class_ops instance
-+ * tpm_chip_alloc() - Allocate a new struct tpm_chip instance
-+ * @pdev:	device to which the chip is associated At this point pdev mst be
-+ *		initialized, but does not have to be registered
-+ * @ops:	struct tpm_class_ops for the chip.
-+ *
-+ * Allocates a new struct tpm_chip instance, and assigns a free device number
-+ * for it. Must be paired with put_device(&chip->dev).
-  *
-- * Allocates a new struct tpm_chip instance and assigns a free
-- * device number for it. Must be paired with put_device(&chip->dev).
-+ * When ACPI is enabled, additionally tries to eagerly cache the start method
-+ * from TPM2 ACPI table for the devices that need know it.
-  */
- struct tpm_chip *tpm_chip_alloc(struct device *pdev,
- 				const struct tpm_class_ops *ops)
- {
-+#ifdef CONFIG_ACPI
-+	struct acpi_table_tpm2 *tbl;
-+	acpi_status status;
-+#endif
- 	struct tpm_chip *chip;
- 	int rc;
- 
-@@ -275,6 +281,22 @@ struct tpm_chip *tpm_chip_alloc(struct device *pdev,
- 	if (chip == NULL)
- 		return ERR_PTR(-ENOMEM);
- 
-+#ifdef CONFIG_ACPI
-+	chip->start_method = ACPI_TPM2_NOT_ALLOWED;
-+	if (!acpi_disabled) {
-+		status = acpi_get_table(ACPI_SIG_TPM2, 1, (struct acpi_table_header **)&tbl);
-+		if (!ACPI_FAILURE(status) || tbl->header.length >= sizeof(*tbl)) {
-+			chip->start_method = tbl->start_method;
-+			dev_info(pdev, "TPM2 ACPI table is available");
-+		} else {
-+			dev_info(pdev, "TPM2 ACPI table is not available");
-+		}
-+
-+		if (!ACPI_FAILURE(status))
-+			acpi_put_table((struct acpi_table_header *)tbl);
-+	}
-+#endif
-+
- 	mutex_init(&chip->tpm_mutex);
- 	init_rwsem(&chip->ops_sem);
- 
-diff --git a/include/linux/tpm.h b/include/linux/tpm.h
-index 0db277af45c3..f6cc91615469 100644
---- a/include/linux/tpm.h
-+++ b/include/linux/tpm.h
-@@ -149,6 +149,7 @@ struct tpm_chip {
- 	struct tpm_bank_info allocated_banks[TPM2_MAX_PCR_BANKS];
- #ifdef CONFIG_ACPI
- 	acpi_handle acpi_dev_handle;
-+	u32 start_method;
- 	char ppi_version[TPM_PPI_VERSION_LEN + 1];
- #endif /* CONFIG_ACPI */
- 
--- 
-2.47.3
-
-
---AD514XYzylQTXZCK--
+> - Add NPU10 and NPU11 devices.
+> - Bump the driver version to 1.0.
+> - Add AIE4 debug buffer support.
+> - Add AIE4 CERT firmware version query.
+>
+> This series applies on top of drm-misc-next.
+>
+> David Zhang (4):
+>    accel/amdxdna: Add NPU10 and NPU11 devices
+>    accel/amdxdna: Bump driver version to 1.0
+>    accel/amdxdna: Add AIE4 debug buffer support
+>    accel/amdxdna: Add AIE4 CERT firmware version query
+>
+>   drivers/accel/amdxdna/aie4_ctx.c        | 284 +++++++++++++++++++++++-
+>   drivers/accel/amdxdna/aie4_message.c    |  20 ++
+>   drivers/accel/amdxdna/aie4_msg_priv.h   |  35 +++
+>   drivers/accel/amdxdna/aie4_pci.c        |   7 +
+>   drivers/accel/amdxdna/aie4_pci.h        |  10 +
+>   drivers/accel/amdxdna/amdxdna_ctx.c     |   4 +-
+>   drivers/accel/amdxdna/amdxdna_pci_drv.c |  19 +-
+>   drivers/accel/amdxdna/amdxdna_pci_drv.h |   6 +
+>   drivers/accel/amdxdna/npu3_regs.c       |  78 +++++++
+>   include/uapi/drm/amdxdna_accel.h        |  51 +++++
+>   10 files changed, 510 insertions(+), 4 deletions(-)
+>
+>
+> base-commit: e32e83a6c5ec031a7f59d4794113d8484b220254
