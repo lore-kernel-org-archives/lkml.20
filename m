@@ -1,48 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794579301;
-	b=G12fP0xKibNJmSiNGXp7i3Rd3TNPnEODM+Hgu4ERpuXhaj5/CAocW/Ygk010Hx7GJIvD
-	 WzZne+BYCIbxTEkZWOkB6lBo47uy2VP1Ikv+B375ZTpyDhBiyceMBe7PyUTBcle9kUR09
-	 EdnkMH+rzuSek0FbBFHZHm3zj8lp60ewXxoUQkXI3cx7CCJFlEU8yUQ4nbTF/YmeE4HrD
-	 NEIqsUG1xJ8IMKmlzv6qgTrDKvg22GpK9uhPIHHJgRm8MlVLFQEf5aKt5x3TCtghBmjiR
-	 vNNLL1h2PI8Aury9VwfxiD6NZtqAW2IpqVJsZDRiI1O+6T/QRKEmXzh10NrKEdYqPwQ==
+	t=1794579432;
+	b=OONSInaf5ekCtpwfOk+lFroFC7yNLY6vBKrUvETUVmEGEK2AeEa/RGfmRBaSWvNgh59j
+	 VlrmwbxbJADJl4MKPAcr7us+ULVJIOCQRg79RdKtpoFpVA+VfY144UTqRsO+1gO76jTrW
+	 hpwQoGmyIQFGHcF6uvi2REsaYL9ZnHhHQgDO5lw1of63rkQqe3ZGg6c9xmwsk2ittS9md
+	 4wRGudb9YL0Q1LuUzCIXqiCguXlC9iuDyvQFqvDJRtxgrxQxv2MC87X0+1+tEsap55KQ5
+	 T3zygQVj1SqgPcL79VFPv5dE2RXZ2a0jF87mU8P1UVd5G34UFGdKglxqvdn6xCYNlbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794579301;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794579432;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-HM-Tid:
 	 X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=3oMmdZVYi26pH4u992t/09alJJY3XBvcMTm1rb/kyeM=;
-	b=RXtyOi7jiXEJl4m1AlIR1bpbFYkQhWPwsEdSUzxVJJWVZ6fSQWrIGUruP2yDUneFF5PN
-	 cvv5sTxBEa9FrjOiVAKrUQgYaiveWOPo7qa7hX20hWo8PvVc9zJn/Cf7WD6+W99SUv67M
-	 xmHdOdYOc7T5Mt8eZQEPb8n+S42DM2vi9SIallPSL9GwppyMFzpMEH1mfWHa1Svo6uQYn
-	 /CJbuVNWoUyxMW0Y/+os6SwUKeHZA/C00AdEeO214JYp99nu3An67wdRnx3pFm3Q5ox0L
-	 kJKW0FqGNc2sefd9zrE3XCe9vNSATPmmx8zRMhwWgEhNpFszRTEOqzyvbAxQEsoLEjg==
+	bh=ev+Xl72+1OCLuwasUtviXG9+6wDTgYoAYsCBeKV+34I=;
+	b=dGCjpeu3mpJ8rqPZ1+FQ/IG2HzoP8YpjqTZnVO3hqhW+HtpqpDij65+forGNfL3mvTPO
+	 wU9/m1SfnairWTKNgOaUOfa22Mze7H/PKyenppNi/kURQ7t6OmnPHjPsHAmycuR+BHMye
+	 3jhNiJLf9BikNS0bPIcCJCxykXsa0UAZPmnT5PKg5wXPnj/oZ99+4/Ro9UXVtM4VxVs+t
+	 Myu+Ouepl8/siqQV5pF0b7ABP5WWu2Ej5uJd6idgn92N5QuXfcH7Ez7dV1qiqf2//ykLd
+	 mzVdIoR84KPLCrQTz9XBBzsZngPBAm/RH+OqNhC/LJ13w4Vpglyn84KOFnzXEO90gCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.sdu.edu.cn;
 	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
-	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=JuDdT3hE;
-	arc=none smtp.remote-ip=101.71.155.101
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=I1JA5P5q;
+	arc=none smtp.remote-ip=45.254.49.198
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59001606A323;
-	Fri, 13 Nov 2026 14:14:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59001606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FEED606A323;
+	Fri, 13 Nov 2026 14:17:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FEED606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=JuDdT3hE
+	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=I1JA5P5q
 Received: from lgs.. (unknown [101.76.249.61])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 549b5a811;
-	Fri, 13 Nov 2026 22:14:55 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 549b5a83e;
+	Fri, 13 Nov 2026 22:17:05 +0800 (GMT+08:00)
 From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
+To: Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: intel-wired-lan@lists.osuosl.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: xc4000: Fix potential firmware cache leak
-Date: Fri, 13 Nov 2026 22:14:54 +0800
-Message-ID: <20261113-4e14e563a1-media-xc4000@mail.sdu.edu.cn>
+Subject: [PATCH net] iavf: Fix potential QoS capabilities leak on removal
+Date: Fri, 13 Nov 2026 22:17:04 +0800
+Message-ID: <20261113-4e14e563a1-net-iavf@mail.sdu.edu.cn>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,49 +62,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1d542ed2203a1kunm6ac3d985487a5
+X-HM-Tid: 0aa1d544e98d03a1kunm647ab2784891f
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaH0lDVkpLSxlMQh9CTxlPTVYeHw
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTUJNVh8ZSksaTU5MTx8YH1YeHw
 	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
 	NMVUpLS1VLWQY+
 DKIM-Signature: a=rsa-sha256;
-	b=JuDdT3hEJWSfvruUrjISFOn+9nm9HpQON9yRSkPlxVxitwNu9wjapXH37DMlOVLRDtxUkd9kZb+MW3Z6nPjn16vybujY1dWFJhS4oTRPHE2e9gdVNv6YRf1xwSxzNDQj1dbPc2DP3JYPhkW1usxYlH+TVeKhEbDjJztSIjylZx0=; c=relaxed/relaxed; s=default; d=mail.sdu.edu.cn; v=1;
-	bh=3oMmdZVYi26pH4u992t/09alJJY3XBvcMTm1rb/kyeM=;
+	b=I1JA5P5qmnbqbrfRDiLxoEbIBviJDrid741fAgSv/KcQjU0cXX2wAPCKE55hKZRbuw6P37kLYmHuzBHL3h1WXSuJBOUSkCKDPNcmsjiuUYYt9nTmAcuQHNSYPYpTKYgCH+LVKblxSB2OrZ/SxaltCxYRfCZe3dMXLsWuSmd2vzM=; c=relaxed/relaxed; s=default; d=mail.sdu.edu.cn; v=1;
+	bh=ev+Xl72+1OCLuwasUtviXG9+6wDTgYoAYsCBeKV+34I=;
 	h=date:mime-version:subject:message-id:from;
 
-The last frontend release frees the shared tuner state without freeing
-its firmware array or the images referenced by it. This also affects
-attach failures after firmware loading has allocated part of the cache.
+Probe allocates qos_caps separately from the netdev. Remove frees the
+netdev without releasing this allocation.
 
-Free the cache before dropping the last tuner reference.
+Free the capabilities after the workqueue is drained and before freeing
+the netdev.
 
 This issue was found by our static analysis tool under development.
 
-Fixes: 11091a31fbf7 ("[media] xc4000: pull in firmware management code from xc3028")
+Fixes: 4c1a457cb8b0 ("iavf: add support to exchange qos capabilities")
 Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
 ---
- drivers/media/tuners/xc4000.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/net/ethernet/intel/iavf/iavf_main.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/media/tuners/xc4000.c b/drivers/media/tuners/xc4000.c
-index 900c5f2438fc..de45a6b751cf 100644
---- a/drivers/media/tuners/xc4000.c
-+++ b/drivers/media/tuners/xc4000.c
-@@ -1613,6 +1613,14 @@ static void xc4000_release(struct dvb_frontend *fe)
+diff --git a/drivers/net/ethernet/intel/iavf/iavf_main.c b/drivers/net/ethernet/intel/iavf/iavf_main.c
+index 2f8a80a11336..a2e7bc4cba88 100644
+--- a/drivers/net/ethernet/intel/iavf/iavf_main.c
++++ b/drivers/net/ethernet/intel/iavf/iavf_main.c
+@@ -5680,6 +5680,7 @@ static void iavf_remove(struct pci_dev *pdev)
  
- 	mutex_lock(&xc4000_list_mutex);
+ 	pci_set_drvdata(pdev, NULL);
  
-+	if (hybrid_tuner_report_instance_count(priv) == 1) {
-+		int i;
-+
-+		for (i = 0; i < priv->firm_size; i++)
-+			kfree(priv->firm[i].ptr);
-+		kfree(priv->firm);
-+	}
-+
- 	if (priv)
- 		hybrid_tuner_release_state(priv);
++	kfree(adapter->qos_caps);
+ 	free_netdev(netdev);
  
+ 	pci_disable_device(pdev);
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+base-commit: 2e54b3e187300893688c2c7517894f5d96732e05
