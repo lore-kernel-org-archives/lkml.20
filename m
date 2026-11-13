@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794594891;
-	b=laJdWqNX5LCtfdmpgwuaExuHRmQQR4gJgnqpW5A6qWd4PTeaEF0Rs1cur67/2qJiTFrm
-	 T3QbhhErSX5v4se3L3VSwjNYVtVnoLQc9FGheTwu0WYQmzGOygUubXwKaDIBSxkp/hjki
-	 Zww9q0zqrNIS5MSTdtKSWGbp/Jx6nVj3qlu1cbOhLQPyBIR0vdq3MGSOx3dlhEXU0Jk0G
-	 QSfFNE3fyuWe9kDXeTeVhMZifNC6M6nj7DjyUjOdAGlgs0mIM+VbitFADGGXfdIndJGXe
-	 G+5tONfP+UGn2vFwUQoqGqM7KhupTDCvw34NBxacC/S/sldUqubLqR8fooi1y3dTRgw==
+	t=1794594892;
+	b=2kjyPZ9YWyRui1jShvG0w7Szd3buJ6qB/6tWBrw9rCPCW9Jl+J1Dnt8VU0tpfT2U6/mE
+	 1khokBGbIWL7hUgLujbzwjs5DLAQlQ8OCjL1CNB8VwZE7SNAP5FkKnwlUTk/99AFd7wDC
+	 59OwGanRVq05DSgdFRO1iKTx2WPDr6CJPHwSoIoJR8OXmFHR+NVY6kvhulCuNMDAYoR6D
+	 gAgqQ78TCbhPH+Q227CoP99eDw1yWzyK1e2M3sbNQ/4h0rS8fBDpXsigNmxYhDCgw0wf1
+	 OUCbfPcEoTbAJZMMK8uD8dASH4jPAoJaXhO7JpmdfNK9jtsPHSe4hjVhDQNt/VPz0dQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794594891;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794594892;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
-	bh=qwZRSYpd7BAIdEDFRtmEwc9iMi4v7/Ni01ug+RMS35o=;
-	b=vaxPtY4rog36RThcNzP/yDZ9iao6xgY2eW4DflMUPxnB+FqfozrLjwc+Dm5JIc9j/YPy
-	 HfIySUWdaHHKgdDQ5DSaXfn19+2dy7sdI5gbBtNU2iEcWloEclOIVHJaubr75XkFoz0FE
-	 vDrnVTOK21RszO2+fKi9wcFy2ZlOVn/cesP/xf33A62x5GYjpgZmE/J2Qfk/oY6DkW/BP
-	 sb0hvJp0rzDi8WR+tnJK+tU1fExpuix1pKR0qh0fibyHLfLCe/8DAIgzxTsooTpekYl/Y
-	 uim4GfgxfHA8GhtOYRE8L5BGuo8I2ILX9zgl23GiUMI3pcp4cZ2Yki+pKroUaFsXjnQ==
+	bh=LcvsoidMFAtdfAb9au7KsTG7xrFv7NmzWeU8RJx8W8A=;
+	b=3FwSus92mFfMzm4eqKW5dQtgFCB1DTl7GSIvO8/f82LGOsQ35QzaV5ANW5tGM0azawKm
+	 ch6fWPYchrBfA/IApGKBXz2G3N/w/0TY2K9/lgPkdTGpr6xYpHyFXYr8M8ZhgCHOOyelK
+	 z1Jzb2KgQR1qA1PEP+JQes+t5GVznauoj/vr2yDDCqceaqs/+xobjDTIbTbFbPh+xLqJW
+	 m5fbzosEiXbMQjw1LTTvq/oF0XLAqqdPnDNuG++g9AyYC+yDVqS18yIs6z4xpO8CFIyRO
+	 d+qhWp4ei6YoIjEGf0OiOg7A3mrWWMgQjUTHQJHSclJZiPOipZaOj41/HEmxTyBTrWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=infradead.org;
 	spf=none smtp.mailfrom=casper.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b="QLZ/3ufy";
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=c6rqEX9m;
 	arc=none smtp.remote-ip=90.155.50.34
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B521606A335;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AFCF606A330;
 	Fri, 13 Nov 2026 18:34:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B521606A335
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AFCF606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=QLZ/3ufy
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=c6rqEX9m
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=qwZRSYpd7BAIdEDFRtmEwc9iMi4v7/Ni01ug+RMS35o=; b=QLZ/3ufy+z+EcXGbWvWof7GzPg
-	LlwiIMz2xaAggQjB+Y5XJqxfW+Y7pFgy8Jman05D3gtFcQbNq5NQ6l80FwyTL20ybQBWBbCComZZV
-	OX1ub0veTPrNkKayH/FX7UgXuOToj4rvhzCbnFRKzAHmt0I0vdneaWslhDOR3qQ2TPWW06nrttzlb
-	kc/p+s7v4Djya/JuxyxuRE5fySLWBkyqqDTZWjt9kZGXLI9I7aIUOHwBDrP85c6kl950LCB105jzU
-	k3cE1pXaQQZGxQx4a61WsTGW19N3QO1CiAb67Vg/axwERVMkdbvu2uYFDpIO8LxIeKU9cewD/gENL
-	4jB6gC/A==;
+	bh=LcvsoidMFAtdfAb9au7KsTG7xrFv7NmzWeU8RJx8W8A=; b=c6rqEX9m5zzw/3Ms8IkU5jHzpF
+	jrGvghyToHcjrkCmV3IMcsl2e2kLyEFbO9QoCMynCr1/FrPWsid1g2R0bhDPKGBhp1ufEmAhKsvqs
+	qYWcpN2TmNN1S6WlgsGYMP6v44DtV2/yATSlOkoLtsCm3eTAe2QShplm5tm9tGdkjSjHNS8YwEDzz
+	c+DNCXxxUDTaJQ3NQTpdKEHlCyGZv4GGahSH8n0wdq4RojxzXocRTuXMAezZiLlR/k7LHVdxy8FJU
+	XTAbCWMjwj1KD3vWT2elTHGxBBz2/rXGPooUmPSkUXtFrvKCu1O+nK9eMKt07SKJKPVNC/NFZAVbZ
+	j0nKaA0g==;
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
 	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xRw6s-00000004gQL-0Iaq;
-	Fri, 13 Nov 2026 18:34:50 +0000
+	id 1xRw6r-00000004gPV-27SD;
+	Fri, 13 Nov 2026 18:34:49 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xRw6r-00000000LtO-3bE7;
+	id 1xRw6r-00000000Lsj-18rI;
 	Fri, 13 Nov 2026 18:34:49 +0000
 From: David Woodhouse <dwmw2@infradead.org>
 To: kvm@vger.kernel.org
@@ -71,9 +71,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Mushahid Hussain <hmushi@amazon.co.uk>,
 	Sriram Nambakam <snambakam@linux.microsoft.com>,
 	David Woodhouse <dwmw@amazon.co.uk>
-Subject: [RFC PATCH v2 13/31] KVM: x86: hyperv: Suppress SynIC exits from higher planes
-Date: Fri, 13 Nov 2026 18:34:29 +0000
-Message-ID: <20261113183448.84094-14-dwmw2@infradead.org>
+Subject: [RFC PATCH v2 04/31] KVM: x86: hyperv: Flush every plane twin on TLB flush hypercalls
+Date: Fri, 13 Nov 2026 18:34:20 +0000
+Message-ID: <20261113183448.84094-5-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261113183448.84094-1-dwmw2@infradead.org>
 References: <20261113183448.84094-1-dwmw2@infradead.org>
@@ -92,55 +92,118 @@ X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-Userspace's SynIC device models plane 0 only. A KVM_EXIT_HYPERV_SYNIC
-exit from a higher plane's vCPU looks like a plane-0 SIMP or SIEFP
-move, and the VMM relocates the overlay it keeps for that page to the
-new GPA, carrying stale overlay contents along.
+The Hyper-V TLB flush hypercalls resolve their target vCPUs through
+the plane-0 array, so a flush only ever reached the plane-0 vCPUs, and
+the caller's own plane and every other plane kept stale translations.
+Two Windows VSM failures come from this. The secure kernel repopulated
+a PFN-database page table entry, flushed, then took a fatal page fault
+on the very address it had just mapped, because VTL1's TLB still held
+the old read-only zero-page translation. And an SMP boot bugchecks 0x1A
+(MEMORY_MANAGEMENT, 0x6102) minutes in, when VTL0 reads stale PTEs that
+the secure kernel has already edited in mappings both VTLs use.
 
-Do not report SynIC MSR changes of a non-zero plane to userspace; the
-SynIC of a higher plane is handled in the kernel. api.rst says so in
-the KVM_EXIT_HYPERV_SYNIC description.
+The TLFS lets a flush cover more than the caller asked for, and does
+not return from the hypercall until the targets have left guest mode.
+Enqueue the flush entries for every twin of each target VP, and raise
+KVM_REQ_HV_TLB_FLUSH through the waiting request fan-out, so the
+hypercall waits for every plane, whichever VTL issued it. Make the
+request per plane: it lives in the request word the twins share, and a
+plane-0 twin consuming it with an empty fifo would otherwise drop a
+flush queued for another plane.
+
+The walk reaches twins whose mutex the caller does not hold, so it
+leaves the Hyper-V context check to hv_tlb_flush_enqueue(), which reads
+it with to_hv_vcpu_safe() and skips a twin that has none yet.
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- Documentation/virt/kvm/api.rst | 3 ++-
- arch/x86/kvm/hyperv.c          | 9 +++++++++
- 2 files changed, 11 insertions(+), 1 deletion(-)
+ arch/x86/include/asm/kvm_host.h |  3 ++-
+ arch/x86/kvm/hyperv.c           | 41 ++++++++++++++++++++++++++++++---
+ 2 files changed, 40 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
-index 83daee450284..99e18956f249 100644
---- a/Documentation/virt/kvm/api.rst
-+++ b/Documentation/virt/kvm/api.rst
-@@ -7503,7 +7503,8 @@ Valid values for 'type' are:
- 
- Hyper-V SynIC state change. Notification is used to remap SynIC
- event/message pages and to enable/disable SynIC messages/events processing
--in userspace.
-+in userspace.  Only plane-0 vCPUs exit this way; the SynIC of a
-+higher plane is handled in the kernel.
- 
- 	- KVM_EXIT_HYPERV_HCALL -- a hypercall for userspace to handle.
- 
+diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+index 1ce0b81833b9..f46a3494aacc 100644
+--- a/arch/x86/include/asm/kvm_host.h
++++ b/arch/x86/include/asm/kvm_host.h
+@@ -129,7 +129,8 @@
+ 	KVM_ARCH_REQ_FLAGS(31, KVM_REQUEST_WAIT | KVM_REQUEST_NO_WAKEUP | \
+ 			   KVM_REQUEST_PER_PLANE)
+ #define KVM_REQ_HV_TLB_FLUSH \
+-	KVM_ARCH_REQ_FLAGS(32, KVM_REQUEST_WAIT | KVM_REQUEST_NO_WAKEUP)
++	KVM_ARCH_REQ_FLAGS(32, KVM_REQUEST_WAIT | KVM_REQUEST_NO_WAKEUP | \
++			   KVM_REQUEST_PER_PLANE)
+ #define KVM_REQ_VMSA_PAGE_RELOAD \
+ 	KVM_ARCH_REQ_FLAGS(33, KVM_REQUEST_WAIT | KVM_REQUEST_NO_WAKEUP | \
+ 			       KVM_REQUEST_PER_PLANE)
 diff --git a/arch/x86/kvm/hyperv.c b/arch/x86/kvm/hyperv.c
-index d2ad255ae212..5a42d479e936 100644
+index c76236711208..65c39b30dae7 100644
 --- a/arch/x86/kvm/hyperv.c
 +++ b/arch/x86/kvm/hyperv.c
-@@ -253,6 +253,15 @@ static void synic_exit(struct kvm_vcpu_hv_synic *synic, u32 msr)
- 	struct kvm_vcpu *vcpu = hv_synic_to_vcpu(synic);
- 	struct kvm_vcpu_hv *hv_vcpu = to_hv_vcpu(vcpu);
+@@ -2385,6 +2385,32 @@ static int kvm_hv_hypercall_check_params(struct kvm_vcpu *vcpu,
+ 	return 0;
+ }
  
-+	/*
-+	 * Userspace's SynIC device models plane 0 only; a higher plane's
-+	 * exit would be mistaken for a plane-0 page move and relocate the
-+	 * overlay the VMM keeps for SIMP/SIEFP.  Higher-plane SynICs are
-+	 * handled fully in-kernel.
-+	 */
-+	if (vcpu->plane_level)
-+		return;
++/*
++ * The Windows secure kernel edits mappings that the normal kernel also
++ * uses, and expects a flush issued from either VTL to cover both.  Planes
++ * have separate roots and TLB tags, so enqueue the flush for every twin
++ * of the target VP; the TLFS lets a flush cover more than the caller
++ * asked for.
++ */
++static void hv_tlb_flush_enqueue_all_planes(struct kvm_vcpu *v,
++					    u64 *entries, int count)
++{
++	struct kvm_vcpu *twin;
++	int p;
 +
- 	hv_vcpu->exit.type = KVM_EXIT_HYPERV_SYNIC;
- 	hv_vcpu->exit.plane = vcpu->plane_level;
- 	hv_vcpu->exit.u.synic.msr = msr;
++	for (p = 0; p < KVM_MAX_PLANES; p++) {
++		twin = READ_ONCE(v->common->vcpus[p]);
++		if (!twin)
++			continue;
++		/*
++		 * The caller does not hold the twin's mutex; the enqueue
++		 * looks up the twin's Hyper-V context with to_hv_vcpu_safe()
++		 * and skips a twin that has none yet.
++		 */
++		hv_tlb_flush_enqueue(twin, entries, count, false);
++	}
++}
++
+ static s64 kvm_hv_flush_tlb(struct kvm_vcpu *vcpu, struct kvm_hv_hcall *hc)
+ {
+ 	struct kvm_vcpu_hv *hv_vcpu = to_hv_vcpu(vcpu);
+@@ -2521,8 +2547,15 @@ static s64 kvm_hv_flush_tlb(struct kvm_vcpu *vcpu, struct kvm_hv_hcall *hc)
+ 	 */
+ 	if (all_cpus && !is_guest_mode(vcpu)) {
+ 		kvm_for_each_vcpu(i, v, kvm)
+-			hv_tlb_flush_enqueue(v, tlb_flush_entries, hc->rep_cnt, false);
++			hv_tlb_flush_enqueue_all_planes(v, tlb_flush_entries,
++							hc->rep_cnt);
+ 
++		/*
++		 * KVM_REQ_HV_TLB_FLUSH is per-plane and fans out to every
++		 * twin; the WAIT in the fan-out is the barrier the TLFS
++		 * requires before the hypercall returns, for callers in
++		 * either VTL.
++		 */
+ 		kvm_make_all_cpus_request(kvm, KVM_REQ_HV_TLB_FLUSH);
+ 	} else if (!is_guest_mode(vcpu)) {
+ 		sparse_set_to_vcpu_mask(kvm, sparse_banks, valid_bank_mask, vcpu_mask);
+@@ -2531,10 +2564,12 @@ static s64 kvm_hv_flush_tlb(struct kvm_vcpu *vcpu, struct kvm_hv_hcall *hc)
+ 			v = kvm_get_vcpu(kvm, i);
+ 			if (!v)
+ 				continue;
+-			hv_tlb_flush_enqueue(v, tlb_flush_entries, hc->rep_cnt, false);
++			hv_tlb_flush_enqueue_all_planes(v, tlb_flush_entries,
++							hc->rep_cnt);
+ 		}
+ 
+-		kvm_make_vcpus_request_mask(kvm, KVM_REQ_HV_TLB_FLUSH, vcpu_mask);
++		kvm_make_vcpus_request_mask(kvm, KVM_REQ_HV_TLB_FLUSH,
++					    vcpu_mask);
+ 	} else {
+ 		struct kvm_vcpu_hv *hv_v;
+ 
 -- 
 2.50.1
 
