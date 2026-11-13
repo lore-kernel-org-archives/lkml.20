@@ -1,81 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.153.233
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794556791;
-	b=zCqOeR4YlxfLDA5QlsQV2Ncubluqchu0y4lJ1ePVe+Mn5wGC2WZImYPcGgvcQVnEX/z+
-	 1eCl3Do8i9pM+yPvNyD+EpfQ+Gor6EvGWeRoVz25z2hHCRBa2tot1KeDT3HkA7cyFgX11
-	 BxDxR5+bNPDgv1tqXU6bBtzukgSL3v4iO43nx+WEbvqVS0xkDkB4nVso5gIxOvcrpUICJ
-	 7nTpL6yJyssMCAHc4iocN76wdm+uQq77KyNGd1VUnuKdj3gtBHxYXFOsHOg+yGm67405K
-	 iGf966QSk6hPSZ/9Jz+KJYDUu0TjSxl6CWhAiIJhhu5IiAQZWEyVB+ScEN8GGmN5uEg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794556791;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:Date:From:To:CC:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=zyqJRAMtWY32BYL/u/7jM8D0VpA5LMH5xunK6iIg3N8=;
-	b=pblO63jBhLvw6kgAl7A4JnBHpSJ6fgvQ6OuCZnxUjWMTwDBnGr/olqz6r4lOxvrg7xNJ
-	 +eiNBWEkgT20P/E7sE/o4Z9Gibx0oIi7B2GGK2SrWfkfhzyy2xjTYynsu/qYjJPJuLDzm
-	 fyFBEQ/52wjHZpjDc/cXtzkGGDZ7CaBGSLUJqo3/VkwKEgt038MKKfmei5Lh/ZdNWXYqq
-	 eqKC2vv38WQGT0RLYVnaegw0yq6K5DhnwGJeVclm0b7uWRskFYI0+O3SN3/OCeT/MV8l+
-	 Sco8JZF6T5Zkk1d81aYiTksHrk/NJv4K9L680xInMTxLBGiJDh91HkiNYFgWAlGZ5Hw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=microchip.com;
-	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=hiHKy9P9;
-	arc=none smtp.remote-ip=68.232.153.233
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.177
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794556844;
+	b=TBmGywqmE3mNOlGYwKQIRQMBDrmcRGGH0nbXx0uJ98cFgBBa/k86cBDpazUZ5VJvUQYq
+	 +CEbr6j7pmQk3/geZ9DjyJtQqPZzAHDMy1fMP2fefMyJSw/qTNr/t94P7cRgbPm/tMIXh
+	 UmJohssfwIvgd7vbChfzD3Q73zurDUJzz9sF8MlXo+LtnMiCnlh/W5pmGHgP20BKJ8BlQ
+	 EH6O5epPBtC7D0bm2MaZyAYXx0IpQf8arNjVg7oFhceeXUKvpTuwJUfebTUVGC80EJKGz
+	 fkTtX1xjocGVZyT0TNiKgGFkA4oURUS42tiiGRWdIQBge0meOziT3jvtPatOGm12ntQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794556844;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=im5VzDYCAR+lhrziKPe6VB/YsWt6tS1hfXIpy0sqr8w=;
+	b=uC5KQEr+5WVdR5lt476AmCSPRQbmkFvjsqUZHgNGYPcgtAm4LJiHorncIOkkBl8l0PLU
+	 8f9L7SLhchBde1dyQAThk3NmZr5R5N8fSIM+826KZzn6P2sBnWQAARY66exf4QsTHEvbN
+	 I2zvpqFn4PCeSpHZAJ39P9O94z+niodSIW81fZDc2CeALqMubege3fKqYKrSKigU5qGa3
+	 q9s65tlugDGhrQ3bc/E9S6iukYzrFSUbVqboCIJNR9egYVNRMNQEKWQTv5e7JYjOwTKWt
+	 BT7680p9vajTZMXwq0HG3UJaNtcUMeCJMdgE/HGdU7YfIB3cRBkwz6q5rgJg0K4fFtw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g2uct+Co;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.177
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 114D5606A31C;
-	Fri, 13 Nov 2026 07:59:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 114D5606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF0E1606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:00:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF0E1606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=hiHKy9P9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1794556798; x=1826092798;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=Wf/GdgZT5AvyJaH+VqPN1515v3dOe8ZZKeyFfPTFoG8=;
-  b=hiHKy9P9fEHXh/tVRvNmNemxBrG3Vc9PgLFuRUqH9iA+K7O2CqVN8X1W
-   0czev0H9hEYS5x2uVuEdr0ELDykVtIyv5KZtkq8ySUji5n0zqfexQ6pKL
-   PzTb8HcEfYDymIjzUql3bBk0y6QC4h3fWzjVzpjADhMCzpWdDFjV8iscJ
-   Q62D618T9MIxKtx+6DNGsuDuw9j74FcjZSsb1GT0ehscxn9O25ELLPGgU
-   JWLqWely/v/y1QLTi6w8TQThV2omUZ4GbU5QIyw2qLSnGhaZLZ315kqLx
-   5i9BjKJcGsjNaO+J03eHYKGpYyyx3UNoiMYFN3uxAK1iRxPZq5NT36C0y
-   w==;
-X-CSE-ConnectionGUID: 76abFsNcRyCWBmv3he/oHA==
-X-CSE-MsgGUID: iAxiAinjQBGdOa4AGNbB7A==
-X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
-   d="scan'208";a="297872081"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 13 Nov 2026 00:59:57 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Fri, 13 Nov 2026 00:59:49 -0700
-Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Fri, 13 Nov 2026 00:59:46 -0700
-Date: Fri, 13 Nov 2026 08:59:46 +0100
-From: Daniel Machon <daniel.machon@microchip.com>
-To: <netdev-bot+sashiko@kernel.org>
-CC: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@kernel.org>,
-	<kuba@kernel.org>, <pabeni@redhat.com>, <Steen.Hegelund@microchip.com>,
-	<UNGLinuxDriver@microchip.com>, <richardcochran@gmail.com>,
-	<linux@armlinux.org.uk>, <netdev@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<robert.marko@sartura.hr>, <horatiu.vultur@microchip.com>,
-	<jensemil.schulzostergaard@microchip.com>
-Subject: Re: [PATCH net-next v2 2/9] net: sparx5/lan969x: free the FDMA
- buffers on init errors and deinit
-Message-ID: <20261113075946.fptcvcesbmjlahpc@DEN-DL-M70577.microsemi.net>
-References: <20261111-sparx5-mtu-change-v2-2-59c91357e8f6@microchip.com>
- <179450479633.2199510.4808333993834819818@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g2uct+Co
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3adf89523d8so966781fa.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:00:43 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794556842; cv=none;
+        d=google.com; s=arc-20260327;
+        b=h2yN/iVp+PAtL4RfZ2NrBWzEirzGocbLS6r/H22jpv1vDLM3iN8yOWRXry8IATgWOE
+         6G287PHios/p8RebvM3EooHEiJxnti8PLItDhW+1+b0hrFUnfy5GF8LxV22V0hoPKcXw
+         5e7SbAketp18HKcYMAz7YY1fV/ZpVTakrdb2YXmYN21C+tPI3Al7NRzO5epR+r/aqaIl
+         H/vLhjb79zw9hfpSC0BJ7pB1MUT7rmnecyNuZ1oqITdONIPiIHNeqfdN1Adcqc5hWx4V
+         46SlH0i2dpwBwUmASywflz7pDw1WNpInPI37MTTGzMqAMx1Hcx9KyGQpSAfPXsC/zhAX
+         n5Vg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=im5VzDYCAR+lhrziKPe6VB/YsWt6tS1hfXIpy0sqr8w=;
+        fh=n29ovbi3QmBhl/5C+Mk23NB6rJoHGjPzodyttn7o620=;
+        b=LQKL+gDZ5Tjzuy00hpHZSYK4e6FliXSYOQjlSvEIQDs+NZ0X8h7wsFvD3g0UI+Bt3Q
+         CK5n7VzxnuaFrx1FFHlRtGRnDkeMFzqV3UOJsOf3kvgHU7g119efnM7A8CK/1WGSwXRl
+         2E5JQOoe0ex9g+ZaOi6r2sFLzoVovWNBktjnKLRKlz15xpxJt9tv1LRQDDqYEGKpDLNY
+         UjLQsh4ZHS1xa3tDiFxPFNz7fnG0qb0zPWY+AthuWZnNnpoC1iOsI5Hw5KKaVZgxsL6+
+         +f2qZAAhd9BtncfhVQL/QfE8HGKS+ZjnduDCchV+NjpfkKLc+jYRZWAosWMA3LxgACHb
+         Nzjg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794556842; x=1795161642; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=im5VzDYCAR+lhrziKPe6VB/YsWt6tS1hfXIpy0sqr8w=;
+        b=g2uct+CokQ4F+amxmwUtOlccpC0vRIEWj4TJumELJjvRtBaLmxs8gCQb5ATjefa3Lt
+         Wzhs3V5zUzSXkUhmo6yhEPVl3/AyDLgUzOJAKDixRnXG3o5YsBh0qap67riqWsaUsPJt
+         JSzEfS85lwNchwUsoroI5gOL2ICTE5VC7v2UHBOeejNP7IOV4kLG+Y3TYy2q+YxXSvX7
+         AWDOAFOEQ9KqRwyrWVPwfz3tmIYF1eeT1rsZpV14S0bTNlqllIcRJ3s5dw/FBF8kR4PG
+         nFjXCQSXXthDNAqD0L+B61YkUTVoAxOZ2OUastjsbBdu1NUBSml3Rmev4ByY8DT+OMLe
+         csSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794556842; x=1795161642;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=im5VzDYCAR+lhrziKPe6VB/YsWt6tS1hfXIpy0sqr8w=;
+        b=hfdgxI3jZQOQXDlm81SXD3VHzu4N4jrhjlE3qa/hbZQIBZEu2BqVxbgB0eu6bCuOJ/
+         Ouy5Bp0D+n92A/Vql4cUVUZsbaIdH9l4ODlB4LM+XRmmq4J7KB3WjxuZChy2ynl2EGpu
+         g7pf9R2l0p822sdODAloIZwn6pzRDI1jvYr6EtZ4+zFJVBH/my2bnaQSD6OY/AI4RR/j
+         SEWai/w3KE3WurFJV5O2jernBQNWJd3j+eTyt0NnyW86XWkg6Wz62UhhTSuaLZxtLBzI
+         0agcfb/B8uqyL9CBibAaBE4tWh4HVY+WEHhLqOp5LU+L59co/21rVqM7k2SJck+u2+wY
+         l5dQ==
+X-Forwarded-Encrypted: i=1; AL+hErE+0BtNYq5BEX0ccFzLOX5+qb89CLYNIaJcaWP3RAmC6DCytOPavhIf3NHCs0ZWUWk1kd714xUEJ9ocVU8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8y68tmXtzogs7ig4Sf9sGVz5buZZnywIyv4tjnRRCul1NMGbA8
+	hiGThmxxM4Q9M0oBoT23/5dZl4ar/9aVxP0XMehpEeMUgchCR2zG4A464vKRNfcYkvU17MXPYCR
+	oqZxZPQuU5odCjo55ALE2+FN8Gpj4WQU=
+X-Gm-Gg: AYBFou3DCFOjGgKkrV2BgofEroEY4mg1Pj8MmaYQMlDQtm2JvYvbB7/TI6DBkMAxTjW
+	Kz6ktIiDw5xh4QGxp2Luvmtc10Sd0OlQTiePrLFKJTtav1zXnnN5KEy5BI57BangQoaUd0sNWr8
+	R84+TIMvu9QQk2uRwg+8FEljUe47qkDr/8BXv7AwKH6sf+hl8pdlrAK/ciZi7Ss6t1eURp48Qs/
+	XeF8Lg5KIc5KjcJpP3lr620Npkp6edrYmESSt/FfApRZqI1m0wS8kTJKGi5N9weHqWHoRpOJmIz
+	9eDyDWvrYM5uIxh22aXHNX0IJhR2t0Py/Mq7yP0bx6LYQt9Vgu5Ol19Nfr7QLcCiav11zfMCNZB
+	gEsLmVOQXST7RYP0q049P4bcN491RFJNCIoYBSUN2JaA87LzM+pdMDA37FfYIjiFEH9o4S5E=
+X-Received: by 2002:a05:6512:108a:b0:5c0:b5c:4084 with SMTP id
+ 2adb3069b0e04-5c1705d663fmr682927e87.1.1794556841810; Fri, 13 Nov 2026
+ 00:00:41 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,201 +103,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <179450479633.2199510.4808333993834819818@kernel.org>
+References: <20261112-hantro-codec-fixes-v2-0-f44424df585b@gmail.com>
+ <20261112-hantro-codec-fixes-v2-3-f44424df585b@gmail.com> <f041c5d87698ab3be8283ecc71ead0679327238e.camel@collabora.com>
+In-Reply-To: <f041c5d87698ab3be8283ecc71ead0679327238e.camel@collabora.com>
+From: Arun Iyengar <aiyengar1990@gmail.com>
+Date: Fri, 13 Nov 2026 00:00:30 -0800
+X-Gm-Features: AclHuK-I_zgsSZZ7-9_Jv6URD3G7__LXdFVlF7HwZI4Ihkxqdy0NcAMKAgOjjTI
+Message-ID: <CAEy9hNVSC7TAvdLmN-yWH9NdtKH9jgVnyxFwLJ+J2qPZvOQTEA@mail.gmail.com>
+Subject: Re: [PATCH v2 3/6] media: verisilicon: Don't offer VP8 above 1080p on
+ the Rockchip VDPU2
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Cc: Benjamin Gaignard <benjamin.gaignard@collabora.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Sebastian Fricke <sebastian.fricke@collabora.com>, 
+	Hans Verkuil <hverkuil@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+	Boris Brezillon <boris.brezillon@collabora.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, Jeffy Chen <jeffy.chen@rock-chips.com>, 
+	Tomasz Figa <tfiga@chromium.org>, linux-media@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 1 (1) · Medium: 0 · Low: 0
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [High] On lan969x, the ownership tracking for RX pages is still
->   incomplete in the free_page error path of lan969x_fdma_rx_get_frame().
-> 
-> Pre-existing issues:
-> - [High] This problem wasn't introduced by this patch, but both NAPI
->   handlers ignore the return value of fdma_dcb_add() when they refill RX…
-> 
-> --
-> 
-> net: sparx5/lan969x: free the FDMA buffers on init errors and deinit
-> 
-> This patch adds sparx5_fdma_rx_free(), lan969x_fdma_rx_free() and
-> lan969x_fdma_tx_free(). They release the RX skbs/pages, the page_pool,
-> the TX buffer state and the in-flight TX buffers on init error paths and
-> on deinit. It also checks the return value of fdma_dcbs_init() for RX,
-> and stores the mapped TX length so it no longer reads skb->len.
-> 
-> > diff --git a/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_fdma.c b/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_fdma.c
-> > index 053d125eda658..8e0f1ddcbf2c4 100644
-> > --- a/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_fdma.c
-> > +++ b/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_fdma.c
-> 
-> [ ... ]
-> 
-> > @@ -90,12 +90,29 @@ static void lan969x_fdma_free_pages(struct sparx5_rx *rx)
-> >  	struct fdma *fdma = &rx->fdma;
-> >  
-> >  	for (int i = 0; i < fdma->n_dcbs; ++i) {
-> > -		for (int j = 0; j < fdma->n_dbs; ++j)
-> > +		for (int j = 0; j < fdma->n_dbs; ++j) {
-> > +			if (!rx->page[i][j])
-> > +				continue;
-> > +
-> >  			page_pool_put_full_page(rx->page_pool,
-> >  						rx->page[i][j], false);
-> > +			rx->page[i][j] = NULL;
-> > +		}
-> >  	}
-> >  }
-> 
-> [Severity: High]
-> Is a non-NULL slot here always a page that the driver still owns?
-> 
-> lan969x_fdma_rx_get_frame() takes its free_page error path when
-> WARN_ON(!port) fires or build_skb() fails:
-> 
-> free_page:
-> 	page_pool_recycle_direct(rx->page_pool, page);
-> 
-> 	return NULL;
-> 
-> That returns the page to the pool, but
-> rx->page[fdma->dcb_index][fdma->db_index] still points at it.
-> lan969x_fdma_napi_poll() then breaks out of the loop without advancing
-> or refilling that DB:
-> 
-> 		skb = lan969x_fdma_rx_get_frame(sparx5, rx);
-> 		if (!skb)
-> 			break;
-> 
-> On a later teardown through
-> lan969x_fdma_deinit()->lan969x_fdma_rx_free()->lan969x_fdma_free_pages(),
-> wouldn't page_pool_put_full_page() run on that stale slot a second time?
-> 
-> A page in the pool cache still has pp_ref_count == 1. So
-> page_pool_unref_netmem() takes the second put as the last reference and
-> recycles the page again, this time into the ptr_ring, while it also
-> sits in the alloc cache. page_pool_destroy() would then DMA-unmap the
-> page twice and call put_page() on it twice.
-> 
-> The commit message says:
-> 
->   "To know which RX buffers are still owned by the driver, clear the RX
->   buffer slot once the buffer has been passed to the stack on Sparx5, and
->   make lan969x_fdma_free_pages() skip and clear the empty slots of the
->   ring."
-> 
-> However, lan969x does not clear any slot at this commit. A later patch
-> in the series, "net: sparx5/lan969x: add support for resizing the FDMA
-> buffers", fixes the success path: it sets rx->page[...] = NULL before
-> returning the skb. The free_page path still leaves the slot set there.
-> 
-> That later patch also adds lan969x_fdma_resize(), which calls
-> lan969x_fdma_rx_free() on an MTU change. After it, the double put can
-> happen without an unbind.
-> 
-> Separately, and this part predates the patch: the stuck DB stays DONE,
-> so the next poll processes the same, already recycled page again. If
-> build_skb() succeeds that time, the stack gets an skb on a page that
-> the refill can hand straight back to the hardware.
-> 
-> Would it work to set rx->page[fdma->dcb_index][fdma->db_index] = NULL
-> after page_pool_recycle_direct()? The poll loop would also need to
-> consume or refill that DB, or reuse the page in place, instead of
-> recycling the page while the DB still references it.
+> Just to bring to your attention, the IP does support up to 65Kx65k, but then you
+> can't do referencing (its the WebP mode, key frame only). Hughes Fruchet from ST
+> started looking into this but his work was not completed. The general idea
+> though was to perhaps introduce a V4L2_PIX_FMT_WEBP_VP8 (or VP8_INTRA, naming is
+> hard) format to signal this to the decoder, and limit to 1080 the FMT_VP8 (what
+> you are fixing I suppose).
 
-I believe this issue is being addressed on net by Zhang Hewei [1]. I asked for
-changes on v3, but no response so far, so I see three options:
+Thanks, good to know. Yes, this only limits FMT_VP8, so a WebP or
+VP8_INTRA format can still be added for the larger sizes.
 
-  1) Wait for Zhang to eventually post a v4.
-  2) Send a follow-up fix for this, in case Zhang does not.
-  3) Incorporate the fix in v3 of this series.
+> If you have time, it is also miss-configured on the imx8mm, the combo-core
+> (G1/H1 combined, like RK modified version). While the imx8mq has 4k h264, I
+> don't know if the VP8 core actually is capable of 4k, so perhaps both soc need
+> fixing.
 
-Either of these works for me, but as I dont know if a v4 is ever sent and how
-many respins that fix will require, it'll probably be fastest for me with 2) or
-3)
+I have no i.MX8M board to check what the VP8 limit is there, so I left
+those tables alone for now. I will take a look at getting a patch for
+this separately.
 
-BTW. The high severity issues on patch #6 and #9 have the same root cause as
-this. So my response to those are the same as this.
-
-[1] https://lore.kernel.org/netdev/tencent_6BAC076E552C6F338052FC02794D9B28ED0A@qq.com/
-[2] https://lore.kernel.org/netdev/20261110105239.5olhrlwa3mck74f4@DEN-DL-M70577/
-
-> 
-> [ ... ]
-> 
-> > @@ -169,14 +186,18 @@ static int lan969x_fdma_rx_alloc(struct sparx5 *sparx5)
-> >  		return PTR_ERR(rx->page_pool);
-> >  
-> >  	err = fdma_alloc_coherent(sparx5->dev, fdma);
-> > -	if (err)
-> > +	if (err) {
-> > +		page_pool_destroy(rx->page_pool);
-> >  		return err;
-> > +	}
-> >  
-> > -	fdma_dcbs_init(fdma,
-> > -		       FDMA_DCB_INFO_DATAL(fdma->db_size),
-> > -		       FDMA_DCB_STATUS_INTR);
-> > +	err = fdma_dcbs_init(fdma,
-> > +			     FDMA_DCB_INFO_DATAL(fdma->db_size),
-> > +			     FDMA_DCB_STATUS_INTR);
-> > +	if (err)
-> > +		lan969x_fdma_rx_free(sparx5);
-> >  
-> > -	return 0;
-> > +	return err;
-> >  }
-> 
-> [Severity: High]
-> This isn't a bug introduced by this patch, but the same allocation
-> failure is still unchecked when the RX DCBs are refilled at runtime. The
-> patch only adds the check at init time.
-> 
-> lan969x_fdma_napi_poll() ignores the return value of fdma_dcb_add():
-> 
-> 		fdma_dcb_add(fdma,
-> 			     old_dcb,
-> 			     FDMA_DCB_INFO_DATAL(fdma->db_size),
-> 			     FDMA_DCB_STATUS_INTR);
-> 
-> So does sparx5_fdma_napi_callback() in sparx5_fdma.c:
-> 
-> 		fdma_dcb_add(fdma, fdma->dcb_index,
-> 			     FDMA_DCB_INFO_DATAL(fdma->db_size),
-> 			     FDMA_DCB_STATUS_INTR);
-> 
-> __fdma_db_add() in fdma_api.c writes the status, with DONE cleared,
-> before it calls the dataptr callback:
-> 
-> 	db->status = cpu_to_le64(status);
-> 
-> 	err = cb(fdma, dcb_idx, db_idx, &dataptr);
-> 	if (unlikely(err))
-> 		return err;
-> 
-> Suppose page_pool_dev_alloc_pages() in lan969x_fdma_rx_dataptr_cb() or
-> the GFP_ATOMIC __netdev_alloc_skb() in sparx5_fdma_rx_dataptr_cb()
-> fails. __fdma_dcb_add() then returns before it links the DCB or updates
-> fdma->last_dcb. The next successful add links around that DCB, so the
-> hardware skips it.
-> 
-> Once dcb_index wraps around to that DCB, fdma_has_frames() and
-> fdma_db_is_done() return false. Would both NAPI handlers then stop at
-> that DCB on every poll? The hardware would fill the remaining DCBs, but
-> nothing would consume or refill them, and CPU RX would stay stalled
-> until the driver is rebound.
-> 
-> This code is unchanged through the end of the series.
-> 
-> -- 
-> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111-sparx5-mtu-change-v2-0-59c91357e8f6%40microchip.com
+Arun
