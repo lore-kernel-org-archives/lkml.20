@@ -1,60 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=103.117.158.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794585580;
-	b=u9ujdGBU6tIXR12dO7weTkEwKE5kKnC7sYAX+toWOzEBHxEhzBY5zZ014pa1HA0ApdrD
-	 MVyQP06DHf6Ngm6pc8J0FLOAejd3hhrEhf/vdXDdAoxm0h2RyLiSENK1vsUqmiU4/OJKu
-	 HijHfaNR/K/enBUCwOcAxvpiLmrqOetkLe2Eu93d3qX0GuHc6iNseiiHnedXT+wHzFVjG
-	 +RUeUQpmCJ6fs4+gnsoNAzjgalHHiTXlT7Zb0f50EhAcHSukwI6sV7LOCDg62Fa6RKtTg
-	 MtSUCy23sVNbiylp6yNTEyhbC6CWQ72Y2khtxpKf92+8uT5Xlrpn9d61irVq+viLbyw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	b=03RV45N9iya5Ya9mk5dJ5Pq+nwhL8MQvubyarv1k6W21BMXABN7Nm4GU8B5hvhgZKeYG
+	 P6VXJJxENTn3EC/XPbXD4wb1344kw9lS7bMOWcuy4Yrjbg1cA15d7vhbxmuGbNGU1c6yB
+	 Icyge9kx+5ZfYV7bbQy2D0fW1z3G2Pnn1eTKrZ/SahXGHxmMgeVVP5g25qCOyyra774Av
+	 j9fjrvZ/XX8GpAE59OrqQ3eg0p9lC5xAzlAdsRbAASRjS2bwhWe85n9pDSAQg8PEHd2LG
+	 ghsrqge42V5PonayC7KcI6oYZwnj3lZo1oT2qK5Kd5Njq/1nJE2FOB77EDp5xes+pEg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794585580;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Last-TLS-Session-Version;
-	bh=joI/KrFSE1B92Swk6mDa0OAqDeCtz3SaQuMCvQjux2Q=;
-	b=xL0YQQDwHNYUiZhhuz7Ku+wLWbN37Gs033IuQUJTtdZTmOygLBoa8PlGk+bdt4YDyK9Q
-	 VQsnjS4fW6fhP5EZGsgpBCWHX4aPcqCEFP92v2oEqkmqLkLgdPZFEnf4DUWEzKqejUvm7
-	 5HI4759eyLT1/Rz9CaGeC20g2evXKocgYOEtofZ4lHbiIc72DziC7QIFS+OYcvC5zYVMW
-	 81a1PX+wEjH+kJ4ontn2AmILKbDwDmVipYaU62wX40CPG9uXXX3Bvf8aP8e2Bwq7ysoIG
-	 GSl02x6yMl9ApRX8QPExQ9zdxRC9fvny+iYqrB1QcUgmZqFC0jgdiwvrK80mk8PDmQw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=qnX7tIZO;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:X-ZohoMailClient;
+	bh=Nl31PSuEy3Lo+qkXIEnbHDtDvbYKP5sZm75lN1/UelY=;
+	b=PttbybguB7rZsH2CNsbbUslbMHJffc6a7GCUk/pLk3zL1aws13MZYAY9dp/4jY5JA7fQ
+	 2nUDBx8xryhJPqMwtvgu/dgozOqs4qnac3KcUdz/ixRdv4idn9onZOu9ma/YEeGC/Sxoo
+	 sIr20Vf/MPrqEZkyfJst52NkMYL/rsSwe7d9sE38/MORIa7XmRFUsMm8LxtJBnNMksBET
+	 3a1In75/LE9Z/1UsmpyHXzczQLROlA4ttlqeN2OU2jWNdqSvAkO847za2x8wd0s40pwUF
+	 HJ3JVeKWzf5Hd74hGezaEbVUxpgZXQiomhzaQrODePP5HhX8jubiJ3wiRjcjecx3B5w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=inferno0230.in;
+	spf=pass smtp.mailfrom=inferno0230.in;
+	dkim=pass header.d=inferno0230.in header.i=@inferno0230.in header.a=rsa-sha256 header.s=zmail header.b=OWMSJV8c;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=103.117.158.51
+Received: from sender-of-o51.zoho.in (sender-of-o51.zoho.in [103.117.158.51])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C63606EA91
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:59:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9C63606EA91
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF59760A2628;
+	Fri, 13 Nov 2026 15:59:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF59760A2628
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=inferno0230.in
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inferno0230.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=qnX7tIZO
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 9E9741A1651;
-	Fri, 13 Nov 2026 15:59:38 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 747CF60015;
-	Fri, 13 Nov 2026 15:59:38 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D793411BC0C42;
-	Fri, 13 Nov 2026 16:59:35 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794585577; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=joI/KrFSE1B92Swk6mDa0OAqDeCtz3SaQuMCvQjux2Q=;
-	b=qnX7tIZOfaHS0EapCBUgMi2AwgtPVMWw62OO8nRWSNl0Na/ezd7+GWRCPu6x0FnC93Gdnm
-	cQPg7OACOkOaGxa6OL4Mn6CodUKa5/O8nfv3DlG+3PWklC358+CIC4ANjOcLwZ2q0uFuRg
-	YsYPoMBYgxOxX9AglpldxXk/uK7FIEm5BjGO6Lo6AeECuodMtsesuQBhPyAz5gVaqrIrjK
-	U7qoCA8lCJhWKgfJqQPM50ipAd20r927bFC2lwN8etPaa092PCzvP6qx0zw2pS+jxIHzOC
-	qI5yhSugf1D5j/l5AjBkEf5vNvaWsx7T1j5z/pfv4Yw2cdOKNzKBpwDyLnVSFQ==
-From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-Date: Fri, 13 Nov 2026 16:59:29 +0100
-Subject: [PATCH net-next 2/2] net: macb: add QBV capability to 4
- compatibles
+	dkim=pass (1024-bit key, unprotected) header.d=inferno0230.in header.i=@inferno0230.in header.a=rsa-sha256 header.s=zmail header.b=OWMSJV8c
+ARC-Seal: i=1; a=rsa-sha256; t=1794585566; cv=none; 
+	d=zohomail.in; s=zohoarc; 
+	b=ejwCJWvcaUWkbeGgTZIb+iy9k5lTriZ9j6jD1e02zOit4YxgqAEQ2X1Syoa9wo1FwbW9+9+8wF4GfPVV8juaj3VeKMRJmlk+uUg0mhjlOb6OzOlXOtbelwv2MTDXMffuHfFUAsF6rbljbWRac1PvpsggdUCsR6vkYN0Okcq3lDM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.in; s=zohoarc; 
+	t=1794585566; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Nl31PSuEy3Lo+qkXIEnbHDtDvbYKP5sZm75lN1/UelY=; 
+	b=IzubNrgY/b9qep5tU/q7McQWrEF/ENI4ZxnNLmWO7iErCgoP5sHeaC7c5sWt/jR3m8dUNaR6DcmwnDVEuH5gDH8o15mg8idnS5SUMDMcuNg7YNvsNlUbUekvVvmUcHRQC2VX3sY+rtlYbRUZaSqt1LumJfjRE8bUboG7lgizCNw=
+ARC-Authentication-Results: i=1; mx.zohomail.in;
+	dkim=pass  header.i=inferno0230.in;
+	spf=pass  smtp.mailfrom=mail@inferno0230.in;
+	dmarc=pass header.from=<mail@inferno0230.in>
+DKIM-Signature: a=rsa-sha256; b=OWMSJV8cqWV4Hd82XI0dtyYS+fB3lMYDWLps0Pz5sOS73WXmllhhNG0pe5BttTC7T+XeEYLq07VLsmjpi0aFzi7CQGWJKPkcOZ7C0Tpf4XQlGyL6xC0tJK+iX4SEKATPuwi+ZFdVcu/wap7taR2U5txqWEJEQ73Q7Llg4EcPZQQ=; c=relaxed/relaxed; s=zmail; d=inferno0230.in; v=1; bh=Nl31PSuEy3Lo+qkXIEnbHDtDvbYKP5sZm75lN1/UelY=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zoho.in with SMTPS id 1794585564858467.445858350549;
+	Fri, 13 Nov 2026 21:29:24 +0530 (IST)
+Date: Fri, 13 Nov 2026 15:59:17 +0000
+From: Aditya Choudhury <mail@inferno0230.in>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: arm: qcom,ids: Add SoC ID for SM7550
+Message-ID: <avcz1Z6OnT-c2kgQ@inferno0230.in>
+References: <20261112-sm7550-soc-id-v1-v1-0-57299906d81a@inferno0230.in>
+ <20261112-sm7550-soc-id-v1-v1-1-57299906d81a@inferno0230.in>
+ <20261113-ambitious-solemn-narwhal-cbaeec@quoll>
+ <avce6OKgtVIi15tR@mediaserver>
+ <b945d65b-60a9-4437-999f-15b5f0307b5e@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,128 +72,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261113-macb-caps-v1-2-42e0984b2f09@bootlin.com>
-References: <20261113-macb-caps-v1-0-42e0984b2f09@bootlin.com>
-In-Reply-To: <20261113-macb-caps-v1-0-42e0984b2f09@bootlin.com>
-To: Conor Dooley <conor.dooley@microchip.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Nicolai Buchwitz <nb@tipi-net.de>, Paolo Valerio <pvalerio@redhat.com>, 
- Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
- Gregory CLEMENT <gregory.clement@bootlin.com>, 
- =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>, 
- Tawfik Bayouk <tawfik.bayouk@mobileye.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b945d65b-60a9-4437-999f-15b5f0307b5e@kernel.org>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.12.1.5.3/294.567.56
+X-ZohoMailClient: External
 
-Add MACB_CAPS_QBV to four compatibles. Tested on EyeQ5 hardware.
-The other ones are not tested. Datasheets indicate support.
+On Fri, Nov 13, 2026 at 03:57:17PM +0100, Krzysztof Kozlowski wrote:
+> On 13/11/2026 15:30, Aditya Choudhury wrote:
+> > On Fri, Nov 13, 2026 at 12:17:35PM +0100, Krzysztof Kozlowski wrote:
+> >> On Thu, Nov 12, 2026 at 10:30:26AM +0000, Aditya Choudhury wrote:
+> >>> Add the ID for the Qualcomm SM7550 SoC, whose internal codename is crow.
+> >>
+> >> >From where did you get internal codename? Downstream does not use the
+> >> proper codenames.
+> >>
+> > crow is the codename used in downstream sources. I assumed it was the
+> > internal codename since SM7550 is publicly known as Snapdragon 7 Gen 3.
+> > I was also unsure about this because SM7635 uses milos upstream instead
+> > of volcano downstream.
+> 
+> As you can easily check, names in downstream are not codenames and have
+> no meaning. Don't use them.
+> 
+> > 
+> >>>
+> >>> Signed-off-by: Aditya Choudhury <mail@inferno0230.in>
+> >>> ---
+> >>>  include/dt-bindings/arm/qcom,ids.h | 1 +
+> >>>  1 file changed, 1 insertion(+)
+> >>
+> >> Where is any user of this? Why do we need such SoC patches separate from
+> >> the actual new SoC?
+> >>
+> > I sent these patches first because I expected a possible codename
+> > change, just like what happened with SM7635. I wanted to settle the name
+> > before sending the actual SoC support patches, so it wouldn't need to
+> > be changed everywhere later.
+> 
+> But this does not settle the name! You only sent SoC ID, without the
+> actual name. Organize your work in proper chunks, not split without
+> proper reason. This only limits the view and makes review unnecessarily
+> difficult.
+> 
+Sorry about that. I sent only the SoC IDs because I had seen it done
+that way in the git history, and I hoped it would also get the codename
+sorted out first.
 
-   Compatible             | Datasheet
-   -----------------------+------------------------
-   mobileye,eyeq5-gem     | Not public
-   microchip,mpfs-macb    | Public header files [0]
-   microchip,sam9x7-gem   | DS60001813 [1]
-   microchip,sama7d65-gem | DS60001851 [2]
+I can either send a v2 of this series with crow reworded to Camano, or
+send the whole SoC bring-up with the SoC ID patches included in it.
 
-For the latter two, upstream devicetrees and bindings know about the
-compatible but the driver only used their "parent" compatible
-microchip,sama7g5-gem. Therefore add match data for those two. Instead
-of duplicating the long caps list, store it in a define which gets
-called three times.
+If I send the whole bring-up, should it go out as v2 of this series, or
+as a new series?
 
-[0]:
-https://github.com/polarfire-soc/hart-software-services/blob/445664ca8ac5/baremetal/polarfire-soc-bare-metal-library/src/platform/drivers/mss/mss_ethernet_mac/mss_ethernet_registers.h#L264-L278
+Either works for me, whichever you prefer.
 
-[1]:
-https://ww1.microchip.com/downloads/aemDocuments/documents/MPU32/ProductDocuments/DataSheets/SAM9X7-Series-Data-Sheet-DS60001813.pdf
+> Best regards,
+> Krzysztof
 
-[2]:
-https://ww1.microchip.com/downloads/aemDocuments/documents/MPU32/ProductDocuments/DataSheets/SAMA7D6-Series-Data-Sheet-DS60001851.pdf
-
-Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
----
- drivers/net/ethernet/cadence/macb_main.c | 31 ++++++++++++++++++++++++-------
- 1 file changed, 24 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index 25d098a46965..9f6111661b40 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -6135,7 +6135,7 @@ static const struct macb_config mpfs_config = {
- 		MACB_CAPS_JUMBO |
- 		MACB_CAPS_GEM_HAS_PTP |
- 		MACB_CAPS_USRIO_HAS_TSUCLK_SOURCE |
--		MACB_CAPS_QUEUE_DISABLE,
-+		MACB_CAPS_QUEUE_DISABLE | MACB_CAPS_QBV,
- 	.dma_burst_length = 16,
- 	.init = init_reset_optional,
- 	.usrio = &mpfs_usrio,
-@@ -6143,12 +6143,15 @@ static const struct macb_config mpfs_config = {
- 	.jumbo_max_len = 4040,
- };
- 
-+#define MACB_SAMA7G5_CAPS ( \
-+	MACB_CAPS_GIGABIT_MODE_AVAILABLE | MACB_CAPS_CLK_HW_CHG | \
-+	MACB_CAPS_USRIO_DEFAULT_IS_MII_GMII | \
-+	MACB_CAPS_USRIO_HAS_REFCLK_SOURCE | \
-+	MACB_CAPS_MIIONRGMII | MACB_CAPS_GEM_HAS_PTP | \
-+	MACB_CAPS_USRIO_HAS_MII | MACB_CAPS_QUEUE_DISABLE)
-+
- static const struct macb_config sama7g5_gem_config = {
--	.caps = MACB_CAPS_GIGABIT_MODE_AVAILABLE | MACB_CAPS_CLK_HW_CHG |
--		MACB_CAPS_USRIO_DEFAULT_IS_MII_GMII |
--		MACB_CAPS_USRIO_HAS_REFCLK_SOURCE |
--		MACB_CAPS_MIIONRGMII | MACB_CAPS_GEM_HAS_PTP |
--		MACB_CAPS_USRIO_HAS_MII | MACB_CAPS_QUEUE_DISABLE,
-+	.caps = MACB_SAMA7G5_CAPS,
- 	.dma_burst_length = 16,
- 	.usrio = &sama7g5_gem_usrio,
- };
-@@ -6163,6 +6166,18 @@ static const struct macb_config sama7g5_emac_config = {
- 	.usrio = &sama7g5_emac_usrio,
- };
- 
-+static const struct macb_config sam9x7_config = {
-+	.caps = MACB_SAMA7G5_CAPS | MACB_CAPS_QBV,
-+	.dma_burst_length = 16,
-+	.usrio = &sama7g5_gem_usrio,
-+};
-+
-+static const struct macb_config sama7d65_config = {
-+	.caps = MACB_SAMA7G5_CAPS | MACB_CAPS_QBV,
-+	.dma_burst_length = 16,
-+	.usrio = &sama7g5_gem_usrio,
-+};
-+
- static const struct macb_config versal_config = {
- 	.caps = MACB_CAPS_GIGABIT_MODE_AVAILABLE | MACB_CAPS_JUMBO |
- 		MACB_CAPS_GEM_HAS_PTP | MACB_CAPS_BD_RD_PREFETCH |
-@@ -6178,7 +6193,7 @@ static const struct macb_config versal_config = {
- static const struct macb_config eyeq5_config = {
- 	.caps = MACB_CAPS_GIGABIT_MODE_AVAILABLE | MACB_CAPS_JUMBO |
- 		MACB_CAPS_GEM_HAS_PTP | MACB_CAPS_QUEUE_DISABLE |
--		MACB_CAPS_NO_LSO | MACB_CAPS_EEE,
-+		MACB_CAPS_NO_LSO | MACB_CAPS_EEE | MACB_CAPS_QBV,
- 	.dma_burst_length = 16,
- 	.init = eyeq5_init,
- 	.jumbo_max_len = 10240,
-@@ -6224,6 +6239,8 @@ static const struct of_device_id macb_dt_ids[] = {
- 	{ .compatible = "microchip,pic64hpsc-gem", .data = &pic64hpsc_config},
- 	{ .compatible = "microchip,sama7g5-gem", .data = &sama7g5_gem_config },
- 	{ .compatible = "microchip,sama7g5-emac", .data = &sama7g5_emac_config },
-+	{ .compatible = "microchip,sam9x7-gem", .data = &sam9x7_config },
-+	{ .compatible = "microchip,sama7d65-gem", .data = &sama7d65_config },
- 	{ .compatible = "mobileye,eyeq5-gem", .data = &eyeq5_config },
- 	{ .compatible = "raspberrypi,rp1-gem", .data = &raspberrypi_rp1_config },
- 	{ .compatible = "xlnx,zynqmp-gem", .data = &zynqmp_config},
-
--- 
-2.56.0
-
+Best regards,
+Aditya Choudhury
