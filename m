@@ -1,60 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794564013;
-	b=f3tTfGnmrXLfnggYgxmNZbgrEb0ix4PZ/bwZ7AZ5QOM6i0QDvAOk0dTEWTxek85NW9lN
-	 3hFYV+ERZxiu2lle25XWEf8b34xAB/lJ7dg1kjH19k5Gx0dkSwmSf7p/CPliVwbXb6nEd
-	 gKc/4WTLNRbPiA1S2NXiJU7yn6AmHAvRkXqXFXH3daeQLJ9AY0BZnsLw2KyQypDdLfzDk
-	 ZCULXvWXNl0uFV+4g01SWJgh11vBXfMmGKmIXJE8TlUFS2A3wEIoL1Iw7mXlx2HMRIZxU
-	 KzmlPbfr0ioQw1chZKH5hGEi5IM9QTx6XS2XXtSOZRG6v0B4JnOu/ipWIBHY2ha6s9g==
+	t=1794564109;
+	b=zilh5uDbUJLTVnMcei0H8YHtXXzd/34sCzj70GYhK7o67lREvdTrurrmkN0mrVlyaAjN
+	 OlS0Ap340qgxdLi40QYhSguKz68Bo7gwCflFVUbYq9BOGnSkN7k1mkxXUdZW987XQMjC8
+	 jT9OCihUjlwuFvjkNhhF3BavDuGKuEKTiPCQ2LT9TKNSiStYq5YxBzZ0JYPsWXDnQgdM3
+	 TsoAbiZliI1Ets//ST0KD2UGE7qhibpZgFtYRFfV/xqjjGsrcCBtYoVVihQBacTsETZK+
+	 GPXmpOsXn7y91M2NP8nnqOedas3rBeOy3F764B5XsRBOPUQHRCQhvJ+kvYy+c56M5Vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794564013;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=CZEQVZ6TVB8PXZyirm0oWvsQKQ+yV93wdSIBjZmPOVw=;
-	b=g7qzc+yTROi725US3HFRyDcq2IsgmyrGKRKgvXT/PnjCuUzxCH8vub0jEtyoeSdkUada
-	 3qwyCnCUpzO7GLX2qWgRXv4mUjqbkSCRCtf2+Hdxj+j2hZCF+PbMFmilSN5rDu4hQ/Yaf
-	 i23OMG4xsdZOyyYpr6kwAgvLqHeYCU3ZWj1rMy+aL2/EHWshUa+bzHy3sAs6THau9xOFw
-	 Rz8vKBpmtNA7AfHUN1LDd/7tjTY3VgugR+MYnEYJW8HkP2JZFWolV4Syc8drU8b0a2x3h
-	 Wc2g8bGPaGeWH04Fr9opaBmRR4JM8MuP+fKCxwCpzBJlxa0KdkqvxJWkONrqVeMdgRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794564109;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer;
+	bh=ciHtI+5r+7x2SF+EXZv18M3c3IsV/RFqcUbpTe+Eh4M=;
+	b=JBFFWsTRjLTJdAD0w7mNoErGumyC39iRXiBn3jNSPYhCZaiYXMl8wmI2IK80D8yjGlV5
+	 7KTSyR86U1hN/IsoG7K7m+5Af3o50oFCRzUGOjz0pg+Hxglx9M/psndxVDhz/xuQOrZl2
+	 Lig+OWgfaI/UvO0iF4vl0x9Gu3exevDAmzGw3YQxUkGg6oL+kgMG1a45PZZSWts9H943O
+	 5Lq7BxFJ+uJJNkGBqy6T4FgTo3IvygjIomfqKVFD3xKroHtN4PDAeBNpH0smFSZp/yVMR
+	 Nzv3JgXZk0IVNqZ2etGsoq6zh0YhGQ45UXceTfJcTOljluLs8GLrxbXuSzxlRi0+SoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ioh3c7+L;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oNXrDDby;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1232606A337;
-	Fri, 13 Nov 2026 10:00:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36D84606A323;
+	Fri, 13 Nov 2026 10:01:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ioh3c7+L
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CA301F000C4;
-	Fri, 13 Nov 2026 10:00:10 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oNXrDDby
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47D061F000C4;
+	Fri, 13 Nov 2026 10:01:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794564012;
-	bh=CZEQVZ6TVB8PXZyirm0oWvsQKQ+yV93wdSIBjZmPOVw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ioh3c7+Li4hBvBjUiWmNiOBUipdlGq9BrKY1Gllg/1pwHe4dGrEqLu5Eib4iKE9vs
-	 UA9832q26rizKLXxFqb3g3RKIQUGWCCTjt+/s+xFwcTjDEEg3KR9dCESBg3O3OPw6R
-	 C6ADhMfinEJvPopECOflU3BqH+WfjYGOqM3GKZ9Mb39gFdGTLUx+dYJljEcRcYp2hn
-	 5f8AW0yrwbSj1r832w81nTXfJfKBtgE24MDxl5w1cLa3mmbQUJYbPgU+Jo1lrJ18m2
-	 ghFcegLfOjleLF6tlNqaFnaN7YTQgvJceIomLGKtoE2Y6u2WKM19qo40jfINrRbA3E
-	 ynOw0pUK1sf8g==
-Date: Fri, 13 Nov 2026 10:00:07 +0000
-From: Simon Horman <horms@kernel.org>
-To: Xia Yan <yanxia@cmss.chinamobile.com>
-Cc: netdev@vger.kernel.org, oe-linux-nfc@lists.linux.dev,
-	David Heidelberg <david@ixit.cz>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Thierry Escande <thierry.escande@linux.intel.com>,
-	Samuel Ortiz <sameo@linux.intel.com>,
-	Samuel Ortiz <sameo@rivosinc.com>, linux-kernel@vger.kernel.org,
-	yana06070@163.com
-Subject: Re: [PATCH net-next] NFC: digital: fix target leak after Type 1 Tag
- discovery
-Message-ID: <20261113100007.GI18859@horms.kernel.org>
-References: <20261109031832.37642-1-yanxia@cmss.chinamobile.com>
+	s=k20260515; t=1794564109;
+	bh=ciHtI+5r+7x2SF+EXZv18M3c3IsV/RFqcUbpTe+Eh4M=;
+	h=From:Date:Subject:To:Cc;
+	b=oNXrDDbycUwETg6fripz3Zax21stfDwqYisSNPtkMSI4Y9D/gIRPY9t1JIb8f6TlE
+	 HJp++5lYZWrTdD64BFbU2dg325tw2Fxdl8TQlh+LlmZbjapBmMxu9xo72dR4bLXR+K
+	 b5oNY1oQKENHVbvBa2cb/AhZcskKpPhTg52hu3Jd8YkDSiPvINtolvwaZg2alTxaTg
+	 I79a1JAQEGZlHVUMt5gjP48Ojn6nrxM/2MQaJIkBL4TYVtFaf4K6ndtAeYLQmRjVSZ
+	 eylnJpWde95K5UcfUDncQff9uvdaZfV4shP7RprcmKBGUPYF8cZBtqdUvYobped9fO
+	 w7g/HsD8eufPQ==
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 13 Nov 2026 11:01:44 +0100
+Subject: [PATCH] dt-bindings: usb: ux500: Convert to DT schema
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,93 +52,184 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109031832.37642-1-yanxia@cmss.chinamobile.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261113-ux500-musb-bindings-v1-1-553aa97c5c95@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/x3MQQqDMBAF0KsMf+1AJtYWchVxocnUzqJpyaAI4
+ t0LfQd4J1ybqSPRiaa7uX0qEklHyK+5rspWkAgxxLuIRN6OIQR+b77wYrVYXZ2zlKC3R+51iOg
+ I36ZPO/7rOF3XDxbYC9plAAAA
+X-Change-ID: 20261112-ux500-musb-bindings-c1d0e47c3e52
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Bin Liu <b-liu@ti.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.0
 
-On Mon, Nov 09, 2026 at 03:18:32AM +0000, Xia Yan wrote:
-> digital_in_recv_sens_res() allocates a target for an NFC-A response.
-> For a Type 1 Tag, it calls digital_target_found() synchronously.
-> nfc_targets_found() copies the target into dev->targets.
-> 
-> On success, rc is zero and the callback skips kfree(target).
-> The original allocation is lost when the callback returns.
-> Each completed Type 1 Tag discovery leaks one struct nfc_target.
-> 
-> Free the target after digital_target_found() returns. Clear the pointer
-> to avoid freeing it again on the error path. Keep the target for other
-> tag types, whose discovery continues asynchronously.
-> 
-> Found during a code review of NFC-A target ownership.
-> 
-> Fixes: 2c66daecc409 ("NFC Digital: Add NFC-A technology support")
-> Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
-> ---
->  net/nfc/digital_technology.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/net/nfc/digital_technology.c b/net/nfc/digital_technology.c
-> index ae6487c10a25..2d52e390cc67 100644
-> --- a/net/nfc/digital_technology.c
-> +++ b/net/nfc/digital_technology.c
-> @@ -510,10 +510,13 @@ static void digital_in_recv_sens_res(struct nfc_digital_dev *ddev, void *arg,
->  		goto exit;
->  	}
->  
-> -	if (DIGITAL_SENS_RES_IS_T1T(target->sens_res))
-> +	if (DIGITAL_SENS_RES_IS_T1T(target->sens_res)) {
->  		rc = digital_target_found(ddev, target, NFC_PROTO_JEWEL);
-> -	else
-> +		kfree(target);
-> +		target = NULL;
-> +	} else {
->  		rc = digital_in_send_sdd_req(ddev, target);
-> +	}
->  
->  exit:
->  	dev_kfree_skb(resp);
+Convert the Ux500 MUSB text binding to DT schema. Describe the APB
+clock and the existing ordered DMA endpoint channels, and reference
+the common dual-role USB properties.
 
-Thanks Yan,
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+Convert the Ux500 MUSB text binding to DT schema, describing the APB
+clock, ordered DMA endpoint channels and common dual-role USB properties.
 
-I agree this is a bug and that you patch correctly addresses it.
-However, I wonder if it would be cleaner to confine cleanup to
-the exit path, centralising the kfree logic.
+This patch is split from the Ux500 DeviceTree validation cleanup series.
 
-Something like this (compile tested only!):
+Prepared with Codex.
+---
+ .../bindings/usb/stericsson,db8500-musb.yaml       | 79 ++++++++++++++++++++++
+ .../devicetree/bindings/usb/ux500-usb.txt          | 50 --------------
+ 2 files changed, 79 insertions(+), 50 deletions(-)
 
-diff --git a/net/nfc/digital_technology.c b/net/nfc/digital_technology.c
-index ae6487c10a25..94880172f016 100644
---- a/net/nfc/digital_technology.c
-+++ b/net/nfc/digital_technology.c
-@@ -483,6 +483,7 @@ static void digital_in_recv_sens_res(struct nfc_digital_dev *ddev, void *arg,
- 				     struct sk_buff *resp)
- {
- 	struct nfc_target *target = NULL;
-+	bool res_is_t1t = false;
- 	int rc;
- 
- 	if (IS_ERR(resp)) {
-@@ -510,7 +511,8 @@ static void digital_in_recv_sens_res(struct nfc_digital_dev *ddev, void *arg,
- 		goto exit;
- 	}
- 
--	if (DIGITAL_SENS_RES_IS_T1T(target->sens_res))
-+	res_is_t1t = DIGITAL_SENS_RES_IS_T1T(target->sens_res);
-+	if (res_is_t1t)
- 		rc = digital_target_found(ddev, target, NFC_PROTO_JEWEL);
- 	else
- 		rc = digital_in_send_sdd_req(ddev, target);
-@@ -518,10 +520,11 @@ static void digital_in_recv_sens_res(struct nfc_digital_dev *ddev, void *arg,
- exit:
- 	dev_kfree_skb(resp);
- 
--	if (rc) {
-+	if (rc || res_is_t1t)
- 		kfree(target);
+diff --git a/Documentation/devicetree/bindings/usb/stericsson,db8500-musb.yaml b/Documentation/devicetree/bindings/usb/stericsson,db8500-musb.yaml
+new file mode 100644
+index 000000000000..9edf77aa43b6
+--- /dev/null
++++ b/Documentation/devicetree/bindings/usb/stericsson,db8500-musb.yaml
+@@ -0,0 +1,79 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/usb/stericsson,db8500-musb.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+	if (rc)
- 		digital_poll_next_tech(ddev);
--	}
- }
- 
- int digital_in_send_sens_req(struct nfc_digital_dev *ddev, u8 rf_tech)
++title: ST-Ericsson DB8500 MUSB controller
++
++maintainers:
++  - Linus Walleij <linusw@kernel.org>
++
++allOf:
++  - $ref: usb-drd.yaml#
++
++properties:
++  compatible:
++    const: stericsson,db8500-musb
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  interrupt-names:
++    items:
++      - const: mc
++
++  clocks:
++    maxItems: 1
++
++  phys:
++    maxItems: 1
++
++  phy-names:
++    items:
++      - const: usb
++
++  dmas:
++    minItems: 16
++    maxItems: 16
++
++  dma-names:
++    items:
++      - const: iep_1_9
++      - const: oep_1_9
++      - const: iep_2_10
++      - const: oep_2_10
++      - const: iep_3_11
++      - const: oep_3_11
++      - const: iep_4_12
++      - const: oep_4_12
++      - const: iep_5_13
++      - const: oep_5_13
++      - const: iep_6_14
++      - const: oep_6_14
++      - const: iep_7_15
++      - const: oep_7_15
++      - const: iep_8
++      - const: oep_8
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - dr_mode
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    usb@a03e0000 {
++        compatible = "stericsson,db8500-musb";
++        reg = <0xa03e0000 0x10000>;
++        interrupts = <0 23 4>;
++        interrupt-names = "mc";
++        clocks = <&prcc_pclk 5 0>;
++        dr_mode = "otg";
++    };
+diff --git a/Documentation/devicetree/bindings/usb/ux500-usb.txt b/Documentation/devicetree/bindings/usb/ux500-usb.txt
+deleted file mode 100644
+index 439a41c79afa..000000000000
+--- a/Documentation/devicetree/bindings/usb/ux500-usb.txt
++++ /dev/null
+@@ -1,50 +0,0 @@
+-Ux500 MUSB
+-
+-Required properties:
+- - compatible : Should be "stericsson,db8500-musb"
+- - reg        : Offset and length of registers
+- - interrupts : Interrupt; mode, number and trigger
+- - dr_mode    : Dual-role; either host mode "host", peripheral mode "peripheral"
+-                or both "otg"
+-
+-Optional properties:
+- - dmas       : A list of dma channels;
+-                dma-controller, event-line, fixed-channel, flags
+- - dma-names  : An ordered list of channel names affiliated to the above
+-
+-Example:
+-
+-usb_per5@a03e0000 {
+-	compatible = "stericsson,db8500-musb";
+-	reg = <0xa03e0000 0x10000>;
+-	interrupts = <0 23 0x4>;
+-	interrupt-names = "mc";
+-
+-	dr_mode = "otg";
+-
+-	dmas = <&dma 38 0 0x2>, /* Logical - DevToMem */
+-	       <&dma 38 0 0x0>, /* Logical - MemToDev */
+-	       <&dma 37 0 0x2>, /* Logical - DevToMem */
+-	       <&dma 37 0 0x0>, /* Logical - MemToDev */
+-	       <&dma 36 0 0x2>, /* Logical - DevToMem */
+-	       <&dma 36 0 0x0>, /* Logical - MemToDev */
+-	       <&dma 19 0 0x2>, /* Logical - DevToMem */
+-	       <&dma 19 0 0x0>, /* Logical - MemToDev */
+-	       <&dma 18 0 0x2>, /* Logical - DevToMem */
+-	       <&dma 18 0 0x0>, /* Logical - MemToDev */
+-	       <&dma 17 0 0x2>, /* Logical - DevToMem */
+-	       <&dma 17 0 0x0>, /* Logical - MemToDev */
+-	       <&dma 16 0 0x2>, /* Logical - DevToMem */
+-	       <&dma 16 0 0x0>, /* Logical - MemToDev */
+-	       <&dma 39 0 0x2>, /* Logical - DevToMem */
+-	       <&dma 39 0 0x0>; /* Logical - MemToDev */
+-
+-	dma-names = "iep_1_9",  "oep_1_9",
+-		    "iep_2_10", "oep_2_10",
+-		    "iep_3_11", "oep_3_11",
+-		    "iep_4_12", "oep_4_12",
+-		    "iep_5_13", "oep_5_13",
+-		    "iep_6_14", "oep_6_14",
+-		    "iep_7_15", "oep_7_15",
+-		    "iep_8",    "oep_8";
+-};
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261112-ux500-musb-bindings-c1d0e47c3e52
+
+Best regards,
+--  
+Linus Walleij <linusw@kernel.org>
+
