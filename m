@@ -1,75 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794530149;
-	b=lBmzbQb/6pJCz5ShupCiw1HJEKx9K6/4cI5MWUOhJI6/ZClxi27pKGN8UYdE7CeWI8mk
-	 k13bcdh/2PZr5/xa+S5f6TFfjF/Q6mEqy8G7wv8anININ18YpaDcMLU3KSpC+CnNmYbcU
-	 T2oBfjSgefE8GSFdUkJfzMbejfoJ8JLOHMO39A1AVp2VkKo74SR7nQQckAMDdRVOHMDIl
-	 oocTc9RAi1gMOOVhEyXFb4gxeR9Ccrj0VEichml/npqhrcDPulcYcnPtbw8ec4Dfxpthg
-	 7C6N8UtlMbmm9XnPIxE2OwkvNLnnCU57k2IcURLJeo3rEvAFwWPbdm4PNjrWMJ3CGrg==
+	t=1794530150;
+	b=kX3J02CFllHho/yzliyAp3hyjtZrU5AjVYIE7+FiDG4u/7MdLY8/N/89PuArXPT0/kta
+	 TH6p4pXMCNM/QSkiVF9jj7SpZRCoHXZOhw/CUvmAKhJnRwqcWVSZifsrqm1VR/N7gGzOq
+	 3gXuzPrgfkEMnQPoxOmAuM6EU/6SvlRDApWxwfciG388+N5LnKmBdEK9mjY0jSSIDmWI4
+	 gPsQaiDNdO90Z+pbEWLtnOsXvYNyZubiGhRb7RYKXP7B8djvdQ8cicF0PFOv+IyqyVkhC
+	 cdAeXxsY8UBpBU6Qa1/EOha+ub/J8JzmxhmKlKnc88QqQf6oGqA/nFCQnaQODWKt9JA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794530149;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794530150;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=AMPSZX4RQOthblKsm/D6C9UAaIomRft8CK14da6DgqI=;
-	b=5tR/6qyucMU1BdRSAdTiGT1yXWRqd0vV9pnJV725kOjnsnMQSPqiSG9+z1Z1DP9aEA6F
-	 rmclnIwbqvYLA+vFaLMTc7sBSvfqoM/QUob3XRlJ915ELZdW7Qa43mDGt/vzNic4wVehg
-	 sNDayIMhvFvVQp5Z5ENjjv8qZv01gNy6f5uwXZvJz4KT7blR3DfJfNgkwf9Kk0uiPgUcb
-	 zGk8gHXLYzGrMfj40NKGnyCUuNdplCOVlOS/RHAIzlFyegAAZvRrARBys+AxHusTi4hm+
-	 81fIz8jiS3q+MmKFhJ0c4z8LXxO6BuDuF8OD6WknQ5kg8e2ZRS7la2PTS+fs9zwqx5Q==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=TLSoNOX6uS4sPZRd9R7wxC2dIndj7/ZIeTA82tCUCSE=;
+	b=eruPdfTjXz9/seAOxb3I9dekD15TtfYwSf7rTpCdhQcNB70vsTtbncjP1mj+IWHCkEou
+	 VAMZ/86lkLrJ5l3qmbKVWa0IwcPf3TnohgoKBf9svnOi8PxfIPDDZNX4LVYL4ZyjOwYvH
+	 fYFtfin8n5pA+0ub2bsTWFrQGVA/MpQCn+KMJU4S9vf1Z92vNK0G1TAguNboVfZqS/Sv0
+	 x2rMMa/i+ANUvON9wBWKbip9D7en8PZRjJMCxdKnuKWehWn2g83YCyqFzhCx+VBwNgQoM
+	 kAEXeWOh7Isgsf7aXqCYSNtBQMQoWdd/Rgav0au5Un3kO82qNHp+kpIUwaCEDGq7w1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--sarthakkukreti.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TSJ2tztd;
-	arc=none smtp.remote-ip=74.125.82.199
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SQutLn1D;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B99E0606C253
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:35:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B99E0606C253
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sarthakkukreti.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 666F66070088
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:35:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 666F66070088
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TSJ2tztd
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-36a3451ea93so421602eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:35:48 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SQutLn1D
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-4918c2d727fso146045f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:35:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794530148; x=1795134948; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AMPSZX4RQOthblKsm/D6C9UAaIomRft8CK14da6DgqI=;
-        b=TSJ2tztd2DlsLnjU+jiCGBbzcvrErEUH5R1OBawcrL2udyDPd0d/bAB0cPJ3COtmvy
-         iW7YGYV+9ex9Toc5dAnY7RJKoyFAxmp82UItc4nXxYUGGOGy73uepTEIJIYj2FYhcEsg
-         25u2nGmjkyPJfmMVImfsUA3PQncrnroHfl4MZdWQAfxVY/boLGrzClg8JhJG8nBL+gEB
-         iEHjhDm1EHKb/tQfh3ENPJWZFKP+78UmJqe2c1rlfKxzTmlqw+qBQ4Tnm7PptXYqySsx
-         ac3jGA4KRUqw35qiMKGZ3e2ryvnCi8IlISDC5XFVJEio1JqYT6Lixbasz7uPPY3Mkagq
-         CoYQ==
+        d=gmail.com; s=20260707; t=1794530149; x=1795134949; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TLSoNOX6uS4sPZRd9R7wxC2dIndj7/ZIeTA82tCUCSE=;
+        b=SQutLn1D1dZBxdqzOiiO6z/F1uhT800YRF+2C2mmqbLa5RFeLJJrhY16yvxKb7ShRj
+         XoFDwL7Ckh2dzx1/uaoD88z16xnkf5XeUe04R6b/IyvSDjYMtyiPoeN53R4D9mhWygaw
+         6i2iC7u91yhOgDm1kBBtuw4n5v8nE1NDaqHqZEi/OOKRdNzIuNUGp3ich8K/JmhnFibU
+         eWYpUK9JnPl0HjVAWzQ5HnVhZ8v7/W4igGhTf4l0Nzyxqr1h2xeuT5lviEki1cjnW6aa
+         SyC9q73O6hkNzWBY7sBtk0aSI8JNDE9k0iT/UL7l7Vrh/K2oA7R69Jv77qtNZ195MJZs
+         rLuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794530148; x=1795134948;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AMPSZX4RQOthblKsm/D6C9UAaIomRft8CK14da6DgqI=;
-        b=n1yI0U4ZFeHUZcSdRkVEcIfDq3/+TmO1dWW+NGJT3en0iMExnYcItExzReBCgNeB59
-         I4d+c4szuFzvzeW2u5OKkfhj0m9MLXpWlQI2gMM9VRU1a2TJbzpPmyxWtvqBHegrJA69
-         rATK848oR0gD17XUZzp3zXq7tYHD/AtFW+JBOxu++VGXrYHfgs1t7DHpci87rQAJNm8T
-         7WQcZgWtzCVx0WQ/S36AhNljgImpGoIdJJWnMAJ5EMDOlHeuqsIpmYEf/45gDiFrT/ah
-         Nq0Y0IQEoce7pQASmEZcelVlnzig6UuV22f0hjab88l78ER6yCSdLFFdDnTqwVQUbC9r
-         iTQQ==
-X-Forwarded-Encrypted: i=1; AL+hErHRL0iRZhbNJ6WcobBMISHoiGdJ/dyPqk502L0d6FcTPS+Hfjd+H/YRUL671Pw2GlM/8tnZSow+TwQ4vio=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/+teE6YkO1r+JIsa24CxukeUfSph3bVDLH8oM2HnpLKOycS3kK
-	qOkYFxXen/KdExHAeSu/GSdBPjX0pR5W6lrqehxueko2GhJe+nf8HJtxU6mWzDRFN4qLAVyM5AB
-	CpUdcPy9zFhjZSRmqhwSLB5FSIuQIVrl1UjiTbA==
-X-Received: from dybhh46.prod.google.com ([2002:a05:7301:292e:b0:376:93cf:d6ce])
- (user=sarthakkukreti job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7301:fd89:b0:369:fe81:a575 with SMTP id 5a478bee46e88-37967ae86famr662615eec.35.1794530147486;
- Thu, 12 Nov 2026 16:35:47 -0800 (PST)
-Date: Thu, 12 Nov 2026 16:35:35 -0800
-In-Reply-To: <20261113003536.3622755-1-sarthakkukreti@google.com>
+        d=1e100.net; s=20260707; t=1794530149; x=1795134949;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TLSoNOX6uS4sPZRd9R7wxC2dIndj7/ZIeTA82tCUCSE=;
+        b=TTYkqA41iqKoUHkKambnpYSqsDx4uoEk98BbpFr9n7XVbvN2tlzGesSlhBHS9u3R1s
+         xxV+FazxiIncKDXcWylSgKPUs2F8CB1ITbb2oFfXyvqI2J6dgywXdEIv7ZBfanl7glZt
+         fqCmt24JUnWjRTEFa7wz21OmVMkqYmgeilINwklnBU2v0i8qvA9vJpuXkDtovq7mo68V
+         /kDRG2xJaoSCq9r7ERUDQZegYVYLwjgmx0gDvlC7BMB0sxR7IizTMpKHn1qT7DHw1hAM
+         vT/uhi9+zXJCheyoIVUp5R1zTI+zQ+XwgsuZIhhMHroMkWHCXWTnWHENFPqbcBmgBJqm
+         5zXg==
+X-Forwarded-Encrypted: i=1; AL+hErEKWFqQVIviQ4INB2QPMo06ED5JnRHxVQ+lqzTieoq9enxcuPvalPreq44FE+1iStZhNTlTaPrqkCcBAvg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9LzmEDGuQ0GGBvpWATWBHyZQ6fnROAlHXAFvj5rGac2gZKFyDj
+	rAKo6Z7JKEFT/Qf+mEhXXp7Y18rbUIfXzutDJHnUw4EAbnBHjqHIn1ve
+X-Gm-Gg: AYBFou2NUt4lhPexCdZxDKVpPwQy+Di8JjwRtxVr0+iHjs9WOw360+r6eCSSFGo08W+
+	Y4s7SqD7KLUPa+y4TWjTdVGly+TE3YH+JDMFmlqtfbTM3glKzzZzLqyejJgB5YxWDQmj/F8z/h5
+	k+X+Ugmb6fUnMm/MT+PFwDNPutGIIK8w/7dM8VTfIRD/2vX9hku3iOjMx0B45Y/jvosvLCmG+Nw
+	zLwCIrynLqP6Frqq8aeQafXqgtTwjN54MjtzIzSvFrlJJjFffYHLWyAvCHH5lkIe9zlG4CKspa0
+	QOvMukOrqdOUDMdARQwQlytfV5hR5fNBKlgGg7Vo6p1fGIThs/Lylr9kvgFLR4vCudAr0+g9Snx
+	+iJfv9fEFloT7BksyOWuudR1tHvTkzAPJjJ75Il7mhskwUtAPJbwoUw2Eo6kG+3BbrBihl4cool
+	bIZeiV97cjy7pV7xOfFUqkpido8bBagVQcnOt8Nn2tg/MmkvRF1fL0Bc+AORTgghnQ04xVQIIok
+	fcgyfkNyzkODlP2sK0RAWLz9KauZRlscUCGtrcoqAvqUKkz+dWV6BJdmmBDCwVs+nlCHLwuuE0g
+	iYsAVEHxoZWtnEhoOLdhTjWaYZ8i4ZNYq8d5ohUakEU9OyBaOMqOr66mCfMhWymdIvHwkx1QPDP
+	RWpHW/i9Aj0q0zNiw8Xestykr/hglaAIuXZOy8rDsvY9ajMnCdVcaMn4kvfsaeCIOey3hOj8JM+
+	QbqaYDTeWBS18fHDBG
+X-Received: by 2002:a05:6000:3107:b0:490:f775:b00b with SMTP id ffacd0b85a97d-49c72e85bb3mr2535058f8f.52.1794530148832;
+        Thu, 12 Nov 2026 16:35:48 -0800 (PST)
+Received: from navid-pc ([2a01:4b00:a856:6220::a11])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c60021375sm1838831f8f.29.2026.11.12.16.35.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 16:35:48 -0800 (PST)
+From: Navid Ghahremani <ghahramani.navid@gmail.com>
+To: =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+	arnd@arndb.de,
+	krzk@kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 01/24] MAINTAINERS: Consolidate ARM/ZTE ZX SOC SUPPORT with Stefan Doesinger
+Date: Fri, 13 Nov 2026 00:35:47 +0000
+Message-ID: <20261113003547.3661166-1-ghahramani.navid@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <f-cR3wroQOKOK55pQOGtvQ@gmail.com>
+References: <20261014072109.1759502-1-ghahramani.navid@gmail.com> <20261014072109.1759502-2-ghahramani.navid@gmail.com> <f-cR3wroQOKOK55pQOGtvQ@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,56 +101,28 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261113003536.3622755-1-sarthakkukreti@google.com>
-X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
-Message-ID: <20261113003536.3622755-3-sarthakkukreti@google.com>
-Subject: [PATCH 2/3] usb: uas: fail command submission on fatal USB errors
-From: Sarthak Kukreti <sarthakkukreti@google.com>
-To: Oliver Neukum <oneukum@suse.com>, Alan Stern <stern@rowland.harvard.edu>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, 
-	"Martin K . Petersen" <mkp@kernel.org>
-Cc: linux-usb@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Sarthak Kukreti <sarthakkukreti@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-uas_queuecommand_lck() only treats -ENODEV from uas_submit_urbs() as a
-fatal submission error. When a link drops or an endpoint is disabled
-while hub_wq is frozen, usb_submit_urb() can also fail with -ESHUTDOWN,
--ENOENT, or -EHOSTUNREACH, causing uas_queuecommand_lck() to return
-SCSI_MLQUEUE_DEVICE_BUSY or queue retry work. In addition, if status URB
-submission succeeds before command URB submission fails with no inflight
-URBs, calling scsi_done() directly leaks the unsubmitted cmd_urb.
+Hi Stefan,
 
-Fail commands with DID_NO_CONNECT on -ESHUTDOWN, -ENOENT, and
--EHOSTUNREACH in uas_queuecommand_lck(), and free unsubmitted URBs
-before calling scsi_done().
+Stefan Dösinger wrote:
+> I am generally OK with that, at least once Navid's patches 1-6 passed review.
 
-Signed-off-by: Sarthak Kukreti <sarthakkukreti@google.com>
----
- drivers/usb/storage/uas.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Thanks. I will put that change in the last patch of the base series, so
+it only goes in together with the reviewed patches.
 
-diff --git a/drivers/usb/storage/uas.c b/drivers/usb/storage/uas.c
-index 5aa369087295..6b573de89162 100644
---- a/drivers/usb/storage/uas.c
-+++ b/drivers/usb/storage/uas.c
-@@ -743,11 +743,13 @@ static enum scsi_qc_status uas_queuecommand_lck(struct scsi_cmnd *cmnd)
- 	 * a command that has finished is a success for the purpose
- 	 * of queueing, no matter how fatal the error
- 	 */
--	if (err == -ENODEV) {
-+	if (err == -ENODEV || err == -ESHUTDOWN || err == -ENOENT ||
-+	    err == -EHOSTUNREACH) {
- 		if (cmdinfo->state & (COMMAND_INFLIGHT | DATA_IN_URB_INFLIGHT |
- 				DATA_OUT_URB_INFLIGHT))
- 			goto out;
- 
-+		uas_free_unsubmitted_urbs(cmnd);
- 		set_host_byte(cmnd, DID_NO_CONNECT);
- 		scsi_done(cmnd);
- 		goto zombie;
--- 
-2.56.0.611.g1030f0b940-goog
+> I think it is better to keep it ad "Odd fixes" as it is a hobby project to both
+> myself and Navid.
 
+Agreed, it stays Odd fixes.
+
+> This should go into or near the patches that add the files in question.
+
+OK. Each patch that adds files will add its own F: lines with explicit
+file names like your entry, and I will drop the patterns that match no
+file.
+
+Best regards,
+Navid
