@@ -1,97 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.49
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794589941;
-	b=hX5AaTsXnzjDbOp+DgedpJ4RbQU67RMkBlZQzx3G3xxZVPCDn6hJ/DJRpPDFnMsb4J2d
-	 a5GNQsVXIhQckC5ld/Xlcus8G7aOY8hrRZVxTPwha+VTC9fvyKjUok4vTM5LTQl5RlRut
-	 YPh/pt8/NkL+d87XuVJxY4TiMHej2Om3PtNXWQPuY3VSPH7Kvt3B12Xe7JBygmAvyyOt4
-	 znqkYqGB5xNj3kegjivnDqNjUbO/VgRxG+XiCGEU/AS5hEwenPAoKeUjmmCqfbChxK3eo
-	 48LmxWAv/oa3KhLFzD2dwZpW+MUHwgKR9uWc/vYUvoff8YGruilSJLkg7j0wxDuJDiQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794589941;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-ID:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=dpJWAOoXl+6YfoYlsoi5QksE6iEyc707Xu/3Gv1Sn9Y=;
-	b=vdZAXG/KEoSUG4H+2coQcyShT/g3AzuFiK83nJL2HiEY2RGblZlrz+2k5bzRoW/vyC2/
-	 xQX7pdsWEIoDjCM8Nkc2NX1huhNAPJ0dq/h7rcZfh4FoIfef3QyaS9Cr3UYsuy5lQQ5Ye
-	 WeQW11vY5jiBKZrPn3Ur6QsF/5VoBJLScJoGf7rETPweYsqsd/Q3k2MbwtqnGGpLHN3Gj
-	 e4ZMkk5ax6db3C4eYQv5AThzmCQKcGMkM3TT3hwwOPcUHtFw/a89RkRR9Yp+xOx/tbbP0
-	 lV3JmmFPkOUFMmkSpG2taBlEjFtnbrSQ23Dh2GPFJwYrs42ez6t29Hq5pfpMJMx0cKA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=VacjD8tJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.49
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010049.outbound.protection.outlook.com [40.93.198.49])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794589948;
+	b=MLOzSCbxsaDVp3bsV5hFiIzPooyEVhtD8d+Wl7v7Zef0Zdit7tOjSM8rCO914pItQGqB
+	 ZS2BZd1sg/mFque6nOs+Ws5+gkxFyLu0D4Dls35rjUJjq/k8F8reqvMZS8OJvPJ1yzsGX
+	 CYd++rSpmjQydaGQXO2DN5kdmhN6v25UvbKJe1Bet6CUMI5tktwDSEXBmKmiTyGHs8vPy
+	 Y9MOm2Xo5A4hzZRrmiFphxkKJ5qmuW3jh6M7tU1PC9y1GAvX5mZJey4kEFLQiuauWCybF
+	 9hqAO/lbeepxci9U5iS//u/+47LYibSPxxnMI9uzGrM3CVttr2twHIfpPZ5MfHyPFeA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794589948;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=xv91mbpY6CHl9oZ10SuH7nK8AHihJpvpXeevDfWrpHA=;
+	b=Nx/1B/9WWai/v6tP+OKdAFLnpQDZ8dCRkLeZp+zr8fFHJT0WDb1ChXtW9tjYmGfRKKz7
+	 P2OOmmVgqIZ2o1DDNsRubasikuUpR+pPiBv4Af56kOBYyEksZRX8PPMmZMzJHNzvg7tsm
+	 xGQlaiSfARl6wIreir5PLU38laf9/YYKMxzSuYnl4AoKpWKzxGSnlGWC2RdnN8jb2h7PF
+	 pd6CvyvU1vOJxDrbUv0VD+mPfUQui956grqPguyKmYlQJHu7RWDSUjfj1JcjqvrZW1Zfk
+	 MROrOdqpS5WZgh+sWr4IOkZtDi9Bq9+sTAXQJ5RrDazpZmvR4g4rNBBRZrT+3ItX9lA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Dk1vCWfG;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF442606A327
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:12:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF442606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0592606A32E
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:12:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0592606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=VacjD8tJ
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kBTsqL/sMFI1jPrJxAxNaddzylAGmtALhck9pV70MElvZaezw+Goxv2OwDuCnxWGcUzpPXQEJUEldD6FSoD45OG06r0mE8xu/SIzCICcSOtR8bcQKbTuGYpapMtck5jFnElPQIRD+AFzZs0bEY7hpscHnCEJWEQYNvgoBWIU09W+hzkLNpZaRmNqY+aTfVVEhNFy1AOwiOuSixd1Y7iAZAGbRhLnv4FgSVD3kRa1QlqNXhfEgmiVwKVUXr8nvrt4XzXQsnwjzXpGWbLWhp6U8suuv890dtej2OjWN5Zzz0MYHIyUTe4ACY7uxfO/RjDVeSH4bbsquOY9VGlVXnDl8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dpJWAOoXl+6YfoYlsoi5QksE6iEyc707Xu/3Gv1Sn9Y=;
- b=VbG5aCYv+eVRzPaHHd0P9PKxT9rGdkxbQu3GUDznQ+hSFRFOe0YMAs/PxYNCZtBkFPfN5nhe0s1EaH7xQIvI5FGG5JyHrDkysxnpGyTIn953u+mblOk0b99g/fU/9q7aNxYsFw4u+CbScA1Kw8335JKRe8GE3ijtweklzWU5/DkgVB5JBrrW/1JptzPJZXC9ZCYe1Wxt1EVwlQ4whnzyeoZZa8zG9B6HYCBt3GAu6CNcHJj7TYk8jTImKFq4WVgpjRa+YwcY4R+DpNJJc0901WaQNjFM+xWtrT06/fZ5j+ZD43K/sChRM/JiCeyAdk1TIB04gV4qdgPzguzHo/a4mQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dpJWAOoXl+6YfoYlsoi5QksE6iEyc707Xu/3Gv1Sn9Y=;
- b=VacjD8tJiqMJnhYPWStgKtsg2g+FSIdoHLZ+rrMo9KogYAB66T667ce4LazVORjjtMUyMd9G/kt5P1HohQMghrebkLPyew4yi6Hynaye3U1weKVziN8Rn91FDiyEmitYi1DMLC6F7BTOTRB+Hk1pvEqb9Dua9rGRMHdXMmJdHyo=
-Received: from CH2PR16CA0007.namprd16.prod.outlook.com (2603:10b6:610:50::17)
- by IA1PR12MB6235.namprd12.prod.outlook.com (2603:10b6:208:3e5::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Fri, 13 Nov
- 2026 17:10:19 +0000
-Received: from BN6PEPF00000072.namprd03.prod.outlook.com
- (2603:10b6:610:50:cafe::32) by CH2PR16CA0007.outlook.office365.com
- (2603:10b6:610:50::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Fri, 13
- Nov 2026 17:10:18 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN6PEPF00000072.mail.protection.outlook.com (10.167.248.199) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 13 Nov 2026 17:10:18 +0000
-Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 13 Nov
- 2026 11:10:12 -0600
-From: Shivank Garg <shivankg@amd.com>
-Date: Fri, 13 Nov 2026 17:09:21 +0000
-Subject: [PATCH v3] mm: introduce copy_mc_highpages() and batch copy in
- folio_mc_copy()
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Dk1vCWfG
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36ecc11bd26so160684eec.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:12:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794589947; x=1795194747; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xv91mbpY6CHl9oZ10SuH7nK8AHihJpvpXeevDfWrpHA=;
+        b=Dk1vCWfGcdr5xZdt9dq2I9ypVf/Dr1nhuoKzF69Fy3aGZpE7zPiJYOeUBh4Omt7n6B
+         aha6kKwmE7MYPtoRs9WpJ0jd7pv8BR/34CxoeYQgC3Z8qubWhIeYmeHQfXC040+WhEcE
+         w4hu2GvDTiFZRumOJPSaERTQdIppzXJ0ePkV617MhpUtwVEg970NAV/BOk747yVlDtp1
+         S4G7kJwVnnYp/6OqqzmYFaFW314xB7DGfBmd31sphRPXFTKJqRYn95xEqQZ8jvr1Lq3D
+         9mRp+dNr1qR5gqjAKzng6ikGgxkxoxeY6PkimoEiYnpNJ754F5ZjsVwFj9jEufHxaVUE
+         RLfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794589947; x=1795194747;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xv91mbpY6CHl9oZ10SuH7nK8AHihJpvpXeevDfWrpHA=;
+        b=jhs7FIeOzqdfPLIL94HVc/yIHX+UqV6PWdlHw1V75TpYOLeNowlX4eZXXhYN7u3UaY
+         YJPrzeU5oA7Qp8NPzMjWLCpHmXE74Q89RKazuOgg3mad8Q9fdFjRE5ZHivuD+cMmUmsk
+         7kGaG0gl1ig/yVAK7QvlkvJgabs6Hq6OlolEmGlPZeuyo9xmEehzv8PZVTvnu4Gzhqmp
+         nUgnZtJSEaeT3dIxz8kXdFFFbH612Iux32CqYFs9sAVSIlacGOLp9uAvtqaanuBQalHT
+         fq1ZnH5pMPK/yFHXWqMwTSz75aPihpPFfBLZL98DjzzCOrO0moxfHfJKIRIonU5OSC+V
+         zA/g==
+X-Forwarded-Encrypted: i=1; AL+hErHzV5x7vtihwKGfGlR4JGOUDzEducTfCMt8uhb6rFkJQO7dlgQJiM7chCKTaU7rcoTN0NV1MCFVi5/e/mM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8cctMVlFwRWNJQ+UOfATETXOFNY8/8RwI5YHZetbjYSGAhyw4d
+	p/VYzL/myMyOXipq0db0z77v41XSQ1UiQm4Dvm9pKntgUx2sDPU6p2D0
+X-Gm-Gg: AYBFou39Mclyp18wEzHXg57fO8IoPJdEaYnge6WhId45hqslZdm9adlOVWMSJlrf0nB
+	omY7fBfAeF/x9NG6z/PsVdoVF5mVgvT+iT87riUz/dl/6WgEgM8Ae+5miEZTPCq9Gwcv39qR9QC
+	GXO26dTaBAdilpI1Y7NdAedk8bbOyUrK7YhtPeDzBIsGEb4Y4bOHqn+7+8gEYaVJ0Ze86CcxF+Z
+	SM0GAZXL01WgbdVF5uSJeBXmzlByGfObqb0rk+8rh9iTpoEuUdVghEo5c18+TsAsIbtC/akgkXg
+	VPHKyxNP0pJUhrs+87BT8D1/OFYywY8eMFYnqG9Fpj3+gSqe/7+O8BHHm6gAl0AIkCidPYMhyEQ
+	2AX+MG+kEAhHrcEr+otGxke2fd/WrxSMXGtrJRfG6g0iTBFaSM4vph8ElugN4pPijtyD120yUqx
+	8wo0II0rzLCy6C0XtVN0nRkC4kHpXvQu+KdOxd8oLJT/uIJPSFEPIztRdQSLsKT7NYn5l8aaJte
+	pw+KnRL27NdQ3DPCnLnDUGk4J9xm/ASHOG2Vs4csYdCh1rTCYygkADt35//OtqVVLNVUQHeSD6p
+	ZTn7R55jgqzIGOQQIzSF8kyT9/9XzA3TauSzxhCB92IXgSDnN6wH4DTlGGlizCc1SJwy9ZujkWx
+	Q6t0=
+X-Received: by 2002:a05:7022:7f04:b0:1a1:9106:cfff with SMTP id a92af1059eb24-1b503097baamr4481535c88.2.1794589946743;
+        Fri, 13 Nov 2026 09:12:26 -0800 (PST)
+Received: from DESKTOP-CJ1L666.localdomain ([211.198.99.62])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b505b5bf76sm5975999c88.10.2026.11.13.09.12.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 09:12:26 -0800 (PST)
+From: Jiwoo Kim <arpe1618@gmail.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	Liviu Dudau <liviu.dudau@arm.com>
+Cc: =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>,
+	Akash Goel <akash.goel@arm.com>,
+	Karunika Choo <karunika.choo@arm.com>,
+	Lukas Zapolskas <lukas.zapolskas@arm.com>,
+	Chris Diamand <chris.diamand@arm.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Jiwoo Kim <arpe1618@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/panthor: Fix unlocked pool->vm access in panthor_heap_create()
+Date: Sat, 14 Nov 2026 02:12:14 +0900
+Message-ID: <20261113171211.836427578-1-arpe1618@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,254 +109,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-ID: <20261113-batpagecopy-v3-1-297f5b2fd28e@amd.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/1XMQQ6DIBCF4auYWZcGqJTYlfdoXIwwKguFgCE1h
- ruXuuvyf8n7TkgUHSV4NSdEyi45v9V43BowC24zMWdrg+TyybVo2Yh7wJmMDwdTKMdWdYKTslA
- fIdLkPpf2HmovLu0+Hhee5W+9HMFF9+dkyQSzWpG23E6I1ONq78avMJRSvlBm7MikAAAA
-X-Change-ID: 20260714-batpagecopy-5a2b45910e5d
-To: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
-	<david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett"
-	<liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport
-	<rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko
-	<mhocko@suse.com>, Borislav Petkov <bp@alien8.de>, Ankur Arora
-	<ankur.a.arora@oracle.com>, Dave Hansen <dave.hansen@linux.intel.com>,
-	"Thomas Gleixner" <tglx@kernel.org>, Bharata B Rao <bharata@amd.com>,
-	"Hrushikesh Salunke" <hsalunke@amd.com>, Ingo Molnar <mingo@redhat.com>, "H .
- Peter Anvin" <hpa@zytor.com>, David Laight <david.laight.linux@gmail.com>,
-	David Rientjes <rientjes@google.com>, Linus Torvalds
-	<torvalds@linuxfoundation.org>, "Teja Vojjala" <tejavojjala@google.com>, Huan
- Nguyen <nhuhuan@google.com>, "Pedro Falcato" <pfalcato@suse.de>, Peter
- Zijlstra <peterz@infradead.org>
-CC: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, <x86@kernel.org>,
-	Shivank Garg <shivankg@amd.com>
-X-Mailer: b4 0.15-dev-47d62
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794589811; l=7386;
- i=shivankg@amd.com; s=20260518; h=from:subject:message-id;
- bh=dVWgGBtqpCC3ANy8Ye7+zxKYvKb5hvxDp3JD5u4sVhQ=;
- b=NwjNYeOyibxuNoLy4ejo16LierH9cccGxb0+PlkdLvuBHNq6xbMiBfjHMhjQdRzjmrcaiWwr+
- TqQGcZWI6SWAUGMqEx/QI7oXiZL3qfjtVBxwU6bB6RiOZDjIG3jfhff
-X-Developer-Key: i=shivankg@amd.com; a=ed25519;
- pk=2l2QGTeXuGkZTtfmx0nPQU8iFZfjYmX/ymMojitevx4=
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN6PEPF00000072:EE_|IA1PR12MB6235:EE_
-X-MS-Office365-Filtering-Correlation-Id: c5b9ea62-bce6-4da2-6b6d-08df41a8fe46
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|36860700016|376014|7416014|82310400026|261021133027099003|10067099003|261026130827099003|261102130727099003|261009223027099003|261021123027099003|261028144727099003|261026140227099003|261102123227099003|261021130227099003|261026121527099003|261022115727099003|261022105027099003|261026135527099003|261021135927099003|261021121427099003|261022113327099003|3023799007|261022075727099003|56012099006|11063799006|921020|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	esjb+8aBysIU8QR+4Rufn3J3ppvti2wBo6E9wHlmtzNXDG7sEz1tQ7In6pUT6TODa3clX7dZPrmjTCrpVkcbtL0c7nML0muZJuO+iR5cdVHMzus3zlDV9H7DQzNnaEQzRbU7oCm3DUdgGqfCg9PM4L+G6CH7XidA70DdLzvxs5J86OQxyptkKviCwDIjBfaZwQRA1NZbY+cXq9pLz500OHiJOnLMBYM2cT8ojtkNvUojIeEXrmvWk7WWmD2gwZvt0fOi97Ryjlfl3od3i06Hlv2y1yuaDRLDAAFh1wI2hcUEv8QDIZfZqSxV6CtpZXr1Is4gFvwGBw+hSeBsQ2dhJGArOzDBLzskM+0/m8RHV9G2LqK2Z3LbnVkBRyXXrpMAkyPFOxqR8yGLZoxob3wI0v9tiUgrRpZFG/cpr0U0Kq3qt3yTMPv3UWSYhZPhnIDDrr7BHJlOjnhB7kE3z0WrJBTe1XmPuHB4Urb6yLWpKxA7lIn9hUTVbDM6oiqIKlx0529tBeeVE6EkhE4l1ktuAZz3By/MWAQI0TZK49+tAN3ELubNRh8RZU/UHprJGVSqSSU4UymrpitvjNNSe0qQWs7GHJzTf4Yz6Vh29Xwy45YiyOFgrz1GMemjcwNQOCfdHPXKV0rlNYG+q8N6RSXI/LVvmCRcK7BxKTx0o/RGVhtRhqzQXM7rGzF1ELxEFABQwSozhUpw/0wkoD88/PVibQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(36860700016)(376014)(7416014)(82310400026)(261021133027099003)(10067099003)(261026130827099003)(261102130727099003)(261009223027099003)(261021123027099003)(261028144727099003)(261026140227099003)(261102123227099003)(261021130227099003)(261026121527099003)(261022115727099003)(261022105027099003)(261026135527099003)(261021135927099003)(261021121427099003)(261022113327099003)(3023799007)(261022075727099003)(56012099006)(11063799006)(921020)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	OA493x4hFPSA82KOwUX/sK351i5GRb/xEY+inyRcslQ1Ji7uRqVNU2GPYgItZpWFd2sYy3hI7LC5Rc9ZpWJvjX3JJ97K+Ved7wpHQssOOWoZG+hb+HBFnTpP7hz0JzONjgKSyQl5MCy9Z0Nuqv+WIeMVrC8teDJpAOqP2y8Rk5xXbyauxlgGJcCh5U42c8jcfsuT9ZSZaqZW3DnOdlND91mXZKBpaWOSDEg6ggwebVC1/hzee/TmHxM0+rDCtHFzgWF8ALA4evRZ2vRw5TWi4p3C5k5yfW/dYk6lMunr7Gw+KQda0umZ79Qmd7QC43ze6J42bc47UcuapyTQSpF1MPfQEXRcheRMVf3/+7e/0++GWRNvRp3gOtnWb9x0orwTFjzC/BohNEhzbw1vU9LtdI+vcOBAW3jKJqlZcd2RWkHZiXxBKw3OBJj9Mx86HwZe
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 17:10:18.5854
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c5b9ea62-bce6-4da2-6b6d-08df41a8fe46
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN6PEPF00000072.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6235
 
-folio_mc_copy() copies a folio one page at a time with copy_mc_highpage(),
-so a 2MB folio makes 512 separate copy_mc_to_kernel() calls. Each page
-pays the startup cost of the string instruction ("REP; MOVSB" on x86
-CPUs with ERMS) plus a cond_resched().
+panthor_heap_create() takes a reference on pool->vm under pool->lock,
+because the pool can be destroyed concurrently, and the initial heap
+chunks used to be allocated in that VM. Since commit c63c3bfdde26
+("drm/panthor: Avoid sleep locking in the internal BO size path"),
+panthor_alloc_heap_chunk() takes the pool instead and reads pool->vm
+itself. panthor_heap_grow() calls it with pool->lock held, but
+panthor_heap_create() does not, so pool->vm is read without the lock
+for every initial chunk.
 
-Introduce copy_mc_highpages(), the page range variant of
-copy_mc_highpage(). When copy_mc_to_kernel() is available and the pages
-are in the linear map, copy the whole range with a single
-copy_mc_to_kernel() call, so the CPU can optimize for the larger extent.
-Otherwise, fall back to copy_mc_highpage() one page at a time.
+If TILER_HEAP_CREATE races with VM_DESTROY on the same VM,
+panthor_vm_destroy() calls panthor_heap_pool_destroy(), which sets
+pool->vm to NULL, and panthor_kernel_bo_create() can then be called
+with a NULL VM, which hits its drm_WARN_ON(!vm) and fails with
+-EINVAL.
 
-On a machine check, queue the poisoned source page for memory_failure(),
-as copy_mc_highpage() does, and return -EHWPOISON, as folio_mc_copy()
-does today.
+Pass the VM to panthor_alloc_heap_chunk() and
+panthor_alloc_heap_chunks() again: panthor_heap_create() passes the VM
+it holds a reference on, and panthor_heap_grow() passes pool->vm, which
+it reads under pool->lock. In the race above, the initial chunks are
+then created in the destroyed but still referenced VM, and
+panthor_heap_create() frees them and fails with -EINVAL when it finds
+the pool destroyed under pool->lock, as it did before that commit.
 
-copy_mc_to_kernel() cannot reschedule, so only take the single-call path
-when CONFIG_PREEMPTION is set and the copy can be preempted. Since commit
-7dadeaa6e851 ("sched: Further restrict the preemption modes"), x86 and
-powerpc, the only architectures that select ARCH_HAS_COPY_MC, only offer
-the full, lazy and RT preemption models, also with PREEMPT_DYNAMIC, so
-they always take this path. The per-page fallback calls cond_resched()
-before each page, as clear_contig_highpages() does. Other architectures
-keep copying one page at a time.
+The problem was found through AI-assisted source code review. The fix
+is compile-tested only and there is no reproducer, as I don't have
+Mali CSF hardware.
 
-Switch folio_mc_copy() to copy the whole folio with copy_mc_highpages().
-
-Signed-off-by: Shivank Garg <shivankg@amd.com>
+Fixes: c63c3bfdde26 ("drm/panthor: Avoid sleep locking in the internal BO size path")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Jiwoo Kim <arpe1618@gmail.com>
 ---
-On a Zen 6 system with CXL memory, move_pages() gets ~1.4x faster for
-2MB THPs and up to ~2.8x faster for 1GB hugetlb pages (numbers below).
-When demoting to CXL, kswapd uses ~31% less CPU per GB demoted.
 
-Changes in v3:
-- Copy the whole range with one copy_mc_to_kernel() call only when
-  CONFIG_PREEMPTION is set, otherwise copy page by page with
-  cond_resched(), following clear_contig_highpages() [1] (Pedro, David).
-- Handle the machine check first in copy_mc_highpages() (Pedro).
-- Rebase onto mm/core.git for-next.
-- Link to v2: https://lore.kernel.org/r/20261019-batpagecopy-v2-1-d75e7d0dfaae@amd.com
+Notes:
+    This is the follow-up mentioned in "[PATCH] drm/panthor: Don't access
+    gpu_contexts of a destroyed heap pool":
+    https://lore.kernel.org/all/20261113162648.110226253-1-arpe1618@gmail.com/
+    The two patches are independent and apply in either order.
+    
+    It conflicts with Osama Abdelkader's pending "drm/panthor: Fix race
+    when retrieving the new chunk in panthor_heap_grow()", which also
+    changes the panthor_alloc_heap_chunk() arguments. I can rebase on top
+    of it if it lands first.
 
-[1] https://lore.kernel.org/r/20261109-clear-pages-batch-v3-1-6693efe18dff@amd.com
+ drivers/gpu/drm/panthor/panthor_heap.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-Changes in v2:
-- Drop the folio_copy() changes as there is little to gain here.
-  On architectures without copy_mc_to_kernel(), copy_mc_highpages()
-  falls back to the per-page copy_mc_highpage(), which ends up in
-  copy_highpage(). A batched copy_highpages() could help there too,
-  but I haven't tested it on those architectures, so that is left for
-  a follow-up.
-- Add COPY_MC_PAGES_NON_PREEMPT_BATCH to limit how much is copied
-  between cond_resched() calls on non-preemptible kernels.
-- Rebase onto mm-new (2887e63d2e8e).
-- v1: https://lore.kernel.org/all/20260427142036.111940-2-shivankg@amd.com
-
-Test setup: AMD EPYC Zen 6, single socket, NPS2 (nodes 0 and 1 are
-DRAM, node 2 is CXL), with and without this patch.
-
-move_pages() throughput
------------------------
-A single move_pages() call migrates 1GB of anonymous memory, as 512
-2MB THPs or as four 1GB hugetlb pages. Mean ± stddev (10 runs each),
-in GiB/s:
-
-2MB THP:
-  direction         base            patched         speedup
-  DRAM0 -> DRAM1    19.57 ± 0.17    27.51 ± 0.78    1.41x
-  DRAM1 -> DRAM0    19.44 ± 0.12    27.33 ± 0.27    1.41x
-  DRAM0 -> CXL      18.66 ± 0.18    26.90 ± 0.51    1.44x
-  CXL   -> DRAM0    15.38 ± 0.59    16.60 ± 0.24    1.08x
-
-1GB hugetlb:
-  direction         base            patched         speedup
-  DRAM0 -> DRAM1    20.34 ± 0.13    53.88 ± 1.48    2.65x
-  DRAM1 -> DRAM0    19.10 ± 2.65    53.78 ± 0.55    2.82x
-  DRAM0 -> CXL      19.53 ± 0.08    44.10 ± 0.19    2.26x
-  CXL   -> DRAM0    16.41 ± 0.07    20.89 ± 0.06    1.27x
-
-kswapd demotion
----------------
-Node 0 is limited to 16GB of free memory and demotion is enabled. A
-single thread bound to node 0 writes 96GB of anonymous THP memory, so
-~80GB has to be demoted to CXL. Median of 10 runs:
-
-                               base        patched
-  kswapd CPU time              4.25 s      3.44 s     (-19%)
-  kswapd CPU per GB demoted    63.6 ms     44.1 ms    (-31%)
-  demoted by direct reclaim    14.1 GB     0.46 GB
-  allocstall                   7427        370
-
-With the patch, kswapd keeps up with the writer, so the writer rarely
-falls back to direct reclaim.
----
- include/linux/highmem.h | 51 +++++++++++++++++++++++++++++++++++++++++++++++++
- mm/util.c               | 14 ++------------
- 2 files changed, 53 insertions(+), 12 deletions(-)
-
-diff --git a/include/linux/highmem.h b/include/linux/highmem.h
-index d7aac9de1c8a..a79e9d68359c 100644
---- a/include/linux/highmem.h
-+++ b/include/linux/highmem.h
-@@ -484,6 +484,57 @@ static inline int copy_mc_highpage(struct page *to, struct page *from)
+diff --git a/drivers/gpu/drm/panthor/panthor_heap.c b/drivers/gpu/drm/panthor/panthor_heap.c
+index 99311abdf1..46f53699a2 100644
+--- a/drivers/gpu/drm/panthor/panthor_heap.c
++++ b/drivers/gpu/drm/panthor/panthor_heap.c
+@@ -137,7 +137,12 @@ static void panthor_free_heap_chunk(struct panthor_heap_pool *pool,
+ 	kfree(chunk);
  }
- #endif
  
-+/**
-+ * copy_mc_highpages() - copy a page range with machine check handling
-+ * @to: first destination page
-+ * @from: first source page
-+ * @nr_pages: number of pages
-+ *
-+ * Range variant of copy_mc_highpage(). On a machine check, the poisoned
-+ * source page is queued for memory_failure().
-+ *
-+ * Context: Process context. May sleep.
-+ * Return: 0 on success, -EHWPOISON if a machine check was handled.
++/*
++ * @vm must be pool->vm read under pool->lock, or a reference taken from it
++ * under that lock: panthor_heap_pool_destroy() clears pool->vm.
 + */
-+static inline int copy_mc_highpages(struct page *to, struct page *from,
-+		unsigned long nr_pages)
-+{
-+	unsigned long len = nr_pages << PAGE_SHIFT;
-+	unsigned long i, ret;
-+
-+	might_sleep();
-+
-+	/*
-+	 * When copying we want to operate on the largest extent possible to
-+	 * allow for architecture specific extent based optimizations.
-+	 *
-+	 * copy_mc_to_kernel() does not call cond_resched(). That is fine on
-+	 * preemptible kernels, where the scheduler can preempt the copy at
-+	 * any point, so copy the whole range at once if copy_mc_to_kernel() is
-+	 * available and the pages are in the linear map. Otherwise, copy one
-+	 * page at a time and reschedule in between.
-+	 */
-+	if (IS_ENABLED(CONFIG_ARCH_HAS_COPY_MC) && IS_ENABLED(CONFIG_PREEMPTION) &&
-+	    !IS_ENABLED(CONFIG_HIGHMEM)) {
-+		ret = copy_mc_to_kernel(page_address(to), page_address(from), len);
-+		if (ret) {
-+			memory_failure_queue(page_to_pfn(from) +
-+					     ((len - ret) >> PAGE_SHIFT), 0);
-+			return -EHWPOISON;
-+		}
-+		for (i = 0; i < nr_pages; i++)
-+			kmsan_copy_page_meta(to + i, from + i);
-+		return 0;
-+	}
-+
-+	for (i = 0; i < nr_pages; i++) {
-+		cond_resched();
-+		if (copy_mc_highpage(to + i, from + i))
-+			return -EHWPOISON;
-+	}
-+	return 0;
-+}
-+
- static inline void memcpy_page(struct page *dst_page, size_t dst_off,
- 			       struct page *src_page, size_t src_off,
- 			       size_t len)
-diff --git a/mm/util.c b/mm/util.c
-index c9c3dc4b490f..1277daa3ccd6 100644
---- a/mm/util.c
-+++ b/mm/util.c
-@@ -776,18 +776,8 @@ EXPORT_SYMBOL(folio_copy);
- 
- int folio_mc_copy(struct folio *dst, struct folio *src)
+ static int panthor_alloc_heap_chunk(struct panthor_heap_pool *pool,
++				    struct panthor_vm *vm,
+ 				    struct panthor_heap *heap,
+ 				    bool initial_chunk)
  {
--	long nr = folio_nr_pages(src);
--	long i = 0;
--
--	for (;;) {
--		if (copy_mc_highpage(folio_page(dst, i), folio_page(src, i)))
--			return -EHWPOISON;
--		if (++i == nr)
--			break;
--		cond_resched();
--	}
--
--	return 0;
-+	return copy_mc_highpages(folio_page(dst, 0), folio_page(src, 0),
-+				 folio_nr_pages(src));
+@@ -149,7 +154,7 @@ static int panthor_alloc_heap_chunk(struct panthor_heap_pool *pool,
+ 	if (!chunk)
+ 		return -ENOMEM;
+ 
+-	chunk->bo = panthor_kernel_bo_create(pool->ptdev, pool->vm, heap->chunk_size,
++	chunk->bo = panthor_kernel_bo_create(pool->ptdev, vm, heap->chunk_size,
+ 					     DRM_PANTHOR_BO_NO_MMAP,
+ 					     DRM_PANTHOR_VM_BIND_OP_MAP_NOEXEC,
+ 					     PANTHOR_VM_KERNEL_AUTO_VA,
+@@ -209,6 +214,7 @@ static void panthor_free_heap_chunks(struct panthor_heap_pool *pool,
  }
- EXPORT_SYMBOL(folio_mc_copy);
+ 
+ static int panthor_alloc_heap_chunks(struct panthor_heap_pool *pool,
++				     struct panthor_vm *vm,
+ 				     struct panthor_heap *heap,
+ 				     u32 chunk_count)
+ {
+@@ -216,7 +222,7 @@ static int panthor_alloc_heap_chunks(struct panthor_heap_pool *pool,
+ 	u32 i;
+ 
+ 	for (i = 0; i < chunk_count; i++) {
+-		ret = panthor_alloc_heap_chunk(pool, heap, true);
++		ret = panthor_alloc_heap_chunk(pool, vm, heap, true);
+ 		if (ret)
+ 			return ret;
+ 	}
+@@ -315,7 +321,7 @@ int panthor_heap_create(struct panthor_heap_pool *pool,
+ 	heap->max_chunks = max_chunks;
+ 	heap->target_in_flight = target_in_flight;
+ 
+-	ret = panthor_alloc_heap_chunks(pool, heap, initial_chunk_count);
++	ret = panthor_alloc_heap_chunks(pool, vm, heap, initial_chunk_count);
+ 	if (ret)
+ 		goto err_free_heap;
+ 
+@@ -473,7 +479,7 @@ int panthor_heap_grow(struct panthor_heap_pool *pool,
+ 	 * further jobs in this queue fail immediately instead of having to
+ 	 * wait for the job timeout.
+ 	 */
+-	ret = panthor_alloc_heap_chunk(pool, heap, false);
++	ret = panthor_alloc_heap_chunk(pool, pool->vm, heap, false);
+ 	if (ret)
+ 		goto out_unlock;
  
 
----
-base-commit: c6e0cad6c9b4180bb229db06e5b062c5ce0723bd
-change-id: 20260714-batpagecopy-5a2b45910e5d
-
-Best regards,
+base-commit: bafda823590ddf7031ecb765d673572fae7ab44a
 -- 
-Shivank Garg <shivankg@amd.com>
+2.43.0
 
