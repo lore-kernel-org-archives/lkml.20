@@ -1,41 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.220
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794555057;
-	b=nwnhuvQKwJmhuklqif0nTGJHOvz6cEurbYpSVYPK6w2sUGB5AqbR2/23GCXRzFVyuR0q
-	 GqurhPCJv+4ovDIm45UE9qwiGxhISuQ3b2RBRk1/+1HpaUSg3GNoQttgXlFUjmuVO+gRm
-	 xvwK7QzL90CGmnmZSdUFMw06rgmtF6p8PLLTD7xK8MmpkQQAgG7+nHacGT0oTAgWPjxGT
-	 RKa603OJczZu8Fu7FA+6SWDjSr6WXkhTx7pqW1wyVwM79IJq6Nwb8lPYpSb4njMTOyIQr
-	 99bYZhJHwEqR0Yet7lfnUlO39snFYalXkjwet+mquzkHoXTgsN+2KqZgtuY1tLRpttg==
+	t=1794555103;
+	b=0SVAa2y9mI5kvo7ts1aTCdX07nN3B+HrpdGxrtRFqcJW8K4zOiYZA6I97lfRGNLEOSY7
+	 kuRSDzg/3XBK79BGzF9sGVduhTkDWgwqKA75DHCZOHNL4sLQfGJ2vWJsMea5hr/aCQlh+
+	 PH4MMsz7WEUt3ljBHL4BK/hrrQTm10iodkC4BZs4YwbdppthPxgrlA63tRVb8kOcBmjJy
+	 ZHiBLaOLb0rzYoy4r4XoFwM87IOiIIXzUypCtgbq26710kWJgaux5qT2HB1g/zyzVgRpw
+	 YjTMyRS1rU84dkeZfxuvg9b1SXdPq1BkB2TWIgcmaMBJiY3a6V16cMN4aIIwAoB1jOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794555057;
-	h=DMARC-Filter:X-Alimail-AntiSpam:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=z4qGF/xXhp8h6R/uUmXdxIctCrS1GFGLpy4gJytT2WU=;
-	b=OzxuhufzfXpV2U61g2gEmOvf8bV6PiRtaN3OncmDcLNza9hvurQtWUPLQmQMnPiNfPJK
-	 bqEDJlw8gUEdXMkcrX2FYG107MbWWmJpypZ4RTjqdYLa8w6eMG41ViguBp0FTzBWvKMt3
-	 MP1mj8dYl+lYvLqgMbdq5YPV2JJATz+UcTasZwfCSa9gBUHPSZTKd0vHrYUCMyy83noav
-	 2qjHR8pZROlFI2ZXgiQtMKUel5QYSfNmRufMTokDveB6weYIogDOJsgsWVjW5k36Zyfnt
-	 aYpa36oeWFNAcnU49NuYkLtYdFYIUfG48C6PpzXExDWT4vzjeJ2QW0myqb1oEMiszbg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794555103;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=a8dwXPHMPfCbtdhYZUDcAPyhoTp0Li9Sm++J9+wQ2hg=;
+	b=X/lx6ZDt5sEhpHPK+OKGGUnSAZkpsf4gSjVUp6DZKCs/ctg9+S3x1TYqhU99TFXRNbu9
+	 E2GVrw0UwJJUckjznXwutHMhgXpOG09Cyl2EB2bEu3Hcx4T955xQeuS9mk9sePxS5Cemh
+	 QGhJg6wTwPSq6yPQsBYp+yRKeBk/fql4NMucGiQ1iNyOmV+KMb6yrwHPAhkl4io0qNbZ+
+	 ynxniXHdBKehy+w5oNvBvNEDtA18qJYpag9wfZtS4xQpW5j0ysoDgafksuocfQB7DVnRh
+	 nRKF6A0pnHKOttaPTRdD5ZIqRp/bJg8I4Igim4YRsgNzO7nA/XklnKf/88tRfc6Ot7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=open-hieco.net;
-	spf=pass smtp.mailfrom=open-hieco.net;
-	arc=none smtp.remote-ip=115.124.28.220
-Received: from out28-220.mail.aliyun.com (out28-220.mail.aliyun.com [115.124.28.220])
+	dmarc=pass header.from=dolcini.it;
+	spf=pass smtp.mailfrom=dolcini.it;
+	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=DY9VXQ9g;
+	arc=none smtp.remote-ip=217.194.8.81
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B691606A323;
-	Fri, 13 Nov 2026 07:30:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B691606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.09034447|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0828622-0.00144669-0.915691;FP=7629473359374968787|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam011083099174;MF=wanglin@open-hieco.net;NM=1;PH=DS;RN=12;RT=12;SR=0;TI=SMTPD_---.k166u1E_1794555050;
-Received: from 172.18.24.170(mailfrom:wanglin@open-hieco.net fp:SMTPD_---.k166u1E_1794555050 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 13 Nov 2026 15:30:51 +0800
-Message-ID: <7065966e-c59c-4a17-a491-0117339cba40@open-hieco.net>
-Date: Fri, 13 Nov 2026 15:30:50 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F9CF606A31C;
+	Fri, 13 Nov 2026 07:31:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F9CF606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=DY9VXQ9g
+Received: from francesco-nb (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
+	by mail11.truemail.it (Postfix) with ESMTPA id 26417227AD;
+	Fri, 13 Nov 2026 08:31:39 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1794555099;
+	bh=a8dwXPHMPfCbtdhYZUDcAPyhoTp0Li9Sm++J9+wQ2hg=; h=From:To:Subject;
+	b=DY9VXQ9goHKAVqWr8PfX1MtVIeeN2mOlbRRYpfI3rFmaWdvnuPGoEQb0j71qf65fQ
+	 SipdsSUlhQjaWUUYT8TVtx7rWSK6EMCaZYOjR2ELbcueb/lhIcNfrwTpyJnHnizRnn
+	 2HA+cxrkSuX9qVZkiVuq8MKRfAFY60DEvE9XIQJn5LFtd1/eniXZ3xQTmda6u1t/yg
+	 Aai5Cl8uCZ+qrWufRJY6pQV0vDtETVgQHTTgwX8C/0NirWv8Gadb7khoXz9kEw1gJP
+	 tvVb3QZK5Em9ZSCkXcd0mHQAhD6WSuEEtSef+BEZme2DxxX8T9h6mDDk6556WOgz1R
+	 QWBPZJehhQRlw==
+Date: Fri, 13 Nov 2026 08:31:35 +0100
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Francesco Dolcini <francesco@dolcini.it>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, linux-bsp@toradex.com,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 01/11] arm64: dts: freescale: imx8mm-verdin: Add SPI
+ alias
+Message-ID: <20261113073135.GA8515@francesco-nb>
+References: <20261112150236.164850-1-francesco@dolcini.it>
+ <20261112150236.164850-2-francesco@dolcini.it>
+ <avXeK-IRXbKqI-pc@SMW015318>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -45,62 +73,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 3/7] EDAC/amd64: Stop matching Hygon CPUs
-To: Borislav Petkov <bp@alien8.de>
-Cc: Yazen Ghannam <yazen.ghannam@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>, Pu Wen <puwen@hygon.cn>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
- Tony Luck <tony.luck@intel.com>, x86@kernel.org, linux-edac@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261029053313.46323-1-wanglin@open-hieco.net>
- <20261029053313.46323-4-wanglin@open-hieco.net>
- <20261113045230.GCavaXjqKx1l36G9A0@fat_crate.local>
-Content-Language: en-US
-From: Lin Wang <wanglin@open-hieco.net>
-In-Reply-To: <20261113045230.GCavaXjqKx1l36G9A0@fat_crate.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avXeK-IRXbKqI-pc@SMW015318>
 
-Hi Boris,
+Hello Frank,
 
-On 11/13/2026 12:52 PM, Borislav Petkov wrote:
-> On Thu, Oct 29, 2026 at 01:33:09PM +0800, Lin Wang wrote:
->> amd64_edac gets its node count and DF devices from the AMD northbridge
->> cache. Since commit 49b96fc0dddc ("x86/amd_nb: Simplify function 3
-> This commit is old. Should that patch be in stable?
-
-I don't plan to backport this to stable. It is part of separating
-Hygon support from the AMD code in this series.
-
+On Thu, Nov 12, 2026 at 09:41:31AM -0600, Frank Li wrote:
+> On Thu, Nov 12, 2026 at 04:02:23PM +0100, Francesco Dolcini wrote:
+> > From: Francesco Dolcini <francesco.dolcini@toradex.com>
+> >
+> > The Verdin family pinout defines the SoM interfaces and their
+> > numbering, SPI_1 being the SPI bus available to the carrier board,
+> > implemented by ecspi2 on Verdin iMX8MM.
+> >
+> > imx8mm.dtsi numbers ecspi2 as spi1, so the Linux bus number in sysfs
+> > and the spidev name do not match the Verdin interface. Add a spi0
+> > alias in the SoM dtsi and delete the inherited spi1, so ecspi2 is
+> > bus 0, zero-based with SPI_1 being spi0, and carries a single alias.
+> > ecspi3, internal to the SoM with the CAN controller and the TPM, keeps
+> > the spi2 alias inherited from the SoC.
+> >
+> > Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+> > ---
+> >  arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi | 2 ++
+> >  1 file changed, 2 insertions(+)
+> >
+> > diff --git a/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi b/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
+> > index 1ac9d000d415..0369803a4d46 100644
+> > --- a/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
+> > +++ b/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
+> > @@ -16,6 +16,8 @@ chosen {
+> >  	aliases {
+> >  		rtc0 = &rtc_i2c;
+> >  		rtc1 = &snvs_rtc;
+> > +		spi0 = &ecspi2;
+> > +		/delete-property/ spi1;
 > 
->> search"), the cache finds function 3 only at the fixed PCI slots
->> 0x18 + N. Hygon DF devices are not at those slots, so the cache is
->> discarded on Hygon and amd64_edac_init() returns -ENODEV at its
->> amd_nb_num() check.
-> Please do not explain the code in the patch commit messages. Only the
-> non-obvious stuff.
-> 
->> Remove the Hygon match and the empty Family 0x18 case.
-> That's what the patch does, no?
-> 
-> 
->> MCE decoding
->> in mce_amd.c is separate and unchanged. Hygon memory controller support
->> will use the Hygon node interfaces in a separate series.
-> This is unnecessary.
-> 
-> Please concentrate only on why a patch exists. No meandering, no obvious code
-> explaining, just to the point.
-> 
-> Check your whole set pls.
+> Can you avoid delete property for new platform?
 
-I'll reword the commit messages across the series to focus on why
-each change is needed.
+Unfortunately this is needed. 
 
-Thanks,
+The included imx8mm.dtsi has
 
-Lin
+  spi1 = &ecspi2;
 
+so, without the /delete-property/ we will have both
 
+  spi0 = &ecspi2;
+  spi1 = &ecspi2;
+
+and what is happening with that is implementation dependent, and this
+would not be ok.
+
+The original issue is that imx8mm.dtsi should not define the aliases in
+the first place, unfortunately removing it now is no longer possible,
+it will introduce regressions everywhere [0][1].
+
+This issue, and the reason I have the delete-property, is already
+explained in the commit message.
+
+Francesco
+
+[0] https://lore.kernel.org/all/20250425-dts-imx-aliases-ethernet-v1-0-15b9d5cca611@linaro.org/
+[1] https://lore.kernel.org/all/aca3addbe510c58524af8d3fd069fe2ae4b1cd24.camel@pengutronix.de/
