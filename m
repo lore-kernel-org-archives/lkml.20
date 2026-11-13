@@ -1,67 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.254.200.128
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.54.11.23
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794534064;
-	b=d+BTMT1xNLR7DJ11AAp8Kri5sNH3NPUl9Tu5Bgv4tNJSJ3R743NHR3yq6BahdfEcLjyK
-	 xqkJk5UORyqi7MQT3ajK5MMIdqaKEUDZfiFVkAGnqngLAq1HMlRidbm5d219uPnG8ETM4
-	 yGufVpCGa2/5MHaqXReAyGbRpZ/isnAOHp1Nv0Ujc02Pwx2Xe1/+eFi92ZKz6j49tchQq
-	 PFBJI3C6+WBy+5FtGjLci7h1uXaGIgdT//xKKohcU2/vlYYQjq1hMBwOFTqNpdJ/gXHNH
-	 ww4+/OtW0ZWj5xyylGYcEjvzbpys7RmPu/6FH97sSjakYoHj03c9qromyxk6EqAljXA==
+	t=1794534122;
+	b=i0aqtcWc8p2AUUrSTB62XEcB3szHq1Anhtt9l+wG1fAJXwqISRmqsiITK1Q45ErqaML1
+	 WhonIjj5S+zjcj75o3D+FrbKjhkNmisL02adZpcE1oJETVrnN++aO/x3zWHR/oL0tl6yo
+	 bXMFbYyci+q++9lhlwqXlyF+HzWCWPuoRwcLyZCZHF8ZOURPuUPXlKHCAtpm6iucBXEp8
+	 nCzb+Tq18BxoG3oEznUbL0raY9sQMAnTGLSWTCn10yVhYz3bViOYEXI124yX/14g6CDuE
+	 dLSFO58vHjGTL+LWz8yZgqqcNHw8Y3dob4pwscxLD2bh2J16tj3h/nqpr8rUZjAWujw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794534064;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=/sxv1W5mYI9kgEdiDglDayCA4ww/8N3J4Do4OKuotNg=;
-	b=UUoEGCUOAkdqnGvMzzn4zqIk1c42+7nLSyUo6BojebYS1kYS7TKN1o1ioYfhxhp9gWts
-	 uRqcpfiqxuWCpS6/mJ84KIrOocdrQqnSrHtSmSqjCHa0Y8iRS/pFAsEs4FLIIcQfZVH5r
-	 Z/vE36eaQuUxkWj3pOoHSdblW8tO1h7SzdO+BNwSzt89YdneAIFQ7lCIw2HYisluYSZY1
-	 7bEwr6djHF3Q3FaRZhkMtv5Fv5z8q1xn8mAmyerNRuC6Oxwk43zFMeyX2nvn+P4k1hYIt
-	 TnXwo0DOh23fp4yLlXpyZa+MKvOT9Rs6f12aBQYHNbzt4Pgan53bryP6zLMTMwHGSLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794534122;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=KDwwklYe33EzWMSHF4Ad0iaKalV4NE49Bz6sRigU9Sg=;
+	b=ltSIXjmleci3QblVvX0+BC+3pmLJNcez5owrxwNIkbiVvysjn0yUhjgU7J8BpXfsDRs6
+	 5oMl9KtS+cIqL4kGDozQS4HbFxP8As8kbemtvf0suB4ay0pga6gJfkb5AcsO24hqxbyZ5
+	 tdj8se2NT7VCCrkRUAWXjR+BHSMIF3aHaJkuuw8zNW68VfM5Su4m+IlnaXrTX8EZtM1ui
+	 4AE/JZRBV4H17fBoXVKgsGlrvriy7xdifJcV7vpj4GK1f5xt8NGuIn2xbjirxXpahRPr1
+	 Y0EnBQAHh0DV5we/YZTQTGwCjLJxWesCdruvdw/t2rzL8W3LS1Ad0xJmRst8IvgqRFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b="X/swONvx";
-	arc=none smtp.remote-ip=54.254.200.128
-Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
+	dmarc=pass header.from=inf.ufrgs.br;
+	spf=pass smtp.mailfrom=inf.ufrgs.br;
+	dkim=pass header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b=FbPFMVuw;
+	arc=none smtp.remote-ip=143.54.11.23
+Received: from smtp.inf.ufrgs.br (smtp.inf.ufrgs.br [143.54.11.23])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3917606A327;
-	Fri, 13 Nov 2026 01:41:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3917606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92CAE606A323;
+	Fri, 13 Nov 2026 01:42:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92CAE606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inf.ufrgs.br
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=X/swONvx
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1794534044;
-	bh=/sxv1W5mYI9kgEdiDglDayCA4ww/8N3J4Do4OKuotNg=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=X/swONvxBtUIm/r5HhI1m2upMWxH93O+HmrDD+iSKGw/RHz5en3DyDeI33S00S7Hp
-	 l2WFZ88rEdDzMWKHmx2a/ONzp/X20pr2DtyDF2P6jiGfZ0YqoS46pdp9HPHEITF86Q
-	 jUS2XO8hDF287Ya1D9fgNwk71Vgcq+P7iZ6zWxKA=
-X-QQ-mid: esmtpsz16t1794534040t9c73d950
-X-QQ-Originating-IP: gVonNnDY+kkctlVKChjkM8VaTZWWhDIg9Q6Ja4WaeBg=
-Received: from PEC004119 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 13 Nov 2026 09:40:38 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 125834309167969925
-EX-QQ-RecipientCnt: 7
-From: tuhaowen <tuhaowen@uniontech.com>
-To: gupt21@gmail.com
-Cc: jikos@kernel.org,
-	bentiss@kernel.org,
-	linux-i2c@vger.kernel.org,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	tuhaowen <tuhaowen@uniontech.com>
-Subject: [PATCH] HID: mcp2221: Keep IIO initialization retries per device
-Date: Fri, 13 Nov 2026 09:40:36 +0800
-Message-ID: <4861CDE55CCD8365+20261113014036.1430473-1-tuhaowen@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key, unprotected) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b=FbPFMVuw
+Received: from DESKTOP-PJTTJ93.localdomain (unknown [189.6.233.4])
+	by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id 49275120368;
+	Thu, 12 Nov 2026 22:41:57 -0300 (-03)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inf.ufrgs.br;
+	s=dkim2026; t=1794534117;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KDwwklYe33EzWMSHF4Ad0iaKalV4NE49Bz6sRigU9Sg=;
+	b=FbPFMVuw6AwZQWAxS1RwrpSzw2176yo7/8d5rwQiOJs77vyA6pDDaG5n+vw7OEVEifEZ/N
+	wvtDzyOZr1zE+wsjxzagZUXoPubHaEvzj7zIq6XeyhlV6X2/ujtre+drH8t8ZexEzX8Efv
+	Zd20ccD85lca7tukxEAkeZrKZLfcJVj4mYhCKfMv4CGkjoheahf62TreHjwxVaGS21YqkI
+	Q3oIA5EG24Q+yQLI652shAtKM3uscN+/lZYn+iRJ8oWl5Oi3z4XsjNy0I9igyHNBtcCizb
+	cCZmKMd9E3zKQKIv98mNFe4BsqqaBCM0+Ux6bUCOwOZPT5I03g9Qq9tmtSCHbw==
+Date: Thu, 12 Nov 2026 22:41:51 -0300
+From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+To: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+Cc: linux-fsdevel@vger.kernel.org, brauner@kernel.org, djwong@kernel.org, 
+	hch@lst.de, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 1/8] fat: support FIEMAP
+Message-ID: <avZoxGZC5VxiPJtV@DESKTOP-PJTTJ93.localdomain>
+References: <20261031164326.278125-1-matheus.aalmeida@inf.ufrgs.br>
+ <20261031164326.278125-2-matheus.aalmeida@inf.ufrgs.br>
+ <87tslrtlyu.fsf@mail.parknet.co.jp>
+ <avU3IRmswObU2pH6@DESKTOP-PJTTJ93.localdomain>
+ <87cxsaabf2.fsf@mail.parknet.co.jp>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,87 +67,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: MAN6sKHDZ5xSD9tk7QxbYcR75IRqTHohPZ66XJ/LIHWx3WFSywMepV1F
-	vcaAmdp8Iw5XmE27GZ37DxEYpBCzlp6WXw78pNVWFh/Q94IbDmYYMRKe98qHAae3xOLlqAE
-	kYiLjd0vuRJQA8HwJOpssdpQCEyr4z7KTc0Kpf+WsRLf1GMGBJ+orAL0Vc1ArUIm5qD9sxi
-	PISlZvcLWzktizp2U5NssH9+MlYcSDvqLANYctsOp/1GL5LGukfeeB5Ud/DgDOMLsUdAvg3
-	YF7XM46jMQZgz6+sV6gUGQAbmqN/5mCxztaTreeNTODzYvKK8xIOsVHUq219ICUBNke5rt+
-	C7WpGPJ8z19ognlPOiqTC7favJ8b4OeRpiCtdszT5OcspzsF7wZsNe9UfVSMb5ij98p6Ut/
-	Zmc/dlT7U5s7gnmo2OISwoMO26AgsUE1JYaBCD+SFoLNCP0t9h4OuaRMth9wCBj5gV/v3Ni
-	QxNoqR2YDsZsc+NrdgrSX3pA0jwVXemSKRWQkqywnn4Gyusd/VLNLKMu2wDTDaoFi7agDzw
-	697Xm4Pqp4b68CcI+0AgdwTpUDlFVK5TJ3t42b2pPUaTXACBngM34EOVJ170RZsO2Mlewjv
-	2nuyt6TAhVbSVMQP9McmND9A756YBh1fzNuEc+/x3b/GbMAo1MBhmgOEFL7ZX80H7Pjovep
-	BJdMaBKbpHeN+2hc86vGFZdxAtmMM3xRoL09YOv6GVhcobehazy6Ckd9HNYbq8YGwldisSd
-	YTjvEHHXHREpo3sBjmOAkxZTnuU3r8Vak/twGiaQKb6Y+JoOuEOKteoaBUSw9w1O/qEFGE5
-	hWkioitSdzoZlN85qODiCnHWMxVTdjXLJKD3dDj6yeaGVcUldwdnVWhQtl1bPmfJpOGa/XJ
-	nx5j3aFqH/9l8p8bstViH0QCDZWQql12yP6NTbMS/FXaxUgSfjzhzdM88A8HQgZB38ODKR/
-	H6a+IG3IN9Y9NVb5JIFkHZyczF38v7FwGe8n5rgBA9rPq+bfSFXozvloRHFlLmEeeBgp07S
-	/R13nJd83+E/k0BelK8NEpbXSLsajRFn3KhGuv/QIJ1mqFmGkO/57WGvLb0VA=
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87cxsaabf2.fsf@mail.parknet.co.jp>
 
-mcp_init_work() uses a static retry counter, so all MCP2221 devices share
-the same retry budget. Initializing one device can exhaust the retries
-available to another device, including a new instance after unplugging
-and reconnecting the bridge.
+On Thu, Nov 12, 2026 at 02:03:45PM +0900, OGAWA Hirofumi wrote:
+>Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br> writes:
+>
+>
+>[...]
+>
+>>>>  	if (fat_cache_lookup(inode, cluster, &cid, fclus, dclus) < 0) {
+>>>> -		/*
+>>>> -		 * dummy, always not contiguous
+>>>> -		 * This is reinitialized by cache_init(), later.
+>>>> -		 */
+>>>> -		cache_init(&cid, -1, -1);
+>>>> +		/* Cache the contiguous prefix from the known first cluster. */
+>>>> +		cache_init(&cid, 0, *dclus);
+>>>
+>>>Doesn't this add a needless cache? 0 is cached in the inode itself,
+>>>isn't it? (and can be waste small fatent cache slots?)
+>>>
+>>
+>> This is mostly for caching the number of contiguous clusters starting
+>> from 0. i_start only really tells us the first cluster of the file. I'm
+>> not exactly sure of the best way to approach this, though. I guess we
+>> can skip caching when its a one cluster range in this case?
+>>
+>> What do you think?
+>
+>Ah, sure. I think because it is fat_cache_lookup() and stuff are
+>implemented for nr_cont == 1. So I think better way would be supporting
+>the range lookup in whole cache stuff. (however, it can be relatively
+>complex)
+>
+>Thanks.
+>
 
-When the counter reaches zero, the post-decrement also changes it to -1.
-A subsequent instance that receives -EAGAIN will then keep rescheduling
-its initialization work instead of stopping at the intended limit.
-Different devices can also update the shared counter concurrently.
+It seems like exfat had to solve a similar problem a while back:
+https://lore.kernel.org/linux-fsdevel/20260114121250.615064-1-chizhiling@163.com/
 
-Store the retry budget in struct mcp2221 and initialize it before queuing
-the IIO initialization work. Check for exhaustion before decrementing so
-the counter stays at zero once the retry limit is reached.
+Maybe I can work on porting some of that to fat. Would you rather it be
+in a separate series or just add it to the iomap series?
 
-Fixes: 960f9df7c620 ("HID: mcp2221: add ADC/DAC support via iio subsystem")
-Signed-off-by: tuhaowen <tuhaowen@uniontech.com>
----
- drivers/hid/hid-mcp2221.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/hid/hid-mcp2221.c b/drivers/hid/hid-mcp2221.c
-index 3f05d6e288f9..f8f4788ba935 100644
---- a/drivers/hid/hid-mcp2221.c
-+++ b/drivers/hid/hid-mcp2221.c
-@@ -136,6 +136,7 @@ struct mcp2221 {
- 	u8 gpio_dir;
- 	u8 mode[4];
- #if IS_REACHABLE(CONFIG_IIO)
-+	unsigned int iio_init_retries;
- 	struct iio_chan_spec iio_channels[3];
- 	u16 adc_values[3];
- 	u8 adc_scale;
-@@ -1190,7 +1191,6 @@ static void mcp_init_work(struct work_struct *work)
- 	struct iio_dev *indio_dev;
- 	struct mcp2221 *mcp = container_of(work, struct mcp2221, init_work.work);
- 	struct mcp2221_iio *data;
--	static int retries = 5;
- 	int ret, num_channels;
- 
- 	hid_hw_power(mcp->hdev, PM_HINT_FULLON);
-@@ -1238,8 +1238,9 @@ static void mcp_init_work(struct work_struct *work)
- 	mutex_unlock(&mcp->lock);
- 	hid_hw_power(mcp->hdev, PM_HINT_NORMAL);
- 
--	if (!retries--)
-+	if (!mcp->iio_init_retries)
- 		return;
-+	mcp->iio_init_retries--;
- 
- 	/* Device is not ready to read SRAM or FLASH data, try again */
- 	schedule_delayed_work(&mcp->init_work, msecs_to_jiffies(100));
-@@ -1346,6 +1347,7 @@ static int mcp2221_probe(struct hid_device *hdev,
- #endif
- 
- #if IS_REACHABLE(CONFIG_IIO)
-+	mcp->iio_init_retries = 5;
- 	INIT_DELAYED_WORK(&mcp->init_work, mcp_init_work);
- 	if (!gpio_mode_enforce)
- 		schedule_delayed_work(&mcp->init_work, msecs_to_jiffies(100));
--- 
-2.50.1
-
+Thanks,
+Matheus
