@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794593716;
-	b=J61iyFS0tU/fH0ZL53Yho2g799Njjrd1N1iyRwoDiUkTstwub6JYPysN8nUAdHyhbA3b
-	 8yOaJwSwFNuBgePTVIMiluPaSEnnBDVHtBCQc0aRlWqLL9Jn5R1EW6zpHSgHvVSuaMDlO
-	 l1V4IrF4bDGxORuu9pSfQ9JaJkk+jcxIXA9iBDgS9sZfOmU/62hdo/bx3txIdbKWbYOIS
-	 8fjye/TxUSUAQxfynAjzYJEdSh6yOy0Mm7KhgIq3qOMMvoIPL6ivoHgOXi8zUAb77ATgh
-	 W+TTJ13UXv4klxXE30EIx5X6eO9/cpYfwNXG1zGO2rS0TsBG3sqyUUMI/8SyVNFGsSw==
+	t=1794593717;
+	b=a4baitVlgBFncqj5ZrwxKGQ5GDrzgubaIqElpAB7LmDjGhD2mHgtwn9J02f9ECCUOs8F
+	 JLQ7vGdhZjs6ZmX43CSi+LdkUQV4sMsGEU7oWczHFInlTlpYrtlve1IbmlcpL58a1qyD5
+	 KcQE/Z17cnoJr40VaWo5Hf06ciDrosYw70QiFl/m0aYsuFCjs8u7T5L977PdbV8a3BF0r
+	 flGDgb+IPNkndLDTH03ZxqmkJ9dQVFiskb8xB2XVzerG951v+scHr5Z7um6vc8xPjdpQf
+	 ticum+xuhXgQzs69VbCZ1bq3191gOJYfprFlb3vAyGRtx1O87vONZXxEcvK8kd6lWpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794593716;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794593717;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=npRJKj6BlqdwFJKciGGphf3F65mEV9WXqQjzPBUisy8=;
-	b=Yq+Mcp6k5XZzn+Yx1N+4wdADA2QIJ/Bq0IVDvmKzj44CbTXR28sL6K6XaQ06MrFfiT8i
-	 mBnesaP+Vx3q/Jp6mO8HVV/QG8Tdol923pyQFne+jndYzBbj/wVLJWpx5DV40VP4wt2tH
-	 /h8w+LKJWCE0/uJkfiCIekyje9Y3abWysGpEVD+ZJw++baRjz2TDKUdH0ybz13OlVeKR5
-	 g7z7X7ydbp+AaTwE9U2uDuSG7bP42V+syBOo5ZqyPEUZ2Xh5nfRzlqBobYS0vvnbUDb6J
-	 tOObwUm9PCGZHlcbIuzUKfcndL9o/vnK86NrFdrYmSOgwePXhuueVroAqU+yuxyw5lQ==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=pXd3NE3a9vZpON3Emx1ANH5JXe3mwmM6bqAyvg/n24k=;
+	b=rup+lF1VDLl10e8mgf4qEQboubE2Bm3i4+zMtT6a6gxbyd3owlQFfnoAfOOv2PR71GQi
+	 TMD4bx1kuHhmLXPI3pUeG+Jj+UzgSxX/k0cyrF2pPTFt4UA4khuCOxLCm+LKiptRhXHAY
+	 5MKpYqunywrBEITn8epwVkjxTLs4ZyVsQxJnx9lfG7qfMddo1Ac1ZAwYxqrypBIxEWYrI
+	 cNyTcL1Y6BqVfQwSLeGISPnDYik/yF4b5sPJW3SxMwz/UTNyUQxVIj0EToqsNwyONyNjt
+	 5c22FGcyDtWSzKRyZcIgc37REyZdgXWfShU2eJEgaiFGnGtWyD66IUA/oPXzmIMNI0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="J/k7awWC";
-	arc=none smtp.remote-ip=209.85.210.43
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LD4geWOh;
+	arc=none smtp.remote-ip=209.85.210.54
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C676606A332
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:15:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C676606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55743606A338
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:15:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55743606A338
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J/k7awWC
-Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-843cf077f10so2768425a34.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:15:15 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LD4geWOh
+Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-843cf077f10so2768444a34.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:15:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794593714; x=1795198514; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=npRJKj6BlqdwFJKciGGphf3F65mEV9WXqQjzPBUisy8=;
-        b=J/k7awWCTtExBlaoJV2L0+ligF6OnNLrc+PngL/zx2l/yo0p19NlLwSvJNpr9DM/1d
-         sD4i78zgkfDOTAXz2wB1oqXDxuZRCzIaPe+HU71YgkAfeRhO1SNKXoWEqU8v26my/lYv
-         TDqc0Nd2S1tWGhncZr/Ya+qPqTCir9VjVGRS6EdKZh18idaRXUnRtjxgr6D5axupo9CS
-         J6sRL3UjSOY441Q3i/3AuLcF8efUXw3LSRltVEbj5xbEfYsdTBDcVU+17yIpRKq9c8mo
-         wG4zjkpTHk1pn3rqtWLtjIVuZ6QE/8riLtYuygjIR0VGv3A0uWoBlk/r4UBCiFZxssJf
-         7DKQ==
+        d=gmail.com; s=20260707; t=1794593715; x=1795198515; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pXd3NE3a9vZpON3Emx1ANH5JXe3mwmM6bqAyvg/n24k=;
+        b=LD4geWOh/+TM6mt5JXNr7IV00e/So0WoR1NWeirFANS8jUc1LSrIQN8g/UVHF4DT/v
+         gDk7UHbhdL3xxhnW5owSDj5f+J8GfFP6gaEL/SAJWDcJC9kOPg7J7zgXfJkpioeQ4WV6
+         SPJYdkNT8B7wXDvGz0wJNa1BQDbpaWJMbA8+HkgmhG2LQD71qZVqE4qv/5Onh48MbS3y
+         bd8RtrSMyxf6qe4d5zd/NuLklCUE2/lBsuSzBNRsyzq+UTJflaUuG7XvyJ7109dsgTJv
+         whEL/7wi8N+vRbFV/bjbmRWEv4dsl6uhOzS8BPhfflV7HtDhrbrzLadw29rz9gxVPUE+
+         XM8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794593714; x=1795198514;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=npRJKj6BlqdwFJKciGGphf3F65mEV9WXqQjzPBUisy8=;
-        b=AKLKKXgMiegkt0dtz1VK1pNK5A/RJCbU5vuvbaA/2W7xe85W0BtI+8gXIoiec2Wf+s
-         k7za9Go+gsy6qax9biQo8UW1DFQt55LvpG89VeePnLZncUQ4FPrN2q7NUnjQ7gbiKmYS
-         Vro9FQGVObThtMsdX8T4FSvruqWDUZhuxrP1jTJMuR/SBbOGH0FMDPd3mLk2YQGY4/lr
-         +wnbNDYy3d8fBPHx4aACZvN2P5UydKkIOolDDhQqS6zDMg+OK182wIYUXmkzpM2GbnCj
-         tT3JMrHTEhtrmaXKri4BGJYFfGPGCLvqGlW+DR4ULBz/yccFNR2wQAqtLih5M87wCpzc
-         3OvA==
-X-Forwarded-Encrypted: i=1; AL+hErFKj+QF0KtwSn62HhkLq3uYpjHAU911E15aCkIkApKzSo7VDj3UkraTD4axD3o51NaV9JgWw+uVbC3I3g0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/yNkc2lyY1LszPHacB78qc3mF3nqxE5KttrmKKTScj1QBggxtg
-	J4b9oIrIAb0n8KDaDoG50BTslujQiydBBtpV81pLxxzxlC+dQIYDeyCuo38E3AgH
-X-Gm-Gg: AYBFou2xcNiVMY5KJk8L2hxO+cfDjM9/GXMU+R7SlELa2fG0s0FnOKbCwVXAgUUqZA/
-	urxAVN0EQMY0bA20cq6dQJDoqld7EjOzUzqBL1Ip+ih/yXdcwOOcJQYd79OxAWK1GFKElOG4Kgw
-	Lb+ArGrsoX/kxf1UqYDji/sO0waSyKI8m1+wPRDu3ujGGMg+PgEIlsw0Pq+pOPriIPkD/WbnfPB
-	fDja0t0er3h8dIGfTRxnApDWcqxmlyRAIVe7HTDl6Oj/bOxPPBp/NUjDiijeEth9JXuSIJUZzG/
-	nbKx2Hy7mpAzTXtVxO/jQV8ACw4lwYDuKVYoWsjNfI5bt42d9KWdSBdSw7kRbF9okKDEUZy6YTs
-	MIJyCKtPIpnCljx2cHgFtZoTs2aJpDZLWP/nhal7emOk9frbkvAP2msb9Awa6ngfTUA+4KDi+X/
-	v2E2fgwwHC9J2MHW+wt6MGhLu0ZjyHoEgP2gr5j70na8yRB1HEPyvh4Au+0qMISeQRzZcZqSgYh
-	iRjbtvdehE+bVJN3PPJokw9rnu27aoSOxgP5VrNLpxPBE6SMCF7Z87ODHHBxuOZFexwmrrId8HQ
-	CNULCZTVCVbVJlvIBJw8jgD54hxBunCVxmWgyntjq+SM80dnRq0jZgVuzx5YzteWSnCXILjRY4b
-	wVOn5Mhe4jiFkUypaqkjnOkiuNVyvCz/Hqlyx6JgM//P8/TqvTiq33rNLLoGgskLt2fpHP3mYJw
-	ZqF33BZiipAgC/G6nE0aqglWYDrjKZn7IsVNfRKcHs7hz9x7f5cG8=
-X-Received: by 2002:a05:6830:230f:b0:85f:aa6:b7f1 with SMTP id 46e09a7af769-862898e6a6cmr2948369a34.23.1794593714124;
-        Fri, 13 Nov 2026 10:15:14 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794593715; x=1795198515;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pXd3NE3a9vZpON3Emx1ANH5JXe3mwmM6bqAyvg/n24k=;
+        b=kZv20ZdWrnAZZ6K46qci0duBi77C+TRomEp4rDg0wAfgHlldibcno5cMxjelZ0DI7x
+         YmgBAo/j4UfknS0tBhqzHoXak1amgVpzXiuscbEQQuIdZMtGNYJV6bUMZiukYgc/RmMZ
+         090Ie2+Wm+nmi+CS//LuKCAmub7JmVy3hI7Fn5QFnCsanAI4PSOVLVpK6Jykv9J7GIwq
+         nfEXJyl3auxrnTlQaeMmGCw4YHWOZUWvzIwWIZ7YDmA23MLcdvwqe+V01PxI4dS7wnuD
+         eyHc4p7MwAxfEBM+ISDFSiQa6OqQCLq88KjbFYZhQox1xY1espKusCW1lilmmj6HAEKy
+         OA7g==
+X-Forwarded-Encrypted: i=1; AL+hErFRaQFID5Y/SP0TQ5IgvawQGL1IAnMKZmgaJT2/YTwi5KG12EmoUlm4ILdCgh7rlbvj+59aB3wngCFHDJU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/cd1h7OxjJOeDDF2+V3wLDmAAX+2+4JXW6zssZHCP0N3fShPwI
+	YlmugREOxOS08sCp4NM63vgiNP+Lqhr273LPnopuysZTpZzmL/x/W/yLbS/5Yxrg
+X-Gm-Gg: AYBFou2U11mAaMkgjMDHHzJ0eOxwCuCMzZH4HFdOXY362v8/eJ6CQByfmJJ2HTdEGVo
+	beQt7Y7q9LlmfSFHXC/+piCNaXnzTShBc2E+E0DZzsIk3iLUvdYnw8I4n58ZElhwMt/t8UAltvX
+	WXVaBK+Ty2qjErYmk4IW2MHPul5nBZPiMg5xx9z1DHo4jgURIE4iOGUtJv+DLMerOcTuJnQ1YlW
+	bLOBqrP9sk4kbczV5EqodxEfMZk35la9lJnsaxaOHrXtgGbpKifWITQjZcWd+S8XkVqPLxy2axk
+	sBnaa/6v3eKqxG9EEzUJ0emzMZvsPb+G5rhI0PTM63whtMghP8tS2EmuzlIuE5OPZ7WjRByyW8a
+	3ryLPeTJkj9MYiUnEjeTIRwCeclPc9diwAHX0iJ7g2bdShdKAbdR41SsHuNS3C0y7l9pSE8Z2j/
+	1iArGz84P4xAIbKb401vSLA/9sbsneyqu2AyPAFjBQA8LqwVE5M4AVkZht+zOm/Xh6PpqTDC227
+	sLKT4c67D9plobEMVT1Nze/hPc55yH2fRtUDYy6YdbEk6NQdQ5XklaGUmP2fUZjqwQWeSlKWUUF
+	wBUyGgtNSc/ClobTwI5/LoZGzZwYtK7bTAHt8fs2wRY8HCOpW4Fxqnu9+N/crPTzCPqqGhircGc
+	FWKfuanIsZR1e/beIPBxdjqlf/xdEJIcgXTTsUG5Elf6jwq4YWd9lLXGXqktUjzlOxawSo5CYYf
+	kZrGA9xiZMoyTsK1RX+hJAcAEpQVDI6esgOhd8h+VI1RfdWEvk/EQ=
+X-Received: by 2002:a05:6830:a21b:10b0:81c:a6c8:8a65 with SMTP id 46e09a7af769-86289905565mr1874053a34.25.1794593715114;
+        Fri, 13 Nov 2026 10:15:15 -0800 (PST)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8628817d979sm3253414a34.22.2026.11.13.10.15.10
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8628817d979sm3253414a34.22.2026.11.13.10.15.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 10:15:12 -0800 (PST)
+        Fri, 13 Nov 2026 10:15:14 -0800 (PST)
 From: James Hilliard <james.hilliard1@gmail.com>
-Subject: [PATCH v4 00/58] mtd: rawnand: retain chip and controller state
- across removal
-Date: Fri, 13 Nov 2026 11:14:16 -0700
-Message-Id: <20261113-submit-rawnand-retained-handle-lifetime-v1-v4-0-556b1d7c6221@gmail.com>
+Date: Fri, 13 Nov 2026 11:14:17 -0700
+Subject: [PATCH v4 01/58] nvmem: disconnect provider callbacks before
+ unregister returns
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,420 +96,1247 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5VUzW6jNwx8lcDnuqAoSpRy6nsUPYh/m69InK3tT
- Vss8u6lvYsi9i3QSYBmhuIM+X138uPmp93jw/fd0d+20/Z6yAv98rDTp3X44vvN8r5DwF4K0P7
- 0TV628/64/j6sg+2Pfl7bwW2fj+3Z989b+Hl78f1b2YMQYvOmDrJLwq9Hj+2fq9jvf/y4J9ufr
- ueLws8XR//rW1Zx/vFs93Wd9SlreHxYrchUIWAu0GjOUqtSqdaG8jIsNrlKHVee/1FSO0+1RZb
- QrCTBKBGOZtC4CzayILJbFLA0ZXCiZbMVQ3Bfk3joHGGrNlfuTeEWtcRXA+Q2EcNrm8aoqZwdE
- MVSBEjEGt+iGvOljkIRArWWWmYAEhWM/FNKka4Jrd9VOMVR1sqvlIBWGQh7VSUBqzMw1qKgqbc
- orctG6wCmY/LSWkCcGtiwtTArD5nF/U6L1hXTWjVTZZO2Zip6WNa1uKh1rNHb/b/mnNk3WjRx5
- mttq80qAJ4qalxjleZ3fmGqlzVWxbBCbA0dYhpUbqNXmgVtSHjcogoNthjqw7vSIC5hzMrEoD7
- TgIGWjtx1I10UHz0mDpuadkqgSod0tnVGhtFKCaU7l7UPn9Kb1bVa70UsOwmBmS3TyNy00PC7b
- DhD5FEyqmBU+rpYQUMqRywrPVks4C4b2V5TM9EGwdTcsRPIyDBFleC+sHAgzTtU/kF4SS+zA/e
- oyDpLBqY5yxBBaGlywQtK1sn3+vqSM/34kJVloqpzhkPSdZvC6E1ARzfrjhlmzgDtLtP7tJ3Or
- 8d/r5vjrVyH9eeS4M8sicue2EMZxbM7Sjp++/Kytudfs6arzBt+oC7wKWpM6lwTbDByRizuqet
- H6vIp6prU6jkFGXKmYh+p39/f/wM6ZulZWAUAAA==
-X-Change-ID: 20261104-submit-rawnand-retained-handle-lifetime-v1-0b4225e5ce0b
+Message-Id: <20261113-submit-rawnand-retained-handle-lifetime-v1-v4-1-556b1d7c6221@gmail.com>
+References: <20261113-submit-rawnand-retained-handle-lifetime-v1-v4-0-556b1d7c6221@gmail.com>
+In-Reply-To: <20261113-submit-rawnand-retained-handle-lifetime-v1-v4-0-556b1d7c6221@gmail.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>, 
  Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
 Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
  James Hilliard <james.hilliard1@gmail.com>, 
- Srinivas Kandagatla <srini@kernel.org>, Tze Yee Ng <tze.yee.ng@altera.com>, 
- Richard Cochran <richardcochran@gmail.com>, 
- Jonathan Lemon <jonathan.lemon@gmail.com>, 
- Vadim Fedorenko <vadim.fedorenko@linux.dev>, 
- Yuqiang Sun <izaiahsun@gmail.com>, 
- Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Bernhard Frauendienst <kernel@nospam.obeliks.de>, 
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, Kees Cook <kees@kernel.org>, 
- linux-hardening@vger.kernel.org, Arseniy Krasnov <AVKrasnov@sberdevices.ru>, 
- Boris Brezillon <bbrezillon@kernel.org>, 
- Brian Norris <computersforpeace@gmail.com>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- Samuel Holland <samuel@sholland.org>, Chen-Yu Tsai <wens@kernel.org>, 
- David Woodhouse <dwmw2@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
- Vitaly Wool <vitalywool@gmail.com>, 
- David Woodhouse <David.Woodhouse@intel.com>, 
- Russell King <rmk+kernel@arm.linux.org.uk>, Mike Rapoport <rppt@kernel.org>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Christophe Kerello <christophe.kerello@st.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Jason Roberts <jason.e.roberts@intel.com>, 
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Michal Simek <michal.simek@amd.com>, Mason Yang <masonccyang@mxic.com.tw>, 
- Ramuthevar Vadivel Murugan <vadivel.muruganx.ramuthevar@linux.intel.com>, 
- Lucas Stach <dev@lynxeye.de>, Dmitry Osipenko <digetx@gmail.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>, linux-tegra@vger.kernel.org, 
- Stefan Agner <stefan@agner.ch>, Thierry Reding <thierry.reding@kernel.org>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>, 
- linux-mediatek@lists.infradead.org, 
- Matthias Brugger <matthias.bgg@gmail.com>, Heiko Stuebner <heiko@sntech.de>, 
- linux-rockchip@lists.infradead.org, 
- Yifeng Zhao <yifeng.zhao@rock-chips.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
- Nicolas Ferre <nicolas.ferre@microchip.com>, 
- Keguang Zhang <keguang.zhang@gmail.com>, linux-mips@vger.kernel.org, 
- Shan-Chun Hung <schung@nuvoton.com>, Jacky Huang <ychuang3@nuvoton.com>, 
- Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, 
- imx@lists.linux.dev, Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Han Xu <han.xu@nxp.com>, 
- linux-renesas-soc@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>, 
- Kevin Hilman <khilman@baylibre.com>, Liang Yang <liang.yang@amlogic.com>, 
- linux-amlogic@lists.infradead.org, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org, 
- Manivannan Sadhasivam <mani@kernel.org>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Kamal Dasu <kamal.dasu@broadcom.com>, 
- Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>, 
- Vladimir Zapolskiy <vz@mleia.com>, Harvey Hunt <harveyhuntnexus@gmail.com>, 
- Paul Cercueil <paul@crapouillou.net>, 
- Maxim Levitsky <maximlevitsky@gmail.com>
+ Srinivas Kandagatla <srini@kernel.org>, Tze Yee Ng <tze.yee.ng@altera.com>
 X-Mailer: b4 0.15.2
 
-An MTD handle can outlive controller unbind. Its metadata and NAND locks
-must remain valid, including when a writable file closes and calls sync,
-while further hardware access must be rejected after disconnection.
+An NVMEM consumer or device reference can outlive provider unbind. The
+reference retains the NVMEM allocation, but not the private data or
+hardware resources that the provider releases during remove. Pinning the
+provider module also does not prevent unbind from freeing that state.
 
-This builds on earlier MTD removal-lifetime work. Commit 19bfa9ebebb5
-("mtd: use refcount to prevent corruption") added MTD reference counting
-[0], but retaining an MTD reference does not by itself retain the
-driver-owned allocation containing the master. The read/unbind discussion
-also covered raw NAND [1] and draining active operations [2]. Tze Yee Ng's
-SPI-NOR series addresses the corresponding SPI-NOR paths [3].
+Reject new callback access once unregister starts and drain admitted
+accesses with SRCU before returning to the provider. Cover register
+access, keepout handling, cell post-processing and device matching.
+Existing consumers retain core-owned metadata and return -ENODEV after
+disconnection. Release the write-protect GPIO after the drain so
+retained references do not prevent a new provider from requesting it.
+The final device release frees only core-owned data.
 
-Following Greg's review [7], separate class-device data from the MTD
-backing allocation. Delete the device's interfaces and drain NVMEM and
-class PM callbacks before releasing backing data. Bare device references
-retain an independently allocated device, whose type, PM dispatch and
-final release are built in even when MTD is modular. NVMEM similarly
-disconnects and drains provider and layout callbacks before unregister
-returns; retained consumers keep core-owned metadata and receive -ENODEV
-on subsequent access.
+Give cell entries their own references and retire layout cells when
+their driver is unbound. Remove and drain cell attributes and callbacks
+before layout-owned state is freed. Rebinding creates new entries; held
+old cells remain disconnected. Remove partially added cells when a
+layout probe fails, and destroy the layout during provider unregister
+rather than at the final consumer put.
 
-Introduce opt-in backing-object ownership for MTD masters. Registered
-nodes and acquired MTD handles retain the chip, while nested partitions
-also retain their parent metadata. Unregister first so removal notifiers
-can finish I/O, then disconnect raw NAND and drain admitted operations.
-Hardware resources can be released without waiting for open files to close.
+Track layout ownership explicitly so provider cells added after layout
+creation survive its unbind. Rebuild sysfs cell attributes when layouts
+bind or unbind, retaining cell entries until their attributes have been
+removed. Free partial attribute allocations on failure and remove the
+group before device deletion. Only notify provider removal after a
+successful registration notification.
 
-Virtual concatenations serialize publication and removal across physical
-controllers. Disconnect and drain a published concatenation before any
-component can disappear, then release its component references. An old
-handle keeps the disconnected virtual device, independently of a later
-replacement.
+Preserve the existing exporter-module references and allow providers
+to specify an explicit NULL owner when their operations are built in.
+Providers remain responsible for unregistering before releasing
+callback state.
 
-Run NAND and controller-specific cleanup during disconnection, while
-the controller driver is still bound. Snapshot the OOB layout in core-owned
-data before publication so metadata queries remain valid without driver
-callbacks. The NAND core frees retained chip and controller allocations;
-the final MTD put never calls back into the controller module. Ordinary
-MTD and NVMEM handles retain the NAND core that implements their
-operations, rather than the hardware driver.
+Retain the firmware node explicitly and serialize consumer-reference
+acquisition with disconnection. This lets MTD unregister an OTP provider
+before freeing its backing object without requiring a release callback
+into the departing provider module.
 
-Share allocation ownership across the raw-NAND drivers, including
-partially published probes. Shared controllers remain allocated until
-their last retained chip is released. R852 allocates a new chip for each
-card, and NDFC allocates controller state per binding.
-
-Based on NAND next at 30daaf3e7897, with Tze Yee Ng's module-reference
-ordering fix [4], Karl Mehltretter's OTP cleanup fix [6], and the separately
-posted registration, operation-locking and controller probe/teardown fixes
-identified by the prerequisite metadata. TLA+ models and their assumptions
-and coverage limits are available in [5].
-
-[0] https://lore.kernel.org/r/20230620131905.648089-2-alexander.usyskin@intel.com
-[1] https://lore.kernel.org/r/CAND4H7dz94Gsi_tXSQmLNme9uROnouOUwuCX9BW_+RCc2ZFDqA@mail.gmail.com
-[2] https://lore.kernel.org/r/mafs0bjs73tbq.fsf@kernel.org
-[3] https://lore.kernel.org/r/20261022035352.52129-1-tze.yee.ng@altera.com
-[4] https://lore.kernel.org/r/20261022035352.52129-2-tze.yee.ng@altera.com
-[5] https://github.com/jameshilliard/linux-h616-nand-tla
-[6] https://lore.kernel.org/r/20260816163027.10044-1-kmehltretter@gmail.com
-[7] https://lore.kernel.org/r/2026111037-stir-hermit-cb21@gregkh
-
-Assisted-by: Codex:gpt-6-astra
+Cc: Srinivas Kandagatla <srini@kernel.org>
+Cc: Tze Yee Ng <tze.yee.ng@altera.com>
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
-Changes in v4:
-- Keep MTD subdirectories behind CONFIG_MTD so boolean child options
-  do not become built-in users of a modular MTD core.
-- Serialize partition publication with deletion and retain a handle
-  while parsing subpartitions. Reject children of removed partitions.
-- Distinguish explicit NULL NVMEM owners from the parent-module
-  fallback, including OTP providers backed by built-in NAND code.
-- Register layout-owned cells explicitly, preserving provider cells
-  added before or after a layout binds.
-- Rebuild cell attributes across layout bind/unbind, free partial
-  allocations on failure and remove attributes before device deletion.
-- Pair NVMEM_REMOVE notifications only with successful NVMEM_ADD
-  notifications and remove the redundant disconnected-device check.
-- Resolve concatenation OOB layouts through the first component's
-  master, including partition-backed components.
-- Link to v3: https://patch.msgid.link/20261111-submit-rawnand-retained-handle-lifetime-v1-v3-0-ce537999741d@gmail.com
+ drivers/nvmem/Kconfig                |   1 +
+ drivers/nvmem/core.c                 | 463 +++++++++++++++++++++++------------
+ drivers/nvmem/internals.h            |  16 +-
+ drivers/nvmem/layouts.c              |   2 +
+ drivers/nvmem/layouts/fixed-layout.c |   2 +-
+ drivers/nvmem/layouts/onie-tlv.c     |  20 +-
+ drivers/nvmem/layouts/sl28vpd.c      |   3 +-
+ drivers/nvmem/layouts/u-boot-env.c   |  25 +-
+ include/linux/nvmem-provider.h       |  16 +-
+ 9 files changed, 373 insertions(+), 175 deletions(-)
 
-Changes in v3:
-- Finish NAND and driver cleanup during disconnection, leaving final
-  allocation release in the NAND core, following Greg's networking example.
-- Snapshot OOB layouts before publication and drain complete BBM/BBT
-  updates before releasing their working state.
-- Separate MTD class-device allocation and final release from backing-object
-  ownership, following Greg's review.
-- Drain class PM callbacks under the device lock before detaching backing
-  data; keep device-type and PM dispatch storage with the built-in device.
-- Drain NVMEM provider and layout callbacks during unregister, retaining
-  core-owned metadata for old consumers and retiring cells across rebind.
-- Keep NVMEM consumer-owner references, with converted raw NAND
-  providers naming the NAND core instead of the controller module.
-  Release write-protect GPIOs once provider callbacks are drained.
-- Acquire an MTD handle for PTP OCP firmware updates through a class device.
-- Drain concatenation operations before releasing components, including
-  concurrent removal of masters without opt-in lifetime ownership.
-- Use scoped cleanup consistently in Tegra probe and add the introducing
-  commits for Socrates and FSL UPM, following Sashiko's review.
-- Link to v2: https://patch.msgid.link/20261110-submit-rawnand-retained-handle-lifetime-v1-v2-0-9137d08f05df@gmail.com
+diff --git a/drivers/nvmem/Kconfig b/drivers/nvmem/Kconfig
+index c36c2a4c2a0b..550f3118071a 100644
+--- a/drivers/nvmem/Kconfig
++++ b/drivers/nvmem/Kconfig
+@@ -1,6 +1,7 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ menuconfig NVMEM
+ 	bool "NVMEM Support"
++	select SRCU
+ 	imply NVMEM_LAYOUTS
+ 	help
+ 	  Support for NVMEM(Non Volatile Memory) devices like EEPROM, EFUSES...
+diff --git a/drivers/nvmem/core.c b/drivers/nvmem/core.c
+index 0556d140170a..b71d80d140dd 100644
+--- a/drivers/nvmem/core.c
++++ b/drivers/nvmem/core.c
+@@ -13,6 +13,7 @@
+ #include <linux/idr.h>
+ #include <linux/init.h>
+ #include <linux/kref.h>
++#include <linux/lockdep.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
+ #include <linux/nvmem-consumer.h>
+@@ -26,7 +27,11 @@
+ #define to_nvmem_device(d) container_of(d, struct nvmem_device, dev)
+ 
+ #define FLAG_COMPAT		BIT(0)
++#define FLAG_REGISTERED		BIT(1)
+ struct nvmem_cell_entry {
++	struct kref		refcnt;
++	bool			disconnected;
++	struct nvmem_layout	*layout;
+ 	const char		*name;
+ 	int			offset;
+ 	size_t			raw_len;
+@@ -54,31 +59,30 @@ static LIST_HEAD(nvmem_lookup_list);
+ 
+ static BLOCKING_NOTIFIER_HEAD(nvmem_notifier);
+ 
++static void nvmem_cell_entry_put(struct nvmem_cell_entry *cell);
++
+ static int __nvmem_reg_read(struct nvmem_device *nvmem, unsigned int offset,
+ 			    void *val, size_t bytes)
+ {
+-	struct nvmem_operations *ops = nvmem->ops;
+-
+-	if (!ops->reg_read)
++	if (!nvmem->reg_read)
+ 		return -EOPNOTSUPP;
+ 
+-	return ops->reg_read(nvmem->priv, offset, val, bytes);
++	return nvmem->reg_read(nvmem->priv, offset, val, bytes);
+ }
+ 
+ static int __nvmem_reg_write(struct nvmem_device *nvmem, unsigned int offset,
+ 			     void *val, size_t bytes)
+ {
+-	struct nvmem_operations *ops = nvmem->ops;
+ 	int ret, wr_ok;
+ 
+-	if (!ops->reg_write)
++	if (!nvmem->reg_write)
+ 		return -EOPNOTSUPP;
+ 
+ 	ret = gpiod_set_value_cansleep(nvmem->wp_gpio, 0);
+ 	if (ret)
+ 		return ret;
+ 
+-	wr_ok = ops->reg_write(nvmem->priv, offset, val, bytes);
++	wr_ok = nvmem->reg_write(nvmem->priv, offset, val, bytes);
+ 
+ 	ret = gpiod_set_value_cansleep(nvmem->wp_gpio, 1);
+ 	if (ret)
+@@ -154,6 +158,10 @@ static int nvmem_access_with_keepouts(struct nvmem_device *nvmem,
+ static int nvmem_reg_read(struct nvmem_device *nvmem, unsigned int offset,
+ 			  void *val, size_t bytes)
+ {
++	guard(srcu)(&nvmem->srcu);
++	if (READ_ONCE(nvmem->disconnected))
++		return -ENODEV;
++
+ 	if (!nvmem->nkeepout)
+ 		return __nvmem_reg_read(nvmem, offset, val, bytes);
+ 
+@@ -163,6 +171,10 @@ static int nvmem_reg_read(struct nvmem_device *nvmem, unsigned int offset,
+ static int nvmem_reg_write(struct nvmem_device *nvmem, unsigned int offset,
+ 			   void *val, size_t bytes)
+ {
++	guard(srcu)(&nvmem->srcu);
++	if (READ_ONCE(nvmem->disconnected))
++		return -ENODEV;
++
+ 	if (!nvmem->nkeepout)
+ 		return __nvmem_reg_write(nvmem, offset, val, bytes);
+ 
+@@ -289,8 +301,6 @@ static ssize_t bin_attr_nvmem_write(struct file *filp, struct kobject *kobj,
+ 
+ static umode_t nvmem_bin_attr_get_umode(struct nvmem_device *nvmem)
+ {
+-	struct nvmem_operations *ops = nvmem->ops;
+-
+ 	umode_t mode = 0400;
+ 
+ 	if (!nvmem->root_only)
+@@ -299,10 +309,10 @@ static umode_t nvmem_bin_attr_get_umode(struct nvmem_device *nvmem)
+ 	if (!nvmem->read_only)
+ 		mode |= 0200;
+ 
+-	if (!ops->reg_write)
++	if (!nvmem->reg_write)
+ 		mode &= ~0200;
+ 
+-	if (!ops->reg_read)
++	if (!nvmem->reg_read)
+ 		mode &= ~0444;
+ 
+ 	return mode;
+@@ -333,7 +343,6 @@ static umode_t nvmem_attr_is_visible(struct kobject *kobj,
+ {
+ 	struct device *dev = kobj_to_dev(kobj);
+ 	struct nvmem_device *nvmem = to_nvmem_device(dev);
+-	struct nvmem_operations *ops = nvmem->ops;
+ 
+ 	/*
+ 	 * If the device has no .reg_write operation, do not allow
+@@ -342,7 +351,7 @@ static umode_t nvmem_attr_is_visible(struct kobject *kobj,
+ 	 * can be forced into read-write mode using the 'force_ro'
+ 	 * attribute.
+ 	 */
+-	if (attr == &dev_attr_force_ro.attr && !ops->reg_write)
++	if (attr == &dev_attr_force_ro.attr && !nvmem->reg_write)
+ 		return 0;	/* Attribute not visible */
+ 
+ 	return attr->mode;
+@@ -466,59 +475,102 @@ static void nvmem_sysfs_remove_compat(struct nvmem_device *nvmem)
+ 		device_remove_bin_file(nvmem->base_dev, &nvmem->eeprom);
+ }
+ 
+-static int nvmem_populate_sysfs_cells(struct nvmem_device *nvmem)
++static void nvmem_sysfs_free_cell_attrs(const struct bin_attribute * const *attrs)
+ {
+-	struct attribute_group group = {
+-		.name	= "cells",
+-	};
+-	struct nvmem_cell_entry *entry;
+-	const struct bin_attribute **pattrs;
+-	struct bin_attribute *attrs;
+-	unsigned int ncells = 0, i = 0;
+-	int ret;
++	if (!attrs)
++		return;
+ 
+-	guard(mutex)(&nvmem_mutex);
++	for (int i = 0; attrs[i]; i++) {
++		nvmem_cell_entry_put(attrs[i]->private);
++		kfree(attrs[i]->attr.name);
++		kfree(attrs[i]);
++	}
++	kfree(attrs);
++}
+ 
+-	if (list_empty(&nvmem->cells) || nvmem->sysfs_cells_populated)
+-		return 0;
++static void __nvmem_sysfs_remove_cells(struct nvmem_device *nvmem)
++{
++	lockdep_assert_held(&nvmem->sysfs_mutex);
+ 
+-	/* Allocate an array of attributes with a sentinel */
+-	ncells = list_count_nodes(&nvmem->cells);
+-	pattrs = devm_kcalloc(&nvmem->dev, ncells + 1,
+-			      sizeof(struct bin_attribute *), GFP_KERNEL);
+-	if (!pattrs)
+-		return -ENOMEM;
++	if (!nvmem->sysfs_cells_populated)
++		return;
+ 
+-	attrs = devm_kcalloc(&nvmem->dev, ncells, sizeof(struct bin_attribute), GFP_KERNEL);
+-	if (!attrs)
+-		return -ENOMEM;
++	device_remove_group(&nvmem->dev, &nvmem->cells_group);
++	nvmem_sysfs_free_cell_attrs(nvmem->cells_group.bin_attrs);
++	nvmem->cells_group.bin_attrs = NULL;
++	nvmem->sysfs_cells_populated = false;
++}
++
++static void nvmem_sysfs_remove_cells(struct nvmem_device *nvmem)
++{
++	guard(mutex)(&nvmem->sysfs_mutex);
++	__nvmem_sysfs_remove_cells(nvmem);
++}
++
++static int nvmem_populate_sysfs_cells(struct nvmem_device *nvmem)
++{
++	struct nvmem_cell_entry *entry;
++	const struct bin_attribute **attrs = NULL;
++	unsigned int i = 0;
++	int ret = 0;
+ 
+-	/* Initialize each attribute to take the name and size of the cell */
+-	list_for_each_entry(entry, &nvmem->cells, node) {
+-		sysfs_bin_attr_init(&attrs[i]);
+-		attrs[i].attr.name = devm_kasprintf(&nvmem->dev, GFP_KERNEL,
+-						    "%s@%x,%x", entry->name,
+-						    entry->offset,
+-						    entry->bit_offset);
+-		attrs[i].attr.mode = 0444 & nvmem_bin_attr_get_umode(nvmem);
+-		attrs[i].size = entry->bytes;
+-		attrs[i].read = &nvmem_cell_attr_read;
+-		attrs[i].private = entry;
+-		if (!attrs[i].attr.name)
++	guard(mutex)(&nvmem->sysfs_mutex);
++
++	__nvmem_sysfs_remove_cells(nvmem);
++
++	scoped_guard(mutex, &nvmem_mutex) {
++		if (nvmem->disconnected)
++			return -ENODEV;
++		if (list_empty(&nvmem->cells))
++			return 0;
++
++		attrs = kcalloc(list_count_nodes(&nvmem->cells) + 1,
++				sizeof(*attrs), GFP_KERNEL);
++		if (!attrs)
+ 			return -ENOMEM;
+ 
+-		pattrs[i] = &attrs[i];
+-		i++;
++		list_for_each_entry(entry, &nvmem->cells, node) {
++			struct bin_attribute *attr;
++
++			attr = kzalloc_obj(*attr);
++			if (!attr) {
++				ret = -ENOMEM;
++				break;
++			}
++			sysfs_bin_attr_init(attr);
++			attr->attr.name = kasprintf(GFP_KERNEL, "%s@%x,%x",
++						   entry->name, entry->offset,
++						   entry->bit_offset);
++			if (!attr->attr.name) {
++				kfree(attr);
++				ret = -ENOMEM;
++				break;
++			}
++			attr->attr.mode = 0444 & nvmem_bin_attr_get_umode(nvmem);
++			attr->size = entry->bytes;
++			attr->read = nvmem_cell_attr_read;
++			attr->private = entry;
++			kref_get(&entry->refcnt);
++			attrs[i++] = attr;
++		}
+ 	}
++	if (ret)
++		goto err_free;
+ 
+-	group.bin_attrs = pattrs;
++	nvmem->cells_group.name = "cells";
++	nvmem->cells_group.bin_attrs = attrs;
+ 
+-	ret = device_add_group(&nvmem->dev, &group);
+-	if (ret)
+-		return ret;
++	ret = device_add_group(&nvmem->dev, &nvmem->cells_group);
++	if (ret) {
++		nvmem->cells_group.bin_attrs = NULL;
++		goto err_free;
++	}
+ 
+ 	nvmem->sysfs_cells_populated = true;
++	return 0;
+ 
++err_free:
++	nvmem_sysfs_free_cell_attrs(attrs);
+ 	return ret;
+ }
+ 
+@@ -533,6 +585,10 @@ static void nvmem_sysfs_remove_compat(struct nvmem_device *nvmem)
+ {
+ }
+ 
++static void nvmem_sysfs_remove_cells(struct nvmem_device *nvmem)
++{
++}
++
+ #endif /* CONFIG_NVMEM_SYSFS */
+ 
+ static void nvmem_release(struct device *dev)
+@@ -540,8 +596,8 @@ static void nvmem_release(struct device *dev)
+ 	struct nvmem_device *nvmem = to_nvmem_device(dev);
+ 
+ 	ida_free(&nvmem_ida, nvmem->id);
+-	gpiod_put(nvmem->wp_gpio);
+-	kfree(nvmem->ops);
++	of_node_put(nvmem->dev.of_node);
++	cleanup_srcu_struct(&nvmem->srcu);
+ 	kfree(nvmem);
+ }
+ 
+@@ -553,22 +609,30 @@ static const struct bus_type nvmem_bus_type = {
+ 	.name		= "nvmem",
+ };
+ 
+-static void nvmem_cell_entry_drop(struct nvmem_cell_entry *cell)
++static void nvmem_cell_entry_release(struct kref *ref)
+ {
+-	blocking_notifier_call_chain(&nvmem_notifier, NVMEM_CELL_REMOVE, cell);
+-	scoped_guard(mutex, &nvmem_mutex)
+-		list_del(&cell->node);
++	struct nvmem_cell_entry *cell = container_of(ref, struct nvmem_cell_entry, refcnt);
++
+ 	of_node_put(cell->np);
+ 	kfree_const(cell->name);
+ 	kfree(cell);
+ }
+ 
++static void nvmem_cell_entry_put(struct nvmem_cell_entry *cell)
++{
++	kref_put(&cell->refcnt, nvmem_cell_entry_release);
++}
++
+ static void nvmem_device_remove_all_cells(const struct nvmem_device *nvmem)
+ {
+ 	struct nvmem_cell_entry *cell, *p;
+ 
+-	list_for_each_entry_safe(cell, p, &nvmem->cells, node)
+-		nvmem_cell_entry_drop(cell);
++	list_for_each_entry_safe(cell, p, &nvmem->cells, node) {
++		blocking_notifier_call_chain(&nvmem_notifier, NVMEM_CELL_REMOVE, cell);
++		scoped_guard(mutex, &nvmem_mutex)
++			list_del(&cell->node);
++		nvmem_cell_entry_put(cell);
++	}
+ }
+ 
+ static void nvmem_cell_entry_add(struct nvmem_cell_entry *cell)
+@@ -583,6 +647,7 @@ static int nvmem_cell_info_to_nvmem_cell_entry_nodup(struct nvmem_device *nvmem,
+ 						     struct nvmem_cell_entry *cell)
+ {
+ 	cell->nvmem = nvmem;
++	cell->disconnected = false;
+ 	cell->offset = info->offset;
+ 	cell->raw_len = info->raw_len ?: info->bytes;
+ 	cell->bytes = info->bytes;
+@@ -639,20 +704,17 @@ static int nvmem_cell_info_to_nvmem_cell_entry(struct nvmem_device *nvmem,
+ 	return 0;
+ }
+ 
+-/**
+- * nvmem_add_one_cell() - Add one cell information to an nvmem device
+- *
+- * @nvmem: nvmem device to add cells to.
+- * @info: nvmem cell info to add to the device
+- *
+- * Return: 0 or negative error code on failure.
+- */
+-int nvmem_add_one_cell(struct nvmem_device *nvmem,
+-		       const struct nvmem_cell_info *info)
++static int __nvmem_add_one_cell(struct nvmem_device *nvmem,
++				const struct nvmem_cell_info *info,
++				struct nvmem_layout *layout)
+ {
+ 	struct nvmem_cell_entry *cell;
+ 	int rval;
+ 
++	guard(srcu)(&nvmem->srcu);
++	if (READ_ONCE(nvmem->disconnected))
++		return -ENODEV;
++
+ 	cell = kzalloc_obj(*cell);
+ 	if (!cell)
+ 		return -ENOMEM;
+@@ -663,12 +725,45 @@ int nvmem_add_one_cell(struct nvmem_device *nvmem,
+ 		return rval;
+ 	}
+ 
++	kref_init(&cell->refcnt);
++	cell->layout = layout;
+ 	nvmem_cell_entry_add(cell);
+ 
+ 	return 0;
+ }
++
++/**
++ * nvmem_add_one_cell() - Add one cell information to an nvmem device
++ *
++ * @nvmem: nvmem device to add cells to.
++ * @info: nvmem cell info to add to the device
++ *
++ * Return: 0 or negative error code on failure.
++ */
++int nvmem_add_one_cell(struct nvmem_device *nvmem,
++		       const struct nvmem_cell_info *info)
++{
++	return __nvmem_add_one_cell(nvmem, info, NULL);
++}
+ EXPORT_SYMBOL_GPL(nvmem_add_one_cell);
+ 
++/**
++ * nvmem_layout_add_cell() - Add a cell owned by an NVMEM layout
++ * @layout: Layout registering the cell from its add_cells callback.
++ * @info: Cell description.
++ *
++ * The cell and its post-processing callback are disconnected when the layout
++ * is unregistered. Provider cells added with nvmem_add_one_cell() are retained.
++ *
++ * Return: 0 or a negative error code.
++ */
++int nvmem_layout_add_cell(struct nvmem_layout *layout,
++			  const struct nvmem_cell_info *info)
++{
++	return __nvmem_add_one_cell(layout->nvmem, info, layout);
++}
++EXPORT_SYMBOL_GPL(nvmem_layout_add_cell);
++
+ /**
+  * nvmem_add_cells() - Add cell information to an nvmem device
+  *
+@@ -729,6 +824,7 @@ nvmem_find_cell_entry_by_name(struct nvmem_device *nvmem, const char *cell_id)
+ 	list_for_each_entry(iter, &nvmem->cells, node) {
+ 		if (strcmp(cell_id, iter->name) == 0) {
+ 			cell = iter;
++			kref_get(&cell->refcnt);
+ 			break;
+ 		}
+ 	}
+@@ -789,12 +885,17 @@ static int nvmem_validate_keepouts(struct nvmem_device *nvmem)
+ 	return 0;
+ }
+ 
+-int nvmem_add_cells_from_dt(struct nvmem_device *nvmem, struct device_node *np)
++static int __nvmem_add_cells_from_dt(struct nvmem_device *nvmem, struct device_node *np,
++				     struct nvmem_layout *layout)
+ {
+ 	struct device *dev = &nvmem->dev;
+ 	const __be32 *addr;
+ 	int len, ret;
+ 
++	guard(srcu)(&nvmem->srcu);
++	if (READ_ONCE(nvmem->disconnected))
++		return -ENODEV;
++
+ 	for_each_child_of_node_scoped(np, child) {
+ 		struct nvmem_cell_info info = {0};
+ 
+@@ -827,7 +928,7 @@ int nvmem_add_cells_from_dt(struct nvmem_device *nvmem, struct device_node *np)
+ 		if (nvmem->fixup_dt_cell_info)
+ 			nvmem->fixup_dt_cell_info(nvmem, &info);
+ 
+-		ret = nvmem_add_one_cell(nvmem, &info);
++		ret = __nvmem_add_one_cell(nvmem, &info, layout);
+ 		kfree(info.name);
+ 		if (ret) {
+ 			of_node_put(info.np);
+@@ -837,8 +938,19 @@ int nvmem_add_cells_from_dt(struct nvmem_device *nvmem, struct device_node *np)
+ 
+ 	return 0;
+ }
++
++int nvmem_add_cells_from_dt(struct nvmem_device *nvmem, struct device_node *np)
++{
++	return __nvmem_add_cells_from_dt(nvmem, np, NULL);
++}
+ EXPORT_SYMBOL_GPL(nvmem_add_cells_from_dt);
+ 
++int nvmem_layout_add_cells_from_dt(struct nvmem_layout *layout, struct device_node *np)
++{
++	return __nvmem_add_cells_from_dt(layout->nvmem, np, layout);
++}
++EXPORT_SYMBOL_GPL(nvmem_layout_add_cells_from_dt);
++
+ static int nvmem_add_cells_from_legacy_of(struct nvmem_device *nvmem)
+ {
+ 	return nvmem_add_cells_from_dt(nvmem, nvmem->dev.of_node);
+@@ -851,29 +963,68 @@ int nvmem_layout_register(struct nvmem_layout *layout)
+ 	if (!layout->add_cells)
+ 		return -EINVAL;
+ 
+-	/* Populate the cells */
+-	ret = layout->add_cells(layout);
++	scoped_guard(srcu, &layout->nvmem->srcu) {
++		if (READ_ONCE(layout->nvmem->disconnected))
++			return -ENODEV;
++		ret = layout->add_cells(layout);
++	}
+ 	if (ret)
+-		return ret;
++		goto err_unregister;
+ 
+ #ifdef CONFIG_NVMEM_SYSFS
+ 	ret = nvmem_populate_sysfs_cells(layout->nvmem);
+-	if (ret) {
+-		nvmem_device_remove_all_cells(layout->nvmem);
+-		return ret;
+-	}
++	if (ret)
++		goto err_unregister;
+ #endif
+ 
+ 	return 0;
++
++err_unregister:
++	nvmem_layout_unregister(layout);
++	return ret;
+ }
+ EXPORT_SYMBOL_GPL(nvmem_layout_register);
+ 
+ void nvmem_layout_unregister(struct nvmem_layout *layout)
+ {
+-	/* Keep the API even with an empty stub in case we need it later */
++	struct nvmem_device *nvmem = layout->nvmem;
++	struct nvmem_cell_entry *cell, *next;
++	LIST_HEAD(cells);
++
++	scoped_guard(mutex, &nvmem_mutex) {
++		list_for_each_entry_safe(cell, next, &nvmem->cells, node) {
++			if (cell->layout != layout)
++				continue;
++			WRITE_ONCE(cell->disconnected, true);
++			list_move_tail(&cell->node, &cells);
++		}
++	}
++
++	nvmem_sysfs_remove_cells(nvmem);
++
++	/* Old cell handles retain data, never a departing layout's callbacks. */
++	synchronize_srcu(&nvmem->srcu);
++	list_for_each_entry_safe(cell, next, &cells, node) {
++		blocking_notifier_call_chain(&nvmem_notifier, NVMEM_CELL_REMOVE, cell);
++		list_del(&cell->node);
++		nvmem_cell_entry_put(cell);
++	}
++#ifdef CONFIG_NVMEM_SYSFS
++	if (!READ_ONCE(nvmem->disconnected) && nvmem_populate_sysfs_cells(nvmem))
++		dev_warn(&nvmem->dev, "Failed to restore provider cell attributes\n");
++#endif
+ }
+ EXPORT_SYMBOL_GPL(nvmem_layout_unregister);
+ 
++static void nvmem_disconnect(struct nvmem_device *nvmem)
++{
++	scoped_guard(mutex, &nvmem_mutex)
++		WRITE_ONCE(nvmem->disconnected, true);
++	synchronize_srcu(&nvmem->srcu);
++	gpiod_put(nvmem->wp_gpio);
++	nvmem->wp_gpio = NULL;
++}
++
+ /**
+  * nvmem_register() - Register a nvmem device for given nvmem_config.
+  * Also creates a binary entry in /sys/bus/nvmem/devices/dev-name/nvmem
+@@ -883,10 +1034,8 @@ EXPORT_SYMBOL_GPL(nvmem_layout_unregister);
+  * Return: Will be an ERR_PTR() on error or a valid pointer to nvmem_device
+  * on success.
+  */
+-
+ struct nvmem_device *nvmem_register(const struct nvmem_config *config)
+ {
+-	struct nvmem_operations *ops;
+ 	struct nvmem_device *nvmem;
+ 	int rval;
+ 
+@@ -900,15 +1049,15 @@ struct nvmem_device *nvmem_register(const struct nvmem_config *config)
+ 	if (!nvmem)
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	ops = kzalloc_obj(*ops);
+-	if (!ops) {
++	rval = init_srcu_struct(&nvmem->srcu);
++	if (rval) {
+ 		kfree(nvmem);
+-		return ERR_PTR(-ENOMEM);
++		return ERR_PTR(rval);
+ 	}
+ 
+ 	rval = ida_alloc(&nvmem_ida, GFP_KERNEL);
+ 	if (rval < 0) {
+-		kfree(ops);
++		cleanup_srcu_struct(&nvmem->srcu);
+ 		kfree(nvmem);
+ 		return ERR_PTR(rval);
+ 	}
+@@ -918,9 +1067,11 @@ struct nvmem_device *nvmem_register(const struct nvmem_config *config)
+ 	nvmem->dev.type = &nvmem_provider_type;
+ 	nvmem->dev.bus = &nvmem_bus_type;
+ 	nvmem->dev.parent = config->dev;
+-	nvmem->ops = ops;
+ 
+ 	device_initialize(&nvmem->dev);
++	mutex_init(&nvmem->sysfs_mutex);
++
++	nvmem->priv = config->priv;
+ 
+ 	if (!config->ignore_wp)
+ 		nvmem->wp_gpio = gpiod_get_optional(config->dev, "wp",
+@@ -935,24 +1086,23 @@ struct nvmem_device *nvmem_register(const struct nvmem_config *config)
+ 	INIT_LIST_HEAD(&nvmem->cells);
+ 	nvmem->fixup_dt_cell_info = config->fixup_dt_cell_info;
+ 
+-	ops->reg_read = config->reg_read;
+-	ops->reg_write = config->reg_write;
++	nvmem->reg_read = config->reg_read;
++	nvmem->reg_write = config->reg_write;
+ 
+ 	nvmem->owner = config->owner;
+-	if (!nvmem->owner && config->dev->driver)
++	if (!nvmem->owner && !config->owner_is_explicit && config->dev->driver)
+ 		nvmem->owner = config->dev->driver->owner;
+ 	nvmem->stride = config->stride ?: 1;
+ 	nvmem->word_size = config->word_size ?: 1;
+ 	nvmem->size = config->size;
+ 	nvmem->root_only = config->root_only;
+-	nvmem->priv = config->priv;
+ 	nvmem->type = config->type;
+ 	nvmem->keepout = config->keepout;
+ 	nvmem->nkeepout = config->nkeepout;
+ 	if (config->of_node)
+-		nvmem->dev.of_node = config->of_node;
++		nvmem->dev.of_node = of_node_get(config->of_node);
+ 	else
+-		nvmem->dev.of_node = config->dev->of_node;
++		nvmem->dev.of_node = of_node_get(config->dev->of_node);
+ 
+ 	switch (config->id) {
+ 	case NVMEM_DEVID_NONE:
+@@ -972,7 +1122,7 @@ struct nvmem_device *nvmem_register(const struct nvmem_config *config)
+ 		goto err_put_device;
+ 
+ 	nvmem->read_only = device_property_present(config->dev, "read-only") ||
+-			   config->read_only || !ops->reg_write;
++			   config->read_only || !nvmem->reg_write;
+ 
+ #ifdef CONFIG_NVMEM_SYSFS
+ 	nvmem->dev.groups = nvmem_dev_groups;
+@@ -1010,7 +1160,7 @@ struct nvmem_device *nvmem_register(const struct nvmem_config *config)
+ 
+ 	rval = nvmem_populate_layout(nvmem);
+ 	if (rval)
+-		goto err_remove_dev;
++		goto err_unregister;
+ 
+ 	/* If the device has WP GPIO, default to read-only */
+ 	if (nvmem->wp_gpio)
+@@ -1019,23 +1169,25 @@ struct nvmem_device *nvmem_register(const struct nvmem_config *config)
+ #ifdef CONFIG_NVMEM_SYSFS
+ 	rval = nvmem_populate_sysfs_cells(nvmem);
+ 	if (rval)
+-		goto err_destroy_layout;
++		goto err_unregister;
+ #endif
+ 
++	nvmem->flags |= FLAG_REGISTERED;
+ 	blocking_notifier_call_chain(&nvmem_notifier, NVMEM_ADD, nvmem);
+ 
+ 	return nvmem;
+ 
+-#ifdef CONFIG_NVMEM_SYSFS
+-err_destroy_layout:
+-	nvmem_destroy_layout(nvmem);
+-#endif
+-err_remove_dev:
+-	device_del(&nvmem->dev);
++err_unregister:
++	nvmem_unregister(nvmem);
++	return ERR_PTR(rval);
+ err_remove_cells:
++	nvmem_disconnect(nvmem);
+ 	nvmem_device_remove_all_cells(nvmem);
+ 	nvmem_sysfs_remove_compat(nvmem);
++	goto err_put_disconnected;
+ err_put_device:
++	nvmem_disconnect(nvmem);
++err_put_disconnected:
+ 	put_device(&nvmem->dev);
+ 
+ 	return ERR_PTR(rval);
+@@ -1048,24 +1200,31 @@ static void nvmem_device_release(struct kref *kref)
+ 
+ 	nvmem = container_of(kref, struct nvmem_device, refcnt);
+ 
+-	blocking_notifier_call_chain(&nvmem_notifier, NVMEM_REMOVE, nvmem);
+-
+-	nvmem_sysfs_remove_compat(nvmem);
+-
+-	nvmem_device_remove_all_cells(nvmem);
+-	nvmem_destroy_layout(nvmem);
+-	device_unregister(&nvmem->dev);
++	put_device(&nvmem->dev);
+ }
+ 
+ /**
+  * nvmem_unregister() - Unregister previously registered nvmem device
+  *
+  * @nvmem: Pointer to previously registered nvmem device.
++ *
++ * Stop and drain provider callbacks before returning. Existing consumers keep
++ * their core-owned metadata, but further access returns -ENODEV.
+  */
+ void nvmem_unregister(struct nvmem_device *nvmem)
+ {
+-	if (nvmem)
+-		kref_put(&nvmem->refcnt, nvmem_device_release);
++	if (!nvmem)
++		return;
++
++	nvmem_disconnect(nvmem);
++	nvmem_destroy_layout(nvmem);
++	if (nvmem->flags & FLAG_REGISTERED)
++		blocking_notifier_call_chain(&nvmem_notifier, NVMEM_REMOVE, nvmem);
++	nvmem_sysfs_remove_compat(nvmem);
++	nvmem_sysfs_remove_cells(nvmem);
++	device_del(&nvmem->dev);
++	nvmem_device_remove_all_cells(nvmem);
++	kref_put(&nvmem->refcnt, nvmem_device_release);
+ }
+ EXPORT_SYMBOL_GPL(nvmem_unregister);
+ 
+@@ -1103,17 +1262,33 @@ struct nvmem_device *devm_nvmem_register(struct device *dev,
+ }
+ EXPORT_SYMBOL_GPL(devm_nvmem_register);
+ 
++struct nvmem_match_data {
++	void *data;
++	int (*match)(struct device *dev, const void *data);
++};
++
++static int nvmem_match_device(struct device *dev, const void *data)
++{
++	const struct nvmem_match_data *match = data;
++	struct nvmem_device *nvmem = to_nvmem_device(dev);
++
++	guard(srcu)(&nvmem->srcu);
++	if (READ_ONCE(nvmem->disconnected))
++		return 0;
++	return match->match(dev, match->data);
++}
++
+ static struct nvmem_device *nvmem_device_match(void *data,
+ 			int (*match)(struct device *dev, const void *data))
+ {
++	struct nvmem_match_data match_data = { .data = data, .match = match };
+ 	struct nvmem_device *nvmem = NULL;
+ 	struct device *dev;
+ 
+-	scoped_guard(mutex, &nvmem_mutex) {
+-		dev = bus_find_device(&nvmem_bus_type, NULL, data, match);
+-		if (dev)
+-			nvmem = to_nvmem_device(dev);
+-	}
++	guard(mutex)(&nvmem_mutex);
++	dev = bus_find_device(&nvmem_bus_type, NULL, &match_data, nvmem_match_device);
++	if (dev)
++		nvmem = to_nvmem_device(dev);
+ 	if (!nvmem)
+ 		return ERR_PTR(-EPROBE_DEFER);
+ 
+@@ -1121,8 +1296,7 @@ static struct nvmem_device *nvmem_device_match(void *data,
+ 		dev_err(&nvmem->dev,
+ 			"could not increase module refcount for cell %s\n",
+ 			nvmem_dev_name(nvmem));
+-
+-		put_device(&nvmem->dev);
++		put_device(dev);
+ 		return ERR_PTR(-EINVAL);
+ 	}
+ 
+@@ -1337,8 +1511,10 @@ nvmem_cell_get_from_lookup(struct device *dev, const char *con_id)
+ 				cell = ERR_PTR(-ENOENT);
+ 			} else {
+ 				cell = nvmem_create_cell(cell_entry, con_id, 0);
+-				if (IS_ERR(cell))
++				if (IS_ERR(cell)) {
++					nvmem_cell_entry_put(cell_entry);
+ 					nvmem_device_put(nvmem);
++				}
+ 			}
+ 			break;
+ 		}
+@@ -1347,12 +1523,6 @@ nvmem_cell_get_from_lookup(struct device *dev, const char *con_id)
+ 	return cell;
+ }
+ 
+-static void nvmem_layout_module_put(struct nvmem_device *nvmem)
+-{
+-	if (nvmem->layout && nvmem->layout->dev.driver)
+-		module_put(nvmem->layout->dev.driver->owner);
+-}
+-
+ #if IS_ENABLED(CONFIG_OF)
+ static struct nvmem_cell_entry *
+ nvmem_find_cell_entry_by_node(struct nvmem_device *nvmem, struct device_node *np)
+@@ -1362,25 +1532,15 @@ nvmem_find_cell_entry_by_node(struct nvmem_device *nvmem, struct device_node *np
+ 	guard(mutex)(&nvmem_mutex);
+ 
+ 	list_for_each_entry(cell, &nvmem->cells, node) {
+-		if (np == cell->np)
++		if (np == cell->np) {
++			kref_get(&cell->refcnt);
+ 			return cell;
++		}
+ 	}
+ 
+ 	return NULL;
+ }
+ 
+-static int nvmem_layout_module_get_optional(struct nvmem_device *nvmem)
+-{
+-	if (!nvmem->layout)
+-		return 0;
+-
+-	if (!nvmem->layout->dev.driver ||
+-	    !try_module_get(nvmem->layout->dev.driver->owner))
+-		return -EPROBE_DEFER;
+-
+-	return 0;
+-}
+-
+ /**
+  * of_nvmem_cell_get() - Get a nvmem cell from given device node and cell id
+  *
+@@ -1443,25 +1603,17 @@ struct nvmem_cell *of_nvmem_cell_get(struct device_node *np, const char *id)
+ 		return ERR_CAST(nvmem);
+ 	}
+ 
+-	ret = nvmem_layout_module_get_optional(nvmem);
+-	if (ret) {
+-		of_node_put(cell_np);
+-		nvmem_device_put(nvmem);
+-		return ERR_PTR(ret);
+-	}
+-
+ 	cell_entry = nvmem_find_cell_entry_by_node(nvmem, cell_np);
+ 	of_node_put(cell_np);
+ 	if (!cell_entry) {
+-		nvmem_layout_module_put(nvmem);
+-		ret = nvmem->layout ? -EPROBE_DEFER : -ENOENT;
++		ret = READ_ONCE(nvmem->layout) ? -EPROBE_DEFER : -ENOENT;
+ 		nvmem_device_put(nvmem);
+ 		return ERR_PTR(ret);
+ 	}
+ 
+ 	cell = nvmem_create_cell(cell_entry, id, cell_index);
+ 	if (IS_ERR(cell)) {
+-		nvmem_layout_module_put(nvmem);
++		nvmem_cell_entry_put(cell_entry);
+ 		nvmem_device_put(nvmem);
+ 	}
+ 
+@@ -1575,8 +1727,8 @@ void nvmem_cell_put(struct nvmem_cell *cell)
+ 	if (cell->id)
+ 		kfree_const(cell->id);
+ 
++	nvmem_cell_entry_put(cell->entry);
+ 	kfree(cell);
+-	nvmem_layout_module_put(nvmem);
+ 	nvmem_device_put(nvmem);
+ }
+ EXPORT_SYMBOL_GPL(nvmem_cell_put);
+@@ -1628,6 +1780,10 @@ static int __nvmem_cell_read(struct nvmem_device *nvmem,
+ {
+ 	int rc;
+ 
++	guard(srcu)(&nvmem->srcu);
++	if (READ_ONCE(nvmem->disconnected) || READ_ONCE(cell->disconnected))
++		return -ENODEV;
++
+ 	rc = nvmem_reg_read(nvmem, cell->offset, buf, cell->raw_len);
+ 
+ 	if (rc)
+@@ -1742,7 +1898,14 @@ static int __nvmem_cell_entry_write(struct nvmem_cell_entry *cell, void *buf, si
+ 	struct nvmem_device *nvmem = cell->nvmem;
+ 	int rc;
+ 
+-	if (!nvmem || nvmem->read_only ||
++	if (!nvmem)
++		return -EINVAL;
++
++	guard(srcu)(&nvmem->srcu);
++	if (READ_ONCE(nvmem->disconnected) || READ_ONCE(cell->disconnected))
++		return -ENODEV;
++
++	if (nvmem->read_only ||
+ 	    (cell->bit_offset == 0 && len != cell->bytes))
+ 		return -EINVAL;
+ 
+diff --git a/drivers/nvmem/internals.h b/drivers/nvmem/internals.h
+index 4e610deeaa7b..6c6d4a690e8f 100644
+--- a/drivers/nvmem/internals.h
++++ b/drivers/nvmem/internals.h
+@@ -4,14 +4,10 @@
+ #define _LINUX_NVMEM_INTERNALS_H
+ 
+ #include <linux/device.h>
++#include <linux/mutex.h>
+ #include <linux/nvmem-consumer.h>
+ #include <linux/nvmem-provider.h>
+-
+-/* Hold pointers to callbacks owned by the nvmem provider module. */
+-struct nvmem_operations {
+-	nvmem_reg_read_t	reg_read;
+-	nvmem_reg_write_t	reg_write;
+-};
++#include <linux/srcu.h>
+ 
+ struct nvmem_device {
+ 	struct module		*owner;
+@@ -20,6 +16,8 @@ struct nvmem_device {
+ 	int			word_size;
+ 	int			id;
+ 	struct kref		refcnt;
++	struct srcu_struct	srcu;
++	bool			disconnected;
+ 	size_t			size;
+ 	bool			read_only;
+ 	bool			root_only;
+@@ -34,12 +32,16 @@ struct nvmem_device {
+ 	unsigned int		nkeepout;
+ 	struct gpio_desc	*wp_gpio;
+ 	struct nvmem_layout	*layout;
+-	struct nvmem_operations	*ops;
++	nvmem_reg_read_t		reg_read;
++	nvmem_reg_write_t	reg_write;
+ 	void *priv;
++	struct mutex		sysfs_mutex;
+ 	bool			sysfs_cells_populated;
++	struct attribute_group cells_group;
+ };
+ 
+ int nvmem_add_cells_from_dt(struct nvmem_device *nvmem, struct device_node *np);
++int nvmem_layout_add_cells_from_dt(struct nvmem_layout *layout, struct device_node *np);
+ 
+ #if IS_ENABLED(CONFIG_OF)
+ int nvmem_layout_bus_register(void);
+diff --git a/drivers/nvmem/layouts.c b/drivers/nvmem/layouts.c
+index 07a34be9669c..32995c9be68d 100644
+--- a/drivers/nvmem/layouts.c
++++ b/drivers/nvmem/layouts.c
+@@ -118,6 +118,7 @@ static int nvmem_layout_create_device(struct nvmem_device *nvmem,
+ 
+ 	ret = device_add(dev);
+ 	if (ret) {
++		nvmem->layout = NULL;
+ 		put_device(dev);
+ 		return ret;
+ 	}
+@@ -192,6 +193,7 @@ void nvmem_destroy_layout(struct nvmem_device *nvmem)
+ 	dev = &nvmem->layout->dev;
+ 	of_node_clear_flag(dev->of_node, OF_POPULATED_BUS);
+ 	device_unregister(dev);
++	WRITE_ONCE(nvmem->layout, NULL);
+ }
+ 
+ int nvmem_layout_bus_register(void)
+diff --git a/drivers/nvmem/layouts/fixed-layout.c b/drivers/nvmem/layouts/fixed-layout.c
+index 635d448b3dd2..b97f39897a75 100644
+--- a/drivers/nvmem/layouts/fixed-layout.c
++++ b/drivers/nvmem/layouts/fixed-layout.c
+@@ -19,7 +19,7 @@ static int fixed_layout_add_cells(struct nvmem_layout *layout)
+ 	if (!np)
+ 		return -ENOENT;
+ 
+-	ret = nvmem_add_cells_from_dt(layout->nvmem, np);
++	ret = nvmem_layout_add_cells_from_dt(layout, np);
+ 	of_node_put(np);
+ 
+ 	return ret;
+diff --git a/drivers/nvmem/layouts/onie-tlv.c b/drivers/nvmem/layouts/onie-tlv.c
+index 8b0f3c1b8a0e..99e7a5406b4c 100644
+--- a/drivers/nvmem/layouts/onie-tlv.c
++++ b/drivers/nvmem/layouts/onie-tlv.c
+@@ -95,18 +95,19 @@ static nvmem_cell_post_process_t onie_tlv_read_cb(u8 type, u8 *buf)
+ 	return NULL;
+ }
+ 
+-static int onie_tlv_add_cells(struct device *dev, struct nvmem_device *nvmem,
++static int onie_tlv_add_cells(struct nvmem_layout *layout,
+ 			      size_t data_len, u8 *data)
+ {
++	struct device *dev = &layout->dev;
+ 	struct nvmem_cell_info cell = {};
+-	struct device_node *layout;
++	struct device_node *layout_np;
+ 	struct onie_tlv tlv;
+ 	unsigned int hdr_len = sizeof(struct onie_tlv_hdr);
+ 	unsigned int offset = 0;
+ 	int ret;
+ 
+-	layout = of_nvmem_layout_get_container(nvmem);
+-	if (!layout)
++	layout_np = of_nvmem_layout_get_container(layout->nvmem);
++	if (!layout_np)
+ 		return -ENOENT;
+ 
+ 	while (offset < data_len) {
+@@ -123,12 +124,13 @@ static int onie_tlv_add_cells(struct device *dev, struct nvmem_device *nvmem,
+ 
+ 		cell.offset = hdr_len + offset + sizeof(tlv.type) + sizeof(tlv.len);
+ 		cell.bytes = tlv.len;
+-		cell.np = of_get_child_by_name(layout, cell.name);
++		cell.np = of_get_child_by_name(layout_np, cell.name);
+ 		cell.read_post_process = onie_tlv_read_cb(tlv.type, data + offset + sizeof(tlv));
+ 
+-		ret = nvmem_add_one_cell(nvmem, &cell);
++		ret = nvmem_layout_add_cell(layout, &cell);
+ 		if (ret) {
+-			of_node_put(layout);
++			of_node_put(cell.np);
++			of_node_put(layout_np);
+ 			return ret;
+ 		}
+ 
+@@ -136,7 +138,7 @@ static int onie_tlv_add_cells(struct device *dev, struct nvmem_device *nvmem,
+ 		offset += sizeof(tlv) + tlv.len;
+ 	}
+ 
+-	of_node_put(layout);
++	of_node_put(layout_np);
+ 
+ 	return 0;
+ }
+@@ -221,7 +223,7 @@ static int onie_tlv_parse_table(struct nvmem_layout *layout)
+ 		return -EINVAL;
+ 
+ 	data = table + hdr_len;
+-	ret = onie_tlv_add_cells(dev, nvmem, data_len, data);
++	ret = onie_tlv_add_cells(layout, data_len, data);
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/drivers/nvmem/layouts/sl28vpd.c b/drivers/nvmem/layouts/sl28vpd.c
+index e93b020b0836..1e65a0b6c61f 100644
+--- a/drivers/nvmem/layouts/sl28vpd.c
++++ b/drivers/nvmem/layouts/sl28vpd.c
+@@ -124,8 +124,9 @@ static int sl28vpd_add_cells(struct nvmem_layout *layout)
+ 		info.read_post_process = pinfo->read_post_process;
+ 		info.np = of_get_child_by_name(layout_np, pinfo->name);
+ 
+-		ret = nvmem_add_one_cell(nvmem, &info);
++		ret = nvmem_layout_add_cell(layout, &info);
+ 		if (ret) {
++			of_node_put(info.np);
+ 			of_node_put(layout_np);
+ 			return ret;
+ 		}
+diff --git a/drivers/nvmem/layouts/u-boot-env.c b/drivers/nvmem/layouts/u-boot-env.c
+index 33ec2350386f..83c687e43e5a 100644
+--- a/drivers/nvmem/layouts/u-boot-env.c
++++ b/drivers/nvmem/layouts/u-boot-env.c
+@@ -49,11 +49,13 @@ static int u_boot_env_read_post_process_ethaddr(void *context, const char *id, i
+ 	return 0;
+ }
+ 
+-static int u_boot_env_parse_cells(struct device *dev, struct nvmem_device *nvmem, uint8_t *buf,
++static int u_boot_env_parse_cells(struct device *dev, struct nvmem_device *nvmem,
++				  struct nvmem_layout *layout, uint8_t *buf,
+ 				  size_t data_offset, size_t data_len)
+ {
+ 	char *data = buf + data_offset;
+ 	char *var, *value, *eq;
++	int ret;
+ 
+ 	for (var = data;
+ 	     var < data + data_len && *var;
+@@ -78,14 +80,19 @@ static int u_boot_env_parse_cells(struct device *dev, struct nvmem_device *nvmem
+ 			info.read_post_process = u_boot_env_read_post_process_ethaddr;
+ 		}
+ 
+-		nvmem_add_one_cell(nvmem, &info);
++		ret = layout ? nvmem_layout_add_cell(layout, &info) :
++			       nvmem_add_one_cell(nvmem, &info);
++		if (ret) {
++			of_node_put(info.np);
++			return ret;
++		}
+ 	}
+ 
+ 	return 0;
+ }
+ 
+-int u_boot_env_parse(struct device *dev, struct nvmem_device *nvmem,
+-		     enum u_boot_env_format format)
++static int __u_boot_env_parse(struct device *dev, struct nvmem_device *nvmem,
++			      struct nvmem_layout *layout, enum u_boot_env_format format)
+ {
+ 	size_t crc32_data_offset;
+ 	size_t crc32_data_len;
+@@ -156,13 +163,19 @@ int u_boot_env_parse(struct device *dev, struct nvmem_device *nvmem,
+ 	}
+ 
+ 	buf[dev_size - 1] = '\0';
+-	err = u_boot_env_parse_cells(dev, nvmem, buf, data_offset, data_len);
++	err = u_boot_env_parse_cells(dev, nvmem, layout, buf, data_offset, data_len);
+ 
+ err_kfree:
+ 	kfree(buf);
+ err_out:
+ 	return err;
+ }
++
++int u_boot_env_parse(struct device *dev, struct nvmem_device *nvmem,
++		     enum u_boot_env_format format)
++{
++	return __u_boot_env_parse(dev, nvmem, NULL, format);
++}
+ EXPORT_SYMBOL_GPL(u_boot_env_parse);
+ 
+ static int u_boot_env_add_cells(struct nvmem_layout *layout)
+@@ -172,7 +185,7 @@ static int u_boot_env_add_cells(struct nvmem_layout *layout)
+ 
+ 	format = (uintptr_t)device_get_match_data(dev);
+ 
+-	return u_boot_env_parse(dev, layout->nvmem, format);
++	return __u_boot_env_parse(dev, layout->nvmem, layout, format);
+ }
+ 
+ static int u_boot_env_probe(struct nvmem_layout *layout)
+diff --git a/include/linux/nvmem-provider.h b/include/linux/nvmem-provider.h
+index 6063fe5b7784..87d871a6d5c6 100644
+--- a/include/linux/nvmem-provider.h
++++ b/include/linux/nvmem-provider.h
+@@ -81,6 +81,8 @@ struct nvmem_cell_info {
+  * @name:	Optional name.
+  * @id:		Optional device ID used in full name. Ignored if name is NULL.
+  * @owner:	Pointer to exporter module. Used for refcounting.
++ * @owner_is_explicit: Use @owner even when NULL, without defaulting to the
++ *		parent driver's module.
+  * @cells:	Optional array of pre-defined NVMEM cells.
+  * @ncells:	Number of elements in cells.
+  * @add_legacy_fixed_of_cells:	Read fixed NVMEM cells from old OF syntax.
+@@ -107,12 +109,16 @@ struct nvmem_cell_info {
+  *
+  * Note: Specifying name and setting id to -1 implies a unique device
+  * whose name is provided as-is (kept unaltered).
++ *
++ * Provider callbacks and @priv must remain valid until nvmem_unregister()
++ * returns, or until a failed nvmem_register() returns.
+  */
+ struct nvmem_config {
+ 	struct device		*dev;
+ 	const char		*name;
+ 	int			id;
+ 	struct module		*owner;
++	bool			owner_is_explicit;
+ 	const struct nvmem_cell_info	*cells;
+ 	int			ncells;
+ 	bool			add_legacy_fixed_of_cells;
+@@ -144,7 +150,7 @@ struct nvmem_config {
+  * @nvmem:		The underlying NVMEM device
+  * @add_cells:		Will be called if a nvmem device is found which
+  *			has this layout. The function will add layout
+- *			specific cells with nvmem_add_one_cell().
++ *			specific cells with nvmem_layout_add_cell().
+  *
+  * A nvmem device can hold a well defined structure which can just be
+  * evaluated during runtime. For example a TLV list, or a list of "name=val"
+@@ -173,6 +179,8 @@ struct nvmem_device *devm_nvmem_register(struct device *dev,
+ 
+ int nvmem_add_one_cell(struct nvmem_device *nvmem,
+ 		       const struct nvmem_cell_info *info);
++int nvmem_layout_add_cell(struct nvmem_layout *layout,
++			  const struct nvmem_cell_info *info);
+ 
+ int nvmem_layout_register(struct nvmem_layout *layout);
+ void nvmem_layout_unregister(struct nvmem_layout *layout);
+@@ -212,6 +220,12 @@ static inline int nvmem_layout_register(struct nvmem_layout *layout)
+ 	return -EOPNOTSUPP;
+ }
+ 
++static inline int nvmem_layout_add_cell(struct nvmem_layout *layout,
++				       const struct nvmem_cell_info *info)
++{
++	return -EOPNOTSUPP;
++}
++
+ static inline void nvmem_layout_unregister(struct nvmem_layout *layout) {}
+ 
+ static inline int nvmem_add_cells_from_dt(struct nvmem_device *nvmem,
 
-Changes in v2:
-- Keep the MTD device callback owner pinned through callback return,
-  with the final module put performed by the device core.
-- Retain virtual-concat components across removal and rebind, serialize
-  staging/publication and unwind incomplete partition registrations.
-- Balance Tegra's probe-time child-node reference separately from the
-  reference retained for the chip lifetime.
-- Refresh the prerequisite stack to the separately posted fixes, using
-  the latest QCOM child-probe revision.
-- Keep the lifetime changes on top of those fixes: preserve QCOM scan
-  before publication, R852 per-card initialization and Intel probe
-  hardware shutdown.
-- Fold Macronix disconnection handling into the NAND disconnect patch;
-  its operation locking is supplied by the posted prerequisite.
-- Use Karl Mehltretter's posted OTP cleanup fix as a prerequisite in
-  place of the duplicate preparatory patch.
-- Keep the NVMEM context callback module pinned until its final callback
-  returns, independently of the provider's consumer owner.
-- Use the posted fixes for dynamic partition publication and partition-node
-  ownership. Keep master get/put accounting independent of
-  later master registration in the MTD ownership patch.
-- Propagate disconnection through BBT error recovery without marking
-  the eraseblock bad.
-- Make suspend of a disconnected, retained NAND device a no-op.
-- Handle R852 card events during removal while preventing new work from
-  being queued.
-- Initialize Denali and Atmel cleanup variables at allocation and add
-  the introducing-commit trailers for Orion and MPC5121.
-- Link to v1: https://patch.msgid.link/20261107-submit-rawnand-retained-handle-lifetime-v1-v1-0-0181ef0cc4c8@gmail.com
-
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Richard Weinberger <richard@nod.at>
-To: Vignesh Raghavendra <vigneshr@ti.com>
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-mtd@lists.infradead.org
-
----
-James Hilliard (58):
-      nvmem: disconnect provider callbacks before unregister returns
-      mtd: acquire an MTD handle from a referenced class device
-      mtd: separate class devices from retained backing objects
-      mtd: retain virtual concatenations across component removal
-      mtd: rawnand: separate hardware disconnection from cleanup
-      mtd: rawnand: share retained chip and controller ownership
-      mtd: rawnand: sunxi: retain chip state until the final MTD put
-      mtd: rawnand: plat_nand: retain open-handle state on removal
-      mtd: rawnand: gpio: retain open-handle state on removal
-      mtd: rawnand: stm32_fmc2: retain open-handle state on removal
-      mtd: rawnand: denali: retain chips across controller removal
-      mtd: rawnand: arasan: retain chips across controller removal
-      mtd: rawnand: mxic: retain open-handle state on removal
-      mtd: rawnand: intel: retain open-handle state on removal
-      mtd: rawnand: tegra: retain open-handle state on removal
-      mtd: rawnand: mtk: retain chips across controller removal
-      mtd: rawnand: rockchip: retain chips across controller removal
-      mtd: rawnand: atmel: retain chips across controller removal
-      mtd: rawnand: orion: retain open-handle state on removal
-      mtd: rawnand: socrates: retain open-handle state on removal
-      mtd: rawnand: fsl_upm: retain open-handle state on removal
-      mtd: rawnand: pasemi: retain open-handle state on removal
-      mtd: rawnand: ams-delta: retain open-handle state on removal
-      mtd: rawnand: xway: retain open-handle state on removal
-      mtd: rawnand: hisi504: retain open-handle state on removal
-      mtd: rawnand: vf610: retain open-handle state on removal
-      mtd: rawnand: technologic: retain open-handle state on removal
-      mtd: rawnand: loongson: retain open-handle state on removal
-      mtd: rawnand: ma35d1: retain open-handle state on removal
-      mtd: rawnand: pl35x: retain open-handle state on removal
-      mtd: rawnand: mxc: retain open-handle state on removal
-      mtd: rawnand: fsmc: retain open-handle state on removal
-      mtd: rawnand: gpmi: retain open-handle state on removal
-      mtd: rawnand: omap2: retain open-handle state on removal
-      mtd: rawnand: marvell: retain open-handle state on removal
-      mtd: rawnand: renesas: retain open-handle state on removal
-      mtd: rawnand: meson: retain open-handle state on removal
-      mtd: rawnand: cadence: retain open-handle state on removal
-      mtd: rawnand: qcom: retain open-handle state on removal
-      mtd: rawnand: cafe: retain open-handle state on removal
-      mtd: rawnand: brcmnand: retain open-handle state on removal
-      mtd: rawnand: au1550nd: retain chip state across removal
-      mtd: rawnand: sharpsl: retain chip state across removal
-      mtd: rawnand: davinci: retain chip state across removal
-      mtd: rawnand: sh_flctl: retain chip state across removal
-      mtd: rawnand: lpc32xx_slc: retain chip state across removal
-      mtd: rawnand: lpc32xx_mlc: retain chip state across removal
-      mtd: rawnand: ndfc: retain chip state across removal
-      mtd: rawnand: txx9ndfmc: retain chip state across removal
-      mtd: rawnand: ingenic: retain chip state across removal
-      mtd: rawnand: mpc5121: retain chip state across removal
-      mtd: rawnand: bcm47xxnflash: retain chip state across removal
-      mtd: rawnand: fsl_elbc: retain chip state across removal
-      mtd: rawnand: fsl_ifc: retain chip state across removal
-      mtd: rawnand: r852: retain chip state across removal
-      mtd: rawnand: nandsim: retain chip state across removal
-      mtd: rawnand: cs553x: retain chip state across removal
-      mtd: rawnand: diskonchip: retain chip state across removal
-
- drivers/Makefile                                   |   2 +-
- drivers/media/pci/cobalt/cobalt-flash.c            |   2 +-
- drivers/mtd/Kconfig                                |   5 +
- drivers/mtd/Makefile                               |   5 +-
- drivers/mtd/devices/bcm47xxsflash.c                |   2 +-
- drivers/mtd/devices/docg3.c                        |   4 +-
- drivers/mtd/devices/mchp23k256.c                   |   2 +-
- drivers/mtd/devices/mchp48l640.c                   |   2 +-
- drivers/mtd/devices/mtd_dataflash.c                |   2 +-
- drivers/mtd/devices/mtd_intel_dg.c                 |  30 +-
- drivers/mtd/devices/powernv_flash.c                |   4 +-
- drivers/mtd/devices/spear_smi.c                    |   2 +-
- drivers/mtd/devices/sst25l.c                       |   2 +-
- drivers/mtd/devices/st_spi_fsm.c                   |   8 +-
- drivers/mtd/hyperbus/hyperbus-core.c               |   2 +-
- drivers/mtd/lpddr/lpddr2_nvm.c                     |   2 +-
- drivers/mtd/maps/lantiq-flash.c                    |   2 +-
- drivers/mtd/maps/physmap-core.c                    |   2 +-
- drivers/mtd/maps/plat-ram.c                        |   2 +-
- drivers/mtd/maps/pxa2xx-flash.c                    |   2 +-
- drivers/mtd/maps/sa1100-flash.c                    |   2 +-
- drivers/mtd/maps/vmu-flash.c                       |   2 +-
- drivers/mtd/mtd_blkdevs.c                          |   2 +-
- drivers/mtd/mtd_virt_concat.c                      | 526 +++++++++++----------
- drivers/mtd/mtdconcat.c                            | 103 +++-
- drivers/mtd/mtdcore.c                              | 306 +++++++-----
- drivers/mtd/mtdcore.h                              |   5 +
- drivers/mtd/mtddevice.c                            |  59 +++
- drivers/mtd/mtddevice.h                            |  12 +
- drivers/mtd/mtdpart.c                              |  61 ++-
- drivers/mtd/mtdpstore.c                            |  50 +-
- drivers/mtd/nand/ecc.c                             |   3 +-
- drivers/mtd/nand/onenand/generic.c                 |   2 +-
- drivers/mtd/nand/onenand/onenand_omap2.c           |   2 +-
- drivers/mtd/nand/onenand/onenand_samsung.c         |   2 +-
- drivers/mtd/nand/raw/Makefile                      |   1 +
- drivers/mtd/nand/raw/ams-delta.c                   |  28 +-
- drivers/mtd/nand/raw/arasan-nand-controller.c      |  49 +-
- drivers/mtd/nand/raw/atmel/nand-controller.c       |  44 +-
- drivers/mtd/nand/raw/au1550nd.c                    |  23 +-
- drivers/mtd/nand/raw/bcm47xxnflash/main.c          |  18 +-
- drivers/mtd/nand/raw/brcmnand/brcmnand.c           |  65 ++-
- drivers/mtd/nand/raw/cadence-nand-controller.c     |  51 +-
- drivers/mtd/nand/raw/cafe_nand.c                   |  27 +-
- drivers/mtd/nand/raw/cs553x_nand.c                 |  44 +-
- drivers/mtd/nand/raw/davinci_nand.c                |  26 +-
- drivers/mtd/nand/raw/denali.c                      |  28 +-
- drivers/mtd/nand/raw/denali_dt.c                   |  13 +-
- drivers/mtd/nand/raw/denali_pci.c                  |   9 +-
- drivers/mtd/nand/raw/diskonchip.c                  |  17 +-
- drivers/mtd/nand/raw/fsl_elbc_nand.c               |  56 ++-
- drivers/mtd/nand/raw/fsl_ifc_nand.c                |  48 +-
- drivers/mtd/nand/raw/fsl_upm.c                     |  20 +-
- drivers/mtd/nand/raw/fsmc_nand.c                   |  19 +-
- drivers/mtd/nand/raw/gpio.c                        |  18 +-
- drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c         |  19 +-
- drivers/mtd/nand/raw/hisi504_nand.c                |  20 +-
- drivers/mtd/nand/raw/ingenic/ingenic_nand_drv.c    |  41 +-
- drivers/mtd/nand/raw/intel-nand-controller.c       |  20 +-
- drivers/mtd/nand/raw/internals.h                   |   2 +-
- drivers/mtd/nand/raw/loongson-nand-controller.c    |  21 +-
- drivers/mtd/nand/raw/lpc32xx_mlc.c                 |  38 +-
- drivers/mtd/nand/raw/lpc32xx_slc.c                 |  40 +-
- drivers/mtd/nand/raw/marvell_nand.c                |  46 +-
- drivers/mtd/nand/raw/meson_nand.c                  |  49 +-
- drivers/mtd/nand/raw/mpc5121_nfc.c                 |  26 +-
- drivers/mtd/nand/raw/mtk_nand.c                    |  40 +-
- drivers/mtd/nand/raw/mxc_nand.c                    |  23 +-
- drivers/mtd/nand/raw/mxic_nand.c                   |  23 +-
- drivers/mtd/nand/raw/nand_base.c                   | 103 +++-
- drivers/mtd/nand/raw/nand_bbt.c                    |  24 +-
- drivers/mtd/nand/raw/nand_lifetime.c               | 246 ++++++++++
- drivers/mtd/nand/raw/nand_macronix.c               |   8 +-
- drivers/mtd/nand/raw/nand_onfi.c                   |   4 +-
- drivers/mtd/nand/raw/nandsim.c                     |  21 +-
- drivers/mtd/nand/raw/ndfc.c                        |  34 +-
- .../mtd/nand/raw/nuvoton-ma35d1-nand-controller.c  |  42 +-
- drivers/mtd/nand/raw/omap2.c                       |  27 +-
- drivers/mtd/nand/raw/orion_nand.c                  |  24 +-
- drivers/mtd/nand/raw/pasemi_nand.c                 |  22 +-
- drivers/mtd/nand/raw/pl35x-nand-controller.c       |  38 +-
- drivers/mtd/nand/raw/plat_nand.c                   |  20 +-
- drivers/mtd/nand/raw/qcom_nandc.c                  |  39 +-
- drivers/mtd/nand/raw/r852.c                        | 111 +++--
- drivers/mtd/nand/raw/r852.h                        |   1 +
- drivers/mtd/nand/raw/renesas-nand-controller.c     |  37 +-
- drivers/mtd/nand/raw/rockchip-nand-controller.c    |  45 +-
- drivers/mtd/nand/raw/sh_flctl.c                    |  22 +-
- drivers/mtd/nand/raw/sharpsl.c                     |  22 +-
- drivers/mtd/nand/raw/sm_common.c                   |  15 +-
- drivers/mtd/nand/raw/sm_common.h                   |   2 +-
- drivers/mtd/nand/raw/socrates_nand.c               |  19 +-
- drivers/mtd/nand/raw/stm32_fmc2_nand.c             |  19 +-
- drivers/mtd/nand/raw/sunxi_nand.c                  |  46 +-
- drivers/mtd/nand/raw/technologic-nand-controller.c |  22 +-
- drivers/mtd/nand/raw/tegra_nand.c                  |  27 +-
- drivers/mtd/nand/raw/txx9ndfmc.c                   |  41 +-
- drivers/mtd/nand/raw/vf610_nfc.c                   |  20 +-
- drivers/mtd/nand/raw/xway_nand.c                   |  24 +-
- drivers/mtd/nand/spi/core.c                        |   2 +-
- drivers/mtd/nand/spi/esmt.c                        |   2 +-
- drivers/mtd/nand/spi/micron.c                      |   4 +-
- drivers/mtd/nand/spi/otp.c                         |   2 +-
- drivers/mtd/spi-nor/core.c                         |   2 +-
- drivers/mtd/ubi/build.c                            |   2 +-
- drivers/nvmem/Kconfig                              |   1 +
- drivers/nvmem/core.c                               | 463 ++++++++++++------
- drivers/nvmem/internals.h                          |  16 +-
- drivers/nvmem/layouts.c                            |   2 +
- drivers/nvmem/layouts/fixed-layout.c               |   2 +-
- drivers/nvmem/layouts/onie-tlv.c                   |  20 +-
- drivers/nvmem/layouts/sl28vpd.c                    |   3 +-
- drivers/nvmem/layouts/u-boot-env.c                 |  25 +-
- drivers/ptp/ptp_ocp.c                              |   7 +-
- include/linux/mtd/concat.h                         |  22 +-
- include/linux/mtd/mtd.h                            |  21 +-
- include/linux/mtd/rawnand.h                        |  37 +-
- include/linux/nvmem-provider.h                     |  16 +-
- 118 files changed, 2744 insertions(+), 1263 deletions(-)
----
-base-commit: 30daaf3e7897b4a8d9b72e5b0c86dd6e2a4d7d85
-change-id: 20261104-submit-rawnand-retained-handle-lifetime-v1-0b4225e5ce0b
-prerequisite-patch-id: a51b9cb4077105499133c413d58c7ad21d973b38
-prerequisite-patch-id: b3679cda4dcb45ce7712bffe2dd0576b254df44d
-prerequisite-patch-id: 07b5c70e44ad951d20eea9478c98fda35ec765c0
-prerequisite-patch-id: abea50275922fe359d72ca4de5cbc211b04bbd57
-prerequisite-patch-id: 57776b214ffb0331319f024412f21d35e4ca9056
-prerequisite-patch-id: 09be2baaffe1f053704263cc4b0d39f2faa4f49c
-prerequisite-patch-id: c3ad85600dc897ac310be450d8daa2275fb91ee6
-prerequisite-patch-id: 4a85600553ddcc7db5a9537efd905a71cd623f65
-prerequisite-patch-id: 579990ee4a49297efc5a593b00efb9cd73fa15e8
-prerequisite-patch-id: 2ee61a8a32fd147d52e0f9d03758634912d8bfef
-prerequisite-patch-id: 1487df8ce8e6c48471fd77c7470ce9de582dfe3c
-prerequisite-patch-id: 5ecbe86f928d9c5c0bf2cb6065c5672708511fc4
-prerequisite-patch-id: ac68e9b65d3aa5661bd7ac0f2e77dcf5c75fcfe0
-prerequisite-patch-id: e70f0f0c4d430d416a3ad848b37ffad16bd7df07
-prerequisite-patch-id: 05adcddbc50f745ee2640b8c21f3bf76a217f249
-prerequisite-patch-id: 0b60b7ab6196076f327c919be5e7b8bb2051ee12
-
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
+-- 
+2.53.0
 
