@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794560579;
-	b=MFZdjsTZgf3nX5HXAR1DLRgPHcxI7mNYITE5hcg426YIa8PgwhdsZKzRGpMgYwNBKlUu
-	 ChmqSLTHdKyCjSTwlV8m7VNHm3WXn1Igo6FTQGpKmZfSQwkhSbnEoUYTWcWSZNrwKPRdz
-	 uWwTvfdpiVQ32ki5Ddy/hTXd+DIMOii3Zoyb3Ta0CVbLIGhqEQqPA8jtWeZ6mrvMG3l/J
-	 fcUCabIXesbq7mk1LPVLDP0F45JOT5tTei89OhM/dorfCfL8EvLbtwrxHmwzbRZt6BTgD
-	 1M57Ts+qHi2Uxc5Juk0+D/5QGRnsuQKLfsOmW6narDc6uoGuPY8xg5mq0+TyTLcykpA==
+	b=m0UPCOSByJIEq1Mc6xd6UYE3Dp66EPVTZzwxQOUrDivWYaPtvV71p1HKxsKkybIzc65X
+	 v3Nkun7F8AMnanB4RXDzseuP0Szuhsk3IcAU8ODLmHsxit90eUCGL81vuHHpphecb58Sa
+	 Mv7D9/d/tdclmt5DI6wYrLVvsnzL2UedboOlYtPMOQf1R0ZX80jmmFGvaq4fxnIQ3DF1u
+	 awjvwTplEGE6B0j8E0WhkgYlwgac5iNHcefPasSMJS/ImFn3hEAPnU54SKTzXfj/drgz/
+	 G9reS4pHdbhnCWJRISS6597QHVxfIeYotrZsxCoMr+QqbbJWebMbNbPuPheIWkrjTwA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794560579;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=kaBI3oDmG0U7duODVUMc6x3njVfi8ktjKAg2vHEM1AE=;
-	b=KMUV5sYL0a9jRyTCDzS9S86bVGoDGqTPlEDAS+Qc2lQlANT3AR4/BR0zrwlwhHZ9gapJ
-	 B0pgLASJCV9YM3TABlegEolTDVRZDNXYQGXh+wv1as+9mAh2+LDaDXimIsjeutxPZjMoO
-	 frCoYR8g4jCVD7wze/XIpkfu+rQl0EBDiPtj/nzBHg+PQYNjzytnYo1+U4BeU/gSRt14t
-	 2Amc2IVVDfksjnxOSYPlTon3DfuEza2okKXc95IDA0iJrvlU4aBAsMcQ+5tFKcUm7Lge1
-	 17MAOMnTYAtx2AOn0QGzlSu8+eZGOHxq2UHmZwtc+Fk1B3gL/F0hNLWPG0X5gvBy0wg==
+	bh=eNyvVSZMbYwDVl4yyIN25cKJ60P1bT9PIzKDIsmg/fU=;
+	b=QVLImqiirAddw7MF6X3jGHRo4VJmKx7D4n+E73Jdji5xrkflI+uAvtJesXl/pQUfypBV
+	 ZKVLl88evQRILYhkyP7BA3bZ94jQHgsygBNi8hHxNhbT0eG1vNw2uBNnhWmKtlaS/Itzw
+	 /WUUm4d8cYJXCwqZBPVZwfjszT4y5x41mneLHXQE9eDSHmwU4i6Jo+K44McVz5H+PGWRM
+	 iMuCrnh7Hxwf7AxS9KgO5Eo8fAXoO0RjoBrPlGYHBzEWJ39oW6TEOoaLr1U1W5ZVhl2bl
+	 UU61vjR4ld+7IdM26mwIlSFs6mkqz2oisXWP5T6ctXbXExmJgMUTTRZMANFB3j8mJmQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SWJhXmOz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="MEVot/Bf";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBAEB60A3827
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:02:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F3AD60A3837
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:02:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SWJhXmOz
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MEVot/Bf
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794560578;
-	b=YSP/AFKMgHSbbAQlhLfz3XJfe78b7EOUkV/KllDpJmFYhBLkhg0v1XFPpDltGeoe4Xzs
-	 9v0VbVg3dNOQeUvoKPYzMkVS7f12XFYjWvNl6vC90iAUPltI2P/8mQF7ufUK1kKTf40Lo
-	 +beNyD1ZZz/cKYPIrfT3fBbWoq2M58yNhZxggizslFgQ/byYORz0o9U009eAheO0Q7Ykl
-	 eyghKaguwe2guORneY7P5jcpxLboDgqrFSz9LalN2yA0dWyhMsDdXUSjlv3O84ivJu+XP
-	 AGQacNQoS3oc8UJsqIXPrSGyYPja8bsKHdldTJ+rE/ELaB77hymNR/JZINsFrgEs+2A==
+	t=1794560579;
+	b=Q1scbMW4NoRlONFXrXsSB4UEClhl0T2A4SZHS1GK8w/J29IZpaw6lsO6LpNNUKzJVDL2
+	 NqsDXJZ2pCmc4Lqz50MXkgLe0UGFFJm94DAl2Fz9Hz9epzD21u3oHnfgSJK08RCa36KF0
+	 nKYgua1kdIj+BV5dWboh7TZa4nUzEHBDFXuJMHQupzMl+My/cdsMA1KVk60zcXWXfAxY4
+	 Nw024GPhnPgP8ab7ZvNnXaoN7V4+LFJBrJ4l+hocolixy28QL2xp3/VKCaJTsL6a3zyi+
+	 po26v1cxEmp8NHRC5f6DHkANtp2JAMWydGQWEFU9XD0bpiDLYTKVLJYbiIM20wyHsoQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794560578;
+	c=relaxed/relaxed; t=1794560579;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=kaBI3oDmG0U7duODVUMc6x3njVfi8ktjKAg2vHEM1AE=;
-	b=NacY13mdJkD4O4vtEiMYiQmASxSAwtkcmx3d1GD/OUC7rhZHxUiFrrskjMaaRuQ6Pn5k
-	 f47uUPwnlck71E5/kxcEi1VQQvMa+F5xx6Hv8KaC6E8lsLcWoPogcGOwm68RC7/oj12/j
-	 n2MvJcbLUjCFqEUnngpdAAbzeBNfH13i5xsfrhR+FC0mypGdYqBRH4R5yncl5xW86elyn
-	 HTpPNVoykyab03BuyoQFxqHK7Bk0Aj7IiS4uFuZrnYTdNarKtcHdj+WOMXWMi23cesEsS
-	 FcdMeOY2xcwJdKpWN4xWZGZtsOiFRA3oQxBPXRiMaJ7p1Ct1MahGj1nfMsW4OvRZjyA==
+	bh=eNyvVSZMbYwDVl4yyIN25cKJ60P1bT9PIzKDIsmg/fU=;
+	b=ttr8qmwRne4dgTTjWxVgZjnYnqNNDoj0DK1MBir05BGtj0MogY4TkevKlhNMewB7xoLL
+	 tGTOU0ykyoq90c51T9r8Ujd80gPWeNXzaRZ3QZkCfOVvGwlMrAHbLZaPukKOopV8jACJW
+	 mTKnS8c9FMz7oHWbsMS9pdiz+JXP9Jw+kblRJJXo5WGTAbwuNufNDhZ/SdTg/xlwCNEPX
+	 pP8vbZLFA7rrbtWXegSm/d2+ItrPepgfQSu8JZ9ltdX2Hw8+Ni7RjISiYHAWFQ5gDR2D8
+	 cqea320eVJkewu4Jvd3FXpPu60iB4jC4Py4vppV4pd64uu1P3iYdmXc2RLWhmvu2owA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 3E8761F000C5;
+	by smtp.kernel.org (Postfix) with ESMTPS id 5DA8D1F00926;
 	Fri, 13 Nov 2026 09:02:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794560578;
-	bh=kaBI3oDmG0U7duODVUMc6x3njVfi8ktjKAg2vHEM1AE=;
+	s=k20260515; t=1794560579;
+	bh=eNyvVSZMbYwDVl4yyIN25cKJ60P1bT9PIzKDIsmg/fU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=SWJhXmOz2aIM494x0wOTHJ9TbzGnawVFz0dasCtDTEj97u1hw8XcKQJNwfA+tb6R+
-	 06wAI4nYA1nLciI5wXEfspgfqCGldFv6CpgC6qreiDJd4h/bgAFo0GDCUUSx4/NSO7
-	 gHrjIg2AUFVsd96Vod8gfvhyXcNupriu9CHBTAFUNhvp8brWclk48ch3VrZmVEWqmA
-	 MfA9/XEiJ5UvuR+ZbL7a94bbZ9k5G9A+mkQrzQRo4KGCpbklZznGzVYqG4Pqd6GpPu
-	 3DNcE1zM7dqISUHg7/IkbvKQi5GGW83THZhW9KXo4XRD4ek1i2UZr8sXbdyieJZdjn
-	 1SETa75jblcVQ==
+	b=MEVot/BfcgDoNAIQEiSma7y9qpbTgl2xqsdP+mXBnA7fNi4eYoZeezktMgYB/e3Nf
+	 Ou4wYtNoG8EF87D800mKxPxS1lIy7qzE8o0aCZJ5jbUlBzEliWhUUq6jPDqz6WJi9q
+	 3rzUiW5mej353O4LkHhDco9xupMCXh+9I3VDw2ycIeGtGQ1eUNircYghgLIdAzYCJZ
+	 3i7qNlIbaDm/7Uu1D4Hf552T00jYyQYbZ9kkCJvM0hpg9LIVvGHAHPa7ZKuhSzDMDX
+	 5cvUfgtYlTd0/I61BJkZZLiFHuA94VQv3oyS5rh6o3U7xRRO6QbJdZ07T8dLunpNlB
+	 ki7rMW9SxbFyg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8F451476FA;
+	by lkml.kernel.org (Postfix) with ESMTP id B6A5447702;
 	Fri, 13 Nov 2026 09:02:54 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Fri, 13 Nov 2026 09:03:02 +0000
-Subject: [PATCH v3 10/14] drm/panfrost: Drop the cycle counter only for a
- job that holds it
+Date: Fri, 13 Nov 2026 09:03:04 +0000
+Subject: [PATCH v3 12/14] drm/panfrost: Wait for the soft-stopped slots
+ with the live slot status
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-panfrost-long-jobs-v3-10-80ae78d38f6e@gmail.com>
+Message-Id: <20261113-panfrost-long-jobs-v3-12-80ae78d38f6e@gmail.com>
 References: <20261113-panfrost-long-jobs-v3-0-80ae78d38f6e@gmail.com>
 In-Reply-To: <20261113-panfrost-long-jobs-v3-0-80ae78d38f6e@gmail.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -96,11 +96,11 @@ To: Boris Brezillon <boris.brezillon@collabora.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794560572; l=3739;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794560572; l=4065;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=K4my8lr5ikGRu+Hfa7S/zTxL9cDYzAOG1ImzoduNMoE=;
- b=RknwTh4RMHguPcYmyD88FKi2AXukozuosAJO10LprQhctj4tmgoTJr812l1SFDFt1DjfFdG8n
- fBiyXP5bS3KBKe81u0PIvLQ1BKgzEWZqxg9A1jLmTZlF1q9StKJN5Zw
+ bh=+9Y9glDL3o1W7R1YfSBd4YRIE6jG/q1VAQhorQILig8=;
+ b=mAPuGPrCU2/FyJsBSh27k9JRCHWRMiSlW+aMintLh4lWld9EWz4LAt/wYJiDQdrWpnmHRPuk8
+ Dzn+3K0kg8kB/19nLLLlyehYB2Kk5rvvf1fwnvG9HtRHF4ZXdEqcA84
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -111,97 +111,114 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-panfrost_job_hw_submit() puts a job in pfdev->jobs[] but, while a reset
-is pending, does not start it and takes no cycle counter reference.
-panfrost_reset() drops one for every job in pfdev->jobs[] that wants the
-counter, so use_count goes below zero. The same happens for a job that
-was stopped (reference dropped at dequeue) and resubmitted while a reset
-was pending: is_profiled is still set from its first run.
+panfrost_reset() soft-stops the slots and waits for them to go idle by
+polling JOB_INT_JS_STATE. That register is a snapshot of the slot states
+taken when JOB_INT_CLEAR was last written (Arm driver: "status==active
+and _next == busy snapshot from last JOB_IRQ_CLEAR"). For a job started
+into an idle slot, the usual case for an OpenCL queue that submits one
+kernel at a time, it shows the slot idle and the wait ends at once.
 
-Today the GPU reset that follows WARNs in panfrost_gpu_soft_reset() and
-sets use_count back to 0. Without a reset ("Soft-stop and resume a job
-that outlives the timeout") the count stays wrong and
-panfrost_cycle_counter_get() no longer starts the counter.
+The GPU reset that follows hides this by killing the job. With the job
+resumed instead (next patch), it was removed from pfdev->jobs[] and
+resubmitted while its first run was still stopping. When the first run
+reported DONE, the handler signalled the resubmission's fence, the job
+manager started the resubmission from _NEXT, and its completion found no
+job on the slot (Mali-G31, OpenCL CTS Integer Ops):
 
-Record in the job whether it holds a reference, and drop it only then.
+  Unable to handle kernel NULL pointer dereference at virtual address 00000000000000f8
+  pc : panfrost_dequeue_job+0x2c/0xd8 [panfrost]
+  lr : panfrost_jm_handle_irqs+0x268/0x570 [panfrost]
 
-Found by code review (Sashiko). Not reproduced.
+Wait until no JS_STATUS register reads ACTIVE instead, so that the
+pending DONE or STOPPED interrupt is handled before the queues are
+touched. Also make panfrost_dequeue_job() return NULL for a slot without
+a job: every caller copes with it, so a stray event is a WARN, not an
+Oops.
 
-Fixes: f11b0417eec2 ("drm/panfrost: Add fdinfo support GPU load metrics")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/sashiko-outbox-210891@kernel.org/
+Fixes: 030761e097b4 ("drm/panfrost: Queue jobs on the hardware")
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_job.c | 19 +++++++++++++------
- drivers/gpu/drm/panfrost/panfrost_job.h |  2 ++
- 2 files changed, 15 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/panfrost/panfrost_job.c | 41 +++++++++++++++------------------
+ 1 file changed, 19 insertions(+), 22 deletions(-)
 
 diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
-index 897743cb8..df7fcc436 100644
+index 1b7becf7b..8235d182d 100644
 --- a/drivers/gpu/drm/panfrost/panfrost_job.c
 +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-@@ -160,6 +160,14 @@ panfrost_get_job_chain_flag(const struct panfrost_job *job)
- 	return (f->seqno & 1) ? JS_CONFIG_JOB_CHAIN_FLAG : 0;
+@@ -173,7 +173,8 @@ panfrost_dequeue_job(struct panfrost_device *pfdev, int slot)
+ {
+ 	struct panfrost_job *job = pfdev->jobs[slot][0];
+ 
+-	WARN_ON(!job);
++	if (WARN_ON(!job))
++		return NULL;
+ 
+ 	if (job->is_profiled && job->engine_usage) {
+ 		job->engine_usage->elapsed_ns[slot] +=
+@@ -647,25 +648,20 @@ static void panfrost_jm_handle_irqs(struct panfrost_device *pfdev)
+ 	}
  }
  
-+static void panfrost_job_put_cycle_counter(struct panfrost_job *job)
-+{
-+	if (job->cycle_counter_ref) {
-+		panfrost_cycle_counter_put(job->pfdev);
-+		job->cycle_counter_ref = false;
-+	}
-+}
-+
- static struct panfrost_job *
- panfrost_dequeue_job(struct panfrost_device *pfdev, int slot)
+-static u32 panfrost_active_slots(struct panfrost_device *pfdev,
+-				 u32 *js_state_mask, u32 js_state)
++/* Reads the live JS_STATUS: JOB_INT_JS_STATE is a snapshot from the last
++ * JOB_INT_CLEAR write and can show a busy slot as idle.
++ */
++static bool panfrost_slots_idle(struct panfrost_device *pfdev)
  {
-@@ -174,8 +182,7 @@ panfrost_dequeue_job(struct panfrost_device *pfdev, int slot)
- 			panfrost_cycle_counter_read(pfdev) - job->start_cycles;
+-	u32 rawstat;
+-
+-	if (!(js_state & *js_state_mask))
+-		return 0;
+-
+-	rawstat = job_read(pfdev, JOB_INT_RAWSTAT);
+-	if (rawstat) {
+-		unsigned int i;
++	unsigned int i;
+ 
+-		for (i = 0; i < NUM_JOB_SLOTS; i++) {
+-			if (rawstat & MK_JS_MASK(i))
+-				*js_state_mask &= ~MK_JS_MASK(i);
+-		}
++	for (i = 0; i < NUM_JOB_SLOTS; i++) {
++		if (job_read(pfdev, JS_STATUS(i)) ==
++		    DRM_PANFROST_EXCEPTION_ACTIVE)
++			return false;
  	}
  
--	if (job->requirements & PANFROST_JD_REQ_CYCLE_COUNT || job->is_profiled)
--		panfrost_cycle_counter_put(pfdev);
-+	panfrost_job_put_cycle_counter(job);
+-	return js_state & *js_state_mask;
++	return true;
+ }
  
- 	pfdev->jobs[slot][0] = pfdev->jobs[slot][1];
- 	pfdev->jobs[slot][1] = NULL;
-@@ -259,8 +266,10 @@ static int panfrost_job_hw_submit(struct panfrost_job *job, int js)
- 		job->is_profiled = pfdev->profile_mode;
+ static void
+@@ -673,9 +669,8 @@ panfrost_reset(struct panfrost_device *pfdev,
+ 	       struct drm_sched_job *bad)
+ {
+ 	struct panfrost_job *evicted[NUM_JOB_SLOTS] = {};
+-	u32 js_state, js_state_mask = 0xffffffff;
+ 	unsigned int i, j;
+-	bool cookie;
++	bool cookie, idle;
+ 	int ret;
  
- 		if (job->requirements & PANFROST_JD_REQ_CYCLE_COUNT ||
--		    job->is_profiled)
-+		    job->is_profiled) {
- 			panfrost_cycle_counter_get(pfdev);
-+			job->cycle_counter_ref = true;
-+		}
+ 	if (!atomic_read(&pfdev->reset.pending))
+@@ -728,10 +723,12 @@ panfrost_reset(struct panfrost_device *pfdev,
+ 	}
+ 	spin_unlock(&pfdev->js->job_lock);
  
- 		if (job->is_profiled) {
- 			job->start_time = ktime_get();
-@@ -740,9 +749,7 @@ panfrost_reset(struct panfrost_device *pfdev,
- 			pfdev->jobs[i][pfdev->jobs[i][0] ? 1 : 0] = evicted[i];
+-	/* Wait at most 10ms for soft-stops to complete */
+-	ret = readl_poll_timeout(pfdev->iomem + JOB_INT_JS_STATE, js_state,
+-				 !panfrost_active_slots(pfdev, &js_state_mask, js_state),
+-				 10, 10000);
++	/* Wait at most 10ms for soft-stops to complete. No slot may be active
++	 * when we touch the queues: a late interrupt would find the wrong job,
++	 * or none, in pfdev->jobs[].
++	 */
++	ret = read_poll_timeout(panfrost_slots_idle, idle, idle, 10, 10000,
++				false, pfdev);
  
- 		for (j = 0; j < ARRAY_SIZE(pfdev->jobs[0]) && pfdev->jobs[i][j]; j++) {
--			if (pfdev->jobs[i][j]->requirements & PANFROST_JD_REQ_CYCLE_COUNT ||
--			    pfdev->jobs[i][j]->is_profiled)
--				panfrost_cycle_counter_put(pfdev->jobs[i][j]->pfdev);
-+			panfrost_job_put_cycle_counter(pfdev->jobs[i][j]);
- 			pm_runtime_put_noidle(pfdev->base.dev);
- 			panfrost_devfreq_record_idle(&pfdev->pfdevfreq);
- 		}
-diff --git a/drivers/gpu/drm/panfrost/panfrost_job.h b/drivers/gpu/drm/panfrost/panfrost_job.h
-index 3e3b97178..cd82d7930 100644
---- a/drivers/gpu/drm/panfrost/panfrost_job.h
-+++ b/drivers/gpu/drm/panfrost/panfrost_job.h
-@@ -36,6 +36,8 @@ struct panfrost_job {
- 
- 	struct panfrost_engine_usage *engine_usage;
- 	bool is_profiled;
-+	/* Holds a reference on the cycle counter */
-+	bool cycle_counter_ref;
- 	ktime_t start_time;
- 	u64 start_cycles;
- };
+ 	if (ret)
+ 		dev_err(pfdev->base.dev, "Soft-stop failed\n");
 
 -- 
 2.55.0
