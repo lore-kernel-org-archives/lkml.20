@@ -1,101 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794584486;
-	b=1bv2cfZSHbIUV4/y+oUjT10lyK1LbhsmaE8Feg1DcdqBUuJTPqu9A7GLJFyFHPhTs2Vg
-	 CN4iKwTQNLwKx36mU9R+3FDnpSEzK+pNmH6HhLYidR7lqTqEoZkvRjf/HcsCvNmdh5+CS
-	 i64jcOXXBHUjGvf9xmPo09+cglAOH8Q5vgD2gMkrDry711NW87q7r7U0iOLodolI1Jvkw
-	 Qj+FjZ02ZS9LFS4m/cxPo7Wrym8ENFvA/6kuIEUbC4OoFvPjMbU/OBXpNL/Tr75dW/2GP
-	 3E5TwsjfQHMdsQf5lNPwA2GgIDL1WWPdD3HStrKaCzOhamuX3GsfTTWGRKTZJY5+3Lw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794584486;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ictCGGMxgCgpUNAPmSmusxCn54ZLVwNtSFzM9e1649k=;
-	b=wQXl0lV0oCS+aYuGO8aHpp7/kFbdj1cvXAo0jDgGFJqJ5PerRxtEyUE7womE6bGtYZ9l
-	 6wFQROru70iWNQKmK4kxjst8lGJXmIBn9FFQmF3OZlOg+zdm/X+OLO25mi8h/nT5tBX6e
-	 Vnou0j8jxukBh6QrB1u5lihR+P5fu/hX1xV/TX/FXXyjZ5Cb6BBWNEAjHfrmVknprrMGK
-	 sEbDEu7ZvKuMg3rL9hhqCUKcNxkvwiWexFOYEug+T4UNR2IHrKAuKbYRlKZ2fOodykw5b
-	 F4YZN05h7gN99PhD+HxKOpvqpJqHLQNH8gp741Ak8mgoHeZ6e8sTV/Jq//hQZrvQauQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sNOq1xRc;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.48
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794584536;
+	b=nIGjdznUhZcI8ghnjViJnBUfwcYmU3RP6mgdbbCh1mMbW+r+cgII7pQoduNXSnztfjXq
+	 QiS64KVcPM3nEWLAQch/3OG+6xfWAyO+Yspj5CEqfRlyoLXCFto0AfFUpnEqrRsZIiJpu
+	 06dAWpmtcka3ZLMKP3bsVFxxlhbVW7tAfSityl716gwLhCrz7KPLkmYjAAgBqeqJR7GSm
+	 RwgezasifB9fBhgt9po116uojtzX/poJY1G02Q5hfBBIJY1ktoEGzd8r7JF4I8n0hpSdA
+	 GkhNgJcFwSAivnYMerecICqJvb+Q45qaffXPuTWIcMzW83jrK/vyQXOTSJlXE5F/2eQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794584536;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:Cc:To:
+	 From:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
+	bh=rHB1s2IjKO7bwiIKX5FWkoy/jmzbxhzjzTrvBEzLn5E=;
+	b=kG3ldf5CvFQlLA6SdPpW5OqlYNPg/XDEIL8gmVgjx9kosAT0TNBG7fK1kVcchpKf+iTb
+	 lHpWWOeaD5oyWsiR/gFd/4I0GcFup+KFFyY2J7JLLQQ1oFgcrmTXiWOIAa1Wr4eEL9FIH
+	 ZswfJerNhSYO1m6ZkdM2r+jC/8OreEQe2HUyxG964J4n29G/pIfoRuRceIK0y3nsxXaT/
+	 E8DH7XBcShtlyWy3Mhb3ODR42pVkKbqywblWXxnUK1crRuc1EnAs7d13uKaW0IWBv5PBR
+	 gD10DwhQu6QD/GmENJr8k+NQrLIKr0GOf6WlOtRqZ8dSEODXCklCJXOl19MhT7uV6qg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=nFxA6vUo;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA65E606A330
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:41:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA65E606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C26B2606A327
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:42:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C26B2606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sNOq1xRc
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1a2af4c8d00so2061727c88.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:41:25 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794584485; cv=none;
-        d=google.com; s=arc-20260327;
-        b=eZZDEgbZTLM3FjtDoHXvyLWln+h89TUCt1dutgVWABSdniI0I/54iiLoHAzamtOdnE
-         Z5QaWweZTptjZADSAMt/eQtszPqbXbiRU+tn9AumESGmUBH1tFkKskRIYYBobZFyn01V
-         0HzAonRyN/lZ/7mrB8r89+N+OPoXgwZpnleAiE4zNW5ZN2VQXHMylyiPS5v71gCNjwqv
-         PABar/7CduQ6/m3oPMkj4AezUD8Kg1CnGZHqNaPR1UF8H+wdniqr6PGlDBopNOMJ0v9S
-         04Tm0Oy3ghGBC6m8soUaM830m0LEY/wIfsM2ufdVsaaNDibVbr2wLwQ1CFFIj6s3+0pp
-         yDsg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ictCGGMxgCgpUNAPmSmusxCn54ZLVwNtSFzM9e1649k=;
-        fh=AFa7cKUu+kAbTR0R0KNvfHJP6lg5NJpcQNs15m9fQVk=;
-        b=pgfsDSMfrOUUh/rvbZalDZ6vwy1SMJ1/UshZVdx3VBnoZkNAaST9vCtaABpaEZ6xI1
-         rc11Au+t1J0U1vOtTQ7l/BWOfH8+4FDM2Bw5xHVKNOx3935ZNLEir442Lbzn6lJP1QVp
-         4DPgADwtc6zkfEklCFqEN7ntIPtupYIMpUp/028wuR75J978tdXi40d/8CzCfvDcgTOo
-         rzMNl39v35l8sKttrEUgHz4NkkMyk8grt8L0XJnQUgtLokrU9CoG8wPsswixWvqtFLpy
-         PbX6swsLxpCHCHMtQfi8a2VCVHpH55/rhdQxKigTGHbhkfYJZPxryG4tsFmfKrz5NK0z
-         UPBg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794584485; x=1795189285; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ictCGGMxgCgpUNAPmSmusxCn54ZLVwNtSFzM9e1649k=;
-        b=sNOq1xRcDaTvk+7CO2nvBE8Z92YdcWOwAoUU2WsLmQXn3aRQTdsouN+A+17mIBHvyv
-         ek9nmlKYRePtkM1jqWVqyCzZ5e7REGB2jIA7RZ4Po0puoAl2kSpjjb4/bbmbcHlZilv+
-         Yfuda8kgiIMAMySNkVFkwfpUHPgt0r7IDghT6TDt8M8KbAIsJZqjFhkcF8r+RioqqUDM
-         JSimh3r9KFgmbJeytjGT/bSUshkZnDfw1LTJBTiHV2bTC/plBs5uoBTWFDRTReQii3uS
-         0iC/+gpNBuZmhUXjLrazSfR7YqwPWZovxpMMPUa4F0dekmeMPx377iM8QFf1tcV134ld
-         prdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794584485; x=1795189285;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ictCGGMxgCgpUNAPmSmusxCn54ZLVwNtSFzM9e1649k=;
-        b=z+ZBL6DCWs8XRo4FeBmln6WYfhFHAHPiffXelj+cuuN09hVV8CNXekNqc5gnU+G6k9
-         cwkSk0C7CBKeJtrfRhdbJ4Mc3OiQI/NVcFLRjgMNXdvXSFPK/nkarAR6pT5laqVygIbQ
-         TftAgAqwlE4cmSAFPixKjTtGfp/lyqAx3BSHuES7CLfgaZcCy4JhTJ/zcc0A24qYh1TZ
-         sPRZZQ7eqsPABYJ5t2gka1kYiIsO8lJbneXhJLSQOj2gA5Jf4WI0NAbp9iC2A3+dgwgd
-         GgcOe5MUq+/I9fGFgtWDRczIFkO80ilfcwCYvNr4kA6ysks9ZoO+dNZSaInwsW5/Glkd
-         RV9w==
-X-Forwarded-Encrypted: i=1; AL+hErG+graYtxoHNcigF0ZeXkBpWbQpQiou1mKDAKP71pekD1MRf1k3l8vvvlF7wqXUVnEgRe3FkbK15kUb32M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z++iyc+NRpzi5FGrUyL4L64p62dBeTdQrRZgpfxGciEVz7dnfWJ
-	zoqa09ymhfYspl+5TWyr2yrxzGOY0APwcsjzIsu6HxCsD7bGYH9kUNDv/QXdiiCYjwAoFP5EfkX
-	Iua5vUsaT+paEuYwZfyzJ58EJwRq5nKu4Zw97
-X-Gm-Gg: AYBFou3E46NpvmMZbezd348cJYDsTB0Tc8N6JO0229OXw0rsWtSNeDmVDhTiMFdZyU3
-	oneUF/gUY1vqWuOZsxQVW7ta9Y/nMhxVKYsPmldcRcH33ZrgXMn0+4X/Ajr9ozecxNbH4a9fz3u
-	EGONwlV88aXOnywyC65rG1UsuuqKSRcGZeX7CAX+GaDuS9UBZ9CT+NaSe8cQaBUCNmzL1WY/epA
-	makbkdej4NDqKVT14QvFh4i3jgomeQ6Zxu1rFgVgmWyRSHXnZziti3kNN6AFSqX436wOrAhZ2O5
-	3WouerPlaYDfuXT3rH25PTsCiGJ8wajH1RaQkDRfQ1N9/rReR3wHjDZ5F7tBPB9/3TJ4tiBxkes
-	gxSNSOHUFJcbMv1173ldTVrAa7BGzgSFmSvXuZBIHzELJT0bvbEUmxM43PmlypaNi1C5EmalxJt
-	SEhNACc382l3lpEz1Yr1gqZYYHKjH1JQ==
-X-Received: by 2002:a05:7022:3c87:b0:16c:4eef:a526 with SMTP id
- a92af1059eb24-1b5030e2ee9mr2671578c88.15.1794584484844; Fri, 13 Nov 2026
- 07:41:24 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=nFxA6vUo
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 951FEC4F755;
+	Fri, 13 Nov 2026 15:42:15 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C707360015;
+	Fri, 13 Nov 2026 15:42:12 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 216FA11BC11E7;
+	Fri, 13 Nov 2026 16:41:57 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794584527; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=rHB1s2IjKO7bwiIKX5FWkoy/jmzbxhzjzTrvBEzLn5E=;
+	b=nFxA6vUoH0x4DTtoCgCXxJmVcI3pdkHLUk/3kmd7oD/49D39QXUjVuJLZLwTecCZkhIcNl
+	PXCqJZXRvM/0ZP12N5JH5FNHiMRoDWR+gPyByVcVZ6HeiMGWoCNIkCLClvZFEwvruvfKI9
+	ZzDTRQoYOrCsfLu8mtNiKhKFbw6z1FlP5h2DnU/dTUgLuHPXxJazAMbnatXFvaqOOqF2Ah
+	DZEReUJk6f4zc6HkVPom4VPQXb74rha0hpB6vWrFE/6v199j1bALFfj54wht54zFUYswX2
+	SvwVzQBX6uUjEBLD4nfOUhIiIHGHUp0/Tlb2FwSbVdwqlImG9cF39sUgOlkdvw==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,297 +58,76 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261101142435.130520-1-clamor95@gmail.com> <179370032880.793788.4424159880220279586@kernel.org>
-In-Reply-To: <179370032880.793788.4424159880220279586@kernel.org>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Fri, 13 Nov 2026 17:41:12 +0200
-X-Gm-Features: AclHuK_BgAPnek8SSBsS7xD29UnkVImGVLvK3G9PVowz-sB26JLAqdiA-Cf1RLY
-Message-ID: <CAPVz0n1E2bLOzKEC6_2iiPM5ZZ6-NOXuOkwx+jQYn8BRvPXwSw@mail.gmail.com>
-Subject: Re: [PATCH v1] video: leds: backlight: lm3533: Support getting LED
- sources from DT
-To: Lee Jones <lee@kernel.org>
-Cc: Pavel Machek <pavel@kernel.org>, Griffin Kroah-Hartman <griffin@kroah.com>, 
-	Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>, 
-	linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 13 Nov 2026 16:41:56 +0100
+Message-Id: <DMU749TMB523.3OCGPYVI4NZDU@bootlin.com>
+Subject: Re: [PATCH v3] drm/bridge: analogix_dp: use devm_phy_optional_get()
+ for the DP PHY
+Cc: <Laurent.pinchart@ideasonboard.com>, <airlied@gmail.com>,
+ <andrzej.hajda@intel.com>, <dri-devel@lists.freedesktop.org>,
+ <heiko@sntech.de>, <jernej.skrabec@gmail.com>, <jonas@kwiboo.se>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <linux-rockchip@lists.infradead.org>, <luca.ceresoli@bootlin.com>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <neil.armstrong@linaro.org>, <rfoss@kernel.org>, <simona@ffwll.ch>,
+ <tzimmermann@suse.de>
+To: "Jun Yan" <jerrysteve1101@gmail.com>, <damon.ding@rock-chips.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.22.0
+References: <385a67f0-e5cd-4dba-9b9c-5b766462c6c0@rock-chips.com>
+ <20261113131248.2804840-1-jerrysteve1101@gmail.com>
+In-Reply-To: <20261113131248.2804840-1-jerrysteve1101@gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-=D0=BF=D1=82, 13 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 16:5=
-3 Lee Jones <lee@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> Drop the 'video: ' part of the subject line.
->
-> Please review, explain or fix the Sashiko review(s).
->
-> > Add Control Bank to HVLED/LVLED muxing support based on the led-sources
-> > defined in the device tree.
-> >
-> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org>
-> > ---
-> > This was part of the original LM3533 controller DT/OF conversion patchs=
-et,
-> > but it appears to have been accidentally separated during the final ite=
-ration.
-> > Therefore, I am sending it as a follow-up.
-> > ---
-> >  drivers/leds/leds-lm3533.c          | 60 +++++++++++++++++++++++++++++
-> >  drivers/video/backlight/lm3533_bl.c | 45 ++++++++++++++++++++++
->
-> Why are these being bundled up?
->
-> What is the dependency?  If none, please separate.
->
-> >  2 files changed, 105 insertions(+)
-> >
-> > diff --git a/drivers/leds/leds-lm3533.c b/drivers/leds/leds-lm3533.c
-> > index 7259097bd6a71..a1aeff70a90fc 100644
-> > --- a/drivers/leds/leds-lm3533.c
-> > +++ b/drivers/leds/leds-lm3533.c
-> > @@ -26,6 +26,11 @@
-> >  #define LM3533_ALS_CHANNEL_LV_MIN    1
-> >  #define LM3533_ALS_CHANNEL_LV_MAX    2
-> >
-> > +#define LM3533_REG_OUTPUT_CONF1                      0x10
-> > +#define   OUTPUT_CONF1_SHIFT                 2
-> > +#define   OUTPUT_LVLED_MASK                  0x3
-> > +#define LM3533_REG_OUTPUT_CONF2                      0x11
-> > +#define   OUTPUT_CONF2_SHIFT                 6
-> >  #define LM3533_REG_CTRLBANK_BCONF_BASE               0x1b
-> >  #define LM3533_REG_PATTERN_ENABLE            0x28
-> >  #define LM3533_REG_PATTERN_LOW_TIME_BASE     0x71
-> > @@ -54,6 +59,9 @@ struct lm3533_led {
-> >       u32 max_current;
-> >       u32 pwm;
-> >
-> > +     int num_leds;
-> > +     u32 leds[LM3533_LVCTRLBANK_MAX];
-> > +
-> >       bool have_als;
-> >  };
-> >
-> > @@ -622,8 +630,36 @@ static const struct attribute_group *lm3533_led_at=
-tribute_groups[] =3D {
-> >
-> >  static int lm3533_led_setup(struct lm3533_led *led)
-> >  {
-> > +     u32 output_cfg_shift =3D 0;
-> > +     u32 output_cfg_val =3D 0;
-> > +     u32 output_cfg_mask =3D 0;
-> >       int ret;
-> >
-> > +     if (led->num_leds) {
-> > +             for (int i =3D 0; i < led->num_leds; i++) {
-> > +                     if (led->leds[i] >=3D LM3533_LVCTRLBANK_MAX)
-> > +                             continue;
-> > +
-> > +                     output_cfg_shift =3D led->leds[i] * 2;
-> > +                     output_cfg_val |=3D led->id << output_cfg_shift;
-> > +                     output_cfg_mask |=3D OUTPUT_LVLED_MASK << output_=
-cfg_shift;
-> > +             }
-> > +
-> > +             /* LVLED1, LVLED2 and LVLED3 */
-> > +             ret =3D regmap_update_bits(led->regmap, LM3533_REG_OUTPUT=
-_CONF1,
-> > +                                      output_cfg_mask << OUTPUT_CONF1_=
-SHIFT,
-> > +                                      output_cfg_val << OUTPUT_CONF1_S=
-HIFT);
-> > +             if (ret)
-> > +                     return ret;
-> > +
-> > +             /* LVLED4 and LVLED5 */
-> > +             ret =3D regmap_update_bits(led->regmap, LM3533_REG_OUTPUT=
-_CONF2,
-> > +                                      output_cfg_mask >> OUTPUT_CONF2_=
-SHIFT,
-> > +                                      output_cfg_val >> OUTPUT_CONF2_S=
-HIFT);
-> > +             if (ret)
-> > +                     return ret;
-> > +     }
-> > +
-> >       ret =3D lm3533_ctrlbank_set_max_current(&led->cb, led->max_curren=
-t);
-> >       if (ret)
-> >               return ret;
-> > @@ -698,6 +734,30 @@ static int lm3533_led_probe(struct platform_device=
- *pdev)
-> >
-> >       device_property_read_u32(&pdev->dev, "ti,pwm-config-mask", &led->=
-pwm);
-> >
-> > +     /*
-> > +      * If led-sources property is not set then either this Control Ba=
-nk uses
-> > +      * its default LVLED or is not linked to any LVLED at all.
-> > +      */
-> > +     led->num_leds =3D device_property_count_u32(&pdev->dev, "led-sour=
-ces");
-> > +     if (led->num_leds > LM3533_LVCTRLBANK_MAX) {
-> > +             dev_err(&pdev->dev, "num of LED sources exceeds max %d: %=
-d\n",
->
-> "Number "
->
-> > +                     LM3533_LVCTRLBANK_MAX, led->num_leds);
-> > +             ret =3D -EINVAL;
-> > +             goto err_deregister;
-> > +     }
->
-> Could we move the 'led-sources' parsing above led_classdev_register(),
-> or convert the driver to devm_led_classdev_register() and use 'return
-> dev_err_probe()' here?
->
+Hello,
 
-I will convert to devm_led_classdev_register() as precursor to this patch.
+On Fri Nov 13, 2026 at 2:12 PM CET, Jun Yan wrote:
+> Hi Damon,
+>
+>> You are right, this is really a valid concern.
+>>
+>> If CONFIG_GENERIC_PHY is disabled, the old code could still proceed and
+>> keep the driver probing, while the new version would return an error
+>> directly.
+>
+> -ENOSYS can only come from the !CONFIG_GENERIC_PHY stubs in
+> include/linux/phy/phy.h; the real implementation in drivers/phy/phy-core.=
+c
+> never returns it. And the stub for the optional variant returns NULL, not
+> -ENOSYS:
+>
+>     static inline struct phy *devm_phy_optional_get(struct device *dev,
+>                                                     const char *string)
+>     {
+>             return NULL;
+>     }
+>
+> So with CONFIG_GENERIC_PHY disabled the PHY is still treated as absent
+> (NULL), exactly as the old -ENOSYS branch did. With CONFIG_GENERIC_PHY
+> enabled, -ENOSYS cannot occur, devm_phy_optional_get() turns -ENODEV into
+> NULL, and any other error is still propagated - same as the open-coded
+> check.
+>
+>> It should be better to keep the -ENOSYS handling to preserve the
+>> original behavior.
+>
+> Overall the behaviour is unchanged in both configurations, so no separate
+> handling is needed.
 
-> > +     if (led->num_leds < 0)
-> > +             led->num_leds =3D 0;
-> > +
-> > +     if (led->num_leds > 0) {
-> > +             ret =3D device_property_read_u32_array(&pdev->dev, "led-s=
-ources",
-> > +                                                  led->leds, led->num_=
-leds);
-> > +             if (ret) {
-> > +                     dev_err(&pdev->dev, "failed to get led-sources\n"=
-);
-> > +                     goto err_deregister;
-> > +             }
->
-> dev_err_probe()
->
-> > +     }
-> > +
-> >       ret =3D lm3533_led_setup(led);
-> >       if (ret)
-> >               goto err_deregister;
-> > diff --git a/drivers/video/backlight/lm3533_bl.c b/drivers/video/backli=
-ght/lm3533_bl.c
-> > index adcd6ac7cf229..e8164c8528577 100644
-> > --- a/drivers/video/backlight/lm3533_bl.c
-> > +++ b/drivers/video/backlight/lm3533_bl.c
-> > @@ -7,6 +7,7 @@
-> >   * Author: Johan Hovold <jhovold@gmail.com>
-> >   */
-> >
-> > +#include <linux/bits.h>
-> >  #include <linux/module.h>
-> >  #include <linux/init.h>
-> >  #include <linux/platform_device.h>
-> > @@ -21,6 +22,7 @@
-> >  #define LM3533_HVCTRLBANK_COUNT              2
-> >  #define LM3533_BL_MAX_BRIGHTNESS     255
-> >
-> > +#define LM3533_REG_OUTPUT_CONF1              0x10
-> >  #define LM3533_REG_CTRLBANK_AB_BCONF 0x1a
-> >  #define   CTRLBANK_AB_BCONF_ALS(n)   BIT(2 * (n))
-> >  #define   CTRLBANK_AB_BCONF_MODE(n)  BIT(2 * (n) + 1)
-> > @@ -35,6 +37,9 @@ struct lm3533_bl {
-> >       u32 max_current;
-> >       u32 pwm;
-> >
-> > +     int num_leds;
-> > +     u32 led_strings[LM3533_HVCTRLBANK_COUNT];
-> > +
-> >       bool have_als;
-> >       bool linear;
-> >  };
-> > @@ -236,6 +241,8 @@ static const struct attribute_group *lm3533_bl_attr=
-ibute_groups[] =3D {
-> >  static int lm3533_bl_setup(struct lm3533_bl *bl)
-> >  {
-> >       int ctrlbank =3D lm3533_bl_get_ctrlbank_id(bl);
-> > +     u32 output_cfg_val =3D 0;
-> > +     u32 output_cfg_mask =3D 0;
-> >       int ret;
-> >
-> >       ret =3D regmap_assign_bits(bl->regmap, LM3533_REG_CTRLBANK_AB_BCO=
-NF,
-> > @@ -243,6 +250,21 @@ static int lm3533_bl_setup(struct lm3533_bl *bl)
-> >       if (ret)
-> >               return ret;
-> >
-> > +     if (bl->num_leds) {
-> > +             for (int i =3D 0; i < bl->num_leds; i++) {
-> > +                     if (bl->led_strings[i] >=3D LM3533_HVCTRLBANK_COU=
-NT)
-> > +                             continue;
-> > +
-> > +                     output_cfg_val |=3D ctrlbank << bl->led_strings[i=
-];
-> > +                     output_cfg_mask |=3D BIT(bl->led_strings[i]);
-> > +             }
->
-> This for loop doesn't need to be in the if statement.
->
+Thanks for the analysis! Cna you send a v4 with that explained in the
+commit message, possibly in a more concise way, maybe with bullets for the
+various CONFIG_GENERIC_PHY on/off cases or so, for readability?
 
-It is in if statement because if node has no "led-sources"
-LM3533_REG_OUTPUT_CONF1 should not be touched and must be left in its
-default state.
+Reading it now, this v3 commit message kind of said the same things. but it
+misled both me and Damon, so it's worth a clear explanation.
 
-> > +             ret =3D regmap_update_bits(bl->regmap, LM3533_REG_OUTPUT_=
-CONF1,
-> > +                                      output_cfg_mask, output_cfg_val)=
-;
-> > +             if (ret)
-> > +                     return ret;
-> > +     }
-> > +
-> >       ret =3D lm3533_ctrlbank_set_max_current(&bl->cb, bl->max_current)=
-;
-> >       if (ret)
-> >               return ret;
-> > @@ -320,6 +342,29 @@ static int lm3533_bl_probe(struct platform_device =
-*pdev)
-> >
-> >       device_property_read_u32(&pdev->dev, "ti,pwm-config-mask", &bl->p=
-wm);
-> >
-> > +     /*
-> > +      * If led-sources property is not set then either this Control Ba=
-nk uses
-> > +      * its default HVLED or is not linked to any HVLED at all.
-> > +      */
-> > +     bl->num_leds =3D device_property_count_u32(&pdev->dev, "led-sourc=
-es");
-> > +     if (bl->num_leds > LM3533_HVCTRLBANK_COUNT) {
-> > +             dev_err(&pdev->dev, "num of LED sources %d exceeds max %d=
-\n",
-> > +                     bl->num_leds, LM3533_HVCTRLBANK_COUNT);
-> > +             return -EINVAL;
-> > +     }
->
-> dev_err_probe()
->
-> > +
-> > +     if (bl->num_leds < 0)
-> > +             bl->num_leds =3D 0;
-> > +
-> > +     if (bl->num_leds > 0) {
-> > +             ret =3D device_property_read_u32_array(&pdev->dev, "led-s=
-ources",
-> > +                                                  bl->led_strings,
-> > +                                                  bl->num_leds);
-> > +             if (ret)
-> > +                     return dev_err_probe(&pdev->dev, ret,
-> > +                                          "failed to get led-sources\n=
-");
-> > +     }
-> > +
-> >       ret =3D lm3533_bl_setup(bl);
-> >       if (ret)
-> >               return ret;
-> > --
-> > 2.53.0
-> >
->
+Thanks!
 
-Other suggestions are valid, I will apply them in v3
+Luca
 
-> --
-> Lee Jones
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
