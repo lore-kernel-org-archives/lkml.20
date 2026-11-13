@@ -1,85 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794546631;
-	b=taSaOoToog6YXVT98UoL9x+2L8GxfcFJq9AEG0ljxtdFVK0I55gY256VdgVEwDUIlKdu
-	 tKN64/4rjzJR0DpigYh680V+0OQ3se0Bv3QPnyh2D2zhNnZCX3rcm3qFh3lO0phHDLqH+
-	 a+OgvbXUL2EEuTbQvRbmwOCJ0sas4Un9UpNLIow2G5D99u1V29S7/49ugNGDOZN2JOHU4
-	 Zd54JEsWBUlBsouFJc10L7HG4rqooiDCe521HL8Y4MYcwG5kfWORseoHWlEJjeEyBbovF
-	 D7Xolj9YJPuodbpv8Avu7mkm5miHiMPnBh+G0/10+SNJqYIIhzqip0cv4cE8r/BpomQ==
+	t=1794546717;
+	b=LpCxWNBQOBbweqRvSsgMbMV/LqdOyP+iPvR2UkfZ5UkQE/hJIzuIhysaJXLOH3o/bg1T
+	 KvAmCueYFMrtWFf15rPAm8ZE5+Ne26fsKWd6m63nS+3Y3JzepcWH0bBKbpBA50uRvF7gt
+	 p4DmEgNCnZLcPcIjA2B0HQ9EOyJCoo6OWUV7vGMXV7a80aeyaBUwlk2gcuAvKlTwnLKCg
+	 hoXAOlkN3yyd2uxts0TRlfqCwBbqCWfBWu00d9Wa6vABWIgSGcf6hMV1iQtZquXhvk8yS
+	 E3FrJK4FPsEdwSYZSs+o+fpDRoUomQnU2pChBulI4SVkHM6RAV+YweFAMOgxVc/s1DA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794546631;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=mgkN7zfne8CxcStcMwaH53uuXOvKnVLzfMEVlic0so8=;
-	b=NclVTf1PzWMRE8Lcp+6ZMIm+3ic31P7Girn+NpzfP81ujQyIcUCpGI0oE57QHZerzTCI
-	 p8C+uI/KCtuNV9h1ZWevG4AOQ5yGQZ0UABRSpMDPoed44CGJ8A1HBkAaVU3vsB4fsix8W
-	 7dz01U+iR9OYI6rJskO7G/InCnTKPVSsDlJvFXxThS+QblIlqPDvDNxb/GokVxWx3TZp6
-	 mWSACs9OA9tWOWrFCparI7F/+fALQj/7xAl4fUwwy1C4CPA5oTJBLvU64Luo4CThZw5hs
-	 fQAf2ObtTpbvxpehIjwAHK31lrryeYTuf9aV56pVHszwpVlr8RFg+W1x+icYvNLASlQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794546717;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=eJCeJm0SzOPFgAQtVHYOI/wNOE8f6A/g91ADM21Bu8Q=;
+	b=OaneuGTeZio0XNqjzL/JaM2zLWEtlg7LI6iGc/yrQmTl6cU4od+8u8a3Oui9Z2GR3OXZ
+	 +NkqTqHQ6sXuNHs4eDNf2FFbse5RzrG8BdXzymkmhqbqIPvkKKf20OghJChLZJZ1XGX6q
+	 MOY3qm4HtWkdSSRAH0h7e1dUsjpRLLfwWiZaEhe+RBQpySX6JlyQ341HTfPNMXGdn1mfV
+	 EN2++sh4zon+SoMstA0l6TAZB92depELLyE4RYQFeqK5vmAuPoueqHhqxEn2UCGWAlF9t
+	 QsqgVuHTl4zLKNG8GiKzsbyVFvR1jxhWUA+mdpklWLtJ55Ru9tYVdChodDdYgTBFafQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=OIjEQYM2;
-	arc=none smtp.remote-ip=209.85.222.182
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T+q2wKae;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54F9A606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:10:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54F9A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AED2C606A31C;
+	Fri, 13 Nov 2026 05:11:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=OIjEQYM2
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-93f30660e69so83523185a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:10:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1794546630; x=1795151430; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=mgkN7zfne8CxcStcMwaH53uuXOvKnVLzfMEVlic0so8=;
-        b=OIjEQYM2AbvD7QM9TAR0tLg4L1oJc35+b1F4MoifxY7eXYBQ+KEPJLpPBOEANDYP5g
-         kxqNKD+dVu6bAcIcU3FBv2VZxmUXB7eOLSD/Z5Qeo2WKctkL1xQ+g0Wv7nm9jP1FCDEH
-         PQEgjk1nUYo1hA/DrieotJAmBd8Rat8VKIbcdOMOnxU+W3TRM9Q2TPFBlrUjJS3uofff
-         gL6wsydLRY86jsPdbXHxO0sT8SWJY4iNx39eHkz5cFSKe225IdWJz9HnWUJbvRDmVe0H
-         LaY/kQzdki4vuo6l2LdExbc+GG1bug0Em2JGwmzTUqICZ90ycLFTqsHNwcUJzEJwHpwo
-         WDVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794546630; x=1795151430;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mgkN7zfne8CxcStcMwaH53uuXOvKnVLzfMEVlic0so8=;
-        b=LXx/PtEVW5FqlEZm/Lxu79Lo57dChJNhM1QHbJ5/EYGVrUoWxecFjJm71U+M5bqPS+
-         ycgBxrpCutiLsvW62WIu82f4fLV9Y0POCkk1hY9gT2cb4CfoGUpiNf10AMeWyigg43Yv
-         u4nnsTwl1ONx2JUa6i5hDz2lqohO2CV+Q8SINz4YDR5RoWzFcgLlVPbZzLsdh0XOTYxA
-         KNsWw1tD9gqHuJP+MNtqWKQPRO5f7bxS3XE6tLx0V/sLyfhTGOvUX6E29FqyM6T1DeJd
-         j5TWQDoUIJ9W01dZJU/zk7Mc0ZY8kMX7ROJCXVHLGN6ntN9qVo8f7DWo2Pvec77xt8rS
-         a/Hw==
-X-Forwarded-Encrypted: i=1; AL+hErGBYkA0jR8ewzaRZPYb7J1ewpMDA/8kD5Nfd9R3IGv9md5ehDQqAECCD7KcHlPbhsL0yKhlI8/GOmNCvro=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/upoh2zK6bK/JpjRX/i30xLPUccKoatmpPavPgyUu+1FreUL0/
-	rUuwETnP8GUyKln1brhsfW0pAwHCPV+ya61QoPxkY0Pq0wWrA9+wwbhwIhl0NfdvtU0=
-X-Gm-Gg: AYBFou15iXt6vZCtU52nFfTYpwdDXencAKiva3r8uwOWvN6A/2S3N/GttQJbmmNFoQa
-	079/2XcegwkwLKPW5/Y4XhIsn8fn3kgf+mQnQRWLbr9KrVPxIAHELmEXEmjTRJbZQkeXaDJh3Aa
-	ToTXXIpdxWK4kvDHBIc6IAE7405cZnvPQ2TE/bDB08SaRq12P6zjrvhz1Rpue2ld00Fh9yOXHRA
-	D0DZNxHMgWbUfj7hVXcVjgQ+CzXf9cU7DFNxk6L+UmbnCPQ1hE0vxkd6Dt9tqxgTx7PGTs5hmw/
-	dbjDixGXUjaYPYr8iLxu5jFQhj8Fdaby9h18dZywvOI7N0a/nb6tbTgGigOvXphfoAVQ38s5d4F
-	74Y7hbG9uEORuEcUJZj2kG8wu9OC6hyuijN8iNv0/J8Ip7/HWeqYt6SyF8sdlKcS0jzl8MbikLa
-	hnmS9W/QvBaX6r0F7bVGpIhf+sjAHOfN/+gdfEIb+RLZEIFTRDorhPBiXfcUgmVHmFSLKQpNBfx
-	J8CzyTzFwgWLuK/lFCxeMT9o4WlTBC4rdokmpg6PlmOKze9zkjdCWc14j6PpbTyeYDVsO7HD4p8
-	2QxZVh6rPuxirH8L/2wtNWXd8bS5OA6TpyUEVR5Bc076IckgTEQZVOMmOLDfo4lsEFpkF0gwW26
-	J36OjGrI=
-X-Received: by 2002:a05:620a:684a:b0:945:f6b0:db0 with SMTP id af79cd13be357-9494bb3103bmr245366785a.30.1794546630191;
-        Thu, 12 Nov 2026 21:10:30 -0800 (PST)
-Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c836079sm103580385a.18.2026.11.12.21.10.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 21:10:29 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T+q2wKae
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1911E1F000C4;
+	Fri, 13 Nov 2026 05:11:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794546717;
+	bh=eJCeJm0SzOPFgAQtVHYOI/wNOE8f6A/g91ADM21Bu8Q=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=T+q2wKaeJWVDZoNuzPL+dHZmn4h/20cPbzFesJV9p7V6puAp+JWcyJOzJeUS8NObP
+	 HMNJtGI+BRr8d6R8D71A8cwSZ4xyDkFLWWxcf/CpBXCb1jIa/cUCDdsZN4MkNqmHUs
+	 dPjnd+HzePrSM9p/5Kt5OFjE1ZaLKLCwbWgqSkaX65f/USdHAJTgEnPqFrvR3zsNfK
+	 cow/1B8XJ29NrK8P06oNKTylXfMcjk8N11t9MkSpJ00STJUK7Q8GSp2fvphjy3B2DV
+	 a2v0PsMOrjrg5NHNALAClFDp9QmGZPziGS9Pdfdo87wMRQR8wCtl+Ww3chPm6SmNLk
+	 ePpMMTn44ig/w==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
+Cc: akpm@linux-foundation.org, rostedt@goodmis.org, linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] bootconfig: Trim unquoted values at end of file
+Date: Fri, 13 Nov 2026 14:11:54 +0900
+Message-ID: <undine-1794546714483023333-db7a7be5c2ee185d@undined.local>
+X-Mailer: UndineD 0.1
+In-Reply-To: <31f248f330e716b925add3a0ba76f62826527312.1794337724.git.edumucelli@gmail.com>
+References: <cover.1794333957.git.edumucelli@gmail.com> <cover.1794337724.git.edumucelli@gmail.com> <31f248f330e716b925add3a0ba76f62826527312.1794337724.git.edumucelli@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,75 +58,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 05/12] fs/proc/task_mmu: write-protect device-private
- THPs in PAGEMAP_SCAN
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: Tal Zussman <tz2294@columbia.edu>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>, 
- James Houghton <jthoughton@google.com>, 
- Andrea Arcangeli <aarcange@redhat.com>, 
- Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, 
- =?utf-8?q?Micha=C5=82_Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>, 
- Andrei Vagin <avagin@gmail.com>, Stephen Rothwell <sfr@canb.auug.org.au>, 
- Arnd Bergmann <arnd@arndb.de>, Muhammad Usama Anjum <usama.anjum@arm.com>, 
- David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Chris Down <chris@chrisdown.name>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- =?utf-8?q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>, 
- Michal Hocko <mhocko@suse.com>, Mike Kravetz <mike.kravetz@oracle.com>, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org
-In-Reply-To: <20261111-uffd-state-fixes-v1-5-00713d368976@columbia.edu>
-References: <20261111-uffd-state-fixes-v1-0-00713d368976@columbia.edu>
- <20261111-uffd-state-fixes-v1-5-00713d368976@columbia.edu>
-Date: Fri, 13 Nov 2026 00:10:28 -0500
-Message-Id: <179454662851.482102.356362894816988437.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On 2026-11-11 12:55 -0500, Tal Zussman wrote:
-> PAGEMAP_SCAN with PM_SCAN_WP_MATCHING write-protects a huge PMD through
-> make_uffd_wp_pmd(), which handles a present THP and a migration entry
-> but does nothing for a device-private THP. The PMD never gets the uffd
-> bit.
-> 
-> pagemap_thp_category() reports a non-present PMD without the uffd bit as
-> written. A user tracking writes with async uffd-wp therefore sees every
-> page of a device-private THP as written on every scan, whether it was
-> written to or not. This requires a driver that migrates THPs to device
-> memory.
-> 
-> A device-private PMD must be write-protected like any other huge PMD. To
-> fix it, pass it to set_uffd_wp_swp_pmd() as well, which downgrades a
-> writable entry and sets the uffd bit. When the THP migrates back,
-> set_pmd_migration_entry() carries the uffd bit over to the migration
-> entry, so the write protection is kept.
-> 
-> Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+On Tue, 10 Nov 2026 20:08:46 +0100, Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com> wrote:
+> __xbc_parse_value() trims an unquoted value when it encounters a
+> delimiter, but leaves trailing whitespace intact when it reaches the end
+> of the input. Thus "key = value   " has a different value depending on
+> whether the file ends with a newline. The extra whitespace also reaches
+> the rendered kernel command line.
+>
+> Trim unquoted values after the scan finishes, including at end of input.
+> Skip trimming after a closing quote so intentional whitespace in quoted
+> values remains unchanged. Add checks for scalars, arrays and quoted
+> values without a final newline.
+>
+> Fixes: 76db5a27a827 ("bootconfig: Add Extra Boot Config support")
+> Signed-off-by: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
 
-reproduced the issue by observing we fail to carry back the write
-protect bit after migration.
+Looks good to me.
 
-Implementation details i'll leave to Lorenzo's feedback, i don't feel
-strongly about it, it's gonna look bad either way i think :\
+Thanks,
 
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+> ---
+> I tested inputs ending in unquoted spaces, tabs and carriage returns,
+> including arrays and appended or overridden values. The checks compare
+> the parser's actual values and the tool's rendered kernel command line.
+> Quoted whitespace and inputs ending in delimiters are controls.
+>
+> The original parser fails nine of the 18 focused checks. With the fix,
+> all 18 pass, independently and in the combined series. The full
+> bootconfig test suite also passes with the regression checks added.
+>
+>  lib/bootconfig.c                    |  5 +++--
+>  tools/bootconfig/test-bootconfig.sh | 18 ++++++++++++++++++
+>  2 files changed, 21 insertions(+), 2 deletions(-)
+>
+> diff --git a/lib/bootconfig.c b/lib/bootconfig.c
+> index 819685d6c68d..bd071c394c36 100644
+> --- a/lib/bootconfig.c
+> +++ b/lib/bootconfig.c
+> @@ -793,16 +793,17 @@ static int __init __xbc_parse_value(char **__v, char **__n)
+>  				return xbc_parse_error("No value delimiter", p);
+>  			if (*p)
+>  				p++;
+> -			break;
+> +			goto skip_trim;
+>  		}
+>  		if (strchr(",;\n#}", c)) {
+>  			*p++ = '\0';
+> -			v = strim(v);
+>  			break;
+>  		}
+>  	}
+>  	if (quotes)
+>  		return xbc_parse_error("No closing quotes", p);
+> +	v = strim(v);
+> +skip_trim:
+>  	if (c == '#') {
+>  		p = skip_comment(p);
+>  		c = '\n';	/* A comment must be treated as a newline */
+> diff --git a/tools/bootconfig/test-bootconfig.sh b/tools/bootconfig/test-bootconfig.sh
+> index 530ce7e28d63..a2e8311d4d19 100755
+> --- a/tools/bootconfig/test-bootconfig.sh
+> +++ b/tools/bootconfig/test-bootconfig.sh
+> @@ -171,6 +171,24 @@ $BOOTCONF $INITRD > $OUTFILE
+>  xfail grep -q 'val[[:space:]]' $OUTFILE
+>  xpass grep -q 'val2[[:space:]]' $OUTFILE
+>  
+> +echo "Remove unquoted trailing whitespace at end of file"
+> +printf 'foo = val \t' > $TEMPCONF
+> +$BOOTCONF -l $TEMPCONF > $OUTFILE
+> +printf 'foo = "val"\n' > $TEMPCONF
+> +xpass cmp $TEMPCONF $OUTFILE
+> +
+> +echo "Remove trailing whitespace from the last array value at end of file"
+> +printf 'foo = first, last \t' > $TEMPCONF
+> +$BOOTCONF -l $TEMPCONF > $OUTFILE
+> +printf 'foo = "first", "last"\n' > $TEMPCONF
+> +xpass cmp $TEMPCONF $OUTFILE
+> +
+> +echo "Keep quoted trailing whitespace at end of file"
+> +printf 'foo = "val "' > $TEMPCONF
+> +$BOOTCONF -l $TEMPCONF > $OUTFILE
+> +printf 'foo = "val "\n' > $TEMPCONF
+> +xpass cmp $TEMPCONF $OUTFILE
+> +
+>  echo "Showing correct line:column of no closing brace"
+>  cat > $TEMPCONF << EOF
+>  foo {
+>
 
 -- 
-~Gregory
-
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
