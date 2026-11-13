@@ -1,69 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.220
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794562714;
-	b=aXoDrqRT9xGU2cC237yM8Wklz4uAJkfokUOYHVuSbOYBfdfjTRV/ZdJskOlWRKovVoRe
-	 Lq1MbueWmhsCNfV6kGMB2skGV/oYGMJjkemy8SkrQtMw/y9/CIRtzZm7nWb10RFxxWe/H
-	 +L3lngc1L5Ixc+4MfIuaEEQtyqzf78AgqtUCUel13xgRE+396JAOkj2zvnQYfz8M3A3VR
-	 PWP8k6hHhNZbgLHB10/0LeikJEIqWATrHBkZBQeimCpXU0xrhQPFDC6voS3O5UetATcbh
-	 BqLl6hF2KK+cS3pQiGRbjIOtr4w/ryVFXBrze0oNiUm/HAoZTmk5mAL2rXCRnuzXolg==
+	t=1794562726;
+	b=mm4gBtG8DdiPeuXP9CQnO9hDFkoQZKTNhEBYlFaKfSVBAKryc5acbfDhXp0nvPjwuIPX
+	 diq66pYAWQypPZuMmJtyFYvXichvj4h8V5wtMmw9Tq70XcfFyxep7IF2PZ4D4nZ0hRq75
+	 lEaULeBqSazkLfiFQR790hgdbVE37ObBkBp3d0qRR2P0P4c3z7deCF4Ne2lTOGoe9WdIj
+	 2HupvdtJGfVCZ6jQRf6BzciQKCpJoNSrGmoXei2xukIoe1+AYXNnmLbOpiPn53iJjCLk0
+	 xiNGaQwew/3mtIynqYudevzzh/9KEbFVbgkgLfgM0H6QKaxDGI+nwFQvS8Esw9a4lAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794562714;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Debian-User;
-	bh=8Pc1VZfIDVGJzZNtwuo8QG46Hbc/13m3DgBGkiUdd+o=;
-	b=ngNnkuWzP+fVmJA9dZVzJ0Qrp19C/0WtELAvUfR2GngU59w9hTtCxaM2O+hUC3fu/vDG
-	 MYucPeXAF9bIoAx+qtOxKIstrp+m/FF3B+p2nbA71ZucWnbMUAOBloh6nacfbzHiD9NFy
-	 dpvEvgGnjVrnumhxPHEqUopJYv6+4pPnsTo0N2dsMy4HIoTtlVPesCznZW+65yuHyiuNU
-	 P0UrcaDTW7bhdBItOCRN4zi8sHksoqf44QIeBA/iL4OuqOH+SKOVlCfPh3ZtxESM2v0U8
-	 lReck9Ra8H8oRha7w+OT+M3zoG+KfSkBWUsRxZH9+jXEkODG/GuSHzVX/PpUi3SQEQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794562726;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=lIuV6FUuCmbku+6c3MP0BacKv5OXTGUjdv/prBUucwQ=;
+	b=wESCZEiBdPN+emyqBdipAEDMWCv7DCHJLspM+LCwJUdAviMiuRS2VVSTeZeopRTUhA6b
+	 IgSM1Ga1qmDLUoiKfx6dsdGsJy7W95iMaLNTgl/OJ2CYBuxufMI8XNIb/6q+U99AIs784
+	 ydYbgqhpf1yBjmdqgTPl4r3YJvaFMnR/rqVugQ4FwAEiIbVKeQcyowFU9rjdouSK0zbzZ
+	 4q2aaM3PrCI6KXSXgYY72B30R/7cXcM2sT2RBU656Hvjhw95CxmrxVCeTGt0mkbg6iaCG
+	 ksfBW6QKVoCssPy0zG9y7P7TUf4YKHXdh48hxlQcw4H70o6ri84llRQyaimEPzuEuOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=UpCRHb2K;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b="S/aXOX9r";
+	arc=none smtp.remote-ip=113.46.200.220
+Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3227606A33D;
-	Fri, 13 Nov 2026 09:38:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3227606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AF3F606A332
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:38:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AF3F606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=UpCRHb2K
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=8Pc1VZfIDVGJzZNtwuo8QG46Hbc/13m3DgBGkiUdd+o=; b=UpCRHb2KbmBJPwtI+DbP0LaL8d
-	sOk0q8WFr88S3iAMSHj2p/NnbWVzQGiNdZN3nNdO1zLyJsTHzDT2AYpDsszvlBsPXovwNFHmP0hr1
-	SY9lV829yFxFIN3zvj63ln8CFFNj2wJUNMYIHBmKmY/JsW4XoVGlDKbDaDwxxN5mWJ+s4cUXlOuR/
-	42UfaRA1qiSu2ICNxybe2yLc35tfTycNpZWbHnjQ/jcxlqy6tYUcS/Bi6fkLYSwXtlLGPpV1jMI8t
-	xnhOZeXq4yQ0FVHQXpu6b4xvxJ6oAklL5bw8J+RqC+cFo9eyWVg+5AE204arB4mOGXs0IEiF0Nobe
-	Yc0NfHCw==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xRnjp-00Eeb5-2V;
-	Fri, 13 Nov 2026 09:38:30 +0000
-Date: Fri, 13 Nov 2026 01:38:22 -0800
-From: Breno Leitao <leitao@debian.org>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Chris Mason <mason@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, x86@kernel.org, kexec@lists.infradead.org, 
-	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, 
-	linux-riscv@lists.infradead.org, loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
-	linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	David Hildenbrand <david@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH RFC 3/4] crash_dump: recover from a machine check in
- copy_oldmem_page()
-Message-ID: <avbagwxWrmFrjrtV@gmail.com>
-References: <20261112-work-procfs-oldmem-v1-0-ecdcafd99265@kernel.org>
- <20261112-work-procfs-oldmem-v1-3-ecdcafd99265@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=S/aXOX9r
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=lIuV6FUuCmbku+6c3MP0BacKv5OXTGUjdv/prBUucwQ=;
+	b=S/aXOX9r9n9WEKK0m+2dsd4BkY5a453lC7zFvvCFk6fU7g/tug8D05gyvGxBq0vGKDEYPwpEg
+	CjxCEk2WXr4RQILCWUCtd2cRdIiAkyPn6Vrin93dYMc4Kt+LKoMesVQmN/O1Eet9MONTgOlBgtF
+	mQYJ3N3z57lsE/IlFn/QxHg=
+Received: from mail.maildlp.com (unknown [172.19.162.223])
+	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4jQsdg3pqFz12LJw;
+	Fri, 13 Nov 2026 17:38:47 +0800 (CST)
+Received: from kwepemk300013.china.huawei.com (unknown [7.202.194.231])
+	by mail.maildlp.com (Postfix) with ESMTPS id 7241640561;
+	Fri, 13 Nov 2026 17:38:41 +0800 (CST)
+Received: from huawei.com (10.50.163.32) by kwepemk300013.china.huawei.com
+ (7.202.194.231) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 13 Nov
+ 2026 17:38:40 +0800
+From: Jinqian Yang <yangjinqian1@huawei.com>
+To: <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<kvmarm@lists.linux.dev>
+CC: <maz@kernel.org>, <oupton@kernel.org>, <fuad.tabba@linux.dev>,
+	<yuzenghui@huawei.com>, <joey.gouly@arm.com>, <seiden@linux.ibm.com>,
+	<suzuki.poulose@arm.com>, <yangjinqian1@huawei.com>,
+	<liuyonglong@huawei.com>, <wangzhou1@hisilicon.com>,
+	<prime.zeng@hisilicon.com>, <tangchengchang@huawei.com>,
+	<zhengtian10@huawei.com>, <linuxarm@huawei.com>, <liujian222@huawei.com>
+Subject: [PATCH v2] KVM: arm64: Register irq_bypass consumers only when direct MSIs are possible
+Date: Fri, 13 Nov 2026 17:38:40 +0800
+Message-ID: <20261113093840.1034795-1-yangjinqian1@huawei.com>
+X-Mailer: git-send-email 2.33.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,100 +73,168 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112-work-procfs-oldmem-v1-3-ecdcafd99265@kernel.org>
-X-Debian-User: leitao
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemk300013.china.huawei.com (7.202.194.231)
 
-On Thu, Nov 12, 2026 at 05:37:09PM +0100, Christian Brauner wrote:
-> A capture kernel reads the memory of the crashed kernel, and that memory
-> may well have uncorrectable errors. That is after all what the first
-> kernel often died of. Every architecture that maps a page of the old
-> kernel and copies it out does so with copy_to_iter(), and a machine
-> check in that copy takes the capture kernel down.
-> 
-> On x86 a machine check in the kernel is only recovered from if the
-> instruction that took it has a machine check safe exception table entry
-> or copies from userspace (cf. error_context()). The copy of an old page
-> is neither. Its source is kernel memory, whether it goes to the buffer
-> of a read() or, since commit 4a22fd20379c ("vmcore: convert
-> __read_vmcore to use an iov_iter"), into a kernel page for splice(),
-> sendfile() and copy_file_range(). So a read of /proc/vmcore that runs
-> into a poisoned page panics the capture kernel, and so do vmcore's own
-> reads of the ELF headers and notes. Breno sees the result on a fleet:
-> the first kernel dies of a machine check and the capture kernel produces
-> no usable vmcore at all (cf. [1]).
-> 
-> On book3s64 a machine check in the kernel is recovered from if the
-> instruction that took it has an exception table entry (cf.
-> mce_common_process_ue()). The user copy has them, so a read() comes up
-> short there and read_from_oldmem() returns -EFAULT. The copies into
-> kernel pages have none and panic the same way. Other powerpc platforms
-> don't recover from a machine check in such a copy at all.
-> 
-> Copy with _copy_mc_to_iter() instead. x86_64 and PPC64 select
-> ARCH_HAS_COPY_MC, and on x86_64 and book3s64 the machine check safe copy
-> turns the machine check into a short copy, which read_from_oldmem()
-> turns into -EFAULT like any other short copy. On x86 that holds for the
-> fragile and the enhanced fast string variant, a CPU with neither gets
-> the plain copy it has today. Everywhere else _copy_mc_to_iter() is
-> _copy_to_iter(). Put the call into a helper, copy_oldmem_to_iter(), so
-> that the copy of a page of the old kernel lives in one place and an
-> architecture that gains a machine check safe copy later gets this for
-> free. The helper does the same check_copy_size() as copy_to_iter(), so
-> hardened usercopy keeps checking the copy.
-> 
-> With a v7.4-rc1 capture kernel reading /proc/vmcore and a machine check
-> injected into the copy of an old page the capture kernel is gone. A
-> machine check panic prints no trace of its own, this one comes from
-> panic_sys_info=all_bt:
-> 
-> [    0.580568] mce: [Hardware Error]: CPU 0: Machine Check Exception: 7 Bank 1: bd80000000000134
-> [    0.580574] mce: [Hardware Error]: RIP 10:<ffffffff81909b11> {_copy_to_iter+0x81/0x850}
-> [    0.580584] mce: [Hardware Error]: TSC 202f2117f ADDR 10000000 MISC 8c
-> [    0.580587] mce: [Hardware Error]: PROCESSOR 2:aa0f02 TIME 1794493617 SOCKET 0 APIC 0 microcode aa0021c
-> [    0.580589] mce: [Hardware Error]: Machine check: Uncorrected unrecoverable error in kernel context
-> [    0.580591] Kernel panic - not syncing: Fatal local machine check
-> [    0.582587] CPU: 0 UID: 0 PID: 1 Comm: init Not tainted 7.4.0-rc1-g6628e7d4c6b2 #1 PREEMPT(lazy)
-> [    0.583101] Call Trace:
-> [    0.583198]  <#MC>
-> [    0.583279]  dump_stack_lvl+0x4d/0x70
-> [    0.583419]  nmi_cpu_backtrace.cold+0x18/0x6e
-> [    0.583584]  ? __pfx_nmi_raise_cpu_backtrace+0x10/0x10
-> [    0.583772]  nmi_trigger_cpumask_backtrace+0xba/0xf0
-> [    0.583955]  sys_info+0x83/0xb0
-> [    0.584075]  vpanic+0x1b4/0x303
-> [    0.584197]  panic+0x66/0x70
-> [    0.584488]  mce_panic+0x19e/0x290
-> [    0.584799]  do_machine_check+0x627/0x9a0
-> [    0.584953]  ? _copy_to_iter+0x81/0x850
-> [    0.585099]  exc_machine_check+0x68/0xb0
-> [    0.585246]  asm_exc_machine_check+0x1e/0x40
-> [    0.587747]  </#MC>
-> [    0.587831]  <TASK>
-> [    0.588092]  ? iomem_map_sanity_check+0x98/0xb0
-> [    0.588430]  ? __ioremap_caller.isra.0+0x1a9/0x300
-> [    0.588604]  ? __copy_oldmem_page+0x3d/0xb0
-> [    0.588928]  __copy_oldmem_page+0x5e/0xb0
-> [    0.589079]  read_from_oldmem.part.0+0xe3/0x140
-> [    0.589247]  read_vmcore+0x137/0x280
-> [    0.589381]  proc_reg_read_iter+0x49/0x90
-> [    0.589533]  vfs_read+0x348/0x490
-> [    0.589666]  ksys_read+0x76/0x100
-> [    0.589792]  do_syscall_64+0xde/0x4b0
-> [    0.590103]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 
-> With this patch the same injection ends the read() with -EFAULT, the
-> capture kernel logs the machine check and keeps running.
-> 
-> [1]: https://lore.kernel.org/all/avRXzzCSzT9Qj2FC@gmail.com/
-> 
-> Reported-by: Chris Mason <mason@kernel.org>
-> Suggested-by: Breno Leitao <leitao@debian.org>
-> Fixes: 4ae362be5093 ("[PATCH] kdump: read previous kernel's memory")
-> Fixes: 54c32021eb6f ("[PATCH] powerpc: Add arch-dependent copy_oldmem_page")
-> Fixes: 4a22fd20379c ("vmcore: convert __read_vmcore to use an iov_iter")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+kvm_arch_has_irq_bypass() on arm64 returns true unconditionally, so
+every irqfd assignment registers an irq_bypass consumer even when KVM
+cannot do direct MSI forwarding for the VM. In that case
+kvm_vgic_v4_set_forwarding() bails out at its very first check, since
+vgic_supports_direct_msis() is false, and the registration becomes pure
+overhead: every KVM_IRQFD ioctl takes the global irq_bypass mutex, which
+becomes a contention point when many VMs boot concurrently.
 
-Reviewed-by: Breno Leitao <leitao@debian.org>
+Pass struct kvm to kvm_arch_has_irq_bypass() and gate the registration
+on vgic_supports_direct_msis(kvm), like x86 gates on
+enable_device_posted_irqs. Reading the per-VM vgic state is safe here,
+as kvm_irqfd_assign() requires an initialized irqchip.
+
+Functionally this is a no-op: without direct MSI support the consumer
+registration never did anything beyond acquiring the lock. On a
+GICv3-only host booting 100 microVMs concurrently this cuts the average
+boot time by ~5 ms, matching the gain observed with
+CONFIG_HAVE_KVM_IRQ_BYPASS=n.
+
+Signed-off-by: Jinqian Yang <yangjinqian1@huawei.com>
+---
+v1 -> v2:
+ - Gate on vgic_supports_direct_msis(kvm) instead of the global
+   kvm_vgic_global_state.has_gicv4 flag, This requires passing struct
+   kvm to kvm_arch_has_irq_bypass() and updating the x86 and PPC callers.
+
+v1: https://lore.kernel.org/linux-arm-kernel/20261109112018.241298-1-yangjinqian1@huawei.com/
+
+ arch/arm64/include/asm/kvm_host.h | 4 ++--
+ arch/arm64/kvm/vgic/vgic.h        | 1 -
+ arch/powerpc/kvm/powerpc.c        | 2 +-
+ arch/x86/include/asm/kvm_host.h   | 2 +-
+ arch/x86/kvm/irq.c                | 2 +-
+ arch/x86/kvm/vmx/posted_intr.c    | 2 +-
+ include/kvm/arm_vgic.h            | 1 +
+ include/linux/kvm_host.h          | 2 +-
+ virt/kvm/eventfd.c                | 2 +-
+ 9 files changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+index 97332ffcb130..da86646b6709 100644
+--- a/arch/arm64/include/asm/kvm_host.h
++++ b/arch/arm64/include/asm/kvm_host.h
+@@ -1742,9 +1742,9 @@ void kvm_set_vm_id_reg(struct kvm *kvm, u32 reg, u64 val);
+ #define kvm_has_sctlr2(k)				\
+ 	(kvm_has_feat((k), ID_AA64MMFR3_EL1, SCTLRX, IMP))
+ 
+-static inline bool kvm_arch_has_irq_bypass(void)
++static inline bool kvm_arch_has_irq_bypass(struct kvm *kvm)
+ {
+-	return true;
++	return vgic_supports_direct_msis(kvm);
+ }
+ 
+ void kvm_idregs_enforce_dependencies(struct kvm *kvm);
+diff --git a/arch/arm64/kvm/vgic/vgic.h b/arch/arm64/kvm/vgic/vgic.h
+index 97fc3bdf520e..3c128e4d9afa 100644
+--- a/arch/arm64/kvm/vgic/vgic.h
++++ b/arch/arm64/kvm/vgic/vgic.h
+@@ -521,7 +521,6 @@ static inline bool vgic_host_has_gicv5(void)
+ }
+ 
+ bool system_supports_direct_sgis(void);
+-bool vgic_supports_direct_msis(struct kvm *kvm);
+ bool vgic_supports_direct_sgis(struct kvm *kvm);
+ 
+ static inline bool vgic_supports_direct_irqs(struct kvm *kvm)
+diff --git a/arch/powerpc/kvm/powerpc.c b/arch/powerpc/kvm/powerpc.c
+index 9194cf492d1c..74c0d457f4ca 100644
+--- a/arch/powerpc/kvm/powerpc.c
++++ b/arch/powerpc/kvm/powerpc.c
+@@ -875,7 +875,7 @@ void kvm_arch_vcpu_put(struct kvm_vcpu *vcpu)
+  * irq_bypass_stop and irq_bypass_start are not needed and so
+  * kvm_ops are not defined for them.
+  */
+-bool kvm_arch_has_irq_bypass(void)
++bool kvm_arch_has_irq_bypass(struct kvm *kvm)
+ {
+ 	return ((kvmppc_hv_ops && kvmppc_hv_ops->irq_bypass_add_producer) ||
+ 		(kvmppc_pr_ops && kvmppc_pr_ops->irq_bypass_add_producer));
+diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+index 1ee4b127004d..8b6f5b72fea5 100644
+--- a/arch/x86/include/asm/kvm_host.h
++++ b/arch/x86/include/asm/kvm_host.h
+@@ -1919,7 +1919,7 @@ static inline void kvm_arch_vcpu_unblocking(struct kvm_vcpu *vcpu)
+ 	kvm_x86_call(vcpu_unblocking)(vcpu);
+ }
+ 
+-static inline bool kvm_arch_has_irq_bypass(void)
++static inline bool kvm_arch_has_irq_bypass(struct kvm *kvm)
+ {
+ 	return enable_device_posted_irqs;
+ }
+diff --git a/arch/x86/kvm/irq.c b/arch/x86/kvm/irq.c
+index 871977288272..81eeecc614ef 100644
+--- a/arch/x86/kvm/irq.c
++++ b/arch/x86/kvm/irq.c
+@@ -439,7 +439,7 @@ static int kvm_pi_update_irte(struct kvm_kernel_irqfd *irqfd,
+ 	struct kvm_lapic_irq irq;
+ 	int r;
+ 
+-	if (WARN_ON_ONCE(!irqchip_in_kernel(kvm) || !kvm_arch_has_irq_bypass()))
++	if (WARN_ON_ONCE(!irqchip_in_kernel(kvm) || !kvm_arch_has_irq_bypass(kvm)))
+ 		return -EINVAL;
+ 
+ 	if (entry && entry->type == KVM_IRQ_ROUTING_MSI) {
+diff --git a/arch/x86/kvm/vmx/posted_intr.c b/arch/x86/kvm/vmx/posted_intr.c
+index 2644add54b76..15d7a97fd7f6 100644
+--- a/arch/x86/kvm/vmx/posted_intr.c
++++ b/arch/x86/kvm/vmx/posted_intr.c
+@@ -153,7 +153,7 @@ static bool vt_can_use_vtd_pi(struct kvm *kvm)
+ 	 * bypass IRQ being attached to the VM.  vt_pi_start_bypass() ensures
+ 	 * blockng vCPUs will see an elevated count or get KVM_REQ_UNBLOCK.
+ 	 */
+-	return irqchip_in_kernel(kvm) && kvm_arch_has_irq_bypass() &&
++	return irqchip_in_kernel(kvm) && kvm_arch_has_irq_bypass(kvm) &&
+ 	       READ_ONCE(kvm->arch.nr_possible_bypass_irqs);
+ }
+ 
+diff --git a/include/kvm/arm_vgic.h b/include/kvm/arm_vgic.h
+index 4b2c41917b77..39c69d861060 100644
+--- a/include/kvm/arm_vgic.h
++++ b/include/kvm/arm_vgic.h
+@@ -215,6 +215,7 @@ struct vgic_global {
+ };
+ 
+ extern struct vgic_global kvm_vgic_global_state;
++bool vgic_supports_direct_msis(struct kvm *kvm);
+ 
+ #define VGIC_V2_MAX_LRS		(1 << 6)
+ #define VGIC_V3_MAX_LRS		16
+diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+index e7fc94e2910a..bdf002a62686 100644
+--- a/include/linux/kvm_host.h
++++ b/include/linux/kvm_host.h
+@@ -2458,7 +2458,7 @@ struct kvm_vcpu * __percpu *kvm_get_running_vcpus(void);
+ #if IS_ENABLED(CONFIG_HAVE_KVM_IRQ_BYPASS)
+ struct kvm_kernel_irqfd;
+ 
+-bool kvm_arch_has_irq_bypass(void);
++bool kvm_arch_has_irq_bypass(struct kvm *kvm);
+ int kvm_arch_irq_bypass_add_producer(struct irq_bypass_consumer *,
+ 			   struct irq_bypass_producer *);
+ void kvm_arch_irq_bypass_del_producer(struct irq_bypass_consumer *,
+diff --git a/virt/kvm/eventfd.c b/virt/kvm/eventfd.c
+index f43b8b25bc85..07a7c8fc3bbe 100644
+--- a/virt/kvm/eventfd.c
++++ b/virt/kvm/eventfd.c
+@@ -488,7 +488,7 @@ kvm_irqfd_assign(struct kvm *kvm, struct kvm_irqfd *args)
+ 		schedule_work(&irqfd->inject);
+ 
+ #if IS_ENABLED(CONFIG_HAVE_KVM_IRQ_BYPASS)
+-	if (kvm_arch_has_irq_bypass()) {
++	if (kvm_arch_has_irq_bypass(kvm)) {
+ 		irqfd->consumer.add_producer = kvm_arch_irq_bypass_add_producer;
+ 		irqfd->consumer.del_producer = kvm_arch_irq_bypass_del_producer;
+ 		irqfd->consumer.stop = kvm_arch_irq_bypass_stop;
+-- 
+2.33.0
+
