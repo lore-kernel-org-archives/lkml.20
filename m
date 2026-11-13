@@ -1,89 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794578206;
-	b=jgtfYogD/iHZ0sRsTLrj/RMzpcFz3FpDZ7Sm9oxTJR7lF8b5kOVuHn9/erfr6IlCLMWe
-	 eOMZSJcprcZD7AWxZM1kU9o9srRo03/IKSyjxWgx3W1NAi42E3hrX6JWuEBBmiop5hPK8
-	 u7jg1mG883UYPOQH6U4kz9FIiHYnNLL/2+o0Ih4reiWcHGQ/NrAd8l9B/SaQZWDJaPgBc
-	 CtOpTEpgJp3Zt7SXYUWX/z6n3iitb3gItGaq8AgcugVI533tFAv5DyuNlh6h42QGYIB4O
-	 aglgAQi9SqyIObOMXFE+uONsLTU5bcnsDckVS2FV2NgwLNAFR3OdMcico6Ws7xBWP5g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794578206;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794578238;
+	b=VNNVMRfc3ht66GiHyMwK2SiO4ZDrlis8LyY2Z6XFdSPnskHcPyC9E7X9BWXhSe4kJih+
+	 RV8Nw8OEF5PLyLWFiAVNq26kTaBob9FaiMV3ORZ/r2TH3jxMnyxpXkikf6VrTiqWQzUov
+	 PPJlB+32och58yyJFNnw0MDZ1syQohYwdZjHBRPoH7XzCSKybTR23zkI5yS13Jp0bmueB
+	 L2MDUcTLefQl8v/0TWrid6cGkz3qUOt2GRHBejuIH+6aI7Ok8VqQZABb1tkB5rtwycPTZ
+	 ZpyZXMs9B8yohGBgkA63wZFV76Fk2vWjScHx3X6T+U1xY5Rsfgcyj0Ad9YLA9g/Swdg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794578238;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=OBZlMLfPsVQIpOJpXajuH7DlrD4e9+7gm2lISPcBfUk=;
-	b=ge7HlTDLWI8I9rNnoA7fY1u7LLCrqc8sgC+ljdancHPds8XRS8Jz4eSAKzqMB1bB787l
-	 nGxlrM/cCSCPG1GH2bJDZbTD5UX0YJGh3QY51dRP+WZhdsJ0WlToKyIqwJpvX7f+fjROi
-	 tZkMYrZeRucg00doi41f7KxjPXoVyBgyn+Aezy9OQq9eajwUHXuTI9ggAklCnbRPsQlAL
-	 CqYnl+TLNAwY0148bJnCjbjGgDxu9XPhONrjppTDEhYSL1TepyMWQJhv0rFbj+jybBMLv
-	 9/CwCol4yuZqXTmteL4HZeuglQHjny4VSU1ISZ63xuie9D/5FdX6LHmVpx0CMv1TaKA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b="JdB/b9SI";
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=oyg73YpJiMIbGke9EcWnaG6kp5irY/WfHZ5cN6Nkeyw=;
+	b=i/hqQE2JgASusuqqcngEmxDQGesRSkY4oKhw5/t/V6N4eBuZ9a8C+thtevUN6kSlId9v
+	 UvCNklhXnKNptJUdM5DqRR+DDPOFHE+IsDDL18wcMO/SltZ49tP5VzbcupDxCmqltqbSJ
+	 TQ7bDXjsiT7tAtSP3TQMD1oS1mbZ4e7vOtC9oeQUlCGBJ7dnYWPRSXszOBGVfmiWFQ7B+
+	 LM2mUE6SiQc0s5RcLVv/7pjKQT2ENmj4V90hOXLgJaFf7ewup9r+y5f7gBaDk1lQGfWSR
+	 rz26r74vHBLDm9kzU/x2eG2taVmOj+0lZdvHv8nASipnMc45INGd/jkIDV2I17UVmqA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=MoST7inr;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.49
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49C62606A887
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:56:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49C62606A887
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B550606A8A1
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:57:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B550606A8A1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=JdB/b9SI
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso1377990f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:56:45 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=MoST7inr
+Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-843ea301d60so1237099a34.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:57:17 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794578236; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ea3DpezQh++aaIGdsrnWAhlslzw2rKyAz80AvGHAtNJqevyt+u4B1okvrvAJwBg/gP
+         +Dk7OpP+0x+TG2WFebL6uNcqMvcQUFbFYMmW+eVIQx2xSFZbXXh6o0aegWosvYN26r+Y
+         xbdajw2LfFBPGFXRMUu1Ip4WPfd0GukwOER/NpJfM4H1e4xCYaY6BE29XwQV77QT9SM2
+         /ziWi+3hjCHHXjQQRsjLQ5MjaVm8bMQp2IlV3XX32nk24/lsdtI78PU9xWTjBHiDbTNQ
+         eYhaoWL0iqeEwu/0Y8CwNLu2YLjmwp+DjTU6HDNzVa9pu2k6J4M3M/XCwLFKfUw1s4LU
+         tySg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=oyg73YpJiMIbGke9EcWnaG6kp5irY/WfHZ5cN6Nkeyw=;
+        fh=LS7AJlNuGj7xO4CXaQy86DJbRgcuO8+CjKvH6GWr9eI=;
+        b=qlZXl9pf72aJ/xzvoc4lrIbtpRkTo8Vg5yjWj7bHWyU80SPwplvlPvFZ86kGrKnKle
+         2Eb7SBKmCjjItoqMQjkm5QnFucon0DafPz9AdTSmqhFfibAu+pqdG3aAY9pLBvh8Opz+
+         OF+6GYvXSm3XvR+DtNw9ZfALiGc69XkQ0XPs8t4FJWvL7U+5A8MclEaPf8vMRfjaNOZ/
+         dlYKsorC33PWxaHpvpra5+/gANaycmFmQT7hjde3qVBacsoaGcQbDYAGCYSd/hsUkDBp
+         9STFw8j/Iu+QClJUGxNGp7iNUN+mOA6ZcW4y9IT66Mx3prc9AxJBXX0NyVehki+Wb4p/
+         saUA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794578203; x=1795183003; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=OBZlMLfPsVQIpOJpXajuH7DlrD4e9+7gm2lISPcBfUk=;
-        b=JdB/b9SI/CROIyJHCy0lJHwrDpPDapsRqUypDQCUAHyUyV7DnANg0i1VESfMP/0Dlx
-         f4b9a/xwBJ90XvVvr8jxfBb7o6b++VeHlMqNDRdmmhDMB0HY2WXqj3UOkIID9LyQos8o
-         vEqOD157NNkJPgHjvlWEE8f75LpG0vOpS4OjYwyqFCwoPFuF/vwSUy5OydSaRA3AXKqy
-         3HNGrHnpKPYViL7AP5x2KYKPPEilpenEn/DjoDDwUEZHvKiKmBjPCE4GHw6R2k1zmztn
-         hB5UVSADnW2CeTPQxHNt4VjkgsOUp66fMYmJflbNI5QSs6XrLNGPeNK+0BTWjtgg1NDF
-         ZphQ==
+        d=google.com; s=20260707; t=1794578236; x=1795183036; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oyg73YpJiMIbGke9EcWnaG6kp5irY/WfHZ5cN6Nkeyw=;
+        b=MoST7inrZQ5+goYt7YZKnNNrtWkfPHcmZt49NCUxGt2+Dit9tS0JgvCKZflB43x9/w
+         AsNMb29fZgNMMnMP34a+jRwQgGF6tC3sQ9YPxFvadAIzV7HD4Q0uH/vphiO4apI/SZVF
+         x9c2YNRuc/ijhPfaL+dmFhqWXoOvC0tWOt+rukisSGcpdpI5VPeI5mIfX3vtQcftIMBv
+         XDmfokpviVaGKM7c5K3cCW7o9PYCIeTkS0VfM2CtLUjXPhX9JjnZ9fGvJul88MjKvQBK
+         gHA/8kigOygY0RbdOOQ/vnO3gZJ2AMsmh6qFDzWIGiQusaJLEG++pDhyMnn4x129/s49
+         lArw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794578203; x=1795183003;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=OBZlMLfPsVQIpOJpXajuH7DlrD4e9+7gm2lISPcBfUk=;
-        b=LOSCDPleaVE/KZgrM3N5SkBUSDVy2ZuCj+HIQQLdVgYJyNahzCCDzGWekLQ/11L53z
-         TR/AWoA25jSwfYjx2arQoLIXk4xqZMraKgYfK99+iIuB24Ah5y1DC4eWBheW8UyfDT2w
-         GD0SQg1fhqhsAC3UcphIdV2r0P3Z6ZaIdECaKnAefWtILd7d+nNsK4eu/hoOhFoulRz1
-         GcmP+LGDfQUfDjjIdF6KTtG7sULYU1N4FpCiBK5Rn/gnk1negJTqxaPDdP3lhl9Aoz6u
-         Qki4A/UeUHqYonE8ahNWbd37EqIfu0n5ogkRDuVHAziE27V5LKUTpXKOeVcE1X58n8/+
-         IyqQ==
-X-Forwarded-Encrypted: i=1; AL+hErE43PeQzH2t6kOlnZxZaGckVwOs3LHjl80ym9yy9Z86pewJvvSpTKtKzsbzVWKKTitzxYGg9Jm6bMOsD3s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/4RboCvLAFMIRlGa/gsnZnuwJ989FM7S8wHWvYQ2MSDVjB0UaY
-	3MQ35TcH6XFGMTF3cC6FTosEw/gpv+InCCM3pWVB7gn3uX5jsboNdM2TGzVbIYhaC+j0KgafikG
-	mblI9v9rDnA==
-X-Gm-Gg: AYBFou1GObagZOIavoRWayhEJWlick3GlqCAWiSxwpI+SLiAe3nvcFCUMjBJo1gZAjL
-	0IpCp1QrFkX8axePIFhh2pgJ9tI8A6BphnGMj6Jwx1t8/b5SFLrERmEEw1LDDqODj6MSXPKunRY
-	xgUgqGLXPMEEOD+uZDcYGfPZo54O9vnoEiau+5sd++C5ONjjL0nQgGE3fg0JeMWf6UQ5MIyIgrr
-	e0whtLntMmtuh29fXQxVGr83mgWHdnlx/ysnK8dJ2VDk91gzxCS/CuwWv0vDQgVWaGfr7sRjUXu
-	hHayG7QQcOizmIXPVKOfgFn/lvQn+4IRgx6ax9mFHj9qifffFBogQJUeTyKoGlCRR5fGIfKoXbn
-	+Q2KJia4SdF/PnSSvrf2Sb5w2kgutboaA2Nzp/0LeJ56GbrNhHbdjMx1wxSFoLxtB5RGKtsvuyq
-	mZmHWn6ea/X50P7jjyo1Zt3lDPpc4fngqfB0KMTraEHqDUSLAnhwk/LhPeUnld/g4tp24nmPira
-	cqWlkLbWrQNJlMsFqQoB4OP1Eu3j/TMGnJxCQPAVQ4RZ6leJM9mkd2onb9dEXdwpqC/o47VPQe9
-	oRPpbKKuTqdr
-X-Received: by 2002:a05:6000:2c04:b0:48e:3b53:e100 with SMTP id ffacd0b85a97d-49c73164e37mr5793896f8f.56.1794578203223;
-        Fri, 13 Nov 2026 05:56:43 -0800 (PST)
-Received: from [127.0.1.1] ([151.61.248.197])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c608d10b2sm8233202f8f.44.2026.11.13.05.56.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 05:56:42 -0800 (PST)
-From: Valerio Setti <vsetti@baylibre.com>
-Date: Fri, 13 Nov 2026 14:56:34 +0100
-Subject: [PATCH v2] ASoC: meson: aiu-fifo: prevent sleeping when spinlock
- is held
+        d=1e100.net; s=20260707; t=1794578236; x=1795183036;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oyg73YpJiMIbGke9EcWnaG6kp5irY/WfHZ5cN6Nkeyw=;
+        b=RgWX4mDjllh84Cpe621i459x7mU2kd3oXGZWqrDtKoTulaFgrwpcyupUL3w7befJ50
+         3R+gITdvnC0i1ItzPjrLDZFd7Cri/OjT6dNdkmvaU2Du09OjNkiELjMwKscGIrmPHAgA
+         pK51yjleGqDXxEEdnakwqzW1tu9HaQA6yoMwX/8ZmKGwxT9LP3WMWtsbwVbDNQ1WT+3c
+         KAhCy4r+nhJL6w58uzoCQg+DaKu7tUwkpBQO3WKTJpS4i6RPVjlTpYlcK4ttz5aYhQUz
+         a1nuPewKzM+d2oVp+UwGfMSOxC1ou42BxflSZikmkvQOr0hLMjGQPyUjUc4TfZu2WN+M
+         KOVw==
+X-Forwarded-Encrypted: i=1; AL+hErHkq4tbTwisRoQ1hKJkEqCBvIiPPG+dBGkt529uXYYRiRzEwufS3ZpXrcajS0Z0fj9I2GLWgSjX0d5ODQY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9NDw9wBSM9zczKVgWE/Tc0iP1xpc6iHBJ5kXYJpe5MklB6NmIf
+	YRD8RkFugkuPJfaDeQdPTB/0eq94NabC77e9QC9ovQvFymKIZv5UaZiwrP0h0WmP0Quuf30aRbD
+	peKsP17wRs5sMwqghYR1Ppnkn/nRMsDp+DkLHiXcB
+X-Gm-Gg: AYBFou0mxRR8zi+px8jhtrkDebiCs+Upb8mbjPvkVUfMPxIvch92gWluBy9R7CaFdJZ
+	QFzJ8y5yZYO0Hj7/s5+7Dd4AUr2d2LsGpmrWyl18OluRtckIFC3mDZNIRJy+NYXIn+FHH7Noj3U
+	+am8MbeKjihorp/IZHSznHiMIPSf87wpeum1fd8uDi3RYHbgoCXiIku7LH/sUNT71FtYwwNkdMa
+	qNkNM2xAaboRKR1PreiOgyWCSdrg9E0hpqoCOb4gv5LlQJQqk/iwz74ySeUvWrgmUW1EyEq9IzZ
+	WmvgvK+RQ8ahqz2WfKU6sT0tWfy3nf1VuEyTaWSEemnCt1CxdsVWRgHgc8a74puQk0kw4XGQrN2
+	DdvQ/6dxyhkFGBjEW2tFE5nts/Fb2tKGl05gaToZBqEYtmbc8OButhbswVsIAueZPrksjExwMLz
+	CmQRQSfMcPU398rj2Qqk12MCJ7k77OIj1IqlqFY5h6QeYFRVHX9rba8Dt56vqsui1uywpBRkjPM
+	2UVJrBq
+X-Received: by 2002:a05:6808:3013:b0:56e:3380:1225 with SMTP id
+ 5614622812f47-56e64e03a5dmr1929551b6e.45.1794578235590; Fri, 13 Nov 2026
+ 05:57:15 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,234 +106,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-aiu-fifo-fix-sleep-on-spinlock-v2-1-f72015c933bf@baylibre.com>
-X-B4-Tracking: v=1; b=H4sIABEX92oC/42OQQqDMBBFryJZd4oRsbWr3kNcJONYp7WJZFQq4
- t0b7QU6iw8PHv/PqoQCk6hbsqpAMwt7FyE7JQo74x4E3ERWWZoVOh4YnqDl1sf4gPREA3gHMrD
- rPb4gJSS8NkVuSqtiyRAoisdAVf9YJvskHPfW3ehYRh+W44NZ797fY7MGDQ2WRHmqzQXbuzVLz
- zbQGf1b1du2fQEYrvXP4QAAAA==
-X-Change-ID: 20261111-aiu-fifo-fix-sleep-on-spinlock-0ecec8d64a9b
-To: Jerome Brunet <jbrunet@baylibre.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
- Christian Hewitt <christianshewitt@gmail.com>
-Cc: linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Valerio Setti <vsetti@baylibre.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8520; i=vsetti@baylibre.com;
- h=from:subject:message-id; bh=1fTo+4uyzOmAFYCXX+UpHdSokP50b/OzdEc4+14QE3g=;
- b=owGbwMvMwCV2z3ty7kUrRgbG02pJDFnfxcWni/3fFB9qK6qqP5GFWSD57ZtNzeVSj3Jctm7Z+
- HXF41jJjlIWBjEuBlkxRRaW6fd+F5SqPTROOFkAM4eVCWQIAxenAExkrx8jw9XD8btX35RcsIjj
- wlFj+btzlsZ8aH3vJRZ89LjY5zD9jXKMDO+urbGo4BPd/mbbo49PJRUetDQ7/eWwWG2udfKiwIr
- UE+wA
-X-Developer-Key: i=vsetti@baylibre.com; a=openpgp;
- fpr=0497DEFB707526E13360C970DE4B936DD13A0100
+References: <6af144ed.f50b2b3a.2c0de7.0010.GAE@google.com> <20261108202849.2e5c40a630e66dd39334a915@linux-foundation.org>
+ <CANp29Y5m+47Y5n3Y8WvCEm2UgzGBOnpMK2eqY4aO1L+hQb1yNg@mail.gmail.com>
+In-Reply-To: <CANp29Y5m+47Y5n3Y8WvCEm2UgzGBOnpMK2eqY4aO1L+hQb1yNg@mail.gmail.com>
+From: Aleksandr Nogikh <nogikh@google.com>
+Date: Fri, 13 Nov 2026 14:57:04 +0100
+X-Gm-Features: AclHuK8GcatdsmJoXEjM9GYaBuZWdVQ-CUCU6-fQDT0msNyCcFfz9P5ZWrsfBG8
+Message-ID: <CANp29Y5C+fex78EryCG-yO7Ex3ait1-LwOpEwZG5k_5T0z7iPQ@mail.gmail.com>
+Subject: Re: [syzbot] [mm?] [bluetooth?] BUG: unable to handle kernel NULL
+ pointer dereference in __refill_objects_node
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: syzbot <syzbot+73e34786d639a8eb1324@syzkaller.appspotmail.com>, 
+	linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-dai_links in the gx-card are atomic which means that the DAI trigger
-callback is called with the spinlock held. This means that usage of
-potentially sleeping functions (e.g. mutexes) is not allowed here.
+On Mon, Nov 9, 2026 at 6:35=E2=80=AFPM Aleksandr Nogikh <nogikh@google.com>=
+ wrote:
+>
+> On Mon, Nov 9, 2026 at 5:28=E2=80=AFAM Andrew Morton <akpm@linux-foundati=
+on.org> wrote:
+> >
+> > On Sun, 08 Nov 2026 19:58:37 -0800 syzbot <syzbot+73e34786d639a8eb1324@=
+syzkaller.appspotmail.com> wrote:
+> >
+> > > syzbot found the following issue on:
+> > > AI-generated root cause summary:
+> > > In mm/slub.c, __refill_objects_node() replenishes percpu sheaves by d=
+etaching a
+> > > freelist from a partial slab via get_freelist_nofreeze() and iteratin=
+g through
+> > > the freelist pointers in a while (count && refilled < max) loop. Beca=
+use the
+> > > loop condition only checks count and refilled rather than validating =
+that object
+> > > is non-NULL, a prematurely terminated or corrupted freelist (where fe=
+wer objects
+> > > are linked in slab->freelist than the expected count =3D slab->object=
+s -
+> > > slab->inuse) causes object to become NULL before count reaches zero. =
+On the
+> > > subsequent iteration, get_freepointer() dereferences NULL + s->offset=
+ (offset
+> > > 0x400 for kmalloc-2k), resulting in an immediate kernel NULL pointer =
+dereference
+> > > crash at address 0x0000000000000400.
+> > >
+> > > full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=3D73e=
+34786d639a8eb1324
+> >
+> > Thanks.
+> >
+> > : This looks like a bad syzkaller test, not a Bluetooth bug. The
+> > : reproducer runs as root, opens the active PCI device's resource0
+> > : (mode 0600), and maps its register space writable. It then places
+> > : syscall arguments inside that mapping. On this GCE VM,
+> > : 0000:00:02.0 is the NVMe controller; its BAR contains live control
+> > : registers and queue doorbells.
+>
+> Yeah, it's unfortunately a known problem.. Sorry for the noise.
+>
+> I've just sent a PR[1] to prevent syzkaller from manipulating those inter=
+faces.
+> [1] https://github.com/google/syzkaller/pull/8111
 
-'snd_soc_component_write'/'snd_soc_component_read' take the component's
-io_mutex on entry.
+That PR is merged and deployed, so the bot should stop triggering the bug.
 
-Replace usage of these functions in:
-- 'aiu_fifo_i2s_trigger'
-- 'fifo_spdif_trigger'
-- 'aiu_fifo_pointer'
+Let's close the issue:
+#syz invalid
 
-This is meant to resolve the following runtime bug found while starting I2S
-playback on an OdroidC2 device where the kernel was built enabling
-CONFIG_DEBUG_ATOMIC_SLEEP and CONFIG_PROVE_LOCKING:
-
-  Playback device is hw:0,0
-  Stream parameters are 44100Hz, S16_LE, 2 channels
-  Sine wave rate is 1000.0000Hz
-  Rate set to 44100Hz (requested 44100Hz)
-  Buffer size range from 128 to 262144
-  Period size range from 64 [   21.012074] BUG: sleeping function called from invalid context at kernel/locking/mutex.c:623
-  [   21.018009] in_atomic(): 1, irqs_disabled(): 1, non_block: 0, pid: 267, name: speaker-test
-  [   21.026184] preempt_count: 1, expected: 0
-  [   21.030151] RCU nest depth: 0, expected: 0
-  [   21.034205] locks held by speaker-test/267: 1, last CPU#3:
-  [   21.039638]  #0: ffff000003dbd910 (&group->lock#2){....}-{3:3}, at: snd_pcm_stream_lock_irq+0x40/0x60
-  [   21.048782] irq event stamp: 5274
-  [   21.052059] hardirqs last  enabled at (5273): [<ffff800081494240>] _raw_spin_unlock_irq+0x38/0x80
-  [   21.060856] hardirqs last disabled at (5274): [<ffff8000814935c8>] _raw_spin_lock_irq+0x80/0x90
-  [   21.069481] softirqs last  enabled at (5238): [<ffff8000800f9aec>] handle_softirqs+0x584/0x5e0
-  [   21.078020] softirqs last disabled at (5231): [<ffff800080010324>] __do_softirq+0x1c/0x28
-  [   21.086133] CPU: 3 UID: 0 PID: 267 Comm: speaker-test Not tainted 7.3.0 #2 PREEMPT
-  [   21.086141] Hardware name: Hardkernel ODROID-C2 (DT)
-  [   21.086145] Call trace:
-  [   21.086149]  show_stack+0x20/0x40 (C)
-  [   21.086160]  dump_stack_lvl+0x6c/0x98
-  [   21.086171]  dump_stack+0x18/0x24
-  [   21.086179]  __might_resched+0x160/0x230
-  [   21.086189]  __might_sleep+0x50/0x90
-  [   21.086197]  __mutex_lock+0x64/0x8a0
-  [   21.086206]  mutex_lock_nested+0x2c/0x40
-  [   21.086215]  snd_soc_component_write+0x38/0x80
-  [   21.086227]  aiu_fifo_i2s_trigger+0x74/0x90
-  [   21.086237]  soc_dai_trigger.part.0+0x44/0x90
-  [   21.086246]  snd_soc_pcm_dai_trigger+0x174/0x280
-  [   21.086255]  soc_pcm_trigger+0xe4/0x1f0
-  [   21.086265]  dpcm_dai_trigger_fe_be+0x30/0xb0
-  [   21.086276]  dpcm_fe_dai_do_trigger+0x11c/0x1a0
-  [   21.086287]  dpcm_fe_dai_trigger+0x40/0x60
-  [   21.086296]  snd_pcm_do_start+0x4c/0x80
-  [   21.086307]  snd_pcm_action_single+0x50/0xc0
-  [   21.086316]  snd_pcm_action+0x88/0xb0
-  [   21.086325]  snd_pcm_start+0x2c/0x40
-  [   21.086335]  __snd_pcm_lib_xfer+0x660/0x810
-  [   21.086345]  snd_pcm_common_ioctl+0xa20/0x17e0
-  [   21.086356]  snd_pcm_ioctl+0x3c/0x60
-  [   21.086366]  __arm64_sys_ioctl+0xac/0x110
-  [   21.086376]  invoke_syscall+0x5c/0x120
-  [   21.086386]  el0_svc_common.constprop.0+0x48/0xf0
-  [   21.086395]  do_el0_svc+0x24/0x40
-  [   21.086404]  el0_svc+0x54/0x3b0
-  [   21.086414]  el0t_64_sync_handler+0xa0/0xf0
-  [   21.086424]  el0t_64_sync+0x198/0x1a0
-
-Note: the return value of 'regmap_read' in 'aiu_fifo_pointer' is
-intentionally ignored. Regmap is MMIO here and read failures shouldn't
-happen. Also 'axg-fifo.c' is doing the same in its 'axg_fifo_pcm_pointer'.
-
-Fixes: e8712315c44d ("ASoC: soc-component: use io_mutex correctly")
-Fixes: 6b59c53c8adc ("ASoC: meson: aiu: fifo-spdif: soft reset the S/PDIF datapath on start/stop")
-Signed-off-by: Valerio Setti <vsetti@baylibre.com>
----
-I found this issue while working on [1].
-This patch is independent of [1] and they can go in in any order. They
-are fixing the same problem in different modules.
-
-[1]: https://lore.kernel.org/all/20261021-gx-formatter-use-spinlock-v1-1-71ebc9224c03@baylibre.com/
----
-Changes in v2:
-- Removed handling of 'regmap_read' failures in 'aiu_fifo_pointer'. Since
-  ragmap is MMIO here, read failures cannot happen. [Martin]
-- Link to v1: https://patch.msgid.link/20261111-aiu-fifo-fix-sleep-on-spinlock-v1-1-dc9ee401a7cf@baylibre.com
-
-To: Jerome Brunet <jbrunet@baylibre.com>
-To: Liam Girdwood <lgirdwood@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>
-To: Takashi Iwai <tiwai@suse.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-To: Kevin Hilman <khilman@baylibre.com>
-To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Christian Hewitt <christianshewitt@gmail.com>
-Cc: linux-sound@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-amlogic@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
----
- sound/soc/meson/aiu-fifo-i2s.c   | 15 ++++++++++++---
- sound/soc/meson/aiu-fifo-spdif.c | 14 ++++++++++----
- sound/soc/meson/aiu-fifo.c       |  3 ++-
- 3 files changed, 24 insertions(+), 8 deletions(-)
-
-diff --git a/sound/soc/meson/aiu-fifo-i2s.c b/sound/soc/meson/aiu-fifo-i2s.c
-index eccbc16b293ad..8f785241585df 100644
---- a/sound/soc/meson/aiu-fifo-i2s.c
-+++ b/sound/soc/meson/aiu-fifo-i2s.c
-@@ -5,6 +5,7 @@
- 
- #include <linux/bitfield.h>
- #include <linux/clk.h>
-+#include <linux/regmap.h>
- #include <sound/pcm_params.h>
- #include <sound/soc.h>
- #include <sound/soc-dai.h>
-@@ -48,14 +49,22 @@ static int aiu_fifo_i2s_trigger(struct snd_pcm_substream *substream, int cmd,
- 				struct snd_soc_dai *dai)
- {
- 	struct snd_soc_component *component = dai->component;
-+	unsigned int val;
-+	int ret;
- 
- 	switch (cmd) {
- 	case SNDRV_PCM_TRIGGER_START:
- 	case SNDRV_PCM_TRIGGER_RESUME:
- 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
--		snd_soc_component_write(component, AIU_RST_SOFT,
--					AIU_RST_SOFT_I2S_FAST);
--		snd_soc_component_read(component, AIU_I2S_SYNC);
-+		ret = regmap_write(component->regmap, AIU_RST_SOFT, AIU_RST_SOFT_I2S_FAST);
-+		if (ret < 0)
-+			return snd_soc_ret(component->dev, ret,
-+					   "Failed to write register on trigger");
-+
-+		ret = regmap_read(component->regmap, AIU_I2S_SYNC, &val);
-+		if (ret < 0)
-+			return snd_soc_ret(component->dev, ret,
-+					   "Failed to read register on trigger");
- 		break;
- 	}
- 
-diff --git a/sound/soc/meson/aiu-fifo-spdif.c b/sound/soc/meson/aiu-fifo-spdif.c
-index a9861c5d66374..297834bce1c7a 100644
---- a/sound/soc/meson/aiu-fifo-spdif.c
-+++ b/sound/soc/meson/aiu-fifo-spdif.c
-@@ -69,15 +69,21 @@ static int fifo_spdif_trigger(struct snd_pcm_substream *substream, int cmd,
- 	case SNDRV_PCM_TRIGGER_START:
- 	case SNDRV_PCM_TRIGGER_RESUME:
- 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
--		snd_soc_component_write(component, AIU_RST_SOFT,
--					AIU_RST_SOFT_958_FAST);
-+		ret = regmap_write(component->regmap, AIU_RST_SOFT, AIU_RST_SOFT_958_FAST);
-+		if (ret < 0)
-+			return snd_soc_ret(component->dev, ret,
-+					   "Failed to write register on trigger");
-+
- 		fifo_spdif_dcu_enable(component, true);
- 		break;
- 	case SNDRV_PCM_TRIGGER_SUSPEND:
- 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
- 	case SNDRV_PCM_TRIGGER_STOP:
--		snd_soc_component_write(component, AIU_RST_SOFT,
--					AIU_RST_SOFT_958_FAST);
-+		ret = regmap_write(component->regmap, AIU_RST_SOFT, AIU_RST_SOFT_958_FAST);
-+		if (ret < 0)
-+			return snd_soc_ret(component->dev, ret,
-+					   "Failed to write register on trigger");
-+
- 		fifo_spdif_dcu_enable(component, false);
- 		break;
- 	default:
-diff --git a/sound/soc/meson/aiu-fifo.c b/sound/soc/meson/aiu-fifo.c
-index 8b54f9681d00c..edb47095c059d 100644
---- a/sound/soc/meson/aiu-fifo.c
-+++ b/sound/soc/meson/aiu-fifo.c
-@@ -5,6 +5,7 @@
- 
- #include <linux/bitfield.h>
- #include <linux/clk.h>
-+#include <linux/regmap.h>
- #include <linux/dma-mapping.h>
- #include <sound/pcm_params.h>
- #include <sound/soc.h>
-@@ -38,7 +39,7 @@ snd_pcm_uframes_t aiu_fifo_pointer(struct snd_soc_component *component,
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	unsigned int addr;
- 
--	addr = snd_soc_component_read(component, fifo->mem_offset + AIU_MEM_RD);
-+	regmap_read(component->regmap, fifo->mem_offset + AIU_MEM_RD, &addr);
- 
- 	return bytes_to_frames(runtime, addr - (unsigned int)runtime->dma_addr);
- }
-
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261111-aiu-fifo-fix-sleep-on-spinlock-0ecec8d64a9b
-
-Best regards,
---  
-Valerio Setti <vsetti@baylibre.com>
-
+>
+> > :
+> > : Both crash logs show NVMe completion ID and generation-counter
+> > : errors immediately before the SLUB fault. During minimization, the
+> > : same program produced crashes in several unrelated kernel paths,
+> > : including runs without the Bluetooth operation. This points to
+> > : disruption of the active NVMe device and subsequent corruption,
+> > : rather than a demonstrated SLUB or Bluetooth defect.
+> > :
+> > : The logs do not show the precise MMIO access or establish how the
+> > : freelist was damaged. Please rerun with the resource0 mapping
+> > : removed and the read buffer in ordinary memory. If the SLUB fault
+> > : persists without the NVMe errors, we can investigate it as a
+> > : separate kernel bug.
+> >
