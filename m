@@ -1,85 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794589923;
-	b=RqdwhzwcnOiGnZPECQ/bvlTKvO/10lkjjyXxw+JSelouipdmIlYJEwqgchFBBZiy09uP
-	 HEMHUJSD01Il1F5GGb+lXgC9ITHS0O9GrVs1LXVnBe3yAGJAy0B/1KutmqVnEfrGZDuIp
-	 rk+NJOLJJ4cyAhAkVoi4TxF+0/vpG75KeLUwh6sku8UsPj7uO41Lz92z/Us2OmtKPLIXA
-	 h5pypLoXdBdP9rckY2MmflSrFUdy1V7ygZPAWsRnJEqomrc2S5angD0l7kQkdrwP/S8r7
-	 noHGA5fwPitTm7MSKkg8ipfcp9bYl5RR6AgoR4WqvwmtmazlkgMpbQHsSgbjptcXsFQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794589923;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=IxXxoNwj22+Dy36iHNXW95kbwk4XPaL1NeXI0EBISjQ=;
-	b=rHF4hvNrczqU3vHNv/BAmlgehp21prHFnxARUdVBGR+QT8afeHR6NmeLsbbxkEk/td5L
-	 68xD0+bQCf57d1J27navcLpUS0qAlo7f8Xs0D9glW1AvubaUUGJ9S6hACS0Rgf+pTUvZn
-	 J5vsVUnGTXBDWr8VbZC61LfV7SA9xNNDPYkcFX5oXuaxwA74cXB8rRB2j3azx1MrmW+Ck
-	 Qml/NBm2rd9zOD1Pyb6HuxF4UMTFJPdMfMkYawYdsaKpp5Juix5t2/cfYbNJJX8aXjwGm
-	 Fu5OYsx43216amj4Rq+UpmystX0XtHhmqwcnHk9tnYTsll/cZT1i2mbr1BDDZNuno9A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IkwQy7DG;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794589941;
+	b=hX5AaTsXnzjDbOp+DgedpJ4RbQU67RMkBlZQzx3G3xxZVPCDn6hJ/DJRpPDFnMsb4J2d
+	 a5GNQsVXIhQckC5ld/Xlcus8G7aOY8hrRZVxTPwha+VTC9fvyKjUok4vTM5LTQl5RlRut
+	 YPh/pt8/NkL+d87XuVJxY4TiMHej2Om3PtNXWQPuY3VSPH7Kvt3B12Xe7JBygmAvyyOt4
+	 znqkYqGB5xNj3kegjivnDqNjUbO/VgRxG+XiCGEU/AS5hEwenPAoKeUjmmCqfbChxK3eo
+	 48LmxWAv/oa3KhLFzD2dwZpW+MUHwgKR9uWc/vYUvoff8YGruilSJLkg7j0wxDuJDiQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794589941;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=dpJWAOoXl+6YfoYlsoi5QksE6iEyc707Xu/3Gv1Sn9Y=;
+	b=vdZAXG/KEoSUG4H+2coQcyShT/g3AzuFiK83nJL2HiEY2RGblZlrz+2k5bzRoW/vyC2/
+	 xQX7pdsWEIoDjCM8Nkc2NX1huhNAPJ0dq/h7rcZfh4FoIfef3QyaS9Cr3UYsuy5lQQ5Ye
+	 WeQW11vY5jiBKZrPn3Ur6QsF/5VoBJLScJoGf7rETPweYsqsd/Q3k2MbwtqnGGpLHN3Gj
+	 e4ZMkk5ax6db3C4eYQv5AThzmCQKcGMkM3TT3hwwOPcUHtFw/a89RkRR9Yp+xOx/tbbP0
+	 lV3JmmFPkOUFMmkSpG2taBlEjFtnbrSQ23Dh2GPFJwYrs42ez6t29Hq5pfpMJMx0cKA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=VacjD8tJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.49
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010049.outbound.protection.outlook.com [40.93.198.49])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F38F606A332
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:12:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F38F606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF442606A327
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:12:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF442606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IkwQy7DG
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-37000e7234bso1508345eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:12:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794589922; x=1795194722; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IxXxoNwj22+Dy36iHNXW95kbwk4XPaL1NeXI0EBISjQ=;
-        b=IkwQy7DG+ZzVzAYi1f+tbEIRi7gWYxvNnlJrGs10GeQ9UNZ0EIPBLomu39yvu+LK5g
-         kTmm/v36hnCH2bjvbvdhvp0GqBXX1nKHgqSANKtm/xXdHuasWtzl1Jhu9lX16LapQeJ0
-         HEydXQV7ctfquwtyAd+zI+rMzjeXl4wioRi3MklFxzmM7/Tiq8G1eot/tPfPwWy1XwsZ
-         AG1MiEyjip0qMnFkdsI1vNe+5gXlMWTxBe51BU+71ZTkA41Eq42I7vXuL00p+tBqoHWF
-         BwDHyWlWI95c1cKt35JcATxI/t0Gv0aE2ZzIzGbRxWRi6cGbp5le4zxrafjUPjuglqHI
-         2nhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794589922; x=1795194722;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IxXxoNwj22+Dy36iHNXW95kbwk4XPaL1NeXI0EBISjQ=;
-        b=eXlxT5VOUcEhAQ9J5PGA5LkIuEqvqJwy3t49VoCJEDwXQbecfT9EEXALsstZeKRgzT
-         zItwRh8cvxZYRR5HsiD6a/m+YuMHtMz0VBYFKkILMw/MEa5wBphIzAoDEHcJDbrihrPr
-         rWsoI/LiX6D4tok1TEHw6rceilHYYfDHyQkQ/Y1AEyfgp+KfOwyUJ9tuDzSltJZuAhKt
-         DevvT43Bq7XLxzCTLIYFFm4l0g3rT/Zp5DmZrRpGTvQ09fLyM93DXQ6YZa57pIVMTkn+
-         5QJbdp0eNztyMzmd4vfXabC/hWMKuXoiusImT/qzE1fdY5Ujks4khS1sipscKOSk68F5
-         fq+Q==
-X-Forwarded-Encrypted: i=1; AL+hErH3v64cPouHyLpM5M8p4g9u+QB4WP06RVpsm7iMb6oCpe9DWa4/uKF7A4sJxmI9XtDGFmczZPMeTJ/Xfjw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/DFbIgom3/T/YVHplxB+mgsDm6atT3dF58xDLrABsZiSOwzy/X
-	hA07ptwzrFaEp6BCW+wkoDGR43DD6TKHf1sR+WNkQxVS8IgCG5JA8UNg
-X-Gm-Gg: AYBFou1fwBilqtfc7bloF+LxQgx+W+14jRZy7cXL5rlcfKVZ4i3DcJNjFan5XPEb8LJ
-	NzdRKNeQ6cwSQdwSgOoix6QL6Vmck0oPlVR40gEM+h/SBATPunFReuqIPCcdg2o6i3jwe/yYNmC
-	syhIn1zO/B8jU9A4NDd6ETd/q2ncwtujlSa74KHeyZTVOzwtT4StLr+Tm9ekUoW/wnbqWJkBu+3
-	89kV7zeIPD+utSgVHINPgAklXZqWoYLKdN2USaJ4jZDlBhQOKlmCvJ6iTQkx6SnVe1xOorJ/LnT
-	kRAdzYsmv4QiOlOq6suZXPKNW0yu49Kz0uSI47dJG/Lx/qlRPkS2SfPP+xzyLkMccn2Ip3cK08z
-	WInLvk4drfWE3WCLuOyKwoRq8MhKPzppZr5hf/IP3YJh9JT/8fUOKYngPx0y0rw5koS46q9S+uF
-	puJ9EviUwStjJsuxNbXUNE31/6Z2SJmTczPjYvGfLQ+ZZrYboKlGdTM9UB23WjZ5k/y/2IRsZ9d
-	oeLsP10hmdZ+I94onR5RFHpPCb/r5ASjJXnbrVZnku9zo3DUIloIS30ih8lbxB/qfcwpsI=
-X-Received: by 2002:a05:7301:4614:b0:36a:12bb:7f8e with SMTP id 5a478bee46e88-379655d45c1mr2402482eec.13.1794589922171;
-        Fri, 13 Nov 2026 09:12:02 -0800 (PST)
-Received: from [192.168.0.216] ([182.48.212.29])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955a1c5c2sm9396249eec.14.2026.11.13.09.11.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 09:12:01 -0800 (PST)
-Message-ID: <52c3ae66-4165-4fc3-a440-fcb76931382a@gmail.com>
-Date: Fri, 13 Nov 2026 22:41:56 +0530
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=VacjD8tJ
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kBTsqL/sMFI1jPrJxAxNaddzylAGmtALhck9pV70MElvZaezw+Goxv2OwDuCnxWGcUzpPXQEJUEldD6FSoD45OG06r0mE8xu/SIzCICcSOtR8bcQKbTuGYpapMtck5jFnElPQIRD+AFzZs0bEY7hpscHnCEJWEQYNvgoBWIU09W+hzkLNpZaRmNqY+aTfVVEhNFy1AOwiOuSixd1Y7iAZAGbRhLnv4FgSVD3kRa1QlqNXhfEgmiVwKVUXr8nvrt4XzXQsnwjzXpGWbLWhp6U8suuv890dtej2OjWN5Zzz0MYHIyUTe4ACY7uxfO/RjDVeSH4bbsquOY9VGlVXnDl8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dpJWAOoXl+6YfoYlsoi5QksE6iEyc707Xu/3Gv1Sn9Y=;
+ b=VbG5aCYv+eVRzPaHHd0P9PKxT9rGdkxbQu3GUDznQ+hSFRFOe0YMAs/PxYNCZtBkFPfN5nhe0s1EaH7xQIvI5FGG5JyHrDkysxnpGyTIn953u+mblOk0b99g/fU/9q7aNxYsFw4u+CbScA1Kw8335JKRe8GE3ijtweklzWU5/DkgVB5JBrrW/1JptzPJZXC9ZCYe1Wxt1EVwlQ4whnzyeoZZa8zG9B6HYCBt3GAu6CNcHJj7TYk8jTImKFq4WVgpjRa+YwcY4R+DpNJJc0901WaQNjFM+xWtrT06/fZ5j+ZD43K/sChRM/JiCeyAdk1TIB04gV4qdgPzguzHo/a4mQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dpJWAOoXl+6YfoYlsoi5QksE6iEyc707Xu/3Gv1Sn9Y=;
+ b=VacjD8tJiqMJnhYPWStgKtsg2g+FSIdoHLZ+rrMo9KogYAB66T667ce4LazVORjjtMUyMd9G/kt5P1HohQMghrebkLPyew4yi6Hynaye3U1weKVziN8Rn91FDiyEmitYi1DMLC6F7BTOTRB+Hk1pvEqb9Dua9rGRMHdXMmJdHyo=
+Received: from CH2PR16CA0007.namprd16.prod.outlook.com (2603:10b6:610:50::17)
+ by IA1PR12MB6235.namprd12.prod.outlook.com (2603:10b6:208:3e5::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Fri, 13 Nov
+ 2026 17:10:19 +0000
+Received: from BN6PEPF00000072.namprd03.prod.outlook.com
+ (2603:10b6:610:50:cafe::32) by CH2PR16CA0007.outlook.office365.com
+ (2603:10b6:610:50::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Fri, 13
+ Nov 2026 17:10:18 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN6PEPF00000072.mail.protection.outlook.com (10.167.248.199) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 13 Nov 2026 17:10:18 +0000
+Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 13 Nov
+ 2026 11:10:12 -0600
+From: Shivank Garg <shivankg@amd.com>
+Date: Fri, 13 Nov 2026 17:09:21 +0000
+Subject: [PATCH v3] mm: introduce copy_mc_highpages() and batch copy in
+ folio_mc_copy()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,337 +101,254 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Sahil <sahilcdq0@gmail.com>
-Subject: Re: [PATCH v3 1/4] openrisc: Add utilities and clean up simulation of
- instructions
-To: Stafford Horne <shorne@gmail.com>
-Cc: jonas@southpole.se, stefan.kristiansson@saunalahti.fi, naveen@kernel.org,
- davem@davemloft.net, mhiramat@kernel.org, pjw@kernel.org,
- wangruikang@iscas.ac.cn, namcao@linutronix.de, kees@kernel.org,
- linux-openrisc@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260930202744.50489-1-sahilcdq0@gmail.com>
- <20261026201240.107462-2-sahilcdq0@gmail.com> <au7I8FNoMcsoh54X@antec>
-Content-Language: en-US
-In-Reply-To: <au7I8FNoMcsoh54X@antec>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-ID: <20261113-batpagecopy-v3-1-297f5b2fd28e@amd.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/1XMQQ6DIBCF4auYWZcGqJTYlfdoXIwwKguFgCE1h
+ ruXuuvyf8n7TkgUHSV4NSdEyi45v9V43BowC24zMWdrg+TyybVo2Yh7wJmMDwdTKMdWdYKTslA
+ fIdLkPpf2HmovLu0+Hhee5W+9HMFF9+dkyQSzWpG23E6I1ONq78avMJRSvlBm7MikAAAA
+X-Change-ID: 20260714-batpagecopy-5a2b45910e5d
+To: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
+	<david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett"
+	<liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport
+	<rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko
+	<mhocko@suse.com>, Borislav Petkov <bp@alien8.de>, Ankur Arora
+	<ankur.a.arora@oracle.com>, Dave Hansen <dave.hansen@linux.intel.com>,
+	"Thomas Gleixner" <tglx@kernel.org>, Bharata B Rao <bharata@amd.com>,
+	"Hrushikesh Salunke" <hsalunke@amd.com>, Ingo Molnar <mingo@redhat.com>, "H .
+ Peter Anvin" <hpa@zytor.com>, David Laight <david.laight.linux@gmail.com>,
+	David Rientjes <rientjes@google.com>, Linus Torvalds
+	<torvalds@linuxfoundation.org>, "Teja Vojjala" <tejavojjala@google.com>, Huan
+ Nguyen <nhuhuan@google.com>, "Pedro Falcato" <pfalcato@suse.de>, Peter
+ Zijlstra <peterz@infradead.org>
+CC: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, <x86@kernel.org>,
+	Shivank Garg <shivankg@amd.com>
+X-Mailer: b4 0.15-dev-47d62
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794589811; l=7386;
+ i=shivankg@amd.com; s=20260518; h=from:subject:message-id;
+ bh=dVWgGBtqpCC3ANy8Ye7+zxKYvKb5hvxDp3JD5u4sVhQ=;
+ b=NwjNYeOyibxuNoLy4ejo16LierH9cccGxb0+PlkdLvuBHNq6xbMiBfjHMhjQdRzjmrcaiWwr+
+ TqQGcZWI6SWAUGMqEx/QI7oXiZL3qfjtVBxwU6bB6RiOZDjIG3jfhff
+X-Developer-Key: i=shivankg@amd.com; a=ed25519;
+ pk=2l2QGTeXuGkZTtfmx0nPQU8iFZfjYmX/ymMojitevx4=
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN6PEPF00000072:EE_|IA1PR12MB6235:EE_
+X-MS-Office365-Filtering-Correlation-Id: c5b9ea62-bce6-4da2-6b6d-08df41a8fe46
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|36860700016|376014|7416014|82310400026|261021133027099003|10067099003|261026130827099003|261102130727099003|261009223027099003|261021123027099003|261028144727099003|261026140227099003|261102123227099003|261021130227099003|261026121527099003|261022115727099003|261022105027099003|261026135527099003|261021135927099003|261021121427099003|261022113327099003|3023799007|261022075727099003|56012099006|11063799006|921020|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	esjb+8aBysIU8QR+4Rufn3J3ppvti2wBo6E9wHlmtzNXDG7sEz1tQ7In6pUT6TODa3clX7dZPrmjTCrpVkcbtL0c7nML0muZJuO+iR5cdVHMzus3zlDV9H7DQzNnaEQzRbU7oCm3DUdgGqfCg9PM4L+G6CH7XidA70DdLzvxs5J86OQxyptkKviCwDIjBfaZwQRA1NZbY+cXq9pLz500OHiJOnLMBYM2cT8ojtkNvUojIeEXrmvWk7WWmD2gwZvt0fOi97Ryjlfl3od3i06Hlv2y1yuaDRLDAAFh1wI2hcUEv8QDIZfZqSxV6CtpZXr1Is4gFvwGBw+hSeBsQ2dhJGArOzDBLzskM+0/m8RHV9G2LqK2Z3LbnVkBRyXXrpMAkyPFOxqR8yGLZoxob3wI0v9tiUgrRpZFG/cpr0U0Kq3qt3yTMPv3UWSYhZPhnIDDrr7BHJlOjnhB7kE3z0WrJBTe1XmPuHB4Urb6yLWpKxA7lIn9hUTVbDM6oiqIKlx0529tBeeVE6EkhE4l1ktuAZz3By/MWAQI0TZK49+tAN3ELubNRh8RZU/UHprJGVSqSSU4UymrpitvjNNSe0qQWs7GHJzTf4Yz6Vh29Xwy45YiyOFgrz1GMemjcwNQOCfdHPXKV0rlNYG+q8N6RSXI/LVvmCRcK7BxKTx0o/RGVhtRhqzQXM7rGzF1ELxEFABQwSozhUpw/0wkoD88/PVibQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(36860700016)(376014)(7416014)(82310400026)(261021133027099003)(10067099003)(261026130827099003)(261102130727099003)(261009223027099003)(261021123027099003)(261028144727099003)(261026140227099003)(261102123227099003)(261021130227099003)(261026121527099003)(261022115727099003)(261022105027099003)(261026135527099003)(261021135927099003)(261021121427099003)(261022113327099003)(3023799007)(261022075727099003)(56012099006)(11063799006)(921020)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	OA493x4hFPSA82KOwUX/sK351i5GRb/xEY+inyRcslQ1Ji7uRqVNU2GPYgItZpWFd2sYy3hI7LC5Rc9ZpWJvjX3JJ97K+Ved7wpHQssOOWoZG+hb+HBFnTpP7hz0JzONjgKSyQl5MCy9Z0Nuqv+WIeMVrC8teDJpAOqP2y8Rk5xXbyauxlgGJcCh5U42c8jcfsuT9ZSZaqZW3DnOdlND91mXZKBpaWOSDEg6ggwebVC1/hzee/TmHxM0+rDCtHFzgWF8ALA4evRZ2vRw5TWi4p3C5k5yfW/dYk6lMunr7Gw+KQda0umZ79Qmd7QC43ze6J42bc47UcuapyTQSpF1MPfQEXRcheRMVf3/+7e/0++GWRNvRp3gOtnWb9x0orwTFjzC/BohNEhzbw1vU9LtdI+vcOBAW3jKJqlZcd2RWkHZiXxBKw3OBJj9Mx86HwZe
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 17:10:18.5854
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c5b9ea62-bce6-4da2-6b6d-08df41a8fe46
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN6PEPF00000072.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6235
 
-Hi Stafford,
+folio_mc_copy() copies a folio one page at a time with copy_mc_highpage(),
+so a 2MB folio makes 512 separate copy_mc_to_kernel() calls. Each page
+pays the startup cost of the string instruction ("REP; MOVSB" on x86
+CPUs with ERMS) plus a cond_resched().
 
-On 11/7/26 12:15 PM, Stafford Horne wrote:
-> Hi Sahil,
-> 
-> Thanks for your patches, sorry its taken me time to get around to them, my year
-> since summer has been quite hectic.
+Introduce copy_mc_highpages(), the page range variant of
+copy_mc_highpage(). When copy_mc_to_kernel() is available and the pages
+are in the linear map, copy the whole range with a single
+copy_mc_to_kernel() call, so the CPU can optimize for the larger extent.
+Otherwise, fall back to copy_mc_highpage() one page at a time.
 
-No worries. I completely understand :)
+On a machine check, queue the poisoned source page for memory_failure(),
+as copy_mc_highpage() does, and return -EHWPOISON, as folio_mc_copy()
+does today.
 
-> I will do the review in chunks so give me some time.
+copy_mc_to_kernel() cannot reschedule, so only take the single-call path
+when CONFIG_PREEMPTION is set and the copy can be preempted. Since commit
+7dadeaa6e851 ("sched: Further restrict the preemption modes"), x86 and
+powerpc, the only architectures that select ARCH_HAS_COPY_MC, only offer
+the full, lazy and RT preemption models, also with PREEMPT_DYNAMIC, so
+they always take this path. The per-page fallback calls cond_resched()
+before each page, as clear_contig_highpages() does. Other architectures
+keep copying one page at a time.
 
-Thank you for the review.
+Switch folio_mc_copy() to copy the whole folio with copy_mc_highpages().
 
-> On Tue, Oct 27, 2026 at 01:42:37AM +0530, Sahil Siddiq wrote:
->> Introduce new instruction-related utilities and macros for OpenRISC.
->> This is in preparation for patches that add tracing support such as
->> KProbes and Kretprobes.
->>
->> Currently, PC is first updated and then saved in the link register
->> (r9) when simulating l.jal and l.jalr. This can result in a corrupted
->> page table (bad page map in process). Fix this by saving PC in r9
->> before updating it.
->>
->> Move branch simulation to its own function, simulate_branch(), so it
->> can be reused. It's already being used by do_illegal_instruction().
->> It'll also be used by KProbes in the following commit.
->>
->> Introduce simulate_pc() to simulate l.adrp. KProbes will require this
->> instruction to be simulated as well. simulate_branch() and simulate_pc()
->> need to be handled differently since branch instructions change the
->> value of PC while l.adrp depends on PC but doesn't change its value.
->>
->> Use a static key to check if delay slots are disabled. Delay slots are
->> a part of the CPU's configuration and won't change at runtime. Since
->> they are often enabled in an OpenRISC CPU, using a static key will
->> reduce the overhead of checking this flag in the default case while
->> processing KProbes inserted at branch instructions and simulating them.
->>
->> Link: https://raw.githubusercontent.com/openrisc/doc/master/openrisc-arch-1.4-rev0.pdf
->> Signed-off-by: Sahil Siddiq <sahilcdq0@gmail.com>
->> ---
->> Changes v2 -> v3:
->> - arch/openrisc/kernel/insn.c:
->>    - (simulate_pc):
->>      Handle case when rd=0
->>      Add function to KProbe blacklist
->>    - (simulate_branch): Likewise
->> - arch/openrisc/kernel/setup.c:
->>    - (setup_arch): Set static key before calling paging_init()
->> - arch/openrisc/kernel/traps.c:
->>    - (do_trap): Move handling of Kprobes in commit #2
->>
->> Changes v1 -> v2:
->> - arch/openrisc/include/asm/cpuinfo.h: Introduce "delay_slot" static key
->> - arch/openrisc/include/asm/insn-def.h:
->>     - Use macros instead of union
->>     - Use better names for macros
->>     - Use genmask() for masks
->> - arch/openrisc/kernel/insn.c:
->>     - Use macros instead of magic values
->>     - (simulate_pc): Update PC
->>     - (simulate_branch): Handle rb=r9 in l.jalr simulation
->> - arch/openrisc/kernel/setup.c: Use "delay slot" static key
->> - arch/openrisc/kernel/traps.c: Use macros instead of magic values
->>
->>   arch/openrisc/include/asm/cpuinfo.h  |  3 +
->>   arch/openrisc/include/asm/insn-def.h | 58 ++++++++++++++++--
->>   arch/openrisc/include/asm/spr_defs.h |  1 +
->>   arch/openrisc/kernel/Makefile        |  2 +-
->>   arch/openrisc/kernel/insn.c          | 88 ++++++++++++++++++++++++++++
->>   arch/openrisc/kernel/setup.c         |  4 ++
->>   arch/openrisc/kernel/traps.c         | 53 +++--------------
->>   7 files changed, 159 insertions(+), 50 deletions(-)
->>   create mode 100644 arch/openrisc/kernel/insn.c
->>
->> [...]
->> diff --git a/arch/openrisc/kernel/insn.c b/arch/openrisc/kernel/insn.c
->> new file mode 100644
->> index 000000000000..619d8080d822
->> --- /dev/null
->> +++ b/arch/openrisc/kernel/insn.c
->> @@ -0,0 +1,88 @@
->> +// SPDX-License-Identifier: GPL-2.0-or-later
->> +/*
->> + * OpenRISC instruction utils
->> + *
->> + * Linux architectural port borrowing liberally from similar works of
->> + * others.  All original copyrights apply as per the original source
->> + * declaration.
->> + *
->> + * OpenRISC implementation:
->> + * Copyright (C) 2026 Sahil Siddiq <sahilcdq0@gmail.com>
->> + */
->> +
->> +#include <linux/kprobes.h>
->> +#include <linux/ptrace.h>
->> +#include <asm/insn-def.h>
->> +#include <asm/cpuinfo.h>
->> +
->> +DEFINE_STATIC_KEY_TRUE(delay_slot);
->> +
->> +void simulate_pc(struct pt_regs *regs, unsigned long pc_insn)
-> 
-> Since this simulates l.adrp, maybe the name makes more sense to be called
-> simulate_adrp?
+Signed-off-by: Shivank Garg <shivankg@amd.com>
+---
+On a Zen 6 system with CXL memory, move_pages() gets ~1.4x faster for
+2MB THPs and up to ~2.8x faster for 1GB hugetlb pages (numbers below).
+When demoting to CXL, kswapd uses ~31% less CPU per GB demoted.
 
-Sure, I'll rename it.
+Changes in v3:
+- Copy the whole range with one copy_mc_to_kernel() call only when
+  CONFIG_PREEMPTION is set, otherwise copy page by page with
+  cond_resched(), following clear_contig_highpages() [1] (Pedro, David).
+- Handle the machine check first in copy_mc_highpages() (Pedro).
+- Rebase onto mm/core.git for-next.
+- Link to v2: https://lore.kernel.org/r/20261019-batpagecopy-v2-1-d75e7d0dfaae@amd.com
 
->> +{
->> +	int page_offset;
->> +	unsigned int rd, op;
->> +
->> +	page_offset = sign_extend32(
->> +		(pc_insn & OPENRISC_ADRP_IMM_MASK) << OPENRISC_ADRP_IMM_SHIFT, 31);
->> +	rd = (pc_insn & OPENRISC_ADRP_REG_MASK) >> OPENRISC_ADRP_REG_SHIFT;
->> +	op = get_6_bit_opcode(pc_insn);
->> +
->> +	switch (op) {
->> +	case OPENRISC_OPCODE_ADRP:
->> +		if (rd != 0)
->> +			regs->gpr[rd] = page_offset + (regs->pc & OPENRISC_ADRP_OFFSET_MASK);
->> +		regs->pc += OPENRISC_INSN_SIZE;
->> +		return;
->> +	default:
->> +		break;
->> +	}
->> +}
->> +NOKPROBE_SYMBOL(simulate_pc)
->> +
->> +void simulate_branch(struct pt_regs *regs, unsigned long jmp_insn)
->> +{
->> +	int displacement;
->> +	unsigned int rb, op, link_offset, temp;
->> +
->> +	displacement = sign_extend32(
->> +		((jmp_insn) & OPENRISC_JUMP_IMM_MASK) << OPENRISC_JUMP_IMM_SHIFT, 27);
->> +	rb = (jmp_insn & OPENRISC_JUMP_REG_MASK) >> OPENRISC_JUMP_REG_SHIFT;
->> +	op = get_6_bit_opcode(jmp_insn);
->> +	link_offset = OPENRISC_INSN_SIZE;
->> +
->> +	if (static_branch_likely(&delay_slot))
->> +		link_offset <<= 1;
-> 
-> Why do shift left here instead of += OPENRISC_INSN_SIZE? Since logically we are
-> adding one more insn for the delay slot, not doubling.
+[1] https://lore.kernel.org/r/20261109-clear-pages-batch-v3-1-6693efe18dff@amd.com
 
-Since link_offset is initialized to OPENRISC_INSN_SIZE, shifting it to the left by 1 would
-update link_offset to 2 * OPENRISC_INSN_SIZE. This is a little more obscure than explicitly
-setting it to 2 * OPENRISC_INSN_SIZE. Initially, I thought the left shift operator might be
-less expensive than multiplying.
+Changes in v2:
+- Drop the folio_copy() changes as there is little to gain here.
+  On architectures without copy_mc_to_kernel(), copy_mc_highpages()
+  falls back to the per-page copy_mc_highpage(), which ends up in
+  copy_highpage(). A batched copy_highpages() could help there too,
+  but I haven't tested it on those architectures, so that is left for
+  a follow-up.
+- Add COPY_MC_PAGES_NON_PREEMPT_BATCH to limit how much is copied
+  between cond_resched() calls on non-preemptible kernels.
+- Rebase onto mm-new (2887e63d2e8e).
+- v1: https://lore.kernel.org/all/20260427142036.111940-2-shivankg@amd.com
 
-I was going through mor1kx's design and noticed there's also a pipelined implementation for
-the multiplier [1]. But it looks like the implementation for shifting is simpler and can be done
-in one cycle. Please let me know if my understanding is incorrect here.
+Test setup: AMD EPYC Zen 6, single socket, NPS2 (nodes 0 and 1 are
+DRAM, node 2 is CXL), with and without this patch.
 
-> However, It may be more efficient to avoid using the alu and write as:
-> 
->         if (static_branch_likely(&delay_slot))
->                 link_offset = 2 * OPENRISC_INSN_SIZE;
->         else
->                 link_offset = OPENRISC_INSN_SIZE;
-> 
-> what do you think?
+move_pages() throughput
+-----------------------
+A single move_pages() call migrates 1GB of anonymous memory, as 512
+2MB THPs or as four 1GB hugetlb pages. Mean ± stddev (10 runs each),
+in GiB/s:
 
-I am not sure if I have understood the alu part. WIll it be more efficient because 2 * OPENRISC_INSN_SIZE
-will be optimized by the compiler to simply be a single number? So no alu operation will be required,
-just one store operation?
+2MB THP:
+  direction         base            patched         speedup
+  DRAM0 -> DRAM1    19.57 ± 0.17    27.51 ± 0.78    1.41x
+  DRAM1 -> DRAM0    19.44 ± 0.12    27.33 ± 0.27    1.41x
+  DRAM0 -> CXL      18.66 ± 0.18    26.90 ± 0.51    1.44x
+  CXL   -> DRAM0    15.38 ± 0.59    16.60 ± 0.24    1.08x
 
-> 
->> +	switch (op) {
->> +	case OPENRISC_OPCODE_J: /* l.j */
-> 
-> I think these comments (/* l.j */) are no longer needed sinc you have
-> the named macros.
+1GB hugetlb:
+  direction         base            patched         speedup
+  DRAM0 -> DRAM1    20.34 ± 0.13    53.88 ± 1.48    2.65x
+  DRAM1 -> DRAM0    19.10 ± 2.65    53.78 ± 0.55    2.82x
+  DRAM0 -> CXL      19.53 ± 0.08    44.10 ± 0.19    2.26x
+  CXL   -> DRAM0    16.41 ± 0.07    20.89 ± 0.06    1.27x
 
-Got it, I'll remove the comments.
+kswapd demotion
+---------------
+Node 0 is limited to 16GB of free memory and demotion is enabled. A
+single thread bound to node 0 writes 96GB of anonymous THP memory, so
+~80GB has to be demoted to CXL. Median of 10 runs:
 
->> +		regs->pc += displacement;
->> +		return;
->> +	case OPENRISC_OPCODE_JAL: /* l.jal */
->> +		regs->gpr[9] = regs->pc + link_offset;
->> +		regs->pc += displacement;
->> +		return;
->> +	case OPENRISC_OPCODE_BNF: /* l.bnf */
->> +		if (regs->sr & SPR_SR_F)
->> +			regs->pc += link_offset;
->> +		else
->> +			regs->pc += displacement;
->> +		return;
->> +	case OPENRISC_OPCODE_BF: /* l.bf */
->> +		if (regs->sr & SPR_SR_F)
->> +			regs->pc += displacement;
->> +		else
->> +			regs->pc += link_offset;
->> +		return;
->> +	case OPENRISC_OPCODE_JR: /* l.jr */
->> +		regs->pc = rb == 0 ? 0 : regs->gpr[rb];
->> +		return;
->> +	case OPENRISC_OPCODE_JALR: /* l.jalr */
->> +		temp = regs->pc + link_offset;
->> +		regs->pc = rb == 0 ? 0 : regs->gpr[rb];
->> +		regs->gpr[9] = temp;
->> +		return;
->> +	default:
->> +		break;
->> +	}
->> +}
->> +NOKPROBE_SYMBOL(simulate_branch)
->> diff --git a/arch/openrisc/kernel/setup.c b/arch/openrisc/kernel/setup.c
->> index 000a9cc10e6f..9c231b320d45 100644
->> --- a/arch/openrisc/kernel/setup.c
->> +++ b/arch/openrisc/kernel/setup.c
->> @@ -252,6 +252,10 @@ void __init setup_arch(char **cmdline_p)
->>   	/* perform jump_table sorting before paging_init locks down read only memory */
->>   	jump_label_init();
->>   
->> +	/* determine if the processor supports delay slots */
->> +	if (mfspr(SPR_CPUCFGR) & SPR_CPUCFGR_ND)
->> +		static_branch_disable(&delay_slot);
->> +
->>   	/* paging_init() sets up the MMU and marks all pages as reserved */
->>   	paging_init();
->>   
->> diff --git a/arch/openrisc/kernel/traps.c b/arch/openrisc/kernel/traps.c
->> index c195be9cc9fc..a59abbca3555 100644
->> --- a/arch/openrisc/kernel/traps.c
->> +++ b/arch/openrisc/kernel/traps.c
->> @@ -32,6 +32,7 @@
->>   
->>   #include <asm/bug.h>
->>   #include <asm/fpu.h>
->> +#include <asm/insn-def.h>
->>   #include <asm/io.h>
->>   #include <asm/processor.h>
->>   #include <asm/unwinder.h>
->> @@ -252,12 +253,12 @@ static inline int in_delay_slot(struct pt_regs *regs)
->>   	insn = *((unsigned int *)regs->pc);
->>   	op = insn >> 26;
->>   	switch (op) {
->> -	case 0x00: /* l.j */
->> -	case 0x01: /* l.jal */
->> -	case 0x03: /* l.bnf */
->> -	case 0x04: /* l.bf */
->> -	case 0x11: /* l.jr */
->> -	case 0x12: /* l.jalr */
->> +	case OPENRISC_OPCODE_J: /* l.j */
->> +	case OPENRISC_OPCODE_JAL: /* l.jal */
->> +	case OPENRISC_OPCODE_BNF: /* l.bnf */
->> +	case OPENRISC_OPCODE_BF: /* l.bf */
->> +	case OPENRISC_OPCODE_JR: /* l.jr */
->> +	case OPENRISC_OPCODE_JALR: /* l.jalr */
-> 
-> Nice cleanup, again I think comments can be removed now.
+                               base        patched
+  kswapd CPU time              4.25 s      3.44 s     (-19%)
+  kswapd CPU per GB demoted    63.6 ms     44.1 ms    (-31%)
+  demoted by direct reclaim    14.1 GB     0.46 GB
+  allocstall                   7427        370
 
-Sure, I'll remove these comments as well.
+With the patch, kswapd keeps up with the writer, so the writer rarely
+falls back to direct reclaim.
+---
+ include/linux/highmem.h | 51 +++++++++++++++++++++++++++++++++++++++++++++++++
+ mm/util.c               | 14 ++------------
+ 2 files changed, 53 insertions(+), 12 deletions(-)
 
->>   		return 1;
->>   	default:
->>   		return 0;
->> @@ -269,47 +270,9 @@ static inline int in_delay_slot(struct pt_regs *regs)
->>   
->>   static inline void adjust_pc(struct pt_regs *regs, unsigned long address)
->>   {
->> -	int displacement;
->> -	unsigned int rb, op, jmp;
->> -
->>   	if (unlikely(in_delay_slot(regs))) {
->>   		/* In delay slot, instruction at pc is a branch, simulate it */
->> -		jmp = *((unsigned int *)regs->pc);
->> -
->> -		displacement = sign_extend32(((jmp) & 0x3ffffff) << 2, 27);
->> -		rb = (jmp & 0x0000ffff) >> 11;
->> -		op = jmp >> 26;
->> -
->> -		switch (op) {
->> -		case 0x00: /* l.j */
->> -			regs->pc += displacement;
->> -			return;
->> -		case 0x01: /* l.jal */
->> -			regs->pc += displacement;
->> -			regs->gpr[9] = regs->pc + 8;
->> -			return;
->> -		case 0x03: /* l.bnf */
->> -			if (regs->sr & SPR_SR_F)
->> -				regs->pc += 8;
->> -			else
->> -				regs->pc += displacement;
->> -			return;
->> -		case 0x04: /* l.bf */
->> -			if (regs->sr & SPR_SR_F)
->> -				regs->pc += displacement;
->> -			else
->> -				regs->pc += 8;
->> -			return;
->> -		case 0x11: /* l.jr */
->> -			regs->pc = regs->gpr[rb];
->> -			return;
->> -		case 0x12: /* l.jalr */
->> -			regs->pc = regs->gpr[rb];
->> -			regs->gpr[9] = regs->pc + 8;
->> -			return;
->> -		default:
->> -			break;
->> -		}
->> +		simulate_branch(regs, *((unsigned int *)regs->pc));
->>   	} else {
->>   		regs->pc += 4;
->>   	}
->> -- 
->> 2.55.0
->>
+diff --git a/include/linux/highmem.h b/include/linux/highmem.h
+index d7aac9de1c8a..a79e9d68359c 100644
+--- a/include/linux/highmem.h
++++ b/include/linux/highmem.h
+@@ -484,6 +484,57 @@ static inline int copy_mc_highpage(struct page *to, struct page *from)
+ }
+ #endif
+ 
++/**
++ * copy_mc_highpages() - copy a page range with machine check handling
++ * @to: first destination page
++ * @from: first source page
++ * @nr_pages: number of pages
++ *
++ * Range variant of copy_mc_highpage(). On a machine check, the poisoned
++ * source page is queued for memory_failure().
++ *
++ * Context: Process context. May sleep.
++ * Return: 0 on success, -EHWPOISON if a machine check was handled.
++ */
++static inline int copy_mc_highpages(struct page *to, struct page *from,
++		unsigned long nr_pages)
++{
++	unsigned long len = nr_pages << PAGE_SHIFT;
++	unsigned long i, ret;
++
++	might_sleep();
++
++	/*
++	 * When copying we want to operate on the largest extent possible to
++	 * allow for architecture specific extent based optimizations.
++	 *
++	 * copy_mc_to_kernel() does not call cond_resched(). That is fine on
++	 * preemptible kernels, where the scheduler can preempt the copy at
++	 * any point, so copy the whole range at once if copy_mc_to_kernel() is
++	 * available and the pages are in the linear map. Otherwise, copy one
++	 * page at a time and reschedule in between.
++	 */
++	if (IS_ENABLED(CONFIG_ARCH_HAS_COPY_MC) && IS_ENABLED(CONFIG_PREEMPTION) &&
++	    !IS_ENABLED(CONFIG_HIGHMEM)) {
++		ret = copy_mc_to_kernel(page_address(to), page_address(from), len);
++		if (ret) {
++			memory_failure_queue(page_to_pfn(from) +
++					     ((len - ret) >> PAGE_SHIFT), 0);
++			return -EHWPOISON;
++		}
++		for (i = 0; i < nr_pages; i++)
++			kmsan_copy_page_meta(to + i, from + i);
++		return 0;
++	}
++
++	for (i = 0; i < nr_pages; i++) {
++		cond_resched();
++		if (copy_mc_highpage(to + i, from + i))
++			return -EHWPOISON;
++	}
++	return 0;
++}
++
+ static inline void memcpy_page(struct page *dst_page, size_t dst_off,
+ 			       struct page *src_page, size_t src_off,
+ 			       size_t len)
+diff --git a/mm/util.c b/mm/util.c
+index c9c3dc4b490f..1277daa3ccd6 100644
+--- a/mm/util.c
++++ b/mm/util.c
+@@ -776,18 +776,8 @@ EXPORT_SYMBOL(folio_copy);
+ 
+ int folio_mc_copy(struct folio *dst, struct folio *src)
+ {
+-	long nr = folio_nr_pages(src);
+-	long i = 0;
+-
+-	for (;;) {
+-		if (copy_mc_highpage(folio_page(dst, i), folio_page(src, i)))
+-			return -EHWPOISON;
+-		if (++i == nr)
+-			break;
+-		cond_resched();
+-	}
+-
+-	return 0;
++	return copy_mc_highpages(folio_page(dst, 0), folio_page(src, 0),
++				 folio_nr_pages(src));
+ }
+ EXPORT_SYMBOL(folio_mc_copy);
+ 
 
-Thanks,
-Sahil
+---
+base-commit: c6e0cad6c9b4180bb229db06e5b062c5ce0723bd
+change-id: 20260714-batpagecopy-5a2b45910e5d
 
-[1] https://github.com/openrisc/mor1kx/blob/master/rtl/verilog/mor1kx_execute_alu.v#L224-L377
+Best regards,
+-- 
+Shivank Garg <shivankg@amd.com>
+
