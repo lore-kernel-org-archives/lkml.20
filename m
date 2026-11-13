@@ -1,100 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.49
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.1
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794601619;
-	b=RAiA/WlyqjHAXIt2I7inUp3qONv5E1CLymRs4/4lS+3tfVb+ntQxvhQUuaBnbO1Av7PY
-	 Fnzy7UUVjcSA9is2Ktb7ln7LiK9OCa/xyEvlrgFU40xa19ilC2vk5b096DiXbr9B49GrS
-	 A+GQVmODtds4x4VFccEGPg60lMeaw/zZmEQM8dkmlQO1OcLG/bpP7FmZqQsWp2CtXdQ9x
-	 K6rfvkGQpNxtVf8fMJXyBAgNy+7upQ2jx/P0pqI+MIlTOgIQMpuCziWnYUTe2Gh7YJjpG
-	 yRE/k/1Dfdt8cCWP9PLd66yZthDHokIY32UkpCEhn8VK3LjfuDzagcpvuL1+74d+Xyw==
+	t=1794601662;
+	b=H9ixNnPAzjsJNEtH1MlFPRBnSR6Em5iw6c1iLZOMVV/dg81PogNsAuaPOeoO8UTCCqUw
+	 LIow8kOlVK7A0csoot89nourvT+ksRtKx/iI7wY8XjN2BsWDJRItkM71wsUGfqS6oco4V
+	 pXcWbmyRWoZZ0awac4p22yDJ8W/i0JQ0c81nhBTZX4omJYyaimigjMqT7Sr0G0cxwOUtX
+	 rmtmctc4ARVy6Hwwbn3lWApDeT2lsuxvZWaoko1Kp3Hv8qevOrwDGLQY0Lawtxw99Bnr9
+	 NCUYz33QAlLE5vB/pP3gCPU/pIr5g8zaVEH/qH+onzUnhMf0ux/Od06X1ciMdLRkkbA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794601619;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=N51TD8kOG6VzADFHEc9ZSbuydfiGg0bvUXx6UT1l3jM=;
-	b=aDnjxdHJPqLpfpZ4eVsDp0scCHdpphL0oSPLlgyXc1Gjt0rpte1EWeui6OFae8k6XhPg
-	 Bv3N2syiFy3asQn5rUx02ngnpuNPdhtEt/6+4EGiQ61NABZCLkihSNu5bsMuivZ/Z6dNO
-	 ObjZ0BL7NmOr3LNPPGedUY1kOU6ZhfdenLxh+4/lLBg0PtQ+GKoK5dXh3OrmPNNw5paIo
-	 xX0EnRB+jiTIPG84xh7renxUQMqgnzcPJbjeOvFB6qEc9aEd8r0TveTp3mTOiqGKu2B62
-	 UGZWyxLFzVbZX9gCDQVgEbTo1Z/kPp8bdK3rvmG7/2s5ZMRd4dBtaB8vgsLFCjlTYBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794601662;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=aJbNS2m9FwSqPyxfRUNR+6UM/KmeDdGibiAf3sCi5+4=;
+	b=vs/HaNjfWoH3tKKE/LH2ZaPZXKb60W462QZ35jyA6TR5RVWYGxH30K1tlC3BfQJ5kd+P
+	 F7Y7/pl4SfHR6k9UnVEr5zTGI4V+Fi5hNMHiNCnFWvXKRs5gcXJevJx3dW6hp0Mo8vQSI
+	 vsODn5E78isusopNpOBUmZ9eN3D5I3I2EgZ6HqYzD4DuzlZrnKP/Hi/pAmZ4iUBrO2sXC
+	 iH5DxptCmUYxO/npMKqXtEhKPMMjmlu03VuyWUIKm26yZ7sjLHSiCAncsK8v+PG/g/YyL
+	 nlTUm+voRcVIkuFjnruLI5xQkhxHQ5FEBfZwZdQlvkcuGNWCX022jF6sZq6TvL/SOqg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yJuoo3LY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.49
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Mn5iPssb;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.1
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013001.outbound.protection.outlook.com [40.93.196.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78B7E606A33D
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:26:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78B7E606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3923606A323;
+	Fri, 13 Nov 2026 20:27:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3923606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yJuoo3LY
-Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91e7af9a67fso9051286d6.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:26:58 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794601617; cv=none;
-        d=google.com; s=arc-20260327;
-        b=AJxOSTsJJSTqklp5xfUkoimhzg58CcOVZAx9A1ShrMqeB/irD161aWijr0nBFWycow
-         SafM1CKfZc0KPWWj3/F2xIeTnGQFO5cTqnLG7vplODx9Sa/EjDZ8W+EAG3Ph2mzsXSNR
-         yGYZicN6c+wqalhiW6/rc8MG3OyiKeOh4WaSXTxuDvVj/S9ouw7Ywa7My4WRwVfIbqto
-         yq0DZCgXZ0Z3vrioCfP8T3btvE/v6u8AnMFpBF3h+gBjDR9ZQl5Oe8qopqOuoRiXJGfB
-         qRW/TI3RkQP4ZsOSd27NEmvPrI78Oq7XTl0b8A9SXteaUG92dXM+7lP+A83P7h9Xw7ZS
-         dZPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=N51TD8kOG6VzADFHEc9ZSbuydfiGg0bvUXx6UT1l3jM=;
-        fh=z6dngT1vzE3e1ZKi8zb7TSzc3sqOba65fkaXe9ZNx2Q=;
-        b=KBvMeLDu9h+Od3iRMI06iD4iZAewG8GeL92qHGPwUxs6OlXHmjw5lZp7RkQ6M6sSpb
-         yT+WBxlY6/BXewXsfyzNJ44JT/u/kbKtavHgJgyi7vtYBwbDhUkSNmWZviOLQJc+Ix5z
-         zcAjG4Ych5Xdmh8bJXLd+GpV3ozGgqz9A47BVCKIixS+Bl7tLW+d8vb7Th0ETHVvTRF5
-         nSBhLJQTmyW8WVMqYFEsTVuHvrsrZEtlQc4kEiGn2jHJ1oIdXEEicfDqwdb/ibXsGyab
-         E8vlpWcxq13oz2D4dtxsm3GRqdsg6TdUSh7YFc2OYQPXhRDUHOrJA9WHzsSIyZzw2Lbo
-         dMQw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794601617; x=1795206417; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=N51TD8kOG6VzADFHEc9ZSbuydfiGg0bvUXx6UT1l3jM=;
-        b=yJuoo3LYPuQUIE1yCLGwbdPXZZ/s9ZZb5nrp02A0PVgQAdyv/3ENMtS6TlJKI5+lvQ
-         7gLFRUOC/lPw7h803x9+gpnmeprfx/BAFpptO0Xjs36LlKG4llAoOZnKESvjAvOAyNnr
-         p42O2f6sA9d/lpova3ysL6uWlz+iVinZ9DT8P7f5ryyBMtE/jzcOXJY5ARfqzZkv9vm/
-         LNhtd82GDz4z9xRWAxJJlrZNfA0Hf1ymj3qMGx+sgvCgMICxGMaFw39w0cduockzaM0e
-         3QuxVCyWibrvQZgL6d7L3aEGE7e0UxHczkG/R3gyWLv58y4BDCg6eIy61Iidw5BMgA7q
-         5Guw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794601617; x=1795206417;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=N51TD8kOG6VzADFHEc9ZSbuydfiGg0bvUXx6UT1l3jM=;
-        b=Z7RB0D+MmKra2oRXC4d7MI0QxdNfD6K9MWFgVYvuvO6k5XluwYzvzil8DLj46cdjCO
-         lRhZzSKxO4Pjp4MU8WlivUmMIH2LmmYhj7hIIQtUwsY1718yWUZtdruECpJ1fuhWKk4y
-         S8cHUfROFInFxC5Nbz4lwzZmM1Ojb7AMwQW+J/Z+FSIFmIDFP/OZw5W0cJQumqzSFZz6
-         Fua9KI3HyIEbgHhAmKkOjMBeE5+BinRNdgURVWsr46AmW+ROdh4zVKgY4fn4TnjghPzC
-         /08OWxEj5wm6w8yXgwi+438gWPN6Ebvmlwzk3joSof4kLRbnAPaGGbLDGZEwmDNtEA2P
-         r/3Q==
-X-Forwarded-Encrypted: i=1; AL+hErEprSZ75drkMVjcfkCSW94iI0+A/lnf/5Rt/fgDi9RiDuoWLY+vOM2y0uBZt7ODqlhqfH/V/oY779WxANI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+0kgw0u2HyqU5sCPlW8S9jgAWIGZ3/y6Fp7WgCoexcw5OaANse
-	QPhPtGG4I46nfidG35Qdbw2Nql3eckqJtV3HvpX5CaN9tfCVqzhD4P7KjUytGR9QoDY7fqSvr3F
-	sDhL1q99Z+OcrtdGJJmKRe8K7P8yZPds=
-X-Gm-Gg: AYBFou1b/NEDr8dyV1devnY5ygukRilj6x8yXH+R4EnQ1jIgeR4Zxx+M6BlTkdtX7WW
-	f5qn7luFB+2eWDgKmIjBjRPGwtapJ9iw/DwtbAaHKNtXEy0guOot6tNwEhFda5F8d6CRptFq9BT
-	Se2tPa23yHfZ4Jx0xneOrlrnc/3zclel5I9uIfU5/gj7z7j2je1Wpe3EIqcHC90N0ok8CxxqTxV
-	itJYTPWv7UOFIl7Rvr9dWCG9VuWyCJ3eG5yJCG2kpQsEsp8IH7gfN76I9BUKK+3YrRbik584o3R
-	ob1/K3cv7BrJRTY0S81PxT0u9PaSooL0T5Ga9X0i9ArPaygOJ6Okhq8ZJt6/ypDsNUpo0X2mANP
-	oSIYDw8VER0of9KcaRTYsaqAJR37tLMeoCaXE
-X-Received: by 2002:a05:620a:27cc:b0:944:9dd:b6 with SMTP id
- af79cd13be357-9494bccea21mr604768185a.80.1794601617414; Fri, 13 Nov 2026
- 12:26:57 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Mn5iPssb
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pAYBL/m1Ms9RDURjJ6RZu0hQzp64hbxlcuw0dLu2qqbeqc6msXsy2GOwEuggLe4aEY0gLzJR6Vq4dzrzNC7cxO3K/wEx2PpwDlFrKnzseBhHqlpE0AEEGkh7Zy1BZv0Jb5WOQYM/YIlknwwHb3wXncx8yKI9x7wauiVtEIYNW0LdSW72tGpTVwM3mIFLj1ESl9JlhLCmqgXcm2MRmrROiwBG7Pr/BOd4U6PhUWeNsuS6fb4SJS+gLHU2BPbrJmDHB9C+E+EExXkUBNXvW5HaoS0D/I8xm2jNxNi3VQnNHXzjhkAq8ylIhD5H+7Xf6AnUcKV2fCuYrS4oQWYJi1QfoQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aJbNS2m9FwSqPyxfRUNR+6UM/KmeDdGibiAf3sCi5+4=;
+ b=t6g2LfCZrHh+Z5M5GZQgHOH5SHmWH50hnq9tIWj/7eSJH3x0ibVpLZBOEt9fo2pGTK/PmWpRcbhGcB/ba104ICroyOPNzdEHvs2iwxb75AE+RKe4Cz2+yBQx0O9XCD9WycJu7/sxug1vZl7xYJr2IJ0VIZ8JB7BRor3f+0RCfyfCSrhxeyFuYrTPxZ2fperRq6BgFsbP7knD0sibCwzZkqCdWWtX88EVlr4+LkJD0duoPWvDNiqT0+2hXSLo9hvep8xc+3jS04+LD4tNIwlMrjOWRw58v8LJu9stSZf9mHhuC9ubhFB3oL83SreoHpvJw6Ey1IK6Z8AS6e/XZMexQg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aJbNS2m9FwSqPyxfRUNR+6UM/KmeDdGibiAf3sCi5+4=;
+ b=Mn5iPssbz4UY8RRdLTLj9VX61rsC9J+WlgPwsmC0nAp6zw04JY56Kwjb7Vsv3VAgiSUd/dGrsXSRAys1JbVVUJaPUnfRIKmCNg7CJu4Gc5e5wvqLOetUBz0qFUbJ9+DimpoeFUasOwt0q2kWDVyQyEuYsa251lKL/UURmEkHPEs=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA5PPF8ECEC29A9.namprd12.prod.outlook.com
+ (2603:10b6:80f:fc04::8d5) by BY5PR12MB4132.namprd12.prod.outlook.com
+ (2603:10b6:a03:209::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Fri, 13 Nov
+ 2026 20:25:31 +0000
+Received: from SA5PPF8ECEC29A9.namprd12.prod.outlook.com
+ ([fe80::fd82:d106:2d09:2dcc]) by SA5PPF8ECEC29A9.namprd12.prod.outlook.com
+ ([fe80::fd82:d106:2d09:2dcc%5]) with mapi id 15.21.0615.008; Fri, 13 Nov 2026
+ 20:25:30 +0000
+Message-ID: <4b9042de-973a-4036-a6a0-2294c65a1ee1@amd.com>
+Date: Fri, 13 Nov 2026 15:25:25 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/5] mm: check permissions and bounds for vm_ops->access
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Willy Tarreau <w@1wt.eu>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Chris Wilson <chris@chris-wilson.co.uk>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>, Rik van Riel <riel@redhat.com>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linuxppc-dev@lists.ozlabs.org, stable@vger.kernel.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Chris Mason <mason@kernel.org>
+References: <20261112-access_shite-v1-0-988a5c470db2@kernel.org>
+ <20261112-access_shite-v1-5-988a5c470db2@kernel.org>
+Content-Language: en-US
+From: "Kuehling, Felix" <felix.kuehling@amd.com>
+In-Reply-To: <20261112-access_shite-v1-5-988a5c470db2@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT4PR01CA0304.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10e::20) To SA5PPF8ECEC29A9.namprd12.prod.outlook.com
+ (2603:10b6:80f:fc04::8d5)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,55 +116,162 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029150147.11989-1-mbkchelofficialdev@gmail.com>
-In-Reply-To: <20261029150147.11989-1-mbkchelofficialdev@gmail.com>
-From: MBKCHEL <mbkchelofficialdev@gmail.com>
-Date: Fri, 13 Nov 2026 22:26:46 +0200
-X-Gm-Features: AclHuK_cLts48NcMLZOfdSwAc0RmjeDt92FAQwRPmxIr9mwmNz79maXKNQR60UI
-Message-ID: <CA+YDrKB1wBCo1iF+tTqa_oG2C2EssiSN-sCAdqriJqrwz5mmuw@mail.gmail.com>
-Subject: Re: [PATCH] rust: macros: add descriptive doc-comment to internal fmt function
-To: Miguel Ojeda <ojeda@kernel.org>
-Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA5PPF8ECEC29A9:EE_|BY5PR12MB4132:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5f10b15c-cb1c-4e21-efcf-08df41c44312
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|7416014|376014|18002099003|22082099003|921020|4143699003|261028144727099003|56012099006|3023799007|261026140227099003|261009223027099003|261021121427099003|261102130727099003|261022105027099003|10067099003|261021123027099003|261026121527099003|261102123227099003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	BmKi6OAuR0IQLOPbyveuoRlDniq9nplfbS7NwDp9vyCUyiYtG/nC8nHlLDZ2BNpG6LP4Ss1ahqu+5OO583RhU04UpFM5bVt0DgPWlszXYrHy3fyCmUFl5hnyYd1fueui7MDKtIgwSWmSKnrmkvggD2+D8iK8hbZaN87Jdbkz5X3IDKtEOoHhmbbicnY7TEe/ExkBL/9TSjkNFT+Yu8txH0nmYidsy9uIniZ2lfEEAsXCNvUSTNRn8+8HPt+ytHbJTkkkbvuVIqHftpQ2VgcliuW6ERx5e67SIEvHlgDdMpGJDB/CjSY+PIOkLFoMzmLhVD3mrAqEKfJAhROsXnnGa9a15UCA29A/HHHmdY0djLupdbJbEf538VwypljSaIKEPp7vAwkpE1Bk/+0EKVAAsLGoK4UbOpZ6sMDSiN+ImkojrSS4mCpyo15IQZILOW/nTUXUBaeLLcLJLCMxqneXWNH6bOHQSKwgOSpMTtuN1TknCWy2expo3193PRlnr1OQjhtoZ9FM0VgPhSaynmWP0xjn26a8U1Ai2FShYZp0aIKdeeUJ6RDNHYNqur25iaMdaVXHqSaot4m7RznYCQQyPOusjSMtNhUeSQGZXqML/I5bLL/+2kcAtK2B7B9DlSUBsduOI8efFo5RXf1EseLGc32tSgBLAQAvJS5NPg3NIFRwlW1oINwzvl1oD7MSxRg+fb/fxIOk8xGOZvLsN0u0dQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA5PPF8ECEC29A9.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(7416014)(376014)(18002099003)(22082099003)(921020)(4143699003)(261028144727099003)(56012099006)(3023799007)(261026140227099003)(261009223027099003)(261021121427099003)(261102130727099003)(261022105027099003)(10067099003)(261021123027099003)(261026121527099003)(261102123227099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UU1TOWUwQ2orNnRBN2R2dHl4cEpFYUZoZFc1N1Bzbkg0UEZDa2YwdUFlS1dI?=
+ =?utf-8?B?cEtDTllvS2Z3Q3k4ZUhaL2JsMWY3N3MxNXIyTVhHbW0yZU9BNUVpWjArWEdK?=
+ =?utf-8?B?K2lwTTJ0WEZINjFSOWpaeHRqd1BORU9rVFVuNUVsOWVPNUNsbS9NVFdxb1FE?=
+ =?utf-8?B?dzRYRm1va2kwbjRRMldRNVF0ZXRBNnltcVRndkxxMFQ1NzRMTkg2QTlSbTFI?=
+ =?utf-8?B?QmRFZXk1d1RMUWYydGtJUTJKeHlWSFNpTjUvVjhTVC8wcWxLdERHY01ocVRt?=
+ =?utf-8?B?YWdIeG5HckhLaXFMN3NpamxjN3pMWGJmNkhOVVdxWVY2a2xYYzN0MTQrNDNS?=
+ =?utf-8?B?clNzVTA5NjhwTHptZFRIdHB3RXMwajZUQkl6ODNNVFpETWpuMWdENjZXVlFM?=
+ =?utf-8?B?eStpalkwTUk0N05ZNTBCRW9xUm9EQ01NTnhrRy8zZVpMSUNlVE5uSnlueFZR?=
+ =?utf-8?B?M2dIMk01aGZ6bVZJVi9NQXIwZjhWZ21xN2xSVitkM0F5eVdDN3owUndic29o?=
+ =?utf-8?B?akZHcDQzVWtsT2dxbFZTb1JJVGNmMXc3WU1zUUsrajhRcGQycXNlZ1JiSkJW?=
+ =?utf-8?B?VjVhWmp6UDdtNjJzVTl6ZnRIQjdTNFV4NkZQa3gyNkJjQWtGWGZrVS8wWlJE?=
+ =?utf-8?B?Z2FiQjBRTG9TaUhUSTBnWjhHQVJjT09lbi9PSmUxakk2TzdDVnJkWE5vV2d0?=
+ =?utf-8?B?WDMvT2F6bEZVcmJLM0FKb2VPMEJOMlo5dys5OVJ6aUJCd09USXlmdmQ4bEtE?=
+ =?utf-8?B?b2l5ZGZKM3ZTSVJJVzJwZGdIN0NxV1FZNTU2UDcrekpmWjV1UVlqR1ByZTEx?=
+ =?utf-8?B?d1daRmpCRmhZTmNObGlDT0RiRUdxajZTeGVtSzVIMXc0TzlVYlczd0txekpm?=
+ =?utf-8?B?U3BYbEVYTGpsMGVSR2hnRzVkbTJ4SmowcTBVRTBoTHpncDVuYjVxZC9acTZs?=
+ =?utf-8?B?S05GWmtPSVlzQU9kdEVDMndLRFoydEFRUEpGQ2pCUnAyQmdXenhSY1RDQWZE?=
+ =?utf-8?B?RGZ4Z3FST3RkSUYra015MnNNUC8yUmFvZ3ljWXN2RXM0dTd5WUZqSzlFK01m?=
+ =?utf-8?B?dk5hMWg3VkxHalNOUWZTM1pQaUtIbEFwRmtXNUxiOVpGNHNvT05UOUV4RlA5?=
+ =?utf-8?B?cFhyN3BpWTNLdDc5REdvdEtoMFA2K1JaOWJ5YWVOMHdsSTkyaWRQbElMdGQ1?=
+ =?utf-8?B?Y2I3bDNGTUpGMmRmamhORDlIaGhnd0pmSWJmV3JPWm45RllpeFhaWXU1S2NX?=
+ =?utf-8?B?TEx5MnNkMU10YXQ3UFVPUjFmUzIrTTIrM3M2OTBqWk5CcklzUFJzNXptOHdK?=
+ =?utf-8?B?V21BN2pVZnNMdGlxbWFlQ2hjWk0yOGI0TnVFRExCUmNFdEoyaGJXUDR6bDNK?=
+ =?utf-8?B?NU9xOWdETzlDY2lqWmh3bnlFNkJHN1V3YWRiazd6M214aTJPejJESDM1Nlo4?=
+ =?utf-8?B?Q0NXdm9xTEs3YnRXSFAvc29RdEx6ZkxxNHhSWWV4aERPamUzUERBbmN0V0gv?=
+ =?utf-8?B?TFoyTWE4emhFK3FnWFNVQTh0cG52TW5nSnFydmRINXhjcmdTY29KTW5STDZG?=
+ =?utf-8?B?dFpoTW04di9acEhZbzJBa2hOTjVBUlVVSWxaSkxhQmtCRCs1TUNQUThpZGhv?=
+ =?utf-8?B?aWhJUGJpME5MOXNZR24yOEhTSE9PQURxZkRYL0xZczRhazBkcHU4ZkNKRlUw?=
+ =?utf-8?B?TWRHR09hbzFGNDR5SFZDc1ozWmd3WE5zUjhEZWx5d1IvdVlLQlJjWEJxZ0I4?=
+ =?utf-8?B?aDhveVNJZ0pvalg2WEhzdnJreHYwdUNMaXpva2lxTFg5QWpDWjRpQ1BHWWVt?=
+ =?utf-8?B?LzdZdE5yODRBVVVlWnF1aE84Z2lPczNlV1orMU1iZ0FsbmF4emVqd1ZrTFh3?=
+ =?utf-8?B?MmpCMzNNUG5NNFExa2tKL0Q3Um1FellTcmNYREEybkswQ25tZGxGUUc0Rkcr?=
+ =?utf-8?B?Umhkb3Fja3JOWFl4bGo4TWR3RUZCM28rRTBoNkhPYUtpQlRWM016MWtQWnRa?=
+ =?utf-8?B?eFpBamFwRUpKTTZyQzBKQ2gwRU9yU0dycWgydkpuOVVjNXEzZHRtaFpaUmpJ?=
+ =?utf-8?B?QjVzNng2Q2p3bUk1L2JEby96T1pTYm5JQ2ZLYlpBQndYT28zN3NNaXByUDRR?=
+ =?utf-8?B?SnZEak5EQ1A2YzF2dXlzYkJIVjc3SXdmZC8zd0FhRDVYajRxRG9jVFlPMlc2?=
+ =?utf-8?B?WHN5SVRkWWNMSmVrS1lWR2lYN092MmhnOUZjR1k5ZHB5RFVoRGtlVGVNZDg0?=
+ =?utf-8?B?RURudXZxODhDQmV5Ykx1b29YMk11djlueHhyTUxVSWhoWmI5eGNEKy9rTGdB?=
+ =?utf-8?B?cStuYS9EcXM4SnVsT25YUmovUEdyRkFYVVNFcWplOWxyNmJEbTF0dz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5f10b15c-cb1c-4e21-efcf-08df41c44312
+X-MS-Exchange-CrossTenant-AuthSource: SA5PPF8ECEC29A9.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 20:25:30.7258
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: G/dUCZhBbr1YS/kAMI3U0/T8UdavHgOxC77Yl2hSLj7fqmqI/9CYjy4ge2RCfZxxUeq1+nzeiFklR6KS5+kxMQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4132
 
-Hi,
 
-    Friendly ping on this patch.
+On 2026-11-12 17:09, David Hildenbrand (Arm) wrote:
+> GUP rejects VM_IO and VM_PFNMAP mappings early. __access_remote_vm() then
+> falls back to vm_ops->access without checking VMA permissions and without
+> limiting the request to the VMA size.
+>
+> Consequently, /proc/<pid>/mem can bypass protections even without
+> FOLL_FORCE, or cross into another mapping without checking its
+> permissions.
+>
+> Check VMA permissions before calling ->access and limit each request to
+> the current VMA. Implement similar access permission checks as GUP,
+> however:
+>   (1) Reject writes to CoW mappings because the callbacks access backing
+>       memory directly and cannot handle CoW.
+>   (2) Allow forced writes to non-CoW mappings with VM_MAYWRITE.
+>
+> This intentionally breaks forced writes through legacy amdgpu PROT_NONE,
+> MAP_PRIVATE debugger mappings. The workaround in commit fa5239f2af98
+> ("drm/amdgpu: workaround failed COW checks for Thunk VMAs") cleared
+> VM_MAYWRITE to avoid CoW, but debugger writes still succeeded by
+> exploiting the missing access-permission checks fixed here. Reads remain
+> supported. Userspace must use MAP_SHARED instead; ROCm 5.5.0, released
+> in May 2023, already does so.
 
-    Thanks,
-    Ivan
+Thank you for considering this use case and checking the ROCm history. 
+The patch is
 
-=D1=87=D1=82, 29 =D0=BE=D0=BA=D1=82. 2026=E2=80=AF=D0=B3. =D0=B2 17:02, Iva=
-n Tverdokhleb <mbkchelofficialdev@gmail.com>:
+Acked-by: Felix Kuehling <felix.kuehling@amd.com>
+
+
 >
-> Add descriptive documentation comments to the internal formatting functio=
-n,
->
-> explaining its role in parsing format strings and wrapping arguments into
->
-> the Adapter helper.
->
-> Signed-off-by: Ivan Tverdokhleb <mbkchelofficialdev@gmail.com>
+> Link: https://github.com/ROCm/ROCT-Thunk-Interface/commit/fea44fab6e84eda52fcf6b419b35600c18f4c022
+> Fixes: 272ddc8b3735 ("proc: don't use FOLL_FORCE for reading cmdline and environment")
+> Cc: stable@vger.kernel.org
+> Cc: Felix Kuehling <Felix.Kuehling@amd.com>
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Reported-by: Chris Mason <mason@kernel.org>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 > ---
->  rust/macros/fmt.rs | 3 +++
->  1 file changed, 3 insertions(+)
+>   mm/memory.c | 25 +++++++++++++++++++++++--
+>   1 file changed, 23 insertions(+), 2 deletions(-)
 >
-> diff --git a/rust/macros/fmt.rs b/rust/macros/fmt.rs
-> index ce6c72493..676156dc9 100644
-> --- a/rust/macros/fmt.rs
-> +++ b/rust/macros/fmt.rs
-> @@ -6,6 +6,9 @@
->  use quote::quote_spanned;
->
->  /// Please see [`crate::fmt`] for documentation.
-> +///
-> +/// This function parses the format string, extracts named arguments fro=
-m curly braces,
-> +/// and wraps arguments into the `Adapter` helper.
->  pub(crate) fn fmt(input: TokenStream) -> TokenStream {
->      let mut input =3D input.into_iter();
->
-> --
-> 2.56.0
+> diff --git a/mm/memory.c b/mm/memory.c
+> index d4370c1b331c9..9872f289c1e49 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -7362,6 +7362,7 @@ EXPORT_SYMBOL_GPL(generic_access_phys);
+>   static int __access_remote_vm(struct mm_struct *mm, unsigned long addr,
+>   			      void *buf, int len, unsigned int gup_flags)
+>   {
+> +	const bool force = gup_flags & FOLL_FORCE;
+>   	void *old_buf = buf;
+>   	int write = gup_flags & FOLL_WRITE;
+>   
+> @@ -7401,15 +7402,35 @@ static int __access_remote_vm(struct mm_struct *mm, unsigned long addr,
+>   			if (gup_flags & FOLL_ANON)
+>   				break;
+>   
+> +			if (write) {
+> +				if (!vma_test(vma, VMA_MAYWRITE_BIT))
+> +					break;
+> +				if (!vma_test(vma, VMA_WRITE_BIT) && !force)
+> +					break;
+> +				/*
+> +				 * In contrast to GUP, we historically allowed
+> +				 * FOLL_FORCE write access to non-CoW mappings.
+> +				 * However, we must always reject CoW mappings
+> +				 * as we cannot CoW here.
+> +				 */
+> +				if (vma_is_cow_mapping(vma))
+> +					break;
+> +			} else if (!vma_test(vma, VMA_READ_BIT)) {
+> +				if (!force || !vma_test(vma, VMA_MAYREAD_BIT))
+> +					break;
+> +			}
+> +
+>   			/*
+>   			 * Check if this is a VM_IO | VM_PFNMAP VMA, which
+>   			 * we can access using slightly different code.
+>   			 */
+>   			bytes = 0;
+>   #ifdef CONFIG_HAVE_IOREMAP_PROT
+> -			if (vma->vm_ops && vma->vm_ops->access)
+> +			if (vma->vm_ops && vma->vm_ops->access) {
+> +				bytes = min_t(unsigned long, len, vma->vm_end - addr);
+>   				bytes = vma->vm_ops->access(vma, addr, buf,
+> -							    len, write);
+> +							    bytes, write);
+> +			}
+>   #endif
+>   			if (bytes <= 0)
+>   				break;
 >
