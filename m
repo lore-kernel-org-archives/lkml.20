@@ -1,89 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794590032;
-	b=AGveLovNDksq7eo+ar3WH5cMpAcPTI6UO/3zrMvwIb2o1tlBlHOGA9HprULjsnPXwBH+
-	 W3QAb5JBpk4jxPQnDoCF2fRpbvna/x/orfhoeoLyF3rQhGmiV3eY9MnpOmzHXjvUh60gv
-	 MXziuu2+GtRE2gOYd74SeFjeFpg86PjafmRfZ8l2LjCeGtSCgtL6QdVnR6CtEwjaKk8DD
-	 WGUQxPe0wipLB0kuLMcF0SdrBDbBReanVL8yHIuAtHeX9s4MznVYKE8R5Wl2sZaBXPA1B
-	 3fMD/0OGmJHKv7gn0hES2MVKomQ6FiVbz7Nuvh1958MGIH1yP5bpc0R+s5OGlFnMp2Q==
+	t=1794590033;
+	b=D9CQmWVw9Tc85M9YTal+2Xx4JKnjMVzh1XE38eJZ9fILst3BltPvyaZBXJXU1+p8qS0p
+	 JqnvMubWssjzfoyDdTIpSf16Bv6MOr5JnXmxSNmKve/Bim7+SBUdbC/JCSLSYu6l3M58J
+	 CWq1q2c8Vopwrm+COmCNRYNUOlp92JX2Nn9qXcA1KJQsp4qs511U8I51CWd87J8jfcHxY
+	 MXEHsc/7n9qpN7fyDqgXBFzkx0jh5ipuzkQKhYLFgphpi5Bzxxw7uCDCpa/WWYNNe+yMJ
+	 swN60ubw5JnYC9TmPv0r5gi7biNLbUNAAAIx9Il3J+0Hp8AzkONpu5thHC5tQLrMywQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794590032;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=IjsuiiTiR6xMqMwngFz60LZtzwpdR6j2h8dViSfDc6I=;
-	b=mNXQfhTVvWud7P6EEKvTRYOH7PCoxCzmzxl1tnfUd2NFohPRejoRF6O5BWEip3QlV/Kl
-	 QILv7k87GTWXQNe1der35r4GlMIIbQlUOQU0Qfnv3DNJqqdkIWNK74JNdphI4a5Vsz0dI
-	 ke3zSlVVyTn1sgTj7IIjdroUuL2CGVNAMSuUWU3eQZwim2qoZ3ZyRmZm368b54yOhrYsS
-	 +zn2kYvtuuBtE/nB2+qa8Ndfu5Gua7O98i6wopNY8x1EnL9U+m7A1P92QTL+gPxmWGBAp
-	 BGgoZrKSS2PVEBK7Ac6CuLyAasUZsCAJ0JYBt0nGsSHkMbeowUCH9KHo7XcRcEXjbUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794590033;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=qcJFl9NdqvzphabZtsDLj7jWX/fBy0DU+zzdY0OOr0c=;
+	b=3aU+ww2UHrpNoA4X4+6i8QDMKDkE+hps0gxGYtA6qMG/Jtrn1Vo2mG7v8+ah80khMaeI
+	 5c3ULT8qByCHBQ6dNGIU1dc4f3xe9Jij4cKKBaKqhgZuUfjYjEyFgjG1zI0zQZ7KGh8sS
+	 7XvKbTaOGLdlMLM0UmO2p0FFDsQ1WMYDWzq4WCT/nFdYbFYv9RoIN1gX3FUiU6CbYmNAT
+	 54KchjSArpd7L+tnk01gj4u4Fu7O+i1WsZF3uwtFXC+YkBhQz3FFM6UeublmRq/w32PEM
+	 UEoJrBSSbmo4lLJQ3cBBLBWP6FjrQePIGPJcItJFimgl8DTndMziEgS3cXn4NyX9EwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ul3ip3DP;
-	arc=none smtp.remote-ip=209.85.210.49
-Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="PWyBk6/D";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D754960A383E
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:13:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D754960A383E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 524FF60A6F47;
+	Fri, 13 Nov 2026 17:13:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ul3ip3DP
-Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-7f84a55e31aso1464777a34.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:13:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794590031; x=1795194831; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IjsuiiTiR6xMqMwngFz60LZtzwpdR6j2h8dViSfDc6I=;
-        b=ul3ip3DPxFHlU0JH4+yG0ObUuN+sJTfO8I0uRNME7mhmAweqg7cOCzrfRyCIYxbEsc
-         bVe93Y7GaAxLBqg3P2mZXMI0F/K7iAAloPwa8n31Ze4DhV7N9F6xvKSuxJUOFRCCcozv
-         i2Ie9yZXiWlMom9oYSMHOYk55n1wbl6r1B3tNiv50RmHCfD0sdh+w9T1cqAMToDGsB/M
-         Uz60DdKD2v1qcJh0Nf2GcBqhOZwN/M9sbe/y5FjO2PY7d6yNIOgt56OvGZQrKifme6k+
-         ICO2+4EQdsP2qnPUqvdKgNqXFKf1/PdhwehuHykxLr5HNc6oDMGetRMda8F9Zha9h7ww
-         IncA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794590031; x=1795194831;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IjsuiiTiR6xMqMwngFz60LZtzwpdR6j2h8dViSfDc6I=;
-        b=six5t9gVshazzUYHo13d6Dg8XL8JG+R6kvlEvXeGRkeLhwTTC2OV4DeirwcGSEEZ0n
-         cHVOFW8mrmsoQO4GA521kH2A6dKu8JfQgi2mxVBvvXUBtYCA9T0CJ5H4QJxg++bdzU0d
-         P7Mhjl53qyq3Qg1ARY+W0AIVMSvmuCIvFLJyfyRdHJjOilqDcDp8pO13alftLjV7f9Oo
-         aRt7tO0hkH0YhT9KJcZ1v7xPo299iTa74dYe4f2F5SAhU70bFsJI1WUVkpxGDTrwdkqB
-         PQv+Bsjqmmo6BuMVBRTagzj7zmnGpM0RERkYqwDchY0jU7R0fLYzxsDTAdz6L9ZzHlKq
-         qg/g==
-X-Forwarded-Encrypted: i=1; AL+hErH5+2X0z8XjRWxHEz0TJ4tzZN/8L7H0mkt0nHqdbFoeDtFiqn1DH07JwkQ1YxBNGpVM32HofmXmtf3P+G8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+2oNYKMVzwCc4YGuEVKvzjZYIIcDKlojRo09KHQFb8B+VHC6MP
-	SPSsboovlU6Mb2smUl1SrU5VAAay0V2fcCkZr2RCJvfJhR59kX1s5LjQ
-X-Gm-Gg: AYBFou0ZiSZ8rPYcx9den1oH08k+yMpf158SrJZG7YpLhoZah8qRjLoI93zXlSEtRNE
-	G6KqzqAXfylmHCupsudYfP1HpOoBHg4P4bRA8jJzQx11L76SUKJCJYtHBi5AGFaGj4foVtHihRo
-	N+LI8bIhoWBr+jdrhQV925q7KE74AZYSxBXyq4Hvw0Fs3JwTFT/0ZaFOGUqW+OMXZnj342JEk0+
-	Rv8F/XbYeSAdCdI6SWMYTILZv0AsPpjkyTsOXqgRrVVjXxliyLlgkKgrTeYHPUs3lx7uB9jrDxp
-	7FIEaqaCjvpMlkcdVtX9M0jbuMT3VPXfrKD0TGv11t7tXxyt6LMlX0WXEsDtxkZWYops7QMIvSN
-	Lr7kTAj0wSNCna1ne34yuKr9PLkcgs5B4S1TTsD8XA6m1i3LaPAVM42SjyTLTkGikI6P9d/klsk
-	Zl6Q5T7HWic+jri6ZYiZDBnv5DdpxhI2mbUfHakZy/G4EJy/FcUSWpPPlT4z5V/FByTwLsvg/uO
-	I+zZjhzT/8WnaNXQU3nh1ajnyvlgOYjofCxK++NmKQrnzASMvF+ahVcMDDIdu/JMrwUm1prTEeC
-	f0yDic9ulvm4UzqtZ+Txr5zaaOfx3mv/VlOgzVzMxdqXnXOCuHizHwaX1vVoQW6sxq401DE5zlU
-	IVpJ4n8mEe8cMZJ6Q+IxHIqnp6Gkr0LR8eCQoi/c/tWEnYwpRJAD00FimLgs0stmMezj8+UQAHh
-	epe8pHzkQpXIicajR8EoM8zOzE6JHOYoe9zp3M2achUdPd583WSP86
-X-Received: by 2002:a05:6808:30a2:b0:567:f627:67f9 with SMTP id 5614622812f47-56e60065b98mr2702702b6e.5.1794590030688;
-        Fri, 13 Nov 2026 09:13:50 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-56e7044690dsm2565805b6e.9.2026.11.13.09.13.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 09:13:49 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Fri, 13 Nov 2026 10:12:06 -0700
-Subject: [PATCH net-next v4 2/3] net: phy: acx00: report receive statistics
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PWyBk6/D
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFA581F000C8;
+	Fri, 13 Nov 2026 17:13:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794590032;
+	bh=qcJFl9NdqvzphabZtsDLj7jWX/fBy0DU+zzdY0OOr0c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PWyBk6/DVpDsfndMVz52QbAY+pl58hD4yfZx5XLSvkS2DDdGAEaI3Aj2jg1u/4EsZ
+	 ynMoxaS9cYkylWrQ+B7ztFlNkjHxnj7Y0WQqQxFPxAYOcsfC9/9hq4tRNpj9ugF+Vl
+	 hr0oqrAEqLYQS+7XaCucHlEJqicIT/clAQZiPuH7ZRkTi1ctKzSN09+g6zg/AkrOZb
+	 b1p1XXW7v7EkxnO7ADmQ5YLdVIBR1MVsOQicdHlxWRUZu/I7Eomi88yfECqv6RYBuA
+	 X1QfkSnrWqCORwS39hsBceyqMhQ5KPHL8XVEZOzzIYZ8qXjPSbVnFqiz97VsVxT8zZ
+	 moF4zRs/vYu5A==
+Date: Fri, 13 Nov 2026 17:13:44 +0000
+From: Simon Horman <horms@kernel.org>
+To: Jiayuan Chen <jiayuan.chen@linux.dev>
+Cc: netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	Paul Moore <paul@paul-moore.com>,
+	Matthieu Baerts <matttbe@kernel.org>,
+	Mat Martineau <martineau@kernel.org>,
+	Geliang Tang <geliang@kernel.org>, Julian Anastasov <ja@ssi.bg>,
+	Allison Henderson <achender@kernel.org>,
+	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+	Xin Long <lucien.xin@gmail.com>,
+	"D. Wythe" <alibuda@linux.alibaba.com>,
+	Dust Li <dust.li@linux.alibaba.com>,
+	Sidraya Jayagond <sidraya@linux.ibm.com>,
+	Mahanta Jambigi <mjambigi@linux.ibm.com>,
+	Tony Lu <tonylu@linux.alibaba.com>,
+	Wen Gu <guwen@linux.alibaba.com>, linux-kernel@vger.kernel.org,
+	netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+	bridge@lists.linux.dev, linux-security-module@vger.kernel.org,
+	mptcp@lists.linux.dev, lvs-devel@vger.kernel.org,
+	linux-rdma@vger.kernel.org, rds-devel@oss.oracle.com,
+	linux-sctp@vger.kernel.org, linux-s390@vger.kernel.org
+Subject: Re: [PATCH net-next 04/14] ipv6: annotate data-races around icmpv6
+ reply sysctls
+Message-ID: <20261113171344.GO18859@horms.kernel.org>
+References: <20261109025425.328445-1-jiayuan.chen@linux.dev>
+ <20261109025425.328445-5-jiayuan.chen@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,349 +82,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-submit-acx00-phy-stats-v1-v4-2-986b8a4a1871@gmail.com>
-References: <20261113-submit-acx00-phy-stats-v1-v4-0-986b8a4a1871@gmail.com>
-In-Reply-To: <20261113-submit-acx00-phy-stats-v1-v4-0-986b8a4a1871@gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
- Russell King <linux@armlinux.org.uk>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: Oleksij Rempel <o.rempel@pengutronix.de>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
- James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109025425.328445-5-jiayuan.chen@linux.dev>
 
-Expose receive frame and byte totals through the generic PHY statistics
-interface as rx_packets_total and rx_bytes_total, alongside CRC errors in
-rx_errors. The packet and byte counters include errored frames as well as
-successfully received traffic, so leave the successful-only fields unset.
+On Mon, Nov 09, 2026 at 10:52:03AM +0800, Jiayuan Chen wrote:
+> icmpv6_echo_ignore_all, icmpv6_echo_ignore_multicast,
+> icmpv6_echo_ignore_anycast, anycast_src_echo_reply and fwmark_reflect are
+> read without any lock while their sysctl handlers update them with
+> WRITE_ONCE(). Add READ_ONCE() to the readers.
+> 
+> KCSAN reports it when net.ipv6.icmp.echo_ignore_all is changed while
+> ICMPv6 echo requests are received:
+> 
+>   BUG: KCSAN: data-race in icmpv6_rcv / proc_dou8vec_minmax
+> 
+>   write (marked) to 0xffffffff8ee2940d of 1 bytes by task 504 on cpu 0:
+>    proc_dou8vec_minmax+0x1ab/0x1f0
+>    proc_sys_call_handler+0x282/0x3a0
+>    proc_sys_write+0x13/0x20
+>    ...
+> 
+>   read to 0xffffffff8ee2940d of 1 bytes by interrupt on cpu 3:
+>    icmpv6_rcv+0x99d/0xd40
+>    ip6_protocol_deliver_rcu+0x787/0x9a0
+>    ip6_input_finish+0xb0/0x1b0
+>    ip6_input+0xa8/0x250
+>    ipv6_rcv+0x14b/0x1c0
+>    __netif_receive_skb_one_core+0x8f/0xe0
+>    ...
+> 
+>   value changed: 0x01 -> 0x00
+> 
+> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 
-Collect the free-running 32-bit counters through phylib's update_stats
-callback and accumulate wrap-adjusted deltas in 64-bit totals. Hardware
-measurements on AC200 and AC300 established a receive-byte modulus of
-4,000,000,000. The byte counts include Ethernet headers, padding and FCS,
-but exclude preamble and SFD. The packet and CRC-error counters wrap at
-2^32. Reject byte samples at or above the byte modulus before updating
-either the baseline or the totals.
-
-Read the high half on either side of the low half to detect a carry.
-Limit each counter to three attempts so persistent inconsistency cannot
-retain the PHY, package-state and MDIO locks indefinitely. Skip an
-unstable snapshot and retry on the next poll: reporting a synthetic
-error through update_stats would make phylib take the link down.
-Keep incomplete samples distinct from MDIO errors so page-restoration
-failures still propagate.
-
-Serialize collection and reporting with the package-state mutex so reads
-cannot race reset or power-off, and the totals are safe on 32-bit systems.
-Commit a snapshot only after all counter reads, validation and page
-restoration succeed. The reporting callback returns cached totals without
-accessing MDIO.
-
-Take a best-effort final snapshot before suspend, but invalidate the
-baseline at entry to soft_reset: phylib may already have reset the PHY
-through BMCR or its reset signal. Sampling against the previous baseline
-then would count the cleared registers as a wrap. Invalidate it before
-power-off too, including failed power-off attempts.
-
-Start a new collection interval on resume, including when WoL kept the
-PHY powered while polling stopped. Also discard deltas spanning at least
-320 seconds, the minimum time for a full byte-counter cycle at 100 Mb/s.
-Measure that interval with boottime, including system sleep and register
-read duration, since the MDIO sleep path can bypass the PHY PM callbacks.
-Retain previously accumulated totals, but do not account for traffic in
-these unobserved intervals: complete counter cycles cannot be recovered
-from the endpoint values. An unusable initial snapshot is retried by the
-periodic collector without preventing initialization.
-
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/net/phy/xpowers/acx00.c | 184 +++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 181 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/phy/xpowers/acx00.c b/drivers/net/phy/xpowers/acx00.c
-index cee6c7ff0278..fb53bac12195 100644
---- a/drivers/net/phy/xpowers/acx00.c
-+++ b/drivers/net/phy/xpowers/acx00.c
-@@ -8,12 +8,14 @@
- 
- #include <linux/bitfield.h>
- #include <linux/device.h>
-+#include <linux/ethtool.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/nvmem-consumer.h>
- #include <linux/of.h>
- #include <linux/phy.h>
- #include <linux/slab.h>
-+#include <linux/timekeeping.h>
- 
- #include "../phylib.h"
- #include "acx00.h"
-@@ -31,6 +33,7 @@
- #define ACX00_PAGE_2				2
- #define ACX00_PAGE_6				6
- #define ACX00_PAGE_8				8
-+#define ACX00_PAGE_9				9
- 
- #define ACX00_PAGE0_GLOBAL_CONFIG_REG		0x13
- #define ACX00_PAGE0_XMII_RX_CLOCK_INVERT	BIT(12)
-@@ -76,6 +79,32 @@
- 	(ACX00_PAGE8_AUTO_CAL_TX_LEVEL_ADJUST_BYPASS | \
- 	 ACX00_PAGE8_AUTO_CAL_LOW_CAL_OPAQUE_BITS)
- 
-+#define ACX00_PAGE9_RX_BYTES_HIGH_REG		0x19
-+#define ACX00_PAGE9_RX_PACKETS_HIGH_REG		0x1b
-+#define ACX00_PAGE9_RX_CRC_ERRORS_HIGH_REG	0x1d
-+
-+/*
-+ * AC200 and AC300 hardware testing confirmed that the receive byte counter
-+ * wraps at 4,000,000,000 rather than 2^32.
-+ */
-+#define ACX00_RX_BYTES_WRAP			4000000000ULL
-+/* At 100 Mb/s, a full byte-counter cycle takes at least 320 seconds. */
-+#define ACX00_STATS_MAX_INTERVAL_MS		(ACX00_RX_BYTES_WRAP * 8 / (SPEED_100 * 1000))
-+#define ACX00_COUNTER_READ_ATTEMPTS		3
-+
-+enum acx00_ephy_stat {
-+	ACX00_STAT_RX_BYTES,
-+	ACX00_STAT_RX_PACKETS,
-+	ACX00_STAT_RX_CRC_ERRORS,
-+	ACX00_NUM_STATS,
-+};
-+
-+static const u8 acx00_ephy_stat_regs[ACX00_NUM_STATS] = {
-+	[ACX00_STAT_RX_BYTES] = ACX00_PAGE9_RX_BYTES_HIGH_REG,
-+	[ACX00_STAT_RX_PACKETS] = ACX00_PAGE9_RX_PACKETS_HIGH_REG,
-+	[ACX00_STAT_RX_CRC_ERRORS] = ACX00_PAGE9_RX_CRC_ERRORS_HIGH_REG,
-+};
-+
- /*
-  * Another integration of this exact-ID PHY documents its digital vendor
-  * register map, which also matches the observed ACx00 reset values. The ACx00
-@@ -86,11 +115,16 @@
- struct acx00_ephy_priv {
- 	struct phy_device *phydev;
- 	struct acx00_ephy_control *control;
--	/* Serializes package state and multi-register power sequences. */
-+	/* Serializes package state, power sequences and statistics. */
- 	struct mutex state_lock;
- 	bool is_ac300;
- 	bool use_low_calibration_tuning;
- 	bool xmii_rx_clock_inverted;
-+	bool stats_active;
-+	bool stats_valid;
-+	ktime_t stats_start;
-+	u32 stats_last[ACX00_NUM_STATS];
-+	u64 stats[ACX00_NUM_STATS];
- };
- 
- static int acx00_ephy_read_page(struct phy_device *phydev)
-@@ -110,6 +144,124 @@ static int acx00_ephy_write_page(struct phy_device *phydev, int page)
- 			   FIELD_PREP(ACX00_PAGE_SELECT_MASK, page));
- }
- 
-+/* Return 0 on success, 1 for an unstable sample, or a negative MDIO error. */
-+static int acx00_ephy_read_counter(struct phy_device *phydev, u8 reg, u32 *count)
-+{
-+	int high, low, check;
-+	int i;
-+
-+	/* The free-running counter can carry while its two halves are read. */
-+	for (i = 0; i < ACX00_COUNTER_READ_ATTEMPTS; i++) {
-+		high = __phy_read(phydev, reg);
-+		if (high < 0)
-+			return high;
-+		low = __phy_read(phydev, reg + 1);
-+		if (low < 0)
-+			return low;
-+		check = __phy_read(phydev, reg);
-+		if (check < 0)
-+			return check;
-+		if (high != check)
-+			continue;
-+
-+		*count = (u32)high << 16 | low;
-+		return 0;
-+	}
-+
-+	return 1;
-+}
-+
-+static int __acx00_ephy_update_stats(struct phy_device *phydev)
-+{
-+	struct acx00_ephy_priv *priv = phydev->priv;
-+	u32 counts[ACX00_NUM_STATS];
-+	ktime_t start;
-+	int oldpage;
-+	int ret;
-+	int i;
-+
-+	lockdep_assert_held(&priv->state_lock);
-+
-+	if (!priv->stats_active)
-+		return 0;
-+
-+	start = ktime_get_boottime();
-+	oldpage = phy_select_page(phydev, ACX00_PAGE_9);
-+	if (oldpage < 0)
-+		return phy_restore_page(phydev, oldpage, oldpage);
-+
-+	for (i = 0; i < ACX00_NUM_STATS; i++) {
-+		ret = acx00_ephy_read_counter(phydev, acx00_ephy_stat_regs[i],
-+					      &counts[i]);
-+		if (ret)
-+			break;
-+	}
-+	ret = phy_restore_page(phydev, oldpage, ret);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* Skip unusable samples without turning a statistics miss into a link error. */
-+	if (ret || counts[ACX00_STAT_RX_BYTES] >= ACX00_RX_BYTES_WRAP)
-+		return 0;
-+
-+	/* Include sleep and read time; complete unseen cycles cannot be recovered. */
-+	if (priv->stats_valid &&
-+	    ktime_ms_delta(ktime_get_boottime(), priv->stats_start) >=
-+	    (s64)ACX00_STATS_MAX_INTERVAL_MS)
-+		priv->stats_valid = false;
-+
-+	for (i = 0; i < ACX00_NUM_STATS; i++) {
-+		u64 count = counts[i];
-+
-+		if (priv->stats_valid) {
-+			if (count < priv->stats_last[i])
-+				count += i == ACX00_STAT_RX_BYTES ?
-+					ACX00_RX_BYTES_WRAP : BIT_ULL(32);
-+			priv->stats[i] += count - priv->stats_last[i];
-+		}
-+		priv->stats_last[i] = counts[i];
-+	}
-+	priv->stats_valid = true;
-+	priv->stats_start = start;
-+
-+	return 0;
-+}
-+
-+static int acx00_ephy_update_stats(struct phy_device *phydev)
-+{
-+	struct acx00_ephy_priv *priv = phydev->priv;
-+	int ret;
-+
-+	mutex_lock(&priv->state_lock);
-+	ret = __acx00_ephy_update_stats(phydev);
-+	mutex_unlock(&priv->state_lock);
-+
-+	return ret;
-+}
-+
-+static void acx00_ephy_get_phy_stats(struct phy_device *phydev,
-+				     struct ethtool_eth_phy_stats *eth_stats,
-+				     struct ethtool_phy_stats *stats)
-+{
-+	struct acx00_ephy_priv *priv = phydev->priv;
-+
-+	mutex_lock(&priv->state_lock);
-+	stats->rx_packets_total = priv->stats[ACX00_STAT_RX_PACKETS];
-+	stats->rx_bytes_total = priv->stats[ACX00_STAT_RX_BYTES];
-+	stats->rx_errors = priv->stats[ACX00_STAT_RX_CRC_ERRORS];
-+	mutex_unlock(&priv->state_lock);
-+}
-+
-+static void acx00_ephy_snapshot_stats(struct phy_device *phydev)
-+{
-+	int ret;
-+
-+	/* Statistics collection must not prevent reset or power management. */
-+	ret = __acx00_ephy_update_stats(phydev);
-+	if (ret)
-+		phydev_dbg(phydev, "failed to snapshot statistics: %pe\n", ERR_PTR(ret));
-+}
-+
- static int acx00_ephy_control_power_on(struct acx00_ephy_priv *priv)
- {
- 	lockdep_assert_held(&priv->state_lock);
-@@ -122,6 +274,10 @@ static int acx00_ephy_control_power_off(struct acx00_ephy_priv *priv)
- {
- 	lockdep_assert_held(&priv->state_lock);
- 
-+	/* Even a failed power-off can have reset the hardware counter. */
-+	priv->stats_active = false;
-+	priv->stats_valid = false;
-+
- 	return priv->control->power_off(priv->control);
- }
- 
-@@ -350,6 +506,10 @@ static int acx00_ephy_soft_reset(struct phy_device *phydev)
- 
- 	mutex_lock(&priv->state_lock);
- 
-+	/* phylib may already have reset the counters before calling us. */
-+	priv->stats_active = false;
-+	priv->stats_valid = false;
-+
- 	ret = acx00_ephy_set_interface(phydev);
- 	if (ret)
- 		goto out_power_off;
-@@ -475,10 +635,21 @@ static int __acx00_ephy_config_init(struct phy_device *phydev)
- 
- 	/* Restore the standard EEE policy retained by phylib across resets. */
- 	ret = genphy_c45_an_config_eee_aneg(phydev);
--	if (ret <= 0)
-+	if (ret < 0)
- 		return ret;
-+	if (ret > 0) {
-+		ret = genphy_restart_aneg(phydev);
-+		if (ret)
-+			return ret;
-+	}
- 
--	return genphy_restart_aneg(phydev);
-+	if (!priv->stats_active) {
-+		/* Establish a new baseline after reset, retaining the software total. */
-+		priv->stats_active = true;
-+		acx00_ephy_snapshot_stats(phydev);
-+	}
-+
-+	return 0;
- }
- 
- static int acx00_ephy_config_init(struct phy_device *phydev)
-@@ -534,6 +705,9 @@ static int acx00_ephy_resume(struct phy_device *phydev)
- 	int ret;
- 
- 	mutex_lock(&priv->state_lock);
-+	/* WoL can keep the PHY counting while phylib polling is stopped. */
-+	priv->stats_active = false;
-+	priv->stats_valid = false;
- 	ret = __acx00_ephy_power_on_and_resume(phydev);
- 	mutex_unlock(&priv->state_lock);
- 
-@@ -550,6 +724,8 @@ static int acx00_ephy_suspend(struct phy_device *phydev)
- 	mutex_lock(&phydev->lock);
- 	mutex_lock(&priv->state_lock);
- 
-+	acx00_ephy_snapshot_stats(phydev);
-+
- 	ret = genphy_suspend(phydev);
- 	if (ret)
- 		goto out_unlock;
-@@ -616,6 +792,8 @@ static struct phy_driver acx00_ephy_driver[] = {
- 		.soft_reset = acx00_ephy_soft_reset,
- 		.config_init = acx00_ephy_config_init,
- 		.disable_autonomous_eee = acx00_ephy_disable_autonomous_eee,
-+		.get_phy_stats = acx00_ephy_get_phy_stats,
-+		.update_stats = acx00_ephy_update_stats,
- 		.suspend = acx00_ephy_suspend,
- 		.resume = acx00_ephy_resume,
- 	},
-
--- 
-2.53.0
+Reviewed-by: Simon Horman <horms@kernel.org>
 
