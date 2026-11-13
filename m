@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794604134;
-	b=AkPdeMloj0MYX6f7ineWwIfM/ZcGfQ2zSxjsTHrq3eFR+ebHgc7KVZFqrieGVlM1WfTL
-	 GXWBeFzOMosX7t2dO+LerCcvfDYIhBUG6iCTIpCwfeOXDq/huCjQcfVz0jMB4aDNYRm3D
-	 pkAW6aPJfNbwj6BGT9np58YBhHAqSqA0lfR8LpgEqAHJQSZZEI+MP0J42xvoCavncodBp
-	 TYucN5GivhQpk7BGnKaShe9Vw7AFUn0p8HElHZWzZc7UQ3wpii+V4jqXV1yugGD9WZ7/b
-	 FOd95ib5LFtb1YdL54QHFJkh9oodedJ+V7qeovogghC0ltARHxC+4BkeXxPGpAH4BNw==
+	t=1794604136;
+	b=AcZOFpkd+IhCScZiQc6Ta3Org/9UzX+Xp4Lml+i7yDxQhzenRrUb+68+KdypO81opop2
+	 lEKHih0SsXkgIqz/4SrSOLXZwTy00MbcU+0KJt+0eQnZKEjAOGEI7pBcNeopYZcgtuXld
+	 wn4Q0AtgVFyCALNUNqxFLW4+brmceU7mhzHEkf/YjozY6LPobg7t+kFnxzhplrg/IFNHe
+	 jk89bwO3/MwTVHTULHCa0I+bshr+Dw3P+luhGeCzLi8JYG1l/H7TryP/fib+eIJnwZIpz
+	 hddjUwqly74Jfs8a+uiF08pH6LsLq+ynR5qtO7COJoVbS3fF1ecnv480L+b/Y7w/g6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794604134;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794604136;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=cNkV2GW7g1dsSK5KppB7rc9SIXeBxKP4K2nRkhv/IsA=;
-	b=LmSWoXD94VplZJaI8/iXUmDXMtdjtKNbLMCivjxfuYZqIbCpxzelEyNsYO5rE/Z/fLaJ
-	 JP9SFfDGrn7+CZi49OdoWYusD5zqKI70BiD6caZ8Q0O5MiGVJODAwq4OCOM89q9VJ3tik
-	 aFvCEchThbWNnALUUFGCu/cKFtNANiHY+ndWekTNpy82odbnitkuXxANN0+0scJ7PZerb
-	 7tBa8MOGjLne8qTGPdtZNKh/Gc3+S3Vuj/wEhwDQ2TTPTFcyujASZUalYJtEK8Q6iIxV4
-	 /VWctgZ+eJydm52upXwFiHlDZazLyMb6tWh5veZY15KJP2d21vbxEAJeexbzv64lvVQ==
+	bh=l87qNe2gCFMnCequO/xk6r+49OIRAbJukp+a4aoGAGg=;
+	b=migjOKtP9gQzK1aC77sC4w+Xa+iGW1/6kixYGUC/UP102mg1Qksmj4rY6CIgZxxtzkks
+	 8nhJhlNkl1ywBqoLgvJXjUkGW2KV8ZH86vb9qFjaXMyS73dW9um/fVdMrklkLzacv3yrI
+	 e2YfuopSA+igIW8xO6rx5NDnYig0nX7BJPvKVH8DIb81zgRnZMkFp4p2cuUU5TDZlk5tU
+	 CiLoLFyrlF5BdROH1emXbfHke+1yON1+LtCzhFiQKfrGUfzLuaLN9VA1ifxy892D+Rohz
+	 lOdcjXrFkXQLQ+m3T/8/KwEfFItJAXR09VgdYL/RFPEs4E3INIc5mSFMrOxoXvs2BVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=LmHqSVq5;
-	arc=none smtp.remote-ip=74.125.82.197
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=X6GhvIJS;
+	arc=none smtp.remote-ip=74.125.82.199
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 296FD60A5BC7
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:08:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 296FD60A5BC7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4414660A5BD7
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:08:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4414660A5BD7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=LmHqSVq5
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-36de26cb4b3so1734917eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:08:53 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=X6GhvIJS
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3724667bc16so856872eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:08:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794604132; x=1795208932; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794604135; x=1795208935; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=cNkV2GW7g1dsSK5KppB7rc9SIXeBxKP4K2nRkhv/IsA=;
-        b=LmHqSVq53ZyYf0+srh65mkEEbJ5edh9mgdRbcOOgct450776IL3mwfs2/G0oqIIdqS
-         PzKi4LTzgU+Y2so8ygYsjueJjtDt9mFtWd4CkvecVicOg3kxbg7ykhwQbzoVZ1MPR5Ej
-         MqGIcqdPe4tQ/zxIJbnt+TXnYeNLA9EFO1o2myoFceQ9KYyn01/t1duwW28FcwhZQddS
-         AJSXYwAUxahs2pe3D/P7mvYqfSGEvH7Ci0MjwNKAf9InucuM38f1p0EVJxe1EMwAgjJL
-         NDfanMY6zlzFPHHZ1eWIDtdjoSvcDG7Rg+zs1exWwOzQ9FtWu+oLKtREeR4geiQ1gkrd
-         /yEg==
+        bh=l87qNe2gCFMnCequO/xk6r+49OIRAbJukp+a4aoGAGg=;
+        b=X6GhvIJSpzg810YcvFRF/hk358c8TGTwpvY8/JTDuqGt/DnYbuRCk2ZlqFWS0wF2UA
+         AgZtCod8QHqaQ3Xz2kDSy3TMq0bnyesQw0vGxwoRgUMdEIvDkaMzxlYsOJUdirooWbh/
+         4jQpstmclLNTuSM7M2uSnKJmi1tzRqVUvRSrxM04RuyI5lAeQsiOxKCTfLfUEgbKWziE
+         0deMkQ1+hdmFP7uVSXs22u0DYDrYv04zSnf35w6zKsK/zzb1Oix+4AuuTLCY+HFT22V8
+         xYFQArAq8sJihuZT/DqlDQtZevW0vgQJ7xyN+bnPfT/Bhbji9d5uUnIpCXVkzSfRJNlC
+         2mAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794604132; x=1795208932;
+        d=1e100.net; s=20260707; t=1794604135; x=1795208935;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=cNkV2GW7g1dsSK5KppB7rc9SIXeBxKP4K2nRkhv/IsA=;
-        b=MGtkwBdM5o1MCA4iY0QwiTjuZE4cd3NE3bf91Q9gIwqbjNXE0cVSP0ITkLmkWlDc5V
-         6rHYM6fBl5VJ2ZbUZo13pzbeC6aiOcEEjtQdQWB6htlO0OuhiWtkr29pOXFcmEcNlLtW
-         OMLHWUOWHrdv0PwkXO7W3ese63ROb/qaeui7jDC+zXV9J475uTKr9Z06z4iCxLtbuUQo
-         XEWR7ZNp98RGvEfgHp7YfZ/eK1SJnK+7Vs2FSJHaVk/7EtRZ49Qo3v8n4LvDiKHnwyCO
-         t67gLqtrEQFRy1/tXEpVItnx3tOzvip75beS2i9HjsoCRdqyUFAwn6mlJH/foEn8AZwW
-         bvUA==
-X-Forwarded-Encrypted: i=1; AL+hErFBRyqPZy5bRohpzinQvCKXpknCLeCoydkGVlhTA6tbzKayvTv1kUwILrRFXL8hWe/Nn0mhJQC1SSsrsAQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/5LYQoSAzAXMx6Kg9fOHDDXs/FBEszIU6qXkBn16OTLn60NDD5
-	HBvc+aZpEsD0ikqILPfErPeRUrLrs5CnEtryI5bfh2ERDtGVRPlfuO+h1di7d0OlNf3A0hpcper
-	ttk4YOK6kfw==
-X-Received: from dyax25-n1.prod.google.com ([2002:a05:693c:4199:10b0:36a:16ac:9308])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:4889:b0:369:f182:8e99
- with SMTP id 5a478bee46e88-37968b8b61cmr3470579eec.35.1794604131903; Fri, 13
- Nov 2026 13:08:51 -0800 (PST)
-Date: Fri, 13 Nov 2026 13:08:19 -0800
+        bh=l87qNe2gCFMnCequO/xk6r+49OIRAbJukp+a4aoGAGg=;
+        b=06+31ESPV+u3b3hSYUBASnvT3ufbUMYj/xusoNqKNCu7nAtXKwnhNgdWFYjHwLIhxq
+         nDnqKnMXdnkjNO65QMgxbVuszWfATxTgNSam9ToConUe2WG6Wp9MyOQX4fKo2Nd4bGUn
+         g7YRfSPpLerPjRfy5Elbxr9Z2X3/n7ZRnZYDoyEp022CY5pdbjwW51KCk6LMIAABjvt6
+         4PJ6C74zZ7L6OgoPWCPWIzAGhL9CVJ4koFszV+kkn1ZzNbbQ2BD+1MgdeIq6hTrwAlkG
+         ZPNMKocR3buzQJFHbU+25BPv96FF8Wbp4CIkBTZWaU6CrxG1XjbkvTfE9HOvM0TAD+k2
+         gdtA==
+X-Forwarded-Encrypted: i=1; AL+hErHZodmi7VFr7ec11ukdXZZPUK/QcgJ0/aSMEEhzynWhiKsa8pDqhaASpbhrSRoq41KLgJKfSQh67xfDUlI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/KG/4vz54HCRO4HwVlvX+ssnG7tCE+nPMFbyrAcbhyY75Q6Kqe
+	YhnbKPLHzvt6b6tB62cSvX3g8meZphij/2iZHQiRmcokq6Uy10p/o8WUebNkPWOuzzKdrLa6vk8
+	4Aekh4ql6DA==
+X-Received: from dycmq7.prod.google.com ([2002:a05:7301:787:b0:376:583a:e72a])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:1887:b0:36d:6a77:960a
+ with SMTP id 5a478bee46e88-37963564b9fmr2922946eec.1.1794604134796; Fri, 13
+ Nov 2026 13:08:54 -0800 (PST)
+Date: Fri, 13 Nov 2026 13:08:20 -0800
 In-Reply-To: <20261113210822.3112700-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261113210822.3112700-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <20261113210822.3112700-8-irogers@google.com>
-Subject: [PATCH 07/10] perf jevents: Add --compress=zstd block compression backend
+Message-ID: <20261113210822.3112700-9-irogers@google.com>
+Subject: [PATCH 08/10] perf build: Enable jevents string compression when available
 From: Ian Rogers <irogers@google.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
@@ -92,320 +92,192 @@ Cc: Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>,
 	Ian Rogers <irogers@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Add a 'zstd' block-indexed string compression backend to jevents.py that
-trains a single shared 64 KiB Zstandard dictionary across all ~8 KiB
-string blocks (itself stored zstd-compressed in .rodata and digested
-once on demand into a shared ZSTD_DDict freed at exit) and compresses
-each ~8 KiB block independently with ZSTD_compress_usingCDict().
+Pass --compress=<available> to jevents.py during regular builds to
+enable block-indexed string compression (packing generated PMU event and
+metric strings into independently compressed ~8 KiB blocks decompressed
+on demand by (block_id << 16) | sub_offset), constructing the fallback
+list from CONFIG_ZSTD, CONFIG_ZLIB, CONFIG_LZMA, and none so jevents.py
+only emits decompression C code for libraries actually linked into perf
+(e.g. falling back to zlib when built with NO_LIBZSTD=1, or uncompressed
+strings when all three are disabled).
 
-Without a dictionary, each ~8 KiB block starts with an empty match
-window and must emit its own Huffman/FSE entropy tables from scratch.
-Sharing a trained 64 KiB dictionary pre-seeds both common event/metric
-substrings and precomputed entropy tables across all blocks, shrinking
-compressed .rodata by ~26% compared to dictionary-free ~8 KiB zstd
-blocks (738 KiB vs 1,003 KiB across all architectures, recovering over
-half the gap toward a single non-seekable 521 KiB whole-table stream)
-while keeping every block independently decompressible via
-(block_id << 16) | sub_offset.
-
-To avoid mandatory third-party Python package dependencies across Python
-versions, lazily probe three Zstandard bindings in order:
-  1. Python 3.14+ standard-library compression.zstd
-  2. python-zstandard (zstandard) if installed
-  3. ctypes binding to the system libzstd shared library
-
-When total string data is too small to train a dictionary, gracefully
-fall back to dictionary-free Zstandard frames. On x86, --compress=zstd
-shrinks pmu-events-string.o from ~6.90 MB to ~587 KB (~11.8x reduction).
+Expose JEVENTS_COMPRESS=<zstd|zlib|lzma|none> (or a comma-separated
+preference list) in Makefile.perf to override or disable compression, and
+track NO_JEVENTS, JEVENTS_ARCH, JEVENTS_MODEL, and the active compression
+selection in $(OUTPUT)pmu-events/jevents-flags so changing build flags
+triggers regeneration without rerunning jevents.py on incremental no-op
+builds. Also cover JEVENTS_COMPRESS=none in tools/perf/tests/make.
 
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/pmu-events/jevents.py | 266 +++++++++++++++++++++++++++++++
- 1 file changed, 266 insertions(+)
+ tools/perf/.gitignore       |  1 +
+ tools/perf/Makefile.perf    | 10 +++++++-
+ tools/perf/pmu-events/Build | 47 ++++++++++++++++++++++++++++++++-----
+ tools/perf/tests/make       |  2 ++
+ 4 files changed, 53 insertions(+), 7 deletions(-)
 
-diff --git a/tools/perf/pmu-events/jevents.py b/tools/perf/pmu-events/jevents.py
-index a7fad9bbf7b4..b32344e7eb8e 100755
---- a/tools/perf/pmu-events/jevents.py
-+++ b/tools/perf/pmu-events/jevents.py
-@@ -281,12 +281,278 @@ def _compress_blocks_lzma(blocks: Sequence[bytes]) -> Optional[CompressedStringO
-   )
+diff --git a/tools/perf/.gitignore b/tools/perf/.gitignore
+index 3b968c5158b8..faf88857abff 100644
+--- a/tools/perf/.gitignore
++++ b/tools/perf/.gitignore
+@@ -39,6 +39,7 @@ trace/beauty/generated/
+ pmu-events/arch/common/common/legacy-cache.json
+ pmu-events/pmu-events.c
+ pmu-events/pmu-events-string.c
++pmu-events/jevents-flags
+ pmu-events/jevents
+ pmu-events/metric_test.log
+ pmu-events/empty-pmu-events.log
+diff --git a/tools/perf/Makefile.perf b/tools/perf/Makefile.perf
+index b74b534e1153..53ab82681569 100644
+--- a/tools/perf/Makefile.perf
++++ b/tools/perf/Makefile.perf
+@@ -129,6 +129,12 @@ include ../scripts/utilities.mak
+ # Define NO_MYPY if you do not want to run mypy during build
+ #
+ # Define NO_PYLINT if you do not want to run pylint during build
++#
++# Define JEVENTS_COMPRESS=<zstd|zlib|lzma|none> to select or disable
++# block-indexed compression of generated PMU event and metric strings, where
++# strings are packed into ~8 KiB blocks compressed independently and
++# decompressed on demand by (block_id << 16) | sub_offset (defaults to the best
++# enabled library among zstd, zlib, lzma, or none).
+ 
+ # As per kernel Makefile, avoid funny character set dependencies
+ unexport LC_ALL
+@@ -593,7 +599,7 @@ strip: $(PROGRAMS) $(OUTPUT)perf
+ 
+ PERF_IN := $(OUTPUT)perf-in.o
+ 
+-export NO_JEVENTS
++export NO_JEVENTS JEVENTS_ARCH JEVENTS_MODEL JEVENTS_COMPRESS
+ 
+ build := -f $(srctree)/tools/build/Makefile.build dir=. obj
+ 
+@@ -1036,6 +1042,7 @@ pmu-events-clean:
+ ifeq ($(OUTPUT),)
+ 	$(call QUIET_CLEAN, pmu-events) $(RM) \
+ 		pmu-events/pmu-events*.c \
++		pmu-events/jevents-flags \
+ 		pmu-events/metric_test.log \
+ 		pmu-events/test-empty-pmu-events.c \
+ 		pmu-events/empty-pmu-events.log
+@@ -1044,6 +1051,7 @@ ifeq ($(OUTPUT),)
+ else # When an OUTPUT directory is present, clean up the copied pmu-events/arch directory.
+ 	$(call QUIET_CLEAN, pmu-events) $(RM) -r $(OUTPUT)pmu-events/arch \
+ 		$(OUTPUT)pmu-events/pmu-events*.c \
++		$(OUTPUT)pmu-events/jevents-flags \
+ 		$(OUTPUT)pmu-events/metric_test.log \
+ 		$(OUTPUT)pmu-events/test-empty-pmu-events.c \
+ 		$(OUTPUT)pmu-events/empty-pmu-events.log
+diff --git a/tools/perf/pmu-events/Build b/tools/perf/pmu-events/Build
+index 5147139bbb6f..88b6b47951e0 100644
+--- a/tools/perf/pmu-events/Build
++++ b/tools/perf/pmu-events/Build
+@@ -22,19 +22,48 @@ $(OUTPUT)pmu-events/pmu-events-string.o: $(PMU_EVENTS_STRING_C)
+ # the destination to save space in the build log.
+ quiet_cmd_cp   = COPY    $(patsubst %$<,%,$@) <- $<
+ 
++JEVENTS_FLAGS_FILE := $(OUTPUT)pmu-events/jevents-flags
++
+ # --- NO_JEVENTS=1 build ---
+ ifeq ($(NO_JEVENTS),1)
+-$(PMU_EVENTS_C): $(EMPTY_PMU_EVENTS_C)
++JEVENTS_FLAGS_STR := $(NO_JEVENTS)
++
++$(PMU_EVENTS_C): $(EMPTY_PMU_EVENTS_C) $(JEVENTS_FLAGS_FILE)
+ 	$(call rule_mkdir)
+ 	$(Q)$(call echo-cmd,cp)cp $< $@
+ else
+ # --- Regular build ---
+ 
+-# Setup the JEVENTS_ARCH and JEVENTS_MODEL
++# Setup the JEVENTS_ARCH, JEVENTS_MODEL and JEVENTS_COMPRESS
+ ifeq ($(JEVENTS_ARCH),)
+ JEVENTS_ARCH=$(SRCARCH)
+ endif
+-JEVENTS_MODEL ?= all
++ifeq ($(JEVENTS_MODEL),)
++JEVENTS_MODEL=all
++endif
++
++JEVENTS_COMPRESS_AVAIL :=
++ifeq ($(CONFIG_ZSTD),y)
++JEVENTS_COMPRESS_AVAIL += zstd
++endif
++ifeq ($(CONFIG_ZLIB),y)
++JEVENTS_COMPRESS_AVAIL += zlib
++endif
++ifeq ($(CONFIG_LZMA),y)
++JEVENTS_COMPRESS_AVAIL += lzma
++endif
++JEVENTS_COMPRESS_AVAIL += none
++
++ifeq ($(JEVENTS_COMPRESS),)
++JEVENTS_COMPRESS := $(subst $(space),$(comma),$(strip $(JEVENTS_COMPRESS_AVAIL)))
++endif
++
++JEVENTS_COMPRESS_ACTIVE := $(filter $(JEVENTS_COMPRESS_AVAIL),$(subst $(comma),$(space),$(JEVENTS_COMPRESS)))
++ifeq ($(JEVENTS_COMPRESS_ACTIVE),)
++$(error JEVENTS_COMPRESS='$(JEVENTS_COMPRESS)' requires libraries not enabled in this build (available: $(strip $(JEVENTS_COMPRESS_AVAIL))))
++endif
++JEVENTS_COMPRESS_ARG := $(subst $(space),$(comma),$(strip $(JEVENTS_COMPRESS_ACTIVE)))
++JEVENTS_FLAGS_STR := $(NO_JEVENTS):$(JEVENTS_ARCH):$(JEVENTS_MODEL):$(JEVENTS_COMPRESS_ARG)
+ 
+ # The input json/csv files
+ SRC_DIR		:= pmu-events/arch
+@@ -181,7 +210,7 @@ $(EMPTY_PMU_EVENTS_TEST_LOG): $(EMPTY_PMU_EVENTS_C) $(TEST_EMPTY_PMU_EVENTS_C)
  
  
-+def _zstd_compress_via_ctypes(
-+    blocks: Sequence[bytes], dict_capacity: int, level: int
-+) -> Optional[Tuple[Sequence[bytes], bytes, bytes]]:
-+  """Compress blocks and dictionary via ctypes binding to libzstd."""
-+  try:
-+    ctypes = importlib.import_module('ctypes')
-+    ctypes_util = importlib.import_module('ctypes.util')
-+    lib_name = ctypes_util.find_library('zstd') or 'libzstd.so.1'
-+    lib = ctypes.CDLL(lib_name)
-+  except (ImportError, OSError):
-+    return None
-+
-+  c_size_t = ctypes.c_size_t
-+  c_void_p = ctypes.c_void_p
-+  c_uint = ctypes.c_uint
-+  c_int = ctypes.c_int
-+
-+  try:
-+    lib.ZSTD_isError.argtypes = [c_size_t]
-+    lib.ZSTD_isError.restype = c_uint
-+    lib.ZDICT_isError.argtypes = [c_size_t]
-+    lib.ZDICT_isError.restype = c_uint
-+    lib.ZDICT_trainFromBuffer.argtypes = [
-+        c_void_p, c_size_t, c_void_p, ctypes.POINTER(c_size_t), c_uint
-+    ]
-+    lib.ZDICT_trainFromBuffer.restype = c_size_t
-+    lib.ZSTD_compressBound.argtypes = [c_size_t]
-+    lib.ZSTD_compressBound.restype = c_size_t
-+    lib.ZSTD_compress.argtypes = [c_void_p, c_size_t, c_void_p, c_size_t, c_int]
-+    lib.ZSTD_compress.restype = c_size_t
-+    lib.ZSTD_createCCtx.argtypes = []
-+    lib.ZSTD_createCCtx.restype = c_void_p
-+    lib.ZSTD_freeCCtx.argtypes = [c_void_p]
-+    lib.ZSTD_freeCCtx.restype = c_size_t
-+    lib.ZSTD_createCDict.argtypes = [c_void_p, c_size_t, c_int]
-+    lib.ZSTD_createCDict.restype = c_void_p
-+    lib.ZSTD_freeCDict.argtypes = [c_void_p]
-+    lib.ZSTD_freeCDict.restype = c_size_t
-+    lib.ZSTD_compress_usingCDict.argtypes = [
-+        c_void_p, c_void_p, c_size_t, c_void_p, c_size_t, c_void_p
-+    ]
-+    lib.ZSTD_compress_usingCDict.restype = c_size_t
-+  except AttributeError:
-+    return None
-+
-+  raw_dict = b''
-+  total_bytes = sum(len(b) for b in blocks)
-+  if total_bytes >= 16384:
-+    full_blob = b''.join(blocks)
-+    sample_step = 2048
-+    sample_lens = [
-+        min(sample_step, len(full_blob) - off)
-+        for off in range(0, len(full_blob), sample_step)
-+    ]
-+    if len(sample_lens) >= 8:
-+      sizes_arr = (c_size_t * len(sample_lens))(*sample_lens)
-+      dict_buf = ctypes.create_string_buffer(dict_capacity)
-+      dsize = lib.ZDICT_trainFromBuffer(
-+          dict_buf, dict_capacity, full_blob, sizes_arr, len(sample_lens)
-+      )
-+      if not lib.ZDICT_isError(dsize) and dsize > 0:
-+        raw_dict = dict_buf.raw[:dsize]
-+
-+  cctx = lib.ZSTD_createCCtx()
-+  if not cctx:
-+    return None
-+  cdict = None
-+  try:
-+    if raw_dict:
-+      cdict = lib.ZSTD_createCDict(raw_dict, len(raw_dict), level)
-+      if not cdict:
-+        raw_dict = b''
-+
-+    max_block_len = max(len(b) for b in blocks)
-+    dst_cap = lib.ZSTD_compressBound(max(max_block_len, len(raw_dict)))
-+    dst_buf = ctypes.create_string_buffer(dst_cap)
-+    compressed_blocks: list[bytes] = []
-+
-+    for block in blocks:
-+      if cdict:
-+        res = lib.ZSTD_compress_usingCDict(
-+            cctx, dst_buf, dst_cap, block, len(block), cdict
-+        )
-+      else:
-+        res = lib.ZSTD_compress(dst_buf, dst_cap, block, len(block), level)
-+      if lib.ZSTD_isError(res):
-+        return None
-+      compressed_blocks.append(dst_buf.raw[:res])
-+
-+    comp_dict = b''
-+    if raw_dict:
-+      dres = lib.ZSTD_compress(dst_buf, dst_cap, raw_dict, len(raw_dict), level)
-+      if lib.ZSTD_isError(dres):
-+        return None
-+      comp_dict = dst_buf.raw[:dres]
-+
-+    return compressed_blocks, raw_dict, comp_dict
-+  finally:
-+    if cdict:
-+      lib.ZSTD_freeCDict(cdict)
-+    lib.ZSTD_freeCCtx(cctx)
-+
-+
-+def _compress_blocks_zstd(blocks: Sequence[bytes]) -> Optional[CompressedStringOutput]:
-+  """Compress ~8 KiB blocks independently with zstd and a shared trained dictionary.
-+
-+  Trains a single 64 KiB Zstandard dictionary across all blocks (itself stored
-+  zstd-compressed in .rodata and digested once on demand into a shared
-+  ZSTD_DDict) so each ~8 KiB block achieves high compression ratios while
-+  remaining independently decompressible via (block_id << 16) | sub_offset.
-+  Probes Python 3.14+ compression.zstd, python-zstandard, or ctypes libzstd.
-+  """
-+  dict_capacity = 65536
-+  level = 9
-+  result: Optional[Tuple[Sequence[bytes], bytes, bytes]] = None
-+
-+  # 1. Try Python 3.14+ standard library compression.zstd.
-+  try:
-+    py_zstd = importlib.import_module('compression.zstd')
-+    raw_dict = b''
-+    zdict_obj = None
-+    full_blob = b''.join(blocks)
-+    if len(full_blob) >= 16384:
-+      samples = [full_blob[i:i + 2048] for i in range(0, len(full_blob), 2048)]
-+      try:
-+        zdict_obj = py_zstd.train_dict(samples, dict_capacity)
-+        raw_dict = bytes(zdict_obj.dict_content)
-+      except Exception:
-+        raw_dict = b''
-+        zdict_obj = None
-+    if zdict_obj is not None:
-+      cblocks = [py_zstd.compress(b, level=level, zstd_dict=zdict_obj) for b in blocks]
-+      cdict_bytes = py_zstd.compress(raw_dict, level=level)
-+    else:
-+      cblocks = [py_zstd.compress(b, level=level) for b in blocks]
-+      cdict_bytes = b''
-+    result = (cblocks, raw_dict, cdict_bytes)
-+  except ImportError:
-+    pass
-+
-+  # 2. Try third-party zstandard module if installed.
-+  if result is None:
-+    try:
-+      zstd_pkg = importlib.import_module('zstandard')
-+      raw_dict = b''
-+      pkg_dict = None
-+      full_blob = b''.join(blocks)
-+      if len(full_blob) >= 16384:
-+        samples = [full_blob[i:i + 2048] for i in range(0, len(full_blob), 2048)]
-+        try:
-+          pkg_dict = zstd_pkg.train_dictionary(dict_capacity, samples)
-+          raw_dict = pkg_dict.as_bytes()
-+        except Exception:
-+          raw_dict = b''
-+          pkg_dict = None
-+      comp = zstd_pkg.ZstdCompressor(level=level, dict_data=pkg_dict)
-+      cblocks = [comp.compress(b) for b in blocks]
-+      cdict_bytes = (
-+          zstd_pkg.ZstdCompressor(level=level).compress(raw_dict)
-+          if raw_dict else b''
-+      )
-+      result = (cblocks, raw_dict, cdict_bytes)
-+    except ImportError:
-+      pass
-+
-+  # 3. Fall back to ctypes binding to system libzstd.
-+  if result is None:
-+    result = _zstd_compress_via_ctypes(blocks, dict_capacity, level)
-+
-+  if result is None:
-+    return None
-+
-+  compressed_blocks, raw_dict, comp_dict = result
-+  if raw_dict:
-+    dict_lines = [
-+        f'#define BIG_C_STRING_ZDICT_RAW_LEN {len(raw_dict)}U\n',
-+        f'#define BIG_C_STRING_ZDICT_COMP_LEN {len(comp_dict)}U\n',
-+        '/* clang-format off */\n',
-+        'static const unsigned char big_c_string_zdict[] =\n',
-+    ]
-+    for i in range(0, len(comp_dict), 64):
-+      chunk = comp_dict[i:i + 64]
-+      escaped = ''.join(_BYTE_TO_C_OCTAL[b] for b in chunk)
-+      dict_lines.append(f'\t"{escaped}"\n')
-+    dict_lines.append(';\n/* clang-format on */\n\n')
-+    dict_lines.append('static ZSTD_DDict *big_c_string_ddict;\n')
-+    extra_c_decls = ''.join(dict_lines)
-+
-+    decompress_fn = """static const ZSTD_DDict *get_zstd_ddict(void)
-+{
-+\tZSTD_DDict *ddict = __atomic_load_n(&big_c_string_ddict, __ATOMIC_ACQUIRE);
-+
-+\tif (!ddict) {
-+\t\tZSTD_DDict *expected = NULL;
-+\t\tvoid *dict_buf = malloc(BIG_C_STRING_ZDICT_RAW_LEN);
-+
-+\t\tif (!dict_buf)
-+\t\t\treturn NULL;
-+\t\tif (ZSTD_decompress(dict_buf, BIG_C_STRING_ZDICT_RAW_LEN,
-+\t\t\t\t    big_c_string_zdict,
-+\t\t\t\t    BIG_C_STRING_ZDICT_COMP_LEN) !=
-+\t\t    BIG_C_STRING_ZDICT_RAW_LEN) {
-+\t\t\tfree(dict_buf);
-+\t\t\treturn NULL;
-+\t\t}
-+\t\tddict = ZSTD_createDDict(dict_buf, BIG_C_STRING_ZDICT_RAW_LEN);
-+\t\tfree(dict_buf);
-+\t\tif (!ddict)
-+\t\t\treturn NULL;
-+\t\tif (!__atomic_compare_exchange_n(&big_c_string_ddict, &expected,
-+\t\t\t\t\t\t ddict, false,
-+\t\t\t\t\t\t __ATOMIC_RELEASE,
-+\t\t\t\t\t\t __ATOMIC_ACQUIRE)) {
-+\t\t\tZSTD_freeDDict(ddict);
-+\t\t\tddict = expected;
-+\t\t}
-+\t}
-+\treturn ddict;
-+}
-+
-+static bool decompress_block(const unsigned char *src, uint32_t src_len,
-+\t\t\t     char *dst, uint32_t dst_len)
-+{
-+\tconst ZSTD_DDict *ddict = get_zstd_ddict();
-+\tZSTD_DCtx *dctx;
-+\tsize_t ret;
-+
-+\tif (!ddict)
-+\t\treturn false;
-+\tdctx = ZSTD_createDCtx();
-+\tif (!dctx)
-+\t\treturn false;
-+\tret = ZSTD_decompress_usingDDict(dctx, dst, dst_len, src, src_len, ddict);
-+\tZSTD_freeDCtx(dctx);
-+\treturn !ZSTD_isError(ret) && ret == dst_len;
-+}
-+"""
-+    cleanup_stmt = (
-+        '\tif (big_c_string_ddict) {\n'
-+        '\t\tZSTD_freeDDict(big_c_string_ddict);\n'
-+        '\t\tbig_c_string_ddict = NULL;\n'
-+        '\t}\n'
-+    )
-+  else:
-+    extra_c_decls = ''
-+    decompress_fn = """static bool decompress_block(const unsigned char *src, uint32_t src_len,
-+\t\t\t     char *dst, uint32_t dst_len)
-+{
-+\tsize_t ret = ZSTD_decompress(dst, dst_len, src, src_len);
-+
-+\treturn !ZSTD_isError(ret) && ret == dst_len;
-+}
-+"""
-+    cleanup_stmt = ''
-+
-+  return CompressedStringOutput(
-+      name='zstd',
-+      c_headers=['<zstd.h>'],
-+      compressed_blocks=compressed_blocks,
-+      extra_c_decls=extra_c_decls,
-+      decompress_c_fn=decompress_fn,
-+      cleanup_c_stmt=cleanup_stmt,
-+  )
-+
-+
- _COMPRESS_BACKENDS: Dict[
-     str, Optional[Callable[[Sequence[bytes]], Optional[CompressedStringOutput]]]
- ] = {
-     'none': None,
-     'lzma': _compress_blocks_lzma,
-     'zlib': _compress_blocks_zlib,
-+    'zstd': _compress_blocks_zstd,
- }
+ # Dependencies for jevents.py
+-JEVENTS_DEPS := $(OUT_JSON) $(GEN_JSON) $(JEVENTS_PY) $(METRIC_PY) $(EMPTY_PMU_EVENTS_TEST_LOG) $(METRIC_TEST_LOG)
++JEVENTS_DEPS := $(OUT_JSON) $(GEN_JSON) $(JEVENTS_PY) $(METRIC_PY) $(EMPTY_PMU_EVENTS_TEST_LOG) $(METRIC_TEST_LOG) $(JEVENTS_FLAGS_FILE)
  
+ # If there are orphaned files remove them.
+ ifneq ($(strip $(ORPHAN_FILES)),)
+@@ -204,14 +233,20 @@ endif
+ # and inputs are dependencies.
+ $(PMU_EVENTS_C): $(JEVENTS_DEPS)
+ 	$(call rule_mkdir)
+-	$(Q)$(call echo-cmd,gen)$(PYTHON) $(JEVENTS_PY) $(JEVENTS_ARCH) $(JEVENTS_MODEL) \
+-            $(OUT_DIR) $(PMU_EVENTS_C) $(PMU_EVENTS_STRING_C)
++	$(Q)$(call echo-cmd,gen)$(PYTHON) $(JEVENTS_PY) --compress=$(JEVENTS_COMPRESS_ARG) \
++            $(JEVENTS_ARCH) $(JEVENTS_MODEL) $(OUT_DIR) $(PMU_EVENTS_C) $(PMU_EVENTS_STRING_C)
  
+ $(PMU_EVENTS_STRING_C): $(PMU_EVENTS_C)
+ 	@:
+ 
+ endif # ifeq ($(NO_JEVENTS),1)
+ 
++$(JEVENTS_FLAGS_FILE): FORCE
++	$(call rule_mkdir)
++	@if [ "$$(cat $@ 2>/dev/null)" != "$(JEVENTS_FLAGS_STR)" ]; then \
++		printf '%s' "$(JEVENTS_FLAGS_STR)" > $@; \
++	fi
++
+ ifneq ($(NO_JEVENTS),1)
+   PY_TESTS := $(wildcard pmu-events/*.py)
+ else
+diff --git a/tools/perf/tests/make b/tools/perf/tests/make
+index 7524de522802..5a04f67257ac 100644
+--- a/tools/perf/tests/make
++++ b/tools/perf/tests/make
+@@ -77,6 +77,7 @@ make_clang_nondistro := CC=clang BUILD_NONDISTRO=1
+ make_extra_tests    := EXTRA_TESTS=1
+ make_no_jevents     := NO_JEVENTS=1
+ make_jevents_all    := JEVENTS_ARCH=all
++make_jevents_compress_none := JEVENTS_COMPRESS=none
+ make_no_bpf_skel    := BUILD_BPF_SKEL=0
+ make_gen_vmlinux_h  := GEN_VMLINUX_H=1
+ make_no_python_module := NO_PYTHON_MODULE=1
+@@ -172,6 +173,7 @@ endif
+ run += make_extra_tests
+ run += make_no_jevents
+ run += make_jevents_all
++run += make_jevents_compress_none
+ run += make_no_bpf_skel
+ run += make_gen_vmlinux_h
+ run += make_no_python_module
 -- 
 2.56.1.703.gf848ed807c-goog
 
