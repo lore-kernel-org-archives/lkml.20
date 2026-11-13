@@ -1,52 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.189
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794578644;
-	b=VvVm8Zt93mlw/ebTfRtfbBPcQSkTB40WJTA0DVyKQU08yQ0/OrJRyfkl1YjFfjbkh6jk
-	 nI99S2oHjMMR7+OGKtvplWKHdEJixnixb2q9OoRxL9+zlNFIXgbIZNiJ18FV5aXi5Rwen
-	 UJvAb18FPCvGYDG9uC94cIotEW6RUR/2OBOug9nfewJTp9Us9jlw7L0sEa21ppsOle2/r
-	 IqXeT35hWzaPDc04Kb9cCjujrvNaI5YResiepGhxreFeZqpCenMo1rOe4ec4d8FItlnKM
-	 FM5wYH9edrqqAYAXf0KkO4AHu3dbe6Dl4HMvTez7jVUgK4z1rZa2h/gGzaVYgxySNeQ==
+	t=1794578677;
+	b=VmN7TzG78jNklLv3GBbShFzxklNMFXmjY/7f2rbW5GPLr4+0eTJB+i1wJwbuuGhOO+zE
+	 AEfSQiN4Cq/jcdcUjHH1qPeQ08iyglb0kPKtjlMiC3netFFCpcvF20QJ3lstgBzqn/3Bl
+	 Oab6ZlumI0ZgUNpa5ZmeFEqwH0aqlfbRje9gxQKYP1wgJpEZPr37njt9h0H/C1s3QZFxW
+	 FURTZ6qtx6nk5eyrb+EdX0ZRfOIow2iy7LSIuDoXo3ghOZ+2YmTrlOXpkeOvxXUCy75b1
+	 92Kq35Jx1Fbppfq5DT+5FJyPr9KJBrhgdFYNyGI+SzYqCwtVvjGjvV8PyG0axZ17/nQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794578644;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-HM-Tid:
-	 X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=6X0nyebS2BY1vy6IezGXEVYTSbFtAzOvJZEYJ/TK4Cg=;
-	b=o645Zjad0S2tsS1kEyf6jGVewWKTKQfo0j2VVzUFaqCbGNE4NuM+5PHuNW4ZAPYsnXmk
-	 Nybr6brQO5SNOhdxFC94uAuczcTnq+Xpx8dQJIYKNdmeXq0NvL/8zhU/2o3SKjjnMoSwT
-	 Wnz3mmu9t189PKqBwdrpIy7HAu9i4HjhyLp9/5tPk0KvAhyktM8jTmhUjkGn4ICBmwy1w
-	 7eYL8Bztz2QyudKDGpb3ix80qGnj3SIzABMcQoAtqqYIxR6o8Jq5rh0h0P7ClnA+jk3y1
-	 uXrPRm1vhPcb1NaWqoS29RsUKQBgsZlrZkAt2M4jKBLARfEs6dhyyrE0Q+gY6Qml5gg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794578677;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer;
+	bh=Iild291BQt1rZVunkiVGj1yEjCJ3Qroi6/j+amR3uKY=;
+	b=FZQXrAjBhkTQF9lp1HSNLnoQQ/a/7zHMbPkCwzL8Q4F/0udmsL5fP77SM5BaG6yMjpwa
+	 3iNC3lcTJOtR/oC2AfTgUgWnLtZGVoMR9Kg358E5f2TG1b8ymewoEBTWJPvkd5yuI0C1X
+	 rfPvl910bY5Yw//B3v0SxN4HFfeiqc3ksQLVK6+a44D0fdqsevD4hKh6QXuLFoq1ZDhzp
+	 00WIB4hHRQy3GOc3P9lqKHYEuy0oeyDKzgIPAIdazw0xM+xjOgWybxAeEm9NzfAm2t53r
+	 gWH5HujzEh1ctggogWnXQnrGun3ioYrVu0CYBtys6yAi1uKUY27VKcJ+ll48TyAORgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.sdu.edu.cn;
-	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
-	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=MlMI2sh4;
-	arc=none smtp.remote-ip=101.71.155.101
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ClgqgiCC;
+	arc=none smtp.remote-ip=91.218.175.189
+Received: from mta0.migadu.com (out-189.mta0.migadu.com [91.218.175.189])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A8D7606A323;
-	Fri, 13 Nov 2026 14:04:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A8D7606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93447606A32E
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:04:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93447606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=MlMI2sh4
-Received: from lgs.. (unknown [101.76.249.61])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 549aebcb7;
-	Fri, 13 Nov 2026 22:03:50 +0800 (GMT+08:00)
-From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-To: Justin Tee <justin.tee@broadcom.com>,
-	Paul Ely <paul.ely@broadcom.com>,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <mkp@kernel.org>
-Cc: linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] scsi: lpfc: Fix potential VMID resource leak during vport cleanup
-Date: Fri, 13 Nov 2026 22:03:49 +0800
-Message-ID: <20261113-4e14e563a1-scsi-lpfc@mail.sdu.edu.cn>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ClgqgiCC
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=xC4G0Cwhp7kj5bOO1KBaJmJUIF0RxwnSoVCIDB5s2WI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794578673; v=1; x=1795183473;
+ b=ClgqgiCCzP13A/TYbH2Pfche+WTNU/pcWwKg4EiN63b9do3K/w0Xbtv2WllaHNvpctJpaz1y
+ Hh6e4HCBLyLWowEXdndnH8ZoyNnap24oK4dXV6DEAMM5eMxwT8La+tgYsAdgKFeyuKiF3/mXlKi
+ RfcW76bIdLFP9894KALKZLVY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 6508aef634fb337d;
+	Fri, 13 Nov 2026 14:04:33 +0000
+X-Mizu-Trace-ID: 6508aef634fb337d
+X-Migadu-Flow: FLOW_OUT
+From: Hangbin Liu <hangbin.liu@linux.dev>
+Subject: [PATCH net-next 0/6] bonding: refactor bond_enslave() to fix XDP
+ ordering and error rollback
+Date: Fri, 13 Nov 2026 22:04:15 +0800
+Message-Id: <20261113-bond_enslave_restruct-v1-0-364c549e78db@kylinos.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,81 +61,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1d538c4b503a1kunme35979b447fbd
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSx9LVkNKTxhPHhgeHR9DHVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
-	NMVUpLS1VLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=MlMI2sh4+ZE9LqJeU0flhvRSKvItt8W1cMEOTJpjSRUjaM7B5AS+5G0jWutlkvlXc4njC+Ejl/LTxbNRKVOT3VrHi35MM1HDUkBgrW1H6HTBGs/yP66l5Lh+PQCg5e0Au/FDGdxh5G2xmXyTmOPRCSa+GSGtxoLhrLdJQXzqZ8Q=; c=relaxed/relaxed; s=default; d=mail.sdu.edu.cn; v=1;
-	bh=6X0nyebS2BY1vy6IezGXEVYTSbFtAzOvJZEYJ/TK4Cg=;
-	h=date:mime-version:subject:message-id:from;
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMUQrCMBAFr1L220AaIaJXESlt8qorspXsthRK7
+ 27Uz2GY2UhRGEqXZqOChZUnqdAeGkqPXu5wnCtT8CG2Png3TJI7iL76BV2BWpmTuaM/RY8YMsY
+ z1fZdMPL6+15JYE6wGt3+RufhiWTfLe37BzkzkyWDAAAA
+X-Change-ID: 20261020-bond_enslave_restruct-30760e62def9
+To: Jay Vosburgh <jv@jvosburgh.net>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>, 
+ John Fastabend <john.fastabend@gmail.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>
+Cc: Hangbin Liu <hangbin.liu@linux.dev>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+ Hangbin Liu <hangbin.liu@linux.dev>
+X-Mailer: b4 0.16.0
 
-lpfc_vmid_vport_cleanup() frees the VMID array without freeing the
-per-CPU timestamps owned by its entries. It also traverses the embedded
-hash nodes after freeing the array.
+`bond_enslave()` is over 500 lines long with complex logic and numerous
+error rollback paths. It has XDP ordering isssue and missing some error
+rollbacks for historical reasons (found by Sashiko when review bond
+patches). The fixes are trivial, I plan to refactor the function to make
+the logic clearer and resolved the issues. This patch set is the first
+phase.
 
-Free the timestamps in every slot, including those retained after VMID
-reinitialization, and clear the hash table before freeing the array.
-Clear last_io_time when registration fails so cleanup cannot free it
-again.
+This series hardens bond_enslave() in two stages: first fix real
+ordering and rollback bugs, then factor the function so the
+infallible commit point and fail-fast validation stay obvious.
 
-This issue was found by our static analysis tool under development.
+Problems fixed (patches 1-3):
 
-Fixes: 5e633302ace1 ("scsi: lpfc: vmid: Add support for VMID in mailbox command")
-Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+1. XDP capability checks ran after the slave was opened, linked and
+   could already be visible to the datapath . A slave without
+   ndo_xdp_xmit could therefore be reached from bond_xdp_xmit().
+   Checks move to the top of bond_enslave(), before any mutation.
+
+2. Fallible XDP setup (dev_xdp_propagate()) ran after publication.
+   On failure the undo ladder jumped to err_sysfs_del and leaked:
+   - promiscuity / allmulti / synced addresses
+   - ns maddrs added just before the failure
+
+3. Error paths were incomplete versus release:
+   - bond_alb_init_slave() success + later failure skipped
+     bond_alb_deinit_slave() (TLB/RLB state, borrowed MAC)
+   - bond_3ad_bind_slave() + later failure skipped
+     bond_3ad_unbind_slave() (port left on its aggregator)
+   - automatic fail_over_mac = "active" was not restored on failure
+
+Cleanup (patches 4-6), no intended behaviour change beyond patch 5's
+extack string alignment:
+
+4. bond_publish_slave() — explicit infallible commit point
+5. bond_slave_xdp_check() — shared by bond_enslave() and bond_xdp_set()
+6. bond_enslave_validate() — all read-only checks
+
+Testing: build debug kernel and run all kernel selftests
+
+Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
 ---
- drivers/scsi/lpfc/lpfc_scsi.c | 11 +++++------
- drivers/scsi/lpfc/lpfc_vmid.c |  1 +
- 2 files changed, 6 insertions(+), 6 deletions(-)
+Hangbin Liu (6):
+      bonding: check XDP support before enslaving changes state
+      bonding: finish XDP setup before publishing the slave
+      bonding: complete rollback of bond_enslave() error paths
+      bonding: factor out slave publication
+      bonding: factor out XDP slave check
+      bonding: factor out bond_enslave_validate
 
-diff --git a/drivers/scsi/lpfc/lpfc_scsi.c b/drivers/scsi/lpfc/lpfc_scsi.c
-index 3f39cc065029..75c5b4bfd0f5 100644
---- a/drivers/scsi/lpfc/lpfc_scsi.c
-+++ b/drivers/scsi/lpfc/lpfc_scsi.c
-@@ -5475,20 +5475,19 @@ static enum scsi_qc_status lpfc_queuecommand(struct Scsi_Host *shost,
-  */
- void lpfc_vmid_vport_cleanup(struct lpfc_vport *vport)
- {
--	u32 bucket;
--	struct lpfc_vmid *cur;
-+	u32 i;
- 
- 	if (vport->port_type == LPFC_PHYSICAL_PORT)
- 		timer_delete_sync(&vport->phba->inactive_vmid_poll);
- 
- 	kfree(vport->qfpa_res);
- 	kfree(vport->vmid_priority.vmid_range);
-+	if (vport->vmid)
-+		for (i = 0; i < vport->max_vmid; i++)
-+			free_percpu(vport->vmid[i].last_io_time);
-+	hash_init(vport->hash_table);
- 	kfree(vport->vmid);
- 
--	if (!hash_empty(vport->hash_table))
--		hash_for_each(vport->hash_table, bucket, cur, hnode)
--			hash_del(&cur->hnode);
--
- 	vport->qfpa_res = NULL;
- 	vport->vmid_priority.vmid_range = NULL;
- 	vport->vmid = NULL;
-diff --git a/drivers/scsi/lpfc/lpfc_vmid.c b/drivers/scsi/lpfc/lpfc_vmid.c
-index 14dbfe954e42..a13e5a07e818 100644
---- a/drivers/scsi/lpfc/lpfc_vmid.c
-+++ b/drivers/scsi/lpfc/lpfc_vmid.c
-@@ -270,6 +270,7 @@ int lpfc_vmid_get_appid(struct lpfc_vport *vport, char *uuid,
- 			hash_del(&vmp->hnode);
- 			vmp->flag = LPFC_VMID_SLOT_FREE;
- 			free_percpu(vmp->last_io_time);
-+			vmp->last_io_time = NULL;
- 			write_unlock(&vport->vmid_lock);
- 			return -EIO;
- 		}
+ drivers/net/bonding/bond_main.c | 174 ++++++++++++++++++++++++++--------------
+ 1 file changed, 116 insertions(+), 58 deletions(-)
+---
+base-commit: 573af801552999954caa8347e4490b04cf4763f0
+change-id: 20261020-bond_enslave_restruct-30760e62def9
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.43.0
+Best regards,
+--  
+Hangbin Liu <liuhangbin@kylinos.cn>
 
