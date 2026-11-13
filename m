@@ -1,72 +1,153 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.136
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794613681;
-	b=gmxwpMVzVnKnN8NSuUR5EYvAt1FJFzXRDMRI2VEFcN2RC7D9Tr5GPvZXbc1vbpnBtino
-	 TdHwfT2MNQI9TmyVSwJhBNnA/dqAl9LTe5yF8dg40d5l5Nb0sIlLPAcsiuuc2e6NuLGeI
-	 6PbTmxOiuTIS5VYEyKPN26HtKJLnTgp2kIrKgjIEe3qGBzIOc9BDAy/DJgSSCN68Fukfp
-	 ohURMcFThWGnr+wZK9cVpQIn5zorS8gGBkIhe2gpE9IaefDbMTkjKUyJ4JXSPKHNFTHy6
-	 gMFenAVlMj9KhX97QA2AdFQK/u4v6wHDitP/giOhKDw+gwXJaSbQtMYPb1s7+6LflQg==
+	t=1794613760;
+	b=rEUC/+MIfg7gGUQP4RIHUqDbO/FxOna4DcLxXrwFA7gmzmOdkxq/NJWHwZhQOl9uMrmg
+	 z8b+mpt14ROAZAnFEmDAQuKH5nOHU4uTBqQZzPW8qUBEJuOR/lzXcg16H9Rv0K4xvYvaA
+	 5XpUJ1SuBVc+2y53b8GaJLgsUB8M0qWl5kYfjpqAcO/naiywaFpp6HX4Al4ngc/vJ6O6R
+	 fgNq30u7MtIJtV3CL5b+cf/1nKt3hTQEGrVblPPKuZbIimw/2K+GzmsjNomeMUftX/Jzd
+	 dTIvhd1W/yKA19gjVwD87YRFWWFZLKOC4bM2FFHVidFiNSqfUkrEgLq60ZCyRGlvzcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794613681;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=XAsSJNfTx4xhfOoXkTkpm3mX3Z/RpG+PiPXGvL3JZzs=;
-	b=fi2jnJMfOMyy3WZqauwnWTB6qqgrtQEltS73amUphIM/reRmCegWO+CWGVLOGEKloa5V
-	 uB/pLNUIc2QbfFe8AVJQnMLTvuqK+BVbrEhnAhdmfxiKFyGojtOqbrph1hWvul5iNn4xm
-	 d6XZu9gN2X64XbyVKLVrRWuZE8IpSbIos+siEEawkeBWcIFCrqAm4KFMVjSEsxN863Z5q
-	 3L+pYmRY0gGyWvl0nN2rnrh7L8o49xtyikD3LEMxNoFbC4Ji37ku5sGQRh4Iho3KjvBXg
-	 3iFb+w9+LcZWkWmV7KGCrudhZE60hpEDG+/AfK0wxBFfZSE3nNzMM8Gjp1J78XPckhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794613760;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=/o9hLhdBPn8cdi1Wxj/gbuT8hiPvUs8r+uSoRMeCvTs=;
+	b=Duc19VZl62YCkhk3Gb3haPdXP3Z3XmLsX/mAqXPTykH1rHaMRTj7dQMdRTC1UlkvDauD
+	 +NNo5C7ymW2vJuVvPDPp5RlF8a446z5CFmmGkM7RGmFrsqa+RI4jQIXgoHosXZnYKadHo
+	 cCb+daabN09XMqQ2m2lurqo4zvH0UuffDFdbcRkDHWdXUxR2FAK60a8/SVtmgdBQOvFIZ
+	 MSDsL8pB9zgPKYY5mGyUbiEYHYZZeZToB9FDmrlTyIkWx6FjEu4hr7jTx0yA+yaHkTlfs
+	 HWwg94goH0xDVi2bhubPsLuNuXwvWrqO5kiWhWEqcwjVlv09CuScF//DYGonqSdeikA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=imeECTd5;
-	arc=none smtp.remote-ip=111.22.67.151
-Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D0537606A334;
-	Fri, 13 Nov 2026 23:47:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0537606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=gahingwoo.com;
+	spf=pass smtp.mailfrom=gahingwoo.com;
+	dkim=pass header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b="UlYMm/Fs";
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Kbv6hEsY;
+	arc=none smtp.remote-ip=202.12.124.136
+Received: from flow-b1-smtp.messagingengine.com (flow-b1-smtp.messagingengine.com [202.12.124.136])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 720FE606A33D
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 23:49:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 720FE606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=imeECTd5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=imeECTd58AxEo9BWsUiwkbbdek7fBVIPutb742Y5F7i47S2xSl9lklGoLXERF5v8hgJ48bakuUonH
-	 6f2OCqiez55Rb2wKk8BrXtWqt8x6mt5MoTx0p9GrfrYHx0QPiH3pEcoaARQ52vMpT3LjlKg4bU4D4x
-	 DAMF2ylxXUKHjdGw=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app02-12002 (RichMail) with SMTP id 2ee26af7a1a1864-2a8ad;
-	Sat, 14 Nov 2026 07:47:56 +0800 (CST)
-X-RM-TRANSID:2ee26af7a1a1864-2a8ad
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from utest (unknown[112.23.72.224])
-	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16af7a19cd45-3375b;
-	Sat, 14 Nov 2026 07:47:56 +0800 (CST)
-X-RM-TRANSID:2ee16af7a19cd45-3375b
-From: Shunbo Shi <shishunbo@cmss.chinamobile.com>
-To: dan@pereq.eu
-Cc: elder@kernel.org,
-	gregkh@linuxfoundation.org,
-	greybus-dev@lists.linaro.org,
-	johan@kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=UlYMm/Fs;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Kbv6hEsY
+Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
+	by mailflow.stl.internal (Postfix) with ESMTP id EBD871302B4D
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:49:19 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-11.internal (MEProxy); Fri, 13 Nov 2026 18:49:19 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm1; t=1794613754; x=
+	1794620954; bh=/o9hLhdBPn8cdi1Wxj/gbuT8hiPvUs8r+uSoRMeCvTs=; b=U
+	lYMm/Fsoj+r8geFJv0LOqWv1MpvzDQTc1MqmCUAl2LOGZIHC+Fga3cCXVyeFtSdi
+	bYjE3RRDqE7efhzw+hiZSEilb81PpG7/2T9R3Zk37AGE4Hrls18xn/8YeiPNWu4U
+	9xPCHeGgFAo2VzfFgRTP9ceWNVQ2Oird/Uxb6lhpS1D3heWSqh2n8q2rRQW5Nxvf
+	xycvQaRXjpLgfTuDcpzOlJohY2tnltTfuACTl2+DYLbTLLZhlfNWwYKEky0LwqoU
+	meWzhpnk/bJtdWa5UahJFchqCoqMkVerMfrqjQkXXULGBwwIHEi9cT2ureGZT7nI
+	tNWu4xIgjs3qO7CKUGW2A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm3; t=1794613754; x=1794620954; bh=/
+	o9hLhdBPn8cdi1Wxj/gbuT8hiPvUs8r+uSoRMeCvTs=; b=Kbv6hEsYJB/5FYcc7
+	o+36gAzaudVzx1OVRXQcOZFWXZBDdr+FPlNt6B0CDEA9xnCwFir29Kl1Ux08ZsSR
+	OJyOUuSwPuRI/9+aHkK5MSMww3iWR1ZbiucID2mbzK8Krs0bujCxmr0jTUFHTMyU
+	O8pb35YSxRMbHERZ9H6tlwl3uE77gYJ2uaTRT6Pelqmj9bHXhuu32FXG8pKlr6KD
+	hmXUquJRZ0ON4uHFQSEMHVM/Xxr/XR9Shvh2Adj1TkVg1zJ+RhEwBW5vs6tnRClP
+	TqwEXmBCC16/t+Te8cAx49AP7Kykb7kjG57CtFSbvbVUCHCT9pyqDi0WEg9Kpa9O
+	xldsQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=gahingwoo.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794613754; d=gahingwoo.com;
+	mf=PGdhaGluZ0BnYWhpbmd3b28uY29tPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:TXH9i2tPXVchS5XotijtznO64P8JVam9vcUq8oT9BOpjRPX
+	MXFcAxlCSWoFYfhmDbRVY22RwdZLeyH3ccmjE1c/md19HuENg0kyZ7Jlre5Fj3ke
+	rgsDdA21bF4NCMgNsAg1LoCmzXUUqGrB59YSUFXvECX8SUD9fdoS+tsqls/yg3BO
+	/wdNsEhuD5D4l8hlSr9/5eHwZfhxn0u4xgV+ohbEod50tIa3yyZzhZTZfmcZap7r
+	fqq8uWIZubUqss8L4T316/2fan8JKkRTDf+Y7jOa0c58Fk+4GtEwkhR0N/Baabbq
+	KvAKRJhWhkWuzzzP7yHBINPtCnchQ0B1jcQ5nlg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=11;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:rp3Is3ckG8hz2zrJbdiFe7omtKF0PxAQ8ym9SeM2Qzk=:/o9hLhdBPn8cdi1Wxj/gbuT8hiPvUs8r+uSoRMeCvTs=;
+X-ME-Sender: <xms:-KH3aueYucPAN-8SqiNgFZCNiCj6jx5DIKLhFukwwra09vGDSsTtkA>
+    <xme:-KH3aujswu_X8kk2LnjSP1Rq4X9Bgm0wL3l-5Wb4hdXJQ_VYYgQBt5AgmSzOa26rZ
+    -gJccF6ImqI16DTFxBjYnyd1Y38UvBpjWdPmoqxocMekqfNYlUDwso>
+X-ME-Received: <xmr:-KH3aljEQ776igM0Rpj4R0m8h3YUEEhmdoGNKafcAUp2sXlDAVMT4iGZ7QoFCQPtkDrYFpxX>
+X-ME-Proxy-Cause: dmFkZTFS60ybEwlxxb4K3SeK8mTCMIe/J7SGIQZYhTY37qjBx5CZtBVvuXRCD//zEzv8CQ
+    +kZsvg7kGYLuSkWXyPscs4Ic9CYpH9tvjtBM/I3P0n0odWrIB0N3f9wNlXf7iY84Vr0wuN
+    /OkvJ5GwImBrRKfcXCNhp41KWqX6wlztjkqyXvwGNiLchaun23so7vCnQJb45q4NPV2bar
+    JSd3SPHKZp5+r50cI5C2Cnupo9v8z4qiDDMnjpwrZNthjLhcTTntOPyEaEv5uflorcthJq
+    hHEEH5C78LNxi1tFpExUwGX5Qn5V6TTB4Q0mhCZEyd9xxCMFb62EO4KC/k2ENcFelMvrN2
+    batNi9or+TWUf/rgJ2hnMVW64QlO8XsLqhEiN8OnVQWrZgRCQvaBXHppTLxuixNARxd8fH
+    QtsTWKUrgWPWy2/x8+UTito3XyVIfiE+4zESbSse8qb3T8LtWM9SvrQ7lG9l3N9ZNL0sSl
+    TgQ+AuWkeUyWGG/L40JLFb5Ptb0qcmvRfo75jmDFd3/l5Hh7gtSCRyY5v+5+Pcw0fAiQiG
+    l6dVQsY6ZST7H6Piukjbld0gDmFHnzTldJ2I2s9WAt8RLfj+fI4o4Cz2BG7GTW/LZ4DNrV
+    mGb6D7byXBAWuQggjbgK5xuPQq98govt++BwmseJ7y/H/df5/jYs4MsJ0xHA
+X-ME-Proxy: <xmx:-KH3apRKXpXdx17IJ6LDSkjaUAobNZ0-oiERE7FhaBarxZs6vSVRwA>
+    <xmx:-KH3ahRO96YCYAifWNHsqwZxtzY84BbMH0F9X3v1M4WVbJsL6cQVLA>
+    <xmx:-KH3alBv0zVEUAKvADA03bTmhMmVEXZGTond7zy3ueTflcI2-ytWcg>
+    <xmx:-KH3alzxDNwuPQJYtUbeM31NmEU7iFJzQ5-WRY6qlRJUfZfivAN2Mg>
+    <xmx:-qH3as7O6p0S5CopMVSKIooPCpr92uJ29WmqYO-U8LVMRBp7Jfejl2_i>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 13 Nov 2026 18:49:02 -0500 (EST)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: vlwwwwww@gmail.com,
+	ulf.hansson@oss.qualcomm.com,
+	heiko@sntech.de,
+	finley.xiao@rock-chips.com,
+	tomeu@tomeuvizoso.net,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	ulfh@kernel.org,
+	p.zabel@pengutronix.de,
+	ogabbay@kernel.org,
+	zhangqing@rock-chips.com
+Cc: shawn.lin@rock-chips.com,
+	royalnet026@gmail.com,
+	abel.vesa@oss.qualcomm.com,
+	sebastian.reichel@collabora.com,
+	sidong.yang@furiosa.ai,
+	u.kleine-koenig@baylibre.com,
+	chaoyi.chen@rock-chips.com,
+	diederik@cknow-tech.com,
+	alchark@flipper.net,
+	leonard@lausen.nl,
+	jeff.hugo@oss.qualcomm.com,
+	rfoss@kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	iommu@lists.linux.dev,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-usb@vger.kernel.org,
-	syzbot+0b456664585fa81a47f6@syzkaller.appspotmail.com,
-	syzkaller-bugs@googlegroups.com
-Subject: [PATCH v3] greybus: verify the received message size covers the message header
-Date: Fri, 13 Nov 2026 23:47:39 +0000
-Message-ID: <20261113234739.1432-1-shishunbo@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <avV8I97uZJgX8Osk@stanley.mountain>
-References: <avV8I97uZJgX8Osk@stanley.mountain>
+	Jiaxing Hu <gahing@gahingwoo.com>
+Subject: Re: [PATCH v16 09/16] pmdomain: rockchip: add optional per-domain power-on settle delay
+Date: Sat, 14 Nov 2026 12:48:59 +1300
+Message-ID: <20261113234859.658218-1-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261113132323.159015-1-vlwwwwww@gmail.com>
+References: <20261108065917.135194-1-gahing@gahingwoo.com> <20261108065917.135194-10-gahing@gahingwoo.com> <20261113132323.159015-1-vlwwwwww@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,63 +159,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In gb_connection_recv(), the size of the received data is checked
-against sizeof(struct gb_operation_msg_hdr) and against the message
-size encoded in the header (msg_size), but msg_size itself is never
-checked against the header size.
+Hi Vladimir,
 
-If a peer sends a message whose header claims a size smaller than
-the header itself (e.g. header.size == 3), the two existing checks
-both pass (size >= sizeof(header) and size >= msg_size), and the
-message is dispatched with the undersized msg_size.
+Thanks for pointing this out. Your analysis is right, and I have
+reproduced it on a ROCK 4D.
 
-In gb_operation_create_incoming(), this leads to an unsigned
-integer underflow in:
+The problem is that a power domain marked need_regulator is switched off
+as soon as add_one_domain() adds it, and its subdomains are added only
+after that.
 
-	request_size = size - sizeof(struct gb_operation_msg_hdr);
+NPUTOP, NPU0 and NPU1, which U-Boot left on, are neither idled nor really
+powered off, but genpd treats them as off. So when the regulator core
+disables vdd_npu_s0 because it has no users, the system hangs.
 
-The underflowed request_size then wraps back around in
-gb_operation_message_alloc():
+I reproduced it on the ROCK 4D with a DT that has the NPU disabled. All
+14 boots showed the same wrong state (0x214 = 0x23e, 0x110 = 0x13e1),
+and 1 of them hung. The ROCK 4D hangs less often than your R76S, but the
+underlying state is the same.
 
-	message_size = payload_size + sizeof(*header);
+The fix: when the power domains are added, a domain that needs a
+regulator and all of its subdomains are marked as off from the start.
+Once the whole subtree has been added, the domains are switched off in
+order, from the leaves up to the root.
 
-causing kzalloc() to allocate a buffer that is too small to hold
-the message header.  When the response is later prepared in
-gb_operation_response_alloc(), reading
-request_header->operation_id reads past the end of the undersized
-allocation, triggering a KASAN slab-out-of-bounds report.
+With the fix, all 10 boots showed the correct state (0x214 = 0x3fe) and
+none hung. I also tested it on the board with the NPU enabled, and all
+30 power-ups were fine.
 
-Link: https://lore.kernel.org/all/sashiko-outbox-210716@kernel.org/T/
-Fixes: d90c25b0a279 ("greybus: let operation layer examine incoming data")
-Reported-by: syzbot+0b456664585fa81a47f6@syzkaller.appspotmail.com
-Closes: https://syzbot.org/bug?extid=0b456664585fa81a47f6
-Signed-off-by: Shunbo Shi <shishunbo@cmss.chinamobile.com>
----
-Changes in v3:
-- combine the two separate conditions and unify the error message
- as suggested by dan. Thanks!
+If you have time, could you test the patch on the R76S as well? 10 boots
+are enough, without any workaround. That would show whether the fix
+works on your board.
 
- drivers/greybus/operation.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Patch:
+https://github.com/gahingwoo/build/blob/rk3576-pmdomain-probe-off/patch/kernel/archive/rockchip64-7.3/rk3576-pmdomain-power-off-npu-subtree-at-probe.patch
 
-diff --git a/drivers/greybus/operation.c b/drivers/greybus/operation.c
-index 7e12ffb2dd60..74429f3745bb 100644
---- a/drivers/greybus/operation.c
-+++ b/drivers/greybus/operation.c
-@@ -1047,9 +1047,9 @@ void gb_connection_recv(struct gb_connection *connection,
- 	/* Use memcpy as data may be unaligned */
- 	memcpy(&header, data, sizeof(header));
- 	msg_size = le16_to_cpu(header.size);
--	if (size < msg_size) {
-+	if (msg_size < sizeof(header) || msg_size > size) {
- 		dev_err_ratelimited(dev,
--				    "%s: incomplete message 0x%04x of type 0x%02x received (%zu < %zu)\n",
-+				    "%s: invalid message 0x%04x of type 0x%02x received (%zu < %zu)\n",
- 				    connection->name,
- 				    le16_to_cpu(header.operation_id),
- 				    header.type, size, msg_size);
--- 
-2.53.0
+Thanks again, this really helped find the root cause.
 
-
-
+Jiaxing
