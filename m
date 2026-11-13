@@ -1,78 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.236.53.75
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794558222;
-	b=tdFUtmq+xWIA4svDpX7eLcOE3mXIypwT5g4G/mE3gtZRfiFNvLeW65GKnsdjBDEFI/bP
-	 U7Ceb1igD0/Ka/9ytNxJ0kcS/bKipImVZNbDEUeUKFd3FKpOzIlxFZz959FETBIyqOMjF
-	 cVcqbib3ddRRdxSIamWZ2R9iK27mBPY6bexHdZdYwt+tOk198ZeNwNO/WItXhsPJ6ahjG
-	 fQLPBeLkq065zxZbXYGxOlJU7FBzI6Yx068tnA2eaoF71MiUjwrBhB8reO1BCCJwZbLpL
-	 aQ6wki+uAID1OQn+4FGv5eCQaP3qbMd54by/YTsS+isaXW7pKPMNfsblASk7JagpH8Q==
+	t=1794558227;
+	b=2X+FdAA4uLQn3WBn2Hp9GSsuKT01b28KEUx76iP28O2LX+4H+dDeuuKdSdVAyOZ2OCmO
+	 b4wJ3JmMrttkeags5VN6JWz1WqHMUyiBBMf4HybYlUqYlUAET2dXWEiFTdLeRAAQ/hymr
+	 dMwWLpcL8NPWcEAohvJb2VWEVstI70RrPPT7MdQn1FYJiW2+gvpMeAERD2/pBFwncqZUL
+	 +9moegWQ2tJBiij1abgPA/quOyXuE7FsfSM8/GiiaO6ykZAZLazQVMojtbS85cKT9MTQo
+	 1y9SyrNrp76tHrbkCBIungnQO/Phqvh7yE1nSFPmNeF6uLen+AFlzJk65t2KNZi58IQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794558222;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=NpSdJF7uqr29I40DlGvfphIx7cVw5m7rMDFUgKXR+ps=;
-	b=vdSg4m+Hf65tjucNfuh5RFtEhLsSKqvnwxIFu7dZ+5yPW2lLurhbM9+/iVyrcYfMC98i
-	 dE7dg7T/GrxeX6B2Maa6PXE8C60iCQ7yx309rLImDt4NVmiiMB/htxP64XXuhSds0bbH8
-	 95lXOnXPRuC/RbBNWFYrKMDb+TR3zq2CwOTRYQuZPcbeDab5+Di3UlhrvO9DTMYLxRbKU
-	 3LiApaljPe9+VNTDRnTLLxvD4M8UhtTUpooqLr7t9zKOyRsgMSy8ovPIOYXSvH9LUiTxM
-	 1L9VcvtW3Q61C446RFd1x+K2sEeRQ5fYv29K4ujzConuv0gWKuvv41hRqpbEBAcqsJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794558227;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:X-Developer-Signature:X-Developer-Key:
+	 Content-Transfer-Encoding;
+	bh=JmVK8mPZD2Muk/XHNqoGXAaMUyvsZFSxGlhDHiE/5kw=;
+	b=tUkkXtlWuDhCN11zgdQEbErhMRA+RAgLOCwT8/UCp8CBOj21Ioirzidmf+VYvj9ymp2E
+	 BToPoLbTS3ql9tbTr2UEM8ChDAc9pAIH8y4lVSl7zoPiTIuL/Xg1nOboNliawpVAEZdYG
+	 4r0NFTM29bSiOdJ7+nBpSN3yubjPoNXWE69ix+ugw0m4GHi4FD71edixARNbuB05FDTJp
+	 wIQR4s6mc6lNhVf7U3yO0Q4zBKUnjoO2oS9KkFEccUPfDL3VkZumWQGprwEI0w4bgVBCK
+	 xyomeZ6irfnmEn8SkznKsRNs3Qyrdv5MSxIzorDkmmZbxrx2nzBEe0hLNxAF7hogj3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=krs7HqU9;
-	arc=none smtp.remote-ip=160.236.53.75
-Received: from mail-m1602365375.xmail.ntesmail.com (mail-m1602365375.xmail.ntesmail.com [160.236.53.75])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UNJ8Kkxm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87A79606BDE5;
-	Fri, 13 Nov 2026 08:23:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87A79606BDE5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDBBC606C99A;
+	Fri, 13 Nov 2026 08:23:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=krs7HqU9
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 54921be5f;
-	Fri, 13 Nov 2026 16:23:30 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Jingoo Han <jingoohan1@gmail.com>,
-	Inki Dae <inki.dae@samsung.com>,
-	Seung-Woo Kim <sw0312.kim@samsung.com>,
-	Kyungmin Park <kyungmin.park@samsung.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Sandy Huang <hjc@rock-chips.com>,
-	Andy Yan <andyshrk@163.com>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v6 11/18] drm/bridge: analogix_dp: Skip native HPD interrupt ops for GPIO HPD
-Date: Fri, 13 Nov 2026 16:22:58 +0800
-Message-Id: <20261113082305.541652-12-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261113082305.541652-1-damon.ding@rock-chips.com>
-References: <20261113082305.541652-1-damon.ding@rock-chips.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UNJ8Kkxm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 268681F000C5;
+	Fri, 13 Nov 2026 08:23:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794558227;
+	bh=JmVK8mPZD2Muk/XHNqoGXAaMUyvsZFSxGlhDHiE/5kw=;
+	h=From:To:Cc:Subject:Date;
+	b=UNJ8KkxmYlNX61+S35V1QNj5bs2YUC3tmnUkmGOyFvhytbizkyJkLqPGadIzJK2C6
+	 hkEL9F2HdJ901GNz1ZoqfijkuhfIaZLH9dN8omJtqX8rV5+cYTisqVWcPB7VWaSxXG
+	 0o3JzVfnTW07i12SzTWc0e0h2Zsar4gpnjol5Vs7MpqMN/065rbXlw1VeXgPnglFwW
+	 1FPvZWW9F26lrYIDtXhmG7CJRqJFctAQSVh/ERXHC77r+qMgfyH6fq85+Z9PqkF2is
+	 e/B75WRr/abC+p9V9ipPYos0PaeBppJcxlKtFJ2AKRZI2nTNE1UxOuy2/8qHwD4QgN
+	 6+tz2UUB8NNhw==
+From: Thorsten Blum <blum@kernel.org>
+To: Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	x86@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	Thorsten Blum <blum@kernel.org>
+Subject: [PATCH 1/2] x86/serial: Use generic BASE_BAUD in asm/serial.h
+Date: Fri, 13 Nov 2026 09:23:15 +0100
+Message-ID: <20261113082316.67375-3-blum@kernel.org>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,86 +64,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1850; i=blum@kernel.org; h=from:subject; bh=yKOZZ5ZExRMc/9NGFqQWLoalsO8mmPlI3N0ufvH5VWw=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFnfTnxp+hsyZ9eOKFmT7dv/T3dYtnOu+ak5H+3l+ab5N J55y7yns6OUhUGMi0FWTJHlwawfM3xLayo3mUTshJnDygQyhIGLUwAmUiTPyHCiyKYvzaWcR1LS +rJxRH9KX+ydq9rybI3b/G03Sy9pC2D477G7iPn0/rKksCPerxjXqvEavv/cOiGpvP1dwkWTqUF XuAE=
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1d40132b403a8kunm073aab0481ab7
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZHhpLVhpJHUtDTEtNSRlKQ1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=krs7HqU98dvw+83Hrezy4KFEVXAahYl8uLWYSaJF/drLyS27ajBFQ3+OVymEpbrDIrAsltOEeFaxEK991E/C1W+SLNx8xP74XVln9q9mi6OerqIUdeQ7k7JACyz91ng06H1Y46XU9FwIxH5l4qsnSNRSl+SsSdkah78e+GDLg2U=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=NpSdJF7uqr29I40DlGvfphIx7cVw5m7rMDFUgKXR+ps=;
-	h=date:mime-version:subject:message-id:from;
 
-GPIO HPD does not rely on DP controller internal native HPD interrupts.
-Skip native HPD register manipulations to avoid irrelevant operations.
+Include asm-generic/serial.h and use the generic BASE_BAUD definition
+instead of redefining it. Consolidate the comments accordingly.
 
-Move the hpd_gpiod guard to its caller so the helper operates purely on
-the given bitmask, and mute all native HPD interrupts for GPIO mode.
+No functional change.
 
-Tested-by: Heiko Stuebner <heiko@sntech.de>
-Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-
+Signed-off-by: Thorsten Blum <blum@kernel.org>
 ---
+Please note that patch 1/2 was originally submitted as a separate patch:
+https://lore.kernel.org/r/20260909074653.408945-4-blum@kernel.org/
 
-Changes in v2:
-- Adapt to the newly added IRQF_ONESHOT related commit and expand the
-  commit msg.
+ arch/x86/include/asm/serial.h | 9 +--------
+ include/asm-generic/serial.h  | 6 +++---
+ 2 files changed, 4 insertions(+), 11 deletions(-)
 
-Changes in v3:
-- Reorganize the branch layout for hpd_gpiod check.
-- Simplify the commit msg.
-
-Changes in v4:
-- Add Tested-by tag.
-
-Changes in v6:
-- Add Tested-by tag.
----
- drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 2 +-
- drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c  | 7 ++++++-
- 2 files changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index db0aefaf6754..b14a8aa12394 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -720,7 +720,7 @@ static irqreturn_t analogix_dp_irq_thread(int irq, void *arg)
- 	bool hpd_detected;
+diff --git a/arch/x86/include/asm/serial.h b/arch/x86/include/asm/serial.h
+index ece8299d2695..b623f6d70f64 100644
+--- a/arch/x86/include/asm/serial.h
++++ b/arch/x86/include/asm/serial.h
+@@ -2,14 +2,7 @@
+ #ifndef _ASM_X86_SERIAL_H
+ #define _ASM_X86_SERIAL_H
  
- 	irq_type = analogix_dp_get_irq_type(dp);
--	if (irq_type)
-+	if (!dp->hpd_gpiod && irq_type)
- 		analogix_dp_clear_hotplug_interrupts(dp, irq_type);
+-/*
+- * This assumes you have a 1.8432 MHz clock for your UART.
+- *
+- * It'd be nice if someone built a serial card with a 24.576 MHz
+- * clock, since the 16550A is capable of handling a top speed of 1.5
+- * megabits/second; but this requires a faster clock.
+- */
+-#define BASE_BAUD (1843200/16)
++#include <asm-generic/serial.h>
  
- 	if (!dp->hpd_gpiod && analogix_dp_is_rockchip(dp->plat_data->dev_type))
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-index 025da25463a8..af5e5a8ec88d 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-@@ -193,6 +193,11 @@ void analogix_dp_config_interrupt(struct analogix_dp_device *dp)
- 	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_2);
- 	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_3);
+ /* Standard COM flags (except for COM4, because of the 8514 problem) */
+ #ifdef CONFIG_SERIAL_8250_DETECT_IRQ
+diff --git a/include/asm-generic/serial.h b/include/asm-generic/serial.h
+index ca9f7b6be3f0..28915df0de05 100644
+--- a/include/asm-generic/serial.h
++++ b/include/asm-generic/serial.h
+@@ -3,10 +3,10 @@
+ #define __ASM_GENERIC_SERIAL_H
  
-+	if (dp->hpd_gpiod) {
-+		analogix_dp_mute_hpd_interrupt(dp, HPD_IRQ_ALL);
-+		return;
-+	}
-+
- 	/*
- 	 * Either HOTPLUG_CHG interrupt or PLUG + HPD_LOST interrupt
- 	 * pair can be used to implement hotplug detection.
-@@ -415,7 +420,7 @@ void analogix_dp_clear_hotplug_interrupts(struct analogix_dp_device *dp, u32 irq
- {
- 	u32 reg;
+ /*
+- * This should not be an architecture specific #define, oh well.
++ * This should not be an architecture-specific definition.
+  *
+- * Traditionally, it just describes i8250 and related serial ports
+- * that have this clock rate.
++ * Traditionally, it describes i8250 and related serial ports using
++ * a 1.8432 MHz UART clock.
+  */
  
--	if (dp->hpd_gpiod || !irq_type)
-+	if (!irq_type)
- 		return;
- 
- 	reg = analogix_dp_irq_type_to_common_int_sta4(irq_type);
--- 
-2.34.1
-
+ #define BASE_BAUD (1843200 / 16)
