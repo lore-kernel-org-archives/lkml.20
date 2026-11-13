@@ -1,77 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.79.60.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794558197;
-	b=iZNoE367rEV5z3PQQWMYQ4XharCnzch7kIZmIJ8/2uybne7i0y37u/hxfpsHfrawqf9w
-	 bP4MccvEJQW4ipjhI+eAvSX/FqH/4qP9MZmcZFBrRocFlosSOQLY+IgNuGWfTm9IoimzB
-	 bhmw4DLWo5oqOoEGPYN1waioEOBRsEvvlm3djXm1alg74or8a/cUIk2mL83B9bWMnGddC
-	 8nZDRNYSJSAE9OV4ZlAkW1aSYiDYL8L1IHWDBajty775TJ1dhQOkTjSd2CN/IriiMuxtC
-	 jgA0VEDjVqL9Gp3lPfAfn1lN821GYhy6Ty0dFRVDnnou3JtVuGVjznJ9Mqb+pxWSvPQ==
+	t=1794558209;
+	b=OFSXDqRhcC80lmVLCnIF91T0JaqkKVLwFpsMJfwfY6TfzF9HP6KbAo8ActHjL2pLtbzW
+	 Cel4W3q722Vp9ygJ32alntj6OAol3rljG2xyOIW0VSwWTcUexX61BAhPgcJOaU5PoynTe
+	 NLSPxK4KMWRpG5auNmPS411JHM7Xm37fzx/dezBsGmsjdhMXdZ0tKQC8NMqK5rvqEnTXf
+	 Ch2L+ZwDaxpUtISNjSGh7G4c6W6owZvJ37kOMzFNamgnKNiBFGSjs1gkr9RQusMbMf5rc
+	 iZb0zKK4e0LVRvsmeFQBy+ZDS1WW3tsX0FM+BAYg1sy6eqMFzsDCryPKVOfzmedPOZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794558197;
-	h=DMARC-Filter:Received:DKIM-Signature:X-GPT-Reason:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Dl62qA8RPRg3DFAObvPL2Fn4f72QQhDJ3yuNQH7rz3s=;
-	b=ZpCTzEGQoDQX/B9MffO/sslIFbpaD1HJ1URZ9sy1ZvWPCh/1qFYeuTJOCzUckDXYy9Xn
-	 6R8LTtUZDpfdla65w+kV1kuRN3j4gVNvl/AMZE7xT9CfQ0Bsqm49+swDL03t4bPwbtlZ1
-	 9ea8t7eIOSsMZ7/b1l8uQIE7Yrv51V9Bxax1nNzO9OleKhb8d+Z1NNyMGZ2QL+nAz75vu
-	 4aKDXP7b/XBgPfOPRZIujT5xo2tkGUfDAxVQtG5aEg2tEbsg5h28/Pt1lurKhpsGWgKpV
-	 iuoWlf8ddgkQW9LkFCTbRENYUXHtOYoBXeg38RLhPjK9r/CbtqCOH16nAKcHEzWZPxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794558209;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
+	bh=XNuY/Vo6Av48O204IEijKEDS+EVPpGFz9/aSQiiHflQ=;
+	b=fa2SEgXKbofdCsASaIf+AeC2sVgZBHUMhvuduc9TcU+DFGnWVUSjeiaAJ5pEBF7kX70p
+	 JaxFnL5/qguIUSE+eevhIdpgtqCoFgBcAMgKdcI12R1jEN6LmSoHeBD1fOvAN0jQYWDY8
+	 ufRSJhpEgidjat8Sct4ANDuCCHdyOc7budufO0WvD1FJN/ghDrmK5BhUCmxBSxVrBQLj5
+	 7vPR/MJ1/q+0Z2Wl2die9ICcUmCUYIMR9JxfqXRKXn7CmyIE7c46VTYbzH/GoTS2iO4QZ
+	 h4ELBprEg1c8UHEwzdjseLDbO6UTvhS7Nszk6+5RT9mfZUGya7i0iBIJ2nIkwQIDANg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=d-silva.org;
-	spf=pass smtp.mailfrom=d-silva.org;
-	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=GA7hn9dE;
-	arc=none smtp.remote-ip=119.15.109.137
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=i5qfWhFk;
+	arc=none smtp.remote-ip=210.79.60.97
+Received: from mail-m6097.netease.com (mail-m6097.netease.com [210.79.60.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E5A9606A88F;
-	Fri, 13 Nov 2026 08:23:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E5A9606A88F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3D6A606A31C;
+	Fri, 13 Nov 2026 08:23:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3D6A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=GA7hn9dE
-Received: from Hawking.lan (hawking.lan [10.0.1.4])
-	by www.nmnhosting.com (Postfix) with ESMTP id 73A104572F;
-	Fri, 13 Nov 2026 19:23:09 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1794558189;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Dl62qA8RPRg3DFAObvPL2Fn4f72QQhDJ3yuNQH7rz3s=;
-	b=GA7hn9dEF5/cQsaPf1Y9eQ16v4GzRV1R6INqVnQ1hItWEUts4gFs+UcnnLkVMyEA5E5g02
-	HXOKET9CNz1Q/goBuG9k/O7yt1f3CPxPqW+sDPhRj3uQc6zhcyJSjMI5fbzanUEIe13gHV
-	SjhLq2QYH/xSU4chjJBVlICSAGn1SYiSsRTaOWVpqXiRWwLGPmgVHvmDdXQSrsdEFbbnjo
-	0F1YcRTT32tevmMtAsHY2uUBva5ndp3JcyjNxgDlq1J5pspZCi8DAKHnAuzYRVQ/V9qhw+
-	46bQbUE3UScxLfhSIjZw71rpZbXk22oi8AdoZpVkhU4l0QMgfjmOUO/ijCJHvg==
-X-GPT-Reason: legitimate; the email is a technical patch submission
-	for a Linux kernel driver (rtw88) which is consistent with the
-	personal/professional context of the recipient alastair@d-silva.org;
-	the From domain (d-silva.org) matches the sender's identity and
-	the content; the message contains highly specific technical refactoring
-	details (register sizes, HISR behavior) and standard Linux kernel
-	mailing list metadata (Acked-by, Reviewed-by, Signed-off-by) with
-	no signs of marketing, phishing, or urgency.
-From: Alastair D'Silva <alastair@d-silva.org>
-To: linux-wireless@vger.kernel.org,
-	Ping-Ke Shih <pkshih@realtek.com>,
-	Kalle Valo <kvalo@kernel.org>
-Cc: Luka Gejak <luka.gejak@linux.dev>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=i5qfWhFk
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 54921bdfd;
+	Fri, 13 Nov 2026 16:23:17 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Jingoo Han <jingoohan1@gmail.com>,
+	Inki Dae <inki.dae@samsung.com>,
+	Seung-Woo Kim <sw0312.kim@samsung.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Sandy Huang <hjc@rock-chips.com>,
+	Andy Yan <andyshrk@163.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
 	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Ulf Hansson <ulfh@kernel.org>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
 	linux-kernel@vger.kernel.org,
-	Alastair D'Silva <alastair@d-silva.org>
-Subject: [PATCH rtw-next v10 4/4] wifi: rtw88: sdio: Split rtw_sdio_rx_isr into 8051 and 3081 variants
-Date: Fri, 13 Nov 2026 19:22:42 +1100
-Message-ID: <20261113082242.2773369-5-alastair@d-silva.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261113082242.2773369-1-alastair@d-silva.org>
-References: <20261113082242.2773369-1-alastair@d-silva.org>
+	dri-devel@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v6 01/18] drm/bridge: Select VIDEOMODE_HELPERS for DRM_OF_DISPLAY_MODE_BRIDGE
+Date: Fri, 13 Nov 2026 16:22:48 +0800
+Message-Id: <20261113082305.541652-2-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261113082305.541652-1-damon.ding@rock-chips.com>
+References: <20261113082305.541652-1-damon.ding@rock-chips.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,120 +83,44 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1d400fe4c03a8kunm073aab0481a12
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaT0kZVk5PTR9JSh9DGRoeHlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=i5qfWhFksLq8cnd1a+lBOnDN1h5a2ZwsvD7/onmO4MfEkfobPPxPg9mJPrqpi+9x3m2tFKD9Q2YZYTv41w1aSncg4yZNbwsalcQRLiAnFM4B1CvMITH/JMKNoLNF3fCZDxkk4V0/iRdSM+0HWPrOfTZDqAg7Y4K+BKKzEa56PIg=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=XNuY/Vo6Av48O204IEijKEDS+EVPpGFz9/aSQiiHflQ=;
+	h=date:mime-version:subject:message-id:from;
 
-Split rtw_sdio_rx_isr() into separate 8051 and 3081 variants to be
-clear. The two differences between the architectures are:
-- Register size: REG_SDIO_RX0_REQ_LEN is 16-bit on 8051, 32-bit on 3081.
-- HISR behavior: 8051 re-reads REG_SDIO_HISR on each iteration, while
-  3081 drains based on rx_len without re-reading HISR.
+The of-display-mode-bridge driver calls of_get_drm_display_mode(),
+which is provided when VIDEOMODE_HELPERS is selected.  So far the
+dependency has been satisfied by the users selecting
+VIDEOMODE_HELPERS themselves (e.g. the Exynos and i.MX DRM drivers),
+which breaks as soon as a user does not, resulting in undefined
+references to of_get_drm_display_mode() at link time.
 
-This is a refactoring without any logic changes.
+Select VIDEOMODE_HELPERS from DRM_OF_DISPLAY_MODE_BRIDGE, so that the
+dependency is always satisfied.
 
-Assisted-by: LLM
-Acked-by: Ping-Ke Shih <pkshih@realtek.com>
-Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
-Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 ---
- drivers/net/wireless/realtek/rtw88/sdio.c | 58 +++++++++++++----------
- 1 file changed, 33 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/bridge/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
-index 6100e691a5ca4..c26ce1b6b38b2 100644
---- a/drivers/net/wireless/realtek/rtw88/sdio.c
-+++ b/drivers/net/wireless/realtek/rtw88/sdio.c
-@@ -1473,17 +1473,13 @@ static int rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
- 	return 0;
- }
- 
--static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
-+static void rtw_sdio_rx_isr_8051(struct rtw_dev *rtwdev)
- {
- 	u32 rx_len, hisr, total_rx_bytes = 0;
- 	int ret;
- 
- 	do {
--		if (rtw_chip_wcpu_8051(rtwdev))
--			rx_len = rtw_read16(rtwdev, REG_SDIO_RX0_REQ_LEN);
--		else
--			rx_len = rtw_read32(rtwdev, REG_SDIO_RX0_REQ_LEN);
--
-+		rx_len = rtw_read16(rtwdev, REG_SDIO_RX0_REQ_LEN);
- 		if (!rx_len)
- 			break;
- 
-@@ -1493,33 +1489,45 @@ static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
- 
- 		total_rx_bytes += rx_len;
- 
--		if (rtw_chip_wcpu_8051(rtwdev)) {
--			/* Stop if no more RX requests are pending, even if
--			 * rx_len could be greater than zero in the next
--			 * iteration. This is needed because the RX buffer may
--			 * already contain data while either HW or FW are not
--			 * done filling that buffer yet. Still reading the
--			 * buffer can result in packets where
--			 * rtw_rx_pkt_stat.pkt_len is zero or points beyond the
--			 * end of the buffer.
--			 */
--			hisr = rtw_read32(rtwdev, REG_SDIO_HISR);
--		} else {
--			/* RTW_WCPU_3081 chips have improved hardware or
--			 * firmware and can use rx_len unconditionally.
--			 */
--			hisr = REG_SDIO_HISR_RX_REQUEST;
--		}
-+		/*
-+		 * Stop if no more RX requests are pending, even if
-+		 * rx_len could be greater than zero in the next
-+		 * iteration. This is needed because the RX buffer may
-+		 * already contain data while either HW or FW are not
-+		 * done filling that buffer yet. Still reading the
-+		 * buffer can result in packets where
-+		 * rtw_rx_pkt_stat.pkt_len is zero or points beyond the
-+		 * end of the buffer.
-+		 */
-+		hisr = rtw_read32(rtwdev, REG_SDIO_HISR);
- 	} while (total_rx_bytes < SZ_64K && hisr & REG_SDIO_HISR_RX_REQUEST);
- }
- 
-+static void rtw_sdio_rx_isr_3081(struct rtw_dev *rtwdev)
-+{
-+	u32 rx_len, total_rx_bytes = 0;
-+	int ret;
-+
-+	do {
-+		rx_len = rtw_read32(rtwdev, REG_SDIO_RX0_REQ_LEN);
-+		if (!rx_len)
-+			break;
-+
-+		ret = rtw_sdio_rxfifo_recv(rtwdev, rx_len);
-+		if (ret)
-+			break;
-+
-+		total_rx_bytes += rx_len;
-+	} while (total_rx_bytes < SZ_64K);
-+}
-+
- static void rtw_sdio_handle_interrupt_8051(struct rtw_dev *rtwdev, u32 hisr)
- {
- 	if (hisr & REG_SDIO_HISR_TXERR)
- 		rtw_sdio_tx_err_isr(rtwdev);
- 	if (hisr & REG_SDIO_HISR_RX_REQUEST) {
- 		hisr &= ~REG_SDIO_HISR_RX_REQUEST;
--		rtw_sdio_rx_isr(rtwdev);
-+		rtw_sdio_rx_isr_8051(rtwdev);
- 	}
- 
- 	/*
-@@ -1549,7 +1557,7 @@ static void rtw_sdio_handle_interrupt_3081(struct rtw_dev *rtwdev, u32 hisr)
- 	if (hisr & REG_SDIO_HISR_TXERR)
- 		rtw_sdio_tx_err_isr(rtwdev);
- 	if (hisr & REG_SDIO_HISR_RX_REQUEST)
--		rtw_sdio_rx_isr(rtwdev);
-+		rtw_sdio_rx_isr_3081(rtwdev);
- 
- 	/*
- 	 * Unmasking HIMR re-asserts the IRQ line if new packets arrived or if
+diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
+index c7da6b02d7b6..f717523014e8 100644
+--- a/drivers/gpu/drm/bridge/Kconfig
++++ b/drivers/gpu/drm/bridge/Kconfig
+@@ -266,6 +266,7 @@ config DRM_NXP_PTN3460
+ config DRM_OF_DISPLAY_MODE_BRIDGE
+ 	tristate
+ 	depends on DRM_BRIDGE && OF
++	select VIDEOMODE_HELPERS
+ 	help
+ 	  This is a DRM bridge implementation that uses of_get_drm_display_mode
+ 	  to acquire display mode.
 -- 
-2.53.0
+2.34.1
 
