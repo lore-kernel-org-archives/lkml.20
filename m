@@ -1,96 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794540550;
-	b=lAeZnOi4nEwJLv2z+PBXG33U7E3m9ud6/XEbcGLoGox5+6HeZ1tENqrxoMwExlJ2JeBx
-	 4vK9Si3ADCJEo1PhO6mK/7hmluHsLCYCFL9Ye8xIQx4OiH8Cq9KSvBjUC3mQb992bH3gk
-	 y6lyWa4GSHs8qTR/8UaY9mElWvBZwssH0fGZ7zunZR6Z1jTxtTrotYkWojItTqLarVRHr
-	 syWAZ6H4mEkEgiBZjryfX1IFandYLaQ0cf9bP8A7mB3HFGROycvSkAzkdlOIKePGRensd
-	 ytJycqasDo5H2HTF15CN+oigfHidH2NLyW3eu0P5FAIS6blHzmGNEd3BiB32WR0e+VQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794540550;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794540549;
+	b=3jiw/hWhuZ1dvI6pAsw82nZoW2hctJN9BmXcKZcR8qtvo9h6fCqhZQCxGWJcoT9m2gVA
+	 6q6yKqVtkLtjCCPiuN8tMRvbPKGPsnLBGKkiL4PqXLX7VwbQCSno3nOYqEQxN/+RFU/kU
+	 FYFjy7/XGBNd7OAeb06zRQ+dMyAbUaB9FOJQhNd5fVM4n4n307ohJ63+UR2PEdDk4XM8t
+	 d7mykCOksQN9SrwOUQ37AnDeBbr8q43XP2USt6lYaggdy4ujdfUH46qjraQUcDzyv/KOl
+	 vySoyAab3S/fy2Gz2w9NhhwNUtHm01vKcKXoghb2Y7uE8T8IEBIGbBgvs0bzhIIRtPA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794540549;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=sfS7nB4gtLu1FKmXvUmoI2KWykiSmHoqnc+SrZgTJWU=;
-	b=G/WpcK+5M8L/fRArTR4j3GVshs0n52kfNbDXu/QXcVZB+OP1SU8qcy0k0LU9AskE4nus
-	 DpSvO48GdvrgZ5eKMHU1fMlzR+3KYDBZ8w4Ix7sNrlEtZ85K8yZ0HLOLkafm2M5/Vn789
-	 FRG+iLmKpFWoDlUB7WEEpHDBSWaz6ljb0pZxXoEvZArB+3rVsmTeGmSjnOhD+YPZeNB+t
-	 vI9ldvA22pNZw8bmIpcKjHAXIiVqrpK4ENIKWbgjfzwGXhae4XA7bTmhFvsI2kbHd6zzm
-	 CXisnR1k7cee2QZB4WTZzkCoUPkn92w1w/dO+DJhaZ23oB85VO545CNDtRMckwgxi9g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=K+k+BU3ruP30FcRofnzEWnAZqMIuJBVkJtyRQrr4ns4=;
+	b=eqMXMMt7UgQvbT3t/4/ydQfN0qBIuFqRH78/QlxOYXBt3WNGP7WDOiAb2kEPZ1O+ebSC
+	 Ttlwv+v+bxxHGP4V7c05ss2g0RrxHz7V1cNyTriC1E7dqBJhI7LYV2LYUwMK/x38TSSGm
+	 OGxadAtJg2VcuzOTWjpRsr4F99xjblAJZrHpHb+0xav4iBPWXQQ+WttDirfRXIVTpXunC
+	 HYGFfaTKkF4vsNcKWm/dy/oeffA6lLPOT7Nu2PmZ9us1jcCrwgpoaz0djYq62PcP7EfMd
+	 lFUWFNCMdVh7piqZP6EIkQWtM21htj8tXKjcmdJO4ZjznqVZBaMe79ufQckAcArKQYQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b+cixmrE;
-	arc=none smtp.remote-ip=209.85.215.172
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oJoBDn3L;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.42
+Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com [209.85.222.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECF99606A327
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:29:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECF99606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 038DF606A32A
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:29:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 038DF606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b+cixmrE
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cd8ba7c2694so191494a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 19:29:04 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oJoBDn3L
+Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-9903fde8db8so142374241.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 19:29:08 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794540548; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jTl3oNDVJlARUCbBXi6Gt8ZoebsDCJEeNY18VsKrpFNHsqnJ+2d/2XKvPPWRaDITGL
+         YoAZiP7g6VIrC5d+h2MTfpMGkTzA0lkqd9mzod1W0P3GXfxV5ck+v9qZr8hgemdKNI/V
+         Qci7YdiQAX9fHZNH6OpBn4F0YKtCRcB7diKD25W1lLpkag2N4iasbccf4cn8F+WWPsgJ
+         WkUjb2ivN75ydXzvoZQaNobsGzNA76fbFdgg5cO6WpfkkOwqXVz48MrWDDqei2w1xgT5
+         EjjbIyyshM052OzexM/avlgmkP8VnJUikSF/3MXVDSW7K6xFkWS5ZnB/fCggbdoUGj2q
+         JEXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=K+k+BU3ruP30FcRofnzEWnAZqMIuJBVkJtyRQrr4ns4=;
+        fh=CSSvT1T3Q5bITT2ds06mYJwlDnTcIW4v8fWXd34wvYs=;
+        b=RzQLnxBVRxmo3jvEM1iP3GMXs7tcMFdwmxhPb6pCc4PCLU3A1GTuVYFMEAsrRDSbO9
+         5a1M1Vh8oqKCjAa88I7yU4YN2gAiB3OuIdv9wLjtp7SyaPl2gOVOLTwlkNPDju+IVdxg
+         /g7V4FFnY8Rf2XGSfYgagUSjaIDLM5qnXXfaoG+lZKsOYeICk0JehJe2qbkjDnC1fISW
+         P2WGSMy3UFt2jBZJdidf5/NHWMHBnHbN2p/6wemAVCtD7UWoVu84Kgs96KWDKt/zmrfx
+         YqG/p2mOiHHUZM/I08jK0/iEmqe4fpGDCwgkR5fGFd3BeZzW5Xktvzk6fggrN9AcuevF
+         IrRw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794540544; x=1795145344; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sfS7nB4gtLu1FKmXvUmoI2KWykiSmHoqnc+SrZgTJWU=;
-        b=b+cixmrEkhG8B2FLuslGH/982o8yDK4CKzbnMcESoppN1oTQOqPMvYmraVAajZw7UO
-         lHGal90PN4yXv+1CZIGgzuveVliopVzmJs4CYVZsxjc4TVRaPOCb0s/wEhw5NUlmIgkm
-         8CYNhOv6dPEG5UcpOic1h33f4VgUaoU8sOW6LeGSvsLJBkQ3OftQpqu4l5j+PRbBaptG
-         yHcu4QoQNbNIvujdjt8niVrtl3v+qfj6+HP7jpptE0/7LlQtYcZvFS3KEr2fiWlZbEM7
-         crk4t7XR7cIPxfTvKXrPLGrFIDEbWPOiLIBbtwae/GvvV+KcLRUBVPR3ZdDYrcWU200B
-         ou/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794540544; x=1795145344;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+        d=gmail.com; s=20260707; t=1794540548; x=1795145348; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sfS7nB4gtLu1FKmXvUmoI2KWykiSmHoqnc+SrZgTJWU=;
-        b=JMgkeIQ7rTaeqbJ+kD+sMgUIWiYlcIPQFlZKGPqBePGtSs9EemF7TmtWqjF1Jcu8Oa
-         VvzpRjkmL50MfVAXmQaY5CGIvLP/txSCT81iUeBrrKSZnysY5pcEmJ5lVBmf/LuRru3s
-         XcMaRmLU2VTUmQfJ1J34xznqBHbzUB498/ZIsP/mxi821eXNeqKiJigdM7kahm8pagfk
-         GfXpqvbT6/o/dhqs5AlXVJXY7uXhqu7LFP6csAXiGLLLdXW4iU365WOO59g2W4eGLhI8
-         f5IF6kN10QsQGq16bpCw6cjup7A1vJ0yrBX0mcRRs3l3jAZQr0APRiTGAhGvTgI2llTp
-         ij1g==
-X-Forwarded-Encrypted: i=1; AL+hErFqbiTa7/N//c1VtztFpF825GURHB+NsGOLLxPUVs7jjOS13nBXKn0ZFXIhc6Tve+IQd0rPF+F1Q1kN5Xc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z91c+ipBBdRokmKZHG75enhoedtwPRRhVoS+9xKzhXqzC/qLihI
-	/d6I2cCMqs/eNyNYm/GDjjVmj1raCtdrBkwRcZ3d7K8TxSJqPF15MODeTH1Ll0ND2jJxrw==
-X-Gm-Gg: AYBFou3hZWVk6nmACxstcvywotZ72E6zb4ybs91S8IynhanHUWvoDfxVqh6eWl1W9/9
-	itC+LDktf8tG4WXxf+fZNTNMAW6D8C3vAqKrwvTxxg/iMui+bGOh73D4JsrVoLl2nKfssEM5Qhz
-	CDh4hG0vhxyNSm1YgQmbB3nciuWLLxlarYjXDVpq7SY1Pe7FKtTfab+yHVcNFjhu4/p1aGNssEf
-	/QCXCXGgaaN1wUvfOKg0D3eJPLpqE4amV8unra/vML2BlfIcUN41e3zWnekh+CphkbRecOv5F1y
-	nYga9/vPX1SuYvUcyqXi367szDoQIuilKHUXQzO4YkYKpILjT7DdT0HsLhjYzl+S3t5vJDLrFjI
-	CRUaLqQoiuPWS1nkNj3XocqUQ6PgLTXWLIgBZ1VvM757UD7DW7MedNzO6jwuyrLiOIfzHzjDpad
-	4u01ZjECyLf4Gcojlxf/B6LCUL65IF9GH5e8vsYiIz6HuA+xzWQDrU7xqX+OSykKF5xsY6UCgGq
-	N4wK1opngONPaOw/y/9t2v7ffgp1yP9fpVmadfwcDlICLoVYfsCVK0RyQagPnkmmcdOv/wwluAU
-	lrBD3hJKyzqBnz80m+yWquGHmGpfsr0aIh+KUDe5cA==
-X-Received: by 2002:a17:90a:c2c8:b0:3ac:80dc:f40c with SMTP id 98e67ed59e1d1-3b1b0a0e9fbmr951734a91.14.1794540543447;
-        Thu, 12 Nov 2026 19:29:03 -0800 (PST)
-Received: from localhost.localdomain ([223.104.68.104])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197d32ea0sm7087063a91.15.2026.11.12.19.28.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 19:29:02 -0800 (PST)
-From: Yong Liu <pkfxxxing@gmail.com>
-To: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
-	Xin Long <lucien.xin@gmail.com>
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	linux-sctp@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v2] sctp: revalidate association sockets after locking
-Date: Fri, 13 Nov 2026 11:28:02 +0800
-Message-ID: <20261113032805.1447885-1-pkfxxxing@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261110120212.1110283-2-pkfxxxing@gmail.com>
-References: <20261110120212.1110283-1-pkfxxxing@gmail.com> <20261110120212.1110283-2-pkfxxxing@gmail.com>
+        bh=K+k+BU3ruP30FcRofnzEWnAZqMIuJBVkJtyRQrr4ns4=;
+        b=oJoBDn3L5F6KOzorHhzjoNdwUkNLSd8/8QKNYq6MkFSXdDdO1LeB7U7Xbt+d24Q6mI
+         JjY+2Bmu9tWVNZxpwr1qXsHk6m0et9vM737LXAYWdRDNi+32ErE78Mn4MJ3E1fLTXIC6
+         TWFZNBAqkvSIS1xC530vP61bS38Gpdjj7p7Ao3C6QNM1kkhiHczBrLf/PQDLSkKl1DpV
+         bCtn3STOWQe85XcbOYiulIF4/OJED/TACbhNS4MBCj880GlPWw99Cl6AAjud9HlPMyU+
+         7xlzOCgx68Qqpr/yIPwc770d79xLQNGdMLzMMu3Ch3wLfvwSzQV0ySdH9WWEp/4udNkW
+         RevA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794540548; x=1795145348;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=K+k+BU3ruP30FcRofnzEWnAZqMIuJBVkJtyRQrr4ns4=;
+        b=1HhmaQeNsdOHY49e9FYwx8JDhwWxVzbGeqaE+3tlIqHYOsLWxjTNmrWTjjmGy4cbh8
+         ATfD9XhsVgDTcvmUV5TI18YcY4eeZPzKNNbtYbFpOHIIbQ10+yOnJDaV3Lf16/xZAHXU
+         +MLLbzPBFx1cqn5HrtWGIVTGR6n4D8yNNduVpa0Cyrin+4N4lTA7uSTEM5kR7WgQgwKF
+         M+f4yREDyN2XNS4eHUnbb2p+YLG57TfpGf7l3IqxZrznzIjAp5IlPBcskE0Xd/L9ZrrW
+         Z5nQRXu+4P8GZs+oyFMWi3Ka54OOLEMxwn+zl5K7F6Dsa7LYVcWtUjEWiv1oWFhJMcQN
+         poFw==
+X-Forwarded-Encrypted: i=1; AL+hErFF1uIVecG19UT9z9cipGsuW0Y1R5XdB2/mJqBTDXSfuZWZKsTfd3BhN+hBzpd9QSN4B/7fDgSy4/d7lyw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8HXpR9aQie1TdM4HUbtJeKE7f7F8XWExc68pmzGCmTZjNrSEuw
+	8RaxYY4t0kxEyA1fpMKpDtnq/iQ7jUZ5yMb/fDK7tHxwyBj1+8dOxy6XCEYFf6dL9ETaoiK4UEs
+	MlscXQe9ogXSk+OCBOsniNc7GPFjjke0=
+X-Gm-Gg: AYBFou02yJGq3j9Ulz5131QP1Pe8gdFY2JLnBF4yCS9rai/vy4x8ynym7/uSE+oepc/
+	1W4Zkolrl3P5pF9IwprteOhYSeK5+zUth/3arNjvLvoD+cLBMKe0uISrVcJYMbFBRhpdKyU+wSF
+	+4otNTC/XYOyObzMJGlbi7WPSl8UH3JprtOAquT6A++g4mNYov3xWRk+j0EZag8qeNpa3okjOFR
+	/yn/0LKrSsOuNyHS62+nAUqDvzBD1eWc6jO0vpBDPkY1PtQFXxVjuBcHZL00DgcIcOrdu/PIXM9
+	nn3OAvSx5uS4yAWgigdzQVQOADdNXLGxechIdbYM1R36vK9inceiP20G+iqEQkczTicxTmvFWZT
+	Vy/T7/qG1X8Sp0Hyq9hICdCwhg7fjvkXGAR/S
+X-Received: by 2002:a05:6102:511f:b0:7ae:c2ca:8e1 with SMTP id
+ ada2fe7eead31-7d64d6d6b5bmr338156137.11.1794540547414; Thu, 12 Nov 2026
+ 19:29:07 -0800 (PST)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Fri, 13 Nov 2026 03:29:07 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,377 +103,224 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: enderaoelyther@gmail.com
+Date: Fri, 13 Nov 2026 03:29:07 +0000
+X-Gm-Features: AclHuK-SgNml3uPlVF3GKFskL72Pm3F_HH6yudvnk94dfnqPM8d3DvDsq7x5boQ
+Message-ID: <CACHPgzxg0i5S5hKyuSLjNYhLKr7ZoxKO=VefOtsiU6zgod=yfg@mail.gmail.com>
+Subject: [PATCH v2] wifi: mac80211_hwsim: drain address lookup users before
+ radio removal
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: "John W. Linville" <linville@tuxdriver.com>, Javier Lopez <jlopex@gmail.com>, 
+	Jukka Rissanen <jukka.rissanen@linux.intel.com>, linux-wireless@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-SCTP timer callbacks and ICMP error lookup cache asoc->base.sk before
-acquiring its BH lock. An accept or peeloff can move the association to
-a new socket in between. Processing under the old socket lock can then
-race with an abort on the new socket that tears down the association's
-queues. Transport and association references do not keep those queues
-alive. With mdelay() instrumentation widening the race, KASAN reported a
-slab-use-after-free in sctp_chunk_abandoned() from the T3 retransmit path.
+Closing the socket that owns a destroy-on-close radio can free the
+radio while a frame, TX status, or PMSR command still uses the pointer
+returned by get_hwsim_data_ref_from_addr(). A forced QEMU/KASAN run
+reproduced the resulting use-after-free in
+hwsim_cloned_frame_received_nl().
 
-The ICMP error handlers also reread asoc->base.sk after lookup, so they
-can use the new socket without holding its BH lock. In particular, the
-PMTU handler can reach the same retransmit path, while protocol-unreachable
-handling can run the state machine directly.
+rhashtable_lookup_fast() protects only the lookup itself. The hwsim
+deletion paths already unpublish a radio from the hash table under
+hwsim_radio_lock before performing the sleeping teardown.
 
-Recheck the association's socket after locking it in the timer callbacks.
-Treat a mismatch like a busy socket and use the existing reference-counted
-retry path. Pass the socket locked by sctp_err_lookup() to both IPv4 and
-IPv6 error handlers, including their UDP encapsulation callers. Defer PMTU
-and protocol-unreachable processing and ignore redirects when that socket
-no longer matches the association. Require a matching socket for immediate
-error reports as well.
+Take a per-radio reference under hwsim_radio_lock when an address lookup
+succeeds. After unpublishing a radio, drop its publication reference and
+wait for lookup users before unregistering the hardware. This avoids
+serializing unrelated radios with asynchronous teardown while preventing
+teardown from freeing an active lookup result.
 
-Use READ_ONCE() for the socket pointer reads in the timer, ICMP, receive
-and backlog paths, paired with WRITE_ONCE() in sctp_assoc_migrate(). Take
-the new socket reference before publishing its pointer. The cached socket
-is protected by BH context and the endpoint's RCU-deferred sock_put().
+AI assistance was used.
 
-The issue was discovered and fixed by Qihoo 360's Tulongfeng multi-agent
-system.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: e9ed49bf4c2c ("mac80211-hwsim: Add support for
+HWSIM_ATTR_DESTROY_RADIO_ON_CLOSE")
+Link: https://patch.msgid.link/20261028141751.6728-3-enderaoelyther@gmail.com
 Cc: stable@vger.kernel.org
-Signed-off-by: Yong Liu <pkfxxxing@gmail.com>
+Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
 ---
 Changes in v2:
-- Use Yong Liu for the author and Signed-off-by, as requested by Jakub
-  Kicinski.
-- Address Xin Long's review and the Sashiko ICMP finding: pass the locked
-  socket to the IPv4/IPv6 error handlers and their UDP encapsulation
-  callers, and revalidate it before immediate ICMP processing.
-- Use READ_ONCE() for socket pointer reads in sctp_err_lookup(), sctp_rcv()
-  and sctp_backlog_rcv().
-- Broaden the subject and commit message to cover the ICMP paths.
+- Replace the family-wide command/removal mutex with per-radio lookup
+  references.
+- Unpublish before dropping the publication reference, then drain lookup
+  users before hardware teardown.
+- Cover all four lookup sites and make this a standalone patch on
+  wireless/main, where patch 1/2 is already merged.
 
-v1: https://lore.kernel.org/all/20261110120212.1110283-2-pkfxxxing@gmail.com/
+Testing:
+- GCC 12.2 W=1 module/built-in builds; sparse, Smatch and Coccinelle.
+- QEMU/KASAN/lockdep forced removal at all four lookup sites. Every base
+  contrast reproduced the use-after-free; the fixed revision stayed clean
+  and passed per-radio isolation, real-cookie TX status and teardown churn.
+- Not covered: PMSR normal completion, virtio dispatch and module exit.
 
-Based on b3dfbde62cf1981c4638939c159dfd087b7a72e9 (Linux 7.4.0-rc2).
+ .../net/wireless/virtual/mac80211_hwsim_i.h   |  4 ++
+ .../wireless/virtual/mac80211_hwsim_main.c    | 47 +++++++++++++++----
+ 2 files changed, 43 insertions(+), 8 deletions(-)
 
- net/sctp/associola.c     |  4 ++--
- net/sctp/input.c         | 32 ++++++++++++++++---------------
- net/sctp/ipv6.c          | 11 ++++++-----
- net/sctp/sm_sideeffect.c | 41 ++++++++++++++++++++--------------------
- 4 files changed, 45 insertions(+), 43 deletions(-)
+diff --git a/drivers/net/wireless/virtual/mac80211_hwsim_i.h
+b/drivers/net/wireless/virtual/mac80211_hwsim_i.h
+index 0f0f2ac6d80e..c91bbd99b5a2 100644
+--- a/drivers/net/wireless/virtual/mac80211_hwsim_i.h
++++ b/drivers/net/wireless/virtual/mac80211_hwsim_i.h
+@@ -10,6 +10,8 @@
+ #ifndef __MAC80211_HWSIM_I_H
+ #define __MAC80211_HWSIM_I_H
 
-diff --git a/net/sctp/associola.c b/net/sctp/associola.c
-index 4521be3bd8..c5d520c8d7 100644
---- a/net/sctp/associola.c
-+++ b/net/sctp/associola.c
-@@ -1088,8 +1088,8 @@ void sctp_assoc_migrate(struct sctp_association *assoc, struct sock *newsk)
- 	sctp_endpoint_hold(assoc->ep);
- 
- 	/* Get a reference to the new sock.  */
--	assoc->base.sk = newsk;
--	sock_hold(assoc->base.sk);
-+	sock_hold(newsk);
-+	WRITE_ONCE(assoc->base.sk, newsk);
- 
- 	/* Add the association to the new endpoint's list of associations.  */
- 	sctp_endpoint_add_asoc(newsp->ep, assoc);
-diff --git a/net/sctp/input.c b/net/sctp/input.c
-index 9494cfa511..e25c94ad08 100644
---- a/net/sctp/input.c
-+++ b/net/sctp/input.c
-@@ -169,7 +169,7 @@ int sctp_rcv(struct sk_buff *skb)
- 
- 	/* Retrieve the common input handling substructure. */
- 	rcvr = asoc ? &asoc->base : &ep->base;
--	sk = rcvr->sk;
-+	sk = READ_ONCE(rcvr->sk);
- 
- 	/*
- 	 * RFC 2960, 8.4 - Handle "Out of the blue" Packets.
-@@ -217,7 +217,7 @@ int sctp_rcv(struct sk_buff *skb)
- 	 */
- 	bh_lock_sock(sk);
- 
--	if (sk != rcvr->sk) {
-+	if (sk != READ_ONCE(rcvr->sk)) {
- 		/* Our cached sk is different from the rcvr->sk.  This is
- 		 * because migrate()/accept() may have moved the association
- 		 * to a new socket and released all the sockets.  So now we
-@@ -226,7 +226,7 @@ int sctp_rcv(struct sk_buff *skb)
- 		 * of the current sk.
- 		 */
- 		bh_unlock_sock(sk);
--		sk = rcvr->sk;
-+		sk = READ_ONCE(rcvr->sk);
- 		bh_lock_sock(sk);
- 	}
- 
-@@ -292,7 +292,7 @@ int sctp_backlog_rcv(struct sock *sk, struct sk_buff *skb)
- 		goto done;
- 	}
- 
--	if (unlikely(rcvr->sk != sk)) {
-+	if (unlikely(READ_ONCE(rcvr->sk) != sk)) {
- 		/* In this case, the association moved from one socket to
- 		 * another.  We are currently sitting on the backlog of the
- 		 * old socket, so we need to move.
-@@ -304,7 +304,7 @@ int sctp_backlog_rcv(struct sock *sk, struct sk_buff *skb)
- 		 * Otherwise, we can safely push the chunk on the inqueue.
- 		 */
- 
--		sk = rcvr->sk;
-+		sk = READ_ONCE(rcvr->sk);
- 		local_bh_disable();
- 		bh_lock_sock(sk);
- 
-@@ -377,7 +377,7 @@ void sctp_icmp_frag_needed(struct sock *sk, struct sctp_association *asoc,
- 	     t->pl.probe_size + sctp_transport_pl_hlen(t) <= pmtu))
- 		return;
- 
--	if (sock_owned_by_user(sk)) {
-+	if (sock_owned_by_user(sk) || sk != READ_ONCE(asoc->base.sk)) {
- 		atomic_set(&t->mtu_info, pmtu);
- 		asoc->pmtu_pending = 1;
- 		t->pmtu_pending = 1;
-@@ -410,7 +410,8 @@ void sctp_icmp_redirect(struct sock *sk, struct sctp_transport *t,
++#include <linux/completion.h>
++#include <linux/refcount.h>
+ #include <net/mac80211.h>
+ #include "mac80211_hwsim.h"
+ #include "mac80211_hwsim_nan.h"
+@@ -51,6 +53,8 @@ struct mac80211_hwsim_link_data {
+ struct mac80211_hwsim_data {
+ 	struct list_head list;
+ 	struct rhash_head rht;
++	refcount_t users;
++	struct completion users_done;
+ 	struct ieee80211_hw *hw;
+ 	struct device *dev;
+ 	struct ieee80211_supported_band bands[NUM_NL80211_BANDS];
+diff --git a/drivers/net/wireless/virtual/mac80211_hwsim_main.c
+b/drivers/net/wireless/virtual/mac80211_hwsim_main.c
+index 49ec2948c68a..4703b6fc328d 100644
+--- a/drivers/net/wireless/virtual/mac80211_hwsim_main.c
++++ b/drivers/net/wireless/virtual/mac80211_hwsim_main.c
+@@ -711,7 +711,21 @@ struct hwsim_radiotap_ack_hdr {
+
+ static struct mac80211_hwsim_data *get_hwsim_data_ref_from_addr(const u8 *addr)
  {
- 	struct dst_entry *dst;
- 
--	if (sock_owned_by_user(sk) || !t)
-+	if (sock_owned_by_user(sk) || !t ||
-+	    sk != READ_ONCE(t->asoc->base.sk))
- 		return;
- 	dst = sctp_transport_dst_check(t);
- 	if (dst)
-@@ -432,7 +433,7 @@ void sctp_icmp_proto_unreachable(struct sock *sk,
- 			   struct sctp_association *asoc,
- 			   struct sctp_transport *t)
- {
--	if (sock_owned_by_user(sk)) {
-+	if (sock_owned_by_user(sk) || sk != READ_ONCE(asoc->base.sk)) {
- 		if (timer_pending(&t->proto_unreach_timer))
- 			return;
- 		else {
-@@ -492,7 +493,7 @@ struct sock *sctp_err_lookup(struct net *net, int family, struct sk_buff *skb,
- 	if (!asoc)
- 		return NULL;
- 
--	sk = asoc->base.sk;
-+	sk = READ_ONCE(asoc->base.sk);
- 
- 	/* RFC 4960, Appendix C. ICMP Handling
- 	 *
-@@ -526,7 +527,7 @@ struct sock *sctp_err_lookup(struct net *net, int family, struct sk_buff *skb,
- 	/* If too many ICMPs get dropped on busy
- 	 * servers this needs to be solved differently.
- 	 */
--	if (sock_owned_by_user(sk))
-+	if (sock_owned_by_user(sk) || sk != READ_ONCE(asoc->base.sk))
- 		__NET_INC_STATS(net, LINUX_MIB_LOCKDROPPEDICMPS);
- 
- 	*app = asoc;
-@@ -546,11 +547,11 @@ void sctp_err_finish(struct sock *sk, struct sctp_transport *t)
- 	sctp_transport_put(t);
+-	return rhashtable_lookup_fast(&hwsim_radios_rht, addr, hwsim_rht_params);
++	struct mac80211_hwsim_data *data;
++
++	spin_lock_bh(&hwsim_radio_lock);
++	data = rhashtable_lookup_fast(&hwsim_radios_rht, addr, hwsim_rht_params);
++	if (data && WARN_ON_ONCE(!refcount_inc_not_zero(&data->users)))
++		data = NULL;
++	spin_unlock_bh(&hwsim_radio_lock);
++
++	return data;
++}
++
++static void put_hwsim_data(struct mac80211_hwsim_data *data)
++{
++	if (data && refcount_dec_and_test(&data->users))
++		complete(&data->users_done);
  }
- 
--static void sctp_v4_err_handle(struct sctp_transport *t, struct sk_buff *skb,
-+static void sctp_v4_err_handle(struct sock *sk, struct sctp_transport *t,
-+			       struct sk_buff *skb,
- 			       __u8 type, __u8 code, __u32 info)
- {
- 	struct sctp_association *asoc = t->asoc;
--	struct sock *sk = asoc->base.sk;
- 	int err = 0;
- 
- 	switch (type) {
-@@ -582,7 +583,8 @@ static void sctp_v4_err_handle(struct sctp_transport *t, struct sk_buff *skb,
- 	default:
- 		return;
+
+ /* MAC80211_HWSIM netlink family */
+@@ -4236,11 +4250,15 @@ static int hwsim_pmsr_report_nl(struct sk_buff
+*msg, struct genl_info *info)
+
+ 	if (!hwsim_virtio_enabled) {
+ 		if (hwsim_net_get_netgroup(genl_info_net(info)) !=
+-		    data->netgroup)
+-			return -EINVAL;
++		    data->netgroup) {
++			err = -EINVAL;
++			goto out_put;
++		}
+
+-		if (info->snd_portid != data->wmediumd)
+-			return -EPERM;
++		if (info->snd_portid != data->wmediumd) {
++			err = -EPERM;
++			goto out_put;
++		}
  	}
--	if (!sock_owned_by_user(sk) && inet_test_bit(RECVERR, sk)) {
-+	if (!sock_owned_by_user(sk) && sk == READ_ONCE(asoc->base.sk) &&
-+	    inet_test_bit(RECVERR, sk)) {
- 		sk->sk_err = err;
- 		sk_error_report(sk);
- 	} else {  /* Only an error on timeout */
-@@ -630,7 +632,7 @@ int sctp_v4_err(struct sk_buff *skb, __u32 info)
- 		return -ENOENT;
- 	}
- 
--	sctp_v4_err_handle(transport, skb, type, code, info);
-+	sctp_v4_err_handle(sk, transport, skb, type, code, info);
- 	sctp_err_finish(sk, transport);
- 
- 	return 0;
-@@ -660,7 +662,7 @@ int sctp_udp_v4_err(struct sock *sk, struct sk_buff *skb)
- 	}
- 	if (hdr->type == ICMP_DEST_UNREACH && hdr->code == ICMP_FRAG_NEEDED)
- 		info = ntohs(hdr->un.frag.mtu);
--	sctp_v4_err_handle(t, skb, hdr->type, hdr->code, info);
-+	sctp_v4_err_handle(sk, t, skb, hdr->type, hdr->code, info);
- 
- 	sctp_err_finish(sk, t);
- 	return 1;
-diff --git a/net/sctp/ipv6.c b/net/sctp/ipv6.c
-index 97390569c4..f96e79ca7f 100644
---- a/net/sctp/ipv6.c
-+++ b/net/sctp/ipv6.c
-@@ -123,11 +123,11 @@ static struct notifier_block sctp_inet6addr_notifier = {
- 	.notifier_call = sctp_inet6addr_event,
- };
- 
--static void sctp_v6_err_handle(struct sctp_transport *t, struct sk_buff *skb,
-+static void sctp_v6_err_handle(struct sock *sk, struct sctp_transport *t,
-+			       struct sk_buff *skb,
- 			       __u8 type, __u8 code, __u32 info)
- {
- 	struct sctp_association *asoc = t->asoc;
--	struct sock *sk = asoc->base.sk;
- 	int err = 0;
- 
- 	switch (type) {
-@@ -149,7 +149,8 @@ static void sctp_v6_err_handle(struct sctp_transport *t, struct sk_buff *skb,
- 	}
- 
- 	icmpv6_err_convert(type, code, &err);
--	if (!sock_owned_by_user(sk) && inet6_test_bit(RECVERR6, sk)) {
-+	if (!sock_owned_by_user(sk) && sk == READ_ONCE(asoc->base.sk) &&
-+	    inet6_test_bit(RECVERR6, sk)) {
- 		sk->sk_err = err;
- 		sk_error_report(sk);
- 	} else {
-@@ -181,7 +182,7 @@ static int sctp_v6_err(struct sk_buff *skb, struct inet6_skb_parm *opt,
- 		return -ENOENT;
- 	}
- 
--	sctp_v6_err_handle(transport, skb, type, code, ntohl(info));
-+	sctp_v6_err_handle(sk, transport, skb, type, code, ntohl(info));
- 	sctp_err_finish(sk, transport);
- 
- 	return 0;
-@@ -211,7 +212,7 @@ int sctp_udp_v6_err(struct sock *sk, struct sk_buff *skb)
- 	}
- 	if (hdr->icmp6_type == ICMPV6_PKT_TOOBIG)
- 		info = ntohl(hdr->icmp6_mtu);
--	sctp_v6_err_handle(t, skb, hdr->icmp6_type, hdr->icmp6_code, info);
-+	sctp_v6_err_handle(sk, t, skb, hdr->icmp6_type, hdr->icmp6_code, info);
- 
- 	sctp_err_finish(sk, t);
- 	return 1;
-diff --git a/net/sctp/sm_sideeffect.c b/net/sctp/sm_sideeffect.c
-index 35f540fb15..bd6b23369f 100644
---- a/net/sctp/sm_sideeffect.c
-+++ b/net/sctp/sm_sideeffect.c
-@@ -233,15 +233,14 @@ void sctp_generate_t3_rtx_event(struct timer_list *t)
- 	struct sctp_transport *transport =
- 		timer_container_of(transport, t, T3_rtx_timer);
- 	struct sctp_association *asoc = transport->asoc;
--	struct sock *sk = asoc->base.sk;
-+	struct sock *sk = READ_ONCE(asoc->base.sk);
- 	struct net *net = sock_net(sk);
- 	int error;
- 
--	/* Check whether a task is in the sock.  */
--
-+	/* Defer if the socket is busy or the association has migrated. */
- 	bh_lock_sock(sk);
--	if (sock_owned_by_user(sk)) {
--		pr_debug("%s: sock is busy\n", __func__);
-+	if (sock_owned_by_user(sk) || sk != READ_ONCE(asoc->base.sk)) {
-+		pr_debug("%s: sock is busy or moved\n", __func__);
- 
- 		/* Try again later.  */
- 		sctp_transport_hold(transport);
-@@ -271,13 +270,13 @@ void sctp_generate_t3_rtx_event(struct timer_list *t)
- static void sctp_generate_timeout_event(struct sctp_association *asoc,
- 					enum sctp_event_timeout timeout_type)
- {
--	struct sock *sk = asoc->base.sk;
-+	struct sock *sk = READ_ONCE(asoc->base.sk);
- 	struct net *net = sock_net(sk);
- 	int error = 0;
- 
- 	bh_lock_sock(sk);
--	if (sock_owned_by_user(sk)) {
--		pr_debug("%s: sock is busy: timer %d\n", __func__,
-+	if (sock_owned_by_user(sk) || sk != READ_ONCE(asoc->base.sk)) {
-+		pr_debug("%s: sock is busy or moved: timer %d\n", __func__,
- 			 timeout_type);
- 
- 		/* Try again later.  */
-@@ -362,7 +361,7 @@ static void sctp_generate_autoclose_event(struct timer_list *t)
- 	sctp_generate_timeout_event(asoc, SCTP_EVENT_TIMEOUT_AUTOCLOSE);
+
+ 	mutex_lock(&data->mutex);
+@@ -4280,6 +4298,8 @@ static int hwsim_pmsr_report_nl(struct sk_buff
+*msg, struct genl_info *info)
+ 	data->pmsr_request_wdev = NULL;
+
+ 	mutex_unlock(&data->mutex);
++out_put:
++	put_hwsim_data(data);
+ 	return err;
  }
- 
--/* Generate a heart beat event.  If the sock is busy, reschedule.   Make
-+/* Generate a heart beat event.  If the sock is busy or moved, reschedule.   Make
-  * sure that the transport is still valid.
-  */
- void sctp_generate_heartbeat_event(struct timer_list *t)
-@@ -370,14 +369,14 @@ void sctp_generate_heartbeat_event(struct timer_list *t)
- 	struct sctp_transport *transport = timer_container_of(transport, t,
- 							      hb_timer);
- 	struct sctp_association *asoc = transport->asoc;
--	struct sock *sk = asoc->base.sk;
-+	struct sock *sk = READ_ONCE(asoc->base.sk);
- 	struct net *net = sock_net(sk);
- 	u32 elapsed, timeout;
- 	int error = 0;
- 
- 	bh_lock_sock(sk);
--	if (sock_owned_by_user(sk)) {
--		pr_debug("%s: sock is busy\n", __func__);
-+	if (sock_owned_by_user(sk) || sk != READ_ONCE(asoc->base.sk)) {
-+		pr_debug("%s: sock is busy or moved\n", __func__);
- 
- 		/* Try again later.  */
- 		sctp_transport_hold(transport);
-@@ -418,12 +417,12 @@ void sctp_generate_proto_unreach_event(struct timer_list *t)
- 	struct sctp_transport *transport =
- 		timer_container_of(transport, t, proto_unreach_timer);
- 	struct sctp_association *asoc = transport->asoc;
--	struct sock *sk = asoc->base.sk;
-+	struct sock *sk = READ_ONCE(asoc->base.sk);
- 	struct net *net = sock_net(sk);
- 
- 	bh_lock_sock(sk);
--	if (sock_owned_by_user(sk)) {
--		pr_debug("%s: sock is busy\n", __func__);
-+	if (sock_owned_by_user(sk) || sk != READ_ONCE(asoc->base.sk)) {
-+		pr_debug("%s: sock is busy or moved\n", __func__);
- 
- 		/* Try again later.  */
- 		sctp_transport_hold(transport);
-@@ -454,13 +453,13 @@ void sctp_generate_reconf_event(struct timer_list *t)
- 	struct sctp_transport *transport =
- 		timer_container_of(transport, t, reconf_timer);
- 	struct sctp_association *asoc = transport->asoc;
--	struct sock *sk = asoc->base.sk;
-+	struct sock *sk = READ_ONCE(asoc->base.sk);
- 	struct net *net = sock_net(sk);
- 	int error = 0;
- 
- 	bh_lock_sock(sk);
--	if (sock_owned_by_user(sk)) {
--		pr_debug("%s: sock is busy\n", __func__);
-+	if (sock_owned_by_user(sk) || sk != READ_ONCE(asoc->base.sk)) {
-+		pr_debug("%s: sock is busy or moved\n", __func__);
- 
- 		/* Try again later.  */
- 		sctp_transport_hold(transport);
-@@ -492,13 +491,13 @@ void sctp_generate_probe_event(struct timer_list *t)
- 	struct sctp_transport *transport = timer_container_of(transport, t,
- 							      probe_timer);
- 	struct sctp_association *asoc = transport->asoc;
--	struct sock *sk = asoc->base.sk;
-+	struct sock *sk = READ_ONCE(asoc->base.sk);
- 	struct net *net = sock_net(sk);
- 	int error = 0;
- 
- 	bh_lock_sock(sk);
--	if (sock_owned_by_user(sk)) {
--		pr_debug("%s: sock is busy\n", __func__);
-+	if (sock_owned_by_user(sk) || sk != READ_ONCE(asoc->base.sk)) {
-+		pr_debug("%s: sock is busy or moved\n", __func__);
- 
- 		/* Try again later.  */
- 		sctp_transport_hold(transport);
+
+@@ -6140,6 +6160,8 @@ static int mac80211_hwsim_new_radio(struct
+genl_info *info,
+ 	/* By default all radios belong to the first group */
+ 	data->group = 1;
+ 	mutex_init(&data->mutex);
++	refcount_set(&data->users, 1);
++	init_completion(&data->users_done);
+
+ 	data->netgroup = hwsim_net_get_netgroup(net);
+ 	data->wmediumd = hwsim_net_get_wmediumd(net);
+@@ -6297,6 +6319,10 @@ static void mac80211_hwsim_del_radio(struct
+mac80211_hwsim_data *data,
+ 				     const char *hwname,
+ 				     struct genl_info *info)
+ {
++	/* The radio is no longer published. Drain address lookup users. */
++	if (!refcount_dec_and_test(&data->users))
++		wait_for_completion(&data->users_done);
++
+ 	hwsim_mcast_del_radio(data->idx, hwname, wiphy_net(data->hw->wiphy), info);
+ 	debugfs_remove_recursive(data->debugfs);
+ 	ieee80211_unregister_hw(data->hw);
+@@ -6432,7 +6458,7 @@ static int
+hwsim_tx_info_frame_received_nl(struct sk_buff *skb_2,
+ {
+
+ 	struct ieee80211_hdr *hdr;
+-	struct mac80211_hwsim_data *data2;
++	struct mac80211_hwsim_data *data2 = NULL;
+ 	struct ieee80211_tx_info *txi;
+ 	struct hwsim_tx_rate *tx_attempts;
+ 	u64 ret_skb_cookie;
+@@ -6530,8 +6556,10 @@ static int
+hwsim_tx_info_frame_received_nl(struct sk_buff *skb_2,
+ 		txi->flags |= IEEE80211_TX_STAT_NOACK_TRANSMITTED;
+
+ 	ieee80211_tx_status_irqsafe(data2->hw, skb);
++	put_hwsim_data(data2);
+ 	return 0;
+ out:
++	put_hwsim_data(data2);
+ 	return -EINVAL;
+
+ }
+@@ -6539,7 +6567,7 @@ static int
+hwsim_tx_info_frame_received_nl(struct sk_buff *skb_2,
+ static int hwsim_cloned_frame_received_nl(struct sk_buff *skb_2,
+ 					  struct genl_info *info)
+ {
+-	struct mac80211_hwsim_data *data2;
++	struct mac80211_hwsim_data *data2 = NULL, *txdata = NULL;
+ 	struct ieee80211_rx_status rx_status;
+ 	struct ieee80211_hdr *hdr;
+ 	const u8 *dst;
+@@ -6602,7 +6630,6 @@ static int hwsim_cloned_frame_received_nl(struct
+sk_buff *skb_2,
+ 	    info->attrs[HWSIM_ATTR_ADDR_TRANSMITTER]) {
+ 		u64 cookie = nla_get_u64(info->attrs[HWSIM_ATTR_COOKIE]);
+ 		struct sk_buff *orig_skb, *found = NULL;
+-		struct mac80211_hwsim_data *txdata;
+ 		struct ieee80211_tx_info *txi;
+ 		const u8 *transmitter;
+ 		unsigned long flags;
+@@ -6695,11 +6722,15 @@ static int
+hwsim_cloned_frame_received_nl(struct sk_buff *skb_2,
+
+ 	mac80211_hwsim_rx(data2, &rx_status, skb);
+ 	mutex_unlock(&data2->mutex);
++	put_hwsim_data(txdata);
++	put_hwsim_data(data2);
+
+ 	return 0;
+ out_unlock:
+ 	mutex_unlock(&data2->mutex);
+ out:
++	put_hwsim_data(txdata);
++	put_hwsim_data(data2);
+ 	dev_kfree_skb(skb);
+ 	return -EINVAL;
+ }
+
+base-commit: cb1edd20907e13b058c0d5bd34c9d51b5bedc879
 -- 
-2.43.0
-
+2.56.0
