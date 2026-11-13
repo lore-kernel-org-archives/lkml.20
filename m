@@ -1,93 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.61
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.91
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794553744;
-	b=Tv3iI3O3Wl8rn64u/XbD20AqrDa4l9dbmFLcfkoKaKmIj71YSk4NapDLORnBYwzh0Ixv
-	 t0dHo5lMBrL3TMLjyA3mRp6cvm7oL53dJUimHdHJ6xJd88syb/eajgYJO+oFsQTtYlewU
-	 bCwrjEo+xOuu/riZ0nXutj1qbtIr5U5liHN6kD141qzu15+OWYQ0sgvejPYGGe71ev4M3
-	 LOWmVrJsl9I6K9UuwzJuyM+vmW61w4nlZXcYeFD/CHYNjTJsTWqWfOi/9fcfl2Q7qRD6v
-	 XIN9fAxMfaYlZn0Q7NdiisHzyIs9kw28AW6bFIteC4gmnQQMZv+iFnRsNJbiWBvjbkg==
+	t=1794553869;
+	b=E4xG/sly3SXsjUagUffMlJ0iJhcawVhJaHj3pXXnQbmOvBEwV29DaSvNdArnLuZ/ga5g
+	 hVyZ++f/XZBxcZY+7Md6bRevgivX5h5bhdJocrwJ6LeSd4dj9bHW5uVo4nJAeO1KOM4yl
+	 3RRep6+YWKOrXxcJlenYGrH0OjV3FSYBlDRan0aPKxebNLARiRhT00U1hSVsvb8y1yt/5
+	 vnGRBqt30dVjI+Yz231vqj9eLWTKundLRnqWCbpqn6js5b8oTygoxgrzq/zPjvBYJXxxK
+	 VVkVRpHCYA21Gg6kr6K2J+8yVsj+YFNUxHy8D8BLBDwF+DDKAuKdkvDIdxD5N7oY0gw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794553744;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794553869;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=SYhdRBfbhOCrZODwMof2LJJutjMOsW3pk0k9wT+4x1s=;
-	b=abSlt626bLdUgWimpGtw97H+xwBQIanI9acCxPQOii8Lu1nYiD4/Sqfo7FNwK/T6KtjB
-	 iqOx/OSMyNKiGIWOMgJmzR54UkDNY/tt/Uf74i1fvE37p8hxbX/IswTkOZddeIvztk5Ic
-	 jRMDEVnfjdQf9sNCzGP+haUrTuXfpfYkyJDDpLVHWMd/4itnolgHrVXrInPzz3LFHSt1/
-	 rl4rlaxfQVH1tlhUPP4iOoNWgBzvi/apYENPG4W9mUKOrunUguP5e594U10211H/MkdV/
-	 0sHdvq7DxmffyFj9U6KLdFpUWLY+Zzk+Jievsj3P4GpIRLIZ3c4lbTFM4H2HXLwpZOQ==
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=IJWs4zNE+gIaPoa05xg+qHkXlF1ISQhiWNboOXFLzhc=;
+	b=uMntQ6K8pLorZwCqXnyp+3fISszjudHQmtOAFW4Ho9aVV88XN1oXZ7JK+zuGS/XcybTK
+	 8kMlaZRM/w+tmxP+le1sJwSzeY0Ea6MtVkN3/uMcxPh7dh8t3rAeHe/NlJB4WpifjZblh
+	 168y+VLKFlEPRaAbQ4XsviF0QVpgwa/wqCS5xFyMajt5kWHnbTtiQAEp1iS4i9qqb2CHS
+	 vdCOmJ4LO5eZLEbalBFCwjX/KEHP1MCfkJO3/M5BlghBfrbbD8Qy6qzdMFHZhLXXdudUL
+	 aMDrMdRD4CQDjpi3WiMb1HApGiZzlh6DEPMyDO3X0af2ff+pIxlZmoVc3tU1fTBdDog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=wEsxbVRv;
-	arc=none smtp.remote-ip=91.218.175.61
-Received: from mta0.migadu.com (out-61.mta0.migadu.com [91.218.175.61])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CgLSTeyw;
+	arc=none smtp.remote-ip=95.215.58.91
+Received: from mta1.migadu.com (out-91.mta1.migadu.com [95.215.58.91])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47A4460A2633
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:09:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47A4460A2633
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C678606A327
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:11:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C678606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=wEsxbVRv
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CgLSTeyw
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ePA00gWH1MMaJNHfq4j4NnI+p0p7J/Mr89Hwy2EXwkk=;
+DKIM-Signature: a=rsa-sha256; bh=HvD4JIhX9JMIJD9FDvhvLpV8go5wxlXlCHjEMqjep6A=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794553742; v=1; x=1795158542;
- b=wEsxbVRvgf8D9i3QTK6xL2w9KwnIWXUC+WlzCKEjNqwfhCC702gFSebi3G1VCIKLv2FaLs9f
- 5xd60NXR2OlecwdYla8a72VvOPnAV4mtfN1Qe7JW6ORWUnITNdmWLusYOW1M5FtlWGIbPwLpdbc
- 0TBm5IvfRukysxUbraEPfC4I=
+ t=1794553866; v=1; x=1795158666;
+ b=CgLSTeywh5Ab76k4izWLBgQt+Afg18seRiEqC7lbW2t9NqgZjXIGu+u9pAKnIXWzjcG1HMuX
+ a5r0n/1ea6raM92cULa4ySd18U+ls4Oc4NBOux2yYlHjrH8FE4a/hyI5BPd0T4hSBlGeAWgTHEZ
+ DrejQYbHdD5j9uoXOO0gTuaU=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 60ee62a93959a5fb;
-	Fri, 13 Nov 2026 07:08:57 +0000
-X-Mizu-Trace-ID: 60ee62a93959a5fb
+Received: by mta10.migadu.com with ESMTPS id 04b16ff434ed104c;
+	Fri, 13 Nov 2026 07:11:06 +0000
+X-Mizu-Trace-ID: 04b16ff434ed104c
 X-Migadu-Flow: FLOW_OUT
-From: Mengmeng Zhao <mengmeng.zhao@linux.dev>
-To: Christoph Hellwig <hch@lst.de>,
-	Anuj Gupta <anuj1072538@gmail.com>,
-	Nitesh Shetty <nj.shetty@samsung.com>,
-	Jens Axboe <axboe@kernel.dk>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	christian.koenig@amd.com,
-	Philipp Stanner <phasta@kernel.org>,
-	Dan Williams <djbw@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Jan Kara <jack@suse.cz>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	tytso@mit.edu,
-	Andreas Dilger <adilger.kernel@dilger.ca>,
-	Baokun Li <libaokun@linux.alibaba.com>,
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Zhang Yi <yi.zhang@huawei.com>,
-	asml.silence@gmail.com,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	nvdimm@lists.linux.dev,
-	linux-ext4@vger.kernel.org,
-	linux-xfs@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	Li Wang <liwang@kylinos.cn>,
-	Mengmeng Zhao <zhaomengmeng@kylinos.cn>
-Subject: [RFC PATCH v2 8/8] ext4: support dma-buf registered buffers for direct I/O
-Date: Fri, 13 Nov 2026 15:06:21 +0800
-Message-ID: <20261113070621.273953-9-mengmeng.zhao@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261113070621.273953-1-mengmeng.zhao@linux.dev>
-References: <20261113070621.273953-1-mengmeng.zhao@linux.dev>
+Date: Fri, 13 Nov 2026 15:10:54 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
+Cc: Jiri Pirko <jiri@resnulli.us>, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	1342116488@qq.com
+Subject: Re: [PATCH net v2] team: validate the length of U32 and S32 option
+ data
+Message-ID: <ava3_g_zsVdAjn93@fedora>
+References: <20261112090030.172342-1-sunwenbo@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,176 +68,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112090030.172342-1-sunwenbo@cmss.chinamobile.com>
 
-From: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
+On Thu, Nov 12, 2026 at 05:00:30PM +0800, Wenbo Sun wrote:
+> In team_nl_options_set_doit(), the policy for TEAM_ATTR_OPTION_DATA in
+> team_attr_option_nl_policy is NLA_BINARY because the payload layout
+> varies with the option type.
+> 
+> For TEAM_OPTION_TYPE_U32 and TEAM_OPTION_TYPE_S32, the payload is
+> read directly with nla_get_u32(attr_data) and nla_get_s32(attr_data)
+> without checking its attribute length. When userspace supplies a
+> truncated attribute (0 to 3 bytes), nla_get_u32() or nla_get_s32()
+> performs an out-of-bounds read past the attribute buffer. Conversely,
+> oversized payloads (> 4 bytes) would also have trailing bytes
+> silently ignored instead of being rejected as invalid input.
+> 
+> Validate that nla_len(attr_data) equals sizeof(u32) or sizeof(s32)
+> for TEAM_OPTION_TYPE_U32 and TEAM_OPTION_TYPE_S32 respectively, and
+> return -EINVAL otherwise, consistent with how NLA_U32/NLA_S32
+> attributes are validated and similar to commit 5bef3ac184b5 ("team:
+> better TEAM_OPTION_TYPE_STRING validation").
+> 
+> This issue was identified with the assistance of an LLM-based code
+> review of Netlink option handlers in the team driver, confirmed by
+> sending malformed U32 (notify_peers_count) and S32 (priority) option
+> attributes on a UML kernel, and verified after the patch that
+> invalid lengths (0..3, 5, and 8 bytes) are rejected with -EINVAL while
+> valid 4-byte options still work as expected.
+> 
+> Built with W=1 on UML, x86_64 allmodconfig, and x86_64 allyesconfig with
+> zero new warnings or errors.
+> 
+> Fixes: 3d249d4ca7d0 ("net: introduce ethernet teaming device")
+> Signed-off-by: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
+> ---
+> 
+> Changes in v2:
+> - Check exact length (!= sizeof(u32) / != sizeof(s32)) instead of
+>   only rejecting truncated payloads (<), as suggested by Hangbin Liu.
+> - Extended the UML test to also cover oversized option payloads.
+> 
+>  drivers/net/team/team_core.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/drivers/net/team/team_core.c b/drivers/net/team/team_core.c
+> index 957cc7885d2f..8fa05c489b99 100644
+> --- a/drivers/net/team/team_core.c
+> +++ b/drivers/net/team/team_core.c
+> @@ -2833,6 +2833,10 @@ int team_nl_options_set_doit(struct sk_buff *skb, struct genl_info *info)
+>  			ctx.info = opt_inst_info;
+>  			switch (opt_type) {
+>  			case TEAM_OPTION_TYPE_U32:
+> +				if (nla_len(attr_data) != sizeof(u32)) {
+> +					err = -EINVAL;
+> +					goto team_put;
+> +				}
+>  				ctx.data.u32_val = nla_get_u32(attr_data);
+>  				break;
+>  			case TEAM_OPTION_TYPE_STRING:
+> @@ -2852,6 +2856,10 @@ int team_nl_options_set_doit(struct sk_buff *skb, struct genl_info *info)
+>  				ctx.data.bool_val = attr_data ? true : false;
+>  				break;
+>  			case TEAM_OPTION_TYPE_S32:
+> +				if (nla_len(attr_data) != sizeof(s32)) {
+> +					err = -EINVAL;
+> +					goto team_put;
+> +				}
 
-Advertise FMODE_CAN_DMABUF_IO for inodes that can support dma-buf I/O
-and implement ->init_dma_buf_io_ctx() by registering the buffer against
-the filesystem's block device.  The capability follows
-ext4_dio_alignment(), so an inode that can never do direct I/O -
-fs-verity, data=journal or inline data - is refused at open, and
-encrypted inodes are refused on the inode flag, which is set even
-without CONFIG_FS_ENCRYPTION.  The inode is rechecked at registration
-because DAX can be enabled after the file was opened.
+This part should be
 
-A dma-buf iterator has no pages to copy from, so it must never reach the
-page cache.  ext4_buffered_read_iter() and ext4_buffered_write_iter() are
-the single sinks of the buffered fallbacks and refuse it there; a short
-direct I/O write still reports its progress, and the DAX write path
-refuses at its entry instead of after starting a journal handle.
+Fixes: 69821638b274 ("team: add signed 32-bit team option type")
 
-Signed-off-by: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
-Signed-off-by: Li Wang <liwang@kylinos.cn>
----
- fs/ext4/ext4.h | 11 +++++++++++
- fs/ext4/file.c | 44 +++++++++++++++++++++++++++++++++++++++++---
- 2 files changed, 52 insertions(+), 3 deletions(-)
-
-diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index f38fec3167fb..028b2e5ddc8b 100644
---- a/fs/ext4/ext4.h
-+++ b/fs/ext4/ext4.h
-@@ -4135,6 +4135,17 @@ static inline bool ext4_inode_can_atomic_write(struct inode *inode)
- 		EXT4_SB(inode->i_sb)->s_awu_min > 0;
- }
- 
-+/*
-+ * dma-buf I/O needs an inode that supports direct I/O without the page cache.
-+ * IS_ENCRYPTED() tests the inode flag, which is set even without
-+ * CONFIG_FS_ENCRYPTION.
-+ */
-+static inline bool ext4_inode_can_dmabuf_io(struct inode *inode)
-+{
-+	return !IS_DAX(inode) && !IS_ENCRYPTED(inode) &&
-+	       ext4_dio_alignment(inode) != 0;
-+}
-+
- extern int ext4_block_write_begin(handle_t *handle, struct folio *folio,
- 				  loff_t pos, unsigned len,
- 				  get_block_t *get_block);
-diff --git a/fs/ext4/file.c b/fs/ext4/file.c
-index 50d3c92709c8..5a8481637da5 100644
---- a/fs/ext4/file.c
-+++ b/fs/ext4/file.c
-@@ -30,6 +30,7 @@
- #include <linux/uio.h>
- #include <linux/mman.h>
- #include <linux/backing-dev.h>
-+#include <linux/blkdev.h>
- #include "ext4.h"
- #include "ext4_jbd2.h"
- #include "xattr.h"
-@@ -66,6 +67,15 @@ static bool ext4_should_use_dio(struct kiocb *iocb, struct iov_iter *iter)
- 	return IS_ALIGNED(iocb->ki_pos | iov_iter_alignment(iter), dio_align);
- }
- 
-+static ssize_t ext4_buffered_read_iter(struct kiocb *iocb, struct iov_iter *to)
-+{
-+	/* a dma-buf iterator has no pages for the page cache to copy into */
-+	if (iov_iter_is_dmabuf_map(to))
-+		return -EOPNOTSUPP;
-+
-+	return generic_file_read_iter(iocb, to);
-+}
-+
- static ssize_t ext4_dio_read_iter(struct kiocb *iocb, struct iov_iter *to)
- {
- 	ssize_t ret;
-@@ -88,7 +98,7 @@ static ssize_t ext4_dio_read_iter(struct kiocb *iocb, struct iov_iter *to)
- 		 * taken.
- 		 */
- 		iocb->ki_flags &= ~IOCB_DIRECT;
--		return generic_file_read_iter(iocb, to);
-+		return ext4_buffered_read_iter(iocb, to);
- 	}
- 
- 	ret = iomap_dio_read_simple(iocb, to, ext4_iomap_begin);
-@@ -119,7 +129,7 @@ static ssize_t ext4_dax_read_iter(struct kiocb *iocb, struct iov_iter *to)
- 	if (!IS_DAX(inode)) {
- 		inode_unlock_shared(inode);
- 		/* Fallback to buffered IO in case we cannot support DAX */
--		return generic_file_read_iter(iocb, to);
-+		return ext4_buffered_read_iter(iocb, to);
- 	}
- 	ret = dax_iomap_rw(iocb, to, &ext4_iomap_ops);
- 	inode_unlock_shared(inode);
-@@ -146,7 +156,7 @@ static ssize_t ext4_file_read_iter(struct kiocb *iocb, struct iov_iter *to)
- 	if (iocb->ki_flags & IOCB_DIRECT)
- 		return ext4_dio_read_iter(iocb, to);
- 
--	return generic_file_read_iter(iocb, to);
-+	return ext4_buffered_read_iter(iocb, to);
- }
- 
- static ssize_t ext4_file_splice_read(struct file *in, loff_t *ppos,
-@@ -354,6 +364,10 @@ static ssize_t ext4_buffered_write_iter(struct kiocb *iocb,
- 	if (iocb->ki_flags & IOCB_NOWAIT)
- 		return -EOPNOTSUPP;
- 
-+	/* a dma-buf iterator cannot be handled by buffered I/O */
-+	if (iov_iter_is_dmabuf_map(from))
-+		return -EOPNOTSUPP;
-+
- 	inode_lock(inode);
- 
- 	/*
-@@ -688,6 +702,10 @@ static ssize_t ext4_dio_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 		ssize_t err;
- 		loff_t endbyte;
- 
-+		/* a dma-buf iterator cannot fall back to buffered I/O */
-+		if (iov_iter_is_dmabuf_map(from))
-+			return ret;
-+
- 		/*
- 		 * There is no support for atomic writes on buffered-io yet,
- 		 * we should never fallback to buffered-io for DIO atomic
-@@ -731,6 +749,10 @@ ext4_dax_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 	bool extend = false;
- 	struct inode *inode = file_inode(iocb->ki_filp);
- 
-+	/* a dma-buf iterator cannot be handled by DAX either */
-+	if (iov_iter_is_dmabuf_map(from))
-+		return -EOPNOTSUPP;
-+
- 	if (iocb->ki_flags & IOCB_NOWAIT) {
- 		if (!inode_trylock(inode))
- 			return -EAGAIN;
-@@ -1014,6 +1036,8 @@ static int ext4_file_open(struct inode *inode, struct file *filp)
- 		filp->f_mode |= FMODE_CAN_ATOMIC_WRITE;
- 
- 	filp->f_mode |= FMODE_NOWAIT | FMODE_CAN_ODIRECT;
-+	if (ext4_inode_can_dmabuf_io(inode))
-+		filp->f_mode |= FMODE_CAN_DMABUF_IO;
- 	return dquot_file_open(inode, filp);
- }
- 
-@@ -1050,10 +1074,24 @@ loff_t ext4_llseek(struct file *file, loff_t offset, int whence)
- 	return vfs_setpos(file, offset, maxbytes);
- }
- 
-+static int ext4_file_init_dma_buf_io_ctx(struct file *file,
-+					 struct dma_buf_io_ctx *ctx)
-+{
-+	struct inode *inode = file_inode(file);
-+
-+	/* DAX can be enabled after the file was opened */
-+	if (!ext4_inode_can_dmabuf_io(inode))
-+		return -EOPNOTSUPP;
-+
-+	/* all file data lives on s_bdev, which never changes for ext4 */
-+	return bdev_init_dma_buf_io_ctx(inode->i_sb->s_bdev, ctx);
-+}
-+
- const struct file_operations ext4_file_operations = {
- 	.llseek		= ext4_llseek,
- 	.read_iter	= ext4_file_read_iter,
- 	.write_iter	= ext4_file_write_iter,
-+	.init_dma_buf_io_ctx = ext4_file_init_dma_buf_io_ctx,
- 	.iopoll		= iocb_bio_iopoll,
- 	.unlocked_ioctl = ext4_ioctl,
- #ifdef CONFIG_COMPAT
--- 
-2.43.0
-
+Thanks
+Hangbin
