@@ -1,55 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794587104;
-	b=O3DOVGRtN+uUkjlj05W+XafnXZO/qQm014ktUkWY1LbCMIDPl0FZ9bPTeIQKqC+4jGNg
-	 /RsyuyC8ZhqM5kNv8mrDtHCusUo3tA/1+lzk42cAJZqniCzmlpN6wTb1+LLGhpwXTd9dh
-	 vFmLUQUDtIFK5lh2N2GI/fZgrj1KZkGrgvhr+Xh1gsW8ly2TGzutuimCHofYL+gadXWdp
-	 aRyWRNJ5dhfii4q+4m05nuVJlxjreUwe9Y/IQ5B20uH11j26AT/SQEL/1LUFCsYD5fLp5
-	 lXzx/6Gp74xkS/vNzqz8Kh60KN+mu2gLCZXQrRC64x6iL3Ut4fJXD0bg15G6cgc8jbw==
+	t=1794587144;
+	b=WZ9eMgX/tFYXi9mlQyZnaIgXrJCMXQ0EoqnPmCF0KytvTTZXq/tPSgPp3GDNvWPBC7WR
+	 lzRS5N275kX9rBkC023LeQ7hH9fNbmTG0JxaXYgdqOVE2BLF6SEHZyLkcRH/Nu/d60UOQ
+	 dbTJTc+/RHzbNj48UzDI0p5e5v34wFcBCHy2bPVNTtrVHTqR+ivmcMYRrX1hybfGdP6hQ
+	 ipc8JS9Md3FqmtiLf8vo+jWfe6shzBDmTX2dNCew6/dAiPGACNDOjLBdoxjSBkTxZ2Cuc
+	 UcIhV745Ve5ocPNfxx0SvvSnB6mS0ieKcNZ7a6lRheY7X3IwQIrpoIAHSrDSmg8dkxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794587104;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=EdidfY8kkjQXTJZy8RRsiMCtOG0JFSggzZGbgvEUt5E=;
-	b=CitxWEMECVDQUXNPGCDAfIFyk5pAxixwgKCxqs5rVNiF7clOCJkWVefdEKLJ3UrVN+wG
-	 PaFCB2FV5Lp+vM8x0m9M8Ok3155y3L5eN5xZMZaAbEeLJyPibwP9KRRw+UopushQtYnkb
-	 c2qZG7li/VW1MegT3HrIKUUdVcfs5tBY910+MeyQ9wP1vidwSMcLx5Y5dVkNNSA00E/rA
-	 VM0oqt+kvv2OVfUIe8N7pYu5f0t/yrv7cUiU8B37fDrToOTUo1k2wcvYxRqB5SYPLVql3
-	 5T4Iq1XhlaOJprIuV/anhJezkQfJ8s0CtMaHZuPOBAZwSqMzk7TKV3AJOpWR0Ftjxpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794587144;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=b7NmDtV0PqprOLTs1md4OfGCm51DCX09C9kORwNtvtM=;
+	b=Q8GSZfmkIzjw0FGCwxjbX2oNy9fgTqFwblt79RzNj6ptDUxW74B9hwiwQRaqPzkAWkKo
+	 vDjPSiZaITbObiYVr2R/wlGT3c9vnOW4NYTcziSnF5oxjNFKmfUZ3ZXACa8JrS+svVq/7
+	 Dxf2mUGd6OnQzlTdZYQlYgFlZKFDvzuxM2qbfr0JeIndaWNOSGGec0LfPo9EYHtQYF8Um
+	 V1x6bntiE97mgDYI2Z5sda1XwEdkwWtFgsYBwRWUuk1hI0d9MbSPoXTaq+2nO4YeMTFUY
+	 xArSjxvgf0pyNbnCmudr6I8/6OwAAucL1r9YD0jfuCWy+stzz+gdvHVS4LwQBhdiIiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CT9GYnwQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=OCOuyuwG;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86BB8606A893
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:25:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3023606A327;
+	Fri, 13 Nov 2026 16:25:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3023606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CT9GYnwQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63ADA1F000D1
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:25:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794587104;
-	bh=EdidfY8kkjQXTJZy8RRsiMCtOG0JFSggzZGbgvEUt5E=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=CT9GYnwQ5xO9mcoj1riTuGCQPREGqLar/U3PU7KFJxrs7Ba1JaVXVcPcVP99bWSrJ
-	 NJXdXGNltJx420zg7szplLxYB8CKHlU34K8oZXks7u1ME5eHjb84nz2cEgVUnjZbLN
-	 D+bdbZQZowRAiVlP3mzS4YGbKAC3M9bkQJb/XBd0vbYsURe2b22gPCPePo+Wk5rD/z
-	 Q7yyHWs0qkusB/L529dssPuv2C7QVwiGuJVqrR177gKxDJF6+EsX/ueVLW0w73lHHm
-	 oH1P9JXIoyStLtkoPSfvw9Hs1a+NfgGuY/abq/PLVO9FG0Ixp0T1TL9mQ46fXJ8SIt
-	 D+yoCKjurfG1g==
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5be3ed646a5so2094412e87.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:25:04 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEWxToonEjToypGS/z6k/tWVkBYutpHnnINV4aNB8GZVPodQM6NamJawwmJrPeB1SZRcONIXR3FKvKsm9s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+HJ2wx3vXQ01jmh/yJbVveqjVgSKdRSXVsQTa8bf34gzy0exLY
-	K3preSOfa+Ru85pGT7KWJP7d5515dQmXNd/J0h8AIX2VEOlv+bxLcBLJceANrpFVJgXe39Ixxq7
-	CsZkHWxhDuQPLcv/qMMzY6IPuL6z2ckM=
-X-Received: by 2002:a05:6512:b08:b0:5bf:b945:2403 with SMTP id
- 2adb3069b0e04-5c1709e1278mr1097583e87.44.1794587102823; Fri, 13 Nov 2026
- 08:25:02 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=OCOuyuwG
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 2D7F11A1646;
+	Fri, 13 Nov 2026 16:25:42 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id EB1B860015;
+	Fri, 13 Nov 2026 16:25:41 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 48E1211BC0069;
+	Fri, 13 Nov 2026 17:25:33 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794587140; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=b7NmDtV0PqprOLTs1md4OfGCm51DCX09C9kORwNtvtM=;
+	b=OCOuyuwG5KLMpusWNquL6+4C1/rhbuepLLTbLuKdTKfFdo8RJUl5Ty1HLBbGeDFdl97gEc
+	fRxAcfGGQNfPY1udAvHunXuGOt04vOBNX/NPHF2/x1srIul/rjHWPMs3a4wdfvCFzl6yQv
+	+6XtvPBdDsHYdGf/1BvKgtuY+iLq6e36qLCoACosoUhmFtGxwLGhHmIEa0dyNtxyF9igBZ
+	nusr0CjAo0kOoLWx8dY8I3D6/TiSY0w1w8cJ1OGAtPWHll/FZK2r5t2g3Pbi7bnETN3fDm
+	V8EW3DvM8yL3FVcG7G5sHoCHmyvTkeUiXHOjWuG0VlvxM73eMylglAnjOFLRtw==
+Message-ID: <1be528e6-9189-42d5-afe5-298be5af6b39@bootlin.com>
+Date: Fri, 13 Nov 2026 17:25:32 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,67 +62,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <1D6D9530A62ECE64+20261112091935.1394634-1-raoxu@uniontech.com>
-In-Reply-To: <1D6D9530A62ECE64+20261112091935.1394634-1-raoxu@uniontech.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 13 Nov 2026 17:24:48 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0ggbq2=1JqA8dc6s=SWcssYxUS_T4EwHEv2gTs21EzhdA@mail.gmail.com>
-X-Gm-Features: AclHuK_ZUjaC9RtYeBJy00-Na35nfX1uTFnRYl-LBsandFGPggNV1UpSzgXVJQw
-Message-ID: <CAJZ5v0ggbq2=1JqA8dc6s=SWcssYxUS_T4EwHEv2gTs21EzhdA@mail.gmail.com>
-Subject: Re: [PATCH] ACPI: property: Do not free embedded subnode packages
-To: raoxu <raoxu@uniontech.com>
-Cc: rafael@kernel.org, lenb@kernel.org, linux-acpi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Shuangpeng Bai <shuangpeng.kernel@gmail.com>, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/2] iio: adc: add driver for Texas Instruments TLA2528
+ adc
+To: Matti Vaittinen <mazziesaccount@gmail.com>,
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Rodolfo Giometti <giometti@enneenne.com>,
+ Marcelo Schmitt <marcelo.schmitt@analog.com>,
+ Antoniu Miclaus <antoniu.miclaus@analog.com>,
+ Angelo Dureghello <adureghello@baylibre.com>,
+ Tobias Sperling <tobias.sperling@softing.com>,
+ Eason Yang <j2anfernee@gmail.com>,
+ Marilene Andrade Garcia <marilene.agarcia@gmail.com>,
+ Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
+ duje@dujemihanovic.xyz, Joshua Crofts <crofts@kernel.org>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ Victor Chernyakin <chernyakin.victor.j@outlook.com>,
+ herve.codina@bootlin.com, thomas.petazzoni@bootlin.com,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261113151543.2241604-1-maxime.chevallier@bootlin.com>
+ <20261113151543.2241604-3-maxime.chevallier@bootlin.com>
+ <ef47542e-308c-4211-9b42-ba2de13f5f82@gmail.com>
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <ef47542e-308c-4211-9b42-ba2de13f5f82@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Nov 12, 2026 at 10:19=E2=80=AFAM raoxu <raoxu@uniontech.com> wrote:
->
-> From: Xu Rao <raoxu@uniontech.com>
->
-> The _DSD data-subnode parser accepts both named-object paths and packages
-> embedded in an enclosing evaluation result. For a named-object path,
-> acpi_nondev_subnode_ok() evaluates the object into a separate buffer and
-> passes its handle to acpi_nondev_subnode_extract(). For an embedded
-> package, acpi_add_nondev_subnodes() passes an interior pointer into the
-> enclosing result and a NULL handle instead.
->
-> acpi_destroy_nondev_subnodes() unconditionally frees dn->data.pointer
-> in both cases. Unloading an SSDT with embedded data subnodes therefore
-> attempts to free an interior address, as reported by KASAN. Subnodes
-> created exclusively from named-object paths do not have this problem.
->
-> Only free a subnode's result buffer when dn->handle is non-NULL. Embedded
-> packages are owned by the enclosing evaluation result, which is freed
-> after its child nodes have been destroyed. Keep the property-container
-> and data-node cleanup for both kinds of subnode.
->
-> Fixes: 99db5ff7fe0b ("ACPI / property: Hierarchical properties support up=
-date")
-> Reported-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-> Link: https://lists.openwall.net/linux-kernel/2026/06/05/10
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Xu Rao <raoxu@uniontech.com>
-> ---
->  drivers/acpi/property.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/acpi/property.c b/drivers/acpi/property.c
-> index 8ee5a1f0eb48..3a26df35979d 100644
-> --- a/drivers/acpi/property.c
-> +++ b/drivers/acpi/property.c
-> @@ -664,7 +664,8 @@ static void acpi_destroy_nondev_subnodes(struct list_=
-head *list)
->                 acpi_destroy_nondev_subnodes(&dn->data.subnodes);
->                 wait_for_completion(&dn->kobj_done);
->                 list_del(&dn->sibling);
-> -               ACPI_FREE((void *)dn->data.pointer);
-> +               if (dn->handle)
-> +                       ACPI_FREE((void *)dn->data.pointer);
->                 acpi_free_device_properties(&dn->data.properties);
->                 kfree(dn);
->         }
-> --
+Hi Matti,
 
-Applied as 7.5 material, thanks!
+On 11/13/26 16:36, Matti Vaittinen wrote:
+> On 13/11/2026 17:15, Maxime Chevallier wrote:
+>> Add a new driver for the TI TLA2528 ADC chip. It has 8 12-bit
+>> channels, that can also be configured as 16-bit averaging channels.
+>>
+>> This is a very simple driver, allowing reading raw values for each
+>> channel. GPIO mode isn't supported for now, as well as buffered mode and
+>> the 16-bit averaging mode.
+>>
+>> Co-developed-by: Rodolfo Giometti <giometti@enneenne.com>
+>> Signed-off-by: Rodolfo Giometti <giometti@enneenne.com>
+>> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+> This looks very familiar to me. I am pretty sure I've reviewed this. Is there a reason the RB-tag wasn't carried over? (Sorry if I've missed some change(s))!
+> 
+> Yours,
+>   -- Matti
+
+You did add a Rb tag on V2, but I dropped it for V3 as the delta between V2
+and V3 was quite substantial and included changes requested by other people
+than you :)
+
+I mentionned your tag being dropped on the V3 cover, but I didn't carry that info
+for V4, sorry about that...
+
+Anyways thanks a lot for the help,
+
+Maxime
