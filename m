@@ -1,47 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794577955;
-	b=T9lpPsY2AoMQeuk4eGMi5xvDD87/77uJYMBsI7mqxpKxJJNxdN8vLfZ2YBATtF+Ns/0A
-	 tQar9M3FlllJcXdEg9aHbg8AF7qN7JDWhGtp8nzdyEesk2oZzRA/FVtf9t2EFDx6Vzyc0
-	 zIWl07PTULIqxqqT4CeRkLxY1IhZ5HzGYCObnMF2c4HR/5ih48n+vAiKQFgLjeoGser2r
-	 1WS3pSIl0dc0bCHk1sPrWXUN7gQ/OHNTeT25eA7tDpRmrlPVnzyngg4VWk7qFjvcH4ZPh
-	 gGAPEfEMbpk6ViIBX3DiSc/0RiyE5zEejHRq2V9N5Hl1WWKLq6u37F16y4R4hjFMJAg==
+	t=1794577960;
+	b=YAQR1H6q8yIjuU+A9kxxIAVYHjxA0yTD6iOUlW4lu0jN1FcZyMRbnO0oMfYuMt7wMQ1L
+	 0q/0XdzSYcUfkbeH/NVgUZeuwrNoe36YPMkYUCQiMAXgy0iwTj5JNnOLkB9sbjXxSNhoX
+	 tno1Wl+ANBQ89YLZSUbgEDhyrC2VY2R3nLoJCPSAevoVf1UjizLzu1kwIcPdAM4EVp/ou
+	 Noexgitmqpu5ZyUIfDJAYnWcQIsDrCOLRMoXKwGDI2cl/na7waR+Kyr1uiPWurjxWF/aG
+	 HOtST2kb5aASNzL59N/bkEhYUo4rB2oSU9qmr+Ck6BEydXjylvnmgjAsF719/L1+90Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794577955;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=DVK4z9etFVD2eXEgskV5ZDkyIhWAOb5codKfSON7FuE=;
-	b=fygQo14c9mWZLD28AXfONyUxugvMMxK626BlQakANwg76s9fxMldFiSCiA9u2PEcpza9
-	 DX465/Ce0y3Ov5chZE2sxQep1FiJfEs7wvIe9kLG3/4ZzRXmybKv3s2ViINMFyEtCqWO9
-	 5TsTtD6jc9FFmBAf4++NiNYjxcoSG8aizeYkiE9LZNf0k1Ot0NnlAeYUsS1QQI5MU9BEk
-	 gZAjoOVIGKgwV7WxkaMm8OSi45Zh3lIoTHP7mgQuaiPUEkvwOyjST70wY1H7VCSMtb0Ac
-	 Ide2VJjQv8REdXFPTnCSdT/UzQ7YHLXGeEA/tMxEzvDaZAPwWTwBr84hxfQxwF9vmnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794577960;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=W/F9G60O9NvWaV0JAVRe4F7GQSW7jUltp7CvrY/n2ho=;
+	b=q16Hl3I+Pd9K4qM+uV0kifpxMnHLqUZKpK9fZocDmeV0mGUqayX+MId+R2J0MYlewdIS
+	 N/8kEsCcwDp8QvJgtuPc5mV4PxXpbmnUwvaZpCc2uInzO/iPSxrCIey847izCgvxaMUsO
+	 dlWoG8R49vVLB80YYvvZRR78B+5SZZi7cPO4T7yVRsi97AueB2qpXT7WeOVFohqI9Grn7
+	 k5GcH8KClE36MfJ0W0buCj1bUwJfeR0cryptU+S5x0+QWxA4spVvebdnJgUujDVh/m32u
+	 G5vrTPfJEWzCJ2taU7RHx5eoz8YO+S4rSdKxrAEcmCbPCE5lX+K4NOpiX3t30VDTLXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="RoQ4y/LM";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JPmDdMYw;
+	arc=none smtp.remote-ip=209.85.214.200
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C59C606E0D9;
-	Fri, 13 Nov 2026 13:52:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47E7D606E0ED
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:52:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47E7D606E0ED
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RoQ4y/LM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AE591F000C4;
-	Fri, 13 Nov 2026 13:52:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794577954;
-	bh=DVK4z9etFVD2eXEgskV5ZDkyIhWAOb5codKfSON7FuE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=RoQ4y/LMu5IZ34wonw3kFL5eyrmJh+9B+WwxGGhscM0mw7zrzPufIgBVXIEn3e35B
-	 24IgA6/0rPqG7i8HcmcnNziGf9uXsonS01vknanyf/bRSpHKXtYu3abCyIO4rHEfY+
-	 Q68m3I3fzzZxLeoiB58yd9Iotm6LCkn3aKgtzy0ybLRF4rb1HAU1ef7PXY7mDiYIZz
-	 tEblFwNMpfLI+uX+r67QSY9dqty92ChxpwZUUz7xynYYlSYa8vQF03/rwPuU8O7huY
-	 QDRWSkK16FsDBxWlFiAaNOEIJ9LNUMi7UyI98DeXGeR2CFbNfeKMhwVJTQ2dXdD9zc
-	 VzeLm+IJO1BKg==
-Message-ID: <30a6c6c2-95ad-4f98-a63e-25f311967ed8@kernel.org>
-Date: Fri, 13 Nov 2026 07:52:31 -0600
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JPmDdMYw
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2eaae8d29e0so12409755ad.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:52:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794577959; x=1795182759; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=W/F9G60O9NvWaV0JAVRe4F7GQSW7jUltp7CvrY/n2ho=;
+        b=JPmDdMYwKhdw6kPoXM33yGFo+OD4c/WKvBLp3tNjkF0fCOKQkd4r5wJwVeLSuP2PRB
+         s/+SnxM4GqdiYqNT4B3b6ol7ERv1sIy6l6T4cjoIhn3Vi20Rkte+4PSHPC6OND0+avnu
+         RrDCE4IIbU2gApI3MudDCb6dIhNISX1ssu5rBEv0Ljc3KyekvoGPU7GvVv+tsbBjjy0l
+         lFY/gZIlJbk1PHsJ2PM/No4IfUSzc4qEteoQ1PAu4H7uGTnrjbLAOT15d/hOWE37i8LF
+         qua8c1MPggAxNEjbMERP130+4OTwZd5T7O8kvASwlLnrFwWUfH+urjCuUuS1B4cjDFRY
+         VU8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794577959; x=1795182759;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=W/F9G60O9NvWaV0JAVRe4F7GQSW7jUltp7CvrY/n2ho=;
+        b=TAdozvjUGNIFIeLuuaPDkA41D4lpL4k4HWvHjZs99kt7eMSLBWOOGExiNvXM3kpLh5
+         Gtp4aNXSu3tw18qUtYRG+Rz5juZx1nXFUgyed9pCAnMD4dHaNrcjjeiRGxtscL0lA1wK
+         ysNnGykru9Q+AZ09E6mgYG+ajk9rxLOatV7DFCjAITCXx22hgpg/t+TugjHTZYmWbrRs
+         SD/CkwalDHT+xukgAcPMQCk6Cjv6+caTe8NqMJYvH9WAH648/aegE7N5PTYKqIKHi30F
+         GQMUzv/cWiu16Tmf8Qdr2Q3eUN9rLv2Pw6vZNUZ4cLuwnvdcf7N7ryRztsmYsZLwvYzQ
+         a5pA==
+X-Forwarded-Encrypted: i=1; AL+hErE9bv33RM8H7YhLY5vFa0B2odHnErjKwzksh/0POub7aIYPrrQ6epakpeOOlKcVD9uGQSKXtV1lXy9KpCw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9NiaCI0b7G9ufHlmws/KvYvkr/ykt4eWt9M46cjylTWNLXihAi
+	ANTpKVmP1iSyH8kHFQYsRA3S/vxbumci7+Uz323Ma7TfMftaKu2tEro6YGW2AJVpm8o03DLnge8
+	uLdHcSA==
+X-Received: from plhv13.prod.google.com ([2002:a17:903:238d:b0:2e8:531a:afe2])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:984:b0:2e6:c39:b25b
+ with SMTP id d9443c01a7336-2ee0da7f5acmr24740045ad.14.1794577958454; Fri, 13
+ Nov 2026 05:52:38 -0800 (PST)
+Date: Fri, 13 Nov 2026 05:47:35 -0800
+In-Reply-To: <20261105181742.3718448-1-seanjc@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,65 +78,33 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ACPI: CPPC: Reject EPP registers narrower than 8 bits
-Content-Language: en-US
-To: Christian Loehle <christian.loehle@arm.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>, viresh.kumar@linaro.org
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- sumitg@nvidia.com, luoxueqin@kylinos.cn, zhanjie9@hisilicon.com,
- zhangpengjie2@huawei.com
-References: <20261113130411.1433174-1-christian.loehle@arm.com>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20261113130411.1433174-1-christian.loehle@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <20261105181742.3718448-1-seanjc@google.com>
+X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
+Message-ID: <179441816397.79742.2627638258481171996.b4-ty@b4>
+Subject: Re: [PATCH] KVM: VMX: Re-pend KVM_REQ_APIC_PAGE_RELOAD if getting
+ backing pfn fails
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Sashiko Bot <sashiko-bot@kernel.org>, "=?UTF-8?q?Carlos=20L=C3=B3pez?=" <clopez@suse.de>
+Content-Type: text/plain; charset="utf-8"
 
-On 11/13/26 07:04, Christian Loehle wrote:
-> The EPP interfaces use an 8-bit preference, but ACPI permits narrower
-> fields. With a 4- or 6-bit SystemMemory field, writing 128 succeeds but
-> stores zero, requesting maximum performance instead.
+On Thu, 05 Nov 2026 10:17:42 -0800, Sean Christopherson wrote:
+> Retry loading the APIC-access page if getting the backing pfn fails for
+> any reason and APICv is enabled, i.e. if the vCPU will consume the value
+> stored in vmcs.APIC_ACCESS_ADDR.  Dropping the failed reload would result
+> in KVM running the vCPU with a stale backing pfn and in all likelihood
+> break APIC emulation/virtualization.  E.g. if KVM's page tables are able
+> to map the page, then guest accesses would go to the new physical page
+> instead of being treated as APIC accesses.
 > 
-> Reject a present EPP register narrower than eight bits during _CPC probe.
-> Use the existing error path to release previously acquired resources and
-> leave the CPU's CPPC descriptor unpublished. Keep absent EPP entries and
-> registers at least eight bits wide on their existing paths.
-> 
-> Fail the whole probe instead of disabling only EPP. This also makes
-> amd-pstate's acpi_cpc_valid() check reject the platform before registering
-> its MSR or shared-memory driver. No affected hardware is known or
-> expected and the specification is expected to no longer permit these
-> in the future.
-> 
-> Fixes: 922607a2b462 ("cpufreq: CPPC: Add support for autonomous selection")
-> Link: https://github.com/tianocore/edk2/issues/10838
-> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+> [...]
 
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+Applied to kvm-x86 vmx, thanks!
 
-> ---
->   drivers/acpi/cppc_acpi.c | 9 +++++++++
->   1 file changed, 9 insertions(+)
-> 
-> diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
-> index 11a9f9eb6b4a..4c3d5778e428 100644
-> --- a/drivers/acpi/cppc_acpi.c
-> +++ b/drivers/acpi/cppc_acpi.c
-> @@ -2094,6 +2094,15 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
->   			cpc_apply_platform_quirks(gas_t, i - 2,
->   						  platform_quirks);
->   
-> +			/* EPP interfaces require the full 0-255 preference range. */
-> +			if (i - 2 == ENERGY_PERF && gas_t->bit_width < 8 &&
-> +			    !IS_NULL_REG(gas_t)) {
-> +				pr_debug("CPU%d: EPP register width %u is not supported\n",
-> +					 pr->id, gas_t->bit_width);
-> +				ret = -EOPNOTSUPP;
-> +				goto out_free;
-> +			}
-> +
->   			/*
->   			 * The PCC Subspace index is encoded inside
->   			 * the CPC table entries. The same PCC index
+[1/1] KVM: VMX: Re-pend KVM_REQ_APIC_PAGE_RELOAD if getting backing pfn fails
+      https://github.com/kvm-x86/linux/commit/65af5b974fee
 
+--
+https://github.com/kvm-x86/linux/tree/next
