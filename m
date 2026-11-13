@@ -1,85 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794606153;
-	b=WS7TAwA1VXP/CtYvc9gIHCy/g5qIfpP/VDUANJxLcNAY/iu6M/tPuaFAB+fBZ2DEysPJ
-	 dPa5SkXRbgWJRQ3GNWe1/6eM/O6akVYgLa22fcJKdPin6H7pwUagBldHTdBp4FOjm8Xy1
-	 du33FZtFABer4HZF5Z1BVjPuGeBkZjft8VI5TbTTSCvTkC4k9NXA3K/X4/pZIEC/4E1KY
-	 0UCNUbBSdQ3a4qrui6vLxRmqgiNUdDLSXeIPr4TO0NGrk9IbNdZlb1kMzNxwSEZcOrKtq
-	 V3WUiAdraNrhiGPDwQlpcuZUTJKhfPYW3KNWTq4pE9GOQliszZ92AwePOoPSQsFj9lw==
+	t=1794606278;
+	b=G/8DIzKxc5csVpPN78e4+wkoT6fOMPPTZLfRwiR9JnGo2svrVEA/LPnlsVs6qDDkPmYf
+	 7notGnbdiUpGTfWvIuaOanjz3AFSSooanomoTLzZbEHeHuFQHv+Q7arpNGGjb3TOhwQzv
+	 ysqRqH242BmNJlVOFYC2+FGRwOUGYqQ1nRC8Shgq/IwFsoOOdZBVQh76Z3U8ZBZXD3CBz
+	 Nk1+Lii3bf4PQ/XFP4ehWZx+IoyiNbGuf5ipUq3uWRCC4ocBO4IUt+GX2OPl6ViDA+wsZ
+	 iUd3rShdAvhS0jaSI2HNzLqlLXPEjKRHvFrnzkFt3EENjySbR3PjJbXMciJoo6AbAbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794606153;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794606278;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=RwPRyHP2zyVmejGR1uh4JtlvqhjIfEODs3w+QBRfcJQ=;
-	b=2wgTKgT6H2frR4jqPwA5PTL1NwWgoLvgaUqyuH0id/81gyVHnv9EIhhGfWZOT0noBFi/
-	 t5GMbNtDhH4WgAq2NVJ1OPRR8MujKGMMAI87dfAqLofeGUCA0x6drxxqEQw1qaK8m7biI
-	 i1P/5uphii4QSJehnbKJvN2aV4amiA/43SrwqNlXNpVKmnheLPCkipW5qexkaqczjvd1x
-	 4/Dx8mN0vVciL4y2QsSTLr7+eChBF4PcFfo1qdR5Ia4+016CJSIWqzGKSyef0tg9mtZGI
-	 DMdUzJyDCIbmiwPAx1WcfJqA75cOPAms/9osik9CFHz/PmgQZjconHivK6QV1W6jsIA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=idHWYPumru9E8eUEsbTnG7m5cr0Qeebr13UTD3g+dNk=;
+	b=WBuWedcboSMvrCayMq7kCzMpeDgzP+h3PvxZ34F9ZmrqRUK5X+0jGy8+AHGdUhExE2/t
+	 MUYc1TOgbXb2LPkuGIvnlptQ3pbtwrFoY71MufjCtc62U9mYwOJLy7QtnrK88kI7tn4Kf
+	 DhIG36MtqeDV2As3zsgvfY7HskwCaEQvfdpY0vmF3ov9acHytHVerBwbCIUUWK9ta2L9A
+	 YCt7ifJWGB3z15eqTEHKhJxvEsk1rzOgm/42/qcF8Kg+SO0rugEeGU7sL/2TCMqKU6nvh
+	 mNuCawCeDOCqFzHjmafo0hC4Ly0/s6OOR4mO5N6EGioGS39AlCSeJEBEiE0MYyK4Zag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=EKNhbxkk;
-	arc=none smtp.remote-ip=209.85.160.173
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="kI/JEfWF";
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20A85606A334
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:42:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20A85606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60153606A33A
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:44:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60153606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=EKNhbxkk
-Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-5365d725440so21963381cf.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:42:32 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kI/JEfWF
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-492690dd5daso1808736f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:44:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1794606152; x=1795210952; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=RwPRyHP2zyVmejGR1uh4JtlvqhjIfEODs3w+QBRfcJQ=;
-        b=EKNhbxkkQMORETffHCHxv+E20muavs46wHH6TSQgkwOKnkMBWgo3BRqE9adDNYWjJy
-         zQvDt0u803Js/yQ/xoqMXeSOKFrPFOOfSJoo4mM3wToNSHCQYLMW01UMv2NrALxHTu5h
-         1BKsWm9UIk97Oq6GlYqwEE9cIn2GNrup/GEMawiM0oNLiEcTbAAlcoNRt+Y3u+jnhl7q
-         Ff+CjlTIZlIH6YG34N3i7rGeKp+IjYW/FeYl20DzdxfeXsbexBmN7BiSt5uKr6EoNKuM
-         /dW15GIGFRQ4M8aVHf6ioFgdIR2GphR1luRLbU/sLdpNwfOidADbdAlqrJzVjjLlQ4ap
-         SzmQ==
+        d=gmail.com; s=20260707; t=1794606276; x=1795211076; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=idHWYPumru9E8eUEsbTnG7m5cr0Qeebr13UTD3g+dNk=;
+        b=kI/JEfWFxnNd2OdQAFjZk6WGtBuxQ0b2J1AxChRphTz9LtqA+crMd6d/JSq2A4uEvW
+         8xEn8XPjVKMiXFOIWmMKfD7MxNh+Bxuqn7hm+udWlxQdIzQXr7ZNCbFOydxEiXQ7F9uc
+         zJwHZQR6kplPB0GxYj/ofAShObktk2YAAe8tx0E63/rUUtRWwGhQwJbTifwqsJkfT6IK
+         4P9oXauZi3svoArETQAU2dnOgAqvKCFtIGvakO5vosGIW4BIqJp2Fu8WCFu4Z3m//yOX
+         KmxHY5pZuciNqybfUReUFYuEiDGadUqgzzIPQVb+O4v1agvHqo28BTQztGYreMzNSdBv
+         gNBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794606152; x=1795210952;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RwPRyHP2zyVmejGR1uh4JtlvqhjIfEODs3w+QBRfcJQ=;
-        b=VjQJuJTFj06rUIyl0LW/vc8Fw8Hswn0KvXcUK7DGKA5f/fC3Am0n6ASkFtVnW2Poww
-         93j7ZOj+j309tWmniZmeHh7dcSHU/Glq+KBiCPkt+0EYqVmZRpJ10BQBWkTuRiz0A+bg
-         ZASRrykV1vnN4esuicA/lQmFDSeW9phzyJf6P9WseMyGy4NNy6q+N5Ww7uKL4wTMqwWO
-         c3cIciiKuHgsPu+N4TjsGqikoxHNFl1NtljfzOrg4gXXP9ZlQ1cMOYQ4IjLWmEDzt/Lw
-         0gedmnffbSCO9c/BGXFHXCkgKYA4kZHs9i/xOwziBXOkfpSZIfJ4NGARsTDS3ON0Cejn
-         P/rg==
-X-Forwarded-Encrypted: i=1; AL+hErEzFTH98I1uLbEt4+SLX6+Gr1rzIfpgbwlTk+GnN6OH+a2+R3s3E1cyPAz0bIaVeGUubBMAsASEGinmC+0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9CjvKlFVT4jtZwpXwDRSTo8xXM1zs9nC4fgVT1wDIfe3STef9j
-	aQInR+xlwruJfs8nlx7UhKQW6y4Q8JCpZa2ra7OrvUql/CxFkaH+zr0LVgA/0CA7r3I=
-X-Gm-Gg: AYBFou0UdaOAFFN7zjo1aEIXtWDMG0YcgLbtw/xmDT3C/OOm2S9ipcl+59pjNh+9J8t
-	eekdg/6ihTWckWvFD6h4liohnoNX4TbDwtBOyzAOrM3eCnAzssAxl/7V4NkuWCHsbwELmZb1Amh
-	tOdr5iGqaxwBcrc68doPODLDI0KjM4556TJtNPINMrkP+uFHFCyAFswrVOLLJYLGlFeElx/saLI
-	ZKyZuu30gWLJYTZX4Gq/fKo0kpJeI8sLRiAUej9fLQ+GvJW83XLVwZ7KD/5rcwG/FeoIJqiEvzP
-	Azdvcf3eImPpoE/JQU2AzLS7BVA9EtDYHtc3VmD+0eASd1kwSs4+IIgkrkO28OkJzNBRhz8Htsz
-	BrB7RU/FtHKs3MV9eVvPf63rI3ytq4gQwuRNc3FmXjgPJwUlmKH8OrKTAP2bnxOqODfczpnYoB7
-	ReAWfT2tGFxC9Z3+yPgD8hrRic7Nt1W265StZPyS5vBffyD7Qszc71fi3ejTRAOnHMZKFwkwgnl
-	Nlb+46VINBXSwn78YsWPoBbOWjy2hyB0oXcKy08oafdwCEhpC/6nxeDwYb2X3kKhd4ObjvSK9Wu
-	872cJzSRBDq3RAXhAj9NoJx+48+rUlAonV8LrEgGxxoLosAPogrZIxbUB9Puq71s9zIhk6k7g71
-	9DZYdkBE=
-X-Received: by 2002:a05:622a:598e:b0:536:566e:6b52 with SMTP id d75a77b69052e-55ac7564a85mr62222541cf.27.1794606152109;
-        Fri, 13 Nov 2026 13:42:32 -0800 (PST)
-Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55ad0349423sm27363181cf.7.2026.11.13.13.42.30
+        d=1e100.net; s=20260707; t=1794606276; x=1795211076;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=idHWYPumru9E8eUEsbTnG7m5cr0Qeebr13UTD3g+dNk=;
+        b=iknSa16SxRIbeAIdkvHhETEaB6D/qd+aktzORqxhZjfAyejBSvA76gmlpraEIiQivn
+         Mv/djuGEfmvI44dSuMnDJXXRDGMifR7yMFwcd8hGFz/535boNqjCnWDHTQZSaUQDjRDS
+         3Fmr3CNyYwI3gUWobI70JRUZV3JnSmEg24/NKqvWUWWWDOqMLs5q3I3GjSUnZCQUDKb4
+         96VfxdwqUjvZY4MbWoD+8nLnjjLe1UIpUKBmFVflki0q13UWqP+4iiKHWXUOjryaPI3i
+         Uzt0Mw4bqiTJ9go8T/A1HCL7aIxPEKPgRYlXU8LMDYpioezcCtUn1lfYF1K+7C0qkWhd
+         o2/Q==
+X-Forwarded-Encrypted: i=1; AL+hErFwGPr+1xwk56dM2Iejp7IkgXn7mbw3CB+Ya1suoudrK01c0C6UyRJvsL81xfy15c56Un0oq2tU//kINnw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/DAexp8rBlPxaBswiKrAxQTfa3bARKIKJJCG3TRJRT0tYffwFR
+	59OowKvRgHlBtI+05h0a1NL4MwrdWVfLMJ52dU8DJsNXEX1kh5SzDK+Q
+X-Gm-Gg: AYBFou2ympBmAjRitCa6akjC6pahZ+LwSX8BGWLMhkkV1paetBLAgQ2RouG2sdCEjMz
+	P4yzJN6nz7JIHdFFBmm0JDcU2Gep95NgMsfvitTWzYAXiWQR/cPzb/dntnYQKwizSFBkVEHL2VW
+	6XIabm9yM7F1wYgT2cE/hF820tDS40Vy3HAD8uDFYQA3hPvUvWuzWTSwKwLVpB+VJLFUoA26Re/
+	phi0nEcYIwgK08KjNZy1OXdmbtdqM9lkPTAB8qCX9SQWPsFTzpWJHGWv9xg5fcxNNEs99egW2xS
+	mxiTwLs/kfxB0zzAauxWvewgfoL2jy+B4mbZg8hu6GT/DcFXqE2V0Sx+TKV0EBsazPl0zuaXrd9
+	IsQathGjzcspKtyWn2+ow7CuXV7HMcV5TFyYe32zyjHgyaa/GKXGs8euXFzdLPAar/YemONnbPE
+	duNwvp8kf+2OjNbEdbzNOgK1+7WOk3Uv06Ged5sUtIyl6NNQx+gKinj8Gj8wbSlInAEBipBy2bs
+	4fKGBYzwWqvAzYatdLMkwcCxMgqKkt6vlLn4EW5R4eWLjnBsPHeyxPBIhoh2HQl7zszlgs2xh7+
+	4D33+mGLvY1zIMFVotLPecC9SbgttVhC3ULxXxyA9C26KyyQAQ==
+X-Received: by 2002:a05:6000:993:b0:48f:bc59:ab9c with SMTP id ffacd0b85a97d-49c6fd932f0mr8024260f8f.12.1794606275654;
+        Fri, 13 Nov 2026 13:44:35 -0800 (PST)
+Received: from vivobook-s16.fritz.box ([2a02:908:e843:f280:6cae:291b:a1:8362])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c8d286480sm11644595f8f.7.2026.11.13.13.44.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 13:42:31 -0800 (PST)
+        Fri, 13 Nov 2026 13:44:35 -0800 (PST)
+From: "Ingo A. Kubbilun" <ingo.kubbilun@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	"Ingo A. Kubbilun" <ingo.kubbilun@gmail.com>
+Subject: [PATCH 0/2] arm64: dts: qcom: Add ASUS Vivobook S16 S3607QA
+Date: Fri, 13 Nov 2026 22:43:39 +0100
+Message-ID: <20261113214424.220241-1-ingo.kubbilun@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,77 +101,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 01/15] hugetlbfs: fix integer overflow in fallocate()
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>, 
- Andrew Morton <akpm@linux-foundation.org>, Mel Gorman <mgorman@suse.de>, 
- Andy Whitcroft <apw@canonical.com>, Miaohe Lin <linmiaohe@huawei.com>, 
- Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>, 
- Hugh Dickins <hughd@google.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Vivek Kasireddy <vivek.kasireddy@intel.com>, 
- Dave Airlie <airlied@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Peter Xu <peterx@redhat.com>, 
- Breno Leitao <leitao@debian.org>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Sven Schnelle <svens@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- Gerd Hoffmann <kraxel@redhat.com>, linux-doc@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-s390@vger.kernel.org, 
- luojiajun <luojiajun3@huawei.com>, Josef Bacik <josef@toxicpanda.com>, 
- stable@kernel.org
-In-Reply-To: <20261028-fixes_hugetlb-v1-1-a0a033db180f@kernel.org>
-References: <20261028-fixes_hugetlb-v1-0-a0a033db180f@kernel.org>
- <20261028-fixes_hugetlb-v1-1-a0a033db180f@kernel.org>
-Date: Fri, 13 Nov 2026 16:42:30 -0500
-Message-Id: <179460615000.482102.14809359037930927808.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+Content-Transfer-Encoding: 8bit
 
-On 2026-10-28 21:13 +0100, David Hildenbrand (Arm) wrote:
-> hugetlbfs_fallocate() rounds the range end up by adding hpage_size - 1
-> to offset + len. vfs_fallocate()'s existing overflow check only makes
-> sure that offset + len does not overflow.
-> 
-> Once we overflow for valid endpoints near LLONG_MAX, we can get a
-> negative temporary result that is then converted to a very large
-> huge page index.
-> 
-> A one-byte allocation ending at LLONG_MAX can therefore consume all
-> available huge pages. Pages added beyond LLONG_MAX are skipped during
-> inode eviction, leaking them and triggering the BUG_ON() in clear_inode().
-> 
-> To fix it, calculate the end index in a simpler way that cannot
-> overflow. This also fixes the signed overflow reported by luojiajun in
-> 2019.
-> 
-> Backporting notes: without commit a08c7193e4f18 ("mm/filemap: remove
-> hugetlb special casing in filemap.c"), remove_inode_hugepages() must
-> include the final huge page during truncate and eviction.
-> 
-> Reported-by: luojiajun <luojiajun3@huawei.com>
-> Closes: https://lore.kernel.org/all/1554775226-67213-1-git-send-email-luojiajun3@huawei.com/
-> Reported-by: Josef Bacik <josef@toxicpanda.com>
-> Fixes: 70c3547e36f5 ("hugetlbfs: add hugetlbfs_fallocate()")
-> Cc: stable@kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+This series adds support for the ASUS Vivobook S 16 S3607QA, a 16" laptop
+based on the Snapdragon X X1-26-100 (X1P42100, Purwa) with 16 GB RAM.
 
-Reproduced the BUG_ON() and validated the fix.  LGTM
+The device tree was derived from the Windows ACPI tables (DSDT, PEP) and
+the existing X1 laptop device trees (Vivobook S15, Zenbook A14).
 
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Working: eDP panel and backlight, GPU (Adreno X1-45), HDMI, USB-A,
+USB-C, NVMe, Wi-Fi/BT (WCN6855 NFA765), keyboard,
+touchpad, lid switch, battery, speakers (2x WSA8845), headphone jack
+(WCD9385), efivars/RTC via QSEECOM, CPU frequency scaling.
+
+Not enabled yet: video codec (iris; the Windows firmware is rejected) and
+the camera.
+
+Note for review: the CPU thermal zones get 90 C passive trips with
+cpufreq cooling; the SoC dtsi only has critical trips, and without an
+EC fan driver the machine reached its thermal limit under sustained
+load.
+
+Tooling: the changes were drafted with an AI coding assistant (Anthropic
+Claude) from the Windows ACPI tables, the existing X1 device trees and
+boot/test logs, then reviewed, built (dtbs_check clean) and tested on the
+device by me. The laptop runs it daily with Linux 7.3.3; this version was
+tested with next-20261112 (several cold boots, all hardware listed above,
+without clk_ignore_unused/pd_ignore_unused on kernel cmdline).
+
+Related patches sent separately: panel-edp entry for the BOE NE160QDM-NX4
+panel, the qcom_scm QSEECOM allowlist entry and an ASoC line-out jack fix.
+
+
+Ingo A. Kubbilun (2):
+  dt-bindings: arm: qcom: add ASUS Vivobook S16 S3607QA
+  arm64: dts: qcom: add ASUS Vivobook S16 S3607QA (X1P42100)
+
+ .../devicetree/bindings/arm/qcom.yaml         |    1 +
+ arch/arm64/boot/dts/qcom/Makefile             |    1 +
+ .../dts/qcom/x1p42100-asus-vivobook-s16.dts   | 2137 +++++++++++++++++
+ 3 files changed, 2139 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/x1p42100-asus-vivobook-s16.dts
 
 -- 
-~Gregory
+2.47.3
 
