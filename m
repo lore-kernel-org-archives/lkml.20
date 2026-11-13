@@ -1,60 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794743018;
-	b=p8cyG1gzfB7h6ouRcYOyvafmaYqAKgIc7bYXIbwvO1qMeGSekoXzbbE77nBj/JEHaBxJ
-	 92r735ix+eJFElxI6uYuDwezSEv0fHyl6hKFqB7WivrLIDWVFrGzeSHiIiv1jHmtSaBoU
-	 kp/KpXQEBPRHQ/aup33igsEMLjTGpLkgViI21GwBCts0Ej7TmvGokV0pYkxJQL3GI6GEY
-	 5tJniJx6Rnt+FpXMqTYvmRpyoWVKcpjfJdkol6gj/aBtTTfg9lKGAtGAZFvwx+nASbq20
-	 tDv5BFzmnD0+n0+LnPDba+AeiPtHSZo3f02eEiIj8HAjJy7AfBxNtyPzOhdZXdgwH5Q==
+	t=1794743019;
+	b=qM/i7wyH3M1KJ5V3fjXPsoJaQ/I9sQEgZ8a1qdCsN265Eoqy5e7/tY624tJp4Ftf48ai
+	 YYK88euuH+LUZndf2gY61QFZuyboiQrL/5UPprn2nJPMtPnlp608h5BJcT7EVZl8yjGE6
+	 jmathH7nvAjEdf8PSpOgtJD6NYV60670zs1s0S4TzXyFhexLOb9taOZWe1kVomz0KqBxK
+	 0Wo+nA2EK4rQoqRD6qcobzI2JkWntumOmzCjB894iOeIN5GYUIcnr3waZuVz5mW7ZgASQ
+	 SIkFEoyWTNSAOFwbR+TcCSaKq8515O/owHIalzRWfPNSxASaaAkjNxFaFySrIJVpDwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794743018;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794743019;
 	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
 	 Subject:Message-Id:Date:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=IDJZnOK3vJIvUBVAsm4+nAHt9LxvFnq9d2VS6waLUKw=;
-	b=IJyOmgBv5W0drtouBUzT/DXb/mFagi/NY9QI0C9KJ/dJ1WPh91IcrBJEBycf7p5HRyJB
-	 WMp8U/JyCwUDXRFCdXeaTkIf0eDgvV2dJnBwxRj9liCwqMhkVaqN4MR73bVdqZKG1vis/
-	 teAEXXkA7j6dFFd+j8u+SDdRAjfKEZDyD8L6hC2BT/CdKJiEPo0LO14rKdP6xGK9SqySd
-	 tL5Bs5d4UiWomp70nageIQXxbLBP47l+47rDCargRTHLuu8j0Q6FgOHgFuXjuSglm5Dr1
-	 dYLWsznnVmCYPKF/zeAgcztkrMS2NA8L2WCb0RmpNclHwicu3uN7XDzecgmsslgWvoQ==
+	bh=b8sO3FhCekJqG8gkayZyke9pQ9N10NbWdbOeXNfeb+c=;
+	b=CKhWed9pt4/SRAmujk29xeuFL3iR665onNNxnnhL+qcNEOTxQWCluRQ0M2UDSUQiXnYM
+	 lxUCXb/Y+A+IT/VgFmr4UOctbj4QaxEUeBcfPT9EB+4WI6aHlsewhbVU6Dd+eqCSOceMe
+	 iJcadeaN8jV4cdj7rDWS94RT18Iql/5l4UolGd/GfY2YVENSlHG8uplVBfKw7zngPrFX7
+	 GMKDBZISoeBkaDv1cdd/433/Sj7SLxvfM9sXIpxgGovPUg43xUbn4+CBheIuYNjP3apYy
+	 9mOB6a6z82x7KhrOBinkxgm0qlGyIyuatKVw/0nfukPENrXvaKVAl0xA5zmwFLZqz+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n4zRGnXs;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nhGzO94Q;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EDF3606A323;
-	Sun, 15 Nov 2026 11:43:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E8B6606A32C;
+	Sun, 15 Nov 2026 11:43:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n4zRGnXs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3ECA1F000C5;
-	Sun, 15 Nov 2026 11:43:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nhGzO94Q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8D661F000C4;
+	Sun, 15 Nov 2026 11:43:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794743017;
-	bh=IDJZnOK3vJIvUBVAsm4+nAHt9LxvFnq9d2VS6waLUKw=;
+	s=k20260515; t=1794743018;
+	bh=b8sO3FhCekJqG8gkayZyke9pQ9N10NbWdbOeXNfeb+c=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=n4zRGnXsD5P0kob+1C3053DbdoCZM0vPyIV4LS3m2rJvYB0AqVLtBmeRvxS9/5I3H
-	 tOqpiQTKhLtZRceh71kPrhdpAyFLM0vX9rMVzT71VeHayLWPiOHPTwXrfbYQ7uKj2Q
-	 HVACaybOZdQkuqbdnLyXcG7MvzOf2JBwnnNDFJJC7DJ6aJo2WLp4cpNPpyop9Tav/r
-	 02MWs3W5Fa2lLkKun66UWBVR4S4N2ErkNX958qoC9zKSw1ItbTerchlMElYP1Uazlw
-	 VU4sjwgxyn8LVGP4ztLGMkJZHrchNXmguq/ldy0vw2EGY1X/P4Ds522oxoBBmT6ZUj
-	 HchRXLDSCTvrg==
+	b=nhGzO94Q4SS1VvHLayaaZxBOFzi7kRuCPkIWXL8HlHJuCWzng0F0rSy598bXDCcrw
+	 D4ksi2c5GztShKF07qFidHpj1HdHVb27xRxwZ9726uXBeiPbQgSHpjMaUtpYIn33SQ
+	 cv6RrwmlKdYs2B5GQyyR5joqscb/jRoeH6sp4/+ejju17O275ffF8Gj7C3fSk4JISC
+	 DgdgW/8Tt6KmtAqRohmfsoKZBv4vZd70OeDnI3LcRrUAVkLPonOjvKs579WIW+UbMh
+	 HrEhCPH/rZnvh3TyV+nThGYSyRzfQKSmHcOQrsiZ52aupb6X9JPkB9Y33eYpysMtOG
+	 smu9KUozBjccw==
 Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 04EA03366BF3;
-	Sun, 15 Nov 2026 11:43:36 +0000 (GMT)
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 0E6D13366C01;
+	Sun, 15 Nov 2026 11:43:37 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: cezary.rojewski@intel.com, liam.r.girdwood@linux.intel.com, 
- peter.ujfalusi@linux.intel.com, yung-chuan.liao@linux.intel.com, 
- kai.vehmanen@linux.intel.com, Jude Gyimah <jude.gyimah87@gmail.com>
-Cc: pierre-louis.bossart@linux.dev, perex@perex.cz, tiwai@suse.com, 
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261104135142.3723042-1-jude.gyimah87@gmail.com>
-References: <20261104135142.3723042-1-jude.gyimah87@gmail.com>
-Subject: Re: [PATCH] ASoC: Intel: kmb_platform: select BITREVERSE
-Message-Id: <179460491917.448985.14839714163958999777.b4-ty@b4>
-Date: Fri, 13 Nov 2026 21:21:59 +0000
+To: Srinivas Kandagatla <srini@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, hyunjungg <hj351016@gmail.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20261106114628.2555176-1-hj351016@gmail.com>
+References: <20261106114628.2555176-1-hj351016@gmail.com>
+Subject: Re: [PATCH v3] ASoC: codecs: wcd-mbhc-v2: cancel button long-press
+ work on deinit
+Message-Id: <179460985134.590303.9887273996770052957.b4-ty@b4>
+Date: Fri, 13 Nov 2026 22:44:11 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,17 +67,17 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1105; i=broonie@kernel.org;
- h=from:subject:message-id; bh=8sAnkIpgW/EySCqNp8v5gaRusRx3+qfgeXz9uO2jDJ4=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJ+znp+8GZh1pWO/1UT5zv2W6y9056xMmz26eW3j9WUy
- dQxlf7n6ChlYRDjYpAVU2SJy+J+WV/yeg3fwYVtMHNYmUCGMHBxCsBEdoUwMrzsy3+4fVOxiGl4
- 47R2B/b4bbGdMcfe1WnuOHA27s+L08EM/ytDHz26mHLjJ6NC6L/D5682f++PlZT/cEqs5eN8lmp
- +aQ4A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1147; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=h/92pmD4OYZXWGmU3Qyf3t7FfRviTjms/y3AfH4XIWM=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJ+znrxpNNVWMRHuyf4973wEzd6j5dbpp7gWb+xNfCT6
+ KX2qL2bO0pZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjCRGDNGhvMOJ5e8e5Xw9pZz
+ v/quhx22N1rC1ugZyT3fs0Kn6cCypGkM/8x9RU/8LtN8eqz+19XvyWG87j5BV4/fspWy5Vi/7Yj
+ vCxYA
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Wed, 04 Nov 2026 14:51:42 +0100, Jude Gyimah wrote:
-> ASoC: Intel: kmb_platform: select BITREVERSE
+On Fri, 06 Nov 2026 20:46:28 +0900, hyunjungg wrote:
+> ASoC: codecs: wcd-mbhc-v2: cancel button long-press work on deinit
 
 Applied to
 
@@ -85,8 +85,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: Intel: kmb_platform: select BITREVERSE
-      https://git.kernel.org/broonie/sound/c/098ca46ed476
+[1/1] ASoC: codecs: wcd-mbhc-v2: cancel button long-press work on deinit
+      https://git.kernel.org/broonie/sound/c/5f702565496d
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
