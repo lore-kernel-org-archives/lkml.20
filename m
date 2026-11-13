@@ -1,58 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794547040;
-	b=fNsF0klqGRT+5wh1GW7XGlzJG/Jhz5qOdDN9jsz6pBZoIodZlFRwv/jSVQaf37YhW7ES
-	 HMNVajpZT5hGKMMERyrgwn3KM2zQj3NhDjVjb6r/OfroPckdDfJvSgVPYHN2MTS/zZMqS
-	 ngKjfGqBP3tluxcr6GcNtWnGVJKvliYP6aMX1+y427vJVC+ap3kZopCMgbd8TMvaPFJ4R
-	 XYNfCyN0U6QXEqcwy7hHp4G5Ob4cOgLrlsGUdvHqXpLUxZBqml/Ft8ucPzdve5Ykx+gSN
-	 b6kW17VWkQjPfuo+cQMsDRmWqeF2J+R8h8DP9nUUE04w6LqySwGT73HiqbgnfAL+5XA==
+	b=hmVC+llCdQOv1381PjvXLNqYSAp7A/7lBQHe9M7B7VZk0E246BgHiAwMLRiV44Hj/IR0
+	 VnORd+2ZhP53jelR7AMLiFO7/Zsv2YxOfqEcVQ5eer5iK+o1tAT/yKS24pHRNFsjXCgPD
+	 9NPlEeufhrylSIBNii/i1FlagEfVIiZfQXVzz6Pcv2VyEpAGcXKVkNShdLL6XQ+M1Wrc9
+	 XDb2BO4NdGGiqCug6fC4MY+XW6CFmTDNyNGe8sJEDS2SC1tCfW5E5gFR83LKUZ/vTD/o1
+	 JFiejaR4nTW4xf/v7Ohbc8XDTTExLt/d6UaJ/amdKePOTtZAfGYvUMlDf3TG9LjiXBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794547040;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=O0KFYW6GQeuL89YBqW1qiLu+Kr/wUVvd+oaMVAmTWFA=;
-	b=QhFWfkMlMtrWtUW8r8Y5ExHZhm3wjVwEVSRpi00EmnhUpeRUl/4duTVOVLyOpETWULY2
-	 kitjGpabziAqBUHsk3LRr9BhaRPGHP83eNAgB+iAXoOe7VwrvbqbvI4y6GygqIfXu9uBe
-	 PjYSjimZU8L2GS3e2lOElmR8E+ibFwzz5z19Ui6/68J/5krwJ17QVYbl1eObJLi0Ufma+
-	 mUc5l0EWxF8d5UEZuIiiD7HunfYDZWrEa0o3emRFvUxSKOHKfjwr5r64zxIfUI4YMimyp
-	 m07s+S+USYuv7+Kou8jvCIjb6FQefk3lLLKIlNyxLsFIookohjZ+7+y/jLQfBl25oEg==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=HEvMyrDAXRSzNt1aAK2qvgfoj7RJAzXbHjO64hkCzVk=;
+	b=kKCnMtAfsELJMp3hJs+z+hrlve2KYv35in8v6pyPwnmsip2j8GRvaoODmiMWveVHG568
+	 WFMk2n3ezxc6bNlhsLCsZ5jdZjRKMSZCLhz4UogS5OKIHtzTckZma6ccBZkRbQKRvoV6u
+	 NbHcOdxVJsq32kyWM1NI2QcDydnGK37EqAFVnltkdD2MxC4e/T4pPZunMbSNQx9fUBuEz
+	 soPJtkjgL5HQ/IMYbhQD5nZsTOEHiw51VTx6SdXWWAeX0KcE+PCPljfsCOIYVsi+XmKfw
+	 sTONdpk0Ki/qzRd5WO46vMPhCotsoaHF86bYVJPZ10cnlnFxutcwsTH0jk69FguQ0fA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DY52BRJq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dWOGVOub;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38364606A321;
-	Fri, 13 Nov 2026 05:17:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BADBA606A339;
+	Fri, 13 Nov 2026 05:17:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DY52BRJq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 603121F000C4;
-	Fri, 13 Nov 2026 05:17:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dWOGVOub
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72C2B1F000C6;
+	Fri, 13 Nov 2026 05:17:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794547039;
-	bh=O0KFYW6GQeuL89YBqW1qiLu+Kr/wUVvd+oaMVAmTWFA=;
-	h=From:To:Cc:Subject:Date;
-	b=DY52BRJqtabD4Q+zldmRe3wCwGrf8R6w8sFAQKSmpKROsaMSzyoGsVSUAHcAJWXM8
-	 bmsqZgCqc0rnuMdF+sr8bPknfcoMOqd4upTCiSZEjG7lYB5dc+YvBLnin78hTXsS4Y
-	 2b0d41jVaGi05Qo65rhPyHd3VdzOcMgf/fMDcCjOg8x2iruEXncA0sAz1U7x+XS8sn
-	 pUrDZFx+NdXueHdq+hFgkNVB1/QwqD1KIQWeaijAmGVA98TI/LX4Kxtph2JG/a8+SD
-	 KcLQDBIAbhnj36SiS0n01TKZG+3qC+tngakpUaHcQJURT5AtP8PBapfA4tvvtMRM/B
-	 zDttYkoi8uYhg==
+	s=k20260515; t=1794547040;
+	bh=HEvMyrDAXRSzNt1aAK2qvgfoj7RJAzXbHjO64hkCzVk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=dWOGVOubQmYgYdR8aCldbmFLhmQ08Gh1b0R0l21HrmWv9XzbUVfELJAKkZOJMPv8K
+	 WDtTZkH7Bg7kjkBoPZHw7iUO8DCJ4kVhsT7U3ZI4DxMdJoXHixj0vaF7ZERLCvrdBV
+	 dEs5fNKnfHyI5zQSXNppadSq1zgr/jGmYbZDlgFN7tUfRDhieaAYsJF/EK4aj9P1g5
+	 xoQKRV81NdW3OoGCUPbqyL8M9wLI/bFo2APYa9Klm007GVSsfzEag76GYDiEzUev0m
+	 2CTXe9hFU5BlL+1rB2439VlUpsSb1uGYzwisi8w+I5egUqKlvfNIVSgYbKv/kaV1fW
+	 ZT3uHeB23RTMQ==
 From: SJ Park <sj@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: SJ Park <sj@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
 	damon@lists.linux.dev,
-	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH 0/4] mm/damon: add lru-active probe filter type
-Date: Thu, 12 Nov 2026 21:17:06 -0800
-Message-ID: <20261113051711.89274-1-sj@kernel.org>
+Subject: [PATCH 3/4] mm/damon/sysfs: support LRU-activeness based DAMON filter setup
+Date: Thu, 12 Nov 2026 21:17:09 -0800
+Message-ID: <20261113051711.89274-4-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261113051711.89274-1-sj@kernel.org>
+References: <20261113051711.89274-1-sj@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,95 +62,30 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The LRU-activeness of folios is useful information for understanding and
-optimizing the system.  DAMOS ops filter therefore supports filtering
-memory based on the information.  Using it, the information can be
-extracted in the folio granularity.  It is precise but expensive.  DAMON
-probe filter is the complementary way for getting the information in
-region granularity with much cheaper cost.  DAMON filter does not
-support LRU-activeness based filtering, though.  Add the support.
+Support DAMON sysfs interface based setup of DAMON_FILTER_TYPE_ACTIVE
+type DAMON filters.  For that, wire the type with a new user keyword,
+"active".  Users can set up the new type of filter using the existing
+DAMON filter setup interface with the new keyword.
 
-Define new DAMON filter type, DAMON_FILTER_TYPE_ACTIVE, on core API
-(patch 1).  Add support for it on both vaddr and paddr operation set
-(patch 2).  Extend DAMON filter sysfs ABI to let users configure DAMON
-filters of the type using a new keyword, "active" (patch 3).  Finally,
-update the DAMON design document to explain the new type (patch 4).
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+ mm/damon/sysfs.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Test
-====
-
-Confirmed the functionality like below.
-
-First, start masim [1] to generate a ~476 MiB hot memory region.
-
-    $ ./masim.py run --config_file ./configs/stairs-500mb.cfg --repeat 10
-
-Second, start DAMON to monitor data access and active memory ratio of
-each region using DAMON user-space tool (damo) [2].
-
-    $ sudo ./damo start --target_pid $(pidof masim) \
-            --probe --probe_prep set_pgidle \
-                --probe_filter allow pgidle_unset \
-            --probe --probe_filter allow active \
-            --probe_weight 1 0
-
-Show the monitoring results.
-
-    $ sudo ./damo report attrs
-    heatmap: 00008[...]82222222222222222222222222222222222222222222222257777789999998888888874444445[...]8
-    # min/max temperatures: -1,580,000,000, 100,002,000, column size: 62.841 MiB
-    probes
-    - prep: set_pgidle, filter: allow pgidle_unset (weight: 1)
-    - allow active (weight: 0)
-    intervals: sample 5 ms aggr 100 ms (max probe hits 20)
-    #   size         address       age           probe_hits
-    0   253.047 MiB  85.984 TiB    15.800 s      0 0
-    1   4.000 KiB    127.984 TiB   15.400 s      0 20
-    2   120.000 KiB  127.984 TiB   15.300 s      0 0
-    3   1.450 GiB    127.407 TiB   11.300 s      0 0
-    4   498.738 MiB  127.409 TiB   11.200 s      0 0
-    5   500.273 MiB  127.409 TiB   11.100 s      0 0
-    6   502.055 MiB  127.409 TiB   10.900 s      0 0
-    7   461.926 MiB  127.411 TiB   6.500 s       0 0
-    8   351.754 MiB  127.410 TiB   1.600 s       0 0
-    9   497.930 MiB  127.411 TiB   0 ns          1 0
-    10  8.000 KiB    127.984 TiB   0 ns          6 0
-    11  476.340 MiB  127.410 TiB   1 s           20 0
-    memory bw estimate: 0 B per second
-    total size: 4.909 GiB
-    record DAMON intervals: sample 5 ms, aggr 100 ms
-
-The second (idx 1) 4 KiB memory region is not accessed for 15 seconds
-and the page for the region is on an active LRU list.  The last 476.340
-MiB memory region is accessed for each sample for the last one second as
-expected.  And nearly all pages of the region are not on an active LRU
-list.
-
-[1] https://github.com/sjp38/masim
-[2] https://github.com/damonitor/damo
-
-Changes from RFC
-- RFC: https://lore.kernel.org/20261108191615.113362-1-sj@kernel.org
-- Add test results on the cover letter.
-- Rebase to the latest mm-new.
-- Drop RFC tag.
-
-The test section and the changelog can be removed from the final commit
-message.
-
-SJ Park (4):
-  mm/damon/api: define DAMON_FILTER_TYPE_ACTIVE
-  mm/damon/ops-common: implement DAMON_FILTER_TYPE_ACTIVE operation
-  mm/damon/sysfs: support LRU-activeness based DAMON filter setup
-  Docs/mm/damon/design: update for DAMON_FILTER_TYPE_ACTIVE
-
- Documentation/mm/damon/design.rst | 1 +
- include/linux/damon.h             | 2 ++
- mm/damon/ops-common.c             | 7 +++++++
- mm/damon/sysfs.c                  | 4 ++++
- 4 files changed, 14 insertions(+)
-
-
-base-commit: e055da336413b651d1e23d438bb5430f9350d3f8
+diff --git a/mm/damon/sysfs.c b/mm/damon/sysfs.c
+index 70a4b64fb8ea9..779c98205a94b 100644
+--- a/mm/damon/sysfs.c
++++ b/mm/damon/sysfs.c
+@@ -1011,6 +1011,10 @@ damon_sysfs_filter_type_names[] = {
+ 		.type = DAMON_FILTER_TYPE_HUGEPAGE_SIZE,
+ 		.name = "hugepage_size",
+ 	},
++	{
++		.type = DAMON_FILTER_TYPE_ACTIVE,
++		.name = "active",
++	},
+ };
+ 
+ static ssize_t type_show(struct kobject *kobj,
 -- 
 2.47.3
