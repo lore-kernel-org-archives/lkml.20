@@ -1,65 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794596154;
-	b=KAT9DyRWNDr92x7AppfnEwu/Td6s2g4k2zFac10cUX/LWHuF7rNyjrxFsDL64l4cmIdV
-	 pkL5iLF68LTIG5M2jTzEKeXsg9bZj6eb78kt+iw11ONghSsP7/OS0qHmoj9ppX6wLjdcd
-	 f2HsFAd5dq29gqRdQ693DwvgjZTR1LJ1Sd56xMbzO/cjBgduLdYQazGr/O+wXruic3kca
-	 JvTD/xQ2CqH7yQy/vTtE1hael/QXp/qC39g/eGFtbt1kJmUn5RVECORne/gb0ny7Ea6ps
-	 xf2YMwufxkfuzwKXobIRbJ7ugYjtKVhJ86WdRAirutLxBK9t1OEmpma05OjzqkFeoLQ==
+	b=RoC7uR+xKQQj66p43nkJGNny5ulvWcWPkxj1iQ8fU7eVrOmuYtPscXL/XwxFQdkW+e1Z
+	 9THXybAafhULPCBWJtJIx+Vn1tAkXNKGk9mBlHMycXFvf6k2p1puiQtL4poAMiS16ygZN
+	 I7kDevpcvzH55cfn0mc1uZNSH1sTYEn82zOi0zxgVJ8Ko7E/xcomTawLBHpX6wCTgvsH1
+	 DVBiLs54I+9LmIbeO/36sTlF+T3yZQ61i8CUCPYuJO4e+MlXHL5JG2tEEFdKeNHpNb0aa
+	 qFUAX/Sc6zVzZOpo77H/7ZNSYmTE2h1zVTJwwBrNna3qL7ipmGuH55XcBZ2BokrHwnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794596154;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=fxZivtYImLr6Xqc2JRNdVpuAoDBsPDg2LZ9fTboQfSk=;
-	b=hEA2farG8gI5cd0dvLcN4m6AihdpKvJarhCblQRq91MVtPF+bLuRCeo4CvTm49WlJBHx
-	 R8/Adi0rjKOyyyP5LAEb8bfEucsVrjFGotpEhAxpJgimCGM59Ea2Nh4gEqYiBp8Z9s8AG
-	 k/6w4KCPUZb+M4VP2MCdIkBpfZ1v4YjHRL16MOsqQ9Wi8QJu0NpBYksKuWkzPf1EcCBaP
-	 bgv/vV/0CtVLHYEwwL4+kmFvRdgxvKlUGB7NxKYKK494aSLGM8bDu2vZ1wRyOmP6AykhT
-	 MPHmE4WK9rq/ySPiWud0qBcGKxW6PuqWhNVfsI1DGqruiA5a24HPTaOam5jmgAvv6jA==
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=/dKIjKxFlwknpbWJVXX/cmtGsbGxhiJgbgpOqLZNO10=;
+	b=xhgw6JW/iQf4yxQGIGlKD/dXlBhEJjb2mtWqMqs9qbl0AGPyYz4IsC7D+4MSxJ+sYWrr
+	 nWJ9UShvjjpf0nX1wkJDxhz33i4ROgh7ejaKd0ghjWje0tJE2cqVOlcvCjeHFrXEDEh6i
+	 4czutkKmL35ozVdlMTrv0wHm1yhtp68TXR4wSfxx09QJNwRbWGJcm0DO1/snPJxObgeP0
+	 ouRDXX0oGq47IJutvJTs181iS1rC6c0C8oyKfU+8C0E59FcS4gzuKgnblo5cRwhEEtTZY
+	 +E/BGBLvk/yKr+hQccu6tI7262S1j4N2o9vUoN9QQfYEcYBV1TpJRaiNF4XXafOJ3JA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ETnR0EYS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eUzhXTUF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22E3260A2604;
-	Fri, 13 Nov 2026 18:55:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22E1960A2602
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:55:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ETnR0EYS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 975551F000C4;
-	Fri, 13 Nov 2026 18:55:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eUzhXTUF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 230F51F000C5;
+	Fri, 13 Nov 2026 18:55:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794596153;
-	bh=fxZivtYImLr6Xqc2JRNdVpuAoDBsPDg2LZ9fTboQfSk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=ETnR0EYSHanmvts4Apaw29C4gph3To2NBD6sFEiBbcTsQWheycc+uYb/dY++sdp1A
-	 ECxfckanNuqbhpUb901h7finwdSVXqd2UuSwmCly7SYG8RD2h+Kil8aDDdTwBRO4bq
-	 AD6P4d0nncRlayyXXD8/5UjhW6k3l/xklDvPYdMPyexM9z4+cI705aFdfQil+eTSja
-	 TfG2dLTXshnpQFfPjcNCLvourYR4coCrwLa5zYQX+5PaFpcMKAYh+8dJX08boweJCA
-	 +y0KSX8VtyWPaWhEB/XouKFIVEe2jI60Q3U9VhHhYDh8sXtZIhtbiVJehwUz0QYuNV
-	 kM+WYAcMtqXYA==
-From: Lee Jones <lee@kernel.org>
-To: Sen Chu <sen.chu@mediatek.com>, Sean Wang <sean.wang@mediatek.com>, 
- Macpaul Lin <macpaul.lin@mediatek.com>, Lee Jones <lee@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Eddie Huang <eddie.huang@mediatek.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Ryan Brue <ryanbrue.dev@gmail.com>
-Cc: linux-pm@vger.kernel.org, mfd@lists.linux.dev, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- linux-rtc@vger.kernel.org
-In-Reply-To: <20261101-rbrue-suez-upstreaming-mt6397-rtc-32k-v1-1-9758f38d7053@gmail.com>
-References: <20261101-rbrue-suez-upstreaming-mt6397-rtc-32k-v1-1-9758f38d7053@gmail.com>
-Subject: Re: (subset) [PATCH 1/2] dt-bindings: mfd: mediatek: mt6397:
- describe the RTC's 32 kHz output
-Message-Id: <179459615032.87488.12726056214378307165.b4-ty@b4>
-Date: Fri, 13 Nov 2026 18:55:50 +0000
+	bh=/dKIjKxFlwknpbWJVXX/cmtGsbGxhiJgbgpOqLZNO10=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=eUzhXTUFbXoKr2sBu5psoSFRm1KZwtj4mV4RSQtAChYoF7VdQMKGUNcu4BnPo5X96
+	 5GAfliIjUAmjKGNJU4TOuZEvLY/XPmoY0hvy6LDVeKwuXTlczoZByg9gQZdGQDy3XA
+	 emo6ethhQEeBB3ZHZGH/sny8QEPKDQbz3DQiXAdUqOM2GrBSSyOaqLOKgFLiIHlYm3
+	 mdSQgbZ3caheWyLIQ6W1OjNYkwpoqSEjLBWIvlwXYyRTgn9GHo4npaCHsAAIbm9lbG
+	 X+8qRQg+D9PF/MNWvikOyRrS3Ltcel3a6AsPs0SEsgbnsSZ6Hr1Cek+TqxrCBhzhUE
+	 wcVqHmKTIAj0A==
+From: "Barry Song (Xiaomi)" <baohua@kernel.org>
+To: akpm@linux-foundation.org,
+	linux-mm@kvack.org
+Cc: axelrasmussen@google.com,
+	baolin.wang@linux.alibaba.com,
+	baoquan.he@linux.dev,
+	hannes@cmpxchg.org,
+	hui.zhu@linux.dev,
+	kasong@tencent.com,
+	kunwu.chan@gmail.com,
+	liam@infradead.org,
+	lianux.mm@gmail.com,
+	linux-kernel@vger.kernel.org,
+	liuxiang.277@bytedance.com,
+	lyugaofei@xiaomi.com,
+	mhocko@kernel.org,
+	mhocko@suse.com,
+	qi.zheng@linux.dev,
+	ridong.chen@linux.dev,
+	rppt@kernel.org,
+	ryncsn@gmail.com,
+	shakeel.butt@linux.dev,
+	surenb@google.com,
+	wangzicheng@honor.com,
+	weixugc@google.com,
+	yuanchu@google.com,
+	zhangbo56@xiaomi.com,
+	zhuhui@kylinos.cn,
+	sidchintamaneni@gmail.com,
+	Barry Song <baohua@kernel.org>
+Subject: [PATCH v8 01/16] mm/mglru: report evictable sizes per type
+Date: Sat, 14 Nov 2026 02:55:26 +0800
+Message-Id: <20261113185541.70203-2-baohua@kernel.org>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+In-Reply-To: <20261113185541.70203-1-baohua@kernel.org>
+References: <20261113185541.70203-1-baohua@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,25 +84,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
 
-On Sun, 01 Nov 2026 23:33:46 -0600, Ryan Brue wrote:
-> The MT6397 RTC drives its 32 kHz clock out of the PMIC, where boards
-> use it as the sleep clock of a Wi-Fi/Bluetooth combo chip. The output
-> is off unless something turns it on.
-> 
-> Let the RTC node provide it as a clock.
-> 
-> 
-> [...]
+From: Kairui Song <kasong@tencent.com>
 
-Applied, thanks!
+Change lruvec_evictable_size() to return the number of evictable
+anonymous and file pages separately instead of a single total, so
+that callers can weigh the two types independently.
 
-[1/2] dt-bindings: mfd: mediatek: mt6397: describe the RTC's 32 kHz output
-      commit: e38ddb5cfa9f9dfa7feac202414d7a4192cc24ed
+Update lruvec_is_sizable() and get_nr_to_scan() accordingly; the
+summed totals are unchanged, so there is no functional change.
 
---
-Lee Jones [李琼斯]
+Signed-off-by: Kairui Song <kasong@tencent.com>
+Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
+Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+---
+ mm/vmscan.c | 22 +++++++++++++---------
+ 1 file changed, 13 insertions(+), 9 deletions(-)
+
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 46be9c7e967c..400f87fc51e1 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -4193,28 +4193,31 @@ static void set_initial_priority(struct pglist_data *pgdat, struct scan_control
+ 	sc->priority = clamp(priority, DEF_PRIORITY / 2, DEF_PRIORITY);
+ }
+ 
+-static unsigned long lruvec_evictable_size(struct lruvec *lruvec, int swappiness)
++static void lruvec_evictable_size(struct lruvec *lruvec, int swappiness,
++				  unsigned long nr[])
+ {
+ 	int type;
+-	unsigned long seq, total = 0;
++	unsigned long seq;
+ 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
+ 	DEFINE_MAX_SEQ(lruvec);
+ 	DEFINE_MIN_SEQ(lruvec);
+ 
++	nr[LRU_GEN_ANON] = 0;
++	nr[LRU_GEN_FILE] = 0;
++
+ 	for_each_evictable_type(type, swappiness) {
+ 		for (seq = min_seq[type]; seq <= max_seq; seq++)
+-			total += lruvec_gen_size(lrugen, type, seq);
++			nr[type] += lruvec_gen_size(lrugen, type, seq);
+ 	}
+-
+-	return total;
+ }
+ 
+ static bool lruvec_is_sizable(struct lruvec *lruvec, struct scan_control *sc)
+ {
+-	unsigned long total;
++	unsigned long total, sizes[ANON_AND_FILE];
+ 	int swappiness = get_swappiness(lruvec, sc);
+ 
+-	total = lruvec_evictable_size(lruvec, swappiness);
++	lruvec_evictable_size(lruvec, swappiness, sizes);
++	total = sizes[LRU_GEN_ANON] + sizes[LRU_GEN_FILE];
+ 
+ 	/* whether the size is big enough to be helpful */
+ 	return total >> sc->priority;
+@@ -5028,7 +5031,7 @@ static bool should_run_aging(struct lruvec *lruvec, unsigned long max_seq,
+ static long get_nr_to_scan(struct lruvec *lruvec, struct scan_control *sc,
+ 			   struct mem_cgroup *memcg, int swappiness)
+ {
+-	unsigned long nr_to_scan, evictable;
++	unsigned long nr_to_scan, evictable, sizes[ANON_AND_FILE];
+ 	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
+ 
+ 	/*
+@@ -5044,7 +5047,8 @@ static long get_nr_to_scan(struct lruvec *lruvec, struct scan_control *sc,
+ 			return 0;
+ 	}
+ 
+-	evictable = lruvec_evictable_size(lruvec, swappiness);
++	lruvec_evictable_size(lruvec, swappiness, sizes);
++	evictable = sizes[LRU_GEN_ANON] + sizes[LRU_GEN_FILE];
+ 
+ 	nr_to_scan = apply_proportional_protection(memcg, sc, evictable);
+ 	nr_to_scan >>= sc->priority;
+-- 
+2.39.3 (Apple Git-146)
 
