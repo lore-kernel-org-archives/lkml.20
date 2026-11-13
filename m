@@ -1,101 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.180
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794577741;
-	b=AgQQH7A1Wk8ut2Kp0O168o2cSQqRUOwgozueAAAnF3hrtmNUWTdhp2046L5ZtgIj1cbi
-	 X13WbqLHQAVhjIcuuODNiLD1H1VYQWNuKZhWWgFeSpzFj/SxAB3Ey4U9NWwOfmB9XYdRt
-	 ieY6QYeTTrvuv878r9hT1Yspt+ShtvTH0BtZWcjX9ml6/hptMwBgAbt2rf/2SARK+Atlh
-	 W1lOok+NUCXxA+wC4uaJPT1gGD+An+eyrC0i3csEWrDP4hobRfzooMN2UjwGp9w3S86XV
-	 kmcosTmskW9xQqIrixR2CfC6EHP8XlfSXsd7ROPW9ZMnkT9zbuMM0jRpfSUZmkCyf4A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794577741;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794577758;
+	b=aMa+xDHExRygBLRaTuEUCjd1fl5Gn7HFwgHMqYPmM6vvmRMFzNxGqA+NivxxWHsWZNSY
+	 xM/T2LidXVnGzzY2e93fgGKIKyChVoEb/+zRnnG+GwR1GUxlKINN/VX1SVxEyD5czpIfc
+	 mR/WPiIm8wO0LONCsMspoZ5rz8j5KoIGTYVLtrEgy823yGLhRW8urUtaJXPVxGVzXe8Ls
+	 TZu4s63svZPKLm1dPv3bFuShSAD8DRXiyJgU77xe9XuUKk6de+OrxB1fRR49KT48xPeF5
+	 YgiVe7rVugv1dKbvpanNBLDYj8PETuTJAG7kNgRlPnBYkjFJE58ug+02S+D0PCYUZRQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794577758;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=1bhPViXt1pRD/+G0cozJg3X1gM1h4MG3wea7XTuXsrc=;
-	b=ta3usg/C2W/34MColx8v+MSWQnAcEOCkxbckbf3b92VmG2PknAvKwukMlyDogLNak4Ov
-	 CCR36lDYPDYLvyJmRVbIaoo++tsYHT/PJBcochpPUD68h+WMhdjZ9dHSFDEnjxHvMqgMa
-	 XTk7jyacNf0iAeXg2pVjE8EhZdsc9b2waQxrUxHWuJxUIu7Y8kYR327mwOmWc4n8L4xQg
-	 3aDd5MakZLRIqBxjcb+3kqZlaYH5zXG4CdKVjEK1PXU71Ss6vSXrKsLp8mIDsGodSEhBI
-	 RojeOG6xsbcXyxChfz1Ft8o3uYTIgQJnRNvPdtOoTkzRGsOnBm1Wki7SgGiuW8uFXFQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=Puay+wpYVMEbOLRsus5utO7vcdPRYNMhn4l2tkGm58A=;
+	b=AKqlzYEFyk99L8DOP9w0tiAaLSuYcOfyk+RzefZYQpYPGyqmib1aFl1lLuI1KwYKkLp/
+	 L6x3RAPrLWTtonysB7GMtOB9qoxYyXNj3sEDepJL0hXAvS9fgxGo+VqGRvTg6qXKxVWH5
+	 ca9tEcuj743COpLhauQo+TptKUAy/raYAm5CtXSh3/YGA1WCY71cWaKfxHatMBUH2g0WG
+	 BGFe887hl3qnxpbZjUsslffKhsWz4rL92bQ1iqcVMd6tcNw9lGUTCNU57V4idh8OTxRDa
+	 qw4zTJG4ygyZRe/Nd5fw0J0pKcle2aOhtJVm7rPtPU8ggacJYfHhBPEm7J8vO0vI83A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IDaBJi6E;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.180
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j2WyAc65;
+	arc=none smtp.remote-ip=74.125.82.51
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3537260A260C
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:49:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3537260A260C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89958606A335
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:49:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89958606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IDaBJi6E
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8a9f9473029so1421194b3a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:49:00 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794577739; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GQMbxi/U9NTdFnJpWQ1fjrgaDo8eL2+n46WdputEGwgm6dkYa05wj3+GuoMrA1huRR
-         ZaIbKDbPJa0PlvLiZNDbKnJR6m/fMzV8Y1b0ywlA1lFF1bKiUazJl8uK8alCN7rtu5Wd
-         dKslAMvo5w4qPHiL1EiWaOzVhKUy7pvEQu9Ln9zlAkvje8T9mnBxYsaUlQ3lXIzy/sl3
-         cLNwLn/oJw7fZh4LtPUpHmT7bRCBTM6cmOglrTxq1WjIlUQeD64JsHi+m5L6u7x7N85/
-         esN7NaSmAt4CRtIyijWudfAvIAGg9NKfHiwX9/4ieyK1h2/LhBOYBlFJF/qS9bSXxrcc
-         PF/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=1bhPViXt1pRD/+G0cozJg3X1gM1h4MG3wea7XTuXsrc=;
-        fh=vyrQF4IOPacQYdZOhE3hVJ+jsaTUbLle8BsbUbZaJ+k=;
-        b=gqo1gkD+7X1903THeEIFL4Yj4/8AxFlYPbK7P1bTy31xEvgqK4DoniozBvPxW0YvSR
-         cb7gBpNo/9dPPKUmqcWVYddzQqnAje9AaLWUyYUy8dpgzNCgn6l/LHtiPDxQK4hvTeIK
-         r1GL/NAIn4ok1Ql3c9ghifGthDamNw3xqtGU6I40U79ixvv+3AYPzhUKlGpGP6tcZeci
-         ubR3OyZn2VLDYH3Z4orI6va8xuZvY/pskN57DS5RAWSTy5n6hhL+M0ii9w8GVq/c+2jJ
-         WrV4V0bqyAQU55ekT/zTrjsMIKoIpadp7VJ1rSz1a7fOQ2u8A9Lb1oaEqQal/+MUuKHW
-         0tZQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j2WyAc65
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-15ea896ddc8so1198079c88.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:49:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794577739; x=1795182539; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1794577758; x=1795182558; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=1bhPViXt1pRD/+G0cozJg3X1gM1h4MG3wea7XTuXsrc=;
-        b=IDaBJi6EnzYWBbfLMiIPr0Hr9fUbFucDOD5m0rjktHtv4g65mORdut5ERKbwL3+WdB
-         Ebh98AmvbnRMDB5UNnyQWh0hqd6x9Lv/vmnaDNCw0JqxFBUeoDpXKz4lTndlo/XHrvpi
-         N/I7ww+bA3R+GVpMMfkFGheCSAaZ/BG1iIfgs8r+xIG0umJ8Q2Mmh1VpTOBS07jjZqTz
-         nAJgyVzCIyaklyNxiek0OKHskIrA+FjsbNJgYwzHgxK7+Wl8x/c1WAVZPZpkcAVL+/sS
-         xZLCb4uuHJ40hxymUgOM3U1c328PfYaV0Nj9Q5mB0ZEffdzBeJ/uyt01pd2SwV5StXSr
-         l6xQ==
+        bh=Puay+wpYVMEbOLRsus5utO7vcdPRYNMhn4l2tkGm58A=;
+        b=j2WyAc65HHKXZAtTItIC5JMMjuCVCGvh24lyDPoCV3vQMwTi+DFmIwfD0//Z5d3bxy
+         klc9Wq/T/2lESjNQtPg+ZoAnYZ2E4Jihj7aKgXVgYlxtBmmGZzID7ScasvwAUehBK6Ji
+         Xmb60E0miUdAXJQ2fr1Dxl5E/twWeuVqr2lvw2K8A4T/sMuEkYQ4Wk8Lyw0oi2v4j5hD
+         VKrpghB/FHbs0MZoXZ1D8jhPjb0ANbOn0SYehDI8ivVsxWXjDBTrJSkaMs1h3g9JI1PW
+         i3q3kieyyBE9xQJFzORBSWc66R//jd6z6TkNVhspmEbEYuriYjGPHduoZrnvQDdmOokA
+         LTcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794577739; x=1795182539;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1794577758; x=1795182558;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1bhPViXt1pRD/+G0cozJg3X1gM1h4MG3wea7XTuXsrc=;
-        b=m1cAvcIUW0jVHObtVHzTGMdyDbMTbiwwfKGqS/RqDvq/4TAnNVKSlImAV5SAt26hB3
-         lG3l9Ywads4fg6gcfvjxaV6yILTT0EpVgB0lUDduqvah8uip0hedIOHCfsJDrmUBtZpV
-         5Ml2fpSLbFKFtLwLMQ8vGxMcS/ziaSL2KnXST4xnOV2R6mzGG92/WWdfLtLOdtzk/4Qt
-         8zRzml3XbPFPO82b7LmjHxdJ87MKzdFtZxZYNDjnECk2x2rmUDxEJo74YwIg/BFyVuIN
-         2osfOUIKNOwnP1kf/EEm2cB++Ac42PHhsrdA5GIzabEXxN/35VFkikjozG8lt623ZiRW
-         tzoA==
-X-Forwarded-Encrypted: i=1; AL+hErHTyj7t0h5A+EO6tZuIiKhglXs8qRp+RzaNYhFNKYMy40mHRkW02WQdLm8zCXZNSp4drI9H0joktff0IPA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+jqU8dvq9qGXk9bITUGzQHZ9yGc4nDyQ5MUYxnjCdcAJUVApkg
-	G59uctzjIaxkIP8CyhIvavtDeE40AA1q/82vRWYEJWsoh7iFYUxIqR7e3IpaSuklF0zkF/Xr+Df
-	J8TfLOm3RnOGfCtWpEXhPViC9sc0d6do=
-X-Gm-Gg: AYBFou2uHG8+kk4QNAPYLPKhvrA0d84V9kOrXygaS+fvay+9U7rOnzd6jK5RhneZEba
-	IhPHRzr34RArzlzu7fM4x18xZSXGVq4ZhtVMVlAKGhSPxeh/k7L2oF3TATkqM/yoJ5z5AYy5bSN
-	WONkd+Ib2fnJ5UPV5L3cubd/SUT+Ny5wy8XciQDuO783IDNNGj9rlQHYL6mLWrYpF8U49EBY6MV
-	sKNAFJhe93hE5eYyyjXcVf5HY1xznjmc+4V5zxz149U9IDkceHqutze8w8CFYzAV1nGb4/JaCHF
-	tRvJ2TbKMlyhF7Zk53l7e22oxuSEFjUjAYrNXFCRh0G3yxKD21piprgykcN13k2vdEUgj/yvsO8
-	mY1nXDB/vPMhYBXyG6oOQJb7A53ev+KFinu12O7HiWMGQAL4cKafAAPzquEc5bfwG7FdXuBkt3s
-	aXiPP14frtARn510dKdm9axAu9gsX14G3cS2Z25le/lZcTLPLDkp3+pCRh
-X-Received: by 2002:a05:6a00:893:b0:8bb:1b05:dd39 with SMTP id
- d2e1a72fcca58-8beb58bcc45mr2934303b3a.11.1794577739414; Fri, 13 Nov 2026
- 05:48:59 -0800 (PST)
+        bh=Puay+wpYVMEbOLRsus5utO7vcdPRYNMhn4l2tkGm58A=;
+        b=GoQ5qq14AufQm9oqLd2HKyWfmuegezma5WalM61ElBTRfoxb2m8xZXf3PVMoryKflz
+         bkPXgpLgpf9WoIkguZqR/wpAu9qOklrSS17EbcCMEMQQk6r4Kc9Xsr9GkxvGDa4kKZwN
+         xwmcmNSBx7RUpSW5SC0mTa2W7gO1xs/Lpe1U9lel2PMkQFWOmFrKM/FkpEkjI/eXcO+A
+         1SqRMDGycfqSnj2XgNleRFoxY4s2Ei4wB+o1JezCs1Z9jJj5Yw853Rsrf38gfEAEREyV
+         sNVX9mzVDV1BFYC+3L5nGVZlNRwM8VyA0YAONIbxK6VceFNri9kPFolRvrNec8d1UG8n
+         ThkA==
+X-Forwarded-Encrypted: i=1; AL+hErGxnh8xZHZuEn6ctH8/Vq61Np9qLdsPmqgEapUjNgwAR+VtrjyXdjd2rYrdWGcYbabhEEGXIa4I0+kXOXg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z81jfLwE5tNyC84ZUpvzfBxzkQzx7xWKeNxA8PCjxuX7OHqah92
+	UhX68nh93wYcObTUMIARGeZUOg7PEq/+kyxLDuprfD2X/z1WBrevp+8j
+X-Gm-Gg: AYBFou2ABuyr0olfknqh2Ykk0PXEJAN4rDNP6upI90JEHSJ+mS6LtgmVn37fCj8Y2OQ
+	jPVy/FYXVon5vZlCczHB1VLpJo57IkqwflgfU2xhOZlfPwhn6+OhS4/73WqVUWRTSxr+uPLi9DJ
+	J5cmCa0aiWAT6reB6f+I93R6XrQ7HuNRc5JkHkm0OOg665+5dONSWURMDEX7C4EJAiI5/NQiNxQ
+	/kgGfqAAktnLmeX1Pau7VAxiOVmRRuSRY4MxGvGxph0RQvITEc6UEAPIey8/9kbX/mom7KJFtMe
+	I2X8IHLywL5fHW1e+dis/r0l55loMAFbjYZJG2Fho+72hx5t6eTV+gZNW19vV5kDrHg+5IaHxUG
+	Te3QzaJvJPve2oP+Y2cWYUvcaykAIenmYW8PvBsnUwzL9UkuZqjqhanW5IupMmAr9yKMFH3xYaZ
+	Bdx1dA6FbQKJXf74kYYfLpJiFGLtL8lB4T2LGskBWr+dsRabR/Gql2/lYtbwAt7OjUQQAZI388f
+	yKoHeWXMM2V90Y/EazHXNUoe6xkM6ikgVKkZWvzytd86+nHU6lAPZlbrneVCoau9ft2ygDIcRgA
+	EQ08jrmlNNnSiVclB5Gg0iZjcV3PgA==
+X-Received: by 2002:a05:693c:88db:20b0:36a:1e9e:ae61 with SMTP id 5a478bee46e88-379684ae78cmr2170730eec.38.1794577757517;
+        Fri, 13 Nov 2026 05:49:17 -0800 (PST)
+Received: from duge-G3-3500 ([183.192.220.187])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795533170csm8381252eec.7.2026.11.13.05.49.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 05:49:17 -0800 (PST)
+Date: Fri, 13 Nov 2026 21:49:04 +0800
+From: Jiayu Du <duge1256@gmail.com>
+To: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Cc: srini@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, dlan@kernel.org, pjw@kernel.org, palmer@dabbelt.com, 
+	aou@eecs.berkeley.edu, alex@ghiti.fr, p.zabel@pengutronix.de, 
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] nvmem: Add read-only SpacemiT K3 eFuse support
+Message-ID: <7xzpzkw5qmt3xb3ezo2sii6tnfraetwooh2l6dl4svclvbn43o@uvm7uyhz4bck>
+References: <20261106060525.346873-1-duge1256@gmail.com>
+ <20261106060525.346873-3-duge1256@gmail.com>
+ <DMO4CP89Q1AA.17HKYA50DLY8L@linux.spacemit.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,129 +101,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261112172149.27355-1-yves.bieri@theori.io>
-In-Reply-To: <20261112172149.27355-1-yves.bieri@theori.io>
-From: Xin Long <lucien.xin@gmail.com>
-Date: Fri, 13 Nov 2026 08:48:47 -0500
-X-Gm-Features: AclHuK8PfN4ou0sIEU-hFGhRyxEEh94jLa5NJ3yVhQe-fdSo_K9CA5s6bPZ98fo
-Message-ID: <CADvbK_cetnuX7=VDEh9hE4db3BdYWr9es28jVorMXOQsTfrxGQ@mail.gmail.com>
-Subject: Re: [PATCH net v2] sctp: do not free a new asoc peeled off while
- sendmsg slept
-To: Yves Bieri <yves.bieri@theori.io>
-Cc: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, linux-sctp@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DMO4CP89Q1AA.17HKYA50DLY8L@linux.spacemit.com>
 
-On Thu, Nov 12, 2026 at 12:21=E2=80=AFPM Yves Bieri <yves.bieri@theori.io> =
-wrote:
->
-> When sctp_sendmsg() creates a new association and sending on it fails
-> with anything but -ESRCH, it frees the association. The send can
-> sleep in sctp_wait_for_sndbuf(), which releases the socket lock, and
-> meanwhile another thread can peel the new association off to a new
-> socket. The wait then returns -EPIPE, and sctp_sendmsg() frees an
-> association that now belongs to the peeled-off socket, without holding
-> that socket's lock.
->
-> If the peeled-off socket frees the association first, e.g. on close(),
-> sctp_sendmsg() frees it a second time. Otherwise a syscall running
-> concurrently on the peeled-off socket can use it after sctp_sendmsg()
-> freed it. Both are reachable by an unprivileged user. The double free
-> on net with KASAN:
->
->   BUG: KASAN: double-free in sctp_tsnmap_free+0x5c/0x80
->    sctp_association_free+0x1eb/0x750
->    sctp_sendmsg+0x15ff/0x2020
->   Freed by task 836:
->    sctp_association_free+0x1eb/0x750
->    sctp_primitive_ABORT+0x85/0xe0
->    sctp_close+0x22a/0x8d0
->
-> Commit dfcb9f4f99f1 ("sctp: deny peeloff operation on asocs with threads
-> sleeping on it") fixed this double free by denying the peeloff.
-> Commit cea0cc80a677 ("sctp: use the right sk after waking up from
-> wait_buf sleep") replaced that check, and commit a0ff660058b8 ("sctp:
-> return error if the asoc has been peeled off in sctp_wait_for_sndbuf")
-> reverted it to return -EPIPE, without restoring the check.
->
-> Fix this by holding a reference on the new association while sending
-> on it, and by freeing it on error only if this socket still owns it.
-> asoc->base.sk only changes in sctp_sock_migrate(), which runs with this
-> socket locked, so the ownership check is stable. The reference keeps
-> the check safe if the new owner frees the association meanwhile.
-> Userspace still gets -EPIPE, and the association stays with the socket
-> it was peeled off to.
->
-> This was found by Xint Code, an AI code review agent, and reproduced as
-> an unprivileged user on net with KASAN (trace above), without modifying
-> the kernel or using error injection. With this patch the sender gets
-> -EPIPE and the association keeps working on the peeled-off socket.
-> Without a peeloff, a failed send that created the association (EAGAIN,
-> EINTR) still frees it, and a peer ABORT while the sender sleeps still
-> frees it exactly once. The SCTP selftest sctp_vrf.sh passes. The
-> reproducer is available on request.
->
-> Fixes: a0ff660058b8 ("sctp: return error if the asoc has been peeled off =
-in sctp_wait_for_sndbuf")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yves Bieri <yves.bieri@theori.io>
-> ---
-> v2:
->   - move the hold to right after the association is created (Xin Long)
-> v1: https://lore.kernel.org/netdev/20261110224233.82977-1-yves.bieri@theo=
-ri.io/
->
-> Tested on net at b71c101bbb98.
->
-> The fix and this message were drafted with Claude, and reviewed and
-> tested by me.
->
->  net/sctp/socket.c | 12 ++++++++++--
->  1 file changed, 10 insertions(+), 2 deletions(-)
->
-> diff --git a/net/sctp/socket.c b/net/sctp/socket.c
-> index b5a57f6..6ed184e 100644
-> --- a/net/sctp/socket.c
-> +++ b/net/sctp/socket.c
-> @@ -2063,6 +2063,11 @@ static int sctp_sendmsg(struct sock *sk, struct ms=
-ghdr *msg, size_t msg_len)
->
->                         asoc =3D transport->asoc;
->                         new =3D true;
-> +                       /* sctp_sendmsg_to_asoc() may release the socket =
-lock,
-> +                        * and the new asoc can be peeled off meanwhile. =
- Hold
-> +                        * it, and free it on error only if sk still owns=
- it.
-> +                        */
-> +                       sctp_association_hold(asoc);
->                 }
->
->                 if (!sctp_style(sk, TCP) && !(sflags & SCTP_ADDR_OVER))
-> @@ -2084,8 +2089,11 @@ static int sctp_sendmsg(struct sock *sk, struct ms=
-ghdr *msg, size_t msg_len)
->
->         /* Send msg to the asoc */
->         err =3D sctp_sendmsg_to_asoc(asoc, msg, msg_len, transport, sinfo=
-);
-> -       if (err < 0 && err !=3D -ESRCH && new)
-> -               sctp_association_free(asoc);
-> +       if (new) {
-> +               if (err < 0 && err !=3D -ESRCH && asoc->base.sk =3D=3D sk=
-)
-> +                       sctp_association_free(asoc);
-> +               sctp_association_put(asoc);
-> +       }
->
->  out_unlock:
->         release_sock(sk);
->
-> base-commit: b71c101bbb9814d163c00234d43c41f0a17907d4
-> --
-> 2.43.0
+On Fri, Nov 06, 2026 at 12:15:54PM +0000, Troy Mitchell wrote:
+> On Fri, 6 Nov 2026 14:05:24 +0800, Jiayu Du wrote:
+> > Add read-only NVMEM access to bank 0 and bank 7 of the SpacemiT K3
+> > eFuse controller. These banks contain temperature calibration
+> > parameters and other configuration data.
+> The rest of the window holds the root key and the SSK, which is why
+> only these two banks are exposed. Please say so here and in a comment
+> above k3_efuse_keepouts.
 
-Acked-by: Xin Long <lucien.xin@gmail.com>
+I will add this explanation to the commit message and above
+k3_efuse_keepouts.
+
+> 
+> > Snapshot the shadow registers with aligned 32-bit reads and expose the
+> > data in little-endian order at controller-relative offsets. Serve
+> > reads from the snapshot and use keepouts for the remaining register
+> > ranges. Keep the AES_WTM clock enabled and its shared reset deasserted
+> > while the provider is registered.
+> Why keep the clock on? Reads are served from the snapshot and nothing
+> touches the hardware after probe.
+> 
+> Tested on CoM260:
+> - clock on only around the snapshot: probe and unbind/bind work, the
+>   clock stays off (AES_CLK_RES_CTRL 0x00c30050), same bank 0/7 data.
+> - this patch: unbind gates the clock and asserts the reset
+>   (0x00c30070 -> 0x00c30040), rebind reads the same data.
+> - this patch: 3s of WTM_RST or of clock gating leaves the shadow
+>   values and FUSE_READY unchanged.
+
+I will disable the clock after taking the snapshot, before registering
+NVMEM. It only needs to be enabled while accessing the hardware in probe.
+
+> 
+> [...]
+> >
+> > +	depends on COMMON_CLK && RESET_CONTROLLER
+> Not needed, both APIs have stubs.
+
+I will remove these dependencies.
+
+> 
+> [...]
+> >
+> > +#define K3_EFUSE_REG_SIZE		0x400
+> > +#define K3_EFUSE_BANK_SIZE		0x20
+> > +#define K3_EFUSE_BANK0_OFFSET	0x104
+> > +#define K3_EFUSE_BANK7_OFFSET	0x190
+> Nit: the last two are not aligned with the others.
+
+I will align them with the other definitions.
+
+> 
+> [...]
+> >
+> > +	if (resource_size(res) != K3_EFUSE_REG_SIZE ||
+> > +	    res->start % sizeof(u32))
+> No need to validate DT here. Drop it and use
+> devm_platform_ioremap_resource().
+
+I will drop the resource checks and use devm_platform_ioremap_resource().
+
+> 
+> [...]
+> >
+> > +	reset = devm_reset_control_get_shared_deasserted(dev, NULL);
+> This asserts the reset on unbind, rmmod and probe failure. The fuse
+> data survives, but WTM_RST resets the whole GEU (FUSE_SCLK_DIV_CNTR
+> went back to its boot value). The driver does not need the block after
+> the snapshot, so use devm_reset_control_get_shared() and only
+> deassert it.
+
+I will use devm_reset_control_get_shared() followed by an explicit
+reset_control_deassert(), leaving the shared reset deasserted on teardown.
+
+> 
+> [...]
+> >
+> > +		for (i = 0; i < K3_EFUSE_BANK_SIZE; i += sizeof(u32)) {
+> [...]
+> > +			put_unaligned_le32(val, efuse->data[bank] + i);
+> Please poll FUSE_READY (GEU_FUSE_STATUS bit 1, offset 0x184) before
+> taking the snapshot, and fail the probe if it never sets.
+
+As you clarified, the automatic shadow load at power-on does not set
+FUSE_READY; it is only set after a software-triggered reload. I will
+trigger a reload through GEU_CONFIG bit 22 before polling READY, and
+fail probe if the poll times out.
+
+I tested this sequence on my COM260 Kit: probe succeeds and both banks
+match the data read with v1.
+
+Thanks,
+Jiayu Du
+
+
