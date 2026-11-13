@@ -1,56 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794568829;
-	b=IHNNVYxnV/i6fFUQMA2BJwD/8grFOwkdtYvzn8Bdbvhfjk1HbmnwZqvEbf3d6aJ23b0Z
-	 V02ixwtrMwZDsz/LsDc7QT5yJIZSgjvToqWqwwF0GUo0AFaXZRlHINYTnsf0uA/P6Mk4d
-	 P5B8VloUeXwPy6rQ7s4STfq3X34ymRaLKp+orDr7YWr4MzFH6b8VqmlnJIHtmvvjubARR
-	 0weEp4redPBw0M9S4uVO7bB+z3J7DuqS+3cQ46y6M3Ci/3gJv7jNFzvEpyBmL8XC+6WdA
-	 Ffk6zWnnlOEjWI+CCySEbojevX8x2CrjOMtB8xadzu1AJ8GR7Pf6hCUal0L8oFKsWgw==
+	t=1794568865;
+	b=qC1IEytbv0rFtBqKilNKLajT3i7jbtQPdzgHIE1iinhp7CFSnzYFYnSNBIUELJ9VixmF
+	 CEoZe6j/ej2VFt0/49Be0Y+FJ4hdY0t3x2Uz/xrBX5Hxo1HK2dZpIHIcfyJn2mLzWHAG9
+	 dDA0lXAMiZX0xVapNe0vvuok70FbKynl2bMLs9umv0DdN/FUegQb8iONbtWA+rAmgevWu
+	 McYY7GkTohmUrlXpi55Om74TbEQac1NS2UuCDmq5XUEha4MqE5dZXB+tOCuYBZ2eY3cAA
+	 KuTZHDK8dxCN8IHhcif3tC/LUzWb0bAcFnf2CH8AcFNn2grQJ0iyRklfMY79B5nvyQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794568829;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-AI-Review-Draft;
-	bh=Y4e6aFSVutfG4QLNpPw0xRoi42TqRhuOdJjePmvPsZg=;
-	b=J7/gDYS+Cq8Sq8Pk1iVPS+BHyJAGob/W4B+s8lh/aboBNYirjktpniz9BHDw01KueRdj
-	 RwCz2viSNkUEu6zffijGtid0WPPWVnNorYuz2MFWK/MQ49tnsB+Shtp/IGU5VYiB+IXc4
-	 TMsB2t899vwdI8Ek6NodWWhyX3qZLemBGI3BN4V4BV33qto2VhTVS1azLdpbxcRxhc+AK
-	 PvAoTGIbH5G48hRsCIuQ9noCFXoaWHwlorSL8HFMLnfScD1lPTwXP0WKKHbutBt68pKyQ
-	 dya7ghbBzq7eTnJNm5JVwYrUhxBanJhn9vpg7l7k94ya+hS/qywIztJZwb5oQO+42+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794568865;
+	h=DMARC-Filter:X-Alimail-AntiSpam:Received:Subject:To:Cc:References:
+	 From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=MR0fWnoK4QnQL1900NGokJWJSfxcJIOVpOHCYAdceVA=;
+	b=BG39dqbS+FlR7QTk8NXyBR90GXg90V26zptZpMyPMONvgMZQpgZ122QIGaGOFxjYycdv
+	 PzcVsMQR6zaLrbVG1jn6kub4yPf9orOlSZpSPgQC1pCyWyk3XkJnaIFGCX3BFZhX7rSbu
+	 wESpKunpG71iIN8Iy4Zqik9tF+CPX1fxH1MWm8E09+7sDBz3FA4WrKEQEsnH4XsfEmA2Z
+	 41HUEIego+9xcOxXYx6x8Z+TXXv6MnRwD9S6U6Y/XcoX8A89UKBoIuSljCCv6cF68gK8f
+	 MfV17OmRN8LezANbjchXdyEwh6vb8WOo240t/OQ8MXM2nKX965MSFVdAV9w3Y8MBBkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XBJEJQy+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=open-hieco.net;
+	spf=pass smtp.mailfrom=open-hieco.net;
+	arc=none smtp.remote-ip=115.124.28.49
+Received: from out28-49.mail.aliyun.com (out28-49.mail.aliyun.com [115.124.28.49])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC1F7606A336;
-	Fri, 13 Nov 2026 11:20:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XBJEJQy+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D63231F000C4;
-	Fri, 13 Nov 2026 11:20:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794568829;
-	bh=Y4e6aFSVutfG4QLNpPw0xRoi42TqRhuOdJjePmvPsZg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XBJEJQy+iCJQHKbERuzXpDGdKh0s+x9ZCAll5ofyUGlRp3UzcODpC+8vRiT1qvEl1
-	 UvU2LIrJSVbqKQvx2f5h4xADRR/XxPHu1Wy8zF/dGlM/6dslT3JHO+Qc0EH0bng+F3
-	 zalbnDMElY44Vi9Oqcp62Jad8KeEVYbgQWXeO0Z/fMd/Kjz4plvb5LTbWGqcU+T0K6
-	 UVGumqYXdOTl92obMp3cI/o00LAlUmYZITHyXHMVmQbeHKQFy4wE7Htl/QPLQ27mU/
-	 d+niHvWkMD1pj3Lg6NQTvBYMya0NDeKa2yqlbIOcEtP8H73wKun6uqPPkB1YMoQkok
-	 UkbcJpYPQ6POA==
-Date: Fri, 13 Nov 2026 11:20:25 +0000
-From: Lee Jones <lee@kernel.org>
-To: phucduc.bui@gmail.com
-Cc: Pavel Machek <pavel@kernel.org>, linux-leds@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jacek Anaszewski <jacek.anaszewski@gmail.com>,
-	Dan Murphy <dmurphy@ti.com>
-Subject: Re: [PATCH v3 2/2] leds: lm3532: Avoid duplicate error messages
-Message-ID: <179310028165.2808517.17162796989592435922@kernel.org>
-References: <20261021045832.16356-1-phucduc.bui@gmail.com>
- <20261021045832.16356-2-phucduc.bui@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83956606A31C;
+	Fri, 13 Nov 2026 11:21:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83956606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07439558|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.661871-0.0475943-0.290535;FP=3948912221684073562|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037034254;MF=likunyu@open-hieco.net;NM=1;PH=DS;RN=25;RT=25;SR=0;TI=SMTPD_---.k1BY8yJ_1794568851;
+Received: from 172.18.25.145(mailfrom:likunyu@open-hieco.net fp:SMTPD_---.k1BY8yJ_1794568851 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Fri, 13 Nov 2026 19:20:53 +0800
+Subject: Re: [PATCH 13/20] sched/eevdf: Try to push short slice task on a
+ better CPU
+To: Vincent Guittot <vincent.guittot@linaro.org>
+Cc: mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com,
+ dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
+ mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
+ linux-kernel@vger.kernel.org, lukasz.luba@arm.com, rafael@kernel.org,
+ linux-pm@vger.kernel.org, tj@kernel.org, void@manifault.com,
+ arighi@nvidia.com, changwoo@igalia.com, sched-ext@lists.linux.dev,
+ qyousef@layalina.io, christian.loehle@arm.com, pierre.gondois@arm.com,
+ sshegde@linux.ibm.com, kayracizmeci@gmail.com, tim.c.chen@linux.intel.com
+References: <20261106151947.3991524-1-vincent.guittot@linaro.org>
+ <20261106151947.3991524-14-vincent.guittot@linaro.org>
+ <fceb72e4-0042-249b-8223-f912f2a50d80@open-hieco.net>
+ <CAKfTPtBE3pU=71EyEfVRSbOBG+Y9itNEhfwd7svT9+JZhek-vQ@mail.gmail.com>
+From: Li kunyu <likunyu@open-hieco.net>
+Message-ID: <b2cd1ca8-f838-be30-4d71-d36e51bd3404@open-hieco.net>
+Date: Fri, 13 Nov 2026 19:20:52 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,58 +63,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021045832.16356-2-phucduc.bui@gmail.com>
-X-AI-Review-Draft: <20261021045832.16356-2-phucduc.bui@gmail.com>
+In-Reply-To: <CAKfTPtBE3pU=71EyEfVRSbOBG+Y9itNEhfwd7svT9+JZhek-vQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, 21 Oct 2026, phucduc.bui@gmail.com wrote:
 
-> From: bui duc phuc <phucduc.bui@gmail.com>
->
-> Most error paths in lm3532_parse_node() already log errors. Remove
-> the redundant error message from lm3532_probe() to avoid duplicate
-> logs.
->
-> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
-> ---
->
-> Link v1 : 
-> https://lore.kernel.org/all/20261007104915.507801-1-phucduc.bui@gmail.com/
-> Link v2 : 
-> https://lore.kernel.org/all/20261009091059.25729-1-phucduc.bui@gmail.com/
->
-> Changes in v3:
->  - Remove the error message for devm_add_action() failures.
->
->  drivers/leds/leds-lm3532.c | 4 +---
->  1 file changed, 1 insertion(+), 3 deletions(-)
->
-> diff --git a/drivers/leds/leds-lm3532.c b/drivers/leds/leds-lm3532.c
-> index a3bc9680dc4c..a050e4350bdb 100644
-> --- a/drivers/leds/leds-lm3532.c
-> +++ b/drivers/leds/leds-lm3532.c
-> @@ -708,10 +708,8 @@ static int lm3532_probe(struct i2c_client *client)
->  	i2c_set_clientdata(client, drvdata);
->
->  	ret = lm3532_parse_node(drvdata);
-> -	if (ret) {
-> -		dev_err(&client->dev, "Failed to parse node\n");
-> +	if (ret)
->  		return ret;
-> -	}
->
->  	return ret;
 
-As requested on v2, just:
+On 2026/11/13 18:49, Vincent Guittot wrote:
+> On Fri, 13 Nov 2026 at 10:25, Li kunyu <likunyu@open-hieco.net> wrote:
+>>
+>>
+>>
+>> On 2026/11/6 23:19, Vincent Guittot wrote:
+>>>  static bool fair_check_pushable_task(struct rq *rq, struct task_struct *p, struct task_struct *next)
+>>>  {
+>>>       if (!__check_pushable_fair_task(rq, p))
+>>> @@ -10120,6 +10137,12 @@ static bool fair_check_pushable_task(struct rq *rq, struct task_struct *p, struc
+>>>       if (next == p)
+>>>               return false;
+>>>
+>>> +     if (next && next->sched_class != p->sched_class)
+>>> +             return true;
+>>
+>> Would it be more appropriate to use sched_class_above(next->sched_class,
+>> &fair_sched_class) here? I think placing prev on rq->cfs.pushable_tasks is
+>> justified only when next belongs to a scheduling class strictly higher than fair.
+> 
+> class strictly higher is the most common case but we can have cases
+> where sched ext dl server preempt fair task
 
-    return lm3532_parse_node(drvdata);
+Perhaps I was thinking of scenarios with moderate to high load, such as cloud
+computing or server environments. In such cases, there may be few opportunities
+for successful migration - for example, because it would only put additional
+pressure on an already heavily loaded CPU - and even lock contention could
+become a bottleneck. Of course, this is just speculation on my part.
 
->  }
-> -- 
-> 2.43.0
->
->
+>>
+>> I also wonder whether doing this in the normal CFS hot paths -
+>> put_prev_task_fair(), set_next_task_fair() is really desirable. PATCH 09/20
+>> already replaces the unconditional raw_spin_rq_unlock() + task_rq_lock()
+>> sequence with a raw_spin_trylock(&next_task->pi_lock) that skips the push when
+>> the task is already locked, which I agree is an improvement.
+>> But could the push decision itself be moved into the load balancing path
+>> instead? That would keep the hot paths free of migration-related locking and
+> 
+> LB is not the right place for several reasons:
+> - the period between LB can be quite long compared to scheduling constraint
+> - EAS disables load balance
+> - periodic load balance looks at balancing the CPUs in a scheduling
+> domain without taking care of indiviual tasks requirements. It looks
+> at CPUs and then tries to find a task on this CPU that matches the
+> constraints whereas the push mecansim is done per task so we can take
+> into account task specific insights like slice, min capacity,
+> preferred_llc when looking at a CPU.
+> - We want to use push in a selected number of cases where we want to
+> act immediately
+
+I have an idea worth discussing. For example, the push could be added to
+sched_balance_softirq or a similar new softirq/interrupt context. This would
+avoid issues such as inconsistent load-balancing intervals and EAS being
+disabled. For instance, the push could be triggered when the current CPU's load
+exceeds a certain threshold or when the CPU is not running purely CFS tasks.
+
+>> select_task_rq_fair() calls. Or is the next-aware context (knowing which task is
+>> preempting) something the load balancer cannot reconstruct, making the current
+>> placement necessary?
+>>
+>> Is my understanding correct?
+>>
+>> https://lore.kernel.org/all/20261020083746.37068-2-likunyu@open-hieco.net/
+>>
+>> The SMT push work in this patch is intentionally quite simple; I think
+>> it could be generalized with only modest changes to perform push at
+>> larger scheduling-domain scopes, such as the LLC (last-level cache)
+>> domain.
+>>
+>> I realize the push direction is somewhat at odds with the current
+>> cache-aware scheduling work, which instead tries to make cross-LLC
+>> migration less attractive. Still, I'd be interested to hear whether you
+>> see any value in a push-based approach at the LLC level, or if there
+>> are related plans I should be aware of.
+> 
+> I think that Chen is looking at using the push mechanism proposed here
+> for cache-aware scheduling
+> https://lore.kernel.org/all/as2-2b417B8ZaFdO@chenyu-dev/
+
+Going forward, I will continue to follow your code and the CAS code, and I hope
+I can contribute in some small way.
+
+I'll step away for the weekend and circle back to this next week.
+
+> Thanks
+> 
+>>
+>> --
+>> thanks,
+>> kunyu
 
 -- 
-Lee Jones
+thanks,
+kunyu
