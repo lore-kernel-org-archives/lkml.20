@@ -1,102 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.29
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794590449;
-	b=mAGwHMKke0cXm72h7zDBV5l81iDjN1+m7/OYI0BvSw46m98BooA1BacRsfaN2+XcCWxz
-	 TOMmgOntHXZ2YF5wLRZcoBjYOWCM0Q2XBUlPYGkFLZNFXO08jXdKe6ZTxm66bMJsO9Mi3
-	 D5uZvxqGsFarJZJXhrYteUuAsy1cyRs6YVndXsfevCZGVGi2PI20b3TPGFfQ8iu5+iL+N
-	 IQSyKayf0quCACiSgNLECkBB0C+ygChDSf9oXZgsGwdAEbHtjWfUlCkZBRAZOlyQHp0qO
-	 aMaavw78j4jS15Ix5Z5HeI29oFAUsXwFGaPUXRVXGG8FPLLOtOOPOodXXtKzg5dfRzA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794590449;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
-	 MIME-Version:Content-Type:X-Originating-IP:X-ClientProxiedBy:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Xq/fbkC79ZwjoPcXw7pahFtV7IsgJv3cLEEpv14Mc70=;
-	b=Uzs4ZJRJ/BMTR8Lzao1iBBZWoi20bdww4fom+/pLB2UH2gVG28mNIzco2Jlq8Nhg+gj6
-	 IWr7q6dQk2QTV5lq+m72OABqrIB5kixqNUzKEe13uFSzmSrxd65cEAQNFv00EVPA2+x44
-	 +w4ohyUhW6p6YVWzJ/wcUALkTs4nH2rp6eRoPUgaCADvhrO2+CYyyfo1/v9GRCJ7FtJWH
-	 FAckQp2RSQFzok0TvYjLtY1ECB7Mp9vTooOaymOnLxs8z3bZ48Vu0mfkVx0UXjQLDtqmX
-	 po1H88YxdA2cGprukJ+MPq8KD5icWNOeAppf+Lc7RYVeOr8O/ERC+IcZgOE+5y7ZADg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=axis.com;
-	spf=pass smtp.mailfrom=axis.com;
-	dkim=pass header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=A9HhBbRa;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.29
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013029.outbound.protection.outlook.com [52.101.83.29])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794590445;
+	b=O4GiBB2cwTEIVWbIKGBef60NpOBwT4lYTYMZFWObpzeZUJjZDB+1RLm9R8JaLpODhzZX
+	 g8Kwt9vZDgyKuN8ysVBNlncPIH0sIXsP/7E6Ibn78XmgcZCaVTbeAAOftIV7+Fl6fd0bw
+	 g9efJCJ/mD3qA7bRBQtgmbtmFB1vvwqvXXKHvuUnULOD65vyI9ocNf7Xym1xlkt14e7/0
+	 lpnPo+Ab6afSPFzPK244vklEJzMqa22V5RTq3RlFMDcVXILAXgPReJ5WNQQ0Q73uCFn5U
+	 3zbiJF3JVPQzcQaMhL+zUnljNmG0j3MIsD5x03CgCvKHZ56JjmDHTIsD5I/fyXXCmBA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794590445;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=+k0lqC5iZylsBxTYDQ63TRyQvvV+TPUwb4IvUKy1hP4=;
+	b=CmuUT925COvKAIyxkLX2eqsixWo5DSAg+ey6aOU+xJZACCwe6h3m5cZVCPJUp0/V0bK2
+	 O4uej3QXN1lio2Zdd1uDpMOIIQxgpgvvduD8oIe/QoG1BGrz/48dMxRya+n4w947kXrfo
+	 WiOwnytMAGlwmOjmMaepwti7aGjcly32JCrXMnpGQ2JNcDGcJ5uc8lOmxlzNXUi+FyzS0
+	 jqn+0R9gjnEbKFy0NtnvJN3LYXEycAKFIfp5rmpibBOTlafBsbddZLphUUIWxwz4mA4cE
+	 zrYzzxM/Ck8HLma029qM9YtEIZ1bEQOk8f2uHZHg3HLbDHaTotZn/Xxu0bCmJyENrgg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n5Muh8jS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B24996071418;
-	Fri, 13 Nov 2026 17:20:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B24996071418
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5546460703EC;
+	Fri, 13 Nov 2026 17:20:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=A9HhBbRa
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dDJgyidvSnZtbijJ+VAg/EDP/jFksJjC3jS7mvHzVet4/0krrkV1p7YWsyvmdiSMkSG+tRcvlN1pQ5kSpqO3fLdK5BW+20kNDiINy/ccERc2Mq0WQ5bYnbBqkoiZMs5034LQbnQk1zRag5PfwUW4JP881obZ5VKYkjl+TvaZVNav2cYTdhnjFRSKENoYQJYDW7sHa4wi4gYPHAhhTw9+w/MTlJ+e/Pd6I+i718En1Jsw5DMp6IcSYVHK3Zm8qxEP3Pgiml3ywqISGiqhmf2Ix2KrWlVP1SPhJZuHZR8yeDaMQeVgl8pabLocisClMeJcaHPqqW6sgE13KmsE3tr1DQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Xq/fbkC79ZwjoPcXw7pahFtV7IsgJv3cLEEpv14Mc70=;
- b=Lf88gpxVJMpGoFfnmxe+4chmE5eK+miO5HrcwNezJS4ZZhvud1qtsNvnSzlY2gnprO0+tmqZHZYYCVWeGjau72lw37i2lFR1DxAYnju/okmy5sKCVyuvCUhCBxwV/NNMGXTmavpnjF44Os7Q3Mj6FZXI6q5dW47UJrd3G0w2li+owo0+gsWdr6pCqpbFB2BaOZdrXQcgUNZaxVatOeAvDvHLezyUOQD9rP7TL3No5ZOlkOCcx5rcOaY2pEKi4dR3Yg+bmx/hr4/jXdWHyC+GDfTwkXMglQybmRhO6oEc+ZfGKcKondX2QDhX+Xf4+qJpTya+3lVNz2sICTm4pQPH+w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 195.60.68.100) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=axis.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=axis.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Xq/fbkC79ZwjoPcXw7pahFtV7IsgJv3cLEEpv14Mc70=;
- b=A9HhBbRa3FTiwxztVyinlTddpsNy5SlHiC3zvYICJyZStq3BoNNQhJLQMFrKYorU1uVHLN9dNMaGod3uJiJtY0TSCCDehLou6AXSU5p1EPnjSifN84RziS6mEaCSUvW671KnUNMkpgnwqbsxZ7r7vs17Cv4PDOj99lTCFeletEI=
-Received: from DU2PR04CA0219.eurprd04.prod.outlook.com (2603:10a6:10:2b1::14)
- by PA4PR02MB6846.eurprd02.prod.outlook.com (2603:10a6:102:f6::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
- 2026 17:20:45 +0000
-Received: from DU2PEPF00028CFE.eurprd03.prod.outlook.com
- (2603:10a6:10:2b1:cafe::80) by DU2PR04CA0219.outlook.office365.com
- (2603:10a6:10:2b1::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Fri, 13
- Nov 2026 17:20:45 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 195.60.68.100) smtp.mailfrom=axis.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=axis.com;
-Received-SPF: Pass (protection.outlook.com: domain of axis.com designates
- 195.60.68.100 as permitted sender) receiver=protection.outlook.com;
- client-ip=195.60.68.100; helo=mail.axis.com; pr=C
-Received: from mail.axis.com (195.60.68.100) by
- DU2PEPF00028CFE.mail.protection.outlook.com (10.167.242.182) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 13 Nov 2026 17:20:45 +0000
-Received: from pc67007-2609 (10.4.0.13) by se-mail10w.axis.com (10.20.40.10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Fri, 13 Nov
- 2026 18:20:42 +0100
-From: Waqar Hameed <waqar.hameed@axis.com>
-To: Jonathan Cameron <jic23@kernel.org>
-CC: David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?Q?S=C3=A1?=
-	<nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, <kernel@axis.com>,
-	<linux-kernel@vger.kernel.org>, <linux-iio@vger.kernel.org>
-Subject: [PATCH 1/2] MAINTAINERS: Add Murata IRS-D200 PIR sensor driver
-In-Reply-To: <cover.1794589264.git.waqar.hameed@axis.com>
-References: <cover.1794589264.git.waqar.hameed@axis.com>
-Message-ID: <084595bf5eb0182b2837b9b7b6928c7bd28d5ad6.1794589264.git.waqar.hameed@axis.com>
-Date: Fri, 13 Nov 2026 18:20:42 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n5Muh8jS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCEEE1F000C4;
+	Fri, 13 Nov 2026 17:20:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794590444;
+	bh=+k0lqC5iZylsBxTYDQ63TRyQvvV+TPUwb4IvUKy1hP4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=n5Muh8jSgVmkNwqxcUlVS3OCHfJbmgFlvueQBcwmyX4XUknjc9caIY94yJXAz76fj
+	 ULkdD71jXxojR41jlEXhcEWDtan5DFpbap3wY0mF3VU0xKRjcDIlqXYKUK6tqrL1Mi
+	 xskqn8VYAffU/Y4LS92Z2pyfhtg1NlBR+zGrU0kkVBptLtpoMpUcP6SFTvGTQ+12WQ
+	 wl8FM7AfsdDASl2HM7NkacojDcIugzZnkoz8hTAqXa0yBEyH+g7hztvx+FUOb88gJW
+	 MaznShSFrgbPVqlg2WdR0aeaTcnnBk7dUqqh+i/GZ4rlTAxxy3U2QWoo4sRiLZMbrZ
+	 1cfJgBZiOaABQ==
+Date: Fri, 13 Nov 2026 17:20:36 +0000
+From: Simon Horman <horms@kernel.org>
+To: netdev-bot+sashiko@kernel.org
+Cc: jiayuan.chen@linux.dev, netdev@vger.kernel.org, dsahern@kernel.org,
+	idosch@nvidia.com, davem@davemloft.net, edumazet@kernel.org,
+	kuba@kernel.org, pabeni@redhat.com, pablo@netfilter.org,
+	fw@strlen.de, phil@nwl.cc, razor@blackwall.org, paul@paul-moore.com,
+	matttbe@kernel.org, martineau@kernel.org, geliang@kernel.org,
+	ja@ssi.bg, achender@kernel.org, marcelo.leitner@gmail.com,
+	lucien.xin@gmail.com, alibuda@linux.alibaba.com,
+	dust.li@linux.alibaba.com, sidraya@linux.ibm.com,
+	mjambigi@linux.ibm.com, tonylu@linux.alibaba.com,
+	guwen@linux.alibaba.com, linux-kernel@vger.kernel.org,
+	netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+	bridge@lists.linux.dev, linux-security-module@vger.kernel.org,
+	mptcp@lists.linux.dev, lvs-devel@vger.kernel.org,
+	linux-rdma@vger.kernel.org, rds-devel@oss.oracle.com,
+	linux-sctp@vger.kernel.org, linux-s390@vger.kernel.org
+Subject: Re: [PATCH net-next 14/14] netfilter: cttimeout: annotate data-races
+ around the default timeouts
+Message-ID: <20261113172036.GW18859@horms.kernel.org>
+References: <20261109025425.328445-15-jiayuan.chen@linux.dev>
+ <179429000729.994134.16108041301574145842@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,64 +72,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: se-mail10w.axis.com (10.20.40.10) To se-mail10w.axis.com
- (10.20.40.10)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PEPF00028CFE:EE_|PA4PR02MB6846:EE_
-X-MS-Office365-Filtering-Correlation-Id: d4cc2109-9067-4bf6-984c-08df41aa73b5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|82310400026|376014|1800799024|22082099003|18002099003|261009223027099003|11063799006|56012099006|261021121427099003|261028144727099003|261026121527099003|261026140227099003|261022075727099003|261021135927099003|261022105027099003|10067099003|261102123227099003;
-X-Microsoft-Antispam-Message-Info:
-	Q5uTY6cRTa4nH5DDLLazwenUbpxnPkdHMH16C0XQxzqVd6/jFL/k5F7nLXzlQLe1Li1DXn59wCUYKOHPty1MiasTN6iV4EvGl+SfE3WznnfWDyHyfsHDnCQkinBE4C9H7uZlH1top8e4LJS09TsZp4gPrfudDY4q2tyS+c1ze48aGjXtOlgVZ7WejZQ+cqTQRForek9McuPWvTcYXJj0l07rp6h2JjNxs6Lacjyof9sY0Mkaf9OhkOZXf9k5cW1zbj8IC4jvFfmcVrxkGCEpieS0NHm+yJY1zwStNdQEIZq9c49axNV+42+c/xoGzBPONegYsgvB2XOZv3JcPP3KLr0HzPBsMrF/ET+fiEXFVjRFwdXi4Q/FzIOoorR1sFZAn1HWtrYHQDWjGnAlo9v3M1wnhhK71xa8X7smPaEUVHAsGmBjo2NvDORLp/keUHNXwOMoeurYJQIGuvF4gYfZi0nm0gaYyTsI/0+19/CEfw7X4ClRfCETkILhK+tJSjOdR/BCzpATUkyPYfDXfutuZgbSfxIGY/7YgJByAmGmj7qpp/qgutN+ubYihUyThSocdf6ZyA/YH7TIDJXuJ5XvprFY2PtbJezPPlW3blkJyV9NoT4QiHpuIPIgeMpQzpBK06i/ewDdHWgZiKiUTWQCOXzpWS9S10syn3AFI1NTENLX3NtzIHxW6DI+5OF4xtYL0wJBkWpcMIouPxW1H1D8BA==
-X-Forefront-Antispam-Report:
-	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(82310400026)(376014)(1800799024)(22082099003)(18002099003)(261009223027099003)(11063799006)(56012099006)(261021121427099003)(261028144727099003)(261026121527099003)(261026140227099003)(261022075727099003)(261021135927099003)(261022105027099003)(10067099003)(261102123227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	0Dn6a5JrNFeX2gEj7DENZoGWiyNaN95Av4GXCplJpXDaFwVcNNzgJ+GXm38t1XaIOlwKKYpGWwnmj1JYzRnxT8ZEZhrXDSj1HRSqsxKIhwJ8XCK+q1Typ/kRnHotKinZimJkaHhaPIkCDuUNNt4AiaxlRPOyNuTak2Q/dURC1emW9Jbgp67bvNVAb8efjg2cD9+zd2jzd0oV8ctjK6LOKMu3VxvFSFW9a37f0P763gRleTu/cndVFFR6mgYrbu2bgBoZ9KESy/76LQISqYbfHKJT89a7KaMTauH/CRvBsKiNIAriV8+KQ1UwzwF7nzUCb5hZn7eaqu8+JVMySD8U2NVrfZxuTSLpFGSGt9a8XcmmE3XqcT49xv27r89L+0QJ6IT+7IuS4t8vABzkXebwpQBbB164y9k4IDNAvTVUwngfJ57IhxCzFW2e/JlS3k8X
-X-OriginatorOrg: axis.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 17:20:45.0923
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d4cc2109-9067-4bf6-984c-08df41aa73b5
-X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af;Ip=[195.60.68.100];Helo=[mail.axis.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DU2PEPF00028CFE.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR02MB6846
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <179429000729.994134.16108041301574145842@kernel.org>
 
-Axis Communications has resources dedicated to maintain, test and review
-this driver. Thus, add myself and the company kernel mailing list to
-help out with this.
+On Tue, Nov 10, 2026 at 05:53:27AM +0000, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 0 · Medium: 1 · Low: 0
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [Medium] A concurrent sysctl write to a default conntrack timeout can
+>   still be silently undone.
+> 
+> --
+> 
+> netfilter: cttimeout: annotate data-races around the default timeouts
+> 
+> This commit changes the l4proto nlattr_to_obj() and obj_to_nlattr()
+> timeout callbacks to use WRITE_ONCE() and READ_ONCE() instead of plain
+> accesses. It targets races between cttimeout_default_set() and
+> cttimeout_default_get(), the conntrack packet path, and the
+> nf_conntrack_*_timeout* sysctl handlers, which all touch the same
+> per-netns default timeout arrays.
+> 
+> > diff --git a/net/netfilter/nf_conntrack_proto_udp.c b/net/netfilter/nf_conntrack_proto_udp.c
+> > index 99eedaa2b1183..777b21da3bcff 100644
+> > --- a/net/netfilter/nf_conntrack_proto_udp.c
+> > +++ b/net/netfilter/nf_conntrack_proto_udp.c
+> > @@ -155,16 +155,16 @@ static int udp_timeout_nlattr_to_obj(struct nlattr *tb[],
+> >  		timeouts = un->timeouts;
+> >  
+> >  	/* set default timeouts for UDP. */
+> > -	timeouts[UDP_CT_UNREPLIED] = un->timeouts[UDP_CT_UNREPLIED];
+> > -	timeouts[UDP_CT_REPLIED] = un->timeouts[UDP_CT_REPLIED];
+> > +	WRITE_ONCE(timeouts[UDP_CT_UNREPLIED], READ_ONCE(un->timeouts[UDP_CT_UNREPLIED]));
+> > +	WRITE_ONCE(timeouts[UDP_CT_REPLIED], READ_ONCE(un->timeouts[UDP_CT_REPLIED]));
+> 
+> [Severity: Medium]
+> 
+> Can a concurrent sysctl write still be lost here?
+> 
+> cttimeout_default_set() passes a NULL destination:
+> 
+> net/netfilter/nfnetlink_cttimeout.c:cttimeout_default_set() {
+>     ...
+> 	ret = ctnl_timeout_parse_policy(NULL, l4proto, info->net,
+> 					cda[CTA_TIMEOUT_DATA]);
+>     ...
+> }
+> 
+> So udp_timeout_nlattr_to_obj() sets timeouts to un->timeouts, and the
+> default copy turns into a self-copy of the live per-netns array:
+> 
+> 	WRITE_ONCE(un->timeouts[UDP_CT_REPLIED],
+> 		   READ_ONCE(un->timeouts[UDP_CT_REPLIED]));
+> 
+> That is still a separate load and store. The sysctl handler writes the
+> same field through proc_dointvec_jiffies() and does not take the nfnl
+> mutex. Take a request that carries only CTA_TIMEOUT_UDP_UNREPLIED, sent
+> while nf_conntrack_udp_timeout_stream is being written:
+> 
+> CPU0 (IPCTNL_MSG_TIMEOUT_DEFAULT_SET)
+>   old = READ_ONCE(un->timeouts[UDP_CT_REPLIED])
+> 
+> CPU1 (sysctl write)
+>   WRITE_ONCE(un->timeouts[UDP_CT_REPLIED], new)
+> 
+> CPU0
+>   WRITE_ONCE(un->timeouts[UDP_CT_REPLIED], old)
+> 
+> The sysctl value gets reverted, even though the netlink request never
+> named that attribute.
+> 
+> The second KCSAN splat in the commit message (proc_int_u2k_conv_uop vs
+> udp_timeout_nlattr_to_obj) comes from this access pair. Once both sides
+> are marked, KCSAN stops reporting it, but the update can still be lost.
+> 
+> The same self-copy happens in these places:
+> 
+>   tcp_timeout_nlattr_to_obj(), where timeouts = tn->timeouts and the
+>   loop covers all TCP_CONNTRACK_TIMEOUT_MAX entries
+>   sctp_timeout_nlattr_to_obj(), where timeouts = sn->timeouts
+>   gre_timeout_nlattr_to_obj(), where timeouts = gre_get_timeouts(net)
+>   the else branch of generic_timeout_nlattr_to_obj(), when timeout is
+>   &gn->timeout
+>   the else branch of icmpv6_timeout_nlattr_to_obj(), when timeout
+>   falls back to icmpv6_get_timeouts(net)
+> 
+> When the destination already points at the per-netns array, could the
+> default copy be skipped, so that fields missing from the request are
+> never stored?
 
-Signed-off-by: Waqar Hameed <waqar.hameed@axis.com>
----
- MAINTAINERS | 8 ++++++++
- 1 file changed, 8 insertions(+)
+This also looks like it should be addressed.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 7070cf5dbfe98..2cf20f1a461b6 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -19309,6 +19309,14 @@ S:	Maintained
- F:	Documentation/hwmon/d1u74t.rst
- F:	drivers/hwmon/pmbus/d1u74t.c
- 
-+MURATA IRS-D200 PIR SENSOR DRIVER
-+M:	Waqar Hameed <waqar.hameed@axis.com>
-+L:	linux-iio@vger.kernel.org
-+L:	kernel@axis.com
-+S:	Supported
-+F:	Documentation/devicetree/bindings/iio/proximity/murata,irsd200.yaml
-+F:	drivers/iio/proximity/irsd200.c
-+
- MUSB MULTIPOINT HIGH SPEED DUAL-ROLE CONTROLLER
- M:	Bin Liu <b-liu@ti.com>
- L:	linux-usb@vger.kernel.org
 -- 
-2.43.0
-
+pw-bot: changes-requested
