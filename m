@@ -1,61 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.59.229
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794573910;
-	b=ytXLgB5sqkzenp+JlF3HFkKqcK4kAmeOZRSOXpCd9GmIf+f2S5ODtueLegQMPKhRHkaA
-	 YRncqC1nkAapyl8xHHit3Z8JA6CePGUR8u0Zp1I6+xRNLzIhGoIYZSpzX4UPqqmFTVX1W
-	 EUOH8ctVFVzPqY3guhV8mND++tVC6G0SYfO7CeBlcF1pUMk+IeahQrGbfmmgAjj7yiBvE
-	 9XAToS5Ma9cwHnI5cRbbCVL1rJ7rhilcyipof74TMhNlVioLi+Yh2BNmwe6KvOV/21yeN
-	 yNtzDH9pjCQx6wy1Pew6XPHuBCQXtbjtcmGyo48XB8iQ53iGl9dDbJqLSPDQS4O3X+A==
+	t=1794573922;
+	b=okoVZ16ej5sGMsw6cJPFJgOIYWMNyF+i6hhfWbCjxfRR9YQF0HWrKyg9/XDI/ddGjQV8
+	 f+qoq8Y+j7mqoapkRklwttXyVNOtI0TaMp7kTGaMv3vt25/TQFxBpa9w75R2ly4k/aQcf
+	 bCSQPzQOFbnKeZ3UIEbJl8YNhrOT+eYMACnZLdRXu9WOVzxluKB3Kg40bT5adFp1WGReH
+	 ao5RxSdLPHoDrrEKMomghoTVHAXpXs4F0vgdxs5IQ33BzgnDaBqED/4g8OEUqZjkS8Axv
+	 z9/O1Eg9aAbsn3I/gZ7TBtanNHcHyW8gNilwRaY7IMkYQjaTDkWnyClIGl646KCdYMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794573910;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=0RwBi1DXr0zgZdIiYyh+9mcJNVIQ1eSv6Kimn0za8QU=;
-	b=jJ66ARhyPn2x8pnCqk3e51B5KFH1TsUgEpBQ2nOX/f13BsbXk+cgA3Wb/Gng7589o+sD
-	 KTORD/iZzk9f4Y1aphdHR1gckzLppe71wFVwn4iYt5v3kAT86+LI5pbQEmPerJfkTcpgp
-	 OfNfZ7GJ0ldeOpsyGGf7ibumzB/c3XLByjjxVCmMedB7QCQ97aeCYxibNV96PcFwqVcH+
-	 dZECcVrHSaF60oKSqqqA3Ajp6tONU6V9YamJbTrd57rhZZVUFNguLusX6B3UaSq8ytweq
-	 e1IOQe5x5ShoFp5eZEBpv1dx/U73rFYWqMCPX9bUOf3aDEzo6L+ZugtHlewhWcn7DpA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794573922;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:X-Developer-Signature:X-Developer-Key:
+	 Content-Transfer-Encoding;
+	bh=StfimioWjvVPXYjFy+9Yc79OyOR0BzyILDGtzeIcoEc=;
+	b=vh2y+nfojPLoGaDkE9fd1dlFtJfzpNpf68W4E57IccbMTvpSDL32F+YV/O1yYn2rtjgU
+	 M6P+4mAmUc2j+Ld02tGmWaI6pjt5/FKRqcU5QpmVWX32TCcC4iWUjfXu3tvnePo2jpVBD
+	 liUppPd0G8oISK/445cKZ8nO8H1dKGZ2L3l/Yr0U1JdZoxkooTi1PvF0oyhGOFEgRUGPd
+	 5/VZ3tVdzz8HvdW532aC+hOkt1DwDU2yWh7pqEs8Zrxl3E/RLqGn4147S7sSNpizuQ7WL
+	 Lt92HOGgk7tEBpengw7NxnhaK0Vigt0J7NkNd5rfVQjf/JUAcYkB1QNaRP54a6bGFYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=1wt.eu;
-	spf=pass smtp.mailfrom=1wt.eu;
-	dkim=pass header.d=1wt.eu header.i=@1wt.eu header.a=rsa-sha256 header.s=mail header.b=BhKte5E6;
-	arc=none smtp.remote-ip=51.159.59.229
-Received: from mta1.formilux.org (mta1.formilux.org [51.159.59.229])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OZ2VjQb7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0506B606A32D;
-	Fri, 13 Nov 2026 12:45:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0506B606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=1wt.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1wt.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 277AD606A323;
+	Fri, 13 Nov 2026 12:45:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=1wt.eu header.i=@1wt.eu header.a=rsa-sha256 header.s=mail header.b=BhKte5E6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1wt.eu; s=mail;
-	t=1794573900; bh=0RwBi1DXr0zgZdIiYyh+9mcJNVIQ1eSv6Kimn0za8QU=;
-	h=From:Message-ID:From;
-	b=BhKte5E6rAHzy2FaV2ZYYjDDk7VS4RSxmJ8xHeifRWlHSuf9/MmD7fUYfhffOJzUe
-	 KImvnqORiDCVCkY34NbXEYy73I8sFny6pZ5RoHqOUlxittXhE20fXVFBFIWV5nnk6t
-	 0BIfwxj8wpuzU5YLqktizqy4r3hsIXezWxrZJ+Bs=
-Received: from 1wt.eu (ded1.1wt.eu [163.172.96.212])
-	by mta1.formilux.org (Postfix) with ESMTP id 3BCD6C0954;
-	Fri, 13 Nov 2026 13:45:00 +0100 (CET)
-Date: Fri, 13 Nov 2026 13:44:59 +0100
-From: Willy Tarreau <w@1wt.eu>
-To: Johan Hovold <johan@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, skhan@linuxfoundation.org,
-        Randy Dunlap <rdunlap@infradead.org>, workflows@vger.kernel.org,
-        linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-        netdev@vger.kernel.org, gregkh@linuxfoundation.org,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>
-Subject: Re: [PATCH 00/14] security-bugs doc updates
-Message-ID: <avcGSy3QjjlA2W2l@1wt.eu>
-References: <20261109080240.29444-1-w@1wt.eu>
- <avb9iICZ5dvD7yR1@hovoldconsulting.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OZ2VjQb7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDE9C1F000C4;
+	Fri, 13 Nov 2026 12:45:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794573921;
+	bh=StfimioWjvVPXYjFy+9Yc79OyOR0BzyILDGtzeIcoEc=;
+	h=From:To:Cc:Subject:Date;
+	b=OZ2VjQb76fkQy+eCyFR/83yQHPtXM4CHT+vlGVkWHEvyvzQumkkAfH53ITFiiCSlZ
+	 yvB84UyfM7dKcHXwZMDICCsI/abNve3cEhdkiStYfYjg3fhurkTo/SU2aXEmuI8XPH
+	 bpWEO98g+4b/7tnwKjEsPNWKjH6Aj1ch/j2Iv+ggp5hYmBvADKMj7wDYyr0x886lpu
+	 6j8ihOboGhP1vGd+L6u0iB2A3mR3pg3Via5IQgzEVepcbILtsjpgTvcZCSMZbPZe+P
+	 nf3QURNCyqx5tng82BgcfyhhMXMMF8mLz+wFtowOTrJs7U37F6whgjUnvaVGHOdVr6
+	 e3tPtt+3NtIYg==
+From: Thorsten Blum <blum@kernel.org>
+To: Jarkko Sakkinen <jarkko@kernel.org>,
+	Kai Huang <kai.huang@intel.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	x86@kernel.org
+Cc: linux-sgx@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Thorsten Blum <blum@kernel.org>
+Subject: [PATCH RESEND v2 0/3] x86/sgx: Remove unused definitions and reuse launch token size
+Date: Fri, 13 Nov 2026 13:44:49 +0100
+Message-ID: <20261113124448.70586-5-blum@kernel.org>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,26 +65,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avb9iICZ5dvD7yR1@hovoldconsulting.com>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=641; i=blum@kernel.org; h=from:subject; bh=9dF9afxvdXRrPrLvKh+QsdDnwLa6XoR83auXHs8jeL8=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFnf2RyWbtre+eD+6u7P34TjuKpKXqWuvJv7ec6W3TsNF 894u6owuaOUhUGMi0FWTJHlwawfM3xLayo3mUTshJnDygQyhIGLUwAmoqvNyPBGl4d3Jf+c7WHr v28+qMP8+NzkAzzKZexNNkyrKtoTKn4y/OGuTJ7umKWV8D7/4brPlhlOP4W8LRfeWt57xuH1ivr nrcwA
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 13, 2026 at 01:07:36PM +0100, Johan Hovold wrote:
-> On Mon, Nov 09, 2026 at 09:02:26AM +0100, Willy Tarreau wrote:
-> 
-> > Here comes a new batch of updates for the security bugs doc,
-> > essentially to make it more readable and to address some of its
-> > apparent contradictions for those not reading it entirely. Some
-> > additions were made to explain how to send a patch and a reproducer
-> > separately, and to ask that first-time reporters send a single
-> > report at once first.
-> 
-> These all look good to me too, so feel free to add:
-> 
-> Reviewed-by: Johan Hovold <johan@kernel.org>
-> 
-> I'll respond to individual patches with a few comments on language that
-> you may consider for a v2.
+Remove SGX definitions that have never had in-tree users and reuse
+SGX_LAUNCH_TOKEN_SIZE when validating the launch token in
+__sgx_virt_einit().
 
-Sure, I'll consider them, they all look valid, many thanks Johan!
-Willy
+Changes in v2:
+- Adjust commit message 3/3 as suggested by Kai
+- v1: https://lore.kernel.org/r/20260711100053.739588-5-thorsten.blum@linux.dev/
+
+Thorsten Blum (3):
+  x86/sgx: Remove unused TCS definitions
+  x86/sgx: Remove unused size and count definitions
+  x86/sgx: Use SGX_LAUNCH_TOKEN_SIZE in __sgx_virt_einit()
+
+ arch/x86/include/asm/sgx.h     | 59 ----------------------------------
+ arch/x86/kernel/cpu/sgx/virt.c |  3 +-
+ 2 files changed, 1 insertion(+), 61 deletions(-)
