@@ -1,100 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.214.174
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794537715;
-	b=OYexV8t9VN4Md0hkXhbtUy7LNmHJdkoK5g5HZh2cbOaHx47kdeSHvEzRVbtNBB9/ka7t
-	 zd082xUS5Pm1XadYHwQ6BsMU5jFeBVwS+ieQNxx6QL7Eu5H83Tqdt/e3HrbW6EO3dcynP
-	 XNVZIBk9Q6ZYFqbAUkzNK75mYM08E4Km00sfkJPGQrMkvXHyr5Ftt8TIonG6RKI7ViBvP
-	 pZMqqfzI275RTQBMh9I4CFtRUwOs3RSWG07Wq5vlocrRpImHDjU78jpaY4kBjJo/joBaf
-	 TwZvenATjhds7/mGLV4nH/BrnKWV5I+b+iSmGxghJ96zyew/fhlcod79VoFr4bcgV0g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794537715;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794537721;
+	b=3uvrCbX6+HuDaU7u64yagPLF0LUqs1N2vAPC1ovkpLruYsYLq2sViPofrqb8bS52daxV
+	 hwQfBZzI43z6CyPq0lsp1FOA/li802MmAZnY9LYBRNaCewTxWqF2Jh4EfGbtgmNo5I0yA
+	 QP83QQGvRIqtmCqCsiDmBgLfMYnfwpzSoj+bh4EfO/DqoEsyAac1X0e0/GnR4Po7lGsnO
+	 9YsquddqbbjcdgP3vwT25jyoBrEbp8qRBMkxW7hAumnOYp+x8vJCGC2BrycgJ+aPTszXE
+	 WjdaZxUq7aK5KQBf+TWrE69qW8OWLd/NPR6R6NTRJnrkR7pD1vwRHDt/dYnl7tlJ59A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794537721;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=jAKaL6ziK4SU3uYWDKIwk2j64mElGB9GfkW4ERNhraA=;
-	b=W50x3HO6JxtHQwPV2hHBRbaJxDhgo1C0/6YWMG21jL8gl34rfxEjxZpDWHAqgFR5foWt
-	 pMV2tWmwTdztenBqsq7aFTIfTtowhzqZCFo+meFv6k3q3pDHLXSzecNL86tTiT80wKj+d
-	 UFjFxIiRM2BacopodXmhea5mxw3gNg/n0XIDt3m6z4AMZN74PacXYHd8/DHEBwIuQkMDo
-	 B/m3ijqPB7v1NkP4Bumpf7dFste3ASYGZpc/oKuGDN3ufmehh90hQhOe4G9owgdKprBmA
-	 1jJ969gNXywe8957a35UkRuWBYEtUX75X4UVRV8Hcn3XImr+R8RM9C1GqEhb8/sNq0Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=paul-moore.com;
-	spf=pass smtp.mailfrom=paul-moore.com;
-	dkim=pass header.d=paul-moore.com header.i=@paul-moore.com header.a=rsa-sha256 header.s=google header.b=XHLr4Ebq;
-	arc=fail smtp.remote-ip=209.85.214.174
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=yAUXFKohauE6hnB578A4JCF9Ebcxz1XNhHn9TQjh2qA=;
+	b=5kwao07BxdD1C6ltiyArmnq2TS3NyIrhK0kHImlYUDdojBvfeXioI7QCVNRo+iY6YgCf
+	 nLYC2cjJJHozmW9roNN2WX3S9rM8DJTxh7HwHy7vBIaN7W07MWgaJimpMOCFW8S8EFFp2
+	 3YyYdlGLT6WOeZNTpGQkrX3UpYupwJvGdYRdnuHxEHTUwliDoJq6RKOBTrXCLG7wFQI5d
+	 GpiyYv+1vQExJabJk/VcrlbtSSWmoFOYC4lsPxzYaXbEf5/6+2RHUfD1z0gFe9loA/0Ci
+	 f+7mfCb19Od3rznWcJfjeiOhmVw5l40pKxv1qS5GaGEtWFBQS/8lVnyFvIMm/zR4GYw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E1+VYuMI;
+	arc=none smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F72E60A381E
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:41:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F72E60A381E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CD3660A382E
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:42:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CD3660A382E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=paul-moore.com header.i=@paul-moore.com header.a=rsa-sha256 header.s=google header.b=XHLr4Ebq
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2eb18f4da15so2890025ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:41:55 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794537714; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gDunNxQU3X+4DDT+w+O/eLvAGkKfXqWAEDwdU3JJzzH61K3+i56LIGqpve3dN6YbBz
-         FW/sbQA6/oDpJBlSsHq8DITJyTPKG3nLblmTYVELjayyyHlShT6Xbwuuj8gkGQ52oTKP
-         zGf8arBNB8EFIePtTzUk8QHkIzdZBxAxK5qBU8TwVYFMh9EVVYAetU576RuB79Pbhah8
-         k0yI55Q8l6XVcbOlerKC0dFHBZeUUwBdFKGg56yOcI7Gc5reLZoafPAQfaZfcWT7ofGZ
-         C/Vhim2k1Ny6COfLVphajMBvLwtrOtV+NmrziW/y2sHwKHy7njVg7FRxIe596TB5FHEY
-         xbuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=jAKaL6ziK4SU3uYWDKIwk2j64mElGB9GfkW4ERNhraA=;
-        fh=0fAyyWsWhpBIHdMrCtlIacRdWssbRKA85BpPHVZe6to=;
-        b=SBX8c/1DEZ1b9u2reQiYhLpLaGY4Qd21gtm2P0YcFCmmH8DBqBGMRnQKLvfXiBxxfh
-         69W1dZMRHJQQv384KXaxyRiEC8xRMsJ1M7da8HBz0zC8GD6vGDE3F/4ukSWO8azhQuGZ
-         tEWOHuuh91UtnvJP+DBI7LYEk6Y+IzVFWV4dQnQbcaGKDM+NHcSBWsRMgYY/Z79ZcVbz
-         5c6g9F6w6mF7CCef2Et8gl9kJ1VhwSAISi2r+A0iavENKiq5jMdtTxodYQWFUMkpVCki
-         rrJMYV2fP8wUhfaPuK0rHmFTxJz68o/sa9YuVLiVXJcmNsLBMUPaF55erFL9G0TYjsy1
-         +iXg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E1+VYuMI
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-35159e0092aso57910eec.2
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:41:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=paul-moore.com; s=google; t=1794537714; x=1795142514; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jAKaL6ziK4SU3uYWDKIwk2j64mElGB9GfkW4ERNhraA=;
-        b=XHLr4Ebq5HLkuLIfnhLPMx5ugv3Xsm/b9CrFFdTNc381Y+3R1DG4UnRb4SMJPUQX/n
-         ngfxcKauznwrSl+fiVyaM3bmGu310q4x/AW/f3Lc1H3erul5CeL3GkUWaKn1XIzycPHJ
-         /AuCnAKHKKJm2CvanqMb5+0vOCUszWF6CrEtpPEplUMnkh91rwbKa9ydV64YPao7WsjL
-         SFpGXGF2hfax3ktt0+wm6KLqAKWnlYXyAi4lW1tH5XZfmWzxV87bVyx0dLaLu+5DcBTq
-         26XqL/EzUksAUVuk8gtZa5J5uFcJwdPTdamZ50XBjhuQzM5fBCo9EFZzKbEa9ANC05eT
-         SfHw==
+        d=gmail.com; s=20260707; t=1794537719; x=1795142519; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yAUXFKohauE6hnB578A4JCF9Ebcxz1XNhHn9TQjh2qA=;
+        b=E1+VYuMIOjzY2IcU0xW4Yl33bV2t4Dsr4rxtvbv3MWQ1SwXi2eAYCP0VNFLSz9CXi3
+         wYNKO/Lq1PgCiB6PXAS0lNRPKjBzV67JyPD0eljN+xpfjxRme7ikyKx97NSrvjs8u8Sv
+         5C0P/DUO6I3HESE3yFT6SR23rDtQu+v5dY+UBsRkTq6gWryTDdVdHv+Itz48KF3ihWs1
+         a1fSeFZYQwucWjLJP5Ei/0BXOOiGrlOJsz1sxkTXomgGpyfWYpx3f+x68E1vT1U+bx5G
+         ku9lKxveSGcfY+s/QkQ+ic5Fx4s07lfwokWANpRvznh+U9FGxto7NTLgbmhfmSDvxf1O
+         7icw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794537714; x=1795142514;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jAKaL6ziK4SU3uYWDKIwk2j64mElGB9GfkW4ERNhraA=;
-        b=Gze7h2Pg1Tqrk3R0XVqODmAqmfm5TnpMWqgJK4Pt2jivrx9jfWOL84gOkyRjw2jXmb
-         rBHdPjpCP6HZOt+Pl6D4Q7S38Vay5vxFiU89QDfR0YcdVag4UP5ny3TTUT12z2hu+Tgt
-         w/KLnnQCzXSxcyR98wYq3+CWDBvK1TZOgl+3jmnSa/MbBzbl9AL1yToaSMXRJ2N1S0YR
-         0EzHlM6NrMt1T4GUxH+Y7UMkMqAyHpNmIgXjuNpgvxH/QCceJE9ci3zK/PVNny87LrC4
-         qvz9xI00zDT0BXoLyH8/IWaDMsoPu1ambUAEXoj1awJ9v52H03IiOSqOq9BDnmZ4MM13
-         40UQ==
-X-Forwarded-Encrypted: i=1; AL+hErHBHkT305TLol9479n/oANjF8TIx4uJCgnojkRIlEvjPwuW15FRfeJroKFAuD2XTS9/FdX4YC12ybY7TCo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z87C4rMQGLY1liq69ucTGs++JO1MulEiADMMyiwl2YQu84KfGQy
-	0ITOvcMcZGBI/ysmcJYDgZpIsDMzRO4XH0JFAVpUc4u3MUvBG1x/qgLCHFQ00VL/1t2BmESOY7J
-	dCZh9xNq/Y5zAwsrMNu00ITz6lKX4v9S0tUnKv1bi
-X-Gm-Gg: AYBFou1hPEQ7t/q0FWqzeXKZCFLANXpTs9aJxylrNigbIbG+7YFmNDE+qYZ17UBzEaN
-	iEAigcNm42D7KYqszYTv3DihtdiyuRAGhRC6XdxvWUBEraFmtVUd9EvmT/Pc2Ldgniz1GKJ1y4k
-	xhN/NrIS5S7tGeVLTrL7wzVwgwvo6fHWVtEUUpp7V8fBj3O2FwehdaIwGIBgJ8GabpTv7YyzagD
-	HaU08AG+S7D2VNqu8KdfqjNIrTGYyo3JUD4yCLUEj5jPIxqVfmslngnAadxlzuQoZRIku3DPmus
-	bL4n+8DJDzpT8d0cmZWlUMJp6mGaicN8oLzoeZI4EMbnO/YJaWf2Tour3C/V+LtuX3lGQqePY1l
-	VIBe2doo28mzcvJpjP6/MfshY8+EUWCDTG++YPrarpkUlPkDOYxlD2u+O5mTQvie+Jf4v
-X-Received: by 2002:a17:902:d58a:b0:2e9:9a19:c43 with SMTP id
- d9443c01a7336-2ee0dc92381mr10406915ad.15.1794537714397; Thu, 12 Nov 2026
- 18:41:54 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794537719; x=1795142519;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yAUXFKohauE6hnB578A4JCF9Ebcxz1XNhHn9TQjh2qA=;
+        b=26Eg8vTsb8n1lLgrLXQmffzR1I49YQABiGZLIAmXLllP5kWgWPzse5Q8ZRzIdIh5lA
+         6moBX8oq2RbIcMm1QZAa85EUMrb6mCp7WN5nvh9ELw0cOOBJM1C1vyhTWYmbRLaGVZ7d
+         W7lmd9X80mSSKQ1cclfZ3NYG5kfpmkdMCw6mkrzQowwKhm5JMW6f22N0M69AiPq3V7Zb
+         M/AqQvSoXAY7NRYMfirSZASLMItF3kkgnsZDpmHXzRuGhrAKvQBligLs5NbR23p1SqQb
+         bLxoV6ZRN12+KOelgbOVC0KHHhmd18wu0e9HkFGMwd9Sc7p4hi4Z4bFOajRf9C91y4Ov
+         tRAQ==
+X-Forwarded-Encrypted: i=1; AL+hErGZLmf628PM+8fXc8JjpdZ8yT+NV2t0sVgiy7w6UqLNHN/28HbWkB2NCRCrJ3u8lWlgZ5L6IBjaj4+y7hk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/4RRiJcNsOnkmYngi+ujlZ6wWFzuVCYLxvGZ1HDAwGu4vuRsik
+	4JNFQGm4DRxS50COHUkCWaP7vFKg+QlB7yNXTgPTMkIfamJCSb1ytrrq
+X-Gm-Gg: AYBFou0LWy7gdHCN384O/bIVnggoQ7hwq9VFyPDvYLc9Nha5CuF4f1N0RUuNOo48Jnn
+	KYGnNhxT6biOYoPegtsELB7dUeX1q7dRBOm9WOxfjs7xvpsQWhPKUEnhC9sg1FMZCt3z7HjA3rO
+	IVsccXv9guGoYrTBltS0CcwYqJMH/Tr83/tnCTBIIOZr/5iTqH36gZSaQWnJmmyLVcDTp6gAWCw
+	2OgYYpeRg9leuYM08gEPyjzg5tYMTI2N2jZvIDqLw3FCWtveYKGqLdrz721UpsyZhwrexeCRjmL
+	CS+2d3nAlvDSC5FwVJL811l8IQ7HU26cl7seZM8y64UFB2Uzo7YN1w23RsWYcN5+gcjP54NWw40
+	T8rVdNuFOQtpay5LnKHxkWAuTW4loyuD04FMTBuvCJH2JHNKSZISo9jM0mTj1rVa27zCIqJDiTR
+	akQU1Hh9/yh4ZVmtUqJJphL0uPaukj/BrLRcBYenQMMiA9LViaAxG/NyRX4ck8yFmQtpG4fc7ti
+	/6IG7fCSuxVLZTcRwR1b+ygcn7qmaR1d55Ns+kVjtNktam4K85N/GEnQTiXl/wbafMf3dqE46qn
+	M1+3w/T0d4N3OaelHAc1a3eWbiOJufthdfk9mlwUHl05lqVc1agHlcZdzHSKegcNoIdi/nsGB3c
+	GaYWBpGus7uIIXFiZuWC1eL+/zZhOR+0JWNUNcbiz3sPYPmXk8gjAILx3uJIOb+Kru1tdUCv8bC
+	93BHISWzRVfbxQzWKCR/tGhXGoNeP2c9k=
+X-Received: by 2002:a05:693c:83cf:20b0:376:6ba5:6090 with SMTP id 5a478bee46e88-37964e03109mr1825536eec.1.1794537719100;
+        Thu, 12 Nov 2026 18:41:59 -0800 (PST)
+Received: from esteban.tail1178e6.ts.net ([240b:c020:623:52c6::44d])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d07b3sm2334704eec.22.2026.11.12.18.41.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 18:41:58 -0800 (PST)
+From: Antoine Pichot <antoine.pichot@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: sakari.ailus@linux.intel.com,
+	mchehab@kernel.org,
+	hansg@kernel.org,
+	andriy.shevchenko@linux.intel.com,
+	dan.scally@ideasonboard.com,
+	djrscally@gmail.com,
+	dmanresa@gmail.com,
+	dave.stevenson@raspberrypi.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 7/9] media: i2c: ov7251: Move the common registers into the global init table
+Date: Fri, 13 Nov 2026 11:40:57 +0900
+Message-ID: <20261113024059.1087031-8-antoine.pichot@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261113024059.1087031-1-antoine.pichot@gmail.com>
+References: <20261113024059.1087031-1-antoine.pichot@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,60 +106,349 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <d85ece6e-27f9-4d9f-83af-4101bc76fef6@app.fastmail.com>
- <356db94e-f5d6-4fb2-839a-b97aef72256b@app.fastmail.com> <CAHC9VhR9sjunJRnM9gy-BkBZkapQTrr8a8FtmaK7JkAmUqTrLA@mail.gmail.com>
- <CAEf4BzZKmn6g0SK8OddjKFj_vAmZFvpZv32Hs_S+GHgT7VNfrg@mail.gmail.com>
- <9d6bdc31-e57c-4187-be78-29d82471f710@app.fastmail.com> <CAEf4Bzb+oYDqO20v4YbJ45wdtcGgJT3xVse822P+=oA7fpFAOA@mail.gmail.com>
-In-Reply-To: <CAEf4Bzb+oYDqO20v4YbJ45wdtcGgJT3xVse822P+=oA7fpFAOA@mail.gmail.com>
-From: Paul Moore <paul@paul-moore.com>
-Date: Thu, 12 Nov 2026 21:41:41 -0500
-X-Gm-Features: AclHuK_hptpm5wmZcDCZpYaTcjHynA9uzBvoUM-dSQMe8mTEMVFigRMkrd49BmM
-Message-ID: <CAHC9VhRcT3rmdpeadwi2avhwvr7aEZYStZ3bbEEx1hm=wtBGhQ@mail.gmail.com>
-Subject: Re: [BUG] bpf, lsm: new first argument in 7.4 inode hooks silently
- breaks BPF LSMs
-To: Andrii Nakryiko <andrii.nakryiko@gmail.com>, roblabla <linux@roblab.la>
-Cc: Daan De Meyer <daan@amutable.com>, bpf@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, paul.mabileau@harfanglab.fr, 
-	linux-kernel@vger.kernel.org, Andrii Nakryiko <andrii@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 12, 2026 at 6:00=E2=80=AFPM Andrii Nakryiko
-<andrii.nakryiko@gmail.com> wrote:
-> On Mon, Nov 9, 2026 at 7:08=E2=80=AFAM roblabla <linux@roblab.la> wrote:
-> >
-> > Hi,
-> >
-> > Thanks for the replies!
-> >
-> > > LSMs that need to provide a stable API must provide an abstraction
-> > > layer between the LSM hook callbacks and their stable API.  The LSM
-> > > framework is not responsible for the stability of individual LSM APIs=
-.
-> >
-> > Understood, that lines up with my expectations. I think the biggest
-> > thing here would not necessarily be stability guarantees, but rather to
-> > make sure that the eBPFs fail to load when the compatibility is broken.
-> > But that's probably a problem for the eBPF side, and not LSM, I assume.
-> >
-> > > So, in short, would it be possible to send a follow up to Daan's
-> > > commit and move `struct mnt_idmap *idmap` to the end of LSM argument
-> > > list?
-> >
-> > If this is possible, that'd be nice so that we avoid this breakage in
-> > the short term, since the change isn't in a released kernel yet.
->
-> can you please send a patch proposing that and we can continue
-> discussion there? please cc me so I can follow along
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
 
-Considering the original patch was submitted, reviewed, and merged
-with the BPF LSM being the only user (none of the existing in-tree
-LSMs use the idmap parameter at present), I'm a little surprised this
-wasn't brought up earlier.
+The three mode tables write the same 117 registers. Only the six clock
+control registers 0x3016 to 0x301c differ between the 30 fps table and
+the 60 and 90 fps ones, and the frame length (0x380e and 0x380f), which
+the V4L2_CID_VBLANK handler writes anyway.
 
-Beyond that, from a style perspective, I think I prefer the idmap at
-the front of the parameter list in most (all?) of the hooks where it
-was added.  I'm not interested in moving it at this point in time.
+Move the common registers into ov7251_global_init_setting, written after
+the software reset by ov7251_set_power_on(), and drop the frame length
+from the mode tables, which keep the clock control registers only.
 
---=20
-paul-moore.com
+The common registers are thus written once per power-on instead of at
+every stream start. The sensor keeps its register values in software
+standby (datasheet table 2-8), so a stream restarted, or switched to
+another mode, before the runtime PM autosuspend powers the sensor down
+gets the same settings as a stream started from power-on.
+
+One value on the bus changes: 0x3820 (TIMING_FORMAT1). The mode tables
+wrote 0x40 (bit 6, vflip_blc) at stream start, but the vertical flip
+control, applied after the table, rewrote the register from the value
+probe had read right after the reset, 0x00, so the sensor streamed with
+bit 6 clear. Probe now reads 0x40 from the init table and the control
+keeps bit 6 set, as the mode tables have always asked for.
+
+Tested on a Surface Book 2 (19.2 MHz clock, 319.2 MHz link): the clock,
+timing, PLL, flip and strobe registers read back while streaming at
+30, 60 and 90 fps are identical to those of the driver before this
+change, except 0x3820, which reads 0x40 instead of 0x00 as described
+above; stream restarts and mode switches on a sensor kept in software
+standby give valid frames from the first one, at the expected rates.
+
+Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+[antoine.pichot@gmail.com: subject and commit message, 0x3820 note]
+Signed-off-by: Antoine Pichot <antoine.pichot@gmail.com>
+---
+ drivers/media/i2c/ov7251.c | 258 ++-----------------------------------
+ 1 file changed, 9 insertions(+), 249 deletions(-)
+
+diff --git a/drivers/media/i2c/ov7251.c b/drivers/media/i2c/ov7251.c
+index 834420f2f843..2abf1b112351 100644
+--- a/drivers/media/i2c/ov7251.c
++++ b/drivers/media/i2c/ov7251.c
+@@ -238,19 +238,10 @@ static const struct ov7251_pll_cfgs *ov7251_pll_cfgs[] = {
+ static const struct reg_value ov7251_global_init_setting[] = {
+ 	{ 0x0103, 0x01 },
+ 	{ 0x303b, 0x02 },
+-};
+-
+-static const struct reg_value ov7251_setting_vga_30fps[] = {
+ 	{ 0x3005, 0x00 },
+ 	{ 0x3012, 0xc0 },
+ 	{ 0x3013, 0xd2 },
+ 	{ 0x3014, 0x04 },
+-	{ 0x3016, 0xf0 },
+-	{ 0x3017, 0xf0 },
+-	{ 0x3018, 0xf0 },
+-	{ 0x301a, 0xf0 },
+-	{ 0x301b, 0xf0 },
+-	{ 0x301c, 0xf0 },
+ 	{ 0x3023, 0x05 },
+ 	{ 0x3037, 0xf0 },
+ 	{ 0x3106, 0xda },
+@@ -298,8 +289,6 @@ static const struct reg_value ov7251_setting_vga_30fps[] = {
+ 	{ 0x380b, 0xe0 }, /* height low */
+ 	{ 0x380c, 0x03 }, /* total horiz timing high */
+ 	{ 0x380d, 0xa0 }, /* total horiz timing low */
+-	{ 0x380e, 0x06 }, /* total vertical timing high */
+-	{ 0x380f, 0xbc }, /* total vertical timing low */
+ 	{ 0x3810, 0x00 },
+ 	{ 0x3811, 0x04 },
+ 	{ 0x3812, 0x00 },
+@@ -368,260 +357,31 @@ static const struct reg_value ov7251_setting_vga_30fps[] = {
+ 	{ 0x5001, 0x80 },
+ };
+ 
++static const struct reg_value ov7251_setting_vga_30fps[] = {
++	{ 0x3016, 0xf0 },
++	{ 0x3017, 0xf0 },
++	{ 0x3018, 0xf0 },
++	{ 0x301a, 0xf0 },
++	{ 0x301b, 0xf0 },
++	{ 0x301c, 0xf0 },
++};
++
+ static const struct reg_value ov7251_setting_vga_60fps[] = {
+-	{ 0x3005, 0x00 },
+-	{ 0x3012, 0xc0 },
+-	{ 0x3013, 0xd2 },
+-	{ 0x3014, 0x04 },
+ 	{ 0x3016, 0x10 },
+ 	{ 0x3017, 0x00 },
+ 	{ 0x3018, 0x00 },
+ 	{ 0x301a, 0x00 },
+ 	{ 0x301b, 0x00 },
+ 	{ 0x301c, 0x00 },
+-	{ 0x3023, 0x05 },
+-	{ 0x3037, 0xf0 },
+-	{ 0x3106, 0xda },
+-	{ 0x3503, 0x07 },
+-	{ 0x3509, 0x10 },
+-	{ 0x3600, 0x1c },
+-	{ 0x3602, 0x62 },
+-	{ 0x3620, 0xb7 },
+-	{ 0x3622, 0x04 },
+-	{ 0x3626, 0x21 },
+-	{ 0x3627, 0x30 },
+-	{ 0x3630, 0x44 },
+-	{ 0x3631, 0x35 },
+-	{ 0x3634, 0x60 },
+-	{ 0x3636, 0x00 },
+-	{ 0x3662, 0x01 },
+-	{ 0x3663, 0x70 },
+-	{ 0x3664, 0x50 },
+-	{ 0x3666, 0x0a },
+-	{ 0x3669, 0x1a },
+-	{ 0x366a, 0x00 },
+-	{ 0x366b, 0x50 },
+-	{ 0x3673, 0x01 },
+-	{ 0x3674, 0xff },
+-	{ 0x3675, 0x03 },
+-	{ 0x3705, 0xc1 },
+-	{ 0x3709, 0x40 },
+-	{ 0x373c, 0x08 },
+-	{ 0x3742, 0x00 },
+-	{ 0x3757, 0xb3 },
+-	{ 0x3788, 0x00 },
+-	{ 0x37a8, 0x01 },
+-	{ 0x37a9, 0xc0 },
+-	{ 0x3800, 0x00 },
+-	{ 0x3801, 0x04 },
+-	{ 0x3802, 0x00 },
+-	{ 0x3803, 0x04 },
+-	{ 0x3804, 0x02 },
+-	{ 0x3805, 0x8b },
+-	{ 0x3806, 0x01 },
+-	{ 0x3807, 0xeb },
+-	{ 0x3808, 0x02 }, /* width high */
+-	{ 0x3809, 0x80 }, /* width low */
+-	{ 0x380a, 0x01 }, /* height high */
+-	{ 0x380b, 0xe0 }, /* height low */
+-	{ 0x380c, 0x03 }, /* total horiz timing high */
+-	{ 0x380d, 0xa0 }, /* total horiz timing low */
+-	{ 0x380e, 0x03 }, /* total vertical timing high */
+-	{ 0x380f, 0x5c }, /* total vertical timing low */
+-	{ 0x3810, 0x00 },
+-	{ 0x3811, 0x04 },
+-	{ 0x3812, 0x00 },
+-	{ 0x3813, 0x05 },
+-	{ 0x3814, 0x11 },
+-	{ 0x3815, 0x11 },
+-	{ 0x3820, 0x40 },
+-	{ 0x3821, 0x00 },
+-	{ 0x382f, 0x0e },
+-	{ 0x3832, 0x00 },
+-	{ 0x3833, 0x05 },
+-	{ 0x3834, 0x00 },
+-	{ 0x3835, 0x0c },
+-	{ 0x3837, 0x00 },
+-	{ 0x3b80, 0x00 },
+-	{ 0x3b81, 0xa5 },
+-	{ 0x3b82, 0x10 },
+-	{ 0x3b83, 0x00 },
+-	{ 0x3b84, 0x08 },
+-	{ 0x3b85, 0x00 },
+-	{ 0x3b86, 0x01 },
+-	{ 0x3b87, 0x00 },
+-	{ 0x3b88, 0x00 },
+-	{ 0x3b89, 0x00 },
+-	{ 0x3b8a, 0x00 },
+-	{ 0x3b8b, 0x05 },
+-	{ 0x3b8c, 0x00 },
+-	{ 0x3b8d, 0x00 },
+-	{ 0x3b8e, 0x00 },
+-	{ 0x3b8f, 0x1a },
+-	{ 0x3b94, 0x05 },
+-	{ 0x3b95, 0xf2 },
+-	{ 0x3b96, 0x40 },
+-	{ 0x3c00, 0x89 },
+-	{ 0x3c01, 0x63 },
+-	{ 0x3c02, 0x01 },
+-	{ 0x3c03, 0x00 },
+-	{ 0x3c04, 0x00 },
+-	{ 0x3c05, 0x03 },
+-	{ 0x3c06, 0x00 },
+-	{ 0x3c07, 0x06 },
+-	{ 0x3c0c, 0x01 },
+-	{ 0x3c0d, 0xd0 },
+-	{ 0x3c0e, 0x02 },
+-	{ 0x3c0f, 0x0a },
+-	{ 0x4001, 0x42 },
+-	{ 0x4004, 0x04 },
+-	{ 0x4005, 0x00 },
+-	{ 0x404e, 0x01 },
+-	{ 0x4300, 0xff },
+-	{ 0x4301, 0x00 },
+-	{ 0x4315, 0x00 },
+-	{ 0x4501, 0x48 },
+-	{ 0x4600, 0x00 },
+-	{ 0x4601, 0x4e },
+-	{ 0x4801, 0x0f },
+-	{ 0x4806, 0x0f },
+-	{ 0x4819, 0xaa },
+-	{ 0x4823, 0x3e },
+-	{ 0x4837, 0x19 },
+-	{ 0x4a0d, 0x00 },
+-	{ 0x4a47, 0x7f },
+-	{ 0x4a49, 0xf0 },
+-	{ 0x4a4b, 0x30 },
+-	{ 0x5000, 0x85 },
+-	{ 0x5001, 0x80 },
+ };
+ 
+ static const struct reg_value ov7251_setting_vga_90fps[] = {
+-	{ 0x3005, 0x00 },
+-	{ 0x3012, 0xc0 },
+-	{ 0x3013, 0xd2 },
+-	{ 0x3014, 0x04 },
+ 	{ 0x3016, 0x10 },
+ 	{ 0x3017, 0x00 },
+ 	{ 0x3018, 0x00 },
+ 	{ 0x301a, 0x00 },
+ 	{ 0x301b, 0x00 },
+ 	{ 0x301c, 0x00 },
+-	{ 0x3023, 0x05 },
+-	{ 0x3037, 0xf0 },
+-	{ 0x3106, 0xda },
+-	{ 0x3503, 0x07 },
+-	{ 0x3509, 0x10 },
+-	{ 0x3600, 0x1c },
+-	{ 0x3602, 0x62 },
+-	{ 0x3620, 0xb7 },
+-	{ 0x3622, 0x04 },
+-	{ 0x3626, 0x21 },
+-	{ 0x3627, 0x30 },
+-	{ 0x3630, 0x44 },
+-	{ 0x3631, 0x35 },
+-	{ 0x3634, 0x60 },
+-	{ 0x3636, 0x00 },
+-	{ 0x3662, 0x01 },
+-	{ 0x3663, 0x70 },
+-	{ 0x3664, 0x50 },
+-	{ 0x3666, 0x0a },
+-	{ 0x3669, 0x1a },
+-	{ 0x366a, 0x00 },
+-	{ 0x366b, 0x50 },
+-	{ 0x3673, 0x01 },
+-	{ 0x3674, 0xff },
+-	{ 0x3675, 0x03 },
+-	{ 0x3705, 0xc1 },
+-	{ 0x3709, 0x40 },
+-	{ 0x373c, 0x08 },
+-	{ 0x3742, 0x00 },
+-	{ 0x3757, 0xb3 },
+-	{ 0x3788, 0x00 },
+-	{ 0x37a8, 0x01 },
+-	{ 0x37a9, 0xc0 },
+-	{ 0x3800, 0x00 },
+-	{ 0x3801, 0x04 },
+-	{ 0x3802, 0x00 },
+-	{ 0x3803, 0x04 },
+-	{ 0x3804, 0x02 },
+-	{ 0x3805, 0x8b },
+-	{ 0x3806, 0x01 },
+-	{ 0x3807, 0xeb },
+-	{ 0x3808, 0x02 }, /* width high */
+-	{ 0x3809, 0x80 }, /* width low */
+-	{ 0x380a, 0x01 }, /* height high */
+-	{ 0x380b, 0xe0 }, /* height low */
+-	{ 0x380c, 0x03 }, /* total horiz timing high */
+-	{ 0x380d, 0xa0 }, /* total horiz timing low */
+-	{ 0x380e, 0x02 }, /* total vertical timing high */
+-	{ 0x380f, 0x3c }, /* total vertical timing low */
+-	{ 0x3810, 0x00 },
+-	{ 0x3811, 0x04 },
+-	{ 0x3812, 0x00 },
+-	{ 0x3813, 0x05 },
+-	{ 0x3814, 0x11 },
+-	{ 0x3815, 0x11 },
+-	{ 0x3820, 0x40 },
+-	{ 0x3821, 0x00 },
+-	{ 0x382f, 0x0e },
+-	{ 0x3832, 0x00 },
+-	{ 0x3833, 0x05 },
+-	{ 0x3834, 0x00 },
+-	{ 0x3835, 0x0c },
+-	{ 0x3837, 0x00 },
+-	{ 0x3b80, 0x00 },
+-	{ 0x3b81, 0xa5 },
+-	{ 0x3b82, 0x10 },
+-	{ 0x3b83, 0x00 },
+-	{ 0x3b84, 0x08 },
+-	{ 0x3b85, 0x00 },
+-	{ 0x3b86, 0x01 },
+-	{ 0x3b87, 0x00 },
+-	{ 0x3b88, 0x00 },
+-	{ 0x3b89, 0x00 },
+-	{ 0x3b8a, 0x00 },
+-	{ 0x3b8b, 0x05 },
+-	{ 0x3b8c, 0x00 },
+-	{ 0x3b8d, 0x00 },
+-	{ 0x3b8e, 0x00 },
+-	{ 0x3b8f, 0x1a },
+-	{ 0x3b94, 0x05 },
+-	{ 0x3b95, 0xf2 },
+-	{ 0x3b96, 0x40 },
+-	{ 0x3c00, 0x89 },
+-	{ 0x3c01, 0x63 },
+-	{ 0x3c02, 0x01 },
+-	{ 0x3c03, 0x00 },
+-	{ 0x3c04, 0x00 },
+-	{ 0x3c05, 0x03 },
+-	{ 0x3c06, 0x00 },
+-	{ 0x3c07, 0x06 },
+-	{ 0x3c0c, 0x01 },
+-	{ 0x3c0d, 0xd0 },
+-	{ 0x3c0e, 0x02 },
+-	{ 0x3c0f, 0x0a },
+-	{ 0x4001, 0x42 },
+-	{ 0x4004, 0x04 },
+-	{ 0x4005, 0x00 },
+-	{ 0x404e, 0x01 },
+-	{ 0x4300, 0xff },
+-	{ 0x4301, 0x00 },
+-	{ 0x4315, 0x00 },
+-	{ 0x4501, 0x48 },
+-	{ 0x4600, 0x00 },
+-	{ 0x4601, 0x4e },
+-	{ 0x4801, 0x0f },
+-	{ 0x4806, 0x0f },
+-	{ 0x4819, 0xaa },
+-	{ 0x4823, 0x3e },
+-	{ 0x4837, 0x19 },
+-	{ 0x4a0d, 0x00 },
+-	{ 0x4a47, 0x7f },
+-	{ 0x4a49, 0xf0 },
+-	{ 0x4a4b, 0x30 },
+-	{ 0x5000, 0x85 },
+-	{ 0x5001, 0x80 },
+ };
+ 
+ static const unsigned long supported_xclk_rates[] = {
+-- 
+2.56.0
+
