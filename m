@@ -1,75 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794577825;
-	b=Z6YCugCV3IYOZX8xkRovtZhYCoHbASaOSbY3ehp8/535y3O0jXCxy6FQUgRz8XRRro2C
-	 dpGQDmm/yV0WqTQMRvLa/e1pXYbt/8G/WJcjHU2IhCb/QiUKIu3L/7Xfc7hOiLqWfRHk0
-	 Y058gz20XaDQJjjhMoQh5xZ37wyMk7K3wSgtq7Kc+ep1ck7ILp0StoiLguJSlXlZDfMsr
-	 G+FZ6GBICZ9WwGul5hetLhRQaK44GrrVDRx5u/wIV21a3coqhpPV2OuXpNCHtuseWY+E2
-	 QcbDA2KWNPewkuDhgPPhMAwvzU4GAyLMg0iYTovTo9dGni8TTVkIb8AAYlEkXWOXgYQ==
+	t=1794577830;
+	b=ZFJoy+sFr84nRPHgQ3scxOIPvkg9J8l2Y70wnjuwjwjHA399X+rXN6cdBv6fJNnIpztb
+	 2FkDpl++ZREHYEDioK7gEblfJTdUbhtooxluZs+s3hdTc9QPGMUDAGqkO2dw4u2S9/8IG
+	 Xt1+IsaQk1+B0q2/SgmRZPj4xT/hLE6osC2PdhcMLuWW8suV4sSu3QhPgUTbjR+yRUh9R
+	 2w14amL3owJMj454v+UwLuOchLQLMBJbIRBCKWdjYj4YWWX2x38he2NIpl1pkef8Xen1W
+	 zjKcZHzC/1pPkmM20q9DcrXi2+LAicNm9pr6U6t2yotb9y5kepLVq0zaeGNZc1KndbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794577825;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794577830;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=Zqxp8I5tFMzdgWo41Sp5SqieihB7XXuPvOoZVDMQ8Uo=;
-	b=5GyF64RYjAHwcqxKfGuDmse52wItyKno7JSMPV/kzMOsTXos6bIBvPw2H+eSl/BeI9WP
-	 hMFcYwfabr0gaV0jVMmp8AhvjDvUbNo1BXa0kZM1BTSAzjV3wleaoqomSJzqdrnTR+XPb
-	 zZFO3naiE6jx/L7zEHt590yVhowVMblv2mFWnfLmXNh8bqKcGr+3mfZZ/00L7VuqDQ1Wd
-	 cXyEkJsEtC60SZlq1Y6gdhLuSnz2S7tDtxn7dylf9ShKJ876LZ3lR1vm007XfeIrhwrQd
-	 EhcsJleBO5smqDHL4ehckUCSOxrVY090viNG2lDSjtV8Uo13YL1jUeny1MWJCrxen5w==
+	bh=2kWLdQ8WhuFeA8Ma+7E3DsD5x9VuqgJji8AqVGlcvTQ=;
+	b=OXt4jH2bnBL5QtMxmLQL1Dk+QHbAHunS8O3tCrLmVRIXPY5URVW/BUcRKJiLDp+RAGRY
+	 Uz99F3M8hi+srB7Kibm0Z7eNENrobjUxxSm6xVKDytNAZuep6xIjNDGsFzKXoc8ydBusm
+	 b07LdSnziGEXaOHT2RmOszOqZ4T685lSivkmW7BBI6PnRnmIo+hLjBD3gf9au5B9bW0nD
+	 YavQGNlf+j9QeR3fPeE5GpP17hMjboeL75AOQUEZYnGOb8WeaCQ46KaIxVnpXTtkKaSgH
+	 y2x0lfh/NMhW+xy2HeeNT3wN9DuOE+95PAIRl/uK0XmPonKJBnOIPsklV879lcUF0zg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lUTG+q5X;
-	arc=none smtp.remote-ip=209.85.216.70
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mrqfOkvO;
+	arc=none smtp.remote-ip=209.85.216.69
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B647660A260C
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:50:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B647660A260C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99EAF60A260C
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:50:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99EAF60A260C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lUTG+q5X
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3b07b06027eso1374229a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:50:24 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mrqfOkvO
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3ac8f449d1bso765698a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:50:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794577824; x=1795182624; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794577829; x=1795182629; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Zqxp8I5tFMzdgWo41Sp5SqieihB7XXuPvOoZVDMQ8Uo=;
-        b=lUTG+q5XI2MbQizU4uwiiAtAgyxFq9jqb1nNLCQ4ABT8K/of110pEqsw45kldSobU3
-         hUeo0mqy7S6d99KSGMX3p7yIwBFkpdKmi+s1HIJsecVqHqKr24Zd7i5MB5gxYkDQQlN0
-         61GHtDIdgOdg6IrtkR2hAgBCFEzOyE0r+CS9pKgc+XTETvrlLlDhf6JepZxYEB6v2bjq
-         UiDjgfinC2q3pkT+ihsPR5TWCRJSz8Sh0KF3aVBT4/GhRNTkQQB1BG4BhQwt+FiOrW4e
-         Y9wfwb4DjWJldkYGUA6U5DSTItcYh8k+pfE7b+Vo7GxYGUgtR5skyh2l6USA337axdOV
-         JEUQ==
+        bh=2kWLdQ8WhuFeA8Ma+7E3DsD5x9VuqgJji8AqVGlcvTQ=;
+        b=mrqfOkvOWKoh2MMsWkAZdkHqQb2QLn7JmSDUaYjn9sgc1FfEXWqq9J36rTEgChgFyG
+         hPljzlqrSMNYA1rYeneH623YSZwwGUfLNWAux6lOVWYxXWstu7NLpimGZrotM7lLr4jk
+         aImEju6AuyOqM1tw29hw2iQ9ikEn//L7ZDNz7Rbm53c8rj/tsPledIW/4elpkWRhgONE
+         uqOERufrZfaO5hZa7RTuWyFWUjmCUmnB+CodqH7aN7pF/Gt9JYy+JF6GK0ayrWuYuMG0
+         RGn7iJAwgofJc+GYfOfFG9XcKimtFlxt4Yu5NbHcVy2qBdlFV7/61zzQLbb4FHlhBpT4
+         NTOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794577824; x=1795182624;
+        d=1e100.net; s=20260707; t=1794577829; x=1795182629;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Zqxp8I5tFMzdgWo41Sp5SqieihB7XXuPvOoZVDMQ8Uo=;
-        b=TT6FJaJ/Rlhz1SUARJ9idY50LnYW9WGSTNP1W22qcgGstXyrbOF3//+8Z1YXi2UVBY
-         W7VliprbMvsnLwR+KuWaUf6jukOswsLvW+D0Zy6D2EAcPMia3q6ImrhPe2NGYvk2CXyM
-         WoMHNiCH3KFxZLFgdLoSdn0gtaAgZTdLb0LOpBCpetdswDt4sTC5db3EeFB8sOxAvLcB
-         oYXRQiz9xDwRuJEmsr0veVuTon6MsqsaqUCA0FDoVWBNnODIL+TsowZZsL7ikjvsaT/F
-         ph9zif1TtgmNczfPMNURHW3dox3CK7TFBs9DnCBrbzHAa80rUlQFmWGQ6URV0D9zbHGQ
-         PBkA==
-X-Forwarded-Encrypted: i=1; AL+hErHvgD1dP+Rb3v7L0Bi6TnASic8uwPxvDL7AhDWqqoFHljFCT1u2HX9V9Me74ED737TzZumDGI/Re1Cu0xs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+khvlgdyi1kTL3GC51sKUam1+MRlQO+8tvZo51W45M0ADQEctn
-	umlNICvpvyV5ZAU6W9mlGh8JOVsQv8k/dWx0ns3r18cZ8zNH6aEuCHCePaxGPT5Am0Y6eVcn1zS
-	9tYlYHQ==
-X-Received: from pjblk18.prod.google.com ([2002:a17:90b:33d2:b0:3b0:b36b:66fb])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4acb:b0:3a4:f75d:d194
- with SMTP id 98e67ed59e1d1-3b1b0a20d40mr2509161a91.36.1794577823926; Fri, 13
- Nov 2026 05:50:23 -0800 (PST)
-Date: Fri, 13 Nov 2026 05:46:54 -0800
-In-Reply-To: <20261022193808.557206-1-seanjc@google.com>
+        bh=2kWLdQ8WhuFeA8Ma+7E3DsD5x9VuqgJji8AqVGlcvTQ=;
+        b=HEE7eoTkCy08qEIncymxXC2po3oJgnFmmjcfcHVEu9M4IahHn/HYkCmfd8AGo5Qkd5
+         4JZrkyvcXrsCIgY0vPK00lH3wJII9WhsFfLVbdg1J64IdpbST/wJlIWcCVBwzrwvlyt5
+         QeD4kdQ5h9Csu8iZDjPFtKupvsdof1zO4NLoGm9wwREliGnxYaygX3I1V2zCLBw8pnM+
+         SEiKYePw1DhQDPNEubAKOscF3iYe/ASRUzQkd3DJD9Qh7hAGmtgzF++14miaiE75SyDI
+         b4n7ayqg+24p/O+BCAd0xrSX1SqeX67UZOpCIiXU6CmHAt8GX8IHZGTpwijXi1ffE6FP
+         Nf+w==
+X-Forwarded-Encrypted: i=1; AL+hErFLVGLhd0Pe1/wKfdc1zHk408LKuconqY+vwBTac9sxome4sghq1tYrTzjLujbQ1lwxmCq4KhH5pvMFHhQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/WmG9xBpbuMXtnSL9bpkNvmYKpdX+a2Rc4NfQ06OSda7P1u6u+
+	9pVccfbtlifKYUEDCabFD25jdQvejCFyBW9/ZuR98D4mYr5BBm8dSpBGT8mdXMV6GFBHOmXFbIZ
+	3U12lXw==
+X-Received: from pjbiq5.prod.google.com ([2002:a17:90a:fb45:b0:3a9:ccc3:cbae])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4b0e:b0:3aa:f4af:1e16
+ with SMTP id 98e67ed59e1d1-3b1b08183c4mr2391477a91.7.1794577828910; Fri, 13
+ Nov 2026 05:50:28 -0800 (PST)
+Date: Fri, 13 Nov 2026 05:46:56 -0800
+In-Reply-To: <20261028184136.1803336-1-seanjc@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,32 +79,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-References: <20261022193808.557206-1-seanjc@google.com>
+References: <20261028184136.1803336-1-seanjc@google.com>
 X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <179441775604.76179.10722589436007929167.b4-ty@b4>
-Subject: Re: [PATCH] KVM: x86: Ratelimit all I/O APIC and local APIC kernel
- log messages
+Message-ID: <179441796850.78088.18130497766298569234.b4-ty@b4>
+Subject: Re: [PATCH v2 0/2] KVM: x86: Convert all runtime WARNs to ONCE
 From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+To: Sean Christopherson <seanjc@google.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>
 Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Chris Mason <mason@kernel.org>, Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>, 
-	Josef Bacik <josef@toxicpanda.com>
+	Stefan Teodorescu <fane@google.com>
 Content-Type: text/plain; charset="utf-8"
 
-On Thu, 22 Oct 2026 12:38:08 -0700, Sean Christopherson wrote:
-> Ratelimit all of the kernel messages in the APIC code, as every single one
-> can be triggered at will by the guest.
+On Wed, 28 Oct 2026 11:41:34 -0700, Sean Christopherson wrote:
+> Convert all bare WARN() and WARN_ON() runtime usage, i.e. WARNs that aren't
+> strictly scoped to module init/exit, or similar, to ONCE() variants for what
+> should be fairly obvious reasons at this point.
 > 
-> Opportunistically use the more modern APIs so that the messages are run
-> through pr_fmt(), i.e. get prefixed with KVM's name and info.
+> v2: Convert the WARN_ON() in kvm_mmu_uninit_tdp_mmu(). [Sashiko]
 > 
+> v1: https://lore.kernel.org/all/20261022215541.631694-1-seanjc@google.com
 > 
 > [...]
 
 Applied to kvm-x86 misc, thanks!
 
-[1/1] KVM: x86: Ratelimit all I/O APIC and local APIC kernel log messages
-      https://github.com/kvm-x86/linux/commit/48f7e6d7ef7f
+[1/2] KVM: x86: Convert WARN_ON(preemptible()) to lockdep assertion
+      https://github.com/kvm-x86/linux/commit/bcb00f11d70a
+[2/2] KVM: x86: Convert all runtime WARNs to ONCE variants
+      https://github.com/kvm-x86/linux/commit/e7e4f00974c1
 
 --
 https://github.com/kvm-x86/linux/tree/next
