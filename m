@@ -1,101 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794534507;
-	b=Hcq3YCD+lIzHjMvC8RdKppgaPYRuIm/Z+Z/pJrfO5OB1njlMv52NDqMcwgY/bPc7o4et
-	 maMcsKzXoX2r+BgK5pt72Pfu47bTyBuu653QczJ0dFieiGS2TIKEAng97LtgmIM0dP0N0
-	 YnXmCSj/i4qzrTUHM4tCkRmE14fN3c06q5iBs8QUVtt83ZOeeR7o6IGvwR3A4CT99h+u7
-	 FFgpwmzsZFQdccAQGtzfjndjWo95Aa5rjKIypNYvybY6/LE/NAHFgOPH3/JZXh/2oTNlT
-	 i4AbOYKE+nhptGJs/HMyeNGW2KejHM3NpxbURxyUlAw9j0XX5M/iOV7Ox6ctxWhKPSA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794534507;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=qHMuM5Z9d1NJ0qzFPFfug0ui3jGT4piml21ckpBOlMg=;
-	b=IkrbDLI6QP/bvSpA43TVlL3m7R+piJ0GBY5uVrwyiMNZw0W4r6W9QpUF/vUl7H/CjEIk
-	 uvG/msgni+qDqCYjLR0R0In0mAxSPYlwz2luTL0hqfBLgnJ9gpve4j5skl/jPgja76G93
-	 PJ6NF9YWJVw+xAul1gPu1rr3ywmV6VyQ65ECeIgfkXJHf1gRAc0KiBhxqS0QsPtpFSlY7
-	 DNsWXATuvIgU2Wv2ZTRLOnvv38HmamoFKw58bL+1Tyhxe9047vjMkKaQLalq6OFkoRIVQ
-	 p9ggx/jBjcgU3P/uWD4uN0vkAdLTWtADiravWkj1eWeIXABA0IYxQsYjyZBEQ5v7gMg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P3olxP7J;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.44
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com [209.85.167.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794534526;
+	b=XEmpWyBHYyagTjVDIJIuzXWpkDvugLF67e7I0ngdj2D3ReL8rZNiNytjxDymbOC3P5fD
+	 seO/hRu/OLxdMHESs5jKLiUnf7CTeaVjMpcYS6azxqjOrUoD8uGrFgRIRaNdchH6AZugT
+	 ePRB0nrSKjfE9sE1eu5e2RxH4BiTTTTrY0Tk7fUppnqLJUN6Bv71dUvQep9jT+ldl+bNF
+	 7BqsVxTJ/oc1uhrfnUKT0YtRSqkBdEhjylZSoFTMJ1lODal1wn2cjjLugNzz5qsDHAVM1
+	 8SSzd+/zda3Qtkmr7aq6r3Ze819fmrMgALG6r3IPf+SAQ1sqrGQEoYe31e5FQ3WbnIA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794534526;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=rn8grC775Ey3TzRfGbKCrReUP+B5RldmfzTK5ezkSBI=;
+	b=FD9fFMfpLDWASPsY0ymWFIw21Wryiz0Xl/6Pj53s2uCpgAXeGL8vtrBiwA4n/Fnpcgyr
+	 d4LPZ1TOe5Q00ukezPIks4yPAE3671pNGL6t965NBg40j34SIckNITLuwbjfkBmY8JvWU
+	 NeWaUaTC3qNYeJTQ9CSSwSdCRc5GSeF1zBXfBlXSfD3Var2I0Uq3NxnK0rclSJ4K80chp
+	 FwQIim7dl2rOxfVUzcDZr+Z4uBzSIsERxQXk4sF3XqWSwtoSWDB2MRGz45YD27hYIp3zs
+	 Y6affocOpdyGJ++9ITknaKXatpw4RkKcci3s8LugmOG2aNsEMRHSX0hUrS7bpfRSLZQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Y25sPzhI;
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06036606A327
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 01:48:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06036606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2146D606A323;
+	Fri, 13 Nov 2026 01:48:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2146D606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P3olxP7J
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5c126fa1e3aso431062e87.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:48:26 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794534505; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KyZuH3fs4xb2kqndw/q6U3fw8SrKDNxhW5u/aEf0lNqcL6gfHokUpXcSkqzNY5mReD
-         DdEyb2d5UsJxktsh/n8HJIitjVY3+CCSgM8HTIv8dTNxe4s3iRFplRQMRkCPFFYeGOEv
-         Trdi5qp3CZooESIPMYwuzgLmhpwBzLh5mwMmamGHQ/M3bjC99pn40/LOiAS32EWrqmUB
-         kpU21hZqhqYfqyPfSSvqUVmI3W80mASOTaqEpcnyz+6a4/CnBBjoERhjgtrxytXyZa5u
-         Ctm0g1sqb7iQw79C9c84PnLPHV3tswsmQqs4naedBV2cL8a+O8DEqWuWZB3qVXk0hEam
-         aYyg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=qHMuM5Z9d1NJ0qzFPFfug0ui3jGT4piml21ckpBOlMg=;
-        fh=0avgAc3BRkhSGKJ8B5tNc/TX2oMo/ZeqEgmcg70dGL0=;
-        b=oPrP6Xh6DPeSdCNtvpfEPOQ9D0gd4LLfXe0msTCChBF7TQPyLKYhOts2U+dk/zYoeO
-         VgYOTkyn9O0tTr4bf1g1EQpTRmB4uT5w2r3I7H2IJDI2+DhozrvEnpTJ+ZgcEy7Us6Rw
-         vN8inhluJpz8cimOg3HXo8XeXen+hPl0L6ziJpNmDcnmR1pHJSzoM6mCrVVzdp87wBkx
-         Fyvoo4Kf6e+TDFGLWUx3G4H/9aVo4IxTAauzpJlRLXIZ+OFSGqExz+KI7AZyfQD7DZsJ
-         w+YAjg89+eF97rRr4zdA0pU/pUJpLdaSTq6aJkdBCPeTjWwtl9Kudi2Ma9AW/QQYxXrX
-         bwOA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794534505; x=1795139305; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qHMuM5Z9d1NJ0qzFPFfug0ui3jGT4piml21ckpBOlMg=;
-        b=P3olxP7JPXksuID0OIufKWZhUQ3IH0dS8ULn3ZgVNrVGtvQvVG5nEMYhtJ9B4v1PnL
-         vYAxrUbmeyQfP1nOVAGKxZOYabSqvJecWv/gUmKI3gj9UMqz6g2LgS5mLGhtXXPMZ8pz
-         RqbtaCjQeWgHoIClTZHjQDi++UNttJvfo3TSX39z8gvdq1nKwkY4QlF+CfnjmPela2/a
-         LkzLSVYsG9wZ7nKbm77B5lOLQh92P3mK1vqJ9KqSxWbOeHnMjS2bWGkT27oKVgi4L0A7
-         hsLqWHBoFpJQDSYQzcAJ6ZPdWszzgxeUlvWx3yrTigXvqrTH4kr+do47lVjCaZwhTv5J
-         LniA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794534505; x=1795139305;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qHMuM5Z9d1NJ0qzFPFfug0ui3jGT4piml21ckpBOlMg=;
-        b=VRYX9JHam2lV0kDmJeiolcnGTUf5TnQ/55L/l8D0xP1oin9fexKZCacWMpwdTYfS27
-         PShonJSbNSTQrBuvwlSRE6G9AbISE3t84ZcVKnhCfvHG2R6Y3P99m2HOxRFR4KmaVxO3
-         HNM1MMlXH5VnqgjWvHe7ExJfLA1yviKmxMOzX775UEkvFP6brB/iRBgX14s4oQZu4hP1
-         c7xXT9PX6hl4kC2ylU4v0TJxH0sQLAQLDn0R5gVrJ6ZGNZG2xbNNdzpxiQz8ANnwAZ50
-         UpAmEq8+bs4GCwy0b+EGUwm8pZO/MXNHnbQ2prpeBvuM5kBKNdyJyF5ZGuJOw+4/c97u
-         GStg==
-X-Forwarded-Encrypted: i=1; AL+hErGmsywY912qC9fuDyXQLR8UZrnq1S3Y//x+rOfhBPud1gVk0PWVj7muGOU5Pclroco7YKWrvL6UGyivS2c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9DXIw5o7z4xTnq1Fe39Nh1GzGx9fxfVEw73fnEJ658iHSN1kHi
-	vgf4NwNMpZ5rh3mWagdjT2HenWzFHoCP8Wfl8xtswRkd3mLOVnGpPtgnFymI0Vx5bBy2d1jPXFk
-	PnIe1q9e8HvH11Pr7isyDDC7rK7weigA=
-X-Gm-Gg: AYBFou3FcY3HPBNpWsXo+GFcze1+Gdb1EC1zWQxSpGhFtNqmmJbghfZiW599L770kfh
-	G/YBB9H5ZgnlPsOSk28CyMuLr6a3HYrMWTjVoyxC3Jryl7z2qLS7JYsvkomaQLd+8zhsZOkJg5S
-	HifCSTH3asYwkw18YvGvOsaz2uv+wzMlb7RGYg41qp4FbhaxMASBrHHckf56CSiFViq3VfPo7r1
-	s+4B3ouRhnHMtQtlVR88MqhHLfJpbkUIVclDIrHPAidfcC1RokF6oB3Nb0oML7fNu4lhETGnx/n
-	xA7aOrE5pJ/j+8y9KOW8kF5kSoVlQelZmpA3elCrcyryDpHDoCktoBaT6orxsI29RVB+Sv/Vy3y
-	DySKrlC6CxUK4qmYHruRDgIvpG2nl0bc+sr7b2etaYdNH7voJ8W08CX2BvoKoa3t89wpCRk7jrT
-	Z4VMRSTW9ghg5e0XnDbC9OBL6G
-X-Received: by 2002:a05:6512:1304:b0:5c1:5974:8a54 with SMTP id
- 2adb3069b0e04-5c1705faa6emr444217e87.5.1794534504878; Thu, 12 Nov 2026
- 17:48:24 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Y25sPzhI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=rn
+	8grC775Ey3TzRfGbKCrReUP+B5RldmfzTK5ezkSBI=; b=Y25sPzhI6IPexhitxx
+	1rSVo3kR8HOxknKmLcDlGfSLZURayI6PBz4bwUr9HDTgSC9hMK1RKWJh2/pU3PKq
+	Vx9n9aklVQrJMFQfSUlbiL8yxPx2+ds49pFcfcRezCby0iy/dHbAHMwpgk+b1ht/
+	3SPRF/e5FGpj+Xz1CXnsB2ZN8=
+Received: from oc-ThinkStation-P7.. (unknown [])
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD331xobPZqa7yxGw--.61801S2;
+	Fri, 13 Nov 2026 09:48:26 +0800 (CST)
+From: Kean Ren <rh_king@163.com>
+To: Bjorn Helgaas <bhelgaas@google.com>
+Cc: linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] PCI: Disable spurious s2idle wake from the NVMe root port on ThinkPad P1 Gen 9
+Date: Fri, 13 Nov 2026 09:48:23 +0800
+Message-ID: <20261113014824.2396883-1-rh_king@163.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,31 +59,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019-b4-imx937-frdm-scmi-pinctrl-v1-1-0576fb20964b@oss.nxp.com>
- <CAOMZO5D1XDc7C6H9jYTtpiPah3DnQxJz35t+3k0--a072KsMuA@mail.gmail.com> <avQV+8VrthWpKAWT@shlinux89>
-In-Reply-To: <avQV+8VrthWpKAWT@shlinux89>
-From: Fabio Estevam <festevam@gmail.com>
-Date: Thu, 12 Nov 2026 22:48:12 -0300
-X-Gm-Features: AclHuK_ZlsdyvAp9jZzuN6ezT2JMrw9zinFgseQFdkZHa41yGNMDULrPL8U4muA
-Message-ID: <CAOMZO5D3JXGh4FbLs9hRmQMnV-RY65Aq0uosgk+zgv4naQGbBQ@mail.gmail.com>
-Subject: Re: [PATCH] pinctrl: imx: Use of_device_id match table for per-SoC data
-To: Joy Zou <joy.zou@oss.nxp.com>
-Cc: Peng Fan <peng.fan@nxp.com>, Dong Aisheng <aisheng.dong@nxp.com>, Frank Li <Frank.Li@nxp.com>, 
-	Jacky Bai <ping.bai@nxp.com>, Ye Li <ye.li@nxp.com>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, NXP S32 Linux Team <s32@nxp.com>, Linus Walleij <linusw@kernel.org>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Joy Zou <joy.zou@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD331xobPZqa7yxGw--.61801S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWrykZryDuFWxJw43ur48Zwb_yoWrJry5pF
+	W5Jr98tr48Wry2qFs3Ar1jgFn5Ar93t34rKrs7C3s0y3ZxArn09FWxKryaqFy7CFsagw4a
+	ga1kAr1UuFW8GaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U9NVkUUUUU=
+X-CM-SenderInfo: 5ukbyxlqj6il2tof0z/xtbC3wqNPGr2bGoTeQAA3U
 
-Hi Joy,
+On Lenovo ThinkPad P1 Gen 9 (21UF, Panther Lake), firmware enables the
+ACPI wake capability (_PRW) of PCIe root port 00:1c.4, which is the root
+port of the primary NVMe SSD.  When the NVMe controller is put into D3
+during system suspend, a spurious PME is raised on that root port, which
+sets ACPI GPE 0x6F (SCI).  The SCI fires during the noirq suspend phase
+and aborts s2idle before it reaches the low-power state: every suspend
+is followed by a wake within ~2.5 seconds with practically zero s2idle
+residency.
 
-On Wed, Nov 11, 2026 at 4:10=E2=80=AFAM Joy Zou <joy.zou@oss.nxp.com> wrote=
-:
+The downstream NVMe device is not a wake source (its own ACPI wake is
+disabled), so the spurious event comes from the root port's wake/PME
+path.  Disable the root port's wake capability as well.
 
-> I kept the check as a defensive guard in case the match data table is
-> modified incorrectly in the future. However, if you think this is
-> unnecessarily defensive, I can remove it in the next revision.
+No firmware with a fix is available: the issue reproduces with BIOS
+N4SET31W (1.10) and N4SET32W (1.11), the latest version at the time of
+writing.  Match the model only; if a fixed BIOS is released later, this
+quirk can be removed or restricted to the affected BIOS versions.
 
-If driver_override is used, then the check is important, so you can keep it
+Verified on 21UFZE0PCN:
+ - gpe6F increments by one per suspend/resume on both BIOS versions;
+ - masking gpe6F, or disabling RP05 wake via /proc/acpi/wakeup, makes
+   s2idle stay asleep;
+ - with this quirk, /proc/acpi/wakeup reports RP05 as disabled and
+   gpe6F no longer increments across repeated suspends.
+
+Signed-off-by: Kean Ren <rh_king@163.com>
+---
+ drivers/pci/quirks.c | 52 ++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 52 insertions(+)
+
+diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+index 7f1f47ea2ee4..daccfbbec821 100644
+--- a/drivers/pci/quirks.c
++++ b/drivers/pci/quirks.c
+@@ -6595,3 +6595,55 @@ static void pci_mask_replay_timer_timeout(struct pci_dev *pdev)
+ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_GLI, 0x9750, pci_mask_replay_timer_timeout);
+ DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_GLI, 0x9755, pci_mask_replay_timer_timeout);
+ #endif
++
++/*
++ * Lenovo ThinkPad P1 Gen 9 (21UF): the firmware enables the ACPI wake
++ * capability of PCIe root port 00:1c.4, which is the root port of the
++ * primary NVMe SSD.  When the NVMe controller is put into D3 during
++ * system suspend, a spurious PME is raised on that root port, which in
++ * turn fires ACPI GPE 0x6F (SCI) and aborts s2idle before the system
++ * reaches the low-power state.  The NVMe device itself is not a wake
++ * source (its own ACPI wake is disabled), so disable the root port's
++ * wake capability as well.
++ *
++ * No firmware with a fix is available: the issue reproduces with BIOS
++ * N4SET31W (1.10) and N4SET32W (1.11), the latest version at the time
++ * of writing.  Match the model only; if a fixed BIOS is released later,
++ * this quirk can be removed or restricted to the affected BIOS
++ * versions.
++ */
++static const struct dmi_system_id p1g9_rp05_wakeup_dmi[] __initconst = {
++	{
++		.ident = "Lenovo ThinkPad P1 Gen 9 (21UF)",
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "21UFZE0PCN"),
++		},
++	},
++	{ }
++};
++
++static int __init pci_fixup_p1g9_rp05_wakeup(void)
++{
++	struct pci_dev *rp;
++
++	if (!dmi_check_system(p1g9_rp05_wakeup_dmi))
++		return 0;
++
++	/* Root port of the primary NVMe SSD (05:00.0). */
++	rp = pci_get_domain_bus_and_slot(0, 0, PCI_DEVFN(0x1c, 4));
++	if (!rp)
++		return 0;
++
++	if (device_can_wakeup(&rp->dev)) {
++		device_set_wakeup_enable(&rp->dev, false);
++		pci_info(rp, "disabled spurious s2idle wake (BIOS %s)\n",
++			 dmi_get_system_info(DMI_BIOS_VERSION));
++	} else {
++		pci_warn(rp, "wakeup not enabled, cannot disable spurious s2idle wake\n");
++	}
++	pci_dev_put(rp);
++
++	return 0;
++}
++late_initcall(pci_fixup_p1g9_rp05_wakeup);
+-- 
+2.43.0
+
