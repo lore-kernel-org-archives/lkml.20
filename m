@@ -1,105 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794589948;
-	b=MLOzSCbxsaDVp3bsV5hFiIzPooyEVhtD8d+Wl7v7Zef0Zdit7tOjSM8rCO914pItQGqB
-	 ZS2BZd1sg/mFque6nOs+Ws5+gkxFyLu0D4Dls35rjUJjq/k8F8reqvMZS8OJvPJ1yzsGX
-	 CYd++rSpmjQydaGQXO2DN5kdmhN6v25UvbKJe1Bet6CUMI5tktwDSEXBmKmiTyGHs8vPy
-	 Y9MOm2Xo5A4hzZRrmiFphxkKJ5qmuW3jh6M7tU1PC9y1GAvX5mZJey4kEFLQiuauWCybF
-	 9hqAO/lbeepxci9U5iS//u/+47LYibSPxxnMI9uzGrM3CVttr2twHIfpPZ5MfHyPFeA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794589948;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xv91mbpY6CHl9oZ10SuH7nK8AHihJpvpXeevDfWrpHA=;
-	b=Nx/1B/9WWai/v6tP+OKdAFLnpQDZ8dCRkLeZp+zr8fFHJT0WDb1ChXtW9tjYmGfRKKz7
-	 P2OOmmVgqIZ2o1DDNsRubasikuUpR+pPiBv4Af56kOBYyEksZRX8PPMmZMzJHNzvg7tsm
-	 xGQlaiSfARl6wIreir5PLU38laf9/YYKMxzSuYnl4AoKpWKzxGSnlGWC2RdnN8jb2h7PF
-	 pd6CvyvU1vOJxDrbUv0VD+mPfUQui956grqPguyKmYlQJHu7RWDSUjfj1JcjqvrZW1Zfk
-	 MROrOdqpS5WZgh+sWr4IOkZtDi9Bq9+sTAXQJ5RrDazpZmvR4g4rNBBRZrT+3ItX9lA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Dk1vCWfG;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794589957;
+	b=2YJocJTrHsgg7K+9qzPRHMxmDlMbeKzpfIiKyCCyW2fSFHyRRicNn7Cm70/KW8IrffGu
+	 IlvXeofnu4ckfNyrHJDxgYK7lvykfsQtI9GB690DElthX74FV0qhQf/PPFNXA7q7blINY
+	 68boZSRl0oW9wh2zwpwmzuZxjPMSk2YXVzgEL2q/SZAOVVihDrCxA5dFpXABwdZfJ8tkE
+	 Lm0r1KVu/fjqXXu23/dm8C0H2Wt8nLz9EOtjZG+cZBiX3TKQWrD+35JwNP1CgJ1JXi7cX
+	 tEktJuTRHEU92lrYoWePzSbCPyuQhuKf10Ut/Uco2fh8huhEwzhfxEuUa0IGZpje11g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794589957;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=4w+8hXL5G+Tl1wYKCK2wiELmR0OZ7AU1z+xMbyxDt/o=;
+	b=P+H7l4KJE4FJGUaxO/icH1MIbpSLUYeNKVxODqdPyILN/k/duvqHHwdMD31sJNQTumFf
+	 m34N78QqIyTL5ixERrRFhVMQdJRXI2NQE69wRREP4z3p9eW0ClbtrBt5BaKDthIXBmgee
+	 muYkKpChsg6e4Su3pzyEHHvHH1zr5b5JvSkU/dqcpVGT6XoPg/d752w4XsiUaIooJoK4y
+	 s21HFQ4Je5aJjFfvas7njpg+qu3j2f1SKpWiX2+y069xn1nksVSAw4Kh5Ey2bK3M8tzyP
+	 3jQXKT/MPgRrZaHN5eYMgLcv3kvuvrMx5HCqPQ6zYpMejfsJZH0/NSzi38r7U/zyJBQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=aVPrSbWH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.44
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012044.outbound.protection.outlook.com [52.101.66.44])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0592606A32E
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:12:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0592606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1BB1606A32D;
+	Fri, 13 Nov 2026 17:12:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1BB1606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Dk1vCWfG
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36ecc11bd26so160684eec.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:12:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794589947; x=1795194747; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xv91mbpY6CHl9oZ10SuH7nK8AHihJpvpXeevDfWrpHA=;
-        b=Dk1vCWfGcdr5xZdt9dq2I9ypVf/Dr1nhuoKzF69Fy3aGZpE7zPiJYOeUBh4Omt7n6B
-         aha6kKwmE7MYPtoRs9WpJ0jd7pv8BR/34CxoeYQgC3Z8qubWhIeYmeHQfXC040+WhEcE
-         w4hu2GvDTiFZRumOJPSaERTQdIppzXJ0ePkV617MhpUtwVEg970NAV/BOk747yVlDtp1
-         S4G7kJwVnnYp/6OqqzmYFaFW314xB7DGfBmd31sphRPXFTKJqRYn95xEqQZ8jvr1Lq3D
-         9mRp+dNr1qR5gqjAKzng6ikGgxkxoxeY6PkimoEiYnpNJ754F5ZjsVwFj9jEufHxaVUE
-         RLfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794589947; x=1795194747;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xv91mbpY6CHl9oZ10SuH7nK8AHihJpvpXeevDfWrpHA=;
-        b=jhs7FIeOzqdfPLIL94HVc/yIHX+UqV6PWdlHw1V75TpYOLeNowlX4eZXXhYN7u3UaY
-         YJPrzeU5oA7Qp8NPzMjWLCpHmXE74Q89RKazuOgg3mad8Q9fdFjRE5ZHivuD+cMmUmsk
-         7kGaG0gl1ig/yVAK7QvlkvJgabs6Hq6OlolEmGlPZeuyo9xmEehzv8PZVTvnu4Gzhqmp
-         nUgnZtJSEaeT3dIxz8kXdFFFbH612Iux32CqYFs9sAVSIlacGOLp9uAvtqaanuBQalHT
-         fq1ZnH5pMPK/yFHXWqMwTSz75aPihpPFfBLZL98DjzzCOrO0moxfHfJKIRIonU5OSC+V
-         zA/g==
-X-Forwarded-Encrypted: i=1; AL+hErHzV5x7vtihwKGfGlR4JGOUDzEducTfCMt8uhb6rFkJQO7dlgQJiM7chCKTaU7rcoTN0NV1MCFVi5/e/mM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8cctMVlFwRWNJQ+UOfATETXOFNY8/8RwI5YHZetbjYSGAhyw4d
-	p/VYzL/myMyOXipq0db0z77v41XSQ1UiQm4Dvm9pKntgUx2sDPU6p2D0
-X-Gm-Gg: AYBFou39Mclyp18wEzHXg57fO8IoPJdEaYnge6WhId45hqslZdm9adlOVWMSJlrf0nB
-	omY7fBfAeF/x9NG6z/PsVdoVF5mVgvT+iT87riUz/dl/6WgEgM8Ae+5miEZTPCq9Gwcv39qR9QC
-	GXO26dTaBAdilpI1Y7NdAedk8bbOyUrK7YhtPeDzBIsGEb4Y4bOHqn+7+8gEYaVJ0Ze86CcxF+Z
-	SM0GAZXL01WgbdVF5uSJeBXmzlByGfObqb0rk+8rh9iTpoEuUdVghEo5c18+TsAsIbtC/akgkXg
-	VPHKyxNP0pJUhrs+87BT8D1/OFYywY8eMFYnqG9Fpj3+gSqe/7+O8BHHm6gAl0AIkCidPYMhyEQ
-	2AX+MG+kEAhHrcEr+otGxke2fd/WrxSMXGtrJRfG6g0iTBFaSM4vph8ElugN4pPijtyD120yUqx
-	8wo0II0rzLCy6C0XtVN0nRkC4kHpXvQu+KdOxd8oLJT/uIJPSFEPIztRdQSLsKT7NYn5l8aaJte
-	pw+KnRL27NdQ3DPCnLnDUGk4J9xm/ASHOG2Vs4csYdCh1rTCYygkADt35//OtqVVLNVUQHeSD6p
-	ZTn7R55jgqzIGOQQIzSF8kyT9/9XzA3TauSzxhCB92IXgSDnN6wH4DTlGGlizCc1SJwy9ZujkWx
-	Q6t0=
-X-Received: by 2002:a05:7022:7f04:b0:1a1:9106:cfff with SMTP id a92af1059eb24-1b503097baamr4481535c88.2.1794589946743;
-        Fri, 13 Nov 2026 09:12:26 -0800 (PST)
-Received: from DESKTOP-CJ1L666.localdomain ([211.198.99.62])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b505b5bf76sm5975999c88.10.2026.11.13.09.12.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 09:12:26 -0800 (PST)
-From: Jiwoo Kim <arpe1618@gmail.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>,
-	Steven Price <steven.price@arm.com>,
-	Liviu Dudau <liviu.dudau@arm.com>
-Cc: =?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>,
-	Akash Goel <akash.goel@arm.com>,
-	Karunika Choo <karunika.choo@arm.com>,
-	Lukas Zapolskas <lukas.zapolskas@arm.com>,
-	Chris Diamand <chris.diamand@arm.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Jiwoo Kim <arpe1618@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/panthor: Fix unlocked pool->vm access in panthor_heap_create()
-Date: Sat, 14 Nov 2026 02:12:14 +0900
-Message-ID: <20261113171211.836427578-1-arpe1618@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=aVPrSbWH
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tFRFs3ugRjYP6lKI0xpWRfw+5tQaRomuOoNXXKDjaEZB/BQzJ2TovqXL9jb0XTARvWlcAqk5jPwd8dhOiPQ1VAqKiUmq6wn4UDmJTyZFxNOBSslmKZPTOAAB899wkTYZu4avNmYlgouDmiW3ptAZs+3k8oaY5xO3aMBqpVVxbfSoWJj2Bytf1PzwiWJ6j+ZIIzuyWtzMIy8hMmJK8O6mJbyMc31kQArhLgnZ7PNjfAUAXQ5EJM2EPVB74bnmx3a3O7n5W/Txsc1AvDXTCo5LAuLcxBx87P+e7d4biy1vzEWGi/5tMxrwReNWO4fUYW+HFW1Izy53qk1Rkm3Bzylz1Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4w+8hXL5G+Tl1wYKCK2wiELmR0OZ7AU1z+xMbyxDt/o=;
+ b=eiSba6YmYqgLgAjgJ7diSMJsk7yfXCExP/jHQ7p4BUIpULvXcxRQwIUJSBN2G19Fij27cAPgIGh1v/Pla8fU9iNrQJKhVW82jM04IdqUibnMCJJLxebEBK7KJt48QxIEvwtIClmzr+ljYhaUuzVHk5WbSmRg05PGtkAjbdbVvLRhF5EiSPdRate4B+F5uGoaTeWsN75eKR5tAHFHsgg8fZFbFqZFyU0jdaOyOeH6y9DU+0IllSkgd+dUQwvQdUYNqB37eRS7KWGE72TUn6YGq57MPvGReB2reRnPfq6Oe7ePoa1rLixrcDMd/PFPAb2P4IFXxUzGLyRID2zi7C/ulA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4w+8hXL5G+Tl1wYKCK2wiELmR0OZ7AU1z+xMbyxDt/o=;
+ b=aVPrSbWHXb6IvBq7pXxDns8SKOK9FLn595q2QKpfvGaDF3ZzGZOzvRnnIrIRK4n1vLnkBgAaUInAlV6q1trSF1FGmA4RCWK3LxU1St2uoPKoXKDZvHEFP6Gx1vzqRyzQRSBz5xSf3IYQi0t39wArH1REQ8tiaUSu6HKswcu2OVdDDbyj0vZTcv917Bae895Thc/XDk4ZiWDukVf7X9/hFNOAjGFGMq4bxCUCVQWAwNSKHgLBZcZigRQU5w+vLh6eUwzoNjM1V0OHegtYgvHACHB9l46YZt/rZevKGhUY97R/2AL3v4UfMyjyLfQaQ3FagHkrS8v17uFZzTCR/Zj6qg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by PA4PR04MB7599.eurprd04.prod.outlook.com (2603:10a6:102:ea::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
+ 2026 17:12:20 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.009; Fri, 13 Nov 2026
+ 17:12:20 +0000
+Date: Fri, 13 Nov 2026 12:12:13 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Nathan Lynch <nathan.lynch@amd.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	David Rientjes <rientjes@google.com>, John.Kariuki@amd.com,
+	Jonathan Cameron <jic23@kernel.org>,
+	Kinsey Ho <kinseyho@google.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	PradeepVineshReddy.Kodamati@amd.com,
+	Shivank Garg <shivankg@amd.com>,
+	Stephen Bates <Stephen.Bates@amd.com>,
+	Tycho Andersen <tycho@kernel.org>, Wei Huang <wei.huang2@amd.com>,
+	Wei Xu <weixugc@google.com>, dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
+Subject: Re: [PATCH v4 18/25] dmaengine: sdxi: Add context submission helper
+Message-ID: <avdE7dckg2azmum3@lizhi-Precision-Tower-5810>
+References: <20261103-sdxi-base-v4-0-3668ccc7aab8@amd.com>
+ <20261103-sdxi-base-v4-18-3668ccc7aab8@amd.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103-sdxi-base-v4-18-3668ccc7aab8@amd.com>
+X-ClientProxiedBy: DS1PR06CA0017.namprd06.prod.outlook.com
+ (2603:10b6:8:23e::15) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,118 +106,291 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PA4PR04MB7599:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0f29b0da-00a5-4297-b3b6-08df41a94713
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|1800799024|23010399003|376014|7416014|366016|18002099003|22082099003|6133799003|261009223027099003|3023799007|56012099006|11063799006|4143699003|261102123227099003|261026140227099003|261021135927099003|261026121527099003|261022105027099003|261022075727099003|261028144727099003|261021121427099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	hcnJqo4UtDvWITDngmW/9M6OSVdO/Vye3iIOBHoXMCJScBJsd9e36PhsvmLgSgobDYZt0ccyyFF35I4px/5+DyQIQB8iD5ULgoj+i4gbX+J/WA22r2tAW9xoRvET7UZZI1aoE5DGIVnWFhykeNDTgQ+oiNZFK4HpkuuVBaao1DpAcmuv72wnHhIfeLBvaRFdTi858WCX6yqoXKVZLdJO3V5OILrPXhzffFc30RaWCAzMdrtBO3QdvdZoWkz0EKnN6lJPriVLYcqBiRdpZvikQ2NJwwz5WRbv63lnPgrgz1Lkf6k7S536U0VdoJ8nCzL12MfyMKCnxsf95z0tpzg5pUTpipGV+9DW3SKkrBPJLdcnyAJE+dEB2xb1g3mizayZ/ENDEeq8ZZV/K4wWnhNpNaCyV9wtCohwJvZNoalDAxtyibcf6Ta9VELXT27LUVcfkQWcd3qqp/PCaxSC1nXnIWeKxAncCn3szVF9qhwEqY7eg4t81rZUAaqmUswIPKL8j77DzL4j9Ssd9J3gkr4YoFfwr3CZeJvaC39dcV1xB4OS6UTBM/tmhGwGwr1zn0t+rpMevNbpH5nOmi8AG5qDMzh6MrIQJSlxOHvO+ohS2LRDwk/730vxgHnfvQs/h3FL0yeYMgoDLlJgcHIIDZHEPh6YHE56KtdOspl9eL09sp0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(1800799024)(23010399003)(376014)(7416014)(366016)(18002099003)(22082099003)(6133799003)(261009223027099003)(3023799007)(56012099006)(11063799006)(4143699003)(261102123227099003)(261026140227099003)(261021135927099003)(261026121527099003)(261022105027099003)(261022075727099003)(261028144727099003)(261021121427099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?q2QCu20Bg4cBuNFiXmB0y8x3lqV21dZcTpkKZhaRWYopVSMNCCeu8x0LBL6s?=
+ =?us-ascii?Q?566BYfkE9Ae3jCHumbGc05uDkdhakkKRD+3WR2TixNI6iOhy+wTOVlBNtZFw?=
+ =?us-ascii?Q?jKX1FgkctXmOcroOu+amXmM1FjSDT0oQvB8Cq8fGWHDonAA0PuzFU/R0HGCk?=
+ =?us-ascii?Q?CvhxRyXohyy9vkLMp3VQJMSCjtBufyv6PwJNPSUrsZL0cABpJLQxEII7o+rt?=
+ =?us-ascii?Q?/bEeRgEXQxPmt9Gf9bAcytwn+omkoPxyQAlR0KenxmxWNjnHwlWFjc0ny1SB?=
+ =?us-ascii?Q?gsMvzyew6m/r+uh9krCU4V1c3W4fuRDFoKu6W8WYGTwdKaX7C5aXYay0v6aw?=
+ =?us-ascii?Q?1s/XdrcHqeCD6AlsiAFvR7Y71zusZfWYPixuBnWCm0iX+ftpjIyrUZgaifSW?=
+ =?us-ascii?Q?lcSuldwfIfeu1DepraJ4j+MDM5KRL4KUgblqzmnNBpUsO7Gqlm1n/v4T4vDL?=
+ =?us-ascii?Q?7jVcAI0g/Jn03oQm/KAHNwPhWFk4OOxJMn9Bx0s8uW5/W22iRojcmCbh6eU9?=
+ =?us-ascii?Q?n5gYSLLoozwCiF0MqD1tVX1lRo9Sw73SfVGYky6zXmioUFibWaeCnmaCi6QF?=
+ =?us-ascii?Q?OuC3NRnrQ1qXl1tk5PF4WXWJ3GCCbWokZ1jo7vyh7dxtLnEJ5URZE8H/HyrD?=
+ =?us-ascii?Q?V2rZB3O+F/GcaEN7dvK5bLtOSkGsrIvq8jSCzmThMWtKeNHeJhJdTzuq1wW5?=
+ =?us-ascii?Q?11/F3/aHDGQBwMYEK4zrwsGVNsxI8KNj6e0n4DVeyoPE8ZeNwzUj9II2stvE?=
+ =?us-ascii?Q?qhudQWMq+kV5+82P72UaOZae8Tk2iFOMXiagazf/hNWDZ/7ISXBGp3tQ7zD6?=
+ =?us-ascii?Q?oXpGQWKckrC+ZhZjAXc5nI9n7FN/4zXmygZravrIUeDZhCnUTfnfLKGVQQpz?=
+ =?us-ascii?Q?PH9KeiHjKU3xYYPx9z9iIidwKyaIK3TJR5A7QtPps2LMYmCcZBkLxFcsrLwv?=
+ =?us-ascii?Q?PWLkHKz8QtXGY1bbqy8BYyMbUcKSvxDZV7YEfTv+Jky48X09Fm9VSGE9f1W2?=
+ =?us-ascii?Q?SoyDm74Zb7CB8WqHxdQ4v6UBXl2/j2gdeA4fzMjaakZZuNzRmN2Mf86Y5ISX?=
+ =?us-ascii?Q?2yjF23OfsaoVoTkxMU6QgjGaNycDxWzMm1RW1EvbLb1WzGGIzYXtS5bPt5Vg?=
+ =?us-ascii?Q?x54FX+GRYO5b4nzf9EsrGOVtG0BuUik8xYXaXzKXJi72x6zqPhMNuYMIcKcu?=
+ =?us-ascii?Q?S36t3n50yTjPTJgBytf7MEd+3XZz6/NO+FZ7NAQN/zPcpIIBE434RG4wqy/t?=
+ =?us-ascii?Q?s5+lVA+owXfUpLp8VM/RFxyO8NPyINwxvjkLForPeFiAnIXLEj+yS1m3ZaIL?=
+ =?us-ascii?Q?4jdL0YqUUrV3wvycJi1TGUVG7Xelgbv1Sa9vp0Ki62fJoqJHZ8+3up6TsliR?=
+ =?us-ascii?Q?kABA6eQDItMsNFfGrD+HOkk5EjJAM1BtdckOTqQox9Vauu6gpOjXc8xkIqEt?=
+ =?us-ascii?Q?GIKo/5leZXW1Puf6m00ou4paHubaYIF3LGgLPZKBD5Nr3fuREBcV3rlAQX+U?=
+ =?us-ascii?Q?TJ48txx9rsr65jOwIv3U1uWPuNYs0kA6oyPDjRSKbB2PtSooRJpKoWskCze8?=
+ =?us-ascii?Q?M8ozRqi2BT/sWvxfh8lCpbwuNDannLHuIWURHsX+k0ls47eqOcl1zMQmYJMU?=
+ =?us-ascii?Q?RFgaLmu7LowlLCK7xKP4aUpvHAuMeQrI76mntSmhcesTUYnBXdIY1I5Tqlqt?=
+ =?us-ascii?Q?DYhPcAYmC+Ik9Chxcaw2w/TcIPot7++R0nuhulcmYv8lOmoDmqv8MbJstcvF?=
+ =?us-ascii?Q?kc0WXd5mmDDwJdBYxscNU4yByeD8WqAgl0vjfEIZ5zkhOZf74C1C?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f29b0da-00a5-4297-b3b6-08df41a94713
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 17:12:20.8433
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WvfaJ7bDaQj3Ggbo/548G3Ii5eEp9TnNhITzFn5cMvXBI6dcUaTILRpvJsi94EzMbwEZBY103bLOWDTLqlfGKXuAj7o4Dlp11+MTwYBleCgaUQq5My23cfj/IeP8MZOK
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7599
 
-panthor_heap_create() takes a reference on pool->vm under pool->lock,
-because the pool can be destroyed concurrently, and the initial heap
-chunks used to be allocated in that VM. Since commit c63c3bfdde26
-("drm/panthor: Avoid sleep locking in the internal BO size path"),
-panthor_alloc_heap_chunk() takes the pool instead and reads pool->vm
-itself. panthor_heap_grow() calls it with pool->lock held, but
-panthor_heap_create() does not, so pool->vm is read without the lock
-for every initial chunk.
+On Tue, Nov 03, 2026 at 08:49:59PM -0600, Nathan Lynch wrote:
+> Add sdxi_cxt_submit() to consolidate optional fence and completion-status
+> block setup, valid-bit publication, and doorbell ringing. An optional
+> struct sdxi_completion input identifies storage already claimed and
+> initialized by the caller.
+>
+> Introduce generic descriptor helpers for attaching completion storage,
+> setting completion-status mode, fencing, and publishing the valid bit.
+> Publishing orders prior descriptor writes before transferring ownership
+> to hardware; the helpers warn if a caller attempts to modify an already
+> valid descriptor.
+>
+> Provide sdxi_cxt_attach_cst() for attaching completion storage without
+> publishing the descriptor, and sdxi_cxt_kick() for ringing a context
+> doorbell.
+>
+> Co-developed-by: Wei Huang <wei.huang2@amd.com>
+> Signed-off-by: Wei Huang <wei.huang2@amd.com>
+> Signed-off-by: Nathan Lynch <nathan.lynch@amd.com>
+> ---
+>  drivers/dma/sdxi/context.c    | 36 ++++++++++++++++++++++++
+>  drivers/dma/sdxi/context.h    | 28 +++++++++++++++++++
+>  drivers/dma/sdxi/descriptor.h | 64 +++++++++++++++++++++++++++++++++++++++++++
+>  drivers/dma/sdxi/hw.h         | 10 +++++++
+>  4 files changed, 138 insertions(+)
+>
+> diff --git a/drivers/dma/sdxi/context.c b/drivers/dma/sdxi/context.c
+> index 60cc812df204..679c5cfab19d 100644
+> --- a/drivers/dma/sdxi/context.c
+> +++ b/drivers/dma/sdxi/context.c
+> @@ -24,6 +24,7 @@
+>
+>  #include "completion.h"
+>  #include "context.h"
+> +#include "descriptor.h"
+>  #include "hw.h"
+>  #include "ring.h"
+>  #include "sdxi.h"
+> @@ -362,3 +363,38 @@ void sdxi_client_cxts_exit(struct sdxi_dev *sdxi)
+>  		sdxi_free_cxt(cxt);
+>  	xa_destroy(&sdxi->client_cxts);
+>  }
+> +
+> +/*
+> + * Attach a claimed, initialized completion block to a descriptor slot.
+> + * The descriptor is not published; the caller sets the valid bit (and
+> + * kicks) once the operation is fully encoded.
+> + */
+> +void sdxi_cxt_attach_cst(struct sdxi_slot slot,
+> +			 const struct sdxi_completion *comp)
+> +{
+> +	struct sdxi_desc *desc = sdxi_slot_desc(slot);
+> +
+> +	/*
+> +	 * We use simple (non-atomic) completion status mode only; set the
+> +	 * descriptor's CSR bit. See SDXI 1.0 4.4.2 Completion-Status Modes.
+> +	 */
+> +	sdxi_desc_set_csr(desc);
+> +	sdxi_desc_set_csb(desc, comp->cst_blk_dma);
+> +}
+> +
+> +void sdxi_cxt_submit(struct sdxi_cxt *cxt, struct sdxi_slot slot,
+> +		     const struct sdxi_completion *comp, enum sdxi_submit_flags flags)
+> +{
+> +	struct sdxi_desc *desc = sdxi_slot_desc(slot);
+> +
+> +	if (flags & SDXI_CXT_SUBMIT_FENCE)
+> +		sdxi_desc_set_fence(desc);
+> +
+> +	if (comp)
+> +		sdxi_cxt_attach_cst(slot, comp);
+> +
+> +	sdxi_desc_make_valid(desc);
+> +
+> +	if (flags & SDXI_CXT_SUBMIT_KICK)
+> +		sdxi_cxt_kick(cxt);
+> +}
+> diff --git a/drivers/dma/sdxi/context.h b/drivers/dma/sdxi/context.h
+> index 94e0fc45f281..f048e298f6de 100644
+> --- a/drivers/dma/sdxi/context.h
+> +++ b/drivers/dma/sdxi/context.h
+> @@ -9,10 +9,12 @@
+>  #include <linux/array_size.h>
+>  #include <linux/dma-mapping.h>
+>  #include <linux/idr.h>
+> +#include <linux/io.h>
+>  #include <linux/string.h>
+>  #include <linux/types.h>
+>
+>  #include "hw.h"
+> +#include "ring.h"
+>  #include "sdxi.h"
+>  #include "submission.h"
+>
+> @@ -52,6 +54,16 @@ int sdxi_admin_cxt_init(struct sdxi_dev *sdxi);
+>  struct sdxi_cxt *sdxi_cxt_new(struct sdxi_dev *sdxi);
+>  void sdxi_client_cxts_exit(struct sdxi_dev *sdxi);
+>
+> +enum sdxi_submit_flags {
+> +	SDXI_CXT_SUBMIT_KICK  = BIT(0),
+> +	SDXI_CXT_SUBMIT_FENCE = BIT(1),
+> +};
+> +
+> +void sdxi_cxt_attach_cst(struct sdxi_slot slot,
+> +			 const struct sdxi_completion *comp);
+> +void sdxi_cxt_submit(struct sdxi_cxt *cxt, struct sdxi_slot slot,
+> +		     const struct sdxi_completion *comp, enum sdxi_submit_flags flags);
+> +
+>  static inline struct sdxi_cxt *to_admin_cxt(const struct sdxi_cxt *cxt)
+>  {
+>  	return cxt->sdxi->admin_cxt;
+> @@ -62,6 +74,22 @@ static inline bool sdxi_cxt_is_admin(const struct sdxi_cxt *cxt)
+>  	return cxt == to_admin_cxt(cxt);
+>  }
+>
+> +static inline void sdxi_cxt_kick(struct sdxi_cxt *cxt)
+> +{
+> +	/*
+> +	 * Ring the context's doorbell with its current write index.
+> +	 *
+> +	 * It's OK to locklessly sample the index for this purpose: it
+> +	 * monotonically increases and the implementation is required
+> +	 * to ignore out-of-order doorbell values (SDXI 1.0 5.2.1
+> +	 * Multi-Producer Enqueue).
+> +	 *
+> +	 * writeq() orders the descriptors' valid bits ahead of the
+> +	 * doorbell, so no explicit barrier is needed here.
+> +	 */
+> +	writeq(le64_to_cpu(READ_ONCE(cxt->sq->write_index)), cxt->sq->doorbell);
+> +}
+> +
+>  static inline struct sdxi_akey_ent *sdxi_alloc_akey(struct sdxi_cxt *cxt)
+>  {
+>  	unsigned int max = ARRAY_SIZE(cxt->akey_table->entry) - 1;
+> diff --git a/drivers/dma/sdxi/descriptor.h b/drivers/dma/sdxi/descriptor.h
+> new file mode 100644
+> index 000000000000..b19d5d329e43
+> --- /dev/null
+> +++ b/drivers/dma/sdxi/descriptor.h
+> @@ -0,0 +1,64 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +#ifndef DMA_SDXI_DESCRIPTOR_H
+> +#define DMA_SDXI_DESCRIPTOR_H
+> +
+> +/*
+> + * Facilities for encoding SDXI descriptors.
+> + *
+> + * Copyright Advanced Micro Devices, Inc.
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/ratelimit.h>
+> +#include <linux/types.h>
+> +#include <asm/byteorder.h>
+> +
+> +#include "hw.h"
+> +
+> +static inline void sdxi_desc_vl_expect(const struct sdxi_desc *desc, bool expected)
+> +{
+> +	u8 vl = FIELD_GET(SDXI_DSC_VL, le32_to_cpu(desc->opcode));
+> +
+> +	WARN_RATELIMIT(vl != expected, "expected vl=%u but got %u\n", expected, vl);
+> +}
+> +
+> +static inline void sdxi_desc_set_csb(struct sdxi_desc *desc, dma_addr_t addr)
+> +{
+> +	sdxi_desc_vl_expect(desc, 0);
+> +	desc->csb_ptr = cpu_to_le64(FIELD_PREP(SDXI_DSC_CSB_PTR, addr >> 5));
+> +}
+> +
+> +static inline void sdxi_desc_make_valid(struct sdxi_desc *desc)
+> +{
+> +	u32 opcode = le32_to_cpu(desc->opcode);
+> +
+> +	sdxi_desc_vl_expect(desc, 0);
+> +	FIELD_MODIFY(SDXI_DSC_VL, &opcode, 1);
+> +	/*
+> +	 * Once vl is set, no more modifications to the descriptor
+> +	 * payload are allowed. Ensure the vl update is ordered after
+> +	 * all other initialization of the descriptor.
+> +	 */
+> +	dma_wmb();
+> +	WRITE_ONCE(desc->opcode, cpu_to_le32(opcode));
+> +}
+> +
+> +static inline void sdxi_desc_set_fence(struct sdxi_desc *desc)
+> +{
+> +	u32 opcode = le32_to_cpu(desc->opcode);
+> +
+> +	sdxi_desc_vl_expect(desc, 0);
+> +	FIELD_MODIFY(SDXI_DSC_FE, &opcode, 1);
 
-If TILER_HEAP_CREATE races with VM_DESTROY on the same VM,
-panthor_vm_destroy() calls panthor_heap_pool_destroy(), which sets
-pool->vm to NULL, and panthor_kernel_bo_create() can then be called
-with a NULL VM, which hits its drm_WARN_ON(!vm) and fails with
--EINVAL.
+why no dma_wmb() here?
 
-Pass the VM to panthor_alloc_heap_chunk() and
-panthor_alloc_heap_chunks() again: panthor_heap_create() passes the VM
-it holds a reference on, and panthor_heap_grow() passes pool->vm, which
-it reads under pool->lock. In the race above, the initial chunks are
-then created in the destroyed but still referenced VM, and
-panthor_heap_create() frees them and fails with -EINVAL when it finds
-the pool destroyed under pool->lock, as it did before that commit.
-
-The problem was found through AI-assisted source code review. The fix
-is compile-tested only and there is no reproducer, as I don't have
-Mali CSF hardware.
-
-Fixes: c63c3bfdde26 ("drm/panthor: Avoid sleep locking in the internal BO size path")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Jiwoo Kim <arpe1618@gmail.com>
----
-
-Notes:
-    This is the follow-up mentioned in "[PATCH] drm/panthor: Don't access
-    gpu_contexts of a destroyed heap pool":
-    https://lore.kernel.org/all/20261113162648.110226253-1-arpe1618@gmail.com/
-    The two patches are independent and apply in either order.
-    
-    It conflicts with Osama Abdelkader's pending "drm/panthor: Fix race
-    when retrieving the new chunk in panthor_heap_grow()", which also
-    changes the panthor_alloc_heap_chunk() arguments. I can rebase on top
-    of it if it lands first.
-
- drivers/gpu/drm/panthor/panthor_heap.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/panthor/panthor_heap.c b/drivers/gpu/drm/panthor/panthor_heap.c
-index 99311abdf1..46f53699a2 100644
---- a/drivers/gpu/drm/panthor/panthor_heap.c
-+++ b/drivers/gpu/drm/panthor/panthor_heap.c
-@@ -137,7 +137,12 @@ static void panthor_free_heap_chunk(struct panthor_heap_pool *pool,
- 	kfree(chunk);
- }
- 
-+/*
-+ * @vm must be pool->vm read under pool->lock, or a reference taken from it
-+ * under that lock: panthor_heap_pool_destroy() clears pool->vm.
-+ */
- static int panthor_alloc_heap_chunk(struct panthor_heap_pool *pool,
-+				    struct panthor_vm *vm,
- 				    struct panthor_heap *heap,
- 				    bool initial_chunk)
- {
-@@ -149,7 +154,7 @@ static int panthor_alloc_heap_chunk(struct panthor_heap_pool *pool,
- 	if (!chunk)
- 		return -ENOMEM;
- 
--	chunk->bo = panthor_kernel_bo_create(pool->ptdev, pool->vm, heap->chunk_size,
-+	chunk->bo = panthor_kernel_bo_create(pool->ptdev, vm, heap->chunk_size,
- 					     DRM_PANTHOR_BO_NO_MMAP,
- 					     DRM_PANTHOR_VM_BIND_OP_MAP_NOEXEC,
- 					     PANTHOR_VM_KERNEL_AUTO_VA,
-@@ -209,6 +214,7 @@ static void panthor_free_heap_chunks(struct panthor_heap_pool *pool,
- }
- 
- static int panthor_alloc_heap_chunks(struct panthor_heap_pool *pool,
-+				     struct panthor_vm *vm,
- 				     struct panthor_heap *heap,
- 				     u32 chunk_count)
- {
-@@ -216,7 +222,7 @@ static int panthor_alloc_heap_chunks(struct panthor_heap_pool *pool,
- 	u32 i;
- 
- 	for (i = 0; i < chunk_count; i++) {
--		ret = panthor_alloc_heap_chunk(pool, heap, true);
-+		ret = panthor_alloc_heap_chunk(pool, vm, heap, true);
- 		if (ret)
- 			return ret;
- 	}
-@@ -315,7 +321,7 @@ int panthor_heap_create(struct panthor_heap_pool *pool,
- 	heap->max_chunks = max_chunks;
- 	heap->target_in_flight = target_in_flight;
- 
--	ret = panthor_alloc_heap_chunks(pool, heap, initial_chunk_count);
-+	ret = panthor_alloc_heap_chunks(pool, vm, heap, initial_chunk_count);
- 	if (ret)
- 		goto err_free_heap;
- 
-@@ -473,7 +479,7 @@ int panthor_heap_grow(struct panthor_heap_pool *pool,
- 	 * further jobs in this queue fail immediately instead of having to
- 	 * wait for the job timeout.
- 	 */
--	ret = panthor_alloc_heap_chunk(pool, heap, false);
-+	ret = panthor_alloc_heap_chunk(pool, pool->vm, heap, false);
- 	if (ret)
- 		goto out_unlock;
- 
-
-base-commit: bafda823590ddf7031ecb765d673572fae7ab44a
--- 
-2.43.0
-
+Frank
+> +	desc->opcode = cpu_to_le32(opcode);
+> +}
+> +
+> +static inline void sdxi_desc_set_csr(struct sdxi_desc *desc)
+> +{
+> +	u32 opcode = le32_to_cpu(desc->opcode);
+> +
+> +	sdxi_desc_vl_expect(desc, 0);
+> +	FIELD_MODIFY(SDXI_DSC_CSR, &opcode, 1);
+> +	desc->opcode = cpu_to_le32(opcode);
+> +}
+> +
+> +#endif /* DMA_SDXI_DESCRIPTOR_H */
+> diff --git a/drivers/dma/sdxi/hw.h b/drivers/dma/sdxi/hw.h
+> index c1bff631a5ae..edc43190148c 100644
+> --- a/drivers/dma/sdxi/hw.h
+> +++ b/drivers/dma/sdxi/hw.h
+> @@ -136,6 +136,16 @@ struct sdxi_desc {
+>  			__u8 operation[52];
+>  			__le64 csb_ptr;
+>  		);
+> +
+> +/* For opcode field */
+> +#define SDXI_DSC_VL  BIT(0)
+> +#define SDXI_DSC_SE  BIT(1)
+> +#define SDXI_DSC_FE  BIT(2)
+> +#define SDXI_DSC_CSR BIT(4)
+> +
+> +/* For csb_ptr field */
+> +#define SDXI_DSC_CSB_PTR GENMASK_ULL(63, 5)
+> +
+>  	};
+>  } __packed __aligned(64);
+>  static_assert(sizeof(struct sdxi_desc) == 64);
+>
+> --
+> 2.56.0
+>
