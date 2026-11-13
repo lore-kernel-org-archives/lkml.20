@@ -1,79 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.15
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794605199;
-	b=biHDazRlWi7otFB/D4Lv+Bpq9u38IzYqe9TFjNO7MZ+g2FSqjIzlMHGlQWN4m5mOEptr
-	 1T8qa4IboTzSRK2xzyxKKA1PSaKDQZx8AxOyz0sv2RUcrYXylkZp/3ebmX19lTgdNSX8g
-	 ZrPMkEH6ZgDWFVi5d/B7eRfN94nKBORNEHOwf4Bn1A1M8PiFbT6RcND2eEEubMhBtiXK0
-	 bi2wh+IR/x8rYNJtbKXF94ZobPjCglRUFsRsk4zvMnjCDEkae6T4AwZwhXz4y31oE4SLO
-	 X51q/TNC9NHAn8AAC/mvrmNsovyjUyV67vP73vDuQuCwLqcdYCk4HffR8OUay7IhGLw==
+	t=1794605225;
+	b=qhpm3bcFjlpwbOq+xWJvVbai/AyiY/a2i/MxNsloT8jlBwEtLKAnEErXC61u1fk72mGs
+	 Dl80xZuYBrGL/pG9+v09KEIg2JHr5WMSm6ZiBZiBPI7iQqP16FTgfYSs1kFXSg1qga9rJ
+	 xzI5/A4zNHu3FbG4YBuu+Kf0PVxkgddxB/7AZ+Dv1eaQQJLRiMGXaheuTgw9sdcV66bm7
+	 J98TuOP9o5jiay+b2mK6xKWAbn0BO4a+5VWl0xP4uwL2vHUg5wzrVxFF5gpjaKRy+hbaF
+	 hqwtbDWK3CLFyxLE2ZGap8EidntGgTjoe3x9ZJjM/A/8jtbISJJSRt4Zh6u7wf/JWnA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794605199;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=j7VnaYDyVyfjUDDKNmBe9NRivr1KPLks80ov+VekDsQ=;
-	b=P2ZlPbT5EWvYLUDCrlQOexDRaOjGTt0tqAOiGQOafkFKeJyJrSW2kbl+UXJpgD9HKnoA
-	 ieK650vPNQOp7OSkeCqH01zIEkFXRjqA+vVQV0EX99om/lQ5X+ncca2XwWUw52os6C8ar
-	 JQLR4oJ4zXT+kHq5xEuZ2JOdKn6jDPmMBAvSJfarKgtiBmFjCIKmAcanARScqQwMsz493
-	 xaAxSgBK85xX2RAokTkUYA0FRq+axOXBxOJZsa4M8UIOa0oc6olteA31k9R2DYvUFNK1f
-	 gyuvch0D01D9OJbl0JfVsNWHoW8AMj7MQo1M9KFPItkXqpQJO2jaOR88eqGRbkbBj9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794605225;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Emax/NcE05afarsrgOa4WJsnCfOvWJQ2DKXwhR+o0c0=;
+	b=2CoceJfGhdW69HPpnOrwLyspOuFc2yRH8XDHUztzYDeIf3dEf9FOoQlYKXrFG78KfRsN
+	 QWtbhiU8ZjDd+vBrszikSQ9cpgWNS+Ky5TtOGRqhBufR6NdJU59wElerfmq4GD8HqzwaM
+	 s1lGEGugvg1AbLDX/h1Td5soLLzflGpKRsXk+C8oXv5g+wdan8dNmoA1vUtUGAOkLhRs1
+	 Npv+xuDMH9fGK8Xe0vn20eRmLQ/uyTHTi454Eb4iiKrGR/JFHT2f9gXStiZcD4ucSr3pT
+	 +VbNzI2f4p9rYbxZuERSe6SdjGMQ/gZ7XeeZQfSOnBo/WaASIuNHXhA7okmdUGrf8QA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NASDWh8o;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=nokia-bell-labs.com;
+	spf=fail smtp.mailfrom=nokia-bell-labs.com;
+	dkim=pass header.d=nokia-bell-labs.com header.i=@nokia-bell-labs.com header.a=rsa-sha256 header.s=selector1 header.b=YBQnegfg;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.15
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011015.outbound.protection.outlook.com [52.101.65.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C3CE606A8AA;
-	Fri, 13 Nov 2026 21:26:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 934AC606A89A;
+	Fri, 13 Nov 2026 21:27:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 934AC606A89A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nokia-bell-labs.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nokia-bell-labs.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NASDWh8o
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794605199;
-	b=FfK4aCJ+cbMlLuORujrqcFGf/oaOCsTCUtXrcdSXzhVRqvLwWW9gwYNkbzGtmEcuF+wa
-	 M5w/WWVpVTWswC2pcIGA9AYAzoofFix0ZLLT4qBze0GB3bALK7IBBZadvlslo+Cee38zr
-	 St4jaoDd0pJ9Q76K33MYuAXCgfbA39kd35+lMuIMtn/TCvP4Y9SwsstLIiV4AgaTMPsg3
-	 WKtOUpSJf5Jxhq9U5HcGSWrIerUVvNc2zUR6V8qWUgoMuWYqReooAQ9j1Ok1mNN9ETaUV
-	 ox2mtHI5J5YpOeldPdgbhhybBVoYnlMC6iG/fRVxRMm0CRLyodm2L2ok7KEfgwa0viw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794605199;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=j7VnaYDyVyfjUDDKNmBe9NRivr1KPLks80ov+VekDsQ=;
-	b=OTAThzmthUlVzLI/LonMq2CYD1dksZ2N3pA+OjHQNu4/H/zpKBJvZDIC0tT+fkXDBKZ3
-	 AFXFQAPoA1x5w6goC49olC1oIMiecn7fjV8MR7og3jgcOVKWi+hQsI6BtJ2ke3YbyHkm/
-	 CktDPj9vZJEST0pP/iLnTmJ9iCoyCJ0zznlsOhmHXXVyOcn8g36B2inBnY9CSH1B/gjNw
-	 wnpCLCNecwDepBgwWe74ehkBLBObkFxq2btFWicy9nsTrbqAl4tI9uMhD02liFG4HJ53r
-	 XB9jpy2T3e/FB3YxapkLVUOsYqj5n86xCABSRWg9PrQrLfJ6Gw4y3HCK4X45KIWV3xA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 9F9C41F000C4;
-	Fri, 13 Nov 2026 21:26:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794605199;
-	bh=j7VnaYDyVyfjUDDKNmBe9NRivr1KPLks80ov+VekDsQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=NASDWh8oFe9rmvb20HrG7NmOizC8zZNin0xYQOCQDbNhxRM+zOeo/tJku3zh+8LKj
-	 XkYQlH/SsGY4U+Y6OlQDnPUW87bVfXY4y3P3G3uAvJQQepQu53ibJuCxjhwya00+gF
-	 IqAJVwg1FAap/mD+H4egnzXen81wAggJg/jlVeX+by7nChnyUmUYaVm7weIeU87waC
-	 uIwy+x+RJ/UqfjhyZaB6Vmo4YPuJLgXN9wu29po6KWEfa7k1JC/jDhrL45zkOSyoNP
-	 QzYZOtG0o3950IvOJpOMsMLODPybO5fk8rnu/GduwoA9/R7/aJRtSNNJWqBIpMbURN
-	 GtvQX1zXz9nrA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 4790949B22;
-	Fri, 13 Nov 2026 21:26:36 +0000 (UTC)
-From: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>
-Date: Sat, 14 Nov 2026 05:26:21 +0800
-Subject: [PATCH RFC 5/8] mm/huge_memory: publish split folios by walking
- backwards
+	dkim=pass (2048-bit key, unprotected) header.d=nokia-bell-labs.com header.i=@nokia-bell-labs.com header.a=rsa-sha256 header.s=selector1 header.b=YBQnegfg
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PqoyB6pfcqTR/ryzFQt7r/tct/1ojOuB+snUwjhoZEFxCHuVeGbdXUgzIcSSVvAijZbeHjjfv+K12IVru2R9/YFm3IZLhdVo/+Pse1X8wkQbpVLuWR3P51Vufab8y35pxL/1W7WdR+XhMDO6yroreBh9chaStdahq8+Wp5UrSH7n6i6EFQu58uupOAhBgZrPEKLAmSatvi/falv7kJtagR8JdgYEuDtNNxuA0YdvBBW4tgFyj/PMmsJEN/uaPc3UGlfc/5widKEzhel3IrnjhehXmuHU/i5tys3FE5TscEy0ZNqBQRvUOcgABXFdTsyV3/25NngIdV5cOFs6hGH9MQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Emax/NcE05afarsrgOa4WJsnCfOvWJQ2DKXwhR+o0c0=;
+ b=i40IvxxkMw7ZZfgx3ic9UjNhsiVLIRNx4OvWE/ikcAr1Pv2PkdyDfvxq0UmGLQZupAIwvIwOJpLp695LaZysmenySHf6iEgAQl7wiwH4Z50WcJwa3AkffD634lfa58XBM7upxTijUySMLFpUCs5dGq5IjiO9RH4X4P0Yg/sbavKNvTWFlcHkBTtw87+28fLmN5K+usTrEgCzJC0woHyvFhkaT/C6nrP5CPqBQsg7MukRQOFMH59+LSMUdtJoq2hEV1mzT272S5ww6/kdAVmw0ZC44fg9p2L8O5be5Vw2BJvrppM2jzjhunmeP2L9qkgPZzsUzzK5afpruReGoz5tfg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 131.228.2.29) smtp.rcpttodomain=davemloft.net
+ smtp.mailfrom=nokia-bell-labs.com; dmarc=pass (p=reject sp=reject pct=100)
+ action=none header.from=nokia-bell-labs.com; dkim=none (message not signed);
+ arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nokia-bell-labs.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Emax/NcE05afarsrgOa4WJsnCfOvWJQ2DKXwhR+o0c0=;
+ b=YBQnegfggZLNRi3U7tQUt+E6eFqnbp5oQOnSXXC2J4Humu0uFHCYGlTOK8uGr9hDgFhQLekqWmFMxlJBPuGMyDBH2ff4cpb9f87/TqLdeLcn2McJFoWYkOU/amZLtmcPyrW3Vz/Gj3QrI2UgN5Rcc+uDtP0hM6iJn7r5u6+FzIwkNwZ2ZnEb2TsjtNJggi3HgKpwB2b/DXQ7yexpBG62ygQEMa2JYXhccoeD3EjuRGipIdd9IoWYR5+V8vmszO/jnNiYnyODFWtHJ1vvJT5asDmCOuoNLbeOAm7cKjw4aKwCg4qPMiljQZJgF8dworScmwxl+1qHHy0GTVX8SOswwA==
+Received: from CPCP307CA0004.DNKP307.PROD.OUTLOOK.COM (2603:10a6:380::17) by
+ GV4PR07MB10953.eurprd07.prod.outlook.com (2603:10a6:150:2b5::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Fri, 13 Nov
+ 2026 21:27:00 +0000
+Received: from CPH1EPF00000521.eurprd05.prod.outlook.com
+ (2603:10a6:380:0:cafe::2a) by CPCP307CA0004.outlook.office365.com
+ (2603:10a6:380::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Fri, 13
+ Nov 2026 21:26:59 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 131.228.2.29) smtp.mailfrom=nokia-bell-labs.com; dkim=none (message not
+ signed) header.d=none;dmarc=pass action=none header.from=nokia-bell-labs.com;
+Received-SPF: Pass (protection.outlook.com: domain of nokia-bell-labs.com
+ designates 131.228.2.29 as permitted sender) receiver=protection.outlook.com;
+ client-ip=131.228.2.29; helo=fihe3nok0735.emea.nsn-net.net; pr=C
+Received: from fihe3nok0735.emea.nsn-net.net (131.228.2.29) by
+ CPH1EPF00000521.mail.protection.outlook.com (10.167.241.132) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
+ via Frontend Transport; Fri, 13 Nov 2026 21:26:58 +0000
+Received: from sarah.nbl.nsn-rdnet.net (sarah.nbl.nsn-rdnet.net [10.0.73.150])
+	by fihe3nok0735.emea.nsn-net.net (Postfix) with ESMTP id 788C523BD0;
+	Fri, 13 Nov 2026 14:57:09 +0200 (EET)
+From: chia-yu.chang@nokia-bell-labs.com
+To: linux-kernel@vger.kernel.org,
+	kuba@kernel.org,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuniyu@google.com,
+	ij@kernel.org,
+	ncardwell@google.com,
+	koen0607@gmail.com,
+	g.white@cablelabs.com,
+	ingemar.s.johansson@ericsson.com,
+	mirja.kuehlewind@ericsson.com,
+	cheshire@apple.com,
+	rs.ietf@gmx.at,
+	Jason_Livingood@comcast.com,
+	vidhi_goel@apple.com,
+	Mike_Rudolph@comcast.com,
+	Jeff_Howe@comcast.com,
+	srichard@netapp.com
+Cc: Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>
+Subject: [PATCH net-next v3 3/4] tcp: add TCP_ECN_SEND_ECT_1 flag for congestion control
+Date: Fri, 13 Nov 2026 13:56:27 +0100
+Message-Id: <20261113125628.2893742-4-chia-yu.chang@nokia-bell-labs.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261113125628.2893742-1-chia-yu.chang@nokia-bell-labs.com>
+References: <20261113125628.2893742-1-chia-yu.chang@nokia-bell-labs.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,124 +124,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261114-swap-thp-split-v1-5-dfa8d4fa448d@tencent.com>
-References: <20261114-swap-thp-split-v1-0-dfa8d4fa448d@tencent.com>
-In-Reply-To: <20261114-swap-thp-split-v1-0-dfa8d4fa448d@tencent.com>
-To: linux-mm@kvack.org
-Cc: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Matthew Wilcox <willy@infradead.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Zi Yan <ziy@nvidia.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- Kairui Song <kasong@tencent.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794605194; l=3261;
- i=kasong@tencent.com; s=kasong-sign-tencent; h=from:subject:message-id;
- bh=Sf46vfrRt4G+zN3kqE3m/RvfsaIDpCNGdcr6uA236Go=;
- b=oZpzJU5a8EodGaJbZWszLOQkq/lIyaXCT4mGPjnh7iWciUzCCPnau5+TY4vnCCA3ZEQ7q2saI
- QN63NVcxFDxAQpo/yZQxb1IZv7CrMRCkJKZphU1t2ITr1F+czqKW4HB
-X-Developer-Key: i=kasong@tencent.com; a=ed25519;
- pk=kCdoBuwrYph+KrkJnrr7Sm1pwwhGDdZKcKrqiK8Y1mI=
-X-Endpoint-Received: by B4 Relay for kasong@tencent.com/kasong-sign-tencent
- with auth_id=562
-X-Original-From: Kairui Song <kasong@tencent.com>
-Reply-To: kasong@tencent.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CPH1EPF00000521:EE_|GV4PR07MB10953:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: e26dec92-7ce5-4bd0-4750-08df41ccd91e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|1800799024|376014|23010399003|7416014|18002099003|22082099003|3023799007|921020|11063799006|261021123027099003|261026140227099003|261028144727099003|261026121527099003|261021121427099003|56012099006|261022105027099003|261009223027099003|261102123227099003|261022075727099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	y55DwBc64RZEKmf232qM/qUjTbBIBZfoDG8jErFeU+ByjGJ6KAMS6Fq1GOVYOAxaTq+odSSgR5gXdW3Kmpq5U4XVtiThpGgOq2lhWv5mHajezHLkbvblP9SVUUUEonb4gOS8P30+6IH4ZSCdlGaZeM4w8knSqU/uvisheNdKUJ10KR5Se81P5eQWazLduoIOGXVtUrgSjAfq3sVDYUgopTrOR3G+OtjFuUFIMT3+3AkCxg88ZBXL/ebF1Q068F2UEpainutw7rxtaafShxk4GaVRDQZQMK7Plawd7TfAOPKXm65cADFwOOHQkKbxVQR9PEukL/dNU+TpW96xrdx/gjN6YVgDKglGDw6KW74TLYlvbUnxQWhAKxRWixcw7GHxORYT2SpnwOl1xxHpViXbdj3M6SVjZ84fE++WGHcpUoRaZ8/OMbSYdIZWshCdW/Sd7j99r5+Tx9bVogC0O5XaEmCAxLSei7v5ibOW4sk1HXdLnM3sfgi+N2pfrGoTD+pCW6AffsUJOpjNORT5W0W7pLs0c36fYG4d5QsQce4dKjwf/63SZaCq2U7SAPSy3GWTBlZKLdo5SEeFbUrAbqMKGcITaaqweARXK4hcVV3A5RTB6k/P05yX029GUlJdF7jGKZqXNDVbx3FmwDIUjEhq5536OEVSQHNXdAu6ThclvnJjrS/McCsu3AEcfYHlZfdqLG/LHfZkSs06kA4h60ffj8ZW1+gIyebhBEA4/ot5GqrKjIUpkBjvQr4oprf84hPz
+X-Forefront-Antispam-Report:
+	CIP:131.228.2.29;CTRY:FI;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:fihe3nok0735.emea.nsn-net.net;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014)(23010399003)(7416014)(18002099003)(22082099003)(3023799007)(921020)(11063799006)(261021123027099003)(261026140227099003)(261028144727099003)(261026121527099003)(261021121427099003)(56012099006)(261022105027099003)(261009223027099003)(261102123227099003)(261022075727099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	SAq7Zze399c5+TnsHZUxsMEfwzN8PKLY3W6coo6Yt359Z/pZScL9I69KhCWk8RK/bBIuU+cwvtveu03ze9n/ul49Upg6cJPxPvSjtWGJzYwFDmq1rUiDR28/dhRpfiedYCb2qVe/tzSXwuWZtaCQtTuWBOzlSjLmZG2IE0ZvlG40ol59dk+VLpL3eJn5XOoMmWYt1a09mDlgMF0bogVX+l1xPQ9CcYT4ObNHnrEwMqwKa5BUvTp0AIckXzux3d/qiZXJIqHItwtoDj6xLN1MYUoA+c3zJy30jAYzSEu2kM5x741inzG2jHdyYzpEA3xuGf9D/2EHCf8L7kDBNyvk26rFjCxa2ZZQmGN9knuA7bybmN1PX88G2Ijty5k4Tcf6Xbu/gn2EwXPzxFIwM1kWmrvK0OIAR4dU6SZc11nuPtv9ncGFah7apyQhXhgBY1kL
+X-OriginatorOrg: nokia-bell-labs.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 21:26:58.0515
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e26dec92-7ce5-4bd0-4750-08df41ccd91e
+X-MS-Exchange-CrossTenant-Id: 5d471751-9675-428d-917b-70f44f9630b0
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=5d471751-9675-428d-917b-70f44f9630b0;Ip=[131.228.2.29];Helo=[fihe3nok0735.emea.nsn-net.net]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-CPH1EPF00000521.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV4PR07MB10953
 
-From: Kairui Song <kasong@tencent.com>
+From: Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>
 
-__xa_store() builds a fresh XA_STATE per after-split folio, so a uniform
-order-9 to order-0 split does 511 root walks, which is slow and on the
-hot path for file folio splitting.
+This patch introduces the new TCP_ECN_SEND_ECT_1 bit, which enables
+a congestion control module to control whether the connection
+transmits using ECT(1) (if the bit is set) or ECT(0) (otherwise),
+when congestion control is initialized after ECN negotiation.
 
-So instead, just use one XA_STATE iterator, and step back folio by folio
-using the new xas_prev_canonical() helper: each iteration is much
-cheaper, and publishing costs only one full descent walk.
+A congestion control module, such as the upcoming TCP Prague
+using L4S ECN, can set this new TCP_ECN_SEND_ECT_1 bit if it
+wants to send the ECT(1) code point in outgoing IP headers.
 
-Also simplify the code by unifying the post-processing of past EOF
-folios.  We may store a few more folios than necessary, but the store is
-much cheaper now, the truncate path is unlikely, and it makes the folio
-removal convention in a mapping more consistent: the folio being removed
-always matches the content in the mapping now.
+Signed-off-by: Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>
 
-Signed-off-by: Kairui Song <kasong@tencent.com>
+--
+v3:
+- Update commit message
+- Update flag name and helper function name to eliminate confusion
 ---
- mm/huge_memory.c | 35 +++++++++++++++++++----------------
- 1 file changed, 19 insertions(+), 16 deletions(-)
+ include/net/tcp.h     | 1 +
+ include/net/tcp_ecn.h | 6 ++++++
+ net/ipv4/tcp_cong.c   | 4 +++-
+ net/ipv4/tcp_output.c | 2 +-
+ 4 files changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 3d3a82a03149..7270baa20d80 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -4187,7 +4187,7 @@ static int __folio_freeze_split_file(struct folio *folio,
- 	XA_STATE(xas, &mapping->i_pages, folio->index);
- 	struct folio *end_folio = folio_next(folio);
- 	struct mem_cgroup *memcg, *old_memcg;
--	struct folio *new_folio;
-+	struct folio *new_folio, *old_folio;
- 	int nr_shmem_dropped = 0;
- 	unsigned int min_order;
- 	struct lruvec *lruvec;
-@@ -4282,28 +4282,31 @@ static int __folio_freeze_split_file(struct folio *folio,
- 	 * before @folio, or at the end of @list, and the LRU is drained
- 	 * from the tail, so the last one added goes first.
- 	 */
-+	xas_set_order(&xas, folio->index + old_nr_pages - 1, 0);
-+	old_folio = xas_prev_canonical(&xas);
- 	for (new_folio = folio_prev(end_folio); new_folio != folio;
- 	     new_folio = folio_prev(new_folio)) {
- 		unsigned long nr_pages = folio_nr_pages(new_folio);
+diff --git a/include/net/tcp.h b/include/net/tcp.h
+index 4b1159e6c125..0242fd6bbb07 100644
+--- a/include/net/tcp.h
++++ b/include/net/tcp.h
+@@ -428,6 +428,7 @@ static inline void tcp_dec_quickack_mode(struct sock *sk)
+ #define	TCP_ECN_DEMAND_CWR	BIT(2)
+ #define	TCP_ECN_SEEN		BIT(3)
+ #define	TCP_ECN_MODE_ACCECN	BIT(4)
++#define	TCP_ECN_SEND_ECT_1	BIT(5)
  
- 		folio_ref_unfreeze(new_folio, nr_pages + 1);
- 		lru_add_split_folio(folio, new_folio, lruvec, list);
--
--		/* Add the new folio to the page cache. */
--		if (new_folio->index < end) {
--			__xa_store(&mapping->i_pages, new_folio->index,
--				   new_folio, 0);
--			continue;
-+		/* Mapping is split, but content is still old folio */
-+		WARN_ON_ONCE(xas_get_order(&xas) != folio_order(new_folio));
-+		WARN_ON_ONCE(old_folio != folio);
-+		/* order 0 store: siblings keep resolving to this slot */
-+		xas_store(&xas, new_folio);
-+		/* Step off now as the unlink below can free the xa_node */
-+		old_folio = xas_prev_canonical(&xas);
-+		if (new_folio->index >= end) {
-+			/* Drop folio beyond EOF: ->index >= end */
-+			if (shmem_mapping(mapping))
-+				nr_shmem_dropped += nr_pages;
-+			else if (folio_test_clear_dirty(new_folio))
-+				folio_account_cleaned(new_folio,
-+						      inode_to_wb(mapping->host));
-+			__filemap_remove_folio(new_folio, NULL);
-+			folio_put_refs(new_folio, nr_pages);
- 		}
--
--		/* Drop folio beyond EOF: ->index >= end */
--		if (shmem_mapping(mapping))
--			nr_shmem_dropped += nr_pages;
--		else if (folio_test_clear_dirty(new_folio))
--			folio_account_cleaned(
--				new_folio, inode_to_wb(mapping->host));
--		__filemap_remove_folio(new_folio, NULL);
--		folio_put_refs(new_folio, nr_pages);
- 	}
+ #define	TCP_ECN_DISABLED	0
+ #define	TCP_ECN_MODE_PENDING	(TCP_ECN_MODE_RFC3168 | TCP_ECN_MODE_ACCECN)
+diff --git a/include/net/tcp_ecn.h b/include/net/tcp_ecn.h
+index 9ca016d98972..ff402cdb988d 100644
+--- a/include/net/tcp_ecn.h
++++ b/include/net/tcp_ecn.h
+@@ -38,6 +38,12 @@ static inline void INET_ECN_xmit_negotiation_ect(struct sock *sk)
+ 	__INET_ECN_xmit(sk, tcp_ca_ect_1_negotiation(sk));
+ }
  
- 	/*
-
++/* Apply either ECT(0) or ECT(1) based on TCP_ECN_SEND_ECT_1 flag */
++static inline void INET_ECN_xmit_established_ect(struct sock *sk)
++{
++	__INET_ECN_xmit(sk, tcp_sk(sk)->ecn_flags & TCP_ECN_SEND_ECT_1);
++}
++
+ static inline void tcp_ecn_queue_cwr(struct tcp_sock *tp)
+ {
+ 	/* Do not set CWR if in AccECN mode! */
+diff --git a/net/ipv4/tcp_cong.c b/net/ipv4/tcp_cong.c
+index 3331679c81d7..43b0634f7673 100644
+--- a/net/ipv4/tcp_cong.c
++++ b/net/ipv4/tcp_cong.c
+@@ -240,7 +240,9 @@ void tcp_init_congestion_control(struct sock *sk)
+ 	tcp_sk(sk)->prior_ssthresh = 0;
+ 	if (icsk->icsk_ca_ops->init)
+ 		icsk->icsk_ca_ops->init(sk);
+-	if (tcp_ca_needs_ecn(sk))
++	if (tcp_ca_needs_accecn(sk))
++		INET_ECN_xmit_established_ect(sk);
++	else if (tcp_ca_needs_ecn(sk))
+ 		INET_ECN_xmit(sk);
+ 	else
+ 		INET_ECN_dontxmit(sk);
+diff --git a/net/ipv4/tcp_output.c b/net/ipv4/tcp_output.c
+index 08d0d4a639fe..7b694479095e 100644
+--- a/net/ipv4/tcp_output.c
++++ b/net/ipv4/tcp_output.c
+@@ -350,7 +350,7 @@ static void tcp_ecn_send(struct sock *sk, struct sk_buff *skb,
+ 	if (tcp_ecn_mode_accecn(tp)) {
+ 		if (!tcp_accecn_ace_fail_recv(tp) &&
+ 		    !tcp_accecn_ace_fail_send(tp))
+-			INET_ECN_xmit(sk);
++			INET_ECN_xmit_established_ect(sk);
+ 		else
+ 			INET_ECN_dontxmit(sk);
+ 		tcp_accecn_set_ace(tp, skb, th);
 -- 
-2.56.1
-
+2.34.1
 
