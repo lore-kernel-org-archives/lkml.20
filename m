@@ -1,68 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794554795;
-	b=wOwLWR5pWf5whWDvk595DVHad6M643NeqW7OlU1HpxHF8HPZ4x9AAPVj9o8iXbZ6PLJT
-	 VdRUi2l7JG8xKZYoMKy5uJSmS8uZTirQpwm/p6tiYL4MU+gGdGV3YF+Zd6O1ISBdUh/UO
-	 aLacBXfIaStwEnhATa/Sfj1cYgBw8L0TSBCS221vRsZYpaJl/IYWG3iuGZYOeV1yrM6db
-	 GJwx8gZdbwVZIjHSkGCGhDMRZplx1Xru+o0OBq/cFS6WaFQmKH0rEnG8DGY9cyRtklrKM
-	 FbsTL2JFvV8jVSu5xbgZmGdTB7E95wjb9JLdSp2HwN8lmB4MJZHPeS2GC+js8FMM9jw==
+	t=1794554849;
+	b=wluwnmDW5VCn3Z5ax2qntYUbt5bdxftpGCYICyuLvlwM+7ApvjhTml71MCJ0lY1Dzf+a
+	 9SHvLjHZtsSmqblRQY7uFDQN7matGTLJuIvs9qSTaVa7voAzM3MoQzBjeIo4WeYcn+F0K
+	 DrZm91IM8oevqR6MesFwBYQDGim/6ipPFu0S+D+gam7iLpL2MQGYkJZOBbtJi2iU7Okhe
+	 Hdz4qUEhneQG/GlLHovWYlNkGbphF6kcS2LxgPav2jROlQtD/tzjvN9Q1Jyn0wVhRQesW
+	 Zgq68dOqanejCGR8rAzvQJTP/nTbD6RUx+sh5rkbvAs1BXaFtp8nbiSv+Gx4JEYz5CA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794554795;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794554849;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=E88biqVSHz6qNL4jjCebFWR9AcvaKjbYfKIBmqWfjtk=;
-	b=Rb5vlqzAj0iwN7g+dg8bZpah+lI5sR/U2O0pMBUmiLOm9dUbAdud/iuhkYZvktKA3r+h
-	 lfPQ2KXPZtV3+99DOinTt7HeihE+Z+1ThKyerWmjjQXJ1JuIyCtNVq2H5pLNlLSn5KrIl
-	 7NfXrFos8lQA7SK1WO6SNErMoU1M56jSJCtlTyjnnylwFMi+K4c/SzG2e/wV81Bafwy6g
-	 cB9XP1nSu0vfTSOockde4CfI7CRSWdm2IviorfBRaaRCKU+GpyxAxVvMnXa05lf4pNFRR
-	 ct70QTSIaUhHYYD+oheUMJM5VCM5X8AMj4j+8SJGaZlKHM4fin+uKYbU1cJVgM+XtHA==
+	bh=hbenJVq9I5uwkDNPOZUGRpBZdFROzQQvvi7cvGqBcJI=;
+	b=FVAjr/D8Vhr5jb56Wmyt/hj0/6Mbe6FJdcY4vuFH4ciJawQe1bhnaD5hoAJN2ExissXZ
+	 TfquHSm+FvL5BeblEPz+6XtWo/N1zNpOzKe+9NE2gJ486UtkcNGyPQjikL7HA5NlxvidD
+	 M2BJ5SDaYUod62NPBnjJy/Vj9wv1OZZzcQMYj3rmp9ODsEQ44/HtVlRSZtL0cEAu/uaMF
+	 tYMzd/E3V+CTCb+GwP3QVwUO0feEZWGqYuSP9yJeEEVWXdmBhOwLMAK54sEc8UZxrdtMN
+	 ySFnoN8Cdxr9EkUO7/Zzve6tq8EjebM8XbPJmmX4ohgwWIx39eWDh+7RjcLM8vVkQxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=wWh7Sftl;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1A86D606A321;
-	Fri, 13 Nov 2026 07:26:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A86D606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lmHcn2iB;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0A0A606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:27:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0A0A606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=wWh7Sftl
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lmHcn2iB
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso650242eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:27:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=wWh7SftlkSXnWmMbKb2yfaii51zIaJX6qOUmiIpupUtBflxRh8jDASLVdM/iUYz934nG+FDqIuIx5
-	 EEmjBdhseLxzZJSDj6MFV3BU/j+WvFYxi3q56lVsAYkKY4mSimJACt4bJAhZHGmVXPfKZ7Mw2rGboC
-	 eQAThuC0boY91pl0=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16af6bba6b13-c50f6;
-	Fri, 13 Nov 2026 15:26:31 +0800 (CST)
-X-RM-TRANSID:2ee16af6bba6b13-c50f6
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from FHB-W5100250 (unknown[36.137.216.21])
-	by rmsmtp-syy-appsvr04-12004 (RichMail) with SMTP id 2ee46af6bb9ff6e-1c780;
-	Fri, 13 Nov 2026 15:26:31 +0800 (CST)
-X-RM-TRANSID:2ee46af6bb9ff6e-1c780
-From: Gu Bin <gubin@cmss.chinamobile.com>
-To: rafael@kernel.org,
-	daniel.lezcano@kernel.org
-Cc: rui.zhang@intel.com,
-	lukasz.luba@arm.com,
-	rdunlap@infradead.org,
-	hemanth.selam@gmail.com,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] tools/thermal/tmon: propagate fscanf failure in sysfs_get_ulong()
-Date: Fri, 13 Nov 2026 15:26:20 +0800
-Message-ID: <20261113072621.2285-1-gubin@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
+        d=gmail.com; s=20260707; t=1794554848; x=1795159648; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hbenJVq9I5uwkDNPOZUGRpBZdFROzQQvvi7cvGqBcJI=;
+        b=lmHcn2iBDfK/BEp8FbnWHVMIMWkAXFhf2+kKIrYPqhaPm2jkgLq8rlqYsTFU5B8x35
+         ONmCydGkPIDiOPHZlMGJ+buRFq1okRBfcUo0goVfGScG9+hdeWYkAFuECIx91mnk5K7G
+         bq6zlUkBc3uz/vduCikWfdKTsqLW6vy+pPk+3UjyovI+m7prOW0NnfG09SrILp265YK1
+         tf8tN6fvj36I+IXcRE5Db88fPGSiGD51+jU6EEMR3zChhozReFDGmAqvOCovWxaxiqdh
+         viPfWVSGwmzyCyYULIttrBU6Tr7G5OUzaU0hCn1Ka7dntjVSwBcvPoDqsg63PUUoGwCq
+         wnOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794554848; x=1795159648;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hbenJVq9I5uwkDNPOZUGRpBZdFROzQQvvi7cvGqBcJI=;
+        b=CRIGomNxTAojhkVHfLBoZCJ89l8fKBKrK6Chmp4Aw1GGQL4+KwwcNrSSP37LH+v2GH
+         R1bPfpu2O7o+J0wRUmjTp310ADWcKt9CXBwUcCnIwMs43YcAYJz7rMhlCSbU0aoEhIuZ
+         vnAH+dzUAZ5bCSPx68md4Fmt0vAkcsjfxxzmejRqUAhY3AKebE+Nolm1/a774DoQWvSh
+         +c3aFdOemiiaIuR+7PLN3d5B3A+GaoeL4wi7Bqvj3dr+CpKnIxXUZRUQ+dieZKhBHkqe
+         tnFeasWtPVXdCghohcX+SutAHJ5Xpp7GyZWMkA6htvPsx920uNXhIZpU7Qdl/oJ44sW0
+         VOjA==
+X-Forwarded-Encrypted: i=1; AL+hErEh5o1OFBihbyZ87ei9JcGhhdF7jWOIa6whhWK0F5BLZ+56vfs7EOdwislwcLkyqaFn6ZCsNc2tAoVBhGk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9jumOo89QWoD3Ylhm74xccyLJjl4x1MbMooqF/wAf826u8bGV2
+	VLfCudCo04QcRlqsXe7giUNqexhc8hjDzLYf/wRgcKfQ/OXh17Epjf6x
+X-Gm-Gg: AYBFou3CaDRcIhN8E9TVRdJV5mv2GbHUUippgsJo2GZqcIutN31R5khurtyR3zBGdaz
+	X0a6U9TB7Wms0LjRCDVf//z53Lul0zyvDrK1HyDUQE8u8wDktt8GfuRjpcmKBHSMENOgBik7XiV
+	QVo+QtPuPv5p8u2vAL3Ovhbn39dU1D23e8Ni9gZMm9pM84keVEDlIscjpG8BKqaKc4GNbW6IX5u
+	I4fig64ii3yWv2l86MndiTYK4jI+ubZxuKb2Vhwc6UCxdB7mTQ+7Jhi3/T6ynBpF4U2m3Pluzdf
+	FXmatT9aw8Fph8X7JXArbJiuTANo16xAhVSPo0sSv/HaNg5ghhZedrEFiF+3TvgOi1z7ip/WEjy
+	Pp7MGUkkO6TlRHTMo9FyxXbMX0LlhtgYC/2tQp+SLIC/qALSiNV1VOPyl5PhbZ1z2mc8oGUwiGO
+	mhQS9FRw+Zqyg6SNACzGnYNTcraDp+71qdlZ/MDh+moehTy0RZcjj3cUQKWZzDlrE4oKVr+b+K6
+	4x/obUvMEGQxqMR/82S7m2bL+KRPpMebMKXe74xrti8WBXCpgaCGpubW1HV7nAQcEwB3Tu65HT3
+	P4bA4WR+KXhlUGCd1cYcSKRqva68Mul0zJkyS4yHTfI3T6tob6z3SB3uWxyEQKAag9o9umbYaFr
+	slUBoARcQ30Mh
+X-Received: by 2002:a05:7300:828e:b0:375:dbeb:b363 with SMTP id 5a478bee46e88-37966a575camr1303312eec.28.1794554847648;
+        Thu, 12 Nov 2026 23:27:27 -0800 (PST)
+Received: from LAPTOP-KD1TH5BD.tail375eb4.ts.net ([47.11.114.36])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795378c2fesm4906698eec.1.2026.11.12.23.27.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 23:27:27 -0800 (PST)
+From: Gopal Malaviya <gopalmalaviya53@gmail.com>
+To: akpm@linux-foundation.org,
+	willy@infradead.org,
+	jack@suse.cz
+Cc: linux-mm@kvack.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	p.raghav@samsung.com
+Subject: [PATCH] mm/readahead: don't skip the fallback after aligning index down
+Date: Fri, 13 Nov 2026 07:27:11 +0000
+Message-ID: <20261113072711.235264-1-gopalmalaviya53@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,62 +101,83 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sysfs_get_ulong() always returns 0, masking a fscanf() failure, so
-find_tzone_tp() cannot detect a malformed trip point temperature file
-and reads the uninitialized temp_ulong. The sibling sysfs_get_string()
-returns its ret.
+page_cache_ra_order() rounds the start of the readahead window down to
+the minimum folio size of the mapping, so on a file system with blocks
+larger than the page size, index can end up below start. If adding the
+first folio then fails, for example with -EEXIST because that folio is
+already cached, the loop stops with index still below start, and the
+check before the fallback
 
-Return the fscanf() result from sysfs_get_ulong() and have
-find_tzone_tp() skip the entry when the read fails. This also makes
-the check honor the "ignore 0/invalid trip points" comment above it:
-previously a failed read left the caller-dependent stack value to the
-temp_ulong < MAX_TEMP_KC comparison, so a garbage or zero temperature
-could be counted as a valid trip point and later drawn as a bogus
-marker in the TUI thermal data window.
+	if (ra->size > index - start)
 
-Return 0 rather than -1 from find_tzone_tp() on the skipped entry so
-the scan_tzones() loop keeps running, avoiding the early break that
-would leak the remaining scandir() namelist entries.
+wraps around, so do_page_cache_ra() is not called and nothing of the
+window is read.
 
-Fixes: 94f69966faf8 ("tools/thermal: Introduce tmon, a tool for thermal subsystem")
-Signed-off-by: Gu Bin <gubin@cmss.chinamobile.com>
+For example, with read_ahead_kb 128 and 16 KiB blocks, the mmap
+read-around window for a fault on page 1042 starts at page 1026, index
+becomes 1024, and if pages 1024-1027 are cached, pages 1028-1057 are
+not read ahead.
+
+Compare with the end of the window instead. Where index is not below
+start, this is the same check and the same number of pages as before.
+
+Tested in a KVM guest (x86_64, 2 vCPUs, 3 GiB) on mm-hotfixes-unstable,
+with XFS with 16 KiB blocks and with ext4 on virtio-blk, read_ahead_kb
+128. A test caches page 1026 of a file with pread() on a
+POSIX_FADV_RANDOM descriptor, then faults page 1042 through a mapping,
+and counts the cached pages of the window [1026, 1058) with mincore():
+
+                                       before   after
+  XFS, 16 KiB blocks                      6       32
+  XFS, 16 KiB blocks, nothing cached     32       32
+  ext4                                   32       32
+
+Tracing shows the fallback now running after the -EEXIST, as
+page_cache_ra_unbounded with index=1024 and nr_to_read=34.
+
+Touching 1% of the pages of a cold 20 GiB file on XFS with 16 KiB
+blocks, at random, at a stride of 2053 pages, or as random runs of 2
+or 4 adjacent pages, reads the same amount before and after, within
+5% over two runs each, at read_ahead_kb 128 and 8192.
+
+Not tested: other block sizes, other file systems with large blocks,
+and other architectures (built for i386 only).
+
+The problem was pointed out by the Sashiko AI review of an unrelated
+patch [1]. An AI assistant (Claude) helped with the analysis and the
+test, and drafted this changelog. I reviewed, implemented, built and
+tested the change.
+
+[1] https://sashiko.dev/#/bug/linux-da6e8836-f808-4b39-9f04-de52995a0162
+
+Fixes: d5ea5e5e50df ("readahead: properly shorten readahead when falling back to do_page_cache_ra()")
+Signed-off-by: Gopal Malaviya <gopalmalaviya53@gmail.com>
 ---
- tools/thermal/tmon/sysfs.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ mm/readahead.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/tools/thermal/tmon/sysfs.c b/tools/thermal/tmon/sysfs.c
-index 5d64aff12a86..7f1e38276254 100644
---- a/tools/thermal/tmon/sysfs.c
-+++ b/tools/thermal/tmon/sysfs.c
-@@ -70,7 +70,7 @@ static int sysfs_get_ulong(char *path, char *filename, unsigned long *p_ulong)
- 	ret = fscanf(fd, "%lu", p_ulong);
- 	fclose(fd);
- 
--	return 0;
-+	return ret;
+diff --git a/mm/readahead.c b/mm/readahead.c
+index 6e55632902..afcde18316 100644
+--- a/mm/readahead.c
++++ b/mm/readahead.c
+@@ -552,10 +552,12 @@ void page_cache_ra_order(struct readahead_control *ractl,
+ fallback:
+ 	/*
+ 	 * ->readahead() may have updated readahead window size so we have to
+-	 * check there's still something to read.
++	 * check there's still something to read. Compare with the end of the
++	 * window, as index may have been rounded down below start to the
++	 * minimum folio size.
+ 	 */
+-	if (ra->size > index - start)
+-		do_page_cache_ra(ractl, ra->size - (index - start),
++	if (index < start + ra->size)
++		do_page_cache_ra(ractl, start + ra->size - index,
+ 				 ra->async_size);
  }
  
- static int sysfs_get_string(char *path, char *filename, char *str)
-@@ -167,14 +167,15 @@ static int find_tzone_tp(char *tz_name, char *d_name, struct tz_info *tzi,
- 			int tz_id)
- {
- 	int tp_id;
--	unsigned long temp_ulong;
-+	unsigned long temp_ulong = 0;
- 
- 	if (strstr(d_name, "trip_point") &&
- 		strstr(d_name, "temp")) {
- 		/* check if trip point temp is non-zero
- 		 * ignore 0/invalid trip points
- 		 */
--		sysfs_get_ulong(tz_name, d_name, &temp_ulong);
-+		if (sysfs_get_ulong(tz_name, d_name, &temp_ulong) != 1)
-+			return 0;
- 		if (temp_ulong < MAX_TEMP_KC) {
- 			tzi->nr_trip_pts++;
- 			/* found a valid trip point */
+
+base-commit: 76f5384740b2fd9ee5d71da9d49b271d37c5a51b
 -- 
-2.55.0.windows.3
-
-
+2.43.0
 
