@@ -1,75 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794552826;
-	b=lYMJMJ5TedJ4hBxxBeNiHEhj9oF4MWv/PqoHkgWyoyQfAmIYrgV+1gZlnyGJPCoMNIL4
-	 j8KfgFmoul0F9PYu4jvM/IHQjvDQ4MZxapTn4o16PJvNWJ4e3f3YnhrvwAN0AqrF8eVmT
-	 grFlNwOMFCZWGEwJmMI1gi1xONa/fssy1msfy+0J6Gj04EMOCtePO+ZIM7M03vtRKM0bR
-	 szkN+o48DWYpLn4KWUnCMSKRW3OOL7VSdlPW6eqUG+RE89zgJ2M0CjBTk1B6WBGm2Pauj
-	 8Fosj6F3sxyk4mF2r6+0PkvDq0XMGroAvvJer3z4SHcTpudPq347prvz9ob3PODFLhQ==
+	t=1794552820;
+	b=1URA6fVay8cR/lQ/lenkfjVvylG1KBaxTQQ8xAmFDxe68PSFY3TIldEXvs+TkDrYKpSO
+	 GbLMEkG4kcU2NNz8wiF73Z654O8HMXUd/kycLVtrNt/TqObNbUa9uoAdRT0hXZJPFp1wD
+	 PE2bjmaLRSQlO2iY3L1U/a+P0BkFyd7C9Gjp5xACpwAKPlOiDZIqCc5lqQ1QzVcXSnbdB
+	 dV/9NiGz2O96Xmo7JmkTyLMD4JJrdffQMtOYtRoi8qHyQGPV2mX3dzi3YCYMn5upGamqt
+	 FRpA/twwbE4+9tTsPuP5H5tNq2E4uGN8lWYxcxjq4/7txJ14jMstifkwMRpRsXsmdlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794552826;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794552820;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=ZXZy87FYbCuQ3bk0rNuxzYnSFzxorcUKJ7haQiR5YMs=;
-	b=Ey6x71O2Kj8IJimJe9XiCGrxj9LBP+d1xlUpscMB5IDF+R+GLiSv3fRPHbhvNfTdGia8
-	 +th6KvW7R8vbG8tbB640bvgi/Do5mvl8ec0eM83txDX0EH9RUZHR/gzKxvMZUR3OwQ+cj
-	 ThpPdHOya+bDIqw3MbjYTs8NkzOvkgoqZEvtnkUtCHvQz/uxM+aE0isIIGYkOOO8cXCSw
-	 GohoOPqjw0YpbeUmJv74BP6Rm11g+z6nrZ8LtOsmcxR/ZDG/8Mxji3+Cqyn6a2rFcKyeD
-	 gyNE4pgPyCTB9I3RmMEtqNttJXwkQbPUkknxsnCsIU3cyMgLog8YvStIzRm4ufQeCKQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=eRq6wTCSjBW5NE3wTloFuQbWBWvxneqtC2vRx7rsxKw=;
+	b=A2L04c3w2atha8JIhevnC4JULgL7lfoge3Zwg78PBus9mHejkAeVwJt4/ouvYrUd89iI
+	 usAXcsCBCOUIRJ+Ym+oNxPW2Ta6oGxrrqOEOAHfew/gUq+yL5mAfflyBSxBJdXFTfN1s0
+	 Mg6ZwezYOByhM+c48mD5VrbjU3K+1olJWMQTHMhggwstbkTTco+euisKsGt3kJehFhtNH
+	 eSed3u10rMLI1UWeU3VivJv7K+F39d8NtkYsNvZSbWpjafXCZaEVr20FBDQg/Es7bpo5d
+	 L+PzfggqH1YkeaCPyMyg7Py2DYCee/yGV5NQoL6hlzivrwEPyCUyAT7BBYZ0TQjff5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--sarthakkukreti.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lS8oOqpA;
-	arc=none smtp.remote-ip=74.125.82.69
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AzJ5O9Eg;
+	arc=none smtp.remote-ip=74.125.82.200
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE617606A8AF
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:53:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE617606A8AF
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0E71606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:53:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0E71606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sarthakkukreti.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lS8oOqpA
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1b3b45597c7so1411207c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:53:45 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AzJ5O9Eg
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3724667bc16so373712eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:53:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794552825; x=1795157625; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZXZy87FYbCuQ3bk0rNuxzYnSFzxorcUKJ7haQiR5YMs=;
-        b=lS8oOqpA//DRDpUFWQrKw+3mAjtwA/fBLIesvgdduosASUSrI9iFNndpdGmrM1yLzv
-         eYyXrTK0UZbWhZ/MZ+Gz2kpUnkz0FONgiXzXWMZ1Ov1h2FOQpnMAywR7ya7UjR81Qz3D
-         yBoDRjqghpQeBA9pSwe7NqEvDzyqa3/rvqmGfnlBmTpFHaKZOx31KePJcsMrI1dFV/YC
-         1jscVW0y1p3cmeZ5gBXhGz6VZkpKAPOIV6sFf1XtTZZF3+cb7hl4X2tBHzQPx701FP9Z
-         wIs2W5oMrql+LUZkqT56ZH6pPA4AD31ozgbWE1WQM3VW+Yu50ebpRM0r9P2anR1WgDnx
-         dmDg==
+        d=google.com; s=20260707; t=1794552819; x=1795157619; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=eRq6wTCSjBW5NE3wTloFuQbWBWvxneqtC2vRx7rsxKw=;
+        b=AzJ5O9Eg7CElXOQSfNUvkl1pHodcr3JeY+WWo4T461sGTFGkDovclOGVoJ1qAjVIa+
+         bm3ihCFt+/Lk2wVulzZZebLLW0iT32y9Zje5X+6zCGVmfK7HgnYdLOmf3Vp12nCyR8on
+         g/2N9B2ORQ7/Si3T3NAsyavlK11MovPa+T11BBdBUGmg1uvWUPZaG7qIpkcvisWo2Rq9
+         V8XymPHbFWNcsv/Ssgm6kzjBRpieyUvABF6aMSHRjxj1dmiEzUvFgQdK/kBvwRsg+k1x
+         NcZwGrTm9RO9XiHUp46BFeAT6JQXr9v8BiR+HyVVPUNGEgtoTOCTsLrPaFclXH4Bhyre
+         hYpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794552825; x=1795157625;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZXZy87FYbCuQ3bk0rNuxzYnSFzxorcUKJ7haQiR5YMs=;
-        b=AhUaweJR2rvFwByvm5QExm/kEKVQAPCiOiRXLN0q9ue8fiiiD0jUkcJtyFEE2SqfH1
-         rp+qpgexeoLM2NMz1sXHWR9yioR9VoI6AsHC2ElQb6TGBr3JmGvK3+416clcpnKv4q+u
-         aIWkT+yoEL2uNNtutNPOsASUGcB03xg4ehEQPLA5yywJcm3LniHAVw3M9UkjXZh9kQIr
-         hwI+PoUWMBjCF2Vh7ZrAiwM9qUJ4h5yEZPePZESsRZEibmQf2uK0n8aq0I9fotpwgn6/
-         HiFRT5UAgcXLS2yfcqkIltnoRSFU2UmoxvFMAEtQvptFp3CG0CqqG7qFnXVxIcu1Thwg
-         6QZg==
-X-Forwarded-Encrypted: i=1; AL+hErFtOsLUzO0ET8e7lXrz8jZYjpw4/5SOsDSXeIUa9zuI82HaI6LLs0KXaLRKd/6upPW3OBIsRzsA2cmXqD4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9HhFWYvl2f5C+vZ87NFx83hzWYuWQMZdh+999ebZqe65t4MFj9
-	x3Rg9qxIgfkWJDsKJwLlMt6OKJSsor4Zdq5mqoprT1Olf3iC2q+qXLtfPoAbOgEufcQgMtZ3Dp2
-	4iLBPz99g/utCyqI8UjUSSuA2tQEpi+NDPdNjyA==
-X-Received: from dlbrl10.prod.google.com ([2002:a05:7022:f50a:b0:1b2:4b7e:5356])
+        d=1e100.net; s=20260707; t=1794552819; x=1795157619;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eRq6wTCSjBW5NE3wTloFuQbWBWvxneqtC2vRx7rsxKw=;
+        b=DKQ1Qv+0cqg3EyeaBHCsIEfpnmhGDwUR0x45PRUNMeSnxx8tbEJrUQnAswSqq7e0Tz
+         RUfwrmUEH5bAp2bRYbBTIswVPMN2KJWFDNciT26MHWFbDsI/WpR/zGW4ficYrsg8rSxS
+         VkAcC7QM9e8ATpqnZB17l9cIGRYzE31e/MzyCmBLZTYCM+0WJi/p0vRbRdN0VcvD+uRC
+         fYD+3eZAWgJgwj2RBhU/pNC1HnnsJ8UQpBZ/6TiFJhjq8p28bvlJhqhibNCXyY4g59pj
+         0fTEv94CxZqxBWeiziMjY4+ZwO45vYc06pdV33WLubYXUUqIf+oIH5rE7U/lsERN70rN
+         wKQQ==
+X-Forwarded-Encrypted: i=1; AL+hErFJbkGdG/mt4CIyrZQwxHe8DFrsIOOa8TxBFc+n3VxM5VKdl+tneuQIgOB959BEdr+ZlGV35pAr80Gp8qg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8q8W4lZ9yAPcnZoY6223/4Vej1XICUHgC+JmSNUGsc93j4jUji
+	65g954GthByGLXLInkQ7hb//33Vt2E7ZxfNHL4vvhio4hGhLFnDMZauG7PMMoPL8zxQ0K/5UZ8H
+	Q7SmLimTRYlbMzxAd5xi2ahCWaP0FW4NtGtTELQ==
+X-Received: from dybml12.prod.google.com ([2002:a05:7301:150c:b0:36a:209:2e4])
  (user=sarthakkukreti job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7022:170f:b0:190:8f72:445e with SMTP id a92af1059eb24-1b5030e2d75mr1782938c88.11.1794552824499;
- Thu, 12 Nov 2026 22:53:44 -0800 (PST)
-Date: Thu, 12 Nov 2026 22:53:32 -0800
-In-Reply-To: <20261113065332.929085-1-sarthakkukreti@google.com>
+ 2002:a05:693c:80cd:b0:377:82e:2d79 with SMTP id 5a478bee46e88-377e093ecaamr4738406eec.9.1794552818284;
+ Thu, 12 Nov 2026 22:53:38 -0800 (PST)
+Date: Thu, 12 Nov 2026 22:53:29 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,10 +76,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-References: <20261113065332.929085-1-sarthakkukreti@google.com>
 X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
-Message-ID: <20261113065332.929085-4-sarthakkukreti@google.com>
-Subject: [PATCH 3/3] f2fs: reject casefolded names that fold to ".", "..", or empty
+Message-ID: <20261113065332.929085-1-sarthakkukreti@google.com>
+Subject: [PATCH 0/3] fs: reject casefolded names that fold to ".", "..", or empty
 From: Sarthak Kukreti <sarthakkukreti@google.com>
 To: "Theodore Ts'o" <tytso@mit.edu>, Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>, 
 	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>
@@ -92,47 +88,46 @@ Cc: Gabriel Krisman Bertazi <krisman@collabora.co.uk>, Eric Biggers <ebiggers@go
 	Sarthak Kukreti <sarthakkukreti@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-From: Dmitry Torokhov <dtor@google.com>
+Unicode normalization in fs/unicode strips Default_Ignorable_Code_Point
+characters (such as U+202E RIGHT-TO-LEFT OVERRIDE and U+200B ZERO WIDTH
+SPACE) in both UTF8_NFDI and UTF8_NFDICF. In casefolded directories,
+filenames consisting of 0 to 2 ASCII dots plus ignorable code points
+(e.g. "\u202e", ".\u202e", "..\u202e") pass VFS path walk as normal
+multi-byte components, but fold to "", ".", or ".." in utf8_casefold():
 
-Filenames consisting only of ignorable Unicode characters fold to empty
-strings, and names with leading dots and ignorable characters can fold
-to "." or "..". Allowing such names in casefolded directories can corrupt
-directory structure or cause confusion with special entries.
+1. Looking up ".\u202e" folds to "." and matches the on-disk "." entry
+   (de->inode == dir->i_ino) in generic_ci_match(), triggering
+   EXT4_ERROR_INODE ("linked to parent dir") in ext4_lookup().
+2. Looking up "..\u202e" folds to ".." and matches the on-disk ".."
+   entry, returning -ELOOP via d_splice_alias() (or triggering
+   EXT4_ERROR_INODE on the root directory).
+3. Filenames consisting solely of ignorable characters fold to "" (0
+   bytes), causing distinct ignorable-only filenames to hash and compare
+   equal and creating entries that e2fsck flags as corruption.
 
-Reject any non-dot names that fold to empty, ".", or ".." during
-casefolded name setup, while still allowing invalid UTF-8 sequences to
-be handled as opaque byte sequences when strict mode is not enabled.
+This series rejects casefolding and case-insensitive matching of names
+that fold to "", ".", or ".." across libfs (d_hash, d_compare,
+generic_ci_match, and generic_ci_validate_strict_name), ext4
+(ext4_fname_setup_ci_filename and ext4fs_dirhash), and f2fs
+(f2fs_init_casefolded_name), while preserving exact byte-equality
+matching for genuine "." and ".." lookups (such as NFS ext4_get_parent)
+and opaque byte fallback for invalid UTF-8 sequences in non-strict mode.
 
-Fixes: 2c2eb7a300cd ("f2fs: Support case-insensitive file name lookups")
-Signed-off-by: Dmitry Torokhov <dtor@google.com>
-Signed-off-by: Sarthak Kukreti <sarthakkukreti@google.com>
----
- fs/f2fs/dir.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+Dmitry Torokhov (1):
+  f2fs: reject casefolded names that fold to ".", "..", or empty
 
-diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
-index fd0e2cd31a81..a20723edb724 100644
---- a/fs/f2fs/dir.c
-+++ b/fs/f2fs/dir.c
-@@ -77,13 +77,17 @@ int f2fs_init_casefolded_name(const struct inode *dir,
- 
- 		len = utf8_casefold(sb->s_encoding, fname->usr_fname,
- 				    buf, F2FS_NAME_LEN);
--		if (len <= 0) {
-+		if (len < 0) {
- 			kmem_cache_free(f2fs_cf_name_slab, buf);
- 			if (sb_has_strict_encoding(sb))
- 				return -EINVAL;
- 			/* fall back to treating name as opaque byte sequence */
- 			return 0;
- 		}
-+		if (len == 0 || name_is_dot_dotdot(buf, len)) {
-+			kmem_cache_free(f2fs_cf_name_slab, buf);
-+			return -EINVAL;
-+		}
- 		fname->cf_name.name = buf;
- 		fname->cf_name.len = len;
- 	}
+Sarthak Kukreti (2):
+  libfs: reject casefolded names that fold to ".", "..", or empty
+  ext4: reject casefolded names that fold to ".", "..", or empty
+
+ fs/ext4/hash-test.c | 12 ++++++++++++
+ fs/ext4/hash.c      |  2 +-
+ fs/ext4/namei.c     | 11 +++++++++--
+ fs/f2fs/dir.c       |  6 +++++-
+ fs/libfs.c          | 52 +++++++++++++++++++++++++++++++++++++++++++++++++++-
+ include/linux/fs.h  | 29 +++++++++++++----------------
+ 6 files changed, 91 insertions(+), 21 deletions(-)
+
 -- 
 2.56.0.611.g1030f0b940-goog
 
