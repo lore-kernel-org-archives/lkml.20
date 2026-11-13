@@ -1,49 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.222
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794582905;
-	b=eqAc0Vl7MZl0aLU9HZhWREEpX0LlesdmzuABAtW29tHTXKMKN+ApGuXLVUpVAv6nEnNd
-	 SUAK7o5rAboHVYIw0gLgE+UtinL4+hIo0qCb4XcAXsdgJpSONZPDZJL+8gvMUXrhkvzTY
-	 SHhG/ziUdufEbV7zIryaI9Z36OWUnd8j08tej0zEqWhj7IRjpox8G6gVB+X92jnb2aTPj
-	 VgJk5grOmCmLtdDFjLsZ61fblhrfayOIYZ9TtXOMop7dRtiP9+AnDtt3nLrK1lpTbINv1
-	 +UCL6sYhV6eJHRd2K+mM8bCVOh3UgGf6ebvyYzTOsKy7BW/JpYR5+xzQZbpndHFaTcg==
+	t=1794582925;
+	b=G9djv2Yr8D84eEhHpCr9oeRQWhNSr2w8FJGV9t+AOieQ0gQe8t1QugNwObIlaezIQ8CA
+	 ELtNBptKlM/EqoOK4GsW6fZi9M5RYj1w5jZUKBdsEwGHx7ANz+GaCv0hShAbk7hYm6hYj
+	 qRIGyO8umTFgZKiY6WxWKEU59yJaKLyLW/CY/B7X+yiOAVWIxeChnwvoj4u5PgJOv7ULJ
+	 pVtEI53/EvpcuapVaLdC5C3JBDaa+NksuhYTLhIpWsDmHETunT22/jaomBVlVWHBUwR55
+	 JEcGPQfJZE/9qHsfwYu6CSWtKxDn4VdCy7mf4TGUf6rdbk8Mm6a0wcmdkXETxvm0l1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794582905;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=xiPiX5aJ+WZHjnGnGhnyeXRN38goUbQDKEwaRO9wji8=;
-	b=ZG2F4/W30/yvh2mFdGJIw3Kc49Jhi8vApHAq3cxL55Vuzl8xS7wuITY6xvmHyD8nk8Lq
-	 iDhHt16V3AKrPuLA7n4kGsaj48cDsQZtIoQU0MxuSl9TflKdhcqm0GWutXz/EmqX/3pvV
-	 UJbkngWKNYz4fSMFJUrRHO17LylfZ694P9c4IuZEtYnozKBe93aaXVd7RBCYpaY4BEIsp
-	 UwLZmYOIrAcld+z1imluL2jUBDs9XZhNXPLt9Q95l+742Rw8ojzNTbjAcg/gT8cgEC28g
-	 lcEQ4LIxwGxuDfyTX3FxFPNRFn/GkbEN837Fbh6Hl2CZLaVDST/MuHzzSMbJenwhdfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794582925;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=7AQy591sW2qpmVT+yV9lxlyc42SglJ8EBrk/w5VU6/4=;
+	b=hTRbgsfV80pG2f29A7PZdc1+3h9bUwjGSnKH7wleSHwR6LKJi6E4HYg8UDVMC2+71hgs
+	 n0M0xCBylLU9r77KZa263lVonRgc42fD3vlP828ncvyx+iVOnOBhZJmIMIjWpLNy965Nr
+	 huTXMt6OlPO7J5xL/pt+nqqGwSI9aXRegTPE/+zA0izJQSYuKDpA1QC1PI8VllzNqIxvy
+	 QKnFOkXGLSAp5cyUH83xa1VpqOoju64X65St2ocQ8U4Mm8x7KLIwFWk0J72SAvgItsur6
+	 Rrnya6fBkxHA/oduSDVGs0AnU4B/5PcIil8Fehm7rOc5R59xPP5WPJmI7KXe1Hrxc+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hucYT8SD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BObqSflQ;
+	arc=none smtp.remote-ip=95.215.58.222
+Received: from mta1.migadu.com (out-222.mta1.migadu.com [95.215.58.222])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CC02606A32E;
-	Fri, 13 Nov 2026 15:15:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A567606A331
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:15:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A567606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hucYT8SD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65DC01F000C4;
-	Fri, 13 Nov 2026 15:15:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794582905;
-	bh=xiPiX5aJ+WZHjnGnGhnyeXRN38goUbQDKEwaRO9wji8=;
-	h=From:Date:Subject:To:Cc;
-	b=hucYT8SDlkZq6QQ2tyPT/9h4JXnn+tYruLJ3Q4FR1AJiusx4OWflDa3CMeqFeJiEH
-	 jIIhuj8kOEe8hBFBVdpYVoSbBTGAQxhC6PlBB3ktgRyQeP51SX9DtWF4BWjWCNmnHF
-	 yOFbENAdnEOQFswJdToUeV+FwD2955mTGC/U91oRkIrG2g5s7/peb5arjemDRtLU7I
-	 o+r+F8uj43iHU062Ejjp0xb2EkkZ6ek0MzFnLq8VWHT3SBHscjx+Qd2gUJFagrqfuE
-	 8+dZszaK0fL9G5if4OjShCfET/W7R+H0v7FjAM9fEO9DQHaz7r3YGxQgK09GS2N/Gk
-	 ZWsTk0lBXP+kw==
-From: Joshua Crofts <crofts@kernel.org>
-Date: Fri, 13 Nov 2026 16:14:59 +0100
-Subject: [PATCH] PCI/portdrv: remove redundant
- pm_runtime_dont_use_autosuspend() calls
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BObqSflQ
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=64EUThuXFfGNpHT4ZZSg8kH8sluzCgH+OsnF24WjA1U=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794582922; v=1; x=1795187722;
+ b=BObqSflQ7aL/30m8sKY4vW97j+T0BNAzMlQfHqvc5P0FICgKRNY1pZ5LFkYx2DdtnVgZB9Sb
+ fGpiSXWKf0Ty6aDIXgjHdOkqUVgceWtvwB/ovL2LCIwaINZnmEUbDoqM3rsUxWxIBz6EPIfOIC5
+ /6tOP4EbkjGe0DtHSQE0fDXI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a63f21fb11cc9b35;
+	Fri, 13 Nov 2026 15:15:21 +0000
+X-Mizu-Trace-ID: a63f21fb11cc9b35
+X-Migadu-Flow: FLOW_OUT
+From: Leon Hwang <leon.hwang@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Feng Tang <feng.tang@linux.alibaba.com>
+Cc: Lance Yang <lance.yang@linux.dev>,
+	linux-kernel@vger.kernel.org,
+	Leon Hwang <leon.hwang@linux.dev>
+Subject: [PATCH] lib/sys_info: avoid showing locks info twice in __sys_info
+Date: Fri, 13 Nov 2026 23:14:51 +0800
+Message-ID: <20261113151451.72419-1-leon.hwang@linux.dev>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,62 +65,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-pci-remove-dont-use-autosuspend-v1-1-413cb01fa0f6@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAHIp92oC/x3NQQqDMBBG4avIrDtgFNrQq5QuYvK3zsIkZIwI4
- t0NLr/NewcpikDp3R1UsIlKig3m0ZGfXfyDJTTT0A9PY8zI2QsXLGkDhxRXrgp2dU1aNSMGDmP
- vpwnuZa2lVskFP9nvw+d7nhdmjG05cQAAAA==
-X-Change-ID: 20261113-pci-remove-dont-use-autosuspend-d30cbbea7888
-To: Bjorn Helgaas <bhelgaas@google.com>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Joshua Crofts <crofts@kernel.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794582904; l=1336;
- i=crofts@kernel.org; s=20260422; h=from:subject:message-id;
- bh=FeP8hgrgd/Hf8Ck77KmPUyPRwxduv3EkLVNwa9hKVmo=;
- b=Mf8dO331JR2FFZggemPH4MO68Xb5+a6dXYGmImOE5zkLZL/qNZ86+zm0pcyJ9HS0bIVtDnMtQ
- /mudfpkqK1LCkPMjLVEVXHzQqPFUxjlD7hg1BB4sakQciIMFDdV3ytK
-X-Developer-Key: i=crofts@kernel.org; a=ed25519;
- pk=Xd+UVoRPiiI0K3LHQ2XIcXmO0jvVuFTv9eTx3lgBphI=
+Content-Transfer-Encoding: 8bit
 
-Since commit d1706f9da9f4 ("PM: runtime: call pm_runtime_dont_use_autosuspend() on reinit()"),
-driver core is now responsible for undoing any
-pm_runtime_use_autosuspend() calls on driver exit.
+In __sys_info(), if the si_mask has both SYS_INFO_TASKS and SYS_INFO_LOCKS,
+the locks info will be printed twice: debug_show_all_locks() is also
+called inner show_state().
 
-Remove the redundant function calls.
+Since commit
+8b2b9b4f6f4f ("hung_task: add hung_task_sys_info sysctl to dump sys info on task-hung"),
+hung_task will print locks info twice when
+sysctl -w kernel.hung_task_sys_info="tasks,locks".
 
-Signed-off-by: Joshua Crofts <crofts@kernel.org>
+[ 4658.894440]
+               Showing all locks held in the system:
+[ 4658.894445] locks held by khungtaskd/119: 1, last CPU#7:
+[ 4658.894449]  #0: ffffffff9159cd00 (rcu_read_lock){....}-{1:3}, at: debug_show_all_locks+0x3b/0x1f0
+[ 4658.894468] locks held by cat/674: 1, on CPU#8:
+[ 4658.894472]  #0: ffffffffc01681a0 (dummy_mutex){+.+.}-{4:4}, at: read_dummy_mutex+0x34/0x80 [hung_task_tests]
+[ 4658.894487] locks held by cat/676: 1, on CPU#8:
+[ 4658.894490]  #0: ffffffffc01681a0 (dummy_mutex){+.+.}-{4:4}, at: read_dummy_mutex+0x34/0x80 [hung_task_tests]
+[ 4658.894504] locks held by dmesg/677: 5, last CPU#8:
+[ 4658.894507]  #0: ff426e3f828ee0a0 (&tty->ldisc_sem){++++}-{0:0}, at: ldsem_down_read+0x34/0x40
+[ 4658.894521]  #1: ff426e3f828ee128 (&tty->atomic_write_lock){+.+.}-{4:4}, at: file_tty_write.isra.0+0xaa/0x360
+[ 4658.894535]  #2: ff426e3f828ee2c8 (&tty->termios_rwsem){++++}-{4:4}, at: n_tty_write+0x9d/0x4c0
+[ 4658.894549]  #3: ff4fe07e82c57370 (&ldata->output_lock){+.+.}-{4:4}, at: remove_wait_queue+0x1b/0x60
+[ 4658.894563]  #4: ffffffff927b1278 (&port_lock_key){-.-.}-{3:3}, at: uart_write_room+0x4e/0x230
+
+[ 4658.894581] =============================================
+
+[ 4658.894583]
+               Showing all locks held in the system:
+[ 4658.894586] locks held by khungtaskd/119: 1, last CPU#7:
+[ 4658.894589]  #0: ffffffff9159cd00 (rcu_read_lock){....}-{1:3}, at: debug_show_all_locks+0x3b/0x1f0
+[ 4658.894604] locks held by cat/674: 1, on CPU#8:
+[ 4658.894607]  #0: ffffffffc01681a0 (dummy_mutex){+.+.}-{4:4}, at: read_dummy_mutex+0x34/0x80 [hung_task_tests]
+[ 4658.894622] locks held by cat/676: 1, on CPU#8:
+[ 4658.894625]  #0: ffffffffc01681a0 (dummy_mutex){+.+.}-{4:4}, at: read_dummy_mutex+0x34/0x80 [hung_task_tests]
+[ 4658.894639] locks held by dmesg/677: 5, last CPU#8:
+[ 4658.894642]  #0: ff426e3f828ee0a0 (&tty->ldisc_sem){++++}-{0:0}, at: ldsem_down_read+0x34/0x40
+[ 4658.894655]  #1: ff426e3f828ee128 (&tty->atomic_write_lock){+.+.}-{4:4}, at: file_tty_write.isra.0+0xaa/0x360
+[ 4658.894669]  #2: ff426e3f828ee2c8 (&tty->termios_rwsem){++++}-{4:4}, at: n_tty_write+0x9d/0x4c0
+[ 4658.894683]  #3: ff4fe07e82c57370 (&ldata->output_lock){+.+.}-{4:4}, at: n_tty_write+0x190/0x4c0
+[ 4658.894697]  #4: ffffffff927b1278 (&port_lock_key){-.-.}-{3:3}, at: uart_write_room+0x4e/0x230
+
+[ 4658.894713] =============================================
+
+To avoid showing locks info again, check '!(si_mask & SYS_INFO_TASKS)'
+when checking 'si_mask & SYS_INFO_LOCKS' in __sys_info().
+
+Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
 ---
- drivers/pci/pcie/portdrv.c | 2 --
- 1 file changed, 2 deletions(-)
+ lib/sys_info.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/pci/pcie/portdrv.c b/drivers/pci/pcie/portdrv.c
-index 32fc623dd41087c7f92552117499359fae4c73d8..3ce960b4ea25e4a2bec1c9991398bc445871085d 100644
---- a/drivers/pci/pcie/portdrv.c
-+++ b/drivers/pci/pcie/portdrv.c
-@@ -728,7 +728,6 @@ static void pcie_portdrv_remove(struct pci_dev *dev)
- 	if (pci_bridge_d3_possible(dev)) {
- 		pm_runtime_forbid(&dev->dev);
- 		pm_runtime_get_noresume(&dev->dev);
--		pm_runtime_dont_use_autosuspend(&dev->dev);
- 	}
+diff --git a/lib/sys_info.c b/lib/sys_info.c
+index f32a06ec9ed4..750803012f43 100644
+--- a/lib/sys_info.c
++++ b/lib/sys_info.c
+@@ -147,7 +147,7 @@ static void __sys_info(unsigned long si_mask)
+ 	if (si_mask & SYS_INFO_TIMERS)
+ 		sysrq_timer_list_show();
  
- 	pcie_port_device_remove(dev);
-@@ -741,7 +740,6 @@ static void pcie_portdrv_shutdown(struct pci_dev *dev)
- 	if (pci_bridge_d3_possible(dev)) {
- 		pm_runtime_forbid(&dev->dev);
- 		pm_runtime_get_noresume(&dev->dev);
--		pm_runtime_dont_use_autosuspend(&dev->dev);
- 	}
+-	if (si_mask & SYS_INFO_LOCKS)
++	if ((si_mask & SYS_INFO_LOCKS) && !(si_mask & SYS_INFO_TASKS))
+ 		debug_show_all_locks();
  
- 	pcie_port_device_remove(dev);
-
----
-base-commit: 7e1392a42ea288d70a266f6553fe06f57f8647ea
-change-id: 20261113-pci-remove-dont-use-autosuspend-d30cbbea7888
-
-Best regards,
+ 	if (si_mask & SYS_INFO_FTRACE)
 -- 
-Joshua Crofts <crofts@kernel.org>
+2.55.0
 
