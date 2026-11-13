@@ -1,58 +1,144 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794594474;
-	b=zeJ7VCmq+s/IvCD9UjWZtVQoeC/gcP1+rLro54WiNOrpbVLVoFMPgJvxQYCeJ4Q2/w3Z
-	 wKY0K0DJXTp0aS1F58P5IpTpTUk46J4YZWdcjfXUs2F80gCOZlj7y0x0Jk6Lz7J3Kp4wW
-	 X0B89XhX6ChWVTDyOxj0zz24BMW8oHRF/ykTJGG465jXMr1AzZPDP0hZLKuJWptRusLK/
-	 KXkRVfT6sd/V7DG8U8eTXsyespZAUc8tX13PZPVYT/f1da8LGJuIhtjEPuLLzxA+rsXGs
-	 a/ZK6nx164XRRC29eu8/8hXDVRRiHh46YLSO0C2JRKQZTrfQ93LvRKIjnDAFMZXNaXQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794594474;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=XgiL43Tq6jpJoDdSXDyRa25ecfhsKUOXQPW5HWxvCUs=;
-	b=jYTPAl6CLwzePJMx3znskQEmAz+zIYH7Fk3KJ/eHcrQLqkNc/1cbANZ3yd/3MB/At/iI
-	 IP/lCAtPFmhxZu7aEXnodXtILHXlfaPegFu61XvjnGHVtAN8NLG2u0Rjt/ydPmqjPqSUm
-	 6zjoJU9EbxYiWyWOLm4Esd+L275RTm7PMXJry1irum6X6eAuq59kxYrHT7ELl9U/aEIrH
-	 frqcAHDjozuMVSgZzmytLFVYsgIsFvnN9bDfNVB6+EiUyfJcmpyvdrN0itCm0WR0PWyQ/
-	 iJSRzlesrUuIu7sJINHKWMD0aMLltnXptSLX14StGrCEnxTIBOWN1bJBthAIR8Logbg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NZW+kC2a;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.10
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794594570;
+	b=RrAWRPHGwE4LJeEBQPHkQ34DCh8St+W1MG1JSDhfLW0foPDNoA+goo1J8t26WirJ1iAu
+	 jzHI6xj5vHpavrXCshPDqIHQTX1oFzuZBiQDEYcXj4+1VM/7BQa/tDhNyPI6EHmfSFwnn
+	 D9xK31ZU/jxhYHFqpyzB8garlhfkPrksg524G/tlVlB4a8x4EosQ/cO2ASoei7pAWz8nX
+	 wR1Vp78piazE8WK8DNLZ63QDgDARzmu3/eER6nlWgqpNOt4TcwaGDpze0Dezr1h8oeA34
+	 315mvJLLGkEHgwyDEw64cpUM3QaodKr1rq/Zsp7aWt63F6cu6MUru9E7HrK/+nFS0Pg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794594570;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:DKIM-Signature:Received:Received:Date:From:To:CC:Subject:
+	 Message-ID:References:Content-Type:Content-Disposition:In-Reply-To:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=w3y/KkNC1rXy3J6zmuUonVg+fk6NbuZLNEWrROXUiqQ=;
+	b=XLSjUVGouNSzmaOh54gENo3yFmEuLQkNWwvniFoLPT1FAym2aj5BMKAbYLdPbQAI8FU9
+	 5Lv1qNzGw20/iR9e8UIrK0aE1Ex8J10ICyCyyYYM4J79AMljxaChXDzfX8bBYe4UToxHA
+	 86OuSjgK6/s1Ecjr78z8wXH53bvpAolSJ5mITa9zdHglws1KWkRdrFy7mslZ1+k4cM6k/
+	 +tJ4v1R1dHCr5+v3aN6PnZjUQwIqpVmLAAG7Y0pXeSow3qfPnZP/2d+mQgqQZd7QpZbO+
+	 htWDRGjFIaXhKono/GyVCF7A94DYizWc/lFNEIoc68RHxlOoQCDE/DmFn7jsFnqHA/Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FR6BBMeR;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=BH5uY89l;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.10
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E3D4606A323;
-	Fri, 13 Nov 2026 18:27:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DDC6606A890
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:29:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DDC6606A890
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NZW+kC2a
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4C051F000C4;
-	Fri, 13 Nov 2026 18:27:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794594473;
-	bh=XgiL43Tq6jpJoDdSXDyRa25ecfhsKUOXQPW5HWxvCUs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NZW+kC2aqaTRO+1mDk1qvHG3VrZfRzQx7JBMREQSnofe8qIQP2Mo+1VuL2F45WnsE
-	 H0d/drhYGkJbwuJWov3qabhQIKlXcHqZDF9afj2CzxojiusGCL3MH42MFwR9T3THmI
-	 vWUOMXwS1D6XFN7xANBi4xQ40h62L1vizgItg0U804ItXM0ouviUOM7BlE92BidgY/
-	 037sIgf4+7uYWnTfRk+QxaQJgEUl0Dz6/uLP+I+Vc9+0zkGX94ypnHbERzm/9nLj/E
-	 pGi5nn7T9ryxXpO/mTnlnNLg2n+liXzWOZGVkRRrceUzvvSO+eA2UtCIzm+ZQ8ZaDi
-	 c2avZq7muWZrg==
-Date: Fri, 13 Nov 2026 10:27:51 -0800
-From: Josh Poimboeuf <jpoimboe@kernel.org>
-To: Longjun Luo <luolongjuna@gmail.com>
-Cc: peterz@infradead.org, mbenes@suse.cz, pmladek@suse.com, 
-	joe.lawrence@redhat.com, song@kernel.org, puranjay@kernel.org, nathan@kernel.org, 
-	ndesaulniers@google.com, morbo@google.com, justinstitt@google.com, 
-	live-patching@vger.kernel.org, llvm@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v2 01/11] objtool/klp: Fix checksums and copying of
- wide strings
-Message-ID: <avdWaZboJeDyyOMs@jpoimboe>
-References: <20261104133158.3187525-1-luolongjuna@gmail.com>
- <20261104133158.3187525-2-luolongjuna@gmail.com>
- <avZ3jEbnuVu5Qv2G@jpoimboe>
- <CAKL4jwX=ctyjXmm=Oz_+HXe89vOHWHgT_-KGyL47fOBEQTYJiQ@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FR6BBMeR;
+	dkim=pass (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=BH5uY89l
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794594569; x=1826130569;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=K90GhH5BNOCrydl92KMJY9VY8jZuxhCeKheZf8Ls2vY=;
+  b=FR6BBMeRTCMSO/kIihZhhvSjjyvijv/QRlQg2TSZIyfcaKvinFq4iZWz
+   qbgQGuG+vVmRCwhncjuM4ttSEd5JOJEYL/evwqaPy+89/3sAlIM2kW3xD
+   g2Mc5LRLe3crpnhFmHdCIq5BrQwfsyhkWOIix7AsXJUViOmlUFLhIk7nn
+   vSJAsOAsFL/H9RtyKUWjR3fGhqGQWiI1j21sqhc+XeJ3GJVzKPPMpIOzZ
+   NtXsKKoCAz4TwLLpepwyZyB7l6/FmHyy5x9yRWZFhFBpx3CIxZURtlP+l
+   NuOMsDeEsNsRa24NpByKLLCAp/U7s9zGvCCXRKHueCMkMGLzWH6rRhjmE
+   A==;
+X-CSE-ConnectionGUID: pjlumhDJSkW2e4JMd3da2A==
+X-CSE-MsgGUID: B98J/qNERbORKNPlkxo8mA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3310130"
+X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
+   d="scan'208";a="3310130"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 10:29:28 -0800
+X-CSE-ConnectionGUID: MmDl86MZQl2jlJnCKuqZCg==
+X-CSE-MsgGUID: Xk2EQoI9QjmuxEPOZsaYig==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
+   d="scan'208";a="9518412"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+  by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 10:29:28 -0800
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 13 Nov 2026 10:29:27 -0800
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Fri, 13 Nov 2026 10:29:27 -0800
+Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.31) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 13 Nov 2026 10:29:26 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=N0oeUm1zOd4S796av3FkpWxwoltD2ikM5E9sBMc6wtKWoR0SJYA+T5RG/wNKsW5glK9a3SgjIseJFdmgf/ji2zMDSUASBny31Equ/a2V5xSJlDUVOFxYY2esvb/xkCCKjmzNxWM2pRpPN7hMt51JC0h2K5OT+euHr1nD6H1/JkA013SZg8gCWbfnza9f5T1ULmBhJjXeuNyTRsDkvAGbBO4XF/yPxXu8QyeFrrCAAreaQvhNSPVlW1u4vagaCV5+E9eZVqR6cMJVtHGDl7b7HWv7xtUP1YTLWEBOPo1Naid0DeMtzfPzUue+ShAvqoYzKSrHjXSORblkSE8GRKNDBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=w3y/KkNC1rXy3J6zmuUonVg+fk6NbuZLNEWrROXUiqQ=;
+ b=Vh9hjoEQWkSdSHjK1HWY/Wu4XGcivopSFoT3bFW38kwomKCsQtVNLa4b1u9yRqyZ/WXd84CSfNAEf2LsQvliCvaxM+twp5jW27yLFmHM3X+FXyT5ZqPacf/mBblHlG6LkucrwC3HWAmPGf9fIp4/t6laGWTrG8xKH9AwzA84wOwAjMNPpqiBlfoVWQp8sEaMXXugh3ki7h9zhgM913dchchZPM+9SdQSNwyTT8wrAaQyhawaPPtpfoRwkZwI68AiTWvsZjQCUHszN4XWNrpGHBw5W3CuWuJN/Ilkwp2YPTPusQVre+g8ubEfBt272xl1G7mH635rjMR8vqI9xrwSug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=w3y/KkNC1rXy3J6zmuUonVg+fk6NbuZLNEWrROXUiqQ=;
+ b=BH5uY89lEtSoryzc47mdZzAoJH6CVoEcG6fAfukDrySSP4meerUuh2IINs+PEDQMEfj0s73KlNpY8+N1SrjtO0Ia7C8mLL7CWz3lBCAhC4lDWRLHn6ipWUqJsX4Yn9hnfD5QXp4JqFlk+4sRzOAn/okhXcGmEQFssnkpEXjsxDk=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA0PR11MB7187.namprd11.prod.outlook.com (2603:10b6:208:441::12)
+ by CH8PR11MB585767.namprd11.prod.outlook.com (2603:10b6:610:703::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
+ 2026 17:58:30 +0000
+Received: from IA0PR11MB7187.namprd11.prod.outlook.com
+ ([fe80::be96:3f58:953d:6565]) by IA0PR11MB7187.namprd11.prod.outlook.com
+ ([fe80::be96:3f58:953d:6565%4]) with mapi id 15.21.0615.009; Fri, 13 Nov 2026
+ 17:58:30 +0000
+Date: Fri, 13 Nov 2026 12:58:21 -0500
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Matt Roper <matthew.d.roper@intel.com>
+CC: Arnd Bergmann <arnd@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	"David Airlie" <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Lucas De
+ Marchi <demarchi@kernel.org>, Riana Tauro <riana.tauro@intel.com>, Arnd
+ Bergmann <arnd@arndb.de>, Matthew Auld <matthew.auld@intel.com>, Shuicheng
+ Lin <shuicheng.lin@intel.com>, Armin Wolf <W_Armin@gmx.de>, Zhanjun Dong
+	<zhanjun.dong@intel.com>, Michal Wajdeczko <michal.wajdeczko@intel.com>,
+	Piotr =?iso-8859-1?Q?Pi=F3rkowski?= <piotr.piorkowski@intel.com>, "Tejas
+ Upadhyay" <tejas.upadhyay@intel.com>, <intel-xe@lists.freedesktop.org>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] drm: xe: select configfs
+Message-ID: <avdPvYEu-TBCbKTJ@intel.com>
+References: <20261026102603.2045493-1-arnd@kernel.org>
+ <avS7mZMrS7nQv_RK@intel.com>
+ <20261113162212.GB7214@mdroper-desk1>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261113162212.GB7214@mdroper-desk1>
+X-ClientProxiedBy: PH1PEPF00013312.namprd07.prod.outlook.com
+ (2603:10b6:518:1::d) To IA0PR11MB7187.namprd11.prod.outlook.com
+ (2603:10b6:208:441::12)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,64 +148,223 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CAKL4jwX=ctyjXmm=Oz_+HXe89vOHWHgT_-KGyL47fOBEQTYJiQ@mail.gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR11MB7187:EE_|CH8PR11MB585767:EE_
+X-MS-Office365-Filtering-Correlation-Id: cf6934aa-4628-4492-4f47-08df41afb99c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|366016|22082099003|6133799003|18002099003|261009223327099003|261009221727099003|261009221227099003|261009223027099003|261009220027099003|4143699003|56012099006|10067099003|11063799006|5023799004|261102123227099003|261026140227099003|261026121527099003|261028144727099003|261022113327099003|261022105027099003|261022075727099003|261021123027099003|261021121427099003;
+X-Microsoft-Antispam-Message-Info: boOWF+fvgWwIHZWt3o802VJahWHxItuBimvtPZtTyoNcTs3MXFwDfa6EcJhhVH5J7PX6HazlapBw9Jk37Xiact9SsAKAMClUuNUoKsXh9z3Qx5isF8TMtSxu4G1Jko6goQksnkDFT7AxdTKmplCi+gqGIjpq5QZLeuhPc7SQLiS7X8nVg5FGxEMWtnpKrae50V6XK0+yxetRwba+Aa++Y87gh2HtsFm1mnmnXBVqGFjvvb1fhfkykAeL0y6iR1bqjh4Xid607Ay33EmtuaXyBhZYW4c4tPWoXBr88c3pNWkRR+9Qi3MYLzZi/9jJE/kETJYRavzxvV6QiA8S5mZmHGBA8fjz/HOoAuovCagLnClqmxZS1Lekd+mudqf4E5Yw3TrAv6nh/Rsry7mM6bA83G/P6UxA3UaQoQl+2LRj3OAgWiw++TByc9wc0kei8FRBlftYEfqO3diVxtycl77kbwCh7Lhfodj+fWGoUnAyJzuh1HwJ/laUIRp7OjuyEjDaDpacQCyAKRVi8fly1JN26eXbFOCb7LBhKhVgPLm62rZIUAt+or4C3jzkVSoz0HbfHE4HFQHN5nSd36rJYQUqnT9DiAB0MUs6Umh169hNIUZEBzFiWN0Hr0BekK0j4+udAtiB6T92njgZQphV9n2ziMXg7GkRDWgTp5gOLGau4nI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR11MB7187.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(22082099003)(6133799003)(18002099003)(261009223327099003)(261009221727099003)(261009221227099003)(261009223027099003)(261009220027099003)(4143699003)(56012099006)(10067099003)(11063799006)(5023799004)(261102123227099003)(261026140227099003)(261026121527099003)(261028144727099003)(261022113327099003)(261022105027099003)(261022075727099003)(261021123027099003)(261021121427099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?7vtI2HLyuV+PbR6XTgs2h5cqyF39lcKUz5NdWKT2NmPciFvmHDyyBI6QSUO1?=
+ =?us-ascii?Q?2vIa9yy4/R/aE429s37r5NWdPMB+q9kxuqw//TKLvVW8r0VYDhuvauWJBLhH?=
+ =?us-ascii?Q?D8jWsEEYdN513vE0mn0wonY2ssD2Km4KM6prrIo5Iln+c+S1IWrBfZ/s56Sm?=
+ =?us-ascii?Q?KJxuIkMAWoEbOzfddS1FFBbVb+64Sxs0/5Jxv72XW+78Ai5yyKyGeqfoyRb/?=
+ =?us-ascii?Q?sEVllJDWxFhvsKaiTz39xPBTxopk7/qRzotMBjajnBnOcFJLpN8COch3gc7g?=
+ =?us-ascii?Q?0a3vjzkrlR824+lXD7RxViXWz+VOdI1OMiSETpKo3llORw4UmVFUxJJhfPtP?=
+ =?us-ascii?Q?gsR8BOhEHdelXW7yrg4CuCBL7UIQ7++5iDZlHrOusKy57qm31X2yw3BsiISQ?=
+ =?us-ascii?Q?1Ull3XwLtC416MtYegjMOeVOfuR5u9kCEBu4lOXoUg9odIsV7cWeDs+ehdPO?=
+ =?us-ascii?Q?EWMj8DlgjUps38cebVqW++GlVJXpgRyaIbNQBVEImgmM3cWIbdPZ4jJ34Hu8?=
+ =?us-ascii?Q?x6FXXFRkdXCRAlCaj3S9MCdDksfGE/cNk7Uq1wh5Q4i8/1EiLNYQdl/38NKf?=
+ =?us-ascii?Q?z6zl1JkN8ULQCUIvg8QoNPvfnVsBzytIvz8P0rJ9vSfIHObYuWW5SmxuYP5l?=
+ =?us-ascii?Q?wCQR+m7EJWGsKZFvD/5VMQx5d5N8Y8uCr6c2PulUsTiaP0L446wyRdosLY6j?=
+ =?us-ascii?Q?EjIdPHIzhUA5WEgo5SAWUbYQ9A2FtUN1x64/AkAO0RuJ8WIwEc1xYPE2m3Tk?=
+ =?us-ascii?Q?sNS86FxcEl85OuB3YcvlXFg2eo5kvaZzr346JVSr0PnOUJfTKJYRkngWZzil?=
+ =?us-ascii?Q?xD1Q+vYjcg9/4PFxowyFm2Bzkkv+gbH7MpJ063bkotin9Mo+RFRPweytULsX?=
+ =?us-ascii?Q?DxZk1N4Ja/JDWK1eZQ14HLvbjOSdS6pl/XZuMNwiHUviKv4oBEiZGJxRB9rQ?=
+ =?us-ascii?Q?vg1A0CDF0uUZFaqlOniJlH8QoNuG5bXIWAEWUFvx77M30ODxMf19umMoaByM?=
+ =?us-ascii?Q?1Tn6ItidY1vCQ/RL/4PjCyyJdi0aBjPXcCLAeXXPaIiitTeCcwQkJP6ZbGqd?=
+ =?us-ascii?Q?yU1gZ4uX5Jbp3i43IXs6voE8Y73nfP9FFhm5UDwpnlAzU4B1bM5G4q3WlYe1?=
+ =?us-ascii?Q?LTC7TJn3LOZcCo4IzY1iOhvfqNBtPG6f2NI9rRLEJ3yxtdg4auYEhfgtxRRg?=
+ =?us-ascii?Q?rll9XmJ05hc1bW7Fj/Xio8gXs3Sk2rEhtn33PjSVkzuFwrnCe97MAjqDwQa7?=
+ =?us-ascii?Q?+q6pclr7N0hRCMW5cJghYUFRHLe/Wt+UEL/9QPZ6FVa7JECmSgvmAhw3JvMH?=
+ =?us-ascii?Q?lnZsencgDq3E9iXaSIeqIYpyXcXXQz7uSZpfi3w8pad997URHGMdosErPA2K?=
+ =?us-ascii?Q?tRF3gzRFi4JKOfNUDNmuaoeg9qqDlgAp0O4bjZD4QUd2p4WeVMXDLhOXcygr?=
+ =?us-ascii?Q?8mSfkAWjiCfBDA2ba43btDAa/K4EtQYb0D1RSQhtUpemth7MwWZ4YDKc/w9T?=
+ =?us-ascii?Q?zbex329wxWy8G8uHXiXPoXuOBhH50fx9CfjKTYNPQ5trQ9kys6tHf+YdCvxs?=
+ =?us-ascii?Q?E2hrJwUhXQXM4bhnOzZhNv1sCKIEdlO3zkYK7c0JBItBAs0tdH7e7U4EadIi?=
+ =?us-ascii?Q?ZNYwchzyrOAROMN6dqB8ll0EW6tr5XpgTi8dR0erpbgLyVUDfI6oHxcZR5di?=
+ =?us-ascii?Q?YNOj9O7t0fOUu6zaxWlU6FtWhjF+49BdWSHqV3okrv6lhNgwhcmR6YBQNUp8?=
+ =?us-ascii?Q?jSFKIOaS0A=3D=3D?=
+X-Exchange-RoutingPolicyChecked: 21j0lqOaXFd701UkuirOsVSo3+ax+M5x3PLLuBfqhTuRLy79yUG04pExeAsbc/oqHMY8EHHhQZVEReYOotPHffinqv5koKG542vVJ3EstDqkogGEvYFt/UOwr7ftIJeRUhFpLSBsr6IbFIEjltbv35EhcI+/rY8Ys0Wqq55df5LlzgUBjxnAg876MC7FVka9glqUP2QhsTLuRn/sRkvrGq1r65tDcHBtDWEN9X+itSSnQZOA0/JXhqvtlh0mDDzk/HuwDES9UN3Zi+lFCOWc10oXU+QMQmROmYOubBIB9AC9KBpuLtkcF+BDECL1q/G+pWRRv/v5D7YKTLAsE1IRzA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: cf6934aa-4628-4492-4f47-08df41afb99c
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB7187.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 17:58:30.3386
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xYoSaL8NfJReIRUaeByjtQZJJF558KFGKfobEuRGEzPtQL08puXrTkKYsBSryZ2msIyOnuUjk0H/pmePI9QfKQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR11MB585767
+X-OriginatorOrg: intel.com
 
-On Fri, Nov 13, 2026 at 12:32:20PM +0800, Longjun Luo wrote:
-> Sorry, I left out the debugging context here. Both comments refer to
-> specific kernel build artifacts:
+On Fri, Nov 13, 2026 at 08:22:12AM -0800, Matt Roper wrote:
+> On Wed, Nov 11, 2026 at 02:01:45PM -0500, Rodrigo Vivi wrote:
+> > On Mon, Oct 26, 2026 at 11:25:50AM +0100, Arnd Bergmann wrote:
+> > > From: Arnd Bergmann <arnd@arndb.de>
+> > > 
+> > > The original addition of configfs to xe missed a compile-time dependency,
+> > > which leads to a link failure when configfs is enabled as a loadable module:
+> > > 
+> > > ld.lld-21: error: undefined symbol: xe_configfs_get_survivability_mode
+> > > >>> referenced by xe_survivability_mode.c:224
+> > > >>>               drivers/gpu/drm/xe/xe_survivability_mode.o:(xe_survivability_mode_is_requested) in archive vmlinux.a
+> > > 
+> > > A recent workaround added a 'IS_REACHABLE()' check around the calls into
+> > > configfs, which makes it link in this configuration, but this is generally
+> > > a bad idea because it makes the actual behavior inconsistent and confusing
+> > > to users that expect configfs to work if both xe and configfs are enabled.
+> > > 
+> > > Use 'select CONFIGFS_FS' instead, like every other configfs user does,
+> > > and remove the unnecessary stub functions. There is little practical
+> > > difference here as anyone using XE graphics is likely to have a complex
+> > > configuration that already selects configfs anyway, and the link error
+> > > or the IS_REACHABLE() would only manifest during randconfig testing.
+> > > 
+> > > Fixes: 30499cbd7961 ("drm/xe: Fix build with DRM_XE=y and CONFIGFS_FS=m")
+> > > Fixes: 16280ded45fb ("drm/xe: Add configfs to enable survivability mode")
+> > > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> > > ---
+> > >  drivers/gpu/drm/xe/Kconfig       |  1 +
+> > >  drivers/gpu/drm/xe/xe_configfs.h | 30 ------------------------------
+> > >  2 files changed, 1 insertion(+), 30 deletions(-)
+> > > 
+> > > diff --git a/drivers/gpu/drm/xe/Kconfig b/drivers/gpu/drm/xe/Kconfig
+> > > index 4fc8abdc5cb6..b52a8dc28f97 100644
+> > > --- a/drivers/gpu/drm/xe/Kconfig
+> > > +++ b/drivers/gpu/drm/xe/Kconfig
+> > > @@ -11,6 +11,7 @@ config DRM_XE
+> > >  	# the shmem_readpage() which depends upon tmpfs
+> > >  	select SHMEM
+> > >  	select TMPFS
+> > > +	select CONFIGFS_FS
+> > 
+> > Perhaps another option would be what Jani had suggested:
+> > 
+> > config DRM_XE_CONFIGFS
+> > 	def_bool y
+> > 	depends on DRM_XE && CONFIGFS_FS
+> > 	depends on CONFIGFS_FS=y || DRM_XE=m
+> > 
+> > But anyway, we are depending more and more on the configfs for
+> > production choices. So, let's go with you select and close this
+> > for good.
 > 
-> On Thu, Nov 12, 2026 at 06:42:36PM -0800, Josh Poimboeuf wrote:
-> > Please give example(s) of such "wide strings" in the changelog.
-> >
-> > > +/* Wide strings, such as the u16 PSR setup table, end at an all-zero element. */
-> > > +ssize_t elf_string_len(struct section *sec, unsigned long offset)
-> >
-> > What is the "u16 PSR setup table"?
-> 
-> PSR stands for Panel Self Refresh.
-> 
-> Source    : drivers/gpu/drm/display/drm_dp_helper.c: drm_dp_psr_setup_time()
->             /* macros expanded */
->             static const u16 psr_setup_time_us[] = { 330, 275, 220,
-> 165, 110, 55, 0 };
-> Section   : .rodata.str2.2 (SHF_STRINGS, sh_entsize = 2, Clang ThinLTO)
-> Bytes     : 4a 01 13 01 dc 00 a5 00 6e 00 37 00 00 00
->                         ^^^^^
->                         220 (0x00dc) contains a zero byte at offset +5
-> 
-> objtool   : strlen() returns 5. The checksum hashes only 5 bytes, and
->             the copy includes only 6 of the table's 14 bytes.
-> 
-> > > + /*
-> > > + * FIXME: GCC's range_string() uses a one-past-end string pointer.
-> > > + * strlen() reads past the section; preserve the string base and addend.
-> > > + */
-> > > + if (entsize == 1)
-> > > + return strlen(sec->data->d_buf + offset);
-> >
-> > I don't understand what this comment means either.  Please make sure all
-> > comments and changelogs are written by humans, as LLMs tend to write
-> > nonsensically.
-> 
-> Source    : lib/vsprintf.c: range_string()
->             p = string_nocheck(p, pend, "[range ", default_str_spec);
-> Section   : .rodata.range_string.isra.0.str1.1 (8 bytes: "[range \0")
-> Reloc     : range_string.isra.0+0x9a: R_X86_64_32S .LC22+8
-> 
-> GCC note  : Uses .LC22+8 (one-past-the-end pointer) as a loop bound without
->             dereferencing it.
-> objtool   : Passes offset = 8 to strlen(sec->data->d_buf + 8), reading past
->             the 8-byte section. Fixing this requires tracking the base
->             string (.LC22) and the +8 addend separately (left as a FIXME).
-> 
-> I came across both while testing on full kernel builds rather than in
-> production livepatching, so I'll leave it to you whether they are worth
-> addressing in practice.
+> I really don't think this patch was the way we wanted to go.
+> IS_REACHABLE was giving us exactly the behavior that we wanted,
 
-It's probably worth fixing, just the comments and commit log need to be
-clear about what exactly we're fixing.
+But it caused other issues like reported in the commit msg of this patch.
+With the risk of other complications like Jani had pointed out earlier.
 
--- 
-Josh
+> but now
+> we're getting behavior that we did not want.  Xe absolutely does not
+> depend on configfs in any way.  _If_ configfs is there we'll enable some
+> config options in it, but none of those are mandatory for our driver as
+> a whole.  We're perfectly happy to build and run without configfs if
+> it's not selected in the config.  We're also happy to build and run
+> without configfs functionality if the user wanted Xe built directly into
+> the kernel, but configfs was built as an unreachable module solely for
+> other non-Xe purposes.
+> 
+> While this change won't matter to 99% of the cases where someone is
+> running with a typical distro kernel, this is the kind of thing that
+> makes embedded users unhappy since they're very carefully managing their
+> configurations and we've taken away their ability to avoid configfs now.
+
+I believe some other user could be angry as well for ending in a case
+where they need manual survivability mode to flash the firmware, but
+they don't have this option available because in his config this
+option was not reachable.
+
+Soon SRIOV will be another production case that will depend on the configfs.
+I know, one might argue that we should then select only if SRIOV is enabled.
+
+But I don't like the complication this is taking on a very simple thing.
+
+> 
+> Also, as mentioned earlier in the threads, using 'select' on a
+> user-visible config option rather than a hidden option often causes
+> cascading problems down the road because it ignores any dependencies of
+> the option being selected (configfs in this case).  At the moment I
+> don't think configfs has any dependencies of its own, but if it gets
+> some down the road, this can cause problems.
+
+I'm not strongly in favor of any approach, as long that it doesn't cause
+other issues and regressions. So, if someone want to try to bring this
+again, proving it is a good config combination solution that won't
+cause further issue I will be glad to accept.
+
+Thanks,
+Rodrigo.
+
+> 
+> 
+> Matt
+> 
+> > 
+> > I'm pushing this to drm-xe-next.
+> > 
+> > Thanks for the patch.
+> > 
+> > 
+> > >  	select DRM_BUDDY
+> > >  	select DRM_CLIENT_SELECTION
+> > >  	select DRM_KMS_HELPER
+> > > diff --git a/drivers/gpu/drm/xe/xe_configfs.h b/drivers/gpu/drm/xe/xe_configfs.h
+> > > index 327b648944ff..d726800de26a 100644
+> > > --- a/drivers/gpu/drm/xe/xe_configfs.h
+> > > +++ b/drivers/gpu/drm/xe/xe_configfs.h
+> > > @@ -14,7 +14,6 @@
+> > >  
+> > >  struct pci_dev;
+> > >  
+> > > -#if IS_REACHABLE(CONFIG_CONFIGFS_FS)
+> > >  int xe_configfs_init(void);
+> > >  void xe_configfs_exit(void);
+> > >  void xe_configfs_check_device(struct pci_dev *pdev);
+> > > @@ -36,34 +35,5 @@ u32 xe_configfs_get_ctx_restore_post_bb(struct pci_dev *pdev,
+> > >  unsigned int xe_configfs_get_max_vfs(struct pci_dev *pdev);
+> > >  bool xe_configfs_admin_only_pf(struct pci_dev *pdev);
+> > >  #endif
+> > > -#else
+> > > -static inline int xe_configfs_init(void) { return 0; }
+> > > -static inline void xe_configfs_exit(void) { }
+> > > -static inline void xe_configfs_check_device(struct pci_dev *pdev) { }
+> > > -static inline bool xe_configfs_get_survivability_mode(struct pci_dev *pdev) { return false; }
+> > > -static inline bool xe_configfs_primary_gt_allowed(struct pci_dev *pdev) { return true; }
+> > > -static inline bool xe_configfs_media_gt_allowed(struct pci_dev *pdev) { return true; }
+> > > -static inline u64 xe_configfs_get_engines_allowed(struct pci_dev *pdev) { return U64_MAX; }
+> > > -static inline bool xe_configfs_get_psmi_enabled(struct pci_dev *pdev) { return false; }
+> > > -static inline bool xe_configfs_get_enable_multi_queue(struct pci_dev *pdev) { return true; }
+> > > -static inline u32 xe_configfs_get_migrate_ulls_period_ms(struct pci_dev *pdev) { return 5; }
+> > > -static inline bool xe_configfs_get_disable_vram_page_offline(struct pci_dev *pdev) { return false; }
+> > > -static inline u32 xe_configfs_get_ctx_restore_mid_bb(struct pci_dev *pdev,
+> > > -						     enum xe_engine_class class,
+> > > -						     const u32 **cs) { return 0; }
+> > > -static inline u32 xe_configfs_get_ctx_restore_post_bb(struct pci_dev *pdev,
+> > > -						      enum xe_engine_class class,
+> > > -						      const u32 **cs) { return 0; }
+> > > -#ifdef CONFIG_PCI_IOV
+> > > -static inline unsigned int xe_configfs_get_max_vfs(struct pci_dev *pdev)
+> > > -{
+> > > -	return xe_modparam.max_vfs;
+> > > -}
+> > > -static inline bool xe_configfs_admin_only_pf(struct pci_dev *pdev)
+> > > -{
+> > > -	return XE_DEFAULT_ADMIN_ONLY_PF;
+> > > -}
+> > > -#endif
+> > > -#endif
+> > >  
+> > >  #endif
+> > > -- 
+> > > 2.53.0
+> > > 
+> 
+> -- 
+> Matt Roper
+> Graphics Software Engineer
+> Linux GPU Platform Enablement
+> Intel Corporation
