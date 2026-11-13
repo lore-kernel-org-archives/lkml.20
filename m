@@ -1,128 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.152.168
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794589320;
-	b=pt3ZBC/NLHdsSTjCZbdGIr3k81sOsobp104QvBow7kaJ0WktzEuKRoGdkFigQ8SHOMAY
-	 fe5BEKK+ov0p2tv06wUxck12Myri0/0vqo8I5ceVulwLph67L+T35h4o5eJWY0pDckmZo
-	 NLoNvilsYWmHeVu+eNRyIEv65bEIuQEm0sLpyy97jR8z2+bLeGs4rF1B/3TGIjq2HodW6
-	 5ofTb3iLaXZesLNqrwj//KlvgAz6U2LIKSFGh6Axe/JyA1At7qPR2Pkz6n36I57PgtY+W
-	 AF4bJ7BDwNmZMXOD8w4iJ9GxmrStZnVC8I9zIEUwHghlUp4bc0VbMpmH7zQ5Hu4fP9Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794589320;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
-	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
-	 Received:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Reason;
-	bh=kS/U4SqcBIIO9rx5Z+/ZEX/OpNsUqToCQkBMh+G5gqw=;
-	b=Y+gMa8fCoodMbfRiMIqoo+uZyx6KapCA5GZYsvsdN8lh9+/7juOVENui22m2pjJXQ6zJ
-	 BTYApEk5thGWcwZVTleXyDNQL7dGwIEDADhAmW9ORkVWFDFo8HiRQZcq8GCUSLs8yHztU
-	 Mo2NtOzulWclrsnZ4KYb33O5YpzYcECqZGEo3LDVygOYGsQErzyT68ewqNgR8/KlkSZld
-	 RSzvndbUU0fW3PC0Y8gpFs0Wi6IVuliyrHluFTF0CWKhlbA/7bumdHWkseBoEXEZ1zLiM
-	 QyHZE2uzO1nMQbmRMmSr3CwpTqwtsDJclmNlcjTtAUWFv/3g+7/edisogMlDg1XkSHQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=opensource.cirrus.com;
-	spf=pass smtp.mailfrom=opensource.cirrus.com;
-	dkim=pass header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=nlnd7LTy;
-	dkim=pass header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b="g/bQRIbu";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=67.231.152.168
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.5
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794589372;
+	b=K+/TPl/ELMFo9fDdB4hqKQxdV7kOU3uUNf2CIrIt1KvhsUg1BJ4mett3WRJuN+8nlW2g
+	 4Ad+ovJoNsM1J2ogGXK3jtnFIvwHwM6osjBTEwn9mKDaqYJaqUprF0GcJ4t/++9hBltQO
+	 4slZ2VnyfLogeFvFMaJ0xkZ5eYsXGUgM6mDTUrnb8XiEOcJwkssBRZ3kUMlqkJGDUMcBi
+	 ZUJkMU0Qn7oi6YeW7SI9aKZ8lyHld9Ui+65VzsC9mM7ws/zp8baIGE7JPXAnNfpmBB0Z4
+	 oKq04cKt011laMZT/POXOKeQF0XXTdqeeV+tH5XVDM8T2X0iPau57R5sZ+gaJ48fkQg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794589372;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=ym2hLsozA7ZSQayntiTQLoO7fGKekGn6gbjoRP5CLXE=;
+	b=kYHmbeFzRPBsF9IaaVH9kR06gdhl2cbXcz4mybzy87o0mbb3HuiENVqF+0hShQrdgB5i
+	 PDSmrSxuewqwjxzQi2pJKVwKqcFzJ6IPX1cze9kTpODcjIfGr/iROew62Zdw3N+jsLym0
+	 9Vqqqnd+zXzASjDf/QPSVRFy3MDRFRsts87FCAWPp1ktO08CcxlikcsYRWRfaUCKR1+jJ
+	 C5mzYF3HYOn5Sf92EVxhlMMWCdm2okKx5ars2nCk0ZPQ9uWDDw/+tHC3KhpK219LNSl93
+	 Ks4zGhVVcdSCFh0aTchZSnkpP5r2FhXOa7g5t6zfOkjlUbiLuW7OJzfOeuds/K1PPKg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="wmFo/9UB";
+	arc=none smtp.remote-ip=74.125.229.5
+Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04E12606A334;
-	Fri, 13 Nov 2026 17:01:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04E12606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29863606A882
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:02:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29863606A882
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.a=rsa-sha256 header.s=PODMain02222019 header.b=nlnd7LTy;
-	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-cirrus4-onmicrosoft-com header.b=g/bQRIbu
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADFsn3b589497;
-	Fri, 13 Nov 2026 11:01:53 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=PODMain02222019; bh=kS/U4SqcBIIO9rx5Z+
-	/ZEX/OpNsUqToCQkBMh+G5gqw=; b=nlnd7LTy7cP8zsqi8e1bgaV+w1svSBmfbX
-	1GZGRfJwBiXysnnKd3ix9mvxyCnB91vs1orqvZd7noP4oFzKmj0F6GADXN0UAJA8
-	6RxKrI+77X+6lQKOw/q1iUo60o9BTKVXFoJsgN9+sSFMYb6/d/pePCYXNynnPvEO
-	ThExyFqTWKSQPfk6ryopDQhwfMKyDnkVwd6IgXGO0Io3SLyv66i5bViM5iuXzxGq
-	qOtPfIEx+Xd8zKaBNkqu4Yjiv3q8lE4ChmkOrF7+2ZhqwiwSRX+74U7aTVz3ZOCN
-	O8gKxbP1xf8M5t/LKN8k8Dp+zPlXdWMWhls28x9IcM3ndhrgyC5g==
-Received: from byapr05cu005.outbound.protection.outlook.com (mail-westusazon11020085.outbound.protection.outlook.com [52.101.85.85])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4hwcfpj730-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 13 Nov 2026 11:01:52 -0600 (CST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IBWRcllL01/z4UNBq+mqu5cfOYpXP+HbXuq1L2NMAwj0dBjBc4nTzh94+qJ3BqiPONxv1MqhfmcNQSvb4tlVO6CxUI5iPvpmkVjDT3aPChsnCW6r+Upq0tlkCxUrvoN0jE6s9rafM34uI+WhGD2DKDtDnWhekrOgqumvsFUbiTfPhx46IxZdx30HnUUJebHdWw4LgLsLlFfdmxHlvXBYs/JETbpYD2FA4sKdaPxNc7OISJHm3lu9qixu3YZKD+KWIuRsc1u0HUwvUS4+c+5MuqYadc1jD/uzYxRUC2IHRFDto1DmHgt/9gJhm5dd6P9t5pVGCkn9MPKy3ruas7Jkdg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kS/U4SqcBIIO9rx5Z+/ZEX/OpNsUqToCQkBMh+G5gqw=;
- b=nTo19kwppgIWvoy+paQMR3eApXM8VT+k0uS9BCdW/CcVZCtWvRwhpNYWKmb2cbHe3uNg48ns1r1TtgcCnH6sPc6spCZjpUSm77+m9euN9OwQ3tYN4S/S+ehVQMdPDD65wngm3wckQK9A3y/u6PVyrJ7xhK4lcUtBzRcdgyXKYwQfUtNxxBrnHoCRCa6wIzvNBtcdgDQpDb71HjQy2Dykt5UhKEbZinS6apLYjEHEW3AmuIJNGc8eVqOSTzeZxZDG6G+RPxWzCLFRFw95dy4TEoAD1sB8BNeMFBTZz62glIRBc3fTHzp+khyEqO/XquVxmGnmi3E8vlpxppVpQREAMg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 84.19.233.75) smtp.rcpttodomain=kernel.org
- smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=opensource.cirrus.com; dkim=none (message not
- signed); arc=none (0)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wmFo/9UB
+Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-36d73027aedso429715eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:02:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kS/U4SqcBIIO9rx5Z+/ZEX/OpNsUqToCQkBMh+G5gqw=;
- b=g/bQRIbuJK5JY/npsoS+t+P2iutBrfLzI/XvDft6odtVwVQxBjHz7vXtFmwEtDQRd5+7DqT9bG0w0P6v/ggY0xRf6PHDx/ref6jIiVURSyIElD7Sro1AE8wLGi0F3Kj4EgpLdlbOyhoUVGqoH6wGgD1TOex3Ik72a4ATKey8v58=
-Received: from SJ2PR07CA0014.namprd07.prod.outlook.com (2603:10b6:a03:505::7)
- by CY8PR19MB7275.namprd19.prod.outlook.com (2603:10b6:930:9b::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
- 2026 16:53:50 +0000
-Received: from SJ1PEPF000037AF.namprd03.prod.outlook.com
- (2603:10b6:a03:505:cafe::92) by SJ2PR07CA0014.outlook.office365.com
- (2603:10b6:a03:505::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Fri, 13
- Nov 2026 16:53:50 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
- IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
- not signed) header.d=none;dmarc=fail action=oreject
- header.from=opensource.cirrus.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
-Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- SJ1PEPF000037AF.mail.protection.outlook.com (10.167.244.187) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.4
- via Frontend Transport; Fri, 13 Nov 2026 16:53:49 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id F26CD406559;
-	Fri, 13 Nov 2026 16:53:47 +0000 (UTC)
-Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id DE4C1820273;
-	Fri, 13 Nov 2026 16:53:47 +0000 (UTC)
-Date: Fri, 13 Nov 2026 16:53:46 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
-        Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-        linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 03/10] soundwire: stream: Prevent m_rt_count underflow
- in sdw_stream_remove_master()
-Message-ID: <avdAmj5dWyHjcNGy@opensource.cirrus.com>
-References: <20261103095445.81414-1-lee@kernel.org>
- <20261103095445.81414-4-lee@kernel.org>
+        d=gmail.com; s=20260707; t=1794589371; x=1795194171; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ym2hLsozA7ZSQayntiTQLoO7fGKekGn6gbjoRP5CLXE=;
+        b=wmFo/9UBoL9/fi9B+miMvv37P7UpU2FoOc+M6Eekvn8LgLVHVIIPyoE5Jn2T9FcHcc
+         FOcrA4RRVYam2oSrfBtAKa/ncJHHKnjnnwru8PDAbroLSpYXXH41gpGmApzKschZ2p+r
+         anuv8pU9QtFRC0YPk2UmYZbQGYaxn7Z0FQURyRtEDXGd+4jEEXHxLzoJw7jcI272PcUj
+         J/3soGoSb9FGOc1/0EMijJx9SutbYCPnmXscokmh4r4YRcOzLG6za6668LE/hsZ1Q8JD
+         5z08tyNHX0GIpsRx19UL2/U9d3naDzDSMn1ys00fnNvQv1fzgCJMZgyFFh9jgJsTIxzK
+         IHnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794589371; x=1795194171;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ym2hLsozA7ZSQayntiTQLoO7fGKekGn6gbjoRP5CLXE=;
+        b=ReTZcpdzrXz5XlMmSJnwqaJODMDthG2r+orkBdY3OGf6GIEG2Isxw+QjVczuaOv4Zb
+         EggJ/AMApxDfo75tCRQzkUyltdRzPa5fg9PaKE9HNKQx2JnC2ZsKJoiZXCueLACKnJzD
+         2rcZjohH8lOMIlwzzHaVTxXlr3jdTuS7Ce5bCvF91zUmnK4RHsOaii7jW6W7T+ex/JI+
+         HgYS8nu01J/NpWmuI3UiHPkc8knx2ixmvuZ4iDWhvRL9p/xtySE1e+G0IM6vwUjXwiNT
+         E3bXJ0+SnMB2Y6NZ+z+iYnSg3L0r+q74vV1oLNeqyY9KfSD5sx+OJMtE3M83UofM7IJ+
+         cNXw==
+X-Forwarded-Encrypted: i=1; AL+hErGAb52WfdDxRP4jDRyjwS2lS+HscKxRoLcFshYsuWTuxaZi6mE0EmQ7Y4Cq65ONs3RxMGEEHFn9Iaf4xoA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9TOX7PvEP7jreQv3Zyote4pfBogz3aNn4iY+Zd8BfSJ5FOWQfT
+	uUuO+dKjWELuKppt9vahqf8whNkrrcw4JrATbwVxeFuDeO1XglyTvFgT
+X-Gm-Gg: AYBFou2AyNYdRk2csobMRtKOEQw9iEtqrF5z5veFyHldkue2qajE2vooboTXHA/bdg5
+	ngk77bOKVZz2vKlkhyhjpdlD9ygxU+nuS2gWslpHUzJBoyptmEAGYzYrL8G56/4XiJ2zrfKWTHo
+	xT1S/QWWsix36OaBCv9+HOIs6GrMHRATecl0tYBB6xrOfcA9WV6mEjKc27MAl1FGToZmSNGORJm
+	plIlSsFJ0NdgI2LM5EUdMXVTbFFFIowvoeFMIhNBgVuAJ5ELBRzeTtQ+Q86ewV1oSKGAmacwzGt
+	Nwt/xZaHeAo9Z8W1Xnak+EPlSpG4Xks0sGxeBsr8E4D8IcFd/tvqU7Wbwlu50SPcSVgJxS4fdvT
+	zSFd9nNVo35HuGZo72gl6BT6oAtjhiLxSaBsgLzHEmU2Bw1ut+aAbaYLkZ0VnxtHiX52P7dLSb3
+	rSNYitsk3mAUEv/k1w0TahGpWZJKMVOFA6sPUTyDJNa06xx7/mjUbq0QUYVPeE+9Mw+JSXgV8RZ
+	hJHTm5clm4TLS79WXdOA5hW+wX+e75a43zJU+kaNnIqDC00V+DlGYLgqmU9GBAdscIXRLG3IHZp
+	Vb7T/OEeocbpd7IMYwRUSFI=
+X-Received: by 2002:a05:701b:280a:b0:185:b157:f271 with SMTP id a92af1059eb24-1b50310fafamr2760874c88.23.1794589370935;
+        Fri, 13 Nov 2026 09:02:50 -0800 (PST)
+Received: from localhost ([2a03:2880:9ff:69::])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50316e195sm9999831c88.8.2026.11.13.09.02.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 09:02:50 -0800 (PST)
+Date: Fri, 13 Nov 2026 09:02:46 -0800
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: Mina Almasry <almasrymina@google.com>
+Cc: Octavian Purdila <tavip@google.com>, Paolo Abeni <pabeni@redhat.com>, 
+	netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com, kuba@kernel.org, 
+	michael.chan@broadcom.com, pavan.chebbi@broadcom.com, andrew+netdev@lunn.ch, 
+	edumazet@kernel.org, horms@kernel.org, shuah@kernel.org, sdf@fomichev.me, 
+	leitao@debian.org, dtatulea@nvidia.com, asml.silence@gmail.com, 
+	bobbyeshleman@meta.com, daniel@iogearbox.net, razor@blackwall.org, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH net-next v4 0/5] net: devmem: size TX net_iovs from the
+ dmabuf layout
+Message-ID: <avc_ptmBkAahiBHJ@devvm16445.scu0.facebook.com>
+References: <20261111224740.2744522-1-sdf@fomichev.me>
+ <1b764043-2efd-4e65-adb9-a47c0136446b@redhat.com>
+ <avZC2hp_0ODMQ4SG@devvm16445.scu0.facebook.com>
+ <avZZ-6GGciPC0Lti@devvm16445.scu0.facebook.com>
+ <CAHS8izOp2BpO7WnrNZRUryGQg=L3xreF8nSFp5S2_sO8HGhqpg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -132,76 +107,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103095445.81414-4-lee@kernel.org>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000037AF:EE_|CY8PR19MB7275:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8e0bc689-a092-47f4-8d0c-08df41a6b0b9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|61400799027|82310400026|376014|36860700016|23010399003|22082099003|18002099003|16102099003|3023799007|56012099006|11063799006|4143699003|261028144727099003|261026121527099003|261022105027099003|261009223027099003|10067099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	2X0XQeWNf1ZuN06Ygiek/4dh0/+oReBs5XrxVnB1hWhgDgn2XB7mJk+xPeLdQvmvcUuGDIeqjeQQIW0CBFF9qcxD0EdfybkrfXAcvkWorsso9ZghaZds9q/ZeO3O5h5SThxVePYEbUMz/QDMeWu6NID+OXUF04MkjP+592dovLbUSwkOZqfviDjUsAaCNub4/FJekQU1U2TO+X7w1HiXeDqVDcbISqyWV8w1oWKqiHTa5rdvtP67jyOV5RAdjdueawxVCgFjuaPtK5semmVECgGmAeQnsj103qAC/Ob5EqWcITvJSTWmDhiqdjEio3i0/UJo+nIJgh7d3ArAizfz3K3Dxd9zF0drQ08nKr2+fhdg4MNXNQfP9iWun33drUVFEqfdNlCnLo7xMuq6IiG8LBZv57f0JJsvWLBgpjpaAXtcY3dk3sSIM/i+n1QntAX08qFq4ZG6Zdbgw86bUNTfXG5EYaZ+THq9hevxnD+zSqFPZbtvAqWGX4pFxShtYtipZ+ncOVICaUKRE3eUTCjLDK1VooeudCDFptpveISYrgc5lgA0+HIJmtZpCIhN7tMRR3DB/Ow40hab1mIo+p+/5Yvz/ugyeeovqrk42j8AIrt3MAsKmvBo2wC5rEI8czPm4z3xr/4n6J0ZieoKPMLI2g==
-X-Forefront-Antispam-Report:
-	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(61400799027)(82310400026)(376014)(36860700016)(23010399003)(22082099003)(18002099003)(16102099003)(3023799007)(56012099006)(11063799006)(4143699003)(261028144727099003)(261026121527099003)(261022105027099003)(261009223027099003)(10067099003)(261026140227099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	5ItxAI9dp5LrkLKvDpqL2OVViDzYjWDfbgHNaDJXbW9Fn6pSAWd5u6v8fbZYxb1PF2SD+/rwPpaHUlePnf0yObXqYN1Fj1oRMZv5UN+2N6jc5/imsz/DT8WVkz6nR+oIQv8Ld9qN65Qw6kP4FKT2zkH7q7IPuoauybD1LfQY2w8gN1zSQkim0znhfP2wheEnmPDft/x6L/wJXW6ydIRaMYZ+VICOP8ubZJWgWUzoXHPu6OALthGvHvdxO52F/JBxnxawDgtGUMhiK5Qni9rPpo+PdKpbSiI8vpTzqShwX3u9cVEDME4392cgCfTl2FjnbdmveGR3gBArEeG/EJvQxd4fq8B4rlfdjsWujjHdO4IpSeKV+TnIsp9muIjyywvgRR3fekbRV4mNo0GTMO6AIcnXa4t73NXrMJ0aH9wCNecdqZcqYpSFNvkrv2kpFINE
-X-Exchange-RoutingPolicyChecked:
-	pTvMlfHVvkM5X+FsoAaHqQzUHwhvHLXLvy4SYzzjgeu1/9C7k8o74Js/BOZd256aSZccvdxr9AiWxBfpHYVNqhslZG5gOaDpta3syOkhuW4TGmY6yg5UByYszy+NJpmEu/NXQL5m3XuYdz1VtEwdB2eepr3EgL8rOpOR/HuMnCnTrp3nTfSZdsqDn1RtFamoucZtOIzDx8/ELxjqQPR1VD27Mm5u+xDygGXrMGlffUTzKfBcHzOOnDGeMYLHcOOaTXsSVkyt/57YsrtFC3Hb5umiZBTtT0UEHmwmFvH4eNNiG7TQoBGl6iKBNUNRw0VAPr7PHyoIGLhQcLTk5DFBLg==
-X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 16:53:49.2055
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8e0bc689-a092-47f4-8d0c-08df41a6b0b9
-X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-SJ1PEPF000037AF.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR19MB7275
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA2NyBTYWx0ZWRfX3hSeFiAKQmL3
- iwG5Xd346XElBT5WLhEYU5SAnPKdRnNWtaNDAhzrfdrIuHZTurGLlQN31iHgFvIvwJcHdcPXlUz
- s7DeDv7Ju9Odj5OmKmz7y+ry4+PzU/svWrWxxUUrVE493QVxi9UOSFyoLMFbG2jQ/tPZ0CCo4O/
- a1BW0bd5m/jUccsZed/v6bV15XUQ4Hj43lTEsnZTjJXtr8Wu+oUR6/2fo/ewVbjjRMlggYCVqW+
- UDoshZrRDX53CGlsrRKDl6/6gkK9qKHyvGRc2KVQRjS9Q56qIA44n/9R0r8tNUyv7/J2PQkAHDR
- hILzkrW6bPGrlPnpmvDw3aK+eFcDvbOppcOomBjfsEUE9tu+kbQJhON1QYMM5GIv/K32WuDwOiD
- 3UbKxxx4m2hWRp0+o6sofh5KfRJ1xu/BY3B21vkIQPzX1hv6mevQEqpWwzfCXGJqUKiXtET8V/d
- t9wGG1dy+LIiGPkLLfQ==
-X-Proofpoint-GUID: 2hGOkA1ca2_P0dgPYpMoMqKETDf7wyhk
-X-Proofpoint-ORIG-GUID: 2hGOkA1ca2_P0dgPYpMoMqKETDf7wyhk
-X-Authority-Analysis: v=2.4 cv=Woi+otfv c=1 sm=1 tr=0 ts=6af74280 cx=c_pps
- a=WcQbdmje/HnKHP6F6rQghg==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
- a=c92rfblmAAAA:8 a=VwQbUJbxAAAA:8 a=w1d2syhTAAAA:8 a=sRb2ISfdXO_hjJ1XLuEA:9
- a=CjuIK1q_8ugA:10 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA2NyBTYWx0ZWRfXyuEzKAXWteZw
- +pSexJU3ItZXDuBXVqbE/Wl2ruLnTocnNWL4d3P4wbJvTurwjkEoBM+g9+NyGKOWFF/SoB5S4ha
- meMusm7PuztpBiukuiX4wTqfDQKnvpM=
-X-Proofpoint-Spam-Reason: safe
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAHS8izOp2BpO7WnrNZRUryGQg=L3xreF8nSFp5S2_sO8HGhqpg@mail.gmail.com>
 
-On Tue, Nov 03, 2026 at 09:53:47AM +0000, Lee Jones wrote:
-> stream->m_rt_count is incremented in sdw_stream_add_master() after
-> sdw_master_port_alloc() succeeds.  However, sdw_stream_add_slave() can
-> allocate a master runtime without allocating master ports, and
-> sdw_master_port_alloc() can fail after partially populating
-> m_rt->port_list.  When sdw_stream_remove_master() subsequently tears
-> down the stream, it unconditionally decrements stream->m_rt_count,
-> underflowing the counter when master ports were never allocated.
+On 11/12, Mina Almasry wrote:
+> On Thu, Nov 12, 2026 at 4:42 PM Stanislav Fomichev <sdf.kernel@gmail.com> wrote:
+> >
+> > On 11/12, Stanislav Fomichev wrote:
+> > > On 11/12, Paolo Abeni wrote:
+> > > > Hi,
+> > > >
+> > > > A few (late) questions/comments to check I'm not missing relevant
+> > > > points,
+> > > >
+> > > > On 11/11/26 23:47, Stanislav Fomichev wrote:
+> > > > > TX bindings use PAGE_SIZE net_iovs, so a frag covers at most a page.
+> > > > > A 64KB skb needs 16 frags, and MAX_SKB_FRAGS caps devmem skbs at about
+> > > > > 68KB, which makes BIG TCP ineffective for devmem TX.
+> > > >
+> > > > ... with default .config. You could set MAX_SKB_FRAGS to 45 and reach
+> > > > ~180K...
+> > > > > This series picks the TX net_iov size from the dmabuf sg table instead:
+> > > > > the largest power of 2, up to 2MB, which aligns every DMA segment. With
+> > > > > a 2MB hugepage-backed udmabuf a BIG TCP skb takes a few frags. There's
+> > > > > no UAPI change since TX addresses are dmabuf offsets.
+> > > >
+> > > > ... still this option should be more effective because the limit would be
+> > > > higher and the skb would use less cachelines for the shared_info,
+> > > >
+> > > > I'm wondering if making a comparison vs MAX_SKB_FRAGS==45 would be
+> > > > complex and if you could do that, too.
+> > >
+> > > Originally I did not want to include bigtcp to keep it apples to apples:
+> > > same tso size, just 16 frags in skb vs 1 (in ideal case).
+> > >
+> > > I just tried running mlx5 with 45 frags configured and it fails to start with
+> > > the following error:
+> > > mlx5e_attach_netdev() warns "MLX5E: Max SQ WQEBBs firmware capability: 16, needed 23" and returns -EIO.
+> > >
+> > > (fwiw quick review with llm claims that mlx5 only supports up to 20 skb frags)
+> > >
+> > > What I also tried just now is `gso_max_size 524280` (on top of this series)
+> > > and it ups single flow throughput from 200Gbps to 240Gbps (presumably
+> > > by making the receiver go faster with 512K TSOs vs 64K TSOs) and halves
+> > > the sender softirq..
+> > >
+> > > I hope this gives you more data, not sure running with 20 frags is worth
+> > > it (vs 16)? LMK if you disagree or want me to run something else.
+> >
+> > Fun fact, also setting gro_max_size on the receiver gets line rate over
+> > single flow:
+> >
+> > I   client.c: Connected 1:cpu 39 | 1:cpu 118
+> > client: == Source 2401:db00:255a:4a:bace::b
+> > client:   Tx389.448 Gbps (2921248849920 bytes in 60008026 usec)
+> > client:   Rx  0.000 Gbps (0 bytes in 60008026 usec)
+> > client:   TCP retrans reord rtt rttvar d_ce snd_wnd cwnd
+> > client:             2   125  86      2    0 15300608 10142
+> > client:   net CPU 39: usr: 0.03% sys: 0.06% idle:67.39% iow: 0.00% irq: 5.69% sirq:26.81%
+> > client:   app CPU 40: usr: 0.05% sys: 2.91% idle:95.67% iow: 0.00% irq: 0.21% sirq: 1.14%
+> > client: == Target 2401:db00:255a:44:bace::b
+> > client:   Tx  0.000 Gbps (0 bytes in 60009306 usec)
+> > client:   Rx389.438 Gbps (2921238435008 bytes in 60009306 usec)
+> > client:   TCP retrans reord rtt rttvar d_ce snd_wnd cwnd
+> > client:             0     0 210    122    0  999424   10
+> > client:   net CPU118: usr: 0.00% sys: 0.00% idle: 1.60% iow: 0.00% irq: 0.33% sirq:98.05%
+> > client:   app CPU119: usr: 2.75% sys:77.46% idle:18.95% iow: 0.00% irq: 0.47% sirq: 0.34%
+> >
+> > 4200MTU, 32K rx-buf-len, this patch series, gso/gro_mas_size of 524280,
+> > still the default number of frags (enough on rx to fill 512K GRO with 32K
+> > chunks).
 > 
-> Free any partially allocated master ports on allocation failure in
-> sdw_master_port_alloc(), and only increment and decrement
-> stream->m_rt_count when master ports are allocated.
-> 
-> Closes: https://sashiko.dev/#/bug/linux-bce288e6-c97f-46dd-9fc3-023c33d56f36
-> Signed-off-by: Lee Jones <lee@kernel.org>
-> ---
+> With 'devmem' over udmabuf? Is this possible without devmem on your
+> setup? How much is devmem helping I wonder.
 
-Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-
-Thanks,
-Charles
+Yes, devmem+udmabuf. I think what's helping here the most is 32K rx frags
+and bigtcp, this makes it possible to pack 512K TSOs into a single skb
+on rx (which is the bottleneck). At least on mlx5 don't think there
+is a way currently to configure that outside of iou/devmem memory
+providers? FWIW, devmem socket api with the cmsgs is not supper
+efficient, but bigger chunks do help here as well.
