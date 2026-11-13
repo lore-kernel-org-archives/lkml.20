@@ -1,101 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794561789;
-	b=y/tTnWKsvWnb6icjue//BLGNZT6F5BH/ALCgfdwMtHRCKwJxvvylGyx6s68pwfSZaqh3
-	 7debq93VAB207/M/SqF0ybuX38xqUd1AGQ8AzHOATU0up5LZ5vMnjbgyeUnO9cy80ckre
-	 ee8oFIWEGpO7vme1Qg23RwIBzD51GsXko1tbjfl3DFnVlpx9SMEk/iu3PgnP3a4HK15AB
-	 U8Ikijj+GmK56vHJK2PM4MQ6BSQuAlHKyGtvVzNp335dNSRl05XG9iH26ZIHWwuMm6P8D
-	 jmBjw9Cw/TTVCfermosv5b4bRK7LsL1ObtAPL2S4fbty5f4MhqxvAkdPEWW+WUxYT8A==
+	t=1794561823;
+	b=Z51SqDkDxFe62c+8GdXKmQzJProCZ0KaHhRw3qIWvNdcgYk/dEf4Uocbil1xt4c90WTp
+	 hQZfVeESjgcMgHbx3lB/FlDIYTJEvtpZIEU5ArDVDpQPT+oeMr62hXFm4sJZLVSzlJxE/
+	 irr6/9g3EiriVOH7VMLrbpnxGXD6PUmbNckzqocwlF9xE7RBnxCADfu/H7JwN+GLcpOoE
+	 8jGgoeK6VL8bcLxdWRvb226LWqsq3ZpoaWYjIM0gMBBjlyRUlXU6N1EFWw1o8u1dWRrIA
+	 SqSszIwhbwUeLKGvvwP8MVH0D2REORg5V9B6KsDChi9yAauot9n3NA0pdqyt6uZSz8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794561789;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=L4U6uoKIPIkNv7imLu7Hv5jSI4mySZg6QE0cGj6iXh0=;
-	b=fvU7eHQ8xAST1siahr9p78WdBODZGklZwAYOBm6V5if/UpedASCFjaeoglLkVj8Vrl0m
-	 nAYfGtbaS6NhbBExf9WvEGSjlVm2igUY3TRkH66STslzup/v6/BSe0t8m3C5EFgJbNVPG
-	 ZXHA59Y7Grc9ZILlHLorVx3BVwsa2IA7K7wWxm0hp3l4x0kzQC+aQOQ48iNhcZWRrl9Pw
-	 eKhj3Q2MQbe6+yC1JrfdmgQo3aSbayNf5bU7O0nRi7pbiwVFxu0hl3CpMOsH/SMPmnD4s
-	 fbp9dBDVKzGPtbZHqvzvNQTFmBrGMaSJb6H/a8ambJqURE5z3qUZJOMrCsHX0V2Vtbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794561823;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=b0UeRimgEuLyoTq54ei0X4WYdqdQ1dFIU18FVk966AM=;
+	b=gCeYfj9M7oH+FckUUmhbZBwrd0NrfDWvGa8RSfp1KAiJEM+ujO8Txcs2pf2xZGs9loRO
+	 kvvdH+mtBZ45Wdt6qE1VSwcpQ4bldWI89eKVhFyQBFlsSJKYP2ek8gwbXEUJ2wG93faS5
+	 D2gziwe15d2JnA7fNh32eZ82DQtwDYQcVbCvDiGPfY6/J8Ce3Q3I4kVpbCBbianFhs1zq
+	 FvA1ulVJ7Xd7xnG9X4ShRspfRZbYx/A5GsufQ1dBzOf/virJWOn8h8PH3oAfsb47bQisl
+	 nTyr4IN/K2ZWhe5zj0p4Uy9+xw04q45iaLMiO87/IRmzkLZ8bXdlK363lAQJnmeJqHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LP59ItsB;
-	arc=none smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tr0QNwpg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92760606A32A
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:23:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92760606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BAB5606A32A;
+	Fri, 13 Nov 2026 09:23:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LP59ItsB
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-49a92144733so231031f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 01:23:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794561787; x=1795166587; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=L4U6uoKIPIkNv7imLu7Hv5jSI4mySZg6QE0cGj6iXh0=;
-        b=LP59ItsBjzPAPmAVpc9v5qfl4h2UfsCvzmw2kW9VSD8yXDKbNQ9n3stqsizVnnaE9E
-         4B73SbKv4HsMlbRbNF8saT66sJDybIX2y37gQsarpEzTzCBHQLlJrZfpIIgg0EMBv8NQ
-         NcnFrvkWg8QIR9wh9XIdRjKhOszDzKRjWbfBUP2NEf78xvgkDm5k00dk4PrX54gJRuUD
-         tsuI6uCmNcaAZYtb/784LaIEg+Z5OE2IWrxiCcaT0bCmCs1IiZ4zNakOjxi2PA42+BQN
-         HkK5y0rUrPf82itvRCMNgwsKuP3l6/S5MiHVO+cjaPHvhIJdu0dcyn4va0DLc/7OFsI/
-         dNWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794561787; x=1795166587;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=L4U6uoKIPIkNv7imLu7Hv5jSI4mySZg6QE0cGj6iXh0=;
-        b=jajRWGP9To2aVt9aje79ZgC7u/dvKPXUy/ATik2IsN1xXGxCF3SG6qhlPLdrzx36Ta
-         rIOYeAaLrH6r1+FoSaoYvjiArBRwVe9hfTiY5fVuF/Mj53q8hJZGvtHIYJGS5kZ2A33M
-         fvBJB09HMkpBNHD0n4ob6AxyEyEhxMsWDppizglLe/5LDzXj1GdKhqz6tlCEcn0Wt/FK
-         HCzGbfuGn7AyR0owTbcIFnx1ULUutjo8J6H7zXOqUpPnfWovqsZMOqBxGYfPpYFLKCFz
-         AP7KVQYycFJx5AqU1wiuIURU6y3nDFIqJ5xpuo54mZoisW9iJ/bHsiyJp04PhSxvAWxU
-         7Ssg==
-X-Forwarded-Encrypted: i=1; AL+hErEOM7ykOTaN2M/w8nbK59QBWUAYNfao/vL/pgneGGbay0e8ROj1rzxlHB0H5WmsvkzfyG/kLrPaU7BX7Yg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8N+b2XWBpC60kdnE1NudAp+qJw9iYaqJJUYntvJWydtBWqsKM7
-	aPvXFHqLZBsFc5kcYW08HxaqxxkdlxW12a+X5jDzpuSe3msJ4scnwAaaj3BEfv8y
-X-Gm-Gg: AYBFou0wzHC+AGV+m7pPgiXBwDLQnbb9VDzeDmNY4IfFsOz89Yk4lCLKR78sIFRr2fl
-	/tgWK/gETKVA2m2iRfe+lIXzfY6RfXJZj5mkw4UcunjinLCEVfaJRdMcRdoLcUaLzXNx3/h84y8
-	QpYTtSbPymTQJ5Hqi3UU4t/RVrEhzleMnNDh2YaCq/jlC0xTPAOGivCYqCZav7wUMvQTRWMzmw3
-	u4xOi4GJ2//78dAoBhvGpH+if/uwiQRXX+D8s0zy7uUIm31C5M8mjCjriPzozKNcsRJ8q+vV0gK
-	luLKBwNTbla0iyUOBJVNxJ61+1aSL36mCubhGW3N9qa7L7R7Ymg1WAqTyyxmlqZkVIdZTl5k94z
-	FLPmiJXb6H+K0wrmtFxTDXfToFUOGlkOI2gdA+0Bu/Vsxi6C1xvc0P0rXBC99r/14OywqV5z00H
-	fR08YV1maNYfc7AW3n0XwBxGtA2ZfpSezNdWuBLpfLwubN+l1VyeDvchqXqB67+7RWcMrSHhX55
-	YqVZ51VZWYvm9nBGpxXPKv2qiVifCoGirIA/UJGRwz+GPCDYjavEEot2mjmOlVkz2ousu8tBsjk
-	gnWtQPPBZQSqz7W+FpmK3ikB07BqQ8ij6GX5PNCWsgTpN0dDlb1B+GzqTk51I8UQsg==
-X-Received: by 2002:a05:6000:4305:b0:48d:e61d:68da with SMTP id ffacd0b85a97d-49c712ac8cbmr4676987f8f.20.1794561786746;
-        Fri, 13 Nov 2026 01:23:06 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c69406640sm3853502f8f.12.2026.11.13.01.23.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 01:23:06 -0800 (PST)
-Date: Fri, 13 Nov 2026 09:23:05 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, Di Wu <diwux@google.com>,
- dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org,
- bleung@chromium.org, groeck@chromium.org, tzungbi@kernel.org,
- linux-iio@vger.kernel.org, chrome-platform@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: cros_ec: use sysfs_emit() in show callbacks
-Message-ID: <20261113092305.00ec8be5@pumpkin>
-In-Reply-To: <20261113013646.4c2f8456@jic23-hlaptop>
-References: <20261111072608.3490763-1-diwux@google.com>
-	<avR-KT-6e77EexZn@ashevche-desk.local>
-	<20261112020439.37b0da70@jic23-hlaptop>
-	<20261112220218.1adae5e5@pumpkin>
-	<20261113013646.4c2f8456@jic23-hlaptop>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tr0QNwpg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 569AC1F000C4;
+	Fri, 13 Nov 2026 09:23:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794561822;
+	bh=b0UeRimgEuLyoTq54ei0X4WYdqdQ1dFIU18FVk966AM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Tr0QNwpgl5Fj2LWhVbhGpfTTN89II9RF+84jijywNnTRPMdYWs3/soS1rU2O4zXOM
+	 fX2pg+I1oPT3YZkVifiySbSxtESKnWCgDLZ9eAYGMAIzw9u27SegPi29Th3VIC25xi
+	 c87C2hATkMIHjvWPZISl489OOCo5L2vV24fD4eFhhxz+iMqsLmIIGyyk7EeclYsJwv
+	 q7mu9zSJ62Y8OFI7QEYyM/RWTbEq2gtIYP/r3uc6MBaUsJA+mGeJb9CO43jmtxZfqU
+	 uCgOHMtHK70fjD9YNWVbdpCLU47Hc/cUhRvcJf2cFTprciWCwkUzj/CUV3SLak/+wE
+	 6phe5G8v+NUOA==
+Subject: Re: [PATCH net v2] rxrpc: Serialize client connection IDR updates
+From: netdev-bot+sashiko@kernel.org
+To: kylebot@openai.com
+Cc: linux-afs@lists.infradead.org, dhowells@redhat.com, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Fri, 13 Nov 2026 09:23:41 +0000
+Message-ID: <179456182186.2199510.54970723548503568@kernel.org>
+In-Reply-To: <20261110062221.96452-1-kylebot@openai.com>
+References: <20261110062221.96452-1-kylebot@openai.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,77 +62,218 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Fri, 13 Nov 2026 01:36:46 +0000
-Jonathan Cameron <jic23@kernel.org> wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-> On Thu, 12 Nov 2026 22:02:18 +0000
-> David Laight <david.laight.linux@gmail.com> wrote:
-> 
-> > On Thu, 12 Nov 2026 02:04:39 +0000
-> > Jonathan Cameron <jic23@kernel.org> wrote:
-> >   
-> > > On Wed, 11 Nov 2026 16:39:37 +0200
-> > > Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
-> > >     
-> > > > On Wed, Nov 11, 2026 at 07:26:08AM +0000, Di Wu wrote:      
-> > > > > Replace sprintf() and snprintf() with sysfs_emit() in the sysfs show
-> > > > > and ext_info read callbacks. sysfs_emit() is aware of the sysfs buffer
-> > > > > PAGE_SIZE limit and is the preferred helper for show callbacks.        
-> > > > 
-> > > > Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> > > > 
-> > > > ...
-> > > >       
-> > > > > -	return sprintf(buf, "%d.%06u\n",
-> > > > > -		       latency / 1000,
-> > > > > -		       (latency % 1000) * 1000);
-> > > > > +	return sysfs_emit(buf, "%d.%06u\n",
-> > > > > +			  latency / 1000,
-> > > > > +			  (latency % 1000) * 1000);        
-> > > > 
-> > > > As David said, since you touched these lines, make the less amount of them
-> > > > while at it.
-> > > > 
-> > > > (But no need to resend, usually Jonathan is kind to tweak this small thing.)
-> > > >       
-> > > Done and applied.
-> > > 
-> > >     
-> > 
-> > I just looked at that line again.
-> > Why is it multiplying the remainder by 1000?
-> > It could be:
-> > 	return sysfs_emit(buf, "%d.%03u000\n", latency / 1000, latency % 1000);
-> > if the 6 digits after the decimal point are required.  
-> 
-> Good point, I guess unrelated change that we could have on top.
+Critical: 0 · High: 0 (1) · Medium: 1 · Low: 1
 
-Indeed.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-> Those trailing zeros shouldn't matter.
+- [Medium] The patch makes rxrpc_destroy_client_conn_ids() take
+  local->conn_ids_lock before its leak check, and BUG() is then called…
+- [Low] rxrpc: missing Fixes tag for service conn cleanup in
+  rxrpc_clean_up_connection()
 
-There is a matching oddity in the set function (just above).
-It calls iio_str_to_fixpoint(buf, 1000000, &integer, &fract)
-then does latency = integer * 1000 + fract/1000.
-Just replace the 100000 by 1000 and you don't need the divide.
+Pre-existing issues:
+- [High] This bug predates the patch, but it is High severity.
 
-iio_str_to_fixpoint() will ignore are extra fractional digits.
+--
 
-Although I'm not at all sure its handling of negative value is correct.
-It converts -1.5 to -1/5 and -0.5 to 0/-5.
-I can't see how that is useful since i*10+f for both gives -5.
+rxrpc: Serialize client connection IDR updates
 
-I'd have though that either the fractional part should always be positive
-so -1.4 would need converting to -2/6 or it would have the same sign as
-the integer part and -1.4 would be converted to -1/-4.
+This patch limits connection ID cleanup in the common destructor to client
+connections, so service connections no longer remove IDs from the client
+IDR. It adds a per-local conn_ids_lock and a RXRPC_CONN_HAS_IDR ownership
+flag so that each ID is released only once. It also moves the ID release
+in rxrpc_unbundle_conn() so the ID is dropped even when the bundle slot
+has already been replaced.
 
-David
+> diff --git a/net/rxrpc/conn_client.c b/net/rxrpc/conn_client.c
+> index 48519f0de1853..201a50caeacae 100644
+> --- a/net/rxrpc/conn_client.c
+> +++ b/net/rxrpc/conn_client.c
+> @@ -40,12 +40,16 @@ static void rxrpc_activate_bundle(struct rxrpc_bundle *bundle)
+>  }
+>  
+>  /*
+> - * Release a connection ID for a client connection.
+> + * Release a client connection ID exactly once.  The final reference may be
+> + * dropped outside the local endpoint's I/O thread.
+>   */
+>  static void rxrpc_put_client_connection_id(struct rxrpc_local *local,
+>  					   struct rxrpc_connection *conn)
+>  {
+> -	idr_remove(&local->conn_ids, conn->proto.cid >> RXRPC_CIDSHIFT);
+> +	spin_lock(&local->conn_ids_lock);
+> +	if (test_and_clear_bit(RXRPC_CONN_HAS_IDR, &conn->flags))
+> +		idr_remove(&local->conn_ids, conn->proto.cid >> RXRPC_CIDSHIFT);
+> +	spin_unlock(&local->conn_ids_lock);
+>  }
+>  
+>  /*
+> @@ -56,6 +60,7 @@ static void rxrpc_destroy_client_conn_ids(struct rxrpc_local *local)
+>  	struct rxrpc_connection *conn;
+>  	int id;
+>  
+> +	spin_lock(&local->conn_ids_lock);
+>  	if (!idr_is_empty(&local->conn_ids)) {
+>  		idr_for_each_entry(&local->conn_ids, conn, id) {
+>  			pr_err("AF_RXRPC: Leaked client conn %p {%d}\n",
+> @@ -65,6 +70,7 @@ static void rxrpc_destroy_client_conn_ids(struct rxrpc_local *local)
+>  	}
+>  
+>  	idr_destroy(&local->conn_ids);
+> +	spin_unlock(&local->conn_ids_lock);
+>  }
 
-> 
-> > 
-> > David  
-> 
+[Severity: Medium]
+If the leak check fires, BUG() now runs with local->conn_ids_lock held,
+and the matching spin_unlock() is never reached. What happens to the
+leaked connections after that?
 
+Each leaked client connection still holds a ref on local, taken by
+rxrpc_get_local() in rxrpc_alloc_client_connection(), so the lock memory
+stays valid. When the final ref on one of them is dropped later, directly
+or through schedule_work(), the path is:
+
+rxrpc_put_connection()
+  rxrpc_clean_up_connection()
+    rxrpc_kill_client_conn()
+      rxrpc_put_client_connection_id()
+        spin_lock(&local->conn_ids_lock);
+
+That spin_lock() would spin forever on the lock left behind by the dead
+I/O thread. Before this patch, BUG() ran with no lock held.
+
+The commit message says deferred final puts happened in practice at
+endpoint teardown. Could one oops here turn into a soft lockup or a hung
+kworker?
+
+One option would be to do the check and the pr_err() output under the
+lock, drop the lock, and then call BUG(). Another would be to WARN and
+clean up instead.
+
+[ ... ]
+
+> @@ -682,6 +693,9 @@ static void rxrpc_unbundle_conn(struct rxrpc_connection *conn)
+>  	if (conn->flags & RXRPC_CONN_FINAL_ACK_MASK)
+>  		rxrpc_process_delayed_final_acks(conn, true);
+>  
+> +	/* A replaced connection is no longer in the bundle. */
+> +	rxrpc_put_client_connection_id(bundle->local, conn);
+> +
+
+[Severity: High]
+This is a pre-existing issue, not one introduced by this patch. Since
+this patch now handles replaced connections in rxrpc_unbundle_conn(),
+should the disconnect path handle them too?
+
+rxrpc_add_conn_to_bundle() replaces any slot whose connection fails
+rxrpc_may_reuse_conn(). It does not check whether the old connection
+still has active calls (old->act_chans):
+
+net/rxrpc/conn_client.c:rxrpc_add_conn_to_bundle() {
+    ...
+	old = bundle->conns[slot];
+	if (old) {
+		bundle->conns[slot] = NULL;
+		bundle->conn_ids[slot] = 0;
+		trace_rxrpc_client(old, -1, rxrpc_client_replace);
+		rxrpc_put_connection(old, rxrpc_conn_put_noreuse);
+	}
+    ...
+	conn->bundle_shift = shift;
+	bundle->conns[slot] = conn;
+    ...
+	for (i = 0; i < RXRPC_MAXCALLS; i++)
+		set_bit(shift + i, &bundle->avail_chans);
+}
+
+A connection can become non-reusable while calls are still running on it.
+rxrpc_set_conn_aborted() sets RXRPC_CONN_DONT_REUSE on an abort, which a
+remote peer can trigger. rxrpc_expose_client_call() sets it when
+call_counter reaches INT_MAX. rxrpc_may_reuse_conn() sets it when the CID
+is too far from the IDR cursor.
+
+The new connection B gets the same bundle_shift as the old connection A.
+New calls take B's channels. When A's still-active call on channel c
+finishes, rxrpc_disconnect_client_call() runs:
+
+	chan->call = NULL;
+	set_bit(conn->bundle_shift + channel, &conn->bundle->avail_chans);
+
+Nothing checks that bundle->conns[slot] == conn, so this marks B's
+channel c as free while a call Y1 is still using it.
+rxrpc_activate_channels() then picks that bit and runs:
+
+		slot = channel / RXRPC_MAXCALLS;
+		conn = bundle->conns[slot];
+		...
+		rxrpc_activate_one_channel(conn, channel);
+
+This overwrites B->channels[c].call with a second call Y2 while Y1 is
+still attached. If Y1 has not been exposed yet, Y2 gets the same call_id,
+so two calls can go out with the same CID and callNumber. When Y1
+disconnects later, it hits WARN_ON(chan->call != call) and returns early.
+
+Does rxrpc_disconnect_client_call() need to skip the avail_chans update
+when conn is no longer in bundle->conns[]?
+
+>  	bindex = conn->bundle_shift / RXRPC_MAXCALLS;
+>  	if (bundle->conns[bindex] == conn) {
+>  		_debug("clear slot %u", bindex);
+
+[ ... ]
+
+> diff --git a/net/rxrpc/conn_object.c b/net/rxrpc/conn_object.c
+> --- a/net/rxrpc/conn_object.c
+> +++ b/net/rxrpc/conn_object.c
+> @@ -332,7 +332,8 @@ static void rxrpc_clean_up_connection(struct work_struct *work)
+>  	rxrpc_purge_queue(&conn->rx_queue);
+>  	rxrpc_free_skb(conn->tx_response, rxrpc_skb_put_response);
+>  
+> -	rxrpc_kill_client_conn(conn);
+> +	if (rxrpc_conn_is_client(conn))
+> +		rxrpc_kill_client_conn(conn);
+>  
+>  	conn->security->clear(conn);
+>  	key_put(conn->key);
+
+[Severity: Low]
+The changelog blames only 9d35d880e0e4 ('rxrpc: Move client call
+connection to the I/O thread'). That commit dropped the
+RXRPC_CONN_HAS_IDR test and the lock from
+rxrpc_put_client_connection_id(). That covers the double removal
+and the IDR locking parts of this fix.
+
+The service connection part seems to have a different origin. The
+unconditional rxrpc_kill_client_conn() call in
+rxrpc_clean_up_connection() looks older than that. It appears to
+have come in when rxrpc_put_client_conn() and
+rxrpc_put_service_conn() were merged into rxrpc_put_connection()
+and the common destructor, in 3cec055c5695 ('rxrpc: Don't hold a
+ref for connection workqueue').
+
+Since that change, every service connection reaching the
+destructor runs the client-only cleanup:
+
+  - it decrements rxnet->nr_client_conns
+  - it calls rxrpc_put_client_connection_id() on a CID the peer
+    chose
+
+The new rxrpc_conn_is_client() guard is what fixes this.
+
+Could you check that history and, if it holds, add
+
+  Fixes: 3cec055c5695 ("rxrpc: Don't hold a ref for connection workqueue")
+
+alongside the existing tag? Then the stable maintainers can see
+which trees need the rxrpc_conn_is_client() guard.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261110062221.96452-1-kylebot%40openai.com
