@@ -1,58 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794566374;
-	b=CzOfR1L3NsJlIwJ7DgvikJ61SDnSyV6R/I/n2F0kmnsx9nS/igMNSRlq7suFcg28jaRF
-	 EfH7qwZfYgeXO83sDMnpMxsbE5xf5sV2wDnATPBjDvzaRptAUmbdtTFF2+UfBIx3WSI02
-	 u7TtqNRzLItzvkWlld81DE3gf1lEp1xWyA3GzPoznzBztADD0AmpRxVmnBavUBziyku28
-	 oUiUcNaaufJhQbCHt3L+KnnJHyy92bW6uQ6bDanDSTSKK3jCMAOwkd1ZcCTTl555rH0e4
-	 bt420OzU54xvYWjrJPGLZBeqCFC1CInsWiaa7V0DjHCsP5KV5bGiZXIimYxJgIMv8UA==
+	t=1794566380;
+	b=1Zj11gHyyFHB5q1zxF8kmlgrNILjplt82vWKRy7tM/Gf6zJR4/KUt7YUzLzoEnC0rEcQ
+	 JH8wtCRoOy+5H41NRj5rCoFrNPEsme+4SjCiAehfBxUsm1caYwRspXKWncKvBFi/0gqiV
+	 os4fR5yrMScjiDBQ9xgczojhKgc21en0F+Q3kRztpftdSz2dIoAyHYyJ10nxFzeuWTg4o
+	 vwirXcjC2uHCcBjPXUEQA3lmuMF15Bzns2dNgVv3DfjqHCv7N6luPwiuc9HoXMOxcpljR
+	 G1ZHKIL/IyuToNUKm7pvXD5w7VTrF/scrvoNH0l+zESnUAt4+qecWcyZnBD6fBaGXwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794566374;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Debian-User;
-	bh=CVxi1AYHWuIcryjMWNZ6qdSREDmPih18Eo6xn5fFjlQ=;
-	b=WA5w8nOpmKIMSFWemVRhcIvCEXOH7rbKdaRtVRARwm2Sn3vPfGMfX7ZiSU5KCDDw07lz
-	 VfIP1fKN1ii4wrbIFZLe3lr0Mvcg8boceHCnML2MTmfz9FcXKnG3sEW7X5PH9M4b3LENE
-	 1wO5c7hENNGtVhWUUKlH4x3e6okp+1lBIH62PM8UiII0XiDLySLTXbz2QquZtPf3fMh7x
-	 OFAIwMIJ0G/rLVC+TXaBwxyJCQP0c/+siC4k1CpuKiSnseOlCpIj/Ktv+6vSNyuJ3hgqI
-	 4H9Yd/8ZObOQiwXqCqdCe2r8JlK90SiOcXDbBcFiuvCarOb6PJqBpYiVkBsS+sTV3Ng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794566380;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=4Nwzk4hxferb9G9G6d7KRjbkhkRCdOn7hm3bsXHy8vw=;
+	b=ngRiQh8tZ4JVbplZatZ3pCc/7F+E4jSv6kIX0SS7h4fqq2Hht9BPmTNbFHHXBDf7WPS5
+	 VWZqUr7NhU985AEX09n2HwIwvEmJt3A7lobENnDIoh24xQ8DCYmhSXlUSpBy08tVByiWC
+	 OzZ/GOiLtf6esxSOLscmFJ6focJpZUn09mxAfNGCNWBi5OCAzVKSakYAORfhn59qC0rfS
+	 kbTUbAL8iaMohAA3Z6k2BnL40t3IQyOtNo3MbS6DBw6lbu8OlWLM7W3fFcdJ6m8VW3CbH
+	 a6GXzn3q1YtIOtr/tluMMohzQPdy3gHmuozTD8s+2XdhlFbFKrK2Ut2GrOTTl+dP08w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=Gi+Ky9Ya;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oikIjxjS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBF62606A89D;
-	Fri, 13 Nov 2026 10:39:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBF62606A89D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 918BE606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:39:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=Gi+Ky9Ya
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:In-Reply-To:References:
-	Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:
-	From:Reply-To:Content-ID:Content-Description;
-	bh=CVxi1AYHWuIcryjMWNZ6qdSREDmPih18Eo6xn5fFjlQ=; b=Gi+Ky9YawitWxcWOlBIbMuSK2D
-	4v5EMTWjdl+EjDU90c3zgtVguCbZB4/IJWtiVjS9E9+62KHGHmKYBxCmffQf8KJTIYtkV0163bgXU
-	V1FqmjNCQFKP3Ho0QbcKnFd9sJ+d2E+XcMM3EKZ39DZmA0hvRfWT/EsfUxTM2aVolfIMzQEk2By6g
-	eN5lw1ujx1x5Fecxs132SyZGBI2eLVZMj3plfVQhET4IDACtYhE32RvvYWTl8y93wUT+n2fCSHWmz
-	+bii/JRYclRuH9GXwj4H7FiXsCORkWz4vtko2Pcte6hkcZ+XzGvpSwLqUFFMQqlCSmwpCp7gmA0GH
-	R/paTa+g==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xRogu-00Eh0y-0E;
-	Fri, 13 Nov 2026 10:39:32 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Fri, 13 Nov 2026 02:38:59 -0800
-Subject: [PATCH v3 2/2] tpm: Disable TPM on TPM_RC_INITIALIZE
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oikIjxjS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E3131F000CC;
+	Fri, 13 Nov 2026 10:39:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794566380;
+	bh=4Nwzk4hxferb9G9G6d7KRjbkhkRCdOn7hm3bsXHy8vw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=oikIjxjSW/M3ldlbTICtnub5xkYFg1ViNQG9Nw0xmdg4Z8H6Oow3vzougdHwkiiqr
+	 iDlXhmbsdFDMNTEMRspgNB8hc7M7RUv9+eeKZz45hk/j/7SYqqrzUNRKBbeIjpf1U5
+	 Y5zPfblV2wKwr4t6/MAY9nF2P+u3QfIW2adYe1H20ozRsZlu88NJSEuyZSv3/LjC6B
+	 RcoHav9UN2OzsVWsG7vR5B6yzFFHACZJg94CyfpGzymJyOSOFFGJ9ZsFNn6EcB5SrO
+	 clQai4laO0w8SaQ6Z5mnAJt5vqU2zXV567BlDyycdQ7OEYyiDcrPzmVJGcLoPRkdOQ
+	 aEaCDQbty4x5Q==
+Message-ID: <29bf5516-36bf-490e-ac35-d89893fa61b3@kernel.org>
+Date: Fri, 13 Nov 2026 11:39:34 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,84 +51,235 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] mm: add vmf_insert_pfn_order() and vmf_pfn_order_ok()
+ helpers
+To: "Farber, Eliav" <farbere@amazon.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ "linux-mm@kvack.org" <linux-mm@kvack.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20261111113045.35368-1-farbere@amazon.com>
+ <20261111113045.35368-3-farbere@amazon.com>
+ <a242ede8-71c2-4f75-b5e5-dcfa98ab25d3@kernel.org>
+ <BY3PR18MB47227EB15146F8F16E1C005BC6702@BY3PR18MB4722.namprd18.prod.outlook.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <BY3PR18MB47227EB15146F8F16E1C005BC6702@BY3PR18MB4722.namprd18.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-tpm_unresponsive-v3-2-8138c8e283b8@debian.org>
-References: <20261113-tpm_unresponsive-v3-0-8138c8e283b8@debian.org>
-In-Reply-To: <20261113-tpm_unresponsive-v3-0-8138c8e283b8@debian.org>
-To: Peter Huewe <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org, 
- surenkj@amazon.com, noodles@meta.com, linux-doc@vger.kernel.org, 
- Breno Leitao <leitao@debian.org>, kernel-team@meta.com
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1690; i=leitao@debian.org;
- h=from:subject:message-id; bh=aEJVxTYLdJtovgrgov2gP7g819h4QzOhdaoHNgxzJZc=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq9ujV+VjVyR8c5k+l33iUFgncNXOMPh9fCgcpx
- bQsULt0AYuJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCavbo1QAKCRA1o5Of/Hh3
- bbzvD/9l+1xXuDdrFKaJjAr3eIhBrzA/Wl4rks//zufV5u7MQTaNvg99MW2wM87X57oDPgPoVdz
- UU3aPsvA0x32Xs7C6GE9kVJTkjthA+4jUvvvs9gHpMxj9bId7mNpFu88wpPdcGiB4vEaPNcCg/n
- wYp5lDH6TXGFVlG85Llvi7uJDacWR0H/H+d04pXfuDTHINjdvRYHaNvaKW9V5abtmcFeQmvlotf
- n2bWo5GxwCmi/4xerV8JaWje9a53Awm1PruxLUlHVQuDCDGZv7yV5JcDAz/U118UB5tdE8zP4lj
- 4LI5WLAB7tJ9AsH2R2cTrD314IvqC2dovyQsrFBQRkmXQDjNa/j9fRzPtDBHyv/lro7X8iWDDyb
- 42zDZZkMtUvs7e/GiHD1WRJdpPmNDMbqvCSOFTL6eMU6b3CHBCtbBcfQxFuWvLVWMdwzt/V/Rcc
- rI8N2WhHL0r8XyiKjERqXqOqbO+H84bSeXg9pl40cUnia7v5EJI7z15UcDaKmFIhQ7A9WuaZeaT
- MvTTM/DDBCLxhjxNNof34io/9ETnVw+6KN19aPr4c8lHh4h3/xXuI2zd5hzc23h4FBGt1Fctlc5
- iiZz8Go+rwGfuH+AF8X8g5xJh6LpbV8vldJ8Y4Ok5kPlEPfJ+65YowXujPJSLtFcUOvJBy7YNRZ
- cTTKABY1k0ZQT5A==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
 
-From: Jarkko Sakkinen <jarkko@kernel.org>
+On 11/12/26 16:55, Farber, Eliav wrote:
+> On 11/12/26 14:02, David Hildenbrand (Arm) wrote:
+>>> +    return !order || (addr >= vma->vm_start &&
+>>> +                      addr + (PAGE_SIZE << order) <= vma->vm_end &&
+>>> +                      IS_ALIGNED(pfn, 1UL << order));
+>>
+>> To make this somewhat consumable for a human,
+>>
+>> if (!order)
+>>       return true;
+>> return start >= vma->vm_start && end <= vma->vm_end;
+> 
+> We crossed in flight: v2 went out about six minutes before your mail, so
+> you were reading v1. I posted it to address sashiko-bot's review of v1,
 
-If the TPM has been spuriously disabled, the game is over. Let's reflect
-this truth with TPM_CHIP_FLAG_DISABLE.
+First, wait for human review. Always.
 
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
-[leitao@debian.org: check rc before the loop breaks out on anything but
- RETRY/TESTING, skip TPM2_Startup, which a TPM that is already started
- fails with TPM2_RC_INITIALIZE, and fix the TPM2_RC_INITIALIZE and
- chip->flags typos]
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-Signed-off-by: Breno Leitao <leitao@debian.org>
----
- drivers/char/tpm/tpm-interface.c | 5 +++++
- drivers/char/tpm/tpm2-cmd.c      | 2 ++
- 2 files changed, 7 insertions(+)
+Second, read Documentation/process/submitting-patches.rst
 
-diff --git a/drivers/char/tpm/tpm-interface.c b/drivers/char/tpm/tpm-interface.c
-index 977e205807033d..dd6bb518ab7d9c 100644
---- a/drivers/char/tpm/tpm-interface.c
-+++ b/drivers/char/tpm/tpm-interface.c
-@@ -252,6 +252,11 @@ ssize_t tpm_transmit(struct tpm_chip *chip, u8 *buf, size_t bufsiz)
- 		if (ret < 0)
- 			break;
- 		rc = be32_to_cpu(header->return_code);
-+		/* A TPM that is already started fails TPM2_Startup this way. */
-+		if (rc == TPM2_RC_INITIALIZE && cc != TPM2_CC_STARTUP) {
-+			chip->flags |= TPM_CHIP_FLAG_DISABLE;
-+			break;
-+		}
- 		if (rc != TPM2_RC_RETRY && rc != TPM2_RC_TESTING)
- 			break;
- 		/*
-diff --git a/drivers/char/tpm/tpm2-cmd.c b/drivers/char/tpm/tpm2-cmd.c
-index 4b2bb2ddc321a9..65928ae85b496c 100644
---- a/drivers/char/tpm/tpm2-cmd.c
-+++ b/drivers/char/tpm/tpm2-cmd.c
-@@ -724,6 +724,8 @@ int tpm2_auto_startup(struct tpm_chip *chip)
- 		goto out;
- 
- 	if (rc == TPM2_RC_INITIALIZE) {
-+		chip->flags &= ~TPM_CHIP_FLAG_DISABLE;
-+
- 		rc = tpm2_startup(chip);
- 		if (rc)
- 			goto out;
+"Wait for a minimum of one week before resubmitting or pinging reviewers
+- possibly longer during busy times like merge windows."
+
+Because we have much other priorities right now :)
+
+> which found a write-flag asymmetry in this patch and a COW problem in
+> patches 3 and 4. vmf_pfn_order_ok() is unchanged there, so all three of
+> your comments apply to v2 as posted.
+> 
+> Agreed on the shape. Your version drops the pfn term, which is your next
+> question, so let me answer that and then propose deleting the helper.
+> 
+>> And maybe rejecting IS_ALIGNED(pfn, 1UL << order) with WARN_ONCE() as this
+>> sounds like the user is doing something stupid?
+> 
+> A misaligned pfn is not a caller bug, it is what userspace asked for. For
+> /dev/mem, vm_pgoff is the base pfn, so an mmap() at a page-aligned but not
+> PMD-aligned physical offset gives a pfn that cannot be mapped at PMD order.
+> Falling back to PTE order is the correct answer. The selftest covers this
+> directly: it maps /dev/mem at offset +4K onto a PMD-aligned VA, so the
+> window term passes and only the pfn term fails, and it asserts both the 4K
+> fallback and that the data read back is the data at that physical address.
+> A WARN there would fire on an ordinary mmap().
+> 
+> Dropping the term is worse than a WARN, because nothing below catches it.
+> x86 pfn_pmd() masks the pfn:
+> 
+>         static inline pmd_t pfn_pmd(unsigned long page_nr, pgprot_t pgprot)
+>         {
+>                 phys_addr_t pfn = (phys_addr_t)page_nr << PAGE_SHIFT;
+>                 pfn ^= protnone_mask(pgprot_val(pgprot));
+>                 pfn &= PHYSICAL_PMD_PAGE_MASK;
+> 
+> so a misaligned pfn is silently rounded down and the mapping points at the
+> wrong physical memory. pfn_pud() does the same with PHYSICAL_PUD_PAGE_MASK.
+> 
+>> But looking again, this all looks like sanity checks where the user is just
+>> doing something stupid?
+>>
+>> Why is that required at all? I'd get rid of this entirely.
+> 
+> The check is required on the fault path because mm asks the handler to do
+> it. From __thp_vma_allowable_orders():
+> 
+>         /*
+>          * Check alignment for file vma and size for both file and anon vma by
+>          * filtering out the unsuitable orders.
+>          *
+>          * Skip the check for page fault. Huge fault does the check in fault
+>          * handlers.
+>          */
+>         if (!in_pf) {
+> 
+> thp_vma_suitable_order() is the same check: the order window within the
+> VMA, plus, for a non-anonymous VMA, IS_ALIGNED(vm_start >> PAGE_SHIFT -
+> vm_pgoff, ...), which for a PFNMAP whose vm_pgoff is the base pfn is the
+> pfn alignment. mm's own huge handler honours that contract:
+> do_huge_pmd_anonymous_page() opens with
+> 
+>         if (!thp_vma_suitable_order(vma, haddr, PMD_ORDER))
+>                 return VM_FAULT_FALLBACK;
+> 
+> and the pfn-mapping handlers each carry a private copy:
+> is_aligned_for_order() in include/linux/vfio_pci_core.h for vfio-pci and
+> nvgrace-gpu, device-dax re-derives it from dev_dax->align, and fs/dax.c has
+> dax_fault_check_fallback(), which tests the PMD colour and both ends of the
+> window.
+> 
+> So I agree with where you are going, just not that it can be deleted. I
+> would rather move both terms into mm than add a seventh copy. insert_pmd()
+> and insert_pud() are the right place: they already reject
+> addr < vm_start || addr >= vm_end, and they already hold the pfn in
+> fop.pfn. What is missing there is the end of the window and, in the
+> non-folio branch, the alignment. Concretely:
+> 
+>   - Add to insert_pmd(), beside the start test:
+>     addr + HPAGE_PMD_SIZE > vma->vm_end, and, in the !fop.is_folio case,
+>     !IS_ALIGNED(fop.pfn, HPAGE_PMD_NR), both returning VM_FAULT_FALLBACK.
+>     insert_pud() the same with HPAGE_PUD_SIZE and HPAGE_PUD_NR. The
+>     alignment test is gated on !fop.is_folio, and the window test is a
+>     no-op for the folio callers, since dax_fault_check_fallback() already
+>     rejects (pmd_addr + PMD_SIZE) > vm_end before calling.
+>   - Drop vmf_pfn_order_ok() entirely. No caller needs it and no new driver
+>     does geometry.
+> 
+> That removes the helper you object to, fixes an unchecked window end that
+> exists today for every implementor, and leaves vmf_insert_pfn_order() as
+> the order dispatch plus the huge-zero and pfn_modify_allowed() cases.
+> 
+>> Why do we even care about the order? Why isn't it sufficient that we get called
+>> with "insert this pfn range" and we see how to best map it (pfn/pmd/pud)?
+>>
+>> Why does the caller even have to care about *how* something is mapped?
+> 
+> It does not, and it does not choose. mm picks the order and tells the
+> handler which one: __handle_mm_fault() tries create_huge_pud() ->
+> ->huge_fault(vmf, PUD_ORDER), descends to create_huge_pmd() ->
+> ->huge_fault(vmf, PMD_ORDER) on VM_FAULT_FALLBACK, then to
+> handle_pte_fault(). vmf_insert_pfn_order() only dispatches on the level mm
+> reached, which is what vfio_pci_vmf_insert_pfn() already open-codes with
+> the same !order / PMD_ORDER / PUD_ORDER ladder. The patch de-duplicates
+> that; it does not introduce the order-based shape.
+> 
+> Changing the interface to "here is a pfn range, you pick" means changing
+> ->huge_fault itself, for all of its implementors. The folio-backed ones
+> need the order, because they look up a folio of that size. That seems like
+> a bigger discussion than this series, but I am happy to have it.
+> 
+> For VM_PFNMAP specifically there is a narrower version of your idea that
+> does work, and patch 1 is most of it: pfn_range_track() already gives mm
+> the pfn range at mmap() time, so the fault path could insert without
+> calling the driver at all. What stops it is per-fault policy, not page
+> table walking: /dev/mem must re-check range_is_allowed() because
+> revoke_iomem() can zap the mapping after mmap(), UIO must test idev->info
+> under info_lock so a fault racing unbind gets SIGBUS, and vfio-pci holds
+> memory_lock and checks __vfio_pci_memory_enabled(). That is why
+> ->huge_fault exists for these mappings.
+> 
+> Does the insert_pmd()/insert_pud() move look right to you? The missing
+> window-end test is pre-existing, so it could equally go on the
+> huge-pfnmap mm fixes series rather than inside v3. Say which you prefer
+> and I will send it that way.
+> 
+> What changed in this patch between v1 and v2:
+> 
+>   https://lore.kernel.org/all/20261112125638.12209-3-farbere@amazon.com/
+> 
+> Only the order-0 path. The sashiko-bot review on this thread observed that
+> vmf_insert_pfn_order() honoured the fault's write flag for PMD and PUD but
+> not for order 0, where the pte comes from vma->vm_page_prot. v2 passes it
+> at order 0 too, through an extracted __vmf_insert_pfn_prot(..., mkwrite),
+> so the v1 sentence you quoted above the hunk, "The order-0 path needs
+> nothing: wp_pfn_shared() resolves that fault", is gone. I could not
+> reproduce a user-visible failure on either new target: /dev/mem and UIO
+> both modify vm_page_prot, so vma_wants_writenotify() takes its escape. That
+> change therefore rests on consistency with the huge paths, not on a
+> demonstrated bug. It does mean a first write at order 0 no longer calls
+> ->pfn_mkwrite, which the kernel-doc now states. v2's cover letter has the
+> rest of the changelog.
+
+Before I reply to anything in here: did an LLM compose most of these walls of
+text? :)
 
 -- 
-2.53.1-Meta
+Cheers,
 
+David
