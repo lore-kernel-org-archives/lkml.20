@@ -1,64 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.91
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794553869;
-	b=E4xG/sly3SXsjUagUffMlJ0iJhcawVhJaHj3pXXnQbmOvBEwV29DaSvNdArnLuZ/ga5g
-	 hVyZ++f/XZBxcZY+7Md6bRevgivX5h5bhdJocrwJ6LeSd4dj9bHW5uVo4nJAeO1KOM4yl
-	 3RRep6+YWKOrXxcJlenYGrH0OjV3FSYBlDRan0aPKxebNLARiRhT00U1hSVsvb8y1yt/5
-	 vnGRBqt30dVjI+Yz231vqj9eLWTKundLRnqWCbpqn6js5b8oTygoxgrzq/zPjvBYJXxxK
-	 VVkVRpHCYA21Gg6kr6K2J+8yVsj+YFNUxHy8D8BLBDwF+DDKAuKdkvDIdxD5N7oY0gw==
+	t=1794553994;
+	b=Sbkak8DZEv8f0K1N1KnSTwvOGZEmGPJDuUE0vLDlD80XF9BImN9fKNhL5lLvpmdl3xGJ
+	 i2Kg8aQhHR78+heOHJJFoqolMzbZ2f1x2CGl/tvKrXlEYgP94gjjRKUBoSBlEKsFcuf9L
+	 W28Mu/s4VAQBht7k/8mTcYtGfMsCovkctKxmHG5lfbYcHecUnZrS8e5Vd/UiiD0v1dMoQ
+	 v3swQL45ym6S/poUP5go44BDcYqhYNDVIGCspqazS6ve9LhJ+K9ly1FoAzuC6JIOG1Llr
+	 IH8JX9w2rX2xUBAkmN8DiDwU7dWNznbe9rKparmoxsaBAI6SIedMhBHF6O3c8fdmerQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794553869;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=IJWs4zNE+gIaPoa05xg+qHkXlF1ISQhiWNboOXFLzhc=;
-	b=uMntQ6K8pLorZwCqXnyp+3fISszjudHQmtOAFW4Ho9aVV88XN1oXZ7JK+zuGS/XcybTK
-	 8kMlaZRM/w+tmxP+le1sJwSzeY0Ea6MtVkN3/uMcxPh7dh8t3rAeHe/NlJB4WpifjZblh
-	 168y+VLKFlEPRaAbQ4XsviF0QVpgwa/wqCS5xFyMajt5kWHnbTtiQAEp1iS4i9qqb2CHS
-	 vdCOmJ4LO5eZLEbalBFCwjX/KEHP1MCfkJO3/M5BlghBfrbbD8Qy6qzdMFHZhLXXdudUL
-	 aMDrMdRD4CQDjpi3WiMb1HApGiZzlh6DEPMyDO3X0af2ff+pIxlZmoVc3tU1fTBdDog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794553994;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=jwJEcLepynHbIn+FVTxG6lhSdNiQ07QILHBvbeYHS+M=;
+	b=hOzpL0DvS0nQGd/heSiwmIi4XNcQfdEubd08+OIKa1sWOa65X9f4l98uIqVZxsZf4U4f
+	 A+VqSSounpZcGVKIjgdqMRV3hFKvVMJQr4x2XowbFbMZ+MBsFjqFzeBqnk6xsWo/GZAqL
+	 ZbNSCMYTVU653T+HgCYibwPJl+URCMfgd8OWyM2puZWsumwUc0SFLqW0ATiRloYh4pZQl
+	 tcrLN4OpNrOpM8SFNxuAmkJ2n1nvWHrq0zG0+RwVaITAAiFgwNeLpbwil6DKlgM3ZRbj7
+	 lc+MoSnQYF13p4Y+ZyiQkB6akoVXIxOwLjIUeWJRDrUcjkfWPibTitroIHWmgt2UyPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CgLSTeyw;
-	arc=none smtp.remote-ip=95.215.58.91
-Received: from mta1.migadu.com (out-91.mta1.migadu.com [95.215.58.91])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C678606A327
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:11:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C678606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=CjeDckG5;
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 461D9606A323;
+	Fri, 13 Nov 2026 07:13:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 461D9606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CgLSTeyw
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=HvD4JIhX9JMIJD9FDvhvLpV8go5wxlXlCHjEMqjep6A=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794553866; v=1; x=1795158666;
- b=CgLSTeywh5Ab76k4izWLBgQt+Afg18seRiEqC7lbW2t9NqgZjXIGu+u9pAKnIXWzjcG1HMuX
- a5r0n/1ea6raM92cULa4ySd18U+ls4Oc4NBOux2yYlHjrH8FE4a/hyI5BPd0T4hSBlGeAWgTHEZ
- DrejQYbHdD5j9uoXOO0gTuaU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 04b16ff434ed104c;
-	Fri, 13 Nov 2026 07:11:06 +0000
-X-Mizu-Trace-ID: 04b16ff434ed104c
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 13 Nov 2026 15:10:54 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
-Cc: Jiri Pirko <jiri@resnulli.us>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	1342116488@qq.com
-Subject: Re: [PATCH net v2] team: validate the length of U32 and S32 option
- data
-Message-ID: <ava3_g_zsVdAjn93@fedora>
-References: <20261112090030.172342-1-sunwenbo@cmss.chinamobile.com>
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=CjeDckG5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=CjeDckG5BJvVoZ+/d3qltobSl8QLrmOl9wvuXOj8dcFS6OjanaLVI5FxRAmioaXnIvQZMgOa+Jwo+
+	 ILVhlL4FjNplNBMz9rgAxjV7vmjkkdN8XvRym4rsFF364bTdRmclhMj1gpoTAOSB8OLr4ZGfFmrAR+
+	 swCzb+7S68Gtk9to=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app07-12007 (RichMail) with SMTP id 2ee76af6b8873fc-e9ebe;
+	Fri, 13 Nov 2026 15:13:11 +0800 (CST)
+X-RM-TRANSID:2ee76af6b8873fc-e9ebe
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from desktop-eb75daa8a6be458c-20260816004526035 (unknown[10.55.1.72])
+	by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee76af6b883592-1bdcd;
+	Fri, 13 Nov 2026 15:13:11 +0800 (CST)
+X-RM-TRANSID:2ee76af6b883592-1bdcd
+From: zhangchujun <zhangchujun@cmss.chinamobile.com>
+To: hughd@google.com,
+	david@kernel.org
+Cc: akpm@linux-foundation.org,
+	baolin.wang@linux.alibaba.com,
+	shuah@kernel.org,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	zhangchujun <zhangchujun@cmss.chinamobile.com>
+Subject: [PATCH] selftests/memfd: close fd in sysctl helpers
+Date: Fri, 13 Nov 2026 15:13:06 +0800
+Message-ID: <20261113071306.1673-1-zhangchujun@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,78 +73,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112090030.172342-1-sunwenbo@cmss.chinamobile.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 12, 2026 at 05:00:30PM +0800, Wenbo Sun wrote:
-> In team_nl_options_set_doit(), the policy for TEAM_ATTR_OPTION_DATA in
-> team_attr_option_nl_policy is NLA_BINARY because the payload layout
-> varies with the option type.
-> 
-> For TEAM_OPTION_TYPE_U32 and TEAM_OPTION_TYPE_S32, the payload is
-> read directly with nla_get_u32(attr_data) and nla_get_s32(attr_data)
-> without checking its attribute length. When userspace supplies a
-> truncated attribute (0 to 3 bytes), nla_get_u32() or nla_get_s32()
-> performs an out-of-bounds read past the attribute buffer. Conversely,
-> oversized payloads (> 4 bytes) would also have trailing bytes
-> silently ignored instead of being rejected as invalid input.
-> 
-> Validate that nla_len(attr_data) equals sizeof(u32) or sizeof(s32)
-> for TEAM_OPTION_TYPE_U32 and TEAM_OPTION_TYPE_S32 respectively, and
-> return -EINVAL otherwise, consistent with how NLA_U32/NLA_S32
-> attributes are validated and similar to commit 5bef3ac184b5 ("team:
-> better TEAM_OPTION_TYPE_STRING validation").
-> 
-> This issue was identified with the assistance of an LLM-based code
-> review of Netlink option handlers in the team driver, confirmed by
-> sending malformed U32 (notify_peers_count) and S32 (priority) option
-> attributes on a UML kernel, and verified after the patch that
-> invalid lengths (0..3, 5, and 8 bytes) are rejected with -EINVAL while
-> valid 4-byte options still work as expected.
-> 
-> Built with W=1 on UML, x86_64 allmodconfig, and x86_64 allyesconfig with
-> zero new warnings or errors.
-> 
-> Fixes: 3d249d4ca7d0 ("net: introduce ethernet teaming device")
-> Signed-off-by: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
-> ---
-> 
-> Changes in v2:
-> - Check exact length (!= sizeof(u32) / != sizeof(s32)) instead of
->   only rejecting truncated payloads (<), as suggested by Hangbin Liu.
-> - Extended the UML test to also cover oversized option payloads.
-> 
->  drivers/net/team/team_core.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/drivers/net/team/team_core.c b/drivers/net/team/team_core.c
-> index 957cc7885d2f..8fa05c489b99 100644
-> --- a/drivers/net/team/team_core.c
-> +++ b/drivers/net/team/team_core.c
-> @@ -2833,6 +2833,10 @@ int team_nl_options_set_doit(struct sk_buff *skb, struct genl_info *info)
->  			ctx.info = opt_inst_info;
->  			switch (opt_type) {
->  			case TEAM_OPTION_TYPE_U32:
-> +				if (nla_len(attr_data) != sizeof(u32)) {
-> +					err = -EINVAL;
-> +					goto team_put;
-> +				}
->  				ctx.data.u32_val = nla_get_u32(attr_data);
->  				break;
->  			case TEAM_OPTION_TYPE_STRING:
-> @@ -2852,6 +2856,10 @@ int team_nl_options_set_doit(struct sk_buff *skb, struct genl_info *info)
->  				ctx.data.bool_val = attr_data ? true : false;
->  				break;
->  			case TEAM_OPTION_TYPE_S32:
-> +				if (nla_len(attr_data) != sizeof(s32)) {
-> +					err = -EINVAL;
-> +					goto team_put;
-> +				}
+The three sysctl helpers sysctl_assert_write(), sysctl_fail_write()
+and sysctl_assert_equal() open /proc/sys/vm/memfd_noexec but never
+close the descriptor, leaking one fd on every call.  The noexec tests
+call these helpers in a loop, so the test can run out of file
+descriptors on a system with a low limit.
 
-This part should be
+Close the fd before returning from each helper.
 
-Fixes: 69821638b274 ("team: add signed 32-bit team option type")
+Signed-off-by: zhangchujun <zhangchujun@cmss.chinamobile.com>
 
-Thanks
-Hangbin
+diff --git a/tools/testing/selftests/memfd/memfd_test.c b/tools/testing/selftests/memfd/memfd_test.c
+index cdab3a837624..8bdfa91d3b76 100644
+--- a/tools/testing/selftests/memfd/memfd_test.c
++++ b/tools/testing/selftests/memfd/memfd_test.c
+@@ -120,6 +120,8 @@ static void sysctl_assert_write(const char *val)
+ 		printf("write sysctl %s failed: %m\n", val);
+ 		abort();
+ 	}
++
++	close(fd);
+ }
+ 
+ static void sysctl_fail_write(const char *val)
+@@ -136,6 +138,8 @@ static void sysctl_fail_write(const char *val)
+ 				val);
+ 		abort();
+ 	}
++
++	close(fd);
+ }
+ 
+ static void sysctl_assert_equal(const char *val)
+@@ -153,6 +157,8 @@ static void sysctl_assert_equal(const char *val)
+ 		abort();
+ 	}
+ 
++	close(fd);
++
+ 	/* Strip trailing whitespace. */
+ 	p = buf;
+ 	while (!isspace(*p))
+-- 
+2.50.1.windows.1
+
+
+
