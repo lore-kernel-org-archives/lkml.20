@@ -1,78 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794572140;
-	b=jIAPAr+XLDOZ+iPyfhT6iq9s4D1KqWHnmH/h5C9J1tJTq7rxNACIbR0pKUsWHcqYuyPY
-	 QVInOcqTUki74w66wYmGK8I19Gn5cWAZB4ZZlyn7o59fRY0gN/yv/yqvy6rggIWXiGR1Q
-	 sk0Ns4AtjN3x9RaNazrul4OdV7xZkzg8qfewUQxkCjWDiA5t8gbfIY37zHI7P0czJtQ4k
-	 jHIWQY4ZkwHtc2OtDRHAZGohcW2F72wSzldTCl6ZRdFmsMA8HXdoivgLRDmL2oxWfC9X8
-	 QBSO4IDapP2b6QNyA5ZUA5BvJJuHun8I6XVVW5dA4Cxy5MUgOR6nwzTJfo4kO+T87JQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794572140;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794572207;
+	b=MtuJbWKv/kHXjd5XihXv51OcJ5QtgXBuDCMihPQ8qBOe2GrK3kH+IyDhmsXKCwKvg6H2
+	 BTWIxU/ClRnv8GIIjv2JUCdSoM0YLlV+HmMHDpkBvn+ooRgNhKRaLLhY6YHOSXHdcUn3n
+	 JRSUzW1SGs0HnxJYU6N8gbwNtx3jWbGcrBxv0dSRxSxM+qWasjsxC5LVUeh21ZhmGU844
+	 pG9HyUK0CZUnrHKK9YCC3Y5pbZylWustklZt1sfwrKvjz+TfEIvBq983asnWCO3+p/kOY
+	 yCkml1S6Rw1D1C6SM+D47nXYbZq0TqfbgQMbvWvbl3Gn00OcEXj/gQhzwIZrmoRF6EA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794572207;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Akznn5x8/2l1e49bpMLHpotxCwIi2QP3ICBwS80oL8w=;
-	b=lunX3oKD/g2X2bEJfqXkNcNrVT2DFO5LdkRib29LK8zG9RsWWKoDeKd3OsjiRARl/YPg
-	 aitDuCsTlmNaxhp3ChJ5wbOHQ4LZKu1sKXoWsy2EMkLNCUHlLFXlWZazJLsCwDrpxLiGz
-	 oDM0ZgMuR0HA7FyjcbfsxJBS/BmUgBWEHoogHQsHNtK2nEDQUEn24ZNHI6oDOzS5EbjZ/
-	 sH3OyIVY83HbQZWFNX1giLxbBm0K4XR6yCxmEVSdumD8R5Mdwp2vO4TdkfKmYB8jmZqyD
-	 TMzTKsfFfMRvToHF7vKIV/SGnXiF3Ii+K81An/mMAN3efusnaDNoVMxYKe4GJKk3Zjw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=linux.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.219.50
-Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
+	bh=yh//LwFAWkhuSX27zp/CKGjXWFK/r7pkuQ5AkJ8bS8k=;
+	b=mNpZ76opSIW46L8l6DbSmJqplg+Ut6iDSHsNRbn6S5o9OfXnPExZ5DnRC9zssPbVW27C
+	 fsEN1NtONDo72zERAvDDdCCEdRXOqqqJ4/3Xz8yNRhO9Zp0E1RuavsMeDoRLDpOq82RgI
+	 p0IZu+U3aA2CnTclIJ/zZpIrYZ0icFrjRyocln+wcMRh62SxaoZESMuoC1+HCI80ymtJD
+	 3GdoGDwUdLdf5DXyqeQ6GxnKKAMOVo67k5AnINTraRD4foXVIGv7ka1dhxn3dpjDRBSTQ
+	 RXaX9mHRm6aR0dCwqhLkW/nDApj8M4ws77Vub6vAp82tP+ADnIxs08QrA9LMEtOl/Gw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=brainfault.org;
+	spf=none smtp.mailfrom=brainfault.org;
+	dkim=pass header.d=brainfault.org header.i=@brainfault.org header.a=rsa-sha256 header.s=google header.b="e/Zx56Yb";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D916A606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:15:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D916A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-91ccfb88e4dso22496776d6.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 04:15:39 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794572139; x=1795176939;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2FB0606A327
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:16:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2FB0606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.a=rsa-sha256 header.s=google header.b=e/Zx56Yb
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b47c1a3c74so1825666a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 04:16:46 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794572205; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nv1JPtcPH0oZEp1fhLnN3PVXQ6GP+LGksjhOmS4EM/FYz2bFTAxAhr1NK4PAmAH2Dg
+         wu8fMQS9j/DMzmWvgwBBHc+TQ1s2npsBhplwzVdmJZwzDZ/OOQOwpZXoBQONXIdE0ZtW
+         wYIhXLKkQd4FTUiTbJIDdTY15wcBmWLGMaYc4iS6EmvxFI0bxp2VxpBrcEyCq81THu7o
+         GKzpnT+/5dg++GkJUWqG4kATuUYO0E+SzHIjizKLUk9e9sQNHmi/nazZR0cOIF6tkSZu
+         z/Exw62KYyWziHUyVtdCx+5N3MxcVabSJjnQsqbPJf4pS2lNEgjrdGYs8VV9/KZHrBbm
+         o6pQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=yh//LwFAWkhuSX27zp/CKGjXWFK/r7pkuQ5AkJ8bS8k=;
+        fh=F/NiICs9vDEdJEXN2no6kZ7s4fMS3qNZlAH74keqQQ8=;
+        b=O8Vtp9VpsSTihgsmD0Bqvlzs5HHVrbH2mzRbesWGf9e4BdSXCKps5NhXA15KdOykl9
+         ts2JSjqAN1sMpT6fyGJvDK9UMeY7sKyBMjNUpuVffZQe0REYPYUaRa7B8vTqOnGz+cKu
+         pI5x5O0UjXoWYszaqcNvZlPSjoFtT5+oWDCvCRZdm0iMBGrAyo3/ASa/ZuD8n2c8w8Cy
+         PCqLB7htfhePkRaNtQMe/pAay30IqJRQ3vK9hPz0OQTQhstwabacXTas5fDP23+ZxMXh
+         5e8hCbQ5ZYUXZW1mmUNKKmyTBrNMsNM82nAQUWaL0erWqg5poTWSMmVdQ+67Z+lHMZm4
+         H9Wg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=brainfault.org; s=google; t=1794572205; x=1795177005; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yh//LwFAWkhuSX27zp/CKGjXWFK/r7pkuQ5AkJ8bS8k=;
+        b=e/Zx56YbBCjgsMtG5kmlIHcHvE1J6P4joVmzF9dfp0gpew/WcvK+LQo86o3z5cIQyI
+         yK/1GAJiVW9CEyH9ubTAy6Wzcuk5LfuDIOU4HSPzBZO5VsDaBgG2mvNLrS2jZjQJafOb
+         5uoSaa7DjtWrkm4WowzVwxq7KrrQiGO5+QN2QGNBX+f9fsL/G6ONSjLQou0mIqQ6dBZe
+         nNvWPGqi8QX9PFdJFbuKvu5RxG62KdLZmrUdVIhSKPNC/tw+lME1WznJ1/o993s+XHQ2
+         37yB4jGRiscVgqNWd5/ZqJaK6+rBt172tp8VegOdRm6TG5pTfXaby5H26I5BjOqDhAui
+         MNyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794572205; x=1795177005;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Akznn5x8/2l1e49bpMLHpotxCwIi2QP3ICBwS80oL8w=;
-        b=RNe/2dupmK9P7bpyoUeVmKmJDnWbqKN5uH8cnxRV6DVa10GCOQ4GENmWdcWdE7FsW8
-         dJ9pI3GbUvqWTpcHLf89UaxDBgMKQTqmyvqBlMyi78uI7gj7pIGomAkDVcHewXPQ590X
-         72yn/pSVlQ8CgIbsxva40gWk9AVHSbyt95Lzhg01EVuJ3LCBYi+m1XdU0cetrMYOJ0RS
-         BIkJiH6KuCI0gUUTIdAVf05paFmklBa3PuJAEzoS85MqSlm1TsMrcwg+wt+eA9N6F8x1
-         VGX1g9aK0RIZr3wNsPyGFDpvwKx1GbbGkna56vZH8puXHpiBJBf2oMUOeSvW3biOJ0ZV
-         p9WQ==
-X-Forwarded-Encrypted: i=1; AL+hErEWSTd/dZHVmE7qUtkGu/ddD/bdDoGwpOEEsN58tSIIDnj9aNwNZ+smgYHqWFyi6aBJHyBpG69/f2Yg6YI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z86UVvbdaTK9zMIekdu71f8NVNheonPx6YBrHzoz9m6b6SE4D/U
-	dcC53g/Bgc9WobsLR/oBmNZR26ntLiOqkbJXIHs+7IyqJTYKNHsda8Uu8/NvgSd6Q7A=
-X-Gm-Gg: AYBFou03sMrZuY2Nct81cV11j+MVRc0PT0rmpo3iKy1xwKPb+6cDMEGWJwZtI7z90Uq
-	pW6lM/n1+KhHjWNsqkC6WChHrrktqYAjCHmGTbmgp6gMTnmXotpN6qNs+oIO8AOO412U/GymY7M
-	cBHVL0UyZWnBbBfeDfDouMjFw0cHZ3pwWnoTY8aF9e2Zbq2CLbHvxSVNMkHmdeipNzZQiikop7b
-	UwO5tvcS9enx7Xyc/Nk/H6ipTx6JyrOKPhblrf5TprrrKXjKXoMRxM00DiqD3S7JiPACyGHvpVE
-	CJS2beyYT9aRxOjD3KiFEF5l9NL6lCs9TxfAYUz0ANgJHu1i+qR0O9oGvzLEe30WX1Hla827rh7
-	xeDKVR/AelFxMP80bGD+W8O6ApKacnUB7an7c2p/3P3Qcnc6o3iosvaJOb1kWT85xzux+I0Ec32
-	iQRVm5b6+AqGdbERGlAHTADdQJHijoD/xp4p/J4Qetvy+tX2JeAU9bxQhuku/d31k1CyjmK6s/9
-	bVVWdZamZzNQcjMF/lScZiUqJ4/1U6r2X6RNg3U1yFySOmd/Y0xUfbrHah1rZRgCK/vSYz0EjxO
-	vwXKC1k/oRd96nKhpFUDqDTuDHkDwCy0jPFJc8qsBNqvQxvYjHs5Kmi8uVrU5a74mQjoNONhbfA
-	SdBuI8WcpPfuMoT+bL+aO1u9vpUVvMa2+pmLWSwzTMQzQZ1HCD3vWakt1AA==
-X-Received: by 2002:a05:6214:2e47:b0:91c:6d30:7c2c with SMTP id 6a1803df08f44-91f24234905mr27331316d6.52.1794572137467;
-        Fri, 13 Nov 2026 04:15:37 -0800 (PST)
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com. [209.85.222.179])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23d7b607sm18963616d6.26.2026.11.13.04.15.36
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 04:15:36 -0800 (PST)
-Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-93f2049ea7aso112770385a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 04:15:36 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErG8CET756jEamlsmgnKQDJFpBOHema8QZcrNovHWbfae9QZZd1drfPguJ5sFYYX+nzpKF5GqvWmAPkfEfc=@vger.kernel.org
-X-Received: by 2002:a05:690c:9413:b0:8b3:b06d:68de with SMTP id
- 00721157ae682-8b4aa3b2d79mr10574347b3.106.1794571686768; Fri, 13 Nov 2026
- 04:08:06 -0800 (PST)
+        bh=yh//LwFAWkhuSX27zp/CKGjXWFK/r7pkuQ5AkJ8bS8k=;
+        b=ifsMidZzby29AR2AOZrHw8/ggy6E/mUnkIzXrR97I3LMM7Rcp5MW6OAuby80azbkBg
+         yen9y4t5COF3zXzg4QktXLaI1/NnkSFLp2utM+pS5urhHMWKwpp9Ax4nXvQnvSUFDq74
+         OBJ7kf6JBpBAYRj1hlQKn/ZU3LpQNFAkRwAltIto7rHjJiAgAKxFt/4C05ANhgSby2RJ
+         veXGCeYWgmnyseFOdI52OUjY3VGH6XHTiH/yMIYW9ON+L6k6+/ohy5Guem+YyW431KQu
+         punXqeg2HErdl1wzKxJFs3HnuAFLHeRRG3/G7YtE3rjZPf/r4bbPykzO8Jv5RoNk1WBI
+         tCUQ==
+X-Forwarded-Encrypted: i=1; AL+hErFtnsmfgjv2kVb+CJXU6Nu+Y78TEn4gnHm2QE3n78hdFwUNuBge+aPMbk6g8/7WEm+c3pN/iZxGyfbwXuc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z89G/tRneWaWRclRus+w9QJT+9vP0q9XghT3KeF0aWD2z60uicJ
+	g4jl4XyRVIZu6u0oNTQQK7EDwTlzT/N1KLAsxKtuJXNU7nCbHoDBvpFLrKXjddvPiZj/Nc8tyGG
+	+JR6Pp873rrYEPp6eaH50VEy/SQzZ0CWmu7icY/qOMA==
+X-Gm-Gg: AYBFou3ESIeB7BpDwRRwsdUbYatyR9pKw2pxrjWl9XEK7NPlBJPMZTLIyNaYqOCiuQ0
+	bPmvZlBRRWRKX2QH6h8WTjc9aYDidwAaXZTwGXd/U5XPGzQdcZf9RLWUHcS+S+Z3azbONof+EHT
+	2o8avetHUcQxV/8J3iuzROjAD2Ygjm7ye4eHf5yDIME76GcsVJRqTja+rsaaLq7w/RE9kc9awsj
+	3xEZc6UC5qVJn0AxZpOpEksdyRPjz95pcP15UKD3VRH3RANNWPj6XrYhVLtgcd6Nh10udDqgyx1
+	Qnbcw27XLRSVr3Ch/qAF5FbtIvt7pXrC/oA/cKvU/gXumh/HqByJhuIG0/sppHhsdHmG4EVG6Ue
+	T4O9vk+rvVbZ4G8muXrIUPbr3PAFxDtr8mhF4SnkoZlyYpxiP29QQZwDseOJ4RjHNZMCiYX7ft+
+	GeXt64GsImC3rFPGoSGP7VH69nQss+BSbe1qxrPEgNfXUYLKHYm99yymsgplqO+mBBbsmgQebGh
+	uRn
+X-Received: by 2002:a05:6402:5177:b0:6b6:fddc:dbc1 with SMTP id
+ 4fb4d7f45d1cf-6b7c08b08admr1438436a12.6.1794572204712; Fri, 13 Nov 2026
+ 04:16:44 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,186 +106,192 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105100322.37816-1-tanure@linux.com> <20261105100322.37816-3-tanure@linux.com>
- <20261110175451.GA833369-robh@kernel.org>
-In-Reply-To: <20261110175451.GA833369-robh@kernel.org>
-Reply-To: tanure@linux.com
-From: Lucas Tanure <tanure@linux.com>
-Date: Fri, 13 Nov 2026 12:07:55 +0000
-X-Gmail-Original-Message-ID: <CAJX_Q+2WoawiGT9zF2W+LCUhVn2QV3F9rUDBHiGtR6pddKAkNA@mail.gmail.com>
-X-Gm-Features: AclHuK8ofQ5KQ8mwVSBPN6RHiYMAZFp4eZUj5gb-QcBMy0mlvdZGEaaXPcOEhAQ
-Message-ID: <CAJX_Q+2WoawiGT9zF2W+LCUhVn2QV3F9rUDBHiGtR6pddKAkNA@mail.gmail.com>
-Subject: Re: [PATCH v6 2/7] dt-bindings: net: amlogic,meson-dwmac: add amlogic,t7-dwmac
-To: Rob Herring <robh@kernel.org>
-Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
-	Jerome Brunet <jbrunet@baylibre.com>, 
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
-	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <tencent_C8B170AF63DC42F81A47F9EA044BB4B11C09@qq.com>
+In-Reply-To: <tencent_C8B170AF63DC42F81A47F9EA044BB4B11C09@qq.com>
+From: Anup Patel <anup@brainfault.org>
+Date: Fri, 13 Nov 2026 17:46:32 +0530
+X-Gm-Features: AclHuK-Kyzf_3Aa78LNIir_Q7TGPINiFuQF__Q3gkCjYhZcKlm3MtE70aN1T8Lg
+Message-ID: <CAAhSdy3K1AFB-DWKznNru+x2hNiP5_M+uTZEZBHWwdvLfJrNQA@mail.gmail.com>
+Subject: Re: [PATCH] RISC-V: KVM: Fix G-stage page table memory leak on VM destroy
+To: Yangyu Chen <cyy@cyyself.name>
+Cc: atish.patra@linux.dev, pjw@kernel.org, palmer@dabbelt.com, 
+	aou@eecs.berkeley.edu, alex@ghiti.fr, kvm@vger.kernel.org, 
+	kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Nov 10, 2026 at 5:54=E2=80=AFPM Rob Herring <robh@kernel.org> wrote=
-:
+On Sat, Oct 31, 2026 at 12:28=E2=80=AFAM Yangyu Chen <cyy@cyyself.name> wro=
+te:
 >
-> On Thu, Nov 05, 2026 at 10:03:17AM +0000, Lucas Tanure wrote:
-> > The T7 has the same ethernet glue as the G12A but needs two clocks of
-> > its own. The controller reaches memory through a pipeline stage with
-> > its own gate; nothing else claims it, so it is switched off as unused
-> > and transfers never finish. The glue registers sit in a block clocked
-> > together with the MDIO multiplexer, which probes after the controller
-> > has programmed them: the writes are lost and the port keeps the
-> > bootloader's delays.
-> >
-> > So the T7 gets its own clock list, without the timing adjustment clock
-> > it never uses. Its delays follow ethernet-controller.yaml: the PHY adds
-> > the 2ns, and only the receive delay line offers fine tuning, so only
-> > rx-internal-delay-ps is valid here.
-> >
-> > Assisted-by: LLM
-> > Signed-off-by: Lucas Tanure <tanure@linux.com>
-> > ---
-> >  .../bindings/net/amlogic,meson-dwmac.yaml     | 49 +++++++++++++++++++
-> >  1 file changed, 49 insertions(+)
+> kvm_riscv_mmu_free_pgd() tears down the G-stage with
+> kvm_riscv_gstage_unmap_range() over the whole guest physical address
+> space. That function looks up each address with
+> kvm_riscv_gstage_get_leaf(), which walks down to the leaf PTE, and then
+> clears only that leaf. kvm_riscv_gstage_op_pte() frees a page table only
+> when it is called on a non-leaf PTE, which never happens here, so every
+> page table below the PGD is leaked when a VM is destroyed. With 4 KiB
+> mappings this is one page per 2 MiB of guest memory that was ever
+> mapped, plus the upper-level tables.
 >
-> I tend to agree with the sashiko comment, but am fine either way. Once
-> the if/then schemas are longer than the main schema, it's a sign to
-> split.
+> The leaked pages are not slab, vmalloc or page cache, so they show up
+> only as unaccounted used memory. On a SpacemiT K3 host, a workload that
+> creates and destroys tens of thousands of small VMs leaked 0.5-1 MiB per
+> VM and ran the host out of memory after about 20,000 VMs.
+>
+> Add kvm_riscv_gstage_unmap_all(), which calls kvm_riscv_gstage_op_pte()
+> with GSTAGE_OP_CLEAR on every PGD entry. That recursively clears all
+> leaf PTEs and frees each page table below the PGD. Use it in
+> kvm_riscv_mmu_free_pgd().
+>
+> Tested with a reproducer script that builds a minimal KVM host kernel
+> from a source tree and boots it under QEMU 11.0.2 (TCG, rv64 with H,
+> Sv57x4 G-stage). Its init creates 10 VMs one after another. Each guest
+> writes one word in every 2 MiB of an 8 GiB RAM region (anonymous memory
+> with MADV_NOHUGEPAGE, so 4 KiB G-stage mappings) and then shuts down,
+> so each VM needs 4096 last-level page tables (16 MiB). MemFree lost per
+> VM, after one warm-up VM:
+>
+>   before:  16415 kB  (RESULT: LEAK)
+>   after:    1636 kB  (RESULT: OK, noise)
+>
+> The bug was found while investigating the host OOM, and the fix and
+> reproducer were written with the help of an AI coding assistant
+> (Claude). The analysis, fix and test results above were reviewed by
+> the submitter.
+>
+> Fixes: 9d05c1fee837 ("RISC-V: KVM: Implement stage2 page table programmin=
+g")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yangyu Chen <cyy@cyyself.name>
 
-In V7 I will split as I think it will be easier to review.
+Good catch. Thanks for the fix.
 
->
-> >
-> > diff --git a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.=
-yaml b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
-> > index e769c9bb70d8..ff5e50f65114 100644
-> > --- a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
-> > +++ b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
-> > @@ -23,6 +23,7 @@ select:
-> >            - amlogic,meson-gxbb-dwmac
-> >            - amlogic,meson-axg-dwmac
-> >            - amlogic,meson-g12a-dwmac
-> > +          - amlogic,t7-dwmac
-> >    required:
-> >      - compatible
-> >
-> > @@ -84,6 +85,49 @@ allOf:
-> >          rx-internal-delay-ps:
-> >            default: 0
-> >
-> > +  - if:
-> > +      properties:
-> > +        compatible:
-> > +          contains:
-> > +            const: amlogic,t7-dwmac
-> > +    then:
-> > +      properties:
-> > +        clocks:
-> > +          items:
-> > +            - description: GMAC main clock
-> > +            - description: First parent clock of the internal mux
-> > +            - description: Second parent clock of the internal mux
-> > +            - description:
-> > +                clock of the pipeline stage inserted in the bus path b=
-etween
-> > +                the controller and the DRAM. Without it, the controlle=
-r cannot
-> > +                complete DMA transfers.
-> > +            - description:
-> > +                clock of the register block holding PRG_ETH0 and PRG_E=
-TH1.
-> > +                Without it, the block reads as zero and ignores writes=
-.
-> > +
-> > +        clock-names:
-> > +          items:
-> > +            - const: stmmaceth
-> > +            - const: clkin0
-> > +            - const: clkin1
-> > +            - const: pipeline
-> > +            - const: pclk
-> > +
-> > +        # The PHY adds the 2ns RGMII delays, see ethernet-controller.y=
-aml.
-> > +        # The RX delay line of this glue is fine tuning in 200ps steps=
-,
->
-> Sounds like constraints:
->
-> maximum: 2000
-> multipleOf: 200
+Reviewed-by: Anup Patel <anup@brainfault.org>
 
-Yes, with maximum: 3000: the field is four bits, 0 to 15 steps of
-200ps.
->
-> > +        # added on top of what phy-mode describes. The TX side has no =
-fine
-> > +        # tuning: its only step is a quarter of the clock period, the =
-full
-> > +        # 2ns at 1Gbit/s, so the TX property is not accepted.
->
-> Move this to tx-internal-delay-ps. You can (kind of ackwardly) do:
->
-> tx-internal-delay-ps:
->   description: ...
->   not: {}
-
-dt_binding_check does not accept "not" on a property under
-properties: or in an allOf entry: cell.yaml allows only description,
-deprecated, const, enum, minimum, maximum, multipleOf, default, $ref
-and oneOf there. It passes only inside if/then, and the new file has
-no if/then. So the property stays false, with the explanation as a
-comment above it.
-
->
-> (or "not: true")
->
-> > +        rx-internal-delay-ps:
-> > +          default: 0
-> > +
-> > +        tx-internal-delay-ps: false
-> > +
-> > +        # Deprecated: new SoCs use the standard *-internal-delay-ps
-> > +        # properties instead.
-> > +        amlogic,tx-delay-ns: false
-> > +        amlogic,rx-delay-ns: false
-> > +
-> >    - if:
-> >        properties:
-> >          compatible:
-> > @@ -106,6 +150,7 @@ allOf:
-> >            contains:
-> >              enum:
-> >                - amlogic,meson-g12a-dwmac
-> > +              - amlogic,t7-dwmac
-> >      then:
-> >        properties:
-> >          rx-internal-delay-ps:
-> > @@ -142,6 +187,10 @@ properties:
-> >        - items:
-> >            - const: amlogic,meson6-dwmac
-> >            - const: snps,dwmac
-> > +      - items:
-> > +          - const: amlogic,t7-dwmac
-> > +          - const: snps,dwmac-5.10a
-> > +          - const: snps,dwmac
->
-> I would drop either both or at least 'snps,dwmac'. They provide no value
-> because there is nothing to use them. IOW, there's not s/w that works
-> which only understands the last 2 and not amlogic,t7-dwmac. Correct me
-> if I'm wrong. Maybe a bootloader with simple needs.
->
-> Rob
-
-Right, nothing uses them: the generic driver cannot enable the
-pipeline clock, and no bootloader drives this port from the device
-tree. v7 keeps "snps,dwmac-5.10a" for the core version and drops
-"snps,dwmac".
+Queued this patch as a fix for Linux-7.4-rcX
 
 Thanks,
-Lucas
+Anup
+
+> ---
+> How to reproduce:
+>
+> The reproducer script is at
+> https://gist.github.com/cyyself/23abb87a8ad9ee8c64ce03cca78669fc
+> and needs riscv64-linux-gnu-gcc, qemu-system-riscv64 and cpio. Run it
+> from the top of a kernel source tree:
+>
+>         $ cd linux
+>         $ /path/to/kvm-riscv-gstage-leak.sh
+>
+> It builds a minimal riscv64 KVM host kernel (allnoconfig + KVM) into
+> .kvm-leak-build/ and boots it under QEMU (TCG, -cpu rv64,h=3Dtrue) with a
+> static test program as /init. The test creates 10 VMs one after another.
+> Each guest touches one page in every 2 MiB of 8 GiB of guest RAM, so it
+> needs 16 MiB of last-level G-stage page tables. The test then prints how
+> much MemFree each VM leaves behind. The first run takes about 1.5
+> minutes, mostly kernel build; reruns take about 10 seconds.
+>
+> Without this patch:
+>
+>         10 VMs, each touching one 4 KiB page per 2 MiB of 8 GiB guest RAM
+>         MemFree 2037664 -> 1873512 kB: 16415 kB lost per VM (a leaking ke=
+rnel loses ~16384 kB)
+>         RESULT: LEAK
+>
+> With this patch:
+>
+>         MemFree 2054080 -> 2037716 kB: 1636 kB lost per VM (a leaking ker=
+nel loses ~16384 kB)
+>         RESULT: OK
+>
+> The exit status is 0 for OK, 1 for LEAK and 2 if the test could not
+> run. IMAGE=3D<path/to/Image> boots an existing kernel instead of building
+> one. That kernel needs CONFIG_KVM=3Dy, CONFIG_BLK_DEV_INITRD=3Dy and
+> CONFIG_DEVTMPFS=3Dy.
+>
+> I also tested VMs that select Sv39x4, Sv48x4 and Sv57x4 through
+> KVM_CAP_VM_GPA_BITS, and four VMs with mixed modes alive at the same
+> time, destroyed one by one while the remaining VMs kept running and
+> were checked for correct guest memory contents. With this patch, no
+> memory was lost in any mode and no guest data was corrupted. Without
+> it, every mode leaked about 16 MiB per VM.
+> ---
+>  arch/riscv/include/asm/kvm_gstage.h |  2 ++
+>  arch/riscv/kvm/gstage.c             | 22 ++++++++++++++++++++++
+>  arch/riscv/kvm/mmu.c                |  3 +--
+>  3 files changed, 25 insertions(+), 2 deletions(-)
+>
+> diff --git a/arch/riscv/include/asm/kvm_gstage.h b/arch/riscv/include/asm=
+/kvm_gstage.h
+> index aaf080ba1b77..90ec9e0b34b1 100644
+> --- a/arch/riscv/include/asm/kvm_gstage.h
+> +++ b/arch/riscv/include/asm/kvm_gstage.h
+> @@ -80,6 +80,8 @@ bool kvm_riscv_gstage_op_pte(struct kvm_gstage *gstage,=
+ gpa_t addr,
+>  bool kvm_riscv_gstage_unmap_range(struct kvm_gstage *gstage,
+>                                   gpa_t start, gpa_t size, bool may_block=
+);
+>
+> +bool kvm_riscv_gstage_unmap_all(struct kvm_gstage *gstage);
+> +
+>  bool kvm_riscv_gstage_wp_range(struct kvm_gstage *gstage, gpa_t start, g=
+pa_t end);
+>
+>  bool kvm_riscv_gstage_wp_pt_masked(struct kvm_gstage *gstage, gfn_t base=
+_gfn,
+> diff --git a/arch/riscv/kvm/gstage.c b/arch/riscv/kvm/gstage.c
+> index e5002cb9cbef..c912cdc2021f 100644
+> --- a/arch/riscv/kvm/gstage.c
+> +++ b/arch/riscv/kvm/gstage.c
+> @@ -456,6 +456,28 @@ bool kvm_riscv_gstage_unmap_range(struct kvm_gstage =
+*gstage,
+>         return flush;
+>  }
+>
+> +/*
+> + * Clear every G-stage mapping and free all page tables below the PGD.
+> + * kvm_riscv_gstage_unmap_range() only clears leaf PTEs and leaves the
+> + * page tables in place, so it cannot be used to tear down a G-stage.
+> + */
+> +bool kvm_riscv_gstage_unmap_all(struct kvm_gstage *gstage)
+> +{
+> +       u32 level =3D gstage->pgd_levels - 1;
+> +       pte_t *pgd =3D (pte_t *)gstage->pgd;
+> +       unsigned long i, page_size;
+> +       bool flush =3D false;
+> +
+> +       if (gstage_level_to_page_size(gstage, level, &page_size))
+> +               return false;
+> +
+> +       for (i =3D 0; i < kvm_riscv_gstage_pgd_size / sizeof(pte_t); i++)
+> +               flush |=3D kvm_riscv_gstage_op_pte(gstage, i * page_size,=
+ &pgd[i],
+> +                                                level, GSTAGE_OP_CLEAR);
+> +
+> +       return flush;
+> +}
+> +
+>  bool kvm_riscv_gstage_wp_range(struct kvm_gstage *gstage, gpa_t start, g=
+pa_t end)
+>  {
+>         int ret;
+> diff --git a/arch/riscv/kvm/mmu.c b/arch/riscv/kvm/mmu.c
+> index 371fccaf9df0..87838a0f6bb9 100644
+> --- a/arch/riscv/kvm/mmu.c
+> +++ b/arch/riscv/kvm/mmu.c
+> @@ -784,8 +784,7 @@ void kvm_riscv_mmu_free_pgd(struct kvm *kvm)
+>         write_lock(&kvm->mmu_lock);
+>         if (kvm->arch.pgd) {
+>                 kvm_riscv_gstage_init(&gstage, kvm);
+> -               flush =3D kvm_riscv_gstage_unmap_range(&gstage, 0UL,
+> -                       kvm_riscv_gstage_gpa_size(kvm->arch.pgd_levels), =
+false);
+> +               flush =3D kvm_riscv_gstage_unmap_all(&gstage);
+>                 pgd =3D READ_ONCE(kvm->arch.pgd);
+>                 kvm->arch.pgd =3D NULL;
+>                 kvm->arch.pgd_phys =3D 0;
+> --
+> 2.53.0
+>
