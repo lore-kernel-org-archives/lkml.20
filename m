@@ -1,55 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794602082;
-	b=30QetKTUs9RLoExX07x5e/e83lX4tlPrpPPkH/jyblHe/DjOP3ElBbN0TbQ6Vd11XMwb
-	 pmtxzYp4jrm+DBrWhAi8j1Q3RCC/0AqyrwSG0WValaKPgloHJYSnBpvVjjjwLzPp2wI/0
-	 qkDrcK65BhuzKfRbzoirLVgqfl/LPRKQ7SjhRQfYkZr6a/bshPQrb6pkX/wx13ry0Jhol
-	 EjieQ2x5adPi6AZwqQPk8pGgeg3verZdQzl0RFGvifZkDpXXmaIDmD3mmWbIXqE2y0sSf
-	 +aSGwUfBMLKkX3V7mikcLt5Da7FKWAibbMpglPIzlSAfrnw/jwYygr1iFC5Yr3yaBEA==
+	t=1794602085;
+	b=ab/WM84BTZ4U/9+LCCXwoGR7ts0YZaG8pMOyTpflwdHCsNT+8pRdqPS29GxQAiRYXTaD
+	 8Sa8Z6TyL7IRWSSvilSMcWNRRWfuVHxoPvLNZ4keJxKzDFBYLpxaNzUPzNRlnzSt5oNnm
+	 TI+zOPZ/nUF/s29c79L6vuOKg+2AsBx8aFqAYpFaP5+7UXEtXVu9SK2vHPJamYhHfneDo
+	 aaYBS2W/i3Jle5iIIpEY1fxYnRrZLDAS9e5T4DS46hS08wlNVXUzkNEmuhe1hKL8+IVtJ
+	 Ig8GfaXBYb1V3xaq9rnnSOPJ4vQfC5CqQ6jJwsk1d5HD0XJSBupJ0IOzcIcp923vOFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794602082;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=xA/dHrB8DVHvhn8WCh7VdIDLIPRiACwfBEGFOII6u8o=;
-	b=B/rawE0zTQWmyD4LSSs33iAb7m5nutKPYeSCW4rAIAYX5IepDE52tB0uQ4oOMdirP/y9
-	 Mf1Xo30YHWgYVTO//pwWlUz0R7HC7KVgoxwqmU5enLz4zpZR0vyq6YvOKaLkfDCudItWe
-	 PXJhSontocCg/WHU3ajPIswzcNMs/wbIds3PS3Df6Pre/OIb5cmSeJS+iKHEGPo29Ur0t
-	 PjifxCQUEnnAQAtz659XZzYXPL2K9LWX5ysThKlJ7DB6lgoDLfq54Stn4CKip6LEvmRFd
-	 7spzoUwfupJ9XkndiRFNGah3BB/qOP8Ip8TLqirnZ+H+oxCBztk4Vl5KycPDrt4pBAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794602085;
+	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
+	 Content-Type:Date:Message-Id:Cc:To:From:Subject:References:
+	 In-Reply-To;
+	bh=chagpPiOJxprpG/hdf86c1muJoBTZxJZoVzH/xjU+ZQ=;
+	b=O+2kzUhFGqASDrv8du45M1ftjzYSQblmJHSfufW3gz4ykTqctqzleq8MpuSZqVAvv+Oh
+	 XAAbWsyY3yk3zAvas6qw1uhxpmNbeL86ECGoh0lWhik04rwMFBS0KNrWNZBo3eX3jV3vl
+	 G1j8GO2PV7qvdMMhoIofxBwMzgzGNOUVD6Tzzs/L0nigv2FByeQT3jGhZy7lUzoiR+hMj
+	 f+BmMQmF7MdYVjJkKw/YqqCmky6RrJnGq9YQMMIByURpTYU8nMihGn66dl28aFT6WkZbt
+	 3zFyMfvEkJfeG1h6t/x493aDrGBbc4lvM7KFzoHAQEuU/fVgqqmg2SnuA0uz+wQmjBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UXJ334Be;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iHGOBo3W;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A0E3606A32E
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:34:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA285606A339;
+	Fri, 13 Nov 2026 20:34:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UXJ334Be
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8D661F000CB
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:34:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iHGOBo3W
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0034A1F000C4;
+	Fri, 13 Nov 2026 20:34:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794602081;
-	bh=xA/dHrB8DVHvhn8WCh7VdIDLIPRiACwfBEGFOII6u8o=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=UXJ334BeQG9A4rnHdmpziDcI6Fz7SDEN+8UDcEhmHAFJsQgzKGcZD0ZTetqFjBe4e
-	 wADAfgmSnQ84cxGqeiMAXVYXqYsFYDEGBiCzxfcJcdg+U+C//guia2icBTuFIuj6b1
-	 kKUnvI/K4GG+2H1gWsVxVSf0RVvjz5aH3hvBI3b6TvZX5rowcTb6gza4Eqw2IyFbJk
-	 8RGCJ6DY2EixL44Zr+kUf1LEcwXFPa3KPDW2EL0p1WdwUuy4hib1VZtVOHcux0hkdf
-	 +VacrIuxzzzxXPrn+3r0csBmIWocnTYEAnYOadYbYXumFVSKsXZ25to4PvnvEaeqEr
-	 d37VLfLkyrArQ==
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3ae22dcfdc3so17829861fa.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:34:41 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEa+PrdOBOQzFt1/A5CLpi6S685MukmD9u2Q6fmFls0NJl5RVdVIxs1dbTv0ZSAv4xidqfgCrynTAJbJzA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+U73u8gcgT/MHIDGkoddoOIAtTUOlxNty/p4k0QQyBbHvnC4X/
-	52e4vt63Fl7RZMbs9dcx3gQqJbhsf2rxGoxjNoBLI/NzN0mfkriMPzDI8XxsSd9TdK4adpOcqPJ
-	AlIX9G1UZx2ZISf30wvO3XQFL4NFlOn0=
-X-Received: by 2002:a2e:bea8:0:b0:3ae:25c9:f5d1 with SMTP id
- 38308e7fff4ca-3ae2b4cb695mr13163291fa.11.1794602079970; Fri, 13 Nov 2026
- 12:34:39 -0800 (PST)
+	s=k20260515; t=1794602084;
+	bh=chagpPiOJxprpG/hdf86c1muJoBTZxJZoVzH/xjU+ZQ=;
+	h=Date:Cc:To:From:Subject:References:In-Reply-To;
+	b=iHGOBo3WPjRpMs838TxLT+hWWAHjljZd0PbM6Xf+MYGsCKozw+kX3KMTqnuXmXfOw
+	 nwP/85NARDRoVzjTo9RKGPhem7hitaJCHib2MnSNh3FkmHw1gaL1wWAqsijSJrZJou
+	 7xZKyDJNQzPSEQROIc3k3NWCdnIpt4bd9sPNrxvpOYZYQF+iZhKtE/rPVWI7oSDW5K
+	 gcBbnh630gh3YSbmB+0iKdlMuccPzviptphTPe4WdOobblJEANSqifzFox5CRmqTLj
+	 lmVfGI+Etaa/VuNazlF1vAjFE2ka4JGp2blVKGIEELiF7ihDujG+cw7FGgvsJL7iw1
+	 DgUpmTroewJUQ==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,108 +48,95 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <cover.1794567577.git.ukleinek@kernel.org> <CAJZ5v0jC5YXsLgB6Qd55KNCU0oCsN86X5WpRfL+Ycz0MJ8vGqA@mail.gmail.com>
- <avdryC3GOqVNVF8s@monoceros>
-In-Reply-To: <avdryC3GOqVNVF8s@monoceros>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Fri, 13 Nov 2026 21:34:26 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0jxB4-R2K6iQEh5BVeF1pDXFGn81jkXFCTMJLBAXoL8rA@mail.gmail.com>
-X-Gm-Features: AclHuK98RV8mUx3a_eF9a_B1pqyxZw7Jy48hGkbo4K83RPSBSBvPbkBZkEPiro0
-Message-ID: <CAJZ5v0jxB4-R2K6iQEh5BVeF1pDXFGn81jkXFCTMJLBAXoL8rA@mail.gmail.com>
-Subject: Re: [PATCH v1 0/4] ACPI: Use named initializers for acpi_device_id arrays
-To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
-Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Hanjun Guo <guohanjun@huawei.com>, 
-	Sudeep Holla <sudeep.holla@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Dan Williams <djbw@kernel.org>, 
-	Vishal Verma <vishal.l.verma@intel.com>, Dave Jiang <dave.jiang@intel.com>, 
-	Alison Schofield <alison.schofield@intel.com>, Ira Weiny <iweiny@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Zhang Rui <rui.zhang@intel.com>, 
-	"Mario Limonciello (AMD)" <superm1@kernel.org>, Saranya Gopal <saranya.gopal@intel.com>, 
-	Gergo Koteles <soyer@irl.hu>, Jakob Riemenschneider <riemenschneiderjakob@gmail.com>, 
-	Yauhen Kharuzhy <jekhor@gmail.com>, Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>, 
-	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, nvdimm@lists.linux.dev, 
-	linux-pci@vger.kernel.org, Kai-Heng Feng <kaihengf@nvidia.com>, 
-	Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Shuai Xue <xueshuai@linux.alibaba.com>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Chu Guangqing <chuguangqing@inspur.com>, Andy Shevchenko <andy@kernel.org>, 
-	Mika Westerberg <westeri@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 13 Nov 2026 21:34:31 +0100
+Message-Id: <DMUDCA92VZHT.2SU4452MMGWL@kernel.org>
+Cc: <jhubbard@nvidia.com>, <acourbot@nvidia.com>, <aliceryhl@google.com>,
+ <ttabi@nvidia.com>, <gary@garyguo.net>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <linux-doc@vger.kernel.org>
+To: "Vladislav Zaharov" <vladazaharova2018@gmail.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH v7 3/4] gpu: nova-core: gsp: retain the GSP-RM log
+ buffers after unbind
+References: <20261113075317.934264-1-vladazaharova2018@gmail.com>
+ <20261113075317.934264-4-vladazaharova2018@gmail.com>
+In-Reply-To: <20261113075317.934264-4-vladazaharova2018@gmail.com>
 
-On Fri, Nov 13, 2026 at 9:04=E2=80=AFPM Uwe Kleine-K=C3=B6nig (The Capable =
-Hub)
-<u.kleine-koenig@baylibre.com> wrote:
->
-> On Fri, Nov 13, 2026 at 05:17:30PM +0100, Rafael J. Wysocki (Intel) wrote=
-:
-> > On Fri, Nov 13, 2026 at 12:14=E2=80=AFPM Uwe Kleine-K=C3=B6nig (The Cap=
-able Hub)
-> > <u.kleine-koenig@baylibre.com> wrote:
-> > >
-> > > From: Uwe Kleine-K=C3=B6nig <ukleinek@kernel.org>
-> > >
-> > > Hello,
-> > >
-> > > this series is about preparing drivers/acpi for a change to struct
-> > > acpi_device_id. The idea is to replace .driver_data by an anonymous
-> > > union, see
-> > > https://lore.kernel.org/all/cover.1780048925.git.u.kleine-koenig@bayl=
-ibre.com/
-> > > for more details. (The linked example is about platform_device_id, I
-> > > intend to apply it acpi_device_id and several others, too.)
-> > >
-> > > Before this union can be added, all initializers must use named
-> > > initializers (C99 calls them designated initializers), which IMHO is =
-a
-> > > nice cleanup that can stand for itself as it makes the code easier to
-> > > read.
-> > >
-> > > Pawel sent a similar series earlier, find it at
-> > > https://lore.kernel.org/all/20260727-acpi-refactor-v1-0-ff900aa326ee@=
-thegoodpenguin.co.uk/.
-> > > Compared to that the patch splitting is done differently and the base
-> > > here is newer.
-> > >
-> > > I checked for the other *_device_id and for these there is nothing to=
- do
-> > > below drivers/acpi because the few instances already use named
-> > > initializers.
-> > >
-> > > The last patch in this series is just some cosmetic to align the codi=
-ng
-> > > style. If you consider it churn, just drop it.
-> > >
-> > > It would be great to get this series in soon, as keeping it up to dat=
-e
-> > > for a later resend is an annoying effort. Thanks for your cooperation=
-.
-> > >
-> > > Best regards
-> > > Uwe
-> > >
-> > > Uwe Kleine-K=C3=B6nig (The Capable Hub) (4):
-> > >   ACPI: Unify acpi_device_id list terminators
-> > >   ACPI: Drop unused .driver_data initializers in acpi_device_id array=
-s
-> > >   ACPI: Use named initializers for acpi_device_id arrays
-> > >   ACPI: Unify *_device_id list terminators
-> >
-> > All patches applied as 7.5 material, thanks!
->
-> That's great, thank you.
->
-> I fatfingered my author address in patch 2, so if someone wails that the
-> author S-o-b is missing and your tree isn't set in stone yet, something l=
-ike:
->
->         git filter-branch -f --env-filter 'if test "$GIT_AUTHOR_NAME" =3D=
- "Uwe Kleine-K=C3=B6nig (The Capable Hub)"; then GIT_AUTHOR_EMAIL=3Du.klein=
-e-koenig@baylibre.com; fi' next/master..
->
-> should fix it. Sorry!
+On Fri Nov 13, 2026 at 8:53 AM CET, Vladislav Zaharov wrote:
+> +    /// Returns the copies of the GSP-RM log buffers of GPUs that are no=
+ longer bound.
+> +    pub(crate) fn retained_logs(&self) -> &Mutex<RetainedLogs> {
+> +        &self.retained_logs
+> +    }
 
-Thanks for the heads-up, I fixed it up.
+NIT: Should be #[inline].
+
+> +    /// Exposes copies of the buffers in their place, if `gsp_keep_logs`=
+ is set.
+> +    fn retain(&self) -> Result {
+> +        if !crate::module_parameters::gsp_keep_logs.value() || !cfg!(CON=
+FIG_DEBUG_FS) {
+> +            return Ok(());
+> +        }
+
+This misses debugfs being disabled through the kernel command line with
+debugfs=3Doff.
+
+Usually, drivers should treat debugfs availability as opaque. The Rust
+abstraction keeps its backing data alive regardless of whether the entries =
+were
+created.
+
+Here, the copies serve no purpose without debugfs, so checking availability
+would have a concrete benefit. However, I don't think this case warrants
+exposing debugfs::initialized(), which could be abused easily and encourage
+unnecessary checks elsewhere.
+
+Let's check only gsp_keep_logs.
+
+> +
+> +        let logs =3D RetainedLogBuffers {
+> +            name: CString::try_from_fmt(fmt!("{}", self.dev.name()))?,
+> +            loginit: self.loginit.snapshot()?,
+> +            logintr: self.logintr.snapshot()?,
+> +            logrm: self.logrm.snapshot()?,
+> +        };
+> +
+> +        if logs.loginit.is_empty() && logs.logintr.is_empty() && logs.lo=
+grm.is_empty() {
+> +            return Ok(());
+> +        }
+> +
+> +        // Allocate before an earlier copy is dropped, so that a failure=
+ leaves that copy in place.
+> +        let scope =3D KBox::<debugfs::Scope<RetainedLogBuffers>>::new_un=
+init(GFP_KERNEL)?;
+> +        let data =3D NovaCoreModule::debugfs_data(self.dev);
+> +        let root =3D data.root();
+> +        let mut retained =3D data.retained_logs().lock();
+> +        retained.0.reserve(1, GFP_KERNEL)?;
+
+This shouldn't be necessary.
+
+> +
+> +        retained.remove(self.dev.name());
+> +
+> +        let scope =3D scope.write_pin_init(root.scope(logs, self.dev.nam=
+e(), |logs, dir| {
+> +            if !logs.loginit.is_empty() {
+> +                dir.read_binary_file(c"loginit", &logs.loginit);
+> +            }
+> +            if !logs.logintr.is_empty() {
+> +                dir.read_binary_file(c"logintr", &logs.logintr);
+> +            }
+> +            if !logs.logrm.is_empty() {
+> +                dir.read_binary_file(c"logrm", &logs.logrm);
+> +            }
+> +        }))?;
+> +
+> +        retained.0.push(scope, GFP_KERNEL)?;
+
+Please add a forwarding method for this.
