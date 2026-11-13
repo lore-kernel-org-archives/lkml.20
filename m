@@ -1,58 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.224
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794535692;
-	b=p+OCAdGyQTluAMXM2IMjhPqoDssF3k0v9cXs1PByJ8sQNTntlLl32u9gYFwRGQxoMsuF
-	 FpPG/uNtz8O8rMCukKoRuiXR90YdYwVEEHfhh616wlsW0OR8aRmepRvL3T0vJ7Oe+/PoU
-	 4h70MG50RqjBv4F69D6wB4lIn6PTxbuH6sLiTBTRz4YpwRIpEBaGqe7Y3kjI0ldcuXT2y
-	 RE7GRQphiYobnV4CB8aXdO9qtkyzxFSD4zKhKBTSTYrGSWn8nrhPQ784N5tWBWXnkSx6L
-	 cm/ce2LhWJlRj8jWTXMnlBy6cZxSt34FRzAUDB4jMReP09fSxH6cKHxxTMlSsaXEyKQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794535692;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy;
-	bh=fRlFnEwOyhCsf6bntFNWmv0q3cjwumqt5gvXEY0j99s=;
-	b=h/zV89+qLgaCReHEGqt6Yz7QuMFLau76PrUC64xyupskVtNCPQ+nmxOMNmYpHzOqslFo
-	 kgKw5ZY2wbzhJd0lF+zjKrlPUCmjb5IgsUFtoQqhIVm9cnGfBBQV27Zmw0SOuawfTJrqj
-	 COUDeteeu91XQma3e/4ndW4VEdrl3CeyYA6qLcmmNoBHr88AeGjUDrznix08ey7CkL7dN
-	 ATYbiJ85jaQA4TqrEF0OxrluHBWYxqRn9fPvtPMnNG9q6tAJkXdtwGsMyPUdrjdmiatZM
-	 Nm2oKKg5nghW9PZOToKPGBNxCtDI6DTaPEoBLZidyMqSogmB9o3taotFsdyv1n5vU6w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=tgB76D+u;
-	arc=none smtp.remote-ip=113.46.200.224
-Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794535694;
+	b=kWqfXMlCdFCnzm46SwxzzN4KOHQ3Xqaz1n65WTagzfXST3pst1mOp3z1ie5g5zao+8eP
+	 ednZmQ6Jh3yj28sXKIMGi6Gdg4fTEQHucBgmwL/huBK9ZfjBnVmZ4FababW53Og2UddjP
+	 Rpte6hCdtve6lqaxr4y/uggrRFFq7NwjmmMf2cQujwlHi6MS7BchfAhVZJZ0wMp8erYxD
+	 kd1mE6yH4k2fpapH7oUvPyTsmgPtmSMg4OhJHrH4FGDpT/OxO3SGAIftkaTl6iu7lsIy7
+	 DfpqmuOn370CCW5gv5//gKpSN8a1RV9LicARoLO7sxLCZRO8bpgBTp+CEmd6WZ6FrSQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794535694;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=aNvdaJwzrU7dKbL8hglaP0KiPMauObfmKP0USfT2P2w=;
+	b=uhZsI5AxzuRE8vpU002mzzvg9z7YvUjLFtr/wd7XJG2M28S2foqxJQ8yTLRZYgw7tfub
+	 xOQL+SXlj5t1YQDRf/swj7WR4r9baMgkWho0mwO5UDeLZuyBiaGE6Q+qrFI3Ittttc2m/
+	 2fPrmpmKp1uq6ubeZJ2wGzVbSU/suEmS9PUIb1OElT/ZXz9T1t5Ts4X+yLk645tgDPpbY
+	 OiHaY8GVNefnCcClDp44nA7fhQOODWa+55KUSOqz8W2B+fCNwwSt65ikRaDwaA6bP6cUP
+	 lanqWLjKB6fUxoAy3qzFKPzIXMzRCNgCnscKkaZt4S+d4az3/onZ9k5+5Mt3iQIBC0Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="klQO7//Q";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.53
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81167606A31C;
-	Fri, 13 Nov 2026 02:08:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81167606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 970E4606A8A1
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:08:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 970E4606A8A1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=tgB76D+u
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=fRlFnEwOyhCsf6bntFNWmv0q3cjwumqt5gvXEY0j99s=;
-	b=tgB76D+uPHT+xoP/MsIq5QT99tPRFyjCjYAa5bPvS0n/BLMW7GmhAJphWd0AaFaCXwNcxc4Ka
-	dPjWkV3Gm+TFWMTFawukI93MmREL5xwGs2ILp3CVZdJ2RNXEKTgDHIK4mZDlwgvononmGVpnLul
-	eI6cXevbd8zNABceS1BMSf4=
-Received: from mail.maildlp.com (unknown [172.19.163.127])
-	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4jQgdL6LlBz1cyTG;
-	Fri, 13 Nov 2026 10:07:50 +0800 (CST)
-Received: from whupemk100010.china.huawei.com (unknown [7.152.184.41])
-	by mail.maildlp.com (Postfix) with ESMTPS id 63B8C40572;
-	Fri, 13 Nov 2026 10:08:07 +0800 (CST)
-Received: from [10.67.110.140] (10.67.110.140) by
- whupemk100010.china.huawei.com (7.152.184.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Fri, 13 Nov 2026 10:08:00 +0800
-Message-ID: <2dbd365b-eac5-448b-b6c2-4ed8754551a7@huawei.com>
-Date: Fri, 13 Nov 2026 10:07:59 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=klQO7//Q
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6b7bfefba55so873756a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:08:14 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794535693; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bANnj0lKUZFEtPzVt4TxVJIWAlgT4JRBuMCH9oFe9UNbcWEcgkYTAusAEWcYjuZeeM
+         KwgUfSa5OuA4auUna0yN7sIhrEhah2djTPh98IgfaKMXtvoIZkkVccM8qaB7XaqwhXBN
+         hsxzDmGIOgq/Bm5F/7/HAkW28PoOdJ7JCd94RZDrqMdESpHnqO7eeZlt0PSM96ROsNwg
+         l5zflhxXaSJ/1LkLaWtDjl+yFORu6MrTsFGYi+/SbEgp0Bc6EvEhceSfMz4AF4ZlSfpn
+         b4LNvpLlDC04fo9ogUPt2llrtI9KFs1FghFNsqDj3bVxqKV6LCjGNaQGNoQlXVhk3FdH
+         1jQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=aNvdaJwzrU7dKbL8hglaP0KiPMauObfmKP0USfT2P2w=;
+        fh=u1sKYV835EsMJiFvyqAlztA6G7+lY6TSNolOOd1vWM8=;
+        b=WesXDHeD9eN5LfBlZFbGb0M4X9DKHN7MDTemNlmJVdLzkNIJXV4T8eAPnGqZXQEhMm
+         LJ3Vv0ppSSenWUxmEpVhx0yP1Ndbvj1ae7Obks1qIvOS46PGouKaiOpL04LDKS/pSHov
+         PJvvxAbYsFyNreL1WCFDK6N4waifxsMvYOigE/qWkKBjKJ20KDg2srSDqrYbPxhM0nIA
+         22aD9ohZmvyfOULmpKErmIc7mt/1iFrrLuj/4iF0n1Qiahf+PQ9HZvdbJJxROZqNt0in
+         VMKL40agkwkxBaECrlJ1SNdlrR9rG+TUE4Is0HRPq3D7RHl8PFepdZjUCAOlaFFIJoZA
+         kCNA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794535693; x=1795140493; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aNvdaJwzrU7dKbL8hglaP0KiPMauObfmKP0USfT2P2w=;
+        b=klQO7//QtkDbV02g+GY1OMb3W1hSic4rJYk88HUuiEVnV5r3FG8JRUJwSbhV5qSD3H
+         94P8F+D343ui8GrXJY04mxHXR7wzUoT143X+PFLuNOdHLlD/wDspORt0zXmfjzw4Rfxd
+         9ZsjoGKCwSc7P2wgZ+mSbb3J0pe4iZ41gzBoMpkWh6H8WXjrUPN1iLp/1W+H/wjp4pEu
+         eEv5gQb3IRLvhJD4mpelZiS9eY/kYinkX9ozq3pVHofOIWGBpjQtjj4+RIqgAShakbxp
+         NbrKDUFqRIGjIB5DVRd/NpXdbKC8nSbem+IczdCrPWDPH0rU/D0gLNAP+gl86bjvJjA2
+         symA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794535693; x=1795140493;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=aNvdaJwzrU7dKbL8hglaP0KiPMauObfmKP0USfT2P2w=;
+        b=yHvqsL5tr4CGCQ7G6MXi1mG6WpYLegfJy0i9Feqzo4lCZS79Tiisrt9Sltjnx9n9Nf
+         xswD3BIDaWOCT/Z9jokeLx8glH4s8qAc94ls0VybTM645JParj0KNq4z5bBJBsUzyaH8
+         wfbkgYzw1U5GRKbWp4DNFLnfZYqwU3Qee0oPzokvUILQKntxDNY1Tm2aseJqrkjysedn
+         6crX+NzVyc3YayNV0opus0mMvRDXmvw1AfhFgeIEkVrNv3arQpm4Fa7idnNiWf8vnLg4
+         vJVG5zwDli+Qonmq2h445A1iku/+QLyrKX3Xh03LXsuLhrC1eG6dgWc/JG/MW8OGAR58
+         IRzQ==
+X-Forwarded-Encrypted: i=1; AL+hErHOx1ioJPqzOyHAJBAAUVtI8U7dh9+UP7esbEu7SHfNYzsddnVy3l/efVbNfe6yKe2jylfkPjtQkliwtg8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9hO1rmfNM0MGVHvZ9CRTemT34aemRQHRpwrtLwS/7SE273hHRp
+	TayUJlSoKi9vyHY4OtMCcAJxyaZvTc0gNxJov8QiNkgaoJ71/qUdxoHY2TgbNDmPHHlOBAbUIjF
+	kCOPw39PJCNcMkxY7Qn3jO94nGg19r+8=
+X-Gm-Gg: AYBFou1tvt23/noy2vcksj9ZEtzT1jfkF36zMKMwU4PrPkFFnFhCSFv0AUOgqnMZK6p
+	eYWnxXJLvgbgwSrxHrkrryTE3q7tFgCo//bD3aS5AIcxeiOAr3weMja9k9sCmBsc0GAfrlKwgcZ
+	2wW6hIBKCOh1qdOqy0zjC6gYW3hDp5B9mZE08LbmyffJ9Wcp1PCOe26f+NnZurJgzIwzK+BH2tH
+	Ax/HRX2HZKZgqaP5QQZmqfqD/zUB2JgxSWOweEASaMaYvP3WTSUV7nxzkUFjl8fGhAyhk1Z8Sdm
+	mUEIVHhEGQ9b0hyRM8ePJPoOy2ro8F5ePVuEH3/infJAV8/qaIQiaDm1wdIOusddXwESgXZxw5U
+	2V52JDC/qrSeFkpQviLS2ChDcTL0d3g+VuUGCq1I1P8df7GtvyCI8BFUEBPSYXALQkbp4ZwI=
+X-Received: by 2002:a05:6402:1f82:b0:6b4:21f6:ff48 with SMTP id
+ 4fb4d7f45d1cf-6b7c08adce2mr1021917a12.3.1794535692714; Thu, 12 Nov 2026
+ 18:08:12 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,95 +103,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 -next 00/18] landlock: Add READ_METADATA and
- WRITE_METADATA access rights
-To: Christian Brauner <brauner@kernel.org>
-CC: <mic@digikod.net>, <gnoack@google.com>, <paul@paul-moore.com>,
-	<jmorris@namei.org>, <serge@hallyn.com>, <corbet@lwn.net>,
-	<skhan@linuxfoundation.org>, <utilityemal77@gmail.com>, <ast@kernel.org>,
-	<daniel@iogearbox.net>, <andrii@kernel.org>, <eddyz87@gmail.com>,
-	<memxor@gmail.com>, <martin.lau@linux.dev>, <song@kernel.org>,
-	<yonghong.song@linux.dev>, <jolsa@kernel.org>, <emil@etsalapatis.com>,
-	<ihor.solodrai@linux.dev>, <rdunlap@infradead.org>,
-	<gregkh@linuxfoundation.org>, <rafael@kernel.org>, <dakr@kernel.org>,
-	<johan@kernel.org>, <dlemoal@kernel.org>, <hch@lst.de>, <axboe@kernel.dk>,
-	<viro@zeniv.linux.org.uk>, <jack@suse.cz>, <dhowells@redhat.com>,
-	<code@tyhicks.com>, <linkinjeon@kernel.org>, <sj1557.seo@samsung.com>,
-	<yuezhang.mo@sony.com>, <hirofumi@mail.parknet.co.jp>, <cel@kernel.org>,
-	<jlayton@kernel.org>, <neil@brown.name>, <okorniev@redhat.com>,
-	<Dai.Ngo@oracle.com>, <tom@talpey.com>, <hyc.lee@gmail.com>,
-	<miklos@szeredi.hu>, <amir73il@gmail.com>, <senozhatsky@chromium.org>,
-	<chenxiaosong@chenxiaosong.com>, <dsterba@suse.com>, <mason@kernel.org>,
-	<kpsingh@kernel.org>, <matt@bobrowski.net>, <rostedt@goodmis.org>,
-	<mhiramat@kernel.org>, <mathieu.desnoyers@efficios.com>,
-	<john.johansen@canonical.com>, <georgia.garcia@canonical.com>,
-	<zohar@linux.ibm.com>, <roberto.sassu@huawei.com>,
-	<dmitry.kasatkin@gmail.com>, <eric.snowberg@oracle.com>,
-	<stephen.smalley.work@gmail.com>, <omosnacek@gmail.com>,
-	<casey@schaufler-ca.com>, <takedakn@nttdata.co.jp>,
-	<penguin-kernel@i-love.sakura.ne.jp>, <xiujianfeng@huawei.com>,
-	<nanx95726@gmail.com>, <djwong@kernel.org>, <lujialin4@huawei.com>,
-	<bpf@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-security-module@vger.kernel.org>,
-	<driver-core@lists.linux.dev>, <linux-block@vger.kernel.org>,
-	<linux-btrfs@vger.kernel.org>, <linux-fsdevel@vger.kernel.org>,
-	<netfs@lists.linux.dev>, <ecryptfs@vger.kernel.org>, <exfat@lists.linux.dev>,
-	<linux-nfs@vger.kernel.org>, <ntfs@lists.linux.dev>,
-	<linux-unionfs@vger.kernel.org>, <linux-cifs@vger.kernel.org>,
-	<linux-trace-kernel@vger.kernel.org>, <apparmor@lists.ubuntu.com>,
-	<linux-integrity@vger.kernel.org>, <selinux@vger.kernel.org>,
-	<linux-kselftest@vger.kernel.org>
-References: <20261027121151.1887650-1-caixinchen1@huawei.com>
- <20261110-rekonstruieren-erbfolge-vollversammlung-26be74966211@brauner>
-Content-Language: en-US
-From: Cai Xinchen <caixinchen1@huawei.com>
-In-Reply-To: <20261110-rekonstruieren-erbfolge-vollversammlung-26be74966211@brauner>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- whupemk100010.china.huawei.com (7.152.184.41)
+References: <20261112-powervr-sgx-v1-0-c69b84bac011@telaak.dev> <20261112-powervr-sgx-v1-2-c69b84bac011@telaak.dev>
+In-Reply-To: <20261112-powervr-sgx-v1-2-c69b84bac011@telaak.dev>
+From: Gabriel Gama <operatingsystemsdepression@gmail.com>
+Date: Thu, 12 Nov 2026 23:08:01 -0300
+X-Gm-Features: AclHuK_17nK0vdrM7hFH-08XQ5C2OxqtJhKel7UqIVpBLviQdlvTl_RWXYPiYVU
+Message-ID: <CAFGNeagBWpdG7a9A-c6WRiPsd4oPXcWai9o=xnkZDyY+axcniw@mail.gmail.com>
+Subject: Re: [PATCH RFC 02/13] drm/gma500: Publish the Cedarview SGX as an
+ auxiliary device
+To: Joseph Telaak <joseph@telaak.dev>
+Cc: dri-devel@lists.freedesktop.org, 
+	Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti <luigi.santivetti@imgtec.com>, 
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	=?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+	imagination@lists.freedesktop.org, Frank Binns <frank.binns@imgtec.com>, 
+	Matthew Brost <matthew.brost@intel.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Philipp Stanner <phasta@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-You are right, and thanks for catching it.
+Hi Joseph, I noticed that gma_sgx_set_irq_handler() updates sgx_data
+before publishing the new handler pointer.
+During unregister, could an in-flight IRQ still be using the previous
+handler while sgx_data is being changed?
+Would it make sense to clear the handler first, call
+synchronize_irq(), and only then clear sgx_data?
 
-I have been working on these modifications over the past two weeks and 
-have deployed sashiko locally. However, my current changes are still 
-being flagged for some bugs by my local sashiko, and I am still in the 
-process of fixing them. I expect to release v4 in a few days. Regarding 
-these issues, my current fixes are as follows: - AT_EMPTY_PATH: v4 will 
-use CLASS(fd_raw, f)(dfd), the   same lookup path_init() does for an 
-empty path, so O_PATH descriptors   work again.  do_utimes_fd() 
-(futimens(2)) intentionally keeps   CLASS(fd, f), matching 
-fchmod(2)/fchown(2); AT_EMPTY_PATH returns   -EINVAL there anyway.  The 
-same patch rejects a NULL pathname with   -EFAULT before 
-CLASS(filename_maybe_null) can turn it into an empty   path relative to 
-AT_FDCWD, and adds the missing audit_file() on the   do_utimes_path() fd 
-branch. - __nullable (patches 5-9, 11-13): v4 will extend 
-kernel/bpf/bpf_lsm_proto.c (the existing   strong-override file used for 
-mmap_file) with strong definitions for   all 11 hooks that gained a file 
-argument, each declared   file__nullable, so the verifier sees 
-PTR_MAYBE_NULL and a program must   check before dereferencing. - ntfs 
-named stream setattr (patch 1): v3 forwarded with   
-__notify_change(idmap, base_dentry, ...).  v4 will use   
-notify_change_target(idmap, attr->ia_path, base_dentry, ...), so the   
-hook is checked against the path the syscall used while the attributes   
-still land on the base inode. - overlayfs fileattr (patch 8): v3 removed 
-the ovl_security_fileattr()   workaround but then called the unchecked 
-__vfs_fileattr_get()/_set()   on the real dentry, which bypasses the 
-hooks.  v4 will call the checked   vfs_fileattr_get()/_set() with the 
-real upper/lower path, so the hooks   also run for the underlying layer; 
-ecryptfs is switched the same way.
+Otherwise, the auxiliary-device approach looks interesting, especially
+for keeping the display and render responsibilities separate
 
-Best regards.
-
-Cai
-
-On 11/11/2026 12:52 AM, Christian Brauner wrote:
-> This regresses AT_EMPTY_PATH. fchmodat2(), fchownat() and utimensat()
-> with an empty path now go through CLASS(fd) which is fdget() and that
-> refuses O_PATH file descriptors. IOW, this is very very broken.
->
-> Please also go through Sashiko's review of v3 (cf. [1]). The new struct
-> file arguments need __nullable or bpf programs can dereference NULL,
-> and the ntfs3 stream setattr and overlayfs fileattr paths that bypass
-> the hooks need treatment.
+ty,
+gabriel
