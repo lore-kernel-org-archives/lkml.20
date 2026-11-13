@@ -1,84 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794607510;
-	b=XpsyJZIjSj+TRv4Eulx0wQguoZdYS9F9xTUZiwMZJO0NCQsND34mDoV+m/b67m4S6SCJ
-	 lFHiY/IsKn5jRqlaoHZjfizJEpGx6tMConAbPULwQCpvh+D9LAEAX8pqtoDp4NBt+4g8b
-	 rQpRtS9VIpe+SbnvlXNd/DOazGoduIVT8nI9w0PR+iZHgY8qmyzQ7PVlz89C7ftDoHS+p
-	 K7EAo8SFyf2RkubwPiRCBLgfwvstG30EMCEPWeBpk5cNkrTd/GZvF73TBCRdBGEY3B0j5
-	 vZ66HW+glwugpjayW0syR/FIyiDEOGTVfh9olVQ/2y4mvQLTvDF3DMv2R72fNhkTMxw==
+	t=1794607531;
+	b=J7itUB9PjgAfz0v0JmTmkWfFCk+4/IOP/NpyTnVsRNgoKUuOR/+TneuibudqWiXrX1PK
+	 ldyBEsGIRTGXSAdkmRkUtULQFkIaowET6TtjHbacSG2TxXsPJyveknRE2QGOtDbwv/0qm
+	 mIwysOpLhO1Le0wjBfqLRtTXNOfCnHkzgbotb7CYzFk6hii5LtLn97bLbIOoDlMIT6f+S
+	 tWiwmwdDbASDeIVVYQYHlkSdllcpqTt2vtG0pEfpTQFQD4/hSnxFwvbXdrkkfycRW2MfL
+	 /djwk70w9f+th5rBT0tYfjIXFqXNngzyGTCElMMuT/FaA1vSB4d/BlDPpOCGR43o9MQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794607510;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
-	 CC:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Originating-IP:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version;
-	bh=LQ+/kIXsnEf+/yMaf4JHdayssXt0IvTFx291yCAqN0I=;
-	b=4qwHCZLCiFQsHBZ51O6SgcqQgn80YQLWJXiAq4+d6WuQERpzI+tb+Gg8An3CXBb0W568
-	 MHWCa2eHAkdtDOMLpE4SG7wTnethqQYAyYPiKbVwUPoW4v3VwvKpl2JPjubQFnn4jd8jp
-	 z6VN5EiPtXgxpWRvB6irkVcp1P7BdztQI99s0lTYiBKS4iaw3b4VoRDAMbyCqM5t7te50
-	 abryBEyYeEwNjdWLhVptSCOBaUieKZBFfFzqMcAz9COYAJN6iMDGCIhorAYS0pM5Xwknv
-	 DHjoivmQ2S2omNAd0n/Zaa/uSjJbM009KTUdKfJRkSDbs2sUEN3DN39ll+cKchZZbgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794607531;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=KDBiAP/Ln+eH+FIXOmqjg3zWT6yseYeyvqpzRG5VDZo=;
+	b=K1daBMkQpPIo4vxeQCh/xp2c53LO9u1Et7BlLlT+b00Ue5d5hYGFlq3W0v919oe8aa6h
+	 Swx+8542XIvnaIzF/m4C7BU3Zsco+hoMkse9fwcLAJgplRKnycuD8sa8PaXUFy8G8ZrSR
+	 xc1FB5mndWZA8A06SmPy/nBuS4lxu6fVw//t1IS1KsTyKwihUf3n2rfSvOR3adVh2GBO5
+	 K7m23Vi2K2w0pe9vuOWpkjQ50L/o6gfRtGqSHRWl8THa7b4ZOQgI7ySNs3zxl3RsgObYa
+	 8/kqTAQeZi91t8H3Bw6voLns8Tl+ExjQNOR9L3LQhuSmwVXRUZYIlmATJN2rm4XRVmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=meta.com;
-	spf=pass smtp.mailfrom=meta.com;
-	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=ekBqO5Sg;
-	arc=none smtp.remote-ip=67.231.145.42
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=hUqpx+iO;
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF9AB606A323;
-	Fri, 13 Nov 2026 22:05:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF9AB606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE786606A32E
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:05:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE786606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=ekBqO5Sg
-Received: from pps.filterd (m0528007.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADLf47i3995318;
-	Fri, 13 Nov 2026 14:05:01 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pps82601-s2048-2026-q3; bh=LQ+/kIXsnEf
-	+/yMaf4JHdayssXt0IvTFx291yCAqN0I=; b=ekBqO5SggzMgzbKwGyt6fptv864
-	N4LXbRyW15gmC7gUWvXJowDX4G3SshEFUGxrLcJ88YQxmzIlA6I6/ee9yr6wJ5J8
-	HjTl64VZy87KiwNYZzrp4TPSrpNMUmPiYxYZg7guX22S+flq6mVd4ITGOfFQ80S9
-	dIBDXFP24JhurZG7iU8rFXoDspUxQmJSiryDhvvOHMV99QyCp+hiWmm0O8Dcydf8
-	1QKueefN92sy0MNB7IIKliZIQsV+AP0a3yCrr8OgCO2ndjiV5PMwwvTCQ+nShgxO
-	pkYru+XaO9VfsqOJGoiF0zSnICLZ1JQqTVBA5mfCz4NBCsujjhSglGl1ocA==
-Received: from maileast.thefacebook.com ([163.114.135.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hwkk9gbsh-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Fri, 13 Nov 2026 14:05:01 -0800 (PST)
-Received: from localhost (2620:10d:c0a8:1b::2d) by mail.thefacebook.com
- (2620:10d:c0a9:6f::8fd4) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Fri, 13 Nov
- 2026 22:05:00 +0000
-Date: Fri, 13 Nov 2026 14:04:59 -0800
-From: Bobby Eshleman <bobbyeshleman@meta.com>
-To: Sergio Lopez <slp@redhat.com>
-CC: Bryan Tan <bryan-bt.tan@broadcom.com>,
-        Vishnu Dasa
-	<vishnu.dasa@broadcom.com>,
-        Broadcom internal kernel review list
-	<bcm-kernel-feedback-list@broadcom.com>,
-        Stefano Garzarella
-	<sgarzare@redhat.com>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet
-	<edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni
-	<pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-        "Michael S. Tsirkin"
-	<mst@redhat.com>, <linux-kernel@vger.kernel.org>,
-        <virtualization@lists.linux.dev>, <netdev@vger.kernel.org>,
-        <stable@vger.kernel.org>
-Subject: Re: [PATCH] vsock/vmci: reject datagram binds in local network
- namespaces
-Message-ID: <aveJi+ehBghZ6/Fy@devvm29614.prn0.facebook.com>
-References: <20261113-vsock-vmci-netns-isolation-v1-1-ced02054ea61@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=hUqpx+iO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=KDBi
+	AP/Ln+eH+FIXOmqjg3zWT6yseYeyvqpzRG5VDZo=; b=hUqpx+iODK6xqqqe+Zwm
+	OyRQqDEK4HcedhVFne6ZFKTdPAvqW9te4ZSCucAbh0/VBdqAEY49FnH1gOxtJNdj
+	uPKJ0eVO2myEhlU87lE2kfflwOyWulaCl5hxTaOWkOXyI/vwoyD5tBa9CIXbYEyI
+	L203NDNzD7DGMTxFAljA6akX75nAhVx8usF4LiQjiaEqAUR7pCuGKKjZBvDr8ly2
+	PNq4ipCKp4DTOPrSzCbDl4fY09TVjfWOpjsQtZZusp1gpsiimxSLVcVCM7ZGMKiL
+	hGCudkIGcrRyPMF2LxQhT1H+UIdo6vFRoFG8tXMtmvpoChav15C/KS1/kxa9KXX0
+	sQ==
+Received: (qmail 379548 invoked from network); 13 Nov 2026 23:05:28 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 13 Nov 2026 23:05:28 +0100
+X-UD-Smtp-Session: l3s3148p1@4908oC9guoAujntX
+Date: Fri, 13 Nov 2026 23:05:27 +0100
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Johan Hovold <johan@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>, driver-core@lists.linux.dev,
+	linux-acpi@vger.kernel.org, linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 4/8] swnode: ignore primary nodes in
+ device_remove_software_node()
+Message-ID: <aveJp5-BqQ0E_X6f@shikoro>
+References: <20261110085125.2535508-1-johan@kernel.org>
+ <20261110085125.2535508-5-johan@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,89 +74,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="oHhREp/cCkpx5Oye"
 Content-Disposition: inline
-In-Reply-To: <20261113-vsock-vmci-netns-isolation-v1-1-ced02054ea61@redhat.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA4NyBTYWx0ZWRfX8TSVGHeGuwZl
- DuiN1xwAtImumV8S+JQqecYnRC9HjIXqdRVRCkZWaR8chGd7+vreV74cGajVcMFvc6E9Kkk/RkI
- 2PrOKX1JNjXBsQyfYXM5iVUkTcQu4IuLOERUgfFkhf4P8xdoY7Ys8pyyw5j/muVowq6CtFKwjkP
- FyCQPBlToG/ZTQdQvEMN4beKoAJp6VCR7Sb5deM/lvBuafUXGCB4jmgJqvoFS9vtpLbzm8OWPNl
- lNFr43hJ725oauVwaH83ujXfYItfoEO78vvrWjIdhUOsi2JonK0so/gHKLy+6p7UOnN9Ou2sAjv
- 4/6VEvro5MeasKjM3dvHOtwtf4ctf1iutFPNwG9Hfz9P8LfeCZ2W3oA+6RAMyWZF2imYoVKOJWE
- 69i6MVeVGU01Ino+ESnuocuHTDcJFPih1DRX2sf2wSbDKO1yZQE3mPwH3NO3L435lBNdkTG3gCB
- SCzTK1k/8Wzsz2Y2ypA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA4NyBTYWx0ZWRfXxA+5hsMAS/Sp
- t4lE80PUamLj5rfnGSQuH8pd76cq+ZESQiz54zQdq6OltbWek9T1KVNiffACqO5QZCvx6ZDXrHg
- bhxJq0ztWIb6nrWFRzrFBxfEYvSvDa0=
-X-Proofpoint-GUID: 3Di65TljFpEGONzW2DDRCtPX2nAP-ZZQ
-X-Proofpoint-ORIG-GUID: 3Di65TljFpEGONzW2DDRCtPX2nAP-ZZQ
-X-Authority-Analysis: v=2.4 cv=GrXXaU1C c=1 sm=1 tr=0 ts=6af7898d cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=7x6HtfJdh03M6CCDgxCd:22 a=4h92JMTCafKA-fb_NiOh:22 a=VwQbUJbxAAAA:8
- a=20KFwNOVAAAA:8 a=VabnemYjAAAA:8 a=i7-SfpROG94AJB53qLoA:9 a=CjuIK1q_8ugA:10
- a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-13_06,2026-11-11_03,2025-10-01_01
+In-Reply-To: <20261110085125.2535508-5-johan@kernel.org>
 
-On Fri, Nov 13, 2026 at 06:04:40PM +0100, Sergio Lopez wrote:
-> VMCI already rejects datagram sends from local network namespaces, but a
-> datagram bind still creates a receive handle in VMCI's global port space.
-> A VMCI sender outside the namespace can therefore deliver to the local
-> socket. Its handle also prevents a global-namespace socket from binding
-> the same port.
-> 
-> Reject VMCI datagram binds in local namespaces. No namespace-local
-> datagram transport exists, so EOPNOTSUPP reflects the available receive
-> paths. The receive callback also rejects any local-mode socket as a
-> defensive check.
-> 
-> In a KASAN/lockdep QEMU guest, a reproducer observed cross-namespace
-> delivery and the global port collision before the fix. After the fix,
-> local bind returns EOPNOTSUPP, the global bind succeeds, and a global
-> VMCI datagram still reaches the global socket.
-> 
-> Fixes: eafb64f40ca4 ("vsock: add netns to vsock core")
-> Cc: stable@vger.kernel.org
-> Link: https://lore.kernel.org/all/sashiko-outbox-212907@kernel.org/
-> Signed-off-by: Sergio Lopez <slp@redhat.com>
-> ---
->  net/vmw_vsock/vmci_transport.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/net/vmw_vsock/vmci_transport.c b/net/vmw_vsock/vmci_transport.c
-> index 1f186e8f8364..282131544c42 100644
-> --- a/net/vmw_vsock/vmci_transport.c
-> +++ b/net/vmw_vsock/vmci_transport.c
-> @@ -627,6 +627,8 @@ static int vmci_transport_recv_dgram_cb(void *data, struct vmci_datagram *dg)
->  	 * outside of the create and destruct socket functions.
->  	 */
->  	vsk = vsock_sk(sk);
-> +	if (!vsock_net_mode_global(vsk))
-> +		return VMCI_ERROR_NO_ACCESS;
->  	if (!vmci_transport_allow_dgram(vsk, dg->src.context))
->  		return VMCI_ERROR_NO_ACCESS;
->  
-> @@ -1697,6 +1699,10 @@ static int vmci_transport_dgram_bind(struct vsock_sock *vsk,
->  	u32 flags;
->  	int err;
->  
-> +	/* VMCI handles are global and cannot serve local namespaces. */
-> +	if (!vsock_net_mode_global(vsk))
-> +		return -EOPNOTSUPP;
-> +
->  	/* VMCI will select a resource ID for us if we provide
->  	 * VMCI_INVALID_ID.
->  	 */
-> 
-> ---
-> base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
-> change-id: 20261113-vsock-vmci-netns-isolation-7e46732dcd73
-> 
-> Best regards,
-> -- 
-> Sergio Lopez <slp@redhat.com>
-> 
+--oHhREp/cCkpx5Oye
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Acked-by: Bobby Eshleman <bobbyeshleman@meta.com>
+On Tue, Nov 10, 2026 at 09:51:20AM +0100, Johan Hovold wrote:
+> device_remove_software_node() should only be used to remove secondary
+> firmware nodes added by device_add_software_node() but will currently
+> drop a reference also if a device has a primary software node.
+>=20
+> Bail out early if device_remove_software_node() is called for a device
+> whose primary firmware node is a software node and fix up the two
+> callers that currently work around this themselves.
+>=20
+> Signed-off-by: Johan Hovold <johan@kernel.org>
+
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com> # I2C part
+
+
+--oHhREp/cCkpx5Oye
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmr3iacACgkQFA3kzBSg
+KbYVlA//eYVad2Zpmxh/QuRS+B/qbudGpoSMFDnHOBSXK6XupJ3PxzwBXAJmw/6Q
+akQkJ/g+CYk6/hQyCwLAJBzAYANuNIeWzOUhyqTJzAponfWe/d4RUPNbF6MFKCHI
+pm1lany0cAHzJt9LRx3EQakVUcooGfxxDPYilwEl1RNM13wpf7o8LWiTDVgLHTBz
+y9o0MvOg6hsCwYSnbu3gHRrhfYfyFJaeSoDioO9Ccdc++5RIcOK1UHD2PCmhg28I
+AhOHk00RirYjWnyntbT33lSMnXqqjqsioHPrDHUrUXJ1q1Z4PFx+cn4Ys5wLiWjJ
+KJnCIlyqZr8WiqZJtWAIjXCtbHHjLIm9Zd4Go/XMLqjNiZW2hUwEsJgEbgWKEpGe
+47Un8/oL3+N/MdYCQIBWBtnlEPE09f2Q/MWjG/3Zg01ghGDFfQ/U8ESuskvsB8cK
+WWjLc19kY855+WeUlX2i8jwazp1wKNXh7QNNEemvIFdHEyfRoigXVJqOCMlUj2PW
+oGruNTMZa/uHf3wegYlBx6vEQqhTq6yXW529cmxTbpBZLj1DK5AY0olawHWoPSua
+cD8cToEA2zk6LDaIRlnJeBJdDpP1nX273HslXo+AnO7x8uL4MhxlllJNwkpAXdE/
+P/+kLEtTdRCMnUuCan03TvAdX6ttm7qytczd6ZraA/dp0hQUXPw=
+=1BPw
+-----END PGP SIGNATURE-----
+
+--oHhREp/cCkpx5Oye--
