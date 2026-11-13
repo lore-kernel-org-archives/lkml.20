@@ -1,60 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.67.36.66
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794577074;
-	b=FPVfQszmQY3FMXRjMkk0Si4nqo9d4h24pvvAxjYqCI63exjhYvxFDoeewnuDazTZN/mO
-	 OYl+yJAgnzbOaU5nXsgkxFbeXzdZW1e89MOKpuP8x/EymK9aH+KVcS0+a5/iEjToqBIPI
-	 2tEEApFlvQE1J1ORyGJI8GO3Kg7J7f6qH7fRz3Nktc3K7gNTyHOMETRnEffuleYcpffzB
-	 mAeFB22qgsKczWFmumJFFtxiAS/Ju1SU87/2DzrGac6OwCACNBugohRDkgQ2AK5/Cg0b9
-	 OpnzlcZeiJcVmNJVWr7L7ewxXo6hFmjl02IST7w1bKRtKQcFleiLuDHT/lTP91UltiQ==
+	t=1794577103;
+	b=SS+FzRa9l1Tr21gjJWVlgCy84aDp+7ABnEtJEB8nKqSfZjA3Vjp5iSEB6RGRWJV09XxQ
+	 jthktCPHRTfIhQo8O4X6NuRBkjorgFeOaLQhSl84ARNlyRWUtPfNWE4gUZCp2Wyq/aQQQ
+	 1vaNAnhyN5OvGVlRKT5QxHfK0QaSoOuFmApQVnyRwgHxBRpykH2b45S4CSBPAug5AXqlK
+	 M+U/DujSU/ShOwtLFCv8GHnwxuhgT2Rxo17u1RiFBtMmoRoXJekt1I4xnqV5A2JE7fOdx
+	 y5ksnOLL1YAqXU8QTepGOMLxNA9iu83nqwAbRlOJfb/rZEF+XJ5IyVHKFcYyPvqLv8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794577074;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Developer-Signature:X-Developer-Key:
-	 Autocrypt:OpenPGP;
-	bh=393JQRgMU74Fab2F4ENkOZNgUqok/J4l08uYJPwj1eY=;
-	b=lRtTRdGCSWMmmaEl+7CyQPKaMBfxidcU3z4KUgKiKSePgWOHUsQwiFrDfY6wNmwAGrzq
-	 e+PuLAYb8pWPhJZHZoAlh5rQ4AAiKjbM8ROlz7XjLHc3STm+6AhFZEgq+0RWQyFKSHCg4
-	 rx0jcgwTpDeiJwVbdxzADdOnCCYtwo2nDMH38/tAvoGns+cm2HPJhQ+pNYFPUOBr+0UUL
-	 2fR5gTzn2p4N71NM7dLeab+NToCnWxzPsqE38rR2I0a+uICkjORlENxlPeRTqqoGWkEfw
-	 jsQh6zrZ0JC505vmSuyqnFsVW4A88Qpegt0Aql/962RKKg+EJMa5yw7NZyb1crodcFw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794577103;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:MIME-Version:Date:From:To:Cc:
+	 Subject:Reply-To:Mail-Reply-To:In-Reply-To:References:Message-ID:
+	 X-Sender:Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=UBTJL2rXpZZv2L1/0DtwAmPyMSPodRD0kNezd73BtPg=;
+	b=w7vOpylAhSsqt18eB3twF4RrTKx6nldGUNLCkQeOg0RfDzzXknXQ/X9S15Cvz3fIIlqM
+	 Ir1n+w0ufrcPboLYoRqpV33FizzuPisA5MXxm/8gs8bVlSHivYfnwWVs8V5KMPm/x3Goc
+	 Ruos0cIXKAZQolzcYPW8bdQ3mVFloa6YS6eFWfm8fN4d7R1rSpRx5nw+71M9Sf5U1XFuZ
+	 dJ+IX/gRXjMIh7wLSpGOpVq3rJigCX39UeOaj15lLfDzdoh9Rm/BW9hyqAL39VR5ez1ej
+	 +SFRLhIYIk5uJ4kTlLumQ6AP8xm5ppGpcFl1f0+xB5ZsAS67a2qKz1cdasT/2uqzqZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=posteo.de;
-	spf=pass smtp.mailfrom=posteo.de;
-	dkim=pass header.d=posteo.de header.i=@posteo.de header.a=rsa-sha256 header.s=1984.8680eb header.b=k3nOkcBt;
-	arc=none smtp.remote-ip=185.67.36.66
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=WCnVFUwk;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0179606A8BA
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:37:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0179606A8BA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7779606A32E;
+	Fri, 13 Nov 2026 13:38:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7779606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.a=rsa-sha256 header.s=1984.8680eb header.b=k3nOkcBt
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id 0F58F240103
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:37:51 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
-	s=1984.8680eb; t=1794577071;
-	bh=393JQRgMU74Fab2F4ENkOZNgUqok/J4l08uYJPwj1eY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:To:Cc:Autocrypt:OpenPGP:From;
-	b=k3nOkcBtarGfxvsokEh44+7y70j0TkKvQCmNcbD0KDRWspzRafmPDV+3F0jhtDokE
-	 WaWwRcgTQwHPDEyPChKLAakdJOUBlZlhdTmhCFfpHB0CyRwRpCyFoDxfJAWA/9yGIP
-	 yfu5j8Q+FUZ/Is+vjgTTkws4vGkWEunpw5tXxVHflXBGqX8Bl8cfC4wBg5BNqWodDb
-	 xIgAq7onZ9UfiNx4vjuZ8iA8MzLuqAgEWM9pSzWNAG3mZ8wllh9/+AZNlFgdh+YV7D
-	 +Sjg3FxKliKm1SFSS1Pj+jIjd36yWwJwHhxuPcEAKqf4XSpfyVWyoj2uP1ucZIrUHP
-	 lSiyItTEwnwgg==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4jQyxR5w5pz6v3f;
-	Fri, 13 Nov 2026 14:37:47 +0100 (CET)
-From: Markus Probst <markus.probst@posteo.de>
-Date: Fri, 13 Nov 2026 13:37:49 +0000
-Subject: [PATCH v28 4/4] MAINTAINERS: rust: leds: Add rust abstraction
- entry
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=WCnVFUwk
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADCE6OL3085812;
+	Fri, 13 Nov 2026 13:38:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:to; s=pp1;
+	 bh=UBTJL2rXpZZv2L1/0DtwAmPyMSPodRD0kNezd73BtPg=; b=WCnVFUwkrtGV
+	ezvqPennp+4v8+DWD22c99j3+KCO+fldrqIAME7qFp6W8zgRFu3YtyjglE38rNdI
+	2RTYvbjtT1D1pVwnR4pvUjNQFGXgspNDCxF/6FUjGyfpxqUYo0M/pNf3Oe3aS8f2
+	K+zlEIIoUXsNoqTd737pM/ahD5Jkzd3udHB2Wu3KgrId9ae2DL6PQ4UV+lfXrqM3
+	C+DoQqSSKwRB39o+K3ND8bU57vM9J/8LHq8zCqanGGAXacKpOszO4WPP2vDCX9/S
+	pCuLVf/bT/VsAZnR4EKtcK/En4LNu2Aza8mhs3WkYsNCIa+GVldhVOLqFOhMwAo6
+	I8Za6KwI9A==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsug6kv16-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 13 Nov 2026 13:38:17 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADC5EoG2294245;
+	Fri, 13 Nov 2026 13:38:16 GMT
+Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hwjcf32kk-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 13 Nov 2026 13:38:16 +0000 (GMT)
+Received: from smtpav03.wdc07v.mail.ibm.com (smtpav03.wdc07v.mail.ibm.com [10.39.53.230])
+	by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6ADDcECs39190860
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 13 Nov 2026 13:38:14 GMT
+Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C125858062;
+	Fri, 13 Nov 2026 13:38:14 +0000 (GMT)
+Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 670D95805C;
+	Fri, 13 Nov 2026 13:38:13 +0000 (GMT)
+Received: from ltc.linux.ibm.com (unknown [9.5.196.140])
+	by smtpav03.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Fri, 13 Nov 2026 13:38:13 +0000 (GMT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,119 +83,137 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-rust_leds-v28-4-b8cf2f74fa57@posteo.de>
-References: <20261113-rust_leds-v28-0-b8cf2f74fa57@posteo.de>
-In-Reply-To: <20261113-rust_leds-v28-0-b8cf2f74fa57@posteo.de>
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>, 
- Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Ira Weiny <iweiny@kernel.org>, Boqun Feng <boqun@kernel.org>
-Cc: rust-for-linux@vger.kernel.org, linux-leds@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, 
- Markus Probst <markus.probst@posteo.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=693;
- i=markus.probst@posteo.de; h=from:subject:message-id;
- bh=sDwsHzQJPTFJA6D55khU2EoqKuw8/m9ihoeA+sTBgE4=;
- b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBq9xKiAEVGG21X1Vx1toawXRCPO/spXEaTrdttU
- kIRrzg+HwaJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCavcSohsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9JXMg/9EjRGK1nm5YmkmW+5pZFYd5du4AaujAh
- g25WRZQWwBakfEzaRoV23Yo0J1oh5W5YjkLtghTU4dF2f3GHcoCxZFM5BjxNaVq8b26Ht2p06h5
- zARk+6adTjVFCY93hXerS0vG58o/l8fKv/wzFtLWznQKQ7wPd5dqNak4ux5MMCTiGp5/0Rsin1u
- 01I1Lx/YHhbupGvN6JwKpwdsvUMW8UYEKCjN5VYJdu1Q/j3LhMtZXbwi5Y6zzFHlYX5vrdmUWdg
- t0hvRIzi63WJ2Od+LQnMmLTFRKgGHai0OETcNcjQGOa7QmAosRQl8P7cSJrK8Jw3HKYdOENtC1/
- Vu5h946XdHll29jqcshezc2j0uxHLN4s/WU2T8TrRCPCCjarTyUk+45ab6eUoEzzAqzlPMH/yGX
- sqlGGJkCW+Vo8Umv4+V4nO7lJuTLOAIJMJPtyN8pcMwtexqHUv9r0wY8URupTPLLCb4y2bv+jtt
- 0Go3WfkZeFfmvjTBgUgs4MdM58BXT2oQRBd8FOGLy18Imujj43Z9gpxEOvNdGNqtioIo5hkQHDF
- j/nWuJj9RR0zl5uss9StOuHtq8uXyw9W8rjcFHyZ6g1Vz1I4wgyE2aXQg5Oix237/ypb5JW7DiW
- 02BEzCVOtaKPhuZzwBXUrzyDsFM1BB+RVj38M+JUAOoXtf2XVKxs=
-X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
- fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
-  keydata=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
-  aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
+Date: Fri, 13 Nov 2026 14:38:12 +0100
+From: Harald Freudenberger <freude@linux.ibm.com>
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Cc: Sasha Levin <sashal@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+        Nathan
+ Chancellor <nathan@kernel.org>,
+        Holger Dengler <dengler@linux.ibm.com>,
+        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Huacai Chen
+ <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
+        Thomas
+ Bogendoerfer <tsbogend@alpha.franken.de>,
+        linux-kbuild@vger.kernel.org, linux-s390@vger.kernel.org,
+        loongarch@lists.linux.dev, linux-mips@vger.kernel.org,
+        linux-kernel@vger.kernel.org, "kernelci.org bot"
+ <bot@kernelci.org>
+Subject: Re: [PATCH 1/2] s390/pkey: Include <linux/device-id/ap.h> for struct
+ ap_device_id
+Reply-To: freude@linux.ibm.com
+Mail-Reply-To: freude@linux.ibm.com
+In-Reply-To: <avHpQIREsJRjpD3R@monoceros>
+References: <cover.1792144769.git.u.kleine-koenig@baylibre.com>
+ <179416565740.60865.16102443399828949110.b4-review@b4>
+ <66e4ee9c7f9b4bc48fcee92a94b6bb6d92fe1ad2.1794233316.git.sashal@kernel.org>
+ <avHpQIREsJRjpD3R@monoceros>
+Message-ID: <38297cf4ed5755a0e54d781485d4bddd@linux.ibm.com>
+X-Sender: freude@linux.ibm.com
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: J6V4yMHi54aoGGu0oMv9hoS19I8q3_9b
+X-Authority-Analysis: v=2.4 cv=PeVqFShd c=1 sm=1 tr=0 ts=6af712c9 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=U0zfkUukAAAA:8
+ a=VwQbUJbxAAAA:8 a=IpJZQVW2AAAA:8 a=5DHl898QimpB5tG_JWoA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=rXRU1dkEVDZ1dOovDhQH:22 a=IawgGOuG5U0WyFbmm1f5:22
+X-Proofpoint-GUID: J6V4yMHi54aoGGu0oMv9hoS19I8q3_9b
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA1MiBTYWx0ZWRfX6ihovpr0qtKr
+ jKvupKPGfxHnmlu5CSvoN7QxhjVhOBmZiPI9XlDjZqBvqW6CDKD6PW/XLj9/fTLy58qHHyvgrp+
+ obDHDNmnZVBj4nhWNq+xbRdumfUBSkfQRq4nf+ltXPJHudB1r35pm2nmVI4uiUEqOLLsN0LE5kZ
+ PsF7D+1WmOcAkfFWEnPNPQ0TNnt68kZX6C/6ggh4XGAnclaE0GCbgT/28qQUCb5LZKQIXzMz4h1
+ 3gOGvUITKDZPZL6OvZpYVuYuO8ii+L8ZR6NtyvqbxDsSnfMQacLgmKU4WIxWDHQSLyp+vrbbCwi
+ WyzKoGmquAhOhtMc0Uceejgzwk+Op4gS3z31wjLLcT3q+ZfQmJrMij/aSi6OaOWZqx9jJjkcwed
+ 7mZu0Sd2D2XmcWrFip8g0XW13nUBUQWCPyf6dLTCuJ3aRojEtIOedpUOroBs/lLHtVvdQS4hi5Y
+ qYtG12+0EAxkyqWwpUA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA1MiBTYWx0ZWRfX0fb3UnPJ6J1Z
+ fE5paFLKMx7SqwR2mkQNXTWifhZkTImd5L2tejUmosMz6PeQxFHwDxW8R+A7NlLq+mKewFbSpfA
+ eP40e2o0oyIrTuDxPLQ+1GbAbyVl0xQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-13_04,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 phishscore=0 suspectscore=0 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 spamscore=0 malwarescore=0 clxscore=1011 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130052
 
-Add self as maintainer.
+On 2026-11-09 16:48, Uwe Kleine-König wrote:
+> On Mon, Nov 09, 2026 at 09:14:40AM -0500, Sasha Levin wrote:
+>> pkey_cca.c and pkey_ep11.c got struct ap_device_id from
+>> <linux/mod_devicetable.h> by way of <linux/cpufeature.h>. Commit
+>> cdfdbc11552b ("Move struct cpu_feature to <linux/cpufeature.h>") 
+>> dropped
+>> that include, so s390 defconfig no longer builds:
+>> 
+>>   drivers/s390/crypto/pkey_cca.c:22:28: error: array type has 
+>> incomplete element type 'struct ap_device_id'
+>>   drivers/s390/crypto/pkey_ep11.c:23:28: error: array type has 
+>> incomplete element type 'struct ap_device_id'
+>> 
+>> Include the header that defines it, as the other AP drivers do.
+>> 
+>> Reported-by: kernelci.org bot <bot@kernelci.org>
+>> Closes: 
+>> https://d.kernelci.org/i/maestro:7baaa311bc9c30a8ad43f42c24225ab2fead866a
+>> Fixes: cdfdbc11552b ("Move struct cpu_feature to 
+>> <linux/cpufeature.h>")
+>> Signed-off-by: Sasha Levin <sashal@kernel.org>
+>> ---
+>>  drivers/s390/crypto/pkey_cca.c  | 1 +
+>>  drivers/s390/crypto/pkey_ep11.c | 1 +
+>>  2 files changed, 2 insertions(+)
+>> 
+>> diff --git a/drivers/s390/crypto/pkey_cca.c 
+>> b/drivers/s390/crypto/pkey_cca.c
+>> index e8dc2f77c137b..f95d61fd5b090 100644
+>> --- a/drivers/s390/crypto/pkey_cca.c
+>> +++ b/drivers/s390/crypto/pkey_cca.c
+>> @@ -10,6 +10,7 @@
+>>  #include <linux/init.h>
+>>  #include <linux/module.h>
+>>  #include <linux/cpufeature.h>
+>> +#include <linux/device-id/ap.h>
+>> 
+>>  #include "zcrypt_ccamisc.h"
+>>  #include "pkey_base.h"
+> 
+> that makes me wonder why there is an ap MODULE_DEVICE_TABLE in
+> drivers/s390/crypto/pkey_cca.c while that file doesn't seem to contain 
+> a
+> driver for these device IDs.
+> 
 
-Signed-off-by: Markus Probst <markus.probst@posteo.de>
----
- MAINTAINERS | 9 +++++++++
- 1 file changed, 9 insertions(+)
+This makes the pkey_cca kernel module automatically loaded when an AP 
+device
+(CEX4...CEX8) is detected by the kernel. Similar the pkey_ep11 kernel 
+module
+has a MODULE_DEVICE_TABLE entry.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 222b7fc2c3aa..1f547c7a7d0f 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -15148,6 +15148,15 @@ F:	drivers/leds/
- F:	include/dt-bindings/leds/
- F:	include/linux/leds.h
- 
-+LED SUBSYSTEM [RUST]
-+M:	Markus Probst <markus.probst@posteo.de>
-+L:	linux-leds@vger.kernel.org
-+L:	rust-for-linux@vger.kernel.org
-+S:	Maintained
-+F:	drivers/leds/*.rs
-+F:	rust/kernel/led.rs
-+F:	rust/kernel/led/
-+
- LEGO MINDSTORMS EV3
- R:	David Lechner <david@lechnology.com>
- S:	Maintained
-
--- 
-2.56.1
-
+>> diff --git a/drivers/s390/crypto/pkey_ep11.c 
+>> b/drivers/s390/crypto/pkey_ep11.c
+>> index f99c19323f3d7..f66fc97ad5adc 100644
+>> --- a/drivers/s390/crypto/pkey_ep11.c
+>> +++ b/drivers/s390/crypto/pkey_ep11.c
+>> @@ -10,6 +10,7 @@
+>>  #include <linux/init.h>
+>>  #include <linux/module.h>
+>>  #include <linux/cpufeature.h>
+>> +#include <linux/device-id/ap.h>
+>> 
+>>  #include "zcrypt_ccamisc.h"
+>>  #include "zcrypt_ep11misc.h"
+> 
+> Same here.
+> 
+> But anyhow, as a regression fix the change looks fine.
+> 
+> Acked-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
+> 
+> Thanks
+> Uwe
