@@ -1,100 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794548669;
-	b=uehBbWjWi+jJ6FBSSG/lhTgUtBqG7haRfM10VIfCWWtuBqJhWtIVDHgwXdemCOKBoJ8N
-	 qqdaY0tQuD4/YcEFb2tuyewvLqhmafP45zYeuBR/EaoBcUoSPvgE1HY/G6CFi+CVVHwVn
-	 +WF2wOqxPjyDvnhoJjh9qxJXcj9TrJamTCDmiaB3CQ5wwZIJk+mowsG2SLZ7F0yLyveG5
-	 yKOcof2Bci3txIbHOl/7NP4BliL0qUWi/zfvsYKcxvcLGj1R6Y6s1XpgWhX4i6ytY062q
-	 Ian0jKdUdPboJe/gk43+AlvMhyDTJpQKgHdjXzZFZkGDubYpZecEdMn5p4t3zcvy5kw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794548669;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.171
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794548763;
+	b=5qXS7cVu7A0FvMkxJ9/ONUxn7CrZsPzulDSX29DbZNfnss7+eLuEbfTwSTjTmju4fHrJ
+	 PKFcS7TUnWbyZrDs9LJuVR+SSmy/T2Tw7+PKu+oV1u2K0l31JeMjH8C8rggo2cWKD+3qC
+	 CurDXFLHHczOsiCZbor4DLfPoRVFwDSf/0a7Y6hcQIWjhW7+bAmGAyY80fa66ZJvEb1ZZ
+	 nKtU0smPnTR+87mcUUqtLcLY34nXkGG75mRoZXvs1GyFSiwoWBLx7ho8Ndp3RGvuVT8O0
+	 Eb6E3zMkISuPvEHgy2PSpG2/22ebs64Hq6/vDpJNoS/c3MHBOqvh2wTD8InCH3iq86Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794548763;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=UDUDmvLFrjDceUNHFFnKFwmFqi3Bs4rQ7NT0WKbQyu0=;
-	b=cv/9RL1pQFEx9ftkj+sPw44leFoj2Fj5b4wzoeXN9z+ZhTWTnDLd3BPlD/2dRE3Jxrl0
-	 CyQqKyDSqh8hhDkchTC7bZ9lhpmMcL5XswIdUdDchb8tKKIHAlIOoru1Mi8L5yoppCG27
-	 cAOWAp81ukukK5Of7oYafCgVGEaCDRDChD/HsojXaEUqKnV+9TaBOMH6yKISk5ALhdWv3
-	 RBYoZLVrkbXSdpro5d7NVgQMHo6QHXPEOT9oj5N5ttZgSyIsK1n8eFE2j3jfUOiJjRgha
-	 qVtXo/pp88GLejdMpQhbdqbU1ZKnXRCjjAEqcpz6A9Hp2QKcSuS7cVeG+37Zseun3yQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YlwZfLjy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.53
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=v4rRGE+RVmHQmdWS08eNxSiiu1iRCMHoWjayyFspKz0=;
+	b=h4voXTK+JqpAdMXdjnLNI1SYOYflT7EjSCSS1kRfi+YnBFL3i/m/EheDzr2lbg3J3+H3
+	 NKuQgi1ar3WZyj5C22Ltno3FSNAMQJEdmSDKBSOu9yxTxqmZDRLFgkkZycmmf1LNCL8aj
+	 gpB28+1zRb7wcqZxHeINbql4RIkKS4Gph3+pnqWHURKgYTM/RPp1ZPXyjZk8ufhNcRDOz
+	 d1F6pM3vdkq8pIBfsWOZbq4VWCGVCtITntTq2QL6OAjlDjmY8Ey8JJ8L/M7uDGt0Nokib
+	 IAidX4k6TmrkSF/ODyvZlaw41rwxDDLXXUwhIk8g5cSpssQalIzG97wIxMNbwLur2LA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=L9WiFkNG;
+	arc=none smtp.remote-ip=209.85.222.171
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AAC7606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:44:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AAC7606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C30606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:46:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60C30606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YlwZfLjy
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3b10ca4e3f9so252016a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:44:28 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794548668; cv=none;
-        d=google.com; s=arc-20260327;
-        b=VLe3qZnOxxSKL7375qhK3ghBpfgGGf5pCEW2KxZnbtCFsd//iIU2fAdRALdnffKagQ
-         HWwqdSycIoPvbaR5agfJr2O+whFJ6B98qXYtAo7Lw72OTjTo74biktogRW1Ml2/ytjPv
-         ZH6/sgcMkfiR7okcBjdAmKTknWeX3FIo4XPqQSl/t4EATVGWc6UPW1F0Q4s2tkXx/RRt
-         R4Lll/U+L8rdO4JW1NcK44dtKzO4epSfYwa9SF8PkvT4MllIirmTYQTZguzm7Sbk/niZ
-         QYTv5w01wR8hE3PVDL5qH3LDD7SYMU8HflSV8/4D1yskcz5a1idpSYfnmAEVKITPh9lo
-         qGQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=UDUDmvLFrjDceUNHFFnKFwmFqi3Bs4rQ7NT0WKbQyu0=;
-        fh=yjStbRuU507Dm8jfORq0ngP0jn7RX4rXryEFH55CQaU=;
-        b=ZncwEJZe80+xXARaN/9xH7o9YbNCC9jA6EhGbm0B6jj7SUa9URkpJgfDF5jck/H1Su
-         UfmsUyf66pgdB0jRV3wCg+6FKgmWzmEQK289UVsxul3vb4CjSQTlHq1FyOQjZSAoEPlv
-         QklHCeZ991t7qeaeABcZJ7WgpHAtIB5i8w4qpV0Iiy9DCZCiwLAr1JMqJQqkpGYP8uy5
-         mY5sVbS1Numtkt/sz+IlP9AoG8d8ZqPodAonb4XkhbA3TcR3C3vaQgrU0HaDAtZtUSyW
-         SYW5nWPTNOtEgUPh3v9ykTVmirzKHul2gEC8mrkmw93f7+lG6xw1AsgrHEzJxlGnA914
-         6SMg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=L9WiFkNG
+Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-93f269e335eso138044485a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 21:46:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794548668; x=1795153468; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UDUDmvLFrjDceUNHFFnKFwmFqi3Bs4rQ7NT0WKbQyu0=;
-        b=YlwZfLjyBPstI07GiXcbgY1PgHaL+X5W1yWOy/eXHR65Fx/h/UCfPh0Yr1zgMQmRs1
-         6nZ1jxA0xPOT+RzxfuvQB99/uzu3eIj6nWI1wr59N0wuB77ZtYWgvaa52BphV79zRU/j
-         QfteFPa6jhw8RqeQu008yjqsZCt1PsR8lXYCiG0B1RkfoszrAuFbtM2poeYz128vYgMG
-         0F5Gu6WwU/Zq0Y91DTakxZVD8AQFazyjvKgStdJwrcpEO5f84X7vog3Tww+C8afVkiIy
-         dnqdzIlRv5GFAQz+hTgqvFJc6dRJUFgMtRItZwxxYtjd3c54F4UCBdH0pua4OUMgzeCL
-         +35w==
+        d=gourry.net; s=google; t=1794548762; x=1795153562; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=v4rRGE+RVmHQmdWS08eNxSiiu1iRCMHoWjayyFspKz0=;
+        b=L9WiFkNGld6M4dqrx8vyVoTO+36iK2D+PYcnl4ufq1WMLBc8k2m0hk0QMRIiWOx867
+         2or1m7cJ/nCUIfXIelnE1Ry0I7ANJ9rWfem1gDY7zTuYNZjQA49NIfXKnY6mcSZUXJWV
+         wjz5+IfvRsaE+jJXttt6ZQeTaQEhdyfA9qO7zwbjEjfxQ7vJJjxbuJ6i4oBfYauXIhq+
+         u7vGybm3qsMXBOVzbMiquUiWvBcgC07fl4QoJSASgGMqBrIQdDrQ50boOcWoE+pJfVA9
+         N/03AJ1xchiinnt4Bh57akGjIUs+oTMChQxem77huu6DD/1OjYH9LDU9+aTVdReduOE7
+         QcNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794548668; x=1795153468;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1794548762; x=1795153562;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UDUDmvLFrjDceUNHFFnKFwmFqi3Bs4rQ7NT0WKbQyu0=;
-        b=vYKSC35+7NPT7leqKoDkWUGe+Qb1m7QMwwilJuLKx281vevAixtF5uIgpCexeP6UQ6
-         Aj8qwwgFBcpIyBbWPDdk6AEc+AfyvDGBUHGIhx2kxPXGc0+er+2UH+e2kSKhyrJ5uJ+t
-         fyuEnDfNjoPNsRd3omQ+wdwNLqlqiwpW3GieSPKCmoXEtff9w6qawkGXf/5KhReELKqx
-         enx4MElexCUSoGZKYBuOqbCEfwVVTQfa3ReDUk4eOScf7Wfsht1ZFQ+lsEOhHOwvRQCJ
-         g2VB4lneSBzmJ3FL96VVB5pssOdZgTrDjh4CeTXk5NG08QyrBnEogq9x3lvCgyuprxEr
-         o46Q==
-X-Forwarded-Encrypted: i=1; AL+hErG5+SSDCm8yh9yMwcGAmBaNk3oEI//ydt54pJepRj6nZSxfa1GzxCzMgi1RLFM/m0rQI0wp7TGJgwmNOBc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8/NOzZrur0pRiUENxrw0FNF8G1WEwslty8WPhVFcH06x2wrfft
-	jN0tPEuDB+7tA8KxD/5mBNzBthOdmZRiK8z+b89f0/1nn5DzOgQFP5b2tEkNxDUedru8tzIluqi
-	gpjwAB/v6CTnq2e9NWEXYOs/Z2GFscNI=
-X-Gm-Gg: AYBFou1cidc6gVermVYlgd/XCrLake5JqlsdmS/mMdmDdqAUUMQQ9UOARjTputH+fkm
-	ZtBvzvM8frku7WWjX99n8f/gtGKXpvKEZ/GBtvgq3TwEarscybiym4mBLEuXbeY9ccc1BYi53to
-	FXO7zyaQwWDQTAKQwzLJIqzfvMKUzyIDW9oYBlMQVePFt70pHYOXlWzf+RWPAMcvHI+PWqqO2tk
-	+n3TSynS9q6q1Br87SsfE9ADCGXqoHnMlej9/2IplLlrQC4eX49BnLOIgiYhQXkZrYm6UgYPYXv
-	WL9JWfL5jxi9Z/R20CuEuqfhTd9nR58eO2PCDpJUV82ap6KVGyvY9Z61gN5RriNTS78Cqm3+SHc
-	9EJXrw9KQ/aPE2h4yUEboDx8riUxtdB+/63Y=
-X-Received: by 2002:a17:90a:ec05:b0:3b0:c11a:902d with SMTP id
- 98e67ed59e1d1-3b1b09fac26mr938995a91.10.1794548668130; Thu, 12 Nov 2026
- 21:44:28 -0800 (PST)
+        bh=v4rRGE+RVmHQmdWS08eNxSiiu1iRCMHoWjayyFspKz0=;
+        b=C5nmaAs5My1iSm9itkgNyKtWtq31n7SFqF7cvARilygYJgjgoiNpVrR5Mt+8ihfJFK
+         TInwRcpIx/MxxsdVMF2yD00YS916MUvP+p/GjlFoHjGgX7Pa/HAn3AKxrCjsZ9pC7xXO
+         hxxNwtD3P+9iUQq1v6t2Vix6EraI6Oluuj1O3HT6Qqshk0XaXfnB+8UN2ALu7JGUOky9
+         jRH3cN1vYum0NplDS+Wt7WuKhF4JJ6UtYDWoOBzwkX13ok5wO8KHlUa9tnn+uizfoQUN
+         35lMEcMXIzZdqpKIfAGdKnnrdmsNzkUmU9GWGtAagOWNEUBzvrYFT3sgBpIf9qXCOuTQ
+         PF5A==
+X-Forwarded-Encrypted: i=1; AL+hErFR5SypnYBKtlInvdkT9uuoLXhQmB0LMR7TQU/g/HGuJMteDY6m1o3I4fdykUbHb8Aklonzcw52J+cvAxA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/fkrgk2XWlfGXw/zSVNTKBCKXFErpj5y9HHnFgjDxZuO1nI/1B
+	cKbG9V447nbjPlLGQVoh1N4HnPSOY1/1y1USn473OO9t+MkOgh7MCHE9kp8ys3l/F5U=
+X-Gm-Gg: AYBFou0LIhIplyrIYnMyr0eK1RzN3ZelfbJLBEz9xC4QO6426w6RvZ4O+9l/+d37QtY
+	oIGOcAMl2GETiNGnQ/qzmbHF/1Ag2PlrwB+R785sj8kbzpziNqKHQfvyuPUh5/1OsrvR3m5EWcr
+	sfLxnm4zP4wz0TCacnTTSgxc8Uv225ukSTRXOi7uSVZvPt8ts6XaTSUFB/xpR57n0ufCToYMWf0
+	Cx+NLhpIKzEvEhpW06gnzGKRiM+6ec7ut3JusSd44WG0GEToNOQWOJau9MlX5X+Z8iiyg0WL3gf
+	Rv1ATpSlL80cVNdC4RHwLGtPMMkTdy83RzqZcoIie7Id2vvu8gHv/C5smFrQ4BmNaFm8kC9z03R
+	iHzDYJmfZWuKsFsEFL3Lwl74Pwd6KwfCh6phSFCQF9VKORV2lwvTXXAZKYaRMux8nbWJwnLDFUn
+	Zw6Grfn/bOdsPcuuzp/QKW4BfxkOO01XMmM98xkcsMFMzOIepmVFxmdyXpVEdrJki+OC/XbPvuk
+	+9KLIfBTEQHwyRLkNhGbYRoXskxF1KVSCitk4F1+KmXSzg8U4PwIzC/dMPzYI8JC1TvPkjYzyxa
+	hrE2I4WjWcDdiWXfrqGaGl2s08H02pX0/pJQDHE5fRwOd4WA+1F0ej5HrDJITf5846k8UYRtxBN
+	7qnhLjao=
+X-Received: by 2002:a05:620a:801c:b0:93e:c12c:fbb7 with SMTP id af79cd13be357-9494bc76c5amr274209085a.68.1794548762215;
+        Thu, 12 Nov 2026 21:46:02 -0800 (PST)
+Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c836f6dsm108597885a.22.2026.11.12.21.46.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 21:46:01 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,165 +89,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261109030042.2956-1-nashuiliang@gmail.com> <179443085204.2199510.12725312671048285646@kernel.org>
-In-Reply-To: <179443085204.2199510.12725312671048285646@kernel.org>
-From: chuang <nashuiliang@gmail.com>
-Date: Fri, 13 Nov 2026 13:44:17 +0800
-X-Gm-Features: AclHuK9F9oQ5Qrk0_Q8z0DxMdLD_AqhLC4iCmwIoVy-nc5xaLnUdD7relDJgbSU
-Message-ID: <CACueBy6qrkoTqOi6b5FN7YEFLVzUve3+tbzS=f67ZJO1Px7xiQ@mail.gmail.com>
-Subject: Re: [PATCH net-next v12] net: reduce ARFS flow updates by checking
- LLC affinity
-To: netdev-bot+sashiko@kernel.org
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org, 
-	pabeni@redhat.com, horms@kernel.org, corbet@lwn.net, 
-	skhan@linuxfoundation.org, sdf.kernel@gmail.com, daniel@iogearbox.net, 
-	bobbyeshleman@meta.com, kuniyu@google.com, willemb@google.com, 
-	netdev@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 07/12] mm/mremap: resolve uffd state when the context
+ is dropped, not during the move
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>, 
+ James Houghton <jthoughton@google.com>, 
+ Andrea Arcangeli <aarcange@redhat.com>, 
+ Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, 
+ =?utf-8?q?Micha=C5=82_Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>, 
+ Andrei Vagin <avagin@gmail.com>, Stephen Rothwell <sfr@canb.auug.org.au>, 
+ Arnd Bergmann <arnd@arndb.de>, Muhammad Usama Anjum <usama.anjum@arm.com>, 
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Chris Down <chris@chrisdown.name>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ =?utf-8?q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>, 
+ Michal Hocko <mhocko@suse.com>, Mike Kravetz <mike.kravetz@oracle.com>, 
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org
+In-Reply-To: <20261111-uffd-state-fixes-v1-7-00713d368976@columbia.edu>
+References: <20261111-uffd-state-fixes-v1-0-00713d368976@columbia.edu>
+ <20261111-uffd-state-fixes-v1-7-00713d368976@columbia.edu>
+Date: Fri, 13 Nov 2026 00:46:00 -0500
+Message-Id: <179454876058.482102.4630783467113971871.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-On Thu, Nov 12, 2026 at 5:00=E2=80=AFAM <netdev-bot+sashiko@kernel.org> wro=
-te:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 0
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [Medium] set_rps_cpu() (net/core/dev.c:5281-5284) decides whether to
->   skip ARFS hardware steering by comparing next_cpu with old_cpu.
->
-> --
->
-> net: reduce ARFS flow updates by checking LLC affinity
->
-> This patch makes set_rps_cpu() skip the ARFS ndo_rx_flow_steer() call
-> when the CPU recorded for the flow and the new target CPU share an LLC.
-> rflow->cpu is still updated. A new sysctl, net.core.arfs_llc_affinity,
-> turns this on and off, and it is off by default.
->
-> > diff --git a/net/core/dev.c b/net/core/dev.c
-> > index 3b60b15e2175e..0011cec296402 100644
-> > --- a/net/core/dev.c
-> > +++ b/net/core/dev.c
->
-> [ ... ]
->
-> > @@ -5273,6 +5277,12 @@ set_rps_cpu(struct net_device *dev, struct sk_bu=
-ff *skb,
-> >               if (!skb_rx_queue_recorded(skb) || !dev->rx_cpu_rmap ||
-> >                   !(dev->features & NETIF_F_NTUPLE))
-> >                       goto out;
-> > +
-> > +             if (static_branch_unlikely(&arfs_llc_affinity) &&
-> > +                 old_cpu < nr_cpu_ids && cpu_online(old_cpu) &&
-> > +                 cpus_share_cache(old_cpu, next_cpu))
-> > +                     goto out;
-> > +
->
-> [Severity: Medium]
-> Does rflow->cpu reliably show which LLC services the hardware queue the
-> flow is arriving on?
->
-> get_rps_cpu() takes old_cpu from the hash slot in the arrival queue's
-> table:
->
->         tcpu =3D rflow->cpu;
->         ...
->                 rflow =3D set_rps_cpu(dev, skb, rflow, tcpu, next_cpu, ha=
-sh);
->
-> That value is software bookkeeping, and other flows can share the slot.
-> The new check runs before the cpu_rmap_lookup_index() /
-> skb_get_rx_queue() comparison. So it can suppress ndo_rx_flow_steer()
-> even when the arrival queue's IRQ/NAPI CPU is in a different LLC from
-> next_cpu.
->
-> The skip path still reaches:
->
->         WRITE_ONCE(rflow->cpu, next_cpu);
->
-> sd_llc_id equality is transitive, so every later migration inside that
-> LLC would skip again. Could the flow then stay on a far queue
-> indefinitely?
->
-> Here are some ways rflow->cpu can drift away from the real hardware
-> queue:
->
-> - After a successful steer from queue A to queue B, packets still in
->   flight on A go through set_rps_cpu() again and hit:
->
->                 if (hash !=3D READ_ONCE(tmp_rflow->hash) ||
->                     next_cpu =3D=3D tmp_cpu)
->                         goto out;
->
->   This records next_cpu (LLC X) in A's slot, but A's IRQ may be in LLC
->   Y. Two later cases then hit the new skip, with the application on
->   another CPU in LLC X. One is a flow whose hash collides with that slot
->   and which RSS delivers on A. The other is the original flow coming
->   back on A after rps_may_expire_flow() let the driver drop its rule.
->   No failure is needed for this to happen.
->
-> - The existing goto out paths still record next_cpu without moving the
->   hardware queue. These are ndo_rx_flow_steer() returning rc < 0 (for
->   example -ENOMEM, -EPERM or -EPROTONOSUPPORT from
->   mlx5e_rx_flow_steer()), a target queue with no flow table, and an
->   active colliding filter. Before this patch the next migration retried
->   the steer. With the sysctl on, migrations within the same LLC never
->   retry.
->
-> - irqbalance or an admin moves queue A's IRQ to another LLC. cpu_rmap
->   gets updated, but the skip happens before cpu_rmap is consulted.
->
-> - A driver drops all of its hardware rules without touching
->   rps_dev_flow, for example mlx5e_arfs_disable()->arfs_del_rules().
->
-> In each case NAPI would process the packets on a remote LLC, and they
-> would then go through the RPS backlog to the application's CPU with an
-> IPI.
->
-> This also seems to conflict with the new text in
-> Documentation/networking/scaling.rst, and with the similar wording in the
-> commit message:
->
->   "since the application's cache locality is preserved either way"
->
-> The reported ~99% drop in mlx5e_rx_flow_steer calls cannot tell avoided
-> redundant updates apart from steering that is wrongly suppressed.
->
-> Would it be more accurate to compare next_cpu with the CPU servicing the
-> arrival queue instead of the previously recorded rflow->cpu? For example,
-> that could be smp_processor_id() for non-threaded NAPI, or the CPU tied
-> to the queue from skb_get_rx_queue(skb).
->
-> >               rxq_index =3D cpu_rmap_lookup_index(dev->rx_cpu_rmap, nex=
-t_cpu);
-> >               if (rxq_index =3D=3D skb_get_rx_queue(skb))
-> >                       goto out;
+On 2026-11-11 12:55 -0500, Tal Zussman wrote:
+> Without UFFD_FEATURE_EVENT_REMAP, the new VMA of an mremap() is not
+> registered with userfaultfd: mremap_userfaultfd_prep() drops the context
+> from it once the move succeeded. The uffd-wp bits, uffd-wp markers, and
+> RWP PAGE_NONE entries in the new VMA must be cleared as well.
+> 
+> However, move_ptes(), move_huge_pmd(), and move_huge_pte() clear them
+> from each entry while moving it, before we know whether the move will
+> succeed. If a page table allocation fails halfway through, mremap()
+> moves the entries back into the old VMA, which is still registered,
+> without their uffd state.
+> 
+> Writes to a WP range are then no longer reported, and an RWP range
+> becomes accessible without a fault. Nothing restores the protection
+> afterwards. This requires a page table allocation to fail in the middle
+> of mremap(), so it is rare.
+> 
+> The uffd state must only be cleared once the move can no longer fail. To
+> fix it, leave the entries alone during the move and clear the uffd state
+> of the new VMA in mremap_userfaultfd_prep(), right before dropping the
+> context, using userfaultfd_clear_ptes() like unregistering does. A
+> failed move then puts the entries back as they were.
+> 
+> This adds a second walk over the page tables of the new VMA, for VMAs
+> registered for WP or RWP without UFFD_FEATURE_EVENT_REMAP.
+> 
+> Like unregistering, userfaultfd_clear_ptes() also asks for the PTEs to
+> be made writable again where that is safe (MM_CP_TRY_CHANGE_WRITABLE).
+> The old code only cleared the uffd bit and left the PTE read-only. For
+> private anonymous memory this saves the minor fault on the first write
+> to each page that was protected.
+> 
+> However, this adds spurious minor faults on shmem and hugetlb. When
+> resolving, change_protection() rewrites every present entry in the range
+> with vma->vm_page_prot, so a page that was writable and not protected is
+> made read-only, and its first write after mremap() faults.
+> UFFDIO_UNREGISTER and UFFDIO_WRITEPROTECT already behave this way and
+> lead to the same spurious faults. This needs to be fixed in
+> change_protection() and will be done in a separate change.
+> 
+> The entries no longer need per-entry handling during the move, so drop
+> uffd_supports_page_table_move(). Where the old and new addresses are
+> suitably aligned, move_normal_pmd() and move_normal_pud() can move whole
+> page tables of these VMAs again.
+> 
+> clear_uffd_wp_pmd() has no users left, so remove it.
+> 
+> Fixes: 0cef0bb836e3 ("mm: clear uffd-wp PTE/PMD state on mremap()")
+> Fixes: 763f43865fc4 ("mm: preserve RWP marker across PTE rewrites")
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 
-The scenario walkthrough was very helpful, and the issue is real.
-I will add a READ_ONCE(rflow->filter) !=3D RPS_NO_FILTER check to
-set_rps_cpu() in the next revision:
+Is this a fair summary:
 
-if (static_branch_unlikely(&arfs_llc_affinity) &&
-   old_cpu < nr_cpu_ids && cpu_online(old_cpu) &&
-   cpus_share_cache(old_cpu, next_cpu) &&
-+   READ_ONCE(rflow->filter) !=3D RPS_NO_FILTER)
-goto out;
+"""
+A page-table move clears uffd state before the entire operation succeeds.
+If an allocation or later operation fails, the protection bits cannot be
+recovered.
 
-> [ ... ]
->
-> --
-> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
-set/20261109030042.2956-1-nashuiliang%40gmail.com
+Transport the page table state unchanged in both directions. Resolve the
+protection bits only after the move and VMA callback succeed.
 
-pw-bot: cr
+  ... details about spurious faults ...
+  ... remove clear_uffd_wp_pmd ...
+"""
+
+Anyway, I was able to reproduce this reliably by injecting some
+ENOMEM failures, and the change looks reasonable.
+
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+
+-- 
+~Gregory
+
