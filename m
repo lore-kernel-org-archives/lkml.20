@@ -1,119 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794590026;
-	b=H2UuMM6XwMWt6td+CV74EkgfVHt1ex54JqrFoi5nMUHnfW0RDrkVE1Ou2xJRGPpMIk4o
-	 CK3bKL64MNT5wFQ6eQ3HspN9OUUKx46cqhO0rV5AUBNgaLUPfyzGALYRdd6kUEh0vP9vd
-	 ZCzld0LRpB7aQkls4Y0imVVeP3JvkQ+Ho+eKgPdKPlNW+vSHJYZdqNMUwZR+wHSGFM5uI
-	 gFS+FQHoo4+ZyImKU15ZsG53+TvkNCzoxnNznuBEJhy3lW6ZCBCwKdFR1ofuBnf+qV1ej
-	 6NFuOeaeNa1MBkJzuiFABx6EzCb+HrZWGvJJlSIA0nXhljjCFmwxEAiAN4BjgELGPfQ==
+	t=1794590029;
+	b=oNmZ7/eytgprMFypgcOfigc67h722v8dSmI+Q1kQDRBRp58k9srrHPLlmXLfAn6Va+Iv
+	 hAFyO5iHfFgAhoQzSm7MP0yFZCNwEF5HWLMlB6fN47EzMiNysfsZQJ/pKP4jLgOspnr6x
+	 Nsq/ALQysYqKvOP3HwYL16dvV2JVKqdlvUm40lk/Ah2MGxes7UeKs9SoBKHCOAyj/8Orn
+	 SAXH/Gwu9Q89zt26s5rv8c8htV2Y8+wWVgD+3ljJ1KMyf58Ae6midMuyQM2yeAJo8cwF7
+	 hLcZJufGJcChzGY8Fx619p3KFj/L5UB82OyaUneCHlpr/x7Utno8cey4Bn2RKKvF4bQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794590026;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=v4va9Y5M33M5N028eR9n6cjuUyjrrJSfdUg8KICOamA=;
-	b=OR3oDnZiIluhj1RX/2sKDoODhJQhgtsm3jM7wLe8y4b3xmfJTK6XlagfZD23w7beCRUp
-	 omeGwNYnnBpFC2AMI3tZb3Yw5pXf+RJFROgDybYkx382GxKjwMQPk0xbAQy8qCvMhY/H2
-	 hPN5Gw2MOC+JEZtr4ApnRfnj8uomDT5R/yme4vNVcrWx2cNDhnXkc+qluohfH06v71ToL
-	 NuFvzMiJzn8Lwxvg+CdIPXtPWXDG/6PGmehGNONaNaffg/rSa/r8XB0piwkkfdnEO+bGC
-	 wk9pteMSyXRwzHWuBG2cdwD6bTDXT/f7zb1D2elZzcvLPNSnWLqcGMdtGimXBtekiRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794590029;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=8AJ7AIbn7+UX8TIEt4C6umThZ4gAFF8olo/5cp650i8=;
+	b=T2iJ46gnVdVaRdrnWWlX9CMuw5Gv1O6qC5UWQYUreQJ8s1XLfX3cpzCh2jsLE8PRFd9E
+	 4u1cG98MkY4RoBngoD0ImUy0AVtuHCRgOo9MfnWNq/QxjYQtcXEAciDpvE5Bll4+ZzzxG
+	 ilQw8AeYiLY/WskGJU5Ww/FI5LBEFkEKo+pG2uta62N+DUkwjO/Q5vIlwz0brpN3LmQXz
+	 6fZFqhQ1Ye2ORhcmqXLiVYZWmCtwNsZOaEqNWC6QviCFDPps0SIHiPbu0pgMYSW2T+UAb
+	 2JG87Xvetl7txLculI3ihWnYaYGUe3xdkwn9K0jl67SyjIe4Rb/uT7rfkuS8M+4veFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=h4qAP7qT;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b="S8/c5dvm";
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J5fGvEqH;
+	arc=none smtp.remote-ip=209.85.167.169
+Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com [209.85.167.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CD66606A8BF
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:13:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CD66606A8BF
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A58760A3809
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:13:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A58760A3809
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=h4qAP7qT;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=S8/c5dvm
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794590024;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=v4va9Y5M33M5N028eR9n6cjuUyjrrJSfdUg8KICOamA=;
-	b=h4qAP7qT5aB0itqPVmEfP6cZ/h2qIAV7gdlLCbPp+e+vQQCcBIHvlbEt7FHQb02IMrmdSB
-	CvXqZvQWL6yiDnftvE5G8TxlPj1jc+DvRY5OLoRkjZZrPSBsirfNyuBPjWwyEKqe7MeCei
-	8GK07FnP9PQUi3fKi1Z1dvwZbUSFRE8=
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-663-pp0FivmYOvSOykAEmNxVcA-1; Fri, 13 Nov 2026 12:13:42 -0500
-X-MC-Unique: pp0FivmYOvSOykAEmNxVcA-1
-X-Mimecast-MFC-AGG-ID: pp0FivmYOvSOykAEmNxVcA_1794590022
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-5337b591609so15450011cf.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:13:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J5fGvEqH
+Received: by mail-oi1-f169.google.com with SMTP id 5614622812f47-53ec92375d2so1056471b6e.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:13:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794590022; x=1795194822; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=v4va9Y5M33M5N028eR9n6cjuUyjrrJSfdUg8KICOamA=;
-        b=S8/c5dvm5FTSJfNMVJAbjbq9EvYBImZm8l3EkWVNoSAtMvjmSoklQBGSr1c1IExn1q
-         AGCKj/TdYOFXug9IFHXLmDgoFBAPLBGFvgGsCvClsJeh6BXTb/wzwA5gW5cbw8J/0LLh
-         WGGb4ZZQIUsG8Ei9jusAhCWTo15tiHCEFDWtRwF/O4ow+IRHcQ2c5s81vd9rdx8261N8
-         f1elKNoDVaAAbsWWs/wuFe9LK4c8W3693gGDjy535XJLaEKqLSG/hbQVjriT//o3Qiy6
-         lh4gnyZ3RAWHRA6Z0/saw442kIIc67zFgq2BEDu5Fxl/ixGFzDOH2FJGGEUqO2Y8y+Tc
-         fjQw==
+        d=gmail.com; s=20260707; t=1794590028; x=1795194828; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=8AJ7AIbn7+UX8TIEt4C6umThZ4gAFF8olo/5cp650i8=;
+        b=J5fGvEqHCeM3ThISXi2E6ikdnN8jyUfBcBJWUHw/UwenTJ77RX+M0VKWA7ej+7VCcC
+         Z8CXWbchjrN/YQkbG+Ka1ukM+BzGWL+dCV825iv1KcOwCsp5DkG32Mw1C7OtvzzC8raV
+         M8tBn+PNAdPv/5a9tv3PS4Ee+3eM22w2nM8mr2Cuyd2B+k1Ftkp8BM685RHpcJD5msWZ
+         5SnnchAoZ06tOgo94UtE/+VR0LYqSONatG0waQgUxQ0/Zn8kyvkqK6jESmaUabFAueYT
+         f/IJI0MFzaO1dI/ST4neS/CsbCxAnlwjcBJ9ZTcssa1orIMsMjmI0iplbZXPWUmePsNc
+         9pHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794590022; x=1795194822;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=v4va9Y5M33M5N028eR9n6cjuUyjrrJSfdUg8KICOamA=;
-        b=n05BDdOfQ8BX4JeaXAGStMti5EiJbpZbBN+K+/cJQ2JqwwGiEh6KvotvPziQxZjQ6J
-         I6R/H3aCEHnO9g00KBsjMdL9cAxRR4TEe9l10S5lyu9hZW6quy5V36WxO/MZuQyxg8/5
-         cMhp9Zc14UdUOe+nK8j648wAEuhJu9YHglzcMnNR+0/MoL7dG/GVXHX1UWrIQNrydl4b
-         /gNfldHpwASkbRtjF/UIh8PEpZ7tqzMjlmzuxFOP9vQIzZoHGiaKm/rRQIQ82bV+nC36
-         pZ2nm/pqyS5zUE2SO5p7xO3qKDsxdtrqlc56qnVpAqdj36x/ekE9FEMi+rF2Fyy0x4Wy
-         O9+A==
-X-Forwarded-Encrypted: i=1; AL+hErEkvH9gwVNX8fAk6nuzFibPOM85UO2F3zfHpLtL0uoEWxhlW10390jG+5l4Xq7sCsOIjcIKHJ3GJ5j5HWU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+rlVx6RNrtYvO94/RliApF/AN93HXqDSJKm3hspPomKuI+quVX
-	cuPuhJTDS5SOSsWdA09Sx1QZTae8Kog7lWaymwiON5EwJ7TlpJfd76d3bgizoG7h7WyPqi33MRG
-	1stv/BieItT6PN/67mBnyeDar86aC09Vidx7ZKYXbmt1dSfGDFnzM0FHxwnVAFiUzRA==
-X-Gm-Gg: AYBFou3iuQH3Fm+tlA8O5nR2CyxaeZOL7YbUwsGw4YjRyw0xfWXtT8IpNMndYkBwg8z
-	+2w+qIbneu5//AQDes2/Ju8xn2YMOQ4fKHNkOFoi3scbQ2kxV/amcQQLBBkeYIflutnR+yNFkzU
-	9pgM0lRnXzcZL/gzOCj3ThcrSq/ysqF5RKWNP7Go0hcVIVucQVxXjMsquJvTf3WxJwY5KThBjNA
-	MBHHCmb5ynPpsq5IRcBc28Rw/uTAh/wPpf7sGEFZUaSB8D6dd84ZPRiZ3VuqBpeseFZeghVwRJJ
-	DP6XJIJJHnlPSw3r4YLHrNoAyaNwJdOSQkfzoRDm0JrHCsP7HS54aWZyoRn2vY413mx/V+FqteH
-	HV5e2BtYyid1WkAXufuKnAsZoiH8R8/uJe4/fihvFS2TExhSdOWmh
-X-Received: by 2002:a05:622a:754a:b0:55b:9573:e89e with SMTP id d75a77b69052e-55b9573eb16mr22751161cf.74.1794590021974;
-        Fri, 13 Nov 2026 09:13:41 -0800 (PST)
-X-Received: by 2002:a05:622a:754a:b0:55b:9573:e89e with SMTP id d75a77b69052e-55b9573eb16mr22750321cf.74.1794590021191;
-        Fri, 13 Nov 2026 09:13:41 -0800 (PST)
-Received: from sgarzare-redhat ([209.52.143.85])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55ad1b13917sm22455221cf.29.2026.11.13.09.13.36
+        d=1e100.net; s=20260707; t=1794590028; x=1795194828;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=8AJ7AIbn7+UX8TIEt4C6umThZ4gAFF8olo/5cp650i8=;
+        b=T/X3Osnptk3loTl5aWDGYZ5MNFAscOteAUjTvCADZU8AXa6vMiwydCQFx0UwxXE4fP
+         ft8Gt0B6y4kxxP8nxP0oMuHcjwhcxlLcjaopEmnQHMYfcSMK6CQOFFL9xlLbA6hFHejF
+         gZEz/JjrHfryIjg0f4H4837czK+qqtrIAwjke7Rl9+G2DrfnwkWv7AwEU+zfBpCyh1WD
+         f5yE3LeTZ4sWiqutzOjS69WXcJ0SRmkCFWGIsEh7BbyEnwlwqbzgfLgI3qFjoyn2xR1H
+         cvn+p5jCAwvZT0mZSYyghla4YCB0QtICKXNgHrlsmznPV9w3honArD3WaA7xrP06MGDe
+         fVlQ==
+X-Forwarded-Encrypted: i=1; AL+hErFDQTcd//gIEN4uogUTRnse4axOKarvzm17OuEZ6Qmy436tQgjCTDEMscwFuOZzHaMHN0c+M0GJwcVhNLQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9uQ0k1UfDsfAekLS1hlJM9Rzv26b0qAiEV3sp9BtjQ3VuJ8Ik3
+	c9KdJW/+9/slCgdPe3b53enGTxAgRjzjT7OlXdunW/snugMZ9yq2k2hu
+X-Gm-Gg: AYBFou2Fp2z54sE5b8ykbdXsGU1RVU5Cc2KWwOZINRnnwXVBc87HXVO1SxOLUit9OVF
+	6jkzzOhkz/nqIWeVYfuGZcJw4z+bHqYBiqT3pfkd8mY6lF1kGQssG6LAPIZ+phTYjtzZd2bfEJY
+	K9G7o4tgQRQ7NRw+6ZqZVaR7zUSCkatBYV+RZK1cPTfkJK/hIYhlwRDhsYlouXB8TX+XFLDn0X8
+	xG/AQB+Vuo2u/JLU7C56eHxISOMAteS8kAlz9Vy8g1V0nQoTr2dYWAi/IGHXNnCEaDSLKSF5qfd
+	y7d9QKv4MNB0VXwrSL59EQBV/G9SR8X3QlRZaxktAwav7D00/S7Gp6gI6Q+1nC0fqXLORFP+Jcp
+	RglaExe7jVmoAsGqO4IAZAmCvebf9rsr54b3aAXaqoQP7J4TDNVqWzKxoafIAkm5T3vscosv0Sf
+	g13+oC/HdirGeZkTEy8oQVPq/Y4NsMUt1yvO1oTuMooCzE4tXj5qHdCk8+wWMBFd9kAh2v/ij9C
+	gV4xXgN/Oxyd7AamLxfF8RO47FtGM4/9wnvnJK37ZFwDfA+ZWAunN1dCPeY6LYDQ1UU9YkYm/Iv
+	VfUA48P3c/L/bM/y4TSZ6zPL1eLQj72Ml7OkLBlB+V+RrUqxvTfwAuEhbVEi4emiUr5Yim78VKZ
+	5G8mlBvlIE8toxDWy8LXdfiKNyyi5zts+CXGbUbgil4P/KTMuDw8Pg+PDzT9w1n0TE2Zpa3qfqg
+	3NTfmjdLGQyr5LMcR9ppcx9pfb0QnODVp+FMILp0vF4eWGatA6Fo3I
+X-Received: by 2002:a05:6808:244d:b0:564:5fe0:dd76 with SMTP id 5614622812f47-56e63793a9fmr2595149b6e.18.1794590027740;
+        Fri, 13 Nov 2026 09:13:47 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-56e7044690dsm2565805b6e.9.2026.11.13.09.13.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 09:13:40 -0800 (PST)
-Date: Fri, 13 Nov 2026 18:13:34 +0100
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: Jia Jia <physicalmtea@gmail.com>
-Cc: netdev@vger.kernel.org, stefanha@redhat.com, bobbyeshleman@gmail.com, 
-	mst@redhat.com, jasowangio@gmail.com, eperezma@redhat.com, 
-	xuanzhuo@linux.alibaba.com, davem@davemloft.net, edumazet@google.com, kuba@kernel.org, 
-	pabeni@redhat.com, horms@kernel.org, kvm@vger.kernel.org, 
-	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v5 3/5] vsock/virtio: amortize RX socket locking
- for stream packets
-Message-ID: <avdAV2RholA4ana_@sgarzare-redhat>
-References: <20261103041134.33310-1-physicalmtea@gmail.com>
- <20261103041134.33310-4-physicalmtea@gmail.com>
- <auxDWISLHB8Ln1x7@sgarzare-redhat>
- <CAJwVaMJbzzK8Sj8DvLjiAyqS8TNgRQ3tjRpGcBNC+anQECg5yw@mail.gmail.com>
- <avXn6E8y5OPtdikQ@sgarzare-redhat>
- <CAJwVaM+SEhbFtORYgVYNayiQED63sCLO5ibwgkcjBRVvMd=KsA@mail.gmail.com>
+        Fri, 13 Nov 2026 09:13:46 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Subject: [PATCH net-next v4 0/3] ethtool: expose PHY receive totals
+Date: Fri, 13 Nov 2026 10:12:04 -0700
+Message-Id: <20261113-submit-acx00-phy-stats-v1-v4-0-986b8a4a1871@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,168 +93,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAJwVaM+SEhbFtORYgVYNayiQED63sCLO5ibwgkcjBRVvMd=KsA@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33OS26DMBAG4KtEXndSPyaGdNV7VFnYZgiuiolsF
+ xFF3D2GtGrUBdJs5vXpv7FE0VNib7sbizT65IdQGnzZMdeZcCbwTemZ5FILLhHSt+19BuMmzuH
+ SXSFlkxOMAppa1W1VISLVrPxfIrV+Wu0PFihDoCmz02NTmE9yeaGXW2sSgY0muG4Z/V6/9saHZ
+ d/5lId4XWOOYhV/Eh02EpUqsVSDWhDqxvL3cwG/9m7o1xyj/JMKtSXJIilXG60ReeXEf0k9S8c
+ tSQGH1jqtZOUOlvBZmuf5Dk7VdmuSAQAA
+X-Change-ID: 20261024-submit-acx00-phy-stats-v1-d838f77444e8
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: Oleksij Rempel <o.rempel@pengutronix.de>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+ James Hilliard <james.hilliard1@gmail.com>, stable+noautosel@kernel.org
+X-Mailer: b4 0.15.2
 
-On Fri, Nov 13, 2026 at 04:09:48PM +0800, Jia Jia wrote:
-> >
-> > On Fri, Nov 06, 2026 at 08:27:51PM +0800, Jia Jia wrote:
-> > >>
-> > >> On Tue, Nov 03, 2026 at 12:11:32PM +0800, Jia Jia wrote:
+Some PHYs count received frames and bytes including errored traffic. Add
+explicit receive-total counters to the generic PHY statistics interface
+alongside its counters for successfully received traffic.
 
-[...]
+Use the new counters to expose ACx00 receive statistics through the phydev
+group. Accumulate sampled deltas in 64-bit software totals, retain those
+totals across reset and power transitions, and return cached snapshots to
+ethtool. Establish new baselines after reset, resume or sampling gaps that
+could hide a complete counter cycle.
 
-> > >> >+
-> > >> >+/* The caller holds sk's socket lock. */
-> > >> >+static bool
-> > >> >+virtio_transport_rx_batch_can_continue(struct virtio_transport *t,
-> > >> >+                                     struct sock *sk, u32 len)
-> > >> >+{
-> > >> >+      struct virtio_vsock_sock *vvs;
-> > >> >+      struct vsock_sock *vsk;
-> > >> >+
-> > >> >+      vsk = vsock_sk(sk);
-> > >> >+      vvs = vsk->trans;
-> > >> >+
-> > >> >+      /*
-> > >> >+       * Keep a connected lookup reference only for the native, established
-> > >> >+       * STREAM path. Sockets outside ESTABLISHED can change table membership;
-> > >> >+       * a completed or reassigned socket must resume the per-packet path.
-> > >> >+       */
-> > >> >+      if (sk->sk_state != TCP_ESTABLISHED ||
-> > >> >+          sk->sk_type != SOCK_STREAM ||
-> > >> >+          sock_flag(sk, SOCK_DONE) ||
-> > >> >+          vsk->transport != &t->transport || !vvs)
-> > >> >+              return false;
-> > >> >+
-> > >> >+      /*
-> > >> >+       * Do not admit a packet that would hit an existing RX limit while the
-> > >> >+       * worker owns the socket lock. The caller holds that lock, so no reader can
-> > >> >+       * dequeue until the batch is released.
-> > >> >+       */
-> > >> >+      return (u64)vvs->buf_used + len <= vvs->buf_alloc &&
-> > >> >+             !virtio_transport_rx_buf_full(vvs);
-> > >>
-> > >
-> > >Hi Stefano,
-> > >
-> > >> I don't understand this. We recently introduce the collapse, so when we
-> > >> will call virtio_transport_recv_enqueue(), all the queue will be
-> > >> collapsed, including packets in the batch.
-> > >>
-> > >> Or am I missing something?
-> > >>
-> > >
-> > >Yes, collapse operates on the same receive queue, which also contains
-> > >skbs queued earlier in the current batch.
-> > >
-> > >The rx_buf_full() check is not intended to bypass collapse. It prevents
-> > >the batch from retaining the socket lock while processing a packet when
-> > >there is no metadata room for another skb. Collapse is best effort:
-> > >some skbs cannot be merged, and allocation of a replacement skb can
-> >
-> > IIUC batches are enabled only for SOCK_STREAM, so, which skbs can't be
-> > merged?
-> 
-> My wording in the previous reply may not have been precise. What I meant
-> is that collapse is not guaranteed to free the skb slot needed for the
-> incoming packet for every valid receive-buffer configuration.
-> 
-> With the default 256K receive buffer, a queue of small STREAM skbs will
-> normally contain multiple collapse candidates by the time it reaches
-> the metadata limit, so collapse will normally make room.
-> 
-> However, SO_VM_SOCKETS_BUFFER_SIZE is configurable through setsockopt().
-> A sufficiently small but valid receive buffer can make queue_max equal
-> to one. After the first small packet has been queued, that skb is
-> eligible for collapse, but there is no adjacent skb to merge it with.
-> virtio_transport_collapse_size() therefore returns only that skb's own
-> length, and the skb is kept unchanged.
-> 
-> The incoming second skb is not in rx_queue yet. Provided that the two
-> packets combined payload still fits within buf_alloc, the payload check
-> passes, but virtio_transport_inc_rx_pkt() rejects the second packet on
-> the metadata check. This happens before the later tail-copy optimization
-> is reached.
+Convert DP83TG720's existing RX packet statistic to the receive-total
+counter, matching its documented inclusion of packets with errors.
 
-I'm lost to be honest, why the secondo skb is not collapsed?
+Assisted-by: Codex:gpt-6-astra
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+Changes in v4:
+- Invalidate the ACx00 baseline before accessing counters in soft_reset,
+  since phylib may already have reset the hardware before the callback.
+- Start a new collection interval on resume and after gaps of at least
+  320 seconds, including system sleep, preserving collected totals without
+  interpreting unobserved traffic modulo the hardware counter width.
+- Clarify that the byte modulus and frame-byte boundaries were measured
+  on both AC200 and AC300.
+- Specify matching frame-byte boundaries for both PHY byte counters and
+  explain that phydev corrects the documented name of the existing group.
+- Mark the DP83TG720 conversion as unsuitable for automatic stable
+  selection without the new receive-total API.
+- Rebase onto current net-next.
+- Link to v3: https://patch.msgid.link/20261109-submit-acx00-phy-stats-v1-v3-0-fbc6327c5be4@gmail.com
 
-> 
-> Therefore, this case does not require an ineligible STREAM skb or an
-> allocation failure. Collapse simply cannot reduce a one-element queue.
-> 
-> If my understanding is wrong, please correct me. Thanks.
-> 
-> >
-> > If allocation fails, I guess we have other issues, no?
-> >
-> 
-> Yes. I thought about that again, and allocation failure is not the
-> reason for this check. Thanks
-> 
-> > >fail. If the packet remained in the batch and collapse did not make
-> > >enough room, virtio_transport_inc_rx_pkt() would fail and
-> > >virtio_transport_recv_connected() would reset the socket with ENOBUFS
-> > >while a waiting reader was still unable to drain the queue.
-> > >
-> > >When the check makes can_continue() return false before the current
-> > >packet has been handled, the caller releases the socket lock and passes
-> > >the packet to virtio_transport_recv_pkt(). This gives a waiting reader a
-> > >chance to make progress. If the queue is still at the metadata limit,
-> > >the normal enqueue path attempts collapse. If that still cannot make
-> > >enough room, the existing ENOBUFS reset occurs.
-> >
-> > I really don't see the difference without batching :-(
-> >
-> > I may be missing something.
-> >
-> 
-> The difference is the release_sock() boundary between packets.
-> 
-> In the regular per-packet path, the socket lock is released after the
-> first packet. A reader woken by that packet can compete for the lock and
-> fully dequeue the only skb before RX locks the socket for the second
-> packet. If it succeeds, the second packet can be accepted. If it does
-> not acquire the lock in time, or only partially consumes the skb, the
-> queue length remains one and the regular path can still reach the
-> existing ENOBUFS reset.
-> 
-> Without the rx_buf_full() check, two same-flow packets processed in the
-> same active batch remain under one uninterrupted socket-lock ownership
-> interval. Once the first packet leaves the only skb in the queue, the
-> reader cannot dequeue it before the second packet is processed.
+Changes in v3:
+- Add generic PHY receive-total packet and byte counters in a preparatory
+  patch, retaining the existing successful-traffic counters and their IDs.
+- Report ACx00 packet and byte totals through the new fields, leaving
+  successful-only counters unset.
+- Convert DP83TG720's inclusive RX packet count to the new total field.
+- Bound coherent-counter sampling to three attempts and skip unstable
+  snapshots without making phylib take the link down.
+- Reject out-of-range byte samples before updating the hardware baseline
+  or accumulated totals, retaining MDIO and page-restoration errors.
+- Rebase onto current net-next.
+- Link to v2: https://patch.msgid.link/20261102-submit-acx00-phy-stats-v1-v2-1-3c8a664407c1@gmail.com
 
-Why?
+Changes in v2:
+- Rebase onto current net-next and repost after the merge window.
+- No functional changes.
+- Link to v1: https://patch.msgid.link/20261025-submit-acx00-phy-stats-v1-v1-1-d3d461e46db0@gmail.com
 
-> Collapse cannot reduce that one-element queue, so the second packet
-> fails the metadata check and resets the connection.
+To: Andrew Lunn <andrew@lunn.ch>
+To: Jakub Kicinski <kuba@kernel.org>
+To: "David S. Miller" <davem@davemloft.net>
+To: Eric Dumazet <edumazet@kernel.org>
+To: Paolo Abeni <pabeni@redhat.com>
+To: Simon Horman <horms@kernel.org>
+To: Jonathan Corbet <corbet@lwn.net>
+To: Shuah Khan <skhan@linuxfoundation.org>
+To: Randy Dunlap <rdunlap@infradead.org>
+To: Heiner Kallweit <hkallweit1@gmail.com>
+To: Russell King <linux@armlinux.org.uk>
+To: Oleksij Rempel <o.rempel@pengutronix.de>
+Cc: netdev@vger.kernel.org
+Cc: linux-doc@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
 
-What is unclear to me is why this is not happening without batching.
+---
+James Hilliard (3):
+      ethtool: add PHY receive frame and byte totals
+      net: phy: acx00: report receive statistics
+      net: phy: dp83tg720: report inclusive RX packet totals
 
-And, why we can't collapse the batch it self...
+ Documentation/networking/ethtool-netlink.rst |  16 ++-
+ drivers/net/phy/dp83tg720.c                  |   2 +-
+ drivers/net/phy/xpowers/acx00.c              | 184 ++++++++++++++++++++++++++-
+ include/linux/ethtool.h                      |  10 +-
+ include/uapi/linux/ethtool_netlink.h         |   2 +
+ net/ethtool/stats.c                          |   8 +-
+ 6 files changed, 215 insertions(+), 7 deletions(-)
+---
+base-commit: 573af801552999954caa8347e4490b04cf4763f0
+change-id: 20261024-submit-acx00-phy-stats-v1-d838f77444e8
 
-Thanks,
-Stefano
-
-> 
-> The check detects this metadata boundary after the first packet and
-> finishes the batch. It therefore restores the lock-release opportunity
-> that the regular per-packet path had at the same point. It does not
-> guarantee that the reader acquires the lock first; it preserves the
-> original opportunity to do so.
-> 
-> Without this check, batching would remove a successful interleaving
-> available to the regular path. For this valid receive-buffer
-> configuration, when both packets are processed in the same uninterrupted
-> batch, an otherwise avoidable reset would become unavoidable. That
-> would be a functional regression introduced by batching.
-> 
-> Thanks,
-> Jia
-> 
-> > Thanks,
-> > Stefano
-> >
-> 
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
