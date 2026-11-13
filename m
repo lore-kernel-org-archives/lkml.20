@@ -1,111 +1,113 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794584830;
-	b=tdRHuMlJXcFWdl9xX1vGqWGtj57XMEsoV2et5D0V7Yq5dpTvJodc+xt/gJtComexGbUa
-	 qrpT6mv6ynY6ths/2qTL2OTVUaSeiW2Iea+2UlrS4+x/PP0jXSsLklL1fBWZqm5C3zhsf
-	 JQ5katgcp1YUcz8YtzuLCSGOrhNdfH7VY84EiT/06EOU+Dh87zcyUyLHDhltaWNqfrrAJ
-	 nxLGGPC9YGePXEJxEgBiNgazWd+5QHhgwh3t6L1EUStJbtfQu10PNh9WiO/BGkh4di32c
-	 YSTMlKXFZhBteFqws49gnffhNCO7+p8dO4FSmgs3bNyAmTCKEABRY0pTcYiy0HiqJrQ==
+	t=1794584835;
+	b=Gcw3QJLrZTIj7CZXV8Trh1wCbR5JbT4PsNwJQtSF0NFwMn0YZ2SmGPFZLNRvhvKMMATg
+	 jutftky7gaPW1oPqj182C/cA1JIIMhcz2QBUERo2GqweJHggOMJkIev5D7/v6IRoHgSv7
+	 XLYujl0m/Sj65sVdlpcyhfvN/kHm56vSvlOfuvtJfBx4GE/Wy9pLYlkX0ok9I+0f4FgiM
+	 qg6K+p4KjESf81XoELl8AVK+5JAkRgPr85YmrVL7280AbENqiML4vjI4EAIEkBB2X6erf
+	 sYNnsXQH/I2UaAI+tGG0jV8Zvbs9GWLxLAuwfNonbBmHqcujZ49uHrLSf+4F8287Syg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794584830;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794584835;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
-	 Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
 	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
 	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=LhvoIjPwf8qgSokp0XPAMhIk3AI3O12ul9x+XjikETM=;
-	b=z74MbAUAUu1n0DQIzwyU2NreQVbkAwD8g0Htavebs/nMPassT/YLni5s+4oS1untsiJ0
-	 VAF6uBTrUCfj8gBmBA/NYMTWBem6Anb8WCzNWqkAy2JwSTiY6ze+sl5OlZeoQEt4hrrfQ
-	 VCsL6upa1g1BH7e9Oa9cdtAg+3SKET7ipu8CYqpinHRhx9bjTNEZw6M57kH4JNsl8OkOU
-	 JAIzhnSBP3SXipMbjuNatMCSgq2PWQgdNVkEW6cUuh+Mbh1ZkBCI9Y7lnGuAnZC2tpaw3
-	 GplDghqpw9GAdCFFrRzRZ8B74L2A5ko4BPx04qqXXvRPZ722Gs2R0XlQlezRcPALeDA==
+	bh=pxZg8c2Cz//qVnbPlOJ1FgV+cIcIhYnMUtcgwkzh4NI=;
+	b=VC5tnDwLQYWhJz9nZAZX+WEqHk6pXqCZ+4bWXNaf6SZ/EAk4+ctH2E4JWv4Tn2ZjXv0E
+	 bL/ZdBPWgmfjQm3i0tixQM4nHwCiuApFwcx4d/qVMmcT/AP9o2/o44EfJ956i02kEk9B7
+	 xNn5E+oDfRuSlSWVDvw8AtJp9baeqQAdkEF2WbK5dKbKZkdayguN6Jo5ozW3jU50a4yV2
+	 k5NVO94r4cDFN5fY2YLLS1+3DaJzWGWwEgr4cseNC22Abd/EGFuG1Vcm8/yYYE6inBHwJ
+	 bFo9xSext1RQoHMuXymcaT8/kWKsTEpA5YN6R92xLdh5Sg77jf11vPhvIACMNW22iFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CXdqUjNd;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Uygw0GpC;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ayi6Eg+O;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=H25Q8O25;
 	arc=none smtp.remote-ip=205.220.180.131
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D3B7606A880
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:47:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D3B7606A880
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 719A8606A8AD
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:47:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 719A8606A8AD
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CXdqUjNd;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Uygw0GpC
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ayi6Eg+O;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=H25Q8O25
 Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADFRb1L2638613
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:47:08 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADFRcvT2638627
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:47:14 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=LhvoIjPwf8qgSokp0XPAMh
-	Ik3AI3O12ul9x+XjikETM=; b=CXdqUjNdwxfkESc6nmWW9DKUrkFP4+VWDxMyIT
-	5zzkDzxJlvdNGzHXqnGzmZ00HYGZit8pVYaM0vt741QDL2k70Tojlp72dbAANGqs
-	wiy8BWIYlEoRmlzBTPoGDwizSxMEWU9tuHtAXkjNuKqkmTU+sjVWQPAoBptzXTyJ
-	/5DNwvl4TO/BmJ8Ljd7MVy6JFGHypREnTuPgghIGuirod6Q2Whauhbae56WMq3Gv
-	+HSYrZrsmBfXXAtmmDDb64gRmMO91Ermzbwlsq5op84HwqWYIQPME2Oo8SSwK93b
-	zHTDm3LbTUtLXEt7vennFsueax088RWq2ATKTaAj2lwKlCqA==
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	pxZg8c2Cz//qVnbPlOJ1FgV+cIcIhYnMUtcgwkzh4NI=; b=ayi6Eg+O63IiTBLO
+	aqwR1MzJcaQbQY+c3boQA+MX5zk2g6EET6JG3rVQX8Woz0bMlHrl5OM9GU6w71aa
+	+/dZsWCbKNphMNNbckUtmF7riqhc2Y+jOnlFRS+OzZktvQRCKbh3ADhAuypPOKaC
+	BVxLJUscjeaSjGGSNgZj9ts7Lx/8oA9Hks3saOq/BdDFn0b8IQ1mIzL71o4H8Aha
+	k0aE5YOmIO2oJP/y+d0IQe19Twc4Vs0z4EMgX00Z4yvFTYQ3lOvCreIDzt/OM4gw
+	xVGS4wMHGm0SGrMJMAXdZJjwJ+uInlv42CT/5THt2xc8OWUVFTKbrnRf1K55YaiB
+	D33sGg==
 Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hww5r9wn1-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hww5r9wnp-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:47:08 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93f559420f3so122801485a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:47:08 -0800 (PST)
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:47:14 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93cb93c874bso437892185a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:47:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794584827; x=1795189627; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=LhvoIjPwf8qgSokp0XPAMhIk3AI3O12ul9x+XjikETM=;
-        b=Uygw0GpCYYXyTg+C51cVM166KOnBOyByo4d9miMO8nK5amviyccPWpqfko32don7iF
-         k2RE9Cq2+MTaY/BOWPOPqbB4CNEPi34wCj/MWuzRO0tTEXKwYhWhtrHNMGhho3p8sUbR
-         QFiD4jBCPXUcBVn2zN0U8HNdUpIrTa2MLSe+lDdFsy5McWzbeXIJXyHC4oNM5El9OrTU
-         TwRK7XX7CAm+/RDTHGZ6gICnXKKPYwPigw+2ewdzCStCwLfaZBq0rRVm6i+1yqMFvc8x
-         LKQWKqn9tmK7XiIFTG7PRCT1tpKMRd54z979xDdjqLPjRsul7z6P3/ehE4ZVlgFIjCwr
-         521A==
+        d=oss.qualcomm.com; s=google; t=1794584834; x=1795189634; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pxZg8c2Cz//qVnbPlOJ1FgV+cIcIhYnMUtcgwkzh4NI=;
+        b=H25Q8O258Gtu9tPQnl785AIBqPlebbC+4+2PjuOZ4AcRn1TN2x2mD23GADMsB0yrwR
+         KBTDy/foJsKvjp2YgQADeGQghCENyGqtjzATRhgQtA/6Zu/NtEMkNchEqse1MUrfZF4g
+         XcoBlYQjHFYiLYCRU05jmR4PUtsVuv4O/gULM54kQNcAPbxObeWMlbXszhRMj7fHOoli
+         3Nh/1d0SG4R9yI33cJKlN6nezmrur4+enxKYkZ3mBaXTx1e1gAjdkcS4vAzhs9vhDKMu
+         XbQu+Aov5V0LpWltdzFjFPu8kibqaqnIv4/+czdf+K4BwHaXP0K++L9dBkr3yiefXys/
+         urXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794584827; x=1795189627;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=LhvoIjPwf8qgSokp0XPAMhIk3AI3O12ul9x+XjikETM=;
-        b=jE0/kbTCbZdsBhlOP3zL5FMNHATT6LmpalXnKSj0QKb79bclmMVBOLeG10RX3gQSpA
-         hnb6AC6xvQbPUdP8KS9cjaTCqGJqhPJWb4ff/mGYi7BwAY30PCdauYg2HKxxShBoaBVd
-         +SBJs+hQUAvIuKsTgL/muhCJVqKXrGwFlMlskhGke1NROFHf59mtvJc4RzF+kppqO3/r
-         ktY6KB3bqZqo2SH1flmQO0LzZumHXXxqrM7oQMEYEJGYvXYw5Gh4IFbJnL2sOJFB7vFH
-         aHOOvjWgpYi8lSEAYKSzvvIdCfmchMjgdtlBqCrxKU81y43FSjI8XVKS4vNoNoLeoiRC
-         uUTA==
-X-Forwarded-Encrypted: i=1; AL+hErEWwzmqcQUekwFm4OSp3RDwiC15OsY8F23/YPLQSixFcQaIWSbLeZl4qIQTn2wx0DdS6zqtP4gxcAP+Q70=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+opF2NgQR5v6bogyNx0hTo7Wb1h2pnj6VC4h8831FMTj+2jTdf
-	HWIBz4nGYIPPBvBZENljoa3951d1mp6ixwkmuCdwAoukaDycHVns96r7flz3LydREUlELZYJ+Xy
-	nhXOP81kP5sFlBMF1q7K64B4S+rmsyTlEvrVN87QsqUCMZIcuuS9HsA5axjuVEoomxig=
-X-Gm-Gg: AYBFou3JERTkgPnIwcpZ/PDhX23OUbyO1NMpeJ6Ml/PJHaBs67lHFL5dWMKxPbrSjGW
-	sNUI+cPyLnLAvrC0PLvpQIQJAwwrVLgE5y5siSGQahOj05Q44A24AA9nlPWgKqCslGc8eUe1bAo
-	lFHugbAOszqYlUc5s7tXdXP0JdohwqGzPRUYJg9kFLPjZTAEhA3XVpI0XRAMZRnYbNygf2/R2Ph
-	YT/FIbuQsfW9oBRm2hn9hKQP+q57easAFtjR4D/TxhAKabfWv8bKTnuH4wkmmF6m2ZvbNmhj+2U
-	9u2fNH4jAUM1SZzt6QwuAiT9kdOS+bcLmiQMLujQE5fHuXrpnzw8psDIJEX5ar9u2j2DTXKCyGz
-	z9HXblHR2C6Mfu+nHyZCee6iAYe2+IP25rw2ayUMn47YVdgdJ3e/z45B1WNGQPB5m3bGR0SZx5H
-	lvdA==
-X-Received: by 2002:a05:620a:4448:b0:949:3017:1f91 with SMTP id af79cd13be357-9494bc117f3mr479649885a.48.1794584827190;
-        Fri, 13 Nov 2026 07:47:07 -0800 (PST)
-X-Received: by 2002:a05:620a:4448:b0:949:3017:1f91 with SMTP id af79cd13be357-9494bc117f3mr479643985a.48.1794584826652;
-        Fri, 13 Nov 2026 07:47:06 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794584834; x=1795189634;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pxZg8c2Cz//qVnbPlOJ1FgV+cIcIhYnMUtcgwkzh4NI=;
+        b=VDgjHv8EgefnlenG2bW0KNydN0Rn0mFabVDOL6p2kXgfYd/XlIFIz+CoM+Jsk9dGrA
+         AXE63+0UXfAiYtudLJNREtsK1BveleFOZGmjV44EjnPi6xkRyHF+lw9r2kN8PwGzom1v
+         Cl/reo94mTkGycSxYw29GvAnNPyNLVtQc73Y25TJAHmEluUfgx9fAZ/xsywvBnDTTXmg
+         LUgQgTIsuCwR+2WFMkdHHwczlgOV84VjnE0CMnyIb3G5oOpTJNeasuzXF0L8g/OUSRt5
+         +LVXEL8pty5WS4sZT/mBcKAALrOx0u/0O4bY6qEKhmT8Ev1EtY+V2vCxzj47b26wVmw3
+         ax5Q==
+X-Forwarded-Encrypted: i=1; AL+hErEPepvFqpHPZfcqS8MuUT5R2ha1vw9swPO4vBz34+2i7HogR9MknqbrhMJB+4wpAgOiai+bzLGFF5euJn8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Eg80gztb5CRuDkwKAAsrYkyLfh9GC8OmGp4etRlMZNFTHF5Un
+	erDr6OC8yvrLXm/gd6UOWzrtcvqxMFLb6/sL6kXDx9Rlqp2HRNJxl5uD8qg66lM8D3+gE+EdX4c
+	DbZFfiT4e9w604Lf565mzwyijfk/u4Ret6BPJmFjb6M9LM/tliwt7oAC7d7QZOvuTvfAiq8nKg1
+	8=
+X-Gm-Gg: AYBFou3tI4TUwMSdPuiFX/MbYFcDGuz3Z5/sFJLONehUwmuWX/W+697L8EbuBpPbAiu
+	0agRsRUnr6RiMNsa+mLc5nB7Jf6mGD8IKbOFVziqQ9JV5vSKLfGD6kFZnLVERZxiUOHEjmaSSHJ
+	6gAZ8KbN8741kcrcLV0LpZDlgYqAs1DPe3ujnelK1Q/iI7JWdqxjjme2l8SoJ2Qd9h/wd/wOrk4
+	BwtLbOzKlXk+/jZAE/8bgMiXGwSydlzXIUmvY2eQ5e1igvTjJLslz8fFiU71hkO/wLTjjOTs7Su
+	MaiKNjEfxrDPIRfUDkmMqiJzP2bcL/nbWorOSj4US+vvR8xkC3gnSpEjLprksMKibuiUvNuD8LK
+	ezVs+1rth5GCgb5tEaabbPzrvtXNOJYKPwcvPy6lrbkAfe6LVMyQao7S+FBen1HKf+OWj0nDyJI
+	CsDg==
+X-Received: by 2002:a05:620a:470d:b0:93c:3863:ff7f with SMTP id af79cd13be357-94932adc85fmr983715185a.0.1794584833637;
+        Fri, 13 Nov 2026 07:47:13 -0800 (PST)
+X-Received: by 2002:a05:620a:470d:b0:93c:3863:ff7f with SMTP id af79cd13be357-94932adc85fmr983709185a.0.1794584832967;
+        Fri, 13 Nov 2026 07:47:12 -0800 (PST)
 Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f5972a7sm5636519f8f.21.2026.11.13.07.47.04
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f5972a7sm5636519f8f.21.2026.11.13.07.47.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 07:47:05 -0800 (PST)
+        Fri, 13 Nov 2026 07:47:12 -0800 (PST)
 From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: [PATCH v2 00/10] gpio: make gpiolib-shared more fwnode-centric
-Date: Fri, 13 Nov 2026 16:47:00 +0100
-Message-Id: <20261113-fwnode-for-each-prop-v2-0-4edc23d5cf50@oss.qualcomm.com>
+Date: Fri, 13 Nov 2026 16:47:03 +0100
+Subject: [PATCH v2 03/10] fwnode: define the property_get_names() operation
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,12 +119,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAPUw92oC/22PwW7DIBBEf8XiXBAQimMrqvIfVQ4ULzaqDc5CX
- FdR/r3Yvvay0qxm580+SQL0kEhbPQnC4pOPoQj5VhE7mNAD9V3RRHKpeSM0dT8hdkBdRArGDnT
- GONOuNto1HOrT6UzK6Yzg/LrHft6KHnzKEX93yiK27R4oBFf/By6CcqpBnh0IW0urrjEldn+Y0
- cZpYmWQ2+sAIdwfpXY+aOTLJKCbyee2CrBmepCE3IpNkJLZn2qri40LIBN1o95rpRrNep+ZGdf
- rN2CAkUXsPwrm9QdzGO/QJQEAAA==
-X-Change-ID: 20260916-fwnode-for-each-prop-d7a6f90e7338
+Message-Id: <20261113-fwnode-for-each-prop-v2-3-4edc23d5cf50@oss.qualcomm.com>
+References: <20261113-fwnode-for-each-prop-v2-0-4edc23d5cf50@oss.qualcomm.com>
+In-Reply-To: <20261113-fwnode-for-each-prop-v2-0-4edc23d5cf50@oss.qualcomm.com>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
         Daniel Scally <djrscally@gmail.com>,
         Heikki Krogerus <heikki.krogerus@linux.intel.com>,
@@ -144,42 +143,41 @@ Cc: linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
         devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
         Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3990;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1855;
  i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=pLIlI74EKk0YI7MaPzy0iJBswk4SNJ2VXVWpc/TRWOw=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBq9zD2JMfefMzgqf2gQI9HjEGkS03S9cU/+15NM
- rjVlFW/aLKJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCavcw9gAKCRAFnS7L/zaE
- wxq6D/4xjxqWZq/YBLoZmFR+/rPVSoOwX8rkCks6n/OX3Jp78z4FF2adFhLx8bJ85Oku2/BISm2
- m0RUgQdn75xNST+tnoX5HcmYJUf9nUSGKP3T+L8P3rrEs5OnL4TKmPZXyNVtEq061edragWxV2D
- vfxLRfqfi7lKeG/PbEZcXRjHi2UqY9D1mMiU8me0zhg0ImJaediNulfKFjUF1Y73AeuvZmR6i4w
- Gob+FXXfoBEnFp95jPNEvvHRYhXdIR8SHZpbFIeO/7mADCMgnvCQSMd8jWyGUh6RieF4V88REBA
- hHtGU63S6UYK2MkpWdLHPPnopb0XTokOHJilHGLzNiyAEgmpIrtDjBMEN7VzbYz62y0cB9P1+xR
- x7uTqVCf9uwwCd40S53BeI0oxF4V3QJzlN2E2+zZaIsogr8xdBTnJhJe0VGPqNAan07bORhfS1q
- VaiuWXjNCRTflQk8sZN1TTPvDbb+AdUFBQl2NRiZLmicOVRCTVQspSV9zguDKhOa5BP/cZan7Ix
- H41ArOd4d//xYhalyUpxpFArnnmtHBX5/+4QSfi61MxWo1vukSRKdmbH79qduBXtA5ICXeCG8th
- dCpmdUvPCMKmQd7XdDLog0WiuOIYXKYStd3asW/exPaOEffaSzlDW839ujQevrvVhUZgOELL53A
- 0wFciXGXz9Avuxw==
+ bh=vlyXEW90tuaHwDARKd4JGB2+R0K81QD4UYSlZBasTXQ=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBq9zD3CCYRkoz3LSF5VgDezGuy7MTYSM/0TdLmX
+ qVEWgNL346JAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCavcw9wAKCRAFnS7L/zaE
+ w1UjD/0V570v+6T5CVF4PFoZpn9KSq17LrtfokidpFBT7RDjt0GRYJmyKILIOlVrVDojHSNz5IE
+ ALF8BoTy6aoU6ezLy4spqH3OC2kZzdtzaAg2dkBDAsHLjeXT5/QA+l6C9Jtre2CDtyAV/2TZfu3
+ vVClJn4JVhPMDmaHAFWQsvSEODTOv6nFe8kuJ+xlmjRkoJcmKxzO58MIdNod6070QXKsdAOj4Pp
+ J1WlcbOE7ohJPbiImQO4upzTUygicE1gmchdSj4okHIh5n53012m5vpVLKBCRweFnbUpLzhu9Pe
+ jQF9QzJw8Z0s9DMHUZg6D6jxI/i79YzJJ6KPK0LgGs43jQAFIg+e/GaN6z5hWcSVco+n0f/sWYg
+ 2r22Fsz9+qknrFCJ0ioxrQicw78BXXeOLMQsNOATM9G3cHzy4Nxoe//20p+12c+vEyLva04Z1wU
+ l1n5RtZVdhGgO+6zL/L7aE5IO8ZG7mIV1aXSJ+JkbWyn6K9szQrV49Z3K2TNAfCLEQEWt4xlFou
+ L5kKlZY8oi7mWvpB0XVeXi7qo18prewpNF8k8AyEit5hNe8OZkyWLdENpHK+kiJZ8WYoBWyaAh0
+ ikNTb9r9ZSTfZLatbOnya7dMYksWgzSjJ/3zgN/YiAF19+LkWm9T5CqXHtHmOeWZ3fWSZOyd0Bc
+ UU0maWv1yZ+Xrfw==
 X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
  fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA2MiBTYWx0ZWRfX3h2OWL7BHFA9
- 9OLjQRIH0cZUuqYW3W0kLt1JqWz/wfM9D3aIFTKdhfxLsYHJTf2OCn6i0hV3gh6HU35qTnIqkaB
- HfTl23dDH5vXrrik2i1vIEMHA16DbbReI6aEAuHO0s4se1WSUdwS/UtA0xCak5QHeJie9w/2T3+
- 0acD7t8IL39bzkKcx5fHvpRA84o60XebrslDyJ0/FYO3mlwLRNchyoFFHy5Ip0esvzLGp2jgF3B
- OCF2JUcRbgfSnwlMHdOMuWVH0h0fPUcEak9FHiVHxA10qknPEfEXUGAOuPLzXo/rLfQWEY2fjhB
- 3QO8z/WVIQbX34giFi0eAuqEM/COgGJagpTt+GXZMWoe7rt7ep7EdJomMHgSwTXIseO2646BjZw
- nK5be/C6unMyaBqO9NAtlCKYSm4lnk4uluS3UiiY2rTwKj9YrR0wI8wqoe7fQpzS3gMPefN+eE0
- RtUmIQ/rY3u/uzXQsGA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA2MiBTYWx0ZWRfX1xo1xjHhMtkN
- 3qc1Uld8x288366UiKaemwMMHvzo0Vq6PVo7x5zevqdcHNfh2nL2QC/PrIO8S9NGqGXT9TgeEEQ
- T5FBhGr6USnEbm1yk6P/XKDdF6+3f/g=
-X-Proofpoint-ORIG-GUID: Vjm4pjQeFr5edn1rSAZUQ9Ll3PBs1XDA
-X-Authority-Analysis: v=2.4 cv=Vqq2kO2n c=1 sm=1 tr=0 ts=6af730fc cx=c_pps
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA2MiBTYWx0ZWRfX+RbiRRtYzUBw
+ /6YpvjGkENxd8zEXdYTVIOQXQDjBYqNdlj2VL38rjWeIJbr/SQuRy/MGiLkDzQSIgiyelRwxBhx
+ eBagQvYDh3VKLcBPSIs8WN0On1+l6oyBnldI1pnCISCG2sQBbq4CEfSdl0w5pibvUocoZPG6NfS
+ BA+cMQYjxzghBw23v39JVTaRdUZegsR010rk0B/qwsqQ4ml6BmLo6Y25KZRxiCRC/3Sm+D7uZ9U
+ sFs38a/QFtRO3LVwHgLg3cIiOrgzDa9zpShBUEIz/vAsbpgtgU+oFiXmT/0qvmoKXUpAijbQ5EW
+ ohGTwUt/Z8Umtb8FPQ+1NcncI3UlHuimDK5ZhOZEPoEgrMTfJ6Uoa5b80v8GZWkwBMCbvTod1jr
+ cDERAz/BMTwAkDSNRv4PnPaDUhKsUjMRFAgzZt5yTYjlAIYxT5jZM5GIvytvlOPkGasJoyluB2H
+ jekT58AU+NFHSPQUxfg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA2MiBTYWx0ZWRfX4i/RHhUJgMKu
+ 9vrPfPMv0vfYAn/3PXeK7oMAUL0xaS3uJ+6Oka0AMMBm49C6pjJrF8aopSwznb94DOPOatEcnR6
+ Pb4hhQQTgvuYKoiKxxHEvUuTyhYvuFQ=
+X-Proofpoint-ORIG-GUID: 5HpJl5i55CKAk6mF_J9lHg6YXNvDPKJz
+X-Authority-Analysis: v=2.4 cv=Vqq2kO2n c=1 sm=1 tr=0 ts=6af73102 cx=c_pps
  a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=bC-a23v3AAAA:8
- a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=sw4_LmjLfTFoMrZgmVIA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-GUID: Vjm4pjQeFr5edn1rSAZUQ9Ll3PBs1XDA
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
+ a=jHVjgif8OWDE08c-SeEA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-GUID: 5HpJl5i55CKAk6mF_J9lHg6YXNvDPKJz
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-13_05,2026-11-11_03,2025-10-01_01
@@ -189,84 +187,43 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130062
 
-Currently the code in gpiolib-shared.c only supports OF nodes and uses a
-lot of OF-specific APIs. This series attempts to make the code more
-generic, ahead of extending support for sharing GPIOs to other types of
-firmware nodes, by defining two new fwnode operations, implementing them
-for OF nodes and using them in GPIOLIB in order to limit the OF-specific
-API usage to only a few places guarded by ifdefs.
-
-The new fwnode APIs are:
-a) property_get_names() - this closes the gap between OF nodes and
-   fwnodes: OF nodes allow users to iterate over all properties while
-   fwnodes don't advertise all properties in any way at the moment
-b) count_references() - there's currently no way of counting references
-   in an fwnode reliably: using fwnode_property_get_reference_args()
-   does not work for empty references (e.g.: phandle = <0>, <&foo 1 2>;)
-
-The first patch adds a CLASS() for string arrays. The following 6 define
-and implement new fwnode operations. The final patch generalizes the code
-in gpiolib-shared.c.
-
-Merging strategy: patches 1-8 should go through the driver core tree and
-be provided on an immutable branch to me so that I can pull it and queue
-the final 2 patches via the GPIO tree.
-
-This series depends on the series from Alejandro Colomar adding
-strprefix() as indicated in the b4 tracking.
+Define a new fwnode operation allowing to retrieve the list of all
+properties of given firmware node in a dynamically allocated array of
+strings.
 
 Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 ---
-Changes in v2:
-- Integrate the series from from Alejandro Colomar adding strprefix() into
-  this series as a b4 dependency
-- Reuse the existing struct strarray in the new CLASS() for string
-  arrays
-- Make sure that props != NULL in fwnode_property_get_names()
-- Replace string.h with string_helpers.h instead of including both
-- Tweak the kerneldocs (Andy)
-- Use size_add() from overflow.h
-- Mark gpio_shared_fwnode_traverse() as __maybe_unused for !CONFIG_OF
-- Return early in the OF variant of fwnode_property_get_names() if no
-  properties are defined
-- Add commit removing unused leftover code
-- Remove useless alias variables
-- Link to v1: https://patch.msgid.link/20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com
+ include/linux/fwnode.h | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
----
-Bartosz Golaszewski (10):
-      lib: string_helpers: export and rename struct strarray
-      lib: string_helpers: implement a CLASS() for string arrays
-      fwnode: define the property_get_names() operation
-      device property: provide fwnode_property_get_names()
-      of: property: implement the .property_get_names() fwnode operation
-      fwnode: define the count_references() fwnode operation
-      device property: provide fwnode_property_count_references()
-      of: property: implement the count_references() fwnode operation
-      gpio: shared: removed unused field from struct gpio_shared_entry
-      gpio: shared: generalize most code to firmware nodes
+diff --git a/include/linux/fwnode.h b/include/linux/fwnode.h
+index a9dcaf7e70765637a0c33af2ae0ac541e15752ad..2d7e0b9245d445d473c7317bd27058abe5750b40 100644
+--- a/include/linux/fwnode.h
++++ b/include/linux/fwnode.h
+@@ -125,6 +125,13 @@ struct fwnode_reference_args {
+  *			     success, a negative error code otherwise.
+  * @property_read_string_array: Read an array of string properties. Return zero
+  *				on success, a negative error code otherwise.
++ * @property_get_names: Retrieve the list of all properties of this firmware
++ *			node. On success: returns the number of properties and
++ *			sets *props to an array of NULL-terminated strings that
++ *			must be freed by the user with kfree_strarray(). If
++ *			there are no properties, 0 is returned and the props
++ *			pointer is not changed. Returns negative error number on
++ *			failure.
+  * @get_name: Return the name of an fwnode.
+  * @get_name_prefix: Get a prefix for a node (for printing purposes).
+  * @get_parent: Return the parent of an fwnode.
+@@ -162,6 +169,8 @@ struct fwnode_operations {
+ 	(*property_read_string_array)(const struct fwnode_handle *fwnode_handle,
+ 				      const char *propname, const char **val,
+ 				      size_t nval);
++	int (*property_get_names)(const struct fwnode_handle *fwnode,
++				  char ***props);
+ 	const char *(*get_name)(const struct fwnode_handle *fwnode);
+ 	const char *(*get_name_prefix)(const struct fwnode_handle *fwnode);
+ 	struct fwnode_handle *(*get_parent)(const struct fwnode_handle *fwnode);
 
- drivers/base/property.c        | 115 +++++++++++++++++++-
- drivers/gpio/gpiolib-shared.c  | 242 ++++++++++++++++++++++-------------------
- drivers/of/property.c          |  41 ++++++-
- include/linux/fwnode.h         |  15 +++
- include/linux/property.h       |   4 +
- include/linux/string_helpers.h |  12 ++
- lib/string_helpers.c           |   9 +-
- 7 files changed, 315 insertions(+), 123 deletions(-)
----
-base-commit: 161837d37055642b03475137461d4438c65dbddf
-change-id: 20260916-fwnode-for-each-prop-d7a6f90e7338
-prerequisite-message-id: <cover.1794574496.git.alx@kernel.org>
-prerequisite-patch-id: 6c8ea11afdfadea1c72457e460596f9140195f8a
-prerequisite-patch-id: 81834766a605fc75e62501a8459944c87aa7848e
-prerequisite-patch-id: 49110713d1b10ae2972ae738da383215d9be001b
-prerequisite-patch-id: 97bf1ce8e594218715d5df30711d0523c7f07bc5
-prerequisite-patch-id: c94cdf0377763fbdcb942add8a058161503f9024
-prerequisite-patch-id: d0e6af689d680619ee07aabb50635328052bc9af
-prerequisite-patch-id: 1006c25c87a8e46129fdba68822b9592c3f5e0e9
-
-Best regards,
 -- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+2.47.3
 
