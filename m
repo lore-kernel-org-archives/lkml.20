@@ -1,99 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.169
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794601500;
-	b=OUAS9o3UDUWup8mGpNWQdAMGGIdZX1vJBA6M1M5LLL5Jps3IA9mfBLVX8JB1TQtePTxc
-	 N7bz0hU8qncS8YdLYy07HqK22T+DbUrESGheR3KCVOHWwBea5k9rrXJpB5TqsNW1A9113
-	 knXoPKlvY/nCbuJ9SUHg7lVR1dIH6SlcImx07KR5ELjI6vTmjP92D7YVLUHY2DSRZZLsS
-	 CvgHq58tx8lC0V8OfcSGnDc85M+hCTtUdpHVd8o74JLzRbdHLnDFf7e3v5nRJbehzcgft
-	 cm3On4YA13vp8hzyeEqCPaFRS4oEdvEBSgwKMvmF3akwnCyCqP8q5MyblioUyCOwQyw==
+	t=1794601490;
+	b=cjIEzoegY6Z6JSDkGxXB/98xznwnyDCcnqyWCd75mqm0LOOS61Sygl1qLxeT5bML4b5M
+	 MEmqmd/acqVfRGD5atncUOJfvfSRts5iBisd+cE2Xcm2DgHZnSERYx/yCgXk/7jujCpKx
+	 thJTrof8wRuDXoX3Vx+dTxNicOLD10Fb+xkCNPJIB7Wbjw7FxXJIUtL3zANrZjhO4l0KV
+	 1WMCt9boXcawDnzUl+u6k/r44yHaYMjedX1oSYBqCx9Sd/IBXQU1VzzmfpS1/BqaNaPDr
+	 iClI4wcAzRTdv/2n9OkXJuMBR0v/RSLa7fZolICZCtngFPzUJ0IlnnNhpg+v1P/F+8g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794601500;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=WU1bfrRJnySLXBq2fMTwUjF2uo3KDqqVLdyu6MbMrY4=;
-	b=pwG95+hxJmcifpfWqEuCeMgyxQKf+1gDHQ3ENeme6grDksgPPPFCckbcksuCZPnqD3u+
-	 cXAAvOpKEQgoAgzH19s0DIMIBT5hYoWduog2GJkGKcgQdwUoQGTQidNwEfW/37F94RyU0
-	 0LkgDizNk8lYSd1QLW+cPFDSpFyenVoAvyCnshcqFVPW5FyWq9YhUXP3GHoDMCM3U/nj+
-	 BKmxF+8SWmiFfrr2CklqetFn/fU3iYNCgjjVN5kup/k1psHTfybZmL63XsSzWng46m8Jo
-	 kjcMFS6XefK732TgEtDjR4eIceEy6agf4YiKfcup5iRS9ogm/QYCzCFvKxsi6wHjDTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794601490;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=uBDvoboRAa+cGYhUjtvMfpt40qRD3+IUF0PMhyvPSyQ=;
+	b=n48UmyO2O8/9q1ihHF1nKVwH56nXqY3TtBvAiNVx6IANtNNSotOUMg2wJCdoMJ0ORzvE
+	 OXoYn6RTbAIJxsHUNAeeTxHGN9OWliNdhin9Qx5W7uZTRziuq/iUFcC1JxP1QB2sw+2T3
+	 EJY/oN8nlnsWfozA0YK91aSz5qCPlh87oighOXjntBEgWrr+3FzRkysUbQ00BPtdN8wDF
+	 cf0nGDGXyw3KtxmQ+I0VopMM5IgQ47xcgiOxlDDXwJH6VI/bVcI2kjMoE2d97K7aPO8fw
+	 LIl94HZQq9h3o1M6AA0kurYp8SH9+dZFFqqgQdxJ7MarjDVwKvpGf72kdHPDt63b2pw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0g1DJoN3;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.169
-Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D7hBRbX2;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF9E9606A338;
+	Fri, 13 Nov 2026 20:24:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D7hBRbX2
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794601490;
+	b=nvEzO6TQk7PI0kNUhGwvKWEItUVJRCAOSbulJ4zBVSFnCrIbp10kMa4pjEVgAxgzsAsY
+	 FccD0zeVZemkgv4V2JjE7bIWKnXgn/mX4bypJvWFu1q+16KIZGcsIj3GfzTYF+Ob5pQi6
+	 fWFACE0ChP4HyQVbuOoJ+6Iu4UAbCYvCTV6wVQWcklheW7wxGcwrBMYBu0G6UrokSZHa6
+	 XV4ymRa2TSs6hhzqFoR35ggfI1AlOoix5Zi6w9+z2xza4bwDlpNkZsaHdF3ZxHym5p/yS
+	 VYzKQFYp2lXYaMifSwXAKzCWK8ENzUFymKfsyyALjraxDt5qf3izueKN49q4GE20wcA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794601490;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=uBDvoboRAa+cGYhUjtvMfpt40qRD3+IUF0PMhyvPSyQ=;
+	b=TzogB12cRDAVd/OyPZ65YbJW2CL7ZEH4LmB7VXAotoRCLdAi8VsgSjXOZLq/8daMJcgA
+	 1khicnuPS5M8jlBzhQQtMU3fx7rUoOpYW2wPFIpoQ3oIdXDupkhTssoavdmdzPKBUkcGW
+	 fIu9kPngn6rYxgB4uiv6ajWppa2qi57WZt1T+CJLjJ3r2kLDVt7MM1OfdfFAynxoEJXgj
+	 4lezWClsfMd9ReuiEsiWBu7mtU9uWU+xJ+nMHAWD/mjZVlAl6/ak9+osbV7wc2ti+uHIm
+	 nVQhUgayqlINAgJ55IlRjtrwzvNe6eDaADEGGcf/aX1lJAM6ZioSKxyrX1KynBUIrFg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D049F60A260C
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:24:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D049F60A260C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0g1DJoN3
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3adfb0c9e3cso2655671fa.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:24:59 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794601498; cv=none;
-        d=google.com; s=arc-20260327;
-        b=SjSqyP1Q5x+MjuG1HtFgFNcVfPLP3LYCRMnWHukgo+cAMfC9SlFNXq8feloJsSCJoP
-         Fy/FZxz6ANE/k7SeO9lJp3hENrx7I8XlBrZhTHKAR0yMCgC0OPwxXUqDPGn8A1TTt5MB
-         NkQoBrXFGAnv5yWtMDLAKrCvVVKr6nHEHaUGgS70LWzJIVlmo8XSiWOpxnwRKc95nnB3
-         wNcof/BxYkJx+1gujwGnpKeOYs+E6MiVV3sTHw+MWV0alvAmdRJ7bVV0a2eZkGlJ18Lw
-         4FZRUObQyt5SF9qHlLhIAsNZqBt4yfEpxbsSDYhH5j5nUbXKLI4fF7BWVO3YhZuDQnHZ
-         S3LA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=WU1bfrRJnySLXBq2fMTwUjF2uo3KDqqVLdyu6MbMrY4=;
-        fh=8WI6kypNK7fyaJQqQe1G/Hm6O4ad7qAGwweKiwqJTNo=;
-        b=bii7zOCNjTs9vPCYpyQwUvTXo3QwL7k3aaL3XHDB1p1a0HfGBqfBX1U1U6w8iUKkQb
-         bPiVvGmIKKM1O5su+YQt6IPVVKZzdekgGdLQM51ypPUomp+VljaLpz3BG8NRaMqgy68w
-         U/m8i9AKd8T9kHWooeWeknvzE6xZL2heqQyJy1E3qr+hNksj0OLPVC+zoN3EDAkCW0z9
-         eWHMDx4+yiYUMqAO4P1pmF60Vx2JtzIYdH6djdWr9sNJ4JGrwzpt2Sc5mQGu28hLvKpC
-         SLggCwMqG408r2vZkSY3sbGwvIuMJp0YWrPIXd9xJCNtbu9WYyf6nkyUG9XTihcU1Y06
-         GB9Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794601498; x=1795206298; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WU1bfrRJnySLXBq2fMTwUjF2uo3KDqqVLdyu6MbMrY4=;
-        b=0g1DJoN3uaUcy2p6X7jqIAGU43O1RIQVA/5wx6ZVJy+1mNtoze4HoMIAA5izV3YqzC
-         Bb1xDthXhYq9lCufBijX67OZaZMVQhGhHsklv4UQ1dAFVP67KYlXKW1i2moy3AhNo1Vf
-         NM3/LhbPzb+8wAkhsvDtRVHfElGxP53ggF2RiUVV0m2aOHGkvYg1nqPHzt1ruhwoCfVN
-         z4htBZYXB3guowNnRyr32VxeG3lgyu4xBXCmRvboo/SiWtLExYJZ/eo/oK9fY+dC27DA
-         rK+BTfpGdJFrJl5AAT78yXqiil2fmpehxMOFjPFDnQiL3YxRC+8nr7VL4xrVB5O4QFXn
-         1QEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794601498; x=1795206298;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=WU1bfrRJnySLXBq2fMTwUjF2uo3KDqqVLdyu6MbMrY4=;
-        b=x89nCsrIqqcCK15Iwt+ZM+8l+XppmM4gueLD2aJ9UjS7o/pyLo1OqVWA6Gugi/jRxk
-         cqRAP2hVOB2Llx6HL25sovWZADEvXSktCuzCctE3j93HD+Ujm23WhM/RKtyqP3gPyEtj
-         aTY2CirfjUTXNr6jeODA020L5Bwd9i+DVUUQ/YS53A5OL2MkyJHtj9U0E648iYyLYvOS
-         Ew9LFKabcIdepEieoWI4AKFJoBGmrbHniyv0YE+HmtzmHd27n6Yq/rVpoArfZWGBdc2m
-         3YGVt3xq85ZpGrWpL8G+3tYgNuj4A00WuhS33AbJGQpcdoirGtGqGJMQMMjMor2wgkdx
-         TFKQ==
-X-Forwarded-Encrypted: i=1; AL+hErGWZo3OkEl6qSVu8oLDdavjy5s0+ZN8xrvYGP2ohZTqqJ32KTFcRxvBw2WSQB6vY3/xPMoG0M5Q2KjQnDI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9zqISK9p7blk6zc+SBgukZCTDc9hCie8XCU6qg+TRVyY3xKlP6
-	zVS+Vpf5UNa8aqgcGQE9cKaIwhZKK5RzQzCQhoKYMrFmqmcgcad8zbcSqvYhjoh2jDf34pU4r64
-	O8P+7TfOb2fYsVNM8d9MKegCRBjRjs3g=
-X-Gm-Gg: AYBFou2v+/azqkwVTXYXXpkreDHLT9QLiXWtnEIGWdqSbX7oQ7oeO9tyYTesqjBnfwU
-	wN2b6htL4MrlALmcjhK8pNN80/cMWkp/F/rve7qEErXvC21wW+uk0BYr/mLUanvJC7bLZ1AA6Cg
-	GjqnZCF0n3ye3qfPTF6oSe5JOwZwENbtVfaagoowuyxQ3ykLuPqAqFRytdaw1h/2g8L7AKVS4Sg
-	Kz/dSkIaNH1IOCUyoRVa74OL3gXlsPD6odFnsnjdDUHhF+RTEfJO1E+mUJ6I+rcewTS6Hzq+uzD
-	whRBO/rYJA34nnxh+bZkrN1ZcOTIimjdhXiMm2ZRCzqFfoLjQs9vEIGgikcoTJZMs7CrI18nwqV
-	sQs7K/KwxVVNUWI1x7wh2j15dHqWhAiEGH5dd298mRRk3kGOECb+QoAMTYgphpdxUpOdZ9A8=
-X-Received: by 2002:ac2:4bd3:0:b0:5bf:f87e:3d25 with SMTP id
- 2adb3069b0e04-5c17075fbeemr1839415e87.2.1794601497810; Fri, 13 Nov 2026
- 12:24:57 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id 60BC91F000C7;
+	Fri, 13 Nov 2026 20:24:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794601490;
+	bh=uBDvoboRAa+cGYhUjtvMfpt40qRD3+IUF0PMhyvPSyQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=D7hBRbX2eQeRifqqmVKUNLCp67VAoJftrxofPPsHZf8cOvUBapAm8W/BeNBLCqhGs
+	 wBe5Wqel2PCBD7tVvsGCfZJYUu1mZ6kqEo4snw1aewOiISJRJIK9UxGPGN49irKO5R
+	 wn9n/EI8Wm7yW/wB0awTmze7SzYZLYXaF6fia9w/1leJXpjyePFis1Ya1B1YtesCiA
+	 hK/KNtUU77U3LwTOdIcDT/FeE6/kxNSnUOQiMod9lR81HRsHBa6fmibZay0z2gxSUx
+	 g2ZF0lkxhkj2guo7SgJPbIBPlAZDeLg68Lza/R1yxBYMRPsrCtgZ4ULWcQQuXAcWEJ
+	 jkv4oqJ211FtQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id E2C2249AD8;
+	Fri, 13 Nov 2026 20:24:48 +0000 (UTC)
+From: Hugo Sales via B4 Relay <devnull+hugo.hsal.es@kernel.org>
+Date: Fri, 13 Nov 2026 20:24:50 +0000
+Subject: [PATCH v2 3/5] drm/amd/display: Give the panel_power_savings store
+ tests a full pipe
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,41 +83,191 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261112-vop2-fixes-v2-0-8218c1cf8ac8@gmail.com>
- <20261112-vop2-fixes-v2-3-8218c1cf8ac8@gmail.com> <a5b52d95-7fa2-4148-aa02-cfee6f195e1a@rock-chips.com>
-In-Reply-To: <a5b52d95-7fa2-4148-aa02-cfee6f195e1a@rock-chips.com>
-From: Arun Iyengar <aiyengar1990@gmail.com>
-Date: Fri, 13 Nov 2026 12:24:46 -0800
-X-Gm-Features: AclHuK9InRTgWzumTIOYOi5MivIL20TRnUBG8RNDv3yJlv7_a6OpEdGqBKKf5lU
-Message-ID: <CAEy9hNVKy6sTA70B8kfhP7eBFCUFobFn4SvXUGMxzCs-bpXW0A@mail.gmail.com>
-Subject: Re: [PATCH v2 3/9] drm/rockchip: vop2: Fix the HDMI sync polarity on RK3588
-To: Damon Ding <damon.ding@rock-chips.com>
-Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
-	Andy Yan <andyshrk@163.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Piotr Zalewski <pZ010001011111@proton.me>, 
-	Chaoyi Chen <chaoyi.chen@rock-chips.com>, dri-devel@lists.freedesktop.org, 
-	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, cristian.ciocaltea@collabora.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261113-abm-sysfs-commit-v2-3-5808d17a7e89@hsal.es>
+References: <20261113-abm-sysfs-commit-v2-0-5808d17a7e89@hsal.es>
+In-Reply-To: <20261113-abm-sysfs-commit-v2-0-5808d17a7e89@hsal.es>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>, Ray Wu <ray.wu@amd.com>, 
+ Alex Hung <alex.hung@amd.com>, 
+ Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>, 
+ Ivan Lipski <ivan.lipski@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Hugo Sales <hugo@hsal.es>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5947; i=hugo@hsal.es;
+ h=from:subject:message-id;
+ bh=K2pniu0qwhYm7o7bR6OLXAX4Z6rHj8qzx+ZmC3CtWCQ=;
+ b=owJ4nJvAy8zAJVbLU7f+5A3TBYyn1ZIYsr4XCRSd3Xg248/2vb6PkoOFF/CVqsy+cjvvXtu5R
+ 4UHtvoXHZ7XUcrCIMbFICumyKJ7w5OBZeLkmTlFz5fAzGFlAhnCwMUpABMRamP47z4reJfJJd+f
+ IpsTrrFFcfOtYme9aFnh/FfEMLfv9PemPYwMW5Lf3u7c8mWrxgUb5XB3s/n1t57fzlrCcWHznk1
+ qz/qZGQGpEU1y
+X-Developer-Key: i=hugo@hsal.es; a=openpgp;
+ fpr=193D095149CF7E8737B39064D912B0DB205A91C1
+X-Endpoint-Received: by B4 Relay for hugo@hsal.es/default with auth_id=1417
+X-Original-From: Hugo Sales <hugo@hsal.es>
+Reply-To: hugo@hsal.es
+Content-Transfer-Encoding: 7bit
 
-Hi Damon, Chaoyi,
+From: Hugo Sales <hugo@hsal.es>
 
-The TRM names GRF_VO1_CON0 bit 5 the HDMI0 vsync polarity and bit 6
-hsync (7 and 8 for HDMI1); the driver, like the vendor kernel, uses
-them the other way round.
+An upcoming patch makes the store apply the level with an atomic commit.
+The store tests allocate their connector with kunit_kzalloc() instead of
+initialising it on the DRM device, and have no CRTC, plane or encoder, so
+a commit can't run on it
 
-The HDMI controller agrees with the TRM. With patch 3 and 1920x1080@144
-+HSync -VSync the driver sets bit 6, and VIDEO_INTERFACE_STATUS0 reports
--HSync +VSync; with 1600x1280@60 -HSync +VSync it sets bit 5 and the
-controller sees +HSync -VSync.
+Build a primary plane, a CRTC, an encoder and an eDP connector on the
+KUnit device instead, with runtime PM enabled as on a probed device, and
+move the two store tests onto it. They check the same results as before.
+The connector reset already leaves the disable sentinel, so the disable
+test sets level 2 before the write
 
-v3 keeps patch 3 as you reviewed it and adds patch 4, which swaps the
-two bits; with it the controller reports both modes as set. Please
-shout if the TRM is wrong here.
+Signed-off-by: Hugo Sales <hugo@hsal.es>
+---
+ .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     | 90 ++++++++++++++++++++--
+ 1 file changed, 84 insertions(+), 6 deletions(-)
 
-v3 4/8: https://lore.kernel.org/r/20261113-vop2-fixes-v3-4-08ae37e83b5c@gmail.com
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+index c6d15fb8ad989..5133c8f251f53 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+@@ -7,10 +7,14 @@
+ 
+ #include <kunit/test.h>
+ #include <linux/backlight.h>
++#include <linux/pm_runtime.h>
+ 
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_connector.h>
++#include <drm/drm_kunit_helpers.h>
++#include <drm/drm_managed.h>
+ #include <drm/drm_mode_config.h>
++#include <drm/drm_modeset_helper_vtables.h>
+ #include <drm/drm_property.h>
+ 
+ #include "dc.h"
+@@ -544,6 +548,76 @@ static struct drm_connector *setup_panel_power_savings_connector(struct kunit *t
+ 	return connector;
+ }
+ 
++static const struct drm_connector_funcs dm_test_pps_connector_funcs = {
++	.reset = amdgpu_dm_connector_funcs_reset,
++	.atomic_duplicate_state = amdgpu_dm_connector_atomic_duplicate_state,
++	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
++};
++
++static int dm_test_pps_get_modes(struct drm_connector *connector)
++{
++	return 0;
++}
++
++/* update_connector_routing() dereferences the helper funcs unconditionally */
++static const struct drm_connector_helper_funcs dm_test_pps_connector_helper_funcs = {
++	.get_modes = dm_test_pps_get_modes,
++};
++
++/*
++ * Build a primary plane, a CRTC, an encoder and an eDP connector that the
++ * store can commit to. The KUnit device uses the generic atomic helpers, so a
++ * commit runs drm_atomic_helper_check() and drm_atomic_helper_commit() rather
++ * than the DM implementations
++ */
++static struct drm_connector *
++setup_panel_power_savings_pipe(struct kunit *test, struct device **device_out)
++{
++	struct amdgpu_dm_connector *aconnector;
++	struct drm_connector *connector;
++	struct drm_encoder *encoder;
++	struct amdgpu_device *adev;
++	struct drm_plane *primary;
++	struct drm_crtc *crtc;
++	struct device *device;
++
++	adev = dm_kunit_alloc_adev(test);
++	KUNIT_ASSERT_EQ(test, pm_runtime_set_active(adev->ddev.dev), 0);
++	KUNIT_ASSERT_EQ(test, devm_pm_runtime_enable(adev->ddev.dev), 0);
++
++	primary = drm_kunit_helper_create_primary_plane(test, &adev->ddev, NULL,
++							NULL, NULL, 0, NULL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, primary);
++	crtc = drm_kunit_helper_create_crtc(test, &adev->ddev, primary, NULL,
++					    NULL, NULL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, crtc);
++
++	encoder = drmm_kzalloc(&adev->ddev, sizeof(*encoder), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, encoder);
++	KUNIT_ASSERT_EQ(test, drmm_encoder_init(&adev->ddev, encoder, NULL,
++						DRM_MODE_ENCODER_TMDS, NULL), 0);
++	encoder->possible_crtcs = drm_crtc_mask(crtc);
++
++	aconnector = drmm_kzalloc(&adev->ddev, sizeof(*aconnector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, aconnector);
++	connector = &aconnector->base;
++	KUNIT_ASSERT_EQ(test, drmm_connector_init(&adev->ddev, connector,
++						  &dm_test_pps_connector_funcs,
++						  DRM_MODE_CONNECTOR_eDP, NULL), 0);
++	drm_connector_helper_add(connector, &dm_test_pps_connector_helper_funcs);
++	KUNIT_ASSERT_EQ(test, drm_connector_attach_encoder(connector, encoder), 0);
++
++	drm_mode_config_reset(&adev->ddev);
++	KUNIT_ASSERT_NOT_NULL(test, connector->state);
++
++	device = kunit_kzalloc(test, sizeof(*device), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, device);
++	dev_set_drvdata(device, connector);
++	*device_out = device;
++
++	return connector;
++}
++
+ static void dm_test_free_sysfs_buf(void *data)
+ {
+ 	free_page((unsigned long)data);
+@@ -607,15 +681,17 @@ static void dm_test_panel_power_savings_show_reports_level(struct kunit *test)
+  */
+ static void dm_test_panel_power_savings_store_sets_disable(struct kunit *test)
+ {
+-	struct dm_connector_state *state;
++	struct drm_connector *connector;
+ 	struct device *device;
+ 	size_t count = strlen("0");
+ 
+-	setup_panel_power_savings_connector(test, &device, &state);
++	connector = setup_panel_power_savings_pipe(test, &device);
++	to_dm_connector_state(connector->state)->abm_level = 2;
+ 
+ 	KUNIT_EXPECT_EQ(test, panel_power_savings_store(device, NULL, "0", count),
+ 			 (ssize_t)count);
+-	KUNIT_EXPECT_EQ(test, state->abm_level, ABM_LEVEL_IMMEDIATE_DISABLE);
++	KUNIT_EXPECT_EQ(test, to_dm_connector_state(connector->state)->abm_level,
++			ABM_LEVEL_IMMEDIATE_DISABLE);
+ }
+ 
+ /**
+@@ -624,11 +700,13 @@ static void dm_test_panel_power_savings_store_sets_disable(struct kunit *test)
+  */
+ static void dm_test_panel_power_savings_store_forbidden(struct kunit *test)
+ {
+-	struct dm_connector_state *state;
++	struct dm_connector_state *dm_state;
++	struct drm_connector *connector;
+ 	struct device *device;
+ 
+-	setup_panel_power_savings_connector(test, &device, &state);
+-	state->abm_sysfs_forbidden = true;
++	connector = setup_panel_power_savings_pipe(test, &device);
++	dm_state = to_dm_connector_state(connector->state);
++	dm_state->abm_sysfs_forbidden = true;
+ 
+ 	KUNIT_EXPECT_EQ(test, panel_power_savings_store(device, NULL, "1", 1), -EBUSY);
+ }
 
-Best regards,
-Arun
+-- 
+2.56.0
+
+
