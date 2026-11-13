@@ -1,74 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.57
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794583933;
-	b=Wkom+cpIHpkM7S7332PuiLYTMPinyvULZoUhucHGloaBLTpA12ItIEBC/uW9unykcJPZ
-	 8nCcWDIuUc2Hlu/P31iEV9gg2MlEtgKA/3ZVuWNIjJQlZDdTX3qGh0t68aPr382EyTQOz
-	 +VaW4zKoH6XmrmPGuu4unZf9MS9Y2s8PqXhWvqHdnAz3cGXNMwr7NYfPpfRFeUu3sCm/A
-	 KxbQowotJIxbjjQ5FmjtSG5KpvxSVK5dGXLP6/CBa6O68vwvAKSeqQblEjrA4oEcojTg1
-	 dXsn2pyHFV+m6dk3PYJTzmEnIf1zUtMW3keAEVW6Th25Lp3bbVktfPzIJZuCZ5BiNIw==
+	t=1794583937;
+	b=3TDHCUGpwnUkB+iyEmz/HXGMPlZnRiwuuQHtGYBzrv3JDqXYXK1PYAO9nzCAZIr3JXin
+	 uxoS2LHZiUmTN48caqdncmqpv6PX60+VYFatWs/MmSj6HviNV5HowqmopFMwegpbUOIUA
+	 5n/YYL8Q35Hmu+AADEjGhZkpWTLEeeAR/96akNlCrUwHQNzJQbjDSOqRzTlmrNyWVDQPL
+	 a640vfYC6qqM+9Q5iVkJ3+dE6iLsg1R913GJx5+6PsqSerm91VwWAxqAOwFictMTGfPyK
+	 2LNAFY1ZqHR1KmswbD0zfQ+wSHtkwW4iQKieep3VwG4qrt2u31dmjl/kn4ykNxBAP6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794583933;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794583937;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=byaNFIxDc0yLJvvnyiohGpWdHajmmEbHEB8uy0kYt/U=;
-	b=Fymh4HfZ0UAc6JubL3g5odMrjd4drGwkibBASmGgYXrYlsxqCA2MFRQ24t/cnVe30LAx
-	 y8aq2X+0qFJte8asM+7bFWY5I3+yOWNa4/mP+oRz2lSJWP9Ua/fmPF9BUlhCkXpCc0bZN
-	 P8DTIEOwY4olZRnvi5aTVPvxJp42pgky2Pb8ibsGII4mnQqz/XlYDjwpViw6QjTW1vijY
-	 H0aXYm34+CCxBMMxkHz82nu2qshl8EdHSO8kKCVujx7p+3XoU/i1VF3O3SagryY89dBfm
-	 BbqB9owx1ga8kFsGZKViMIg69HAYEVCNxVqOat7/slNNogqwnSVJfJCptKl18DMZDew==
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer;
+	bh=ERzH1Kn1Y16W93oO/+2OLuXQMn+6z6tclyWb9WrVbl8=;
+	b=cLN/Qg1mbSP/E0t7TAtVVBCMHjkOQ6wWg+2t7FV4T4X2MEOc+qiD2W/+GI3JmG4qGGRz
+	 nYNHqg3JKawXAyqrnwhiBHCU1qwBkyJhMekkE5BLIbOfdos4CmreGYS6LJZZrg0vBI0av
+	 DHhxlwRiV2s7AOPl5WkLVU7LTBLNevrHIJip8ue9rBw1c9oLiPU93rz2cVdcTtLW56A5F
+	 ZL2YqtdQJR7s+ofZFTkULaFpjpw3PK+NlvWCusCnuxYs0I4ZdKatfl8fqnChp0bAZN/AL
+	 3do+PGHn+JVs2aDCtekvOAminXGoWBR+Ci1IR0SXTCl7v7ltA9TPUGvdCGid46rPkYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UAXzIBmR;
-	arc=none smtp.remote-ip=91.218.175.47
-Received: from mta0.migadu.com (out-47.mta0.migadu.com [91.218.175.47])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mTU8gMU2;
+	arc=none smtp.remote-ip=91.218.175.57
+Received: from mta0.migadu.com (out-57.mta0.migadu.com [91.218.175.57])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0CDE606A33E
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:32:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0CDE606A33E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E223B606A332
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:32:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E223B606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UAXzIBmR
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mTU8gMU2
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=AeYslwx9sLnwOjyRTt6ZQKqeeZkxb6StbsiOnwsNjmw=;
+DKIM-Signature: a=rsa-sha256; bh=eiQCVAPTFGB4dzwgGOIKbq8pzYm9DgU/Qxt5MG1MaEI=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794583930; v=1; x=1795188730;
- b=UAXzIBmRAIwCCzbP4RFPF6z47iTcnkOqH0yE98/fEFMBe59YJlWIibX9LSrCWxu+IrK8WEXB
- nfq8reIWkijx+DrOUOp7AYfLqQaPKQ8a3zj39g1RFSjV2RhYKiaTjsOZhFqg+sYu1hbHYZqI2uc
- l3BIIIODVtJmFvKnxXzqrV7U=
+ t=1794583935; v=1; x=1795188735;
+ b=mTU8gMU2LNeAPCVuH7YGE47qvJQ4ykqJpgNraghh0Ajy2t6SKuToRZZPCkZvwJYijf/AKZrW
+ CW1up3L4lTgkO3nuGzMTEr9TkjUtg4DXZ0TcPm5wCklG6O4aL/dgOUq4gKVhR+V0xDh9695JzIQ
+ KZgtswbnUCPFbSkfrOEO2MDA=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 6d7785ec3fceb58b;
-	Fri, 13 Nov 2026 15:32:09 +0000
-X-Mizu-Trace-ID: 6d7785ec3fceb58b
+Received: by smtp.migadu.com with ESMTPS id e441452a01d0e55c;
+	Fri, 13 Nov 2026 15:32:14 +0000
+X-Mizu-Trace-ID: e441452a01d0e55c
 X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: peterz@infradead.org,
-	mingo@redhat.com,
-	vincent.guittot@linaro.org,
-	kprateek.nayak@amd.com,
-	arighi@nvidia.com,
-	juri.lelli@redhat.com,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	samuelcrossley@gmail.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	kas@kernel.org,
-	riel@surriel.com
-Cc: Usama Arif <usama.arif@linux.dev>,
-	Arnav Aghav <aghav@meta.com>
-Subject: [PATCH] Revert "sched/fair: Add SIS_UTIL support to select_idle_capacity()"
-Date: Fri, 13 Nov 2026 07:31:57 -0800
-Message-ID: <20261113153157.2495664-1-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.1
+From: Peng Fan <peng.fan@linux.dev>
+Date: Fri, 13 Nov 2026 23:31:51 +0800
+Subject: [PATCH v2 03/10] regmap-i2c: fix write limit clamping for adapter
+ quirks
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,95 +60,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261113-regmap-improve-v2-3-5dfd6a89078f@nxp.com>
+References: <20261113-regmap-improve-v2-0-5dfd6a89078f@nxp.com>
+In-Reply-To: <20261113-regmap-improve-v2-0-5dfd6a89078f@nxp.com>
+To: Mark Brown <broonie@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+ Johan Hovold <johan@kernel.org>, 
+ Lucas Tanure <tanureal@opensource.cirrus.com>
+Cc: linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
+ Peng Fan <peng.fan@nxp.com>
+X-Mailer: b4 0.14.3
 
-This reverts commit 61ea17a63719 ("sched/fair: Add SIS_UTIL support to
-select_idle_capacity()").
+From: Peng Fan <peng.fan@nxp.com>
 
-That commit applied the SIS_UTIL scan budget to select_idle_capacity().
-The early checks in select_idle_sibling() consider a few specific
-candidates: the target, previous and recently used CPUs. If none is
-selected, the asymmetric path calls select_idle_capacity() to search
-the allowed domain. With SIS_UTIL enabled, a zero scan budget makes it
-return -1 before that search. The caller then returns the selected
-target, even if an unexamined CPU in the domain is idle and fits the
-task.
+The adapter max_write_len quirk covers the whole write message, including
+the register address, while max_raw_write is the payload limit. Calculate
+the payload limit before comparing it with max_raw_write, otherwise a bus
+limit that fits in the message but not in the quirk payload is left
+unchanged and the transfer fails in i2c_check_for_quirks().
 
-The budget is derived from aggregate CFS utilization. High aggregate
-utilization can coexist with idle CPUs when a task wakes.
+Also avoid installing a payload limit smaller than one value.
+_regmap_raw_write() splits transfers using max_raw_write / val_bytes, so a
+limit below val_bytes results in a zero chunk size and a division by zero.
+If the adapter cannot fit a single value after the register address, no
+raw write can succeed, so keep the existing limit.
 
-On a 72-CPU NVIDIA grace arm64 server, small reported capacity differences
-(1013-1024) within the single LLC activate asymmetric selection. Both
-the reference and affected kernels were observed with a zero scan
-hint. The reference kernel ignored it and still searched the domain.
-A latency-sensitive, wakeup-heavy production workload saw its reported
-minute p50 latencies average 129 ms on the reference kernel and 223 ms
-on the affected kernel.
+The subtraction must not underflow when max_write_len does not exceed the
+register address size, so only calculate the payload limit when the quirk
+leaves room for it. Apply the same minimum-size check to the read quirk
+because max_raw_read is used as a divisor too.
 
-Disabling SIS_UTIL reduced the aggregate involuntary context switch
-rate of worker main threads from 71.6k/s to 13.3k/s; re-enabling it
-raised the rate to 73.7k/s. A five-minute disabled run also reduced
-kernel CPU time per request by 10.9%. The available minute p50 samples
-averaged 149 ms, compared with 241 ms before the trial.
-
-These measurements come from disabling SIS_UTIL on the installed
-kernel. The feature toggle also disables the symmetric scan limit and
-shared scan-hint updates.
-
-Restore the search of the allowed domain, retaining the capacity,
-uclamp and SMT selection rules and their early returns. Domains with
-no suitable idle CPU can again require a full scan, potentially increasing
-scan CPU cost.
-
-Reported-by: Arnav Aghav <aghav@meta.com>
-Fixes: 61ea17a63719 ("sched/fair: Add SIS_UTIL support to select_idle_capacity()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Usama Arif <usama.arif@linux.dev>
+Fixes: 611b7eb19d0a ("regmap-i2c: Subtract reg size from max_write")
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
 ---
- kernel/sched/fair.c | 19 -------------------
- 1 file changed, 19 deletions(-)
+ drivers/base/regmap/regmap-i2c.c | 21 +++++++++++++++++----
+ 1 file changed, 17 insertions(+), 4 deletions(-)
 
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index d4cc0caee6265..def5cda2e6bad 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -9091,7 +9091,6 @@ select_idle_capacity(struct task_struct *p, struct sched_domain *sd, int target)
- 	int fits, best_fits = ASYM_IDLE_THREAD_MISFIT;
- 	int cpu, best_cpu = -1;
- 	struct cpumask *cpus;
--	int nr = INT_MAX;
+diff --git a/drivers/base/regmap/regmap-i2c.c b/drivers/base/regmap/regmap-i2c.c
+index 8663a4ec0a3d..a4a259232980 100644
+--- a/drivers/base/regmap/regmap-i2c.c
++++ b/drivers/base/regmap/regmap-i2c.c
+@@ -8,6 +8,7 @@
  
- 	cpus = this_cpu_cpumask_var_ptr(select_rq_mask);
- 	cpumask_and(cpus, sched_domain_span(sd), p->cpus_ptr);
-@@ -9100,28 +9099,10 @@ select_idle_capacity(struct task_struct *p, struct sched_domain *sd, int target)
- 	util_min = uclamp_eff_value(p, UCLAMP_MIN);
- 	util_max = uclamp_eff_value(p, UCLAMP_MAX);
+ #include <linux/regmap.h>
+ #include <linux/i2c.h>
++#include <linux/bitops.h>
+ #include <linux/module.h>
  
--	if (sched_feat(SIS_UTIL) && sd->shared) {
--		/*
--		 * Same nr_idle_scan hint as select_idle_cpu(), nr only limits
--		 * the scan when not preferring an idle core.
--		 */
--		nr = READ_ONCE(sd->shared->nr_idle_scan) + 1;
--		/* overloaded domain is unlikely to have idle cpu/core */
--		if (nr == 1)
--			return -1;
--	}
--
- 	for_each_cpu_wrap(cpu, cpus, target) {
- 		bool preferred_core = !has_idle_core || is_core_idle(cpu);
- 		unsigned long cpu_cap = capacity_of(cpu);
+ #include "internal.h"
+@@ -353,6 +354,7 @@ static const struct regmap_bus *regmap_get_i2c_bus(struct i2c_client *i2c,
+ 	const struct i2c_adapter_quirks *quirks;
+ 	const struct regmap_bus *bus = NULL;
+ 	struct regmap_bus *ret_bus;
++	size_t val_bytes;
+ 	u16 max_read, max_write;
  
--		/*
--		 * Stop when the nr_idle_scan is exhausted (mirrors
--		 * select_idle_cpu() logic).
--		 */
--		if (!has_idle_core && --nr <= 0)
--			return best_cpu;
--
- 		if (!choose_idle_cpu(cpu, p))
- 			continue;
+ 	if (i2c_check_functionality(i2c->adapter, I2C_FUNC_I2C))
+@@ -393,17 +395,28 @@ static const struct regmap_bus *regmap_get_i2c_bus(struct i2c_client *i2c,
  
+ 	max_read = bus->max_raw_read;
+ 	max_write = bus->max_raw_write;
++	val_bytes = BITS_TO_BYTES(config->val_bits);
+ 
+ 	quirks = i2c->adapter->quirks;
+ 	if (quirks) {
+ 		if (quirks->max_read_len &&
++		    quirks->max_read_len >= val_bytes &&
+ 		    (max_read == 0 || max_read > quirks->max_read_len))
+ 			max_read = quirks->max_read_len;
+ 
+-		if (quirks->max_write_len &&
+-		    (max_write == 0 || max_write > quirks->max_write_len))
+-			max_write = quirks->max_write_len -
+-				(config->reg_bits + config->pad_bits) / BITS_PER_BYTE;
++		if (quirks->max_write_len) {
++			size_t reg_reserve_size, max_payload;
++
++			reg_reserve_size = (config->reg_bits + config->pad_bits) /
++					   BITS_PER_BYTE;
++			if (quirks->max_write_len > reg_reserve_size) {
++				max_payload = quirks->max_write_len -
++					      reg_reserve_size;
++				if (max_payload >= val_bytes &&
++				    (max_write == 0 || max_write > max_payload))
++					max_write = max_payload;
++			}
++		}
+ 
+ 		if (max_read != bus->max_raw_read ||
+ 		    max_write != bus->max_raw_write) {
+
 -- 
-2.53.1-Meta
+2.56.0
 
