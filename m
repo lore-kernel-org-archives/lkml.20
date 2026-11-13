@@ -1,64 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794607433;
-	b=4y+oEKKcuv4eTYVebzbSdZP1ZiU36HaN7h1ZKD28aCv1zVT4S284aD0oQa3254dpB7gQ
-	 KZVBGybavEoIBTMBGRI8/JDMyD8UPpyKoG84SKwSkhJ2utSVXa1E8BMSrUBN4YK5UCDiS
-	 4EZkntFgoVwaAVLKFynXEQSK+BWyf9Oh1B0qMlqvv1afjBnNM4rIk4EaQ9V6X5vKUY/po
-	 R7xpNlkrCvL2q3Y1fpJDXnm96lUQinZNzvxE0k68JO+WHz3Z0sRvOjIomyV4Zkyx+9FpR
-	 Ac1CoSF9l57ZwSVMiGLy55jXtYARvCeDNdqgSqLmc8gAbFhuAgq+paa/z+wxcbvVlVg==
+	t=1794607479;
+	b=bIMqfrlRCcUucmT2OK8c2ep2ykADxmHDH2SDKHIYAvJdGkFq71+8WLbfapJYP9l8745g
+	 9PhTXzUf/ms7pMgXalYpFZxLvAmoh3jkYalD6lWcCaZjjs0d2gdvPjNxl2bLMcLGwGQbE
+	 jf+7axh69TLxm9OtI8bTPr0Yu6hEsrKek5sMc0cLnv2CXjfpJKU/6s/DoI0GapwTikYbf
+	 kLj29rUGgNDQ1eM75XHJDL+lnBs8oyABaerfkUdDdmH4Qx0xyWVYK3udEvuRRioNQtaWp
+	 HTqslESYpRlBoa7d17ftFyP6u/3QGDlN1nu6tzUKZ+/vgF3MEKJeBra95WvCitbXaMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794607433;
-	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
-	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
-	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
-	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=jFj0VLgjgN2A/4dBU4nmmeXTXZ1XJNsGKVLOTIazsgw=;
-	b=lsfqeP7fnmFiPxclAqb3Nja+h4ncadWqZdh4gMpbzS4BQoP5Ery2xausyNrOZ3ISVi7n
-	 yt1+GKxlelYdYmb87Tr16KUvvrKVaL6S1ATPt55JH1110NIk3lU3uKWD9tiD1h/AiuDbS
-	 +T+VWc8238mLASnFUEvTwJPvYnhRz5+VreTBy8kp+2SnF9F3HTIygCiY18HqwEo7xZN1y
-	 ithT4yWhFs/LNtflH9TG1Ct6qospHeaivNO2kakAe8Ow+VcdBo2qym3DuMGGV8E1JtYhU
-	 qYB7DuBSkEMlLs9imNwHHScpxgkprfSAOUm3we3dUulAnwjYjeguyOuSY7qTSPR/bQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794607479;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=060IlpN6nZBHuShVfn1h6xjHXL8bq9e9OYpRoM9tWdM=;
+	b=qXK4MHRSG4abOoabTGp3elXGDOe+RyWR/Jh1kh7uDV0/x1slilJLwRjwpwgJDPVrjrfS
+	 Dn2Hyai8ClByUyAmanniGpD0hGKbGOPOqAAb+qj9k99UcAsfX/S7siuid/4eOWQRxC0Mg
+	 sOQoyDAq2TYrQ7QpLkUoFuvZxAFzuLBg/cS5Q0FHh0y1RYPpWpsntodlZQhk+tVZB/xi4
+	 OiLdatIodqPJw1WPk9lvHkLe/BHfjxuCpuxXeZMNb5WPnmixjcXE6hxCYPJ/gxXzbE2ei
+	 GpgvshiYDeGnSQXU7cVRv+Nc+t9sjFyfWfi+uQfsJmOSjWGZaXtNAWC8QdJKN+R0dAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WBuuaWh7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=QtKGYcQI;
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B9B1606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:03:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D17B606A331
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:04:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D17B606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WBuuaWh7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0865D1F000C4;
-	Fri, 13 Nov 2026 22:03:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794607433;
-	bh=jFj0VLgjgN2A/4dBU4nmmeXTXZ1XJNsGKVLOTIazsgw=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=WBuuaWh75WI2O1PBsZM/Ux0tyeqbDWespwZ+IOUytWa65um/27l/IOneiStPewhtW
-	 dBoL5EXOE9EL1ihyCV2W8oVCCBufZ9ZtlT2kRLgUgnovRAEzoaQ+e8baT6vZNpppI2
-	 IHkSQbKuhWnbZRUP5UxWZnjLMB9sYuhUQt5GrsowmnMmaBRDGNkIoBhsvO1vjquBF8
-	 C1VWSPui+8g/lsYbzpvlMY3zkhWYStJ4WtTZf5LnLbW7HeSKCvJ17V603n0FhQ3MHH
-	 K2rEqcaaRiSc2dlgGhnczvrR/SPAIpUIxSnPwTnPnZtuvykzkEJ36mECwAlR0AvFjK
-	 1J+IkgIOX4myQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F16D0380821F;
-	Fri, 13 Nov 2026 22:03:52 +0000 (UTC)
-Subject: Re: [GIT PULL] arm64 fixes for 7.4-rc3
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20261113185244.3798402-1-catalin.marinas@arm.com>
-References: <20261113185244.3798402-1-catalin.marinas@arm.com>
-X-PR-Tracked-List-Id: <linux-arm-kernel.lists.infradead.org>
-X-PR-Tracked-Message-Id: <20261113185244.3798402-1-catalin.marinas@arm.com>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux tags/arm64-fixes
-X-PR-Tracked-Commit-Id: ad3fc05c7e65009355effeea06aa629a687acef2
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 97d73c8251226cf27cc6656b4c542869bb8c69fa
-Message-Id: <179460743154.1865235.10495301897269785737.pr-tracker-bot@kernel.org>
-Date: Fri, 13 Nov 2026 22:03:51 +0000
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=QtKGYcQI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=060I
+	lpN6nZBHuShVfn1h6xjHXL8bq9e9OYpRoM9tWdM=; b=QtKGYcQINLZUbtBvGCrX
+	feBVnRhzy4dEj4v8brwXHAjMaRSL7bcMQaulQM1FlgQOGXCUMedRIYcOXT9cAZCa
+	kRyT5afiDUnnj/EqONlbiNV1sxsCNgDfidTvRAaHQ+4S9wvNzHNT3Rqj6I/DKVeC
+	aXmoKMaCQDVwusYmeKu0SqpliUW7whlJohAEdqKFwD2XMhypU58x38EiedEkywjb
+	DYkYWEEJTtfJ3ODg0NVlHHEHhWrO8oQ1kobOVK0CaA1DwB4A0L/l2UqffG3r+8iw
+	fof+7B1NO0+SruLY6T6U7ByveZh4NZ/m9lz8z6Fdm3hkB/sj1+5m/xmejGZpMLXB
+	NQ==
+Received: (qmail 379181 invoked from network); 13 Nov 2026 23:04:34 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 13 Nov 2026 23:04:34 +0100
+X-UD-Smtp-Session: l3s3148p1@E2f9nC9g+uAujntX
+Date: Fri, 13 Nov 2026 23:04:32 +0100
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Johan Hovold <johan@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>, driver-core@lists.linux.dev,
+	linux-acpi@vger.kernel.org, linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Hans de Goede <hansg@kernel.org>
+Subject: Re: [PATCH v2 2/8] i2c: core: fix swnode use-after-free on client
+ deregistration
+Message-ID: <aveJbJBz0lRkpXMV@shikoro>
+References: <20261110085125.2535508-1-johan@kernel.org>
+ <20261110085125.2535508-3-johan@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,16 +74,60 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="j+L7QhPvMLGA3QYz"
+Content-Disposition: inline
+In-Reply-To: <20261110085125.2535508-3-johan@kernel.org>
 
-The pull request you sent on Fri, 13 Nov 2026 18:52:41 +0000:
+--j+L7QhPvMLGA3QYz
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux tags/arm64-fixes
+On Tue, Nov 10, 2026 at 09:51:18AM +0100, Johan Hovold wrote:
+> If a client has both a primary and a secondary firmware node, the
+> secondary node is accessed via the ->secondary pointer of the primary
+> node.
+>=20
+> Use a temporary variable to track whether the firmware node is a
+> software node and remove any software node before dropping its reference
+> to avoid a use-after-free in device_remove_software_node() when
+> accessing the secondary firmware node.
+>=20
+> Fixes: df6d7277e552 ("i2c: core: Do not dereference fwnode in struct devi=
+ce")
+> Fixes: 1c24e5fc0c70 ("i2c: core: Fix double-free of fwnode in i2c_unregis=
+ter_device()")
+> Cc: stable@vger.kernel.org	# 6.16
+> Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> Cc: Hans de Goede <hansg@kernel.org>
+> Signed-off-by: Johan Hovold <johan@kernel.org>
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/97d73c8251226cf27cc6656b4c542869bb8c69fa
+Looks reasonable to me. Thanks for doing this and the cleanup in patch
+4/8.
 
-Thank you!
+Acked-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+
+--j+L7QhPvMLGA3QYz
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmr3iWwACgkQFA3kzBSg
+KbaIMA//eWcgbnF7PZjDx4nprctqMRhaYXXJNHPesqlrO7deaWAuj6I1+Cliuco4
+sUxbGoaqeI3Pdn5iMAVHzuzxk4YWp9NqEGaarZZ6oT3MrPx8oTvQwYwnNTsou6yz
+t+x04+dPmw5di/r02KlpuI//3aGLKLVH1TStEZ7fdYdeKf9Cjw1BhzTQ5evVW0H2
+Xurqmq1uWGZ3QUvb7+LppwTkp3wp6AFbjY8Y2pRmxfrM4VgGuYLWExK7P//qqKR1
+pkpxjV4XGIvlZDlX7ynIWf55Yh2xWNjI89dS2ytFYtkXXgKf3KoGzZ+fGg0Y1Yhf
+mHJbnTCL+24rtpfDhPnC1fci8rVLJ2VvKVLtfXK3zaNe6ZOshRh8Rdl+dwfNckLi
+BMzTAr8NWsfp8m+sCrPZUDRk+bDEZiGu5IQbbgw4WwdREq/5g6z3eo+G7PF2D+HY
+cFHkyOVcMkKfq4IyYTm9AVXIKl1Oruz9QyefgNHCmdauegytSfsuI+oBvw66kXBu
+MhPSRrAlD2FLZYmOjfUT1R+rbncrT6tLHHwlRnSsjdvnVrZN5PUr+r3Jx9KTkchQ
+jTkp8P3WIcE3j3A+5DynJ2+VKhN9Pi/n/dLaK84buiyzOlzbm+TZ8NylR2nng6+q
+44eBFj99f+HuUQI/i9a6ovZwD1E9fLT0+J55g4IKqUeVi9KoIak=
+=UwRm
+-----END PGP SIGNATURE-----
+
+--j+L7QhPvMLGA3QYz--
