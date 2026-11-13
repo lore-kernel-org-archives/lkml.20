@@ -1,85 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794606433;
-	b=Sn+QnQuI7Sd1V7gHlkjav9PFnp0scRwnoXE//e4IY9wmejGuwhN3x4efSvu3KDfSgdPy
-	 ALww2KI1wFW6rzDYhIs50mwIkJ4WHJ5FyCm7Vb5BZ6ChB0T2p0JO+ZLJDKdDqEBsQTZ59
-	 3eLNgYKAaJNc8YpcmLfntYXTBGYNx8loViKIka2m9LcfedAFLu5VBtW3LM7Y0meX5QZCz
-	 HnreMkKk4Z3Wpr9qZ4rMJgcDdozf8eBldNxAjLJKRUt9eyROoe1E8JSsT8cxkv4Zodvad
-	 FsCZgW/pvvp2A74IM/JLLhsICf58sQVezuJ+u/fAIfd2pYieTgqy8ZpyeBo2dMNP//g==
+	t=1794606430;
+	b=fMHkatxR6/vKRaW1AYF/wgdOj7TQMVmQ9Vw08R2JYC2YhcOZL55Tun8smS7RzvPcICNN
+	 i6W6L34X6uN+rW/qPI9gvRlV/R9FtSk1FxZIEr1AH/4Er9q7QRZYc41193OMzsSyl7ChP
+	 eFE014pSDb/HRZ/NKyu7a6i7KMXg0Pf1Psfy+kOeZoeBjCcQ1O45yfXz/uxJQNZFPq9yx
+	 Sr9p6NPyQoQUfMxqKIqMaSUCF6WQFow/jn9xovRKWTfRYPLuv5k8lLbfhUVTCBju8TDcp
+	 KvplyZUNF441KFvWTcsMrLm4IWtG1ozByvhDUn1edncYW2abEsxgQBrT67DvOCVomhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794606433;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=kmWJl7xpM9EiZrdM4st9QmllTAXM7O1m5Iu9qvicGyw=;
-	b=4LSuY314Jm8dszELAZW0R1KIPDXJ2H0IpbDEVlnYKwZtYrzCpIQUfc0mRYj++05aQy8R
-	 9OBuJWOIFWiDT2fSdJnVmZ1y+di859z+f/bxGFglMOhSB/0e4mHYKs8N2G7JXg9u8gABR
-	 bpdn9RZOu5FKXKergj3qE2etWV9L9Wkyecfookm7BVfKE46vbIV885FuvbflhVTSdJelJ
-	 eFPlmbXyDuXHeLBkpvC6bFDzvPxow7oRwYBLMlvmQ7PJHuxhAoPtIq3Ngt6ph7kF6c+IY
-	 L4Td0/NiLKlObn1tOcF2koQgoTU34NyH0yci8OSBh+sCCR29COevBlM7nTs3xoNs0tA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794606430;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=apAT4VjpJC36vVjxGEJmMW5TwbguNTu7ge9I4OVkMS8=;
+	b=LtJVeVH1EUKM1Pg2Lts+I6JaTiMLxA/BfkkuUF8YUNLO+xgB9wqr25RLa36vwgFBGxbz
+	 TjioQIIKQXJSTQni6Pfa5kQKz6V7kGcd0EHGzPIFnm9fASKVBTaTsg5yr6+si+mrEZ1TQ
+	 XUXWqKDcOdH7nHtvj/fJWtifYqBiWt/d0mNg8UcftJQBlcTJfxFKWwUU2iB6AAWDa67K+
+	 9NKA8/rEY5TznoY2zn2ohav8K6cRx1k/+yZw+F/7/L/SglzNXZ2Inse/+9M6lTba0R4aC
+	 uxUb8iW/a/pjIeCDOigpP6q5f+jT9o8/a7WTEAFiTY8vjw10yIHV2bo+DgPuN7m4xYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=eaa0H2aL;
-	arc=none smtp.remote-ip=209.85.222.178
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m3MKDB77;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B41C606A33D
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:47:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B41C606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 024B5606A885;
+	Fri, 13 Nov 2026 21:47:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=eaa0H2aL
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-93f20c3aaa5so309270985a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:47:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1794606432; x=1795211232; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=kmWJl7xpM9EiZrdM4st9QmllTAXM7O1m5Iu9qvicGyw=;
-        b=eaa0H2aLTwIv1fF9DlES7zpndhp3z4IRgePEZs2NN4KH8l196BoqVtJMOQoreLCYNB
-         pOsyMZrWiiWWEYh99FWQcRzLwUkmUQG0Z6hXXczle32dIaNGY3hVRAwAZF4u+LqQGeDl
-         HW/Qi7lP/gayyA5HyH4yHz9T2KcK3IAp4jj2dA1Q8qWqf67B8DNQa36x3Wf1p+BqoYeV
-         09E1Oth2PXXi3zYvT0jz0Q46Ub14UsGzxUIXD4+zxf0zDuIBi9HdIfF7bPAV5OJw1wez
-         IQ1H4vTfGvCU94LsWlmfOA1MvRSD4iIueptYlFuflsyzxqnZzZl++fo1JvUP6RClXRoD
-         h3pw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794606432; x=1795211232;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kmWJl7xpM9EiZrdM4st9QmllTAXM7O1m5Iu9qvicGyw=;
-        b=NB9LiJbwbfcZqs/Peu9ya0UDoWxapDa5IV5FJGr3QaaVOaR/GuNS/gkryYdPMVJeYP
-         2AscBZNQ2unAVIyFyegURF3GR7XJIUxppJ6JYh27pUVNZ8aZjKI+VpntLyLnQRgzAS2N
-         NVdRX3sdPPxn0kOgj1FgY8bMx5eB9vkb063bVYJEGld8DzTvo7y2v+DIqcpT+44VKDDO
-         nZmOiFY3YpPAIiIP9gfu9qyp3n9kfvRa3wg+reydfb301NtvRIk+IWUgVgcubQCcII5V
-         G8L+lsoaFkCOZuH+GUZVK/VM5E9BO/LO4MleNkZteH1G7286aWq8GnNer7rJXILtRjkU
-         UBow==
-X-Forwarded-Encrypted: i=1; AL+hErGuNvMBlrNxIK7G5PgEVkFuLJilskWtK4+o+D5f1/Ypa8lqQhkBNl1at1KMwPmB/bNLcNZzBu+cgBPxmRQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/JVxgqUaFuCCvqy9A7wKFK/H1ixWlv+wXiUTnN85iRSYxhmd2V
-	CqhCr+7wToIiQQG8loLVuxUmGXnUWwV5Z0sRx0ZkHMmx1g1wbJZNLSrRTZ8Xo6luFSE=
-X-Gm-Gg: AYBFou24qsiykNYUuUOlasjpi5+duM8vv/B/+18xvVF+PGLci4X+hFgGF+k4Ghlyr1N
-	dCApDg0iQ8lZSvjii+YHfH6W5U9NwJq/jifSvQl7oJgIaeVrnKpHxxrmsZGcMe6HrvFFuxWcJmf
-	whHFiofG4OpEMkYZAjGnXSrQy2VGCXwxBXBhp136N/KlE4YDtxqiF3cmI0i5I7tW5X/Bb+FXk95
-	FIowsE/y+d9wJvv6sJxEB1izAnsd9DbxavgFiak5BpX6TIALg0mN68DTakWBc2UOCwKGw/OKl9S
-	LLGE58MVq0n94PHv/BqtGhTGQ9WX3YvVGyd3/Uuy8mKf8663Uh4qdUCi/W0QGMAbDA+BScvdUpV
-	3QHmsn+6fgFJbeQPvEweD2wL28QQSMKFsk7+XWMDrQmKqGpDAveescFIJhQIKNRfip+ay0Guchn
-	v4436RvxWjbE73nP56589t57B/0ul2JZpr2k6mQl+Li330GL9u47Rm8+ICoaJfHUJOqQTLsc2Yj
-	FJxoe8v5LHd4tDLpBPB8j7/brhuIG2n3XyogeGRLEoiGETjRpEw5VkGrA0ZU89ZA1vaAZz5DOtC
-	g1LV2BLi9dxfM8rrax79jq+Uz0QaT1CayLKHfhRhkiH38TLz9NVBHbcEih1J7oXroXTcYfMoqlW
-	Gqj0fejs=
-X-Received: by 2002:a05:620a:4042:b0:93f:3120:6c6d with SMTP id af79cd13be357-9494bb56dfbmr651566785a.35.1794606432092;
-        Fri, 13 Nov 2026 13:47:12 -0800 (PST)
-Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c8b5c1dsm279333985a.33.2026.11.13.13.47.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 13:47:11 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m3MKDB77
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 455181F000C4;
+	Fri, 13 Nov 2026 21:47:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794606429;
+	bh=apAT4VjpJC36vVjxGEJmMW5TwbguNTu7ge9I4OVkMS8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=m3MKDB77Ap4k/9FV325kHd7dhlR5iioZTOIr0DiIMZH0JljSRcnA2DJxvlFLC9n+H
+	 c54nMPE7y8quq0sj0qQPd4lXplLnVS51jx3geyudAWreMzKhsSXOjgGjWqkQwCdZBM
+	 1bLml3OtBeDqd73kvAjdA6pMrXTlQYNdA54I5BWofbgaNp8LqqPKkvKy9HcZGlVwkl
+	 3ORM9hxVgh+CyndWH2w1pUuA4vkxfPNj5yp4bzINF8eLIhp44xq2iHfhtMClMaBWhp
+	 V4qtiIjPGP+e/4nC1PkPYeB+k3AyC1cfxC6w2v8jlvXALy+GmS+mAwGXLd9vBCINQ4
+	 LmUXwLaUISmEQ==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Fri, 13 Nov 2026 21:45:27 +0000
+Subject: [PATCH v2 09/13] mm/migrate_device: fix use-after-free of the anon
+ rmap
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,85 +55,202 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 05/15] mm/hugetlb: keep surplus folios when the pool
- shrinks
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>, 
- Andrew Morton <akpm@linux-foundation.org>, Mel Gorman <mgorman@suse.de>, 
- Andy Whitcroft <apw@canonical.com>, Miaohe Lin <linmiaohe@huawei.com>, 
- Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>, 
- Hugh Dickins <hughd@google.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Vivek Kasireddy <vivek.kasireddy@intel.com>, 
- Dave Airlie <airlied@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Peter Xu <peterx@redhat.com>, 
- Breno Leitao <leitao@debian.org>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Sven Schnelle <svens@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- Gerd Hoffmann <kraxel@redhat.com>, linux-doc@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-s390@vger.kernel.org, 
- Josef Bacik <josef@toxicpanda.com>, stable@kernel.org
-In-Reply-To: <20261028-fixes_hugetlb-v1-5-a0a033db180f@kernel.org>
-References: <20261028-fixes_hugetlb-v1-0-a0a033db180f@kernel.org>
- <20261028-fixes_hugetlb-v1-5-a0a033db180f@kernel.org>
-Date: Fri, 13 Nov 2026 16:47:10 -0500
-Message-Id: <179460643069.482102.17806419339613384754.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+Message-Id: <20261113-mason-migrate-et-al-fixes-v2-9-50a2ed382b61@kernel.org>
+References: <20261113-mason-migrate-et-al-fixes-v2-0-50a2ed382b61@kernel.org>
+In-Reply-To: <20261113-mason-migrate-et-al-fixes-v2-0-50a2ed382b61@kernel.org>
+To: David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Nhat Pham <nphamcs@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
+ Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
+ =?utf-8?q?J=C3=A9r=C3=B4me_Glisse?= <jglisse@redhat.com>, 
+ Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>, 
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
+ Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, 
+ Chris Mason <mason@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, "Borislav Petkov (AMD)" <bp@alien8.de>, 
+ Mark Brown <broonie@kernel.org>, 
+ "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, 
+ Rick Edgecombe <rick.p.edgecombe@intel.com>, 
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5530; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=OX27u7rU+9JbIx9DBrYTwdwqvdYrHdIaQA8QSBlifPs=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLK+t/yMLL5cc07vbbfb2jn6rg+0tK7svDX1n5nTr1Xbz
+ 667I5DzpKOUhUGMi0FWTJHl+Rfx/UEiYfM6L/i7wcxhZQIZwsDFKQATUTvOyDBbS6LtTvq5TxIb
+ Vn8LlCwodQjXWHpjUtx6rYM6DhHv42cyMlw8HnnSLV6/7c/Kda78ufJmXx0T50euvC3wUK7jSxX
+ ze14A
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-On 2026-10-28 21:13 +0100, David Hildenbrand (Arm) wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
-> 
-> Surplus folios are accounted per node. When shrinking the pool,
-> set_max_huge_pages() removes free folios through
-> remove_pool_hugetlb_folio() and accounts them as persistent folios.
-> 
-> It can select a node whose folios are all surplus and leave its surplus
-> count larger than its total count. Free surplus folios can back
-> reservations created by gather_surplus_pages().
-> 
-> For example, with nr_overcommit_hugepages = 8 on two nodes:
-> 
->   (node columns show total/free/surplus)
-> 
->                                       total free surp   node0   node1
->   mmap() of one page, bound to node 0     1    1    1   1 1 1   0 0 0
->   node1/nr_hugepages = 7                  8    8    1   1 1 1   7 7 0
->   nr_hugepages = 6                        7    7    1   0 0 1   7 7 0
->   munmap()                                7    7    1   0 0 1   7 7 0
->   nr_hugepages = 0                        1    1    1   0 0 1   1 1 0
-> 
-> After shrinking to six persistent folios, node 0 has no folios but its
-> surplus count is still one. Releasing the reservation cannot clear that
-> count, and shrinking the pool to zero leaves one free page on node 1.
-> 
-> A later write to node0/nr_hugepages underflows the unsigned per-node
-> persistent count: 0 - 1, resulting in allocation of many folios.
-> 
-> Use persistent_huge_pages_node() to skip nodes with no persistent folios,
-> as adjust_pool_surplus() does. This also excludes temporary folios.
-> 
-> Fixes: e4e574b767ba ("hugetlb: Try to grow hugetlb pool for MAP_SHARED mappings")
-> Cc: stable@kernel.org
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> [ david: cleanup code and description ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+A munmap() of anonymous memory can result in a use-after-free of the
+anonymous rmap if a concurrent device memory migration occurs and the
+migration runs without the mmap_lock held.
 
-Reproduced the total=0, surplus=1 issue and subsequent underflow, and
-verified this patch fixes the issue.
+This can occur for a long-term pin of device-coherent memory, or a driver
+evicting its device memory by PFN.
 
+Consider:
+
+    eviction                        munmap()
+    ========                        ========
+    migrate_device_range()
+      migrate_device_unmap()
+        try_to_migrate()
+                                    zap the migration entry
+                                    unlink_anon_vmas()
+                                      last VMA: free the anon_vma
+    migrate_device_finalize()
+      remove_migration_ptes()
+        /* locks and walks the freed anon_vma */
+
+If munmap() runs before try_to_migrate() instead, the folio is no longer
+mapped and gets no migration entry. The walk still runs, and follows the
+stale folio->mapping to the freed anon_vma.
+
+Resolve this by pinning the anon rmap of each folio which possesses one in
+migrate_device_range(), migrate_device_pfns() and
+migrate_device_coherent_folio() before its PTEs are replaced, and
+unpinning it once the walk is done.
+
+A folio which is no longer mapped cannot be pinned and has no migration
+entries to remove, so skip it rather than migrating it.
+
+Reported-by: Chris Mason <mason@kernel.org>
+Fixes: e778406b40db ("mm/migrate_device.c: add migrate_device_range()")
+Cc: stable@vger.kernel.org
+Reviewed-by: Zi Yan <ziy@nvidia.com>
 Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ include/linux/migrate.h |  1 +
+ mm/migrate_device.c     | 39 ++++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 39 insertions(+), 1 deletion(-)
+
+diff --git a/include/linux/migrate.h b/include/linux/migrate.h
+index 78424b3824c2..c6cce7925b9b 100644
+--- a/include/linux/migrate.h
++++ b/include/linux/migrate.h
+@@ -136,6 +136,7 @@ static inline int migrate_misplaced_folio(struct folio *folio, int node)
+ #define MIGRATE_PFN_MIGRATE	(1UL << 1)
+ #define MIGRATE_PFN_WRITE	(1UL << 3)
+ #define MIGRATE_PFN_COMPOUND	(1UL << 4)
++#define MIGRATE_PFN_ANON_RMAP	(1UL << 5)	/* mm internal */
+ #define MIGRATE_PFN_SHIFT	6
+ 
+ static inline struct page *migrate_pfn_to_page(unsigned long mpfn)
+diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+index 141d60d27e90..b4660eeb975a 100644
+--- a/mm/migrate_device.c
++++ b/mm/migrate_device.c
+@@ -552,6 +552,27 @@ static bool migrate_vma_check_page(struct page *page, struct page *fault_page)
+ 	return true;
+ }
+ 
++/*
++ * Pin the anonymous rmap if present to allow migration entries to be safely
++ * removed. Returns true if the pin succeeded or no pin is required, and false
++ * if the folio is no longer mapped.
++ */
++static bool pin_anon_rmap(struct folio *folio, unsigned long *src_pfn)
++{
++	if (!folio_test_anon(folio) || folio_test_ksm(folio))
++		return true;
++	if (!folio_get_anon_vma(folio)) /* Pin the anon rmap. */
++		return false;
++	*src_pfn |= MIGRATE_PFN_ANON_RMAP;
++	return true;
++}
++
++static void unpin_anon_rmap(struct folio *folio, unsigned long src_pfn)
++{
++	if (src_pfn & MIGRATE_PFN_ANON_RMAP)
++		put_anon_vma(folio_anon_vma(folio)); /* Unpin the anon rmap. */
++}
++
+ /*
+  * Unmaps pages for migration. Returns number of source pfns marked as
+  * migrating.
+@@ -633,6 +654,7 @@ static unsigned long migrate_device_unmap(unsigned long *src_pfns,
+ 
+ 		folio = page_folio(page);
+ 		remove_migration_ptes(folio, folio, 0);
++		unpin_anon_rmap(folio, src_pfns[i]);
+ 
+ 		src_pfns[i] = 0;
+ 		if (fault_folio != folio)
+@@ -1331,6 +1353,7 @@ static void __migrate_device_finalize(unsigned long *src_pfns,
+ 		if (!folio_is_zone_device(dst))
+ 			folio_add_lru(dst);
+ 		remove_migration_ptes(src, dst, 0);
++		unpin_anon_rmap(src, src_pfns[i]);
+ 		if (fault_folio != src)
+ 			folio_unlock(src);
+ 		folio_put(src);
+@@ -1380,6 +1403,7 @@ EXPORT_SYMBOL(migrate_vma_finalize);
+ 
+ static unsigned long migrate_device_pfn_lock(unsigned long pfn)
+ {
++	unsigned long src_pfn = migrate_pfn(pfn) | MIGRATE_PFN_MIGRATE;
+ 	struct folio *folio;
+ 
+ 	folio = folio_get_nontail_page(pfn_to_page(pfn));
+@@ -1391,7 +1415,13 @@ static unsigned long migrate_device_pfn_lock(unsigned long pfn)
+ 		return 0;
+ 	}
+ 
+-	return migrate_pfn(pfn) | MIGRATE_PFN_MIGRATE;
++	if (!pin_anon_rmap(folio, &src_pfn)) {
++		folio_unlock(folio);
++		folio_put(folio);
++		return 0;
++	}
++
++	return src_pfn;
+ }
+ 
+ /**
+@@ -1427,6 +1457,7 @@ int migrate_device_range(unsigned long *src_pfns, unsigned long start,
+ 		nr = folio_nr_pages(folio);
+ 		if (nr > npages - i) {
+ 			if (src_pfns[i] & MIGRATE_PFN_MIGRATE) {
++				unpin_anon_rmap(folio, src_pfns[i]);
+ 				folio_unlock(folio);
+ 				folio_put(folio);
+ 			}
+@@ -1470,6 +1501,7 @@ int migrate_device_pfns(unsigned long *src_pfns, unsigned long npages)
+ 		nr = folio_nr_pages(folio);
+ 		if (nr > npages - i) {
+ 			if (src_pfns[i] & MIGRATE_PFN_MIGRATE) {
++				unpin_anon_rmap(folio, src_pfns[i]);
+ 				folio_unlock(folio);
+ 				folio_put(folio);
+ 			}
+@@ -1505,6 +1537,11 @@ int migrate_device_coherent_folio(struct folio *folio)
+ 
+ 	folio_lock(folio);
+ 	src_pfn = migrate_pfn(folio_pfn(folio)) | MIGRATE_PFN_MIGRATE;
++	if (!pin_anon_rmap(folio, &src_pfn)) {
++		folio_unlock(folio);
++		folio_put(folio);
++		return -EBUSY;
++	}
+ 
+ 	/*
+ 	 * We don't have a VMA and don't need to walk the page tables to find
 
 -- 
-~Gregory
+2.56.0
 
