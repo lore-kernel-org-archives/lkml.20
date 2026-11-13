@@ -1,82 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794591564;
-	b=opQ6sTHop2swCj1DOQYTr1EaazdSNsBw8LvncyNktzr+Xpr/04JwSk+eQ6ACq+TH3V3u
-	 kfyKqPv5VIhklxt6jdmZqCNcVT7/J5IbY1PPwj6hSJ9Dv5zBAnKYDIEXItwI7lJgB4JdI
-	 lyXO6U4xNkBSFlk2rBpxYgrnST+wkz1UQYJMBI336a+IZdo7UaJKJE0ZsWal0Sbf9GuOh
-	 dEaagq+wlKtVTLPExQMa+/lZ9y9+vPduOzNdYmTRMNnRkwYf5ZKE0IGhhbCUxeRaXGTIB
-	 nYvieiV+6l/el8Lz+CkQifei/qNibJYZoJSZKg83w13mEoMoVfTV/McvsZ06UBaUx6w==
+	t=1794591566;
+	b=crnaD40vPYaaVpfN6PqvPCe1tuo9R4qstYj9K6lsvNcjXbyuk7h3optVWFBkdZ6Tz0hz
+	 ygHke4EINLBMCcoz4dTMNRxDf1zBswiUk3Ip712zbp9glt/0370p9APMrzmSJTjzWgFbr
+	 kPkHRIqup9wToNorCxf9WeFuxZe3tP1qswLR8qTN4rQ3YfBqxvmkL8/QZ53vs/tK+lKmv
+	 z9XmPZryHtSBhzqpDY/Lhg/UyXQ8a7iUwYsxzuuAjnke/6JeAydbLt+clkZDmS50mr3Ec
+	 m32NSHPjGP9XYsb7usTk//opHfu/Ey5rZVAnizW++KGwLJzsDx31Mxm4MKpW+fIsWTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794591564;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=DgYC/Shj+AnWGDzWfubZGcb4ncX/t5B6/82xucLJWBo=;
-	b=V/ZnYTQymdKIODPc70vLrhGWdNvHyRGI1xrUAd/P/dQVr0MtyBPW5wYMAnWOqSkGlbnr
-	 dbOycFLCwI6SYFwNAsV8H8zwzPfg3aBp94LT68k2/LfmOHriXiMdsgr/LiMyE/jmHPI3e
-	 C+hfsGGbIO6dmLfnXRQqPi0EmCHpXwV2k6QJ7N9ISuaEk6Tizv/x0dayRiwkvUbLX2pTY
-	 sj4qvovQYkclDVfUlzvZ2loRlEn1BRgojxRnSMYw8R6YNP/8DNpTSbBxzhvlPD0Cud709
-	 7KW1AztvCmHNq2+p85E+mN6U4H11gK+hYgrcVCTdP9Jiw6+V1xOe/iLruDKn+cPMI+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794591566;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=dm8q8HGPHE9E98Lt4CJ5Z1tUerEAxjiOuXmAiX4bR3k=;
+	b=gs1pBezvc3TDtdbNEKntAXEwZXR+xwsITywZ2Rw0fvj+lCOkZQKweFGjyK06n/RYHr7J
+	 TpzTOFW2Zdh8nOHDEaLOl+n9NK8yH7+yl2dBJ0Qpyi+aKegZdx8lWYAe60UYeoBlBz45G
+	 DeXA88nVR/9LU/EFZpntDNqZhxqy/Pf04T1DnpID0B7XbBsDhXNfqp4hfXrI/3NDFT60C
+	 JQiEbiDS7BZjk9/wq5j15AS94B77h4FCpnbZNOq7Xi2ajtbrxkJedkPdgrDr0K9qRWw1x
+	 KoIFANgiZWG0/RZgJfzjANmqNLew5YUhmnC3k1GV/5yjzIQh5SSVDUnkIYy4YS/xQ9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=C073yJYy;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GJPwlCXx;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A995F606D4AE
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:39:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A995F606D4AE
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F6B6607E802
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:39:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=C073yJYy
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADFiFKT3453491;
-	Fri, 13 Nov 2026 17:38:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=DgYC/S
-	hj+AnWGDzWfubZGcb4ncX/t5B6/82xucLJWBo=; b=C073yJYyGrqEQLUD1T0R9Y
-	v4Hsr7PJX9rPQR7ZF5x0GTyfUtMuGYtS4aGroYHRRA1xSmLRVQAFAUZqsFtDasqX
-	q+TVpGGxtpSWvoo5oXgZ6/XSINQVkAW7dDq/xmzzp/Pz2/Bk36JNBY+34v6yRmFw
-	Gr+fMG34nB31JgQBmIKnEXZzQE6opoBT2AeeoL56K+Q7nX+6sUNnGFSgQCZ6TByi
-	sNwV6sS5B+hnNfXSDO0L6BlA86HrlA7Sx3xxPlTADogbOStUXPMivdYRRteQ3PX0
-	Qd69ZlV3NWr+8ARYZwb6Q+h9itxlge4bA0ltsh0YGiXrBWSy5gYyyud1xnwjvpuQ
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsumvbk70-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 13 Nov 2026 17:38:47 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADFZ9qx2591951;
-	Fri, 13 Nov 2026 17:38:47 GMT
-Received: from smtprelay04.wdc07v.mail.ibm.com ([172.16.1.71])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hwc0tdb4j-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 13 Nov 2026 17:38:47 +0000 (GMT)
-Received: from smtpav05.dal12v.mail.ibm.com (smtpav05.dal12v.mail.ibm.com [10.241.53.104])
-	by smtprelay04.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6ADHcCMC18743816
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Fri, 13 Nov 2026 17:38:12 GMT
-Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 7419D58056;
-	Fri, 13 Nov 2026 17:38:12 +0000 (GMT)
-Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 73BD558052;
-	Fri, 13 Nov 2026 17:38:08 +0000 (GMT)
-Received: from [9.39.19.12] (unknown [9.39.19.12])
-	by smtpav05.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Fri, 13 Nov 2026 17:38:08 +0000 (GMT)
-Message-ID: <1044b867-fa18-4654-baf7-dd1e3a5562ef@linux.ibm.com>
-Date: Fri, 13 Nov 2026 23:08:06 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GJPwlCXx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E1BF1F000C6;
+	Fri, 13 Nov 2026 17:39:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794591566;
+	bh=dm8q8HGPHE9E98Lt4CJ5Z1tUerEAxjiOuXmAiX4bR3k=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=GJPwlCXxg4dqojQf5ueDh9IrlaSbGZO0JTmYaJQfn9oeW6hwuzQ31647nd+eCdAiM
+	 c3dP0I8334riJdJpI663KprFneiBckFlSv7YhbNtuQF6t2UIGX+lRxL0DEuo7nifWU
+	 vHQ2PPNUguiOeFgNd5Jhe84QJCoy6nHyL3oR6c9vLooCa2mdAkYaH6sSonUszYpdhO
+	 mRkEnd4xpyXmdf8iWU66G1xdatv9n5GVbNGEKIWVoVW+PBR8YB2wjESBvfVHfDIKyA
+	 8394hibUzO+kInePRReL0tZCB04bhVYUX09nnmgo7JiPg9OJAFJfY7zQyh7t/bp1d6
+	 j5dP7ZKfGKvMQ==
+Message-ID: <16bb1a14-04f4-4524-9882-20d452175a3d@kernel.org>
+Date: Fri, 13 Nov 2026 18:39:20 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,102 +52,142 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/8] powerpc/perf: mpc7450: Event 0x30d does not use the
- threshold
-To: Matt Turner <mattst88@gmail.com>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-        Shrikanth Hegde <sshegde@linux.ibm.com>,
-        Paul Mackerras <paulus@ozlabs.org>
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-References: <20261109-ppc32-perf-v1-0-a6e8a55b3b48@gmail.com>
- <20261109-ppc32-perf-v1-1-a6e8a55b3b48@gmail.com>
+Subject: Re: [PATCH] mm: synchronize with PTE table reclaim for all folio
+ sizes
+To: Baolin Wang <baolin.wang@linux.alibaba.com>, akpm@linux-foundation.org,
+ ljs@kernel.org
+Cc: riel@surriel.com, liam@infradead.org, vbabka@kernel.org,
+ harry@kernel.org, jannh@google.com, lance.yang@linux.dev,
+ qi.zheng@linux.dev, pfalcato@suse.de, ayushr@modal.com, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <affd6da4e8d0de1424a4e0b3bafcd1324dfb6c97.1793847060.git.baolin.wang@linux.alibaba.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
-From: Tanushree Shah <tshah@linux.ibm.com>
-In-Reply-To: <20261109-ppc32-perf-v1-1-a6e8a55b3b48@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <affd6da4e8d0de1424a4e0b3bafcd1324dfb6c97.1793847060.git.baolin.wang@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA2OSBTYWx0ZWRfX1WjqdzGMhl+d
- dsLjorh3n9jYyPPd8+qGbreHjQlHg/ne6hVo0OK5mH72CNAOQnC8E5LgYYwwbxE+AQiepOMhGqD
- 8lEkSCzy8iqpHlWD3yCZk3RZz414XYE=
-X-Authority-Analysis: v=2.4 cv=GISdgeNK c=1 sm=1 tr=0 ts=6af74b27 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=pGLkceISAAAA:8
- a=VnNF1IyMAAAA:8 a=hDsOEGxpxML-9HYuKHQA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: zRp01WlEldbXA00EmhnGquY-fwOzkQXR
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA2OSBTYWx0ZWRfX9g79SpQM13CW
- dPW2fnRetwPCTplQan3x2yw2hnKUfy7D/8joJG750/1W8eMc4+xjixEjrOoAQa6dqFJmKkGWPd1
- 8qea7FeO7lX5y163+fF5+RnDIgAvghT5TXA5bNoHqFURM22ZMmbN6I6sIoOn6GM+/IYkurZqiPI
- bEy3rl/ohZ6Teocy0EGEGwX9wYV0xpwloem/4Ud3toF6FVJf5P5dWppuKS8epgtbRODOk9brcKd
- CuAez2MljpKib0UnVxkXRTnVaA2wedOPi2Rd7RjoqhbtKgWAXU6YaZ8XgdPQjwLuwTVDm42vkOr
- SrTb7hDB+qmmlsKGBmyuHtoO1m8vVdbJFNKpLZQlLIN6I7/pZtyt0XhztIKBLKywWAHiozrS5Cp
- UJqwaceDfdHQGksCXDI9aIFSM8ZAQQwGB0PLyZcsm4YsypX/Ot3GxVcLzu6CbOxIg7l9CcZv4Ax
- aJaMX+au8BFMWiudnYA==
-X-Proofpoint-ORIG-GUID: 6OtaJej2DiWzj4lLA2YIq5wssIsFOIqy
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-13_05,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 impostorscore=0 clxscore=1011 adultscore=0
- priorityscore=1501 phishscore=0 spamscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130069
 
-
-On 11/10/26 7:17 AM, Matt Turner wrote:
-> mpc7450_threshold_use() reports event 0x30d (PMC3 select 13, FPR issue
-> queue entries) as using MMCR0[THRESHOLD], and the comment above it marks
-> the event with a question mark.  The manual (MPC7450UM Rev. 5, Table
-> 11-11) says the event counts the valid FPR issue queue entries each
-> cycle, with no threshold.  PMC3 select 12, the GPR rename buffer event
-> next to it, is the one that uses the threshold.
->
-> The only effect is that r30d cannot be counted together with a threshold
-> event that uses a different threshold.  Drop it from the list.
->
-> Fixes: 7325927e5a20 ("perf_counter: powerpc: Add processor back-end for MPC7450 family")
-> Signed-off-by: Matt Turner <mattst88@gmail.com>
-Hi Matt,
-
-I checked Table 11-11 in the manual: PMC3 select 13 (0x30d) counts valid
-FPR issue queue entries every cycle and has no threshold. On PMC3 only
-select 12 (0x30c) and select 17 (0x311) use MMCR0[THRESHOLD]. That
-matches with the code change.
-
-Reviewed-by: Tanushree Shah <tshah@linux.ibm.com>
-
-
-Thanks
-Tanushree Shah
+On 11/5/26 03:56, Baolin Wang wrote:
+> Similar to commit 243cf1f67b36 ("mm: memory: fix truncation removing mapped
+> folios"), the '!pmd_present()' check in page_vma_mapped_walk() can also race
+> with concurrent page table reclamation via zap_empty_pte_table().
+> 
+> page_vma_mapped_walk() is used by many functions including try_to_unmap(),
+> try_to_migrate(), folio_mkclean(), pfn_mkclean_range(), remove_migration_ptes(),
+> page_mapped_in_vma(), and mapping_wrprotect_range(). Except for try_to_unmap()
+> and try_to_migrate(), the other callers do not perform post-walk accounting
+> checks, so the race has no observable impact on them.
+> 
+> For migration, the race can cause unnecessary retries. For reclaim via
+> try_to_unmap(), the race can cause failure to reclaim a folio that is in
+> fact already unmapped (as shown below), which may lead to unexpected OOM
+> or increased refaults.
+> 
+> CPU 0 (reclaim)                      CPU 1 (MADV_DONTNEED)
+> --------------------------------    --------------------------------
+> folio_lock(F)
+> try_to_unmap(F, TTU_SYNC)
+>                                     zap_pte_range(full PMD range)
+>                                       spin_lock(ptl)
+>                                       clear PTEs
+>                                       zap_empty_pte_table()
+>                                         spin_trylock(pml)
+>                                         pmd_clear()
+>                                         spin_unlock(pml)
+> 
+>   page_vma_mapped_walk()
+>     observe !pmd_present(pmde)
+>     nr_pages < HPAGE_PMD_NR
+>     skip synchronization
+>     return false
+> 
+> try_to_unmap() returns
+> folio_mapped(F) == true
+> nr_unmap_fail += folio_nr_pages(F)
+>                                     tlb_flush_mmu_tlbonly()
+>                                     tlb_flush_rmaps()
+>                                       remove F's rmaps
+>                                     spin_unlock(ptl)
+> 
+> Commit 243cf1f67b36 ("mm: memory: fix truncation removing mapped folios")
+> has already moved the PMD clear operation (via zap_empty_pte_table()) to
+> after tlb_flush_rmaps(). Similarly, page_vma_mapped_walk() also needs to
+> use sync_with_folio_pmd_zap() to synchronize and avoid memory ordering
+> issues on weakly ordered CPUs.
+> 
+> Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in madvise(MADV_DONTNEED)")
+> Cc: stable@vger.kernel.org
+> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 > ---
->   arch/powerpc/perf/mpc7450-pmu.c | 3 +--
->   1 file changed, 1 insertion(+), 2 deletions(-)
->
-> diff --git a/arch/powerpc/perf/mpc7450-pmu.c b/arch/powerpc/perf/mpc7450-pmu.c
-> index db451b9aac35..564f6dac3a00 100644
-> --- a/arch/powerpc/perf/mpc7450-pmu.c
-> +++ b/arch/powerpc/perf/mpc7450-pmu.c
-> @@ -65,7 +65,6 @@ static int mpc7450_classify_event(u32 event)
->    *	12b	Y	PM_LD_MISS_EXCEED_L1_CYC
->    *	220	N	PM_CQ_EXCEED_CYC
->    *	30c	N	PM_GPR_RB_EXCEED_CYC
-> - *	30d	?	PM_FPR_IQ_EXCEED_CYC ?
->    *	311	Y	PM_ITLB_SEARCH_EXCEED
->    *	410	N	PM_GPR_IQ_EXCEED_CYC
->    */
-> @@ -92,7 +91,7 @@ static int mpc7450_threshold_use(u32 event)
->   			return 1;
->   		break;
->   	case 3:
-> -		if (sel == 0xc || sel == 0xd)
-> +		if (sel == 0xc)
->   			return 1;
->   		if (sel == 0x11)
->   			return 2;
->
+>  mm/page_vma_mapped.c | 5 +----
+>  1 file changed, 1 insertion(+), 4 deletions(-)
+> 
+> diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+> index e6b6170c2f4f..8797467b6f0c 100644
+> --- a/mm/page_vma_mapped.c
+> +++ b/mm/page_vma_mapped.c
+> @@ -293,10 +293,7 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+>  			spin_unlock(pvmw->ptl);
+>  			pvmw->ptl = NULL;
+>  		} else if (!pmd_present(pmde)) {
+> -			if ((pvmw->flags & PVMW_SYNC) &&
+> -			    thp_vma_suitable_order(vma, pvmw->address,
+> -						   PMD_ORDER) &&
+> -			    (pvmw->nr_pages >= HPAGE_PMD_NR))
+> +			if (pvmw->flags & PVMW_SYNC)
+>  				sync_with_folio_pmd_zap(mm, pvmw->pmd);
+>  
+>  			goto next_pmd;
+
+Baolin, how to proceed with that? Are you intending a resend? Including some of
+the performance impact and ways forward to optimize?
+
+-- 
+Cheers,
+
+David
