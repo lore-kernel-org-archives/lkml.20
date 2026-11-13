@@ -1,79 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794571814;
-	b=q9vWKRD7HOxgDpwRCivB9J4AZI2yY2xxQ1+o3wuKFkKCaq2rbGeBB1yZrle+Tfc720Z+
-	 iOj8w3hYPkmR07GA1CNFcAjcVoEgk9Gvp22d+cUCNA9PP5FFLvRcCoh4A/fjqrU6GooiB
-	 /3nKrPrxnswkql1zuA81fgDXBeFDHUCanh6iB8obrZCIqWgxNKfi+JI9Zu2RBKRMAz/m4
-	 g3aenikrhbvzf5Ym3JW5x04CzIxUBOK7jS/4iookZyP8tGQUyHLDbGLKFuwvYFX1inZLK
-	 4ktpOT2O8lmYDL5UCPkbYCGEcfIi8neuHDrmtBTgSksK4mQxdG0JaQv4gXlBxDgcfkQ==
+	t=1794571826;
+	b=EZgiPSDqXUzK7CbOiX+sduMkIfxoAQARJG6hH5cBBaef5csT5OjPwoSx9W5BNlaAzRWG
+	 z95qhio17YRlWDAXlbfHli/eF9EWawNl7CMQ3C+tyqzS7Vvg4s3yhUE7yeLKGocNkBAcu
+	 ZDxJ9buEP2z0q81HYkvq/ndziOMLJQN2GKdX/0so+I4b/+5NocGVVE1FfIdH4KWCJVpPZ
+	 X0e+yNGOTBFTlRgc9XAPOJZ+G0wAtKOWq+pZmIB3JNthJjfq43IWfCGEfGG2LDV53mcVl
+	 zT/C7opPHOptEijwCdddJBnJWf5LUjSR1FuVMzLe6uDLRAcMa2dpjQvgLWSN+39L3HQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794571814;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=xIcArboitsfpMIN3qkJKxbHLZpo/1KLF9LV7OZj2dS0=;
-	b=YaXzxhrANhCjp1KEWItWxvXMrSAhAJt0Sa+BmW7HqckZcAge9RyvlcPJ8pZ64QLdixX6
-	 fpT/dPdV+USTnnrQXNBcKCeH5YfhBDXrDEIIAFQDmiThxOENFsjXKXqDQLuWARk0Dq76s
-	 /9tHKjsYDhJZ2SMqpm7WoWx8iG33E7T9NSgUA8G55hlQJrqJy0XXBYtP/KA3Vi8QKdfnr
-	 hra52WKNb+NqnX0LRX0SISjFGVfA5RzCqcCKGbdGw/7gCLMXRdzOF3tITpDKZ5oigkIvr
-	 I2WPUGpMXO81cLjC9yr5jPNuKYma+BRPjVvVvXKR2URoNdfuwcbaEK8ssjHzCgtLi9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794571826;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Debian-User;
+	bh=04zbQXN/fHm4yeapTB6+tJQ1+SULWzSbJ0NuXZMwrbc=;
+	b=lSqdk9w7bN5O6y9tH/cP4zR0F1Wy7f0EP3Zho7+AgBTQqMnpYTuwaAdDw/rS4HB+DAQE
+	 kKCqdnVmYFpJw4eqkQbl54AN+z6gCbw5vUFHCDXNVCcYt0XDhBcSjFZDPIIji8uB48XCJ
+	 rktizut2iBGS7y7XWEV8LNFMgKewbPsuFo5KU7248oGs9zyisggbVHgG+BBiBka/bsED9
+	 MCBoIVxnFerMg4Fpg9OmijdH0IQOvACtj0Z8/6HlAGK0AjlIH0S+TA4VrBQ8w5MztaJYT
+	 +hFdnCFklk2z00z6ZnEWAU+NbzuTh/iEzBdrOvqDXVxXNhuU3QoudVZ3g/oxxc1S1Ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iMKhTJ3B;
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b="c2oce/rP";
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7666606A323;
-	Fri, 13 Nov 2026 12:10:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7666606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63F39606A31C;
+	Fri, 13 Nov 2026 12:10:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63F39606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iMKhTJ3B
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794571813; x=1826107813;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=/0EEmLsHHL8gr4y4eRnm0mgFUrZzQD9UrA1F7TiJFwA=;
-  b=iMKhTJ3BWVZ5IaF46w25cuP3mB56diD/favTciSFuUJNKdp9HjcJTgpt
-   1+nOqhT4rizwVTFW/iFcMYCXdn7AqTTyk0Gp/BTFtj7qW4da+k0u0bSTs
-   1kpsXyCME20kh6SRk/9iWlr08KUbojSKqZcLJnyIXctyGYw1hy9ux7ouC
-   QRP9q1QVenQFd+IbG6qc2cZcVnxQVwGShFZArpM3pczMm2I41DsLcJFcD
-   XG9PxOeuwkNk/5r20g7IVIlpBiPgjS6EANKSaQdLr9zCkP6tJvcSutpSy
-   t3FVMgzHSZDgi+u5wByv64UDZrYz4PdwsleU+VMid1if4iOnN6XfO6FqI
-   Q==;
-X-CSE-ConnectionGUID: K90s/Zy+T/6ux7g7cRqLpQ==
-X-CSE-MsgGUID: yMMlG4FsRGeimABAsA33Xg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3358936"
-X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
-   d="scan'208";a="3358936"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 04:10:13 -0800
-X-CSE-ConnectionGUID: JjY9PcHpRFaKIrgtp4PxNw==
-X-CSE-MsgGUID: dSXePXggRvi2CwIWOehD1w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
-   d="scan'208";a="8905586"
-Received: from slindbla-desk.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.217])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 04:10:12 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id BD9E4121B76;
-	Fri, 13 Nov 2026 14:10:12 +0200 (EET)
-Date: Fri, 13 Nov 2026 14:10:12 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: raoxu <raoxu@uniontech.com>
-Cc: rafael@kernel.org, lenb@kernel.org, linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] ACPI: property: Fix leaked buffers after skipped
- properties
-Message-ID: <avb-JJur-yeedbFa@kekkonen.localdomain>
-References: <DC796DD7AB1437C8+20261112090954.1388267-1-raoxu@uniontech.com>
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=c2oce/rP
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=04zbQXN/fHm4yeapTB6+tJQ1+SULWzSbJ0NuXZMwrbc=; b=c2oce/rPJNWnisCDUkozaSclIB
+	w6QME3aQOrGCJkhSPpvujUQbjc98/6hj3OHVNFg0tzX1FUAgD9X87gQJgjwjWy//AGLPbeRkiPh65
+	r8nJ5HTRNYdWAoJE7LxsiozW1EPFkFAMf3R0l3+YrYRDLIafTS2RjBzI3naBO60U9MQwkb2E8yGd1
+	BGQ5q7dUk3YumGrOec+QBYV1+qu4saV+k9B1AO2A8lP1YqFKT8cFuKeHLbW2lbENBNgXrZdx4GGX4
+	Yxr/m0ni+cgNwXrjt+T8wLk2Kc3m1wB9zethnG/jL0olA9fPA9JsfBepQ4TXNFIM/qdo3dKGURJJK
+	0ZyvzaYg==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xRq6p-00Ejxr-14;
+	Fri, 13 Nov 2026 12:10:23 +0000
+Date: Fri, 13 Nov 2026 04:10:17 -0800
+From: Breno Leitao <leitao@debian.org>
+To: Stanislav Fomichev <sdf.kernel@gmail.com>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com, michael.chan@broadcom.com, 
+	pavan.chebbi@broadcom.com, andrew+netdev@lunn.ch, edumazet@kernel.org, horms@kernel.org, 
+	shuah@kernel.org, almasrymina@google.com, sdf@fomichev.me, dtatulea@nvidia.com, 
+	asml.silence@gmail.com, bobbyeshleman@meta.com, daniel@iogearbox.net, 
+	razor@blackwall.org, linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH net-next v4 4/5] net: devmem: size TX net_iovs from the
+ dmabuf sg table
+Message-ID: <avb-Ht-gnlZGphU7@gmail.com>
+References: <20261111224740.2744522-1-sdf@fomichev.me>
+ <20261111224740.2744522-5-sdf@fomichev.me>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,58 +74,30 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <DC796DD7AB1437C8+20261112090954.1388267-1-raoxu@uniontech.com>
+In-Reply-To: <20261111224740.2744522-5-sdf@fomichev.me>
+X-Debian-User: leitao
 
-Hi Rao,
-
-Thanks for the patch.
-
-On Thu, Nov 12, 2026 at 05:09:54PM +0800, raoxu wrote:
-> From: Xu Rao <raoxu@uniontech.com>
+On Wed, Nov 11, 2026 at 02:47:39PM -0800, Stanislav Fomichev wrote:
+> PAGE_SIZE TX net_iovs cap devmem skbs at MAX_SKB_FRAGS pages (~68KB),
+> which makes BIG TCP ineffective.
 > 
-> acpi_data_add_buffer_props() compacts successfully parsed buffer
-> properties into an output package, but stores their separately allocated
-> evaluation buffers in props->bufs using the original input index.
-> acpi_free_device_properties() only frees entries below the output
-> package's successful-property count.
+> TX net_iovs only need to be DMA contiguous. Use the largest power of 2,
+> from PAGE_SIZE up to 2MB, which aligns every DMA segment of the dmabuf:
+> - 2MB hugepage-backed udmabufs get 2MB net_iovs
+> - no UAPI change, TX addresses are dmabuf offsets
+> - skbs keep their size, only the frags get larger
 > 
-> If a property is skipped because of an invalid format, invalid types or
-> a failed object evaluation, later successful entries can be stored past
-> the range visited during cleanup. For example, a failed first entry and
-> a successful second entry leave the allocation in bufs[1] while cleanup
-> only visits bufs[0]. The evaluation buffer is then leaked when the
-> properties are destroyed. Lists with no skipped entries do not exhibit
-> this mismatch.
+> The net_iov size doesn't depend on the device. A frag is never larger
+> than its skb, and the skb is never larger than the device's
+> gso_max_size. TCP sizes skbs to fit, and validate_xmit_skb() segments
+> bigger ones. gso_max_size is 64KB unless BIG TCP is enabled. With BIG
+> TCP, page frags can already be 64KB or larger, for example with
+> MSG_ZEROCOPY from huge pages or with 64KB pages. So drivers that
+> enable BIG TCP already have to handle them. bnxt doesn't handle them
+> yet. It has a 16-bit BD length and needs a separate fix.
 > 
-> Store each evaluation buffer at the current output count before
-> incrementing it. This keeps the ownership array compact and aligned with
-> the cleanup bound without changing property order or buffer contents.
-> 
-> Fixes: 103e10c69c61 ("ACPI: property: Add support for parsing buffer property UUID")
-> Signed-off-by: Xu Rao <raoxu@uniontech.com>
-> Cc: stable@vger.kernel.org
+> Signed-off-by: Stanislav Fomichev <sdf@fomichev.me>
+> Reviewed-by: Mina Almasry <almasrymina@google.com>
+> Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
 
-Reviewed-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-
-> ---
->  drivers/acpi/property.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/acpi/property.c b/drivers/acpi/property.c
-> index 8ee5a1f0eb48..fb6b214f2335 100644
-> --- a/drivers/acpi/property.c
-> +++ b/drivers/acpi/property.c
-> @@ -523,7 +523,7 @@ static void acpi_data_add_buffer_props(acpi_handle handle,
->  		obj->buffer.length = buf_obj->buffer.length;
->  		obj->buffer.pointer = buf_obj->buffer.pointer;
-> 
-> -		props->bufs[i] = buf.pointer;
-> +		props->bufs[*count] = buf.pointer;
->  		package++;
->  		(*count)++;
->  	}
-
--- 
-Kind regards,
-
-Sakari Ailus
+Reviewed-by: Breno Leitao <leitao@debian.org>
