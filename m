@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794606600;
-	b=cb5J2EGJPqZeD8SXX74QaIEAxSpzDABFpTyOa9K9nCaR5fZsoVJ/Kb4Su/ngngEpPfC9
-	 AK5QlkKtHUA5hC/PVTBWUBVa7sucTeLOuIFYQiBw5kM72Wg2qmL7ngf9Isx+dU1DB9Jn/
-	 xGNIYvT/orxGE66HLHcOFHB6seSWDv7sVmH/tIS04o3egrfkg2zHfRfPEr5Je1ciNBmg3
-	 kum3eNDdKeZmFERisEpOZqA/bn/idhI7TUeDPOYsPotV9JC37zlT88ysAU5OeWOexRuuD
-	 7GIS72DMHYYPTr0mmkGcBEiSyp4e+6uY8U+gGAh/XnjjjM/wVvPnG9tdrnFGzV9KIng==
+	t=1794606605;
+	b=t6l2m3pD8TywIrsOURz6DvP5erNdtBchnawtN2c2wOKYGjWOjfSjnogUUQ7ywg1elGBG
+	 e/+lzXYMDEhs1egx78TBF27utUXyazRfrWU5rdN9Igixgo5/O31pka40ytZdrvJcD0voQ
+	 7Ajpw91VTQWclHKuC6sPF17yrlCg6aQpbueavSDF5VMkGsTJORFkxY3JfWsoyKcPy0fqe
+	 fP5QJj5aldaGB2AG76g7rnpWDpOLplGkVnCw5zTCZn6/WrHm7vlUAEKMu20184VLtgZH+
+	 iSH/EfCATuMuCEzY/0lmJzIdIHxDuDXg3VrkjeYtqODvssOZp4XBi+W6qnfOW9ZvMfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794606600;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794606605;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=uYC21Pnl3GWWGtwZwoI5E/x8WHXcMx7NEy2Jgq4qSlo=;
-	b=1F7+4fvwbtA7qqcz+6thxBl6O+Gd/lJRmEHryPH1g7jf5MS/R9ddDU1IlH6yfYe+LZfl
-	 UdmkjSeHj4WkrebTs1+HvhXYaPF/lb8+tW7iP6ZkIglsC7N3N5enwyHTnfAATkBUVYbLB
-	 q1U8R8V7PNpuoN8Eeo0bbsZYQvVwCLVZAqiDtBBF+B4VqOP3iOBW/sUZR6B9atN3VSdjh
-	 +RgVdcOo6Hva1wD6W/IS3vXIVmK69/4pHirfoMwGEM0Mgm3vV8wvC5kf3g1FfioXTwkam
-	 4BkkZVJZNGv7B6Ym1NIG4PbN+ISS9V7SgKXkLpWOii7Aho5I9BIqetoc2H0jaRchfSg==
+	bh=llBYrxQhgFsLLiJLTWG5Tbxxm+BqQeWYst4Tp/BglWc=;
+	b=ejDRcTENoQQTAQ4uU/tJGVkxWcrv0qyPFQp+iaXGf8EdyIbHhppEiaJiuKh9yTaq4bYJ
+	 zgP0cqPftPDU7WnYp3iKvpoH5Pjzg9IatL6uHZF23hCuC05N9KD+yEACylmpzSwwrsxWM
+	 1GXwjxt1WR9jY1phmqO29QsVgGjanyVn7lQ6EZ8Vtfer2AOOdVmiBMrR3LbIkYkMOzp6T
+	 5zoE3PI9wQ80xA63iwLH/dmktQlMZmzK/RPEpEQ9CMBcSgTmUE05wSI2LNMpL8gk4w6YF
+	 5025TXTY+mKKyaFenXL2i9rWLAJB9Jk1wQOj+kY+ZJGmU6HGIKhsgRgXoRwtH5++FnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=aggjouJr;
-	arc=none smtp.remote-ip=74.125.82.200
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Vwrizk16;
+	arc=none smtp.remote-ip=209.85.210.198
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E4C5606C98B
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:50:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E4C5606C98B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C52A5606C9AB
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:50:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C52A5606C9AB
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=aggjouJr
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-30bcb065bfdso1842266eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:50:00 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Vwrizk16
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8a05b68f851so1868449b3a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:50:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794606599; x=1795211399; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794606602; x=1795211402; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=uYC21Pnl3GWWGtwZwoI5E/x8WHXcMx7NEy2Jgq4qSlo=;
-        b=aggjouJrKDj7l2y++2dyqu3B/h8iSqAFq9hF2HPwH8gIPdzeIdVnik4+gYttGyZPnt
-         e1P1a3qk8lS/jxM6WvAoIhOt5H5g0f2XDUj8qVzFJh71A8NC5xwA7rNusAn3qB6N7Uib
-         wBO9L5K51XrjuIL2raZJtNWo2Tv6LcWfZIu8AGyt9fkscu9X8HVWkSfkSiWfly/Q5d96
-         dZk2doc9ICnlXxFhVu6G4w2Wo6pfY4rNJ3h02nmHeMg53AyW+odEVGl6HqvN44/uu5NB
-         LS/WTCXvr5mrg3bzQaMOh2jORq2FYeoSm63Yo+H/ETfivwA7PegsVqf1BLi1W+2h9BOm
-         wf1g==
+        bh=llBYrxQhgFsLLiJLTWG5Tbxxm+BqQeWYst4Tp/BglWc=;
+        b=Vwrizk161LvXkmnhOYG85yAv265+ZBHh0bE6KQbLuyxlKO/s1hq4rbdIwi/hQylKzQ
+         hvhrK2fdQUleLEA5nGp9fJ43t5uYKxmRjkztIh7NTZSJRYN3JEFC0Y6zbn16KsBUCxck
+         c+QLJsvyu/zctoC4X7FA9Jrkc0AVQnnTVtAN0XUA7UW0n316vt9igv0ZeXR/KSfyJurY
+         rZ040+WvNL0fXUIBLStVDShD5bz6smX7m8GTgLJvnn5J2ETo8ewC45Uapd0B5uXAakQd
+         +ZdVTNqcK7s8Qm39iMBkmcmRLQsag5o7jviiqxtFUiwl+vtieU1VynFTZEkM6BA0oejL
+         AZrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794606599; x=1795211399;
+        d=1e100.net; s=20260707; t=1794606602; x=1795211402;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=uYC21Pnl3GWWGtwZwoI5E/x8WHXcMx7NEy2Jgq4qSlo=;
-        b=JWd5P14uV1UMZtedfeybY8PT8bfhdYDNope8vLUadVsJFiGOVEhtaqJFq0yPZlwLhg
-         hlnpozdZMJGTXt5ZS37p2/bQIXtB5X7eonhGETEk4UubhpMd9Yo0yo+GxeS1m9LgV06o
-         QcBKIMv9KSfFVBLYpatDgQ5P72czTvtA8R4wvgxun1BSTHkxmNaghz8w0iiFRPfqRh0q
-         o+b7wfmaMVqAs5HRB8JlT0x4nAL0J4eXdAXNFsw4XsFDGIZUFHiBWlGVA1TRuvXOikK4
-         pWA6Pu3T9HYtXWMPy5A3qr3LOxX5fOpvJu8vo1PpdjMj6DF8F4TuW1aaGu01HBDij/RG
-         6QZA==
-X-Forwarded-Encrypted: i=1; AL+hErHXgi4uRSGIotpyPcB/eXx/yAz+S+WixuUUuhxSJe8L4eR5ed+jLVMZax/pMZzmGYXIFdoc7pEpndwYKtQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8s8DCDb/hcC3Wm1/uXmh0PBztePsTBUB44D1KOQAGT7i0txt4D
-	zT8lSvEktB/X1MdMQIC/0mepgzgRDPjV9zd9dP1tR0gOedk6i/aE8oubM4opVLJRDIhJVQaDK6B
-	IGFVC5TkRGw==
-X-Received: from dycnn11.prod.google.com ([2002:a05:7301:140b:b0:36a:1c45:2f79])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:b06:b0:36a:1089:9836
- with SMTP id 5a478bee46e88-3796628ce32mr2703477eec.15.1794606598899; Fri, 13
- Nov 2026 13:49:58 -0800 (PST)
-Date: Fri, 13 Nov 2026 13:48:42 -0800
+        bh=llBYrxQhgFsLLiJLTWG5Tbxxm+BqQeWYst4Tp/BglWc=;
+        b=gVSClr2emUoWcaVHuBgHrdT/hf5O7lEz+hVl5fvYZvChUshXv1/5uA8LW/8YHMqHX8
+         9hFHhE/tCU6r/QplzBQ4PjiRJpo7IHA7kcZnS8FpCs9Sa5gHnzlD51qR3wv5wbNheZlx
+         2gsxU2TQBHbHTn80kJ4dA/2ps1N4H9rmQSrX4p9wI28SzYfJWzChEk/C5gAicG8aUd2X
+         XndX5vTi/RYsTOlSlSKJUgJV8z6p2Pz9Ntr+wSyHNFCRqQT5OEcOaKKJEEcmm/bgowKX
+         ksSelS0aeLHSqatN+0GNH8eEc1spj3Clku5IGOWuwY2hmDH60U+OObpb2kwo9g+aT/Ea
+         ZtRg==
+X-Forwarded-Encrypted: i=1; AL+hErGEOFF3LqH0cLrEqKVFFcO8HNKr5WCGmBURsvQ+k6Ix26lLm/xMagQR2osfL//6RIPQKySHIMuQdRJqUfw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8cZ+/blC7vjLDG7xLnQcpdeYi5t0wuTxg/KwpDdY3PT8U0Y9eA
+	+IMtpFyOniedok1qDStXoHIgu8HI+RrGL/xqhrEcnbkAAHZvYE+G9V9TyPAYhKvMwrFboxBubTC
+	vnpY/4Q21Hw==
+X-Received: from pgdo13-n1.prod.google.com ([2002:a05:6a02:620d:10b0:cc7:a092:edd9])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:8201:b0:3e2:3de2:5937
+ with SMTP id adf61e73a8af0-3f63514fe97mr5684215637.44.1794606601862; Fri, 13
+ Nov 2026 13:50:01 -0800 (PST)
+Date: Fri, 13 Nov 2026 13:48:43 -0800
 In-Reply-To: <20261113214850.3329699-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261113214850.3329699-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <20261113214850.3329699-19-irogers@google.com>
-Subject: [PATCH v1 18/26] perf s390: Use generic hashmap for counter name cache
+Message-ID: <20261113214850.3329699-20-irogers@google.com>
+Subject: [PATCH v1 19/26] perf threads: Use generic hashmap for thread shards
 From: Ian Rogers <irogers@google.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
@@ -91,46 +91,74 @@ Cc: Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
 	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Convert the counter name cache in util/s390-sample-raw.c to
-DECLARE_HASHMAP(s390_counter_name_map, long, char *).
+Convert threads_table_entry::shard in util/threads.{c,h} to
+DECLARE_HASHMAP(threads_map, pid_t, struct thread *) and replace
+hashmap__for_each_entry{,_safe}() loops with hashmap__for_each{,_safe}().
 
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/util/s390-sample-raw.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ tools/perf/util/threads.c | 16 ++++++++--------
+ tools/perf/util/threads.h |  4 +++-
+ 2 files changed, 11 insertions(+), 9 deletions(-)
 
-diff --git a/tools/perf/util/s390-sample-raw.c b/tools/perf/util/s390-sample-raw.c
-index e0fac2aa15ed..c9afc4bc4a39 100644
---- a/tools/perf/util/s390-sample-raw.c
-+++ b/tools/perf/util/s390-sample-raw.c
-@@ -170,6 +170,8 @@ static bool get_counter_name_hashmap_equal_fn(long key1, long key2, void *ctx __
- 	return key1 == key2;
- }
- 
-+DECLARE_HASHMAP(s390_counter_name_map, long, char *);
-+
- /* Scan the PMU and extract the logical name of a counter from the event. Input
-  * is the counter set and counter number with in the set. Construct the event
-  * number and use this as key. If they match return the name of this counter.
-@@ -177,7 +179,7 @@ static bool get_counter_name_hashmap_equal_fn(long key1, long key2, void *ctx __
-  */
- static char *get_counter_name(int set, int nr, struct perf_pmu *pmu)
+diff --git a/tools/perf/util/threads.c b/tools/perf/util/threads.c
+index 98cf7edaf748..c2c675d064b3 100644
+--- a/tools/perf/util/threads.c
++++ b/tools/perf/util/threads.c
+@@ -136,15 +136,15 @@ void threads__remove_all_threads(struct threads *threads)
  {
--	static struct hashmap *cache;
-+	static struct s390_counter_name_map *cache;
- 	static struct perf_pmu *cache_pmu;
- 	long cache_key = get_counterset_start(set) + nr;
- 	struct get_counter_name_data data = {
-@@ -198,7 +200,8 @@ static char *get_counter_name(int set, int nr, struct perf_pmu *pmu)
- 	result = strdup(data.result ?: "<unknown>");
+ 	for (int i = 0; i < THREADS__TABLE_SIZE; i++) {
+ 		struct threads_table_entry *table = &threads->table[i];
+-		struct hashmap_entry *cur, *tmp;
+-		size_t bkt;
++		pid_t tid;
++		struct thread *val;
  
- 	if (cache_pmu == NULL) {
--		struct hashmap *tmp = hashmap__new(get_counter_name_hash_fn,
-+		struct s390_counter_name_map *tmp =
-+			s390_counter_name_map__new(get_counter_name_hash_fn,
- 						   get_counter_name_hashmap_equal_fn,
- 						   /*ctx=*/NULL);
+ 		down_write(&table->lock);
+ 		__threads_table_entry__set_last_match(table, NULL);
+-		hashmap__for_each_entry_safe(&table->shard, cur, tmp, bkt) {
++		hashmap__for_each_safe(&table->shard, tid, val) {
+ 			struct thread *old_value = NULL;
  
+-			if (hashmap__delete(&table->shard, cur->key, /*old_key=*/NULL, &old_value))
++			if (hashmap__delete(&table->shard, tid, /*old_key=*/NULL, &old_value))
+ 				thread__put(old_value);
+ 		}
+ 		up_write(&table->lock);
+@@ -171,12 +171,12 @@ int threads__for_each_thread(struct threads *threads,
+ {
+ 	for (int i = 0; i < THREADS__TABLE_SIZE; i++) {
+ 		struct threads_table_entry *table = &threads->table[i];
+-		struct hashmap_entry *cur;
+-		size_t bkt;
++		pid_t tid;
++		struct thread *th;
+ 
+ 		down_read(&table->lock);
+-		hashmap__for_each_entry(&table->shard, cur, bkt) {
+-			int rc = fn((struct thread *)cur->pvalue, data);
++		hashmap__for_each(&table->shard, tid, th) {
++			int rc = fn(th, data);
+ 
+ 			if (rc != 0) {
+ 				up_read(&table->lock);
+diff --git a/tools/perf/util/threads.h b/tools/perf/util/threads.h
+index da68d2223f18..059d7a617e63 100644
+--- a/tools/perf/util/threads.h
++++ b/tools/perf/util/threads.h
+@@ -10,9 +10,11 @@ struct thread;
+ #define THREADS__TABLE_BITS	3
+ #define THREADS__TABLE_SIZE	(1 << THREADS__TABLE_BITS)
+ 
++DECLARE_HASHMAP(threads_map, pid_t, struct thread *);
++
+ struct threads_table_entry {
+ 	/* Key is tid, value is struct thread. */
+-	struct hashmap	       shard;
++	struct threads_map     shard;
+ 	struct rw_semaphore    lock;
+ 	struct thread	       *last_match;
+ };
 -- 
 2.56.1.703.gf848ed807c-goog
 
