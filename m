@@ -1,123 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794584990;
-	b=jNbRHGskkCs3Cea4ks4PSd2Pt0IzWpyaniO7D5ZSSiNPyy9F9fQTSemm6ts4tAjxAdwY
-	 RiUv1Y/0ZIYLAv2ZEmGIm0NfMKh2GEnkN9737I3LznfAU/6iye+Wde6w8b0TlK7nzHl8i
-	 om+bb9gcWiXWx7fYafBMYRW6IED/WH91u+c4XVe/YIIwIJkzlK9rH0qnNb7hbNblu74Vx
-	 ayKhWqMOQSIXgt7iFxfXsdI4YJCg6NIQMmWV2LmHlDuCxq5atqR2ngGORO5zswaAQBuW1
-	 1qwPcDIDcmfHeP6DshYtNTPaUAZWkbeTd7hk4UsmtLoZSrtk/BAI/To/rWNarc8Goxg==
+	t=1794585007;
+	b=cUwmGkja8Xtt/pPfbW7gp3NXJ5S536WPDBR0HmdP+j5ArBRV82LojDAvwD+3N5cPzynF
+	 FzUE1ngM4TIE6Mi1e3STQXyiXZdzqPgkd5lPZmbuEMqe+S8dKVP/6Wwm6CUcWY9lni2GP
+	 jwjMhc/TKoCO+miaqQH0nznE3Btk38O2/6mLveSRw1yayNfKEAvsNPZQVcmxWQx1rflHQ
+	 k2FPs478LqZ28khHvDkL4vaL90g3zhjTn2SbslpD/FGxPfYoRi6dnOCLUH3LHoKrezn3h
+	 bPOMHuD1v6lOVKhsX0O6CjsK5UoR1wvcOQdJDGMsABOc7GN4mztCQhsd7Kd2xhmlk1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794584990;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=xFCVBlkrizuZWlE0hb6CXLduUGl+Zuu3dMj5O1kjYAw=;
-	b=XcE2N57fn86yXghmIC7q7ji2xQnmT8SaZf/eosbBxuUeV+uUq/Lnl5ZmBWAW9hqqNENf
-	 XaBVT7m55qvSkBovDgoPkKK/25VAeirfgkH6pBtYKRqcY2ORVn4/Mx1775h0c5vnuquab
-	 s9MIclBH9EcOitui7YDPJjgKscsSK/2nB2D09V9JNpvkEF5+VHSKH0dpDhO1nTAB+4plT
-	 HT3eUkZEqC5D0Hfnxh5VZKut7mge2YxW8yvWLYVnz8eV45AQ0VuefNRR2dIP4WoJZ8Ux1
-	 ctOdNZXvJGnlRiZHzYENsN0aNSfgiXfbRKK7z7b1mkwh3j350qyJgcyq82a/UKNw5Cw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794585007;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=1fdNPQNo+zffU2XGvMztEYgcvEonGMt5d76mOcozsng=;
+	b=xh5Hrsff90mYe5h0YAY+Ecff85KYLEZjb6SDUEmjn4zDVooygxgJMIYP2DdRVxtlf5WQ
+	 1qDlU49oWPOKxRB8uhAhoo2p2hHWg8Pdjlhz+hde4FJjmxo2JigBFhSk5Sh8+ONUbXyRD
+	 BRDv3+W23Ms170cOa97+GbXXMw0Hi1N3tNd1RYnHpvflR+3vkB1hKgA3t+FyXEiw7av3W
+	 iQOQqDWwz+14gDDRB5SEMjwZv4sEzRbHhoCtFmhF308/91TL4MXIvHsgSsGAQ/dVGLg99
+	 E8ZQgUh5OAAwoKvq+WyyzpFIpnFe4Yd+dIUNtRKAsbP6F0DX5k/rrwzxZtsBZfqLAlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gt6PRoTj;
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZZSodsM2;
+	arc=none smtp.remote-ip=192.198.163.12
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4223F606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:49:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4223F606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F19CA606A323;
+	Fri, 13 Nov 2026 15:50:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F19CA606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gt6PRoTj
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-491846221ffso1208445f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:49:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794584989; x=1795189789; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xFCVBlkrizuZWlE0hb6CXLduUGl+Zuu3dMj5O1kjYAw=;
-        b=gt6PRoTjK9ushlCFmi0ZnyNwfS/RFssMXZcQGe2pK8ReE6W1cTJq9QVXKDgbsK7I/u
-         QLCMljabk098avfl3K3IKbEHTrqIYq/AXSVFB8HFvwXiRgwuyPlUahqfKNnMoEHeWNhY
-         M2X37MoMwgmAp9EJ0/2KidunymAnbPVB/RfOfz6vOoMoK5qp61eGjdqgAqsrjikxAQ9g
-         VOSArufYGvu8H5cOCLxjsC78AuSgMVvDEJSKrB+upnCPCmd2dfiRfNqp2vhbKW5FbpPK
-         9ovQ/9GGKfOYZbuRQ3U45LSKN9r42DvPuu/0zHggVTglptLhHgJaueP7ItMzfSE6n+Da
-         5p9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794584989; x=1795189789;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xFCVBlkrizuZWlE0hb6CXLduUGl+Zuu3dMj5O1kjYAw=;
-        b=k119SYqNeeG6cItOlhhBSF29NP7748zoMbLloWMC6BBsz2Ot9eMK4EQeNGKVDEYQ+e
-         NqkXGF0R038NEH+T/Ae+I9xuoFo0yFhuAQ4KujljRPDZGuSr3Hf3D+ETOUnGAUGSnPS3
-         6+KkNCYlwA0yC+mk8cEbm5p4qgJxSdofdSJN4+YIASclHnTfbl9lPzcJCb2s2CtrTpFp
-         uSJI6O/gqYWf9tVZmC0a1v73sUIyM0LBBHxo2KY93hru/Oj2RXs63SY5NJOL3LXuGSAE
-         8tgcYexKoG/cBhkHfs5s1pFjJZ0mabY7DL5Eh2xPTV3OOR2yRqjWfhWMR/zG07D6QlJ/
-         BsFg==
-X-Forwarded-Encrypted: i=1; AL+hErH7UrY3Hw40AJm9YlDQhb0aqQiLArWdRFnUOBMAzbKrPwMeI6obuQw9Ge+t9u+G3eO4X1XMO8YVPVJ7gCc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9izwKK11NxLXzBbrwUU2fQVsb0NdgzZuldEk5yG/hjOO7P2R9I
-	UElyIb6eQBblmT2RRo+eIDNApZUmi729ae+Y6Lm6mfCGr7/lbxD5YfK7
-X-Gm-Gg: AYBFou0koj7eJYiJiN7U/aoejKrwCAUk+mln9WqohFNFWSZgh+lultu8GClzK4jd1Em
-	y54zVWqdvtffJo0tl3QqHKpJ/OSfPaS3OaiRrV7juMYDY3cv5XJ/hynrp3n+tjhklZ0jMI7qT/L
-	gzt+aec2/foJgVzs9c4OfKGYRicXidpFFVInhGWT4bxfYxBQxWAUmTjDrf50uxk5qfDXOObxTxa
-	tJ/nEihsGsZIUxV3QFVIoT1IYjo8lKPFWIMD8tuF10IbAeQbUl/gcHCxjs0Emy/Ndlq10WlAaVK
-	C3zy2EuGYzV5REzRuvd75zLVatIFHlsNlMQeDofnPGjV88M/RwMvQrDL9PY/tGPsVeXu7Otsd28
-	r/2tivg9BIK8F2I/Qxi5Skit7NxEq2Rx1KtAQgmlm3RynZ3Vxikb+WfnWkkVUyrl36/SunESwh/
-	S9XAX0hc9FPYjMKAAlCN+8XubxUrbgS/TzsJ4/NylqL9BjdO5aj6KmbMNoXyoJ+GGPp49nmph8B
-	iqzz6G15BBu73uoYUv/3ToQZ4cM9TRhOIxyUw2o/XzRfOLQb4jIz/FpfecCPD1Myux4OiaKs7jl
-	eIveBrXOkklFULeoCkqC0pZQ8kmBFVxiwNAfWIQKMXAfl9M3UuJ9wiwgGFjd24Lf4lCVDhI8d9a
-	AnQ==
-X-Received: by 2002:a05:6000:2084:b0:498:be72:6371 with SMTP id ffacd0b85a97d-49c713aa624mr6770868f8f.21.1794584988524;
-        Fri, 13 Nov 2026 07:49:48 -0800 (PST)
-Received: from andreayoga.wind3.hub ([31.189.56.146])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d03b10fsm6797151f8f.1.2026.11.13.07.49.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 07:49:48 -0800 (PST)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: Andrea Parri <parri.andrea@gmail.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	peterz@infradead.org,
-	mingo@redhat.com,
-	vincent.guittot@linaro.org,
-	linux-kernel@vger.kernel.org,
-	tglx@kernel.org,
-	will@kernel.org,
-	boqun@kernel.org,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	luca.abeni@santannapisa.it,
-	mathieu.poirier@linaro.org,
-	longman@redhat.com,
-	ridong.chen@linux.dev,
-	tj@kernel.org,
-	hannes@cmpxchg.org,
-	mkoutny@suse.com,
-	shuah@kernel.org,
-	bigeasy@linutronix.de,
-	clrkwllms@kernel.org,
-	m.szyprowski@samsung.com,
-	kayracizmeci@gmail.com,
-	weihengqiuu@gmail.com,
-	cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev
-Subject: Re: [PATCH v5 18/29] sched/deadline: Move a task's bandwidth only where room was made
-Date: Fri, 13 Nov 2026 16:49:43 +0100
-Message-ID: <20261113154943.14429-1-parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <818f0461-4635-464c-be20-461cd4cd8341@efficios.com>
-References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com> <20261108185406.1549770-19-mathieu.desnoyers@efficios.com> <avVk0UU8IRGoo77v@jlelli-thinkpadt14gen4.remote.csb> <d58e067d-05ae-4e4d-9d34-b0ac2741b211@efficios.com> <20261113150438.9119-1-parri.andrea@gmail.com> <818f0461-4635-464c-be20-461cd4cd8341@efficios.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZZSodsM2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794585007; x=1826121007;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=YsT24gl9bIBDYikNQDcSGfV6q4rVg9ESg3hLJA/uCQ8=;
+  b=ZZSodsM2INg30DhZG7rgqrvR75fAz5DJSb5lfn++34kpYvf0ZvBqipy+
+   0nm1BCCdeeXQ0ubAl1oRrTwj7erFoEbbSKrAwqwKbfQxL/PgXu81tObaW
+   gq67z7X5JdQOIfRTUW7NlKtJ/EqFVlQLn0LK3cZgWDlHrVASLj7u+gXnv
+   ppZK5K0qUMZCmZvn2W711PmhAgudKyK+JEQx3Kzy99/EvHWHCX0k+Chg4
+   yTGLpRVd4OmSiic8tBK27JXdsP62ru0G1BmMPBMye4Ozo4Vb1JZOfNhU7
+   C6ryIvNvTwgr6BEGIzNiGVpL4qLWs4SKZCiRFUzL2TcEpKWtA6/glIaPN
+   Q==;
+X-CSE-ConnectionGUID: EiTpJCsgSqivv87l2dyICg==
+X-CSE-MsgGUID: 4Dqdt7OcTraBkWGBhXW+Zg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3296529"
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="3296529"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 07:50:06 -0800
+X-CSE-ConnectionGUID: pHHvl0FESI25HZ01XTTXGg==
+X-CSE-MsgGUID: O/ls2e+cR82ikmCG7eZEQg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,211,1787036400"; 
+   d="scan'208";a="9494890"
+Received: from schen9-mobl4.amr.corp.intel.com (HELO [10.125.108.6]) ([10.125.108.6])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 07:50:04 -0800
+Message-ID: <70b69d4c-34b2-4166-9e3c-fbd9e21daf75@intel.com>
+Date: Fri, 13 Nov 2026 08:50:03 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,24 +72,237 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v17 02/19] cxl: Share CXL port upstream PCI device lookup
+To: Li Ming <ming.li@zohomail.com>, Srirangan Madhavan
+ <smadhavan@nvidia.com>, Alison Schofield <alison.schofield@intel.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Davidlohr Bueso <dave@stgolabs.net>,
+ Ira Weiny <iweiny@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+ Vishal Verma <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Joshua Machauer <machaujo@amazon.de>,
+ Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
+ alwilliamson@nvidia.com,
+ Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
+ Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
+ Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+ linux-tegra@vger.kernel.org,
+ Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+References: <20261105185917.2667656-1-smadhavan@nvidia.com>
+ <20261105185917.2667656-3-smadhavan@nvidia.com>
+ <f67ecd0e-1eae-41b1-8a61-d06eb062e523@zohomail.com>
+From: Dave Jiang <dave.jiang@intel.com>
+Content-Language: en-US
+In-Reply-To: <f67ecd0e-1eae-41b1-8a61-d06eb062e523@zohomail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 13, 2026 at 10:20:16AM -0500, Mathieu Desnoyers wrote:
 
-[...]
 
-> Neither is needed. I propose to carry your patch in the next version,
-> unchanged, right before this one. I already carry your cpuset_mutex
-> fix that way. I rebase my patches on top of it. Then one series fixes
-> the order of the two, and the selftests run on both.
->
-> Tell me if you agree, or if you prefer to keep it separate. If your
-> patch is picked up on its own first, I rebase on it instead.
+On 11/10/26 6:36 AM, Li Ming wrote:
+> 
+> 在 2026/11/6 02:59, Srirangan Madhavan 写道:
+>> read_cdat_data() resolves a CXL port's upstream device to its backing PCI
+>> device. HDM cache updates need the same mapping.
+>>
+>> Factor the lookup into cxl_port_get_uport_pci_dev() and return a referenced
+>> PCI device to make caller ownership explicit.
+>>
+>> Use automatic reference cleanup in read_cdat_data(), as suggested by
+>> Li Ming, so early returns release the PCI device reference.
+>>
+>> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
+>> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+>> Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+>> Reviewed-by: Richard Cheng <icheng@nvidia.com>
+>> Reviewed-by: Li Ming <ming.li@zohomail.com>
+>>
+>> ---
+>> Changes in v17:
+>> - Use an explicit pci_dev_put() on a single exit path in
+>>    read_cdat_data() instead of mixing __free() with goto cleanup
+>>    (Sashiko)
+>>    https://sashiko.dev/#/patchset/20261029145703.2185231-1-smadhavan@nvidia.com?part=2
+> 
+> Reviewed-by: Li Ming <ming.li@zohomail.com>
+> 
+> 
+> I still think the new goto makes the code harder to follow. But I saw your discussion in v13[1], both Jonathan and Dave agree with your current changes. I post my proposal here which can eliminate all goto labels. If there is no response from them, or if they disagree with my changes, we can continue with your implementation.
+> 
+> [1]: https://lore.kernel.org/all/fb513893-7c6c-408c-811f-1eae20f0436c@intel.com/
+> 
+> diff --git a/drivers/cxl/core/pci.c b/drivers/cxl/core/pci.c
+> index 9d807c1a002c..fbf4b56a39c4 100644
+> --- a/drivers/cxl/core/pci.c
+> +++ b/drivers/cxl/core/pci.c
+> @@ -573,17 +573,8 @@ void read_cdat_data(struct cxl_port *port)
+>         size_t table_length, length;
+>         int rc;
+> 
+> -       if (is_cxl_memdev(uport)) {
+> -               struct device *host;
+> -
+> -               cxlmd = to_cxl_memdev(uport);
+> -               host = cxlmd->dev.parent;
+> -               if (dev_is_pci(host))
+> -                       pdev = to_pci_dev(host);
+> -       } else if (dev_is_pci(uport)) {
+> -               pdev = to_pci_dev(uport);
+> -       }
+> -
+> +       struct pci_dev *pdev __free(pci_dev_put) =
+> +                               cxl_port_get_uport_pci_dev(port);
+>         if (!pdev)
+>                 return;
+> 
+> @@ -606,30 +597,32 @@ void read_cdat_data(struct cxl_port *port)
+>          * bytes for the DOE header. Table data starts afterwards.
+>          */
+>         buf = devm_kzalloc(dev, sizeof(*buf) + length, GFP_KERNEL);
+> -       if (!buf)
+> -               goto err;
+> +       if (!buf) {
+> +               dev_err(dev, "Failed to allocate CDAT buffer.\n");
+> +               return;
+> +       }
+> 
+>         table_length = length;
+> 
+>         rc = cxl_cdat_read_table(dev, doe_mb, buf, &length);
+> -       if (rc)
+> -               goto err;
+> +       if (rc) {
+> +               devm_kfree(dev, buf);
+> +               dev_err(dev, "Failed to read CDAT.\n");
+> +               return;
+> +       }
+> 
+>         if (table_length != length)
+>                 dev_warn(dev, "Malformed CDAT table length (%zu:%zu), discarding trailing data\n",
+>                         table_length, length);
+> 
+> -       if (cdat_checksum(buf->data, length))
+> -               goto err;
+> +       if (cdat_checksum(buf->data, length)) {
+> +               devm_kfree(dev, buf);
+> +               dev_err(dev, "Failed to validate CDAT.\n");
+> +               return;
+> +       }
+> 
+>         port->cdat.table = buf->data;
+>         port->cdat.length = length;
+> -
+> -       return;
+> -err:
+> -       /* Don't leave table data allocated on error */
+> -       devm_kfree(dev, buf);
+> -       dev_err(dev, "Failed to read/validate CDAT.\n");
+>  }
+> 
+> 
 
-Sounds good, thanks.  Please carry it unchanged, with Sebastian's
-Reviewed-by [1].
+How about something like this? I think it's cleaner:
 
-[1] https://lore.kernel.org/20261113153549.Z8XPohWU@linutronix.de/
-
-Thanks,
-  Andrea
+diff --git a/drivers/cxl/core/pci.c b/drivers/cxl/core/pci.c
+index 905892cfedef..c924904faec4 100644
+--- a/drivers/cxl/core/pci.c
++++ b/drivers/cxl/core/pci.c
+@@ -556,6 +556,27 @@ static unsigned char cdat_checksum(void *buf, size_t size)
+ 	return sum;
+ }
+ 
++static int cxl_cdat_read_validate(struct device *dev,
++				  struct pci_doe_mb *doe_mb,
++				  struct cdat_doe_rsp *buf, size_t *length)
++{
++	size_t table_length = *length;
++	int rc;
++
++	rc = cxl_cdat_read_table(dev, doe_mb, buf, length);
++	if (rc)
++		return rc;
++
++	if (table_length != *length)
++		dev_warn(dev, "Malformed CDAT table length (%zu:%zu), discarding trailing data\n",
++			 table_length, *length);
++
++	if (cdat_checksum(buf->data, *length))
++		return -EIO;
++
++	return 0;
++}
++
+ /**
+  * read_cdat_data - Read the CDAT data on this port
+  * @port: Port to read data from
+@@ -564,13 +585,13 @@ static unsigned char cdat_checksum(void *buf, size_t size)
+  */
+ void read_cdat_data(struct cxl_port *port)
+ {
+-	struct pci_dev *pdev = cxl_port_get_uport_pci_dev(port);
+ 	struct device *dev = &port->dev;
+ 	struct pci_doe_mb *doe_mb;
+ 	struct cdat_doe_rsp *buf;
+-	size_t table_length, length;
+-	int rc;
++	size_t length;
+ 
++	struct pci_dev *pdev __free(pci_dev_put) =
++		cxl_port_get_uport_pci_dev(port);
+ 	if (!pdev)
+ 		return;
+ 
+@@ -578,14 +599,14 @@ void read_cdat_data(struct cxl_port *port)
+ 				      CXL_DOE_PROTOCOL_TABLE_ACCESS);
+ 	if (!doe_mb) {
+ 		dev_dbg(dev, "No CDAT mailbox\n");
+-		goto out;
++		return;
+ 	}
+ 
+ 	port->cdat_available = true;
+ 
+ 	if (cxl_cdat_get_length(dev, doe_mb, &length)) {
+ 		dev_dbg(dev, "No CDAT length\n");
+-		goto out;
++		return;
+ 	}
+ 
+ 	/*
+@@ -593,31 +614,15 @@ void read_cdat_data(struct cxl_port *port)
+ 	 * bytes for the DOE header. Table data starts afterwards.
+ 	 */
+ 	buf = devm_kzalloc(dev, sizeof(*buf) + length, GFP_KERNEL);
+-	if (!buf)
+-		goto err;
+-
+-	table_length = length;
+-
+-	rc = cxl_cdat_read_table(dev, doe_mb, buf, &length);
+-	if (rc)
+-		goto err;
+-
+-	if (table_length != length)
+-		dev_warn(dev, "Malformed CDAT table length (%zu:%zu), discarding trailing data\n",
+-			table_length, length);
+-
+-	if (cdat_checksum(buf->data, length))
+-		goto err;
++	if (!buf || cxl_cdat_read_validate(dev, doe_mb, buf, &length)) {
++		/* Don't leave table data allocated on error */
++		devm_kfree(dev, buf);
++		dev_err(dev, "Failed to read/validate CDAT.\n");
++		return;
++	}
+ 
+ 	port->cdat.table = buf->data;
+ 	port->cdat.length = length;
+-	goto out;
+-err:
+-	/* Don't leave table data allocated on error */
+-	devm_kfree(dev, buf);
+-	dev_err(dev, "Failed to read/validate CDAT.\n");
+-out:
+-	pci_dev_put(pdev);
+ }
+ EXPORT_SYMBOL_NS_GPL(read_cdat_data, "CXL");
