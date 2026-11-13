@@ -1,73 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.107
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794575354;
-	b=oAGgIdYuoxLZvkcAPh9Bo3/VsRCaAIIP9VE2tCgGTvHJklYZEnBq0t6fFGCz5+SsD5oD
-	 Ma96Pxu1rFyM6cfb1sWfU3SD+tUiy6pRPNz6zdJ/KjidMlZx4Bz5vCC3bC2tW0w6zzoCV
-	 dcN04F2JbyrDYJvly3eMsq9ECQJbBjKGrRsjNB7zZol/8V4PXzkvd0d8VxBZZi+bLC92O
-	 aCLgn/a4QPceKjAr9JNZq5szTWTBKy8upmMsJTNplSJf+ryydtLl9AIxiVxE6d6MA4tk8
-	 ImA4EyaAsBZ9477aJYu8XURNJRcp7WK3WNFEe3p4Px4RgOqQfPbRQMyxXEqowIg8ytQ==
+	t=1794575363;
+	b=09jTrQfM5U1Mpl1a6nQgMwBDB+WKh/EN81q32B0azxJRRsW1EZ/FKyeaxewdoPpd7+jl
+	 MTulKkAGnw53wakxbGjm86o2aJm93/4VQ8l0CI8Z4aT+ZQ4kpGZnhZ7BVmYQ3BMELj+DB
+	 AvsYwG4myN5UucIloVFS8kBpZT7tvfXcNO+1RL690BxEFwWUYhHiKQLVyOjVsCwJKBBvk
+	 8nWioBAcRat+5oVyzqTxWZSPb9dDaCwvezvjvaWgsF7Eu2R1y9FQTjHizV1+dnpvA6Yi/
+	 GHC70/dZYuXdJ7hYVNOan45D/+LTZ1ONla5AGSaXEjD1KhDshQPGEPM1f6WQkzRQ+Fg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794575354;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=tSkb2PWbNxaCrUril715HAPYdAX5Cw4kojWt6qrT5aM=;
-	b=3CCNkq8TgqP68dGm4drKDWNmUmct/Wq+FI2PSo5wIHLoTw6a7C/UA1nP23ajf3BzT+gk
-	 Nm0FZKF2roVXJEGoFjTtWfBxVyyxaTD6XUXQjFUTxJqUgImciyAB3K9VUWo64eZJVEZ5o
-	 B5xi73F6n4zsU9ZI6EH7+0tQZtThXtMkIcsrt+YepIM19FJjXOPaQPRLda2hkULlVqpmC
-	 gFPvdf8Ouck6mzk4PTrZtVicRwvZ8RlqaZBsVshZaJILcxI3MgiYniYI5vzAHf0K8aBJk
-	 fvNFzxu5UZvrFz0Ek3IGvuxnxaoQy3t5rdcGQ26JQAe7J8HKJUpVRvia67HInHQsKDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794575363;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=TgkZPDfiJjMh2J8e/Fv34yjDTX8rPL0Qo9+0DabzE0k=;
+	b=CaKJf7F1iASCGxf6YXcv1Z/7++VqcP4wRsuhmewZVQqyKag1ygHCEIbm9wIkA1ioH55e
+	 bjCP/1iFq+rxWFHuDzhKYcp6YJl4MPoUM+kqi5lXw9MrN4EUr5/oVpokONF4z2n/6gtit
+	 EN9KWoFS81+wi1p18I5x8VsET99KYOX+jLlk4rLW240bkYDJKQ0JPP0zjsB1CTFUVjPgY
+	 OhUsjg/CkqxRfl0THocDVd9YJRXwvF0CXi65mvqaExt/ELlgacEzdkQFVnKnFDUS3H3oK
+	 ILoFqXx2mFgCRO8vrL7GXEYXGPopd2Gu7Tk9YK8RAn1RNVQaA0hUngNs9SYcZrteGyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=w6rz.net;
-	spf=pass smtp.mailfrom=w6rz.net;
-	dkim=pass header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=YIxnZC8p;
-	arc=none smtp.remote-ip=35.89.44.33
-Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=packett.cool;
+	spf=pass smtp.mailfrom=packett.cool;
+	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=NwTvgcSx;
+	arc=none smtp.remote-ip=95.215.58.107
+Received: from mta1.migadu.com (out-107.mta1.migadu.com [95.215.58.107])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90357606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:09:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90357606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0FFE606A32D
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:09:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0FFE606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=YIxnZC8p
-Received: from eig-obgw-5004b.ext.cloudfilter.net ([10.0.29.208])
-	by cmsmtp with ESMTPS
-	id RdnSxhwn2AR1iRr1lxEzKd; Fri, 13 Nov 2026 13:09:13 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id Rr1kxD9zquJrPRr1kx2RPX; Fri, 13 Nov 2026 13:09:12 +0000
-X-Authority-Analysis: v=2.4 cv=WLZ/XmsR c=1 sm=1 tr=0 ts=6af70bf8
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=JfrnYn6hAAAA:8 a=SRrdq9N9AAAA:8 a=20KFwNOVAAAA:8 a=HaFmDPmJAAAA:8
- a=FU8A8_eJsoxy1Wi2mmAA:9 a=QEXdDO2ut3YA:10 a=1CNFftbPRP8L7MoqJWF3:22
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=tSkb2PWbNxaCrUril715HAPYdAX5Cw4kojWt6qrT5aM=; b=YIxnZC8pDNq20OVPYmgUw2Tqy2
-	lLZy3k0/ooflpBT2nuJUS4ibYuAJ9r0Krpn2uKSstJbkXuoWOZE1WyPS2be/ba6icdWQV7bN4UeZp
-	xjI7nI42PX/0sh/UrzKpntVwCIanrHVc17r3zlCP0nWn9VY4IjFn0iVQxhnStqtcQPgBqq4FwOMOL
-	3WvHzCPSsrQSw4EKW4nuUeX2VUgDE4t5vOehJ5K0xTxLZb1EPOawhy5UUdod8tr47idXKirn6EtjF
-	0WeXjDyv2+iU92eGsVEZpehhIpWuIiOr3FHlp35PnmRK3i5taHJ8Di5xMPk0p9y8LXRpXPnx90x/X
-	ipjJ1zjA==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:46158 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100.1)
-	(envelope-from <re@w6rz.net>)
-	id 1xRr1i-00000004CiO-2UVW;
-	Fri, 13 Nov 2026 06:09:10 -0700
-Message-ID: <972e8d28-62cf-4f47-9524-5641a9ebfff3@w6rz.net>
-Date: Fri, 13 Nov 2026 05:09:09 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=NwTvgcSx
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=n6h5sbKyK6McEKrI8Ar5CJ+toQhqjA8M6q8V8BhhvW4=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794575360; v=1; x=1795180160;
+ b=NwTvgcSxn8AY/+67Sg7b8RjgRni0YoEnbPQBc4O24To2nFZI+ytKa0ofJpRPTyFB9EeHpfmI
+ 4wsQY7tOPf8QsbAPViKs6kyQygdtrzYZ4xqRkEj99iCNV+LlppDKrrU3vMGmhJllmrUj3JjgBBw
+ wdPnOWLkBjMtRCsqR5+tsaXGyfjTRwjowK2ZSy5eeVIRcGa1M1vlPSSgbaeZfumWe0JiRK12wmr
+ Dss1LW32CT0P09CjGXidT7Ua00bRbzoT2t1Vm35817v0YW+joxkVsh2g6JIsjbCTwkxY739jMOz
+ lNI5nsBPz/8bYUjUJytvfq6l7Kr6xuDduiwgj9xWgQ2bQ==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c0668823f57e9852;
+	Fri, 13 Nov 2026 13:09:19 +0000
+X-Mizu-Trace-ID: c0668823f57e9852
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <e2f89f72-be30-495d-99c8-828cd170ce50@packett.cool>
+Date: Fri, 13 Nov 2026 10:09:13 -0300
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,97 +61,40 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] sched: move stack_canary to the start of the
- randomizable region
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Valentin Schneider <vschneid@redhat.com>,
- Ruidong Tian <tianruidong@linux.alibaba.com>, mingo@redhat.com,
- juri.lelli@redhat.com, vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
- rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
- kprateek.nayak@amd.com, linux-kernel@vger.kernel.org,
- oliver.yang@linux.alibaba.com, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Alexandre Ghiti <alex@ghiti.fr>,
- linux-riscv@lists.infradead.org
-References: <20260509035014.2220372-1-tianruidong@linux.alibaba.com>
- <20261106160730.GJ1779021@noisy.programming.kicks-ass.net>
- <xhsmhy0b2ntmh.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
- <34f2ff11-8156-4c32-91dc-e4576807cf3b@w6rz.net>
- <20261112153427.GV1779021@noisy.programming.kicks-ass.net>
+Subject: Re: [PATCH 4/4] arm64: dts: qcom: sm7225-fairphone-fp4: Wire up
+ PM6150L LCDB
+To: Luca Weiss <luca.weiss@fairphone.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20261113-lcdb-enablement-v1-0-1dc40b49ed82@fairphone.com>
+ <20261113-lcdb-enablement-v1-4-1dc40b49ed82@fairphone.com>
+ <DMU3O9G3L6PD.2CE9WCHR9LV0J@fairphone.com>
 Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20261112153427.GV1779021@noisy.programming.kicks-ass.net>
+From: Val Packett <val@packett.cool>
+In-Reply-To: <DMU3O9G3L6PD.2CE9WCHR9LV0J@fairphone.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1xRr1i-00000004CiO-2UVW
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:46158
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 6
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfGp9iqkZfUG5Swt4sQVFlSM80GhR37W/SptqWm9SJoNwd7WAOl1u3bHhaA9oVYC3B6VbmmQrSjcgrIlD1myeJ3BM6ZSFBrsK4ZvGHX6ets/Qra3lH+rS
- hsASLQg0xpalU7TyR+5eR5iwjKWvoS1NLAmyIfd5LqmpnKYF+rGOOjuJGcPfv78366nvoto2/DBUthuLQUzLp2L79JWv+E/MHKA=
 
-On 11/12/26 07:34, Peter Zijlstra wrote:
-> On Thu, Nov 12, 2026 at 05:33:16AM -0800, Ron Economos wrote:
+
+On 11/13/26 9:59 AM, Luca Weiss wrote:
+> On Fri Nov 13, 2026 at 9:16 AM CET, Luca Weiss wrote:
+>> Since Linux has gained LCDB support now, wire up the LCDB regulators so
+>> we can turn them off and on as desired.
+> Actually after some more testing with extra patches, it seems that on
+> FP4 the touchscreen stays dead after toggling the lcdb regulator, while
+> on FP3 it works perfectly fine.
 >
->>> ---
->>> From: Peter Zijlstra <peterz@infradead.org>
->>> Date: Fri, 6 Nov 2026 17:07:30 +0100
->>> Subject: [PATCH] riscv, sched: move stack_canary to thread_info
->>>
->>> task_struct keeps growing over time. On architectures that compute the
->>> per-task stack canary offset from asm-offsets.h and pass it to the
->>> compiler via -mstack-protector-guard-offset=, this growth eventually
->>> pushes stack_canary beyond what the target ISA can encode.
->>>
->>> On RISC-V, canary loads are emitted as
->>>
->>>       ld	t0, TSK_STACK_CANARY(tp)
->>>
->>> where TSK_STACK_CANARY must fit into a 12-bit signed immediate, i.e.
->>> [-2048, 2047].  Once stack_canary sits past byte 2047 of task_struct,
->>> the build fails with
->>>
->>>       cc1: error: '<N>' is not a valid offset in
->>> 	'-mstack-protector-guard-offset='
->>>
->>> On RISC-V, CONFIG_STACKPROTECTOR_PER_TASK depends on !RANDSTRUCT, thus
->>> stack_canary does not benefit from being in the task_struct randomized
->>> region.
->>>
->>> Move the RISC-V stack_canary to thread_info, and introduce an access macro
->>> to point to the right stack_canary location. Other archs are unaffected.
->>>
->>> Not-signed-off-by: Ruidong Tian <tianruidong@linux.alibaba.com>
-> Signed-off-by: Peter Zijlstra <peterz@infradead.org>
->
->>> Signed-off-by: Valentin Schneider <vschneid@redhat.com>
->>> ---
->> I'm seeing this build failure on RISC-V with gcc 16 and
->> CONFIG_SCHED_CLASS_EXT=y. The build does not fail with gcc 14. I've tested
->> the proposed patch with gcc 16 and it builds and boots (on real hardware)
->> just fine. So for what it's worth:
->>
->> Tested-by: Ron Economos <re@w6rz.net>
->>
->> Also re-adding the RISC-V folks.
-> Hmm, they went walk-about? Do they need a re-sent? I'm thinking this out
-> to perhaps go through their tree, given they're actually seeing the
-> problem.
+> So please ignore this specific patch for now, I will figure out what the
+> problem is and re-submit. All the other patches in the series are still
+> good to go in!
 
-Yes, a re-send with the new subject line would be good. That way, the patch at least gets queued in the RISC-V patchwork.
-
-https://patchwork.kernel.org/project/linux-riscv/list/
+Your touchscreen needs to be a drm panel follower and/or reference the 
+same supplies as well :) Most modern touch controllers are part of the 
+same physical DDIC as the actual display side
 
