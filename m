@@ -1,104 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794596240;
-	b=wfY7kMkOWHJ5OWozEU8X1uFes/XdvemG/nhPhWH4doJ1lJu7609Q4ynyZHvyJ0uNDWKb
-	 xAc2EG5QBHHQvYIEHI4In61FwuDPX5lu7GgGA86C3tsIDRheNvdFcXQ3SqOICwpNdMuhr
-	 K06kNp4Pm1932d3QhC9ulWPLjq3OMJLFiE6RZryBZJ931jHfACAoP/2BBBuRqkqalPMqO
-	 /WvkXGC6YUotyik85FUOrJJc7Bwcs49QLN62yWXl4ij4TZYFDPCKTIGgp9E5j9lRtV9Om
-	 cQwCprUo8D4aSS9l5Mp/0KDm7EqGfy3FRjOREHALkZl4gRk0NK8FBKP5gZUndLCkD0A==
+	t=1794596284;
+	b=1DraxVu/WPyheHwS1jO1agzY7xXZlGPgJlgAfJnl6fEpskW6w+RThoxL4zajd5rV7Qbh
+	 LSb6MSyeo7YiZsSFpxH2svrw1iKj5pCEzcw7hD/SLltAv4DEq9sLVqqDX1loUXDKMZsH1
+	 lNjh8lCcw8ctsIEDA9lymilcKm9PBtGtdC72cmFQVI2SFqtvxExioND0r/5usjYkaawo7
+	 +EBo2W00dEs6/Cx1dfB2w3ccpAIdqOihEW4N+uoYvnZqDM+xDr9Xy4c7amneTIWdEZSnG
+	 2n1wAJkN6qIXA94vPnUI/JVfeRuSLBojgJVdaDFJPKqhbKe9jZlTTOhpF/gcJ80cx8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794596240;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=OKLsDxKgeNyTR2N6X6bMkhCfSN7v5jMUZuKftv1qAXY=;
-	b=XcDpkhpD6aLG+M4zB16LLzZWgbDrMR/SSKp67wPYAs2QTBFIspT8MiDAyvWvLJaY5ZVL
-	 tBUZLwDPJbtMHnThEnCOgdGAd9CJD9UwkGu5s3PZgx6FbkE3Uq/Mde6fHXtY4a2K3+p2z
-	 Y7YsxHBUv4QU5FZ7ZZCnPcFKOpvC79uuByptwuphmM6Myk+68s+7lg6taSv72rPhfx8TE
-	 j2BgRZkcJl2ExzYldCRCf5NRqnvNdJTyPzAG2TfTAYA1PKd+Rd8Q47FOT2tbKr9vBo/gw
-	 7Dna3j8MxLAd8xdHSg+TKzhwnbopUw0G3s+phRGSrfWbWl+bS/0Y+3wf3XUzGAH8+6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794596284;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=SkPg5/GgZz/9jZGD+lV7fPET50UBkjcaQ9AOlcrVhSE=;
+	b=lhdvkkyzkKudGmjJBWhN6g0y33m1/GY2txX256uznkgLRr7GzsA5U0LHGXdGItDpiGvH
+	 FDrZvI40ZJqcJ7WWlk8Aa1kaFJGopUFsGXDX+IK9NmlhI/LULoEmSViDqx/yXpL7VHvnU
+	 QnWOSHusGganNFT0yiSVl8LK+KwJntRFkZ+7NCLMSoW8LNEGrmuC5/WrY30MR3oT+dMm7
+	 nPfTxLnZ4oRxEBG0yjGVRKSz1xH2j3Rx31OgpJOvcbTRsuxwnZBT0sjYFKDmsK3REREYZ
+	 kFt/fthT8bdZXFbz5lr9+zuLCIevaBQH9YLyCiX5ofdJtvxHdOv8QTYWwt/7YRaLzCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=readmodwrite.com;
-	spf=none smtp.mailfrom=readmodwrite.com;
-	dkim=pass header.d=readmodwrite-com.20260707.gappssmtp.com header.i=@readmodwrite-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=N04J0XeF;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="kH3lOc2/";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UC7XfJxZ;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A547606E361
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:57:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A547606E361
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readmodwrite.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=readmodwrite.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B547606A338
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:58:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B547606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=readmodwrite-com.20260707.gappssmtp.com header.i=@readmodwrite-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=N04J0XeF
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-498f5fa5103so577208f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:57:19 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kH3lOc2/;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UC7XfJxZ
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADFR0jE1011372
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:58:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=SkPg5/GgZz/
+	9jZGD+lV7fPET50UBkjcaQ9AOlcrVhSE=; b=kH3lOc2/yjDZLOgjOBq1LJrx/uc
+	BfQYSDeU2aQnW4rMH1CNs0uAvLb2uAHJxTgwHFXviP3xSLTuHedKmRex5+sJEUwk
+	KWWRbBnsPOD8lHRrty8uXSYX4ByM8ho6zL4byOafDMPqAm4hzToTVFRFTdb30By9
+	8ovLMRlCqkoFWMhFTOAG7zx6RmIUa2I5sSIcWEyZ62F3Exa13GrqLYp0WQXdI7sg
+	BYRr0+ofVPhKE1vK+gzFVKO9bQFWloVxuqtNjRBaziwcatt5AcVkdPuBBuTO4Wpg
+	hNWwHZuJ4fxTXZmVgZcZkKXiZBDZgkk7IUVRsBfrNkomupeQnU4bcVjvrbA==
+Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwkfdmj87-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:58:02 +0000 (GMT)
+Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-49e379ab077so1365104fac.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:58:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=readmodwrite-com.20260707.gappssmtp.com; s=20260707; t=1794596238; x=1795201038; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1794596282; x=1795201082; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=OKLsDxKgeNyTR2N6X6bMkhCfSN7v5jMUZuKftv1qAXY=;
-        b=N04J0XeFYgMqJJ+cfHcHbxusSoInKWkHEy1skit/PHAzcXBBChO6KBJ5HvaCez+YBU
-         Xs7oM1eRtMZn3DQx79UI0sXde1Khty1o2p5D6uyZKiEcULYK1vSRsXys2AzY3SxTbAf2
-         LXOWDuPcEp6IJuo/pWB0Rg/bR/mjv9sM2AcyRuafxqXmN5uE39fmbgfVNpaqCJeEeOH4
-         hxgVtKKIgAFUjFTy7pco7DPCqChbc5CMdRrrSK546g53aSKb74xIa6YEdpudEu3hjK6g
-         tv8Zsqd88jtaDO66kQb/FNv4tA2D2D318wQcRIC/ip1h99X/Phoity+wT6ZTVDlH5bpX
-         W+MA==
+        bh=SkPg5/GgZz/9jZGD+lV7fPET50UBkjcaQ9AOlcrVhSE=;
+        b=UC7XfJxZYIdTeKnZzI7DpK2T3NicmJud6FURd6BHunvcGdgYYYmixxTNXaiwwIZNvM
+         xYPsjSKlFyGzmlDwjrYlYdXoQmrTqt7v8uXPJlhY7uhIf92mcqBYEGJWpsRJsk1Mrfqf
+         53MeEoHdwoemNU3aOU4cpc2tAIK8fnIidKtUVH8l6gleRF1Prv/Vnksrz56xnOqJ1mnS
+         c7Af8M158yF80k7obIPXAYJdC/yXWV1I+hoIylkP6h4e8LvXGevKNhg8YbouVXJS7Hvj
+         mTtsAAtF7ZfcGk99jo8H7IkKo+m9mQoj6k0jDM8Ae0iNxihTrnxE6xsfQdSefePJF0J0
+         PHSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794596238; x=1795201038;
+        d=1e100.net; s=20260707; t=1794596282; x=1795201082;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OKLsDxKgeNyTR2N6X6bMkhCfSN7v5jMUZuKftv1qAXY=;
-        b=qmWUYTi82ITQ6JsRCN7nXG8K1E4k7zrJPb+CtfftTsqNkG7YwENaKmJ8EbwJmvSoSD
-         LobC7u9MNRfH66/LuiF5blkJ8E0SIFSr9pzxwVEl+MwTx46arjCT/KWRYl1/2zjiXLbo
-         B9Ouoo33zAs1EJXF+UqHX+ASdRx2b2aRXfCfQR0HagLjeYUw6HreGpMTu8yAfdafR9gq
-         a0st0/BZHcQ9brJOtapssyVaESYu0rC4eRyZ4JHuxsEFdK6E2Y3ukIX2e4D/4n3IlemE
-         pQZ8rGeDuuiczBB17/78vyi0zJ5ZHUyUNHHGVTysI9s4/kCr8gXMDRFRCq7jorsAq3zu
-         //rQ==
-X-Forwarded-Encrypted: i=1; AL+hErF4MjaZJNucag5eESfTuAcQuAW7RDJD+SIznHawHq3z37zNN+srVsICWuZvUD78yPvExKOfwweyVMbN2sQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8gHKcLIfEL6qlGq9OaEFqSA7kl1FZMzoVtbPH7nBELPC6oKZnq
-	iR9PjA9sWnmHNRNBju5WiKc7vtwMYTTUa2/VLsdtalTq8AkICg1OtgmFVrwi5SZnF/k=
-X-Gm-Gg: AYBFou3rjfJshpJU1LHsvcwVXBWtwwzOFUBbxgucE/qiMDkgV5IrfvSZxqh6dSx+p6M
-	n3DS37kp3I+VMm343ZqBsJkVLIpuP5q8GRwJ9SAiHACiaEOG49xzDdNS9rxQOFo/xdt3Tq/sX8E
-	7ITq3rFi0Itt+vzb8ZRqQwdEWX5BSIwqyHgdrUxxLTnEzzZ2dFv777mi+F9wurrTldYvmjRNCkQ
-	s+5LnVSR+RLSROaZrYMcgDPmJ4cfTkcC2QQyUd4tQZzKC6jdismAaPMVg5ucik/Ef19Hg97zyP1
-	PrrQ0L+sFyyZcP+AvtMyM3GpzOw/zL7xxiB2uku8eH1Lc9CCuxio2doDL3bCllGRw8Bz/j9sKoQ
-	tYq6mlBf8KFj00QJjnRXrsduQUPwfcPYwD008zOFa5wMG8jkV6Ru6pZlHyczgNcPmeaOhmiKzTL
-	PXr3Jh03aBJVO7aLobewiU1239rbR5qlefqTuA/QvZggcieYwLmDjRbpy1ahzXpKWN3HgJ3godm
-	+Phnj4lKR/6YZghYd/HlAnyhykvlMuy+LBSjgTK03iiLOqnrrH4n6/V2ZfTiVaRWTzfK0E1ZkFl
-	G9Cy8TIh49k/eemy5ZH50xBh26GF+A==
-X-Received: by 2002:a05:6000:430d:b0:48f:bbf3:cf52 with SMTP id ffacd0b85a97d-49c73350e7bmr8591785f8f.52.1794596237596;
-        Fri, 13 Nov 2026 10:57:17 -0800 (PST)
-Received: from matt-Precision-5490.. ([2a09:bac6:37a8:ec8::179:1b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f5972a7sm6417589f8f.21.2026.11.13.10.57.15
+        bh=SkPg5/GgZz/9jZGD+lV7fPET50UBkjcaQ9AOlcrVhSE=;
+        b=k6B6wXUQB+cKMNwVs6nLO/a+oib1bKmINBrcA8sz7HD1Yit4BhbKnvxJzqsLPYEYRs
+         nMW8ei0pK3pEbsR61D4c5bO1g9tS0FjKijq2y31tzn5muYPga9bBCt/bWm/NATT6pyIh
+         aoDibXomGSwtw8TqSJacKzz+daIe2VIXwhDLZswyOsHgtxGLYowe29u/PAA2/PC6yWci
+         BmAcQhKsmlekJL05fL/B0mEpdloMphmNvqb7bLUUfIy5SPRXfzsV4q0fr+Lep9xg9s+9
+         mQl1qM+4jrOPMAr+HwOFduMkC61RtGo3LKlQytNVeH3hFI9ua1tupHnWvvhkrZ1ag0nb
+         +EAQ==
+X-Forwarded-Encrypted: i=1; AL+hErF1RpS5wpDVfuXN+OKHLPJ8Lwk/Z5cR9Udqi9I7NVO24PIcTy0Dcu6myW6bukUeb7i39SE7HynK67VN/UQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9FExqCkIcS7Vm3GMqZXQgpfZNIZBpRG9aexH2N3yNS9iEXHaPF
+	WNLlNU9cr7RjCrq9Q/NiA41C2QIuNTaY0OO8JRZ0o62pLQspKdEzUONP10HJOpKc15BcoEyCs6O
+	6qJyCafGAFkxwKWsojIaIESq+3g/h3aauXXmvHDHKJqxDpmz77fmgXX5UkRU+xh9gGAA=
+X-Gm-Gg: AYBFou1HKg+uVAM2jppb9KsAruF6bU3BXbJ9DK12KJdehPc3/6q5WaU/nwLnMDkcyen
+	SbYYYn8c8Ck+M7XIpi8vYkzGHi1KY5DltpwstDuh4wlseFcNx+zNRRUrOREWBO/F8TMZ5m/VIEP
+	AizKVFTn28nnQYRMO7vOrFyYTopfRovJI9LszO1R/qqRYk8dpCqQLP6yEfL3wXlowHrnlGDG+uD
+	QcxF4lBBl+6Zm1Hf65CFSrIoibORaL6iwVXEXM4XcMa49+KuY0xA6SSik48XEACrRqqLDsIfL0R
+	Y4Ugbwl4EXDpM4RUwA44TJOlKvkPCgcmaA7uTY5tPyuB6PCPY0cHcHTCfJqFBH81q+bzv0FuvdO
+	lS4SGXhmF83DL7c8QojgFEBQz8E8uIfDNjER5bEV2/8v86+/4QwBvTp4aH3s3CA==
+X-Received: by 2002:a05:620a:4015:b0:949:3644:edc0 with SMTP id af79cd13be357-9494bb82d66mr549346085a.17.1794595947674;
+        Fri, 13 Nov 2026 10:52:27 -0800 (PST)
+X-Received: by 2002:a05:620a:4015:b0:949:3644:edc0 with SMTP id af79cd13be357-9494bb82d66mr549343185a.17.1794595947195;
+        Fri, 13 Nov 2026 10:52:27 -0800 (PST)
+Received: from quoll ([178.197.218.7])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c609c6451sm7366316f8f.45.2026.11.13.10.52.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 10:57:16 -0800 (PST)
-From: Matt Fleming <matt@readmodwrite.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Marco Elver <elver@google.com>
-Cc: Alexander Potapenko <glider@google.com>,
-	Andrey Konovalov <andreyknvl@gmail.com>,
-	Dmitry Vyukov <dvyukov@google.com>,
-	Oscar Salvador <osalvador@suse.de>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Caleb Kan <ckan@cloudflare.com>,
-	Caleb Kan <calebkan1106@gmail.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	kasan-dev@googlegroups.com,
-	kernel-team@cloudflare.com,
-	Matt Fleming <mfleming@cloudflare.com>
-Subject: [PATCH v3 07/10] stackdepot: Remove stack_depot_fetch()
-Date: Fri, 13 Nov 2026 18:56:59 +0000
-Message-ID: <20261113185702.1332171-8-matt@readmodwrite.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261113185702.1332171-1-matt@readmodwrite.com>
-References: <20261113185702.1332171-1-matt@readmodwrite.com>
+        Fri, 13 Nov 2026 10:52:26 -0800 (PST)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+To: Conor Dooley <conor.dooley@microchip.com>,
+        Valentina Fernandez <valentina.fernandezalanis@microchip.com>,
+        Daire McNamara <daire.mcnamara@microchip.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+        Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+        Yixun Lan <dlan@kernel.org>,
+        Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+        linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, spacemit@lists.linux.dev
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH 2/2] riscv: dts: spacemit: k1: Correct missing space
+Date: Fri, 13 Nov 2026 19:52:16 +0100
+Message-ID: <20261113185214.182695-4-krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261113185214.182695-3-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20261113185214.182695-3-krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,213 +128,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=704; i=krzysztof.kozlowski@oss.qualcomm.com;
+ h=from:subject; bh=ydlWfHv8KMdXhcil2lvko+LTGW6saAZRv+JES4jy7+c=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq91xf5vzRttUphxuP6s8niqvoRGePP05uJmg+y
+ NWC57ZpAcyJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCavdcXwAKCRDBN2bmhouD
+ 1wFuD/9Xs/3OZFXRUKqYiOXZBAwBmVbvbBExEfwlLHe6jS6qAFeHhQhGL93Ylpvv0Td7tCZDuUX
+ WDn78xTjPkwg9CrrdNAjva2vQbdhcof5jz/fKvdgVSfBVsTHp10jzmaM6LdWVJJIOOliC/Z+PYN
+ YGxIYLaDhMTfHVGqnrFFeCcexaPbUdcgyc9Mkwwpg2aCzzZQmXnyD2S3dLS7tuzcg3XzzQB7HFP
+ RSDduEsrSiEydijcnyi4DYc6bM2e1wnkHgATFGNu5bdwsbiceQifIa+3I9Ouoy7V1tNL4/zd3s3
+ DM+H5aTQlvR2Ak68bKMHkGIStfFwm6EHTvMvUzHkP3+x/V/SYlptDg11lii/WF+D8Kji7Svt0B+
+ JZEB2ki616RlV0IsXSM+Ot3bDpXr1tWObZC6RVSn+YmUx+VYAkzI+p2NhDr/JtwhUq3gWfJlmHz
+ 273J6ggcHKGw1epcLbx/agjKjxjb6DWAnNqxkps4A4r91f8nd3y8KKKbUNrN0/nB/gOUj3OvNS6
+ 94r7g0EOWYWYE39vbF8mMkRkzKYFAnLhz1/wDT2ja7rilDldE8bzRt14CcWBjwXSFBf+2JtdnS6
+ iJmiRJOrRF27jLm2zwfqc5pCnLb6Ss9KTp9ncmYQrbEEVn87GS/1mUuHUqHPQYFb2YeOiGoSWlF riL0FHR4e2KJsQw==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA3NSBTYWx0ZWRfXyXVLl6rg/W5w
+ li6sqqrWW1R4cmkWqxy6YxdBC7QxIwqD97e7yyz+6EvLhEtnoa/XvmbvOtwiUSF74M+xJDZCxxS
+ xsbLmykogjnmyeCE/snhD0E+DGXXjls=
+X-Proofpoint-ORIG-GUID: BM2B3UhQZ-Aaj-wdfG3mOe57bcJ-mtJJ
+X-Authority-Analysis: v=2.4 cv=DoTDa2/+ c=1 sm=1 tr=0 ts=6af75dba cx=c_pps
+ a=zPxD6eHSjdtQ/OcAcrOFGw==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
+ a=85fTqwSHmoAmm6HRS_YA:9 a=y8BKWJGFn5sdPF1Y92-H:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA3NSBTYWx0ZWRfX6TOMeKrbWYon
+ w10ItYNidQHkSNd08rsW6PwFbU9q849y7meaAjGdYiu+Fx1XTvGiP32SrWxev9SBTttpX1nQeiR
+ 1jpzOtiUcCEaBbYsbGxEDVEQDSa9sLftjTpUw8/QZbWv3QMdbXUUqkAiWr/hEGOlKwMQXQx383t
+ Gu5o7m8pmzTvjc2mhkrc3jaCqPiE4WqyWIFykupEvb6H9c0xpDKHrot/Z9wmvyS/f6r8elIMg2z
+ jbgCE9b1dCgurPTuIr3D76MFJMlx83iVcaYHK9TxO9i2kJPwZeGFByJ3jDii6w47Tm5Ep3/gkRe
+ 9ADW7QY5WKQNV/BE9KCj2i2jK5/bLQ7Je6j/oMRqbhY2LTGWXqr8Bs/8SG2Ne+xrfLdpSle2JiV
+ /6vowDC/wET73DigFGDvklc63AsCAtAVL4j6RCYq+qvcnRFRfjMGtWg2DrKbNeCf05hbj/psPlF
+ UJiujCkWqfO/3G45vLg==
+X-Proofpoint-GUID: BM2B3UhQZ-Aaj-wdfG3mOe57bcJ-mtJJ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-13_05,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 lowpriorityscore=0 adultscore=0 priorityscore=1501 malwarescore=0
+ spamscore=0 impostorscore=0 suspectscore=0 phishscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130075
 
-From: Matt Fleming <mfleming@cloudflare.com>
+Correct minor style issue around white-space - missing space.
 
-All callers now use stack_depot_fetch_into(), stack_depot_print() or
-stack_depot_snprint(). stack_depot_fetch() hands out a pointer into
-depot storage, which leaks how frames are stored internally by
-stackdepot. This will be undesirable when compressed frame support
-lands in a later patch.
-
-Add a KUnit test that stack_depot_snprint() output and return value
-match stack_trace_snprint(), including truncation.
-
-Signed-off-by: Matt Fleming <mfleming@cloudflare.com>
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- include/linux/stackdepot.h   | 11 ------
- lib/stackdepot.c             | 68 ++++++++++++++++--------------------
- lib/tests/stackdepot_kunit.c | 36 +++++++++++++++++++
- 3 files changed, 66 insertions(+), 49 deletions(-)
+ arch/riscv/boot/dts/spacemit/k1.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/linux/stackdepot.h b/include/linux/stackdepot.h
-index 734529767c8a..dcc2e1d21f92 100644
---- a/include/linux/stackdepot.h
-+++ b/include/linux/stackdepot.h
-@@ -188,17 +188,6 @@ depot_stack_handle_t stack_depot_save(unsigned long *entries,
-  */
- struct stack_record *__stack_depot_get_stack_record(depot_stack_handle_t handle);
- 
--/**
-- * stack_depot_fetch - Fetch a stack trace from stack depot
-- *
-- * @handle:	Stack depot handle returned from stack_depot_save()
-- * @entries:	Pointer to store the address of the stack trace
-- *
-- * Return: Number of frames for the fetched stack
-- */
--unsigned int stack_depot_fetch(depot_stack_handle_t handle,
--			       unsigned long **entries);
--
- /**
-  * stack_depot_fetch_into - Fetch a stack trace into caller-owned storage
-  *
-diff --git a/lib/stackdepot.c b/lib/stackdepot.c
-index 556f3ecdcc8f..8f1aaa0c6d88 100644
---- a/lib/stackdepot.c
-+++ b/lib/stackdepot.c
-@@ -757,33 +757,14 @@ struct stack_record *__stack_depot_get_stack_record(depot_stack_handle_t handle)
- 	return depot_fetch_stack(handle);
- }
- 
--unsigned int stack_depot_fetch(depot_stack_handle_t handle,
--			       unsigned long **entries)
-+/* Copy the first @nr_entries frames of @stack into @entries. */
-+static void depot_copy_entries(const struct stack_record *stack,
-+			       unsigned long *entries, unsigned int nr_entries)
- {
--	struct stack_record *stack;
--
--	*entries = NULL;
--	/*
--	 * Let KMSAN know *entries is initialized. This shall prevent false
--	 * positive reports if instrumented code accesses it.
--	 */
--	kmsan_unpoison_memory(entries, sizeof(*entries));
--
--	if (!handle || stack_depot_disabled)
--		return 0;
--
--	stack = depot_fetch_stack(handle);
--	/*
--	 * Should never be NULL, otherwise this is a use-after-put (or just a
--	 * corrupt handle).
--	 */
--	if (WARN(!stack, "corrupt handle or use after stack_depot_put()"))
--		return 0;
--
--	*entries = stack->entries;
--	return stack->size;
-+	memcpy(entries, stack->entries, nr_entries * sizeof(*entries));
-+	/* stackdepot.c is not instrumented; tell KMSAN the copy is initialized. */
-+	kmsan_unpoison_memory(entries, nr_entries * sizeof(*entries));
- }
--EXPORT_SYMBOL_GPL(stack_depot_fetch);
- 
- unsigned int stack_depot_fetch_into(depot_stack_handle_t handle,
- 				    unsigned long *entries,
-@@ -808,12 +789,27 @@ unsigned int stack_depot_fetch_into(depot_stack_handle_t handle,
- 	if (nr_entries > max_entries)
- 		return 0;
- 
--	memcpy(entries, stack->entries, nr_entries * sizeof(*entries));
--	kmsan_unpoison_memory(entries, nr_entries * sizeof(*entries));
-+	depot_copy_entries(stack, entries, nr_entries);
- 	return nr_entries;
- }
- EXPORT_SYMBOL_GPL(stack_depot_fetch_into);
- 
-+static struct stack_record *depot_print_fetch(depot_stack_handle_t handle)
-+{
-+	struct stack_record *stack;
-+
-+	if (!handle || stack_depot_disabled)
-+		return NULL;
-+
-+	stack = depot_fetch_stack(handle);
-+	/*
-+	 * Should never be NULL, otherwise this is a use-after-put (or just a
-+	 * corrupt handle).
-+	 */
-+	WARN(!stack, "corrupt handle or use after stack_depot_put()");
-+	return stack;
-+}
-+
- void stack_depot_put(depot_stack_handle_t handle)
- {
- 	struct stack_record *stack;
-@@ -834,26 +830,22 @@ void stack_depot_put(depot_stack_handle_t handle)
- }
- EXPORT_SYMBOL_GPL(stack_depot_put);
- 
--void stack_depot_print(depot_stack_handle_t stack)
-+void stack_depot_print(depot_stack_handle_t handle)
- {
--	unsigned long *entries;
--	unsigned int nr_entries;
-+	struct stack_record *stack = depot_print_fetch(handle);
- 
--	nr_entries = stack_depot_fetch(stack, &entries);
--	if (nr_entries > 0)
--		stack_trace_print(entries, nr_entries, 0);
-+	if (stack)
-+		stack_trace_print(stack->entries, stack->size, 0);
- }
- EXPORT_SYMBOL_GPL(stack_depot_print);
- 
- int stack_depot_snprint(depot_stack_handle_t handle, char *buf, size_t size,
- 		       int spaces)
- {
--	unsigned long *entries;
--	unsigned int nr_entries;
-+	struct stack_record *stack = depot_print_fetch(handle);
- 
--	nr_entries = stack_depot_fetch(handle, &entries);
--	return nr_entries ? stack_trace_snprint(buf, size, entries, nr_entries,
--						spaces) : 0;
-+	return stack ? stack_trace_snprint(buf, size, stack->entries,
-+					   stack->size, spaces) : 0;
- }
- EXPORT_SYMBOL_GPL(stack_depot_snprint);
- 
-diff --git a/lib/tests/stackdepot_kunit.c b/lib/tests/stackdepot_kunit.c
-index b0c44c096976..ae4f7661a48f 100644
---- a/lib/tests/stackdepot_kunit.c
-+++ b/lib/tests/stackdepot_kunit.c
-@@ -3,6 +3,8 @@
- #include <kunit/test.h>
- #include <linux/array_size.h>
- #include <linux/gfp.h>
-+#include <linux/minmax.h>
-+#include <linux/stacktrace.h>
- #include <linux/stackdepot.h>
- #include <linux/string.h>
- 
-@@ -71,9 +73,43 @@ static void stackdepot_fetch_into_rejects_missing_or_short_stack(struct kunit *t
- 	KUNIT_EXPECT_MEMEQ(test, fetched, expected, sizeof(expected));
- }
- 
-+/* stack_depot_snprint() must match stack_trace_snprint(), with truncation. */
-+static void stackdepot_snprint_matches_stack_trace(struct kunit *test)
-+{
-+	const unsigned int nr = min(40, CONFIG_STACKDEPOT_MAX_FRAMES);
-+	const size_t size = 4096;
-+	unsigned long entries[40];
-+	depot_stack_handle_t handle;
-+	char *got, *want;
-+	unsigned int i;
-+
-+	for (i = 0; i < nr; i++)
-+		entries[i] = 0x301000UL + 0x1000UL * i;
-+	got = kunit_kzalloc(test, size, GFP_KERNEL);
-+	want = kunit_kzalloc(test, size, GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, got);
-+	KUNIT_ASSERT_NOT_NULL(test, want);
-+
-+	KUNIT_ASSERT_EQ(test, stack_depot_init(), 0);
-+	handle = stack_depot_save(entries, nr, GFP_KERNEL);
-+	KUNIT_ASSERT_NE(test, handle, (depot_stack_handle_t)0);
-+
-+	KUNIT_EXPECT_EQ(test, stack_depot_snprint(handle, got, size, 2),
-+			stack_trace_snprint(want, size, entries, nr, 2));
-+	KUNIT_EXPECT_STREQ(test, got, want);
-+
-+	/* Truncate part-way through the trace. */
-+	memset(got, 0, size);
-+	memset(want, 0, size);
-+	KUNIT_EXPECT_EQ(test, stack_depot_snprint(handle, got, 700, 0),
-+			stack_trace_snprint(want, 700, entries, nr, 0));
-+	KUNIT_EXPECT_STREQ(test, got, want);
-+}
-+
- static struct kunit_case stackdepot_test_cases[] = {
- 	KUNIT_CASE(stackdepot_fetch_into_roundtrip),
- 	KUNIT_CASE(stackdepot_fetch_into_rejects_missing_or_short_stack),
-+	KUNIT_CASE(stackdepot_snprint_matches_stack_trace),
- 	{}
- };
+diff --git a/arch/riscv/boot/dts/spacemit/k1.dtsi b/arch/riscv/boot/dts/spacemit/k1.dtsi
+index 542bfc0d19f5..5d5f7f8a393d 100644
+--- a/arch/riscv/boot/dts/spacemit/k1.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k1.dtsi
+@@ -948,7 +948,7 @@ pdma: dma-controller@d4000000 {
+ 				resets = <&syscon_apmu RESET_DMA>;
+ 				interrupts = <72>;
+ 				dma-channels = <16>;
+-				#dma-cells= <1>;
++				#dma-cells = <1>;
+ 				status = "disabled";
+ 			};
  
 -- 
-2.43.0
+2.53.0
 
