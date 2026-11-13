@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794587962;
-	b=eP8l/AuUSPgYeZuyXN12MToHKP44QVYi3gCFecPNtoZsUg7Y1rWHrXbwbaT41jPsiN41
-	 GP4v7MdG6Tq2fHBMh4uQLG3Vpn5W38sl3fjWDBPUpJtbCIeG7NQNZs/8Bk0Nd82wUVc2d
-	 hD0t586eE/p4YZYPBTjWmYMD8CizqVL18eHRRoXRNSuAIe7ZCBx8vmLTA/jkTqtuYDAQf
-	 GvGgFTNCL282dU1s6uikYr3PqJNe/9vEcuL7Ntfewd36Dot2Bvf7aaKsT7zN52rrU1Nn8
-	 df6ywfG3fZ1DKim7WmkbtTijMTRtJHd/vzFFLw8llRbZVbJ4fRhvghJdJxZldFFmJgg==
+	t=1794587960;
+	b=G51TmUhvp4GQNjQt9Qv+NlnovcNXERYbdRSWRZBVx8rvjz+X6mhGbdpkAArT7zUnh3xi
+	 5dXAzp3JA8quyyof3aya19j8zn25mN8izV2sRkXXWyORcLAnmjbi4iyOQ3KP1tuFinP+L
+	 P13Iel5kgxTtnypJhklmvq2nM3gZ86xkFOgxWyDXvGK/mYq9ZTAdaqbHF3ynY0Y4KwXrs
+	 bAxAGKY6juey1S5zU9RduMUuc2zDYM3vtBENk3QR7BErbfkxLv0hoECoaSMfWBoofqpRU
+	 1FSEt3kYzIXtad2pXvF0ypACBjuMi0musU4khdCr1WvFVhkb1Juwr+Sjv5wAaMOPvrw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794587962;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794587960;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=VRoae0uJKg41x4H1sHQuO0swuZqkwOjr8m8nkdoCDdk=;
-	b=Fj5y4EQHJJMkQozkN47cK7lpP+QDzoBNbjsiS2ZRF6vOmvqZWkz2iauRJ0w/1re5ukIA
-	 SI39nOgazt9y42uT8s/tAeoSoFGDRzYFc2lRC8qEjCLKEpz5rDIG1GGZ6IUPV2T105wC+
-	 yss7bb5BJ/+lILnPP5wDzfKEvgpNOljslvSieUOUCX7Y6FSUzruEh7zBGmyJGXs6fu6VE
-	 fDdIDbL9DCmqRNK9LanXRqP4/ZVfeIe5Q6odX7lWwW+8gk5QVmFQC/bA1qhWT0c8rY/as
-	 0pCSgWv73OqYoQ/tOA5NYO1v68S5IrsGZlwL2ddaPYUo7nftiThg0vwuADVzGWYKHCg==
+	bh=YsJoT5vV2LhXiRt6uTgKvwX6IT1pNPlfM93Jnxpg4QA=;
+	b=qUYfgzK8/d/LaA/Cd9NnsqyfJGtVzAMSCnE3Otia1MqMsLKkpvRUarlhQmEwOpnzhT9p
+	 T7U3ct5R0boJgEUzneF6iOLxbyB4cQvoTkGoo22Ob+vMSJEsY+jRHfIpL5ItdhU0R5Fdp
+	 SLupFYptCQFzQqKK5OWCWUX6GOPpyJ4UT2DG1M4o+C0c5e1gtdemI0k+RD0Rz9LTxJvdk
+	 6qugPpqtj4dPs2y2GqTM0GssrQYo+pJOyG4cSmLLy5MpbbeJ1pHwfJax21ztzQMP/bAZn
+	 2PUSTTHwSGSTnYLd/X6Y/olBmYaFL5PvS5kVWAdUBhzyutyR1n27lktrAOqDkFzkIqw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Oolv3h7g;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=edbGmpe5;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED4D4606AFE3
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:39:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29254606A8B5
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:39:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Oolv3h7g
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=edbGmpe5
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794587961;
-	b=UHwFHmtOd5zLefTRJb8a/qsFvlPMT38ef58+KomC4oa49I0ghrQ0Lm5jEsK1dFNaWUfq
-	 qiYQR5KPVujz8of3t7VVqXvBaTpLJbZfmmH098rYuVpS34wEfd+WPTgHvvYatEEO5uwGV
-	 uvzx7Y0SlZtxKkYylZ6W/kFkwQVLUhCLwnc2b854Is9NxjPpUDbFo2NXDnhm26ajZ9B1r
-	 Tb2vc4MDmEE2vS4KXimbEpZN6IpH+j1Do1wBAAd9sNl8fY5OHrTL2aQvVsrOnhb0l/XgI
-	 LNFbzooxi55l4PCTKAruV02MoXQup0prX9DXeLuViMAFPBOs9epq4lvKopMoI5JceZA==
+	t=1794587960;
+	b=QBzcu6yXBZSZpqIfMPoz8DPpj2fMKkGXa4INLmo8ffURM4peZqd0kBh38m8HhNb+alj2
+	 fl5s2F2e+0VSyTUhnRskw5p8zMvK5PIgpAwpVGiDK2HGpp3Dv0PBARKNmk5sVhoAR7bTp
+	 7dlXvLf9bfqtwrAakc5PTuI7UcC5cj4fXuuy5L9P1cF5hPn8oX40L5hK6o8jWlaA/sjcN
+	 GjEn59ZyAor75w1ROafUNOeEg9RoAUhLT1+jKZBT4Q64rx8X5ltDK0NsB8W4wOvLrd6uv
+	 wRSliB+1St7y1NRbguCr28MLVPIzlrpHurHhugyDwlAg6CJW5iR8hlx7LyTNPzSnGug==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794587961;
+	c=relaxed/relaxed; t=1794587960;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=VRoae0uJKg41x4H1sHQuO0swuZqkwOjr8m8nkdoCDdk=;
-	b=PU9LJfhg7JL4v7yqrQfVL4n9evdrLaRdOzxDevOcB3a6GvhGUvW8q6tCDZXtjbAO192I
-	 KinUqzGwvevrJ48nmpVNQpKFx7zSemUC8FYd1oavu0LvoHjehynHiyLB7PQBXWOxq+EL9
-	 08HS3JV60+/xmlwhAO8l3nhlwJ7STAhmyVBDk9wieODyZOmidbW3BKEUkdj9P/cA9y6Kh
-	 jfikb8ib869ZEQxc+froaX68E/7ShHvDa5x6UeO9elNKH0Kv9qLZcLFdNhQTirQKhM2Dg
-	 ZyBe1/VldzTacKb29ilxh0Jp1ebzbcydpRCSMhXaEkryURxAz74XXKc/Ze+gtfrY6OQ==
+	bh=YsJoT5vV2LhXiRt6uTgKvwX6IT1pNPlfM93Jnxpg4QA=;
+	b=S8Yj/9JCKLkRodfWrr5cO2icA5irQy2gtIzrmZP780uRWDfGJvQcu2iUNyjpt+7sdAvo
+	 tmwB1Q+4+xB8enQHJYuNNl5gaN8NPfI5dRDGeEd9RHbpNtib1G1fFZSAdrED2aSfo+MO1
+	 Xm1WgTY4WKq9VROnuXlMuuYVJxeeB4ViXPtR2tBJ26E2LkQTJUSAJhPe4LGnDtBUnZUji
+	 wItJSRJyFB08D9PPHnQeEW9dLrYdOAeo5bxms6FoEXzLyE3TibGcc7QGfi9wXmKWpyuS3
+	 tIOUJxvsJIgAQCXiNt64Iaj0t2EsrUQ1dZbVkxHNTmE2iRaRiDCVsOhzAlc3+XgGvLw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 760CA1F000C7;
-	Fri, 13 Nov 2026 16:39:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794587961;
-	bh=VRoae0uJKg41x4H1sHQuO0swuZqkwOjr8m8nkdoCDdk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Oolv3h7gcMuRIK/vG2UrAJ3EQ5Ivr/Gx90tSJmUWJxQVpGs5xdzV7OiIOH0t7rATn
-	 Whk20mbEVbhq4eSmSViv0XDckjEGSsRdSHZd8MMoZ5HITIl0O7IU9lE1I1SILHiCFI
-	 uCD32NzhKn7uuF55dd+fk9o986AILoX+VJInHc7KKv5IOOVFVd0y/bSM3dK5pi5tWh
-	 lsMPEa1dPiKZigV7uSn0kp/mIx9vb8IHSgg41M34JNXZJyPVWWSH5v4vQbWC06+SNo
-	 AUXf0HnZizy16DeIxjLN/h8ybl1QFQ637IFj/od/crflSS0npp34m2sexB9HlS5dJY
-	 pJKswW7Bhoftg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2AA9A499CD;
+	by smtp.kernel.org (Postfix) with ESMTPS id 078AA1F000C4;
 	Fri, 13 Nov 2026 16:39:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794587959;
+	bh=YsJoT5vV2LhXiRt6uTgKvwX6IT1pNPlfM93Jnxpg4QA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=edbGmpe5Pwi+R0Phxga94HCKttQilyaVEkobep0dGphkf4wzEXa/8D0snKxVbC0Ej
+	 7ZTCKoumGouzc7Of0OP1qb+Fi89Ijx+L4CsqW0QTy8wRoej/TOqzglhl0WFp9O8zsr
+	 ZLlyk2E+h2UzUMGsspfZuDCLo4dgmg2KI7MqB196QK9a5Hn7VzH1d79n5As2qxzPEY
+	 AGMPfahtCYiyHdmrfhE9gzlRkoxJBbFJ6URqmx6RNRhAkLNAgM6OequsHFvJKQT1IJ
+	 m3cVh7aFhxq+SWvMQyKkcy/CI+dsHSUgg8D26tGiRhVXpBrjZK13IW2zdCI9u9ppy3
+	 1Blu56RJV0wVw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 8E094499A6;
+	Fri, 13 Nov 2026 16:39:18 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Fri, 13 Nov 2026 16:39:25 +0000
-Subject: [PATCH v3 8/8] drm/rockchip: vop2: Fix the AFBC offsets of a
- source that starts inside a superblock
+Date: Fri, 13 Nov 2026 16:39:19 +0000
+Subject: [PATCH v3 2/8] drm/rockchip: vop2: Don't use uninitialised
+ dividers on RK3588
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-vop2-fixes-v3-8-08ae37e83b5c@gmail.com>
+Message-Id: <20261113-vop2-fixes-v3-2-08ae37e83b5c@gmail.com>
 References: <20261113-vop2-fixes-v3-0-08ae37e83b5c@gmail.com>
 In-Reply-To: <20261113-vop2-fixes-v3-0-08ae37e83b5c@gmail.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -100,11 +100,11 @@ Cc: Piotr Zalewski <pZ010001011111@proton.me>,
  linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
  linux-kernel@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794587957; l=2614;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794587957; l=2183;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=OP4jKFakkLyQ4QcI6idmiNeI2E8izD1vnV+qArtL82k=;
- b=c7CMcHGVoAgMCU6gBh2rcDJRL6AsU5CYld1bsphqTY42r8d+LqBbiEn+80XBNC8prbB3OW/kO
- fzTR8Rlok8ICOlSnxoCzPtL0qgkepW9BP5E6uaJg35x+0uRreo5Xa50
+ bh=Lc7BUM364hkyo1nY0cQj9eSkLiB7Dn5RbOTOJc1X7j0=;
+ b=jSag1E1DXsleRCrlZtdOXT6hQo3zaRqaKCsaluyVcAUyhAGK1/1lOYxMWFvOI7y9rQiLuN6vg
+ kqup9p+yrgaAyUPTysWEKwZ8YB+zznIJaLEWiFVnyZA2ZCtS6N9ADxt
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -115,69 +115,63 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-For an AFBC source that starts inside a superblock, AFBC_TILE_NUM misses
-the first, partial superblock column, and the transform offset is the
-whole x position (truncated to 8 bits) instead of the offset inside the
-superblock.
+rk3588_calc_cru_cfg() converts all four dividers with ilog2(), but every
+interface only sets the ones it uses: dclk_out_div is left uninitialised
+for HDMI, eDP and DPI, if_dclk_div for DP, MIPI and DPI, and
+if_pixclk_div for DP and DPI. For HDMI and eDP the uninitialised
+dclk_out_div is then written to RK3588_VP_CLK_CTRL.
 
-Count the columns from the first one the source touches and take the x
-offset modulo the superblock width, as the vendor kernel does.
+Set the dividers an interface doesn't use to 1.
 
-Fixes: 604be85547ce ("drm/rockchip: Add VOP2 driver")
+Fixes: 5a028e8f062f ("drm/rockchip: vop2: Add support for rk3588")
+Suggested-by: Damon Ding <damon.ding@rock-chips.com>
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index 0c300279399a..fc36edfe79d8 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -431,7 +431,7 @@ static bool vop2_half_block_enable(struct drm_plane_state *pstate)
- }
- 
- static u32 vop2_afbc_transform_offset(struct drm_plane_state *pstate,
--				      bool afbc_half_block_en)
-+				      bool afbc_half_block_en, u32 block_w)
- {
- 	struct drm_rect *src = &pstate->src;
- 	struct drm_framebuffer *fb = pstate->fb;
-@@ -479,7 +479,7 @@ static u32 vop2_afbc_transform_offset(struct drm_plane_state *pstate,
- 		ty = act_yoffset;
- 		break;
- 	case DRM_MODE_REFLECT_Y:
--		tx = act_xoffset;
-+		tx = act_xoffset % block_w;
- 		ty = bottom_crop_line_num - act_yoffset;
- 		break;
- 	case DRM_MODE_ROTATE_90:
-@@ -491,7 +491,7 @@ static u32 vop2_afbc_transform_offset(struct drm_plane_state *pstate,
- 		ty = vir_width - width - act_xoffset;
- 		break;
- 	case 0:
--		tx = act_xoffset;
-+		tx = act_xoffset % block_w;
- 		ty = act_yoffset;
- 		break;
- 	}
-@@ -1433,7 +1433,7 @@ static void vop2_plane_atomic_update(struct drm_plane *plane,
- 		if (fb->modifier & AFBC_FORMAT_MOD_YTR)
- 			afbc_format |= (1 << 4);
- 
--		afbc_tile_num = ALIGN(src_w, block_w) / block_w;
-+		afbc_tile_num = ALIGN(src_w + (src->x1 >> 16) % block_w, block_w) / block_w;
- 
+diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+index c44648e1bc0d..f340aba5bfd1 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
++++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+@@ -1597,6 +1597,7 @@ static unsigned long rk3588_calc_cru_cfg(struct vop2_video_port *vp, int id,
+ 		 */
+ 		*if_pixclk_div = 2;
+ 		*if_dclk_div = 4;
++		*dclk_out_div = 1;
+ 	} else if (vop2_output_if_is_edp(id)) {
  		/*
- 		 * AFBC pic_vir_width is count by pixel, this is different
-@@ -1484,7 +1484,7 @@ static void vop2_plane_atomic_update(struct drm_plane *plane,
- 			vop2_win_write(win, VOP2_WIN_AFBC_PLD_OFFSET, yrgb_mst);
+ 		 * edp_pixclk = edp_dclk > dclk_core
+@@ -1609,6 +1610,7 @@ static unsigned long rk3588_calc_cru_cfg(struct vop2_video_port *vp, int id,
+ 		 */
+ 		*if_pixclk_div = K;
+ 		*if_dclk_div = K;
++		*dclk_out_div = 1;
+ 	} else if (vop2_output_if_is_dp(id)) {
+ 		if (output_mode == ROCKCHIP_OUT_MODE_YUV420)
+ 			dclk_out_rate = v_pixclk >> 3;
+@@ -1622,6 +1624,8 @@ static unsigned long rk3588_calc_cru_cfg(struct vop2_video_port *vp, int id,
+ 			return 0;
  		}
+ 		*dclk_out_div = dclk_rate / dclk_out_rate;
++		*if_pixclk_div = 1;
++		*if_dclk_div = 1;
+ 	} else if (vop2_output_if_is_mipi(id)) {
+ 		if_pixclk_rate = dclk_core_rate / K;
+ 		/*
+@@ -1643,8 +1647,12 @@ static unsigned long rk3588_calc_cru_cfg(struct vop2_video_port *vp, int id,
+ 		 * mipi pixclk == dclk_out
+ 		 */
+ 		*if_pixclk_div = 1;
++		*if_dclk_div = 1;
+ 	} else if (vop2_output_if_is_dpi(id)) {
+ 		dclk_rate = v_pixclk;
++		*dclk_out_div = 1;
++		*if_pixclk_div = 1;
++		*if_dclk_div = 1;
+ 	}
  
--		transform_offset = vop2_afbc_transform_offset(pstate, half_block_en);
-+		transform_offset = vop2_afbc_transform_offset(pstate, half_block_en, block_w);
- 		vop2_win_write(win, VOP2_WIN_AFBC_HDR_PTR, yrgb_mst);
- 		vop2_win_write(win, VOP2_WIN_AFBC_PIC_SIZE, act_info);
- 		vop2_win_write(win, VOP2_WIN_TRANSFORM_OFFSET, transform_offset);
+ 	*dclk_core_div = dclk_rate / dclk_core_rate;
 
 -- 
 2.55.0
