@@ -1,77 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794570013;
-	b=rnV2vjEVgxL185Xoieh8E6aSefHOWohSNT/vCInbCWparP+4hOObUsJvmegHQRlFvg5K
-	 44w6MnZchdqlyPEGnikhoK41yHr7yxUEjUsVybMD29ktTkB4WVwfPPnPega/VlAvcRznA
-	 /cHToY4gQChaP6Zef64+1WnfyWikkdmnBj1g7uGnhv700OYskPaCSnKr1d+qPKIPqZORt
-	 7+LrzUfH5l5v9GlJPDlcpa4B+EP8v+eyEJQ8ibMqhftGCHt0550th9A6jxhK7WtC52hvj
-	 olqhgFVG6cd0/uopctJGt4zBGdBOu7AX9AImK5aeHNAjr7D9qeTWaXJYBq4Iz7iBfsg==
+	t=1794570031;
+	b=b8M+uQxZV1aXXUgHHJgFf05kPraI2hgtEOBu+h2zZyz3qZeG8yAxOEmvEzKdPZQAnXhZ
+	 e43UTzSbz4CkjrXtfnVnZWjGUpN+KpN6lhfLjfCa1WPq8mZCPpg19Qq9dfq13THSdUy9x
+	 kOHxQ1SzAYkia9x1IDDWoDoMT1bQmCgYR2zQmo9lxbfHO3vH3e9XdbruqayPDhUTQJfOw
+	 hP/Wvj6pcTJpuMtkfA2SkLR9IhvX0hlMZNeSOxud+ji4llY9mVUTem2Xh73VeZBb8cye7
+	 JnyzqOpR+sEZ9uy/sMzMHm1SxlCHo3lZQknucXdwbsaH9bk4YLCs2IcK36gYflTRu4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794570013;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Sx4I5TQr/tJnq6LolN0jCNFUVlDYTPLN9V39idqWiWI=;
-	b=WX/MFLWlUyS+uTaNjAsfrX8EjIGNiy9kjvuspTY2YsgZ0Kudwh9/h8hJx0dc8K5t8I2S
-	 NCHcVNIZeM/XUwpgHX93mq6kjOBcwoOILsO1lw+1qL1qyU570NUCFuqG/VW+LjGVqtc0F
-	 yJnEnol8+vjXYHoGyVVBkwGacZSiIAv+ND5TR+aMjPUJIVon+D1IS7GuM09hj9hybM7iD
-	 uqgD4ZoFw26ULRbH1CV+zEQHokWaFJ/JSjhKKgCVdODcrPbdUyuMugrDyrxhx73g53xMv
-	 Mu29U3+mC1KXrhHVYNthsIe2x1DNpn1PveHrWm7oA5FNvt9nJvUTa0dAIvNmDO5Xgeg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794570031;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=l1+NgW92VziZf9PgBdzApbIe2BkR1TvVvXtYjUT220A=;
+	b=B/IBdgJQz/Fzkqbq2/k9YHJEljOb2n1BsGdQiXO/X4mD9iA4921YV3PycGJh7BTpqx5I
+	 q+psnRxlJAaz0d7+o3Bv9PX4N96LD80TaUzTHp2ChsktcdsRxylEV2UrOfYJBIuOzVBSe
+	 Kc7GGNcBzj7Z/ZLX+dswQhh+8qR+oKHRfKi9epXCKRGFUWDwFQxd15jiLfo+eN5FQq/eF
+	 9zgDcgJmApjoic1X/sY42+6MUygJViqLEAesSZxVeE7ZoToJQrYvh3f5btc5Ag9qGr4Oc
+	 S2CF2So/1pu3zGoTs8OFZlP6BUdy3q5QvsWTW5G/WijD5yMwe/q94M+hWXRzkVTiDRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kni5FwAo;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=linux.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.128.182
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19F0606A31C;
-	Fri, 13 Nov 2026 11:40:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kni5FwAo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D7031F000C4;
-	Fri, 13 Nov 2026 11:40:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794570013;
-	bh=Sx4I5TQr/tJnq6LolN0jCNFUVlDYTPLN9V39idqWiWI=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=kni5FwAouxMtDA8R93e8iSlDAJTDtGYbK21KGRib3SZb7xNDHAIlrTvOjQiLjB8re
-	 Bdjgg9FwAwSnAjo7uKXMBMbGIDlt8naewDQWpT29oKYLv/bKX2tedXO0+oEpEHjOXz
-	 4lEqG5kyTCVZXX8hC/HoqW6sF7e6gsamUhceqMNwPlJp6SGxvLnmS1I9cupMdAHCMd
-	 ymUC5jPHh+XJSEXKtvm+DyABf8fX5S4WK49awYlV6S0979oDIBQGQ3YKMcxGIywy96
-	 aGvXenv3zP7estPpkfzpogmvvux9Nt+iQk+zyF8vn/RDWyi2hW4NvoslCL7FUWl1Xy
-	 b5PM0oyvsnyDg==
-From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
-To: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-Cc: Magnus Karlsson <magnus.karlsson@intel.com>, Stanislav Fomichev
- <sdf@fomichev.me>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Jonathan Corbet
- <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Alexander Duyck <alexanderduyck@fb.com>,
- kernel-team@meta.com, Andrew Lunn <andrew+netdev@lunn.ch>, Jesper Dangaard
- Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
- <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, Pavel
- Begunkov <asml.silence@gmail.com>, Jens Axboe <axboe@kernel.dk>, Andrii
- Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Kumar
- Kartikeya
- Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song
- Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa
- <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai
- <ihor.solodrai@linux.dev>, netdev@vger.kernel.org, bpf@vger.kernel.org,
- io-uring@vger.kernel.org, Mina Almasry <almasrymina@google.com>, "Mike
- Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>, Weiming Shi
- <bestswngs@gmail.com>, Nikolay Aleksandrov <razor@blackwall.org>, David
- Wei <dw@davidwei.uk>, Alexander Lobakin <aleksander.lobakin@intel.com>,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, Stuart Clark
- <stuclar@meta.com>
-Subject: Re: [PATCH net-next v1 11/11] eth: fbnic: Support AF_XDP page pool
- zero copy
-In-Reply-To: <87wlqhq0kb.fsf@all.your.base.are.belong.to.us>
-References: <20261110102039.1002605-1-bjorn@kernel.org>
- <20261110102039.1002605-12-bjorn@kernel.org> <avWk5as19fvZoEJA@boxer>
- <87wlqhq0kb.fsf@all.your.base.are.belong.to.us>
-Date: Fri, 13 Nov 2026 12:40:09 +0100
-Message-ID: <87jymhot7q.fsf@all.your.base.are.belong.to.us>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BDFA606A330
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:40:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BDFA606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-8b0cf2c0785so8653037b3.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:40:31 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794570030; x=1795174830;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=l1+NgW92VziZf9PgBdzApbIe2BkR1TvVvXtYjUT220A=;
+        b=iqLbqjBcEY6HdL8Ob4mKtL++TqY/vJsO67AdaR4lZKiS6nIEpiRJ802vG+b8mEnPst
+         nDYXC2iMH9wyC4RleZoZhZpgNT3t5SjpEZs0OY2YfzsWDmEgfnfqebWCcSgqObeqYVaJ
+         EzvD7oJ7+lkShIxm55Y4p+SjMtBFHIB1Zh8Z0QQttD1z3C1JuiLOm/ThtiKwuikkWVce
+         4myWbH77jTY4qUf/vryNWERnCRbMr6E46sshnzlAtdeu1jPdOMx0jcjbNUXc4ezA47VH
+         iyImIlxa5+bO94vxOc9UAbnl2He0/EWxEeu+wihksZRFAg5c76pBH/fquxDwJ247jz5M
+         TiLQ==
+X-Forwarded-Encrypted: i=1; AL+hErGkq2xTRpjbxxJ7+Ip2EN/pZCvDh5CyxHKn6HhR6u0mIA+EUSs+ZpgQj5/CLaWDZ1FspK7eIeF8215ec0A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9tuWECNoU9KiwUzwhA5AJpIC2e47ugzzgaVOoeFYfAsJ4gBTN4
+	6jjRBvzcPJOlNCtOdBEAdS6AqOsHxhEGP9fsSgD8RwxfybHQiHe6Kzu/xPQp3XLPFWM=
+X-Gm-Gg: AYBFou1xQFAMeU0pQX9wbBhOM3qlBN9fWWRzuOj1+kJTrVxwjV+7griLsxEiYPnBm3+
+	ZwRkTfzGxZuXlvwy55djwl6N/sqRRHF0Yl6FeCCz+OtF9Ujk5tenylMj/4BYuAxZL01+ArUXwj3
+	JeL8gb13JetgtHmoY3YUCCc3eWq3OcOUV2Itxpdn+IGkJ/DEsoG5fFBuPhPBWevJqzLKV394SPn
+	yhkH3dAb/na8PMTcjYsIyLHQ3en4aAlSt5Jxk7dj5epAeOuJfpK2PsPlAUE9gjq0qytwrqTFXD4
+	WZsjRL0f0T4SDdX7MlJjm6Foi/s5DdKRoxa+Ua9Ro9m/aAOdBnXz/JfOOJz9ZXgk/SlJdecbA5O
+	2Qu3t8aeu9S2ZI8ml4p54bJCqrIE9PwcA6HmtzLSiTxgUcN6/CXKg3gv2YgejstjJJqduuJRy+Q
+	lI0D02yvbFqpiMXqgdJ/QW0zGvF5xwnijq6l83eXAc0s+KWKwtyznIdBoQ6UAtRh0mEsDSSmB7G
+	oagOn5mdLGirRD46X9A6jhy8emk5xCqj2gpv+Z8LQ33XWuzBYWkkdmzktrrZDUQalkJVH5b4uUf
+	XXnAmH+Gn960K24Q1lwHDKb6XTkDgJkiIxLgRqHiPHd40DciPfyfQCQA+aZW+/1UZR6S6jnAbXu
+	gjnWsgtgy5iWboNqp+EaHOdljTW4UxCqKNvSEtfqarm/gnITT/4zHAQ==
+X-Received: by 2002:a05:690c:e287:20b0:8b0:8e22:d937 with SMTP id 00721157ae682-8b4aa2a7d72mr7986167b3.33.1794570030297;
+        Fri, 13 Nov 2026 03:40:30 -0800 (PST)
+Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com. [74.125.224.51])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa957df4sm17788687b3.20.2026.11.13.03.40.29
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 13 Nov 2026 03:40:29 -0800 (PST)
+Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-67be4f2f4d4so914036d50.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:40:29 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHYRGAc9j6DsHIDppBSmfziiLXl2+bK8TZAQKtJOBSomXjBI5ORCblryad9NhX02u607oD5hPzodah/mt0=@vger.kernel.org
+X-Received: by 2002:a05:690c:f85:b0:8b3:45b:a4f3 with SMTP id
+ 00721157ae682-8b4aa350595mr13731467b3.83.1794570029115; Fri, 13 Nov 2026
+ 03:40:29 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,56 +82,235 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20261103163715.385394-1-tanure@linux.com> <20261103163715.385394-3-tanure@linux.com>
+ <20261105-stoic-cricket-of-tolerance-cb3014@quoll> <35dc1ebf-5194-4ec8-adfb-dcc8ea717750@amlogic.com>
+ <CAJX_Q+0QqBHGv-4nfmY8N_xr=KQgUFtwPQTVZBxTK1LHV0jGOQ@mail.gmail.com> <bbe0dedf-4b02-4cc6-97be-accfc06baa10@amlogic.com>
+In-Reply-To: <bbe0dedf-4b02-4cc6-97be-accfc06baa10@amlogic.com>
+Reply-To: tanure@linux.com
+From: Lucas Tanure <tanure@linux.com>
+Date: Fri, 13 Nov 2026 11:40:16 +0000
+X-Gmail-Original-Message-ID: <CAJX_Q+0seFwDvd6zksLnJjWYJJY1QcLc1gAjr=FN1p+aTdumpw@mail.gmail.com>
+X-Gm-Features: AclHuK9I2BMo6FvBmijHWWypkJRsPu48XUE9NXvVmMxUtTJAFVoacoB_pnoFyzs
+Message-ID: <CAJX_Q+0seFwDvd6zksLnJjWYJJY1QcLc1gAjr=FN1p+aTdumpw@mail.gmail.com>
+Subject: Re: [PATCH v5 2/7] dt-bindings: net: amlogic,meson-dwmac: add amlogic,t7-dwmac
+To: Chuan Liu <chuan.liu@amlogic.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, xianwei.zhao@amlogic.com, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
+	Jerome Brunet <jbrunet@baylibre.com>, 
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Bj=C3=B6rn T=C3=B6pel <bjorn@kernel.org> writes:
-
-> Maciej Fijalkowski <maciej.fijalkowski@intel.com> writes:
+On Tue, Nov 10, 2026 at 11:43=E2=80=AFAM Chuan Liu <chuan.liu@amlogic.com> =
+wrote:
 >
->> On Tue, Nov 10, 2026 at 11:20:32AM +0100, Bj=C3=B6rn T=C3=B6pel wrote:
+> Hi Lucas,
 >
->>> @@ -538,6 +547,13 @@ static int fbnic_bpf(struct net_device *netdev, st=
-ruct netdev_bpf *bpf)
->>>  {
->>>  	struct bpf_prog *prog =3D bpf->prog, *prev_prog;
->>>  	struct fbnic_net *fbn =3D netdev_priv(netdev);
->>> +	const struct xsk_rx_check *check;
->>> +
->>> +	if (bpf->command =3D=3D XDP_VALIDATE_XSK_POOL) {
->>
->> do you really need a separate command here? why not rely on existing
->> XDP_SETUP_XSK_POOL ?
->>
->> here it doesn't look like things being validated are something unique th=
-at
->> you could not check during XDP_SETUP_XSK_POOL and XDP_SETUP_PROG.
+> On 11/9/2026 11:43 PM, Lucas Tanure wrote:
+> > [ EXTERNAL EMAIL ]
+> >
+> > On Fri, Nov 6, 2026 at 3:16=E2=80=AFAM Chuan Liu <chuan.liu@amlogic.com=
+> wrote:
+> >>
+> >> Hi Krzysztof, Lucas,
+> >>
+> >> On 11/5/2026 7:57 PM, Krzysztof Kozlowski wrote:
+> >>> [ EXTERNAL EMAIL ]
+> >>>
+> >>> On Tue, Nov 03, 2026 at 04:37:10PM +0000, Lucas Tanure wrote:
+> >>>>
+> >>>> Assisted-by: LLM
+> >>>
+> >>> Drop this one.
+> >>>
+> >>>> Signed-off-by: Lucas Tanure <tanure@linux.com>
+> >>>> ---
+> >>>>    .../bindings/net/amlogic,meson-dwmac.yaml     | 59 ++++++++++++++=
++++++
+> >>>>    1 file changed, 59 insertions(+)
+> >>>>
+> >>>> diff --git a/Documentation/devicetree/bindings/net/amlogic,meson-dwm=
+ac.yaml b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
+> >>>> index e769c9bb70d8..6de013e3e8f6 100644
+> >>>> --- a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
+> >>>> +++ b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
+> >>>> @@ -23,6 +23,7 @@ select:
+> >>>>              - amlogic,meson-gxbb-dwmac
+> >>>>              - amlogic,meson-axg-dwmac
+> >>>>              - amlogic,meson-g12a-dwmac
+> >>>> +          - amlogic,t7-dwmac
+> >>>>      required:
+> >>>>        - compatible
+> >>>>
+> >>>> @@ -57,6 +58,59 @@ allOf:
+> >>>>                - const: clkin1
+> >>>>                - const: timing-adjustment
+> >>>>
+> >>>> +  - if:
+> >>>> +      properties:
+> >>>> +        compatible:
+> >>>> +          contains:
+> >>>> +            const: amlogic,t7-dwmac
+> >>>> +    then:
+> >>>> +      properties:
+> >>>> +        clocks:
+> >>>> +          items:
+> >>>> +            - description: GMAC main clock
+> >>>> +            - description: First parent clock of the internal mux
+> >>>> +            - description: Second parent clock of the internal mux
+> >>>> +            - description:
+> >>>> +                clock of the pipeline stage inserted in the bus pat=
+h between
+> >>>> +                the controller and the DRAM. Without it, the contro=
+ller cannot
+> >>>> +                complete DMA transfers.
+> >>>> +            - description:
+> >>>> +                clock of the register block holding PRG_ETH0 and PR=
+G_ETH1.
+> >>>> +                Without it, the block reads as zero and ignores wri=
+tes.
+> >>>
+> >>> This sounds like you take clock from other block. That's wrong, that
+> >>> device should take its own clock.
+> >>
+> >> I see that the clock in the dts patch corresponds to <&clkc_periphs
+> >> CLKID_SYS_ETHPHY>. This clock provides the working clock for the APB B=
+us
+> >> of the ETH PHY controller, and this clock will affect the register
+> >> reading and writing of the ETH PHY (including the ETH_PLL). See sectio=
+n
+> >> 15.3.4.2 RegisterDescription in A311D2 Datasheet for details.
+> >
+> > Thanks. That section is the PHY block at 0xfe028000, the region of the
+> > mdio multiplexer node. The registers in this description are PRG_ETH0
+> > and PRG_ETH1 in eth_top at 0xfe024000. On the VIM4 the same gate feeds
+> > them too: with it off they read as zero and ignore writes. My datasheet
+> > revisions do not say which clock feeds eth_top. Can you confirm it is
+> > this one?
 >
-> I'd like to keep it. XDP_SETUP_XSK_POOL means "set up driver ZC for this
-> pool": the driver maps the UMEM and restarts its queue, and the core
-> WARNs if it didn't map. A provider driver does neither; it only says yes
-> or no, before the core maps and installs anything. The same question
-> comes up on MTU and program changes of a bound device, with the new MTU
-> or program, which XDP_SETUP_XSK_POOL can't carry. One command keeps that
-> in one place, and v2 runs it from the core MTU path too, so a driver
-> can't forget that case. This is only a burden for the core.
+> The information I can confirm is:
+>    - The base address of eth_phy is 0xfe028000, and its corresponding
+> APB clock is <&clkc_periphs CLKID_SYS_ETHPHY>.
+>    - The base address of eth_top is 0xfe024000, and the base address of
+> eth_mac is 0xfdc00000; their corresponding APB clock is <&clkc_periphs
+> CLKID_SYS_ETH>.
 
-Thinking more about it, maybe I can drop the callback altogether, by
-doing what devmem, io_uring zcrx and tcp-data-split already do: the core
-refuses a setup that can't work, instead of asking the driver.
+That is not what the VIM4 does. The stmmac core enables
+CLKID_SYS_ETH before any glue code runs. With that clock on and
+CLKID_SYS_ETHPHY off, PRG_ETH0 and PRG_ETH1 read as zero and the
+driver's writes are lost: U-Boot's 0xa0000 was still in PRG_ETH1
+after the driver had written 0. Enabling CLKID_SYS_ETHPHY right
+before the write makes it land. That was the v3 bug, every frame a
+CRC error. I repeated it today on the running kernel, toggling only
+bit 4 of CLKCTRL_SYS_CLK_EN0_REG0 from user space, every other gate
+left on:
 
-The driver only judges the chunk size and headroom, in
-ndo_validate_qcfg, which the queue API already calls when it installs
-the provider, with a new bit saying the buffers can't be split. A frame
-of up to the chunk size (minus headroom), then lands in one buffer, so
-the core checks the MTU itself, at bind and on MTU changes. And like
-tcp-data-split, a socket bound with XDP_USE_SG needs a frags XDP
-program: attaching a single-buffer program fails while one is bound, and
-the bind fails while one is attached.
+  both gates on        EN0=3Dffffffff EN1=3Dffffffff PRG_ETH0=3D00001601
+  ethphy off, eth on   EN0=3Dffffffef EN1=3Dffffffff PRG_ETH0=3D00000000
+  ethphy restored      EN0=3Dffffffff EN1=3Dffffffff PRG_ETH0=3D00001601
 
-That drops XDP_VALIDATE_XSK_POOL and struct xsk_rx_check, and fbnic's
-MTU and program hooks with them. Not fully cooked in my head, but maybe?
-Wdyt?
+So on this chip CLKID_SYS_ETH alone does not give access to eth_top.
+Could the register interface of eth_top sit behind the eth_phy APB
+slave? Either way the MAC node has to enable CLKID_SYS_ETHPHY, and
+the binding will describe it as the clock of the glue registers.
 
-
-Bj=C3=B6rn
+>
+> The CPU reads and writes the registers of these peripheral controllers
+> (or Processing Units) via the APB. Consequently, the registers of these
+> controllers cannot be read and written properly if the corresponding APB
+> clock (sys_clk/clk81) is not enabled.
+>
+> >
+> > Thanks,
+> > Lucas
+> >
+> >>
+> >>>
+> >>>
+> >>>> +
+> >>>> +        clock-names:
+> >>>> +          items:
+> >>>> +            - const: stmmaceth
+> >>>> +            - const: clkin0
+> >>>> +            - const: clkin1
+> >>>> +            - const: pipeline
+> >>>> +            - const: pclk
+> >>>> +
+> >>>> +        # The PHY adds the 2ns RGMII delays, see ethernet-controlle=
+r.yaml.
+> >>>> +        # The RX delay line of this glue is fine tuning in 200ps st=
+eps,
+> >>>> +        # added on top of what phy-mode describes. The TX side has =
+no fine
+> >>>> +        # tuning: its only step is a quarter of the clock period, t=
+he full
+> >>>> +        # 2ns at 1Gbit/s, so the TX property is not accepted.
+> >>>> +        tx-internal-delay-ps: false
+> >>>> +
+> >>>> +        # Deprecated: new SoCs use the standard *-internal-delay-ps
+> >>>> +        # properties instead.
+> >>>> +        amlogic,tx-delay-ns: false
+> >>>> +        amlogic,rx-delay-ns: false
+> >>>> +
+> >>>> +  # Delay definitions for Meson8b and newer
+> >>>> +  - if:
+> >>>> +      properties:
+> >>>> +        compatible:
+> >>>> +          contains:
+> >>>> +            enum:
+> >>>> +              - amlogic,meson8b-dwmac
+> >>>> +              - amlogic,meson8m2-dwmac
+> >>>> +              - amlogic,meson-gxbb-dwmac
+> >>>> +              - amlogic,meson-axg-dwmac
+> >>>> +              - amlogic,meson-g12a-dwmac
+> >>>> +    then:
+> >>>> +      properties:
+> >>>>            amlogic,tx-delay-ns:
+> >>>>              enum: [0, 2, 4, 6]
+> >>>>              default: 2
+> >>>> @@ -106,6 +160,7 @@ allOf:
+> >>>>              contains:
+> >>>>                enum:
+> >>>>                  - amlogic,meson-g12a-dwmac
+> >>>> +              - amlogic,t7-dwmac
+> >>>>        then:
+> >>>>          properties:
+> >>>>            rx-internal-delay-ps:
+> >>>> @@ -142,6 +197,10 @@ properties:
+> >>>>          - items:
+> >>>>              - const: amlogic,meson6-dwmac
+> >>>>              - const: snps,dwmac
+> >>>> +      - items:
+> >>>> +          - const: amlogic,t7-dwmac
+> >>>> +          - const: snps,dwmac-5.10a
+> >>>> +          - const: snps,dwmac
+> >>>
+> >>> I see no such hunk in the code, so not sure how to review this.
+> >>>
+> >>> Best regards,
+> >>> Krzysztof
+> >>>
+> >>>
+> >>> _______________________________________________
+> >>> linux-amlogic mailing list
+> >>> linux-amlogic@lists.infradead.org
+> >>> http://lists.infradead.org/mailman/listinfo/linux-amlogic
+> >>
+> >> --
+> >> Best regards,
+> >> Chuan
+> >>
+>
+> --
+> Best regards,
+> Chuan
+>
+Thanks,
+Lucas
