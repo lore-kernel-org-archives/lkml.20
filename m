@@ -1,102 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.170
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794559300;
-	b=4SSdKFIKvCdiDsQwBJjBQH2uIm+xzNZcWFJJlsuCeEb5kmpDx5U4g/HcHrTpeBZBZlzF
-	 5MHJ1FqT/Kon7mdvzniW6s7hLkn0xVw7QQZiDe82fXlq0NybkJRhh23F3d5qovgFlGt/d
-	 yLaY+scajTk2sedQV97nIgln9UkjdV4e6qRGIV/lhlF6j+nErr8G79HTTHau27OJaC7WT
-	 pTSJHBPDkG5O2Quf5IbZeHfnCOBnlVeIyVny6Ul2H/+mZXrHfKcT47BA3IwOZw8UCyTIi
-	 9MsIUpO5qRHoFTiyzA8DHJ2QBpRgnrdsOunLIUZ2Mz5t7VQ3DkhjIW+x6dBRo5CGboQ==
+	t=1794559327;
+	b=kEvixUXe+ZQJ3ztzv83TSVh+oKq+9h5YFjPcEbj0dhtn/N0iyNm5HmOFdIhtRwo6pKGQ
+	 gnHG+txbdR2wNVbfYE6Tz2ISs91vObpadrxT/FD72JvhgUer0Z5zck8OD4OvXAl/Io1uQ
+	 5cfw3TkH2JLSATciPUHkkTN6hTOVa62Wk9SwlYYHJwYtdHPKOO4k+No25iq1+lSwraL4v
+	 AHwrJ68OXU9X0qCzEkpg492iNtWPciplvu3shFpDJSgSgFRrlvVwV8aoXiLSNBHZQ9Z0J
+	 Su4UrMhKl3S5X2aKdxvsXP2b/7X6W2WxtdaUc9/6OwRoNOG7mFCfudx7MFkk+FFESIw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794559300;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Wd0IqbdzMVGbW4Cv9X/8BHQcGew4KeP8LilkGkVj9Sg=;
-	b=lfT+H3cytOvPkC3CrxqVVnQkP7IkfITTWEghLW19Zl6a5TeK7ccSofWqHzO9QOmdrAt+
-	 8MJ7emoktUoMgydJuqdqlv9hNBSc3FF8rf/uzFfCedFKaa47zGVHKXo4iO3LEcfWTHChi
-	 gAW2RuF2y8OaL/VMZ4ggy73RymlgmS5ssc8WZyNSSmVELDPQDwUKwxQgs1SBmz4DHHxCC
-	 bnai2awXTzeCHInfCAHpu/4Rp8VdacrNdANyob3tnNMqN0u/2KNIP/lZHYiMfWXj2ERmk
-	 Q1nbGr8/AWRoXAMsUCjUsZBBQVmSPSj4GeDMPee+TnoQW2bep2yBT+6D+Y6NkvQWCNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794559327;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=CZQ974KYbgXTwV3k+XNhiOl05mnd5+zfgXjeJNb39S8=;
+	b=KPWasuuAASYFHQpL77IZ4jIp4rQ3ulMfzT1X7uITKAgq2jMPqg5kG3UXItirnk0I1E6t
+	 npbeAJDIHYLijRDLpwgLda2KmZGRrfcEa7mzsxc8zksltWZ1/dVcCiGRTfy8sjLJgQ9Ua
+	 6Sn5mpOGL6lJyg8KYQE32ecfG7h1x4cTzvVspZFwSrc4GO+Gqod5vL5pd2BebDnp2UmR9
+	 k3skgz7DQEejxSARxY83dAxXiBaZTh4sEhUd0mad5NsKQDgvwfQ9tapDvpmgGDPZ0A54K
+	 ddKQ5W+LKP2Vh2phLx8ylZ2u2THkChzE28JoYqCso84TbpvCy9uCDOGv7ik1iAN9kMQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jCLIKd5D;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.170
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UUcRyxKK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28279606A8A3;
+	Fri, 13 Nov 2026 08:42:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UUcRyxKK
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794559327;
+	b=pN+GPX9ZMLAzsxYYCxsBWDRw+ln+ZkEtt7rB+fraS2aTL8Bq4exighvWr9Cycb6t+lKm
+	 rSvtxt4xV2XaD56b3F5Ftzvl2SnRFT066Digo1jiP6ktUyxhUNIeioScBl4l0+obGRgaD
+	 mb9aGZCiec5eMyUPpPGXbU8AqRI7djMvviitq+lot0llBki20w0NGRKqF5clnaM1ajRJ9
+	 NaAFXN0RAzjCxBSmLGRZ4xSgw8xXXzoQ/m63lKSoxsm/EroWg5P/hb2sEhHwJXj9B/g2a
+	 gy9jte2uYCuMFtln7XOe56nH1+1zGz2MbXtGLzAK99LEARo1n08HtlJ0rVMzNg2UDhw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794559327;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=CZQ974KYbgXTwV3k+XNhiOl05mnd5+zfgXjeJNb39S8=;
+	b=O0LJyEFvggKIBI3ZHH0cH9BSs0uKkXcqImyy3n9/66LEgeN1dPxVZA3UJcQigf08ff7p
+	 TLJ1ib98aEL0EmkTMlegaGffZRxox1J1crzuL5OQ3TAa3gjsQD3gYqZP82nTpnwv30UFQ
+	 F7SUCY2BWCUU+LYALk7gVlNgewAFa6xXl2eo5eCH8DlhftCAY4mpQIXj2pyg1wUbc2TuH
+	 AUwXDLKOYqUY4tGs0xt461MgoUg0m6PBl+F2TzE4WYnLsBNc7SwsTsuiHIG30d5N0tThK
+	 PFD6C5GbTIaJlj9SamU0ztHKkZ8q/t5vYgjVP1IKceam63k4BIy7uQxj8gV1yBO9XsQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 783BB606A32A
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:41:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 783BB606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jCLIKd5D
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8b0cf2c0785so7549127b3.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:41:40 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794559299; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ALsRdM1y1lAiVBMnVJDpf9yIb1KLGfMZC6DrtxUB0JVgnaTjWZpeKlHrlXEkZikLsP
-         zJP9oAF8bTzxzNgsWU/7oJThPgdhKHkAcA4EzKYBshXjwwlrsR1la3bjNv2/F5VZuRRs
-         SM61GXj2b8fnk0V3ia5bIj2W5b3iGaMuqjo60YS0wx74powZI2JdhVHygeyglqL41dfH
-         Bg44AC5rZBIkeaSBlA08kB1EWf+hbESPVIGPPKqoKsvBwBVR2nwoKvUE7hFXTdXHjCTc
-         dn0vc1/CcEg7tnv7xF4eDMZ5SsvE3AaYjq5vd/YMRFgxj47rK5t2JJkWYQmyY7LEtQD2
-         29ug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Wd0IqbdzMVGbW4Cv9X/8BHQcGew4KeP8LilkGkVj9Sg=;
-        fh=5s4XH4qi37JS9pf4Xr/BFmBCm8njZzCRmq55DfDgw04=;
-        b=cJTXawtFrmixX4ZlVGklf0cEFAg52UI3+7/pMAcKiU3f/aD54q1E95uGBGiMQ1S8cc
-         CtdhsDN+rmHd07GWdzVkNCs1qGQm9ouLfJrdslSGyTbj0it8K8nuY2V+O4FdjyVj1CEu
-         A9eDqfN5FfUiZMvVr/xRxf8VN9oNpHBLtNv1dG2J4hhiTfziQPP88Rb7lQyHG+1RZhc3
-         nzxz0OnGXKlCluEbroS+S2DbZs4sVyQbYQpBZH0Rg82UI6udWBC532Z78VKa2Trmg0Wd
-         UbANwBGrZ9SgK4Vqvy/cDkx3uM+FYWD60eJV+FYLXdV0wV1noQCZziHUN/2blKzdGXtJ
-         IJAw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794559299; x=1795164099; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Wd0IqbdzMVGbW4Cv9X/8BHQcGew4KeP8LilkGkVj9Sg=;
-        b=jCLIKd5D6I3EwIEB+X/90+AoVDHX1PQjWfFDVSM6zeCrHsshbbHkEGIUmV1Ih8LmEB
-         We+Ma3bCbQeSXig8Czb4BQGw9fRaH/K4GFQ98Op00ZvstvjGTunUBqOSnR6IrRsFQACn
-         /y6xcnmek78TX1xKtyUwynUw3iwVgKqv8xXxQFreK/bpVKdzEI3P5SKC9TdfgRVUzEpk
-         NuaYOK5mszsuZPTuLruCwbOtV91ykbCTthn7/nteUITBC6XKxUUH7buXtwBeHxqUu5a1
-         dHNEe3MYkWmR+S/LRrpfjTk6jbUZm6Wb47Gw9eaJV7wHIzT4+tz8QID0X9fQ2hxsfpMA
-         17hQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794559299; x=1795164099;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Wd0IqbdzMVGbW4Cv9X/8BHQcGew4KeP8LilkGkVj9Sg=;
-        b=RJUxnrc/FR44iuQ86sEg8OB5YDP0fV/nso9SIyrwqARThdrV8+0VflqA9LnO3di60T
-         tLULBvCr8bzbyBuxnd5xsKNIKP/HDwx7Mr9nsRNbk5VkO/7d7bFEMeafMqw4QbtSYxMW
-         MgxRfo2PB7gDvOpTc4GaaXsmN2MXnJHx+Ls/ChT3om50vNSCpaDDmc2CSNweV6SK3VcR
-         pi5Aaw6PqQtPbYBkeqyVJjvffgjFOWONOp78sCwxj2WA3eyfgvZy6/e2Nzc62+mVU2Nd
-         b/V/0wP+361KczqmGW491xhUcFHy/KxiClsSxuHfUnOmcUfrfCNczlZyGuYN5RJXpkdx
-         1iwQ==
-X-Forwarded-Encrypted: i=1; AL+hErFGclq3R26eGWDiQxgBWcZad69afwIytQ4Ex4/j11HehGUaHUDJntAgYq34ezv74G3iVUnO/1MKAkNafY8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/aBgfNr+MOPAKVnK5Ndg5QZhkZbiAvkp9oNlxbUXlF/yCu/txk
-	29rqJpAfPW4F8nowc7prmErxRQaUtpiGbGP6sv+qU3H0jJmrm2bOxG+KmjTtr84PHtrcTV7PV7i
-	D2I8nO7mlFjdzPpKBnY1dGdwUTTj15vY=
-X-Gm-Gg: AYBFou2jlByOBygCKg026Chb9fZFF0Tu+9WRxNCKxIQ2k3aQR11W/xwY4q+DBezi6DB
-	34L3wzNcB702+BFY8X+QOY+TRIqeMw7YTZo8IpNRSOsrccak1GX/NTO8oIZH7elN4/agsxC5kTO
-	gMoKadTfLD38zgoMLQoOtFQyIwxMN9U0ujgXsFxbKcPd9F/2m02U2VRFvVr9qVeZUSA1yrDqMbb
-	X4QfiLL+RNpRvv3sHL/BAns5UTHjQPetDRbjQu0Cp6IbpEf+0aqfLrVwm69HXnpGDFzY5dyUIZ8
-	tUcnQKGPs+5g5X46VH+dvOZ9IGM2y71svwnRMOWpzE9MLliPHjpRFzjK3pEjwlezjIG4IvzyUgn
-	d/vv4VSEWTpPA6uePiglusLakPrvzERhE1jrWvKxlze19Z5oZMCpVW3VwAitEqZV7uFSbAvJpRU
-	KKhJsjMWXFnP9bqPZbmnnp0F4+RfhSCekJ1nwRFBkGiOaINd5JWylphJaRyNvYmxzjBT3Sz+zsK
-	HvjXsYewYDy7BHNj4IDU6Xfl10mdCB4a76aUOYbYoACRfL18PVO6Sjz3GmE/g==
-X-Received: by 2002:a05:690c:e20c:20b0:8b1:86ae:9006 with SMTP id
- 00721157ae682-8b4aa360702mr7180297b3.89.1794559299407; Fri, 13 Nov 2026
- 00:41:39 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id 476F21F000C6;
+	Fri, 13 Nov 2026 08:42:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794559327;
+	bh=CZQ974KYbgXTwV3k+XNhiOl05mnd5+zfgXjeJNb39S8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=UUcRyxKKJtWuaEWt1nHQ/ODlcyaFOFz/6/WBroKFwrdXfFuzpAo/3AXl8WnwnSl+E
+	 Jaz5tRL4ccyM0J8zXsByYCu91IEJro3MVhu4w7iiqYB2rdQdvwgkn+1KUMeST2QUUF
+	 NkbYqSxlIhE+n/6Cx+S1vmazwD/kyVDSBF/6e6EpSKzsrcUCmWCcXc7nxj1W7OHzgh
+	 UTQJ0syi+XRcFhjvKxALN1hX9U+kiwOyCxcDuEU+ige2qHNXXYJ8/B8PGw7RqnNeL/
+	 rURh/wP/hj5JiNHv8pIqYuJD258/gP3l7P2z9eO4gOuS+TkMDrFh9NFBGR1bdSyV24
+	 uZennvAtxVYsg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C9C44476BC;
+	Fri, 13 Nov 2026 08:42:05 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Fri, 13 Nov 2026 08:42:06 +0000
+Subject: [PATCH v3 2/3] pmdomain: rockchip: don't report probe deferral as
+ an error
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,84 +83,144 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261113082546.176582-1-zhujun2@cmss.chinamobile.com>
-In-Reply-To: <20261113082546.176582-1-zhujun2@cmss.chinamobile.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Fri, 13 Nov 2026 10:41:02 +0200
-X-Gm-Features: AclHuK-CGa8WOMkBb1Qpf8ygg13eYkgeuepypb3hDt2OnjdY0mSX6Vxr9tc94VQ
-Message-ID: <CAHp75VeOjqWoEM36OMgtiiwu3XWiu5wfJf59vYFuGSApbWpPaA@mail.gmail.com>
-Subject: Re: [PATCH v3] iio: potentiostat: lmp91000: Handle configuration
- write errors
-To: Zhu Jun <zhujun2@cmss.chinamobile.com>
-Cc: jic23@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com, 
-	andy@kernel.org, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261113-pmdomain-rockchip-v3-2-b7039ca30b87@gmail.com>
+References: <20261113-pmdomain-rockchip-v3-0-b7039ca30b87@gmail.com>
+In-Reply-To: <20261113-pmdomain-rockchip-v3-0-b7039ca30b87@gmail.com>
+To: Ulf Hansson <ulfh@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Shawn Lin <shawn.lin@rock-chips.com>, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Kevin Hilman <khilman@linaro.org>, Caesar Wang <wxt@rock-chips.com>, 
+ Elaine Zhang <zhangqing@rock-chips.com>
+Cc: linux-pm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Yao Zi <me@ziyao.cc>, Igor Pecovnik <igor@armbian.com>, 
+ Arun Iyengar <aiyengar1990@gmail.com>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794559325; l=3789;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=eOrDJPTLfEW1xbio4U0pPlpSLvwzZMxXL5lZvNK4rA8=;
+ b=AvrffsDE4+u4FUgmu9CMr1tECJc0bIbqCoCD2K9p6N1N1bi/AXG7SFl4ybD9NpWPQemr2V/0g
+ HchCHMTmjCcBFjqy5Qwe7WxEjYDrjH/Imgb2c6N7PQvDg62lUbS3/3R
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On Fri, Nov 13, 2026 at 10:25=E2=80=AFAM Zhu Jun <zhujun2@cmss.chinamobile.=
-com> wrote:
->
-> lmp91000_read_config() ignores errors when unlocking and programming
-> the TIA and reference registers. Probe can then succeed even though
-> the hardware configuration does not match the parameters used to
-> interpret measurements.
->
-> Check the configuration writes and return the first error. After a
-> successful unlock, attempt to restore write protection even if a
-> configuration write fails. Return a relock error when both configuration
-> writes succeeded.
->
-> lmp91000_probe() returns either error before registering the IIO device,
-> so the caller does not need to distinguish their source. Preserve the
-> configuration error if restoring write protection also fails.
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-...
+A domain clock that is not available yet is printed as an error by
+rockchip_pm_add_one_domain() and again by its callers, on every probe
+attempt. A pm_qos syscon that defers turns into -ENODEV and fails the
+probe.
 
-> Changes in v3:
-> - Declare the loop counter separately from the return code (Andy Shevchen=
-ko).
+Use dev_err_probe() where the errors happen, keep the syscon error code,
+and drop the callers' messages.
 
-Now this makes no sense as you haven't added any new variable.
+Yao Zi sent a patch for the clock message earlier [1] and agreed to drop
+it for this one.
 
-> - Explain how probe handles configuration and relock failures.
+Link: https://lore.kernel.org/r/20261105001257.1368266-3-me@ziyao.cc [1]
+Fixes: 7c696693a4f5 ("soc: rockchip: power-domain: Add power domain driver")
+Fixes: 6be05b5ec161 ("soc: rockchip: power-domain: add support for sub-power domains")
+Fixes: 074c6a422d86 ("soc: rockchip: power-domain: support qos save and restore")
+Suggested-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+---
+ drivers/pmdomain/rockchip/pm-domains.c | 37 +++++++++++++++++-----------------
+ 1 file changed, 18 insertions(+), 19 deletions(-)
 
-> -       regmap_write(data->regmap, LMP91000_REG_LOCK, 0);
-> -       regmap_write(data->regmap, LMP91000_REG_TIACN, reg);
-> -       regmap_write(data->regmap, LMP91000_REG_REFCN,
-> -                    LMP91000_REG_REFCN_EXT_REF | LMP91000_REG_REFCN_50_Z=
-ERO);
-> +       ret =3D regmap_write(data->regmap, LMP91000_REG_LOCK, 0);
-> +       if (ret)
-> +               return ret;
-> +
-> +       ret =3D regmap_write(data->regmap, LMP91000_REG_TIACN, reg);
-> +       if (ret)
-> +               goto relock;
-> +
-> +       ret =3D regmap_write(data->regmap, LMP91000_REG_REFCN,
-> +                          LMP91000_REG_REFCN_EXT_REF | LMP91000_REG_REFC=
-N_50_ZERO);
-> +       if (ret)
-> +               goto relock;
-> +
-> +       return regmap_write(data->regmap, LMP91000_REG_LOCK, 1);
-> +
-> +relock:
->         regmap_write(data->regmap, LMP91000_REG_LOCK, 1);
+diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/rockchip/pm-domains.c
+index df3f43d0c01b..a0b47d8c4b2a 100644
+--- a/drivers/pmdomain/rockchip/pm-domains.c
++++ b/drivers/pmdomain/rockchip/pm-domains.c
+@@ -849,17 +849,20 @@ static int rockchip_pm_add_one_domain(struct rockchip_pmu *pmu,
+ 	for (i = 0; i < pd->num_clks; i++) {
+ 		pd->clks[i].clk = of_clk_get(node, i);
+ 		if (IS_ERR(pd->clks[i].clk)) {
+-			error = PTR_ERR(pd->clks[i].clk);
+-			dev_err(pmu->dev,
+-				"%pOFn: failed to get clk at index %d: %d\n",
+-				node, i, error);
++			error = dev_err_probe(pmu->dev,
++					      PTR_ERR(pd->clks[i].clk),
++					      "%pOFn: failed to get clk at index %d\n",
++					      node, i);
+ 			goto err_put_clocks;
+ 		}
+ 	}
+ 
+ 	error = clk_bulk_prepare(pd->num_clks, pd->clks);
+-	if (error)
++	if (error) {
++		dev_err_probe(pmu->dev, error,
++			      "%pOFn: failed to prepare clocks\n", node);
+ 		goto err_put_clocks;
++	}
+ 
+ 	pd->num_qos = of_count_phandle_with_args(node, "pm_qos",
+ 						 NULL);
+@@ -884,13 +887,18 @@ static int rockchip_pm_add_one_domain(struct rockchip_pmu *pmu,
+ 		for (j = 0; j < pd->num_qos; j++) {
+ 			qos_node = of_parse_phandle(node, "pm_qos", j);
+ 			if (!qos_node) {
+-				error = -ENODEV;
++				error = dev_err_probe(pmu->dev, -ENODEV,
++						      "%pOFn: failed to get pm_qos %d\n",
++						      node, j);
+ 				goto err_unprepare_clocks;
+ 			}
+ 			pd->qos_regmap[j] = syscon_node_to_regmap(qos_node);
+ 			of_node_put(qos_node);
+ 			if (IS_ERR(pd->qos_regmap[j])) {
+-				error = -ENODEV;
++				error = dev_err_probe(pmu->dev,
++						      PTR_ERR(pd->qos_regmap[j]),
++						      "%pOFn: failed to get pm_qos %d regmap\n",
++						      node, j);
+ 				goto err_unprepare_clocks;
+ 			}
+ 		}
+@@ -1034,11 +1042,8 @@ static int rockchip_pm_add_subdomain(struct rockchip_pmu *pmu,
+ 		parent_domain = pmu->genpd_data.domains[idx];
+ 
+ 		error = rockchip_pm_add_one_domain(pmu, np);
+-		if (error) {
+-			dev_err(pmu->dev, "failed to handle node %pOFn: %d\n",
+-				np, error);
++		if (error)
+ 			return error;
+-		}
+ 
+ 		error = of_property_read_u32(np, "reg", &idx);
+ 		if (error) {
+@@ -1128,18 +1133,12 @@ static int rockchip_pm_domain_probe(struct platform_device *pdev)
+ 
+ 	for_each_available_child_of_node_scoped(np, node) {
+ 		error = rockchip_pm_add_one_domain(pmu, node);
+-		if (error) {
+-			dev_err(dev, "failed to handle node %pOFn: %d\n",
+-				node, error);
++		if (error)
+ 			goto err_out;
+-		}
+ 
+ 		error = rockchip_pm_add_subdomain(pmu, node);
+-		if (error < 0) {
+-			dev_err(dev, "failed to handle subdomain node %pOFn: %d\n",
+-				node, error);
++		if (error < 0)
+ 			goto err_out;
+-		}
+ 	}
+ 
+ 	if (error) {
 
-What's the point of duplicating this?
-Before label you can easily do
+-- 
+2.55.0
 
-  ret =3D 0;
 
-relock:
-  ...
-
->
-> -       return 0;
-> +       return ret;
->  }
-
---=20
-With Best Regards,
-Andy Shevchenko
