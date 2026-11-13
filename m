@@ -1,61 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794588191;
-	b=d+55VuRKiBS1hkE/ZhZuHodMZ3CCEg38GUBTyDxdLFUi2dY1HDEPeAsRwuw+Yqg95kpn
-	 lWzPUnBRYKTHeRN5CqlGOl+puObpXzr7O9xN2yCmfPGawO/bjPvGYiZijRvChIX7ns8Vh
-	 5dTJocJ0f/VbL2OLDch/RymppXI7Jnywe/GBUnbSoBwNA4a1Q5gt6lYs+qi9PJFfC/nYh
-	 w+P6fK6q3O0lsNYZJceBHsDVlEO7JAdIqKXX0vixaQi6kT0uAeLV/XaXlNCCi8gHEE8zz
-	 pPsEmZzT4iG4aVFP5sWo+F02WO2ulBSkkO2wCEpEPiWRnLiI8zknfOLJ8kRquN2f2qQ==
+	b=RJePEosCj26ul7y95f8bod132KXSNb8SIZhA+ufeMSxmHUwvinn/O9S1fzZBdufdybAG
+	 lYJN03uDi6PoK1peWONphN9OYBh1fInMyXfwaCEhplYLxkTOmQwbdb9ZkoIloneNEYiF4
+	 TMTHgouDk9LTMmV6n3LmCmoS2e8jDGN8/4DUbyPSn2zL/TGVKdsnZmNFHDOy2IFZqSI6L
+	 iEYGUhfWSXSkkZhehvYYM36Z/8dG1O8Ie71DrIw1dwWiQD/uLtw0Oz7d+GM5CJKkEynwb
+	 nfYrO/jeMIjrmVUnkZRutJe5ND7BCEd2911J9DF/05cH5Lgp9nQ5pXFVBYQDxl7U0Mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794588191;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=WaSnQuZ2WZZTSg4YKTzTw5NxRtusFQWxAPuVymBJguQ=;
-	b=WjJoaym4GP470yLeDOkOrlqYOIQEa90jlsHQ+SP9kuphrOwbfHZzBGtcWZde7iGL041h
-	 aR2QsenptAFLi/MWgMMU/J0+9+x8tlgOJvXWj5PazBqGc5djp572kk9N8uGpObmYkNQ8X
-	 8IOJo0UXJ/1+lrzmJvrzluNgDs7QYrqtnsECJoieoBQTT1hyigLhrLO3E2tSxYt3PW4LL
-	 wbu7aApQqwiQmUNpbEEl2cF2kR0i892NAY5fMoug/JYWyTfEAQ6As/NRLJyB9q27/na/U
-	 GQzChCWLAbJDGAid4ms/x0XVJapDvhm5XcOGZ0bSDMIiboDtNz2ZmGqXw1cxJdzeBAQ==
+	bh=cBo38zZJkNnW47FXR3fIHATs1fxo4+uWdsNkjEIJPfY=;
+	b=2sBUr6giwVez2GKcu+I/96sa0GZo3iniQc1KYW/x2SirBx21uLNWA64NkwKgjIPp6/2w
+	 yvIQMzXdrugizeSI6BrbJHhWVlSnAK+vDJ16XHARAPZ2valD09sa2M5tyUn8MhlOQAqv6
+	 4WAUsiCXlI5+QRmsvznhnkZqngv/ZucyTN9OgsgzhD1e0KjLZcHFBCMfilMZpqs66iwg8
+	 1+7mKt0OKhrgPdmYRgFhtbKw6D0fRQQN3KwcnofsdWxAMcCjkST0R4vSYxyti5lg/B+BO
+	 ywFxJDJWpIJyj0y0GaSh/b7y/fViT2DJcupRVxA6O1o7tGEslbrVjRn/QUM5XgB1Fww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=evWyZz+0;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=b+VbuOYM;
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE17E606CDF6;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFAE0606CDF7;
 	Fri, 13 Nov 2026 16:43:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE17E606CDF6
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFAE0606CDF7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=evWyZz+0
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=b+VbuOYM
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1794588181;
-	bh=3h59aq3luop1uJe4LxPF91VxnJ4SA7uWvL/kDqGpjCo=;
+	bh=YZnixClu5S0XwYLBxOhAIUMM3nNBT7+XQ/8KpkQPw0w=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=evWyZz+0DWzwcfiOPAne5oW8zA+RuwnzJ0Af95sUWgOAjA9ABEDiotQEvqhU9hn+I
-	 lufwD8UNZn0/WQpmQQ/x9wAqW0k1hwNYvYlVrVs00nhRz6uq8nJOXQxnSWaDPNZBKZ
-	 nZ8JPk06jSjOBRWyY/Dehm71I5R0fo6RuDLXGjlPMfcyHvqcE1Ubl0XSNIv8AD4eCH
-	 lZB2RbzhTN6c0YHWwYgOb4Q310uLMjz+iyFRCN6eqeI4X7Xmsa+9fR4tqzv3u/3yoF
-	 51SeYjelKAsv3NUTYXzSpVB44R9FitJo7nlqxDXxgL8F5TIpnY0SKNOc1Dp31U/oDw
-	 9Qcl3Rv72bUgQ==
+	b=b+VbuOYMYP+TlbgMKVwznaXzUoMNoSrwYYJ118XRnFExe0qSuhePgN14lTJtpnX0M
+	 rtOvEIIcVsI8N/I/Qa29BjQJI1OXKk1ehHGDkqoWATvIUMcOQexh+V166p5sFW+30W
+	 WnWDAYPkNEBtLDI9P0zGWXY5pn/TrOP6Q29hM436zrz9mPBp6DbAlvgBkCTiYd+USK
+	 74ayPCBST34YMk/yZrt46pGyIRhnZH2Z3YSBLY/S+DPIAV+v3evlE2bw03OixalcrL
+	 PklYgLYRMGjSbTgapztDF0soYtq7DJXSr9iiBdk++/XjWu5cQ8KQ9D3L8c5Y4Qq0eY
+	 2gbQkvUmslQ3g==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0935617E35E9;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0B3DB17E36A3;
 	Fri, 13 Nov 2026 17:43:01 +0100 (CET)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 699C548003D; Fri, 13 Nov 2026 17:43:00 +0100 (CET)
+	id 6B577480041; Fri, 13 Nov 2026 17:43:00 +0100 (CET)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Fri, 13 Nov 2026 17:42:43 +0100
-Subject: [PATCH 7/8] usb: typec: fusb302: rework gpio_int_n_irq handling
+Date: Fri, 13 Nov 2026 17:42:44 +0100
+Subject: [PATCH 8/8] usb: typec: fusb302: drop custom gpio interrupt logic
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,7 +67,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-fusb302-probe-cleanup-v1-7-e5c65a8c58c8@collabora.com>
+Message-Id: <20261113-fusb302-probe-cleanup-v1-8-e5c65a8c58c8@collabora.com>
 References: <20261113-fusb302-probe-cleanup-v1-0-e5c65a8c58c8@collabora.com>
 In-Reply-To: <20261113-fusb302-probe-cleanup-v1-0-e5c65a8c58c8@collabora.com>
 To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
@@ -76,67 +76,129 @@ To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
 Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
  kernel@collabora.com, Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1326;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3478;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=3h59aq3luop1uJe4LxPF91VxnJ4SA7uWvL/kDqGpjCo=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr3PhRenaZepXFyhV7j2g8HDq1H/Bl4j4hIK
- pZh5DgM/221/4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq9z4UAAoJENju1/PI
- O/qaMuwQAJpd//Mdsfi8xqV4yRY5XXNmIhJTrU/4a5HvNI6bqyQ+UaYI/bjxdvATJ7sJvESoHzV
- ji7v7qL3ftlwCXZq4/mmBf8P3PwH4IojB1HMcsu/I6WLFMtEq044Qy8y/sOrE6KtBF6lZr1rKKh
- 4Gq+73qSeIzZgHd91Q1u11WwYNU9zeV5GPQizIrA/sI7Rcp9iXwOc2da0SmdQdkEkD7Jt1mtT6D
- IqQIqIQWTJ7BmdTmAYIet4UVupUC8d2zMEy9AMjA75fL/Pzx95cS/+Oz9hl1r0VspA+OHHcH/kc
- zXdyBX115kzvNiYxMxQH+NJRVknFoLIBZ+lVxe3gR4tLTHYBDXGUuoAaNh2qslS4HjQ1cN4ZsmP
- XCpYruv+A7CskLucwOagCqLrBsyXHnz0vtaFA63cgl1JuHAdDsEmjmo3JNfQSznvL7Ngyb/suEA
- GGbnp0Yom1fxe8W5+j9cd5NL6T0KMiVn0EzG1/0Y/3lElk1//5z/lALVI0qcB9DpLO6+jfH3/Xm
- /PNl0vhZeY32guLyfzmWE9oJxsXexk8/UKieeVP8dNQwXKaBUIbbmZJDoV6TMtXwljOtunsIpia
- RDySeB2Tw4dMGWH7u/Q/IdN5epX7u8CP9rT38V+ZkEiuP45KLThz1zSH1Nxwtrt2yRxZ0jzYXNf
- E2IRN5dLB96SHCXMb30Y1UQ==
+ bh=YZnixClu5S0XwYLBxOhAIUMM3nNBT7+XQ/8KpkQPw0w=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr3PhQbMNDy/lvzZKvrAdc4ErN/yZaRd5ryb
+ i+DtcC47xO4AokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq9z4UAAoJENju1/PI
+ O/qa8KYP/jATsgGEeLnGYVe82YxfGqkodlT5btKsI0hO5F0GY56hlt1bOgumynLFu0l8qIOrhgu
+ 8ZAlzYMXbld6Pncy4/XenzWkaDyVxwJtJed21+2ZZjz6lQSDsupMcm6IyQkokY+sipd/jlt5Zxc
+ +edYxpluoazYTLXIOgzlPRUWdqXopGmRZDr0hYmn8JIjeVT/RpsY95dxaSfXIkjJhAyj4gK6kB3
+ ihVgU91DMz3umUt8FgPqXlcF+Iz88fIh/tgnnGyGuSO2HRWkSBZK4lgxBcJX5qBsa30nwJHD0cr
+ NBbIazyMrrxvffSp/Ww9gS0oT92lq6zQhZKjGFcRKkBYPoOlwQfMl5hJSV5ecdoVcNwwcGL/NIT
+ hRAhciklruk5V7Yl3xbToLQP1WE50nZSeQPdviZcl41lI5RXo7N+Xs3qZYLhN0MWuqnAXpZ9mo/
+ rgF8fFXQ9hb/PJ9nkcW1iLctObc8TzfzjsRaI/mGrL7XVcqPjGU2CVP5DcxOciSCDK/xz+ne2Tj
+ Ozj0BsO9ELi5ltMw05pAT96xEm0BUXJzaKBsObInbxKNtDew0ywS1OV5K3GhnkdWcWsdFTTbQPr
+ dVGMKr8u9EfQ3BrqM15Xtw5JjrIlPUb87m+GDzSSGeKRLKQSyJht1rUxokksPw++yMOswrmJRHX
+ VPSPmbi2MpMuHNq49Ths1FA==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Improve the code readability, so that one does not need to jump
-into fusb302_init_irq() to understand that chip->gpio_int_n_irq
-is guranteed to be initialized.
+When the driver was upstreamed it contained the logic to fetch a
+"fcs,int_n" GPIO from device-tree, convert it into an interrupt and use
+it. This was never part of the binding and there was only a single
+upstream user, which got converted to follow the proper bindings in 2020
+in commit 89ee3ace7292 ("arm64: dts: rockchip: Fix Pinebook Pro FUSB302
+interrupt"). Drop the custom logic and only allow the properly
+documented ABI.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/usb/typec/tcpm/fusb302.c | 15 +++++++--------
- 1 file changed, 7 insertions(+), 8 deletions(-)
+ drivers/usb/typec/tcpm/fusb302.c | 39 +++++++++------------------------------
+ 1 file changed, 9 insertions(+), 30 deletions(-)
 
 diff --git a/drivers/usb/typec/tcpm/fusb302.c b/drivers/usb/typec/tcpm/fusb302.c
-index 76851e2b9ce5..6105f09f96aa 100644
+index 6105f09f96aa..c392134cdc0c 100644
 --- a/drivers/usb/typec/tcpm/fusb302.c
 +++ b/drivers/usb/typec/tcpm/fusb302.c
-@@ -1656,8 +1656,7 @@ static int fusb302_init_irq(struct fusb302_chip *chip)
- 	if (ret < 0)
- 		return dev_err_probe(dev, ret, "cannot request IRQ for GPIO\n");
+@@ -11,7 +11,6 @@
+ #include <linux/devm-helpers.h>
+ #include <linux/errno.h>
+ #include <linux/extcon.h>
+-#include <linux/gpio/consumer.h>
+ #include <linux/i2c.h>
+ #include <linux/interrupt.h>
+ #include <linux/kernel.h>
+@@ -86,7 +85,7 @@ struct fusb302_chip {
+ 	struct work_struct irq_work;
+ 	bool irq_suspended;
+ 	bool irq_while_suspended;
+-	int gpio_int_n_irq;
++	int irq;
+ 	struct extcon_dev *extcon;
  
--	chip->gpio_int_n_irq = ret;
--	return 0;
-+	return ret;
+ 	struct workqueue_struct *wq;
+@@ -1495,7 +1494,7 @@ static irqreturn_t fusb302_irq_intn(int irq, void *dev_id)
+ 	unsigned long flags;
+ 
+ 	/* Disable our level triggered IRQ until our irq_work has cleared it */
+-	disable_irq_nosync(chip->gpio_int_n_irq);
++	disable_irq_nosync(chip->irq);
+ 
+ 	spin_lock_irqsave(&chip->irq_lock, flags);
+ 	if (chip->irq_suspended)
+@@ -1639,24 +1638,7 @@ static void fusb302_irq_work(struct work_struct *work)
+ 	}
+ done:
+ 	mutex_unlock(&chip->lock);
+-	enable_irq(chip->gpio_int_n_irq);
+-}
+-
+-static int fusb302_init_irq(struct fusb302_chip *chip)
+-{
+-	struct device *dev = chip->dev;
+-	struct gpio_desc *int_gpio;
+-	int ret = 0;
+-
+-	int_gpio = devm_gpiod_get(dev, "fcs,int_n", GPIOD_IN);
+-	if (IS_ERR(int_gpio))
+-		return dev_err_probe(dev, PTR_ERR(int_gpio), "failed to request interrupt GPIO\n");
+-
+-	ret = gpiod_to_irq(int_gpio);
+-	if (ret < 0)
+-		return dev_err_probe(dev, ret, "cannot request IRQ for GPIO\n");
+-
+-	return ret;
++	enable_irq(chip->irq);
  }
  
  #define PDO_FIXED_FLAGS \
-@@ -1752,13 +1751,13 @@ static int fusb302_probe(struct i2c_client *client)
+@@ -1751,13 +1733,10 @@ static int fusb302_probe(struct i2c_client *client)
  	if (ret < 0)
  		return ret;
  
--	if (client->irq) {
-+	if (client->irq)
- 		chip->gpio_int_n_irq = client->irq;
--	} else {
--		ret = fusb302_init_irq(chip);
--		if (ret < 0)
--			return ret;
--	}
-+	else
-+		chip->gpio_int_n_irq = fusb302_init_irq(chip);
-+
-+	if (chip->gpio_int_n_irq < 0)
-+		return chip->gpio_int_n_irq;
+-	if (client->irq)
+-		chip->gpio_int_n_irq = client->irq;
+-	else
+-		chip->gpio_int_n_irq = fusb302_init_irq(chip);
+-
+-	if (chip->gpio_int_n_irq < 0)
+-		return chip->gpio_int_n_irq;
++	chip->irq = client->irq;
++	if (!chip->irq)
++		return dev_err_probe(chip->dev, -ENXIO,
++				     "missing interrupt\n");
  
  	chip->tcpc_dev.fwnode = fusb302_fwnode_get(dev);
  	if (IS_ERR(chip->tcpc_dev.fwnode)) {
+@@ -1788,7 +1767,7 @@ static int fusb302_probe(struct i2c_client *client)
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	ret = devm_request_threaded_irq(dev, chip->gpio_int_n_irq, NULL,
++	ret = devm_request_threaded_irq(dev, chip->irq, NULL,
+ 					fusb302_irq_intn,
+ 					IRQF_ONESHOT | IRQF_TRIGGER_LOW,
+ 					"fsc_interrupt_int_n", chip);
+@@ -1805,7 +1784,7 @@ static int fusb302_probe(struct i2c_client *client)
+ 	if (ret)
+ 		return ret;
+ 
+-	return devm_pm_set_wake_irq(chip->dev, chip->gpio_int_n_irq);
++	return devm_pm_set_wake_irq(chip->dev, chip->irq);
+ }
+ 
+ static int fusb302_pm_suspend(struct device *dev)
 
 -- 
 2.53.0
