@@ -1,62 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.31
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794555995;
-	b=TIqIikCOoWEfWrwIsk+VP96mn/IhiCxwh9Fyn7SrTsJx+7Ate5sYbNTkHqles9ZdeYDM
-	 /q8Oe381D+gEpSxqkV7gnFwX/VHqoGKsK+BnD0e6r+TvI3GnC3kOrPWkwf/vVvQPiLsM1
-	 t9hMRshEs4lCAQNDGC/6OavY2ZNT03W/K4/0pxeQ4SdVjjV/u3mh+UZj6MemxdLCD/lSI
-	 Zcm4jUeZH+m8K6xedIzpHFdWUk8hqST4/D4gG49HWSk+8Seg1k47IQHQNrrTJ87OEEV08
-	 Dfzh2+Y6fAQ8Mz244yk9YP9JVdzYHG7Cm1aOgtONayekxB9xBnEHqg11s1fLEajobuQ==
+	t=1794556004;
+	b=gMHtRCsIuFtL7x2SWoHzo38bs8fFvw8zlEQvFXnlJfn3hF+OFbbNQ9ZI6D3BdHte3D8S
+	 omfXRrkClwuNI5NztutyeLoLmuspyymzcaiLwfqukwr8wWPij2hgGXWT0KZ2vCRE4mO0s
+	 dTQ6liWKzAbCo98tMcEzPC8ZID/9t5TrgLxoXV1d9CNMn6Hu8nCuJNbyXEvfOUV5x2r2P
+	 kzYK7nUNI2J1WxYGrRjUtDYT4Of48Gf1Qg9qU2HDjkbwdpG2TOj5v6md9Tqfc+0/Pt4be
+	 k55B/1lXdjbGCsIczEZxQGLgxAdrqaJs0CCqhCHHfF67/+PaKcwQNITcMiGmxReIanQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794555995;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 References:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=822a26UQTpzALUF2v5NcjZf5+NNRawax+al5Y0ThRAg=;
-	b=kzauTvIdzVTwM7QDLtiMF9sjw8rAAW09/eUnSRilB1I6tG8nTVaOMeE5YkxlTmXyg6oa
-	 S7IHxmCDgRGIgwoLWs1J98JR9JQORZfJg7YgP4zc9XNLtVB29Gk3EscBdbpycCXyZKVr4
-	 jm35kREaszaw/3m8lw/FHKJa5hMVSEamInvjZn+cDeDJ/wSDjumrzb4BKT/0x0jBso5gS
-	 hzxXLA1YKJJNWDoFNajeVmD05BM3thfXhA0i7+oj+SLX69YSP2pdKskENZziMaox+iOD1
-	 XsPcOCS692amdFW5004Kmhh7KJMDvs0BOFrKVstentBB7G5chy2hBGOv6ZiFzYXP+cQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794556004;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=a43i/wMJK2Jdp5fkamBiNm3l8yCGMzExiyPn/eHOlLc=;
+	b=xxw1DfEYSBSs+3ESymdNDjY2M+TJQdBMjELLQ+anNlEWM/adplC/rh2FNbkBpgj38uWI
+	 mwhc8VUKHuPvJ/zV6raAiJlOSUuSuRvpXHxsD/Ml7f6PCug1owl+jBIgIhOJ5om3Hd/++
+	 wEam2d8uJdZjRpdetr2S1yEl/EIwRB9tUTSWMyubfjeO5/sUwy+xZVXqPoZqpRwkZf3kL
+	 GnGu0oaRPStReohl3SEHE4ykPo6z8LV1AipQcGVBE0/35IksWMu0nfgJWQMOrbc1UaJ1s
+	 G8dfBjf68EwtrTzUOVYqxGvhSWC5LXONTeilhFS0LaBdH6J/Z2SnVtvYZK05bOuDUfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EjjkW8Zn;
-	arc=none smtp.remote-ip=95.215.58.31
-Received: from mta1.migadu.com (out-31.mta1.migadu.com [95.215.58.31])
+	dmarc=pass header.from=pereq.eu;
+	spf=pass smtp.mailfrom=cryspen.com;
+	dkim=pass header.d=pereq.eu header.i=@pereq.eu header.a=rsa-sha256 header.s=google header.b=ekCNuwIq;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 561CF606A337
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:46:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 561CF606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7814606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:46:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7814606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pereq.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cryspen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EjjkW8Zn
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=cZ2JcvavG8dTDoX6w01E1tMZFPmQ8BIV3mXJZzmljcU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794555992; v=1; x=1795160792;
- b=EjjkW8ZnGGmdwFDW5qdl6sDzsgeiHvLi31iz3BBPUe7p8mX7TuBagR5XZSo7GkfDwCzqqAL2
- NNumfSnnmDL4w142zjQeK94//HQz2haLz+08NabP6spfT7jqUgjduyvc8tCCwzJ1bMwZI+LR5lV
- SAXO/hpp+UJsXcZLrkxY0pEc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 70574e2b07ad1e61;
-	Fri, 13 Nov 2026 07:46:32 +0000
-X-Mizu-Trace-ID: 70574e2b07ad1e61
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 13 Nov 2026 08:46:31 +0100
-From: Luka Gejak <luka.gejak@linux.dev>
-To: Ho Jie Feng <hjf3108@gmail.com>, Ping-Ke Shih <pkshih@realtek.com>
-CC: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- Bitterblue Smith <rtl8821cerfe2@gmail.com>
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_rtw-next_v3_2/5=5D_wifi=3A_rtw88=3A_88?=
- =?US-ASCII?Q?xxa=3A_receive_VHT_SU_beamformed_transmissions?=
-In-Reply-To: <20261112173246.3201729-3-hjf3108@gmail.com>
-References: <20261112173246.3201729-1-hjf3108@gmail.com> <20261112173246.3201729-3-hjf3108@gmail.com>
-Message-ID: <466A842E-68A6-4F5B-B0CB-8EF314AF34DA@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=pereq.eu header.i=@pereq.eu header.a=rsa-sha256 header.s=google header.b=ekCNuwIq
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a208d93758so8916885e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:46:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=pereq.eu; s=google; t=1794556002; x=1795160802; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=a43i/wMJK2Jdp5fkamBiNm3l8yCGMzExiyPn/eHOlLc=;
+        b=ekCNuwIqvKNyzzP8/TogupqdJ9S/lTcS7kvV5Lnc07oznazi/+/AbvzHMeKj4Fz1k/
+         WV5ADfsksKzz4ELlKIoFlS6TA7id5kKKUA1hVO+Yp9EZyWmGGu+BUQFTzuxXZDkeYW3t
+         0/c5MtBBPMOrTOMC+n1elC3PUHPP8C/w6FZ9ElwI44//poPXrTAXH7iCb2gcW+4t6eU4
+         xrIdqrcrQ8pdck3vGfk+UCq75Xe2ecgvgCv7bVAKOOuxg/BA7Y6lm/pkjla11OXMHIfe
+         SaWd3WdM6Rjr5btfGjNmhZl333D5rooop+oX4EYmKyMJ4vdawxFBQ6gq7z7QHEWaOa20
+         e3aw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794556002; x=1795160802;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=a43i/wMJK2Jdp5fkamBiNm3l8yCGMzExiyPn/eHOlLc=;
+        b=M//V/UQdQD+Hn9vLHEWFJqdW9Vp9xDlJwIVOcj0tNwm/wG3z8GZhP11lCSsuyhBYd5
+         VDDrmk6TmoKSdB52LxwJ9Emnb0EYqKDFpqWjINJGL4Z5h20Ux5Vf77p9AZeRopMZHj9o
+         xKe7Ew59q/RILaPZuQHjSA4wYFXG79IHhnxFNWupXd3lxiJ6fEZb2IPThdLDiPLGxGkp
+         kQ/59P2r4tE/VM/pBU4X6VAavp17m9PL2mSTZrTcMe/C1aaFXtuiLGrCAZ6XvbIlx0un
+         tOrywczFOg5xjwiS8pgzEZ9vWvCWjTjtecrS3ty3YPL8o6ZNRaRBXwpTX4sFg+bITljf
+         eKvA==
+X-Forwarded-Encrypted: i=1; AL+hErFOJZjoIUu6rCU0Oc6CrMxFeoJpV2jg/GNRBKXLVO8issXgeTAWEpymW+wiuT4/UNYavxGngdJU3lKB64c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ei3n2AgtVS3AF0rTnHzjcWhIog/ikf58Ya4RqPWrCEvn/T3UJ
+	8JPQRe6p6SSbVQ/zi70a6FCfoy/5yYKflICE4eXe5we4dCAiZy8Mzxp8ZNpgtTWRVoY=
+X-Gm-Gg: AYBFou18d4mEOUH2mhgkIi1lR7ttmz3ESQ3fFp499oHbHJL3OpzEYHhLqTjjVOHNxdw
+	kWfEVH4zLQud+qiKhoB304TkkrLxOSefONaxvY64Pk5+VmPKHhhTGy8UZeksyom5XHO4IrcFYjp
+	zYbhQd8o+dYYKPQSEDdyW+9EiXj6ZOe0miz7RmJdb16Y/9Sf7WVaHjtydKXXLNDLmwdPL1qG4fv
+	aAjiP7SyCWw2cNRifgOFTnm4PZqVxR96tyrMwtt4tMAeUZ2KkV4MuwMgQl7ntg2njdRGxC/Pkd6
+	nV0xaaJFbG4WtEqffR5gBBDNkDjA7lK0r1VGS+4oKWttc/ujEnGPZBiRybkJ4Bkoy5RHVvrkBxZ
+	NWdhvoLYLili1/zxVWH48y8FiMff8p5UI5u7fPI2Hd7r/iflpVcoZoBQykFRWNMhUxAqWLMjhIL
+	U+68tyBJdykD7osuv6EcMfKHInMMJCUvCvAnW1lTNR6Rej0GaXLtxDee5gqRRlTVzCZjzv2MLep
+	upH/w/22JxIb+F1IhSx0A/NjDsAzYS8YifQ1QbBN7lxZVbjBmHr6PcYaNrPuBrwVIa5857zQcxE
+	whoQTSzyjDQno9bpVlg=
+X-Received: by 2002:a05:600c:1913:b0:4b1:2026:6b41 with SMTP id 5b1f17b1804b1-4bb55ab021bmr34881985e9.30.1794556001990;
+        Thu, 12 Nov 2026 23:46:41 -0800 (PST)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c8d286480sm5348297f8f.7.2026.11.12.23.46.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 23:46:41 -0800 (PST)
+Date: Fri, 13 Nov 2026 10:46:38 +0300
+From: Dan Carpenter <dan@pereq.eu>
+To: Priyanka Mani <priyankamani2100@gmail.com>
+Cc: Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H . Peter Anvin" <hpa@zytor.com>
+Subject: Re: [PATCH v2] KVM: nSVM: Check full nested state size before
+ writing to user buffer
+Message-ID: <avbAXlFsL4J4zPr7@stanley.mountain>
+References: <75b8ccd5e278ce8f13bedeceb196f5b4ee9c5256.1794545500.git.priyankamani2100@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,89 +101,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <75b8ccd5e278ce8f13bedeceb196f5b4ee9c5256.1794545500.git.priyankamani2100@gmail.com>
 
-Hi Jie Feng,
+On Fri, Nov 13, 2026 at 05:01:14AM +0000, Priyanka Mani wrote:
+> svm_get_nested_state() compares the userspace-provided buffer size against
+> kvm_state.size before adding KVM_STATE_NESTED_SVM_VMCB_SIZE for a vCPU that
+> is in guest mode.  When L2 is active and userspace passes a size that is
+> large enough for the header but too small for the vmcb12 payload, KVM thus
+> skips the early exit, copies out the header, clears and fills the full 4KiB
+> vmcb12 area past the end of the buffer described by userspace, and only
+> then does the caller notice that the returned size is larger than the
+> provided one and fail with -E2BIG.
+> 
+> As a result, KVM writes up to 4KiB beyond the buffer userspace said it
+> has, and if that memory isn't mapped, the ioctl fails with -EFAULT instead
+> of the documented -E2BIG without reporting the required size.
+> 
+> Move the size check to immediately before the first copy_to_user(), after
+> the header, including kvm_state.size, has been fully filled in, so that a
+> too-small buffer is rejected without writing anything to it, and so that
+> any future additions to the size are automatically covered by the check.
+> 
+> Fixes: cc440cdad5b7 ("KVM: nSVM: implement KVM_GET_NESTED_STATE and KVM_SET_NESTED_STATE")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Dan Carpenter <dan@pereq.eu>
 
-Thanks for the new version. A question and a comment below.
+Really suggested-by is only meant for original suggestions, not review
+feedback.  But I'm always willing to accept undeserved credit.
 
-On November 12, 2026 6:32:41 PM GMT+01:00, Ho Jie Feng <hjf3108@gmail.com>
-wrote:
+Reviewed-by: Dan Carpenter <dan@pereq.eu>
 
-> diff --git a/drivers/net/wireless/realtek/rtw88/main.c b/drivers/net/wireless/realtek/rtw88/main.c
-> index e243738809..fe93c93b1a 100644
-> --- a/drivers/net/wireless/realtek/rtw88/main.c
-> +++ b/drivers/net/wireless/realtek/rtw88/main.c
+regards,
+dan carpenter
 
-[ ... ]
-
-> @@ -1621,10 +1622,13 @@ static void rtw_init_vht_cap(struct rtw_dev *rtwdev,
->                      0;
->       if (rtwdev->hal.rf_path_num > 1)
->               vht_cap->cap |= IEEE80211_VHT_CAP_TXSTBC;
-> -     vht_cap->cap |= IEEE80211_VHT_CAP_MU_BEAMFORMEE_CAPABLE |
-> -                     IEEE80211_VHT_CAP_SU_BEAMFORMEE_CAPABLE;
-> -     vht_cap->cap |= (rtwdev->hal.bfee_sts_cap <<
-> -                     IEEE80211_VHT_CAP_BEAMFORMEE_STS_SHIFT);
-> +     if (rtw_bf_support && chip->bfer_su_max_num) {
-> +             vht_cap->cap |= IEEE80211_VHT_CAP_SU_BEAMFORMEE_CAPABLE;
-> +             vht_cap->cap |= rtwdev->hal.bfee_sts_cap <<
-> +                             IEEE80211_VHT_CAP_BEAMFORMEE_STS_SHIFT;
-> +     }
-> +     if (rtw_bf_support && chip->bfer_mu_max_num)
-> +             vht_cap->cap |= IEEE80211_VHT_CAP_MU_BEAMFORMEE_CAPABLE;
-
-In v2 this was its own patch, 3/7 "correctly expose beamformee
-capabilities", after Bitterblue asked on v1 for it to be split out. Was
-folding it back in here intended? I couldn't find it in the v3 changelog.
-
-I can see a reason for it. Without this part, an AP that is also a MU
-beamformer makes rtw_bf_assoc() take the MU branch and return at
-bfer_mu_max_num, so the new config_bfee code would never run for it. If
-that is why, maybe mention it in the changelog, and in the commit message
-too, since this is core code and the support_bf check now hides the
-beamformee caps on every chip when beamforming is turned off.
-
-[ ... ]
-
-> diff --git a/drivers/net/wireless/realtek/rtw88/rtw8812a.c b/drivers/net/wireless/realtek/rtw88/rtw8812a.c
-> index 55f1d3d324..5d58dff4fc 100644
-> --- a/drivers/net/wireless/realtek/rtw88/rtw8812a.c
-> +++ b/drivers/net/wireless/realtek/rtw88/rtw8812a.c
-> @@ -931,7 +931,7 @@ static const struct rtw_chip_ops rtw8812a_ops = {
->       .phy_calibration        = rtw8812a_phy_calibration,
->       .cck_pd_set             = rtw_phy_cck_pd_set,
->       .pwr_track              = rtw8812a_pwr_track,
-> -     .config_bfee            = NULL,
-> +     .config_bfee            = rtw88xxa_bf_config_bfee,
->       .set_gid_table          = NULL,
->       .cfg_csi_rate           = NULL,
-
-As far as I can see, 8812a, 8821a and 8814a are now the first chips that
-can become a SU beamformee without a cfg_csi_rate op. Once rtw_bf_assoc()
-has set bfee.role, the watchdog goes through
-
-        rtw_vif_watch_dog_iter()
-          rtw_dynamic_csi_rate()
-
-and there new_csi_rate_idx is only written by that op:
-
-        u8 new_csi_rate_idx;
-        ...
-        rtw_chip_cfg_csi_rate(rtwdev, rtwdev->dm_info.min_rssi,
-                              bf_info->cur_csi_rpt_rate,
-                              fix_rate_enable, &new_csi_rate_idx);
-
-        if (new_csi_rate_idx != bf_info->cur_csi_rpt_rate)
-                bf_info->cur_csi_rpt_rate = new_csi_rate_idx;
-
-So if I read it right, it compares and stores an uninitialized value
-there. cur_csi_rpt_rate has no other user on these chips, so it seems
-harmless for now, but I think KMSAN would report it. Maybe
-rtw_dynamic_csi_rate() could return early when the chip has no
-cfg_csi_rate op?
-
-Best regards,
-Luka Gejak
