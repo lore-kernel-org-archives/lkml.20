@@ -1,73 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794568288;
-	b=lnTyB+NNA20x9KFV077aEmLjWmyzR7xQ3FWvCEfASyF/9tP+Fm757icEzur2zyAuZxd1
-	 qW8ldwe9hDLsj6c+geE6ZuuO0wvc4fCQBInClf0Sw6OLK35XHNO2WsLgpQIcBrLGGRqHO
-	 KzLszk981rlazSWSmQsyu4P1tRK6SHDZ7oW5vUz76SO4zSQOp4BFqFELkynVii05d7dAf
-	 /+NGGmADDLC+T2IGUrMTVXMuEE+tdfW/GVbnUu/muzhYEJ/HkS03/WjhPmKBesxfcYokk
-	 pj3HpQ5euP5D0WKifuQOJk5nc+IK7+5AkrVZoxGyk/RkvqkfaqJibBBTbMUU/87nw8A==
+	t=1794568327;
+	b=DgS0Dq46lOQ5ieHtN2SD8QcjVKRL6OHgKDNx8Q5J8SOIWsmPSSN/E9iC2TkZCmd2hY10
+	 1h3M3VcKkdSFNPwfxcxLhs7tkxw61+jksHx32gSj8EZuYsspXxGJdvbxWB2Nh/TlI860c
+	 bBdo/AuprIFteouXOe2774bId/AY+oPvYv9cVLMc8S/FIRSbKJ7g22YSrXpv9xFuHjKfG
+	 MCCdoX1Y9RQ6WaQmmok1aKH9eDoFDBOq9uQ7h+mt3dopWhe0YrYcfoISeyFF7olvVb3QW
+	 UGorAQlVq0b7+XwxXX7vELZV5bvQ9UyqB/mjOaKFIalLW8R1TUyZ/svhNDWgf2zTg9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794568288;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Proofpoint-Reinject:
-	 X-QCInternal:X-QCInternal:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=sYL1lnLCSB3BSmi1xUja9Uhmfb4VLs1HDBquQMuilrw=;
-	b=wT6qg3VZSz4HxGyWqeqbGXMS0eWgHsFfapX+rUtg9Jk2L/ONV5iw3y1tiJYk8Rc2/LnB
-	 Oyj6p4bVICKh/F1O4RMukDfl8bQdnsQzNjTXXkYUrRS8npNUicq2G9MWeTWpIGQDc3w2F
-	 F9uopBYdNOy4YS2tU+TeMrMnxA7CZN1loPaOXavS4ZALauf/cA5BW97CNmPlexGZvRtSv
-	 s/v8hepFIKP/owdvYC04xpIf79iAJPlgRPRkzS+yfQKarTXpK6Ao0hkAfdxPzsJ66/Wkg
-	 /ia5+Kc54O3TIcR4Iu5kn9BHf7nmSeBq+k1Qsm/iug1QBKrr29L0Yjysn1S/nuNdjvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794568327;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=QVHTU60vGRb+Zvv52jZBctrQrlA3sz5HwG1d7pGxaWY=;
+	b=RBoFU/0Y3z9kGt9KZ5UHssd98hPQOE10F04LRqLY4eSIDJxUMW6v6urRgwSWsg65Kdll
+	 FfknNzMQk9VHfagwAA7wsre4ybnURBy+SBkTXUEff40dWUTz9KoTz/UDgX9CHd5GqH5rC
+	 u36lAAmxiaxtf9U4cLLnV7K6tj2e/+2oyeFiZuY2odZroQei4mj+6qqR9hBBqUP4kwUsk
+	 kBg4e+6e5nTYJcJPfFTQFNgP7KHLtJRKUXKyub6xVK40Scs1S/VthRGpkFFMiXnUNj5Sl
+	 ++/hy17uNUaEeQ86DXUG6Hac3YFS/qqFMWArBcRBOWQliwTVeeut40wPf8KGtRA75fg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=P9nK3nyN;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XFG031gm;
+	arc=none smtp.remote-ip=209.85.210.199
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72AE2606A321;
-	Fri, 13 Nov 2026 11:11:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72AE2606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80B9E606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 11:12:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80B9E606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=P9nK3nyN
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AD8VMSS2515758;
-	Fri, 13 Nov 2026 11:11:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	sYL1lnLCSB3BSmi1xUja9Uhmfb4VLs1HDBquQMuilrw=; b=P9nK3nyNQzjhe+z6
-	pwbDy3KsSxSTfjDK698E3sAOVc2PFcphdFVeXIv75wjFNAr5HqPWEFseYTjbl+aH
-	Su64XoSTG1TmeFf1XLN1liIlidSGHq7xo9+Iy0/8L3RwqEznQjdOJXbJi0+DCrCL
-	lWHCMwVpkKr9VyxIaM6cXc/icdcs8HOkDq+h82usslwg58EC5bjP6gMBxHD1tjvO
-	aTbR76uqPUJMNpNMZQs8Y+Jq7+JTk9PvhGG70ppnCOhhs2gVEr4MYJs3LZUODsKV
-	FY9KJNCJueNGf7nEPyTV+bPB04aFgT07rljsXt20kTI7rZNvsbP4bqfyedFggPyf
-	aenYhQ==
-Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwg1bbr1e-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 13 Nov 2026 11:11:18 +0000 (GMT)
-Received: from pps.filterd (apblrppmta02.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADAtNaX2811647;
-	Fri, 13 Nov 2026 10:55:23 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-mdsor-hyd.qualcomm.com [10.147.243.209])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 6ADAtM0J2811619
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 13 Nov 2026 10:55:22 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4770534)
-	id CB0A1A71; Fri, 13 Nov 2026 16:25:21 +0530 (+0530)
-From: mohit.dsor@oss.qualcomm.com
-Date: Fri, 13 Nov 2026 16:25:15 +0530
-Subject: [PATCH 3/7] arm64: dts: qcom: lemans-draco-evk: Add DLC DLC0697
- DSI panel overlay
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XFG031gm
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8b69b8c6dd5so1240330b3a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:12:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794568326; x=1795173126; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QVHTU60vGRb+Zvv52jZBctrQrlA3sz5HwG1d7pGxaWY=;
+        b=XFG031gmS/DYARWYVF9N1b5qeQ3QCbIlj7fbLhel2SA7kiLMTbfx3DxyndMFiroata
+         Zim3QTF2gEnUpqge94EXyNyjUd02BCMWSgGOKaoe65EAotqpboFDgfToVqoRmc7jyutI
+         bg3RHw+R9iWe83kJc5PfZMGWB22Huc7WH6CZ7lTVpQjwszkCETZypTAyywn5MKcoUXHw
+         pQxZdRBylEd1U2EkAn7p2vCvspsdny1MSr1GLIpyiqNxQCDeXw6+UeOk9APupIOWNdJf
+         n/xrdOfLFBz0SNNtQ+JpvdS5yUX8+gX+PbquvAhB/srvgRNxYus+P0dDWthZsvmLPQUq
+         k5FA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794568326; x=1795173126;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QVHTU60vGRb+Zvv52jZBctrQrlA3sz5HwG1d7pGxaWY=;
+        b=piuwGBT/CXB+BLg94A9JNDupMoZavbILCehdR2QAuSoT5Y74dpz7yEQ02P5QvmdjLO
+         76FsgHkNxxRMHd9e8qi95XLrX1ZAmhLGA/kdU8nrkVKvVlU2W4CFS53Pec0L7DG15Mm5
+         EsA4Y5U3uszOA6sNqB3rAi8QRH0DXUK8VIlKNIANrtreztnMRHh7Uduwki3KZTLv+Od9
+         ybdztXXihL7Xg0gqI/PUuwQPeQ3dqy0entOE51PZuLJB7PvxrizknWQ/eEdapm4HtGK4
+         k7XINnBXCuVRrAHD2i8CoB32qHarfEKLW1/qQTfgfCL5bXIlWIZKsLtPO8ItnGkvzhD5
+         Rnhg==
+X-Forwarded-Encrypted: i=1; AL+hErHMCjqCDt+g1dA6I9+bonc7tqfJdep2Ny7Ov3HndxBJwFeblAw6Q1/yIIIOroHUfs1SXOekVc/kJKcO5Mo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8WHFW/Xt+CHid2NHd5eI34pUJ55wzYPVrOBmSUXg1pN0MgtDeN
+	JGW/j/P0TYOiu4Fm7ApEVPjeNEQRxkj6ib7PGtojO9ExXBhw7cGbxlBEYgye0W8/mMnmN/h1BJ0
+	ERsBsS/cExQGyaa5Mot7dfw==
+X-Received: from pfbff16.prod.google.com ([2002:a05:6a00:2f50:b0:88c:682e:9aab])
+ (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a00:4fc3:b0:89f:b166:bde6 with SMTP id d2e1a72fcca58-8beb8cc8ad6mr2186766b3a.54.1794568325401;
+ Fri, 13 Nov 2026 03:12:05 -0800 (PST)
+Date: Fri, 13 Nov 2026 19:12:00 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,182 +75,65 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-draco-evk-display-v1-3-28a19c6aea87@oss.qualcomm.com>
-References: <20261113-draco-evk-display-v1-0-28a19c6aea87@oss.qualcomm.com>
-In-Reply-To: <20261113-draco-evk-display-v1-0-28a19c6aea87@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Florian Fainelli <florian.fainelli@broadcom.com>,
-        Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
-        linux-arm-kernel@lists.infradead.org,
-        Mohit Dsor <mohit.dsor@oss.qualcomm.com>,
-        venkata.valluru@oss.qualcomm.com,
-        Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794567321; l=3552;
- i=mohit.dsor@oss.qualcomm.com; s=20260808; h=from:subject:message-id;
- bh=Idrpv+CS0Y9alTM1xz9+pdNPaG06gqN78iFhxbFMgO0=;
- b=GYSv5Wm0wVpG4WUe3bF70Q3mIZRH5YcrIAllk4LRGK64kwwOcFlRBeW2bDTeNCDAMFOKZbWeB
- ROZ2aZ8KD8RC0X8hxZzwNLqORRqpJ0+y67sujUc3loUctZSK9+AK492
-X-Developer-Key: i=mohit.dsor@oss.qualcomm.com; a=ed25519;
- pk=outHVBN53JhozDw1xkj3G1qrqqE5scMBP7M4WL3aHQQ=
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Authority-Analysis: v=2.4 cv=c6Q+0h9l c=1 sm=1 tr=0 ts=6af6f056 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=AN9TkSaO0KQ9k8_Tl9IA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: 7OekIVXjTrSY7j-4dN9NIulUMeUKdeba
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA0NCBTYWx0ZWRfX+Nv/uZJNPWUX
- vKn4ysIeW6w83KacEYGNpnioGMra4I+QVaNyhbQMORricoWTOW1atK9cnfkozUIwHRwKLNoAM8m
- wxEs7Iam/ZgZ69olmOIWVOeV1bwrzsehQeS2nkULCozOBIsbLhDaOX/CoEuJO4m/qA/ffHY7rDQ
- xlWPRgwLi/vlEGwlsGhrEnNpftBG8TwGoyJWV71DbZyHZR0N45NnqVk3iu0X8flTQTUBNSIzQxQ
- owDfC8FtZRVarhfB7woHpNr4Yk4e4odOPjtU04/G0vgLkFRb+BxQfLYVSc1vWVDgBuuUXL2XIYK
- ccMMTFHyyZ7yMMKw2GTsHIXCnXYEUwlAfw9KD2JbNhXNr+Y+mY6o5y7E1yrS/h/KQcD1Fcwaz0t
- ZzF8soElZxWqTYHstFFXFJPmZ6IeaY13B6LUR6bDr6TOJ8yXatsodb6NN82r3/Nov5RP1dVp2ZA
- 3j3dw8LFl5bFgKw8N/g==
-X-Proofpoint-ORIG-GUID: 7OekIVXjTrSY7j-4dN9NIulUMeUKdeba
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA0NCBTYWx0ZWRfXzR2GUGN732Qv
- PvXQCMqWVyAjgwDxlaZuSUBFCC4F7kUPIPlNFHa7paOfaNCFro/4uKr9EBYJjWmqV2UeQIWqJMr
- vAyOsMLrYwhTuFYcfe0uSRfAILKlrZA=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-13_03,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 bulkscore=0 suspectscore=0 priorityscore=1501 phishscore=0
- impostorscore=0 malwarescore=0 clxscore=1015 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130044
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
+Message-ID: <20261113111202.3551341-1-stanleyjhu@google.com>
+Subject: [PATCH v2 0/2] scsi: ufs: core: Fix device management and PM recovery
+From: Stanley Jhu <stanleyjhu@google.com>
+To: linux-scsi@vger.kernel.org, "Martin K. Petersen" <mkp@kernel.org>
+Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+	Bart Van Assche <bvanassche@acm.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Bean Huo <beanhuo@micron.com>, Peter Wang <peter.wang@mediatek.com>, 
+	Brian Kao <powenkao@google.com>, Can Guo <can.guo@oss.qualcomm.com>, 
+	"Bao D. Nguyen" <quic_nguyenb@quicinc.com>, Hongjie Fang <hongjiefang@asrmicro.com>, 
+	Praveen Talari <praveen.talari@oss.qualcomm.com>, Hoyoung Seo <hy50.seo@samsung.com>, 
+	John Garry <john.garry@linux.dev>, Hyeoncheol Jeong <hyenc.jeong@samsung.com>, 
+	Jens Axboe <axboe@kernel.dk>, "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, 
+	Stanley Jhu <stanleyjhu@google.com>, linux-block@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+A UFS power management callback holds hba->dev_cmd.lock and the only
+reserved tag while it sends device management commands. When one of
+these commands times out, ufshcd_eh_timed_out() calls
+ufshcd_link_recovery() inline, which needs the same lock and reserved
+tag. ufshcd_err_handler() also calls ufshcd_link_recovery()
+concurrently with an active power management callback when
+pm_op_in_progress is set.
 
-Add a DT overlay to enable DLC0697 panel when DLC daughter card is
-connected to DSI0_B2B on carrier card.
+Patch 1 stops the host controller in ufshcd_eh_timed_out() instead of
+running link recovery inline, recovers the link in
+ufshcd_set_dev_pwr_mode() for START STOP UNIT, and forces
+ufshcd_err_handler() for timed-out reserved requests.
 
-The card plugs into the display B2B connector shared with the LT9611UXD
-HDMI bridge, so the bridge and HDMI connector are disabled when this
-overlay is applied. DSI0 must be routed to the B2B connector with
-DIPSW2.4 set to ON.
+Patch 2 removes the pm_op_in_progress shortcut from
+ufshcd_err_handler() so error handling waits for the callback, and
+recovers the link in __ufshcd_wl_resume() when START STOP UNIT fails
+while a fatal error is scheduled.
 
-Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-Signed-off-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/Makefile                  |  4 ++
- .../dts/qcom/lemans-draco-evk-dlc0697-dsi.dtso     | 81 ++++++++++++++++++++++
- 2 files changed, 85 insertions(+)
+Based on mkp/scsi 7.4/scsi-fixes.
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 3262604ffb05..90a00ab40c1a 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -61,6 +61,10 @@ dtb-$(CONFIG_ARCH_QCOM)	+= lemans-draco-evk.dtb
- lemans-draco-evk-hdmi-dual-dsi-dtbs := lemans-draco-evk.dtb lemans-draco-evk-hdmi-dual-dsi.dtbo
- dtb-$(CONFIG_ARCH_QCOM)	+= lemans-draco-evk-hdmi-dual-dsi.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= lemans-draco-evk-hdmi-dual-dsi.dtbo
-+
-+lemans-draco-evk-dlc0697-dsi-dtbs := lemans-draco-evk.dtb lemans-draco-evk-dlc0697-dsi.dtbo
-+dtb-$(CONFIG_ARCH_QCOM)	+= lemans-draco-evk-dlc0697-dsi.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= lemans-draco-evk-dlc0697-dsi.dtbo
- dtb-$(CONFIG_ARCH_QCOM)	+= mahua-crd.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= milos-fairphone-fp6.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= milos-nothing-asteroids.dtb
-diff --git a/arch/arm64/boot/dts/qcom/lemans-draco-evk-dlc0697-dsi.dtso b/arch/arm64/boot/dts/qcom/lemans-draco-evk-dlc0697-dsi.dtso
-new file mode 100644
-index 000000000000..00845b6207a4
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/lemans-draco-evk-dlc0697-dsi.dtso
-@@ -0,0 +1,81 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
-+
-+&{/} {
-+	dlc_backlight: backlight {
-+		compatible = "gpio-backlight";
-+		gpios = <&expander2 2 GPIO_ACTIVE_HIGH>;
-+		default-on;
-+	};
-+};
-+
-+&hdmi_bridge {
-+	status = "disabled";
-+};
-+
-+&hdmi_connector {
-+	status = "disabled";
-+};
-+
-+&mdss0_dsi0 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	panel@0 {
-+		compatible = "dlc,dlc0697", "ilitek,ili7807s";
-+		reg = <0>;
-+
-+		avdd-supply = <&vreg_bridge_3p3>;
-+		avee-supply = <&vreg_bridge_3p3>;
-+		backlight = <&dlc_backlight>;
-+		pinctrl-0 = <&panel_rst_n &panel_te_pin>;
-+		pinctrl-1 = <&panel_rst_n_suspend>;
-+		pinctrl-names = "default", "sleep";
-+		reset-gpios = <&pmm8654au_1_gpios 4 GPIO_ACTIVE_LOW>;
-+		vddi-supply = <&vreg_s4a>;
-+
-+		port {
-+			dlc_panel_in: endpoint {
-+				remote-endpoint = <&mdss0_dsi0_out>;
-+			};
-+		};
-+	};
-+};
-+
-+&mdss0_dsi0_out {
-+	remote-endpoint = <&dlc_panel_in>;
-+	data-lanes = <0 1 2 3>;
-+};
-+
-+&pmm8654au_1_gpios {
-+	panel_rst_n: panel-rst-n-state {
-+		pins = "gpio4";
-+		function = PMIC_GPIO_FUNC_NORMAL;
-+		qcom,drive-strength = <PMIC_GPIO_STRENGTH_HIGH>;
-+		bias-disable;
-+	};
-+
-+	panel_rst_n_suspend: panel-rst-n-suspend-state {
-+		pins = "gpio4";
-+		function = PMIC_GPIO_FUNC_NORMAL;
-+		qcom,drive-strength = <PMIC_GPIO_STRENGTH_LOW>;
-+		bias-pull-down;
-+	};
-+};
-+
-+&tlmm {
-+	panel_te_pin: panel-te-pin-state {
-+		pins = "gpio84";
-+		function = "mdp_vsync";
-+		drive-strength = <2>;
-+		bias-pull-down;
-+	};
-+};
+Differences from v1 [1]:
+- Replace patches 1/9 to 8/9 with patch 1/2 per Bart Van Assche [2]
+  and drop the external series dependency.
+- Rebase v1 patch 9/9 onto patch 1/2 as patch 2/2 and recover the
+  link in __ufshcd_wl_resume() on UFSHCD_STATE_EH_SCHEDULED_FATAL.
 
+[1] https://lore.kernel.org/r/20261112051542.1539779-1-stanleyjhu@google.com
+[2] https://lore.kernel.org/r/59c577b6-4749-4edc-9dd9-a83f2a124adb@acm.org
+
+Brian Kao (1):
+  scsi: ufs: core: Do not recover the link concurrently with a PM
+    callback
+
+Stanley Jhu (1):
+  scsi: ufs: core: Recover link in ufshcd_set_dev_pwr_mode() on timeout
+
+ drivers/ufs/core/ufshcd.c | 62 +++++++++++++++++++++------------------
+ 1 file changed, 33 insertions(+), 29 deletions(-)
+
+
+base-commit: e550f2b2b4aab4c5f12db89d04d8978ce4ed7b4e
 -- 
-2.34.1
+2.56.0.611.g1030f0b940-goog
 
