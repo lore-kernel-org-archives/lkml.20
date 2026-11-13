@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.196
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794602116;
-	b=CnvQQeCEHluyORFA38U/Sr4Dyix2X4stLLH3Pe897HdAUv8/dCUPIhUhHYM7A4M1kqZb
-	 /J/0MiJN+yRWRtIZy42Zpqgg/tZ/zU9Pz+NsYGu9FaYfWlLfiZz7/xHerQdDAo3MAcYUg
-	 jlaboY2p1s+6G0cYYmY5He34/2zQ9xVUQXZNnexsSss/dUAA5aqKxGfTfo7jgaIQPgz8O
-	 mHshyrEPgTGd9BVLwCLGU0OMzGJkAz/wjdLqDye7EKtfBjw6SeSqTBxYfJW5eCspy/5Yd
-	 pAE9o9fLzC2zPJOPNkV1VQPnnynnCeWakLtkgjPRH66vWOoZi8UNnvWBO/206Akct0Q==
+	t=1794602209;
+	b=hgpAUQYznKb0LvGd53RvJ3xHiev5HO+QzQ0SZGhy339rAqTLPUCl9fS4waHsWlHkVEUq
+	 zXVJ8G5JgBAVYkb6blzrnKdVRMassZ4ZLK8GQX44EEqWg3ixcdrIVaXjvxphJmf26YyPM
+	 ANuX2+8KLlV75TtRl56ftyuTpOXdWtEfpv0tP1RlP/VzrFtX/IF3ohPPyYali07ZBf3NQ
+	 LCSGwZbmxf8iigi2JcLB70zscRKUOOPfj7LRdX3gRJtBdOJyM1padGPc+KB45CrSx3Vd1
+	 siskq3lHTrINViaki4LfVvgiDYf/LG8D2f/AQSFhrkHclLsxP2PFbuubIAkWIS7P4Kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794602116;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794602209;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=v4l0l6/0LSTjMRIJU8wqE1PZYCYMuyzVKSvXtjgLdxw=;
-	b=kC0K4aPqim1Ajy0VaquBZmh9/ACdtSggABupGrBe+GGOoaSl+uyZAtpoU4EorNRBefWG
-	 e26lGD0Io64agMBZVmzncRUcIeHQR4lsm3JDj2yTn/KUQyK6uVbE+zKdehYz+o/rXEzre
-	 m/ntQOnHK3ihbZRP2Bfx78RSa+eo/L/Cf7iOnKseq3pLAlFenXm69YcV3iDxxeCzeXwro
-	 uL2J68VcUdml+KCoNTyWK0f5bjtPYIoz/Pylxzk1Tjjey9HnuVFYGCFnpYfUKcCj4fS0a
-	 wXDXccwtiNl3FPPIi3Qi6pOTkWommyUd1yl7JHg2uEyPhQ1OmO1pL/ep1m57TyRU8VQ==
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=1y8NVjB34PyHWKL2vr54yws1Tup4C1XdntOkDoibOvc=;
+	b=DU0mYNp/3iE4nvnkgzTKncUFsRYMjO1A9V9oN/gKD2i+MatOrpMp86wzcuaad8E3DN5M
+	 bd4FRDjJsneMBDQ6sYEL2NPQk8WIYoy1LJ1pWHOIT1XBDWDxG+EQCanfeKKaNeZJTSto2
+	 AysOO7WloRznb2hInveVbHPZ9tFTZ6+JJUVeMHwHqcCeOy+3oC+fRw04osAq1c10NzRFN
+	 s3JKGkNjiIdph0uADx45ANTDTBFyDyvnl3TnAh66yQUJid3zJscIMT7+hMBDSCVPtiVYI
+	 +qaPMF9v/bYJIqC+76jCe3Gi0Lr0ZF9pt+Q1dEtuAc974cYawqV4yJqclxwpVqmEGEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ySgiZkB7;
-	arc=none smtp.remote-ip=209.85.167.196
-Received: from mail-oi1-f196.google.com (mail-oi1-f196.google.com [209.85.167.196])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=IS7YJq7a;
+	arc=none smtp.remote-ip=209.85.208.49
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C40F606A889
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:35:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C40F606A889
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B80F0606A32E
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:36:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B80F0606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ySgiZkB7
-Received: by mail-oi1-f196.google.com with SMTP id 5614622812f47-4b28d9537bcso1744546b6e.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:35:16 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=IS7YJq7a
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b7a488a0a4so1968617a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:36:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794602115; x=1795206915; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=v4l0l6/0LSTjMRIJU8wqE1PZYCYMuyzVKSvXtjgLdxw=;
-        b=ySgiZkB7BCqGrgohYd+sTkPA5ZgC0kFB6wcMtolG1eyoxdzwb3khT2CbDiQcwPJvOt
-         Sa9KE9w8C+vV5dfU8AKU54E9RgA+h98OvU65JPR4I3CcmGKRG63xoqiy8YmCWCRCtVzZ
-         58zZWWwA91hka3O9HZmDRZFHZ0DIyC+5EQCTJTWVadY/JclKCA1XQjap5UL8FfM50XFL
-         e5UKOoKs4szQKmIFAoWQMI1BQjY1FaSKY4bQbTzuk8NdGWrVDvrL/UropW6A9P6qXQxI
-         MnYTWBKH9sNN6d6lkiZ1lbzNb+w0Q78C4MxYJW0/zvJSgOTrc0/arPb7p8AsGO1ihauS
-         DWYw==
+        d=chromium.org; s=google; t=1794602207; x=1795207007; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1y8NVjB34PyHWKL2vr54yws1Tup4C1XdntOkDoibOvc=;
+        b=IS7YJq7a4iBtGdKJN4xwUmtpG5AV3XcQbinTVTGHPX9cqnnQEbkcC36NMQa1V6q8S4
+         PhD9IcmC78b+p1V9KBrtmtjgDofAom8B5sfj6ntxu9xZXt6MSCBbP+Ij5Q6VxAI7FnI8
+         ScjpvPYC2fT89Oe8kKttkMAUNSUPD4LW8uXmk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794602115; x=1795206915;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1794602207; x=1795207007;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=v4l0l6/0LSTjMRIJU8wqE1PZYCYMuyzVKSvXtjgLdxw=;
-        b=U78FQM+AVdkqk2OnRdGzvOaDI+lqtmZcrMan/2cLLFKAh5fl3teUDWjgRB0s+6tepK
-         3T0i9rSj3YCLDiUZGk5bn3q6u2/dU2jhK70lkgvljX8/KB1k2h0HSt0oT0VBCD2pXugL
-         Clt3Ou46pThCadd0S7EP0+JFb5HXklC95nabWs78S3O+aOuAQZuksenilfXbI1kw4aNt
-         1KSS1IQPc1Oq3ciW7U3zmk2v7Zfja3FNb7+KEMT7BXHoMdFeXSEeVIrEOxIqchSkmnWF
-         GgpRAkqrv+hMuPq5vN+JdnwHhj//FwZ+9KmaVCoMxajfGSgh9LdJ5CRPJb6AdVONA41b
-         TBsg==
-X-Forwarded-Encrypted: i=1; AL+hErHkjjKUgmZckPkuZO5eqnCTzTSUN23zw6ipFWt/CywBc+yma6yKhDZLyrThW6j7kuaxyISlKF9vRbFL4EA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/qL69WAB9iYzvuSIBdUUd1899z8Bjy2xYRFRtETuVqN6zh51sz
-	j4W+gIVHdeIpmT4BL6OgLB6v//LECIQ8LN36HadhjLS/od2kKNtFaHg/
-X-Gm-Gg: AYBFou1wQbwY1zZfLwVZsndvgltIjD3pCiCvQ29Aw2OHZAkl6asPaAZhxECwqhO8ZUV
-	PSzUrlwHrm9AROWv69Ksoj6erWqRfgMtCHfhSRwSzHdyVkscsP8eenfwdZRXIZgcQ3OghpAYb50
-	EhQPjyyH1AebRGcekNGGO8zWuX2dryCHhNBVJ1L1XfcSI/lw0iV4rHGSNf1qdRMidtq1DiTklEL
-	mPAqjBpv+uEpCTITJN2wN3fkIvnbEXt6AdBfdJTBqDp8drsHA9hmMXHPlNKUS5wXv585CEVyDBF
-	KGkyhW7Ry38si6/00OrbSd/Ww7dtlpQiy4OvZpYo+0WhiJahQhh8e1+rQSweW0Nb0tEsm812p4+
-	2Zov7JdxQ28qcOw/mcOL3PsI6LIphk3wZ5xFFRiK7c+aqdHWRW1QFdbpNgcay5UFZXgBu+hlJEc
-	+ACB8DMiRHx4JfrWNh93P5W4pUXlg7p7CwlKwNUnaEgHkJiZQE+cnnLQ4J0CS+NtgGxkKJ4mdYj
-	Qlajk6VUNq50uo4CsI/zIdNQmKXbCUYA1/ZDv9BGVL/K3qqzGrcOOlvrc87cjruUlf5LOk0WSRT
-	h6H+OwCN5mFGORs4jz1Ugb7spxpAYZN3SzmKRwRSYStiIiracCrh3zQRM7j+oS8mrXmF60P5upk
-	f06wn4/75nc2ScDm4LRQ=
-X-Received: by 2002:a05:6808:1691:b0:4d6:9133:cfea with SMTP id 5614622812f47-56cd8ed24a4mr4376780b6e.47.1794602115430;
-        Fri, 13 Nov 2026 12:35:15 -0800 (PST)
-Received: from [10.10.18.223] (wsip-64-207-253-118.tu.ok.cox.net. [64.207.253.118])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-56e70c58f9bsm2712225b6e.13.2026.11.13.12.35.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 12:35:14 -0800 (PST)
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Fri, 13 Nov 2026 14:34:56 -0600
-Subject: [PATCH RESEND 2/2] clk: mediatek: mt6795: fix the FHCTL DDS mask
- width
+        bh=1y8NVjB34PyHWKL2vr54yws1Tup4C1XdntOkDoibOvc=;
+        b=gHdjbooEKAXE4IsMTlIbC1tCV24tEKt7i8mDsMWgAUdGW7u5JIwj2jt9cMRYRXLmZv
+         6XSVJEJzupouMHNDhAKUxHqF58pvMFyKw62CUyi+diNxaQbbSWs9RnUpMRd696M/2si8
+         jJM6srWWe8F0wNOQlb5Xzj5qleRFWxtn9L4qODUm207ONRbHek06lJvhK6QM3EQM7hrJ
+         hFNHpITabwJmLuC29WmZGHnfTOIK41TOKHyJD+qlucmiwfiup+JNok2dRksosPhV43YE
+         NBGYS9FQe8jKOja6uEgrI5OUwjxpxRyQD2AbD0dh+DaAfVSaBgStEPNArrlzXD4Jx86M
+         IMLQ==
+X-Forwarded-Encrypted: i=1; AL+hErFEFJosSneKlFS9uryeAeVE7Q1S+M1EuRCXoLgjGVo/NSPO5yek9aggwl91gKA/I55n3CQvcaUuN3oIzYQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z88S4iA/ONpQwrAw20yOOzSWsyD3J00/aMjkTBX+6DTVe8Y/AkI
+	drnD1bEy+7kWeWDxDmLzirMFWVKrnDPadsusCW1+e4sRLQxW3A/z81vW2tYWxEPrcW2QDittRuE
+	3vEaconBb
+X-Gm-Gg: AYBFou3QFt01URIadMNwAnEG526nMO7DPm6B71dA/skp0wAarKN8mHBLQhMdVOvUKhV
+	sKasYDHTbsOCqvdASRQKo04YNuqzKfHkgYQQMmnOe+W/e6+EhRRbNFzNgaV2uXLuYL76iJL3RDD
+	9UNrU+El7V7DT9ufYTHxbQNkcIaWGSBSPOZDBS0Epx+Mmk7ftWx8Ng77oJOG5pI8VR0YpS3s4Q7
+	9L3ceBRhKCe6L82mPYT5BdlBjOehaqovcRu2h7yKiMbFckdKAR/zV75cWb3tViAdFLIMQNOhzED
+	lkvq1JO8MLMG0tGvauRi5LbRD9wkjC2jcN+hERFVaikgfyrLH9/ua4Gz3AGZIjnwCdMCYG6O/nc
+	tYBoM1COEIy9GZDUkytkHnriRcN08eWqZbdf5PIkbTKuUa12pT535SzCOrxjMW2Ve1JB4Wj+t6/
+	DKdENx2iXNjjRhMj21Ekc6TqIBQaNd01ZrFUHrFcZlyAOba/Dfr++E0ABdnX/e7uM59E7VRrp63
+	JLwT+aPEeXiXdiUQldK6RwOgHxChGskfIy93Fo1KIzcyFuoUvUW/D7Ok01h+d/zIMaIU2VwsVLt
+	Tm+K9aRFZO7v1USEwCZ4Ot/CHlWb3mWD0fm9JoSUtMlfFobMWAXSphtYnCWUmLiVLHHW
+X-Received: by 2002:aa7:c9ca:0:b0:6b5:911a:f4be with SMTP id 4fb4d7f45d1cf-6b7c0bbe4e3mr2395578a12.13.1794602206963;
+        Fri, 13 Nov 2026 12:36:46 -0800 (PST)
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com. [209.85.128.46])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c23d6ffbsm1377132a12.21.2026.11.13.12.36.43
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 13 Nov 2026 12:36:44 -0800 (PST)
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso19335575e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:36:43 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHNHmwoo6KTxufLPoEi34o6YPNntAJFFnbJbRefSKplEe3+YdA0ijc06mv/4ytTVn62fzJlaWjpdzdqYKI=@vger.kernel.org
+X-Received: by 2002:a05:600d:82c6:b0:4a7:9006:b176 with SMTP id
+ 5b1f17b1804b1-4bb55c5f5f5mr89863295e9.7.1794602202883; Fri, 13 Nov 2026
+ 12:36:42 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,61 +94,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-mt8173-fix-dds-mask-width-v1-2-c8d1e3288df9@gmail.com>
-References: <20261113-mt8173-fix-dds-mask-width-v1-0-c8d1e3288df9@gmail.com>
-In-Reply-To: <20261113-mt8173-fix-dds-mask-width-v1-0-c8d1e3288df9@gmail.com>
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Chen-Yu Tsai <wenst@chromium.org>
-Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- Ryan Brue <ryanbrue.dev@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794602109; l=1505;
- i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=6k5SPDasHR10JbeQ/goG0GjfXjoojCF7pZ/1g9TWB+w=;
- b=GGeJS8jm21rjpv1QyTbpsKBtZCTmbEes2ARBh8p1OfaWD0t2XZ4J3BHySxW23bkyOdUv48ruh
- PRoIkzSIg1UAt0oRD1ii2tTNNj083KeKa67msj2r1YTGbGXjFo0ryOP
-X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
- pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
+References: <20261113171540.446-1-_@tawheed.cc>
+In-Reply-To: <20261113171540.446-1-_@tawheed.cc>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 13 Nov 2026 12:36:30 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=UXEDzjuBF8QK0MccAkCB35MUXEoAhzCFgViUr2xtpOMw@mail.gmail.com>
+X-Gm-Features: AclHuK9vk6BRndli2ewuhNI9ERAXzJsRsPjpVZzz0vGOWMoLJS_4XyO0TtIZQ8Q
+Message-ID: <CAD=FV=UXEDzjuBF8QK0MccAkCB35MUXEoAhzCFgViUr2xtpOMw@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/panel-edp: Add LGD LP129WT112684 panel
+To: Tawheed Makhdoomi <_@tawheed.cc>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-All eight PLLs in mt6795's pllfhs[] have pcwbits = 21, so the FHCTL DDS
-field is bits 20:0, but _FH() declares .dds_mask = GENMASK(21, 0). As on
-MT8173, new_dds from mtk_pll_calc_values() is always 21-bit, so admitting
-bit 21 of FHCTL_MON into the poll in hopping_hw_flow() can only make it
-time out. The same mask feeds the CON1 write-back and fhctl_set_ssc_regs().
+Hi,
 
-Unlike MT8173 this path has a user: mt6795-sony-xperia-m5.dts switches
-FHCTL on for mainpll, mpll and msdcpll, with SSC.
+On Fri, Nov 13, 2026 at 9:16=E2=80=AFAM Tawheed Makhdoomi <_@tawheed.cc> wr=
+ote:
+>
+> Add the LG Display LP129WT112684 12.9" 2880x1920 eDP panel used in the
+> Microsoft Surface Pro X (SQ1). Without this entry the panel is driven
+> with the conservative fallback timings and probe hits the "Unknown
+> panel" WARN.
+>
+> I don't have a datasheet for this panel, so the timings are a guess
+> based on similar panels: delay_200_500_e200_d200 is what the other LGD
+> 12.9" panel in the table (0x06b2, LP129WT232166) and most other LGD
+> entries use. With this entry the panel is detected and the display comes
+> up on every one of the 38 boots logged so far on my Surface Pro X (SQ1).
+>
+> EDID, read from /sys/class/drm/card1-eDP-1/edid:
+>
+> 00 ff ff ff ff ff ff 00 30 e4 55 05 a0 28 09 00
+> 00 1c 01 04 a5 1b 12 78 03 ee 95 a3 54 4c 99 26
+> 0f 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+> 01 01 01 01 01 01 de 8a 40 78 b0 80 37 70 30 20
+> 55 04 12 b7 10 00 00 19 00 00 00 fd 00 1e 3c 00
+> 00 24 04 0a 48 14 14 14 14 00 00 00 00 fe 00 4c
+> 47 44 5f 44 56 31 2e 30 5f 0a 20 20 00 00 00 fe
+> 00 4c 50 31 32 39 57 54 31 31 32 36 38 34 00 41
+>
+>   Manufacturer: LGD
+>   Model: 0x0555
+>   Made in: 2018
+>   Alphanumeric data strings: 'LGD_DV1.0_', 'LP129WT112684'
+>   DTD 1: 2880x1920 60.000 Hz 3:2 (274 mm x 183 mm), pixel clock 355.50 MH=
+z
+>
+> Signed-off-by: Tawheed Makhdoomi <_@tawheed.cc>
+> ---
+> Changes in v2:
+> - Include the EDID in the commit message.
+> - Say explicitly that the timings are a guess (no datasheet) and how
+>   they were picked, as Doug asked.
+> - v1: https://lore.kernel.org/r/20261112154444.417-1-_@tawheed.cc
+>
+>  drivers/gpu/drm/panel/panel-edp.c | 1 +
+>  1 file changed, 1 insertion(+)
 
-Found by inspection while fixing MT8173. I have no MT6795 hardware, so
-this one is untested.
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
 
-Fixes: f222a1baec5f ("clk: mediatek: mt6795: Add support for frequency hopping through FHCTL")
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
----
- drivers/clk/mediatek/clk-mt6795-apmixedsys.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Pushed to drm-misc-next:
 
-diff --git a/drivers/clk/mediatek/clk-mt6795-apmixedsys.c b/drivers/clk/mediatek/clk-mt6795-apmixedsys.c
-index 123d5d7fea85..ff01cfefc31f 100644
---- a/drivers/clk/mediatek/clk-mt6795-apmixedsys.c
-+++ b/drivers/clk/mediatek/clk-mt6795-apmixedsys.c
-@@ -79,7 +79,7 @@ enum fh_pll_id {
- 			.fh_id = _fhid,					\
- 			.fh_ver = FHCTL_PLLFH_V1,			\
- 			.fhx_offset = _offset,				\
--			.dds_mask = GENMASK(21, 0),			\
-+			.dds_mask = GENMASK(20, 0),			\
- 			.slope0_value = _slope,				\
- 			.slope1_value = _slope,				\
- 			.sfstrx_en = BIT(2),				\
-
--- 
-2.56.0
-
+[1/1] drm/panel-edp: Add LGD LP129WT112684 panel
+      commit: fc72cd52fb284f3707fa36a68ea5a22543a51d71
