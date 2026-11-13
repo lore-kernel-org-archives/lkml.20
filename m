@@ -1,75 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794590314;
-	b=qg8DRnmvy3XhYuKmQxVjIqQPeYp9nWHAXFutUhg0EWnLJOB5sGIKXab5yViQ/tJP6bTq
-	 nQLbY3rkJOq55YhVfdpyUnayzz2ZlpAt/Ekm+Qu9bhN2SdLzr1WLEYcK7gvVkAOFn+eWL
-	 rggrkWiICeK5U2aCgZgPMLCgyg3wgKwfHUeqDh4TNiI7fDW7MsWqB1AVpgGVTzrxZtEu3
-	 vXhrlHAUTmIMI94JkuPXZcL4tYaocMEG6Rm+DkerJUTzFRw0fNUp5hQJPEHf+XNaZaqVq
-	 1BdB6SovPD3Evx5k+lUumLaOou1/1XNbpBGO16XQmA3k8OEcSJbSW53xbKsf6Ziqdaw==
+	t=1794590316;
+	b=iiuqa1uQ3behB3d2SGae7junqIfRFSflGsRR5asJ23qeFH+W5Bp6dHMt/ryi0iWWFln/
+	 1KDHZqwHtDX0Ykd/3wzZyW641LzlDFHWoewbsXryRjrE6xQiWI92xyLEIoz/hUuf+FYPG
+	 EZApLjmn5ipG1SZ1UTBPwHgKVOMs64giLIa4tfZioBWxpQTII/uRCVlXmSkKSR3tuCeJZ
+	 BPLYXyMi4/4/e68u5N/wzvVc1l6kEiTGd771bG2cZ9f195O17JkUNvACcjldbx9+7GPAW
+	 ZhmgwrU65waPk7jVpOYaHXBZjtm9Sew3TkfYagl100do3HgpPcZjM2azL9gaXW4EIVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794590314;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794590316;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=DoGiL5U0zs7GL2/JDFKi5D+u1zoCO0bvFJ6uJO6+43E=;
-	b=Pcq1y4sWOt+NG37CUjYJqg/haD/wliWz0gTWGtM8hGLrF9Rln3I5yN7Iujye5n2Hj9fk
-	 f/cPPFLpMPo5vTzkThnHbLo4WT5w0CwCi9pP2HhLqEnw3UMVtRmDOF2NGncImLj8deMMm
-	 zMzmIasNi3BdPFQ1IyQm5tanuO6H2x0ARlx1VnAQpLtgR5T/0Ii2drmYcia4sk074V0Zu
-	 IEKAXQdPkEDBJjTsfUeMhmbL8/dyXTJBkL94k/Qp8KMnvUmoj10i6F5bDogAIgiA76+nT
-	 zcguShINKq3n+51JucZnwNNPuIdpawWhSI1LABKT8LyvVMD3j/kul1otYypaiQ/Wcww==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Disposition:Message-ID:User-Agent;
+	bh=3C8tSwHqjzI+bnh3DElyKp/N4OUqkqrYjzdrA+UxunU=;
+	b=tcZMJsMdBiK64RMj6pJxjZCy2QYb0HJyNSHmrOd6nhowYF3VleDDGH8Ky9RZPaV5uYCt
+	 /OQLnX46QkKRwKgekgwpNlZ2gB6zm6KJ6CgEEbD2ndNMVoWQ4FBZr7jeHrUydlR7m+zBO
+	 +Fp4vWuBGadoAL+ARbGo4NJ0H7kKpDw6ZYSisjJY87p7iCOaLpz0PZGSsAJKPaZ9axAye
+	 +/FruXJVq/EnDF08EKas+9ylBa4PAcuHEE8XALZySff9i0Z/syddV7UsMCtx/AuOtN/Vg
+	 mSHxQbdqdo0rG/uq8kgqHZGqMdXuHyKzAXrhZTsjM9UMr9Rp3td6ldktBGXRLc/GB8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QlFLX8WG;
-	arc=none smtp.remote-ip=74.125.82.197
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	dmarc=pass header.from=chrisdown.name;
+	spf=pass smtp.mailfrom=chrisdown.name;
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=Js5JUeMr;
+	arc=none smtp.remote-ip=209.85.214.175
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B819607D2E8
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:18:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B819607D2E8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F09060A6F62
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:18:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F09060A6F62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QlFLX8WG
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-378722fd4a3so1400571eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:18:33 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=Js5JUeMr
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2ed3d8877e6so16350155ad.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:18:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794590312; x=1795195112; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DoGiL5U0zs7GL2/JDFKi5D+u1zoCO0bvFJ6uJO6+43E=;
-        b=QlFLX8WG0QiTbv1GLjKWe+J3fRlKx1AUN3rYaTTAYBb4Oqg/fXjeXtzUPZv0yV3OvA
-         yJCIBP6QrJysV8/YIBwmNT4crMzy5XyI3LPo2gGUrHRff41zKfqxnNTs8v5kFpAAkuPi
-         Lm09JL78DL3Do29VAE6ZoyoyXxy3pWA/ARZAp/5r8NEdDsgztrDE2TKQ1XS2jAYYeSNk
-         DFJXT/rqzqjSbaJI3tealCiZMYFY/L0PuT9YElk1Byk3KHzKoTiL6KvhavxHk1LrNdQk
-         KpJFJ7Bsq0u4dqdiIEWbRbpLtLnXrj0W+DUEH/X9MJQXKIS3JBzS/jZv6zziiHkgpRdc
-         fTFQ==
+        d=chrisdown.name; s=google; t=1794590316; x=1795195116; darn=vger.kernel.org;
+        h=user-agent:message-id:content-disposition:content-type:mime-version
+         :references:in-reply-to:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3C8tSwHqjzI+bnh3DElyKp/N4OUqkqrYjzdrA+UxunU=;
+        b=Js5JUeMr/jjG8IP4L7djYwEXs7HWQC/vfmV4sl1JPlvn9LC9U2xww308mqJNDLaSHu
+         p9pOkNTcXGvg3W5OPDDMmxc6H37fUHw2PpHb9j37/qvZuY2OH80rQS/SGOZY9ja0sxay
+         v8rKpl0Le67un0PBdA3AUEMpFtuEhUUfTvt2g=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794590312; x=1795195112;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DoGiL5U0zs7GL2/JDFKi5D+u1zoCO0bvFJ6uJO6+43E=;
-        b=UXiFWluenwcq8ktkwFftIJ8Bk6oG2PEkc9wDYdmGjIU0QP5Ix+mIX1BS0vxPrdq7s1
-         Hv82SLeIA7hlzh5VQpzvUmbojvynJ9RbTP/GidCvFXf+06Lsks0NxQOqtL0/4hQ++6gM
-         JldfK54q2hCPMT5i9CA9zC1FKPJa9B064hz/O3PRkxn4XKLYKse/W7BC/kmDglD5j2Fc
-         UeuanNpZPf7BINxKUtwdpuCg2qD/RMzp3phiZiNFK4f3YM92+K1I3FTc01nMwVNG98l+
-         AFc3WMAGOkkrstSRNEeXRo06dBij69LjHAyJX7vQb5iDYeP4GTSzzIaKm4NWz7ckY5wx
-         QcqQ==
-X-Forwarded-Encrypted: i=1; AL+hErHz+KCFZmQW4Jy64FP757sWPZ4w5xqAwZ2MboA1vWzzULH3jA/lihejTSQPoQnLJQXbGtTNlLqeebGyE3U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9fGVDF+NkhoqTbY2ZGtulgq1h/4IYGvfMy7gr1Mh6jF3FxPHYG
-	ZrQKrIKuOA0HnmyRpczAMatGffZxRMcD9P42U7a5/RHl/oKP+64bJIIAtJPx/SnfhMtP9mTsS88
-	ZSpRy4/nAXw==
-X-Received: from dybqo12.prod.google.com ([2002:a05:7301:678c:b0:35d:1771:4816])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:d814:b0:36f:be1f:1191
- with SMTP id 5a478bee46e88-37a8852abe3mr490970eec.29.1794590312071; Fri, 13
- Nov 2026 09:18:32 -0800 (PST)
-Date: Fri, 13 Nov 2026 09:17:25 -0800
-In-Reply-To: <20261113171734.2188066-1-irogers@google.com>
+        d=1e100.net; s=20260707; t=1794590316; x=1795195116;
+        h=user-agent:message-id:content-disposition:content-type:mime-version
+         :references:in-reply-to:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3C8tSwHqjzI+bnh3DElyKp/N4OUqkqrYjzdrA+UxunU=;
+        b=VoITFqYQnEkhCJ07jvV3g6CkHobunrirIAVadkpWzSDH900xJ4x4WCLXHVOheqaSmr
+         MlqNUa/4Ge+K/SvjTwW77NiqJfpokkoiY8Tj/ICJUdW/05xhRO1G73r7ua7BMH3tFkbJ
+         HmcPVXn9+6xOxb9fmLptqM0Hs3c0qGba7Num0cab4cP/Jon8bX+P6q29RwItEhsqEobS
+         R1/zFjLVTHblN/7cV8qrfm3RKc/dIZK+t+ROiNJF56J44HxFy21gCBhLylMFgSUrZK4+
+         H6FNiX+M4K5ueP4KszYKpGcmB6a9uHsUTc5ytL0XAQGmsmXBQdkAm+fRXlcgPnF6msnQ
+         mQZg==
+X-Forwarded-Encrypted: i=1; AL+hErGZqSh7oBMK4+vcuVSemvbykFNnM4b4WMgP57M0xfTL1Tq9HLDZiCn+cKl6vOmVbFjWfw7TRX+XbICskRY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8YxfgwXoReHiDUjHFZu48G1dhr4FJn1d3N3Mee7fAR7kZA/mTV
+	ezZMK/aaxqD4vJl5R9H83I996pZFEHWyalaj1zZHc5sKPPwGwO+pQC/0pSsyyBZyILw=
+X-Gm-Gg: AYBFou1mdKRrG2z3SfxSIeA8pQBsQspO5TtlwDL3Q/YU6p4A4wHXjVQGUduTcQ1pS6B
+	2z+NRGSXmI8eum4VYE13aemEnCmv9ValJzbNt3/xl+9STbnlK2GvAYv2osBgwzX2FsVTy24uiGx
+	f3iXt/UBv3fB8uQvpuWfno2Jc0naGtbaNzp7Q1FRCeHRk7IQCoNcmuximtZyK5h/WYzE1ZDb6s5
+	G/8A6+1u3VKex/XO6wEFrwJEbTNe8b9BgVxvSWiSzecILP1ohMZfiYXzF/+pg1yukmeVldr36QA
+	ZCagJ/jKoMW+fasfnQ+2gU7ASAJLKYfbxIcOZnDsKu9VTIdXIVMDdxhHiNHg7GBMZnt2E4DhOX0
+	Uswhdztrt1f1Qv7n6VM8gYPEcqlLTKHaVv2Oum/3NBcv3/rWhVbybe7Zn16SGHZUquWfaBjheSe
+	eRxxsGiUZKehamq6e7QI/80t3EDNm18a9mbq4QXb3oKLWXP1fRVTUjwf6nXeqJ52YbB9ZVfr5WL
+	5PV5B/djee2ANsn/WwB+5Id5b5PLVrWxgkapFbBqKbqrgsh+rM+vJ4DcYa8JQaozOJGRI1Wv71V
+	oslt5riNGJMgfHDTzAsrR3UMfocJuOJu271WeM3ZA08MN2X8siDpv6TrkfCcO4E7HGhmpIYBTLx
+	k3O2BJlgaA8f96bHSom7TkyWyVE+FBFcRaUbmUBSOoJCDuJw8CilzEdzXzwIGUFh/PhngmifpZu
+	A/+AwWf+SwZL0t/FLVyKT/rV3TkMLPnGoCiYo0iJhsNXB8lFLqqWwYj9wirGI=
+X-Received: by 2002:a17:902:e74c:b0:2e2:d77b:e586 with SMTP id d9443c01a7336-2ee0df12481mr33259215ad.60.1794590315817;
+        Fri, 13 Nov 2026 09:18:35 -0800 (PST)
+Received: from [172.22.0.2] ([50.175.87.158])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee10bdd1a4sm12923515ad.11.2026.11.13.09.18.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 09:18:35 -0800 (PST)
+Date: Fri, 13 Nov 2026 09:18:33 -0800
+From: Chris Down <chris@chrisdown.name>
+To: Usama Arif <usama.arif@linux.dev>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>, davem@davemloft.net, terrelln@fb.com, dsterba@suse.com, hannes@cmpxchg.org, yosry@kernel.org, nphamcs@gmail.com, chengming.zhou@linux.dev, Andrew Morton <akpm@linux-foundation.org>, linux-crypto@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, riel@surriel.com, shakeel.butt@linux.dev, kernel-team@meta.com
+Subject: Re: [PATCH 2/2] crypto: deflate - use vmalloc() for stream workspaces
+In-Reply-To: <20261111153532.1036709-3-usama.arif@linux.dev>
+References: <20261111153532.1036709-1-usama.arif@linux.dev> <20261111153532.1036709-3-usama.arif@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,117 +93,17 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261110220803.2503416-1-irogers@google.com> <20261113171734.2188066-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <20261113171734.2188066-15-irogers@google.com>
-Subject: [PATCH v4 14/23] perf demangle: Add fast-path prefix checks for Rust
- and Java demanglers
-From: Ian Rogers <irogers@google.com>
-To: irogers@google.com, acme@kernel.org, haghdoost@uber.com, 
-	namhyung@kernel.org
-Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org, 
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
-	mingo@redhat.com, peterz@infradead.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
+Message-ID: <20261113091833.6dccf0e5ea9aef18@chrisdown.name>
+User-Agent: Mutt/2.4.3 (cc9e3943) (2026-10-09)
 
-During DSO symbol loading in dso__load_sym_internal(), dso__demangle_sym()
-is called for every ELF symbol. Both rust_demangle_demangle() and
-java_demangle_sym() previously performed string searches or buffer
-allocations before checking whether the symbol name could possibly be a
-mangled Rust or Java symbol, adding unnecessary overhead on plain C
-symbols.
+Hi Usama,
 
-Add fast-path prefix checks in dso__demangle_sym() before calling
-rust_demangle_demangle() (using strstarts() for '_ZN', 'ZN', '__ZN',
-'_R', 'R', or '__R', keeping demangle-rust-v0.c unmodified relative to
-upstream rustc-demangle) and in java_demangle_sym() (requiring 'L', ';',
-'(', and ')') to reject non-Rust and non-Java symbol names immediately.
+Thanks! I've tested this with zswap using deflate, and it works well.
 
-Using 'perf bench internals symbols':
+Reviewed-by: Chris Down <chris@chrisdown.name>
+Tested-by: Chris Down <chris@chrisdown.name>
 
-  Before (perf binary):
-    Average DSO load + sort: 7.348 msec (+- 0.069 msec)
-  After (perf binary, -4.2%):
-    Average DSO load + sort: 7.041 msec (+- 0.051 msec)
-
-  Before (libLLVM.so.21.1):
-    Average DSO load + sort: 81.196 msec (+- 0.780 msec)
-  After (libLLVM.so.21.1, -3.2%):
-    Average DSO load + sort: 78.599 msec (+- 0.857 msec)
-
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- tools/perf/util/demangle-java.c | 23 +++++++++++++++++++++--
- tools/perf/util/symbol.c        | 15 ++++++++++++++-
- 2 files changed, 35 insertions(+), 3 deletions(-)
-
-diff --git a/tools/perf/util/demangle-java.c b/tools/perf/util/demangle-java.c
-index c3cb327ed562..5625c4de39eb 100644
---- a/tools/perf/util/demangle-java.c
-+++ b/tools/perf/util/demangle-java.c
-@@ -158,14 +158,33 @@ char *
- java_demangle_sym(const char *str, int flags)
- {
- 	char *buf, *ptr;
--	const char *p;
-+	const char *l, *semi, *open, *p;
- 	size_t len, l1 = 0;
- 
- 	if (!str)
- 		return NULL;
- 
-+	/*
-+	 * OpenJDK JIT symbols have the form:
-+	 *   [prefix]L<class>;<method>(<args>)<return_type>
-+	 * where the return type (such as 'I' for int or 'V' for void) is at the
-+	 * end after ')'. In __demangle_java_sym(), the parser starts in
-+	 * MODE_PREFIX and only reaches MODE_TYPE (required when ')' is reached)
-+	 * via 'L' (MODE_CLASS) -> ';' (MODE_FUNC) -> '(' (MODE_TYPE). Verify
-+	 * those delimiters appear in order before allocating the output buffer.
-+	 */
-+	l = strchr(str, 'L');
-+	if (!l)
-+		return NULL;
-+	semi = strchr(l + 1, ';');
-+	if (!semi)
-+		return NULL;
-+	open = strchr(semi + 1, '(');
-+	if (!open)
-+		return NULL;
-+
- 	/* find start of return type */
--	p = strrchr(str, ')');
-+	p = strrchr(open + 1, ')');
- 	if (!p)
- 		return NULL;
- 
-diff --git a/tools/perf/util/symbol.c b/tools/perf/util/symbol.c
-index 0deda26181e0..cea8b9db8cd3 100644
---- a/tools/perf/util/symbol.c
-+++ b/tools/perf/util/symbol.c
-@@ -2732,7 +2732,20 @@ char *dso__demangle_sym(struct dso *dso, int kmodule, const char *elf_name)
- 	if (!want_demangle((dso && dso__kernel(dso)) || kmodule))
- 		return demangled;
- 
--	rust_demangle_demangle(elf_name, &rust_demangle);
-+	/*
-+	 * Rust mangled symbols start with one of the prefixes checked by
-+	 * rust_demangle_legacy_demangle() ("_ZN", Windows dbghelp "ZN", or
-+	 * macOS "__ZN") or rust_demangle_v0_demangle() ("_R", Windows dbghelp
-+	 * "R", or macOS "__R") in demangle-rust-v0.c. Check the prefix here so
-+	 * we avoid calling rust_demangle_demangle() (which scans the entire
-+	 * symbol name with strstr() and strlen() for ThinLTO ".llvm." suffixes)
-+	 * on non-Rust symbols, while keeping demangle-rust-v0.c unmodified
-+	 * relative to upstream rustc-demangle.
-+	 */
-+	if (strstarts(elf_name, "_ZN") || strstarts(elf_name, "ZN") ||
-+	    strstarts(elf_name, "__ZN") || strstarts(elf_name, "_R") ||
-+	    strstarts(elf_name, "R") || strstarts(elf_name, "__R"))
-+		rust_demangle_demangle(elf_name, &rust_demangle);
- 	if (rust_demangle_is_known(&rust_demangle)) {
- 		/* A rust mangled name. */
- 		if (rust_demangle.mangled_len == 0)
--- 
-2.56.1.703.gf848ed807c-goog
-
+Chris
