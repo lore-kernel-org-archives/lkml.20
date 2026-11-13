@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794590295;
-	b=kss26w6LoHwTG/csPXdzE9FO5FPn9yPsve0T2xGYeAklpL8wqgVTh9fPkGwP8S7V1FQN
-	 h1pjkOuTy9/Gr48n8R2TzcsztpX5UVqAZQLHcrAe7a0uf3ddSNFR9lfSDjT7p1xUuDJDY
-	 nLX0FP+9916lnhEN/R6tuOc7MqCVWheQ4pSzsNzkvQxHWZfe0Lmn9Y5GwHQwmstUjsTR5
-	 ZXFT0dDRNbJP7IuJ6ndOPT4bUNINJ0/25VwQFbI396+6UxCkPEIOLWta079JvYsm/0lu0
-	 HE4cZUrOeFLuX3fwDo3xgblBwMkrHn7+Ik9tnMiKL/LvA4Pck4ZfXkGLdcZSesSgxOg==
+	t=1794590298;
+	b=fpBcVcE8li8xW3cerwPpdtE6Jnqn9DS1s9kgjudeo/HNyzm2/OQeaZRnZ8j1JVqy1fET
+	 dVBmGUHkKEzyvHiDgZysp6yU9JdSGTp3rxUoqESz+qCSeqF5j3D1XmkIboH3Pzg9PEkbW
+	 585uyUP053krChZXyj/S+1S9GaWP/Yl28rIOHh6zl4e4Z3nXwlpIdCODPYH03GK4GMgvA
+	 trYsCDCAX6ZM+wFJamZTXkI0ML8wmlBXXfM9OBSNjqAKaQuFdh2FSGwEaQ67V9rsKbDav
+	 u0uyQw9EzaPrFZK8WgJyB3kPyuBiSGtWYKnvjspRt5l09FlB3vPlR133yS3RuJGr6PQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794590295;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794590298;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=FqXrkekpazBGo74ROnhtZH/D/ijqIvj3BVMdkvQVaV4=;
-	b=RXQ6VAqwhu2KXxYPIF1aNz+47is8V7WvXRYLC1iK/h2Fwy4zziT/BPr83a++PJ2sqKmo
-	 Ka5kujbPEpOPtOERd/FDl8loCaWs1b8ZLOSnNDQqsJNYwRLzWPgY1aYXflWNx40vDnA1+
-	 UQQuwgrixKCtejYljtaq7nTkGtydBFCztf/+ABOUthwNRwr9z5UdcJqrGEPJGMBTX+ikT
-	 e4YRztDcf2glFYSz8cuCbmxTYlNbjW5FjPLvg+FeXR7TtSlp6B5ZjKjAMPbMioGwkZaiL
-	 6wdUP7dVpBO+I2hiQ8RYmFbinc9J17uo7e4BJrxbkd17qFw3ckdDMh/h7JH+oyU5mhg==
+	bh=LfmvgJ8zXPzDcftv5hcZCrY722xC0w4EaMV4OCmiF2k=;
+	b=0uEYDOjyKFKDtyGl/hUElhJaNKG0jOHJUO/HHAvPSM7Y6n+/Usae/piZZkX8l4RSqxhN
+	 VGdgCg2zurNtgZV6yAlWv3TJm6WOku7vJfDWjPkYETiUHZmzKgnLZsTQj0SjC4baeozLL
+	 uTSY5kmFF26s/vcRZ0yc0u7RO1SdpBKzp/xuokhMd6s44ZLoH7bI2hDmkXtlu4lsKSJmU
+	 HABLZ3c7dPdSAULDuEPjz/ELq1nMJopq2oKDuzxd5kk5XfZhMKVLhsus6SrvwULk1ke7p
+	 i2OggZoDbajfIvgt365vDcdGa+FRc2pLxG+PujBP4+306pXaMficvWTAzTu3KXzSQSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UMyk5pVl;
-	arc=none smtp.remote-ip=209.85.160.72
-Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AI2zA2bg;
+	arc=none smtp.remote-ip=74.125.82.69
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69D80607B599
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:18:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69D80607B599
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE604607B5AF
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:18:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE604607B5AF
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UMyk5pVl
-Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-4adc1aca8c2so1371184fac.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:18:15 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AI2zA2bg
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1b25d977b91so980365c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:18:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794590294; x=1795195094; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794590297; x=1795195097; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FqXrkekpazBGo74ROnhtZH/D/ijqIvj3BVMdkvQVaV4=;
-        b=UMyk5pVlrfLZcmWajc9eoQ5rqc8ncqPc1DnN4iLD5fs01dI25x1QkSlq9L5TCL1Uur
-         PEYxbFUv/iBEXKfkOWnpnShY52WmxMChZzHyev2tON/wlCgpQ17aPPB9GPF6dlKg29ol
-         QdW7/tnSNek87lrNfrOyoFQaqGav+K7EMCr7Yx5xrAPsbRalZrrI/JQRYdTqWqq1gD3x
-         sgSrfEgHa+MTbtaw+8XkszlHkXcyyQ4jJ6U/yjnLy8OkujERIvTJJzd3JhvG/fM4MGGL
-         kT5fhFALvoyj1TtlhV8nIb731cU4s7K8iQLo8aIza0oiJ3KJ30OtTYps0biT2KvmzkKc
-         9IGw==
+        bh=LfmvgJ8zXPzDcftv5hcZCrY722xC0w4EaMV4OCmiF2k=;
+        b=AI2zA2bgN4NQ3mFkZBMRZhl4X5niivJHOuZmf2Gtv7X3oJ1tWLLFviFhcemZg9zGV3
+         gfeI3p1sZocasYbVZb4cE9IiC7RXn+6ZlHBDpjqakywuXxJlrpVdl6+OTWf56LSSviBg
+         h896f0xHN5huYxkipJ31xrN3fQimQxwOLoDt6QbW+DmS8wjd0cJZvqegRPVUkaFDPVG2
+         BG73fovp6kW7pRLcxNxUaXO1BPIrx5yXEmxbwTD76r7J5EphYGjhfm+wz3sEV9DcpkhC
+         TeSqzKC6xodbcpSpfuMIDGnGtms+jf2WkuXVuuvE3ObFXZRkK+oHL+sDxATHu0+8voqX
+         HWzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794590294; x=1795195094;
+        d=1e100.net; s=20260707; t=1794590297; x=1795195097;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FqXrkekpazBGo74ROnhtZH/D/ijqIvj3BVMdkvQVaV4=;
-        b=jtqeHUQqY1cN3Zsa9Bh4Npke3M3NSFNFPBKBDu4X8LOjtAZY3/xIeoA5P5pYN4bzE1
-         QctbJWS6L1jzTl79rDOzpi2mCAOYlpzlWcfKfYczeV0rHafJ+QZqRBO0Ty9WMYWdF2JU
-         JdwKWXfNtFCXt4ig+iNy8RNsnL1z18BcIydnzfhyR/2VePvnuJ1uAdTnoEJkQ7Rh/9nK
-         ou7wgO8ffL7it7TLZbT9EAoAxY2KMvKjsulBj+KFgs6VcdTfilC8xgG3t42DZSxGRwu/
-         qw0ZwkY+dPFDBAxdYRmj2leBX7OWRYAzTh5t9agMQL1a1DUxMsJ6hiP312laKCApnCq/
-         +gPg==
-X-Forwarded-Encrypted: i=1; AL+hErGSgPlcu8cZkFjvOZtgDY+A6c40iJUu6nAFA+3Tc87Mk83ha60i7kxwJTXYTRmJhnkO38EhgAnWYPvO/uc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/hJBRZlaDrpsOje1k6aMDaoGyu5tV46ZrwEWt66C+oKrhNKzZ8
-	lMuo5f481Tk6nDDeNNZujeq/SMdQM8FSI53RnclQBMNc2UU78O3/niahQXIjTFsql6jyvmCJUFX
-	5kaXXXG825g==
-X-Received: from ioeu21.prod.google.com ([2002:a05:6602:2415:b0:9c7:5b22:eaaa])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6808:e88:b0:564:3fe1:2f95
- with SMTP id 5614622812f47-56e66063859mr2434950b6e.56.1794590294004; Fri, 13
- Nov 2026 09:18:14 -0800 (PST)
-Date: Fri, 13 Nov 2026 09:17:18 -0800
+        bh=LfmvgJ8zXPzDcftv5hcZCrY722xC0w4EaMV4OCmiF2k=;
+        b=GnSNs/hOYWVtXYO8sD/v50HsN/ouzheF41s4mEhLyCJUqke5T70j/v2DFIxwf3bBuh
+         gD3xgmnctIREa/N63OvnnaxxY+T1Ekq+NEcNi5bgOtal5TsQC1U54oSAXqIrlRGFhl58
+         s96tzQTsbJuL5jl27HntDKEwTHN3HKO3kELbrIxb+tavO/r568v/HOUAPHTfQvuSn1sm
+         fqy23Gs9HYyqetlYjIfafffHP4Iks+pxEl9Ol5XUACxLIeL6uhP9pInwVmpJFd/hJG6B
+         PUqTa4upev7XveUi3EJNJO5LRreN9RIxVHAqdjlsQnx9vgew5DHHw+VKrN+awXoNFvAr
+         aVag==
+X-Forwarded-Encrypted: i=1; AL+hErGb3fSs77Z3jd5sXWU0VOvI/fIkVIJz7iTFEAtZ9qhtl3WpT8mITLuKGvMsQwycPjJlZRlbNkizWeYR+10=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/hm0C65ZgOgyDsmEKskaYre++BjSmti3e457zmbAiiSaa+GI48
+	VjblP96IhffYXEvtT7dGa/aHPWP340RaEGqfKTMyMPegE+cYthNO16RNThysr1QPxaPu11j6B4v
+	VfaemFUvTOA==
+X-Received: from dlbts23-n1.prod.google.com ([2002:a05:7022:b057:10b0:1b5:9e8:8738])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:3a87:b0:1a0:b8f5:872d
+ with SMTP id a92af1059eb24-1b5030683c8mr3120717c88.4.1794590296584; Fri, 13
+ Nov 2026 09:18:16 -0800 (PST)
+Date: Fri, 13 Nov 2026 09:17:19 -0800
 In-Reply-To: <20261113171734.2188066-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,9 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261110220803.2503416-1-irogers@google.com> <20261113171734.2188066-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <20261113171734.2188066-8-irogers@google.com>
-Subject: [PATCH v4 07/23] perf rwsem: Add down_read_trylock() and down_write_trylock()
+Message-ID: <20261113171734.2188066-9-irogers@google.com>
+Subject: [PATCH v4 08/23] perf map_symbol: Add struct dso_symbol and use for
+ parent symbols
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, haghdoost@uber.com, 
 	namhyung@kernel.org
@@ -91,109 +92,548 @@ Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org,
 	mingo@redhat.com, peterz@infradead.org
 Content-Type: text/plain; charset="UTF-8"
 
-On-demand memory shrinking (perf_session__shrink(), dsos__shrink(),
-symbols__shrink()) can be triggered from OOM recovery inside allocation
-wrappers while the current thread already holds a rw_semaphore (such as
-symbols->lock, dsos->lock, or machines->lock). Non-blocking trylock
-primitives are needed so shrinking paths can safely skip any locked
-container without deadlocking.
+A struct symbol's lifetime is owned by the struct dso containing its
+symbol table rather than by an individual struct map. When retaining a
+symbol pointer beyond the scope of a temporary addr_location or map
+reference without holding the map itself, the owning struct dso must be
+refcounted alongside the symbol pointer.
 
-Add non-blocking down_read_trylock() and down_write_trylock() wrappers
-around pthread_rwlock_tryrdlock() / pthread_rwlock_trywrlock() and
-pthread_mutex_trylock() along with SHARED_TRYLOCK_FUNCTION and
-EXCLUSIVE_TRYLOCK_FUNCTION thread-safety annotations.
+Introduce struct dso_symbol pairing a refcounted struct dso * with a
+struct symbol *, along with dso_symbol__copy(), dso_symbol__exit(), and
+dso_symbol__from_al() lifecycle helpers in map_symbol.[ch].
+
+Convert parent symbol tracking across callchain resolution,
+hist_entry_iter, and hist_entry from bare struct symbol * pointers to
+struct dso_symbol so that parent symbols pin their owning DSOs until the
+iterator or histogram entry is destroyed. Also drop the unused
+perf_session__resolve_callchain() prototype from session.h.
 
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/util/mutex.h |  3 +++
- tools/perf/util/rwsem.c | 20 ++++++++++++++++++++
- tools/perf/util/rwsem.h | 11 +++++++++++
- 3 files changed, 34 insertions(+)
+ tools/perf/ui/stdio/hist.c   |  4 ++--
+ tools/perf/util/callchain.c  |  3 ++-
+ tools/perf/util/callchain.h  |  3 ++-
+ tools/perf/util/hist.c       | 31 +++++++++++++++++++------------
+ tools/perf/util/hist.h       |  8 ++++----
+ tools/perf/util/machine.c    | 36 +++++++++++++++++++++++-------------
+ tools/perf/util/machine.h    |  5 +++--
+ tools/perf/util/map_symbol.c | 30 ++++++++++++++++++++++++++++++
+ tools/perf/util/map_symbol.h | 11 +++++++++++
+ tools/perf/util/session.h    |  6 ------
+ tools/perf/util/sort.c       |  6 +++---
+ 11 files changed, 99 insertions(+), 44 deletions(-)
 
-diff --git a/tools/perf/util/mutex.h b/tools/perf/util/mutex.h
-index 5de1065ea2b9..de7dd6d8326c 100644
---- a/tools/perf/util/mutex.h
-+++ b/tools/perf/util/mutex.h
-@@ -57,6 +57,8 @@
- /* Documents functions that try to acquire a lock, and return success or failure. */
- #define EXCLUSIVE_TRYLOCK_FUNCTION(...) \
- 	__attribute__((exclusive_trylock_function(__VA_ARGS__)))
-+#define SHARED_TRYLOCK_FUNCTION(...) \
-+	__attribute__((shared_trylock_function(__VA_ARGS__)))
+diff --git a/tools/perf/ui/stdio/hist.c b/tools/perf/ui/stdio/hist.c
+index 8c4c8925df2c..3240c39bd025 100644
+--- a/tools/perf/ui/stdio/hist.c
++++ b/tools/perf/ui/stdio/hist.c
+@@ -424,7 +424,7 @@ int __hist_entry__snprintf(struct hist_entry *he, struct perf_hpp *hpp,
+ 	int ret;
+ 	bool first = true;
  
- /* Documents a function that expects a mutex to be held prior to entry. */
- #define EXCLUSIVE_LOCKS_REQUIRED(...) __attribute__((exclusive_locks_required(__VA_ARGS__)))
-@@ -78,6 +80,7 @@
- #define SHARED_LOCK_FUNCTION(...)
- #define UNLOCK_FUNCTION(...)
- #define EXCLUSIVE_TRYLOCK_FUNCTION(...)
-+#define SHARED_TRYLOCK_FUNCTION(...)
- #define EXCLUSIVE_LOCKS_REQUIRED(...)
- #define SHARED_LOCKS_REQUIRED(...)
- #define NO_THREAD_SAFETY_ANALYSIS
-diff --git a/tools/perf/util/rwsem.c b/tools/perf/util/rwsem.c
-index 1d15c0e3732b..9548a3b44f16 100644
---- a/tools/perf/util/rwsem.c
-+++ b/tools/perf/util/rwsem.c
-@@ -36,6 +36,16 @@ int down_read(struct rw_semaphore *sem)
- #endif
+-	if (symbol_conf.exclude_other && !he->parent)
++	if (symbol_conf.exclude_other && !he->parent.sym)
+ 		return 0;
+ 
+ 	perf_hpp_list__for_each_format(hpp_list, fmt) {
+@@ -471,7 +471,7 @@ static int hist_entry__hierarchy_fprintf(struct hist_entry *he,
+ 	int ret, printed = 0;
+ 	bool first = true;
+ 
+-	if (symbol_conf.exclude_other && !he->parent)
++	if (symbol_conf.exclude_other && !he->parent.sym)
+ 		return 0;
+ 
+ 	ret = scnprintf(hpp->buf, hpp->size, "%*s", he->depth * HIERARCHY_INDENT, "");
+diff --git a/tools/perf/util/callchain.c b/tools/perf/util/callchain.c
+index 6d5212be466d..4e4696cfa6d4 100644
+--- a/tools/perf/util/callchain.c
++++ b/tools/perf/util/callchain.c
+@@ -1170,7 +1170,8 @@ int callchain_cursor_append(struct callchain_cursor *cursor,
  }
  
-+bool down_read_trylock(struct rw_semaphore *sem)
-+	NO_THREAD_SAFETY_ANALYSIS
-+{
-+#if RWS_ERRORCHECK
-+	return mutex_trylock(&sem->mtx);
-+#else
-+	return pthread_rwlock_tryrdlock(&sem->lock) == 0;
-+#endif
-+}
-+
- int up_read(struct rw_semaphore *sem)
- 	NO_THREAD_SAFETY_ANALYSIS
+ int sample__resolve_callchain(struct perf_sample *sample,
+-			      struct callchain_cursor *cursor, struct symbol **parent,
++			      struct callchain_cursor *cursor,
++			      struct dso_symbol *parent,
+ 			      struct addr_location *al,
+ 			      int max_stack)
  {
-@@ -58,6 +68,16 @@ int down_write(struct rw_semaphore *sem)
- #endif
+diff --git a/tools/perf/util/callchain.h b/tools/perf/util/callchain.h
+index 8b1e405d1cdf..23f59b389799 100644
+--- a/tools/perf/util/callchain.h
++++ b/tools/perf/util/callchain.h
+@@ -242,7 +242,8 @@ int record_opts__parse_callchain(struct record_opts *record,
+ 				 const char *arg, bool unset);
+ 
+ int sample__resolve_callchain(struct perf_sample *sample,
+-			      struct callchain_cursor *cursor, struct symbol **parent,
++			      struct callchain_cursor *cursor,
++			      struct dso_symbol *parent,
+ 			      struct addr_location *al,
+ 			      int max_stack);
+ int hist_entry__append_callchain(struct hist_entry *he, struct perf_sample *sample);
+diff --git a/tools/perf/util/hist.c b/tools/perf/util/hist.c
+index 364754e9d12a..d516ce469c7e 100644
+--- a/tools/perf/util/hist.c
++++ b/tools/perf/util/hist.c
+@@ -119,8 +119,8 @@ void hists__calc_col_len(struct hists *hists, struct hist_entry *h)
+ 		hists__new_col_len(hists, HISTC_DSO, len);
+ 	}
+ 
+-	if (h->parent)
+-		hists__new_col_len(hists, HISTC_PARENT, h->parent->namelen);
++	if (h->parent.sym)
++		hists__new_col_len(hists, HISTC_PARENT, h->parent.sym->namelen);
+ 
+ 	if (h->branch_info) {
+ 		if (h->branch_info->from.ms.sym) {
+@@ -543,6 +543,7 @@ static int hist_entry__init(struct hist_entry *he,
+ 
+ 	he->ms.thread = thread__get(he->ms.thread);
+ 	he->ms.map = map__get(he->ms.map);
++	dso_symbol__copy(&he->parent, &template->parent);
+ 
+ 	if (he->branch_info) {
+ 		/*
+@@ -616,6 +617,7 @@ static int hist_entry__init(struct hist_entry *he,
+ 	if (he->mem_info)
+ 		mem_info__zput(he->mem_info);
+ err:
++	dso_symbol__exit(&he->parent);
+ 	map_symbol__exit(&he->ms);
+ 	zfree(&he->stat_acc);
+ 	return -ENOMEM;
+@@ -796,7 +798,7 @@ static void hists__res_sample(struct hist_entry *he, struct perf_sample *sample)
+ static struct hist_entry*
+ __hists__add_entry(struct hists *hists,
+ 		   struct addr_location *al,
+-		   struct symbol *sym_parent,
++		   const struct dso_symbol *sym_parent,
+ 		   struct branch_info *bi,
+ 		   struct mem_info *mi,
+ 		   struct kvm_info *ki,
+@@ -835,8 +837,9 @@ __hists__add_entry(struct hists *hists,
+ 			.weight3 = sample->weight3,
+ 			.latency = al->latency,
+ 		},
+-		.parent = sym_parent,
+-		.filtered = symbol__parent_filter(sym_parent) | al->filtered,
++		.parent = sym_parent ? *sym_parent : (struct dso_symbol){},
++		.filtered = symbol__parent_filter(sym_parent ? sym_parent->sym : NULL) |
++			    al->filtered,
+ 		.hists	= hists,
+ 		.branch_info = bi,
+ 		.mem_info = mi,
+@@ -862,7 +865,7 @@ __hists__add_entry(struct hists *hists,
+ 
+ struct hist_entry *hists__add_entry(struct hists *hists,
+ 				    struct addr_location *al,
+-				    struct symbol *sym_parent,
++				    const struct dso_symbol *sym_parent,
+ 				    struct branch_info *bi,
+ 				    struct mem_info *mi,
+ 				    struct kvm_info *ki,
+@@ -876,7 +879,7 @@ struct hist_entry *hists__add_entry(struct hists *hists,
+ struct hist_entry *hists__add_entry_ops(struct hists *hists,
+ 					struct hist_entry_ops *ops,
+ 					struct addr_location *al,
+-					struct symbol *sym_parent,
++					const struct dso_symbol *sym_parent,
+ 					struct branch_info *bi,
+ 					struct mem_info *mi,
+ 					struct kvm_info *ki,
+@@ -957,7 +960,7 @@ iter_add_single_mem_entry(struct hist_entry_iter *iter, struct addr_location *al
+ 	 */
+ 	sample->period = cost;
+ 
+-	he = hists__add_entry(hists, al, iter->parent, NULL, mi, NULL,
++	he = hists__add_entry(hists, al, &iter->parent, NULL, mi, NULL,
+ 			      sample, true);
+ 	if (!he)
+ 		return -ENOMEM;
+@@ -1057,7 +1060,7 @@ iter_add_next_branch_entry(struct hist_entry_iter *iter, struct addr_location *a
+ 	sample->period = 1;
+ 	sample->weight = bi[i].flags.cycles ? bi[i].flags.cycles : 1;
+ 
+-	he = hists__add_entry(hists, al, iter->parent, &bi[i], NULL, NULL,
++	he = hists__add_entry(hists, al, &iter->parent, &bi[i], NULL, NULL,
+ 			      sample, true);
+ 	if (he == NULL)
+ 		return -ENOMEM;
+@@ -1109,7 +1112,7 @@ iter_add_single_normal_entry(struct hist_entry_iter *iter, struct addr_location
+ 	struct evsel *evsel = sample->evsel;
+ 	struct hist_entry *he;
+ 
+-	he = hists__add_entry(evsel__hists(evsel), al, iter->parent, NULL, NULL,
++	he = hists__add_entry(evsel__hists(evsel), al, &iter->parent, NULL, NULL,
+ 			      NULL, sample, true);
+ 	if (he == NULL)
+ 		return -ENOMEM;
+@@ -1174,7 +1177,7 @@ iter_add_single_cumulative_entry(struct hist_entry_iter *iter,
+ 	struct hist_entry *he;
+ 	int err = 0;
+ 
+-	he = hists__add_entry(hists, al, iter->parent, NULL, NULL, NULL,
++	he = hists__add_entry(hists, al, &iter->parent, NULL, NULL, NULL,
+ 			      sample, true);
+ 	if (he == NULL)
+ 		return -ENOMEM;
+@@ -1277,7 +1280,7 @@ iter_add_next_cumulative_entry(struct hist_entry_iter *iter,
+ 		}
+ 	}
+ 
+-	he = hists__add_entry(evsel__hists(evsel), al, iter->parent, NULL, NULL,
++	he = hists__add_entry(evsel__hists(evsel), al, &iter->parent, NULL, NULL,
+ 			      NULL, sample, false);
+ 	if (he == NULL)
+ 		return -ENOMEM;
+@@ -1340,12 +1343,14 @@ int hist_entry_iter__add(struct hist_entry_iter *iter, struct addr_location *al,
+ 	int err, err2;
+ 	struct map *alm = NULL;
+ 
++	dso_symbol__exit(&iter->parent);
+ 	if (al)
+ 		alm = map__get(al->map);
+ 
+ 	err = sample__resolve_callchain(iter->sample, get_tls_callchain_cursor(), &iter->parent,
+ 					al, max_stack_depth);
+ 	if (err) {
++		dso_symbol__exit(&iter->parent);
+ 		map__put(alm);
+ 		return err;
+ 	}
+@@ -1381,6 +1386,7 @@ int hist_entry_iter__add(struct hist_entry_iter *iter, struct addr_location *al,
+ 	if (!err)
+ 		err = err2;
+ 
++	dso_symbol__exit(&iter->parent);
+ 	map__put(alm);
+ 
+ 	return err;
+@@ -1468,6 +1474,7 @@ void hist_entry__delete(struct hist_entry *he)
+ 
+ 	thread__zput(he->thread);
+ 	map_symbol__exit(&he->ms);
++	dso_symbol__exit(&he->parent);
+ 
+ 	if (he->branch_info) {
+ 		branch_info__exit(he->branch_info);
+diff --git a/tools/perf/util/hist.h b/tools/perf/util/hist.h
+index 0d08011aebce..4553365b3d8c 100644
+--- a/tools/perf/util/hist.h
++++ b/tools/perf/util/hist.h
+@@ -159,7 +159,7 @@ struct hist_entry_iter {
+ 
+ 	struct perf_sample *sample;
+ 	struct hist_entry *he;
+-	struct symbol *parent;
++	struct dso_symbol parent;
+ 
+ 	struct mem_info *mi;
+ 	struct branch_info *bi;
+@@ -292,7 +292,7 @@ struct hist_entry {
+ 	};
+ 	char			*srcline;
+ 	char			*srcfile;
+-	struct symbol		*parent;
++	struct dso_symbol	parent;
+ 	struct branch_info	*branch_info;
+ 	long			time;
+ 	struct hists		*hists;
+@@ -350,7 +350,7 @@ static inline void hist_entry__add_pair(struct hist_entry *pair,
+ 
+ struct hist_entry *hists__add_entry(struct hists *hists,
+ 				    struct addr_location *al,
+-				    struct symbol *parent,
++				    const struct dso_symbol *parent,
+ 				    struct branch_info *bi,
+ 				    struct mem_info *mi,
+ 				    struct kvm_info *ki,
+@@ -360,7 +360,7 @@ struct hist_entry *hists__add_entry(struct hists *hists,
+ struct hist_entry *hists__add_entry_ops(struct hists *hists,
+ 					struct hist_entry_ops *ops,
+ 					struct addr_location *al,
+-					struct symbol *sym_parent,
++					const struct dso_symbol *sym_parent,
+ 					struct branch_info *bi,
+ 					struct mem_info *mi,
+ 					struct kvm_info *ki,
+diff --git a/tools/perf/util/machine.c b/tools/perf/util/machine.c
+index a300f3c1f5a4..5b4550e97172 100644
+--- a/tools/perf/util/machine.c
++++ b/tools/perf/util/machine.c
+@@ -2236,7 +2236,7 @@ static int append_inlines(struct callchain_cursor *cursor, struct map_symbol *ms
+ 
+ static int add_callchain_ip(struct thread *thread,
+ 			    struct callchain_cursor *cursor,
+-			    struct symbol **parent,
++			    struct dso_symbol *parent,
+ 			    struct addr_location *root_al,
+ 			    u8 *cpumode,
+ 			    u64 ip,
+@@ -2279,6 +2279,8 @@ static int add_callchain_ip(struct thread *thread,
+ 				 * Discard all.
+ 				 */
+ 				callchain_cursor_reset(cursor);
++				if (parent)
++					dso_symbol__exit(parent);
+ 				err = 1;
+ 				goto out;
+ 			}
+@@ -2291,10 +2293,12 @@ static int add_callchain_ip(struct thread *thread,
+ 	}
+ 
+ 	if (al.sym != NULL) {
+-		if (perf_hpp_list.parent && !*parent &&
+-		    symbol__match_regex(al.sym, &parent_regex))
+-			*parent = al.sym;
+-		else if (have_ignore_callees && root_al &&
++		if (perf_hpp_list.parent && parent && !parent->sym &&
++		    symbol__match_regex(al.sym, &parent_regex)) {
++			struct dso_symbol ds = dso_symbol__from_al(&al);
++
++			dso_symbol__copy(parent, &ds);
++		} else if (have_ignore_callees && root_al &&
+ 		  symbol__match_regex(al.sym, &ignore_callees_regex)) {
+ 			/* Treat this symbol as the root,
+ 			   forgetting its callees. */
+@@ -2418,7 +2422,7 @@ static int remove_loops(struct branch_entry *l, int nr,
+ static int lbr_callchain_add_kernel_ip(struct thread *thread,
+ 				       struct callchain_cursor *cursor,
+ 				       struct perf_sample *sample,
+-				       struct symbol **parent,
++				       struct dso_symbol *parent,
+ 				       struct addr_location *root_al,
+ 				       u64 branch_from,
+ 				       bool callee, int end,
+@@ -2484,7 +2488,7 @@ static void save_lbr_cursor_node(struct thread *thread,
+ static int lbr_callchain_add_lbr_ip(struct thread *thread,
+ 				    struct callchain_cursor *cursor,
+ 				    struct perf_sample *sample,
+-				    struct symbol **parent,
++				    struct dso_symbol *parent,
+ 				    struct addr_location *root_al,
+ 				    u64 *branch_from,
+ 				    bool callee,
+@@ -2752,7 +2756,7 @@ static bool alloc_lbr_stitch(struct thread *thread, unsigned int max_lbr)
+ static int resolve_lbr_callchain_sample(struct thread *thread,
+ 					struct callchain_cursor *cursor,
+ 					struct perf_sample *sample,
+-					struct symbol **parent,
++					struct dso_symbol *parent,
+ 					struct addr_location *root_al,
+ 					int max_stack,
+ 					unsigned int max_lbr,
+@@ -2839,7 +2843,7 @@ static int resolve_lbr_callchain_sample(struct thread *thread,
+ 
+ static int find_prev_cpumode(struct ip_callchain *chain, struct thread *thread,
+ 			     struct callchain_cursor *cursor,
+-			     struct symbol **parent,
++			     struct dso_symbol *parent,
+ 			     struct addr_location *root_al,
+ 			     u8 *cpumode, int ent, bool symbols)
+ {
+@@ -2870,7 +2874,7 @@ static u64 get_leaf_frame_caller(struct perf_sample *sample,
+ static int thread__resolve_callchain_sample(struct thread *thread,
+ 					    struct callchain_cursor *cursor,
+ 					    struct perf_sample *sample,
+-					    struct symbol **parent,
++					    struct dso_symbol *parent,
+ 					    struct addr_location *root_al,
+ 					    int max_stack,
+ 					    bool symbols)
+@@ -3102,13 +3106,16 @@ static int thread__resolve_callchain_unwind(struct thread *thread,
+ int __thread__resolve_callchain(struct thread *thread,
+ 				struct callchain_cursor *cursor,
+ 				struct perf_sample *sample,
+-				struct symbol **parent,
++				struct dso_symbol *parent,
+ 				struct addr_location *root_al,
+ 				int max_stack,
+ 				bool symbols)
+ {
+ 	int ret = 0;
+ 
++	if (parent)
++		dso_symbol__exit(parent);
++
+ 	if (cursor == NULL)
+ 		return -ENOMEM;
+ 
+@@ -3120,7 +3127,7 @@ int __thread__resolve_callchain(struct thread *thread,
+ 						       parent, root_al,
+ 						       max_stack, symbols);
+ 		if (ret)
+-			return ret;
++			goto out;
+ 		ret = thread__resolve_callchain_unwind(thread, cursor,
+ 						       sample,
+ 						       max_stack, symbols);
+@@ -3129,13 +3136,16 @@ int __thread__resolve_callchain(struct thread *thread,
+ 						       sample,
+ 						       max_stack, symbols);
+ 		if (ret)
+-			return ret;
++			goto out;
+ 		ret = thread__resolve_callchain_sample(thread, cursor,
+ 						       sample,
+ 						       parent, root_al,
+ 						       max_stack, symbols);
+ 	}
+ 
++out:
++	if (ret && parent)
++		dso_symbol__exit(parent);
+ 	return ret;
  }
  
-+bool down_write_trylock(struct rw_semaphore *sem)
-+	NO_THREAD_SAFETY_ANALYSIS
+diff --git a/tools/perf/util/machine.h b/tools/perf/util/machine.h
+index 147ce343e370..80191545ee8a 100644
+--- a/tools/perf/util/machine.h
++++ b/tools/perf/util/machine.h
+@@ -193,11 +193,12 @@ struct mem_info *sample__resolve_mem(struct perf_sample *sample,
+ 				     struct addr_location *al);
+ 
+ struct callchain_cursor;
++struct dso_symbol;
+ 
+ int __thread__resolve_callchain(struct thread *thread,
+ 				struct callchain_cursor *cursor,
+ 				struct perf_sample *sample,
+-				struct symbol **parent,
++				struct dso_symbol *parent,
+ 				struct addr_location *root_al,
+ 				int max_stack,
+ 				bool symbols);
+@@ -205,7 +206,7 @@ int __thread__resolve_callchain(struct thread *thread,
+ static inline int thread__resolve_callchain(struct thread *thread,
+ 					    struct callchain_cursor *cursor,
+ 					    struct perf_sample *sample,
+-					    struct symbol **parent,
++					    struct dso_symbol *parent,
+ 					    struct addr_location *root_al,
+ 					    int max_stack)
+ {
+diff --git a/tools/perf/util/map_symbol.c b/tools/perf/util/map_symbol.c
+index 11bc0a7f704c..595ec8f0541d 100644
+--- a/tools/perf/util/map_symbol.c
++++ b/tools/perf/util/map_symbol.c
+@@ -1,9 +1,39 @@
+ // SPDX-License-Identifier: GPL-2.0
+ #include "map_symbol.h"
++#include "addr_location.h"
++#include "dso.h"
+ #include "maps.h"
+ #include "map.h"
+ #include "thread.h"
+ 
++void dso_symbol__exit(struct dso_symbol *ds)
 +{
-+#if RWS_ERRORCHECK
-+	return mutex_trylock(&sem->mtx);
-+#else
-+	return pthread_rwlock_trywrlock(&sem->lock) == 0;
-+#endif
++	dso__zput(ds->dso);
++	ds->sym = NULL;
 +}
 +
- int up_write(struct rw_semaphore *sem)
- 	NO_THREAD_SAFETY_ANALYSIS
++/*
++ * Initialize @dst from @src, acquiring a reference on @src->dso (without
++ * releasing any prior @dst->dso, matching map_symbol__copy()).
++ */
++void dso_symbol__copy(struct dso_symbol *dst, const struct dso_symbol *src)
++{
++	dst->dso = src ? dso__get(src->dso) : NULL;
++	dst->sym = src ? src->sym : NULL;
++}
++
++/*
++ * Construct a borrowed (non-owning) dso_symbol view from @al while @al is
++ * live. Callers that persist the pair must retain it via dso_symbol__copy().
++ */
++struct dso_symbol dso_symbol__from_al(const struct addr_location *al)
++{
++	return (struct dso_symbol){
++		.dso = (al && al->sym && al->map) ? map__dso(al->map) : NULL,
++		.sym = al ? al->sym : NULL,
++	};
++}
++
+ void map_symbol__exit(struct map_symbol *ms)
  {
-diff --git a/tools/perf/util/rwsem.h b/tools/perf/util/rwsem.h
-index b102d8143181..53c45990d9c9 100644
---- a/tools/perf/util/rwsem.h
-+++ b/tools/perf/util/rwsem.h
-@@ -22,9 +22,20 @@ int init_rwsem(struct rw_semaphore *sem);
- int exit_rwsem(struct rw_semaphore *sem);
+ 	thread__zput(ms->thread);
+diff --git a/tools/perf/util/map_symbol.h b/tools/perf/util/map_symbol.h
+index 7437e319f4a3..1781af7bd965 100644
+--- a/tools/perf/util/map_symbol.h
++++ b/tools/perf/util/map_symbol.h
+@@ -4,11 +4,18 @@
  
- int down_read(struct rw_semaphore *sem) SHARED_LOCK_FUNCTION(sem);
-+/*
-+ * Tries to acquire a shared read lock without blocking. Per POSIX
-+ * pthread_rwlock_tryrdlock(), succeeds when no writer holds or blocks on @sem
-+ * (including when the calling thread already holds a read lock on @sem).
-+ */
-+bool down_read_trylock(struct rw_semaphore *sem) SHARED_TRYLOCK_FUNCTION(true, sem);
- int up_read(struct rw_semaphore *sem) UNLOCK_FUNCTION(sem);
+ #include <linux/types.h>
  
- int down_write(struct rw_semaphore *sem) EXCLUSIVE_LOCK_FUNCTION(sem);
-+/*
-+ * Tries to acquire an exclusive write lock without blocking. Returns false if
-+ * any thread (including the calling thread) holds a read or write lock on @sem.
-+ */
-+bool down_write_trylock(struct rw_semaphore *sem) EXCLUSIVE_TRYLOCK_FUNCTION(true, sem);
- int up_write(struct rw_semaphore *sem) UNLOCK_FUNCTION(sem);
++struct addr_location;
++struct dso;
+ struct thread;
+ struct maps;
+ struct map;
+ struct symbol;
  
- #endif /* _PERF_RWSEM_H */
++struct dso_symbol {
++	struct dso    *dso;
++	struct symbol *sym;
++};
++
+ struct map_symbol {
+ 	struct thread *thread;
+ 	struct map    *map;
+@@ -24,6 +31,10 @@ struct addr_map_symbol {
+ 	u64	      data_page_size;
+ };
+ 
++void dso_symbol__exit(struct dso_symbol *ds);
++void dso_symbol__copy(struct dso_symbol *dst, const struct dso_symbol *src);
++struct dso_symbol dso_symbol__from_al(const struct addr_location *al);
++
+ void map_symbol__exit(struct map_symbol *ms);
+ void addr_map_symbol__exit(struct addr_map_symbol *ams);
+ 
+diff --git a/tools/perf/util/session.h b/tools/perf/util/session.h
+index ac5803d5fb4e..05ea2c1ee8c9 100644
+--- a/tools/perf/util/session.h
++++ b/tools/perf/util/session.h
+@@ -139,12 +139,6 @@ int perf_session__process_events(struct perf_session *session);
+ int perf_session__queue_event(struct perf_session *s, union perf_event *event,
+ 			      u64 timestamp, u64 file_offset, const char *file_path);
+ 
+-int perf_session__resolve_callchain(struct perf_session *session,
+-				    struct evsel *evsel,
+-				    struct thread *thread,
+-				    struct ip_callchain *chain,
+-				    struct symbol **parent);
+-
+ bool perf_session__has_traces(struct perf_session *session, const char *msg);
+ bool perf_session__has_switch_events(struct perf_session *session);
+ 
+diff --git a/tools/perf/util/sort.c b/tools/perf/util/sort.c
+index 58638ec9ae0e..f4c50f191141 100644
+--- a/tools/perf/util/sort.c
++++ b/tools/perf/util/sort.c
+@@ -1010,8 +1010,8 @@ static struct sort_entry sort_srcfile = {
+ static int64_t
+ sort__parent_cmp(struct hist_entry *left, struct hist_entry *right)
+ {
+-	struct symbol *sym_l = left->parent;
+-	struct symbol *sym_r = right->parent;
++	struct symbol *sym_l = left->parent.sym;
++	struct symbol *sym_r = right->parent.sym;
+ 
+ 	if (!sym_l || !sym_r)
+ 		return cmp_null(sym_l, sym_r);
+@@ -1023,7 +1023,7 @@ static int hist_entry__parent_snprintf(struct hist_entry *he, char *bf,
+ 				       size_t size, unsigned int width)
+ {
+ 	return repsep_snprintf(bf, size, "%-*.*s", width, width,
+-			      he->parent ? he->parent->name : "[other]");
++			      he->parent.sym ? he->parent.sym->name : "[other]");
+ }
+ 
+ struct sort_entry sort_parent = {
 -- 
 2.56.1.703.gf848ed807c-goog
 
