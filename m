@@ -1,94 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794561991;
-	b=5tPtNWiXJfoSMo+EJ1v7C00nnzT3iBcW7LDNGhaduxkJtZyllapi16V/wjOUxzXTGnAr
-	 o76PuexbCWwvitIErFJ3Yhwj+cNygq3Hi1ZVW29ujuv8Bhr8k1extqSJ9tW/DJGt9aicf
-	 pfMF73NNNPXMdLr1vPu80dOJ3NU6aoU5S21D/53Pj4oaNcHS+mpvPKrxjEfEdJt2bpyE0
-	 g3LU9SgaTjaJ11h63RS63o78UTiCgUEImh3Yk3nE5pnV/uwmiP+qUGWZhHziXfCO53qWI
-	 wJO8v7TYNe+o62/kWzN+RMqf2NgP9FV75oKJzyGj3fHT06WCuykJpZ9iPczrbdHV03Q==
+	t=1794562109;
+	b=gi3e946FATMcZLNXKNUK0Ob69RW1AakV0nhwROWfmMLbeWjz7e2mNB8kS9xYkttSvxrE
+	 erX4vTaE+8Ys/WpfFJ3txBpj0sKkcgaBGXfRjfjHmo4PI/CSTCE9xmEgbd2Jblb/B9eve
+	 QUuMnPeZH4KhZsM6LJ1WsWtGb2xD7vBAZKNRYLzQnKgpYexNOu4OO6bGV7KUMl21WlSfr
+	 pnk7A8tgNXhET4SRb2qKccGNMHY1EmCIvLUmq1cpUep+tXh+dKLFcEU383aokuSQODR4g
+	 c6Fah7BeAwepTktnhsWx+3/xEbGsY58/6uP8HLL6njV2IUhdPNko7SB9ZxTTimSQEVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794561991;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794562109;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=679sas+zR3mHyWdjZLnxDeN5FJpisEUo0YFV1RY5cPM=;
-	b=NP7BKNNff3kZpQO9dgkk/vQH45Zfv1/ypa9Mbijj+jRtt1GhUH1aMe7FFakUAgPnKRTZ
-	 SnWRgwWPhPrLcOhLVpDCAVEtsWxa38yxZtsHBGkjyDPwhnDJQgXD5+aqlF3HpFCn3LLPA
-	 jAfpUCxteP6hgGtuLfr+4RhRodGaNq62o3tKAVBQZc4OZs8a90HfeOJX2V+W974Pfi0KZ
-	 70SzXyvGOn+q1aeVX/XBsxwUNI+le73Z7zC7dDl8uaRG/kxg5I40dd2eUhYfHm4JSRFO0
-	 oDVaSBqZ7n+Grc2LyAGa5Zvw1Zqj+ECDCtAUIBNEuaPvhlbIdRG2gQGTvP/eFtYb44g==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=OuPd/zrEz8bnoQVi0hWUxELIPusz8UbhZBM1Yuhapas=;
+	b=yLavmgeNwppe7Jo9oGSmG4AmQo6MtaKJtphC0NFq+HZTMl52y5JtqPaB8L+qOa3cQBp8
+	 qJZGu2cBDYdPwkj/hqhOoISBqd4V9OTsOoJIlywo6rbFTgazd9xF9I9iJ1AbUONKehWOg
+	 DlvKDqvCqXd7Xr04/nBqhdPpZKrkY6DEDb2PXqBoB+NpRy7uwZe6ZHLoiwVx7c05bB2Ky
+	 XlPJ4xwXE+mlRX12Gxuj/rZQNBrxw/EL6QFlvuWw9K6iT1Ppkh8UusGnMJDOBei7R8AJT
+	 FWuX21g0OI/iqZ4s45uZNbU7+bTecb4yvHVyC67hDC2VEc0By7AzJBaxuv2VpJDUCCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t0APHpw+;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	dmarc=pass header.from=flipper.net;
+	spf=pass smtp.mailfrom=flipper.net;
+	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=tsNIBQol;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEC83606A899
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:26:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEC83606A899
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20191606A321
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:28:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20191606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t0APHpw+
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3282db206d3so1786264eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 01:26:30 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=tsNIBQol
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a215e64962so12070815e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 01:28:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794561990; x=1795166790; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=679sas+zR3mHyWdjZLnxDeN5FJpisEUo0YFV1RY5cPM=;
-        b=t0APHpw+tV8WdXMrzzJp48ybd+e0EeU72fhK+PPB9RTxGEMRXZyvsnljw1arSnPMZU
-         9vZqfnK4SJJbnXJfIUmVwmB/W67ZD6OX6SwsTdpBjs17+z+uZWeK77zcKEDBnwdq/tJS
-         oQMDH6sUbWfPjdYNv0R4sh7kH2OYq5k3TtkKEHgzOJ+SH24VGJ+3l/KDNPzUsnNY2Tla
-         Mno/hXe+ZPjANVDbCu3Zzo1ra5sHBz99sJ5GC+YV5JpLKW4HqcouXH0g5vUxKo7ygtgQ
-         o3p32WBnkwFNQLepju4esIRk5owebghasebaupnoQaSAHMmRrCpFMPM0z6zF+O6VnQbp
-         6nPg==
+        d=flipper.net; s=google; t=1794562107; x=1795166907; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=OuPd/zrEz8bnoQVi0hWUxELIPusz8UbhZBM1Yuhapas=;
+        b=tsNIBQolbzZNJZ2w3Q3Osb6G4TLdxYgu0qX4HZu2gVwtNQ2SAfLjTclJnIdZ+akvme
+         Pfh4siZ+9dWWl8ASBUC+3UXC+uffRozmiSH1VhCCu4MvthLg5qwhw4qrc6lPogCGowZU
+         rmaGVO8bJGgcMbi5SXkHo1t43K9TPhV6NpVvj9+Wc7Wcr9W4uO0C8qBFgvhP3iB3TYlh
+         uCBgd3eW7/klaplqWtycSg4IvArrFtYccESnyWHo6fFg+xaddCQ/tkF3JsfpEz0+/jAs
+         Ldrr52a3Yzsaq2XiyKfZFlrnCv5CHhZbDeijVBv8C4N1EfmPChIqUY+P4WrxApALMAI0
+         VSKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794561990; x=1795166790;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=679sas+zR3mHyWdjZLnxDeN5FJpisEUo0YFV1RY5cPM=;
-        b=eDdtnDohmvidjOszR67wSFPycoTRgEUz3UAVzRbi85aG6BEbNxg+EQ9hnVJlHc1AnO
-         OzmxqEKPXthiBC0/b70jly6AVxitivVaqMeCtedY/gZVxnZI8etUVc5iYum96LDTWTfb
-         2fFLKuts1ycKB0GUMuSW7GTWm/khNYJVxtvKI/iNO2MVd/7U93mQHsDRU9v6SBWlhbLF
-         SXjChGSOEiU1qig+vWkm2BRnBxQEcFD6KacgM2dLLvEN+8y4ZXHH86uMMhmfAvjn30xn
-         rwZOH6pJUyz7swl59l8/sAf8io2x89XMxRJrtHE+uHkPXSI5dJNextjdoRKSYWhBesBc
-         7hcg==
-X-Gm-Message-State: APuU4Z8wuOfs9HxyQAjo9MOp4bWxhyj9NHWKpdbB7YdhXBhkBSchOIuU
-	yt9/9nAkXpOm4YayBBT+OL4jVTm9U4cgogIq7pZ1IAIH1RhnBh2PZXKF
-X-Gm-Gg: AYBFou3w3boWnpcReSXdbg4+UsmRfgFMvmmpJL1eGvwjCEff+JUASSqsZ9pttb9AZw1
-	6oXAFyTN8JDfwAUxBYjyKODdtttvPMjACrXccOJqww5HJuy60/Emq9YWZblwhPNZYKjD64hwmk8
-	HgUiF+S/jeKJ8kNL5bl2Aneazrxr7GBec3AYKoOhs7hWvj7/NxBvWASE8QpkiNRYs8oqEI70AEH
-	CYrW2Dmyi0QYomOidI6pbU+GZWj4xcndd62jlMjYAvYwL0JFXODEnq1uxAGGdV4z87adgQ1VwYr
-	XWtU9B0EFYWtio5CePOOvqnH2voeoBXLjgyZC/cj/xJTPOQz/ny7joGn6WtGE0owk3/6nYrJEuZ
-	gmAyL/XNxuZ5o5woMbKKd2SrBgu7PBo+L69ydMBvNLjTpCSTG/XqaYKQ81BYxPD0TMJ7r4Hc6p3
-	/lwg5TwrlmD2WJxDkBjq0VRbDacCcCg9Q4URDvo70ob40uwYCavrJQgvAQxQy57ucjSNAwQG/OS
-	nXT8m03N/bhtKSDb5yequamR1LBlP/D7pqot87E5kwlgQjCfwPj8/g2oezosn9DAJSXaQfAwivW
-	ivsJ1LdZhGY3Zpd2Xd1/oyWZZMhx+ilbT2O3qbYVBaeNAaXkqp1E
-X-Received: by 2002:a05:693c:60ce:b0:36e:8410:ecf6 with SMTP id 5a478bee46e88-37966387d74mr1963510eec.13.1794561989903;
-        Fri, 13 Nov 2026 01:26:29 -0800 (PST)
-Received: from localhost.localdomain ([103.149.158.176])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795533170csm6098717eec.7.2026.11.13.01.26.27
+        d=1e100.net; s=20260707; t=1794562107; x=1795166907;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=OuPd/zrEz8bnoQVi0hWUxELIPusz8UbhZBM1Yuhapas=;
+        b=rEGgVPCanXVDdEh42xUWTIaaUUZzdNGPrO09majBSWN1PzUFKMwUe1GHcRyN8Y1F51
+         CQ6yEeWQf0xSjs6pZQimHljeAYdgGJW1bffgdokcz1cfwmDaVmll692oap8GNYy/kqNL
+         o9gO0ULhDhb3uCdpq7HI97RxmmxiDO0zwUcWrdgf9qkKxFMyCR6YjBPDQHsi+V6G9qAC
+         hLOVN0I1TfgocMXKDlFvu8SUndaFdWCrgCvm/BLPxA2MxuLmCxMdoTjHvn9Y3oOPiCEH
+         8oP/WQlQEiwx5Vv2DOA9mbY0UXV9t1E4kzFkyx2jWkXwW3KjeQDuWJDvzIFM71HusXs/
+         AqeA==
+X-Forwarded-Encrypted: i=1; AL+hErE9ek9gkzAaXl2VG/Y+snofLozMSxJYBo34h9rrZAn8fQ/3nxhaDvXGCDOBuWFyYrndrYFQg52Ucq6lLEc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+wtZrh3W9hQX0DGaeopDN1Y58PyAfDdzhUxKFMD9BIhofEjhAa
+	nTL2iQp8YUJ5j1fSab1qzGx9dxY0UFaSRuIsVeTa7Gi1RwZu5Lznx69p/SSRrxTUmA4=
+X-Gm-Gg: AYBFou1X52kMX6v8+/7APKWPw16bIEVSyXOM5nHj5kuw1/m4iwelfq+BWYEOzu5m7Z8
+	qZTS/xT6/L3c6v8XHNX+o6RltNwqSXCiUmRsv7CWctVS8/pRptIaoJQuCvvwa/N+uJuR5OIjHLL
+	751hyQVRmlaP1CmbNf6KEBwiwLaEOn/U9tginbnYwLgGgKZQp+HnldreugVbRcnngjylr3sNs6M
+	ykToKF/tvsevbqp2opTIi/BMdv0k3crt12eLmZwAV42WNHAugyk/d9iMgLyDPeLiv2qqXgQJjTm
+	sEcbChDqvo8YZjkyXXI6VGt5f1Saa5kroI/9RvBBr50+DbeqDnwfxR5NcOmGz8HGDSly2k0cP01
+	EmgplqcHghQffWuKjFSg3pq+rKPKBKJaI2eYdB1C3lrzVEWzeZTLf3euCfK4Q1F57L2GoIS2UOZ
+	breGHkS3jGZl/Hv6AK0nw09eCGf9SSh5hV6bAneW/g08ZkaWugO89dooctYHtAltalwflkIlJ/d
+	PaVrOymfTyyp4Vx+avpf2bk4RbhJTcRlMIKK2i/ROzeqTABp/7JIkFvK9uuxN4EI+3ZmWbRnsEt
+	GU0wkRadoXLVJyqMJ2sZFieqiZk6zLR0uzn7tkZJnC8KJZ8kIbJBQWmV+fZq350cok4Tn2BiWmU
+	KFOjATev4
+X-Received: by 2002:a05:600c:6219:b0:4b7:6aac:7406 with SMTP id 5b1f17b1804b1-4bb55a23b41mr34227575e9.3.1794562107357;
+        Fri, 13 Nov 2026 01:28:27 -0800 (PST)
+Received: from alchark-surface.localdomain (bba-86-98-194-229.alshamil.net.ae. [86.98.194.229])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e2538b9sm238668335e9.1.2026.11.13.01.28.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 01:26:29 -0800 (PST)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: sreekuttan2156239@gmail.com
-Cc: linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	perex@perex.cz,
-	tiwai@suse.de
-Subject: [PATCH v2] ALSA: compress: Set metadata_set only after successful callback
-Date: Fri, 13 Nov 2026 09:25:59 +0000
-Message-ID: <20261113092559.3283-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261113091159.2954-1-sreekuttan2156239@gmail.com>
-References: <20261113091159.2954-1-sreekuttan2156239@gmail.com>
+        Fri, 13 Nov 2026 01:28:26 -0800 (PST)
+From: Alexey Charkov <alchark@flipper.net>
+Subject: [PATCH v2 0/4] usb: gadget: udc: Rework when the gadget connects
+Date: Fri, 13 Nov 2026 13:28:15 +0400
+Message-Id: <20261113-udc-connect-v2-0-f51b11f07eb8@flipper.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,43 +93,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NQQ6CMBBFr0JmbQ3TKgZX3MOwkDKVMaY0LTQa0
+ rvb4tblS95/f4NAninAtdrAU+TAs80gDxXo6W4fJHjMDLKWDSJKsY5a6Nla0otokGqDqE2rBsg
+ L58nwe6/d+h+HdXhmtSSKMXFYZv/Z7yIW7385okBRK31R8tw2Jzl05sXOkT9aWqBPKX0BBkDpp
+ LoAAAA=
+X-Change-ID: 20261112-udc-connect-61e0f11cf93b
+To: Neill Kapron <nkapron@google.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Xu Yang <xu.yang_2@nxp.com>, Alan Stern <stern@rowland.harvard.edu>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Alexey Charkov <alchark@flipper.net>, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2015; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=xKH6JPBEauAk2qY839jB1Vb1ODWV8srGYLrwZWkSfMU=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWR9u2GhF7TnQpTsY981pxvzjWQkFq97fyshWeGj2Y+NT
+ mvfFJrO6ZjIwiDGxWAppsgy99sS26lGfLN2eXh8hZnDygQyRFqkgQEIWBj4chPzSo10jPRMtQ31
+ DI10jHWMGLg4BWCqw4oZ/le9ez6r5t3zZZ/exX7S2LE9xZtvkcmVVK+nv5TLQ8/VbRVk+F9/5+k
+ vqetfROPPrTom4Pvpp2z9/9r2OawsvuL2u7yfbuYDAA==
+X-Developer-Key: i=alchark@flipper.net; a=openpgp;
+ fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-Set the metadata_set flag only when the driver's set_metadata()
-callback completes successfully.
+The UDC core decides whether to enable the gadget's pullup in several
+places: bind and unbind, VBUS events, usb_gadget_{de,}activate() and the
+soft_connect attribute. Each applies its own rules, and
+gadget->connected records both the pullup state and a request to connect
+later. Since commit 62911bc82b03 ("usb: gadget: udc: skip pullup() if
+already connected"), a VBUS event before bind leaves the gadget
+invisible to the host until it is rebound. That happens on every boot
+of an RK3576 board whose Type-C port controller sets the device role
+before userspace binds a configfs gadget.
 
-Previously, the flag was set even when the callback returned an
-error. This incorrectly indicated that metadata had been applied
-successfully, potentially causing later operations to skip metadata
-setup.
+Patch 1 is the v1 fix, small enough for stable. Patches 2-4 implement
+Alan's scheme: the gadget connects only while a driver is bound, VBUS is
+present, the driver hasn't deactivated it and userspace hasn't
+disconnected it through soft_connect. One helper records that in
+udc->allow_connect under connect_lock and switches the pullup to match.
+The UDC starts and stops only at bind and unbind, and the deactivation
+and soft-disconnect requests are forgotten at unbind.
 
-Update the flag only when the callback returns zero so that its
-state accurately reflects successful metadata submission.
-
-Fixes: 9727b490e543 ("ALSA: compress: add support for gapless playback")
-Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Signed-off-by: Alexey Charkov <alchark@flipper.net>
 ---
-v2:
- - Add Fixes trailer.
+Changes in v2:
+- Add patches 2-4, reworking the connection control as Alan suggested.
+- Link to v1: https://patch.msgid.link/20261112-udc-connect-v1-1-03c73259642b@flipper.net
 
- sound/core/compress_offload.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+---
+Alexey Charkov (4):
+      usb: gadget: udc: Clear a pending connection when starting the UDC
+      usb: gadget: udc: Forget a deactivation when the gadget driver unbinds
+      usb: gadget: configfs: Leave resetting the deactivation to the UDC core
+      usb: gadget: udc: Decide on connecting in one place
 
-diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
-index 5e5e0f78f26d..9b53282e0192 100644
---- a/sound/core/compress_offload.c
-+++ b/sound/core/compress_offload.c
-@@ -796,8 +796,8 @@ snd_compr_set_metadata(struct snd_compr_stream *stream, unsigned long arg)
- 		return -EFAULT;
- 
- 	retval = stream->ops->set_metadata(stream, &metadata);
--	stream->metadata_set = true;
--
-+	if (!retval)
-+		stream->metadata_set = true;
- 	return retval;
- }
- 
--- 
-2.55.0
+ drivers/usb/gadget/configfs.c |   1 -
+ drivers/usb/gadget/udc/core.c | 197 +++++++++++++++++++++++-------------------
+ include/linux/usb/gadget.h    |   4 +-
+ 3 files changed, 111 insertions(+), 91 deletions(-)
+---
+base-commit: 6d582d78fad9d828e575ca0cdcff8ea47a77220b
+change-id: 20261112-udc-connect-61e0f11cf93b
+
+Best regards,
+--  
+Alexey Charkov <alchark@flipper.net>
 
