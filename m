@@ -1,59 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794595659;
-	b=g+gShPJOIBfd6Fpalk0k0a4MVWInlV8CDyWLGJB1Zu54aIFr0R2tPwLF+DNgCz6cAsXq
-	 3KDtqy2hWQBiDV1p2HxrWnyPiy0WswposjUi8JUdspF4v01+GXS8xth2IYiR/cfuN+f5b
-	 VfnVoal6xBpqQt5s8QbmXR+HfQbzVyLls122ElclHGlwZWaqeipeEty4NYdfHBto3GShY
-	 JF7cv21IIGXt8lb5SG3749eI4VDKGU9/gvbUmg0AcD0J0EH41Me5GHAKygIy6bKuQRWg+
-	 5Rv6E1AzawYNS6m2xX1AhbMJ1I25g6ECYp9w8Fyqs7u2B5eQO1PcNt57zNWOmbKWHOg==
+	t=1794595689;
+	b=u/SqWhBxj3CXFYFkriWd/DPv9W/EmOsoxzXrQA3wgI0xhqrqinTetwCM+uR65u4mt3lh
+	 01j1+VPz1I+E8l3S7Gm4d325Zy0p3O2b13NwTCsERoFTSKjR/1vzFT/bqn6xtGMwczyab
+	 eg0s2c/yNnxxvMJD7rf+SQrY5xymTlO6WjffKVzYWyrYHN1VYPlRZtkKtLHZp1EC0Y5ye
+	 +mT3f96crFXZ68CNzymW3qO8qgQbLCXrdS0cLp0BB16WA9lNtuLMocjit+9qIVgWlExzr
+	 XP27Z031ZkjxB7NhBJgUnuyJ+ZAcHXfY/Xlh+txP1bsal9qvmFMzqbKZk+6Mi36Sz8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794595659;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794595689;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:In-Reply-To;
-	bh=1C5B03h9LkM0Rfb71CtzbzXspL8HxxnoCixsWU3wVKo=;
-	b=VnHNqvAotaJ7zKBlfmH2Vyy+yo0UuYUnCjDDIp8MFfz/LWLqHyk4PAAQsAS3m2LH3YD+
-	 MY/ljy3/NjUmNYdrnm+bBuNlTnrp5OuToKk3Fkk1LaxacfTBhTpV9RDKxLYrWUI3p3ez1
-	 a+NfRnoQm+pKfZpo1Yv3aQpHznVQIz3JxOgtYEVFqmXOIeqZ5Y3lKUjUNN9upOOZR+1Yd
-	 UoH55BxD0zMW3wVrYhcsvB5hZGFX6djVQ4RXD8gTYzZkjd6YzwlB/0G+A8ZahAIHzjYDv
-	 JcqiCVQ9WuEGAWoaFuzOXKBwzQvQOTCS5lp3RydJegNFdWU409uCuM46OwpaQF6KYsA==
+	bh=dTTXoLzmI08d/jkNxxwJkcGQTYkKfMEm/po0ghn6PCY=;
+	b=3EWZtXKa60sYoxbH2Os0rMrRg5MM5HFWpiyNyH/++fycETd9ToklAzqyHbyvL/aY+YIx
+	 9c5mU9xf0moXAEpvlmQle0JR2ozzkOEaByHSr98CSpnuSdQVTJrjv+SKmj9K/yud+s/Xq
+	 3GLCAHBf9Y9RvOMgQdNQ3bScCKu2JVDjxcWaWRfhPpGCexu+on/c1+LkRb2ZIhGlrQN5g
+	 iux/cRiMd42D6/si1vayZSsMytY5oXBF5tyrRWOfopspCbZ4iBkfNJ+ljZtWi82xmWmzG
+	 5nQMxKsxxc4unkWmpeeZd1HVeCSE8JIt6R/znZRJcUMU4csOZT71aXjU2vqk3fJMTHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=bieAlkYB;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9B1D2606A661
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:47:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B1D2606A661
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=W6kPUSZi;
+	arc=none smtp.remote-ip=192.198.163.7
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE531606A673
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:48:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE531606A673
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=bieAlkYB
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B30E3143D;
-	Fri, 13 Nov 2026 10:47:34 -0800 (PST)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E29AA3F673;
-	Fri, 13 Nov 2026 10:47:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794595657; bh=FlyuBewiCDaPu1+s79sWx/lfGstyIBmDKHKwd7lp/vM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bieAlkYBHpiq7QexIl6ZIv6M7QaRTP5zcRITuv0go21Gf47D3IhN291ITaYxrPNPD
-	 WP+N1VV8XUBe2tMhPl8J4zlu4fJoNSx3g2TVg15aXVlmGGEXdFO5JvV6Sz2g5qC0wZ
-	 dide5nesRF9/b94f0Vka18t5XTni0ynuw8xegKs8=
-Date: Fri, 13 Nov 2026 18:47:32 +0000
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Breno Leitao <leitao@debian.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>,
-	Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
-	David Rientjes <rientjes@google.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH v2] slab: allow sheaves for SLAB_NOLEAKTRACE caches
-Message-ID: <avdbRHMbKxVlIRnu@arm.com>
-References: <20261113-kmemleak_sheaves-v2-1-8c557c66cec2@debian.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=W6kPUSZi
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794595689; x=1826131689;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=0jeRtz+9v5QZzJ0um3TzrYm5IN5Zt91xgFDxIX0GY3g=;
+  b=W6kPUSZiXSfv3PW28t7e3fnfUInD1bfH73nE8kYB4RAJLLs9lliO5O1R
+   BC0oFp3+WVUaz4QIAMqA+mhd0yyIY4bQ0e1vUyLrTJDO6AEOax58r7+cb
+   /p2SrY34T6yXqpZnv7DbGwy4IyMtsrmL1MlRYk2aYmmdyXlXC9xd+7HmZ
+   644xxEEbZ0LEbgZDWX6eGde8TFrivUK8F93BKsSAJAFGZtf/zREpOWf5r
+   XK/tbCZZHDWWs8/HiQJV4elBt69tofsSDwMzWYVp+2g8N3WY2xoddIPCQ
+   Vp7hhE5QoqZssxsIvF8lT0CVcOwcB/sTMAXPmOjKp/rlsnexKzvX+7Ble
+   Q==;
+X-CSE-ConnectionGUID: qaacUPNbQxyZXBRv7YmD7g==
+X-CSE-MsgGUID: X2rRXezDTe2ZXGkp4//+BA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3268938"
+X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
+   d="scan'208";a="3268938"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 10:48:08 -0800
+X-CSE-ConnectionGUID: Rh20D4FlSN+XtD+EJsNIVQ==
+X-CSE-MsgGUID: VsDH7IbkSdi8NAaR+ArEEQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
+   d="scan'208";a="9523504"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa010.fm.intel.com with ESMTP; 13 Nov 2026 10:48:04 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xRwJd-000000013hD-0x1c;
+	Fri, 13 Nov 2026 18:48:01 +0000
+Date: Sat, 14 Nov 2026 02:47:17 +0800
+From: kernel test robot <lkp@intel.com>
+To: Baolin Wang <baolin.wang@linux.alibaba.com>, akpm@linux-foundation.org,
+	david@kernel.org, hannes@cmpxchg.org, kasong@tencent.com
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev, baohua@kernel.org,
+	axelrasmussen@google.com, yuanchu@google.com, weixugc@google.com,
+	baoquan.he@linux.dev, qi.zheng@linux.dev, shakeel.butt@linux.dev,
+	mhocko@kernel.org, baolin.wang@linux.alibaba.com,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm: mglru: use pte_table_clamped_end() helper to
+ calculate the end
+Message-ID: <202611140210.uZmu9pV3-lkp@intel.com>
+References: <b2386c5da61f9a15e60daa421b033bc1e0bcdd41.1794481498.git.baolin.wang@linux.alibaba.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,66 +89,160 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261113-kmemleak_sheaves-v2-1-8c557c66cec2@debian.org>
+In-Reply-To: <b2386c5da61f9a15e60daa421b033bc1e0bcdd41.1794481498.git.baolin.wang@linux.alibaba.com>
 
-On Fri, Nov 13, 2026 at 06:36:56AM -0800, Breno Leitao wrote:
-> This is a patch that makes kmemleak cheaper to run, by letting
-> kmemleak's own metadata cache use a _new_ sheaves type. The flag only
-> makes that possible without recursion.
-> 
-> The cost today:
->   * every allocation kmemleak tracks needs one kmemleak_object from
->     object_cache. An RCU callback frees it later.
-> 
-> Why that's slow:
->   * object_cache has no sheaves, so each of those allocations and frees
->     goes to the shared slab lists under n->list_lock.
->      - On meta's fleet kmemleak kernels, list_lock is the second most
->        contended lock, after kmemleak_lock.
->      - About 88% of that wait is RCU callbacks freeing kmemleak objects.
-> 
-> Why sheaves aren't allowed:
->   * a sheaf is a kmalloc object. Tracking it makes kmemleak allocate
->     another kmemleak_object, which needs a sheaf, and so on.
-> 
-> When I reported the recursion in [1], I suggested keeping
-> SLAB_NOLEAKTRACE caches away from sheaves, and commit e47c897a2949
-> ("slab: add sheaves to most caches") did that. It stopped the
-> recursion, but it took the sheaves away from the whole cache, although
-> only the kmemleak tracking of the sheaf itself recursed.
-> 
-> Commit 17c38c88294d ("slab: remove cpu (partial) slabs usage from
-> allocation paths"), from the same series, then left these caches with
-> no per-CPU caching at all.
-> 
-> In hindsight, skipping kmemleak only for the
-> sheaf itself, as the new SLAB_ALLOC_NO_LEAKTRACE does, would have been
-> the better fix.
-> 
-> The sheaf is allocated with SLAB_ALLOC_NO_RECURSE as well, like kmalloc
-> sheaves. Without it, a backing kmalloc cache that needs a new sheaf of
-> its own allocates it with SLAB_ALLOC_NO_LEAKTRACE too. kmemleak then
-> does not track that sheaf, and can report objects queued in it by
-> kfree_rcu() as leaks.
-> 
-> SLAB_ALLOC_NO_RECURSE also skips allocation tagging, so mark the codetag
-> of these sheaves empty on free, as is done for kmalloc sheaves.
-> 
-> Link: https://lore.kernel.org/all/aW_NK2NXVgtuzCVH@gmail.com/ [1]
-> Cc: Catalin Marinas <catalin.marinas@arm.com>
-> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
-> Signed-off-by: Breno Leitao <leitao@debian.org>
-> ---
-> Changes in v2:
-> - Fix sashiko findings:
->   - Set SLAB_ALLOC_NO_RECURSE along with SLAB_ALLOC_NO_LEAKTRACE, so the
->     flag stays off the kmalloc cache's own sheaf allocation, per Catalin
->     Marinas.
->   - Mark the codetag of SLAB_NOLEAKTRACE sheaves empty on free, per
->     Catalin Marinas.
-> - Link to v1: https://patch.msgid.link/20261112-kmemleak_sheaves-v1-1-e40e3d73b253@debian.org
+Hi Baolin,
 
-v2 looks fine, so my reviewed-by stands. Thanks for respinning.
+kernel test robot noticed the following build errors:
 
--- 
-Catalin
+[auto build test ERROR on akpm-mm/mm-everything]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Baolin-Wang/mm-mglru-use-pte_table_clamped_end-helper-to-calculate-the-end/20261112-191239
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
+patch link:    https://lore.kernel.org/r/b2386c5da61f9a15e60daa421b033bc1e0bcdd41.1794481498.git.baolin.wang%40linux.alibaba.com
+patch subject: [PATCH] mm: mglru: use pte_table_clamped_end() helper to calculate the end
+config: x86_64-randconfig-1008-20261113 (https://download.01.org/0day-ci/archive/20261114/202611140210.uZmu9pV3-lkp@intel.com/config)
+compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261114/202611140210.uZmu9pV3-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611140210.uZmu9pV3-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> mm/vmscan.c:4343:8: error: call to undeclared function 'pte_table_clamped_end'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+    4343 |         end = pte_table_clamped_end(addr, vma->vm_end);
+         |               ^
+   1 error generated.
+
+
+vim +/pte_table_clamped_end +4343 mm/vmscan.c
+
+  4296	
+  4297	/******************************************************************************
+  4298	 *                          rmap/PT walk feedback
+  4299	 ******************************************************************************/
+  4300	
+  4301	/*
+  4302	 * This function exploits spatial locality when shrink_folio_list() walks the
+  4303	 * rmap. It scans the adjacent PTEs of a young PTE and promotes hot pages. If
+  4304	 * the scan was done cacheline efficiently, it adds the PMD entry pointing to
+  4305	 * the PTE table to the Bloom filter. This forms a feedback loop between the
+  4306	 * eviction and the aging.
+  4307	 */
+  4308	bool lru_gen_look_around(struct page_vma_mapped_walk *pvmw, unsigned int nr)
+  4309	{
+  4310		int i;
+  4311		bool dirty;
+  4312		unsigned long start;
+  4313		unsigned long end;
+  4314		struct lru_gen_mm_walk *walk;
+  4315		struct folio *last = NULL;
+  4316		int young = nr;
+  4317		pte_t *pte = pvmw->pte;
+  4318		unsigned long addr = pvmw->address;
+  4319		struct vm_area_struct *vma = pvmw->vma;
+  4320		struct folio *folio = pfn_folio(pvmw->pfn);
+  4321		struct mem_cgroup *memcg;
+  4322		struct pglist_data *pgdat = folio_pgdat(folio);
+  4323		struct lruvec *lruvec;
+  4324		struct lru_gen_mm_state *mm_state;
+  4325	
+  4326		lockdep_assert_held(pvmw->ptl);
+  4327		VM_WARN_ON_ONCE_FOLIO(folio_test_lru(folio), folio);
+  4328	
+  4329		if (!test_and_clear_young_ptes_notify(vma, addr, pte, nr))
+  4330			return false;
+  4331	
+  4332		if (spin_is_contended(pvmw->ptl))
+  4333			return true;
+  4334	
+  4335		/* exclude non-mm-backed VMAs containing anon pages from COW */
+  4336		if (!vma_is_mm_backed(vma))
+  4337			return true;
+  4338	
+  4339		/* avoid taking the LRU lock under the PTL when possible */
+  4340		walk = current->reclaim_state ? current->reclaim_state->mm_walk : NULL;
+  4341	
+  4342		start = max(addr & PMD_MASK, vma->vm_start);
+> 4343		end = pte_table_clamped_end(addr, vma->vm_end);
+  4344	
+  4345		if (end - start == PAGE_SIZE)
+  4346			return true;
+  4347	
+  4348		if (end - start > MIN_LRU_BATCH * PAGE_SIZE) {
+  4349			if (addr - start < MIN_LRU_BATCH * PAGE_SIZE / 2)
+  4350				end = start + MIN_LRU_BATCH * PAGE_SIZE;
+  4351			else if (end - addr < MIN_LRU_BATCH * PAGE_SIZE / 2)
+  4352				start = end - MIN_LRU_BATCH * PAGE_SIZE;
+  4353			else {
+  4354				start = addr - MIN_LRU_BATCH * PAGE_SIZE / 2;
+  4355				end = addr + MIN_LRU_BATCH * PAGE_SIZE / 2;
+  4356			}
+  4357		}
+  4358	
+  4359		memcg = get_mem_cgroup_from_folio(folio);
+  4360		lruvec = mem_cgroup_lruvec(memcg, pgdat);
+  4361		mm_state = get_mm_state(lruvec);
+  4362	
+  4363		lazy_mmu_mode_enable();
+  4364	
+  4365		pte -= (addr - start) / PAGE_SIZE;
+  4366	
+  4367		for (i = 0, addr = start; addr != end;
+  4368		     i += nr, pte += nr, addr += nr * PAGE_SIZE) {
+  4369			unsigned long pfn;
+  4370			pte_t ptent = ptep_get(pte);
+  4371	
+  4372			nr = 1;
+  4373			pfn = get_pte_pfn(ptent, vma, addr, pgdat);
+  4374			if (pfn == -1)
+  4375				continue;
+  4376	
+  4377			folio = get_pfn_folio(pfn, memcg, pgdat);
+  4378			if (!folio)
+  4379				continue;
+  4380	
+  4381			if (folio_test_large(folio)) {
+  4382				const unsigned int max_nr = (end - addr) >> PAGE_SHIFT;
+  4383	
+  4384				nr = folio_pte_batch_flags(folio, NULL, pte, &ptent,
+  4385							   max_nr, FPB_MERGE_YOUNG_DIRTY);
+  4386			}
+  4387	
+  4388			if (!test_and_clear_young_ptes_notify(vma, addr, pte, nr))
+  4389				continue;
+  4390	
+  4391			if (last != folio) {
+  4392				walk_update_folio(walk, vma, lruvec, last, dirty);
+  4393	
+  4394				last = folio;
+  4395				dirty = false;
+  4396			}
+  4397	
+  4398			if (pte_dirty(ptent))
+  4399				dirty = true;
+  4400	
+  4401			young += nr;
+  4402		}
+  4403	
+  4404		walk_update_folio(walk, vma, lruvec, last, dirty);
+  4405	
+  4406		lazy_mmu_mode_disable();
+  4407	
+  4408		/* feedback from rmap walkers to page table walkers */
+  4409		if (mm_state && suitable_to_scan(i, young))
+  4410			update_bloom_filter(mm_state, READ_ONCE(lruvec->lrugen.max_seq),
+  4411					    pvmw->pmd);
+  4412	
+  4413		mem_cgroup_put(memcg);
+  4414	
+  4415		return true;
+  4416	}
+  4417	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
