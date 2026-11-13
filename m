@@ -1,98 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794544700;
-	b=2C/R4ODZM+vVLuRSht0+pEwcMWep4ticlP5Vxjmfh6M7xeFgVPwPfccMcN7qYTmO3vo4
-	 i4WPXoiv6S0PQhoFq6zIVNgGHMKBK9CDZ/ogiWYvAf+TEqzo0p0jOJgdToNdZereXALpl
-	 1i59fEkqpzMYk4KeVQ1V4ISDPwDuNIXY6FnNc7T5MDzwmlOYtERYxntpS/CtBDKd+TbzX
-	 PvCzG9aPzc7XmVq+Ei69osY+sVQlOVDv8D3TOYx4gx3f0APUBYoTSxijRcriXE7MCrcH3
-	 b3rm+kJlksUGcTlMQjj0WHnwMKKtJVJ4r/GA6DefK1OQ9/zQUYsBiVW+xFDIm72UTYA==
+	t=1794544767;
+	b=xa9QaLwh2a5Abmqetud+TJD7SJ0QcJr+l4H3MDhhZFF+n8QVJkPzMww0BkggNs/IyxAJ
+	 cZn9FNASmJ9HFMOJYOfa6wiXPonrMExaISQ5IJiMObdiT7UNeyoTd0zQhMmeqSd+GWoe6
+	 lefvNRKtFnSKw4VFMymif0jWCicy/HF/UGuZktIwVSVQTxXBeDo3iV719Cwgm1byPWnoK
+	 aMnuAkuLGGM+TTAQvU1DwGuzMb1kOBOCy99Uchj+gLjw2ns9r6A9LTODzDLYxwGLOsryp
+	 FMP9V4SUOumgpXR5+LzPIrkZJO47+CCfeNe3E4A5WvrPCd62OV/5H7436y43SLm+3Ug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794544700;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794544767;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=5pTCbeuMBw4mtr39j3WfpOFFcKqtGe3X/Jp0q87wrlE=;
-	b=tvarAnO5WySDbJ/rmU4rRxJSsFnF+5GBZTeMa8e9/lJOCLTNMrSpfUu+z5cFzSPZ1vaj
-	 PbYscLql4B4sThhFMcx/si5ANR74xfrLBAIRhK/MQiNnNgEFBpwBtG03PytDlzHVudISD
-	 tWscbJoSRUYwkKZ7LTUW0rRP95O709rSw/lNgToYakSG+d2lHdVGrh6N5xeLajuLlDJAV
-	 bF8OtKL8mYfKRWVPIoawaEx5PYjwEc3GCw12aKgplgStEuhxRpXnQeexI4QQYEH6WDYMc
-	 YezlmTfyIPeWTPFf7DzSDAWDcVtVBh5GCNMc7FriC43bax/HRc3grmGDHlnQ3N8IhgQ==
+	bh=tFaT0DZ6F3QRjTbdaYV7CT46FZwUMHFmzpgE4p3kzPo=;
+	b=QxVTTA9G0rWoWBIwOTrypO0ykUoDE8VC8FCX5FVO64r9mgBa+cQnsdDAJluMPvzAtayX
+	 q9S06a9wboiyyY6QB+S3RQde8hmiz1r2QMVLzgOTY3oXgsmVZ3pqc05kl2V7f5mNosVo3
+	 6aX2KH8ZDZPdEH79LFOdJ8k0EdzJCoHN0CwIFcbDzdLtUPbvHob2eNwO1nFo2VeNBJs4k
+	 5WmxfzCALnf0jlK2L4kSid9moO7M7Q2nzNhuVNvdqXFKSNjk0X+nVAAKmOAoU8dAoEPio
+	 dTA9k7vqNpX2djlU4jcVb6d3DHeNW8FwKfjKCprfLXJyq6XpdwUfc/TAw1cmAERpbAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="N4/AQyBa";
-	arc=none smtp.remote-ip=209.85.219.49
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=KBDxmF3I;
+	arc=none smtp.remote-ip=74.125.224.43
+Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C5C6606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 04:38:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C5C6606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30AAD606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 04:39:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30AAD606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=N4/AQyBa
-Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91e8938fd01so10469736d6.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:38:20 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=KBDxmF3I
+Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-67bf3c6654fso560184d50.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:39:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794544699; x=1795149499; darn=vger.kernel.org;
+        d=cs.unc.edu; s=google; t=1794544765; x=1795149565; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5pTCbeuMBw4mtr39j3WfpOFFcKqtGe3X/Jp0q87wrlE=;
-        b=N4/AQyBaK2t3RlBLNPt5N0jsmXcaICmUAn74EgkFJ8PTMSf4bhtTdx7CwtYPeGvco8
-         OR42eS9vyrCDHvt3QkCcZzxaoaSQSTCA92mpLMla/p7aYKvyd1959oweVsUPpQXlhQw5
-         zwn5w0Xb9A3Elib2NPNK6lSa9LHPy2OAl4W777Ba9Jv90QJq6n19FpHwZV2YjkZiugyE
-         x3kJ6ck9+ca5VDDNpGaSUUYlwFYnGWPDTnoBvDX+oW6NyQ3v5dTKC7plFJIiq7UONsZf
-         BB+GQa5p/o8dyN8lGe0pCDBAB29Huez+0m6eybG2k2bs3DxvronTZcuiQMYZcrr0nusC
-         sSNg==
+        bh=tFaT0DZ6F3QRjTbdaYV7CT46FZwUMHFmzpgE4p3kzPo=;
+        b=KBDxmF3Ij+U4FfCQaLZjUdUB1gdLJ8WW7JSEB1K9WgBXkrcD+fjhYsRfR7O2ntRU40
+         4Sibb6XwHj7eji9fKO6U34e0ySQ78CBBZ95skC6WYKplQlA6NGMIMg4/2+Iqd5cmrOgf
+         fIyLWWidqZz8ZQ/NH6dwFveIb71lB7Z35q3suSPUSrrXy2QNqN8Nek30GPVsJWIz2mog
+         E0o9/W6EVQdStIMoXqVC8qTuUUXUwcY05BtZ3/5pn5iziA/T1hZktg6POXiRa1VeaMKr
+         3H1ypnIvXjCIG/v31j1a5a4ShozkqRvGzd05bQZSPqO9/3hgK+ZcLxv7WAG9nJB/mRJt
+         GppA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794544699; x=1795149499;
+        d=1e100.net; s=20260707; t=1794544765; x=1795149565;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5pTCbeuMBw4mtr39j3WfpOFFcKqtGe3X/Jp0q87wrlE=;
-        b=LPtmNmJM1BqFpG5e2EkjzkYMrXJd2+NjFdd9ecWoAhxbUM5A2ak3Y1t5m3hAn8iWTE
-         M3NzJrgXyYjXm3tSBlJyKUQNNeWDtXysGiuf5J8Uh8zz6YiPD1YMLKtgQSQQpuq9Immb
-         PNirBU61yc3WYBdeAXr5Y28R+1AkYr6tTpoKJpSy1WjB/xnOD0JZRzu4WwOklue/pEMB
-         5k+AXfnGDd7kZu9bbz2UclRCrvMmx+slFcAcOc4KuIXlIlZ6lYAjzej3OFmx7eqaJ+tq
-         9UTt1JAVETikwTkLN2/tPCVkRmDhOI13vpwcDa2C2NvM3lS+i4KHURl9BRDjEOp+TZ27
-         qXlg==
-X-Forwarded-Encrypted: i=1; AL+hErFVmrJ1DzCoNTmHbuCsJq0exJ8S9M9Gv6xefitxMJXEHxvPtUFFcMszM+ERyRWORQVA1G32EMnmCfVSZAw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9nBqRXN4tEnhlRBDYRWd/4KpsHh/wbpajkldRZR9M17A5EIR+I
-	N0yMI5VzVgFo+0o+15n5v5P1aZTtuJ17+J68ey8yTqAv2zikLttamTga
-X-Gm-Gg: AYBFou342GyhLQBX3WIoyii1Cs8gZd73Q42ifMqDikiAjeuLVvDDalspEt6uLVp9FPe
-	EAZEpuVP/K1LRJdx7P+5wWIqxrdu5niJg9kxy9qDzqqRo6Qt4ySGqIak5oRXv0E6l48lrZaVxgf
-	lG2BV0WZCALLdd4QCftQxrtaRiWfW3z8d8wCydevchnRtMnshrvMGRbP3bbeOZAanraoxxAHTNr
-	ICF8Dhm9tBGrk8voejccqfHMmX6FCAQx4JgT+aG1QigVdnYjqmHW09mOojYEvmO6jklYTU9vgFN
-	pYJH8e10lIvUBl0YMvSkN45tLfi+NfwNyWADPXjtq4+/THpz0q1NN1KmyoL89NMFLoyyYBGKx85
-	PaO1eXlSrDkWt9EDxIBdNvGLfAmS5xw49qNXSYahRXI3QyWcqIuqWnXXkCwJWxTFB5Y2togwRXm
-	0CBKUTGsKe4ZlHgteXHX3WjkYTiTffRUTojZFY72yWi/0enbM5z0jxvxx+GK3oFI1ueAE0GIlMg
-	vPBG1tuY9xiVqmtN5asXPGg1uFWwiFc79T7QV4pY7QqdetfTFDvdBIPKPk/3huQkZVMw3FGf/HO
-	fFI3lMGspjXXuLwnPB+QHiwMocv7lw+9cbIan9rPZSd34hnH1TIYtnGVs9Td2mygNxTqWrYP1l1
-	SfFj6wunJlD/9WXKnQNF1
-X-Received: by 2002:a05:620a:400f:b0:93e:4e1e:aafc with SMTP id af79cd13be357-9494bb5198amr253467285a.36.1794544699199;
-        Thu, 12 Nov 2026 20:38:19 -0800 (PST)
-Received: from linux.. ([8.34.174.240])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c8f9576sm97734885a.42.2026.11.12.20.38.18
+        bh=tFaT0DZ6F3QRjTbdaYV7CT46FZwUMHFmzpgE4p3kzPo=;
+        b=wKzb8gNrNgNHWfc4o5z0mf3cqam0GW4Y8AqLUMO0VVV2nAc/VjacaVFX4mjQKilpFF
+         Ej6xInFrl+HS7mwFDCFOww56cqQ2Xx5Bf2zLvtAkP5RFj4NO/9hXutWqQsfFOD/EPNT5
+         QzmTmifJqlYDUix9SMxLUjjnSm/8Ig+NNoUCv/g6VlqicyaaMcImUdWqF7HnjrTeXXy9
+         WpYhIFWZjOwzgL2yv/wEfhsyvlo1ikTkf+p6dgbCjeb84UIwsNmQEOOt05/Ko6hBTXQp
+         0m/7lN/fqIcMKuR/1/FEi5M6iPmbM+fIm35yl1t9HxeJ4cFOSKfXxeJt7OnB3kq6yTDh
+         rvgA==
+X-Forwarded-Encrypted: i=1; AL+hErFSuRAgLJNREUbqn/dqNLIfHXwWUiLFC3TYOTqsiGUvthA9rWF7UEukyBxw2jlEOIHbIThprrE3BMxmhZg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+XvaDQxzacepPZKfd1mO89FdHZG3Epo+nlJ2RSHEioubUUABzM
+	cDZi7tKcf3ekpDMqNzDkri2caWNLEfA51dX3ch+unIA3lKAdy/lvskEwQHWDe1DX/w==
+X-Gm-Gg: AYBFou0dNfXi0DRxZvjdflVW4N2iPhZWiKTqEfl8kM3CXyYxCtD3e/KRg17WOTBHivg
+	uML9kclxYHxuKi/18dMshrnJwAFuyNTah2p6OWtAhIqIdyKkxvGRNkGy30F1meqjA5o3IAYOPTc
+	LfbDyU9MKX+lTvvMUsNNHel54OF1iEHHQB/Bud6qEddB+AiWtbmdR4IdMAnIad2X8iHwf+tjeik
+	+arHHxjdogmeAK3NRM5gMIw8pTKhjXudy2jBCFNkthcrH3JYkZKg7z9BWD17WqmthWrG5YPXYfl
+	L3IkIMm2FGCFUc99rbE/jQMuhn5NryB49KZSKPbaYHVjO/gdLxBgZZ/ZKVBPSuBMsoywLoEchoN
+	sDPwC3xJ4Osj8XId3wPcJ4o63XCeSip80HZ3qW0YYLN91O8z+QBiu+YPYFuUN56r5Mtk2BXe5m+
+	HfM5LJBS/+piOerUP/BCNQNkGHd/Bn0opRrjALE2h4mYZEALY8738gQJBL21tB6xJ/SMgThLVO5
+	nZWEpgSP8qaTHlJWQ4coWM5C/2GsAWfiZ76y/sPQtC6aHfYu0dC4mGpUB80ygTMFIpUTYtiu+Sj
+	REQTTGXDWihRwFhemfVcX6v8ZkziVctHOHacXpA/oQx8UJOwhU/rHQd1FoLVkwLqdLthD5D5
+X-Received: by 2002:a05:690e:1917:b0:679:ba40:efaf with SMTP id 956f58d0204a3-67d895e5adamr679117d50.46.1794544765076;
+        Thu, 12 Nov 2026 20:39:25 -0800 (PST)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67d8a64b04bsm1078108d50.23.2026.11.12.20.39.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 20:38:18 -0800 (PST)
-From: Changyul Lee <lcy8047@gmail.com>
-To: Jeff Johnson <jjohnson@kernel.org>
-Cc: Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
-	Jiale Yao <yaojiale02@163.com>,
-	John Crispin <john@phrozen.org>,
-	Sven Eckelmann <sven@narfation.org>,
-	linux-wireless@vger.kernel.org,
-	ath11k@lists.infradead.org,
+        Thu, 12 Nov 2026 20:39:24 -0800 (PST)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Cc: ntfs3@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Changyul Lee <lcy8047@gmail.com>,
-	Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
-Subject: [PATCH ath-next] wifi: ath11k: hold txmgmt_idr_lock while freeing pending mgmt frames
-Date: Thu, 12 Nov 2026 23:38:13 -0500
-Message-ID: <20261113043813.2174717-1-lcy8047@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	stable@vger.kernel.org
+Subject: [PATCH] fs/ntfs3: do not restart readdir() when entries are added
+Date: Thu, 12 Nov 2026 23:39:20 -0500
+Message-ID: <20261113043920.2583254-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,74 +97,109 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ath11k_mac_vif_txmgmt_cleanup() and ath11k_mac_tx_mgmt_pending_free()
-walk ar->txmgmt_idr without txmgmt_idr_lock. A WMI management TX
-completion can meanwhile remove an entry and pass its skb to mac80211,
-which frees it. ath11k_mac_vif_txmgmt_cleanup() then reads skb_cb->vif
-from the freed skb, and both walks can read an IDR node that was freed
-after an RCU grace period.
+Commit dffc7f2f177b ("fs/ntfs3: allow readdir() to finish after
+directory mutations without rewinddir()") made ntfs_readdir() start
+again from the first entry when it reaches the end of a directory whose
+version has changed. This helps programs that remove the entries while
+they read them.
 
-Hold txmgmt_idr_lock over both walks and make ath11k_mac_tx_mgmt_free()
-expect it to be held.
+However, indx_insert_entry() increments the version as well. As of now,
+a program that reads a directory while another program adds files to it
+gets the same names again and again, and reaches the end only after a
+pass during which no file was added.
 
-Fixes: d5c65159f289 ("ath11k: driver for Qualcomm IEEE 802.11ax devices")
-Suggested-by: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
-Signed-off-by: Changyul Lee <lcy8047@gmail.com>
+The issue can be reproduced on an NTFS volume mounted on /mnt:
+
+    mkdir /mnt/d
+    for i in $(seq 3000); do echo > /mnt/d/a$i; done
+    for i in $(seq 10000); do echo > /mnt/d/b$i; done &
+    sleep 1
+    ls /mnt/d | wc -l
+
+Before commit dffc7f2f177b ("fs/ntfs3: allow readdir() to finish after
+directory mutations without rewinddir()"), the result is:
+
+    5489
+
+After that commit, the result is:
+
+    1837538
+
+This patch will increment the version only in indx_delete_entry(), so
+that added entries do not restart readdir().
+
+Fixes: dffc7f2f177b ("fs/ntfs3: allow readdir() to finish after directory mutations without rewinddir()")
+Cc: stable@vger.kernel.org # v7.0
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
 ---
-Found with a static analysis tool we are developing.
+The readdir() + unlink() loop of that commit keeps working: it still
+empties a directory of 20000 files in one pass (298 files are left on
+v6.19).
 
-This is the follow-up for the skb use-after-free that was left out of
-the "wifi: ath: avoid IDR mutation while iterating" series.
+Application impact (Ubuntu 26.04 user space): "tar -cf" (GNU tar 1.35)
+of a folder with 3000 files while "cp -r" adds 2000 files to it. On
+v6.19, tar ends after 1.2 s and the archive has each file once. On
+v7.0, tar runs for 29 s and the archive has 200434 members, each file
+up to 48 times.
 
-Compile-tested only, with x86_64_defconfig plus ATH11K_PCI and W=1.
+Tested on ntfs3 master: without this patch the archive has 261512
+members; with it each file is there once.
 
- drivers/net/wireless/ath/ath11k/mac.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ fs/ntfs3/dir.c     | 6 +++---
+ fs/ntfs3/index.c   | 1 -
+ fs/ntfs3/ntfs_fs.h | 2 +-
+ 3 files changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/net/wireless/ath/ath11k/mac.c b/drivers/net/wireless/ath/ath11k/mac.c
-index 1a237adaa37d..ef60811fcf54 100644
---- a/drivers/net/wireless/ath/ath11k/mac.c
-+++ b/drivers/net/wireless/ath/ath11k/mac.c
-@@ -6151,10 +6151,9 @@ static void ath11k_mac_tx_mgmt_free(struct ath11k *ar, int buf_id)
- 	struct sk_buff *msdu;
- 	struct ieee80211_tx_info *info;
+diff --git a/fs/ntfs3/dir.c b/fs/ntfs3/dir.c
+index 7ee1a5d4189e..defc84693e39 100644
+--- a/fs/ntfs3/dir.c
++++ b/fs/ntfs3/dir.c
+@@ -476,15 +476,15 @@ static int ntfs_readdir(struct file *file, struct dir_context *ctx)
  
--	spin_lock_bh(&ar->txmgmt_idr_lock);
--	msdu = idr_remove(&ar->txmgmt_idr, buf_id);
--	spin_unlock_bh(&ar->txmgmt_idr_lock);
-+	lockdep_assert_held(&ar->txmgmt_idr_lock);
- 
-+	msdu = idr_remove(&ar->txmgmt_idr, buf_id);
- 	if (!msdu)
- 		return;
- 
-@@ -6172,8 +6171,10 @@ void ath11k_mac_tx_mgmt_pending_free(struct ath11k *ar)
- 	struct sk_buff *msdu;
- 	int buf_id;
- 
-+	spin_lock_bh(&ar->txmgmt_idr_lock);
- 	idr_for_each_entry(&ar->txmgmt_idr, msdu, buf_id)
- 		ath11k_mac_tx_mgmt_free(ar, buf_id);
-+	spin_unlock_bh(&ar->txmgmt_idr_lock);
- }
- 
- static void ath11k_mac_vif_txmgmt_cleanup(struct ath11k *ar,
-@@ -6183,11 +6184,13 @@ static void ath11k_mac_vif_txmgmt_cleanup(struct ath11k *ar,
- 	struct sk_buff *skb;
- 	int buf_id;
- 
-+	spin_lock_bh(&ar->txmgmt_idr_lock);
- 	idr_for_each_entry(&ar->txmgmt_idr, skb, buf_id) {
- 		skb_cb = ATH11K_SKB_CB(skb);
- 		if (skb_cb->vif == vif)
- 			ath11k_mac_tx_mgmt_free(ar, buf_id);
+ 	if (!pos) {
+ 		/*
+-		 * ni->dir.version increments each directory change.
+-		 * Save the initial value of ni->dir.version.
++		 * ni->dir.version increments when a delete reshapes the
++		 * name tree. Save the initial value of ni->dir.version.
+ 		 */
+ 		file->private_data = (void *)ni->dir.version;
  	}
-+	spin_unlock_bh(&ar->txmgmt_idr_lock);
- }
  
- static int ath11k_mac_mgmt_tx_wmi(struct ath11k *ar, struct ath11k_vif *arvif,
+ 	if (pos >= eod) {
+ 		if (file->private_data == (void *)ni->dir.version) {
+-			/* No changes since first readdir. */
++			/* No such delete since first readdir. */
+ 			return 0;
+ 		}
+ 
+diff --git a/fs/ntfs3/index.c b/fs/ntfs3/index.c
+index c06b36760448..29884bf3d35e 100644
+--- a/fs/ntfs3/index.c
++++ b/fs/ntfs3/index.c
+@@ -2100,7 +2100,6 @@ int indx_insert_entry(struct ntfs_index *indx, struct ntfs_inode *ni,
+ 					      fnd->level - 1, fnd, cmp);
+ 	}
+ 
+-	indx->version += 1;
+ out:
+ 	fnd_put(fnd_a);
+ out1:
+diff --git a/fs/ntfs3/ntfs_fs.h b/fs/ntfs3/ntfs_fs.h
+index f400cf94d05b..12212fb7a2be 100644
+--- a/fs/ntfs3/ntfs_fs.h
++++ b/fs/ntfs3/ntfs_fs.h
+@@ -198,7 +198,7 @@ struct ntfs_index {
+ 	struct runs_tree alloc_run;
+ 	/* read/write access to 'bitmap_run'/'alloc_run' while ntfs_readdir */
+ 	struct rw_semaphore run_lock;
+-	size_t version; /* increment each change */
++	size_t version; /* incremented when a delete reshapes the tree */
+ 
+ 	u8 index_bits; // log2(root->index_block_size)
+ 	u8 idx2vbn_bits; // log2(root->index_block_clst)
 
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+base-commit: 0c895b1f6ab37a7c72a437818f307ef6e629051c
 -- 
-2.43.0
+2.53.0
 
