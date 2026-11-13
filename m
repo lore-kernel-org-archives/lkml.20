@@ -1,98 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794614325;
-	b=kVE9/2+nEw2vHWIZ8jOEGmgDz8lQbHNGVwhrFsb4DvaCHg1VkoAceKmYX63/YnRZsN57
-	 9qH8bo+SX44j82kO0H5i6Xac8m4B0zFYKO3E2XAZbC/sw86IJFLjci8bMNGwLAvd97UC4
-	 PNxaHAOsRIuWITV78YRA0torvEiSel46c48jpo8Nw7v6yNj/nFeVqNJwGpKN5FE9bVpDd
-	 L2UCS114MtA1B870nin5VdFfxTrwAT+O/VCi6jXrWb3J8xTDglj1UdNdmBF9RSaf/oxXT
-	 wL5cvk/2bxw0SzPIc0+O/1fZ5x9FiApJrl46kfZcjNmTCoWETl7PfTLni7gZTpvSs4Q==
+	t=1794614340;
+	b=E1zXojz0ggi36YdfbClKf2rye6u2DOpoCL2sWN9lVYdGCnI4hQquXr+Hy1dv1N0bgA99
+	 YfK0c6L/8GrzBdaomLFrBMQ6Cx4/iZxLTdelKWgLMPNBly+1xo/ZUsMjRVqrf0qF6rRde
+	 KolJkqdSGWhZLrqEt3Z8mXE5jEKjShjzoYv3zdEg1HnJi8/ABOh2LP2WNaWwvLlGuPK2+
+	 EXPcANhoxYW+8GruX1o7Sy4rOb0PhedLUA39erCCvCh8bXDp0WJwwB3EgcOj3EO1FAagz
+	 esVmNj1kDjwFuNEIeRdvZyYwjm0FXXKxgvVjYCbpsYEuXJqe2PPq4S5NdS8RmiTyLXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794614325;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794614340;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:CC:Subject:User-Agent:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=n/DGsb4Q4UQJAUdjwRmLwDE8lUxnn6ZgFmpe2GZ5h9I=;
-	b=lkGBUr6WKdMg/oeUZgE9//nbffE5aTBogkHQR7zrAxAQxkZG9+qseI5kb7/A00N9GFcY
-	 YF0p1ykLHpST4D6k8xpyPHGmE2A0i7js1gTwioDYeQlyxVeh4mYNsZksghGNDk6GPNbMg
-	 008sKVGsbxmTus6AGc0hjWXWJ+iJBVMiFc43QOtJdJ4H/pHnHsg2JLVFMC0ZkyTxM2RVm
-	 +QqXhZ08/pSO6IQuIVAA5Im89RAOt+fS9TqDFOoWYYhx3lhvkhU4TGEkEZQtbWzFxdnDw
-	 +e52lzLIaYV/ip+fMCn8V6YZpkAEuzO8dsTpvFOrNhnpXuGavGEftBZ2cbRs3RhxHxw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=+yLvyz+fMxvHJOFwimgm8CGOOpPaAc/+bETgw10dI8o=;
+	b=lezz5flLkMXM02IrGLdhcLe5XjJhhQzvvNlMkkW88rXq/Ff9JfVc3OLyJlLrdQZpL7Ei
+	 MIzM4+kGQx7Cml8llXxsQO6tdem1J64Tu4CUeHxTAg7gZUHBEBotOyhugC7yxC7y0cz/C
+	 t33NoKQFEBqZ3JKHCWolm52wrZ2AY3OjJmH19cLobasH/t0X2fTEZJW2/9z634bbpYuSm
+	 njW/JnlFV3FizHOyuyfRJ3zkkaE2xcCAwKpej0f/bQk8RORC0n5a8d4SwEiFFLtJMwY5p
+	 fFd/wiBMpTLw3SPg3FUygelMh3F5mQkgUR5Jszc8uJ1do4ilvZ/tkuR3TI8rgs7o9xA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=larqWjJS;
-	arc=none smtp.remote-ip=74.125.224.48
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sY9AHi2c;
+	arc=none smtp.remote-ip=209.85.218.44
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 456F8606A89D
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 23:58:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 456F8606A89D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEDDB606A89E
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 23:58:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEDDB606A89E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=larqWjJS
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-67c6f1019a3so1958061d50.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:58:45 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sY9AHi2c
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c50ac25cdd4so92627566b.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:58:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794614324; x=1795219124; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=n/DGsb4Q4UQJAUdjwRmLwDE8lUxnn6ZgFmpe2GZ5h9I=;
-        b=larqWjJSglw1WgxLVg6fCbke/Es+wTZfPspGID0y2pFG0aOQ8y5VCehHOkP51MP+2z
-         sEITXV3nZya4uweQjw7fCZVHa66kZXArsfb2BHwlSsOQpE5y6Jfc7suNWObrJJ4P15Ah
-         6Mwf87Ts24bKSgRbwilkfl+vY49QF3rSgh2Uc5wZpH9JjLic4BaMEfBEEolCKPuOEuuP
-         AocufNuX+lNBbguaAuf/iyIwSaDm9VYcy0xosATiRSugt05wRzed81Tbb4dpvW3Z1D/9
-         3+JCGAgyIBlCOyHNMm+zfxjptjtj+mV/A6J/ICBJ+JdB9nW4/UiKD3i4XnEA34nKbX9p
-         rZnw==
+        d=gmail.com; s=20260707; t=1794614336; x=1795219136; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+yLvyz+fMxvHJOFwimgm8CGOOpPaAc/+bETgw10dI8o=;
+        b=sY9AHi2cTJKQDOiGtco3GaLZADrsghwOX8ZoP9wtjgDEopGsOPJG8F5RwCl1PdKbXO
+         E3juuH7xS3uOaXDr416OLEovsMHMVhx7KRG+1xlqpxoMZpxJ3EDFmAnRoFQ2S3GBopuz
+         hIfjkDUHNfoMJSI0fNbmBo+N/FMMkxIbHTKVGFUht7Kedp3iF4IQOZ+MnRwBjz85rzbW
+         bX1e6ISgmWtjA5m2opESzIFgJkvxfaVk9tqbnobJT5Ct6otrMA5rQ6aD5YU7oPJWaCP8
+         c6ahtURSiY3jHYJYGghmF+wi8yGKMDMtOS98q9pnEEWcSrzE6o1nOx1seX7jLGdLRLar
+         sVng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794614324; x=1795219124;
-        h=content-transfer-encoding:content-type:mime-version:message-id
-         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=n/DGsb4Q4UQJAUdjwRmLwDE8lUxnn6ZgFmpe2GZ5h9I=;
-        b=WsyL+1V5mrVurRGqJXBiMGQpPfK2xBocU74YRE/nBoAhryLvlvKSvl8tpU3P5WivwT
-         oyOo2EEe1eMa0dLClvp5e2hGHFljPJZivS10Hvug8jtTwT5odZz02WtAY2Tbcl/Tf5Ls
-         VU50tOCEIzCbnpiQSG1v5+ryuwDxw8ge5Mz55bFJvVCXO9e/7U0o2uBR/4uUHPrIAcRD
-         d8MquSrilzF7fWo/lgThmLO3AOc9OKlapzERKinVohqUGe65+3+ohbaqu1MsuABLLJL6
-         oKFPx7rnuAI1swLvYISj27EWYyGm0zTl29z5z7oXWLgEVOZo4CEv1/EmWTfvtWTZNih7
-         IGOw==
-X-Forwarded-Encrypted: i=1; AL+hErFU+n8/R9Je+EHYPykfLWwuVNOKprTeXYwUOlBvV5THscc5pt2BuTRAI5F9GDwPCtcbQZPCnxILwePGlbU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/+M/mhxBQR4NolvYy6NZ2bkbuD1vDxLkUeCpdeKY/YZNRpU8cA
-	T7TglcvWHtzvjwLxny6UhT9sy38i+TBCSEcrQa0QV8cz8KL0OKI5VKJLMHXKUA==
-X-Gm-Gg: AYBFou1k0nDN/2cN8o/+2i+Qso7O7Azz7HjcJHZYW+HcdWZvQkPZp2aouADp9tHiS2e
-	l+i1IIh6yYusIUqgwR5Evvj5b8B6OqHumKInrLkYF/9sq+cIkHanpuADBemAuw8RFWXAEJJHMci
-	M4mp9udNoRCpIr331nMxkiWDVxkryu2dWmrAWIZEm5t+VH7jAeHRjoKTZX7+rBQeToqzWbAq+HW
-	Ftawq4LsITnVG2CYxJvhw3E0R3/jJSW2PTySVjwTwgw+NUam5xKps3VtM8Sw8/LKbRBVrSBc/YE
-	XDxIUJFmtGto0QsSuW5BbQ0CYiBONOIFFggAgFAO+QK6ip/a1U0eK/DOTkldUNP/k2W6pn80v95
-	JW3YHpS7Iy+A9w2yKPq7kbDJa8k0S7kaWmlvuJnGVBuzHyBPLVGmNyl8hHbiaLvv/n4AMcKsG+r
-	rON0zs18GNRKbdVaC5oSwKQBzUjQNSMvJbBYnxEBM8cLYW2o4epDB4HUXWHMgVu4YuOjK0DZlE6
-	QClXn1Gm3SLQsFqJ5GXCqhED2Vqda8ua0TrrPHrQSD0LFlTkzpkVHjGRStKQMCh8FDw4AOgSTY2
-	TRyObqnEqNnFyMUl6xm3iC45dtQ4ZLncC3JvDypOPncmFg==
-X-Received: by 2002:a05:690e:13cc:b0:67c:56a:f173 with SMTP id 956f58d0204a3-67d897bb534mr1772721d50.160.1794614324075;
-        Fri, 13 Nov 2026 15:58:44 -0800 (PST)
-Received: from ehlo.thunderbird.net ([2804:2bf0:60e7:ae00:c9b7:cb5f:2bf4:1b2e])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67d8a555c15sm3462796d50.8.2026.11.13.15.58.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 15:58:43 -0800 (PST)
-Date: Fri, 13 Nov 2026 20:58:38 -0300
-From: Arnaldo Melo <arnaldo.melo@gmail.com>
-To: Ian Rogers <irogers@google.com>, Arnaldo Carvalho de Melo <acme@kernel.org>
-CC: Namhyung Kim <namhyung@kernel.org>, Ingo Molnar <mingo@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, James Clark <james.clark@linaro.org>,
- Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>,
- Clark Williams <williams@redhat.com>, linux-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2_0/11=5D_perf_coverage=3A_A_h?=
- =?US-ASCII?Q?arness_for_perf=2C_and_the_fixes_it_found?=
-User-Agent: Thunderbird for Android
-In-Reply-To: <CAP-5=fV1FRJcyCHg7vNjptZU996PBXcEcve5m3sYkUtdWSmT8w@mail.gmail.com>
-References: <20261113200850.2803460-1-acme@kernel.org> <CAP-5=fV1FRJcyCHg7vNjptZU996PBXcEcve5m3sYkUtdWSmT8w@mail.gmail.com>
-Message-ID: <DEB65601-1A5C-4585-894E-EDF6B99BC8B6@gmail.com>
+        d=1e100.net; s=20260707; t=1794614336; x=1795219136;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+yLvyz+fMxvHJOFwimgm8CGOOpPaAc/+bETgw10dI8o=;
+        b=dgWiLR7Ia+PKMtATW6eCPnTKsq7HGq5TmI9s3596UlpptzGVaTgspCXbXVNWqpHyuZ
+         c+XYgQy2Ift52WgWUXqzttt8qSzGOj98VzGJRlmu8eIKKqtV1zTAaxOk0O6Mk0VC3Pou
+         /qb+/gb/oyUz9VExusDrW3gVoqOjukdyLwZab0wT8m2Jzi7VmJXZAav/W2fEMxVtS4EK
+         BVSYpgGTXcymMX4A8KsiAzJvwUC2vZK78syWZvxZNOGfvYIuFIOghZu6py6zwjEzAaac
+         gYZVki/HhC5qfZzWZpNDeGmAYQyLOC32hbHuxctH2HjNy9o++Fl3kleXGqRLOxOLcZ1i
+         dNAA==
+X-Forwarded-Encrypted: i=1; AL+hErEGw+kthiFXVWQKkwNz8GbCRNs4MjDHu1eEL+WmdEuXhNqOqlAR1FeB2UtNSWXiGoSCAZS8AbRxzXEBtVc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Yye4YmcSrJtt7Q3CDibRgTjeGvbCYKs5R22Fo37VMqEE+3mGT
+	hgHvC9Z2JumI51AfnrkecD/hjRxMp8Z41qdqNq7o5t3WdcYyLyup5BV3
+X-Gm-Gg: AYBFou3fUKgQjkuA77CvxvnWZkluWN1LIkQpXKCOqQYVBPThMTknZyG4WeRoB2HdMQx
+	okRDyvQAOkh+5YE10CoXtT++hgHBvfVkvIAJJsfB2i5KpqefxnaE0uAlrwBEWBMbBOJylDPIYGG
+	taSHs4Pm931xU71kQ1gLrbmP36nxNnHIwZVwsiIkz1gFA1iv1FgPjJdH8g0tvB4+vfVxXZ1A2nt
+	7Sqa2iPwbjx0DHJYDXm2XENBR5VMRo7z7Ylr7Zs2lyjSQFTPmZFvwikHGHF37tGPOCnMOg22tR7
+	/D1E7YKu8x2K+cnVC0qXnmjJDR7mm930TostHaG2lDWhYGK0Z4EUEEkrYfS2Wc5IjlVkcjLk2Df
+	wa1ieFy1fhpr8Q2Lzm26MFAQmlO8XpT32eczfnB/QSO76qSFoIj3vKklBF72YQ3CBOja90q8UKG
+	Dl5zCr21+rmI+bLJHfkSXhKcFv1Sn4dCSvLj3+umTLHn7yNQDdAQRwDAr0+tV8Mg49dxFpZ/jng
+	THuFiNXewCNkDHHSRpj8lYHH/k70EqXytFAapeP2OC/LWiTaxDvAG7dMY7Te1swO/jsONErxryP
+	xqE/v0Nu8aIAN3sZRTkbdTaWNqKSBicGTXduIi6t
+X-Received: by 2002:a17:906:478b:b0:c31:9a1c:de76 with SMTP id a640c23a62f3a-c5096372196mr356722866b.14.1794614336200;
+        Fri, 13 Nov 2026 15:58:56 -0800 (PST)
+Received: from kordpc.lan ([2a13:e746:396c:c600::8f9])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b3dbaesm153454266b.32.2026.11.13.15.58.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 15:58:55 -0800 (PST)
+From: Kordian Chmielewski <kudzo51@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
+	bcm-kernel-feedback-list@broadcom.com,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v3 1/7] net: bcm4908_enet: fix the TX ring wrap
+Date: Sat, 14 Nov 2026 00:58:41 +0100
+Message-ID: <20261113235847.517308-2-kudzo51@gmail.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261113235847.517308-1-kudzo51@gmail.com>
+References: <20261113235847.517308-1-kudzo51@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,20 +105,176 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
+start_xmit() wraps write_idx at length - 1 and sets WRAP on the
+descriptor at length - 2, while poll_tx() wraps read_idx at length,
+and the free descriptor count is taken from length. With read_idx at 0
+and write_idx at length - 2 the count comes out as 2, the frame is
+queued and write_idx wraps to 0 == read_idx: a full ring looks empty.
+The following frames overwrite slots whose skbs were never unmapped
+or freed, their bytes stay in BQL, and the queue stops for good with
+nothing left to wake it.
 
+On a TP-Link Archer AX6000 this stopped everything the CPU sent to the
+switch under sustained TX load (about 1.3 Gbit/s through the switch's
+CPU port): tx_packets froze, nothing was logged, and BQL showed about
+185 KB in flight against a limit of about 10 KB.
 
-On November 13, 2026 7:16:05 PM GMT-03:00, Ian Rogers <irogers@google=2Eco=
-m> wrote:
+The same mismatch also lets poll_tx() step onto slot length - 1, which
+start_xmit() never fills: once per lap it completes that slot,
+unmapping address 0 with length 0 and counting a packet that was never
+sent. That one is from reading the code.
 
->Thanks for working on this! Patches 2, 3 and 5 add small C programs
->compiled in a shell test=2E These are a pain for our CI framework; could
->we add them as perf test workloads?
+Use every descriptor, with WRAP on the last one, wrap both indexes at
+length and keep one descriptor free, so that read_idx == write_idx can
+only mean an empty ring. Stop and wake the queue with the
+netdev_queues.h helpers: start_xmit() stops it when the ring is full,
+also when it finds the ring full on entry, and poll_tx() wakes it once
+there is room again.
 
+Fixes: 4feffeadbcb2 ("net: broadcom: bcm4908enet: add BCM4908 controller driver")
+Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
+Signed-off-by: Kordian Chmielewski <kudzo51@gmail.com>
+---
+ drivers/net/ethernet/broadcom/bcm4908_enet.c | 57 ++++++++++++--------
+ 1 file changed, 35 insertions(+), 22 deletions(-)
 
-Sure, will do in V3=2E
+diff --git a/drivers/net/ethernet/broadcom/bcm4908_enet.c b/drivers/net/ethernet/broadcom/bcm4908_enet.c
+index fd2715f84..60f711e8c 100644
+--- a/drivers/net/ethernet/broadcom/bcm4908_enet.c
++++ b/drivers/net/ethernet/broadcom/bcm4908_enet.c
+@@ -13,6 +13,7 @@
+ #include <linux/platform_device.h>
+ #include <linux/slab.h>
+ #include <linux/string.h>
++#include <net/netdev_queues.h>
+ 
+ #include "bcm4908_enet.h"
+ #include "unimac.h"
+@@ -518,30 +519,34 @@ static int bcm4908_enet_stop(struct net_device *netdev)
+ 	return 0;
+ }
+ 
++/* One descriptor always stays unused, so read_idx == write_idx can only
++ * mean an empty ring
++ */
++static int bcm4908_enet_tx_free_descs(struct bcm4908_enet_dma_ring *ring)
++{
++	int free = READ_ONCE(ring->read_idx) - READ_ONCE(ring->write_idx) - 1;
++
++	return free < 0 ? free + ring->length : free;
++}
++
+ static netdev_tx_t bcm4908_enet_start_xmit(struct sk_buff *skb, struct net_device *netdev)
+ {
++	struct netdev_queue *txq = netdev_get_tx_queue(netdev, 0);
+ 	struct bcm4908_enet *enet = netdev_priv(netdev);
+ 	struct bcm4908_enet_dma_ring *ring = &enet->tx_ring;
+ 	struct bcm4908_enet_dma_ring_slot *slot;
+ 	struct device *dev = enet->dev;
+ 	struct bcm4908_enet_dma_ring_bd *buf_desc;
+-	int free_buf_descs;
+ 	u32 tmp;
+ 
+ 	/* Free transmitted skbs */
+ 	if (enet->irq_tx < 0 &&
+-	    !(le32_to_cpu(ring->buf_desc[ring->read_idx].ctl) & DMA_CTL_STATUS_OWN))
++	    !(le32_to_cpu(ring->buf_desc[READ_ONCE(ring->read_idx)].ctl) &
++	      DMA_CTL_STATUS_OWN))
+ 		napi_schedule(&enet->tx_ring.napi);
+ 
+-	/* Don't use the last empty buf descriptor */
+-	if (ring->read_idx <= ring->write_idx)
+-		free_buf_descs = ring->read_idx - ring->write_idx + ring->length;
+-	else
+-		free_buf_descs = ring->read_idx - ring->write_idx;
+-	if (free_buf_descs < 2) {
+-		netif_stop_queue(netdev);
++	if (!netif_txq_maybe_stop(txq, bcm4908_enet_tx_free_descs(ring), 1, 1))
+ 		return NETDEV_TX_BUSY;
+-	}
+ 
+ 	/* Hardware removes OWN bit after sending data */
+ 	buf_desc = &ring->buf_desc[ring->write_idx];
+@@ -562,7 +567,7 @@ static netdev_tx_t bcm4908_enet_start_xmit(struct sk_buff *skb, struct net_devic
+ 	tmp |= DMA_CTL_STATUS_SOP;
+ 	tmp |= DMA_CTL_STATUS_EOP;
+ 	tmp |= DMA_CTL_STATUS_APPEND_CRC;
+-	if (ring->write_idx + 1 == ring->length - 1)
++	if (ring->write_idx == ring->length - 1)
+ 		tmp |= DMA_CTL_STATUS_WRAP;
+ 
+ 	netdev_sent_queue(enet->netdev, skb->len);
+@@ -572,8 +577,13 @@ static netdev_tx_t bcm4908_enet_start_xmit(struct sk_buff *skb, struct net_devic
+ 
+ 	bcm4908_enet_dma_tx_ring_enable(enet, &enet->tx_ring);
+ 
+-	if (++ring->write_idx == ring->length - 1)
+-		ring->write_idx = 0;
++	if (ring->write_idx == ring->length - 1)
++		WRITE_ONCE(ring->write_idx, 0);
++	else
++		WRITE_ONCE(ring->write_idx, ring->write_idx + 1);
++
++	/* poll_tx() wakes the queue once there is room again */
++	netif_txq_maybe_stop(txq, bcm4908_enet_tx_free_descs(ring), 1, 1);
+ 
+ 	return NETDEV_TX_OK;
+ }
+@@ -652,17 +662,19 @@ static int bcm4908_enet_poll_tx(struct napi_struct *napi, int weight)
+ {
+ 	struct bcm4908_enet_dma_ring *tx_ring = container_of(napi, struct bcm4908_enet_dma_ring, napi);
+ 	struct bcm4908_enet *enet = container_of(tx_ring, struct bcm4908_enet, tx_ring);
++	struct netdev_queue *txq = netdev_get_tx_queue(enet->netdev, 0);
+ 	struct bcm4908_enet_dma_ring_bd *buf_desc;
+ 	struct bcm4908_enet_dma_ring_slot *slot;
+ 	struct device *dev = enet->dev;
++	int read_idx = tx_ring->read_idx;
+ 	unsigned int bytes = 0;
+ 	int handled = 0;
+ 
+-	while (handled < weight && tx_ring->read_idx != tx_ring->write_idx) {
+-		buf_desc = &tx_ring->buf_desc[tx_ring->read_idx];
++	while (handled < weight && read_idx != READ_ONCE(tx_ring->write_idx)) {
++		buf_desc = &tx_ring->buf_desc[read_idx];
+ 		if (le32_to_cpu(buf_desc->ctl) & DMA_CTL_STATUS_OWN)
+ 			break;
+-		slot = &tx_ring->slots[tx_ring->read_idx];
++		slot = &tx_ring->slots[read_idx];
+ 
+ 		dma_unmap_single(dev, slot->dma_addr, slot->len, DMA_TO_DEVICE);
+ 		dev_kfree_skb(slot->skb);
+@@ -670,22 +682,23 @@ static int bcm4908_enet_poll_tx(struct napi_struct *napi, int weight)
+ 		handled++;
+ 		bytes += slot->len;
+ 
+-		if (++tx_ring->read_idx == tx_ring->length)
+-			tx_ring->read_idx = 0;
++		if (++read_idx == tx_ring->length)
++			read_idx = 0;
+ 	}
++	WRITE_ONCE(tx_ring->read_idx, read_idx);
+ 
+-	netdev_completed_queue(enet->netdev, handled, bytes);
+ 	enet->netdev->stats.tx_packets += handled;
+ 	enet->netdev->stats.tx_bytes += bytes;
+ 
++	/* Reports to BQL, and wakes the queue if start_xmit() stopped it */
++	netif_txq_completed_wake(txq, handled, bytes,
++				 bcm4908_enet_tx_free_descs(tx_ring), 1);
++
+ 	if (handled < weight) {
+ 		napi_complete_done(napi, handled);
+ 		bcm4908_enet_dma_ring_intrs_on(enet, tx_ring);
+ 	}
+ 
+-	if (netif_queue_stopped(enet->netdev))
+-		netif_wake_queue(enet->netdev);
+-
+ 	return handled;
+ }
+ 
+-- 
+2.56.1
 
-- Arnaldo 
