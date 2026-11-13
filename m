@@ -1,57 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.76
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794532571;
-	b=JVgyxDY86wNDMVE/yUDKq7EZGJUnZNxIVAVcIhXL+QyzV1jAjLNxaOONwpnBV5kI6hWo
-	 KiXSMdlwFUhx7FZChvkTtmm0bXIuMBk/UjW/uNjqb84OxmchMjV2oMRQ8ObNxRU9bv4qq
-	 +YnAFsHajw6StZ2fY4NkFpIJgQccGXniqTuh4MUJPJ3F1oACWQ4hKT3whUx7IqQxG5F74
-	 sH9E5jWmv6sMlH+bHgKy08EZkQIzjF5scj1waz6U+VaMn5wfXyjokUWqDs5buHq9wQMvn
-	 gcn8cdDdAQmfMy5iGFbob9Sgz1WmRXROIX3wGn9oJ5BD5a88iGzUByar0iEvx7iKS+g==
+	t=1794532726;
+	b=1OOdPwohkm7YhFyQ8QuUdni3tFGCtfxMtfd40Iq9R+qGRvf0fAJo+ez2/wHl8SXRWmDj
+	 8qEjHeRBhVpSS33IQ61kUIfn0AynPL5E4+fZBmGtVCGqBerrh9aU2h8mYOMKt8+wLQG01
+	 TrG7XLAtd2tMFeANZb1GDmTryY+UKGaUNwmXFNqq8HNx0gJ/SCtn7RwZzbM7YLgnSSZ8f
+	 0r3+bLeW2RiMahkGWfa2YJaO4xdXnhwPP31w98hZ8RhKbSl7vGpupua59WqZrZKzn2pL6
+	 IJh9bhlUg64aapTKJCzKBJUFqBLuNC3log9yuW1+ly92YC2UxgDLTcUxoexKv+aEjjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794532571;
-	h=DMARC-Filter:X-Alimail-AntiSpam:Received:Date:Message-Id:Cc:
-	 X-Lms-Return-Path:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:To:Subject:From:Mime-Version;
-	bh=EuJesQLZQcUL7RHGlbQVMGLxz6hVm1h8tgff4wrd2C8=;
-	b=Moc840iDbwGHg02CQpxF7NdIjoO2ZixMKdi6Qef3yWunhwi/FrKs0GhGw6rhJI4FOJet
-	 VDQQXf2OfZwO6xnmyaMAfhEo6yCWL40iZ1tUD6/FMMwGXXwzVYtv6TI5bQCwbBxwnWVj6
-	 WTEYAF6UN8nxSZYwIBeUgGf2k9P4KqZErt+g1G/VMlG8KESPVwxQuXB6cZhOOqsmibFLn
-	 4JVb8M5UFGDpMG5Oold9boKpBCEiIhQVfrAc/lkYpxiMiUbFg+X1fBnVYmk8WDRhnac0e
-	 QG3ogbBbCvUCv4ZLibHqlZ2M/DA1Ikuk4lWKBSO751U3cDOMyOgCh7EWgay4dn+XOHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794532726;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=VasWpqSUZYD0V4VYxxbwomWuyZegnnIz6kc2wFLpprs=;
+	b=gxCppA84+rUvr7tc9nvnqz+ZqjusAlYdLcLDbMwJzMb+m34AFxm/jSSNUVRylTqDun7k
+	 OSACD96B1wzJpUfUyGWPww2xw3v1gW4jPsu3PStlMKWNGuoYrdzU1wlxzLz/+YCLiEcrp
+	 oWwDTmHzh1yOT5YbU4Bo0oLySmPvjh3cE8clb8EdtoFUliGwqM+eKtwb41u4HslklSzY1
+	 o+E/T5RrTbEN2SHDRk+K66tsKsgj4Qs/gUJH4q8yimpnLlub3qcAjfiP4aCoT/07vLT6V
+	 8uTivd37hCcI7EVpfLKsqxTfcJrjVHlJIEJURkSmy40HFGS33r4mF/RvG8DFrcWAf4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kaihong.com;
-	spf=pass smtp.mailfrom=kaihong.com;
-	arc=none smtp.remote-ip=115.124.28.76
-Received: from out28-76.mail.aliyun.com (out28-76.mail.aliyun.com [115.124.28.76])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Gbwr0IK0;
+	arc=none smtp.remote-ip=209.85.210.47
+Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 656A9606A31C;
-	Fri, 13 Nov 2026 01:16:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 656A9606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kaihong.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kaihong.com
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07437093|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.0364211-0.000647065-0.962932;FP=10195514563781422546|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033025068124;MF=wangxiaolei01@kaihong.com;NM=1;PH=DS;RN=14;RT=14;SR=0;TI=SMTPD_---.k0uSnOv_1794532557;
-Received: from localhost(mailfrom:wangxiaolei01@kaihong.com fp:SMTPD_---.k0uSnOv_1794532557 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 13 Nov 2026 09:15:58 +0800
-Date: Fri, 13 Nov 2026 09:15:54 +0800
-Message-Id: <e457d7c64cc913174affb10b272225cc3cbe88a3.47db7345.49f4.4282.8c3a.7d02c37fbf53@feishu.cn>
-Cc: <linusw@kernel.org>, <florian.fainelli@broadcom.com>, 
-	<rjui@broadcom.com>, <sbranden@broadcom.com>, 
-	<bcm-kernel-feedback-list@broadcom.com>, <daniel@dragonzap.com>, 
-	<iivanov@suse.de>, <andrea.porta@suse.com>, <phil@raspberrypi.com>, 
-	<linux-gpio@vger.kernel.org>, <linux-rpi-kernel@lists.infradead.org>, 
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>, 
-	"Jonathan Bell" <jonathan@raspberrypi.com>
-X-Lms-Return-Path: <lba+16af664cb+a9c232+lists.infradead.org+wangxiaolei01@kaihong.com>
-In-Reply-To: <avWuED_RGlEdGH-9@apocalypse>
-References: <20261106070628.1428691-1-wangxiaolei01@kaihong.com> <20261106070628.1428691-2-wangxiaolei01@kaihong.com>
-	<avWuED_RGlEdGH-9@apocalypse>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-To: "Andrea della Porta" <andrea.porta@suse.com>
-Subject: Re: [PATCH 1/3] pinctrl: bcm: Fix off-by-one and out-of-bounds access in fsel_get()
-From: =?utf-8?q?=E7=8E=8B=E5=AD=9D=E9=9B=B7?= <wangxiaolei01@kaihong.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE88E606A883
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 01:18:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE88E606A883
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Gbwr0IK0
+Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-843cf077f10so861684a34.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:18:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794532725; x=1795137525; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VasWpqSUZYD0V4VYxxbwomWuyZegnnIz6kc2wFLpprs=;
+        b=Gbwr0IK0qd1Y/y7HBMuf9IUXwTm1GD3GcGNZPmJ1lAYZJxS9CEQryMc6NhKoIJE+Bo
+         d/DETRVD7Yr2TJ8MnzMvwdJDeGO9PKieWKkwVjxjdFHx0x19ePXKYdMSqKnWlb6hb9nH
+         HLwKuCTlpOhDLIIzPqad5DgqCy+q7YvwdAH1w70j2nhoeD9L0veIb9fe7xqnNpLV+1Ro
+         hoy7/e9qlNO958nQJ5LfomK6a1419t6AZ6MEdEbyJ+YqNgg9rTUe1pRbBNLpgzyJt78S
+         wqm3q4S8sjeCQf1kBhJfKIWq/4VHU3brAqcQL8gYfp06+ntjJmGtD9NBGWRPEOwhXoQ+
+         ytDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794532725; x=1795137525;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VasWpqSUZYD0V4VYxxbwomWuyZegnnIz6kc2wFLpprs=;
+        b=c6oQPbnkxyJrERniRk1w+b77aTvisiqQEcbLIXTLWUuISQ8keX52lvFf1BcGKd+lJt
+         nuA7dORZRsPp9POKgW/BEysETdRAjOofPyLYa8X7oTQkzzqQl30b3tx4xvz4Sc5l0Hmr
+         WxqSzfQiVayJWazFvyUeJEhcM+CqmKvgpKVxtgMI6TmhYPL+UQJsQu4J00B8NjZQoC8q
+         AEBkCGjkhWulohg7Yjy6NdKUJKTdLrXGV7kHGiWNXA7jAnDkNoZNCZ7RJ+E21KxdhjKC
+         yGXUQHC4O1EKvbSkf0eyOcpwqLemJqzSr+ozTDiHWJONnR+9WUlae1OEbMo43SfMEQFJ
+         wh6Q==
+X-Forwarded-Encrypted: i=1; AL+hErHo7Bsa/MHfIN64KppE46Q7pwiy+Bf209LX0teM1Jq430bToWXSxT6LNuOXIg9j+ZFpyXXCjkIcAPBMSbY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+JIp0oaoiF3OzwVR9ZR58Wdrme8AadIatQ2aYJmOP1d/QuIaSC
+	UIFUck8WTW6meOuqm2YsCUgEAJxc/Iwzkxd8T+zvpru65OAI/+WJ2eE/
+X-Gm-Gg: AYBFou0TiJAZP+Av4ceVLSplisFhLPbYVe/aTs/0Sx6UNdQnUwcAYF4DlTced6clFei
+	XsHqoyEhhjA8G2PIB32V+iJTUQumgfFlyoe3/MFU/iOok/+VNehGc4dCOh2zy0P25uc3Pk+NBQj
+	MweGyxoqlAer5y34C/ieGih7ICOMNAbZFRRk+4giq84pyELjXWHyHxWQshv2eUPsNxT/EPI/SPm
+	4M4/wyzaNKqvaUdBOh7IPvWlj/+8qO3LbfUm8mLe2Z7OQQd/OZP7E1cdh2a7E3R7bUtsT1n7HfX
+	33aa7fodnd/zKOzX2aSZt+WwptHtZjwO5fyrrQTYEWn15+8lnRkkc1lTuLPcgFJdim+BtKI7/Fe
+	sEPs2caBLM/0vNWfXp35Vo3Sh1un/755DhILG0lzOJLEBomNqewuEjj+3uRgZ6zpMOjeo+AX2fr
+	Cm2cs+LCuOBPMUphZ6KlOHcH5gllKpDCr0fvQ0LBMD9/DNanvrSmLY8Hnj2Y64nE62sBaet/ccp
+	jvfyuNvEwoQdSESxYzqfTyJ6zvyo69+3Ro+8aVj7yeqyyXUKorpZWIyWNOmSly8i6X8BClwn37G
+	QmGjqbbKBJWkIAsZqCk5GAX+nAeuD+zoUfKGjnHShmQ231gflfVtt25/aclL+a47QWPVvCsJsem
+	kCXkdPbZ0h9ddc15TE1Ca/hY9655Dxx3bUmlhxxcXwYdHoxau2uPTIUM=
+X-Received: by 2002:a05:6830:914:b0:843:8982:9532 with SMTP id 46e09a7af769-8628992d65cmr1277963a34.28.1794532724575;
+        Thu, 12 Nov 2026 17:18:44 -0800 (PST)
+Received: from cachyos-x8664 (fixed-186-96-141-48.totalplay.net. [186.96.141.48])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-862880a5298sm1230599a34.7.2026.11.12.17.18.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 17:18:44 -0800 (PST)
+From: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
+To: mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>,
+	stable@vger.kernel.org,
+	syzbot+1a7507a194fff09e5c44@syzkaller.appspotmail.com
+Subject: [PATCH] media: em28xx: clear dev->v4l2 when v4l2 init fails
+Date: Thu, 12 Nov 2026 19:12:34 -0600
+Message-ID: <20261113011234.45270-1-diegomancera.dev@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,239 +97,54 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Andrea,
-Thanks for the review,
+In em28xx_v4l2_init(), if an error occurs after video_register_device()
+succeeds, the unregister_dev error path unregisters the video devices and
+drops the initial v4l2_dev reference, but leaves dev->v4l2 set.
 
-> From: "Andrea della Porta"<andrea.porta@suse.com>
-> Date:=C2=A0 Thu, Nov 12, 2026, 20:12
-> Subject:=C2=A0 Re: [PATCH 1/3] pinctrl: bcm: Fix off-by-one and out-of-bo=
-unds access in fsel_get()
-> To: "Wang Xiaolei"<wangxiaolei01@kaihong.com>
-> Cc: <linusw@kernel.org>, <florian.fainelli@broadcom.com>, <rjui@broadcom.=
-com>, <sbranden@broadcom.com>, <bcm-kernel-feedback-list@broadcom.com>, <da=
-niel@dragonzap.com>, <iivanov@suse.de>, <andrea.porta@suse.com>, <phil@rasp=
-berrypi.com>, <linux-gpio@vger.kernel.org>, <linux-rpi-kernel@lists.infrade=
-ad.org>, <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.=
-org>, "Jonathan Bell"<jonathan@raspberrypi.com>
-> Hi Wang,
->=C2=A0
-> On 07:06 Fri 06 Nov =C2=A0 =C2=A0 , Wang Xiaolei wrote:
-> > brcmstb_pinctrl_fsel_get() takes the value read from the pin's FSEL
-> > register and uses it directly as an index into
-> > pc->pin_funcs[pin].funcs[]:
-> >=C2=A0
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 fsel =3D (val >> BIT_TO_SHIFT(bit)) & pc->p=
-in_funcs[pin].func_mask;
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 func =3D pc->pin_funcs[pin].funcs[fsel];
-> >=C2=A0
-> > That is not how the register field is encoded. The setter,
-> > brcmstb_pinctrl_fsel_set(), treats 0 as GPIO, 1..n_funcs as
-> > funcs[0..n_funcs - 1], rejects n_funcs + 1 and above, and n_funcs is
-> > always BRCMSTB_FSEL_COUNT (8). The field is therefore a 1-based functio=
-n
-> > number, while funcs[] is a 0-based array of eight entries.
-> >=C2=A0
-> > Every readback is consequently shifted by one slot, and a field value o=
-f
-> > 8 -- which the setter accepts, being the eighth and last alternate
-> > function -- indexes funcs[8], one element past the end of the array.
-> >=C2=A0
-> > This is reachable from userspace without supplying any invalid input:
-> >=C2=A0
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 # echo "gpio45 alt8" > .../pinmux-select
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 # cat .../pins
-> >=C2=A0
-> > The write is an ordinary mux request that fsel_set() accepts; the read
-> > that follows goes through pinctrl_pins_show() ->
-> > brcmstb_pctl_pin_dbg_show() -> fsel_get() and triggers KASAN on
-> > Raspberry Pi 5:
-> >=C2=A0
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 BUG: KASAN: global-out-of-bounds in brcmstb=
-_pctl_pin_dbg_show
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 Read of size 1 at addr ffffa07c577ab2e8 by =
-task cat/839
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 The buggy address belongs to the variable:
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0__compound_literal.62+0x8/0x40
-> >=C2=A0
-> > A field value of 0 has the same root cause in a milder form: it is
-> > reported as funcs[0] instead of GPIO. The mux itself is programmed
-> > correctly in both cases, so this affects the debugfs readback and KASAN
-> > rather than the hardware configuration.
-> >=C2=A0
-> > Handle 0 and out-of-range values explicitly, and index funcs[] with
-> > fsel - 1, so that the getter uses the same numbering as the setter and
-> > the index can no longer go past funcs[n_funcs - 1]. The existing
-> > fallback for func__ placeholder entries is kept:
-> >=C2=A0
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!fsel)
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return pc->func=
-_gpio;
-> >=C2=A0
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (fsel > pc->pin_funcs[pin].n_funcs) {
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 dev_warn(pc->de=
-v,
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0"invalid fsel %d for pin %u\n", fsel, pin);
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return pc->func=
-_gpio;
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 }
-> >=C2=A0
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 func =3D pc->pin_funcs[pin].funcs[fsel - 1]=
-;
->=C2=A0
-> Non-blocking nit-pick: I think that pasting the code in the comment is
-> too verbose, especially when the same code consists in the entire patch
-> body here below. A succint explanation by words would be more than enough=
-.
+An em28xx_v4l2_open() call already in progress (such as from v4l_id)
+that blocked on dev->lock while em28xx_v4l2_init() held it will then
+find dev->v4l2 still non-NULL and succeed on an unregistered node
+instead of returning -ENODEV. When the device is later disconnected,
+em28xx_v4l2_fini() also sees dev->v4l2 is still set and calls
+v4l2_device_put() a second time, dropping the refcount to zero and
+freeing v4l2 while v4l_id still holds it, causing a slab-use-after-free
+in v4l2_open().
 
-You're right that the commit message is too verbose with the code pasted in=
-.
-In V2 I'll drop the snippet and describe the numbering difference in words =
-instead
+Fix this by clearing dev->v4l2 under dev->lock in the unregister_dev
+error path of em28xx_v4l2_init().
 
->=C2=A0
-> >=C2=A0
-> > Tested on Raspberry Pi 5 with KASAN enabled. Before the fix, writing
-> > "gpio45 alt8" to .../pinmux-select and then reading .../pins triggers
-> > the splat above. After the fix the same sequence reports
-> > "function spi_m" with no warning and no splat, and a register field
-> > value of 0 reports "gpio". The register is restored to 0 afterwards.
->=C2=A0
-> Since you're at it, would you mind fixing the SGPIO AON related OOB acces=
-s too?
-> Please take a look at bcm2712_[cd]0_aon_gpio_pin_regs struct: they both h=
-ave
-> a bunch of AON_SGPIO_REGS macro describing pins at the end of the struct.=
- That
-> macro puts them at [(n) + 32] in the struct so there's a hole between 'no=
-rmal'
-> gpios and SGPIO ones.
-> Accessing bcm2712_[cd]0_aon_gpio_pin_funcs struct via this +32 offset as =
-the
-> 'pin' index in pc->pin_funcs[pin].funcs[] will result in OOB access. KASA=
-N should
-> report that if you 'cat pins' in aon pin controller.
->=C2=A0
-> One way would be to refactor the code in order to avoid this hole, but I
-> won't pretend this.
-> The other way is just add the missing SGPIO entries in bcm2712_[cd]0_aon_=
-gpio_pin_funcs
-> (mind the +32 offset, a new macro is probably needed).
-> You can find the functions for SGPIO pins declared in downstream driver, =
-see file
-> drivers/pinctrl/bcm/pinctrl-bcm2712.c from rpi-6.12.y branch (later branc=
-hes
-> already have the upstream driver which is missing the SGPIO functions ent=
-irely).
-> I've posted here the relevant data copied from downstream for your conven=
-ience,
-> please rearrange accordingly:
->=C2=A0
-> static const struct bcm2712_pin_funcs bcm2712_c0_aon_sgpio_pin_funcs[] =
-=3D {
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 PIN(0, hdmi_tx0_bsc, hdmi_tx0_auto_i2c, bsc_m=
-0, vc_i2c0, _, _, _, _),
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 PIN(1, hdmi_tx0_bsc, hdmi_tx0_auto_i2c, bsc_m=
-0, vc_i2c0, _, _, _, _),
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 PIN(2, hdmi_tx1_bsc, hdmi_tx1_auto_i2c, bsc_m=
-1, vc_i2c4, ctl_hdmi_5v, _, _, _),
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 PIN(3, hdmi_tx1_bsc, hdmi_tx1_auto_i2c, bsc_m=
-1, vc_i2c4, _, _, _, _),
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 PIN(4, avs_pmu_bsc, bsc_m2, vc_i2c5, ctl_hdmi=
-_5v, _, _, _, _),
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 PIN(5, avs_pmu_bsc, bsc_m2, vc_i2c5, _, _, _,=
- _, _),
-> };
->=C2=A0
-> static const struct bcm2712_pin_funcs bcm2712_d0_aon_sgpio_pin_funcs[] =
-=3D {
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 PIN(0, hdmi_tx0_bsc, hdmi_tx0_auto_i2c, bsc_m=
-0, vc_i2c0, _, _, _, _),
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 PIN(1, hdmi_tx0_bsc, hdmi_tx0_auto_i2c, bsc_m=
-0, vc_i2c0, _, _, _, _),
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 PIN(2, hdmi_tx1_bsc, hdmi_tx1_auto_i2c, bsc_m=
-1, vc_i2c0, ctl_hdmi_5v, _, _, _),
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 PIN(3, hdmi_tx1_bsc, hdmi_tx1_auto_i2c, bsc_m=
-1, vc_i2c0, _, _, _, _),
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 PIN(4, avs_pmu_bsc, bsc_m2, vc_i2c3, ctl_hdmi=
-_5v, _, _, _, _),
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 PIN(5, avs_pmu_bsc, bsc_m2, vc_i2c3, _, _, _,=
- _, _),
-> };
->=C2=A0
-> In case you don't want to fix this, you will still have a Reviewed-by fro=
-m me,
-> and I'll take care of uploading the fix in a subsequent patch.
+Fixes: 288254383674 ("media: em28xx: use v4l2_device release callback")
+Cc: stable@vger.kernel.org
+Reported-by: syzbot+1a7507a194fff09e5c44@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=1a7507a194fff09e5c44
+Assisted-by: Gemini
+Signed-off-by: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
+---
+Note: compile-tested drivers/media/usb/em28xx/em28xx_video.o with allmodconfig (no warnings); not runtime-tested locally against the syzbot reproducer.
 
-I have identified the issue and am preparing to submit a report.=C2=A0
-Thank you for reminding me; I will include it in version 2.
+ drivers/media/usb/em28xx/em28xx-video.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
+diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
+index 84424284d486..f78325a41124 100644
+--- a/drivers/media/usb/em28xx/em28xx-video.c
++++ b/drivers/media/usb/em28xx/em28xx-video.c
+@@ -3129,6 +3129,12 @@ static int em28xx_v4l2_init(struct em28xx *dev)
+ 		vb2_video_unregister_device(&v4l2->vdev);
+ 	}
+ 
++	/*
++	 * Clear dev->v4l2 to prevent an in-progress em28xx_v4l2_open() from
++	 * succeeding on an unregistered node (returning -ENODEV instead) and
++	 * to prevent em28xx_v4l2_fini() from tearing down the instance again.
++	 */
++	dev->v4l2 = NULL;
+ 	mutex_unlock(&dev->lock);
+ 
+ 	/*
+-- 
+2.56.1
 
-+ =C2=A0 =C2=A0 =C2=A0 BRCMSTB_PIN(32, hdmi_tx0_bsc, hdmi_tx0_auto_i2c, bsc=
-_m0, vc_i2c0, _, _, _, _),
-+ =C2=A0 =C2=A0 =C2=A0 BRCMSTB_PIN(33, hdmi_tx0_bsc, hdmi_tx0_auto_i2c, bsc=
-_m0, vc_i2c0, _, _, _, _),
-+ =C2=A0 =C2=A0 =C2=A0 BRCMSTB_PIN(34, hdmi_tx1_bsc, hdmi_tx1_auto_i2c, bsc=
-_m1, vc_i2c4, ctl_hdmi_5v, _, _, _),
-+ =C2=A0 =C2=A0 =C2=A0 BRCMSTB_PIN(35, hdmi_tx1_bsc, hdmi_tx1_auto_i2c, bsc=
-_m1, vc_i2c4, _, _, _, _),
-+ =C2=A0 =C2=A0 =C2=A0 BRCMSTB_PIN(36, avs_pmu_bsc, bsc_m2, vc_i2c5, ctl_hd=
-mi_5v, _, _, _, _),
-+ =C2=A0 =C2=A0 =C2=A0 BRCMSTB_PIN(37, avs_pmu_bsc, bsc_m2, vc_i2c5, _, _, =
-_, _, _),
-=C2=A0};
-
-Thanks
-Xiaolei
-
->=C2=A0
-> Many thanks,
-> Andrea
->=C2=A0
-> >=C2=A0
-> > Fixes: 657cbf9b24ba ("pinctrl: bcm: Add STB family pin controller drive=
-r")
-> > Cc: Jonathan Bell <jonathan@raspberrypi.com>
-> > Cc: Phil Elwell <phil@raspberrypi.com>
-> > Signed-off-by: Wang Xiaolei <wangxiaolei01@kaihong.com>
-> > ---
-> > =C2=A0drivers/pinctrl/bcm/pinctrl-brcmstb.c | 11 ++++++++++-
-> > =C2=A01 file changed, 10 insertions(+), 1 deletion(-)
-> >=C2=A0
-> > diff --git a/drivers/pinctrl/bcm/pinctrl-brcmstb.c b/drivers/pinctrl/bc=
-m/pinctrl-brcmstb.c
-> > index f46b27155c3c..2b942ca7196b 100644
-> > --- a/drivers/pinctrl/bcm/pinctrl-brcmstb.c
-> > +++ b/drivers/pinctrl/bcm/pinctrl-brcmstb.c
-> > @@ -66,7 +66,16 @@ static unsigned int brcmstb_pinctrl_fsel_get(struct =
-brcmstb_pinctrl *pc,
-> > =C2=A0
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0val =3D readl(pc->base + BIT_TO_REG(b=
-it));
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0fsel =3D (val >> BIT_TO_SHIFT(bit)) &=
- pc->pin_funcs[pin].func_mask;
-> > - =C2=A0 =C2=A0 =C2=A0 =C2=A0func =3D pc->pin_funcs[pin].funcs[fsel];
-> > +
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!fsel)
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return pc->fun=
-c_gpio;
-> > +
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0if (fsel > pc->pin_funcs[pin].n_funcs) {
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dev_warn(pc->d=
-ev, "invalid fsel %d for pin %u\n", fsel, pin);
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return pc->fun=
-c_gpio;
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0}
-> > +
-> > + =C2=A0 =C2=A0 =C2=A0 =C2=A0func =3D pc->pin_funcs[pin].funcs[fsel - 1=
-];
-> > =C2=A0
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (func >=3D pc->func_count)
-> > =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0func =3D =
-fsel;
-> > --=C2=A0
-> > 2.34.1
-> >
->=C2=A0
