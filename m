@@ -1,61 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.222
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794582925;
-	b=G9djv2Yr8D84eEhHpCr9oeRQWhNSr2w8FJGV9t+AOieQ0gQe8t1QugNwObIlaezIQ8CA
-	 ELtNBptKlM/EqoOK4GsW6fZi9M5RYj1w5jZUKBdsEwGHx7ANz+GaCv0hShAbk7hYm6hYj
-	 qRIGyO8umTFgZKiY6WxWKEU59yJaKLyLW/CY/B7X+yiOAVWIxeChnwvoj4u5PgJOv7ULJ
-	 pVtEI53/EvpcuapVaLdC5C3JBDaa+NksuhYTLhIpWsDmHETunT22/jaomBVlVWHBUwR55
-	 JEcGPQfJZE/9qHsfwYu6CSWtKxDn4VdCy7mf4TGUf6rdbk8Mm6a0wcmdkXETxvm0l1A==
+	t=1794582953;
+	b=lf05O3XXn3K9iF5wnq6/i89PFQoIMu4TEiVuIgv7rx+C2N+2KDYHwUetn3wjs9JGnU/C
+	 3dG/SKCYVEWJGMhfnl/HnvsIu+xY7i9y+HpY+SufeZWVuaoL6ZnCNffrhwoS7WI551keB
+	 e+pdGIyIvRs0kQAqg4l3D6YH4fmPhz1mKd6PkqH7wa3iEEOJyq9Nw4Zzbp2dBsoSxIJzD
+	 WwabfgTSWb+ddoyqpB7RFHux4Akb2mhcRIibrJE1FpNiIGkn65QM+GjoQo+DRGOoHH2/8
+	 FuB/+04P/hvAoC7Q7mg/nHh8g0V04EGcuKRpY41JZ4w6hxucJOeT/ERmgmhJ+FIJNfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794582925;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=7AQy591sW2qpmVT+yV9lxlyc42SglJ8EBrk/w5VU6/4=;
-	b=hTRbgsfV80pG2f29A7PZdc1+3h9bUwjGSnKH7wleSHwR6LKJi6E4HYg8UDVMC2+71hgs
-	 n0M0xCBylLU9r77KZa263lVonRgc42fD3vlP828ncvyx+iVOnOBhZJmIMIjWpLNy965Nr
-	 huTXMt6OlPO7J5xL/pt+nqqGwSI9aXRegTPE/+zA0izJQSYuKDpA1QC1PI8VllzNqIxvy
-	 QKnFOkXGLSAp5cyUH83xa1VpqOoju64X65St2ocQ8U4Mm8x7KLIwFWk0J72SAvgItsur6
-	 Rrnya6fBkxHA/oduSDVGs0AnU4B/5PcIil8Fehm7rOc5R59xPP5WPJmI7KXe1Hrxc+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794582953;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=V1YWPttXEi6HW26RX2hE76PCKuzOoDlXU7K4UAZ3+NM=;
+	b=Qc5zfa6Zx7sMOodbZh9vabwQiljTnKXe0N61xazvUaH8jGpxQzvcFpSyB5mpMnQxxMkO
+	 IzukYgJ6SODaRTRdBnH8OdOxqqR42kmAJsexuRf1icJrHwwA+FkMnKqHWgducSx7Krkmb
+	 6QmQEEjrJ1Q9H7n/glIom9UHNmlfV9Yyik1/AF/Lgx+DpX5La/TXa+IhyHN53mpirRCmh
+	 ev5Pj/QZhRdhtHvv/nBBSAN621o6um93WC6nLBoJ5HsbFpm6LK8SYpsKFyUZAFriKyFjV
+	 QIPDIGX6v/3TJkMD1d762zWSmAGvwVnUdVInX4tGHaTTjTELWbsygGCICo6j6f+BMgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BObqSflQ;
-	arc=none smtp.remote-ip=95.215.58.222
-Received: from mta1.migadu.com (out-222.mta1.migadu.com [95.215.58.222])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A567606A331
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:15:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A567606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=qXQmrCKd;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E63F1606A339;
+	Fri, 13 Nov 2026 15:15:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E63F1606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BObqSflQ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=64EUThuXFfGNpHT4ZZSg8kH8sluzCgH+OsnF24WjA1U=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794582922; v=1; x=1795187722;
- b=BObqSflQ7aL/30m8sKY4vW97j+T0BNAzMlQfHqvc5P0FICgKRNY1pZ5LFkYx2DdtnVgZB9Sb
- fGpiSXWKf0Ty6aDIXgjHdOkqUVgceWtvwB/ovL2LCIwaINZnmEUbDoqM3rsUxWxIBz6EPIfOIC5
- /6tOP4EbkjGe0DtHSQE0fDXI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a63f21fb11cc9b35;
-	Fri, 13 Nov 2026 15:15:21 +0000
-X-Mizu-Trace-ID: a63f21fb11cc9b35
-X-Migadu-Flow: FLOW_OUT
-From: Leon Hwang <leon.hwang@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Feng Tang <feng.tang@linux.alibaba.com>
-Cc: Lance Yang <lance.yang@linux.dev>,
-	linux-kernel@vger.kernel.org,
-	Leon Hwang <leon.hwang@linux.dev>
-Subject: [PATCH] lib/sys_info: avoid showing locks info twice in __sys_info
-Date: Fri, 13 Nov 2026 23:14:51 +0800
-Message-ID: <20261113151451.72419-1-leon.hwang@linux.dev>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=qXQmrCKd
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3EF42339;
+	Fri, 13 Nov 2026 07:15:49 -0800 (PST)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CFC833F85F;
+	Fri, 13 Nov 2026 07:15:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794582952; bh=8/RunaI4RGgcBAEHTWjUlS5O+ROOwppaIYc4rMMVIgQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=qXQmrCKdi1XXeajyZbt39aciqGvxmgxylKAOnZn9jFgyQyQT0v3dVwUbv043MzOew
+	 ZkQ3ZE4Lyo37EbONSQS25IILhW1hwvz2fcMG4WRg4ebIDlK7rDaERQ++wlT1sdV/R3
+	 XHgX7CusAxNk7G8oJIaQ+uGx9pbcs0ualP1x0W3U=
+Date: Fri, 13 Nov 2026 15:15:49 +0000
+From: Leo Yan <leo.yan@arm.com>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc: Namhyung Kim <namhyung@kernel.org>, Ingo Molnar <mingo@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	James Clark <james.clark@linaro.org>, Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Clark Williams <williams@redhat.com>, linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@redhat.com>,
+	Mike Leach <mike.leach@arm.com>,
+	Robert Walker <robert.walker@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v1 09/12] perf cs-etm: Fall back to the recorded
+ instruction size on a failed read
+Message-ID: <20261113151549.GR9176@e132581.arm.com>
+References: <20261113150555.1163049-1-acme@kernel.org>
+ <20261113150555.1163049-10-acme@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,72 +71,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261113150555.1163049-10-acme@kernel.org>
 
-In __sys_info(), if the si_mask has both SYS_INFO_TASKS and SYS_INFO_LOCKS,
-the locks info will be printed twice: debug_show_all_locks() is also
-called inner show_state().
+Hi Arnaldo,
 
-Since commit
-8b2b9b4f6f4f ("hung_task: add hung_task_sys_info sysctl to dump sys info on task-hung"),
-hung_task will print locks info twice when
-sysctl -w kernel.hung_task_sys_info="tasks,locks".
+On Fri, Nov 13, 2026 at 12:05:50PM -0300, Arnaldo Carvalho de Melo wrote:
+> From: Arnaldo Carvalho de Melo <acme@redhat.com>
+> 
+> cs_etm__t32_instr_size() reads the instruction bytes from the traced
+> program's memory to tell a 16-bit from a 32-bit T32 instruction, but it
+> ignores cs_etm__frontend_mem_access() failing, which happens when the
+> DSO or its debug data is missing, and then reads the uninitialized
+> buffer.  GCC 16 warns about it and build-test fails with -Werror.
+> 
+> Use the instruction size recorded by the decoder, as the A32/A64 path
+> already does, when the read doesn't return the full two bytes.
 
-[ 4658.894440]
-               Showing all locks held in the system:
-[ 4658.894445] locks held by khungtaskd/119: 1, last CPU#7:
-[ 4658.894449]  #0: ffffffff9159cd00 (rcu_read_lock){....}-{1:3}, at: debug_show_all_locks+0x3b/0x1f0
-[ 4658.894468] locks held by cat/674: 1, on CPU#8:
-[ 4658.894472]  #0: ffffffffc01681a0 (dummy_mutex){+.+.}-{4:4}, at: read_dummy_mutex+0x34/0x80 [hung_task_tests]
-[ 4658.894487] locks held by cat/676: 1, on CPU#8:
-[ 4658.894490]  #0: ffffffffc01681a0 (dummy_mutex){+.+.}-{4:4}, at: read_dummy_mutex+0x34/0x80 [hung_task_tests]
-[ 4658.894504] locks held by dmesg/677: 5, last CPU#8:
-[ 4658.894507]  #0: ff426e3f828ee0a0 (&tty->ldisc_sem){++++}-{0:0}, at: ldsem_down_read+0x34/0x40
-[ 4658.894521]  #1: ff426e3f828ee128 (&tty->atomic_write_lock){+.+.}-{4:4}, at: file_tty_write.isra.0+0xaa/0x360
-[ 4658.894535]  #2: ff426e3f828ee2c8 (&tty->termios_rwsem){++++}-{4:4}, at: n_tty_write+0x9d/0x4c0
-[ 4658.894549]  #3: ff4fe07e82c57370 (&ldata->output_lock){+.+.}-{4:4}, at: remove_wait_queue+0x1b/0x60
-[ 4658.894563]  #4: ffffffff927b1278 (&port_lock_key){-.-.}-{3:3}, at: uart_write_room+0x4e/0x230
+This patch is duplicate with:
 
-[ 4658.894581] =============================================
+https://lore.kernel.org/linux-perf-users/20261113-perf_fix_gcc15_failure-v1-0-eae592c5ff64@arm.com/T/#m5f610e381705bc587a9ce3d31be4e1e0ed595506
 
-[ 4658.894583]
-               Showing all locks held in the system:
-[ 4658.894586] locks held by khungtaskd/119: 1, last CPU#7:
-[ 4658.894589]  #0: ffffffff9159cd00 (rcu_read_lock){....}-{1:3}, at: debug_show_all_locks+0x3b/0x1f0
-[ 4658.894604] locks held by cat/674: 1, on CPU#8:
-[ 4658.894607]  #0: ffffffffc01681a0 (dummy_mutex){+.+.}-{4:4}, at: read_dummy_mutex+0x34/0x80 [hung_task_tests]
-[ 4658.894622] locks held by cat/676: 1, on CPU#8:
-[ 4658.894625]  #0: ffffffffc01681a0 (dummy_mutex){+.+.}-{4:4}, at: read_dummy_mutex+0x34/0x80 [hung_task_tests]
-[ 4658.894639] locks held by dmesg/677: 5, last CPU#8:
-[ 4658.894642]  #0: ff426e3f828ee0a0 (&tty->ldisc_sem){++++}-{0:0}, at: ldsem_down_read+0x34/0x40
-[ 4658.894655]  #1: ff426e3f828ee128 (&tty->atomic_write_lock){+.+.}-{4:4}, at: file_tty_write.isra.0+0xaa/0x360
-[ 4658.894669]  #2: ff426e3f828ee2c8 (&tty->termios_rwsem){++++}-{4:4}, at: n_tty_write+0x9d/0x4c0
-[ 4658.894683]  #3: ff4fe07e82c57370 (&ldata->output_lock){+.+.}-{4:4}, at: n_tty_write+0x190/0x4c0
-[ 4658.894697]  #4: ffffffff927b1278 (&port_lock_key){-.-.}-{3:3}, at: uart_write_room+0x4e/0x230
-
-[ 4658.894713] =============================================
-
-To avoid showing locks info again, check '!(si_mask & SYS_INFO_TASKS)'
-when checking 'si_mask & SYS_INFO_LOCKS' in __sys_info().
-
-Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
----
- lib/sys_info.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/lib/sys_info.c b/lib/sys_info.c
-index f32a06ec9ed4..750803012f43 100644
---- a/lib/sys_info.c
-+++ b/lib/sys_info.c
-@@ -147,7 +147,7 @@ static void __sys_info(unsigned long si_mask)
- 	if (si_mask & SYS_INFO_TIMERS)
- 		sysrq_timer_list_show();
- 
--	if (si_mask & SYS_INFO_LOCKS)
-+	if ((si_mask & SYS_INFO_LOCKS) && !(si_mask & SYS_INFO_TASKS))
- 		debug_show_all_locks();
- 
- 	if (si_mask & SYS_INFO_FTRACE)
--- 
-2.55.0
-
+I prefer that one, it handle cs_etm__frontend_mem_access() failure
+throughly.
