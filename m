@@ -1,112 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794580382;
-	b=cwIKSOCvQXLNIYsETtCFm1uV2hX2wzouwVuwmextTF3Nq149R2uQe33Vj1ECa1K1zafS
-	 YUFidzN8Bt7V/x3li3jdU8ckXs9GspJWqvY4zp1GjPqloXM1a3sfm4bZEPMLByEuBxjT/
-	 7cJzSVY7pzquAoO9eeP2JJ0lIvrsnweDCHo9G6UfiO/qIe0UYRfpVha9mpcPkD2TFsvHH
-	 oFiF+mfJMtJYGAqyjz0ifCiqVPEeGWCNtyMkmqJW/MHT8q8RqQCQaAkbFPyMhmJXcxZI/
-	 v1xpi2Ic6+kiJDHUEOmZ1LV+kNUhs/Palcd/JATD1p4lo2oAYITX6lLLMV9OczIrdpQ==
+	t=1794580380;
+	b=XBqHmA7nhsQWcIpG3KZwGkZZuSfLfbH0u8LVeP34B+8uBSjvyFo6J4u/yT7hs8NA1a8P
+	 1VGB3xdCJwtI15saqUpKk/p91hXeOo7S1xDKgIqAxf1Mi6gT83zBdtwLRNsCbnNBIaOZj
+	 vWiLNU59eGDXtHwapnHVWAUrcJCghdYMP1U6BtKPzoAkcEtZjaKBrGi6SqgHzCS9KYMco
+	 48K/Gx0Qp206km/tHa0RpTJjPK/TyH5MTw2Tt1zjQTIalcL2h/xN+BPQ6E9efoVAfgElN
+	 Dsst+e4PJkMq50wuH7BU4eeINGX99nJ7mRLZ42cx5obINbFrNWFqOGfijlCIuVjVQ1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794580382;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=gx91eDJpaU6S9gSHrYisO86Vlpx4mJs+TeI82IVUj98=;
-	b=d9mokrT37HZn69XB1cGTeXzMd7+MUo/ZUzBmL8Chmb8RhmVn5Z78KtXdfSfVIZlXUuUH
-	 wH7NDFoPnSTgqXkmM5og6SbE7WYB9ctLNt7aVFIeFxLqx4sB5vsUdWU/6Zy6ylpNYCEsP
-	 bKVIoR4/Gy1rtg80zTrU1wVZKxTdSVaHbDUv8YfEI3Nj7HgyDmfvJsciYMbnaY06fMGLH
-	 nKyXcTYWTvy3NreUh+GIGpZatpRirE9kCj41L54Ao+QHU1dnShuho74rYojKuRyHWskwg
-	 XwthaGexwOJg/maE8w4OG6QTL+37AI8BSRS8hv9s9dqMgKupOEIHhOh500ZNmdu05lg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794580380;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=YjLnuqwofbYQbuSGetIqvxmrdKzxbU4U58ecDgp2SNM=;
+	b=hAKzWuTD02vOARaj73hBsLab5NaJPMd5OC3mn+Ga32dagtlS2fjnMyNiq/fJ42BmT2dH
+	 jQEkZbiYh+HY8NS22IDv1i5CHDVho8dflfqcNgqV3u9Y0sASlFLW5XSPncJfSR/9+EEuN
+	 InMA0uJEBIQl7WI0y0h3FcjK9D+bt0wfnu+dJlkdFYcIjV/BxH9gLeSXIYDCgQmV4G6R8
+	 8+gbkXqcPXZb+NpynPeFUcItF+ODpM/uoYeY68pxoAXUclJk3gLcHzeeKqXoK22s7zXTA
+	 M3ggth9Jc/sH+Ny+lXpfY7jVqJm33+r0LF/LOYEjWK/jn1MP7RudA/nAh7EyXqx8zlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=p6LcTAxS;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JCzP9o40;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=QGuqjW64;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68C8F606A8A8
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:33:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68C8F606A8A8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDA22606A897
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:32:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDA22606A897
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=p6LcTAxS;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JCzP9o40
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADCJQEB1525303
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:33:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	gx91eDJpaU6S9gSHrYisO86Vlpx4mJs+TeI82IVUj98=; b=p6LcTAxSLBPS48Cd
-	MH3YQQ1EsSIZjcS2uPf7SdzFAu4A5RxpP2eMpW56ge6qo6vfDIhLmF03xEqv31x6
-	14lWdjH88HiDAd+UUR7HtMHeZrIr5xhHfLgjQxdGkgpeet7X3nEXLBGs/eEk6B2N
-	nHfIl7NAPKN5KaLX0hjwYCrk8GVDTRVm3kHR2uOSggAyeAfS7LTeOnpBU4IXdfwG
-	PHgL1oAU0eYSVC5QVyfNbPu5gHxZMn98EspesPMD8O9VhgWB+ZP8egsyOGZAsGHI
-	DYIfHf6xqfteN/8zXKBcO1y3p0vw2otSOKiYwwPSID0PzVzEwpRpBJjl171soltE
-	rGNbow==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hx0g20w3b-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:33:00 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f5844cb60so212619085a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:33:00 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=QGuqjW64
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so15765805e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:32:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794580380; x=1795185180; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=baylibre.com; s=google; t=1794580378; x=1795185178; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gx91eDJpaU6S9gSHrYisO86Vlpx4mJs+TeI82IVUj98=;
-        b=JCzP9o40ucS9Xd8yC6Pj0Sg4E6M9RNEza9icZkrlgBQbf5pETQvpsPhnqoSZNvdgOL
-         cC5PJAxpWKt/X4EJbNipl2YqsEGwEFqq8IjZEm31PHJTwD/kr5IdOxF4g5FZhYPhpan5
-         WP3dmJtGDk187w3/ITY3DcbJaicK5SJRFvseQ3oGq/Fllu4Yp1jGluXhYpI3YqtB7ud/
-         kSAPZCeGHuS5ivpVo7WEqnxwQC6TfdDFr6XoV/qeqjXufgx0duAfH/Md0+zSLlMVn4+c
-         PBOERuDvZwd7LgkV7BNUMaM5vyehSayp0UPk5cZkUn2X5u6J+GQbiNAOjC231XdTO9yV
-         rbng==
+        bh=YjLnuqwofbYQbuSGetIqvxmrdKzxbU4U58ecDgp2SNM=;
+        b=QGuqjW64GyfUIS5n4gCyjfRTu2bVeR5MvKKfIT848V9jA9GemYj75fPEeT4vfpR3Rq
+         IOW2/yQ0P6HWNCQ1bN67glwDFfoKqW9EO1u6yLYnpy3IAyBVCN8eDu2tmEqCloDXRj3H
+         /Gyy1awDwzVcuav1IQSh1G38+47rgjfrF8m/RhhJplIGm5UuxqdxfC0tD3RUa61lLMGv
+         UIgdUG3HS/Q0Yarg9YbZ2zD777scTm/vlVJ1+7BJQm8oZbazD68WeQHIsCoKFIrh8aFE
+         /8ciZKih0ub9ohL7ocLeQsBQL8Iwbuw499v9e6k2B72B7Fzsyg5UVzj+rUfGtE41XtkK
+         bFBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794580380; x=1795185180;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1794580378; x=1795185178;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gx91eDJpaU6S9gSHrYisO86Vlpx4mJs+TeI82IVUj98=;
-        b=D/Tme8C1JuBBqpFXkQbR5SjPjotvD58rYft7ENvSR+Tgfp68px5tVc6WUNdSb7NcBq
-         NKMTMd69VDbDJ4lO4qhBA7H5b/mNAxzWiAdM7RYMnP9u3XuMCtL5CZS2q4AhwG9UZU6Z
-         W3RvTeVaB0ZazN0X7hcyriANBkOviOvnPJed7Qx17YAtsylWqfBr+fr4hcreR7FVefef
-         oW5xBvqCs0tLXrTGmgXxiCy2C6yq9flYkOwcLNMmnYwHNNTTM5NylelnwY7+J4x4Nnn3
-         EvC8e12+CJ9TFSTIxXuVVsobkwlQxSzGFoSxTsmPCXqBVq7xH0D51zYCC9Jr/E5ktr9a
-         Jn7w==
-X-Forwarded-Encrypted: i=1; AL+hErH4e2vsC3afOXNT51XDfG87h2vEESPUxQ06HZinkbZaMfl0sFIQJ7xge6g4sSPbE3uwzADgN1pVeShIMcY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8QPgqxgN9rAO5PW4bjxMVhQ1C5cUSTwmm71jnkG9EOV1OBRR4z
-	cl3aakqLtt/ckfiFb4vkxKevdoAFmw0Qn2YqM/qGuNW6V6YSFh7SThPyxWqxiNeFflgZS8GkGgi
-	vMAbO6RxzEmGVuitEh9IJaUpP9WMFVDK1pSeyzOnau/1RacQfRZCxJzJGG74g7hdv4Z4=
-X-Gm-Gg: AYBFou0BvOX65DeTa8BHs+pAI7eM+xq2VlPTqWe199hinsT9SDty5no7up13SfJM4xm
-	5KyqjbcORtQXGEUg2EPAY6bOqRzfD4fFeYYOfDZrWzDLwBm2sm1uvRjiWpUvQUlhYAEunspRE6T
-	czoGDpar6n9yvmhJ76v7ahg8H9u3ksdiFc2uNisR2CWCZSCOEM9ZhDKWM2Tb7lONnhkyCGVj3oL
-	p6ZDvqjizqfZpDv7pUlgBf5Szcdi2cUT2SWkXc/VL0W09UXmBWyEO2Yp1TPQg4LOb/1W40i7t4C
-	R/q40LcFYj+dWqvhjZAdbLdzLslVyr+q92wY2TNy55EniI0ctuNpCjLsyI88VuVeXfzCuZrQ+uB
-	jcLvJk75OV6vKgIf4QtGk98gvdw5H/r1oh6FAuf4/eXlMMsZuN2sNgRshZqM34oI=
-X-Received: by 2002:a05:620a:a719:b0:949:5cb8:6bd8 with SMTP id af79cd13be357-9495cb86f22mr83104185a.22.1794580379694;
-        Fri, 13 Nov 2026 06:32:59 -0800 (PST)
-X-Received: by 2002:a05:620a:a719:b0:949:5cb8:6bd8 with SMTP id af79cd13be357-9495cb86f22mr83099085a.22.1794580379090;
-        Fri, 13 Nov 2026 06:32:59 -0800 (PST)
-Received: from [10.213.101.118] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9495a5ef5c4sm71948685a.6.2026.11.13.06.32.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        bh=YjLnuqwofbYQbuSGetIqvxmrdKzxbU4U58ecDgp2SNM=;
+        b=tC5ey7rqeDqwuWLCRigyMZoLVAWls73r9EPMST5RaT7+4QsGJK8w8vwkbSQH5QCTfi
+         SeQfdpO5h1I9KP2eYerxx7SqbOlP461kLJSyF5HOAf+Ld51JqyRuEGcBCHZJXO4mGKAE
+         m6mtsTlr4fQNiPLE1WzLLztYeGXKrTr7vr257TdFz6Lk19LfvvVkISmMgvdYJwuwWBPK
+         PtATHZU8lVqqK9TQ+EXW7doj/wCg3fVOa7nTG1hS/7lxEO12qqmjNqxaVdzDqZ1xxBLm
+         lqMQYAQlcYmFkXieqivowP31s2NkQ9XZegg/2zagr8M0B8YnoEKbIWr/q6oTgPf6XmuQ
+         /hZw==
+X-Forwarded-Encrypted: i=1; AL+hErHJmvD/GB0bSwacdJfIH/yvmnIuCs+4B+jRviCqMbYjYivn3dFQJhkgz6Ryb4w3vgLO6Wq/oEIgHK/6O68=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ek52g9XpnUkeOOySso9Jh2LkiAS/gk092+d1FtO1Uth3b0cHc
+	NB4fznIw0RTrMY0iTuKzdmv7ZZ3JZezxsaVW+nzSVQWOzr5p8Y53JYBJKXo8WMzzUZM=
+X-Gm-Gg: AYBFou0IOFNbmTw4SmYQ+FY1V9ocVvvuaf+Gu4ChVITLf2L4XXlt2eYy8x+eMbkHDIi
+	93OWIxBR8utt8jQkzcibxlana1a1u2yMcgwXaPPOBzvKEO6Dw2kbKiM5pAgeH64dueinGutveeM
+	qmj1nLkTdrp2lA9EjLmik+H2L1EtMuyhOfJMmEgYS8XGezPa8r7BAyRo9mdEITW3v09i85F5Qlo
+	VhJdOFnylbYL1Auaa3pd16VyDIVfOOeqagbDr1yfRNvj8BsDRZ9vOv3NzH/sQpJ7nl2797ERP0C
+	vfbZpYg2UgSz82Zky63gYdHwPgi8nZuR0nUFgvqAJAl+ZIbnFsPuCfnGbCAlYqgUH0OyeNx7HzM
+	vsKL2zJuvoDykswFNArGboPkSLyanREB152njyzfDZac3X5QdBWiSjLzgqAOeFKuObHIuId2XnY
+	U3gOOSOmNF2evO2FZ8zU0oim36UgKNYoGBjVYwCtDYIsT1v0SPt2yywjT2V3RI5iA/6I3G2kRKC
+	DzsU+VRuSWoevq7D04xaoApHzNbh/xpVX9m/gF0brYMFngjphI0pOKdskVVc+4N74A+Pkwmoe6f
+	efBkpKI8f51sCLrTQ6Ub4I3lT6XJv2WeWvFql1Bhyeh0YKyZ
+X-Received: by 2002:a05:600c:3111:b0:4a3:2f35:38b4 with SMTP id 5b1f17b1804b1-4bb55a4490fmr56671835e9.10.1794580378184;
         Fri, 13 Nov 2026 06:32:58 -0800 (PST)
-From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-Date: Fri, 13 Nov 2026 20:02:21 +0530
-Subject: [PATCH v5 2/3] dt-bindings: remoteproc: qcom,shikra-pas: Add
- iommus constraints
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e252f7fsm167089005e9.2.2026.11.13.06.32.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 06:32:57 -0800 (PST)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, Martin Blumenstingl
+ <martin.blumenstingl@googlemail.com>, Chuan Liu <chuan.liu@amlogic.com>
+Cc: robh@kernel.org, conor+dt@kernel.org,
+ christian.koever-draxl@student.uibk.ac.at, rafael@kernel.org,
+ sboyd@kernel.org, Viresh Kumar <viresh.kumar@linaro.org>,
+ linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, Christian Stefan
+ =?utf-8?B?S8O2dsOpci1EcmF4bA==?= <ckoever@outlook.de>,
+ devicetree@vger.kernel.org,
+ khilman@baylibre.com, linux-amlogic@lists.infradead.org,
+ krzk+dt@kernel.org, bmasney+clk@redhat.com, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 4/4] cpufreq: add an Amlogic speed-bin driver
+In-Reply-To: <317f2930-9f65-447e-aa46-223ba9e47033@linaro.org>
+References: <20261025192219.209137-1-christian.koever-draxl@student.uibk.ac.at>
+ <20261025192219.209137-5-christian.koever-draxl@student.uibk.ac.at>
+ <at7lXEqds7ukoR2V@vireshk-B250M-D3H>
+ <1jbj8gkff1.fsf@starbuckisacylon.baylibre.com>
+ <at8WfX_G0tfTlFrm@vireshk-B250M-D3H>
+ <9556e959-daf3-4c85-8794-9613e7e7a9ae@gmail.com>
+ <A45EC676-5B14-4932-A4CF-87ED3B71108D@gmail.com>
+ <4a51e879-708c-49dc-a08a-3f64eeec8bbf@amlogic.com>
+ <CAFBinCBkJJeRPKLFBA9KYjwXMxFjow_NOtvFoKRQdxD=rOPW3w@mail.gmail.com>
+ <48b333a3-ef88-4739-a087-3ed9d8ec60a4@amlogic.com>
+ <CAFBinCCgmRmk--W53wqdJhF-SzJbai--s7wyzDNt3LpfN00spw@mail.gmail.com>
+ <317f2930-9f65-447e-aa46-223ba9e47033@linaro.org>
+Date: Fri, 13 Nov 2026 15:32:56 +0100
+Message-ID: <1j7big244n.fsf@starbuckisacylon.baylibre.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,104 +116,138 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-shikra-el2-v5-2-8aca743de97f@oss.qualcomm.com>
-References: <20261113-shikra-el2-v5-0-8aca743de97f@oss.qualcomm.com>
-In-Reply-To: <20261113-shikra-el2-v5-0-8aca743de97f@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Kumar Patro <bibek.patro@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794580360; l=1410;
- i=komal.bajaj@oss.qualcomm.com; s=20250710; h=from:subject:message-id;
- bh=AP6m7K9bcNvLKnjx7yin31NugzckAmQBmT7FmQR5FW8=;
- b=3grAOrtRV282qWHFnvr0tb1SE6cYWndVBqaZAYbo7EGP8AmopSFDhWgbOvmACGOGHjHaUAlCp
- RCF5uyMrJ05BQEUzi2/HAtn57bemSJCmsfbesJuzu59nAB5M2jy6YwJ
-X-Developer-Key: i=komal.bajaj@oss.qualcomm.com; a=ed25519;
- pk=wKh8mgDh+ePUZ4IIvpBhQOqf16/KvuQHvSvHK20LXNU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA1NyBTYWx0ZWRfX4tnXnDBqh1Om
- A1oJCuKQPDu9yD6uqu9F/C2Q/p8cM+ZV0sOXpyux7n+HQGxwRBxS9iW4RK4SC7SAJ173roeWiLh
- PCGeOSWwrnm8ofOs2axYnAGttdCgNs8/9GM8CEQBcbm+VW+zzc80L+E7OapvRNbLDoXvxSU3t0+
- 6s2Fg+Df4qMSj40GimVQ300B4sQZbJ10VM5lPp17PvUO725FhAZZlwZUnO8dUUDwTo4bybZJysr
- AEqEcxBfjCOqRSHFlpKQyrpuMm1j5TDOS++NIdjBGr35j+3uAj948Ev5WRK9Zfg1UsX862ZlQc2
- H2rMfM4HEoo93GUrDY3Iz76KJCNh75kzlG+lmqIFWFn8ZiW2uMdMo5gnFzKFb0g11ZgsYgN88+J
- sBXNtuAaGtpbrlWUMLeQWRQ68li4stwppVZ+8A28rLSFP2cFFFcAPxiGphO4wBaV21NN9AJtT/B
- 5hGKkwkN1XVgvtvyfog==
-X-Proofpoint-ORIG-GUID: wQGmw2xDPx_-XQuQryZoyqVLsOAoIlgm
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA1NyBTYWx0ZWRfX+Cx7FZG0CB1I
- Ii5BnuvNWRapDtZb248+erSmw5kz9mm2UFyTMuEa3bHXCIZ501Ux2k4v45UpLwK1QASzwOsYbCI
- xFCtvM5Vo1bajxZoacZ84honKMCOPkY=
-X-Proofpoint-GUID: wQGmw2xDPx_-XQuQryZoyqVLsOAoIlgm
-X-Authority-Analysis: v=2.4 cv=SpIFe/O0 c=1 sm=1 tr=0 ts=6af71f9c cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=Q89ptBQ9mced--_tLTIA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-13_04,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 lowpriorityscore=0 adultscore=0
- malwarescore=0 impostorscore=0 bulkscore=0 phishscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611130057
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Describe the iommus streams of the Shikra PAS remoteprocs, needed when
-Linux boots at EL2 without the hypervisor: CDSP uses a single stream,
-while LPAICP firmware uses three.
+On lun. 09 nov. 2026 at 09:44, neil.armstrong@linaro.org wrote:
 
-Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
----
- .../devicetree/bindings/remoteproc/qcom,shikra-pas.yaml  | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+> On 11/8/26 22:45, Martin Blumenstingl wrote:
+>> On Tue, Nov 3, 2026 at 10:46=E2=80=AFAM Chuan Liu <chuan.liu@amlogic.com=
+> wrote:
+>>>
+>>> Hi Martin,
+>>>       Thank you for joining this discussion. :)
+>>>
+>>> I have re-examined the capabilities provided by pm_opp and cpufreq-dt,
+>>> and it seems that we may also be able to adapt A9 fairly well based on
+>>> the amlogic-cpufreq.c here. So we have no objections to the driver
+>>> implementation in amlogic-cpufreq.c here.
+>>>
+>>> I was most worried about before was that cpufreq-dt might not fully
+>>> handle the complicated clock and supply adjustment logic between
+>>> multiple clusters, which would have required adding a separate
+>>> cpufreq_driver. But it now looks like this can be solved by adding the
+>>> corresponding config_clks() and config_regulators() callbacks in
+>>> dev_pm_opp_set_config().
+>> That's great news, indeed!
+>>=20
+>> [...]
+>>>> - Meson8/8b/8m2 (32-bit ARM Cortex-A5/A9) where we need to reparent
+>>>> the CPU clock to XTAL for stable operating during clock changes (which
+>>>> should go into a cpufreq driver that implements target_intermediate).
+>>>> There's no secure monitor or firmware involved for CPU clocks.
+>>>
+>>> BTW, could we put the CPU clock handling logic in the clock driver like
+>>> G12A does (though, of course, handling it in the cpufreq driver might
+>>> minimize the coupling between the clock and cpufreq drivers)? That way
+>>> we could fully reuse the existing cpufreq-dt?
+>> Common clock framework maintainers don't want muxes to be programmed
+>> magically in clock notifiers (which is what G12A and Meson8* do).
+>> So there's a chance that for new drivers they would just NACK that appro=
+ach.
+>> I don't recall the exact reason anymore - but from my perspective
+>> using a cpufreq driver for this is the cleanest approach (although a
+>> few lines of code extra).
+>
+> It would move the soc-specific logic from a soc-specific clk driver
+> to soc specific cpufreq tree handling clock muxing. I kind of
+> disagree on this approach. If some logic is needed to handled clock
+> parking while switching clock sub-trees and notifiers is not
+> accepted them the CCF should evolve to handle that, not moving
+> this logic elsewhere and have a proliferation of clk mux related
+> code in cpufreq.
 
-diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
-index 34a2f15e9361..1688d198cc5a 100644
---- a/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
-+++ b/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
-@@ -119,6 +119,17 @@ allOf:
-           items:
-             - const: cx
- 
-+  - if:
-+      properties:
-+        compatible:
-+          enum:
-+            - qcom,shikra-cdsp-pas
-+    then:
-+      properties:
-+        iommus:
-+          maxItems: 1
-+          description: Firmware Stream
-+
-   - if:
-       properties:
-         compatible:
-@@ -134,6 +145,11 @@ allOf:
-           minItems: 2
-         firmware-name:
-           minItems: 2
-+        iommus:
-+          items:
-+            - description: Firmware Stream
-+            - description: Firmware MMIO Stream
-+            - description: QUP Stream
-         power-domains: false
-         power-domain-names: false
- 
+I dont really agree with this. There are other cpufreq driver that do
+handle this intermediate clock. CCF is there to expose what a clock can
+do and how it behave, not to encode how one expect to use it ...
+even if it is the CPU.
 
--- 
-2.34.1
+Which clock is the "parking" and how it is handled is really not
+something that should be handle in the clock controller. this is
+a usage policy and it belong the clock consumer IMO.
 
+Changing muxes in notifiers is also very fragile and will completly
+break in another clock was to refuse that change while in the notifier.
+It is kind of getting in the way on reworks we have to do in CCF
+Amlogic G12 is the only one doing that. I would prefer if this logic
+could go in a cpufreq driver, which is where it belong IMO.
+If think we can do so without any breakage in DT.
+
+>
+>>=20
+>> Additionally: I believe the udelay(100) in the G12A and Meson8*
+>> implementation is not even clock related but a delay to wait for the
+>> regulator to become stable.
+>
+> It's highly probable
+>
+>>=20
+>>>> - GXBB/GXL/GXM use SCPI firmware CPU clock control so to my knowledge
+>>>> we're good with what we have (meaning: no custom cpufreq driver
+>>>> needed)
+>>>> - G12A single cluster, no DSU: needs a cpufreq driver that implements
+>>>> target_intermediate (currently it's managed on clock driver side in
+>>>> kernel space, no firmware involved)
+>>>> - G12B multi cluster, no DSU: needs a cpufreq driver that implements
+>>>> target_intermediate (currently it's managed on clock driver side in
+>>>> kernel space, no firmware involved)
+>>>
+>>> The cpufreq-related resources on the SoCs mentioned above are relatively
+>>> clean: each cluster has only one independent clock and supply of its
+>>> own, and these SoCs also do not support voltage selection based on chip
+>>> binning.
+>> That makes things simple, indeed: each cluster follows the same logic
+>> using it's own resources.
+>>=20
+>>>> - SM1 single cluster and DSU: needs a cpufreq driver that implements
+>>>> target_intermediate (currently it's managed on clock driver side in
+>>>> kernel space, no firmware involved)
+>>>
+>>> Compared with the SoCs above, the difference for SM1 is that it needs to
+>>> additionally manage a DSU clock. In this case, the clock-related
+>>> handling can be added in dev_pm_opp_set_config() in amlogic-cpufreq.c
+>>> (by implementing clk_names and config_clks in struct dev_pm_opp_config).
+>> I think so far mainline is not touching the DSU clock at all.
+>>=20
+>> [...]
+>>> All in all, it looks like we can currently support all Amlogic SoCs in a
+>>> single amlogic-cpufreq.c? Then, for the specific characteristics of
+>>> different SoCs, we can differentiate them through the "compatible"
+>>> property and add the corresponding drvdata for each.
+>>>
+>>> I'll also try to support S7/A9 with representative differences based on
+>>> this patch.
+>> Great, let's look at some code rather than discussing theory on how to
+>> write code :-)
+>>=20
+>> There's one last detail that we have to manage in case we also want to
+>> include the Meson8* code into the same file:
+>> config MESON_SM depends on ARM64_4K_PAGES
+>> 32-bit kernel builds can't satisfy this (meaning: we end up with
+>> linker errors). I think a simple way to get around this is to add stub
+>> functions to include/linux/firmware/meson/meson_sm.h.
+>> I'll take care of that once I can submit Meson8 support patches for
+>> your upcoming amlogic-cpufreq.c!
+>>=20
+>>=20
+>> Best regards,
+>> Martin
+>
+>
+> _______________________________________________
+> linux-amlogic mailing list
+> linux-amlogic@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-amlogic
+
+--=20
+Jerome
