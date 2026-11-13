@@ -1,79 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794576446;
-	b=HXMLdfd5z/eRK+VasCDP0pF/PUlKlM5w8xgnTk1kMYv0d5equcPys5S2sMjSlTaXcKi4
-	 OmWaFF0HFn0UZrAfAvPUsqm0raXDMUX5S10lh7XI1LzcWXAV2v00gKAP6++qF66qm2vlv
-	 2xBUuestgAYar7Lc8DWwBFp9JHDrsvgxhON19CxWr6Ctb0eTSzUfB0NKFjAkX6oPMv9ta
-	 cyX/ODQ2+WyZj7Fnu+GajqycO+vLo5ttuOb19++TdpniEzDyrSNyq1YhIlvxP8A09NRCY
-	 fFhfLHwxyiIEdZRq4s0PaIK1/TNER+erMIvNH0Q9ooI+2M5rB6+6BysesytSbXcPENw==
+	t=1794576447;
+	b=oUnyY+WAArQPAucfQVsiQhxBmU7+N8ZEzCoNPWjcz4MrASXVJ8Oa6sjifWLPhpmFPnil
+	 tP9tMjgjC7wNkVgxxmo629QmATE1wfCL+TBdvqp6/k6S/GoIyi7voVUXxjmbzrLLga2U9
+	 GJic33YG5dN/KeOYyrPr9bwVcpUXk2eUNwFcOH+VGn39zu96PVW/QmRAqudP1fjADu1Mb
+	 7MARSAMHlt4/LAjN9RCVDPnaFw99cGAgu3yvupt1+QQ/sP61D1zmeVmIDwxJcWHWtbcsb
+	 d1+n8NcVWtSUYRKPsHz7PVYFgCEc3ceYYqc4XDjN6PckvqnX3vxUXS1+4gCBej2WPNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794576446;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=nbmt5CQwND8GIaONTHLvCR1pB2KXdJdMEq7yuXtyM04=;
-	b=kjul2O9CIryjJiRv/oU5/SgT/i9g3kAf/SQukeLV0hUQ1jMx7YhX3DxQRvo4fjeGcXtC
-	 c5boOAFoLQk3twObYWRBNCPZW7vs1Qql5O4tAaVz8fjoJdLcJwG/x+X+Sn8mauezJBeod
-	 5Ivte4Gfjr19qVUSwox+bEXaRgzIhHA8kNHtzTAc9Wq7d3ABCl3ioN4I2YlmfOz2TocZw
-	 3oX6X8enQrzc5WB0521WFU8Y+VJX+Q4/xKUapSyaH+NqKJvt12fQFei0fV6G2QMpt2pjK
-	 auXohSPB1+ptvEwVDOkCb2s1p4vZ2Sw6nqz/x4tsY1VLyslCuZxR83VDD/em2m8h3CQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794576447;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 Organization:MIME-Version:Content-Transfer-Encoding:Content-Type;
+	bh=8fRGrgdpcOLrAC+A5MTGioC4BdpuyuY8kAtSNqNWojg=;
+	b=GhC37iCpAz/74JFVfHehRYHViAiBiH6fuvRMv/HvfNoZLRobwXNmbCWkgEHdNk+BMyKz
+	 wVCDiZboBEmwi9crx/Jr91mvkSNLZuspSavcZOCZnAbBGvZoE8Fzm3+9EvJzZwG3ndMbo
+	 Tvca+b9+hquvtOM1Iz4mldG8lbNC2Kwiy0ldkqvynP22ZCOUp38Lc5mX0Ky7KTE9Ps0//
+	 56y6RlMNbcWslqUI4XHsnVDPykvTivtpHOHJwl9fntOPQQboX+I+yeRSsrDGGWzvBrZat
+	 uu6epWBEQYCJHuqWy3mt4P2SqUbTlVbFO5nFB82sr14z5oi/uHpNQBB85N/XAeOz6DQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=NkOuoaLK;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E8A89606ABBC;
-	Fri, 13 Nov 2026 13:27:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8A89606ABBC
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YhKYH0Sr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E0C2606CAB2;
+	Fri, 13 Nov 2026 13:27:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=NkOuoaLK
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4FA3E1576;
-	Fri, 13 Nov 2026 05:27:22 -0800 (PST)
-Received: from e135073.arm.com (unknown [10.57.14.137])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 1161B3F85F;
-	Fri, 13 Nov 2026 05:27:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794576445; bh=Z4DXyZSW7RvIweBvhgNaqggon5LdlcRAVZhHqGZ9f4U=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=NkOuoaLK+UV/0Fz1jz+AaW4FmjAYEplX1yM2YLUhj2IJijClmVA/0R4uU482YbIQl
-	 B/0ZUAynO9vKjkDBWYfECi8dHRZS4jGkq/UpN/5nmEBn4mqp4YoqF2aRpoH9wKflTa
-	 qF12y2Db04CUapwaYjize7XRuPrwaSi/1eG4G3aY=
-From: Pierre Gondois <pierre.gondois@arm.com>
-To: linux-kernel@vger.kernel.org
-Cc: Ashok Raj <ashok.raj@oss.qualcomm.com>,
-	James Morse <james.morse@arm.com>,
-	Mark Brown <broonie@kernel.org>,
-	Pierre Gondois <pierre.gondois@arm.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Tony Luck <tony.luck@intel.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Shuai Xue <xueshuai@linux.alibaba.com>,
-	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
-	Pawel Chmielewski <pawel.chmielewski@intel.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Breno Leitao <leitao@debian.org>,
-	"Fabio M. De Francesco" <fabio.m.de.francesco@linux.intel.com>,
-	Terry Bowman <terry.bowman@amd.com>,
-	Dan Williams <djbw@kernel.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Morduan Zang <zhangdandan@uniontech.com>,
-	linux-acpi@vger.kernel.org,
-	linux-edac@vger.kernel.org,
-	acpica-devel@lists.linux.dev
-Subject: [PATCH v4 07/12] ACPI: APEI: add separate Memory Error Section 2 handlers
-Date: Fri, 13 Nov 2026 14:24:49 +0100
-Message-ID: <20261113132600.3355836-8-pierre.gondois@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261113132600.3355836-1-pierre.gondois@arm.com>
-References: <20261113132600.3355836-1-pierre.gondois@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YhKYH0Sr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5B1F1F000C4;
+	Fri, 13 Nov 2026 13:27:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794576447;
+	bh=8fRGrgdpcOLrAC+A5MTGioC4BdpuyuY8kAtSNqNWojg=;
+	h=From:To:Cc:Subject:Date;
+	b=YhKYH0SrgQpIW+yPM+io4wYZe6J1s8jNkkkV2S3sqR+BbfUlIBsDXI+ly1dOT41vo
+	 9Wmv+4BYkSytk10bWNrzBlG9TSps3OqLzTh9SPLSaSFH/vJvyDOwT4eAmLTaPYXEAv
+	 UICs+lybbS89MSLjaZTTejezgSoQMLOmXRwBNL9t8p9L1yqOy6EfWpvrv2ZW/t9ygT
+	 +a3crOcttz9Sig7HOQutmcaECwy5G/aCDln5dj1xtA0idRS0840fJg6Q+9ap46XAyk
+	 5kAVNoEGck/jv8R0QFc5ewuP1jTYkTtVguoQD4/FxyRixseHp9MOpXJPZwP379H0cO
+	 UvcLCo6Yz9kEw==
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+To: Linux PM <linux-pm@vger.kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+ Brian Norris <briannorris@chromium.org>,
+ Alan Stern <stern@rowland.harvard.edu>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Subject:
+ [PATCH v1] PM: runtime: Update last_busy before calling rpm_suspend() in
+ rpm_idle()
+Date: Fri, 13 Nov 2026 14:27:23 +0100
+Message-ID: <4789427.LvFx2qVVIh@rafael.j.wysocki>
+Organization: Linux Kernel Development - Intel
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,246 +61,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 
-Add dedicated GHES and EDAC callbacks for Memory Error Section 2
-records. Use a separate GHES notifier chain so existing consumers
-continue to receive legacy memory error sections.
+From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
 
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Signed-off-by: Pierre Gondois <pierre.gondois@arm.com>
+When rpm_idle() is about to call rpm_suspend(), there are no reasons
+preventing the device from being suspended, but if the device uses an
+autosuspend delay, it needs to be taken into account.
+
+For this purpose, rpm_idle() adds RPM_AUTO to the flags passed to
+rpm_suspend(), but doing that alone is insufficient because the point
+in time from which the autosuspend delay is counted may be too early.
+
+For example, if the device has children (or consumers) and the last
+of them goes into runtime suspend, the parent may now become eligible
+for suspending, but it may not be worthwhile for it to suspend until
+a certain time later.
+
+Quoting Alan Stern [1]:
+
+ Let's say the last remaining active child goes into runtime suspend at
+ time T.  Let's also say that the parent expects none of the children
+ will need to resume until time T + D.  Is D sufficiently large to make
+ it worthwhile for the parent to suspend and then resume?  If not, the
+ parent should remain active.  If yes, the parent should autosuspend --
+ and the length of time the parent should wait before autosuspending is
+ on the order of the value of D (let's call it D*) that corresponds to
+ this crossover point.  Thus the parent's autosuspend delay should be
+ set to D*, or something close to it, in order to achieve both
+ objectives.
+
+Moreover, if the parent's autosuspend delay is set to D*, it should be
+counted from time T at which the last child has suspended, but that does
+not happen because the parent's last_busy timestamp is not updated at
+time T.  That leads to undesirable parent suspends occurring between
+child suspend and resume [2].
+
+To address this issue, make rpm_idle() update the last_busy timestamp
+of the device when it is about to call rpm_suspend() which most often
+is right after the device's last child (or consumer) has gone into
+runtime suspend.
+
+Updating the last_busy timestamp when rpm_idle() returns an error
+without calling rpm_suspend() is not useful because the device is then
+going to remain active for an unknown amount of time and its autosuspend
+delay needs to take effect later.
+
+Link: https://lore.kernel.org/linux-pm/fc43eb13-816b-4cd0-9711-848fdab605ef@rowland.harvard.edu/ [1]
+Link: https://lore.kernel.org/linux-pm/CAJZ5v0hKpjMsGQm8Cpa89x5wkNxqkggDNbp+eQ0S-E52DETWjQ@mail.gmail.com/ [2]
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 ---
- drivers/acpi/apei/ghes.c |  37 ++++++++++++-
- drivers/edac/ghes_edac.c | 117 +++++++++++++++++++++++++++++++++++++++
- include/acpi/ghes.h      |   2 +
- 3 files changed, 155 insertions(+), 1 deletion(-)
+ drivers/base/power/runtime.c |    6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
-index d6bbee466b48..07306af5a54b 100644
---- a/drivers/acpi/apei/ghes.c
-+++ b/drivers/acpi/apei/ghes.c
-@@ -101,6 +101,7 @@
- #endif
+--- a/drivers/base/power/runtime.c
++++ b/drivers/base/power/runtime.c
+@@ -560,7 +560,11 @@ static int rpm_idle(struct device *dev,
  
- static ATOMIC_NOTIFIER_HEAD(ghes_report_chain);
-+static ATOMIC_NOTIFIER_HEAD(ghes_report_mem2_chain);
- 
- static inline bool is_hest_type_generic_v2(struct ghes *ghes)
- {
-@@ -558,6 +559,17 @@ static bool ghes_handle_memory_failure(struct acpi_hest_generic_data *gdata,
- 	return ghes_handle_memory_failure_common(gdata, sev, sync, mem_err->physical_addr);
+  out:
+ 	trace_rpm_return_int(dev, _THIS_IP_, retval);
+-	return retval ? retval : rpm_suspend(dev, rpmflags | RPM_AUTO);
++	if (retval)
++		return retval;
++
++	pm_runtime_mark_last_busy(dev);
++	return rpm_suspend(dev, rpmflags | RPM_AUTO);
  }
  
-+static bool ghes_handle_memory_failure2(struct acpi_hest_generic_data *gdata,
-+					int sev, bool sync)
-+{
-+	struct cper_sec_mem_err2 *mem_err = acpi_hest_get_payload(gdata);
-+
-+	if (!(mem_err->validation_bits & CPER_MEM2_VALID_PA))
-+		return false;
-+
-+	return ghes_handle_memory_failure_common(gdata, sev, sync, mem_err->physical_addr);
-+}
-+
- static bool ghes_handle_arm_hw_error(struct acpi_hest_generic_data *gdata,
- 				     int sev, bool sync)
- {
-@@ -930,7 +942,8 @@ static void ghes_log_hwerr(int sev, guid_t *sec_type)
- 		return;
- 	}
- 
--	if (guid_equal(sec_type, &CPER_SEC_PLATFORM_MEM)) {
-+	if (guid_equal(sec_type, &CPER_SEC_PLATFORM_MEM) ||
-+	    guid_equal(sec_type, &CPER_SEC_PLATFORM_MEM2)) {
- 		hwerr_log_error_type(HWERR_RECOV_MEMORY);
- 		return;
- 	}
-@@ -1008,6 +1021,16 @@ static void ghes_do_proc(struct ghes *ghes,
- 
- 			arch_apei_report_mem_error(sev, mem_err);
- 			queued |= ghes_handle_memory_failure(gdata, sev, sync);
-+		} else if (guid_equal(sec_type, &CPER_SEC_PLATFORM_MEM2)) {
-+			struct cper_sec_mem_err2 *mem_err = acpi_hest_get_payload(gdata);
-+
-+			if (gdata->error_data_length < sizeof(*mem_err)) {
-+				pr_warn_ratelimited(FW_WARN GHES_PFX "Memory Error Section 2 length is too small\n");
-+				continue;
-+			}
-+
-+			atomic_notifier_call_chain(&ghes_report_mem2_chain, sev, mem_err);
-+			queued |= ghes_handle_memory_failure2(gdata, sev, sync);
- 		} else if (guid_equal(sec_type, &CPER_SEC_PCIE)) {
- 			ghes_handle_aer(gdata);
- 		} else if (guid_equal(sec_type, &CPER_SEC_PROC_ARM)) {
-@@ -2033,3 +2056,15 @@ void ghes_unregister_report_chain(struct notifier_block *nb)
- 	atomic_notifier_chain_unregister(&ghes_report_chain, nb);
- }
- EXPORT_SYMBOL_GPL(ghes_unregister_report_chain);
-+
-+void ghes_register_report_mem2_chain(struct notifier_block *nb)
-+{
-+	atomic_notifier_chain_register(&ghes_report_mem2_chain, nb);
-+}
-+EXPORT_SYMBOL_GPL(ghes_register_report_mem2_chain);
-+
-+void ghes_unregister_report_mem2_chain(struct notifier_block *nb)
-+{
-+	atomic_notifier_chain_unregister(&ghes_report_mem2_chain, nb);
-+}
-+EXPORT_SYMBOL_GPL(ghes_unregister_report_mem2_chain);
-diff --git a/drivers/edac/ghes_edac.c b/drivers/edac/ghes_edac.c
-index f1cf4d640d68..1a963e554ff8 100644
---- a/drivers/edac/ghes_edac.c
-+++ b/drivers/edac/ghes_edac.c
-@@ -388,6 +388,121 @@ static struct notifier_block ghes_edac_mem_err_nb = {
- 	.priority	= 0,
- };
- 
-+static int print_mem_error2_other_detail(const struct cper_sec_mem_err2 *mem, char *msg,
-+					 const char *location, unsigned int len)
-+{
-+	u32 n;
-+
-+	if (!msg)
-+		return 0;
-+
-+	n = 0;
-+	len -= 1;
-+
-+	n += scnprintf(msg + n, len - n, "APEI location: %s ", location);
-+
-+	if (mem->validation_bits & CPER_MEM2_VALID_ERROR_STATUS) {
-+		n += scnprintf(msg + n, len - n, "status(0x%016llx): ", mem->error_status);
-+		n += scnprintf(msg + n, len - n, "%s ",
-+			       cper_mem_err_status_str(mem->error_status));
-+	}
-+	if (mem->validation_bits & CPER_MEM2_VALID_STATUS)
-+		n += scnprintf(msg + n, len - n, "section_status:0x%02x ",
-+			       mem->status);
-+
-+	msg[n] = '\0';
-+
-+	return n;
-+}
-+
-+static int ghes_edac_report_mem_error2(struct notifier_block *nb,
-+				       unsigned long val, void *data)
-+{
-+	struct cper_sec_mem_err2 *mem_err = data;
-+	struct edac_raw_error_desc *e;
-+	struct mem_ctl_info *mci;
-+	struct ghes_pvt *pvt;
-+	char *p;
-+
-+	/*
-+	 * We can do the locking below because GHES defers error processing
-+	 * from NMI to IRQ context. Whenever that changes, we'd at least
-+	 * know.
-+	 */
-+	if (WARN_ON_ONCE(in_nmi()))
-+		return NOTIFY_OK;
-+
-+	guard(spinlock_irqsave)(&ghes_lock);
-+
-+	pvt = ghes_pvt;
-+	if (!pvt)
-+		return NOTIFY_OK;
-+
-+	mci = pvt->mci;
-+	e = &mci->error_desc;
-+	ghes_edac_init_error_desc(e, val, pvt->msg, pvt->other_detail);
-+
-+	edac_dbg(1, "error validation_bits: 0x%08llx\n",
-+		 (long long)mem_err->validation_bits);
-+
-+	/* Error type, mapped on e->msg */
-+	if (mem_err->validation_bits & CPER_MEM2_VALID_ERROR_TYPE) {
-+		u8 etype = mem_err->error_type;
-+
-+		p = pvt->msg;
-+		p += snprintf(p, sizeof(pvt->msg), "%s", cper_mem_err_type_str(etype));
-+	} else {
-+		strscpy(pvt->msg, "unknown error");
-+	}
-+
-+	/* Error address */
-+	if (mem_err->validation_bits & CPER_MEM2_VALID_PA) {
-+		e->page_frame_number = PHYS_PFN(mem_err->physical_addr);
-+		e->offset_in_page = offset_in_page(mem_err->physical_addr);
-+	}
-+
-+	/* Error grain */
-+	if (mem_err->validation_bits & CPER_MEM2_VALID_PA_MASK)
-+		e->grain = ~mem_err->physical_addr_mask + 1;
-+
-+	/* Memory error location, mapped on e->location */
-+	p = e->location;
-+	p += cper_mem_err2_location(mem_err, p);
-+
-+	if (mem_err->validation_bits & CPER_MEM2_VALID_MODULE_HANDLE) {
-+		struct dimm_info *dimm = NULL;
-+
-+		p += cper_dimm_err2_location(mem_err, p);
-+		if (mem_err->mem_dev_handle <= U16_MAX) {
-+			dimm = find_dimm_by_handle(mci, mem_err->mem_dev_handle);
-+			if (dimm) {
-+				e->top_layer = dimm->idx;
-+				strscpy(e->label, dimm->label);
-+			}
-+		}
-+	}
-+	if (p > e->location)
-+		*(p - 1) = '\0';
-+
-+	if (!*e->label)
-+		strscpy(e->label, "unknown memory");
-+
-+	/* All other fields are mapped on e->other_detail */
-+	p = pvt->other_detail;
-+	p += print_mem_error2_other_detail(mem_err, p, e->location, OTHER_DETAIL_LEN);
-+	if (p > pvt->other_detail)
-+		*(p - 1) = '\0';
-+
-+	edac_raw_mc_handle_error(e);
-+
-+	return NOTIFY_OK;
-+}
-+
-+static struct notifier_block ghes_edac_mem_err2_nb = {
-+	.notifier_call	= ghes_edac_report_mem_error2,
-+	.priority	= 0,
-+};
-+
- static int ghes_edac_register(struct device *dev)
- {
- 	bool fake = false;
-@@ -492,6 +607,7 @@ static int ghes_edac_register(struct device *dev)
- 	spin_unlock_irqrestore(&ghes_lock, flags);
- 
- 	ghes_register_report_chain(&ghes_edac_mem_err_nb);
-+	ghes_register_report_mem2_chain(&ghes_edac_mem_err2_nb);
- 
- 	/* only set on success */
- 	refcount_set(&ghes_refcount, 1);
-@@ -535,6 +651,7 @@ static void ghes_edac_unregister(struct ghes *ghes)
- 	if (mci)
- 		edac_mc_free(mci);
- 
-+	ghes_unregister_report_mem2_chain(&ghes_edac_mem_err2_nb);
- 	ghes_unregister_report_chain(&ghes_edac_mem_err_nb);
- 
- unlock:
-diff --git a/include/acpi/ghes.h b/include/acpi/ghes.h
-index 7acf209061ea..3fdb7ea59f9c 100644
---- a/include/acpi/ghes.h
-+++ b/include/acpi/ghes.h
-@@ -147,4 +147,6 @@ static inline int ghes_notify_sea(void) { return -ENOENT; }
- struct notifier_block;
- extern void ghes_register_report_chain(struct notifier_block *nb);
- extern void ghes_unregister_report_chain(struct notifier_block *nb);
-+extern void ghes_register_report_mem2_chain(struct notifier_block *nb);
-+extern void ghes_unregister_report_mem2_chain(struct notifier_block *nb);
- #endif /* GHES_H */
--- 
-2.43.0
+ /**
+
+
 
