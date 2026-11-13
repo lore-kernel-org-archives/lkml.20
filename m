@@ -1,64 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.54.11.23
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794534709;
-	b=zEpd0rlN4Y2LJbVr+Ru0iKDfXIfOhFRl6uIRGnvc3zDkQPuswpKolxxve5yHUkAbiIHx
-	 MJUllLdPNjV2ykMqCN4iSHzkakTPQiYPLF7fqh/4NGb5iRKLWsTwtxPHRaBgG58jfN5ih
-	 DHkC2qHqL3ZvXRjKAZdGbrCTv20uv4Gp7YD4EsIWbkc4yxIntT2kaeuglAd4/ksuAMadX
-	 wseoY66vvUlsluu4y8+WLe7RpLU7o2BLZUT2bRXMnEPMcYY3ZtzZKO36njm97aSoU/P5Y
-	 n9x++5R78krljny8JKRWbowA3zst2I8KxfbhlZSfphvNFZxtMBqXpVC5am1jzmutn1A==
+	t=1794534772;
+	b=rgMN/X1DKAcwkNzMBQqQXzQVLWBzgz+NQtZq4SH797pnB0UrD85IxBAy4feG6mZYWrbQ
+	 CSqnWqsJiS6f1jMaXW+okY/6Grs/qV7C84bZhGkuI7S7XL0j+X2VO8y9p2qrDLaEFKHog
+	 YAPy+KVWldJxToGXdG85pU4gyfJV78X04rw5hAT3/uxlLum1n8dus1QLuQbS9dUaXE86x
+	 qzrvXvl5h3gDaI/EtOGwkYTBGg0n3FDRqf2K9AbONA29dJn73yCcYC8fqTaq6E6I8enVu
+	 vyJYU9nWB2Rgg5IN+S7SsXJvILmMhlK3fYvUXC0dlTMj0xlERLCkWD/qw7CDXEk3/UQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794534709;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=VCakxFlvNf3r4xnqgVMZN0r27Eu0M3U7AunJ84kfgbE=;
-	b=oPRQsG3QUc5+YVSfR97pJXi0SoMuYkXNGW9S0Xq99ZrMFMVSfaTMuLISJcAIPj3ULKFk
-	 brR7Plba8T0VueGME7kDSZbr2YsIDbksYrIxgEMDruYABQOIsxC20BpQeXal6KJp56AO+
-	 nRHYa78As4HlVoF1BcCSspQF71RFb8j+xRWN2yVmjND5e7pyfKjcq7kb5+H++3TMB9p1B
-	 wW8DjhzWutMev3gZbTl7koWtBgu2CtW3X2/rKGuuPF2Nr3xfxciIcth3CadPfmyPIRpUV
-	 aEM45Oj8Hp9b+wMMOyk3fNk5Db1q0rf/Q3nK1LAcvn/V2+zFzKil7OZfkizrDDmVJmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794534772;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=dUzo3UGgXY0oHBScVAe5t2TvKWuG/rK4hhPW0dEbd48=;
+	b=zg+hBd12u64A8n8jseO15PlH5tQNMNoCvWA+ptoB/jE4HoyLOzSe+8HeWTxvoNwhXKMO
+	 tacdcJUYMahu++PKsTshnR3h1eLhauC68VkBxboGUL66LhAQLHoXz27Ey6QjDGN8L5mwl
+	 GJJQ4gIIY5xJSGLUcHcdMgyYaqqxV7sjIOnB+50RLEBua5MbeZijVpJeyeYEEGDG6ZB+N
+	 ktY9i/cdrpETyCPriVAzPFmBR9jBGHQ6ZhhpM9vXTOgKVS6rqfu+IhzAQRayfFIpE998c
+	 Ui975xVjqcS4nhbP/zhmRwaVb8zkl/maktUyTBU59juDe3UDKSOgpXdQwaPY1b42z9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=inf.ufrgs.br;
-	spf=pass smtp.mailfrom=inf.ufrgs.br;
-	dkim=pass header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b=sf+EaGfX;
-	arc=none smtp.remote-ip=143.54.11.23
-Received: from smtp.inf.ufrgs.br (smtp.inf.ufrgs.br [143.54.11.23])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MUjgymgh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E615606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 01:51:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E615606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inf.ufrgs.br
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1131B606A31C;
+	Fri, 13 Nov 2026 01:52:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b=sf+EaGfX
-Received: from DESKTOP-PJTTJ93.localdomain (unknown [189.6.233.4])
-	by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id 89D76120351;
-	Thu, 12 Nov 2026 22:51:44 -0300 (-03)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inf.ufrgs.br;
-	s=dkim2026; t=1794534706;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VCakxFlvNf3r4xnqgVMZN0r27Eu0M3U7AunJ84kfgbE=;
-	b=sf+EaGfX37dcNR3I0sGYwVUnbdihTv66gpXJwcfpYPbpMz4h/1vcxSieHEcXzP5egnDEnF
-	rijjeU5zytFrIp3ZRNXWq0VQpbKj9+pyOvC1+7ELIFyE6iNJp9uYNQOQ7SsTok+MvW3QV8
-	gfJbfYOpfplkXjsz8HKDoyuYH6Rv0bUpgxkZQUBMB0bZw17jDRVyfmBM2mXSl7/lAgB/v2
-	VxkUAOsGsNwTISN+7co4ThSohguiV0Y2Tbj+ZGupgFY2e0rZV89BurTqqRn/NM8u3IYK46
-	yDnB4KYWwq4zLuWGZQREn/Us0bBEJRM+g/gwCw5uQsoJ9TcpDOxcSuWmDSr2sw==
-Date: Thu, 12 Nov 2026 22:51:41 -0300
-From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-To: Sidharth Saha <ssaha2000@gmail.com>
-Cc: Louis Chauvet <louis.chauvet@bootlin.com>, 
-	Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Melissa Wen <melissa.srw@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/5] drm/vkms: support more formats and fix RGB565
- regression
-Message-ID: <avZsvJCsjIck1MRd@DESKTOP-PJTTJ93.localdomain>
-References: <20260928005301.367977-1-matheus.aalmeida@inf.ufrgs.br>
- <f3707b72-07f2-41ae-aefa-c46ef84de3e3@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MUjgymgh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 153521F000C4;
+	Fri, 13 Nov 2026 01:52:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794534771;
+	bh=dUzo3UGgXY0oHBScVAe5t2TvKWuG/rK4hhPW0dEbd48=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=MUjgymgh5PvB1DM1usyj8GMmNXD10UuhNp+4Xs50YA+7I9tsciAQB0BGg15x8CMRy
+	 ChNyD6HtWLGBUAnBZq1azhDr/UFLyjLkUrN+rGiojt3wrAEpu/s337md/xtgj47Wy0
+	 i8fq2kWd28/4TQxIPrNBu+Sc236HRhY5zXXMRNU3BY8f27hY4r9kG9QnsnEKdV63mh
+	 iJ6hEl7nKGtbAGZ1xwFVv9Ofhp2HJYrmCtwZl2Klth+edTIgI4ezmQt32pBHLRtoLp
+	 DYP9RzNADqpk9Zk3PwJEZoAPQRXzHkNP94wlDk+UFe4uDzch44rBSOD/aTCdhpBCDi
+	 HXMQLVyn2nyLQ==
+From: Sasha Levin <sashal@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	linux-kbuild@vger.kernel.org,
+	Shuah Khan <shuah@kernel.org>,
+	linux-kselftest@vger.kernel.org,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-perf-users@vger.kernel.org,
+	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+	Thorsten Leemhuis <linux@leemhuis.info>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 0/7] kbuild: build the userspace tools in tools/ with the kernel
+Date: Thu, 12 Nov 2026 20:52:48 -0500
+Message-ID: <20261113015248.777097-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261112122347.dbb972627dc856c50eb01cd0@linux-foundation.org>
+References: <20261112195427.3411746-1-sashal@kernel.org> <20261112122347.dbb972627dc856c50eb01cd0@linux-foundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,48 +75,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f3707b72-07f2-41ae-aefa-c46ef84de3e3@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 12, 2026 at 05:18:56PM -0700, Sidharth Saha wrote:
->Hi Matheus,
->
->Following up on my earlier report: I've now written KUnit tests for
->the conversions in this series - argb_u16_to_RGB565(),
->argb_u16_to_BGR565(), the RGB565/BGR565 read paths, and both the read
->and write paths for RGB332 and BGR233 - against hand-computed values:
->zero, max, single channels, the midpoint, values either side of each
->rounding step, distinct per-channel values, and a read/write round
->trip.
->
->All pass with the series applied. Without it, the RGB565 writeback
->midpoint and rounding-step cases fail (truncated instead of rounded),
->and the RGB565/BGR565 read tests give identical results with and
->without the series, so the helper conversion in 3/5 doesn't change
->behavior.
->
->For the series:
->
->Tested-by: Sidharth Saha ssaha2000@gmail.com
->
->I'm happy to send the tests as a follow-up series once this lands, or
->you're welcome to fold them into a v2.
->
->Thanks,
->Sidharth
->
->On 9/27/2026 5:52 PM, Matheus Alves de Almeida wrote:
->> Hi,
->> 
->> This series adds support for RGB332, BGR233 and BGR565 writeback. This
->> is done with new helpers added to make conversion easier. It also fixes
->> a regression in the RGB565 write conversion.
->
+On Thu, Nov 12, 2026 at 12:23:47PM -0800, Andrew Morton wrote:
+>So the 20-odd selftests which build modules and then modprobe them can
+>find that some of the exports which they need were zapped by
+>CONFIG_TRIM_UNUSED_KSYMS, so their modprobe fails.
 
-Thanks for testing!
+[...]
 
-I would be happy to add your patches in case I need to send a v2.
+>Does this patchset fix this CONFIG_TRIM_UNUSED_KSYMS-vs-sefltests thing?
 
+No, not yet, but almost :)
+
+This only builds userspace, and the selftests that build their own modules
+(bpf, livepatch, mm, net/bench, sched_ext) aren't there quite yet.
+
+It does get us closer though. With this in, a selftest is a Kconfig entry, so
+the kernel build knows which ones it's going to build. For the ones with
+modules we could then either build the modules together with the kernel's, so
+modpost sees what they import, or generate the whitelist from them.
+
+I haven't tried either yet. I can look at it once this foundation is in.
+
+-- 
 Thanks,
-Matheus
+Sasha
