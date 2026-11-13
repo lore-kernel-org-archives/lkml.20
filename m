@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.225.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.225.73
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794576513;
-	b=uAPwFP+lgaAqvx04QhkgfIg407A1gRtVJwaXqAY6LDPfcpQqJRYLk9iqQRMGC30HaEc/
-	 xhTkYkXw4hlC0bh8gnFSx5FbedpKMkPhxoOTFtWWRGOXuC5ntzRosgmOMZ3QNtkIPIPeZ
-	 Tu7XiaNzxegZmG3yBJsUzDDbRp83ureUX8sC48ZUEUwpbs9ASP6qeBpYJIqSmdL/hoScO
-	 xThqRstSUNNuMkwU3tdKir1XDMCN43rTL+6AEw7uI2/OIlUtMJ/E87Moqgn7kvb7xS7JN
-	 lyRl0fmBD2DQinVlyE3hMAhrfFvttEM5ESVEdgSTuFaTWzVQSQnn0ViU2uLXbKQOHAQ==
+	t=1794576521;
+	b=E/ZXTgeOe9++19R0moJGLOZ8c6tNSuaL0NxYOFZIqmm2GhaRpN8cTHbVUvOQSqIwhD9z
+	 nk+5nUGG49v8/WSjp6atsRdkjSjuCWNYLKNKbL1rLtxCEvuw1PRpV0Bo8Q9ZkDai4etUy
+	 g+EcwSOyu/8Am/9Ghno3P9F0twcm0r4RsPuQ/wxgR+h/DLdJsDy6gy3vGuO2wOeBRNG+m
+	 VneC8W4sNP44yJtwbKw0SUbcXyFZ/Z+zaWhYSYwprrEYAffdXJ1eimLxmeHe4ftePQARx
+	 MRxtHO+9isXUaITIpKvmMa8Ec3udcYNre5YuuTb0tpk1I9fHl7D5eP2Kcw2wivP1I7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794576513;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794576521;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=zMluFC78cIvBikYbcX1+ABfXuc1qd1361x5Cr08z8xQ=;
-	b=1TLnOEZMHKXkjiwVTnQB7xguHHvagTOylTIcXw3MynUYu3Yn3hK0a98RSXkRgnuixGYf
-	 piWmLutmNZNIQ8WYeJ7owJfR40mjSOjHal14iIjcisv0R+WDhuaG0gftNjLO2RHfqHLO+
-	 FitnhKb8JSe3HmCXpRiXK7IzLLsEvCBDFRN/2rBfVuVVeP4xauNQ4iXwdqpdYBEXPbYob
-	 mFuC84VNeU9QSDy872BZp4LesuLF8d4EBcWDkzY/DYdm+i/iCkbqQCS4p6HF6f3PKGlM5
-	 R4QbkBIr702VfLno16mDK3JrFnwaYewxx/CD4R2OZVIrz+m76r2f/55hh6A2EuWE4pw==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=LFUlowHkykBA07bzno9+ZZz7Tclr3AiMw/Mxprm1brE=;
+	b=t4cgcNiMEmd3ekFY0VBXJIFbKenQGnwrzVXzGUpLmAJtAiVu2R5E3R9FrMdv38fAeqcn
+	 WBd0hEyqVU2x3AhTECNTxAdcDfwEvR9Xrf235yOAJBzTsq9Kb+bcyHuwK/qNXDhNnK92h
+	 RT3djasxZaHufevUi7x4Lzd0L7qMeyxmhp9onLf8ehgliisNV5cMyZuG8pm2DwAont/ZH
+	 QVRSsqHF43CTyjYJflpr3NdzZtP7dsK+p2R6PcfT7yEquxaCAwFBubJ9HWB5QUoQB10MX
+	 kPdxIcSw3Dkn7/bAdI7spgUFYOeSw2UECWCva4JD6awcqp4opXoadif9FLvFUe5lMBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UsiZlsgi;
-	arc=none smtp.remote-ip=74.125.225.139
-Received: from mail-wm2-f11.google.com (mail-wm2-f11.google.com [74.125.225.139])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=at2EBTEE;
+	arc=none smtp.remote-ip=74.125.225.73
+Received: from mail-wr2-f9.google.com (mail-wr2-f9.google.com [74.125.225.73])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5EE5606B569
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:28:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5EE5606B569
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E756960A3826
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:28:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E756960A3826
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UsiZlsgi
-Received: by mail-wm2-f11.google.com with SMTP id 5b1f17b1804b1-4a5f76661b5so3721755e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:28:32 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=at2EBTEE
+Received: by mail-wr2-f9.google.com with SMTP id ffacd0b85a97d-490dad2342fso346567f8f.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:28:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794576511; x=1795181311; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zMluFC78cIvBikYbcX1+ABfXuc1qd1361x5Cr08z8xQ=;
-        b=UsiZlsgi4djgwH6PPrZ1X68lT5Vjzz6Q3gxyfVJUsXIiOQZsLpsIr9+xIfUiaLZbSY
-         nrRrJucUs4qGn11nRI2VWqFw6YLjn6YngeylkeS+LErX0ths/K958JsuKPgakJBSBJzq
-         5Ft6463aw22L52qZAb6jvrGkZ0h8IMvXEDIPbGPSHXkqlTblE31FKZF7x/qJ1m1Fzgfr
-         EpSrL/aUoOUedbuteH7hybEHvIP6paDyj6e3m0I+wRKWSXIo4BLUR4ksqKjU9NwE03dM
-         fGilGVsqbdqs9GWpczccIJKuAP/hF7XDqLkG7QAMe9zxmSJG3UdTPuAW3iwrzqtFSBvC
-         3YZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794576511; x=1795181311;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794576519; x=1795181319; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=zMluFC78cIvBikYbcX1+ABfXuc1qd1361x5Cr08z8xQ=;
-        b=dAMx06pNNKNOPCLlAUSTJt28Zs7NONoZW9xR3/tVFZgT8GaIt/P5xuPGfrkOfu1Xkh
-         4neuTSso2dyBs2Z8qnRXromE6+5SHzq26WYlOh0fgq+Ba+Fp44quAaaD81l94PnqZ8k+
-         z2B2gbSC31ubvUVMyX/O70nyKNiBTQ9gwWnsT7AhwG7zvgchJSEhoZ/vT5u3EY/wN14O
-         ILV07rp7bL6OlU3OGbW9Te5C7viNtzk6eauW+lOBdtjUR50F77HxaNSHZMf6a5kv6Y27
-         JMiFbhc8/Ph4fSwkbvgdSO1eIiZ3d9JN1TA5t3eocsEhCQ9WpEgG3wSfDoVUjX76T4ZG
-         lQ0w==
-X-Forwarded-Encrypted: i=1; AL+hErFlIlaaOFLAG4o+eB1p31qHLRYrGZAdxsavQk3Lcsel/nmbD2FgKpID5fHB89ntZCxaVO4X8+j+zN8g4C0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8DRG5V2esrVDFn9AHfVCjFeXPCLvNMhzamvRc2c19qSRpT1Ifq
-	xcoJqu1CCgVhqPIdL/tE640gBEU5WLhSS4Os+jH6cUgIMS3OQslSMXdp
-X-Gm-Gg: AYBFou2wpdDeNKy7bYoH9UUGOunqrw4VZSHvWlEInlcAcXm0yx3wSPppv4U02sZYujt
-	uKdpuSJBMBUnu83fnxk2jV7OdRBCtu3Dlu1zbLggsX3CzH8nMmsR0wX2hQHXrpO8+hkKnuAKvbV
-	ACh2gs1GwZZ1sHCH/AD3RBAyENiK00cgYvU+yjwRQmAOW7fesdqisGSjkmXtQ4onrQEYdbuMamv
-	Zch2IhBPCdpaHc6nalYGEWrpxV8Fu+Rjmdv+UPAFngFpJ+G1PIp6eC+JfPIo+tJMfBU0gPTyLsC
-	85KQpuM7mI0LVHYwvfsytApigGFoOk98NMQebdFE5A/MSeuwPrJBrc1nBO3IU9TwBie2VhLBnGc
-	gWRe/VtVWYG9aOa2uMmmvhg6jkXYOCpj/IgnMjNZP3/IA48xVP8tYkdgsCpLdngFW3a98n1FKo+
-	luOlHlNd5uP7expcyRNIuVctn7p0XO6O+tz4il+2JmZufUlc+C8fq4hnq9Hk5/jV3XL4NiM72yg
-	B+6cgypDtcF3TeT0RRzyQoa33GY/9EJlaV4E9n5O4kPWSyhA5oe/3UIm3aGXjxy6hbHObbBQ5nG
-	1Keycw6TnTLyUWObMg==
-X-Received: by 2002:a05:600c:8905:b0:4ba:4395:5755 with SMTP id 5b1f17b1804b1-4bb55a6a5fbmr35028905e9.5.1794576510932;
-        Fri, 13 Nov 2026 05:28:30 -0800 (PST)
+        bh=LFUlowHkykBA07bzno9+ZZz7Tclr3AiMw/Mxprm1brE=;
+        b=at2EBTEEMzyH/6EVKGx6axf1SSlg1oEcU96MepvJN9tGA5So6/YUcZruRljvk7jBOO
+         2eDT9k8KRK8KCZw9LA1WtSdYbXpf0HEAKkgnEZhC76f/Gm+sKBTMCZrreKKbcOMzGvFA
+         dsLb2k+92iTCAMtwMMjsyD17MfAS/2+r5Lfs9kPrtjRbbkk1HnFSbuz5kzjfpqWo7rG+
+         lkaN/MqCU3NJqqFcCJc8UUwQePi18WE8GzyzMGdklP9qlcAeQTZz5KxfcrG6NWd9xcpQ
+         9xb6Dw9zoexnzzMT1zj+Q7booJxbPc+NWm6lF+wAuyWZjEjJA1raqJDXIgwbmIeqxD6Q
+         vuIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794576519; x=1795181319;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LFUlowHkykBA07bzno9+ZZz7Tclr3AiMw/Mxprm1brE=;
+        b=Mx23shE2Es3qtbM5/WRDu/N0z36PZMPFaEpBNJIXWrV2pZqALMoqio79WQnzpgOkLM
+         L0SRQ4ay5Dbg9LTtcOxN1kl4N50q4uoPEAlUYAtLpiid9oyyrCDEegeW/2BNv+RBfTCM
+         OiTTwcW/Z/SWo3eChFQJ3Vb9vlE3hsHI5L47SUGfo0G4jO5nqCRveqIVInMG0y/5DPwa
+         TaMB6mUsaG6OC2zjaWG8vzcW73stN9M0cR64Rqid49h8/WmMglmnQUfEANIZTL3vmDSj
+         eO8XIKlmfiwa1QnDTudemmteHS/qm5eFO2t0oeEgMuaiPRlobFpmJyYUq0qKXmIXiZLW
+         KWNw==
+X-Forwarded-Encrypted: i=1; AL+hErExgxnEPuitkb6NPHiDE07pThA40ZWq6kp3B2bchhSn740fp3GbdtrSfgfWbppqQ3x27OCq4JDw8hK99Qk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z89BwDaoSQH8C9+jmiszBLDLxd3OXDF6+HYLKoRXLimJQ3mNz9f
+	cWKi5/cMk00ZWQoRyiQc97iIAbXf49XsFAICtOFYYP1Rn4nGUX6lkhtN
+X-Gm-Gg: AYBFou3EysucU4ZG2f5aQNtgG6cbrh9do/fjrISPBPDUnpyOHYQmQXFoltZkeLGmUJF
+	6KGfT6+xF1Di2Wx8pFgQBSTEtRpXpsdoxtCqdTF4j7uKp574BnmtVwG98ww41GtKd4YFMvohWIA
+	C7IaQCtW1geNaPH6B51HNPfaOJmuYrSe6pO0Jv02GmTDQmIQuQrjs/hD1AmcEk1FmwcVpcKThtB
+	YtCgMe7TA4Jl8a3lxzrtkEqH6V/Jy+b6MEQxB5sV50JKZXqLotxhDYvzV6n54HUd6gDHzgIaHyi
+	FqRsU729qrMtRXQrQ5J4UZG6YtrZ6I8UXS5FZ0MAI0KYHwk3AH2rvVaa+EF4W2haAoSrFgLVauG
+	Ah7waqe7oLR4w3/GFSzuIrQG0J/ntAG6ocL7nReZ19t3mQ0ptaqHxqn+0B76suAREHsY+zFEkHp
+	m2BaS9q6OUt85gdfH2SRAq2UPfJob99WjF6MxLjPiz9hH/ufIVzh1y11FFkIE3tZTK9yYmBCQCF
+	neYTsAHRGMyGS7+n4sFoMMZ3akMKV6N5TpjfXEgINCL2SuyP9LUecSs633MA+NDGVC8GzGDA2HA
+	txeK2eyFRnzI1kfFRi79O1MSeHGfc+pyOpsfJ7ltEX2I/YsBfU/L12s=
+X-Received: by 2002:adf:e18f:0:b0:491:895b:4c02 with SMTP id ffacd0b85a97d-49c713ae4d2mr5232726f8f.23.1794576519158;
+        Fri, 13 Nov 2026 05:28:39 -0800 (PST)
 Received: from workstation.. ([45.249.9.114])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5fe370f8sm4802673f8f.27.2026.11.13.05.28.24
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5fe370f8sm4802673f8f.27.2026.11.13.05.28.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 05:28:29 -0800 (PST)
+        Fri, 13 Nov 2026 05:28:36 -0800 (PST)
 From: Ali Tariq <alitariq45892@gmail.com>
 To: netdev@vger.kernel.org
 Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
@@ -98,10 +99,12 @@ Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
 	spacemit@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	leitao@debian.org
-Subject: [PATCH net v2 0/2] net: spacemit: Fix TX timeout work deadlock and RTNL in PM callbacks
-Date: Fri, 13 Nov 2026 18:24:33 +0500
-Message-Id: <20261113132435.434615-1-alitariq45892@gmail.com>
+Subject: [PATCH net v2 1/2] net: spacemit: Fix TX timeout work deadlocking on itself
+Date: Fri, 13 Nov 2026 18:24:34 +0500
+Message-Id: <20261113132435.434615-2-alitariq45892@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261113132435.434615-1-alitariq45892@gmail.com>
+References: <20261113132435.434615-1-alitariq45892@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,38 +116,77 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series fixes two locking problems in the SpacemiT K1 Ethernet
-driver.
+emac_tx_timeout_task() takes RTNL and calls dev_close(), which ends up
+waiting for the work itself. The function call hierarchy is as follows
 
-Patch 1 fixes the TX timeout work, which ends up waiting for itself
-through cancel_work_sync() in emac_down(), so every TX timeout leaves
-RTNL held forever.
+emac_tx_timeout_task()
+    dev_close()
+      emac_stop()
+        emac_down()
+          cancel_work_sync(&priv->tx_timeout_task)
 
-Patch 2 takes RTNL in emac_suspend() and emac_resume(), which fixes the
-"suspicious RCU usage" warning from phy_disconnect() on suspend. It
-depends on patch 1: suspend disables the TX timeout work before taking
-RTNL, so it never waits for the work while holding the lock.
+The work never finishes and keeps RTNL held, so after a TX timeout
+everything that needs RTNL hangs.
 
-Tested on Orange Pi RV2 (SpacemiT K1) with a lockdep kernel: 12
-suspend/resume cycles without the warning. The board loses its network
-after about a dozen cycles with or without this series; that is a
-separate issue.
+Remove cancel_work_sync() from emac_down(). Disable the work in
+emac_suspend() instead, and enable it again in emac_resume(). emac_remove()
+runs before the devm-managed unregister_netdev(), so use
+disable_work_sync() there to stop the work from being queued again.
 
-Changes in v2:
-- New patch 1 to fix the TX timeout work deadlock (reported by Troy,
-  approach suggested by Vivian)
-- Patch 2: take RTNL before the netif_running() checks
-- Patch 2: drop Breno's Reviewed-by, since the patch changed
+Found by code inspection. Not reproduced on hardware. Tested on Orange
+Pi RV2 (SpacemiT K1) with suspend/resume cycles and kselftest, with
+lockdep enabled.
 
-v1: https://lore.kernel.org/netdev/20261105123441.2524171-1-alitariq45892@gmail.com/
+Fixes: bfec6d7f2001 ("net: spacemit: Add K1 Ethernet MAC")
+Reported-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Closes: https://lore.kernel.org/all/DMO74K2MG3D7.15UUOU1O66K6N@linux.spacemit.com/
+Suggested-by: Vivian Wang <wangruikang@iscas.ac.cn>
+Signed-off-by: Ali Tariq <alitariq45892@gmail.com>
+---
+ drivers/net/ethernet/spacemit/k1_emac.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-Ali Tariq (2):
-  net: spacemit: Fix TX timeout work deadlocking on itself
-  net: spacemit: Hold RTNL lock in emac_resume() and emac_suspend()
-
- drivers/net/ethernet/spacemit/k1_emac.c | 19 ++++++++++++++++---
- 1 file changed, 16 insertions(+), 3 deletions(-)
-
+diff --git a/drivers/net/ethernet/spacemit/k1_emac.c b/drivers/net/ethernet/spacemit/k1_emac.c
+index 71a80838bffd..51edc95f54c8 100644
+--- a/drivers/net/ethernet/spacemit/k1_emac.c
++++ b/drivers/net/ethernet/spacemit/k1_emac.c
+@@ -1732,7 +1732,6 @@ static int emac_down(struct emac_priv *priv)
+ 	napi_disable(&priv->napi);
+ 
+ 	timer_delete_sync(&priv->txtimer);
+-	cancel_work_sync(&priv->tx_timeout_task);
+ 
+ 	timer_delete_sync(&priv->stats_timer);
+ 
+@@ -2010,8 +2009,9 @@ static void emac_remove(struct platform_device *pdev)
+ {
+ 	struct emac_priv *priv = platform_get_drvdata(pdev);
+ 
++	disable_work_sync(&priv->tx_timeout_task);
++
+ 	timer_shutdown_sync(&priv->txtimer);
+-	cancel_work_sync(&priv->tx_timeout_task);
+ 
+ 	timer_shutdown_sync(&priv->stats_timer);
+ 
+@@ -2024,6 +2024,8 @@ static int emac_resume(struct device *dev)
+ 	struct net_device *ndev = priv->ndev;
+ 	int ret;
+ 
++	enable_work(&priv->tx_timeout_task);
++
+ 	ret = clk_prepare_enable(priv->bus_clk);
+ 	if (ret < 0) {
+ 		dev_err(dev, "Failed to enable bus clock: %d\n", ret);
+@@ -2051,6 +2053,8 @@ static int emac_suspend(struct device *dev)
+ 	struct emac_priv *priv = dev_get_drvdata(dev);
+ 	struct net_device *ndev = priv->ndev;
+ 
++	disable_work_sync(&priv->tx_timeout_task);
++
+ 	if (!ndev || !netif_running(ndev)) {
+ 		clk_disable_unprepare(priv->bus_clk);
+ 		return 0;
 -- 
 2.34.1
 
