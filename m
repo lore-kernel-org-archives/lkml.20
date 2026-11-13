@@ -1,72 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.10.4.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794550044;
-	b=DfuyjauSw8p2d73d0k7iCZ8aIa9ZPiPETwVFZkSNii1psm3rMFwrVkA5VjT0Bt0jYFi2
-	 sO9dLU1no3DCYeUa/x+Ww7Kc6BcL69RF+Wj+23W3oruYEzJDurziFJgk/HjGw+sD06Ff2
-	 M3OMmmxDJMmPkMZpYTRCdTdpry9gFbTy4o3MFZoRe3d6cpr0TzWBYaHQ2a6wF1VGvDFNc
-	 3Nk0tRO4tTiqDv0UZGnMOAuCbayExg4/cAJkLFqs7cV5zm1xr2ElidixnJEOui84EyOPR
-	 IzNIEpbyJLgE6rFLXsOMuiFZ2fpi5m+ogRW6LxdNP3tZJErPzUGrA/5usaOmwpI7zmw==
+	t=1794550063;
+	b=TbYrsIfY47DcgvzUBmcskaqAVUXWKMq0TVo3Hf8HG+DXjAKoOR5/yLtfKaqr53CQxEEh
+	 IJ/vbqPfWHoiZ3STgycxVo1MT22XHDO6yBojN5ODX51izQrx8HArHiXSqcRcM3s3a+ayb
+	 tx9W5H2zVVryfGxEu50zWP/4sHlL0ZIGyQTu7Axg9Dx8fS4l/zzvHwPi+qdXQaSlqen7/
+	 0GpcNoK8b9OwLrZdFwKFnBK2rY1lytqXL1diIdnTHfpAHg8yoDx2gwWH9rxsmF7PZh5gB
+	 t/1YbayKX+5ci6smsKaZ5kNWxLYToKHY6PGiOhzhB+R7ZHsWVC8ll5rAYEaCGhkAhNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794550044;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=FhIKU1wjENlGQlGcymkf/mmwISHR1yvFia7rES1ePIc=;
-	b=u7axu1rp3Df/11oFqEkNcEHNwzLmdZvg8tp51M0H03lYbP+PbDjBhlXX9xJIWvmoqzHg
-	 ZYEjqethI67JuncSiTQhLqC5bdbBxmioM2haQCxLy5mkR5vyOaGARrUm/LY9RMYgkTzAJ
-	 aC7WH1Q+VN8x3L4YBbiL+EwXWeoRKSOoBRDgW6fMEeDt8tA3NRYO6Firj4vvxlq5xwbG7
-	 p19R0sdW5FbXprDocjHgIo9n/tot0XgZv1ssoARyvKbV5ipEvKhjNKQt7ljH0Wx16fvYv
-	 2gH2ZZNT/pu0P9gUdW9dGihuCRI6hKOAVaWup6P4NqvAOUSo8W1w+UEej5QH93pLbrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794550063;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:X-TM-AS-Product-Ver:X-TM-AS-Result:
+	 X-TMASE-MatchedRID:X-TM-AS-User-Approved-Sender:
+	 X-TM-AS-User-Blocked-Sender:X-TMASE-Result:X-TMASE-Version:
+	 X-TM-SNTS-SMTP;
+	bh=KgxanPyLG1oE6QUC51vvwCcoOIoWUeqHJFzBqSVEx8A=;
+	b=tSWtddYZXZjDueR81UvFprd/6Rxd3lWNEClSMH7OKrhEQOD77jGCDBGP33jOVY2VScuu
+	 ve71rCGUjXnA2nz2aPPgldYKOanKnHxi48NdDnecFGdtef6r/xmmYVTyI/UwJRS4tze0H
+	 iju4KfHcYsap+HoPJ7yh5pm21JgQBtJs3T/sZXPrILIv1NobaQDa6pSI7BqpaSJy1FGkr
+	 0Cgd0krDEgvDfi3lDXSxD+EhaQhnjyScGawIBId2S5Msz5pnex3Ojcx9NjlicLUzokqIP
+	 mHKoRoB6je2bB/PskzgqrBe73fLTZhEQOevQZMcDv39t7L0D7+J1vvPa38ULuAHpIXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Bxtq15RB;
-	arc=none smtp.remote-ip=111.22.67.135
-Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 929F3606A31C;
-	Fri, 13 Nov 2026 06:07:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 929F3606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=asmedia.com.tw;
+	spf=pass smtp.mailfrom=asmedia.com.tw;
+	dkim=pass header.d=asmedia.com.tw header.i=@asmedia.com.tw header.a=rsa-sha256 header.s=asmediacomtw header.b=qWERUPRv;
+	arc=none smtp.remote-ip=103.10.4.13
+Received: from ms.asus.com (ms.asus.com [103.10.4.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB0EC606A321;
+	Fri, 13 Nov 2026 06:07:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB0EC606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=asmedia.com.tw
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asmedia.com.tw
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Bxtq15RB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=Bxtq15RBbZxtxK77YIg9EPno1cEfqAwLysaaipaCa+YBrJmvgKWsIvFMdunX0RBvs04EgA5AATG4F
-	 LH00sX+LINOADyX9c296LWeBP7exD+1FNcpAJBNKjPZzR4jG/GCBqS+ZG94ltmJeRmCcreaoCe/An5
-	 v1jKCC0g2T4hppuY=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app07-12007 (RichMail) with SMTP id 2ee76af6a9117b8-e925f;
-	Fri, 13 Nov 2026 14:07:13 +0800 (CST)
-X-RM-TRANSID:2ee76af6a9117b8-e925f
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.net (unknown[223.64.115.200])
-	by rmsmtp-syy-appsvr05-12005 (RichMail) with SMTP id 2ee56af6a90f2eb-19f4e;
-	Fri, 13 Nov 2026 14:07:13 +0800 (CST)
-X-RM-TRANSID:2ee56af6a90f2eb-19f4e
-From: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Taehee Yoo <ap420073@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	sunwenbo@cmss.chinamobile.com,
-	1342116488@qq.com
-Subject: Re: [PATCH net] amt: handle all upper amt devices in amt_device_event()
-Date: Fri, 13 Nov 2026 14:06:55 +0800
-Message-Id: <20261113060655.79924-1-sunwenbo@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20261112105135.1ee728e4@kernel.org>
-References: <20261111061535.189769-1-sunwenbo@cmss.chinamobile.com> <20261112105135.1ee728e4@kernel.org>
+	dkim=pass (1024-bit key) header.d=asmedia.com.tw header.i=@asmedia.com.tw header.a=rsa-sha256 header.s=asmediacomtw header.b=qWERUPRv
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=asmedia.com.tw; i=@asmedia.com.tw; q=dns/txt;
+  s=asmediacomtw; t=1794550063; x=1826086063;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=kESxTKefuWiEkIIdkkSEjVtoE/CLYY1e2PeOpFjFCz4=;
+  b=qWERUPRvuI0vxmyOx0XUvMiRUVN/GKJIbze6os+7RG7MM0ittZ7k0cEQ
+   YWAjAjghf/e1asSaKWbN1YiZnSyWl2xv1KzcHeGmN5SghcyqNCdBwHfD6
+   F+yqb91y8u3MqKyg8hPvP9TGq0W6TmAJ3Hs3nB5OO/ZvuNJNhFPJ4X5ob
+   o=;
+X-CSE-ConnectionGUID: wWDM4HShRLCIk00GgJcbjA==
+X-CSE-MsgGUID: f49iQX8ET4GILGfKqsAdJw==
+Received: from apza006tmd.corpnet.asus ([172.22.47.66])
+  by ms.asus.com with ESMTP; 13 Nov 2026 14:07:20 +0800
+Received: from mymail.asus.com (42.79.126.46) by APZA006TMD.corpnet.asus
+ (172.22.47.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Fri, 13 Nov
+ 2026 14:07:18 +0800
+From: Szuying Chen <Chloe_Chen@asmedia.com.tw>
+To: <linusw@kernel.org>, <Markus.Elfring@web.de>,
+	<linux-gpio@vger.kernel.org>, <brgl@kernel.org>
+CC: <linux-kernel@vger.kernel.org>, <Yd_Tseng@asmedia.com.tw>,
+	<Jesse1_Chang@asmedia.com.tw>, <Richard_Hsu@asmedia.com.tw>, Szuying Chen
+	<Chloe_Chen@asmedia.com.tw>
+Subject: RE: RE: [PATCH v3] gpio: amdptpci: add support for AMD PT PCI controller
+Date: Fri, 13 Nov 2026 14:06:59 +0800
+Message-ID: <20261113060700.4127-1-Chloe_Chen@asmedia.com.tw>
+X-Mailer: git-send-email 2.48.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,21 +73,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: APZA002EXB.corpnet.asus (172.22.6.14) To
+ APZA006TMD.corpnet.asus (172.22.47.66)
+X-TM-AS-Product-Ver: SMEX-14.0.0.3239-9.1.2019-30316.004
+X-TM-AS-Result: No-10--14.867700-8.000000
+X-TMASE-MatchedRID: +mH4VGfbtsxu4DGBDoAs85GPSO6O5JCagKzitR6I0vS4jV9yUdXXgZ0i
+	AknL6Q/Z0bs03Cj/zdbJbpWeSB+0RtZSVIh2F3SJ39nur6FlBV43RfriMbLZ1hERyafywvMoBK5
+	jsahkTKn+DLKQ2zS90DIdfNkCBOiLQtOofzK6nhO7/BkSrGh1ljSSxxZ1ewmwZAvO4QbJLKOQ+u
+	G18dpupfx3IL7oOgVqyrzRjZhtElOvngkjHjojpAqMtasBG2xzmuMpo5XKw2858Sarp97J84ckZ
+	T5abrxuV93NVRFdgSfmji6nqi0orDLPaFtwcF939eSlccz0Gku+z+D0qBfeLusO3zrvD+9awACm
+	bLFOQ7c=
+X-TM-AS-User-Approved-Sender: No
+X-TM-AS-User-Blocked-Sender: No
+X-TMASE-Result: 10--14.867700-8.000000
+X-TMASE-Version: SMEX-14.0.0.3239-9.1.2019-30316.004
+X-TM-SNTS-SMTP:
+	60F52F02C5E85A09FC7FC9409B0FF82CE6C5264498604BF7A42B3D3736557EB02000:8
 
-Hi Jakub,
+Hi Linus,
 
-Thank you very much for pointing this out. I developed this fix on an
-earlier kernel baseline and missed Omar's recent commit 7262e999ebec ("amt:
-tear down every amt device on an unregistering lower").
+Thanks for the review and feedback.
 
-Since commit 7262e999ebec has already properly resolved this issue, please
-disregard this patch.
+>> +#include <linux/bits.h>
+>> +#include <linux/compiler.h>
 
-Thanks again for your time and review!
+>Why this include?? Add a comment next to it why it is included if this is really necessary.
+
+Not need will drop it in V4.
+
+>> +#include <linux/kernel.h>
+
+>I think this generic include should not be used in new code, use specific includes.
+
+Agreed, I will replace it with the specific headers in v4.
+
+>> +static int pt27_irq_reqres(struct irq_data *d) {
+>> +       struct gpio_chip *gc   = irq_data_get_irq_chip_data(d);
+>> +       irq_hw_number_t   hwirq = irqd_to_hwirq(d);
+>> +       int ret;
+>> +
+>> +       ret = gpiochip_reqres_irq(gc, hwirq);
+>> +       return ret;
+>> +}
+>> +
+>> +static void pt27_irq_relres(struct irq_data *d) {
+>> +       struct gpio_chip *gc   = irq_data_get_irq_chip_data(d);
+>> +       irq_hw_number_t   hwirq = irqd_to_hwirq(d);
+>> +
+>> +       gpiochip_relres_irq(gc, hwirq); }
+
+>These are reimplementations of gpiochip_irq_reqres() and gpiochip_irq_relres() so use these instead?
+
+Agreed these are redundant as they stand.
+However, v3 does not keep the device in D0 while an IRQ is in use,
+so I will extend the callbacks to hold a runtime PM reference in v4.
+They can't be replaced by the generic helpers.
+
+>Eh? Get rid of this horrid footer.
+Sorry about that! I have asked our IT team to disable this disclaimer
+for external emails, so it should be gone from v4 onward.
 
 Best regards,
-Wenbo Sun
-
+Szuying
 
