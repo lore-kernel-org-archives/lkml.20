@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794560575;
-	b=HyxXm8shX4bEX+pv4WKPtFIcACGrN36KN6vQEhgRqPAL4DsfofLiWyynr6R14c9nA8NL
-	 SC8l05faH+6gF19Gl9yP/KChNZg2T3kRGewzYVWBlC+776DyXZBXG5Xaz0qmBkTbNDETB
-	 EHfL9d8alussBw+ZxsmjUmHb5vB66GwKLDHK8FNbfkU0TjPgz0CFBZgwnkKyR/wnveykf
-	 76bwVP7WxxVqFn94hu0zFFPJMhqJ2SRZXcTsuCB16DRPXPOqWj5biiUYuYkw+FdCf/vbp
-	 6ShAVtQmi4LFL+KeRFxSLSZMD6Ei/dHKecoJqDWiR1RBxsUt1Dcv8w1aAG48mW/0/7g==
+	b=vcgrQ0MhBBNpbE4t1Diqizkc1W3JPliOLhs3zqRti8GZ7gQRIHtx93phk/wHWbAYp5pR
+	 SL3sNGB/lNAhi+Ad6Qy9NnIDyYTf9/iNU9r+Nbi8HjqPwLU0+yiZXYAJQ0wq/q0LI54YG
+	 AbCE7OXwRqZazIJ96pG3QX0YRtlHnHC4qgQrmh9Cw3mdFK7jN0H/8YqxORB4tpU/OQxne
+	 zSEO7wwqg8lM/45nEfGvbM3ECbpHn2K0OFRXFcaGNUc+uW/3o5//HMIldaF+psQw037ED
+	 iehMjwRqm7wjeEbrpnz2Uh0Zc+bbqk3eo1RMNEzzkoizs84RyWFnkOOynYp1ySaaz2A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794560575;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=9M9RlTgE91KmgxF0Tdaf4kzxGtvrObMNHXbTphs0Acc=;
-	b=b8mbryCJTvHsUvswSIP+zTRLX0yGwqT0wOxCYuiR7VmIOsVizIO01OkdLvUcnzr4kKKE
-	 kSWuvrXg5ZsUNcYF0h/OCj1SS15cBRjigTen4K+/8/AmwyGjpP7pEXIs9cNxy0j2CS/FC
-	 a1nzdQoO2ft8Q7ID+2umal3vA6yxBJ/mlq0X++b9nhCrNCf3TUR9SGXC43CmAJ+RIXLOT
-	 m9lTAq8FZ+sAfqAKWvyfhS4sMiF4XIlT+aopPveY+lAPmM+kLZoS0rGyNMW467/dDOUDL
-	 sj+bqZpk59qCQSPepa/P9rPe63u/Lz++rBwsV0BhIBP91hocmvpSW5JbqBy2vy5muYQ==
+	bh=h0rYDz7cpXzba38r/GFgnFB2Vhx5F7xTBO6QnxI3CyY=;
+	b=ibrPCdVuwsloTLefoL6rYbLn1juaGUVlvITgb0kVpPFtaunyowrdtbjj4zX06929l06h
+	 adojH2ro4imySF7cek6w//VEojonOtpXfAjv/JpdYzbh43Mo23hTkqMlLVP8FYhZG7p0U
+	 xMzVsQmF7TI4tk7nL6zqZvCVW/QSpcZyCzGAixx2zHue+P0arRBW+VsORJA/ywzP4HEYV
+	 hGJhMq54rrGpRhp+iR0FCDx4lBQoF+81ivI9HlAt5NwnAALjMO0c8tCu3AsM1jd/JXvYR
+	 HkUkpVYcgBd7R6KZS9vRiJR/qhWEonPcu1S/U5B1fOs9wZHdHaP/KDydhES7EEyt9mg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="fQg2RE/5";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="op/RFEmk";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5968C606A88E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD783606A8AC
 	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:02:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fQg2RE/5
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=op/RFEmk
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794560575;
-	b=bU44JCbgpGNr5kptcCrL7jN8Hbm3Hgtzi0VNMUO4nqv+Q/vhXz405vykIdq5+0NsCMMB
-	 9BU3SpnqCILyCwJRlRYQV0nA3S/GHC8Vdh/yQIqSgQp3IKVaifsH7xePaluwL8gwq+sHc
-	 SFXd1hHD2MKyxoFdxbfKdOD9Zh3VhjQklgs1w08k4AhVtooGcZYaxLuxrV+etdGX8qqnl
-	 I1iuscE//WMU2uuvmEKzM3NsJgkbFUb/buoI0k13mZ+6d/ZYG798CDbjhNkvA4ZXIyvr8
-	 KQwSheaVhFQClVjdya4E2SmNEFAvU3JNpjxXcMz8J/95GPwP6SThxZ97ZPX8FX9rOPg==
+	b=uS0fcRaKc393tnN6F/9zoXPyKwoGcpacrjivPQWun0jkFQdtCtfwGaGMBAYUpg6mtmkq
+	 vw1Sdf19cAEatNOA36WnAv4NdsMXeYz6tBezHMJcDNeoKy8CsBqK6AstS6Vl2xXTUE9AG
+	 qhl/8E+57rzGEoZ1amFDfL7DED508a6Y0obd5EOfQVlv0IfCZFykh6q4IMOnOumbccqOj
+	 4Oh++fo4bipBaPnEOqCBuBfiyy4ub9THYmS+w5WXiaMBWtM4Vb7TG1iOF758A2GHK/ZnS
+	 R3cduYYvvoZqs/9lL258ru5RKzgqL5xlMsEySKX0sa9FK/PCGTXElU1sIX4DAbsN21Q==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794560575;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=9M9RlTgE91KmgxF0Tdaf4kzxGtvrObMNHXbTphs0Acc=;
-	b=UNdmZCD1ujGUrcYb+LC07GLoOp+GP/MF9+CstBLBhK3yFOWeXJko5W85abtwx4hRhZi5
-	 v526SbxuIB96loaMThy71DxVuWtd2yJgH67PAyhCUsixZQk0s0xJaIc0tsEM+Ybjro0uY
-	 Rl8Epfh3/LGYC87NfclGEMFbQHDvjYgcjxEzOYP5hMAIjFppqC0umkTwaoLsuKbI3a58B
-	 XUPL+yfzN8JYyC8kt7sah7DteDelzwGgGtoxmOWq8ZmzvUxu/wFPPC7x1vrY/ejvW+eMg
-	 4RLpszKNvCEcgsSs7gcIU9i1EJwwLSjEmRMfgExJ2lmbeHm6aRbI1dUidsGZOIV9qLQ==
+	bh=h0rYDz7cpXzba38r/GFgnFB2Vhx5F7xTBO6QnxI3CyY=;
+	b=KF8Gtkap7HpfBp+lvfb/al5ryFfEyXA8Cb4SlnE6YXFbrfmbCycOxuMnwy86ufHAl9Cb
+	 Rp58lw1VLlCgyDr/BLKtcUpGjtCIPoCiZl+LH+lD8mJUm3e39iAm0BuFErPztcn7cSczM
+	 j6QnQt12Y6l6J+jJ8YZwAOHml9sRrVRA2Wqdud4LrJBTFZtDIpLEXVd0dmifWkdPcv0HB
+	 7obeCLUyj0ROdbeZLahp9GPg5ITXJUz8R6BLMzoLbBYHobBEQvETXlMKBxHpK2s+5Gsdm
+	 P5RhiENtH70Jh05Q0CA4djs5QaPH7U+RSrb/DzOjrAaw7jBMD095HxlP122XHYQwlIw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 673F31F000C6;
+	by smtp.kernel.org (Postfix) with ESMTPS id 796211F000C7;
 	Fri, 13 Nov 2026 09:02:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794560574;
-	bh=9M9RlTgE91KmgxF0Tdaf4kzxGtvrObMNHXbTphs0Acc=;
+	s=k20260515; t=1794560575;
+	bh=h0rYDz7cpXzba38r/GFgnFB2Vhx5F7xTBO6QnxI3CyY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=fQg2RE/5VHmJ8fz2QR+YDGKrrOOTu0P9fzUJTRIwWTztuYozReaQIve45usIVDvQ0
-	 jcWEy9VHULBpDayVwLx5ZQgdwJhU5W+rrXPT+8BjC3DIBcp1zRCuytowLypWDC5tvF
-	 IkpknTvZzVzjsVYFbXWSFzmyrgVQFwSYMvzIiqocD/qUum9iL3TmOePDXixNcvU32x
-	 VShQn0q2fzEaxDe19rA/asyxEuqPpCEteBpzftgbpxjS9rKgKbnQQ6asw71RVQk2KK
-	 AiTwKu3M3F6pUJLMrPq/PHBmBEJ/ILU/Jk++0Pb+sUPoBMfCyeeuv04WxnAeuqpvKu
-	 h2rdziGTwdU+g==
+	b=op/RFEmkSNHSuZpl2IMtUoEQL6Nf1CCOTvxDP/96alol1s0jzCtDk0eFcuB+m044J
+	 YZJOqwT9W9aJkFIZPskpRFvh6KGPZ2Nw+JoeAKLIBfRdeb6Ij7ireCW3i3Bd/yIP1b
+	 JAmIBw7USQGndhQfOrLhKBXEesA4+434fSZe1NCJjhWlDDXOO+caGzVNAUgYY34stZ
+	 urhVb9kUMWGlKxQDuWdPd6OqAhz70nxb+RBd9SkDREA7ey4z4/pfwVCySl96pvQjUe
+	 th+Q2B+ueAYu1dfYU44yhPHPU7IQaCz0Zwoy4cBi3I2eLoBW8aQ8xivVtsy8TAny4M
+	 RJUGbsWoIqwGA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E8948476DA;
-	Fri, 13 Nov 2026 09:02:53 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 069F7476DE;
+	Fri, 13 Nov 2026 09:02:54 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Fri, 13 Nov 2026 09:02:54 +0000
-Subject: [PATCH v3 02/14] drm/panfrost: Refuse to sync the CPU caches of a
- heap BO
+Date: Fri, 13 Nov 2026 09:02:55 +0000
+Subject: [PATCH v3 03/14] drm/panfrost: Don't take a reference on a mapping
+ that is being freed
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-panfrost-long-jobs-v3-2-80ae78d38f6e@gmail.com>
+Message-Id: <20261113-panfrost-long-jobs-v3-3-80ae78d38f6e@gmail.com>
 References: <20261113-panfrost-long-jobs-v3-0-80ae78d38f6e@gmail.com>
 In-Reply-To: <20261113-panfrost-long-jobs-v3-0-80ae78d38f6e@gmail.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -96,11 +96,11 @@ To: Boris Brezillon <boris.brezillon@collabora.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794560572; l=1768;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794560572; l=1825;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=HrsdWKsSgiGXkqlebjInUOvLazjeFD30/bAvYhzVDVs=;
- b=dlCqTBSrojRZUFzJOLlMFkRPGOmIXJ0x6/dG8G1sDEWPKbDF/4+G3xB2st9BIgmevHkEzr5mS
- X68MKJzh15XBSVEagT7ngMK9XkSkW+FOGCdhTwn/r1qy97NxP/J3Wce
+ bh=b5WA5vi0EwiXvHHxwNKezB3PYG2ZPzZFSsrErt1HQZU=;
+ b=Sv88zJ5LVAd7XESsIuxNbFNKPf99SGx8nbIdEiVXtPB7UUnjLpZDVe8CWY7w0F3p60cbiXZFJ
+ UtZqtUDnLydAl0wui9acx8wCuCnzP+kRZ20YNQgmksEB42o6LCJLUH3
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -111,44 +111,47 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-On a coherent GPU a heap BO is not write-combined, so PANFROST_SYNC_BO
-on it reaches drm_gem_shmem_get_pages_sgt() with bo->base.pages being
-the fault handler's sparse page array, and drm_prime_pages_to_sg()
-dereferences the NULL entries of the chunks not faulted in yet. With no
-chunk faulted in, it pins the whole heap and sets bo->base.pages without
-bo->sgts, which the next GPU fault on the heap dereferences.
+addr_to_mapping() takes a reference on the mapping it finds in the
+address space's drm_mm with kref_get(). But the last reference is
+dropped before panfrost_gem_teardown_mapping() removes the node from the
+drm_mm under mm_lock, so the lookup can find a mapping whose refcount is
+zero. kref_get() revives it, the release still frees it and drops the
+BO, and the fault handler maps pages into a BO that is being freed.
 
-Heap BOs are not CPU-mappable (panfrost_ioctl_mmap_bo() refuses them,
-panfrost_gem_create() refuses PANFROST_BO_WB_MMAP for them), so there is
-nothing to sync: return -EINVAL, as for imported BOs.
+This takes a GPU fault on a heap BO while its last handle and last job
+reference go away, so a job that uses a heap BO it does not list;
+userspace on the render node can submit that.
 
-Found by code review (Sashiko). Not tested on a coherent GPU: on the
-Mali-G31 here a heap BO is write-combined and the sync returned early.
+Use kref_get_unless_zero(); the fault is then reported as unhandled.
 
-Fixes: 7be45f548976 ("drm/panfrost: Add a PANFROST_SYNC_BO ioctl")
+Found by code review, after Sashiko reported the same pattern in new
+code of this series. Not reproduced.
+
+Fixes: bdefca2d8dc0 ("drm/panfrost: Add the panfrost_gem_mapping concept")
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/sashiko-outbox-206561@kernel.org/
+Link: https://lore.kernel.org/all/sashiko-outbox-206570@kernel.org/
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_gem.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/panfrost/panfrost_mmu.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/panfrost/panfrost_gem.c
-index 518f24549..f72edb65b 100644
---- a/drivers/gpu/drm/panfrost/panfrost_gem.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
-@@ -569,6 +569,10 @@ panfrost_gem_sync(struct drm_gem_object *obj, u32 type, u32 offset, u32 size)
- 	if (drm_gem_is_imported(&shmem->base))
- 		return -EINVAL;
+diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.c b/drivers/gpu/drm/panfrost/panfrost_mmu.c
+index faa62643c..d0c6b6635 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_mmu.c
++++ b/drivers/gpu/drm/panfrost/panfrost_mmu.c
+@@ -576,7 +576,11 @@ addr_to_mapping(struct panfrost_device *pfdev, int as, u64 addr)
+ 		    offset < (node->start + node->size)) {
+ 			mapping = drm_mm_node_to_panfrost_mapping(node);
  
-+	/* A heap BO's pages and sg tables belong to the GPU fault handler. */
-+	if (bo->is_heap)
-+		return -EINVAL;
-+
- 	switch (type) {
- 	case PANFROST_BO_SYNC_CPU_CACHE_FLUSH:
- 	case PANFROST_BO_SYNC_CPU_CACHE_FLUSH_AND_INVALIDATE:
+-			kref_get(&mapping->refcount);
++			/* The node stays in the mm after the last reference is
++			 * dropped: don't revive a mapping that is being freed.
++			 */
++			if (!kref_get_unless_zero(&mapping->refcount))
++				mapping = NULL;
+ 			break;
+ 		}
+ 	}
 
 -- 
 2.55.0
