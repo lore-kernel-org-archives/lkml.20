@@ -1,103 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.4
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.52
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794536838;
-	b=4a3YxkKs48wDWsOS7dMAW9r2V1g1UkyS2r25qWNsq+a8Zz94/Mq7SPdliMN4tjxW+/hA
-	 o+rt6qBo5q5ReQrKJ7brMHV4+v4GaROI2jtoXh5RSMYw/LqPGbYVIB/SUOs5yjgxuqmqq
-	 XpGNtW5omyxBgcko+4ZcFGinQeVWCVIKQeFzfS4+u/vEBRGqe4UbcV3TkHyuI7uX1mWFh
-	 jNaetfsoabqeD9AaJMCK0/oQdv432wFkK4Fs2k0dAeJiyEJaBUZMWh0X2sG7SgJih/+GL
-	 7A9DYPqFLPwd8HKig0as+P7FhIi2Yur841NfPaBQEKQBwQs6cUk3Hn5dQKnwecL1elg==
+	t=1794536860;
+	b=z/rtGbCqbZaSHx9z5+o6tZdwz45YHjGeiEnFERNPd2qqMJOuVNc95qBzm+u7wI8TQNZ8
+	 KobTAJy/+xr7hriaiAgMuuJCx8vl406d9rjfpsj/mVBbx/JRIkkoBonVsBTp1s3Dv+TdJ
+	 cyC5MrpESYkfyV2kkhdL/yQYf+uLDc7o/kmFGpj9/3N3nUt5aehfBxmjNIwuRAGfdildQ
+	 PH0FVIGtsTUS7my0F76yIZ3Fl+wqDHaGhZeC/DWKVfFrMr77OkLpDQKLviCiFA26oa5Xb
+	 r9Vj98C2QXve+XHzwOubrZtewG982BDo/la7ygBTVaXaLfOHTUrJlVlQsMrPXLqpjGA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794536838;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-ID:References:In-Reply-To:To:CC:
-	 X-Mailer:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=TxIZqIr06ayrrgVSLTDd54qmlbTTsdeODV+TWW/mI/A=;
-	b=AnDjTHsNY8RlrO4CwabSeKpQ9QkwyDafUzghcPFi7wJsHMSkaQXX8B/lkU5QXJWfONAH
-	 HcSiHYtLc4ixuO6xwpTKW8gmgNrppjVf5sQElY493o97SZFPjV03t+Zf8ZlEF86Ugl6Gr
-	 eXHgIKX7mfevgbPykVLpQ8dYDVihw8x424HoGMSs/W/OxsqBhjKwkhL9nBYUvdeAMzqRa
-	 deE6PtFS8mfZcG6Ffrrbuy77uGMEV1jk0Bm8L7E5dRxS5z/8WAlyXZ4HFV8HadCSQczOK
-	 PJvgGKGaYs8bfFxWlse5P/FD/cCSlGb/BwotwyvwgqQmVUzsFiuGQjJ/0+nnBzP4oxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794536860;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=mhmgHqxT9q9D0dhD6vPj0pvXXso4EsLhMvW2R188fnU=;
+	b=woauZlY9F86Ty3pl4uBkfcdn/JjPjsF91QT4xaO4qYNPBcYql/roX4WxAh93oOQo9jJ/
+	 rRD9nYL6uuE9Vpka7c06mJgJ3fgmuqgry4THc8jnbfN1XlgqKIxlJ0AUosWhywM5/fCMe
+	 fJmTfkRzBBULzChNXuFgIYIQAYJPFoAQRcS3NR24JMztiLwNgDyt9Wc6sqe1Np8hLIYdw
+	 J67CmkehQGQqD8Xr5KisFnGtBkFA4dHNzDXuU3P0j7QRzFmEiNPS9dZe5yPhNPTmbEllr
+	 8m6Uqz2Hwfkh95In0BJ4Q8U7us1bLKlfKo9TrlD2HCUwrt029d4s/xbolzpABeNMjsw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=CrUWtMtV;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.4
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010004.outbound.protection.outlook.com [52.101.56.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wi9X0uD2;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.52
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5D49606A31C;
-	Fri, 13 Nov 2026 02:27:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5D49606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD28A606A32E
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:27:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD28A606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=CrUWtMtV
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DBapDl2dlOel+v3GW5Lz+59xFCUjNemk1AQhp2RORhscKNcyr54EUkprDL12m87g6C5DGfgB93IBMM7U7TWkxlpUIcMaKrIcP7igZ3ijMZu7CCqRK9BjTqbSc7Sax1e3DQ1neD79KmVcDqV+ezAlq8kh0NTUULqqdkvhRGLA9vMHfYJdAtj5IpByp2J4IStp7amLaIbJn4KS2T2pi0+QlJUWKBHZ5W/m0J2NbA7cTQ7cQ2khABjcdVFNMpz12OQbfFfQ0SGLqzoy196AH9Zv1ctm4405Z/ZC47+SbViok2S8TXtxMRecIhI9R8V7XQ68i3kBZTl37nxbByVml7vWqA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TxIZqIr06ayrrgVSLTDd54qmlbTTsdeODV+TWW/mI/A=;
- b=EaQA3QX69+QpebJc61cVAaiNHkMMNhpOcT3rJ1TtSe7X7BC30PYLwBKf1gSupRrrK48J6NJNkUoN1pqWhdM1mARVkJLS11oGWBU+d09obJpMmE52haYNHgKYfQJC+CWjG+24CObAiKgirxfUXW2Ebgv+adOxtHy0gVvXHoj9c7wn+xzOGX1LO/CdaL61bLUaBB3L2lu8y2SotJpHLbd/zrWpg5Gov+XOI7q7+w3xMiuW1PZazJqdW0qh4UMdL8mHvnTwl9dwpsX94T2w9WOK5mLw86+PVIkDG+m8xfey66xOOiVXg9CFZOR46fEIpeApsxTCpQzDie37NgSbbG6OkQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TxIZqIr06ayrrgVSLTDd54qmlbTTsdeODV+TWW/mI/A=;
- b=CrUWtMtV1qUxS/tup3xmzvNO8sQE5rQIVcaYetomKRNiKudFSrKy2e/kXx4ZrBLTkgjQ+whqkPjYMOhInQ1QTmbpPQ6Sjxw5NIGOiYKLh99Izr1FzkzJpIiIZlT7LwPLhoPqlucaAEhp/pGnZ70yZ7yMDeE/J6IsNGXW/rBbDjM=
-Received: from SJ0PR05CA0056.namprd05.prod.outlook.com (2603:10b6:a03:33f::31)
- by LY0PR12MB390394.namprd12.prod.outlook.com (2603:10b6:408:3b9::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
- 2026 02:26:29 +0000
-Received: from CH2PEPF00000146.namprd02.prod.outlook.com
- (2603:10b6:a03:33f::4) by SJ0PR05CA0056.outlook.office365.com
- (2603:10b6:a03:33f::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.8 via Frontend Transport; Fri, 13
- Nov 2026 02:26:28 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CH2PEPF00000146.mail.protection.outlook.com (10.167.244.103) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 13 Nov 2026 02:26:20 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
- 2026 12:47:45 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 12 Nov
- 2026 12:47:44 -0600
-Received: from xhdsneeli40.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Thu, 12 Nov 2026 12:47:38 -0600
-From: Srinivas Neeli <srinivas.neeli@amd.com>
-Date: Fri, 13 Nov 2026 00:16:50 +0530
-Subject: [PATCH net-next v4 6/8] net: xilinx: tsn: add the endpoint RX data
- path
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wi9X0uD2
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c5066da8aa1so70273966b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 18:27:39 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794536858; cv=none;
+        d=google.com; s=arc-20260327;
+        b=JEhMIjZB8tJ7DJ8Y+GlAzd40+cPp2u0Nm6+hgzPIr78Fpbd0kL2uiG+Lw8DOXiylI3
+         VivsbB2pjAnVvhIPzGw4IKExjeBfuOY3klSRTeJg7ChxBoxBVYYYmW5gSFNhhBBwIJqy
+         eYKh/b+KH8+bGZGBRpGkM+AY6U9G7BD88MdQAsNsZYpORx4P8LKCrhAbKqdvjrGAPqB6
+         +Emhbng7xD5XatBP+Hj7W5xFOjVCftGrBFmEdvSzR/j1EqULji7XDc9XyqalISSvs7jZ
+         7MzY7CX00PbU2IWj7q6A9Krz7hPhZH8vK9QwGI84yhvDqbKK0y52NmB0Dh/y3HuNjyux
+         h2Sw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=mhmgHqxT9q9D0dhD6vPj0pvXXso4EsLhMvW2R188fnU=;
+        fh=TYYfrzk7YABJzQtuwGV5CNEIB7fs3ENls7rVwaG789g=;
+        b=AR9LsSR7tY8GZIHSAcF5PZZhKtR4XcoCbF0XrN2RdH8b2dmNawou+dMPHKQXpi2gky
+         88UOcjQuyuRWssys2br8ZBRHEzPqD5yS25RqLzsKpkXUalWOeYoByKNif9+NrNJ9s4DG
+         K7VrRGijoKz8EX4oS/K3xYsXLw8TRArEt72ygVHhq9YPJ8ItVvtly+73JRasVyfnUo4O
+         DF0NsQm62zwBCycAnIRu2Gyr/K5mQeWe38Nss1HEijToHPZKbwWXM3iXoeglvsHDIgGF
+         +aL1k57lDP7sGV9hjLV50xpzzKa7Tzs1cMpciGAgeIYT7h2aMwJbVVYLXlcjowecgPXD
+         32uQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794536858; x=1795141658; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mhmgHqxT9q9D0dhD6vPj0pvXXso4EsLhMvW2R188fnU=;
+        b=wi9X0uD23pyD1hwud2ZUTYw9RLw7zgv2HRQixNQf4/ghFgY7jliAhsEY3WdB5s8p+l
+         5LniB4F4Cn/5YKoegW1i7RA91FP86bwpiHaCVfnZHvXRUMgzaL8qf+0w/PoXnwsA1TDW
+         bHUK/q2+fSmCNCH3V4JwSCOGLLE8SocrEKSjFZzlihMEuShMuitJ8BRBCp7GJ1fEbbLg
+         Piv2YNNY6UyEwojmjTB7RqDOtTGPPDQNrVjiyEbpNKw3iFkqSXn3sLLivRYfnwg90SaZ
+         Bg2f0gcsIaEZUYt4FEF8riYyvgneE234ST27Me1UjA6kDF9eiKZOG0RqO18Kx6y776nv
+         O6tg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794536858; x=1795141658;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=mhmgHqxT9q9D0dhD6vPj0pvXXso4EsLhMvW2R188fnU=;
+        b=R23KprhJONDusfU4y0c/q1gtw7lEqzOxwzXfvxL0puxNnTuqvZvOrrVg2QotZMSQLU
+         g0ym1aYMqv9PpEylC1jKIVlYLBThEGjhhCKRapX/nhkHsf50jOBoJbXV2TWRGDucCvzz
+         GgjU4eItdCp5p6Ay775fvdCTbjP0M1n6NpN50XYJMGRmAlhZy5+Qnbxt7WDRB/147eIi
+         1uTJmZgQqmYhAF18g3yMpgMVDmRgfrFrKJegzevh69lwtXzyJMo+fRGKxpbR7haxQ4MN
+         arfE7WBALTtBbA9FzGL2I9D2Q2FbRPocM+w3Hd9fl8xxakfRQBiFdFhm5wlDK3c9txKM
+         vwbw==
+X-Forwarded-Encrypted: i=1; AL+hErHx8/JLwSrDOXaqnB0DQJ2jf1b01C8UV5TEYK5lYtIec+AVhU8x53sv6VgTlTDTG2EYKZzYVmJ2LXA1WsA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8iZ/OJQtJTgTovmS+ykVyqyyZR+i+3mBF+ylj0Hxz2OplG26ib
+	QeN6KiawZGXIp73FKSo1uX1wDeW1NWzyX4LZSU/fmS9m+mDDV5MTlndEslrA8nBaZNuR210YSSL
+	E3nXSYwxSsYXceJarQExroLXlx6Nihu4=
+X-Gm-Gg: AYBFou2AZhvNZ/XfYwAPLMsmS9teqIK474QJGDQ9/shjxl6Rk2OVF/uukOtJwS9NpDU
+	v/5uYlRqjyZMYCvNxUKjy/0JOeSTtu4NYG/EHx/X9Rsy4Nr7pbAHW8NrPQdeJoguhEF6gBoz20u
+	VQPAjVX/Fb+ZnE9SUQSsEKl1vU7M4UKUnjNK6qd1dT3vBPb/ODphJLGNAQoZeNKugU7nrT9Ed2O
+	Wh9epQykFskkRLb0TyL5tSgCWCkiZAiGysGWgQKhq6cGQaYcO6O/09kISxgydvsGKI6hoUAfNLh
+	bwvG2ScOK2iJy1ZbIUk1YxfhbkcsRK7vdA4lXSba6IXRdj6clfnt1OrwpmW2U4mfwGrAupHOp/a
+	S44HapCcDZ3I1VDwgXq/BEa2lH32YUbVKnWIr2QGqzfBOn//4Vi8wYLrnayW8lbDFMXcC
+X-Received: by 2002:a17:907:3f18:b0:c4d:212a:192a with SMTP id
+ a640c23a62f3a-c509642889emr75412566b.48.1794536858155; Thu, 12 Nov 2026
+ 18:27:38 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,463 +103,198 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261113-patches_v2_external-v4-6-56bb26f042a4@amd.com>
-References: <20261113-patches_v2_external-v4-0-56bb26f042a4@amd.com>
-In-Reply-To: <20261113-patches_v2_external-v4-0-56bb26f042a4@amd.com>
-To: Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>, Andrew Lunn
-	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Richard Cochran <richardcochran@gmail.com>, "Michal
- Simek" <michal.simek@amd.com>, Sebastian Andrzej Siewior
-	<bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, "Steven
- Rostedt" <rostedt@goodmis.org>, Eric Dumazet <edumazet@kernel.org>, "Eric
- Dumazet" <edumazet@kernel.org>
-CC: <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-rt-devel@lists.linux.dev>, Srinivas Neeli <srinivas.neeli@amd.com>,
-	<git@amd.com>, <neelisrinivas18@gmail.com>
-X-Mailer: b4 0.16.0
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00000146:EE_|LY0PR12MB390394:EE_
-X-MS-Office365-Filtering-Correlation-Id: 680461ee-3da2-4da6-bf44-08df412d8141
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|376014|7416014|23010399003|18002099003|22082099003|6133799003|261009223027099003|3023799007|921020|11063799006|56012099006|10067099003|261102123227099003|261022105027099003|261026121527099003|261022113327099003|261022075727099003|261028144727099003|261021121427099003|261026140227099003|261021123027099003;
-X-Microsoft-Antispam-Message-Info:
-	ADBnho2tso/V5KfZFnYmCsyTjXvEZh6savfdh+yDfLAjCgAnL6gpbuQHGz5DLab8urssACFKt3vRISV2ewYK60SLbZc8Eo9n4h0fxClbfCf9Y5SYNB0W2YMrGb363BV5OB1DIDJ9oSye0/DCL89GAlbSfnbjcMuxP5QSEtCa2C3lc7dRvRpZlwV/+o+kuyFBPEiJPMIa2zhCSz8bt3fdUt6AIAp+fdVfT9+99kVRzvGIQ8S5oAZPjortHYuaqGdM1eGLCCW4rkyH0L4fbvAHP1C8Crl6N2Raw54Jh29DWtQEQIgcxe9PS1gZ7+p/qC8N/HM2jNucZPcckGcHkLBnhi2IKb5fOZXyd1rncUJQnS8Eti1AE6g4cG/es8um8xQQ/Nder7hVueylU/6B7wIdek9L/pL+oIhxOvdmZtdbBaQyq53PVIj8mKC5Vq9ByPPcRCFEGrOB3ibSoeAljSvfyhHCVzT+YQo0ZmbvWyXAdzfffIm4jbznl8ex52YNsKEJbrryRLTEfujJoC+WTzS+/ZAGKztw9KHdOczTDbbHwX8+wcblm75onTICqo6REbfhxXlsOq6zFiPqmRJUCZo4zKhebB3Z4EO91c6qkQCobqeCeBnz1G6YFFBHk8syqzEoOTHN4RmHztofUsYxpIbiCqu9RgZyTn2l/9H8HWQcxRL8MaN2qR1KQLURmzNG9Tx4P5xkQTN4mUejDW1NzM/btmwI/xpflbgKIzc77UO2zSLiW2Dt1TZpdomFqAadqZtf
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(376014)(7416014)(23010399003)(18002099003)(22082099003)(6133799003)(261009223027099003)(3023799007)(921020)(11063799006)(56012099006)(10067099003)(261102123227099003)(261022105027099003)(261026121527099003)(261022113327099003)(261022075727099003)(261028144727099003)(261021121427099003)(261026140227099003)(261021123027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	jLCH4Ccw/BwWm5d/2f7EYFsk5h6bagRKmOyyU6sfBul/8CQDTBLJTyqUgrYgQ+Ir+woaTjTWXV+bIO8RTYPmw9uZrhJjxypQ2hUuP77VpRFJdc3owa8Ipgmlq27uN/JgPvkEiKkk4cRMEOScGlGW6zayN5tdV/QidvozuvqViYlsOLJNklnbEwtYoUS6f6CgXrmMYNIfBpfkMETc0sl+EB+zwDPpv3oIWvhfYrUmvmnTNIgLyiSB5yvqSfaUD9pPBdkXwXT6BmBN06/E+0uwRYF8ZI/J8o35pLTuvxynMVTFuKEYXL//BBuJXLK+Hw3iN4drUT2z4yu4mi7IvHJtc9ikPyUDY8aZZB5mPxsXgmDbpvFjwj+2/lFVl8UM7lchpBxKFyD9JPitHE0KCK0Ty8jSSqlRvOyWCyRzfmUEt4c8H4XQ0pXWBAGb/TUA2cmx
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 02:26:20.7187
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 680461ee-3da2-4da6-bf44-08df412d8141
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF00000146.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LY0PR12MB390394
+References: <20261106-sm7250-v14-0-7d167e993f9c@gmail.com>
+In-Reply-To: <20261106-sm7250-v14-0-7d167e993f9c@gmail.com>
+From: Sreeshankar K <sreeshankar0910@gmail.com>
+Date: Fri, 13 Nov 2026 07:57:23 +0530
+X-Gm-Features: AclHuK-5Jx0NaJBBJK_E2yE52SkSKOFAgAmYCFNDkDQigjVyP_umucpReQmSj6s
+Message-ID: <CAA-+uk+=kkeeH-stjS_8=Kgw-m7rxxXoVR2S7UW-TP0gxEktEQ@mail.gmail.com>
+Subject: Re: [PATCH v14 0/8] Add initial support for Qualcomm SM7250 SoC
+To: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Taniya Das <taniya.das@oss.qualcomm.com>, Sreeshankar K <sreeshankar0910@gmail.com>, 
+	Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Robert Marko <robimarko@gmail.com>, 
+	Guru Das Srinagesh <linux@gurudas.dev>, Viresh Kumar <viresh.kumar@linaro.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-pm@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 
-With the RX channels armed, the endpoint can start receiving frames.
+On Fri, 6 Nov 2026 at 20:45, Sreeshankar K <sreeshankar0910@gmail.com> wrote:
+>
+> This patchset introduces foundational upstream support for the Qualcomm SM7250
+> SoC (internally codenamed Lito).
+>
+> SM7250 is an ARMv8.2-A platform manufactured on a 7nm process, featuring an
+> octa-core Kryo 475 CPU configuration (1x Prime Cortex-A76, 1x Gold Cortex-A76,
+> and 6x Silver Cortex-A55) and Adreno 620 GPU.
+>
+> This patchset is organized as follows:
+> > Document relevant device tree bindings (SoC ID, Kryo 475 CPUs, SCM, PDC,
+> RPMh clocks/power domains, GCC and cpufreq hardware).
+> > Add driver support for SM7250 in socinfo, rpmh-clk, rpmhpd, and GCC.
+> > Add the base SoC DTSI (sm7250.dtsi) defining the cpus, PSCI,
+> interrupt controllers, clock providers, power domains, and reserved memory.
+>
+> >-----------------------------------------------------------------------------<
+> Merged patches:
+> dt-bindings: arm: qcom,ids: Add SoC ID for SM7250
+> soc: qcom: socinfo: Add SM7250 SoC ID
+> dt-bindings: clock: qcom,rpmhcc: Document RPMHCC compatible
+> clk: qcom: rpmh: Add SM7250 rpmh clocks
+> dt-bindings: power: qcom,rpmhpd: Document RPMh power domain for SM7250
+> pmdomain: qcom: rpmhpd: Add RPMh power domains
+> dt-bindings: arm: cpus: Document Kryo 475 CPUs
+> dt-bindings: interrupt-controller: qcom,pdc: Document SM7250 PDC
+>
+> Pending patches:
+> dt-bindings: clock: Add SM7250 global clock controller
+> clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
+> thermal/qcom/lmh: Switch to match data for SoC CPU-to-node mappings
+> dt-bindings: thermal: lmh: Document SM7250 LMh
+> thermal/qcom/lmh: Add support for Qualcomm SM7250
+> dt-bindings: firmware: qcom,scm: Document SM7250 SCM
+> dt-bindings: cpufreq: qcom-hw: Document SM7250 cpufreq hardware
+> arm64: dts: qcom: Add SM7250 devicetree file
+> >------------------------------------------------------------------------------<
+>
+> Changelog [v14]:
+> Fixed various issue found from Sashiko's review, Link: https://sashiko.dev/#/patchset/20261104-master-v13-0-355b65c6f764%40gmail.com
+>
+> Link [v13]: https://lore.kernel.org/linux-arm-msm/20261104-master-v13-0-355b65c6f764@gmail.com/t/#t
+> Changelog [v13]:
+> Fixed various issue found from Sashiko's review, Link: https://sashiko.dev/#/patchset/20261104-master-v12-0-57fbe9eef978%40gmail.com
+> [PATCH v13 3/8] thermal/qcom/lmh: Switch to match data for SoC CPU-to-node mappings
+> > Switch to match data mapping instead of hardcoded 4-4 cpu configuration.
+> [PATCH v13 5/8] thermal/qcom/lmh: Add support for Qualcomm SM7250
+> > Add 6-2 cpu configuration LMh support for SM7250 SoC.
+> [PATCH v13 8/8] arm64: dts: qcom: Add SM7250 devicetree file
+> > Place the nodes in acesending order.
+>
+> Link [v12]: https://lore.kernel.org/linux-arm-msm/20261104-master-v12-0-57fbe9eef978@gmail.com/T/#t
+> Changelog [v12]:
+> [PATCH v12 1/6] dt-bindings: clock: Add SM7250 global clock controller
+> > Move dt-binding definition to qcom,gcc-sm8250.yaml. The device tree
+> schema of SM7250 matches with SM8250 for clock-controller node.
+> [PATCH v12 5/6] dt-bindings: thermal: lmh: Document SM7250 LMh
+> > Add LMh compatible.
+> [PATCH v12 6/6] arm64: dts: qcom: Add SM7250 devicetree file
+> > Remove cluster wise sorting of cpus.
+> > Add LMh node.
+>
+> Link [RESEND v11]: https://lore.kernel.org/linux-arm-msm/20261029-master-v11-0-2c29e382162c@gmail.com/T/#t
+> Link [v11]: https://lore.kernel.org/linux-arm-msm/20261016042432.824-1-sreeshankar0910@gmail.com/T/#t
+> Changelog [v11]:
+> [PATCH v11 2/5] clk: qcom: Add Global Clock Controller (GCC) driver
+> > Drop hw_ctl clock branches
+> > Populate default values for GDSCs
+>
+> Link [v10]: https://lore.kernel.org/linux-arm-msm/20261015051926.13752-1-sreeshankar0910@gmail.com/T/#t
+> Changelog [v10]:
+> [PATCH v10 2/6] clk: qcom: Add Global Clock Controller (GCC) driver
+> > Update .halt_check and .ops are per the review.
+>
+> Link [v9]: https://lore.kernel.org/linux-arm-msm/20260901092447.3028-1-sreeshankar0910@gmail.com/T/#t
+> Changelog [v9]:
+> [PATCH v9 04/13]: clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
+> > Make all clk_init_data instances const across the driver.
+>
+> Link [v8]: https://lore.kernel.org/linux-arm-msm/20260901070717.20513-1-sreeshankar0910@gmail.com/T/#t
+> Changelog [v8]:
+> Same as v7. Resending the full patchset as v8 due to a transmission interruption during v7.
+>
+> Link [v7]: https://lore.kernel.org/linux-arm-msm/20260901064357.20055-1-sreeshankar0910@gmail.com/T/#t
+> Changelog [v7]:
+> [PATCH v7 04/13]: clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
+> > Fixed missing (struct device *dev) in gcc_sm7250_clk_regs_configure
+>
+> Link [v6]: https://lore.kernel.org/linux-arm-msm/20260824150156.1310-1-sreeshankar0910@gmail.com/T/#t
+> Changelog [v6]:
+> [PATCH v6 04/13]: clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
+> > Make all clk_init_data instances const across the driver.
+>
+> Link [v5]: https://lore.kernel.org/linux-arm-msm/20260824130437.2771-1-sreeshankar0910@gmail.com/T/#t
+> Changelog [v5]:
+> [PATCH v5 13/13]: arm64: dts: qcom: Add SM7250 devicetree file
+> > Reformat multi-entry phandle lists (domain-idle-states) to '<&a>, <&b>'.
+> > Reformat multi-entry tuples and string lists (qcom,pdc-ranges, qcom,tcs-config, reg-names)
+>   to one item per line.
+> > Enable QUPv3 wrapper globally by dropping 'status = "disabled"'.
+> > Move compatible property to first.
+> > Remove clock-frequency property for timer.
+>
+> Link [v4]: https://lore.kernel.org/linux-arm-msm/20260821154030.2514-1-sreeshankar0910@gmail.com/T/#t
+> Changelog [v4]:
+> [PATCH v4 04/13] clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
+> > Update .fw_name with .index
+> [PATCH v4 13/13] arm64: dts: qcom: Add SM7250 devicetree file
+> > Added missing capacity-dmips-mhz and dynamic-power-coefficient for cpu@300
+> > Added power-domains for cpus and apps_rsc
+>
+> Link [v3]: https://lore.kernel.org/linux-arm-msm/20260821081125.4522-1-sreeshankar0910@gmail.com/T/#t
+> Changelog [v3]:
+> [PATCH v3 04/13] clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
+> > Updated the way of registering critical clocks.
+> > Made some more clock critical.
+>         GCC_VIDEO_XO_CLK
+>         GCC_CAMERA_XO_CLK
+>         GCC_DISP_XO_CLK
+>         GCC_NPU_CFG_AHB_CLK
+>         GCC_CPUSS_AHB_CLK
+>         GCC_NPU_BWMON_CFG_AHB_CLK
+>   These clocks are flagged as critical in gcc-lito.c
+>
+> Link [v2]: https://lore.kernel.org/linux-arm-msm/20260819152545.3934-1-sreeshankar0910@gmail.com/T/#t
+> Changelog [v2]:
+> [PATCH v2 12/13] dt-bindings: cpufreq: qcom-hw: Document SM7250 cpufreq hardware
+> [PATCH v2 13/13] arm64: dts: qcom: Add SM7250 devicetree file
+> > Added SM7250 cpufreq hardware
+>
+> Link [v1]: https://lore.kernel.org/linux-arm-msm/20260818080754.4362-1-sreeshankar0910@gmail.com/T/#t
+>
+> ---
+> Sreeshankar K (8):
+>       dt-bindings: clock: Add SM7250 global clock controller
+>       clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
+>       thermal/qcom/lmh: Switch to match data for SoC CPU-to-node mappings
+>       dt-bindings: thermal: lmh: Document SM7250 LMh
+>       thermal/qcom/lmh: Add support for Qualcomm SM7250
+>       dt-bindings: firmware: qcom,scm: Document SM7250 SCM
+>       dt-bindings: cpufreq: qcom-hw: Document SM7250 cpufreq hardware
+>       arm64: dts: qcom: Add SM7250 devicetree file
+>
+>  .../devicetree/bindings/clock/qcom,gcc-sm8250.yaml |   13 +-
+>  .../bindings/cpufreq/cpufreq-qcom-hw.yaml          |    2 +
+>  .../devicetree/bindings/firmware/qcom,scm.yaml     |    1 +
+>  .../devicetree/bindings/thermal/qcom-lmh.yaml      |    1 +
+>  arch/arm64/boot/dts/qcom/sm7250.dtsi               |  803 +++++++
+>  drivers/clk/qcom/Kconfig                           |   10 +
+>  drivers/clk/qcom/Makefile                          |    1 +
+>  drivers/clk/qcom/gcc-sm7250.c                      | 2278 ++++++++++++++++++++
+>  drivers/thermal/qcom/lmh.c                         |   84 +-
+>  include/dt-bindings/clock/qcom,gcc-sm7250.h        |  163 ++
+>  10 files changed, 3332 insertions(+), 24 deletions(-)
+> ---
+> base-commit: f66469d9905b39d2c260a15d7d6db450f4db67c1
+> change-id: 20261106-sm7250-e9ced14be130
+>
+> Best regards,
+> --
+> Sreeshankar K <sreeshankar0910@gmail.com>
+>
 
-Post RX buffers to every RX channel on open and reap them from the
-completion callback. Each inbound frame carries a TUSER port_id in the
-descriptor sideband. Accept frames from MAC1 (port_id 1) and MAC2
-(port_id 2) and pass them up the stack. Drop any other port_id, since
-the bridged-only model never produces it. Drop and count frames with
-bad descriptor status, an invalid length or no metadata pointer.
 
-Refill each slot from the completion callback unless the interface is
-closing, which keeps the ring full without a separate refill worker.
+Hi everyone,
 
-Serialise the RX refill against teardown. The completion callback re-arms
-the ring, so ndo_stop() sets a closing flag before teardown and the refill
-tests it under the per-channel lock. ep_free_dma_chan() then takes that
-lock as a barrier, so any refill already past the closing test finishes
-and no later one submits or arms the timer before the channel is
-terminated. No descriptor is submitted once teardown has begun, so a single
-dmaengine_terminate_sync() is enough to quiesce the channel.
+A friendly ping on this patchset. Please let me know if there are any
+remaining concerns or if anything needs to be updated.
 
-The RX path uses __netif_rx() from the dmaengine completion callback
-rather than NAPI. dmaengine owns the RX interrupt and ring and delivers
-one descriptor per callback, so there is no poll context to run NAPI or
-GRO, and the per-packet counters use the dev->stats atomics.
-
-Co-developed-by: Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>
-Signed-off-by: Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>
-Signed-off-by: Srinivas Neeli <srinivas.neeli@amd.com>
-
----
-Changes in v4:
-- Return true from ep_rx_refill() when this call submitted at least one
-  descriptor. The completion callback advances ring_tail without rx_lock,
-  so a descriptor could complete before the ring_head != ring_tail test
-  and make ndo_open() fail with -ENOMEM.
-- Use dev_dbg_ratelimited() for the unexpected port_id message, so it does
-  not consume the shared net_ratelimit() budget, and replace the redundant
-  CHECKSUM_NONE store with skb_checksum_none_assert().
-
-Changes in v3:
-- Check the dmaengine_submit() cookie in ep_rx_submit_desc(). Store the skb
-  and submit, then advance ring_head only once dma_submit_error() is clear.
-  On a submit failure clear the slot, unmap and free the buffer and return
-  the error, so a failed descriptor can no longer pin its buffer or be read
-  back by a later completion.
-- Use scoped_guard() instead of guard() in ep_rx_refill() for the rx_lock,
-  per the netdev cleanup.h guidance (guard() is discouraged in functions
-  longer than 20 lines).
-- Introduce the closing flag here (field, kernel-doc and the
-  ndo_open/ndo_stop writes), together with its first reader in the RX
-  refill path. It was added in the MCDMA bring-up patch before it had a
-  consumer. Add the circ_buf.h and spinlock.h includes here, where
-  CIRC_SPACE() and spinlock_t are first used.
-- Reword the commit message to describe how the closing flag is published
-  and tested, rather than stating that ndo_stop() sets it under the
-  per-channel lock.
-
-Changes in v2:
-- Serialise the RX refill against teardown under a per-channel rx_lock. The
-  completion callback re-arms the ring, so ndo_stop() sets a closing flag under
-  the same lock and ep_free_dma_chan() takes it as a barrier before terminating.
-- Recover a drained ring with a refill timer instead of leaving RX dead after
-  an allocation failure.
-- Fail ndo_open if a channel cannot arm any RX descriptor.
-- Set the closing flag on the ndo_open error path too, before tearing the
-  channels down.
-- Take the ring size from the channel instead of a compile-time constant.
-- Note in the commit message why RX is not NAPI based. dmaengine owns the RX
-  interrupt and ring and delivers one descriptor per callback, so there is no
-  poll context for NAPI or GRO, and the counters use the dev->stats atomics.
-- Shut the refill timer down with timer_shutdown_sync() at teardown rather than
-  relying on timer_delete_sync() plus the closing flag.
-- Return true from ep_rx_refill() when at least one descriptor is armed, false
-  otherwise, following the usual bool convention.
-- Init the refill timer and rx_lock only for RX channels.
----
- drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c | 230 +++++++++++++++++++++++-
- 1 file changed, 229 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
-index 52d2da04a5d8..f179062c7d14 100644
---- a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
-+++ b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
-@@ -5,7 +5,9 @@
-  * Copyright (C) 2026 Advanced Micro Devices, Inc.
-  */
- 
-+#include <linux/bitfield.h>
- #include <linux/bitops.h>
-+#include <linux/circ_buf.h>
- #include <linux/dma/xilinx_dma.h>
- #include <linux/dma-mapping.h>
- #include <linux/dmaengine.h>
-@@ -21,7 +23,9 @@
- #include <linux/platform_device.h>
- #include <linux/scatterlist.h>
- #include <linux/slab.h>
-+#include <linux/spinlock.h>
- #include <linux/string.h>
-+#include <linux/timer.h>
- #include <linux/types.h>
- 
- #include "xilinx_tsn.h"
-@@ -39,6 +43,19 @@
- #define TX_BD_NUM_DEFAULT		64
- #define RX_BD_NUM_DEFAULT		128
- 
-+#define EP_RX_REFILL_RETRY		msecs_to_jiffies(10)
-+
-+/*
-+ * The DMA descriptor sideband status word packs TID/TDEST/TUSER together;
-+ * TUSER occupies the low byte, TID/TDEST sit in the upper bits.
-+ */
-+#define TSN_TUSER_MASK			GENMASK(7, 0)
-+/* TUSER Input Port ID field (bits [5:4] of the TUSER field) */
-+#define TSN_TUSER_PORT_ID_MASK		GENMASK(5, 4)
-+#define TSN_TUSER_PORT_EP		0x0
-+#define TSN_TUSER_PORT_MAC1		0x1
-+#define TSN_TUSER_PORT_MAC2		0x2
-+
- /**
-  * struct skbuf_dma_descriptor - skb container for each in-flight DMA descriptor
-  * @sgl: scatter-gather list backing the DMA mapping
-@@ -64,6 +81,8 @@ struct skbuf_dma_descriptor {
-  * @ring_head: producer index
-  * @ring_tail: consumer index
-  * @ring_size: number of slots in @skb_ring
-+ * @rx_lock: serialises @ring_head between the RX callback and the refill timer
-+ * @rx_refill_timer: retries RX refill after an allocation failure
-  * @is_tx: true for TX channels, false for RX
-  */
- struct xlnx_tsn_ep_dma_chan {
-@@ -74,6 +93,8 @@ struct xlnx_tsn_ep_dma_chan {
- 	u32 ring_head;
- 	u32 ring_tail;
- 	u32 ring_size;
-+	spinlock_t rx_lock;	/* serialises @ring_head */
-+	struct timer_list rx_refill_timer;
- 	bool is_tx;
- };
- 
-@@ -90,6 +111,7 @@ struct xlnx_tsn_ep_dma_chan {
-  * @rx_dma: dmaengine RX channels, held from probe until remove
-  * @tx_chans: array of TX channels (size @num_tx_queues)
-  * @rx_chans: array of RX channels (size @num_rx_queues)
-+ * @closing: set in ndo_stop so the RX completion callback stops re-arming
-  */
- struct xlnx_tsn_ep {
- 	struct net_device *ndev;
-@@ -105,6 +127,7 @@ struct xlnx_tsn_ep {
- 	struct xlnx_tsn_ep_dma_chan **tx_chans;
- 	struct xlnx_tsn_ep_dma_chan **rx_chans;
- 
-+	bool closing;
- };
- 
- static inline struct skbuf_dma_descriptor *
-@@ -113,6 +136,181 @@ ep_get_desc(struct xlnx_tsn_ep_dma_chan *xchan, int idx)
- 	return xchan->skb_ring[idx];
- }
- 
-+static void ep_dma_rx_cb(void *data, const struct dmaengine_result *result);
-+
-+static int ep_rx_submit_desc(struct xlnx_tsn_ep_dma_chan *xchan)
-+{
-+	struct dma_async_tx_descriptor *dma_rx_desc;
-+	struct skbuf_dma_descriptor *skbuf_dma;
-+	struct xlnx_tsn_ep *ep = xchan->ep;
-+	struct sk_buff *skb;
-+	dma_cookie_t cookie;
-+	dma_addr_t addr;
-+
-+	skbuf_dma = ep_get_desc(xchan, xchan->ring_head & (xchan->ring_size - 1));
-+	if (!skbuf_dma)
-+		return -ENOSPC;
-+
-+	skb = dev_alloc_skb(ep->max_frm_size);
-+	if (!skb)
-+		return -ENOMEM;
-+
-+	sg_init_table(skbuf_dma->sgl, 1);
-+	addr = dma_map_single(xchan->dma_dev, skb->data, ep->max_frm_size,
-+			      DMA_FROM_DEVICE);
-+	if (unlikely(dma_mapping_error(xchan->dma_dev, addr))) {
-+		if (net_ratelimit())
-+			dev_warn(ep->dev, "DMA mapping error on RX submit\n");
-+
-+		goto err_free_skb;
-+	}
-+	sg_dma_address(skbuf_dma->sgl) = addr;
-+	sg_dma_len(skbuf_dma->sgl) = ep->max_frm_size;
-+	dma_rx_desc = dmaengine_prep_slave_sg(xchan->chan, skbuf_dma->sgl,
-+					      1, DMA_DEV_TO_MEM,
-+					      DMA_PREP_INTERRUPT);
-+	if (!dma_rx_desc)
-+		goto err_unmap_skb;
-+
-+	skbuf_dma->dma_address = sg_dma_address(skbuf_dma->sgl);
-+	skbuf_dma->desc = dma_rx_desc;
-+	dma_rx_desc->callback_param = xchan;
-+	dma_rx_desc->callback_result = ep_dma_rx_cb;
-+
-+	skbuf_dma->skb = skb;
-+	cookie = dmaengine_submit(dma_rx_desc);
-+	if (dma_submit_error(cookie)) {
-+		skbuf_dma->skb = NULL;
-+		goto err_unmap_skb;
-+	}
-+	xchan->ring_head++;
-+
-+	return 0;
-+
-+err_unmap_skb:
-+	dma_unmap_single(xchan->dma_dev, addr, ep->max_frm_size, DMA_FROM_DEVICE);
-+err_free_skb:
-+	dev_kfree_skb(skb);
-+	return -ENOMEM;
-+}
-+
-+static bool ep_rx_refill(struct xlnx_tsn_ep_dma_chan *xchan, bool arm_timer)
-+{
-+	int avail, i;
-+
-+	scoped_guard(spinlock_bh, &xchan->rx_lock) {
-+		if (READ_ONCE(xchan->ep->closing))
-+			return false;
-+
-+		avail = CIRC_SPACE(xchan->ring_head, READ_ONCE(xchan->ring_tail),
-+				   xchan->ring_size);
-+		for (i = 0; i < avail; i++) {
-+			if (ep_rx_submit_desc(xchan))
-+				break;
-+		}
-+		dma_async_issue_pending(xchan->chan);
-+
-+		if (i > 0 || xchan->ring_head != READ_ONCE(xchan->ring_tail))
-+			return true;
-+
-+		if (arm_timer)
-+			mod_timer(&xchan->rx_refill_timer,
-+				  jiffies + EP_RX_REFILL_RETRY);
-+	}
-+
-+	return false;
-+}
-+
-+static void ep_rx_refill_timer(struct timer_list *t)
-+{
-+	struct xlnx_tsn_ep_dma_chan *xchan = timer_container_of(xchan, t,
-+							       rx_refill_timer);
-+
-+	ep_rx_refill(xchan, true);
-+}
-+
-+static void ep_dma_rx_cb(void *data, const struct dmaengine_result *result)
-+{
-+	struct xlnx_tsn_ep_dma_chan *xchan = data;
-+	struct skbuf_dma_descriptor *skbuf_dma;
-+	size_t meta_len, meta_max_len, rx_len;
-+	struct xlnx_tsn_ep *ep = xchan->ep;
-+	struct net_device *ndev = ep->ndev;
-+	struct sk_buff *skb;
-+	u32 port_id, tuser;
-+	u32 *metadata;
-+
-+	skbuf_dma = ep_get_desc(xchan, xchan->ring_tail & (xchan->ring_size - 1));
-+	WRITE_ONCE(xchan->ring_tail, xchan->ring_tail + 1);
-+	skb = skbuf_dma->skb;
-+	skbuf_dma->skb = NULL;
-+
-+	dma_unmap_single(xchan->dma_dev, skbuf_dma->dma_address,
-+			 ep->max_frm_size, DMA_FROM_DEVICE);
-+
-+	if (result->result != DMA_TRANS_NOERROR) {
-+		if (net_ratelimit())
-+			dev_warn(ep->dev, "RX DMA transfer error %d\n",
-+				 result->result);
-+
-+		dev_kfree_skb_any(skb);
-+		DEV_STATS_INC(ndev, rx_dropped);
-+		DEV_STATS_INC(ndev, rx_errors);
-+		goto submit_new;
-+	}
-+
-+	metadata = dmaengine_desc_get_metadata_ptr(skbuf_dma->desc,
-+						   &meta_len,
-+						   &meta_max_len);
-+	if (IS_ERR_OR_NULL(metadata)) {
-+		if (net_ratelimit())
-+			dev_warn(ep->dev, "Failed to get RX metadata pointer\n");
-+
-+		dev_kfree_skb_any(skb);
-+		DEV_STATS_INC(ndev, rx_dropped);
-+		DEV_STATS_INC(ndev, rx_errors);
-+		goto submit_new;
-+	}
-+
-+	/* MCDMA metadata: [0] = status, [1] = sideband (TID/TDEST/TUSER), [2..] = app */
-+	tuser = metadata[1] & TSN_TUSER_MASK;
-+	rx_len = ep->max_frm_size - result->residue;
-+
-+	if (rx_len > ep->max_frm_size || rx_len < ETH_HLEN) {
-+		if (net_ratelimit())
-+			dev_warn(ep->dev, "Invalid RX length %zu (max=%u, min=%u)\n",
-+				 rx_len, ep->max_frm_size, ETH_HLEN);
-+
-+		dev_kfree_skb_any(skb);
-+		DEV_STATS_INC(ndev, rx_dropped);
-+		DEV_STATS_INC(ndev, rx_errors);
-+		goto submit_new;
-+	}
-+
-+	port_id = FIELD_GET(TSN_TUSER_PORT_ID_MASK, tuser);
-+	if (port_id != TSN_TUSER_PORT_MAC1 && port_id != TSN_TUSER_PORT_MAC2) {
-+		dev_dbg_ratelimited(ep->dev,
-+				    "RX dropping unexpected TUSER port_id=%u\n",
-+				    port_id);
-+
-+		dev_kfree_skb_any(skb);
-+		DEV_STATS_INC(ndev, rx_dropped);
-+		goto submit_new;
-+	}
-+
-+	skb_put(skb, rx_len);
-+	skb->dev = ndev;
-+	skb->protocol = eth_type_trans(skb, ndev);
-+	skb_checksum_none_assert(skb);
-+	__netif_rx(skb);
-+
-+	DEV_STATS_INC(ndev, rx_packets);
-+	DEV_STATS_ADD(ndev, rx_bytes, rx_len);
-+
-+submit_new:
-+	ep_rx_refill(xchan, true);
-+}
-+
- static netdev_tx_t ep_start_xmit(struct sk_buff *skb, struct net_device *ndev)
- {
- 	dev_kfree_skb_any(skb);
-@@ -128,6 +326,8 @@ static int ep_open(struct net_device *ndev)
- 	struct xlnx_tsn_ep *ep = netdev_priv(ndev);
- 	int ret;
- 
-+	WRITE_ONCE(ep->closing, false);
-+
- 	ret = ep_init_dmaengine(ep);
- 	if (ret) {
- 		netdev_err(ndev, "failed to initialize DMA engine\n");
-@@ -145,6 +345,7 @@ static int ep_stop(struct net_device *ndev)
- 	struct xlnx_tsn_ep *ep = netdev_priv(ndev);
- 
- 	netif_tx_disable(ndev);
-+	WRITE_ONCE(ep->closing, true);
- 	ep_exit_dmaengine(ep);
- 
- 	return 0;
-@@ -201,6 +402,10 @@ ep_alloc_dma_chan(struct xlnx_tsn_ep *ep, struct dma_chan *dma_chan,
- 	chan->ep = ep;
- 	chan->ring_size = ring_size;
- 	chan->dma_dev = dmaengine_get_dma_device(chan->chan);
-+	if (!is_tx) {
-+		spin_lock_init(&chan->rx_lock);
-+		timer_setup(&chan->rx_refill_timer, ep_rx_refill_timer, 0);
-+	}
- 
- 	return chan;
- }
-@@ -212,8 +417,21 @@ static void ep_free_dma_chan(struct xlnx_tsn_ep_dma_chan *chan)
- 	if (!chan)
- 		return;
- 
--	if (chan->chan)
-+	if (chan->chan) {
-+		if (!chan->is_tx) {
-+			/* ep_stop() sets closing before teardown. Take rx_lock
-+			 * so any refill that already passed the closing check
-+			 * finishes and no later one submits or arms the timer,
-+			 * then shut down the timer so it cannot be rearmed
-+			 * before the channel is freed.
-+			 */
-+			spin_lock_bh(&chan->rx_lock);
-+			spin_unlock_bh(&chan->rx_lock);
-+			timer_shutdown_sync(&chan->rx_refill_timer);
-+		}
-+
- 		dmaengine_terminate_sync(chan->chan);
-+	}
- 
- 	if (chan->is_tx) {
- 		while (chan->ring_tail != chan->ring_head) {
-@@ -306,9 +524,19 @@ static int ep_init_dmaengine(struct xlnx_tsn_ep *ep)
- 		rx_allocated++;
- 	}
- 
-+	for (i = 0; i < ep->num_rx_queues; i++) {
-+		if (!ep_rx_refill(ep->rx_chans[i], false)) {
-+			dev_err(ep->dev, "RX channel %d: no descriptors armed\n",
-+				i);
-+			ret = -ENOMEM;
-+			goto err_free_chans;
-+		}
-+	}
-+
- 	return 0;
- 
- err_free_chans:
-+	WRITE_ONCE(ep->closing, true);
- 	while (--rx_allocated >= 0)
- 		ep_free_dma_chan(ep->rx_chans[rx_allocated]);
- 	while (--tx_allocated >= 0)
-
--- 
-2.43.0
-
+Thanks,
+Sreeshankar K
