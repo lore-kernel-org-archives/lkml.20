@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794597105;
-	b=GorvD5UjQP9lxPEwusrtbtqFaz5YKISc6sb6E6W+TuBBiUsYtel+h6aVNbc5c3sTgPv1
-	 Fd4K47PvWA1dTBgmo019zraEbfvKhq8nJOzOtD+bG3h5HGOIVZoyCjn00osUjliCwt6yw
-	 X1afF6bbTy9a85i1qN78ZgsNZvOXTMfvOxkEimRNICb4fD4uEUt0dbXagAEG66nR+fajb
-	 BlVqwpOLtpByIauKqrzv4a8Q2jpCh9/ATpgBRrJiNHky3T97xkoXYbP1/GbCKzpXiyehB
-	 7xA/ZSzXAgwymokD3dilO+HdchJjE4LEzaj69YdyP1QtrohGYQ0TI+TVDYMVf/TCRfw==
+	t=1794597161;
+	b=GCIzg1Je9gXKTAotevY9i6LJY3RzS6V9JCPhmA9V8uILDsNqo5mke1us3SVZiPvI3Fgt
+	 iW1qUvvXJn60wLJ4Co3CsWp81+Npz7isjS6Y/AEcyfyoIMHA6E8VAZe1cesx3wp3DsrKl
+	 gPh6qbJ0gWalJMtu8QkUObWKuwQjBvgjahGCULkwABYMZjLoxgG12BqaZDjQK7scnXPNo
+	 BBlB0aLn7u53O12zMTMxSExCKEDGHUK5pQa7uWOD1o14Guop40LVqodmRQhWSX9PXal4X
+	 wpco8tNeIWCpTHpZNuriGg9XsgspXMn5EnB2bB3TKJ/PnIl7FC6eI8qBd0TGs2TXtvg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794597105;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794597161;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=dbuGQgKLovVje7YOSzUv3Dn6YUR6iiM/N5TBcnt6L9s=;
-	b=fKvCHO155z11uPoqR9W4tcXDm0ko6ReBoN6Z8S0rEUKl0G6Qu83Q7q1HYpy0ushTtmds
-	 fQ2Mpp2tpTHW1fL/Xq+EKbnskhNSvfvYAUCEZ6M5gVNEmDNZzx7HeSFTM3v/3lpfe56g/
-	 oBZYSO3qH3uuCU6Yftuf4VhNz/+TAI4sylgFkeFXwra+TPilkk9suSZuO4iqg+VZQkyaJ
-	 UZvwhpyiZEM8thwGI3ejZPNQMkGOvGy7A0fQxOi9NJCfgcR6gdKZgq4NzBa3okfwq9rTx
-	 +5/pIgCjtL5LxF0NYjLPzR7wHpJ9gRg1q1bIKvEtI71rs4Qthk9eOBX4gcgmU06JsoA==
+	bh=hLZtGA46uUnhosvnrSpHGWny2vwTfNqO81vS+IzHZrg=;
+	b=q9++LMF0udxmJl0QU2cJBFXwNiUvjbrTNGh8JCmGYv4MBiCCTjS9JdqHMS5S2+S4oy5U
+	 SYZ6ADYqyy27rde/SVkDdLTJSLZa6l8cfPUgYPgXllyX6ZTqxWDR0opb3gnoHY6QuRGPj
+	 OxyX5j7jVXNlb52OOcKUOgu+nZKL/6ez1jEZAaCY0hzjdS1oOv/2HXxLtq17tkUpo/y2d
+	 /WO2LjdT56f9/SErhkTBs7yjes7zeCRIrtCvaKXYFbnXH/x94XqzooDP6UkQB+weiS9mU
+	 FFvLubxi0+5tgrM3URQSXZEelSs3DFpKbWBc5/gQ87DtyUmZq37WSt+wZpnyhUk1nkQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lv+9tlQW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W7NxPW5R;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2923C606A330;
-	Fri, 13 Nov 2026 19:11:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DC3C606A334;
+	Fri, 13 Nov 2026 19:12:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lv+9tlQW
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W7NxPW5R
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794597105;
-	b=efFysAMu6Nexgt0vTZpt3Z3GYwkzMgTCmZ8L0w5oBV+rCWE9ANSR531M9Qa531qQLSjN
-	 TACc3jEX6FNqNm3Yfhh2OmNrbzw82grPAIJpEcM2c6fGOkDpWkRETkx73ABXrLKu/10c0
-	 pZ/mZs/dd1LjSbB6aNOfP7QrwTXPwD+YDl/JgDlCcyY1wIucu/+lKakJonVCGcM4Qm5Qu
-	 F3UzJ2CRtz10OMXYN/R87dJYyWSWCRLHeGy4xDO6kJlNjEO9Vl2JJxxEudhSnGL4IpJMC
-	 i62+xghgIsd9SXDL4ePLE3EK+t+FN6kqdZicqiOv4X1EHrTIWXhjdz1jdzSUpa/h/Sg==
+	t=1794597161;
+	b=t59zogXt8EYW/vo/pYhyEgQXGJa4YE9NiuEo8mF3XDrgkcTTtvkpVT0LcEKjMtg6S35C
+	 y0ym7mD8D694abINXtERcnIAtMZpW/0szW0hOzxAEGG7JF0DFHzbblVt3et3n1uZTBI3R
+	 ly3K4cxOUCpo3DeB2psNY26/c3jUq2Z60dzWg86kaoy1WE5zPYCdEAp6GBp7B1JHVtrpL
+	 3/hSTwRFaAlwZr4ZXO744h3f2H/b0q1alBmus8XJTAUbNCV8SNMA1HC6ENjFWb7aup3JX
+	 yJOzwv91vVB8Ug3gbgH6/7iGuDyzZpLrRJI5c2bomUmj3uV4/dkt+wgQOhAfoA4Q3Pg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794597105;
+	c=relaxed/relaxed; t=1794597161;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=dbuGQgKLovVje7YOSzUv3Dn6YUR6iiM/N5TBcnt6L9s=;
-	b=eoWRfohtB6IZhjXPitdYsp3WmcsAMt81kNC/zVAwhTPhpaMSbYeL7itqjDxLH4L2ujHK
-	 fG5+IrUGZgpUBB+gLOWOpoh88l4L+ZyB5idcc2yo8J5ey2wXxqDcld46EL2ylYHlcntw2
-	 WLK/OytGIev3IEzylaxZsX12c9WQnrRN48+XHLYk3e7pyz5eEQqhcYKyZrVK0Iih8aS/I
-	 INPkiNvhCJh8wg5xlcRObqQ5rX5vf5LKuuKjgCF3g10hFM1EiPVBpA8Mrb4Goog3wFXed
-	 XLdxudnA2aXeQ5iM/fzPxUEY0X87oD9E5t9ohUZ81pfWMzlQodzj0nQ2fSGofCJBEew==
+	bh=hLZtGA46uUnhosvnrSpHGWny2vwTfNqO81vS+IzHZrg=;
+	b=xUaa3sTVJzkyL97+qOd2qZ0+WTgu39I18asIyeeD1Pdf9CjBIJN55MCFDE0q4hyE0EcI
+	 BCwehLBB+DFC6+vMs5xeY1KAs1TUu5cecTsgx333a6sYC764aoZrn5PIVZKqy/GzHrqSa
+	 eTn1bxarB6vS2zgl8vBrlgQmp+aRX16JdFrpT8pCkXGY2hMaS/DoWV7Jo0uL/U24CQU0y
+	 +LOSDp3l+xLXZtkZ8wgzpNwryTE4Zw0+LuabsLojA1jxLuiZM9KK+uyl6OGwCNH7HQ2ss
+	 tZXzU6rvRCtfW/bQRj6fTkK+rzEpYKfPbDwfbzbFEr8WR10A0eGPoKZCv3GePDNHQ/A==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 81D651F000C5;
-	Fri, 13 Nov 2026 19:11:44 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id DF7A21F000C4;
+	Fri, 13 Nov 2026 19:12:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794597105;
-	bh=dbuGQgKLovVje7YOSzUv3Dn6YUR6iiM/N5TBcnt6L9s=;
+	s=k20260515; t=1794597161;
+	bh=hLZtGA46uUnhosvnrSpHGWny2vwTfNqO81vS+IzHZrg=;
 	h=From:Date:Subject:To:Cc:Reply-To;
-	b=Lv+9tlQWSIRCU8yUeTJEu4qwJLnh8qnncnmRS99sKr0RetWVDZXBpaBxth86eUHaL
-	 BnnjHbGNLivRPSrvQJ7MlU+R5+NezHDIv/+xlnu2IeIUuSzdN9BTbzhb7EL43dg0U1
-	 hhjkaXV9Wis2EbrhTUVcOudFLBquPKcHChxmEcTrQvIP6XJ8WmYqeUJzhhBlEHyV87
-	 8DUdkKPhvvpT/SYiaUrSQIrE8DnuJbK87bTqSjAgn4YfwM2xYYKCbxTURTgCZMQGoc
-	 rrmiz7R8A4ex8Owt9skI+it4NWpuOThBUiUS598OwLvvT+WaMfOdQ7zz9QRlmu+q5s
-	 52I9rMC9WiYCw==
+	b=W7NxPW5RybjlOtaDm9qMqP9JGvSVC3YQdPg3G+1FX7tUlghT/SVIaX3MbMAanxNyf
+	 2JZNyLNz3e47IZnX8O4bMzr0Ssl1xrJkprEG0y58Lvu9UKxAk6FzoHDzjV+Ekmmer3
+	 XTMeCwSFKEcy3he/vTdV3B/z198PCUwbmDUEnSIES1g/IhWRNnATpMxozTTPD/gfgg
+	 H0ag6G4aiiySQ/2wj6741UX7UpLw62dZ6tybJQmfVvh7ke+s29PY/uG/TOe57MrRlX
+	 uhybmAAbrRrP767gUqV7BUGt5QM+qk1dPBTskYHmx7hOC5IlV0sMcm/h/ONfrxw21V
+	 89YTmfC90mUCA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D71DB49A7E;
-	Fri, 13 Nov 2026 19:11:43 +0000 (UTC)
-From: Bryam Vargas via B4 Relay <devnull+hexlabsecurity.proton.me@kernel.org>
-Date: Fri, 13 Nov 2026 14:11:44 -0500
-Subject: [PATCH net] net/smc: check every link before skipping the RMB
- registration
+	by lkml.kernel.org (Postfix) with ESMTP id 71F8549A75;
+	Fri, 13 Nov 2026 19:12:40 +0000 (UTC)
+From: Patrick Fischer via B4 Relay <devnull+admin.tsv-stahl-riesa.de@kernel.org>
+Date: Fri, 13 Nov 2026 20:12:29 +0100
+Subject: [PATCH wireless-next] wifi: wlcore: Don't report RSSI events on
+ the P2P device
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,92 +84,117 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-b4-disp-08835f86-v1-1-b2ee1b9b94e2@proton.me>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMwQ6CMBAFf4W8s5tQSkv1V4wHShddD5V00ZgQ/
- t2qx5lkZoNyEVacmg2FX6LyyBXMocF0G/OVSVJldG3njTGWYk9JdKE2BOvm4IkHfxytS/3gImq
- 2FJ7l/VuekXnF5S/1Ge88rd8Z9v0DTX9F43kAAAA=
-X-Change-ID: 20261113-b4-disp-08835f86-e769a35d475b
-To: Eric Dumazet <edumazet@kernel.org>, 
- Sidraya Jayagond <sidraya@linux.ibm.com>, 
- Dust Li <dust.li@linux.alibaba.com>, "D. Wythe" <alibuda@linux.alibaba.com>, 
- Mahanta Jambigi <mjambigi@linux.ibm.com>, Paolo Abeni <pabeni@redhat.com>, 
- Jakub Kicinski <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>
-Cc: Simon Horman <horms@kernel.org>, linux-s390@vger.kernel.org, 
- Wen Gu <guwen@linux.alibaba.com>, netdev@vger.kernel.org, 
- linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Tony Lu <tonylu@linux.alibaba.com>
+Message-Id: <20261113-upstream-wlcore-p2p-rssi-v1-1-754bd625daca@tsv-stahl-riesa.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM0Q6CMBAEf4Xcs5dATdD6K8aHCquewdLcFSEh/
+ LtV922ymVnJoAKjU7WS4i0mYyzQ7CrqHiHewdIXJle7tinjKVlWhBfPQzcqOLnEaiZ8DN6jdf5
+ Q73sqelLcZPmlzzSLYoAZRyyZLv/bpusTXf7mads+Avpj6IsAAAA=
+X-Change-ID: 20261111-upstream-wlcore-p2p-rssi-8a99e629703d
+To: linux-wireless@vger.kernel.org
+Cc: Johannes Berg <johannes@sipsolutions.net>, 
+ Svyatoslav Ryhel <clamor95@gmail.com>, linux-kernel@vger.kernel.org, 
+ Patrick Fischer <admin@tsv-stahl-riesa.de>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794597103; l=2617;
- i=hexlabsecurity@proton.me; s=default; h=from:subject:message-id;
- bh=mxIkZpcGP0ojXYjGzeyRwrFvn8NYY3W/U2JZTVq6wpo=;
- b=Wq4dO2nn7dqxjzQGkG1W+5WLAT2QT6qVHDcnLQLSZHqmURL+8bNwq6UwLvKkf/Kgoqo+FiLPD
- YVSR1SRlvJfDRkdYuHo1J9A8kCqdVX3u8DGSuRyErpBZydisJOodaRs
-X-Developer-Key: i=hexlabsecurity@proton.me; a=ed25519;
- pk=xw1AhCtQdvuoQc+bOQIYy9o8G++cp4/VniI2G/tc3G8=
-X-Endpoint-Received: by B4 Relay for hexlabsecurity@proton.me/default with
- auth_id=893
-X-Original-From: Bryam Vargas <hexlabsecurity@proton.me>
-Reply-To: hexlabsecurity@proton.me
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794597159; l=3844;
+ i=admin@tsv-stahl-riesa.de; s=20261020; h=from:subject:message-id;
+ bh=HaLsB5FeE4e7mOdZ4s/ZKiZhR7ChbgmoXjUw6qN7ook=;
+ b=2cHA0+InI1KT1A9ZFgrZG//bS45GCpNqhMjtHwb7EdWajV3IMaDEr63gN40QPqpd0ChS99Mq5
+ lnMEF7NPN6+CbNrB2wihngbtumu4oHIEhEDZKbj+XdkT4rtVfTPEWBv
+X-Developer-Key: i=admin@tsv-stahl-riesa.de; a=ed25519;
+ pk=D+v6EloYcEY9PIUHFyTM5sqcGIU/fIXzLUdkR8vjAtk=
+X-Endpoint-Received: by B4 Relay for admin@tsv-stahl-riesa.de/20261020 with
+ auth_id=1251
+X-Original-From: Patrick Fischer <admin@tsv-stahl-riesa.de>
+Reply-To: admin@tsv-stahl-riesa.de
 Content-Transfer-Encoding: 7bit
 
-From: Bryam Vargas <hexlabsecurity@proton.me>
+From: Patrick Fischer <admin@tsv-stahl-riesa.de>
 
-smcr_lgr_reg_rmbs() skips the MR registration (its fast path) when the
-RMB is registered on every active link, but the check reads is_reg_mr[]
-at the index of the connection's link for each link it walks. An RMB
-that sits unused in the pool when a link is added is not registered on
-that link. A later connection on the older link that reuses it takes
-the fast path, never registers it on the newer link, and its
-CONFIRM_RKEY still gives the peer an rkey for that link. After a
-failover to the newer link, the peer's RDMA writes into the RMB fail
-with a remote access error, that link goes down too and, with no other
-link left, the link group is terminated.
+A P2P device vif has no netdev, but wl12xx_init_vif_data() makes it
+BSS_TYPE_STA_BSS, so wl12xx_for_each_wlvif_sta() in
+wlcore_event_rssi_trigger() visits it as well. Its rssi_thold and
+last_rssi_event stay 0, and 0 is NL80211_CQM_RSSI_THRESHOLD_EVENT_LOW.
+A metric above 0 therefore looks like a change to HIGH, and
+ieee80211_cqm_rssi_notify() ends in cfg80211_cqm_rssi_notify(), which
+dereferences the NULL sdata->dev:
 
-Read is_reg_mr[] at each active link's own index, so the fast path is
-taken only when the RMB is registered on all of them.
+  Internal error: Oops: 5 [#1] SMP ARM
+  PC is at cfg80211_cqm_rssi_notify+0x18/0x108
+  LR is at wlcore_event_rssi_trigger+0x84/0xa0 [wlcore]
+  Call trace:
+   cfg80211_cqm_rssi_notify from wlcore_event_rssi_trigger
+   wlcore_event_rssi_trigger from wl18xx_process_mailbox_events
+   wl18xx_process_mailbox_events from wl1271_event_handle
+   wl1271_event_handle from wlcore_irq_locked
+   wlcore_irq_locked from wlcore_irq
+   wlcore_irq from irq_thread_fn
 
-Fixes: 4da687448de7 ("net/smc: reduce unnecessary blocking in smcr_lgr_reg_rmbs()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+The oops kills the IRQ thread with wl->mutex held, so the driver does
+not recover: everything that takes the mutex hangs, and the interrupt
+is disabled as unhandled.
+
+A real RSSI trigger reports a negative value in dBm and does not take
+this path. Here, on a WL1801 (Tegra Note 7) with wpa_supplicant running,
+the metric was +54 because the event mailbox held firmware statistics
+instead of event data: reading the firmware statistics through debugfs
+once a second during an iperf3 upload overwrote the mailbox. That is a
+separate problem, but any bogus metric above 0 crashes the same way.
+
+Skip P2P device vifs. Connection quality monitoring does not apply to
+them, and wlcore_event_beacon_loss() also leaves them out, by their
+invalid role_id.
+
+Fixes: 7845af35e0de ("wlcore: add p2p device support")
+Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
 ---
-Repro on SMC-Rv2 with soft-RoCE (rxe) over two veth pairs between two
-namespaces. The link group starts with one link, and the second link
-comes up only after the first connection is closed and its RMBs are
-back in the pools. A second connection on the first link then takes
-those RMBs, and the server's rxe device for the first link is removed.
+Tested on a Tegra Note 7 (WL1801, firmware 8.9.0.0.83,
+wpa_supplicant with its P2P device) with v7.3 plus this patch; the
+patched files are the same in v7.3 and wireless-next. Load was a 600 s
+iperf3 upload at about 47 Mbit/s while the debugfs firmware statistics
+were read once a second:
 
-Unpatched, the client's first RDMA write over the second link completes
-with IB_WC_REM_ACCESS_ERR, the second link goes down and the link
-groups on both sides are terminated; the server reads EOF. Patched, the
-connection survives the failover and the data checks out in both
-directions. A connection that gets a new RMB survives the failover with
-and without the patch, and one placed on the second link that reuses
-the RMBs takes the slow path in both builds (read from debug counters
-added to smc.ko for the test). No KASAN splat in any run.
+- without the patch: oops as above after about 285 s of upload,
+  WLAN dead until reboot;
+- with the patch: 86 RSSI trigger events with bogus positive metrics,
+  no oops, upload ran to the end with 0 failed frames.
+
+Without the statistics reads the same upload produced no RSSI trigger
+event at all. I will send the fix for the overwritten event mailbox
+separately, once I have checked it on the device.
+
+I did not add Cc: stable, as I only know of the debugfs statistics as a
+way to get a positive metric here.
+
+Tool use (see Documentation/process/generated-content.rst): this patch,
+its changelog and this note were prepared with an LLM coding assistant
+(Claude Code). It found the cause from the oops registers and the
+driver source and wrote the change and the texts from my logs and
+instructions. I reviewed the change and ran the tests on the device.
 ---
- net/smc/af_smc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/wireless/ti/wlcore/event.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
-index bfc0c7e71a12..53ee0f4afc11 100644
---- a/net/smc/af_smc.c
-+++ b/net/smc/af_smc.c
-@@ -581,7 +581,7 @@ static int smcr_lgr_reg_rmbs(struct smc_link *link,
- 	for (i = 0; i < SMC_LINKS_PER_LGR_MAX; i++) {
- 		if (!smc_link_active(&lgr->lnk[i]))
- 			continue;
--		if (!rmb_desc->is_reg_mr[link->link_idx]) {
-+		if (!rmb_desc->is_reg_mr[lgr->lnk[i].link_idx]) {
- 			up_read(&lgr->llc_conf_mutex);
- 			goto slow_path;
- 		}
+diff --git a/drivers/net/wireless/ti/wlcore/event.c b/drivers/net/wireless/ti/wlcore/event.c
+index 6c3a8ea9613e..eb5db3c5ec27 100644
+--- a/drivers/net/wireless/ti/wlcore/event.c
++++ b/drivers/net/wireless/ti/wlcore/event.c
+@@ -117,6 +117,10 @@ void wlcore_event_rssi_trigger(struct wl1271 *wl, s8 *metric_arr)
+ 
+ 	/* TODO: check actual multi-role support */
+ 	wl12xx_for_each_wlvif_sta(wl, wlvif) {
++		/* A P2P device has no netdev to report the event on */
++		if (wlcore_is_p2p_mgmt(wlvif))
++			continue;
++
+ 		if (metric <= wlvif->rssi_thold)
+ 			event = NL80211_CQM_RSSI_THRESHOLD_EVENT_LOW;
+ 		else
 
 ---
-base-commit: ead6fa9a0ab194f02a2f36d634b193e9c5f9a1c6
-change-id: 20261113-b4-disp-08835f86-e769a35d475b
+base-commit: 5dbf2415ca9821a611d09308e3b29d2c37e7cd77
+change-id: 20261111-upstream-wlcore-p2p-rssi-8a99e629703d
 
 Best regards,
 --  
-Bryam Vargas <hexlabsecurity@proton.me>
+Patrick Fischer <admin@tsv-stahl-riesa.de>
 
 
