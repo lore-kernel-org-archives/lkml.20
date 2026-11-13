@@ -1,72 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794530143;
-	b=So8ZxnvnzSsbLMrDEMVb/dlL660yAia3JHaY3T2JXDebxwudjTYyeIGSIU8v+m2eXBlY
-	 QwLf4K2p56OGlkZL+q5uxLsv1d0hh+vl23aRGM6jQ6+kPV4YTkQyCbZgdasquB4FoU/Ul
-	 /+ao+vvqfKxxEnG7/hrDNPyvB+b7pwHmFZ1KhXHxsokwIyZpX+xcIWoIJa0KTYuHqfJ3O
-	 buwTISkpVXmTajzcPdyT7KYnUqDrepoC2XBYP3viSyAW1RMknUDA8pWw5lFwBSnFBbCZp
-	 RrixuMS0ZZ5QFMMI3kuAsV9B7dl3f9yC3Tjj2KWn2ewK7lxVkMHfnF0SjbyRRmdos+A==
+	t=1794530149;
+	b=lBmzbQb/6pJCz5ShupCiw1HJEKx9K6/4cI5MWUOhJI6/ZClxi27pKGN8UYdE7CeWI8mk
+	 k13bcdh/2PZr5/xa+S5f6TFfjF/Q6mEqy8G7wv8anININ18YpaDcMLU3KSpC+CnNmYbcU
+	 T2oBfjSgefE8GSFdUkJfzMbejfoJ8JLOHMO39A1AVp2VkKo74SR7nQQckAMDdRVOHMDIl
+	 oocTc9RAi1gMOOVhEyXFb4gxeR9Ccrj0VEichml/npqhrcDPulcYcnPtbw8ec4Dfxpthg
+	 7C6N8UtlMbmm9XnPIxE2OwkvNLnnCU57k2IcURLJeo3rEvAFwWPbdm4PNjrWMJ3CGrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794530143;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794530149;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=FXNL5WQI5c02nExDW7bQODazz59dETjZrgoxn+webag=;
-	b=KqV/FahI+2ljkloIW3GmssvJhsdPjJaayL0Z3R/n3JzGknGE8v7+Ox3OtYYxZxODqPxq
-	 BGvmnhTxH/bAFBdbn8+RDZruydfErfwqMO3Xy5/Vh5MfevYM9XIvH6jv3qg1u9RUZQImV
-	 rPJ2XiNc2uyDtFEcSxwjUFL6RxxBoLW5T03aR2eMGCEYmh3TV4NkIFN8sAOa7OEThDkgu
-	 AqQWfxUflU0yxw2pAVqZiGMzM8WU9tdKWCPacu6eSV9bqU1k6Jb5VjHBHNUBLcMy4EeVm
-	 3AHUbs1CRHiBqjLT5t2sQPpB+wqyt+gMpt/tmO19MmL/1zlFxavfoe4DsObRkilaEUw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=AMPSZX4RQOthblKsm/D6C9UAaIomRft8CK14da6DgqI=;
+	b=5tR/6qyucMU1BdRSAdTiGT1yXWRqd0vV9pnJV725kOjnsnMQSPqiSG9+z1Z1DP9aEA6F
+	 rmclnIwbqvYLA+vFaLMTc7sBSvfqoM/QUob3XRlJ915ELZdW7Qa43mDGt/vzNic4wVehg
+	 sNDayIMhvFvVQp5Z5ENjjv8qZv01gNy6f5uwXZvJz4KT7blR3DfJfNgkwf9Kk0uiPgUcb
+	 zGk8gHXLYzGrMfj40NKGnyCUuNdplCOVlOS/RHAIzlFyegAAZvRrARBys+AxHusTi4hm+
+	 81fIz8jiS3q+MmKFhJ0c4z8LXxO6BuDuF8OD6WknQ5kg8e2ZRS7la2PTS+fs9zwqx5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--sarthakkukreti.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=OrwtgJrv;
-	arc=none smtp.remote-ip=74.125.82.69
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TSJ2tztd;
+	arc=none smtp.remote-ip=74.125.82.199
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59779606A334
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:35:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59779606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B99E0606C253
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:35:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B99E0606C253
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sarthakkukreti.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=OrwtgJrv
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1b29df78132so125254c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:35:43 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TSJ2tztd
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-36a3451ea93so421602eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:35:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794530142; x=1795134942; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FXNL5WQI5c02nExDW7bQODazz59dETjZrgoxn+webag=;
-        b=OrwtgJrv0GSp75zK9qepCyORCRFMOaz0QBAwUAaVzAZA6CBYYqy8bb7W5v18PaBBKx
-         mnewPJjFrMNlMEGhJmBzcynp6qWFBTzp0lkRKDkvyuckZOGUu4diiSdPHnvX3Nw87Jt+
-         dt2FbRpEJfrIoAws88U2YU6hGLjaF2VDQ6DXAPeP/tczWy2Cm96bq7bOOwF0Gyu1EcC+
-         emIufjAOryps7LvSVbPJZvZ6x8o13iw4QiP0Ssp6sUmEQvb/XnGRAF4jATZdQHQO8b2w
-         as6l/bKML0hCH2l4bf39MbStNTFkZr5mNiulsnLWfCEWtpahwwDpKqJIRR6+t0VhAx2z
-         8g6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794530142; x=1795134942;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1794530148; x=1795134948; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FXNL5WQI5c02nExDW7bQODazz59dETjZrgoxn+webag=;
-        b=IxLwr2ItPkeptB9M0eWddjGZ1srRanW2E8wKOeced0riV1NmnkMTxYzutCyo/CIqJ+
-         9vIn2mF9ZSSlXWIqEK0e08rYe5Uz8EK7mD/Cn2kIJDIDDdaKYmTI2Qeymt4w+T7BrqjO
-         KOra68cxxtVsyVk/TXOQb2arLYuCkKitwETbA2xSzQLsuJVMVi6JZLO7FVYnmKmpivg7
-         gYRrEh71ePDNof9x/74de/6REWtJm7qT0EXAD40/Gln7BFpeJ67n8bV2S7mnQhnEyFr+
-         xxz0qZX0TfWnyp9jRKCcbBqre7RGFK6zmQYEuAhXRajrhKsqGpsw9mXYo2qzt2dYFOWu
-         aQOw==
-X-Forwarded-Encrypted: i=1; AL+hErFZbrvzinJwHBUQjBnRcIWHWA1w4GWDWonQAH+Rsx3Z1tG6Rhu1BAmjSjT9iicunO8Ill/fGiJFvI95L+0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9eoVzluoAK1l9offqZEIOqgR7NvPEKsMA71/82Tj8w44vdMOnz
-	GCCyv3W9gZIYP94U3LeV9GUUEZHGJmtvXZAjuFhVRrmS93lBWKacKJmzcVpl366BpYeENsr3t+g
-	EqdsmmQLJLlJduWnfs5Eay/OZj6P8HYQ56HQjFA==
-X-Received: from dloo10.prod.google.com ([2002:a05:7023:a4a:b0:163:a42e:b837])
+        bh=AMPSZX4RQOthblKsm/D6C9UAaIomRft8CK14da6DgqI=;
+        b=TSJ2tztd2DlsLnjU+jiCGBbzcvrErEUH5R1OBawcrL2udyDPd0d/bAB0cPJ3COtmvy
+         iW7YGYV+9ex9Toc5dAnY7RJKoyFAxmp82UItc4nXxYUGGOGy73uepTEIJIYj2FYhcEsg
+         25u2nGmjkyPJfmMVImfsUA3PQncrnroHfl4MZdWQAfxVY/boLGrzClg8JhJG8nBL+gEB
+         iEHjhDm1EHKb/tQfh3ENPJWZFKP+78UmJqe2c1rlfKxzTmlqw+qBQ4Tnm7PptXYqySsx
+         ac3jGA4KRUqw35qiMKGZ3e2ryvnCi8IlISDC5XFVJEio1JqYT6Lixbasz7uPPY3Mkagq
+         CoYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794530148; x=1795134948;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AMPSZX4RQOthblKsm/D6C9UAaIomRft8CK14da6DgqI=;
+        b=n1yI0U4ZFeHUZcSdRkVEcIfDq3/+TmO1dWW+NGJT3en0iMExnYcItExzReBCgNeB59
+         I4d+c4szuFzvzeW2u5OKkfhj0m9MLXpWlQI2gMM9VRU1a2TJbzpPmyxWtvqBHegrJA69
+         rATK848oR0gD17XUZzp3zXq7tYHD/AtFW+JBOxu++VGXrYHfgs1t7DHpci87rQAJNm8T
+         7WQcZgWtzCVx0WQ/S36AhNljgImpGoIdJJWnMAJ5EMDOlHeuqsIpmYEf/45gDiFrT/ah
+         Nq0Y0IQEoce7pQASmEZcelVlnzig6UuV22f0hjab88l78ER6yCSdLFFdDnTqwVQUbC9r
+         iTQQ==
+X-Forwarded-Encrypted: i=1; AL+hErHRL0iRZhbNJ6WcobBMISHoiGdJ/dyPqk502L0d6FcTPS+Hfjd+H/YRUL671Pw2GlM/8tnZSow+TwQ4vio=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/+teE6YkO1r+JIsa24CxukeUfSph3bVDLH8oM2HnpLKOycS3kK
+	qOkYFxXen/KdExHAeSu/GSdBPjX0pR5W6lrqehxueko2GhJe+nf8HJtxU6mWzDRFN4qLAVyM5AB
+	CpUdcPy9zFhjZSRmqhwSLB5FSIuQIVrl1UjiTbA==
+X-Received: from dybhh46.prod.google.com ([2002:a05:7301:292e:b0:376:93cf:d6ce])
  (user=sarthakkukreti job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7023:a41:b0:164:4e36:f956 with SMTP id a92af1059eb24-1b5030d494cmr970998c88.16.1794530142096;
- Thu, 12 Nov 2026 16:35:42 -0800 (PST)
-Date: Thu, 12 Nov 2026 16:35:33 -0800
+ 2002:a05:7301:fd89:b0:369:fe81:a575 with SMTP id 5a478bee46e88-37967ae86famr662615eec.35.1794530147486;
+ Thu, 12 Nov 2026 16:35:47 -0800 (PST)
+Date: Thu, 12 Nov 2026 16:35:35 -0800
+In-Reply-To: <20261113003536.3622755-1-sarthakkukreti@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,10 +79,10 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
+References: <20261113003536.3622755-1-sarthakkukreti@google.com>
 X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
-Message-ID: <20261113003536.3622755-1-sarthakkukreti@google.com>
-Subject: [PATCH 0/3] usb: uas / scsi: fail inflight and queued commands on
- dead links
+Message-ID: <20261113003536.3622755-3-sarthakkukreti@google.com>
+Subject: [PATCH 2/3] usb: uas: fail command submission on fatal USB errors
 From: Sarthak Kukreti <sarthakkukreti@google.com>
 To: Oliver Neukum <oneukum@suse.com>, Alan Stern <stern@rowland.harvard.edu>, 
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -89,42 +92,42 @@ Cc: linux-usb@vger.kernel.org, linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org, Sarthak Kukreti <sarthakkukreti@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Unplugging a UAS device during system suspend after hub_wq is frozen
-defers usb_disconnect() until hub_wq thaws. When sd_suspend_system()
-issues SYNCHRONIZE_CACHE to the disconnected target:
+uas_queuecommand_lck() only treats -ENODEV from uas_submit_urbs() as a
+fatal submission error. When a link drops or an endpoint is disabled
+while hub_wq is frozen, usb_submit_urb() can also fail with -ESHUTDOWN,
+-ENOENT, or -EHOSTUNREACH, causing uas_queuecommand_lck() to return
+SCSI_MLQUEUE_DEVICE_BUSY or queue retry work. In addition, if status URB
+submission succeeds before command URB submission fails with no inflight
+URBs, calling scsi_done() directly leaks the unsubmitted cmd_urb.
 
-1. If the HCD accepts the URBs, the status URB fails in uas_stat_cmplt()
-   without completing inflight commands, stranding SYNCHRONIZE_CACHE for
-   the 60s SCSI timeout and triggering the 25s DPM watchdog. Patch 1
-   completes inflight commands with DID_NO_CONNECT on non-unlink status
-   URB errors, unlinks inflight data URBs, and preserves non-DID_OK host
-   bytes in uas_data_cmplt().
-2. If usb_submit_urb() fails with -ESHUTDOWN, -ENOENT, or -EHOSTUNREACH,
-   uas_queuecommand_lck() requeues the command instead of failing it,
-   and leaks unsubmitted URBs if status URB submission succeeded first.
-   Patch 2 fails the command with DID_NO_CONNECT and frees unsubmitted
-   URBs.
-3. When the command completes with DID_NO_CONNECT,
-   scsi_check_passthrough() matches SCMD_FAILURE_RESULT_ANY and retries
-   it against the disconnected target. Patch 3 skips retries on
-   DID_NO_CONNECT, DID_BAD_TARGET, and DID_TRANSPORT_FAILFAST.
+Fail commands with DID_NO_CONNECT on -ESHUTDOWN, -ENOENT, and
+-EHOSTUNREACH in uas_queuecommand_lck(), and free unsubmitted URBs
+before calling scsi_done().
 
-Tested using a USB/IP (vhci_hcd) UAS target emulator that freezes
-hub_wq, injects -EPROTO on the status URB during inflight
-SYNCHRONIZE_CACHE and READ(10) commands, and verifies immediate
-DID_NO_CONNECT completion without retries or DPM watchdog timeouts,
-along with the scsi_lib KUnit test suite.
+Signed-off-by: Sarthak Kukreti <sarthakkukreti@google.com>
+---
+ drivers/usb/storage/uas.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Sarthak Kukreti (3):
-  usb: uas: complete inflight commands on status URB error
-  usb: uas: fail command submission on fatal USB errors
-  scsi: core: do not retry passthrough requests on disconnected targets
-
- drivers/scsi/scsi_lib.c      |  5 ++++
- drivers/scsi/scsi_lib_test.c |  9 ++++++-
- drivers/usb/storage/uas.c    | 51 +++++++++++++++++++++++++++++++++---
- 3 files changed, 60 insertions(+), 5 deletions(-)
-
+diff --git a/drivers/usb/storage/uas.c b/drivers/usb/storage/uas.c
+index 5aa369087295..6b573de89162 100644
+--- a/drivers/usb/storage/uas.c
++++ b/drivers/usb/storage/uas.c
+@@ -743,11 +743,13 @@ static enum scsi_qc_status uas_queuecommand_lck(struct scsi_cmnd *cmnd)
+ 	 * a command that has finished is a success for the purpose
+ 	 * of queueing, no matter how fatal the error
+ 	 */
+-	if (err == -ENODEV) {
++	if (err == -ENODEV || err == -ESHUTDOWN || err == -ENOENT ||
++	    err == -EHOSTUNREACH) {
+ 		if (cmdinfo->state & (COMMAND_INFLIGHT | DATA_IN_URB_INFLIGHT |
+ 				DATA_OUT_URB_INFLIGHT))
+ 			goto out;
+ 
++		uas_free_unsubmitted_urbs(cmnd);
+ 		set_host_byte(cmnd, DID_NO_CONNECT);
+ 		scsi_done(cmnd);
+ 		goto zombie;
 -- 
 2.56.0.611.g1030f0b940-goog
 
