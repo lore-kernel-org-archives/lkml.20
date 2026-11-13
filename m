@@ -1,61 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794585380;
-	b=vsqFDlr/vfxjFBFHHC+PHoYsdHJuCftTXmo7qoEiaUq5swkJKNDLAMIHB1/0KwAgQrRm
-	 kYBb58np3BcGSq5u8ft8ra+PyleThFlxU0S58eDlNYibOdTEaoj6s+Ox5xTx2YiN7Dyy3
-	 ctI16hVEm4vZgxpDShyd95iAkZikDiGQdgurpk4MJw1b9lEphxcC00p/eyZJR3subAiMF
-	 jj5nPi/nUE3T1qkCAq0SZcQJJ29kAgf3PdqyXfSDKnPxZi2+RPr/Us/G1AJDEcjfCPGVr
-	 nxY/E9R1pAh31PnhSblkAEHhRdM93fOKjoeKZFuEQQS/2Jm6jz58EOVAPdssmJq+JQg==
+	t=1794585386;
+	b=hU2b321DEeUAx4uApiKoelEEJs90CG2S48H83kJmUEmddLTU3irJCP1jxvCeVQSncqyu
+	 RgkuV5VOl2T0zQ/W0PO5GyIa2JE/k3J+0GzUan4b0WcNIubq9ySwUni4u3BjxOGcnIRSy
+	 9KU7RO7jtwQSQmzQBqbhgdiaVppZSkzIBpUTiJjCMbloFd9O9r/FuBdAMGVt6Wzh//jZQ
+	 rub9JzGd0iN+gZhINw7RdhizGMS/Iv89L+Ss6garCSKjOldXqvitnTD+kpMVzXosXg8go
+	 bQzmcXkXSjOCsk1uMnu5ClhLf4MIzvwueJX0IzI8dWS9L7vSb2MFI7YBV38Ez+IwyDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794585380;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=s5iAmd9keKHbPkTvN1jZmn2G9L4EyhMScdGm+wCTAPo=;
-	b=lAa2x21H9vwLE4HqHtmuQhVfsxVW37WYCY3ikE6SL8LdhjIC33SblVz4h0Q7sVRBWgbw
-	 QluiSL3ZCDQKJhSXYHYXD+UwC/iJDdqTXw0i628lWg85jxlAX1y8bdNHLSrKlBs7qkP+M
-	 sxuvikr3BpspyiAeEp/qh9Ps3lcKNx9tt1ZMBQOok/jXvkkmo+/EqQTo9ba3dZGSiVKpt
-	 450L8KNb4BZbFwogrwDi/CI9tkb+R2WYcUriuS7QcmrquBXyImkHc1YlfeL5v+1MB2qn7
-	 EfGjtZjDrDcMQBeoXujUd90u2jiqRlKQyEUt5vXvE1Ruer/Ow6F8Yt6L0AFR3WWtKZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794585386;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=UR5NKQoeFT6sICeEPgXoVm9crXtLsbkg/Ukyb4XiFJE=;
+	b=38t7eUn9hMTLgb/4tN+oMfiAmhxV4++7P9vGLEbEbl3jGASvzYiBsZk0dRNNhxVGkBTY
+	 UfSkRUMjKzaE9GWzAjWFEajS8RCkf42lupCLAmbMRjKQdHpgNaxeMt4tB0mhpUCmAZlKQ
+	 A0eCrkoZCAvkVTsQNkb1CTihHwFteKrwhfvpi8hDqs0Jt9M6mn1CGMIJwgXHBwVUiMcmr
+	 8w61pzwTVA5cpcSXGVtx430bUY+UKXVWaxX/DZjltgN7b+VwSY3E5bJNBwGZN1w6U/3wr
+	 eUG9cYWEzqWafuxghhyDX2aoA6yTCLge5laJ3STrqj6y9VtoTzUS57OOrJdMgFITLqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=S9BEhMuY;
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E5311606D458;
-	Fri, 13 Nov 2026 15:56:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5311606D458
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=sS0AkHdY;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="3DvRj/ML";
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75F13607020E;
+	Fri, 13 Nov 2026 15:56:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75F13607020E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=S9BEhMuY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=s5iAmd9keKHbPkTvN1jZmn2G9L4EyhMScd
-	Gm+wCTAPo=; b=S9BEhMuYjfi2Gj7iBsCKhbXC6VhaI1YGU4qAemlqfRb/r3i5Yh
-	TKFwqPWGqhna1gdexFbKgyDASFKOjSS+RPHNFKxGWkCtOI41tvBnqM4cv+lyaLr2
-	RWXjNRA0syFODEIetoi4dxdxdnyOLH4c8IZWPUPw3kqZAZheL5D8hcPcc=
-Received: from xuqianhui.ustc.edu.cn (unknown [114.214.188.15])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgC3KS4WM_dqbQ66AA--.937S4;
-	Fri, 13 Nov 2026 23:56:11 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org
-Cc: devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Bjorn Andersson <andersson@kernel.org>
-Subject: [PATCH 2/3] drm/msm/mdss: reset all block resets described in DT
-Date: Fri, 13 Nov 2026 23:56:05 +0800
-Message-ID: <20261113155606.1677313-3-xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261113155606.1677313-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261113155606.1677313-1-xiaqinghuan@mail.ustc.edu.cn>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=sS0AkHdY;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=3DvRj/ML
+Date: Fri, 13 Nov 2026 16:56:22 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794585383;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UR5NKQoeFT6sICeEPgXoVm9crXtLsbkg/Ukyb4XiFJE=;
+	b=sS0AkHdYZycdN5XkWVIlXXA2IjtytjJn/XeK0keQ1Rg97y3mAfyUkEjmJZsCXZD/OeXU42
+	gebPYCSM5N/G9URBr22jotyalZPssf5WL2BBFyzlV91d/JsLn7EpsqtL+2Lf+P++9IwuEd
+	XFNnx8Mzy3g5ACSptXCFIJZt+vHFL5c3fuyp8w3+ZIELrGel/v1sTVZ1u7YPw7F6NiUQWA
+	VaYHeS/2MeY/qextmo6o+nWoD/amUFmD2HCMtdUc3CIb1+aimMXKJOklbsk4G+4GBYsO2R
+	6ZMBsQUwGzC9T1duBELx0Ya1N1uPGfO2w7NzhF6j5QqjKzLew1IZalNGuWOoLQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794585383;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UR5NKQoeFT6sICeEPgXoVm9crXtLsbkg/Ukyb4XiFJE=;
+	b=3DvRj/MLGzU7S1HBBgtv/fACjzXVxy4sWm6/3g5RzF3nip4ChipKN3sJ3iiwmWqaHgJF4U
+	CSJLQ6ipEaIarcDw==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Joel Fernandes <joelagnelf@nvidia.com>
+Cc: paulmck@kernel.org, rcu@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>, Davidlohr Bueso <dave@stgolabs.net>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH RFC 2/7] rcutorture: Stop disabling RT throttling for
+ boost testing
+Message-ID: <20261113155622.3SM4n6rp@linutronix.de>
+References: <20261111213826.2035045-1-joelagnelf@nvidia.com>
+ <20261111213826.2035045-3-joelagnelf@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,65 +84,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgC3KS4WM_dqbQ66AA--.937S4
-X-Coremail-Antispam: 1UD129KBjvJXoW7tr47Aw15KFWrKF1rCw1UGFg_yoW8Xr1rpr
-	ZxJa90yr4j93WfXa1UJ3W8ur1fAayfta48G39Fv34fC343J345Gry5Ka45t3yUJF97Zry5
-	tFs3KFyrZF1qyrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBSb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUXwA2048vs2IY020Ec7CjxVAFwI0_Gr0_Xr1l8cAvFVAK0II2c7xJM28CjxkF
-	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcV
-	CY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIE
-	c7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I
-	8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCF
-	s4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUAVWUtwCF04k20x
-	vY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I
-	3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIx
-	AIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAI
-	cVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2js
-	IEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjxU4NVyUUUUU
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261111213826.2035045-3-joelagnelf@nvidia.com>
 
-msm_mdss_reset() acquires only the first reset listed in the MDSS
-device node.  Platforms can describe more than one MDSS block reset: the
-SM8750 display clock controller also provides a reset for the MDSS core
-INT2 interrupt controller, which is left out of reset when the
-bootloader hands over with the display block still running.
+On 2026-11-11 16:38:20 [-0500], Joel Fernandes wrote:
+> The CPU-hungry-reader boost test depends on RT throttling to bound the
+> CPU time an unboosted reader can obtain, so there is no longer any
+> reason to disable it.  Remove the code that does so, along with the
+> now-unneeded sched/sysctl.h include.
 
-Switch to the reset control array API so that every reset listed in the
-device node is asserted and released as one group.  Devices without a
-reset in DT are unaffected, and for devices describing a single reset
-the assert/deassert sequence is unchanged.
+Can I talk you into replacing this with
+  20261113-sched_dl-v3-3-a76ffa1cdeee@linutronix.de ?
 
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
----
- drivers/gpu/drm/msm/msm_mdss.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+It removes an additional declaration in RCU's header file plus (the more
+important part) it explains that it is not doing anything rather than
+saying it is no longer needed due to the rework.
 
-diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-index 9087c4b290..84b8b4bc9b 100644
---- a/drivers/gpu/drm/msm/msm_mdss.c
-+++ b/drivers/gpu/drm/msm/msm_mdss.c
-@@ -310,7 +310,8 @@ static int msm_mdss_reset(struct device *dev)
- {
- 	struct reset_control *reset;
- 
--	reset = reset_control_get_optional_exclusive(dev, NULL);
-+	reset = devm_reset_control_array_get(dev,
-+					     RESET_CONTROL_OPTIONAL_EXCLUSIVE);
- 	if (!reset) {
- 		/* Optional reset not specified */
- 		return 0;
-@@ -327,8 +328,6 @@ static int msm_mdss_reset(struct device *dev)
- 	msleep(20);
- 	reset_control_deassert(reset);
- 
--	reset_control_put(reset);
--
- 	return 0;
- }
- 
--- 
-2.53.0
+> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
 
+Sebastian
