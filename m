@@ -1,66 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794529660;
-	b=mnvN932OpIiMGYc2NRD0YG9EmO2H9y2nnM73yK5rhHT4iWgU+AQ3LgCoZRyFFBThvSAH
-	 nC8tYue4HeTZfJPxrzSj1TBw5irXNJE55WB6/e2suREvTFUSBiF/EGFgqsiZzrr4Hced2
-	 lKe7fdXCFmYcvAQCvhUuG9ZHStcyeVKb7YbPb9T+D2uCjNAuyQH595S0b/EcHolRi2VoJ
-	 cYrYHfNh0xOlOwyMBN9Zdof/7WV3Pi2z+7pjaGkwR75nFTUZg8SZp809KsG4Vb5w9ODUx
-	 LeVfSPd2INs/0SFVOBpx46g+vsn56CtYpMk3igLEB0tvfYFcZwIHTSHhMhm0KC6wtxQ==
+	t=1794529743;
+	b=3v1Z5HypA1FHvcXqEVRLO8g4ohqB3zMCUwNfzSTQKViUHvlRfRGui3qdEHLTAmxGuByQ
+	 eAXMs/FcUCvv9QOprL0Fm3F21Rsd4xecBMzWQlnhSFhESW2zU0VPIWGu9wG3L6YVWCIlK
+	 0wYbw0EE/zVOcTmqNH8puea6Ec8iDhg1BHnxQz1Eq3MXCRasUUqzXcGfVLy26+KptTi6H
+	 8E72gH+nHVViSbEqZqNIfEEDOq9LWM58YNik/wbUIosI+mPWbLuSJDQROLgNiuAvdssYq
+	 TFhQSVv3IpToqvfBwEy8I5xvuYbELl8cn09gRi6ImwlMVFtSDsD9uv//G+V4XQtCh5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794529660;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794529743;
+	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
+	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=J4uyCKwoU2ZUCtJEnB2UmwB5w4/Naib62nyhZDy72sc=;
-	b=aR0kWvppmXgd13VPLcv5mz3/mxbXRgQdKz1kV/X2qJxCLHj0/wTU2eXafhDlOON02dLV
-	 J+5p6EeE+ECrz5h7sfKU81823ZQCz8q4PDEqSR5jc7IapicIYNCDeqFNXT0WEHF56vLgP
-	 VzZlQhL1HdpykwstJoYCdRfX6O2uCpoWph1xItYd/zSOSGHMDYuice/zdOg734MGSNhIO
-	 xiXkkUR119cqG9ZM/gcC/ANGDlVmkC+Nn9BCBHHUXG60mYGfJciaWK6IMsCKU8XXffhom
-	 Hhfvop8gefStTVFeMPFO9fAPhWcLXcz7hQaO0XttP47eeUb1HsXHUsyqmNGVoCxCxgw==
+	bh=tDYCaFaIA1X5WG+Ksgun0vJszutqpxqtdf31XJbwObY=;
+	b=K958zSKpt5L+sSdOkSP0VfFxm95N4XwKiQG7PBwnORJCuaMMtLZJ5O0mWyX0P0veyJbo
+	 GfsNL4Dgt1W018Lap2TjmEAvvx+9Ius0dVDrIESkOIXKUuCUls5Qo4C3gF8WfgkyLdque
+	 PBlgMAX90fEiPK6s/6tNGHSRLtZe0m96xM6KDt/iSC7h99med7G5DxS21AClkzkXfKSyZ
+	 n8TKlVGaAFscrqL4mVk8M60R3HYrAjyx2uisZEwI5FzoNHBmPsNfFZweWp0h6wn2Gc5cp
+	 0sFdP7iMihrl18/sPpB/5QGZ2a1x6koWnGf9LHYpi4LM+LVIP6HPjJ2OAtJ+mKPrj/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=EKlCtyFR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD82606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:27:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=EKlCtyFR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3FF91F000C4;
-	Fri, 13 Nov 2026 00:27:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794529659;
-	bh=J4uyCKwoU2ZUCtJEnB2UmwB5w4/Naib62nyhZDy72sc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=EKlCtyFR0G3LjMnWtYrdKkTgBAehi0VR4yOuK+2aRnoodEo+e1zmWIfkZTHLjYB1P
-	 pMSxyfyQ0J0Ri07DLyGs/JZxFILKGtIY+BkEeQRW7wJpPeGqeemXoa8tbeg0Wce32L
-	 dyK4nVN/Bzh+LcPW6JZ9e5fRVWKngprMwyRK+Xp0=
-Date: Thu, 12 Nov 2026 16:27:38 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Mika =?ISO-8859-1?Q?Penttil=E4?= <mpenttil@redhat.com>
-Cc: Jason Gunthorpe <jgg@nvidia.com>, Alexandru Elisei
- <alexandru.elisei@arm.com>, linux-mm@kvack.org,
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, David Hildenbrand <david@kernel.org>, Leon
- Romanovsky <leonro@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Balbir Singh <balbirs@nvidia.com>, Zi Yan <ziy@nvidia.com>, Matthew Brost
- <matthew.brost@intel.com>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@suse.cz>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Lyude Paul <lyude@redhat.com>, Danilo
- Krummrich <dakr@kernel.org>
-Subject: Re: [PATCH v17 00/12] migrate on fault for device pages
-Message-Id: <20261112162738.d689b46268e077ac06f41d91@linux-foundation.org>
-In-Reply-To: <ec4431f1-e70d-477c-b09a-eedc35d97691@redhat.com>
-References: <20261103061629.972669-1-mpenttil@redhat.com>
-	<avWpWBl1nPcRVmpQ@raptor>
-	<79f33ab0-2e43-4efb-94d0-addaf40745ec@redhat.com>
-	<avXoJSGh5xjGFgod@raptor>
-	<20261112164752.GA3692174@nvidia.com>
-	<ec4431f1-e70d-477c-b09a-eedc35d97691@redhat.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD2EE606A31C;
+	Fri, 13 Nov 2026 00:29:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD2EE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 35eb3a38def911f19a56ed5b684f684d-20261113
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:f0064d7f-9abe-4c49-b82c-3d1bdab481d5,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+	ON:release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:a7178148341c9e4ed1c21d6f19ea3710,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|102|850|865|898,TC:nil,Content:0|15|50|99,ED
+	M:5,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
+	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 35eb3a38def911f19a56ed5b684f684d-20261113
+X-User: wangyibo@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <wangyibo@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 847965463; Fri, 13 Nov 2026 08:28:55 +0800
+From: Wang Yibo <wangyibo@kylinos.cn>
+To: Carlos Maiolino <cem@kernel.org>
+Cc: linux-xfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	"Darrick J . Wong" <djwong@kernel.org>,
+	kernel test robot <lkp@intel.com>
+Subject: [PATCH v2] xfs: convert the dahash test to KUnit
+Date: Fri, 13 Nov 2026 08:28:53 +0800
+Message-Id: <20261113002853.8-1-wangyibo@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261112041631.2792545-1-wangyibo@kylinos.cn>
+References: <20261112041631.2792545-1-wangyibo@kylinos.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,69 +70,247 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu, 12 Nov 2026 19:01:58 +0200 Mika Penttil=E4 <mpenttil@redhat.com> wr=
-ote:
+xfs_dahash_test() runs from init_xfs_fs() and only counts mismatches: a
+failure prints a single total, which says nothing about which test
+vector or which of the two hash functions was wrong, and the test can
+only be exercised by building XFS into the kernel and watching the
+console at boot.
 
->=20
-> On 11/12/26 18:47, Jason Gunthorpe wrote:
-> > On Thu, Nov 12, 2026 at 04:24:05PM +0000, Alexandru Elisei wrote:
-> >> Hi Mika,
-> >>
-> >> On Thu, Nov 12, 2026 at 04:00:09PM +0200, Mika Penttil=E4 wrote:
-> >>> Hi Alexandru!
-> >>>
-> >>> On 11/12/26 13:56, Alexandru Elisei wrote:
-> >>>> Hi Mika,
-> >>>>
-> >>>> I want to help getting this series merged, and I've been familiarizi=
-ng myself
-> >>>> with hmm and device migration, please bare with me if the questions =
-I'm asking
-> >>>> are obvious or downright silly.
-> >>> Thanks for the interest and willing to help! I am preparing a v18 of =
-the
-> >>> series and plan to post it early next week.
-> >> The series is big, and as far as I can tell the MM people are hard at =
-work
-> >> reviewing bug fixes. It might be better to wait a while, to give peopl=
-e a
-> >> chance to have a look? I know that if I see a series being reposted of=
-ten,
-> >> I am less inclined to review the patches since probably a new iteration
-> >> will be posted soon. But I can only speak for myself, you know best.
-> > It is at v17 and it is still getting high severity sashiko errors
-> v14 was first that sashiko managed to review. There was a regression in
-> last posting, but also false potsitives, and sashiko reports same issue
-> then 3-4 times, so the reality is not that bad.=A0
+Report the vectors through KUnit instead.  Split them into one case per
+hash function so that a failure names both the function and the vector
+index, and KUnit prints the expected and actual values next to it.  The
+results then come out in TAP format, so the suite can be run with
+kunit.py or under QEMU without rebooting the machine, and every case is
+reported on its own.
 
-Pining for the days when all we had to deal with was checkpatch. =20
+Put the test behind CONFIG_XFS_DAHASH_KUNIT_TEST so that it is no
+longer built into every kernel, and drop the now unused header.  The
+vector table and test_buf can no longer live in __initdata, because
+KUnit keeps the data around for the lifetime of the suite; mark them
+const since nothing writes to them.
 
+The test object is linked into xfs.o, so a built-in XFS cannot use the
+KUnit helpers when those live in a module.  Only offer the option when
+KUnit is built in, or when XFS is a module and can depend on it.
 
-Mika, afaict the entire patchset is a performance optimization, yet you
-say "I don't have a benchmark showing a gain".
+No change to the hash functions themselves.
 
-Recipients look at patchsets wondering "why should I spend time on
-this", especially in these times.  It's best to answer this question
-right there in the first sentence of the [0/N].  That means numbers,
-and the better they are, the more attention the patchset will get.
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202611130302.dGXAb4Py-lkp@intel.com/
+Signed-off-by: Wang Yibo <wangyibo@kylinos.cn>
+---
+v2: Only offer the option when KUnit is built in, or when XFS is a
+    module and can depend on it: the test object is part of xfs.o, and a
+    built-in XFS cannot use KUnit helpers that live in a module.
+    Reported by the kernel test robot on i386-randconfig-1012-20261112.
 
->  Documentation/mm/hmm.rst               |   45 +
->  drivers/gpu/drm/nouveau/nouveau_dmem.c |  402 ++++++++-
->  drivers/gpu/drm/nouveau/nouveau_dmem.h |   12 +
->  drivers/gpu/drm/nouveau/nouveau_svm.c  |  155 ++--
->  drivers/gpu/drm/nouveau/nouveau_svm.h  |    5 +
->  include/linux/hmm.h                    |   51 +-
->  include/linux/migrate.h                |   59 +-
->  lib/test_hmm.c                         |  174 +++-
->  lib/test_hmm_uapi.h                    |   21 +-
->  mm/Kconfig                             |    1 +
->  mm/hmm.c                               | 1075 ++++++++++++++++++++++--
->  mm/migrate_device.c                    |  618 +++-----------
->  tools/testing/selftests/mm/hmm-tests.c |   56 ++
->  13 files changed, 1984 insertions(+), 690 deletions(-)
+ fs/xfs/Kconfig           | 17 +++++++++++
+ fs/xfs/Makefile          |  2 +-
+ fs/xfs/xfs_dahash_test.c | 64 ++++++++++++++++++++++++----------------
+ fs/xfs/xfs_dahash_test.h | 12 --------
+ fs/xfs/xfs_super.c       |  5 ----
+ 5 files changed, 57 insertions(+), 43 deletions(-)
+ delete mode 100644 fs/xfs/xfs_dahash_test.h
 
-also, yikes!
+diff --git a/fs/xfs/Kconfig b/fs/xfs/Kconfig
+index b99da294e9a3..89fdbd8273f0 100644
+--- a/fs/xfs/Kconfig
++++ b/fs/xfs/Kconfig
+@@ -241,3 +241,20 @@ config XFS_ASSERT_FATAL
+ 	  result in warnings.
+ 
+ 	  This behavior can be modified at runtime via sysfs.
++
++# xfs_dahash_test.o is linked into xfs.o, so it cannot use the KUnit helpers as
++# an undefined symbol when XFS is built in and KUnit is a module.
++config XFS_DAHASH_KUNIT_TEST
++	bool "KUnit tests for XFS dir/attr name hashes" if !KUNIT_ALL_TESTS
++	depends on XFS_FS && KUNIT
++	depends on KUNIT=y || XFS_FS=m
++	default KUNIT_ALL_TESTS
++	help
++	  This builds the XFS directory and attribute name hash KUnit test.
++
++	  KUnit tests run during boot (or module load) and output the results
++	  to the debug log in TAP format (https://testanything.org/).  Only
++	  useful for kernel devs running the KUnit test harness and are not
++	  for inclusion into a production build.
++
++	  If unsure, say N.
+diff --git a/fs/xfs/Makefile b/fs/xfs/Makefile
+index 399a207f2d0e..c95a57c5ca98 100644
+--- a/fs/xfs/Makefile
++++ b/fs/xfs/Makefile
+@@ -74,7 +74,6 @@ xfs-y				+= xfs_aops.o \
+ 				   xfs_bmap_util.o \
+ 				   xfs_bio_io.o \
+ 				   xfs_buf.o \
+-				   xfs_dahash_test.o \
+ 				   xfs_dir2_readdir.o \
+ 				   xfs_discard.o \
+ 				   xfs_error.o \
+@@ -160,6 +159,7 @@ xfs-$(CONFIG_XFS_DRAIN_INTENTS)	+= xfs_drain.o
+ xfs-$(CONFIG_XFS_LIVE_HOOKS)	+= xfs_hooks.o
+ xfs-$(CONFIG_XFS_MEMORY_BUFS)	+= xfs_buf_mem.o
+ xfs-$(CONFIG_XFS_BTREE_IN_MEM)	+= libxfs/xfs_btree_mem.o
++xfs-$(CONFIG_XFS_DAHASH_KUNIT_TEST)	+= xfs_dahash_test.o
+ 
+ # online scrub/repair
+ ifeq ($(CONFIG_XFS_ONLINE_SCRUB),y)
+diff --git a/fs/xfs/xfs_dahash_test.c b/fs/xfs/xfs_dahash_test.c
+index f1ee2643b948..4c7d7e12f1ba 100644
+--- a/fs/xfs/xfs_dahash_test.c
++++ b/fs/xfs/xfs_dahash_test.c
+@@ -1,8 +1,11 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+ /*
++ * KUnit tests for XFS dir/attr name hash functions.
++ *
+  * Copyright (C) 2023 Oracle.  All Rights Reserved.
+  * Author: Darrick J. Wong <djwong@kernel.org>
+  */
++#include <kunit/test.h>
+ #include "xfs_platform.h"
+ #include "xfs_fs.h"
+ #include "xfs_shared.h"
+@@ -12,10 +15,9 @@
+ #include "xfs_trans_resv.h"
+ #include "xfs_mount.h"
+ #include "xfs_dir2_priv.h"
+-#include "xfs_dahash_test.h"
+ 
+ /* 4096 random bytes */
+-static uint8_t __initdata __attribute__((__aligned__(8))) test_buf[] =
++static const uint8_t test_buf[] __aligned(8) =
+ {
+ 	0x5b, 0x85, 0x21, 0xcb, 0x09, 0x68, 0x7d, 0x30,
+ 	0xc7, 0x69, 0xd7, 0x30, 0x92, 0xde, 0x59, 0xe4,
+@@ -532,12 +534,12 @@ static uint8_t __initdata __attribute__((__aligned__(8))) test_buf[] =
+ };
+ 
+ /* 100 test cases */
+-static struct dahash_test {
++static const struct dahash_test {
+ 	uint16_t	start;	/* random 12 bit offset in buf */
+ 	uint16_t	length;	/* random 8 bit length of test */
+ 	xfs_dahash_t	dahash;	/* expected dahash result */
+ 	xfs_dahash_t	ascii_ci_dahash; /* expected ascii-ci dahash result */
+-} test[] __initdata =
++} dahash_test_vecs[] =
+ {
+ 	{0x0567, 0x0097, 0x96951389, 0xc153aa0d},
+ 	{0x0869, 0x0055, 0x6455ab4f, 0xd07f69bf},
+@@ -641,33 +643,45 @@ static struct dahash_test {
+ 	{0x05b5, 0x00da, 0x8e52f0e2, 0x98531012},
+ };
+ 
+-int __init
+-xfs_dahash_test(void)
++static void xfs_da_hashname_case(struct kunit *test)
+ {
+ 	unsigned int	i;
+-	unsigned int	errors = 0;
+ 
+-	for (i = 0; i < ARRAY_SIZE(test); i++) {
+-		struct xfs_name	xname = { };
+-		xfs_dahash_t	hash;
++	for (i = 0; i < ARRAY_SIZE(dahash_test_vecs); i++) {
++		const struct dahash_test	*tv = &dahash_test_vecs[i];
++		xfs_dahash_t			hash;
+ 
+-		hash = xfs_da_hashname(test_buf + test[i].start,
+-				test[i].length);
+-		if (hash != test[i].dahash)
+-			errors++;
++		hash = xfs_da_hashname(test_buf + tv->start, tv->length);
++		KUNIT_EXPECT_EQ_MSG(test, hash, tv->dahash, "case %u", i);
++	}
++}
++
++static void xfs_ascii_ci_hashname_case(struct kunit *test)
++{
++	unsigned int	i;
++
++	for (i = 0; i < ARRAY_SIZE(dahash_test_vecs); i++) {
++		const struct dahash_test	*tv = &dahash_test_vecs[i];
++		struct xfs_name			xname = { };
++		xfs_dahash_t			hash;
+ 
+-		xname.name = test_buf + test[i].start;
+-		xname.len = test[i].length;
++		xname.name = test_buf + tv->start;
++		xname.len = tv->length;
+ 		hash = xfs_ascii_ci_hashname(&xname);
+-		if (hash != test[i].ascii_ci_dahash)
+-			errors++;
++		KUNIT_EXPECT_EQ_MSG(test, hash, tv->ascii_ci_dahash,
++				    "case %u", i);
+ 	}
++}
+ 
+-	if (errors) {
+-		printk(KERN_ERR "xfs dir/attr hash test failed %u times!",
+-				errors);
+-		return -ERANGE;
+-	}
++static struct kunit_case xfs_dahash_test_cases[] = {
++	KUNIT_CASE(xfs_da_hashname_case),
++	KUNIT_CASE(xfs_ascii_ci_hashname_case),
++	{}
++};
+ 
+-	return 0;
+-}
++static struct kunit_suite xfs_dahash_test_suite = {
++	.name = "xfs_dahash",
++	.test_cases = xfs_dahash_test_cases,
++};
++
++kunit_test_suites(&xfs_dahash_test_suite);
+diff --git a/fs/xfs/xfs_dahash_test.h b/fs/xfs/xfs_dahash_test.h
+deleted file mode 100644
+index 1a05bf4bd9e1..000000000000
+--- a/fs/xfs/xfs_dahash_test.h
++++ /dev/null
+@@ -1,12 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-or-later
+-/*
+- * Copyright (C) 2023 Oracle.  All Rights Reserved.
+- * Author: Darrick J. Wong <djwong@kernel.org>
+- */
+-#ifndef __XFS_DAHASH_TEST_H__
+-#define __XFS_DAHASH_TEST_H__
+-
+-int xfs_dahash_test(void);
+-
+-#endif /* __XFS_DAHASH_TEST_H__ */
+-
+diff --git a/fs/xfs/xfs_super.c b/fs/xfs/xfs_super.c
+index 5a06132aa384..75bc05801e4a 100644
+--- a/fs/xfs/xfs_super.c
++++ b/fs/xfs/xfs_super.c
+@@ -43,7 +43,6 @@
+ #include "xfs_error.h"
+ #include "xfs_errortag.h"
+ #include "xfs_iunlink_item.h"
+-#include "xfs_dahash_test.h"
+ #include "xfs_rtbitmap.h"
+ #include "xfs_exchmaps_item.h"
+ #include "xfs_parent.h"
+@@ -2647,10 +2646,6 @@ init_xfs_fs(void)
+ 
+ 	xfs_check_ondisk_structs();
+ 
+-	error = xfs_dahash_test();
+-	if (error)
+-		return error;
+-
+ 	printk(KERN_INFO XFS_VERSION_STRING " with "
+ 			 XFS_BUILD_OPTIONS " enabled\n");
+ 
+-- 
+2.25.1
+
