@@ -1,107 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794567319;
-	b=HMZWKhz1hFsOOn1d80xECJvyylAVE0nsKKVQO8kIaNFkEz2mQ1tIsmjZ4sibpFelbgyO
-	 6uW6xGYSYmFVgaL93ZlV5UdkFIKG5gBaO4WtPTzg43bsHLBzTIBX/X++SSeBkRkanZptV
-	 to0Owblewmf2m1vpR285wZOh24HToD2aIEmpHGHYyk8LhQwciLZ1XtY7phQRQQskZP/iw
-	 3UJhVVNpGk7Tqa3NIC3LZppCU4l0WqvQSVh2vLRf/ERT1X1nNeY8f2jQsA2ukgyt93yKa
-	 bndxrWL1kcRzOu2LhyOa10pnE/6RB5KFWIrZGF4O98QlkqR9tOTZVgD/RClpQ8W/InQ==
+	t=1794567325;
+	b=udQLGVkoNCcmqs4czpYT07sG6oHVjTU802XZh/V5SBTRLAF6bkOlAd+qrkK6N91jL5XH
+	 jMmzmA3kCXAYCZ8eRLftwqkup6VKHXPeQaNBXJDnm62Jb+mRJpgk3cqsrF9V51Eywvb2d
+	 MR1TJ8jF753TqXtWL8NshyWfbCbWbV4RU4L+GBFyBNV8zp/x2rr5k918qrfyZMNxpj7w+
+	 xCwzsJj0RGTrVOBlEivaXo/smhw74rW+r9BFlN75zkUreqri6JS/i5ljeC0Zr9OHfKicm
+	 CNOE2AvqfucPlBgQ37UsbvhXFXk7NevgVUoXpkkENt+ItPNUwqsZL8pzsY0wrDP6iZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794567319;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794567325;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
 	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=oBrh96JneCB85QRwSH0ue44D5aaTmYW0dbY0hlT+9E0=;
-	b=Gc6cTQ8s4+2TUCw39pWVDjvGhmRtJhrHoujg3SLhURKvLsb7lRio5us4kE0McFF7ZLT7
-	 wP/ZnEad5QnVkHTHHT6OF02sqNN1TMvHlWbm53DqPbfJLPG0uVlU4z2JlFCY5dtY/9hYk
-	 gnYJHn01PN8xXg0xIqB6ymoLZm2H9vNhS9R+dRy2EmBA+YR0HGp43FUJ4FqV2OnztL43i
-	 hRacdrYoki8os1c2FhPPbmOqRDkGiA1AeR3/GvncAiIUMjQdbEeEby6aumiuRwR3420NM
-	 I1jx3rg6qdpviyVidik3C66+isaDqeQOhmpFdPAGAIfGiriLpc9Bct4vkzqI3ZkQeIw==
+	 In-Reply-To;
+	bh=dVD2sgjeIdy2wIdfd/QmoCMe4rJiJI4y+gjhCqqw+84=;
+	b=AfR64Wy6Ov75nnR9tmEi22km366vH9hmxXJW5T/ZTy4KlyiRAgSgKXyzG+4bkRrEteYq
+	 vnL5Dm+wWXgNlFqZn0WfhYf56ITHAFvR30ceuDEDeizV5+It7g/cEWw1TBvAGCkUUJq0h
+	 A9Ka5rv+aTjfEsGVtiZKgJLLgh8OwVK3sfsulIQ+xPLc4fElM7aaN6H3dCMyH7tNWB4Yo
+	 0rn5ZR8/YLDPy7lyW5B8LI1tyWFLKNxOP9eN1/PAysFWwhe6QjcoSnl+ct7fEoBCBiikp
+	 /o94u2y9X/sP9TMOwG/bNaFUqeCdK7Xm0zVKggfXWBWmlicJbr7zGff64FfDpt2xHeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=umgMFbRV;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="TlBq/+CO";
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=umgMFbRV;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="TlBq/+CO";
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=PAZcnNUn;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="UF6Dopc/";
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1028F606BDAF;
-	Fri, 13 Nov 2026 10:55:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1028F606BDAF
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3535606BDA8;
+	Fri, 13 Nov 2026 10:55:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3535606BDA8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=umgMFbRV;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=TlBq/+CO;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=umgMFbRV;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=TlBq/+CO
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 0F3351F88E;
-	Fri, 13 Nov 2026 10:55:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794567317; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=PAZcnNUn;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=UF6Dopc/
+Date: Fri, 13 Nov 2026 11:55:21 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794567323;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=oBrh96JneCB85QRwSH0ue44D5aaTmYW0dbY0hlT+9E0=;
-	b=umgMFbRVOQPm7ehXwpvWXZpEFAs863cWC/2ZQwGrgu0F7Vcaar4nmsQ5kvPZk7l7K5rw/A
-	yRxIm/BZccK4dRlCtO565LhfAab2lGF0Y4kvjIQ66bDesY1sioh5A3u0Bd9Z5X5mUzTXMu
-	fDm/Ha4bbSr8PEme402AnjzFpzuBHB0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794567317;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+	bh=dVD2sgjeIdy2wIdfd/QmoCMe4rJiJI4y+gjhCqqw+84=;
+	b=PAZcnNUn9q2dQQtHfk6NotT8Q5KEWCdd6Ef64+esc8uiqJvLMtL3QctPC6ujTqe3Xn5kYN
+	YPtsqN1L0wIDpFlTHU9t2x6PY2X837x5kxuU7oW1QzCjfSXDj2UUXL/TIL5IWmmYCJ8DHK
+	+3r2aq2QhEiWWn90EQcwp0RKGR9RRM6GoT7+Zrv/p3PTzp7RxBq+6M1qc9NpbMG+ZJMmfL
+	u3DZX/Fqnz3gUs+OSJ8SHu93bGUbtfAXphCcgthxmQmAtXt1K8Y+E7AjI5Boswdg0Uqveo
+	AAv9/prh4ACCpLsZQHr7kWacKePQDEg2FamoOwUPIS8FyB1Hgfc93x1vbAZjJQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794567323;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=oBrh96JneCB85QRwSH0ue44D5aaTmYW0dbY0hlT+9E0=;
-	b=TlBq/+COzaMY0uiXRfDSQGdNPyu/YjLzQKM37Jd2LmZKy0L85wS+kQxNPWDodjKFJhXiOE
-	+XLddAk3tkl9C0Cw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794567317; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oBrh96JneCB85QRwSH0ue44D5aaTmYW0dbY0hlT+9E0=;
-	b=umgMFbRVOQPm7ehXwpvWXZpEFAs863cWC/2ZQwGrgu0F7Vcaar4nmsQ5kvPZk7l7K5rw/A
-	yRxIm/BZccK4dRlCtO565LhfAab2lGF0Y4kvjIQ66bDesY1sioh5A3u0Bd9Z5X5mUzTXMu
-	fDm/Ha4bbSr8PEme402AnjzFpzuBHB0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794567317;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oBrh96JneCB85QRwSH0ue44D5aaTmYW0dbY0hlT+9E0=;
-	b=TlBq/+COzaMY0uiXRfDSQGdNPyu/YjLzQKM37Jd2LmZKy0L85wS+kQxNPWDodjKFJhXiOE
-	+XLddAk3tkl9C0Cw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DA095134C3;
-	Fri, 13 Nov 2026 10:55:16 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id SbO5K5Ts9mpIHQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Fri, 13 Nov 2026 10:55:16 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id 67FD522C8E; Fri, 13 Nov 2026 11:55:08 +0100 (CET)
-Date: Fri, 13 Nov 2026 11:55:08 +0100
-From: Jan Kara <jack@suse.cz>
-To: Gopal Malaviya <gopalmalaviya53@gmail.com>
-Cc: akpm@linux-foundation.org, willy@infradead.org, jack@suse.cz, 
-	linux-mm@kvack.org, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	p.raghav@samsung.com
-Subject: Re: [PATCH] mm/readahead: don't skip the fallback after aligning
- index down
-Message-ID: <ks3uy5pvacectdtlbqnz2bmchocfw2atkx6cvvfrjxsx47i4qe@rhnp4qu3ayhs>
-References: <20261113072711.235264-1-gopalmalaviya53@gmail.com>
+	bh=dVD2sgjeIdy2wIdfd/QmoCMe4rJiJI4y+gjhCqqw+84=;
+	b=UF6Dopc/ixvr1b8REKTtcZtOFBk/zFRwvYDANMwBDKZCzmat0FDQCbovwqH+QJdOfts/Nn
+	+xI0aamwYVls5TBQ==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Joel Fernandes <joelagnelf@nvidia.com>
+Cc: paulmck@kernel.org, rcu@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>, Davidlohr Bueso <dave@stgolabs.net>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH RFC 0/7] rcutorture: Rewrite RCU priority-boost test
+ around a CPU-hungry reader
+Message-ID: <20261113105521.spnkuQ7u@linutronix.de>
+References: <20261111213826.2035045-1-joelagnelf@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,123 +83,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261113072711.235264-1-gopalmalaviya53@gmail.com>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-12.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sashiko.dev:url,imap1.dmz-prg2.suse.org:helo,suse.com:email]
-X-Spam-Score: -12.80
+In-Reply-To: <20261111213826.2035045-1-joelagnelf@nvidia.com>
 
-On Fri 13-11-26 07:27:11, Gopal Malaviya wrote:
-> page_cache_ra_order() rounds the start of the readahead window down to
-> the minimum folio size of the mapping, so on a file system with blocks
-> larger than the page size, index can end up below start. If adding the
-> first folio then fails, for example with -EEXIST because that folio is
-> already cached, the loop stops with index still below start, and the
-> check before the fallback
-> 
-> 	if (ra->size > index - start)
-> 
-> wraps around, so do_page_cache_ra() is not called and nothing of the
-> window is read.
-> 
-> For example, with read_ahead_kb 128 and 16 KiB blocks, the mmap
-> read-around window for a fault on page 1042 starts at page 1026, index
-> becomes 1024, and if pages 1024-1027 are cached, pages 1028-1057 are
-> not read ahead.
-> 
-> Compare with the end of the window instead. Where index is not below
-> start, this is the same check and the same number of pages as before.
-> 
-> Tested in a KVM guest (x86_64, 2 vCPUs, 3 GiB) on mm-hotfixes-unstable,
-> with XFS with 16 KiB blocks and with ext4 on virtio-blk, read_ahead_kb
-> 128. A test caches page 1026 of a file with pread() on a
-> POSIX_FADV_RANDOM descriptor, then faults page 1042 through a mapping,
-> and counts the cached pages of the window [1026, 1058) with mincore():
-> 
->                                        before   after
->   XFS, 16 KiB blocks                      6       32
->   XFS, 16 KiB blocks, nothing cached     32       32
->   ext4                                   32       32
-> 
-> Tracing shows the fallback now running after the -EEXIST, as
-> page_cache_ra_unbounded with index=1024 and nr_to_read=34.
-> 
-> Touching 1% of the pages of a cold 20 GiB file on XFS with 16 KiB
-> blocks, at random, at a stride of 2053 pages, or as random runs of 2
-> or 4 adjacent pages, reads the same amount before and after, within
-> 5% over two runs each, at read_ahead_kb 128 and 8192.
-> 
-> Not tested: other block sizes, other file systems with large blocks,
-> and other architectures (built for i386 only).
-> 
-> The problem was pointed out by the Sashiko AI review of an unrelated
-> patch [1]. An AI assistant (Claude) helped with the analysis and the
-> test, and drafted this changelog. I reviewed, implemented, built and
-> tested the change.
-> 
-> [1] https://sashiko.dev/#/bug/linux-da6e8836-f808-4b39-9f04-de52995a0162
-> 
-> Fixes: d5ea5e5e50df ("readahead: properly shorten readahead when falling back to do_page_cache_ra()")
-> Signed-off-by: Gopal Malaviya <gopalmalaviya53@gmail.com>
+On 2026-11-11 16:38:18 [-0500], Joel Fernandes wrote:
+> Related work: Sebastian's recent series on the DL fair_server taking over RT
+> throttling [1], with its RFC [2], also touches rcutorture's handling of RT
+> throttling. This patch should simplify or make those patches unnecessary.
 
-Looks good. Feel free to add:
+Let me look at this. If this works out then the disabling of the
+fair_server becomes no longer required which would be my favorite, too.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-								Honza
-
-> ---
->  mm/readahead.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
-> 
-> diff --git a/mm/readahead.c b/mm/readahead.c
-> index 6e55632902..afcde18316 100644
-> --- a/mm/readahead.c
-> +++ b/mm/readahead.c
-> @@ -552,10 +552,12 @@ void page_cache_ra_order(struct readahead_control *ractl,
->  fallback:
->  	/*
->  	 * ->readahead() may have updated readahead window size so we have to
-> -	 * check there's still something to read.
-> +	 * check there's still something to read. Compare with the end of the
-> +	 * window, as index may have been rounded down below start to the
-> +	 * minimum folio size.
->  	 */
-> -	if (ra->size > index - start)
-> -		do_page_cache_ra(ractl, ra->size - (index - start),
-> +	if (index < start + ra->size)
-> +		do_page_cache_ra(ractl, start + ra->size - index,
->  				 ra->async_size);
->  }
->  
-> 
-> base-commit: 76f5384740b2fd9ee5d71da9d49b271d37c5a51b
-> -- 
-> 2.43.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Sebastian
