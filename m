@@ -1,54 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.69
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794550249;
-	b=nTzdQ1sc819+xiMCHO5DiKqHGcnvNkJF8Ljyxb1rxTH0r2neBvGhzqgW5CN6j2FuLR2f
-	 qCA4TsddF6WsgST3x8xx51YHauEwuDPmUmOV3nkPgYAGlipWTkwrUtYTxQmUj1tx8AaEd
-	 pScJ+G3l8+pEdlYKad+41pHg/cUrk+1cjMyy1L/RcK27QeDtgqflpPpeuHS6UtVaQeqWf
-	 rKVyWwtldeK/r/1MCcW/wy8sy4r11u5g5jti4eny5sk0/pocEozVm/8zeuOtDLGGmtSpL
-	 yJYR2tz6CEEFdw0RdWG/mjArfklXqTdXIvMe0KvD3sRh+MFr2aoPrY8MjkaP0Lnc6vg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794550249;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=Oi8+m7i7ep+MfkQtGAeEFulTFN9QQYveST2FSv3idns=;
-	b=CpG2WcWn7YsYhJig3RFact1BZmpcRHV53vdz2nUuh8O8PT25XBfaPwrHDjjQfJpgfl6G
-	 u93AR56CqxgweZx8WtE+mLpovdZA5LKIBgwplM3Z5RMlkIbeuew/+7ob7Yl8/bFhSOV8r
-	 OBD/aJIsI/WqcS2sBDguU9Z45JacT9VlQOgaV5MVeW5fwTj6fUhKhY9uovf7ErwxBbnyY
-	 Kofo0/CnrnVV1A1e1szTcgZ938naA0z7HaUNS0/dz7AUc8pNHeMSMsnRtcR8EonOcIVn1
-	 KVxSAcGo7MQ9aQNsC8F/uMy4K8ibGQbxQnMU7cj8Y+XYxI2t0ctHLaI+vV8UB6p7Xfw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.210.69
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.173
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794550339;
+	b=t3psckJkwVCX1VQWMKGkADslbRjb/yfN4fa7qbDaK7wrxIzu8ZQgqmk+jiXTKA/rXCCc
+	 +NGJ9jaEjc4JqZEeiBnME5lLly3O3mpiWBIgIcrlaBnteczkGgyV5xxD/vii3SVL6Nukl
+	 5OgAhBuk+kRq6LwcK+KAJYs/HYOhOjLUWqAqZRRVm7Cn2TKwMnO1HKKjZm1fVDiiR0OSn
+	 BbvADOoxZPE47ycCeYg721DxMXvSn6j+6I5z1JRvkSmxbgaA5Uhk7og64YUbrOqwrXAQw
+	 qaweE5vLTr5fFBVqEKZRPEiI8FSQ2uZHTjm8zOkttYSe68fBbaCe5pV+qV9JdotaMmQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794550339;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=wix08yJ27yJSgUGKEpKBIXQFAmhik0Hn4X6nmBhrer0=;
+	b=OS1TQ/6TIMGQLW+BeDmwvRSSjnDka9TllPChdjx6UtkOO4xFbzoDWpgx0u0a8iJE/eKS
+	 jOhQnCmuotMK1hzLpgy70nMrbd/92cphNlVmciZdesUEU+8Cj+mCkMgPbz1OLWbuXDdsX
+	 OWX5NGnWEHT5a6+918NKkDSvj3dC/Rct39bDT9kBNvoIht+q4GM+4OsGlgExmblTNjUij
+	 2xhd8Z3vCeDHmjWx/+Up5oN+H0q7xbza3svAFfmrpB+MnsVGWLaYRF3o410Z2Hd9e37Og
+	 9RXU7pcC2ooy/mCOhF1GVH2Sv/jsBzY/m89PfVzNv8+CPCOpCNkdMhWTtxveL4XF7Mw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="K/0eFjpv";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.173
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33967606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:10:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33967606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-8615b48d0adso418898a34.2
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:10:48 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B89C8606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:12:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B89C8606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=K/0eFjpv
+Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-5365d725440so9919281cf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 22:12:18 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794550338; cv=none;
+        d=google.com; s=arc-20260327;
+        b=m1beRI5UIrq1D+xTT8VabL/Grm+P0uHtWk6WA9LsyFiVK9aRkKa0DPyXuovVb2OH1E
+         ddAFpjRLVfeP0ckqMGKx47ZusWknezzo0wERZOq+kO1xAWqygM5UMsTRqH2EatbDJvs2
+         4uSBduIIZpkp/h0zfX6kc2SpfU/8bQgU0+6E2gOatRh5oUPEHGh27KXPEiJcL9iBifkq
+         j2Iu82BvSR7eksjxkM3YMsWuUIKHFRaeW5zfe+ba5wGnIbA0S1zGuOmEGYtQpCY5cPuX
+         tq2FMrh9R+pQQSrNt5wCQzEFDV1BjSCzu2SjhgirtTz0yI1kUGnkVddlJmJRGX3I1zIU
+         m6Ug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=wix08yJ27yJSgUGKEpKBIXQFAmhik0Hn4X6nmBhrer0=;
+        fh=Gfe1bcLT5zenkEaOr58AK6d/CIlzDBg1ThIji4UQ49Y=;
+        b=cxH/X7xivbx+dqkpFgxu9qPUQ1LyJNKFe68bGd6SRP9UfOFLcACjNEyHZ+NUfZhiTd
+         QP/ujweczN5ep7ouOOVY2yt2iMUH6dupoEgwPfVGI3+nlSytvQMvpUwQldSam/bBqSYL
+         V8GcCdAmXrUMGqsJfiYw50OXFYcOQ6ONeJpIsENKCn3FlUDR0b7FpQGWYCQStrHNrlEd
+         Njyha9IBW/LdoVbX+dTzp1Nl5Mpq/7KwWglQPlA3J4z5X7hXJcUA0hIhOjJoksNdfOPL
+         XT6SjN9vHBzOAr95QEPbiwElFXoyJT3yCXwhQMMhaoC3zTgcVforkFURwt+6nU6A62FB
+         ME4g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794550338; x=1795155138; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wix08yJ27yJSgUGKEpKBIXQFAmhik0Hn4X6nmBhrer0=;
+        b=K/0eFjpvzXRSCb2fpPDOu+bop1EryR1QDD6CFRfcHjjvXvNaImzDm4ccf4bbCLuJcz
+         MihCQ2X0ovfL/OwDMjc6hOAHxZwnjN4shUIlADoEINN++alojAZmVG7sUBKi432CsJvX
+         HO6MJwbdVzA8TfKzh9tTWES7zHdre47xug8SgpfQ1+Bp06/SK3CKZ5w6OVPOZxUP5BnO
+         LtwomroZYTbzGohnPpRd9z7avb+4YRqP6Tw/gu8Cqb6u4HfRqQJVskqqZ301aABS1ANf
+         JZdDm83iIiSCv87druGLHzoLt6w+OeONzwrP2si/6XXaaGDdYEOvNCk5e7tkGByswr5x
+         pn2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794550248; x=1795155048;
-        h=content-type:to:from:subject:message-id:date:mime-version
+        d=1e100.net; s=20260707; t=1794550338; x=1795155138;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Oi8+m7i7ep+MfkQtGAeEFulTFN9QQYveST2FSv3idns=;
-        b=tuGs4QZMMH/Wpwj1WA68NmW3rPN6YUcqM5elrBblDv0DjxmGOucv8G7iozLtRLNoea
-         t9pTadyfntvbJpghL25vsua5f8egIVoYSCM9apFRs5mAxRor4U6okG0TZJBl/73tFZig
-         AYfa+H/XldNyJ+GimtSY/gz9VyxZm3DSINVKlGnAGdc9yTmPi+PoAh1uslXlIRXEHLnD
-         80xOKMfHwu3muWkYiVAGINAl/swbgmxWggqSiTcywce/0TPneqocN22i2o7j6YqrJISe
-         9bwo/B3vl8yucjEQgJxjFSpWsawjdo7S/yVLlSbW1HMjATtdbHkXxecGt0Wi4CD/BOVq
-         kx6Q==
-X-Forwarded-Encrypted: i=1; AL+hErGYSzG8kgnfUY4ZD4kH8GaRJk+bhw+i+DRDFS4FseQIE0woGjqVDjGM8yilTLrgvzV+Nc+shC774esWXeQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/DqsXER+c8Z819XvvsiEuQW73AY1ylh3zslLYKBZ826TMJ+NuJ
-	HZI4Tv29JWgsUT/PpiQ6Tv3ZENFZPgI6Os3Ra2QYqVM8QZGqpwW7Rs5Ail+VT2ml7tRCbFiP8Ig
-	7NYMLiIttT480bEpOzv2FoVETqJZVMD2qKVv29SPFznTvb0XM4ZTg7T3nLn4=
+        bh=wix08yJ27yJSgUGKEpKBIXQFAmhik0Hn4X6nmBhrer0=;
+        b=oSNk5JnDvNJGy7k2q3zb18zYVaAc7DXFrLhwGwevWlyFFc3F/dVjrIR1NQnNJzM8l7
+         GPlLrlre/YjrcLN6SilInwsedU9d886IuBk+KL3KqBpDG+p1Xu1NAX4QlOtkbi9B+Ijp
+         rzc5E/KhV/LxxSO6+2XCHbo3mmfJ0pVHWQoi+H2f0ilX5A+HlEaoJcMM2q5aoqshB2yc
+         so+6yu+rJ3chGfyqtU23zzREfzXrOxY4iRmNZ2MJtHQUATpxsBGTHPOajpzBDWbr58V4
+         qYgKO3LpfexJrYvliViJD+j4jAPQu7VSARIR877+JporenFqal2GxDOdF9xV1LaDAdpU
+         +MeA==
+X-Forwarded-Encrypted: i=1; AL+hErGfE3cj47zuQEU5xR0DssT7kGQr0UnNXExjMLEtYdjqGQDm4BaGs2jmvhOuvlmYF/cmV7B1dyWNU3V/8cw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/SRCt75XVAgQHHGN4G9T2iaTu1PHNI+LRIceGA3SVJRiMhoMKZ
+	k2/2NYNo0R//dhacMV5B1THSIaLatUEH6UWCUzH3dO+d20MdyoPSDj9dRMRBWp+arwfYyYywmUH
+	9kQweqnhsfFHphkcDXElO8KOseayoDbn0DmLlmhlYYQ==
+X-Gm-Gg: AYBFou1gIz9nSSK0s9Oug1/i5ZsVrrpYOMMLwo/o398LNAcqCMK1ghi26eSkHUHQ5y8
+	fN7Xhmd3qcCqfJRJodhKLy9OCi3W8ZqdOqkfE5Yb0fo5u5GfE6Tx7t3HvfSvGT36zDQoppaacJb
+	DRNX9/xi9uxPI6S6mXxq33uJ98f1XrEzsrujr8mJkjEZ6CyGm5tT5OUaCOW0RQ45EdY4oEmO2Ov
+	jwHiBi5QnxADh92EIzRNNLsa0rqsSOgyQf6Dk1sZs1F+3+BNKMUwQ3bi5Oj1crKLGiOM0VjeTr7
+	A+PxXrFB3YeYRdSZUyYPLCKz79pr5ijtA6KESnPHsBrvUQQ1oITMRJg6uQKmx6VhmvF5YvDPEDn
+	e7BmvPe+K80t7c1VcViikZEho0Xb+IsPOjTRpELataVL93ESDCg5O7Wead/Fvr+7ro4Zs
+X-Received: by 2002:a05:622a:1813:b0:536:43ea:f876 with SMTP id
+ d75a77b69052e-55ac4391cd0mr29866681cf.5.1794550337807; Thu, 12 Nov 2026
+ 22:12:17 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,140 +104,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:17a3:b0:4d6:92b3:5c86 with SMTP id
- 5614622812f47-56e65735c9emr1080356b6e.67.1794550248187; Thu, 12 Nov 2026
- 22:10:48 -0800 (PST)
-Date: Thu, 12 Nov 2026 22:10:48 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af6a9e8.fe96acdb.12252b.0000.GAE@google.com>
-Subject: [syzbot] [kernfs?] BUG: unable to handle kernel paging request in kernfs_unlink_sibling
-From: syzbot <syzbot+02ab1258b7fa66eb1f7f@syzkaller.appspotmail.com>
-To: driver-core@lists.linux.dev, gregkh@linuxfoundation.org, 
-	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, tj@kernel.org
+References: <20261112-vt8500-timer-updates-v6-0-fd1cea645d1f@gmail.com>
+ <20261112-vt8500-timer-updates-v6-4-fd1cea645d1f@gmail.com> <468e51cb-5852-4c8a-938d-bda2aca8c83e@roeck-us.net>
+In-Reply-To: <468e51cb-5852-4c8a-938d-bda2aca8c83e@roeck-us.net>
+From: Alexey Charkov <alchark@gmail.com>
+Date: Fri, 13 Nov 2026 10:12:06 +0400
+X-Gm-Features: AclHuK_xoF4t3_XsXjyB9Y-lmiPCHjRTiY27rZQBkq_kf73XFRERFEk1oNbXQx4
+Message-ID: <CABjd4Yz_GNpXoUa5YTRJLvy6bLWDP+Qtc4Oges=mX4pjC-fBdg@mail.gmail.com>
+Subject: Re: [PATCH v6 4/4] watchdog: vt8500: Add a restart handler
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-watchdog@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+On Fri, Nov 13, 2026 at 4:44=E2=80=AFAM Guenter Roeck <linux@roeck-us.net> =
+wrote:
+>
+> On 11/12/26 10:55, Alexey Charkov wrote:
+> > Reset the SoC through the watchdog when the machine's own restart hook
+> > leaves it running: the PMSR write in vt8500_restart() has no effect on
+> > WM8950, so a reboot there ends in "Reboot failed -- System halted"
+> > unless a watchdog armed from userspace happens to fire.
+> >
+> > Arm the match a millisecond ahead of the current count, which leaves
+> > ample margin for the register writes to land.
+> >
+> > Register at priority 128, the default for restart handlers and also the
+> > priority of the ARM machine restart hook. That hook is registered first=
+,
+> > from setup_arch(), and handlers of equal priority run in registration
+> > order, so this one runs right after it and only matters where the hook
+> > fails to reset the SoC.
+>
+> This isn't really the idea of restart handlers. The sequence should be we=
+ll
+> defined. That is what the priorities are for. Why not give it a slightly
+> lower priority ?
 
-syzbot found the following issue on:
+My thinking was along the lines of "I don't care who of you guys does
+the job, as long as it's done". But now that you've pointed it out, a
+watchdog reset is probably more rude than some other method, and also
+requires waiting for the timer to expire, so I'll probably switch it
+to 0 to make the "safety net" connotation explicit.
 
-HEAD commit:    58c1eb84e977 arm64: sdei: Preserve the interrupted context..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
-console output: https://syzkaller.appspot.com/x/log.txt?x=10ee7f8d580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=a58b6b4d667e7a61
-dashboard link: https://syzkaller.appspot.com/bug?extid=02ab1258b7fa66eb1f7f
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-userspace arch: arm64
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=17119f8d580000
+> > Signed-off-by: Alexey Charkov <alchark@gmail.com>
+> > ---
+> >   drivers/watchdog/vt8500-wdt.c | 13 +++++++++++++
+> >   1 file changed, 13 insertions(+)
+> >
+> > diff --git a/drivers/watchdog/vt8500-wdt.c b/drivers/watchdog/vt8500-wd=
+t.c
+> > index e0f838fd1d50..0ce1e2b06410 100644
+> > --- a/drivers/watchdog/vt8500-wdt.c
+> > +++ b/drivers/watchdog/vt8500-wdt.c
+> > @@ -25,6 +25,9 @@
+> >
+> >   #define VT8500_WDT_DEFAULT_TIMEOUT  30      /* seconds */
+> >
+> > +/* How far ahead of the current count to arm the match for a restart *=
+/
+> > +#define VT8500_WDT_RESTART_TICKS     (VT8500_TIMER_HZ / 1000)        /=
+* 1 ms */
+> > +
+> >   static bool nowayout =3D WATCHDOG_NOWAYOUT;
+> >   module_param(nowayout, bool, 0);
+> >   MODULE_PARM_DESC(nowayout, "Watchdog cannot be stopped once started (=
+default=3D"
+> > @@ -75,9 +78,18 @@ static int vt8500_watchdog_stop(struct watchdog_devi=
+ce *wdd)
+> >       return 0;
+> >   }
+> >
+> > +static int vt8500_watchdog_restart(struct watchdog_device *wdd,
+> > +                                unsigned long action, void *data)
+> > +{
+> > +     struct vt8500_wdt_info *info =3D watchdog_get_drvdata(wdd);
+> > +
+> > +     return vt8500_watchdog_arm(info, VT8500_WDT_RESTART_TICKS);
+>
+> This sets a 1-ms timer and doesn't wait for it to fire, so the next
+> restart handler (if it exists) will be called. That seems odd,
+> and may introduce unexpected behavior. Is this intentional ? If so,
+> it should be explained.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/b1ec47537e12/disk-58c1eb84.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/3bca0c2b1169/vmlinux-58c1eb84.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/0a7c49594d5a/Image-58c1eb84.gz.xz
+Not intentional, thanks for pointing it out. I'll add a wait in the
+next version.
 
-AI-generated root cause summary:
-The crash manifests during network namespace teardown (cleanup_net ->
-rdma_dev_exit_net -> ib_free_port_attrs -> destroy_gid_attrs ->
-kernfs_unlink_sibling -> rb_erase) when ____rb_erase_color encounters a NULL
-sibling pointer and dereferences address 0x0 (detected by KASAN at shadow
-address dfff800000000000). In a valid red-black tree, ____rb_erase_color is only
-entered after deleting a black node, so the sibling subtree must contain at
-least one black node and sibling can never be NULL; furthermore, all kernfs
-directory operations are strictly protected by root->kernfs_rwsem. This rbtree
-corruption is induced externally: userspace mmaps the PCI BAR0 MMIO window
-exposed via sysfs (/sys/bus/pci/devices/.../resource0 in
-drivers/pci/pci-sysfs.c) and writes arbitrary data into device MMIO space,
-reprogramming hardware DMA queues and causing device DMA to overwrite kernel
-memory structures.
+Thank you for the review!
 
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=02ab1258b7fa66eb1f7f
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+02ab1258b7fa66eb1f7f@syzkaller.appspotmail.com
-
-Unable to handle kernel paging request at virtual address dfff800000000000
-KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
-Mem abort info:
-  ESR = 0x0000000096000005
-  EC = 0x25: DABT (current EL), IL = 32 bits
-  SET = 0, FnV = 0
-  EA = 0, S1PTW = 0
-  FSC = 0x05: level 1 translation fault
-Data abort info:
-  ISV = 0, ISS = 0x00000005, ISS2 = 0x00000000
-  CM = 0, WnR = 0, TnD = 0, TagAccess = 0
-  GCS = 0, Overlay = 0, DirtyBit = 0
-[dfff800000000000] address between user and kernel address ranges
-Internal error: Oops: 0000000096000005 [#1]  SMP
-Modules linked in:
-CPU: 1 UID: 0 PID: 1195 Comm: kworker/u8:6 Not tainted syzkaller #0 PREEMPT 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-Workqueue: netns cleanup_net
-pstate: 63400005 (nZCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : ____rb_erase_color lib/rbtree.c:354 [inline]
-pc : rb_erase+0x4e4/0xba0 lib/rbtree.c:445
-lr : kernfs_unlink_sibling+0x190/0x218 fs/kernfs/dir.c:449
-sp : ffff800094d775f0
-x29: ffff800094d77600 x28: ffff0000d985c408 x27: ffff0000d985c410
-x26: 1fffe0001b30b882 x25: dfff800000000000 x24: ffff0000c6b58ca0
-x23: 0000000000000000 x22: 0000000000000000 x21: ffff0000d98545e0
-x20: ffff0000d985c400 x19: 0000000000000000 x18: 1fffe000359d3e28
-x17: 0000000000000003 x16: ffff8000898b7000 x15: 0000000000000000
-x14: 0000000000287419 x13: 0000000000000001 x12: 0000000000000003
-x11: 0000000000000000 x10: 0000000000000001 x9 : 0000000000000000
-x8 : 0000000000000000 x7 : ffff800080f6a0dc x6 : 0000000000000000
-x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff80008046e414
-x2 : 0000000000000001 x1 : ffff0000c6b58ca0 x0 : ffff0000d98545e0
-Call trace:
- ____rb_erase_color lib/rbtree.c:354 [inline] (P)
- rb_erase+0x4e4/0xba0 lib/rbtree.c:445 (P)
- kernfs_unlink_sibling+0x190/0x218 fs/kernfs/dir.c:449
- __kernfs_remove+0x36c/0x748 fs/kernfs/dir.c:1584
- kernfs_remove_by_name_ns+0x70/0xd0 fs/kernfs/dir.c:1796
- kernfs_remove_by_name include/linux/kernfs.h:644 [inline]
- remove_files+0x90/0x184 fs/sysfs/group.c:28
- sysfs_remove_group+0x98/0x160 fs/sysfs/group.c:328
- sysfs_remove_groups+0x5c/0xb4 fs/sysfs/group.c:352
- destroy_gid_attrs drivers/infiniband/core/sysfs.c:1143 [inline]
- ib_free_port_attrs+0xa8/0x340 drivers/infiniband/core/sysfs.c:1367
- remove_one_compat_dev+0x54/0x7c drivers/infiniband/core/device.c:1035
- rdma_dev_exit_net+0x188/0x388 drivers/infiniband/core/device.c:1173
- ops_exit_list net/core/net_namespace.c:200 [inline]
- ops_undo_list+0x3cc/0x81c net/core/net_namespace.c:253
- cleanup_net+0x474/0x6c4 net/core/net_namespace.c:708
- process_one_work kernel/workqueue.c:3495 [inline]
- process_scheduled_works+0x91c/0x1250 kernel/workqueue.c:3578
- worker_thread+0x798/0xbd0 kernel/workqueue.c:3659
- kthread+0x304/0x3d4 kernel/kthread.c:436
- ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:854
-Code: 91004280 968b3531 f9400376 d343fed7 (38796ae8) 
----[ end trace 0000000000000000 ]---
-----------------
-Code disassembly (best guess):
-   0:	91004280 	add	x0, x20, #0x10
-   4:	968b3531 	bl	0xfffffffffa2cd4c8
-   8:	f9400376 	ldr	x22, [x27]
-   c:	d343fed7 	lsr	x23, x22, #3
-* 10:	38796ae8 	ldrb	w8, [x23, x25] <-- trapping instruction
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+Best regards,
+Alexey
