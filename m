@@ -1,69 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794593007;
-	b=pR9Rm2MgBJRfUXoDKaD7zxYv1OO59sMgI9APDVgt45SzHwEeIsCOgHC9YitCO2uX5ped
-	 SmAfQv0cRRInLJ8t8qsZpDwJv5CrmT0rOOyC0m/Qv0cw5/Twl1aZ61fRct4sCmaH49KbU
-	 YdQLJiS3BPWxwvrviej+Hz5yaJtxMzB817sAqVjd4rKhJOTuvR2r+FvTsRxZlMYfZ+1nA
-	 W1whZuAlB3I0VIa3K0MK1ZTAX5Jo5Z1sbGr5YopkuKuu48lgE4q+SDJXjej5RnsdF7x6A
-	 MVEnm4C5RwX8WD5qM73nLDOYEnmJG0mDLp3K6dM4clXGAh3VvXZOz5n5uUVyrsv6X7Q==
+	t=1794593235;
+	b=1dYuXG9IkpDcLtrC0ddp2dFm+3VCX8UmszFnXJcR23I3sksqbCA5Z6zRdw1cSG4qFex3
+	 gdXtlrqAwVAvJhj+if62aj12d1GE6PyFnbYiEQxRsfZ2G3XMorvLZXZEHeJl07EGh3UGV
+	 oioLjommh/63jC4k+xGOTL5TwZ3STCzbQ/EnYe+SP2joe9OqYqWKMag7RgvmWi/icFkNw
+	 LYrVTqOvDKY08+B8JxEP3iDTf8vhfl3RRAf7RjXI28iKCZepzQOEElbo3sX8oiRfiJHHu
+	 +ACQtet/zWF2ggnP8nlgPkrvN6auO3K64vQmSapDHbWVetmo3fGkHGFjyjoU5lDg+9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794593007;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
-	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
-	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
-	 X-Fangmail-MID-QID;
-	bh=JJNsA/o8ELYP7OKhTRd7t+GFqvdxUv9srxKUL6QVJdo=;
-	b=BxwCd+80KFR8lWH2YjB6dX6M0BHEWuC4SxhuNR0SWkkMATW1sObMmZvqyt5xJHYyrFRr
-	 xmnW07BaSaxVXJ1KiPVAGh4uDWA6eavjm0UQc4pvghl9Z9H5QEnJ6N0E8pp67WEQL8oge
-	 dtZ3PhYyqCTl7K2N+AdfOBHuuD+2QQMDihdeRmryGtdhkQyEaT35KuVJHyNHfAdFzto0U
-	 GqHlgT5zw+QlUCiDDH2Ud+YpW62Zv1J8KoGDXqhoRUWqWss5RET1ftf8kNl+nSkoULG0i
-	 Hx5v8qoKozZn6jbBiKo25W636N2mcSlzFGI+RIjiNMOHeDzYQd8R+yDgA/x6lFlZQog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794593235;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=vttGBAmDDCax2U5XiqRhhpJQxPTLOEnFzBvSm8vFABc=;
+	b=Skoc8zhtyGavClwkx9RFhi4hkxZXE8sVcJlNxcJ+0wcaRuaybWLiHchJDeSRAhvouB7y
+	 2b1ywAyqTuZaBJOMIbKQnz66JibYMpgnYNqXc1MbTJnsuzlxuuENplW+4obCVFGQf1urw
+	 w1ESD4cPqrTpeWuSCbqdtqN3xS7HG+3W0t1sgEcoRBuIoSXralhXi162SOcboU78/4XVU
+	 FJwSXdrH9UV19svaeUtglT1hTDBe9++L+0TDUkQgfraJfBr7iOPOcDNIFqvjyT4bIBrtx
+	 AeGBVsgPJv9P8bHV1I7XQpU1xN3OU8L7Co4Bysax50kx8N8e4vtGBm7mBlW9iIT5ecw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=I0eQF3g4;
-	arc=none smtp.remote-ip=183.62.165.209
-Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NRlfz9WH;
+	arc=none smtp.remote-ip=209.85.219.54
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 890AC606B216;
-	Fri, 13 Nov 2026 18:03:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 890AC606B216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3404B606A331
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:07:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3404B606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=I0eQF3g4
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jR4qr2vz2z51Smx;
-	Sat, 14 Nov 2026 02:03:20 +0800 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794593000;
-	bh=e/1ftnoL19LzV4jDwYrzKqd5zjFgzhBYF3wgdCOuF4Y=;
-	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=I0eQF3g4TJiE3lafu2OXnb8CMNwpZx+Ebh7QoNOreGs81DvAUjSbsgDVtEV4H6oD3
-	 JufP+UrQpGHO1aFvFwQpJiMYwdsYVhCxXvKez1dCL+nEo86WpdCQ4OKxF8qBnoyilv
-	 yXlrKpCNR4nHiCWR4ywbzc/Y5Gm/98e+eJbUQovmtz8ywuALUsoq9NzwfqPsQyHNXO
-	 +u963Ry/f4z5qLmU5U5xhJGZPQ6NmzU75l6aKV7z8cqxg8YeUU68EJSZI0cFYv4+h1
-	 xGJ5vdDOXd8edJhyMlK4WZCRRpyoEAl8dYe89W+NJYAUmO6CCvCzNqg2tknCzePOm4
-	 SauphjH0r/fKQ==
-Received: from xaxapp01.zte.com.cn ([10.88.99.176])
-	by mse-fl1.zte.com.cn with SMTP id 6ADI38cx099945;
-	Sat, 14 Nov 2026 02:03:08 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp02[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Sat, 14 Nov 2026 02:03:12 +0800 (CST)
-X-Zmail-TransId: 2afa6af750e09c3-3b8e3
-X-Mailer: Zmail v1.0
-Message-ID: <20261114020312969hzPj5VMaGjaujxVeWVaBD@zte.com.cn>
-In-Reply-To: <20261114020305026WLIRBj8VPB4JcDv_dhOQO@zte.com.cn>
-References: 20261114020305026WLIRBj8VPB4JcDv_dhOQO@zte.com.cn
-Date: Sat, 14 Nov 2026 02:03:12 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NRlfz9WH
+Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-91f23ddf32fso8878826d6.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:07:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794593234; x=1795198034; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vttGBAmDDCax2U5XiqRhhpJQxPTLOEnFzBvSm8vFABc=;
+        b=NRlfz9WHgzlWq3BwvZ3LZZs75s5z7t1bERLgNZIYnFeQklJKU9R5SBhrm36IohFyJG
+         DfTGW/64xCpX2/VhCdmA4NGukO67ZJ4EMK2ypUxgOFxWIvscnBF2jm4rGiz7q4+I4tGh
+         JPoz8ym/FtwzDnyI49ME1Eok0OBcR+h3YabA2x9983URMqLDqgm8Xi9u0jt6PgI0PG1Q
+         IPiEHWZ3h5Awvtn9LQdlU8iQchp1abmbjnqrM/yFM5s3MgGO2lQ+CXPBjOZxCzpVPG6a
+         xB383LF6SjNkjYEy3phhlvfBtarXEd/DzpgKrlGl/eMmRULJYyiK5Xx3/qw86KrLGau0
+         Okfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794593234; x=1795198034;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vttGBAmDDCax2U5XiqRhhpJQxPTLOEnFzBvSm8vFABc=;
+        b=mP3Q513W+WDjtQ/1dDLR3CvqmvrNz4CkzxSp5GRGWmG5hjC7UjAKpLJN2nR7PkWl+5
+         43kHggA5khsz1ROBzWr/ceXQOppblF5SUqygEQXg2UmVEaG9X6PaF2Lj8NRdQHQXZqI/
+         h06IX+D2JQdn7wbzz4gxKZZudFg3WeGSuRRv9LKMuYhbzyUW/4k71KBknkR9pVjWOLK9
+         d7Fc82BdWxoVofZz9TpHXkZwVqacQUzQ+DeSy1v0nVwxatZqBDn0JHF1P2vqicgIon+y
+         H7UcURhjfDT4idaz8FQDacfUxYJ98wEiNJgdbRbRdYLNEPq5YVlCykjFt0h96Ia3ZLHT
+         W5pw==
+X-Forwarded-Encrypted: i=1; AL+hErFXVPZw9i0+n+YTRpZGNrwyzm9PaW505YTcwKrnBxntcbhndXA9/VyfFSaFFziJg+qq0MVydNPP5GIZpZk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/U05A9CXxQ8b70LhRicku2WI9tYvU4LEufKe2TnWjCmp2gl+qu
+	TeeObiw9UfNXZdut5rAjSuPlLCj7bcm+qR5cYi855kjW9BC9f+S7WLpf0YpceQ==
+X-Gm-Gg: AYBFou1ERGYaF5dMTuU+Q69N8BGDTCOGl9w2lGJlg9tfP6TXRMDIZh0lnDP0WCHWFk8
+	dW8IQfCiBZxZRw4YsCAFnt7w/ZKmCj9xHh3AvSkUI42egPjr+KKobeQXt+Mp+YXaJcq7s6y8PoE
+	GWLBaEbcPLfRSGle4Zxifk0E0K+a6Uz69/NdZUqoQ5LEbXMABQIRXjX0tcRax0DAoUirXsIXY4h
+	y+ewN1H43VKVDrnAKOMjDpvX5hwKFxaz6kXJcGBDfN2PKjPHVZm3MPU3OjjgES1DtGGFG3zHU18
+	8V/uzsc1JvKdvVv4KgcV14eeX3KYJEnPG+zT3gt34wejOSmKxxS//GRTE+QlMPayKLXvbbOXkcw
+	zxVx3vSN/57KJ2W0zTMzfcj4G6rcvlhFx3MR/w+uyvWrlWBUMviyPksHLPbZ534c1eNzkUIeYnO
+	2FNKIv4PFJm/QsxO1Nv1b8l4pb/vZFOve88yq0f4anpghrnElSutzmqF/9UzeJ62XLvDzlrYxW5
+	R9vQnLU+cp+n9v8rFRICrfkesw+YMKjjrS22xz2pBV1OY8qeGqZ2r5L4FCmosqc8iC+RYvkgCoo
+	JomjGAkYji93B5f881n1pQw68ddK7F5uGcjiZQjD/eZDjPN+r31kgspCIA==
+X-Received: by 2002:a05:6214:1d0e:b0:91e:af07:e146 with SMTP id 6a1803df08f44-91f24217bbamr50370466d6.29.1794593233740;
+        Fri, 13 Nov 2026 10:07:13 -0800 (PST)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23d452bbsm25025776d6.7.2026.11.13.10.07.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 13 Nov 2026 10:07:12 -0800 (PST)
+Message-ID: <18bc9378-3f8c-4212-98cb-40e876bf996b@gmail.com>
+Date: Fri, 13 Nov 2026 10:07:10 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,74 +91,180 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <dlemoal@kernel.org>, <cassel@kernel.org>, <linux-ide@vger.kernel.org>
-Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIFJFU0VORCA1LzVdIGF0YTogYWhjaV9zZWF0dGxlOiBzZXJpYWxpemUgU0dQSU8gcmVnaXN0ZXIgdXBkYXRlcw==?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6ADI38cx099945
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Sat, 14 Nov 2026 02:03:20 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF750E8.000/4jR4qr2vz2z51Smx
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/3] MIPS: Ingenic: Add XBurst SMP support
+To: Paul Cercueil <paul@crapouillou.net>, linux-mips@vger.kernel.org
+Cc: =?UTF-8?B?5ZGo55Cw5p2wIChaaG91IFlhbmppZSk=?= <zhouyanjie@wanyeetech.com>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Paul Burton <paulburton@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Jiaxun Yang <jiaxun.yang@flygoat.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ "open list:COMMON CLK FRAMEWORK" <linux-clk@vger.kernel.org>,
+ hns@goldelico.com, paul@boddie.org.uk
+References: <20261112184441.3724150-1-f.fainelli@gmail.com>
+ <20261112184441.3724150-3-f.fainelli@gmail.com>
+ <ea78059f26aa3e25822665a1a462951695bd1e80.camel@crapouillou.net>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <ea78059f26aa3e25822665a1a462951695bd1e80.camel@crapouillou.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+On 11/13/26 04:54, Paul Cercueil wrote:
+> Hi Florian,
+> 
+> Le jeudi 12 novembre 2026 à 10:44 -0800, Florian Fainelli a écrit :
+>> From: 周琰杰 (Zhou Yanjie) <zhouyanjie@wanyeetech.com>
+>>
+>> Add support for the second XBurst core on the JZ4780, based on Zhou
+>> Yanjie's 2020 series and Paul Burton's original CI20 SMP implementation.
+>> Use the CP0 mailboxes for inter-processor interrupts.
+>>
+>> XBurst stops its private cache clock when executing WAIT. Write back
+>> the data cache before entering idle so that the other core can access
+>> data belonging to the sleeping core.
+>>
+>> Link: https://lkml.iu.edu/hypermail/linux/kernel/2005.2/03488.html
+>> Link: https://lists.openwall.net/linux-kernel/2020/05/13/1482
+>> Link: https://lists.openwall.net/linux-kernel/2020/05/19/1099
+>> Reviewed-by: Paul Cercueil <paul@crapouillou.net>
+>> Tested-by: Paul Cercueil <paul@crapouillou.net>
+> 
+> You updated the patch after my Reviewed-by, so that voids it...
 
-seattle_transmit_led_message() updates a controller-wide SGPIO
-register before taking ap->lock. Concurrent LED updates for different
-ports can therefore read the same register value and overwrite each
-other's changes, leaving activity, locate or fault LEDs in the wrong
-state. The lock currently protects only the saved LED state.
+Indeed, sorry about that.
 
-Take the shared host lock before reading the SGPIO register and hold
-it through the write and the saved-state update, so that each update
-preserves the other ports' LED bits.
+> 
+>> Signed-off-by: 周琰杰 (Zhou Yanjie) <zhouyanjie@wanyeetech.com>
+>> [florian: forward ported to latest version]
+>> Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+>> ---
+> 
+> Please add a changelog per patch too.
 
-Fixes: 535dac4ab5f4 ("ata: add AMD Seattle platform driver")
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
----
-Tested on next-20261105 in an x86-64 QEMU/KVM guest with KASAN and
-lock checking. Two kernel threads on separate CPUs call the original
-LED callback for synthetic libata ports verified to share the host
-lock, using a RAM-backed SGPIO register and TEST-ONLY MMIO observers.
-The observer waits only when unlocked, with IRQs enabled; it never
-waits for another thread while holding the callback's spinlock.
+I would rather do this only in the cover letter, but fine, I will oblige 
+here.
 
-In 1025 controlled update pairs, the unpatched kernel loses register
-bits 897 times (including expected 0x900, actual 0x100); the patched
-kernel loses none. Another 256 pairs with IRQ-disabled entry preserve
-all updates after the fix. Saved PMP LED states and entry IRQ state
-are correct in both kernels; 482 invalid-PMP calls return -EINVAL.
-This tests callback synchronization, not Seattle hardware or LED I/O.
+[snip]
 
- drivers/ata/ahci_seattle.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+>> +static const struct plat_smp_ops xburst_smp_ops = {
+>> +	.send_ipi_single = xburst_send_ipi_single,
+>> +	.send_ipi_mask = xburst_send_ipi_mask,
+>> +	.init_secondary = xburst_init_secondary,
+>> +	.smp_finish = xburst_smp_finish,
+>> +	.boot_secondary = xburst_boot_secondary,
+>> +	.smp_setup = xburst_smp_setup,
+>> +	.prepare_cpus = xburst_prepare_cpus,
+>> +#ifdef CONFIG_HOTPLUG_CPU
+>> +	.cpu_disable = xburst_cpu_disable,
+>> +#endif
+> 
+> Drop the macro guards:
+> .cpu_disable = IF_PTR(IS_ENABLED(CONFIG_HOTPLUG_CPU), xburst_cpu_disable),
 
-diff --git a/drivers/ata/ahci_seattle.c b/drivers/ata/ahci_seattle.c
-index 9758fa0260..a398778ebf 100644
---- a/drivers/ata/ahci_seattle.c
-+++ b/drivers/ata/ahci_seattle.c
-@@ -92,6 +92,8 @@ static ssize_t seattle_transmit_led_message(struct ata_port *ap, u32 state,
- 		return -EINVAL;
- 	emp = &pp->em_priv[pmp];
- 
-+	spin_lock_irqsave(ap->lock, flags);
-+
- 	val = ioread32(plat_data->sgpio_ctrl);
- 	if (state & ACTIVITY_MASK)
- 		val |= 1 << ACTIVITY_BIT_POS((ap->port_no));
-@@ -110,8 +112,6 @@ static ssize_t seattle_transmit_led_message(struct ata_port *ap, u32 state,
- 
- 	iowrite32(val, plat_data->sgpio_ctrl);
- 
--	spin_lock_irqsave(ap->lock, flags);
--
- 	/* save off new led state for port/slot */
- 	emp->led_state = state;
- 
+OK.
+
+> 
+>> +};
+>> +
+>> +int __init register_ingenic_smp_ops(void)
+>> +{
+>> +	if (!of_machine_is_compatible("ingenic,jz4780"))
+>> +		return -ENODEV;
+>> +
+>> +	register_smp_ops(&xburst_smp_ops);
+>> +	return 0;
+>> +}
+>> diff --git a/arch/mips/kernel/idle.c b/arch/mips/kernel/idle.c
+>> index 80e8a04a642e..0b042a328ad7 100644
+>> --- a/arch/mips/kernel/idle.c
+>> +++ b/arch/mips/kernel/idle.c
+>> @@ -18,6 +18,7 @@
+>>   #include <asm/cpu-type.h>
+>>   #include <asm/idle.h>
+>>   #include <asm/mipsregs.h>
+>> +#include <asm/r4kcache.h>
+>>   
+>>   /*
+>>    * Not all of the MIPS CPUs have the "wait" instruction available. Moreover,
+>> @@ -71,6 +72,27 @@ static void __cpuidle rm7k_wait_irqoff(void)
+>>   		"	.set	pop					\n");
+>>   }
+>>   
+>> +/* XBurst gates its private cache clock in WAIT; write back dirty data first.
+>> */
+>> +static void __cpuidle xburst_wait_irqoff(void)
+>> +{
+>> +	unsigned long pending;
+>> +
+>> +	if (need_resched())
+>> +		return;
+>> +
+>> +	r4k_blast_dcache();
+>> +	pending = read_c0_cause() & read_c0_status() & CAUSEF_IP;
+>> +	if (!need_resched() && !pending) {
+> 
+> You now call need_resched() twice, that's on purpose?
+
+The two need_resched() checks are intentional: the first avoids an 
+unnecessary cache flush; the second checks for work arriving during it.
+
+> 
+>> +		__asm__ __volatile__(
+>> +			".set push\n"
+>> +			".set arch=r4000\n"
+>> +			"sync\n"
+>> +			"wait\n"
+>> +			".set pop\n"
+>> +			: : : "memory");
+>> +	}
+>> +}
+>> +
+>>   /*
+>>    * Au1 'wait' is only useful when the 32kHz counter is used as timer,
+>>    * since coreclock (and the cp0 counter) stops upon executing it. Only an
+>> @@ -156,10 +178,16 @@ void __init check_wait(void)
+>>   	case CPU_CAVIUM_OCTEON_PLUS:
+>>   	case CPU_CAVIUM_OCTEON2:
+>>   	case CPU_CAVIUM_OCTEON3:
+>> -	case CPU_XBURST:
+>>   	case CPU_LOONGSON32:
+>>   		cpu_wait = r4k_wait;
+>>   		break;
+>> +	case CPU_XBURST:
+>> +		if (IS_ENABLED(CONFIG_MACH_JZ4780) &&
+>> +		    IS_ENABLED(CONFIG_SMP) && num_possible_cpus() > 1)
+>> +			cpu_wait = xburst_wait_irqoff;
+>> +		else
+>> +			cpu_wait = r4k_wait;
+>> +		break;
+>>   	case CPU_LOONGSON64:
+>>   		if ((c->processor_id & (PRID_IMP_MASK | PRID_REV_MASK)) >=
+>>   				(PRID_IMP_LOONGSON_64C |
+>> PRID_REV_LOONGSON3A_R2_0) ||
+>> diff --git a/arch/mips/kernel/smp.c b/arch/mips/kernel/smp.c
+>> index 0f28b4a62e72..46c70d866723 100644
+>> --- a/arch/mips/kernel/smp.c
+>> +++ b/arch/mips/kernel/smp.c
+>> @@ -338,7 +338,10 @@ int mips_smp_ipi_free(const struct cpumask *mask)
+>>   
+>>   static int __init mips_smp_ipi_init(void)
+>>   {
+>> -	if (num_possible_cpus() == 1)
+>> +	/* Platforms with their own IPI callbacks do not need an IRQ domain.
+>> */
+>> +	if ((mp_ops->send_ipi_single != mips_smp_send_ipi_single &&
+>> +	     mp_ops->send_ipi_mask != mips_smp_send_ipi_mask) ||
+>> +	    num_possible_cpus() == 1)
+> 
+> Needs braces now because of the multi-line if().
+> 
+> This change wasn't in your v3, and I also feel like this would belong in a
+> separate patch.
+
+Yes, that's fair enough.
 -- 
-2.27.0
+Florian
