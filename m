@@ -1,78 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794600902;
-	b=1M5dxFFE/rRcto42nXOhtclCoCXJ/mo26Fyn36sEgxXEpwJKmB49w0sPbshogA2HhHHt
-	 /Y+yh1hzotn6PCEHsXoAXlrfBpRWtIqaEDlmqvH+o2B0LlJNrX1fhwnp48YBN/Q6DMbpo
-	 Oe/Wb/7m3ViuJ4JRQKUuATfhLJqrRsadZqH2ahv8fHfi14v5l6+UGchp+GJI52GfjOS9G
-	 Kh/evnKK3jROnPDOag/78n1PPAjKTxhbk4ZopMNQC3bP+SNkUlbjt33Pgy52LT0eu7hFT
-	 TOg6ebgFuGQhLM3cLEW84u4KnubTviTc9T9huBZ3+lQ2GN6VaG/NmgXW7rSUFc2SQGA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794600902;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=AAo9Q3VQrLylyCTPQs8zy2hqWw0i0HrVtcUrV/cI8uQ=;
-	b=WRVTjoGkiF5SKpi+4gs/sQ/zFy+gj0z2AdVRGNcs/5Uex/GtVAGojdMf64QZMf9l1k25
-	 gZrEC/ohuAnEG9RghlhrbZ2MxzwzKapeK4NBvqH7uUtoBvnPdHU3LeXGKshp9HbxMWmjB
-	 /jCpWspIAQQHd4czfiazDMb0+McmT1WkWirylhBMI1BAqrFLGDx0DIx3sf+bYlYRCG+fY
-	 Xm/gYbe2nkYVQVcH6DldZglxA9aLSHt6rldS5k2yWIsU0CeGFkVxbIQMtZPfEhp/yLH3R
-	 srqADJUWM7MIXHHq2+RyVGtWOdwjRbF/Z1AqxaI0SD8Kqe4FKb86VthONO8BRXPJt9g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KbTBSfVJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EA2E606A32E;
-	Fri, 13 Nov 2026 20:15:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KbTBSfVJ
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794600901;
-	b=G7d88/hoUQPKQHsPSmfF/iiwHVkwG3HuNhNIhdMzzoKSvxz9i3wkhsJMVpDqpFjlAwGE
-	 TM21QIVm+fl3eBwyRSWpIhHeJsE6xqPx4pGnbSkqMQUYaruiV7oPdhw9Kn1MD8TGgX936
-	 agH8xfkh95pYwU+ukFO6c/vQ16GtdaELhhI20BD52Lh6Sv7BDH0+UeTvlEHJZERv9DidU
-	 lL960vxIEn9VgwMZizwzUNpX6OHymCzqh1yHb8ASF1jZh8/CHHUuECNBHH88m9aBQ2vtU
-	 AX6I4CIo3lDaa9AxxsN67iXnDpZPKcoXiDi8gOVRGNoaeHncYAY3ioIi57IxED/Aqaw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794600901;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=AAo9Q3VQrLylyCTPQs8zy2hqWw0i0HrVtcUrV/cI8uQ=;
-	b=nPIH4ThaHfeXVjsZJsfy6P6VhuFMB3WeEimlxbZyLLXCAkSmsAk934pQBsn1aPDT1jVb
-	 dSyQ8En3SiO0ViVZwdCkGLO7ujA61yThAtJ+UQ2cef5VlnjLHS5Rz7ouZovYiOybyNN2/
-	 XIdi7dWvW2ngEk5h3ge4fRmg+HUFkoi48IGdVPQJYH/2/yfULy3fqGXuOhFPYJPX+nPjY
-	 a8MwjUnrQbXK6fKe423VQA7CtRWPOHpurRffBn2rXfZWvZb6KnBjhNXRvUKSDTXgqBxHt
-	 OV8vt1gWml7psAXuJT0Yse5vls1vi1Gm0qgav4t7m10RXfXPcJVlH0W03xi2rKKsZ6g==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794600930;
+	b=AwCCbM2zjbnc1YdSG/9k6ZJjfesUljzwoG6mxEFGTNiuT5/LD1MNQU9A5+AloPf+sWrE
+	 XemW15Pax12HvSVm+NSJNbF0vLYv2FwadndnG68Xfgk734GmCgRJQQKTJtDeQLjPwt2b7
+	 CtgsmDoS4QR8KBh0cekqmelYiApIZW9R43bWfvpzzfCQXkXAcjgXKsDdvS3InBpu3SPIL
+	 r/WdW0vWZEI0tmNjl9VsFPRcSZwSExYzVyVjdz8CJgbp5OFYSz9Y5QzunZEsyDbBm7feb
+	 og55X5LcAKl2GJ6Sic/hNxlgsx2KZRMwB60QYP3f1HeEOVIsuFV/GJIyos2vrMwZ3eA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794600930;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=8H+CWUGQzI4Qy2wQthU4p5PCrPJHw0Bm8PIx68UYiVA=;
+	b=KpLVa6B8488HuEo8HcRQ4vt3asSn5k2xFPKWBJpqhREx5bYXWaPZuMgyfSeZSBJo1JWU
+	 elaDi548RV9uCwPa563nsDZwzUKBc9de63R5ocRDtgcDLOSX8KEfDb2sZSvA160+DQSXI
+	 QxWpGb6dYs5cBxnQ+IOMUrIk2klTvC0zbqe5vMUgnaexm33Sz3xDir0D9p4fsc5jy1px3
+	 wFXNnkQSrH8mLhg8qJxeN8E4aqyLxrXRTCm8e07m9Pfnr4oO6UJ9npdGXLUNUSEPbzS45
+	 KSrQVBqVRxXbuVA5dIlowKa1oyU7JWEz7p+bfk40VSwWL+Ae9oTnKXBOQzbJnuOXdlw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=kiUujirz;
+	arc=none smtp.remote-ip=209.85.219.53
+Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 3A0431F000C4;
-	Fri, 13 Nov 2026 20:15:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794600901;
-	bh=AAo9Q3VQrLylyCTPQs8zy2hqWw0i0HrVtcUrV/cI8uQ=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=KbTBSfVJMDncH7HQ/yoQaH8rJov1C3+hQf1IZWXpgMvHtewFXsrDJWEbOZuZHzAND
-	 UTsGtYrpCKl6xq67NNC30glNT+Ul5DU2i0r9jl1a7GUuhwWyhQEwXaJ/wEB3EK8Cjm
-	 2E6PTLm2pQJBJQayOBFZewVuu29cJG2fmYLlbsJGPzgS5oknfW0m/hVjmSE1MBH/g8
-	 ygdZtgeDaojidyKHBFM/+fBQ5AUtvGhbBQER+gmoRN1rJzW/joPv4Cvy0U+2Rc6k5P
-	 1asAgJYAQ40cR+B4tN5u/QpN5Uq8BQFWpbrz+GJcJ3Me8KsPqqIDnpPWNy3xvmOmxP
-	 1wqwzsAVOMGMg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8B36F49AA3;
-	Fri, 13 Nov 2026 20:15:00 +0000 (UTC)
-From: =?utf-8?q?Dani=C3=ABl_Trujillo_via_B4_Relay?= <devnull+datrujillo.nvidia.com@kernel.org>
-Date: Fri, 13 Nov 2026 20:15:43 +0000
-Subject: [PATCH bpf] bpf: mask speculative out-of-bounds skb helper loads
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCC03606A336
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:15:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCC03606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=kiUujirz
+Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-91ea0c05c92so27649276d6.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:15:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1794600929; x=1795205729; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=8H+CWUGQzI4Qy2wQthU4p5PCrPJHw0Bm8PIx68UYiVA=;
+        b=kiUujirz20XpRSiYsymMzAFUM87+Kx+bTgzJiROSJSS0kLs0/aEad5APBagCWtpIum
+         YPRiswGzoJhd+A08tPWUL0lzVf6QIOHZsuCL5JRig+ku2wdiiw/Q8gDbzxLdiRJ4dx4d
+         rqx98Yn0yCAE0YOY2gkSlQBPYI6FM2UgjDzDc4q201hjMfh9/G4+2YFO9VFV97Fhdy/u
+         F0pR0SmJ6pdp/VCRh67SUUa0C3K3uRWh7jBs7uPJez9fVM/4UdiMYZnaxQK/LHDTqiZL
+         +392meILWIIFy+jfp5Asuo0aJyWdSKNJCKUQHWC5Irxj5kWDQ+jtusrFP43FMsjOvgXp
+         weXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794600929; x=1795205729;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8H+CWUGQzI4Qy2wQthU4p5PCrPJHw0Bm8PIx68UYiVA=;
+        b=RDmCINvqeBFpdCyavSXPyvwKTmbnE8vWhIWBZpdFtt6YCl8BBKQl/krArs6f9DS6Om
+         XPkxlac6HVfwloQrfxcMKhh0Fng4ecPeFQ2T7VVwXNq/zAzQsYtRWXjynqcsoezPpCAu
+         AQsB5IE9s3bXO4L9yb3i3btwNyf+dYCNOOiMwfdnYLOULUxewAZbMRx8JT4zLFG/fl+K
+         Sw7ElyhFFrZp++V+Irnrn1NdJa2KupFcO8qVrjtXDfg7crPuqfvEW8xbdXSpH9ABKf2d
+         X5obdHTyDHwY4GTD0IfrEfL6m/FOtIo3sEEhSwtb/rrVnkWQ2t68bmWBQUh5VaM5zGO9
+         CjIA==
+X-Forwarded-Encrypted: i=1; AL+hErHrxh7uJ5/iJmPFBvxc9TqcoguWIyKcsQlDBGRaqbiw8MkgBOTQbV8yk7YNXIJa4XXRvN1MObc2YD7tnS4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z86ZBt+HC1mzT5ONxCgHrOZSkEkoIqid+h2O6IjxullKg6hMpXm
+	bhF+fwNOa/diAlpcJ9XHf/5+a+Q7dR1bWNHpO4N0y0JSNkqT1JlxQFfnS8/dRcebsIE=
+X-Gm-Gg: AYBFou01DarmVS5MLFweiZV4c8z4cIoiHEKSJcY2QmRvz2uQA+mVJRwONiegIaN3D/e
+	cylGkTdM0UvC0GSrSdtIVgcAFQIzBbDjHHaf2ULQ6EySNTGnwt5yqKJzDkIEQJmNtlsVloY390C
+	Iz2gUMyZRsPgM7H4d9/98b8pPUPAHEhDhmazSUeYSJVhiwkFmVjSk/S+r1f+yqrZvE6Vt5iykkJ
+	77OrG7n9nE9syN2pZLCwzZzKHBfIv6PP91P3mF4D1ZQasE1gel8rjRbHo/M1nv4rYKMiDGHnBtP
+	A7DIkEawsAwJofVVdIBab/K4dD+XEsEbYTGHT01nVDkREm33UPYfzIh5YPdxoWqLTSwI9i1zcHU
+	8NmlkzX/Yh5XUAwqXVTvkK8IvT+AHGydpmsJwQDPq79HfqRonQwuVtUnWh6gwqgOlZ37T9TGffz
+	jjUz7L5af9LS9krBsKQLY1aqOiKJJkWxLKAdJseyl0GkreiOn//JDf+1wyST3NLr8Xoth0Q+Nti
+	7asGVEw12jd+PjOaQtJTnC3WtYuYgcbUIfa7DQYVM+gzGlOzsJXuzu212bsANlq5Aal8KKCjmPT
+	PvwStCbpCVk8z04wIhJ44Pbgeqdnj4a7zXDnOw4TjHQY0B7+RK6c744y/ZICfHMMr4mliC6Nki2
+	Jl9Ug9bhSOp8CBIGhzvgLB0oYQIDX
+X-Received: by 2002:a05:6214:1d2a:b0:91f:17be:7c90 with SMTP id 6a1803df08f44-91f2424c199mr58365016d6.55.1794600928649;
+        Fri, 13 Nov 2026 12:15:28 -0800 (PST)
+Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23da6adfsm27424366d6.36.2026.11.13.12.15.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 12:15:28 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,162 +90,51 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-cbpf-ind-nospec-v1-bpf-v1-1-764ac4c14573@nvidia.com>
-X-B4-Tracking: v=1; b=H4sIAO5v92oC/yWMSw7CMAwFr1K9NZZwi8rnKohF6zhgFmkUQ4VU9
- e6ksJzRe7PAtZg6Ls2CorO5TakC7xrIY0h3JQuV0e7bnpk7kjFHshQoTZ5VaGbaTNefQzgco5y
- GiHrORaN9fuEr6gC3v/T3+FR5bUms6xcJrs+sfwAAAA==
-X-Change-ID: 20261113-cbpf-ind-nospec-v1-bpf-369dd47fc8af
-To: Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
- Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Emil Tsalapatis <emil@etsalapatis.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, 
- John Fastabend <john.fastabend@gmail.com>, 
- Stanislav Fomichev <sdf@fomichev.me>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>
-Cc: bpf@vger.kernel.org, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- =?utf-8?q?Dani=C3=ABl_Trujillo?= <datrujillo@nvidia.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794600943; l=4789;
- i=datrujillo@nvidia.com; s=20261008; h=from:subject:message-id;
- bh=IrkM3A5rzY7Lrf7aX7/eWswOO8MwkLehIVbqhgYc0eI=;
- b=yv1ifv5IFVTISmKtkoz2U0m3t/XpoQQNbWEsj72vF7o4NyVJgZqZGb9+Jk1Dx1T8OPQ5NulY8
- IoTM7o5LAd7DiMUQTNIeNKu5gXHCV6pYBrPOvcO/d26dnI5SmenVi9K
-X-Developer-Key: i=datrujillo@nvidia.com; a=ed25519;
- pk=AP24zUwENFy2geglpKJAA8oaT41tkteCL9hTWGd88rs=
-X-Endpoint-Received: by B4 Relay for datrujillo@nvidia.com/20261008 with
- auth_id=1128
-X-Original-From: =?utf-8?q?Dani=C3=ABl_Trujillo?= <datrujillo@nvidia.com>
-Reply-To: datrujillo@nvidia.com
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] mm/hmm: reject shadow-stack mappings
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, kernel-team@meta.com, jgg@ziepe.ca, 
+ leon@kernel.org, akpm@linux-foundation.org, david@kernel.org, 
+ kas@kernel.org, dave.hansen@linux.intel.com, bp@alien8.de, rppt@kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <avdrZ716BHN-JLc6@gremlin>
+References: <20261113195536.2660763-1-gourry@gourry.net>
+ <avdrZ716BHN-JLc6@gremlin>
+Date: Fri, 13 Nov 2026 15:15:27 -0500
+Message-Id: <179460092754.482102.6921125310815388864.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-From: Daniël Trujillo <datrujillo@nvidia.com>
+On 2026-11-13 19:57 +0000, Lorenzo Stoakes (ARM) wrote:
+> On Fri, Nov 13, 2026 at 02:55:36PM -0500, Gregory Price (Meta) wrote:
+> > HMM can grant ordinary device write access to a userspace shadow stack.
+> > On x86, pte_write() is true for a shadow-stack PTE, so a populated page
+> > can be returned with HMM_PFN_WRITE without taking a CPU write fault.
+> >
+> > Nouveau translates that flag into a writable GPU mapping.
+> >
+> > Reject shadow-stack VMAs in hmm_vma_walk_test(). Use the existing
+> > unsupported-range handling: a requested fault returns -EFAULT, while a
+> > snapshot records HMM_PFN_ERROR.
+> >
+> > Link: https://lore.kernel.org/linux-mm/20261111-mason-migrate-et-al-fixes-v1-10-3d2454362e8d@kernel.org/
+> > Fixes: 54007f818206 ("mm: Introduce VM_SHADOW_STACK for shadow stack memory")
+> > Cc: stable@vger.kernel.org
+> > Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+> > Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+> 
+> Thanks for doing the HMM side of this, LGTM and:
+> 
 
-The fast paths in bpf_skb_load_helper_{8,16,32}() check whether the
-requested bytes fit before loading from data + offset. For indirect loads,
-packet data can determine the offset. A mispredicted check can cause a
-transient out-of-bounds load, as Jin et al. independently demonstrated
-for bpf_skb_load_helper_32() in BeeBox (USENIX Security 2024).
+Fell out of my testing harness when reviewing yours :]
 
-A classic BPF filter can shift the loaded value and use it as another
-indirect load’s offset (BPF_LSH, BPF_TAX, then BPF_IND),
-creating a data-dependent cache footprint.
+Stuff like this is becoming much lower effort than yesteryear.
 
-Leakage was demonstrated with instrumentation that delays branch
-resolution with a CLFLUSH before the mispredicted branch and makes the
-leaked location deterministic for reproducible measurement. In that
-setup, an unprivileged process that attached a classic BPF socket filter
-was able to recover kernel values from userspace using Prime+Probe. A
-real-world attacker would likely need to delay branch resolution, which
-was not demonstrated end-to-end without the added CLFLUSH.
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Mask the load address when the converted offset falls outside the
-permitted range. This removed the leakage in the described setup.
-Derive the lower bound from the network and MAC header
-positions. An out-of-bounds transient offset dereferences NULL instead
-of a potential secret.
+thanks!
 
-Masking increased the time for a filter with
-64 indirect byte loads by roughly 36% in a direct in-kernel test
-(280% with LFENCE). In a loopback UDP test with the same filter, the
-overhead was roughly 6% (21% with LFENCE).
-
-Fixes: e0cea7ce988c ("bpf: implement ld_abs/ld_ind in native bpf")
-Signed-off-by: Daniël Trujillo <datrujillo@nvidia.com>
----
-Requesting fix for stable.
----
- net/core/filter.c | 36 +++++++++++++++++++++++++++++++++---
- 1 file changed, 33 insertions(+), 3 deletions(-)
-
-diff --git a/net/core/filter.c b/net/core/filter.c
-index 1a60a2a70e2d..c50e94df79b3 100644
---- a/net/core/filter.c
-+++ b/net/core/filter.c
-@@ -28,6 +28,7 @@
- #include <linux/in.h>
- #include <linux/inet.h>
- #include <linux/netdevice.h>
-+#include <linux/nospec.h>
- #include <linux/if_packet.h>
- #include <linux/if_arp.h>
- #include <linux/gfp.h>
-@@ -240,6 +241,32 @@ static int bpf_skb_load_helper_convert_offset(const struct sk_buff *skb, int off
- 	return INT_MIN;
- }
- 
-+static __always_inline const void *
-+bpf_skb_load_nospec(const struct sk_buff *skb, const void *data,
-+		    int headlen, int offset, int len)
-+{
-+	/* An unset mac_header is maximal and cannot lower the bound. */
-+	int header = min(skb->network_header, skb->mac_header);
-+	int lower = min(0, header - (int)skb_headroom(skb));
-+	unsigned long index, size, mask;
-+
-+	/* Normalize [lower, headlen) to a zero-based range. */
-+	index = (unsigned long)(long)offset - (unsigned long)(long)lower;
-+	size = (unsigned long)(long)headlen - (unsigned long)(long)lower;
-+
-+	OPTIMIZER_HIDE_VAR(index);
-+	OPTIMIZER_HIDE_VAR(size);
-+
-+	/* Check the start and the number of bytes remaining. */
-+	mask = array_index_mask_nospec(index, size);
-+	/* Each caller passes a constant width, so inlining eliminates this branch. */
-+	if (len > 1)
-+		mask &= array_index_mask_nospec(len - 1, size - index);
-+
-+	/* Out-of-bounds transient offsets select NULL as the load address. */
-+	return (const void *)(((unsigned long)data + (long)offset) & mask);
-+}
-+
- BPF_CALL_4(bpf_skb_load_helper_8, const struct sk_buff *, skb, const void *,
- 	   data, int, headlen, int, offset)
- {
-@@ -251,7 +278,8 @@ BPF_CALL_4(bpf_skb_load_helper_8, const struct sk_buff *, skb, const void *,
- 		return -EFAULT;
- 
- 	if (headlen - offset >= len)
--		return *(u8 *)(data + offset);
-+		return *(const u8 *)bpf_skb_load_nospec(skb, data, headlen,
-+							  offset, len);
- 	if (!skb_copy_bits(skb, offset, &tmp, sizeof(tmp)))
- 		return tmp;
- 	else
-@@ -276,7 +304,8 @@ BPF_CALL_4(bpf_skb_load_helper_16, const struct sk_buff *, skb, const void *,
- 		return -EFAULT;
- 
- 	if (headlen - offset >= len)
--		return get_unaligned_be16(data + offset);
-+		return get_unaligned_be16(bpf_skb_load_nospec(skb, data,
-+							 headlen, offset, len));
- 	if (!skb_copy_bits(skb, offset, &tmp, sizeof(tmp)))
- 		return be16_to_cpu(tmp);
- 	else
-@@ -301,7 +330,8 @@ BPF_CALL_4(bpf_skb_load_helper_32, const struct sk_buff *, skb, const void *,
- 		return -EFAULT;
- 
- 	if (headlen - offset >= len)
--		return get_unaligned_be32(data + offset);
-+		return get_unaligned_be32(bpf_skb_load_nospec(skb, data,
-+							 headlen, offset, len));
- 	if (!skb_copy_bits(skb, offset, &tmp, sizeof(tmp)))
- 		return be32_to_cpu(tmp);
- 	else
-
----
-base-commit: 7f1e33230b7c7a55318765862b255b41e5c97cfb
-change-id: 20261113-cbpf-ind-nospec-v1-bpf-369dd47fc8af
-
-Best regards,
---  
-Daniël Trujillo <datrujillo@nvidia.com>
-
+-- 
+~Gregory
 
