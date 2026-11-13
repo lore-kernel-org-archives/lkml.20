@@ -1,93 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794563404;
-	b=wk6jOMP91A9CCOMfOEdFjBFWM/2IAwRxA9OcYeIYfqJrMaqALHO48ZoS2gVIET6zP/It
-	 0asWFsoQWQmwrlffyKg5DPyHXhuLW+XhdLJzPOEnbBGsdLvjaHtl9XX3YbCUyffWOugmn
-	 jZP0dz7KOFtgM3kpnivZE83JeFDOVz4uXRWcqw+iq/HK1eeMhWRkAbx1AZNuoH6ayeb4Z
-	 2gf6Abe3XM9E+JNEeaoh/bABV0xyMl1rTTdT6ExMo0ItAWTgldIxxMGEDtInLwf9pABHd
-	 7fC71mBeeAayqK/fj8Gjr0ZTx8E4/DR1ex9Zt5vDE8HQcm2x+/WK2OAmnhZ/nRPAS4A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794563404;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=JasxHhLs3JaYlABeqrE3u49mBt09/wnmvwa42/5JLzo=;
-	b=ytPm53SzEWzgJACzDQqy/e9Dcd74lV18eC0b2LJe/4JTkbt6AYD0Lf6PN6ZLWIVt2hbL
-	 9fcYKt8zq45GIVdHUWgS7LXwT1odYkn6jXUhVL2JbB+iP5E8bu7/xE9pzs2Z01X2gavvs
-	 R4AqN6++nRQZ1HLYgXUt7ZRP7Gt95pKW2icjzaw9X5YomBWsPFxisix4/YKPRcoA3UjQO
-	 vvBES5ielHzoK6K8Z34dG3NCa3h6NPqs5PX6jeFEeVdIwKocpI3lUrIFOItFlCMNV4lcf
-	 bpDDfQWaI6OJwGYzs8Xt2EFmhf7K6nKcXNMTycSQcmnKWBbRG2iqCzLqiLy9lugCyYg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O0ECkkw2;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.167
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794563432;
+	b=kNj6jntpksYLvqJ4Bld2SH18dYXQEIWy/ZBqWGHnY1t5uAA04zcLJJFNsiuWLGpghjAI
+	 uX80SUfXyJ2oNqYxeAntaOamNAAlg/og1vkBBwHlYrxIm084P3jqyVHH+5/NJC9Q4/Cxu
+	 pLmTjczo/bhbaco5bwA1BBh8TFuuUbdKYvy2k1jrViGuQTRVNBW38kkFAE+pWoEewCByl
+	 w/AEncc/1MbWSK9vnV8X5NdDAOd/jkbpe8LGghA0VO7Geu35paGob8Ub2FGly1C2RfQ3U
+	 /Kcwd3NVviWKnXcDEXYkTyi2gSabsxXu+C0XGL3mdDcOfybXXe0vqxg7qnYHnG3JZnQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794563432;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=tW4eeXsXjnmGZJOtHlplouD81cN5iaeDZhV051mWz2M=;
+	b=FQkoxh15eHNfDj6XXM0WgxWktdCeRh4Q6Y+iK3SNqLSGXOG2odpnhSb5GOhI5vwOb5nc
+	 VVWultxkJbQAra81gJtDkJ6vhH99Kpo26TuEDIqXS+PDrLfKg5NPdBoWuBa/YTU00DIPf
+	 9aeOjMwCCGMXJ84n5lWATmzeryXaG0sSFG5KfRLrKdTJtrYlXxz4HAxg2pvXVnveBAtIm
+	 Tx8/83lLe8LN0Xzr6epidfRH3MmVZJw2/dCrfuQ4fn6/cRIbmEAaW5LM+ox9q6PLI67r7
+	 RjpuszHGcbygx+pK3kWjD7YhVyww2RK77mCz52WmSEGhZHtpnDUH9prShU3ETTnXgFw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=DdIp4qXF;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=iTjQDWOB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.167
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.167])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E64C606A331
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:50:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E64C606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9690B606A32E;
+	Fri, 13 Nov 2026 09:50:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9690B606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O0ECkkw2
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-36e90071735so121838eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 01:50:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794563404; x=1795168204; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JasxHhLs3JaYlABeqrE3u49mBt09/wnmvwa42/5JLzo=;
-        b=O0ECkkw2Pfd8V6XhiIkeo7HqRqSsOrXEuAb1LDG6fu3ddYqvy0x6Dtk3NnsQfUUQM8
-         r9X2LC0LLtkVVSnXPHGo86rC+IrrgrrLZJ1Mdao5WgNzCQmB4wI4aWgXE6m88l6xdJaU
-         XtK4+9GxM1T95Mjn8yYIT534uAzqfhl/vmzhUXr8unG6FdKCZzLjOvyX8XGxfqtGCOOC
-         O2gd2kOKx7Rlc0ExilVBrvetiMUomS913waDdelmUCEDsVRF0kFyAYws38jkjq17Ty6I
-         M2zOsHBCG3HkymP4d/NDHKpOgS4+TKZI+f9zl6oz9B0+ut4mrW19kUPfv0xcQRl9vq8b
-         vFDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794563404; x=1795168204;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JasxHhLs3JaYlABeqrE3u49mBt09/wnmvwa42/5JLzo=;
-        b=YAkB0FF3T12kDTYJIcm+V+8SvCvWv46qUqvT7UrXiL4s91aAb9T4y1CGgUHPKA9Gn/
-         +2+UeOVhsUxy00BhX8DMKZBQ6M3GH5U/lwB3KswxBwAMh9DOJFJPVDiGrI2bYYn7sykp
-         ooqV6FcReYuRP9cykHrVk9nS1uuRnX3J7uvDL6jp81zWFRgqgcPVkiKCrP71lnNWBRzt
-         lwgc1dvSp8yVpqRFrNZGr4AsHpRK+EPSAPQBcELpzm2RaeoK56ZQpviIE6Gk66gU96Ex
-         zTqV1UEwAhJd4egjddSXunC5J9wRuGltlcYA8j+O4GDGIrTrWkMqCOhLHTGlGsZsm3pf
-         2FOw==
-X-Forwarded-Encrypted: i=1; AL+hErEV5NIDZZbd0TOojI2KWmQIm82+5q1Qj81G7UUHIsEaWQeKz3qmDPruRvKK9ixnRJq2ubxglJUeN5rA+TI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8FPKyjv+rCLJJkdg8mrFitwjbpFGbokg2C2D51vKLP+rGgGbGw
-	6E3blf5NHTcaVtRj2pKJvRFV5kgQ4VvAJv/eLCgE4ZEQWQNlAvZWTBCQ
-X-Gm-Gg: AYBFou1PhwS8NpukPg6r3Xe0+cTBsgkuijdI8MdYti17Wm+BDJTZWY7QYShVHPQKIFK
-	I+Glb32c8aoYIa4qNwfV17OKipvgHULItj0a+LWotygypq35g6UJ7aBvm/j8u2PE8HhTomN8sFI
-	5PHv32bKmvcLXBhg6apBQUfI/lJ4XS0s8A2Rf3X8t/Lzx+TbkScm9Bi8yyy1b9s/NB8PFaUr1mG
-	QjCxww1HAYLcu16hkQpiy+tPiBsea+sBM7TOpjZZvXcLuGMYel3fWar92UGUTu+cSHCETdizi+H
-	UIF9Ra23a6t9y7AG4P5et5A2nOhjz5zgolWU0ffMXMmP9iyHtlUoRKU9NmXqzrD8eevwSQDTAnH
-	IDb7NJit9n6vtRxO+3eNxTi8dCObBoJEHuoPJkDiGJCmiGFqBcdCPFD/d/yYGjSVJQXzi3ad6nP
-	soB8Omu65tYa2u/Tu62elv8zpsKgBJHJnxesraM3PxgRw/R+hpSXE5Mi8abF7vMKxLJodgK6ynI
-	rBAWf98Of23njgdQxvf3/B+Hfr24zKRMBd08ukbX9ZcNEjMVdFPEjx1YA9ebDviOgxhp/Sqs+aP
-	wpVN5VBM6KorM26TC/1ORQw6t3VPLVtfyOtkCf9jydkFwsTNQmy7+rg=
-X-Received: by 2002:a05:7023:88b:b0:16b:4f52:a08 with SMTP id a92af1059eb24-1b502fe08aemr3394919c88.0.1794563403415;
-        Fri, 13 Nov 2026 01:50:03 -0800 (PST)
-Received: from mi-ThinkCentre-M760t.mioffice.cn ([43.224.245.234])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50313d990sm7489366c88.4.2026.11.13.01.50.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 01:50:02 -0800 (PST)
-From: Wenwu Hou <hwenwur@gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wenwu Hou <hwenwur@gmail.com>
-Subject: [PATCH v3] tracing/hwlat: Do the latency calculations in nanoseconds
-Date: Fri, 13 Nov 2026 17:49:18 +0800
-Message-ID: <20261113094918.2402297-1-hwenwur@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=DdIp4qXF;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=iTjQDWOB
+ARC-Seal: i=1; a=rsa-sha256; t=1794563415; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=MNF7DYehuyMuDTeXSFdXMueVlCGeq4n+BNNPwGyA1f0AjWoWe5ULYkWR3FI5UPu3o4
+    d8wxNrgVrgk5ug1/qDWGYLsTpAHJd0eEZDtZwvGA4ZrXOg7pNpUTvMUzg1GcKQ8vNLuY
+    bDsw2psa+qOl/+RxT8/tDe7Z5N3YJgpfmilecqwSVRfQMCAnxZLa5SfrfmS+b6OJTRud
+    ChhqER1HzHp318jt+3UNTZ+s/upKVDhEmSLNQo6DAuKMUmvOfcnxumMV7uovnmmK9Gyu
+    BZ8tTpvQoCndewrVeoQTjaqMo6UBi+wqcNLCgQgSaaz8GDwaQjB7qWzSFTC3730+dFMb
+    ITBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794563415;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=tW4eeXsXjnmGZJOtHlplouD81cN5iaeDZhV051mWz2M=;
+    b=sUBIVhgjRhdd8m2699duKHpC+o714SM022zdu1wqYQq++N8KRUmrpy282FG6saaF1h
+    JSptTIeNOSCFAIfmAR0wi+zkaXTlzsvyVkhprPCXB1C0ch7EvgTuvLg/LHWqR2Ma+vmV
+    cyL5N+M2gl7Sp5vIHQa2aQwfcTOy/DPkEA6jiCcGU0WADCNfzOexezcKHvJGv9iy9nNI
+    Ap0s6EPEQCEikgJeSGjSDq/iCr4l0AR5a/cFPTl3SZvJcQeBxMEX9BuhHuRtKBgvZnOy
+    Yf3GwuqIx2Bv+AwmrZZub8vFHqzN7pxdXytBbFicMxCt3sFKphvfR3DHM03v14d+YYrZ
+    o4cQ==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794563415;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=tW4eeXsXjnmGZJOtHlplouD81cN5iaeDZhV051mWz2M=;
+    b=DdIp4qXFjrFPwjWqEIOikV2t/4Usmnqd4QUCmRZ/CbTUoKi+YjeL2KbSDj7wOHDkCs
+    XTCHR4bz0N1lJSd7eADxauuMAuaUKEwLv+Jc3sROE2J1vibJh3x28bD91B5Gou4kkBrZ
+    suShQxnDFD3dDdr/S0Vof3JBeWNJ3HHRlsbUitovz+AkRcpVf0/WX7j1OAQpGsHHr3cU
+    qscBlmu9VhrSKgKylkot/NIWAWY9QQ3JlrDWjXcxCz3h6IXpTpS/nvCLEqQzScY7CZLi
+    0v25aQyypQiQMxS0BxEx2XDotyXgQdKuyVVoQBGFRIs60gyzxsPwvb1y18ov95yeQRiz
+    zSCg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794563415;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=tW4eeXsXjnmGZJOtHlplouD81cN5iaeDZhV051mWz2M=;
+    b=iTjQDWOBYesGER4ITzXcxfFMgmQ31YLU18xmiqKG55MpLrrYHEHw9PsEjQ3cz06IPE
+    k8YdQJAC8hSAQt2HKKDw==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrS2ZoHmMiNHYIZPrro6QPZGBqKLoYar6phQmxG"
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a22AD9oEFm1
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Fri, 13 Nov 2026 10:50:14 +0100 (CET)
+Content-Type: text/plain;
+	charset=utf-8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,147 +93,293 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
+Subject: Re: [PATCH 2/3] pinctrl: ingenic: Add X2600 register and GPIO IRQ
+ support
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <3784202f7f6baa63b548af4c491805852e5835df.camel@crapouillou.net>
+Date: Fri, 13 Nov 2026 10:49:43 +0100
+Cc: Linus Walleij <linusw@kernel.org>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>,
+ linux-gpio@vger.kernel.org,
+ devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ linux-mips@vger.kernel.org,
+ letux-kernel@openphoenux.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <11E0E075-D267-4E50-906C-022D297A4988@goldelico.com>
+References: <cover.1794557697.git.hns@goldelico.com>
+ <1c495c7ac851aff2a798c82acf33bbb33da37953.1794557697.git.hns@goldelico.com>
+ <3784202f7f6baa63b548af4c491805852e5835df.camel@crapouillou.net>
+To: Paul Cercueil <paul@crapouillou.net>
+X-Mailer: Apple Mail (2.3826.700.81.1.10)
 
-tr->max_latency is expected to hold nanoseconds: tracing_max_lat_read()
-converts it with nsecs_to_usecs() to print the usecs documented in
-hwlat_detector.rst, and the other latency tracers store nanoseconds there
-too.
+Hi Paul,
 
-Do all the latency calculations in nanoseconds instead, and only convert
-the durations to microseconds when recording the hwlat event.
+> Am 13.11.2026 um 10:37 schrieb Paul Cercueil <paul@crapouillou.net>:
+>=20
+> Hi Nikolaus,
+>=20
+> Le vendredi 13 novembre 2026 =C3=A0 09:14 +0100, H. Nikolaus Schaller =
+a =C3=A9crit :
+>> Add the X2600 SoC ID and adapt the GPIO register access functions
+>> to its register layout.
+>>=20
+>> Unlike earlier Ingenic SoCs, the X2600 uses a register bank
+>> spacing of 0x1000 and provides separate shadow registers and
+>> load registers for each GPIO port. It also uses a dedicated
+>> register for clearing GPIO interrupt flags.
+>>=20
+>> Update the GPIO interrupt configuration to account for hardware
+>> dual-edge detection on X1600, X2000 and X2600. These SoCs require
+>> PAT1 to be set when dual-edge detection is enabled, while X1000
+>> and X1830 continue to use software emulation.
+>=20
+> So at the same time you're fixing X1600/X2000 and adding support for =
+X2600.
+> Looks to me like it should be splitted into two patches.
 
-This also makes the backward-clock error paths reachable.
-Previously, time_to_us() passed the delta through unsigned div_u64(),
-so a negative delta became a positive value after division. These
-error paths jumped to out without clearing trace_hwlat_callback_enabled.
-Fix this as well.
+Well, I have to look if it can be split.
 
-Fixes: e7c15cd8a1133 ("tracing: Added hardware latency tracer")
-Fixes: 7b2c86250122d ("tracing: Add NMI tracing in hwlat detector")
-Suggested-by: Steven Rostedt <rostedt@goodmis.org>
-Signed-off-by: Wenwu Hou <hwenwur@gmail.com>
----
-Tested in a 4-vCPU KVM guest; all three hwlat modes worked as expected.
+So far the driver for X1600/X2000 does not have dual-edge support by
+hardware (programming the EDG bit).
 
-v2: https://lore.kernel.org/linux-trace-kernel/avW1t81WLQ9YrylB@gmail.com/T/#t
+But registers and programming model are the same. Therefore it is more
+or less a nice side-effect that x2600 adds functions to x1600/x2000.
 
-Changes in v3:
-- Fix trace_hwlat_callback_enabled remaining set on the backward-clock
-  error paths, as pointed out by Sashiko AI.
-- Add a Fixes tag for the commit that introduced NMI tracing.
+I.e. new code would be replacing some is_soc_or_above(jzgc->jzpc, =
+ID_X2600)
+with is_soc_or_above(jzgc->jzpc, ID_X1600) to fix it for them.
 
-Changes in v2:
-- Perform the latency calculations in nanoseconds instead of converting
-  only the maximum latency, as suggested by Steven Rostedt.
-- Convert the durations to microseconds only when recording the hwlat event
-  to preserve the existing event format.
+Or otherwise we have to split full x2600 support into two patches.
 
- kernel/trace/trace_hwlat.c | 28 +++++++++++++---------------
- 1 file changed, 13 insertions(+), 15 deletions(-)
+Is this worth a separate patch or should we leave it as a comment in
+the commit message?
 
-diff --git a/kernel/trace/trace_hwlat.c b/kernel/trace/trace_hwlat.c
-index 65e184d800ff1..ed1199a6a9e8f 100644
---- a/kernel/trace/trace_hwlat.c
-+++ b/kernel/trace/trace_hwlat.c
-@@ -203,14 +203,12 @@ static int get_sample(void)
- 	time_type start, t1, t2, last_t2;
- 	s64 diff, outer_diff, total, last_total = 0;
- 	u64 sample = 0;
--	u64 sample_width = READ_ONCE(hwlat_data.sample_width);
-+	u64 sample_width = READ_ONCE(hwlat_data.sample_width) * NSEC_PER_USEC;
- 	u64 thresh = tracing_thresh;
- 	u64 outer_sample = 0;
--	int ret = -1;
-+	int ret = 0;
- 	unsigned int count = 0;
- 
--	do_div(thresh, NSEC_PER_USEC); /* modifies interval value */
--
- 	kdata->nmi_total_ts = 0;
- 	kdata->nmi_count = 0;
- 	/* Make sure NMIs see this first */
-@@ -229,18 +227,19 @@ static int get_sample(void)
- 
- 		if (time_u64(last_t2)) {
- 			/* Check the delta from outer loop (t2 to next t1) */
--			outer_diff = time_to_us(time_sub(t1, last_t2));
-+			outer_diff = time_sub(t1, last_t2);
- 			/* This shouldn't happen */
- 			if (outer_diff < 0) {
- 				hwlat_err(BANNER "time running backwards\n");
--				goto out;
-+				ret = -1;
-+				break;
- 			}
- 			if (outer_diff > outer_sample)
- 				outer_sample = outer_diff;
- 		}
- 		last_t2 = t2;
- 
--		total = time_to_us(time_sub(t2, start)); /* sample width */
-+		total = time_sub(t2, start); /* sample width */
- 
- 		/* Check for possible overflows */
- 		if (total < last_total) {
-@@ -250,7 +249,7 @@ static int get_sample(void)
- 		last_total = total;
- 
- 		/* This checks the inner loop (t1 to t2) */
--		diff = time_to_us(time_sub(t2, t1));     /* current diff */
-+		diff = time_sub(t2, t1);     /* current diff */
- 
- 		if (diff > thresh || outer_diff > thresh) {
- 			if (!count)
-@@ -261,7 +260,8 @@ static int get_sample(void)
- 		/* This shouldn't happen */
- 		if (diff < 0) {
- 			hwlat_err(BANNER "time running backwards\n");
--			goto out;
-+			ret = -1;
-+			break;
- 		}
- 
- 		if (diff > sample)
-@@ -273,7 +273,8 @@ static int get_sample(void)
- 	trace_hwlat_callback_enabled = false;
- 	barrier(); /* Make sure nmi_total_ts is no longer updated */
- 
--	ret = 0;
-+	if (ret)
-+		return ret;
- 
- 	/* If we exceed the threshold value, we have found a hardware latency */
- 	if (sample > thresh || outer_sample > thresh) {
-@@ -286,8 +287,8 @@ static int get_sample(void)
- 			do_div(kdata->nmi_total_ts, NSEC_PER_USEC);
- 
- 		s.seqnum = atomic64_inc_return(&hwlat_data.count);
--		s.duration = sample;
--		s.outer_duration = outer_sample;
-+		s.duration = time_to_us(sample);
-+		s.outer_duration = time_to_us(outer_sample);
- 		s.nmi_total_ts = kdata->nmi_total_ts;
- 		s.nmi_count = kdata->nmi_count;
- 		s.count = count;
-@@ -301,8 +302,6 @@ static int get_sample(void)
- 			latency_fsnotify(tr);
- 		}
- 	}
--
--out:
- 	return ret;
- }
- 
-@@ -839,7 +838,6 @@ static int hwlat_tracer_init(struct trace_array *tr)
- 	tr->max_latency = 0;
- 	save_tracing_thresh = tracing_thresh;
- 
--	/* tracing_thresh is in nsecs, we speak in usecs */
- 	if (!tracing_thresh)
- 		tracing_thresh = last_tracing_thresh;
- 
--- 
-2.43.0
+>=20
+>>=20
+>> The corrected interrupt configuration has been tested on X1600,
+>> X2000, and X2600, including GPIO dual-edge interrupts by a
+>> gpio-button.
+>>=20
+>> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+>> ---
+>> drivers/pinctrl/pinctrl-ingenic.c | 71 =
++++++++++++++++++++++++++------
+>> 1 file changed, 58 insertions(+), 13 deletions(-)
+>>=20
+>> diff --git a/drivers/pinctrl/pinctrl-ingenic.c =
+b/drivers/pinctrl/pinctrl-
+>> ingenic.c
+>> index a62532c49fb60..90c734c74d267 100644
+>> --- a/drivers/pinctrl/pinctrl-ingenic.c
+>> +++ b/drivers/pinctrl/pinctrl-ingenic.c
+>> @@ -70,6 +70,10 @@
+>> #define X2000_GPIO_SR 0xd0
+>> #define X2000_GPIO_SMT 0xe0
+>>=20
+>> +#define X2600_GPIO_FLAG_CLR 0x58 /* write only */
+>> +#define X2600_GPIO_SHADOW_OFFSET 0x800
+>> +#define X2600_GPIO_PAGLD (X2600_GPIO_SHADOW_OFFSET +
+>> 0xf0)
+>> +
+>> #define REG_SET(x) ((x) + 0x4)
+>> #define REG_CLEAR(x) ((x) + 0x8)
+>>=20
+>> @@ -114,6 +118,7 @@ enum jz_version {
+>>  ID_X1830,
+>>  ID_X2000,
+>>  ID_X2100,
+>> + ID_X2600,
+>> };
+>>=20
+>> struct ingenic_chip_info {
+>> @@ -164,7 +169,8 @@ static const unsigned long enabled_socs =3D
+>>  IS_ENABLED(CONFIG_MACH_X1600) << ID_X1600 |
+>>  IS_ENABLED(CONFIG_MACH_X1830) << ID_X1830 |
+>>  IS_ENABLED(CONFIG_MACH_X2000) << ID_X2000 |
+>> - IS_ENABLED(CONFIG_MACH_X2100) << ID_X2100;
+>> + IS_ENABLED(CONFIG_MACH_X2100) << ID_X2100 |
+>> + IS_ENABLED(CONFIG_MACH_X2600) << ID_X2600;
+>>=20
+>> static bool
+>> is_soc_or_above(const struct ingenic_pinctrl *jzpc, enum jz_version =
+version)
+>> @@ -3545,15 +3551,21 @@ static void =
+ingenic_gpio_shadow_set_bit(struct
+>> ingenic_gpio_chip *jzgc,
+>>  else
+>>  reg =3D REG_CLEAR(reg);
+>>=20
+>> - regmap_write(jzgc->jzpc->map, REG_PZ_BASE(
+>> - jzgc->jzpc->info->reg_offset) + reg, BIT(offset));
+>> + if (is_soc_or_above(jzgc->jzpc, ID_X2600))
+>> + regmap_write(jzgc->jzpc->map, jzgc->reg_base +
+>> X2600_GPIO_SHADOW_OFFSET + reg,
+>> +      BIT(offset));
+>> + else
+>> + regmap_write(jzgc->jzpc->map, REG_PZ_BASE(jzgc->jzpc->info-
+>>> reg_offset) + reg,
+>> +      BIT(offset));
+>> }
+>>=20
+>> static void ingenic_gpio_shadow_set_bit_load(struct ingenic_gpio_chip =
+*jzgc)
+>> {
+>> - regmap_write(jzgc->jzpc->map, REG_PZ_GID2LD(
+>> - jzgc->jzpc->info->reg_offset),
+>> - jzgc->gc.base / PINS_PER_GPIO_CHIP);
+>> + if (is_soc_or_above(jzgc->jzpc, ID_X2600))
+>> + regmap_write(jzgc->jzpc->map, jzgc->reg_base +
+>> X2600_GPIO_PAGLD, 1);
+>> + else
+>> + regmap_write(jzgc->jzpc->map, REG_PZ_GID2LD(jzgc->jzpc->info-
+>>> reg_offset),
+>> +      jzgc->gc.base / PINS_PER_GPIO_CHIP);
+>> }
+>>=20
+>> static void jz4730_gpio_set_bits(struct ingenic_gpio_chip *jzgc,
+>> @@ -3618,6 +3630,12 @@ static void irq_set_type(struct =
+ingenic_gpio_chip
+>> *jzgc,
+>>  break;
+>>  }
+>>=20
+>> + if (type =3D=3D IRQ_TYPE_EDGE_BOTH &&
+>> +     (is_soc_or_above(jzgc->jzpc, ID_X2000) ||
+>> +      (is_soc_or_above(jzgc->jzpc, ID_X1600) &&
+>> +       !is_soc_or_above(jzgc->jzpc, ID_X1830))))
+>=20
+> I remember you saying (in another patchset) that the X1830 was older =
+than the
+> X1600, if that's the case the IDs for X1600 and X1830 should be =
+swapped. I
+> believe this patch would then become much simpler.
+
+Indeed. So I can swap the ID's in V2.
+
+BR and thanks,
+Nikolaus
+
+>=20
+> Cheers,
+> -Paul
+>=20
+>> + val2 =3D true;
+>> +
+>>  if (is_soc_or_above(jzgc->jzpc, ID_JZ4770)) {
+>>  reg1 =3D JZ4770_GPIO_PAT1;
+>>  reg2 =3D JZ4770_GPIO_PAT0;
+>> @@ -3640,6 +3658,9 @@ static void irq_set_type(struct =
+ingenic_gpio_chip *jzgc,
+>>  ingenic_gpio_shadow_set_bit(jzgc, reg2, offset, val1);
+>>  ingenic_gpio_shadow_set_bit(jzgc, reg1, offset, val2);
+>>  ingenic_gpio_shadow_set_bit_load(jzgc);
+>> +
+>> + if (is_soc_or_above(jzgc->jzpc, ID_X1600) &&
+>> !is_soc_or_above(jzgc->jzpc, ID_X1830))
+>> + ingenic_gpio_set_bit(jzgc, X2000_GPIO_EDG, offset,
+>> val3);
+>>  } else {
+>>  ingenic_gpio_set_bit(jzgc, reg2, offset, val1);
+>>  ingenic_gpio_set_bit(jzgc, reg1, offset, val2);
+>> @@ -3714,7 +3735,8 @@ static void ingenic_gpio_irq_ack(struct =
+irq_data *irqd)
+>>  bool high;
+>>=20
+>>  if ((irqd_get_trigger_type(irqd) =3D=3D IRQ_TYPE_EDGE_BOTH) &&
+>> -     !is_soc_or_above(jzgc->jzpc, ID_X2000)) {
+>> +     (!is_soc_or_above(jzgc->jzpc, ID_X1600) ||
+>> +     (is_soc_or_above(jzgc->jzpc, ID_X1830) && =
+!is_soc_or_above(jzgc-
+>>> jzpc, ID_X2000)))) {
+>>  /*
+>>   * Switch to an interrupt for the opposite edge to the one
+>> that
+>>   * triggered the interrupt being ACKed.
+>> @@ -3726,7 +3748,9 @@ static void ingenic_gpio_irq_ack(struct =
+irq_data *irqd)
+>>  irq_set_type(jzgc, irq, IRQ_TYPE_LEVEL_HIGH);
+>>  }
+>>=20
+>> - if (is_soc_or_above(jzgc->jzpc, ID_JZ4770))
+>> + if (is_soc_or_above(jzgc->jzpc, ID_X2600))
+>> + regmap_write(jzgc->jzpc->map, jzgc->reg_base +
+>> X2600_GPIO_FLAG_CLR, BIT(irq));
+>> + else if (is_soc_or_above(jzgc->jzpc, ID_JZ4770))
+>>  ingenic_gpio_set_bit(jzgc, JZ4770_GPIO_FLAG, irq, false);
+>>  else if (is_soc_or_above(jzgc->jzpc, ID_JZ4740))
+>>  ingenic_gpio_set_bit(jzgc, JZ4740_GPIO_DATA, irq, true);
+>> @@ -3754,7 +3778,9 @@ static int ingenic_gpio_irq_set_type(struct =
+irq_data
+>> *irqd, unsigned int type)
+>>  irq_set_handler_locked(irqd, handle_bad_irq);
+>>  }
+>>=20
+>> - if ((type =3D=3D IRQ_TYPE_EDGE_BOTH) && =
+!is_soc_or_above(jzgc->jzpc,
+>> ID_X2000)) {
+>> + if (type =3D=3D IRQ_TYPE_EDGE_BOTH &&
+>> +     (!is_soc_or_above(jzgc->jzpc, ID_X1600) ||
+>> +     (is_soc_or_above(jzgc->jzpc, ID_X1830) && =
+!is_soc_or_above(jzgc-
+>>> jzpc, ID_X2000)))) {
+>>  /*
+>>   * The hardware does not support interrupts on both edges.
+>> The
+>>   * best we can do is to set up a single-edge interrupt and
+>> then
+>> @@ -3849,16 +3875,35 @@ static inline void =
+ingenic_shadow_config_pin(struct
+>> ingenic_pinctrl *jzpc,
+>>  unsigned int pin, u8 reg, bool set)
+>> {
+>>  unsigned int idx =3D pin % PINS_PER_GPIO_CHIP;
+>> + unsigned int offt =3D pin / PINS_PER_GPIO_CHIP;
+>>=20
+>> - regmap_write(jzpc->map, REG_PZ_BASE(jzpc->info->reg_offset) +
+>> - (set ? REG_SET(reg) : REG_CLEAR(reg)), BIT(idx));
+>> + if (set)
+>> + reg =3D REG_SET(reg);
+>> + else
+>> + reg =3D REG_CLEAR(reg);
+>> +
+>> + if (is_soc_or_above(jzpc, ID_X2600)) {
+>> + u32 target_reg =3D (offt * jzpc->info->reg_offset) +
+>> X2600_GPIO_SHADOW_OFFSET + reg;
+>> +
+>> + regmap_write(jzpc->map, target_reg, BIT(idx));
+>> + } else {
+>> + regmap_write(jzpc->map, REG_PZ_BASE(jzpc->info->reg_offset) +
+>> reg, BIT(idx));
+>> + }
+>> }
+>>=20
+>> static inline void ingenic_shadow_config_pin_load(struct =
+ingenic_pinctrl
+>> *jzpc,
+>>  unsigned int pin)
+>> {
+>> - regmap_write(jzpc->map, REG_PZ_GID2LD(jzpc->info->reg_offset),
+>> - pin / PINS_PER_GPIO_CHIP);
+>> + unsigned int offt =3D pin / PINS_PER_GPIO_CHIP;
+>> +
+>> + if (is_soc_or_above(jzpc, ID_X2600)) {
+>> + u32 target_load_reg =3D (offt * jzpc->info->reg_offset) +
+>> X2600_GPIO_PAGLD;
+>> +
+>> + regmap_write(jzpc->map, target_load_reg, 1);
+>> + } else {
+>> + regmap_write(jzpc->map, REG_PZ_GID2LD(jzpc->info-
+>>> reg_offset),
+>> +      pin / PINS_PER_GPIO_CHIP);
+>> + }
+>> }
+>>=20
+>> static inline void jz4730_config_pin_function(struct ingenic_pinctrl =
+*jzpc,
+
 
