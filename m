@@ -1,44 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.79.60.73
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.218
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794542136;
-	b=YIlGZj+x1saaCNdZUItGS0TOzp4B4ETMcDhnY6PT1MTsATlTAd8ed2oWmryX8nY8NN/f
-	 eIx0LFE8Vg3o2QSznmxwCYt4OLaHKpXQ1nN1xs/o6clt+CmTxOX95TweFsUPfGT4VSh7t
-	 eG4O62dde2JiQDSy/Tv/iRYAm+1fw9idd1btAb/r0n0bGBMsJdHp1oeTqdCGxaBFuRD2l
-	 IrCWtRofV5JRrqiLs0p9Y28nvAP2cERKQJrZsIC13WwBKaz3AWBQQ5vnYjo+d9ZnR7Nrp
-	 /PHWdOpj0fzu1SjD5uZ8lFCtTXMxlN3V0hjkIYoVonBLNEKhzFwhUJ6rvQD8YxBEQOg==
+	t=1794542200;
+	b=OYhrSxqkINnYlAlqSaIv0qJeQ4e09qocc9jaL6hwfqzGiCf4IUR8gy5Oc70C9AHlTtuL
+	 M4lgT1RpKbthjIrWAQ3BGtIU6jNcQtzbZswoMxO7nYv8bHlWqHbAhNEPtwygPdJ6pSv67
+	 rXpI4Xfer/EGHlx/cG/hbUxIcyXp/tyTJvt6Aum/8SKmy8LfhfpTFlvgYnarG+12IXaRx
+	 FhpByAfBMmQNcbBW1oLe0ISRM5MoQHYqZ6wbnI1EnAUSPOyglvcXHJTWPrHixyw4H7+cx
+	 nZ2k5gtZi4ZnZ7vIzm3AmKQeQaf2jLBQFRJ1pxXdSJ4bTNrpM3EB55r2GvAj9gOvi/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794542136;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=hsA+0+anSnhiXg4sK9xBWSI9juDNDjs8+QiRi3lljks=;
-	b=T+4gfOk6mD8Fz4HUAxkoLVOElGt4I0/7o4CtB/RuAM4/ZIhf3K+t/6GuplNuK8URrgZB
-	 qdgB5xsADwA7X6aYhw5kKkC/U00w6iNomm7VtsXmpX7miDkHmcIbkRfb+bja6L7mwMfCC
-	 0stcXU6Hb9n+yI1dQW7WaRKe8UO3b4uTE2L7NpiBtICm7gW+S+p5h/dYIjoCyd/PbCUt3
-	 c6AStFQ3jffbBwlPXPmP8fhD8Lh2uACNDRJpjC4Lp9VxaCBmI4cPiI5CLSnMwd0VPplkL
-	 /wY6xpWAq36DWQMDECN/bLue9XwR4V/aOtMR8W5hSj6onEXHUgxPnD5VzUptSUmyJ/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794542200;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy;
+	bh=c3IsyqkDIWcFoAWUz+a4O451BRWK6BgsPtMgW9Nvv/E=;
+	b=M+t+PnvSpF619UsT7ov+tnBG/5jAwjeGWH9ronCjoDK93bhrr8l8mbQzCfyRHvq365F7
+	 24YYlH++CSY145GpLnQB2cIjRFHlZ6qDKsr4m7aIkQ00eJUgU+V4L8Xr/tbr7uMR3YYNW
+	 oI70jv4J1HQNgFBNUszaHy0/sotRtCdlIkymD+1qm07D6T0TL2BfPbPZn7sOL+9GKianV
+	 0XCWz/By/PpwfojDdSC+bXzs7KIw9+DgxdE5Lvj0WSC2wVYAkuekqbz41YBcNyx2BbonT
+	 goaWhAC6f/aKwP3Qc8Yu+Ul6MY2Wsi3S343Qv5BFhbsXOQ5vfq/yAerktxrbsJRm63A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=FmQsKe3T;
-	arc=none smtp.remote-ip=210.79.60.73
-Received: from mail-m6073.netease.com (mail-m6073.netease.com [210.79.60.73])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=yrjLoZTa;
+	arc=none smtp.remote-ip=113.46.200.218
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D5D9606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:55:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D5D9606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE74A606A31C;
+	Fri, 13 Nov 2026 03:56:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE74A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=FmQsKe3T
-Received: from [172.16.12.74] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 548920358;
-	Fri, 13 Nov 2026 11:55:25 +0800 (GMT+08:00)
-Message-ID: <956a66b3-095b-45a7-826c-a0090bfe3cbb@rock-chips.com>
-Date: Fri, 13 Nov 2026 11:55:24 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=yrjLoZTa
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=c3IsyqkDIWcFoAWUz+a4O451BRWK6BgsPtMgW9Nvv/E=;
+	b=yrjLoZTab8mWtUhjvpXJDdI+67sJG0vF3QRBhGDCSAvQnHTaOUj159iBcHJs9yXApHa//OCW3
+	BFD4bl5CWqX8S9DyjgNrCIqW+FA2Uybergz+T4pSQZO+W+MlTr27JWcOZU6chYRYuIBJZZsUTxZ
+	wQgHHRHZgOtw1tG8GWPL0lw=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4jQk230vZYzpStp;
+	Fri, 13 Nov 2026 11:55:55 +0800 (CST)
+Received: from kwepemk300003.china.huawei.com (unknown [7.202.195.93])
+	by mail.maildlp.com (Postfix) with ESMTPS id B63EB40579;
+	Fri, 13 Nov 2026 11:56:35 +0800 (CST)
+Received: from [10.174.177.243] (10.174.177.243) by
+ kwepemk300003.china.huawei.com (7.202.195.93) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Fri, 13 Nov 2026 11:56:34 +0800
+Message-ID: <9b46d8e0-104e-4659-8dec-67eb6f059dac@huawei.com>
+Date: Fri, 13 Nov 2026 11:56:33 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,74 +63,67 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 8/9] drm/rockchip: vop2: Keep the other LUT_PORT_SEL
- fields on gamma LUT updates
-To: aiyengar1990@gmail.com, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, Andy Yan
- <andyshrk@163.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Piotr Zalewski <pZ010001011111@proton.me>,
- Chaoyi Chen <chaoyi.chen@rock-chips.com>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261112-vop2-fixes-v2-0-8218c1cf8ac8@gmail.com>
- <20261112-vop2-fixes-v2-8-8218c1cf8ac8@gmail.com>
+Subject: Re: [PATCH v4 3/3] mm: hugetlb: fix GFP mask propagation to CMA
+To: Qi Zheng <qi.zheng@linux.dev>, <muchun.song@linux.dev>,
+	<osalvador@suse.de>, <david@kernel.org>, <akpm@linux-foundation.org>,
+	<azpijr@gmail.com>, <lance.yang@linux.dev>, Qi Zheng
+	<zhengqi.arch@bytedance.com>
+CC: <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>,
+	<stable@vger.kernel.org>, "Oscar Salvador (SUSE)" <osalvador@kernel.org>
+References: <cover.1794379433.git.zhengqi.arch@bytedance.com>
+ <1c5e8c4ae230dc238a16f2f42d65bffac6244ad3.1794379434.git.zhengqi.arch@bytedance.com>
+ <7def88b4-cba5-4e8b-9e68-6069c492b582@huawei.com>
+ <1cd3c151-24c2-4fec-8356-99853f8d6971@linux.dev>
 Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <20261112-vop2-fixes-v2-8-8218c1cf8ac8@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa1d30bc19e03a8kunmbad58f1d5ceec
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZQkNPVktMThlJS0gfSklIGlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=FmQsKe3TLHHJ/eXUlwz2NqtJQMY2ZUa/knMnFvh4LnMw7d1Z7PiWMKUXXtVJj1A3dV4xhvsWYzAGkwIhHgLddIWrw6saWgW7mUOvmJg3JzevpZ25aHz0yLoVcO/gZVaRrH2wRqEz24j87YY34O4Q7HD0/P9m4eiSX0FhzJRz0JI=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=hsA+0+anSnhiXg4sK9xBWSI9juDNDjs8+QiRi3lljks=;
-	h=date:mime-version:subject:message-id:from;
+From: Kefeng Wang <wangkefeng.wang@huawei.com>
+In-Reply-To: <1cd3c151-24c2-4fec-8356-99853f8d6971@linux.dev>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ kwepemk300003.china.huawei.com (7.202.195.93)
 
-On 11/12/2026 4:33 PM, Arun Iyengar via B4 Relay wrote:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
-> 
-> On RK3588 the gamma LUT of a video port is written through a window that
-> GAMMA_AHB_WRITE_SEL in SYS_CTRL_LUT_PORT_SEL selects. The register also
-> holds the dclk source selection of video ports 0 and 2 and the enable of
-> the video port 0/1 merge for modes wider than 4096 pixels, which writing
-> the whole register clears.
-> 
-> Only update the write select field.
-> 
-> Fixes: 4f537776340d ("rockchip/drm: vop2: add support for gamma LUT")
-> Reviewed-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-> ---
->   drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 5 +++--
->   1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> index c59e270739b6..259e30ebb9cb 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> @@ -2015,8 +2015,9 @@ static void vop2_crtc_atomic_set_gamma_seamless(struct vop2 *vop2,
->   						struct vop2_video_port *vp,
->   						struct drm_crtc *crtc)
->   {
-> -	vop2_writel(vop2, RK3568_LUT_PORT_SEL,
-> -		    FIELD_PREP(RK3588_LUT_PORT_SEL__GAMMA_AHB_WRITE_SEL, vp->id));
-> +	regmap_update_bits(vop2->map, RK3568_LUT_PORT_SEL,
-> +			   RK3588_LUT_PORT_SEL__GAMMA_AHB_WRITE_SEL,
-> +			   FIELD_PREP(RK3588_LUT_PORT_SEL__GAMMA_AHB_WRITE_SEL, vp->id));
->   	vop2_vp_dsp_lut_enable(vp);
->   	vop2_crtc_write_gamma_lut(vop2, crtc);
->   	vop2_vp_dsp_lut_update_enable(vp);
-> 
 
-Reviewed-by: Damon Ding <damon.ding@rock-chips.com>
 
-Best regards,
-Damon
+On 11/13/2026 10:30 AM, Qi Zheng wrote:
+> 
+> 
+> On 11/12/26 7:27 PM, Kefeng Wang wrote:
+>>
+>>
+>> On 11/11/2026 2:46 PM, Qi Zheng wrote:
+>>> From: Qi Zheng <zhengqi.arch@bytedance.com>
+>>>
+>>> cma_alloc_frozen_compound() uses GFP_KERNEL, allowing direct reclaim
+>>> during the first MPOL_PREFERRED_MANY allocation attempt even though
+>>> the caller clears __GFP_DIRECT_RECLAIM.
+>>
+>> MPOL_PREFERRED_MANY is only used for the partner allocator. Without your
+> 
+> It's doesn't seem so.
+> 
+> Gigantic surplus allocations already use MPOL_PREFERRED_MANY, following
+> eb02f14c4a2b ("mm/hugetlb: allow overcommitting gigantic hugepages"),
+> which predates 9bda131c6093.
+> 
+> alloc_buddy_hugetlb_folio
+> --> MPOL_PREFERRED_MANY
+>      --> gfp_t gfp = gfp_mask & ~(__GFP_DIRECT_RECLAIM | __GFP_NOFAIL);
+>          folio = alloc_surplus_hugetlb_folio(h, gfp, mpoli->nid, nodemask);
+>          --> alloc_fresh_hugetlb_folio
+>              --> only_alloc_fresh_hugetlb_folio
+>                  --> alloc_gigantic_frozen_folio
+>                      --> hugetlb_cma_alloc_frozen_folio
+>                          --> cma_alloc_frozen_compound
+> 
+> Before 9bda131c6093, cma_alloc_folio() forwarded the caller's GFP mask.
+> The conversion to cma_alloc_frozen_compound() replaced it with
+> GFP_KERNEL, re-enabling direct reclaim during the preferred-node
+> attempt.
 
+Oh, I forgot about that commit. The naming and some of the comments are 
+misleading because alloc_buddy_hugetlb_folio/alloc_surplus_hugetlb_folio
+can allocate both buddy and gigantic folios (which can be allocated from
+CMA).
+
+Maybe rename alloc_buddy_hugetlb_folio to hugetlb_alloc_surplus_folio,
+or other names...
