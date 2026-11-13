@@ -1,57 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794581108;
-	b=VkhgGzU4aC/Baf7FvAUapKF+yKH+ZfnI5WbxcPVkhY0T71EUkOynaO3Jz9ATzjcWn78f
-	 qTknsRO8QLnNmbFoNSSVicpni1SNJd7LcGoN+You6t75JVCbuYIJ0ReG3hzWUBtxP7+/T
-	 RvgCvXLmw+TM7f1lNzyFa0ijlF0fPpqrbyFZvHrl3T/WiX1ErzYpAxBM1tqhm8OpealiR
-	 AN6F/N4Hca1dd65lT6xgoXUpcKLO8JdLoMi6hvsojeGrc/ETC1ltzoQqdG3bOxtWmD70F
-	 6Ya4fhau+sVhbyvbsRYmWrnBsXIxbLY0iAahbF7r9w7oX3GyRB/R6iLXWPLNtTkfedQ==
+	t=1794581115;
+	b=ZZz7nWOZtHONor2Rp9cAXmNIQmWgUVydiBmv8LkKhGh1yP5HRrklF0gLokPHByiVflXy
+	 96cXr5u3JHKaSUTNooxvQ+kxYQJ4We+6Qt3OkE96J9/Goc+QQpq8W5BHnDUZXlP+aMdtM
+	 DVwH4pM9zVFhc52EhqbuWSa9aM/yJZeYgfpQV60wcnVsJ7ksa9lqrLutU3PausS7Dbm6v
+	 i6JENyCFu1Ae+70VLwd63af5mBs67l21HxQ150Y3j3mFJ2OG7rdli6/oJm9t6jiB/XlOZ
+	 Z2DUKGkkDl+I6/OHUmG1hM8vc4IyYzN+io3JfXs8sJlj9md8XdttgCqj4ddNOXnPUlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794581108;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=jF1g0y9jm2+R+Wr/UKLxocL5q1AxkOT9H3ZTJEWe8qU=;
-	b=M2MIipmlFGv4gv52NoWO/xW/W1OZnNRrrJiqw0kQzCni+AzkuyTcsWjTmQNxf/+X79Bh
-	 ahM53AHJSfS4eXMiUmJdr+ka0iivp8WkJwRe4TZPKQ9d1ectVTTboYwsWntPl+oaU8Wz8
-	 6fXDMhf+ra/ePSkdBfY3BOIXjIVZmF6ye7hq0oiZr/fjOdSbeP3MJB0WQ/Jp95/uSK/9q
-	 16x3cxIQ6xWDq5Q53P/7ceDJB113y+lNVbHqPKkP1hxzT4EF/fay0q5oOAdtKvcbzhLUT
-	 L0pdSYRLVOkR7A8a75ACQceVT/bRO5/IO5pElWqDhsvgQkFUTD4htZoUW1uGUa/0Bpw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794581115;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=ydTUVXDliY8dDnSWxpGXxy/5egBwbdz7n5fMS8Wz8uc=;
+	b=uhGZLaIBuQiY1jNOcB+drwBZEQIuc1vG/x9RPKXQFCJPc36vIbKkKSUDEqXggz35iYWU
+	 4oK2ahLVW90NGOqZ3ZWDGtJV/VC4GnBtrdTNxxoLIG/5iNCpqcrL9XEpHeqkRzxNY3/hP
+	 TUIUcd5SHMVQkn1OPMdBDzJ36qddec5HadqAZkCHNOVI4dbyGVRjiZhDIz6M9o8YNxeUq
+	 sCtuTP34iyeHaN8W7vQHm8tqKyAqkEz2hyohs1RpW39W/e0rVErgHZv62PZeBmhP3SphI
+	 9fUpsmh+0ePka5rML+4oL8Wsue5NrfDd9iCSESMzD9arepL7N/ygD/zqfpI9vyB23wg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=becholey.ch;
-	spf=pass smtp.mailfrom=becholey.ch;
-	dkim=pass header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=eZ+hWB5r;
-	arc=none smtp.remote-ip=109.224.244.118
-Received: from mail-244118.protonmail.ch (mail-244118.protonmail.ch [109.224.244.118])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=kfw9IK+v;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8975B606A331;
-	Fri, 13 Nov 2026 14:45:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8975B606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=becholey.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=becholey.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FC58606A330;
+	Fri, 13 Nov 2026 14:45:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FC58606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=eZ+hWB5r
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=becholey.ch;
-	s=protonmail; t=1794581104; x=1794840304;
-	bh=jF1g0y9jm2+R+Wr/UKLxocL5q1AxkOT9H3ZTJEWe8qU=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=eZ+hWB5rKx9yw7tsb9VfFGbwJXq6PfJADS0FueH80SYh8XdkWoTKLu98iOytoAjhD
-	 zZOz6jgQ5zjVaX2cU0gM/0XjbjjpeVi66yZfrLEy75v42LXYZNzw/9anG7twqk4Trk
-	 9VCWOj9g0qqzj3YR7jlUFuwp6Y6VPieja8YzsRofqkAHNhAtS3LhNlF+v2/19E4LJB
-	 6XAQcXm9byM/BbQo+tXa/Y6wyUt2pf8axlyjwCcjvVUdHi44lBeeSlKp1WcAgv0Vot
-	 uPmEJ/494T23o+LK+Rssxn66+F+ERNTmcOa/qZt+i32+rYdE+ySl9l6y5XUpU7T9v1
-	 WzCIJCSznlz9Q==
-Date: Fri, 13 Nov 2026 14:44:58 +0000
-To: Lixu Zhang <lixu.zhang@intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Haotian Zhang <vulab@iscas.ac.cn>
-From: Alexandre Becholey <alex@becholey.ch>
-Cc: Alexandre Becholey <alex@becholey.ch>, stable@vger.kernel.org, linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] gpio: ljca: Validate the pin index of interrupt events
-Message-ID: <20261113144432.1354180-1-alex@becholey.ch>
-Feedback-ID: 60743817:user:proton
-X-Pm-Message-ID: 95b8c980a6ac2b92f83445eea46e14d4d1eefe89
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=kfw9IK+v
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADCENXM1667747;
+	Fri, 13 Nov 2026 14:45:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=ydTUVX
+	DliY8dDnSWxpGXxy/5egBwbdz7n5fMS8Wz8uc=; b=kfw9IK+vw72S8WrPuPOolK
+	1haQ6UPc1q9QUycJHCsbhd++9mfQJYWxccNzpDa3OU7ergKOQIB6bNPAXmVLLsYw
+	fMXGFiFSjgVMxq7P3BPL3dYe0F1JNFn+V6rxtGuwRFs1jggdKWmc07umMOu4aQ+5
+	9jpaeZKl6h33tHlxaHjO9bRKN3q+JQvrnnKZtSCUt5F1O1V8ynLSN8y0+XhJgkMX
+	J+iEz/Ps7uvTXHwpNB+aLkVSi539iub1LrbiqrqlspFnc0QN12zCaLeqOEZdlWH5
+	kSLJ8HIWehYKiZV+H2SkRZGdJMBVSCLzP1FMJ466fn+TtEROaCU1h1HHRoOKhJ/w
+	==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hstdgjyh4-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 13 Nov 2026 14:45:07 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADC5Ki52352642;
+	Fri, 13 Nov 2026 14:45:07 GMT
+Received: from smtprelay01.wdc07v.mail.ibm.com ([172.16.1.68])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hwc0tcq4n-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 13 Nov 2026 14:45:07 +0000 (GMT)
+Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com [10.39.53.229])
+	by smtprelay01.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6ADEj6NE54985132
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 13 Nov 2026 14:45:06 GMT
+Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id BCDD858059;
+	Fri, 13 Nov 2026 14:45:06 +0000 (GMT)
+Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 28AC45805C;
+	Fri, 13 Nov 2026 14:45:06 +0000 (GMT)
+Received: from [9.47.158.153] (unknown [9.47.158.153])
+	by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Fri, 13 Nov 2026 14:45:06 +0000 (GMT)
+Message-ID: <5c9ba3d6-cf55-4a8d-914d-2c85f7b7f5cf@linux.ibm.com>
+Date: Fri, 13 Nov 2026 09:45:05 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,161 +85,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] KEYS: Fix signature input size for KEYCTL_PKEY_VERIFY
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: keyrings@vger.kernel.org, linux-kernel@vger.kernel.org,
+        dhowells@redhat.com, Florian Bauckholt <florian.bauckholt@cispa.de>
+References: <20261113140311.1375048-1-stefanb@linux.ibm.com>
+ <avcaQGqHKnNFNFSG@kernel.org> <avcadBCRBGUXDapR@kernel.org>
+Content-Language: en-US
+From: Stefan Berger <stefanb@linux.ibm.com>
+In-Reply-To: <avcadBCRBGUXDapR@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=J+M/fwnS c=1 sm=1 tr=0 ts=6af72273 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=M43pvfWBF3vM85GmxsMA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA1OCBTYWx0ZWRfX9pOcGW8LTmM1
+ Chx4pg9tnUADerOiz/fhtdjKRSpsLKvPY+8uSxMgtT5bce9iL8Qz0wWtWDoalNSRrh5uLB5zIFC
+ 1qE3n9JIjnEgFqHnKv4UYWcty/XawJhs0dioVn3YQJKkbHX2uAVNTyc9lZ6ntQY+Ig8pITZ7sPR
+ wqX8AiNcB13oyMPsndOGDkLxB5T6UDaRAsqGk4VXhsyxkbXQZ4CyLKbHyxB0crMlk1HHw7rsxlq
+ O1vEDmzPx8b/VpnAxXjXpGD/uWuqg43aBkoyoEACHmOSp8fPTHAvA+t4aHcDsNA9pvexhcRruZm
+ tunxN+D6+ijVER6yWPE/gSudK4TknSCTQ/uCSteXwMlFqJN2Z7J74fkKEAKAYjx5Wi44mnSGn2z
+ eJaKiNFlFrR2P0Fdbli8X3dTgHDzWnSb6c1yuNNKx8rX1TxxvOkmbBUgvmHF0BG9A8U52qlPuEe
+ 4IUBrefCKCV82/IhO9g==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA1OCBTYWx0ZWRfXxBEnpLuiSVN8
+ 1PWdfwIdwZJe0fnSCIwGUZjUwjItvGe+70DuQy730tfrzk6/8e/jaugnvV0Al44rH9yMkEUDzDu
+ pZDVEfKRwGphWQls+tWOCKOchPYbzLw=
+X-Proofpoint-GUID: O1akjyiLhMwsdg7_Hqm5Ip3MENWb2Xip
+X-Proofpoint-ORIG-GUID: O1akjyiLhMwsdg7_Hqm5Ip3MENWb2Xip
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-13_04,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 phishscore=0 bulkscore=0 adultscore=0 suspectscore=0
+ malwarescore=0 clxscore=1015 priorityscore=1501 impostorscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130058
 
-ljca_gpio_event_cb() takes the pin index of every item in a GPIO
-interrupt event from the device and passes it to set_bit() on the
-reenable_irqs bitmap, which is only LJCA_MAX_GPIO_NUM (64) bits long.
-The index is a u8, so a malfunctioning or malicious device can set
-bits past the end of the bitmap, in the members that follow it in
-struct ljca_gpio_dev: the output_enabled bitmap, the connect_mode
-pointer and the irq_lock mutex. connect_mode is later dereferenced and
-written to by ljca_gpio_set_config() and ljca_irq_set_type(), so the
-device can flip bits of a kernel pointer that is then used for a write.
 
-Until commit 4c4e6ea4a120 ("gpio: ljca: Fix duplicated IRQ mapping")
-an index without an IRQ mapping made irq_find_mapping() fail and the
-handler returned before set_bit(). Since that change nothing checks
-the index.
 
-A device bound to usb-ljca can trigger this by sending one GPIO
-interrupt event, once the gpiochip is registered, with an index that
-sets a bit of connect_mode which is still clear in a kernel pointer:
-175 (bit 47) on arm64, 174 (bit 46) on x86_64. The next GPIO line
-request then faults in ljca_gpio_set_config(). With dummy_hcd and
-KASAN, on arm64 (torvalds/master 067c5c24cef2):
+On 11/13/26 9:11 AM, Jarkko Sakkinen wrote:
+> On Fri, Nov 13, 2026 at 04:10:12PM +0200, Jarkko Sakkinen wrote:
+>> On Fri, Nov 13, 2026 at 09:03:11AM -0500, Stefan Berger wrote:
+>>> Revert the changes made for signature verification in cb481e59ea6c back
+>>> to the old behavior where effectively the params->in2_len was set to the
+>>> length of the user provided buffer uparams.in2_len (out_len is an alias
+>>> for in2_len due to the union). We cannot use the max_sig_size in the
+>>> case of signature verification since this is neither the true size of the
+>>> input buffer nor would it pass tests of size indicators found in the ASN.1
+>>> in the buffer comparing against the input buffer size.
+>>>
+>>> Fixes: cb481e59ea6c ("KEYS: fix overflow in keyctl_pkey_params_get_2()")
+>>> Cc: Jarkko Sakkinen <jarkko@kernel.org>
+>>> Cc: Florian Bauckholt <florian.bauckholt@cispa.de>
+>>> Signed-off-by: Stefan Berger <stefanb@linux.ibm.com>
+>>> ---
+>>>   security/keys/keyctl_pkey.c | 2 +-
+>>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>>
+>>> diff --git a/security/keys/keyctl_pkey.c b/security/keys/keyctl_pkey.c
+>>> index 15b6bf6399b5..794fa3d01911 100644
+>>> --- a/security/keys/keyctl_pkey.c
+>>> +++ b/security/keys/keyctl_pkey.c
+>>> @@ -160,7 +160,7 @@ static int keyctl_pkey_params_get_2(const struct keyctl_pkey_params __user *_par
+>>>   		    uparams.in2_len > info.max_sig_size)
+>>>   			return -EINVAL;
+>>>   
+>>> -		params->out_len = info.max_sig_size;
+>>> +		params->in2_len = uparams.in2_len;
+>>>   		break;
+>>>   	default:
+>>>   		return -EOPNOTSUPP;
+>>> -- 
+>>> 2.56.0
+>>>
+>>
+>>
+>> Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+> 
+> Did we have reported-by and closes tags for this?
 
- Unable to handle kernel paging request at virtual address ffff7000023dfd30
- pc : ljca_gpio_set_config (drivers/gpio/gpio-ljca.c:212)
+Let me add this here for v2:
 
-and on x86_64 (torvalds/master 7e1392a42ea2, nokaslr):
+Link: 
+https://lore.kernel.org/linux-crypto/473700a3-f5d7-4a7a-b89a-12c51adcc3df@cispa.de/T/#t
+Reported-by: Sashiko <sashiko-bot@kernel.org>
 
- BUG: unable to handle page fault for address: ffffc8800f5452b8
- RIP: 0010:ljca_gpio_set_config (drivers/gpio/gpio-ljca.c:212)
+Once Florian added his Tested-by: to v1 should I then add this?
 
-Ignore event items whose pin index is not below the number of GPIOs of
-the chip. That number never exceeds LJCA_MAX_GPIO_NUM, because
-usb-ljca rejects larger values at enumeration, so set_bit() stays
-inside the bitmap. Valid items in the same event are still handled.
-
-The bug was found by AI agents (Claude Mythos and Claude Opus models). The
-analysis and the patch were reviewed by a human, who also reproduced the
-bug on x86_64 and aarch64 with current master.
-
-Fixes: 4c4e6ea4a120 ("gpio: ljca: Fix duplicated IRQ mapping")
 Cc: stable@vger.kernel.org
-Signed-off-by: Alexandre Becholey <alex@becholey.ch>
----
-Notes for reviewers (not part of the commit message):
 
-Trigger: an emulated USB device (raw-gadget + dummy_hcd under QEMU)
-with ID 8086:0b63 that answers the LJCA enumeration with one GPIO bank
-of 32 pins, one I2C and one SPI controller, and acks every command.
-Once /dev/gpiochipN exists it sends one GPIO interrupt event
-{num =3D 1, item[0] =3D {index =3D 175, value =3D 0}} (174 on x86_64, see
-below). The bit flip itself
-needs no host action. The fault happens on the next host operation
-that touches connect_mode; in the reproducer a host thread requests
-lines as inputs through the GPIO character device. KASAN does not
-see the set_bit() itself because it stays inside the object, so the
-reproducer makes it visible through connect_mode, and the index that
-does so depends on the architecture's kernel address layout:
-
-- arm64: index 175 sets bit 47, ffff0000... (linear map) becomes
-  ffff8000..., which is unmapped.
-- x86_64: bit 47 is already set in every kernel pointer, so index 175
-  changes nothing and the run is clean. Index 174 sets bit 46 instead:
-  ffff888... (direct map) becomes ffffc88..., the unused hole below
-  the vmalloc area. Boot with nokaslr so the direct map base is fixed.
-  Reproduced this way on torvalds/master 7e1392a42ea2 under QEMU (q35,
-  KASAN): page fault on a supervisor write in
-  ljca_gpio_set_config+0x76.
-
-The reproducer is available to maintainers on request.
-
-Decoded trace, torvalds/master 067c5c24cef2 (arm64, QEMU virt, KASAN):
-
-  Unable to handle kernel paging request at virtual address ffff7000023dfd3=
-0
-  KASAN: probably wild-memory-access in range [0xffff800011efe980-0xffff800=
-011efe987]
-  Internal error: Oops: 0000000096000006 [#1]  SMP
-  CPU: 0 UID: 0 PID: 76 Comm: repro Not tainted 7.4.0-rc2-00092-g067c5c24ce=
-f2 #1 PREEMPT(full)
-  Hardware name: linux,dummy-virt (DT)
-  pc : ljca_gpio_set_config (drivers/gpio/gpio-ljca.c:212)
-  lr : ljca_gpio_set_config (drivers/gpio/gpio-ljca.c:210)
-  Call trace:
-   ljca_gpio_set_config (drivers/gpio/gpio-ljca.c:212) (P)
-   gpio_do_set_config (drivers/gpio/gpiolib.c:2862 (discriminator 1))
-   gpiod_set_transitory (drivers/gpio/gpiolib.c:2885 drivers/gpio/gpiolib.c=
-:2896 drivers/gpio/gpiolib.c:3404 drivers/gpio/gpiolib.c:3394)
-   linereq_create (drivers/gpio/gpiolib-cdev.c:1672)
-   gpio_ioctl (drivers/gpio/gpiolib-cdev.c:2435)
-   __arm64_sys_ioctl (fs/ioctl.c:52 fs/ioctl.c:598 fs/ioctl.c:584 fs/ioctl.=
-c:584)
-   invoke_syscall.constprop.0 (arch/arm64/kernel/syscall.c:35 arch/arm64/ke=
-rnel/syscall.c:49)
-   el0_svc_common.constprop.0 (arch/arm64/kernel/syscall.c:121)
-   do_el0_svc (arch/arm64/kernel/syscall.c:140)
-   el0_svc (arch/arm64/kernel/entry-common.c:797)
-   el0t_64_sync_handler (arch/arm64/kernel/entry-common.c:816)
-   el0t_64_sync (arch/arm64/kernel/entry.S:606)
-
-The same crash reproduces on v7.3.1. The only change to gpio-ljca.c
-between v7.3.1 and 9d66f26fefac is the treewide devm_kzalloc_obj()
-conversion (4dd10fbbeb9c).
-
-Testing on v7.3.1: with the patch the reproducer runs clean (10/10
-with dummy_hcd, 1/1 with an emulated xHCI host), and so does a variant
-that sends every index from 64 to 255 after a valid index 0 (3/3); the
-GPIO line requests succeed after the event. Without the patch all
-three crash in ljca_gpio_set_config() (3/3).
-Testing on 9d66f26fefac: with the patch the reproducer runs clean
-(10/10 with dummy_hcd, 1/1 with an emulated xHCI host) and so does
-the sweep variant (3/3); without it all three crash in
-ljca_gpio_set_config() (3/3).
-
-Related, not addressed here: ljca_gpio_event_cb() also does not check
-packet->num against the length of the event. That is covered by the
-separate patch "gpio: ljca: validate event payload length"
-(Message-ID 20260720054906.69588-1-david.lee@trailofbits.com), which
-is not in 9d66f26fefac.
-Both patches touch the same loop, so the second one applied may need a
-trivial rebase.
-
-Thanks,
-Alexandre Becholey
-
- drivers/gpio/gpio-ljca.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
-
-
-diff --git a/drivers/gpio/gpio-ljca.c b/drivers/gpio/gpio-ljca.c
-index f32d1d237795..301c898f4a64 100644
---- a/drivers/gpio/gpio-ljca.c
-+++ b/drivers/gpio/gpio-ljca.c
-@@ -292,9 +292,14 @@ static void ljca_gpio_event_cb(void *context, u8 cmd, =
-const void *evt_data,
- =09=09return;
-=20
- =09for (i =3D 0; i < packet->num; i++) {
--=09=09generic_handle_domain_irq(ljca_gpio->gc.irq.domain,
--=09=09=09=09=09packet->item[i].index);
--=09=09set_bit(packet->item[i].index, ljca_gpio->reenable_irqs);
-+=09=09u8 index =3D packet->item[i].index;
-+
-+=09=09/* The pin index comes from the device, do not trust it */
-+=09=09if (index >=3D ljca_gpio->gc.ngpio)
-+=09=09=09continue;
-+
-+=09=09generic_handle_domain_irq(ljca_gpio->gc.irq.domain, index);
-+=09=09set_bit(index, ljca_gpio->reenable_irqs);
- =09}
-=20
- =09schedule_work(&ljca_gpio->work);
---=20
-2.53.0
-
+> 
+> Br, Jarkko
 
