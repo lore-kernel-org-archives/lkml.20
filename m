@@ -1,102 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.26
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794605036;
-	b=AWhdMdaB3QLzcdArxIe8uu3Cmoti7n8Vh8+cLCFiCK6ZXEIgrPoCG6XI0EL5RKyFJr+W
-	 ETWrdIY51mDaY1R+zh1lM1CBsbIDXrwCTx7CRk1BcmQEfV8Ne9GSgKNVSpQ3Exp/8e9Le
-	 E42XgGNy3SKrEIQT2qAuHJqi9QsXGTw9b21ybJPb+P+uWldgnZ9AtfIdabDURk0sOaIi7
-	 1Jh1ZCHrBM4hZQmXgekMBZGLt9EKt/eaKTFGkyUVVsCeWMn9VvOIN3C5Nm6aieYUcLlqm
-	 /PGdaFCgy/7y5riMBl6C8715MgewXvuXeW9zF5CjRA1T10FT76jrGZMt4l0W9qs1Mxg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794605036;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=L3IoJb7HDLDoDil1P2ra2A1YD3NUlgh5fDCWdFjYYpA=;
-	b=QlYTlki6DoylHuA1OamMl4f6a6ZXmgCktOC2abPvl0jeO6+zjarLpXmw8iRiXblIpgnD
-	 1URmlz15SG1BhAyrdVA9lhZ6ewd7e+wgsqdOs1Xfh9myM2Ib3Zgn2vMblzeQGhPXgVVWy
-	 btuCDtIgFAJFmxazHGE9reeDyNeTbKQH6cBOthgQDaD2WNtc6qX+dENjpKvwGXJZt+czW
-	 43o118GmX8hXZCWab9twagyS8okzqPZsWXSRDHPMwqm2NgEbjDEL6i8lFy5Q95uRWd6J+
-	 +PNOwAHFcImUdqBcw4Tx8D8qJlQIHnU0fmyTKgfKfCu5zYRvH2qhbUcirSyigOptlLw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=P7FLcUmE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.26
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012026.outbound.protection.outlook.com [52.101.66.26])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.171
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794605055;
+	b=YcQURacS3i0tXP1XtzYa7Uq+ljDtpznkOWxwPV7y9tvHhsV3eV6DFXLPvDd2c68j/kly
+	 G61IX8/eJDzzfkphLxDgYOEyplQeV2br0W9xebws360J7sDWVMqcKxUAa7JSnNXX38w+E
+	 B0xDrOEDiiqTp4Mc8rG4cFiqu8w88eXKX1S3STWYgrlncNoGcj/nQS9WVoyXAC/Rx53H3
+	 riYwWQTQd9W+SQjOp9MXxngIe1kk6g/vRJRPdaksQBBDtd7g1llCjzBvqkOybVEBAJeLM
+	 p22xoMN40Pw7vkKXj+n81Yiy1IjvWX/eMAy15O3ezAVLS0TIuVDF8o2u+dJ4e2qojhA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794605055;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=FhWFPAhlx3PkfOPSMdfzvg8lxyB1LM9Yi9ZslgJUh9M=;
+	b=KTPJi79S1ZFMcwJMaorml7fo8I2Gav7l8bdZP+JCb1W28Z9352VZlhnkqRnhryKhdKAu
+	 o+jvyO+J8yKFyhaG9aEK5qhi9/xOJpzggK5/JZbij0V2o0T0ZRwJrKHyvappDytx3djtk
+	 02d4abmMyzitZNPfqcx3M3pPnN8E4GX78odxyA8PyPkQ3TNl3QCzCp6cNlCAMY4xLPx3I
+	 t1KmWTKdsP1sLj4b/huUR/KwxTngLMqw4+4npufyEkETn6r8Ge2q5otku8N01S7jt8slY
+	 BcIs5C2GfMrjXzYGCgFosoauL1i7e2kdCLLI14ueGf/VAdnZPgw+pGIUjaBvEHGilWw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BJy5rvJa;
+	arc=none smtp.remote-ip=209.85.128.171
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A91E606A330;
-	Fri, 13 Nov 2026 21:23:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A91E606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC6DF606A33B
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:24:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC6DF606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=P7FLcUmE
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yQmoOKl0i3P13DLpMrJmxpY1KPqdqVZbK5CPhkd6GMC7UQtbpJblA2e9GpzG/cagAgghn0fEkyYUyS4XGV91AHL8nLKvzy0sFyuCT1KCcpUBjObS91iAzjcPbMHWIh3GL7+1DN4KQ3alUbgR2LzhFyWKdPg7tAYgrTp3p+d1hwhByMq1aLdM+cMegNod9GhYHcC3r2PvtEA3G8xIxktSQIKtRZKtBMS7YE138F6Gp39DtfeC2hTRqwnvb+sCzl0GnQFVZdgvjiBJr3xldcZkrYwJoche4YHLnKQHv7AwtxKwMOg1LxGqNrRGEMHPRSK58olKbm/c4cp0Tl8E+TakFw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=L3IoJb7HDLDoDil1P2ra2A1YD3NUlgh5fDCWdFjYYpA=;
- b=jyZO27shQOo/w/MoK94C9DTADTmUzNO0PkH14obkmd1Zp6PW7OyawmKM3/g2avX9aUWSLYmgIg77aVI+AlNTy7mq/0raQbTiUA9Du1QNElIcpO9ZYNRjr3/OZxWr4b9mWJPq8BS3mVNpestng2IWSAOsx54OzMt87H6Q9uqKPu47zrHrmcOJCN5n49B7UkZ/OF83HS5IlIfMoVerQPL0BrFhHaDQSLP6Luga2mIKV/oNHbas5hqQNLk4VZcP/f8gcec6UbtS1pIB6suCSmGDwlJTVNpCeNpLZneyVus2Ndg0F84H9Vat8nLBxQ4p7OfMDgQ5xVV2AzagHjrImTTrZw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L3IoJb7HDLDoDil1P2ra2A1YD3NUlgh5fDCWdFjYYpA=;
- b=P7FLcUmEPdHZynl9jAfd2npbXLh5jRqh7I1xMQOL100N/ULUBbF8DdoaVE2bIEtXWXVZMk0q7jPtwk0L9P6TYIksUMtq45oElABVsFZS3ndNrrbNqTbXhNwMANu0xxL2IT9vIrIJEK4xvrOlRMyhoHMBKHWYvfzhzXr0ThEhkyryOVJgtxI4HKAj9QB9xkAWB380FtVlOWyhyEFVTGNvWRuDv38oDzUfQtcP21xMFNjKxUni4M9K4LN8QY2zYGOL1v7J/yCoUhNY9fe+3hl+gS/kC+g5HPMHDhm4VxKrmPv3dLeTzav23EqKNTurRaYuQx8p/nHooo0YrTQisGhjfw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by AMBPR04MB335523.eurprd04.prod.outlook.com (2603:10a6:20b:7db::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
- 2026 21:23:52 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.009; Fri, 13 Nov 2026
- 21:23:52 +0000
-Date: Fri, 13 Nov 2026 15:23:43 -0600
-From: Frank Li <Frank.li@oss.nxp.com>
-To: vjardin@free.fr
-Cc: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	NXP S32 Linux Team <s32@nxp.com>, Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
-	imx@lists.linux.dev, Vladimir Oltean <vladimir.oltean@nxp.com>
-Subject: Re: [PATCH v3 3/5] soc: fsl: guts: add the RCW override of any RCWSR
-Message-ID: <avd_3y9V5UsOKiyu@SMW015318>
-References: <20261108-for-upstream-lx2160a-rcw-pinmux-v1-v3-0-5a0063f1da9e@free.fr>
- <20261108-for-upstream-lx2160a-rcw-pinmux-v1-v3-3-5a0063f1da9e@free.fr>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261108-for-upstream-lx2160a-rcw-pinmux-v1-v3-3-5a0063f1da9e@free.fr>
-X-ClientProxiedBy: DS7P220CA0112.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:25d::9)
- To MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BJy5rvJa
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8b30cbfa628so15009327b3.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:24:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794605053; x=1795209853; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=FhWFPAhlx3PkfOPSMdfzvg8lxyB1LM9Yi9ZslgJUh9M=;
+        b=BJy5rvJafPobbIoLVUPKhs/edjpptbPAdPiHxbFipHFNLc6IWl5aVRky/uZQ5Qv7K1
+         Yp3cN+17qsLDQQJ2pmqG+twcpw80Od1KARNILW8J/fvaIEnKwYAUSEsD3RMv3bSg73D1
+         Tg/cxg3hQ2ZmfbzOMqqcKDHbBAIdBWnrlPuzatSmQEYfbZ3wAChPQYdE4puz9NFhpAvB
+         OaSnUxFVw3Nfz8WiIbvTP4uclKOsiYneTmwX4LboB2sd3ZYI2ulaknNAlmMGa6GZQoEH
+         d/S6Zxx4I55awJ/ilUwqjdkKoODHB6hHgw14Vz/orE4ynHp2iQEShG1WoT7baWTzpEGh
+         NnYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794605053; x=1795209853;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=FhWFPAhlx3PkfOPSMdfzvg8lxyB1LM9Yi9ZslgJUh9M=;
+        b=Ru2v8WheqqO6jSih0O7YorfjC4knkmKszCHqBK27vy/vSqCD2z9Tjh0HkQ2h1yCMDP
+         Wc5VR3hD5INicbuUf7NpjdTzbl7URaWgriOKOMi2F9zXrmAxPpbr7ui5HB/+3hN0DNTK
+         9u9Q7Xiejxofom8rjwUFMsDjVt85kfU6kNJARG2gj/MXAxXJSPhjw0jjBae07Xazv0Kn
+         X4F5utBJJ3Yrixxg28KrGeNezSpiY2D+sslR+XAG0m2kl2yTmrwVrwUq/nTUr4wVYbv+
+         XDSYJj2ljojfGUfdZMRBhIntVBAW/WEVC788WugkAroIqNcDXriZ3qRrzU2yQgfsNKvU
+         jRhg==
+X-Forwarded-Encrypted: i=1; AL+hErHsr9nnvNHG+o8MEauWoCDuN4pOuL3m0s7lpqvhWNAe0SWywIAs+pD/p+hEIq1XA/SzIyRZAFjiMBrmAxQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8J14OMBwkxURLwUjEmhWNgQVpNR+ODPuMwzynPmRRhARdGTWJN
+	jT4jAfX6NLh/5b9xm6dogPbZ4VAyPje/eJBq3ZNYi7ESrd/kxzHhgQI1
+X-Gm-Gg: AYBFou1ob/zIkfTxD6IefKCjKIGwJChBdD5AGQGhX/mtVTBaC59/j8ueKhHIjNAPjUx
+	lnWlTy57IbVyGFmtaoDbQST04mSvXPkBQwqe8a+D6rAGxTGRc1Gs9paJNG7rw27sJEGRhrPt8KZ
+	P8FzZvmlOMe8nsJbOo89zPY2WEGhx18TqgbqQdluDg5dcVlNLp1ghGa8VmKfura8hGobjbXL5Kh
+	4+l36v5FSOnlr/bjl7B4m/zQqXZrj9ZHYvkPHskyTUGNnoq2BB8jy4uO2bddN8qj8kobyZNJHW3
+	BLN6rhM4GGFAsee1iIbSy6Ln4Haj//eTjEuZNnsJSB43oFBil8ybBrx/5vGKtgqp3HacxF6CYtF
+	P19Zx/fVjjDdJ7tLw+Nkb20sW1H88nla/AHFY4TlMQsEW7bbAKTNExolQLrrIzFgoP/dTTjAxAO
+	wh2evpbnAIKXPhvTT1KXdHvFuasz0K4TSqyKw25qtVuV2wDIx4F3hn8LvgllZucvkpqeGS9AYmc
+	1q7AgdhcFXtmU/1Wd09mJnAb7RPceP0tf6CpRcJ8yqadSkb1hYP3XZS2z1I3oe398fPjzJHMsGe
+	J9N1I7tJzp79TMgCdUEMthZOfmXwVV1O7w==
+X-Received: by 2002:a05:690c:289:b0:8b3:5969:f245 with SMTP id 00721157ae682-8b4aa0cf2a7mr23640207b3.4.1794605053410;
+        Fri, 13 Nov 2026 13:24:13 -0800 (PST)
+Received: from [127.0.1.1] ([187.15.141.223])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aaa1361fsm29539357b3.43.2026.11.13.13.24.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 13:24:12 -0800 (PST)
+From: Nicholas Dudar <main.kalliope@gmail.com>
+Subject: [PATCH bpf-next 0/2] bpf, parisc: Add support for BPF_MOVSX in the
+ JITs
+Date: Fri, 13 Nov 2026 16:24:09 -0500
+Message-Id: <20261113-parisc_bpf_jit_movsx_20261112-v1-0-7ecc33cdf1b2@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,182 +92,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AMBPR04MB335523:EE_
-X-MS-Office365-Filtering-Correlation-Id: eeb45395-8aec-4cca-8787-08df41cc6a82
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|19092799006|376014|7416014|1800799024|18002099003|22082099003|6133799003|261009223027099003|3023799007|11063799006|56012099006|4143699003|10067099003|261102123227099003|261102130727099003|261026140227099003|261022105027099003|261026121527099003|261022075727099003|261021121427099003|261028144727099003|15866825006|41080700001;
-X-Microsoft-Antispam-Message-Info:
-	THfmviQJftnJuolLvwuQBU18cxNk16zKP1zYeSRpXsJJEdMHJc2v9ibktPrFEwGG2+tPdZyDA2kKHaEl2ckG38mlg8VuYDWNhPANJ/zzSTYBWWDjt18I3eKyQ+TYlMcD1E2w9zi/Onq1XTq2OJ+VfbFSPsDDfK44iP7G6Ryjgu6gMII53T8gk7DSto0JFuG98g6EpDwHZbjQ1riFEIqSFG3IZk5rySExXtPeY6VNmE4c601DlUy2q2nhm9iQ9Li2o3mQ03B+DH/9C4H/L/jJ1vEUZAJjmgJIcqmRVv14sO5Yy5npaF5MY3HtwJU/lSvn+f63l/nGzFerRGY08cqdLKh9l5DpypWHWgw68LggFBjYhiJb/m6DRTBQPjNPh+RtLY9cJm7X9YuEYpXCTC9sz2xUN19KqYRfPqVeCl5AU+agUo/aWx3pkHAmRC/ybl/+ZWlictZCu4gtjYooUiYYVSNG5dQZuIm7e3yJpbPWhyXYoqtTRiAr4I+cs0DurLUcjPfiiieMDMZOQ6YHDhczMG2o2BwZdLGJSMu8ItfEOeakyzUk160VSG+J/JMGQZ6lWT4VUXYhtICyWI299tnulk7npDJKMqm8pWvUWMHwbbYyD5LvFJxhUOwA0f0zEU+odaiETEj/6uDNQExDM+3oTNkClgLTOdUzZ3BDaxIYAvvr9TOBowJiPWw1r6NARaZcDJv7+Y68r3T9NLlW/TmDaOIk+M2SKm+pAB/jMgklFBGNuF9rE/PYBO/Hnp5Fw6yx
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(19092799006)(376014)(7416014)(1800799024)(18002099003)(22082099003)(6133799003)(261009223027099003)(3023799007)(11063799006)(56012099006)(4143699003)(10067099003)(261102123227099003)(261102130727099003)(261026140227099003)(261022105027099003)(261026121527099003)(261022075727099003)(261021121427099003)(261028144727099003)(15866825006)(41080700001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?GZWtPU/Xt4MdBgy2KZCsbeeXVrZb8B3CE7P7rqHzVL7JCVYXRaD5Vu3/yYBf?=
- =?us-ascii?Q?G7AB7OT6l9RzOOIbGhSwHyVolomKiqq7rTjbuopUc92ljK4n+q4ByYhnsr+L?=
- =?us-ascii?Q?g7RJSd0nLw7lQ/pSxowHOcuNe/7qpEj2faEWtPCp+rZdsjr65L4fmbvWV6Vt?=
- =?us-ascii?Q?+aLL5eYUyDlRgnVKaMErHAvJ9JQGAb89HiISA87nFXFDT1RVQu1j0XksvFqx?=
- =?us-ascii?Q?gTQPi9Unkctlru5Du3hBehrM9hop7sCSKrhdc+VAa9nGfVA+ZaUvI6ww7atd?=
- =?us-ascii?Q?ZYxsGcZW3cTVd1xa3lF0U0q2nY7Fa4qQGKwlqInr0rOqeYREx2QTJITkSuuq?=
- =?us-ascii?Q?snvxSW1J+3gohuXkS8QKyrjt+Nr3m5VTK2nwS+lu0hNYl3Y1QFGHA7383R8d?=
- =?us-ascii?Q?BlUrJ7LyNax4Q5mTJHiVcleUGPQtT9VJciz3lWnwpDvozmK0pHrJkBSVRGa3?=
- =?us-ascii?Q?ERZpW1a2pNuoEwPe11m8Zl4O6x+nfI/cmAAeUC37ZSc2JLl0ZH+WwC8xOqg7?=
- =?us-ascii?Q?vO7aNNU8YpQv5rxVgnZ5OhHffNgxm0eDSR3a1V8QOhXKqnw8bdivoB+g7tuB?=
- =?us-ascii?Q?2sn/n7tNYwGsQKROauWX7lk2bvHyGBWU3cpPe+T/WRFl2OrwZyRlbTZB5tpM?=
- =?us-ascii?Q?gLypldf2FVxk1g7Acge1BVy2UWilsE0WWYGraFbJwCMPvQwJNsyASHx6+ezI?=
- =?us-ascii?Q?ZHBiPHgfwSu+kejpspOMRgeuUEg7zv0B/md8y+Ee3KMDczPPnF6VwSSB2IXE?=
- =?us-ascii?Q?9nicodLvRlwZByDi3cUwG+SyZAvF/4a1E/97/hyEmBTao4Mq4BMfAR0Qk5Z8?=
- =?us-ascii?Q?m2YdZBYAeM13uyDc2c0AxAf0AJTCydj8cS5fkgu2vkLI92CyEEt6GSDufqSn?=
- =?us-ascii?Q?9buzGNLtSebMAMN9YyzGL3rD7MQh4PzAQH+2mnmjhd7zE0l/B7d2M9eLICTe?=
- =?us-ascii?Q?65IAA3YK/qeWBg6qpstiBqqyHMsl75rSO71VJMkxZKcKBj+DBcFf4gHIDnJY?=
- =?us-ascii?Q?la12aYimeypv1SA9/aebWuuf3AikFBUKCppGM41vXEIgTaOmpys8BuAsVkBX?=
- =?us-ascii?Q?CICiAjSeLu59y96T6hKG3mqM5gUKqS4FCao4nXe1rZDPHYzGij+IQsAu5CRR?=
- =?us-ascii?Q?DCqFvvwoWxzUgIX7vHz18Xh7zNMPLeAOIoX2BHzPBsDGKUAbPI6Sez9WQexG?=
- =?us-ascii?Q?/dvX10khW9EKwCRBGi2AZJXJvKR12FFGBcZyheBYxijTDd7wQSCEy2QOUBpY?=
- =?us-ascii?Q?qzgcSeFqI/rj24gtiBXptYBDfLYBUSu2kHORrzkC8PMfZ/naWGLxrxRQ4ZD/?=
- =?us-ascii?Q?pP3VztnLljJC+GAlMaCDvoZvMGDQn4t9dbnKZRqDR7SeAQH53ax2srL/+PZm?=
- =?us-ascii?Q?jcEsPyeqBtSGmC2PEXi0peXVEd2Fcx6r+bY6aXLc9rpmg852ztXX2kVFXNdG?=
- =?us-ascii?Q?z/CYQFkShNwGIECrr7Dff1Uz6APw5KZesTL5zP20s3bwGXqphJoCpA68NC5d?=
- =?us-ascii?Q?aAQGZXZYB1v3AsvG2PtcgnjG/llcaox+tY94RHPJ/BU5QV+TKt2BzZLNmhfz?=
- =?us-ascii?Q?3Gl5mbfMlNiE9JFYu3NoOO9GWIZXhaR5COimwLj7uais4UKz+AKiVBP1NNrN?=
- =?us-ascii?Q?R/mCvYbb0A7xlQhM7IeZr7FO1iLD6G0snzUR5KjSL/1kO/23T5Rw+ugi0R51?=
- =?us-ascii?Q?F6YugYHqiAqdqLAaRhM/6xuBk269elkNlfEvDl0b9R0ZQwPf0VxR6hmjwCXs?=
- =?us-ascii?Q?qQnvZ4YrXNm0KTdabTHrT4nU+qeB7I2bo15PuIwFoj0OPn0A0fh3?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eeb45395-8aec-4cca-8787-08df41cc6a82
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 21:23:52.7833
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ezWjMk6NJUNKENAVMfqDvlsDUE3cswIpL0epwvsX7/BVuvthI8uiBjKcoc4M3aVSgoxvpdKoo8hirjC2fRCZ2dADHI6+irZdHesOh/1xlPhnkU3s1dpMxLADxoy4m7m3
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR04MB335523
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/zWM2wqDMBBEf0X2uaHG0ov9FSkhl7WuYJRsKgHx3
+ 5v08jgzZ84GjIGQ4V5tEHAlptnnIA8V2EH7JwpyOUNTNxcp5UksOhBbZZZejRTVNK+c1G9thGn
+ duXX17SqdhOxYAvaUPv4O8kd4TBEe34VfZkQbi76wRjMKE7S3Q6n+9HHSHDHAvr8BZCBbXa0AA
+ AA=
+X-Change-ID: 20261113-parisc_bpf_jit_movsx_20261112-b9d59d0871d1
+To: Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+ Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ Helge Deller <deller@gmx.de>
+Cc: Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, bpf@vger.kernel.org, 
+ linux-parisc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Nicholas Dudar <main.kalliope@gmail.com>
+X-Mailer: b4 0.16.0
 
-On Sun, Nov 08, 2026 at 11:06:51AM +0100, Vincent Jardin via B4 Relay wrote:
-> From: Vincent Jardin <vjardin@free.fr>
->
-> fsl_guts_rcw_rmw() only serves the SerDes lane modes. Export it for
-> other fields of the RCW:
->  - fsl_guts_rcw_read() reads a status register
->  - fsl_guts_rcw_override() changes fields of one under rcwcr_lock and
->    waits for the status register to follow
->  - fsl_guts_rcw_override_supported() tells whether the DCSR view of DCFG,
->    which holds the override registers, is mapped
->
-> Signed-off-by: Vincent Jardin <vjardin@free.fr>
-> ---
+Both PA-RISC JITs compile BPF_MOV | BPF_X without looking at the
+offset, so a sign-extending move (offset 8, 16 or 32) is emitted as a
+plain move. This series adds the sign extension to the 64-bit and the
+32-bit JIT, one patch each. It follows the signed DIV/MOD series [1];
+the parisc32 gap was pointed out by Sashiko in review of that series
+[2].
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Tested under QEMU on a 32-bit and a 64-bit kernel, with test_progs
+built as a static 32-bit binary with jit_insns only. jit_insns/movsx
+fails without and passes with the patch for the respective JIT, and no
+other jit_insns subtest changes. jit_insns/helper_calls is left out on
+the 64-bit kernel, where it does not complete with or without the
+series. Not tested on physical hardware. The commands and output are in
+the patches.
 
->  drivers/soc/fsl/guts.c   | 73 ++++++++++++++++++++++++++++++++++++++++++++++++
->  include/linux/fsl/guts.h |  3 ++
->  2 files changed, 76 insertions(+)
->
-> diff --git a/drivers/soc/fsl/guts.c b/drivers/soc/fsl/guts.c
-> index 28361c63e26c..d2e3f66d0da4 100644
-> --- a/drivers/soc/fsl/guts.c
-> +++ b/drivers/soc/fsl/guts.c
-> @@ -369,6 +369,79 @@ int fsl_guts_lane_set_mode(int serdes_idx, int lane, enum lynx_lane_mode lane_mo
->  }
->  EXPORT_SYMBOL_NS_GPL(fsl_guts_lane_set_mode, "FSL_GUTS");
->
-> +/**
-> + * fsl_guts_rcw_read() - read a RCW status register
-> + * @index: one-based index, RCWSR1 to RCWSR32
-> + * @val: the value read
-> + *
-> + * Return: 0 on success, -ENODEV before the DCFG block is mapped,
-> + * -EINVAL when @index is not 1 to 32
-> + */
-> +int fsl_guts_rcw_read(unsigned int index, u32 *val)
-> +{
-> +	if (!soc.dcfg_ccsr)
-> +		return -ENODEV;
-> +	if (index < 1 || index > ARRAY_SIZE(soc.dcfg_ccsr->rcwsr))
-> +		return -EINVAL;
-> +
-> +	*val = fsl_guts_read(&soc.dcfg_ccsr->rcwsr[index - 1]);
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_NS_GPL(fsl_guts_rcw_read, "FSL_GUTS");
-> +
-> +/**
-> + * fsl_guts_rcw_override() - override fields of a RCW
-> + * @index: one-based index of the RCWSR and RCWCR pair
-> + * @val: the new value of the fields, in place
-> + * @mask: the fields to change
-> + *
-> + * The fields outside @mask keep the value the status register shows. The
-> + * override register is written and the status register polled until it
-> + * shows the result, as fsl_guts_lane_set_mode() does for a SerDes lane.
-> + *
-> + * Context: takes rcwcr_lock, shared with fsl_guts_lane_set_mode(), and
-> + * busy-polls the status register for up to RCW_TIMEOUT_US. Does not
-> + * sleep; must not be called from interrupt context.
-> + *
-> + * Return: 0 on success, -EOPNOTSUPP without a DCSR mapping of DCFG,
-> + * negative error otherwise
-> + */
-> +int fsl_guts_rcw_override(unsigned int index, u32 val, u32 mask)
-> +{
-> +	int err;
-> +
-> +	if (!soc.dcfg_ccsr)
-> +		return -ENODEV;
-> +	if (!soc.dcfg_dcsr)
-> +		return -EOPNOTSUPP;
-> +	if (index < 1 || index > ARRAY_SIZE(soc.dcfg_ccsr->rcwsr))
-> +		return -EINVAL;
-> +
-> +	spin_lock(&soc.rcwcr_lock);
-> +	err = fsl_guts_rcw_rmw(index - 1, val & mask, mask);
-> +	spin_unlock(&soc.rcwcr_lock);
-> +	if (err)
-> +		pr_err("RCW override of RCWSR%u failed: %pe\n", index,
-> +		       ERR_PTR(err));
-> +
-> +	return err;
-> +}
-> +EXPORT_SYMBOL_NS_GPL(fsl_guts_rcw_override, "FSL_GUTS");
-> +
-> +/**
-> + * fsl_guts_rcw_override_supported() - can a Reset Configuration Word be
-> + *				       overridden?
-> + *
-> + * Return: true when the DCFG block is mapped with its DCSR view, the
-> + * second reg of the dcfg node, which holds the override registers
-> + */
-> +bool fsl_guts_rcw_override_supported(void)
-> +{
-> +	return soc.dcfg_ccsr && soc.dcfg_dcsr;
-> +}
-> +EXPORT_SYMBOL_NS_GPL(fsl_guts_rcw_override_supported, "FSL_GUTS");
-> +
->  static u64 fsl_guts_get_soc_uid(const char *compat, unsigned int offset)
->  {
->  	struct device_node *np;
-> diff --git a/include/linux/fsl/guts.h b/include/linux/fsl/guts.h
-> index 8d5ffb985fee..7127de897c23 100644
-> --- a/include/linux/fsl/guts.h
-> +++ b/include/linux/fsl/guts.h
-> @@ -142,6 +142,9 @@ int fsl_guts_lane_validate(int serdes_idx, int lane,
->  			   enum lynx_lane_mode lane_mode);
->  int fsl_guts_lane_set_mode(int serdes_idx, int lane,
->  			   enum lynx_lane_mode lane_mode);
-> +int fsl_guts_rcw_read(unsigned int index, u32 *val);
-> +int fsl_guts_rcw_override(unsigned int index, u32 val, u32 mask);
-> +bool fsl_guts_rcw_override_supported(void);
->
->  /* Alternate function signal multiplex control */
->  #define MPC85xx_PMUXCR_QE(x) (0x8000 >> (x))
->
-> --
-> 2.43.0
->
->
->
+Claude Mythos 5.2 assisted with this patch series.
+
+[1] https://lore.kernel.org/bpf/20260915022905.1535566-1-main.kalliope@gmail.com/
+[2] https://lore.kernel.org/r/20260717192714.25C241F000E9@smtp.kernel.org
+
+---
+Nicholas Dudar (2):
+      bpf, parisc: Add support for BPF_MOVSX in the parisc64 JIT
+      bpf, parisc: Add support for BPF_MOVSX in the parisc32 JIT
+
+ arch/parisc/net/bpf_jit_comp32.c | 41 +++++++++++++++++++++++++++++++++++++++-
+ arch/parisc/net/bpf_jit_comp64.c | 11 +++++++++++
+ 2 files changed, 51 insertions(+), 1 deletion(-)
+---
+base-commit: 0021f17128de5dc0b19f1a523f448df2440d8088
+change-id: 20261113-parisc_bpf_jit_movsx_20261112-b9d59d0871d1
+
+Best regards,
+--  
+Nicholas Dudar <main.kalliope@gmail.com>
+
