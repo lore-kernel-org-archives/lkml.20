@@ -1,61 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794575237;
-	b=iaMHnAez0+AbjWbq22B7CVNsect51KJ4/J15Ud/1l13QEVUHqyJPibR8mrbka6kWEiVG
-	 uSDwUvHnOLf2vX5P7BdjHyd7VRR8qsJ3jp/rgBGcLBPkPzeTWujNwBznUL+CcikcDVKFU
-	 tTvj2aaFwRoKUmQjfpqL1RbM7x6pxvDxp+6END0P0HfLemSnORmKfFpUmaMU29pOK52DX
-	 qm8uYGAf+KXTju4K7HK2USgjtLUS9O7RAvW64OT8SAh8A6/VX1izddt5j+gsDitaUltWB
-	 2yMXN44g2vu6XATwyMAjbG9r/6H4By41getbKE3KsAdXvLGDehk61YYVBzGmMxPZIgg==
+	t=1794575354;
+	b=oAGgIdYuoxLZvkcAPh9Bo3/VsRCaAIIP9VE2tCgGTvHJklYZEnBq0t6fFGCz5+SsD5oD
+	 Ma96Pxu1rFyM6cfb1sWfU3SD+tUiy6pRPNz6zdJ/KjidMlZx4Bz5vCC3bC2tW0w6zzoCV
+	 dcN04F2JbyrDYJvly3eMsq9ECQJbBjKGrRsjNB7zZol/8V4PXzkvd0d8VxBZZi+bLC92O
+	 aCLgn/a4QPceKjAr9JNZq5szTWTBKy8upmMsJTNplSJf+ryydtLl9AIxiVxE6d6MA4tk8
+	 ImA4EyaAsBZ9477aJYu8XURNJRcp7WK3WNFEe3p4Px4RgOqQfPbRQMyxXEqowIg8ytQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794575237;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=DUGPFr5Wh/Z+vIMfALoBdOXy7jgFXRU3APLIkgC69Nk=;
-	b=NHiJ1J2TU1oXnpb8tv0RBhqT243bBaynsVUKP5XydnxVJYatx1WCTiyCSC3NWcr8bFa6
-	 bsxfCWK7okMq/fKdDmpma6fxP2Ntw4DlMcUbeZzaruI0vEPLb+8iHMK3ZW8/EgYImEfcH
-	 uXYJ/zYjpaRd8zqBcyP6BXPZwhr8uNOVADH5Wce6TLSqCPQtPKUXHXjSTIFBe+qjjvWa4
-	 /nCRPcu6ANVkzTeTtTQyQ+nyuonsI409CqlTKXuf8z1rCtHsrjwpZlyEoUZc1Ccs/WOcN
-	 /0YCRnLSX8YKgb7RjISzq356xVpMvpUOJDuimZkwXq6axaT76pG57m49nP8dpO5pKWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794575354;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=tSkb2PWbNxaCrUril715HAPYdAX5Cw4kojWt6qrT5aM=;
+	b=3CCNkq8TgqP68dGm4drKDWNmUmct/Wq+FI2PSo5wIHLoTw6a7C/UA1nP23ajf3BzT+gk
+	 Nm0FZKF2roVXJEGoFjTtWfBxVyyxaTD6XUXQjFUTxJqUgImciyAB3K9VUWo64eZJVEZ5o
+	 B5xi73F6n4zsU9ZI6EH7+0tQZtThXtMkIcsrt+YepIM19FJjXOPaQPRLda2hkULlVqpmC
+	 gFPvdf8Ouck6mzk4PTrZtVicRwvZ8RlqaZBsVshZaJILcxI3MgiYniYI5vzAHf0K8aBJk
+	 fvNFzxu5UZvrFz0Ek3IGvuxnxaoQy3t5rdcGQ26JQAe7J8HKJUpVRvia67HInHQsKDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gondor.apana.org.au;
-	spf=pass smtp.mailfrom=gondor.apana.org.au;
-	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=i9FKclK7;
-	arc=none smtp.remote-ip=180.181.231.80
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=w6rz.net;
+	spf=pass smtp.mailfrom=w6rz.net;
+	dkim=pass header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=YIxnZC8p;
+	arc=none smtp.remote-ip=35.89.44.33
+Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A1A9606A8B3;
-	Fri, 13 Nov 2026 13:07:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A1A9606A8B3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90357606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:09:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90357606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=i9FKclK7
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=DUGPFr5Wh/Z+vIMfALoBdOXy7jgFXRU3APLIkgC69Nk=; 
-	b=i9FKclK7kLg8xe+iH2b16KBBcNUI/qbiMcgavMaGB2McNiME3fHg2pZd/jhx/8j3b/KU7sEyX+p
-	8twfM5Cqgj69R5W/VF5DcguXckWD9NHYqrmKo2qbji/JE/coFGjBJPAmyQCeA1jFQjv4OIUa1oKU+
-	Bi4GiDzkj4IwRbTIND7Qsxlau4kv+uuMhYRkNRn7ZtQVoq4jipdeS0ZoXUSC7gdw1Lk4mlOgTZ42p
-	qAcS988v7Au45pXVLv0loVq54ro0wCqfEydbPDE91znHT8GEjsxIO94SCFkYxXEgMAktqt+xWVkS2
-	PAe42mTDHe7/BeAESf7F2kNwqJ4mNG48aZ7w==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xRqzp-0000000EfKa-3ayM;
-	Fri, 13 Nov 2026 21:07:14 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 13 Nov 2026 21:07:13 +0800
-Date: Fri, 13 Nov 2026 21:07:13 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Thorsten Blum <blum@kernel.org>
-Cc: "David S. Miller" <davem@davemloft.net>, Keerthy <j-keerthy@ti.com>,
-	Tero Kristo <t-kristo@ti.com>, linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] crypto: sa2ul - remove redundant 0x prefixes
-Message-ID: <avcLgY4l37b8a7UJ@gondor.apana.org.au>
-References: <20261103213242.480649-2-blum@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=YIxnZC8p
+Received: from eig-obgw-5004b.ext.cloudfilter.net ([10.0.29.208])
+	by cmsmtp with ESMTPS
+	id RdnSxhwn2AR1iRr1lxEzKd; Fri, 13 Nov 2026 13:09:13 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id Rr1kxD9zquJrPRr1kx2RPX; Fri, 13 Nov 2026 13:09:12 +0000
+X-Authority-Analysis: v=2.4 cv=WLZ/XmsR c=1 sm=1 tr=0 ts=6af70bf8
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=JfrnYn6hAAAA:8 a=SRrdq9N9AAAA:8 a=20KFwNOVAAAA:8 a=HaFmDPmJAAAA:8
+ a=FU8A8_eJsoxy1Wi2mmAA:9 a=QEXdDO2ut3YA:10 a=1CNFftbPRP8L7MoqJWF3:22
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=tSkb2PWbNxaCrUril715HAPYdAX5Cw4kojWt6qrT5aM=; b=YIxnZC8pDNq20OVPYmgUw2Tqy2
+	lLZy3k0/ooflpBT2nuJUS4ibYuAJ9r0Krpn2uKSstJbkXuoWOZE1WyPS2be/ba6icdWQV7bN4UeZp
+	xjI7nI42PX/0sh/UrzKpntVwCIanrHVc17r3zlCP0nWn9VY4IjFn0iVQxhnStqtcQPgBqq4FwOMOL
+	3WvHzCPSsrQSw4EKW4nuUeX2VUgDE4t5vOehJ5K0xTxLZb1EPOawhy5UUdod8tr47idXKirn6EtjF
+	0WeXjDyv2+iU92eGsVEZpehhIpWuIiOr3FHlp35PnmRK3i5taHJ8Di5xMPk0p9y8LXRpXPnx90x/X
+	ipjJ1zjA==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:46158 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100.1)
+	(envelope-from <re@w6rz.net>)
+	id 1xRr1i-00000004CiO-2UVW;
+	Fri, 13 Nov 2026 06:09:10 -0700
+Message-ID: <972e8d28-62cf-4f47-9524-5641a9ebfff3@w6rz.net>
+Date: Fri, 13 Nov 2026 05:09:09 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,26 +77,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103213242.480649-2-blum@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] sched: move stack_canary to the start of the
+ randomizable region
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Valentin Schneider <vschneid@redhat.com>,
+ Ruidong Tian <tianruidong@linux.alibaba.com>, mingo@redhat.com,
+ juri.lelli@redhat.com, vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
+ rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
+ kprateek.nayak@amd.com, linux-kernel@vger.kernel.org,
+ oliver.yang@linux.alibaba.com, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Alexandre Ghiti <alex@ghiti.fr>,
+ linux-riscv@lists.infradead.org
+References: <20260509035014.2220372-1-tianruidong@linux.alibaba.com>
+ <20261106160730.GJ1779021@noisy.programming.kicks-ass.net>
+ <xhsmhy0b2ntmh.mognet@vschneid-thinkpadt14sgen2i.remote.csb>
+ <34f2ff11-8156-4c32-91dc-e4576807cf3b@w6rz.net>
+ <20261112153427.GV1779021@noisy.programming.kicks-ass.net>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20261112153427.GV1779021@noisy.programming.kicks-ass.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1xRr1i-00000004CiO-2UVW
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:46158
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 6
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfGp9iqkZfUG5Swt4sQVFlSM80GhR37W/SptqWm9SJoNwd7WAOl1u3bHhaA9oVYC3B6VbmmQrSjcgrIlD1myeJ3BM6ZSFBrsK4ZvGHX6ets/Qra3lH+rS
+ hsASLQg0xpalU7TyR+5eR5iwjKWvoS1NLAmyIfd5LqmpnKYF+rGOOjuJGcPfv78366nvoto2/DBUthuLQUzLp2L79JWv+E/MHKA=
 
-On Tue, Nov 03, 2026 at 10:32:43PM +0100, Thorsten Blum wrote:
-> The %pad format specifier already includes the 0x prefix. Remove the
-> redundant prefixes to avoid printing 0x0x.
-> 
-> Also remove the duplicate colon from the security context dump message.
-> 
-> Fixes: 7694b6ca649f ("crypto: sa2ul - Add crypto driver")
-> Fixes: 2dc53d004745 ("crypto: sa2ul - add sha1/sha256/sha512 support")
-> Fixes: d2c8ac187fc9 ("crypto: sa2ul - Add AEAD algorithm support")
-> Signed-off-by: Thorsten Blum <blum@kernel.org>
-> ---
->  drivers/crypto/sa2ul.c | 12 ++++++------
->  1 file changed, 6 insertions(+), 6 deletions(-)
+On 11/12/26 07:34, Peter Zijlstra wrote:
+> On Thu, Nov 12, 2026 at 05:33:16AM -0800, Ron Economos wrote:
+>
+>>> ---
+>>> From: Peter Zijlstra <peterz@infradead.org>
+>>> Date: Fri, 6 Nov 2026 17:07:30 +0100
+>>> Subject: [PATCH] riscv, sched: move stack_canary to thread_info
+>>>
+>>> task_struct keeps growing over time. On architectures that compute the
+>>> per-task stack canary offset from asm-offsets.h and pass it to the
+>>> compiler via -mstack-protector-guard-offset=, this growth eventually
+>>> pushes stack_canary beyond what the target ISA can encode.
+>>>
+>>> On RISC-V, canary loads are emitted as
+>>>
+>>>       ld	t0, TSK_STACK_CANARY(tp)
+>>>
+>>> where TSK_STACK_CANARY must fit into a 12-bit signed immediate, i.e.
+>>> [-2048, 2047].  Once stack_canary sits past byte 2047 of task_struct,
+>>> the build fails with
+>>>
+>>>       cc1: error: '<N>' is not a valid offset in
+>>> 	'-mstack-protector-guard-offset='
+>>>
+>>> On RISC-V, CONFIG_STACKPROTECTOR_PER_TASK depends on !RANDSTRUCT, thus
+>>> stack_canary does not benefit from being in the task_struct randomized
+>>> region.
+>>>
+>>> Move the RISC-V stack_canary to thread_info, and introduce an access macro
+>>> to point to the right stack_canary location. Other archs are unaffected.
+>>>
+>>> Not-signed-off-by: Ruidong Tian <tianruidong@linux.alibaba.com>
+> Signed-off-by: Peter Zijlstra <peterz@infradead.org>
+>
+>>> Signed-off-by: Valentin Schneider <vschneid@redhat.com>
+>>> ---
+>> I'm seeing this build failure on RISC-V with gcc 16 and
+>> CONFIG_SCHED_CLASS_EXT=y. The build does not fail with gcc 14. I've tested
+>> the proposed patch with gcc 16 and it builds and boots (on real hardware)
+>> just fine. So for what it's worth:
+>>
+>> Tested-by: Ron Economos <re@w6rz.net>
+>>
+>> Also re-adding the RISC-V folks.
+> Hmm, they went walk-about? Do they need a re-sent? I'm thinking this out
+> to perhaps go through their tree, given they're actually seeing the
+> problem.
 
-Patch applied.  Thanks.
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+Yes, a re-send with the new subject line would be good. That way, the patch at least gets queued in the RISC-V patchwork.
+
+https://patchwork.kernel.org/project/linux-riscv/list/
+
