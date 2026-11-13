@@ -1,61 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794552480;
-	b=XKaDPFMcebmBuOEAUCaWOYZUjZaL4OKdXkEpyMToZMlQI3sioixoZ4327SzLVQzZuE0O
-	 zMQKyZHGj2NY7orlCDrPgmKaXxwiXSkcp7jKJUEWtK/DG/g8wxH6rj8XwhAML/aHOK4px
-	 FC3Cusc9jafLz/AmgHV8begY1cmcEsQBopWH7V7ZtxY912GS3dJJwh9rIJsMjXOZ/80rJ
-	 ZSwpQ6k7sd8oih54GiGIBvQC4VxVBKIg1gEuD7At5N+pLuvbTrS6NCrq2UVfAtRkmS3yk
-	 82tQiWKGfpHOOzL/q/I6DZVzqFCzsZMUE3CMiV/H4DEh+qCA8Hkvyzigseq184gbRKQ==
+	t=1794552772;
+	b=UHd+iFU8mZRmLdQxcat9U2yLAEQxQnJPpgObgy8K81mi8frPY52D/5X+Ch0wnEggu45B
+	 RCRRFOMgiJDBjU6+Kuvvb0GGuBTJ9hNbG/pPwnJdtQYiXElR+fOy2UHwfjxfRXOS3Rggo
+	 ScQl5U/sxmTl7sMEYpifq4pjKzdYb/HA5XjY/7ADO4eIAKtczzLFJggHnxwzR9NBk1jrv
+	 TPsBioC4UCQhvqnMZbqrWapLp/e+PDVtB8MInHB9HGJNXOQKSqLbmFM7fGVCxbyuXCaB2
+	 Z5med8yCj8R4tcwbKDoGk2Gc2zK2FomieK8HmYb+XktkMfDv6uonI0A8xlxNwUBc0kA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794552480;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=2V+tV4ewaynofE8kPco4QPP/Avu9AgLsEkRfsCohWsI=;
-	b=142WiTD4BRMgA6iB+Z+Bn+rDWo9aRHe3coPMyV4+h8q01tflnqcNwUqoJUTX4m9uBZAZ
-	 /KKqdK/Jx1BWZ8y5WBI3LS4dEy8xjn2+nONDaFT7JIpufHIy6eTZ8uuFZp4o1UwcZQvEu
-	 1auJR4Z3t8v5zJa4G7Rjw1X8hraZmlWQKyYg9i8WZNAfauAD5VYuYBD8EmjIMu/R36yw/
-	 yJYmAhtraUFCY5RUZ2i0IfbWqP12pfXz9eO3gi6HjnpxB/pgM0UUf7X+bcE/N5GFXxoTa
-	 x9W1aiBrfoyr2TsV+zYo4cKMmTGLZWx/Oq92ri2JzOggk5V6l72Y2iQY7TmvtJiUW7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794552772;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
+	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=WQW+v9O1HGQ8o2pXDEOIzEzJj5a39LNknvT0vu9u25c=;
+	b=rxRFIl2qC6CzbW0eYlDsc87J0kmjxujB/s4LKqjprW7rdixWR6rGUuy1fAP6Vvpzosmc
+	 z7kiLU0pXPYy0r5n8OnvjYRDeGxcqN26G+JutJ56GAJGKgrJu8kKHIlK8lb/YSw4jnt9Z
+	 3qum0JbGju/vl1agiKFkss+D4q1rlYpCBhD3pPkO6NAdGiLUCpDh3p5/DYdKvcejQhT+t
+	 56zWZemWKwoPqCXbCtDS7a4OsOp+TAyZu0EdAderk5yie4po6ky1GU3oQ8pE1moywXGZ6
+	 UOBNz2+QUNFW99iYpgx0ELAYc/TvCnjASOURVKumBeXtcRlBvpkzZ/OxdKJ1fpkA61g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=sCJ9eEuX;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 869A2606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:47:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 869A2606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=uiC+UYed;
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0737C606A31C;
+	Fri, 13 Nov 2026 06:52:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0737C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=sCJ9eEuX
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C066616F2;
-	Thu, 12 Nov 2026 22:47:55 -0800 (PST)
-Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0EFBB3F85F;
-	Thu, 12 Nov 2026 22:47:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794552478; bh=5i7fDyuQrBPfqbfudFwvrfilL8nz8d+trbu034WceBU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=sCJ9eEuXBnkpPB+5xYYSTJZKQIv2FyOza6IduZmLGvxBm/AjRigGwtWQ0bh8UmagQ
-	 TbYwfJoXNo+ZuQpa2iGOFgo5MFSasfVKaJiXzi8QljIpJh8j533RoyPp5LSAlsh8rA
-	 wz0XuEGtjc868dTQbbtg4WNXfApl4kI2T02vXAYo=
-Date: Fri, 13 Nov 2026 12:17:55 +0530
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: linux-arm-kernel@lists.infradead.org, catalin.marinas@arm.com, 
-	will@kernel.org
-Cc: Ryan Roberts <ryan.roberts@arm.com>, 
-	Mark Rutland <mark.rutland@arm.com>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Linu Cherian <linu.cherian@arm.com>, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH V4 0/4] arm64/mm: Convert pgtable READ_ONCE() as
- pxdp_get()
-Message-ID: <ikp346hhtfkswk4gabydkaxgtuvoygrj75clezzv25r2j7t6gz@q32fppupesvt>
-References: <20261105043403.3326445-1-anshuman.khandual@arm.com>
- <vtaekdnpxd5avhpv3hlmeswwq5raf57ila2qyilxvddu3w5nnq@lkenzauzv7hy>
+	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=uiC+UYed
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AD6qNC51539959, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1794552743; bh=WQW+v9O1HGQ8o2pXDEOIzEzJj5a39LNknvT0vu9u25c=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=uiC+UYed3+UHZ9JAC9sQ8XWYu9kYOV1QioK9O68nW06t3TJrA1Pl+KwKBqCk51GNR
+	 NQqgtnLBww+ItVA4p1Cu6u9cbdcbtGo8S+XGmmP+vklr40CqANIk1W/rX7QlGUT1ML
+	 P6xB6CMXSHn/lVK8wC496qR8Nf0RUrmSiono+m8uC1oFQ/fxUN0z8YQKItPADZE7ns
+	 sMvhJK2vtdJ65k2q6BU77Z0/n+dA3W6xL39KspLMfoKIgAGELlCiZPoEYFJgAAacQ7
+	 FPiuA4LaadvN0+3/ta7L3Z2uTxdZtN/yKGv2OjwdlvDdmifLWlVn4PQhtXHgE5wez4
+	 bh9fsYUfT8Ywg==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AD6qNC51539959
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 13 Nov 2026 14:52:23 +0800
+Received: from RTKEXHMBS01.realtek.com.tw (172.21.6.40) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 13 Nov 2026 14:52:24 +0800
+Received: from RTKEXHMBS03.realtek.com.tw (10.21.1.53) by
+ RTKEXHMBS01.realtek.com.tw (172.21.6.40) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 13 Nov 2026 14:52:23 +0800
+Received: from RTKEXHMBS03.realtek.com.tw ([fe80::d2b4:cd25:1a3e:aca8]) by
+ RTKEXHMBS03.realtek.com.tw ([fe80::d2b4:cd25:1a3e:aca8%9]) with mapi id
+ 15.02.2562.056; Fri, 13 Nov 2026 14:52:23 +0800
+From: Zong-Zhe Yang <kevin_yang@realtek.com>
+To: Kalpesh Solanki <skalpesh942@gmail.com>, Ping-Ke Shih
+	<pkshih@realtek.com>, "luka.gejak@linux.dev" <luka.gejak@linux.dev>
+CC: "kvalo@kernel.org" <kvalo@kernel.org>, "linux-wireless@vger.kernel.org"
+	<linux-wireless@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+Subject: RE: [PATCH v5 1/3] wifi: rtw88: clear RTW_FLAG_RESTARTING on stop and
+ start failure
+Thread-Topic: [PATCH v5 1/3] wifi: rtw88: clear RTW_FLAG_RESTARTING on stop
+ and start failure
+Thread-Index: AQHdcqo3L5nzYrwr1UGT1rk58sg+cbcrixbw
+Date: Fri, 13 Nov 2026 06:52:23 +0000
+Message-ID: <ee602061ce314b5a9741094b7b93836e@realtek.com>
+References: <20261112131401.236433-1-skalpesh942@gmail.com>
+ <20261112131401.236433-2-skalpesh942@gmail.com>
+In-Reply-To: <20261112131401.236433-2-skalpesh942@gmail.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,119 +90,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <vtaekdnpxd5avhpv3hlmeswwq5raf57ila2qyilxvddu3w5nnq@lkenzauzv7hy>
 
-On Fri, Nov 13, 2026 at 08:58:51AM +0530, Anshuman Khandual wrote:
-> On Thu, Nov 05, 2026 at 10:03:59AM +0530, Anshuman Khandual wrote:
-> > Route READ_ONCE() accesses on pgtable entries via level specific generic MM
-> > pxdp_get() helpers which platforms could then override when required. These
-> > accessors on arm64, will help in ensuring page table accesses are performed
-> > in an atomic manner while reading 128 bit page table entries later. But for
-> > now they just default to READ_ONCE(), thus preserving existing behaviour on
-> > current D64 translation a well.
-> > 
-> > This is similar to generic MM where all atomic accesses have already been
-> > converted from READ_ONCE() into pgtable level specific accessors.
-> > 
-> > These are preparatory patches for D128 enablement, although standing their
-> > own for D64 translation as well. These patches are split from earlier D128
-> > V1 series. There are no functional changes here, and besides mm kselftests
-> > do not show any regression.
-> > 
-> > https://lore.kernel.org/linux-mm/20260729122452.3797443-1-anshuman.khandual@arm.com/
-> > 
-> > This series applies on v7.4-rc1 and have been hosted below for reference.
-> > 
-> > git@git.gitlab.arm.com:linux-arm/linux-anshuman.git (arm64_pxdp_get_v4)
-> > 
-> > Changes in V4:
-> > 
-> > - Dropped all pxdp_get() platform overrides per Catalin
-> > - Moved pmdp_test_and_clear_young() and [pud|p4d]_offset[_phys]()
-> >   helpers inside arch/arm64/mm/mmu.c to avoid build problems
-> > - Updated all commit messages as required
-> 
-> This series has run into some KASAN fault issues during boot with 5 level
-> pgtables but also unlike Sashio suggestions these would require more code
-> churn to fix. Please find the details below.
-> 
-> https://lore.kernel.org/all/ohyhflzuoxdemccemutoosmj5hsfwylrlt6tvnyehulerk7gf3@ada6wu4zrzkp/
-> 
-> NOTE: somehow Sashiko had dropped LAKML from the thread although it shows
-> up in MM list.
-> 
-> Given the above scenario, I would suggest falling back on the V3 series,
-> that defined and override pxdp_get() helpers for arm64 platform. Although
-> similar to generic MM default fallback, they prevented code movement into
-> arch/arm64/mm/mmu.c file causing these KASAN issues in the first place.
-> 
-> https://lore.kernel.org/all/20260924062214.1635078-1-anshuman.khandual@arm.com/
-> 
-> V3 series apples cleanly, builds, boots and also clears MM selftests on
-> v7.4-rc2 as well.
+Kalpesh Solanki <skalpesh942@gmail.com> wrote:
+>=20
+> When mac80211 stops or suspends the device without WoWLAN,
+> drv_reconfig_complete() is never invoked with
+> IEEE80211_RECONFIG_TYPE_RESTART. If firmware recovery was in flight
+> during this transition, RTW_FLAG_RESTARTING remains set permanently,
+> blocking all subsequent firmware recoveries until the module is reloaded.
+>=20
 
-The following upstream commit had changed pxdp_get() arguments as 'const'
-(since V3 was posted) which would now require similar changes to be made
-in all platform overrides for pxdp_get().
+In this case, I saw you clear RTW_FLAG_RESTARTING in rtw_ops_stop.
+However, the reconfig flow might not have even run at that moment.
 
-48bd5dc504cc ("constify arguments in default pxdp_get()")
+How about clearing RTW_FLAG_RESTARTING when driver gets
+IEEE80211_RECONFIG_TYPE_SUSPEND?
 
-Hence will repost V3 series as V5 after changing the arguments as 'const
-pgprot_t *' if there are no other conerns.
+>=20
+> Similarly, if rtw_core_start() fails during drv_start() in a recovery
+> restart, local->started remains false. When mac80211 cleans up via
+> cfg80211_shutdown_all_interfaces(), drv_stop() returns early without
+> calling rtw_ops_stop(), leaving RTW_FLAG_RESTARTING set permanently on
+> hardware that failed to recover.
+>=20
+> Clear RTW_FLAG_RESTARTING in rtw_ops_stop(), as well as in
+> rtw_ops_start() when rtw_core_start() returns an error, ensuring the
+> driver always exits the restarting state on error or teardown.
+>=20
+> Fixes: 5c831644e1f4 ("rtw88: handle and recover when firmware crash")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Kalpesh Solanki <skalpesh942@gmail.com>
+> ---
+>  drivers/net/wireless/realtek/rtw88/mac80211.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>=20
+> diff --git a/drivers/net/wireless/realtek/rtw88/mac80211.c
+> b/drivers/net/wireless/realtek/rtw88/mac80211.c
+> index 5e40cf06a9e..ffd86f08185 100644
+> --- a/drivers/net/wireless/realtek/rtw88/mac80211.c
+> +++ b/drivers/net/wireless/realtek/rtw88/mac80211.c
+> @@ -57,6 +57,8 @@ static int rtw_ops_start(struct ieee80211_hw *hw)
+>=20
+>         mutex_lock(&rtwdev->mutex);
+>         ret =3D rtw_core_start(rtwdev);
+> +       if (ret)
+> +               clear_bit(RTW_FLAG_RESTARTING, rtwdev->flags);
+>         mutex_unlock(&rtwdev->mutex);
+>=20
+>         return ret;
+> @@ -67,6 +69,7 @@ static void rtw_ops_stop(struct ieee80211_hw *hw, bool
+> suspend)
+>         struct rtw_dev *rtwdev =3D hw->priv;
+>=20
+>         mutex_lock(&rtwdev->mutex);
+> +       clear_bit(RTW_FLAG_RESTARTING, rtwdev->flags);
+>         rtw_core_stop(rtwdev);
+>         mutex_unlock(&rtwdev->mutex);
+>  }
+> --
+> 2.53.0
+>=20
 
-> 
-> > 
-> > Changes in V3:
-> > 
-> > https://lore.kernel.org/all/20260924062214.1635078-1-anshuman.khandual@arm.com/
-> > 
-> > - Added overrides for pxdp_get() and replaced remaining READ_ONCE()
-> > - Updated all commit messages as required
-> > - Dropped previous tags
-> > 
-> > Changes in V2:
-> > 
-> > https://lore.kernel.org/all/20260922061638.3967467-1-anshuman.khandual@arm.com/
-> > 
-> > - Rebased on v7.3-rc4 along with all latest dependencies
-> > - Updated commit messages per Ryan
-> > - Added tags from Ryan
-> > 
-> > Changes in V1:
-> > 
-> > https://lore.kernel.org/all/20260903060657.2717457-1-anshuman.khandual@arm.com/
-> > 
-> > Cc: Catalin Marinas <catalin.marinas@arm.com>
-> > Cc: Will Deacon <will@kernel.org>
-> > Cc: Ryan Roberts <ryan.roberts@arm.com>
-> > Cc: Mark Rutland <mark.rutland@arm.com>
-> > Cc: Lorenzo Stoakes <ljs@kernel.org>
-> > Cc: Andrew Morton <akpm@linux-foundation.org>
-> > Cc: David Hildenbrand <david@kernel.org>
-> > Cc: Mike Rapoport <rppt@kernel.org>
-> > Cc: Linu Cherian <linu.cherian@arm.com>
-> > Cc: linux-arm-kernel@lists.infradead.org
-> > Cc: linux-kernel@vger.kernel.org
-> > Cc: linux-mm@kvack.org
-> > 
-> > Anshuman Khandual (4):
-> >   arm64/mm: Use pmdp_get() for PMD accesses
-> >   arm64/mm: Use pudp_get() for PUD accesses
-> >   arm64/mm: Use p4dp_get() for P4D accesses
-> >   arm64/mm: Use pgdp_get() for PGD accesses
-> > 
-> >  arch/arm64/include/asm/pgtable.h | 38 +++----------
-> >  arch/arm64/mm/fault.c            |  8 +--
-> >  arch/arm64/mm/fixmap.c           |  6 +-
-> >  arch/arm64/mm/hugetlbpage.c      | 10 ++--
-> >  arch/arm64/mm/kasan_init.c       | 18 +++---
-> >  arch/arm64/mm/mmu.c              | 97 ++++++++++++++++++++++----------
-> >  arch/arm64/mm/pageattr.c         |  8 +--
-> >  arch/arm64/mm/trans_pgd.c        | 14 ++---
-> >  8 files changed, 108 insertions(+), 91 deletions(-)
-> > 
-> > -- 
-> > 2.43.0
-> > 
