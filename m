@@ -1,121 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794529976;
-	b=hJ3CCSl0dJiI3F2ct8lfm7+qWm1UPunMENo4E04UQHIHEBJ9TrHyTrfiQKN52JRtJ57F
-	 E0rLVdrjIjoiAp0zcuEumZFT7UPDusZsE2IMjFVqP9ZXUCiqGrIKjwguypKCBXWmr61e1
-	 T760sTBmUdASA4NA4mx/ur7W3RpCiYL101/WAXQmCukqkeqMBlC7XfhsQ+9wEqngzJ+Aa
-	 bC4djS/NUUCAUFKUKv1I/nBFxjS94vbQdRRnht6lUDftr+cA0sram4UAlvFr3UYWs9aBq
-	 1sdFgOeBybO+GVqVS7EPYuqhSnJbhSIN3sUD7c0Eh5vLnwho3TdAl+aWLASYd+1qggQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794529976;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Id4cZ/fw9ZnSbEqbTGJ2RwSlS+8eMOnAd+ziuKc7G3M=;
-	b=TmOkLxueeBwAcLS/YpsJLREae+T45KdvEPljDeALe7TVWLLNbdqL8MZq8J2wc53bP/Mo
-	 Lgd+zU4EuPkTXu9RpB0q7EFbdOaUc3sFbWP20t+gXNb2W0nBI2QStiu50PI3J6jHV3DFI
-	 PFt/hDvFoRxgk7LSD9C3ixx+5Fbr77WPv4uTGpEZNmaHRZcPWvprM86pUyHQ6I2F1S0Ys
-	 327Awe+P9flbAt9OgTgpZHtS7WmV8FKXwTWKWpgJitVs/qyq6EPEPWFkNBWGgxRS0wl9V
-	 kxgFLHiKIRayqei6uZeZDE93VtIGG1lwUCw7VLmL3JiEXtNfSlR8QBIpp6L5e49JnFQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mqWYe3au;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794529979;
+	b=wcsBBHPkQk1CtwxsBg4aYcNR/rTEJXdWF0MR5lUwOnxXUsAIG6VpIRyz+lui1ooOZeHw
+	 VBYIgYun6jAt6/FJvoH5u7Lnun1fQJyWX8Fj1+kJSCG9CQuPMS8ozbaKdvJK6YbYHVr2v
+	 zkBy/k06Be5glvpHbxJXqEdOkwcwPU2Zkftz2mYhQugZJfKN0RWBWzWRB05p2psNM4E9d
+	 jxpZ6C0wBqNC1M0EHf6x932YprIbgxwwgwDeZpqJi3+0yXA5PBz80NRk9HgSrDzaS/eLX
+	 M2PoYQYOKuxYA8uPwvKQiW/cC/SbYVvd3RXtBQN04SdbvJHqwXZYMb+z4//IGxktS7w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794529979;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=jP3E1C43thlzKrmy032QXbpmWK/4T60wmmGZcZvYZso=;
+	b=tu8CUJdgMoiBmptS2Br2Mdui+jECtQH6EWjjTl39CL6QATfT2WrT/f9Zbe2+Cku69jZ/
+	 cejyMrzoGK1QxiWwJUzgZRm80DM3ALVxSfrLzapNRDzdoPqso5sYqE3GWAKGPWt9YDH2q
+	 lKMBuvUVduFOEkPIyXz80khtyckF60qa7h5RAep91NH+aEsnNWJwjX+SDk6HjDLIug/+L
+	 zaxUY8OZ2eZhSW6hG/7gbLR6JyFxR9h4yxcKnHRccl4UolqEDf3vfpSFW6maeY3iqBHMM
+	 JZYEugZbxelZ7JxEhm+f3ZtY/gZDkaDDLZYKZtDNWUdY8Adiyqx/oTiDBzU5qapR60w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W7TKQVgc;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A519606A8AD;
+	Fri, 13 Nov 2026 00:32:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W7TKQVgc
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794529979;
+	b=ZAb1GK9G/SDtWlXwx2blB9izVU4LNU56dzgpKnEuT2rL+HPz+3PDH8nK9tfefF4eFot3
+	 PmBZcBwEm9KRCMQ1VPDOVIq7KiV4XUqvk0+iZbM7FOQuKbL2tXwz3Nx/Yr2+oV7q6/+kH
+	 Wsgc4Z95JAjbeMGnrn3g8vf1l0HgUbdA3jia2Mk8mKHa9ojk2uAfEDAg3iq9/572siwCZ
+	 tmkG9elwqscmc/C3N/emZXDOIsTWB/yke2L2FhyO3x7GRo5Qln9Vle05wwrBBqnaA6/wb
+	 fwUf5kHxFnR2L3XBZUzZnhvWzrQ5lHgoAzQVCcUgM/nVrXGwVeBePegydv8ewBBcwHA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794529979;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=jP3E1C43thlzKrmy032QXbpmWK/4T60wmmGZcZvYZso=;
+	b=sQuwV6oVCX7IkTdxKwbw+JDBjao3Mc0j/ShSJaB5Mf3q1s/cLv5k6aAtJd9numpsPUQG
+	 CbgHd1Z9kRmzNk+BpFRaYSGuEo4hsTGm9EUXARqiKTLYQHY5CtsS6+7CZqBA5wed0UMtz
+	 IDyXai87iXMvd4+3Qv3IylzhBVjduGiY+gn7gk7hKoAGGNoq2H/qWjSCS32/xNu3p6Gly
+	 drN2B9LBzpvbX1Lr6GWd86HxPqazrJQ+0ES6ioLKo6N1N1a6xOXqg1ehXTYAD69aGA5gq
+	 0GcWeee2QDf1rXjx4GJACrxeg+4PHixGLLhkIjXyBYKEPUgUGnHMuOTtaY82MdIxA8g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA515606B7C1
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:32:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA515606B7C1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mqWYe3au
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48dee593f18so425511f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:32:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794529974; x=1795134774; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Id4cZ/fw9ZnSbEqbTGJ2RwSlS+8eMOnAd+ziuKc7G3M=;
-        b=mqWYe3auKn/1s8/HsyHs5V0iWVBss0epaa5T5mSTUHIhe1UKvc2hxOGQw/dXl+DLbO
-         4zCrRjg2upN5tmpDCeBYPmjJfSoVVE6XeuaBAY0+aJQseuqMmAT4X1IYBUOt0rSvMa2H
-         ip1gcxEIMTPY+wh8dTTMORfBvrwPhj/Vx9cbmqEXUdfpiPxSiPsNBT+w4yN2N6Y/4G6d
-         z7nk0B7iDWXQD04JJE16dMAhVLL0e5Dg6KXxHGp3vsrZ/3M5cRYtsRG5qYl5gODbVHTL
-         5I/Xpb8LTBeL/mTY0AEUsivjecAwzVUQbOkZ/Q2r/h6QIAlGtE/dqcFnq8Stb6SnZym9
-         vg5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794529974; x=1795134774;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Id4cZ/fw9ZnSbEqbTGJ2RwSlS+8eMOnAd+ziuKc7G3M=;
-        b=JVrHkL48Kr4bNbUArpK5RfwzyViu7a3KBMhX7YUNkOzDi68I4IDJ8pO4WbaI2kJLrJ
-         DIN308Fqs2+CokbCTbpzpv1wPWIUYSKMxu6EgE7WXwcYVR9142rpuAibP+euQSUt/pAy
-         PtG1xr/wL6Hfh09XOAIfVGPuiCX0KFviE//5I5erLYBvcCxfi19VMaMTjeYTIO2wD6sY
-         MdZY90FEZjaMXXrKUedPOGjxPq3GQd4FjwyxOR+1JqrwKNYqw+tJKawNQ2AYF3498WXc
-         nPKI57l4LbO8WWQbNNWx6oXy2hU5ImVwxjxVQ8zkNwQZESBnYrlSSMzzdwA8zAvgv5QX
-         oByQ==
-X-Forwarded-Encrypted: i=1; AL+hErHhDbYZ0O4MEkH+XNEiWCNoWEx/nLPUIPPLVijqojompXWi0/elvqwkN5NEegYryCoPT9Humlc1RsSIAbY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/UXZM9czeX0u+M0O99QXAg6+h+9C/56B0MfCQPsSjTzDk7xOoi
-	3l0Wd8UjNeyrKqCtNMLNdGRmSeFA/El1EIYRLYfqbqPR8xaGcuyEB1SY
-X-Gm-Gg: AYBFou1c3ITeoAl88QcrGcyDQ18UM76piz5hhtS6fyu0XGjSzHjf4kEa3PXVMMelg4+
-	wa7jKF0ObJAcIkWAD2CczUNB/JK957M3Cu3mLIw4vY8niNrL506igDKDt4PXNbRbg48XPnuZeWR
-	Kp0W3m76RNf8bSR+KXXzLbtlRA5dsoGhHBKmTPERmzz7uQCPtt3oz5MdquCDYIRxdLCIsF3BdSc
-	qStH6Aae/+SME2xMJV0MlEoeuB3w67jKg9RGk/pIJ92RM1uUffVSv6FD0gxgG8oRBQ1eRIF6ID6
-	RAMDPNmjrd/dLgrF+x0CUQdEoTYL88u+af8B/wtBYwGL/YuAhRAuvhYOctCJKKDdhClOqYttwOu
-	Rqhg7elNqTZmLQqQ0Ha1hNyjDQDEv+mIuV9vZS/APEK8F6tjSdPye1WFvha2Qa8gecPv0L5qDYv
-	d6E4nY08FhlZr9dmlyA+Baw5y5XV1ybttNhMnAR6Jx5H5lUkJBD04c+PIdHKDW5Q7x434OYCMhj
-	7ASIOSfabnHtygefMyIrka5ZZ3Y2jq25nfVgzWAXn/h4KRuCJ7JMU7+z3OQdKw6q0vwfx98BQAH
-	Q8lVta6T9fWnx9aH5iEa7GKR8YEeQkIAiOv0A+c20CnAbOOoqBZEUonXJAdVr0qI/gNqvn0QmLh
-	6LewCiq4DTh1inKv7NkDn8yRei/J4vrqyrCuq50wwPawVLFx+dIM0ZmF+xe2GU6FnWUiee489yp
-	w=
-X-Received: by 2002:a05:6000:491c:b0:48b:118e:7454 with SMTP id ffacd0b85a97d-49c70a0f0cbmr2053309f8f.31.1794529974084;
-        Thu, 12 Nov 2026 16:32:54 -0800 (PST)
-Received: from Ansuel-XPS24.localdomain (host-212-171-11-167.retail.telecomitalia.it. [212.171.11.167])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-49c5f7828a4sm2029768f8f.23.2026.11.12.16.32.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 16:32:53 -0800 (PST)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Simon Horman <horms@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	llvm@lists.linux.dev
-Subject: [PATCH net-next v19 10/15] net: Document PCS subsystem
-Date: Fri, 13 Nov 2026 01:32:00 +0100
-Message-ID: <20261113003217.197757-11-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261113003217.197757-1-ansuelsmth@gmail.com>
-References: <20261113003217.197757-1-ansuelsmth@gmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 0571C1F0181D;
+	Fri, 13 Nov 2026 00:32:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794529979;
+	bh=jP3E1C43thlzKrmy032QXbpmWK/4T60wmmGZcZvYZso=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=W7TKQVgcWBodUP2Ma0nEz+yfydPkf5qpiEmd18IQvFTv0WaxLrWEUDGaa28yGEu2M
+	 PgPRf5FbzGqDEle2ut6Ft7Q0nCuFZSslUa2ZIS/54v3ibh3OvQOxOLJLtf4IuzqBHI
+	 D547tPsW4jdkHVYPMyTzP+5u7k2gtPm2ptmEOkK2cjeyXO/1EKtprDAQv8pBEDaLAN
+	 BXBaZzN3kLmmtJ7IzeDDjEPkHaMfYRagjld8ufs9RSptEuTKAYTcBuKF8IEpB6tdKN
+	 nQg+Lnbry7nSrpQ8D6Ob63dd95xKaDGIYvw/urzZ3a1V2s5cDzvIIFFpqQA9KPidqo
+	 ByJxNXfbztOfA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 5156947570;
+	Fri, 13 Nov 2026 00:32:48 +0000 (UTC)
+From: Bryam Vargas via B4 Relay <devnull+hexlabsecurity.proton.me@kernel.org>
+Subject: [PATCH net v6 0/3] net/smc: order the CDC receive path against
+ buffer publication
+Date: Thu, 12 Nov 2026 19:32:47 -0500
+Message-Id: <20261112-b4-disp-1c8d3a53-v6-0-36a38ae35021@proton.me>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,322 +84,200 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMSwoCMRAFrzK8tQ3mYxCvIi7y6Wi7iEN6FGGYu
+ xt1WQVVK5S7sOI0rej8EpVHGxB2E/IttiuTlMGwexuMMZaSpyI6k8nH4uLBUY2u5FSD9zZgZHP
+ nKu/f8ozGCy5/qc9057x8Z9i2D2ajWgx5AAAA
+X-Change-ID: 20261112-b4-disp-1c8d3a53-fa3dcbf64426
+To: Mahanta Jambigi <mjambigi@linux.ibm.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Dust Li <dust.li@linux.alibaba.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Sidraya Jayagond <sidraya@linux.ibm.com>, Paolo Abeni <pabeni@redhat.com>, 
+ "D. Wythe" <alibuda@linux.alibaba.com>
+Cc: Hans Wippel <hwippel@linux.ibm.com>, linux-kernel@vger.kernel.org, 
+ Wenjia Zhang <wenjia@linux.ibm.com>, netdev@vger.kernel.org, 
+ Hidayath Khan <hidayath@linux.ibm.com>, Ursula Braun <ubraun@linux.ibm.com>, 
+ Tony Lu <tonylu@linux.alibaba.com>, linux-rdma@vger.kernel.org, 
+ Wen Gu <guwen@linux.alibaba.com>, linux-s390@vger.kernel.org, 
+ Simon Horman <horms@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794529967; l=9061;
+ i=hexlabsecurity@proton.me; s=default; h=from:subject:message-id;
+ bh=7XgC16ZIVTlO1AO6zrIOxz7J0W0kAAwidGvfD80fYV4=;
+ b=IwsbfYh+E/t7JfHeKnOthqBbehJUYMc21hhMAqIaF91puK6Hwge3DN6SAT+HhvT+MoJ8wE6Jo
+ 9EkEuIz5T32DnIcVWh7pZ0Ri714bKS2YKFcYEmuuK9EyOJetOfiJPNV
+X-Developer-Key: i=hexlabsecurity@proton.me; a=ed25519;
+ pk=xw1AhCtQdvuoQc+bOQIYy9o8G++cp4/VniI2G/tc3G8=
+X-Endpoint-Received: by B4 Relay for hexlabsecurity@proton.me/default with
+ auth_id=893
+X-Original-From: Bryam Vargas <hexlabsecurity@proton.me>
+Reply-To: hexlabsecurity@proton.me
 
-Add extensive documentation of the new PCS subsystem and the fwnode
-implementation with producer/consumer API.
+A peer can make smc_cdc_msg_recv_action() deref a NULL pointer in
+softirq with a CDC that reaches a connection before its RMB, or its
+SMC-D nocopy send buffer, is set: an SMC-R peer in the link group
+predicts the token (1/3), and the old peer of a reused DMB still
+holds its token (3/3). 1/3 and 3/3 are v5's two patches: each sets
+its pointer last with a release store, and the rx path drops the CDC
+(1/3) or skips the nocopy accounting (3/3) while the pointer is unset.
 
-Also update the sfp-phylink migration guide.
+2/3 is new. Sashiko found [1] that the NULL test of 1/3 misses a
+handshake that retries: when the SMC-Rv2 attempt of the listen worker
+fails in smc_listen_rdma_reg(), smc_conn_abort() releases the buffers
+(to the link group's pool or, after a failed MR registration, to the
+allocator) and leaves rmb_desc and sndbuf_desc pointing at them, and
+the SMC-Rv1 retry registers the connection under a new token with
+those stale pointers. A CDC with that token is then handled on a
+buffer the connection no longer owns. The NULL test of 1/3 does not
+see it, and the bug is there without 1/3 too. A peer fails the
+SMC-Rv2 attempt with a negative CONFIRM_RKEY response. 2/3 clears
+both pointers in smc_conn_create() under the socket spinlock, and
+tests rmb_desc again under that lock in smc_cdc_msg_recv_action(),
+for a handler that found the connection before the clear. 2/3 needs
+1/3, and 3/3 has a line of 2/3 as context.
 
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+The clear is at registration and not at release: every registration
+goes through smc_conn_create(), while smc_conn_free() skips the
+release when the link group is already unlinked and would leave the
+pointers set there.
+
+Both NULL tests are needed. The one in smc_cdc_rx_handler() (1/3)
+also keeps the CDC out of smc_cdc_msg_validate(), which runs before
+the socket spinlock is taken; the one in smc_cdc_msg_recv_action()
+(2/3) is the one under that lock.
+
+Not fixed here, all pre-existing:
+ - A handler that found the connection before smc_conn_free()
+   unregistered it still runs on the released RMB (the window of
+   Weiming Shi's patch [2]). 2/3 does not close that window: its
+   clear comes at the next smc_conn_create(). Such a handler can also
+   still reach smc_cdc_msg_validate() on the retried connection, as
+   Sashiko noted on Hidayath Khan's patch [3]. 2/3 clears the two
+   pointers only; whatever else the failed attempt left in the
+   connection stays.
+ - The old peer of a reused DMB, rated [Critical] by Sashiko on v5
+   2/2 [4]: its CDCs are still applied to the new connection. They
+   can close it, leave their consumer cursor in it before the attach
+   or, once the sndbuf is attached, add to its sndbuf_space. 3/3
+   removes the NULL deref only. 3/6 of my v9 cursor series [5] bounds
+   the send() copy to the send buffer; it does not correct
+   sndbuf_space.
+ - The unbounded producer cursor: 1/6 of [5].
+
+1/3 conflicts in __smc_buf_create() with 2/6 of [5]: keep [5]'s
+rmb_len store at the top of the is_rmb block, before the release
+store, and the tree is the same in either order.
+
+Tested with KASAN on x86 over rxe: v7.4-rc2 plus the two net/smc commits
+net has on top (d7900fa51642, e227b5115828), plus the series. rxe has no
+RoCEv1 GID, so the SMC-Rv1 retry is not reachable on it unmodified: a
+test-only change lets the SMC-Rv1 lookup take the RoCEv2 GID. The retry
+then joins the link group of the failed attempt, which is what lets the
+peer's CDC reach it. On a device with both GIDs the retry joins a link
+group the peer has a link in when the SMC-Rv1 part of the proposal names
+the GID and MAC of a link of that group: of the failed attempt's SMC-Rv2
+link (smcr_lgr_match() does not compare the version), or of a link of an
+SMC-Rv1 link group of the same peer. By inspection, not run on such a
+device.
+
+Test-only knobs fail the SMC-Rv2 attempt in one of two ways (the
+client answers CONFIRM_RKEY negatively, or the server's MR
+registration fails), fail the retry's RMB allocation, and delay the
+retry between its registration and smc_buf_create(); the client
+sends a CDC forged with the retried connection's token in that
+window.
+
+Without 2/3 the forged CDC gets past the NULL test of 1/3. After the
+negative CONFIRM_RKEY, the case a peer forces, the descriptor is
+back in the link group's pool: KASAN is silent and test-only
+counters show smc_cdc_msg_recv_action() running on it. After the
+failed MR registration, which the test forces locally and I have
+not shown a peer forcing, KASAN reports a slab-use-after-free read
+in smc_cdc_msg_recv_action(). With the retry's RMB allocation failed
+as well, and no forged CDC, it reports one in smc_conn_free(),
+followed by a GPF in smcr_buf_unuse(). With the series the forged
+CDC is dropped, KASAN is silent, and the retried connection
+completes and carries data (over TCP when its RMB allocation is
+failed).
+
+Three variants of the series, counters only (no KASAN boot of them):
+ - the clear removed, the second test kept: as without 2/3;
+ - the second test removed: a handler delayed between the lookup and
+   the socket spinlock across the retry finds rmb_desc NULL where
+   smc_cdc_msg_recv_action() loads it (the access was not run);
+ - the test in smc_cdc_rx_handler() removed: a forged CDC with the
+   failover_validation flag reaches smc_cdc_msg_validate(), at the
+   first registration and at the retry. The series drops it in both.
+The clear of sndbuf_desc is covered by a counter at the registration
+only: no run fails the retry's send buffer create.
+
+On the client, a counter shows a non-blocking connect() that failed
+after smc_buf_create() (a test-only knob shuts the server's CLC
+socket down) entering smc_conn_create() again on the second
+connect() after the failure, with the old pointers before 2/3 and
+NULL after. Nothing else was measured on the client: no CDC was sent
+at it.
+
+v5's cases give the same results with the series: a CDC forged with the
+next token is dropped at the first registration, and the old peer's
+update to a reused DMB (loopback) skips the accounting.
+
+The retry and client cases also ran on s390x under QEMU TCG (rxe, two
+vCPUs, KASAN and lockdep), by the counters only (the boots that give the
+two KASAN reports were not run there), once with deterministic
+scheduling and once with the vCPUs on host threads: the same results as
+on x86. With the vCPUs on host threads the delayed handler missed its
+window in three of nine boots, none of them of the series; those cells
+are not measured. Not run on s390 hardware. v5's cases were not repeated
+on s390x: 1/3 and 3/3 are v5's code.
+
+Under lockdep (the x86 tree with PROVE_LOCKING, one boot per case, and
+the s390x runs) the series is silent in the retry and client cases and,
+on x86, in v5's cases; the tree without it is silent in the retry cases.
+With spin_lock() in place of spin_lock_bh() in smc_conn_create(),
+lockdep reports an inconsistent lock state on slock-AF_SMC.
+
+Checked with herd7 against LKMM: the handler neither loads NULL after
+its test nor sees the new descriptor before its length. Without the lock
+or without the second test it can do either; with a plain load in the
+second test, the latter. Test patch and logs on request.
+
+v6:
+ - New 2/3, for the retry Sashiko found on v5 1/2 [1].
+ - 1/3: code as v5 1/2, two comments reworded: the one at the test
+   no longer says that rmb_desc is never cleared.
+ - 3/3: code as v5 2/2. The message now says that the rest of the
+   old peer's update is still applied to the new connection, in
+   answer to [4]; v5's said only that the current peer loses none.
+ - Rebased on net.
+v5: https://lore.kernel.org/all/20261015-b4-disp-2a8d85ef-v5-0-6b795e8263c9@proton.me/
+v4: https://lore.kernel.org/all/20260728-b4-disp-52ee4e7d-v4-1-0dda94b0f397@proton.me/
+v3: https://lore.kernel.org/all/20260716-b4-disp-aa52955a-v3-1-03a4411a7549@proton.me/
+v2: https://lore.kernel.org/all/20260714-b4-disp-835288a6-v2-1-581555ef2145@proton.me/
+v1: https://lore.kernel.org/all/20260711-b4-disp-c36a9798-v1-1-340b0c6053fb@proton.me/
+
+[1] https://lore.kernel.org/all/179241208347.3135.18021879529736748765@kernel.org/
+[2] https://lore.kernel.org/all/20261021171256.166870-2-bestswngs@gmail.com/
+[3] https://lore.kernel.org/all/20261006073550.1595003-1-hidayath@linux.ibm.com/
+[4] https://lore.kernel.org/all/179241208501.3135.14193534440423847161@kernel.org/
+[5] https://lore.kernel.org/all/20261112-b4-disp-0287c16e-v9-0-e5e8fa688177@proton.me/
+
 ---
- Documentation/networking/index.rst       |   1 +
- Documentation/networking/pcs.rst         | 234 +++++++++++++++++++++++
- Documentation/networking/sfp-phylink.rst |  35 ++--
- 3 files changed, 246 insertions(+), 24 deletions(-)
- create mode 100644 Documentation/networking/pcs.rst
+Bryam Vargas (3):
+      net/smc: order the CDC receive path against RMB publication
+      net/smc: clear the buffer pointers before registering a connection
+      net/smc: skip the DMB nocopy accounting until the send buffer is set
 
-diff --git a/Documentation/networking/index.rst b/Documentation/networking/index.rst
-index 44a422ad3b05..3fce8f6ac089 100644
---- a/Documentation/networking/index.rst
-+++ b/Documentation/networking/index.rst
-@@ -28,6 +28,7 @@ Contents:
-    net_failover
-    page_pool
-    phy
-+   pcs
-    sfp-phylink
-    alias
-    bridge
-diff --git a/Documentation/networking/pcs.rst b/Documentation/networking/pcs.rst
-new file mode 100644
-index 000000000000..2cae70231948
---- /dev/null
-+++ b/Documentation/networking/pcs.rst
-@@ -0,0 +1,234 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+=============
-+PCS Subsystem
-+=============
-+
-+The PCS (Physical Coding Sublayer) subsystem handles the registration and lookup
-+of PCS devices. These devices contain the upper sublayers of the Ethernet
-+physical layer, generally handling framing, scrambling, and encoding tasks. PCS
-+devices may also include PMA (Physical Medium Attachment) components. PCS
-+devices transfer data between the Link-layer MAC device, and the rest of the
-+physical layer, typically via a serdes. The output of the serdes may be
-+connected more-or-less directly to the medium when using fiber-optic or
-+backplane connections (1000BASE-SX, 1000BASE-KX, etc). It may also communicate
-+with a separate PHY (such as over SGMII) which handles the connection to the
-+medium (such as 1000BASE-T).
-+
-+Remark on usage of .mac_select_pcs and fw_node PCS
-+--------------------------------------------------
-+
-+There are generally two ways to look up a PCS device.
-+
-+1. MAC OP struct .mac_select_pcs (considered deprecated)
-+2. Internal PCS handling with ``num_possible_pcs`` and ``fill_available_pcs``
-+
-+Implementation 1 leaves the entire handling of the PCS to the MAC
-+driver with the selection of the PCS driven by .mac_select_pcs.
-+Custom implementations are required if the PCS is external to the MAC
-+and needs to be handled by a separate driver.
-+
-+Implementation 2 makes the phylink core code to select the PCS
-+provided by ``num_possible_pcs`` and ``fill_available_pcs`` either
-+via internal MAC handling or firmware node (fwnode)
-+
-+Implementation 1 is considered deprecated and it's suggested to
-+switch to implementation 2 and where possible switch to firmware
-+node design.
-+
-+.. _pcs_fwnode:
-+
-+Looking up PCS Devices (fwnode implementation)
-+-----------------------------------------------
-+
-+The lookup of a PCS device follows the common producer/consumer implementation
-+used by similar subsystems with a ``#pcs-cells`` on the producer and a
-+``pcs-handle`` property on the consumer::
-+
-+    pcs: pcs {
-+        // ...
-+        #pcs-cells = <0>;
-+    };
-+
-+    ethernet-controller {
-+        // ...
-+        pcs-handle = <&pcs>;
-+    };
-+
-+On :c:func:`phylink_create`, phylink will use the ``num_possible_pcs``
-+value and ``fill_available_pcs`` helper function in
-+:c:struct:`phylink_config` to compose the list of available PCS that can be
-+used for the phylink instance.
-+
-+Phylink will then internally handle the selection of the correct PCS for
-+the requested interface mode based on the interface modes configured in
-+``pcs_interfaces`` in :c:struct:`phylink_config` struct and
-+``supported_interfaces`` in :c:struct:`phylink_pcs` struct.
-+
-+A PCS is considered eligible when the requested interface mode is present
-+in both ``pcs_interfaces`` in :c:struct:`phylink_config` struct and
-+``supported_interfaces`` in :c:struct:`phylink_pcs` struct.
-+
-+``supported_interfaces`` describes all interface modes supported by the MAC,
-+whereas ``pcs_interfaces`` identifies the subset that require PCS selection.
-+
-+For the special implementation where the PCS is internal or part of the MAC
-+and a dedicated driver is not needed, it's possible to leave the implementation
-+of the PCS to the MAC driver and just implement the ``num_possible_pcs``
-+value and ``fill_available_pcs`` helper  function in
-+:c:struct:`phylink_config` referencing the local :c:struct:`phylink_pcs`
-+struct allocated from the MAC driver.
-+
-+.. _pcs_consumer:
-+
-+Using PCS Devices
-+-----------------
-+
-+It's mandatory to either implement the ``mac_select_pcs`` callback
-+of :c:struct:`phylink_mac_ops` or ``num_possible_pcs`` and ``fill_available_pcs``
-+of :c:struct:`phylink_config` to use a PCS for a MAC.
-+
-+The fwnode implementation exposes simple helpers to parse the PCS from
-+the fwnode :c:func:`fwnode_phylink_pcs_count` and
-+:c:func:`fwnode_phylink_pcs_parse`. The :c:func:`fwnode_phylink_pcs_count` helper
-+takes the fwnode where the ``pcs-handle`` should be parsed and return the
-+number of PCS entries described in the fwnode.
-+The :c:func:`fwnode_phylink_pcs_parse` helper takes three arguments,
-+the fwnode where the ``pcs-handle`` should be parsed, an allocated array
-+of :c:struct:`phylink_pcs` pointer where to put the parsed PCS from the fwnode
-+and the maximum number of PCS to parse.
-+Contrary to :c:func:`fwnode_phylink_pcs_count`, :c:func:`fwnode_phylink_pcs_parse`
-+helper fills the allocated array with ONLY the available PCS and return the
-+number of available PCS found. PCS that returns -ENODEV will be skipped and
-+won't be inserted in the allocated array.
-+
-+A phylink instance may use multiple PCS devices. The maximum number is reported
-+through ``num_possible_pcs``.
-+
-+It's mandatory to specify for what interface a PCS is needed. This can be done
-+by filling the ``pcs_interfaces`` in :c:struct:`phylink_config` struct.
-+If the requested interface mode is not present in this bitmask, phylink does
-+not search for a PCS for  that specific mode. (example MAC doesn't need a PCS
-+for SGMII but require one for USXGMII)
-+
-+With the use of the :c:func:`fwnode_phylink_pcs_parse` a common implementation
-+is the following::
-+
-+   static int mac_fill_available_pcs(struct phylink_config *config,
-+   				                      struct phylink_pcs **available_pcs,
-+					                      unsigned int num_possible_pcs)
-+   {
-+   	struct device *dev = config->dev;
-+
-+   	return fwnode_phylink_pcs_parse(dev_fwnode(dev), available_pcs,
-+						                    num_possible_pcs);
-+   }
-+
-+   static int mac_setup_phylink(struct net_device *netdev)
-+   {
-+      struct phylink_config *config;
-+
-+      // ...
-+
-+      config->dev = &netdev->dev;
-+
-+      // ...
-+
-+      // Parse possible PCS and fill num_possible_pcs.
-+      config->num_possible_pcs = fwnode_phylink_pcs_count(dev_fwnode(&netdev->dev));
-+      config->fill_available_pcs = mac_fill_available_pcs;
-+
-+      __set_bit(PHY_INTERFACE_MODE_INTERNAL, config->supported_interfaces);
-+      __set_bit(PHY_INTERFACE_MODE_SGMII, config->supported_interfaces);
-+      __set_bit(PHY_INTERFACE_MODE_1000BASEX, config->supported_interfaces);
-+      __set_bit(PHY_INTERFACE_MODE_USXGMII, config->supported_interfaces);
-+
-+      // PCS required only for USXGMII
-+      __set_bit(PHY_INTERFACE_MODE_USXGMII, config->pcs_interfaces);
-+
-+      phylink = phylink_create(config, //...
-+
-+It's worth to mention that it's phylink code that takes care of allocating
-+the array of :c:struct:`phylink_pcs` pointer for ``fill_available_pcs``
-+callback based on the value set in ``num_possible_pcs`` for
-+:c:struct:`phylink_config` struct.
-+
-+The ``fill_available_pcs`` callback must not write more than
-+``num_possible_pcs`` entries. The third argument may be used to validate
-+that there is enough space to fill all the available PCS in the passed array
-+of :c:struct:`phylink_pcs` pointer.
-+
-+The ``fill_available_pcs`` callback is called only on :c:func:`phylink_create`
-+and is used only to compose the initial available PCS list. Ownership of PCS
-+is held by phylink.
-+
-+.. _pcs_producer:
-+
-+Writing PCS Drivers
-+-------------------
-+
-+To write a PCS driver, first implement :c:struct:`phylink_pcs_ops`. Then,
-+register your PCS in your probe function using :c:func:`fwnode_pcs_add_provider`.
-+The :c:func:`fwnode_pcs_add_provider` takes three arguments, the fwnode where
-+the PCS provider should be registered to, a xlate function to return the requested
-+PCS based on ``#pcs-cells`` and a pointer to reference private data for the xlate
-+function.
-+
-+The PCS will then be registered to a global list of PCS provider that the
-+PCS fwnode implementation will use to parse it.
-+
-+For the simple case where the PCS driver expose a single PCS,
-+:c:func:`fwnode_pcs_simple_xlate` can be used as the xlate function.
-+
-+You must call :c:func:`fwnode_pcs_del_provider` from your remove function
-+on driver detach.
-+
-+A devm variant, :c:func:`devm_fwnode_pcs_add_provider`, is available to
-+automatically release the PCS provider on driver detach.
-+
-+It's worth to mention that xlate function MUST reference already allocated
-+:c:struct:`phylink_pcs` pointer and MUST NOT dynamically allocate new PCS.
-+The returned pointer is used to identify the PCS across provider lookup and
-+removal notifications.
-+
-+Late PCS registration handling
-+------------------------------
-+
-+It's possible that a PCS becomes available after the MAC finished probing.
-+Contrary to the usual producer/consumer implementation, when a PCS is not
-+registered and can't be found, the fwnode parser helper returns ``-ENODEV``
-+instead of ``-EPROBE_DEFER``.
-+
-+This is to prevent race condition with particular devices that register
-+MAC and PCS with USB or PCIe and require the MAC to be registered before
-+the PCS.
-+
-+The phylink logic correctly handle this special case and keep the phylink
-+instance in a fail condition.
-+
-+The PCS fwnode implementation provides a notifier to which each phylink
-+instance with a non-empty ``pcs_interfaces`` in :c:type:`phylink_config`
-+registers. When a new PCS provider is registered, the notifier is called
-+triggering the :c:func:`pcs_provider_notify` function.
-+
-+Function :c:func:`pcs_provider_notify` will check if the just added PCS
-+should be used by the phylink instance. If it should be used then,
-+it's added to the internal list of available PCS and a phylink major
-+config is forced.
-+
-+If a phylink instance was in a failure state, with the just added PCS
-+now part of the available PCS internal phylink list, provided all other
-+conditions are satisfied, the configuration is retried and the failure
-+condition is cleared.
-+
-+API Reference
-+-------------
-+
-+.. kernel-doc:: include/linux/phylink.h
-+   :identifiers: phylink_pcs
-+
-+.. kernel-doc:: include/linux/pcs/pcs.h
-+   :internal:
-+
-+.. kernel-doc:: include/linux/pcs/pcs-provider.h
-+   :internal:
-diff --git a/Documentation/networking/sfp-phylink.rst b/Documentation/networking/sfp-phylink.rst
-index 5bf285d73e8a..306505118eba 100644
---- a/Documentation/networking/sfp-phylink.rst
-+++ b/Documentation/networking/sfp-phylink.rst
-@@ -311,33 +311,20 @@ this documentation.
- 
-         priv->pcs = lynx_pcs_create_mdiodev(bus, 0);
- 
--    Some PCS can be recovered based on firmware information:
-+    PCS that should be recovered based on firmware information should implement
-+    the external PCS as a :ref:`PCS provider <pcs_producer>` and reference it
-+    with the use of PCS fwnode helper :ref:`PCS fwnode helper <pcs_fwnode>`.
- 
--    .. code-block:: c
--
--        priv->pcs = lynx_pcs_create_fwnode(of_fwnode_handle(node));
--
--12. Populate the :c:func:`mac_select_pcs` callback and add it to your
--    :c:type:`struct phylink_mac_ops <phylink_mac_ops>` set of ops. This function
--    must return a pointer to the relevant :c:type:`struct phylink_pcs <phylink_pcs>`
--    that will be used for the requested link configuration:
--
--    .. code-block:: c
--
--        static struct phylink_pcs *foo_select_pcs(struct phylink_config *config,
--                                                  phy_interface_t interface)
--        {
--                struct foo_priv *priv = container_of(config, struct foo_priv,
--                                                     phylink_config);
--
--                if ( /* 'interface' needs a PCS to function */ )
--                        return priv->pcs;
-+12. Populate the :c:var:`num_possible_pcs` value and
-+    :c:func:`fill_available_pcs` callback and add it to your
-+    :c:type:`struct phylink_config <phylink_config>`.
- 
--                return NULL;
--        }
-+    Refer to :ref:`Documentation/networking/pcs.rst <pcs_consumer>` for
-+    further details and examples.
- 
--    See :c:func:`mvpp2_select_pcs` for an example of a driver that has multiple
--    internal PCS.
-+    Notice that the previous implementation of populating
-+    :c:func:`mac_select_pcs` is considered deprecated in favor of the new
-+    described above.
- 
- 13. Fill-in all the :c:type:`phy_interface_t <phy_interface_t>` (i.e. all MAC to
-     PHY link modes) that your MAC can output. The following example shows a
--- 
-2.55.0
+ net/smc/smc_cdc.c  | 20 ++++++++++++++++++--
+ net/smc/smc_core.c | 19 +++++++++++++++----
+ 2 files changed, 33 insertions(+), 6 deletions(-)
+---
+base-commit: 2a24ba1694f14299fbde3fa107e5d56629f2f8b6
+change-id: 20261112-b4-disp-1c8d3a53-fa3dcbf64426
+
+Best regards,
+--  
+Bryam Vargas <hexlabsecurity@proton.me>
+
 
