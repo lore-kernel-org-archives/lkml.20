@@ -1,85 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794554423;
-	b=kesdtOVYqLePn6StNlvxZ5jzVh/SvQ39IV9EStc+IZFqBTA+Ho92I0crVtjLE9qaNZAP
-	 stfuBeCJEaR96tZgU0UNRzSZojpthzy28PY7xCQz2Sp1ewaRNdIVkwUJnhNjecHeNa4qF
-	 rzPwUJvrLTWoYHu6/pxCMct9we8yaV8yEokTBuxUgkNqekDYCEXR9zpgQJMdBFaVUp9io
-	 QwwZXATO/x6qaV+r7IFvAkEgVFri0TAvNUtu5YsXpCSpjHqLlLYZMmpd7oWcsckjbfdfQ
-	 juwszTwM+U9LrarBkiOgllzOlSDMF4vFaYQcp63xwdwJbeHS6B1YrZb86VKPF4/Hzig==
+	t=1794554502;
+	b=N9bS1cL8n5iX637t+r4YTZ61Spzwmcu2qefqAng5v0Inpr68DYHmlJFgldU2cvyumk1q
+	 Ik0dYwvqIY1zSaZQ40RH2lS4XRnGDfUjEbnLdGHTgeJaIUgXlmwSkbiivZKyGud7e7d2F
+	 WWsTWHe149GytASWs/X6c/8eNxalGuEIevCTtX0FAoFsLneR7MIMFPVLpgqh5H9U71cMv
+	 tkjb/wmqMV6B2OrwQcXRaDJsZfY4tqx/uCUWQ2yHDiwB23U4vOgC8L+IK7IGAqBjWif2L
+	 GHNV95OPOu/rVvtoI7kQOXN1ULDKWCB5SVJYvpLig0INzDtlmMZzR2VhsjGZMeBp53w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794554423;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=4ukC9+RmyKpMCoo2Ej2X50ZCe3RffRo8JS7sjMrz5b4=;
-	b=yeW6YJYWR6k2aPkkjJAwDVUjBbrXJid/k5xRNV4jxK0Ohh0BdfG4YooxYEOhu2bTVU0T
-	 uTdwtZ/o39Ng4mfODJItaK9U1Q4QpSF+1/4IvsFwDRrFPs/xqd4L/tqcMhn295y2e6etD
-	 tQYr8PuhSjkJ1TtYmF/dmCJEjNSyfvVlwk6x8n5gTOLkV573Jj3u1HG2vD77oyf0iifEh
-	 ZRJdK+umAitU3dr3ggo1M4jzgpxlY/zk8Gyi9192y1fH97ZfflLe6fZRyDzhHMGiaFbOO
-	 MXRDAvchvUbFTkQ3QACBZ3U3pHZAO2OyjscdRYQbyxKFFwBvsyqUhRS2CrNRW6fS8Nw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794554502;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=QqC622svUeLAP/0RJH25dyUCGXVIEdxaZvMvEl/YnGE=;
+	b=ZOXs55+dd0Nz2EsQvCACD5zqhwORCzWt5hDbiCo2qgjdBWEs6X5fXrZlnwEjzZDQvdM9
+	 EAE/DtCkg8zc7//fexLnD6Pgtewa4SHyvA2z1R2AOwd9Vr0AJ5LLlnZjMn32wG7gG6ayM
+	 aIfkmLXnxWOE37mswkYIA6q7Ozxp9S3acyg1TWadndGJgsoksBq0e6d5FnRmSF2a60LlE
+	 PlA+suAKfl8JdFf9V2ZUnic7evs8vXblUZVDCXNFp6GMpBGP2lCynGyOdP9IvbeUCGZOL
+	 O1JsSgNqpF9om6YwP1RTjyT/hvEIwzUc7iElmwdZnW4XKSoy1sGoch6rAzAOkMMfqCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=UI+4bgJh;
-	arc=none smtp.remote-ip=209.85.219.52
-Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WPKf025q;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD712606A327
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:20:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD712606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C8F5606A321;
+	Fri, 13 Nov 2026 07:21:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=UI+4bgJh
-Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-91f0274f88cso11463406d6.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:20:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1794554421; x=1795159221; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=4ukC9+RmyKpMCoo2Ej2X50ZCe3RffRo8JS7sjMrz5b4=;
-        b=UI+4bgJhJNbQhv7pU4fivQjQTQX/aGehNq+O6Ule9LAPUv/kSn+3YzDkzwyt4xo/KE
-         FpX9HfqzRh+tmlh2VTaVA3asUfXtHtlE0JM9aPwNIMPqxB8GcjZm7uyxxGGajyQ6+1jW
-         Q7ie2diUq1P+2uyPtd41hNiWtCIgs9VWfCpBZyoQm/Y75/mhzlg5SEz4NbRTLVZNYMA8
-         ZVN8drMKsYzx5jyJv6iYsc5aw/JIYvGPg1xCesOhxeSz87YUpVgMXl9dAYzqwbX0Jp7w
-         R8E1X5RG+MSEQaNiTQDkjzrQeoswpV3AO66T2E+dCiN1dcN8HlW+CaFQJoMvaGU7fxYT
-         PVzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794554421; x=1795159221;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4ukC9+RmyKpMCoo2Ej2X50ZCe3RffRo8JS7sjMrz5b4=;
-        b=vdSzf+6WdHH29io7efT90cTQDQP0S9hovPTMCcDFy2cHa4n9he4CzuCgQ4MQSACxtD
-         UxYEvqfNxoje2GJ7MSpE3hQ6JIfKvcRcylHVY7jYX7LDSw6kVHgbfiKNTSl+Cd5BEXbB
-         QZGzY8LEKX5+QUlj705SQEe4tEyulKTu8fXgxni6+sB6jhFskJTIzs1UXH14JFmo/Y+U
-         vxxZgk2X1SH0NPMy//T2uvXLvTp87veVQlqaI57mfZhjDnjky1+wvcmkq70usjVly+T0
-         CEZNNTcVW7DCJGIyBM1W3CoPWuNFOpb8cAju/dUVZXoqL64SKsLkjctUAsqC1h2i+bql
-         bzAw==
-X-Forwarded-Encrypted: i=1; AL+hErGM6cJCFT13eBQtpevzzSfALaaheKAmkO+2Sp0C4EgZNB8szOqnMR1p3jaeqifdtPR68oGrJFGD2F2Sq3M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8+9uC0vVTPEjuQxTYtG1kGvkxFFSa8AKTEaVehv8QfK+ofSf2A
-	llvTzQFMLJtSbUcvbh51WKA2EUc4iKJa+OoHUFnOmyxFQtPIvRqLCc/FSY/LKzYowVU=
-X-Gm-Gg: AYBFou0y+VDEM59wW6K1ZQOr+AG/ZGZRCJ1aLdEgDaUPR1423a538eq1DgfXurjzWb3
-	m0tlM9w+Fk+vxwRryFzOHCovB+47ijUBJm5lTLfVYXTR2w6BKONSbdrmSB5aHt2U/9Fx9oNxnmu
-	5chT2QaC+ckLEBfRRAj3JHo2MG/HdNW9XZzXkkqalnwn2q6RfXlyOTt+kIzELqkjPOnoT4SdVlv
-	qhOxrA+2j++UX3TTZuRy1G9lonRzEexq+343YrmYcV7lv8kjMVyfQwdypQv73AkgvjFf68OvoKq
-	LMKFTn03LMPWFfBqj4FN2zLS3mfJ7o6gW5gyT0MVJPaRYx3c7jLGzKDHcYi/OKc3Ea6UZCc0w7O
-	v/2Bu4kC63PeO8BSDecmw7UAUXRftPEAYMWnVvnORm5YUnXZe/oHPYcr2P0BPwNDbiMC57/7riM
-	XrYnaHWBc+To604o6HDtWQDFhmzci7iSbpPhTKxE45APappqmdWfM7MTjR2BqcsrhUMulyKjKqx
-	9md8KSEF50e7LWg+GUXfe440MsPe2N9hczAQHprY2FXd8UAWWt/xJgmj/T+QF75qNjlRJNt/AE2
-	AR3LAOGs5CGzhNiMwCj6S8okXSn89shH5IJWbzgcDSjZQY9WViwP6AXKSnC+Yt+h2a+vyCiDWH6
-	hbK4LboXyLfsMTH18OYd+/+NherfaNQ==
-X-Received: by 2002:a05:6214:c46:b0:917:a1a7:6369 with SMTP id 6a1803df08f44-91f24198eaemr24969396d6.22.1794554421464;
-        Thu, 12 Nov 2026 23:20:21 -0800 (PST)
-Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23d614b4sm14297636d6.18.2026.11.12.23.20.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 23:20:20 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WPKf025q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA4831F000C4;
+	Fri, 13 Nov 2026 07:21:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794554502;
+	bh=QqC622svUeLAP/0RJH25dyUCGXVIEdxaZvMvEl/YnGE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WPKf025qvwKOIDe/bJlF/qSaV/f/OFhDVg4mHzx3ns4mK/wZhSVGhbY5xZBM2CrKt
+	 g2Zm6jinwKHXLb49tIkMh1Y992rc6DfUhv5OuLqTC8/hNRMvJyrEmD/4i8+6xNV+S3
+	 oG+zBkjmLq62FB9ZsrMC+zUZ3lBDdLLmNRGA8L0/aN6E8LfiEi5h/t+gs8hmgkjNFY
+	 Y8ZKLA8Yw6sk/X2BUQJK8+GBHA7AXznXXGRj8yHHz7+G3l5GQF0ogQd0eZDpI0EDY3
+	 maixtnG99HUrGYbgZXTNQIPe8AVTRBiAo+hSOo0XBhLdVaeEsal+U/R3T5Zs3ywe8T
+	 NNU63bG9yOBeg==
+Date: Thu, 12 Nov 2026 23:21:40 -0800
+From: Namhyung Kim <namhyung@kernel.org>
+To: TAKANO Mitsuhiro <takano32@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	James Clark <james.clark@linaro.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: Re: linux-next: manual merge of the perf tree with the perf-current
+ tree
+Message-ID: <ava6hCDZ2kOjS5oR@google.com>
+References: <avW648YFgbci03ra@sirena.org.uk>
+ <179449737932.73597.12778815944082557280@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,97 +61,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [RFC v2 1/1] mm: add source selector to memory.reclaim
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: Li Zhe <lizhe.67@bytedance.com>
-Cc: akpm@linux-foundation.org, david@kernel.org, gourry@gourry.net, 
- joshua.hahnjy@gmail.com, ljs@kernel.org, mhocko@suse.com, 
- muchun.song@linux.dev, rakie.kim@sk.com, roman.gushchin@linux.dev, 
- shakeel.butt@linux.dev, weixugc@google.com, ying.huang@linux.alibaba.com, 
- ziy@nvidia.com, cgroups@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-mm@kvack.org
-In-Reply-To: <20261102070440.16262-2-lizhe.67@bytedance.com>
-References: <20261102070440.16262-1-lizhe.67@bytedance.com>
- <20261102070440.16262-2-lizhe.67@bytedance.com>
-Date: Fri, 13 Nov 2026 02:20:20 -0500
-Message-Id: <179455442014.482102.4069329165987986914.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <179449737932.73597.12778815944082557280@gmail.com>
 
-On 2026-11-02 15:04 +0800, Li Zhe wrote:
-> +	Specifying a source value constrains where proactive reclaim applies
-> +	pressure. Currently only source=nodes:<nodelist> is supported. For
-> +	example::
-> +
-> +	  echo "1G source=nodes:0-1" > memory.reclaim
-> +
-> +	This reclaims memory of the target cgroup resident on nodes 0-1.
+Hello,
 
-you buried the fact that you want to allow source=zswap in your cover
-letter. I was confused by nodes: was needed here until i re-read.
+On Thu, Nov 12, 2026 at 03:29:39PM +0000, TAKANO Mitsuhiro wrote:
+> Hi Mark,
+> 
+> Thanks for the notice. One thing worth knowing: the full stop is
+> intentional, so keeping it in the resolution is the right outcome.
+> 
+> It came out of review. James asked for it on v2:
+> 
+>   https://lore.kernel.org/all/a188c604-46c0-48fb-9cbd-9eacad88b5c9@linaro.org/
+> 
+> and v3 added it:
+> 
+>   https://lore.kernel.org/all/20261107022145.1713159-1-takano32@gmail.com/
+> 
+> The copy in the perf tree is that v3. The copy in perf-current is the v2
+> that predates the review, so perf-current is the stale one - nothing more
+> than the period is missing from it.
 
-As Joshua mentioned, i don't think you need the separate cover letter,
-and I agree this is far too long for the proposed change.
+Thanks for the clarification.  Sorry I missed Arnaldo already took this
+patch into the current tree.  I'll merge it once it land on the mainline
+and will resolve it correctly.
 
----
+I think it's trivial so it'd be fine to leave v7.4 without the period.
 
-When I asked for testing, I wasn't concerned with the functionality,
-I was asking what problem this actually solves. performance? fairness?
-
-Shaping the distribution of memory is neat and clearly works, but why
-does userspace want this?
-
-The interface "lacking flexibility" is not a problem in and of itself.
-
-I CAN see why you might want to proactively shape what data is swapped.
-Let me give you an example:
-
----
-The global node reclaim interfaces allow us to put pressure on distinct
-nodes - which lets us shape which node is swapped from first.
-
-Example: node0-1=DRAM, node2-3:CXL
-
-  echo 1G > node2/reclaim   # swap from CXL
-  echo 1G > node3/reclaim   # swap from CXL
-  echo 1G > node0/reclaim   # demote to CXL
-  echo 1G > node1/reclaim   # demote to CXL
-
-But the memcg.reclaim interface only allows us to pressure the complete
-set of cpuset.mems nodes for that memcg
-
-  cat cpuset.mems           # 0-3
-  echo 1G > memory.reclaim  # makes progress from any of 0-3
-
-Presently, proactive reclaim iterates nodes in node or fallback order,
-meaning it attempts to make progress from the fastest node possible
-first - which attempts to demote by default.  If the lower nodes are
-full, this demotion will fail and we'll swap directly from the top tier,
-which is (presumably) warmer than the bottom tiers.
-
-Enable source-bound reclaim in the memory.reclaim interface so that user
-space can have the same control over memcg memory tiers that global
-proactive reclaim has.
-
-  echo 2G source=nodes:2-3 > memory.reclaim  # [z]swap from CXL
-  echo 2G source=nodes:0-1 > memory.reclaim  # demote to CXL
-
-This lets user proactive reclaim to target the coldest memory first
-rather than preferring to reclaim from node0 first and potentially
-swap out memory warmer than what is present on a CXL tier.
----
-
-With this, you might be able to demonstrate fewer refaults and less
-DRAM (node0) memory consumed by zswap. These are clear benefits.
-
-I would argue that memory.reclaim should operate this way anyway,
-and that would could make proactive reclaim do this by default, but
-I could see the policy bits in userland being useful as well
-
-Performance may not be the only reason you want this, but you need to
-help me understand what you're trying to accomplish.
-
--- 
-~Gregory
+Thanks,
+Namhyung
 
