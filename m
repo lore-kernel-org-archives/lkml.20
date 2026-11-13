@@ -1,100 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794575004;
-	b=MO+TmggUZp8cd/edmkZszaGJeZvEjtCa1lA2gbTqnok4KD+ifj6jkJAd0iFem/cCJy7g
-	 OX2fsJrWe4v0rvEal5WLcYq2ZaJGgxCB9j5ZJ4NLcj4b9P16uFSkly7jydNC5TEy06k5t
-	 SS0T9qcH2IfGipmsFXnKC3+etqda3lfSoxozy5PSOyec+qb2W/yaGINPWDEg6lV8P7B5D
-	 BcMrmgbC0eUeNAzA090fNKY819ULliLuchMkBTyDU0IHtd62WehrRICE9cHr5FhKRItM9
-	 uP3QnqU5u7deYVQUCAY2qpF2Be9HjcSdBYOepplvRMlv1nb+vtVZnYntXgcTJRt/Yzw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794575004;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=kKBMVrrjJxWb4uJFICeq1Z/Q6PHnOrbC3VFk2e1elCU=;
-	b=SmCSZX3tgbgWRz3rpuK+HZzW8Espt3wz2+0QK0f6ihcAUu32WQv99vjEISBxr84DDw2o
-	 EeUahNMAUEFZZ1jdpWCsgqlB1j/R9r7bmirPSUWO82R1g2AbvY7wiUiPTVXtyF5RN2bga
-	 3Wlxn1fP30FlepimZ+PYFZ0FjzdP6QeMjLlkNFCSpNkWOhQwDBoz6wX46uKbBkwkq314Z
-	 i6lQhe07+1Ii1XCmWGQa2Hv64PRTUpC2AYIsh0Saszh4xu/t3zqh8ZG6RmqsV+dFC1Ed5
-	 rXAjd+1Wni8xWLiV84oOzC3JCSQn9ZrW9yvTZtYkQ+pRTgEMC6OghgOJlCVo720FzMA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=aJ5s+LOD;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794575040;
+	b=AvESYMOWMwMrnDKcTaMVgThIUqHxDkHmzEaA5dSJdUCtJzUYpbxOeE83oV/+ic+eXmX9
+	 7Vn7uT/KprFjuPoJHuHAsPXkytLRFUvrWBZuNLxG4+nk0eyB2uriXVOul7DFJBR/V3XRa
+	 iDQs/ftu7uetFUx3cGEZLEL0pY5AU3C+RxCsk9KvvkQcJ0pZ0aR6ZhOGeFMyIJMVc7gJf
+	 5sryP66a7/B5ffe0nIdse91fUhUkL3HPjnI9UDYTVENulCQJIhbPhiyfR6e7cDcy7ztWT
+	 HzGBLQ4rX0iLBVpTnFlrkF/Jat5+KyJA1+Mk5dEsedF2pBVn+1g7Ejc4MOB0OqoYzJw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794575040;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:In-Reply-To:References:Organization:X-Mailer:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=qM+JJUMO/DvUphb/pAgQlCfxP7Oeza0K3hU8lNMJhDU=;
+	b=sfStg651rd2N2qMgtPIkEW/AAp/wHDHHZ90p35rRtfpOUjiSNJpooOiOP4zvqjC6/RVH
+	 +FjSOuteKpV61f70gpWp3m6tkIgzPH7fX0TdH6UjtD094A3qNZzrjPa6XjTa1UlKk3pUb
+	 vhsWghgtttHtfhIgI7OMfS4iiL3wMh7dhCxUwamge857LuULNIzfyeib4DiawJ8Kw+ZHj
+	 5hXN3EXU2cJyi4J/kfzOrhb/PQ/HROLpJQu49pHQrji6pCTzWM7o+GQ86QeKHgkfGSoYA
+	 TBpVLP7husXxie6058DGEqulq0d9uJ7QsnCYTS9/EEGDlQVHhKxMWp/DQin4uuJOHDQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=UvuVUa7c;
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56951606A339
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:03:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56951606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76073606A32D;
+	Fri, 13 Nov 2026 13:03:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76073606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=aJ5s+LOD
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b79f5115c0so2047580a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:03:23 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794575002; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Zk9b+e060pIpCwyL5Z11tlhZWfHqNYUN4Dp/gruoEqVpsge/921LSqUgciDDULYyQC
-         tw9mIaG1kOlsVrnEVJPCQJlFrLDlLbaeZTmYSbbIQvO/DlPssLdfPXnYANlJ2xFpXhlO
-         jVEOL6GgfMGIXGmxvI2kB/c+JGkvhh5QKOtp/Il3AzfgInKMODjkWArtY/Jn8SbITudq
-         /iF6fYmUokD4eAcVf7197FKtDj7gtzN0J4Nlq9pCdNT2SujbP7uYzteYV1t5FEOaRhwA
-         yD33OlOy0QKa5+Q0S6hFGnCsNFPeUHhtH/Iz/kGwG/9JCS4Dn1Bzu+x7JSuxcs0ikU0P
-         3yBg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=kKBMVrrjJxWb4uJFICeq1Z/Q6PHnOrbC3VFk2e1elCU=;
-        fh=pX8mft63RufDUbaHv0kFBDA8EIgLDxMo+KzI7yiAPVg=;
-        b=hzC1u9rIh5EKw7YyUC9F0reKAcP3RYpl/Zyv/DZKng2Tj9O/IKiy1YH41OINWd5uBP
-         Dq+pQHwSOGOPL2f33aIzulwBCn3ghJB6hJ/+TdpcNUKTFudR/ORUGI/RL3Tgocrq6fU+
-         zQ7krI7WiaIRzU0+qzM0DRqi4Qz9acSaGhgHCKGImfujStyEb+qe5aHt+6KZEt9jwSl9
-         FcR0iszRsUaHtvmzLMk2tGBJ3DdlZePk5t95/FyZB8NCuPMANzPMVdbM2zNbvF9p/ImC
-         Qz0Nk2B4jODGpD/wU4X2n5OrvEDm8JOmn6mu2DEyy57j5Vrzti+IY2qRzTRrvt+gQtK3
-         dztg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794575002; x=1795179802; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kKBMVrrjJxWb4uJFICeq1Z/Q6PHnOrbC3VFk2e1elCU=;
-        b=aJ5s+LODrTBmRhVW9mdEBuV0ItjC6oE9WnU0EAlypd9HUuGd33Rc9jHB0ESw55qLVE
-         XCHFjKB1r5N8neiJ9MkAxutTT1CFEwL1EexRpPanr+PWI0CLkLZUvTvsVvTxN6blv6g8
-         rIek8Vm3FiaW4AzOw7hRkyyD2IOjQI0n1C6iMlUMin4QYzjCbRbbMm6j5pXCwSDAOA1/
-         Pl//oWlOy1pK3ECO+xlcOdE532VuYbUsD54UwyDhX4HFHx0IflHDnq4yKGfDbgTzCN24
-         fkcSziJ7sCoIKdYIj4YfCbDXBjw8CbH9PrRIRffFgxdKSHpvAj+KGbH5x5+Fy6yaTLdp
-         oRPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794575002; x=1795179802;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=kKBMVrrjJxWb4uJFICeq1Z/Q6PHnOrbC3VFk2e1elCU=;
-        b=XjleJjDQjhqZJNWswTjJA4XJ8UTgVQ269pi205fVDHMLEQufT8NyJvibmkN5K6yWKE
-         iCiZ4JrAVOIwqNyabmyQmWrrpNkB5kZdm530QWIVADic1leTUFh1atOiIR1AoZY78t2A
-         jIRVON1q2RVfiKJxbIGbxZQ0akKIr0XVxwace9MIc+X7t4+xWpjrRl95ORooVGkA9zBs
-         VXA/ALo77Cb4UsOZH2gf3lSIOKzmh8dPteLBTMTfoasJWDvqiUlEbLdfsfY+fj3Pfe4A
-         GSjpLkbz4BgsqvyUKSbxni3gIQVudPGZbERvSYZ+PQMw0/IwV9ulbC7pRD4M9jkXZAGZ
-         p4cQ==
-X-Forwarded-Encrypted: i=1; AL+hErF0g0Mu4uaiOc0spYfbKhD//A4ET1Hg40wPnM7IQwFbHXyrwRnbvIz5sVnRCgVcUMdbIkO9PiLNu5bnwls=@vger.kernel.org
-X-Gm-Message-State: APuU4Z87mLBuWGC/8KK8K8zhR87Ygh/MO+zg19knCdcYGLzb0hpBi0AV
-	w/pRZPT8B58ZgiMHib2JN1zYCswzq+X5TuTufeDuK1hH7P47osBetb/vHEy2XGCLfWU3U+aFNvD
-	lXW6ZYmMrMONyXoTGXXNRDhlKzuHyqq3Hyhd4UvI0OQ==
-X-Gm-Gg: AYBFou13kdfoxLLSqOGPBSvmN0c0MI+DwnEfPp5oaE66Ti3xpoBzEORKQcnxfm3dijE
-	0mQFBd8UBk/VncxqI76BnoHhwB5tWe+mv19oOMmrZdrR5TIwsGaklj/n8pNfX6/2GDwfw2FH8PV
-	grld4LOJHz3Zsgpbdj3Fl/j4yDNMhreGeM1ajFaSGeTjVF7kgnl55Q2eF7xVndTtx+lNuI5ciA8
-	w7tjbXzWy9ZLFwCLlTMlTJ6rOJGJ8CWo1cfCEfRaJALF5dhML5vledBz840u7bivN7WVhVilsn8
-	Wu+29gD1yym5aig/ZLWuScLdjnGnytEOYQ+zVjB2RPIrY1tV4h3a2hS0chzSgfbdUZ0KjAVmjvR
-	41r1/bIrneZzMzBScAadopQwfqrUSL97d2aLYJJR+HCGFSWMpYTQHXacVsYF1lzcBb9w7sYsmG9
-	TECoWDqY4x7atw1NQ=
-X-Received: by 2002:a05:6402:c517:10b0:6b3:d0e9:2e87 with SMTP id
- 4fb4d7f45d1cf-6b7c08b0a8cmr1544223a12.5.1794575001558; Fri, 13 Nov 2026
- 05:03:21 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=UvuVUa7c
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 34D5810CF8A;
+	Fri, 13 Nov 2026 14:03:51 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1794575033;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=qM+JJUMO/DvUphb/pAgQlCfxP7Oeza0K3hU8lNMJhDU=;
+	b=UvuVUa7cmd3z5dqWVM+R3nfaphFNNfAHsr+yBVbsjouZ9UT6f18G+NOJTrT1OxSGC6fNsd
+	tWjClbnzcAJmjBolotlVRrW340sfSZzYfKIMSQ+ZOog0jm6cDAi3fkASbSG3eAGQsJN7fy
+	2Ilmw1M4y8/aQlE/VcLZU6oSvyJEnZereoovRu/MJTqTCWOB8Sm56zVe3DYsIUSyQN0uP2
+	4hoh4k8u0rcV+6rD8h2an7g9PqsMYTbY5ooLN5at+ACOnoiKl8kVcqx5jZ8jU9vERFaNOS
+	uYGl56ZtweWqSUxCFQ69v1iigjunoXl8QqbwcxyUI7L9pP78GuDOPm3fiOCvww==
+Date: Fri, 13 Nov 2026 14:03:50 +0100
+From: =?UTF-8?B?xYF1a2Fzeg==?= Majewski <lukma@nabladev.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, Sascha
+ Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team
+ <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Shawn Guo
+ <shawnguo@kernel.org>, Guenter Roeck <linux@roeck-us.net>, Daniel Baluta
+ <daniel.baluta@nxp.com>, Jonathan Cameron
+ <jonathan.cameron@oss.qualcomm.com>, devicetree@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] dt-bindings: trivial-devices: Add National lm77
+ temperature sensor
+Message-ID: <20261113140350.5c192ca4@wsk>
+In-Reply-To: <45881f93-3f30-49e4-98cb-677814b85664@kernel.org>
+References: <20261112163703.3358164-1-lukma@nabladev.com>
+	<20261112163703.3358164-2-lukma@nabladev.com>
+	<20261113-roaring-relaxed-oryx-5cfa1e@quoll>
+	<20261113120947.6c9fb820@wsk>
+	<c6095d41-09a4-4928-a55e-f4af7a5509da@kernel.org>
+	<20261113132231.631638ad@wsk>
+	<45881f93-3f30-49e4-98cb-677814b85664@kernel.org>
+Organization: Nabla
+X-Mailer: Claws Mail 3.19.0 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,37 +79,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CGME20261113104858epcas5p47fb0f4e46302dfe01070f4cd298870ca@epcas5p4.samsung.com>
- <20261113110612.3265841-1-raghav.s@samsung.com> <20261113110612.3265841-11-raghav.s@samsung.com>
-In-Reply-To: <20261113110612.3265841-11-raghav.s@samsung.com>
-From: Peter Griffin <peter.griffin@linaro.org>
-Date: Fri, 13 Nov 2026 13:03:10 +0000
-X-Gm-Features: AclHuK8TI6TajdXfbmO4ZfXjIUyzkcLZWaP_zfTUGkQ09RFX-UNUsATe86j4dT8
-Message-ID: <CADrjBPpUGoWPfmS1Ne6=KnXoGM_vc_X3510xF2zwmqKkGzms3Q@mail.gmail.com>
-Subject: Re: [PATCH v3 10/14 RESEND] clk: samsung: exynos8855: add block usb
- clock support
-To: Raghav Sharma <raghav.s@samsung.com>
-Cc: krzk@kernel.org, s.nawrocki@samsung.com, cw00.choi@samsung.com, 
-	alim.akhtar@samsung.com, sboyd@kernel.org, bmasney+clk@redhat.com, 
-	jbrunet+clk@baylibre.com, robh@kernel.org, conor+dt@kernel.org, 
-	linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, is.gandhi@samsung.com, ts.amit@samsung.com, 
-	pokala.reddy@samsung.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Raghav,
+Hi Krzysztof,
 
-On Fri, 13 Nov 2026 at 10:54, Raghav Sharma <raghav.s@samsung.com> wrote:
->
-> Register compatible and cmu_info data to support clocks.
-> CMU_USB, this provides clocks for USB
->
-> Co-developed-by: Alim Akhtar <alim.akhtar@samsung.com>
-> Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
-> Signed-off-by: Raghav Sharma <raghav.s@samsung.com>
-> ---
+> On 13/11/2026 13:22, =C5=81ukasz Majewski wrote:
+> > Hi Krzysztof,
+> >  =20
+> >> On 13/11/2026 12:09, =C5=81ukasz Majewski wrote: =20
+> >>> Hi Krzysztof,
+> >>>    =20
+> >>>> On Thu, Nov 12, 2026 at 05:37:02PM +0100, Lukasz Majewski wrote:
+> >>>>   =20
+> >>>>> Add "national,lm77" as compatible for the National (now TI) LM77
+> >>>>> digital I2C temperature sensor.     =20
+> >>>>
+> >>>> Are you sure this is a trivial device, not like LM75? No
+> >>>> interrupts, no VS supply? Datasheet disagrees.   =20
+> >>>
+> >>> In my case the T_CRIT_A and INT are not connected on the
+> >>> schematic. Moreover, the V+ is connected to board's 3V3.   =20
+> >>
+> >> But they are there and binding should be complete.
+> >> What's more,
+> >> existing lm75 binding does not require these so there is no issue
+> >> adding to the existing binding file. =20
+> >=20
+> > Please be aware that internal operation of lm77 is a different than
+> > lm75 and hence it has its own Linux driver.
+> >=20
+> > It seems like I cannot re-use the lm75.yaml and will need to add new
+> > national,lm77.yaml as lm77 has two interrupt outputs for hysteresis
+> > (lm75 has only one interrupt). =20
+> Can be a new binding file, "national,lm77.yaml". Indeed it looks like
+> it has two lines, unlike 75 variant.
+>=20
 
-Same comments apply here as for the other CMUs in my previous email.
++1
 
-Peter
+> Best regards,
+> Krzysztof
+
+--=20
+Best regards,
+
+Lukasz Majewski
+
+--
+Nabla Software Engineering GmbH
+HRB 40522 Augsburg
+Phone: +49 821 45592596
+E-Mail: office@nabladev.com
+Managing Director : Stefano Babic
