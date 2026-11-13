@@ -1,65 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794600073;
-	b=XzYViSP583Mcz96SGJF4PyscUVCC8o3vtSn/vL8rsMXnbTvJqeuf0nPm6bSOf5yhqjkk
-	 inTv9H4FCxm0YkztU27lJ8slFOyaRSJeGoUZWLpEbYgKgN95GU18PbR/BFOSMGvpkcIN7
-	 sIHSqoke39UHaSG5YBvBHU/g+4YTRJhTDOkZW86ah7Keg6XEGc9ySjj27zCUa89dq30wO
-	 SZYJsJ2DSlmwdrdrTPU+gLrCc7o25QWL7lanO4vjJlkdLZXqI/sJ2bCd/U2DwefpxY5F5
-	 S6lqXy90Mexm2ezHhtjBI9WzrYHmF/MlgSD8NoeuxUpPnE3DJarKmoeC5+h6rgoJx3g==
+	t=1794600099;
+	b=BbAEdxhaQFsHIgHcHo8xgny2nXvwwDFdoIMbWoENm0STVEUA9PqNTW+F2ujnGFoeBzfy
+	 AYvSpb0ulUWOmmxaxGjRfb/8EnKoxmccGRk0mdVO2ClAsv/WiL/pYI320AIaIr+AzCX7G
+	 RaZiN5CnrLQIYTtI173Os8vr6aYVWfGcFw451U6okBQPP0/W+ZRDwghRzXYNVYkfJq/+F
+	 pMF8Vfmtn1pGFVF9rD0L59t3g8feGJoDoiFPR105dSNBySU220TwGbJShn414L2vMTFh9
+	 AdUncZBn0A4vnaw4BqdUwV5f+O1UYTY1rkIXsUeOncqjBRhKGCjXhBcXevvfovjeeXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794600073;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=aLumz5CHjOJTllo97qgVcnqY9y2ht9c0L800dC3uAtQ=;
-	b=MPrloInzH9JIHodqJopzUo/UsiBRf7vBsfFYwh9VtktyGb2oSs8g9Kalz3SVFJaxEFOf
-	 7rApbw0Ozr3RqvzRQxfBXd+FWTVw7UjsBDGDYkznSxmuvKNCDCS49s5pJCdAuXvoylqIG
-	 xUze7JR8XD/XhEaN2ivNWCc4eEkFdIISggQm1kHXlE6TqLMRIBF8O6B1MIbmoTojEr0nd
-	 7TTIkhZ14Kl4Fv6WPOhr3JM/2wMRh0+NgyrZsIzGjm+zmFDfEzSf/x835RbkijgVTnp3N
-	 aETXFm2zPYG4fbIrOWHEVKydkK7ag4GIdNpeot2p0KdsASxa9M/2dIp/lkA7ugS1znQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794600099;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=EC9RASKFPMm8luP0GQ/7tSz6vapPp12uuDlPtIQw68s=;
+	b=fnnz607GpdTL8WmlCugjBlBIL5IsZtaYIlxYaMJqed5lBCd3Ci+W+0+7e4EU4ghZ6NS4
+	 0l1ww4ljh6E1ejX04+EaaZEuZivHYvXZr05CkivXR1904GwCrlHNjX/Rjo8l/9PUuYpql
+	 MlsfPnZfwEyClIOCSdx2N58FKSwQ1ywRLGNTGH9p6MBk1Rswu1SP3/P/zx15wdnKjPwMO
+	 mSxjqgYfnWMvynOeqQuZzpjNOuumgYboLVnHaKiUJQ2Mor9e+As7HFgpyaPQCD1z85Zyj
+	 1zqxrKm6rjxCowFZYGH6Ndn+mAI+Sv+JDaL5XuJA40hxWaKsPIsW8PObfJ0jG1hCYLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=X0io3Ygf;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=cloudflare.com;
+	spf=pass smtp.mailfrom=cloudflare.com;
+	dkim=pass header.d=cloudflare.com header.i=@cloudflare.com header.a=rsa-sha256 header.s=google09082023 header.b="Ii/Q4AtR";
+	arc=none smtp.remote-ip=209.85.161.46
+Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9349D606A8B8
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:01:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9349D606A8B8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17E64606A884
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:01:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17E64606A884
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=X0io3Ygf
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=aLum
-	z5CHjOJTllo97qgVcnqY9y2ht9c0L800dC3uAtQ=; b=X0io3YgfB141+Z5RXvbU
-	a6Hh228LbvqcyoDEnE7oULDbMrb8F/Bwok0xAcmMwATLrRhMbfOEWW6WsVjr+WhC
-	4XbKvH8deshYKS9sI0Mae7xHHiv2HvY031n8bUP8SU4H/aEYUtfW4KYqfzwf20GS
-	PzV/mdinm8eT2hIOrftuumjaeanHf2oStXe0UHdpKVqhzImA/R/pnGyOfLWkFcub
-	mGc0dQ/2QhlF5qebLDbimUuRi0ILu7g7eGEYMlIF7LXx01AwOulRIsmh3hRTh4/2
-	829Gz+sYCPG3FjSzQKPlGGCtpqQYo7ZJ2OYGATv0EgDQwPDpUwtEyXYVAq2jI++8
-	vg==
-Received: (qmail 350957 invoked from network); 13 Nov 2026 21:01:01 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 13 Nov 2026 21:01:01 +0100
-X-UD-Smtp-Session: l3s3148p1@qY4m4y1gcJIujntX
-Date: Fri, 13 Nov 2026 21:01:00 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: James Hilliard <james.hilliard1@gmail.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v4 36/58] mtd: rawnand: renesas: retain open-handle state
- on removal
-Message-ID: <avdsfFHl1Eoj-2i1@shikoro>
-References: <20261113-submit-rawnand-retained-handle-lifetime-v1-v4-0-556b1d7c6221@gmail.com>
- <20261113-submit-rawnand-retained-handle-lifetime-v1-v4-36-556b1d7c6221@gmail.com>
+	dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.a=rsa-sha256 header.s=google09082023 header.b=Ii/Q4AtR
+Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-71ab5e64742so1635010eaf.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:01:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloudflare.com; s=google09082023; t=1794600094; x=1795204894; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=EC9RASKFPMm8luP0GQ/7tSz6vapPp12uuDlPtIQw68s=;
+        b=Ii/Q4AtR+Ka3hto0ms2y390aqMzxmLu8CN8YPpbROMpPT+7mBlffjgccAy64QexD1m
+         /wWxNx6PzyyD5aohb8jfcva8gy9MyZXidbtNC1cwD6YAZVGUoTZZQ5FnfaJU7nGRVbJH
+         5mQuFodpF8yl+6lV00hZvs4Mei6pwi08rBiYYW0TMaR4Ei+hXMM4a5jzlVMh3zVhSu9N
+         +vu2lQb6Qt2o8BF28jOcaBSPdR2OAtepAjhGIwpWdWGMrAThWgFkzHRp7WM1ecEj9EXg
+         5Z1YsiPTERo1fqy8klWRT941zWFNbUa/4sbuz90bdILGzYqVlGsnaTwCB95v5Ok593YO
+         xKDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794600094; x=1795204894;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=EC9RASKFPMm8luP0GQ/7tSz6vapPp12uuDlPtIQw68s=;
+        b=mZQihvuNskkshhNHFJ7riOXgX5TXFbRWyLTI+doe4B99psgA71VNKw8Yzq54sjRpL3
+         oBt8KgTeSGs50Pqy8lx8SE03F/NG48VTY+f5szEkRkHVO8JXkhc17ZSeJo+MKgTY1URa
+         2EGHK1ReIamEKgTG7WbiCMDCiv6XlCGXUozGr/2f3pNwg3us7ES2wfO73PU9bNWcxXOJ
+         swQkSQDQ4zmWyJpbZIZjsuILmOWAtl0C46d+HuhISwsvPGUBIEM0O5U2gsIPYFsnQTQn
+         3ilJFKSDUBfaEREGF1Ydh89e1cOPOqzbFzLiqzoVkKNmpTHxvSII0b7juhBVUiHrGCDX
+         iOCw==
+X-Forwarded-Encrypted: i=1; AL+hErEYX+zALeq6/hOBN6j9SA/tpzvfCqfZ5BjEUH2MnBlE2o806r/A8gQwiZKIpznQV4TZ1jw+sGhPBNAYveA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+hoe6lJfaU9MeVArUbHekfdStDcKXjFv2T6hGdie/KQ9qQo0nt
+	TjLVwyYCfZGxqvElcxZrFD32fCyI3A/WSZJmgaBx7o/bObDV+e5mUau1Adc8afwUmKA=
+X-Gm-Gg: AYBFou0wy4A2QPg08ImcICEEWbHDCGSArAOeJWb9ChSGMFXm+INtq4b06uwmzsOEout
+	V6asGLJxOohKRQINId4o4P8RXrdtlO75A5VLnm9G9HztFMWgOaQ/mv7M/aE8tjilHu50CELUvVk
+	vdCcsBVFzjGgJ59VAT6gwh3zNjT+INyXJZnov+xhxl2IkUSRGjz4jAQs+DD7nt2x3z3/rE+E93A
+	xQqR5r6VraqGkVqeg5xvwwLV98AdoBNH7Wwhliy02sJcFiZiyKYnGpcqoVBBJaMb6iCa141mtCi
+	e4OIHvCvjKOYjUA3cbZn/CZeHtY27G/yr9oal5EYM3nKPoQFZ8MdOCtINHLpcf7QMuXKkS4PdrU
+	Hg7FLCKD14Dw/Yf1cR9OTl/LRNfe1uJBd0rLS7F36OE/wCO7OUHPBX77QPihgjY7gZ1h8RtPhoC
+	2ug6hSldqMxOkkANr1MyulkkZUbhCBO10hZoXtDLtm1iy96ie9T8d+vF1W0e0Nkga4eLbCN+SRB
+	zEH00RtyQvPEI3vFUIsZz07BvVLYINX5A/gsHnmYnYstvYje7KRxow4imcsSHZYLHds6/wc3xPc
+	DkipOTbhUMFeNk4b0Gxzv87MBUB45irJs6GmVw0=
+X-Received: by 2002:a05:6820:1355:b0:716:d710:3d6b with SMTP id 006d021491bc7-71ab5083d31mr2286905eaf.49.1794600093872;
+        Fri, 13 Nov 2026 12:01:33 -0800 (PST)
+Received: from [127.0.1.1] ([2a09:bac6:bf21:1923::281:18])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71ab428b337sm2590808eaf.4.2026.11.13.12.01.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 12:01:32 -0800 (PST)
+From: Chris J Arges <carges@cloudflare.com>
+Date: Fri, 13 Nov 2026 14:01:23 -0600
+Subject: [PATCH 7.3.y] net: Use a dedicated flag to track disabled napi
+ instances
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,25 +92,173 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261113-submit-rawnand-retained-handle-lifetime-v1-v4-36-556b1d7c6221@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261113-napi-disabled-backport-7-3-v1-1-99560caf8bca@cloudflare.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMSw7CMAwA0atUXuMqbgpFXKVikY8BA0qjuCBQ1
+ bsTYDmzeAsoF2GFQ7NA4aeoTKkGbRoIF5fOjBJrQ2e6HRFZTC4LRlHn7xzRu3DLU5lxQItmS73
+ ZO2Ni76ECufBJXj98hKG17RuO/60Pf+Uwf2FY1w89Vmd0hQAAAA==
+X-Change-ID: 20261113-napi-disabled-backport-7-3-051408a00d4b
+To: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ Samiullah Khawaja <skhawaja@google.com>
+Cc: netdev@vger.kernel.org, kernel-team@cloudflare.com, 
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ Jakub Kicinski <kuba@kernel.org>, linux-kernel@vger.kernel.org, 
+ Daniel Machon <daniel.machon@microchip.com>, 
+ Chris J Arges <carges@cloudflare.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openssh-sha256; t=1794600090; l=5274;
+ i=carges@cloudflare.com; h=from:subject:message-id;
+ bh=Jv9QV00aR+M1g59jP00fdAw8leVncE+PrUsMH8483fU=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgaxY1IIT5oTohBZJmhnVgJo2HsM7Sv
+ 9I0LdJCgpeGX6gAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QHlTpd5TAUpqR3hrf1Ua/ezmcrYrnH8wNvJmqTGKyAi2ptxR/RiI41qfut245SFSLyRaNhYhLWH
+ B/NoHh+0KCgY=
+X-Developer-Key: i=carges@cloudflare.com; a=openssh;
+ fpr=SHA256:Cun99EBiH0EV7wvmfTBF9eDrld2NJx+aD4ScWZ45Q5M
 
-On Fri, Nov 13, 2026 at 11:14:52AM -0700, James Hilliard wrote:
-> Keep chip metadata and controller storage alive until the final MTD
-> reference is released. Unregister and disconnect each published chip
-> before releasing the resources used by its hardware operations.
-> 
-> Disconnect all chips before dropping runtime PM and transfer buffers.
-> 
-> Run NAND cleanup during disconnection; the final core-owned put only
-> releases retained allocation and layout data.
-> 
-> Cc: linux-renesas-soc@vger.kernel.org
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
 
-From what I understood from the coverletter, this seems valid.
+commit 8dc87fc5d6a0eb337744737008177342a708bf36
+("net: Use a dedicated flag to track disabled napi instances") upstream.
 
-Acked-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Trying to disable the napi threaded state while the napi instance is
+disabled will hang forever in napi_stop_kthread(), as it waits for
+NAPIF_STATE_SCHED_THREADED to clear.
 
-@Miquel: can you test it? My RZ/N1 board doesn't have NAND.
+This won't happen until the next ____napi_schedule() call, which won't
+happen as it's disabled.
+
+This happens in 2 instances :
+
+ - Drivers that create but don't use napi instances (stmmac's rxtx napi
+   for AF_XDP for example), here it's a driver bug
+
+ - Drivers that create their napi instances in .probe(). Here, setting
+   threaded off while the interface is down will hang :
+
+   ip link set eth0 down
+   echo 1 > /sys/class/net/eth0/threaded
+   echo 0 > /sys/class/net/eth0/threaded
+   -> hang
+
+Checking on netif_running() isn't enough, as napi instances may be
+transiently disabled when changing the MTU for example, let's use a
+dedicated flag to track if the instance is disabled.
+
+This allows immediately disabling the kthread when the instance is
+disabled.
+
+This was tested on mvpp2 (probe-time napi_add) and stmmac.
+
+[ Backport: place the disabled state after the threaded busy-poll state;
+  the adjacent per-CPU NAPI state is not present in 7.3.y. ]
+
+Fixes: 689883de94dd ("net: stop napi kthreads when THREADED napi is disabled")
+Tested-by: Daniel Machon <daniel.machon@microchip.com>
+Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Link: https://patch.msgid.link/20261029153130.121204-1-maxime.chevallier@bootlin.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Chris J Arges <carges@cloudflare.com>
+---
+Backport upstream commit 8dc87fc5d6a0 ("net: Use a dedicated flag to
+track disabled napi instances") to 7.3.y.
+
+The commit fixes a reproducible hang in napi_stop_kthread() when
+threaded NAPI is turned off while the NAPI instance is disabled. The
+sysfs writer holds the netdev instance lock while waiting, which can
+also block device recovery.
+
+The upstream patch does not apply cleanly because the adjacent per-CPU
+NAPI state is not present in 7.3.y. Place the new disabled state after
+the threaded busy-poll state; the functional changes are unchanged.
+---
+ include/linux/netdevice.h |  2 ++
+ net/core/dev.c            | 15 +++++++++++++--
+ 2 files changed, 15 insertions(+), 2 deletions(-)
+
+diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
+index 3e64af0b932d..02119fa153c9 100644
+--- a/include/linux/netdevice.h
++++ b/include/linux/netdevice.h
+@@ -433,6 +433,7 @@ enum {
+ 	NAPI_STATE_SCHED_THREADED,	/* Napi is currently scheduled in threaded mode */
+ 	NAPI_STATE_HAS_NOTIFIER,	/* Napi has an IRQ notifier */
+ 	NAPI_STATE_THREADED_BUSY_POLL,	/* The threaded NAPI poller will busy poll */
++	NAPI_STATE_DISABLED,		/* NAPI is disabled */
+ };
+ 
+ enum {
+@@ -448,6 +449,7 @@ enum {
+ 	NAPIF_STATE_SCHED_THREADED	= BIT(NAPI_STATE_SCHED_THREADED),
+ 	NAPIF_STATE_HAS_NOTIFIER	= BIT(NAPI_STATE_HAS_NOTIFIER),
+ 	NAPIF_STATE_THREADED_BUSY_POLL	= BIT(NAPI_STATE_THREADED_BUSY_POLL),
++	NAPIF_STATE_DISABLED		= BIT(NAPI_STATE_DISABLED),
+ };
+ 
+ enum gro_result {
+diff --git a/net/core/dev.c b/net/core/dev.c
+index cc7b32ab5608..0e0a11ba2ada 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -7264,6 +7264,13 @@ static void napi_stop_kthread(struct napi_struct *napi)
+ {
+ 	unsigned long val, new;
+ 
++	/* Instance is disabled, we can immediately stop the kthread */
++	if (test_bit(NAPI_STATE_DISABLED, &napi->state)) {
++		clear_bit(NAPI_STATE_THREADED, &napi->state);
++		clear_bit(NAPI_STATE_THREADED_BUSY_POLL, &napi->state);
++		goto stop;
++	}
++
+ 	/* Wait until the napi STATE_THREADED is unset. */
+ 	while (true) {
+ 		val = READ_ONCE(napi->state);
+@@ -7294,6 +7301,7 @@ static void napi_stop_kthread(struct napi_struct *napi)
+ 		msleep(20);
+ 	}
+ 
++stop:
+ 	kthread_stop(napi->thread);
+ 	napi->thread = NULL;
+ }
+@@ -7689,6 +7697,7 @@ void netif_napi_add_weight_locked(struct net_device *dev,
+ 	napi->list_owner = -1;
+ 	set_bit(NAPI_STATE_SCHED, &napi->state);
+ 	set_bit(NAPI_STATE_NPSVC, &napi->state);
++	set_bit(NAPI_STATE_DISABLED, &napi->state);
+ 	netif_napi_dev_list_add(dev, napi);
+ 
+ 	/* default settings from sysfs are applied to all NAPIs. any per-NAPI
+@@ -7725,7 +7734,8 @@ void napi_disable_locked(struct napi_struct *n)
+ 			val = READ_ONCE(n->state);
+ 		}
+ 
+-		new = val | NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC;
++		new = val | NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC |
++		      NAPIF_STATE_DISABLED;
+ 		new &= ~(NAPIF_STATE_THREADED |
+ 			 NAPIF_STATE_THREADED_BUSY_POLL |
+ 			 NAPIF_STATE_PREFER_BUSY_POLL);
+@@ -7770,7 +7780,8 @@ void napi_enable_locked(struct napi_struct *n)
+ 	do {
+ 		BUG_ON(!test_bit(NAPI_STATE_SCHED, &val));
+ 
+-		new = val & ~(NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC);
++		new = val & ~(NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC |
++			      NAPIF_STATE_DISABLED);
+ 		if (n->dev->threaded && n->thread)
+ 			new |= NAPIF_STATE_THREADED;
+ 	} while (!try_cmpxchg(&n->state, &val, new));
+
+---
+base-commit: 7595a62d45ee1a2297eafa5f2ef5d0a45142d84d
+change-id: 20261113-napi-disabled-backport-7-3-051408a00d4b
+
+Best regards,
+--  
+Chris J Arges <carges@cloudflare.com>
+
