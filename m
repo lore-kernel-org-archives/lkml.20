@@ -1,78 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794561697;
-	b=XvaAqwsAfCSBo8dFQMXOGGRap0Leu2mHyW5VUKvUay8QtKTRh+Xk0YbBsBCUlzVz2gL7
-	 fpBmkPwNfKS9VNFfau+HP9fas2UfLy3XuDu/xBNFeXPL0Xu8X4QtMtIgwOsC4VX+n63TF
-	 KSMOn5MRS7ioNOxnlKUiEe2a6piIqOVdshKM/vPeLayQH9n9wvPAkbpERVaTwihyEhNHI
-	 uqLqdGEMifRN7S/eNxIlUrK0sTKYiKWt5YhladX/PD93wqz2bM+Pvg6Efd2ZwAUBGcqnn
-	 kq52D9/lFPH43chTJ3doTjsXR49b5rw7ElexSX2ievgjTPSD+R/uI9pdvUuROeSizmg==
+	t=1794561699;
+	b=aOJyOp3EwSelQL81F4IklyyuLwIENpio6lQQnaHi1II4CY+pnOamUyBSqPaqighikJ/5
+	 983DuN7jU8JJKgFStC4tU0Z5w9DRC6HW0hgzdBtzuut6v1JE1CLmZsPhZTwvEDZCYsHwD
+	 0UjGbr1Abg+LBzGg4GuhBsYnfJIpzF7hRliFICwpxUJyrf+DkNJ72LyuRTxGnHKA/bgBC
+	 3xZMdeMVusHIb7g5xHU0mA6XhGFdB3Ysbb2lFR8FP+iChRsfA3BN2dsrlCtAurX8hEhw6
+	 vVkRZ+5r43kih4SkI/NQcB/nOiiKxOUyf6kkY7mCNRgU4l6RzAwQvuhWoC8n0VImasA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794561697;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794561699;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=81m74lbv85pW2cQN+rz6KutFlg5imIQh5ZhE4mUfwHY=;
-	b=IF1NnpeCD5Mqd4GqSUiNvQ+BqvuwjQFP13wWRNEGfHX3N4NU3EDxAHQBq/bQasuF8Vy5
-	 yTUgqQ8cvYE1jvnPuhrazdYR2lmMfjWXumYjowdX3ZpxEdh0Uz4LHfPXl2RW2vHK4ckoS
-	 4Dh2aFdw8T6YSfae3+D8KuqZTxg00HmV6/aHiQHs8ugFHtCFnvy9J41mkuXQnmaXgGzgF
-	 75cRAHNKfjoiWAfUFli/aVlxvd3q+nYpu75ifeyBE8vn0xQXB05AjFGOSWto2z/lrfoA3
-	 AUZLdnyCxaes8beA1YcEDkyBi/3dvDRkM2tW5IInmNVMV/GWU8f30JmF3hyFDUP3tQw==
+	bh=QLrx30i7el36agCFsnnbg5QgixV8UKR0zsMUS/E77Ls=;
+	b=CTzgCqYZcr7CzjSOfDJwl/4XeTKwtiXORTeE5dsHdo133HPVtwS/OpgSYH3jtdQ7+ZdW
+	 oEbZvbg+JsvHNUi1W3MAlDxlZ/2CXMZs4f8E79GIYRhZbcvnQovsXOAT5givDA3XA2zTB
+	 xfJGL4fJSXX+I+fbLVYLJxp75unb4RlFn6uLka2fVN6o3H3O9qbAHj+4KY9snf+SZeCDQ
+	 Xlr8Y9Eq0frpk2HyJDNRS3lW8dCqTfY1LyUNZlAxz8dLyIJbE1cwCqBhS3QMWc+QTWrBq
+	 DYczknKugQHDambp+nOsjUjfcwurysBpTMwOjDBqyHypcOyO/jrpWpPy2DV87zeRSAw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M3lK8pqf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ahjsqUhD;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDD3860A2637;
-	Fri, 13 Nov 2026 09:21:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B250460A3833;
+	Fri, 13 Nov 2026 09:21:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M3lK8pqf
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ahjsqUhD
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794561697;
-	b=cdbNSi7O4WY9zjomEEeuYmignD5lAZnk0K9AS+WHFpqlM1TkZBLRvLNmz2IEXK5UjZft
-	 Rpgu/TXrN+hrqfrDYoxQ8h0Nyd8x4H9HJ/MlUYaXcxILVVajlJ7Z+PjyUyK7Je9SeHL/6
-	 ON8i5CTtiaTx1Fy28FXkr3bPT+/qf9Zgaq5vdLU5VJkYvct9AAjny89l213g1v5b0IiXG
-	 iydI8Y4LPakvVbBzyZHWGaeKXyhTS2fZjoSyf6SjCeBB44fbJshM8iwkxMk1SpySPtd9/
-	 4XnYV7ogHO8lMIOwcFlxf12wTrhEsVXLnD8kM6fFhUNoXZd7An6rs6dtOAHqD0/0z7g==
+	t=1794561699;
+	b=1du+RoulAXvDgDRKcQmAXR7ScwlUX5CXNDv7tp+F9UBaN8ivD9Q1AIQODU7rDYpn8hpH
+	 LiMlsGXE/v6qZ0s7LHHFMCmrF9+/K1yRjeh24KI84I3kybtIf5RbV5fVVjfG86v8RuEb+
+	 etUsGVB31Von7Munb+BjiDQBOeot4Z4IeNfthxflWc0zPdcGSawfmVjuqccq2M0doTQN3
+	 VRW/rO2+cgrXRidSG8EISxvpoksejAZ4iSTEjfr+4RmdDY6D6u1dNhxGMf5iohRi8R4Wx
+	 sl/M9vC91Z2VkHi1XvTkgmZHRgPD+9cTcx+XayG4ft5OfudIgF/ioSo+MOkv69SPC6A==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794561697;
+	c=relaxed/relaxed; t=1794561699;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=81m74lbv85pW2cQN+rz6KutFlg5imIQh5ZhE4mUfwHY=;
-	b=LR/7rRc1jaH+1b7THFLP0jb5JRkqNyz7hPrmQ4b/PMIUJBJN0Xf2D6NCzV+0XND+PS4k
-	 hEasTm6p2Mi5jXq9wNhaqaCLRb493ZZSfUvNB4RHvFfbNNOgcPMu+vFWshV8NbRfe2Der
-	 vQ/wAIt6NB4uhCjLHhPsNn07i+X18eZ3shxV6VCwvWHG2CLZcjdLxvSd+VfxGF/Cxvebx
-	 vjhBkIduADPLtvaIgDCGpM2F7gahfgH4NKv9lrDBM9U/d1s9JwB/Ko+p8arUbRsQd8wkF
-	 /7rHK1Bkpwp1zxUA/HHtSnVzS+AxxVpuSNDoIlqrNgK3TgLC28mraQI/M+PbU7Z8CmQ==
+	bh=QLrx30i7el36agCFsnnbg5QgixV8UKR0zsMUS/E77Ls=;
+	b=PUi6gHV2ObeJgbdT67oZqJ4L7KfV3VhvLAm5x2I9G0/b5YGP6yFWpt3//VZS3l28Z4+E
+	 Uz4UFPHL49MXhswPUQaks1BSRf8UFb1BQ8J8nk60csYudRW5HdReQ0Nm8DvKOUgmVp6mC
+	 i6KiZJqr/p+78oA1hbra7wJInrC0HZpEgtypvvFYeI26qjG6007wPIqozu05xrp+KL3nA
+	 0eGgGPk6bWiZGi6MMUltj8coSS/Ps9gHn4dpJeb0P9vOtjCKndSeBthlobzO7IE24jXrl
+	 Zdzrm3SKxOQN9oECP0WJkCtkzYnC40WofQI0dBUtvJdUNl0nWxks56iEu+PxSD/TYbg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 9F1D21F000C5;
+	by smtp.kernel.org (Postfix) with ESMTPS id A40ED1F000D0;
 	Fri, 13 Nov 2026 09:21:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794561697;
-	bh=81m74lbv85pW2cQN+rz6KutFlg5imIQh5ZhE4mUfwHY=;
+	s=k20260515; t=1794561699;
+	bh=QLrx30i7el36agCFsnnbg5QgixV8UKR0zsMUS/E77Ls=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=M3lK8pqf7gLdfxBCvUuQsSp6xHAq9NyTm/o262yuackD5puXd+lsnGRTGjfuwQFqU
-	 phFTxf7n3v0lFEQNnm96miY9rdtLi9PS19A2voVoBwfKuHfAo4LTSC9chcmUA2TjwP
-	 mWJMyDQnaYdgpkrfi5pY4WaG6eJ4pGe4iPCyOA62IRvQ22yTw3WCsB59GAOpwtHTSx
-	 +4XNZPAmGP4p2AO+2NE7UEjo9c8tS9LBzPKJ8wrIMYDhmqkSkpX+WoHohOS3vaM7V5
-	 wXCSp7k9Ks4BiasqOsLFoFbG4P3WIfOdW3fZyerIwa2XwSWo+ylPQ9U68CPCMLaNgn
-	 u50auJ2pPX9cw==
+	b=ahjsqUhD37aVA0SgBuOMPlKMbnpLvZJfIo8sf7GO7oDnrk9Fr0aJqAv+OLFLZMlWj
+	 HSSnV+O2n+3st0Rcr5kbXzJsPcJH9FGWf1lVH5QGJBDWHLRjBSz+CsznD1cYWvAxQ5
+	 kMi6q0DehVEowx7jYzB8JqxxjKBcNSpIUes4dLZ6o1HqeNYB5kNEqCT3P60GcyOPhw
+	 o2XxhfW10/gK9j2QYXuaaltRpw6OPbH7zHqEd0p0ImhFpRL9Y6rvCUBTPzaaNKwjn0
+	 2IggwsNOLNEPskN5H9+Azssl9p9mVaZonEf994H3Z8VLvv/NOIb/SF8fEhl3Cluzs6
+	 CC/ru1fq0e0RQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 56F5C47738;
+	by lkml.kernel.org (Postfix) with ESMTP id 6B5B14773C;
 	Fri, 13 Nov 2026 09:21:33 +0000 (UTC)
 From: Joonho Lee via B4 Relay <devnull+mynameisjune111.gmail.com@kernel.org>
-Date: Fri, 13 Nov 2026 18:21:37 +0900
-Subject: [PATCH v33 13/18] ALSA: virtio: prioritize capture period work
+Date: Fri, 13 Nov 2026 18:21:38 +0900
+Subject: [PATCH v33 14/18] docs: describe virtio-sound capture options
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,7 +83,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-fix-virtio-snd-recovery-final-v33-13-13a934ad5ece@gmail.com>
+Message-Id: <20261113-fix-virtio-snd-recovery-final-v33-14-13a934ad5ece@gmail.com>
 References: <20261113-fix-virtio-snd-recovery-final-v33-0-13a934ad5ece@gmail.com>
 In-Reply-To: <20261113-fix-virtio-snd-recovery-final-v33-0-13a934ad5ece@gmail.com>
 To: linux-sound@vger.kernel.org, 
@@ -95,11 +95,11 @@ Cc: tiwai@suse.com, perex@perex.cz, mst@redhat.com,
  linux-doc@vger.kernel.org, Takashi Iwai <tiwai@suse.de>, 
  Joonho Lee <mynameisjune111@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794561688; l=1001;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794561688; l=3396;
  i=mynameisjune111@gmail.com; s=default; h=from:subject:message-id;
- bh=K0F5pXJldL6rCj0lz2VzTTvcGn52OcRIreW1oqqy4Ws=;
- b=Tbvr8XYybg1Kz/dMfV9tRrMB+76HPqUk94t/Rxj/3cWNB8pe7Y+qIzJjK3OQEZjwie4neO2Er
- tNjiWhLHHO8BVi+eEeuSREQ7tdm4h3vSANt9ghPvLREMSH00e9OXIZZ
+ bh=/j7ES1eIZUqADxQE96uIPwum9kdULJfrWnt027v2s60=;
+ b=lZIAbbt3wKeCjvFvgpJs6RSAf3uLOUl6iy0IhW0OlWs6Q9zAJ6yoBuBEaoH09GUtGHcx0QvJc
+ OU1CZJ2Ti+yBggC7bM47Gfg3/tu5sWNt3tBn/tN18xvbS2hM2ZuKAaL
 X-Developer-Key: i=mynameisjune111@gmail.com; a=ed25519;
  pk=wqkZdvfcC8g8fDi6f0Y58LlaXIo+ubf6Y/9Lr9yhshc=
 X-Endpoint-Received: by B4 Relay for mynameisjune111@gmail.com/default with
@@ -110,31 +110,84 @@ Content-Transfer-Encoding: 7bit
 
 From: Joonho Lee <mynameisjune111@gmail.com>
 
-Use system_highpri_wq for capture progress notifications. Capture now
-always uses request-owned storage. Playback keeps the ordinary
-workqueue. This preserves the priority proposal separately from recovery
-and accounting. It provides no hard real-time guarantee and cannot
-prevent reader overruns.
+Document request-owned capture in the ALSA configuration guide. Describe
+`capture_packed_status` as default-off, reading a packed trailer after
+returned data while the fixed status scatterlist remains the default.
+Describe default-off `capture_pause_restart`: pause uses STOP and
+RELEASE, then resume uses PREPARE and START; disabled mode uses STOP and
+START while retaining the prepared stream.
+
+Note that on MMU systems request buffers are vmalloc-backed and
+page-rounded individually. They remain allocated from hw_params through
+hw_free, and capture data is copied into the ALSA ring.
 
 Assisted-by: LLM
 Signed-off-by: Joonho Lee <mynameisjune111@gmail.com>
 ---
- sound/virtio/virtio_pcm.h | 3 +++
- 1 file changed, 3 insertions(+)
+ Documentation/admin-guide/kernel-parameters.txt | 14 ++++++++++++++
+ Documentation/sound/alsa-configuration.rst      | 25 +++++++++++++++++++++++++
+ 2 files changed, 39 insertions(+)
 
-diff --git a/sound/virtio/virtio_pcm.h b/sound/virtio/virtio_pcm.h
-index 95881a3a2c57..987105145205 100644
---- a/sound/virtio/virtio_pcm.h
-+++ b/sound/virtio/virtio_pcm.h
-@@ -173,6 +173,9 @@ virtsnd_pcm_defer_paused_xrun(struct virtio_pcm_substream *vss)
- static inline bool
- virtsnd_pcm_schedule_period_elapsed(struct virtio_pcm_substream *vss)
- {
-+	if (vss->direction == SNDRV_PCM_STREAM_CAPTURE)
-+		return queue_work(system_highpri_wq, &vss->elapsed_period);
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index e75344f4e0cd..ca3fd768b439 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -8344,6 +8344,20 @@ Kernel parameters
+ 
+ 			Can be used multiple times for multiple devices.
+ 
++	virtio_snd.capture_packed_status= [HW,ALSA]
++			Read an explicitly enabled packed status trailer after
++			the returned capture data. The fixed status scatterlist is
++			used by default.
++			Format: <bool>
++			Default: false.
 +
- 	return schedule_work(&vss->elapsed_period);
- }
++	virtio_snd.capture_pause_restart= [HW,ALSA]
++			Stop and release the stream when pausing capture. On
++			resume, send PREPARE and START. If disabled, pause uses
++			STOP and START while retaining the prepared stream.
++			Format: <bool>
++			Default: false.
++
+ 	vga=		[BOOT,X86-32] Select a particular video mode
+ 			See Documentation/arch/x86/boot.rst and
+ 			Documentation/admin-guide/svga.rst.
+diff --git a/Documentation/sound/alsa-configuration.rst b/Documentation/sound/alsa-configuration.rst
+index 689eccf6a592..0531a3e3129c 100644
+--- a/Documentation/sound/alsa-configuration.rst
++++ b/Documentation/sound/alsa-configuration.rst
+@@ -2537,6 +2537,31 @@ midi_devs
+ 
+ This module supports multiple cards.
+ 
++Module virtio-snd
++-----------------
++
++Virtio-sound capture receives data into a separate request buffer for each
++PCM period. The driver validates the responses and appends frame-aligned audio
++to the ALSA ring in request order. Valid short responses are retained. Empty
++responses are accepted only during bounded startup or for requests already in
++flight at STOP or PAUSE.
++
++capture_packed_status
++    Read an explicitly enabled packed status trailer after returned capture
++    data. The fixed status scatterlist is used by default.
++    (default = false)
++
++capture_pause_restart
++    Stop and release capture on pause. Resume with PREPARE and START. When
++    disabled, pause uses STOP and START while retaining the prepared stream.
++    (default = false)
++
++On MMU systems, the request buffers are vmalloc-backed and page-rounded
++individually. Allocator rounding can make total additional memory exceed the
++ALSA ring size, especially with small periods. The request buffers remain
++allocated from hw_params until hw_free.
++Captured audio is copied from each request buffer into the ALSA ring.
++
+ Module snd-virtuoso
+ -------------------
  
 
 -- 
