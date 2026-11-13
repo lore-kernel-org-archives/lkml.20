@@ -1,80 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794567294;
-	b=RzDDxUU/ggKfal7dg8Jgsw729xoFfTIHRmlPnY6mmnmcP1jIMpeJldRovBKgqw7kK9ij
-	 sIap8gpiH84dKsRlCEPhZEgWevtCGXx0zKchYIfWdC+43H0vloVKiMoSoIxLeJ7uwTnNv
-	 vURlG7sNS8cESm5u/dd1G5F0yK82bPkvBLmFHA3DZEHbUhUZwOh5kOUqPGXdOT1hhSgCB
-	 aJwiY2kaVvpHPeVA61osvQck+eys33mxY3qdidSwr+jaYZzPjrqBlHK1/jqzj6817DXjE
-	 IInLUHvhoVNASChRPofdQC3PBCq5+zJrjxSsLiurN0DSegcsXrqCbsQlH7v7SGAqHGA==
+	t=1794567304;
+	b=gH56ImbMyaJFGie2Zjs/7Lhzs6JMBgaXd+3EkVmyrowlJF0VoZ8rhxlA1MwJIL9IObKZ
+	 4dS2y/oXL8IecKODgwWW1LVIzEVBmN/JdfHpXhQ0wgfuBreCqlmT/agegYBF2u4R7lxlY
+	 Ue/PHBqvA3+43rV9I+PLSYwYcNV/RsTtADPuiZeQDxFLwYQrQGinNFc8LP4EJbITy0pKV
+	 8WPCXPW06nKrX/2lSVC9ssVba6tcsmpSJbI5gJMiMLf58K9buKE1r77kEbwXcl3fkeWHo
+	 WBob2CeqSakoTh8lG/Vmi26deXP7YqRidIjJe5dvxD1OW3zwNWVYdN8uOFKH17h7VKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794567294;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:
-	 X-Msg-Generator:Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:
-	 cpgsPolicy:X-CFilter-Loop:X-CMS-RootMailID:References;
-	bh=1hJ0aQ7fGA2QuLMADJWwMmxygYV3IJuA53iBt1oJi10=;
-	b=HU+fOOnBdUXEB14S4fJYjjYlNsD3pcmGulM3uxphhJMZ4+dZMlxdEhNt31Jb+Rj9JsT5
-	 Nin5JjPH/Ko8w1jWf+dfsaFaz3tL3j9wVEXq0kHe8yjqx/okVRlFBi0sPc97FXJrhA1O/
-	 WeZ9QI1dvMOmbvKv0wYmbzvrFTWgdy5uhcBYnLidqOZwEGU6V4uh/14KcrXg591mvwkyT
-	 67CH3sB2h2lrsWE7YMGBWv9TFFqDj7fgNfDTKXvccz+cTz8YtVQAAZW4gqCVnRSm2WsEZ
-	 jCjPkCw+/Jwv56nLWUZ4wUk/TbiAUmc0D+8j/ANdrsJB451hdJXIrmdzqWK0+Sl3Fmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794567304;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=0Xoy/+JkhOVy2zZs+D9jW0FH/gOoj/AzGHpxhSOnZug=;
+	b=FhUFmkqAzEXeUtjGvIr4HmNKX0wOOe4CjW0fIJ1Xas4EkZ9ha0s9QoWf0iCC3BmeVwAA
+	 iUVcV7rpeff5z1Br8wkBCqywBS3Ji4sEHcLb/WcDL/H5k0rwUWYT6a2LTIUqAZKXb4502
+	 p+c05M4eTGG5tWaUVq0yZznjIYW/tp+n29A1YdfHkzJhHGiCYKMZExS7BLUm06FNcnN1I
+	 TX+cvAXRiiTrQTJuq/HPdr6ZPa17IKW37DarRh3xzR5R7Jz6LNVnVqEHSuXkVdkmWH7NU
+	 /igTtM2pVDoaYoade5bOGkSPdyaUgzQ0J+H3hJvuqm+qhZwaMhknjPVW3b8J1bmGl5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=hJsZgbbc;
-	arc=none smtp.remote-ip=203.254.224.34
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A954D606B276
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:54:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A954D606B276
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=NxGoUR8C;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1C0D0606B25A;
+	Fri, 13 Nov 2026 10:55:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C0D0606B25A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=hJsZgbbc
-Received: from epcas5p4.samsung.com (unknown [182.195.41.42])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261113105451epoutp04940ae4da0ee2839793e9c9114cc14fa6~nlXF9YLrI1136511365epoutp04P
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:54:51 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261113105451epoutp04940ae4da0ee2839793e9c9114cc14fa6~nlXF9YLrI1136511365epoutp04P
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1794567291;
-	bh=1hJ0aQ7fGA2QuLMADJWwMmxygYV3IJuA53iBt1oJi10=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=hJsZgbbcdAKkR/X7Kk7U2qOCM5Nr3Mb6uWjVv2LQWgwTegGIK/iTbpBpiQGf7gL8N
-	 aguJpeTCuB0pXigVH6Nwvmg6dTWwbLvdNJ6zgmwAiP6h7jfgWAcbqA+AEiX9Yr1zm8
-	 FgEOQl4zsXQP/i0jsHwoch8qcg5HPYhVCXRZoEco=
-Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
-	epcas5p3.samsung.com (KnoxPortal) with ESMTPS id
-	20261113105450epcas5p3beb6887f44df384c978d9302dfa15106~nlXFFIk3B1064210642epcas5p3n;
-	Fri, 13 Nov 2026 10:54:50 +0000 (GMT)
-Received: from epcas5p3.samsung.com (unknown [182.195.38.87]) by
-	epsnrtp01.localdomain (Postfix) with ESMTP id 4jQvKP23Pzz6B9m6; Fri, 13 Nov
-	2026 10:54:49 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261113104909epcas5p1d1b81b4e800e8a1d1cf830f21e52499a~nlSH7HHFH1962219622epcas5p1V;
-	Fri, 13 Nov 2026 10:49:09 +0000 (GMT)
-Received: from bose.samsungds.net (unknown [107.108.83.9]) by
-	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261113104907epsmtip253a28db5655805d5560c32930af65890~nlSFi5msW2539225392epsmtip2Y;
-	Fri, 13 Nov 2026 10:49:07 +0000 (GMT)
-From: Raghav Sharma <raghav.s@samsung.com>
-To: krzk@kernel.org, s.nawrocki@samsung.com, cw00.choi@samsung.com,
-	peter.griffin@linaro.org, alim.akhtar@samsung.com, sboyd@kernel.org,
-	bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, robh@kernel.org,
-	conor+dt@kernel.org, raghav.s@samsung.com
-Cc: linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, is.gandhi@samsung.com, ts.amit@samsung.com,
-	pokala.reddy@samsung.com
-Subject: [PATCH v3 14/14 RESEND] arm64: dts: exynos8855: add cmu_usb clock
- DT nodes
-Date: Fri, 13 Nov 2026 16:36:12 +0530
-Message-Id: <20261113110612.3265841-15-raghav.s@samsung.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261113110612.3265841-1-raghav.s@samsung.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=NxGoUR8C
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7F7681AED;
+	Fri, 13 Nov 2026 02:55:00 -0800 (PST)
+Received: from e132581.arm.com (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E53863F673;
+	Fri, 13 Nov 2026 02:55:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794567303; bh=7GXvv174N+KlDiwy/lVoFVjQ8KSC6/JT940zg1WRQlA=;
+	h=From:Subject:Date:To:Cc:From;
+	b=NxGoUR8CRNO5Ua1FLCH/1EWsTUJaVPRzNnls7Ex1WmUbH60nflWMtCGvBWPMrPKKy
+	 zKmUQPkMRIQWP/zpy7U5fVLLPVFFrCH5YXQgUNUNypvJcfBWlLo7b94NqOXT0xgD78
+	 R7+RQbSFSruF48C4ICk9RD0lnltK9fCn4DyDqEMQ=
+From: Leo Yan <leo.yan@arm.com>
+Subject: [PATCH 0/3] perf cs-etm: Fix GCC 15 build failure
+Date: Fri, 13 Nov 2026 10:54:51 +0000
+Message-Id: <20261113-perf_fix_gcc15_failure-v1-0-eae592c5ff64@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,61 +56,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261113104909epcas5p1d1b81b4e800e8a1d1cf830f21e52499a
-X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: REQ_APPROVE
-CMS-TYPE: 105P
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-543,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261113104909epcas5p1d1b81b4e800e8a1d1cf830f21e52499a
-References: <20261113110612.3265841-1-raghav.s@samsung.com>
-	<CGME20261113104909epcas5p1d1b81b4e800e8a1d1cf830f21e52499a@epcas5p1.samsung.com>
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAHvs9moC/x2MUQqEMBDFriLzvQWnRRGvsixF66sOiMqUFUF6d
+ 4ufgSQ3JaggUV/dpDglyb4V4E9FYRm2GUamwmRr2zKzMwc0+iiXn0PgxsdB1r/CMBxb50Z0taU
+ SH4oivePvL+cH3zaWDmgAAAA=
+X-Change-ID: 20261113-perf_fix_gcc15_failure-1e31233be802
+To: Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, James Clark <james.clark@linaro.org>, 
+ Mike Leach <mike.leach@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+ Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+ Robert Walker <robert.walker@arm.com>
+Cc: Arnaldo Carvalho de Melo <acme@redhat.com>, coresight@lists.linaro.org, 
+ linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Leo Yan <leo.yan@arm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794567301; l=951;
+ i=leo.yan@arm.com; s=20250604; h=from:subject:message-id;
+ bh=7GXvv174N+KlDiwy/lVoFVjQ8KSC6/JT940zg1WRQlA=;
+ b=dtRlrnLklDGuAhcLzDRmbJ0gy2YDYiFMthhgs9oxG/teWg6IiuSw9z/2GdTSzlcXqewr88LKC
+ B3F5bFKWu+2CWJunZveop7XTidTy8NGIlaoa1kMkVVLJtHzXyNzr9cL
+X-Developer-Key: i=leo.yan@arm.com; a=ed25519;
+ pk=k4BaDbvkCXzBFA7Nw184KHGP5thju8lKqJYIrOWxDhI=
 
-Add required dt node for cmu_usb block, while at this
-add sysreg_usb which contains bits for DRCG and MEMCLK
-which are used by clk driver
+This series fixes the GCC 15 build failure reported by Ian Rogers [1]
+(thanks, Ian!).
 
-Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
-Signed-off-by: Raghav Sharma <raghav.s@samsung.com>
+Two follow-up refactoring patches use the packet’s recorded instruction
+size for stack events and centralize error checking for frontend
+instruction reads.
+
+[1] https://lore.kernel.org/linux-perf-users/20261030-perf_cs_etm_fix_non_taken-v3-0-7629b52ab047@arm.com/T/#m64fb81c665214b79883d9be815b40ac5f6669628
+
+Signed-off-by: Leo Yan <leo.yan@arm.com>
 ---
- arch/arm64/boot/dts/exynos/exynos8855.dtsi | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+Leo Yan (3):
+      perf cs-etm: Initialize the Thumb instruction buffer
+      perf cs-etm: Use the packet instruction size for stack events
+      perf cs-etm: Check frontend instruction reads
 
-diff --git a/arch/arm64/boot/dts/exynos/exynos8855.dtsi b/arch/arm64/boot/dts/exynos/exynos8855.dtsi
-index 3dd7a4c4c609..dcf1e58c6367 100644
---- a/arch/arm64/boot/dts/exynos/exynos8855.dtsi
-+++ b/arch/arm64/boot/dts/exynos/exynos8855.dtsi
-@@ -192,6 +192,27 @@ pinctrl_cmgp: pinctrl@12030000 {
- 			interrupts = <GIC_SPI 114 IRQ_TYPE_LEVEL_HIGH>;
- 		};
- 
-+		cmu_usb: clock-controller@13000000 {
-+			compatible = "samsung,exynos8855-cmu-usb";
-+			reg = <0x13000000 0x10000>;
-+			#clock-cells = <1>;
-+
-+			clocks = <&oscclk>,
-+				 <&cmu_top CLKCMU_DOUT_USB_NOC>,
-+				 <&cmu_top CLKCMU_DOUT_USB_USB20DRD>;
-+			clock-names = "oscclk",
-+				      "bus",
-+				      "usb20drd";
-+			samsung,sysreg = <&sysreg_usb>;
-+		};
-+
-+		sysreg_usb: syscon@13020000 {
-+			compatible = "samsung,exynos8855-usb-sysreg",
-+				      "syscon";
-+			reg = <0x13020000 0x10000>;
-+			clocks = <&cmu_usb CLK_GOUT_SYSREG_USB>;
-+		};
-+
- 		cmu_top: clock-controller@13900000 {
- 			compatible = "samsung,exynos8855-cmu-top";
- 			reg = <0x13900000 0x10000>;
+ tools/perf/util/cs-etm.c | 83 +++++++++++++++++++++++++++++-------------------
+ 1 file changed, 51 insertions(+), 32 deletions(-)
+---
+base-commit: 4af65363b11fc4fe65fcb497f68bbe4f3e3a4d2c
+change-id: 20261113-perf_fix_gcc15_failure-1e31233be802
+
+Best regards,
 -- 
-2.34.1
+Leo Yan <leo.yan@arm.com>
 
