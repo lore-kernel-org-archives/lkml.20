@@ -1,104 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794560198;
-	b=POXdhEsrMe3O91IrKyM7b6+IixXMcethFQGUDQlt3U2nkgjFGNyGRRRxuakcOFjddlFi
-	 x6WzIujj+blRZ+U5276JCflxLxHipnRbKHQuFkyNeOmCR/4gtouo/i2LcewEAENzLmsBY
-	 7mnmfPfNtvBTLppChc7hvBkrrqnKIyKroaXUATafGhqivWOdBlDLxEPRBRd2S76Ve2wdC
-	 8mK36OF46DxhdAoV6Hy/5SmRG+NfmEVJJM2IK3e+3XbNdZQIowMYv7nNJa55tYF5VX/Hb
-	 9t5z1egnhUZpiwVmLLcpNSeRulvXFoLN2i4DhKN6dAyoM/jFk0kc6a245mToy9v9+dw==
+	t=1794560275;
+	b=MD8RO73BvS+ltA5B4mdYJnlD4WbBzvdMNK+83tKZ5TbUQ7IaIAPHrm/9lEcqZC/kdv+G
+	 sq1AAM8poO/P78LSyOa6pJYyg48ibIT4sM4hYVgi+ugYjDlgsrhKSCF4Dts9Ru42hp4Vz
+	 yP4H/KJsYCEuD98owxyhn+3DfGbB6jjJj7aNMhz7T4ieuOoJymCrfmrkRnPQ9If15vOAM
+	 h/BUSKe66xDKrMezz8vGu7yiQnOsyCl1eEb0OEVjgNDzbGY9sMwNeVeejimK/xjlGsXH0
+	 HTVGkSoSFNuhwigKV7ttAp+r4CRqDV8S6ewxbK5AcXncboap/xRHnivAWVAceErIvDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794560198;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Rspamd-Queue-Id:
-	 X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
-	 X-Spamd-Result:X-Spam-Score;
-	bh=DoV7wYM71m5DyVinWVLmxS+65KXwL5VcNuiWDR4x8S0=;
-	b=BD/UD1ho6QVEv+HJlNfuwpYizFP0etrATPpZjkijiWSHCJ8vVEe7sPoWE+y/j7EjcBtS
-	 YwcG/CnWT5JYjq2VFhq429XVGsSw0GNdeQh6EeW8zO3T3uzBsQfwfSkUW2ENjKON3i37I
-	 f8sXgdz8MA9by12bZF/XBWnpkHwFzY50ntCUJLRTpdoCnHkmSGtk5ZVngahQ60DKozLWB
-	 ePpsTqki6izJFCQDvFsw3nXDkpGMVDK0A/WYJxIhbHUeOLa97qHvGFy+rRZR9rXRW/1Su
-	 dpxK1010w7F1AnxSQ1dPZigAF+QE3e+aLvkaw6P4F4j4157cizGpLEZbESmWEKC7N5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794560275;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=BjKgwNk/hfR6oAW/crTzv7g8ELfpDaNgSZwDrwnUj+w=;
+	b=4yeO5pZYLT7gV7mohkcdAvEl1gbxDnwpvvDZdvBT6otgWj22ukW7WC1na6xOKVerclf5
+	 BNBwSv20NLdnICFVrIkS7+5YUPcJJ/5T5tX+WVgW4P5JarBBdBnURlnGNjiTUCFt2RM21
+	 i2JTEJxNeSbL9LAW4+e9eMYhk03doJEI7ajJqnXbrKiPQjxWHfiyPF3jqp6sQ49v5ErEO
+	 f1pBfZE+auFUUsoUVwiiEL4cYYncneKrYNI/c2LEhcT2QLUudB97V4DXnoCYZdjplkJJM
+	 ZJ/AJkoLZsWyxaCUy0E8fZ9DVIbD8GemXyafEy7dSv614CfdH0wcQJ1X1crYCnoh2+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="RODEM+/8";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Cco2Sytl;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="RODEM+/8";
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Cco2Sytl;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95C44606A333
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:56:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95C44606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=I2HJqNSC;
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5BA6E606A31C;
+	Fri, 13 Nov 2026 08:57:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BA6E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=RODEM+/8;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Cco2Sytl;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=RODEM+/8;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Cco2Sytl
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 499E71F789;
-	Fri, 13 Nov 2026 08:56:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794560189; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=DoV7wYM71m5DyVinWVLmxS+65KXwL5VcNuiWDR4x8S0=;
-	b=RODEM+/8QHVrR+OzOu4ohrtucCPNMFC9DVA1V1OzG+AxcxYb8Zfnqh7kSE7qDnqo7hhpFX
-	l2oKwNlJAtaUAXwkioh+Sy8zdMCUI9LIHRitymA921MBpInr/SY+rkMN+8RiS/9+STc9W4
-	1JlNtvt2Kgc8nKs1ra+joFYWzUSu3lY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794560189;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=DoV7wYM71m5DyVinWVLmxS+65KXwL5VcNuiWDR4x8S0=;
-	b=Cco2SytlBldxoGy8uGJp/izee9+RiFJBQRvTnnSf5KjkysyN46vrR8CRv2xRScZlEmQxQb
-	dfSZJUcRccngtvDw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="RODEM+/8";
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Cco2Sytl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794560189; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=DoV7wYM71m5DyVinWVLmxS+65KXwL5VcNuiWDR4x8S0=;
-	b=RODEM+/8QHVrR+OzOu4ohrtucCPNMFC9DVA1V1OzG+AxcxYb8Zfnqh7kSE7qDnqo7hhpFX
-	l2oKwNlJAtaUAXwkioh+Sy8zdMCUI9LIHRitymA921MBpInr/SY+rkMN+8RiS/9+STc9W4
-	1JlNtvt2Kgc8nKs1ra+joFYWzUSu3lY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794560189;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=DoV7wYM71m5DyVinWVLmxS+65KXwL5VcNuiWDR4x8S0=;
-	b=Cco2SytlBldxoGy8uGJp/izee9+RiFJBQRvTnnSf5KjkysyN46vrR8CRv2xRScZlEmQxQb
-	dfSZJUcRccngtvDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E02D6134C3;
-	Fri, 13 Nov 2026 08:56:28 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id FVGOJLzQ9mpFIAAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Fri, 13 Nov 2026 08:56:28 +0000
-Message-ID: <52e504a5-96a6-48dc-a252-a00db02c4488@suse.de>
-Date: Fri, 13 Nov 2026 09:56:28 +0100
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=I2HJqNSC
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=I2HJqNSC36CKoRBkVR+wR6vxrkRQBWd4YkIUeqJUL7uWu/VIGKjSn6hOG6/RfixsGTw1zGZgJn4qD
+	 tgmFZo/fdlIOoH9iuqU7eO65IiraoGtHvcrUrG08rL6eAVRmaN1/pt3rkkyPEoRxGe0IdP/3AZs84A
+	 fuW+ldjXnKRoEOGk=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app07-12007 (RichMail) with SMTP id 2ee76af6d10cc1e-eb6ea;
+	Fri, 13 Nov 2026 16:57:48 +0800 (CST)
+X-RM-TRANSID:2ee76af6d10cc1e-eb6ea
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from localhost.net (unknown[112.23.105.204])
+	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86af6d10b888-1f14c;
+	Fri, 13 Nov 2026 16:57:48 +0800 (CST)
+X-RM-TRANSID:2ee86af6d10b888-1f14c
+From: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
+To: Hangbin Liu <hangbin.liu@linux.dev>
+Cc: Jiri Pirko <jiri@resnulli.us>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	sunwenbo@cmss.chinamobile.com,
+	1342116488@qq.com
+Subject: Re: [PATCH net v2] team: validate the length of U32 and S32 option data
+Date: Fri, 13 Nov 2026 16:57:28 +0800
+Message-Id: <20261113085728.169050-1-sunwenbo@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.33.0
+In-Reply-To: <ava3_g_zsVdAjn93@fedora>
+References: <20261112090030.172342-1-sunwenbo@cmss.chinamobile.com> <ava3_g_zsVdAjn93@fedora>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,132 +77,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS: Update Ruben Wauters email address
-To: Ruben Wauters <ruben.wauters@linux.dev>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Ruben Wauters <rubenru09@aol.com>
-References: <20261113082738.6447-1-ruben.wauters@linux.dev>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261113082738.6447-1-ruben.wauters@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 499E71F789
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-13.50 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	XM_UA_NO_VERSION(0.01)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_TO(0.00)[linux.dev,linux.intel.com,kernel.org,gmail.com,ffwll.ch];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FREEMAIL_ENVRCPT(0.00)[aol.com,gmail.com];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[lists.freedesktop.org,vger.kernel.org,aol.com];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	DKIM_TRACE(0.00)[suse.de:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email,suse.com:url,cvut.cz:email,vmware.com:email,linux.dev:email,linux.dev:url,gitlab.freedesktop.org:url,utl.pt:email,bytedance.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,broadcom.com:email,suse.de:dkim,suse.de:email]
-X-Spam-Score: -13.50
 
-Hi
+Hi Hangbin,
 
-Am 13.11.26 um 09:25 schrieb Ruben Wauters:
-> Due to issues from my mailhost with sending and receiving patches, I am
-> moving to a linux.dev address.
+Good catch, thank you for checking the commit history!
+
+On Fri, Nov 13, 2026 at 03:10:54PM +0800, Hangbin Liu wrote:
+> This part should be
 >
-> Signed-off-by: Ruben Wauters <ruben.wauters@linux.dev>
+> Fixes: 69821638b274 ("team: add signed 32-bit team option type")
 
-Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+Indeed, commit 3d249d4ca7d0 ("net: introduce ethernet teaming device")
+introduced TEAM_OPTION_TYPE_U32, while commit 69821638b274 ("team: add
+signed 32-bit team option type") later added TEAM_OPTION_TYPE_S32.
 
-I'll merge this change into drm-misc-fixes.
+I will keep this as a single patch and add:
 
-Best regards
-Thomas
+  Fixes: 69821638b274 ("team: add signed 32-bit team option type")
 
-> ---
->   .mailmap    | 1 +
->   MAINTAINERS | 2 +-
->   2 files changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/.mailmap b/.mailmap
-> index 7fb33babc931..70491b2d8199 100644
-> --- a/.mailmap
-> +++ b/.mailmap
-> @@ -820,6 +820,7 @@ Ronak Doshi <ronak.doshi@broadcom.com> <doshir@vmware.com>
->   Muchun Song <muchun.song@linux.dev> <songmuchun@bytedance.com>
->   Muchun Song <muchun.song@linux.dev> <smuchun@gmail.com>
->   Ross Zwisler <zwisler@kernel.org> <ross.zwisler@linux.intel.com>
-> +Ruben Wauters <ruben.wauters@linux.dev> <rubenru09@aol.com>
->   Rudolf Marek <R.Marek@sh.cvut.cz>
->   Rui Saraiva <rmps@joel.ist.utl.pt>
->   Sachin Mokashi <sachin.mokashi@intel.com> <sachinx.mokashi@intel.com>
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index c4f4e48774d0..17bd2c76f737 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -8337,7 +8337,7 @@ F:	Documentation/devicetree/bindings/display/panel/panel-edp.yaml
->   F:	drivers/gpu/drm/panel/panel-edp.c
->
->   DRM DRIVER FOR GENERIC USB DISPLAY
-> -M:	Ruben Wauters <rubenru09@aol.com>
-> +M:	Ruben Wauters <ruben.wauters@linux.dev>
->   S:	Maintained
->   W:	https://github.com/notro/gud/wiki
->   T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
-> --
-> 2.56.1
+alongside the existing Fixes tag, then send [PATCH net v3] after the
+24-hour resend cooldown.
 
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+Thanks again for your review!
+
+Best regards,
+Wenbo Sun
 
 
