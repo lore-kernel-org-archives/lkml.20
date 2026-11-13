@@ -1,98 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.26.1.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794585072;
-	b=DypaR7+DUI0aujEunej1lGGUbIyD0vAcrvtoN+73hmTC/P+WPOopg5asT4tKnBgeN2jx
-	 318VyUs3gZorL1O9CNl1ti6WOIJPZymOEETZJJznsljtgxONc03Ek4gawrgkU6bH0dmGC
-	 3cNuxsSVeUCbJQFufUgG8fILIe5cqj8S9n7yvXpMylQshJlUrYB2UIZ4JCijH8gBMSBem
-	 I+So1LnM3qc0TEH1fYzdsL38HK/PARpKZCyBw3/EvF4YG3vGtQxjutEYyOz+9jcCn8fqK
-	 ZGuwLpK00cBi7FmmvD6Ez+8NkOUrkn+050QydRqGesSH9EzlV31ZgBsWJLC8qZdjrrg==
+	t=1794585079;
+	b=OgtXyf97pLP2GeD/wwVHptAtTS2yHXlrDtOTyhMiTdkwckzUbxAohUaRIy0hYrS81ic5
+	 gL61wOHw0SdS/J8K6JPiX4AED2UI0Ax+4aiZzIm3YFvH5qwX7muJIMObJWyssZxcv/AVA
+	 V/bNSsD5bIWqO9vXbNxlY3Sl7kvy0Mj/6E6mSHsVJ0I9nqMrsMeOJScbZFL9eyDM0Nb3O
+	 Ra6MtMMUjbXdK/YX/ig5HNI2nk6rg080Ec3l9V4/84b8bl+DW0bksbPJSjyfo2qdjaOl1
+	 XlUICz9Y0WKkOug9daJGt3MNsA7WCRsTlq0lgA4xXSQ7su0L+cGBfSEQQx78t0TVE3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794585072;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:X-Originating-IP:X-ClientProxiedBy:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ttqAfDxUfq10cMBrxuj6822Y6w4QHwk60wHnUr65sec=;
-	b=ZWSSbdP1EbVTI9KVE47zCO8nRHV8U/NTla7QPlFUclmk0CwNdqu3fJiELMh26PJLu5BC
-	 r+rtHD/ALks+SJwMgw27Wg04prtt3Jdttxnfp0aK5ah04Yn0qsIqCiLo4R2JW4DS0RAW1
-	 Sk7yCQIGsSTQDs6v288E5YMDDBYR+02Vk3IsP8au8IkfA5OWOV34U9jHBud2fjnK+Gb6p
-	 OxMec+M6BoeGt4lY5H9e7wNoZ5kPCDMHErqmdwfKt9Xbftwhr2wvnF8MH8TzXt7LkgPEI
-	 Lkiekn5ZjPOzvfpetUP9PtnNHgUU9lpKQEBk68nhnGO/+aBV6jpN2KaqAG3KhGIReiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794585079;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=p57p3uxeYdPu3dO2jsiMkVBwtyV0ivwwKUFjRQ3jCKE=;
+	b=AdU3qiWsL/VOOKUuNGMMMFrhhtRZqsZ10v0OCt71qDMX+dvidUzP0cf5gyRZatK7K/S5
+	 /AdFe0ISm8M9tYCTzYswnoJR1lwhMl17vn3oaKaXkqqj2VkVWMXpNhIMOtqcQMcleZGiH
+	 cnGdSHkfpCyL/rKy3yUu2PVPZTOHwkp01fYHhKzAqi/lSWdLeBpV2/qrfjYXeqteFCQNY
+	 hJeJbDxRcwduvnEa2PMx6IzzysVxWmhFkHo3Bnz8S2hoRqnX5qDxjCyeCCkLKKqFugbMs
+	 IJmZYPURyupQD2Ginu6/SF5ovbWABJxfHOTw2fUoG7l+e55kyiHQUt/lRV4mLXqJeaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.it;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=A2YWGP1F;
-	arc=none smtp.remote-ip=52.26.1.71
-Received: from pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.26.1.71])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FN0KJZ18;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EB69606A330;
-	Fri, 13 Nov 2026 15:51:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EB69606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76AFE606A332
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:51:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=A2YWGP1F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794585065; x=1826121065;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=ttqAfDxUfq10cMBrxuj6822Y6w4QHwk60wHnUr65sec=;
-  b=A2YWGP1Fpk2ennvvIVzm+5gKtGrHfZqwO3k6Fac3QUJHHaNGlbsKOe82
-   ZZT5fkrCxezz3MVrW43yrWb+Thpo+s410hHAHtwrwQiXvwIMWaQdrhI9B
-   ud6B5Er5bzUSFGIOKZscALODbNt+OsQLk8ngsDzgwIg//uYfWcp5lxkQS
-   t4/foga8HVDruCDogUljFI93EI6AzEX3ugqCqmXbZCPv5LDIfCGi1xMD0
-   Jp6EUnskndoCjsiyMUi45J+zod9wAL4o653QwfVWt5HvBj+pBjyG3qBsR
-   6bnGlnGZoHjLk1m2hj3Z7BXb74iDvQ1p3vdKDPYSlgNgEILjNZc5ogMwo
-   A==;
-X-CSE-ConnectionGUID: mEzGvvEbQ/eZvW+yJkWFSA==
-X-CSE-MsgGUID: 726PIJdYTv201+SXclxh0w==
-X-IronPort-AV: E=Sophos;i="6.27,211,1787011200"; 
-   d="scan'208";a="33924868"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 15:50:57 +0000
-Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.236:27372]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.10.61:2525] with esmtp (Farcaster)
- id 06ade6d6-3062-4e83-9e5f-28bb5c92f1e7; Fri, 13 Nov 2026 15:50:57 +0000 (UTC)
-X-Farcaster-Flow-ID: 06ade6d6-3062-4e83-9e5f-28bb5c92f1e7
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA001.ant.amazon.com (10.250.64.204) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Fri, 13 Nov 2026 15:50:55 +0000
-Received: from dev-dsk-dipiets-1b-77b833da.eu-west-1.amazon.com
- (10.253.66.177) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56; Fri, 13 Nov 2026
- 15:50:49 +0000
-From: Salvatore Dipietro <dipiets@amazon.com>
-To: <jack@suse.cz>
-CC: <abuehaze@amazon.com>, <agruenba@redhat.com>, <akpm@linux-foundation.org>,
-	<alisaidi@amazon.com>, <almaz.alexandrovich@paragon-software.com>,
-	<apopple@nvidia.com>, <blakgeof@amazon.com>, <brauner@kernel.org>,
-	<byungchul@sk.com>, <cem@kernel.org>, <david@kernel.org>,
-	<dipietro.salvatore@gmail.com>, <dipiets@amazon.it>, <djwong@kernel.org>,
-	<dlemoal@kernel.org>, <exfat@lists.linux.dev>, <fuse-devel@lists.linux.dev>,
-	<gfs2@lists.linux.dev>, <gourry@gourry.net>, <hyc.lee@gmail.com>,
-	<joshua.hahnjy@gmail.com>, <jth@kernel.org>, <liam@infradead.org>,
-	<linkinjeon@kernel.org>, <linux-fsdevel@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>,
-	<linux-xfs@vger.kernel.org>, <ljs@kernel.org>, <matthew.brost@intel.com>,
-	<mhocko@suse.com>, <miklos@szeredi.hu>, <naohiro.aota@wdc.com>,
-	<ntfs3@lists.linux.dev>, <ntfs@lists.linux.dev>, <pfalcato@suse.de>,
-	<rakie.kim@sk.com>, <ritesh.list@gmail.com>, <rppt@kernel.org>,
-	<rvvandan@amazon.com>, <ryan.roberts@arm.com>, <sj1557.seo@samsung.com>,
-	<surenb@google.com>, <vbabka@kernel.org>, <viro@zeniv.linux.org.uk>,
-	<willy@infradead.org>, <ying.huang@linux.alibaba.com>,
-	<yuezhang.mo@sony.com>, <ziy@nvidia.com>, <kirill@shutemov.name>,
-	<dgc@kernel.org>
-Subject: Re: [PATCH 0/2] mm, iomap: account dirty at page granularity for per-block dirty folios
-Date: Fri, 13 Nov 2026 15:50:15 +0000
-Message-ID: <20261113155015.516481-1-dipiets@amazon.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <mcskrz2zbav5r3xtlwqytyotgjcmmi3wapeibkqornuhb3qp5y@qk22j77kvkqx>
-References: <mcskrz2zbav5r3xtlwqytyotgjcmmi3wapeibkqornuhb3qp5y@qk22j77kvkqx>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FN0KJZ18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01F9C1F000CC
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:51:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794585079;
+	bh=p57p3uxeYdPu3dO2jsiMkVBwtyV0ivwwKUFjRQ3jCKE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=FN0KJZ18ufP4t34x3hktZCSe0aaNqse1xEqZgsLbeR/Frb6pvjQJH1OjkaSA0nL2e
+	 7p76I6IxZL1Qkjw6zn9ySR0RQ9Hog9yoK1JlPGR8Bd+FIdJkhvdslZWi8YwW2ue/Tt
+	 Kh5gtRnrLvsJKC4J1s9sBzYhyUTYpnaShRn4YIj+Lpl368qtwEOpaoCMyi61AhvgOf
+	 7aNchmRnUy/4DcEGJW3/pD0soMaH6fuwC5ZIfWiuoZlg6CMoCSYgM+W7JjuWuRye0d
+	 F36hfjXCIcLesN6/RITI2LR0nFsfPEbxKezOgyJYz7LJ+1f14XtOJVGCJkTrn5aW08
+	 y4k5N8NW7Djmg==
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5c1479be604so1412475e87.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:51:18 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHUgsuz6SUs9VK4vlPS5rBtgTkc33I/5Mi1vxa5QakOkk7B3JbXv0LL3EQfAYhkx4+LNYKiFfeDUZv8EG8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+jP22nk3y46MvkxmZsfIHzi/kQivPydlPXu8VajP4acAPvGnLE
+	sMTIpGtQsMdBkUxi30vEIih6Qj5w8fu3R3x38cJgYD90MEe1Pam05MZwUgkpia86QOmMFjpu4K8
+	nVtoikDu6vEX/Vxuk0odNubvH34QteHk=
+X-Received: by 2002:a05:6512:684:b0:5c1:4bd3:ef75 with SMTP id
+ 2adb3069b0e04-5c1705fab7dmr1078301e87.1.1794585077394; Fri, 13 Nov 2026
+ 07:51:17 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,160 +59,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ClientProxiedBy: EX19D031UWA001.ant.amazon.com (10.13.139.88) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+References: <20261002034200.920546-1-xiongxin@kylinos.cn>
+In-Reply-To: <20261002034200.920546-1-xiongxin@kylinos.cn>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Fri, 13 Nov 2026 16:51:05 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0jhOR4yEoUEb=DqtRcXt3q1EZmP_bVV=e2dUJjFsWXzAw@mail.gmail.com>
+X-Gm-Features: AclHuK9gRwE4EUxI2tZOxwW3kLea2bFo-TxB7U1voYMoOeRcICcneypDQhX9T38
+Message-ID: <CAJZ5v0jhOR4yEoUEb=DqtRcXt3q1EZmP_bVV=e2dUJjFsWXzAw@mail.gmail.com>
+Subject: Re: [PATCH v3 0/4] PM: hibernate: flush icache for restored pages
+ from task context
+To: Xiong Xin <xiongxin@kylinos.cn>
+Cc: rafael@kernel.org, lenb@kernel.org, pavel@kernel.org, james.morse@arm.com, 
+	hch@lst.de, will.deacon@arm.com, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi all,
+On Fri, Oct 2, 2026 at 5:42=E2=80=AFAM Xiong Xin <xiongxin@kylinos.cn> wrot=
+e:
+>
+> Hello,
+>
+> With `hibernate=3Dnocompress`, load_image() submits the read bios
+> asynchronously and hib_end_io() completes them from hardirq/softirq
+> context.  The flush_icache_range() call there, added by the
+> commit f6cf0545ec69 ("PM / Hibernate: Call flush_icache_range() on pages
+> restored in-place"), ends with kick_all_cpus_sync() on ARM64 and so
+> triggers the WARN_ON_ONCE(!in_task()) in smp_call_function().
+>
+> This series fixes it by keeping the flush in task context, and first
+> closes three pre-existing holes in the restore error paths that the
+> rework would otherwise trip over.
+>
+> Patch 1 resets clean_pages_on_read when load_image() finishes, so that
+> a failed nocompress resume can no longer leak the flag into a later
+> compressed resume, where it made hib_end_io() call flush_icache_range()
+> from interrupt context for the reused ring pages of
+> load_compressed_image().  The flag is also cleared as soon as the load
+> is known to have failed, so that the bios still in flight do not flush
+> from interrupt context during the final drain.
+>
+> Patch 2 stops snapshot_write_next() from releasing all snapshot pages
+> in place when one of its internal allocations fails: the read bios do
+> not take page references, so freed pages could be handed out again
+> while the device is still writing the image data into them.  The image
+> is now released by the outer error paths, after swsusp_read() has
+> drained the batch.
+>
+> Patch 3 makes the error exits of load_compressed_image() wait for the
+> read bios that may still be in flight before the ring pages are freed,
+> like save_compressed_image() and load_image() already do.
+>
+> Patch 4 defers the flush on the nocompress path: hib_end_io() now only
+> records the restored page on a per-batch list, and load_image() flushes
+> the pages once hib_wait_io() has returned, preserving the asynchronous
+> batched I/O.
+>
+> Patches 1 to 3 are new in v3; the per-patch changelogs are in the ---
+> sections of each commit.  Many thanks to sashiko for the v2 review,
+> both findings are addressed.
+>
+> Xiong Xin (4):
+>   PM: hibernate: reset clean_pages_on_read after load_image()
+>   PM: hibernate: do not free the image in place while restore I/O is in
+>     flight
+>   PM: hibernate: drain pending reads in compressed image load errors
+>   PM: hibernate: flush icache for restored pages from task context
+>
+>  kernel/power/snapshot.c |  9 ++-----
+>  kernel/power/swap.c     | 55 +++++++++++++++++++++++++++++++++++------
+>  2 files changed, 50 insertions(+), 14 deletions(-)
+>
+> --
 
-Thanks Jan, Pedro, Dave, David and Kiryl for the feedback.
+Sashiko is complaining about the last patch in this series:
 
-Following Dave's question about how PostgreSQL gets large folios on
-files it writes 8 KiB at a time, we looked deeper and found a
-reproducer that needs only fio and a single disk.
+https://sashiko.dev/#/patchset/20261002034200.920546-1-xiongxin%40kylinos.c=
+n
 
-What happens:
+Please address the issue flagged by it or let me know if that is not a
+real problem.
 
-  1. A buffered sequential read (VACUUM, a backup, a scan) builds large
-     folios through readahead.  They stay large in the page cache until
-     they are evicted.
-  2. The first small write into one of these clean folios charges the
-     whole folio as dirty: a 4 KiB write into a 256 KiB folio charges
-     256 KiB, while writeback only writes the dirty 4 KiB.
-  3. With random writes, most writes land in a different clean folio,
-     so the dirty count reaches the limits with little real data.
-     balance_dirty_pages() then throttles the writers, and they end up
-     paced by how many folios writeback can clean per second rather
-     than by the bytes to write.
-
-Reproducer: XFS on one EBS gp3 volume (3000 IOPS), m8g.8xlarge
-(32 CPUs, 128 GiB), default read_ahead_kb=128. fio's 1 MiB reads grow
-the readahead window up to the device's max_sectors_kb (256 KiB), so
-the read builds 256 KiB folios.
-
-  ; create.fio: 16 x 3 GiB files, direct I/O so nothing is cached
-  [global]
-  directory=/mnt/xfs/fio
-  filename_format=f.$jobnum
-  size=3072m
-  numjobs=16
-  group_reporting=1
-  [create]
-  rw=write
-  bs=1m
-  direct=1
-  ioengine=libaio
-  iodepth=16
-
-  ; load.fio: buffered sequential read; builds the large folios
-  [global]
-  directory=/mnt/xfs/fio
-  filename_format=f.$jobnum
-  size=3072m
-  numjobs=16
-  group_reporting=1
-  [load]
-  rw=read
-  bs=1m
-  direct=0
-  ioengine=psync
-
-  ; randwrite.fio: random 4 KiB buffered writes, 32 x 312 = ~10k IOPS
-  ; invalidate=0 keeps the cached folios when fio opens the files
-  [randwrite]
-  directory=/mnt/xfs/fio
-  filename=f.0:f.1:f.2:f.3:f.4:f.5:f.6:f.7:f.8:f.9:f.10:f.11:f.12:f.13:f.14:f.15
-  rw=randwrite
-  bs=4k
-  direct=0
-  ioengine=psync
-  invalidate=0
-  numjobs=32
-  rate_iops=312
-  time_based=1
-  runtime=120
-  group_reporting=1
-
-To reproduce it, run (as root):
-
-  fio create.fio
-  sync; echo 3 > /proc/sys/vm/drop_caches
-  fio load.fio          # skip this step for the control run
-  fio randwrite.fio
-
-fio asks for ~10k write IOPS, more than the volume's 3000, so dirty
-data builds up in both runs.  In the control run (no load step) each
-4 KiB write creates a 4 KiB folio: after 120 s only 3.3G is dirty,
-below the 12.2G background threshold, and nothing is throttled.  After
-the load step the same writes land in 256 KiB folios, and each write
-into a clean folio is charged 256 KiB: the dirty count passes the
-background threshold after 6 s and writers are throttled from 13 s.
-
-Results on v7.4-rc2, one run per kernel, each on a fresh instance.
-Writer sleep is the total balance_dirty_pages() pause time over the
-32 writers during the 120 s write phase:
-
-                         write   p99 / max   writer   max    folio
-                          IOPS     lat ms    sleep s  dirty  size
-  baseline, control      9,984  0.01 / 0.30      0    3.3G    -
-  baseline               4,061    60 / 160     179   23.5G   256K
-  v1 (this series)       9,984  0.01 / 0.67      0    3.6G   256K
-  max order cap 64K      7,071    50 / 280      73   22.3G    64K
-  max order cap 16K      9,984  0.02 / 0.05      0   11.9G    16K
-  split on write         9,984  0.02 / 0.17      0    3.6G   256K
-  evict on write         9,984  0.03 / 0.19      0    3.3G   256K
-  POSIX_FADV_RANDOM      9,984  0.02 / 0.05      0    3.3G     4K
-
-The control run gave 9,984 IOPS and max latency up to 0.30 ms on every
-kernel.
-
-  - max order cap: the global cap in mapping_max_folio_order() that Jan
-    suggested trying.  At 64 KiB a 4 KiB write still charges 16x and is
-    throttled.  At 16 KiB this run is not throttled, but dirty reached
-    11.9G, just below the 12.2G background threshold.  The cap that
-    avoids throttling depends on the write size, and it removes large
-    folios for every file, including ones that never see small writes.
-  - split on write: when a buffered write (iomap opts in, not for
-    zeroing or unshare) finds a clean, uptodate, unmapped folio at least
-    4x the write size, folio_split() it down to the write's order before
-    dirtying it.  The rest of the folio stays cached in large folios.
-    On the concerns Jan raised about splitting [1]: split on write only
-    splits clean, uptodate, unmapped folios, so it needs no new
-    filesystem state beyond an opt-in flag in iomap, and if
-    folio_split() fails the write simply proceeds as today; evict on
-    write avoids splitting altogether.
-  - evict on write: same trigger, but mapping_evict_folio() the folio
-    instead of splitting it (~40 lines).  This discards the folio's
-    other cached data; nothing reads it back in this test, so the read
-    cost does not show here.
-  - POSIX_FADV_RANDOM (Dave's question): fio's fadvise_hint=random on
-    the load job.  It avoids the problem without a kernel change, but
-    only where the application opts in: the hint is per open file, so
-    every process that reads a file must issue it, and a reader that
-    doesn't (a backup or copy tool, for example) still builds large
-    folios.  Every application that reads files sequentially and then
-    rewrites them in place would have to adopt it, and keeps the
-    regression until it does.  It also turns readahead off for those
-    files, so their sequential reads lose readahead.
-
-Split and evict on write keep whole-folio accounting and act at write
-time, so they also cover large folios already in the page cache,
-whoever built them, without each application having to opt in.  Both
-only touch clean, uptodate, unmapped folios at least 4x the write
-size, and only on iomap buffered writes.  Split keeps the rest of the
-folio cached at the cost of the split; evict is simpler but drops it.
-I'd appreciate your opinion on these options, or any other direction
-you think is more appropriate.
-
-Thanks,
-Salvatore
-
-[1] https://lore.kernel.org/all/oocwnxqgd4klrem6hkya3sddqoxkosml4ysz23if4j7wj2qdwi@5skgc4ftu7io/
-
-
-
-AMAZON DEVELOPMENT CENTER ITALY SRL, viale Monte Grappa 3/5, 20124 Milano, Italia, Registro delle Imprese di Milano Monza Brianza Lodi REA n. 2504859, Capitale Sociale: 10.000 EUR i.v., Cod. Fisc. e P.IVA 10100050961, Societa con Socio Unico
-
-
-
+In either case, please send the series once again.
