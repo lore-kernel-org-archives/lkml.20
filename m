@@ -1,98 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794582629;
-	b=SMvk1/RWhpmFfvTkK5+VX3/646QvxrXyQhcNH90OvsIZjkTTENKCu2WpAtgu/ETFVz4Y
-	 kIFCJSzM75lNRVpXxbAsZv7TOievMwMt1YueQU4Pld2qdvkjW3G1q0IGGgb9gCTI/hGHN
-	 IfpaEksX/EDeSZLYWBJNZmGtbSRO/dhZIdG3j6OksBYIaodClyJNM42p4nE3+S8LCA7Ys
-	 4O4JFbRGtCNbC/Li5cEhtxdY/7RsM5IYmxgY3jQe/GHQ8ExbMCKzuTU/JyzX1tWLXlwRx
-	 fwEISfEcHY2VFvY7nouhoAAHCrD02KsfJl7iVBpgU5gDMH7wTUevOmS4n6YCijCRx8A==
+	t=1794582635;
+	b=arhpcA1VwF3bpHw3H636BF9G9qPZWBmCFra88ICxUGEL4VmppEu/Rlvh/XZKTpuPONx8
+	 uQsefQoY5PSniu0hHDb2YGJsVA8CkcH+1FD8N1GLWcTvcb+//SqaNQkFzlGePGcFknlRN
+	 J60UJxKUZE9fC0EAsOfRCNAWsv30sB45/BzIfvKGUvf9vDE/Lu5FXCizXV1h7uonZLHdE
+	 MMdn6VVZSazu1Rigeg26wgQ6OGgxNDc+3DqipgaXjaebaizuYUwTKGyqepmlG9gf55nqa
+	 RRuaI6WNEHL9/SRJm/OdFCmWkJKzFIm+Yw9O7OkBkpcHVgH4OmVjnXoLNWwELCpUnLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794582629;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type;
-	bh=/bOZaKuWDgzdIBtnYxUiBUDvqzx9ophFtd7ONrx4yPs=;
-	b=vWrNqZFFZsvrlRESpAVAew5eG9g/iP6Srffvak/oP6kVPcmmxpFtU8xehWdvb0YemMaA
-	 GduXiAkbPZ7WjKyINHQL/RyGglHdiLNxY4CRBK7V83SUH+09XkEkIJDNqZICvJOxcEfwf
-	 xqd08nrIiy7Dgr31jlUNweQ9y5R/lMttv6hFn1VhlyJsM4m0OtGDt1Aq+AO5JVpBjZiIG
-	 Y7IYhlSuDJSvPEANiF2odOabf94S5cjl+fLtc7AuNgj7gdKJUeWrtGWfWioWPT87PLqyG
-	 tCjpL/RaCJamzi5Jt6vpgtRcspxk74JR8qeiK2jMnFhW6uD/Gtjwoir6Kq9X8Fb5ssw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794582635;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=TkG/mXd3xxyfE1YMucELf8ChMbHN6hjbr127YP2DmWg=;
+	b=XP26xyPSBTuhLT5HwDCrKbVjD/yTicbO7SD5/VxZ0IMCM6e8AjCBY6f46S+eJEXmYMDX
+	 b+DEfl4oiCOu1oTqf84CLS8/GUUzEnq7r+Gvi7BBPzHHMwDbr18zb3WZ4dWOUUGFQ10FP
+	 8D6fqkS6IkzQehi/aVeiykEu+Y8u/88ojquSc4W7DQSxCPFaHM+2u8KPIE34HjARkuyHZ
+	 UVqR4+24dLNnRPt2h/g8QHOjJvKO+ri2ijuMsRtOKbjZsAyuoASZXlIPnDDWLCtd3USat
+	 +5DvitJ76emhOxCdgyg2tDX0NglniYzLJLrT5OLmpyxZFUki+CZH3KNdvdyGxkcpiSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b="aI9uD/VL";
-	arc=none smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dIxB9nP7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E1AF606A32E
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:10:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E1AF606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7B99606A331
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:10:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=aI9uD/VL
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-4910b863b84so1295423f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:10:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794582627; x=1795187427; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/bOZaKuWDgzdIBtnYxUiBUDvqzx9ophFtd7ONrx4yPs=;
-        b=aI9uD/VL3MFl/YTVFubfpHc2gfhbaGha11xUKjpX78I3nhL8QQ0L33UQ8NLfTFQChN
-         /akBeYMMP8N+/hOod74W5o2ZulzkVlbzN6CJZrYgpRqpm5n3Y7kQ6otNETxOr/WI5B5E
-         XSIuCLVEY+Q1FevbN8CS6dDtFGysIJiv3tiXK0cvRDnJlM9Cmt7uS99Y6rm34ynNlaNZ
-         G+MPdTtTqM6XPsWU/UoVDtkFP6lDXbGCLcN4qXfHh23sEyUei8IJoY3YOfc2jA4uv8AP
-         IVGDcfvEUaIookJwPZ3uFWqxuwVnEaRdNZPg+bt3YdWyFIObxT2Wa9L7lVnEpE0Gjs9y
-         AQrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794582627; x=1795187427;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/bOZaKuWDgzdIBtnYxUiBUDvqzx9ophFtd7ONrx4yPs=;
-        b=RN5xGWqGXN90Aat5zZvFdJIpMyBuw177Ttw+kDnK5ppdxIaBBclhgCSOa29gzSmA28
-         DUV+nau6UmBk/EgkG0ZaKMvptvq0+7ith7g1UgYc/kr4o4SUAliD+DoXsJvOGpS2lpq3
-         5g4FQnxlGk23yOssaVygTaMOUXBSVN3iKbm91aqma0h1o5eezvgFeJrOkqqOsbJaP1Az
-         u5u+FQPGP85sy/lx1gMKRWr00HgYladqVWsX2OJeg7YRm7ov86mSA7oUT68M/BlnjplB
-         xOXcmUXj4Vg6R3c8S+JcZ2UiA5hdXHhqv/O5ZG6/I4W+ib/ZB77PJA7rt7LWtLIqrtpp
-         kydA==
-X-Forwarded-Encrypted: i=1; AL+hErEelj2GDP5ngrMvGOJKszOKhEg7QD2XX88q1qcO9o1v0c/f4HuG0AvpnsbMrI1bpbevM9A2FPmdIxmF44o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+oIx1VQrJ5RCAth5jr9wkMu1lqnn/DsIViSEvOSziNZFXoaMDk
-	7QMgreVffBXGG45k95iW48lhXijj3t1JgmYPJ4CfM0YkrD/O7fBhfR4rDqdm42ceBsc=
-X-Gm-Gg: AYBFou3/ddgeJ8ycNbC2DjOD/Am7FeWimlaW8EjeqsMISlTl/+OrtZJKwZM8IJNhIHH
-	zTVnk0icmRikfWZUqgl49Ikl/ZtzJewUPz6mLmo5BwRlnYKeETKhV7f1xLPym+xq+AhUO+gLtVx
-	QnXylVtAMtGqGRU8HpaRlkd4OZWqWCOq5rOCMirs2TCbfmRHhIebsVXwhrmFIyGH/88WDSVAN9Q
-	10WuSKltHZd8zHsG/72QpLDAfr3yEnyIVP8+X7u2Fp2yIQjLvSdb5WoKL1kRY665ggqwyzkP2O1
-	5y8piMGgwfiheiCcQ3AYSsuXyD+MoqzaXN+nVsE8kNggf+Ho2mU3OaeOI/LYFC2sFkkz225CtQc
-	Dwv82QmaDUyGH+kTXg3ME+W9CeMafTFgiSRoONGkyBArv+WYDfDihSrVgxeEYOug8ocW+T35J5C
-	8rU/5n2GJZVtL67GaOjMa6vlYTfTQsCUmCcUAR9P+qfdVcahJBIiCRYACn0+wf/HjJgt7okcUeh
-	jjUACEkkhWs2RHsbRxbnCkiscXekBhhRXw1ovGiOo3KT98zLdLqjb0TA0F6qHIc58XwJAqzRxeN
-	9pJRYh97zvVohoJgd6Pwd4K1VKPYgpPi5aK45PNP+pPBm0+g
-X-Received: by 2002:a05:6000:27d3:b0:492:aff5:da60 with SMTP id ffacd0b85a97d-49b01cf341fmr9163986f8f.13.1794582627273;
-        Fri, 13 Nov 2026 07:10:27 -0800 (PST)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c60f8d615sm5879282f8f.56.2026.11.13.07.10.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 07:10:26 -0800 (PST)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Valerio Setti <vsetti@baylibre.com>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Jaroslav Kysela
- <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Neil Armstrong
- <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, Martin
- Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, Valerio
- Setti <vsetti@baylibre.com>
-Subject: Re: [PATCH v2 0/2] ASoC: meson: gx-formatter: change stream lock
- from mutex to spinlock
-In-Reply-To: <20261111-gx-formatter-use-spinlock-v2-0-763241aeca52@baylibre.com>
-References: <20261111-gx-formatter-use-spinlock-v2-0-763241aeca52@baylibre.com>
-Date: Fri, 13 Nov 2026 16:10:26 +0100
-Message-ID: <1jzevczs0t.fsf@starbuckisacylon.baylibre.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dIxB9nP7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 550671F000C5
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:10:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794582635;
+	bh=TkG/mXd3xxyfE1YMucELf8ChMbHN6hjbr127YP2DmWg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=dIxB9nP7TAmwSOEHqrIyK0Nn/LJv7CPry7ddbW5hvteR/ShKiX11mEjvW4d60k1Fx
+	 a1veJFFTTy+jYJVVwV+gymkhwA3aGT9vvrHijpxjFpUdl8zoQDEeGHHbZkFSp7zl+3
+	 Yw6cX07Ban/8W2/7Yl2W2N1Tv8EPpxIxO8e14XDFKWAb2FXUWILjE/9N1AUq6bIS1g
+	 uKO4x6OhTbtTnAcnXe/2yt4hgYqccDI8IJJV9mELyTkZygzZNDW0IiLR+QzLBKxnCV
+	 UZ34r8Hi3mUwfTFRycANtNj6jZeIpgsTBUlDMxlFeERN5ccOOUHqMiJhsYZcXPwxgV
+	 mc1sJfEwIgK7A==
+Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3adfc004920so16224431fa.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:10:35 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErH6l/6f8M+kr40RIeEPskUS/KVn4NZocfOp9PMzKi66r/4SX02j1S+isaOQf6NAVTtYAIy3MLEsDrvZa5Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+0e2q9gpDqSwUb7wLNTwHkYbfXzVpwcnOnDp3Z8AyG5hP3xCgw
+	vyJmW4HlTTOKNXuSyBaHbw3mJW5gbDih2FsVgSd5e1Wsya3cFKFbI34BneG3LL0qx0BBeZAj7LK
+	ywt8HpHSZOpWD4YPYVo00l/BrNJcr5A4=
+X-Received: by 2002:a05:6512:2348:b0:5c1:57c9:fd34 with SMTP id
+ 2adb3069b0e04-5c170999212mr1412865e87.16.1794582633771; Fri, 13 Nov 2026
+ 07:10:33 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,20 +59,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20261111121225.70218-3-blum@kernel.org>
+In-Reply-To: <20261111121225.70218-3-blum@kernel.org>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Fri, 13 Nov 2026 16:10:21 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0jPkX1ZQNBoPCXdsUZPApqXU+DKAYb7GLxBtaDBKR4VnA@mail.gmail.com>
+X-Gm-Features: AclHuK92fvqHP3aXXz_SUix1-XpeyJW9Q5XHaisUt4mXgBwTJdjKeYRqUd7fD9k
+Message-ID: <CAJZ5v0jPkX1ZQNBoPCXdsUZPApqXU+DKAYb7GLxBtaDBKR4VnA@mail.gmail.com>
+Subject: Re: [PATCH] thermal: intel: powerclamp: Return -ENOMEM on allocation failure
+To: Thorsten Blum <blum@kernel.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, 
+	Yury Norov <ynorov@nvidia.com>, 
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On mer. 11 nov. 2026 at 11:12, Valerio Setti <vsetti@baylibre.com> wrote:
+On Wed, Nov 11, 2026 at 1:12=E2=80=AFPM Thorsten Blum <blum@kernel.org> wro=
+te:
+>
+> cpumask_set() returns success (0) if alloc_cpumask_var() fails. Return
+> -ENOMEM instead.
+>
+> Fixes: ebf519710218 ("thermal: intel: powerclamp: Add two module paramete=
+rs")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Thorsten Blum <blum@kernel.org>
+> ---
+>  drivers/thermal/intel/intel_powerclamp.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/thermal/intel/intel_powerclamp.c b/drivers/thermal/i=
+ntel/intel_powerclamp.c
+> index 1ffcb0a699e5..df898fc3f3e6 100644
+> --- a/drivers/thermal/intel/intel_powerclamp.c
+> +++ b/drivers/thermal/intel/intel_powerclamp.c
+> @@ -157,9 +157,10 @@ static int cpumask_set(const char *arg, const struct=
+ kernel_param *kp)
+>                 goto skip_cpumask_set;
+>         }
+>
+> -       ret =3D alloc_cpumask_var(&new_mask, GFP_KERNEL);
+> -       if (!ret)
+> +       if (!alloc_cpumask_var(&new_mask, GFP_KERNEL)) {
+> +               ret =3D -ENOMEM;
+>                 goto skip_cpumask_set;
+> +       }
+>
+>         ret =3D bitmap_parse(arg, strlen(arg), cpumask_bits(new_mask),
+>                            nr_cpumask_bits);
 
-> Patch 1 fixes a pre-existing bugs, present since v7.3, reported by
-> Sashiko [1] while reviewing the series adding I2S input support for
-> Amlogic GX SoCs [2].
-> [2] depends on patch 1 to address Sashiko's comment.
->
-> Patch 2 adds a hardening check suggested by Martin while reviewing v1.
->
-> [1] https://lore.kernel.org/all/sashiko-outbox-176054@kernel.org/
-> [2] https://lore.kernel.org/all/20261018-audin-v5-0-4b8cc13a1b22@baylibre.com/
->
-> Signed-off-by: Valerio Setti <vsetti@baylibre.com>
-
-Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
+Applied as 7.5 material, thanks!
