@@ -1,80 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794584154;
-	b=mYuIy1bSIs3cgErVDU/q0Ylw2nqPYov7yAEhU5bhBaz2/dmX4YEzG+58/XHfq6RL4/rL
-	 BhCNDG8MRSr8/7WA3DOzTjcFGJ4RxRM/tr5ZyGt0tG88RyI+errFWNFM30u9cldwRjzUb
-	 It9QG4eTmOx1IFGqyjuWSTsoK9yEqmyhEZ2yUOT1inX3OjMO8vP9y8HTS6sJqSRb13Izv
-	 myffszkaPzVY9CGM/x0KLoO9DmqxUqhxFKA9DabfHwMwAmjBXIO5D0uX33+PEdI9q9KPb
-	 /QQ7b9el4se9iBQoiHK/r+6yGl2qq/sgEReZrIdrBDt5oglByQidvdgsag61D0LcrMg==
+	t=1794584200;
+	b=UOecTTLux3u/Lw39XlwKnb5DnFrRyyXL4ijJdT1NnsfLl4WmbchgPERnfN6GPsG7wznZ
+	 iltAFTaC/C1pnbUkfVpWsKhAAdpMTLWLNK84NYzcGRoWD6bNw3UpdDHxOVvuyTGi2t4u4
+	 VC7zC4qkIV4dnbEBFBrgezwcnCszG8FaTN4Gv1G02+eT36FZkyKr1Qqm2WOprNqokjopt
+	 Wxvsp8LToGVnSLWcaGXUETS8hXb9c4G23qt1tv8zTUUtmZWL2Ca2VBFH0waFJHIG9Tv6f
+	 GroWDmMVGm5dXFhVg/S8fszRwreuvHbxBNljATBEVJrMFAbuCHfnFP+JnGRKbMYVYQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794584154;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=eENWBnJtgnxkeCEWDwpBHaEkmEC443mWMB3XziA++b8=;
-	b=dkzO8XnJJuq09zqKhEt/yTIM+MZNgkXQ5J0xcEtm0SYBKRHicnT+IFAB2fco0VvgfLMa
-	 8kNNoZy4e3y79NvepK6nOmzW9kMnH9w3E2TBbsaqXang0F/jxi3x0cnixF+osg95xGByS
-	 WtOxy2XT8MFp1/F98Kzd/AHum0AdO5kV3pNlXhLqaL7BVOFSqg/i80u2XdFEg+G/DsZMA
-	 SbKtbM8ZOP4mglV+Cue6i5toBmiyV4F81Q0hYDxc3QeskxO0h/Ple88y5jEGjiEXMkYqR
-	 qcOX7JpdrSpv37rbn4zif0aOSXACpw0yy/9DpRvHkaCoBvGWa4moHv/SnzRjr/k40Ig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794584200;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=x62ZihgS7kh4nWdNrWclZKqO2BrkWNZR/gkUNOF/E3Q=;
+	b=SGsfAXCmo8q2tNPFZf7lNZhIGbAzkDgpez6T57r3MxG28KVn8QxbqeaSnPFM6KzIOC9x
+	 PmSOOQ8/8XDOcX36oFbZZ8zpHxzL+nYZUaSDqZNaLQqkRWPrY5yzOCkURVrZLahy3SrZu
+	 WaO6usVsVybSyxvFkx/EAHASSIe91xwwiFnJi5eKITxChI2ysGdITjoYYYfqDaSG7TIWV
+	 3wIDKcxZDDyvk0pi4S5ZVprtm26VPLzAl4ful2lazuavarf6ojDLrD4X2svzdOn6gnyPX
+	 1SeybBwmfg62TuX6R6t5OJrnnGpx2CMSrZ/0hkZ33uxnSvfcq1LkvSpVy90R8VitoIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="xEanFWk/";
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="wT/g0jrJ";
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rOwFdNzH;
+	arc=none smtp.remote-ip=209.85.208.180
+Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20CD6606A32D
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:35:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20CD6606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B7F9606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:36:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B7F9606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=xEanFWk/;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=wT/g0jrJ
-Date: Fri, 13 Nov 2026 16:35:49 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794584151;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eENWBnJtgnxkeCEWDwpBHaEkmEC443mWMB3XziA++b8=;
-	b=xEanFWk/eX/GNy/8MpQ0p2pI/8fGDs5oclLPxulXJgdFtRYQtGUU8HFBpDXIMU383u6IhE
-	bOFHXQVgWt4p8wVFRHUXaeCKdPLlxrESDok/M29JQIPxlgU4iu5G1ssX2q+JEyxTgUpdqq
-	FDKi5NQHfC/rWrbC4Ly7mSyk1MGc3HOS38mTb2lNhqRzZ2T5sWJbOPh95wn3lrFthqyj+c
-	XA3ncBGy/ZVuH0YBv/bbC3+PSHNssVc5p3SRyCpKXQDjmZEGTD0Nd6JDghHfJfgbXTr45W
-	75XkTd0Su/EbOhVUBMMvavQuXt2ZaAvC4zCyMZVBE8m9FWObaXa46J1MVomywQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794584151;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=eENWBnJtgnxkeCEWDwpBHaEkmEC443mWMB3XziA++b8=;
-	b=wT/g0jrJ+6hEAou2+sVORwBr41g0MfEO5f/FbPSPfGCd6O6/0knTW3ZziVl8zgMT3JoDFr
-	JqK9jFjBida8cWAA==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Andrea Parri <parri.andrea@gmail.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Dario Faggioli <raistlin@linux.it>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev
-Subject: Re: [PATCH] sched/deadline: Check SCHED_DEADLINE affinity under the
- rq lock
-Message-ID: <20261113153549.Z8XPohWU@linutronix.de>
-References: <20261105164856.29698-1-parri.andrea@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rOwFdNzH
+Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3ab3b29a1d4so14921691fa.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:36:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794584198; x=1795188998; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=x62ZihgS7kh4nWdNrWclZKqO2BrkWNZR/gkUNOF/E3Q=;
+        b=rOwFdNzH/fyJv94XjX1UieKx8ePFP8iuZ7nP4Ih6XTpFMPP/l6PmZbpLrStQb/Ejbb
+         SB2PTsN7A/l1Y4z5fNNxcv4gkf/VPebjCxm1aUE+9wAHG000TkHrndxkA0+z0d0dXCZg
+         kaRKYraNW2gB6WcJp8h3+yoXHLyfR4UAlI5z1YEgK11EAg8u1LcnD8VqPrmODmZYMw90
+         37xoGDhB7724r6OLL6En9NLUqfD+aOrgp05SWbCiyUua9YX+kieQcuMsKnEi9gQbJsyJ
+         GjzEFTZrCtDeL1vkX/LZ1KOjgUjtPNMsUb3oZPy+++9COmIMLAYtDC9aB2lnGZpa4T7x
+         mkAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794584198; x=1795188998;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=x62ZihgS7kh4nWdNrWclZKqO2BrkWNZR/gkUNOF/E3Q=;
+        b=vT7v3XBVn6Mjdhf0oy+DJ9cucwMq2p7cmBW1JTSTLViDE3X3QG5eIlbwRjPz9tVbEs
+         dQixT76MmobYGCHeKn22HXCujPqCdMQrez8NKEF/ACKgUr0jJotlRz5/5RRHYTchpeYh
+         1F8KHEjsXDEOP0rLoyF3XdFuNft4B25WEphTPyRkdtblCT1czS3j3L68/5E/s8tbsX1b
+         ZIqJh5F1qbgEZpvzUyqlRqmwfotOILrXeOqaKrxRzIJebHl7CaAPqhjmPwZLA+e+uSG8
+         0IXAOVRqkPSbBs9HkTvcO0aB0ZNIVDjMwugAV/jOastM19PQslC1rBVzhIh85K3zMlwM
+         RYHA==
+X-Forwarded-Encrypted: i=1; AL+hErG4RAj2xEOWgIPovlt3MBQbHgDqzefav+acgko90c6VMGoumJweW/V28cG+WiSyxIHfWSulfLz1jIWlAdI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9n/w0UN3IeC8P8hzYNBdQD8Os62MSXOQLWAj8zy39CMB5Ewpwl
+	ZBsNhr9QU+NCwIR7p20q6DbZfukMNOf+7EwrVcaBSe5N2grBxBua8ITh
+X-Gm-Gg: AYBFou3J5weATz94P1UwTy9SX4dbzVJRCV3tYNpgPGD5Vp2Dtcw05lDgRSiSzXMVkVN
+	pYNsrMrB6gafEcdIvwZ5VV2Zb/PSUP/7IYh1MFSDHrx+nU17oi3iv/1Pmz6H2XEib+TjHjtwz5G
+	bs8oEODI7TmnaZjyDFm5LI8nTCPRTRoeEJOcIlZWxFrqwUxZrNGwa5fj2csHbo7QIeehE5S4iSU
+	DsZsi5vLH42XcA4EwCWfY55emqhUx+YAXB5hoUkY7OPcPN2ouyU6SjyUqSxh+ifdIAREruldG+l
+	KGTcftcQvl11N5GEEHPH68kAw62QgYbAWEFLdk1yK5cLe1FHX5UAZ80AjLGELvT2VmCfaTG6qzW
+	/1oBgAx7MhmXuLT3IOzvc78UCbBurl7aili5rTHYZM7rFqw9J4s+RJ9aRVVn/mL4UHXfzmBATfO
+	4+u8xi+pXunOw51kjkodxnjJNO+g1GskPcBSvvty69lFFX9fzncXOlx3l9YaI3SMYwqEJIfIlki
+	j+/wVjoTktonDH3B7GcuR1dyLO3B61Y4AFCllYpc4NJXyfFbeQxShI1F+iPPYxG4Nsv1MAblbiN
+	ykJzCbmTxUy01fakxK6901D8wXFcWmzLk2sNvVnhpPlUhRIjpKAIVm0ozMt8gxg/2+k6tylFSSC
+	4lyCh9ABLw7GQ+xuePnpe1pazHcIseVU=
+X-Received: by 2002:a05:651c:1596:b0:3ac:97e4:4987 with SMTP id 38308e7fff4ca-3ae2b4c77cemr10278541fa.7.1794584198178;
+        Fri, 13 Nov 2026 07:36:38 -0800 (PST)
+Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae2b7808cbsm9395051fa.14.2026.11.13.07.36.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 13 Nov 2026 07:36:37 -0800 (PST)
+Message-ID: <ef47542e-308c-4211-9b42-ba2de13f5f82@gmail.com>
+Date: Fri, 13 Nov 2026 17:36:36 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,30 +93,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261105164856.29698-1-parri.andrea@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/2] iio: adc: add driver for Texas Instruments TLA2528
+ adc
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Rodolfo Giometti <giometti@enneenne.com>,
+ Marcelo Schmitt <marcelo.schmitt@analog.com>,
+ Antoniu Miclaus <antoniu.miclaus@analog.com>,
+ Angelo Dureghello <adureghello@baylibre.com>,
+ Tobias Sperling <tobias.sperling@softing.com>,
+ Eason Yang <j2anfernee@gmail.com>,
+ Marilene Andrade Garcia <marilene.agarcia@gmail.com>,
+ Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
+ duje@dujemihanovic.xyz, Joshua Crofts <crofts@kernel.org>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ Victor Chernyakin <chernyakin.victor.j@outlook.com>,
+ herve.codina@bootlin.com, thomas.petazzoni@bootlin.com,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261113151543.2241604-1-maxime.chevallier@bootlin.com>
+ <20261113151543.2241604-3-maxime.chevallier@bootlin.com>
+Content-Language: en-US, en-AU, en-GB, en-BW
+From: Matti Vaittinen <mazziesaccount@gmail.com>
+In-Reply-To: <20261113151543.2241604-3-maxime.chevallier@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 2026-11-05 17:48:43 [+0100], Andrea Parri wrote:
-> __sched_setaffinity() calls dl_task_check_affinity() before
-> __set_cpus_allowed_ptr() takes task_rq_lock(), whereas
-> __sched_setscheduler() runs its admission test and switches the policy
-> under a single task_rq_lock(). So both calls can pass their checks:
-=E2=80=A6
+On 13/11/2026 17:15, Maxime Chevallier wrote:
+> Add a new driver for the TI TLA2528 ADC chip. It has 8 12-bit
+> channels, that can also be configured as 16-bit averaging channels.
+> 
+> This is a very simple driver, allowing reading raw values for each
+> channel. GPIO mode isn't supported for now, as well as buffered mode and
+> the 16-bit averaging mode.
+> 
+> Co-developed-by: Rodolfo Giometti <giometti@enneenne.com>
+> Signed-off-by: Rodolfo Giometti <giometti@enneenne.com>
+> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+This looks very familiar to me. I am pretty sure I've reviewed this. Is 
+there a reason the RB-tag wasn't carried over? (Sorry if I've missed 
+some change(s))!
 
-This looks fine to me. You do the check under the RQ lock so everything
-that you checked can not change later on.
-If you race with cpuset then you try to revert and drop that check-flag.
-I can't comment on that. It looks wrong to set it to CPUs mask which not
-part of the domain but you made a comment why it needs to happen. So
-stay out here ;)
+Yours,
+   -- Matti
 
-You could keep the check in __sched_setaffinity() so it bails out early
-if it is not possible right away. The check under the RQ ist just due to
-the race window that we have. But I don't have a strong opinion on that.
+-- 
+Matti Vaittinen
+Linux kernel developer at ROHM Semiconductors
+Oulu Finland
 
-Anyway. The reported problem looks solved to me:
-Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-
-Sebastian
+~~ When things go utterly wrong vim users can always type :help! ~~
