@@ -1,112 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794544420;
-	b=PTsZ3FEU/nehC4Bs37LNPQE0QzocJm3aogG6THYQNLrhXJIvEJ8hwtTguDGiE2GLQ3Jn
-	 FyfYBxifvOZzco2vDv4y1gHWtoRKhshO9BGNqxkJoj/oVhhkOcm7K57Mhwdqc4ubnoIWG
-	 UoF5+EJzg+PYVMJXuxCN6MFc8ALmQCDM7fEy4D829xgCyiQlMPgumeWBYm3LV59GCboE1
-	 R7Ym1FdtUy4b2eAl5LO6heDjhvbJMnaDN5QPIf50MZ8+LF2+0WwU3z5xXJ30vxDx3yY6/
-	 GnnsGOPbtMFM9P4AbnpWfYyBpolXan72g/aLvbRtrOXPazcnDgWKFX+S/+quZifa2Dw==
+	t=1794544436;
+	b=X4/99iLU9Z/L8XIKIWrnvSrANNES8HqAZ23EHjdC2SqfyJQhQrbZts+bz5V+CMCif+Ew
+	 pGybnz7mhNR+J627301Menhew+foEJpLkjK6Km7b+aB3pCdA70Rp8l+hTBg5RVPgx2IeT
+	 yzxB7pOzZofPt0TucwTXRV+7Samxh4gB7RM0LL6dzMWyhNWL6JOZvWGJDOHQhN0bT4KA8
+	 o+YNiUUuICJ6qQRaKJq7vvnKAZghDtnAbNzHDFG7q8kP3yT2YBLxr7jdslI0hMfGKSYTt
+	 W5FWrpV4IT9czwrjCTrUThv/vMKk4bFtUikkPOS5/6uGpdAbxtpyeDTlHv4zNS1mC0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794544420;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=1KEaPhuXG72mBW8WdGwUc5nutV56+4/Q4XKgy03FL/k=;
-	b=D4yvKpmyqrt4Z7Q1ti/gDMhr1v+Z1MCj8Cs3ReLcmGk8C19lerIB7+9GvCV1cJgg+75p
-	 ZNnt1kNLfEma2w0c+BGTUTAY+cP+G9XpOO3QX4T0GDViUk1pBRO2pDJhNUwW7GoWAtyns
-	 w3Sle3YHPxuOCLFQZAnAeTJSeWNeziAMp940cI+0ph/vBXqrtuEI3Rl7d59OZIGWfhqDT
-	 zBArfZyf9oMAbpGj8zVMKGtwmxbDz/n+OUjzAKSGGGdRnaPs9shr3/6zjrqnl9+88ThNU
-	 US2+LqnDAhIpaSXay8+CwJrvTiSFTIiADTC6eVhCceynzUF9OKuDfOp274EXrnr1b3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794544436;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Disposition:Message-ID:User-Agent;
+	bh=5H76beDR155/tKgd6bms2sqDirr/ypiJD3wLDnQnjso=;
+	b=IFNWpHoSbg8LxwEUkfQKLslgJdi8VT+2eYYeYGz3dJiM6GIA53Q6jdrf4r+32G0/ZiLY
+	 W4HHE1fL3drLodgVfSzu5vYI0o+P2hfSHEzLdVui1qJNnx57Ta1uShGyVX+fkSrLTPdHV
+	 k/tAHTex48fb4e/T64AHbV5RSQArS6gV6F1rlUKLwOLeRDv+0En4IC2IVlYRZQOTECVja
+	 QzzKwwVORYHexwXMeJJuAUeDvjvVreb8B7IVRHudLnCmiKvN4sZAT0fjgX4lGQJ9sXdy0
+	 VEd+TMxgdmZHVHwbsHIleXhTgUd9tgaVkaH8a/RBERUcs38FY2k1Oq8cO0z1N1PXzWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pLEo5URY;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=W1KEIOpq;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=chrisdown.name;
+	spf=pass smtp.mailfrom=chrisdown.name;
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=UPGLfDoh;
+	arc=none smtp.remote-ip=209.85.214.173
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81E5B606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 04:33:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81E5B606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 051F1606A321
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 04:33:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 051F1606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pLEo5URY;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=W1KEIOpq
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AD2JvEp3116243
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 04:33:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	1KEaPhuXG72mBW8WdGwUc5nutV56+4/Q4XKgy03FL/k=; b=pLEo5URYD/JpUWO3
-	ZcOydo5NS7NewYrfU/DC5G9qaZO1D6XbPO06nX9SoG50AkvhBhfUQurdsagrlbP4
-	w+2fK8K5ZrP02zcNyGbB95hT2h/uPSBt0hGti4dtpS3xXhgGAXBpFJ5krpR9FCgA
-	Bl/hJMSuyj5bWpuIOkvVbB3u/dTX/bkO/0IqydI+zhL/jRhB3BB6izerqIkdYkdn
-	293JVWUuUMKw+XUOYt8pea9ws4a2UFp9nF3PmjWJQFgHZSjRVdw99jF3WGJWQOnA
-	rj0d6mF5C7nIzXrb7sd/CVmxlp2k5uZIVQJ0IQ0DLmMcGuKp9olV/hkBtBafo3p1
-	9fB0WQ==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hwkfdhh0e-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 04:33:39 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-375f0fd31f4so694945eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:33:39 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=UPGLfDoh
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e98798cbddso4427155ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:33:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794544419; x=1795149219; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1KEaPhuXG72mBW8WdGwUc5nutV56+4/Q4XKgy03FL/k=;
-        b=W1KEIOpq8M/3xu0xVFX/dQZK5jgI+fMA3EhGQ1lxG4GtqpLjxBXm4SQSe0dScQ8+vP
-         WkukR5fkEHB99ORLHXU5VuCrTzw+IKBGK1dBAPacjXeoS3u+TJ/2r2m1lM2xeoMgqAAm
-         L3VzZxE/t3Ue0B2k7J0jHAW3BKfKf8nAepy8vpG+e4KbgXpHi0R5aMSMNxuwDHrnZT/i
-         5JzBd0TWIp0Wn2KpMkO5TB0pe8jAyYrs5RujIA/n4DHPJBb4s5ZdD2tvVS1Pc5+4ZCDf
-         QdtZaYELP4eOGvZTcdxXhStdi2RzMlK44+LjM/kmUrwNovt5qCpTPhx8kODAXgt7n+mt
-         HyNw==
+        d=chrisdown.name; s=google; t=1794544435; x=1795149235; darn=vger.kernel.org;
+        h=user-agent:message-id:content-disposition:content-type:mime-version
+         :references:in-reply-to:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5H76beDR155/tKgd6bms2sqDirr/ypiJD3wLDnQnjso=;
+        b=UPGLfDohYxsHcaPM6Ppd29PM/jkGccRp8ufFFmnKG6phEyPGzWVMkgJDAtBHvcg1Xj
+         rRAcTsoDb/GkTrXInudIFTl3rYHFHE99RfdDy8mPAGWvijXXF+w5YqCIX/c9LeAeI2v2
+         +X6VykhsFWD3A3Wp7EpfkCdVpCYlmSF+Sm0tM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794544419; x=1795149219;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1KEaPhuXG72mBW8WdGwUc5nutV56+4/Q4XKgy03FL/k=;
-        b=uwBa0nQR7aHbQLlbLXU8TIdP6u9fFiVJoqKBbMKiQbzMKEUtkZUQrdmIup/Fv5FMP0
-         RS6R8PTAgLyBin9coS2NWNccxFzPUYEUAoPtvIARbSJGmFQOVdfFNqwNpjMPkuO64oM7
-         Rf10Wdyr7TlTK+Zg1V9WVAUqEtHpi/0UNdVDLir5eu7/Qr1ZpWWM/3l86KS0ocbsYKI8
-         RYjw2LDYRsjIeUDJ+7KSX2Q1NCCYWSpbCKlMeuuUCVc7+N0FV1eC7kzRnZK+6SXPTgNw
-         Tj1S5EDmz20WXFmPqKzJ0Y4ipiUjhA4oPe/pylShDKR6qKcQyl+q3AcvYXtTkdO58b3O
-         HPTg==
-X-Forwarded-Encrypted: i=1; AL+hErE0A/28gku64u9G97nw/2K/fByBRs1oWsBWVm3cnwudp+uuOv77eHRlGA9e+NZ+pFCyfZSrPJO2mKdOhW0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+TJKgQRwNoDiyh6O9n89Z+bbizLuCBL5BoUy3SbU+csJWgXiNv
-	05jwgYIfZ/z6Uqe1HR9ThgZ5iWpiGd2oSR8mE9t9kd9w/Xp2aWTybNLZ+QbCINA78DmzhHUVUM+
-	N+qA6uT479hHCqoKP0WCErmfh5DWqLGAVaCPR+njB4W4kMgqsQUM26VOBW6tvt59nWK0=
-X-Gm-Gg: AYBFou0cc5VDfmvqkWCn9673fB0bFs7RqViEpHDG8j8cEQNDitlnoCYtqmTOG+pd4Lj
-	McYPGwWuw3vijoNJ0Y6Wn6kNeY+LioZS3BvgewT5dJxCPyibQmoRtst+qZJAknLzVaK/e+rcgFo
-	bLE8Qqktex39W68hmZjcGKXMkD1XzkNIwOFqMxTBibhYzbmkCB7Ir+TI0rCuUGNIFnJYyFRgEhg
-	lHgISauNjpZUKQoAt7O5DhWNPfjM/JQFDZkKBCQ2D4rjXEqq8Fe1SE3w07pPjsdYddJQyPzg8hE
-	iP+Nlz/mr2PLNdnND3AMbefqDwbBD5sJRaFEvEGrwDsMZzVIM33iO151cAGlV6P3b3UCEvXxprf
-	uQ7MB55IbzwU6aa9WOt0e8pfTUmjUBseRVAAIpiwMgXxiiqhA+TpuP/TI/YyTf5UiMkHLZpDWUF
-	DunaU=
-X-Received: by 2002:a05:7300:2a9a:b0:35b:cb8a:8d0e with SMTP id 5a478bee46e88-37966e3b092mr1208993eec.16.1794544418810;
-        Thu, 12 Nov 2026 20:33:38 -0800 (PST)
-X-Received: by 2002:a05:7300:2a9a:b0:35b:cb8a:8d0e with SMTP id 5a478bee46e88-37966e3b092mr1208959eec.16.1794544418106;
-        Thu, 12 Nov 2026 20:33:38 -0800 (PST)
-Received: from [10.217.198.242] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563e6b6dsm6220492eec.21.2026.11.12.20.33.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 20:33:37 -0800 (PST)
-Message-ID: <50103867-1f03-4346-8174-b7301ba3ddf5@oss.qualcomm.com>
-Date: Fri, 13 Nov 2026 10:03:32 +0530
+        d=1e100.net; s=20260707; t=1794544435; x=1795149235;
+        h=user-agent:message-id:content-disposition:content-type:mime-version
+         :references:in-reply-to:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5H76beDR155/tKgd6bms2sqDirr/ypiJD3wLDnQnjso=;
+        b=c5MfIndSMx1uptoGUcP5VXzGgBDrgARrOzJ9DgoLESPWyDIKQkCnVQMdO5YYkhibnB
+         QGfiPrMbIgPdEXDcx2r1c40C8EhQWarU2e60BhaWWlIfzk9MrVsXfpRPuXIQsuokB1nC
+         r+idgPMNuR4jKxbJu+ZuhaPjntKYmO/PpQBo0Tm4IV91/XgzxUU6mJVqNg+W+HoNchOB
+         Q4ETqze/E5hcmkj908b0cIx2LUgCj+YD2iQodERoQCMwg79NaEcM2iV0V2ocdfGgWgH+
+         nANW1H/TsuaSH4AcrneEIYZ0GVGWdY25zxX8CyQKaaA7eE2G3ioVJsfDaEbfeDorBTJv
+         oi9g==
+X-Forwarded-Encrypted: i=1; AL+hErH6p5/vUUjv2E94HyPscrjy6U741FMiHERHdDkgMSo/vC6TvcIUxE9jB1Wg2nEKJQzWuX2VOHT8NVg5UxI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+I3I15MTN1mFmzGn457Hv6qg4LGLZkHSJFwQOwv3DFfRamyxSb
+	l4iHTWovc1YhyHAfIJaiE85jT8YLCBWerYn5QAKaqNgrzw4tyfVR3hZO3m+kXPDECHc=
+X-Gm-Gg: AYBFou03YwYQBteidxxrhIGMWohCJO3zbOhCS8wY/4JOG/SpVNzCkwAyoeXbLS4QLvv
+	l5eG8ku1o4l04Y8MLltbU2wM2JPaQffDr184Qnq+iRAmB9B69rrivGJCkz6o+MO846/8TsU0QkO
+	+Yp4EnRfPbHqs66ymG1l8wxJ7I0ZvMRUnvi5ZOCLJSfUsWhg6I57yWHIsX9LRwJpf73oBa4X0zL
+	F9aZ0pbjq1KLVbKOKvHO3gkrbfRBfUzXbATSo22bxyn5N0c2p+F+pFzQ8TY19EcrKyRB9jC7wMI
+	9+lp3XvJ/48xhmWd8JLvRBfTLz1zWbt7VHfXTatL7Jc+DGbF6AXQ7gU20gNe8Uzkh3He9XYacEa
+	x5aOYRG6kfDiOUiedtPjDDyJ4BXzSrWZXfiL7VufE6wNpJ2Qdqi0EnP94apCFoMZRwPNqNF6SLQ
+	kyYSVBTfROef9z14MG72XM7x4P7R3qYSHBY2nVceNN81aCd/gwejwLK8fK7JW/y86IGxnZkb8Za
+	5RE/Kj8oqoc7u1U8VwdHQslDpBXuOtJ0xjiLHtqjVp9Bsp2izPjEnUVBHEUST4Vq89/ytbbxqnr
+	v3wxaTxyL/jduOEl2IffPERKMIRRpQevJ8NNdqWo8AqoAr0sIEBcmDsfsjXRNV6q0jcyTljQl3P
+	0cHt15QP15WqYHWKW/mgFwNBAdm6sVe/0iLkGJp5cu+CGIDT/WmX+cPUCeFR9Ki2CqQCFhL7hOR
+	D83vsUjDg9725U84yK9pwHshWb9XWWqF4H2C6zesrR8OFxHmTQbQDXmer959k=
+X-Received: by 2002:a17:90a:c105:b0:3b0:9976:c1c6 with SMTP id 98e67ed59e1d1-3b1b0b8752fmr1061273a91.66.1794544435107;
+        Thu, 12 Nov 2026 20:33:55 -0800 (PST)
+Received: from [172.22.0.2] ([50.175.87.158])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197b76ccesm7614323a91.0.2026.11.12.20.33.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 20:33:54 -0800 (PST)
+Date: Thu, 12 Nov 2026 20:33:51 -0800
+From: Chris Down <chris@chrisdown.name>
+To: Matt Salsamendi <matthewsalsamendi@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, Muhammad Usama Anjum <usama.anjum@arm.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH] fs/proc/task_mmu: fix stale walk_end after a completed scan
+In-Reply-To: <CAMPWk9NE_epOdOCbs1PGh8OQP4wjTObvjU-1Wopmu7SSNAMXhw@mail.gmail.com>
+References: <CAMPWk9NE_epOdOCbs1PGh8OQP4wjTObvjU-1Wopmu7SSNAMXhw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,88 +94,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] soc: qcom: rpmh: Fix use-after-free on timed out blocking
- requests
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-        Mark Brown
- <broonie@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Sashiko <sashiko-bot@kernel.org>
-References: <20261102-rpmh-timeout-uaf-v1-1-f1fe9d38f1b8@oss.qualcomm.com>
-Content-Language: en-US
-From: Maulik Shah <maulik.shah@oss.qualcomm.com>
-In-Reply-To: <20261102-rpmh-timeout-uaf-v1-1-f1fe9d38f1b8@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDAxNyBTYWx0ZWRfXx1b+JKRC/9Mr
- uybtzwRXPZNrWMn2HDQqNeFwRJtqlAyEp1xNrhyQzrSS58BOKBzwqWwmI8WupGxw94zyUQMyWiI
- pJwLKW6eQOr4BPm1zZU4rzBebMqYxI0=
-X-Proofpoint-ORIG-GUID: 9ETex6WuLnBDMzMQt7QBnmqij9qBkNVK
-X-Authority-Analysis: v=2.4 cv=DoTDa2/+ c=1 sm=1 tr=0 ts=6af69323 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=N4WVbDJ3b7wuBwOiC88A:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDAxNyBTYWx0ZWRfX8a41yx7Nk1cG
- kiiEEcVeOZsT4YznGnrFsZj8e/DylZ0NSB8CJylFv5Ot0FrpcSzeSTdx2TEvtwoFVXMAmKhdRdn
- Q4yZJSB6g2EiMp5+TE6lkywy18ZvUmBjC72wqp56nnLIAB1E5VcMIbx/fWD14DK5qUiYStHHinf
- SZJiBy+67hDSyWq81io2PJxusdLnu5D8cHaX5dDK+QMRa0ZFuEDmCVDXVEiaPmccQ8ZTi2r5Xe+
- qZIFM3CqxB6uIUxUDa1CTcsyOBAy34RbB27oZXEVtBZjfZJFhwHIE/pMywxP8UkZTAxOBDGjSNu
- KPucY4UEgtrHQb0Oa0GpvHHNo5ZfM4ba4WMzzik/xqvW+HTAEytZV4fg5xYDlD/hDorI7blUc9b
- kEgBGc0LgFpInNxVHs+yOQkuRS/xt8hgv2xRmO1uIzdt+JcoS9bl0YGXl0YhmZxSgEenfjhvVhi
- 40hOw6Ao/eK1llADNlg==
-X-Proofpoint-GUID: 9ETex6WuLnBDMzMQt7QBnmqij9qBkNVK
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-13_01,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 lowpriorityscore=0 adultscore=0 priorityscore=1501 malwarescore=0
- spamscore=0 impostorscore=0 suspectscore=0 phishscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130017
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
+Message-ID: <20261112203351.7d5bf7d0f78d652d@chrisdown.name>
+User-Agent: Mutt/2.4.3 (cc9e3943) (2026-10-09)
 
+Hi Matt,
 
+This patch doesn't apply as sent, because your mail client mangled it. It
+wrapped long lines, including the hunk header and the Fixes tag, and took
+the leading space off the blank context lines. git am rejects it as
+corrupt.
 
-On 02-11-2026 16:16, Abel Vesa wrote:
-> rpmh_write(), rpmh_read() and the ACTIVE_ONLY path of rpmh_write_batch()
-> hand a request to the RSC controller and wait for it to complete with
-> wait_for_completion_timeout(). If the wait times out, they return to the
-> caller, while the request is still owned by the TCS it was written to.
-> For rpmh_write() and rpmh_read(), both the request and the completion
-> live on the stack, while rpmh_write_batch() frees them on its way out.
->
-> If the hardware completes the request after the timeout, tcs_tx_done()
-> fetches the stale request from the TCS, passes it to the tracepoint and
-> to rpmh_tx_done(), which then signals a completion that no longer
-> exists. For reads, the response data is also written into the stale
-> request first. This corrupts the stack of whatever the timed out caller
-> went on to do, or freed memory. rpmh_write_batch() even documents this
-> with a "Better hope they never finish" comment.
-> Fix this by giving every request handed to the controller a reference
-> count and by embedding the completion into the request. 
+Please send the next version with git send-email or b4 send rather than
+through Gmail, or set your client up as
+Documentation/process/email-clients.rst describes. It's worth sending it to
+yourself first and checking that git am takes it.
 
-I would prefer to use BUG_ON() instead of WARN_ON() whenever timeout happens
-just like downstream does rather than to handle the timeout cases.
+Matt Salsamendi writes:
+>+	/* A completed walk may follow an earlier full bounce buffer. */
+>+	if (!ret || !p.arg.walk_end)
+>+		p.arg.walk_end = p.arg.end;
 
-In cases where interrupt never arrives, already HW is stuck with no way to recover,
-so current implementation of having a WARN_ON() and allowing to continue to run
-will eventually end up in BUG() or crash somewhere else.
+While this fixes the refill case, ret being 0 doesn't always mean the walk
+got to the end of the range. pagemap_scan_hugetlb_entry() can't
+write-protect only part of a huge page. So with PM_SCAN_WP_MATCHING, when
+only part of a written huge page fits in what's left of max_pages, it backs
+that page out. It sets walk_end to the start of the page and returns 0 on
+purpose.
 
-Given the RPMH_TIMEOUT_MS is 10 seconds large and RPMH hardware transactions
-expected to finish quick (within milli seconds), In cases where interrupts arrives but
-CPU handling it after 10 seconds, there is something wrong. 
+Before this patch, the caller got walk_end pointing at that page. With it,
+walk_end comes back as end, so the caller is told the whole range was
+scanned. But the page was neither returned nor write-protected. From a
+quick test with a single written 2M hugetlb page, PM_SCAN_WP_MATCHING and
+max_pages = 1, the ioctl returns 0 with walk_end at the start of the page
+before this patch, and at the end of the range with it.
 
-I have a series to print debug info when timeout happens at [1]
-I can update WARN_ON() to BUG_ON() in v4.
+Maybe it would be simpler to clear walk_end before each walk_page_range()
+call, and keep the existing check after the loop as it is? Then that check
+only sees what the last walk set. In the same quick test, that fixes the
+refill case too, and the hugetlb case behaves as it did before. It would be
+good for the selftest Andrew asked for to cover the hugetlb case as well.
 
-[1] https://lore.kernel.org/linux-arm-msm/20260812-rpmh-timeout-debug-v1-v3-3-68c0a40dce23@oss.qualcomm.com/ <https://lore.kernel.org/linux-arm-msm/20260812-rpmh-timeout-debug-v1-v3-3-68c0a40dce23@oss.qualcomm.com/>
+Thanks!
 
-Thanks,
-Maulik
+Chris
