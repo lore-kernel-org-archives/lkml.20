@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794609218;
-	b=g4OCjf5BCOVkPdVfHBULnVuk4ap0wbrV6KC9TqGvtmUf/WUTjXKLsLxCHhYfgw6wJ8WB
-	 aYKvhWsXlw6J+b9V/8XwHAWnT5dBzjVmNiYZg4iXEImkbY8t689uxGuANuaDzjv6hhDQw
-	 2j0Xky8H3v1J4FwpKMNhHGzfjSKVRfblhLvLLrU55ILW4q9HpFxUC2rqV6IH6qsqO1Fhw
-	 hXIaAuGNMAFj/P43UQxhnPnqiaCAk00Ly98dTfPBGY0ocC1MbtWGZ/ZPkDhHOEYz27xY4
-	 sQiqsWRVSWXRiG4tGQpXrauR9mQTnBMXgq35AOyAVxCPmtyvLexJIQ6V23JQOzX+5fQ==
+	t=1794609223;
+	b=lLTBVcZKC3G7Bz+TafDvSQHMQGJ/s1mY1olqlB8jJkvMmL4V8aA70FUX9fetLm70YAtl
+	 DjSgXQHZTUcdyuU4A/bWs9h7UlVVA9JNHU10rdL20RInLMW+lFaFjZGKalnXRUOaHZ2r/
+	 PWJnA+xuM+mGmyXR+GSsQT1VmyT5QBJeI5JVagzynBYBVACqXG6iPOQRfXjGLcYoPPl0L
+	 3xtbn9wbUpdB7OnC5M6tyETrIVhuGPHUsUEVMudWFDOzDHBcFKAZV0UTLubBYovnyu4Mg
+	 pcupL/mfp02f8OUXBVrTCpuvNKmJ9MKpQM/BgXIFqRdw43+YWq2qHS5Mp+wG5FAuq9A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794609218;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794609223;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=wpbbKA4ajLzIsgcmiI1L7FK42JRHT9STO33kEE3TcR8=;
-	b=adjq/iWoj4ggbZnvzlyRMrTGchWnzmr4yKY24Z1ZDGoX1kwqCXmGPeDBFvH604pPOaP2
-	 tKlxlEy8hrjV1CTyobdukalfRW59Np4cKEOkNTz2Q7NvTGGtoWYBbbXhJQ5sqjg47j1Yn
-	 ufWetTYbFON02htRDhVoApV10xhGlAaZ4/RN9DCXam8CQsBYcpuMoRtFjGXT1BPFo+NU4
-	 ElQO7iKqzRxsiC5xswMYIZHd8iKu5KQU+MM2ZYJopGmCmgRfNuFPVwtGyze8FIsm5bmAR
-	 bXASifu2hNbS7L811Esm3V/6y96Bi2i6MOG74hipoWg7HbCh9KAD/WhIl1+I4z3IXiA==
+	bh=pI6ZfHbfXlGGFScyQLy8hgCr3exLFr/2O4VJxzewZhw=;
+	b=pbBEDuTqHfRYsksPI3GtHB4M5eWFjKXBM/xgl4siPV7tGVKhi5vTj24DuJUAqvOmPnkw
+	 x6PlKbjHm0Q9A1+xU4VRxFXOzdxrmFqMcTx9/Zq4JU2avWCZJvSAq7pBOHGIuKjn6sMWX
+	 tOVdMenjYhS55O06Fbbp3BLCMr16+NON2LSLV0WVxaPMVR/ewQnw3irmmQR/AfNKVLgF7
+	 NFdsNB/k8UQ0fyfywQ3136bVVW4n+HB6ZxZCsntUo69MJRIax5qEHwIXPHuzwwVY0xtLN
+	 7doPXbGpokMfFTJrvijzJR8WVlwHWnv4rSFqtEGDiXOjpsdAV+xTl/vz0RPnt+xtgFw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oOWJEzdx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BLIJ6EgY;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE9AF606A88B;
-	Fri, 13 Nov 2026 22:33:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05C2A606AF19;
+	Fri, 13 Nov 2026 22:33:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oOWJEzdx
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BLIJ6EgY
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794609217;
-	b=bCVhZy8HnEYWGbBZH8HNZErHk5Pgj1+7eBZ4XoIB6pRvEN9iCRg3rFFn+00TSr8QAzDm
-	 11XTDwTY0tgHlyUSNajPWWcic2+IQdMQvzwmvz1pKt9Sz7Q92xXWwbBzfFHcNNchePWX9
-	 5ra67SQ2cR6x5ZSRJF5yVajI8rES219E7RwSKi++JXzwpmohjBq4e037liX3Of1fWkZLj
-	 n+yBmjr8Mt0kLQPBvZnFj2jqR7OxAtyBCk5sgd5QUmMy1CqydRc35qnSPJDbgWfif59RH
-	 jXrtio1njZKs1C4Rrr5X/8rgdNRGdxZdGX6baMvJHQxbeUvEeLRzhe+pzhq68IBVmIg==
+	t=1794609222;
+	b=kaXjjr7c8hHX5TeAMq9ys13wzq0mQCJOv6y6RDVzxL6rZSeSCsjR68GMA24Irt2yKoGr
+	 iR8SxeeMNt7VLKv6xfuzn9gs/acF7vvQtvAnQrYGUNFyIo5PaG8leUuKxcmcsgv0s4Yk5
+	 +K0rdMRpUoQnv8EpnWlL/zg/jeuXHDwM0kOGGuCYyiQ0NKryG4921wqmlNpGAH24N6OiF
+	 RxaLZu1cO+fB4wBKX+NUTPwuu/0cIqaCCzrhV+MqMzwbarLpRz+8JdHREDAunuFIqnLcu
+	 LZwsbZ/h0jYPBva+tzvwxNM5vDuDmBQgQlywGDJAS4AKV69zYej/lWo4OMTEhvaofRA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794609217;
+	c=relaxed/relaxed; t=1794609222;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=wpbbKA4ajLzIsgcmiI1L7FK42JRHT9STO33kEE3TcR8=;
-	b=xGGJ+yRDLk/vdnDU+pMunghfA3rYoYMV1ULMReHGZyEB0NngMVtVbuuoVhsR47BYxnxr
-	 TjJrj/AJvifAxCGeamdsr+xL7MrNQKHI76+xRUB/2uNNvcoJixnGa36IeZ69dvAQq0Mzp
-	 uwnKaGyNQu56X8XB5B4kt1T1YW0RqaPA72Fl9AghLlypvW5YHogf1XCsGBWtYvrO6M6dk
-	 Uz3Vl8x+2XWNmS21zR5+/YQ69TXpy0fxHIskMsRRfmfkOiNZUi2lIBQ8EdoSGLAcDMgQG
-	 DWJDjN2Wc4o2ZmyrSd358xfv0DFlonPVg2WeA3NVPb4ZmAY+DNEqPdHiu8PGAaPXQ+g==
+	bh=pI6ZfHbfXlGGFScyQLy8hgCr3exLFr/2O4VJxzewZhw=;
+	b=HPwpk7BbrpMbCnvAuxa9ifMIs7cSTevA+Yy4h4Wog0xvYYDhJU5xBRplddVnFfnrmYeG
+	 3JPTehvdiOdNYBjbBUUZtIvCC8g2ym6TFfaBm2DVQQ3BFhjKRbZnzOepsB33a5EAhqcbA
+	 l99VR9SVTI8//KbcawpR5PyMX9+K3lPaVadWW9OeOoBYHzB2Vy77TlF6FGn6Pl3UjtThW
+	 ppHJrbOuZ0L+mzUPLutiYKr8oJuRQGAGfDPeWBjFjqJkxI8pcQnfvqQqnWcrTAcrPgZec
+	 xBI2S7iMVmF3aKvHR4G1WR/eVek4q4Dv6quuGSPmWvGT1RPKLUn4peCaHwq0ZLwnO0w==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D5BE71F00932;
-	Fri, 13 Nov 2026 22:33:35 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 7303E1F01576;
+	Fri, 13 Nov 2026 22:33:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794609217;
-	bh=wpbbKA4ajLzIsgcmiI1L7FK42JRHT9STO33kEE3TcR8=;
+	s=k20260515; t=1794609222;
+	bh=pI6ZfHbfXlGGFScyQLy8hgCr3exLFr/2O4VJxzewZhw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=oOWJEzdxtLc85ptJmPiOIx2OlKkXvseUVIqkJZeoV9Kiluiw3t0Ux51rwp9eU8JTw
-	 N8qjiHD/HfYvCCVF+Z5z6J+eri2cn62tx+AvpJ5RZZMg9VrW3clYTvEUGAc5tNYNoo
-	 705xgno9SArazNBRzKTjpIdy7Gsd6JzCfX4Gd5dXWlnvMUP48ZESvdArOA+PnYWndc
-	 Vudfb23lZ0UjqZh2PLMZGZefDEyLJNmWEpcKfRqylxrboVROo8KuiyB5GG5i9BlMqj
-	 T9rr6i5oy+kI7wCuh7I80L+vfIXMOJsUcDzly3ak+CLCvpykl2ze4i8x/M6pIc9gwA
-	 1dTSpjp/GDM8Q==
+	b=BLIJ6EgYlJERejEFQdXWkCuzqJieqRcDghDv5jM+s7NQ4waw6OLKpGZ/naoPl1NAF
+	 RqdcwbBBtutjmu+B21Jfeg/aoExM7sO/W1ePJrw1wgukfgvVI4w/N6Mwaficckjn1z
+	 7NCuFhJLl4y/xvAdrSdQUFEzeYBNy5LUqGtZXi8wxQQuV9Kq1OTP4cGiLynKqyTFAV
+	 zzzicTeuYSW6ifF+1P0FXyRiVVlHOC7FIuQqF1ITfcYFh/iZorT2rilwfsF7vYYTHO
+	 KmOdTLDrHitS1yz3XhyAfXxs3vIzx6FfGZVE7H9hVadS1KXJ9hJkaY+NjoRGUphdve
+	 elVdkckgPX3Vg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A8E7B49B88;
-	Fri, 13 Nov 2026 22:33:33 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 3345549B9E;
+	Fri, 13 Nov 2026 22:33:34 +0000 (UTC)
 From: Han Gao via B4 Relay <devnull+gaohan.iscas.ac.cn@kernel.org>
-Date: Sat, 14 Nov 2026 06:33:39 +0800
-Subject: [PATCH 13/19] pinctrl: sunxi: allow a per-controller IRQ register
- base
+Date: Sat, 14 Nov 2026 06:33:45 +0800
+Subject: [PATCH 19/19] MAINTAINERS: add an entry for the Allwinner V861 SoC
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +83,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261114-v861-v1-13-eb71ec3ee523@iscas.ac.cn>
+Message-Id: <20261114-v861-v1-19-eb71ec3ee523@iscas.ac.cn>
 References: <20261114-v861-v1-0-eb71ec3ee523@iscas.ac.cn>
 In-Reply-To: <20261114-v861-v1-0-eb71ec3ee523@iscas.ac.cn>
 To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
@@ -111,11 +110,11 @@ Cc: Han Gao <rabenda.cn@gmail.com>, linux-riscv@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org, 
  linux-gpio@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794609209; l=1288;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794609209; l=1064;
  i=gaohan@iscas.ac.cn; s=20261021; h=from:subject:message-id;
- bh=Q5nKbDPfL5bIJRudVipL8eRl+Sf6kVk4l+UGPGRoSrU=;
- b=grvbJPn/+R2MO+DEgByDUFTZtLVCqIBwHkLAL0ulBtY+dR3+FlP1mIhHsm4whuN7dLMvBp/6p
- +ihd2LdEuONA/g6geIuOhI8/hEPyOVjToZchKiHiT7GGOnYmqJ2XUOA
+ bh=39Ac8hJzpCiQ7XryhT1eADd1ddcM2ysT57oAlX6+9R8=;
+ b=yImKJfL/SM0iJ5gXSR0G3a7zEwdVCFqOgmcRGrK1c0Yxaoy5YXunPhnCNkpFmotpUgaYwGgLk
+ 8PkUGkVB3+cATxKHXuU20wzYPDweSAZ53K3Q6ECQOIXJmC3LIl6Sb42
 X-Developer-Key: i=gaohan@iscas.ac.cn; a=ed25519;
  pk=J8WHEK3filS86QaCaIHDGafqhxKyQ4K7+vFgRirTIiY=
 X-Endpoint-Received: by B4 Relay for gaohan@iscas.ac.cn/20261021 with
@@ -126,39 +125,37 @@ Content-Transfer-Encoding: 7bit
 
 From: Han Gao <gaohan@iscas.ac.cn>
 
-The V861 always-on pin controller has its interrupt registers at 0x40
-instead of 0x200. Let the descriptor override the base.
+Add myself as maintainer for the V861 bindings, clock and pin control
+drivers and device trees.
 
 Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
 ---
- drivers/pinctrl/sunxi/pinctrl-sunxi.h | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ MAINTAINERS | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/drivers/pinctrl/sunxi/pinctrl-sunxi.h b/drivers/pinctrl/sunxi/pinctrl-sunxi.h
-index 7c2f29e75519..a0f5eac5c914 100644
---- a/drivers/pinctrl/sunxi/pinctrl-sunxi.h
-+++ b/drivers/pinctrl/sunxi/pinctrl-sunxi.h
-@@ -152,6 +152,11 @@ struct sunxi_pinctrl_desc {
- 	unsigned			pin_base;
- 	unsigned			irq_banks;
- 	const unsigned int		*irq_bank_map;
-+	/*
-+	 * Interrupt register base, where zero selects the traditional 0x200.
-+	 * Not used with the NCAT3 register layout.
-+	 */
-+	u32				irq_reg_base;
- 	bool				irq_read_needs_mux;
- 	bool				disable_strict_mode;
- 	enum sunxi_desc_bias_voltage	io_bias_cfg_variant;
-@@ -261,7 +266,7 @@ static inline u32 sunxi_irq_base_reg(const struct sunxi_pinctrl *pctl, u16 bank)
- 		return pctl->bank_offset + bank * pctl->bank_mem_size +
- 		       A733_IRQ_REGS_OFFSET;
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 93abbb315065..dfc300dc1eb2 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -24031,6 +24031,18 @@ F:	drivers/irqchip/irq-riscv-intc.c
+ F:	include/linux/irqchip/riscv-aplic.h
+ F:	include/linux/irqchip/riscv-imsic.h
  
--	return IRQ_REGS_OFFSET +
-+	return (pctl->desc->irq_reg_base ?: IRQ_REGS_OFFSET) +
- 	       sunxi_irq_hw_bank_num(pctl->desc, bank) * IRQ_MEM_SIZE;
- }
- 
++RISC-V ALLWINNER V861 SoC SUPPORT
++M:	Han Gao <gaohan@iscas.ac.cn>
++L:	linux-riscv@lists.infradead.org
++L:	linux-sunxi@lists.linux.dev
++S:	Maintained
++F:	Documentation/devicetree/bindings/clock/allwinner,sun252i-v861-ccu.yaml
++F:	arch/riscv/boot/dts/allwinner/sun252i-v861*
++F:	drivers/clk/sunxi-ng/ccu-sun252i-v861*.c
++F:	drivers/pinctrl/sunxi/pinctrl-sun252i-v861*.c
++F:	include/dt-bindings/clock/sun252i-v861*.h
++F:	include/dt-bindings/reset/sun252i-v861*.h
++
+ RISC-V ANDES SoC Support
+ M:	Ben Zong-You Xie <ben717@andestech.com>
+ S:	Maintained
 
 -- 
 2.55.0
