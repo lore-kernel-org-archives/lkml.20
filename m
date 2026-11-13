@@ -1,44 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.209.128.100
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=204.191.154.188
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794535396;
-	b=4LrowbdPHFwDcBt2AGimdAWRuxgFoVCusUEe03USTM8WYZAxvRcomLMiBl7GOoMjvGpY
-	 3XaL97W46dpqWmVu2ItAcRT1urzbq2PwykX1l6HhH1NroRttLAuBYD/mkpx/QkVdNybcX
-	 GgHcT6pr3aZcqofEnyCGnYb24hY6FVHJSJ+biYG3SUPiFRgrA5kFJO3oFzVFCxe31CZUV
-	 hPVvdkRfNCaQniYTwpsyCBWZMDlG/i1sAvPmrqgrkn3dvR3aDz1yjQdV1TEJ7EI4+LART
-	 gI6SKVM0tTMVlBf0y3ADDT1kIdHdd2frlcgqDJzyeQXFcl8Se7p0PFGqn/Ed1o3uyxQ==
+	t=1794535413;
+	b=jyG+omOJ+RWOzwHF28Uh/mmrEkjmmjgeVRdZyVMvl3c/PJCHSQdq8ZpYSFLXS6L9UqWB
+	 rPLz20ILZ/pYa6Etj04TariTOlvUqsVskLyfQ+ONPGbgyRJhsQiz07vG1skEwWpLC68UG
+	 L6hWSSTnk0n5YocuXQY37jchFoV1iA93x08X3VfqE7pSRA8WIed6Wn+5HHypABxwhWzlf
+	 w4oD5Gs0BhJyRa9n22vPTBo8Unhlt/Mq5NmD2iVBCKtUVrBKB4V6Yfdy3/yE/Xm3lP3s3
+	 7cWEwY9fq/mJEkKOQ0+R+BcOqvFihvcaBYU4lvY//qUk6SLn3mawVm5bKm0JSsRVkxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794535396;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=2yRMouvHM4a05izOhD8UAJhMpR/Nv3hy0kmuRjqTsS0=;
-	b=ihto/17WaFGTXlCUPINrB1Yj2HY7jhM21QavIz73TKP3q660oGNbQ+YltlbfuYa32q3Z
-	 qNfm9I/ghAbSTN1mrW5WHV2BL/uhpKsATs0T24YgAe4AdR9Aniyk0hUmZYOyZ+bWR4d1o
-	 AqWmH7ZR6XuyXT8io0qQV5LSaOySljZ84/k1Cr7oAttwPzsUqQHaSGVERx4YeIT1K1WHC
-	 Bt36CAzQADKh9wggiwiHXmzwt1bBwu8iUbXOXtuTiO23Vu7xjsmeguMj/xFL6+6Dj8Sdi
-	 RtvLcdGnZljLvan7iXBbJI9wnzmzumd7MRuT1bFZXXFj/yXkcjijb/MW7BABkz5N2ng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794535413;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-SA-Exim-Connect-IP:
+	 X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:X-Spam-Checker-Version:
+	 X-Spam-Level:X-Spam-Status:Subject:X-SA-Exim-Version:
+	 X-SA-Exim-Scanned;
+	bh=WGp60iebrceeykw5z9ks0STNk2un0gKAwGb3SyzUjH0=;
+	b=Suc+o41ff4SBYEN1GYQqNnIsRaqK/Rv1c4NISzuRREnE9kHHgB8BCyWczArYI6o1sTGg
+	 2CufY4bURV9MrmnxKpyicUPOKwXB9WKKOCkJgJgI1sYTnrNkNOkwDSZtwMuOxsT2equxa
+	 Bychh8PODWb07XUXsO5cInLANuiYyecJEThUGYhfwc3F4Lk/iuAgkaE4QjyP4yJmIYtEA
+	 b96lzKazBC2cH6AEUKmUzhTi1M0Q0ExnDNAKgOVbc7894EadMTZy3xq7y2Henh8XYqlXv
+	 psZXJApU7DRylYoMGuM2lizgNOsCU5OWVv+DFn70kcUY9OAWQrEDQbcQk5G8NsDT0gA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b="cux/RLhd";
-	arc=none smtp.remote-ip=103.209.128.100
-Received: from mail-m128100.netease.com (mail-m128100.netease.com [103.209.128.100])
+	dmarc=pass header.from=deltatee.com;
+	spf=pass smtp.mailfrom=deltatee.com;
+	dkim=pass header.d=deltatee.com header.i=@deltatee.com header.a=rsa-sha256 header.s=20200525 header.b=I1cJaawp;
+	arc=none smtp.remote-ip=204.191.154.188
+Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB803606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:03:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB803606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6639606A321;
+	Fri, 13 Nov 2026 02:03:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6639606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=cux/RLhd
-Received: from [172.16.12.74] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 5484f6ba6;
-	Fri, 13 Nov 2026 10:03:03 +0800 (GMT+08:00)
-Message-ID: <a5b52d95-7fa2-4148-aa02-cfee6f195e1a@rock-chips.com>
-Date: Fri, 13 Nov 2026 10:03:01 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=deltatee.com header.i=@deltatee.com header.a=rsa-sha256 header.s=20200525 header.b=I1cJaawp
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
+	MIME-Version:Date:Message-ID:content-disposition;
+	bh=WGp60iebrceeykw5z9ks0STNk2un0gKAwGb3SyzUjH0=; b=I1cJaawpaQh/eqik9UCP6jlcV+
+	+ff2nbpYP/YhCSCiPSviiivDaU1gSLMMWauYCgv5Oluq4obD8slgaHK48V5Jgj2/QAXFJajhUcXRH
+	WgH3787xsl1fWBLE/qO5uqxVUXAUMgzK6WuZyA5HknUUaekzaBrmb729wRbktI6WljU95iQA+YSWC
+	NlA0cONSDNFzMBE5+vxYyMnxyQ3IobzCgntDbcklSx8s7he2B/vXKl7sXJCP1vXJAOdbu/leNFdkZ
+	k1iX0hBRmB6dO93Kcb9vc15bSJy5YoVJGrUkuLMCB1cFB6+Znk6j4jtKNltZ9NRjHYq/qSqDj1iN4
+	sWecGjJA==;
+Received: from [104.157.31.28] (helo=[192.168.1.251])
+	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.98.2)
+	(envelope-from <logang@deltatee.com>)
+	id 1xRgdP-00000002R98-2ZLr;
+	Thu, 12 Nov 2026 20:03:24 -0600
+Message-ID: <1a07c926-d710-4922-a4a1-be235df7c74c@deltatee.com>
+Date: Thu, 12 Nov 2026 20:02:53 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,100 +63,58 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/9] drm/rockchip: vop2: Fix the HDMI sync polarity on
- RK3588
-To: aiyengar1990@gmail.com, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, Andy Yan
- <andyshrk@163.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Piotr Zalewski <pZ010001011111@proton.me>,
- Chaoyi Chen <chaoyi.chen@rock-chips.com>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261112-vop2-fixes-v2-0-8218c1cf8ac8@gmail.com>
- <20261112-vop2-fixes-v2-3-8218c1cf8ac8@gmail.com>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <20261112-vop2-fixes-v2-3-8218c1cf8ac8@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Ben Cressey <ben@cressey.dev>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Bjorn Helgaas <bhelgaas@google.com>
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-pci@vger.kernel.org, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, Alex Williamson <alex@shazbot.org>,
+ Wei Wang <wei.w.wang@hotmail.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ "Anthony Vardaro (Anthropic)" <me@anthonyvardaro.com>
+References: <20261111-pci-idpath-selector-v2-1-83ea668e38f0@cressey.dev>
+From: Logan Gunthorpe <logang@deltatee.com>
+Content-Language: en-CA
+In-Reply-To: <20261111-pci-idpath-selector-v2-1-83ea668e38f0@cressey.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa1d2a4e0a503a8kunm80fbc02f473c1
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTEgZVktPSUtOHktJHUkeHlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=cux/RLhdEL9vzjCYZTxGA7XZvFMhySw1imRGjuTXATiePVhVQlIg6iqCsMd2ya3Ce40+JGvTvb6GcwHJprfLAmmcqepp/gpQu3glqJRd9eOvuUXOFZKrNE0NuHSnPUYPB//LAmjkdaURy8uevm+sR9XEbyAYolryMwDneUGHmjY=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=2yRMouvHM4a05izOhD8UAJhMpR/Nv3hy0kmuRjqTsS0=;
-	h=date:mime-version:subject:message-id:from;
+X-SA-Exim-Connect-IP: 104.157.31.28
+X-SA-Exim-Rcpt-To: ben@cressey.dev, corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, bhelgaas@google.com, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, kwilczynski@kernel.org, alex@shazbot.org, wei.w.wang@hotmail.com, jgg@ziepe.ca, me@anthonyvardaro.com
+X-SA-Exim-Mail-From: logang@deltatee.com
+X-Spam-Level: 
+Subject: Re: [PATCH v2] PCI: Add ID@path device format for pci= parameters
+X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
+X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
-Hi Arun,
 
-On 11/12/2026 4:33 PM, Arun Iyengar via B4 Relay wrote:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
+
+On 2026-11-11 5:36 p.m., Ben Cressey wrote:
+> The <pci_dev> grammar shared by pci=resource_alignment=,
+> pci=disable_acs_redir= and pci=config_acs= names a device either by
+> address, with an optional path, or by ID. When one command line serves
+> more than one platform, neither form limits an entry to the intended
+> device: an address applies to whatever occupies it on each platform, and
+> an ID applies to every instance, such as all Downstream Ports of a
+> switch rather than the one that needs different ACS settings.
 > 
-> rk3588_set_intf_mux() passes the POLFLAG bits of the mode to
-> rk3588_get_hdmi_pol(), which decodes them as DRM mode flags: the
-> VSYNC_POSITIVE bit is taken for DRM_MODE_FLAG_NHSYNC and POLFLAG_DCLK_INV
-> for DRM_MODE_FLAG_NVSYNC. As a result GRF_VO1_CON0 marks the HSYNC of
-> every +HSync/+VSync mode (e.g. all 1080p, 2160p CTA modes) as negative
-> and both syncs of -HSync/-VSync modes (e.g. 720x480, 640x480) as
-> positive.
-
-The commit msg confuses me. POLFLAG_DCLK_INV has no relation to 
-DRM_MODE_FLAG_NVSYNC.
-
-For the RK3588, the polarity relationship is:
-
-DRM_MODE_FLAG_NHSYNC -> Set HDMI hsync polarity bit
-DRM_MODE_FLAG_NVSYNC -> Set HDMI vsync polarity bit
-DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE -> No valid HDMI dclk polarity bit
-
+> Accept pci:<vendor>:<device>[:<subvendor>:<subdevice>]@<path>, where
+> <path> is the address format, and match only when both halves match. An
+> entry written for one platform is then inert on another where that
+> address holds a different device. For example,
 > 
-> The bits in GRF_VO1_CON0 are set for a negative sync; that is how the
-> vendor kernel programs them (vop2_get_hdmi_pol(), called with the mode
-> flags, sets them for DRM_MODE_FLAG_NHSYNC/NVSYNC on RK3588). Decode the
-> POLFLAG bits accordingly.
+>   pci=config_acs=xx111x1@pci:10b5:8749@0000:80:02.0/00.0/08.0
 > 
-> Fixes: 5a028e8f062f ("drm/rockchip: vop2: Add support for rk3588")
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-> ---
->   drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 10 +++++++---
->   1 file changed, 7 insertions(+), 3 deletions(-)
+> configures ACS on the Downstream Port at that path only if it is a
+> PEX 8749 port.
 > 
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
-> index 659fd0a3ab63..7c48b440cb29 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
-> @@ -1687,12 +1687,16 @@ static u32 rk3588_get_mipi_port_mux(int vp_id)
->   		return 0;
->   }
->   
-> -static u32 rk3588_get_hdmi_pol(u32 flags)
-> +/*
-> + * The HDMI sync polarity bits in GRF_VO1_CON0 are set for an active low
-> + * (negative) sync.
-> + */
-> +static u32 rk3588_get_hdmi_pol(u32 polflags)
->   {
->   	u32 val;
->   
-> -	val = (flags & DRM_MODE_FLAG_NHSYNC) ? BIT(HSYNC_POSITIVE) : 0;
-> -	val |= (flags & DRM_MODE_FLAG_NVSYNC) ? BIT(VSYNC_POSITIVE) : 0;
-> +	val = (polflags & BIT(HSYNC_POSITIVE)) ? 0 : BIT(HSYNC_POSITIVE);
-> +	val |= (polflags & BIT(VSYNC_POSITIVE)) ? 0 : BIT(VSYNC_POSITIVE);
->   
->   	return val;
->   }
+> The path goes last since pci_dev_str_match_path() consumes up to the
+> next ';'. The IDs are compared first, and the path is parsed only for a
+> device that matches them. The <order>@ and <flags>@ prefixes of
+> resource_alignment and config_acs are stripped before
+> pci_dev_str_match() is called, so the callers are unchanged.
 > 
+> Suggested-by: Wei Wang <wei.w.wang@hotmail.com>
+> Signed-off-by: Ben Cressey <ben@cressey.dev>
+Looks pretty straightforward and the reasoning all makes sense to me.
 
-With the commit msg modification:
-
-Reviewed-by: Damon Ding <damon.ding@rock-chips.com>
-
-Best regards,
-Damon
+Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
 
