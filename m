@@ -1,83 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794555410;
-	b=e/xProyY3MGrEbwMJq3qFIcUxbmQvs0ARSSNMU11fiuDRzWvTdNAavnRQmUIbzO1ug4t
-	 +DgVekOM607QwyljcsPHrDCVHuA655sXzytoffh/5cl7ymMVxSYDoPKv2CMRNfBjmjTrx
-	 2kAwJ+h11/b120dxCQPJHekIB8+4TCo+Dh8zd6REl3anq4yRCVNIIgYjLWpjG9NR7uCnN
-	 piyWarrJi1uB99sd2jJfScZdI+0kwHwrxtixWh9R8Ee1VZ0znbCi0r2q8fzs13V8yIstd
-	 /tn8M9dL+e62bEERBLuYYEYxUcrcmD3EUojjYgO2698WT7WYPiGCsa9CRZMhYUVm76Q==
+	t=1794555426;
+	b=VmQRkx0zBeoaueCOF0vcbH/S2bQBy2a3Yu2cyCTGRGpg8lEfCrwLPCv8HGPTChOXvwDb
+	 uZ8JhE0owvBQ0sEdoeMl95GUd4HsxBfBN0W1+tmMUqkxnR6MnIYCRweGuuHNt/Ju7zA16
+	 cEjk8eBhD+IYsLHDAaDkZAiPdnWdJ4id+jW5rReI8NADBZ+ksdFlDW9ETFofWp9c1sO5y
+	 NlBc7tpxLeEHSdw34nZXf8+WGO8tqsnuIcYXeyLX4ZLbUAw8aRELLK7dIiJ7BS0g5ogsk
+	 MReBUf4cYR3moeeSLpAkOJahtx6wLSSnPGRzVYs0r++SWvtBudkKpdGEVx21H8mjscQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794555410;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=kvL7LISW/1hXrYXeyGM8qT4qenPvB8Dmix98oXakbm4=;
-	b=KKwGNvWGRDdlqXIao27BpmcvBwB3KkSwC1YZp35mpOqX7dDUg7W4uPs9p85vcxecDz97
-	 +MjVxLcRxV19UyGt4HAtNaDiCnTH9V50KI1kPKMKoul2mzvDQ3IaToJnRWltaqcqdyqI7
-	 jEx9dxMONY0GqiRDD0FK7ximlzAwmu7Kfnuh5sHfLpSvYQqro2+KxD8Msbihvx0x98xdl
-	 pHBLXBzPI7hP77prEdp9xczqZeEMy0B06JFm7n/s4CdN4Hfwul9Lv5jlUQQ3RS1phW56f
-	 dqoPybPuaNrWXyuR0+sKgM1Ja9zNbfzy1x2vZ1mOmDDudv85fiWMMMk9tznP9I2QxAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794555426;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=0wAF9gvvBWx1jBLOo+W6S6m0Glsi4Cju2u7ogWxYQkc=;
+	b=S9PhU9s3A4SOCj4kkNWn2OxCfRrf/+Sxi0uIeqQf5nGCkQRfA3eWzvR3O84DS9NgY82f
+	 63fZgmaHqUuIy511r/GKJhblc7Ub2QIhCgJkYgAbzhcWZIvYISM3xCXSUMcD6AmFKi3gw
+	 KQdcxiC+TzbSHixgAQfRlt4jxsM7lDNY8aOB0qP84Tke9BSBQiVFYPaz4HruDtr0LIfQo
+	 dpbUdRoiNrH+IAtsMsZFNgOsI1vTlPKAzDgfZjdhsc5es1H3xV4Gz4feR7krwKNfh/2oQ
+	 dkHBdB5Bg8geotTpqeqF+Y4OjlzrVNp9dFPfyWCk4bHFBXJESKhSOh2Vqa9v3Ah5oxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=dolcini.it;
+	spf=pass smtp.mailfrom=dolcini.it;
+	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b="uO/ZtZAK";
+	arc=none smtp.remote-ip=217.194.8.81
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE6E3606A32A
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:36:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE6E3606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3b10ca4e3f9so293304a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:36:49 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794555409; x=1795160209;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kvL7LISW/1hXrYXeyGM8qT4qenPvB8Dmix98oXakbm4=;
-        b=ZhV1ol/LgyuuMYN2pskgkdPg0TVaxbeJJCX3nvyGxPUoTxgsTB3t0US4v3atKFgpCk
-         0WgYAGSdeo7BkwCFjNT3C/zI73dJwp0jwScfju708gXVk838HWytGLDBXAC6LcZNBln9
-         Dgf1i9qFCcLdfQ9hODOCqZZ4TOqKDX6kmH4fhLsUJyaQqRPD7uU/gBhhRLS5ssZ9Zqmq
-         9prHX0nEqqDRvp4zpxRp+KxFuv4u2Dt+WUoApRw/sLl7UCzMc95hrpsyldnPKU9UlhGC
-         B/aU3Y+YUbnN+pOtylE0xcQEE1PhgbbdU/IrbUmxgWA/yHmipSNaDy/nbGvDpdK/fQ9T
-         wqew==
-X-Gm-Message-State: APuU4Z8Vq4I4G8N3A0uMPfryCt5iOCc0JQdf4z3lnCUWK5tDUYNrtp/6
-	DP3TEtBbTvI/f9kLGh66OtfTeixntVaFGAFEuh0DvrHtgn7OE6QjV7lS
-X-Gm-Gg: AYBFou2yvCHWLNA21egCB5mDmXu6Vb+sK88pHmIwguRm1qy3ObA9WH0cxnSjvJ5u5RZ
-	aF7GvjhQL5QfouB7nVPjDcyKWO1xUAJp3mjieSPbPqUZsvmcfyYmBMJ902NeX6UYEI4Ngs1E18K
-	1cFv+PeKs5Xhfbuepx1sbfjftnVCLT7hifbowoafH2jo4jI3xPXTlAughAHaF+RI99QrckSMQYr
-	3w2lvhc1TkBwR7Dd43O0DPx52ziROoKsE5pHGwNOz1Wqd0PhHXsxxnmluVUmowoMNfgNBgJktbA
-	pHFylxxRKyGDu98/3YV/mAIUaDzhce4YaCbVIL8SQQ/SXZpnzS8TzeayDjnwGVBh+KnAJAQKIYA
-	uFYoV9iGOk6Zl9rrZATvrOgWB2vp46NsuYUPBtOyzmtxHJ2WDTVxyKbC6+16ScTdZzF7XTs5iJO
-	Y9yUBH3SvVEFFyzk0l+4fqm99NK+ADi7RaUS4pzXloSt+eHq6u99XqXgXrBGV429rrp2TOy6ZrG
-	DYjbyj2LBJ/98oUajORtgdtkbNwXByBila3CCJwTHhjDTwCPbKa5ih9CogOJOvYxLUnwUJ8xgbE
-	4n4LpiOdFuYHtfzwgGyzNrkZCAYg7tfGSt6OF/pEUmKZ6g==
-X-Received: by 2002:a17:90b:3f46:b0:3b1:8301:95c0 with SMTP id 98e67ed59e1d1-3b1b0b95db4mr1239712a91.61.1794555408847;
-        Thu, 12 Nov 2026 23:36:48 -0800 (PST)
-Received: from localhost.localdomain ([116.128.244.169])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1aeb179fasm3205009a91.4.2026.11.12.23.36.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 23:36:48 -0800 (PST)
-From: Hongyu Xie <xiehongyu1@kylinos.cn>
-To: Alan Stern <stern@rowland.harvard.edu>,
-	linux-usb@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	usb-storage@lists.one-eyed-alien.net,
-	syzbot+30552b4cbe99d6d91306@syzkaller.appspotmail.com,
-	Liu Qi <liuqi@longcheer.com>,
-	stable@vger.kernel.org,
-	Hongyu Xie <xiehongyu1@kylinos.cn>
-Subject: [PATCH v5 0/2] usb-storage: bound the ene_ub6250 probe-time card-type query
-Date: Fri, 13 Nov 2026 15:36:36 +0800
-Message-Id: <20261113073638.1225998-1-xiehongyu1@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <b07b5f5b-4722-4f1c-84b9-205ba9b8943f@rowland.harvard.edu>
-References: <b07b5f5b-4722-4f1c-84b9-205ba9b8943f@rowland.harvard.edu>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CA09606A331
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:37:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CA09606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=uO/ZtZAK
+Received: from francesco-nb (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
+	by mail11.truemail.it (Postfix) with ESMTPA id 0443E227AD;
+	Fri, 13 Nov 2026 08:37:01 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1794555422;
+	bh=0wAF9gvvBWx1jBLOo+W6S6m0Glsi4Cju2u7ogWxYQkc=; h=From:To:Subject;
+	b=uO/ZtZAKe0L/kT/fAoWLX5CgvgoYVxSwh75/juB0sCRQ2IJfOAyc49h+sQqsY9WBe
+	 4ukCa+fAVSysiZZ1zlKhBthMHEH2ykAu7TmJtn+ZEF8aMTzdAFcel2QExUNQUhmQaF
+	 WPoMGX0LGWAS0bH9lZffpHexai8IAimYrHGfcjLSuIkfxNilKwhS0F68zsgi//7sTY
+	 zIj5HbJ2kGDlbxOzfbhRhXU5xZWznDH/SNQ9bApmxYDiJPTpGnEoYw2RPLYuYiAOQu
+	 Dalz5nWb94nv40Puttwx5Bi7Ax2agrG8pcTOKxD1HdFzCjUS8BgVEmiHBorxXp9SUQ
+	 ShEIcrvtShoqQ==
+Date: Fri, 13 Nov 2026 08:36:58 +0100
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>,
+	regressions@lists.linux.dev,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Francesco Dolcini <francesco@dolcini.it>, tessolveupstream@gmail.com,
+	andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+	rfoss@kernel.org, Laurent.pinchart@ideasonboard.com,
+	jonas@kwiboo.se, jernej.skrabec@gmail.com,
+	maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+	tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+	marex@denx.de, valentin@compulab.co.il,
+	philippe.schenker@toradex.com, alexander.stein@ew.tq-group.com,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/1] drm: bridge: ti-sn65dsi83: Fix DSI mode flags for
+ stable LVDS output
+Message-ID: <20261113073658.GA12065@francesco-nb>
+References: <60a24977-b181-40e4-bcf6-38b65af293e2@gmail.com>
+ <DI18PL73UQKR.2YZVZ21V69H7O@bootlin.com>
+ <e88af0b7-388d-4b0a-8eb2-a367e24e84fb@gmail.com>
+ <DIMMKNT9RHYM.1BRF1S1V5SIKI@bootlin.com>
+ <1716be56-ac43-440b-a5df-58cbf571ba95@gmail.com>
+ <DINH3J2SM26P.3KE6GE9VPB1OC@bootlin.com>
+ <3hfae2i2i2toxbo7hg2if6pztaswgnfj65xfm2c4ofljc6jhua@slaqoewn4mxq>
+ <DLATMIFKDMHV.24XNMCRI2ZKBI@bootlin.com>
+ <20261024095405.GA5692@francesco-nb>
+ <sqilixoei4yw4z52r52vbwfggyjnhdzz62vz3vshrx6wbppa2v@izyujkfcrb6q>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,45 +81,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <sqilixoei4yw4z52r52vbwfggyjnhdzz62vz3vshrx6wbppa2v@izyujkfcrb6q>
 
-This is v5 of the fix for the ene_ub6250 card-type probe hang.  Changes
-since v4, following Alan's review:
++regression list
 
- - Split the series: the transport helper comes first, the driver change
-   second.
- - Drop the shared 10-second budget.  Each transfer now gets the full
-   timeout; a timeout at any stage fails the query immediately and the
-   query is bounded to about 50 seconds at most (five transfers),
-   without the remaining-time bookkeeping.
- - Shorten the comment above ENE_PROBE_TIMEOUT, as the reasoning is in
-   ene_ub6250_init().
- - Drop the unused initializer of the bulk pipe variable.
+Hello all,
 
-The transport helper is recorded as a stable prerequisite, so the
-dependency is available when the fix is backported.
+On Thu, Oct 29, 2026 at 04:50:39PM +0100, Ernest Van Hoecke wrote:
+> On Sat, Oct 24, 2026 at 11:54:05AM +0200, Francesco Dolcini wrote:
+> > On Wed, Sep 09, 2026 at 03:30:53PM +0200, Luca Ceresoli wrote:
+> > > On Fri Sep 4, 2026 at 2:02 PM CEST, Ernest Van Hoecke wrote:
+> > > >> > Also, from our testing, when using:
+> > > >> >
+> > > >> > dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
+> > > >> >           MIPI_DSI_MODE_VIDEO_NO_HSA | MIPI_DSI_MODE_NO_EOT_PACKET;
+> > > >> >
+> > > >> > we are not able to get display output.
+> > > >>
+> > > >> This is the case for the panel I worked on as well. In the practice we both
+> > > >> observe that non-burst mode is what fixes the panel, but there is no clear
+> > > >> explanation of the reason in the docs (that's what I hope to discover from
+> > > >> TI).
+> > > >>
+> > > > I am testing a DSI panel on our Verdin iMX8MP module, and noticed that
+> > > > this caused a regression.
+> > 
+> > [...]
+> > 
+> > > > I think we'll need to either revert this and later apply both together
+> > > > when ready, or apply the second patch now as well. Right now, it broke
+> > > > the DSI panel behind a TI sn65dsi83 bridge on v7.3-rc1.
+> > > 
+> > > Reverting is surely the last resort. If you can answer the above questions
+> > > it would be good, maybe we find out reverting is not necessary, and worst
+> > > case we'll revert with better understanding on what went wrong, and maybe
+> > > come up with a new fix that doesn't regress.
+> > 
+> > What's the status of this regression?
+> 
+> I still need to test and look into this, that will happen either in
+> December as I'm off in November, or by someone else in the team. Sorry
+> for the delay.
 
-The forward declaration of ene_ub6250_init() is still needed: the
-unusual-device table is generated by including unusual_ene_ub6250.h
-before the function definition and takes its address, so removing the
-declaration breaks the build ("'ene_ub6250_init' undeclared here").
-realtek_cr.c uses the same declaration for init_realtek_cr().
+Luca: I think we should revert this for the moment, the regression is
+real, and I do not see an immediate way forward.
 
-Testing: with the syzbot C reproducer, the unpatched kernel blocks in
-the probe for more than 143 seconds and the shutdown hangs; with the fix
-the probe fails after about 10 seconds with -EIO, before the SCSI host
-and the scan work exist, and the system shuts down cleanly.
+#regzbot ^introduced: 4af021a97773
+#regzbot title: drm: bridge: ti-sn65dsi83: display broken on Verdin iMX8MP after enabling HFP/HBP
+#regzbot link: https://lore.kernel.org/all/3hfae2i2i2toxbo7hg2if6pztaswgnfj65xfm2c4ofljc6jhua@slaqoewn4mxq/
 
-Hongyu Xie (2):
-  usb-storage: add usb_stor_bulk_transfer_buf_timeout()
-  usb-storage: ene_ub6250: don't let the card-type probe hang forever
-
- drivers/usb/storage/ene_ub6250.c         | 110 +++++++++++++++--------
- drivers/usb/storage/transport.c          |  31 +++++--
- drivers/usb/storage/transport.h          |   5 ++
- drivers/usb/storage/unusual_ene_ub6250.h |   2 +-
- 4 files changed, 102 insertions(+), 46 deletions(-)
-
--- 
-2.25.1
+Francesco
 
