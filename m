@@ -1,62 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794600551;
-	b=cQ7xZcXpk5kEPlnc9f6eN0EGS/+bko6eLOotRpnXG8QQwrJSH88sKjHD8PGwQl30jKME
-	 9nbOXBs4QKKEtAA13MO0rc6GAWamwSl81Dxa67XkKUs+RF7juiFVqWT01phQS9iQFEtaN
-	 MpdT7EIYF1NpeNLARThOg0AuJUaqnVRrqSztSLAXI6l+ZvHVzQUSz7P6izOrS7IS73hiA
-	 vPpp25D9Ufl6NXiCr6ImRGX7RU2wLynaGeQQrQaFA+JqvuEt066skiUXCT1j75Yuyg5qm
-	 XSkhkTa+PXgZZsmuwH+ZAjTWC3FVxNl5eb0RupDdskVDuZ+2besdB2L3cve3VrC394w==
+	t=1794600553;
+	b=OxSZ9psulMRqaV8ESeiNR1fRUJeQOMD+s42WRuKQtUyj/7ES0dqphWVLiflDz1M7mk0z
+	 GYXv3I300pGGbXf/1K0IjBxxBZMvBYrPcVTT99ZbUdt/aYB+JzA167IIzrOJ1+CVpR1uu
+	 isnRwOPtaIhtI/nfUDjVBgucvGYNH2mF87gGbZbNpwahCuNicb5MlpFR3bbuJrDXtaPxj
+	 6hsbKezA5o5JU6FgCpis25z1Rw0H2aHvNjOgczXF5SHkinaH2Wc0vH/KsW3NxYJWBttBK
+	 mn4b2tA/BzxQHS4/x1K/DNB+x7IXF79/Nrs44C0z8qjl33Pl1u9tHI5iI9N0XJKTaxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794600551;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=2e0D4VsHpXShUxzHyxdi5LrTZGO+JfPq7HMyVhQ0gqY=;
-	b=NMVUN/05QhE4WvaYz3X7SD/rJPDaM34/QjfMzDo0h3/DW7DaoBN1gyWKPwAGzDG29I0s
-	 IjfouIjeLO1ey2ZCNy1v9NoOaWNlK9G9s0/WQmbV4SEAnXWlSA8BVvf9D4T8Xil70+vqg
-	 kYWe2pInxl+yV3tX4pCX7s0hxYNfd/Sgfvhv6HLCGU6UQxJ4kF4RZUX4wVEaQ2Z4SIVo8
-	 xVT3CeRgzO3JLw46d9nwV8Dv5kuhHiqBb6naH6R5zm9gOO07VXW4GM8PH5kwthvlRwYy8
-	 2ueERDJ3QlcuIr/ZwmjCMzxcY0nXaouSGwvA+hsO/KOXeYqIC7uIsbwI4x5eCp48T+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794600553;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=2JCzw07zOgx11DGTQQhhF28iPAeJ5hNLiG60ahLQknE=;
+	b=Vi+yYQ/owvsuozZvbjzFzy5eoY13HJJljyWXAK439r3g1RenWIC9dOMzKKmBvIOY9PdR
+	 huVVEcvbVlQ46zbgy6psh3+J55GyCJjnGOu3ULta6mDnApyj9+uQCf9d4d8PDmt1rmhJk
+	 K/XRzTZkeomd5T85bbGvXS1fEZbbCtUNYefuy//jmknmmPdxK02nchxrzI1JBjTJdqNUm
+	 U96y+QPwAX5H0gIx8JvKjFO4sWifsXCLvOjTSpkWohDANYdQwKTcsM4140T7vY2MMHm8E
+	 zgUeu/ag9YR6Sgioc9xxNC6bUqRBEtv/JgJtLC7snKn38azyYYyvLud/QHt0Aj6vrwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jxUEmtiX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f621t1+l;
+	arc=none smtp.remote-ip=209.85.210.176
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D953606A8B8;
-	Fri, 13 Nov 2026 20:09:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E628606A897
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:09:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E628606A897
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jxUEmtiX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C52BF1F000CF;
-	Fri, 13 Nov 2026 20:09:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794600551;
-	bh=2e0D4VsHpXShUxzHyxdi5LrTZGO+JfPq7HMyVhQ0gqY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jxUEmtiXIyGgBUbtPNIXtXwxdcokhH8yv5O76a1tJrRA5xfBleOBgKdYH2FUh5rM2
-	 xrYNVXJ/4W9rs7i1/tthpmLtx3IbdKxN5IOWqEC4mNRh3byyj/SGOHZAYKbfOWZrWm
-	 0YNekGJvBaZwFX+a4mTA7znNe+VUe8UfXMQi86xckbT7pL4OOPeSUSjCvjvZ55+U1T
-	 0PNSH5t6Vm7FQqy+WCvlAG8ERKWQdW5zlS3XyoSjzOA62XnX9veZcWVXLTmxN8a3M/
-	 unjXvKuv/jxrzE49meu4trDozOEzWQnOe3pI0TiRygsM8gCOQy+9MkP5kqlVQ8nVgZ
-	 sY4/BTeP1AsHQ==
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Ingo Molnar <mingo@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	James Clark <james.clark@linaro.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Clark Williams <williams@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@redhat.com>
-Subject: [PATCH v2 05/11] perf tests: Exercise data type resolution from a register
-Date: Fri, 13 Nov 2026 17:08:43 -0300
-Message-ID: <20261113200850.2803460-6-acme@kernel.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261113200850.2803460-1-acme@kernel.org>
-References: <20261113200850.2803460-1-acme@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f621t1+l
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8b32bc605d9so635003b3a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:09:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794600552; x=1795205352; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2JCzw07zOgx11DGTQQhhF28iPAeJ5hNLiG60ahLQknE=;
+        b=f621t1+l3LFyEqFI4xtWFUDVqtAZYddsP/LopCueVvVln59bn9q982pU2SvHRdbl9D
+         jXyJavipTdav2Ur9PUA4svlvJaFtU8PoMtUHZTXUPo36yxteTc97ocYxqWPfXBZ2MOG2
+         1+K8NST4M4eBjNkMRh+puxH5xBlEUe1/ppQAd5tuzViQEVr7ICBOWdDfn1Zk1DUqjimN
+         U4fx1FIGCqhtHVv/cF2zgxu2a3XVSNIi8PnsZtJHr/cNB75hbPLZUk9GzqMCyajlVp0i
+         8X1zKMUfxuJGuvdcSltovRcVsvidUigS8OnW8Mfhf/ZOODSOWzOgOIUQB6AMCp77e9pR
+         awFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794600552; x=1795205352;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2JCzw07zOgx11DGTQQhhF28iPAeJ5hNLiG60ahLQknE=;
+        b=WI6AxccnO1AwEnJnHEnWCr3nCDnuDtHbMz5AKDAihnpMTliTko4mmq8jGMQUpWTGzx
+         x36njx+fOQLjhAL4Iso9ETg8iqpmI5n2aVyv0K98UPx/EwcjcXuTK10QkuJ2l5jDxMs4
+         XvHPpoETdgLog5Ps8qV2/Z64TJ4mAn7cRJu4Zt9gv6nhVjiJasksHc4SdBOCjFje6a1g
+         ppleI4QNxb1EvowhxlgD3LA+TjRez6ico6vdUF2V8Gth7X9EKsbN0rdpFSwkgGe+4rZT
+         0gd79JL3HS4v4/HxMET1objv0j7Nngyv4G+dKorM4STJbXqYYueY8VcLo9a4cROSV+Il
+         +I0Q==
+X-Gm-Message-State: APuU4Z+f0j2AmPBPzPY5IKNGDDrfhhN8BaIhETq5lGx8cZuTpraRBu0R
+	iEgpyN0YnDF2JDzRtDP10aTSObA1NtylDmyD996lMrYcgmpffI9MAanqyBU/rA==
+X-Gm-Gg: AYBFou0vfs2roBxteHDLJED6XagpSuc56v27o3dQh74qaJogaZqQBYkL8dQ02nu0P6D
+	xXw/bsgM/ebvh1oEHoLW8BTzDvvMsNjJ1ICmQ61C39OAvma0SsU6ddKfxOjG5M1NkKG9Z6lCHBZ
+	vPkTaEmhRvOWDrFk8H/RnbI+pOZkbIkmoK71sHkSLytf3QdFIllbCJcq2E7omZpPp1JhAgehHmm
+	RtSHX/SswlBs0wTwH85FxpR9/tduZQSB/6x844QpePL3S39U/s1QVWewiohaBS1vp1GcDHYEe5z
+	HeRL2PEMG1x8Zc3ywKVTHkA2hR170WCbcgCBJmMOB1Kayxcin2op4q2EP6qoQj4iWSO/WqhrkoR
+	o1rOO2vkoSfUhwMXOPxwCUjci1qSDlgSCh1V+Fac13W6+FuEKHMtZoLC4Falvwwhen5gkEFsH9B
+	HPi4diryiYqwmryucktsASKgC+DENkNz9Sh1Myy3R5bdJQNgwg9FRj1/J2f+qArzx6LIC8yVxG1
+	wmPR1T3yyERnsNgtG8v6Vy2lS6x6rSMw78gospwPtmO3ZEVW86O13oqblZ2LDgraUxmb9yc7Dzm
+	BDSEvcRIL4xzCVb6yoaUABvhY1DohtjWtBvjErWWjT5GGu17mM5tp4uMAv5l+s2NJIptpVtOPbm
+	t+eojDAvO1UNoVG5M8sJs6SFfXm/Pa2s18N54vRxuEwS9Pok3IhcpflCN3a4Vjkk2kyQ=
+X-Received: by 2002:a17:90b:17d1:b0:3ac:9a5e:9ce9 with SMTP id 98e67ed59e1d1-3b1b0a3b41cmr3553616a91.29.1794600552264;
+        Fri, 13 Nov 2026 12:09:12 -0800 (PST)
+Received: from f2fs-test.c.googlers.com.com (193.67.125.34.bc.googleusercontent.com. [34.125.67.193])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197c6c9c5sm10909841a91.1.2026.11.13.12.09.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 12:09:10 -0800 (PST)
+From: Daeho Jeong <daeho43@gmail.com>
+To: linux-kernel@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	kernel-team@android.com
+Cc: Daeho Jeong <daehojeong@google.com>
+Subject: [PATCH] f2fs-tools: set the block size of zoned devices to the logical block size
+Date: Fri, 13 Nov 2026 12:09:04 -0800
+Message-ID: <20261113200904.3010578-1-daeho43@gmail.com>
+X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,148 +96,87 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Arnaldo Carvalho de Melo <acme@redhat.com>
+From: Daeho Jeong <daehojeong@google.com>
 
-At -O2 a struct pointer lives in a register and DWARF describes it with
-a register location, while the unoptimized workloads the data type tests
-profile keep their variables on the stack.
+The kernel caches a block device in units of its soft block size, which
+is set to the largest power of two that divides the device size, up to
+PAGE_SIZE. On a 16KB page kernel, it is 16KB even for a 4KB logical
+block device, so a buffered 4KB write is written back as a whole 16KB
+unit.
 
-Build a workload with a noinline function that gets the pointer from a
-volatile global, which keeps it in a register, and check that its three
-member accesses are resolved from that location.
+On a host-managed zoned device, the first write in a unit then moves the
+write pointer of the sequential zone beyond the written data, and the
+next write in the same unit is rejected as an unaligned write, e.g.
 
-Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
+  Buffer I/O error on dev nvme0n1, logical block 24576, lost async page write
+  Error: While writing the quota_blk to disk!!!
+
+Set the soft block size of zoned devices to their logical block size
+with BLKBSZSET, so that each write covers whole units. If it cannot be
+set and the current one is larger, fail right away instead of failing in
+the middle of the writes. Skip it for dump.f2fs and --dry-run, which do
+not write to the device, and when the page size is not larger than the
+logical block size, as the soft block size is not larger then either.
+
+Signed-off-by: Daeho Jeong <daehojeong@google.com>
 ---
- tools/perf/tests/shell/data_type_register.sh | 120 +++++++++++++++++++
- 1 file changed, 120 insertions(+)
- create mode 100755 tools/perf/tests/shell/data_type_register.sh
+ lib/libf2fs.c | 36 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 36 insertions(+)
 
-diff --git a/tools/perf/tests/shell/data_type_register.sh b/tools/perf/tests/shell/data_type_register.sh
-new file mode 100755
-index 0000000000000000..e0369f076ae6f4b2
---- /dev/null
-+++ b/tools/perf/tests/shell/data_type_register.sh
-@@ -0,0 +1,120 @@
-+#!/bin/bash
-+# perf data type profiling tests for register variables
-+# SPDX-License-Identifier: GPL-2.0
+diff --git a/lib/libf2fs.c b/lib/libf2fs.c
+index 93f36ca..b0cdf09 100644
+--- a/lib/libf2fs.c
++++ b/lib/libf2fs.c
+@@ -922,6 +922,14 @@ void get_kernel_uname_version(__u8 *version)
+ #define BLKSSZGET	_IO(0x12,104)
+ #endif
+ 
++#if defined(__linux__) && defined(_IOR) && !defined(BLKBSZGET)
++#define BLKBSZGET	_IOR(0x12,112, size_t)
++#endif
 +
-+set -e
++#if defined(__linux__) && defined(_IOW) && !defined(BLKBSZSET)
++#define BLKBSZSET	_IOW(0x12,113, size_t)
++#endif
 +
-+perfdata=$(mktemp /tmp/__perf_test.perf.data.XXXXX)
-+perfout=$(mktemp /tmp/__perf_test.perf.out.XXXXX)
-+prog=$(mktemp /tmp/__perf_test.regs.XXXXX)
-+src="${prog}.c"
+ #if defined(__APPLE__)
+ #include <sys/disk.h>
+ #define BLKGETSIZE	DKIOCGETBLOCKCOUNT
+@@ -1047,6 +1055,34 @@ int get_device_info(int i)
+ 		else if (dev->sector_size < sector_size)
+ 			dev->sector_size = sector_size;
+ #endif
++#if defined(BLKBSZGET) && defined(BLKBSZSET)
++		/*
++		 * The page cache of a block device is managed in units of its
++		 * soft block size, which can be as large as PAGE_SIZE. A
++		 * smaller write is then written back as a whole unit, which
++		 * moves the write pointer of a sequential zone beyond the
++		 * written data, and makes the next write in the same unit
++		 * fail. Use the logical block size for zoned devices, and do
++		 * not go on to write to the device if it cannot be set. The
++		 * soft block size is larger than the logical block size only
++		 * when PAGE_SIZE is, so leave it alone otherwise.
++		 */
++		if (dev->zoned_model == F2FS_ZONED_HM &&
++				c.func != DUMP && !c.dry_run &&
++				sysconf(_SC_PAGESIZE) > (long)dev->sector_size) {
++			int bsz = dev->sector_size;
++			int cur_bsz = 0;
 +
-+cleanup()
-+{
-+	rm -f "$perfdata" "$perfout" "$prog" "$src"
-+	trap - EXIT TERM INT
-+}
-+
-+trap_cleanup()
-+{
-+	echo "Unexpected signal in ${FUNCNAME[1]}"
-+	cleanup
-+	exit 1
-+}
-+trap trap_cleanup EXIT TERM INT
-+
-+if ! perf check feature -q dwarf; then
-+	echo "Skip: no DWARF (libdw) support"
-+	cleanup
-+	exit 2
-+fi
-+
-+# No point in recording if the PMU cannot do memory events.
-+if perf mem record -o /dev/null -- true 2>&1 | \
-+		grep -q "failed: no PMU supports the memory events"; then
-+	cleanup
-+	exit 2
-+fi
-+if ! perf mem record -o /dev/null -- true 2>/dev/null; then
-+	echo "Skip: cannot record memory events on this PMU"
-+	cleanup
-+	exit 2
-+fi
-+
-+cat > "$src" <<'EOF'
-+#include <signal.h>
-+#include <stdlib.h>
-+#include <unistd.h>
-+
-+struct node {
-+	long a;
-+	long b;
-+	long c;
-+};
-+
-+static struct node n;
-+static struct node *volatile vp;
-+static volatile sig_atomic_t done;
-+
-+static void stop(int sig)
-+{
-+	done = 1;
-+}
-+
-+__attribute__((noinline)) static long touch(struct node *p)
-+{
-+	long sum = 0;
-+
-+	sum += p->a;
-+	p->b = sum;
-+	sum += p->c;
-+	return sum;
-+}
-+
-+int main(void)
-+{
-+	unsigned long sum = 0;
-+
-+	vp = &n;
-+	signal(SIGALRM, stop);
-+	alarm(1);
-+
-+	while (!done)
-+		sum += touch(vp);
-+
-+	return sum != 0;
-+}
-+EOF
-+
-+# -O2: the pointer stays in a register, so the accesses are resolved
-+# from its type state instead of from a stack slot.
-+if ! cc -O2 -g -fPIE -pie -o "$prog" "$src" 2>/dev/null; then
-+	echo "Skip: cannot build the workload"
-+	cleanup
-+	exit 2
-+fi
-+
-+if ! perf mem record -o "$perfdata" -- "$prog" > /dev/null 2>&1; then
-+	echo "FAIL: perf mem record"
-+	cleanup
-+	exit 1
-+fi
-+
-+if ! perf annotate --code-with-type -i "$perfdata" --stdio \
-+		--percent-limit 1 > "$perfout" 2>/dev/null; then
-+	echo "FAIL: perf annotate"
-+	cleanup
-+	exit 1
-+fi
-+
-+for member in "+0 (a)" "+0x8 (b)" "+0x10 (c)"; do
-+	if ! grep -Fq "# data-type: struct node ${member}" "$perfout"; then
-+		echo "FAIL: member ${member} not resolved from the register"
-+		cleanup
-+		exit 1
-+	fi
-+done
-+
-+echo "register held access resolved"
-+
-+cleanup
++			if (ioctl(fd, BLKBSZSET, &bsz) < 0 &&
++			    (ioctl(fd, BLKBSZGET, &cur_bsz) < 0 ||
++			     cur_bsz > bsz)) {
++				MSG(0, "\tError: Cannot set the block size "
++					"of %s to %d\n", dev->path, bsz);
++				free(stat_buf);
++				return -1;
++			}
++		}
++#endif
+ #ifdef BLKGETSIZE64
+ 		if (ioctl(fd, BLKGETSIZE64, &dev->total_sectors) < 0) {
+ 			MSG(0, "\tError: Cannot get the device size\n");
 -- 
-2.56.0
+2.56.0.611.g1030f0b940-goog
 
