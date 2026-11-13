@@ -1,70 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794560889;
-	b=ab6TdJkq6bH8NFKh4NfiN4dn3ip7V006uNBjQ+YrcgJX/8k4RnY7GxHjO19Bg0tFuneF
-	 hreorkYEZbsCpw2l1vufrFF3w9Zt2DaDLWygVngDgCgH5qXGp48sMxxD2Xwa2+eelHQHH
-	 9gUkqy1KZXKuoG9/tfrKynDVRfW90BjmTCw+/dS6wNW4IsDbo6DmMrV1q9MnayIAeGcAZ
-	 il0GT2x8wZH+sJC61U6x8XvJAXEiBKMaQR7zAd5xdaAcWBZ6vXCz67CeMBxpzeMAEgcUe
-	 3mrePnvg7e7eHJ3ztoMm4gAF/hzKx7UHEupEc5VKej3R27qYw6d1elwrFOhbiNahZ4A==
+	t=1794560898;
+	b=E6ItEub6xNkdu9ySJKtCw0/e2F5RR9Q1SlNZ6afB3n0xF35vcdCqyb7y0UQ38YSbceqn
+	 hB0CaPDTqh6n3sekzqVsUQo4RX4+pYXz9ktggSRmaj6yk6yoL3loxHTXL71VZXx2jzB2u
+	 g9/q4lrm1vryhox2vt5qsW8+l88/vBofl5WDkAY1OQKgBE2lIgAc4RzXU/Qj9wsFcje9R
+	 svTip4lm8bXJlzX7L0mJhni52W92eSfIy3Qhg8zr8PFRSoQyfBodoAcJtAXnnAcxKnyYg
+	 KTFqune5hnLQWB9Q95zS9ftPW2clmQLEHiQJWd/7Fk+5xk5feCQJJAFkY3NTNrTFfhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794560889;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=0GecHqzD9XMLLqQpFV2TvML1OoK0QcP7ZCMM+WBJVSE=;
-	b=RIyKELadiv6kbBO8BljEWzEHQGyhIKZGVSwUJR25aQk3Ha1C1rNRZAURPQ0WI9pEKchU
-	 4ngmPYTuRxbe1TeJwY8PvHJLoiP90QsTkZnWjMwK4RjQkdrPeMlX2A57whILhhBZHzn/k
-	 Gx5ZDBZe4xNfdzF8IJuAVRjtn8j5iCqNN4o2hbnhmoLlrpTiy1eK213R7ZmEQYuZNCuk/
-	 edHMpl6J0Snaau6LZ6+f5IpC2gy538GsW/Q+IoQkyNfuDPzBqdW4IIe6qR5E01Ns+sYoE
-	 Bj8AdxrdimWHD4BeXayuE/tf41BYMu9YUtAkMtlNZx88Y0L4k9105QNPzmkiUjgg+Ag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794560898;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=y6F4gCnVa/0pT5fMCRcDStuTkv+qtsePWRTz5MRJzw8=;
+	b=OCDSo9x2J7qysdKRKvotUPA2FKMC96WV8LZfJXxh6Cm0A9uzK/KGNM8nEvrzGhtgADWv
+	 G7hRFMt844SWBvIKSCDHvtSxBz78Z7eRf2hpwPENP99G9LWth6P1bOrUjmmdUrfQye60n
+	 U9bJ/ZtI9aXcXt2d9u9ocvk6QktxBT1vAHFdzzEZFKvpSQJepv7JHMF5HSbFlZNzFcAJA
+	 0iwegKt1ju1Yhmv6USk2ZBizGZWjUeWVoVXZpQP4UIlVAujy2RwtyULNdkAqa0h1Mcdet
+	 MhLR97eooZL37RG89im+HeepIZnkxxRIe8DnDZZ8m3W8ceSI3TAxc90ssSaSUHlDG+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=rYutiHMm;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BA6B5606A323;
-	Fri, 13 Nov 2026 09:08:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA6B5606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BG6u8cZE;
+	arc=none smtp.remote-ip=74.125.229.133
+Received: from mail-dl2-f5.google.com (mail-dl2-f5.google.com [74.125.229.133])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A77FD606A321
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:08:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A77FD606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=rYutiHMm
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BG6u8cZE
+Received: by mail-dl2-f5.google.com with SMTP id a92af1059eb24-1ac216daf7dso242730c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 01:08:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=rYutiHMmz3OiWRdhEavqRFXhCWPSYtvvbngDPUI+NNBBL07yVKsGOfXywF3r7QdO5a5uTAMeujb1t
-	 RB46NfSoLgbvqMRSLZU8KxRBzRCUhxUdf/mbcxfnof5SF9b+vkRMDIltim8wrAldfWU1Rb+HsM9TaK
-	 atQFXrhfTzn5VTwA=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16af6d37414c-c6741;
-	Fri, 13 Nov 2026 17:08:05 +0800 (CST)
-X-RM-TRANSID:2ee16af6d37414c-c6741
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from DESKTOP-3K8GUTQ (unknown[223.108.79.98])
-	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16af6d3724c8-1fd65;
-	Fri, 13 Nov 2026 17:08:04 +0800 (CST)
-X-RM-TRANSID:2ee16af6d3724c8-1fd65
-From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-To: geert@linux-m68k.org
-Cc: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>,
-	linus.walleij@linaro.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
+        d=gmail.com; s=20260707; t=1794560897; x=1795165697; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=y6F4gCnVa/0pT5fMCRcDStuTkv+qtsePWRTz5MRJzw8=;
+        b=BG6u8cZEkLL7QRmO3TiBSMVSWusUtcNW1KdaUsCJ4o9VGZJUnjGqMKaTppluGE1EL3
+         Yz6ptmJa5NsXEZq2+10P4JUKjdrFZ2KQvSvZ8ili+v105XSW+Jtk8+xJAfdYoij6bGYP
+         Sw9GEBkStVO1AgJoyUDrq7fjUY3yI77GGt5zbNfX9WfleeDI/F9DnXTXwttq3L6wwA6f
+         WpmXuF7Zr2DF3nhtB3OpuQona7jhcPKMI63xNqzn9l3t2Lvbv02/9uuWaT0DnU//jmYA
+         xVH8tntzCH1ALgRKBEeOvwt/+txu0A9Nxp6bOlera/3gSaHMpZRagAd7Z2mntuUkgXuJ
+         d5BQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794560897; x=1795165697;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=y6F4gCnVa/0pT5fMCRcDStuTkv+qtsePWRTz5MRJzw8=;
+        b=H8Z5VgcwyDWht6jGRHoOWEDQoUysIzKOBybbq2ILYaYDpyi9Kc6r7l7fg8Z2epwZc8
+         9JFzWnRLowml1I5HrihF9/ONSZToiI6irZLqn4ppvG7pPKaOdGTsXf+5P6IGJQ6509fz
+         nANeIfQY/s8lUT8Rcgr1rpW82KEMrG2NwY5suUHFRGId3q44ozK0425nIFCledylgR2y
+         dzWVvmWAEphvOltP9MOqrvuclXblYflTXFc4IO56tetJf0hd3SctAukg+BIhduSRQALY
+         NjvcCBgzLCFIbh1NxK9tgAcS24wQiiF6/AU3nmExSKY2+ceWug5NvVifo1KrY5SmSELf
+         p6Cg==
+X-Forwarded-Encrypted: i=1; AL+hErFOtrbVzukdlrpihZBQVd2Ean05mIFHsMxlCPZXlzOF1kKBL+tokEGYtQM5nAiN2LwdUjbxm1RxV3FVHJA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/NfcdfyL2k3+1t96wORmiFkLH044JNrlyZMjkKknIuN+PlukSF
+	s8GtMMbP+N1+wpgm6ePfKMJjRNNV1+LBCWANuUDu5Snde6x6sH53P6js
+X-Gm-Gg: AYBFou0kZg9047TvWxNGgdfklhHqgokdRoUqP7nCV3VYsSqYHMlVG9LHd5gL2Oj9srb
+	9N1sMGW8ZbmoGc0w0fY23mQI6X4r74H9gtI2EOq92peQdAo0fqd4vBI+YyexFnJvguWwcNXhCte
+	7vu/0JB1JLuYrqbZtL6KD7xR/EntR+rz2rrakGzQk+RKdO3x/17ZdIDIK46ZvBhWaZhKWhBUs18
+	qnZZP5pRsFSMf2nboQQ1sZUthTDbMoOFW5kxnCvLycL/2q76zEMRPi8Ij2wWk79yA/UVyEJ6Yiz
+	UJPN/TGAbkk8X/3qUhpsVwD9PDHRO5BJBpMHcL357TpFb9gfJQaWV8uZs29jQ+s6ipiRceu6jtR
+	zVSihFjsThxibQR6ibIIr0c45pCs2uPs5AgOZLJx3inPupgDPQ8aiDGFA1+OZp3yB0+Syn19v7+
+	ZJanpFHyT8uEJz6P33ZZ9tquz4T9HNmHPDHLBWfu1hXOEKy7mob9VMwqr25ggyyNkT8lDGElVqY
+	VAlHvphMtHybr+7fBC9V8VDR7SKEwslMtJhOc0KjTRBoKPsRf+AhoU7w3fpjSDP22Ztqh0pSvzf
+	pfUU1Ih3+VjS2ZIlAnodO5dUpTWn02C8u55U834oRd50It4rYSQqoKNde0UHr8aP0qTzMNUOq7t
+	fNW0XyUL5DuMZSJYyfwnZ0jCrhL5GUCUJciqI4g==
+X-Received: by 2002:a05:693c:2a16:b0:369:fa21:ba0b with SMTP id 5a478bee46e88-3796721cfc1mr1578945eec.33.1794560896561;
+        Fri, 13 Nov 2026 01:08:16 -0800 (PST)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955ffcbc9sm8090129eec.18.2026.11.13.01.08.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 01:08:16 -0800 (PST)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: hansg@kernel.org
+Cc: arnd@arndb.de,
+	gregkh@linuxfoundation.org,
 	linux-kernel@vger.kernel.org,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Jacopo Mondi <jacopo+renesas@jmondi.org>
-Subject: Re: [PATCH] pinctrl: renesas: rza1: Put fwnode after parsing gpio-ranges
-Date: Fri, 13 Nov 2026 17:08:01 +0800
-Message-ID: <20261113090802.2036-1-laixiangwu@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
-In-Reply-To: <CAMuHMdX4YdVWBLKozBVKsk-cqnBjHY-4H=2hZP7g1H_3p2O8cA@mail.gmail.com>
-References: <CAMuHMdX4YdVWBLKozBVKsk-cqnBjHY-4H=2hZP7g1H_3p2O8cA@mail.gmail.com>
+	dennylin0707@gmail.com
+Subject: [PATCH] virt: vbox: Do not report user namespace root as root to the host
+Date: Fri, 13 Nov 2026 09:07:58 +0000
+Message-ID: <20261113090758.87172-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,19 +99,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Geert,
+vbg_misc_device_requestor() decides whether the opener of the vboxguest
+or vboxuser device is reported to the host as root:
 
-Thanks for the review and for fixing up the Fixes tag. I understand the
-correct origin is 5a49b644b3075f88 ("pinctrl: Renesas RZ/A1 pin and gpio
-controller"), since the missing fwnode_handle_put() predates the
-conversion to fwnode.
+	if (from_kuid(current_user_ns(), current_uid()) == 0)
+		requestor |= VMMDEV_REQUESTOR_USR_ROOT;
 
-Sorry for missing Andy and Jacopo in Cc. I'll make sure to Cc them on
-future submissions related to this driver and the original bug.
+from_kuid() translates the uid into the user namespace of the caller.
+An unprivileged user who creates a user namespace and maps their uid to
+0 in it is therefore reported as VMMDEV_REQUESTOR_USR_ROOT for every
+request of that session, although the uid has no privileges outside of
+that namespace. The host uses the user class to account the HGCM
+requests of a session, so such a user is charged to the budget of root
+instead of the one for ordinary users.
 
-Thanks for queueing it in renesas-pinctrl for v7.5.
+Compare the uid against GLOBAL_ROOT_UID so that only root in the initial
+user namespace is reported as root.
 
-Best regards,
-Xiangwu Lai
+Fixes: 0532a1b0d045 ("virt: vbox: Implement passing requestor info to the host for VirtualBox 6.0.x")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+---
+ drivers/virt/vboxguest/vboxguest_linux.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/drivers/virt/vboxguest/vboxguest_linux.c b/drivers/virt/vboxguest/vboxguest_linux.c
+index 7474bae2cd9a..ff66c00c27da 100644
+--- a/drivers/virt/vboxguest/vboxguest_linux.c
++++ b/drivers/virt/vboxguest/vboxguest_linux.c
+@@ -35,7 +35,7 @@ static u32 vbg_misc_device_requestor(struct inode *inode)
+ 			VMMDEV_REQUESTOR_CON_DONT_KNOW |
+ 			VMMDEV_REQUESTOR_TRUST_NOT_GIVEN;
 
+-	if (from_kuid(current_user_ns(), current_uid()) == 0)
++	if (uid_eq(current_uid(), GLOBAL_ROOT_UID))
+ 		requestor |= VMMDEV_REQUESTOR_USR_ROOT;
+ 	else
+ 		requestor |= VMMDEV_REQUESTOR_USR_USER;
+--
+2.43.0
