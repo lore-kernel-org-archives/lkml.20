@@ -1,94 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794559777;
-	b=au49AXwagF0NK1Xa/frHhxl2V59PUA8BStPnbg5uY318kgGHJ8twf7X4nX0UvE4s0DeT
-	 LLBpWyTv4aJM4eqXfFGxhZani87kYaMpFXoqpNpv8G3YbZa+rlIuS2gsZ5HusOQB2RIIV
-	 IK8sZya+LvjPoqKdDzxUBbhTLRi8Q6OiQAMK1gVhxK+cIHdA419co/GnMaZlOdt1w0r/7
-	 5xQkT6iRiSl/vf5CaUiz9K8wGCRd3hlzH9CT1dogxEz1KfVcP6yWat2GXSqOBfcHmjyEk
-	 m4ofa5Oaa67z/kFFZa3XLtty+A8hn25sDcJh4SQok3rof/kI2PCOCQikWyEaFZfnirA==
+	t=1794559789;
+	b=UKodrl8+6Uh4BntZVElhWlIiPGxmISx83+WERSQKEf5HGw3A64Xc7nZnQZvTnFEXRhMZ
+	 9UFuWQDz2CesgAWupnpu8WOof+7xzW3B9j7GxxC2OCRhicPmzXliyFCqaf+UqmvHrx4Xp
+	 JI7v3CICcYrhYxSCUJitfBZZOU80AMWdjRqjCRr6Jlqunjagei8bCcX1yVRZiVANIJG9L
+	 X46WCfsCUGaOYaTk/XXC0TUs4Bx1ph+qUbjd0j6EWhIKQU7LVC03kkEc7B4H9DBqzUjgR
+	 EXH8LbN62ErTw90A8UzdJH793b2MtQhBZt0uG81XYhJ8IX+kWCuZC+nEV3aB3dwSI8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794559777;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794559789;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=WrNBo9B3xTaWzZ2y4HsHYSAlT4GX6v7az8VJ8ahlCBM=;
-	b=fVlIkLfzN4JGem+zC27msCMeZO0UVOE0JVUeN01sb/Gt9N6fTxRYImfbcIqi1owQqfCW
-	 KRm/KHLDoB+eSKNm2f7B0AGTD+NCKYksZcNG1MTuc++4fP+mOK+wyvHJd451RbJZ4yYZL
-	 oz14fKpDUyz4WAl3s01eaaw9sXOAOALn86yL1aUhF5hkSSwj/dESrY06m2dprKVgYjGFT
-	 ZDtpbhx7GmIFNvlBvm0torqY9Sl9DYKyJmVYapotWHTbDOZN7cprMPn1Yb3Z4qds5x31B
-	 Qdv7HSKpNNCAzgUF1OlM4dANRcI4JIFlJzjZhF2asDe/+MY5PNtrXRz0GMi3jxH16MQ==
+	bh=uYCF/j3Berl6MM/JQ+PGmzcBwIXAJx/VQr0A1zxvBKY=;
+	b=rWi3UxPaBPbiTEY5uOHJ+NtVlWBSLs8AivTvObM/cC/tGs8d23/IJlTmUT4vqlQqjkfn
+	 ueaBq2tXAgkoI+PwHJ/i3S8kJazEP+VXvjIgfW302ywidYNd6uqxmHtF4Q/gYquAnN1hq
+	 xZrBQnX/G+WVz6CMHc/1dOdpOj96+NvvDRHw1jns/H3h6y+RaAH9vCdN5yPtkN9+2aRnF
+	 7bRmyDj9o1+2QoXx6Bl6WV/PlRAjk2aJg+gszIJo4soR3qnhzc1YQM92/yi+cuz3T11wG
+	 2x15rAc1ig0ejQXjILxd5JZ6HAlOAXugBpkYAsP5XbMuzR8488t1KudTgZRE+81LP+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=snX0b87J;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qZxHKOg9;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BF7C606C188
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:49:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BF7C606C188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 093D760A2600
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:49:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 093D760A2600
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=snX0b87J
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-36f6295304dso550460eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:49:36 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qZxHKOg9
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-36dbde64409so1153399eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:49:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794559776; x=1795164576; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794559788; x=1795164588; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WrNBo9B3xTaWzZ2y4HsHYSAlT4GX6v7az8VJ8ahlCBM=;
-        b=snX0b87J11mFOBGzUo0ErJ+bzcVNZDZ7YklWw79SqbZh3awoGwBvddI6Fo3Zul737I
-         wNBEAtSQKAXavoCVF9pE0//nBWYvMrFoCr3RHK/9yr6ysbLb07UlY9twA8iWpLnU+Xp/
-         8vessBDoCKDVFaVTJc35ViAZub7IZLEbzBnqBiJ53SSc1YF8O0X0aeVw3FO5nFoMSOfV
-         QtvkxMgJJHisKRUI0b59hk7fYHYkeX6w4eJMSmCR1mcMRFzGxc70Sb3wryyN1kqyLUkb
-         OK5bNkQsuJ/CRG2GzfwcL3tCIHPIB/MeFKsmPh4UA6XdyTrglpVRbIXahFV5fs4v0kX/
-         n57g==
+        bh=uYCF/j3Berl6MM/JQ+PGmzcBwIXAJx/VQr0A1zxvBKY=;
+        b=qZxHKOg9sWmn6bGlJ4C9tduJ1fzHeH+/ZndhFC9p4jUzJb84HdEYGd0xEX/U5JKnkC
+         2TTA8tkp193y+sOsHVxSdoTRrgMM+6jigdlR1n875Mnqd/e08frQUZjepA872XMqFTWP
+         a38zf+Sprpr9xwIZweMvM9ua0QL9RStTZQWcGDXBXnxTcS9yVOsVM2E4+MUvrQJ672GR
+         mmEOtPNeahrPUuYHew/YgXP6LVWfGVrHjJTWuh2Y7qlTbEO3Tdr29h+sUOwmqidwOHbt
+         3qjQm6isMVD3u+cRlgNk4HyrSmxt4dCVfWQBOj3+dW32DMdks+LY2VytYZ3bu4MUELLS
+         weiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794559776; x=1795164576;
+        d=1e100.net; s=20260707; t=1794559788; x=1795164588;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WrNBo9B3xTaWzZ2y4HsHYSAlT4GX6v7az8VJ8ahlCBM=;
-        b=mVBmj+LfamlXW80ot0h864f/DVp9POQcmkWgYf+PSylA/Xob8Z/RzEx6cJxgh8WShb
-         Ju+54Ye68cGrNVJi5bLWxKwCgN6wVQ7/mwsk2L8bgno5XnLPReAl9luggQUZgkmerZGe
-         bC1oO+t6HvTe5fYr9show0sGp93VKknWHxiLr0grnkUsfb5yBruXlQU5pxOC7j6yuUG+
-         wGJ1S8Cr/z/A5LaSWjOuoBDwkoozwfnhyWtbU6xxRuScDQBRhBjGIQnozvmXGZAMMjZ/
-         MUYBzZZ3fGmHKOt1bXwhsUDBXHsc9zr1TOkYkffHexmsKmVITQaHe1GDW/7JT2ew+zMn
-         y+Uw==
-X-Forwarded-Encrypted: i=1; AL+hErHf+aoS1OllaSWdFWUWth5HGZSXtq8OYLN4uNLYni8PGeNV9HVBaESjp+ai9wJOtBx+28/u6+9h/tMzN+4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+4Gd8/E1W6yyUtCiYliLHVh1glErApOePknl9ixA4pOkhJP9oL
-	Kme+ZthS0061A33NogN9j+/eP0B0SZ1a589CFnPjXAbGBOniQr1LrH8R
-X-Gm-Gg: AYBFou3SzFo1JPKBgi1RV5y8CQEYLyGSTtOmIc6gQ2hoA39KZG2YOIPZBcS0L2qTcnZ
-	h8M9ltaTHbF0AcjWoWuu5RHm/m6tuAtfkSyX0S3vcufzyfFDZSdqc65E9kFAivCTdrIHn54kSLp
-	W3rQqD6EYib1ZyA/AQoOJjBYuIDDV3BKaTWbEBqEjnYXoTN1uz8/XByLMRzk4a6AEffzJ07iAcL
-	sSBMksBpapsQGCx+WxyGU1/yM4xNpCznE2c6ML3N94MnBkvnps8g9M5ih14X3r/3xY4r5L0w8el
-	D0S1zyXL4gmkRQXHvChF4+cWCv66waNP5eu0nlSHg9+Qy7OskDMVPhEIGWJH2D0mqitB2+IBpQm
-	rNFvM7qmRkD6iD5WLIOj6iXBD4JE4QQZ2X3Wxb9sWfnjd5IsHLJ05rfyfXDbh0d0uEkqIO9AH1D
-	ZecAK5GN74gabV2md06OnHkbNLJmVB2j612pcGwsh2kke8ObRF+zhKty0fySVwxdyEU68FjIA+k
-	w1XaJLZ86gbUvy7zthbnD2VFWHtliyamUKnHoFyRPzSzlmbWKvpQiUEwUQixZ7Z52PXxPMRCMXA
-	HC+VvoNhW/g/J8UP+hJ7YIXvmseGTFE8V6XzWZx2ny0kiztYRzSMRKw3sc4yz7nGDW7WBF0RMAX
-	jeB3g7LjyJMqMSK6u3DdAEvm7wgCqN0QVUoAMs3FLcgQ=
-X-Received: by 2002:a05:7301:d189:b0:36e:2b8b:a09e with SMTP id 5a478bee46e88-3796740eaafmr1745784eec.34.1794559775582;
-        Fri, 13 Nov 2026 00:49:35 -0800 (PST)
+        bh=uYCF/j3Berl6MM/JQ+PGmzcBwIXAJx/VQr0A1zxvBKY=;
+        b=iYtG2HpntEug5YOoT7QH1HMWMw48lRkwH9hk9FPH21pExC588JtNkPhxTFDIgslWLq
+         pPaJVXkaIVasRNx2vOfpmytWDCVViKgPD9HS2JdLDq7NsUd8iyd/BZ4zGyTZ/A+ZHHur
+         saj1BhSrLDY1Zt0wkhg5TIiV4+Vxo6qBByKCU00qbRE09tHipxCrL8/7GFbjh5LPpbgI
+         T2ra4irqVfGs9tVPemc+GraN46x4TBAr7070t4WEQebBJH6cM59VFrQDr9tnYTDbzlDi
+         VTpKc2CikBvfRTWSE8vkOgqgWvRh3jJ6I+w0qRDBYDyMui2xYeQpTVPBkNi1SgyujDmd
+         4j5A==
+X-Forwarded-Encrypted: i=1; AL+hErGY/n2+gOgjju0UPFHXNPWwqT3cIZ8mZAala9d7lN9sF2Q8Oqh71+HKznYp1qSwQxg0SY81YFCjvkGOnq4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/hhGFyL7CUusM9PXSXD7CtaOdml6CMfWWZQS6QLje4wmucUhtf
+	4cKLwsvSd/FVLI0EFB4ss/3CNUVjSKr06qoKANpoI6j1NFSbla+HL0hX
+X-Gm-Gg: AYBFou1wFOH1FJNpqEPudaXBbzIlShcft3RS/IlUDht+HZZLJab0uFhkYBS/qA2cIKg
+	sLZY+Nlwg/suQjhtoVt758jLbOYECvfquHCvOTp9w/ieILP3sTNNlMoBVjuGVoXOzgOzfGNThdP
+	KzOPy3NS9hygIO2tObfHKCXwnElSWHYki4SN35tJaea3fnBFenLbK3WRkcz9TRygA1fiCzHnnBv
+	icDyv/xOcbU//ca1j1J360Mjrb5jW2aQ+H2SFo2+91r9WXmI1eqTrCw9X7iRXrs1WGLdbaDqN65
+	z1r/AsHijQFuP6fSq8mCFSlFpobHgNTP8DrtYfBy5hdHE1kLLFRKw8yeUr2U0fGroejiI+8a3mP
+	o1tC80FZCrpDHunZ8jEJS+xvqa4n/fEG18+xuimMOZDYDXV/rRcrRn+dNXJGq+vHE+1vCQMM7GE
+	mp5B4hzUdOSB9XkVypKNrtaw1F0ehNjIcyhoC5lc8xc0HQ34FNuTWNuOFlkxsR9siZ1/auxyEMy
+	DTlvFSUo3TKDYTbho86P8PEJumne7obh+Ls8078LbHX9CSS/rqj+X9hoi+wJ9wYKgw/Vo64TqZT
+	ag6si3oQpX9vu6eKe/FZSGn5hQpqhX3adNKSH7ApG9zoYSi1Eb8UkBrzN6Z9c4C7PGZV53vGRFh
+	obwCAbYsApfFfG3uFOBa1jHlFVedXw5aU9HnNKowX9f0=
+X-Received: by 2002:a05:7300:fb8c:b0:376:a62b:ae09 with SMTP id 5a478bee46e88-3796676a1e8mr2333338eec.16.1794559787921;
+        Fri, 13 Nov 2026 00:49:47 -0800 (PST)
 Received: from lwq-System-Product-Name.. ([2602:feda:30:cafe:ec49:38a8:0:1866])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955332ae7sm10946721eec.8.2026.11.13.00.49.31
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379558231eesm5387695eec.12.2026.11.13.00.49.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 00:49:35 -0800 (PST)
+        Fri, 13 Nov 2026 00:49:47 -0800 (PST)
 From: Yaohan Li <shunsheng1218@gmail.com>
-To: heikki.krogerus@linux.intel.com,
-	gregkh@linuxfoundation.org
-Cc: badhri@google.com,
-	groeck@chromium.org,
-	xu.yang_2@oss.nxp.com,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4] usb: typec: tcpci: acknowledge masked alerts and quiesce the IRQ
-Date: Fri, 13 Nov 2026 16:49:28 +0800
-Message-Id: <20261113084928.211885-1-shunsheng1218@gmail.com>
+To: mchehab@kernel.org
+Cc: hverkuil@kernel.org,
+	nicolas.dufresne@collabora.com,
+	ezequiel@vanguardiasur.com.ar,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] media: v4l2-mem2mem: wait for job-finish scheduling before freeing a context
+Date: Fri, 13 Nov 2026 16:49:40 +0800
+Message-Id: <20261113084940.211907-1-shunsheng1218@gmail.com>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -101,295 +101,166 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-tcpci_irq() reads TCPC_ALERT and uses the raw status for the event
-callbacks, while only the IRQ return value is masked with
-tcpci->alert_mask.  A masked alert is still latched in TCPC_ALERT even
-though it does not assert Alert# (TCPCI spec 4.4.3), so the handler can
-run TCPM callbacks for events that the port has masked.  More
-importantly, controllers such as RT1711H enable additional alerts
-(FAULT and RX_BUF_OVF) in TCPC_ALERT_MASK that are not part of the
-generic software mask.  Dropping those bits before the acknowledge
-write leaves a level-triggered Alert# asserted and can cause an IRQ
-storm.
+When vicodec finishes a job, it calls v4l2_m2m_job_finish(). This clears
+TRANS_RUNNING, but the function still uses the context afterwards to
+schedule the next job. If another thread closes the file or stops
+streaming at that point, v4l2_m2m_cancel_job() can see the job as no
+longer running and return; the context may then be freed while the
+scheduling code is still using it.
 
-Acknowledge every non-RX_STATUS bit from the raw alert value, not only
-the bits enabled in the software mask, then dispatch only the filtered
-status.  RX_STATUS is still cleared only after the message has been
-read successfully.
+I reproduced this with vicodec by delaying the scheduling path after the
+running flag was cleared. The unpatched kernel reported a KASAN
+use-after-free in the scheduling tail.
 
-tcpci_remove() unregisters the TCPM port, which destroys its kthread
-worker, while the devm-managed threaded IRQ can still be running and
-queue work on that worker.  Disable the hardware mask first, so an
-alert that fires during the write is still handled by the live TCPM
-port; then publish the quiesced software state and use
-synchronize_irq() to wait for handlers that already entered the normal
-path.  A handler that runs in the quiesced state acknowledges latched
-alerts without dispatching them to TCPM; when the alert register can be
-read and acknowledged, this prevents a software-induced level-triggered
-storm.  If the alert access itself fails, that is the existing
-alert-read failure path; this change does not add an unbounded retry.
+Keep a count of scheduling tails that are still using each context.
+Update the count under job_spinlock and make cancellation wait until both
+the running job and all scheduling tails have finished. This keeps the
+context alive until the last user of it is done.
 
-The IRQ handler can also call tcpm_tcpc_reset(), which calls
-tcpci_init() and publishes the normal alert mask again.  Protect the
-software mask with alert_mask_lock and an alerts_quiesced state:
-tcpci_init() only publishes the mask while alerts are not quiesced.
-Apply the same quiesce ordering on the probe error path when the final
-ALERT_MASK enable write fails, including an attempt to disable the
-hardware mask in case the controller partially accepted the failed
-write.
+The count also handles two jobs finishing close together: the first tail
+cannot make the context look idle to a waiter while the second tail is
+still registered. The wait condition is checked under the same lock that
+protects the count, so the last tail does not wake a waiter before it has
+finished with the context.
 
-The masked-status handling and the unquiesced teardown date back to the
-original TCPCI driver.  The TCPM port worker was later migrated to
-kthread_work, and the probe IRQ ordering was changed separately; the
-Fixes tags record both origins.
-
-A KASAN-enabled test reproduces a use-after-free when the IRQ
-handler races with TCPM port removal. With this change, teardown
-waits for the handler and no use-after-free is reported.
-
-Fault-injection tests also cover masked alerts, reset during
-removal, and failure to update the hardware alert mask. Real TCPCI
-hardware and PD traffic remain untested.
-
-Fixes: 74e656d6b055 ("staging: typec: Type-C Port Controller Interface driver (tcpci)")
-Fixes: 862a9c0f6848 ("usb: typec: tcpci: fix NULL pointer issue on shared irq case")
+Fixes: cbd9463da1b12 ("media: v4l2-mem2mem: Avoid calling .device_run in v4l2_m2m_job_finish")
+Cc: stable@vger.kernel.org
 Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
 ---
-Changes in v4:
-- Acknowledge every non-RX_STATUS bit from the raw alert value before
-  filtering; masked hardware alerts (e.g. RT1711H FAULT/RX_BUF_OVF) are
-  cleared without being dispatched to TCPM.
-- Add a quiesced IRQ path that acknowledges latched alerts without
-  touching TCPM.  Disable the hardware mask first, then quiesce the
-  software state, then synchronize_irq(); a failed hardware mask write
-  does not leave a level-triggered line storming when the alert
-  register can still be read and acknowledged.
-- Attempt to disable the hardware mask on the probe enable-mask failure
-  path as well, before quiescing.
-- Handle ALERT read/acknowledge failures in the quiesced path without
-  dispatching to TCPM; do not add an unbounded retry.
-- Keep alert_mask_lock/alerts_quiesced so tcpci_init() cannot restore
-  the mask during teardown.
-- Update tests: RT1711H-style masked FAULT, masked TX acknowledgment,
-  quiesced shared IRQ acknowledgment, probe partial mask acceptance,
-  quiesced ALERT read/write failure; rerun reset-race, inject,
-  postsync, maskfail, probefail, CC/TX/RX.
+Changes since v1:
+- Replace the completion with a count of active scheduling tails.
+  The count is updated under job_spinlock and cancellation waits
+  until it reaches zero.
+- Simplify the comments to explain why the context must remain
+  alive after TRANS_RUNNING is cleared.
+- Reproduce overlapping tails with vicodec and targeted injection.
+  A test-only release call entered cancellation with two tails
+  active and returned after both had completed. This was not a
+  userspace close test.
 
-AI tools assisted with source review, patch iteration and test harness
-development. The author reviewed the resulting code and test results.
+AI tools assisted with source review, test harness development, and
+drafting the commit message and source comments. The author reviewed the
+resulting code, comments and test results.
 
-v3: https://lore.kernel.org/r/20261112084014.2564834-1-shunsheng1218@gmail.com/
-v2: https://lore.kernel.org/r/20261106091725.1334097-1-shunsheng1218@gmail.com/
-v1: https://lore.kernel.org/r/179378589227.74015.8259496684787732118@gmail.com/
+v1: https://lore.kernel.org/r/179378462223.70003.3811321311940400468@gmail.com/
 
-Test details (not part of the commit log):
-- Unpatched: a handler parked in tcpm_cc_change()/kthread_queue_work()
-  while the device is unbound produces a slab-use-after-free on the
-  destroyed TCPM worker.
-- Patched: synchronize_irq() waits for the parked handler; the handler
-  queues on the still-live worker, then the worker is destroyed; no
-  report.
-- Normal CC, TX and RX events still reach the corresponding TCPM
-  callbacks.
-- Masked/unmasked mix: with TX_SUCCESS masked and CC unmasked in the
-  same ALERT, only tcpm_cc_change() runs; the masked TX bit is
-  acknowledged and cleared, not left latched.
-- RT1711H-style masked FAULT: FAULT is acknowledged from the raw
-  status, CC is dispatched, and the alert register is left clear.
-- Shared IRQ after synchronize_irq(), with a stale alert: the quiesced
-  handler acknowledges it, returns IRQ_HANDLED, and does not call
-  TCPM.
-- Hardware ALERT_MASK = 0 write forced to fail during removal, with a
-  continuous alert stream: the quiesced handler acknowledges events
-  but no TCPM callback runs after the worker is destroyed.
-- Probe final enable-mask failure: quiesce before unregistering.
-- Reset-race: the handler is parked in tcpci_init() while remove
-  quiesces and waits; the guarded code keeps alert_mask at zero, a
-  shared IRQ is acknowledged without TCPM, and no report appears.
-- Probe final enable-mask failure with the hardware mask left non-zero:
-  the error cleanup writes the mask back to zero before quiescing.
-- Quiesced handler ALERT read failure returns IRQ_NONE; acknowledgment
-  write failure returns IRQ_HANDLED; neither path dispatches to TCPM or
-  touches the destroyed worker.
+ drivers/media/v4l2-core/v4l2-mem2mem.c | 44 ++++++++++++++++++++++++--
+ include/media/v4l2-mem2mem.h           |  5 +++
+ 2 files changed, 47 insertions(+), 2 deletions(-)
 
- drivers/usb/typec/tcpm/tcpci.c | 94 ++++++++++++++++++++++++++++++----
- 1 file changed, 83 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/usb/typec/tcpm/tcpci.c b/drivers/usb/typec/tcpm/tcpci.c
-index 6717ac914c6a6..54a23776e838d 100644
---- a/drivers/usb/typec/tcpm/tcpci.c
-+++ b/drivers/usb/typec/tcpm/tcpci.c
-@@ -39,6 +39,8 @@ struct tcpci {
- 	struct regmap *regmap;
- 	unsigned int alert_mask;
- 	unsigned int rx_type_mask;
-+	spinlock_t alert_mask_lock; /* protects alert_mask and alerts_quiesced */
-+	bool alerts_quiesced;
- 
- 	bool controls_vbus;
- 
-@@ -648,10 +650,21 @@ static bool tcpci_attempt_vconn_swap_discovery(struct tcpc_dev *tcpc)
- 	return false;
+diff --git a/drivers/media/v4l2-core/v4l2-mem2mem.c b/drivers/media/v4l2-core/v4l2-mem2mem.c
+index a65cbb124cfe0..62c4ab542b58a 100644
+--- a/drivers/media/v4l2-core/v4l2-mem2mem.c
++++ b/drivers/media/v4l2-core/v4l2-mem2mem.c
+@@ -404,6 +404,21 @@ static void v4l2_m2m_device_run_work(struct work_struct *work)
+ 	v4l2_m2m_try_run(m2m_dev);
  }
  
-+static void tcpci_quiesce_alerts(struct tcpci *tcpci)
++/* A context is idle only when its job and scheduling tails are done. */
++static bool v4l2_m2m_ctx_idle(struct v4l2_m2m_ctx *m2m_ctx)
 +{
++	struct v4l2_m2m_dev *m2m_dev = m2m_ctx->m2m_dev;
 +	unsigned long flags;
++	bool idle;
 +
-+	spin_lock_irqsave(&tcpci->alert_mask_lock, flags);
-+	tcpci->alerts_quiesced = true;
-+	WRITE_ONCE(tcpci->alert_mask, 0);
-+	spin_unlock_irqrestore(&tcpci->alert_mask_lock, flags);
++	spin_lock_irqsave(&m2m_dev->job_spinlock, flags);
++	idle = !(m2m_ctx->job_flags & TRANS_RUNNING) &&
++	       !m2m_ctx->sched_tail_active;
++	spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
++
++	return idle;
 +}
 +
- static int tcpci_init(struct tcpc_dev *tcpc)
- {
- 	struct tcpci *tcpci = tcpc_to_tcpci(tcpc);
- 	unsigned long timeout = jiffies + msecs_to_jiffies(2000); /* XXX */
-+	unsigned long flags;
- 	unsigned int reg;
- 	int ret;
+ /**
+  * v4l2_m2m_cancel_job() - cancel pending jobs for the context
+  * @m2m_ctx: m2m context with jobs to be canceled
+@@ -427,8 +442,6 @@ static void v4l2_m2m_cancel_job(struct v4l2_m2m_ctx *m2m_ctx)
+ 		if (m2m_dev->m2m_ops->job_abort)
+ 			m2m_dev->m2m_ops->job_abort(m2m_ctx->priv);
+ 		dprintk("m2m_ctx %p running, will wait to complete\n", m2m_ctx);
+-		wait_event(m2m_ctx->finished,
+-				!(m2m_ctx->job_flags & TRANS_RUNNING));
+ 	} else if (m2m_ctx->job_flags & TRANS_QUEUED) {
+ 		list_del(&m2m_ctx->queue);
+ 		m2m_ctx->job_flags &= ~(TRANS_QUEUED | TRANS_RUNNING);
+@@ -439,6 +452,17 @@ static void v4l2_m2m_cancel_job(struct v4l2_m2m_ctx *m2m_ctx)
+ 		/* Do nothing, was not on queue/running */
+ 		spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
+ 	}
++
++	/*
++	 * Wait for the running job, if any, and its scheduling tail.
++	 * TRANS_ABORT prevents new jobs from being queued.  A job that
++	 * was already running may still finish and register its tail;
++	 * the idle check covers both states.
++	 *
++	 * As with the original cancellation path, progress depends on
++	 * the active job eventually completing or being aborted.
++	 */
++	wait_event(m2m_ctx->finished, v4l2_m2m_ctx_idle(m2m_ctx));
+ }
  
-@@ -710,29 +723,60 @@ static int tcpci_init(struct tcpc_dev *tcpc)
- 			return ret;
+ /*
+@@ -453,6 +477,8 @@ static void v4l2_m2m_schedule_next_job(struct v4l2_m2m_dev *m2m_dev,
+ 	 * allow more than one job on the job_queue per instance, each has
+ 	 * to be scheduled separately after the previous one finishes.
+ 	 */
++	unsigned long flags;
++
+ 	__v4l2_m2m_try_queue(m2m_dev, m2m_ctx);
+ 
+ 	/*
+@@ -460,6 +486,15 @@ static void v4l2_m2m_schedule_next_job(struct v4l2_m2m_dev *m2m_dev,
+ 	 * but the job must be run in non-atomic context.
+ 	 */
+ 	schedule_work(&m2m_dev->job_work);
++
++	/*
++	 * The scheduling tail is done with this context.
++	 * Wake any thread waiting to close it.
++	 */
++	spin_lock_irqsave(&m2m_dev->job_spinlock, flags);
++	m2m_ctx->sched_tail_active--;
++	wake_up_all(&m2m_ctx->finished);
++	spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
+ }
+ 
+ /*
+@@ -475,6 +510,11 @@ static bool _v4l2_m2m_job_finish(struct v4l2_m2m_dev *m2m_dev,
  	}
  
--	tcpci->alert_mask = reg;
-+	spin_lock_irqsave(&tcpci->alert_mask_lock, flags);
-+	if (!tcpci->alerts_quiesced)
-+		WRITE_ONCE(tcpci->alert_mask, reg);
-+	spin_unlock_irqrestore(&tcpci->alert_mask_lock, flags);
- 
- 	return 0;
- }
- 
- irqreturn_t tcpci_irq(struct tcpci *tcpci)
- {
--	u16 status;
-+	u16 status = 0;
- 	int ret;
--	int irq_ret;
-+	int irq_ret = 0;
- 	unsigned int raw;
- 
--	tcpci_read16(tcpci, TCPC_ALERT, &status);
--	irq_ret = status & tcpci->alert_mask;
+ 	list_del(&m2m_dev->curr_ctx->queue);
 +	/*
-+	 * During teardown, acknowledge a latched alert without dispatching
-+	 * it to TCPM.  A level-triggered Alert# must not keep retriggering
-+	 * after the software mask was cleared or the hardware mask write
-+	 * failed; the port may already be going away.
++	 * The scheduling code still uses this context after TRANS_RUNNING
++	 * is cleared. Keep it alive until that code has finished.
 +	 */
-+	if (READ_ONCE(tcpci->alerts_quiesced)) {
-+		ret = tcpci_read16(tcpci, TCPC_ALERT, &status);
-+		if (ret < 0)
-+			return IRQ_NONE;
-+		if (status) {
-+			ret = tcpci_write16(tcpci, TCPC_ALERT, status);
-+			if (ret < 0)
-+				return IRQ_HANDLED;
-+			irq_ret = 1;
-+		}
-+		return IRQ_RETVAL(irq_ret);
-+	}
-+
-+	if (!READ_ONCE(tcpci->alert_mask))
-+		return IRQ_NONE;
++	m2m_dev->curr_ctx->sched_tail_active++;
+ 	m2m_dev->curr_ctx->job_flags &= ~(TRANS_QUEUED | TRANS_RUNNING);
+ 	wake_up(&m2m_dev->curr_ctx->finished);
+ 	m2m_dev->curr_ctx = NULL;
+diff --git a/include/media/v4l2-mem2mem.h b/include/media/v4l2-mem2mem.h
+index 31de25d792b98..e9f390aff3664 100644
+--- a/include/media/v4l2-mem2mem.h
++++ b/include/media/v4l2-mem2mem.h
+@@ -97,6 +97,10 @@ struct v4l2_m2m_queue_ctx {
+  * @job_flags: Job queue flags, used internally by v4l2-mem2mem.c:
+  *		%TRANS_QUEUED, %TRANS_RUNNING and %TRANS_ABORT.
+  * @finished: Wait queue used to signalize when a job queue finished.
++ * @sched_tail_active: Number of in-flight job-finish scheduling tails for
++ *		this context, protected by the device job spinlock.
++ *		v4l2_m2m_cancel_job() waits for it to drop to zero before the
++ *		context can be released.
+  * @priv: Instance private data
+  *
+  * The memory to memory context is specific to a file handle, NOT to e.g.
+@@ -125,6 +129,7 @@ struct v4l2_m2m_ctx {
+ 	struct list_head		queue;
+ 	unsigned long			job_flags;
+ 	wait_queue_head_t		finished;
++	unsigned int			sched_tail_active;
  
--process_status:
- 	/*
--	 * Clear alert status for everything except RX_STATUS, which shouldn't
--	 * be cleared until we have successfully retrieved message.
-+	 * Acknowledge every non-RX_STATUS bit from the raw alert value, not
-+	 * only the bits enabled in the software mask.  Some controllers
-+	 * enable additional alerts in TCPC_ALERT_MASK (for example RT1711H
-+	 * enables FAULT and RX_BUF_OVF); dropping those bits before the
-+	 * write would leave a level-triggered Alert# asserted.  RX_STATUS is
-+	 * cleared only after the message has been read successfully.
- 	 */
-+	tcpci_read16(tcpci, TCPC_ALERT, &status);
- 	if (status & ~TCPC_ALERT_RX_STATUS)
- 		tcpci_write16(tcpci, TCPC_ALERT,
- 			      status & ~TCPC_ALERT_RX_STATUS);
-+	irq_ret = status;
-+
-+	status &= READ_ONCE(tcpci->alert_mask);
-+
-+process_status:
- 
- 	if (status & TCPC_ALERT_CC_STATUS)
- 		tcpm_cc_change(tcpci->port);
-@@ -806,8 +850,13 @@ irqreturn_t tcpci_irq(struct tcpci *tcpci)
- 		tcpm_pd_transmit_complete(tcpci->port, TCPC_TX_FAILED);
- 
- 	tcpci_read16(tcpci, TCPC_ALERT, &status);
-+	if (status & ~TCPC_ALERT_RX_STATUS)
-+		tcpci_write16(tcpci, TCPC_ALERT,
-+			      status & ~TCPC_ALERT_RX_STATUS);
-+	irq_ret |= status;
- 
--	if (status & tcpci->alert_mask)
-+	status &= READ_ONCE(tcpci->alert_mask);
-+	if (status)
- 		goto process_status;
- 
- 	return IRQ_RETVAL(irq_ret);
-@@ -854,6 +903,7 @@ struct tcpci *tcpci_register_port(struct device *dev, struct tcpci_data *data)
- 	tcpci->dev = dev;
- 	tcpci->data = data;
- 	tcpci->regmap = data->regmap;
-+	spin_lock_init(&tcpci->alert_mask_lock);
- 
- 	tcpci->tcpc.init = tcpci_init;
- 	tcpci->tcpc.get_vbus = tcpci_get_vbus;
-@@ -972,12 +1022,23 @@ static int tcpci_probe(struct i2c_client *client)
- 	/* Enable chip interrupts at last */
- 	err = tcpci_write16(chip->tcpci, TCPC_ALERT_MASK, chip->tcpci->alert_mask);
- 	if (err < 0)
--		goto unregister_port;
-+		goto quiesce_irq;
- 
- 	device_set_wakeup_capable(chip->tcpci->dev, true);
- 
- 	return 0;
- 
-+quiesce_irq:
-+	/*
-+	 * The enable write failed, but the controller may have accepted it
-+	 * partially or kept a non-zero mask.  Try to disable the hardware
-+	 * mask as well; keep the original probe error.
-+	 */
-+	if (tcpci_write16(chip->tcpci, TCPC_ALERT_MASK, 0) < 0)
-+		dev_warn(&client->dev,
-+			 "Failed to disable alerts during probe cleanup\n");
-+	tcpci_quiesce_alerts(chip->tcpci);
-+	synchronize_irq(client->irq);
- unregister_port:
- 	tcpci_unregister_port(chip->tcpci);
- 	return err;
-@@ -988,10 +1049,21 @@ static void tcpci_remove(struct i2c_client *client)
- 	struct tcpci_chip *chip = i2c_get_clientdata(client);
- 	int err;
- 
--	/* Disable chip interrupts before unregistering port */
-+	/*
-+	 * Disable the hardware mask first: an alert that fires while this
-+	 * write is in progress is still handled by the live TCPM port.
-+	 * Then publish the quiesced software state.  If the hardware write
-+	 * failed, tcpci_irq() still acknowledges latched alerts in the
-+	 * quiesced state without dispatching them to TCPM; when the alert
-+	 * register can be read and acknowledged, this prevents a software
-+	 * induced level-triggered storm.  synchronize_irq() waits for
-+	 * handlers that already entered the normal path.
-+	 */
- 	err = tcpci_write16(chip->tcpci, TCPC_ALERT_MASK, 0);
- 	if (err < 0)
- 		dev_warn(&client->dev, "Failed to disable irqs (%pe)\n", ERR_PTR(err));
-+	tcpci_quiesce_alerts(chip->tcpci);
-+	synchronize_irq(client->irq);
- 
- 	tcpci_unregister_port(chip->tcpci);
- }
+ 	void				*priv;
+ };
 -- 
 2.34.1
 
