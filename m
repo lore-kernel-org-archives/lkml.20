@@ -1,76 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794533385;
-	b=ToWq7qeuccBeub+nyRjRUaaPuFAswM+5iMJxswbTJkgFRBT7a6IHi0cFH09TVzON+Fn6
-	 bvsVM1diK9M3VnbFHhH2+QGXof3fgGoPh83SJ16R6PIvbVM1BEVwGjdgyfQsyX94PSAHc
-	 CUAF3wAw7KT9YgogE/Y/UE672d2zvF7WomHNkZmAyy6tRTbQjlzMAlY4+C2kwv34i/ZXi
-	 25R9b8M854KjnEgpn58RxcHaerxHHyKYlTQmmGBYwkON2YJ1G08p3ky+2VtZC6vjGRqNl
-	 e4IhZqQqCzEvNiPi4rdqZn6VmXNDPgH7bLIQgwCpnQyTjtLni2EaatT3mXYU0kucODg==
+	t=1794533461;
+	b=j0chPatqwMcZbhCL801toIVaXS43ZrPTDmPBP0ehpCfncQjWd4TPshlDMlz6ag2/gM9x
+	 z0OtnD3rk58hOynf/RAnbf1ETh+sBtNsIPFG6Zq0yaF/u/BERy9Ixxe9NlrF4wz1WAbok
+	 wz0vSMzuHoNUBHjMK9DPO/J+EA3AQ+Kj5pa6PyPgZAXK4SA45rTA+iRAUs7iZRlKXhAYG
+	 xN71eOGqyMvqxC5SmJVoEbIeE/Dsgf5udWFIHZeumO29XGY6pjd6gPpLxQuLhZKADc5Hy
+	 3KWAA4UF9xetW2wXFNa9Ez6L8AA8ZKpGQCrZdAjK04NXcBinXtrVePnSR5qlf1sx0oA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794533385;
-	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
-	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=eEm4Qix6NtzscQvmZFr8J73RisDDpJq+6mqvimED2UE=;
-	b=yuwCA3/jaljxSvWIUkTDMkySBR7wGDYEz7BoACRXjTGcVpAOYi4peI33Q/3FNZEqaG6O
-	 blKkZk51dqB7Pltd0jvgdqsTv/FZkFGoYg+bmJbstzNDKBmWBPCeaPxtQSUxf/Zx94KLv
-	 Rr8mh+jFWz9nhjyFg0zDEaBgV80SOR7zy+gflb2lplmr8aNTKqxwNvgQTThJNu7Fn+VHP
-	 M+uZYErTwohvoK7GjPX2ebeuMOLXA3JE+ucrytX9tje71HDvC8Tn0AcmejipVaf3EXQCd
-	 NJTaBETfq5m292sRywk5+RqKtU9APn7+rlQ/X7JHGUboAxUvEhN22JqGAUOYDDKagzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794533461;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=/7uHJFgSP2wdQKFM07aMj/DeGGfpQo0FBIAi1jAGJLo=;
+	b=TZk3bDX9ADTOay7SeSiesVLT3/1DIHIjVZdqPQ6zthX+WWypwcfOk06FXvDXmWtQ2vaR
+	 CPEhiIa7Bst0UivzicS/Z/oKUmigwNGCxszHQnqKDBxPVcwLFD+SEj6fDTKSmprTE3Wss
+	 mquUiW0+mIiLt4t3kABYR+mwFHzEoprSLedGj7RFOHBrBV/SAdfF3x0iu822B4Fdmguti
+	 6GK4SXwpbvGxOlAiojJzDftWuIqJ9VRDWxPv3ypde3mSXp+c5QW9yt+uDrIZbh1UXWsxx
+	 V/NxzJtbeeZyUvyqMZTUW1iR+orY7IuLzv7GAA8ERGJbiQTXm1lZGT8dvteVoSmxKMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0mllq87Q;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0ACA606A330;
-	Fri, 13 Nov 2026 01:29:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0ACA606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: b20f2cacdf0111f19a56ed5b684f684d-20261113
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:a1393f79-c721-4503-9941-82aec3f6bac4,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:78c18e35f9b39b416e800ddba86a14e3,BulkI
-	D:nil,BulkQuantity:0,SF:80|81|82|83|102|123|865|898,TC:nil,Content:0|15|50
-	|99,EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:
-	0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: b20f2cacdf0111f19a56ed5b684f684d-20261113
-X-User: zhaoguohan@kylinos.cn
-Received: from ubuntu.. [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zhaoguohan@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 453346072; Fri, 13 Nov 2026 09:29:40 +0800
-From: zhaoguohan@kylinos.cn
-To: mst@redhat.com
-Cc: bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	eperezma@redhat.com,
-	hpa@zytor.com,
-	jasowang@redhat.com,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	mingo@redhat.com,
-	netdev@vger.kernel.org,
-	tglx@kernel.org,
-	virtualization@lists.linux.dev,
-	x86@kernel.org,
-	zhaoguohan@kylinos.cn
-Subject: Re: [PATCH RFC] vhost: set dirty log bits without pinning pages on x86
-Date: Fri, 13 Nov 2026 09:29:37 +0800
-Message-ID: <20261113012937.40818-1-zhaoguohan@kylinos.cn>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <af7f05bf637337d35fdd10f3e0dbb5e39d7780e7.1794480795.git.mst@redhat.com>
-References: <af7f05bf637337d35fdd10f3e0dbb5e39d7780e7.1794480795.git.mst@redhat.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9986A606A321
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 01:31:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9986A606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0mllq87Q
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-36eb1cb7aabso603949eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 17:31:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794533460; x=1795138260; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/7uHJFgSP2wdQKFM07aMj/DeGGfpQo0FBIAi1jAGJLo=;
+        b=0mllq87Q4vcSKU/7bYi3BXWQEiGb4EYY1qiaiiL2oBy1LFuLkqH+Wkv/ClFrNU0CSa
+         CG3W88tPRpIe1OxH4YIipMzoQGhzdx5mbZ36zkLoVEHkoYRIZAT7P20dQwoG6oXcWI2f
+         CPTpNYDcog81Arvm0uJ2VqpmWVx6IQQ6TICylR9dBQafWDnQPtJgEp6ckNKAJsicH/b/
+         CTcCI+S18NroZm9E0qZnQ1XPZaHvW5gtXNs+Z7Fys6VTCRdWbbJs4FcX4U6UxQkL1e2q
+         HrfNBNlOdhGUBTdGOKspgTVk2Gz6SD3ZRk7dMuWF1E/UwSTYeGxY+yMtqJM4ejXR8H7b
+         6EHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794533460; x=1795138260;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/7uHJFgSP2wdQKFM07aMj/DeGGfpQo0FBIAi1jAGJLo=;
+        b=WIbe8w3rIQOjf+5pyuLTCOBjEHYWWlS5tUUosuq9aya8wjqsHOgfHcT41ms2riCzUo
+         OimivoApmy82Q4a1ehZuxZ2rxoluUwB4yB1SBC3g4Q9Ca13ojzdhyUAL99fy5VeKDpBE
+         1AUb5E/V8nKrIv04YPYQBg2YwHp3S5zXxq7I/ZIwkCLPki0CwR1I79zWq/yVqPKX2BLQ
+         IlSGI/wftKEbchvTqWeQHRYWvgPCMR6dU79xEDru8hwTaO+Xeh9mDlB0i21QxL3eKTDC
+         Lwnt140IkOHFGiB8fdP9DEgeA2ffYmh2t0PIIjf5lRBUmiPpl6A3QEsHTPtdvfrMSesx
+         w8PA==
+X-Forwarded-Encrypted: i=1; AL+hErFF1n1DiBZruXquaH255KRRhIZZY85L0wvGiN4LWr18DryvYpF0fHzc6crsKhGO6x9U16U4UQZ7fiAMXPc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/cpfoCSKctgPILjyV3OcW3S3FV9J6NEYaxLOpdKbkNSxNJZgoB
+	X4FSMXZ4EVOHkWijMEUsuxstersW7FvkGWcMYT81mxV36LJlBqE27mfP
+X-Gm-Gg: AYBFou0ArjrZQre+GwipDuR4iEZIWlzDmUvfZYamSRdT5H6/Gwy6V54josliD36A4P6
+	G5/Ch98mALhoP9876SR1U8PujHAGciGWX5WLRUFMTYZHgSrmN2yVQfrKs6puQLK8WQZw3QMgNuR
+	NPd7hHC6Uz+sbaox/LtQRFns/BmkYWRUf5gsT2uNthiuWe8tpYPUUJ7yl86jT9p96KjIl+2grhm
+	NIhNeQX9pplo6KHvcqsGUztQ5S8R48P7GGKgyG/752l+0VIDJIbvcAUM80tP6uqzaIzPAFmKMEw
+	P2mqTK//PzbOGluFbPkx8lqkAbxpWABzMvAvJOiqudU1PFkrOOPoMyF3lcq3fbZrwTteMcKQ2dJ
+	iw65rfGY3j+d8J9lJJLHUesiCUwovzyYu41faXTfa1UqG+ULDEQyoAdGeYIkVIg95eOzX+hQ1EE
+	WfMBaTb3KVn+fKIq7icVqzZRBBU3jLoIpfjIt0PfvYckGDtnekcgYmju42h5As0F4vcaG8fMz/h
+	UbCaRc0bdrUGiwCbOBu4E6ZjbQCp/PrpJaed7zhHHuhwE8ODG9CvGS1k1LpteO5QqKYcNodz6zc
+	jBsDoRICACJF8NozixdbHsAFwlr/ZmGrSw8SZBIKd1JQTjnUZ3I5qpJCgiFaDU5fusNDzC8=
+X-Received: by 2002:a05:7300:6d03:b0:36c:3b8a:8090 with SMTP id 5a478bee46e88-37963a4ef35mr1313899eec.2.1794533459424;
+        Thu, 12 Nov 2026 17:30:59 -0800 (PST)
+Received: from google.com ([2a00:79e0:2ebe:8:48f1:7a0b:9bfb:4205])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37956bb0c40sm2333563eec.28.2026.11.12.17.30.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 17:30:58 -0800 (PST)
+Date: Thu, 12 Nov 2026 17:30:55 -0800
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Cc: linux-input@vger.kernel.org, Hans de Goede <hansg@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH] Input: goodix - sync the irq controller while starting
+ firmware
+Message-ID: <avZiZoGO4jXjIP7D@google.com>
+References: <20261020122712.526797-1-l.scorcia@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,94 +99,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020122712.526797-1-l.scorcia@gmail.com>
 
-On Thu, Nov 12, 2026 at 05:53:47AM -0500, Michael S. Tsirkin wrote:
-> vhost had a TODO to replace page pinning with a version
-> of set_bit that works on userspace memory, since forever.
->
-> It is really best to avoid GUP on fast path entirely.
-> Implement set_user_bit and use it in vhost, to do just that.
-[...]
-> lightly tested. pls test and resubmit with your tool.
+Hi Luca,
 
-Thanks, this is much simpler than my version. Two comments on
-set_bit_user() before I resubmit:
+On Tue, Oct 20, 2026 at 02:26:48PM +0200, Luca Leonardo Scorcia wrote:
+> On the Lenovo Tab E7 TB-7104F which has a Goodix GT-912F touch screen,
+> the touch screen fails to come online after loading firmware, producing
+> the error "Error reading 1 bytes from 0x8041: -6".
+> 
+> Comparing the upstream code with the Android stock sources a call to
+> goodix_int_sync is required between the upload of the firmware and the
+> watchdog restart. With this change the touchscreen is correctly detected
+> and working.
+> 
+> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+> ---
+> Relevant bit of the stock source driver at [1].
+> 
+> Credits for noticing the issue and finding its cause go to matemiller992
+> on the postmarketOS forums, I cannot provide tags as he wants to stay
+> anonymous.
+> 
+> [1] https://github.com/lscorcia/linux-lenovo-tb7104f/blob/2dad69c9f28611ac6d3db2f1ee11b480a60d83ee/kernel-4.4/drivers/input/touchscreen/mediatek/gt912_p98996/gt9xx_driver.c#L1529
+> 
+>  drivers/input/touchscreen/goodix_fwupload.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/drivers/input/touchscreen/goodix_fwupload.c b/drivers/input/touchscreen/goodix_fwupload.c
+> index 5ae9a109ba0d..01e7705ef515 100644
+> --- a/drivers/input/touchscreen/goodix_fwupload.c
+> +++ b/drivers/input/touchscreen/goodix_fwupload.c
+> @@ -155,6 +155,7 @@ static int goodix_enter_upload_mode(struct i2c_client *client)
+>  
+>  static int goodix_start_firmware(struct i2c_client *client)
+>  {
+> +	struct goodix_ts_data *ts = i2c_get_clientdata(client);
+>  	int error;
+>  	u8 val;
+>  
+> @@ -168,6 +169,10 @@ static int goodix_start_firmware(struct i2c_client *client)
+>  	if (error)
+>  		return error;
+>  
+> +	error = goodix_int_sync(ts);
+> +	if (error)
+> +		return error;
+> +
 
-> +	int __err = 0;							\
-> +	__uaccess_begin();						\
-> +	asm volatile("\n"						\
-> +		     "1: " LOCK_PREFIX "orb %[mask], %[ptr]\n"		\
-> +		     "2:\n"						\
-> +		     _ASM_EXTABLE_TYPE_REG(1b, 2b, EX_TYPE_EFAULT_REG,	\
-> +					   %[errout])			\
-> +		     : [errout] "=r" (__err),				\
-> +		       [ptr] "+m" (*(u8 __user *)(addr))		\
+There is call to goodix_int_sync() right after call to
+goodix_start_firmware(). Is it still needed if we call it here? I think
+the vendor drivers does not do it.
 
-errout is only written on the fixup path, so it needs "+r", as in
-__try_cmpxchg_user_asm(). With "=r" gcc drops the initialisation; here
-(gcc 13.3, x86_64_defconfig) it even shares a register with mask:
+>  	error = goodix_i2c_read(client, GOODIX_REG_SW_WDT, &val, 1);
+>  	if (error)
+>  		return error;
 
-     1a3:	lock or %dl,(%rax)
-     1a9:	test   %edx,%edx
-     1ab:	jne    1bd <log_write+0x5d>
-     ...
-     1bd:	mov    $0xfffffff2,%eax
+Thanks.
 
-so every call returns -EFAULT, and log_write() stops after the first
-page.
-
-> +	__uaccess_begin();						\
-
-No access_ok() here. vhost checks the log range when it is set up and
-I couldn't find a way around that, but GUP used to reject kernel
-addresses by itself. user_access_begin() would keep the check (and the
-nospec barrier) local. Something like this, build-tested on x86_64 and
-i386 only:
-
-diff --git a/arch/x86/include/asm/uaccess.h b/arch/x86/include/asm/uaccess.h
---- a/arch/x86/include/asm/uaccess.h
-+++ b/arch/x86/include/asm/uaccess.h
-@@ -597,19 +597,23 @@ _label:									\
- /* set_bit() on a byte of user memory; returns -EFAULT on fault. */
- #define set_bit_user(nr, addr)					\
- ({									\
--	int __err = 0;							\
--	__uaccess_begin();						\
--	asm volatile("\n"						\
--		     "1: " LOCK_PREFIX "orb %[mask], %[ptr]\n"		\
--		     "2:\n"						\
--		     _ASM_EXTABLE_TYPE_REG(1b, 2b, EX_TYPE_EFAULT_REG,	\
--					   %[errout])			\
--		     : [errout] "=r" (__err),				\
--		       [ptr] "+m" (*(u8 __user *)(addr))		\
--		     : [mask] "q" ((unsigned char)BIT(nr))		\
--		     : "memory", "cc");				\
--	__uaccess_end();						\
--	__err ? -EFAULT : 0;						\
-+	u8 __user *__p = (addr);					\
-+	int __err = -EFAULT;						\
-+	if (user_access_begin(__p, sizeof(*__p))) {			\
-+		__err = 0;						\
-+		asm volatile("\n"					\
-+			     "1: " LOCK_PREFIX "orb %[mask], %[ptr]\n"	\
-+			     "2:\n"					\
-+			     _ASM_EXTABLE_TYPE_REG(1b, 2b,		\
-+						   EX_TYPE_EFAULT_REG,	\
-+						   %[errout])		\
-+			     : [errout] "+r" (__err),			\
-+			       [ptr] "+m" (*__p)			\
-+			     : [mask] "q" ((unsigned char)BIT(nr))	\
-+			     : "memory", "cc");			\
-+		user_access_end();					\
-+	}								\
-+	__err;								\
- })
- 
- /*
-
-If this looks right, I'll fold it in, run my test in a VM and resubmit
-with the test as a second patch.
-
-Thanks,
-Khan
+-- 
+Dmitry
