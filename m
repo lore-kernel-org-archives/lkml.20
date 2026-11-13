@@ -1,120 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794574970;
-	b=xPm3ru2r4mvjqLFH95qjguWrThNodT6Hsva32HSDIgtbkxtVUY9j1wlNxjeIxG8H/su0
-	 V8iBIxvNIDp/fW2kjRGA5dGgTdpR73sesQ+5ts+iQgmSYZl3+hPJFJpavzLbfelWy6z4B
-	 poOpeVbm/Xf5R9XqBz653JXumabgVKTh9wSt7kO+aOhLFkmWysKOnbYv3X1z+fMjQGMRf
-	 Tdyt/jS2dla9bROzWtyGALmyNaSmZBtj6BIGItac51xnMACU33J5wHrDqEpCJHvoNEbIE
-	 w4kbj14TBkdQLFwAYE6UcbAqGYqmRAiEUKDsRXiAphBU4hdR4vilc56RPUSqyw2P1iQ==
+	t=1794574999;
+	b=TmRaCqa7Kjh7SIgyW28o/Ex5QrBN94J3O7Rre7mgPizL5a92Wzg9Ebt0oePL2OZQ7Fjt
+	 1/cXXiH41qQAUdjpYWm5M/68FvVI/dg4FqewOGUPDv7KONnkGoPborSDG0txfrK5ms3+i
+	 rxBA9YcfyADJiQkniJ6eGLqYugR1f/cHE+QIPOuxcCtMSNvx4mqIFIeNFjDshKy6BPys1
+	 OzOlE4YwOknMbX6LgiIL6aIzCZoSbDwnRk8RXLx349W/+oLu1LOTu+OmnTVQHxE4Gu8mj
+	 /9SR9/xedDyCjdyYEvCCWO5Tbi422w6HESEU+JH2GlpsQgpN12CMSgvFUiRG4slISng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794574970;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 Message-ID:MIME-Version:Content-Type;
-	bh=SmBoR6Vj1QeVffmXogWgD5Pkl7UaW+NO5BD9KJS6mXg=;
-	b=jgctlRkDKEHL/kUhKnIPyNRyB76iMySjMR7jEZAfoZHQ8g4LZmuIsECB4H7b+ynNfGS0
-	 0oe3zfsF0LS/iMmFgMlK8sk4iSETphFAR6HHJB2xYGEvgtlWnM27qKhGpNLzQebl8goHO
-	 XdKPcL7pXxkYEuUxLO16I778Q4c+eaKrMyWXibF1Q/CPBUplsaNFF2Qdrt547Zsyi28QG
-	 rz5DdDMh0O8TIooUpt4SQ9Ha6eKL8ztZfoBny83kEIzBwC4jcaycjjJP61j4UD13qSmdQ
-	 rrVD+OXXWIbWxhwDqwWTMQ2ckiCAnjFPpbhK9mQnrP4v5P6fOY9+bbDgh3ZRKS9dqnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794574999;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=atdp2aydRKXMXDIBngPs3VoW6SW6B3JnVooZbiegGyo=;
+	b=fiFBw4C8x4UU0QarbkD2c/lJl3Mbctesfs0x4aEku4cwFli46Yo/ZRMNAMs30HGHTRRC
+	 3xlBjgogkX4/TfIRFhDa3+8iUVlHIbguyLMAI9geKzW/qi5T/ErAEnzPuo8ANED3HzkGE
+	 W8gSHNh1Eihn/FwDEwo8XnJFUMcqgx+GcObc7L6Z3DK8u3me2m3s4O8EyZbtB1qSXtd3K
+	 nEMABxDpacQT8mteTecTgMI0NWesKjzT3xJ8YS0NIQUBFlZTsMWo2de1s9JdEdrEdYnGR
+	 nyfWONMjcZZ7waGhvTGNs6JgD0z1K87cqdzm7pzwQUoItxnC/+dTGeqO6aHeZ0jbHLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=T23wgP85;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=o0hrBIkg;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dmarc=pass header.from=gondor.apana.org.au;
+	spf=pass smtp.mailfrom=gondor.apana.org.au;
+	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=LTM9AkCn;
+	arc=none smtp.remote-ip=180.181.231.80
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 387E4606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:02:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 387E4606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC320606A323;
+	Fri, 13 Nov 2026 13:03:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC320606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=T23wgP85;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=o0hrBIkg
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794574969;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=SmBoR6Vj1QeVffmXogWgD5Pkl7UaW+NO5BD9KJS6mXg=;
-	b=T23wgP8505Iae/ZLI0D2sfJeLiCnKyE3Shz8VWo4dy2syfVbjM7hfMDl/70jSzbysD0aZg
-	nUYDnHfeo6opIdsasKrB1d8oO+8Wr7xMznb9ANlwOtE7EyQHKiJKK6q7QWDhCe5tNayn1E
-	M3Mmc0MjkXUXvETrHzb8OV+7ASIqg+E=
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
- [209.85.218.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-395-gh1G5LdMMiyDRTJ9KjCrFw-1; Fri, 13 Nov 2026 08:02:47 -0500
-X-MC-Unique: gh1G5LdMMiyDRTJ9KjCrFw-1
-X-Mimecast-MFC-AGG-ID: gh1G5LdMMiyDRTJ9KjCrFw_1794574966
-Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-c40bbd26f74so84092966b.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:02:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794574966; x=1795179766; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SmBoR6Vj1QeVffmXogWgD5Pkl7UaW+NO5BD9KJS6mXg=;
-        b=o0hrBIkgicwuWvPInNgVkgwCNjBmMxIMYNhunoB5f1q1kxSrTokco2KY2WWL9l1alC
-         /+2xx0UgyBTRyEUMhy9G5YTyLyjj/F2GGzFz6+FF2fymwVv7bKVEhFQUwP4YunLY8j5E
-         v3PiNcdqk8qY6mchQEdRh1Jq+udbS7P00ZsQxxtDRhdPdxbshuGD8H3yQUONw5D2purH
-         q/NPhMSbgfRUU1Ozm3GrHiRDFvQYQ1gAybudb6DbdYQXoU1zx6G/rW95yJ6tvhBv9o2c
-         Q8QMg2Aspi9sulSh5TEFm7eThufzpVSPLH5qj2uzAh9KN12ABMaEUULf4P2ql6JO9PPs
-         zekA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794574966; x=1795179766;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SmBoR6Vj1QeVffmXogWgD5Pkl7UaW+NO5BD9KJS6mXg=;
-        b=cVh4VBYPGoVm+JLOhXfc+kHTi8Pm8et72ZA9ESQft0tcwx0kitV38r+JoRTH5xKsR5
-         0FblyV56HFSip3+6D4B1gBquYcTkld47lkUMFiYoW5OWIeUBWEheu/NfJSvuUSF1KbrV
-         Jug7GHP62A2jhpvVkzarLzCFFNplkZAd2BrcRxVCFenFnZ9esHrRySFS3NzBprS8x6jc
-         m8cwQyFXES5h2lXOYuT2A//qzhm5ieJVzLib8M1VRz2BE53Bgb2tbEKwN+HUvt46yFCP
-         ViuJg8GLlgU1OBHPuQhHcpa06wxDGUc6ziey3bpWsRZcGK7wG7VDryT3Cns4usTyUM0s
-         7FzA==
-X-Forwarded-Encrypted: i=1; AL+hErHRAH/7CuwETdhwfiU50WuPZ1VJhzujaEqHK8XCVOVfNbJSpluRTvWGeeW8OH4JfgzN3syTbqhmufZFTcY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9y4ueIrstrMdPqpGCIvcgb44dTaMS6s7WCO5yTInITZVYbzNh5
-	rdBzhsLXLVfJIf39wOvknwiniyNlYwfXaryluyM6wmaujtkqP2r5X8/sX9JxxPtQA71/NY1pxBt
-	MrQFVMxJOgdTLI9e5Dbc/7iiDU9usKOw1yjxF3iEyLG2wcppzYZzf9wR8HjAy6MZG1w==
-X-Gm-Gg: AYBFou3NVDpvywKNCLdA6GN3G27sDGXKrBe/D+xbiV+79doKCbg4gnO3ZnitfthCSpR
-	jK1VjFklggfPH4fQ4EQCfPStL0/cNuR00dJdOpir8l7ukrE2TGlYhZyWlzKlL18uCXwBSgZtV6f
-	GYqVLnhxSwH0rMjN1PMUit8TfnwR5cswwPej3nmebuErUObPFyB7vAV0iVx1b/H/m/kP9zltbIT
-	peah5D++VkJY36ay3w2acyMmijJg83C2l6uYOQuThiRBR1rd6VRgvauJBrg6S35QBv99R9cba8f
-	QhW5wNmt+J3bUjEdogT74Stk90YBimzwawb1yF+rCXGbLENuTojsY/4wwe65xNBEWlICi//0KIN
-	ii1Z95klUntQGDm7pUA97K2/B7LxpKcLIk+GU+S9i2dhuUIFd36oiEHVSMrdJW7V4kHw6xuP9LY
-	kn51PF9T27wGOTsVdQMR/1ckuZLdSKs+u5nfrJzKE=
-X-Received: by 2002:a17:907:868f:b0:c50:475d:980e with SMTP id a640c23a62f3a-c50963ced7cmr207751966b.38.1794574966246;
-        Fri, 13 Nov 2026 05:02:46 -0800 (PST)
-X-Received: by 2002:a17:907:868f:b0:c50:475d:980e with SMTP id a640c23a62f3a-c50963ced7cmr207744866b.38.1794574965555;
-        Fri, 13 Nov 2026 05:02:45 -0800 (PST)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c6020bb0fsm4784229f8f.34.2026.11.13.05.02.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 05:02:44 -0800 (PST)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Fabio Piparo <holofermes@gmail.com>, Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Amit Barzilai <amit.barzilai22@gmail.com>, Mario
- Limonciello <mario.limonciello@amd.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: display: solomon,ssd132x: Add
- col-offset and dclk properties for the SSD1322
-In-Reply-To: <CAB3Lz5a67uvP3+1fXd8iUeJWzH8wUoPdauu8zVW4t4KXMbTN8A@mail.gmail.com>
-References: <20261029205751.3513474-1-holofermes@gmail.com>
- <20261029205751.3513474-2-holofermes@gmail.com>
- <20261030-dynamic-oarfish-of-dignity-feaef6@quoll>
- <CAB3Lz5a67uvP3+1fXd8iUeJWzH8wUoPdauu8zVW4t4KXMbTN8A@mail.gmail.com>
-Date: Fri, 13 Nov 2026 14:02:43 +0100
-Message-ID: <xlv1wlqgsx3g.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=LTM9AkCn
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=atdp2aydRKXMXDIBngPs3VoW6SW6B3JnVooZbiegGyo=; 
+	b=LTM9AkCnC6t33+hNMotrxV1KakbzcP9xVuiib1rfU38aLSyOpkPkovxRZnCfqm0C9y8wd++cDSA
+	r8x+EnfFoHib35KD7OiQp1BrxbkivMQ2nlJwwL1n/LdWXNr+S2dAh89CYxJ8HJx8UH2b8GFkwvUqg
+	NeYZI2agHB926oPEhvyV2GvCAeP5Bzp4Ujfa8WvuSAuOszTI0LdHGf2OlFBlf+Y2l92wK5wV+qfpW
+	OSwjjtJ/QpRqmXkob/PvIDtaoT8YqZsqurk5O1O0Gy1AvhxF6kxNs8KxHoyfCcv3zuMc80wpO+3DC
+	RBufQeGqrwkPvaWEY4SVtpHLT699JvIPIhyA==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xRqvc-0000000EfC0-3U4A;
+	Fri, 13 Nov 2026 21:02:53 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 13 Nov 2026 21:02:52 +0800
+Date: Fri, 13 Nov 2026 21:02:52 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Uladzislau Rezki <urezki@gmail.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	"Liam R. Howlett (Google)" <liam@infradead.org>,
+	Davidlohr Bueso <dave@stgolabs.net>, Michal Hocko <mhocko@suse.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Alexander Potapenko <glider@google.com>,
+	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+	Marco Elver <elver@google.com>, Michal Hocko <mhocko@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Thomas Graf <tgraf@suug.ch>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, maple-tree@lists.infradead.org,
+	Lorenzo Stoakes <ljs@kernel.org>, Chris Mason <mason@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Andrew Ballance <andrewjballance@gmail.com>, stable@vger.kernel.org,
+	"David Hildenbrand (Arm)" <david@kernel.org>
+Subject: [PATCH] mm: kvmalloc: Bail if called with soft or hard IRQs disabled
+Message-ID: <avcKfEvln8_2a7fJ@gondor.apana.org.au>
+References: <xdzcyoou73blpfdlgy47i2ktrcsffnclerzojpgrxphid54gjc@nicdcvzqx447>
+ <auqtTjXhD8is-y9f@gondor.apana.org.au>
+ <CAHk-=wiE0KG+jkhmJWifXuAVivtB63WCWtdEpGAex7-T0SHd2g@mail.gmail.com>
+ <aurAxRpCwzeyXeVj@gondor.apana.org.au>
+ <CAHk-=wgPvbYRcKpQ8WTH-EYZRgMG0KSH+cZxY5-Hyf+X7JjWsw@mail.gmail.com>
+ <aurJZ81qnbiHH_P1@gondor.apana.org.au>
+ <ausS3LQNkdc6lBy3@milan>
+ <auxDm_YO4oACA_d2@gondor.apana.org.au>
+ <CAHk-=whXvVO6a5AreZu3LPBj_wjpzUanwhvu8WqWP2q7g5S7Vw@mail.gmail.com>
+ <auy-7TvVzJ-VCrG4@milan>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -124,83 +85,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auy-7TvVzJ-VCrG4@milan>
 
-Fabio Piparo <holofermes@gmail.com> writes:
-
-> On Fri, Oct 30, 2026 at 8:06 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->> On Thu, Oct 29, 2026 at 04:57:50PM -0400, Fabio Piparo wrote:
->> > +  solomon,dclk-div:
->> > +    $ref: /schemas/types.yaml#/definitions/uint32
->> > +    enum: [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024]
->> > +    default: 2
->> > +    description:
->> > +      Clock divisor.
->>
->> Why this cannot be deduced from clock frequency?
+On Thu, Nov 05, 2026 at 06:37:49PM +0100, Uladzislau Rezki wrote:
 >
-> On this module the SSD1322 runs from its internal oscillator, and the
-> external clock pin is not on the ribbon. These two values only set how
-> often the panel redraws.
->
+> Probably the simplest option is to return NULL for non-blocking vmalloc()
+> allocations when BH are disabled. That would address the reported
+> rhashtable deadlock.
 
-Yeah, the property name is misleading. Note that properies Fabio is adding
-are from Documentation/devicetree/bindings/display/solomon,ssd1307fb.yaml,
-which is for another family of controllers supported by the same driver.
+OK let's try this patch:
 
-The ssd132x, ssd133x and ssd135x families don't make use of them. That's
-why they are not defined in the DT binding schemas of these controllers.
+---8<---
+The function kvmalloc may call vmalloc under the hood even when
+used with GFP_ATOMIC.  However, vmalloc uses naked spin locks so
+it must not be called if the caller already holds spin locks that
+can be used in hard or soft IRQ context.
 
->> > +  solomon,dclk-frq:
->> > +    $ref: /schemas/types.yaml#/definitions/uint32
->>
->> Use either existing properties or - if there aren't such - existing unit
->> suffixes.
->>
+Use the heuristic irqs_disabled() || in_softirq() to detect such
+callers and prevent them from using vmalloc.
 
-Again Fabio just took what currently exists in solomon,ssd1307fb.yaml, I
-agree with Krzysztof though that these properties are not nice and don't
-really describe the hardware...
+Reported-by: Liam R. Howlett (Google) <liam@infradead.org>
+Fixes: c6307674ed82 ("mm: kvmalloc: add non-blocking support for vmalloc")
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
 
-The ssd1307fb is pretty old and was originally for a fbdev driver, then
-a DRM driver was written based on that for ssd130x, and finally the DRM
-driver extended to support othere families, which had newer DT bindings.
-
->> > +    minimum: 0
->> > +    maximum: 15
->> > +    default: 9
->> > +    description:
->> > +      Clock frequency, higher value means higher frequency.
->>
->> Why would the frequency be fixed/static?
->
-> Right, it doesn't need to be, and I'll drop both properties in v2.
->
-> I still need the redraw rate to be adjustable. I drive this panel at
-> about 200 FPS, and at the default clock it redraws at about
-> 115 times a second. One way would be to offer the 256x64 mode
-> at a few refresh rates and set the clock divider from the mode
-> userspace picks, the way panel-newvision-nv3051d offers
-> 640x480 at 60, 100 and 120 Hz. The rates would be approximate
-> since the panel's oscillator is not exact, is this a good way to do it
-> here?
->
-
-Fabio, I suggest to just drop this patch and as a first step just
-set a default_dclk_{div,freq} in the SSD1322 struct deviceinfo.
-
-That way, your driver changes won't be blocked by the DT binding
-schema changes. Later, once your driver changes land, we can figure
-out what to do to make all this configurable from DT.
-
-But Krzysztof is correct here that these properties don't seem the
-correct way to do it. They are just exposing raw register values
-in the DT, which is not the proper approach.
-
+diff --git a/mm/slub.c b/mm/slub.c
+index 45e077c7526c..18bc70f44e22 100644
+--- a/mm/slub.c
++++ b/mm/slub.c
+@@ -7139,6 +7139,14 @@ void *__kvmalloc_node_noprof(DECL_KMALLOC_PARAMS(size, b, token), unsigned long
+ 	if (ret || size <= PAGE_SIZE)
+ 		return ret;
+ 
++	/*
++	 * vmalloc uses naked spin locks, so it must not be used if
++	 * the caller already holds a spin lock that can be used in
++	 * a soft or hard IRQ.  Use heuristics to detect this.
++	 */
++	if (irqs_disabled() || in_interrupt())
++		return NULL;
++
+ 	/* Don't even allow crazy sizes */
+ 	if (unlikely(size > INT_MAX)) {
+ 		WARN_ON_ONCE(!(flags & __GFP_NOWARN));
 -- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
-
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
