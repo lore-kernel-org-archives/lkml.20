@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794573215;
-	b=fEC/DHT+Us/uwtnJwvq2B45NENSFJrivlDX1w0ZJH1N0G8q1mbkNjSOLDNnOMbMzyXN3
-	 s+SqhiGTupTrxQbKXAZn80LaICZYv9IlYx+uqT8nPcfKgpYxtswOOjbvGefw6L3sdSecE
-	 9skloEiyJejJpKtU/DVD94UtCaWzCHPNsPvOd3s3I+QzTHwc/vwnLZKusTyoJUlZbuJAM
-	 oA7I8ODvksSEd95+Jo2GjL7zfpLjlnIub3ytATrJ3svstryGiOICQs/LLOdvFY6j78XA2
-	 tkWOB41jUOxigHXGykK3NCLqmCsbRuUBtD+1J3j8Fs4X2HIkW0d7yInDtAi2SVq4Z2Q==
+	t=1794573216;
+	b=IZSaF9aQTZOISvU1fsdpjsd2LpnuZXBbCwOz4KZjVGuq5x+kN7c1WCwOpLHkY4GGcapi
+	 mJXvjFxmhExLSoBciXooYz4ESHZkhN8DmCOep1iXotV+YdWWHOnZSGD47pq5/Ra+6kMtX
+	 TazqwWq+d1horYi1I4zvhf5nfWHWuF4Wc7q8LlV6lR+8JkScR21eAK+ckmCqq/2DzfPH/
+	 KkHAufkMpl8mnD6QiucnSAn2EhbUeDxu6+WoaQER9GLcmv0QIyN50LgyGQB0+w+a6SKK3
+	 iFYdNn1rN9nSTXa9w3rRbHtgJJRNdn1WTUNCEMjun8oFe/qp8aK5rVgFVT9C+aay80Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794573215;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794573216;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=sKu4sajsaOiA59TaqrDTQKPw1T5k64p4/BcVcn5hHs4=;
-	b=fTGre6i0htQNP4lK0kROwW2ZXb9eEABHyvUwzH+lPBskjduakNN/dbpFBjzlzwgcbgkE
-	 mTdOFJlF0x6qIcYDc9DWyX4zWzaJ3eg9hhDr4b9W6BvC8R4pmLxiOOl0oC+X7uLsur1T/
-	 2gVsL9e461BE+fs8Cwekotm6FCoMt4+yzSIYzVwIaOY/mIaUzpTmxAP4P1REWdaB7uu8C
-	 YY+W2DK4tulm5/3aB6kkNFDeuSYl300cilXUEWxkXtFDpeN8XRFGY88m4v0ziMO/V3XCB
-	 t42PzO+IbeS7ezU8AuQ0pr5r6DZDFSvyHgciUrSejHjJCvZuf8JvzYP6smflt0AHhQA==
+	bh=4L1sfhZulH0yXIFV7NmwnNMQtH3go5bkuFrJHd0aFEM=;
+	b=uN/w+cb13KhsouaG/7RkvKXikveyZB/CiVa/hPP0sez1bWDhtZY5RIeKO4xOe3qIhWOV
+	 DvZBys/rCTcLRhG3hc5AxgUpT4bFaiam8apRp4ZLRkSS+7JLaGtOLEiCFefvSmRxKMOHY
+	 VRz9gYvqgNNHUOqqXjpoXJLcHu2yfM0by9ZEf7XcT9XL1wR8gKvZMCfbiRZi8gxDz9PKf
+	 /9iNycJMRNNcaOKc4OvMgGPDPlrLNiC9yALcZAlgMuQlELjNoueyOQgxc15o739BEwLOf
+	 AMT4QGhQjc+w0ZxQBdeoqihWC1yuBFHm/pB1b8+0O/YMeRL75XtZ7zc3UxF4hUl6xSQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ephzzQRh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LsPKqlu4;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64C06606A336;
-	Fri, 13 Nov 2026 12:33:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D3E9606A8A8;
+	Fri, 13 Nov 2026 12:33:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ephzzQRh
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LsPKqlu4
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794573215;
-	b=QOZz1G31Mk/gs2zeXTb63Wzo2CLjHHKIIvROFQdZYZ0hlHqvVLVsEH0t2D3H3wM3WJWM
-	 BrPBVvzkjEYGzFbWd/TT/PK7XW0u7kXMDqYjaMBf6ax5WXLRT7Qa3iU74mvwzclUWbQMi
-	 LNZJhhvh/xy1g3ZN9FxOMqLYU3O/Pii4Ya+Otak1VKU1AnCfqaxblDmEl6xJ55aHVkO7m
-	 qRLbXHvngBlXx5fbH1K4H++eBS1aU+jnhwmie71UmH9CYCdPeXAAEeTRReV553Jo0GnzD
-	 hBiP7kkWCOnrkfCh08S0I2+zyyFB1dM58oPycNCePn2AAW0CemiGEkWSJtxuKuUZasQ==
+	t=1794573216;
+	b=Dj5E2mYXCghsPVeZ9aDQAHEbbtn2ruNrHQ26ctyGtBspFgdFkOOi7Xsp+yLiXT6wRgwX
+	 O4wzxrrj1oqS+OnYMNUSpJwZfKjzwW6Pl6CS8q6EQPgu4nYQvEjxIiLn/DnwOU5SLOzln
+	 1E7ltCVI1Pk/O+HOz0zmApWRggmhcDbX7/l4xl8ltVbF2TwK0o4WDUQ12YURQL4feCTt1
+	 A0poKsHlNWA36AyFJpdY4MHJ42v5k3idaIuv5mZDOcvNtxShrrJVt2/SMEid6HDVwyFBW
+	 taO0DPoIFAlLWmBZpHFgJj7kQCV3y3R1+Ohtyp3kIKR7TLwRjNVrodD6uFZhpVFqNuA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794573215;
+	c=relaxed/relaxed; t=1794573216;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=sKu4sajsaOiA59TaqrDTQKPw1T5k64p4/BcVcn5hHs4=;
-	b=znSvY0oOhYBT4PlRp+3kcjF5mb/YaTqje2CyGmnYDa2NTjwtTuMYAQZXU5GoGYxxFspZ
-	 pScnPWZVTPURqwyqW+uW6MrKX80IIBZhz5XEwQb2IMdC92WL2QHp4wYLYH74d00/Z4VHY
-	 vc39W5CIx7WDWWnl4vTStbOyaNqmAGlqGghXyH85E/o+9kObjFT8WEoaZ77K5v/hsLH03
-	 Foc7Fc8FjQFpvi7CjPEdUrSe9vr+fjv1mHKvrSy36jTVgO/lSSWgOs4g51XoRWh+zUJ+V
-	 GjSsvreCBZKxDXbYg+GusHkuVU2bjLYM439Q8ckDoSN/JeYJz2sIuAkOWyBK2w0wqXg==
+	bh=4L1sfhZulH0yXIFV7NmwnNMQtH3go5bkuFrJHd0aFEM=;
+	b=NlQB+8amRcRw/9LjWMImBEsfB8o+lZt4WByDc9dCTrT9k8Y2y8z6KECvy/Jn/YlAHms7
+	 xZ/oWuYxA5bkT845jJaKFI6vYjen/0Qo0D5ANG/K+J9zZsfcfrNfTgZ359Fh57UPOfDka
+	 k+vFVESAWAnYw11zy5uS32t/OpPuX0wl4YZC53IEqcmWp6whD6tLYf8gEtiQfsINxaGUl
+	 O2fvQJYPEZrXCyP4RudUhETeJQr7Gm9HFfOB0jUS9c+u48/bnj76QocWArrjEPUlVoXXt
+	 jJuktwwOVVdT/s4DEFLKfIlLacHzJcohIw9gFr5oQLRSG9WXCk4/D00KUkVQDmBumYQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 106CE1F000C5;
-	Fri, 13 Nov 2026 12:33:34 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 899891F00925;
+	Fri, 13 Nov 2026 12:33:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794573214;
-	bh=sKu4sajsaOiA59TaqrDTQKPw1T5k64p4/BcVcn5hHs4=;
+	s=k20260515; t=1794573216;
+	bh=4L1sfhZulH0yXIFV7NmwnNMQtH3go5bkuFrJHd0aFEM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=ephzzQRhCuX3jaNO4akitFJd8s753E46/M94eklW8tBt7F2icjfGZWkyhZ09ZsZyI
-	 Tmw2zzXorUhaw1JoLW5J81yxkbfFUQn6X+JUWhtEAYnfHmxHOZSriGyFA8tGl+QspX
-	 FmqLO6bt2ub4TesWiiRV06ROyOWeYkjki8cnFdsUcd5ADPx5Ow4NfCFDhPKGEy8VkV
-	 riaq0UYVAKN/hmJ73hSftvpWnJBRrZ0FRk2kYa4rUEAGFSwMCyZLdxOPOuULAQi9dj
-	 G2YWMWpJ2bopuViDUlQ60ccvKxfN3XJwLI9VHH+2ZVBjAS34EkCa6Sb9HaUBTDASqD
-	 AVRyEGbIGfpIA==
+	b=LsPKqlu4KjzVCsJ7QdnjMDdru0hHGIBJs/2HZI2HCKrQglDsaUQvDsG55H5/NapuE
+	 XdnyQMu2dX7UnKmf+mpdzo1mxBXfrveAKt62o9ql0Ab7zX6YHbzYYDCpgtZ1klOXVS
+	 Wffj0NYe9He4CzaLF2d2/sADkZVnZ0lEalbO0nIgciM8Hl7/wClkAm9RYs19iEvowf
+	 Cv6UC/RARUw/4N5lN2MvJMUixsOYCxTh3SSD4K01i6VPHPVa3hsftSAyHXqx6QHWjs
+	 +uY70XIC5IL5WhvVMbXmnwN8cxQbX3aZoIesWD8iBEG8CLHbuRyu1GXu6QtJw+/dpR
+	 7wFJkAiXkMXiQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 7F6DA47780;
-	Fri, 13 Nov 2026 12:33:33 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 0D18D477B0;
+	Fri, 13 Nov 2026 12:33:34 +0000 (UTC)
 From: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
-Date: Fri, 13 Nov 2026 14:33:31 +0200
-Subject: [PATCH v6 1/8] iio: imu: adis: Fix custom reset dispatch in
- adislib
+Date: Fri, 13 Nov 2026 14:33:38 +0200
+Subject: [PATCH v6 8/8] iio: imu: adis16607: Add calibration bias support
+ for gyro/accel
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-adis16607-v6-1-3f678719942a@analog.com>
+Message-Id: <20261113-adis16607-v6-8-3f678719942a@analog.com>
 References: <20261113-adis16607-v6-0-3f678719942a@analog.com>
 In-Reply-To: <20261113-adis16607-v6-0-3f678719942a@analog.com>
 To: Lars-Peter Clausen <lars@metafoo.de>, 
@@ -102,11 +102,11 @@ Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
  devicetree@vger.kernel.org, linux@analog.com, 
  Jonathan Cameron <jic23@kernel.org>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794573212; l=2714;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794573212; l=3726;
  i=radu.sabau@analog.com; s=20261001; h=from:subject:message-id;
- bh=2aOaWEQmm87V8mWHa6wanBq4j6mhu4yDD8PVM0G4y9A=;
- b=9N2BB89X2hbV5FBm2lC+42qNK7w42F948QLoTTqz9uL4ku8beUXYTyozi0y/AU5Gbk/4iIE5O
- Fq6oqjSqrHADqlb0ydUf5snw1siCdFGl1viSbrVmBZhHk3ytKDLxmZl
+ bh=VnNIhnMUl2LvvkzsAw4PqZBgigIcUBDk4HP4t1NObL4=;
+ b=LQjI363kyoQL/kJnjvxraTjBXjQYGku4ZXXvaMwlJrNhzabo+kpKO20Rcr+GG8tzM6Gz5L3dy
+ UE1fQznpC4TDaTEOT0S0DGyCp1vl+UV5dFWiLs25arkUcHl2vuh517B
 X-Developer-Key: i=radu.sabau@analog.com; a=ed25519;
  pk=XOZSO/Ut8qfYw7khL8lUF65Pgl+VLihISyS+Iy9jY8c=
 X-Endpoint-Received: by B4 Relay for radu.sabau@analog.com/20261001 with
@@ -117,90 +117,97 @@ Content-Transfer-Encoding: 8bit
 
 From: Radu Sabau <radu.sabau@analog.com>
 
-Commit 7f15d7a7d12d ("iio: imu: adis: Add reset to custom ops") added
-a reset callback to struct adis_ops, but __adis_initial_startup()'s
-no-reset-gpio path and the public adis_reset() wrapper kept calling
-__adis_reset() directly, so a driver's custom reset implementation is
-silently ignored there (adis16550 already provides one). Dispatch
-through adis->ops->reset() instead.
+Add IIO_CHAN_INFO_CALIBBIAS support for the gyroscope and
+accelerometer axes, backed by the device's per-axis bias registers
+(XA/YA/ZA_BIAS, XG/YG/ZG_BIAS).
 
-__adis_reset() also did the settle-time sleep itself, which a custom op
-never reaches even though its kernel-doc says the library takes care of
-the delay. Move the sleep out of __adis_reset() and into both call
-sites so it follows whichever reset op is used.
-
-Fixes: 7f15d7a7d12d ("iio: imu: adis: Add reset to custom ops")
-Reviewed-by: Nuno Sá <nuno.sa@analog.com>
 Signed-off-by: Radu Sabau <radu.sabau@analog.com>
 ---
- drivers/iio/imu/adis.c       |  6 ++----
- include/linux/iio/imu/adis.h | 12 +++++++++++-
- 2 files changed, 13 insertions(+), 5 deletions(-)
+ drivers/iio/imu/adis16607.c | 40 +++++++++++++++++++++++++++++++++-------
+ 1 file changed, 33 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/iio/imu/adis.c b/drivers/iio/imu/adis.c
-index a2bc1d14ed91..793e3b6b0ea7 100644
---- a/drivers/iio/imu/adis.c
-+++ b/drivers/iio/imu/adis.c
-@@ -340,7 +340,6 @@ EXPORT_SYMBOL_NS_GPL(__adis_check_status, "IIO_ADISLIB");
- int __adis_reset(struct adis *adis)
- {
- 	int ret;
--	const struct adis_timeout *timeouts = adis->data->timeouts;
+diff --git a/drivers/iio/imu/adis16607.c b/drivers/iio/imu/adis16607.c
+index cd5f875d4c56..84fd5b9ad8a5 100644
+--- a/drivers/iio/imu/adis16607.c
++++ b/drivers/iio/imu/adis16607.c
+@@ -56,6 +56,12 @@
+ #define ADIS16607_REG_SOFT_RESET	0x36
+ #define ADIS16607_REG_SELF_TEST		0x39
+ #define ADIS16607_REG_DEC_RATE		0x3A
++#define ADIS16607_REG_XA_BIAS		0x3B
++#define ADIS16607_REG_YA_BIAS		0x3C
++#define ADIS16607_REG_ZA_BIAS		0x3D
++#define ADIS16607_REG_XG_BIAS		0x3E
++#define ADIS16607_REG_YG_BIAS		0x3F
++#define ADIS16607_REG_ZG_BIAS		0x40
+ #define ADIS16607_REG_DIGITAL_STATUS	0x4E
  
- 	ret = __adis_write_reg_8(adis, adis->data->glob_cmd_reg,
- 				 ADIS_GLOB_CMD_SW_RESET);
-@@ -349,8 +348,6 @@ int __adis_reset(struct adis *adis)
- 		return ret;
- 	}
+ /* SPI Half-Duplex lock value */
+@@ -167,15 +173,16 @@ enum {
  
--	msleep(timeouts->sw_reset_ms);
--
- 	return 0;
- }
- EXPORT_SYMBOL_NS_GPL(__adis_reset, "IIO_ADIS_LIB");
-@@ -413,9 +410,10 @@ int __adis_initial_startup(struct adis *adis)
- 		gpiod_set_value_cansleep(gpio, 0);
- 		msleep(timeouts->reset_ms);
- 	} else {
--		ret = __adis_reset(adis);
-+		ret = adis->ops->reset(adis);
+ struct adis16607_chan_regs {
+ 	u16 raw_reg;
++	u16 calib_bias_reg;	/* 0 if the channel has no calibbias support */
+ };
+ 
+ static const struct adis16607_chan_regs adis16607_chan_regs[] = {
+-	[ADIS16607_SCAN_ACCEL_X]   = { ADIS16607_REG_X_ACCEL },
+-	[ADIS16607_SCAN_ACCEL_Y]   = { ADIS16607_REG_Y_ACCEL },
+-	[ADIS16607_SCAN_ACCEL_Z]   = { ADIS16607_REG_Z_ACCEL },
+-	[ADIS16607_SCAN_GYRO_X]    = { ADIS16607_REG_X_GYRO },
+-	[ADIS16607_SCAN_GYRO_Y]    = { ADIS16607_REG_Y_GYRO },
+-	[ADIS16607_SCAN_GYRO_Z]    = { ADIS16607_REG_Z_GYRO },
++	[ADIS16607_SCAN_ACCEL_X]   = { ADIS16607_REG_X_ACCEL, ADIS16607_REG_XA_BIAS },
++	[ADIS16607_SCAN_ACCEL_Y]   = { ADIS16607_REG_Y_ACCEL, ADIS16607_REG_YA_BIAS },
++	[ADIS16607_SCAN_ACCEL_Z]   = { ADIS16607_REG_Z_ACCEL, ADIS16607_REG_ZA_BIAS },
++	[ADIS16607_SCAN_GYRO_X]    = { ADIS16607_REG_X_GYRO, ADIS16607_REG_XG_BIAS },
++	[ADIS16607_SCAN_GYRO_Y]    = { ADIS16607_REG_Y_GYRO, ADIS16607_REG_YG_BIAS },
++	[ADIS16607_SCAN_GYRO_Z]    = { ADIS16607_REG_Z_GYRO, ADIS16607_REG_ZG_BIAS },
+ 	[ADIS16607_SCAN_DELTVEL_X] = { ADIS16607_REG_X_DELTVEL },
+ 	[ADIS16607_SCAN_DELTVEL_Y] = { ADIS16607_REG_Y_DELTVEL },
+ 	[ADIS16607_SCAN_DELTVEL_Z] = { ADIS16607_REG_Z_DELTVEL },
+@@ -1043,6 +1050,16 @@ static int adis16607_read_raw(struct iio_dev *indio_dev,
+ 		/* Temperature: 0 raw counts = 25°C; offset = 25000 mdeg / 5 mdeg per LSB = 5000 */
+ 		*val = 5000;
+ 		return IIO_VAL_INT;
++	case IIO_CHAN_INFO_CALIBBIAS: {
++		u16 reg = adis16607_chan_regs[chan->address].calib_bias_reg;
++		u16 tmp16;
++
++		ret = adis_read_reg_16(&st->adis, reg, &tmp16);
++		if (ret)
++			return ret;
++		*val = sign_extend32(tmp16, 15);
++		return IIO_VAL_INT;
++	}
+ 	case IIO_CHAN_INFO_SAMP_FREQ:
+ 		ret = adis16607_get_freq(st, &tmp);
  		if (ret)
- 			return ret;
-+		msleep(timeouts->sw_reset_ms);
+@@ -1081,6 +1098,14 @@ static int adis16607_write_raw(struct iio_dev *indio_dev,
+ 		return adis16607_set_freq(st, tmp);
  	}
  
- 	ret = adis_self_test(adis);
-diff --git a/include/linux/iio/imu/adis.h b/include/linux/iio/imu/adis.h
-index bfb6df68e6c9..97323b8d1cb3 100644
---- a/include/linux/iio/imu/adis.h
-+++ b/include/linux/iio/imu/adis.h
-@@ -10,6 +10,7 @@
- #define __IIO_ADIS_H__
- 
- #include <linux/cleanup.h>
-+#include <linux/delay.h>
- #include <linux/spi/spi.h>
- #include <linux/interrupt.h>
- #include <linux/iio/iio.h>
-@@ -171,8 +172,17 @@ int __adis_reset(struct adis *adis);
-  */
- static inline int adis_reset(struct adis *adis)
- {
-+	int ret;
++	case IIO_CHAN_INFO_CALIBBIAS: {
++		u16 reg = adis16607_chan_regs[chan->address].calib_bias_reg;
 +
- 	guard(mutex)(&adis->state_lock);
--	return __adis_reset(adis);
++		if (val < S16_MIN || val > S16_MAX)
++			return -EINVAL;
++		return adis_write_reg_16(&st->adis, reg, val);
++	}
 +
-+	ret = adis->ops->reset(adis);
-+	if (ret)
-+		return ret;
-+
-+	msleep(adis->data->timeouts->sw_reset_ms);
-+
-+	return 0;
- }
- 
- int __adis_write_reg(struct adis *adis, unsigned int reg,
+ 	default:
+ 		return -EINVAL;
+ 	}
+@@ -1095,7 +1120,8 @@ static int adis16607_write_raw(struct iio_dev *indio_dev,
+ 		.type = (_type),					       \
+ 		.modified = 1,						       \
+ 		.channel2 = (_mod),					       \
+-		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),		       \
++		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |		       \
++				      BIT(IIO_CHAN_INFO_CALIBBIAS),	       \
+ 		.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),	       \
+ 		.info_mask_shared_by_all = BIT(IIO_CHAN_INFO_SAMP_FREQ),       \
+ 		.address = (_idx),					       \
 
 -- 
 2.43.0
