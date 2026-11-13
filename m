@@ -1,70 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.130
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794577392;
-	b=4eLyepQf4juKM/NLyYLZu+bIHynEbHhdbQ2qAw8XRVcUwZBMZ96fi/Cc50TbFU/gwkxB
-	 9IVsNxRDNznGBSqGMK9ZQWsb8Q3ZlZdcpILM8Kre4n+lQBkXNpZRC+ZSlRu1xB2rpapLr
-	 FJWsoHBogZsBxoczeQSSF37T7Jng29EiGCx/86WfW823I1pwcJUu6oZf/mqgnF1HpHIvD
-	 8Y8pEdFxRaKZ+xX40+cHzQZfXqQtGbVbJjhJPtt9N+wmW22OsXGiNA8K7rdVCYgaCDMy8
-	 qMLqQVEUCvCTnGPPhUL/KVpqZ+wTk32EIi6phrxfQpW8RsULvXPJpDsmZsSJ4M1qW3Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794577392;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=3kcrlVRBobTRT8jOtREfiBLM6vTtQc7X6ndLPnK4qOc=;
-	b=aaecWaCZiiuvsGMjvGcGY8Ejgyxcj7BjzH50sZRgXzyHt3s5zSIYUHACyn/Ew/JJp8yL
-	 5JvI3vWbmyKZCWPs1wekiTfDcNKqbW4SLbwDbeYaW1VGuC6oitik9h4W7FcviUZCNMU6l
-	 OMgU2aK5pcvvlanuoLXDZPFIjKinaImIaHASL3UqXmvkc+0bxQKrJwKbxnhwD4bKwgIFH
-	 UwCtCG2c52r5/QYRjlCu3OfCPJdxEOAaSf0a3aHLFzvQAeBqa2uW9zjWlzwZg4DvqDuBZ
-	 pnmvSPM8SmMLLvNOHKnHi/5WG1ohLzkwdT4FwYOeaeryQLGcFhtrvdGuWoLOrYdmwIw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=cKkX2C9T;
-	arc=none smtp.remote-ip=54.204.34.130
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794577434;
+	b=ObwbVPprkr0PlsxbGFfFNtfcwJALmQl2A7vorbAFXU7t9dawy8xJbtHILmnc5F7ppufe
+	 Be2zJEgftM9Ak50BD8Db4JvQ4SyAL2TeRapvm7RzLbIS//4azE2cMwHM7ZKItF7Mhmi3i
+	 MoDaq4sOhlxNsu7XLlcXYR4ggGJkVcltkBqyOndgi6sKHzgr47tmYuQcgJpXPangs35I0
+	 /rBcNasUc1ejtcDQ6AVbdtfmdVdskFTLTHo/ZLSTCYIsBAote6zrXadX87y79tEWuoc4X
+	 +sEjVR20+APylxMNsYwEMmRQLrODuF5qet6e6NfNnJ9jxdjk4lB47MK0Hk9m0bRydSQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794577434;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:To:CC:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type:X-Originating-IP:X-ClientProxiedBy:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=jzF6nkO3wAAi295W3hP9o9Ax4abn0eu7uzs33OgK7n8=;
+	b=O1Yixmeu0ca9Hh9Y4WhQ3mPBl5ieiTdHZfZHqw5t1PnCqOzqb25JLHf7EK6RtFgAfn00
+	 O+YBnEmKKPuv4f8ZVmWg0lyIFC+C4Tq6FeV5Jif5KuhDjLFVd5PbZ66CzOjeXrBheAx0B
+	 etFuO7QXrKqHJeZ0UAuKd3gnvMKWHsAT7+PfIbXGiDcSBMH3e7m5Y8qkDiUnqBT1ohf5B
+	 Rb7cOjVxh2I5IZgvaVMIGsBkLi4gJEFwnhk9f5m1KQ5LnAXktEVH3jdNNl6MhYnlGSQII
+	 24vpZZ2yMDnbBBihdMzbrLN4zBQvCjiNpEIvei+mB9mYQPs4BtbQZMcH5udZmO4uTzw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=axis.com;
+	spf=pass smtp.mailfrom=axis.com;
+	dkim=pass header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=pSPvUa9j;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.11
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013011.outbound.protection.outlook.com [40.107.162.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69324606A327;
-	Fri, 13 Nov 2026 13:43:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69324606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B0BB606A331;
+	Fri, 13 Nov 2026 13:43:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B0BB606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=cKkX2C9T
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1794577330;
-	bh=3kcrlVRBobTRT8jOtREfiBLM6vTtQc7X6ndLPnK4qOc=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=cKkX2C9TU/v7CMDu8ugevsUTc5a31S7buh2ror1VZhNiorOX6FXSVjxpppf7JpIOI
-	 grypYAyhUtU72O4aTG+Qe2pGBRWf8GnC3TKYnMe7+QWAWcHXZp5rE9Kox9jMBi6UBD
-	 T7FwdYUsE4487kmxajUaoXmD2tJ4bBMkjvbMoxiw=
-X-QQ-mid: zesmtpgz8t1794577305t88a9c797
-X-QQ-Originating-IP: UpGU27M314SgLzhWg8rwr6TRitp95Zs5/+Vkkk4Vmrk=
-Received: from uniontech.com ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 13 Nov 2026 21:41:43 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 2692691757360946475
-EX-QQ-RecipientCnt: 10
-From: Yichong Chen <chenyichong@uniontech.com>
-To: Alexander Aring <alex.aring@gmail.com>,
-	Stefan Schmidt <stefan@datenfreihafen.org>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	linux-wpan@vger.kernel.org
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zhan Jun <zhanjun@uniontech.com>,
-	syzbot+8a8482d4c33cc58babb4@syzkaller.appspotmail.com,
-	stable@vger.kernel.org,
-	Yichong Chen <chenyichong@uniontech.com>
-Subject: [PATCH net] ieee802154: hwsim: free PIB after hardware unregister
-Date: Fri, 13 Nov 2026 21:41:41 +0800
-Message-ID: <0D7C088B45E7283A+20261113134141.2626113-1-chenyichong@uniontech.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (1024-bit key, unprotected) header.d=axis.com header.i=@axis.com header.a=rsa-sha256 header.s=selector1 header.b=pSPvUa9j
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pFYSU0q2BzhIPLiuRYwwgROdEI/5jdSXEP02xqt4zQfKzvnbIZXXAOwVJ/WpyQ8W6KkOqHvv0dal7C3WCys51Xfar/5ue1XrHU8X8VkSCtkZX4TShGgrzJnNeaONGH6D3L4TG0lvZrkZM7oSp9r7Z9KeKVOoZaSmp4/4ghcwPKDmsJcc+vO3xBHfrDs76HDweOySQXhwVAcmJ35L1FUT0b9i61xOUj/Gk38nv3PYCRv9GVhgvINGhLeczW+KXVwoiiZJHb40U/YvwOhp7muIbt/mYlR+Z2BfXcTf6+ouKhVTWKxP+2bjwraGAT76mCjnYB1hC/NP04Tcu/hyrXpYpQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jzF6nkO3wAAi295W3hP9o9Ax4abn0eu7uzs33OgK7n8=;
+ b=mG8UI5Bq5NfvOGiNo/Zox8Ie9Rh8YcICIKjgiDs9Ge0SETWJxHtHsZQ0yGd106DyNbrILnlUnjsQV2OBU/6++YaMzgwq0Fg1ojr3FkgTOFVTpPurQc1EMMAKskxaBBwZ9BEdLPlfdE3182KAZH+pa5qalOgWPJe/DIwgldsumfXV4suT6PVNzOiNbK1LzisouYketNQXm/amR4yG0M4g9lBVoTAZPbiUBajHCHKItdbgAspwW8uNlGg/Vay2T8hXC6w2QoGGuyIN9AfvFpgLkbUWYvMMS4dHYKR1wviRSHkz4V9hUhn/91AoPZliJg75PIlynMrWbO12QUHtaYg7qg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 195.60.68.100) smtp.rcpttodomain=oss.qualcomm.com smtp.mailfrom=axis.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=axis.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jzF6nkO3wAAi295W3hP9o9Ax4abn0eu7uzs33OgK7n8=;
+ b=pSPvUa9jtQmr4e/qc0CmTYFr1nNnSI0JnkCE27Uq2ElPqDqjuHIRXxPURedbhGa8wsEUIZSKOQIZoaaCMxg1kePo1dPUqDettjMe/mylbREYAFkHx7fN/ABpEh+bbmO7B0DFvsnUVCZ9lGmFRQAdC0Y18oSPPjMZX9u9K/j4mIk=
+Received: from AS4P251CA0024.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:5d3::16)
+ by DB4PR02MB8584.eurprd02.prod.outlook.com (2603:10a6:10:384::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Fri, 13 Nov
+ 2026 13:43:49 +0000
+Received: from AM1PEPF000C1ADB.eurprd02.prod.outlook.com
+ (2603:10a6:20b:5d3:cafe::5b) by AS4P251CA0024.outlook.office365.com
+ (2603:10a6:20b:5d3::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.10 via Frontend Transport; Fri,
+ 13 Nov 2026 13:43:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 195.60.68.100)
+ smtp.mailfrom=axis.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=axis.com;
+Received-SPF: Pass (protection.outlook.com: domain of axis.com designates
+ 195.60.68.100 as permitted sender) receiver=protection.outlook.com;
+ client-ip=195.60.68.100; helo=mail.axis.com; pr=C
+Received: from mail.axis.com (195.60.68.100) by
+ AM1PEPF000C1ADB.mail.protection.outlook.com (10.167.242.106) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Fri, 13 Nov 2026 13:43:46 +0000
+Received: from pc67007-2609 (10.4.0.13) by se-mail10w.axis.com (10.20.40.10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Fri, 13 Nov
+ 2026 14:38:26 +0100
+From: Waqar Hameed <waqar.hameed@axis.com>
+To: Jonathan Cameron <jic23@kernel.org>
+CC: <linux-iio@vger.kernel.org>, Miquel Raynal <miquel.raynal@bootlin.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>, Alexandre Belloni
+	<alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Song Qiang <songqiang1304521@gmail.com>, Radu Sabau <radu.sabau@analog.com>,
+	Maxwell Doose <maxwell@maxwelld.cc>, Tomasz Duszynski <tduszyns@gmail.com>,
+	Erikas Bitovtas <xerikasxx@gmail.com>, David Lechner <dlechner@baylibre.com>,
+	Nuno =?utf-8?Q?S=C3=A1?= <nuno.sa@analog.com>, Andy Shevchenko
+	<andy@kernel.org>, <linux-kernel@vger.kernel.org>, Jonathan Cameron
+	<jonathan.cameron@oss.qualcomm.com>
+Subject: Re: [RESEND PATCH 00/14] IIO: Ensure iio_trigger_poll() is of the
+ device owned trigger.
+In-Reply-To: <20261109042851.1326940-1-jic23@kernel.org>
+References: <20261109042851.1326940-1-jic23@kernel.org>
+Date: Fri, 13 Nov 2026 14:38:26 +0100
+Message-ID: <pndpkw8df71.a.out@axis.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,76 +113,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: OE2B1K8X9uN6TKRJknmgrzQ8Ba+/H4Q/PDI3pM1HiENumoaa+39xeTTP
-	Tb3HtFJN/ArQZA0ll4i+R4WEyv+c6UCgukuAk8Df64MNbytdWPzGcQUPvBwDpNTJbt60dcU
-	III9jEPFMPRX8i4v12nzJVqD45Jm6Orcl/xkko1a7n4LgMWUZ4Lo8I0lLFbnNt/YVk3mE2O
-	s/Acj07aTdfSmSvG3PnJo0gCwzZqJYb3kvLqvzVq6lhh1lV3F/VvddXutOyyb329czZg2hF
-	DJN+mZ28V/r/5lPnfswBad/GsJj9zxcnIXDla9xjHkBe8UHngaXQqZCzRMzNLFMxo1kxMnw
-	5DvXDUV8/wm3LeY/dRlHENfPuafH4BnYpnhsZSl1crSvwbz+P8rxjqSeuH9VZDHQXBHxRXI
-	4btkLfsxiVv4a3P3EfLHFb7Kos/LoA2Z+vPqI0RnJNyryyYCTBD4TVtUA4XTsG0zFfe8hXo
-	G/H7/4CAdxbVNNuVfj5bAPztQwparvcMq3NVfF7dfOaojHQK+C5V5QjsFtZGL9vxlntESpn
-	k8aphZgvGTFzkkq71RzItV5JXWfd6hty1IydJzPxVKHp2hvfE6oS1lD5EdnSkxgFOuQDiZ2
-	PjqV4PJz/lcOr9yHen/GZ4I5zD33mbHggQXBceteF13bS5/s36CQ7W6xp5lNa0Kszq9xOOJ
-	M7ZQCTDq25Ytx1OLx2XToAe4+QGWq44ijSUKincPQNlaQ3eiur+XUR2gD57WSNNOiY4oPkC
-	B49fVqrwqChZcy5iKc5JMFpVHakdMIFinx1pWB1hmpc6uCkKuJ2iZ2wNUFSdyiyGGY5jjFv
-	xyoiHZSEjW5ZuQ3IW7C/AdJVixecrZSH6MQ+UqvaAXpu9+Pw6VNqYZdJojN83QUGOoaB4ok
-	3BdjWjnsDZsNpgRvGRkvFhspAuHMtqLDgoHSq+U+7jdLjRnADdjBTvWVcuDDDs1DC+Hunm7
-	As5Sa7Z7p+Xv+jZ2H/c8hZ39SIgaNwWPzlLChPBne9uzkasqL9XddpgboT9dlTMG8/GI0g+
-	8ay/4x0XWcpbNc/i1Kl7oxzTZKYU+VsOkFvDslHd+IixAL02kg0PNKb6PXLASpmUlLcSpET
-	hM5gWN1QmPCddPvaq90oic=
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain
+X-ClientProxiedBy: se-mail11w.axis.com (10.20.40.11) To se-mail10w.axis.com
+ (10.20.40.10)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM1PEPF000C1ADB:EE_|DB4PR02MB8584:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6e4d277c-fb49-4b18-3f68-08df418c242b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|7416014|376014|1800799024|82310400026|261026140227099003|56012099006|261022075727099003|261022105027099003|11063799006|261021121427099003|261102123227099003|261028144727099003|5023799004|18002099003|10067099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	kZHIKXU/+aivxdj1feLciucfpxpDDSyBgHvp0jqKVKgRYPah2Z3q/JSI3OPIesaheynUnhq+1Idfes+spMmXT0pl+U6l6WQek9GXeBRq25dPEz1fEt37qE6P1bodTKiid4mnepdgnYyuVwb1a4dplgOfGXXrZrNPq30AtV8qmJ44MGmqYA99vASlQZHwxGTLRrpT9GnkdAyEK4Z8rdcdvNyyhSqchO2aaQ/x4O/ICM9hJUrWRlnWvPvGvV+wCa1HZ8vmrOGQA2ZgxTvUg7tzL2amfe5RjCAFiVpzt92fBa19MBEwMfvj0GScUeXpmSTohjdDWAIlUjgb/zSD1KKanC9mZA62o2MzFLkkJAA2Cuv9dnkI0p40h/SDa1wc1ETqzPDnU4Mjxvqgl1LCl1mefiohxuhphuaH/nlMte9iQEjfPxh9THiI66oqHeVoV5QpTcSFDDhaFJMGhU7mY2PtlZ4saGzS0oSvJ4D2M78Ld2+5POo3N37rNIEmEvaEa/kSYWgUqAey7sr8t3yqpxc5qFRHzmYRlD34GiYFsgs+pAQ8KuRpwvV/uxM5+9E/tIrRFggB+erof4+988JUblzv6XrzcoKiA3265oFpRTtyGUs2RLm1zHda5WyHGcnOspjqQ5U3Tx+Icv254kvEfilQJtfn7NmhcggDZcV1eHYJHGzhLepnOS8cTppp1YAS1wFsLFxdQzw5bsc/SJ2NX8Xx2g==
+X-Forefront-Antispam-Report:
+	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(7416014)(376014)(1800799024)(82310400026)(261026140227099003)(56012099006)(261022075727099003)(261022105027099003)(11063799006)(261021121427099003)(261102123227099003)(261028144727099003)(5023799004)(18002099003)(10067099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	nfLMG27S4khxIfDD4XZJ6RF2DAPuVbG+GOl44ao21KTYLPnOUPPGAWbuBoQ91ormHJ8Rh9YV+E9nOqlYsv7wL5UJynJPBzo0wMeQGdjSDH9LZPrIISTSFTqJgMsqoswZIc/uajg0FfNmzuMlsF9xdEag0FgUP1ijdanPKsYa02c60LZsgHlgORmf0C56wbKl5DSVm+1YJ97pSjWxX7zTmV4B0SL67oSEEmUwXe8uFZkD19HX5WU+N/u1TzRVIvvO4R9l6h0cmGy5YFON8l7zergWPZAtFBGR4mEGH2LN3U+aAI6sQseOLhhvWzewVelXCed6pYC2wKHbQFvLP9TP5QLM4tMU16gsowq80ZGJcj/sSPTOG1nKG2nQ9s9B59W6sHt/8oTR2rVrv2mJTHkDUJfgvK4MlsKPW6RQ1wm6GYh98r63nfWfyRPB2Y4vmmWe
+X-OriginatorOrg: axis.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 13:43:46.4415
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6e4d277c-fb49-4b18-3f68-08df418c242b
+X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af;Ip=[195.60.68.100];Helo=[mail.axis.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM1PEPF000C1ADB.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB4PR02MB8584
 
-From: Zhan Jun <zhanjun@uniontech.com>
+On Mon, Nov 09, 2026 at 04:28 +0000 Jonathan Cameron <jic23@kernel.org> wrote:
 
-hwsim_del() queued the current PIB for RCU freeing before calling
-ieee802154_unregister_hw(). Unregistering the hardware closes its
-interfaces and aborts an in-progress scan; scan cleanup calls
-set_channel(), which replaces the same phy->pib and queues the old object
-for RCU freeing again. KASAN then reports an invalid free in
-hwsim_update_pib().
+> From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+>
+> Resend due to wrong linux-iio email address. Sorry for the noise!
+>
+> LLM used to help pull this fairly straight forward series together.
+>
+> The primary aim here is to ensure a clean layering between the two sides
+> of the trigger / pollfunc (push to buffers) divide.  The caller of
+> iio_trigger_poll() and iio_trigger_poll_nested() should be using data
+> relevant to the trigger, not iio_dev->trig which is the
+> current_trigger for the device. Most drivers got this layering right,
+> but not this set!
+>
+> This is also step 1 in a plan to make iio_dev->trig opaque allowing
+> more control of how it is assigned and avoiding traps around lifetimes.
+>
+> Includes one precursor fix that has been broken long enough I think
+> we can just merge it via the slow path along with the rest of these.
 
-Unregister the hardware first, then atomically detach the final PIB under
-pib_lock and queue only that current object for RCU freeing. This lets all
-driver callbacks finish before the PIB is reclaimed and avoids freeing a
-PIB that was already replaced during teardown.
+I had the same comments as Joshua about packing the `struct`s (`pahole`
+reports a lot of holes in `at91_adc_state` in patch 14, but that's
+nothing new that was introduced in this patch series, and should
+probably be addressed separately...). Other than that:
 
-Reported-by: syzbot+8a8482d4c33cc58babb4@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/all/6af5f575.b350cda4.2b6a63.0000.GAE@google.com/T/
-Fixes: f25da51fdc38 ("ieee802154: hwsim: add replacement for fakelb")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhan Jun <zhanjun@uniontech.com>
-Signed-off-by: Yichong Chen <chenyichong@uniontech.com>
----
- drivers/net/ieee802154/mac802154_hwsim.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/ieee802154/mac802154_hwsim.c b/drivers/net/ieee802154/mac802154_hwsim.c
-index a9bd1555d2dc..a65ae2afb789 100644
---- a/drivers/net/ieee802154/mac802154_hwsim.c
-+++ b/drivers/net/ieee802154/mac802154_hwsim.c
-@@ -1008,12 +1008,16 @@ static void hwsim_del(struct hwsim_phy *phy)
- 		list_del_rcu(&e->list);
- 		hwsim_free_edge(e);
- 	}
--	pib = rcu_dereference(phy->pib);
- 	rcu_read_unlock();
- 
-+	ieee802154_unregister_hw(phy->hw);
-+
-+	spin_lock_bh(&phy->pib_lock);
-+	pib = rcu_replace_pointer(phy->pib, NULL,
-+				  lockdep_is_held(&phy->pib_lock));
-+	spin_unlock_bh(&phy->pib_lock);
- 	kfree_rcu(pib, rcu);
- 
--	ieee802154_unregister_hw(phy->hw);
- 	ieee802154_free_hw(phy->hw);
- }
- 
--- 
-2.51.0
-
+Reviewed-by: Waqar Hameed <waqar.hameed@axis.com>
