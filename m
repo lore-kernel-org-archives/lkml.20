@@ -1,56 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794540724;
-	b=plTiUYPtCJUW3r0x+cXNhlzqv/jNcEqFaGCZ3G+8ixAhqMUxEupE7/2eqmMl5Q1b47bf
-	 eJfBUDK66/jplnNCNifE8Xw+Hp5eCJLjNPhYA/9JAjYda1b1Rcdz+sTvaLTvfMqFFR5I6
-	 D8O5dejunpQTeNWh5SGAcaeZYiMjXj+UFnDT1YuCKgHfvYecbP1NTiriqtRwWBOoPJXAS
-	 f7YzGsQ8Zp9TUUGOR1cfyKGODRRbVWgD1qK9zat6LWgVRJ1D2n6xkovzwSGgbRa1dBKWg
-	 1VTSgQlI3UDMrg5VtSJVXQETLFwjCkeqjKXdt8B3qByNCo7b3wbKAyO0WdHyVhHAmXQ==
+	t=1794540888;
+	b=0oj9DUtx8+Ek8OKnDlDqH5T73HbeKmQw/bpAy0kRlAlJvjv1TWiqTHHbBboZeaZAcdUV
+	 vRO6SsRzr4MX8aZgPGfNX/hfy1X04ce3LeEMBhaFGJvgoVGEz7SEEVdDFAJebAFHSSV7M
+	 wLwNBaFS6wDxxuF847svBIaGNZCqbJpdRAU39IvRVAGaG+F5GUXJ8JcgC8OJBFUBThFDg
+	 HF1LLO3Z7mstG4E6xLA8QltpKGiqkBPc8bvjknTB8WVX+0kqwJAk1cPHNWr1Q9u23OTpX
+	 WyDzB3mvApEEdjlhGwdvOIVAaHyUkvnsxHWVuJLCpQsnCAOZyvJrRi3NfE/s+h6sQeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794540724;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
-	 X-Mailer:X-NTES-SC:Content-Transfer-Encoding:Content-Type:
-	 MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=aD4ZZT8V9BMEpEpjteO0aAWzTPsp1nwTppO6+HHX6/g=;
-	b=WWD+Z/5VcxgFyhkcHKlunZLtV9zF7dQeK3Cv9G+XrkkX51CaMjZlYlDfJGnXuI/XR/z3
-	 KRsSFb0ItQ71QvpHfM6j56vm3QNasBXLn/8q2Kh0xdeH/yR1pg5ARYGPG7gIQUtbK9bzY
-	 hTBjPxoMBdFWWT1eNSghlp3BMI2KOsS46mOcGGpqBjLfjHBW2ICiH7txQYkFFWq1Teie4
-	 ea1Wxh2oL+J+HU0yKSjsAjQEw9Y9n7t3q15TDyTXhNMKx6AjMvRHcEjQuayZcN1hMTjNa
-	 /6OOfhM2CX+7TY0yesd2/FIBauQ7xmHgg3L8HYzzt917C/B5iCSeh8ZCBhxikXFx5Og==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794540888;
+	h=DMARC-Filter:Received:Received:Message-ID:Subject:From:To:Cc:Date:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version:X-Rspamd-Server:X-Rspamd-Queue-Id:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:X-HE-Tag:
+	 X-HE-Meta;
+	bh=h/Lr8m+vfNgoswLkzsCqR8ajTaO/1XkUV8AGpT/rlCY=;
+	b=eCwPAQgkHoCzZM0ngMtI6CiESajwnE+IVURJKEkYvS3LKhGHlkdgGq3X0LKIGKd04Tqr
+	 6CKP3CyBCWOoeq0//BlyuzwaJLbNV/SlydJitotL7GkTGYtmzxYlsaOMRJSEmFSTyJbOJ
+	 w6d/1kbRIAnZ/mYbPJsrA9O5wKQaeAgF9PVl06GLUEAyMvSAVY2mWGmoTtuwG1I2xQoP+
+	 DW4/12NBd3uUulxaKSClvUHxgp2873NMepzWpLbbR2au/Tueqwh+PzHiCZyuLFUPCzS6P
+	 U5juOGDIYCS5PBVLtPGRQzqfr5l9uHPpSO5cNLZwQBPiNkdwJNXRySorHsMiCtLX9RQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=pxE1P6zo;
-	arc=none smtp.remote-ip=220.197.31.4
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	dmarc=none header.from=perches.com;
+	spf=pass smtp.mailfrom=perches.com;
+	arc=none smtp.remote-ip=216.40.44.17
+Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDBB0606A31C;
-	Fri, 13 Nov 2026 03:32:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDBB0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=pxE1P6zo
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=aD4ZZT8V9BMEpEpjteO0aAWzTPsp1nwTppO6+HHX6/g=; b=p
-	xE1P6zo4D2dCRVO7hkrXOAeongr+VKpqx0GfrEhELjTIM4PtAJZ3EEtigzK4MSFP
-	3aDTRBHO4gN/9RySV+1IEvVoHopBCYtdSCV75svMgyuqgwlnSIbqJUm0MOcLmsMV
-	hJGHU3LPrcA7S2KI9HN6cTycW88Ips0xU8JoCEgawI=
-Date: Fri, 13 Nov 2026 11:31:55 +0800 (CST)
-From: CJ <firefly0158@163.com>
-To: viro@zeniv.linux.org.uk
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: INFO: task hung in evict on v7.3-rc2
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-X-NTES-SC: AL_Qu2SBvmfv08q4yaQY+kdmEsTju82UcS4ufQl245Xc98Fnj/m0QAgUkVjHWLvy8SkMRGyrhS9cglw1fpzYbBylhgr8HL6+LPCOJ3BvpnopQ==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2F13606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 03:34:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2F13606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perches.com
+Received: from omf05.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay06.hostedemail.com (Postfix) with ESMTP id 24C08A841B;
+	Fri, 13 Nov 2026 03:32:17 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf05.hostedemail.com (Postfix) with ESMTPA id ECAB22000E;
+	Fri, 13 Nov 2026 03:32:14 +0000 (UTC)
+Message-ID: <6dfeacb309d58f153c1cd701cd31a587151e9070.camel@perches.com>
+Subject: Re: [PATCH v1] checkpatch: Add context-analysis attributes
+From: Joe Perches <joe@perches.com>
+To: Vincent Donnefort <vdonnefort@google.com>, apw@canonical.com, 
+	akpm@linux-foundation.org
+Cc: elver@google.com, linux-kernel@vger.kernel.org, kernel-team@android.com
+Date: Thu, 12 Nov 2026 19:32:14 -0800
+In-Reply-To: <20261112151203.3129005-1-vdonnefort@google.com>
+References: <20261112151203.3129005-1-vdonnefort@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,30 +58,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <40539074.308b.1a1d2f63eb0.Coremail.firefly0158@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:hygvCgD3H7qrhPZqlVg2AA--.1614W
-X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC+QujVWr2hKsJLwAA3R
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+X-Rspamd-Server: rspamout05
+X-Rspamd-Queue-Id: ECAB22000E
+X-Stat-Signature: 4twzq7k9e1asrjx7r9a8kyy9dx1aekg4
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-Session-ID: U2FsdGVkX1/V4AmkJ814c9fagEFiyNrf4SMT/ui1JNw=
+X-HE-Tag: 1794540734-47383
+X-HE-Meta: U2FsdGVkX1+gK9UcQawVEC/dw/mKBy6Y3cBabAze+spY6fYvbFs/a9i8znUnpCX5NdGIN5y4Rut/K9nJ4mYptdCGyaBFrA5xjnxUbFjAdWLpNwC3LGf4LS3c+rL/SGdbVNRtBiUd58DiHPQJ7C2ITcB/Zkve746i8wry6vrU4y2aDNHh9w6NZx6ukoDRkTOEw8LsIY+p9Lkdq9QZa036vy9VArLKxqMzU25kbXbPM6k5adMywLpLe8Ups3cPfRI/cNmdgqj4gys2foCEhBMQcpCkv+h192JTZpvQohgHsDxk+O350BsOvfWDB7W1BPp4
 
-CkhpLAoKCnN5emJvdCByZXBvcnRlZCAiSU5GTzogdGFzayBodW5nIGluIGV2aWN0IiBvbiBsaW51
-eC02LjEuIFRoZSBzYW1lCmZhaWx1cmUgaXMgc3RpbGwgcmVwcm9kdWNpYmxlIG9uIHY3LjMtcmMy
-IHdpdGggdGhlIHJlcHJvZHVjZXIgYmVsb3cuCgoKVGVzdGVkIGtlcm5lbDoKwqAgTGludXggdjcu
-My1yYzIKwqAgSEVBRCBkZjI5MDgwOTBjZGEzNjhiMDFmZjQzNzA5ZjUxODkwMDc2YzU2MTU3CgoK
-T2JzZXJ2ZWQgZmFpbHVyZToKX19maWxlbWFwX2dldF9mb2xpb19tcG9sKzB4NzFjLzB4MTE2MAp0
-cnVuY2F0ZV9pbm9kZV9wYWdlc19yYW5nZSsweDMzMy8weGRmMApldmljdCsweDdiNi8weDk3MApk
-aXNwb3NlX2xpc3QrMHgxMjQvMHgyMTAKZXZpY3RfaW5vZGVzKzB4NWI3LzB4NjkwCmdlbmVyaWNf
-c2h1dGRvd25fc3VwZXIrMHhjNC8weDQwMApraWxsX2Jsb2NrX3N1cGVyKzB4MzgvMHhhMApkZWFj
-dGl2YXRlX2xvY2tlZF9zdXBlcisweGI3LzB4MTMwCmRlYWN0aXZhdGVfc3VwZXIrMHhiMC8weGQw
-CmNsZWFudXBfbW50KzB4Mzc4LzB4NTEwCnRhc2tfd29ya19ydW4rMHgxNmUvMHgyNzAKZXhpdF90
-b191c2VyX21vZGVfbG9vcCsweDFmZC8weDY2MApkb19zeXNjYWxsXzY0KzB4NGY3LzB4NzAwCmVu
-dHJ5X1NZU0NBTExfNjRfYWZ0ZXJfaHdmcmFtZSsweDc2LzB4N2UKUklQOiAwMDMzOjB4N2Y5NzI3
-OWFmZWJiCjwvVEFTSz4KCgpUaGUgY29uc29sZSBkb2VzIG5vdCBpZGVudGlmeSB0aGUgbG9jayBv
-ciBwYWdlIG93bmVyLCBzbyB0aGlzIGlzIGEgcmVwb3J0IG9mIGEgc3RpbGwtcmVwcm9kdWNpYmxl
-IGhhbmcgcmF0aGVyIHRoYW4gYSBiaXNlY3RlZCByb290IGNhdXNlLgoKClRoaXMgaXMgYSByZXBv
-cnQgb2YgYSBzdGlsbC1yZXByb2R1Y2libGUgZmFpbHVyZSwgbm90IGEgYmlzZWN0ZWQgcm9vdCBj
-YXVzZS4KCgpSZXByb2R1Y2VyOgrCoCBTWVogcmVwcm9kdWNlcjogaHR0cHM6Ly9wYXN0ZWJpbi5j
-b20vcmF3L0hYWExLRWFHCgoKQXJ0aWZhY3RzOgrCoCBjb25zb2xlOiBodHRwczovL3Bhc3RlYmlu
-LmNvbS9yYXcvTUU4bUdoUHkKwqAga2VybmVsIGNvbmZpZzogaHR0cHM6Ly9zeXprYWxsZXIuYXBw
-c3BvdC5jb20vdGV4dD90YWc9S2VybmVsQ29uZmlnJng9NmE1Y2JkMjY4NDA2YmY0MwoKClRoYW5r
-cy4KCg==
+On Thu, 2026-11-12 at 15:12 +0000, Vincent Donnefort wrote:
+> Checkpatch doesn't know about the context analysis attributes and
+> misparses annotated declarations (e.g. mistaking __guarded_by() fields
+> for extern prototype). Add them to the known attributes list.
+
+Nak.
+
+> diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
+[]
+> @@ -526,6 +526,25 @@ our $InitAttributeData =3D qr{$InitAttributePrefix(?=
+:initdata\b)};
+>  our $InitAttributeConst =3D qr{$InitAttributePrefix(?:initconst\b)};
+>  our $InitAttributeInit =3D qr{$InitAttributePrefix(?:init\b)};
+>  our $InitAttribute =3D qr{$InitAttributeData|$InitAttributeConst|$InitAt=
+tributeInit};
+> +our $ContextAnalysis =3D qr{
+
+Are all of these from include/linux/compiler-context-analysis.h ?
+
+> +			__guarded_by\b|
+
+__guarded_by takes an argument so it should be
+
+			__guarded_by\s*\(.*\)
+
+like the __aligned use below in $Attribute
+
+> +			__pt_guarded_by\b|
+
+And all the rest of these entries that take arguments need to add
+that same '\s*\(.*\)'
+
+and it'll be fragile besides, multiline uses likely won't work,
+any use that has another internal () pair won't work, etc...
+
+> +			__rcu_guarded\b|
+> +			__must_hold\b|
+> +			__must_hold_shared\b|
+> +			__must_not_hold\b|
+> +			__acquires\b|
+> +			__acquires_shared\b|
+> +			__cond_acquires\b|
+> +			__cond_acquires_shared\b|
+> +			__releases\b|
+> +			__releases_shared\b|
+> +			__cond_releases\b|
+> +			__no_context_analysis\b|
+> +			__context_unsafe\b|
+> +			__acquires_ret\b|
+> +			__acquires_shared_ret\b
+> +		}x;
+> =20
+>  # Notes to $Attribute:
+>  # We need \b after 'init' otherwise 'initconst' will cause a false posit=
+ive in a check
+> @@ -551,6 +570,7 @@ our $Attribute	=3D qr{
+>  			__ro_after_init|
+>  			__kprobes|
+>  			$InitAttribute|
+> +			$ContextAnalysis|
+>  			__aligned\s*\(.*\)|
+>  			____cacheline_aligned|
+>  			____cacheline_aligned_in_smp|
+>=20
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
