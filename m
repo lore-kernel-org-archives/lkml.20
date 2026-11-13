@@ -1,75 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794604293;
-	b=vwGpCr6zE4rveRIAg4IadsdHfdAsiC+LAhKSYpHwOJbmN55/2TedOgj4vqdsWYusFFjj
-	 X0ppZeSx76fxNJscgBb7UGGROU15w90aeLuUIsOKGfpQ+9eqetval65sPvCpb7MgpZFeP
-	 H2VoJ07TWBLAPl88jPp9QjfxsYWREg10PeBLirbAHywSpEBksPJ/fLt4Z3kICUnHd8MQr
-	 e7WZqrvOSCQWlJOY9EojUfGqtaEVqvx1RgJqxPwp/EOWch24UNKrkSdImEPkggV+aenRI
-	 l3HhTZ+4Okccgh7Cm6CnwiizFpELZ3oszEMYZk/tniEmJ/RHa9Fra9TzMqPWubZ871A==
+	t=1794604298;
+	b=HGPtXnSS2mElas2LEzyWBUTDrxtRv8FuMAF0TGfU6wm861My9X2iESDCbqKJcayqmRwT
+	 kY8bXF3O9Q+4SzX7f0Hh0rLa3tNPUyvmQHs9efttHG3w1/gUVWeY23vZJxakawobDbyYS
+	 JXXfe3EeyTytspvwueayDBQfTURdM9S2696LMqCZ5A3NRktEnjsX9ewPbwxGCxjqbabH9
+	 UMwohQ09UTVGqdnHveX8S5MkGSKAtiwx0PklNM1RaIoeic0x+IjRRboM3/gTBawy/CRbb
+	 bFxyAjwXDD8y2NPNzhLhwn9s/cOoQ+apbXjwVgj2mdL2uuxWi30tD7OLZNXQb+3jxPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794604293;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794604298;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=csIZWQbfmfXCf+hoR4Bc71Ry0e4Z7c4/ohP5tccwi/8=;
-	b=4STrngz6MIjlB+IgyszjkCJbML3+x7WIBQ52mLJ7lO0KtXYK47E8QAd85Y8/aNn+uqhF
-	 JkqlHSOi1fPrl1saF9ia7iWoXMhhREy1Z/qqLxH1xWzDCcIMjsI6wghSdLS4kt9XsbV6J
-	 TXbOq4mTCIx4bLNrXMKOqQrWeWBMrabFdoaJE2bAgPfVyX5BBoMb2F4Hk00zDauHbg+WQ
-	 /3I10vH5jDqvIx1cZphRAzEjPR1jPwgwALxkpZxNG9XY9ayuOCxvHCk7clLKTAM7F/LjH
-	 Sx5oa6sZ8hvwkP2fTD6wmifVz8tcMp8CV3jzlMn2q22tkCasheNjDqdmGl3fzuRhkew==
+	 Content-Type;
+	bh=m80AGQbPS/DmXnuoMYtiEjibdInNcaEY/vjnI36ebWE=;
+	b=wHNCDcA4d8Rl2tdExpI67l/dMaW3zEn3PB2AnebAzkwiCEYTMbuauHTb5krR7GdjxMGs
+	 90AfS7PquXAhAROlU9tpMHJDagv3f/JblmKJcdktB2nfjtGFQhZjIbv8PxBCyWzSe6+1I
+	 VJO4OQ0puWOiSL9+QFFP6tt93gQYn1y2vBjOiuFHzSAVnZUkpMaOHWN+c1siHdZSSPAv3
+	 ch/mRZ4fF4BOLzIcgiAGRPO1oGOd3Re7TNjzsz5VdlgEl2FXFtu98VgSGYlj51DgA+g6U
+	 V9OstGNAS1mRoUYcZPS1IwZlrebbtjP25BlaudicSiTo1lICdnCLHDSTshPGLQxrJSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Hgt6ZNSa;
-	arc=none smtp.remote-ip=74.125.82.198
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TUG4BYFL;
+	arc=none smtp.remote-ip=74.125.82.200
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 331FA60A2629
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:11:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 331FA60A2629
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB49160A263C
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:11:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB49160A263C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Hgt6ZNSa
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-36d1353fdcdso6124188eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:11:31 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TUG4BYFL
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36ecd5db581so1557552eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:11:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794604291; x=1795209091; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=csIZWQbfmfXCf+hoR4Bc71Ry0e4Z7c4/ohP5tccwi/8=;
-        b=Hgt6ZNSagPUdtAIPj/aS+nKkrfPsseXNR9W7WEUVr7v/lKU7g7+7AKUfF4e3g4wWKj
-         WUfgTGLs57wHBr8htMIA0HCb5yXoGP7MXJ1o1/dZdin99uRzgnVjHrXcXULPqFeIT2hN
-         HwluUc+4klbpgCzn6Jv8zNCgsJvFDlvRsJFjoLObxIB2tjDVnYOk2DCyMi92rEpL+GZr
-         Db/jiAZRNRv7TgBWHfzJA76jFguAiH0pQ6v8dAyv7xx6N9MAmK2eHrNi00bo39HG9qUs
-         PyBplH+Bfvu+HNetjta4lglf+B8xBceZtZW2WHJb/XfMCdLEFbQiFTqH+W5FzrwXx8o/
-         RNoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794604291; x=1795209091;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1794604297; x=1795209097; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=csIZWQbfmfXCf+hoR4Bc71Ry0e4Z7c4/ohP5tccwi/8=;
-        b=ubO5NJH9rv++M/dol6u0wnP0wdwWjJY6pIJ/XP9ZHAGXtiinn/GPCcgjK3OL4PcB8v
-         vZBWcCOTrUwWNTiNLSuzxItudIscb2bEVSy0DJT01bLdMwHPm4CU28KWmJdXUL7aeV8g
-         v3kyJbqNldoiOGEj+qsk0etrDAs2GHkN7MZ88x+CJC4UYbJ1HCszEFAYxPcfmeQaNEY7
-         zNH7YG/r4vpZadzn1Q58sHZVi/5Y/ATbaHa2xbqhU3zpESWyEazZMmlZhyUJmI3fGVZk
-         okkr9CF2hAqZ/1xSKBmnCiEkspese75kB5EVCF2OB3S6PW2nRLPt+7lmpV/XpYKIu3iq
-         +23Q==
-X-Forwarded-Encrypted: i=1; AL+hErFdUxG0ybeuAfwXuYUmMie9mp8fZAfArr+bqH7tjkWqeXz0JwURqL4LUt2W8lAzchuwsoBf0eSr0SGQHXc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Q26QPcj6r48xdLGrMjRIjKyYnBUVsZU84Lq9dCGLC9XrvMPB5
-	417df/lfj2xVB/V6629AceYllxJ9dFVYiSUV0FN+xhR0sFiBiK2P3I3VL3vBDbDw6wQKDSoC/SO
-	0CiE8YA21uw==
-X-Received: from dybnj40.prod.google.com ([2002:a05:7300:d0a8:b0:36a:de0:d28a])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7300:d718:b0:36a:12c1:3adb
- with SMTP id 5a478bee46e88-37966b52740mr4621734eec.20.1794604290824; Fri, 13
- Nov 2026 13:11:30 -0800 (PST)
-Date: Fri, 13 Nov 2026 13:10:59 -0800
+        bh=m80AGQbPS/DmXnuoMYtiEjibdInNcaEY/vjnI36ebWE=;
+        b=TUG4BYFLlBYWV6j8T3ITIdYU8B4tHltNNG6FLRXpE2OPp0drZ0Snd1z5J14yxkJn+n
+         7xWeruGKlV81/oBx36XehOSruO9JffFR7QX3GqeRdAODKcnw0PHXSUmHpVYijAP7UedZ
+         AHFu0oXtlN3sUKWAW6z2yjb3/fJ3MF6ZsgoVes+Z/s9qmetg9Ibt2F6ipnhf76oqy5BL
+         6wfxBPGE+9hh6eqOQycspJTe+Rr2bPYYLVtUrsXP11ep6IAGxv9u5ckBwCUI87C2liND
+         7HZaw/z5yhQ+ofh3DJSQkKHr6MpCfgQRIrYMLaVwMpSocOEOMG6qJCOchIX1c8tNk6xG
+         nNrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794604297; x=1795209097;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=m80AGQbPS/DmXnuoMYtiEjibdInNcaEY/vjnI36ebWE=;
+        b=VMx4s8ejYCQmoWyWbqPupf6BKQw2gRdkAsp76siB51BaAxzMEV+NNq92OAvFK1cOSX
+         J4hoKoM/0GwRAKJdxtbKfs5t+4w7ZMvQ8mK7pq38pnGCcskw0GbS1lWXsVP3SA4kCsAt
+         9/er6ROaecfv3tq9Y4LwrKOJGfOgd3B97OFza86ouBrbc1sqRfSK8Dt5Ij/beBMaW+RN
+         nD/QlguhZ0W+CG1CRNSsUaAj2IU4aPMAtPSjJkGLue+g3l3mC7aCP6cEch/CKffHAHc4
+         blMBuPp5n0ypptqXAi6zOm2mSMjbDYTLOynnBtOgPotBpWqEMvdxtM4sGmvYgIs5YefJ
+         nXCQ==
+X-Forwarded-Encrypted: i=1; AL+hErFmaybgLXMOTSg0ZxLpDW6Y8/pDpfnERFU+6auI2jl85STkrMN9eKE+tfKdEAUA+LRMHUHIdMF+nqKF6ko=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9WVLm+Pjg3nWWcKYCgLT/Ayh95GVuLeezQTbPzJucwk9z3+3ZL
+	/bvZe1MvX4kSZB4KTDWduqOmTFqJOBmLSdCYOqs4dXb18MSdjTXyL+7wEFTk3BbOY5tt89ZCD4p
+	P5e1hOI+uqg==
+X-Received: from dybrt9.prod.google.com ([2002:a05:7301:4709:b0:369:f2bd:5ab6])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:4d10:b0:377:58c0:22a7
+ with SMTP id 5a478bee46e88-379655d4493mr2800075eec.6.1794604296206; Fri, 13
+ Nov 2026 13:11:36 -0800 (PST)
+Date: Fri, 13 Nov 2026 13:11:01 -0800
 In-Reply-To: <20261113211105.3118281-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,9 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261113211105.3118281-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <20261113211105.3118281-9-irogers@google.com>
-Subject: [PATCH 08/11] perf list, jevents: Add --export-dir and --output-dir
- sysfs-style exporters
+Message-ID: <20261113211105.3118281-11-irogers@google.com>
+Subject: [PATCH 10/11] perf list: Add --export-cpuid to export compiled-in CPU models
 From: Ian Rogers <irogers@google.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
@@ -92,1571 +90,1597 @@ Cc: Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>,
 	James Clark <james.clark@linaro.org>, linux-perf-users@vger.kernel.org, 
 	linux-kernel@vger.kernel.org, Ian Rogers <irogers@google.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Add two complementary sysfs-style directory exporters so inbuilt or JSON
-PMU events, metrics, and metricgroup descriptions can be materialized on
-disk, inspected or edited, and layered back via pmu-events.dir:
+Currently 'perf list --export-dir <dir>' only exports the active PMUs on
+the running system into host-direct '<dir>/<pmu>/' directories, while
+exporting other CPU models or architectures requires running
+'jevents.py --output-dir' against an unbuilt kernel JSON source tree.
+With JEVENTS_ARCH=all and block-indexed string compression, the 'perf'
+binary already carries all compiled-in architectures and CPU models.
 
-1. perf list --export-dir <dir> (host-direct layout):
-   Implement a struct print_callbacks backend in builtin-list.c backed
-   by pmu_layer__export_{event,metric,metricgroup}() in pmu-layer.c
-   (keeping struct perf_pmu_alias and struct perf_pmu_metric private) to
-   materialize the running machine's active PMUs directly under <dir>/:
+Add '--export-cpuid <cpuid|arch[/model]|all>' to 'perf list' (for use
+with '--export-dir <dir>') so compiled-in event, metric, and metricgroup
+tables for any CPUID, model, or architecture can be materialized
+directly from the 'perf' binary without needing 'jevents.py' or kernel
+sources:
 
-     <dir>/
-     |-- cpu/
-     |   |-- events/inst_retired.any{,.desc,.topic,...}
-     |   `-- metrics/cpi{,.desc,.group,.scale-unit,...}
-     |-- tool/events/duration_time{,.desc,.unit,...}
-     `-- metricgroups/TopdownL1.desc
+- Implement pmu_layer__export_cpuid() in pmu-layer.c, supporting:
+  - Exact or stepping CPUIDs (e.g. 'GenuineIntel-6-8F-8' ->
+    'GenuineIntel-6-8F', '0x00000000411fd493' -> '0x00000000410fd490',
+    '0x00800200' -> '0x00800000', 'IBM,8561,703' -> 'IBM,8561', and
+    '0x489-0x8000000000000007-0x1' -> '0x489-0x8000000000000007') as
+    well as literal system PMU Compat identifiers.
+  - Architecture names ('x86', 'arm64', 'riscv', 'powerpc', 's390',
+    'common') and '<arch>/<model>' or '<model>' globs ('x86/skylake',
+    'arm64/arm/neoverse-n2-v2', 'amdzen*').
+  - 'all' to materialize all compiled-in architectures and models under
+    '<dir>/models/<arch>/<model>/' with expanded relative POSIX symlinks
+    under '<dir>/cpus/<cpuid>' and '<dir>/sys/<id>'.
+- Preserve all 'perf list' filters (--unit, --cputype, --deprecated, and
+  hw/sw/cache/pmu/metric/metricgroup/event_glob positional arguments).
 
-   This layout targets quick host-local inspection and in-place overrides
-   and automatically inherits perf list filters (--unit, --cputype,
-   --deprecated, and event/metric globs).
+For example, to inspect or migrate metrics from ARM64 Neoverse-N2 onto
+another machine:
 
-2. jevents.py --output-dir <dir> (portable CPUID/sys symlink layout):
-   Materialize tools/perf/pmu-events/arch/ JSON trees into canonical
-   model directories under <dir>/models/<arch>/<model>/ and expand
-   arch/*/mapfile.csv CPUID patterns and literal uncore Compat IDs into
-   relative POSIX symlinks under <dir>/cpus/<cpuid> and <dir>/sys/<id>,
-   plus cross-CPU arch/common definitions at the top level:
+  $ perf list --export-dir /tmp/n2 \
+        --export-cpuid arm64/arm/neoverse-n2-v2 metric metricgroup
 
-     <dir>/
-     |-- cpus/
-     |   |-- GenuineIntel-6-4E -> ../models/x86/skylake
-     |   |-- GenuineIntel-6-5E -> ../models/x86/skylake
-     |   |-- 0x00000000410fd490 -> ../models/arm64/arm/neoverse-n2
-     |   `-- 0x489-0x8000000000000007 -> ../models/riscv/sifive/u74
-     |-- sys/
-     |   `-- 43401 -> ../models/arm64/arm/cmn
-     |-- models/
-     |   |-- x86/skylake/{cpu,uncore_imc,...}/{events,metrics}/...
-     |   `-- arm64/arm/neoverse-n2/armv8_pmuv3/{events,metrics}/...
-     |-- default_core/events/...
-     `-- metricgroups/<group>.desc
+produces:
 
-   This produces a self-contained multi-architecture directory tree with
-   no runtime mapfile.csv or regex matching required.
+  /tmp/n2/
+  |-- cpus/
+  |   |-- 0x00000000410fd490 -> ../models/arm64/arm/neoverse-n2-v2
+  |   `-- 0x00000000410fd4f0 -> ../models/arm64/arm/neoverse-n2-v2
+  |-- models/arm64/arm/neoverse-n2-v2/
+  |   |-- default_core/metrics/...
+  |   `-- metricgroups/...
+  `-- metricgroups/...
 
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/Documentation/perf-config.txt |   8 +
- tools/perf/Documentation/perf-list.txt   |  31 +-
- tools/perf/builtin-list.c                | 212 +++++++++-
- tools/perf/pmu-events/README             |  19 +
- tools/perf/pmu-events/jevents.py         | 375 ++++++++++++++++--
- tools/perf/util/pmu-layer.c              | 472 +++++++++++++++++++++++
- tools/perf/util/pmu-layer.h              |  11 +
- tools/perf/util/print-events.c           |  29 +-
- 8 files changed, 1109 insertions(+), 48 deletions(-)
+ tools/perf/Documentation/perf-config.txt |    6 +-
+ tools/perf/Documentation/perf-list.txt   |   23 +-
+ tools/perf/builtin-list.c                |  152 +++
+ tools/perf/util/pmu-layer.c              | 1199 ++++++++++++++++++++--
+ tools/perf/util/pmu-layer.h              |   12 +
+ 5 files changed, 1300 insertions(+), 92 deletions(-)
 
-diff --git a/tools/perf/Documentation/perf-config.txt b/tools/perf/Document=
-ation/perf-config.txt
-index e81c33717688..95181ebfca23 100644
+diff --git a/tools/perf/Documentation/perf-config.txt b/tools/perf/Documentation/perf-config.txt
+index 95181ebfca23..d9afecde6019 100644
 --- a/tools/perf/Documentation/perf-config.txt
 +++ b/tools/perf/Documentation/perf-config.txt
-@@ -300,6 +300,14 @@ For example, to layer local overrides ahead of a share=
-d directory in
- 		$ printf 'instructions / cpu-cycles\n' > ~/.perf-events/local/default_co=
-re/metrics/my_ipc
- 		$ printf 'Custom instructions per cycle\n' > ~/.perf-events/local/defaul=
-t_core/metrics/my_ipc.desc
+@@ -302,10 +302,12 @@ For example, to layer local overrides ahead of a shared directory in
  		$ perf stat -M my_ipc true
-++
-+Overlay directories can also be populated from the current system using
-+`perf list --export-dir` (see linkperf:perf-list[1]) or from JSON event tr=
-ees
-+using `jevents.py --output-dir`:
-+
-+		$ perf list --export-dir ~/.perf-events/local metric metricgroup
-+		$ python3 tools/perf/pmu-events/jevents.py --output-dir /opt/pmu-events =
-x86 all
-+		$ perf config pmu-events.dir=3D~/.perf-events/local:/opt/pmu-events
-=20
- annotate.*::
- 	These are in control of addresses, jump function, source code
-diff --git a/tools/perf/Documentation/perf-list.txt b/tools/perf/Documentat=
-ion/perf-list.txt
-index 17e582998474..dbad98da3899 100644
+ +
+ Overlay directories can also be populated from the current system using
+-`perf list --export-dir` (see linkperf:perf-list[1]) or from JSON event trees
+-using `jevents.py --output-dir`:
++`perf list --export-dir`, from compiled-in cross-architecture tables using
++`perf list --export-dir ... --export-cpuid` (see linkperf:perf-list[1]), or
++from JSON event trees using `jevents.py --output-dir`:
+ 
+ 		$ perf list --export-dir ~/.perf-events/local metric metricgroup
++		$ perf list --export-dir /opt/pmu-events --export-cpuid all
+ 		$ python3 tools/perf/pmu-events/jevents.py --output-dir /opt/pmu-events x86 all
+ 		$ perf config pmu-events.dir=~/.perf-events/local:/opt/pmu-events
+ 
+diff --git a/tools/perf/Documentation/perf-list.txt b/tools/perf/Documentation/perf-list.txt
+index dbad98da3899..e2f7d8407a4c 100644
 --- a/tools/perf/Documentation/perf-list.txt
 +++ b/tools/perf/Documentation/perf-list.txt
-@@ -52,6 +52,14 @@ Output in JSON format.
- --output=3D::
- 	Output file name. By default output is written to stdout.
-=20
-+--export-dir=3D::
-+	Materialize matching PMU events (`<dir>/<pmu>/events/`), metrics
-+	(`<dir>/<pmu>/metrics/`), and metricgroup descriptions
-+	(`<dir>/metricgroups/`) into a sysfs-style directory tree suitable for
-+	layering via `pmu-events.dir` in linkperf:perf-config[1], for example
-+	`perf list --export-dir ~/.perf-events metric metricgroup`. See
-+	<<EXPORTING_EVENTS, EXPORTING AND OVERLAYING EVENTS>>.
+@@ -57,8 +57,18 @@ Output in JSON format.
+ 	(`<dir>/<pmu>/metrics/`), and metricgroup descriptions
+ 	(`<dir>/metricgroups/`) into a sysfs-style directory tree suitable for
+ 	layering via `pmu-events.dir` in linkperf:perf-config[1], for example
+-	`perf list --export-dir ~/.perf-events metric metricgroup`. See
+-	<<EXPORTING_EVENTS, EXPORTING AND OVERLAYING EVENTS>>.
++	`perf list --export-dir ~/.perf-events metric metricgroup`. By default
++	only the current system's active PMUs are exported; combine with
++	`--export-cpuid` to export compiled-in tables for other CPUs or
++	architectures. See <<EXPORTING_EVENTS, EXPORTING AND OVERLAYING EVENTS>>.
 +
++--export-cpuid=::
++	When combined with `--export-dir`, export compiled-in PMU event and
++	metric tables matching a CPUID (for example `GenuineIntel-6-8F-8` or
++	`0x00000000410fd490`), architecture (`x86`, `arm64`, `riscv`), model
++	path or glob (`x86/skylake`, `arm64/arm/neoverse-n2-v2`, `amdzen*`), or
++	`all` into `<dir>/models/<arch>/<model>/` with relative POSIX symlinks
++	under `<dir>/cpus/<cpuid>` and `<dir>/sys/<id>`.
+ 
  --tui::
  Rather than printing the events, interactively browse the PMUs, events and
- metrics in the terminal using the 'ilist' python script (see
-@@ -364,6 +372,27 @@ other events in the group.
- However, in the case AUX area events (e.g. Intel PT or CoreSight), the AUX
- area event must be the leader, so then the second event samples, not the f=
-irst.
-=20
-+[[EXPORTING_EVENTS]]
-+EXPORTING AND OVERLAYING EVENTS
-+-------------------------------
-+
-+Matching PMU events, metrics, and metricgroups on the current system can b=
-e
-+materialized as a sysfs-style directory tree using '--export-dir', edited =
-or
-+extended in place, and layered back over the inbuilt tables and sysfs via
-+'pmu-events.dir' (see linkperf:perf-config[1]):
-+
-+  perf list --export-dir ~/.perf-events sw metric metricgroup
-+  printf 'Custom wall-clock duration\n' > ~/.perf-events/tool/events/durat=
-ion_time.desc
-+  perf config pmu-events.dir=3D~/.perf-events
-+  perf list sw
-+
-+Architecture JSON definitions from the kernel source tree can also be expo=
-rted
-+directly into a self-contained directory tree (with literal 'cpus/<cpuid>'=
- and
-+'sys/<id>' symlinks and no 'mapfile.csv') using 'jevents.py --output-dir':
-+
-+  python3 tools/perf/pmu-events/jevents.py --output-dir /opt/pmu-events x8=
-6 all
-+  perf config pmu-events.dir=3D~/.perf-events:/opt/pmu-events
-+
- OPTIONS
- -------
-=20
-@@ -408,6 +437,6 @@ include::intel-acr.txt[]
- SEE ALSO
- --------
- linkperf:perf-stat[1], linkperf:perf-top[1],
--linkperf:perf-record[1],
-+linkperf:perf-record[1], linkperf:perf-config[1],
- http://www.intel.com/sdm/[Intel=C2=AE 64 and IA-32 Architectures Software =
-Developer's Manual Volume 3B: System Programming Guide],
- https://bugzilla.kernel.org/show_bug.cgi?id=3D206537[AMD Processor Program=
-ming Reference (PPR)]
+@@ -386,10 +396,13 @@ extended in place, and layered back over the inbuilt tables and sysfs via
+   perf config pmu-events.dir=~/.perf-events
+   perf list sw
+ 
+-Architecture JSON definitions from the kernel source tree can also be exported
+-directly into a self-contained directory tree (with literal 'cpus/<cpuid>' and
+-'sys/<id>' symlinks and no 'mapfile.csv') using 'jevents.py --output-dir':
++Compiled-in tables for other CPUIDs, models, or architectures can also be
++exported directly from the 'perf' binary using '--export-cpuid' (for example,
++to inspect or migrate a metric from one architecture or model to another), or
++exported from unbuilt kernel source JSON trees using 'jevents.py --output-dir':
+ 
++  perf list --export-dir /tmp/skl --export-cpuid x86/skylake metric
++  perf list --export-dir /opt/pmu-events --export-cpuid all
+   python3 tools/perf/pmu-events/jevents.py --output-dir /opt/pmu-events x86 all
+   perf config pmu-events.dir=~/.perf-events:/opt/pmu-events
+ 
 diff --git a/tools/perf/builtin-list.c b/tools/perf/builtin-list.c
-index 53e1834233c8..85de0bd73e32 100644
+index 85de0bd73e32..f87a8b2147d4 100644
 --- a/tools/perf/builtin-list.c
 +++ b/tools/perf/builtin-list.c
-@@ -13,6 +13,7 @@
- #include "util/print-events.h"
- #include "util/pmus.h"
- #include "util/pmu.h"
-+#include "util/pmu-layer.h"
- #include "util/debug.h"
- #include "util/metricgroup.h"
- #include "util/pfm.h"
-@@ -25,9 +26,11 @@
- #include <linux/zalloc.h>
- #include <ctype.h>
- #include <errno.h>
-+#include <limits.h>
- #include <stdarg.h>
- #include <stdio.h>
- #include <stdlib.h>
-+#include <string.h>
-=20
- /**
-  * struct print_state - State and configuration passed to the default_prin=
-t
-@@ -540,6 +543,141 @@ static bool default_skip_duplicate_pmus(void *ps)
- 	return !print_state->long_desc;
+@@ -703,6 +703,140 @@ static int list__tui(int argc, const char **argv)
+ 	return ret;
  }
-=20
-+struct export_dir_print_state {
-+	struct print_state common;
-+	const char *root_dir;
-+	struct strlist *visited_groups;
-+	bool failed;
-+};
-+
-+static void export_dir_print_start(void *ps)
+ 
++static int run_export_cpuid_pass(const char *export_dir,
++				 const char *export_cpuid,
++				 const struct pmu_layer_export_opts *opts)
 +{
-+	struct export_dir_print_state *eps =3D ps;
-+	int ret =3D pmu_layer__mkdir_p(eps->root_dir);
++	int ret = pmu_layer__export_cpuid(export_dir, export_cpuid, opts);
 +
-+	if (ret) {
-+		pr_err("Failed to create export directory '%s': %s\n",
-+		       eps->root_dir, strerror(-ret));
-+		eps->failed =3D true;
++	if (ret == -ENOENT) {
++		pr_err("ERROR: No compiled-in PMU tables matched --export-cpuid '%s'\n",
++		       export_cpuid);
++		return -1;
 +	}
-+}
-+
-+static void export_dir_print_end(void *ps __maybe_unused) {}
-+
-+static void export_dir_print_event(void *ps, const char *topic,
-+				   const char *pmu_name, u32 pmu_type,
-+				   const char *event_name, const char *event_alias,
-+				   const char *scale_unit __maybe_unused,
-+				   bool deprecated,
-+				   const char *event_type_desc __maybe_unused,
-+				   const char *desc __maybe_unused,
-+				   const char *long_desc __maybe_unused,
-+				   const char *encoding_desc)
-+{
-+	struct export_dir_print_state *eps =3D ps;
-+
-+	if (eps->failed)
-+		return;
-+
-+	if (deprecated && !eps->common.deprecated)
-+		return;
-+
-+	if (eps->common.pmu_glob &&
-+		(!pmu_name || !strglobmatch(pmu_name, eps->common.pmu_glob)))
-+		return;
-+
-+	if (eps->common.exclude_abi && pmu_type < PERF_TYPE_MAX &&
-+	    pmu_type !=3D PERF_TYPE_RAW)
-+		return;
-+
-+	if (eps->common.event_glob &&
-+	    (!event_name || !strglobmatch(event_name, eps->common.event_glob)) &&
-+	    (!event_alias || !strglobmatch(event_alias, eps->common.event_glob)) =
-&&
-+	    (!topic || !strglobmatch_nocase(topic, eps->common.event_glob)))
-+		return;
-+
-+	if (!pmu_name || !event_name || !encoding_desc ||
-+	    pmu_type =3D=3D PERF_TYPE_TRACEPOINT)
-+		return;
-+
-+	if (pmu_layer__export_event(eps->root_dir, pmu_name, event_name) < 0)
-+		eps->failed =3D true;
-+}
-+
-+static bool export_pmu_glob_matches_metric(const char *pmu_glob,
-+					   const char *eff_pmu)
-+{
-+	struct perf_pmu *pmu =3D NULL;
-+
-+	if (!pmu_glob)
-+		return true;
-+	if (strglobmatch(eff_pmu, pmu_glob))
-+		return true;
-+	if (!strcmp(eff_pmu, "default_core") && is_pmu_core(pmu_glob))
-+		return true;
-+
-+	while ((pmu =3D perf_pmus__scan_for_metrics(pmu)) !=3D NULL) {
-+		if (pmu->type =3D=3D PERF_TYPE_TRACEPOINT)
-+			continue;
-+		if (!strglobmatch(pmu->name, pmu_glob) &&
-+		    (!pmu->alias_name || !strglobmatch(pmu->alias_name, pmu_glob)))
-+			continue;
-+		if (!strcmp(eff_pmu, "default_core") && pmu->is_core)
-+			return true;
-+		if (perf_pmu__name_wildcard_match(pmu, eff_pmu))
-+			return true;
++	if (ret < 0) {
++		pr_err("Failed to export PMU tables to '%s': %s\n",
++		       export_dir, strerror(-ret));
++		return -1;
 +	}
-+	return false;
++	return 0;
 +}
 +
-+static void export_dir_print_metric(void *ps, const char *group,
-+				    const char *name, const char *desc,
-+				    const char *long_desc, const char *expr,
-+				    const char *threshold, const char *unit,
-+				    const char *pmu_name)
++static int cmd_list__export_cpuid(const char *export_dir,
++				  const char *export_cpuid,
++				  const char *unit_name,
++				  const char *cputype,
++				  bool deprecated,
++				  int argc, const char **argv)
 +{
-+	struct export_dir_print_state *eps =3D ps;
-+	const char *eff_pmu =3D (pmu_name && pmu_name[0]) ? pmu_name : "default_c=
-ore";
-+	char key[NAME_MAX + MAX_PMU_NAME_LEN];
++	const char *base_pmu_glob = NULL;
++	bool ran_pass = false;
 +
-+	if (eps->failed)
-+		return;
++	if (unit_name) {
++		base_pmu_glob = unit_name;
++	} else if (cputype) {
++		const struct perf_pmu *pmu = perf_pmus__pmu_for_pmu_filter(cputype);
 +
-+	if (!export_pmu_glob_matches_metric(eps->common.pmu_glob, eff_pmu))
-+		return;
++		if (pmu)
++			base_pmu_glob = pmu->name;
++		else if (!strcasecmp(cputype, "core"))
++			base_pmu_glob = "cpu_core";
++		else if (!strcasecmp(cputype, "atom"))
++			base_pmu_glob = "cpu_atom";
++		else
++			base_pmu_glob = cputype;
++	}
 +
-+	if (eps->common.event_glob &&
-+	    (!eps->common.metrics || !name ||
-+	     !strglobmatch(name, eps->common.event_glob)) &&
-+	    (!eps->common.metricgroups || !group ||
-+	     !strglobmatch(group, eps->common.event_glob)))
-+		return;
++	if (argc == 0) {
++		struct pmu_layer_export_opts opts = {
++			.pmu_glob = base_pmu_glob,
++			.events = true,
++			.metrics = true,
++			.metricgroups = true,
++			.deprecated = deprecated,
++		};
 +
-+	if (eps->common.metricgroups && group && group[0] &&
-+	    !strlist__has_entry(eps->visited_groups, group)) {
-+		const char *gdesc;
++		return run_export_cpuid_pass(export_dir, export_cpuid, &opts);
++	}
 +
-+		strlist__add(eps->visited_groups, group);
-+		gdesc =3D perf_pmus__describe_metricgroup(group);
-+		if (pmu_layer__export_metricgroup(eps->root_dir, group, gdesc) < 0) {
-+			eps->failed =3D true;
-+			return;
++	for (int i = 0; i < argc; i++) {
++		struct pmu_layer_export_opts opts = {
++			.pmu_glob = base_pmu_glob,
++			.deprecated = deprecated,
++		};
++		int ret;
++
++		if (!strcmp(argv[i], "tracepoint") || !strcmp(argv[i], "sdt") ||
++		    !strcmp(argv[i], "pfm")) {
++			continue;
++		} else if (!strcmp(argv[i], "hw") || !strcmp(argv[i], "hardware")) {
++			opts.events = true;
++			opts.event_glob = "legacy hardware";
++			ret = run_export_cpuid_pass(export_dir, export_cpuid, &opts);
++		} else if (!strcmp(argv[i], "sw") || !strcmp(argv[i], "software")) {
++			static const char * const sw_globs[] = { "software", "tool" };
++
++			ret = 0;
++			for (size_t j = 0; j < ARRAY_SIZE(sw_globs) && !ret; j++) {
++				if (base_pmu_glob &&
++				    !strglobmatch(sw_globs[j], base_pmu_glob))
++					continue;
++				opts.pmu_glob = sw_globs[j];
++				opts.events = true;
++				ret = run_export_cpuid_pass(export_dir, export_cpuid, &opts);
++				ran_pass = true;
++			}
++			if (ret)
++				return ret;
++			continue;
++		} else if (!strcmp(argv[i], "cache") || !strcmp(argv[i], "hwcache")) {
++			opts.events = true;
++			opts.event_glob = "legacy cache";
++			ret = run_export_cpuid_pass(export_dir, export_cpuid, &opts);
++		} else if (!strcmp(argv[i], "pmu")) {
++			opts.events = true;
++			opts.exclude_abi = true;
++			ret = run_export_cpuid_pass(export_dir, export_cpuid, &opts);
++		} else if (!strcmp(argv[i], "metric") || !strcmp(argv[i], "metrics")) {
++			opts.metrics = true;
++			ret = run_export_cpuid_pass(export_dir, export_cpuid, &opts);
++		} else if (!strcmp(argv[i], "metricgroup") ||
++			   !strcmp(argv[i], "metricgroups")) {
++			opts.metricgroups = true;
++			ret = run_export_cpuid_pass(export_dir, export_cpuid, &opts);
++		} else if (strchr(argv[i], ':') != NULL) {
++			opts.event_glob = argv[i];
++			opts.metrics = true;
++			opts.metricgroups = true;
++			ret = run_export_cpuid_pass(export_dir, export_cpuid, &opts);
++		} else {
++			char *s = NULL;
++
++			if (asprintf(&s, "*%s*", argv[i]) < 0)
++				return -1;
++			opts.event_glob = s;
++			opts.events = true;
++			opts.metrics = true;
++			opts.metricgroups = true;
++			ret = run_export_cpuid_pass(export_dir, export_cpuid, &opts);
++			free(s);
 +		}
++		if (ret)
++			return ret;
++		ran_pass = true;
 +	}
 +
-+	if (!eps->common.metrics || !name || !name[0])
-+		return;
++	if (!ran_pass) {
++		struct pmu_layer_export_opts opts = {
++			.pmu_glob = base_pmu_glob,
++			.deprecated = deprecated,
++		};
 +
-+	snprintf(key, sizeof(key), "%s/%s", eff_pmu, name);
-+	if (strlist__has_entry(eps->common.visited_metrics, key))
-+		return;
-+	strlist__add(eps->common.visited_metrics, key);
-+
-+	if (pmu_layer__export_metric(eps->root_dir, eff_pmu, group, name, desc,
-+				     long_desc, expr, threshold, unit) < 0)
-+		eps->failed =3D true;
++		return run_export_cpuid_pass(export_dir, export_cpuid, &opts);
++	}
++	return 0;
 +}
 +
- /*
-  * Launch the interactive textual based ilist python script via 'perf scri=
-pt'
-  * that finds the script and sets up the python environment. Arguments are
-@@ -577,6 +715,11 @@ int cmd_list(int argc, const char **argv)
- 			.fp =3D stdout,
- 		},
- 	};
-+	struct export_dir_print_state export_ps =3D {
-+		.common =3D {
-+			.fp =3D stdout,
-+		},
-+	};
- 	struct print_state *ps =3D &default_ps;
- 	struct print_callbacks print_cb =3D {
- 		.print_start =3D default_print_start,
-@@ -588,6 +731,7 @@ int cmd_list(int argc, const char **argv)
- 	const char *cputype =3D NULL;
- 	const char *unit_name =3D NULL;
- 	const char *output_path =3D NULL;
-+	const char *export_dir =3D NULL;
- 	bool json =3D false;
- 	bool use_tui =3D false;
- 	struct option list_options[] =3D {
-@@ -600,6 +744,8 @@ int cmd_list(int argc, const char **argv)
- 		OPT_BOOLEAN(0, "details", &default_ps.detailed,
- 			    "Print information on the perf event names and expressions used int=
-ernally by events."),
+ int cmd_list(int argc, const char **argv)
+ {
+ 	int i, ret = 0;
+@@ -732,6 +866,7 @@ int cmd_list(int argc, const char **argv)
+ 	const char *unit_name = NULL;
+ 	const char *output_path = NULL;
+ 	const char *export_dir = NULL;
++	const char *export_cpuid = NULL;
+ 	bool json = false;
+ 	bool use_tui = false;
+ 	struct option list_options[] = {
+@@ -746,6 +881,8 @@ int cmd_list(int argc, const char **argv)
  		OPT_STRING('o', "output", &output_path, "file", "output file name"),
-+		OPT_STRING(0, "export-dir", &export_dir, "dir",
-+			   "Export events, metrics, and metricgroups to a sysfs-style directory=
-"),
+ 		OPT_STRING(0, "export-dir", &export_dir, "dir",
+ 			   "Export events, metrics, and metricgroups to a sysfs-style directory"),
++		OPT_STRING(0, "export-cpuid", &export_cpuid, "cpuid|arch[/model]|all",
++			   "Export compiled-in PMU tables for CPUID, arch[/model], or 'all'"),
  		OPT_BOOLEAN(0, "deprecated", &default_ps.deprecated,
  			    "Print deprecated events."),
  		OPT_STRING(0, "cputype", &cputype, "cpu type",
-@@ -629,22 +775,59 @@ int cmd_list(int argc, const char **argv)
- 	argc =3D parse_options(argc, argv, list_options, list_usage,
- 			     PARSE_OPT_STOP_AT_NON_OPTION);
-=20
-+	if (export_dir && (use_tui || json || output_path)) {
-+		pr_err("ERROR: --export-dir cannot be combined with --tui, --json, or --=
-output\n");
+@@ -779,10 +916,25 @@ int cmd_list(int argc, const char **argv)
+ 		pr_err("ERROR: --export-dir cannot be combined with --tui, --json, or --output\n");
+ 		return -1;
+ 	}
++	if (export_cpuid && !export_dir) {
++		pr_err("ERROR: --export-cpuid requires --export-dir\n");
 +		return -1;
 +	}
-+
++	if (export_cpuid && !export_cpuid[0]) {
++		pr_err("ERROR: --export-cpuid requires a CPUID, arch, arch/model, or 'all'\n");
++		return -1;
++	}
+ 
  	if (use_tui)
  		return list__tui(argc, argv);
-=20
--	if (json)
-+	if (export_dir) {
-+		export_ps.root_dir =3D export_dir;
-+		export_ps.common.long_desc =3D default_ps.long_desc;
-+		export_ps.common.deprecated =3D default_ps.deprecated;
-+		ps =3D &export_ps.common;
-+	} else if (json) {
- 		ps =3D &json_ps.common;
-+	}
-=20
- 	if (output_path) {
- 		ps->fp =3D fopen(output_path, "w");
- 	}
-=20
--	setup_pager();
--
--	if (!default_ps.name_only)
-+	if (!export_dir) {
- 		setup_pager();
-=20
--	if (json) {
-+		if (!default_ps.name_only)
-+			setup_pager();
+ 
++	if (export_cpuid) {
++		return cmd_list__export_cpuid(export_dir, export_cpuid,
++					      unit_name, cputype,
++					      default_ps.deprecated,
++					      argc, argv);
 +	}
 +
-+	if (export_dir) {
-+		print_cb =3D (struct print_callbacks){
-+			.print_start =3D export_dir_print_start,
-+			.print_end =3D export_dir_print_end,
-+			.print_event =3D export_dir_print_event,
-+			.print_metric =3D export_dir_print_metric,
-+			.skip_duplicate_pmus =3D json_skip_duplicate_pmus,
-+		};
-+		export_ps.visited_groups =3D strlist__new(NULL, NULL);
-+		assert(export_ps.visited_groups);
-+		ps->visited_metrics =3D strlist__new(NULL, NULL);
-+		assert(ps->visited_metrics);
-+		if (unit_name)
-+			ps->pmu_glob =3D strdup(unit_name);
-+		else if (cputype) {
-+			const struct perf_pmu *pmu =3D perf_pmus__pmu_for_pmu_filter(cputype);
-+
-+			if (!pmu) {
-+				pr_err("ERROR: cputype is not supported!\n");
-+				ret =3D -1;
-+				goto out;
-+			}
-+			ps->pmu_glob =3D strdup(pmu->name);
-+		}
-+	} else if (json) {
- 		print_cb =3D (struct print_callbacks){
- 			.print_start =3D json_print_start,
- 			.print_end =3D json_print_end,
-@@ -673,7 +856,7 @@ int cmd_list(int argc, const char **argv)
- 	print_cb.print_start(ps);
-=20
- 	if (argc =3D=3D 0) {
--		if (!unit_name) {
-+		if (!unit_name || export_dir) {
- 			ps->metrics =3D true;
- 			ps->metricgroups =3D true;
- 		}
-@@ -685,16 +868,17 @@ int cmd_list(int argc, const char **argv)
- 		char *s;
-=20
- 		if (strcmp(argv[i], "tracepoint") =3D=3D 0) {
--			char *old_pmu_glob =3D default_ps.pmu_glob;
-+			char *old_pmu_glob =3D ps->pmu_glob;
-=20
--			default_ps.pmu_glob =3D strdup("tracepoint");
--			if (!default_ps.pmu_glob) {
-+			ps->pmu_glob =3D strdup("tracepoint");
-+			if (!ps->pmu_glob) {
-+				ps->pmu_glob =3D old_pmu_glob;
- 				ret =3D -1;
- 				goto out;
- 			}
- 			perf_pmus__print_pmu_events(&print_cb, ps);
--			zfree(&default_ps.pmu_glob);
--			default_ps.pmu_glob =3D old_pmu_glob;
-+			zfree(&ps->pmu_glob);
-+			ps->pmu_glob =3D old_pmu_glob;
- 		} else if (strcmp(argv[i], "hw") =3D=3D 0 ||
- 			   strcmp(argv[i], "hardware") =3D=3D 0) {
- 			char *old_event_glob =3D ps->event_glob;
-@@ -780,6 +964,8 @@ int cmd_list(int argc, const char **argv)
- 			zfree(&ps->event_glob);
- 			ps->event_glob =3D old_event_glob;
- 		} else {
-+			char *old_event_glob =3D ps->event_glob;
-+
- 			if (asprintf(&s, "*%s*", argv[i]) < 0) {
- 				printf("Critical: Not enough memory! Trying to continue...\n");
- 				continue;
-@@ -791,15 +977,19 @@ int cmd_list(int argc, const char **argv)
- 			ps->metricgroups =3D true;
- 			metricgroup__print(&print_cb, ps);
- 			free(s);
-+			ps->event_glob =3D old_event_glob;
- 		}
- 	}
-=20
- out:
- 	print_cb.print_end(ps);
-+	if (export_dir && export_ps.failed)
-+		ret =3D -1;
- 	free(ps->pmu_glob);
- 	free(ps->last_topic);
- 	free(ps->last_metricgroups);
- 	strlist__delete(ps->visited_metrics);
-+	strlist__delete(export_ps.visited_groups);
- 	if (output_path)
- 		fclose(ps->fp);
-=20
-diff --git a/tools/perf/pmu-events/README b/tools/perf/pmu-events/README
-index de7efa2cebd1..b95d47e7a492 100644
---- a/tools/perf/pmu-events/README
-+++ b/tools/perf/pmu-events/README
-@@ -150,3 +150,22 @@ where:
-=20
- 	i.e the three CPU models use the JSON files (i.e PMU events) listed
- 	in the directory 'tools/perf/pmu-events/arch/x86/silvermont'.
-+
-+Sysfs-style directory export (--output-dir)
-+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-+
-+Instead of generating C tables, 'jevents.py --output-dir <dir>' can export
-+JSON events, metrics, and metricgroup descriptions directly into a sysfs-s=
-tyle
-+directory tree suitable for layering via 'pmu-events.dir' in '~/.perfconfi=
-g'
-+(see perf-config(1) and perf-list(1)):
-+
-+	$ python3 tools/perf/pmu-events/jevents.py --output-dir /tmp/pmu-events x=
-86 skylake
-+	$ python3 tools/perf/pmu-events/jevents.py --output-dir /opt/pmu-events x=
-86 all
-+
-+Canonical model directories are written under '<dir>/models/<arch>/<model>=
-/'
-+and 'mapfile.csv' CPUID patterns and uncore 'Compat' identifiers are expan=
-ded
-+into relative POSIX symlinks under '<dir>/cpus/<cpuid>' and '<dir>/sys/<id=
->',
-+so no 'mapfile.csv' is needed at runtime:
-+
-+	$ perf config pmu-events.dir=3D/opt/pmu-events
-+	$ perf list
-diff --git a/tools/perf/pmu-events/jevents.py b/tools/perf/pmu-events/jeven=
-ts.py
-index b32344e7eb8e..8c2f6531b0c5 100755
---- a/tools/perf/pmu-events/jevents.py
-+++ b/tools/perf/pmu-events/jevents.py
-@@ -8,6 +8,7 @@ import importlib
- import json
- import metric
- import os
-+import re
- import sys
- from typing import (Callable, Dict, NamedTuple, Optional, Sequence, Set, T=
-extIO,
-                     Tuple)
-@@ -2087,6 +2088,298 @@ def _init_worker(std_events: dict) -> None:
-   global _arch_std_events
-   _arch_std_events =3D std_events
-=20
-+
-+_SCALE_UNIT_RE =3D re.compile(
-+    r'^([+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?)(.*)$'
-+)
-+_ENUM_AGGR_MODE =3D {
-+    '1': 'PerChip',
-+    '2': 'PerCore',
-+}
-+_ENUM_EVENT_GROUPING =3D {
-+    '1': 'NO_GROUP_EVENTS',
-+    '2': 'NO_GROUP_EVENTS_NMI',
-+    '3': 'NO_GROUP_EVENTS_SMT',
-+    '4': 'NO_THRESHOLD_AND_NMI',
-+}
-+
-+
-+def _encode_filename(name: str) -> str:
-+  """Percent-encode '/' as '%2F' for POSIX filenames."""
-+  return name.replace('/', '%2F')
-+
-+
-+def _write_text_file(path: str, content: str) -> None:
-+  """Write a single sysfs-style attribute file terminated by a newline."""
-+  os.makedirs(os.path.dirname(path), exist_ok=3DTrue)
-+  with open(path, 'w', encoding=3D'utf-8') as f:
-+    f.write(content)
-+    if not content.endswith('\n'):
-+      f.write('\n')
-+
-+
-+def _export_event_files(events_dir: str, event: JsonEvent) -> None:
-+  """Materialize a JsonEvent into <pmu>/events/<event>* files."""
-+  if not event.name or not event.event:
-+    return
-+  enc =3D _encode_filename(event.name)
-+  base =3D os.path.join(events_dir, enc)
-+  if event.event.startswith(('legacy-hardware-config=3D', 'legacy-cache-co=
-nfig=3D')):
-+    _write_text_file(base + '.legacy-terms', event.event)
-+  else:
-+    _write_text_file(base, event.event)
-+
-+  if event.unit:
-+    m =3D _SCALE_UNIT_RE.match(event.unit)
-+    if m:
-+      scale_str, unit_str =3D m.group(1), m.group(2)
-+      _write_text_file(base + '.scale', scale_str)
-+      if unit_str:
-+        _write_text_file(base + '.unit', unit_str)
-+    else:
-+      _write_text_file(base + '.scale-unit', event.unit)
-+
-+  if event.perpkg and event.perpkg !=3D '0':
-+    _write_text_file(base + '.per-pkg', '1')
-+  if event.deprecated and event.deprecated !=3D '0':
-+    _write_text_file(base + '.deprecated', '1')
-+  if event.desc:
-+    _write_text_file(base + '.desc', event.desc)
-+  if event.long_desc:
-+    _write_text_file(base + '.long-desc', event.long_desc)
-+  if event.topic:
-+    _write_text_file(base + '.topic', event.topic)
-+  if event.compat:
-+    _write_text_file(base + '.compat', event.compat)
-+  if event.retirement_latency_mean:
-+    _write_text_file(base + '.retire-lat-mean', str(event.retirement_laten=
-cy_mean))
-+  if event.retirement_latency_min:
-+    _write_text_file(base + '.retire-lat-min', str(event.retirement_latenc=
-y_min))
-+  if event.retirement_latency_max:
-+    _write_text_file(base + '.retire-lat-max', str(event.retirement_latenc=
-y_max))
-+
-+
-+def _export_metric_files(metrics_dir: str, m: JsonEvent) -> None:
-+  """Materialize a JsonEvent metric into <pmu>/metrics/<metric>* files."""
-+  if not m.metric_name or m.metric_expr is None:
-+    return
-+  enc =3D _encode_filename(m.metric_name)
-+  base =3D os.path.join(metrics_dir, enc)
-+  _write_text_file(base, m.metric_expr.ToPerfJson())
-+
-+  if m.unit:
-+    _write_text_file(base + '.scale-unit', m.unit)
-+  if m.desc:
-+    _write_text_file(base + '.desc', m.desc)
-+  if m.long_desc:
-+    _write_text_file(base + '.long-desc', m.long_desc)
-+  if m.metric_group:
-+    _write_text_file(base + '.group', m.metric_group)
-+  if m.metricgroup_no_group:
-+    _write_text_file(base + '.no-group', m.metricgroup_no_group)
-+  if m.default_metricgroup_name:
-+    _write_text_file(base + '.default-group', m.default_metricgroup_name)
-+  if m.metric_threshold:
-+    _write_text_file(base + '.threshold', m.metric_threshold)
-+  if m.compat:
-+    _write_text_file(base + '.compat', m.compat)
-+  if m.aggr_mode and m.aggr_mode in _ENUM_AGGR_MODE:
-+    _write_text_file(base + '.aggr-mode', _ENUM_AGGR_MODE[m.aggr_mode])
-+  if m.event_grouping and m.event_grouping in _ENUM_EVENT_GROUPING:
-+    _write_text_file(base + '.constraint', _ENUM_EVENT_GROUPING[m.event_gr=
-ouping])
-+  if m.default_show_events and m.default_show_events !=3D '0':
-+    _write_text_file(base + '.show-events', '1')
-+
-+
-+def _expand_char_class(spec: str) -> list[str]:
-+  """Expand a regex bracket expression body like '0-9A-F' or '56'."""
-+  chars: list[str] =3D []
-+  i =3D 0
-+  while i < len(spec):
-+    if i + 2 < len(spec) and spec[i + 1] =3D=3D '-':
-+      for code in range(ord(spec[i]), ord(spec[i + 2]) + 1):
-+        chars.append(chr(code))
-+      i +=3D 3
-+    else:
-+      chars.append(spec[i])
-+      i +=3D 1
-+  return chars
-+
-+
-+def _expand_regex_fragment(pat: str) -> list[str]:
-+  """Expand finite '(a|b)' alternations and '[...]' character classes."""
-+  for idx, ch in enumerate(pat):
-+    if ch =3D=3D '(':
-+      depth =3D 0
-+      alts: list[str] =3D []
-+      start =3D idx + 1
-+      end_idx =3D -1
-+      for j in range(idx, len(pat)):
-+        if pat[j] =3D=3D '(':
-+          depth +=3D 1
-+        elif pat[j] =3D=3D ')':
-+          depth -=3D 1
-+          if depth =3D=3D 0:
-+            alts.append(pat[start:j])
-+            end_idx =3D j
-+            break
-+        elif pat[j] =3D=3D '|' and depth =3D=3D 1:
-+          alts.append(pat[start:j])
-+          start =3D j + 1
-+      if end_idx !=3D -1:
-+        prefix =3D pat[:idx]
-+        suffix_exp =3D _expand_regex_fragment(pat[end_idx + 1:])
-+        out: list[str] =3D []
-+        for alt in alts:
-+          for mid in _expand_regex_fragment(alt):
-+            for suf in suffix_exp:
-+              out.append(prefix + mid + suf)
-+        return out
-+    elif ch =3D=3D '[':
-+      close =3D pat.find(']', idx + 1)
-+      if close !=3D -1:
-+        prefix =3D pat[:idx]
-+        choices =3D _expand_char_class(pat[idx + 1:close])
-+        suffix_exp =3D _expand_regex_fragment(pat[close + 1:])
-+        return [prefix + c + suf for c in choices for suf in suffix_exp]
-+  return [pat]
-+
-+
-+def _expand_cpuid_pattern(arch: str, pattern: str) -> Sequence[str]:
-+  """Expand a mapfile.csv CPUID pattern into literal directory names."""
-+  if arch =3D=3D 's390':
-+    m =3D re.match(r'^\^IBM\.([^.*]+)\.\*.*$', pattern)
-+    if m:
-+      return ['IBM,' + x for x in _expand_regex_fragment(m.group(1))]
-+    return []
-+
-+  if arch =3D=3D 'powerpc':
-+    return _expand_regex_fragment(pattern.replace('[[:xdigit:]]{4}', '0000=
-'))
-+
-+  xdigit_cls =3D '[0-9A-F]' if arch =3D=3D 'x86' else '[0-9a-f]'
-+  pat =3D pattern
-+  if pat.endswith('-[[:xdigit:]]+'):
-+    pat =3D pat[:-len('-[[:xdigit:]]+')]
-+  elif pat.endswith('-0x[[:xdigit:]]+'):
-+    pat =3D pat[:-len('-0x[[:xdigit:]]+')]
-+  elif pat.endswith('[[:xdigit:]]+'):
-+    pat =3D pat[:-len('[[:xdigit:]]+')] + f'({xdigit_cls}|)'
-+  pat =3D pat.replace('[[:xdigit:]]', xdigit_cls)
-+  return [c for c in _expand_regex_fragment(pat) if '/' not in c]
-+
-+
-+def _is_literal_compat(compat: str) -> bool:
-+  """Return True if compat is a plain PMU identifier without regex operato=
-rs."""
-+  return bool(compat) and '/' not in compat and not any(
-+      ch in compat for ch in '*+?[]()|^$\\'
-+  )
-+
-+
-+def _ensure_rel_symlink(link_path: str, target_dir: str) -> None:
-+  """Create a relative POSIX symlink link_path -> target_dir if absent."""
-+  if os.path.lexists(link_path) or not os.path.isdir(target_dir):
-+    return
-+  os.makedirs(os.path.dirname(link_path), exist_ok=3DTrue)
-+  rel_target =3D os.path.relpath(target_dir, os.path.dirname(link_path))
-+  os.symlink(rel_target, link_path)
-+
-+
-+def _export_arch_tree(
-+    output_dir: str,
-+    arch: str,
-+    sys_compat_targets: Dict[str, Set[str]],
-+    ftw_fn: Callable[[str, Sequence[str], Callable[[Sequence[str], os.DirE=
-ntry], None]], None],
-+) -> None:
-+  """Export a single architecture subtree and its CPUID symlinks."""
-+  assert _args is not None
-+  arch_path =3D f'{_args.starting_dir}/{arch}'
-+  seen_metrics: Set[Tuple[str, str, str]] =3D set()
-+
-+  def export_item(parents: Sequence[str], item: os.DirEntry) -> None:
-+    level =3D len(parents)
-+    if level =3D=3D 0 or level > 4 or not item.is_file() or not item.name.=
-endswith('.json'):
-+      return
-+
-+    target_root =3D (
-+        output_dir
-+        if arch =3D=3D 'common'
-+        else os.path.join(output_dir, 'models', arch, *parents)
-+    )
-+
-+    if item.name.endswith('metricgroups.json'):
-+      with open(item.path, encoding=3D'utf-8') as f:
-+        mgroups =3D json.load(f)
-+      for mgroup, gdesc in mgroups.items():
-+        enc_group =3D _encode_filename(mgroup)
-+        _write_text_file(
-+            os.path.join(target_root, 'metricgroups', enc_group + '.desc')=
-,
-+            gdesc,
-+        )
-+        if target_root !=3D output_dir:
-+          _write_text_file(
-+              os.path.join(output_dir, 'metricgroups', enc_group + '.desc'=
-),
-+              gdesc,
-+          )
-+      return
-+
-+    is_sys =3D 'sys' in parents
-+    topic =3D get_topic(item.name)
-+    for ev in read_json_events(item.path, topic):
-+      if ev.name:
-+        _export_event_files(os.path.join(target_root, ev.pmu, 'events'), e=
-v)
-+        if is_sys and ev.compat and _is_literal_compat(ev.compat):
-+          sys_compat_targets[ev.compat].add(target_root)
-+      metric_key =3D (target_root, ev.pmu, ev.metric_name or '')
-+      if ev.metric_name and metric_key not in seen_metrics:
-+        seen_metrics.add(metric_key)
-+        _export_metric_files(os.path.join(target_root, ev.pmu, 'metrics'),=
- ev)
-+        if is_sys and ev.compat and _is_literal_compat(ev.compat):
-+          sys_compat_targets[ev.compat].add(target_root)
-+
-+  ftw_fn(arch_path, [], export_item)
-+
-+  if arch =3D=3D 'test':
-+    _ensure_rel_symlink(
-+        os.path.join(output_dir, 'cpus', 'testcpu'),
-+        os.path.join(output_dir, 'models', 'test', 'test_soc', 'cpu'),
-+    )
-+  elif arch !=3D 'common':
-+    mapfile =3D os.path.join(arch_path, 'mapfile.csv')
-+    if os.path.isfile(mapfile):
-+      with open(mapfile, encoding=3D'utf-8') as csvfile:
-+        for row in csv.reader(csvfile):
-+          if not row or row[0].startswith('#') or row[0] =3D=3D 'Family-mo=
-del':
-+            continue
-+          model_rel =3D row[2].strip('/')
-+          target_dir =3D os.path.join(
-+              output_dir, 'models', arch, *model_rel.split('/')
-+          )
-+          if not os.path.isdir(target_dir):
-+            continue
-+          for cpuid in _expand_cpuid_pattern(arch, row[0]):
-+            _ensure_rel_symlink(
-+                os.path.join(output_dir, 'cpus', cpuid), target_dir
-+            )
-+
-+
-+def _export_directory_tree(
-+    output_dir: str,
-+    archs: Sequence[str],
-+    ftw_fn: Callable[[str, Sequence[str], Callable[[Sequence[str], os.DirE=
-ntry], None]], None],
-+) -> None:
-+  """Materialize JSON events/metrics into a regex-free sysfs-style tree.""=
-"
-+  os.makedirs(output_dir, exist_ok=3DTrue)
-+  sys_compat_targets: Dict[str, Set[str]] =3D collections.defaultdict(set)
-+
-+  for arch in archs:
-+    _export_arch_tree(output_dir, arch, sys_compat_targets, ftw_fn)
-+
-+  for compat, targets in sorted(sys_compat_targets.items()):
-+    if len(targets) =3D=3D 1:
-+      _ensure_rel_symlink(
-+          os.path.join(output_dir, 'sys', compat), next(iter(targets))
-+      )
-+
- def main() -> None:
-   global _args
-=20
-@@ -2115,6 +2408,9 @@ def main() -> None:
-       if item.is_dir():
-         ftw(item.path, list(parents) + [item.name], action)
-=20
-+  default_arch_dir =3D os.path.join(
-+      os.path.dirname(os.path.abspath(__file__)), 'arch'
-+  )
-   ap =3D argparse.ArgumentParser()
-   ap.add_argument(
-       '--compress',
-@@ -2126,14 +2422,21 @@ def main() -> None:
-           'blocks indexed by (block_id << 16) | sub_offset (e.g. zlib,none=
-)'
-       ),
-   )
--  ap.add_argument('arch', help=3D'Architecture name like x86')
--  ap.add_argument('model', help=3D'''Select a model such as skylake to
-+  ap.add_argument(
-+      '--output-dir',
-+      default=3DNone,
-+      help=3D'Export events and metrics as a sysfs-style directory tree in=
-stead of C code',
-+  )
-+  ap.add_argument('arch', nargs=3D'?', default=3D'all', help=3D'Architectu=
-re name like x86')
-+  ap.add_argument('model', nargs=3D'?', help=3D'''Select a model such as s=
-kylake to
- reduce the code size.  Normally set to "all". For architectures like
- ARM64 with an implementor/model, the model must include the implementor
- such as "arm/cortex-a34".''',
-                   default=3D'all')
-   ap.add_argument(
-       'starting_dir',
-+      nargs=3D'?',
-+      default=3Ddefault_arch_dir,
-       type=3Ddir_path,
-       help=3D'Root of tree containing architecture directories containing =
-json files'
-   )
-@@ -2143,6 +2446,45 @@ such as "arm/cortex-a34".''',
-       'output_string_file', type=3Dargparse.FileType('w', encoding=3D'utf-=
-8'), nargs=3D'?', default=3DNone)
-   _args =3D ap.parse_args()
-=20
-+  archs =3D []
-+  for item in os.scandir(_args.starting_dir):
-+    if not item.is_dir():
-+      continue
-+    if (
-+        item.name =3D=3D _args.arch
-+        or _args.arch =3D=3D 'all'
-+        or (not _args.output_dir and item.name in ('test', 'common'))
-+    ):
-+      archs.append(item.name)
-+
-+  min_archs =3D 1 if _args.output_dir else 2
-+  if len(archs) < min_archs and _args.arch !=3D 'none':
-+    raise IOError(f'Missing architecture directory \'{_args.arch}\'')
-+
-+  archs.sort()
-+  import concurrent.futures
-+  tasks =3D []
-+  def collect_json(parents: Sequence[str], item: os.DirEntry) -> None:
-+    if len(parents) =3D=3D 0:
-+      return
-+    if item.is_file() and item.name.endswith('.json') and not item.name.en=
-dswith('metricgroups.json'):
-+      tasks.append((item.path, get_topic(item.name)))
-+
-+  for arch in archs:
-+    arch_path =3D f'{_args.starting_dir}/{arch}'
-+    preprocess_arch_std_files(arch_path)
-+    ftw(arch_path, [], collect_json)
-+
-+  with concurrent.futures.ProcessPoolExecutor(max_workers=3D_parallel_work=
-er_count(len(tasks)),
-+                                              initializer=3D_init_worker,
-+                                              initargs=3D(_arch_std_events=
-,)) as executor:
-+    for path, topic, events in executor.map(_parallel_read_json_events, ta=
-sks):
-+      _json_cache[(path, topic)] =3D events
-+
-+  if _args.output_dir:
-+    _export_directory_tree(_args.output_dir, archs, ftw)
-+    return
-+
-   _args.output_file.write(f"""/* SPDX-License-Identifier: GPL-2.0 */
- /* THIS FILE WAS AUTOGENERATED BY `jevents.py arch=3D{_args.arch} model=3D=
-{_args.model}` ! */
- """)
-@@ -2173,35 +2515,6 @@ struct pmu_table_entry {
- };
-=20
- """)
--  archs =3D []
--  for item in os.scandir(_args.starting_dir):
--    if not item.is_dir():
--      continue
--    if item.name =3D=3D _args.arch or _args.arch =3D=3D 'all' or item.name=
- =3D=3D 'test' or item.name =3D=3D 'common':
--      archs.append(item.name)
--
--  if len(archs) < 2 and _args.arch !=3D 'none':
--    raise IOError(f'Missing architecture directory \'{_args.arch}\'')
--
--  archs.sort()
--  import concurrent.futures
--  tasks =3D []
--  def collect_json(parents: Sequence[str], item: os.DirEntry) -> None:
--    if len(parents) =3D=3D 0:
--      return
--    if item.is_file() and item.name.endswith('.json') and not item.name.en=
-dswith('metricgroups.json'):
--      tasks.append((item.path, get_topic(item.name)))
--
--  for arch in archs:
--    arch_path =3D f'{_args.starting_dir}/{arch}'
--    preprocess_arch_std_files(arch_path)
--    ftw(arch_path, [], collect_json)
--
--  with concurrent.futures.ProcessPoolExecutor(max_workers=3D_parallel_work=
-er_count(len(tasks)),
--                                              initializer=3D_init_worker,
--                                              initargs=3D(_arch_std_events=
-,)) as executor:
--    for path, topic, events in executor.map(_parallel_read_json_events, ta=
-sks):
--      _json_cache[(path, topic)] =3D events
-=20
-   for arch in archs:
-     arch_path =3D f'{_args.starting_dir}/{arch}'
+ 	if (export_dir) {
+ 		export_ps.root_dir = export_dir;
+ 		export_ps.common.long_desc = default_ps.long_desc;
 diff --git a/tools/perf/util/pmu-layer.c b/tools/perf/util/pmu-layer.c
-index 2c60fc1e3285..35a816db3f4f 100644
+index 35a816db3f4f..74c07ffc8495 100644
 --- a/tools/perf/util/pmu-layer.c
 +++ b/tools/perf/util/pmu-layer.c
-@@ -2391,3 +2391,475 @@ const char *pmu_layer__describe_metricgroup(struct =
-perf_pmu *pmu,
- 	perf_pmu_free_metricgroup(old_mg);
- 	return mg->desc;
+@@ -29,6 +29,7 @@
+ #include "pmu.h"
+ #include "pmus.h"
+ #include "pmu-layer.h"
++#include "string2.h"
+ #include "pmu-events/pmu-events.h"
+ 
+ static struct pmu_layer *pmu_layers;
+@@ -2594,36 +2595,11 @@ static struct perf_pmu_alias *export_find_pmu_and_alias(const char *pmu_name,
+ 	return NULL;
  }
-+
-+int pmu_layer__mkdir_p(const char *path)
-+{
-+	char tmp[PATH_MAX];
-+	size_t len;
-+
-+	if (!path || !path[0])
-+		return -EINVAL;
-+
-+	len =3D strlen(path);
-+	if (len >=3D sizeof(tmp))
-+		return -ENAMETOOLONG;
-+
-+	memcpy(tmp, path, len + 1);
-+	while (len > 1 && tmp[len - 1] =3D=3D '/')
-+		tmp[--len] =3D '\0';
-+
-+	for (char *p =3D tmp + 1; *p; p++) {
-+		if (*p !=3D '/')
-+			continue;
-+		*p =3D '\0';
-+		if (mkdir(tmp, 0755) < 0 && errno !=3D EEXIST)
-+			return -errno;
-+		*p =3D '/';
-+	}
-+	if (mkdir(tmp, 0755) < 0) {
-+		struct stat st;
-+
-+		if (errno !=3D EEXIST || stat(tmp, &st) < 0 || !S_ISDIR(st.st_mode))
-+			return -errno;
-+	}
-+	return 0;
-+}
-+
-+static int export_write_str_at(int dirfd, const char *filename, const char=
- *content)
-+{
-+	size_t len =3D strlen(content);
-+	size_t off =3D 0;
-+	int fd;
-+
-+	fd =3D openat(dirfd, filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-+	if (fd < 0)
-+		return -errno;
-+
-+	while (off < len) {
-+		ssize_t n =3D write(fd, content + off, len - off);
-+
-+		if (n < 0) {
-+			if (errno =3D=3D EINTR)
-+				continue;
-+			close(fd);
-+			return -errno;
-+		}
-+		off +=3D (size_t)n;
-+	}
-+	for (;;) {
-+		ssize_t n =3D write(fd, "\n", 1);
-+
-+		if (n < 0 && errno =3D=3D EINTR)
-+			continue;
-+		if (n !=3D 1) {
-+			int err =3D errno ? -errno : -EIO;
-+
-+			close(fd);
-+			return err;
-+		}
-+		break;
-+	}
-+	close(fd);
-+	return 0;
-+}
-+
-+static int export_write_sidecar(int dirfd, const char *enc_base,
-+				const char *suffix, const char *content)
-+{
-+	char filename[NAME_MAX + 32];
-+	int n;
-+
-+	if (!content)
-+		return 0;
-+
-+	n =3D snprintf(filename, sizeof(filename), "%s%s", enc_base, suffix);
-+	if (n < 0 || (size_t)n >=3D sizeof(filename))
-+		return -ENAMETOOLONG;
-+
-+	return export_write_str_at(dirfd, filename, content);
-+}
-+
-+static struct perf_pmu_alias *export_lookup_cached_alias(struct perf_pmu *=
-pmu,
-+							 const char *name)
-+{
-+	struct perf_pmu_alias *alias =3D NULL;
-+
-+	if (!pmu || !name || !pmu->aliases)
-+		return NULL;
-+	if (hashmap__find(pmu->aliases, name, &alias))
-+		return alias->terms ? alias : NULL;
-+	return NULL;
-+}
-+
-+static struct perf_pmu_alias *export_find_alias(struct perf_pmu *pmu,
-+						const char *event_name)
-+{
-+	struct perf_pmu_alias *alias;
-+	const char *slash, *end, *comma;
-+	char buf[NAME_MAX];
-+	size_t len;
-+
-+	alias =3D export_lookup_cached_alias(pmu, event_name);
-+	if (alias)
-+		return alias;
-+
-+	slash =3D strchr(event_name, '/');
-+	if (!slash)
-+		return NULL;
-+	slash++;
-+	end =3D strrchr(slash, '/');
-+	if (!end || end <=3D slash)
-+		return NULL;
-+
-+	len =3D (size_t)(end - slash);
-+	if (len < sizeof(buf)) {
-+		memcpy(buf, slash, len);
-+		buf[len] =3D '\0';
-+		alias =3D export_lookup_cached_alias(pmu, buf);
-+		if (alias)
-+			return alias;
-+	}
-+
-+	comma =3D memchr(slash, ',', len);
-+	if (comma && comma > slash) {
-+		len =3D (size_t)(comma - slash);
-+		if (len < sizeof(buf)) {
-+			memcpy(buf, slash, len);
-+			buf[len] =3D '\0';
-+			alias =3D export_lookup_cached_alias(pmu, buf);
-+			if (alias)
-+				return alias;
-+		}
-+	}
-+	return NULL;
-+}
-+
-+static struct perf_pmu_alias *export_find_pmu_and_alias(const char *pmu_na=
-me,
-+							const char *event_name,
-+							struct perf_pmu **out_pmu)
-+{
-+	struct perf_pmu *pmu =3D perf_pmus__find(pmu_name);
-+	struct perf_pmu *fallback_pmu =3D NULL;
-+	struct perf_pmu_alias *fallback_alias =3D NULL;
-+	struct perf_pmu_alias *alias;
-+
-+	if (pmu) {
-+		enum pmu_kind kind =3D perf_pmu__kind(pmu);
-+
-+		if (kind !=3D PERF_PMU_KIND_DRM && kind !=3D PERF_PMU_KIND_HWMON) {
-+			alias =3D export_find_alias(pmu, event_name);
-+			if (alias && alias->name && alias->terms) {
-+				const char *alias_pmu =3D
-+					(alias->pmu_name && alias->pmu_name[0])
-+					? alias->pmu_name : pmu->name;
-+
-+				if (!strcmp(alias_pmu, pmu_name)) {
-+					*out_pmu =3D pmu;
-+					return alias;
-+				}
-+				fallback_pmu =3D pmu;
-+				fallback_alias =3D alias;
-+			}
-+		}
-+		pmu =3D NULL;
-+	}
-+
-+	while ((pmu =3D perf_pmus__scan(pmu)) !=3D NULL) {
-+		enum pmu_kind kind =3D perf_pmu__kind(pmu);
-+		const char *alias_pmu;
-+
-+		if (kind =3D=3D PERF_PMU_KIND_DRM || kind =3D=3D PERF_PMU_KIND_HWMON)
-+			continue;
-+		if (!perf_pmu__name_wildcard_match(pmu, pmu_name) &&
-+		    !perf_pmu__wildcard_match(pmu, pmu_name))
-+			continue;
-+		alias =3D export_find_alias(pmu, event_name);
-+		if (!alias || !alias->name || !alias->terms)
-+			continue;
-+		alias_pmu =3D (alias->pmu_name && alias->pmu_name[0])
-+			? alias->pmu_name : pmu->name;
-+		if (!strcmp(alias_pmu, pmu_name)) {
-+			*out_pmu =3D pmu;
-+			return alias;
-+		}
-+		if (!fallback_alias) {
-+			fallback_pmu =3D pmu;
-+			fallback_alias =3D alias;
-+		}
-+	}
-+	if (fallback_alias) {
-+		*out_pmu =3D fallback_pmu;
-+		return fallback_alias;
-+	}
-+	return NULL;
+ 
+-int pmu_layer__export_event(const char *root_dir, const char *pmu_name,
+-			    const char *event_name)
++static int export_write_alias_files(int events_fd, const char *enc_name,
++				    const struct perf_pmu_alias *alias)
+ {
+-	struct perf_pmu *pmu = NULL;
+-	struct perf_pmu_alias *alias;
+-	const char *target_pmu;
+-	char dir_path[PATH_MAX];
+-	char enc_name[NAME_MAX];
+ 	char num_buf[64];
+-	int events_fd, n, ret = 0;
+-
+-	alias = export_find_pmu_and_alias(pmu_name, event_name, &pmu);
+-	if (!alias)
+-		return 0;
+-
+-	if (pmu_layer__encode_filename(alias->name, enc_name, sizeof(enc_name)) != 0)
+-		return 0;
+-
+-	target_pmu = (alias->pmu_name && alias->pmu_name[0]) ? alias->pmu_name : pmu->name;
+-	n = snprintf(dir_path, sizeof(dir_path), "%s/%s/events", root_dir, target_pmu);
+-	if (n < 0 || (size_t)n >= sizeof(dir_path))
+-		return -ENAMETOOLONG;
+-
+-	ret = pmu_layer__mkdir_p(dir_path);
+-	if (ret < 0)
+-		return ret;
+-
+-	events_fd = open(dir_path, O_RDONLY | O_DIRECTORY);
+-	if (events_fd < 0)
+-		return -errno;
++	int ret;
+ 
+ 	if (!strncmp(alias->terms, "legacy-hardware-config=", 23) ||
+ 	    !strncmp(alias->terms, "legacy-cache-config=", 20)) {
+@@ -2636,7 +2612,7 @@ int pmu_layer__export_event(const char *root_dir, const char *pmu_name,
+ 						   ".legacy-terms",
+ 						   alias->legacy_terms);
+ 	}
+-	if (!ret && (alias->has_unit || alias->unit[0] != '\0'))
++	if (!ret && alias->unit[0] != '\0')
+ 		ret = export_write_sidecar(events_fd, enc_name, ".unit", alias->unit);
+ 	if (!ret && (alias->has_scale || alias->scale != 1.0)) {
+ 		snprintf(num_buf, sizeof(num_buf), "%.17g", alias->scale);
+@@ -2678,7 +2654,40 @@ int pmu_layer__export_event(const char *root_dir, const char *pmu_name,
+ 		ret = export_write_sidecar(events_fd, enc_name, ".retire-lat-max",
+ 					   num_buf);
+ 	}
++	return ret;
 +}
 +
 +int pmu_layer__export_event(const char *root_dir, const char *pmu_name,
 +			    const char *event_name)
 +{
-+	struct perf_pmu *pmu =3D NULL;
++	struct perf_pmu *pmu = NULL;
 +	struct perf_pmu_alias *alias;
 +	const char *target_pmu;
 +	char dir_path[PATH_MAX];
 +	char enc_name[NAME_MAX];
-+	char num_buf[64];
-+	int events_fd, n, ret =3D 0;
++	int events_fd, n, ret;
 +
-+	alias =3D export_find_pmu_and_alias(pmu_name, event_name, &pmu);
++	alias = export_find_pmu_and_alias(pmu_name, event_name, &pmu);
 +	if (!alias)
 +		return 0;
 +
-+	if (pmu_layer__encode_filename(alias->name, enc_name, sizeof(enc_name)) !=
-=3D 0)
++	if (pmu_layer__encode_filename(alias->name, enc_name, sizeof(enc_name)) != 0)
 +		return 0;
 +
-+	target_pmu =3D (alias->pmu_name && alias->pmu_name[0]) ? alias->pmu_name =
-: pmu->name;
-+	n =3D snprintf(dir_path, sizeof(dir_path), "%s/%s/events", root_dir, targ=
-et_pmu);
-+	if (n < 0 || (size_t)n >=3D sizeof(dir_path))
++	target_pmu = (alias->pmu_name && alias->pmu_name[0]) ? alias->pmu_name : pmu->name;
++	n = snprintf(dir_path, sizeof(dir_path), "%s/%s/events", root_dir, target_pmu);
++	if (n < 0 || (size_t)n >= sizeof(dir_path))
 +		return -ENAMETOOLONG;
 +
-+	ret =3D pmu_layer__mkdir_p(dir_path);
++	ret = pmu_layer__mkdir_p(dir_path);
 +	if (ret < 0)
 +		return ret;
 +
-+	events_fd =3D open(dir_path, O_RDONLY | O_DIRECTORY);
++	events_fd = open(dir_path, O_RDONLY | O_DIRECTORY);
 +	if (events_fd < 0)
 +		return -errno;
+ 
++	ret = export_write_alias_files(events_fd, enc_name, alias);
+ 	close(events_fd);
+ 	return ret;
+ }
+@@ -2772,6 +2781,50 @@ int pmu_layer__export_metricgroup(const char *root_dir, const char *group,
+ 	return ret;
+ }
+ 
++static int export_write_pm_files(int fd, const char *enc_name,
++				 const struct pmu_metric *pm,
++				 bool has_aggr, bool has_grouping,
++				 bool has_show, bool show_val)
++{
++	int ret = export_write_sidecar(fd, enc_name, "", pm->metric_expr);
 +
-+	if (!strncmp(alias->terms, "legacy-hardware-config=3D", 23) ||
-+	    !strncmp(alias->terms, "legacy-cache-config=3D", 20)) {
-+		ret =3D export_write_sidecar(events_fd, enc_name, ".legacy-terms",
-+					   alias->terms);
-+	} else {
-+		ret =3D export_write_sidecar(events_fd, enc_name, "", alias->terms);
-+		if (!ret && alias->legacy_terms && alias->legacy_terms[0])
-+			ret =3D export_write_sidecar(events_fd, enc_name,
-+						   ".legacy-terms",
-+						   alias->legacy_terms);
-+	}
-+	if (!ret && (alias->has_unit || alias->unit[0] !=3D '\0'))
-+		ret =3D export_write_sidecar(events_fd, enc_name, ".unit", alias->unit);
-+	if (!ret && (alias->has_scale || alias->scale !=3D 1.0)) {
-+		snprintf(num_buf, sizeof(num_buf), "%.17g", alias->scale);
-+		ret =3D export_write_sidecar(events_fd, enc_name, ".scale", num_buf);
-+	}
-+	if (!ret && (alias->has_per_pkg || alias->per_pkg))
-+		ret =3D export_write_sidecar(events_fd, enc_name, ".per-pkg",
-+					   alias->per_pkg ? "1" : "0");
-+	if (!ret && (alias->has_snapshot || alias->snapshot))
-+		ret =3D export_write_sidecar(events_fd, enc_name, ".snapshot",
-+					   alias->snapshot ? "1" : "0");
-+	if (!ret && (alias->has_deprecated || alias->deprecated))
-+		ret =3D export_write_sidecar(events_fd, enc_name, ".deprecated",
-+					   alias->deprecated ? "1" : "0");
-+	if (!ret && alias->desc && alias->desc[0])
-+		ret =3D export_write_sidecar(events_fd, enc_name, ".desc", alias->desc);
-+	if (!ret && alias->long_desc && alias->long_desc[0])
-+		ret =3D export_write_sidecar(events_fd, enc_name, ".long-desc",
-+					   alias->long_desc);
-+	if (!ret && alias->topic && alias->topic[0])
-+		ret =3D export_write_sidecar(events_fd, enc_name, ".topic", alias->topic=
-);
-+	if (!ret && alias->compat && alias->compat[0])
-+		ret =3D export_write_sidecar(events_fd, enc_name, ".compat", alias->comp=
-at);
-+	if (!ret && alias->has_retire_lat_mean) {
-+		snprintf(num_buf, sizeof(num_buf), "%.17g",
-+			 alias->retirement_latency_mean);
-+		ret =3D export_write_sidecar(events_fd, enc_name, ".retire-lat-mean",
-+					   num_buf);
-+	}
-+	if (!ret && alias->has_retire_lat_min) {
-+		snprintf(num_buf, sizeof(num_buf), "%.17g",
-+			 alias->retirement_latency_min);
-+		ret =3D export_write_sidecar(events_fd, enc_name, ".retire-lat-min",
-+					   num_buf);
-+	}
-+	if (!ret && alias->has_retire_lat_max) {
-+		snprintf(num_buf, sizeof(num_buf), "%.17g",
-+			 alias->retirement_latency_max);
-+		ret =3D export_write_sidecar(events_fd, enc_name, ".retire-lat-max",
-+					   num_buf);
-+	}
++	if (!ret && pm->unit && pm->unit[0])
++		ret = export_write_sidecar(fd, enc_name, ".scale-unit", pm->unit);
++	if (!ret && pm->desc && pm->desc[0])
++		ret = export_write_sidecar(fd, enc_name, ".desc", pm->desc);
++	if (!ret && pm->long_desc && pm->long_desc[0])
++		ret = export_write_sidecar(fd, enc_name, ".long-desc", pm->long_desc);
++	if (!ret && pm->metric_group && pm->metric_group[0])
++		ret = export_write_sidecar(fd, enc_name, ".group", pm->metric_group);
++	if (!ret && pm->metricgroup_no_group && pm->metricgroup_no_group[0])
++		ret = export_write_sidecar(fd, enc_name, ".no-group",
++					   pm->metricgroup_no_group);
++	if (!ret && pm->default_metricgroup_name && pm->default_metricgroup_name[0])
++		ret = export_write_sidecar(fd, enc_name, ".default-group",
++					   pm->default_metricgroup_name);
++	if (!ret && pm->metric_threshold && pm->metric_threshold[0])
++		ret = export_write_sidecar(fd, enc_name, ".threshold",
++					   pm->metric_threshold);
++	if (!ret && pm->compat && pm->compat[0])
++		ret = export_write_sidecar(fd, enc_name, ".compat", pm->compat);
++	if (!ret && has_aggr) {
++		const char *aggr = export_aggr_mode_str(pm->aggr_mode);
 +
-+	close(events_fd);
++		if (aggr)
++			ret = export_write_sidecar(fd, enc_name, ".aggr-mode", aggr);
++	}
++	if (!ret && has_grouping) {
++		const char *cstr = export_constraint_str(pm->event_grouping);
++
++		if (cstr)
++			ret = export_write_sidecar(fd, enc_name, ".constraint", cstr);
++	}
++	if (!ret && has_show)
++		ret = export_write_sidecar(fd, enc_name, ".show-events",
++					   show_val ? "1" : "0");
 +	return ret;
 +}
 +
-+static const char *export_aggr_mode_str(enum aggr_mode_class mode)
-+{
-+	switch (mode) {
-+	case PerChip:
-+		return "PerChip";
-+	case PerCore:
-+		return "PerCore";
-+	default:
-+		return NULL;
+ int pmu_layer__export_metric(const char *root_dir, const char *eff_pmu,
+ 			     const char *group, const char *name,
+ 			     const char *desc, const char *long_desc,
+@@ -2779,6 +2832,7 @@ int pmu_layer__export_metric(const char *root_dir, const char *eff_pmu,
+ 			     const char *unit)
+ {
+ 	const struct perf_pmu_metric *m;
++	struct pmu_metric pm = {};
+ 	char dir_path[PATH_MAX];
+ 	char enc_name[NAME_MAX];
+ 	int fd, n, ret;
+@@ -2801,65 +2855,1040 @@ int pmu_layer__export_metric(const char *root_dir, const char *eff_pmu,
+ 		return -errno;
+ 
+ 	if (m) {
+-		ret = export_write_sidecar(fd, enc_name, "",
+-					   m->metric_expr ?: expr);
+-		if (!ret && m->unit && m->unit[0])
+-			ret = export_write_sidecar(fd, enc_name, ".scale-unit",
+-						   m->unit);
+-		if (!ret && m->desc && m->desc[0])
+-			ret = export_write_sidecar(fd, enc_name, ".desc", m->desc);
+-		if (!ret && m->long_desc && m->long_desc[0])
+-			ret = export_write_sidecar(fd, enc_name, ".long-desc",
+-						   m->long_desc);
+-		if (!ret && m->metric_group && m->metric_group[0])
+-			ret = export_write_sidecar(fd, enc_name, ".group",
+-						   m->metric_group);
+-		if (!ret && m->metricgroup_no_group && m->metricgroup_no_group[0])
+-			ret = export_write_sidecar(fd, enc_name, ".no-group",
+-						   m->metricgroup_no_group);
+-		if (!ret && m->default_metricgroup_name &&
+-		    m->default_metricgroup_name[0])
+-			ret = export_write_sidecar(fd, enc_name, ".default-group",
+-						   m->default_metricgroup_name);
+-		if (!ret && m->metric_threshold && m->metric_threshold[0])
+-			ret = export_write_sidecar(fd, enc_name, ".threshold",
+-						   m->metric_threshold);
+-		if (!ret && m->compat && m->compat[0])
+-			ret = export_write_sidecar(fd, enc_name, ".compat",
+-						   m->compat);
+-		if (!ret && m->has_aggr_mode) {
+-			const char *aggr = export_aggr_mode_str(m->aggr_mode);
+-
+-			if (aggr)
+-				ret = export_write_sidecar(fd, enc_name,
+-							   ".aggr-mode", aggr);
+-		}
+-		if (!ret && m->has_event_grouping) {
+-			const char *cstr = export_constraint_str(m->event_grouping);
+-
+-			if (cstr)
+-				ret = export_write_sidecar(fd, enc_name,
+-							   ".constraint", cstr);
+-		}
+-		if (!ret && m->has_default_show_events)
+-			ret = export_write_sidecar(fd, enc_name, ".show-events",
+-						   m->default_show_events ? "1" : "0");
++		perf_pmu_metric__to_pmu_metric(m, &pm);
++		if (!pm.metric_expr)
++			pm.metric_expr = expr;
++		ret = export_write_pm_files(fd, enc_name, &pm,
++					    m->has_aggr_mode,
++					    m->has_event_grouping,
++					    m->has_default_show_events,
++					    m->default_show_events);
+ 	} else {
+-		ret = export_write_sidecar(fd, enc_name, "", expr);
+-		if (!ret && unit && unit[0])
+-			ret = export_write_sidecar(fd, enc_name, ".scale-unit", unit);
+-		if (!ret && desc && desc[0])
+-			ret = export_write_sidecar(fd, enc_name, ".desc", desc);
+-		if (!ret && long_desc && long_desc[0])
+-			ret = export_write_sidecar(fd, enc_name, ".long-desc",
+-						   long_desc);
+-		if (!ret && group && group[0])
+-			ret = export_write_sidecar(fd, enc_name, ".group", group);
+-		if (!ret && threshold && threshold[0])
+-			ret = export_write_sidecar(fd, enc_name, ".threshold",
+-						   threshold);
++		pm.metric_expr = expr;
++		pm.unit = unit;
++		pm.desc = desc;
++		pm.long_desc = long_desc;
++		pm.metric_group = group;
++		pm.metric_threshold = threshold;
++		ret = export_write_pm_files(fd, enc_name, &pm,
++					    false, false, false, false);
 +	}
-+}
 +
-+static const char *export_constraint_str(enum metric_event_groups grouping=
-)
-+{
-+	switch (grouping) {
-+	case MetricNoGroupEvents:
-+		return "NO_GROUP_EVENTS";
-+	case MetricNoGroupEventsNmi:
-+		return "NO_GROUP_EVENTS_NMI";
-+	case MetricNoGroupEventsSmt:
-+		return "NO_GROUP_EVENTS_SMT";
-+	case MetricNoGroupEventsThresholdAndNmi:
-+		return "NO_THRESHOLD_AND_NMI";
-+	case MetricGroupEvents:
-+	default:
-+		return NULL;
-+	}
-+}
-+
-+static const struct perf_pmu_metric *
-+export_find_pmu_metric(const char *eff_pmu, const char *name,
-+		       const char *expr, const char *threshold)
-+{
-+	struct perf_pmu *pmu =3D NULL;
-+	const struct perf_pmu_metric *fallback =3D NULL;
-+
-+	while ((pmu =3D perf_pmus__scan_for_metrics(pmu)) !=3D NULL) {
-+		const struct perf_pmu_metric *m;
-+		const char *m_pmu;
-+
-+		if (pmu->type =3D=3D PERF_TYPE_TRACEPOINT)
-+			continue;
-+
-+		m =3D pmu_layer__find_metric(pmu, name);
-+		if (!m)
-+			continue;
-+
-+		m_pmu =3D (m->pmu && m->pmu[0]) ? m->pmu : "default_core";
-+		if (strcmp(m_pmu, eff_pmu) !=3D 0)
-+			continue;
-+
-+		if (!strcmp(m->metric_expr ?: "", expr ?: "") &&
-+		    !strcmp(m->metric_threshold ?: "", threshold ?: ""))
-+			return m;
-+
-+		if (!fallback)
-+			fallback =3D m;
-+	}
-+	return fallback;
-+}
-+
-+int pmu_layer__export_metricgroup(const char *root_dir, const char *group,
-+				  const char *desc)
-+{
-+	char dir_path[PATH_MAX];
-+	char enc_name[NAME_MAX];
-+	int fd, n, ret;
-+
-+	if (!desc || !desc[0] ||
-+	    pmu_layer__encode_filename(group, enc_name, sizeof(enc_name)) !=3D 0)
-+		return 0;
-+
-+	n =3D snprintf(dir_path, sizeof(dir_path), "%s/metricgroups", root_dir);
-+	if (n < 0 || (size_t)n >=3D sizeof(dir_path))
-+		return -ENAMETOOLONG;
-+
-+	ret =3D pmu_layer__mkdir_p(dir_path);
-+	if (ret < 0)
-+		return ret;
-+
-+	fd =3D open(dir_path, O_RDONLY | O_DIRECTORY);
-+	if (fd < 0)
-+		return -errno;
-+
-+	ret =3D export_write_sidecar(fd, enc_name, ".desc", desc);
 +	close(fd);
 +	return ret;
 +}
 +
-+int pmu_layer__export_metric(const char *root_dir, const char *eff_pmu,
-+			     const char *group, const char *name,
-+			     const char *desc, const char *long_desc,
-+			     const char *expr, const char *threshold,
-+			     const char *unit)
++struct export_str_vec {
++	char **items;
++	size_t nr;
++	size_t cap;
++};
++
++static void export_str_vec__clear(struct export_str_vec *v)
 +{
-+	const struct perf_pmu_metric *m;
++	for (size_t i = 0; i < v->nr; i++)
++		free(v->items[i]);
++	zfree(&v->items);
++	v->nr = 0;
++	v->cap = 0;
++}
++
++static bool export_str_vec__contains(const struct export_str_vec *v, const char *s)
++{
++	for (size_t i = 0; i < v->nr; i++) {
++		if (!strcmp(v->items[i], s))
++			return true;
++	}
++	return false;
++}
++
++static int export_str_vec__add(struct export_str_vec *v, const char *s)
++{
++	char *dup_s;
++
++	if (v->nr == v->cap) {
++		size_t new_cap = v->cap ? v->cap * 2 : 16;
++		char **new_items = realloc(v->items, new_cap * sizeof(*new_items));
++
++		if (!new_items)
++			return -ENOMEM;
++		v->items = new_items;
++		v->cap = new_cap;
++	}
++	dup_s = strdup(s);
++	if (!dup_s)
++		return -ENOMEM;
++	v->items[v->nr++] = dup_s;
++	return 0;
++}
++
++static int export_str_vec__add_concat3(struct export_str_vec *v,
++				       const char *p1, size_t l1,
++				       const char *p2, size_t l2,
++				       const char *p3, size_t l3)
++{
++	char buf[256];
++
++	if (l1 + l2 + l3 >= sizeof(buf))
++		return 0;
++	memcpy(buf, p1, l1);
++	memcpy(buf + l1, p2, l2);
++	memcpy(buf + l1 + l2, p3, l3);
++	buf[l1 + l2 + l3] = '\0';
++	return export_str_vec__add(v, buf);
++}
++
++static int expand_regex_fragment(const char *pat, struct export_str_vec *out);
++
++static int expand_alt_slice(const char *prefix, size_t plen,
++			    const char *slice, size_t slen,
++			    const struct export_str_vec *suf_vec,
++			    struct export_str_vec *out)
++{
++	struct export_str_vec alt_vec = {};
++	char alt_buf[256];
++	int ret;
++
++	if (slen >= sizeof(alt_buf))
++		return 0;
++	memcpy(alt_buf, slice, slen);
++	alt_buf[slen] = '\0';
++
++	ret = expand_regex_fragment(alt_buf, &alt_vec);
++	for (size_t a = 0; !ret && a < alt_vec.nr; a++) {
++		const char *as = alt_vec.items[a];
++		size_t al = strlen(as);
++
++		for (size_t s = 0; !ret && s < suf_vec->nr; s++) {
++			const char *ss = suf_vec->items[s];
++
++			ret = export_str_vec__add_concat3(out, prefix, plen,
++							  as, al,
++							  ss, strlen(ss));
++		}
+ 	}
++	export_str_vec__clear(&alt_vec);
++	return ret;
++}
++
++static int expand_paren_group(const char *pat, size_t idx, size_t close_idx,
++			      struct export_str_vec *out)
++{
++	struct export_str_vec suf_vec = {};
++	size_t start = idx + 1, depth = 0;
++	int ret;
++
++	ret = expand_regex_fragment(pat + close_idx + 1, &suf_vec);
++	if (ret)
++		goto out;
++
++	for (size_t j = idx + 1; j <= close_idx; j++) {
++		if (j < close_idx && pat[j] == '(') {
++			depth++;
++		} else if (j < close_idx && pat[j] == ')') {
++			depth--;
++		} else if (j == close_idx || (pat[j] == '|' && depth == 0)) {
++			ret = expand_alt_slice(pat, idx, pat + start, j - start,
++					       &suf_vec, out);
++			if (ret)
++				goto out;
++			start = j + 1;
++		}
++	}
++
++out:
++	export_str_vec__clear(&suf_vec);
++	return ret;
++}
++
++static int expand_bracket_group(const char *pat, size_t idx,
++				const char *close_p, struct export_str_vec *out)
++{
++	struct export_str_vec suf_vec = {};
++	const char *p = pat + idx + 1;
++	int ret;
++
++	ret = expand_regex_fragment(close_p + 1, &suf_vec);
++	if (ret)
++		goto out;
++
++	while (p < close_p) {
++		unsigned int c_lo, c_hi;
++
++		if (p + 2 < close_p && p[1] == '-' &&
++		    (unsigned char)p[0] <= (unsigned char)p[2]) {
++			c_lo = (unsigned char)p[0];
++			c_hi = (unsigned char)p[2];
++			p += 3;
++		} else {
++			c_lo = (unsigned char)p[0];
++			c_hi = c_lo;
++			p += 1;
++		}
++		for (unsigned int ch = c_lo; ch <= c_hi; ch++) {
++			char one = (char)ch;
++
++			for (size_t s = 0; s < suf_vec.nr; s++) {
++				const char *ss = suf_vec.items[s];
++
++				ret = export_str_vec__add_concat3(out, pat, idx,
++								  &one, 1,
++								  ss, strlen(ss));
++				if (ret)
++					goto out;
++			}
++		}
++	}
++
++out:
++	export_str_vec__clear(&suf_vec);
++	return ret;
++}
++
++static int expand_regex_fragment(const char *pat, struct export_str_vec *out)
++{
++	for (size_t idx = 0; pat[idx]; idx++) {
++		if (pat[idx] == '(') {
++			size_t depth = 0;
++
++			for (size_t j = idx; pat[j]; j++) {
++				if (pat[j] == '(') {
++					depth++;
++				} else if (pat[j] == ')') {
++					depth--;
++					if (depth == 0)
++						return expand_paren_group(pat, idx,
++									  j, out);
++				}
++			}
++		} else if (pat[idx] == '[') {
++			const char *close_p = strchr(pat + idx + 1, ']');
++
++			if (close_p)
++				return expand_bracket_group(pat, idx, close_p, out);
++		}
++	}
++	return export_str_vec__add(out, pat);
++}
++
++static bool replace_substr_all(const char *src, const char *needle,
++			       const char *repl, char *dst, size_t dst_size)
++{
++	size_t nlen = strlen(needle), rlen = strlen(repl), out_pos = 0;
++	const char *p = src;
++
++	while (*p) {
++		const char *hit = strstr(p, needle);
++
++		if (!hit) {
++			size_t tail = strlen(p);
++
++			if (out_pos + tail >= dst_size)
++				return false;
++			memcpy(dst + out_pos, p, tail + 1);
++			return true;
++		}
++		if (out_pos + (size_t)(hit - p) + rlen >= dst_size)
++			return false;
++		memcpy(dst + out_pos, p, (size_t)(hit - p));
++		out_pos += (size_t)(hit - p);
++		memcpy(dst + out_pos, repl, rlen);
++		out_pos += rlen;
++		p = hit + nlen;
++	}
++	if (out_pos >= dst_size)
++		return false;
++	dst[out_pos] = '\0';
++	return true;
++}
++
++static int expand_cpuid_pattern(const char *arch, const char *pattern,
++				struct export_str_vec *out)
++{
++	struct export_str_vec tmp = {};
++	char work[256], pat_buf[256];
++	int ret = 0;
++
++	if (!arch || !pattern || !pattern[0])
++		return 0;
++
++	if (!strcmp(arch, "s390")) {
++		size_t flen = 0;
++
++		if (strncmp(pattern, "^IBM.", 5) != 0)
++			return 0;
++		while (pattern[5 + flen] && pattern[5 + flen] != '.' &&
++		       pattern[5 + flen] != '*')
++			flen++;
++		if (flen == 0 || flen >= sizeof(work))
++			return 0;
++		memcpy(work, pattern + 5, flen);
++		work[flen] = '\0';
++		ret = expand_regex_fragment(work, &tmp);
++		for (size_t i = 0; !ret && i < tmp.nr; i++) {
++			if (!strchr(tmp.items[i], '/'))
++				ret = export_str_vec__add_concat3(
++					out, "IBM,", 4,
++					tmp.items[i], strlen(tmp.items[i]),
++					"", 0);
++		}
++		export_str_vec__clear(&tmp);
++		return ret;
++	}
++
++	if (!strcmp(arch, "powerpc")) {
++		if (!replace_substr_all(pattern, "[[:xdigit:]]{4}", "0000",
++					pat_buf, sizeof(pat_buf)))
++			return 0;
++		ret = expand_regex_fragment(pat_buf, &tmp);
++	} else {
++		const char *xdigit_cls = !strcmp(arch, "x86") ? "[0-9A-F]" : "[0-9a-f]";
++		const char *opt_xdigit = !strcmp(arch, "x86") ? "([0-9A-F]|)" : "([0-9a-f]|)";
++		size_t plen = strlen(pattern);
++
++		if (plen >= sizeof(work))
++			return 0;
++		memcpy(work, pattern, plen + 1);
++
++		if (plen >= 14 && !strcmp(work + plen - 14, "-[[:xdigit:]]+")) {
++			work[plen - 14] = '\0';
++		} else if (plen >= 16 && !strcmp(work + plen - 16, "-0x[[:xdigit:]]+")) {
++			work[plen - 16] = '\0';
++		} else if (plen >= 13 && !strcmp(work + plen - 13, "[[:xdigit:]]+")) {
++			if (plen - 13 + strlen(opt_xdigit) >= sizeof(work))
++				return 0;
++			strcpy(work + plen - 13, opt_xdigit);
++		}
++
++		if (!replace_substr_all(work, "[[:xdigit:]]", xdigit_cls,
++					pat_buf, sizeof(pat_buf)))
++			return 0;
++		ret = expand_regex_fragment(pat_buf, &tmp);
++	}
++
++	for (size_t i = 0; !ret && i < tmp.nr; i++) {
++		if (!strchr(tmp.items[i], '/'))
++			ret = export_str_vec__add(out, tmp.items[i]);
++	}
++	export_str_vec__clear(&tmp);
++	return ret;
++}
++
++static bool is_literal_compat(const char *compat)
++{
++	if (!compat || !compat[0] || strchr(compat, '/'))
++		return false;
++	return strpbrk(compat, "*+?[]()|^$\\") == NULL;
++}
++
++static bool is_known_core_pmu_glob(const char *glob)
++{
++	return !strcmp(glob, "cpu") || !strcmp(glob, "cpum_cf") ||
++	       !strcmp(glob, "default_core") || !strncmp(glob, "armv8_pmuv3", 11);
++}
++
++static bool export_cpuid_pmu_matches(const char *eff_pmu, const char *pmu_glob)
++{
++	if (!pmu_glob)
++		return true;
++	if (strglobmatch(eff_pmu, pmu_glob))
++		return true;
++	if (!strcmp(eff_pmu, "default_core") && is_known_core_pmu_glob(pmu_glob))
++		return true;
++	return false;
++}
++
++static int ensure_rel_symlink(const char *root_dir, const char *subdir,
++			      const char *link_name, const char *arch,
++			      const char *model)
++{
++	char target_dir[PATH_MAX], sub_path[PATH_MAX], link_path[PATH_MAX];
++	char rel_target[PATH_MAX];
++	struct stat st;
++	int n, ret;
++
++	if (!link_name || !link_name[0] || strchr(link_name, '/'))
++		return 0;
++
++	n = snprintf(target_dir, sizeof(target_dir), "%s/models/%s/%s",
++		     root_dir, arch, model);
++	if (n < 0 || (size_t)n >= sizeof(target_dir))
++		return -ENAMETOOLONG;
++	if (stat(target_dir, &st) < 0 || !S_ISDIR(st.st_mode))
++		return 0;
++
++	n = snprintf(sub_path, sizeof(sub_path), "%s/%s", root_dir, subdir);
++	if (n < 0 || (size_t)n >= sizeof(sub_path))
++		return -ENAMETOOLONG;
++
++	n = snprintf(link_path, sizeof(link_path), "%s/%s", sub_path, link_name);
++	if (n < 0 || (size_t)n >= sizeof(link_path))
++		return -ENAMETOOLONG;
++	if (lstat(link_path, &st) == 0)
++		return 0;
++
++	ret = pmu_layer__mkdir_p(sub_path);
++	if (ret < 0)
++		return ret;
++
++	n = snprintf(rel_target, sizeof(rel_target), "../models/%s/%s", arch, model);
++	if (n < 0 || (size_t)n >= sizeof(rel_target))
++		return -ENAMETOOLONG;
++
++	if (symlink(rel_target, link_path) < 0 && errno != EEXIST)
++		return -errno;
++	return 0;
++}
++
++static int export_builtin_pe_to_dir(const char *target_root,
++				    const struct pmu_event *pe)
++{
++	const char *eff_pmu = (pe->pmu && pe->pmu[0]) ? pe->pmu : "default_core";
++	struct perf_pmu_alias *alias;
 +	char dir_path[PATH_MAX];
 +	char enc_name[NAME_MAX];
 +	int fd, n, ret;
 +
-+	if (pmu_layer__encode_filename(name, enc_name, sizeof(enc_name)) !=3D 0)
++	if (!pe->name || !pe->event)
++		return 0;
++	if (pmu_layer__encode_filename(pe->name, enc_name, sizeof(enc_name)) != 0)
 +		return 0;
 +
-+	m =3D export_find_pmu_metric(eff_pmu, name, expr, threshold);
++	alias = pmu_layer_alloc_alias(pe->name);
++	if (!alias)
++		return -ENOMEM;
 +
-+	n =3D snprintf(dir_path, sizeof(dir_path), "%s/%s/metrics", root_dir, eff=
-_pmu);
-+	if (n < 0 || (size_t)n >=3D sizeof(dir_path))
++	ret = pmu_layer_merge_pe(alias, pe, /*is_common=*/false);
++	if (ret) {
++		perf_pmu_free_alias(alias);
++		return ret;
++	}
++
++	n = snprintf(dir_path, sizeof(dir_path), "%s/%s/events", target_root, eff_pmu);
++	if (n < 0 || (size_t)n >= sizeof(dir_path)) {
++		perf_pmu_free_alias(alias);
++		return -ENAMETOOLONG;
++	}
++
++	ret = pmu_layer__mkdir_p(dir_path);
++	if (ret == 0) {
++		fd = open(dir_path, O_RDONLY | O_DIRECTORY);
++		if (fd < 0) {
++			ret = -errno;
++		} else {
++			ret = export_write_alias_files(fd, enc_name, alias);
++			close(fd);
++		}
++	}
++	perf_pmu_free_alias(alias);
++	return ret;
++}
++
++static int export_builtin_pm_to_dir(const char *target_root,
++				    const struct pmu_metric *pm)
++{
++	const char *eff_pmu = (pm->pmu && pm->pmu[0]) ? pm->pmu : "default_core";
++	char dir_path[PATH_MAX];
++	char enc_name[NAME_MAX];
++	int fd, n, ret;
++
++	if (!pm->metric_name || !pm->metric_expr)
++		return 0;
++	if (pmu_layer__encode_filename(pm->metric_name, enc_name, sizeof(enc_name)) != 0)
++		return 0;
++
++	n = snprintf(dir_path, sizeof(dir_path), "%s/%s/metrics", target_root, eff_pmu);
++	if (n < 0 || (size_t)n >= sizeof(dir_path))
 +		return -ENAMETOOLONG;
 +
-+	ret =3D pmu_layer__mkdir_p(dir_path);
++	ret = pmu_layer__mkdir_p(dir_path);
 +	if (ret < 0)
 +		return ret;
 +
-+	fd =3D open(dir_path, O_RDONLY | O_DIRECTORY);
++	fd = open(dir_path, O_RDONLY | O_DIRECTORY);
 +	if (fd < 0)
 +		return -errno;
+ 
++	ret = export_write_pm_files(fd, enc_name, pm, true, true,
++				    pm->default_show_events, true);
+ 	close(fd);
+ 	return ret;
+ }
 +
-+	if (m) {
-+		ret =3D export_write_sidecar(fd, enc_name, "",
-+					   m->metric_expr ?: expr);
-+		if (!ret && m->unit && m->unit[0])
-+			ret =3D export_write_sidecar(fd, enc_name, ".scale-unit",
-+						   m->unit);
-+		if (!ret && m->desc && m->desc[0])
-+			ret =3D export_write_sidecar(fd, enc_name, ".desc", m->desc);
-+		if (!ret && m->long_desc && m->long_desc[0])
-+			ret =3D export_write_sidecar(fd, enc_name, ".long-desc",
-+						   m->long_desc);
-+		if (!ret && m->metric_group && m->metric_group[0])
-+			ret =3D export_write_sidecar(fd, enc_name, ".group",
-+						   m->metric_group);
-+		if (!ret && m->metricgroup_no_group && m->metricgroup_no_group[0])
-+			ret =3D export_write_sidecar(fd, enc_name, ".no-group",
-+						   m->metricgroup_no_group);
-+		if (!ret && m->default_metricgroup_name &&
-+		    m->default_metricgroup_name[0])
-+			ret =3D export_write_sidecar(fd, enc_name, ".default-group",
-+						   m->default_metricgroup_name);
-+		if (!ret && m->metric_threshold && m->metric_threshold[0])
-+			ret =3D export_write_sidecar(fd, enc_name, ".threshold",
-+						   m->metric_threshold);
-+		if (!ret && m->compat && m->compat[0])
-+			ret =3D export_write_sidecar(fd, enc_name, ".compat",
-+						   m->compat);
-+		if (!ret && m->has_aggr_mode) {
-+			const char *aggr =3D export_aggr_mode_str(m->aggr_mode);
++struct export_compat_entry {
++	char *compat;
++	const char *arch;
++	const char *model;
++	bool ambiguous;
++};
 +
-+			if (aggr)
-+				ret =3D export_write_sidecar(fd, enc_name,
-+							   ".aggr-mode", aggr);
++struct export_table_walk_ctx {
++	const char *root_dir;
++	const char *target_root;
++	const char *arch;
++	const char *model;
++	const struct pmu_layer_export_opts *opts;
++	bool is_sys;
++	struct export_compat_entry **compats;
++	size_t *nr_compats;
++	size_t *cap_compats;
++};
++
++static int record_sys_compat(struct export_table_walk_ctx *ctx, const char *compat)
++{
++	struct export_compat_entry *arr;
++
++	if (!ctx->is_sys || !is_literal_compat(compat))
++		return 0;
++
++	arr = *ctx->compats;
++	for (size_t i = 0; i < *ctx->nr_compats; i++) {
++		if (!strcmp(arr[i].compat, compat)) {
++			if (strcmp(arr[i].arch, ctx->arch) != 0 ||
++			    strcmp(arr[i].model, ctx->model) != 0)
++				arr[i].ambiguous = true;
++			return 0;
 +		}
-+		if (!ret && m->has_event_grouping) {
-+			const char *cstr =3D export_constraint_str(m->event_grouping);
++	}
++	if (*ctx->nr_compats == *ctx->cap_compats) {
++		size_t new_cap = *ctx->cap_compats ? *ctx->cap_compats * 2 : 16;
++		struct export_compat_entry *new_arr =
++			realloc(arr, new_cap * sizeof(*new_arr));
 +
-+			if (cstr)
-+				ret =3D export_write_sidecar(fd, enc_name,
-+							   ".constraint", cstr);
++		if (!new_arr)
++			return -ENOMEM;
++		*ctx->compats = new_arr;
++		*ctx->cap_compats = new_cap;
++		arr = new_arr;
++	}
++	arr[*ctx->nr_compats].compat = strdup(compat);
++	if (!arr[*ctx->nr_compats].compat)
++		return -ENOMEM;
++	arr[*ctx->nr_compats].arch = ctx->arch;
++	arr[*ctx->nr_compats].model = ctx->model;
++	arr[*ctx->nr_compats].ambiguous = false;
++	(*ctx->nr_compats)++;
++	return 0;
++}
++
++static int export_cpuid_event_cb(const struct pmu_event *pe,
++				 const struct pmu_events_table *table __maybe_unused,
++				 void *vdata)
++{
++	struct export_table_walk_ctx *ctx = vdata;
++	const char *eff_pmu = (pe->pmu && pe->pmu[0]) ? pe->pmu : "default_core";
++	int ret;
++
++	if (!pe->name || !pe->event)
++		return 0;
++	if (pe->deprecated && !ctx->opts->deprecated)
++		return 0;
++	if (ctx->opts->exclude_abi && !strcmp(eff_pmu, "software"))
++		return 0;
++	if (!export_cpuid_pmu_matches(eff_pmu, ctx->opts->pmu_glob))
++		return 0;
++	if (ctx->opts->event_glob &&
++	    !strglobmatch(pe->name, ctx->opts->event_glob) &&
++	    (!pe->topic || !strglobmatch_nocase(pe->topic, ctx->opts->event_glob)))
++		return 0;
++
++	ret = export_builtin_pe_to_dir(ctx->target_root, pe);
++	if (ret)
++		return ret;
++	return record_sys_compat(ctx, pe->compat);
++}
++
++static bool metric_groups_match_glob(const char *groups, const char *glob)
++{
++	const char *p = groups;
++
++	if (!groups || !glob)
++		return false;
++
++	while (*p) {
++		const char *semi = strchr(p, ';');
++		size_t len = semi ? (size_t)(semi - p) : strlen(p);
++		char gbuf[NAME_MAX];
++
++		while (len > 0 && isspace((unsigned char)*p)) {
++			p++;
++			len--;
 +		}
-+		if (!ret && m->has_default_show_events)
-+			ret =3D export_write_sidecar(fd, enc_name, ".show-events",
-+						   m->default_show_events ? "1" : "0");
-+	} else {
-+		ret =3D export_write_sidecar(fd, enc_name, "", expr);
-+		if (!ret && unit && unit[0])
-+			ret =3D export_write_sidecar(fd, enc_name, ".scale-unit", unit);
-+		if (!ret && desc && desc[0])
-+			ret =3D export_write_sidecar(fd, enc_name, ".desc", desc);
-+		if (!ret && long_desc && long_desc[0])
-+			ret =3D export_write_sidecar(fd, enc_name, ".long-desc",
-+						   long_desc);
-+		if (!ret && group && group[0])
-+			ret =3D export_write_sidecar(fd, enc_name, ".group", group);
-+		if (!ret && threshold && threshold[0])
-+			ret =3D export_write_sidecar(fd, enc_name, ".threshold",
-+						   threshold);
++		while (len > 0 && isspace((unsigned char)p[len - 1]))
++			len--;
++
++		if (len > 0 && len < sizeof(gbuf)) {
++			memcpy(gbuf, p, len);
++			gbuf[len] = '\0';
++			if (strglobmatch(gbuf, glob))
++				return true;
++		}
++		if (!semi)
++			break;
++		p = semi + 1;
++	}
++	return false;
++}
++
++static int export_metric_groups_for_pm(struct export_table_walk_ctx *ctx,
++				       const struct pmu_metric *pm)
++{
++	const char *p = pm->metric_group;
++
++	if (!p || !p[0])
++		return 0;
++
++	while (*p) {
++		const char *semi = strchr(p, ';');
++		size_t len = semi ? (size_t)(semi - p) : strlen(p);
++		char gbuf[NAME_MAX];
++
++		while (len > 0 && isspace((unsigned char)*p)) {
++			p++;
++			len--;
++		}
++		while (len > 0 && isspace((unsigned char)p[len - 1]))
++			len--;
++
++		if (len > 0 && len < sizeof(gbuf)) {
++			const char *gdesc;
++			int ret;
++
++			memcpy(gbuf, p, len);
++			gbuf[len] = '\0';
++			if (!ctx->opts->event_glob ||
++			    (ctx->opts->metrics && pm->metric_name &&
++			     strglobmatch(pm->metric_name, ctx->opts->event_glob)) ||
++			    strglobmatch(gbuf, ctx->opts->event_glob)) {
++				gdesc = describe_metricgroup(gbuf);
++				ret = pmu_layer__export_metricgroup(ctx->target_root,
++								    gbuf, gdesc);
++				if (ret)
++					return ret;
++				if (strcmp(ctx->target_root, ctx->root_dir) != 0) {
++					ret = pmu_layer__export_metricgroup(
++						ctx->root_dir, gbuf, gdesc);
++					if (ret)
++						return ret;
++				}
++			}
++		}
++		if (!semi)
++			break;
++		p = semi + 1;
++	}
++	return 0;
++}
++
++static int export_cpuid_metric_cb(const struct pmu_metric *pm,
++				  const struct pmu_metrics_table *table __maybe_unused,
++				  void *vdata)
++{
++	struct export_table_walk_ctx *ctx = vdata;
++	const char *eff_pmu = (pm->pmu && pm->pmu[0]) ? pm->pmu : "default_core";
++	int ret;
++
++	if (!pm->metric_name || !pm->metric_expr)
++		return 0;
++	if (!export_cpuid_pmu_matches(eff_pmu, ctx->opts->pmu_glob))
++		return 0;
++	if (ctx->opts->event_glob &&
++	    (!ctx->opts->metrics || !strglobmatch(pm->metric_name, ctx->opts->event_glob)) &&
++	    (!ctx->opts->metricgroups || !metric_groups_match_glob(pm->metric_group,
++								   ctx->opts->event_glob)))
++		return 0;
++
++	if (ctx->opts->metricgroups) {
++		ret = export_metric_groups_for_pm(ctx, pm);
++		if (ret)
++			return ret;
++	}
++	if (!ctx->opts->metrics)
++		return 0;
++
++	ret = export_builtin_pm_to_dir(ctx->target_root, pm);
++	if (ret)
++		return ret;
++	return record_sys_compat(ctx, pm->compat);
++}
++
++struct export_map_row {
++	const char *arch;
++	const char *cpuid;
++	const char *model;
++	const struct pmu_events_table *events_table;
++	const struct pmu_metrics_table *metrics_table;
++	struct export_str_vec cpuids;
++	bool selected;
++};
++
++struct export_sys_row {
++	const char *arch;
++	const char *model;
++	const struct pmu_events_table *events_table;
++	const struct pmu_metrics_table *metrics_table;
++	bool selected;
++};
++
++struct collect_rows_ctx {
++	struct export_map_row *map_rows;
++	size_t nr_map_rows;
++	size_t cap_map_rows;
++	struct export_sys_row *sys_rows;
++	size_t nr_sys_rows;
++	size_t cap_sys_rows;
++};
++
++static int collect_map_row_cb(const char *arch, const char *cpuid,
++			      const char *model,
++			      const struct pmu_events_table *events_table,
++			      const struct pmu_metrics_table *metrics_table,
++			      void *vdata)
++{
++	struct collect_rows_ctx *ctx = vdata;
++
++	if (ctx->nr_map_rows == ctx->cap_map_rows) {
++		size_t new_cap = ctx->cap_map_rows ? ctx->cap_map_rows * 2 : 32;
++		struct export_map_row *new_arr =
++			realloc(ctx->map_rows, new_cap * sizeof(*new_arr));
++
++		if (!new_arr)
++			return -ENOMEM;
++		ctx->map_rows = new_arr;
++		ctx->cap_map_rows = new_cap;
++	}
++	ctx->map_rows[ctx->nr_map_rows++] = (struct export_map_row){
++		.arch = arch,
++		.cpuid = cpuid,
++		.model = model,
++		.events_table = events_table,
++		.metrics_table = metrics_table,
++	};
++	return 0;
++}
++
++static int collect_sys_row_cb(const char *arch, const char *model,
++			      const struct pmu_events_table *events_table,
++			      const struct pmu_metrics_table *metrics_table,
++			      void *vdata)
++{
++	struct collect_rows_ctx *ctx = vdata;
++
++	if (ctx->nr_sys_rows == ctx->cap_sys_rows) {
++		size_t new_cap = ctx->cap_sys_rows ? ctx->cap_sys_rows * 2 : 16;
++		struct export_sys_row *new_arr =
++			realloc(ctx->sys_rows, new_cap * sizeof(*new_arr));
++
++		if (!new_arr)
++			return -ENOMEM;
++		ctx->sys_rows = new_arr;
++		ctx->cap_sys_rows = new_cap;
++	}
++	ctx->sys_rows[ctx->nr_sys_rows++] = (struct export_sys_row){
++		.arch = arch,
++		.model = model,
++		.events_table = events_table,
++		.metrics_table = metrics_table,
++	};
++	return 0;
++}
++
++struct sys_compat_match_ctx {
++	const char *selector;
++	bool matched;
++};
++
++static int check_sys_event_compat_cb(const struct pmu_event *pe,
++				     const struct pmu_events_table *table __maybe_unused,
++				     void *vdata)
++{
++	struct sys_compat_match_ctx *ctx = vdata;
++
++	if (pe->compat && is_literal_compat(pe->compat) &&
++	    strglobmatch(pe->compat, ctx->selector)) {
++		ctx->matched = true;
++		return 1;
++	}
++	return 0;
++}
++
++static int check_sys_metric_compat_cb(const struct pmu_metric *pm,
++				      const struct pmu_metrics_table *table __maybe_unused,
++				      void *vdata)
++{
++	struct sys_compat_match_ctx *ctx = vdata;
++
++	if (pm->compat && is_literal_compat(pm->compat) &&
++	    strglobmatch(pm->compat, ctx->selector)) {
++		ctx->matched = true;
++		return 1;
++	}
++	return 0;
++}
++
++static bool arch_or_model_matches(const char *arch, const char *model,
++				  const char *selector)
++{
++	char full_model[256];
++
++	if (!arch || !model)
++		return false;
++	if (!strcmp(arch, selector) ||
++	    (!strcmp(selector, "test") && !strcmp(arch, "testarch")))
++		return true;
++	if (!strcmp(arch, "common"))
++		return !strcmp(selector, "common/common");
++
++	snprintf(full_model, sizeof(full_model), "%s/%s", arch, model);
++	return strglobmatch(full_model, selector) || strglobmatch(model, selector);
++}
++
++static bool row_cpuids_match_cand(const struct export_str_vec *cpuids,
++				  const char *cand)
++{
++	for (size_t j = 0; j < cpuids->nr; j++) {
++		if (strglobmatch(cpuids->items[j], cand))
++			return true;
++	}
++	return false;
++}
++
++int pmu_layer__export_cpuid(const char *root_dir, const char *selector,
++			    const struct pmu_layer_export_opts *opts)
++{
++	struct collect_rows_ctx rows = {};
++	struct export_str_vec exported_models = {};
++	struct export_compat_entry *compats = NULL;
++	size_t nr_compats = 0, cap_compats = 0;
++	bool any_selected = false;
++	int ret;
++
++	if (!root_dir || !root_dir[0] || !selector || !selector[0] || !opts)
++		return -EINVAL;
++
++	ret = pmu_events_map__for_each(collect_map_row_cb, &rows);
++	if (ret)
++		goto out;
++	ret = pmu_sys_events__for_each(collect_sys_row_cb, &rows);
++	if (ret)
++		goto out;
++
++	for (size_t i = 0; i < rows.nr_map_rows; i++) {
++		struct export_map_row *r = &rows.map_rows[i];
++
++		if (r->arch && strcmp(r->arch, "common") != 0) {
++			ret = expand_cpuid_pattern(r->arch, r->cpuid, &r->cpuids);
++			if (ret)
++				goto out;
++		}
 +	}
 +
-+	close(fd);
++	if (!strcmp(selector, "all")) {
++		for (size_t i = 0; i < rows.nr_map_rows; i++)
++			rows.map_rows[i].selected = true;
++		for (size_t i = 0; i < rows.nr_sys_rows; i++)
++			rows.sys_rows[i].selected = true;
++		any_selected = rows.nr_map_rows > 0 || rows.nr_sys_rows > 0;
++	} else {
++		for (size_t i = 0; i < rows.nr_map_rows; i++) {
++			struct export_map_row *r = &rows.map_rows[i];
++
++			if (arch_or_model_matches(r->arch, r->model, selector)) {
++				r->selected = true;
++				any_selected = true;
++			}
++		}
++		for (size_t i = 0; i < rows.nr_sys_rows; i++) {
++			struct export_sys_row *r = &rows.sys_rows[i];
++
++			if (arch_or_model_matches(r->arch, r->model, selector)) {
++				r->selected = true;
++				any_selected = true;
++			}
++		}
++
++		if (!any_selected) {
++			char cands[6][128];
++			size_t nr_cands = build_cpuid_candidates(selector, cands,
++								 ARRAY_SIZE(cands));
++
++			for (size_t c = 0; c < nr_cands && !any_selected; c++) {
++				for (size_t i = 0; i < rows.nr_map_rows; i++) {
++					struct export_map_row *r = &rows.map_rows[i];
++
++					if (row_cpuids_match_cand(&r->cpuids, cands[c])) {
++						r->selected = true;
++						any_selected = true;
++					}
++				}
++			}
++
++			for (size_t i = 0; i < rows.nr_sys_rows; i++) {
++				struct export_sys_row *r = &rows.sys_rows[i];
++				struct sys_compat_match_ctx mctx = {
++					.selector = selector,
++				};
++
++				if (r->events_table)
++					pmu_events_table__for_each_event(
++						r->events_table, NULL,
++						check_sys_event_compat_cb, &mctx);
++				if (!mctx.matched && r->metrics_table)
++					pmu_metrics_table__for_each_metric(
++						r->metrics_table,
++						check_sys_metric_compat_cb, &mctx);
++				if (mctx.matched) {
++					r->selected = true;
++					any_selected = true;
++				}
++			}
++		}
++	}
++
++	if (!any_selected) {
++		ret = -ENOENT;
++		goto out;
++	}
++
++	ret = pmu_layer__mkdir_p(root_dir);
++	if (ret)
++		goto out;
++
++	for (size_t i = 0; i < rows.nr_map_rows; i++) {
++		struct export_map_row *r = &rows.map_rows[i];
++		char target_root[PATH_MAX];
++		char model_key[256];
++
++		if (!r->selected)
++			continue;
++
++		if (!strcmp(r->arch, "common")) {
++			snprintf(target_root, sizeof(target_root), "%s", root_dir);
++			snprintf(model_key, sizeof(model_key), "common");
++		} else {
++			int n = snprintf(target_root, sizeof(target_root),
++					 "%s/models/%s/%s",
++					 root_dir, r->arch, r->model);
++
++			if (n < 0 || (size_t)n >= sizeof(target_root)) {
++				ret = -ENAMETOOLONG;
++				goto out;
++			}
++			snprintf(model_key, sizeof(model_key), "%s/%s",
++				 r->arch, r->model);
++		}
++
++		if (!export_str_vec__contains(&exported_models, model_key)) {
++			struct export_table_walk_ctx wctx = {
++				.root_dir = root_dir,
++				.target_root = target_root,
++				.arch = r->arch,
++				.model = r->model,
++				.opts = opts,
++				.is_sys = false,
++				.compats = &compats,
++				.nr_compats = &nr_compats,
++				.cap_compats = &cap_compats,
++			};
++
++			ret = export_str_vec__add(&exported_models, model_key);
++			if (ret)
++				goto out;
++			if (opts->events && r->events_table) {
++				ret = pmu_events_table__for_each_event(
++					r->events_table, NULL,
++					export_cpuid_event_cb, &wctx);
++				if (ret)
++					goto out;
++			}
++			if ((opts->metrics || opts->metricgroups) && r->metrics_table) {
++				ret = pmu_metrics_table__for_each_metric(
++					r->metrics_table,
++					export_cpuid_metric_cb, &wctx);
++				if (ret)
++					goto out;
++			}
++		}
++
++		if (strcmp(r->arch, "common") != 0) {
++			for (size_t j = 0; j < r->cpuids.nr; j++) {
++				ret = ensure_rel_symlink(root_dir, "cpus",
++							 r->cpuids.items[j],
++							 r->arch, r->model);
++				if (ret)
++					goto out;
++			}
++		}
++	}
++
++	for (size_t i = 0; i < rows.nr_sys_rows; i++) {
++		struct export_sys_row *r = &rows.sys_rows[i];
++		char target_root[PATH_MAX];
++		char model_key[256];
++		struct export_table_walk_ctx wctx;
++		int n;
++
++		if (!r->selected)
++			continue;
++
++		n = snprintf(target_root, sizeof(target_root), "%s/models/%s/%s",
++			     root_dir, r->arch, r->model);
++		if (n < 0 || (size_t)n >= sizeof(target_root)) {
++			ret = -ENAMETOOLONG;
++			goto out;
++		}
++		snprintf(model_key, sizeof(model_key), "sys:%s/%s", r->arch, r->model);
++		if (export_str_vec__contains(&exported_models, model_key))
++			continue;
++
++		ret = export_str_vec__add(&exported_models, model_key);
++		if (ret)
++			goto out;
++
++		wctx = (struct export_table_walk_ctx){
++			.root_dir = root_dir,
++			.target_root = target_root,
++			.arch = r->arch,
++			.model = r->model,
++			.opts = opts,
++			.is_sys = true,
++			.compats = &compats,
++			.nr_compats = &nr_compats,
++			.cap_compats = &cap_compats,
++		};
++		if (opts->events && r->events_table) {
++			ret = pmu_events_table__for_each_event(
++				r->events_table, NULL,
++				export_cpuid_event_cb, &wctx);
++			if (ret)
++				goto out;
++		}
++		if ((opts->metrics || opts->metricgroups) && r->metrics_table) {
++			ret = pmu_metrics_table__for_each_metric(
++				r->metrics_table,
++				export_cpuid_metric_cb, &wctx);
++			if (ret)
++				goto out;
++		}
++	}
++
++	for (size_t i = 0; i < nr_compats; i++) {
++		if (compats[i].ambiguous)
++			continue;
++		ret = ensure_rel_symlink(root_dir, "sys", compats[i].compat,
++					 compats[i].arch, compats[i].model);
++		if (ret)
++			goto out;
++	}
++
++out:
++	for (size_t i = 0; i < rows.nr_map_rows; i++)
++		export_str_vec__clear(&rows.map_rows[i].cpuids);
++	free(rows.map_rows);
++	free(rows.sys_rows);
++	export_str_vec__clear(&exported_models);
++	for (size_t i = 0; i < nr_compats; i++)
++		free(compats[i].compat);
++	free(compats);
 +	return ret;
 +}
 diff --git a/tools/perf/util/pmu-layer.h b/tools/perf/util/pmu-layer.h
-index 5d8a33481410..183bed9cc10e 100644
+index 183bed9cc10e..df32acdb1b63 100644
 --- a/tools/perf/util/pmu-layer.h
 +++ b/tools/perf/util/pmu-layer.h
-@@ -173,4 +173,15 @@ int pmu_layer__load_metrics(struct perf_pmu *pmu);
+@@ -173,6 +173,16 @@ int pmu_layer__load_metrics(struct perf_pmu *pmu);
  const char *pmu_layer__describe_metricgroup(struct perf_pmu *pmu,
  					    const char *group);
-=20
-+int pmu_layer__mkdir_p(const char *path);
-+int pmu_layer__export_event(const char *root_dir, const char *pmu_name,
-+			    const char *event_name);
-+int pmu_layer__export_metricgroup(const char *root_dir, const char *group,
-+				  const char *desc);
-+int pmu_layer__export_metric(const char *root_dir, const char *eff_pmu,
-+			     const char *group, const char *name,
-+			     const char *desc, const char *long_desc,
-+			     const char *expr, const char *threshold,
-+			     const char *unit);
+ 
++struct pmu_layer_export_opts {
++	const char *pmu_glob;
++	const char *event_glob;
++	bool events;
++	bool metrics;
++	bool metricgroups;
++	bool deprecated;
++	bool exclude_abi;
++};
 +
+ int pmu_layer__mkdir_p(const char *path);
+ int pmu_layer__export_event(const char *root_dir, const char *pmu_name,
+ 			    const char *event_name);
+@@ -183,5 +193,7 @@ int pmu_layer__export_metric(const char *root_dir, const char *eff_pmu,
+ 			     const char *desc, const char *long_desc,
+ 			     const char *expr, const char *threshold,
+ 			     const char *unit);
++int pmu_layer__export_cpuid(const char *root_dir, const char *selector,
++			    const struct pmu_layer_export_opts *opts);
+ 
  #endif /* __PMU_LAYER_H */
-diff --git a/tools/perf/util/print-events.c b/tools/perf/util/print-events.=
-c
-index eb44026972b9..e6f6d8231ce0 100644
---- a/tools/perf/util/print-events.c
-+++ b/tools/perf/util/print-events.c
-@@ -210,6 +210,18 @@ static int mep_cmp(struct rb_node *rb_node, const void=
- *entry)
- 	return strcmp(a->metric_name, b->metric_name);
- }
-=20
-+static int mep_cmp_pmu(struct rb_node *rb_node, const void *entry)
-+{
-+	struct mep *a =3D container_of(rb_node, struct mep, nd);
-+	struct mep *b =3D (struct mep *)entry;
-+	int ret =3D mep_cmp(rb_node, entry);
-+
-+	if (ret)
-+		return ret;
-+
-+	return strcmp(a->pmu_name ?: "", b->pmu_name ?: "");
-+}
-+
- static struct rb_node *mep_new(struct rblist *rl __maybe_unused, const voi=
-d *entry)
- {
- 	struct mep *me =3D malloc(sizeof(struct mep));
-@@ -231,19 +243,26 @@ static void mep_delete(struct rblist *rl __maybe_unus=
-ed,
- }
-=20
- static struct mep *mep_lookup(struct rblist *groups, const char *metric_gr=
-oup,
--			      const char *metric_name)
-+			      const char *metric_name, const char *pmu_name)
- {
- 	struct rb_node *nd;
- 	struct mep me =3D {
- 		.metric_group =3D strdup(metric_group),
- 		.metric_name =3D metric_name,
-+		.pmu_name =3D pmu_name,
- 	};
-+
-+	if (!me.metric_group)
-+		return NULL;
- 	nd =3D rblist__find(groups, &me);
- 	if (nd) {
- 		free(me.metric_group);
- 		return container_of(nd, struct mep, nd);
- 	}
--	rblist__add_node(groups, &me);
-+	if (rblist__add_node(groups, &me)) {
-+		free(me.metric_group);
-+		return NULL;
-+	}
- 	nd =3D rblist__find(groups, &me);
- 	if (nd)
- 		return container_of(nd, struct mep, nd);
-@@ -267,9 +286,9 @@ static int metricgroup__add_to_mep_groups_callback(cons=
-t struct pmu_metric *pm,
-=20
- 		g =3D skip_spaces(g);
- 		if (strlen(g))
--			me =3D mep_lookup(groups, g, pm->metric_name);
-+			me =3D mep_lookup(groups, g, pm->metric_name, pm->pmu);
- 		else
--			me =3D mep_lookup(groups, pm->metric_name, pm->metric_name);
-+			me =3D mep_lookup(groups, pm->metric_name, pm->metric_name, pm->pmu);
-=20
- 		if (me) {
- 			me->metric_desc =3D pm->desc;
-@@ -292,7 +311,7 @@ void metricgroup__print(const struct print_callbacks *p=
-rint_cb, void *print_stat
-=20
- 	rblist__init(&groups);
- 	groups.node_new =3D mep_new;
--	groups.node_cmp =3D mep_cmp;
-+	groups.node_cmp =3D print_cb->skip_duplicate_pmus(print_state) ? mep_cmp =
-: mep_cmp_pmu;
- 	groups.node_delete =3D mep_delete;
-=20
- 	metricgroup__for_each_metric(/*table=3D*/NULL,
---=20
+-- 
 2.56.1.703.gf848ed807c-goog
 
