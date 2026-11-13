@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794594399;
-	b=rJhjLe0rMIW8US05Ws9DRNgLhIVdSdu2/Tc3zSrFskEdEoRxhDFsQF5Ro+nQJPTDhtX4
-	 TxGQ33iBgrGJOprHwwS4oFGclWA9OJCuZq+6yUdRzkFrB9Y/YuthWSbD8CqGFrvNQEH0b
-	 FL2lmK9gl2AU69ft17HoMIIft4RHGRRL6aQUI2RsUwdNLfxjeU3i8JmxluiJ5zajtQ/zp
-	 zdAtzsv8ovZE8kDJnE9zXYcz9Ksru6FYW8Hk7IZxdhpc1kdSich2gu28k/Bq3Cf48ZI++
-	 m1Iyag5vi3D1sULhzTiTwhlS/h2CMLCgX1cXGwYOXkqJWaYW6lKpvnurgYmeUL7iAdg==
+	b=GoWx8VgyGKuZkKxCgmJ5DUSTGCaOBaDNENgcYKjVWBeA/o7xWYvP1dU+CQ3Wl5TJTrIR
+	 ZiRTlSTCi8K2nqY7ZlX0M//q31WsCvI0qWnDXpshDbvsQotAxkqBd0iwO42PVLt7uUDQL
+	 ojsKNPxqhiNKE2RQKZ9G2Ks7DCmkDK/nD3P6xJfTQkf3WuIi1qY3e4MZoYdakB4GBIwSl
+	 ZEMaaFkP6z/ZBmQoKU3tb7sdvEOf3iTdqCvyQ+8pl/T4Q/QpCzZMiNKQkNXXNj0RQoWWK
+	 CBJsL6sTdPEP/DyCqG/aR2/+/jh/gms+IK9vp5fF5k1S4TAGJV+YBKaDnyXwBnUO2YQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794594399;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
-	bh=wt/q8P3zBd6hu3TnYFCC/E9Q4utWihMtB20Llr0upI4=;
-	b=fi2vylLW6hOhvHJko+HrtCIi/it/ReckX4RrO6OZh/5H28koOOi5vzkOTHT8QJKJeiUU
-	 +kkfFNpBxA6atNEWNo7kpmgEfs64qNxwup+fA+EKMfx8ELO6FCE7KHECsGl+vpBG8vYWI
-	 tbupYXS770MVc0nCXXl3DoHvXMWezijKBvBLHmlOcOYWCK/2Q7V8NPfMB+pPmWjF4/Oo9
-	 rOiXX1b1OE8cPdQftB+cOWvyq+JcSQ6DbkIZ1+FGdDIBr2QCsxUgpHK0p/x5SA3aVnGvr
-	 dV0GWLhRXupsU6KtdVEKCDcYHHE9v7axScJf93IomMXh+WaJJYlrBrOMoZhvypOlrQg==
+	 Content-Type:Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
+	bh=a447najyP6oiEfQOMuEwmzsq+JuFRrv0E+AbaPhpCIo=;
+	b=giTeOojsa6QkVOkWnPfSyI7PBKXtSQYogwRDFMBc9O9cUtjS/raNdJq0M2sre8DlhlJE
+	 AYgMhquEKCjjOaBgwGWYleMSms3DrHcYwDCYiqRDVgA2yXkcBeoaIu5/LtlFiGUjrZ/yI
+	 Mrq24dP3PQuq3EaQIOJICc0ZyOt/ww41OyCnoCEhlNPqOOnVKvLRwZEgUMfktydIxyHOJ
+	 duxCyRBw4Z7iAEq7n4qRh2fLdCGw4AX+JihxJL7noWFU/5ZnsHiTG8PfkMlfQRM4ELPU2
+	 1l7gTaFYjh5QeOS3xmRIiK5OO+VsjMJBHesky+i9+ZkvBBaWk0sWcULF6TFxPvyJp1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=infradead.org;
 	spf=none smtp.mailfrom=desiato.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=IurXzNvO;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=hOEc3Ykw;
 	arc=none smtp.remote-ip=90.155.92.199
 Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EB92606C148;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE38606C14C;
 	Fri, 13 Nov 2026 18:26:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EB92606C148
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EE38606C14C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=IurXzNvO
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=hOEc3Ykw
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
-	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=wt/q8P3zBd6hu3TnYFCC/E9Q4utWihMtB20Llr0upI4=; b=IurXzNvOVzHUcQTnti7AZh9iWR
-	2PP1E9zBV7zj0qsF2ZP+4FPlAHRv6adPzJmuYKePMPZELglQtVflHlNUVyH45pRep/Nnz3pKM7cJC
-	xynxAXqcJ3Mw8dMFpiH817ogl/06FIs+3k7trMuaeqn8dH1MFGrhkqWfepyGFVtgOD+nuVOEf7wNL
-	tLg5nMccierJmLRrPIljFS2pkkOPccd3+KeviApcxvzMRIPOMeNPPuvyNBN+lmyL/kK8/TSipAI7s
-	uv77YUqE3/BiVqMZ3+tzNXB6mnoDk2nvjrRhZIjDNTVe0jLeBRQeKBnsUgCkIrUx2PUFratgVzwT4
-	3h1pmwcQ==;
+	Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:
+	To:From:Reply-To:Content-ID:Content-Description;
+	bh=a447najyP6oiEfQOMuEwmzsq+JuFRrv0E+AbaPhpCIo=; b=hOEc3YkwQtQpZARn5ieWyaY5Ne
+	Fee1m0HWE6LQ/qA1Behapz2i4AlA7dulrNddxuRIvHhJPeFGiaLYlTpC8BDGwfEFZ46z6C7VlAu68
+	KOcy7f+V6eNYB3Cyi7RBaYgOT0TlTmX9dDDm0TwfZ9T29PSA3RPC7nRBMdx9PjXKu4dCzbokBKXla
+	3qQ+w62TjIfT7oD6HIwpvhreNe+8CfnsnlYeDj6n4k4R702pjDkkNSqcirtqUHm6p/RL7NIonFGzf
+	s3jdwOrmFyuMm3DKOL5B9HErrcjdvzC/ejUh4FtoEpmuRHex0vdSSgxvt0i+zef5PxcKwiDbDeAuM
+	RQJevh8g==;
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
 	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xRvyU-0000000BeOa-173F;
+	id 1xRvyU-0000000BeOW-16LO;
 	Fri, 13 Nov 2026 18:26:30 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xRvyR-00000000LYJ-2o1a;
+	id 1xRvyR-00000000LXo-1IJ3;
 	Fri, 13 Nov 2026 18:26:07 +0000
 From: David Woodhouse <dwmw2@infradead.org>
 To: =?UTF-8?q?J=C3=B6rg=20R=C3=B6del?= <joro@8bytes.org>
@@ -74,13 +74,12 @@ Cc: Paolo Bonzini <pbonzini@redhat.com>,
 	Mushahid Hussain <hmushi@amazon.co.uk>,
 	Sriram Nambakam <snambakam@linux.microsoft.com>,
 	David Woodhouse <dwmw@amazon.co.uk>
-Subject: [RFC PATCH 08/13] KVM: planes: Enlarge every twin's fpstate for dynamic xfeatures
-Date: Fri, 13 Nov 2026 11:26:02 -0700
-Message-ID: <20261113182607.82813-9-dwmw2@infradead.org>
+Subject: [RFC PATCH 00/13] KVM: planes: Userspace API
+Date: Fri, 13 Nov 2026 11:25:54 -0700
+Message-ID: <20261113182607.82813-1-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261113182607.82813-1-dwmw2@infradead.org>
+In-Reply-To: <20260608144252.351443-1-joro@8bytes.org>
 References: <20260608144252.351443-1-joro@8bytes.org>
- <20261113182607.82813-1-dwmw2@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,120 +89,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Sender: David Woodhouse <dwmw2@infradead.org>
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-Plane twins share CPUID, so a twin's guest can set the XCR0 bits for a
-dynamic xfeature such as AMX's XTILEDATA with its own XSETBV. But
-kvm_check_cpuid() calls fpu_enable_guest_xfd_features() only for the
-vCPU that KVM_SET_CPUID was issued on, and a twin created afterwards
-starts with the default fpstate. A twin that then runs AMX code loses
-its tile data on every fpstate save, because the fpstate it saves into
-has no room for it. On a host that exposes AMX to the guest, any twin
-using AMX hits this.
+The VSM work¹ drives planes from userspace, which takes a little
+more API than the planes series² itself provides: an explicit
+userspace opt-in (enabling KVM_CAP_PLANES with the plane count,
+before any vCPU is created), KVM_GET/SET_PLANE_RUN_STATE vCPU
+ioctls, and the mechanics to go with them — per-plane requests
+fanned out to the twin vCPUs, XCR0 shared across twins (with every
+twin's fpstate sized for the dynamic xfeatures that allows), and
+APICv inhibited while planes are enabled (for now). With selftests,
+including Paolo's plane infrastructure tests from the original
+planes RFC³, ported forward.
 
-Whether the XRSTORS on the next entry can also leave a previous
-context's tile registers in place for that twin to read is an open
-question; it has not been verified.
+Posted separately from the VSM RFC v2 (to follow) so this part can
+be reviewed — or folded — with the rest of the planes series. Based
+on that series² with my fixes⁴ applied (including two follow-up
+patches on that thread); the whole stack is at ⁵.
 
-Enlarge the fpstate of every twin in kvm_check_cpuid(), and give a twin
-created after KVM_SET_CPUID the dynamic xfeatures of its plane-0
-sibling's fpstate.
+¹ https://lore.kernel.org/kvm/20261017122501.610248-1-dwmw2@infradead.org/
+² https://lore.kernel.org/kvm/20260608144252.351443-1-joro@8bytes.org/
+³ https://lore.kernel.org/all/20250401161106.790710-29-pbonzini@redhat.com/
+⁴ https://lore.kernel.org/kvm/20261111222911.477-1-dwmw2@infradead.org/
+⁵ https://git.infradead.org/?p=users/dwmw2/linux.git;a=shortlog;h=refs/heads/vsm2/planes-uapi
 
-Only a twin that has not run may have its fpstate enlarged:
-fpstate_realloc() hands a guest fpstate that is not loaded a fresh
-image and copies nothing, so a twin that has run would lose its XSAVE
-state. kvm_set_cpuid() already accepts only identical CPUID once the
-vCPU has run, but it checked only the vCPU the ioctl was issued on.
-With plane 0 held while a higher plane runs, KVM_SET_CPUID2 on plane 0
-would pass that check and resize the plane that ran. Since the twins
-share CPUID, take the identical-CPUID path once any twin has run.
+David Woodhouse (12):
+  KVM: x86: Let userspace opt in to multiple planes with KVM_CAP_PLANES
+  KVM: selftests: Add x86 planes lifecycle test
+  KVM: Add KVM_GET/SET_PLANE_RUN_STATE vCPU ioctls
+  KVM: selftests: Cover plane run-state ioctls in planes_test
+  KVM: planes: Fan out per-plane requests to twin vCPUs
+  KVM: x86: Inhibit APICv when VM planes are enabled
+  KVM: planes: Enlarge every twin's fpstate for dynamic xfeatures
+  KVM: x86: Let userspace choose state for plane twins to share
+  KVM: planes: Let plane twins share XCR0
+  KVM: planes: Let plane twins share DR6
+  KVM: selftests: Check CPUID handling of plane twins
+  KVM: selftests: Cover plane state sharing
 
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
----
- arch/x86/kvm/cpuid.c | 21 +++++++++++++++++++--
- arch/x86/kvm/x86.c   | 17 +++++++++++++++++
- 2 files changed, 36 insertions(+), 2 deletions(-)
+Paolo Bonzini (1):
+  KVM: selftests: Add VM plane infrastructure and tests
 
-diff --git a/arch/x86/kvm/cpuid.c b/arch/x86/kvm/cpuid.c
-index c5fa0551ddd5..971ebd781c6e 100644
---- a/arch/x86/kvm/cpuid.c
-+++ b/arch/x86/kvm/cpuid.c
-@@ -141,7 +141,9 @@ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_find_cpuid_entry2);
- static int kvm_check_cpuid(struct kvm_vcpu *vcpu)
- {
- 	struct kvm_cpuid_entry2 *best;
-+	struct kvm_vcpu *v;
- 	u64 xfeatures;
-+	int i, r;
- 
- 	/*
- 	 * The existing code assumes virtual address is 48-bit or 57-bit in the
-@@ -168,7 +170,18 @@ static int kvm_check_cpuid(struct kvm_vcpu *vcpu)
- 	if (!xfeatures)
- 		return 0;
- 
--	return fpu_enable_guest_xfd_features(&vcpu->arch.guest_fpu, xfeatures);
-+	/*
-+	 * The planes share CPUID, so any twin's guest can enable these
-+	 * xfeatures in its XCR0: enlarge every twin's fpstate, not just
-+	 * this vCPU's.
-+	 */
-+	vcpu_for_each_plane(vcpu->common, i, v) {
-+		r = fpu_enable_guest_xfd_features(&v->arch.guest_fpu, xfeatures);
-+		if (r)
-+			return r;
-+	}
-+
-+	return 0;
- }
- 
- static u32 kvm_apply_cpuid_pv_features_quirk(struct kvm_vcpu *vcpu);
-@@ -545,8 +558,12 @@ static int kvm_set_cpuid(struct kvm_vcpu *vcpu, struct kvm_cpuid_entry2 *e2,
- 	 * VMMs (e.g. QEMU) reuse vCPU fds for CPU hotplug/unplug and do
- 	 * KVM_SET_CPUID{,2} again. To support this legacy behavior, check
- 	 * whether the supplied CPUID data is equal to what's already set.
-+	 * Plane twins share CPUID, so this applies once any twin has run.
- 	 */
--	if (!kvm_can_set_cpuid_and_feature_msrs(vcpu)) {
-+	vcpu_for_each_plane(common, i, v) {
-+		if (kvm_can_set_cpuid_and_feature_msrs(v))
-+			continue;
-+
- 		r = kvm_cpuid_check_equal(vcpu, e2, nent);
- 		if (r)
- 			goto err;
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 6d3d93e85a65..af28e73e4b9b 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -9771,6 +9771,23 @@ int kvm_arch_vcpu_create(struct kvm_vcpu *vcpu)
- 	vcpu->arch.hv_root_tdp = INVALID_PAGE;
- #endif
- 
-+	/*
-+	 * A plane twin created after KVM_SET_CPUID shares CPUID that may
-+	 * already allow dynamic xfeatures, which KVM_SET_CPUID enabled only
-+	 * in the twins that existed at the time.  Give it the dynamic
-+	 * xfeatures of its plane-0 sibling's fpstate.
-+	 */
-+	if (vcpu->plane_level && vcpu->common->vcpus[0]) {
-+		u64 dyn = vcpu->common->vcpus[0]->arch.guest_fpu.fpstate->xfeatures &
-+			  XFEATURE_MASK_USER_DYNAMIC;
-+
-+		if (dyn) {
-+			r = fpu_enable_guest_xfd_features(&vcpu->arch.guest_fpu, dyn);
-+			if (r)
-+				goto free_guest_fpu;
-+		}
-+	}
-+
- 	/*
- 	 * A plane twin created after KVM_SET_CPUID shares CPUID that may
- 	 * already advertise Hyper-V.  Allocate the Hyper-V context now so
+ Documentation/virt/kvm/api.rst                | 129 +++-
+ arch/powerpc/kvm/trace.h                      |   3 +-
+ arch/x86/include/asm/kvm_host.h               |   8 +-
+ arch/x86/include/uapi/asm/kvm.h               |   4 +
+ arch/x86/kvm/cpuid.c                          |  25 +-
+ arch/x86/kvm/mmu/mmu.c                        |  13 +-
+ arch/x86/kvm/regs.c                           |   1 +
+ arch/x86/kvm/svm/svm.h                        |   3 +-
+ arch/x86/kvm/trace.h                          |   3 +-
+ arch/x86/kvm/vmx/main.c                       |   3 +-
+ arch/x86/kvm/x86.c                            | 221 ++++++-
+ arch/x86/kvm/x86.h                            |  21 +
+ include/linux/kvm_host.h                      |  36 +-
+ include/uapi/linux/kvm.h                      |   7 +
+ tools/testing/selftests/kvm/Makefile.kvm      |   3 +
+ .../testing/selftests/kvm/include/kvm_util.h  |  73 +++
+ .../selftests/kvm/include/x86/processor.h     |  14 +
+ tools/testing/selftests/kvm/lib/kvm_util.c    |  74 ++-
+ .../testing/selftests/kvm/lib/x86/processor.c |  47 +-
+ tools/testing/selftests/kvm/plane_test.c      | 137 ++++
+ .../selftests/kvm/x86/plane_x86_test.c        | 331 ++++++++++
+ tools/testing/selftests/kvm/x86/planes_test.c | 605 ++++++++++++++++++
+ virt/kvm/kvm_main.c                           | 138 +++-
+ 23 files changed, 1852 insertions(+), 47 deletions(-)
+ create mode 100644 tools/testing/selftests/kvm/plane_test.c
+ create mode 100644 tools/testing/selftests/kvm/x86/plane_x86_test.c
+ create mode 100644 tools/testing/selftests/kvm/x86/planes_test.c
+
 -- 
 2.50.1
 
