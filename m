@@ -1,98 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.137
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794579217;
-	b=x5raLK0mCJxF3ei05FRSkzaN0Qb04OxhSXIoHfuUDAslqjtSTQ2FSDV6qJSdx085FdVa
-	 qfBrs3KkEapTZcPYUPMvob5CRySxxUXWgAuyaEBhRLdtV18l34rYtDIEjIgSXGlgQkAJ5
-	 SG2LnuVXwmxhQeZGNF4kiitTNYBXcvzPIypm6SHojAzGegOKC1LpQ6g85RiSqyOcKMCs4
-	 lvQIz16k+8pqiusE6txSsXkbqkdzX+sH9HTgK4G18OQhHkqiaZ+WZgF+e67NzXt/LVcst
-	 nUAR8EK6hlkOzAVVKeN+mh4pBxxJmIfeBnT8po6+cpDizcDcr55FM/Qu425f1saVl/Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794579217;
-	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
-	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:Content-Type:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=cLYpj1nGHZ8oQSZmagMtUFxGnq3+G+4K1oQpL50UX54=;
-	b=qhqf90LyoCjYhzEaKM/M7t7v0B9pyjtsXKoddY+vzjKbbGg3RufMvLr3/WbPZ5lyacy5
-	 9etILdsmMsdrnCeY3aK9Smnj7GAgYouCObyo/nHRRDaLGy93cMKqg/RZuBWcUVyo1tMmH
-	 IFJqt39cSp+5pVi/TQDpRZrqwTpmkskFPy+D+6Ey3tdRxegk977BfNVcLSf0kdm8oxwFI
-	 ZkSj+yiJ02XW7ihiChVoBmvyoIR/6Yv9SctR8pdo5W9zzjV4HI5wN2kgNcZuzetXw4jRR
-	 Pa1mYAHY6hrQm3Y7JrvcLkPWH3qmWY8KQCqNf+hEI3mYImTt8kvMlZg3LrPR/3L9uUA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=cixtech.com;
-	spf=pass smtp.mailfrom=cixtech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.75.137
-Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022137.outbound.protection.outlook.com [40.107.75.137])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794579239;
+	b=gwj79j3ww4TnGXTV3fDuy9rDWcX2BOf4eH6LN53Kp3P3oCh3WUmcJlXuhBTtAKJ5WQJs
+	 PMlhTq5ZSLKbs4CYIU3yd4SXHCabRslgRpEzetbBvwkAzWf6G05oDBjejwk+Ve13IgJGn
+	 rOiJxhxq5/zwPixkhzocLAqA8r8bBjGffUHYmkCa23mQBmtqMHKrWjkKCQdlUDAYYVlvZ
+	 +JUEZq+td71xFIFmNo5bTDQIsakzuIchaPOZbm2E4U0ff/sb2BcnluSfMqCSYZXTPvUUU
+	 rDFGrw6FAEwAjY3y2X3BQruZPhQEDdew1REqxRlrhKSH+13pU4OACuOGzQLY+AXt8hQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794579239;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
+	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=7XvqX2RfVWW6ToJX3iR5O0b7BnKNYFYifeEwtNOD9Gc=;
+	b=FlwuaoBCWrqtiGqIkoNJlWT4iIo3zvl6B4X9DW7ZMFbypqMT26/Mmh/LfkovhwXmV09s
+	 wTlgioJ0LKMj+k9qcSgfa59TjGt+WkmECoMMbaKr2tjpecwzrov48BZNj37hQdwMGQt9n
+	 W6j5OaIxfe+SPItV2qU0k/RGUu1256yxjGsh9VMbWs8CGAfIq71lRArJDxD/GkPBolyJa
+	 S9b+zC+3n1229GzNUJmzSFIt8rUrBk9b5FcxFed1MgN4g9d2aOMa2sJ1XjCgypIjAsPIS
+	 vYoFG2TtbZXdyl+we1uws4AAOuZgLkVBtFjgMA2DwElHb63B9nFsXzskEjhwbBrnXyQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=Kxy9vJaN;
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C491606A32E;
-	Fri, 13 Nov 2026 14:13:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C491606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=l6kAm44Atd7RuH5+QVXEktyfbrGVE7WEJcd40o41BgmxkJ5PUcCCtwD+DXTjhAWGCzLBs0PViEWaL8NJqIiZTCKHmQdASgsk/8FKCPEFg+O5dE7YcBD0tg5XDw+7r+vYZSYyeaj6BM1T4WSPeW7H/nWxEH6r7rg9pkXkkax+MwXjWYd8jz1X2Lstj1+g/XLsOHguXqINnFTGCvkVYgr9skoe/NDa9ujtimXTuKF+Qi/i+fLs0rrkxsZF9unKJ1uFhZV9tMJN8V3JAoCgSVXuOGQSmhJ5Krr6vzQRm/0d8A6M8MtLh4sflyWBd5kKLbcBOHEaFUi7oM2gSOmRHEi9xw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cLYpj1nGHZ8oQSZmagMtUFxGnq3+G+4K1oQpL50UX54=;
- b=FCcAUjyaiU97Y5LypREqPL1PEEJeG2AjRZ7uDRDJ4xHZl33ZSOzxtd+8IJciSsMRk3JtXkT+RLaCgraI/vC30DbSxyGnsHnEIqeOAQPBnlNCXP3pXc51NRclNnWod0PS/igrXDG7OCn6riu4B6bloijmpPsOsP7wMAfhdvzkMvEjE71knkNmWJj41lx+cKMA9gJPB5ZxDhOq221LjO7LAVFp2LqmZ10w/SeFzdaoy8X4PdroyYIPETC31XPLjts+StVennPLr9xtuyix5csljHpvAQ5dc4zcv90ZKBz4ASbvKXlb6Nu2mjKDekPMVyARvls10rlWKZvWVX3JCJehJA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from SI3PR01CA0006.apcprd01.prod.exchangelabs.com
- (2603:1096:4:296::19) by JH0PR06MB6835.apcprd06.prod.outlook.com
- (2603:1096:990:4d::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.6; Fri, 13 Nov
- 2026 14:13:31 +0000
-Received: from SG2PEPF000B66CC.apcprd03.prod.outlook.com
- (2603:1096:4:296:cafe::d) by SI3PR01CA0006.outlook.office365.com
- (2603:1096:4:296::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Fri, 13
- Nov 2026 14:13:31 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- SG2PEPF000B66CC.mail.protection.outlook.com (10.167.240.25) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 13 Nov 2026 14:13:28 +0000
-Received: from gary-System-Product-Name (unknown [172.16.64.55])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 51AD05077DEE;
-	Fri, 13 Nov 2026 20:53:04 +0800 (CST)
-From: Gary Yang <gary.yang@cixtech.com>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	cix-kernel-upstream@cixtech.com,
-	Gary Yang <gary.yang@cixtech.com>
-Subject: [PATCH v4 0/2] usb: typec: add CIX Type-C PD controller driver
-Date: Fri, 13 Nov 2026 20:53:02 +0800
-Message-ID: <20261113125304.1693911-1-gary.yang@cixtech.com>
-X-Mailer: git-send-email 2.50.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF60C606A32D;
+	Fri, 13 Nov 2026 14:13:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF60C606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=Kxy9vJaN
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6ADECxXyA874201, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1794579179; bh=7XvqX2RfVWW6ToJX3iR5O0b7BnKNYFYifeEwtNOD9Gc=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=Kxy9vJaNQxDIWp7OcGn8Ph/WF5bX5v023TaRU3N71MNOiAwkK4EuGx7gNpQ76RfX9
+	 ZEd1kdL7/4IshBshDelPn1FoKZ4Gqfi1C3H7d0ZOU7R799sij6lY5G/am1oKaO5RVH
+	 6WCHJLzlpEqWSLvtlQFrDoBVF8eBNpVD2GvADHDzEFwvVlhoSlFI0A2NZ3GU3iuLHI
+	 4WvruAsaWFvdqOwcF4gwC63npyTBJgxYvWpzL0Fav1JKbkivDu5XyobPeLMQJagzoT
+	 x821ZTUDZpwl2AhFshj1C6Vof0O+Qa9nokeGQJomwkwjGve/Je3IPK9VjHbPbRmSpy
+	 0Ciujt4yZspQg==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6ADECxXyA874201
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 13 Nov 2026 22:12:59 +0800
+Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 13 Nov 2026 22:12:59 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 13 Nov 2026 22:12:59 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
+ 15.02.2562.056; Fri, 13 Nov 2026 22:12:59 +0800
+From: =?utf-8?B?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?= <eleanor.lin@realtek.com>
+To: Brian Masney <masneyb@kernel.org>
+CC: "sboyd@kernel.org" <sboyd@kernel.org>, "bmasney+clk@redhat.com"
+	<bmasney+clk@redhat.com>, "jbrunet+clk@baylibre.com"
+	<jbrunet+clk@baylibre.com>, "robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
+	<conor+dt@kernel.org>, =?utf-8?B?RWRnYXIgTGVlIFvmnY7mib/oq61d?=
+	<cylee12@realtek.com>, "afaerber@suse.com" <afaerber@suse.com>,
+	=?utf-8?B?SnlhbiBDaG91IFvlkajoirflrold?= <jyanchou@realtek.com>,
+	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>,
+	"linux-realtek-soc@lists.infradead.org"
+	<linux-realtek-soc@lists.infradead.org>,
+	=?utf-8?B?SmFtZXMgVGFpIFvmiLTlv5fls7Bd?= <james.tai@realtek.com>,
+	=?utf-8?B?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?= <cy.huang@realtek.com>,
+	=?utf-8?B?U3RhbmxleSBDaGFuZ1vmmIzogrLlvrdd?= <stanley_chang@realtek.com>
+Subject: RE: [PATCH v16 6/9] clk: realtek: Add support for MMC-tuned PLL
+ clocks
+Thread-Topic: [PATCH v16 6/9] clk: realtek: Add support for MMC-tuned PLL
+ clocks
+Thread-Index: AQHdcmZF5zcH/kJ6kk+n4kke5Xzn1LcqJ8QAgAHllPA=
+Date: Fri, 13 Nov 2026 14:12:59 +0000
+Message-ID: <54a7a77705674bfdac23727f5fb92cb6@realtek.com>
+References: <20261112052544.555563-1-eleanor.lin@realtek.com>
+ <20261112052544.555563-7-eleanor.lin@realtek.com>
+ <179450369605.1227210.10143810675268582312.b4-review@b4>
+In-Reply-To: <179450369605.1227210.10143810675268582312.b4-review@b4>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,124 +103,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SG2PEPF000B66CC:EE_|JH0PR06MB6835:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 3f1528d9-3ff9-4eab-e807-08df41904b31
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|36860700016|82310400026|376014|18002099003|6133799003|56012099006|261028144727099003|261102123227099003|261022105027099003|261026121527099003|261022075727099003|261021121427099003|261021123027099003|261026140227099003|261009223027099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	QGwLY0kMZGh0urLxf4pWWxR5AyZfBjGB1UbH7HeSpdaib9H8wjCs4ROQLv3/sZ7KwfrMvfqFojiGGnCZo03OI//7AX2zLACpWvPTJ4CChSM6d9pcEmobPLHJBTnRyiI0eu94exlGv3mrH+4fZ65qRDqfG+91p0xzLkVd45W69+5Qx9Qw6YW3v7fwYQDwmmzM6Y9kq1Liooz9lP8tRxtfkzBlLarwGfe7LIpC9g52pM7AvyLDZHhWjtvPiUbZJBYK7kzmfO0ObjwwbQFF2uJbJJxKw2+YB1sOLRf5hXNCmzx39U+zg6bAKWKWYFjNBPdNXc8fwd/w7qJOhajiNUuZQGX+Zjm5VttD0fxl1ev29lFek6iJVn8mr4cdm0DZ/OdnlE8GHMxrrJsZneetR/2OuoJHNn4wHxYjS+XNd59c+GkDU4znAl5mZiPvCXdOgKj/GiZcNgdJ4pnIGZ6OHF8rM2c4DFEH4VUk0oJsb4RjbaaebTabk4kWiAAFNZW7jzPg4TIx36ivXdarkKsxiZ8825qbTcitda1lm2uxtxlV41o7NObIF1F54iTEZC6I1BQ7+hJcG1FmgjLTntiy5aVOLKh7/6dCyo4Ksw65IS/+pEMOY86L4nS33ItBvhSQosy4UXyDWoeJTOI/hzB2xlnYK4Gag1AtTSgxsbzMA2NzoBioWpFdn/6RXBJq1Jfu5tjdijond2eXdCYz5HpFHQDWnA==
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(36860700016)(82310400026)(376014)(18002099003)(6133799003)(56012099006)(261028144727099003)(261102123227099003)(261022105027099003)(261026121527099003)(261022075727099003)(261021121427099003)(261021123027099003)(261026140227099003)(261009223027099003)(10067099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Xk1PXn8L+9G+RDvcIj60a2XXTg4h9DvSzDCitVmyQQSCnIAHP0+XjeEOjbai2svBmnT7YfjUlqHddi1chPhSXogwTd2k9bEN39hnKBjcI/s/lpxo7vF8HTXjPJizK49iKdd9reoi530bdsQw8BZLYurAprVfeladi2xyhAj4JToTp4oa95+T8qCvb+qO5z+eGqpa+Om5/KolH18QXnXf2OoMdc7jEifrRhJq0gxebmFMoxKNS0JiKfn8XtEhs1vqOovLL7L52NKG2Z3ahJpf/5cSLPibON3xB5WMW+cOtpT6LxeKBSdb3s97FsHGMhB9RbC0DcgGASEhSHROIHNI9zRffv1eqsPqU/PFlRBi5TiNa/3mK6MaE3/9TXuvFBTKceRYN3DongOsQ6u8JTb5xhjySfMX5Du+mZcB4JE3Qf09UJJWB7AEocg7iursBnRN
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 14:13:28.5234
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3f1528d9-3ff9-4eab-e807-08df41904b31
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SG2PEPF000B66CC.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: JH0PR06MB6835
 
-This series adds a Type-C PD controller driver for CIX platforms.
-
-The first supported controller is the Realtek RTS5453H, a stand-alone
-port controller: the CC and USB Power Delivery state machines run in
-its firmware and are configured through vendor registers rather than
-the TCPC register interface, so it cannot be driven by the tcpm
-framework. The driver translates the controller status registers into
-Type-C class notifications and drives the platform PHY's orientation
-switch and mode mux.
-
-The driver is named after the CIX platform integration rather than the
-RTS5453H so that further register-compatible PD controllers can be
-supported without renaming it.
-
-Patch 1 adds the devicetree binding and patch 2 adds the driver and its
-MAINTAINERS entry. The DTS patches from v1 are sent separately through
-the SoC tree.
-
-Changes in v4:
-- Keep the interrupt disabled across system sleep and re-enable it in
-  ->resume() only, after the parent I2C adapter has resumed.
-- Return IRQ_NONE when the port status did not change, so that the
-  interrupt core can attribute the shared level-triggered line and
-  disable a line that stays asserted.
-- Mark the DisplayPort alternate mode active only after a driver is
-  bound, so that the module reference taken by
-  typec_altmode_update_active() stays balanced.
-- binding: drop the nodes below the documented device from the
-  example.
-- Carry Reviewed-by from Krzysztof Kozlowski.
-
-Changes in v3:
-- Report the Type-C data role from the controller status for every
-  connection, including DisplayPort-only configurations where no USB
-  data role is available, instead of deriving it from the USB role
-  switch.
-- Pass the port alternate mode in the mux state, matching other
-  firmware-driven port drivers.
-- Force the USB role switch to be reprogrammed on system resume and
-  check the enable_irq_wake() return value.
-- Acknowledge a pending controller interrupt during probe so that a
-  shared interrupt line is not left asserted.
-- Do not drop the borrowed fwnode reference when parsing the connector
-  properties fails.
-- Treat all fwnode_usb_role_switch_get() errors as fatal; a connector
-  without a role switch link returns NULL, not -ENODEV.
-- Drop a redundant include.
-
-Changes in v2:
-- Drop the DTS patches from the series.
-- binding: describe the single connector as a plain "connector" child
-  node instead of an addressed node, and stop requiring
-  "try-power-role", which only applies to dual-role ports.
-- driver: add the missing USB_ROLE_SWITCH Kconfig dependency.
-- driver: register the DisplayPort partner alternate mode only for
-  actual DP connections, with a valid VDO, call
-  typec_altmode_update_active() on attach/detach and set
-  no_mode_control since the firmware drives mode entry.
-- driver: never pass a NULL alternate mode to typec_mux_set(), and
-  treat debug accessories as disconnected everywhere.
-- driver: handle USB 2.0-only connections in orientation, role and
-  mux state.
-- driver: only cache the USB role after the role switch accepted it,
-  and force a role refresh on resume.
-- driver: use typec_get_fw_cap() instead of open-coding the connector
-  properties.
-- driver: acquire the mux and role switch before registering the
-  port, use dev_err_probe() on probe failures and reset the mux to the
-  safe state on teardown.
-- driver: remove the undocumented disable_pd_interrupt sysfs attribute
-  and the manual disable_irq()/IRQ_DISABLE_UNLAZY handling that could
-  leak the shared IRQ's disable depth. This also fixes the build error
-  reported by the kernel test robot on sparc64 and s390.
-- driver: use a named i2c_device_id initializer and add the missing
-  hibernation PM callbacks.
-
-Tested on a Radxa Orion O6 (Sky1): attach/detach, USB-only and DP-only
-alt modes, cable orientation detection and HPD reporting all work.
-
-Gary Yang (2):
-  dt-bindings: usb: add Realtek RTS5453H Type-C port controller
-  usb: typec: add CIX Type-C PD controller driver
-
- .../bindings/usb/realtek,rts5453h.yaml        |  70 ++
- MAINTAINERS                                   |   7 +
- drivers/usb/typec/Kconfig                     |  13 +
- drivers/usb/typec/Makefile                    |   1 +
- drivers/usb/typec/cix_pd.c                    | 768 ++++++++++++++++++
- 5 files changed, 859 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/usb/realtek,rts5453h.yaml
- create mode 100644 drivers/usb/typec/cix_pd.c
-
+SGkgQnJpYW4sDQoNCj4gPiArDQo+ID4gK3N0YXRpYyBjb25zdCBzdHJ1Y3QgcnRrX2Nsa19wbGxf
+bW1jX3JhdGUgKg0KPiA+ICtydGtfY2xrX3BsbF9tbWNfZmluZF9jbG9zZXN0X3JhdGUoY29uc3Qg
+c3RydWN0IHJ0a19jbGtfcGxsX21tY19yYXRlICp0YmwsDQo+IHUzMiBudW0sDQo+ID4gKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICB1bnNpZ25lZCBsb25nIHJhdGUsIHVuc2lnbmVkIGxv
+bmcNCj4gbWluX3JhdGUsDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB1bnNp
+Z25lZCBsb25nIG1heF9yYXRlKSB7DQo+ID4gKyAgICAgY29uc3Qgc3RydWN0IHJ0a19jbGtfcGxs
+X21tY19yYXRlICpiZXN0ID0gTlVMTDsNCj4gPiArICAgICB1bnNpZ25lZCBsb25nIGJlc3RfZGVs
+dGEgPSB+MFVMOw0KPiA+ICsNCj4gPiArICAgICBmb3IgKHVuc2lnbmVkIGludCBpID0gMDsgaSA8
+IG51bTsgaSsrKSB7DQo+ID4gKyAgICAgICAgICAgICBjb25zdCBzdHJ1Y3QgcnRrX2Nsa19wbGxf
+bW1jX3JhdGUgKmVudHJ5ID0gJnRibFtpXTsNCj4gPiArICAgICAgICAgICAgIHVuc2lnbmVkIGxv
+bmcgZGVsdGE7DQo+ID4gKw0KPiA+ICsgICAgICAgICAgICAgaWYgKGVudHJ5LT5yYXRlIDwgbWlu
+X3JhdGUgfHwgZW50cnktPnJhdGUgPiBtYXhfcmF0ZSkNCj4gPiArICAgICAgICAgICAgICAgICAg
+ICAgY29udGludWU7DQo+ID4gKw0KPiA+ICsgICAgICAgICAgICAgZGVsdGEgPSBlbnRyeS0+cmF0
+ZSA+PSByYXRlID8gZW50cnktPnJhdGUgLSByYXRlIDogcmF0ZSAtDQo+IGVudHJ5LT5yYXRlOw0K
+PiA+ICsgICAgICAgICAgICAgaWYgKGRlbHRhIDwgYmVzdF9kZWx0YSkgew0KPiA+ICsgICAgICAg
+ICAgICAgICAgICAgICBiZXN0ID0gZW50cnk7DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgIGJl
+c3RfZGVsdGEgPSBkZWx0YTsNCj4gPiArICAgICAgICAgICAgIH0NCj4gPiArICAgICB9DQo+ID4g
+Kw0KPiA+ICsgICAgIHJldHVybiBiZXN0Ow0KPiA+ICt9DQo+IA0KPiBUaGlzIGR1cGxpY2F0ZXMg
+dGhlIGZ1bmN0aW9uYWxpdHkgaW4gZnRibF9maW5kX2Nsb3Nlc3RfYnlfcmF0ZSgpIGZyb20gcGF0
+Y2ggMy4NCj4gDQoNCkkgY29uc2lkZXJlZCBzaGFyaW5nIHRoZSBsb2dpYywgYnV0IHRoZSB0d28g
+dGFibGVzIGhhdmUgZGlmZmVyZW50IGVudHJ5DQpsYXlvdXRzLg0KDQpVbmlmeWluZyB0aGVtIHdv
+dWxkIG5lZWQgYSBtYWNybyBvciAodm9pZCAqKSAoYm90aCBsb3NlIHR5cGUgY2hlY2tpbmcpLCBv
+cg0KZW1iZWRkaW5nIHJ0a19mcmVxX3RhYmxlIHdpdGggY29udGFpbmVyX29mKCkgKGEgbGFyZ2Vy
+IHJld29yayBmb3IgbGl0dGxlDQpnYWluKS4gSSBwcmVmZXIga2VlcGluZyB0aGUgdHdvIHR5cGUt
+c2FmZSBmdW5jdGlvbnMuIElzIHRoYXQgYWNjZXB0YWJsZT8NCg0KPiA+ICsNCj4gPiArc3RhdGlj
+IGludCBydGtfY2xrX3JlZ21hcF9wbGxfbW1jX2RldGVybWluZV9yYXRlKHN0cnVjdCBjbGtfaHcg
+Kmh3LA0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+c3RydWN0DQo+IGNsa19yYXRlX3JlcXVlc3QNCj4gPiArKnJlcSkgew0KPiA+ICsgICAgIHN0cnVj
+dCBydGtfY2xrX3JlZ21hcF9wbGxfbW1jICpjbGttID0gdG9fY2xrX3BsbF9tbWMoaHcpOw0KPiA+
+ICsgICAgIGNvbnN0IHN0cnVjdCBydGtfY2xrX3BsbF9tbWNfcmF0ZSAqZW50cnk7DQo+ID4gKw0K
+PiA+ICsgICAgIGlmICghY2xrbS0+cmF0ZV90YmwgfHwgIWNsa20tPm51bV9yYXRlX3RibCB8fA0K
+PiA+ICsgICAgICAgICByZXEtPm1pbl9yYXRlID4gcmVxLT5tYXhfcmF0ZSkNCj4gDQo+IGNsa19j
+b3JlX2NoZWNrX2JvdW5kYXJpZXMoKSBhbHJlYWR5IGNoZWNrcyB0aGUgbWluL21heCByYXRlLg0K
+PiANCg0KQWNrLiBXaWxsIGRyb3AuDQoNCj4gPiArICAgICAgICAgICAgIHJldHVybiAtRUlOVkFM
+Ow0KPiA+ICsNCj4gPiArICAgICBlbnRyeSA9IHJ0a19jbGtfcGxsX21tY19maW5kX2Nsb3Nlc3Rf
+cmF0ZShjbGttLT5yYXRlX3RibCwNCj4gPiArDQo+IGNsa20tPm51bV9yYXRlX3RibCwgcmVxLT5y
+YXRlLA0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IHJlcS0+bWluX3JhdGUsDQo+IHJlcS0+bWF4X3JhdGUpOw0KPiA+ICsgICAgIGlmICghZW50cnkp
+DQo+ID4gKyAgICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsNCj4gPiArDQo+ID4gKyAgICAgcmVx
+LT5yYXRlID0gZW50cnktPnJhdGU7DQo+ID4gKw0KPiA+ICsgICAgIHJldHVybiAwOw0KPiA+ICt9
+DQo+ID4gKw0KPiA+ICtzdGF0aWMgY29uc3Qgc3RydWN0IHJ0a19jbGtfcGxsX21tY19kaXZfY2Zn
+IGNsa19wbGxfZW1tY19kZWZhdWx0X2Rpdl9jZmdbXQ0KPiA9IHsNCj4gPiArICAgICB7IDMxLCA0
+NiwgMywgMywgMiB9LA0KPiA+ICsgICAgIHsgMjAsIDMwLCAyLCAzLCAxIH0sDQo+ID4gKyAgICAg
+eyAxMCwgMTksIDEsIDIsIDEgfSwNCj4gPiArICAgICB7ICA1LCAgOSwgMCwgMiwgMCB9LA0KPiA+
+ICt9Ow0KPiA+ICsNCj4gPiArc3RhdGljIGNvbnN0IHN0cnVjdCBydGtfY2xrX3BsbF9tbWNfZGl2
+X2NmZyAqDQo+ID4gK2Nsa19wbGxfZW1tY19maW5kX2Rpdl9jZmcoc3RydWN0IHJ0a19jbGtfcmVn
+bWFwX3BsbF9tbWMgKmNsa20sIHUzMg0KPiA+ICtkaXYpIHsNCj4gPiArICAgICBjb25zdCBzdHJ1
+Y3QgcnRrX2Nsa19wbGxfbW1jX2Rpdl9jZmcgKnRibCA9IGNsa20tPmRpdl9jZmc7DQo+ID4gKyAg
+ICAgdTggbnVtID0gY2xrbS0+bnVtX2Rpdl9jZmc7DQo+IA0KPiBUaGlzIGlzIGEgdTMyIGluIHN0
+cnVjdCBydGtfY2xrX3JlZ21hcF9wbGxfbW1jLg0KDQpZZXMsIHdpbGwgZml4Lg0KDQpbLi4uXQ0K
+DQo+ID4gK3N0YXRpYyBpbnQgcnRrX2Nsa19yZWdtYXBfcGxsX21tY19zZXRfcmF0ZShzdHJ1Y3Qg
+Y2xrX2h3ICpodywgdW5zaWduZWQNCj4gbG9uZyByYXRlLA0KPiA+ICsgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgdW5zaWduZWQgbG9uZyBwYXJlbnRfcmF0ZSkNCj4gew0K
+PiA+ICsgICAgIHN0cnVjdCBydGtfY2xrX3JlZ21hcF9wbGxfbW1jICpjbGttID0gdG9fY2xrX3Bs
+bF9tbWMoaHcpOw0KPiA+ICsgICAgIGNvbnN0IHN0cnVjdCBydGtfY2xrX3BsbF9tbWNfcmF0ZSAq
+ZW50cnkgPQ0KPiBydGtfY2xrX3BsbF9tbWNfZmluZF9yYXRlKGNsa20sIHJhdGUpOw0KPiA+ICsg
+ICAgIGludCByZXQ7DQo+ID4gKw0KPiA+ICsgICAgIGlmICghZW50cnkpDQo+ID4gKyAgICAgICAg
+ICAgICByZXR1cm4gLUVJTlZBTDsNCj4gPiArDQo+ID4gKyAgICAgcmV0ID0gcmVnbWFwX3VwZGF0
+ZV9iaXRzKGNsa20tPmNsa3IucmVnbWFwLA0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBjbGttLT5zc2NfZGlnX29mcyArDQo+IFJUS19QTExfU1NDX0RJR19FTU1DMF9PRkZTRVQs
+DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJUS19QTExfRkxBR19JTklUSUFM
+X0VNTUNfTUFTSywNCj4gPiArDQo+IEZJRUxEX1BSRVAoUlRLX1BMTF9GTEFHX0lOSVRJQUxfRU1N
+Q19NQVNLLCAwKSk7DQo+ID4gKyAgICAgaWYgKHJldCkNCj4gPiArICAgICAgICAgICAgIHJldHVy
+biByZXQ7DQo+ID4gKw0KPiA+ICsgICAgIHJldCA9IGNsa19wbGxfZW1tY19zZXRfc3NjX2Rpdl9u
+KGNsa20sIGVudHJ5LT5zc2NfZGl2X24pOw0KPiA+ICsgICAgIGlmIChyZXQpDQo+ID4gKyAgICAg
+ICAgICAgICByZXR1cm4gcmV0Ow0KPiA+ICsNCj4gPiArICAgICByZXQgPSBjbGtfcGxsX2VtbWNf
+c2V0X3NzY19kaXZfZXh0X2YoY2xrbSwgZW50cnktPnNzY19kaXZfZXh0X2YpOw0KPiA+ICsgICAg
+IGlmIChyZXQpDQo+ID4gKyAgICAgICAgICAgICByZXR1cm4gcmV0Ow0KPiA+ICsNCj4gPiArICAg
+ICByZXQgPSBjbGtfcGxsX2VtbWNfcHJvZ3JhbV9kaXZfY2ZnKGNsa20sIGVudHJ5LT5zc2NfZGl2
+X24pOw0KPiA+ICsgICAgIGlmIChyZXQpDQo+ID4gKyAgICAgICAgICAgICByZXR1cm4gcmV0Ow0K
+PiA+ICsNCj4gPiArICAgICByZXQgPSByZWdtYXBfdXBkYXRlX2JpdHMoY2xrbS0+Y2xrci5yZWdt
+YXAsDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNsa20tPnNzY19kaWdfb2Zz
+ICsNCj4gUlRLX1BMTF9TU0NfRElHX0VNTUMzX09GRlNFVCwNCj4gPiArICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgUlRLX1BMTF9OQ09ERV9TU0NfRU1NQ19NQVNLLA0KPiA+ICsNCj4gRklF
+TERfUFJFUChSVEtfUExMX05DT0RFX1NTQ19FTU1DX01BU0ssIGVudHJ5LT5uY29kZSkpOw0KPiA+
+ICsgICAgIGlmIChyZXQpDQo+ID4gKyAgICAgICAgICAgICByZXR1cm4gcmV0Ow0KPiA+ICsNCj4g
+PiArICAgICByZXQgPSByZWdtYXBfdXBkYXRlX2JpdHMoY2xrbS0+Y2xrci5yZWdtYXAsDQo+ID4g
+KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNsa20tPnNzY19kaWdfb2ZzICsNCj4gUlRL
+X1BMTF9TU0NfRElHX0VNTUMzX09GRlNFVCwNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgUlRLX1BMTF9GQ09ERV9TU0NfRU1NQ19NQVNLLA0KPiA+ICsNCj4gRklFTERfUFJFUChS
+VEtfUExMX0ZDT0RFX1NTQ19FTU1DX01BU0ssIGVudHJ5LT5mY29kZSkpOw0KPiA+ICsgICAgIGlm
+IChyZXQpDQo+ID4gKyAgICAgICAgICAgICByZXR1cm4gcmV0Ow0KPiA+ICsNCj4gPiArICAgICBy
+ZXQgPSByZWdtYXBfdXBkYXRlX2JpdHMoY2xrbS0+Y2xrci5yZWdtYXAsDQo+ID4gKyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIGNsa20tPnNzY19kaWdfb2ZzICsNCj4gUlRLX1BMTF9TU0Nf
+RElHX0VNTUM0X09GRlNFVCwNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUlRL
+X1BMTF9HUkFOX0VTVF9FTV9NQ19NQVNLLA0KPiA+ICsNCj4gRklFTERfUFJFUChSVEtfUExMX0dS
+QU5fRVNUX0VNX01DX01BU0ssIGVudHJ5LT5ncmFuX2VzdCkpOw0KPiA+ICsgICAgIGlmIChyZXQp
+DQo+ID4gKyAgICAgICAgICAgICByZXR1cm4gcmV0Ow0KPiA+ICsNCj4gPiArICAgICByZXQgPSBy
+ZWdtYXBfdXBkYXRlX2JpdHMoY2xrbS0+Y2xrci5yZWdtYXAsDQo+ID4gKyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIGNsa20tPnNzY19kaWdfb2ZzICsNCj4gUlRLX1BMTF9TU0NfRElHX0VN
+TUMwX09GRlNFVCwNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUlRLX1BMTF9T
+U0NfRElHX0VNTUMwX0VOX1NTQywNCj4gPiArDQo+IEZJRUxEX1BSRVAoUlRLX1BMTF9TU0NfRElH
+X0VNTUMwX0VOX1NTQywgMSkpOw0KPiA+ICsgICAgIGlmIChyZXQpDQo+ID4gKyAgICAgICAgICAg
+ICByZXR1cm4gcmV0Ow0KPiA+ICsNCj4gPiArICAgICByZXQgPSByZWdtYXBfdXBkYXRlX2JpdHMo
+Y2xrbS0+Y2xrci5yZWdtYXAsDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNs
+a20tPnNzY19kaWdfb2ZzICsNCj4gUlRLX1BMTF9TU0NfRElHX0VNTUMwX09GRlNFVCwNCj4gPiAr
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUlRLX1BMTF9FTl9TU0NfRU1NQ19NQVNLLA0K
+PiA+ICsNCj4gRklFTERfUFJFUChSVEtfUExMX0VOX1NTQ19FTU1DX01BU0ssIDEpKTsNCj4gPiAr
+ICAgICBpZiAocmV0KQ0KPiA+ICsgICAgICAgICAgICAgcmV0dXJuIHJldDsNCj4gPiArDQo+ID4g
+KyAgICAgcmV0ID0gcmVnbWFwX3VwZGF0ZV9iaXRzKGNsa20tPmNsa3IucmVnbWFwLA0KPiA+ICsg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjbGttLT5zc2NfZGlnX29mcyArDQo+IFJUS19Q
+TExfU1NDX0RJR19FTU1DMF9PRkZTRVQsDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIFJUS19QTExfRU5fU1NDX0VNTUNfTUFTSywNCj4gPiArDQo+IEZJRUxEX1BSRVAoUlRLX1BM
+TF9FTl9TU0NfRU1NQ19NQVNLLA0KPiA+ICsgMCkpOw0KPiANCj4gRU5fU1NDX0VNTUMgaXMgc2V0
+IGFuZCB0aGVuIGltbWVkaWF0ZWx5IGNsZWFyZWQuIElmIHRoaXMgaXMgaW50ZW50aW9uYWwgdGhl
+bg0KPiBwdXQgYSBjb21tZW50IGhlcmUgdG8gYmUgc3VyZSBpdCdzIGludGVudGlvbmFsLg0KPiAN
+Cg0KU29ycnkgZm9yIHRoZSBjb25mdXNpb24sIHRoZSBtYWNybyBuYW1lIHdhcyB3cm9uZzoNClJU
+S19QTExfRU5fU1NDX0VNTUNfTUFTSyBzaG91bGQgYmUgUlRLX1BMTF9TU0NfRElHX0VNTUMwX09D
+X0VOLg0KDQpPQ19FTiBpcyBhIHRyaWdnZXIgYml0IChlbmFibGVzIG92ZXItY2xvY2sgb3IgdW5k
+ZXItY2xvY2sgYWRqdXN0bWVudCksDQpub3QgdGhlIFNTQyBlbmFibGUuIEl0IG5lZWRzIHRvIGJl
+IHNldCBhbmQgdGhlbiBjbGVhcmVkIHRvIHRyaWdnZXINCnRoZSBhZGp1c3RtZW50Lg0KDQo+ID4g
+KyAgICAgaWYgKHJldCkNCj4gPiArICAgICAgICAgICAgIHJldHVybiByZXQ7DQo+ID4gKw0KPiA+
+ICsgICAgIHJldCA9IHJlZ21hcF91cGRhdGVfYml0cyhjbGttLT5jbGtyLnJlZ21hcCwNCj4gPiAr
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY2xrbS0+c3NjX2RpZ19vZnMgKw0KPiBSVEtf
+UExMX1NTQ19ESUdfRU1NQzBfT0ZGU0VULA0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBSVEtfUExMX0ZMQUdfSU5JVElBTF9FTU1DX01BU0ssDQo+ID4gKw0KPiBGSUVMRF9QUkVQ
+KFJUS19QTExfRkxBR19JTklUSUFMX0VNTUNfTUFTSywgMSkpOw0KPiA+ICsgICAgIGlmIChyZXQp
+DQo+ID4gKyAgICAgICAgICAgICByZXR1cm4gcmV0Ow0KPiA+ICsNCj4gPiArICAgICB1c2xlZXBf
+cmFuZ2UoMTAsIDIwKTsNCj4gPiArDQo+ID4gKyAgICAgcmV0dXJuIDA7DQo+ID4gK30NCj4gPiAr
+DQoNClsuLi5dDQoNCj4gPiArDQo+ID4gK3N0cnVjdCBydGtfY2xrX3JlZ21hcF9wbGxfbW1jIHsN
+Cj4gPiArICAgICBzdHJ1Y3QgcnRrX2Nsa19yZWdtYXAgY2xrcjsNCj4gPiArICAgICB1bnNpZ25l
+ZCBpbnQgcGxsX29mczsNCj4gPiArICAgICB1bnNpZ25lZCBpbnQgc3NjX2RpZ19vZnM7DQo+ID4g
+Kw0KPiA+ICsgICAgIC8qDQo+ID4gKyAgICAgICogT3B0aW9uYWwgcGVyLVNvQyB0dW5pbmcgdGFi
+bGUuIFdoZW4gTlVMTCwgdGhlIGRyaXZlcidzIGRlZmF1bHQNCj4gdGFibGUNCj4gPiArICAgICAg
+KiBpcyB1c2VkIGFuZCBudW1fZGl2X2NmZyBpcyBpZ25vcmVkOw0KPiANCj4gUmVwbGFjZSA7IGF0
+IGVuZCB3aXRoIC4NCg0KQWNrLg0KDQpCZXN0IFJlZ2FyZHMsDQpZdS1DaHVuDQo=
