@@ -1,47 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794553419;
-	b=e0CKiU4IQ6pz6HDDj3PhFw9xxti7LzSCZymvExsl1LJYh3sPs1xoMlwSO6ozHB3d/Z0Y
-	 oFKkeboAMhptiv66ZicHrIhYO0RUbP6oaHWHQxTaYAQMv5OvY1zRZdj+jJs/jufmTSlKI
-	 Ud6chMDyw02SyY4UDGaoMuj7ClUAICc0hlJGLnjoipjrU0Uel7y0QWCavcKL2+fxLKE4X
-	 TuJoW8MkgHv6Q0bsVYB51mltKi6Lv5ErwphP9jnvXVnQGMiCeZJ0PlBvJ0C5wKadNASde
-	 v01fGRXP5VixjAgB2SwElDi0n7WXjdScHUSvYLzhtWEUGyPEKrM9A6d8yFiY897PTYw==
+	t=1794553443;
+	b=Spgk4zAan1OIgjBBRPfRpLST9UTJDeF86dTJ2EG3z3ZAmCAc3Yygm4/ceFLhqKnsxmLn
+	 aU8P2R1mLcGhqRQIpLzTCqiUDU2uwDBSkxRWlweJcwYu7zFKrZ4O3cpyRLxnlDbJN/bFs
+	 y4GJJI2UQHce7zuR9+4J+p4TMzmlDiPC8uI58a96hlQjl5Z/A1FEjD02GSbbn0Xu/5JQT
+	 nyIvsVAG7LITjJ1Pd/BRRbRKmVPY1d0Gp2qud9gdbAYkStm/GVznoMfr292bjJxJdVH2l
+	 b9JBcgOMuBMIqelJ/R4Pg+Yu+5ZwqgccVCcHaF4Y2E6RlMyKqVkh8HVjr0K7VcDtjuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794553419;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=VPOK7kX1ObHoz/VqLCSAnjInW4wUgoK0aAhR/RviB0k=;
-	b=043DbFw1Vi+izpFJ9QM+mXGAUxd0AcQFuSdE6vmuWEKKNbULM+rj+pKED5iJ9NYB+DYR
-	 qHczMhnIlGcfwNLm3htWmv8gUU3amch7OQHfE+6I0g5D3kVjW8Omhn3qJWnNIP7QUHcwo
-	 8nOpWLcg7XVjm0GGBYsgSf2ImlgGMHCwSlTjQ1JkK4jnw460bWOX7tufp6WpnPsHYZRkT
-	 Cunh/DpSEm6DdtwrU4Ob849lUMNwqVMjXmIMXlVmj5jvorGK7xttPSAFwYI3P8DKtpcmv
-	 mw+ERqpAbH4QnC0QaB2pwmGTJuZPzHLYvdZJHOIAG5Zs62FXVohBysWpoCUnCESPL1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794553443;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=yJI/AwvWw9ZtcVwYBN7RmHmHmpfI8JmDi9ntIdzMotk=;
+	b=Ra/APkRXfRuuKvXgsW6TVoeanS/nRlTitzk6HGE4TkQVN1OFBFOzMvsxBokmXHxzbvLY
+	 c+nyVT7mokn/tXnBIFHcnwv87azsPzxfsmTh5Wxd8o6vzO+7hbxXXE+oCllVkmhd7TiQ/
+	 JXmmd11C5Vkj+/OjVR+olPJz9BV+263MHhCOusI/xo+JpQ2c0CCxK790LcKbTbuQ7H3Ai
+	 7hDw2ZlG5W5uLNvncZmnQIqcOslGiBGxtUyevpyN/fl/38c66sUyhUgl+BBKScG0LxK/L
+	 sRt60nF/SS4Y+7Ru3XggyFWQ6CRQqQ7QaFriy8zGWCf4O03bhQptBxGL4zwDsnI11Ag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WtvJOwGA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FQgkAmWW;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55220606A31C;
-	Fri, 13 Nov 2026 07:03:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC4C0606A321
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 07:04:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC4C0606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WtvJOwGA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E74081F000C4;
-	Fri, 13 Nov 2026 07:03:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794553418;
-	bh=VPOK7kX1ObHoz/VqLCSAnjInW4wUgoK0aAhR/RviB0k=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=WtvJOwGAtzAklSRELG54o32eP8je5vQlr46jXkX8K/GFaTXC+BanjPFO6yH7aKfGb
-	 zZJOLcwJkvF9uvW/AvvEO62MGVmYOwaIc+kcQB/MhislEmKV2NnvNb8qljwsem8YFl
-	 XnKxofXc5lOYIvuqCG6IYlSE410u3Vr7LdIPKuwIuIGQjVugh97xoruTIu8PPh0FWs
-	 yeiKMpUk4MGaA6V1mLBa/KI0ylWPbGzTWMGeLAFhZf6wZUO6D3YSDErkZGA2+rJCFP
-	 PrtWkq7gNwr74yDMl5EvI4fHioVl1+wW0M7qOa8QydwM60JrcBQLagn/SNAxyEuGM/
-	 FqBiIeemfLtww==
-Message-ID: <2cd4da54-1dd2-424d-a9ba-e3e4fdad502e@kernel.org>
-Date: Fri, 13 Nov 2026 08:03:30 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FQgkAmWW
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3791619605cso1426255eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 23:04:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794553442; x=1795158242; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yJI/AwvWw9ZtcVwYBN7RmHmHmpfI8JmDi9ntIdzMotk=;
+        b=FQgkAmWW4/I0W4K20CURutWBmGJObO1eojobdvW1efUvVPMdcVdAAW4wrWVb1VSPRc
+         Xb18tS1oPeyJILsOogzZd1xWKkODzM1onNrq6oMlpDYNffgwhAyPOJ/TpFVTXSOzSwf5
+         hzN2sQXNW2e8zqmgE1FMUMxPnTcXIkqlu3H0X1aOimK5Od7A11b0SoyD2fK3BGcFT1OE
+         Uo4sDqn+YSIAihI84sFCgf5Wz5hiw557M/NrtnYf+VS50UMzR2NcG6AQLzNsP5C5us7H
+         BvT1WtWfZM01uGrhc4w9vpamf7w7LfJvPabaYZ/2VQeQzjl7xI+UfzyWCt1mnbBGbuKm
+         eFGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794553442; x=1795158242;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yJI/AwvWw9ZtcVwYBN7RmHmHmpfI8JmDi9ntIdzMotk=;
+        b=sEXP75UzwqUk9oRm4yCKgIZ4P1PmVJ2jH8tUNPOyB7JNUINkqQqb4JNWac8RZCpa/f
+         1R00Wtt7cno46tfOWluwAmTS8kHtRSlf7e7X7FFSNNiyVhluhlQKftByuU0SoaAYh42K
+         REuMFPtwIeBNDuThpp4DlSNNWFiwlXwsGVqGWCXkW7z8VdBNS7OtL3enmdRPHekWyz/g
+         RrC5YIwqKxyuKPe2s6uEfNstrX2eEu6wVO7WgBcvKWhqMwN/RbvXXHRxAONLYJHeEQ2q
+         ufUUMJ2GxZjyM9/amRkTnRwxq6ztohR+xwOcxk7U9JxGB7VmBT/paRp/ee/KHIpYEGV2
+         G34g==
+X-Gm-Message-State: APuU4Z9eRVMy+58QPHO1MXXxeVuvDQ8J3sBRc1drmQjNbarAdmxViA3E
+	Ccv7AY81MypQQ4gXKV3ceTvdYQz1xJLQUEMFjcCS7ZFTXLAeraY6/Ofq
+X-Gm-Gg: AYBFou132BpUkSfyddLjIDS+lBkL0FpmY8/xz/1E1f8favOxzOnTlFtI6L50OmqjFCp
+	nsj4KvZolReHviMkiy36JG/Uu++I+lV0RO0o+p71/0as+sd8xL1AA/sk0sGlnA5uG+Z+UUJw3fV
+	ZJ587FAcPOFYagh2jEbga3OiH94ooaKh+oTZbUd+7S/fgbA2+EG9G48VXrjZYm2mdGIv9kEPdEN
+	q/9BcJByDrgp94TSD1+zJymSGsPvzOE+1MGCTbrnHzsGZmuxJsrJt0kASkUOBiwG0gheDXzXR3g
+	o7UZURtAMl1aNfM5xOP3cOX5q8vt0N2g1GAOeCv00V+aBOzL0blQjcbO/wJuAqcHvHVtC46C12f
+	z+hE/ABe9ctVq1he3vabIyr4C+at1Dw5ZKHvsLlrqaJizIqR18x2TAtEF5BdfXFWHk8iSN4MXYI
+	2zxJMwB92Nnh/i+iOCS3e584WPwZrHz7xHtRu7X3k5DHsX05c+lQMzMD0UJJueG7DcXE5mNJDkk
+	dEpzGWeefTT8FM5ugyVZ1hU0sAzu8nsWjYvGU89V9ER9x+1DkX+WvjbbCH4py5X/QNW/iAFqREa
+	y5Je8ZMAO7RKZHkZhdoO1XPtrQjD1Dw1f6GNnilkYqZkHdML7LQ9
+X-Received: by 2002:a05:7300:d80c:b0:376:682d:bf1c with SMTP id 5a478bee46e88-379679e4a36mr1513614eec.41.1794553441845;
+        Thu, 12 Nov 2026 23:04:01 -0800 (PST)
+Received: from localhost.localdomain ([103.149.158.176])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955f01d68sm4487778eec.17.2026.11.12.23.03.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 23:04:01 -0800 (PST)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: perex@perex.cz,
+	tiwai@suse.de
+Cc: linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org
+Subject: Gentle Reminder: Pending Patch Review
+Date: Fri, 13 Nov 2026 07:03:39 +0000
+Message-ID: <20261113070339.2750-1-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,110 +93,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/10] dt-bindings: ptp: Document the TSCSS on Qualcomm
- SA8775P and QCS8300 SoCs
-To: Imran Shaik <imran.shaik@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Richard Cochran <richardcochran@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Eric Dumazet <edumazet@kernel.org>,
- Abel Vesa <abelvesa@kernel.org>, Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
- Taniya Das <taniya.das@oss.qualcomm.com>,
- Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-References: <20261108-tscss-v2-0-d5f575010427@oss.qualcomm.com>
- <20261108-tscss-v2-1-d5f575010427@oss.qualcomm.com>
- <20261109-qualified-pristine-newt-ba1c0c@quoll>
- <f2b119c7-ba01-46fd-96c4-10b918f98d53@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <f2b119c7-ba01-46fd-96c4-10b918f98d53@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 12/11/2026 10:31, Imran Shaik wrote:
->>> +allOf:
->>> +  - if:
->>> +      properties:
->>> +        reg-names:
->>> +          contains:
->>> +            const: etu
->>
->> Reason for same devices with different address space details should be
->> provided somewhere, preferrably in description. Assuming in the first
->> place, that this stays because how two devices can be basically
->> identical (same compatible) if they have different programming
->> interface?
->>
-> 
-> TSCSS is a single hardware device, split into two sub-blocks - TSC and
-> ETU, each with its own register address. Every SoC with this compatible
-> has both blocks in hardware.
+Hi Takashi,
 
-This is not what the binding said.
+I noticed that my other patch has been received, but this patch is still pending review.
 
-> 
-> What changes is whether the vendor/board actually wires up the ETU's
-> external event. The ETU block captures a timestamp from the TSC block
-> when an external event fires one of the ETU slices, which are driven
-> through board-level GPIO/IRQs. If a board doesn't wire any slice,
-> there's nothing in the ETU region for Linux to use.
+Patch: https://lore.kernel.org/lkml/20261109092249.3559-1-sreekuttan2156239@gmail.com/
 
-This is not what the binding said. The binding said there are different
-types of devices, one with etu and one without. Look, easy to spot:
+Could you please take a look when you get a chance?
 
-+  reg:
-+    minItems: 1
-+    maxItems: 2
-
+Thank you!
 
 Best regards,
-Krzysztof
+Sreeraj
