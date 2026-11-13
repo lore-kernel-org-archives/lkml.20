@@ -1,49 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.187.6.220
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794573174;
-	b=OVb0kscP7UpkbZjV432ub7B1W0UJD0PX/+KNEGmH1+9YY6/AY59yY4L0r+3zAki9sIRl
-	 502Mt7kDX84Fc8ox/SdnBNLedGLNqIYBrGNoaNf/v4HrhDXC7Qti1PJmnPkFsZYZhuZAb
-	 /ovr1WJgwAhxnq9vQ59e6EBpplgwuZROh16S2BabkjJAOukzx6EKgj+qBI8LsbjMaVeos
-	 0ySZmimpJejusEk2fwFRvqDwVpYFsSqIbp876dJQjWfaKdEukxi69AD6iAvUy8NLxDUKK
-	 xQ9RewOGBkPFFCfVSb8AaUkIYua59Wo5gxthSHWe4tXRKoRbYqRBXwgacTaVUFd4Pqw==
+	t=1794573202;
+	b=XXRqSBH4/KW0KB47hYKYZmY3OO4+EzIBkcsrJl9NI2JSdXlzcbRaA/ur/praKTPoxXD2
+	 YGjwc3VXrRKafMLlmBumOnEe3HpMqn4senPFp1WWOhpQBEr1kmdfSmDhzLx9X6OTeWgkr
+	 FTC8pd6WOOIIaD/FgrIxatLeAtPAAzW0j3+QzWw/gq9ju0kHiGMCiLY7U/XaQ0lUZvd9c
+	 eoOPwsCA2GLdzyrF5zIFkPshq0mQzvjuuJtl6grD9ZNA6mfYR0FqbqCcmm65hLpSozPa4
+	 hYTiWR8JGQ92HvRi2pkakA4MShDWh8Wtq0HW0vwIw+SH7+GpvKgj58d5wukl69vlNTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794573174;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=IPfz6e8ZL3U3+bbMdztQgLGLOpCZJgiptSlbYGZ5HwU=;
-	b=A5vA1slk5lS8DUJM+RA9Dld3FCuiomp5qqG9Bw0whUPeaJ+18iipKCaGzwBipSsRUPPr
-	 PiwEkQkPBFT5n68nxNdQhjclcrtozp3oi2iES/ceNnP8lwwrPidgBxdnsj3j2pVWbwhLI
-	 PeWML/KL6Jowcx7ivUN7Urr2/MxaApWMaiHxxJs1yEVXpxkuKXOdi1nIQxpjOSUDLrpea
-	 2ImfYwnqwOrWq6X8B38az4BrHDhmkNMnYUa6riJUxqfE2XBKh8EJmvtOLWNNRWbP7Qhax
-	 2LnhR1EGc19L9ERqtglH8wPwd9foR0J8iiy7Qj8Jgt+MG3xk7qUzDfs4T5B34DokFfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794573202;
+	h=DMARC-Filter:Received:X-Originating-IP:Date:X-CM-HeaderCharset:From:
+	 To:Cc:Subject:X-Priority:X-Mailer:In-Reply-To:References:
+	 X-CM-CTRLMSGS:Content-Type:MIME-Version:Message-ID:X-Coremail-Locale:
+	 X-CM-TRANSID:X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=WHy0Yjhrb3USvqKg31PMjXsD54gy5g/aPo97b9g8q28=;
+	b=oiAlpAc4YPHtiyY0BIpoeHaSzQZ/agbt4Z/MXwu7NA02WzSIrVmZrDh+pnTrBM5f+sXJ
+	 Um6Lww4GZxnlWeKBVawhWUKyJq8m8GA8qhaWlAWu8uqJAdMD5Xm4pOMNK2XyA6ZLDfxoM
+	 22Zn11c4BWBIAYdtHDkRs76lxrdkljnxSVuhYwbqGjct8/vtJBuk2/HpfUK8Ez4tdLiXc
+	 uQzbrZfkkIc+jBq/4yq5OA81kDHPDEhBrLdawD3hTckH4MVGjgvX0OUPOctSXFVfZnJ1M
+	 Ewrl7mrU7OZXSVLBoLJq1+fjF4QhLCLu96yyhx/W+t+i3oB2Id9MFMtk/v0uJGZxulg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Teh74hzd;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B9EBA606A32A;
-	Fri, 13 Nov 2026 12:32:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9EBA606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Teh74hzd
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D73451476;
-	Fri, 13 Nov 2026 04:32:49 -0800 (PST)
-Received: from [10.0.130.226] (e127648.arm.com [10.0.130.226])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 10BA53F673;
-	Fri, 13 Nov 2026 04:32:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794573172; bh=n2dtVnYzpga7ZA3jSnUnX/X0+PRyKd+JeY1jxcHFSLQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Teh74hzdJisG6yfRIVLRq2J/lOBxiAn5RPRhH48o0f+yFxWytE3BNFFaa+BOVkrh1
-	 oAM25Fvt0fDNID2d3s/EFurO1duZOfw8ZjxjoeM9tY5xXwWpuUBGj17zPE/UVJ4E6H
-	 mfqKFpnLC44OC7XO85nVcRG45MPQfhUvv/BBS5C0=
-Message-ID: <5a7fe17b-2b65-4157-b6a7-d7c0a1ee3fb5@arm.com>
-Date: Fri, 13 Nov 2026 12:32:48 +0000
+	dmarc=none header.from=hust.edu.cn;
+	spf=pass smtp.mailfrom=hust.edu.cn;
+	arc=none smtp.remote-ip=52.187.6.220
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 13040606A321
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:33:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13040606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
+Received: from xuhx$hust.edu.cn ( [10.12.190.107] ) by ajax-webmail-app1
+ (Coremail) ; Fri, 13 Nov 2026 20:33:07 +0800 (GMT+08:00)
+Date: Fri, 13 Nov 2026 20:33:07 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: =?UTF-8?B?5b6Q5pmX57+U?= <xuhx@hust.edu.cn>
+To: mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com,
+	vincent.guittot@linaro.org
+Cc: linux-kernel@vger.kernel.org
+Subject: sched/topology: old domain chains are queued for RCU freeing before
+ the per-CPU pointers are updated, so a late reader can still dereference a
+ freed sched_domain and sched_domain_shared (UAF)
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2025.3-cmXT6 build
+ 20260810(6c94e3b5) Copyright (c) 2002-2026 www.mailtech.cn hust
+In-Reply-To: <2026102727-data-sequel-ce41@gregkh>
+References: <4c7f9772.192e1.1a17d5c2ed5.Coremail.xuhx@hust.edu.cn>
+ <2026102727-data-sequel-ce41@gregkh>
+X-CM-CTRLMSGS: =?B?imbmlTiH6nJ5xwDR7hwMki1N8jM=
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_522779_1758045563.1794573187360"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,226 +57,240 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ACPI: CPPC: Scale EPP values to the register width
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Cc: Mario Limonciello <superm1@kernel.org>, viresh.kumar@linaro.org,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- zhanjie9@hisilicon.com, zhangpengjie2@huawei.com,
- Sumit Gupta <sumitg@nvidia.com>
-References: <20261112131316.827708-1-christian.loehle@arm.com>
- <592580a1-ba88-4e22-b586-4aa2425f9760@arm.com>
- <CAJZ5v0gXjngKSxX0Ku2wccWj9+oDQ7YqS6ziFZXDzMgm5GjVzg@mail.gmail.com>
- <f8d23034-0d28-4726-829e-51cf687e5589@arm.com>
- <37efae02-1f49-45ff-9e51-5a6a921ed1d5@kernel.org>
- <4d9261e9-fc66-4197-b3ba-edcc98ffaaf7@arm.com>
- <2b72fea4-b2ba-4ae5-91e8-d5830f024b2f@arm.com>
- <CAJZ5v0g0b2iG21ExDhDjjaJN1Hwgmd53Ph690teqoRVexP1bTQ@mail.gmail.com>
-Content-Language: en-US
-From: Christian Loehle <christian.loehle@arm.com>
-In-Reply-To: <CAJZ5v0g0b2iG21ExDhDjjaJN1Hwgmd53Ph690teqoRVexP1bTQ@mail.gmail.com>
+Message-ID: <2c223cf8.26371.1a1d4e5b920.Coremail.xuhx@hust.edu.cn>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:IAEQrMAm72qEA_dq4BpHAA--.13421W
+X-CM-SenderInfo: bgsqjkayqyjmo6kx23oohg3hdfq/1tbiAQIKB2r15u2CJAABs9
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWkKw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
+
+------=_Part_522779_1758045563.1794573187360
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: base64
 
-On 11/13/26 12:28, Rafael J. Wysocki (Intel) wrote:
-> On Fri, Nov 13, 2026 at 1:22 PM Christian Loehle
-> <christian.loehle@arm.com> wrote:
->>
->> On 11/12/26 17:19, Christian Loehle wrote:
->>> On 11/12/26 17:11, Mario Limonciello wrote:
->>>> On 11/12/26 08:05, Christian Loehle wrote:
->>>>> On 11/12/26 14:01, Rafael J. Wysocki (Intel) wrote:
->>>>>> On Thu, Nov 12, 2026 at 2:58 PM Christian Loehle
->>>>>> <christian.loehle@arm.com> wrote:
->>>>>>>
->>>>>>> On 11/12/26 13:13, Christian Loehle wrote:
->>>>>>>> The EPP sysfs interface uses 0-255, but ACPI permits 4-8 bit fields.
->>>>>>>> Writing 128 to a 4- or 6-bit SystemMemory field currently succeeds but
->>>>>>>> stores zero, selecting maximum performance.
->>>>>>>>
->>>>>>>> Scale writes to supported narrow EPP registers and normalize reads to
->>>>>>>> 0-255. Cover both EPP setters and cppc_get_perf() so saved firmware values
->>>>>>>> round-trip correctly.
->>>>>>>>
->>>>>>>> Fixes: 922607a2b462 ("cpufreq: CPPC: Add support for autonomous selection")
->>>>>>>> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
->>>>>>>> ---
->>>>>>>>   .../ABI/testing/sysfs-devices-system-cpu      |  5 ++
->>>>>>>>   drivers/acpi/cppc_acpi.c                      | 46 +++++++++++++++++--
->>>>>>>>   2 files changed, 47 insertions(+), 4 deletions(-)
->>>>>>>>
->>>>>>>> diff --git a/Documentation/ABI/testing/sysfs-devices-system-cpu b/Documentation/ABI/testing/sysfs-devices-system-cpu
->>>>>>>> index d219fc27a0c9..c63b5cfd993c 100644
->>>>>>>> --- a/Documentation/ABI/testing/sysfs-devices-system-cpu
->>>>>>>> +++ b/Documentation/ABI/testing/sysfs-devices-system-cpu
->>>>>>>> @@ -322,6 +322,11 @@ Description:     Energy performance preference
->>>>>>>>                performance increase/decrease and the result of the hardware's
->>>>>>>>                energy efficiency and performance optimization policies.
->>>>>>>>
->>>>>>>> +             For supported EPP registers narrower than eight bits, values are
->>>>>>>> +             scaled and rounded to the nearest hardware preference.
->>>>>>>> +             Reads use the same 0-255 scale and may differ from the requested
->>>>>>>> +             value due to the reduced precision.
->>>>>>>> +
->>>>>>>>                Writing to this file only has meaning when Autonomous Selection is
->>>>>>>>                enabled.
->>>>>>>>
->>>>>>>> diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
->>>>>>>> index 11a9f9eb6b4a..10b52163eb56 100644
->>>>>>>> --- a/drivers/acpi/cppc_acpi.c
->>>>>>>> +++ b/drivers/acpi/cppc_acpi.c
->>>>>>>> @@ -38,6 +38,7 @@
->>>>>>>>   #include <linux/iopoll.h>
->>>>>>>>   #include <linux/ktime.h>
->>>>>>>>   #include <linux/list.h>
->>>>>>>> +#include <linux/math64.h>
->>>>>>>>   #include <linux/mutex.h>
->>>>>>>>   #include <linux/rbtree.h>
->>>>>>>>   #include <linux/rwsem.h>
->>>>>>>> @@ -2841,6 +2842,25 @@ int cppc_get_highest_perf(int cpunum, u64 *highest_perf)
->>>>>>>>   }
->>>>>>>>   EXPORT_SYMBOL_GPL(cppc_get_highest_perf);
->>>>>>>>
->>>>>>>> +/* Keep the EPP interface on an 8-bit scale, including firmware readback. */
->>>>>>>> +static u64 cppc_scale_epp(const struct cpc_register_resource *reg,
->>>>>>>> +                       u64 epp, bool to_reg)
->>>>>>>> +{
->>>>>>>> +     unsigned int width = reg->cpc_entry.reg.bit_width;
->>>>>>>> +     u32 max;
->>>>>>>> +
->>>>>>>> +     if (reg->type != ACPI_TYPE_BUFFER || width < 4 || width >= 8)
->>>>>>>> +             return epp;
->>>>>>>> +
->>>>>>>> +     max = BIT(width) - 1;
->>>>>>>> +     if (to_reg)
->>>>>>>> +             return DIV_ROUND_CLOSEST_ULL(epp * max,
->>>>>>>> +                                          CPPC_EPP_ENERGY_EFFICIENCY_PREF);
->>>>>>>> +
->>>>>>>> +     return DIV_ROUND_CLOSEST_ULL(epp * CPPC_EPP_ENERGY_EFFICIENCY_PREF,
->>>>>>>> +                                  max);
->>>>>>>> +}
->>>>>>>> +
->>>>>>>>   /**
->>>>>>>>    * cppc_get_epp_perf - Get the epp register value.
->>>>>>>>    * @cpunum: CPU from which to get epp preference value.
->>>>>>>> @@ -2850,7 +2870,15 @@ EXPORT_SYMBOL_GPL(cppc_get_highest_perf);
->>>>>>>>    */
->>>>>>>>   int cppc_get_epp_perf(int cpunum, u64 *epp_perf)
->>>>>>>>   {
->>>>>>>> -     return cppc_get_reg_val(cpunum, ENERGY_PERF, epp_perf);
->>>>>>>> +     struct cpc_desc *cpc_desc = per_cpu(cpc_desc_ptr, cpunum);
->>>>>>>> +     int ret;
->>>>>>>> +
->>>>>>>> +     ret = cppc_get_reg_val(cpunum, ENERGY_PERF, epp_perf);
->>>>>>>> +     if (!ret)
->>>>>>>> +             *epp_perf = cppc_scale_epp(&cpc_desc->cpc_regs[ENERGY_PERF],
->>>>>>>> +                                        *epp_perf, false);
->>>>>>>> +
->>>>>>>> +     return ret;
->>>>>>>>   }
->>>>>>>>   EXPORT_SYMBOL_GPL(cppc_get_epp_perf);
->>>>>>>>
->>>>>>>> @@ -3150,6 +3178,7 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
->>>>>>>>        bool auto_sel_non_pcc;
->>>>>>>>        bool epp_pcc;
->>>>>>>>        bool epp_non_pcc;
->>>>>>>> +     u64 epp;
->>>>>>>>        int ret;
->>>>>>>>
->>>>>>>>        if (!cpc_desc) {
->>>>>>>> @@ -3159,6 +3188,7 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
->>>>>>>>
->>>>>>>>        auto_sel_reg = &cpc_desc->cpc_regs[AUTO_SEL_ENABLE];
->>>>>>>>        epp_set_reg = &cpc_desc->cpc_regs[ENERGY_PERF];
->>>>>>>> +     epp = cppc_scale_epp(epp_set_reg, perf_ctrls->energy_perf, true);
->>>>>>>>        if (!enable && auto_sel_reg->type == ACPI_TYPE_INTEGER &&
->>>>>>>>            auto_sel_reg->cpc_entry.int_value == 1)
->>>>>>>>                return -EOPNOTSUPP;
->>>>>>>> @@ -3177,7 +3207,7 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
->>>>>>>>                        return ret;
->>>>>>>>        }
->>>>>>>>        if (epp_non_pcc) {
->>>>>>>> -             ret = cpc_write(cpu, epp_set_reg, perf_ctrls->energy_perf);
->>>>>>>> +             ret = cpc_write(cpu, epp_set_reg, epp);
->>>>>>>>                if (ret)
->>>>>>>>                        return ret;
->>>>>>>>        }
->>>>>>>> @@ -3205,7 +3235,7 @@ int cppc_set_epp_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls, bool enable)
->>>>>>>>                }
->>>>>>>>
->>>>>>>>                if (epp_pcc) {
->>>>>>>> -                     ret = cpc_write(cpu, epp_set_reg, perf_ctrls->energy_perf);
->>>>>>>> +                     ret = cpc_write(cpu, epp_set_reg, epp);
->>>>>>>>                        if (ret)
->>>>>>>>                                goto out_unlock;
->>>>>>>>                }
->>>>>>>> @@ -3235,9 +3265,17 @@ EXPORT_SYMBOL_GPL(cppc_set_epp_perf);
->>>>>>>>    */
->>>>>>>>   int cppc_set_epp(int cpu, u64 epp_val)
->>>>>>>>   {
->>>>>>>> +     struct cpc_desc *cpc_desc = per_cpu(cpc_desc_ptr, cpu);
->>>>>>>> +
->>>>>>>>        if (epp_val > CPPC_EPP_ENERGY_EFFICIENCY_PREF)
->>>>>>>>                return -EINVAL;
->>>>>>>>
->>>>>>>> +     if (!cpc_desc)
->>>>>>>> +             return -ENODEV;
->>>>>>>> +
->>>>>>>> +     epp_val = cppc_scale_epp(&cpc_desc->cpc_regs[ENERGY_PERF],
->>>>>>>> +                              epp_val, true);
->>>>>>>> +
->>>>>>>>        return cppc_set_reg_val(cpu, ENERGY_PERF, epp_val);
->>>>>>>>   }
->>>>>>>>   EXPORT_SYMBOL_GPL(cppc_set_epp);
->>>>>>>> @@ -3496,7 +3534,7 @@ int cppc_get_perf(int cpu, struct cppc_perf_ctrls *perf_ctrls)
->>>>>>>>                if (ret)
->>>>>>>>                        goto out_err;
->>>>>>>>        }
->>>>>>>> -     perf_ctrls->energy_perf = energy_perf;
->>>>>>>> +     perf_ctrls->energy_perf = cppc_scale_epp(energy_perf_reg, energy_perf, false);
->>>>>>>>
->>>>>>>>        if (CPC_SUPPORTED(auto_sel_reg)) {
->>>>>>>>                ret = cpc_read(cpu, auto_sel_reg, &auto_sel);
->>>>>>>
->>>>>>> +CC Sumit's actual email, sorry about that.
->>>>>>
->>>>>> So I'm assuming that this one is for Sumit to pick up and send again
->>>>>> along with a new version of
->>>>>>
->>>>>> https://lore.kernel.org/linux-acpi/20261112080442.4007723-1-sumitg@nvidia.com/
->>>>>>
->>>>>> Or please let me know if that is not the case.
->>>>>
->>>>> Yup, while it fixes an issue by itself technically, I don't think there
->>>>> are any affected platforms.
->>>>> I'm hoping that Sumit this (and the limit-write-at-init) patch as a series
->>>>> for all our convenience (and hopefully to get Sashiko to review them too).
->>>>> (I guess I should've mentioned that in the notes.)
->>>>>
->>>>> And sorry about ACPI/CPPC having such high traffic lately, I'm expecting once
->>>>> we've got the issues ironed out and the new features supported it'll be a
->>>>> lot more boring :)
->>>>
->>>> So the basic idea with this patch that the userspace interface is always 8 bit so higher level software will not need to know the lower level implementation detail at the expense of some granularity.
->>>>
->>>> Makes sense to me, but I'd like to know how realistic this hardware is going to be.  If it's purely hypothetical hardware; how about proposing to ASWG that this field must always be 8 bit?
->>>
->>> Good point, IMO it's hypothetical hardware that hopefully doesn't and won't exist.
->>> I'll try to raise this through that channel as well.
->>
->>
->> Quick update on this, after proposing it, Souvik came back and made me aware that
->> we've already proposed this:
->> https://github.com/tianocore/edk2/issues/10838
->>
->> I guess forget about $SUBJECT after all and I'll probe-fail <8bit and get the amd-pstate
->> handling correct.
-> 
-> So should I wait for an update of
-> 
-> https://lore.kernel.org/linux-acpi/20261112080442.4007723-1-sumitg@nvidia.com/
-> 
-> or is it applicable as-is?  In which case, care to give it a tag?
+Y3B1X2F0dGFjaF9kb21haW4oKSBxdWV1ZXMgdGhlIG9sZCBzY2hlZF9kb21haW4gY2hhaW4gZm9y
+IFJDVSBmcmVlaW5nCihkZXN0cm95X3NjaGVkX2RvbWFpbnMoKSwga2VybmVsL3NjaGVkL3RvcG9s
+b2d5LmM6ODI5KSBhbmQgb25seSB0aGVuCnB1Ymxpc2hlcyB0aGUgbmV3IGNoYWluIHRvIHRoZSBw
+ZXItQ1BVIHNkX2xsYy9zZF9sbGNfc2hhcmVkLwpzZF9hc3ltX3BhY2tpbmcvc2RfYXN5bV9jcHVj
+YXBhY2l0eS9zZF9iYWxhbmNlX3NoYXJlZCBwb2ludGVycwoodXBkYXRlX3RvcF9jYWNoZV9kb21h
+aW4oKSwgdG9wb2xvZ3kuYzo4MzEpLiAgUkNVIHJlcXVpcmVzIGEgcG9pbnRlciB0bwpiZSBwdWJs
+aXNoZWQgYmVmb3JlIHRoZSBvYmplY3QgaXMgcmVtb3ZlZDsgaGVyZSB0aGUgcmVtb3ZhbCBwaGFz
+ZQpzdGFydHMgZmlyc3QuICBBIHJlYWRlciB0aGF0IHN0YXJ0cyBhZnRlciBhIGdyYWNlIHBlcmlv
+ZCB3aGljaCBiZWdhbgppbiB0aGF0IHdpbmRvdyBpcyBub3Qgd2FpdGVkIGZvciBieSB0aGF0IGdy
+YWNlIHBlcmlvZCAoaXRzIENQVSBoYXMKYWxyZWFkeSByZXBvcnRlZCBhIHF1aWVzY2VudCBzdGF0
+ZSksIHlldCBjYW4gc3RpbGwgbG9hZCB0aGUgb2xkCnBlci1DUFUgcG9pbnRlciBiZWZvcmUgdGhl
+IHN0b3JlIGFuZCBkZXJlZmVyZW5jZSB0aGUgZnJlZWQKc2NoZWRfZG9tYWluIGFuZCBzY2hlZF9k
+b21haW5fc2hhcmVkLiAgS0FTQU4gY2F0Y2hlcyB0aGUgcmVzdWx0aW5nCnNsYWItdXNlLWFmdGVy
+LWZyZWU7IHRoZSBmaXggaXMgdG8gcHVibGlzaCB0aGUgbmV3IChvciBOVUxMKSBwb2ludGVycwpi
+ZWZvcmUgY2FsbF9yY3UoKS4KClRoZSBkZXRhaWxlZCBkZXNjcmlwdGlvbjoKCiogVGVzdCBlbnZp
+cm9ubWVudCAvIGFmZmVjdGVkIHZlcnNpb24KCiAgTGludXggNy4zLjAgKGdjYyAxMy4zLjAsIEdO
+VSBsZCAyLjQyKSAjNSBTTVAgUFJFRU1QVF9EWU5BTUlDLAogIHg4Nl82NCBRRU1VL0tWTSBndWVz
+dCwgOCB2Q1BVcywgNCBHaUIsIEtBU0FOIGVuYWJsZWQuICBUaGUgdGVzdGVkCiAga2VybmVsL3Nj
+aGVkL3RvcG9sb2d5LmMgYW5kIGtlcm5lbC9zY2hlZC9mYWlyLmMgYXJlIGJ5dGUtaWRlbnRpY2Fs
+CiAgdG8gdGhlIHY3LjMgcmVsZWFzZSBhbmQgdG8gbGludXgtNy4zLnkuICBSZWxldmFudCBjb25m
+aWc6CiAgQ09ORklHX1NNUD15LCBDT05GSUdfU0NIRURfQ0FDSEU9eSwgQ09ORklHX1BSRUVNUFRf
+UkNVPXksCiAgQ09ORklHX1BSRUVNUFRJT049eSwgQ09ORklHX1BSRUVNUFRfRFlOQU1JQz15LAog
+IENPTkZJR19OVU1BX0JBTEFOQ0lORz1uLCBDT05GSUdfQ1BVU0VUUz15LCBDT05GSUdfSE9UUExV
+R19DUFU9eSwKICBDT05GSUdfTlJfQ1BVUz02NC4gIFRoZSBzYW1lIHN0b3JlLWFmdGVyLWNhbGxf
+cmN1IG9yZGVyIGV4aXN0cyBpbgogIHY1LjQsIHY1LjE1LCB2Ni4xLCB2Ni42LCB2Ni4xMiBhbmQg
+Y3VycmVudCBtYXN0ZXI7IHNjaGVkX2RvbWFpbiBpcwogIGFmZmVjdGVkIHRoZXJlLCBhbmQgc2No
+ZWRfZG9tYWluX3NoYXJlZCBzaW5jZSB0aGF0IG9iamVjdCB3YXMKICBpbnRyb2R1Y2VkLgoKKiBN
+ZWNoYW5pc20KCiAgVHdvIG9iamVjdHMgYXJlIGludm9sdmVkLiAgc3RydWN0IHNjaGVkX2RvbWFp
+biBpcyBhbGxvY2F0ZWQgaW4KICBzZF9pbml0KCkgd2l0aCB0aGUgY3B1bWFzayBzcGFuIGVtYmVk
+ZGVkIGluIHRoZSBzYW1lIGFsbG9jYXRpb24KICAodG9wb2xvZ3kuYzoyNjg4OyBzY2hlZF9kb21h
+aW5fc3BhbigpIGF0CiAgaW5jbHVkZS9saW51eC9zY2hlZC90b3BvbG9neS5oOjE3NS0xOTMgcmV0
+dXJucyAodm9pZCAqKXNkICsKICBzaXplb2YoKnNkKSkuICBzdHJ1Y3Qgc2NoZWRfZG9tYWluX3No
+YXJlZCAoc2RzKSBpcyByZWZjb3VudGVkOgogIGZyZWVfc2NoZWRfZG9tYWluX3NoYXJlZCgpIGRv
+ZXMga2ZyZWUoKSB3aGVuIHRoZSBsYXN0IHJlZmVyZW5jZQogIGdvZXMgYXdheSAodG9wb2xvZ3ku
+Yzo2MjYtNjMwKSwgYW5kIGRlc3Ryb3lfc2NoZWRfZG9tYWluKCkgcmVsZWFzZXMKICBncm91cHMs
+IHNoYXJlZCBhbmQgbGxjX2NvdW50cyBiZWZvcmUga2ZyZWUoc2QpICh0b3BvbG9neS5jOjYzMi02
+NDcpLgoKICBUaGUgcmVtb3ZhbCBwaGFzZSBzdGFydHMgYmVmb3JlIHRoZSBwZXItQ1BVIHBvaW50
+ZXJzIGFyZSB0b3VjaGVkOgoKICAgIC0gY3B1X2F0dGFjaF9kb21haW4oKSBzdG9yZXMgdGhlIG5l
+dyBjaGFpbiBpbiBycS0+c2QKICAgICAgKHJjdV9hc3NpZ25fcG9pbnRlcihycS0+c2QsIHNkKSwg
+dG9wb2xvZ3kuYzo4MjcpOwogICAgLSBpdCB0aGVuIHF1ZXVlcyB0aGUgb2xkIGNoYWluIGZvciBS
+Q1UgZnJlZWluZwogICAgICAoZGVzdHJveV9zY2hlZF9kb21haW5zKHRtcCksIHRvcG9sb2d5LmM6
+ODI5IC0+CiAgICAgIGNhbGxfcmN1KCZzZC0+cmN1LCBkZXN0cm95X3NjaGVkX2RvbWFpbnNfcmN1
+KSwKICAgICAgdG9wb2xvZ3kuYzo2NjAtNjY0KTsKICAgIC0gb25seSBhZnRlciB0aGF0IGRvZXMg
+dXBkYXRlX3RvcF9jYWNoZV9kb21haW4oY3B1KQogICAgICAodG9wb2xvZ3kuYzo4MzEpIHN0b3Jl
+IHRoZSBwZXItQ1BVIHBvaW50ZXJzOiBzZF9sbGMgKDcwNSksCiAgICAgIHNkX2xsY19zaGFyZWQg
+KDcwNyksIHNkX2FzeW1fcGFja2luZyAoNzI0KSwKICAgICAgc2RfYXN5bV9jcHVjYXBhY2l0eSAo
+NzM3KSwgc2RfYmFsYW5jZV9zaGFyZWQgKDczOCkuCgogIFRoZSBwcmFjdGljYWwgcGF0aCBpcyBw
+YXJ0aXRpb24gdGVhcmRvd246IGRldGFjaF9kZXN0cm95X2RvbWFpbnMoKQogIGNhbGxzIGNwdV9h
+dHRhY2hfZG9tYWluKE5VTEwsICZkZWZfcm9vdF9kb21haW4sIGNwdSkgZm9yIGV2ZXJ5IENQVQog
+IGluIHRoZSBkeWluZyBwYXJ0aXRpb24gdW5kZXIgcmN1X3JlYWRfbG9jaygpICh0b3BvbG9neS5j
+OjMzMjUtMzMyOCkuCiAgV2l0aCBzZCA9PSBOVUxMLCB1cGRhdGVfdG9wX2NhY2hlX2RvbWFpbigp
+IHN0b3JlcyBOVUxMIGludG8gdGhlCiAgcGVyLUNQVSBwb2ludGVyczsgYSByZWFkZXIgdGhhdCBs
+b2FkcyBhbiBvbGQgbm9uLU5VTEwgcG9pbnRlcgogIGJlZm9yZSB0aGF0IHN0b3JlIGtlZXBzIGEg
+cG9pbnRlciB0byBhIGNoYWluIHRoYXQgaXMgYWxyZWFkeSBpbiB0aGUKICBSQ1UgcmVtb3ZhbCBw
+aGFzZS4gIEluIHRoZSBidWlsZCBwYXRoIHJxLT5zZCBpcyBub3JtYWxseSBOVUxMIGFmdGVyCiAg
+dGhlIHByZWNlZGluZyBkZXRhY2gsIHNvIGRlc3Ryb3lfc2NoZWRfZG9tYWlucyhOVUxMKSBpcyBh
+IG5vLW9wOwogIHRoZSBkZXRhY2ggcGF0aCBpcyB0aGUgb25lIHRoYXQgbWF0ZXJpYWxseSBtaXNt
+YXRjaGVzLgoKICBXaHkgdGhlIHN0YWxlIHBvaW50ZXIgaXMgbm90IHdhaXRlZCBmb3I6IGEgZ3Jh
+Y2UgcGVyaW9kIHNuYXBzaG90cwogIHRoZSBDUFVzJyBxc21hc2sgYXQgc3RhcnQgKGtlcm5lbC9y
+Y3UvdHJlZS5jOjE5ODYpIGFuZCBjbGVhcnMgYQogIENQVSdzIGJpdCB3aGVuIHRoYXQgQ1BVIHJl
+cG9ydHMgYSBxdWllc2NlbnQgc3RhdGUgKHRyZWUuYzoyMzk1KS4gIEEKICByZWFkZXIgdGhhdCBi
+ZWdpbnMgaXRzIHNlY3Rpb24gYWZ0ZXIgaXRzIENQVSdzIFFTIGlzIG5vdCByZXByZXNlbnRlZAog
+IGluIHRoZSBjdXJyZW50IGdyYWNlIHBlcmlvZCBhdCBhbGwuICBJZiBzdWNoIGEgcmVhZGVyIGJs
+b2NrcywgdGhlCiAgcHJlZW1wdC1SQ1UgY29kZSBvbmx5IHNldHMgUkNVX0dQX0JMS0QgKGFuZCB0
+aHVzIGdwX3Rhc2tzKSB3aGVuIHRoZQogIENQVSdzIHFzbWFzayBiaXQgaXMgc3RpbGwgc2V0IChr
+ZXJuZWwvcmN1L3RyZWVfcGx1Z2luLmg6MTYyLTI1NCksCiAgYW5kIHRoZSBibG9ja2VkLXJlYWRl
+ciB0ZXN0IG9ubHkgbG9va3MgYXQgZ3BfdGFza3MKICAodHJlZV9wbHVnaW4uaDozODEtMzgzKS4g
+IFNvIHRoZSBncmFjZSBwZXJpb2QgZG9lcyBub3Qgd2FpdCBmb3IgaXQsCiAgdGhlIGNhbGxiYWNr
+cyBydW4sIGFuZCB0aGUgb2JqZWN0IGlzIGZyZWVkIHdoaWxlIHRoZSByZWFkZXIgc3RpbGwKICBo
+b2xkcyB0aGUgcG9pbnRlci4gIEJsb2NraW5nIHRoZSByZWFkZXIgZG9lcyBub3QgaGVscDsgaXQg
+b25seQogIG1ha2VzIHRoZSB3aW5kb3cgbGFyZ2VyLgoKICBOYXR1cmFsIHJlYWRlcnM6CgogICAg
+LSB0YXNrX2NhY2hlX3dvcmsoKSAoZmFpci5jOjIwODktMjE0NSwgQ09ORklHX1NDSEVEX0NBQ0hF
+KSBsb2FkcwogICAgICBwZXJfY3B1KHNkX2xsYywgY3B1KSB1bmRlciByY3VfcmVhZF9sb2NrKCkg
+YW5kIHRoZW4gd2Fsa3MKICAgICAgc2NoZWRfZG9tYWluX3NwYW4oc2QpIGluIGEgbG9vcCwgZGVy
+ZWZlcmVuY2luZyBzZCBhbmQgY2FsbGluZwogICAgICBpbnRvIHRoZSBydW5xdWV1ZXM7IGl0IGhv
+bGRzIHRoZSBkb21haW4gZm9yIHRoZSB3aG9sZSBzcGFuLgogICAgLSBub2h6X2JhbGFuY2VyX2tp
+Y2soKSAoZmFpci5jOjE0NDg2LTE0NDk3KSBsb2FkcwogICAgICBwZXJfY3B1KHNkX2FzeW1fcGFj
+a2luZywgY3B1KSBhbmQgd2Fsa3Mgc2NoZWRfZG9tYWluX3NwYW4oc2QpCiAgICAgIHdoZW4gYW4g
+U0RfQVNZTV9QQUNLSU5HIGRvbWFpbiBleGlzdHMuCgogIFNob3J0ZXIgcmVhZGVycyBleGlzdCBh
+cyB3ZWxsOiBzZWxlY3RfaWRsZV9jcHUoKSBhbmQKICBzZWxlY3RfaWRsZV9jYXBhY2l0eSgpIGNv
+cHkgdGhlIHNwYW4gYXQgZW50cnkgKGZhaXIuYzo4OTM1IGFuZCB0aGUKICBjb3JyZXNwb25kaW5n
+IGNvcHkgaW4gc2VsZWN0X2lkbGVfY2FwYWNpdHkoKSksCiAgZ2V0X2xsY19zdGF0cygpIGFuZCBy
+ZWNvcmRfc2dfbGxjX3N0YXRzKCkgcmVhZCB0aGUgc2RzIGZpZWxkcywKICB1cGRhdGVfaWRsZV9j
+cHVfc2NhbigpIHdyaXRlcyBucl9pZGxlX3NjYW4gKGZhaXIuYzoxMjg4MiksCiAgc2V0X2lkbGVf
+Y29yZXMoKSB3cml0ZXMgaGFzX2lkbGVfY29yZXMgKGZhaXIuYzo4ODAyLTg4MjApIGFuZAogIHNl
+dF9jcHVfc2Rfc3RhdGVfYnVzeS9pZGxlKCkgZG8gYXRvbWljX2luYy9kZWMgb24KICBzZHMtPm5y
+X2J1c3lfY3B1cyAoZmFpci5jOjE0NTQ2LTE0NTg2KS4gIFRoZSBsYXN0IHR3byBhcmUgdGhlIHJl
+YXNvbgogIHRoaXMgaXMgbm90IHJlYWQtb25seSBpbiBwcmluY2lwbGUsIGV2ZW4gdGhvdWdoIHRo
+ZSByZXByb2R1Y2VyCiAgYmVsb3cgb25seSBzaG93cyB0aGUgcmVhZCBzaWRlLgoKICBUaGUgcmVm
+Y291bnQgaXMgbm90IHRoZSBwcm9ibGVtOiBhIHB1Ymxpc2hlZCBwZXItQ1BVIHBvaW50ZXIgaXMg
+bm90CiAgYSByZWZlcmVuY2UuICBUaGUgc2RzIHJlZiBpcyBoZWxkIGJ5IHRoZSBvd25pbmcgc2No
+ZWRfZG9tYWluLCB3aGljaAogIGlzIGl0c2VsZiBmcmVlZCBieSB0aGUgc2FtZSBjYWxsYmFjayBj
+aGFpbjsgdGhlIHJlZmNvdW50IGRlY2lkZXMKICB3aGVuIHNkcyBpcyBmcmVlZCwgbm90IHdoZXRo
+ZXIgYSBzdGFsZSBwb2ludGVyIGNhbiByZWFjaCBpdC4KCiogVHJpZ2dlciBtb2RlbAoKICBBIHBy
+aXZpbGVnZWQgYWN0b3IgdGVhcnMgZG93biBhIHNjaGVkdWxpbmcgcGFydGl0aW9uIChDUFUgaG90
+cGx1ZwogIG9mZmxpbmUsIGVjaG8gMCA+IC9zeXMvZGV2aWNlcy9zeXN0ZW0vY3B1L2NwdU4vb25s
+aW5lLCBvciBhIGNwdXNldAogIHBhcnRpdGlvbiB1cGRhdGUpIHdoaWxlIGEgdGFzayB3aXRoIGFu
+IG1tIGlzIHJ1bm5pbmcgYW5kIGdlbmVyYXRpbmcKICBwZXJpb2RpYyBjYWNoZS1hd2FyZSB3YWtl
+dXBzLiAgRm9yIHRoZSBsb25nLWhvbGRpbmcgcmVhZGVycyB0aGUKICBtYWNoaW5lIG5lZWRzIG11
+bHRpcGxlIExMQ3Mgd2l0aCBDT05GSUdfU0NIRURfQ0FDSEUgZW5hYmxlZAogICgvc3lzL2tlcm5l
+bC9kZWJ1Zy9zY2hlZC9sbGNfYmFsYW5jaW5nL2VuYWJsZWQsIGRlZmF1bHQgMSksIG9yIGFuCiAg
+U0RfQVNZTV9QQUNLSU5HIGRvbWFpbiBmb3IgdGhlIG5vaHogcmVhZGVyLiAgS0FTQU4gaXMgbmVl
+ZGVkIHRvCiAgb2JzZXJ2ZSB0aGUgc2hvcnQgbmF0dXJhbCB3aW5kb3c7IHdpdGhvdXQgaW5zdHJ1
+bWVudGF0aW9uIHRoZQogIHdpbmRvdyBpcyBvbiB0aGUgb3JkZXIgb2YgdGhlIHR3byBhZGphY2Vu
+dCBjYWxscy4KCiAgQ29uc2VxdWVuY2U6IHVzZS1hZnRlci1mcmVlIHJlYWQgb2Ygc3RydWN0IHNj
+aGVkX2RvbWFpbiBhbmQgaXRzCiAgZW1iZWRkZWQgc3BhbiwgYW5kIG9mIHN0cnVjdCBzY2hlZF9k
+b21haW5fc2hhcmVkOyB0aGUgc2hvcnQgd3JpdGVycwogIGNhbiBhbHNvIHR1cm4gaXQgaW50byBh
+IHVzZS1hZnRlci1mcmVlIGF0b21pYyB3cml0ZS4gIEtlcm5lbCBjcmFzaAogIG9yIG1lbW9yeSBj
+b3JydXB0aW9uIChEb1MpIGlzIHBvc3NpYmxlOyBubyBwcml2aWxlZ2UgZXNjYWxhdGlvbiBpcwog
+IGNsYWltZWQuICBUaGUgdHJpZ2dlciBuZWVkcyBDQVBfU1lTX0FETUlOOyB0aGUgcmVhZGVyIHNp
+ZGUgaXMKICBvcmRpbmFyeSBrZXJuZWwgd29yay4KCiogUmVwcm9kdWNlciAKCiAgVGhlIGF0dGFj
+aGVkIHBhdGNoIGlzIHZlcmlmaWNhdGlvbiBpbnN0cnVtZW50YXRpb24gYWdhaW5zdCB2YW5pbGxh
+CiAgNy4zOyBpdCBpcyBub3QgYSBwcm9wb3NlZCBmaXguICBJdCBhZGRzIG1kZWxheSgxMDApIGJl
+dHdlZW4KICBkZXN0cm95X3NjaGVkX2RvbWFpbnModG1wKSBhbmQgdXBkYXRlX3RvcF9jYWNoZV9k
+b21haW4oY3B1KSwgYW5kIGEKICB3aXRuZXNzIGt0aHJlYWQgdGhhdCBzdGFuZHMgaW4gZm9yIHRh
+c2tfY2FjaGVfd29yaygpOiBpdCB3YWl0cyBmb3IKICB0aGUgZmlyc3QgZGV0YWNoIHdpbmRvdywg
+c2xlZXBzIHBhc3QgdGhlIHN0YXJ0IG9mIHRoZSBncmFjZSBwZXJpb2QKICAoc28gaXRzIENQVSBo
+YXMgcmVwb3J0ZWQgYSBRUyksIGVudGVycyByY3VfcmVhZF9sb2NrKCksIGxvYWRzCiAgcGVyX2Nw
+dShzZF9sbGMsIDApLCBob2xkcyB0aGUgc2VjdGlvbiBmb3IgMS41IHMsIGFuZCB0aGVuIHJlYWRz
+CiAgc2QtPnNoYXJlZCBhbmQgc2QtPmZsYWdzLiAgVGhlIGFydGlmaWNpYWwgZGVsYXkgYW5kIGhv
+bGQgYXJlIHdoYXQKICBtYWtlIHRoZSByYWNlIGRldGVybWluaXN0aWMgb24gYSBLQVNBTiBrZXJu
+ZWw7IHRoZSBjb2RlIHBhdGggYW5kCiAgdGhlIHBvaW50ZXIgbGlmZXRpbWUgYXJlIHVuY2hhbmdl
+ZC4KCiAgICAjIGJ1aWxkIChmcm9tIHRoZSA3LjMgdHJlZSkKICAgIHBhdGNoIC1wMSA8IHNkcy11
+YWYtcmVwcm8ucGF0Y2gKICAgICMgdXNlIGEgS0FTQU4tZW5hYmxlZCB4ODZfNjQgY29uZmlnIHdp
+dGggdGhlIGtleXMgbGlzdGVkIGFib3ZlCiAgICBtYWtlIE89YnVpbGQta2FzYW4gLWpOIGJ6SW1h
+Z2UKCiAgICAjIGJvb3QgYW4gaW5pdHJhbWZzIHRoYXQgdG9nZ2xlcyBjcHUgNyBvZmZsaW5lL29u
+bGluZSA2MCB0aW1lczoKICAgIHFlbXUtc3lzdGVtLXg4Nl82NCAtZW5hYmxlLWt2bSAtY3B1IGhv
+c3QgLW0gNEcgLXNtcCA4IFwKICAgICAgLWtlcm5lbCBidWlsZC1rYXNhbi9hcmNoL3g4Ni9ib290
+L2J6SW1hZ2UgXAogICAgICAtaW5pdHJkIGluaXRyZC5jcGlvLmd6IFwKICAgICAgLWFwcGVuZCAi
+Y29uc29sZT10dHlTMCByZGluaXQ9L2luaXQgaWdub3JlX2xvZ2xldmVsIFwKICAgICAgICAgICAg
+ICAgcHJlZW1wdD1mdWxsIGthc2FuX211bHRpX3Nob3Q9MSIgLW5vZ3JhcGhpYwoKICBSZXN1bHQs
+IGZpcnN0IG9mZmxpbmUvb25saW5lIGN5Y2xlICg3LjMsIEtBU0FOKToKCiAgICBbICAgIDguNzQ2
+ODczXSBCVUc6IEtBU0FOOiBzbGFiLXVzZS1hZnRlci1mcmVlIGluIHNkc193aXRuZXNzX2ZuKzB4
+OWMvMHgxMzAKICAgIFsgICAgOC43NDY5MDZdIFJlYWQgb2Ygc2l6ZSA4IGF0IGFkZHIgZmYxMTAw
+MDEwMDJlNDk2OCBieSB0YXNrIHNkc193aXRuZXNzLzk5CiAgICAuLi4KICAgIFsgICAgOC43NDc1
+NjVdICBidWlsZF9zY2hlZF9kb21haW5zKzB4MWYxLzB4MmQ5MAogICAgWyAgICA4Ljc0Nzg2MV0g
+IGRlc3Ryb3lfc2NoZWRfZG9tYWluc19yY3UrMHgyNC8weDMwCiAgICBbICAgIDguNzQ4MDU2XSAg
+Y3B1X2F0dGFjaF9kb21haW4rMHg3M2UvMHhkMjAKICAgIFsgICAgOC43NDgwNzZdICBwYXJ0aXRp
+b25fc2NoZWRfZG9tYWlucysweDQ2My8weDZkMAogICAgWyAgICA4Ljc0ODA5OF0gIGNwdXNldF91
+cGRhdGVfYWN0aXZlX2NwdXMrMHg2NmQvMHhhMjAKICAgIFsgICAgOC43NDgxMTldICBzY2hlZF9j
+cHVfZGVhY3RpdmF0ZSsweDFiNS8weDFmMAoKICBUaGUgb2JqZWN0IGlzIHRoZSBrbWFsbG9jLTUx
+MiBhbGxvY2F0aW9uIHRoYXQgY29udGFpbnMgdGhlCiAgc2NoZWRfZG9tYWluIGFuZCBpdHMgZW1i
+ZWRkZWQgc3BhbjsgdGhlIHJlYWQgYXQgKzM2MCBpcyBzZC0+c2hhcmVkLgogIFRpbWVsaW5lIGZy
+b20gdGhlIGluc3RydW1lbnRlZCBrZXJuZWw6CgogICAgWyAgICA3LjE4MDk3Nl0gU0RTLVdJTkRP
+VzogY3B1PTAgICAgIDwtIGNhbGxfcmN1KCkgZG9uZQogICAgWyAgICA3LjE4ODgwOV0gU0RTLUxP
+QUQ6IGNwdT0wIHNkPWZmMTEwMDAxMDAyZTQ4MDAKICAgIFsgICAgNy4yODEwMDddIFNEUy1TVE9S
+RTogY3B1PTAgICAgICA8LSBwZXItQ1BVIHBvaW50ZXIgY2xlYXJlZAogICAgWyAgICA4Ljc0Njg3
+M10gQlVHOiBLQVNBTiAuLi4KCiAgVGhlIHJlYWRlciBsb2FkZWQgdGhlIHBvaW50ZXIgOTIgbXMg
+YmVmb3JlIHRoZSBzdG9yZTsgdGhlIGdyYWNlCiAgcGVyaW9kIGhhZCBhbHJlYWR5IHN0YXJ0ZWQs
+IHNvIHRoZSBjYWxsYmFjayByYW4gYW5kIGZyZWVkIHRoZQogIG9iamVjdCB3aGlsZSB0aGUgcmVh
+ZGVyIHdhcyBibG9ja2VkOyB0aGUgZGVyZWZlcmVuY2UgaGFwcGVuZWQKICAxLjUgcyBsYXRlci4g
+IFdpdGhvdXQgdGhlIG1kZWxheSgpL2hvbGQgaW5zdHJ1bWVudGF0aW9uLCAxMDAgYW5kIDYwCiAg
+b2ZmbGluZS9vbmxpbmUgY3ljbGVzIGRpZCBub3QgcmVwcm9kdWNlICh0aGUgbmF0dXJhbCB3aW5k
+b3cgaXMKICBvbmx5IGEgZmV3IGluc3RydWN0aW9ucyk7IHRoZSBvcmRlcmluZyB2aW9sYXRpb24g
+aXMgc3RpbGwgdGhlIHNhbWUuCgoKCiogU3VnZ2VzdGVkIGRpcmVjdGlvbgoKICBNb3ZlIHVwZGF0
+ZV90b3BfY2FjaGVfZG9tYWluKGNwdSkgYmVmb3JlIGRlc3Ryb3lfc2NoZWRfZG9tYWlucyh0bXAp
+CiAgaW4gY3B1X2F0dGFjaF9kb21haW4oKSwgaS5lLiBwdWJsaXNoIHRoZSBuZXcgY2hhaW4gKGFu
+ZCBjbGVhciB0aGUKICBwZXItQ1BVIHBvaW50ZXJzIHdoZW4gc2QgPT0gTlVMTCkgYmVmb3JlIGVu
+dGVyaW5nIHRoZSBSQ1UgcmVtb3ZhbAogIHBoYXNlLiAgVGhlbiBldmVyeSBwZXItQ1BVIHN0b3Jl
+IHByZWNlZGVzIGNhbGxfcmN1KCk6IGEgcmVhZGVyIHRoYXQKICBsb2FkcyBhbiBvbGQgcG9pbnRl
+ciBtdXN0IGhhdmUgc3RhcnRlZCBpdHMgc2VjdGlvbiBiZWZvcmUgdGhlIHN0b3JlLAogIGhlbmNl
+IGJlZm9yZSB0aGUgZ3JhY2UgcGVyaW9kIGJlZ2FuLCBhbmQgaXMgdGhlcmVmb3JlIHdhaXRlZCBm
+b3IKICAoaW5jbHVkaW5nIHRoZSBibG9ja2VkIGNhc2UsIHdoZXJlIFJDVV9HUF9CTEtEIGlzIHNl
+dCBiZWNhdXNlIHRoZQogIHFzbWFzayBiaXQgaXMgc3RpbGwgc2V0KTsgYSByZWFkZXIgdGhhdCBz
+dGFydHMgYWZ0ZXIgdGhlIGdyYWNlCiAgcGVyaW9kIGJlZ2FuIGxvYWRzIHRoZSBuZXcgb3IgTlVM
+TCBwb2ludGVyLiAgQSBjb21tZW50IGRvY3VtZW50aW5nCiAgdGhlIG9yZGVyaW5nIHJlcXVpcmVt
+ZW50IHdvdWxkIGhlbHA7IHRoZSBzYW1lIGNoYW5nZSBzaG91bGQgZ28gdG8KICBzdGFibGUuICBS
+ZXBvcnQtZmlyc3QsIG5vIHBhdGNoIGF0dGFjaGVkOyBoYXBweSB0byB0ZXN0IGFueQogIHByb3Bv
+c2FsLgoKClBsZWFzZSBrZWVwIG1lIGluIENjOyBJIGFtIG5vdCBzdWJzY3JpYmVkIHRvIHRoZSBs
+aXN0cy4KCgpSZWdhcmRzLApIYW54aWFuZyBYdQp4dWh4QGh1c3QuZWR1LmNuCg==
+------=_Part_522779_1758045563.1794573187360
+Content-Type: application/octet-stream; name=sds-uaf-repro.patch
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="sds-uaf-repro.patch"
 
-I guess the issue is arguably preexisting and the fix doesn't touch the same code,
-so feel free to apply,
+LS0tIGEva2VybmVsL3NjaGVkL3RvcG9sb2d5LmMKKysrIGIva2VybmVsL3NjaGVkL3RvcG9sb2d5
+LmMKQEAgLTYsNiArNiwxMCBAQAogI2luY2x1ZGUgPGxpbnV4L3NjaGVkL2lzb2xhdGlvbi5oPgog
+I2luY2x1ZGUgPGxpbnV4L3NjaGVkL2Nsb2NrLmg+CiAjaW5jbHVkZSA8bGludXgvYnNlYXJjaC5o
+PgorI2luY2x1ZGUgPGxpbnV4L2RlbGF5Lmg+CisjaWZkZWYgQ09ORklHX1NDSEVEX0NBQ0hFCitp
+bnQgc2RzX3dpbmRvd19jcHUgPSAtMTsgLyogU0RTLVdJVE5FU1MgKi8KKyNlbmRpZgogI2luY2x1
+ZGUgInNjaGVkLmgiCiAKIERFRklORV9NVVRFWChzY2hlZF9kb21haW5zX211dGV4KTsKQEAgLTgy
+OCw2ICs4MzIsMTYgQEAKIAlkaXJ0eV9zY2hlZF9kb21haW5fc3lzY3RsKGNwdSk7CiAJZGVzdHJv
+eV9zY2hlZF9kb21haW5zKHRtcCk7CiAKKwkvKgorCSAqIFNEUy1XSVRORVNTOiB3aWRlbiB0aGUg
+d2luZG93IGJldHdlZW4gZW50ZXJpbmcgdGhlIFJDVSByZW1vdmFsCisJICogcGhhc2UgKGRlc3Ry
+b3lfc2NoZWRfZG9tYWlucykgYW5kIHB1Ymxpc2hpbmcgdGhlIG5ldyBwZXItQ1BVCisJICogcG9p
+bnRlcnMgKHVwZGF0ZV90b3BfY2FjaGVfZG9tYWluKS4gIFZlcmlmaWNhdGlvbiBvbmx5LgorCSAq
+LworCVdSSVRFX09OQ0Uoc2RzX3dpbmRvd19jcHUsIGNwdSk7CisJcHJfaW5mbygiU0RTLVdJTkRP
+VzogY3B1PSVkXG4iLCBjcHUpOworCW1kZWxheSgxMDApOworCXByX2luZm8oIlNEUy1TVE9SRTog
+Y3B1PSVkXG4iLCBjcHUpOworCiAJdXBkYXRlX3RvcF9jYWNoZV9kb21haW4oY3B1KTsKIH0KIApA
+QCAtMzUwMiwzICszNTE2LDYzIEBACiAJcGFydGl0aW9uX3NjaGVkX2RvbWFpbnNfbG9ja2VkKG5k
+b21zX25ldywgZG9tc19uZXcsIGRhdHRyX25ldyk7CiAJc2NoZWRfZG9tYWluc19tdXRleF91bmxv
+Y2soKTsKIH0KKworLyogLS0tLS0tLS0tLS0tLS0tLSBTRFMtV0lUTkVTUzogdmVyaWZpY2F0aW9u
+IGluc3RydW1lbnRhdGlvbiAtLS0tLS0tLS0tLS0tLS0tICovCisvKgorICogUmVhY3RzIHRvIHRo
+ZSBmaXJzdCB3aW5kb3cgb2YgYSBkZXRhY2gvYnVpbGQgcGFzcyAoY3B1IDApLCByZXBvcnRzIGEK
+KyAqIHF1aWVzY2VudCBzdGF0ZSBhZnRlciB0aGUgZ3JhY2UgcGVyaW9kIGhhcyBzdGFydGVkLCB0
+aGVuIGxvYWRzIHRoZSBvbGQKKyAqIHBlci1DUFUgZG9tYWluIHBvaW50ZXIsIGhvbGRzIHRoZSBS
+Q1UgcmVhZC1zaWRlIHNlY3Rpb24gYWNyb3NzIHRoZQorICogY2FsbGJhY2ssIGFuZCBkZXJlZmVy
+ZW5jZXMgdGhlIGRvbWFpbi4gIFdpdGggdGhlIG1kZWxheSgxMDApIGluCisgKiBjcHVfYXR0YWNo
+X2RvbWFpbigpIHRoZSB3aW5kb3cgaXMgd2lkZSBlbm91Z2ggdG8gbG9hZCB0aGUgb2xkIHBvaW50
+ZXIKKyAqIGFmdGVyIGNhbGxfcmN1KCkgYW5kIGJlZm9yZSB0aGUgcGVyLUNQVSBzdG9yZS4KKyAq
+LworI2lmZGVmIENPTkZJR19TQ0hFRF9DQUNIRQorI2luY2x1ZGUgPGxpbnV4L2t0aHJlYWQuaD4K
+KworI2RlZmluZSBTRFNfV0lUTkVTU19DUFUJCTAKKyNkZWZpbmUgU0RTX1dJVE5FU1NfSE9MRF9N
+UwkxNTAwCisKK3N0YXRpYyBpbnQgc2RzX3dpdG5lc3NfZm4odm9pZCAqdW51c2VkKQoreworCXN0
+cnVjdCBzY2hlZF9kb21haW4gKnNkOworCXN0cnVjdCBzY2hlZF9kb21haW5fc2hhcmVkICpzZHM7
+CisKKwl3aGlsZSAoIWt0aHJlYWRfc2hvdWxkX3N0b3AoKSkgeworCQlpZiAoUkVBRF9PTkNFKHNk
+c193aW5kb3dfY3B1KSAhPSBTRFNfV0lUTkVTU19DUFUpIHsKKwkJCW1zbGVlcCgxKTsKKwkJCWNv
+bnRpbnVlOworCQl9CisJCVdSSVRFX09OQ0Uoc2RzX3dpbmRvd19jcHUsIC0xKTsKKworCQkvKiBR
+UyBhZnRlciB0aGUgR1Agc3RhcnRlZCwgYmVmb3JlIGVudGVyaW5nIHRoZSBzZWN0aW9uLiAqLwor
+CQltc2xlZXAoNSk7CisKKwkJcmN1X3JlYWRfbG9jaygpOworCQlzZCA9IHJjdV9kZXJlZmVyZW5j
+ZV9hbGwocGVyX2NwdShzZF9sbGMsIFNEU19XSVRORVNTX0NQVSkpOworCQlpZiAoc2QpIHsKKwkJ
+CXByX2luZm8oIlNEUy1MT0FEOiBjcHU9JWQgc2Q9JXB4XG4iLAorCQkJCVNEU19XSVRORVNTX0NQ
+VSwgKHZvaWQgKilzZCk7CisJCQltc2xlZXAoU0RTX1dJVE5FU1NfSE9MRF9NUyk7CisJCQlzZHMg
+PSByY3VfZGVyZWZlcmVuY2VfYWxsKHNkLT5zaGFyZWQpOworCQkJcHJfaW5mbygiU0RTLVdJVE5F
+U1M6IGNwdT0lZCBzZD0lcHggZmxhZ3M9JXggc2hhcmVkPSVweCBucl9idXN5PSVkXG4iLAorCQkJ
+CVNEU19XSVRORVNTX0NQVSwgKHZvaWQgKilzZCwKKwkJCQkodW5zaWduZWQgaW50KVJFQURfT05D
+RShzZC0+ZmxhZ3MpLCAodm9pZCAqKXNkcywKKwkJCQlzZHMgPyBhdG9taWNfcmVhZCgmc2RzLT5u
+cl9idXN5X2NwdXMpIDogLTEpOworCQl9IGVsc2UgeworCQkJcHJfaW5mbygiU0RTLUxPQUQ6IGNw
+dT0lZCBOVUxMXG4iLCBTRFNfV0lUTkVTU19DUFUpOworCQl9CisJCXJjdV9yZWFkX3VubG9jaygp
+OworCQltc2xlZXAoMTApOworCX0KKworCXJldHVybiAwOworfQorCitzdGF0aWMgaW50IF9faW5p
+dCBzZHNfd2l0bmVzc19pbml0KHZvaWQpCit7CisJcHJfaW5mbygiU0RTLVdJVE5FU1M6IHN0YXJ0
+aW5nLCB0YXJnZXQgY3B1ICVkXG4iLCBTRFNfV0lUTkVTU19DUFUpOworCWt0aHJlYWRfcnVuKHNk
+c193aXRuZXNzX2ZuLCBOVUxMLCAic2RzX3dpdG5lc3MiKTsKKwlyZXR1cm4gMDsKK30KK2xhdGVf
+aW5pdGNhbGwoc2RzX3dpdG5lc3NfaW5pdCk7CisjZW5kaWYK
+------=_Part_522779_1758045563.1794573187360--
+
