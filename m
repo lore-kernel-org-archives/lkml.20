@@ -1,88 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794600099;
-	b=BbAEdxhaQFsHIgHcHo8xgny2nXvwwDFdoIMbWoENm0STVEUA9PqNTW+F2ujnGFoeBzfy
-	 AYvSpb0ulUWOmmxaxGjRfb/8EnKoxmccGRk0mdVO2ClAsv/WiL/pYI320AIaIr+AzCX7G
-	 RaZiN5CnrLQIYTtI173Os8vr6aYVWfGcFw451U6okBQPP0/W+ZRDwghRzXYNVYkfJq/+F
-	 pMF8Vfmtn1pGFVF9rD0L59t3g8feGJoDoiFPR105dSNBySU220TwGbJShn414L2vMTFh9
-	 AdUncZBn0A4vnaw4BqdUwV5f+O1UYTY1rkIXsUeOncqjBRhKGCjXhBcXevvfovjeeXQ==
+	t=1794600140;
+	b=33yr+ADYD6Vpfs4+XRRxS6vrGS8pmp3RDh2q6E6ry7iXVfhR2N5UpXPwerubuFvOnpXn
+	 jdOL+KvKwh1xZOm4JnPxxrupIRqYJkJhnGgdQgAWr2k0RzILQNsCefDkAiPumRtbyQ2wv
+	 XA8WkCskdbTI8/D5bdfeOltRRW3HA7UlnlpHtX5tLr4xw+wS6SmvU3vcYviFkhKVFrD/n
+	 Q3UfZ14Z5R6DaUWfwZBdjLpeLk8uwFjgjUOwGxGVcVwovmnQHTxtGIZY8qAgyDb+akhoc
+	 IJwbNFih8deZxaiF1Oep2QWIZh9t1IrU3kTpsyZIXVlT+YIpx+qxBzsoofpRjx/UsNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794600099;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=EC9RASKFPMm8luP0GQ/7tSz6vapPp12uuDlPtIQw68s=;
-	b=fnnz607GpdTL8WmlCugjBlBIL5IsZtaYIlxYaMJqed5lBCd3Ci+W+0+7e4EU4ghZ6NS4
-	 0l1ww4ljh6E1ejX04+EaaZEuZivHYvXZr05CkivXR1904GwCrlHNjX/Rjo8l/9PUuYpql
-	 MlsfPnZfwEyClIOCSdx2N58FKSwQ1ywRLGNTGH9p6MBk1Rswu1SP3/P/zx15wdnKjPwMO
-	 mSxjqgYfnWMvynOeqQuZzpjNOuumgYboLVnHaKiUJQ2Mor9e+As7HFgpyaPQCD1z85Zyj
-	 1zqxrKm6rjxCowFZYGH6Ndn+mAI+Sv+JDaL5XuJA40hxWaKsPIsW8PObfJ0jG1hCYLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794600140;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ftLGNIEMed5JUTDYLuZhEChOGJfoU58LD9PZZL0hGOE=;
+	b=m3mDgNv1rEsXc5cJ0Opc8q6QvdoSWD/ZfWxXBXJBUXiv5hPIofUBbTAeRxMo3UQLN96F
+	 UyViyszS3tNdTzfJF9GAwnRl1xOPtJipa6pHnniJR2FYo5NIhOK2YFjz7HOldHcqlXtKe
+	 3LOE9vvrUy7GbHofulj+FmSrZBTrNgAwaqX0gwWLQ6big0ldrT09NlW3jhrQZpsVfgoG1
+	 OJipgsIhGOlvVuL1CVQ3JXq8oNFAoY06iKhlrgjtYldzc8Q/UUU1XRVKV7IeoYwrY1Zzg
+	 GKrcizj7QW0K6Cvjny7m6QlcyMFW7VHGOoboKzWRvPh6K7j8IkHh0E+igJvK1km19VA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cloudflare.com;
-	spf=pass smtp.mailfrom=cloudflare.com;
-	dkim=pass header.d=cloudflare.com header.i=@cloudflare.com header.a=rsa-sha256 header.s=google09082023 header.b="Ii/Q4AtR";
-	arc=none smtp.remote-ip=209.85.161.46
-Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
+	dmarc=none header.from=telaak.dev;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.128.180
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17E64606A884
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:01:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17E64606A884
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.a=rsa-sha256 header.s=google09082023 header.b=Ii/Q4AtR
-Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-71ab5e64742so1635010eaf.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:01:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloudflare.com; s=google09082023; t=1794600094; x=1795204894; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=EC9RASKFPMm8luP0GQ/7tSz6vapPp12uuDlPtIQw68s=;
-        b=Ii/Q4AtR+Ka3hto0ms2y390aqMzxmLu8CN8YPpbROMpPT+7mBlffjgccAy64QexD1m
-         /wWxNx6PzyyD5aohb8jfcva8gy9MyZXidbtNC1cwD6YAZVGUoTZZQ5FnfaJU7nGRVbJH
-         5mQuFodpF8yl+6lV00hZvs4Mei6pwi08rBiYYW0TMaR4Ei+hXMM4a5jzlVMh3zVhSu9N
-         +vu2lQb6Qt2o8BF28jOcaBSPdR2OAtepAjhGIwpWdWGMrAThWgFkzHRp7WM1ecEj9EXg
-         5Z1YsiPTERo1fqy8klWRT941zWFNbUa/4sbuz90bdILGzYqVlGsnaTwCB95v5Ok593YO
-         xKDw==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDC26606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:02:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDC26606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8b3b57a31f7so12851297b3.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:02:19 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794600094; x=1795204894;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=EC9RASKFPMm8luP0GQ/7tSz6vapPp12uuDlPtIQw68s=;
-        b=mZQihvuNskkshhNHFJ7riOXgX5TXFbRWyLTI+doe4B99psgA71VNKw8Yzq54sjRpL3
-         oBt8KgTeSGs50Pqy8lx8SE03F/NG48VTY+f5szEkRkHVO8JXkhc17ZSeJo+MKgTY1URa
-         2EGHK1ReIamEKgTG7WbiCMDCiv6XlCGXUozGr/2f3pNwg3us7ES2wfO73PU9bNWcxXOJ
-         swQkSQDQ4zmWyJpbZIZjsuILmOWAtl0C46d+HuhISwsvPGUBIEM0O5U2gsIPYFsnQTQn
-         3ilJFKSDUBfaEREGF1Ydh89e1cOPOqzbFzLiqzoVkKNmpTHxvSII0b7juhBVUiHrGCDX
-         iOCw==
-X-Forwarded-Encrypted: i=1; AL+hErEYX+zALeq6/hOBN6j9SA/tpzvfCqfZ5BjEUH2MnBlE2o806r/A8gQwiZKIpznQV4TZ1jw+sGhPBNAYveA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+hoe6lJfaU9MeVArUbHekfdStDcKXjFv2T6hGdie/KQ9qQo0nt
-	TjLVwyYCfZGxqvElcxZrFD32fCyI3A/WSZJmgaBx7o/bObDV+e5mUau1Adc8afwUmKA=
-X-Gm-Gg: AYBFou0wy4A2QPg08ImcICEEWbHDCGSArAOeJWb9ChSGMFXm+INtq4b06uwmzsOEout
-	V6asGLJxOohKRQINId4o4P8RXrdtlO75A5VLnm9G9HztFMWgOaQ/mv7M/aE8tjilHu50CELUvVk
-	vdCcsBVFzjGgJ59VAT6gwh3zNjT+INyXJZnov+xhxl2IkUSRGjz4jAQs+DD7nt2x3z3/rE+E93A
-	xQqR5r6VraqGkVqeg5xvwwLV98AdoBNH7Wwhliy02sJcFiZiyKYnGpcqoVBBJaMb6iCa141mtCi
-	e4OIHvCvjKOYjUA3cbZn/CZeHtY27G/yr9oal5EYM3nKPoQFZ8MdOCtINHLpcf7QMuXKkS4PdrU
-	Hg7FLCKD14Dw/Yf1cR9OTl/LRNfe1uJBd0rLS7F36OE/wCO7OUHPBX77QPihgjY7gZ1h8RtPhoC
-	2ug6hSldqMxOkkANr1MyulkkZUbhCBO10hZoXtDLtm1iy96ie9T8d+vF1W0e0Nkga4eLbCN+SRB
-	zEH00RtyQvPEI3vFUIsZz07BvVLYINX5A/gsHnmYnYstvYje7KRxow4imcsSHZYLHds6/wc3xPc
-	DkipOTbhUMFeNk4b0Gxzv87MBUB45irJs6GmVw0=
-X-Received: by 2002:a05:6820:1355:b0:716:d710:3d6b with SMTP id 006d021491bc7-71ab5083d31mr2286905eaf.49.1794600093872;
-        Fri, 13 Nov 2026 12:01:33 -0800 (PST)
-Received: from [127.0.1.1] ([2a09:bac6:bf21:1923::281:18])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71ab428b337sm2590808eaf.4.2026.11.13.12.01.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 12:01:32 -0800 (PST)
-From: Chris J Arges <carges@cloudflare.com>
-Date: Fri, 13 Nov 2026 14:01:23 -0600
-Subject: [PATCH 7.3.y] net: Use a dedicated flag to track disabled napi
- instances
+        d=1e100.net; s=20260707; t=1794600139; x=1795204939;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ftLGNIEMed5JUTDYLuZhEChOGJfoU58LD9PZZL0hGOE=;
+        b=V+bXiST8WFiJauDah2ZvihpokmYGBGgHbFwE4Pcd8VDQm22wuD2oszYXYIzkRlybo0
+         INB3sFkI88FJWQF/LcyIkRHJHPDY6D6sKkIkjUCGWvPhfqZ5kLD70VR+j/v5VEmsUipZ
+         MEQzJOeJK25SMdvVqyS211ZRXRJWNSo+TR0CkneAR1MXstCYYLc8osMPElbrp3deTA18
+         mxubnnGY+Ya7mHkQfLjtBqbvrQjzw/EO9XhWkCDuWWoFy4Rz7CQw3XXcdyODE8GnaHLA
+         66hT+xz/tj+Grkr63j7IzocL22dtPrEoiJ7V98TmYq14vFmW8nelAMAqHVmMdAnf5vnO
+         +5gw==
+X-Forwarded-Encrypted: i=1; AL+hErEYKIX7TVHVywDWUWT4MPQ1aeQNNslCpl//wkqHn5Et4cSGg4WWeu0sPiB/msvOKoMP71I3vxFWAiksETI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8+bbVQI7yL6y+abcx10wuwozK5fIkbtnKAibS+XEVTvZE2H5S1
+	yZb1zJM7HZc9xGina8vSP8wKoMlkLtQoPzAZtZBRNYToqsEeFZ4MXwMy
+X-Gm-Gg: AYBFou0ENcjki5wTkdxQpApc9Avi9P2xqvXsyZZK4UiZX7jkr9v2y6Y16VzRF5JhEF0
+	cfc5Q5r4prMaZ0xwzN+R7n9zvhq5FEfrQAElPMZ9t+zTqdHtjQNBfnUUdKy8TLAKwkzVcfx9RFd
+	prosjXip7lkrmPFMYhkoHwQ0BteroePomO9nU7KQEXIQAozOqO4NHN1LKlKtVBfcYk9bWUxGkm8
+	DcQw52/PT026Nwrosdogd8HvHEMRRvgeit92Jc9c1DMI80QVlZkwhzYMQm1YYCFdBWWVrAZkTZ6
+	585OIW3KG3Vn/DQh0XnWzdIyafuT4NFmmIn7tso1r5EAuQSlFfB56CzBPViULbl/RrPXPZpDJaQ
+	JezwTy0LStpfjD3bWSFZACSOilAiOyzd6pd91lab6AHpwohD+07ISTCcIni/gF8Javo9OoLy/KQ
+	i+2qkTShb+7Xte8f8tA3V8RdGzLhf2zFxBCufSN2GVpoeBWXgjc/ZXsWhu46n57Yq7/yCgwDgri
+	U0tDYMKUeTgRRFT1FhMGdlCtR58STvuw+d8Ysn/vGWZTtNicl/xCm1YWc4vvGyyTdjT06D5Vnhc
+	kRTR8gTUv7hz4KZIqvsdOXvkDmrgVwXPDGpb2HXuc1FARS3oECZp2WHghkqNXU3riqqO1fpmWIb
+	q+HRgJvH2hsvzSWq72fnoNmjUU+b6Yy0=
+X-Received: by 2002:a05:690c:a:b0:8b1:70be:d4d0 with SMTP id 00721157ae682-8b4aa25cd42mr23621487b3.48.1794600138833;
+        Fri, 13 Nov 2026 12:02:18 -0800 (PST)
+Received: from localhost.localdomain ([71.68.170.161])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4aa9da90bsm28205227b3.37.2026.11.13.12.02.17
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 13 Nov 2026 12:02:18 -0800 (PST)
+From: Joseph Telaak <joseph@telaak.dev>
+To: dri-devel@lists.freedesktop.org
+Cc: patrik.r.jakobsson@gmail.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	alessio.belle@imgtec.com,
+	luigi.santivetti@imgtec.com,
+	frank.binns@imgtec.com,
+	imagination@lists.freedesktop.org,
+	operatingsystemsdepression@gmail.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC 00/13] drm/powervr_sgx: Add a DRM driver for PowerVR SGX5xx GPUs
+Date: Fri, 13 Nov 2026 15:02:16 -0500
+Message-ID: <20261113200216.82392-1-joseph@telaak.dev>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261112-powervr-sgx-v1-0-c69b84bac011@telaak.dev>
+References: <20261112-powervr-sgx-v1-0-c69b84bac011@telaak.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,173 +93,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-napi-disabled-backport-7-3-v1-1-99560caf8bca@cloudflare.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMSw7CMAwA0atUXuMqbgpFXKVikY8BA0qjuCBQ1
- bsTYDmzeAsoF2GFQ7NA4aeoTKkGbRoIF5fOjBJrQ2e6HRFZTC4LRlHn7xzRu3DLU5lxQItmS73
- ZO2Ni76ECufBJXj98hKG17RuO/60Pf+Uwf2FY1w89Vmd0hQAAAA==
-X-Change-ID: 20261113-napi-disabled-backport-7-3-051408a00d4b
-To: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- Samiullah Khawaja <skhawaja@google.com>
-Cc: netdev@vger.kernel.org, kernel-team@cloudflare.com, 
- Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- Jakub Kicinski <kuba@kernel.org>, linux-kernel@vger.kernel.org, 
- Daniel Machon <daniel.machon@microchip.com>, 
- Chris J Arges <carges@cloudflare.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openssh-sha256; t=1794600090; l=5274;
- i=carges@cloudflare.com; h=from:subject:message-id;
- bh=Jv9QV00aR+M1g59jP00fdAw8leVncE+PrUsMH8483fU=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgaxY1IIT5oTohBZJmhnVgJo2HsM7Sv
- 9I0LdJCgpeGX6gAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QHlTpd5TAUpqR3hrf1Ua/ezmcrYrnH8wNvJmqTGKyAi2ptxR/RiI41qfut245SFSLyRaNhYhLWH
- B/NoHh+0KCgY=
-X-Developer-Key: i=carges@cloudflare.com; a=openssh;
- fpr=SHA256:Cun99EBiH0EV7wvmfTBF9eDrld2NJx+aD4ScWZ45Q5M
+Content-Transfer-Encoding: 8bit
 
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+The Mesa side is now up as a draft merge request, for review alongside
+this series:
 
-commit 8dc87fc5d6a0eb337744737008177342a708bf36
-("net: Use a dedicated flag to track disabled napi instances") upstream.
+https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/46286
 
-Trying to disable the napi threaded state while the napi instance is
-disabled will hang forever in napi_stop_kthread(), as it waits for
-NAPIF_STATE_SCHED_THREADED to clear.
-
-This won't happen until the next ____napi_schedule() call, which won't
-happen as it's disabled.
-
-This happens in 2 instances :
-
- - Drivers that create but don't use napi instances (stmmac's rxtx napi
-   for AF_XDP for example), here it's a driver bug
-
- - Drivers that create their napi instances in .probe(). Here, setting
-   threaded off while the interface is down will hang :
-
-   ip link set eth0 down
-   echo 1 > /sys/class/net/eth0/threaded
-   echo 0 > /sys/class/net/eth0/threaded
-   -> hang
-
-Checking on netif_running() isn't enough, as napi instances may be
-transiently disabled when changing the MTU for example, let's use a
-dedicated flag to track if the instance is disabled.
-
-This allows immediately disabling the kthread when the instance is
-disabled.
-
-This was tested on mvpp2 (probe-time napi_add) and stmmac.
-
-[ Backport: place the disabled state after the threaded busy-poll state;
-  the adjacent per-CPU NAPI state is not present in 7.3.y. ]
-
-Fixes: 689883de94dd ("net: stop napi kthreads when THREADED napi is disabled")
-Tested-by: Daniel Machon <daniel.machon@microchip.com>
-Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Link: https://patch.msgid.link/20261029153130.121204-1-maxime.chevallier@bootlin.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Chris J Arges <carges@cloudflare.com>
----
-Backport upstream commit 8dc87fc5d6a0 ("net: Use a dedicated flag to
-track disabled napi instances") to 7.3.y.
-
-The commit fixes a reproducible hang in napi_stop_kthread() when
-threaded NAPI is turned off while the NAPI instance is disabled. The
-sysfs writer holds the netdev instance lock while waiting, which can
-also block device recovery.
-
-The upstream patch does not apply cleanly because the adjacent per-CPU
-NAPI state is not present in 7.3.y. Place the new disabled state after
-the threaded busy-poll state; the functional changes are unchanged.
----
- include/linux/netdevice.h |  2 ++
- net/core/dev.c            | 15 +++++++++++++--
- 2 files changed, 15 insertions(+), 2 deletions(-)
-
-diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
-index 3e64af0b932d..02119fa153c9 100644
---- a/include/linux/netdevice.h
-+++ b/include/linux/netdevice.h
-@@ -433,6 +433,7 @@ enum {
- 	NAPI_STATE_SCHED_THREADED,	/* Napi is currently scheduled in threaded mode */
- 	NAPI_STATE_HAS_NOTIFIER,	/* Napi has an IRQ notifier */
- 	NAPI_STATE_THREADED_BUSY_POLL,	/* The threaded NAPI poller will busy poll */
-+	NAPI_STATE_DISABLED,		/* NAPI is disabled */
- };
- 
- enum {
-@@ -448,6 +449,7 @@ enum {
- 	NAPIF_STATE_SCHED_THREADED	= BIT(NAPI_STATE_SCHED_THREADED),
- 	NAPIF_STATE_HAS_NOTIFIER	= BIT(NAPI_STATE_HAS_NOTIFIER),
- 	NAPIF_STATE_THREADED_BUSY_POLL	= BIT(NAPI_STATE_THREADED_BUSY_POLL),
-+	NAPIF_STATE_DISABLED		= BIT(NAPI_STATE_DISABLED),
- };
- 
- enum gro_result {
-diff --git a/net/core/dev.c b/net/core/dev.c
-index cc7b32ab5608..0e0a11ba2ada 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -7264,6 +7264,13 @@ static void napi_stop_kthread(struct napi_struct *napi)
- {
- 	unsigned long val, new;
- 
-+	/* Instance is disabled, we can immediately stop the kthread */
-+	if (test_bit(NAPI_STATE_DISABLED, &napi->state)) {
-+		clear_bit(NAPI_STATE_THREADED, &napi->state);
-+		clear_bit(NAPI_STATE_THREADED_BUSY_POLL, &napi->state);
-+		goto stop;
-+	}
-+
- 	/* Wait until the napi STATE_THREADED is unset. */
- 	while (true) {
- 		val = READ_ONCE(napi->state);
-@@ -7294,6 +7301,7 @@ static void napi_stop_kthread(struct napi_struct *napi)
- 		msleep(20);
- 	}
- 
-+stop:
- 	kthread_stop(napi->thread);
- 	napi->thread = NULL;
- }
-@@ -7689,6 +7697,7 @@ void netif_napi_add_weight_locked(struct net_device *dev,
- 	napi->list_owner = -1;
- 	set_bit(NAPI_STATE_SCHED, &napi->state);
- 	set_bit(NAPI_STATE_NPSVC, &napi->state);
-+	set_bit(NAPI_STATE_DISABLED, &napi->state);
- 	netif_napi_dev_list_add(dev, napi);
- 
- 	/* default settings from sysfs are applied to all NAPIs. any per-NAPI
-@@ -7725,7 +7734,8 @@ void napi_disable_locked(struct napi_struct *n)
- 			val = READ_ONCE(n->state);
- 		}
- 
--		new = val | NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC;
-+		new = val | NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC |
-+		      NAPIF_STATE_DISABLED;
- 		new &= ~(NAPIF_STATE_THREADED |
- 			 NAPIF_STATE_THREADED_BUSY_POLL |
- 			 NAPIF_STATE_PREFER_BUSY_POLL);
-@@ -7770,7 +7780,8 @@ void napi_enable_locked(struct napi_struct *n)
- 	do {
- 		BUG_ON(!test_bit(NAPI_STATE_SCHED, &val));
- 
--		new = val & ~(NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC);
-+		new = val & ~(NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC |
-+			      NAPIF_STATE_DISABLED);
- 		if (n->dev->threaded && n->thread)
- 			new |= NAPIF_STATE_THREADED;
- 	} while (!try_cmpxchg(&n->state, &val, new));
-
----
-base-commit: 7595a62d45ee1a2297eafa5f2ef5d0a45142d84d
-change-id: 20261113-napi-disabled-backport-7-3-051408a00d4b
-
-Best regards,
---  
-Chris J Arges <carges@cloudflare.com>
-
+Joseph
