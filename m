@@ -1,100 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.181
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794561126;
-	b=S3rLBXmplWoBiil7n2WobFOjQN3Bswhf8HSvzsB2GLRq4HZIxNYGAlJ92VM2SVPKHJ9Y
-	 y/5U6Co3FK/l1R7/e42vHslDxcs+nSfzJHsGupABeQWQSiLgzs9sw5RzBb84oVvrIkIVV
-	 rgCH3EN4zN3/zRWnZgCSX4tvO/MD5aIf80aqv3QaMlvZAKBOy1DcbxAYD2UH6lx4Jiv0/
-	 ZRb9c94bhNUcMv0q8PWbxmqtvGc7cNOhsTwmLDgZqfgba4qAQJTb1wzJuhZwHuMR0Ak63
-	 P8Jj+iIqQTi1DN7oBRdrOeNPsfDL5biTHyCIDzsyZ5zocMnDmULH4nsmkbn9R2++iVQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	b=lUUr6kCvmxFx5h6yKHuFkoE671uGzCB+13xrMTTYToihEYnObDGVNNZ0lYOlFpGDOSvG
+	 OjtzS1QEmva5B7Qirj4fS/Qc/LSiajRxRNC2JPe+7nCP54acEu5CqGqKpOh2+eoCgIrwx
+	 Ww/PTGvEhKBTQDw2h+SjG1WTjE7kvOVbfZahwjhUc33Bv6fWMZHIR8E/b2j1rKs/0FjbM
+	 WcV2DeKS+P85xkGoVhf3XXWwD4xXsHTWPQmYNy2l35CEOt4Ctat1lQ7orRiFoswkli70y
+	 KDYf07VKvVlpS/jRsge6F7xUkdf5/FZKBszfay0BQFMaUz1XKfMrn7KWjRmgjCI0Vvg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794561126;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=v5gqBDg935eg42BKTNthAwXGtYU9Tyqsel5+SHSd64Y=;
-	b=umAgSEJcUrXIHkTJ2ZrVx8zAOow9Ct0wY4VxYwjSvNecnFXMbCKNAYh5KuY2gvjk1lsU
-	 y2NjMA8G4vOBd+hvpJdAgVjM7kgPCXQLw9gEPRN43x2KQCdiGh7ExDj3deoS+sMNlODP5
-	 0KkRPg3CeNkcH84dBFnWmkFURA/H/7lGcSGe1q4yXNwiDYpynRPwlMYtM9NyolBAxq4h/
-	 bsCJJ3vMbpW83liDOk4safMyLvv6nsI59RtkpK03CM+PaG1bmZYcX82Jp/IgOFVKxRu8B
-	 dChGU8j47KrkGLQC4g5oEtxhJX1kFAiI44v4zeR8XA8U/RfE9etw+i2xy7wqKePwzoQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=C96Chts3;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.181
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=l9qjP3EolVZNhFJ6yU6oKwddBCb6NF0vJywntTMZ9kE=;
+	b=MAhIsnAQV4WzGaQlhtjRbleAN3QWXUJhSAr6wc0E/I7jkfzWCqwwYxIbQYQXB1CmcrLQ
+	 1wbq09T7lvj3sUkolJwK6UshlxfWZ4DzyFb6XXtwT4zPjpo0FV41pAyN6GOuYgja5WEZg
+	 PhozU0Auo3XzmJx4cdOWEfiWxywUwXk7yZkmUfJZGNY4SRB8lVU8FECsl6J1Hpd8YUaK8
+	 grBUPbCo06yf8ieiiI9BNGVMXc/OruidAAGwlv45HARArvFc6vJSvHAVEu3P7D4LEogdb
+	 LTSSDHkGv6Hbd6sJjXAirSlwQq8Z4Jq0DLjLuCY3ObS0beezPQD4TuKjDr4geHNcKow==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BNO7ydKl;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=m1IRPWOd;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE64B606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 873F2606A321
 	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:12:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE64B606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 873F2606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=C96Chts3
-Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-8b3541bb1a2so3778757b3.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 01:12:05 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794561125; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QS1SWn5K977C+7ZRJM0B71/Fl6i67ufLVzMOx2tCx++XPJ4LEEac5TDvunICpsD9Lu
-         zbzn4bW76i/M1/vi7c9R1trmyu9QlrVCCZPHIUuNIj2R8AaU3sDogTkVQ+iyqWDo0KqR
-         kvnVPVNwzeWHRy9ki1OJirt9zFvJnODNff68SOluasc1yTsBcLJWPtUa6JW50sln3jTp
-         pHCuB3+Swz4wrhq2aNDUB8/QSIF9TbOfKDyIEvGfz/W5GiDN0YnDDWF4tLfuo0cCATKx
-         K89fR03q0Fw8ebFEERDnQEZ7Vz+cGtsy3LHoqo6WFI953sykOhpYu7d48Lqu7GgjUhVv
-         J6Qw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=v5gqBDg935eg42BKTNthAwXGtYU9Tyqsel5+SHSd64Y=;
-        fh=zdlmbKxiFRlMRzWpIN7CSnAsgSV+dL54zG/BSvsy8E4=;
-        b=AJKeVK9PfVI7ee2QQhAp1WBnDu9pOoUCf+mPJlZTlHAyYRuRJepCEy1ptorxactC46
-         aQr7UR96XNiV8qEqcRi/OyEERqWkQ9NNx3jfIGja/uhHRaTQYi95PZpzsaF7SpYf6R35
-         MJ2pcnl4gCMbx+W2Iix3PzDVVRfhxsF7VFS5RB0LIMLF5G4BXpIG/j7zTJmFi1wvC7+z
-         2OHbIS/ur2ic5Sora9Gl38M2t+wzD/MzpFgH4fthJGzxGYfRb8J46GspPNht5R+2ka58
-         K3Iakcy/ImXO1xFTTG7vQSRZEQAkzLCk0r7nRRNr6egK1CRua6zMzjVrDaze6xvAx8OJ
-         pE2Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BNO7ydKl;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=m1IRPWOd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794561124;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=l9qjP3EolVZNhFJ6yU6oKwddBCb6NF0vJywntTMZ9kE=;
+	b=BNO7ydKluzj0KaqHChouMGNCurnLkVOAcLpNXQ9DJreGYTbTKihD6BgadXTLmGvbk7rXch
+	BdDSHsLjlwJvelAATau584bb2bb3wlpP72FTpnTkaHKwSFEjcuUsOJjAQyxshvmEvXIGwU
+	SaqUe9YEe+oVQGB8jD62Jc4SXh67wvA=
+Received: from mail-lj1-f198.google.com (mail-lj1-f198.google.com
+ [209.85.208.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-685-TXoTG_MyNKuR5uS_uUiF4Q-1; Fri, 13 Nov 2026 04:12:01 -0500
+X-MC-Unique: TXoTG_MyNKuR5uS_uUiF4Q-1
+X-Mimecast-MFC-AGG-ID: TXoTG_MyNKuR5uS_uUiF4Q_1794561120
+Received: by mail-lj1-f198.google.com with SMTP id 38308e7fff4ca-3acb2e2030fso4733791fa.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 01:12:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794561125; x=1795165925; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=redhat.com; s=google; t=1794561120; x=1795165920; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=v5gqBDg935eg42BKTNthAwXGtYU9Tyqsel5+SHSd64Y=;
-        b=C96Chts3i/OWVIujpj1h/wNwru18MBGAUS4D3uZ03d3Pf4xUY68d92y6Op5UoH1whG
-         SypeqM4VCje7buJA4HMnMQFIzENIxFLowPVhtCbKbEczJNeBvifMWgCfJmesMe2IeS5A
-         dHOf0Sm6+TDds8CAypFgeb8q27ZwKS7fTj1Tcuf6ekg4DXdj3NL7vqihQHConPH9+HMx
-         pVz6WIsmXxWWJyt4HQGzbmiI6QnN97cU2pdHQiUzSAI2yf08DmSW8mJJ2yrG77lFyMWn
-         ToNPjunfkfVGOYqhakoYrhEbS5OzW9UO0jK1eZVxGEYc4fNFPrYnakZNMjcE4xqYmRGS
-         apBg==
+        bh=l9qjP3EolVZNhFJ6yU6oKwddBCb6NF0vJywntTMZ9kE=;
+        b=m1IRPWOdMELHP5jUbm8U7jjjWRkS/bWo8RN2u57RJgwgVHGLqXcxKr8U/BS7T3ja7K
+         SjSy6H9qHNXGXKWiYaS9pDJ4+w8/Nm3+ybeqn3QG81NcF1TIBTklALkWFo0bTFC4pHWD
+         vpT4JqMZOOkws81uKsj1B2qx9qRat//4G+K+h3YdQuvXs/JGA5+JllkS+mVKnX8d8hp2
+         POxK775+zMbFSokp9qRgJgotkEb55dNvBE4tIIIP2s7opVFaham7KSkZEcdYDgMVu/DO
+         IMJI+j5oxqlFa+AS9C7qISYUTf7iltunZVhiwzs0fTsTfb2bkqfsZX5E9u4zjMVu/ycl
+         sUwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794561125; x=1795165925;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=v5gqBDg935eg42BKTNthAwXGtYU9Tyqsel5+SHSd64Y=;
-        b=BkZ05zOcX3E7vWXEH52CmgB0n3ND1roMvUrYzwGJGXzky81EZaplhHiotiKvhXYBk5
-         wGkDf64fYyLOg+m7akdR6kLyrWQBJlS7HfWp3jzLMjFTGT7LSFTokV1SirMdbb05Xc0b
-         1Jc64UZE+hUQ6bu0vFfUvzwPUiQQOaw7OqOGb3QtU6j3GEKRiFj9Fi4FDYypSJWZpSYD
-         /ELaYR2BJx/ynsEgCgJva+ZdVWzmqCrO/DF9XKPMtYq3gKlozJMGrH5nAaDgd3Ps/MfO
-         iTuxOs9VNOLgEiD3joWNfIiVzRYia6UAI3bUm0e4X70fpeQ6LYcmqmUPM+2ioXjwtF8D
-         vOqw==
-X-Forwarded-Encrypted: i=1; AL+hErEL/+K6TowHERCI5NGQ69Cn4F/5lp2rOQ3WrLmPYSWE6393WpzmwkfKRkVPIfSXExIU1TE+Lfay1t9gOAk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9cxLWoyBbVQ6YWLLd1FUxRtpDQVg8ZyND5+Ban9/FiXdGTma9w
-	1ux7Wa1BP7wcuxnUu7mLL/477JOpLBCyHDlYWE2Ue66eJn9gmXXgP7CTiEXH2XfgFgBcJBycN7l
-	MfEO26lQ0nMxO8PjtheUelK3oMTR0ZuMudK2jEOA9
-X-Gm-Gg: AYBFou1Uy3BzzlpiFcjjv97KsRDIlnnitQcxNM8jShopxXFO0jYkCdxSRc3xowBcSmH
-	NX/5sn/qQbBg4ISG1vJv8bUGX0XPUSQy0o6OLrH4NZHm9bEs1+jCQrXJR0zB3BnX2tJuqDfNAGE
-	T9FjpYVZxoAoZAzYAV5GozwN97mygQXyxnOMW5kAaEX8YcWfeaYIy3QhF45B38u9CJQhRHBuClE
-	1VlIpciK4OcMbMuOPoqn/Pq42YaHe++ptY6FvQPeG764SWUB+rvKPLy7IXD/qtoYRT74DAaw9RM
-	EfcslpoJj1Jo+4umBDp3BwbYgzkJB/DmBbFSiJZU8/vls+84rprZkNJseSZwxMJabvsUfZi0NMb
-	tP68ZxH6fkDVkWHrvAbCWXuwSBVYfaorE5Gcn85DrwTayS3vwgOMnaFko/A5qnuqFAzDBaGPxnl
-	OC1XJfrqc6zFyRdw==
-X-Received: by 2002:a05:690c:660d:b0:8b0:76e5:ed0c with SMTP id
- 00721157ae682-8b4aa2d58efmr11000507b3.39.1794561124153; Fri, 13 Nov 2026
- 01:12:04 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794561120; x=1795165920;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=l9qjP3EolVZNhFJ6yU6oKwddBCb6NF0vJywntTMZ9kE=;
+        b=ZeBluEKEbFj9J+pMd2SB59pqs4v8WN9B2cz+rE1oT6kHti2si3s9RJC38386gJElF/
+         4ap/5EcsPIRr5+odWdZBXKz+Baf1d7+DmrgYvQ/ZPH0MdqjGWYRCjFgeOvh1b6IUjXfO
+         B+lu14N9jC2oq4RgmqnDNiD99dROu0bS3a7ha/WTJOIm0BRTA8cBGI9crSvzwjpGvVTt
+         xisvZ890YDkelS5F3XhAS8Q8+wrMBIzNkR9cMU8Tn0dlzd973e/P7tf0cK32bJyBHNE4
+         qcG0ZrvhJ6GhiQRryszKdML6cdRYVfBuXEFeEO8Fo6194NS4QpPbpMcsguhfhgIV+bll
+         TVCg==
+X-Forwarded-Encrypted: i=1; AL+hErEbg4old7dy9MnpkJDCMYu5Lw7tvh9Izk0Uzrb4D6QU1+Efe5SgkhFE8L+ZQvw+Vuzgydx4Vy0mgx1DxUY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8My4LbMF6x9v0/6qn+TiqOq2dz4XCHdX4g4meMc0E1NSibL1IF
+	4EMH4h9g+RLeZYlxxZ45nkzQMzfzL3I+og1fL81WFnDWjoNrQ8Dq1121ki4LKU3L+nxKqvE0DTB
+	yT3wRl/GvXRbDvhdUHwoTyKrsBWuVxiCd7TCVN9EEosMz2cPwqsGuBrlDoJEbt6+0
+X-Gm-Gg: AYBFou0RO353gXOZ3W06FredbcjrDDkYxlQZ2oucvswtIBtKVDVk1bmTjTxXzExTJ7b
+	oEUKA7sJeuwd8orDCLBg+DEdxxnwRQa361s3mxvm84+zhSRTlqXDqufYsU68cyeyuDIKjK4ci7E
+	1aejfEjpzwXCv5wVSAqZesAIjedDqbFcBu1CsaKowCJX91rsCGyGKzM1NfFVHQr0XXxJU7yp9NJ
+	TAiU+OKvw+EpgzLKaFzmeGANBJ7xI/1Ige0+a88E2rdPD1wwe4jP8aR6y8j9hDvGMvvV1WsTgQ4
+	5VpVEU43opf7uiQcGzg1jXXE8RVXTZDQcfbYi9x67TGzLF0vlGU2q+mqHWdHJJSKIEgOs4+67jg
+	D9UAGZlkjUGPCrrqSSJd1uEavtO9nu4uIOZjljmDmDfK2mT8S7OHHYINaeuMx9xNFiPI4ylYoMC
+	mve8SQ
+X-Received: by 2002:a05:651c:a347:b0:3ad:f8cc:390 with SMTP id 38308e7fff4ca-3ae2b4bc3f1mr7065981fa.11.1794561120258;
+        Fri, 13 Nov 2026 01:12:00 -0800 (PST)
+X-Received: by 2002:a05:651c:a347:b0:3ad:f8cc:390 with SMTP id 38308e7fff4ca-3ae2b4bc3f1mr7065831fa.11.1794561119826;
+        Fri, 13 Nov 2026 01:11:59 -0800 (PST)
+Received: from [192.168.1.86] (89-27-86-246.bb.dnainternet.fi. [89.27.86.246])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ae2b76a91fsm6490801fa.8.2026.11.13.01.11.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 13 Nov 2026 01:11:58 -0800 (PST)
+Message-ID: <2ad4f730-0656-4b2e-8cbb-4aaae44de1cd@redhat.com>
+Date: Fri, 13 Nov 2026 11:11:57 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,45 +112,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1793654853.git.bvanassche@acm.org> <avROwpyToVNLOolq@elver.google.com>
- <40be79da-af73-480e-b3e0-155173f3ad28@acm.org> <CANpmjNO51WYife2NhvS08n2En0WjP+XOzD9Mtjsj_Hc=_nw0Qw@mail.gmail.com>
- <c4f5a8b7-340f-4bba-b874-8956215a9c1b@acm.org>
-In-Reply-To: <c4f5a8b7-340f-4bba-b874-8956215a9c1b@acm.org>
-From: Marco Elver <elver@google.com>
-Date: Fri, 13 Nov 2026 10:11:26 +0100
-X-Gm-Features: AclHuK9MK14lLJwmRprZnLYXL-IMiledw_38A7zwKrVVFhtF5QoU8venT_hQpkg
-Message-ID: <CANpmjNNM=qBJMvBkRu-WbhKA0hnkb_Bk8fyF9DTTsVmENDvZuQ@mail.gmail.com>
-Subject: Re: [PATCH 00/14] Stop lockdep_assert_held*() from assuming lock ownership
-To: Bart Van Assche <bvanassche@acm.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>, Waiman Long <longman@redhat.com>, 
-	linux-kernel@vger.kernel.org, "Paul E . McKenney" <paulmck@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v17 00/12] migrate on fault for device pages
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Jason Gunthorpe <jgg@nvidia.com>,
+ Alexandru Elisei <alexandru.elisei@arm.com>, linux-mm@kvack.org,
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, David Hildenbrand <david@kernel.org>,
+ Leon Romanovsky <leonro@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Balbir Singh <balbirs@nvidia.com>, Zi Yan <ziy@nvidia.com>,
+ Matthew Brost <matthew.brost@intel.com>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@suse.cz>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@kernel.org>
+References: <20261103061629.972669-1-mpenttil@redhat.com>
+ <avWpWBl1nPcRVmpQ@raptor> <79f33ab0-2e43-4efb-94d0-addaf40745ec@redhat.com>
+ <avXoJSGh5xjGFgod@raptor> <20261112164752.GA3692174@nvidia.com>
+ <ec4431f1-e70d-477c-b09a-eedc35d97691@redhat.com>
+ <20261112162738.d689b46268e077ac06f41d91@linux-foundation.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Mika_Penttil=C3=A4?= <mpenttil@redhat.com>
+In-Reply-To: <20261112162738.d689b46268e077ac06f41d91@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, 11 Nov 2026 at 22:05, Bart Van Assche <bvanassche@acm.org> wrote:
+On 11/13/26 02:27, Andrew Morton wrote:
+
+> On Thu, 12 Nov 2026 19:01:58 +0200 Mika Penttilä <mpenttil@redhat.com> wrote:
 >
-> On 11/11/26 11:14 AM, Marco Elver wrote:
-> > The point was that the Coccinelle script could be used to add those
-> > annotations tree-wide. We do not need to make the lockdep API worse,
-> > if the legacy-code problem is solved another way.
+>> On 11/12/26 18:47, Jason Gunthorpe wrote:
+>>> On Thu, Nov 12, 2026 at 04:24:05PM +0000, Alexandru Elisei wrote:
+>>>> Hi Mika,
+>>>>
+>>>> On Thu, Nov 12, 2026 at 04:00:09PM +0200, Mika Penttilä wrote:
+>>>>> Hi Alexandru!
+>>>>>
+>>>>> On 11/12/26 13:56, Alexandru Elisei wrote:
+>>>>>> Hi Mika,
+>>>>>>
+>>>>>> I want to help getting this series merged, and I've been familiarizing myself
+>>>>>> with hmm and device migration, please bare with me if the questions I'm asking
+>>>>>> are obvious or downright silly.
+>>>>> Thanks for the interest and willing to help! I am preparing a v18 of the
+>>>>> series and plan to post it early next week.
+>>>> The series is big, and as far as I can tell the MM people are hard at work
+>>>> reviewing bug fixes. It might be better to wait a while, to give people a
+>>>> chance to have a look? I know that if I see a series being reposted often,
+>>>> I am less inclined to review the patches since probably a new iteration
+>>>> will be posted soon. But I can only speak for myself, you know best.
+>>> It is at v17 and it is still getting high severity sashiko errors
+>> v14 was first that sashiko managed to review. There was a regression in
+>> last posting, but also false potsitives, and sashiko reports same issue
+>> then 3-4 times, so the reality is not that bad. 
+> Pining for the days when all we had to deal with was checkpatch.  
+
+Yeah.. running sashiko locally now. Interesting enough, refactoring the
+series (end result being the same) made most of the "high errors" disappear.
+
+
+> Mika, afaict the entire patchset is a performance optimization, yet you
+> say "I don't have a benchmark showing a gain".
+
+No not a performance optimization as is, in the latest cover I explain it:
+
+"The main goal of this patchset is to provide a new feature,
+migrate efficiently on fault, and not directly improve performance
+of current migrate_vma_setup() (which is now routed thru
+hmm_range_fault()) callers."
+
+The "efficiently" is wrong word, I should say "in one walk".  In the
+beginning of the cover, I explain the benefits of having one walk. Also,
+I think it is sensible to have one implementation for it in HMM, instead
+of each driver trying to do something similar.
+
+We don't currently have in kernel the capability to do migrate on fault
+in one walk, so I can't show a performance gain with a simple apples to
+apples test.
+
+Also :
+
+"the selftests show that there is at least no regression for
+current migrate_vma_setup() callers."
+
+So the test is to show there is no regression still for current callers
+(X86-64), not to show if there would be gains.
+
 >
-> Coccinelle is way too slow to be run every time the kernel is built
-> and hence is impractical for implementing compile-time checks. I'm
-> not claiming that what I'm proposing is ideal but the approach I'm
+> Recipients look at patchsets wondering "why should I spend time on
+> this", especially in these times.  It's best to answer this question
+> right there in the first sentence of the [0/N].  That means numbers,
+> and the better they are, the more attention the patchset will get.
+>
+>>  Documentation/mm/hmm.rst               |   45 +
+>>  drivers/gpu/drm/nouveau/nouveau_dmem.c |  402 ++++++++-
+>>  drivers/gpu/drm/nouveau/nouveau_dmem.h |   12 +
+>>  drivers/gpu/drm/nouveau/nouveau_svm.c  |  155 ++--
+>>  drivers/gpu/drm/nouveau/nouveau_svm.h  |    5 +
+>>  include/linux/hmm.h                    |   51 +-
+>>  include/linux/migrate.h                |   59 +-
+>>  lib/test_hmm.c                         |  174 +++-
+>>  lib/test_hmm_uapi.h                    |   21 +-
+>>  mm/Kconfig                             |    1 +
+>>  mm/hmm.c                               | 1075 ++++++++++++++++++++++--
+>>  mm/migrate_device.c                    |  618 +++-----------
+>>  tools/testing/selftests/mm/hmm-tests.c |   56 ++
+>>  13 files changed, 1984 insertions(+), 690 deletions(-)
+> also, yikes!
 
-Making global kernel APIs non-ideal has generally been rejected,
-because it's a long-term global change and rolling it back is very
-hard. I see the 2 paths as:
+Yeah, the nouveau made the numbers bigger - but we have a real user!
 
-1. more checking and coverage *right now*; worse API *long-term*;
-2. less checking and coverage *right now*; better API kept, and more
-checking and coverage *long-term* through the Coccinelle script.
+--Mika
 
-> proposing ensures that all lock context checking happens at build time
-> and doesn't increase the build time noticeably.
 
-I think it's as simple as running the Coccinelle script, applying the
-__must_hold* annotations that fall out of it globally, and we're done.
-In a few months we can run it again and see what else has appeared,
-but we should converge to 99% functions properly annotated and can
-move on.
