@@ -1,86 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794531347;
-	b=TWzFX2Ggr8LNU7mMqcBBEBjgOZ5+kJKxGeiHQXP6/1985ZX01fSQeibuA/XucBrhgrko
-	 C6qqEIYw30M0WsvcCgYvG5BHWYoU/oqpUpEyP4ZDEh/8dLlWkO4K4h1yPwpW81e+AYGY8
-	 L94YkK5afzQ95nDrTxFjvVURVuhxqL2IrqACt2y2lcWuQE22iG7mU5MLMsEdabaznXZDI
-	 BKEEwKQBXE0LJTQcKlRGiQVxAY5rOlaD3maMuQLk9nZmtJDhTnjJG6CJNO77rW6c1DNxq
-	 pTsQq8IZoaTl47fF3sP6hpQqnO6pS7nmVVzX6TY1r2DS0v4DK+Wn8wn3DmNsthILa6Q==
+	t=1794531384;
+	b=4NdKfWCbcypyFvNzc6nJtgr5Ej2nFF9Q6MQpYOfkFT6lL6qb9fwmQlcQlvkh9ifH4Fv+
+	 z1AFYbvTtz/C9r+pCr+kS13NBmjBfy0NX2xNXEg/XG/RanqtN05CBjIaPW98xqZ5ob6ML
+	 qColrTv2qIb3DUjUocCwoVuN+WOYnyzHYHmwLd0VRH0RyWA3NSTFRUUYSYDcYMkkOTVu/
+	 2n2Fd4X4rFV/8/T0GP6wk5fXTek8D9ozfNuhjXbY8X6DaNdEiYTMRL5mRdsSIVlxmeUD/
+	 q4HLmlT78gxqFwtiYTcUhiJuCSVqKE0bW4g1cNrgHeejQrCSfL3dFTXWtyAMmVQ8Dng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794531347;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794531384;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=jcVy99/4546IpPlUV+chsxZxg6fKFHtjcBIv8IBgnDA=;
-	b=HjpuWhbHAxk0nyjXK3dZckZE8APkGs/2RZ9dVBn5YslCkaBihueg5st/ebEx1J/lP0hy
-	 3Xu5mKPlKlkJvPIjjd4+n4UhJUZAyY+ZcveERxiOGhtvvASt/gyCfPL0prKQzSFDdgi4q
-	 DwTiWug9qkPPRM5Q73pibZdz7WPLDTkAUfUvuA2ljNw1BkdlldmbOIPtreXC8n+Bk0ijQ
-	 EzqhPLgH2YkxwB5hQ7aewrpn6NvNd5FO0GaXLx41Bp6vcKvlDd/WK0BuM5EcfYMncAZPT
-	 LL1t9C2Xs1BjdEFGFu5bmAUEClZY4jSO+qUWLlQVUMr2jG2dJJEkwxro9XmcXXOxvwg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=CtRGBfCvPjk6NMUwk6EELxmj4aN2F/fvH5mMHwm0bys=;
+	b=G1A4zKS77dEM6A+V15lURus8XQjGHAdTZbzbCtrkQktWqHuPU4xRw5FmiUb8sqGo/9dl
+	 t8+IdBgNkYqPn9uteir/smTqdphFjI27hGKOnngIkI3Z1KszwnElFwescL8dgI1ICGKLx
+	 ybFyTFrhNanZ33ZDzwi3Q/OwLxLSvCXjKRjN2bnTwMoxgTSE64sK73VK/oZrx8Lle/deY
+	 b0pe3Zs6VTlnxi5XlJhK6mH2AcEnzW/+fKrGpsI9TsRRLUDuOd3VhW9HcED5U5Ua/k6+P
+	 uzItHfGHY2cKkhstwNczvrWOxOUpL3RX+PI8W56SG7jxAUfdg8MmvoP6TGqVj8OiEOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=lbX7Xkre;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jU4YwV6e;
+	arc=none smtp.remote-ip=209.85.216.46
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28BE5606A323
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:55:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28BE5606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62754606A32A
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:56:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62754606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=lbX7Xkre
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-491846221ffso326580f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:55:41 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jU4YwV6e
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3b1535be329so354831a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 16:56:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794531340; x=1795136140; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jcVy99/4546IpPlUV+chsxZxg6fKFHtjcBIv8IBgnDA=;
-        b=lbX7XkreAKRNKOu5bAAr78H5T54rlJTQ+uR1EUX5bsk5/uqD3MSuwb5tv4C5IgnNeB
-         /xFLviFjffv29Y4A6i4p9ESY3p//U32kUVrP6/heuTyMixYJ+MTCgu7Xc+gRySu5Iity
-         +vYENv1ugwa8Map53en9lcSuS7np9EDqY4nA3rVGk4qxz5H/P5miXu22NmtXXHrLoqm+
-         fWQwyl9ni4L6I8m1pxTTqBFC3p2JqByRwHUEIFNy8KUfRJrD55J/wN7a0ZWJ5SX+HWxA
-         AcSij5PmZOQdzDGw/IV4F27lA7imS+nAbkzEIBaCqJRoHgzTGIjPHpUxDWDzNfFNRWxo
-         zABw==
+        d=gmail.com; s=20260707; t=1794531383; x=1795136183; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CtRGBfCvPjk6NMUwk6EELxmj4aN2F/fvH5mMHwm0bys=;
+        b=jU4YwV6etKf8umE12U/D8ulvXvMFFk+wVQjTZKhg8yB4tuEr3cGD/RHs+s18XN4nyu
+         UXTkAeqNrsRPCSx3BsOQeMLuDMG6sfaH8eC6QKINMRcr1epCtDlf7GvhmxBIsXHzTk9+
+         tImPdyFkqB+PRDhwRTRqFlS90dCTQVr+Wnwa7aHZeyQNlf308fXtlTo6nPOHJXBDjEet
+         WVz/KepZuzbdjes+qitSxLKPRufrachLMbALur0VTLDmuS2wrvvJQEgyE3ISSPHjUow2
+         r93LC7GxvaRl4LiLzmwAdutBqGLclM8zhIIdfxdKbg2Rsyx0me4Jh/Mk761IQ+VxPknj
+         BbmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794531340; x=1795136140;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jcVy99/4546IpPlUV+chsxZxg6fKFHtjcBIv8IBgnDA=;
-        b=t6pXZ3x3MkM18HXmKpMbn0da92cUFt/kDTb03P1VeXiRMhCqu6Fr/VbujqUV9uQ6Y0
-         3TnDqoUGdpqs5VZDHQkqmG1OYkuTQIWplWmmHl5mR8PUxnW7gd+Tw/l6CYJtYtkmLdGw
-         lYS2naJnMF9OGcO626LLaaqPbsTxM1onHIX5W6dy9XU+yQm8EJPG5/pQywgi1M/bIFK0
-         cVQ1KoYMg7ecAeC8CCGMIWYQd4W97vKoFOD5A8/FbjqnjG5zzK3whL44PBBLni4kWjcV
-         M+3IHAJ6b1IY01APu2jVzMAcbgmdLVkS1rlHdIsi+yf0Pk8UkaMVd81jwOyGpZ2L2VBu
-         mD1g==
-X-Forwarded-Encrypted: i=1; AL+hErGetcZgem2SmKT7V0jGID9RP59aCy5PxxV7zp9Hcw3zE6w+U+EgkXjY0LZEci9IQWYwXBC6XvcDHuvZRDM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Gy9NHs80gVsuD360rurvL+9l+SEatYwiZhAHfuMfuTvk8RgZY
-	nY6PmnvraDG4qSdKWJLFxdIjqmD6bTNG00zdDWQcVvoIliqtCMLE5a0qa2An/8vxsnM=
-X-Gm-Gg: AYBFou2g6GBRH+d9RVY3NOaqmzqYBN59aUrMQMPA9e3CBmNZ2debnr9RhOQgzJlGZT/
-	otyaHYCRfgRjW2K6/DdgUNlN8xn/gO/SBjQsLAAtUTjlEXY1kFoCKED1tXxwGOXsWDENLUrrdjP
-	MFgvSK5Xwur9xsDQ5P4bGVMbyjwHqOAfWi0p3PBYSi8ObL8HgO7F1Ohlm/JC5l1f7uEqzjKKKIE
-	C3dKiKjm7e880UvDUPHbGxAa+xxO9utVLcgxImahH8nXvB0+zftai/bMnJuDVW7tRhAXbQbcF88
-	uQ0kXDh3CVLCWrmfCMT69hAx6wPgd9bnNTQZOnf0bFgppenhbDByw2n19lddHXUeKK1fiyHxuOZ
-	+xqTjOAwJydmpcZK3phF4SkflNSqECojQezAtqJVpf1qlGlhcxxCXm0qtiMG0jQG2A5tz5u2hvJ
-	qX6s3yAUvhZB1dHBlLTkfNvTYNefr9kyvI5tJW1GbzNruF9OuJz2M3HO1Vn7mP1MZTMWtSwuZgR
-	PaAfRDxEeeyqZl0Uj8slk8z7AKGvr9SwTzN0xSajuIGPNXhscV4qoOZvpSikS8YmIr9/qVQyob5
-	wsSEDRoEOVALzN7gneXI2mDnXt8boVB9SuZAYHSPSw==
-X-Received: by 2002:a05:6000:29d3:b0:48e:6a23:4a09 with SMTP id ffacd0b85a97d-49c731641bamr1485962f8f.54.1794531340462;
-        Thu, 12 Nov 2026 16:55:40 -0800 (PST)
-Received: from [192.168.0.167] ([109.78.26.158])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c60f8e794sm2106178f8f.59.2026.11.12.16.55.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 12 Nov 2026 16:55:39 -0800 (PST)
-Message-ID: <c5444a64-ad14-403e-8453-0bb0a16dcfa8@linaro.org>
-Date: Fri, 13 Nov 2026 00:55:37 +0000
+        d=1e100.net; s=20260707; t=1794531383; x=1795136183;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CtRGBfCvPjk6NMUwk6EELxmj4aN2F/fvH5mMHwm0bys=;
+        b=qTB+FdPZB4ClUTF9fB066imUjsMoPePB1+GmDYj9dCxwMJRE3NPyHGvpNXo1O6idi4
+         8pfm7jddtw7BARum7JqAm2h5jQNhhb5KmR3ShZ/GACWWjQLZcoo3LdUvU9HDqLS/o6nr
+         1pat+OQKU9HMe6izMJ8K8Aeim9RNiUuuMPBJhI7am3FJEWqCjrnF5pghtoYIN/US6OnF
+         zk2WFqU5YXGfVLcklDL+ZwWl6lclabdlAkb0AHgY7hKfx/0lRq5BI48j6nIgOIwLwysA
+         PeUGpb2OV3LsMCD1ik2mfnUfpFZA4CHWbssr0WJvrM0ZA1hUQ3YcXCPXYme71d3Rj7JK
+         1Q+g==
+X-Forwarded-Encrypted: i=1; AL+hErGmA5FB6c/OABDLDatVa1BpXEJZEvfztOOUPQ/4TrFWP0oeQK1UFy1FFE3EfPo69LyFgoNu4TVo2ZXyhKM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z806vIp2nPvWKBfzC0iz4LAuUqc5G8qlzK46JcXpwX32Ew/roBL
+	lieYcaAmGhONOidrK+xnHSMusqoAr1JxpKXAJlM+NIkH918lQBzXUQKV
+X-Gm-Gg: AYBFou0pj+3hA3RI4v/Eudrg/EMivtZRXx1wNn3LwwxfokbZsUbhKFubkx07s23syrC
+	szfOgVtxA77uskIv+ahp5wdwhmBSbWrHCImopVE0xZbW0y6au39NKFHOfyZvMKtOYrTRwAKdHcR
+	xQTTkMvmDHjqJwNisCdyN6Cz1vYY7FeITL4rfRJg8E9orN24IPGcz11FPrR2zuSUJ5W4UTPrMh9
+	8I33OAeX79ys2o/0mmSLIZfoMjBUxsNjeDwmOtwuR6I6yUYrtCh2YirJJM/kMxY2eqU+t69sixe
+	payvBX3dY+Mi92v3N7xig6/Fx6jMg01M+gAf1e//8NeLKOlnR3oynVTgzysdMm1eG76E9GDmXLC
+	+aOinLi17BhGHHa5oju/RQ1CmqQadvNMDplJljF+wAhwg9R6gTpW02XWYGqVzurJyIA4li+FO3E
+	5ckewUNCHnWl2qRVxqG4NFsugqwC4cdzNwzw+bdhNjPTUYKCuRGpLrzLrbDt1Q733Bv0RULGaFu
+	++CaX/cEWxl8N7Hv4X3r6YEMKhCVnQ5SRD5tkSPKStxhcfB/GoL5eXZKVdJfYPr9OudVk5+gcys
+	s6MWiY2KtcqZaw1S/Q3WDpnHcB2piBxJxSvly9M0ensYItX3ehbg67o3ob4JaCNwzinSVSEEKNw
+	fVHhAd4O7KHd9+gUhVZ7IVKLU00J1JR8FmW5brLS6bjT13HCDZ7Irg2B7qUS5bsCtpb889/VF7a
+	DllQXvYZvQFcNLTMxZkChm9Q4YaxyyG+sKtg2CjmyZ2/fhtUGqbVb8Mc11yMIZ3zuClQKOQBFD8
+	GN63NVwB0jhSiOnS1U3NBri
+X-Received: by 2002:a17:90a:d883:b0:3a4:b74a:795c with SMTP id 98e67ed59e1d1-3b1b09f3b50mr619305a91.16.1794531383375;
+        Thu, 12 Nov 2026 16:56:23 -0800 (PST)
+Received: from lenovo.localdomain (42-155-215-210.ipv4.nexon.net.au. [210.215.155.42])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f75c86asm2351735ad.23.2026.11.12.16.56.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 12 Nov 2026 16:56:22 -0800 (PST)
+From: Miro Kropacek <miro.kropacek@gmail.com>
+To: deller@gmx.de
+Cc: geert@linux-m68k.org,
+	schmitzmic@gmail.com,
+	lilinmao@kylinos.cn,
+	linux-fbdev@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-kernel@vger.kernel.org,
+	Miro Kropacek <miro.kropacek@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] fbdev: atafb: Restrict SuperVidel handling to the Falcon
+Date: Fri, 13 Nov 2026 10:56:16 +1000
+Message-ID: <20261113005616.402721-1-miro.kropacek@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,137 +105,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] media: qcom: iris: Wait for threaded IRQ
- completion during power-off
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Hungyu Lin <dennylin0707@gmail.com>,
- Stefan Schmidt <stefan.schmidt@linaro.org>,
- Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Joonhoe Kim <26rote@gmail.com>, Birk Skyum <birk.skyum@pm.me>
-References: <20261111-fix-disable-irq-safely-v2-0-8e13f68c2ef9@oss.qualcomm.com>
- <20261111-fix-disable-irq-safely-v2-2-8e13f68c2ef9@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20261111-fix-disable-irq-safely-v2-2-8e13f68c2ef9@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 11/11/2026 09:05, Vishnu Reddy wrote:
-> +void iris_acquire_core_lock(struct iris_core *core)
-> +{
-> +	mutex_lock(&core->lock);
-> +
-> +	while (READ_ONCE(core->irq_disabling)) {
-> +		mutex_unlock(&core->lock);
-> +		wait_event(core->irq_disable_waitqueue, !READ_ONCE(core->irq_disabling));
-> +		mutex_lock(&core->lock);
-> +	}
-> +}
-> +
+A framebuffer at 0xa0000000 or above is taken as being in SuperVidel
+RAM. A TT with a VME graphics card such as the Nova has its framebuffer
+there too, so in 8bpp it gets the Falcon palette registers instead of
+the card's VGA DAC, and in 8, 16 and 32bpp the SuperBlitter, which it
+does not have.
 
-> +static void iris_vpu_disable_irq(struct iris_core *core)
-> +{
-> +	WRITE_ONCE(core->irq_disabling, true);
-> +	mutex_unlock(&core->lock);
-> +	disable_irq(core->irq);
-> +	mutex_lock(&core->lock);
-> +	WRITE_ONCE(core->irq_disabling, false);
-> +	wake_up_all(&core->irq_disable_waitqueue);
-> +}
-> +
+The SuperVidel exists only for the Falcon, so check for the Falcon video
+hardware as well.
 
-Ouch, this is some mad amount of jumping through hoops.
-
-As General Pierre François Joseph Bosquet said of the Charge of the 
-Light Brigade in the Crimean war "C’est magnifique, mais ce n’est pas la 
-guerre" - It is magnificent, but it is not war.
-
-Why do we have to hold core->lock over iris_vpu_power_off() at all ?
-
-- What is the data-structure or
-- Logical state (the state variable I suspect)
-- Or guarantee of atomicity
-
-We are providing holding that lock ?
-
-These are pretty much rhetorical questions - the above locking scheme 
-can't be right. It implies we are doing something wrong and not really 
-fixing that wrong thing.
-
-Holding the lock across power_off() seems to be that wrong thing.
-
-disable_irq_nosync() seems to be a correct fix - so if our locking is so 
-muddled we have to go to the above - there better be a fully reasoned 
-and unavoidable reason why.
-
-Perhaps I'm being overly reductive here but - why not "just" refactor 
-the code so that the power-off comes after the piece held in the lock ?
-
-i.e. push that into a worker and then do a synchronous wait on the worker ?
-
-The chatbot told me I was wrong about the worker because "it would 
-deadlock" and I can't be bothered burning the tokens to tell it "I 
-didn't mean hold the lock in the worker"
-
-It did make the point that it thinks the only thing being protected by 
-the lock is
-
-intr_status = readl(core->reg_base + WRAPPER_INTR_STATUS);
-...
-writel(CLEAR_XTENSA2HOST_INTR, core->reg_base + CPU_CS_A2HSOFTINTCLR);
-
-Which venus does like this:
-
-static irqreturn_t venus_isr(struct venus_core *core)       /* 
-hfi_venus.c */
-{
-	status = readl(wrapper_base + WRAPPER_INTR_STATUS);
-	...
-	writel(1, cpu_cs_base + CPU_CS_A2HSOFTINTCLR);
-	return IRQ_WAKE_THREAD;
-}
-
-i.e. power off in the IRQ.
-
-Perhaps even simpler - just do the power-off directly outside of the 
-locked section... once the IRQ is quiescent ?
-
-Either way I don't think we have a good reason to hold this lock and can 
-certainly find a way not to hold it - assuming the only thing we care 
-about is kicking that register - do it in the IRQ why not else do a 
-worker with a rendezvous or even more straight forward.
-
-void iris_core_deinit(struct iris_core *core)
-{
-	bool power_off = false;
-	int ret;
-
-	ret = pm_runtime_resume_and_get(core->dev);
-
-	mutex_lock(&core->lock);
-	if (core->state != IRIS_CORE_DEINIT) {
-		iris_fw_unload(core);
-		power_off = !ret;
-		iris_hfi_queues_deinit(core);
-		core->state = IRIS_CORE_DEINIT;
-	}
-	mutex_unlock(&core->lock);
-
-	if (power_off)
-		iris_vpu_power_off(core); <- this ?
-
-	if (!ret)
-		pm_runtime_put_sync(core->dev);
-}
-
+Fixes: 51df976c3268 ("fbdev: atafb: Add support for further video bit depths on atafb:external")
+Fixes: d463633d63e6 ("fbdev: atafb: Add support for SuperVidel's SuperBlitter")
+Cc: stable@vger.kernel.org
+Reported-by: Christian Zietz <czietz@gmx.net>
+Signed-off-by: Miro Kropacek <miro.kropacek@gmail.com>
 ---
-bod
+ drivers/video/fbdev/atafb.c | 18 +++++++++++++-----
+ 1 file changed, 13 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/video/fbdev/atafb.c b/drivers/video/fbdev/atafb.c
+index c32576cb1720..5d9265caa9ab 100644
+--- a/drivers/video/fbdev/atafb.c
++++ b/drivers/video/fbdev/atafb.c
+@@ -2065,6 +2065,15 @@ static void st_ovsc_switch(void)
+ 
+ #ifdef ATAFB_EXT
+ 
++/*
++ * Only a Falcon can have a SuperVidel; a TT with a VME graphics card can
++ * have its framebuffer in the same address range.
++ */
++static bool ext_is_supervidel(void)
++{
++	return ATARIHW_PRESENT(VIDEL_SHIFTER) && external_addr >= 0xa0000000;
++}
++
+ static int ext_encode_fix(struct fb_fix_screeninfo *fix, struct atafb_par *par)
+ {
+ 	strcpy(fix->id, "Unknown Extern");
+@@ -2083,8 +2092,7 @@ static int ext_encode_fix(struct fb_fix_screeninfo *fix, struct atafb_par *par)
+ 		 * SuperVidel 8bpp chunky (fb in SV RAM) uses the Falcon palette
+ 		 */
+ 		int visual = (external_vgaiobase ||
+-			      (external_depth == 8 &&
+-			       external_addr >= 0xa0000000)) ?
++			      (external_depth == 8 && ext_is_supervidel())) ?
+ 					 FB_VISUAL_PSEUDOCOLOR :
+ 					 FB_VISUAL_STATIC_PSEUDOCOLOR;
+ 		switch (external_pmode) {
+@@ -2181,7 +2189,7 @@ static int ext_encode_var(struct fb_var_screeninfo *var, struct atafb_par *par)
+ 		var->transp.offset = 24;
+ 		var->transp.length = 8;
+ 	} else if (external_pmode == FB_TYPE_PACKED_PIXELS &&
+-		   external_depth == 8 && external_addr >= 0xa0000000) {
++		   external_depth == 8 && ext_is_supervidel()) {
+ 		/* SuperVidel 8bpp chunky: palette has 8 bits per channel.
+ 		 * Without this, fb_get_color_depth() sees length 0 and
+ 		 * fbcon falls back to its 2-color palette — the console
+@@ -2245,7 +2253,7 @@ static int ext_setcolreg(unsigned int regno, unsigned int red,
+ 		return 0;
+ 	}
+ 	if (external_pmode == FB_TYPE_PACKED_PIXELS && external_depth == 8 &&
+-	    external_addr >= 0xa0000000) {
++	    ext_is_supervidel()) {
+ 		/* SuperVidel native 8bpp chunky scans out via the Falcon
+ 		 * palette registers, honoring all 8 bits per channel
+ 		 */
+@@ -3336,7 +3344,7 @@ static int __init atafb_probe(struct platform_device *pdev)
+ 		memset (screen_base, 0, external_len);
+ 
+ 		/* framebuffer in SV RAM: enable the SuperBlitter */
+-		if (external_addr >= 0xa0000000 &&
++		if (ext_is_supervidel() &&
+ 		    ((external_pmode == FB_TYPE_PACKED_PIXELS &&
+ 		      external_depth == 8) ||
+ 		     (external_pmode == -1 &&
+-- 
+2.43.0
+
