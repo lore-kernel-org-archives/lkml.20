@@ -1,55 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794583945;
-	b=O+HHk+DfU0GuQZTRW2Fj+aG7/HLtTwOUS3Q93bTXIsdeeZX0uycJpyNKWEEYeyl5T99O
-	 oCyK7AU6kHLjRhlMYqzTvvAHHf5rpwxCfqSN9In4eMFeVzXPKHwHPuYkJtetm2Iq53khL
-	 fHmkQ8ZfYKAuNzOwkFmL9BE/9m7yhwkeriHuowPpEbUGC28jHvNY5S60JWedVdct6xjg0
-	 UJDMx0raMb0d4ioGFjGCNsu90jvi1Wsapp9GvTbUwIqZTrTYLAQWXsKWIx7pKEiUAqixp
-	 Sj4daxnaboSilTrbrJxdDTE8x0VmpBBa2gGdUmMR2GPK5epfuNRIjy7VkuT02MmQELw==
+	t=1794583953;
+	b=ukYi+swz0y00aE9WlrNTUvdg5szy5jcZ9LNwlCvlCzn7pgYnor4dRH6VB0n6E3vGCV/H
+	 o8fCsVBAdssa55CB5ji+TBFjSmhJgEHv0flEzkk/D5nvfnCnvK6sRjhd7f3iha0wNmphN
+	 l/MCLkmy6kzg67gU7fllzXJLfnYXtHDDm3ewKdJ22lx6ZzW4jpuvo374INacxPJwDpgWl
+	 Jg6oI1LyMA7SvjWvkIS0wnTsyuEw3jPCM7VNujwvD94M2zDCOt1MVgITPUAzLeGDdLlGO
+	 CeG47BESblMKKpQVRm3eGMJ0GNKAbbaydVi+FmGO01zCRjlyZroNaRW6DKPy7ygaR4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794583945;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794583953;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer;
-	bh=/iTXvqqf7shOJ6B0nPb93+NtEbE0DtMUlczEezHt9nQ=;
-	b=2m2Xofy9+fI0WVeEGFWQFNhuSjEQ5Yvpm+l/n/Iv1tfbIAnH6eUzxPI0p79RsNb55wvf
-	 lHCjEauxbPLJ4iinVMFvad+bsglvcYS+SQHer35nksTJlwYJdy2auqbI9k6KjOs9xYwGO
-	 vSTOeNUjBhoo2sa5z5PWLF5B2HzIXPqzQq40pm1fBPRwFWnO+WvaoIZY7EpRK0tUeAdJJ
-	 8BRp5QrrSMkh+XZqoSd7+GGH3DMYC4gQAZqGfBj/5IX17s2P4hU742sIsoHLCyCgC29zf
-	 ohgU1MKtxlMCcukmujR1Axl0BmZ6h60IZdxFCP8giceW5Ydw1COt+G+5R/rcy4X52pw==
+	bh=kbraa1Oo2k9WPuG5q/cG4uVfKcbAhsiQ3/8iHYpQje0=;
+	b=QPgAgrPy0f7y51DmQS4L4SP2i9OrdJA1HB+LHeMlZqDUdJNcWh8c0Hl4TPpD4w6AwpTR
+	 x6gyW2OgQsnI7Jl7SU3P1GvsrriGw4y7ad6yjJjOTjP9S/XcuTtolKqidajzSJGbZaX74
+	 Bd4RCILgqXydDLTSfgxq08zq8xuTUCsadipeBqjQDcnPZT6p3Wee+PbzZsC/Dt/bxlPCE
+	 roUE6UA9Cm7mkY+RTnOBgaBZ/+ighfKmLFpbNpjTHgSxkGmg3R0NGMZgg4AEXm52aFrx8
+	 czzyGnKTe62jCiFVGjNJmeTlcm1WmkBOcjCaQy8jwGcaHlcPgzxbdmf70aGX17R6rBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Viiy81Un;
-	arc=none smtp.remote-ip=91.218.175.70
-Received: from mta0.migadu.com (out-70.mta0.migadu.com [91.218.175.70])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mFTQVm7H;
+	arc=none smtp.remote-ip=95.215.58.39
+Received: from mta1.migadu.com (out-39.mta1.migadu.com [95.215.58.39])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35EBF606A336
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:32:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35EBF606A336
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8CF2606A331
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 15:32:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8CF2606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Viiy81Un
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mFTQVm7H
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Msfb0E+31WsQsXbg9uBbOzhcb5X+io24f0jMsqxOdIs=;
+DKIM-Signature: a=rsa-sha256; bh=wigmDGIoLzGp/BFVFhke9A8S5TPOzYnAbLU2MuAeWHQ=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794583943; v=1; x=1795188743;
- b=Viiy81Unb6Uxb6ZMlk9MmROa7FoU5kK6j7mALCUnByVJUfOUhfi5mTbsCLrcThYpRa5jw+Uu
- vlC5Fpehg3xv+FXL4n59ZJaKX2s2iJ2GmTTXgrxcHpwzyeJlvE0UjgSnDnW8kTu8MDhEqJYncmi
- rHSsfXEBcD+Nbxx2MxI/LQ8Y=
+ t=1794583950; v=1; x=1795188750;
+ b=mFTQVm7H0xDZOwVWUT4S4gqE09WKeqsJbQ3Q27SKAVyn2QUd4CICtMcOZxVl8psxvqVLyGfY
+ O+6Y24seSqDgCVdYL3tVg+j6qIpi4v68F8BSC2Z3dE8D/RTp6V33+NDjeTdqTR3qACsgM2/tHit
+ nUz5syV0bq3MiEQWzXnaB+fI=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 215f0f4793e4f09a;
-	Fri, 13 Nov 2026 15:32:23 +0000
-X-Mizu-Trace-ID: 215f0f4793e4f09a
+Received: by smtp.migadu.com with ESMTPS id 9770b19fa137c42b;
+	Fri, 13 Nov 2026 15:32:30 +0000
+X-Mizu-Trace-ID: 9770b19fa137c42b
 X-Migadu-Flow: FLOW_OUT
 From: Peng Fan <peng.fan@linux.dev>
-Date: Fri, 13 Nov 2026 23:31:53 +0800
-Subject: [PATCH v2 05/10] regmap: factor out regmap_set_lock()
+Date: Fri, 13 Nov 2026 23:31:55 +0800
+Subject: [PATCH v2 07/10] regmap: factor out format initialisation into
+ helpers
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,7 +62,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-regmap-improve-v2-5-5dfd6a89078f@nxp.com>
+Message-Id: <20261113-regmap-improve-v2-7-5dfd6a89078f@nxp.com>
 References: <20261113-regmap-improve-v2-0-5dfd6a89078f@nxp.com>
 In-Reply-To: <20261113-regmap-improve-v2-0-5dfd6a89078f@nxp.com>
 To: Mark Brown <broonie@kernel.org>, 
@@ -75,195 +76,481 @@ X-Mailer: b4 0.14.3
 
 From: Peng Fan <peng.fan@nxp.com>
 
-The locking scheme selection in __regmap_init() is a self contained
-~60 line if/else ladder covering six cases: locking disabled, caller
-supplied callbacks, hardware spinlock, raw spinlock, spinlock and
-mutex. It has no interaction with the rest of the initialisation
-sequence beyond the map and config pointers.
+Extract the two large nested switch statements that select
+format_reg()/format_write() and format_val()/parse_val() into dedicated
+regmap_set_reg_format() and regmap_set_val_format() helpers. Wrap the
+entire format setup sequence - format selection, endianness cross-check,
+work buffer allocation and bus write callback selection - into a single
+regmap_init_format() function.
 
-Move it into regmap_set_lock(). The only error case, a failed
-hwspin_lock_request_specific(), now returns -ENXIO to the caller
-instead of jumping to err_name directly, and each branch returns
-early rather than falling through the ladder.
+The two callers (config->read/write path with NATIVE endian, and the
+bus->read/write path with bus-derived endian) now each call
+regmap_init_format() directly, which eliminates the forward
+"goto skip_format_initialization" and removes the label entirely.
 
-No functional change intended.
+The implicit "ret = -EINVAL; /* Later error paths rely on this */"
+contract is replaced by explicit return codes in each helper.
+
+No functional change.
 
 Signed-off-by: Peng Fan <peng.fan@nxp.com>
 ---
- drivers/base/regmap/regmap.c | 138 +++++++++++++++++++++++++------------------
- 1 file changed, 79 insertions(+), 59 deletions(-)
+ drivers/base/regmap/regmap.c | 399 ++++++++++++++++++++++---------------------
+ 1 file changed, 200 insertions(+), 199 deletions(-)
 
 diff --git a/drivers/base/regmap/regmap.c b/drivers/base/regmap/regmap.c
-index c123bae8bd66..aca63b0d03e0 100644
+index eaf7555f9765..ae313a8e4ffe 100644
 --- a/drivers/base/regmap/regmap.c
 +++ b/drivers/base/regmap/regmap.c
-@@ -673,53 +673,33 @@ enum regmap_endian regmap_get_val_endian(struct device *dev,
+@@ -846,6 +846,197 @@ static int regmap_init_ranges(struct regmap *map, const struct regmap_config *co
+ 	return 0;
  }
- EXPORT_SYMBOL_GPL(regmap_get_val_endian);
  
--struct regmap *__regmap_init(struct device *dev,
--			     const struct regmap_bus *bus,
--			     void *bus_context,
--			     const struct regmap_config *config,
--			     struct lock_class_key *lock_key,
--			     const char *lock_name)
-+/*
-+ * Select the locking scheme for the map. The fast_io argument tells whether
-+ * the map has to be usable from atomic context.
-+ */
-+static int regmap_set_lock(struct regmap *map, const struct regmap_config *config,
-+			   bool fast_io, struct lock_class_key *lock_key,
-+			   const char *lock_name)
- {
--	struct regmap *map;
--	enum regmap_endian reg_endian, val_endian;
--	bool fast_io;
--	int i, j;
--	int ret;
--
--	if (!config) {
--		ret = -EINVAL;
--		goto err;
--	}
--
--	map = kzalloc_obj(*map);
--	if (map == NULL) {
--		ret = -ENOMEM;
--		goto err;
--	}
--
--	ret = regmap_set_name(map, config);
--	if (ret)
--		goto err_map;
--
--	ret = -EINVAL; /* Later error paths rely on this */
--
--	fast_io = (bus && bus->fast_io) || config->fast_io;
--
- 	if (config->disable_locking) {
- 		map->lock = map->unlock = regmap_lock_unlock_none;
- 		map->can_sleep = config->can_sleep;
- 		regmap_debugfs_disable(map);
--	} else if (config->lock && config->unlock) {
++/* Pick format_reg()/format_write() for the register width and endianness. */
++static int regmap_set_reg_format(struct regmap *map, const struct regmap_config *config,
++				 enum regmap_endian reg_endian)
++{
++	switch (config->reg_bits + map->reg_shift) {
++	case 2:
++		if (config->val_bits != 6)
++			return -EINVAL;
++		map->format.format_write = regmap_format_2_6_write;
 +		return 0;
++
++	case 4:
++		if (config->val_bits != 12)
++			return -EINVAL;
++		map->format.format_write = regmap_format_4_12_write;
++		return 0;
++
++	case 7:
++		switch (config->val_bits) {
++		case 9:
++			map->format.format_write = regmap_format_7_9_write;
++			return 0;
++		case 17:
++			map->format.format_write = regmap_format_7_17_write;
++			return 0;
++		}
++		return -EINVAL;
++
++	case 10:
++		if (config->val_bits != 14)
++			return -EINVAL;
++		map->format.format_write = regmap_format_10_14_write;
++		return 0;
++
++	case 12:
++		if (config->val_bits != 20)
++			return -EINVAL;
++		map->format.format_write = regmap_format_12_20_write;
++		return 0;
++
++	case 8:
++		map->format.format_reg = regmap_format_8;
++		return 0;
++
++	case 16:
++		switch (reg_endian) {
++		case REGMAP_ENDIAN_BIG:
++			map->format.format_reg = regmap_format_16_be;
++			return 0;
++		case REGMAP_ENDIAN_LITTLE:
++			map->format.format_reg = regmap_format_16_le;
++			return 0;
++		case REGMAP_ENDIAN_NATIVE:
++			map->format.format_reg = regmap_format_16_native;
++			return 0;
++		default:
++			return -EINVAL;
++		}
++
++	case 24:
++		if (reg_endian != REGMAP_ENDIAN_BIG)
++			return -EINVAL;
++		map->format.format_reg = regmap_format_24_be;
++		return 0;
++
++	case 32:
++		switch (reg_endian) {
++		case REGMAP_ENDIAN_BIG:
++			map->format.format_reg = regmap_format_32_be;
++			return 0;
++		case REGMAP_ENDIAN_LITTLE:
++			map->format.format_reg = regmap_format_32_le;
++			return 0;
++		case REGMAP_ENDIAN_NATIVE:
++			map->format.format_reg = regmap_format_32_native;
++			return 0;
++		default:
++			return -EINVAL;
++		}
 +	}
 +
-+	if (config->lock && config->unlock) {
- 		map->lock = config->lock;
- 		map->unlock = config->unlock;
- 		map->lock_arg = config->lock_arg;
- 		map->can_sleep = config->can_sleep;
--	} else if (config->use_hwlock) {
-+		return 0;
-+	}
++	return -EINVAL;
++}
 +
-+	if (config->use_hwlock) {
- 		map->hwlock = hwspin_lock_request_specific(config->hwlock_id);
--		if (!map->hwlock) {
--			ret = -ENXIO;
--			goto err_name;
--		}
-+		if (!map->hwlock)
-+			return -ENXIO;
- 
- 		switch (config->hwlock_mode) {
- 		case HWLOCK_IRQSTATE:
-@@ -737,33 +717,73 @@ struct regmap *__regmap_init(struct device *dev,
- 		}
- 
- 		map->lock_arg = map;
--	} else {
--		if (fast_io) {
--			if (config->use_raw_spinlock) {
--				raw_spin_lock_init(&map->raw_spinlock);
--				map->lock = regmap_lock_raw_spinlock;
--				map->unlock = regmap_unlock_raw_spinlock;
--				lockdep_set_class_and_name(&map->raw_spinlock,
--							   lock_key, lock_name);
--			} else {
--				spin_lock_init(&map->spinlock);
--				map->lock = regmap_lock_spinlock;
--				map->unlock = regmap_unlock_spinlock;
--				lockdep_set_class_and_name(&map->spinlock,
--							   lock_key, lock_name);
--			}
-+		return 0;
-+	}
++/* Pick format_val()/parse_val() for the value width and endianness. */
++static int regmap_set_val_format(struct regmap *map, const struct regmap_config *config,
++				 enum regmap_endian val_endian)
++{
++	if (val_endian == REGMAP_ENDIAN_NATIVE)
++		map->format.parse_inplace = regmap_parse_inplace_noop;
 +
-+	if (fast_io) {
-+		if (config->use_raw_spinlock) {
-+			raw_spin_lock_init(&map->raw_spinlock);
-+			map->lock = regmap_lock_raw_spinlock;
-+			map->unlock = regmap_unlock_raw_spinlock;
-+			lockdep_set_class_and_name(&map->raw_spinlock,
-+						   lock_key, lock_name);
- 		} else {
--			mutex_init(&map->mutex);
--			map->lock = regmap_lock_mutex;
--			map->unlock = regmap_unlock_mutex;
--			map->can_sleep = true;
--			lockdep_set_class_and_name(&map->mutex,
-+			spin_lock_init(&map->spinlock);
-+			map->lock = regmap_lock_spinlock;
-+			map->unlock = regmap_unlock_spinlock;
-+			lockdep_set_class_and_name(&map->spinlock,
- 						   lock_key, lock_name);
- 		}
--		map->lock_arg = map;
--		map->lock_key = lock_key;
-+	} else {
-+		mutex_init(&map->mutex);
-+		map->lock = regmap_lock_mutex;
-+		map->unlock = regmap_unlock_mutex;
-+		map->can_sleep = true;
-+		lockdep_set_class_and_name(&map->mutex, lock_key, lock_name);
- 	}
- 
-+	map->lock_arg = map;
-+	map->lock_key = lock_key;
++	switch (config->val_bits) {
++	case 8:
++		map->format.format_val = regmap_format_8;
++		map->format.parse_val = regmap_parse_8;
++		map->format.parse_inplace = regmap_parse_inplace_noop;
++		return 0;
++	case 16:
++		switch (val_endian) {
++		case REGMAP_ENDIAN_BIG:
++			map->format.format_val = regmap_format_16_be;
++			map->format.parse_val = regmap_parse_16_be;
++			map->format.parse_inplace = regmap_parse_16_be_inplace;
++			return 0;
++		case REGMAP_ENDIAN_LITTLE:
++			map->format.format_val = regmap_format_16_le;
++			map->format.parse_val = regmap_parse_16_le;
++			map->format.parse_inplace = regmap_parse_16_le_inplace;
++			return 0;
++		case REGMAP_ENDIAN_NATIVE:
++			map->format.format_val = regmap_format_16_native;
++			map->format.parse_val = regmap_parse_16_native;
++			return 0;
++		default:
++			return -EINVAL;
++		}
++	case 24:
++		if (val_endian != REGMAP_ENDIAN_BIG)
++			return -EINVAL;
++		map->format.format_val = regmap_format_24_be;
++		map->format.parse_val = regmap_parse_24_be;
++		return 0;
++	case 32:
++		switch (val_endian) {
++		case REGMAP_ENDIAN_BIG:
++			map->format.format_val = regmap_format_32_be;
++			map->format.parse_val = regmap_parse_32_be;
++			map->format.parse_inplace = regmap_parse_32_be_inplace;
++			return 0;
++		case REGMAP_ENDIAN_LITTLE:
++			map->format.format_val = regmap_format_32_le;
++			map->format.parse_val = regmap_parse_32_le;
++			map->format.parse_inplace = regmap_parse_32_le_inplace;
++			return 0;
++		case REGMAP_ENDIAN_NATIVE:
++			map->format.format_val = regmap_format_32_native;
++			map->format.parse_val = regmap_parse_32_native;
++			return 0;
++		default:
++			return -EINVAL;
++		}
++	}
 +
 +	return 0;
 +}
 +
-+struct regmap *__regmap_init(struct device *dev,
-+			     const struct regmap_bus *bus,
-+			     void *bus_context,
-+			     const struct regmap_config *config,
-+			     struct lock_class_key *lock_key,
-+			     const char *lock_name)
++/*
++ * Set up the format/parse functions, cross-validate endianness,
++ * allocate the work buffer and select the bus write path.
++ */
++static int regmap_init_format(struct regmap *map,
++			      const struct regmap_config *config,
++			      enum regmap_endian reg_endian,
++			      enum regmap_endian val_endian)
 +{
-+	struct regmap *map;
-+	enum regmap_endian reg_endian, val_endian;
-+	bool fast_io;
-+	int i, j;
 +	int ret;
 +
-+	if (!config) {
-+		ret = -EINVAL;
-+		goto err;
++	ret = regmap_set_reg_format(map, config, reg_endian);
++	if (ret)
++		return ret;
++
++	ret = regmap_set_val_format(map, config, val_endian);
++	if (ret)
++		return ret;
++
++	if (map->format.format_write) {
++		if (reg_endian != REGMAP_ENDIAN_BIG ||
++		    val_endian != REGMAP_ENDIAN_BIG)
++			return -EINVAL;
++		map->use_single_write = true;
 +	}
 +
-+	map = kzalloc_obj(*map);
-+	if (map == NULL) {
-+		ret = -ENOMEM;
-+		goto err;
++	if (!map->format.format_write &&
++	    !(map->format.format_reg && map->format.format_val))
++		return -EINVAL;
++
++	map->work_buf = kzalloc(map->format.buf_size, GFP_KERNEL);
++	if (map->work_buf == NULL)
++		return -ENOMEM;
++
++	if (map->format.format_write) {
++		map->defer_caching = false;
++		map->reg_write = _regmap_bus_formatted_write;
++	} else if (map->format.format_val) {
++		map->defer_caching = true;
++		map->reg_write = _regmap_bus_raw_write;
 +	}
 +
-+	ret = regmap_set_name(map, config);
-+	if (ret)
-+		goto err_map;
++	return 0;
++}
 +
-+	fast_io = (bus && bus->fast_io) || config->fast_io;
-+
-+	ret = regmap_set_lock(map, config, fast_io, lock_key, lock_name);
-+	if (ret)
-+		goto err_name;
-+
-+	ret = -EINVAL; /* Later error paths rely on this */
-+
+ struct regmap *__regmap_init(struct device *dev,
+ 			     const struct regmap_bus *bus,
+ 			     void *bus_context,
+@@ -854,7 +1045,6 @@ struct regmap *__regmap_init(struct device *dev,
+ 			     const char *lock_name)
+ {
+ 	struct regmap *map;
+-	enum regmap_endian reg_endian, val_endian;
+ 	bool fast_io;
+ 	int ret;
+ 
+@@ -879,8 +1069,6 @@ struct regmap *__regmap_init(struct device *dev,
+ 	if (ret)
+ 		goto err_name;
+ 
+-	ret = -EINVAL; /* Later error paths rely on this */
+-
  	/*
  	 * When we write in fast-paths with regmap_bulk_write() don't allocate
  	 * scratch buffers with sleeping allocations.
+@@ -956,22 +1144,23 @@ struct regmap *__regmap_init(struct device *dev,
+ 		map->read = config->read;
+ 		map->write = config->write;
+ 
+-		reg_endian = REGMAP_ENDIAN_NATIVE;
+-		val_endian = REGMAP_ENDIAN_NATIVE;
++		ret = regmap_init_format(map, config,
++					 REGMAP_ENDIAN_NATIVE,
++					 REGMAP_ENDIAN_NATIVE);
++		if (ret)
++			goto err_hwlock;
+ 	} else if (!bus) {
+ 		map->reg_read  = config->reg_read;
+ 		map->reg_write = config->reg_write;
+ 		map->reg_update_bits = config->reg_update_bits;
+ 
+ 		map->defer_caching = false;
+-		goto skip_format_initialization;
+ 	} else if (!bus->read || !bus->write) {
+ 		map->reg_read = _regmap_bus_reg_read;
+ 		map->reg_write = _regmap_bus_reg_write;
+ 		map->reg_update_bits = bus->reg_update_bits;
+ 
+ 		map->defer_caching = false;
+-		goto skip_format_initialization;
+ 	} else {
+ 		map->reg_read  = _regmap_bus_read;
+ 		map->reg_update_bits = bus->reg_update_bits;
+@@ -979,201 +1168,13 @@ struct regmap *__regmap_init(struct device *dev,
+ 		map->read = bus->read;
+ 		map->write = bus->write;
+ 
+-		reg_endian = regmap_get_reg_endian(bus, config);
+-		val_endian = regmap_get_val_endian(dev, bus, config);
+-	}
+-
+-	switch (config->reg_bits + map->reg_shift) {
+-	case 2:
+-		switch (config->val_bits) {
+-		case 6:
+-			map->format.format_write = regmap_format_2_6_write;
+-			break;
+-		default:
+-			goto err_hwlock;
+-		}
+-		break;
+-
+-	case 4:
+-		switch (config->val_bits) {
+-		case 12:
+-			map->format.format_write = regmap_format_4_12_write;
+-			break;
+-		default:
+-			goto err_hwlock;
+-		}
+-		break;
+-
+-	case 7:
+-		switch (config->val_bits) {
+-		case 9:
+-			map->format.format_write = regmap_format_7_9_write;
+-			break;
+-		case 17:
+-			map->format.format_write = regmap_format_7_17_write;
+-			break;
+-		default:
+-			goto err_hwlock;
+-		}
+-		break;
+-
+-	case 10:
+-		switch (config->val_bits) {
+-		case 14:
+-			map->format.format_write = regmap_format_10_14_write;
+-			break;
+-		default:
+-			goto err_hwlock;
+-		}
+-		break;
+-
+-	case 12:
+-		switch (config->val_bits) {
+-		case 20:
+-			map->format.format_write = regmap_format_12_20_write;
+-			break;
+-		default:
+-			goto err_hwlock;
+-		}
+-		break;
+-
+-	case 8:
+-		map->format.format_reg = regmap_format_8;
+-		break;
+-
+-	case 16:
+-		switch (reg_endian) {
+-		case REGMAP_ENDIAN_BIG:
+-			map->format.format_reg = regmap_format_16_be;
+-			break;
+-		case REGMAP_ENDIAN_LITTLE:
+-			map->format.format_reg = regmap_format_16_le;
+-			break;
+-		case REGMAP_ENDIAN_NATIVE:
+-			map->format.format_reg = regmap_format_16_native;
+-			break;
+-		default:
+-			goto err_hwlock;
+-		}
+-		break;
+-
+-	case 24:
+-		switch (reg_endian) {
+-		case REGMAP_ENDIAN_BIG:
+-			map->format.format_reg = regmap_format_24_be;
+-			break;
+-		default:
+-			goto err_hwlock;
+-		}
+-		break;
+-
+-	case 32:
+-		switch (reg_endian) {
+-		case REGMAP_ENDIAN_BIG:
+-			map->format.format_reg = regmap_format_32_be;
+-			break;
+-		case REGMAP_ENDIAN_LITTLE:
+-			map->format.format_reg = regmap_format_32_le;
+-			break;
+-		case REGMAP_ENDIAN_NATIVE:
+-			map->format.format_reg = regmap_format_32_native;
+-			break;
+-		default:
+-			goto err_hwlock;
+-		}
+-		break;
+-
+-	default:
+-		goto err_hwlock;
+-	}
+-
+-	if (val_endian == REGMAP_ENDIAN_NATIVE)
+-		map->format.parse_inplace = regmap_parse_inplace_noop;
+-
+-	switch (config->val_bits) {
+-	case 8:
+-		map->format.format_val = regmap_format_8;
+-		map->format.parse_val = regmap_parse_8;
+-		map->format.parse_inplace = regmap_parse_inplace_noop;
+-		break;
+-	case 16:
+-		switch (val_endian) {
+-		case REGMAP_ENDIAN_BIG:
+-			map->format.format_val = regmap_format_16_be;
+-			map->format.parse_val = regmap_parse_16_be;
+-			map->format.parse_inplace = regmap_parse_16_be_inplace;
+-			break;
+-		case REGMAP_ENDIAN_LITTLE:
+-			map->format.format_val = regmap_format_16_le;
+-			map->format.parse_val = regmap_parse_16_le;
+-			map->format.parse_inplace = regmap_parse_16_le_inplace;
+-			break;
+-		case REGMAP_ENDIAN_NATIVE:
+-			map->format.format_val = regmap_format_16_native;
+-			map->format.parse_val = regmap_parse_16_native;
+-			break;
+-		default:
+-			goto err_hwlock;
+-		}
+-		break;
+-	case 24:
+-		switch (val_endian) {
+-		case REGMAP_ENDIAN_BIG:
+-			map->format.format_val = regmap_format_24_be;
+-			map->format.parse_val = regmap_parse_24_be;
+-			break;
+-		default:
+-			goto err_hwlock;
+-		}
+-		break;
+-	case 32:
+-		switch (val_endian) {
+-		case REGMAP_ENDIAN_BIG:
+-			map->format.format_val = regmap_format_32_be;
+-			map->format.parse_val = regmap_parse_32_be;
+-			map->format.parse_inplace = regmap_parse_32_be_inplace;
+-			break;
+-		case REGMAP_ENDIAN_LITTLE:
+-			map->format.format_val = regmap_format_32_le;
+-			map->format.parse_val = regmap_parse_32_le;
+-			map->format.parse_inplace = regmap_parse_32_le_inplace;
+-			break;
+-		case REGMAP_ENDIAN_NATIVE:
+-			map->format.format_val = regmap_format_32_native;
+-			map->format.parse_val = regmap_parse_32_native;
+-			break;
+-		default:
+-			goto err_hwlock;
+-		}
+-		break;
+-	}
+-
+-	if (map->format.format_write) {
+-		if ((reg_endian != REGMAP_ENDIAN_BIG) ||
+-		    (val_endian != REGMAP_ENDIAN_BIG))
++		ret = regmap_init_format(map, config,
++					 regmap_get_reg_endian(bus, config),
++					 regmap_get_val_endian(dev, bus, config));
++		if (ret)
+ 			goto err_hwlock;
+-		map->use_single_write = true;
+-	}
+-
+-	if (!map->format.format_write &&
+-	    !(map->format.format_reg && map->format.format_val))
+-		goto err_hwlock;
+-
+-	map->work_buf = kzalloc(map->format.buf_size, GFP_KERNEL);
+-	if (map->work_buf == NULL) {
+-		ret = -ENOMEM;
+-		goto err_hwlock;
+-	}
+-
+-	if (map->format.format_write) {
+-		map->defer_caching = false;
+-		map->reg_write = _regmap_bus_formatted_write;
+-	} else if (map->format.format_val) {
+-		map->defer_caching = true;
+-		map->reg_write = _regmap_bus_raw_write;
+ 	}
+ 
+-skip_format_initialization:
+ 
+ 	ret = regmap_init_ranges(map, config);
+ 	if (ret)
 
 -- 
 2.56.0
