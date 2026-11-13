@@ -1,60 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.54
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794614190;
-	b=JVVyhW4dnVO7dfm4jxxO+W0aEDhhyPak2PGi0ekA/rDrPUKxbd14Lr6wxkd7b9+ULDHd
-	 aaoVpe3G2JOueDCI5h6WUKRJyEgAKNsWio7QwAwV+xRMJ+q+otLFxh6pTPCLsPiua4dcQ
-	 iuropwxDf6sGeRYXZzR0lMBlRyXBPd0PX9I8UBAqCugK4wSWd///0ESqcT8wmDfI9FnUl
-	 bOOxyGXAQ87gnnuvmtMSvutsu/Lpt7B6sjKXBK9MqXawPJ9TZTS3JauE2vVWel7768Q0g
-	 DsjAa0l4ZP+Y2fAbB0cqS9v2AEdfRUmPFLkvgQ6fbQH0IhhmIpWDn3IJePY9WBAuxHg==
+	t=1794614198;
+	b=LTl+FW7uP93cth5qe0eNJUN30jboe7BmNAPJZfnqy3M4N6Sm2UWbxJQ9wpBnWnvo87XK
+	 BSG0pnXdVHTWk0J4qCZ6wHTO6ly/l3avUu6ZcLdycSuL6f7N5YqBiCf2BK+xF7HIWpcIz
+	 0Pi1V/C8JJIxYKjNGU9Peq1xBRUC7Jf5L61r7ffY9xWnBI0hlUcAlnrQFesgexviNGgtr
+	 qeYSbNtOHEDnEaIGwUh2b7CG2ji+oWmAHeat9S6Oo8ABGAUrmVqD3PJFHAKC4h2u9U71e
+	 FyzXgeTPCveP+FMtLVHDrIleySHo8x8X0VwS03kG1rZ1Cu9t06X6MH528lx7jfvWHBg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794614190;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794614198;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=LWeBxwpNn+nqNRzgySAHNuZr2IUhu6lfowChLNgzEGs=;
-	b=mx+3jrA6+waLP+PfuKu8Z9xqvUOYel7eizPiDr3TLvhtkDxPb6beWnXth/pY0RvguXf7
-	 hsx6+qcF+oIBiGhqTOkJbO1+iyNcRnfZEc6X5HhH58nENLVhWfLjle+WuuPSEBHTOAN3R
-	 lwzkqwyNoUC46fWgJxyOb3+yHxag6NhcaQxlZWRN16lD5b7ML4lctmlKRtOp4yaY7D1w5
-	 chSquyKRmZpKvnpD8IpZYPsoEbuuFq7cnSD3GUq+/Gp5V0ilyeDXgF3NNmkaFqMjqrRsk
-	 ULGYQGx4q4N/JORv1ZJ/mj6cfcOMRPzE9GaeumreyRHq6kMtY0mupj1477JznQwvA5Q==
+	bh=ngFKEAsF899oSEFyF8SO7bMi7/1RzoZH+Fq2aKROz/M=;
+	b=Oy4Zpk2lucnAXvd7PuhsgD5ukgM3ZU42+3V05u35UVtZvhb/JLWMv6t0FsIDkBWZ3o7K
+	 JyVmxug29BJuYu5gfMH8L6ymZwY4Lu+J39h7aRb8uyLbWVomySASP5FwWxIt2WSsxIRqQ
+	 GzUaxfD34c5OeY41gLwQVE6h5cbB4xbx9dbOkT6sC63dZ4tYCUW32RQZU0VgyP8Jsvfmr
+	 FGXxqrKdrxIDGL7VothwOGtDAw+P0cWIadQUsh5jS/Xs4zDeZwXhjr25QshBQi+hbM6CT
+	 t+uzmkbhCa8zQ5NHlbHejoWew7j6RlNGvAmOzCMv4P1q93R8gH6N2HIDl2NVtov/KKg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ph4ntom-rev.uz;
 	spf=pass smtp.mailfrom=ph4ntom-rev.uz;
-	dkim=pass header.d=ph4ntom-rev.uz header.i=@ph4ntom-rev.uz header.a=rsa-sha256 header.s=zoho header.b=5ubMlELX;
+	dkim=pass header.d=ph4ntom-rev.uz header.i=@ph4ntom-rev.uz header.a=rsa-sha256 header.s=zoho header.b=IIV3zWYe;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.54
 Received: from sender5-of-o54.zoho.com (sender5-of-o54.zoho.com [165.173.182.54])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C25CB606A339;
-	Fri, 13 Nov 2026 23:56:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C25CB606A339
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9817606A33B;
+	Fri, 13 Nov 2026 23:56:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9817606A33B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ph4ntom-rev.uz
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ph4ntom-rev.uz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ph4ntom-rev.uz header.i=@ph4ntom-rev.uz header.a=rsa-sha256 header.s=zoho header.b=5ubMlELX
-ARC-Seal: i=1; a=rsa-sha256; t=1794613952; cv=none; 
+	dkim=pass (2048-bit key) header.d=ph4ntom-rev.uz header.i=@ph4ntom-rev.uz header.a=rsa-sha256 header.s=zoho header.b=IIV3zWYe
+ARC-Seal: i=1; a=rsa-sha256; t=1794613954; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=dgxnWFeCKsuzgM6mAbx3m5miF4te4ND1Ivo6rCSpODoWzd1fELcSpqvc7BeAV1Si5AvrfPqWUePkYTAQwwdVaHevvLNGOLqKTPn0Q5yunpSfaSvRLlU3g+jeFxmVZc7kNIGqWKOagoHFHcIv8v2UDAr0WhazbQKueBiqN6g16dE=
+	b=Duf/aAjqeuUcPjoMprCvXk96NhVh/KARWmQ/ZwsjYpbfC0iLKLEv4raKEgDopCJ7m76YsW+yi3lZmAfCYe7Tvs8w7QYJfqcrLf+4QBj2BwFyd9sa0fN0htvCCtxUArPXjKfKf9OxEL48JQqu/nG5Rtj2Zh6GFSd/CLG4ZPKxw3g=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794613952; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=LWeBxwpNn+nqNRzgySAHNuZr2IUhu6lfowChLNgzEGs=; 
-	b=d46swyIicuKUgEXO8fMgCO3QGC35QTcFKFmyXM1eZMzLjKexAGxe3zHZ/UKWvertIZSsA0nNaggdUU52f1opVky3nxPYcMJODS0OILW60vLYCAWdVYgWDDIyqw7RoAaE4hVSAPOVqXDQN+puCvu+5ova7qxhf7i0bIuLIxgjbiM=
+	t=1794613954; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=ngFKEAsF899oSEFyF8SO7bMi7/1RzoZH+Fq2aKROz/M=; 
+	b=EAm8jRqqH5U5VwiabdLKx2wSWPJXTJRd5nLCqEw/GfeXSZ7ERFFLCec6bDmgBOVekmkcikCp3nLb9zWvIhbs3UzZvDLDzsE2lx1EJ8EKJATvAG7Vea88ektP1yGBeeOXB9irpYjB6Z8Q68XpejLTK+KmG9AHghRRP13cm/ju0gg=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=ph4ntom-rev.uz;
 	spf=pass  smtp.mailfrom=owner@ph4ntom-rev.uz;
 	dmarc=pass header.from=<owner@ph4ntom-rev.uz>
-DKIM-Signature: a=rsa-sha256; b=5ubMlELXOtk68tt8tSS5JbNUVkUS2ZGIFs2626MVHxMLvgXSm78eoXFKHGn4L0/1NQYtoodmP9XjAEz0uYC8e4goR9X5mRgngWiKK9ho2bfy3uDDoCrB2U5MiTlYTLf4Ptw6bevQgr+EsPGgHrSiA8nGDwJpUz8TjUbKgc++7M7iIQbKyPhS1Z4GiwkfiCbEut5KmtyLbSXffHTEykgI7enEl+5RwPKNDZC8+PD9H/qsLhOBf+PwVlLm+FngT7hnWIQb9A/UOQWqXB+VhKrSQ1FC2PYxcvlkSALpECVyGyK0o+QKWOKXDz7icmePgq2LPf3LM5ORvQG5YfwzQmzJyg==; c=relaxed/relaxed; s=zoho; d=ph4ntom-rev.uz; v=1; bh=LWeBxwpNn+nqNRzgySAHNuZr2IUhu6lfowChLNgzEGs=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794613950511887.4036946461866;
-	Fri, 13 Nov 2026 15:52:30 -0800 (PST)
+DKIM-Signature: a=rsa-sha256; b=IIV3zWYec+d5E29Z5FnAA4WdT6BVQ5l1Ex9GDWUANMtENlTvioHPuoHEOv/Wrp0OrNB//3lAXv1uVg7u+kKK8Wa406hoRXqN+yiJbxacIhN+bBQGAxw1ABtWvP0nsadazWAZsh60XnQ5Qz4ALZidydPa0qFTgrsUlvGSddFnbgBdTz34YJMI3m1XN5ZOg3wWLjl+coTa2wPZo+YUP1jYQMlJLsLXO0RI57P0/mzQJNbH6m6vyRm+kfLckltI/sqjASoypiW/tr/vW8vJ7rMQZnPAYkI3nGDp0f8Rz0n4NofAXXNKobh7c3zWuas6vP+gBxyE3FkIdoW2mJL2IrxVEA==; c=relaxed/relaxed; s=zoho; d=ph4ntom-rev.uz; v=1; bh=ngFKEAsF899oSEFyF8SO7bMi7/1RzoZH+Fq2aKROz/M=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794613952617362.89424395523304;
+	Fri, 13 Nov 2026 15:52:32 -0800 (PST)
 From: Enver Ikromov <owner@ph4ntom-rev.uz>
 To: Ping-Ke Shih <pkshih@realtek.com>
 Cc: linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Enver Ikromov <owner@ph4ntom-rev.uz>
-Subject: [PATCH rtw-next v5 07/10] wifi: rtw89: send injected control frames through the management path
-Date: Sat, 14 Nov 2026 04:52:08 +0500
-Message-ID: <20261113235211.1911-8-owner@ph4ntom-rev.uz>
+Subject: [PATCH rtw-next v5 08/10] wifi: rtw89: skip host-side TX hooks for injected frames
+Date: Sat, 14 Nov 2026 04:52:09 +0500
+Message-ID: <20261113235211.1911-9-owner@ph4ntom-rev.uz>
 X-Mailer: git-send-email 2.56.0.windows.4
 In-Reply-To: <20261113235211.1911-1-owner@ph4ntom-rev.uz>
 References: <20261113235211.1911-1-owner@ph4ntom-rev.uz>
@@ -70,73 +70,70 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-rtw89_core_get_tx_type() classifies every frame that is neither a
-management nor a null-data frame as data. Injected control frames
-such as a 10-byte ACK or 16-byte RTS therefore go through
-rtw89_core_tx_update_data_info(), which derives a TID and data queue
-from skb->priority and enables AMPDU/QoS related descriptor fields
-that make no sense for them.
+Several TX hooks assume frames that were built by the local network
+stack for an associated link:
 
-Classify injected non-data frames as management frames. Frames
-generated by mac80211 itself, such as BlockAckReq, are not affected.
+- rtw89_traffic_stats_accu() and rtw89_core_tx_btc_spec_pkt_notify()
+  inspect ip_hdr()/udp_hdr(). For frames injected on a monitor
+  interface the network header points into the 802.11 header, so
+  traffic statistics and BT-coexistence notifications are derived
+  from unrelated bytes.
+- rtw89_wow_parse_akm() records the AKM from (Re)Association Request
+  frames for WoWLAN, which an injected frame must not change.
+- rtw89_core_tx_update_he_qos_htc(), rtw89_core_tx_update_ampdu_info(),
+  and rtw89_core_txq_check_agg() mutate QoS/HTC headers, enable A-MPDU
+  aggregation, or start/stop BA sessions based on link state, while
+  injected frames are expected to be sent as supplied.
 
-In addition, rtw89_core_tx_update_desc_info() reads hdr->seq_ctrl at
-offset 22 for every frame. Control frames have no sequence control
-field and are shorter than 24 bytes, so only read hdr->seq_ctrl from
-non-control frames whose linear header is long enough to carry it.
+Skip these hooks when IEEE80211_TX_CTL_INJECTED is set.
 
 Signed-off-by: Enver Ikromov <owner@ph4ntom-rev.uz>
 ---
- drivers/net/wireless/realtek/rtw89/core.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+ drivers/net/wireless/realtek/rtw89/core.c | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/net/wireless/realtek/rtw89/core.c b/drivers/net/wireless/realtek/rtw89/core.c
-index 54605f7..7003c24 100644
+index 7003c24..84c12c6 100644
 --- a/drivers/net/wireless/realtek/rtw89/core.c
 +++ b/drivers/net/wireless/realtek/rtw89/core.c
-@@ -637,12 +637,21 @@ static enum rtw89_core_tx_type
- rtw89_core_get_tx_type(struct rtw89_dev *rtwdev,
- 		       struct sk_buff *skb)
- {
-+	struct ieee80211_tx_info *info = IEEE80211_SKB_CB(skb);
- 	struct ieee80211_hdr *hdr = (void *)skb->data;
- 	__le16 fc = hdr->frame_control;
+@@ -1351,9 +1351,11 @@ rtw89_core_tx_update_desc_info(struct rtw89_dev *rtwdev,
+ 		break;
+ 	case RTW89_CORE_TX_TYPE_DATA:
+ 		rtw89_core_tx_update_data_info(rtwdev, tx_req);
+-		pkt_type = rtw89_core_tx_btc_spec_pkt_notify(rtwdev, tx_req);
+-		rtw89_core_tx_update_he_qos_htc(rtwdev, tx_req, pkt_type);
+-		rtw89_core_tx_update_ampdu_info(rtwdev, tx_req, pkt_type);
++		if (likely(!(info->flags & IEEE80211_TX_CTL_INJECTED))) {
++			pkt_type = rtw89_core_tx_btc_spec_pkt_notify(rtwdev, tx_req);
++			rtw89_core_tx_update_he_qos_htc(rtwdev, tx_req, pkt_type);
++			rtw89_core_tx_update_ampdu_info(rtwdev, tx_req, pkt_type);
++		}
+ 		rtw89_core_tx_update_llc_hdr(rtwdev, desc_info, skb);
+ 		break;
+ 	default:
+@@ -1477,8 +1479,10 @@ static int rtw89_core_tx_write_link(struct rtw89_dev *rtwdev,
+ 	tx_req.rtwsta_link = rtwsta_link;
+ 	tx_req.with_wait = !!wait;
  
- 	if (ieee80211_is_mgmt(fc) || ieee80211_is_any_nullfunc(fc))
- 		return RTW89_CORE_TX_TYPE_MGMT;
+-	rtw89_traffic_stats_accu(rtwdev, rtwvif, skb, true, true);
+-	rtw89_wow_parse_akm(rtwdev, skb);
++	if (likely(!(IEEE80211_SKB_CB(skb)->flags & IEEE80211_TX_CTL_INJECTED))) {
++		rtw89_traffic_stats_accu(rtwdev, rtwvif, skb, true, true);
++		rtw89_wow_parse_akm(rtwdev, skb);
++	}
+ 	rtw89_core_tx_update_desc_info(rtwdev, &tx_req);
+ 	rtw89_core_tx_wake(rtwdev, &tx_req);
  
-+	/* Injected control frames have no QoS/TID and no data payload, so
-+	 * send them through the management path. Control frames built by
-+	 * mac80211 itself (e.g. BlockAckReq) keep using the data path.
-+	 */
-+	if (unlikely(info->flags & IEEE80211_TX_CTL_INJECTED) &&
-+	    !ieee80211_is_data(fc))
-+		return RTW89_CORE_TX_TYPE_MGMT;
+@@ -4740,6 +4744,9 @@ static void rtw89_core_txq_check_agg(struct rtw89_dev *rtwdev,
+ 	struct ieee80211_sta *sta = txq->sta;
+ 	struct rtw89_sta *rtwsta = sta_to_rtwsta_safe(sta);
+ 
++	if (unlikely(IEEE80211_SKB_CB(skb)->flags & IEEE80211_TX_CTL_INJECTED))
++		return;
 +
- 	return RTW89_CORE_TX_TYPE_DATA;
- }
+ 	if (test_bit(RTW89_TXQ_F_FORBID_BA, rtwtxq->flags))
+ 		return;
  
-@@ -1299,7 +1308,7 @@ rtw89_core_tx_update_desc_info(struct rtw89_dev *rtwdev,
- 	enum btc_pkt_type pkt_type;
- 	bool upd_wlan_hdr = false;
- 	bool is_bmc;
--	u16 seq;
-+	u16 seq = 0;
- 
- 	desc_info->pkt_size = skb->len;
- 
-@@ -1315,7 +1324,10 @@ rtw89_core_tx_update_desc_info(struct rtw89_dev *rtwdev,
- 	else if (tx_req->vif)
- 		desc_info->mlo = ieee80211_vif_is_mld(tx_req->vif);
- 
--	seq = (le16_to_cpu(hdr->seq_ctrl) & IEEE80211_SCTL_SEQ) >> 4;
-+	/* control frames (e.g. 10-byte ACK/CTS) have no sequence control */
-+	if (!ieee80211_is_ctl(hdr->frame_control) &&
-+	    skb_headlen(skb) >= sizeof(struct ieee80211_hdr_3addr))
-+		seq = (le16_to_cpu(hdr->seq_ctrl) & IEEE80211_SCTL_SEQ) >> 4;
- 	addr_cam = rtw89_get_addr_cam_of(tx_req->rtwvif_link,
- 					 tx_req->rtwsta_link);
- 	if (addr_cam->valid && desc_info->mlo)
 -- 
 2.56.0.windows.4
 
