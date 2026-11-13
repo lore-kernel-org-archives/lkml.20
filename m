@@ -1,69 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794592984;
-	b=lIAYZDhuzogB04iwSQtAJNI6VKyAw42joQjJzQserPKid54hq1S45j0nMz9dhpf52JCK
-	 8dTPIbrOPDGw6rfnm4H7yz9vSjCUWhAuKglGSSicOVlEOUAjhsTEVyoTOfhRI39YGp8Br
-	 8FRYAgUmfqnefseck3ZFWXpEEF3B0lvce7k5YlesFCTxktLJZQOdhkXdTk8QZEvs9q4hT
-	 uy0SzBbFFEjd4U2RZpD1AtriLcP7It+6GCEHy0+PcwKXEcNDM7JeVxs4Q2QDIxd+RLWKK
-	 qBC6gpMELRuKvPp56thRMsdYO+4kUJcv0+aUnl+TuwctTke76RGKXJlm9+7hxlb0w7A==
+	t=1794592988;
+	b=F48xTMa+Gm6e4vGxjnKzp0Bxcz97uO4LdV6hwlS/21KKpkMH4g8fCNI9md7qjBj9FoHA
+	 5nZa25WX+Ajy3nCQfFvPouDIJhtGf4OzhwqllrixEB9lHgGG9ntOwvSIAlLfC3zkcjBYG
+	 d1HSD3KbwmuTVEPwKwgSkHImTy6BjdJUiY+cXZEcz/dp+JLhmLm/QrWg2tLFjexOoU5ld
+	 aqLjvgdE7ArF35mhsLplLpahvv081dvwGiVEOTdhrMSFJ9bMNKWfLhS3mcMmtzErRmeVj
+	 SwZgDw4f91uJTOcQsckqZ8pJHzFs62wKjkVkUD6IUNTOZ65INvQJnYrkHov0eNRC1Pg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794592984;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
-	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
-	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
-	 X-Fangmail-MID-QID;
-	bh=98ex+Pn2nBtI8mxDvjHYBDQsrjNC9orlyIfrJ1lLZwM=;
-	b=cyngKHQIa7WfyRmBuPMYKltcV0PZbqQTyszrnP9KR/3ceI0QnsSmUSfYNPwO2KnceF2j
-	 Jf0uB6cL0cxJAHJb74ovajB8vJxZ17kIBF7Ui+0u84VdfxPRCdPGMeT8DJIVJJ5OVJVpZ
-	 1zTYlQkC7WLLKBfC76AYGmV9FSjl9i7GgcPskNyh7Ji0XHxbil2PJvPuMUwOjkLevM6bK
-	 9W13fXiP/iqeDhWSE45YfNx9EYgkmNWSN5mBG1+QQYfzoCD7ahJ6n1xxHn75E5VnyZVoZ
-	 5J7LGeZcH13YZaskI5NwuTh4bFIqdzYtybXSXCRe3i97KpExza90WOGALRncRO7LMFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794592988;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=+G47jzw3JYsE9pT98xgL+H9LhozLbLQVlFv/D8tdtxw=;
+	b=UdOnd10aYZald2aX9Cr4JSjQwwkPd+qEjOG7yxOum1jtwaGtZD1JyU+F1MvazuV1Gid6
+	 sGmepejZl2M6egpAVeRfqCCuDiKi68snJUZjB4FKXPd8gEN8efZ+WzoNi6qZ912Uzogvj
+	 s5s0bvJ94z3KNikJZnvEbAE6njmY281sPYVT3CQVhZVrLPXDfqGkvxaAJ/ilg+eQx6L0l
+	 p0vncJWpKRIrn7u68Yu5XvFLglbK+xayTUIydaEwJOt34prUPCdd47NgSIH4LoY1DLN2M
+	 X1APKrdl+xMX5DmW3antqwVJ/+2lVPuU2zLbpPlZQUpfGb5BhufF7KMtGh5PYV2Csag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=uVepKS4x;
-	arc=none smtp.remote-ip=160.30.148.34
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nPh82f4o;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8558E606D4B7;
-	Fri, 13 Nov 2026 18:03:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8558E606D4B7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63E2F606A8B2
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:03:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=uVepKS4x
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jR4qV0XmPz5BNS0;
-	Sat, 14 Nov 2026 02:03:02 +0800 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794592982;
-	bh=Wa+PLqTTMCOV+xu/ec1ktJKOPJdj2fOT1wVmnMmRve0=;
-	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=uVepKS4xIsG1HyI69BVxuCj8OPGNuTaGG0gI3kOol8NRVHWKHa8CWksx0pIhUMXBy
-	 MPP6aNfVRYDbYUNQcJU5Zn4CNFJOu2jfn8rxmHJomYnsmx2kKp4vzB0yzWvJaNrOtz
-	 UGENEHaARPkzmj5Gsd5dLkRUfiy5fghqOCak23aGUhDLOYU6TEMnuRMy5WujR1FRmK
-	 cSM78LtmYo1VF4U5y0jWvUjRQRQgG6zXz4Fi1wZzNSS3uFwkWhMOWO9QN8wlF9ZMJw
-	 QdaxqoEYvQ2XyON6P+dyQQTHdB6JOAJI2Ud6bp9ZTagvbyMx7tSmQ05LQFU1G40iqF
-	 /Q/6Lj+fHHUTg==
-Received: from xaxapp05.zte.com.cn ([10.99.98.109])
-	by mse-fl2.zte.com.cn with SMTP id 6ADI2sVg073617;
-	Sat, 14 Nov 2026 02:02:54 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp01[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Sat, 14 Nov 2026 02:02:58 +0800 (CST)
-X-Zmail-TransId: 2af96af750d2ec5-15e0b
-X-Mailer: Zmail v1.0
-Message-ID: <20261114020258146m8zL_TJCcRbcnVKxGbNGw@zte.com.cn>
-In-Reply-To: <20261114020245882Mvd6t10TkCZuRWpYFR3m5@zte.com.cn>
-References: 20261114020245882Mvd6t10TkCZuRWpYFR3m5@zte.com.cn
-Date: Sat, 14 Nov 2026 02:02:58 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nPh82f4o
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07A3A1F000C8
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:03:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794592988;
+	bh=+G47jzw3JYsE9pT98xgL+H9LhozLbLQVlFv/D8tdtxw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=nPh82f4o8MP8LzTO+cl6NuGelxAQ2ckgH5PZv3l4MC22xfpN0185/L5yqd1bwoR2A
+	 TzLbUQolRnSS2eVlizaSzSnzR73L2D6UFAb+p2EzNlkf9ryXRFe9f650MdI34MyJr7
+	 O0aIdHZBfbJVV3FSNeldR526eGY/fMBZLyxOOTTKL1l/ZDQciXI1q+jJSfiBHd10PV
+	 VnYcrmIvX7iPuS1Ipx/tayjFEW6V4OMCtHAQl3LxNGW6fTgXAn8FfiYUOa6fKuGHMO
+	 OJTAoQsXd/Agk9B3xEQbNUDN6OxtaG6XCxFKRLwHgSQ1/53L6CfdfLNph0z95nGAmP
+	 55BpLfmIa4xkg==
+Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3ae25dcbd81so17044911fa.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:03:07 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEbVHuX+zDr0ce/w98hh1uJgTh+pu5ThK1jps47WvFEI7INZ1hZjnURPq749rM/PuFXQk5BtMnxpvNJwmU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/9rLe+RN6eV6ER5y8g2WTlUUPf+JXDMz/Lyit6EmJI5TnG9sL3
+	cnf/pbn5e3P4Y4fP4lceBk2vglFRpSVR5U1yY6EmpTEmEpAL/KxSr5z4deN4TW/Hv6pfEP+VVbQ
+	2fGRhUCmB28iwWlY8SEniOjB7qWyAMso=
+X-Received: by 2002:a2e:8a88:0:b0:3aa:fd7d:6164 with SMTP id
+ 38308e7fff4ca-3ae2b68121fmr10253851fa.25.1794592986378; Fri, 13 Nov 2026
+ 10:03:06 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,75 +58,93 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <kbusch@kernel.org>, <axboe@kernel.dk>, <hch@lst.de>, <sagi@grimberg.me>,
-        <linux-nvme@lists.infradead.org>
-Cc: <justin.tee@broadcom.com>, <nareshgottumukkala83@gmail.com>,
-        <paul.ely@broadcom.com>, <kch@nvidia.com>,
-        <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIHYyIDYvNl0gbnZtZXQ6IHJvbGwgYmFjayBxdWV1ZSBiaW5kaW5ncyBvbiBjb25uZWN0aW9uIGZhaWx1cmU=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6ADI2sVg073617
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Sat, 14 Nov 2026 02:03:02 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF750D6.000/4jR4qV0XmPz5BNS0
+MIME-Version: 1.0
+References: <20261110225452.2349540-1-jamien@nvidia.com>
+In-Reply-To: <20261110225452.2349540-1-jamien@nvidia.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Fri, 13 Nov 2026 19:02:53 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0hZHT8P2Ld3xa6K8OboUdoNAWvWrcoE1cp+4=Qtqc=PPQ@mail.gmail.com>
+X-Gm-Features: AclHuK-O7QkpH7cmOnGuu9WgWj8q1A8eetbKHBhEoZxBhcB3jUpXoMj6E0dz3a0
+Message-ID: <CAJZ5v0hZHT8P2Ld3xa6K8OboUdoNAWvWrcoE1cp+4=Qtqc=PPQ@mail.gmail.com>
+Subject: Re: [PATCH] ACPI: sysfs: Release the table references taken during init
+To: Jamie Nguyen <jamien@nvidia.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, linux-acpi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+On Tue, Nov 10, 2026 at 11:55=E2=80=AFPM Jamie Nguyen <jamien@nvidia.com> w=
+rote:
+>
+> acpi_tables_sysfs_init() gets each table with acpi_get_table_by_index()
+> to create its file, and acpi_table_attr_init() gets the second instance
+> of the table's signature with acpi_get_table() to decide whether the
+> file name needs an instance number. Neither reference is ever released,
+> so every table stays mapped. The file's read handler already gets and
+> puts the table on each read.
+>
+> Release both references once the table is no longer used.
+>
+> Fixes: 174cc7187e6f ("ACPICA: Tables: Back port acpi_get_table_with_size(=
+) and early_acpi_os_unmap_memory() from Linux kernel")
+> Signed-off-by: Jamie Nguyen <jamien@nvidia.com>
+> ---
+> Sashiko flagged this, as a pre-existing issue, in its review of a
+> previous patch that I sent:
+> https://sashiko.dev/#/patchset/20261013193900.1258808-1-jamien%40nvidia.c=
+om
+>
+> With the references released, a table that nothing else holds is
+> unmapped after init, and each read of its file maps it again
+> (acpi_table_show() already gets and puts the table).
+>
+> Tested on an arm64 server and in QEMU (x86_64), with a test-only change
+> that prints each table's validation count after boot:
+> - Every table's count is one lower, and the second SSDT's is two lower,
+>   since the instance check in acpi_table_attr_init() also held it.
+> - All table files read back the same as without the patch, and
+>   repeated and parallel reads leave the counts unchanged.
+> - The BERT and BDAT data files still match /dev/mem.
+> - Loading and unloading SSDTs through ACPI configfs still works (QEMU).
+>
+>  drivers/acpi/sysfs.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/acpi/sysfs.c b/drivers/acpi/sysfs.c
+> index 49a820b39c2917a..d1b57d1246aafb1 100644
+> --- a/drivers/acpi/sysfs.c
+> +++ b/drivers/acpi/sysfs.c
+> @@ -372,6 +372,7 @@ static int acpi_table_attr_init(struct kobject *table=
+s_obj,
+>                          table_attr->instance);
+>                 strcat(table_attr->filename, instance_str);
+>         }
+> +       acpi_put_table(header);
+>
+>         table_attr->attr.size =3D table_header->length;
+>         table_attr->attr.read =3D acpi_table_show;
+> @@ -593,15 +594,19 @@ static int acpi_tables_sysfs_init(void)
+>                         continue;
+>
+>                 table_attr =3D kzalloc_obj(*table_attr);
+> -               if (!table_attr)
+> +               if (!table_attr) {
+> +                       acpi_put_table(table_header);
+>                         break;
+> +               }
+>
+>                 if (acpi_table_attr_init(tables_kobj, table_attr, table_h=
+eader)) {
+>                         kfree(table_attr);
+> +                       acpi_put_table(table_header);
+>                         break;
+>                 }
+>                 list_add_tail(&table_attr->node, &acpi_table_attr_list);
+>                 acpi_table_data_init(table_header, table_attr);
+> +               acpi_put_table(table_header);
+>         }
+>
+>         kobject_uevent(tables_kobj, KOBJ_ADD);
+>
 
-nvmet_install_queue() publishes the SQ controller pointer before
-claiming the CQ. If the CQ is already connected, it leaves the SQ
-pointer and the controller reference taken for it behind on failure.
-
-An install_queue() callback failure also leaves the CQ bound after
-clearing the SQ pointer. The reference taken in nvmet_install_queue()
-is in addition to the one the caller already holds: the caller's put
-releases the reference acquired before the call, while this one belongs
-to the CQ binding. It is not released on this path, so the controller
-stays alive and a Connect retry on the same queue keeps finding the
-stale binding.
-
-Clear the tentative SQ binding and release the extra reference on a CQ
-conflict. On a transport installation failure, destroy the CQ binding
-as well, so its controller table entry and reference are released.
-
-Link: https://lore.kernel.org/all/20261106015842.3534898-6-kanie@linux.alibaba.com/
-Fixes: bb78836b3a7c ("nvmet: fabrics: add CQ init and destroy")
-Cc: stable@vger.kernel.org
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
----
-Changes in v2:
-- Code and commit message unchanged; add Christoph Hellwig's Reviewed-by tag.
-Previous version: https://lore.kernel.org/all/20261110230316687z-VG9wgpFwmzFNKVnMGKY@zte.com.cn/
-
- drivers/nvme/target/fabrics-cmd.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/nvme/target/fabrics-cmd.c b/drivers/nvme/target/fabrics-cmd.c
-index fc626c2fd2c924342b550764f686010103e5ec84..6f0fc695e6499247340d3f17929608e4f03c00f2 100644
---- a/drivers/nvme/target/fabrics-cmd.c
-+++ b/drivers/nvme/target/fabrics-cmd.c
-@@ -216,6 +216,8 @@ static u16 nvmet_install_queue(struct nvmet_ctrl *ctrl, struct nvmet_req *req)
- 	if (old) {
- 		pr_warn("queue already connected!\n");
- 		req->error_loc = offsetof(struct nvmf_connect_command, opcode);
-+		req->sq->ctrl = NULL;
-+		nvmet_ctrl_put(ctrl);
- 		return NVME_SC_CONNECT_CTRL_BUSY | NVME_STATUS_DNR;
- 	}
- 
-@@ -242,6 +244,7 @@ static u16 nvmet_install_queue(struct nvmet_ctrl *ctrl, struct nvmet_req *req)
- 
- err:
- 	req->sq->ctrl = NULL;
-+	nvmet_cq_destroy(req->cq);
- 	return ret;
- }
- 
--- 
-2.27.0
+Applied as 7.5 material, thanks!
