@@ -1,96 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794606350;
-	b=4PpQhbVSRpFm0zWEAs7x4F+Vwm1Muhhoqam39lk66xX4utJAx+eXDr2FoPuZi00rwcF1
-	 u0WWdMKsMndVE2CZk8v2IRotRqMMfCsIWYiVva3B9co3sR8G9boQe5EZtzxswNagZsb3P
-	 Ma0fXeJp6+Qxcw2rF81qoajmfxlGUXRzIodKi5jGvIjK9qXt7ua+Jyvd1oeoO+AFz0+Rc
-	 zfF0aXc3aYxumLEt0QTovRdxr1gFTXme03uejNRosgqElFzQasT79BbkGNxIKRvYsSetX
-	 BuryRJIVDXU1MQsZQW2wfiznAYcHfHvI/+6iRUduZouQmuf4JkC2homEcCbGNvCvJQg==
+	b=EeBM0psj5CjcigiSnhmHeetKCL3NgHMEdROsKw2V7ErfrxTA3evEZiwA7Kgnukm/fA6P
+	 9xsJ6LsG3ZoOHVC+8XdSRfgnHJMAjmfey1MqSUWljc0ljto0n3y161tCIzyqCF8RThbBS
+	 +OHPEKhMGDNINk8gjqQ37mCvQSZ4RbORQXaHCRtqe4VljmRcZnPLXKFsI0hN5dIng71OS
+	 2BTT2kOhPhX4v4RMh61cpe4y1Q5KTEJN7AXVc8IiNI4HIQ+Ivoq3Y7I4C5FsohgaE1ek1
+	 F/3X4GzZLucZkKBUu9wjalhMiKL9UgqkexGfDBn0oDW1kiRfSesPiRxL/7o+9rCZpxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794606350;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=qnZe4r96eV9XQddf8cIn7zFYQlAR4JFIMaPlUKVPy/U=;
-	b=nD85exkNuuK+CHVP/smUh9g1Jv/r6hcM5Xx4Q4jE93akrTRfRXYNC9Hwk/dvO0TOXp8e
-	 fx4tH0MTWH6bIDTX28Ymkk0OsY/62PBuHM+0sJx+WFw+fYBtO2+Q1ujQCRLLjrme4bY3H
-	 vsdgGrPJsxyp4wnT1uQs6g/svOnfHFsBalkPOmKCeYdc/8bTR+EArH5JKlfaIr4me75Nr
-	 nvbYT4RMcFkxit7yk5egZgQRlNVRbFee1nujb31DeogV8f/qvmgy1QiWHeJhktfLjDkto
-	 0ZgfUNytrBgDsxdUmhimZUA5BZUpouVk7HSkrXKkSFP9HPCAnpUg8SWmB7zii2880Pg==
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=tgUeD2OkgMqdlzQH1t0tTDMBPVlxaf4oY8m5ckbOO0M=;
+	b=ptYZdFflG/JCY7JK99MEVPqE0RFsdHTGxhOpBAtQF+BGg9A7aQfWINbb3Kp10lUuCmys
+	 Gg/hID8gZ2UMQ9kNsHeuFCCt3o8vDFGnqL0qlRPG1H6MoJTz1m9/kqGfd6FqhV6iDw7r/
+	 KPszHNQFNd79r6P4gGnqTLDDC2GYrKXucx00HK11cFzFj+sdvvext+SqyUGBjHOTCZ9cj
+	 Q+UVMe0z5tqaD6qwxeMpqY8jCSqIHL9viB7fs0ZaCGQIegD3tRayHCAe3wPIV04xV+t7L
+	 Xu/xo6BHd70GMqvzeiwB9IPXVY5NVmcID3g5CXEbXCTAbM3gFZUqYUL7LO9f5KR0J4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U3uGx+gv;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WXIUP+Mb;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5BE4606A334
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:45:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5BE4606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98F2F606A33F;
+	Fri, 13 Nov 2026 21:45:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U3uGx+gv
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso8172555e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:45:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794606348; x=1795211148; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qnZe4r96eV9XQddf8cIn7zFYQlAR4JFIMaPlUKVPy/U=;
-        b=U3uGx+gvuZDprzJ4de+g1kPBhFPsmhOG8fbWOLie4ZXFQmNrteTZcEMXX6pVg9UPSU
-         cApvRPxr/1uid9VGXaDI7fxh2MVOBcFRqUWH2DHtD/cscVA6C0/NzWKxVDqDhoxyWuGx
-         cltzpA08sMXM/KOaBCfELHrrJjlb8BLhdMc3huTbz8UuIWR1aETLtG9wFjgS1xjlGo1r
-         2eOPseEBdATET3c5Do4XzqBYi5H4gmQt7RdvuiujvD6mjqz43N8dP1uaK3MilzfHJewQ
-         jPGJ+jJhe+0ogNdVhfniiW44qkUTFtHl5e+9i+IjD8ywpaYz3ECFIbZKhHmmPIkOASZM
-         TFLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794606348; x=1795211148;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qnZe4r96eV9XQddf8cIn7zFYQlAR4JFIMaPlUKVPy/U=;
-        b=AG0O4HqUsewp/ayiMPJrJzxm/IwEJj7kpjbcrnMO/vmovhXFIG9wdJO906iwqvrfbA
-         3PyNAsxd76ujB3kDtNiJMd6tnyyRVwmY3K+bERE0JFIiC8zXGZbR+fZGbCaC2yqwmW0M
-         kjKFk296DRNJvEfomj1iOwOxMSfNwLFNOutLkCgnedXSmi9wFKetpDjBia06E34/+zVR
-         44GGBokU/F/6GXTcC7MHR9Ci49v6DdC7HXExWXvW0f038sut3o/ybjBEuhur8sRCJ0mk
-         Jvhp8p7m6/sP5XKfuozkiDXceb+LwTb5RD6RqMtRQZy8j1flTg9H9FY5mFYXDyl8gtQC
-         C17Q==
-X-Forwarded-Encrypted: i=1; AL+hErHwvnuuWG7JGloQ+cTcED/fI12wAnGHLdsXEGmcaJl/b/Hl0R0Co2lh3/DaRqj+ZUy5X4ILkYv9dXlnYh0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ua14R5ddMbpcAjMEy3MIe3xTINHJsBj0JH/LX107txt59iB7g
-	AzYa+4AmH2kO2+dC2cwmL0Lj0lu5Z0XvFQQk3N2HN+7oaGmpxw6JBkql
-X-Gm-Gg: AYBFou1FthlCD11n3LgukEl/oCM+T86ZYvGxqtjypBZ+sJ9YKEV6q+EoI+t3j8wY0hZ
-	puVk9fSwl0NPrTB5LtFPBpx2x+WEj8U/VjiBGwer75/tYBJE3moKPRPf5b5ckdFuyq+ELaiT4Cx
-	kQDzIcqTqSDskw2PI93slI5rwCz04qWj9pa6GgHhB1nHssQKB6SQyLvtsB94zBalb5JCIwU3KEj
-	/CRUb7cHT+6l3irB0ZExdzodtpKXEeq3QVPCEzKstjsC96nSLh6eAQjOKYBqQ8xanyjXtdENB5w
-	ohkiwMZLMCNuXkfZtt01TR+3c4NiYI01uop8WkSXS87WqjnPcRqX8W7i8VmBr4gtOftB4PpF+gb
-	HCpkZJgJxgHHmA4kNIXD8Z4NUAxUrIFkNNqAr3Tg//0hTZFmnIRnGIWMjQUIHo30WdMPa9g4vlo
-	Ej9uvsZwlkxMkVIL+ba/mUeItCtF5QuEXd5iAcCgwRq8VonFOiMz3wvF5jWYICibnVMxKOTy+Be
-	WsJSVEzomkpNRVs9IFqC/oFIfpR1savTmtCcv5g6YXdf8HB1ypkrrapeUwllqzXpCXim0SUbg2J
-	cXfH1s+KCx6IHFRYeO0/kK7oOZJWACUJrrlLnT3yhnV//XtROg==
-X-Received: by 2002:a05:600c:a44:b0:4a2:a6e:80f5 with SMTP id 5b1f17b1804b1-4bb55a45045mr82664865e9.11.1794606348036;
-        Fri, 13 Nov 2026 13:45:48 -0800 (PST)
-Received: from vivobook-s16.fritz.box ([2a02:908:e843:f280:6cae:291b:a1:8362])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e294420sm175346295e9.9.2026.11.13.13.45.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 13:45:47 -0800 (PST)
-From: "Ingo A. Kubbilun" <ingo.kubbilun@gmail.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	"Ingo A. Kubbilun" <ingo.kubbilun@gmail.com>
-Subject: [PATCH] ASoC: qcom: common: report line-out plugs on the Headphone Jack pin
-Date: Fri, 13 Nov 2026 22:45:35 +0100
-Message-ID: <20261113214544.232836-1-ingo.kubbilun@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WXIUP+Mb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06DBB1F000C5;
+	Fri, 13 Nov 2026 21:45:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794606350;
+	bh=tgUeD2OkgMqdlzQH1t0tTDMBPVlxaf4oY8m5ckbOO0M=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=WXIUP+MbGYgY8WkluriT5V941F9mGcyzgyz4ZwegCQUOATBrCUVKn2eSGzyNlPh+S
+	 6l/QDGlRcmALMqE2FjI3YH5S7NZLg2rncLUT2UKbzy+IizCywVssa7GBYEfTlSTYHO
+	 sFdcXu/6zmXnVBxVqFIjx9bTzzwYZoZWWHx8+6yBzz1QxjlLa0u1b3EMEZ8o6Vk/jk
+	 Gmg6VsktRQ6wUiaIyHTAdMixA6D4uy1cn6DXkJbf14ovFcfkaxpKcETrvTk/t9Bvlt
+	 6TKBkda2q+wPFkRKbvcUkvt8nbA6UZ8ESZ8ZifoYJz3mzNf1jPtjfuDDKvp1y0mL2g
+	 ch4XvYd92FBCQ==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Fri, 13 Nov 2026 21:45:19 +0000
+Subject: [PATCH v2 01/13] mm/mmap: free gathered pages before MMF_OOM_SKIP
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,44 +52,162 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261113-mason-migrate-et-al-fixes-v2-1-50a2ed382b61@kernel.org>
+References: <20261113-mason-migrate-et-al-fixes-v2-0-50a2ed382b61@kernel.org>
+In-Reply-To: <20261113-mason-migrate-et-al-fixes-v2-0-50a2ed382b61@kernel.org>
+To: David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Nhat Pham <nphamcs@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
+ Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
+ =?utf-8?q?J=C3=A9r=C3=B4me_Glisse?= <jglisse@redhat.com>, 
+ Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>, 
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
+ Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, 
+ Chris Mason <mason@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, "Borislav Petkov (AMD)" <bp@alien8.de>, 
+ Mark Brown <broonie@kernel.org>, 
+ "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, 
+ Rick Edgecombe <rick.p.edgecombe@intel.com>, 
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4364; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=8x8meuO1qhGN77hxGuh4qyBOF3+aPhUYnTt1ixD9eZU=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLK+t/zYcinW7iafSlX5pR+xumxp+75t+hv23bjTxTD/d
+ XzO4dlNHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZgIRwYjww8OmfkMycor3xZZ
+ 2rCLHdwlWZE8a2XL0iafMuvLV3a94mRk2NiUummq+goDKdsPVf/vzTdicZt8MbhpzZeX0dyVqaG
+ Z3AA=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-The WCD MBHC classifies high-impedance loads (above linein_th, 5 kOhm
-on wcd938x) such as active speakers as SND_JACK_LINEOUT. The
-"Headphone Jack" pin only matched SND_JACK_HEADPHONE, so the jack
-control stayed off and userspace (UCM JackControl) never switched to
-the headphone output for those loads.
+The OOM killer can quickly trigger again after having selected a
+victim. That victim might not have freed its memory yet, but its mm will
+be marked MMF_OOM_SKIP by this point, so the OOM killer will ignore it.
 
-Seen on ASUS Vivobook S16 S3607QA (X1P42100, WCD9385): active
-speakers measured at ~20 kOhm per channel were reported as LINEOUT only.
+This can cause the OOM killer to kill an innocent process when the first
+might have freed enough memory to relieve the memory pressure.
 
-Developed with the help of an AI coding assistant (Anthropic Claude),
-which drafted the changes from the Windows ACPI tables, existing device
-trees and test logs; reviewed, built and tested on the device by the
-submitter.
+exit_mmap() marks the mm MMF_OOM_SKIP once unmap_vmas() returns.
+However unmap_vmas() does not free the last batch of pages it
+gathered. That is left to tlb_finish_mmu(), which runs after
+MMF_OOM_SKIP is set, and the batch can be large.
 
-Signed-off-by: Ingo A. Kubbilun <ingo.kubbilun@gmail.com>
+Fix the issue by freeing the gathered pages of an OOM victim before
+marking the mm MMF_OOM_SKIP.
+
+Note that the task which calls mmput() might not be the victim - if it
+took a reference on the mm (e.g. ptrace), it may hold the last reference
+and release it when it calls mmput().
+
+Therefore we cannot rely on current to tell whether the mm belongs to an
+OOM victim. Instead, partially revert commit b3541d912a84 ("mm: delete
+unused MMF_OOM_VICTIM flag") to reinstate MMF_OOM_VICTIM, which
+mark_oom_victim() sets on the victim's mm, and check that.
+
+Reported-by: Chris Mason <mason@kernel.org>
+Fixes: bf3980c85212 ("mm: drop oom code from exit_mmap")
+Cc: stable@vger.kernel.org
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Acked-by: Michal Hocko <mhocko@suse.com>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Acked-by: Usama Arif <usama.arif@linux.dev>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- sound/soc/qcom/common.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ include/linux/mm_types.h | 2 ++
+ include/linux/oom.h      | 9 +++++++++
+ mm/mmap.c                | 9 ++++++++-
+ mm/oom_kill.c            | 4 +++-
+ 4 files changed, 22 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/qcom/common.c b/sound/soc/qcom/common.c
-index 5dc954dc1cb2..af5cacddf67d 100644
---- a/sound/soc/qcom/common.c
-+++ b/sound/soc/qcom/common.c
-@@ -335,7 +335,11 @@ static struct snd_soc_jack_pin qcom_headset_jack_pins[] = {
- 	},
- 	{
- 		.pin = "Headphone Jack",
--		.mask = SND_JACK_HEADPHONE,
-+		/*
-+		 * WCD MBHC reports loads above linein_th (5 kOhm) as LINEOUT,
-+		 * e.g. active speakers; treat them like headphones for routing.
-+		 */
-+		.mask = SND_JACK_HEADPHONE | SND_JACK_LINEOUT,
- 	},
- };
+diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+index 1ed35d258d2e..09e63ff12b04 100644
+--- a/include/linux/mm_types.h
++++ b/include/linux/mm_types.h
+@@ -2030,6 +2030,8 @@ enum {
+ #define MMF_TOPDOWN		31	/* mm searches top down by default */
+ #define MMF_TOPDOWN_MASK	BIT(MMF_TOPDOWN)
  
++#define MMF_OOM_VICTIM		32	/* mm is the oom victim */
++
+ #define MMF_INIT_LEGACY_MASK	(MMF_DUMP_FILTER_MASK |\
+ 				 MMF_DISABLE_THP_MASK | MMF_HAS_MDWE_MASK |\
+ 				 MMF_VM_MERGE_ANY_MASK | MMF_TOPDOWN_MASK)
+diff --git a/include/linux/oom.h b/include/linux/oom.h
+index 00da05d227e6..a9390cb70541 100644
+--- a/include/linux/oom.h
++++ b/include/linux/oom.h
+@@ -76,6 +76,15 @@ static inline bool tsk_is_oom_victim(struct task_struct * tsk)
+ 	return tsk->signal->oom_mm;
+ }
+ 
++/*
++ * Use this helper if tsk->mm != mm and the victim mm needs a special
++ * handling. This is guaranteed to stay true after once set.
++ */
++static inline bool mm_is_oom_victim(struct mm_struct *mm)
++{
++	return mm_flags_test(MMF_OOM_VICTIM, mm);
++}
++
+ /*
+  * Checks whether a page fault on the given mm is still reliable.
+  * This is no longer true if the oom reaper started to reap the
+diff --git a/mm/mmap.c b/mm/mmap.c
+index 7618e72766a5..4cb18b217048 100644
+--- a/mm/mmap.c
++++ b/mm/mmap.c
+@@ -1313,11 +1313,18 @@ void exit_mmap(struct mm_struct *mm)
+ 	/* update_hiwater_rss(mm) here? but nobody should be looking */
+ 	/* Use ULONG_MAX here to ensure all VMAs in the mm are unmapped */
+ 	unmap_vmas(&tlb, &unmap);
++
++	/*
++	 * Free the memory before marking MMF_OOM_SKIP so a re-triggered OOM
++	 * killer will only skip this mm if it's already freed all it can.
++	 */
++	if (mm_is_oom_victim(mm))
++		tlb_flush_mmu(&tlb);
+ 	mmap_read_unlock(mm);
+ 
+ 	/*
+ 	 * Set MMF_OOM_SKIP to hide this task from the oom killer/reaper
+-	 * because the memory has been already freed.
++	 * because the memory has been already unmapped.
+ 	 */
+ 	mm_flags_set(MMF_OOM_SKIP, mm);
+ 	mmap_write_lock(mm);
+diff --git a/mm/oom_kill.c b/mm/oom_kill.c
+index 5d48bd862c27..9de57a23893c 100644
+--- a/mm/oom_kill.c
++++ b/mm/oom_kill.c
+@@ -752,8 +752,10 @@ static void mark_oom_victim(struct task_struct *tsk)
+ 		return;
+ 
+ 	/* oom_mm is bound to the signal struct life time. */
+-	if (!cmpxchg(&tsk->signal->oom_mm, NULL, mm))
++	if (!cmpxchg(&tsk->signal->oom_mm, NULL, mm)) {
+ 		mmgrab(tsk->signal->oom_mm);
++		mm_flags_set(MMF_OOM_VICTIM, mm);
++	}
+ 
+ 	/*
+ 	 * Make sure that the process is woken up from uninterruptible sleep
+
 -- 
-2.47.3
+2.56.0
 
