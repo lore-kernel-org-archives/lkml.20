@@ -1,80 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794567188;
-	b=j78jQg5kPyfER3sqW2gJ1D6YATPonYd0fZmGLBgigm78UMz1YvHXkJ5oi6x6C4s7X76Y
-	 6McNsLcKseaAvlBMpeWuMtwSlw2iZosaMLI5mbnHItub/6w9hmhEeamBG4PjWXIxmRuVD
-	 PkeNCiyN1MjeKu24jxWlc1PX+0kVPm7Kd8oAWY9Vu4chHSOt5COPSXOaZkGdn0xiCklLt
-	 qOygvY7T1uPfRq2TT1bZGSv1ept7KNr3xJnNbAhSrDRqQRErEnvrfLhxU+rnu5aDvlSUQ
-	 olxK7U6s7qm2dHy6TV8MaUKEcqSc9nbEmUo/dCJOsFV3xFD3mhq2ggcbkrTQiJCyTbg==
+	t=1794567199;
+	b=bYPEFl0OTX6x+dYfNd7pGHYPUtlm+t01pC0Mj/bnlz6nrv/mV3WzYg3JOZwhZOlqixs4
+	 mv+iYYHmI1OOYeSpMNDG9abhK4xSCGDmlCJk3IH/asIKsAVeYzxy9WatQvuNmOPQB/+do
+	 r6+jVAm+DljkYbHkw/WcVDPVagcJ7pdR/8z120ob3+Cnv4n/sCuTwVvodBrNf7qCSGFhr
+	 rzsNcbPrzT9WRpILltbwBud7G4/PPmTpvCTmMXcEEz1o3sDt5Ms7SOlzgm5RuW0th6Zbz
+	 jRxWWrLQFx6KavmIMAOTpNBib3hyhZlmC5VAPL9SJQCHltj6jG+K/LGdRWsPYYhW0yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794567188;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:
-	 X-Msg-Generator:Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:
-	 cpgsPolicy:X-CFilter-Loop:X-CMS-RootMailID:References;
-	bh=xZPonB6Lbb0k2OXAWHkAdkEguf5JX+UcZL6exprUdC8=;
-	b=xUfBMDgf4FTjf3uIlBZZnmoux6LJ0qwEZ0x9QyE1dNacmjlKR4gfvSGMozTom4GZCpb7
-	 XFZZn+6NRhwX1xrgc33AAxtGjlhzn1unQ7g9niRbUvxkYlzaRf5FgkolPAqReW9p5APek
-	 6x+7vuBu0IjHiBZRnhCC2k7VCJ8/9WxBoMdAqpMRKQVWs44GySyM6yL3ZmKF/dW+cYaHy
-	 SQSVnZfApSlHfCPIRdHjmobmFDdf5xTyVm9//AUxFadip3hIYfOyGkHhDivTecGbghTpK
-	 QpcSXV4r3eJ3dskKP2zBbKvfH7JR39bVusRJ549jxxdOVplx6rxW5jHmTIaI5HugsLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794567199;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=FXAR3k2XOmADxmocsX6uctWFtqeJu78i+LhIjLZQduk=;
+	b=AtzhemjTLwrp2MyYDLZeBpYxGpcjFPmvw/jSh/GEZFY7+M7mwXpCn1d6iwHgmVlZ8tHL
+	 7ZPLD4lALT4B41sGQs6+8wwWxsjdIDkFj2ow2LrCJRgsHR9bHgLnyPGlb/GrslZWpk9te
+	 jD6m4umqY0M9vF/XhAVsEUzybrzPEYTTTzqtrU3Wqe8NQS/yCQDSqSUJgCLZ2w2ASEVj1
+	 mebwdW9UvRlP59tvuV2AGcpXTYmv2zN0+4ur4s/GQ/HYTez09jxqxPIPEPcPv7uwRy9rz
+	 27246lcQBNKPBdDZSK1DcZhZHIgdfDyMjTBKtuO/jIUpieM0mAdVN/r69MPjTx5phTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=KkkrUPls;
-	arc=none smtp.remote-ip=203.254.224.34
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IPtuJoKO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1EF8606A33D
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:53:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1EF8606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B746606A32A;
+	Fri, 13 Nov 2026 10:53:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=KkkrUPls
-Received: from epcas5p3.samsung.com (unknown [182.195.41.41])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261113105259epoutp04739b22bb88c95ba2282ee7bbe0c2cd0a~nlVd11iEV0592805928epoutp04R
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:52:59 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261113105259epoutp04739b22bb88c95ba2282ee7bbe0c2cd0a~nlVd11iEV0592805928epoutp04R
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1794567179;
-	bh=xZPonB6Lbb0k2OXAWHkAdkEguf5JX+UcZL6exprUdC8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=KkkrUPlsBtC0ji0UbJU4fmGmbYQ+7cNpAIj+Q414Jg2D3TgaoM3E9pFJdhSebZ+uG
-	 XZ+iPm+0pMKw8mc+YKFyBHOYxBAjjD9SBPn8xUBHW3brNlQOvldsJWYHPv4fZNXEQM
-	 wp2h7PJR/W3XzL4DzQMvajIjxBIJIyJHVwexZEIE=
-Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
-	20261113105257epcas5p16bd10862e221c5e0052930bf487d41c0~nlVcdI3-d0130901309epcas5p10;
-	Fri, 13 Nov 2026 10:52:57 +0000 (GMT)
-Received: from epcas5p1.samsung.com (unknown [182.195.38.88]) by
-	epsnrtp01.localdomain (Postfix) with ESMTP id 4jQvHD6X0Qz6B9m9; Fri, 13 Nov
-	2026 10:52:56 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
-	20261113104832epcas5p4e1e9a3dedeb0c9c60cb80c23eb5d930d~nlRlBPkNl0561205612epcas5p4u;
-	Fri, 13 Nov 2026 10:48:32 +0000 (GMT)
-Received: from bose.samsungds.net (unknown [107.108.83.9]) by
-	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261113104829epsmtip288867f1635f2f9c4a284fec461722d48~nlRipOvDs2501325013epsmtip2F;
-	Fri, 13 Nov 2026 10:48:29 +0000 (GMT)
-From: Raghav Sharma <raghav.s@samsung.com>
-To: krzk@kernel.org, s.nawrocki@samsung.com, cw00.choi@samsung.com,
-	peter.griffin@linaro.org, alim.akhtar@samsung.com, sboyd@kernel.org,
-	bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, robh@kernel.org,
-	conor+dt@kernel.org, raghav.s@samsung.com
-Cc: linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, is.gandhi@samsung.com, ts.amit@samsung.com,
-	pokala.reddy@samsung.com
-Subject: [PATCH v3 01/14 RESEND] dt-bindings: soc: samsung: Exynos8855
- SYSREG compatibles
-Date: Fri, 13 Nov 2026 16:35:59 +0530
-Message-Id: <20261113110612.3265841-2-raghav.s@samsung.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261113110612.3265841-1-raghav.s@samsung.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IPtuJoKO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B244E1F000C7;
+	Fri, 13 Nov 2026 10:53:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794567198;
+	bh=FXAR3k2XOmADxmocsX6uctWFtqeJu78i+LhIjLZQduk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=IPtuJoKOgWndeSoW+Ft3DNggXS8gWEaDgnYeDpRAG/BlU2uN9HvsIaEXvK1oh4mgm
+	 39cal93B7HS5m+6upMeYECPQ1Zyxj4IccScKEvkyMn/ULHL58tQ62QNgWDydbwEPyu
+	 +nqDDxVxRKKW680xeSqy0Z02nhINaogVyU61pDYjSDRpfZgAA6tmITzkeVoOKUtKMh
+	 DjWM8Na3+aAeVtBCznGkh8sY+5EA8owX5Qs/0RpY/uxHYPIrwY04cScd11itwqTscW
+	 oXjeS2Gpc/3uepUzBJOBCspIJv1bF5djY+zFcYKECFQH8KUxdf6U7RK8YGjJCOlaV6
+	 V5Di54SflxNNQ==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+To: Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Jan Kara <jack@suse.cz>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	Byungchul Park <byungchul@sk.com>,
+	Gregory Price <gourry@gourry.net>,
+	Ying Huang <ying.huang@linux.alibaba.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Peter Xu <peterx@redhat.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Song Liu <songliubraving@fb.com>,
+	Rik van Riel <riel@surriel.com>,
+	Miklos Szeredi <miklos@szeredi.hu>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Hugh Dickins <hughd@google.com>,
+	Will Deacon <will@kernel.org>,
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+	Nick Piggin <npiggin@gmail.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Kevin Tian <kevin.tian@intel.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Steve Sistare <steven.sistare@oracle.com>,
+	John Hubbard <jhubbard@nvidia.com>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Neal Cardwell <ncardwell@google.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	fuse-devel@lists.linux.dev,
+	linux-arch@vger.kernel.org,
+	iommu@lists.linux.dev,
+	netdev@vger.kernel.org,
+	Chris Mason <mason@kernel.org>,
+	stable@vger.kernel.org,
+	Pedro Falcato <pfalcato@suse.de>
+Subject: Re: (subset) [PATCH v4 0/9] mm: limit pagecache folio refcount
+Date: Fri, 13 Nov 2026 11:52:56 +0100
+Message-ID: <179456713145.6906.7073956264359546741.b4-ty@b4>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261112-refcount_overflow_stable-v4-0-ad3deef0bd23@kernel.org>
+References: <20261112-refcount_overflow_stable-v4-0-ad3deef0bd23@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,55 +119,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261113104832epcas5p4e1e9a3dedeb0c9c60cb80c23eb5d930d
-X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: REQ_APPROVE
-CMS-TYPE: 105P
-X-CPGSPASS: Y
-cpgsPolicy: CPGSC10-543,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261113104832epcas5p4e1e9a3dedeb0c9c60cb80c23eb5d930d
-References: <20261113110612.3265841-1-raghav.s@samsung.com>
-	<CGME20261113104832epcas5p4e1e9a3dedeb0c9c60cb80c23eb5d930d@epcas5p4.samsung.com>
+Content-Transfer-Encoding: 8bit
 
-From: Alim Akhtar <alim.akhtar@samsung.com>
+On Thu, 12 Nov 2026 23:53:19 +0100, David Hildenbrand (Arm) wrote:
+> I'm resending this quite quickly, addressing Pedro's review (thanks!!!),
+> so I can replace the version in -next tomorrow and move forward with
+> this to get it fixed.
+> 
+> I un-RFC'ed the -net patches, but I will not pick them up. As mentioned
+> below, they can go in independently.
+> 
+> [...]
 
-Add exynos8855 sysreg compatibles in bindings
+Okay, updating the first 5 patches in -next.
 
-Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
-Signed-off-by: Raghav Sharma <raghav.s@samsung.com>
----
- .../bindings/soc/samsung/samsung,exynos-sysreg.yaml       | 8 ++++++++
- 1 file changed, 8 insertions(+)
+--
 
-diff --git a/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml b/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml
-index fcdb9ffd2644..845e0caba15a 100644
---- a/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml
-+++ b/Documentation/devicetree/bindings/soc/samsung/samsung,exynos-sysreg.yaml
-@@ -31,6 +31,10 @@ properties:
-               - samsung,exynos5-sysreg
-               - samsung,exynos7870-cam0-sysreg
-               - samsung,exynos7870-disp-sysreg
-+              - samsung,exynos8855-hsi-sysreg
-+              - samsung,exynos8855-peric-sysreg
-+              - samsung,exynos8855-peris-sysreg
-+              - samsung,exynos8855-usb-sysreg
-               - samsung,exynos8895-fsys0-sysreg
-               - samsung,exynos8895-fsys1-sysreg
-               - samsung,exynos8895-peric0-sysreg
-@@ -103,6 +107,10 @@ allOf:
-               - samsung,exynos850-cmgp-sysreg
-               - samsung,exynos850-peri-sysreg
-               - samsung,exynos850-sysreg
-+              - samsung,exynos8855-hsi-sysreg
-+              - samsung,exynos8855-peric-sysreg
-+              - samsung,exynos8855-peris-sysreg
-+              - samsung,exynos8855-usb-sysreg
-               - samsung,exynos8895-fsys0-sysreg
-               - samsung,exynos8895-fsys1-sysreg
-               - samsung,exynos8895-peric0-sysreg
+Applied, thanks!
+
+tree: mm/core.git
+branch: for-next-fixes
+
+Applied patches will appear soon in mm-next, followed by linux-next.
+
+Please report any outstanding bugs that were missed during review, so we
+can either drop the patch series or decide how to fix it up.
+
+It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
+though the patches have already been applied. If possible, patch trailers
+will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. Further, this is not a guarantee that the
+patches will go upstream. If in doubt, please check the listed branch.
+
+[1/9] mm: limit pagecache folio refcount when mapping pages
+      https://git.kernel.org/mm/core/c/86c0d919
+[2/9] mm: limit pagecache folio refcount when splicing into pipes
+      https://git.kernel.org/mm/core/c/6ab934de
+[3/9] mm/mmu_gather: flush pending references early before the folio limit
+      https://git.kernel.org/mm/core/c/89b412c7
+[4/9] iommufd: fix cleanup when adding memfd folio pins fails
+      https://git.kernel.org/mm/core/c/35e8fbf9
+[5/9] mm/gup: limit pagecache folio refcount when grabbing references
+      https://git.kernel.org/mm/core/c/a6f95654
+
 -- 
-2.34.1
+Cheers,
 
+David
