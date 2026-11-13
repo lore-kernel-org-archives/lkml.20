@@ -1,54 +1,142 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794604690;
-	b=5enJa+kDbemNaCIgKO802puyjv9ZZvN471ZQRRWmE3j6+KRcheKtA1+L1N0ThXoWK1eT
-	 PKOCyP56BBdJCSlo5UlJ6MJYoxLUYtax5FwgQZre0X8sROUYfL+VwuzbllqkfXfcOq7HU
-	 Ffd45DV96QVwPl5WoMJRS/RalmOCJ6jto29h5Nn0aNCF4+LMbt3vMIv+J1mrpf2H35Vr3
-	 JCnuOUl/e672CWnSWBaO36dn5oXAdE1FpCU0QXsECB/6838VmkllZuhhbWaUgt04sb/VJ
-	 eWJHDtrqJCb3NwVR9kfqCt1XB79Owm57U7O67bnjCsuW57W4KhnRjkI15a1VkgjiYfA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794604690;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type:Content-Transfer-Encoding;
-	bh=9vqpt0IFr8008rX5aatdg032iJZtTAHNaLQJVOcXEVc=;
-	b=v7HIywAJVGcdgt0k1zjaqoU+ByDg+lRnHraCqlBq0IuElxpXjdUUHhrJSXr74q/wKul6
-	 wuXf6lvlbywuzBVg4hP1mSkQOEQmn1693h6P3NEawRPU7jcumEBv6WoRjwI4adtfLt5Wc
-	 KJ+SVUlKCExvbE7iq4ENZtnrbh6pwqVWpSTaEbRbzVNWKHAxeRP3qkBiEmfgscAhKfipv
-	 YfqIveLtjcTo3FIgv/Tt/lr14WLt6pE5MM4J5T+TjXFK5wBQwHZrNMzZjdQPsu7b3SVUr
-	 /d+d9Jm+mfqS3gR8QWZ7BJMYW4LF8SSVIaV53vSJ74z4U2jAGeklaOEgRw8A/sJgc0A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.200
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794604810;
+	b=ajBxjARXKn/UQEReMf0bzfytW01xHfk3bxSM3pmwARk0bBLYTx6evEsdp7wstSEko/7z
+	 KHRnm6Qgv0D0vK/j0pFBZhp7IZf5Fnab0xd5afzEKmty+aYl6F61cZbsWvPy9iY9xI6om
+	 aTUrk2BHPAOK7dB1qsNiHWuJKsshsQtGjEaBrZ/h2H+en+i7hBbzurSMvFEpCBEHO/ox9
+	 rJr0ApApBkDqmQ0vcgQ0xh3BmiH4rJCX4duDMpW5kaQVmAtkEt9QlLUpwS9RE5SHKT1dv
+	 QpKmi00ZOhvPZogId44OMgPUn3epu7dafJYGoWa3CLYMuupjqxAFeL0J7wc6W4PmD6Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794604810;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:DKIM-Signature:Received:Received:Message-ID:Date:User-Agent:
+	 Subject:Content-Language:To:CC:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=ATC6O9HAxz+dp7LKHvV09k01pAUPoHy0LwGR2NrkiO4=;
+	b=agYlC4qHCDNlRph6334w9NraGlcMH7BnmZ+mLxIXvL/qhib3lhTstNrY5yOTu7bH8pF9
+	 iHPm9XMkGL0uM8mHMXnWVBTZplMEE7ciRiyNZrRHBh/nawrD2H7OjENtZAfDV0iYjH7sI
+	 7KhtQVnVrReYB/yoEhiYRCaTC4/R9nt4jFMBqmJSJtpGdYMkJwPZuXPGrXEwtjHfCDnJh
+	 gsCkdtMZ01DSTpzKSUdRqstgpuTqrJvQh27MjqQMAst1Mi03cZsrhAJam+jmTOXgUDMgT
+	 2sv4IohscLGUDavU4diiehrmsVv3bCWIELbaR3XZUoEMlPInjW5uNMFwXKYfOv7LSQA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=j+gBNwhG;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b="S/HyMVHU";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC4C1606A881
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:18:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC4C1606A881
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-5682eb98dafso2414096b6e.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:18:09 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794604689; x=1795209489;
-        h=content-transfer-encoding:content-type:to:from:subject:message-id
-         :date:mime-version:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9vqpt0IFr8008rX5aatdg032iJZtTAHNaLQJVOcXEVc=;
-        b=h4T1BKHrtYseT6qiKwBKnz4UvU62PzhSdBdx0fUjsBL6vMxj+PBB4pcULWGbzer2dk
-         7JKwp+zLLc06aEJIiMzVgNidbYSpsixHdi7Hp+Ni67o6c15jAHbhrrlpa1blJqfWeuho
-         XSEkuxyNbPB7VnNHJY6ZFYRJoWIFArBafI8Mqr9VazP5athojgBP+zG//+kNe03Ra5zZ
-         /HDNuyjR/NKW5lAZeFkqFjZRoEguaSpweAxPsCw3RnyE+C5SLP8T6qkgznhzQXI6hakf
-         +RBoPYUs48kkCz31OXfTixGPgr9wYCLVnTP/j291sMbdCUa8LNs6FZ17wZ0PR0imkF/R
-         AjhQ==
-X-Forwarded-Encrypted: i=1; AL+hErGmAdzxlZz9AfupaiImNkXA6SVBUJvf7j9K6MUFhkZ8JkutKxq46GTIL3msl7yB/lIZCEFm5Syv/UC1OD8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9u9uJWygilnoFJP3IQV566JdfF48Yf85+qSWjqqXG1C0XiRynx
-	y0cBF5b17YgPBFAq70SyUz0+2UJNl+JOb5sGmORHcm44fMKOs3HUOvWD5plwJZ4PnwNtSRK+DrF
-	VAJnMGGmdlNnkIlcVrfoGDu64IPx0+v1TlALP1o32SEWmO1QmWMR4wJGeId8=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3441606A327;
+	Fri, 13 Nov 2026 21:20:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3441606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=j+gBNwhG;
+	dkim=pass (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=S/HyMVHU
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794604810; x=1826140810;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=ZhKWObZGhiWOxWe2DvnZH0cXW/GfObDswTJEtF3BYo8=;
+  b=j+gBNwhG4bWS3m4kiE/14sDt06EAaKczpaA5Ib2JM2bXXL+O8CSIp/io
+   iGfsFva0B+nP2+dUd9ZlPCZl70hYOD6aF6vWyQlZyA9cjPFAO/Yc+81nr
+   RzqgDWcym7ZHLCQj8j+Gqufe+L5O0mX8EQwt+lM2idWs/8q1M+v5p5E+9
+   H007daSQdOaYFeHkzLrScMZ8QK7gls22lZjqf25Z7s39vz2iBhMFhAwox
+   KZWNlMuDAnPGmvCvfifayBFgwJPIikBB6YC3i/aa1TlXSrkT/nDBeRG/j
+   833h1zaN4z6CgJFGqypTUkcs/4F+oWQXOMl4YbS+nxWtu+35tWHNUR4sd
+   A==;
+X-CSE-ConnectionGUID: nfyOkDksTUK9DgA42rc8vw==
+X-CSE-MsgGUID: jO0Qi1o0SxSSDufDzn2YFQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3339438"
+X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
+   d="scan'208";a="3339438"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 13:20:10 -0800
+X-CSE-ConnectionGUID: ZGffEQReSs2qEyH8DR/V5Q==
+X-CSE-MsgGUID: 4zCWPhqMQ1S+Mug+oFX9Wg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
+   d="scan'208";a="9343281"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+  by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 13:20:09 -0800
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 13 Nov 2026 13:20:08 -0800
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Fri, 13 Nov 2026 13:20:08 -0800
+Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.34) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 13 Nov 2026 13:20:08 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VQ5vNJGC22ah+FzjZjB9m8+wS+ATlJLlRqr5EqU2TMJhETS+RiZCyNtPNKJP68CDZkFkwqxtgvztkQw1EETCOlsQv3v7KwldglmAJOIJPUMljqwnWybYYwl+t3gIf1iELe7gHnwU3J6xSgjWtKBP+RploesKpoMhT14rnodbME+uJzfRgOWFxZDYfi0TGYS7z36E1Xg3ZlmG1UaHv79uapqLKX0XbhTb+NZ5Ooi9Dz41Ew/9CKWPDnYZuAQadzxdoep5otYd4dayPljRcuR4rHsa8uGSJT43GHPeCTdckTtl8/ZoYDbR2ZIFVVJnJQOhYu8IZkfdR8wm5peirkC2TA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ATC6O9HAxz+dp7LKHvV09k01pAUPoHy0LwGR2NrkiO4=;
+ b=OMo1AMptIxWm3x2YciKMlIVkMMKUYZSjWNLs2WAGte0GbwEeHf/ktqZU4YAGHy/vBuL86JYTrWKVZT4L/eskR8PndrQBP3JrrkX0VaM8Tx8PG0V1kGlq4O/zRcO7LiqdkrrAtQM6RnDfAnuIaL9Kl6KTCK+uph43w7ft/NzAmLnwcGVwVUHObtDnI1taRI5Ln1oN/LrPxsf/1Mecl+Kvx9+5Lb4ev11pQHQ1UrWHz4OQXQ95ETMKkzfcW8uIgfOOXyEVMgFftns9iFMSOysAX6SwSf5dAnNGKxP6Fe7octgLWAHdyvTAVMwAMcjqnOD0NUZCn2oixj5Vd0DSVTdGNw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ATC6O9HAxz+dp7LKHvV09k01pAUPoHy0LwGR2NrkiO4=;
+ b=S/HyMVHUgGkXgoC/pigOJIFpUN26qRZC/2nyvgbBiFDewwrRPD2kesQKei8VEM2yXIgWLAReeAazcCWFlFz78isZ67FpjDHfIRvaDOhq3a3sjYBk//g/wO3rSJoumahS/2SQzsjF8FTzdSyxcPa3oZtdGu4ityq0BqR1FRmOGog=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CY8PR11MB7846.namprd11.prod.outlook.com (2603:10b6:930:79::14)
+ by CY5PR11MB6365.namprd11.prod.outlook.com (2603:10b6:930:3b::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
+ 2026 21:20:06 +0000
+Received: from CY8PR11MB7846.namprd11.prod.outlook.com
+ ([fe80::cae0:d05c:b2fc:c395]) by CY8PR11MB7846.namprd11.prod.outlook.com
+ ([fe80::cae0:d05c:b2fc:c395%7]) with mapi id 15.21.0592.010; Fri, 13 Nov 2026
+ 21:20:06 +0000
+Message-ID: <3650daff-48cc-48dc-a2cb-cdfbe91ef3df@intel.com>
+Date: Fri, 13 Nov 2026 13:20:03 -0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] x86/mce: Rate-limit the CMCI storm transition
+ notices
+Content-Language: en-US
+To: Breno Leitao <leitao@debian.org>, Tony Luck <tony.luck@intel.com>,
+	Borislav Petkov <bp@alien8.de>, Thomas Gleixner <tglx@kernel.org>, "Ingo
+ Molnar" <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
+	<x86@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>, Qiuxu Zhuo
+	<qzhuo@nvidia.com>
+CC: <linux-edac@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Rik van Riel
+	<riel@surriel.com>, <kernel-team@meta.com>
+References: <20261113-mci_ratelimit-v3-0-ada38c5a6c88@debian.org>
+ <20261113-mci_ratelimit-v3-2-ada38c5a6c88@debian.org>
+From: Sohil Mehta <sohil.mehta@intel.com>
+In-Reply-To: <20261113-mci_ratelimit-v3-2-ada38c5a6c88@debian.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BY1P220CA0025.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:a03:5c3::12) To CY8PR11MB7846.namprd11.prod.outlook.com
+ (2603:10b6:930:79::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,581 +146,137 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:c2b5:b0:4dc:1374:99ae with SMTP id
- 5614622812f47-56e65735230mr3158095b6e.56.1794604688881; Fri, 13 Nov 2026
- 13:18:08 -0800 (PST)
-Date: Fri, 13 Nov 2026 13:18:08 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af77e90.ff6dfe28.557e.0029.GAE@google.com>
-Subject: [syzbot] [kernfs?] possible deadlock in ovl_copy_up_start (6)
-From: syzbot <syzbot+da1d15f707a556f6e48c@syzkaller.appspotmail.com>
-To: driver-core@lists.linux.dev, gregkh@linuxfoundation.org, 
-	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, tj@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY8PR11MB7846:EE_|CY5PR11MB6365:EE_
+X-MS-Office365-Filtering-Correlation-Id: cdbbe908-cdc9-4df8-53d3-08df41cbe374
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|1800799024|366016|23010399003|4143699003|11063799006|56012099006|261021123027099003|261102123227099003|261021121427099003|10067099003|261009223027099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: TvhsGDJ7aN1God/trwE4H42uGWc+qR2PYycriSBWuf/ch9v1RbgLp3dFtiVXeYrNo/bZwkaOvZo6Ajxq8M8btzDPu+aXh7+irNJDgSIPSXaNt2ZaTsk+H0uyX85fahTS4YvXL6dRpWFL5j8VopdZf+Rw3864At3HPQ3W1sgghofOqU/xTlrL1i7dMtv6XFo0gykcS+B/hXkw7JIJG8BwcsutryJCkLu+zfSf+hOSnT0V3oLnuuFls4lpovcrGVbeezROyExmdKvRH1AWAxhvYkOc9kV5CVJEEOnkvrUGZLw/tgoQb9I47mXa/ZWKAce//GNL57a93Wa7j6tGUVe1+3jFohYvPwVQlLCrOYzxTonSY43URkPmAB8Z2if83AfgdXmOfmj62y6Hkq51U65YtNLn9h8neg+R2tBG41k+t61ZhFEZJLSI8tm2Ir58DXsJAhKj064vVguep9Aw+lb29fns4dI7rwqrfvswTXwicSc2nmXuQf6syNq+u3JklHZicBftFBU0TFh/Yg7gJwH274ocHGCjJzINYwLuXH2KCGiq1uAw/9bO6yDe55GnYdCS+3s8w3lb2Ml8G6NQQHAgGpyT1JmGHO8SnZrGXWtkzT7dZ7SXNFpWY54DjJtOicGyqPbDY1OXIz6wCtfMvptQZi5mG57yUpOJmUCK8nMKEuM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR11MB7846.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(23010399003)(4143699003)(11063799006)(56012099006)(261021123027099003)(261102123227099003)(261021121427099003)(10067099003)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UzhuUlJ6aFFCNW5iODNrR2ZvRGVVZkJYL1I1ZlF0YVdEWmptbUhDQmp1MnhR?=
+ =?utf-8?B?Nkw0a2Vmb01TYzBuUXF2UjgyME1Mak1wdFRMRzlLektiVWgzVG5KL1IzZTV1?=
+ =?utf-8?B?WEdyTHAxb2lSOFRjbTAvQW5ZZGRnczBvOFRrMHVSbGl0ajlZbFhlN1lBOCt2?=
+ =?utf-8?B?UXFGRkY4UmxlTXhXMVd5R3lHWEpjdHc1ZXp1bFNHT3ZtVE1GZDRuRkJIZHpZ?=
+ =?utf-8?B?NTVtNzAvVm9BU09aT0x4Z0lxY2cvKytSNEp5MklqMUFnOWRoUDF4enNtU0ZO?=
+ =?utf-8?B?cTlBcnRQUnU4SVRWREhwWEVwa1RnTThhbFVvdWZvMFp2cFZ6cklKdmgwUDJs?=
+ =?utf-8?B?RmZ6ZEU5SS9Zdis0L25xTjVmYlRzWE1rTHIzdG9QWGFRaEU0cXhyZ0hSRFlS?=
+ =?utf-8?B?NGlkTjl5Y29WMGNrYXgydjIxcGY4em1zL2QySjA2U2JZREVhd2xSOEV2d05O?=
+ =?utf-8?B?VnE4ZkNZeWptU3VuMVJQYkIzTkVrQnhaaDlyVm9DOXlkaVdpMUNtaHRhdUhz?=
+ =?utf-8?B?THZXd0ZzNWp5NmJ1YXpKTXFsZUhETS9uVTZDSENENEl5RFVHckpzRTBZTEVU?=
+ =?utf-8?B?a1ZHYk9HVHUyNk80WFJkaXVMdGFkYUFwYkJ6dDRNK0tBOEtEdkJBSW1Yb3ZU?=
+ =?utf-8?B?YXA2OTg4ZmYzd09qaUN2Z1BpVW1zbnBwdFdqRStWUE5oTy9zT2RYVXFWWVJ5?=
+ =?utf-8?B?ZW5LdkJWRDZkMEc3RnBQNXVEa2FLTU9tTjByN0FZeEVDRGJ4Y21OL3E3NGhZ?=
+ =?utf-8?B?bnk2c1l6WE9ybnhkZTY3NGI0a3BrMlUxdytCZXdXNHo2bkplNi9SOHdGNERK?=
+ =?utf-8?B?TGVPSitpVmZ5YjI4V0RiSnRVM0VOYmFTVnhLQ3lONk9yQW5mcS9CenpOYzlM?=
+ =?utf-8?B?RW5aejVYTW9qU3diVzY2L3VTTFJhWEFYbjY3TUhjRUJXc2xNZ2ViSlhNYTBJ?=
+ =?utf-8?B?aWc0MFlOMTZmSi9va09KOGVmUUcvVzBYMkR6MUprNGRLUXE2OVFzcDhwZFlY?=
+ =?utf-8?B?TkZWZGJhYjZQN05kQjFGVkx5NHJaQVZ1bGxhdXJMNWJyUFk1M0ZMZ2ZxNmlB?=
+ =?utf-8?B?VVZHYkttdC9sQjVLbzFDcVpnSU53VW5RK2RmWEErWnBmdGxmdldPeUg2VTFs?=
+ =?utf-8?B?V09idU43M25SeitZQlJoNmJybkJEV2VjblpGOTlMOUZIMlpNSHFMbFdRL21K?=
+ =?utf-8?B?QU1YMVFRdjVLY2N5OVdsdjF4TUtmU0FTelF6blczRDBvRDB4ZjI1bFJ6d0lm?=
+ =?utf-8?B?T1NUSmpDeUJEOGlzdGRxMGtSaDdjNW9YYlA2VGlxSXRtZWxjaG84dVN3R20y?=
+ =?utf-8?B?eWFoVXhWZ0Q3bUFCd09nbTljbE1jdVMwdGl2d1orOW5qa0ZCM0V5clYyTVlR?=
+ =?utf-8?B?bnozLzJZVDF3SmJjcktxTDFaa052NjNlcUdXWjhOblNYYk1lVWl3MmxUdy9y?=
+ =?utf-8?B?ZGQvMnpvZ1lyQlhhbXB4cHJoM2lrOUJac1BzNHF0YUtlRDBLcDFIQlZacjJV?=
+ =?utf-8?B?aHczRWlTWGpwcm5aTzM0cUF3am9nT1dvWkg1Nmw1Y0NSYW4vcGJTUEtCSTJ6?=
+ =?utf-8?B?aXU5R204RFdQSXovU2M3QUI5c0JZVm4wbUdKQVdNUDByVVZqeERNM280c0Fj?=
+ =?utf-8?B?dHBML3NsWGhCRzEvOXMzT203WFVEUFhsYzVIR0kxR2ZHWndiL2RUNm81cXJK?=
+ =?utf-8?B?UVE0d1NOWWFkZ053ZGZnR2FYZTlhYlZaQ21uWEhEcHFXRFNXTnFpUjFZVzBE?=
+ =?utf-8?B?QUp0eHNnZ0IvdnhkWFBzdzV2V1VlNGVpYkZxS1VQNkliaDkrVGgyTHRNUFdu?=
+ =?utf-8?B?Q1QyVkY4YVBvd2wzUk5TVWRVZGlncTVFZ283Tm5GR3BqU05jUVIxVnpseVYy?=
+ =?utf-8?B?SXJqbzRQR2hCa2Y0MTFidnM5R0loVEZhQTh0Yk0zbm1hKzVkVVBmMjVrSmhU?=
+ =?utf-8?B?NTdMY3FSSlVDc0V5YzE2V28wL2NuRllqTTR2QWk5Qkt5akVhUGovWkdTY3ZG?=
+ =?utf-8?B?cS9pQWlQYldnTE5Va1NmWjBhaHB1ZnJnZjJyUnc4Rm9PMktTMU5XeHJtNk1i?=
+ =?utf-8?B?dFdIcGVucjlydXJ0eXg0R2tNbEkydWZacWwxd0VzN3Y2VmE5b2RTUlZOcFh6?=
+ =?utf-8?B?ZGJIK1JjWmJOejlkNHI4bDFFTHc3bHFOUlMxbEEwT0RlZzFvTDNuN3o1ZEdQ?=
+ =?utf-8?B?bnNER0EwWlAzYk1zOGQzUlFIOGFtWjhuRFliZzVNSmlhajlGRjErN1NTSWha?=
+ =?utf-8?B?b2NzVDJOUjExcGFTSldmVlZ2OFlIa2xvYXg4SXBMdzRNbEtBdXRhdHpKRGJz?=
+ =?utf-8?B?WkQ0WUNrR1ZPdzZNUGJWS0c1Ly9lZDFVNEtxaXFhUUp2VFZJZHpTZz09?=
+X-Exchange-RoutingPolicyChecked: eofMZJafYYyWhGv8FrsEucvTmdHoc+lfXveO1MgnBvIwf/m++Op9Gxtsthp91XTgAZ/NBUbxfVHgMnbr18yaWwHB0ExOm1M2/87uPjdmOtA5UsGr/x8xkLNsmmBUOdu07ovFFpiqDWaRdo9/4Zk0977vKH6bb3KtwjOwt6lxOFR8LRldxoHg16igfOT2q8F8Pk39UFjX/1Qn3EzShaiNSwz5NY89K2hEz58LdsgXUJTiBxIbQr9gI6wMcGBuFKKcC2Kqqc74w0kLoPPH6pD3zful0EiwbknVcVm7kISG2Ba+PTXxRiDeqVhWxTelv5/I/JAGgBVvhL6OQ+Tbe4W16g==
+X-MS-Exchange-CrossTenant-Network-Message-Id: cdbbe908-cdc9-4df8-53d3-08df41cbe374
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR11MB7846.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 21:20:06.2128
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1kIc7jOvVTkjdZUQWHq3u7au/Qs4z9EpHcRPgq4Y9USb9Yknf9+9Qn4uO7H46p8hu7vbw7h3SiTplpYnOu91qQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR11MB6365
+X-OriginatorOrg: intel.com
 
-Hello,
+On 11/13/2026 4:49 AM, Breno Leitao wrote:
+> mce_track_storm() prints a line every time a bank enters storm mode and
+> another every time it leaves. Neither is bounded, so the log volume
+> follows whatever rate the bank flaps at.
+> 
+> One host in our fleet logged 9970726 "CMCI storm detected" and 9970734
+> "CMCI storm subsided" lines for a single bank over four days, which is
+> a bit excessive for all monitoring purposes.
+> 
+> Put both transitions behind one ratelimit.
+> 
+> Acked-by: Tony Luck <tony.luck@intel.com>
+> Signed-off-by: Breno Leitao <leitao@debian.org>
+> ---
 
-syzbot found the following issue on:
+Reviewed-by: Sohil Mehta <sohil.mehta@intel.com>
 
-HEAD commit:    6d582d78fad9 Add linux-next specific files for 20261112
-git tree:       linux-next
-console output: https://syzkaller.appspot.com/x/log.txt?x=3D169916fd580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=3D95f6af5dfe89cd1=
-b
-dashboard link: https://syzkaller.appspot.com/bug?extid=3Dda1d15f707a556f6e=
-48c
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+A minor nit below.
 
-Unfortunately, I don't have any reproducer for this issue yet.
+>  arch/x86/kernel/cpu/mce/threshold.c | 16 ++++++++++++++--
+>  1 file changed, 14 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/x86/kernel/cpu/mce/threshold.c b/arch/x86/kernel/cpu/mce/threshold.c
+> index 6c370d5af5bd23..8591715ce24306 100644
+> --- a/arch/x86/kernel/cpu/mce/threshold.c
+> +++ b/arch/x86/kernel/cpu/mce/threshold.c
+> @@ -4,6 +4,7 @@
+>   */
+>  #include <linux/interrupt.h>
+>  #include <linux/kernel.h>
+> +#include <linux/ratelimit.h>
+>  
+>  #include <asm/irq_vectors.h>
+>  #include <asm/traps.h>
+> @@ -111,6 +112,13 @@ void cmci_storm_end(unsigned int bank)
+>  		mce_timer_kick(false);
+>  }
+>  
+> +/*
+> + * Shared by both transitions so that a bank flapping between them cannot
+> + * outrun the console.
+> + */
+> +static DEFINE_RATELIMIT_STATE(storm_rs, DEFAULT_RATELIMIT_INTERVAL,
+> +			      DEFAULT_RATELIMIT_BURST);
+> +
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/f69f3ef14401/disk-=
-6d582d78.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/cf338d53804b/vmlinux-=
-6d582d78.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/98aa6b0c26da/bzI=
-mage-6d582d78.xz
+Should this be defined as a function local similar to patch 1?
 
-AI-generated root cause summary:
-Lockdep detected a false positive circular dependency between overlayfs
-directory locking, superblock write protection, IMA integrity locking, and
-kernfs file locking. OverlayFS by design acquires an inode's i_rwsem
-(&ovl_i_mutex_dir_key) followed by ovl_inode_lock (&ovl_i_lock_key) on the =
-same
-inode during copy-up, and then takes upper filesystem freeze protection
-(sb_writers). A reverse chain was registered because do_open() holds sb_wri=
-ters
-across security_file_post_open(), kernfs open files share a single &of->mut=
-ex
-class, IMA shares &ima_iint_mutex_key[0] across all non-stacked filesystems
-(both upper-fs regular files and kernfs files), and resume_store() performs=
- a
-full VFS path walk (lookup_bdev) under &of->mutex that re-enters OverlayFS
-directory locking. Because the intermediate lock instances belong to disjoi=
-nt
-objects on different filesystems, no actual deadlock can materialize at run=
-time.
+>  void mce_track_storm(struct mce *mce)
+>  {
+>  	struct mca_storm_desc *storm = this_cpu_ptr(&storm_desc);
+> @@ -150,13 +158,17 @@ void mce_track_storm(struct mce *mce)
+>  	if (storm->banks[mce->bank].in_storm_mode) {
+>  		if (history & GENMASK_ULL(STORM_END_POLL_THRESHOLD, 0))
+>  			return;
+> -		printk_deferred(KERN_NOTICE "CPU%d BANK%d CMCI storm subsided\n", smp_processor_id(), mce->bank);
+> +		if (__ratelimit(&storm_rs))
+> +			printk_deferred(KERN_NOTICE "CPU%d BANK%d CMCI storm subsided\n",
+> +					smp_processor_id(), mce->bank);
+>  		mce_handle_storm(mce->bank, false);
+>  		cmci_storm_end(mce->bank);
+>  	} else {
+>  		if (hweight64(history) < STORM_BEGIN_THRESHOLD)
+>  			return;
+> -		printk_deferred(KERN_NOTICE "CPU%d BANK%d CMCI storm detected\n", smp_processor_id(), mce->bank);
+> +		if (__ratelimit(&storm_rs))
+> +			printk_deferred(KERN_NOTICE "CPU%d BANK%d CMCI storm detected\n",
+> +					smp_processor_id(), mce->bank);
+>  		mce_handle_storm(mce->bank, true);
+>  		cmci_storm_begin(mce->bank);
+>  	}
+> 
 
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=3Dda1d15f70=
-7a556f6e48c
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit=
-:
-Reported-by: syzbot+da1d15f707a556f6e48c@syzkaller.appspotmail.com
-
-overlayfs: workdir is in-use as upperdir/workdir of another mount, mount wi=
-th '-o index=3Doff' to override exclusive upperdir protection.
-overlayfs: getxattr(12/file1, "trusted.overlay.origin", "", 0, 0) =3D -61
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D
-WARNING: possible circular locking dependency detected
-syzkaller #0 Tainted: G             L    =20
-------------------------------------------------------
-syz.0.4657/23299 is trying to acquire lock:
-ffff8880587977a8 (&ovl_i_lock_key[depth]){+.+.}-{4:4}, at: ovl_inode_lock_i=
-nterruptible fs/overlayfs/overlayfs.h:731 [inline]
-ffff8880587977a8 (&ovl_i_lock_key[depth]){+.+.}-{4:4}, at: ovl_copy_up_star=
-t+0x56/0x330 fs/overlayfs/util.c:744
-
-but task is already holding lock:
-ffff888058797438 (&ovl_i_mutex_dir_key[depth]#2){++++}-{4:4}, at: inode_loc=
-k include/linux/fs.h:1027 [inline]
-ffff888058797438 (&ovl_i_mutex_dir_key[depth]#2){++++}-{4:4}, at: vfs_setxa=
-ttr+0x12b/0x370 fs/xattr.c:343
-
-which lock already depends on the new lock.
-
-
-the existing dependency chain (in reverse order) is:
-
--> #4 (&ovl_i_mutex_dir_key[depth]#2){++++}-{4:4}:
-       down_read+0x45/0x320 kernel/locking/rwsem.c:1574
-       inode_lock_shared include/linux/fs.h:1042 [inline]
-       lookup_slow+0x46/0x80 fs/namei.c:1979
-       walk_component fs/namei.c:2325 [inline]
-       lookup_last fs/namei.c:2839 [inline]
-       path_lookupat+0x3f5/0x8c0 fs/namei.c:2864
-       filename_lookup+0x265/0x5d0 fs/namei.c:2893
-       kern_path+0x3d/0x150 fs/namei.c:3087
-       lookup_bdev+0xc8/0x2b0 block/bdev.c:1268
-       resume_store+0x181/0x500 kernel/power/hibernate.c:1292
-       kernfs_fop_write_iter+0x3a4/0x540 fs/kernfs/file.c:345
-       new_sync_write fs/read_write.c:575 [inline]
-       vfs_write+0x612/0xba0 fs/read_write.c:667
-       ksys_write+0x150/0x270 fs/read_write.c:1016
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
--> #3 (&of->mutex){+.+.}-{4:4}:
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
-       kernfs_file_read_iter fs/kernfs/file.c:251 [inline]
-       kernfs_fop_read_iter+0x18b/0x6a0 fs/kernfs/file.c:291
-       __kernel_read+0x4ca/0x960 fs/read_write.c:512
-       integrity_kernel_read+0x89/0xd0 security/integrity/iint.c:28
-       ima_calc_file_hash_tfm security/integrity/ima/ima_crypto.c:222 [inli=
-ne]
-       ima_calc_file_hash+0x451/0x890 security/integrity/ima/ima_crypto.c:2=
-80
-       ima_collect_measurement+0x51b/0xa00 security/integrity/ima/ima_api.c=
-:300
-       process_measurement+0x1272/0x1c10 security/integrity/ima/ima_main.c:=
-425
-       ima_file_check+0xdc/0x130 security/integrity/ima/ima_main.c:686
-       security_file_post_open+0xb3/0x260 security/security.c:2777
-       do_open fs/namei.c:4959 [inline]
-       path_openat+0x179e/0x20e0 fs/namei.c:5122
-       do_file_open+0x23e/0x4a0 fs/namei.c:5151
-       do_sys_openat2+0x115/0x200 fs/open.c:1492
-       do_sys_open fs/open.c:1498 [inline]
-       __do_sys_openat fs/open.c:1838 [inline]
-       __se_sys_openat fs/open.c:1833 [inline]
-       __x64_sys_openat+0x138/0x170 fs/open.c:1833
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
--> #2 (&ima_iint_mutex_key[depth]){+.+.}-{4:4}:
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
-       process_measurement+0x7d0/0x1c10 security/integrity/ima/ima_main.c:3=
-19
-       ima_file_check+0xdc/0x130 security/integrity/ima/ima_main.c:686
-       security_file_post_open+0xb3/0x260 security/security.c:2777
-       do_open fs/namei.c:4959 [inline]
-       path_openat+0x179e/0x20e0 fs/namei.c:5122
-       do_file_open+0x23e/0x4a0 fs/namei.c:5151
-       do_sys_openat2+0x115/0x200 fs/open.c:1492
-       do_sys_open fs/open.c:1498 [inline]
-       __do_sys_openat fs/open.c:1838 [inline]
-       __se_sys_openat fs/open.c:1833 [inline]
-       __x64_sys_openat+0x138/0x170 fs/open.c:1833
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
--> #1 (sb_writers#5){.+.+}-{0:0}:
-       percpu_down_read_internal include/linux/percpu-rwsem.h:53 [inline]
-       percpu_down_read_freezable include/linux/percpu-rwsem.h:83 [inline]
-       __sb_start_write include/linux/fs/super.h:19 [inline]
-       sb_start_write include/linux/fs/super.h:125 [inline]
-       ovl_start_write+0x115/0x290 fs/overlayfs/util.c:32
-       ovl_do_copy_up fs/overlayfs/copy_up.c:992 [inline]
-       ovl_copy_up_one fs/overlayfs/copy_up.c:1221 [inline]
-       ovl_copy_up_flags+0xe90/0x3890 fs/overlayfs/copy_up.c:1275
-       ovl_fileattr_set+0x204/0x580 fs/overlayfs/inode.c:669
-       vfs_fileattr_set+0xa2b/0xd10 fs/file_attr.c:306
-       ioctl_fssetxattr+0x349/0x3b0 fs/file_attr.c:372
-       do_vfs_ioctl+0x914/0x15a0 fs/ioctl.c:573
-       __do_sys_ioctl fs/ioctl.c:602 [inline]
-       __se_sys_ioctl+0x82/0x170 fs/ioctl.c:590
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
--> #0 (&ovl_i_lock_key[depth]){+.+.}-{4:4}:
-       check_prev_add kernel/locking/lockdep.c:3209 [inline]
-       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
-       validate_chain kernel/locking/lockdep.c:3952 [inline]
-       __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
-       lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
-       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
-       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
-       ovl_inode_lock_interruptible fs/overlayfs/overlayfs.h:731 [inline]
-       ovl_copy_up_start+0x56/0x330 fs/overlayfs/util.c:744
-       ovl_copy_up_one fs/overlayfs/copy_up.c:1214 [inline]
-       ovl_copy_up_flags+0xaf7/0x3890 fs/overlayfs/copy_up.c:1275
-       ovl_xattr_set+0x395/0x5e0 fs/overlayfs/xattrs.c:54
-       __vfs_setxattr+0x442/0x480 fs/xattr.c:223
-       __vfs_setxattr_noperm+0x12a/0x660 fs/xattr.c:257
-       vfs_setxattr+0x151/0x370 fs/xattr.c:344
-       do_setxattr fs/xattr.c:662 [inline]
-       filename_setxattr+0x296/0x630 fs/xattr.c:690
-       path_setxattrat+0x408/0x450 fs/xattr.c:734
-       __do_sys_lsetxattr fs/xattr.c:775 [inline]
-       __se_sys_lsetxattr fs/xattr.c:771 [inline]
-       __x64_sys_lsetxattr+0xbf/0xe0 fs/xattr.c:771
-       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-       do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
-       entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-other info that might help us debug this:
-
-Chain exists of:
-  &ovl_i_lock_key[depth] --> &of->mutex --> &ovl_i_mutex_dir_key[depth]#2
-
- Possible unsafe locking scenario:
-
-       CPU0                    CPU1
-       ----                    ----
-  lock(&ovl_i_mutex_dir_key[depth]#2);
-                               lock(&of->mutex);
-                               lock(&ovl_i_mutex_dir_key[depth]#2);
-  lock(&ovl_i_lock_key[depth]);
-
- *** DEADLOCK ***
-
-locks held by syz.0.4657/23299: 2, on CPU#0:
- #0: ffff888035472478 (sb_writers#12){.+.+}-{0:0}, at: mnt_want_write+0x41/=
-0x90 fs/namespace.c:534
- #1: ffff888058797438 (&ovl_i_mutex_dir_key[depth]#2){++++}-{4:4}, at: inod=
-e_lock include/linux/fs.h:1027 [inline]
- #1: ffff888058797438 (&ovl_i_mutex_dir_key[depth]#2){++++}-{4:4}, at: vfs_=
-setxattr+0x12b/0x370 fs/xattr.c:343
-
-stack backtrace:
-CPU: 0 UID: 0 PID: 23299 Comm: syz.0.4657 Tainted: G             L      syz=
-kaller #0 PREEMPT(full)=20
-Tainted: [L]=3DSOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Goo=
-gle 11/06/2026
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_circular_bug+0x2e2/0x300 kernel/locking/lockdep.c:2087
- check_noncircular+0x12f/0x150 kernel/locking/lockdep.c:2219
- check_prev_add kernel/locking/lockdep.c:3209 [inline]
- check_prevs_add kernel/locking/lockdep.c:3328 [inline]
- validate_chain kernel/locking/lockdep.c:3952 [inline]
- __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
- lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
- __mutex_lock_common kernel/locking/mutex.c:646 [inline]
- __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
- ovl_inode_lock_interruptible fs/overlayfs/overlayfs.h:731 [inline]
- ovl_copy_up_start+0x56/0x330 fs/overlayfs/util.c:744
- ovl_copy_up_one fs/overlayfs/copy_up.c:1214 [inline]
- ovl_copy_up_flags+0xaf7/0x3890 fs/overlayfs/copy_up.c:1275
- ovl_xattr_set+0x395/0x5e0 fs/overlayfs/xattrs.c:54
- __vfs_setxattr+0x442/0x480 fs/xattr.c:223
- __vfs_setxattr_noperm+0x12a/0x660 fs/xattr.c:257
- vfs_setxattr+0x151/0x370 fs/xattr.c:344
- do_setxattr fs/xattr.c:662 [inline]
- filename_setxattr+0x296/0x630 fs/xattr.c:690
- path_setxattrat+0x408/0x450 fs/xattr.c:734
- __do_sys_lsetxattr fs/xattr.c:775 [inline]
- __se_sys_lsetxattr fs/xattr.c:771 [inline]
- __x64_sys_lsetxattr+0xbf/0xe0 fs/xattr.c:771
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x00007f47a49a94d9
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 =
-48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff f=
-f 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f47a5807028 EFLAGS: 00000246 ORIG_RAX: 00000000000000bd
-RAX: ffffffffffffffda RBX: 00007f47a4c25fa0 RCX: 00007f47a49a94d9
-RDX: 0000000000000000 RSI: 0000200000000380 RDI: 0000200000000340
-RBP: 00007f47a4a3804e R08: 0000000000000002 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f47a4c26038 R14: 00007f47a4c25fa0 R15: 00007ffc5b6de328
- </TASK>
-overlayfs: setxattr(12/file0, "trusted.overlay.impure", "y", 1, 0) =3D 0
-overlayfs: mkdir(index/#5d, 040000)
-overlayfs: ...mkdir =3D 0
-overlayfs: setxattr(index/#5d, "trusted.overlay.origin", "\0=EF=BF=BD!\0\00=
-12=EF=BF=BD,=EF=BF=BD\023dO<\202\024=EF=BF=BD(4xI+=EF=BF=BD=EF=BF=BD=EF=BF=
-=BD\202V\0\0\0\0\0\0\0", 33, 0) =3D 0
-overlayfs: rename(index/#5d, file0/file1, 0x0)
-overlayfs: setxattr(file0/file1, "trusted.upperdir", "", 0, 2) =3D -61
-kcov: kcov_task_exit: t =3D ffff888029733e80, kcov->t =3D ffff888029733e80
-ffff888029b44000 name hci5 bus 0
-hci5: Updating devcoredump state from IDLE to IDLE.
-hci5: err 0x13
-hci5 ffff888029b44000
-hci5:=20
-hci5: err 0x13
-hci5: cancelling interleave scan
-All LE pending actions cleared
-hdev hci5
-hcon ffff888037a84000 reason 22
-hcon ffff888037a84000 conn ffff888037a0a800, err 103
-hci5 hcon ffff888037a84000 chan ffff888077237700
-hci5 hcon ffff888037a84000 handle 200
-hci5: hcon ffff888037a84000
-hcon ffff888037a84000
-hci5: conn ffff888037a84000
-device: 'hci5:200': device_unregister
-kernfs runtime_status: removing
-kernfs control: removing
-kernfs runtime_suspended_time: removing
-kernfs runtime_active_time: removing
-kernfs autosuspend_delay_ms: removing
-kernfs power: removing
-kernfs device: removing
-kernfs subsystem: removing
-kernfs hci5:200: removing
-kernfs uevent: removing
-PM: Removing info for No Bus:hci5:200
-kobject: 'hci5:200' (ffff888037a84cf8): kobject_uevent_env
-kobject: 'hci5:200' (ffff888037a84cf8): fill_kobj_path: path =3D '/devices/=
-virtual/bluetooth/hci5/hci5:200'
-kernfs hci5:200: removing
-kobject: 'hci5:200' (ffff888037a84cf8): kobject_cleanup, parent 00000000000=
-00000
-kobject: 'hci5:200' (ffff888037a84cf8): calling ktype release
-kobject: 'hci5:200': free name
-hci5 orig refcnt 11
-hcon ffff88807cc40000 reason 22
-hcon ffff88807cc40000 conn ffff888037a0f000, err 103
-hci5 hcon ffff88807cc40000 chan ffff8880597fe100
-hci5 hcon ffff88807cc40000 handle 201
-hci5: hcon ffff88807cc40000
-hcon ffff88807cc40000
-hci5: conn ffff88807cc40000
-device: 'hci5:201': device_unregister
-kernfs runtime_status: removing
-kernfs control: removing
-kernfs runtime_suspended_time: removing
-kernfs runtime_active_time: removing
-kernfs autosuspend_delay_ms: removing
-kernfs power: removing
-kernfs device: removing
-kernfs subsystem: removing
-kernfs hci5:201: removing
-kernfs uevent: removing
-PM: Removing info for No Bus:hci5:201
-kobject: 'hci5:201' (ffff88807cc40cf8): kobject_uevent_env
-kobject: 'hci5:201' (ffff88807cc40cf8): fill_kobj_path: path =3D '/devices/=
-virtual/bluetooth/hci5/hci5:201'
-kernfs hci5:201: removing
-kobject: 'hci5:201' (ffff88807cc40cf8): kobject_cleanup, parent 00000000000=
-00000
-kobject: 'hci5:201' (ffff88807cc40cf8): calling ktype release
-kobject: 'hci5:201': free name
-hci5 orig refcnt 7
-hdev hci5 event 4
-hdev 0000000000000000 len 8
-hci5: Cleanup of MSFT extension
-hdev hci5 event 8
-hci5 orig refcnt 6
-channel 3 len 6
-channel 3 len 8
-hdev hci5 event 2
-hdev 0000000000000000 len 8
-kernfs runtime_status: removing
-kernfs control: removing
-kernfs runtime_suspended_time: removing
-kernfs runtime_active_time: removing
-kernfs autosuspend_delay_ms: removing
-kernfs power: removing
-kernfs device: removing
-kernfs subsystem: removing
-kernfs rfkill88: removing
-kernfs uevent: removing
-kernfs name: removing
-kernfs type: removing
-kernfs index: removing
-kernfs persistent: removing
-kernfs state: removing
-kernfs soft: removing
-kernfs hard: removing
-kernfs hard_block_reasons: removing
-PM: Removing info for No Bus:rfkill88
-kobject: 'rfkill88' (ffff88802cb86118): kobject_uevent_env
-kobject: 'rfkill88' (ffff88802cb86118): fill_kobj_path: path =3D '/devices/=
-virtual/bluetooth/hci5/rfkill88'
-kernfs rfkill88: removing
-kobject: 'rfkill88' (ffff88802cb86118): kobject_cleanup, parent 00000000000=
-00000
-kobject: 'rfkill88' (ffff88802cb86118): calling ktype release
-kobject: 'rfkill88': free name
-kernfs runtime_status: removing
-kernfs control: removing
-kernfs runtime_suspended_time: removing
-kernfs runtime_active_time: removing
-kernfs autosuspend_delay_ms: removing
-kernfs power: removing
-kernfs subsystem: removing
-kernfs hci5: removing
-kernfs uevent: removing
-kernfs reset: removing
-PM: Removing info for No Bus:hci5
-kobject: 'hci5' (ffff888029b455d8): kobject_uevent_env
-kobject: 'hci5' (ffff888029b455d8): fill_kobj_path: path =3D '/devices/virt=
-ual/bluetooth/hci5'
-kernfs hci5: removing
-hci5 orig refcnt 2
-kobject: 'hci5' (ffff888029b455d8): kobject_cleanup, parent 000000000000000=
-0
-kobject: 'hci5' (ffff888029b455d8): calling ktype release
-All LE connection parameters were removed
-hci5: Unregister MSFT extension
-kobject: 'hci5': free name
-syz_tun: bond_netdev_event received NETDEV_GOING_DOWN
-net syz_tun: siw: event 10
-In tnode_resize ffff888022f14120 inflate_threshold=3D50 threshold=3D25
-In tnode_resize ffff888058988020 inflate_threshold=3D50 threshold=3D25
-In tnode_resize ffff888067c91820 inflate_threshold=3D50 threshold=3D25
-In tnode_resize ffff888051684520 inflate_threshold=3D50 threshold=3D25
-In tnode_resize ffff88807d0908a0 inflate_threshold=3D50 threshold=3D25
-In tnode_resize ffff88804393b1a0 inflate_threshold=3D50 threshold=3D25
-In tnode_resize ffff88802af88420 inflate_threshold=3D50 threshold=3D25
-trie_flush found=3D1
-In tnode_resize ffff888022f14120 inflate_threshold=3D50 threshold=3D25
-In tnode_resize ffff888058988020 inflate_threshold=3D50 threshold=3D25
-In tnode_resize ffff888067c91820 inflate_threshold=3D50 threshold=3D25
-In tnode_resize ffff888051684520 inflate_threshold=3D50 threshold=3D25
-In tnode_resize ffff88807d0908a0 inflate_threshold=3D50 threshold=3D25
-In tnode_resize ffff88804393b1a0 inflate_threshold=3D50 threshold=3D25
-In tnode_resize ffff88802af88420 inflate_threshold=3D50 threshold=3D25
-trie_flush found=3D1
-IPv6: walker ffffc90003727140 adjusted by unlink of ffff88803831b000
-IPv6: walker ffffc90003727140 adjusted by unlink of ffff88803ba18000
-IPv6: walker ffffc90003727140 adjusted by unlink of ffff888039a5f800
-IPv6: fixing tree: plen=3D128 iter=3D0
-IPv6: W ffffc90003727140 adjusted by delnode 1, s=3D4/2
-IPv6: fixing tree: plen=3D120 iter=3D1
-IPv6: W ffffc90003727140 adjusted by delnode 2, s=3D2
-IPv6: fixing tree: plen=3D97 iter=3D2
-IPv6: walker ffffc90003727140 adjusted by unlink of ffff88803ba18400
-IPv6: fixing tree: plen=3D128 iter=3D0
-IPv6: W ffffc90003727140 adjusted by delnode 1, s=3D4/2
-IPv6: fixing tree: plen=3D120 iter=3D1
-IPv6: W ffffc90003727140 adjusted by delnode 2, s=3D2
-IPv6: fixing tree: plen=3D73 iter=3D2
-IPv6: walker ffffc90003727140 adjusted by unlink of ffff88803ba18800
-syz_tun: bond_netdev_event received NETDEV_DOWN
-net syz_tun: siw: event 2
-Deleting ac141400/24 dsfield=3D0x00 t=3Dffff88803002c6b8
-Deleting ac1414ff/32 dsfield=3D0x00 t=3Dffff88803002c6b8
-Deleting ac1414aa/32 dsfield=3D0x00 t=3Dffff88803002c6b8
-In tnode_resize ffff888051684520 inflate_threshold=3D50 threshold=3D25
-In tnode_resize ffff88802af88420 inflate_threshold=3D50 threshold=3D25
-syz_tun (unregistering): bond_netdev_event received NETDEV_UNREGISTER
-net syz_tun: siw: event 6
-syz_tun (unregistering): bond_netdev_event received NETDEV_PRE_UNINIT
-net syz_tun: siw: event 18
-kernfs rps_cpus: removing
-kernfs rps_flow_cnt: removing
-kobject: 'rx-0' (ffff888059944c50): kobject_cleanup, parent ffff888013a47b5=
-0
-kobject: 'rx-0' (ffff888059944c50): auto cleanup kobject_del
-kobject: 'rx-0' (ffff888059944c50): auto cleanup 'remove' event
-kobject: 'rx-0' (ffff888059944c50): kobject_uevent_env
-kobject: 'rx-0' (ffff888059944c50): fill_kobj_path: path =3D '/devices/virt=
-ual/net/syz_tun/queues/rx-0'
-kernfs rx-0: removing
-kobject: 'rx-0' (ffff888059944c50): calling ktype release
-kobject: 'rx-0': free name
-kernfs tx_timeout: removing
-kernfs traffic_class: removing
-kernfs xps_cpus: removing
-kernfs xps_rxqs: removing
-kernfs tx_maxrate: removing
-kobject: 'tx-0' (ffff888050658420): kobject_cleanup, parent ffff888013a47b5=
-0
-kobject: 'tx-0' (ffff888050658420): auto cleanup kobject_del
-kobject: 'tx-0' (ffff888050658420): auto cleanup 'remove' event
-kobject: 'tx-0' (ffff888050658420): kobject_uevent_env
-kobject: 'tx-0' (ffff888050658420): fill_kobj_path: path =3D '/devices/virt=
-ual/net/syz_tun/queues/tx-0'
-kernfs tx-0: removing
-kobject: 'tx-0' (ffff888050658420): calling ktype release
-kobject: 'tx-0': free name
-kernfs queues: removing
-kobject: 'queues' (ffff888013a47b50): kobject_cleanup, parent 0000000000000=
-000
-kobject: 'queues' (ffff888013a47b50): calling ktype release
-kobject: 'queues' (ffff888013a47b50): kset_release
-kobject: 'queues': free name
-kernfs runtime_status: removing
-kernfs control: removing
-kernfs runtime_suspended_time: removing
-kernfs runtime_active_time: removing
-kernfs autosuspend_delay_ms: removing
-kernfs power: removing
-kernfs subsystem: removing
-kernfs syz_tun: removing
-kernfs uevent: removing
-kernfs tun_flags: removing
-kernfs owner: removing
-kernfs group: removing
-kernfs rx_packets: removing
-kernfs tx_packets: removing
-kernfs rx_bytes: removing
-kernfs tx_bytes: removing
-kernfs rx_errors: removing
-kernfs tx_errors: removing
-kernfs rx_dropped: removing
-kernfs tx_dropped: removing
-kernfs multicast: removing
-kernfs collisions: removing
-kernfs rx_length_errors: removing
-kernfs rx_over_errors: removing
-kernfs rx_crc_errors: removing
-kernfs rx_frame_errors: removing
-kernfs rx_fifo_errors: removing
-kernfs rx_missed_errors: removing
-kernfs tx_aborted_errors: removing
-kernfs tx_carrier_errors: removing
-kernfs tx_fifo_errors: removing
-kernfs tx_heartbeat_errors: removing
-kernfs tx_window_errors: removing
-kernfs rx_compressed: removing
-kernfs tx_compressed: removing
-kernfs rx_nohandler: removing
-kernfs statistics: removing
-kernfs netdev_group: removing
-kernfs type: removing
-kernfs dev_id: removing
-kernfs dev_port: removing
-kernfs iflink: removing
-kernfs ifindex: removing
-kernfs name_assign_type: removing
-kernfs addr_assign_type: removing
-kernfs addr_len: removing
-kernfs link_mode: removing
-kernfs address: removing
-kernfs broadcast: removing
-kernfs speed: removing
-kernfs duplex: removing
-kernfs dormant: removing
-kernfs testing: removing
-kernfs operstate: removing
-kernfs carrier_changes: removing
-kernfs ifalias: removing
-kernfs carrier: removing
-kernfs mtu: removing
-kernfs flags: removing
-kernfs tx_queue_len: removing
-kernfs gro_flush_timeout: removing
-kernfs napi_defer_hard_irqs: removing
-kernfs proto_down: removing
-kernfs carrier_up_count: removing
-kernfs carrier_down_count: removing
-kernfs threaded: removing
-PM: Removing info for No Bus:syz_tun
-kobject: 'syz_tun' (ffff888037e107e0): kobject_uevent_env
-kobject: 'syz_tun' (ffff888037e107e0): fill_kobj_path: path =3D '/devices/v=
-irtual/net/syz_tun'
-kernfs syz_tun: removing
-kobject: 'syz_tun' (ffff888037e107e0): kobject_cleanup, parent 000000000000=
-0000
-kobject: 'syz_tun' (ffff888037e107e0): calling ktype release
-kobject: 'syz_tun': free name
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
