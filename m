@@ -1,97 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794544236;
-	b=5e+7xQI3DOE73fKKWdwUqkFWOzVIRFXNubb+KklmY+eRQSBnoPNO/ggiYfw/OYoQnN/a
-	 6bxg0cdKNLemyyu7chwflhOzMwLTS72siVaXPFxsEvRV/qeBS8+z588EPPIaCXZuAUqky
-	 Q7YPt+p+JgGHDT3p9CxzGiR83tOqTl1kBCXUDe7viqdjs4JonjItSeNjwfMYk6wyO5/xB
-	 cJ+hFceDuU6btCTOioXPbVUJHnmh2PcOgv6PJDWgYgWIfYgq9eCe0cOniFYcqPTm76krb
-	 BlAUOXsfJyFe0Aefh1oxW62eCm3rVxYTpGyHn/XGeV9jOE9L4BETszyKqYY9J7PsA3g==
+	t=1794544267;
+	b=LnFDFQI8Yz1L80OGEAluVooKYX3CYzH21CIUBliNBY7SexIWlVeQJghIb9asWQqBCUEK
+	 Zkkkzi73IgVLPF6aCgzzKj+5n+en/sF3h7DqSJUpFDlSni7Up9cWiZYp+I/yXhvDb4RdN
+	 fdUZlqvoRUnQaIdGN98cn50+aU0ZhKCeqgVg8YbeIcUHT+IHLfSocX6uMXytNVjuJYzDm
+	 UcxUlxeBj2b5BuutnheZEhZl+oOsjzRNPIg0KAy+N4JAGJAw9oBItL3c3z16CWIjXru57
+	 OgpJPqaqCP1gMTcVaBOFXF4+NVNtCSFJIqKBGVHQeU5R9h2cDQ+G0ocV2knw9mb1F+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794544236;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794544267;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=WVayaF79KuqXR5beczcnmlbf6rAuqOBk9ycmEbTKdrk=;
-	b=RqwMoDD/uoxRYXu8sA2nkiXWfl51DqmY5WuONwV4g3Eu53gjS9g1bLR6ogBypCJDTWqM
-	 7ZcHPH1/ukVpBc6YOhnqskLc0mom4OnXM138IXpdP3ev2RgeNk/lXMlrWiyiU/K08WDk0
-	 Vf0TqGSJjuT8BYjupWBpsXHhp1NMS/RjLVJEixTRM8s+LiBMCCdWBmI97mDONC8VVX8Ne
-	 1ArKRWHsaPENl8noWZ0eOeAihxyFxxoRo9mxxKBZcCLwimOHLSsdI9qw70REgRNq9ggj6
-	 zada6/Eja9ggrRqN7vsMe8NqpKOytWKQKHgb7NbHaaUpD4/1fb1fK20ePHzUWkY053A==
+	bh=++DzozSDXGoGQ0O1+uMvDLSlApNVfPaQr26d6Yana4s=;
+	b=Gz5IeXRlRmxkcUpVgVyd41NnxkmOrJtqlEYv/dyIqtJvYZxGAndlbF+hqcbV7QePigab
+	 7UNEuRMlc/sELSOjcwSFd6VZvLNpsnkPlco/GjrkyIREP7L28cU4cD/wjABUB2hNltYK8
+	 rsEkwgKlTq4/lnl+Mr9UVS1BHylVOBFDvCwe0lrVWG74G6Bn5sl9nc0pJ4EBnFveIzID0
+	 ALAOYQWa6Qc1BMuMMYC2bh1w3XKwHHvn8lc7WH9hcv/CDR84nfdNMd1F8LMk7Ru+Aswpq
+	 2CUj2F+UWgf18r4obfC1OrOGpXgLYjslz1dxBTNplrkCCXVQ3tVxGTOuqX84Su0Htqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RW2HUODL;
-	arc=none smtp.remote-ip=74.125.82.44
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=G9eIfylm;
+	arc=none smtp.remote-ip=209.85.222.171
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C03D606A32D
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 04:30:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C03D606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5849606A32A
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 04:31:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5849606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RW2HUODL
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1b3a05f8b5bso528815c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:30:35 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=G9eIfylm
+Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-93e4c00d71aso86265485a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 12 Nov 2026 20:31:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794544235; x=1795149035; darn=vger.kernel.org;
+        d=cs.unc.edu; s=google; t=1794544265; x=1795149065; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WVayaF79KuqXR5beczcnmlbf6rAuqOBk9ycmEbTKdrk=;
-        b=RW2HUODLLmEUTVTZupq141E/3vddizN43ENZbU8B/QgUTOzALmpshsThpMo0x+fKND
-         nT6HS4qXat0fEjkScpiix2OPvSUNVPAqjzMPorVOQU0efTGtWCQbinIbPmgx37PWSh8E
-         DmBmLIMtJNVjriNeU8U+sdTVzZNielcp1w/vFgM1WDnaNI5VsHZ6aHfBdBunmqmBLywf
-         GBaCb8jU/QlG1pr7ocYZ/lG43KzRPzKhUOCNgvYG9Ls7H0VJnYQuPtHRP7vsSdmZEiwy
-         +CAiwzy825EJ5An5sTz5z9PLbiTwomPEP3ESxcBgL7gBCmQGJQpK4W6mR59YtdlPyJX4
-         mpyQ==
+        bh=++DzozSDXGoGQ0O1+uMvDLSlApNVfPaQr26d6Yana4s=;
+        b=G9eIfylmt5CojRvIIXwiGqovzH3PjwsiBaGIjEcKbWvZ6g+OCGYrpEV7Lqw4fTbJzN
+         QE0QymcMBlylboQ4+VeJVXL2dSi8rNFWS0uTvYylwTLoaLpI+MJZZ0HTlGJe4j27LCPt
+         96BcFFdT/fYtrX987TeDwZSsd7hR42gka05D5UkcxoF5930mMa0Kc0V/abyoHS5cLW92
+         /NdKfBOZBuPFvLh3a0exZZe7AL1dEqi8aEn1685/9kOHu6pEPAU7DyY7BulfgdZKJ9xk
+         QGOJzLrJyHQj4+AiACGTe/mxqDAtxv7ylCN5/3snDDk8Fd3SCpAqU/GE6GN+sPB7HUtW
+         nLRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794544235; x=1795149035;
+        d=1e100.net; s=20260707; t=1794544265; x=1795149065;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WVayaF79KuqXR5beczcnmlbf6rAuqOBk9ycmEbTKdrk=;
-        b=bXdcQ5ctA0ADk0K91+9Gbm7ocjvwXh/JCmU+v9DKKN8JSbLeMoIf7UCCYgIGAjA1hV
-         9DKfrhGeh9ZiErqx/HIHJhValeGT+IlLTYBcwLT2SBtTzqFYKHb6FWfg+HHcCRcEAxQ2
-         sdoan1QU7dLb5c1SRVo6P/JzKTKYYSBF0VPoNN7pGUyyuOPX0qaEgVfvqPaSQ5hAqISR
-         hDGNbHwWRs++E5+mKIjzqFc5T7/UKuc8cKToLmyEC89PwzlQaZJL5L2azuAUXd4xSCmc
-         X0ZzWtZOimx49ej3aCSTfuzMb0UxAIddm9ruqCNV/nbZXbtfLJA7wmtGltlZll/U9eW7
-         mTSQ==
-X-Forwarded-Encrypted: i=1; AL+hErG8EhFGDJGdHZ8TbrLk5QXkwCKkXqzrblngNZKPaVIzRHsnb2zQHO7AMV6j7AboTLcajbZb9KB3y1LoUWU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8yYVs6DxiLsT8wwienuwGm6L0EBa3nWlI7h699vHtuuomrwzJx
-	jozuVu7WWcIF3t3I9VjblrSQAuYy5AS8f+GUkrhxWZwteF5KpNA5QeNE
-X-Gm-Gg: AYBFou33i7l7NCsjoSNgam6LJ0k8vWg78qtTDzfA3fNyPKdbnBhJWOYou7f+4x3sgUE
-	tIS8jc4AKno+45otvI3sHzeBJPACPV3+/BPDkTrutQn++0UPf76sYQBqeTMzjocrkPfkIwjoxsz
-	pBKYT2QNghTev3rqKKyokqk8ASJ21ohZRDkmBj495PFSA8RhzrvAEb/2OiGAmAL89uAThPqQri6
-	+vA+eHbv6ZSqDB64p5KiIQhS63AeXt+P7SFK9gRpmraA9mWpa2bAayE17dGrmY9fv48G2V1uoUz
-	yMIzIiTEMYqPNLsOyEFTqLkliVHAYERPK9e0Jn3Br3+1ZAT5SSICntvRUbin6jGLsIKQ155rl2f
-	Dd1QHJwa1jy89RWKTKYfDWCWbvpmcJnqSWiUtuuu97iew+bZQ4/rx/LpTQs6GsWJqiW3gNrAjx7
-	frgohp+8lfeeNa7o9wUTygDf0Vsl9YiGv/KGir/0t5sF5ZKi9DaohLXcWRKz/IKEjfXG/ZJh6XW
-	yYHuikbcATJ2DLCh15MFkPrty4O79NJ72OiXNgKL/LVQ5F72Zlf4I2ERslN/IS9Kuq/vE5E/zPu
-	DfwaFPdFRXwOdmKlNet4amVV1kBkJ8x2/Q==
-X-Received: by 2002:a05:7022:ea24:b0:1a9:e382:cedc with SMTP id a92af1059eb24-1b5030fb905mr1774050c88.46.1794544234918;
-        Thu, 12 Nov 2026 20:30:34 -0800 (PST)
-Received: from pve-server.rlab ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031468b7sm4473106c88.5.2026.11.12.20.30.30
+        bh=++DzozSDXGoGQ0O1+uMvDLSlApNVfPaQr26d6Yana4s=;
+        b=bLT/jOqJ2OeS0qGwoKB/gUmc52AkvTLZpjq4GdYpy2YGkN6KeWNgNyiA8sVe9kC2is
+         hVc1scEi+c8ytv67YgsmON9mXX8etzfRw1Q1MUdvlhyBbAuHkfIWEi1jYmlRSbZQQGJY
+         hifWr/2yWuv3M9i+v7kmJSaLPng5J+AG4asldbaqaALyuW4hS7fuFg2m+dHimQou5heH
+         piwq7E3mBOvDMaU+NiOATL/ULWu46N9ruLAz5jg53boWsdHGTckR4vRWLdoAY0vbNR60
+         uZrKtQ3zfe6wV+5xGGOGoryLwvg9IDudI/g7z1bM3I7q4KXsNm027zmNejZ8tC0ph4zY
+         jtvQ==
+X-Forwarded-Encrypted: i=1; AL+hErHH5jmZPsmcq6cSLto9vu+t93LixaU/wzoOQq16jwhChVBdhCzezyODtX1T+WlR8aru0QcDWuMFGdFmOug=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8vwIFpsYbN10a1eMgkE+xwoNg6WWpHeU/dxi9EgoPtUwHTLjT5
+	8FCpAM2DMQLdqHI84GJg+7ICvI0mDYhKlG51o2Fyw2KSkPyI1mzVixT6bLPhHip8cQ==
+X-Gm-Gg: AYBFou3bSR829hoqlWXGBcScgenZYwjBjETlkNnP6izIvIOuQaZRsJyOj2xJUO1aAut
+	ratqwmWyczKD/I+JOi/VNqTo5GmwhJMGUUbihZWWG7iYCtH2Sn4xOdH0DIRGVuVU94OYkehAbjf
+	agLFCasv6mMPuMAPf0TTkYDS7OKJgYGneOhPDIYbkDPFOmpMweA00h+Q2hxKMY/VTdj6hrvrNd7
+	vcExwj7kCnawi1YqB495GS++u7kad4ZgLbDRzqV/wO0wRIAA+2ubwEGZO51uDXJREMhbXiBU6tP
+	31bJOZlYOWE4CrlLq0cuH2AB1jXDmwnQimsHtn4kQowAvlXK3RvPXIWp0BWoKtmc5pcQlGZJ7qY
+	cIEmAc+R2mBrSGeWXDkQ+bjQqds5a+5opjuQ5n0fAHOErVZReuuD3CBRWY8POE1e2+QLiL3b1nF
+	LcLFMVi1BVv4VhtxcB4ChLW/E1D7K7Tk7yxULbQ5ioB9zHOzT0H04dOYX+ikFd2EyocV5L7tra2
+	0C1rt8/wRWtimRd5B0VGcvpmLUb9tbAOEdCBOlGLZxni6k7oVzOROuFJBpO0wFZNh3GkvUYG7AO
+	kV2hCd/cg7ZUwsWqSSXE2q6g/pzAkG83xm2YYMCyLt82lEc4cc3RZhFQ+FWyqb4tydJAWGAfsg=
+	=
+X-Received: by 2002:a05:620a:6192:b0:939:b099:d52f with SMTP id af79cd13be357-9494ba7dfd0mr226368285a.20.1794544264634;
+        Thu, 12 Nov 2026 20:31:04 -0800 (PST)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c8f9576sm96595585a.42.2026.11.12.20.31.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 12 Nov 2026 20:30:34 -0800 (PST)
-From: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-To: linuxppc-dev@lists.ozlabs.org
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
+        Thu, 12 Nov 2026 20:31:03 -0800 (PST)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: Carlos Maiolino <cem@kernel.org>
+Cc: "Darrick J. Wong" <djwong@kernel.org>,
+	John Garry <john.garry@linux.dev>,
+	Christoph Hellwig <hch@lst.de>,
+	linux-xfs@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	chleroy@kernel.org,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Hari Bathini <hbathini@linux.ibm.com>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-Subject: [PATCH] powerpc/execmem: Don't leave kprobes insn pages W+X when CONFIG_MODULES=n
-Date: Fri, 13 Nov 2026 10:00:24 +0530
-Message-Id: <ed03d290d440d579a81ae0b7de5243721291d903.1794543909.git.ritesh.list@gmail.com>
-X-Mailer: git-send-email 2.39.5
+	stable@vger.kernel.org
+Subject: [PATCH] xfs: do not let tr_atomic_ioend raise the minimum log size
+Date: Thu, 12 Nov 2026 23:30:55 -0500
+Message-ID: <20261113043055.2578595-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,58 +101,70 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit 2e83e2ce34ff ("arch, mm: promote DEBUG_WX to CHECK_WX"), made
-CHECK_WX default enabled if STRICT_KERNEL_RWX is enabled.
+Commit b1e09178b73a ("xfs: commit CoW-based atomic writes atomically")
+added the tr_atomic_ioend reservation and made
+xfs_log_calc_trans_resv_for_minlogblocks() copy it from the running
+filesystem.
 
-Now on powerpc, when we boot with CONFIG_KPROBES=y and CONFIG_MODULES=n,
-we can see the following warning splat at boot:
+However, the copy has the current log count of tr_itruncate. On a
+filesystem with rmapbt and without reflink that count is 4, while the
+function puts the old count of 2 back for tr_itruncate itself. As of
+now, the minimum log size of such a filesystem is larger than the one
+its mkfs.xfs used, and the filesystem does not mount any more when its
+log has the old minimum size.
 
-    powerpc/mm: Found insecure W+X mapping at address 000000002ea08992/0xc008000000000000
-    WARNING: arch/powerpc/mm/ptdump/ptdump.c:194 at note_page+0x4dc/0x4fc, CPU#0: swapper/0/1
-    NIP [c0000000000ac204] note_page+0x4dc/0x4fc
-    LR [c0000000000ac200] note_page+0x4d8/0x4fc
-    Call Trace:
-     note_page+0x4d8/0x4fc (unreliable)
-     ptdump_pte_entry+0x70/0x94
-     walk_pte_range_inner+0x15c/0x260
-     walk_pgd_range+0x6d8/0xd5c
-     walk_page_range_debug+0xa4/0xf0
-     ptdump_walk_pgd+0xec/0x304
-     ptdump_check_wx+0xd8/0x154
-     kernel_init+0x94/0x26c
-     ret_from_kernel_user_thread+0x14/0x1c
-    Checked W+X mappings: FAILED, 1 W+X pages found
+The issue can be reproduced with mkfs.xfs from xfsprogs 5.13:
 
-This happens because CHECK_WX noted a writeable + executable mapping.
+    truncate -s 512M xfs.img
+    mkfs.xfs -m rmapbt=1,reflink=0 xfs.img
+    mount -o loop xfs.img /mnt
 
-This happens because execmem_arch_setup(), checks for
-struct_modules_rwx_enabled() to decide between PAGE_KERNEL_ROX v/s
-PAGE_KERNEL_EXEC prot, whereas kprobes depenency on modules was earlier removed
-via commit:
-    7582b7be16d0 ("kprobes: remove dependency on CONFIG_MODULES")
-Now, the insn slots are only written with patch_instruction(), which
-does not need this mapping to be writable. This patch fixes it by
-checking for strict_kernel_rwx_enabled() instead.
+Before commit b1e09178b73a ("xfs: commit CoW-based atomic writes
+atomically"), the mount succeeds.
 
-Fixes: 7582b7be16d0 ("kprobes: remove dependency on CONFIG_MODULES")
-Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+After that commit, it fails with EINVAL:
+
+    XFS (loop0): Log size 878 blocks too small, minimum size is 962 blocks
+    XFS (loop0): AAIEEE! Log failed size checks. Abort!
+
+This patch will use the old log count for the copy as well. These
+filesystems have no reflink, so they never use this reservation.
+
+Fixes: b1e09178b73a ("xfs: commit CoW-based atomic writes atomically")
+Cc: stable@vger.kernel.org # v6.16
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
 ---
- arch/powerpc/mm/mem.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+mkfs.xfs 4.9 to 5.13 give such a log to an rmapbt=1,reflink=0
+filesystem below 1 GiB, or up to 16 GiB with -d su=256k,sw=4.
 
-diff --git a/arch/powerpc/mm/mem.c b/arch/powerpc/mm/mem.c
-index b617b69452cd..77b63b52d8f2 100644
---- a/arch/powerpc/mm/mem.c
-+++ b/arch/powerpc/mm/mem.c
-@@ -388,7 +388,7 @@ static void prealloc_execmem_pgtable(void) { }
+Application impact (Ubuntu 26.04 user space): udisks2 2.10.91 is asked
+to mount a filesystem made as above ("udisksctl mount -b /dev/vda"). On
+v6.15, it mounts it at /run/media/root/STICK513. On v6.16, it fails
+with "Error mounting /dev/vda ... wrong fs type, bad option, bad
+superblock".
 
- struct execmem_info __init *execmem_arch_setup(void)
- {
--	pgprot_t kprobes_prot = strict_module_rwx_enabled() ? PAGE_KERNEL_ROX : PAGE_KERNEL_EXEC;
-+	pgprot_t kprobes_prot = strict_kernel_rwx_enabled() ? PAGE_KERNEL_ROX : PAGE_KERNEL_EXEC;
- 	pgprot_t prot = strict_module_rwx_enabled() ? PAGE_KERNEL : PAGE_KERNEL_EXEC;
- 	unsigned long fallback_start = 0, fallback_end = 0;
- 	unsigned long start, end;
---
-2.39.5
+Tested on xfs for-next with 45 images made by mkfs.xfs 4.9 to 6.6: 26
+do not mount without this patch, all mount with it, and the largest
+reservation is the same as on v6.15.
+
+ fs/xfs/libxfs/xfs_log_rlimit.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/fs/xfs/libxfs/xfs_log_rlimit.c b/fs/xfs/libxfs/xfs_log_rlimit.c
+index 37712b2f8757..9454c91e9fb3 100644
+--- a/fs/xfs/libxfs/xfs_log_rlimit.c
++++ b/fs/xfs/libxfs/xfs_log_rlimit.c
+@@ -128,6 +128,8 @@ xfs_log_calc_trans_resv_for_minlogblocks(
+ 		resv->tr_write.tr_logcount = XFS_WRITE_LOG_COUNT;
+ 		resv->tr_itruncate.tr_logcount = XFS_ITRUNCATE_LOG_COUNT;
+ 		resv->tr_qm_dqalloc.tr_logcount = XFS_WRITE_LOG_COUNT;
++		/* tr_atomic_ioend starts as a copy of tr_itruncate. */
++		resv->tr_atomic_ioend.tr_logcount = XFS_ITRUNCATE_LOG_COUNT;
+ 	}
+ 
+ 	/*
+
+base-commit: 48326a2382d80715475d10ce98734ac65d2d2150
+-- 
+2.53.0
 
