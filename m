@@ -1,65 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794582517;
-	b=HfSE28/i8DbjKUNsM2V7n8k3MEsBBq2E653zHB0uhHd2bzxWuLCttC2awhQYPnjupKc5
-	 7p//2CklIFcVkOBJTvVcze94hmKKotzpYXyyx96rE2UQ3RoW+ogPtI3YrPOt2u6JPpHlD
-	 lNPnyh0jzPrHrMPOK03DucWvox1+G3aqttDj0rSCN/7OkoCXu0KusoxWj8Ma70Fm4ff61
-	 2qOZV3MoyMkPEzlcg1/fR7hK7zkkzYV3YTEHIrGm1xs4O6N+Erq8pzjPrDBhJmLMnsw7H
-	 oOw6qApCIL4JAgafWlKnFVXGzSEfwP0tt4bqaAVofVLvksHuBHL/A1angHIQT61/Xog==
+	t=1794582558;
+	b=j5ihUfJSJGEmyOIsUdx6KYgk3JIPKDC+IESZV4rjDQ/ZyTo4F9ugVjWRyCMDV1fl9PH8
+	 +VFZWc2UVAK/If632rOjvE8mfTGHgw1lZVWp72sSJ2FlmAPfiwz9XePgSPuE9NrNOEAaN
+	 rJ9q6lazbdFkEDGHE1r4iWtUyVazx3qq3m/k5ivQeMv6ae/eABz0aNxH9v8Io5V6UxL9j
+	 DwDhi/c6TxYG8I35VrE/tyJoeWOZF+Mj/IzvXHtIQxELGwkk01Mt45f/8M1bprA2n9vEf
+	 8IipgCius6hNGu14xqY0a8KYXw0yWQoMaRXpWvwTtjPQ0P96/rbtain8NFSRQnTUuUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794582517;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
-	 Date:Message-ID:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=mGrf7JaZq0O646GLAmSYUiskE8wdIOIlTShy4qrY0vM=;
-	b=i4ias56GHH4wbh6imdAPwblxe7PnIUeJkqzFzmzg3LK31AE6vZN0nL55ag9EbiZhtknZ
-	 /KXpBAzTjp4nE9WRat7e/SIw87XWEwrR8PhXN5/auhA3zxfuP9wvumqncJpiEFQpZa3ki
-	 rLix2nNWGcBZkRYvXlIkb83/z8aARjkvNyupvqL/ahQ0Us8EJB009qTt5cyvqETlWTP/V
-	 uZFRNbDZ8t5eeb1Li1k84mcYjmZpvMoydAMXj+OtQ9Nc3mZfZlVlzFItngenpmr/mfTzW
-	 PQOsp/nqY0Rxts9ZpJy/aqrTkd9RmBzCv4sH2JDljGJ8VCvhnfoA2NK+C0NvzqpXrng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794582558;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=ElaHpO/cl7bIhBpcIggkO3WyV+HKCbctoj21X/hVL3w=;
+	b=D8cl+ABnTfQ44stTo6OtnulDL0ESQxMEAhEQcVHrNzbKMgECdHbwKNABGss7cCggIyRh
+	 sp+uLiYS9cLRso6aBBRzd3bHKUsApizxmmYHrQD//2RMdQ2LAelHn7BOkn7M/tzyO1EvX
+	 fRzWSqxchOJvFMo7aTeNjsXzLinmMDcCh8eyLdDwlYfj8mYLoXwkRMbo+MVDLMg4c/uiB
+	 WpoqVKELl1RJgxkhgA0itTDSc59coucmnn4D+uNqST1WqE2ZcV2abl1isM5c6B4Z+kM7a
+	 5W+EGIppgs7O794tp9MtRigopEmhLWoC+n3IJcKCgLT+/oranvv7WkZTgcPdG5mqvnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=michaelmcallister.org;
-	spf=pass smtp.mailfrom=michaelmcallister.org;
-	dkim=pass header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=VjjXHV99;
-	arc=none smtp.remote-ip=79.135.106.112
-Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch [79.135.106.112])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bCoxE7K8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ADB0606A8A4;
-	Fri, 13 Nov 2026 15:08:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2ADB0606A8A4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=michaelmcallister.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=michaelmcallister.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D08C7606A32E;
+	Fri, 13 Nov 2026 15:09:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=VjjXHV99
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=michaelmcallister.org; s=protonmail2; t=1794582513; x=1794841713;
-	bh=mGrf7JaZq0O646GLAmSYUiskE8wdIOIlTShy4qrY0vM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=VjjXHV99mmbhtDEufZikm/ZoocZH2bHKzB79O7HL50lCrWV08l4ZdvUKK9LlfKvlq
-	 WBB9Fmp8jeZFKOUuVNCwNqkLgV8ER/N8zkKwfUZilAZJVQn21Oo5G7D3UlIFL3V+rU
-	 UVbj9q4xyw7HCXaP/7BcttQjG0dxrQMLuy0iA41CfpIfhLFQ9dnAXxe3ZB0+xlSKNi
-	 A0B9fFKkbFxwDupVTk2iK1XZg00lGJy/FsEp70Qf9mPccdrNe5UnO6Pv6czkvKxi55
-	 PAMYo7rf+mI1xY/nUyonFJdlcea2mLBzSnCddY2rqQsBJS3ZAzgCHr/LMHQXXYf1Rb
-	 wmtmR3IAPl4XA==
-X-Pm-Submission-Id: 4jR0y74PzRz1DF5P
-From: Michael McAllister <me@michaelmcallister.org>
-To: dmitry.baryshkov@oss.qualcomm.com
-Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, sean@poorly.run, marijn.suijten@somainline.org,
- airlied@gmail.com, simona@ffwll.ch, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH] drm/msm/dsi: clear the DMA buffer pointer after freeing it
-Date: Fri, 13 Nov 2026 15:08:02 +0000
-Message-ID: <179458248277.51880.11276326781897812340.msm-dsi-double-free@michaelmcallister.org>
-In-Reply-To: <6m4cssgagnpvm2wawyj62veoqbglxv62rcqgxzaxvjynhn3dts@tlkaxvd6ph3n>
-References: <179422752570.88190.13452031230666113805.msm-dsi-pin-leak@michaelmcallister.org>
- <6m4cssgagnpvm2wawyj62veoqbglxv62rcqgxzaxvjynhn3dts@tlkaxvd6ph3n>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bCoxE7K8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C18081F000C4;
+	Fri, 13 Nov 2026 15:09:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794582558;
+	bh=ElaHpO/cl7bIhBpcIggkO3WyV+HKCbctoj21X/hVL3w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bCoxE7K8MTaoQxI7TJYL3QOgNegL48sGHSbCDvlHU6QC+LHc8Ap9HG6v17knvmDvF
+	 0WQ4TdIS/GeUQHZZdZKOe4Z5hkfvYKGEA7hPrElyjOLy6cypsilVdxKGzLTwVxJ7Nm
+	 V/THv7RQhk8ruf0nvU0V+TJKdgwbnCffsGEjITZq2sznjKY9fcvBiVfMwbXmeK3/VO
+	 oypA7NkD6G3w2QDC3fEhWAUR8n3yGLCusgP4kgF40j12AyKmNHvLgOxaI7Wm9aGt8B
+	 vhX0sluiK4JXpZ4BQKZcEGECH8ff/SaJQwUIXxOq29GXuliBCi4MXtK7ElPHbHkwaU
+	 n/AAh8eot3+mw==
+Date: Fri, 13 Nov 2026 15:09:13 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Manuel Ebner <manuelebner@mailbox.org>
+Cc: Valerio Setti <vsetti@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Christian Hewitt <christianshewitt@gmail.com>,
+	linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ASoC: meson: aiu-fifo: prevent sleeping when spinlock is
+ held
+Message-ID: <956be74b-e417-49ef-8c2b-4cfa2785de1c@sirena.org.uk>
+References: <20261111-aiu-fifo-fix-sleep-on-spinlock-v1-1-dc9ee401a7cf@baylibre.com>
+ <0140bc0b3d1078bf8851340e0cb893b2907e146a.camel@mailbox.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,43 +68,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="aUv4vAN6sKoMDkAM"
+Content-Disposition: inline
+In-Reply-To: <0140bc0b3d1078bf8851340e0cb893b2907e146a.camel@mailbox.org>
+X-Cookie: Flee at once, all is discovered.
 
-The DSI host survives component unbind. On DSI v2, freeing the command
-buffer leaves tx_buf pointing at freed memory. If a later bind fails
-before allocating a new buffer, another unbind can free it again.
 
-Clear tx_buf after freeing it, as we already do for tx_gem_obj.
+--aUv4vAN6sKoMDkAM
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Fixes: 5e05be782645 ("drm/msm/dsi: free TX buffer in unbind")
-Cc: stable@vger.kernel.org
-Link: https://sashiko.dev/#/bug/linux-6f5085d3-ef49-482c-86e4-a2438bc1b91f
-Signed-off-by: Michael McAllister <me@michaelmcallister.org>
----
-Hi Dmitry, thanks for flagging. I've addressed the double-free in a separate patch.
+On Fri, Nov 13, 2026 at 03:54:29PM +0100, Manuel Ebner wrote:
+> Hi Valerio,
+>=20
+> I have read your patch and have a question.
 
-Thanks,
-Michael
+Please delete unneeded context from mails when replying.  Doing this
+makes it much easier to find your reply in the message, helping ensure
+it won't be missed by people scrolling through the irrelevant quoted
+material.
 
- drivers/gpu/drm/msm/dsi/dsi_host.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+--aUv4vAN6sKoMDkAM
+Content-Type: application/pgp-signature; name="signature.asc"
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index 64fc54dff4..3feb260a31 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -1301,9 +1301,11 @@ void msm_dsi_tx_buf_free(struct mipi_dsi_host *host)
- 		msm_host->vm = NULL;
- 	}
- 
--	if (msm_host->tx_buf)
-+	if (msm_host->tx_buf) {
- 		dma_free_coherent(dev->dev, msm_host->tx_size, msm_host->tx_buf,
- 			msm_host->tx_buf_paddr);
-+		msm_host->tx_buf = NULL;
-+	}
- }
- 
- void *dsi_tx_buf_get_6g(struct msm_dsi_host *msm_host)
--- 
-2.39.5
+-----BEGIN PGP SIGNATURE-----
 
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmr3KBgACgkQJNaLcl1U
+h9B39wf9EvUqesa7tYghVXB4F8vgGeLnqIn57bm2KD+9XYi4jGGVSW8c4ebimqhM
+dp+bmECZYP/LAUEt398gktd5wGC+fWNPmHZ6rxyZJyCNr2+MuvjZ58rM1U7IJ9cA
+k9qSPDzy6EV/4aNWqvFfmesBxQUqej68UhfKVr4w7/HmawPuUvlfA/z4qi9jCkZ4
+5bTzkEzmBBVbJ2DFi1DcS0b22KkOgqHa1wSBaGCLmFVDhhgrEZCNFqSY3eJZprZG
+7UPInXpfm7vM4MkdovYrnlXaTlZ/8jOgmw9F9z8jNCrcJFg+Beebv32ZmJuwUbY8
+/PxUg36kalzUVnwXEVSMIPpbpx11+A==
+=BzTS
+-----END PGP SIGNATURE-----
+
+--aUv4vAN6sKoMDkAM--
