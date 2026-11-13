@@ -1,66 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.205
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794536759;
-	b=Exfc1Pu8sD8+pQqu5ElczQ6t1RkmTHs3iMNcWKCzSMRDs/GnmYttvEtAmQEJfDFC0irq
-	 wlGRb/tim0RZdoPhamFd+c3n3ajq7pJgPpmdOmf1h3X+8CGe4T4UBsYi70xF2fQYPIRHp
-	 Yxvp7G+f6sFKbHFWBjYJsByod8iNK79t/tm07/y/aBLwDkgyZfG87wgmmKH1lnBYjEZuv
-	 KhHsksYgbfsAURu6k8j1CdGZAOdg3jeyFHDI7n4R/QWAfTuTOmock8dQ6c9aTAWbvX0sS
-	 H5Xtcpx+iHnENBQRaL7pHvxkCRZTT9nOJ5EC33YtaXK4qL9IWi+HLwQ6A+F+nbiZB1Q==
+	t=1794536764;
+	b=DpxXk7yPwJL/alvOmHQivy56OrjsWWfkoYFhpjCOP3rmwI7dpUrCQmAFl38KYxMrmp4C
+	 TFUo1aulvPAYVKvBr9Qm6lq3rrjOsHSXWgZEr+MpyrdiI5t3ZAQhKVLSLAIU9MzbHG1gR
+	 2DuqhgkClYuNyaPcNu9FD+vvsafN/LLVK/VXai756UAdYxH9NjdJAue668ixIjXV4RTB2
+	 aOuzWA00LtAkmpDrGrZHRyoDnjhWZnH7z9Imjcwv5RU5pVis6xsIyewiTlwu3sUXr4VZx
+	 ijna8wmQeuzUCS2Uh3luRynsVY3RC3Hghy8Bp94BN01WMoQzDAL6pCZJvKMCRAA94+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794536759;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794536764;
 	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
 	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=adgGF6Y+EY3ng5J3ZlI+WZuzQBE8vUwfEB8/besoPZ4=;
-	b=ymnIBu1iBOWmbWjlErwNVLUx2wO1kzMdwPgnclvOytQn66aMK1TdorDGY+CVV0/dhFLb
-	 XO39rCicb9HTvbQZcYjYXA3KuYx52odtmAWZBuF+XV1L8AO7b3mxO+gZ0CAmOADxuGN/D
-	 7R5FC5S6aguNeAOcIpOcafP+dNE2UJ7cdlg5g2APSJ1vs3BW5mnfApVpWq9flp9P4c0MX
-	 Gt4Ptbi7kGpAKAVa3T8HOp+S+eyRSbNytSV2Kd58rm7b3rzl8jE3AKl3Q4ClYbc44ZBPX
-	 YeNq0YDr0UgSW/qNboHgVRT1+KXxEkadHusagstv7OMzc8Knpb6ENK34FkIWjy3boNQ==
+	bh=ADjBHf/Z79qmaHh9vebe2wTNxsvzvEheUooSYsrIzlk=;
+	b=LDktdKMeiRrbevKLpo3yOBXz3ePVAzXo+oxHR0Hh6NiE/4H34QSphCGSqYEWAfYAsp8T
+	 s3ukfpk7alkMIuq7DYKTyFJcgPjtNVV3fi7z3t68ZDUIhhWOkn2zJ2voWQeLalG0FwWEY
+	 xJ4xA0H/clL5o1dTdUChpkSLVsHyEVQ0leoHIrtORV7matDtc6KGAvh1/zfiNg0bgptBR
+	 6iifDz/73n/Kw1euSR+3X9VuO5/z+S50lBAHvY2/woZukP61fPyJP7etDQknlAfelazc8
+	 kJkU8vsZvJEUctXMaIZKf2Qt46c3Tc62leohRmjFchMAxinbZHAq0ggLGYLASZGHycg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=qq.com;
 	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=RCMvMO36;
-	arc=none smtp.remote-ip=203.205.221.173
-Received: from out203-205-221-173.mail.qq.com (out203-205-221-173.mail.qq.com [203.205.221.173])
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=yhFdL7lZ;
+	arc=none smtp.remote-ip=203.205.221.205
+Received: from out203-205-221-205.mail.qq.com (out203-205-221-205.mail.qq.com [203.205.221.205])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65229606A33E;
-	Fri, 13 Nov 2026 02:25:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65229606A33E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D38C860A260D;
+	Fri, 13 Nov 2026 02:26:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D38C860A260D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=RCMvMO36
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=yhFdL7lZ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794536756; bh=adgGF6Y+EY3ng5J3ZlI+WZuzQBE8vUwfEB8/besoPZ4=;
+	t=1794536754; bh=ADjBHf/Z79qmaHh9vebe2wTNxsvzvEheUooSYsrIzlk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RCMvMO36qYYcEpAD9mpgGKIahsLHCNjzgvbhT2dXqi26xjeusKrMuB5G304neiXOe
-	 gOSdv/3phI0PK4lomBgz5B4EH6M+/p7LzZNkJURjcBCymUOWlCYF5M6OdcwqcvKHEh
-	 4ldP5EhqFLu1GsM+/ywlNB57Aa9cwkSqePCkce+s=
+	b=yhFdL7lZ20qMZ8eiWjtH/QevxjIrt6kk1cnXC5+4QhGxSXo9C9cyEc3cVP61nsBcq
+	 KMGUil4KFPI1BLf69dAb7w5wc0+9qhZeXiPn0O1LvIsnS4xvv3XqHkDfOd3chT2/Pl
+	 wpZQn6dRHzFSSfwd2myf45Ets1Hzyj9IKlhaMuxU=
 Received: from shuai-VMware-Virtual-Platform.. ([117.158.156.199])
 	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
 	id 67422604; Fri, 13 Nov 2026 10:25:52 +0800
-X-QQ-mid: xmsmtpt1794536754t6v10ca43
-Message-ID: <tencent_D36E88294D0CB9BB49A3B1FCC8B734F5E20A@qq.com>
-X-QQ-XMAILINFO: ORr8VBNiK85PeI187XCv97bJSC/4fF38Q/ubbH3a0YQU/0lYU4Bwe1fl5s4Muh
-	 oAYFZjpmV+Ngaq/IfK90t3FZ7KobFC++z8bBD5PSYJA3PIhSvB1UN65aPr5zpwqJ7ezORksG9FzF
-	 e10AkFCyVlmH8bu8E/mQZsk3yH1A6CYI1TDz206ZcShlrPRm+GutnLqRzNClzzAlzQD4I16kQUzS
-	 GYCHzc5UxOMWFXgbeBoTzqgoam0yznb66q/jkgCxogYkpnFEosTDmS5Qx0XhLJ10P/xOvNEieqOj
-	 VBZbqN/RCLsKgq2Gfik9QwWERFrwvOgsMq0Wh/TY8Uub5cO7+s5FHttMDvhcay3suMUz3/dnOvJl
-	 LmxeKMKK2CFWCT1Ce3eZijl/GQdeQbAj+YBiWS9LG4t6quoTKOye5oVZs7vJdlRt28obVeS1P8f6
-	 QOV8DrE8am6iU0MSvVJeBey7xdYclbXXdyR4CBC8gtPb7WxC26qULWwpTeUo+t7NVVsV3e3j8PMn
-	 vafEduO72mFnrzeVlO965OKk/mASqgon2fDKOXTnlmyk1gLdmI6zz05zn4qM9CkCz8EnQLYLuANK
-	 22a2VOPLI8CpVXrKE3a+LeP1UtxWWvtMi6w6tniYZMtONVOW1GZrp6bAZxzu0xhFdXXZV3thjKGO
-	 KGfL0v012fd9Ldm0gINqIU3ydJprALkz8pcIkQaDGMDhcYb3XPaiE2+ZxbTrEg0bKRUkU7Ez9cMj
-	 48bjpmT6icfCzpfJKhDJmAVEAIrj7lnd6Gwmm1WfAUOvWiQJ6g6/UBAZjWXJH0rZS9JHAmCgUxah
-	 IJ922kB0C2ed0qQYwtVuxJjU40INFMEvNkkWpp4YFxxEmPmspLr2+9zaPswiDdYN0Lg7ebJBVxXw
-	 wkVdL/dvIwSc9OWVIUHlD+5FYq9Wice/Og2CJgQZeO2pos/fiE1uEzKuVZvByik3iCh9642S9ixg
-	 mxhTz+HNLEzEfo/ePTHRoK6NcnSvWdJfeYf0lhIfjfJmJMjn6vNluu/dKuouFWjk3od8x1kPMOzA
-	 WdQ1KNU3cwiEjYPkammXpxMGdB4Pjsf7BLIGmXjunGe/fZyEWg+qyI1mlQUXrHpk8cpkX4s6dv23
-	 LWBjG8GCU4Mw/vj+d7C+kEVO2Ei49fMvaKbTKfjqx8ubN1BCrhFmsA8hGQnNoYlL6KDyMd
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-mid: xmsmtpt1794536752tzw4b1zvu
+Message-ID: <tencent_49DD1BA5EB5812E5DF9A6470C9C44826C809@qq.com>
+X-QQ-XMAILINFO: NeLCmDDONCsL4e38iuqP7ZzIVFQM4ST3emajsByrZ8hgmFZzyGvJalsOQvvxSA
+	 SVfPhU7sqex9Ts0bH+eHm0j56bvsB+klYKe85WBZ/YL+yVRtKFQ7rWuIYML3SG7UdFJyJOb6jxwM
+	 vKj0f7cqSrPDQkywwNBd9AIHIDhios5SO3ScYqPX3nQSNCcuT+3dQuxYc4tD8fJUSqSLt3ggiCmk
+	 rGnhOoXu6T9lOh7J5tOBBziRIIB8Eua+8gFb9x6W3mBcPI46LUonMvaQz2YYDFww3a5NF+9wxFVJ
+	 I03eVxjJYKGlHsCpwtu1CABw+X+7G33yxXqq29rpa5lbBQoG/Q3guqXuiLCLPms6L4Omo3YwPlXC
+	 DMLf/iaHCmiQ2FmvIPf7J//FoFoiRsDG3N2tX+v3yi/cRIoKaE4ppkaRNtzMO6lguqCD2Nh31tbS
+	 uX8Vk0v6R+Z8UvOWYJN/IWnkW6tIgRSNc6ITLCHtL+HH9keE7JQA7KuOA8USjIucrXb1Vsuk7go7
+	 EgUz77ZrmAzSy3oBZRnQh6ImKwdBN0UUCtS2WqgFUoCK0Ho44x8HjJcPlpT8gwGIjo6h8f3fXOwV
+	 Kcr6anJavGlMEozfleQMjdwAssezFPOQ+fbfuBPHopfp6Baxz7emP7yaZFJXv4eMKQpMLGFfYC4s
+	 t/w+SootcoV4nmU6h+nzK3c/cq4gQVv9cOjStZW4mJ0nkL65BDJ6Jdy1ns0mIbk+Ye/z7cCGHt/8
+	 C0NHKElkbzOt9rut00iOLgJBr7XqnEr0livpqFJ3qrqA1I620UfxAwPZ2FJ7c8rgKgwj22tQNi54
+	 OskPFBLo0rAfYiGkE+7JMVaeDu6I5qV7jyjnDgDpnd+feHTzUbbCbqmpFjlRi0A32kFOzaumxNyK
+	 96VnpPmMZ21hhdyvd4+Qh4KV/mE40Mq66teudWsknIKp6bzqPRZ27hXs2cetGpBekXKXsUuR/R1K
+	 CMK2EWAbqe13i+QQ7O2N2oxkZFjMO2LzhYqZU+SB7dy7JRW6zrF19S/sv8sX5UKgTBf4ljIJue1g
+	 9XIpyztPsrIjj+t1cjl2q5yX+bWRzYhk+91jxe5Tnu8Nv1g7wn01PqDzCa52ai8FwHDzNIfXif2h
+	 fRFc3fxaZ8SKfauuQTo8oQDqArIgZgq0uSGTtVfD/N4PHcHTL4pVp8NUyAJUtxL990GrwQ
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
 From: Shuai Liu <847807867@qq.com>
 To: linux-spi@vger.kernel.org
 Cc: rust-for-linux@vger.kernel.org,
@@ -69,13 +69,12 @@ Cc: rust-for-linux@vger.kernel.org,
 	dakr@kernel.org,
 	linux-kernel@vger.kernel.org,
 	847807867@qq.com
-Subject: [PATCH v7 3/3] samples: rust: add SPI driver sample
-Date: Fri, 13 Nov 2026 10:25:52 +0800
-X-OQ-MSGID: <20261113022552.601873-3-847807867@qq.com>
+Subject: [PATCH v7 1/3] rust: helpers: add SPI helpers
+Date: Fri, 13 Nov 2026 10:25:50 +0800
+X-OQ-MSGID: <20261113022552.601873-1-847807867@qq.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261113022552.601873-1-847807867@qq.com>
+In-Reply-To: <tencent_097BA6F40A0B8FBC4C130C6EBF58F8048006@qq.com>
 References: <tencent_097BA6F40A0B8FBC4C130C6EBF58F8048006@qq.com>
- <20261113022552.601873-1-847807867@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,123 +86,80 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a sample driver for the Rust SPI abstractions to demonstrate their
-usage.
+Add C helpers for the SPI functions that are `static inline` in C and
+therefore cannot be accessed from Rust directly: spi_unregister_driver(),
+spi_write() and spi_read().
+
+The helpers are guarded by CONFIG_SPI, since the SPI core functions they
+call are not available when SPI support is disabled.
+
+Also include <linux/spi/spi.h> in the bindgen bindings helper, so that
+the Rust side can access the SPI data types.
 
 Signed-off-by: Shuai Liu <847807867@qq.com>
 ---
- samples/rust/Kconfig            | 11 ++++++
- samples/rust/Makefile           |  1 +
- samples/rust/rust_driver_spi.rs | 66 +++++++++++++++++++++++++++++++++
- 3 files changed, 78 insertions(+)
- create mode 100644 samples/rust/rust_driver_spi.rs
+ rust/bindings/bindings_helper.h |  1 +
+ rust/helpers/helpers.c          |  1 +
+ rust/helpers/spi.c              | 26 ++++++++++++++++++++++++++
+ 3 files changed, 28 insertions(+)
+ create mode 100644 rust/helpers/spi.c
 
-diff --git a/samples/rust/Kconfig b/samples/rust/Kconfig
-index 31d62533ef25f..f99bf52654a15 100644
---- a/samples/rust/Kconfig
-+++ b/samples/rust/Kconfig
-@@ -84,6 +84,17 @@ config SAMPLE_RUST_DEBUGFS_SCOPED
- 
- 	  If unsure, say N.
- 
-+config SAMPLE_RUST_DRIVER_SPI
-+	tristate "SPI Driver"
-+	depends on SPI=y
-+	help
-+	  This option builds the Rust SPI driver sample.
-+
-+	  To compile this as a module, choose M here:
-+	  the module will be called rust_driver_spi.
-+
-+	  If unsure, say N.
-+
- config SAMPLE_RUST_DRIVER_I2C
- 	tristate "I2C Driver"
- 	depends on I2C=y
-diff --git a/samples/rust/Makefile b/samples/rust/Makefile
-index b986b681cde5a..efe04638a990b 100644
---- a/samples/rust/Makefile
-+++ b/samples/rust/Makefile
-@@ -8,6 +8,7 @@ obj-$(CONFIG_SAMPLE_RUST_DEBUGFS)		+= rust_debugfs.o
- obj-$(CONFIG_SAMPLE_RUST_DEBUGFS_SCOPED)	+= rust_debugfs_scoped.o
- obj-$(CONFIG_SAMPLE_RUST_DMA)			+= rust_dma.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_I2C)		+= rust_driver_i2c.o
-+obj-$(CONFIG_SAMPLE_RUST_DRIVER_SPI)		+= rust_driver_spi.o
- obj-$(CONFIG_SAMPLE_RUST_I2C_CLIENT)		+= rust_i2c_client.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_PCI)		+= rust_driver_pci.o
- obj-$(CONFIG_SAMPLE_RUST_DRIVER_PLATFORM)	+= rust_driver_platform.o
-diff --git a/samples/rust/rust_driver_spi.rs b/samples/rust/rust_driver_spi.rs
+diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
+index c706dda5b5ca7..c9062aae959a1 100644
+--- a/rust/bindings/bindings_helper.h
++++ b/rust/bindings/bindings_helper.h
+@@ -88,6 +88,7 @@
+ #include <linux/security.h>
+ #include <linux/serdev.h>
+ #include <linux/slab.h>
++#include <linux/spi/spi.h>
+ #include <linux/sys_soc.h>
+ #include <linux/task_work.h>
+ #include <linux/tracepoint.h>
+diff --git a/rust/helpers/helpers.c b/rust/helpers/helpers.c
+index 9bb850294a2f3..6b0f50c12f9ca 100644
+--- a/rust/helpers/helpers.c
++++ b/rust/helpers/helpers.c
+@@ -96,6 +96,7 @@
+ #include "serdev.c"
+ #include "signal.c"
+ #include "slab.c"
++#include "spi.c"
+ #include "spinlock.c"
+ #include "string.c"
+ #include "srcu.c"
+diff --git a/rust/helpers/spi.c b/rust/helpers/spi.c
 new file mode 100644
-index 0000000000000..7eee7b7357947
+index 0000000000000..179a90e014e04
 --- /dev/null
-+++ b/samples/rust/rust_driver_spi.rs
-@@ -0,0 +1,66 @@
++++ b/rust/helpers/spi.c
+@@ -0,0 +1,26 @@
 +// SPDX-License-Identifier: GPL-2.0
 +
-+//! Rust SPI driver sample.
++#include <linux/spi/spi.h>
 +
-+use kernel::{
-+    device::Core,
-+    of,
-+    prelude::*,
-+    spi, //
-+};
++#ifdef CONFIG_SPI
 +
-+struct SampleDriver;
-+
-+kernel::spi_device_table! {
-+    SPI_TABLE,
-+    <SampleDriver as spi::Driver>::IdInfo,
-+    [(spi::DeviceId::new(c"rust_driver_spi"), 0)]
++__rust_helper
++void rust_helper_spi_unregister_driver(struct spi_driver *sdrv)
++{
++	spi_unregister_driver(sdrv);
 +}
 +
-+kernel::of_device_table! {
-+    OF_TABLE,
-+    <SampleDriver as spi::Driver>::IdInfo,
-+    [(of::DeviceId::new(c"test,rust_driver_spi"), 0)]
++__rust_helper
++void rust_helper_spi_message_init(struct spi_message *msg)
++{
++	spi_message_init(msg);
 +}
 +
-+impl spi::Driver for SampleDriver {
-+    type IdInfo = u32;
-+    type Data<'bound> = Self;
-+
-+    const SPI_ID_TABLE: Option<spi::IdTable<Self::IdInfo>> = Some(&SPI_TABLE);
-+    const OF_ID_TABLE: Option<of::IdTable<Self::IdInfo>> = Some(&OF_TABLE);
-+
-+    fn probe<'bound>(
-+        sdev: &'bound spi::SpiDevice<Core<'_>>,
-+        info: Option<&'bound Self::IdInfo>,
-+    ) -> impl PinInit<Self, Error> + 'bound {
-+        let dev = sdev.as_ref();
-+
-+        dev_info!(dev, "Probe Rust SPI driver sample.\n");
-+        dev_info!(dev, "max_speed_hz: {}.\n", sdev.max_speed_hz());
-+        dev_info!(dev, "bits_per_word: {}.\n", sdev.bits_per_word());
-+        dev_info!(dev, "mode: {:#x}.\n", sdev.mode());
-+
-+        if let Some(info) = info {
-+            dev_info!(dev, "Probed with info: '{}'.\n", info);
-+        }
-+
-+        Ok(Self)
-+    }
-+
-+    fn shutdown<'bound>(sdev: &'bound spi::SpiDevice<Core<'_>>, _this: Pin<&Self>) {
-+        dev_info!(sdev.as_ref(), "Shutdown Rust SPI driver sample.\n");
-+    }
-+
-+    fn unbind<'bound>(sdev: &'bound spi::SpiDevice<Core<'_>>, _this: Pin<&Self>) {
-+        dev_info!(sdev.as_ref(), "Unbind Rust SPI driver sample.\n");
-+    }
++__rust_helper
++void rust_helper_spi_message_add_tail(struct spi_transfer *t,
++				      struct spi_message *msg)
++{
++	spi_message_add_tail(t, msg);
 +}
 +
-+kernel::module_spi_driver! {
-+    type: SampleDriver,
-+    name: "rust_driver_spi",
-+    authors: ["Shuai Liu"],
-+    description: "Rust SPI driver",
-+    license: "GPL v2",
-+}
++#endif
 -- 
 2.43.0
 
