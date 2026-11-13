@@ -1,67 +1,184 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794529743;
-	b=3v1Z5HypA1FHvcXqEVRLO8g4ohqB3zMCUwNfzSTQKViUHvlRfRGui3qdEHLTAmxGuByQ
-	 eAXMs/FcUCvv9QOprL0Fm3F21Rsd4xecBMzWQlnhSFhESW2zU0VPIWGu9wG3L6YVWCIlK
-	 0wYbw0EE/zVOcTmqNH8puea6Ec8iDhg1BHnxQz1Eq3MXCRasUUqzXcGfVLy26+KptTi6H
-	 8E72gH+nHVViSbEqZqNIfEEDOq9LWM58YNik/wbUIosI+mPWbLuSJDQROLgNiuAvdssYq
-	 TFhQSVv3IpToqvfBwEy8I5xvuYbELl8cn09gRi6ImwlMVFtSDsD9uv//G+V4XQtCh5Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794529743;
-	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
-	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=tDYCaFaIA1X5WG+Ksgun0vJszutqpxqtdf31XJbwObY=;
-	b=K958zSKpt5L+sSdOkSP0VfFxm95N4XwKiQG7PBwnORJCuaMMtLZJ5O0mWyX0P0veyJbo
-	 GfsNL4Dgt1W018Lap2TjmEAvvx+9Ius0dVDrIESkOIXKUuCUls5Qo4C3gF8WfgkyLdque
-	 PBlgMAX90fEiPK6s/6tNGHSRLtZe0m96xM6KDt/iSC7h99med7G5DxS21AClkzkXfKSyZ
-	 n8TKlVGaAFscrqL4mVk8M60R3HYrAjyx2uisZEwI5FzoNHBmPsNfFZweWp0h6wn2Gc5cp
-	 0sFdP7iMihrl18/sPpB/5QGZ2a1x6koWnGf9LHYpi4LM+LVIP6HPjJ2OAtJ+mKPrj/w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.9
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794529767;
+	b=VNIslmBeor4PUAjIylXfa8UyJtddVRrGwYdGcYWOg4bAaGgV48qxCpg9po+HhGBIdGRF
+	 +YB8G0f/fVQLa8zUGKWbLk2gzbXDIcZ31Y17F9YBMr1wDBA/Sn5yPOumOetczLv0Nudga
+	 XZM87cXyBwcuLcUueB6/gvAWVUBRrbNPJ25QGOEoAHNC0JfQT5Ia2WWRI9jKX/lewRuvi
+	 kNgIqzXdS9PKiYB8PXeD9o9b638yH6mtIeCBJmwLIu8hROZ39+FaCKWD1+jYoYRwdC0cg
+	 HrBgRC9A0YD1iQYcVHYyFpvnmPGLvL+a9BjUdh7pk2jzwaKLFiH9hnjZ6bXPLySeGWA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794529767;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=wQUkZm2zn4Pk71XaaKir9TcgdZIdv8j1aJzmZoUhHIo=;
+	b=ourxdvh/O2+/1NJeFn5Ci4sg/Jaw2hOpWbDQ6SpDLadYN7oRwwMhc/rsWtrn3075/u/h
+	 RSp2VLJ7oj07V3KAgUF/1ME07eL5w643Bj9gHLyxMFzyv1+3yQmFbsZqdEv23MEKZ9eUY
+	 HZp/bFtKmvecE6iSiFMxUvHsTApgkTdI0Y/ZA2Up7LzKkBiFl8yiaMBy05oo+jXv4d6Xx
+	 FYcbYD2BI171bz5AP8nd51+/at1PS+0YKyYaKewiR1fmgBtr3q5ZKynis9nrYV5rg0eLK
+	 W/qSkfSpxrAw7u3ssUn/wtFEis28nnV4Ri66wCJLBcU9YBBmB28tpPp56v2kAjkvwjw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=i+DUiVjc;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=loqYQz7F;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.9
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD2EE606A31C;
-	Fri, 13 Nov 2026 00:29:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD2EE606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 35eb3a38def911f19a56ed5b684f684d-20261113
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:f0064d7f-9abe-4c49-b82c-3d1bdab481d5,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:a7178148341c9e4ed1c21d6f19ea3710,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|850|865|898,TC:nil,Content:0|15|50|99,ED
-	M:5,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
-	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 35eb3a38def911f19a56ed5b684f684d-20261113
-X-User: wangyibo@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <wangyibo@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 847965463; Fri, 13 Nov 2026 08:28:55 +0800
-From: Wang Yibo <wangyibo@kylinos.cn>
-To: Carlos Maiolino <cem@kernel.org>
-Cc: linux-xfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	"Darrick J . Wong" <djwong@kernel.org>,
-	kernel test robot <lkp@intel.com>
-Subject: [PATCH v2] xfs: convert the dahash test to KUnit
-Date: Fri, 13 Nov 2026 08:28:53 +0800
-Message-Id: <20261113002853.8-1-wangyibo@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261112041631.2792545-1-wangyibo@kylinos.cn>
-References: <20261112041631.2792545-1-wangyibo@kylinos.cn>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95F65606A31C;
+	Fri, 13 Nov 2026 00:29:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95F65606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=i+DUiVjc;
+	dkim=pass (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=loqYQz7F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794529766; x=1826065766;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=r50qKz22bdyq+Tk7dIvBjHFPLMjsyhG9xNwtA3kgiIU=;
+  b=i+DUiVjcWaEKVwTi7XDSBYxDUJQmvjXDWgSj3/+ekQB5jSwJLdZmWiX1
+   L9nBKSBxrDqFsMKm5BfGH8MZIvABrRp0GMv6dwB7+oaQibpxQ9UpZDPoT
+   sPHpG3rewZXKkoK5JFXmSVvp9cdsGtPKyhi/TYb9Zn+Cv5U99aiWzUqeG
+   NENXpTPu7ExBIV2P1Nvtrsx5RjMEROgelTGLFPb4iZYRRQpOi0olithPb
+   hK5CCQ6qygtK378JOQMDO5LOJqXg8XxzlkNhW3gbWrX/EW5if/hu/UNvk
+   EmL2RP/sVQAQsDLd0vAjZYFllP+puxlVwuMbkggqQT/xqfc04m4VItwtw
+   g==;
+X-CSE-ConnectionGUID: 6pSUUY7kQDOSbj76+K2MGQ==
+X-CSE-MsgGUID: cR1m6GBzSR2m9cJjfX/xEw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11964"; a="3204864"
+X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
+   d="scan'208";a="3204864"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 16:29:26 -0800
+X-CSE-ConnectionGUID: bv1PyV5tRoGbbkRLF2gf5Q==
+X-CSE-MsgGUID: XEvSxm2/QH+utzbe90cBFQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,210,1787036400"; 
+   d="scan'208";a="10521507"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+  by fmviesa012.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Nov 2026 16:29:26 -0800
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 12 Nov 2026 16:29:25 -0800
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Thu, 12 Nov 2026 16:29:25 -0800
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.17)
+ by edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 12 Nov 2026 16:29:25 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=v5KjUHJN9mZWMh9E2l6gyXSsrmqpNM8ze/nvK8JSiJ5W9R2Hk4ClmvzE3w5ud6HMWFDQetoXPlZ6RG+lzdMQDL8pooJkA+E1kHe9qZ+bwPZpCUmX96y22rmAS5wxGQFOTKeh9krZ6183J3qd2neWoa/O4VDByttICmtu0YPsHD6DOu++/7S7y8Wp/nQok60VoEzc2l5r30hnLGQ9gpiwvBtpUmbCSAIk8wmpI2gqR/EeuqmF82rSw4O4GlC1cuRH7lvpD+naJwBK3coVYKfKoLNbH5DUoMglL6r14nkIL5VHIGjflDuzfvb4vtTpGtD0IS0kSe+P3cHLMeRBRCCoXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wQUkZm2zn4Pk71XaaKir9TcgdZIdv8j1aJzmZoUhHIo=;
+ b=UBA2JyPaOAWFMoBqy0C56uY77noT0nFFr7WbrTU4TFvwlyOAuFQrPk9Fdb0uhfraxPBlE4VSIC14rGk72I3Z60ml4N8PHy4MV3i+IZU/YpgGeQCYZBgF1nRTQeRQ1xpiJ8muvhm39WuHTLRnu5ya0SL81BWLFvr1tIGNdo4zckiQtRERm3S/72BR9gF/RB8TwoIREdGuFUNCHOIJiOGOuC/ThC3OECG9HVMsuyqhdkinQ+56JCCLBCHWIN2QnsSNBxAvX4gLgmNT7ai0/8kJkP1lLhxfKY8TMEcw2PKQowT4vbY3bwHQSyAgXNWdfi+q9Ensx8bmjZ04eP+v82GBCg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wQUkZm2zn4Pk71XaaKir9TcgdZIdv8j1aJzmZoUhHIo=;
+ b=loqYQz7FmUaYd1FPRuqxC6BATwQlnrjJ2XStGiy3kNvZKEjJatxTE2F5lSzay4Uu33CXuyexKwqPG/1/uOhiKbfpFznNt1BBxE/VmUy/EEKagIQE9PdZ/vgtViCKWcoSZdEQWdguu4+IrYJJuvjs6uXt4OEDZrl1oHLGxVLmnRo=
+Received: from CH8PR11MB403433.namprd11.prod.outlook.com
+ (2603:10b6:610:32f::10) by AT6PR11MB935162.namprd11.prod.outlook.com
+ (2603:10b6:170:113::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Fri, 13 Nov
+ 2026 00:27:20 +0000
+Received: from CH8PR11MB403433.namprd11.prod.outlook.com
+ ([fe80::b087:96e4:50ea:b5de]) by CH8PR11MB403433.namprd11.prod.outlook.com
+ ([fe80::b087:96e4:50ea:b5de%4]) with mapi id 15.21.0615.009; Fri, 13 Nov 2026
+ 00:27:20 +0000
+From: "Luck, Tony" <tony.luck@intel.com>
+To: Zenghui Yu <yuzenghui@huawei.com>, "linux-acpi@vger.kernel.org"
+	<linux-acpi@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+CC: "rafael@kernel.org" <rafael@kernel.org>, "bp@alien8.de" <bp@alien8.de>,
+	"guohanjun@huawei.com" <guohanjun@huawei.com>, "mchehab@kernel.org"
+	<mchehab@kernel.org>, "xueshuai@linux.alibaba.com"
+	<xueshuai@linux.alibaba.com>, "lenb@kernel.org" <lenb@kernel.org>,
+	"wangzhigang17@huawei.com" <wangzhigang17@huawei.com>
+Subject: RE: [PATCH] ACPI: APEI: EINJ: Validate length of the Vendor Error
+ Type Extension structure
+Thread-Topic: [PATCH] ACPI: APEI: EINJ: Validate length of the Vendor Error
+ Type Extension structure
+Thread-Index: AQHdcdPjUx0U7PWz5ESx+HiIsCK3B7cqw7Og
+Date: Fri, 13 Nov 2026 00:27:20 +0000
+Message-ID: <CH8PR11MB40343305FD3C1BE0E18882B5CCFC7F2@CH8PR11MB403433.namprd11.prod.outlook.com>
+References: <20261111115729.253-1-yuzenghui@huawei.com>
+In-Reply-To: <20261111115729.253-1-yuzenghui@huawei.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH8PR11MB403433:EE_|AT6PR11MB935162:EE_
+x-ms-office365-filtering-correlation-id: 11537ac6-928c-49ee-7876-08df411ce17c
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|7416014|23010399003|376014|366016|18002099003|22082099003|11063799006|56012099006|261102123227099003|261022075727099003|261026121527099003|261021121427099003|38070700021|10067099003;
+x-microsoft-antispam-message-info: SMq6R4JlUPVeq6bobhsryb3eonNT2+A++WOSyRYw3+wiZ5jXpLrSQu9qEQ7z8qjxWac8SXwSELbxKPQHiiTdc/Q2RkwCmT/pJ3wyvKPwn2Fk8WFMvHCAPvBCsDXgyy/SDISmmQakoT+ibPI2TxSQaTuR7BoxslsxvZXogNifzPxFVSICevLIWMCV29zpNyMjHMzKgqA6hj1d5JZZy1PgjJBJSs+453HoNcq82kaIWmaaoMJ4eHJ+ca3r2E1iA+yrrSXmUgQRc0QaS5wCmw8fvmoeayCWkWMHCcc4K3N1JVPVYgepaxOnaGpUk7MMdh4kIIDcSUePOY30k7REDKkhGoEgeNWQWFR8iMIfxkNOA7CJJuOF9IlGU7rKgJlwvqjCOzKvQg4IZmHI9A7D+YEq9QXDFcqjHsQUjqGN4OAihToY1TJy0fYAvVbdDHlZu2Q1AlCioZ3feZXZLCy2SsOIPgBtKj2wS13KpCqGw6LCYxdFWuApPKZsFqsqPKMEdaUMqeXh4PXwAfsNZbeJKe7I/3TZ6hzicbN/mNBSl1sf+zxmTRc/0ryVyp55aGqCR4ratkxZEjxYdRW+HWXOau9idzm+Qbxq3uOSqHQBv6ttpeONrx1/KBIJqC9NmHMjqoc/d8RIkpeqqZrFwbES7bohq6l4HYJRfi+zxueuhhK3j0LdG+eLS7GyJJGBzCjJ9e+6y3j0nYUeoQjj8gyLYxK4+cAp57Z5afjXf2eMYWZb/qg=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR11MB403433.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(23010399003)(376014)(366016)(18002099003)(22082099003)(11063799006)(56012099006)(261102123227099003)(261022075727099003)(261026121527099003)(261021121427099003)(38070700021)(10067099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?tntPc95KKjdKUP+7WWRil98m5YPpJofun7L+KQLGRFTKqf1K+B1Nkor2EJlh?=
+ =?us-ascii?Q?UxJyXvJ8HuFLSIIk+/LDx67LEj2jBKhmBbF/deAAjsHWKN/cBwbzhALZGBSR?=
+ =?us-ascii?Q?Ryy73iHKkNsWgay8oq13dQerFhEZGsV8qXoeqNeYCBoykr7PweGPQIo7UCh6?=
+ =?us-ascii?Q?Zl6jjOKINJI2/V4568dw4VqjGcdKTKyqq2MMggjJbZoYLDhhhu8xCkJCe9Gf?=
+ =?us-ascii?Q?LFVhFCrzJ8r8Biu06DgC5vnX105m4zXDdWn8HM08uNcYxlJD3IAJx6SnYYR6?=
+ =?us-ascii?Q?iEapK4Xo+3LaVwAUnWc0zQvu4pj4H9nPThD7Tp0lwPOmyuy8Z3JeDD2hpjr0?=
+ =?us-ascii?Q?/J/nmcFtnUsVj+gHLPEOrAyPPVKu8IDjaeMCVCVq/8Tu+jrY3q/rar1wft9g?=
+ =?us-ascii?Q?VewUBMIqPvWMX4i6cE/dISYAW58/wNxxlB4cvUrwaFrXzTdpOwqS2+0EREoC?=
+ =?us-ascii?Q?QqBNaQwkPjBOmXeC0HX8Nf4IXK4AQI+9TpLLY7F5zZWL9l5Glitdp5ve3VLU?=
+ =?us-ascii?Q?w8L9dgWELWxot2N1uoF7ip+vljdsPYUkM9IeGxvD7eZeWYMAdfbAAngGMjJs?=
+ =?us-ascii?Q?PmscP/LzmNysQ/8uatyjebnWvN881f5JZLIIMuVwkFOrcNippyZgt/9a2Kv0?=
+ =?us-ascii?Q?iOyEZXfzOw/9y+Ux+CA0BMekmpNOzxwnONqvB0i9QuXr8fnPBr7h1wHX5yrV?=
+ =?us-ascii?Q?jrTHGmoHBQF6VAaaLZqe00+1XfzV/vuTsP3ZCk2kxfSzt7V+b4pienBYAY60?=
+ =?us-ascii?Q?AwVQJRQY88uFiENFEkuaIWtcE7cSZzb95ICvggNvnzjzQBCCWqz8FRd4Vpn+?=
+ =?us-ascii?Q?zQmjWd1Px8M0DM2Pcy4TG6B79psCXhKiX911C+9MWwmOad4Q25XrA/bswLKE?=
+ =?us-ascii?Q?H/HoXswN6fFBAojHtf+ZQ0p/NeauzuTKSn1MLl+UtAH5pbka5DVbledCaksi?=
+ =?us-ascii?Q?hpJB/kfxAZS/apHG49JuQ6+3LRpvukuMWRcOk0ZxvF33HkPetfcg1uGeYpWo?=
+ =?us-ascii?Q?7QM6toGNzZz+O+tbNCvOOD2HL2Hjh3PUf5nqtzRZ89Bw+Ygm6zZszVHaQgdD?=
+ =?us-ascii?Q?8CUfFcdRVMHnHwaWGZxzVN48Bf0GYR9rNJDM/VjgKgW0TsrhCvB721KMLYIc?=
+ =?us-ascii?Q?2oecZjK7hBmEPJrlBcPCeAJHF4dPXheLjJ2MFOU2vphQWWRj9nexOpT+s2NY?=
+ =?us-ascii?Q?ML65todsdRi1aYVTPJ7J9Tui6n/cHS/mVNNRjHpTyYyjvreqdAU5ilkXkvwM?=
+ =?us-ascii?Q?tgwgusowU5YdBOwXd3vcFKo3ZKhXKPy5g5kWr5P30MoylQImh0ftFWwENO3K?=
+ =?us-ascii?Q?llnYMA80e5Qo6hR7lL6H9VksDc3xmVpb6Tw1bYvqNlE9lVsInQE5zFBL16t3?=
+ =?us-ascii?Q?2QYUvSMsm3L4yaNerDZq2jYdGUD98ve53gWiQjGjavAG6gB43n5mOyDcfe4g?=
+ =?us-ascii?Q?it18u35Ol+1oJoRDIQOZ2J9YowrKChVtdwAXu56Qa7uuPZUY4tByYMs8gKBB?=
+ =?us-ascii?Q?a7kKb34kYGbJswT0q61rAPluy83Ry87AYEqfShLZuhidirr52RD5Ks4jyfDw?=
+ =?us-ascii?Q?fMNs0XdASgw8bYsGZtV+f7hwBjIxaDd9ZGBIk2Fi7AJXUef8FACDH800DEkY?=
+ =?us-ascii?Q?xMwiXcJIHtZMN7ayULX2HEgy8zmEeyHVn4XF1ksiDtKynvgg/11NH0rsbSXo?=
+ =?us-ascii?Q?6Jqhb8f8hwMOljA/Z80lRqVnHOv9pwQ4QBwwgSQVdpfQy9Ol?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,246 +188,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked: RZTOGPwYWoYVBp0MOeRWUA6gJ+gfn+BZhlAhdT4yzg6/LuUEHZqFAZBE0q9w/6qASHw06wZi0UXL5UwSEZIkm/D08D98rds3033CDThw4EJFrlgdvtXAOfpaBfVRdRnBGkOeGO5oJJalHXWVGl5AtOeLOTp/ootccp30yE0PgXaSkDd+XhpCd7ES2eZD0w2kOmXtyVBWHBCEYKhUrW+jeBGYSppNuDDUTyW+pDvp0lY2K37zZ1fIptmAuw+t/+winvefU5zvo+v8bcH68sOtX4hMLwCfvST5ENL4zVh8ERfgI/qleW6NDLls/TTEKAnYaBXfZVjwQJw5bvAxsOx5rw==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR11MB403433.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 11537ac6-928c-49ee-7876-08df411ce17c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Nov 2026 00:27:20.7445
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: FtYJInF/A8PisdK58QxoTKOPPKqoPVcrgoTU0umfCHaV4FEALQuCJ4RoYh6Hmtwy7E4Qh38c7kytX+6gF/u+iw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AT6PR11MB935162
+X-OriginatorOrg: intel.com
 
-xfs_dahash_test() runs from init_xfs_fs() and only counts mismatches: a
-failure prints a single total, which says nothing about which test
-vector or which of the two hash functions was wrong, and the test can
-only be exercised by building XFS into the kernel and watching the
-console at boot.
+> The BIOS on my machine is obviously buggy (non-zero Vendor Extension offs=
+et
+> pointing to zeroed memory, and bit 31 is not set in the error type either=
+)
+> and needs fixing. I'm not sure if it is necessary to add such a sanity
+> check for EINJ at all.
 
-Report the vectors through KUnit instead.  Split them into one case per
-hash function so that a failure names both the function and the vector
-index, and KUnit prints the expected and actual values next to it.  The
-results then come out in TAP format, so the suite can be run with
-kunit.py or under QEMU without rebooting the machine, and every case is
-reported on its own.
+Production machine? Or just an internal development machine?  I.e. is this =
+broken
+BIOS out in the wild for others to hit this bug?
 
-Put the test behind CONFIG_XFS_DAHASH_KUNIT_TEST so that it is no
-longer built into every kernel, and drop the now unused header.  The
-vector table and test_buf can no longer live in __initdata, because
-KUnit keeps the data around for the lifetime of the suite; mark them
-const since nothing writes to them.
+>
+>
+> +     if (v.length < sizeof(v) || v.length > PAGE_SIZE) {
+> +             pr_warn(FW_BUG "Invalid vendor error extension length %u\n"=
+,
 
-The test object is linked into xfs.o, so a built-in XFS cannot use the
-KUnit helpers when those live in a module.  Only offer the option when
-KUnit is built in, or when XFS is a module and can depend on it.
+The "FW_BUG" tag was created specifically to point blame at BIOS and thus
+encourage OEMs to fix their BIOS. So correct use of it here :-)
 
-No change to the hash functions themselves.
+> +                     v.length);
+> +             acpi_os_unmap_iomem(p, sizeof(v));
+> +             return;
+> +     }
 
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202611130302.dGXAb4Py-lkp@intel.com/
-Signed-off-by: Wang Yibo <wangyibo@kylinos.cn>
----
-v2: Only offer the option when KUnit is built in, or when XFS is a
-    module and can depend on it: the test object is part of xfs.o, and a
-    built-in XFS cannot use KUnit helpers that live in a module.
-    Reported by the kernel test robot on i386-randconfig-1012-20261112.
+The fix looks reasonable. If this has been seen on a production system, the=
+n
+seems a good idea to apply your patch.
 
- fs/xfs/Kconfig           | 17 +++++++++++
- fs/xfs/Makefile          |  2 +-
- fs/xfs/xfs_dahash_test.c | 64 ++++++++++++++++++++++++----------------
- fs/xfs/xfs_dahash_test.h | 12 --------
- fs/xfs/xfs_super.c       |  5 ----
- 5 files changed, 57 insertions(+), 43 deletions(-)
- delete mode 100644 fs/xfs/xfs_dahash_test.h
+Reviewed-by: Tony Luck <tony.luck@intel.com>
 
-diff --git a/fs/xfs/Kconfig b/fs/xfs/Kconfig
-index b99da294e9a3..89fdbd8273f0 100644
---- a/fs/xfs/Kconfig
-+++ b/fs/xfs/Kconfig
-@@ -241,3 +241,20 @@ config XFS_ASSERT_FATAL
- 	  result in warnings.
- 
- 	  This behavior can be modified at runtime via sysfs.
-+
-+# xfs_dahash_test.o is linked into xfs.o, so it cannot use the KUnit helpers as
-+# an undefined symbol when XFS is built in and KUnit is a module.
-+config XFS_DAHASH_KUNIT_TEST
-+	bool "KUnit tests for XFS dir/attr name hashes" if !KUNIT_ALL_TESTS
-+	depends on XFS_FS && KUNIT
-+	depends on KUNIT=y || XFS_FS=m
-+	default KUNIT_ALL_TESTS
-+	help
-+	  This builds the XFS directory and attribute name hash KUnit test.
-+
-+	  KUnit tests run during boot (or module load) and output the results
-+	  to the debug log in TAP format (https://testanything.org/).  Only
-+	  useful for kernel devs running the KUnit test harness and are not
-+	  for inclusion into a production build.
-+
-+	  If unsure, say N.
-diff --git a/fs/xfs/Makefile b/fs/xfs/Makefile
-index 399a207f2d0e..c95a57c5ca98 100644
---- a/fs/xfs/Makefile
-+++ b/fs/xfs/Makefile
-@@ -74,7 +74,6 @@ xfs-y				+= xfs_aops.o \
- 				   xfs_bmap_util.o \
- 				   xfs_bio_io.o \
- 				   xfs_buf.o \
--				   xfs_dahash_test.o \
- 				   xfs_dir2_readdir.o \
- 				   xfs_discard.o \
- 				   xfs_error.o \
-@@ -160,6 +159,7 @@ xfs-$(CONFIG_XFS_DRAIN_INTENTS)	+= xfs_drain.o
- xfs-$(CONFIG_XFS_LIVE_HOOKS)	+= xfs_hooks.o
- xfs-$(CONFIG_XFS_MEMORY_BUFS)	+= xfs_buf_mem.o
- xfs-$(CONFIG_XFS_BTREE_IN_MEM)	+= libxfs/xfs_btree_mem.o
-+xfs-$(CONFIG_XFS_DAHASH_KUNIT_TEST)	+= xfs_dahash_test.o
- 
- # online scrub/repair
- ifeq ($(CONFIG_XFS_ONLINE_SCRUB),y)
-diff --git a/fs/xfs/xfs_dahash_test.c b/fs/xfs/xfs_dahash_test.c
-index f1ee2643b948..4c7d7e12f1ba 100644
---- a/fs/xfs/xfs_dahash_test.c
-+++ b/fs/xfs/xfs_dahash_test.c
-@@ -1,8 +1,11 @@
- // SPDX-License-Identifier: GPL-2.0-or-later
- /*
-+ * KUnit tests for XFS dir/attr name hash functions.
-+ *
-  * Copyright (C) 2023 Oracle.  All Rights Reserved.
-  * Author: Darrick J. Wong <djwong@kernel.org>
-  */
-+#include <kunit/test.h>
- #include "xfs_platform.h"
- #include "xfs_fs.h"
- #include "xfs_shared.h"
-@@ -12,10 +15,9 @@
- #include "xfs_trans_resv.h"
- #include "xfs_mount.h"
- #include "xfs_dir2_priv.h"
--#include "xfs_dahash_test.h"
- 
- /* 4096 random bytes */
--static uint8_t __initdata __attribute__((__aligned__(8))) test_buf[] =
-+static const uint8_t test_buf[] __aligned(8) =
- {
- 	0x5b, 0x85, 0x21, 0xcb, 0x09, 0x68, 0x7d, 0x30,
- 	0xc7, 0x69, 0xd7, 0x30, 0x92, 0xde, 0x59, 0xe4,
-@@ -532,12 +534,12 @@ static uint8_t __initdata __attribute__((__aligned__(8))) test_buf[] =
- };
- 
- /* 100 test cases */
--static struct dahash_test {
-+static const struct dahash_test {
- 	uint16_t	start;	/* random 12 bit offset in buf */
- 	uint16_t	length;	/* random 8 bit length of test */
- 	xfs_dahash_t	dahash;	/* expected dahash result */
- 	xfs_dahash_t	ascii_ci_dahash; /* expected ascii-ci dahash result */
--} test[] __initdata =
-+} dahash_test_vecs[] =
- {
- 	{0x0567, 0x0097, 0x96951389, 0xc153aa0d},
- 	{0x0869, 0x0055, 0x6455ab4f, 0xd07f69bf},
-@@ -641,33 +643,45 @@ static struct dahash_test {
- 	{0x05b5, 0x00da, 0x8e52f0e2, 0x98531012},
- };
- 
--int __init
--xfs_dahash_test(void)
-+static void xfs_da_hashname_case(struct kunit *test)
- {
- 	unsigned int	i;
--	unsigned int	errors = 0;
- 
--	for (i = 0; i < ARRAY_SIZE(test); i++) {
--		struct xfs_name	xname = { };
--		xfs_dahash_t	hash;
-+	for (i = 0; i < ARRAY_SIZE(dahash_test_vecs); i++) {
-+		const struct dahash_test	*tv = &dahash_test_vecs[i];
-+		xfs_dahash_t			hash;
- 
--		hash = xfs_da_hashname(test_buf + test[i].start,
--				test[i].length);
--		if (hash != test[i].dahash)
--			errors++;
-+		hash = xfs_da_hashname(test_buf + tv->start, tv->length);
-+		KUNIT_EXPECT_EQ_MSG(test, hash, tv->dahash, "case %u", i);
-+	}
-+}
-+
-+static void xfs_ascii_ci_hashname_case(struct kunit *test)
-+{
-+	unsigned int	i;
-+
-+	for (i = 0; i < ARRAY_SIZE(dahash_test_vecs); i++) {
-+		const struct dahash_test	*tv = &dahash_test_vecs[i];
-+		struct xfs_name			xname = { };
-+		xfs_dahash_t			hash;
- 
--		xname.name = test_buf + test[i].start;
--		xname.len = test[i].length;
-+		xname.name = test_buf + tv->start;
-+		xname.len = tv->length;
- 		hash = xfs_ascii_ci_hashname(&xname);
--		if (hash != test[i].ascii_ci_dahash)
--			errors++;
-+		KUNIT_EXPECT_EQ_MSG(test, hash, tv->ascii_ci_dahash,
-+				    "case %u", i);
- 	}
-+}
- 
--	if (errors) {
--		printk(KERN_ERR "xfs dir/attr hash test failed %u times!",
--				errors);
--		return -ERANGE;
--	}
-+static struct kunit_case xfs_dahash_test_cases[] = {
-+	KUNIT_CASE(xfs_da_hashname_case),
-+	KUNIT_CASE(xfs_ascii_ci_hashname_case),
-+	{}
-+};
- 
--	return 0;
--}
-+static struct kunit_suite xfs_dahash_test_suite = {
-+	.name = "xfs_dahash",
-+	.test_cases = xfs_dahash_test_cases,
-+};
-+
-+kunit_test_suites(&xfs_dahash_test_suite);
-diff --git a/fs/xfs/xfs_dahash_test.h b/fs/xfs/xfs_dahash_test.h
-deleted file mode 100644
-index 1a05bf4bd9e1..000000000000
---- a/fs/xfs/xfs_dahash_test.h
-+++ /dev/null
-@@ -1,12 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0-or-later
--/*
-- * Copyright (C) 2023 Oracle.  All Rights Reserved.
-- * Author: Darrick J. Wong <djwong@kernel.org>
-- */
--#ifndef __XFS_DAHASH_TEST_H__
--#define __XFS_DAHASH_TEST_H__
--
--int xfs_dahash_test(void);
--
--#endif /* __XFS_DAHASH_TEST_H__ */
--
-diff --git a/fs/xfs/xfs_super.c b/fs/xfs/xfs_super.c
-index 5a06132aa384..75bc05801e4a 100644
---- a/fs/xfs/xfs_super.c
-+++ b/fs/xfs/xfs_super.c
-@@ -43,7 +43,6 @@
- #include "xfs_error.h"
- #include "xfs_errortag.h"
- #include "xfs_iunlink_item.h"
--#include "xfs_dahash_test.h"
- #include "xfs_rtbitmap.h"
- #include "xfs_exchmaps_item.h"
- #include "xfs_parent.h"
-@@ -2647,10 +2646,6 @@ init_xfs_fs(void)
- 
- 	xfs_check_ondisk_structs();
- 
--	error = xfs_dahash_test();
--	if (error)
--		return error;
--
- 	printk(KERN_INFO XFS_VERSION_STRING " with "
- 			 XFS_BUILD_OPTIONS " enabled\n");
- 
--- 
-2.25.1
+-Tony
 
