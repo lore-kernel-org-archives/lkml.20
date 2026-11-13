@@ -1,135 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794575957;
-	b=4qCTUBqJ+6P6VJBN4yNiPNi661/0276RDHfRcAv/1fabw5NDxmeVpteZvwWKF7oT/1S/
-	 8h6sg4F0sy3BHjyhKGtZNRWikjkOBIBf+N3WYUoBmtaEVKnJU5isWlmqyUoGlJaPewU6b
-	 fbVfmy2BXFtvCaG4kv7QieNNSkau2vgcm8bEXnbfQ3s+1x2OCGxcGRYz97/gzr+kajBN2
-	 WhslF6PkpR8oSqt34kOk2fOBNiuLNfVOxXCJCPX+dqbZtZuwv5m+qNnlNTKu7bAfEvn5H
-	 AtSQZL9zha9lxefRYs224cORu06RgyQy5WFg0M7lxvNf7RZ33J718er1K6IE0TmUzMg==
+	t=1794575962;
+	b=2Ucjz9kHzsJQgFbSlgAf2AM7ROPdCG/Dc/56t11uKge+CaYmizAbmnROy6SXDYnDfdoi
+	 JxfYvUs60Z2FGEYCzpNnARs49sr0yMWfXCjO8V+0ugQCBkEkaQNkd93hpedaJSyzVrl60
+	 8KHLuHUi6mO0mpLon0liVY8LrmQwA5MwbRdZ6hppSWajws2kjroV0GqWbBRImoQCh5OsQ
+	 l4DcqjnppEfj9+bcPMK3zki4GLYmyechgzdioLpHjlUkL925NyMGMlhyGMTyfM93KNi9F
+	 Kk0I06LlvBziIAxPt3EL7aHktGewNoRKCy+bVh+Tk3PWwwglM7xTrvlorb3UmjZAr5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794575957;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=B+Kv6NWvYAW9LgU4w/PYUOqJKuqBS7y3QSlmC0jmQEE=;
-	b=dbsatPuN199F94Wg+sNmrcSJKNt04TbNyn47LcLLn0o0l8E+rGCwdtT77ie7d2zk6qtQ
-	 Q1vvweD1kjf7y6p+WLH1IBkILQSZrzPY1wNmpRkDqaG5cUqvagk416RC/GYIY3Fmxym3h
-	 /07KxNQdJce/9FWOCe3y0s1fiWZS+JihOa96gWsunhlq835+H1lvTkyR6rfCvwc2xD8eU
-	 CQ8x67wdiaKtzap7pdIwbuvIzOu1RSdr0q4DOAIIMmGISUD8kfdWG1W9UiCeWVoUN9ceT
-	 4tqvcaVJCNkDV/2x5ve0dpCGzWk+dOaTZZqYyRoA2NyCZcsh3T8V9CwFVVb/ztlf0qg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794575962;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=p9+kvjIHXZ14mZtQUS7aUqmnr3L7WL4yh3D1cUye5yA=;
+	b=w+e1K5GHwHNxkbPuX/KJxII3CvARFwD8UBrnO/NXDM0IwLrT+U1UHYo1bTVlagaVzt9z
+	 vTJbyXgkBNlFO8xtFYsZ0JhTEIVGowrwTwL/yVkhMZNKqM+HkGBHbF2W0xyEIlUHoEe+W
+	 fYfw0zyES1doIOsZy1GQF+VCXhmWVtUxzXAb5TI9pEjQYzvZujAVB351/Gu7KKeh2BE7B
+	 F/q37AGeoPAebGkDv7ykhsWW8jcxGvp4zVWJ1BH/hvSAV9lPS7v06IXMgXpFtIH7n+mz3
+	 OVEqFEUHZFpvKUCwVUg8b9HoPdOdhR4J9HtBb8vx0EsIRi6OCCHXCUDhpiB8bCAn8Cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=efficios.com;
-	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=uzdwVrmO;
-	arc=none smtp.remote-ip=158.69.130.18
-Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fkiSGV9o;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="eoWtndR/";
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79F7C606A890;
-	Fri, 13 Nov 2026 13:19:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79F7C606A890
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96195606B55D
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:19:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96195606B55D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=uzdwVrmO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1794575950;
-	bh=B+Kv6NWvYAW9LgU4w/PYUOqJKuqBS7y3QSlmC0jmQEE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=uzdwVrmOPenZL8yin/nLlzevFb/tM/owH8nip1lmaXLk0ouFbH4w2k8bLOofqqiTX
-	 Qs3VNLET6vNzA/UE5DGgXT9AEaKiY/bqEjl8Nn2w8shovyJp1VQrWNphP9qS24EqvT
-	 AjcOCXBcrol2mwzPfRBdiHeC37U986a/nF01YcyfPmEubMcGKu6coZhooVZnR9LUtp
-	 HSb1hLafn3fKxP9KPWRNrvAvgh/GM4zzBKhHMjyy0Ld5Hk9MIKgs++1jBeWl8WhHx2
-	 ypKkFLXpbhxTaXvJ+uShyPBo9CpbB7Wx+1DYaEK/OrigCU2Oc7Xdg3zxxs9Q3n32rD
-	 F7wlZcW8MC61A==
-Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jQyWx6qN6zPmY;
-	Fri, 13 Nov 2026 08:19:09 -0500 (EST)
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>
-Cc: linux-kernel@vger.kernel.org,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Michal Clapinski <mclapinski@google.com>,
-	Andrei Vagin <avagin@gmail.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Aniket Gattani <aniketgattani@google.com>,
-	linux-kselftest@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Chris Gellermann <christian.gellermann@codasip.com>,
-	Bala-Vignesh-Reddy <reddybalavignesh9979@gmail.com>,
-	Wei Yang <richard.weiyang@gmail.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	loongarch@lists.linux.dev,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	Helge Deller <deller@gmx.de>,
-	John David Anglin <dave.anglin@bell.net>,
-	linux-parisc@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Guo Ren <guoren@kernel.org>,
-	linux-doc@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	linux-csky@vger.kernel.org,
-	Jonas Bonn <jonas@southpole.se>,
-	Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
-	Stafford Horne <shorne@gmail.com>,
-	linux-openrisc@vger.kernel.org,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	Rich Felker <dalias@libc.org>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	linux-sh@vger.kernel.org,
-	Chris Zankel <chris@zankel.net>,
-	Max Filippov <jcmvbkbc@gmail.com>,
-	linux-arch@vger.kernel.org,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	linux-arm-kernel@lists.infradead.org,
-	Andy Lutomirski <luto@kernel.org>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Andrea Parri <parri.andrea@gmail.com>,
-	Boqun Feng <boqun@kernel.org>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	David Howells <dhowells@redhat.com>,
-	Jade Alglave <j.alglave@ucl.ac.uk>,
-	Luc Maranget <luc.maranget@inria.fr>,
-	Akira Yokosawa <akiyks@gmail.com>,
-	Daniel Lustig <dlustig@nvidia.com>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	lkmm@lists.linux.dev,
-	bpf@vger.kernel.org,
-	Naveen N Rao <naveen@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	linux-trace-kernel@vger.kernel.org
-Subject: [RFC PATCH 06/16] selftests/membarrier: Test which CPUs the expedited commands interrupt
-Date: Fri, 13 Nov 2026 08:18:53 -0500
-Message-Id: <20261113131903.157186-7-mathieu.desnoyers@efficios.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261113131903.157186-1-mathieu.desnoyers@efficios.com>
-References: <20261113131903.157186-1-mathieu.desnoyers@efficios.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fkiSGV9o;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eoWtndR/
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6ADCJPVK1226943
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:19:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	p9+kvjIHXZ14mZtQUS7aUqmnr3L7WL4yh3D1cUye5yA=; b=fkiSGV9oMEBen73e
+	3z3PXFbDHhaz+jN4Juhm/OAHGyzWR5THMgLV6/ep/4YcHrW3wBHscpFlSK5Fhdxh
+	nIFazJ31SoXEVTJMorHr2ErEP+s8LrOPOUQYvsD4c5miz/yPNVQYx47NsvQycS9B
+	VEnRCv8R39sk3fGti9QdSBV1F9E6KdVnhmmceFE7icoCcsEGGqS6UGp6WnyUXwLS
+	FOKRYXbZavF1jbKoO8ENEoTAIkwsdxTG2V35l71vpgfXVg1z2H142jJGEr7UjzEZ
+	0MyMmMCRHWAz/qDuUYaMXveDgAx8EzsNeSbnxbZ8ooSgnT6PPk8PHbonx2IRjXTp
+	EEy5Ug==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hx1bp8f06-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:19:20 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-555d08e97c5so30560701cf.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 05:19:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794575960; x=1795180760; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=p9+kvjIHXZ14mZtQUS7aUqmnr3L7WL4yh3D1cUye5yA=;
+        b=eoWtndR/pXHgQ1aFoYbhBcQbb8HdXDBaOcfLERgPDIHEL3i30UFrfDnkZ5aiP52R/k
+         Hev0E2E78bM5OEyeAB8Q4uQ6P/H43tjB9/wFrzoH0ukMhQJ2hm+PnqufIw1Ud210b6bd
+         xkJQNf/fhiiwBa7daeAGdvhLdSVi/1WHkUfZjIyQVk7a8NkPdntus7V0Y4PTsJB5BuMl
+         qdl0tJrZ3sDhUYoxX7rVGXwVv2zV/Fe1w+e+kKSpW0KNL+Ac7/MBsjSBiXgvhST2Jh3R
+         4EVHujsxjHn9kGZD2KekSIXnSdhJblc9kJBjhC3tXDbCfrKiqfdCnNiqcOxpSlbs5OQx
+         Vsdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794575960; x=1795180760;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=p9+kvjIHXZ14mZtQUS7aUqmnr3L7WL4yh3D1cUye5yA=;
+        b=pG+W9tMlk9B51d3kotvpxmP+G02X/6lSTYVY8zjgQB7WsZIEUIwoqS7s9bCIlMea2P
+         yyM2pLGU4xI8NniYSpcbniXtxH9A9jspaUhMU25+rJ9fLi9LLi6BU0WgmoIlbYIRHnpH
+         rwH9iuU71r9tWGi/cAeNgcnIeS1/JyRalBJ1+ntbbUfbIRPwVmQ3xl1LhSznfFxJk4JJ
+         Ug7cSKth7HczNhZtUCsYThvBkGU9LGcVa2vWjtnw2C70QhmqsqVhvf8qneag7GJ0yIIS
+         WQBqPt2q8t+R8oFo1RrXxEYTBWb3O5RbCf6B0tLOkzykEBbARiLJdEi5WY6ARj6m+PeF
+         U8KA==
+X-Forwarded-Encrypted: i=1; AL+hErGRKJOANDqM+McXmDq0Gs5mQB7GH7hzIoQtgUGUwfBeuf9lzxBsswjNQzwfLrigPOEhC5yIriT7yABpiYc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+m2IdXXhLFSWVkiLSLtNHYtQWmtoyj8jNxnDDqUVterwtyi40V
+	4EJPbRVXfPNqizIbYMDkRiB5tjPrq13sB6SiabKMQR5qJHbc4nECX4AAB28QXurcI52KHqX28zs
+	ebekiRLv60BN70PByQ22YnnD2lQ1YDV8gbTbBDpEerWf/+oTeoJ+uB5xplkl2MTaVx0Q=
+X-Gm-Gg: AYBFou04nww3UE+FZXCsQJRImlbm+uXry12fWNgYHOC6DRX05EdHu6Pd7CFHMRA2hGu
+	Syf9XZr5jz0nOyQ+65q5bv87KuYNT/HrdL6/6NcJJ5/HCaCTNGnaT4oWEbzN06FtpW4rxf2Pk6W
+	x79FVKf1QV1GwdEYIg3QIaTI7X1rSZHby5qg/1Mk/g6Al0W6aAMwYrIlSg6j7N9e8c+2IAKg6Dr
+	tmbDjMhfDJ+MQ0sf4J8zKrxFv3c/FG11MnJuCi8DMpf+21XHCHRMgJz1O/YgbApe0DjQFKXTIYZ
+	r3EToW470Gw7cPZZa2akVKnWUPIPZ/AA5rvxzRhdqeZ2a5sVgujQUh4f5+s3HnJskXG2M+sRXtB
+	S9QfGXu5Pj/30qd/W/2wCZDtcGRGXtMYGD+/VxMNBeq6LPrQENMWK20OJiD3E1aTVbRxi1q3un3
+	NmNIs+
+X-Received: by 2002:a05:622a:991:b0:542:d089:2060 with SMTP id d75a77b69052e-55ac8d8b5c1mr34890211cf.37.1794575959861;
+        Fri, 13 Nov 2026 05:19:19 -0800 (PST)
+X-Received: by 2002:a05:622a:991:b0:542:d089:2060 with SMTP id d75a77b69052e-55ac8d8b5c1mr34889651cf.37.1794575959180;
+        Fri, 13 Nov 2026 05:19:19 -0800 (PST)
+Received: from [10.218.9.97] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55ad1b11d9csm18250821cf.28.2026.11.13.05.19.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 13 Nov 2026 05:19:18 -0800 (PST)
+Message-ID: <146d6fcc-e977-41f6-b34d-f7a9a4283ee8@oss.qualcomm.com>
+Date: Fri, 13 Nov 2026 18:49:13 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -139,814 +116,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] i2c: qcom-geni: Prefer asynchronous probing
+To: Wenwen Fu <wenwfu@qti.qualcomm.com>, andi.shyti@kernel.org
+Cc: viken.dadhaniya@oss.qualcomm.com, linux-i2c@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261111090955.3378623-1-wenwfu@qti.qualcomm.com>
+Content-Language: en-US
+From: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
+In-Reply-To: <20261111090955.3378623-1-wenwfu@qti.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=W9ytxhWk c=1 sm=1 tr=0 ts=6af70e58 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=BP9H1aEygeDGrBmwyXcA:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-GUID: SDsVbcsdi3Ev2VJD5mMXdMZAGClNPJo5
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDA1MiBTYWx0ZWRfX0GvI4zmf+3+v
+ TYf1n1uqJNpNjM/7+lYNB5basiDU7UFsqyKRPj/f6V2Awn2azTo8x3t3Jvil/irm/i2k0XshyKb
+ 3qr1m8lQEkVFJVbuc38Q8oUjuXYXBeE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDA1MiBTYWx0ZWRfX+IpRNOFc++4P
+ kUdROhD+dnAgZ1w3kc96R5qfoZjTjEp5ugTCgF7xT1tNVhMdBu+eV+M+Fo2/NipGneGgEaTOiap
+ gdHJ9FfZTF2mjboec79gea0O3fcl97kUXgy9gJWvrjZspRp5S4ccNPi83OIL+gsW0ha2wptAdk3
+ M6vZUORT8ZMi0FxxJBefbDYFT/HTh2njFojiyt4zCbzKPax9wsOuJrUowgJzfgX7XzPhXmGGnRe
+ D6SiitCKj+LPcXM3/0oBeNFp7ujO2n/b4hjd1M7uaBErSQyG/I5EIAbrODu6L8Pac3GzVO8yIAM
+ K5qjJDJUT8xIcgwQ0H2ht+uurLBwkDRMZuzT2xwgJgOBg21aQKPNASUdaZWorCcNkmlVHRIGMHZ
+ yK7Hb69snAc6jGH7TNAnthw1OjD68nTY4wDQXuXkwR79ZtYVSgTTnVqRskCzG8tr75OHiadHcEk
+ 6bWINpGuRBNOG3i+ozw==
+X-Proofpoint-ORIG-GUID: SDsVbcsdi3Ev2VJD5mMXdMZAGClNPJo5
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-13_04,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 adultscore=0 impostorscore=0 clxscore=1015
+ bulkscore=0 malwarescore=0 spamscore=0 suspectscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130052
 
-The existing tests only check the return value of each command. They
-cannot tell whether a command reached the threads it must reach.
 
-Add membarrier_test_ipi. A test cannot observe a missing memory
-barrier reliably. It can observe a missing IPI in /proc/interrupts.
-The comment at the top of the file describes the method. The test
-cases are:
 
- - global expedited reaches a registered process and skips an
-   unregistered one,
- - global expedited reaches a registered process after one of its
-   threads exits,
- - global expedited reaches a process which registered on another CPU
-   and came back to a CPU which stayed idle meanwhile,
- - global expedited reaches each thread of a process which registered
-   while multi-threaded,
- - global expedited reaches a forked child and skips a process after
-   exec,
- - private expedited, sync core and rseq reach each thread,
- - rseq with MEMBARRIER_CMD_FLAG_CPU reaches only the CPU it names,
- - private expedited skips another registered process,
- - private expedited reaches a CLONE_VM task of another thread group.
-
-Each test case runs in its own process, because a membarrier
-registration cannot be undone.
-
-The thread exit and idle CPU cases fail without commit
-"sched/membarrier: Fix stale runqueue state after a lazy mm switch".
-
-The test is skipped with fewer than 3 allowed CPUs. It is also skipped
-when /proc/interrupts has no function call interrupt count.
-
-Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
----
- tools/testing/selftests/membarrier/.gitignore |   1 +
- tools/testing/selftests/membarrier/Makefile   |   1 +
- .../membarrier/membarrier_test_ipi.c          | 739 ++++++++++++++++++
- 3 files changed, 741 insertions(+)
- create mode 100644 tools/testing/selftests/membarrier/membarrier_test_ipi.c
-
-diff --git a/tools/testing/selftests/membarrier/.gitignore b/tools/testing/selftests/membarrier/.gitignore
-index 031920478205..58969a5e4613 100644
---- a/tools/testing/selftests/membarrier/.gitignore
-+++ b/tools/testing/selftests/membarrier/.gitignore
-@@ -2,3 +2,4 @@
- membarrier_test_multi_thread
- membarrier_test_single_thread
- membarrier_rseq_stress
-+membarrier_test_ipi
-diff --git a/tools/testing/selftests/membarrier/Makefile b/tools/testing/selftests/membarrier/Makefile
-index 20bb66380090..ee5b9deb808b 100644
---- a/tools/testing/selftests/membarrier/Makefile
-+++ b/tools/testing/selftests/membarrier/Makefile
-@@ -4,6 +4,7 @@ LDLIBS += -lpthread
- 
- TEST_GEN_PROGS := membarrier_test_single_thread \
- 		membarrier_test_multi_thread \
-+		membarrier_test_ipi \
- 		membarrier_rseq_stress
- 
- LOCAL_HDRS += membarrier_test_impl.h
-diff --git a/tools/testing/selftests/membarrier/membarrier_test_ipi.c b/tools/testing/selftests/membarrier/membarrier_test_ipi.c
-new file mode 100644
-index 000000000000..49b74844c1f4
---- /dev/null
-+++ b/tools/testing/selftests/membarrier/membarrier_test_ipi.c
-@@ -0,0 +1,739 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Check which CPUs the expedited membarrier commands interrupt.
-+ *
-+ * An expedited command sends an IPI to each CPU which runs a targeted
-+ * thread. The IPI is the memory barrier. A test cannot observe a
-+ * missing memory barrier reliably. It can observe a missing IPI: the
-+ * kernel counts the function call interrupts of each CPU in
-+ * /proc/interrupts.
-+ *
-+ * Each test case pins a "target" which spins in user-space on its own
-+ * CPU. A "sender" pinned on another CPU issues the command NR_CMDS
-+ * times. The test then compares the count of function call interrupts
-+ * of the target CPU before and after.
-+ *
-+ * Each test case runs in its own process because a membarrier
-+ * registration cannot be undone.
-+ */
-+#define _GNU_SOURCE
-+#include <linux/membarrier.h>
-+#include <sys/mman.h>
-+#include <sys/prctl.h>
-+#include <sys/wait.h>
-+#include <syscall.h>
-+#include <stdatomic.h>
-+#include <pthread.h>
-+#include <signal.h>
-+#include <stdbool.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <unistd.h>
-+#include <sched.h>
-+#include <stdio.h>
-+#include <errno.h>
-+#include <time.h>
-+
-+#include "kselftest.h"
-+
-+#define NR_CMDS		1000
-+/*
-+ * A target which must be interrupted can lose a few IPIs when another
-+ * task preempts it. A target which must not be interrupted can receive
-+ * a few unrelated IPIs. The observed counts are either close to
-+ * NR_CMDS or close to zero. Keep a wide margin on both sides.
-+ */
-+#define MIN_HIT		(NR_CMDS / 2)
-+#define MAX_MISS	(NR_CMDS / 4)
-+
-+#define MAX_TARGETS	2
-+/* Seconds to wait for the targets of a test case. */
-+#define READY_TIMEOUT	10
-+#define STACK_SIZE	(64 * 1024)
-+
-+/*
-+ * Exit status of a test case process. Each skip status has its own
-+ * reason, which run_case() reports. CASE_FAIL is a failure of
-+ * membarrier. CASE_ERROR is a failure of the test setup.
-+ */
-+enum {
-+	CASE_PASS = 0,
-+	CASE_FAIL = 1,
-+	CASE_SKIP_NO_COUNT = 2,
-+	CASE_SKIP_NO_CMD = 3,
-+	CASE_ERROR = 4,
-+};
-+
-+struct shared {
-+	atomic_int ready;
-+	atomic_int stop;
-+};
-+
-+static struct shared *shared;
-+static int shared_fd;
-+
-+/* CPU of the sender and CPUs of the targets. */
-+static int sender_cpu, target_cpu[MAX_TARGETS];
-+
-+static int sys_membarrier(int cmd, unsigned int flags, int cpu_id)
-+{
-+	return syscall(__NR_membarrier, cmd, flags, cpu_id);
-+}
-+
-+/* Pin the task @pid on @cpu. A @pid of 0 is the calling thread. */
-+static void pin_task(pid_t pid, int cpu)
-+{
-+	cpu_set_t set;
-+
-+	CPU_ZERO(&set);
-+	CPU_SET(cpu, &set);
-+	if (sched_setaffinity(pid, sizeof(set), &set)) {
-+		perror("sched_setaffinity");
-+		_exit(CASE_ERROR);
-+	}
-+}
-+
-+static void pin_to_cpu(int cpu)
-+{
-+	pin_task(0, cpu);
-+}
-+
-+/* Die with the parent. A killed test must leave no spinning target. */
-+static void die_with_parent(void)
-+{
-+	if (prctl(PR_SET_PDEATHSIG, SIGKILL)) {
-+		perror("prctl");
-+		_exit(CASE_ERROR);
-+	}
-+}
-+
-+static void must_join(pthread_t thread)
-+{
-+	errno = pthread_join(thread, NULL);
-+	if (errno) {
-+		perror("pthread_join");
-+		_exit(CASE_ERROR);
-+	}
-+}
-+
-+/* Wait for the child @pid. Its setup failed unless it exits with 0. */
-+static void must_wait(pid_t pid)
-+{
-+	int status;
-+
-+	if (waitpid(pid, &status, 0) != pid) {
-+		perror("waitpid");
-+		_exit(CASE_ERROR);
-+	}
-+	if (!WIFEXITED(status) || WEXITSTATUS(status)) {
-+		fprintf(stderr, "# child %d did not exit with 0\n", pid);
-+		_exit(CASE_ERROR);
-+	}
-+}
-+
-+static void must_register(int cmd)
-+{
-+	if (sys_membarrier(cmd, 0, 0)) {
-+		perror("membarrier registration");
-+		_exit(CASE_ERROR);
-+	}
-+}
-+
-+/* Announce that this target is in place, then spin in user-space. */
-+static void spin(void)
-+{
-+	die_with_parent();
-+	atomic_fetch_add(&shared->ready, 1);
-+	while (!atomic_load(&shared->stop))
-+		;
-+}
-+
-+/*
-+ * Wait until @nr targets spin. Report a setup error when they do not
-+ * show up: a target may have died in its setup.
-+ */
-+static void wait_ready(int nr)
-+{
-+	time_t start = time(NULL);
-+
-+	while (atomic_load(&shared->ready) < nr) {
-+		if (time(NULL) - start > READY_TIMEOUT) {
-+			fprintf(stderr, "# the targets are not ready\n");
-+			atomic_store(&shared->stop, 1);
-+			_exit(CASE_ERROR);
-+		}
-+		sched_yield();
-+	}
-+}
-+
-+/*
-+ * Read the count of function call interrupts of each CPU of @cpus.
-+ * Return false when /proc/interrupts has no such count for one of
-+ * them. An offline CPU has no count.
-+ */
-+static bool read_ipi_counts(const int *cpus, int nr_cpus, long *counts)
-+{
-+	int *col_cpu = NULL, nr_cols = 0, i, c;
-+	char *line = NULL, *p, *end;
-+	unsigned int seen = 0;
-+	size_t len = 0;
-+	FILE *f;
-+
-+	for (c = 0; c < nr_cpus; c++)
-+		counts[c] = 0;
-+	f = fopen("/proc/interrupts", "r");
-+	if (!f)
-+		return false;
-+	/* The first line names the CPU of each column. */
-+	if (getline(&line, &len, f) < 0)
-+		goto out;
-+	for (p = line; (p = strstr(p, "CPU")); p = end) {
-+		int cpu = strtol(p + 3, &end, 10);
-+
-+		int *new_col_cpu;
-+
-+		new_col_cpu = realloc(col_cpu, (nr_cols + 1) * sizeof(*col_cpu));
-+		if (!new_col_cpu)
-+			goto out;
-+		col_cpu = new_col_cpu;
-+		col_cpu[nr_cols++] = cpu;
-+	}
-+	while (getline(&line, &len, f) >= 0) {
-+		/* x86 uses the "CAL" label. Others describe the line. */
-+		if (!strstr(line, "CAL:") && !strstr(line, "unction call"))
-+			continue;
-+		p = strchr(line, ':');
-+		if (!p)
-+			continue;
-+		p++;
-+		for (i = 0; i < nr_cols; i++) {
-+			long val = strtol(p, &end, 10);
-+
-+			if (end == p)
-+				break;
-+			p = end;
-+			for (c = 0; c < nr_cpus; c++)
-+				if (cpus[c] == col_cpu[i]) {
-+					counts[c] += val;
-+					seen |= 1U << c;
-+				}
-+		}
-+	}
-+out:
-+	free(col_cpu);
-+	free(line);
-+	fclose(f);
-+	return seen == (1U << nr_cpus) - 1;
-+}
-+
-+/*
-+ * Issue @cmd NR_CMDS times. Store into @delta the count of function
-+ * call interrupts which each target CPU received meanwhile.
-+ */
-+static int send_cmds(int cmd, unsigned int flags, int cpu_id, long *delta)
-+{
-+	long before[MAX_TARGETS], after[MAX_TARGETS];
-+	int i;
-+
-+	if (!read_ipi_counts(target_cpu, MAX_TARGETS, before))
-+		return CASE_SKIP_NO_COUNT;
-+	for (i = 0; i < NR_CMDS; i++) {
-+		if (sys_membarrier(cmd, flags, cpu_id)) {
-+			perror("membarrier");
-+			return CASE_FAIL;
-+		}
-+	}
-+	if (!read_ipi_counts(target_cpu, MAX_TARGETS, after))
-+		return CASE_SKIP_NO_COUNT;
-+	for (i = 0; i < MAX_TARGETS; i++)
-+		delta[i] = after[i] - before[i];
-+	return CASE_PASS;
-+}
-+
-+static int expect_hit(int target, long *delta)
-+{
-+	if (delta[target] >= MIN_HIT)
-+		return CASE_PASS;
-+	fprintf(stderr, "# CPU %d received %ld IPIs for %d commands\n",
-+		target_cpu[target], delta[target], NR_CMDS);
-+	return CASE_FAIL;
-+}
-+
-+static int expect_miss(int target, long *delta)
-+{
-+	if (delta[target] <= MAX_MISS)
-+		return CASE_PASS;
-+	fprintf(stderr, "# CPU %d received %ld IPIs, expected none\n",
-+		target_cpu[target], delta[target]);
-+	return CASE_FAIL;
-+}
-+
-+/*
-+ * Global expedited test cases.
-+ *
-+ * The sender is the test case process. The target is a child process.
-+ * @setup runs in the child and ends with spin().
-+ */
-+
-+static void *thread_nop(void *arg)
-+{
-+	return NULL;
-+}
-+
-+static void *thread_spin(void *arg)
-+{
-+	pin_to_cpu(target_cpu[(long)arg]);
-+	spin();
-+	return NULL;
-+}
-+
-+static void setup_registered(void)
-+{
-+	must_register(MEMBARRIER_CMD_REGISTER_GLOBAL_EXPEDITED);
-+	spin();
-+}
-+
-+static void setup_unregistered(void)
-+{
-+	spin();
-+}
-+
-+/*
-+ * The exiting thread clears the runqueue membarrier state in
-+ * exit_mm(). The scheduler then switches to the main thread, which
-+ * has the same mm.
-+ */
-+static void setup_thread_exit(void)
-+{
-+	pthread_t thread;
-+
-+	must_register(MEMBARRIER_CMD_REGISTER_GLOBAL_EXPEDITED);
-+	if (pthread_create(&thread, NULL, thread_nop, NULL))
-+		_exit(CASE_ERROR);
-+	must_join(thread);
-+	spin();
-+}
-+
-+/*
-+ * Register on another CPU. Meanwhile the first CPU is idle and its
-+ * idle thread borrows the mm of this process. Come back to the first
-+ * CPU: the scheduler switches from the idle thread to this process.
-+ */
-+static void setup_lazy_tlb(void)
-+{
-+	pin_to_cpu(target_cpu[1]);
-+	must_register(MEMBARRIER_CMD_REGISTER_GLOBAL_EXPEDITED);
-+	pin_to_cpu(target_cpu[0]);
-+	spin();
-+}
-+
-+/* Register from a multi-threaded process. Both threads are targets. */
-+static void setup_multi_thread(void)
-+{
-+	pthread_t thread;
-+
-+	if (pthread_create(&thread, NULL, thread_spin, (void *)1L))
-+		_exit(CASE_ERROR);
-+	wait_ready(1);
-+	must_register(MEMBARRIER_CMD_REGISTER_GLOBAL_EXPEDITED);
-+	spin();
-+}
-+
-+/* A forked child inherits the registration. */
-+static void setup_fork(void)
-+{
-+	pid_t pid;
-+
-+	must_register(MEMBARRIER_CMD_REGISTER_GLOBAL_EXPEDITED);
-+	pid = fork();
-+	if (pid < 0)
-+		_exit(CASE_ERROR);
-+	if (!pid) {
-+		spin();
-+		_exit(0);
-+	}
-+	must_wait(pid);
-+}
-+
-+/* exec() drops the registration. */
-+static void setup_exec(void)
-+{
-+	char fd_str[16];
-+
-+	must_register(MEMBARRIER_CMD_REGISTER_GLOBAL_EXPEDITED);
-+	snprintf(fd_str, sizeof(fd_str), "%d", shared_fd);
-+	execl("/proc/self/exe", "membarrier_test_ipi", "--spin", fd_str, NULL);
-+	perror("execl");
-+	_exit(CASE_ERROR);
-+}
-+
-+static int test_global(void (*setup)(void), int nr_targets, bool hit)
-+{
-+	long delta[MAX_TARGETS];
-+	int ret, i;
-+	pid_t pid;
-+
-+	if (!(sys_membarrier(MEMBARRIER_CMD_QUERY, 0, 0) &
-+	      MEMBARRIER_CMD_GLOBAL_EXPEDITED))
-+		return CASE_SKIP_NO_CMD;
-+	pid = fork();
-+	if (pid < 0)
-+		return CASE_ERROR;
-+	if (!pid) {
-+		die_with_parent();
-+		pin_to_cpu(target_cpu[0]);
-+		setup();
-+		_exit(0);
-+	}
-+	wait_ready(nr_targets);
-+	ret = send_cmds(MEMBARRIER_CMD_GLOBAL_EXPEDITED, 0, 0, delta);
-+	atomic_store(&shared->stop, 1);
-+	must_wait(pid);
-+	for (i = 0; !ret && i < nr_targets; i++)
-+		ret = hit ? expect_hit(i, delta) : expect_miss(i, delta);
-+	return ret;
-+}
-+
-+static int case_global_registered(void)
-+{
-+	return test_global(setup_registered, 1, true);
-+}
-+
-+static int case_global_unregistered(void)
-+{
-+	return test_global(setup_unregistered, 1, false);
-+}
-+
-+static int case_global_thread_exit(void)
-+{
-+	return test_global(setup_thread_exit, 1, true);
-+}
-+
-+static int case_global_lazy_tlb(void)
-+{
-+	return test_global(setup_lazy_tlb, 1, true);
-+}
-+
-+static int case_global_multi_thread(void)
-+{
-+	return test_global(setup_multi_thread, 2, true);
-+}
-+
-+static int case_global_fork(void)
-+{
-+	return test_global(setup_fork, 1, true);
-+}
-+
-+static int case_global_exec(void)
-+{
-+	return test_global(setup_exec, 1, false);
-+}
-+
-+/*
-+ * Private expedited test cases.
-+ *
-+ * The sender is the main thread of the test case process. The targets
-+ * are threads of the same process, one per target CPU.
-+ */
-+
-+static int start_thread_targets(pthread_t *threads)
-+{
-+	long i;
-+
-+	for (i = 0; i < MAX_TARGETS; i++)
-+		if (pthread_create(&threads[i], NULL, thread_spin, (void *)i))
-+			return CASE_ERROR;
-+	wait_ready(MAX_TARGETS);
-+	return CASE_PASS;
-+}
-+
-+static void stop_thread_targets(pthread_t *threads)
-+{
-+	int i;
-+
-+	atomic_store(&shared->stop, 1);
-+	for (i = 0; i < MAX_TARGETS; i++)
-+		must_join(threads[i]);
-+}
-+
-+static int test_private(int register_cmd, int cmd)
-+{
-+	pthread_t threads[MAX_TARGETS];
-+	long delta[MAX_TARGETS];
-+	int ret, i;
-+
-+	if (!(sys_membarrier(MEMBARRIER_CMD_QUERY, 0, 0) & cmd))
-+		return CASE_SKIP_NO_CMD;
-+	if (start_thread_targets(threads))
-+		return CASE_ERROR;
-+	must_register(register_cmd);
-+	ret = send_cmds(cmd, 0, 0, delta);
-+	stop_thread_targets(threads);
-+	for (i = 0; !ret && i < MAX_TARGETS; i++)
-+		ret = expect_hit(i, delta);
-+	return ret;
-+}
-+
-+static int case_private(void)
-+{
-+	return test_private(MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED,
-+			    MEMBARRIER_CMD_PRIVATE_EXPEDITED);
-+}
-+
-+static int case_private_sync_core(void)
-+{
-+	return test_private(MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED_SYNC_CORE,
-+			    MEMBARRIER_CMD_PRIVATE_EXPEDITED_SYNC_CORE);
-+}
-+
-+static int case_private_rseq(void)
-+{
-+	return test_private(MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED_RSEQ,
-+			    MEMBARRIER_CMD_PRIVATE_EXPEDITED_RSEQ);
-+}
-+
-+/* MEMBARRIER_CMD_FLAG_CPU interrupts only the CPU it names. */
-+static int case_private_rseq_cpu(void)
-+{
-+	pthread_t threads[MAX_TARGETS];
-+	long delta[MAX_TARGETS];
-+	int ret;
-+
-+	if (!(sys_membarrier(MEMBARRIER_CMD_QUERY, 0, 0) &
-+	      MEMBARRIER_CMD_PRIVATE_EXPEDITED_RSEQ))
-+		return CASE_SKIP_NO_CMD;
-+	if (start_thread_targets(threads))
-+		return CASE_ERROR;
-+	must_register(MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED_RSEQ);
-+	ret = send_cmds(MEMBARRIER_CMD_PRIVATE_EXPEDITED_RSEQ,
-+			MEMBARRIER_CMD_FLAG_CPU, target_cpu[0], delta);
-+	stop_thread_targets(threads);
-+	if (!ret)
-+		ret = expect_hit(0, delta);
-+	if (!ret)
-+		ret = expect_miss(1, delta);
-+	return ret;
-+}
-+
-+/* A private command does not interrupt another registered process. */
-+static int case_private_other_process(void)
-+{
-+	long delta[MAX_TARGETS];
-+	pthread_t thread;
-+	pid_t pid;
-+	int ret;
-+
-+	if (!(sys_membarrier(MEMBARRIER_CMD_QUERY, 0, 0) &
-+	      MEMBARRIER_CMD_PRIVATE_EXPEDITED))
-+		return CASE_SKIP_NO_CMD;
-+	pid = fork();
-+	if (pid < 0)
-+		return CASE_ERROR;
-+	if (!pid) {
-+		pin_to_cpu(target_cpu[0]);
-+		must_register(MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED);
-+		spin();
-+		_exit(0);
-+	}
-+	if (pthread_create(&thread, NULL, thread_spin, (void *)1L))
-+		return CASE_ERROR;
-+	wait_ready(2);
-+	must_register(MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED);
-+	ret = send_cmds(MEMBARRIER_CMD_PRIVATE_EXPEDITED, 0, 0, delta);
-+	atomic_store(&shared->stop, 1);
-+	must_join(thread);
-+	must_wait(pid);
-+	if (!ret)
-+		ret = expect_miss(0, delta);
-+	if (!ret)
-+		ret = expect_hit(1, delta);
-+	return ret;
-+}
-+
-+/*
-+ * This task shares the TLS of its parent. Its parent pins it, so that
-+ * it only spins.
-+ */
-+static int clone_vm_fn(void *arg)
-+{
-+	spin();
-+	return 0;
-+}
-+
-+/*
-+ * A private command covers every task which uses the mm. This includes
-+ * a task of another thread group created with CLONE_VM.
-+ */
-+static int case_private_clone_vm(void)
-+{
-+	long delta[MAX_TARGETS];
-+	char *stack;
-+	pid_t pid;
-+	int ret;
-+
-+	if (!(sys_membarrier(MEMBARRIER_CMD_QUERY, 0, 0) &
-+	      MEMBARRIER_CMD_PRIVATE_EXPEDITED))
-+		return CASE_SKIP_NO_CMD;
-+	stack = malloc(STACK_SIZE);
-+	if (!stack)
-+		return CASE_ERROR;
-+	pid = clone(clone_vm_fn, stack + STACK_SIZE, CLONE_VM | SIGCHLD, NULL);
-+	if (pid < 0) {
-+		free(stack);
-+		return CASE_ERROR;
-+	}
-+	pin_task(pid, target_cpu[0]);
-+	wait_ready(1);
-+	must_register(MEMBARRIER_CMD_REGISTER_PRIVATE_EXPEDITED);
-+	ret = send_cmds(MEMBARRIER_CMD_PRIVATE_EXPEDITED, 0, 0, delta);
-+	atomic_store(&shared->stop, 1);
-+	must_wait(pid);
-+	free(stack);
-+	if (!ret)
-+		ret = expect_hit(0, delta);
-+	return ret;
-+}
-+
-+static const struct test_case {
-+	const char *name;
-+	int (*fn)(void);
-+} test_cases[] = {
-+	{ "global expedited reaches a registered process",
-+	  case_global_registered },
-+	{ "global expedited skips an unregistered process",
-+	  case_global_unregistered },
-+	{ "global expedited reaches a process after a thread exit",
-+	  case_global_thread_exit },
-+	{ "global expedited reaches a process registered on another CPU",
-+	  case_global_lazy_tlb },
-+	{ "global expedited reaches each thread of a process",
-+	  case_global_multi_thread },
-+	{ "global expedited reaches a forked child",
-+	  case_global_fork },
-+	{ "global expedited skips a process after exec",
-+	  case_global_exec },
-+	{ "private expedited reaches each thread",
-+	  case_private },
-+	{ "private expedited sync core reaches each thread",
-+	  case_private_sync_core },
-+	{ "private expedited rseq reaches each thread",
-+	  case_private_rseq },
-+	{ "private expedited rseq with a CPU reaches only that CPU",
-+	  case_private_rseq_cpu },
-+	{ "private expedited skips another process",
-+	  case_private_other_process },
-+	{ "private expedited reaches a CLONE_VM task",
-+	  case_private_clone_vm },
-+};
-+
-+static void run_case(const struct test_case *tc)
-+{
-+	int status;
-+	pid_t pid;
-+
-+	atomic_store(&shared->ready, 0);
-+	atomic_store(&shared->stop, 0);
-+	pid = fork();
-+	if (pid < 0)
-+		ksft_exit_fail_msg("fork failed\n");
-+	if (!pid) {
-+		/* The targets inherit this process group. */
-+		if (setpgid(0, 0)) {
-+			perror("setpgid");
-+			_exit(CASE_ERROR);
-+		}
-+		die_with_parent();
-+		pin_to_cpu(sender_cpu);
-+		_exit(tc->fn());
-+	}
-+	if (waitpid(pid, &status, 0) != pid)
-+		ksft_exit_fail_msg("waitpid failed\n");
-+	/*
-+	 * Kill the targets which a failed test case left behind. There
-+	 * is usually none: kill() then fails with ESRCH.
-+	 */
-+	atomic_store(&shared->stop, 1);
-+	if (kill(-pid, SIGKILL) && errno != ESRCH)
-+		ksft_exit_fail_msg("kill failed\n");
-+	if (!WIFEXITED(status))
-+		status = CASE_FAIL;
-+	else
-+		status = WEXITSTATUS(status);
-+	switch (status) {
-+	case CASE_PASS:
-+		ksft_test_result_pass("%s\n", tc->name);
-+		break;
-+	case CASE_SKIP_NO_COUNT:
-+		ksft_test_result_skip("%s: Cannot read the interrupt counts\n",
-+				      tc->name);
-+		break;
-+	case CASE_SKIP_NO_CMD:
-+		ksft_test_result_skip("%s: Command not available\n",
-+				      tc->name);
-+		break;
-+	case CASE_ERROR:
-+		ksft_test_result_error("%s: Test setup failed\n", tc->name);
-+		break;
-+	default:
-+		ksft_test_result_fail("%s\n", tc->name);
-+	}
-+}
-+
-+/* Pick the sender CPU and the target CPUs among the allowed CPUs. */
-+static bool pick_cpus(void)
-+{
-+	int cpu, nr = 0, *dst[] = {
-+		&sender_cpu, &target_cpu[0], &target_cpu[1],
-+	};
-+	cpu_set_t set;
-+
-+	if (sched_getaffinity(0, sizeof(set), &set))
-+		return false;
-+	for (cpu = 0; cpu < CPU_SETSIZE && nr < ARRAY_SIZE(dst); cpu++)
-+		if (CPU_ISSET(cpu, &set))
-+			*dst[nr++] = cpu;
-+	return nr == ARRAY_SIZE(dst);
-+}
-+
-+static struct shared *map_shared(int fd)
-+{
-+	void *p;
-+
-+	p = mmap(NULL, sizeof(struct shared), PROT_READ | PROT_WRITE,
-+		 MAP_SHARED, fd, 0);
-+	return p == MAP_FAILED ? NULL : p;
-+}
-+
-+int main(int argc, char **argv)
-+{
-+	long counts[MAX_TARGETS];
-+	int i;
-+
-+	/* Target of the exec test case. See setup_exec(). */
-+	if (argc == 3 && !strcmp(argv[1], "--spin")) {
-+		shared = map_shared(atoi(argv[2]));
-+		if (!shared)
-+			return CASE_ERROR;
-+		spin();
-+		return 0;
-+	}
-+
-+	ksft_print_header();
-+	if (sys_membarrier(MEMBARRIER_CMD_QUERY, 0, 0) < 0)
-+		ksft_exit_skip("sys membarrier (CONFIG_MEMBARRIER) is disabled.\n");
-+	if (!pick_cpus())
-+		ksft_exit_skip("This test needs 3 allowed CPUs.\n");
-+	if (!read_ipi_counts(target_cpu, MAX_TARGETS, counts))
-+		ksft_exit_skip("No function call interrupt count in /proc/interrupts.\n");
-+	shared_fd = memfd_create("membarrier_test_ipi", 0);
-+	if (shared_fd < 0 || ftruncate(shared_fd, sizeof(struct shared)))
-+		ksft_exit_fail_msg("memfd_create failed\n");
-+	shared = map_shared(shared_fd);
-+	if (!shared)
-+		ksft_exit_fail_msg("mmap failed\n");
-+
-+	ksft_set_plan(ARRAY_SIZE(test_cases));
-+	for (i = 0; i < ARRAY_SIZE(test_cases); i++)
-+		run_case(&test_cases[i]);
-+	ksft_finished();
-+}
--- 
-2.47.3
-
+On 11/11/2026 2:39 PM, Wenwen Fu wrote:
+> When built in, GENI I2C can request serial-engine firmware during
+> probe. If initramfs unpacking is still in progress, request_firmware()
+> waits for it to complete, blocking subsequent driver initialization.
+> 
+> Prefer asynchronous probing so that other drivers can initialize in
+> parallel while the firmware request waits for initramfs unpacking.
+> 
+> Assisted-by: Codex:GPT-6
+> Signed-off-by: Wenwen Fu <wenwfu@qti.qualcomm.com>
+> ---
+Reviewed-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
