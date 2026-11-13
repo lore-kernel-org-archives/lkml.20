@@ -1,100 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.42
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.14
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794588241;
-	b=D0EeVLslkAgYUMPaxaW6P9bKakSsO0OhHEeHxmrLco9kVVVA0iDciL81UXgde6VtwZZr
-	 +JdCppxbf3JSC30Glss9JXgTjtIsuNzSFOrA5bidoyomfM0WJgWm0XsRP8PdtM0v9Otmp
-	 pumyrwTywGpeDH/KDbY0pDZ1FUewDl042EiAX7/xu0gGYPfV+H9oT8bW0RwKxpfPMNXQ9
-	 z3l5jA2wARSO7DKKSiywq9tNDoUvaT4wbpL7orp+0WK2Z1HtkT66BVHyxWlEt0i2ejddx
-	 Zn8ojVKnI+z5cpNoQA1/UbqyU3Nuiav51u6a/bEk57tAfAQL3DeJCgVChhHhhwHi5VA==
+	t=1794588261;
+	b=jZBY+zlI1pdrlQyXKeqTFmnHLm8U6JTMGheMAT3KemCQZ9aifwOHZrUUh/qYpHJsQcwh
+	 58DyMLQ69R4ojKx13LqFtLSLTcl7wSKwtH/Z4dakF5J3QdpWhKZJYyBggnZUctxq1c8ue
+	 xduwlK4Xw5c5uu8dFbUMGg4ipEEtVbTo5vvRIEl53xPg0Pvf3c9nphGoXz2kNKM+cp6fP
+	 VofsmHXc7DQjdy06Fm5BX7yUQeNlG/GWu8RSi2daMozeeytToig3Jue73BCUtlxFiwxEd
+	 GDtf/roj4W69A3jNgh3IstiYvXizoF+/xcvOsLIHcRdGlWwZWh1PpJNAgj6HIPpaIKA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794588241;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=2xwSLY+4r/iqUlN1eu/g4afeC8e/qnS1T9wNCqgOQ6U=;
-	b=hor821s0jcUxv1HArkqpszm89Say2mcCQbygf4AQkjBRKVZKhNetif/RcikuiqN24WLF
-	 8jyEByF3o/3FMhXUPjwSP1PBNyZhCqPLSQzAyYOwXiR7gUVVr4k9aQ+/DXub5D97ql++0
-	 Kv6EDsnw3tz0nZHYdIDXHXZj1rD+gWXhPJAbLhOTyR/RpKfEmuQb8c4fTEUacdf0N1x8z
-	 pNefAUd8AtAq4W0dmSkHcq0PEyZbskXtyeuceeG2aipG5QAc2HEa7bnF6G4KMs+T91Xmd
-	 C4UQCBDfwlqqy2QOjRQXS0N0rSdHbLHnl1Zlp69ZIDKLF1XnE2voaC1hbKRGLEJvUoQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794588261;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=zGA1iKDwtG0ayIkbR3p9jIDB/VoqLg2klJAGJcOxB0U=;
+	b=bQ3JWvK8TKmiZj4oEVE0CuxvLejzarIDS6oTawYjjwJD7GX6WIjLXmakwe4QWVm6qCeU
+	 3tYyU90tjvB1dVmz8zJ1Mhi/KL9yB7IHIspqQCSup47+sGi7zj/VIRzbAA+YWcSk7kc1j
+	 PfketqjRXLInLW4fookkdHcMdE4g5UeMRtAIHkhhEIlTbdFsfUmbhgeHYDidF3hy284CO
+	 neNuuCO4YjCx/qGMXiyz3agZ9drd4/Q1kwxX8ViUXLnkEjHLYQ6LxVRKHs13wFz5xDSzW
+	 3pE+bu3iW1pW1JqGsFEi3ivQH5kQ+GU1hM4wMB/ka312UA3HuC2zm19q/lOkpREtebw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AmfdLKVI;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.42
-Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com [209.85.160.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=pFzZFkKG;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.14
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010014.outbound.protection.outlook.com [52.101.69.14])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B18D606A336
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:44:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B18D606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39722606A336;
+	Fri, 13 Nov 2026 16:44:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39722606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AmfdLKVI
-Received: by mail-oa1-f42.google.com with SMTP id 586e51a60fabf-490d838b425so1221257fac.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:44:00 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794588240; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nsVSxQtfZUWy+tSVR1xUk0dUQ6FXshwEtcKHJoVOHJvgxBf+ERLMr9NkmGi9FbmNFh
-         GSPBMA/j7aeJlLjLDpq4H7+OrHjTlQ9LIVtA2hEhH3kaCNIA0WEFKE2zDHEVSEB8EobY
-         1zs7hUtiktziU5FrtIVcaQ96BlEDyWUO5H7A89C+CJVU2U5dDlEqjOMQpj3vbxp1Snaq
-         Dp0aDAHjQwnDAvZ2ttsRZV1hLnrxjzUMSfZy64KpIMQO49pwVtao3a15vTum5J/sowBp
-         jo0U9lEadxCdppuVwfmAItTdKCm+6jQRlC8wCGc4a8kPoMqbrIMgJ1pl+R8wabkdAIGj
-         y6aw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=2xwSLY+4r/iqUlN1eu/g4afeC8e/qnS1T9wNCqgOQ6U=;
-        fh=byOyd60tdrJJ7ie/Ht2F21HnaAlG8AUPU1AOWE8wVaE=;
-        b=JmckBWBS1mxIRD4j/Ub/EoLY65zkZdX+I+XJA2+AzUDg1SDZN1DuVyNBQuGBiZwIto
-         md8j6f/vfo1+hGSD8iNPjBnDufEyjGqHD0BUDJUsxqS1l/N9K2MZgbZsAtLso1W3YOZ9
-         DgIZuNBc2O2h12uJs/Fu5lw5BkRnU3ebwvAtmzEaAkxnFQqm272EsIHbkp45q2WCXOHp
-         c7nFgvdy9Jts9fs08/1mS1hWvNiHH41XADuJLZpCGxcFZrPJ4zGh55DdtU9fMu6Zjirw
-         YWeL0ZilWhux97eJt2fy534NdfPVgNrg794oPNvUmMunvY1MtmkOlYPB3Q67+vVqogsg
-         pfqQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794588240; x=1795193040; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2xwSLY+4r/iqUlN1eu/g4afeC8e/qnS1T9wNCqgOQ6U=;
-        b=AmfdLKVIDpgzHuwlcvHErRH9NVzhDO2HuQVDShKPUFxJRLCsxh4KAmjTEUdh9+6b/p
-         U+1yXpA2bfsVcyDycpQKA1W+CIEz0jxWc+NVOx3cYfUDcgVuBTaylSQbIJKxW7sAYxl0
-         td/37xJtH3qJrjEWx4GknkWohhezJ8XByloymeab6svDftBj8m8EFOL+4lpOEId5AnBQ
-         vTGDGzL1i0WxOh6cEXFtaUB7nIfpqwJ9nzd5mRVc+HkV9rX4Dgyuom38vHsGByeRtcMe
-         zxPkQKPHeIIjkD3mJB7m5zxsfoft3dt10X0Ob5/su/ObFWPfmxjNvFlXBaGTNu7XElhk
-         9nhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794588240; x=1795193040;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2xwSLY+4r/iqUlN1eu/g4afeC8e/qnS1T9wNCqgOQ6U=;
-        b=FpQW1F1oDQv3bhZJgpAya0DP1MYRUWvMLtASJX3rXWvoshp4Xo1SuZe+61y2t5I7IR
-         siH7f73ZoxHrEx5AfjOXFr3lVlG5Tf0D+sFq7R6eOjsAkFFc1qRaQptLN1y0y886o9S3
-         clWDPO1qTdYkMkDF4x/n6QOi4mkioChbE1XazfkQNEWtOo9Uy8Nit9+5BCkOvb/lVRLo
-         ZcdjtQTxFiWS/ap4oRk6sRliULd2UT0Vj+oklyIzLag5s2aa17Vukdxjt+xfyutlF2R4
-         Xzecu6RavsXfcNwxQvjz0PCQ6pRp74pFUB9HAEMMIVPYDxDC00YvpMCL3CCPb9p1OChc
-         RzEA==
-X-Forwarded-Encrypted: i=1; AL+hErG8cl3UlLdnsWJwPwqdyfgfUu8cZSWf9UK2PgMAEVayIDG9gMaiOAgsHGidqZPY5tasmb1TFYjmRjMliI0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/rxQm6qOGMUR3OBCRCisdhEmoCDJoMWwOcGYgbX7cWtjLa3t2+
-	HSE3yRWx3kmcdKVuvfJP9dObh9jTIH7VEOgmAelTZYaMQLBeUqP4Vycq3mCwFOwtnfvvO2SVHVR
-	I3n+YQL/NTN8KiZp5H9nmDnCaiIEwIJk=
-X-Gm-Gg: AYBFou1Jt3tAFW0xefl4NRkW6sXHxTCA8x9cMHKtIY/h8LMS1cqn+jsZ/2mxUWwGxsM
-	SdbP0NYy5Tcv7yUA+mhPKPCnQsA4yqWwsquxANldnQIrTyovhIEneheVQ0lXWegV6byxpOp68Vt
-	Iq7rxO+6OZUrprg+pNUJBQMQ4A6b+q/SqRXOV3QGcZY91B4BuCvaoBpsB+tWnu5xSR59AezLP24
-	qt0kRQUckdyR5QAcAB5dXrfOmUBCqbfS31HocIayx4Wv9Wy5WF5I2jvsHyutbsnMGmG0NNcGXJV
-	PaasuyoeB75GZCK1Su78J2YmV3QxmbPV7GPGCOlccLgLC9/kwzpBhwUrNBIzbMJPi7lofQiqzfG
-	0GsPF70pzggbjQfNbOfVHyxuQ60waZWrXreVVOtwP0xJDFU6yQW7O7Rcr23CvjH2FzzW4
-X-Received: by 2002:a05:6870:3926:b0:456:5d8b:5681 with SMTP id
- 586e51a60fabf-4afdf02c194mr2838250fac.1.1794588239713; Fri, 13 Nov 2026
- 08:43:59 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=pFzZFkKG
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MA4PI3t4jwcN9p8YfZyfz5+m3LVxBjJEG083DoVv7eYWeY/t3FmlKItN40LVy9Xwh7mCNPl+24fCVUPXLm2uaIQLXHfh56/pmIrIW0DKTRxTVhoYaPIyjMm2gpYU6Cf0iXOexbfvg0E4H5T5JnO2NgRWsaEGBrc3YfVSO20f7WywCHnyRHCT8sBW3ajiwkx3J6OECLRs3rGf0jh1nPD9r4AI6982FpC6YnV35vK615kYYJKT/NiC/qbsU5Xn4lgFHaqXLeDgKT/66Y9litunsE3WtfLBJ8r3q3gyf6qgH/KjpCIn8GYyteHHqJyaadmzkAPpZe9jWjYM3X9lZzZ6nQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zGA1iKDwtG0ayIkbR3p9jIDB/VoqLg2klJAGJcOxB0U=;
+ b=DVBXbbDdIDdFATByYYnqh4r9IwMMnuu5ILAD24p5lOtJPz+5U28sewB51rvgXIRn3Ijbo0cYg9ijxRB3inEnilSgaO23qO5rJq3HkL7pVE9PBCqaTvjBesqOatRZs+3WaGR69aFOTuPyOexhqNdiLjx4qODGxW3F9KZIVsu9VeKdmRvXRbiqxNm+NoQXQH/7N5TT9+KYkrwKR/m4PkSFj3M8Qx52LsIloBtmA1lz+uXeb0+wMothAi6/4JafhtWZewCAakpklGUEFPDGDBuMthWY7TCRLZzG9ju7IQIkoShO2zdA6/RjwW2eo0u3/aFTPH/9MKHEUndikjtlTkt2vQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zGA1iKDwtG0ayIkbR3p9jIDB/VoqLg2klJAGJcOxB0U=;
+ b=pFzZFkKGboXf3VrW/u4Fw6rGs42Vl4p+xBSwhCK9dE3q/iatcOPwBa/GbLOWuhSCWrLOJStfXA427LcfVC3/WMi0im0LIRtMacP3U66TiiRu7ZgBtVeKfES5vSmOfc2joZVgofon7IE0qR+n5EK6yJp3eQjuR0yrfKnna3c1W7vrHikCnIEciFITCYJZbVtqZ1+P6W0r2VXFJmuPxI0fpBATiBI1dptBKXZH2GWdxvSzJXGjb7pOhojZo3LJno0BXHCruyO8X+qs3ikLg0g3J1twSFiJ4QUemF4T25NinX/U4lZEDjndh6/3cG7GCCkyHk+EpLw5BCW9jB1EEQ4zTw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by DBBPR04MB7964.eurprd04.prod.outlook.com (2603:10a6:10:1e9::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Fri, 13 Nov
+ 2026 16:44:12 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0615.009; Fri, 13 Nov 2026
+ 16:44:12 +0000
+Date: Fri, 13 Nov 2026 11:44:03 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Nathan Lynch <nathan.lynch@amd.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	David Rientjes <rientjes@google.com>, John.Kariuki@amd.com,
+	Jonathan Cameron <jic23@kernel.org>,
+	Kinsey Ho <kinseyho@google.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	PradeepVineshReddy.Kodamati@amd.com,
+	Shivank Garg <shivankg@amd.com>,
+	Stephen Bates <Stephen.Bates@amd.com>,
+	Tycho Andersen <tycho@kernel.org>, Wei Huang <wei.huang2@amd.com>,
+	Wei Xu <weixugc@google.com>, dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
+Subject: Re: [PATCH v4 11/25] dmaengine: sdxi: Start functions on probe, stop
+ on remove
+Message-ID: <avc-U4-WMMulqpdQ@lizhi-Precision-Tower-5810>
+References: <20261103-sdxi-base-v4-0-3668ccc7aab8@amd.com>
+ <20261103-sdxi-base-v4-11-3668ccc7aab8@amd.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103-sdxi-base-v4-11-3668ccc7aab8@amd.com>
+X-ClientProxiedBy: SA9PR10CA0005.namprd10.prod.outlook.com
+ (2603:10b6:806:a7::10) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,223 +107,184 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261109100437.331423-2-amaan.cheval@gmail.com>
- <179439161258.2199510.10096207449822395421@kernel.org> <CAG+wEg3m_w1vK7VzG2jnVZfo=NUS1=FGSOU_g7iM7e8_Gg8t3g@mail.gmail.com>
-In-Reply-To: <CAG+wEg3m_w1vK7VzG2jnVZfo=NUS1=FGSOU_g7iM7e8_Gg8t3g@mail.gmail.com>
-From: Amaan Cheval <amaan.cheval@gmail.com>
-Date: Fri, 13 Nov 2026 22:13:47 +0530
-X-Gm-Features: AclHuK-dvQ8FR7iuDY6reqGLulnAiTGIl0ZxYViuhh3Gd5yQpc3FzWvdbn-ybe0
-Message-ID: <CAG+wEg04LC5_RxzK2tyxkSXzDz0pBucBRjmeTYVKpgbQF8AE5A@mail.gmail.com>
-Subject: Re: [PATCH net v5 1/2] gve: refuse XDP on queue formats without XDP support
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, joshwash@google.com, hramamurthy@google.com, 
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, 
-	kuba@kernel.org, pabeni@redhat.com, bcf@google.com, jordanrhee@google.com, 
-	przemyslaw.kitszel@intel.com, maciej.fijalkowski@intel.com, 
-	pkaligineedi@google.com, maolson@google.com, csully@google.com, 
-	willemb@google.com, yangchun@google.com, npl@google.com, 
-	awogbemila@google.com, shailend@google.com, nktgrg@google.com, 
-	maxyuan@google.com, bpf@vger.kernel.org, john.fastabend@gmail.com, 
-	hawk@kernel.org, sdf@fomichev.me, daniel@iogearbox.net, ast@kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DBBPR04MB7964:EE_
+X-MS-Office365-Filtering-Correlation-Id: eaa6036f-5462-499f-8ee9-08df41a55886
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|23010399003|376014|366016|1800799024|19092799006|10067099003|56012099006|11063799006|4143699003|261022105027099003|261026121527099003|261021123027099003|261021121427099003|261022075727099003|261026140227099003|261102123227099003|261102130727099003|261028144727099003|261009223027099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	FdP/41Dh2MRcR1jY5ilEvRL79Lxx48v8Bqb29lVSThNrTbmY1ZCRmuN8KuDbzs9HXEd9ocPLa1eFwP6l0LOOmqx/UJ4ZQJR3OjpoSAJ8FXqKv4R/V/sT27jANRmwJ8638w0l/N9+GHJhYPIeqASXUYrWAt7olHVwEZCPdtZgKgqQTEEn4TcGAxzpRyYpDtCH36/jLxukUxrmXVDnZedYr8Y3dttqDrYF7hwZvHXHGjvTVby4KkCUUluLnGt579Z1QfXU2d2J0oHMpf5ZwiyFy/F6sunIjEOFqD9gllAm7vicaea3o5VIC7MS86Rjho9ktAqDE2HT5Jr0XW5VE6yFivMa573bxAjNW65wKk/zgZ9MS1vUNG/MxEbCgmMRMQndfOTjSTYaw/C1443K/RGoGRzijOgljxzc/egxe/Eq5vPKaYi7dHzvRAzX7IbNo4TTK3Ypqwwv5z88C7QlvV0VLnUIrjah/m88ooutysb9hSDgzdqMtsa9X5tOqPITntbPK47pohyMANfyGLhIZe1Y1/rnK9u9NxAJRM0ry2OKt7B2MuMwSWH5H8NmJ3Jtei2OsA1LIAn0yME/OFq+FTqU1QK2TphZoiDQ3FBslLMEDuzOi+IH/6hK5YewgKaCqPy0d1TBeF9gFs5kCVP0tNcPbgLMgb/y3cDBq3h7ABRlO/U=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(366016)(1800799024)(19092799006)(10067099003)(56012099006)(11063799006)(4143699003)(261022105027099003)(261026121527099003)(261021123027099003)(261021121427099003)(261022075727099003)(261026140227099003)(261102123227099003)(261102130727099003)(261028144727099003)(261009223027099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?qtaMIGnWg5YvhcBkAdHCx+UblGXGTLqilmHpQK7+z7GfSVkVcrj6IizwnaF2?=
+ =?us-ascii?Q?ToXWU+IZKLM9vJoXeFwnv++IkH8CiGbzA5ztphzMcFOctz6Lr4v+TnUi2GjO?=
+ =?us-ascii?Q?35Xo2yq37GTij7UCZ+BEIJG1u9JaG/LpRCrXTsTNRDc+SbI/Xrapc165OqYo?=
+ =?us-ascii?Q?1F1dZU6CV51fI8c7GLH2Q2MB9NuxZ7HmI5r3vOGIJXCTlHOYE373yhxU2btQ?=
+ =?us-ascii?Q?SjCBhejPWB3/kHB4bD2vQ9wI5Rz6rC+68r/FlX2BEdBShdPdxjAwwUyO1w0P?=
+ =?us-ascii?Q?6MzEHkDqxXTPau+chf3tX/zo3QP9V47QogGYHa8nwgjWNmP81Kt4AUrOEeeU?=
+ =?us-ascii?Q?X4vZG8YfTX88lJYgUem9rlJg3+g+7cqGYPMH8rqHICWRGWd3yiT97DaZju9/?=
+ =?us-ascii?Q?Ht3KilDpV+/HGRqZlrQALJu75MhREnpTBpcE+Ulu2o22Ip4uDFEkq8Zt8vTJ?=
+ =?us-ascii?Q?gI6MrqpgMwnPIIpc0LmXQXDds3DGGfD3MpcrkQhO8rdWNAoqbiDoh/AWirny?=
+ =?us-ascii?Q?NPG+sClEmb9iS/Hf/5QbwT5KYLw5Y3ak+GG3eVqgKVXbLuqpH1N2CxA1c4CU?=
+ =?us-ascii?Q?vsry2pTvbZo9l3tdPKrCG+VDOBqTAzo369dfqHcf5onyMVwhIE44q9pdkl+2?=
+ =?us-ascii?Q?X/emEXx5p/FNAB1s+af8ynDGgOEf18qOE4b3M3f72ufzeVD7lrW6isNslEVh?=
+ =?us-ascii?Q?dqh3WFGYXPcDBRp0DsI3PXQVlSBZ8o/I4d3a0+bLEcy1pA4ea0CQhlBpkta6?=
+ =?us-ascii?Q?JwDqo066IEX9pGuCRXx8rxnRBWeMPeVNN3Y10QqFqspQJzOGm5hfLRkf6w+m?=
+ =?us-ascii?Q?T/vIXEjeu231cfqIoL2ZZUzpdME2rsWhnNas78/QtHUEg7PrJFkEUUapXyhJ?=
+ =?us-ascii?Q?/Q2Sv9c4X4joZXNpqm7kcCYE0fsc+H60K7r2vC0E2K/Sk7BOA8fuWQOIESm5?=
+ =?us-ascii?Q?WCEndlztRwWM9uJPef/XF3vx6WH9CwMmh6Rduv0Wx+Wa5turaZQ96NQtc9jU?=
+ =?us-ascii?Q?45Pwl8Irb2eLElB9TOKmsBWbSyudIq2F67UWJIAIqOhvzPSdxkwOV9DR2+4U?=
+ =?us-ascii?Q?rSqbnZAYDyztl/dGr6Ta97ztH8AlL333q6+tDEWfTCNZskVYNh5Aj7IPV7zT?=
+ =?us-ascii?Q?SMGTruHR8JpM9Vf5nSTkhXjIeZXeh2qvlGkkSwvEpFspXfiZJzz120ZocUXn?=
+ =?us-ascii?Q?PAHy1JyB8PGV6Yzz7dU8t42FxM/uDAMFdrxiU4iaJO01dA7Z4KnJEIZ8loCi?=
+ =?us-ascii?Q?oR2BBnJsCl0PybIXiWm963z4J1KYEAJt1nrO5Ocz5xJmIXd91r4HX+cAuVLP?=
+ =?us-ascii?Q?VL4BMXAsodlESVcKJoIex1my5TMVbox2c1QHs9hCA3s4jRmqqccCZ/Uyvzsz?=
+ =?us-ascii?Q?rm3ub38mp5tI26DVL1zCWNxxxc5C7TP+V0VD+NL2UYTPAQEtob6dp88W1Ikg?=
+ =?us-ascii?Q?g6JVSCJwTOXgqT+kc3ty8JzEACrEQ6u6OG4rp8k3nn/Xf0VOpu+aGCiZ+h8H?=
+ =?us-ascii?Q?uoCM/cUgikALEekninVFz5u8iQAT23NT4XtDj3xb1xUOUdYL9iGyaCRn/Sya?=
+ =?us-ascii?Q?aSiw9Av8USR4Up1WqXEG3FhVixeYErvei28aUyvmgZ6q2m7EilbZW+bHNwPP?=
+ =?us-ascii?Q?+mlx1ZT9URysElEYji6KJkZnclXgdt6NIZzfGq6543I0J11ZzpJZg+ly4DfQ?=
+ =?us-ascii?Q?JoIX6dTqsTlV4tWNk9wjcUagp7VQpZ50nrRCLYmOFV7ZAImn12t43zF12cjg?=
+ =?us-ascii?Q?d5K9ZDMSUAVahcGmU4Ri7yaZ7onbgXTKPnm7x7ktNrAkdwZgwDM0?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: eaa6036f-5462-499f-8ee9-08df41a55886
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 16:44:12.1170
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: cvTpSyd5Az7YQQN8VjX8KY8ilxtN5eJ/ZQkqJGl1wo7z+uATZ8VKA8R35jhF/7f2eICAAjsZ3awc8fWrcF9f2o275a2khz7c8u5BO1bzgZoOcV+DuylsEhYD9L55/aBv
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7964
 
-I misplaced my bot request, so v6 tests are gated. Fixing now:
-pw-bot: cr
+On Tue, Nov 03, 2026 at 08:49:52PM -0600, Nathan Lynch wrote:
+> Activate the function after administrative context setup, polling for
+> GSV_ACTIVE or GSV_ERROR with a one-second timeout. Stop the function during
+> PCI removal.
+>
+> Co-developed-by: Wei Huang <wei.huang2@amd.com>
+> Signed-off-by: Wei Huang <wei.huang2@amd.com>
+> Signed-off-by: Nathan Lynch <nathan.lynch@amd.com>
+> ---
+>  drivers/dma/sdxi/device.c | 53 ++++++++++++++++++++++++++++++++++++++++++++++-
+>  drivers/dma/sdxi/pci.c    |  1 +
+>  drivers/dma/sdxi/sdxi.h   |  1 +
+>  3 files changed, 54 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/dma/sdxi/device.c b/drivers/dma/sdxi/device.c
+> index f9787d7190d4..d5a5b8d43391 100644
+> --- a/drivers/dma/sdxi/device.c
+> +++ b/drivers/dma/sdxi/device.c
+> @@ -212,6 +212,36 @@ static int sdxi_dev_stop(struct sdxi_dev *sdxi)
+>  	return sdxi->bus_ops->reset ? sdxi->bus_ops->reset(sdxi) : -EIO;
+>  }
+>
+> +/*
+> + * Activate a stopped function. GSRV_ACTIVE takes it through the
+> + * transient GSV_INIT state to GSV_ACTIVE or GSV_ERROR. See SDXI 1.0
+> + * 4.1.8.9.
+> + */
+> +static int sdxi_dev_start(struct sdxi_dev *sdxi)
+> +{
+> +	const unsigned long settled = BIT(SDXI_GSV_ACTIVE) | BIT(SDXI_GSV_ERROR);
+> +	enum sdxi_fn_gsv gsv = sdxi_dev_gsv(sdxi);
+> +
+> +	if (gsv != SDXI_GSV_STOP) {
+> +		dev_err(sdxi->dev,
+> +			"start: MMIO_STS0.fn_gsv = %#x (%s) on entry\n",
+> +			gsv, gsv_str(gsv));
+> +		return -EBUSY;
+> +	}
+> +
+> +	sdxi_write_fn_gsr(sdxi, SDXI_GSRV_ACTIVE);
+> +
+> +	if (sdxi_dev_gsv_poll(sdxi, gsv, BIT(gsv) & settled) ||
+> +	    gsv != SDXI_GSV_ACTIVE) {
+> +		dev_err(sdxi->dev,
+> +			"start: MMIO_STS0.fn_gsv = %#x (%s) after activate\n",
+> +			gsv, gsv_str(gsv));
+> +		return -EIO;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>  /* Stop the function and discard inherited MMIO configuration. */
+>  static int sdxi_fn_prepare(struct sdxi_dev *sdxi)
+>  {
+> @@ -361,7 +391,20 @@ static int sdxi_fn_activate(struct sdxi_dev *sdxi)
+>  	if (err)
+>  		return err;
+>
+> -	return 0;
+> +	/*
+> +	 * SDXI 1.0 4.1.8.9: Set MMIO_CTL0.fn_gsr to GSRV_ACTIVE and
+> +	 * wait for MMIO_STS0.fn_gsv to reach GSV_ACTIVE or GSV_ERROR.
+> +	 *
+> +	 * We haven't queued any descriptors to the admin context at
+> +	 * this point, so the admin context jump start (SDXI 1.0
+> +	 * 4.1.8.10.b) is accomplished later when other
+> +	 * code starts client contexts.
+> +	 */
+> +	err = sdxi_dev_start(sdxi);
+> +	if (err)
+> +		sdxi_dev_stop(sdxi);
 
-On Thu, Nov 12, 2026 at 2:33=E2=80=AFPM Amaan Cheval <amaan.cheval@gmail.co=
-m> wrote:
+Suppose should stop() in start() before return error. Generally function
+should cleanup resource that already allocated in the function before return
+fail.
+
+Frank
+> +
+> +	return err;
+>  }
 >
-> On Wed, Nov 11, 2026 at 3:36=E2=80=AFPM <netdev-bot+sashiko@kernel.org> w=
-rote:
-> >
-> > Thank you for your contribution! Sashiko AI review found 1 potential
-> > issue(s) to consider.
-> >
-> > Critical: 0 =C2=B7 High: 0 (1) =C2=B7 Medium: 1 =C2=B7 Low: 0
-> >
-> > If you believe none of the issues are legitimate, please reply to each
-> > issue of Medium severity or higher and explain why the AI is wrong.
-> > If any of them are legitimate and you plan to respin, please let patchw=
-ork
-> > know by including "pw-bot: cr" as a separate line at the end of your re=
-ply
-> > (one such reply per series is enough).
-> >
-> > - [Medium] The commit message misstates which queue formats the new che=
-ck
-> >   affects.
-> >
-> > Pre-existing issues:
-> > - [High] This problem wasn't introduced by this patch, but the patch
-> >   extends it.
-> >
-> > --
-> >
-> > gve: refuse XDP on queue formats without XDP support
-> >
-> > This patch adds a check to gve_verify_xdp_configuration() that refuses =
-XDP
-> > setup when dev->xdp_features lacks NETDEV_XDP_ACT_BASIC. It replaces th=
-e
-> > queue format gate dropped by commit d8a8ca14c937. The aim is to keep XD=
-P
-> > off DQO-QPL, whose RX page accounting can free a page that is still
-> > DMA-mapped and registered in the QPL.
-> >
-> > > Refuse XDP setup in gve_verify_xdp_configuration() whenever the drive=
-r
-> > > advertises no XDP features for the current queue format, which today
-> > > means DQO-QPL.
-> >
-> > [Severity: Medium]
-> > Is "which today means DQO-QPL" accurate? gve_set_netdev_xdp_features() =
-only
-> > sets NETDEV_XDP_ACT_BASIC for GQI-QPL and DQO-RDA:
+>  static int sdxi_device_init(struct sdxi_dev *sdxi)
+> @@ -407,6 +450,14 @@ int sdxi_register(struct device *dev, const struct sdxi_bus_ops *ops)
+>  }
+>  EXPORT_SYMBOL_NS_GPL(sdxi_register, "SDXI");
 >
-> Makes sense, the commit message should be clearer.
-> pw-bot: cr
+> +void sdxi_unregister(struct device *dev)
+> +{
+> +	struct sdxi_dev *sdxi = dev_get_drvdata(dev);
+> +
+> +	sdxi_dev_stop(sdxi);
+> +}
+> +EXPORT_SYMBOL_NS_GPL(sdxi_unregister, "SDXI");
+> +
+>  MODULE_AUTHOR("Wei Huang");
+>  MODULE_AUTHOR("Nathan Lynch");
+>  MODULE_DESCRIPTION("SDXI core");
+> diff --git a/drivers/dma/sdxi/pci.c b/drivers/dma/sdxi/pci.c
+> index 6a293db69199..d196ab5cf6f1 100644
+> --- a/drivers/dma/sdxi/pci.c
+> +++ b/drivers/dma/sdxi/pci.c
+> @@ -99,6 +99,7 @@ static int sdxi_pci_probe(struct pci_dev *pdev,
 >
-> >
-> > drivers/net/ethernet/google/gve/gve_main.c:gve_set_netdev_xdp_features(=
-) {
-> >         if (priv->queue_format =3D=3D GVE_GQI_QPL_FORMAT) {
-> >                 xdp_features =3D NETDEV_XDP_ACT_BASIC;
-> >                 ...
-> >         } else if (priv->queue_format =3D=3D GVE_DQO_RDA_FORMAT) {
-> >                 xdp_features =3D NETDEV_XDP_ACT_BASIC;
-> >                 ...
-> >         } else {
-> >                 xdp_features =3D 0;
-> >         }
-> >         ...
-> > }
-> >
-> > GQI-RDA also falls into the else branch. gve_adminq.c can still select
-> > GVE_GQI_RDA_FORMAT from the GQI_RDA and GQI_RAW_ADDRESSING device optio=
-ns,
-> > so the new check refuses GQI-RDA as well.
-> >
-> > The check that d8a8ca14c937 removed (queue_format !=3D GVE_GQI_QPL_FORM=
-AT)
-> > also refused GQI-RDA. Since that commit, XDP could be attached on GQI-R=
-DA,
-> > and XDP_TX there takes this path:
-> >
-> > gve_rx()
-> >   gve_xdp_done()
-> >     gve_xdp_xmit_one()
-> >       gve_tx_fill_xdp()
-> >
-> > gve_tx_fill_xdp() always uses tx->tx_fifo: it calls gve_tx_alloc_fifo()=
-,
-> > memcpy()s into tx->tx_fifo.base and reads tx->tx_fifo.qpl->page_buses. =
-A
-> > raw-addressing TX ring never allocates that FIFO. Isn't that a NULL
-> > dereference that this patch also fixes without saying so?
-> >
-> > Could the commit message mention GQI-RDA? Two things are worth stating:
-> > GQI-RDA now gets -EOPNOTSUPP, and this closes the XDP_TX crash there. T=
-hat
-> > would help stable backporters.
-> >
-> > The follow-up patch "gve: fix RX page refcount overflow from INT_MAX
-> > pagecnt_bias" uses the same wording ("The previous patch keeps it that =
-way
-> > by blocking XDP on DQO-QPL"). Its safety argument also depends on XDP b=
-eing
-> > blocked on GQI-RDA.
-> >
-> > > diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net=
-/ethernet/google/gve/gve_main.c
-> > > index 2437cd8ba6331..fe560f5c5408c 100644
-> > > --- a/drivers/net/ethernet/google/gve/gve_main.c
-> > > +++ b/drivers/net/ethernet/google/gve/gve_main.c
-> > > @@ -1723,6 +1723,12 @@ static int gve_verify_xdp_configuration(struct=
- net_device *dev,
-> > >       struct gve_priv *priv =3D netdev_priv(dev);
-> > >       u16 max_xdp_mtu;
-> > >
-> > > +     if (!(dev->xdp_features & NETDEV_XDP_ACT_BASIC)) {
-> > > +             NL_SET_ERR_MSG_MOD(extack,
-> > > +                                "XDP is not supported on this queue =
-format.");
-> > > +             return -EOPNOTSUPP;
-> > > +     }
-> > > +
-> >
-> > [Severity: High]
-> > This is a pre-existing issue that this patch did not introduce, but the
-> > patch adds another exit to the same gate. gve_xdp() calls
-> > gve_verify_xdp_configuration() before it looks at the command, so the g=
-ate
-> > also runs for teardown:
+>  static void sdxi_pci_remove(struct pci_dev *pdev)
+>  {
+> +	sdxi_unregister(&pdev->dev);
+>  	pci_disable_sriov(pdev);
+>  }
 >
-> I'll leave this for a separate fix; it seems legitimate independently.
-> The check this patch adds on xdp_features derives only from queue_format
-> (in gve_set_netdev_xdp_features) which cannot change between setup and
-> teardown, so it adds no new exit as claimed.
+> diff --git a/drivers/dma/sdxi/sdxi.h b/drivers/dma/sdxi/sdxi.h
+> index 525473029987..631a605ea62f 100644
+> --- a/drivers/dma/sdxi/sdxi.h
+> +++ b/drivers/dma/sdxi/sdxi.h
+> @@ -68,6 +68,7 @@ struct sdxi_dev {
+>  };
 >
-> >
-> > drivers/net/ethernet/google/gve/gve_main.c:gve_xdp() {
-> >         err =3D gve_verify_xdp_configuration(dev, xdp->extack);
-> >         if (err)
-> >                 return err;
-> >         switch (xdp->command) {
-> >         case XDP_SETUP_PROG:
-> >                 return gve_set_xdp(priv, xdp->prog, xdp->extack);
-> >         case XDP_SETUP_XSK_POOL:
-> >                 if (xdp->xsk.pool)
-> >                         ...
-> >                 else
-> >                         return gve_xsk_pool_disable(dev, xdp->xsk.queue=
-_id);
-> >         ...
-> > }
-> >
-> > Several of the gate's conditions can become true after a successful bin=
-d:
-> >
-> > - gve has no ndo_change_mtu, so the MTU can be raised above max_xdp_mtu
-> >   while a zero-copy pool is bound.
-> > - gve_set_features() refuses HW-GRO only when priv->xdp_prog is set, so
-> >   HW-GRO can be turned on while only a pool is bound.
-> > - The queue counts can be changed the same way.
-> >
-> > When the AF_XDP socket is then closed:
-> >
-> > xp_release_deferred()
-> >   xp_clear_dev()
-> >     __xp_clear_dev()
-> >       xp_disable_drv_zc()
-> >         gve_xdp()
-> >           gve_verify_xdp_configuration()   /* returns -EOPNOTSUPP */
-> >
-> > On failure, xp_disable_drv_zc() only does WARN(1, "Failed to disable
-> > zero-copy!\n"). The core then goes on to xsk_clear_pool_at_qid(),
-> > xdp_put_umem() and xp_destroy().
-> >
-> > Because gve_xsk_pool_disable() never runs, clear_bit(qid, priv->xsk_poo=
-ls),
-> > xsk_pool_dma_unmap() and gve_unreg_xsk_pool() are all skipped. Won't
-> > rx->xsk_pool and tx->xsk_pool still point at the freed pool when the RX
-> > refill and XSK TX NAPI paths use them? The UMEM DMA mappings would also=
- be
-> > leaked.
-> >
-> > dev_xdp_uninstall() follows the same pattern for programs. It does WARN=
-_ON()
-> > on the failed removal and then calls bpf_prog_put(), which leaves
-> > priv->xdp_prog dangling.
-> >
-> > The new xdp_features check cannot change between setup and teardown by
-> > itself, since gve_setup_device() computes it only from queue_format. Ev=
-en
-> > so, would it be better to run the verification only for XDP_SETUP_PROG =
-with
-> > a non-NULL prog and for pool enable, so that teardown is never refused?
-> >
-> > --
-> > Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/pat=
-chset/20261109100437.331423-1-amaan.cheval%40gmail.com
+>  int sdxi_register(struct device *dev, const struct sdxi_bus_ops *ops);
+> +void sdxi_unregister(struct device *dev);
+>
+>  static inline u64 sdxi_read64(const struct sdxi_dev *sdxi, enum sdxi_reg reg)
+>  {
+>
+> --
+> 2.56.0
+>
