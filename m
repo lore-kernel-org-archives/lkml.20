@@ -1,72 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794606553;
-	b=x8RewRdfzcpriO2CLMs8qh8ONsGCjafJcIRTRs0nyWYy/mCVpB+Mb5go0JC0x4RVP7aO
-	 Ls8PkudtT33P5+urhQ+2DQp5Cv9Yb5iwc4kAYBrcFMLh6SfWWflFtTPV+EGG+ktKNH1nM
-	 Vm/FaXn0FHwoe7adfSQ0TEisqeoL7siSLiGV81bUHEfbhggYhopMWcaH1y1rumRG7xtcK
-	 BVcKlR3HhWtiJf+P6d8FDea4LFfAhu6rH7lL52QbgdscW7PX0SEcAxML4VF9aASdwLjh+
-	 FQg7i0TQMTySFOUbLFs5r0tilT6T1y5alERfrtb92xgXqZSkERNJfIOqyMswkEjT5gQ==
+	t=1794606556;
+	b=LweD96HgDNHGjLMIvr995QrzReJ9O7ohtSYqbmAQEQvQaae89hcWAMEaYqJfyZP1LOLQ
+	 72ZdpsXiHfM/b27lk6JdBp87TxwNPhyWo0h84JcfqZLhP6Bd9zMotdyTQCDmZpqgc95wO
+	 cMdIm3HFp+E3/8x1P2Cc9EzGobhr6eh9iacEI5rgu0u1O5DI8GNPJyApIuBvV3Kya0PVV
+	 WsYGgDTOFMf7E4ogIKL0WixZ4Qsa4lU97McQvcWJ3/ap702pmo7gT/ftGB4mm3LMtIJbG
+	 TDqH0wktFk0GYxsoWFwvMrTxX1kM0zZ7c72XAXD6cIKqw7cg72PepJGIqG5dGTYgFmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794606553;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794606556;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=ZqbUCGvNh+9oQi88+czk7wIi3tmqGv1S2SlgjQEsV1o=;
-	b=RODNVug068/KfdsuvXSKgjeyX5RZc4fA5uNNrzp8kqlb/dbvUl7EWLkcgohBiHQc5ZeX
-	 ORb8ch4InYBXymcQCiJQTaRCC9PRNoQVTq/iCmVNW4nZlSdFxVdFGlFQRixW6mfkFl2kx
-	 JHxVg1tXZ5y6UZZCs/tEGLMb6E5BJvn0guSPRcarpM5tk3nsJYKD9NoqvcSr3uWV38LWx
-	 qPo33fRSNWL3YTuvH0HZ/SnQwkGoEOVU85uuPnsBJQFALIMmV4KfFTqWj3n/9gDpmJ0H0
-	 gfSkyjKb2r7EPw331eOvOdDHeSjEEvdS5iiC1ZmTf9H+gzUaVHnKgdHmbGHTe1zJ3fw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=Lo+j+iHMT8qE0wPCakw8s/IRh6qon0bzXQhbCYnKkRQ=;
+	b=jPHG5I2YmivskW4SLclqCf11VMl6QRuypdmrGTkmxiZMp0CAQHrB6XXfDubdkTiHgLpJ
+	 Hgn+0gLjuH7T9JQNXUAYweuzQPuB/w20dfnTIM0q9l2zGGwyeZjz2YfaENMtao3WqbgYZ
+	 pY9vRGbNNyGNNMHnRidwD61GKkqFTokuR8Ah9PSLLuqgVvTowDFgGPO3pyfujC5IzLJa9
+	 HzN2HATy4p7SB+aZyUDoTyiD538zWjjAgf94oAnR4f9nQoh4sgoWwk3jKwDi3tlKGQldo
+	 eBwDC+jkIs7Kxh2nBtnZkr9ZzcsnB0RClwdOl7GGSZtXhwE7foJ0DErV28DjG6jcwsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="Ry6/kOBR";
-	arc=none smtp.remote-ip=209.85.216.72
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=e01ZT7jl;
+	arc=none smtp.remote-ip=209.85.216.69
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15E32606A339
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:49:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15E32606A339
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68586606A33F
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:49:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68586606A33F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Ry6/kOBR
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3b18741aaf8so2295883a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:49:12 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=e01ZT7jl
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3aed1b64104so2377580a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 13:49:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794606552; x=1795211352; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZqbUCGvNh+9oQi88+czk7wIi3tmqGv1S2SlgjQEsV1o=;
-        b=Ry6/kOBRJ9zgchBdE73sFBmj8/cQ/rvqrbd5ikvPDp6y01mB1qEVCYADoDlnE3pyUB
-         G1U7AyzTtifaXNWRU729wLJyZynLK8jMO8JZH7zMbwQ4cFwi15Oayjkul9aj/M1drpz2
-         ZBi7lGDKtf9VqDSu0JsMksGDFk+jBi5ObNALxyYxji8KJ1avHjSYi49KQNWcJKP0/vha
-         g0Cj0xcUiLG8qrrz9IgbmuCeZzwk6iZ94s8IOXOTt5hp4viBu0LixLpw6sG+Yj0zGgUj
-         rwMNVirdKxwGN4yqSK0EXt5SF1hBkQEjRw6kBqHNURdsBpEUmJyL/4AW5oxmBi/i007p
-         b2QQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794606552; x=1795211352;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1794606555; x=1795211355; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZqbUCGvNh+9oQi88+czk7wIi3tmqGv1S2SlgjQEsV1o=;
-        b=KsOOjopy53rOwhOG6jHcmXIr5qj/3Nse3YVtQE5lGqiJCtGk+L8XyRlrNhySP8Zoa3
-         n8PrjwuFyIIJuqjzxH5eOajC/B7VVyseGVAK4FE17AlLiLnycn1KQV42ORqv//SKoC/n
-         5GLb/VIsf+JXlCjnax+vSoEIL1/dmHH1jnNf5Flq6tuB1Ejy3q8L77grRDsvXlyMdNnE
-         wGpjKvYF8fTvcBfMVz/myWAhx0+HLNRUuT487zSd4gVCcCazL5ZgzPmE2nYd4KPrLWLY
-         fPbHWCtcogDYi3lTpmyj5cviJlJCw7uS1407vHdHtlu3haVfU7j8kVHmrmyXqyfCV1jq
-         fccw==
-X-Forwarded-Encrypted: i=1; AL+hErHcEFC1jEo+wtoamBZHYPntaEyWImoD8T0XJ/9oi2jHzazz2z5g30+c8eZE2b4zX0wVqT2XX6nnCO+oiI4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/TT08V/k3/B1Db/qLs+qyeC7odd/GXB5iZXxICZGZzRhj96ldh
-	4uiRoyWxjV2lg4sGA2zE1JSnoA07/pgRE6wDnnRh91j76dLuIDf+2lSx26vipXhvAurHgVoooM+
-	TXoMWf71HMw==
-X-Received: from pgea2.prod.google.com ([2002:a05:6a02:5382:b0:cdb:50d8:3e07])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:35c6:b0:3ab:884b:65b4
- with SMTP id 98e67ed59e1d1-3b1b0d4332fmr3720856a91.59.1794606552172; Fri, 13
- Nov 2026 13:49:12 -0800 (PST)
-Date: Fri, 13 Nov 2026 13:48:24 -0800
+        bh=Lo+j+iHMT8qE0wPCakw8s/IRh6qon0bzXQhbCYnKkRQ=;
+        b=e01ZT7jlNllaZ4BpDqA71jnQmH2xDu6ka6XmkftHuAfg2QQgBRAD5RwOUS08ab4doh
+         49fC1gnb68KyeY4laElWlgje7rxYAzGJuTWt/UXpugS1Fsf0WnqqT38b99Knjs9DqhUL
+         rA9rU0XDPclWUCLpjOWCu7sKJugD1TTVHbWi45gUthpDbaA5ytvOO1VWX+gze0CjPWgO
+         QeepRZ6HGI6O8WW1bAGbN/ymp2/it43POxLYNIHQOMP+Gy++qK5q4+g4FMt62wUi22dr
+         IMUB44RVu3l8kFdMI8Za98Jw/sA4sFiL/8FSNLkdU+2PhBQiL18mMgLd661l1PQeuoku
+         S/MQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794606555; x=1795211355;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Lo+j+iHMT8qE0wPCakw8s/IRh6qon0bzXQhbCYnKkRQ=;
+        b=UUsbEqmtw39ZbwTnQ/bnYOqekwh4p0/xPfQUPb4LH0cXuSxMCBQMFLZ9mf8VgvULVg
+         qWgzAadrW5KHf8UyQjOevuPoS60wmoBCKa+QSoqkIWQ7sREMButLC0dZWyIn6AyUAgBQ
+         j6OU345rb2uHufN+mbHky1WrjaWeN4qh0x5Lc7Bvx2mlajzlaqR8M7xrcVq0e7nkTYox
+         NmF5ngCuoXSySjLEea8T4GsUBu2m0wBuzgla/jwrUUBi5DCeOmAxx1xsVpJtGiS6+euY
+         KumDnvuCi19pPUWetIgAt25zDaOxHxiaZDHLCpBE2yYyN+EFsD0EVSkw/CSYuux5TTW9
+         HpHw==
+X-Forwarded-Encrypted: i=1; AL+hErFCOaA3d1jLNkBGHT4GjpTmCVKANe/4do8VcFI8MHyatzSYR5cXYG88IHs50SKYAHNf5/TcTxLALLvqCTM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z98JA3S1d4e7KCGfdMfOpx0smTT3tS4CZx810lBTJMxjl3XoAVQ
+	uJPt1L3tC55rFcG0HNr2qg7EwGwiq3HAjO4EKaWW4scjNhz/69rELEF9eiPZ/7FhyYG6XCzlzmH
+	wH+7ozR7DEA==
+X-Received: from pgp8-n2.prod.google.com ([2002:a05:6a02:62c8:20b0:cdb:5946:2351])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:54cb:b0:3ac:a139:1b14
+ with SMTP id 98e67ed59e1d1-3b1b0d39a69mr3217639a91.57.1794606554564; Fri, 13
+ Nov 2026 13:49:14 -0800 (PST)
+Date: Fri, 13 Nov 2026 13:48:25 -0800
+In-Reply-To: <20261113214850.3329699-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,10 +79,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
+References: <20261113214850.3329699-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <20261113214850.3329699-1-irogers@google.com>
-Subject: [PATCH v1 00/26] perf hashmap: Fix undefined behavior, remove
- ERR_PTR, and add type-safe generic hashmaps
+Message-ID: <20261113214850.3329699-2-irogers@google.com>
+Subject: [PATCH v1 01/26] perf threads: Fix uninitialized pointer put when
+ thread removal misses
 From: Ian Rogers <irogers@google.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
@@ -88,172 +92,58 @@ Cc: Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
 	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Currently tools/perf/util/hashmap.{c,h} is a copy of libbpf's internal
-untyped struct hashmap (only compiled when libbpf is disabled or
-dynamically linked, and otherwise resolved against static libbpf.a).
-Using that implementation in perf has several longstanding problems:
+Unlike hashmap_insert(), hashmap_delete() leaves old_key and old_value
+untouched when the requested key is not present in the map. In
+threads__remove() and threads__remove_all_threads(), old_value was left
+uninitialized and passed unconditionally to thread__put() without
+checking hashmap__delete()'s return value. If the thread is not present
+in the shard, thread__put() dereferences uninitialized stack memory.
 
-1. Strict-aliasing undefined behavior: hashmap_cast_ptr(p) casts caller
-   output pointers (such as void **, struct foo **, or long *) to long *
-   and dereferences them in hashmap_insert(), hashmap_find(), and
-   hashmap_delete(), violating C11 6.5/7 strict-aliasing rules [1] and
-   preventing perf from dropping -fno-strict-aliasing [2].
-2. Non-standard ERR_PTR() returns: hashmap__new() returns
-   ERR_PTR(-ENOMEM) rather than NULL with errno, which differs from the
-   rest of user-space perf and has repeatedly caused NULL vs IS_ERR()
-   bugs (e.g. commits d05073adda0f, 96f202eab813, 9f3c16a430e8, and [3],
-   plus missing error checks in fncache and pmu fixed here).
-3. No compile-time type safety and error-prone iteration/deletion: keys
-   and values are untyped long / void * unions requiring manual casts,
-   sub-long types (such as bool, int, or pid_t) cannot be passed safely
-   as output pointers, hashmap__for_each_entry() uses nested loops where
-   'break' only exits a single bucket chain rather than the whole
-   iteration, and hashmap__delete() leaves old_key/old_value untouched
-   on a miss (unlike hashmap__insert()).
+Initialize old_value to NULL and only call thread__put() when
+hashmap__delete() returns true.
 
-This series fixes three bugs in existing hashmap callers, decouples
-perf's hashmap from libbpf so strict-aliasing and ERR_PTR issues can be
-fixed cleanly, introduces a zero-overhead type-safe DECLARE_HASHMAP()
-generic hashmap API, migrates all 17 hashmaps across tools/perf one at a
-time while keeping every commit bisectable, and removes the untyped
-struct hashmap API at the end:
+Fixes: 412a2ff473ac ("perf threads: Switch from rbtree to hashmap")
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ tools/perf/util/threads.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-- Standalone bug fixes in existing callers (Patches 1-3):
-  - Patch 1 fixes an uninitialized pointer passed to thread__put() in
-    util/threads.c when hashmap__delete() misses (Fixes: 412a2ff473ac).
-  - Patch 2 fixes a sym_hist_entry memory leak in
-    symbol__annotate_zero_histograms() when clearing notes->src->samples
-    (Fixes: d3e7cad6f36d).
-  - Patch 3 fixes a per_pkg_mask key leak in check_per_pkg() when
-    hashmap__add() fails (Fixes: 034f7ee130c1).
-
-- Decoupling from libbpf, strict-aliasing fix, and ERR_PTR removal
-  (Patches 4-7):
-  - Patches 4-5 drop the check-headers.sh diff check against
-    tools/lib/bpf/hashmap.{c,h}, always build util/hashmap.o, and move
-    the backing C functions to __hashmap__* so static libbpf.a builds do
-    not collide on global hashmap* symbols (and without perf_-specific
-    naming so other tools/ users can share the implementation).
-  - Patch 6 fixes strict-aliasing violations by passing void * output
-    parameters to __hashmap__insert(), __hashmap__find(), and
-    __hashmap__delete(), accessing them via memcpy()/memset(), and
-    zeroing old_key/old_value on miss in __hashmap__delete().
-  - Patch 7 replaces ERR_PTR(-ENOMEM) in hashmap__new() with NULL and
-    errno = ENOMEM, updating callers to standard NULL checks.
-
-- Type-safe generic hashmap API and per-caller migrations (Patches 8-26):
-  - Patch 8 introduces DECLARE_HASHMAP(name, key_type, value_type) and
-    type-checked hashmap__* macros around struct __hashmap:
-    * Phantom pointer members (__key, __value) in a union with struct
-      __hashmap encode key and value types at zero runtime space cost
-      and without altering struct size or alignment.
-    * Output parameters (value_ptr, old_key, old_value) are marshaled
-      through long temporaries and assigned via the declared types so
-      sub-long types (bool, int, pid_t, etc.) are safe from stack
-      overflows, endianness bugs, and strict-aliasing violations, while
-      accepting NULL output pointers and const-qualified lookup keys.
-    * Single-loop hashmap__for_each{,_safe}() and
-      hashmap__for_each_key{,_safe}() iterators hide bucket cursors,
-      make in-loop deletion safe, and allow 'break' to exit the entire
-      iteration.
-    * Adds kernel-doc comments and a 'Generic hashmap' perf test suite
-      in tests/hashmap.c.
-  - Patches 9-25 migrate all 17 hashmaps in tools/perf (fncache, ftrace,
-    trace syscall_stats, bpf-trace-summary, bpf_lock_contention, stat
-    per_pkg_mask, expr_ids, pmu aliases, hwmon_pmu, s390-sample-raw,
-    threads, annotate sym_samples and type_hash, annotate-data, and
-    inject --aslr maps) one hashmap per commit.
-  - Patch 26 removes the transitional untyped struct hashmap wrapper and
-    unused hashmap__for_each_entry* macros.
-
-[1] https://lore.kernel.org/lkml/20260321024446.692008-1-irogers@google.com/
-[2] https://lore.kernel.org/lkml/20260320224248.536449-1-irogers@google.com/
-[3] https://lore.kernel.org/lkml/20250805063209.3678359-1-linmq006@gmail.com/
-
-AI Assistance Disclosure (per Documentation/process/coding-assistants.rst
-and Documentation/process/generated-content.rst):
-- Tools used: Google Antigravity / Jetski coding assistant.
-- Summary of prompts and assistance: Interactive design, rebasing, and
-  refinement of the __hashmap__* backing separation, strict-aliasing and
-  ERR_PTR fixes, caller bug fixes, DECLARE_HASHMAP() type-safe macros,
-  kernel-doc comments, unit tests, and per-hashmap caller conversions.
-- Testing performed: Verified all 26 commits build cleanly at every step
-  under both GCC (-O2 -fstrict-aliasing -Wstrict-aliasing=3) and Clang
-  (BUILD_NONDISTRO=1), plus NO_LIBBPF=1, DEBUG=1 (REFCNT_CHECKING=1),
-  and build-test targets; ran perf test (including Generic hashmap,
-  Simple expression parser, Sysfs/JSON PMU, Hwmon PMU, Symbols, data
-  type profiling, inject --aslr, stat, ftrace, and trace suites),
-  scripts/kernel-doc -Werror, and scripts/checkpatch.pl.
-
-Ian Rogers (26):
-  perf threads: Fix uninitialized pointer put when thread removal misses
-  perf annotate: Fix sym_hist_entry memory leak when zeroing histograms
-  perf stat: Fix per_pkg_mask key leak on hashmap__add failure
-  perf build: Don't check difference of perf and libbpf hashmap
-  perf hashmap: Always build perf's hashmap and avoid libbpf symbol
-    conflict
-  perf hashmap: Fix strict aliasing violations in hashmap
-  perf hashmap: Remove errptr usage from hashmap
-  perf hashmap: Introduce generic types and macros
-  perf fncache: Use generic hashmap for fncache
-  perf ftrace: Use generic hashmap for profile_hash
-  perf trace: Use generic hashmap for syscall_stats
-  perf trace: Use generic hashmap for bpf-trace-summary
-  perf lock: Use generic hashmap for slab_hash
-  perf stat: Use generic hashmap for per_pkg_mask
-  perf expr: Use generic hashmap for expr_ids
-  perf pmu: Use generic hashmap for pmu aliases
-  perf hwmon_pmu: Use generic hashmap for hwmon events
-  perf s390: Use generic hashmap for counter name cache
-  perf threads: Use generic hashmap for thread shards
-  perf annotate: Use generic hashmap for sym_samples
-  perf annotate: Use generic hashmap for browser type_hash
-  perf annotate-data: Use generic hashmap for type_hist samples
-  perf inject: Use generic hashmap for aslr remap_addresses
-  perf inject: Use generic hashmap for aslr top_addresses
-  perf inject: Use generic hashmap for aslr evsel_orig_attrs
-  perf hashmap: Remove untyped struct hashmap API
-
- tools/perf/builtin-ftrace.c           |  52 ++-
- tools/perf/builtin-trace.c            |  45 +-
- tools/perf/check-headers.sh           |   4 -
- tools/perf/tests/Build                |   1 +
- tools/perf/tests/builtin-test.c       |   1 +
- tools/perf/tests/expr.c               |   2 +-
- tools/perf/tests/hashmap.c            | 192 ++++++++
- tools/perf/tests/pmu-events.c         |  16 +-
- tools/perf/tests/tests.h              |   1 +
- tools/perf/ui/browsers/annotate.c     |  22 +-
- tools/perf/util/Build                 |   9 -
- tools/perf/util/annotate-data.c       |  10 +-
- tools/perf/util/annotate-data.h       |   5 +-
- tools/perf/util/annotate.c            |  30 +-
- tools/perf/util/annotate.h            |  13 +-
- tools/perf/util/aslr.c                |  48 +-
- tools/perf/util/bpf-trace-summary.c   |  18 +-
- tools/perf/util/bpf_lock_contention.c |  12 +-
- tools/perf/util/evsel.c               |  10 +-
- tools/perf/util/evsel.h               |   6 +-
- tools/perf/util/expr.c                | 106 ++---
- tools/perf/util/expr.h                |  18 +-
- tools/perf/util/expr.y                |   2 +-
- tools/perf/util/fncache.c             |  23 +-
- tools/perf/util/ftrace.h              |   7 +-
- tools/perf/util/hashmap.c             | 136 +++---
- tools/perf/util/hashmap.h             | 627 ++++++++++++++++++++------
- tools/perf/util/hwmon_pmu.c           |  57 ++-
- tools/perf/util/metricgroup.c         |  28 +-
- tools/perf/util/pmu.c                 |  36 +-
- tools/perf/util/pmu.h                 |   7 +-
- tools/perf/util/s390-sample-raw.c     |   9 +-
- tools/perf/util/stat.c                |  13 +-
- tools/perf/util/threads.c             |  26 +-
- tools/perf/util/threads.h             |   4 +-
- 35 files changed, 1092 insertions(+), 504 deletions(-)
- create mode 100644 tools/perf/tests/hashmap.c
-
-
-base-commit: 4af65363b11fc4fe65fcb497f68bbe4f3e3a4d2c
+diff --git a/tools/perf/util/threads.c b/tools/perf/util/threads.c
+index 6ca0b178fb6c..98cf7edaf748 100644
+--- a/tools/perf/util/threads.c
++++ b/tools/perf/util/threads.c
+@@ -142,10 +142,10 @@ void threads__remove_all_threads(struct threads *threads)
+ 		down_write(&table->lock);
+ 		__threads_table_entry__set_last_match(table, NULL);
+ 		hashmap__for_each_entry_safe(&table->shard, cur, tmp, bkt) {
+-			struct thread *old_value;
++			struct thread *old_value = NULL;
+ 
+-			hashmap__delete(&table->shard, cur->key, /*old_key=*/NULL, &old_value);
+-			thread__put(old_value);
++			if (hashmap__delete(&table->shard, cur->key, /*old_key=*/NULL, &old_value))
++				thread__put(old_value);
+ 		}
+ 		up_write(&table->lock);
+ 	}
+@@ -154,14 +154,14 @@ void threads__remove_all_threads(struct threads *threads)
+ void threads__remove(struct threads *threads, struct thread *thread)
+ {
+ 	struct threads_table_entry *table  = threads__table(threads, thread__tid(thread));
+-	struct thread *old_value;
++	struct thread *old_value = NULL;
+ 
+ 	down_write(&table->lock);
+ 	if (table->last_match && RC_CHK_EQUAL(table->last_match, thread))
+ 		__threads_table_entry__set_last_match(table, NULL);
+ 
+-	hashmap__delete(&table->shard, thread__tid(thread), /*old_key=*/NULL, &old_value);
+-	thread__put(old_value);
++	if (hashmap__delete(&table->shard, thread__tid(thread), /*old_key=*/NULL, &old_value))
++		thread__put(old_value);
+ 	up_write(&table->lock);
+ }
+ 
 -- 
 2.56.1.703.gf848ed807c-goog
 
