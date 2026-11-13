@@ -1,102 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.178
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794564528;
-	b=M9A7RU9kAptpmN0g93Z5hFAJ33h74lDsxNz1WeZ7juHp+HqXzUZSSYpBPceQcBI9DNYC
-	 u1tePvyD3AUUtjipSDEBjQywmpLN0eNnuVRg9EuXrUGmTllSOGQ1DWe2lmU0yx4Vw2ozq
-	 PN2uo6hSL1vzQA2cbt4OpPfqEtCrydaMSFQ5OR+3oFrYFN9hkJAcl0078XMKCwLqYsICn
-	 6NYoZQUR/3wzSK2SqcBaY9fJMFm6lK0JuZcY3qvOPgsfUKZbtBNULkR9xRV6rMho58k6v
-	 lxDvEj9y7J7ByvXDj70YYwQGhyPRXyP+KhcRqh6dWZHrOAwXfIY/d5rsVoQdq/0rjlg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794564528;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=rKWOW9+LLEImVEGgv+UL91WRNiS03i6s+m/NnnyTegE=;
-	b=wQauPfE3vHS+0JerfisFINYuW6RvDHUbbQ98taiMWQWIOhXBYWYfLjk1K3rWDSW21HFC
-	 dktSS3ECOVUy5geGAwehWnS4/z8+hbKS/DrtPxcCNZwaYHL8xjFth3HyCVhEtsnvWTM+j
-	 UU/B4DsQvG0bK3ZFedWVESXCK+0HvOSaVHQb7pMI1pz9PmRIY1qPSm+0jKL0TbzHLofNS
-	 gpBNbzH0OZUTCkC2tqvNOh68Gy2HVizSAd0iwrdTGhJ8f20NLa0HqsG57bQy9MYXa6A1z
-	 +VLj0NouqQoQhdB1VPE3gEQA5LN5xXCGQk1DUcbaYxLZn8JNBBAyC6Bp1oW9km8hl7g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JOHjHrKw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.178
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794564532;
+	b=HZLwGiVEgufDpdab/aAWPeVE+C0mDAwL7rgIjeCb3MM9jXOM6eepyn7FIq7N+Vv69jB1
+	 ILepiyHqWJwbBYvjCzq8ziG7bYBcNXXYbxIk0gUkpUq4HYM4GAIHr+ZUbezlmJJgQrHXN
+	 AYYPLpoU4quI1P4kB61AmFXEMJ9Z06hmHyp50mcqSXg5KoS92QMQkQ7oI89xSGhoLWE8v
+	 +z8FEn+NQ6KlvBGuBUgc5Vp27qKhUB56VBdnbgs9iVzDHQSpguwaGAExZTuC2ThAFscy0
+	 R4phWZbkQp1snTtTVTLlGPgdliyU5NCCG1lWrKSyzIurk/mAMmSaIvN8hfOFTijeGvw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794564532;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=nZMLjQOnKSLNJDPbXg8WmoUPbegfRsFLvgEFn2RPTRY=;
+	b=emvqFoFOIik6x6OKclOXPNENBOgXztIyS1mRFK8QGvPNYsExFDyjAXmxmHT8Kbxpa6ii
+	 fWm6a5wqI4GhTNIrGJVK8lFOA/WgmmYVIUfaZov+5okFueMTY5vw+gXuaOATtwYEF0ViO
+	 lfppBkQwNBqJ4Xv8T/6Ryoj/1ilZWkjhLs05KmX4qTO0q/79OyPS9qcCpLlLqYavR3rrX
+	 bplvbDFGHUrK0IT5nKfd8ozugNXFAWG2w7AaPpj3r4xf+KKtK2q083H/Qr3p1iLHVFIQx
+	 su3yiqOMK7Yd1YlSAT8RrqVCws9JBn0URhIz/7Re1dU6QAlH1MKPArRAyImRK12UPEw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TeFh1mZy;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 024D5606A887
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:08:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 024D5606A887
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D047B606B10C
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:08:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JOHjHrKw
-Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8b31448caccso6569567b3.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:08:47 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794564527; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bXZaJiELAZytHlCfsXW8esp+wCWa4ryQTBZh1jO6O7bjrvQw1OevLjJtkLFyAr6H7d
-         upQBqp0pZLoLqsafcVRBv0Qc7l0XK6tOr2sNzUE+bZ5xXTnCqILBJCF238XP/1rj75x/
-         gFP17dfqmwUp/PIT6dOu/mmHUFBkPgRsElxC2sV0BkrYZIt/HVjblT4FIF1ZXw3QD4RG
-         G9sIde98kZDIOAj7KqLNP3HjKLevTxFEpJJFmML5Eh1WGeYCCMPB1GtERUYNDyXQamb3
-         xijFOihjcCjkwaV7ktBbNvMys9UV8xo6n/2l94D4row83DXH7fVXNU382vuZ0B4A2C6B
-         GYuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=rKWOW9+LLEImVEGgv+UL91WRNiS03i6s+m/NnnyTegE=;
-        fh=UgfUMWao6LaCMeeOLdvaftXdxMNU7FS2RrXHyYIGzjA=;
-        b=Q3rsO2IuHO9esdTCtfX6E10B6NJKWsZr5hn+oMcsMLL2AAEv8aMqlM5bDXz63oP/7S
-         uedOsfgzOBMloEbdlTm4DiZOfQlcqJ+8eJGmTZmsrl2IHYsyngU6knpNL+ReH17lWV+a
-         sIkBEVNxnLd58aRt41bo7OE22/LnSgAXu0j13lkIdma011f0YHTzD8pG6Y3quGHhYHXj
-         vbHe4K8eGbIruXDYFM7puynXDThNM4S01kRjDbhQqmg5fKXZOnNMMNe2KyhKUKU0MUsF
-         Vua+OVYaICO97QW5C24ATdUHK1/j4xl0KYV+zbG5pPAULK7MpSEXRwCDs7nk9CtWLoJ9
-         Wk6Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794564527; x=1795169327; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rKWOW9+LLEImVEGgv+UL91WRNiS03i6s+m/NnnyTegE=;
-        b=JOHjHrKwW0jJI5tHFSRlGlzX8vgF5h90RovdHP10mbXC0f3qrowCJW//O8BBklbmGZ
-         ytneDq6zTIO6t8z+Dd/cTaDui27l4VySHAZ0TtoxlOq1lY3/hl9tqfQWADCUvyzj8Y9O
-         jtyrS7CgL9VoJxXQFlMRXX2TA3qm5CV40l8rLoBq5NcrhVN5F9HYfoaTwS+RP8eylsDh
-         lynaOrt1ud2snOnot19Br7JRxY7AZY+6RsOqxTokjJhvaLT0MfQsl/quo7ylCeHy86cy
-         39xtGdWxCEmiBq0Gdf/CfuKXncUOs1wF7goPDv+aIZ9cdto1sjoklpl2E2a3d9Tur28Y
-         QTRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794564527; x=1795169327;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rKWOW9+LLEImVEGgv+UL91WRNiS03i6s+m/NnnyTegE=;
-        b=RWav3rzrjlZ5AsSiI65hkac+z/Rhzn0yVXb0mlfq+lWZUEEq1aEAwKoVqFqs5m7DdM
-         W4c4kB2GIDiTbjHrflowBqg5K2y1m48wFfbYwDOF8Gznh/Nh9nWcGcxfNGLij65APEwt
-         els2L77al7ij8kIrdJIkJ0h3HSIKsasu8iNvcEFf9k0icPUv5rJ0Lu7THkmQFcoJoSil
-         Rnz13eS6VbEwIUoXHFQ52Bar2jmyQzZJ08sXCaX3+e6ed7bdDw4Ht9u4zjTHO7dMgcb7
-         euWINXVcWb/37YwNJDm6SKGRluNuLavRUqFAqW6bACFzkgE0NCZJ+bA2vbtKpz1EknY4
-         BJNw==
-X-Forwarded-Encrypted: i=1; AL+hErFZKpcmI6oKe4S5KZMjd3pd4xwG8rCAku+XBGLUYgHwnicWXIT2hXglZTjtLkJU/7MF7JYyXyRorCXH3nM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9t4RKybNuYouKEK2z2Zn+fAB2yiLKG5MI+JFBY1c5e/LmhSWQ5
-	BoCQJ6ZaXgO4U8NrfjyUBD6TMXxi3+5y2q2V4CrXrRY/wrtQqOQJpsUKYZvHQVW1pZo5aN02YKd
-	30O8mfe0IEWKkHdlWOsn6FCOAGcKoWDs=
-X-Gm-Gg: AYBFou3zLJjQoSRmXt7mhip8TISoyuyKcSy6NN1KvB9FkpRjAUXqNKscAZJyIPDx6uG
-	1OdlMyabFepLEu65sChFX2B7lxTWscAmk3tNpc4ofAgC1Qy+ale9CRCgaB7qT1XFe0lSblsTLIA
-	JAj1a/3lJUIdkDiPyJNo32dSIPcFTRhekDadU/b9CvSqR0KVNFGyb9QOpE1xjzVpgUJnZ+rFYVW
-	jsMyNjxwyId1cF3U9zqtApz1iXiSQoJn+uecSX9cnTbONCEzhbZSi8K+iRoPVDOJsgWY6VFlqEa
-	4UNnYWqI5YPqILnuZBX6V1g3dfm0sSY7nabl+rbE3gceHUZKwgmar5DyyAtWcO+Tx216dtLrF2h
-	ZQGj8LDBo+9levjbMILVB5crpFKUC5JqLcJ0j0D45f8KNwCvHi4ggiNAriSTRNIvH3slAkjedQd
-	v19+rP/X3h0QrQWKiImuzWONfwDqTl6zW5IJC0oZd/Drbj4sznbOJLoqSOgsI/mqtiv4gwrT4HJ
-	O0j4AiRRTUFuDtdIOpUK8Bjckj+F0rDDWzBeDVo+b12/6OeF4mGdS8KAub22g==
-X-Received: by 2002:a05:690c:e1d3:20b0:8b3:4f53:91c4 with SMTP id
- 00721157ae682-8b4aa326b49mr10197467b3.29.1794564526979; Fri, 13 Nov 2026
- 02:08:46 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TeFh1mZy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE1551F000CD
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:08:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794564532;
+	bh=nZMLjQOnKSLNJDPbXg8WmoUPbegfRsFLvgEFn2RPTRY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=TeFh1mZyMj5nQxcRroPfaId9yIqV/bdgtpq5BoynHhde8p4+zmt2HRr/AFL2rZQ6G
+	 ysmLuO3JygPwXkLelCDIv4/Hzk6spaIk/P/p5uMgiQP1Mj1TmFoOShSjzn1jx6cycw
+	 cp5/gN6HWoHssFORDMtCZiyFR22TbcCPkBCKVU1e9hRklRdhoUDIdNRooLzj4W+Uv3
+	 02bc7d9tzzJXSjX5pL3WDCs1NZju6tc58E2BQTFclA147oe85eMU5ipPccxtqP8gjO
+	 9sPG+HU3OmxTgFvLxDGcC6ct1021Cz9Lau2gfLBWI/2DxkJAPMRdqZqDGQVeS6AdSi
+	 Pd/eOaCVSS1VQ==
+Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-6dde81a6820so968260eaf.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:08:52 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErG8eTzu8zOMAekzyrvDnZj75/FrEaKMEU/YW7Enokri2zJ3+E4bbJ2Rcb1e7cH8Yp8v3OhloUPaXx5dMb0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+rTHdPEBF+4anY3migtKozxAeCUsBWkiabcN232SK5bc1M8st7
+	W7eU41n9nRw0IXUr2t5X914/ibeqKZuawWBy0uK1ILsvwKMqL6P15uKE2LF0/W6W1KkAEqmw75R
+	FdpskxfoVxsQiSE3LdhLqlbRLZpiCwWk=
+X-Received: by 2002:a05:6820:a29c:10b0:700:52ae:7e4a with SMTP id
+ 006d021491bc7-71ab50ba8fdmr819670eaf.71.1794564531943; Fri, 13 Nov 2026
+ 02:08:51 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,76 +59,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261112065037.1800467-1-dmitry.torokhov@gmail.com> <20261112065037.1800467-5-dmitry.torokhov@gmail.com>
-In-Reply-To: <20261112065037.1800467-5-dmitry.torokhov@gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Fri, 13 Nov 2026 12:08:09 +0200
-X-Gm-Features: AclHuK8Y20CK-uRfjZMkziALZSmbzxcenVC4HU4NYiah5SSa7aVtNNizdoU07Uc
-Message-ID: <CAHp75Vcta1YuUfLkxh96NoeOVGjn=paTHXw8ive=+kS9pvBoDw@mail.gmail.com>
-Subject: Re: [PATCH 4/5] Input: tsc2007 - do not register input device without IRQ
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Svyatoslav Ryhel <clamor95@gmail.com>, "H . Nikolaus Schaller" <hns@goldelico.com>, 
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Yoshinori Sato <ysato@users.sourceforge.jp>, 
-	Rich Felker <dalias@libc.org>, Andreas Kemnade <andreas@kemnade.info>, 
-	Johannes Kirchmair <johannes.kirchmair@skidata.com>, Yuki Horii <yuuki198708@gmail.com>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, linux-input@vger.kernel.org, 
-	linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261030-clegoffic-pinctrl-scmi-gpio-v1-0-52d92843ad97@baylibre.com>
+ <20261030-clegoffic-pinctrl-scmi-gpio-v1-2-52d92843ad97@baylibre.com>
+In-Reply-To: <20261030-clegoffic-pinctrl-scmi-gpio-v1-2-52d92843ad97@baylibre.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 13 Nov 2026 11:08:37 +0100
+X-Gmail-Original-Message-ID: <CAD++jLkwO7ysyF4A8UJR=ipDBKCaDzBGM_nNWDnE9RRCwdLH1A@mail.gmail.com>
+X-Gm-Features: AclHuK-wzX5arsrKUblOchzdDuA5RMs0whEnr2fNyQpXUEzcUQOamAacHQe25j0
+Message-ID: <CAD++jLkwO7ysyF4A8UJR=ipDBKCaDzBGM_nNWDnE9RRCwdLH1A@mail.gmail.com>
+Subject: Re: [PATCH 02/11] pinctrl: scmi: map the schmitt trigger enable to
+ its SCMI type
+To: =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clegoffic@baylibre.com>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>, Cristian Marussi <cristian.marussi@arm.com>, 
+	Peng Fan <peng.fan@nxp.com>, Oleksii Moisieiev <oleksii_moisieiev@epam.com>, 
+	Andy Shevchenko <andy@kernel.org>, Dhruva Gole <d-gole@ti.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 12, 2026 at 8:56=E2=80=AFAM Dmitry Torokhov
-<dmitry.torokhov@gmail.com> wrote:
+On Fri, Oct 30, 2026 at 4:58=E2=80=AFPM Cl=C3=A9ment Le Goffic
+<clegoffic@baylibre.com> wrote:
+
+> PIN_CONFIG_INPUT_SCHMITT_ENABLE was sent as INPUT_MODE, which drives
+> the input buffer, and PIN_CONFIG_INPUT_SCHMITT, a threshold, as
+> INPUT_SCHMITT, which only takes 0 or 1. Send the enable as
+> INPUT_SCHMITT and refuse the threshold, the protocol has no type for
+> it.
 >
-> The driver has no polled input mode and only reports touchscreen input
-> events from its threaded interrupt handler. When no interrupt is wired,
-> the device is used solely as an IIO ADC, so registering an input device
-> serves no purpose and creates a non-functional input node.
->
-> Only allocate, configure, and register the input device when an
-> interrupt is present. This also allows removing the unnecessary
-> ts->irq checks in the open and stop callbacks.
+> Fixes: eb524cb651b7 ("pinctrl: Implementation of the generic scmi-pinctrl=
+ driver")
+> Signed-off-by: Cl=C3=A9ment Le Goffic <clegoffic@baylibre.com>
 
-...
+Patch applied for fixes.
 
->         ts->stopped =3D false;
-> -
-> -       if (ts->irq)
-> -               enable_irq(ts->irq);
-> +       enable_irq(ts->irq);
-
-
-Looking at this makes me think that if "stopped" is tightened to IRQ
-enablement, the IRQ framework already has an API which may be used
-instead of having a local flag. This can be achieved with
-irqd_irq_disabled(irq_get_irq_data(ts->irq)), but this is most likely
-for the other day.
-
-...
-
-> -       snprintf(ts->phys, sizeof(ts->phys),
-> -                "%s/input0", dev_name(&client->dev));
-> +       snprintf(ts->phys, sizeof(ts->phys), "%s/input0", dev_name(dev));
-
-Perhaps scnprintf() to avoid compiler warnings?
-
-...
-
-> +       err =3D devm_request_threaded_irq(dev, ts->irq,
-> +                                       NULL, tsc2007_soft_irq,
-> +                                       IRQF_ONESHOT,
-> +                                       dev->driver->name, ts);
-> +       if (err) {
-
-> +               dev_err(dev, "Failed to request irq %d: %d\n", ts->irq, e=
-rr);
-
-This has to be dropped in a separate patch as dup. The above API
-prints the very similar message on error.
-
-> +               return err;
-> +       }
-
---=20
-With Best Regards,
-Andy Shevchenko
+Yours,
+Linus Walleij
