@@ -1,97 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.59
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794552078;
-	b=X/r88UmQtHnYPWSpv28W99Ejcalq5Xj2DtY15F3AiVdqpUx+929gjlk1Ws1bGynz5CUY
-	 hjjzTHXdaoeNLUXjPoHdCCx3zOsw/6svJKjk5MbwT/cDLclnlf5S/RJlmxv+iMqGEzEZ2
-	 JyHoCgC63s53AO66y5ttCbjpOQonDX6fn20dTplgWmvpyRR3+7L+/OH+TAbYftT7FJ+ZP
-	 1kg+gnLb83HqEoMy64Az4qeu6VVQ8NB8iPAfE7apnsf/0C0CXBpboHvxMVzq4RhNPwQTU
-	 mE+wtRIClDf3d9uOd1LDO8TfNuhV6Ao6bPq+r+0KucVIr8A67n0bfOqJCAiFVNQGQ6g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794552078;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=+/3MakG7SgK7BiXWr8rX03NDLrybrQdPeaHt/8esvaA=;
-	b=uWJODrf2q2097Xsqultnf95iLv54y9aiAMUQL4F45ILzOlei9tz4+kzTtOEWZM1r4YMx
-	 4MLJoKLAZwU8hR1sXOin5OtRYI6J9pae+/Sesh4vJVh8GbzS5EM1qWrUsZ8QtplT2VW32
-	 HxKtp3r1+XUfzJ+GdGP5WXL7HxhapXU6AlnTUNEe89K6Zah58XP30NRZSFiQmB5vuOLos
-	 hnrfTvztp92WMZz+ZJVEk+CLtFxV0IlTNZOaOlwLTA5fsMFX2dUM0y330xS6etK0LNcfm
-	 kZtK8j2+AR+NEwKz6wxVahOL9acRC5YDdrsoTrqU1MTnDi28cbZHH7A2YjEKSYOy/UQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=WB4450bn;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.59
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013059.outbound.protection.outlook.com [40.107.201.59])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794552109;
+	b=NnWIl6keSVArQinvLHO96T/UA31JhxRb1IWEsvzDsDfGVBrMt8SUXgHdkbw92d9BDpUr
+	 nW9z9OPCj1lQNOSxY33+9kSSlpyjUfQeLfO0uuqetl/28UCTR1YN6RV2SbgdHUuzARkCK
+	 lxDtj26JfpUmv51UU/j2SRbWOPmHhKDu1O9pU0mLROvfUpjU+0kpNrN/18pbJREjSF8bo
+	 iTtEn1LEVryVEKCNrkqhV8Up1/lsqVPgIIbkMV/vt7WIO8WwrIR8GShWcWNe/Z+2gJL2X
+	 DDupa88JK0DAPJYc6LqF93Z/1sDcW7q0jHsagFIx7SH1kfyf3OFy9mxtk31Z9wol9gA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794552109;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-TM-AS-GCONF:X-Proofpoint-Reinject:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=PhGKbAErLApZ03gpAakytCwNcdYqB4uSnOIrA1S1EcI=;
+	b=Y4QqgqFLE3yWh95yyIN61mtCuD8lZ7brUPfXHvlaZWi1YR6ydKrtd3PlyXQa3aEsp8on
+	 QmvTmb+37wQDzrABJjlE1FugV+Jik/RlCSTdi7lRAl9EFQ+hwKbNkN13JRNKgpt3YcTvs
+	 NbkPxnj3uldsijG6rY/1lnbiCO5KsE7ZVhlHiRX+bjybDheeqTt7PY/CYg5Y1RZn5VtlH
+	 xKMmihjr/zM9Aoy/F0V9TVgL62LTyjU6LE6cQTedqXzcRHk7VbDAyzMCAR34VpVo+XS3p
+	 KpthP/mU/Ho8qvDErwGfDlSmmVPBcJ2fxteOnlZTAzGSNNepgiNdg1qY7mZC3ozD5dQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=kbd9hk+S;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19E20606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 06:41:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19E20606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DBD0606A31C;
+	Fri, 13 Nov 2026 06:41:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DBD0606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=WB4450bn
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ADcLXwUTBw8saKsylZZ358lCwr+l2QurxC8l37ybuqGJMaSdGXfmM/uBdMjHFoXzJwJXEykk007WVHFldY1BrK1DGT4sqiesZ4Y5p2sBvtM88QFZYMfljAPqkKXXslg2bjmui+5FE1nfUdTXRjJju4tZ7fJHorewMD/VSEJtbd4F+7wSF2BCJe4JmGyX8YcOC5SGyUl5U3BVNZpx57YFmGPylBVzEqWaeOoKiglElmztcfS0nCrXxXG/Rz44AEhRbhoCp9FQ7Wx/gA01hF8bfcKKhfDtPh5TEwUu4wEQkXEPlHwCyrRCGICH72Qvjrbn9MaopZswNxRvn+u+5ydOXA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+/3MakG7SgK7BiXWr8rX03NDLrybrQdPeaHt/8esvaA=;
- b=LMmOhxwTeuZnXd3owpXutyYLm/VVOFUOiZeHWdodrxloIPMd06uxAxD1nFx/iZlsPfkkQoFe1Yfbts/bpKKYKG5zRr/5W6DB88agJEoq1IxuCHxjQ0qsuWgr0K8qJ3R6tE7YLqpMloGXwZwUNlDEr/FsWxV0lV7l1MZgUJu7vytdOQcs0l1WpNaaly3RBqntDvJQoR1m015wvhQKTFv6Q6IbHUku7KaqhWfgS2JtjVmBBdyfTcTG8EvdQ5/SI+9ADMR1fudazkeD7u9BmSDdZLP8qpiHhUd2oXbOzf/JX3TWeXJjP9W46YOkdNCNp50JZFrPz0syUhJJv4B5jnGR+w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=infradead.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+/3MakG7SgK7BiXWr8rX03NDLrybrQdPeaHt/8esvaA=;
- b=WB4450bnCIuer/t5NivIGAcS3pAMSjJpgfoxZzjKWm9BzptdK9OvCTdB3acWSvSAk3l7oHAslyZBEaZp6IavU81MxaNtlR/ouxIdAUPKQfb43XuTUD9pmnTG4CTTV0A05QLJySojZko/Hz8xZO4spe6ySWOwOsYLJE8of+wr4oo=
-Received: from PH7P220CA0086.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32c::15)
- by SJ0PR12MB7034.namprd12.prod.outlook.com (2603:10b6:a03:449::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.9; Fri, 13 Nov
- 2026 06:39:29 +0000
-Received: from BY1PEPF0002695A.namprd05.prod.outlook.com
- (2603:10b6:510:32c:cafe::6d) by PH7P220CA0086.outlook.office365.com
- (2603:10b6:510:32c::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.9 via Frontend Transport; Fri, 13
- Nov 2026 06:39:18 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BY1PEPF0002695A.mail.protection.outlook.com (10.167.244.171) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Fri, 13 Nov 2026 06:38:52 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 13 Nov
- 2026 00:27:58 -0600
-Received: from [10.136.34.22] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Fri, 13 Nov 2026 00:27:55 -0600
-Message-ID: <e1a63a3c-3975-4b05-8ab4-518c37d867d6@amd.com>
-Date: Fri, 13 Nov 2026 11:57:54 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=kbd9hk+S
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AD6NaNT2248411;
+	Fri, 13 Nov 2026 06:40:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=PhGKbAErLApZ03gpAakytCwNcdYqB4
+	uSnOIrA1S1EcI=; b=kbd9hk+SK1aZUDXdXthiBAMeexOHhUQ0XkMcQ23UAqZX/l
+	CfGseeGLqRfUK+5sOp3JlioqSh2sAwY0KGRrU/OEwCZxaW7TlurE+h1QDIajGWr5
+	ALdB7qKU2FXYtvZ2OufDfOYrE27XUG8ii4JRklcXjJMqqqrM/FXXjMD10OPqmulJ
+	4UEc+Hg7Tn3LdNTHIutLYhpr2WsU4L3cs0LfP1hLkWrMTsdR4n4RmhcFPBtky5Qn
+	5YRIKx78BoPW3EbZbXSbF01dw2EsOP8SyuLFO2r92hDiEKASJRKXT40NH5zTGuDf
+	8W4f42KPCrLp4dwDeFJ0wlfr19sIsNGfeZKNNL6g==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsug6jc89-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 13 Nov 2026 06:40:30 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AD5KT501823387;
+	Fri, 13 Nov 2026 06:40:29 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hwjcf1v9d-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 13 Nov 2026 06:40:29 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AD6eRj527656476
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 13 Nov 2026 06:40:28 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D3E3520040;
+	Fri, 13 Nov 2026 06:40:27 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4146B2004B;
+	Fri, 13 Nov 2026 06:40:25 +0000 (GMT)
+Received: from li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com (unknown [9.39.17.247])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Fri, 13 Nov 2026 06:40:25 +0000 (GMT)
+Date: Fri, 13 Nov 2026 12:10:22 +0530
+From: Ojaswin Mujoo <ojaswin@linux.ibm.com>
+To: Zhang Yi <yi.zhang@huaweicloud.com>
+Cc: "Theodore Ts'o" <tytso@mit.edu>, Andreas Dilger <adilger.kernel@dilger.ca>,
+        Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>,
+        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+        linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/8] ext4: fix endio zeroout corruption by tracking
+ to-be-converted unwritten IOs
+Message-ID: <avavp0mLO8WoYo98@li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com>
+References: <20261102-ext4-endio-zero-bug-v1-0-266d2bb9e6dc@linux.ibm.com>
+ <fce5c384-3a18-4156-b0eb-a0d584b8b459@huaweicloud.com>
+ <avVm8XuQbU4sSIF1@li-dc0c254c-257c-11b2-a85c-98b6c1322444.ibm.com>
+ <167a29b6-32cc-4d98-b664-4b1db1320609@huaweicloud.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,340 +96,197 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] sched/fair: Avoid re-syncing runtime_enabled on root
- domain changes
-To: Peter Zijlstra <peterz@infradead.org>, Qiliang Yuan
-	<qiliang.yuan@linux.dev>
-CC: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann
-	<dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, Ben Segall
-	<bsegall@google.com>, Mel Gorman <mgorman@suse.de>, Valentin Schneider
-	<vschneid@redhat.com>, <linux-kernel@vger.kernel.org>
-References: <20261111-bug-sched-fair-offline-active-v1-0-4f54523c5a70@linux.dev>
- <20261111-bug-sched-fair-offline-active-v1-2-4f54523c5a70@linux.dev>
- <20261112105624.GM2668804@noisy.programming.kicks-ass.net>
- <20261112111055.400697-1-qiliang.yuan@linux.dev>
- <20261112125947.GZ1813469@noisy.programming.kicks-ass.net>
-Content-Language: en-US
-From: K Prateek Nayak <kprateek.nayak@amd.com>
-In-Reply-To: <20261112125947.GZ1813469@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0002695A:EE_|SJ0PR12MB7034:EE_
-X-MS-Office365-Filtering-Correlation-Id: d851fcb1-76a2-4524-239f-08df4150c89e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|82310400026|36860700016|11063799006|4143699003|261021121427099003|261026121527099003|10067099003|261022075727099003|261026140227099003|261028144727099003|261102123227099003|261022105027099003|56012099006|261009223027099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	GLMs5p2TkplVQbLwv7yv3X49OA2vSNUo0VzB8uGplKlHFJ9REBcP0AXiembiR0Wae9S6CRQ1ZIDuKb3bfCyoVnDJtr8cn+2+w6YSCaN1JI46jQBzLhvQRmzpF1jJ8UcZ1GTqOW2Mfw7/c6XBet37bZ9wjh0XQ43IXH2CQ7T+6uVZZwX6QQw0LX+jAD8hQC4a3nOR+eVWO/EhywwRBCTlCUPzvbliSwd1EZhAxVdMLO5lJlT0JcPsyZ5pjChQxwRjoYB/Am2BwQa2bxrHN+jbwr461FFbE7Zh9AIJFS7mYuaJPvaRQZtjK5nsRNJfhrmJ7NTpBB1hGh7Jz9c+dXMvqofNPnrDdXnShHq0yO/HQaVyWPP29dINZ8HjoSHnaPT8UaoRyMpI9S9ADVpEwQ0HnHkxdSYqQj9d6WnJoHmLUEsGrnIAvkzGTqf+RAYWNEEnXGKG58C59gLlI33Sn/IWy3FZfihT0aJTujqgrWr8mNNnjE8jLJqjn3yS4sLvVOUeXcl5eYaLh1cB1BQW24eYePDT/XOyXsvIcpNwk+IJnp8wh7DSwNFygB+Zhq22CfwdfReN+P35av0xAIDxyo0TBRtmp58aPTSFlvgHYtkP+8oyZ9+pW1Sp0nqIE6OOukBeEeKrtruzWr6i74//L76Fv0Ayu7P/5/quFNZib9FycWm9y0ND5qdkGXtAMEpGSbK/sVa08iDYx3DOQUFUWStxtg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(82310400026)(36860700016)(11063799006)(4143699003)(261021121427099003)(261026121527099003)(10067099003)(261022075727099003)(261026140227099003)(261028144727099003)(261102123227099003)(261022105027099003)(56012099006)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	1KqLM7tzg3OtOeDl2geNG66KUERz+qXB55VLX4Box0wB0rOVVzMwDXDX5jOEZmxbNtcvWN87eEQ7iZIiAxcRtd7WG02QVCWq1xBbHeDRUMSPo8I4j5hCzzb67Mj4Hb4aUrDd0JdVOSfLRagNHVOXyQKIZuSSlSADDitGrZcNB8sFrxUpHRkWY8Lp8EVi+0CRTMgPrTDPuSA9BVJDBe6h3CUL/jP2k8WwIkFnJ+C/K0xhcHsAszwWB5ZYT9N0yxglkT6I9n5PaEbnrivRMkJadqGa7tW9SnZ7+QgVvU7infb4zRgHQ0lrwByRqiqbMxxgtz0YF4qa6L7tWQ/dTqC1dkzKaFkN79UDcavbRuxMWW+uhT7Ri6Q/XpjIa/2evFoLWUPDoItu+OCb/6GLmXCHpRtFWB6MYEogA/Wrqpmj60K5ZKkrcr9KGk+oZcpljAEl
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Nov 2026 06:38:52.7613
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d851fcb1-76a2-4524-239f-08df4150c89e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF0002695A.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7034
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <167a29b6-32cc-4d98-b664-4b1db1320609@huaweicloud.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: nMhtp4Xrn7qm_Eg_OiQXWAe24lD5mEhh
+X-Authority-Analysis: v=2.4 cv=PeVqFShd c=1 sm=1 tr=0 ts=6af6b0df cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=K2Yr91b-bR72nt8C4HQA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-GUID: V8k0RFc0pbhAEfHrdE5ZfYwB6mq9jAKf
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTEzMDAyNCBTYWx0ZWRfX67NqFuSfIIN6
+ 5SORys6IV/tWMyN9I9LQEOJeOkx1YMs6cFSjin1Bz8TzJUvuXmlo20OGYPcH2TfqtUgZlTcEWmv
+ 1Djc8m8wtVu4yiSmONq1I9N755c7tkLT4Mf6vzfg9q9bwGRVhh6+GsAAUxtO8UVY16aLme83Upl
+ DQoyAT6k0nV7ukoWBaZrru2MXfM1k/FlRAqpBIMYGv5vcTicKbGRIZlzVvDe2YJoLDOYVvmY0nK
+ jPvHqrtVCsRmCFUWlxO/sYc+ugjoWdE2+b2XsJI+vcTs5AZqBiCoK0Mfp9sl23ewNah/9E8mih3
+ dZxQPdh1i/a+lZS57ZCSODncrUhp0IaGC8ZSLxXkwumuuTfirugeHAcL5/sUXhi26/Oim6MsTr4
+ tcZy/H+TLXzlbQt2AoiCbza8bRHsJ5px+EB0TPQFo744clSxjcbhmwkFdiW6wRMpcpKsjPPjpYb
+ 8QVZVitQFg7kBWzomvQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTEzMDAyNCBTYWx0ZWRfX9hKuJvaI/26w
+ iEsyYxPRPAK7aCBJUYhyxsc3YcXVguS15fDQwuLRg62jJv7ZThZsG66e4JVIC0abiOPA/oJeMPO
+ ncbbjaDy1ugKPepRAZXCGRfrYth4byw=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-13_02,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 phishscore=0 suspectscore=0 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 spamscore=0 malwarescore=0 clxscore=1015 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611130024
 
-Hello Peter,
-
-On 11/12/2026 6:29 PM, Peter Zijlstra wrote:
->> A rebuild runs rq_attach_root() on every active CPU, and with the rq
->> lock held and interrupts disabled it walks all task groups twice. 
+On Fri, Nov 13, 2026 at 11:28:46AM +0800, Zhang Yi wrote:
+> On 11/12/2026 3:12 PM, Ojaswin Mujoo wrote:
+> > On Thu, Nov 12, 2026 at 11:33:35AM +0800, Zhang Yi wrote:
+> >> On 11/3/2026 2:26 AM, Ojaswin Mujoo wrote:
+> >>> There is a data corruption in the zeroout fallback
+> >>> ext4_split_extent_zeroout() when we encounter an error like ENOSPC
+> >>> while trying to perform endio extent splitting.
+> >>>
+> >>> The issue was discovered by Fedora coreos community while using 1kb
+> >>> blocks size on a 64kb pagesize arch like powerpc or aarch64 and the
+> >>> discussion can be found at [1].
+> >>>
+> >>> ** The Issue **
+> >>>
+> >>> The issue can be encountered as follows:
+> >>>
+> >>> 1. Make an FS with no reserved to root reserved blocks and fill it
+> >>>    completely.
+> >>> 2. Delete a file so that ext4_sb_info thinks there is free space but
+> >>>    mballoc doesnt have any (until txn is committed).
+> >>> 3. Now when endio kicks in it eventually reaches:
+> >>>
+> >>> ext4_handle_unwritten_extents
+> >>>   ext4_split_convert_extents
+> >>>     ext4_split_extent
+> >>>       ext4_split_extent_at
+> >>>         ext4_ext_insert_extent
+> >>>           ext4_new_meta_blocks  // extent tree split/grow needs a block
+> >>>             ext4_mb_new_blocks
+> >>>               ext4_claim_free_clusters  // thinks we have free space but mballoc
+> >>>                                            has none until txn commit frees it
+> >>>               ext4_mb_regular_allocator
+> >>>                 // return -ENOSPC
+> >>>     // ext4_split_extent fallsback to zeroout
+> >>>     ext4_split_extent_zeroout
+> >>>       // We try to zeroout surrounding unwritten ranges. This code has a bug
+> >>>          where we zero an unwritten extent which could have valid data on disk 
+> >>>          whose endio has not yet converted it
+> >>>
+> >>> The main issue is that zeroout assumes any unwritten extent is valid to
+> >>> zeroout but it could actually be a soon-to-be-converted extent holding
+> >>> valid data.
+> >>>
+> >>
+> >> Hi Ojaswin,
+> >>
+> >> Thank you for your analysis! This makes sense to me. I apologize for not
+> >> having considered this concurrent scenario earlier and for amplifying
+> >> the data loss issue.
+> >>
+> >>> ** The fix **
+> >>>
+> >>> The way this series fixes it is by per-inode tracking the no. of
+> >>> unwritten IOs that are submitted but not yet converted
+> >>> (ei->i_conv_pending_ios). If we end up in the zeroout fallback and see
+> >>> there are such IOs existing in the inode, then we don't zeroout and just
+> >>> return back the original error. More design notes can be found in
+> >>> subsequent patches.
+> >>>
+> >>
+> >> Regarding the solution, I agree that your approach looks like it can fix
+> >> this issue, and the idea is fairly straightforward. When zeroing out, if
+> >> there is other concurrent I/O, just fall back and return an error.
+> >> However, I've been thinking about it over the past few days, hoping to
+> >> find another simpler and more elegant solution, but that seems rather
+> >> difficult.
+> >>
+> >> First, due to the map range caching mechanism in the iomap writeback
+> >> path and for performance reasons, we probably can't go back to splitting
+> >> extents when issuing I/O as before. Moreover, the previous approach also
+> >> couldn't completely avoid zeroing the entire unwritten extent when the
+> >> I/O completes, so the problem already existed before. It just required
+> >> concurrency and had a very low probability. Therefore, I agree that we
+> >> need to address this problem head-on.
+> > 
+> > Hi Zhang, thank you so much for looking into this.
+> > 
+> > So I agree that it is a tricky issue to solve since we don't want to
+> > add too much complexity in the fast path. Actually the first prototype I
+> > did for this (back in sep before we started seeing this in distros) was
+> > becuase I was working on moving zeroout to the fast path rather than
+> > just a fallback and had hit this fairly easily there.
+> > 
+> > In the first prototype, I took the exact approach you discussed here. A
+> > new CONV_PENDING type for extent cache with all the plumbing to ensure
+> > we don't lose the status untill the conversion happens. What I reliased
+> > was that although this was a much more accurate fix, it needed lots of
+> > core changes to es layer, and I ran into several bugs where data got
+> > corrupted cause the status was getting lost or not in sync. I did manage
+> > to fix most of them but it somehow makes me a bit uncomfortable from the
+> > POV of a backport.
+> > 
+> > The patch for the inital version (v v rough and not cleaned up since
+> > Sep) can be found here [1]. 
 > 
-> Right, that is a bit daft. It should be relatively straight forward to
-> make that one loop.
+> Ha, it looks like we're thinking along the same lines, the
+> implementation of this POC is largely similar to what I had in mind.
+> Thank you for working on this. Feel free to reach out anytime to
+> discuss.  :)
 
-Question: Why do we need to do rq_offline_fair() + rq_online_fair()
-during cpuset for active CPUs since fair doesn't have any accounting
-linked to rd at all?
+Of course, thanks! 
+> 
+> > 
+> > I'll address your below ideas on how/if i implemented them in [1]
+> > 
+> >>
+> >>
+> >> Here's a rough idea I'd like to share:
+> >>
+> >> 1. Add an in-core extent status flag, something like
+> >>    EXTENT_STATUS_PENDING_WRITTEN.  Like EXTENT_STATUS_DELAYED, these
+> >>    entries would be must-keep.  The idea is to mark ranges for which
+> >>    we've submitted I/O over an unwritten extent but haven't done the
+> >>    conversion yet.  It would just be an extra flag on top of
+> >>    EXTENT_STATUS_UNWRITTEN; the zeroout paths would be the only thing
+> > 
+> > I added a CONV_PENDING es type rather than flag. I did start with the
+> > flag over UNWRITTEN approach but most places like merging logic care
+> > that the type rather than flag and which was causing us to merge
+> > UNWRITTEN and CONV_PENDING which we can't allow. So instead of modiying
+> > code around merging and other areas I just made CONV_PENDING a separate
+> > type.
+> > 
+> 
+> Yeah, it's also fine with me to make it a separate type, whichever is
+> clearer.
+> 
+> [...]
+> 
+> > I agree that in the long term es cache approach is definitely the way to
+> > move forward. I'm just wondering if it would be feasible to backport
+> > something like that. Then again if we want to backport only till 7.0,
+> > maybe it wont be that big of a deal. 
+> > 
+> > There are 2 approaches that I can see here:
+> > 1. USe this patch set's counter apprach as a stop gap, easy to backport
+> > solution which works but is a bit clumsy. With the immediate fix in
+> > place, we can take time to test and design the extent status approach
+> > correctly and land it as a feature rather than something that needs
+> > backport.
+> > 
+> > 2. Ditch the counter approach and just fix it in one shot with extent
+> > status approach like in [1].
+> > 
+> > I'm happy to work on either of the two, what do you think shall be the
+> > right way forward?
+> > 
+> 
+> Personally, although I still think this counting approach is a bit
+> hacky, I'm not opposed to using it to fix the problem first.
 
-For deadline and RT it makes sense for bandwidth accounting and
-rto_mask updates on new rd but fair, and ext shouldn't really
-care for a rd change.
+Got it, I'll take some time to cleanup the es cache version and maybe
+start testing it so that we get an idea of how stable it is. In the
+meantime lets see if Jan, Ted or ext4 community has any particular
+prefernece wrt the approach we should take. 
 
-Would it make sense to separate the offline / online bits from
-a root domain switch? It won't speed up hotplug but it should
-speed up cpusets causing domain rebuilds.
-
-Something like follows:
-
-  (Lightly tested on top of tip:sched/core at d7e670601af6)
-
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 175b52a7ea79..679d094c6077 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -8542,38 +8542,82 @@ static inline void balance_hotplug_wait(void)
- 
- #endif /* !CONFIG_HOTPLUG_CPU */
- 
--void set_rq_online(struct rq *rq)
-+void rq_attach_root_domain(struct rq *rq)
- {
--	if (!rq->online) {
--		const struct sched_class *class;
--		struct root_domain *rd;
-+	struct root_domain *rd = rcu_dereference_root_domain(rq->rd);
-+	const struct sched_class *class;
- 
--		rd = rcu_dereference_root_domain(rq->rd);
--		cpumask_set_cpu(rq->cpu, rd->online);
--		rq->online = 1;
-+	/* Offline rq's are handled via set_rq_online(). */
-+	if (!rq->online)
-+		return;
- 
--		for_each_class(class) {
--			if (class->rq_online)
--				class->rq_online(rq);
--		}
-+	/* CPU already associated with the root domain. */
-+	if (cpumask_test_cpu(rq->cpu, rd->online))
-+		return;
-+
-+	cpumask_set_cpu(rq->cpu, rd->online);
-+
-+	for_each_class(class) {
-+		if (class->rq_attach_root)
-+			class->rq_attach_root(rq);
- 	}
- }
- 
--void set_rq_offline(struct rq *rq)
-+void rq_detach_root_domain(struct rq *rq)
- {
--	if (rq->online) {
--		struct root_domain *rd = rcu_dereference_root_domain(rq->rd);
--		const struct sched_class *class;
-+	struct root_domain *rd = rcu_dereference_root_domain(rq->rd);
-+	const struct sched_class *class;
- 
--		update_rq_clock(rq);
--		for_each_class(class) {
--			if (class->rq_offline)
--				class->rq_offline(rq);
--		}
-+	/* CPU has already been handled via set_rq_offline(). */
-+	if (!rq->online)
-+		return;
- 
--		cpumask_clear_cpu(rq->cpu, rd->online);
--		rq->online = 0;
-+	/* CPU is not associated with the root domain. */
-+	if (!cpumask_test_cpu(rq->cpu, rd->online))
-+		return;
-+
-+	update_rq_clock(rq);
-+	for_each_class(class) {
-+		if (class->rq_detach_root)
-+			class->rq_detach_root(rq);
- 	}
-+
-+	cpumask_clear_cpu(rq->cpu, rd->online);
-+}
-+
-+static void set_rq_online(struct rq *rq)
-+{
-+	const struct sched_class *class;
-+	struct root_domain *rd;
-+
-+	WARN_ON_ONCE(rq->online);
-+
-+	rd = rcu_dereference_root_domain(rq->rd);
-+	cpumask_set_cpu(rq->cpu, rd->online);
-+	rq->online = 1;
-+
-+	update_rq_clock(rq);
-+	for_each_class(class) {
-+		if (class->rq_online)
-+			class->rq_online(rq);
-+	}
-+}
-+
-+static void set_rq_offline(struct rq *rq)
-+{
-+	struct root_domain *rd = rcu_dereference_root_domain(rq->rd);
-+	const struct sched_class *class;
-+
-+	WARN_ON_ONCE(!rq->online);
-+
-+	update_rq_clock(rq);
-+	for_each_class(class) {
-+		if (class->rq_offline)
-+			class->rq_offline(rq);
-+	}
-+
-+	cpumask_clear_cpu(rq->cpu, rd->online);
-+	rq->online = 0;
- }
- 
- static inline void sched_set_rq_online(struct rq *rq, int cpu)
-diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index 61b6a6d78171..f9c0a1a0eb9e 100644
---- a/kernel/sched/deadline.c
-+++ b/kernel/sched/deadline.c
-@@ -3366,7 +3366,7 @@ bool dl_task_needs_bw_move(struct task_struct *p,
- }
- 
- /* Assumes rq->lock is held */
--static void rq_online_dl(struct rq *rq)
-+static void rq_attach_root_dl(struct rq *rq)
- {
- 	if (rq->dl.overloaded)
- 		dl_set_overload(rq);
-@@ -3379,7 +3379,7 @@ static void rq_online_dl(struct rq *rq)
- }
- 
- /* Assumes rq->lock is held */
--static void rq_offline_dl(struct rq *rq)
-+static void rq_detach_root_dl(struct rq *rq)
- {
- 	if (rq->dl.overloaded)
- 		dl_clear_overload(rq);
-@@ -3387,6 +3387,17 @@ static void rq_offline_dl(struct rq *rq)
- 	cpudl_clear(&rcu_dereference_root_domain(rq->rd)->cpudl, rq->cpu, false);
- }
- 
-+static void rq_online_dl(struct rq *rq)
-+{
-+	rq_attach_root_dl(rq);
-+}
-+
-+/* Assumes rq->lock is held */
-+static void rq_offline_dl(struct rq *rq)
-+{
-+	rq_detach_root_dl(rq);
-+}
-+
- void __init init_sched_dl_class(void)
- {
- 	unsigned int i;
-@@ -3669,6 +3680,9 @@ DEFINE_SCHED_CLASS(dl) = {
- 	.task_woken		= task_woken_dl,
- 	.find_lock_rq		= find_lock_later_rq,
- 
-+	.rq_attach_root         = rq_attach_root_dl,
-+	.rq_detach_root         = rq_detach_root_dl,
-+
- 	.task_tick		= task_tick_dl,
- 	.task_fork              = task_fork_dl,
- 
-diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
-index 81a71aa5f094..99cc1307d515 100644
---- a/kernel/sched/rt.c
-+++ b/kernel/sched/rt.c
-@@ -2398,7 +2398,7 @@ static void task_woken_rt(struct rq *rq, struct task_struct *p)
- }
- 
- /* Assumes rq->lock is held */
--static void rq_online_rt(struct rq *rq)
-+static void rq_attach_root_rt(struct rq *rq)
- {
- 	if (rq->rt.overloaded)
- 		rt_set_overload(rq);
-@@ -2409,7 +2409,7 @@ static void rq_online_rt(struct rq *rq)
- }
- 
- /* Assumes rq->lock is held */
--static void rq_offline_rt(struct rq *rq)
-+static void rq_detach_root_rt(struct rq *rq)
- {
- 	if (rq->rt.overloaded)
- 		rt_clear_overload(rq);
-@@ -2419,6 +2419,16 @@ static void rq_offline_rt(struct rq *rq)
- 	cpupri_set(&rcu_dereference_root_domain(rq->rd)->cpupri, rq->cpu, CPUPRI_INVALID);
- }
- 
-+static void rq_online_rt(struct rq *rq)
-+{
-+	rq_attach_root_rt(rq);
-+}
-+
-+static void rq_offline_rt(struct rq *rq)
-+{
-+	rq_detach_root_rt(rq);
-+}
-+
- /*
-  * When switch from the rt queue, we bring ourselves to a position
-  * that we might want to pull RT tasks from other runqueues.
-@@ -2632,6 +2642,9 @@ DEFINE_SCHED_CLASS(rt) = {
- 	.switched_from		= switched_from_rt,
- 	.find_lock_rq		= find_lock_lowest_rq,
- 
-+	.rq_attach_root		= rq_attach_root_rt,
-+	.rq_detach_root		= rq_detach_root_rt,
-+
- 	.task_tick		= task_tick_rt,
- 
- 	.get_rr_interval	= get_rr_interval_rt,
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index a4df59c9c9b6..135eadefd0eb 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -2791,6 +2791,12 @@ struct sched_class {
- 	void (*rq_online)(struct rq *rq);
- 	void (*rq_offline)(struct rq *rq);
- 
-+	/*
-+	 * rq_{detach,attach}_root: rq->lock
-+	 */
-+	void (*rq_attach_root)(struct rq *rq);
-+	void (*rq_detach_root)(struct rq *rq);
-+
- 	/*
- 	 * push_cpu_stop: p->pi_lock && rq->lock
- 	 */
-@@ -3518,8 +3524,8 @@ static inline void double_rq_unlock(struct rq *rq1, struct rq *rq2)
- 	raw_spin_rq_unlock(rq1);
- }
- 
--extern void set_rq_online (struct rq *rq);
--extern void set_rq_offline(struct rq *rq);
-+extern void rq_attach_root_domain(struct rq *rq);
-+extern void rq_detach_root_domain(struct rq *rq);
- 
- extern bool sched_smp_initialized;
- 
-diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
-index 99878da03bce..23711105696b 100644
---- a/kernel/sched/topology.c
-+++ b/kernel/sched/topology.c
-@@ -494,9 +494,7 @@ void rq_attach_root(struct rq *rq, struct root_domain *rd)
- 
- 	old_rd = rcu_dereference_root_domain(rq->rd);
- 	if (old_rd) {
--		if (cpumask_test_cpu(rq->cpu, old_rd->online))
--			set_rq_offline(rq);
--
-+		rq_detach_root_domain(rq);
- 		cpumask_clear_cpu(rq->cpu, old_rd->span);
- 
- 		/*
-@@ -512,8 +510,7 @@ void rq_attach_root(struct rq *rq, struct root_domain *rd)
- 	rcu_assign_pointer(rq->rd, rd);
- 
- 	cpumask_set_cpu(rq->cpu, rd->span);
--	if (cpumask_test_cpu(rq->cpu, cpu_active_mask))
--		set_rq_online(rq);
-+	rq_attach_root_domain(rq);
- 
- 	/*
- 	 * Because the rq is not a task, dl_add_task_root_domain() did not
--- 
-Thanks and Regards,
-Prateek
-
+Regards,
+ojaswin
+> 
+> Best Regards,
+> Yi.
+> 
