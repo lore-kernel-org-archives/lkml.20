@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794594896;
-	b=26EeDlbjaYmOXRr4bdY8bx9tehyk/Wz9JdUG9Jrg0cL8VT45KlnmUNKNFqmR8zYOpMKY
-	 gIHbNPu1sCWxNBSmXfMkOCzm9WtDaZrHxtJuCDA/cFgN0pI7T1q5vQIhNCtLL6uwhSq0x
-	 AnZifuLCDxoKR59cPOAKZj3KxDaWlhunszpTl5vvWgiJs1uTvDOO4pnQuuq+Tyjx7YNxy
-	 RNrgaewTULIujb2MJ6jR5CT5HvuiPPV/rubIpXWkv2SXIXiStAUZGWQk1tV6JInE0Wtyy
-	 tkZoDmxZEkEft6hte3pqLwM1eg1NCCcPZ41vEd7V+c9Lmioqdit4ldd7oBTYlt4svtQ==
+	b=GFlHzOgnAEcP0qTyarjhHqlTQlfNc+T4H8/8HMc1YXOoQXR99xST7nEPTFmXfDamEGww
+	 xHDoVgbjP7A4sr57+a88DKNY2HdgCBx6fCLi0uP0w0RH8pfCfnagX/agQP+itJdBxEzrf
+	 KGenzlj2ZodsJy7noGXKRMXHj+BLWqJWcozmDe/GgyRkFYk4qIRBTFxKNANau/FDdedwH
+	 PxDYlVe140L6YKWBY97eDosS4OgeOd4nAK77WcZkWIatvu6EdnKyc4J48qJBTlZDrGvQG
+	 CUVktod9NrKgxuv68j4smz61lyPi3x68EvKAY/BPEAOcUmr+DwBYD4wolWlUdr+GziQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794594896;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
-	bh=ja8Oms7VXegy0qxvI7xlhg+tglwGtDJqaCHCJWbAubE=;
-	b=L67aTJYpz7Kdr88LQObUz0CB5HGwXuxS0yVTUMlhLW23LXH7voYqVxyvmB4lB60EFHud
-	 3cG568YoD3GKxpiDUmpg4hZGZ891/uUNWN312Zdyu0/beyl5fuDT/l3Q+JjhdfBeLhxvg
-	 dss5q9IelUaYGt02T+KiD8mK280CC57FNWIZh3x7LQJtIQG3YmapQM5dsND/ZWNG3oskG
-	 6pJcTxai6lRWGKqnkKMAMOzNOQXY531afhPOxTums/WsHOFwll55ljJO8KtVmhjFXuRFG
-	 CL1roUNs/q842kYm+5/1rl47KeMAbtSxXhRUx9zXzucvUiWP44uppr+v3ECkR14wsPQ==
+	bh=sJxAT23in9mL622FFzvf/edwzVLEjYZRuEHg3HmkG0g=;
+	b=KZIZXESKD7sW71rww6JdVByOjo0QpfJTouEHOPLNaB/X9CoVECKvnZababcfM/+egofa
+	 vJXWH6gtC7G7QXB2kUZEujggwf6qUxQozfz+VoK/xhFbyCRgtM3/s6Z537PYebSmyQBP1
+	 R2TP8fgWvi0ZgFXjACsijfLcJCKPOAyoinhYF7obp3GN4S0PNY58RRb6axM9qZrABYtpc
+	 UsAfqOP97C9uytmCLETE+0tcf2xJj4Pe1VzqcDSizItA5zZrm8QqYPkuLHiTn6eKVS76s
+	 zwwHd7PID/BaA2VoaArY57KXjq1hj+lU1bqb6EcSzicBZCNJaKCBOXIc+0VQM1xYlVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=infradead.org;
 	spf=none smtp.mailfrom=desiato.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=ATFlPP0e;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=J5WbgRz+;
 	arc=none smtp.remote-ip=90.155.92.199
 Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B221D60A5BC3;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFEF460A5BC1;
 	Fri, 13 Nov 2026 18:34:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B221D60A5BC3
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFEF460A5BC1
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=ATFlPP0e
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=J5WbgRz+
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=ja8Oms7VXegy0qxvI7xlhg+tglwGtDJqaCHCJWbAubE=; b=ATFlPP0euhKN52ISEZLsdcfPmQ
-	m/wM1k3paLK1RuN3M27IBzkXwfDQDrNMUAjTt03zn4OMItM8EKMw11b/udecjB5VsFi1WjJjdym5A
-	BbIGEk04APTTrfY8dbn8kM7GEd58xi5AnWk4fT2ShyuxLSrrrhlt5koSjxoIHv7Be+ccaBPx+XrN7
-	VOl/x+svkJsjNVgEWdlkeJDKocp1+awtg/umvxwOwOvgEmFDM/GjOUdJvA5dq0R/HHSqPN1w47o+O
-	5qkT5OpUVNRklnPc52zzAJe1wi/55Ea9EpQjzI6w7LKl0OyT8lWfgKp0eUjj6agu61AN/mRV5ioLC
-	owxKIrkw==;
+	bh=sJxAT23in9mL622FFzvf/edwzVLEjYZRuEHg3HmkG0g=; b=J5WbgRz+Akkyw6TCSbxJDxImCX
+	njRIHGMevok37F42abhTICV1bZc9By8NpAadq2+cUPoZ5Cv4hcykv6CEeDDmdaVhJGsT5qIKsPZbZ
+	C1FlTE4SoKRD2azwmJasm86YCy8u6YuSTjNiA9WRxbMK2X2WuZ3P+FPEHIjCBaJoPSFGYn9HQQ2lP
+	gU7JJSRbWfz0l5MrV3e5QZYIosASvEbQunRoM1DOwL51H8irAy4Cy4UHxzPPw9AN5X1ZgJ+3wEPHu
+	SN/MhsjSgdPouc+FXoB4JSrkE7xPlg2LNsk3MoKnmkfSuLYyCxHVzUQRm8HUapV/QiwOvawb1EQ2X
+	tOnWSnrw==;
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
 	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xRw6v-0000000Bf06-0UFb;
+	id 1xRw6v-0000000Bf08-0UJv;
 	Fri, 13 Nov 2026 18:34:53 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xRw6s-00000000LuD-1ZS2;
+	id 1xRw6s-00000000LuM-1uJp;
 	Fri, 13 Nov 2026 18:34:50 +0000
 From: David Woodhouse <dwmw2@infradead.org>
 To: kvm@vger.kernel.org
@@ -71,9 +71,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Mushahid Hussain <hmushi@amazon.co.uk>,
 	Sriram Nambakam <snambakam@linux.microsoft.com>,
 	David Woodhouse <dwmw@amazon.co.uk>
-Subject: [RFC PATCH v2 25/31] KVM: selftests: Check that a higher plane's NMI survives HLT and suspension
-Date: Fri, 13 Nov 2026 18:34:41 +0000
-Message-ID: <20261113183448.84094-26-dwmw2@infradead.org>
+Subject: [RFC PATCH v2 27/31] KVM: SVM: Carry instruction state on reflected plane-protection faults
+Date: Fri, 13 Nov 2026 18:34:43 +0000
+Message-ID: <20261113183448.84094-28-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261113183448.84094-1-dwmw2@infradead.org>
 References: <20261113183448.84094-1-dwmw2@infradead.org>
@@ -92,362 +92,432 @@ X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-An NMI sent through the APIC to a non-zero plane is folded back to
-plane 0 and leaves only a marker on the targeted plane. When that plane
-is the selected one and halted, nothing but the marker can wake it, and
-an NMI must break HLT.
+A plane-protection fault reflected to userspace becomes a TLFS GPA
+intercept message, which carries the faulting instruction's length,
+its bytes (for data accesses), and the fault-adjusted RFLAGS.  The
+VMX exit handler harvests all of that from the VMCS, but
+npf_interception() reflected the bare fault: on AMD the higher VTL
+received intercept messages with instruction length 0, no instruction
+bytes and RFLAGS.RF clear, failing the hyperv_vsm KUT
+intercept-message tests ("Seen an expected read/write intercept
+message").
 
-Run the plane-1 twin as the selected plane with plane 0 held, halt
-it with IF clear, and send an NMI MSI through the plane-1 fd from a
-second thread. The twin must leave HLT and reach its next sync point;
-if it does not, the thread interrupts KVM_RUN with a signal so the test
-fails instead of hanging.
+Decode Assists store up to 15 bytes fetched from CS:RIP in the VMCB on a
+data-access #NPF (the raw window, not the decoded length); run them
+through the instruction decoder and report the decoded length and that
+many bytes. When the window is empty (no Decode Assists, a fault while
+fetching CS:RIP, or erratum 1096), decode from guest memory at RIP
+instead, except for SEV guests whose memory KVM cannot read. The
+decoder's own fetches can be refused by the plane's protections (a
+protected code or page-table page is the normal VSM layout) and then
+prepare a memory-fault exit of their own, so the exit being reported is
+saved around the decode, as around the VMX read. Set RFLAGS.RF before
+exiting: fault delivery gives the restarted
+instruction RF=1, and VMX saves that fault-adjusted value in guest
+RFLAGS on fault-type exits while SVM saves RF as it was during
+execution.
 
-Software-enable the twin's APIC with KVM_SET_LAPIC first. Its plane's
-APIC map is built from APIC state writes, and the creation-time reset
-runs before the twin joins the plane, so without one the MSI reaches no
-vCPU. Assert that KVM_SIGNAL_MSI reports exactly one delivery, so a
-lost MSI fails at the send instead of looking like a missed wakeup.
+An instruction-fetch #NPF stores no bytes (APM vol 2, "Nested and
+Intercepted #PF"). The length an execute intercept carries is that of
+the branch that fetched the faulting page, which VMX reports and SVM
+does not record; decoding at RIP would describe the branch target
+instead. Execute intercepts therefore carry length 0 on SVM.
 
-A second case covers an NMI posted to the plane itself. The twin runs
-with NMIs blocked (nmi.masked set through KVM_SET_VCPU_EVENTS, as in an
-NMI handler before IRET), gets a pending NMI through the same ioctl
-(KVM_NMI is not accepted on a plane fd), runs on so the marker is
-consumed with the NMI still pending, and is held as a userspace VTL
-switch would. Running plane 0 must then report a
-KVM_EXIT_HYPERV_VTL_INTERRUPT exit for plane 1. That case needs
-KVM_HYPERV_HCALL_VTL_CALLS and is skipped without it.
+SEV-ES and SEV-SNP guests get the bare fault: KVM cannot see the CS and
+mode state the decoder would use, and RFLAGS lives in the encrypted
+VMSA, where a VMCB write does nothing.
+
+Both harvests act on KVM_MEMORY_EXIT_FLAG_PLANE_PROT, which marks a
+memory-fault exit caused by the plane's memory attributes. It is set
+where the attribute check refuses the access, by
+kvm_mark_plane_prot_fault(): in the fault-in path, in the guest
+page-table walker, in kvm_prepare_memory_fault_exit_for_range() (the
+emulator's data accesses) and on the emulator's instruction fetch. So an
+emulated access carries it as well as a guest #NPF. Inferring it from
+the shape of a walker exit instead would also tag
+nested_svm_get_tdp_pdptr()'s exit for an nCR3 outside guest memory, and
+set RF on a fault that is not a plane intercept at all. Exits KVM cannot
+attribute (an unmapped GPA, the hypercall buffer and kvmclock checks)
+leave it clear.
+
+The validity of the harvested state gets its own flag,
+KVM_MEMORY_EXIT_FLAG_INSN_VALID, set by the VMX and SVM harvests only
+when they populated the fields: VM_EXIT_INSTRUCTION_LEN is undefined
+for EPT violations, all-zero insn_bytes is itself a valid x86
+encoding, and kvm_prepare_memory_fault_exit() now clears
+gva/insn_len/insn_bytes so no other memory-fault exit carries stale
+values.  The flag bit (and PLANE_PROT before it) is enumerated by the
+plane memory overlay capability, which also covers the extended
+memory_fault layout.  The memory_attributes selftest asserted strict
+equality on the exit flags; it now masks the informational flags out
+and compares only the access that faulted. api.rst documents both
+flags.
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- tools/testing/selftests/kvm/Makefile.kvm      |   1 +
- .../kvm/x86/planes_vtl_nmi_halt_test.c        | 305 ++++++++++++++++++
- 2 files changed, 306 insertions(+)
- create mode 100644 tools/testing/selftests/kvm/x86/planes_vtl_nmi_halt_test.c
+ Documentation/virt/kvm/api.rst                | 25 ++++-
+ arch/x86/kvm/mmu/mmu.c                        |  1 +
+ arch/x86/kvm/mmu/paging_tmpl.h                |  1 +
+ arch/x86/kvm/svm/svm.c                        | 99 +++++++++++++++++++
+ arch/x86/kvm/vmx/vmx.c                        | 13 ++-
+ arch/x86/kvm/x86.c                            |  1 +
+ include/linux/kvm_host.h                      | 26 +++++
+ include/uapi/linux/kvm.h                      | 17 +++-
+ .../testing/selftests/kvm/memory_attributes.c |  6 +-
+ virt/kvm/kvm_main.c                           |  2 +
+ 10 files changed, 180 insertions(+), 11 deletions(-)
 
-diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
-index 446a526750e0..42b0bf7e8128 100644
---- a/tools/testing/selftests/kvm/Makefile.kvm
-+++ b/tools/testing/selftests/kvm/Makefile.kvm
-@@ -117,6 +117,7 @@ TEST_GEN_PROGS_x86 += x86/planes_test
- TEST_GEN_PROGS_x86 += x86/planes_vtl_entry_test
- TEST_GEN_PROGS_x86 += x86/planes_vtl_timer_mask_test
- TEST_GEN_PROGS_x86 += x86/planes_vtl_restore_test
-+TEST_GEN_PROGS_x86 += x86/planes_vtl_nmi_halt_test
- TEST_GEN_PROGS_x86 += x86/pmu_counters_test
- TEST_GEN_PROGS_x86 += x86/pmu_event_filter_test
- TEST_GEN_PROGS_x86 += x86/private_mem_conversions_test
-diff --git a/tools/testing/selftests/kvm/x86/planes_vtl_nmi_halt_test.c b/tools/testing/selftests/kvm/x86/planes_vtl_nmi_halt_test.c
-new file mode 100644
-index 000000000000..69646dc2563b
---- /dev/null
-+++ b/tools/testing/selftests/kvm/x86/planes_vtl_nmi_halt_test.c
-@@ -0,0 +1,305 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Test that an NMI aimed at a higher plane is not lost while that plane
-+ * cannot take it.
-+ *
-+ * Folded NMI, halted plane: an NMI delivered through the APIC to a
-+ * non-zero plane is folded back to plane 0 and leaves only a marker on
-+ * the targeted plane.  When that plane is the selected one and sits in
-+ * HLT, the marker is all there is to wake it: the plane's own event checks
-+ * see no NMI, and plane 0's events are only examined when the plane enters
-+ * the guest.  The plane-1 twin runs with plane 0 held and halts with IF
-+ * clear.  A helper thread then sends an NMI MSI through the plane-1 fd,
-+ * which must reach exactly one vCPU, and the twin must leave HLT and reach
-+ * its next sync point.  If the twin stays halted, the helper interrupts
-+ * KVM_RUN with a signal so the test fails instead of hanging.
-+ *
-+ * Blocked NMI, suspended plane: an NMI posted to the plane itself
-+ * (KVM_SET_VCPU_EVENTS on its fd) earns one forced VTL entry through the
-+ * same kind of single-shot marker.  A run with NMIs blocked, as inside an
-+ * NMI handler before IRET, consumes the marker without taking the NMI.
-+ * When the plane then suspends, KVM must re-arm the marker, or the lower
-+ * VTL never hears of the NMI.  The twin runs with NMIs blocked
-+ * (nmi.masked), gets a pending NMI, runs on, and is held like a
-+ * userspace VTL switch; running plane 0 must then report a
-+ * KVM_EXIT_HYPERV_VTL_INTERRUPT exit for plane 1.
-+ */
-+#include <errno.h>
-+#include <pthread.h>
-+#include <signal.h>
-+#include <string.h>
-+#include <sys/ioctl.h>
-+#include <sys/mman.h>
-+#include <unistd.h>
-+
-+#include "test_util.h"
-+#include "kvm_util.h"
-+#include "processor.h"
-+#include "apic.h"
-+
-+#ifndef KVM_EXIT_HYPERV_VTL_INTERRUPT
-+#define KVM_EXIT_HYPERV_VTL_INTERRUPT  4
-+#endif
-+
-+#define TWIN_SYNC_PORT		0x7e
-+#define TWIN_STACK_PAGES	4
-+#define MSI_ADDR_BASE		0xfee00000u
-+#define MSI_DATA_DM_NMI		0x400u
-+
-+static int plane_fd;
-+static pthread_t vcpu_thread;
-+
-+struct twin {
-+	int fd;
-+	struct kvm_run *run;
-+	int mmap_sz;
-+};
-+
-+static void twin_sync(uint8_t stage)
-+{
-+	asm volatile("outb %0, %1" :: "a"(stage), "Nd"((uint16_t)TWIN_SYNC_PORT));
-+}
-+
-+static void twin_halt_code(void)
-+{
-+	twin_sync(1);
-+	asm volatile("cli; hlt");
-+	for (;;)
-+		twin_sync(2);
-+}
-+
-+static void twin_spin_code(void)
-+{
-+	twin_sync(1);
-+	for (;;)
-+		twin_sync(2);
-+}
-+
-+static void plane0_guest_code(void)
-+{
-+	GUEST_DONE();
-+}
-+
-+static void set_plane_run_state(int vcpu_fd, u64 state)
-+{
-+	int r = ioctl(vcpu_fd, KVM_SET_PLANE_RUN_STATE, &state);
-+
-+	TEST_ASSERT(!r, "KVM_SET_PLANE_RUN_STATE(0x%lx) failed: errno %d",
-+		    state, errno);
-+}
-+
-+static void sigusr1_handler(int sig)
-+{
-+}
-+
-+static void *nmi_sender(void *arg)
-+{
-+	struct kvm_msi msi = {
-+		.address_lo = MSI_ADDR_BASE,	/* physical APIC ID 0 */
-+		.data = MSI_DATA_DM_NMI,
-+	};
-+	int r;
-+
-+	/* Give the twin time to halt. */
-+	usleep(200000);
-+	r = ioctl(plane_fd, KVM_SIGNAL_MSI, &msi);
-+	TEST_ASSERT(r == 1, "KVM_SIGNAL_MSI on plane 1 reached %d vCPUs, errno %d",
-+		    r, errno);
-+
-+	/* Break KVM_RUN if the NMI did not. */
-+	sleep(2);
-+	pthread_kill(vcpu_thread, SIGUSR1);
-+	return NULL;
-+}
-+
-+static struct kvm_vm *create_vm(struct kvm_vcpu **vcpu0, bool vtl_calls)
-+{
-+	struct kvm_vm *vm;
-+
-+	kvm_force_split_irqchip = true;
-+	vm = __vm_create(VM_SHAPE_DEFAULT, 1, 0);
-+	kvm_force_split_irqchip = false;
-+
-+	TEST_REQUIRE(vm_check_cap(vm, KVM_CAP_PLANES) >= 1);
-+	TEST_REQUIRE(__vm_enable_cap(vm, KVM_CAP_PLANES, 2) == 0);
-+	/* VTL interrupt exits belong to the userspace-switch VTL contract. */
-+	if (vtl_calls)
-+		vm_enable_cap(vm, KVM_CAP_HYPERV_FORWARD_HCALL,
-+			      KVM_HYPERV_HCALL_VTL_CALLS);
-+
-+	*vcpu0 = vm_vcpu_add(vm, 0, plane0_guest_code);
-+	return vm;
-+}
-+
-+/* Plane-1 twin with the same mode and page tables as plane 0. */
-+static void create_twin(struct kvm_vm *vm, struct kvm_vcpu *vcpu0,
-+			void *code, struct twin *twin)
-+{
-+	struct kvm_lapic_state lapic;
-+	struct kvm_sregs sregs;
-+	struct kvm_regs regs;
-+	int r;
-+
-+	plane_fd = __vm_ioctl(vm, KVM_CREATE_PLANE, (void *)1UL);
-+	TEST_ASSERT(plane_fd >= 0, "KVM_CREATE_PLANE failed: errno %d", errno);
-+	twin->fd = __kvm_ioctl(plane_fd, KVM_CREATE_VCPU, NULL);
-+	TEST_ASSERT(twin->fd >= 0, "KVM_CREATE_VCPU on plane 1 failed: errno %d",
-+		    errno);
-+
-+	twin->mmap_sz = ioctl(vm->kvm_fd, KVM_GET_VCPU_MMAP_SIZE, NULL);
-+	TEST_ASSERT(twin->mmap_sz >= (int)sizeof(*twin->run),
-+		    "KVM_GET_VCPU_MMAP_SIZE failed");
-+	twin->run = mmap(NULL, twin->mmap_sz, PROT_READ | PROT_WRITE,
-+			 MAP_SHARED, twin->fd, 0);
-+	TEST_ASSERT(twin->run != MAP_FAILED, "mmap of twin kvm_run failed");
-+
-+	vcpu_sregs_get(vcpu0, &sregs);
-+	r = ioctl(twin->fd, KVM_SET_SREGS, &sregs);
-+	TEST_ASSERT(!r, "KVM_SET_SREGS on twin failed: errno %d", errno);
-+
-+	r = ioctl(twin->fd, KVM_GET_REGS, &regs);
-+	TEST_ASSERT(!r, "KVM_GET_REGS on twin failed: errno %d", errno);
-+	regs.rip = (unsigned long)code;
-+	regs.rsp = vm_alloc_stack(vm, TWIN_STACK_PAGES);
-+	regs.rflags = 0x2;
-+	r = ioctl(twin->fd, KVM_SET_REGS, &regs);
-+	TEST_ASSERT(!r, "KVM_SET_REGS on twin failed: errno %d", errno);
-+
+diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
+index 1c30bb2806d3..21a057bd43be 100644
+--- a/Documentation/virt/kvm/api.rst
++++ b/Documentation/virt/kvm/api.rst
+@@ -7756,6 +7756,8 @@ spec refer, https://github.com/riscv/riscv-sbi-doc.
+   #define KVM_MEMORY_EXIT_FLAG_EXEC     (1ULL << 2)
+   #define KVM_MEMORY_EXIT_FLAG_PRIVATE	(1ULL << 3)
+   #define KVM_MEMORY_EXIT_FLAG_GVA_VALID	(1ULL << 4)
++  #define KVM_MEMORY_EXIT_FLAG_PLANE_PROT	(1ULL << 5)
++  #define KVM_MEMORY_EXIT_FLAG_INSN_VALID	(1ULL << 6)
+ 			__u64 flags;
+ 			__u64 gpa;
+ 			__u64 size;
+@@ -7778,12 +7780,24 @@ describes properties of the faulting access that are likely pertinent:
+    shared access.
+  - KVM_MEMORY_EXIT_FLAG_GVA_VALID - When set, 'gva' holds the faulting guest
+    virtual address.
++ - KVM_MEMORY_EXIT_FLAG_PLANE_PROT - When set, the access was refused by the
++   memory attributes of the vCPU's plane.  Reported on VMs with more than one
++   plane, for guest accesses, for KVM's walks of the guest page tables and
++   for accesses KVM makes while emulating an instruction.  Other memory-fault
++   exits, such as one for a GPA that no memslot maps, leave it clear.
++ - KVM_MEMORY_EXIT_FLAG_INSN_VALID - When set, 'insn_len' and 'insn_bytes'
++   describe the faulting instruction: 'insn_bytes' holds its first
++   'insn_len' bytes.  For an EXEC fault the faulting instruction cannot be
++   read; 'insn_bytes' stays zero and 'insn_len' is the length of the
++   instruction that performed the fetch, which only VMX reports.
+ 
+ The 'gva', 'insn_len' and 'insn_bytes' fields exist only on kernels
+ which advertise KVM_CAP_PLANE_MEMORY_OVERLAYS (see section 8.48).  On
+-plane memory-protection faults, 'insn_len' and 'insn_bytes' carry a
+-best-effort copy of the faulting instruction when KVM could fetch it;
+-an 'insn_len' of 0 means no instruction bytes are available.
++x86, KVM fills them in on plane memory-protection faults taken by the
++guest when it can, and KVM_MEMORY_EXIT_FLAG_GVA_VALID and
++KVM_MEMORY_EXIT_FLAG_INSN_VALID say which of them are valid.  SEV-ES and
++SEV-SNP guests get neither.  Every other memory-fault exit leaves the
++fields zero.
+ 
+ Note!  KVM_EXIT_MEMORY_FAULT is unique among all KVM exit reasons in that it
+ accompanies a return code of '-1', not '0'!  errno will always be set to EFAULT
+@@ -10175,7 +10189,10 @@ announces two things:
+ 
+  - The extended KVM_EXIT_MEMORY_FAULT layout: 'memory_fault' carries
+    the additional 'gva', 'insn_len' and 'insn_bytes' fields, with
+-   KVM_MEMORY_EXIT_FLAG_GVA_VALID qualifying 'gva' (see section 5).
++   KVM_MEMORY_EXIT_FLAG_GVA_VALID qualifying 'gva' and
++   KVM_MEMORY_EXIT_FLAG_INSN_VALID qualifying 'insn_len' and
++   'insn_bytes', and the KVM_MEMORY_EXIT_FLAG_PLANE_PROT flag (see
++   section 5).
+ 
+ 9. Known KVM API problems
+ =========================
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index 8061790e7357..91aadea42af4 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -4885,6 +4885,7 @@ static int kvm_mmu_faultin_pfn(struct kvm_vcpu *vcpu,
+ 
+ 	if (kvm_faultin_memory_protections(vcpu, fault)) {
+ 		kvm_mmu_prepare_memory_fault_exit(vcpu, fault);
++		kvm_mark_plane_prot_fault(vcpu);
+ 		return -EFAULT;
+ 	}
+ 
+diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
+index 377cd3e7c7d6..7bd0b0dba268 100644
+--- a/arch/x86/kvm/mmu/paging_tmpl.h
++++ b/arch/x86/kvm/mmu/paging_tmpl.h
+@@ -430,6 +430,7 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
+ 			walker->error = -EFAULT;
+ 			kvm_prepare_memory_fault_exit(vcpu, real_gpa & PAGE_MASK,
+ 						      PAGE_SIZE, false, false, false);
++			kvm_mark_plane_prot_fault(vcpu);
+ 			goto error;
+ 		}
+ 
+diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+index b87c12944108..cf049367523c 100644
+--- a/arch/x86/kvm/svm/svm.c
++++ b/arch/x86/kvm/svm/svm.c
+@@ -2148,6 +2148,105 @@ static int npf_interception(struct kvm_vcpu *vcpu)
+ 				svm->vmcb->control.insn_bytes : NULL,
+ 				svm->vmcb->control.insn_len);
+ 
 +	/*
-+	 * Software-enable the twin's APIC.  As on plane 0, the plane's APIC
-+	 * map is built from APIC state writes; the vCPU-creation reset runs
-+	 * before the twin joins its plane, so until a KVM_SET_LAPIC an NMI
-+	 * MSI would find no destination.
++	 * A plane-protection fault reflected to userspace becomes a TLFS
++	 * GPA intercept message carrying the faulting instruction's length
++	 * and bytes; see the equivalent harvest in handle_ept_violation().
++	 *
++	 * For a data access, Decode Assists store up to 15 bytes fetched
++	 * from CS:RIP (the raw window, not the decoded length) in the VMCB;
++	 * run them through the decoder to report the real length.  The
++	 * window can be empty: no Decode Assists, a fault while fetching
++	 * CS:RIP, or erratum 1096 (see svm_check_emulate_instruction()).
++	 * Then decode from guest memory at RIP instead, which KVM can only
++	 * do when it can read the guest's memory and registers.
++	 *
++	 * An instruction-fetch #NPF stores no bytes (APM vol 2, "Nested and
++	 * Intercepted #PF"), and the length an execute intercept carries is
++	 * that of the branch that fetched the faulting page, which VMX
++	 * hardware reports and SVM does not record.  Decoding at RIP would
++	 * describe the branch target instead, so an execute intercept
++	 * reports length 0.
++	 *
++	 * None of it applies to SEV-ES and SEV-SNP guests: KVM cannot see
++	 * the CS and mode state the decoder needs, and RFLAGS lives in the
++	 * encrypted VMSA, so they get the bare fault.
 +	 */
-+	r = ioctl(twin->fd, KVM_GET_LAPIC, &lapic);
-+	TEST_ASSERT(!r, "KVM_GET_LAPIC on twin failed: errno %d", errno);
-+	*(u32 *)&lapic.regs[APIC_SPIV] |= APIC_SPIV_APIC_ENABLED;
-+	r = ioctl(twin->fd, KVM_SET_LAPIC, &lapic);
-+	TEST_ASSERT(!r, "KVM_SET_LAPIC on twin failed: errno %d", errno);
-+}
++	if (rc == -EFAULT &&
++	    vcpu->run->exit_reason == KVM_EXIT_MEMORY_FAULT &&
++	    (vcpu->run->memory_fault.flags & KVM_MEMORY_EXIT_FLAG_PLANE_PROT) &&
++	    !vcpu->arch.guest_state_protected) {
++		bool window = cpu_feature_enabled(X86_FEATURE_DECODEASSISTS) &&
++			      svm->vmcb->control.insn_len;
++		void *insn = window ? svm->vmcb->control.insn_bytes : NULL;
++		int insn_len = window ? svm->vmcb->control.insn_len : 0;
++		unsigned int len = 0;
 +
-+static void destroy(struct kvm_vm *vm, struct twin *twin)
-+{
-+	kvm_munmap(twin->run, twin->mmap_sz);
-+	close(twin->fd);
-+	close(plane_fd);
-+	kvm_vm_free(vm);
-+}
++		if (!(error_code & PFERR_FETCH_MASK) &&
++		    (window || !is_sev_guest(vcpu))) {
++			typeof(vcpu->run->memory_fault) fault =
++				vcpu->run->memory_fault;
++			u32 exit_reason = vcpu->run->exit_reason;
++			int r;
 +
-+static void expect_twin_sync(struct twin *twin, uint8_t stage)
-+{
-+	TEST_ASSERT_EQ(twin->run->exit_reason, KVM_EXIT_IO);
-+	TEST_ASSERT_EQ(twin->run->io.port, TWIN_SYNC_PORT);
-+	TEST_ASSERT_EQ(*((uint8_t *)twin->run + twin->run->io.data_offset),
-+		       stage);
-+}
++			/*
++			 * Fetching bytes beyond the window can hit the plane's
++			 * protections too (a protected code or page-table page
++			 * is the normal VSM layout), and the refused fetch
++			 * prepares a memory-fault exit of its own.  Report the
++			 * fault that was taken.
++			 */
++			r = x86_decode_emulated_instruction(vcpu, 0, insn,
++							    insn_len);
++			vcpu->run->exit_reason = exit_reason;
++			vcpu->run->memory_fault = fault;
 +
-+static void test_folded_nmi_halt(void)
-+{
-+	struct kvm_vcpu *vcpu0;
-+	struct twin twin;
-+	struct kvm_vm *vm;
-+	pthread_t sender;
-+	int r;
++			if (r == EMULATION_OK) {
++				struct x86_emulate_ctxt *ctxt =
++					vcpu->arch.emulate_ctxt;
 +
-+	vm = create_vm(&vcpu0, false);
-+	create_twin(vm, vcpu0, twin_halt_code, &twin);
++				len = min_t(unsigned int, ctxt->_eip - ctxt->eip,
++					    sizeof(vcpu->run->memory_fault.insn_bytes));
++			}
++		}
 +
-+	/* Run the twin as the selected plane, with plane 0 held. */
-+	set_plane_run_state(twin.fd, 0);
-+	set_plane_run_state(vcpu0->fd, KVM_PLANE_RUN_STATE_USER_HOLD);
-+	r = ioctl(vcpu0->fd, KVM_RUN, NULL);
-+	TEST_ASSERT(!r, "KVM_RUN (twin runnable) failed: errno %d", errno);
-+	expect_twin_sync(&twin, 1);
++		vcpu->run->memory_fault.insn_len = len;
++		if (len) {
++			/*
++			 * Copy from the decoder's fetch cache, not from the
++			 * VMCB window: the decoder fetches any bytes beyond
++			 * the window from guest memory, so the decoded
++			 * length can exceed control.insn_len, and the
++			 * VMCB-sourced tail would be whatever an earlier
++			 * intercept left behind.
++			 */
++			memcpy(vcpu->run->memory_fault.insn_bytes,
++			       vcpu->arch.emulate_ctxt->fetch.data, len);
++			vcpu->run->memory_fault.flags |=
++				KVM_MEMORY_EXIT_FLAG_INSN_VALID;
++		}
 +
-+	signal(SIGUSR1, sigusr1_handler);
-+	vcpu_thread = pthread_self();
-+	r = pthread_create(&sender, NULL, nmi_sender, NULL);
-+	TEST_ASSERT(!r, "pthread_create failed: %d", r);
-+
-+	/*
-+	 * The twin halts; only the folded NMI can wake it.  Raw KVM_RUN on
-+	 * purpose: the helper's SIGUSR1 must end this run with EINTR.
-+	 */
-+	r = ioctl(vcpu0->fd, KVM_RUN, NULL);
-+	/* On failure, the folded NMI did not break the twin's HLT. */
-+	TEST_ASSERT(!r, "KVM_RUN returned %d, errno %d", r, errno);
-+	expect_twin_sync(&twin, 2);
-+
-+	pthread_cancel(sender);
-+	pthread_join(sender, NULL);
-+	destroy(vm, &twin);
-+}
-+
-+static void test_blocked_nmi_suspend(void)
-+{
-+	struct kvm_vcpu_events events;
-+	struct kvm_vcpu *vcpu0;
-+	struct twin twin;
-+	struct kvm_vm *vm;
-+	int r;
-+
-+	if (!(kvm_check_cap(KVM_CAP_HYPERV_FORWARD_HCALL) &
-+	      KVM_HYPERV_HCALL_VTL_CALLS)) {
-+		print_skip("KVM_HYPERV_HCALL_VTL_CALLS not supported");
-+		return;
++		/*
++		 * The reflected fault is delivered to the higher VTL like an
++		 * exception, and fault delivery gives the to-be-restarted
++		 * instruction RFLAGS.RF=1 (no instruction-breakpoint
++		 * re-trigger on the retry).  VMX saves the fault-adjusted RF
++		 * in guest RFLAGS on a fault-type exit and the TLFS message
++		 * carries that value; SVM saves RF as it was during
++		 * execution, so apply the fault adjustment by hand.
++		 *
++		 * Under NMI-window single-stepping the vmcb RFLAGS carries
++		 * KVM's own TF/RF, and the guest view lives in
++		 * nmi_singlestep_guest_rflags: set RF there too, or
++		 * svm_get_rflags() hides it from userspace and
++		 * disable_nmi_singlestep() wipes it from the vmcb when the
++		 * window closes.
++		 */
++		if (unlikely(svm->nmi_singlestep))
++			svm->nmi_singlestep_guest_rflags |= X86_EFLAGS_RF;
++		svm_set_rflags(vcpu, svm_get_rflags(vcpu) | X86_EFLAGS_RF);
 +	}
 +
-+	vm = create_vm(&vcpu0, true);
-+	create_twin(vm, vcpu0, twin_spin_code, &twin);
-+
-+	/* NMIs blocked, as in an NMI handler that has not reached IRET. */
-+	r = ioctl(twin.fd, KVM_GET_VCPU_EVENTS, &events);
-+	TEST_ASSERT(!r, "KVM_GET_VCPU_EVENTS on twin failed: errno %d", errno);
-+	events.nmi.masked = 1;
-+	r = ioctl(twin.fd, KVM_SET_VCPU_EVENTS, &events);
-+	TEST_ASSERT(!r, "KVM_SET_VCPU_EVENTS on twin failed: errno %d", errno);
-+
-+	set_plane_run_state(twin.fd, 0);
-+	set_plane_run_state(vcpu0->fd, KVM_PLANE_RUN_STATE_USER_HOLD);
-+	vcpu_run(vcpu0);
-+	expect_twin_sync(&twin, 1);
-+
+ 	if (rc > 0 && error_code & PFERR_GUEST_RMP_MASK)
+ 		sev_handle_rmp_fault(vcpu, gpa, error_code);
+ 
+diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+index b5aa7110bf36..e5c22eafd5e0 100644
+--- a/arch/x86/kvm/vmx/vmx.c
++++ b/arch/x86/kvm/vmx/vmx.c
+@@ -6088,9 +6088,7 @@ static int handle_ept_violation(struct kvm_vcpu *vcpu)
+ 	 */
+ 	if (ret == -EFAULT &&
+ 	    vcpu->run->exit_reason == KVM_EXIT_MEMORY_FAULT &&
+-	    (vcpu->run->memory_fault.flags & (KVM_MEMORY_EXIT_FLAG_READ |
+-					      KVM_MEMORY_EXIT_FLAG_WRITE |
+-					      KVM_MEMORY_EXIT_FLAG_EXEC))) {
++	    (vcpu->run->memory_fault.flags & KVM_MEMORY_EXIT_FLAG_PLANE_PROT)) {
+ 		unsigned int len;
+ 
+ 		if (exit_qualification & EPT_VIOLATION_GVA_IS_VALID) {
+@@ -6108,7 +6106,6 @@ static int handle_ept_violation(struct kvm_vcpu *vcpu)
+ 		len = vmcs_read32(VM_EXIT_INSTRUCTION_LEN);
+ 		len = min_t(unsigned int, len,
+ 			    sizeof(vcpu->run->memory_fault.insn_bytes));
+-		vcpu->run->memory_fault.insn_len = len;
+ 		if (!(exit_qualification & EPT_VIOLATION_ACC_INSTR)) {
+ 			typeof(vcpu->run->memory_fault) fault =
+ 				vcpu->run->memory_fault;
+@@ -6132,10 +6129,16 @@ static int handle_ept_violation(struct kvm_vcpu *vcpu)
+ 			 */
+ 			vcpu->run->exit_reason = exit_reason;
+ 			vcpu->run->memory_fault = fault;
+-			if (r)
++			if (r) {
+ 				memset(vcpu->run->memory_fault.insn_bytes, 0,
+ 				       sizeof(vcpu->run->memory_fault.insn_bytes));
++				len = 0;
++			}
+ 		}
++		vcpu->run->memory_fault.insn_len = len;
++		if (len)
++			vcpu->run->memory_fault.flags |=
++				KVM_MEMORY_EXIT_FLAG_INSN_VALID;
+ 	}
+ 	return ret;
+ }
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 0d6c8adecb01..27317077f519 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -5198,6 +5198,7 @@ static int kvm_fetch_guest_virt(struct x86_emulate_ctxt *ctxt,
+ 		if (!kvm_mem_attributes_may_exec(attrs)) {
+ 			kvm_prepare_memory_fault_exit(vcpu, gpa & PAGE_MASK, PAGE_SIZE,
+ 						      false, true, false);
++			kvm_mark_plane_prot_fault(vcpu);
+ 			return X86EMUL_MEMORY_FAULT;
+ 		}
+ 		return X86EMUL_IO_NEEDED;
+diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+index 5399d0065c97..ef95158ddd53 100644
+--- a/include/linux/kvm_host.h
++++ b/include/linux/kvm_host.h
+@@ -2824,6 +2824,18 @@ static inline void kvm_prepare_memory_fault_exit(struct kvm_vcpu *vcpu,
+ 	vcpu->run->memory_fault.gpa = gpa;
+ 	vcpu->run->memory_fault.size = size;
+ 
 +	/*
-+	 * Post an NMI to the twin, NMIs still blocked; the next run
-+	 * consumes its marker.  KVM_NMI is not accepted on a plane fd.
++	 * Clear the extended fields: only the x86 plane-protection harvest
++	 * fills them in (with the matching validity flags), and a leftover
++	 * from an earlier exit would otherwise masquerade as this fault's
++	 * instruction.  All-zero insn_bytes is a valid x86 encoding, so
++	 * zeroing alone is not a distinguishable "not provided" marker.
 +	 */
-+	r = ioctl(twin.fd, KVM_GET_VCPU_EVENTS, &events);
-+	TEST_ASSERT(!r, "KVM_GET_VCPU_EVENTS on twin failed: errno %d", errno);
-+	events.flags = KVM_VCPUEVENT_VALID_NMI_PENDING;
-+	events.nmi.pending = 1;
-+	events.nmi.masked = 1;
-+	r = ioctl(twin.fd, KVM_SET_VCPU_EVENTS, &events);
-+	TEST_ASSERT(!r, "KVM_SET_VCPU_EVENTS (NMI) on twin failed: errno %d",
-+		    errno);
-+	vcpu_run(vcpu0);
-+	expect_twin_sync(&twin, 2);
++	vcpu->run->memory_fault.gva = 0;
++	vcpu->run->memory_fault.insn_len = 0;
++	memset(vcpu->run->memory_fault.insn_bytes, 0,
++	       sizeof(vcpu->run->memory_fault.insn_bytes));
 +
-+	r = ioctl(twin.fd, KVM_GET_VCPU_EVENTS, &events);
-+	TEST_ASSERT(!r, "KVM_GET_VCPU_EVENTS on twin failed: errno %d", errno);
-+	TEST_ASSERT(events.nmi.pending && events.nmi.masked,
-+		    "Expected a blocked NMI to stay pending (pending %u, masked %u)",
-+		    events.nmi.pending, events.nmi.masked);
-+
-+	/* Suspend the twin as a VtlReturn would, NMI still latched. */
-+	set_plane_run_state(twin.fd, KVM_PLANE_RUN_STATE_USER_HOLD);
-+	set_plane_run_state(vcpu0->fd, 0);
-+
-+	/* On failure the NMI was forgotten and plane 0 runs its guest. */
-+	vcpu_run(vcpu0);
-+	TEST_ASSERT(vcpu0->run->exit_reason == KVM_EXIT_HYPERV,
-+		    "Expected KVM_EXIT_HYPERV, got %u (%s): the twin's blocked NMI was lost when it suspended",
-+		    vcpu0->run->exit_reason,
-+		    exit_reason_str(vcpu0->run->exit_reason));
-+	TEST_ASSERT_EQ(vcpu0->run->hyperv.type, KVM_EXIT_HYPERV_VTL_INTERRUPT);
-+	TEST_ASSERT_EQ(vcpu0->run->hyperv.plane, 1);
-+
-+	destroy(vm, &twin);
-+}
-+
-+int main(int argc, char *argv[])
+ 	vcpu->run->memory_fault.flags = 0;
+ 
+ 	if (is_write)
+@@ -2837,6 +2849,20 @@ static inline void kvm_prepare_memory_fault_exit(struct kvm_vcpu *vcpu,
+ 		vcpu->run->memory_fault.flags |= KVM_MEMORY_EXIT_FLAG_PRIVATE;
+ }
+ 
++/*
++ * Mark a just-prepared memory-fault exit as caused by the vCPU's plane's
++ * memory attributes.  Every site that refuses an access on an attribute
++ * check calls this; other memory-fault exits (an unmapped GPA, a nested
++ * CR3 outside guest memory) leave KVM_MEMORY_EXIT_FLAG_PLANE_PROT clear.
++ * It is reported on VMs with more than one plane, which is what the flag
++ * was defined for.
++ */
++static inline void kvm_mark_plane_prot_fault(struct kvm_vcpu *vcpu)
 +{
-+	test_folded_nmi_halt();
-+	test_blocked_nmi_suspend();
-+	return 0;
++	if (kvm_arch_max_planes(vcpu->kvm) > 1)
++		vcpu->run->memory_fault.flags |= KVM_MEMORY_EXIT_FLAG_PLANE_PROT;
 +}
++
+ static inline bool kvm_memslot_is_gmem_only(const struct kvm_memory_slot *slot)
+ {
+ 	if (!IS_ENABLED(CONFIG_KVM_GUEST_MEMFD))
+diff --git a/include/uapi/linux/kvm.h b/include/uapi/linux/kvm.h
+index 18845d9e02f2..0278fa03e532 100644
+--- a/include/uapi/linux/kvm.h
++++ b/include/uapi/linux/kvm.h
+@@ -490,10 +490,25 @@ struct kvm_run {
+ #define KVM_MEMORY_EXIT_FLAG_EXEC       (1ULL << 2)
+ #define KVM_MEMORY_EXIT_FLAG_PRIVATE	(1ULL << 3)
+ #define KVM_MEMORY_EXIT_FLAG_GVA_VALID	(1ULL << 4)
++/* The fault was caused by the vCPU's plane's memory protections. */
++#define KVM_MEMORY_EXIT_FLAG_PLANE_PROT	(1ULL << 5)
++/*
++ * insn_len/insn_bytes are valid.  For an EXEC fault the faulting
++ * instruction itself cannot be read: insn_bytes stays zero, and
++ * insn_len is the length of the instruction which performed the
++ * fetch (reported by VMX hardware; not available on SVM).
++ */
++#define KVM_MEMORY_EXIT_FLAG_INSN_VALID	(1ULL << 6)
+ 			__u64 flags;
+ 			__u64 gpa;
+ 			__u64 size;
+-			/* set on plane-protection faults when available */
++			/*
++			 * gva/insn_len/insn_bytes are set on plane-protection
++			 * faults when available, and are zero on every other
++			 * memory-fault exit.  They are enumerated, along with
++			 * the PLANE_PROT and INSN_VALID flags, by the plane
++			 * memory overlay capability.
++			 */
+ 			__u64 gva;
+ 			__u32 insn_len;
+ 			__u8  insn_bytes[16];
+diff --git a/tools/testing/selftests/kvm/memory_attributes.c b/tools/testing/selftests/kvm/memory_attributes.c
+index 2883f6c772be..25e49ddd2623 100644
+--- a/tools/testing/selftests/kvm/memory_attributes.c
++++ b/tools/testing/selftests/kvm/memory_attributes.c
+@@ -198,7 +198,11 @@ static void test_page_restricted(struct kvm_vcpu *vcpu, int op,
+ 	TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_MEMORY_FAULT);
+ 	TEST_ASSERT_EQ(vcpu->run->memory_fault.gpa, fault_paddr);
+ 	if (fault_reason)
+-		TEST_ASSERT_EQ(vcpu->run->memory_fault.flags, fault_reason);
++		TEST_ASSERT_EQ(vcpu->run->memory_fault.flags &
++			       ~(KVM_MEMORY_EXIT_FLAG_GVA_VALID |
++				 KVM_MEMORY_EXIT_FLAG_PLANE_PROT |
++				 KVM_MEMORY_EXIT_FLAG_INSN_VALID),
++			       fault_reason);
+ 	TEST_ASSERT_EQ(vcpu->run->memory_fault.size, vm->page_size);
+ }
+ 
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index 3eeb36b3f785..07882de23f3a 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -2726,12 +2726,14 @@ bool kvm_prepare_memory_fault_exit_for_range(struct kvm_vcpu *vcpu, gpa_t gpa,
+ 		if (!kvm_vcpu_mem_attributes_may_read_gfn(vcpu, gfn)) {
+ 			kvm_prepare_memory_fault_exit(vcpu, gfn_to_gpa(gfn), PAGE_SIZE,
+ 						      write, false, false);
++			kvm_mark_plane_prot_fault(vcpu);
+ 			return true;
+ 		}
+ 
+ 		if (write && !kvm_vcpu_mem_attributes_may_write_gfn(vcpu, gfn)) {
+ 			kvm_prepare_memory_fault_exit(vcpu, gfn_to_gpa(gfn), PAGE_SIZE,
+ 						      true, false, false);
++			kvm_mark_plane_prot_fault(vcpu);
+ 			return true;
+ 		}
+ 	}
 -- 
 2.50.1
 
