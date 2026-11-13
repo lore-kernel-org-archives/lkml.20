@@ -1,66 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794578908;
-	b=1u+aZ/96RnJOK1jf79rezfe+YWfvDMjGv3GWeOwjMEElexkzz+uPBCVjPV4HY4nmZM+M
-	 qZQcv4OLimXGkxiUInnu5v1wkDMy3MDHpQtLEx7pvM/fHl669RJ5NpLcvzTmGcwpqX/5R
-	 uMve8ImS5z6zZGyObfYBSFvJGgMYQVLmCwwJ/PFTA7ykTLOu1oxbS5sU+YA0AcV6nAGOV
-	 2ZW7ukSgTiyQeJps3uoYoHYxDkvFfX3QLz0xShgfmppcXLBmYshOzcCqwcDFetDeVxn01
-	 Dk9xCr0FtEIUnr8dUOEq+cojFiTStdt7LzN+ItPm32iiyKd1ebJTLzp/tMNKgkVUd9w==
+	t=1794578963;
+	b=z4E57HL2OX/D/vbE0WVYY9c06Cu43UuqQTYoHcT77JDY8XvRLIHI4gaHymvLgoSpRjJn
+	 9Xrh9YjJvu63tta9DZf4m3iEcj++GfR8YqNb6blSAhIrVdgnCYdeoH94P+fJKLrCyd2s8
+	 fpVj6RXWW/8Q31u84jIU2XrjX6w7BzETptQp/71r8vcrUk4zDL3D+zxj6cqd2VoJghf9y
+	 +91ArmYhSjFTKaQOAksozbzhlWwx6y7dJ6eqR9Og/qJMXrS+HjZEcIypMIAJAi9XK3Q03
+	 aCKu6zg17QZSQJbxOkMNGwbp9l2ZciTPvksJAg92tRq4xMpPkxqim0TdD8pKs9LnEhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794578908;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=WsrGw3edm9FzwMEE9G632XVGf6LNTuNlP557XSOGQsU=;
-	b=LhKOmcmi1KIQE/ANE69VJ6YhnZUNyq839KNbbZQbPJ1eCcWehLXCqVDIOMxTRqyPbM08
-	 yCQB32Z5cJmBz1CsQRMLKdQbkda0n46To4tgCDtpXaeH6ftV64RyjaLR23eWpGUGOzB70
-	 r/e9cCOIC9aXqVSCx9/P5tb5D0d2DgrceLzhXnVLx07j40MGWeM0ULGB9krVugLQut/9z
-	 483WGl4VQFvmsePo1vySCv39uLsOiMIV7ui9tGfbSAlWo9HWhqQpRw4vVYa7WMCf7quQM
-	 RTCRSk2gqRbpsiKmz4b7UlhXS4vy/GGNmfUWd+W676bMSAUHodGaQoZmec8E1r2kw8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794578963;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=F5RaYaqTlEkq9wWix1JsfPr5fojmN++2yJa5YPxa4A8=;
+	b=EPkxjSDb4QKRyn8OHPQn09toiRue26NQt0HjhYKoxuMI3r/MkcRlB6x4qN1OW2TtXkPV
+	 3J2UfDMfiwB7zbNicMTGP69v/I6uRpGVBFb9nOGV6QleS4Z+gGoSi0sgljot4ZUFk8/Oa
+	 BgLu0uwm18MV86BqZy2eIKCDrT7U7c5tDyZXDbdYPyzVNwVBfsYaRkv41pErl8Rlz5v6a
+	 CBIVXWA1uj9qBC5X87o9XIWVxLVjivO0QLggApFkuC+8oMg//P/O4yriH7XIMqUjNG4DU
+	 ITFTQg92gbdCgtFuKXC9o6nPfVhHvFBmPKrzgvL7EF3wpkPOslhex7HOhYiF2PEsVFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=v1KRo8ct;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OqzYynOZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80D8B606A323;
-	Fri, 13 Nov 2026 14:08:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80D8B606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32792606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 14:09:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=v1KRo8ct
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=WsrGw3edm9FzwMEE9G632XVGf6LNTuNlP557XSOGQsU=; b=v1KRo8ctYX8V68DybfaVBGInQB
-	CAwiZBXVU6EzUsd1jj3OmGkx32696PURT0HnInRE5ZfPYpFtl0z1t/Dza3SLYw0hl935/NAJzDftN
-	P8qyfok68We1jdiuyeUcXCtGp13dv7DeaStf+ixq2AhQgy5LVkObq9Jn4EOVqsOUMvgs=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xRrwo-00GHxb-VE; Fri, 13 Nov 2026 15:08:10 +0100
-Date: Fri, 13 Nov 2026 15:08:10 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: joseph@telaak.dev
-Cc: Hauke Mehrtens <hauke@hauke-m.de>, Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Daniel Golle <daniel@makrotopia.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v3 0/2] net: dsa: mxl-gsw1xx: reset the switch
- through reset-gpios
-Message-ID: <a2f45802-b75b-4a19-9508-2d1b5ebe473a@lunn.ch>
-References: <20261112-mxl-gsw1xx-reset-v3-0-863e82074893@telaak.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OqzYynOZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F0611F000C4;
+	Fri, 13 Nov 2026 14:09:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794578962;
+	bh=F5RaYaqTlEkq9wWix1JsfPr5fojmN++2yJa5YPxa4A8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OqzYynOZXG2odj2F1DNoZv1gtpuyl6JnGus5F6/MZ5s5tBFfgZETBm+4pk7aElvqL
+	 Dw1XXOtW45uMZHuk3Oey65/lhdIS03HohsIjNtyrII4Q5WNVJugP4YlCM7VvJsKwBU
+	 DNnvgsXX3b3d27pD6tWEzzQf7PI8NItIm13gNtK6TgeQFePMVuvg3qLvvxFRisq/Wx
+	 CMgH9oR3pfZamxCLJT9xVmUXnnas92V9pQBahfy7o1fDOFZFvHiJ5yO7EePDwZB1Kf
+	 PAhxeHWJbAcrbcFfQMJhI5m1nZmxYrQndPqaveeLNY++Sz98nWlen6e9h689Vo8JSC
+	 B2WbZGyb/C2Fg==
+Date: Fri, 13 Nov 2026 14:09:18 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "Xu Xin (vivo)" <xu.xin@linux.dev>
+Cc: chengming.zhou@linux.dev, david@kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH 2/2] mm/ksm: add initialization helpers for
+ scan_get_next_rmap_item()
+Message-ID: <avcZQNlZ7cisQAeG@gremlin>
+References: <20261112125754.176930-1-xu.xin@linux.dev>
+ <20261112125959.177881-1-xu.xin@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,24 +60,138 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261112-mxl-gsw1xx-reset-v3-0-863e82074893@telaak.dev>
+In-Reply-To: <20261112125959.177881-1-xu.xin@linux.dev>
 
-> This is separate from commit 82e2c7db0830 ("net: dsa: mxl-gsw1xx: force
-> internal PHYs into a known reset state"), which only programs the PHY
-> bits of RST_REQ. On this board that commit is applied, and the PHYs still
-> sit at the shifted addresses; only a hardware reset of the switch moves
-> them back.
+On Thu, Nov 12, 2026 at 08:59:59PM +0800, Xu Xin (vivo) wrote:
+> Extract the new scan cycle detection (including draining per-CPU LRU
+> caches) and advancing the scan cursor to the first mm_slot into
+> scan_begin_new_cycle() and scan_get_first_mm().
+>
+> This keeps the exact execution order intact while making
+> scan_get_next_rmap_item() cleaner and easier to follow.
+>
+> No functional change intended.
+>
+> Signed-off-by: Xu Xin (vivo) <xu.xin@linux.dev>
 
-I don't think 82e2c7db0830 is relevant here. The commit message says
-nothing about the address of the PHY.
+Again, thanks for doing this! LGTM and:
 
-How does the bootloader change the address? I assume there is a
-register it writes?
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Is there a comment about why it changes the address?
+> ---
+>  mm/ksm.c | 70 +++++++++++++++++++++++++++++++++++++-------------------
+>  1 file changed, 46 insertions(+), 24 deletions(-)
+>
+> diff --git a/mm/ksm.c b/mm/ksm.c
+> index 49977bcf04f7..e79e64372e49 100644
+> --- a/mm/ksm.c
+> +++ b/mm/ksm.c
+> @@ -2640,6 +2640,49 @@ static void ksm_reset_unstable_trees(void)
+>  		root_unstable_tree[nid] = RB_ROOT;
+>  }
+>
+> +static bool scan_begin_new_cycle(void)
+> +{
+> +	/* Check if the cursor points to the head. */
+> +	if (ksm_scan.mm_slot != &ksm_mm_head)
+> +		return false;
+> +
+> +	/*
+> +	 * A number of pages can hang around indefinitely in per-cpu
+> +	 * LRU cache, raised page count preventing write_protect_page
+> +	 * from merging them.  Though it doesn't really matter much,
+> +	 * it is puzzling to see some stuck in pages_volatile until
+> +	 * other activity jostles them out, and they also prevented
+> +	 * LTP's KSM test from succeeding deterministically; so drain
+> +	 * them here (here rather than on entry to ksm_do_scan(),
+> +	 * so we don't IPI too often when pages_to_scan is set low).
+> +	 */
+> +	lru_add_drain_all();
 
-Does the driver have an implicit assumption about the addresses of the
-PHYs? Should the driver actually be writing this register to put the
-PHYs at the expected address?
+The sashiko finding is silly, this reorders it after advisor_start_scan() which
+calls... ktime_get(), yeah it's zero delta :)
 
-	Andrew
+> +	return true;
+> +}
+> +
+> +static struct ksm_mm_slot *scan_get_first_mm(void)
+> +{
+> +	struct ksm_mm_slot *mm_slot = ksm_scan.mm_slot;
+> +	struct mm_slot *slot;
+> +
+> +	spin_lock(&ksm_mmlist_lock);
+> +
+> +	slot = list_entry(mm_slot->slot.mm_node.next, struct mm_slot, mm_node);
+> +	mm_slot = mm_slot_entry(slot, struct ksm_mm_slot, slot);
+> +	ksm_scan.mm_slot = mm_slot;
+> +
+> +	spin_unlock(&ksm_mmlist_lock);
+
+NIT: optional, but this could be:
+
+	scoped_guard(mutex, &ksm_mmlist_lock) {
+		slot = list_entry(mm_slot->slot.mm_node.next, struct mm_slot, mm_node);
+		mm_slot = mm_slot_entry(slot, struct ksm_mm_slot, slot);
+		ksm_scan.mm_slot = mm_slot;
+	}
+
+> +
+> +	/*
+> +	 * Although we tested list_empty() above, a racing __ksm_exit
+> +	 * of the last mm on the list may have removed it since then.
+> +	 */
+> +	if (mm_slot == &ksm_mm_head)
+> +		return NULL;
+> +
+> +	return mm_slot;
+> +}
+> +
+>  static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
+>  {
+>  	struct mm_struct *mm;
+> @@ -2653,36 +2696,15 @@ static struct ksm_rmap_item *scan_get_next_rmap_item(struct page **page)
+>  		return NULL;
+>
+>  	mm_slot = ksm_scan.mm_slot;
+> -	if (mm_slot == &ksm_mm_head) {
+> +	if (scan_begin_new_cycle()) {
+>  		advisor_start_scan();
+>  		trace_ksm_start_scan(ksm_scan.seqnr, ksm_rmap_items);
+>
+> -		/*
+> -		 * A number of pages can hang around indefinitely in per-cpu
+> -		 * LRU cache, raised page count preventing write_protect_page
+> -		 * from merging them.  Though it doesn't really matter much,
+> -		 * it is puzzling to see some stuck in pages_volatile until
+> -		 * other activity jostles them out, and they also prevented
+> -		 * LTP's KSM test from succeeding deterministically; so drain
+> -		 * them here (here rather than on entry to ksm_do_scan(),
+> -		 * so we don't IPI too often when pages_to_scan is set low).
+> -		 */
+> -		lru_add_drain_all();
+> -
+>  		ksm_prune_migrate_nodes();
+>  		ksm_reset_unstable_trees();
+>
+> -		spin_lock(&ksm_mmlist_lock);
+> -		slot = list_entry(mm_slot->slot.mm_node.next,
+> -				  struct mm_slot, mm_node);
+> -		mm_slot = mm_slot_entry(slot, struct ksm_mm_slot, slot);
+> -		ksm_scan.mm_slot = mm_slot;
+> -		spin_unlock(&ksm_mmlist_lock);
+> -		/*
+> -		 * Although we tested list_empty() above, a racing __ksm_exit
+> -		 * of the last mm on the list may have removed it since then.
+> -		 */
+> -		if (mm_slot == &ksm_mm_head)
+> +		mm_slot = scan_get_first_mm();
+> +		if (!mm_slot)
+>  			return NULL;
+>  next_mm:
+>  		ksm_scan.address = 0;
+> --
+> 2.34.1
+>
+
+--
+Cheers, Lorenzo
