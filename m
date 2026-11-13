@@ -1,100 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.207.22.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794559235;
-	b=w6bryNQ3zqR+j8JfLfaf3uMADYy0sy5wLmIeaKQweBCPiUMA0a+K0qYZdarm2T6UXKT/
-	 NcnhKEq3AMJQPk1VU+fH1ZJ3YhlqbPw3hRyeLD66wzbqQ0D7g3A/zVaOTcgVcWWXodqeZ
-	 Aic9jjfqv8JzVyhWMxDCN2eMXS3ZHaDi6lG/rVkgjfNuN7dLv/Q6m7IziI7lB4Wgd+8UL
-	 5LR8Q2dExmKyVxlCRk+YjTYrdL5XmhqhZCZk/fb+P+aM1QjRj6rVpAEr1RupSUkLy+4b+
-	 u6K50H3YG1APCeOU6K0+CwlyNlWKxbw/KCPNgeIOhV8jVL9HHK+UEuG+ERoeuQWVLmw==
+	t=1794559244;
+	b=aSKfE/5OVh6SJBPc7SkGEVpl4/hEFu6XQKjgLNMdyPPxIhGSC1yXJ6M6wHd+wI+hQNSS
+	 y8/toOq53n8uI+Ut2fMN2zag6OwT7HVDyGyIJm06Uv8SRYj7GYFgLTd+8n1UKlivlBAIP
+	 68HksyplziL+z+oiedijv3vi2GUYrdv7FRviUuAlxGQqojWuhF4OZhvj73Fggdi9Ej2/u
+	 CrPAmdcJ2vExrRN2SBlSVnS/HnGe90q9Bxl/FNhxTDp8UXBHFZHcNpm9YkmdtQjjJ1cMM
+	 qG+0fgxMY3NtLqs4rjtyxX1fnSGRZBvcNsNRJfr3FewtmCpifjgKPEIduZpUlEt9nsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794559235;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=BBnWWtBKdgI2TAwNesV0oCYOVTkjWDyFP80ZcpwkwoA=;
-	b=hL6jMtPr04Apn+rEPH7Rc+FXSftjRcIgsJh8KE0wmz0mIBQ2Qsde0cG19vcF3DIpHBRe
-	 c4zIks3o0bZqRLBOuCn/Q9JHwsj+ZLlNrM5vpwJ+3UgJWsZf0GfZ08lMiAxpPTjAgve8G
-	 AZZskZDum4rW4dxm7mt88BUOSeaaqlkDHvCXUDJH2x85UoKGMWzc07/PLY0SeuWHThlpF
-	 AV3phg8SHASWCQTCt7R7RZMTkt+NV5Ag8rFktDgqSzDgozY7SUPq5ux8KRUiVqKSgOyCF
-	 DlmleJy9lEs7fVrDQ5DQ5ENK80A3fWlubOccFtWju2m4dJvdC1nqTlaY4iI6dcETqvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794559244;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
+	 Content-Type:Date:Message-Id:From:To:Cc:Subject:
+	 Content-Transfer-Encoding:In-Reply-To:References:X-QQ-SENDSIZE:
+	 Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=6WNAQRBi98h2rRNmIF3+dEJhZIMUbBlpuSNyCZ2B0FQ=;
+	b=b6VQqQv85dPSEzmYeoanP+TnGgEa0k+2/x4SlQtEym6qIGoQoiCUAts9OVwnreSAkyRF
+	 xBtgaDqAYSpoGBa1xJuxayiTNSDgiy809JcA3B6QfZvHf+l72eCRQIr7+PWy3TUUPlx0L
+	 LGksRGxL5ehUvxaiGi5Pn7mrYIA6ZYbuQqgHXDrzalJ3QZTXsKmt/thW1Xe617DtW1Ad6
+	 G3/eiD7Fbm5QjSXpjXxb+V4Y10QluJk3VmMxVk7MjEdMox+PlU2btp1CRdyotewJG0Bcn
+	 78OpVzmpY+WV2PCpIQ7PVuLnGmoFyXsyXgKAg6/UgyHApsfaWuzg9+mIHDSwFP45LbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="gV4GU//8";
-	arc=none smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=ZFErvSkU;
+	arc=none smtp.remote-ip=54.207.22.56
+Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43E4D60A2636
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 08:40:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43E4D60A2636
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E2BF606A321;
+	Fri, 13 Nov 2026 08:40:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E2BF606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gV4GU//8
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ae7626d14aso293734a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 00:40:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794559234; x=1795164034; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BBnWWtBKdgI2TAwNesV0oCYOVTkjWDyFP80ZcpwkwoA=;
-        b=gV4GU//8b5UXX3fB1poHfcWwaF8yDwgTfBZ4FxVwCSyE/RGh9w7pN/L5D3TScLNDi/
-         2Hj1ADK0phlUcLRUVdPQusQbLg1Xp7NyLGLcWQSxKZIaPr8x/OlUnwChIPoPIYSYCMXO
-         atg6k6g1mVkciyLuzJEAg9vUaqGj0+Zg2TvFqWVw4hkbfVOTKHHwBeNG15jcsimGwakG
-         yNuxR2g5R1lScr84PeUGpjCWwF1rNWq44FVyeKuZp+A3puhg8VWswtnqHZwRa1Ur0z9Q
-         T1TzaiGy2U/3HBaK2ZwVhrT8EyOR5WWO/si+Pq73UfiBk/6+dJwzYqw59ZR+ZDsyMXC3
-         G47w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794559234; x=1795164034;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BBnWWtBKdgI2TAwNesV0oCYOVTkjWDyFP80ZcpwkwoA=;
-        b=mN8wPRtSQsvh8uMbKxW5r4w/uKB3badNkBvGbTzpeeVg6eb4ewDbbAzshmh1iN8XYm
-         9dcjj7b86NKBo6yTEDDw2CCP8kI4Ezv70/AwcmyVlsIaI3pqPu552ImnQXOatO4aPwPR
-         SLLqbM8i/iCm7es16xIqVtcjIiJKqqO0Dus29oNjCG+XHY/jj2v1iNep3W6ozuFVI3hL
-         8wmutbDF6NGsP+oxqvRGNcw5LW2Ou2rPP9FWqtnAJ0zjUo8QGrcI25tJ+Ul3wtwDoLLM
-         oSSXm/Xi3WrF3Fo9yUdpeA1Auy9nZmQHjjb6W8sSBJ8Sp9pScubkbBUgt6+DTWMhH5rc
-         +zCA==
-X-Forwarded-Encrypted: i=1; AL+hErEgkEvp1krEpdBVi27GI5njuvf1KpY/SpjNSzBfdeJGZMCkf54bnJbiHDnMjxoAopq1I79AWFX5K8Nztuc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z90QCFmzhf8wBcEVzxdl6EHiYYFRO7ws+eEpG4MF6LohX/O4OZ1
-	+EiclvgEa6VK3YbzgQ3cgLacJkP3oAAxEPNWJoDVnXlN5kkmI4XQ+Vdk
-X-Gm-Gg: AYBFou1t2lrze4EebvKfPILtiSYyuz3LStHZV/ltAFlqU2uAjQq9ZklXELRnIZsDO1a
-	pRKYiChC+37ZJG5Jx1T787l1Zy7W66KKcLYbBOSgC9AbVKo4OztpbJeTZlhGrV21cmUIvIk88sr
-	61RNkkfh4M7PNeba9abLiy0uq6B/ciOnUWcjhElxaDsfoD33dUbMvguhwxU/U86CP3QgYYrdZZ8
-	8YvZ6RzIRDbbP135opN2X5aBaC4JEdnmGvVV9tnHWzKgitdcfKT6wR43nEJadtVHvnvFUfsYX7J
-	6I87Acvtk9xFJJ56GNdEIObCH+pKYSrcFKQEi4Y0V4E/VJAfb5xlQMyX9ggY+2Y8wcnfaEU2mi1
-	Hj7oHP2RSH8kH2HDHkwhH7h1fuAEDLWWNT8manFTBJXY5FgB6nfQsclFBC4pAO17b7UjC8ixIim
-	bgcGSnRvOv7g37SBHx8jAzJbyePA+qKVw4ttOOiDQLT5X65hw/Mqy9EY8464Vu1ka2kjxfE3uNq
-	+IU6wlMEH7vedhybyOPdthzHexXxKVJfBZQXwxYVxMxUC7vfG+3tAZ/FkbNHIu1UkiHFnjCmqpb
-	uWnL+2o/4arRNFyBEfuqyAU5lCtQ/0ggtjhyr5fouQ==
-X-Received: by 2002:a17:90b:56cb:b0:3b0:a9de:9880 with SMTP id 98e67ed59e1d1-3b1b0a3c5e9mr1581124a91.33.1794559234473;
-        Fri, 13 Nov 2026 00:40:34 -0800 (PST)
-Received: from localhost.localdomain ([183.62.176.219])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b25a365asm1264855a91.1.2026.11.13.00.40.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 00:40:34 -0800 (PST)
-From: Yong Liu <pkfxxxing@gmail.com>
-To: Bart Van Assche <bvanassche@acm.org>,
-	"Martin K. Petersen" <mkp@kernel.org>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>,
-	linux-rdma@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	security@kernel.org
-Subject: [PATCH v5 3/3] RDMA/srpt: Prevent uninitialized read buffer disclosure
-Date: Fri, 13 Nov 2026 16:38:42 +0800
-Message-ID: <20261113083848.1517595-4-pkfxxxing@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261113083848.1517595-1-pkfxxxing@gmail.com>
-References: <20261110030809.913063-1-pkfxxxing@gmail.com> <20261110030809.913063-2-pkfxxxing@gmail.com> <20261110052827.963143-1-pkfxxxing@gmail.com> <20261111065342.1282709-1-pkfxxxing@gmail.com> <20261112094138.1390409-1-pkfxxxing@gmail.com> <92a82300-a454-4ee5-a191-0ce5a2ee58c7@acm.org>
- <20261113083848.1517595-1-pkfxxxing@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=ZFErvSkU
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1794559203;
+	bh=6WNAQRBi98h2rRNmIF3+dEJhZIMUbBlpuSNyCZ2B0FQ=;
+	h=Mime-Version:Date:Message-Id:From:To:Subject;
+	b=ZFErvSkUbS3LmhGaWhpJdq1IjdBCSR/6zPNUAC3l+L0tLTKOqLVM6BDnx39jwwaXY
+	 yb18dmnqL8hPJ38VzHXpPWhQde0QBNGpQGkUQ0OIoAEqZcctjHcsEFVUPh2BuQ5aav
+	 bP2CX4hsWCB6zMe9UQMKazg4kRB+RCBkG9QzX2Fw=
+X-QQ-mid: zesmtpgz9t1794559202t4bdadd69
+X-QQ-Originating-IP: Ipks7jxgs1sprA9x/MuqmIpTxP//z84Adf3qIwSonO0=
+Received: from = ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 13 Nov 2026 16:39:59 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 7073859681775993480
+EX-QQ-RecipientCnt: 16
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,111 +58,99 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=75fec2531929259e420737857d2eefd1ef8c8ecf6776076da3f66f382a1e;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Fri, 13 Nov 2026 08:39:58 +0000
+Message-Id: <DMTY56PU7CP2.JGIZ9XDXII9E@linux.spacemit.com>
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Sarah Emery" <sarah.emery@canonical.com>
+Cc: "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Paul Walmsley"
+ <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou"
+ <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, "Yixun Lan"
+ <dlan@kernel.org>, "Guodong Xu" <docular.xu@gmail.com>, "Yangyu Chen"
+ <cyy@cyyself.name>, "Troy Mitchell" <troy.mitchell@linux.spacemit.com>,
+ <devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/2] riscv: dts: spacemit: Add K3 CoM260 IFX TQ support
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <fcd2fc41-5af8-4256-8296-a5435fdf41db@canonical.com>
+References: <20261105-k3-tq-dts-based-on-com260-v1-0-aa0b7714aed0@linux.spacemit.com>
+ <20261105-k3-tq-dts-based-on-com260-v1-2-aa0b7714aed0@linux.spacemit.com>
+ <fcd2fc41-5af8-4256-8296-a5435fdf41db@canonical.com>
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: Mrv4zYML0Tu4yumLMt0nupP/qBAqfxMj8/Fw8NU3nD+/lmX5NHUiHtFo
+	38UkHWXQGKC+7IZix+ESGTLRL+14d0shIfwLfjCZ3QBWC4yjmRSEVYpJGtUIsyvJXvUQgzw
+	EJ6tDA4zoc0jss7bo30jkHEkl0f4XO4kAvKxNg+cO6M4m1084C64NLTg0RprcQ+1lmRxBx5
+	6jc8TDnMCrNK7hV0DW9WCEY7sLh7EBRTnnfXLzHVGACHHsW7f0iHW0botrE2nA8R5gzi1Yc
+	31OjCN2TEyDHU8QiciuvTmXoRJESz3JOACkHE+jluCG3EK6X7JwQ5d3OKRxduRvgytujNmb
+	nko1nlRCZiAubc2c6Q7H1VvQyMKIkPLTuSCDxE+XI3xfVZUqnCMXGfmgTb08uU7DHDrsHV/
+	U5d8x2R/wF9h4/7bOEUEo2CePCOrHI5ET2l9gDDTe1CLhkMzwgK1VWyxpC501FtK0Mh8DZs
+	Remhb9HwZMfnqQwxiIz/r+TG9S7nbyQDpfSmvz02GjyCBA8eBsjWkCFNlaern0CCAYvw3qb
+	OgTZ1Dd81nixqOXb0lp6kSErVx04qoOqjWYFdS3KpI6yy22tqxdlelmRC6J5UWdBCLRI4aK
+	z9pmP2/EyGkXLe1+lzYyjWJS1ApzCg0I40fW32r2bW3WoTI/vURah7orc7j4Jt5tDucAdxW
+	tu+smF3Tdrn7SKG0A4ijHK+SOgrIH0COn/VXwzEhJgrhFpiACVaxiHBySPMkVCNXKjYN5AU
+	ZIbiWseOxqILhL+ClVKyod1ogvgJLiS8lDSEQfuABC7jJhxUjhaQcH5JJmnmtp9njQq+05d
+	VIMmDToBcDOKpfQlVI62hnEjs7EVj+0/mA6qIwBcILn5MXJPFE1MH9FEMhnCV8MwMcaCKNf
+	OXdUjryQxU7ipzeeGjBzsxK53Z2NmNOK95xCUGC0LXuUm9ovqE3ehfMi0ArBbeeIBZb3bso
+	14xrOrq0xwg2FgS8IypoFxiwhetl4wrhfccIXNiXWK57eTW5kE008g80Cn1JzyPM0e26Laz
+	h+N2+BcrCrXyjiXKpeaZYlgNTQb8k+IQFqlZ3cgG+lovDvooVLxyQmtSPlm9IXd3uVs/N+a
+	4fiEtxPbQ0mzXVMx76Vm4dRzdXEGvVSi86wXVrZXLh4
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-RECHKSPAM: 0
 
-SRPT allocates read buffers and creates RDMA contexts from the initiator's
-descriptors before parsing the CDB. When target core shortens
-cmd->data_length, a backend such as rd_mcp fills only the shorter length,
-but the prebuilt RDMA transfer still sends the full buffer. This can
-disclose stale target kernel memory to a remote initiator with access to
-the LUN.
+--75fec2531929259e420737857d2eefd1ef8c8ecf6776076da3f66f382a1e
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-Reject indirect descriptor tables whose direct descriptor lengths do not
-sum to the advertised total, and log the mismatch before allocating RDMA
-contexts. Save the original buffer length and zero the tail beyond
-cmd->data_length through the chained command scatterlist before posting
-RDMA transfers. This applies to both data and control READ commands.
+On Tue, Nov 10, 2026 at 01:46:28PM +0100, Sarah Emery wrote:
+> My understanding is that the nodes from CSB1-N10SPK3, the "K3 CoM260 TQ"
+> and the "K3 CoM260 IFX TQ" are all the same: a "K3 CoM260" module on a
+> "TQ" or "IFX TQ" carrier board.
+>
+> Is there two different carrier boards name "TQ" and "IFX TQ"? Or is it
+> just the same thing, called differently in this patch and in the EEPROM?
 
-The issue was discovered by Qihoo 360's Tulongfeng multi-agent system.
+They are the same carrier board. The only difference is the power scheme
+of the CPU clusters. The bootloader programs those regulators at boot,
+and upstream Linux currently keeps the voltages it leaves. Support for
+the regulators is not upstream yet, so the two boards cannot be told
+apart in the device tree for now.
 
-Fixes: b99f8e4d7bcd ("IB/srpt: convert to the generic RDMA READ/WRITE API")
-Cc: stable@vger.kernel.org
-Suggested-by: Bart Van Assche <bvanassche@acm.org>
-Signed-off-by: Yong Liu <pkfxxxing@gmail.com>
----
- drivers/infiniband/ulp/srpt/ib_srpt.c | 17 +++++++++++++++++
- drivers/infiniband/ulp/srpt/ib_srpt.h |  2 ++
- 2 files changed, 19 insertions(+)
+> I'm not sure how devices out there are referencing themselves. But if it
+> is in fact one device and the EEPROM calls it "k3-com260-tq", this patch
+> will not work for device-tree matching.
+>
+> What do you think? Can you clarify the situation?
 
-diff --git a/drivers/infiniband/ulp/srpt/ib_srpt.c b/drivers/infiniband/ulp/srpt/ib_srpt.c
-index 127f256c6e..fc530ddf48 100644
---- a/drivers/infiniband/ulp/srpt/ib_srpt.c
-+++ b/drivers/infiniband/ulp/srpt/ib_srpt.c
-@@ -1115,8 +1115,10 @@ static int srpt_get_desc_tbl(struct srpt_recv_ioctx *recv_ioctx,
- 	} else if (((srp_cmd->buf_fmt & 0xf) == SRP_DATA_DESC_INDIRECT) ||
- 		   ((srp_cmd->buf_fmt >> 4) == SRP_DATA_DESC_INDIRECT)) {
- 		struct srp_indirect_buf *idb = srpt_get_desc_buf(srp_cmd);
-+		u64 total_len = 0;
- 		int nbufs = be32_to_cpu(idb->table_desc.len) /
- 				sizeof(struct srp_direct_buf);
-+		int i;
- 
- 		if (nbufs >
- 		    (srp_cmd->data_out_desc_cnt + srp_cmd->data_in_desc_cnt)) {
-@@ -1128,6 +1130,14 @@ static int srpt_get_desc_tbl(struct srpt_recv_ioctx *recv_ioctx,
- 			return -EINVAL;
- 		}
- 
-+		for (i = 0; i < nbufs; i++)
-+			total_len += be32_to_cpu(idb->desc_list[i].len);
-+		if (total_len != be32_to_cpu(idb->len)) {
-+			pr_err("SRP descriptor lengths total %llu does not match advertised length %u\n",
-+			       total_len, be32_to_cpu(idb->len));
-+			return -EINVAL;
-+		}
-+
- 		*data_len = be32_to_cpu(idb->len);
- 		return srpt_alloc_rw_ctxs(ioctx, idb->desc_list, nbufs,
- 				sg, sg_cnt);
-@@ -1304,6 +1314,7 @@ static struct srpt_send_ioctx *srpt_get_send_ioctx(struct srpt_rdma_ch *ch)
- 	WARN_ON_ONCE(ioctx->recv_ioctx);
- 	ioctx->n_rdma = 0;
- 	ioctx->n_rw_ctx = 0;
-+	ioctx->buf_len = 0;
- 	ioctx->queue_status_only = false;
- 	/*
- 	 * transport_init_se_cmd() does not initialize all fields, so do it
-@@ -1607,6 +1618,7 @@ static void srpt_handle_cmd(struct srpt_rdma_ch *ch,
- 		goto busy;
- 	}
- 
-+	send_ioctx->buf_len = data_len;
- 	rc = target_init_cmd(cmd, ch->sess, &send_ioctx->sense_data[0],
- 			     scsilun_to_int(&srp_cmd->lun), data_len,
- 			     cmd->sam_task_attr, dir, TARGET_SCF_ACK_KREF);
-@@ -2914,6 +2926,11 @@ static void srpt_queue_response(struct se_cmd *cmd)
- 	if (ioctx->cmd.data_direction == DMA_FROM_DEVICE &&
- 	    ioctx->cmd.data_length &&
- 	    !ioctx->queue_status_only) {
-+		if (ioctx->buf_len > cmd->data_length)
-+			sg_zero_buffer(cmd->t_data_sg, cmd->t_data_nents,
-+				       ioctx->buf_len - cmd->data_length,
-+				       cmd->data_length);
-+
- 		for (i = ioctx->n_rw_ctx - 1; i >= 0; i--) {
- 			struct srpt_rw_ctx *ctx = &ioctx->rw_ctxs[i];
- 
-diff --git a/drivers/infiniband/ulp/srpt/ib_srpt.h b/drivers/infiniband/ulp/srpt/ib_srpt.h
-index 506c11b843..78bba74148 100644
---- a/drivers/infiniband/ulp/srpt/ib_srpt.h
-+++ b/drivers/infiniband/ulp/srpt/ib_srpt.h
-@@ -204,6 +204,7 @@ struct srpt_rw_ctx {
-  * @rdma_cqe:    RDMA completion queue element.
-  * @state:       I/O context state.
-  * @cmd:         Target core command data structure.
-+ * @buf_len:     Original SRP data buffer length.
-  * @sense_data:  SCSI sense data.
-  * @n_rdma:      Number of work requests needed to transfer this ioctx.
-  * @n_rw_ctx:    Size of rw_ctxs array.
-@@ -223,6 +224,7 @@ struct srpt_send_ioctx {
- 	struct ib_cqe		rdma_cqe;
- 	enum srpt_command_state	state;
- 	struct se_cmd		cmd;
-+	u32			buf_len;
- 	u8			n_rdma;
- 	u8			n_rw_ctx;
- 	bool			queue_status_only;
--- 
-2.43.0
+You are right, thanks for pointing this out. I only had an IFX TQ board
+when I sent the series, so I did not notice that the TQ nodes identify
+themselves as k3_com260_tq in the EEPROM.
 
+I will restructure the series as k3-com260-tq.dtsi holding the shared
+carrier description, with k3-com260-tq.dts and k3-com260-ifx-tq.dts on
+top of it that only set model and compatible. I will add
+k3-com260-tq-power.dtsi and k3-com260-ifx-tq-power.dtsi for the two
+power schemes later.
+
+Yixun, what do you think?
+
+--=20
+Troy Mitchell
+
+--75fec2531929259e420737857d2eefd1ef8c8ecf6776076da3f66f382a1e
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCavbM3iEcdHJveS5taXRj
+aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC+OFAD8DkzKg77z108s
+t6A5affx343Q8qDBLdDgmzx1/Gg82koBAP6j03pnTUgvYXaOreMfsh84OOdsFZp4
+i2lB8WgqVg0B
+=mVsV
+-----END PGP SIGNATURE-----
+
+--75fec2531929259e420737857d2eefd1ef8c8ecf6776076da3f66f382a1e--
