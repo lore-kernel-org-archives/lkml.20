@@ -1,55 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794573791;
-	b=fCc20/BRyZ31CrCmen473e2Wl4QnPNCnnff32OFTdXKCdpryKiaIZxgdSC9KIIlfUmg6
-	 odAJkZOk8UOjvyv9Vc/nU9zmCWlGjr08ohCAwfbpyQ6EcMBduhIC1y2dz8AVHvNwyUD1a
-	 aAMtBifP05FuZJww5ROtFvyyykGknZKI6j27V6MdishxWivPzYi7G1xwik+PkL6AUtuzL
-	 jH35+4Pp8JwfmBEa4rOE8r+6pcnL15SgSfccXCtTpG3xNe7HEqL9nk9mArGai4CRiv7oo
-	 JTWTN92GUlL/8xIrxinJ8mcHYGBVjzplbUOtPBzZkBlNpbSq1SMkYzDz+9MF7uHSYkA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794573791;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=eShdbW7sqvfZ7ijY79As2thpO2U2i6N5CJpBkNsicqs=;
-	b=vEvMaMoMFK/coz2UpCnl6j7+3hpxbp8V5ZdfxdbPs78M1qn4GXHQZR8+ZY3k+v2sqtzJ
-	 HfW+rW54mn3/Ffmp9nEJFOXqa/vivds10sNQXdonazLN+DFT8mjZX1H7Z4yArvSCFgIQC
-	 fStZz2Nx9ZYEOn2karl7OYhQPO5XmwYBy/EQp5D69fVh1oZlJJIuzBKZR9rAeYtH0EKxe
-	 oh//Y3uQn7+Snqva7eUSK6CYnKZx96QuMBHyGlx3elAyW8Ng/Bd730u5mLHIhYVrCal8K
-	 t4ci6vBTWxEN/Dz1VZph7fVC8IR50W/qHny0RLA8LQYwblkKX15jgwbYGWY5no+8DNQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EDEqVvYu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.81
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794573801;
+	b=PR6g6zf+UhdKXWE28kNtQhk66689HENQEd9o3sEa1A1I4c5hWE1I9RCnwgpsAnCk4LhC
+	 4SC/j8Lh077Er2IIdxcpuynlKYpnk40VpOoj0bHPaVdgn7+thv6KdcmImz2Z5shqqNdBq
+	 grGmLQQwH6SPTG2KXsyt1BQUdyG17kC98nLp/Qn68zRV6K0kGNPSe28ZOG4xpShe9MpRF
+	 tIWIhZx2OJqkrVGlumlGC6F9o5IHWqA7lXuZJpxRuapIijop474EKnZ7gKE3I+YwYROrc
+	 EOh5BdMXB7wsLcndrfg2jHyiNVJDCHzRwUzSgsXOeUfpu94zoPagn/Dgd5moN07nBzw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794573801;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=l/ecaUE2TqaQ94uOcIsuUrNAhgSRo0la3KrlU9BCwFU=;
+	b=Wr3SDVqjguHMz7XW/I3rsYJ0zU6qOlgOYTBaRBj6SGP3OaaFoOdwPLi/aLuSjCJrDCvl
+	 R4t4Dvcort6w9SggCA9FoPhQyM6mGTkD3874bhzpVB8fhUChlzdHC5TvNINA83XtMUqrY
+	 fOkcAbjjS4wwxi+VFXoVICzEIXUtcLbblD54/81zcD5eMbeIRmejUW+SnvjL25JG4MdL+
+	 MSn+gDSi2H24O3RciBycMEvdU1eDR92OuoamjLmke/qvpJt+u3tmT/ab5aCeoR3JGPbdZ
+	 CMsvg/8XsOCp0BPSSxJKfDptlcoJIa/ZZPS/G+pUNxIY53FsTBJHP233ufOFAlVg+Hg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=CBTtvJur;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=EVBY+1oI;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.81
+Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [85.215.255.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD3CF606A32E
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:43:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55A82606A331;
+	Fri, 13 Nov 2026 12:43:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55A82606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EDEqVvYu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7ED401F000C6
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 12:43:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794573791;
-	bh=eShdbW7sqvfZ7ijY79As2thpO2U2i6N5CJpBkNsicqs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=EDEqVvYuTKMLMu6f42/+Teh3wbTsvwjrn1MuaXI9yRoL9mfa5a5xgX5qRTK/A262K
-	 0OgCI0uGj9YRZ1MhRfg3JQkFBwwUfyEQH0U8W64vP10lite0zEnYem9z4VfMmLzhlH
-	 2mfQzmWSTYeXxQhypZeMbQyTw6MRGPfCBgxOjXmGJL1DALkVt48hQBSesq9mmGLao4
-	 OCnl3bbnS/M/thvZj4RdkN5RRAUhGhQxZRzfXwwQJm6CGQdZm93O9p0YvCaYcHLiWr
-	 szrX2MTQnUckkM16gr8/kz9ubzPhpD8+x+GQe/4fYMTjxkcUZhV/Zlchpj8ammcb08
-	 x4xPtLgqwOUhQ==
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b4bd3d98bfso1875037a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 04:43:11 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGLknH3Ws0n2t/UEE0UUDASCgDr7qY7cWCAetkk5RH5C35OzrcXkLkrGoyx7ZCk/iHcSA/htlSYAhNVBBo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/CLAkQPrbIHYHqYF2Jw4KfXW4XlWO7+LR5CzG5GwzafOANSZ5C
-	9aUNGNL4ll23gB81I3DLx4mvW17I07ZKdETKlrA60iBhEqOA/UEfXgve0evl5n8AY5K56wf/SEH
-	271m/5DtmAXa2DIujNPXOAcq5m7B5IrQ=
-X-Received: by 2002:aa7:d587:0:b0:6b5:fb30:5651 with SMTP id
- 4fb4d7f45d1cf-6b7c0be070fmr1524244a12.26.1794573790409; Fri, 13 Nov 2026
- 04:43:10 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=CBTtvJur;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=EVBY+1oI
+ARC-Seal: i=1; a=rsa-sha256; t=1794573796; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=YHYsh1RMf6eK7o5DjJFMF2gVL6FpM0+ay6I/424Yuki2FxYGwjRhYCCuJOXWpgekZg
+    lUCilE2OrE4OH6r2OmD/zBurlGC3IMvKj259bPlm+UQsGt99ekaBoa4lEC8KrMD/2WnY
+    KNE85rt+7NecCekFpJcs2n/kF5oOgkoOcagSWX2glLU24FMvjB4v0tfVEXKzb89yQtLi
+    kmQWkqTEO1rqAoYJlo2/7+SUBEOMhTp0vonMXUGqULc3BlcspSObYn/0VIDY6X+N0aZa
+    zW7wqodr/44cfuxqZlzXSUqYQhBrSMoDE0pGHA5YZG21Qs2tdQcMOLysrmhbBmJtCsFB
+    yqzg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794573796;
+    s=strato-dkim-0002; d=strato.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=l/ecaUE2TqaQ94uOcIsuUrNAhgSRo0la3KrlU9BCwFU=;
+    b=sGuZcsBAr/EmU4HTUwk1F18s+5/WlGLJlrjboNmodAIV65tvPc7Nno6aiQy5vvuqKX
+    A6zjihX+3ljOVb7nQPQPbYIrgz+ob0jwR8RjRJk0OZhJMzSOv/Emu/tJ9uM5jMh0uTX5
+    NIFCk5vnzkF0mNn62JtGXh2AwkMpuzA6oDzqnhGAPS4saozS21o+iHrM40b69s47fV20
+    fpM+Js5TxO/+BwTsacL2cbpkR5C1fcTOPUweCOuqYbwH5ysM17zTOcP6FFyhn1cfc5vu
+    SRJUxsJ3lmYVOGh5Sog0tJq4WWaVSZmyGo1pTGlgVAMfeKt38JeZXkbnvnby8LtmonfH
+    amqA==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo02
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794573796;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=l/ecaUE2TqaQ94uOcIsuUrNAhgSRo0la3KrlU9BCwFU=;
+    b=CBTtvJurGO2blvdSMZcgZpy2YUspecwzfEWy25C99ZEhW8JHiYWQ/uIGko515YtZ8r
+    Tx8k425VzN7f2q6EB6IymRa/wBOILpdkf9u5sfUUYDPFg1sXM6EuL6sFEdZmNc4V6lph
+    vGt8IUur9vOG3bmCXtuVtoo2gW3SpGTkwQg8T1QRrbRQEkxL60D7TxlRS+SxOPRJr1hq
+    ysPOZXTDwlZIjR9t6NZqPhYkJcjmTZhZUhrC0tZQBe+jQLOmkVoDTDnj1pDnaKiL+NJt
+    k6swNjKQ3vRtIBqkZwGz0dM6tJGUoKX1v45WaZmuPJV1qVxKl76DvW19d8L/1kOgJG1g
+    Fh6g==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794573796;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+    From:Subject:Sender;
+    bh=l/ecaUE2TqaQ94uOcIsuUrNAhgSRo0la3KrlU9BCwFU=;
+    b=EVBY+1oITZ6/wcIIe67zBEmHmGbsZgkbDby69Bdtb7xWXqKXYvdT8BlZ3rgmiSyTnB
+    C9BbQirYwUNxzgEcpGBw==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrS2ZoHmMiNHYIZPrro6QPZGBqKLoYar6phQmxG"
+Received: from smtpclient.apple
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a22ADChFGf9
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1 with 256 ECDH bits, eq. 3072 bits RSA))
+	(Client did not present a certificate);
+    Fri, 13 Nov 2026 13:43:15 +0100 (CET)
+Content-Type: text/plain;
+	charset=utf-8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,115 +93,395 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <b47282f1514a9012ac51d0915afb83782c3c0050.1794417398.git.len.brown@intel.com>
- <CAFEp6-0yj-+7uYnj5PCvaP39ruQ=xduBbQgJc7MyakuPLJhmvw@mail.gmail.com>
-In-Reply-To: <CAFEp6-0yj-+7uYnj5PCvaP39ruQ=xduBbQgJc7MyakuPLJhmvw@mail.gmail.com>
-From: Len Brown <lenb@kernel.org>
-Date: Fri, 13 Nov 2026 09:42:57 -0300
-X-Gmail-Original-Message-ID: <CAJvTdKnnqZJrZ6bgaxsyy6QttGwgh5RL=De9ggV3KhMPDau_BQ@mail.gmail.com>
-X-Gm-Features: AclHuK-qV3odlCZg-rvJ7Er0tAbjRJL99Hmn9EJPElO7oP1o5xdv9czMmzm7XIs
-Message-ID: <CAJvTdKnnqZJrZ6bgaxsyy6QttGwgh5RL=De9ggV3KhMPDau_BQ@mail.gmail.com>
-Subject: Re: [PATCH] bus: mhi: pci_generic: Fix erroneous system suspend abort
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: rafael@kernel.org, Manivannan Sadhasivam <mani@kernel.org>, linux-pm@vger.kernel.org, 
-	mhi@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.10\))
+Subject: Re: [PATCH 2/3] pinctrl: ingenic: Add X2600 register and GPIO IRQ
+ support
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <209B96BB-1458-442B-95B8-F0F6BA204E9B@goldelico.com>
+Date: Fri, 13 Nov 2026 13:42:45 +0100
+Cc: Linus Walleij <linusw@kernel.org>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>,
+ linux-gpio@vger.kernel.org,
+ devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ linux-mips@vger.kernel.org,
+ letux-kernel@openphoenux.org
 Content-Transfer-Encoding: quoted-printable
-
-Hello Loic,
-
-I agree that the device and the driver should be debugged, and perhaps
-re-implemented.
-
-Indeed, I'm happy to share the dmesg from 28,000 suspend/resume cycles
-on this machine
-over the last few months to support that effort, should somebody else
-undertake it.
-
-But today, this device is allowing its internal contagion to spread
-into Linux and interfere with
-system wide suspend due to an obvious 1-line programming error.
-
-This 1-line fix should be applied NOW, without waiting for internal
-mhi internal or development.
-
-thanks,
--Len
-
-ps.  I filed this over a year ago:
-https://bugzilla.kernel.org/show_bug.cgi?id=3D220020
-
-On Thu, Nov 12, 2026 at 5:23=E2=80=AFAM Loic Poulain
-<loic.poulain@oss.qualcomm.com> wrote:
->
-> Hi Len,
->
-> On Wed, Nov 11, 2026 at 6:23=E2=80=AFPM Len Brown <lenb@kernel.org> wrote=
-:
-> >
-> > From: Len Brown <len.brown@intel.com>
-> >
-> > mhi sometimes aborts system suspend on the thinkpad T16 gen3:
-> >
-> > mhi-pci-generic 0000:08:00.0: failed to suspend device: -16
-> > mhi-pci-generic 0000:08:00.0: PM: pci_pm_suspend(): mhi_pci_suspend [mh=
-i_pci_generic] returns -16
-> > mhi-pci-generic 0000:08:00.0: PM: dpm_run_callback(): pci_pm_suspend re=
-turns -16
-> > mhi-pci-generic 0000:08:00.0: PM: pci_pm_suspend returned -16 after 151=
-45 usecs
-> > mhi-pci-generic 0000:08:00.0: PM: failed to suspend async: error -16
-> >
-> > When a driver returns -EBUSY for its runtime suspend method,
-> > that means "try again later".
-> >
-> > But when a driver returns anything but 0 from its system-suspend
-> > method, that means "abort system suspend".
-> >
-> > Always return 0 from mhi_pci_suspend().
->
-> Two things:
-> - I think we should simply use pm_runtime_force_suspend() /
-> pm_runtime_force_resume() for the system sleep callbacks instead of
-> implementing separate suspend/resume handling.
-> - Rather than silently ignoring the error, I think it would be worth
-> looking at the mhi_pm_suspend() implementation to understand what can
-> be returned here and under which conditions the MHI device fails to
-> suspend.
->
-> Regards,
-> Loic
->
-> >
-> > Fixes: d3800c1dce24 ("bus: mhi: pci_generic: Add support for runtime PM=
-")
-> > Signed-off-by: Len Brown <len.brown@intel.com>
-> > ---
-> >  drivers/bus/mhi/host/pci_generic.c | 3 ++-
-> >  1 file changed, 2 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/bus/mhi/host/pci_generic.c b/drivers/bus/mhi/host/=
-pci_generic.c
-> > index 7193a384cca4..b036fa6e06c4 100644
-> > --- a/drivers/bus/mhi/host/pci_generic.c
-> > +++ b/drivers/bus/mhi/host/pci_generic.c
-> > @@ -1727,7 +1727,8 @@ static int __maybe_unused mhi_pci_runtime_resume(=
-struct device *dev)
-> >  static int  __maybe_unused mhi_pci_suspend(struct device *dev)
-> >  {
-> >         pm_runtime_disable(dev);
-> > -       return mhi_pci_runtime_suspend(dev);
-> > +       mhi_pci_runtime_suspend(dev);
-> > +       return 0;
-> >  }
-> >
-> >  static int __maybe_unused mhi_pci_resume(struct device *dev)
-> > --
-> > 2.45.2
-> >
+Message-Id: <A6F5AEAC-9D8C-4572-AD7D-500B83F37DE1@goldelico.com>
+References: <cover.1794557697.git.hns@goldelico.com>
+ <1c495c7ac851aff2a798c82acf33bbb33da37953.1794557697.git.hns@goldelico.com>
+ <3784202f7f6baa63b548af4c491805852e5835df.camel@crapouillou.net>
+ <11E0E075-D267-4E50-906C-022D297A4988@goldelico.com>
+ <d8e981be7badb4cb2476e58399010e533df40916.camel@crapouillou.net>
+ <209B96BB-1458-442B-95B8-F0F6BA204E9B@goldelico.com>
+To: Paul Cercueil <paul@crapouillou.net>
+X-Mailer: Apple Mail (2.3826.700.81.1.10)
 
 
 
---=20
-Len Brown, Intel Open Source Technology Center
+> Am 13.11.2026 um 11:02 schrieb H. Nikolaus Schaller =
+<hns@goldelico.com>:
+>=20
+>=20
+>=20
+>> Am 13.11.2026 um 10:54 schrieb Paul Cercueil <paul@crapouillou.net>:
+>>=20
+>> Le vendredi 13 novembre 2026 =C3=A0 10:49 +0100, H. Nikolaus Schaller =
+a =C3=A9crit :
+>>> Hi Paul,
+>>>=20
+>>>> Am 13.11.2026 um 10:37 schrieb Paul Cercueil =
+<paul@crapouillou.net>:
+>>>>=20
+>>>> Hi Nikolaus,
+>>>>=20
+>>>> Le vendredi 13 novembre 2026 =C3=A0 09:14 +0100, H. Nikolaus =
+Schaller a =C3=A9crit :
+>>>>> Add the X2600 SoC ID and adapt the GPIO register access functions
+>>>>> to its register layout.
+>>>>>=20
+>>>>> Unlike earlier Ingenic SoCs, the X2600 uses a register bank
+>>>>> spacing of 0x1000 and provides separate shadow registers and
+>>>>> load registers for each GPIO port. It also uses a dedicated
+>>>>> register for clearing GPIO interrupt flags.
+>>>>>=20
+>>>>> Update the GPIO interrupt configuration to account for hardware
+>>>>> dual-edge detection on X1600, X2000 and X2600. These SoCs require
+>>>>> PAT1 to be set when dual-edge detection is enabled, while X1000
+>>>>> and X1830 continue to use software emulation.
+>>>>=20
+>>>> So at the same time you're fixing X1600/X2000 and adding support =
+for X2600.
+>>>> Looks to me like it should be splitted into two patches.
+>>>=20
+>>> Well, I have to look if it can be split.
+>>>=20
+>>> So far the driver for X1600/X2000 does not have dual-edge support by
+>>> hardware (programming the EDG bit).
+>>>=20
+>>> But registers and programming model are the same. Therefore it is =
+more
+>>> or less a nice side-effect that x2600 adds functions to x1600/x2000.
+>>>=20
+>>> I.e. new code would be replacing some is_soc_or_above(jzgc->jzpc, =
+ID_X2600)
+>>> with is_soc_or_above(jzgc->jzpc, ID_X1600) to fix it for them.
+>>>=20
+>>> Or otherwise we have to split full x2600 support into two patches.
+>>>=20
+>>> Is this worth a separate patch or should we leave it as a comment in
+>>> the commit message?
+>>=20
+>> My idea was that you'd first swap X1600/X1830, then add support for =
+hardware
+>> dual-edge support if >=3D X1600, and finally add X2600 support.
+>=20
+> Ah, ok. Fine with that. Will do for V2.
+
+I have checked that a little more deeply, but analysis of the driver =
+shows that the
+pinctrl register set evolution was perhaps
+
+X1000 -> X1830 -> X2000 =3D X2100 -> X1600 -> X2600
+
+(for X1830 and X2000 I do not know the exact sequence).
+
+So we should IMHO sort the X1600 behind X2000=3DX2100.
+
+But if we do either of the swapping options, we have to introduce new
+is_soc_or_above() conditions and exclusion of others.
+
+So I looked into the revision history of the programming manuals:
+
+X1000/E Release Date: Dec. 26, 2016
+X1830	Release Date: Mar. 16, 2020
+X1600	Release Date: Aug. 06, 2021
+X2000	Release Date: Oct. 15, 2021
+X2600	First Release May.2023
+
+And Google AI claims:
+
+Here are the release dates for the Ingenic X-Series processors:
+    =E2=80=A2 Ingenic X1000: July 2015. The processor was officially =
+unveiled by Ingenic in mid-2015.
+    =E2=80=A2 Ingenic X1830: January 2020. Initial announcements and =
+early developments for this chip appeared at the beginning of 2020.
+    =E2=80=A2 Ingenic X2000: January 2020. The processor and the Halley5 =
+development board launched in January, followed by the official =
+datasheet in July 2020.
+    =E2=80=A2 Ingenic X1600: December 2021. Ingenic published the =
+official datasheet for this processor on December 2, 2021.
+    =E2=80=A2 Ingenic X2600: January 2023. Early SDKs and manuals were =
+released in January, followed by the Halley7 development kit in the =
+summer of 2023.
+
+But that is not necessarily the same as the date the SoC architecture
+and IP building blocks were chosen years before announcement and =
+finished
+silicon. Especially as the X2000 usually seems to be more similar to the
+X1830 than the X1600.
+
+In general, it turns out that there is probably not a single linear =
+history and
+only features added. It looks more like like branch&merge...
+
+Therefore, there are always subtle changes and it seems to be impossible =
+to follow
+the is_soc_or_above() without exceptions.
+
+Therefore I would suggest to keep it in the order as currently upstream =
+and do
+not swap anything. Neverheless we could add dual-edge support if >=3D =
+X1600 (which
+covers x2000) and make x1830 an exception.
+
+Or we should introduce a new macro like is_soc(jzgc->jzpc, ID_X1830) to =
+make
+the exceptions more readable:
+
+	is_soc_or_above(jzgc->jzpc, ID_X1600) && !is_soc(jzgc->jzpc, =
+ID_X1830)
+
+BR and thanks,
+Nikolaus
+
+
+
+>=20
+> BR and thanks,
+> Nikolaus
+>=20
+>>=20
+>>>>> The corrected interrupt configuration has been tested on X1600,
+>>>>> X2000, and X2600, including GPIO dual-edge interrupts by a
+>>>>> gpio-button.
+>>>>>=20
+>>>>> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+>>>>> ---
+>>>>> drivers/pinctrl/pinctrl-ingenic.c | 71 =
++++++++++++++++++++++++++------
+>>>>> 1 file changed, 58 insertions(+), 13 deletions(-)
+>>>>>=20
+>>>>> diff --git a/drivers/pinctrl/pinctrl-ingenic.c =
+b/drivers/pinctrl/pinctrl-
+>>>>> ingenic.c
+>>>>> index a62532c49fb60..90c734c74d267 100644
+>>>>> --- a/drivers/pinctrl/pinctrl-ingenic.c
+>>>>> +++ b/drivers/pinctrl/pinctrl-ingenic.c
+>>>>> @@ -70,6 +70,10 @@
+>>>>> #define X2000_GPIO_SR 0xd0
+>>>>> #define X2000_GPIO_SMT 0xe0
+>>>>>=20
+>>>>> +#define X2600_GPIO_FLAG_CLR 0x58 /* write only */
+>>>>> +#define X2600_GPIO_SHADOW_OFFSET 0x800
+>>>>> +#define X2600_GPIO_PAGLD (X2600_GPIO_SHADOW_OFFSET +
+>>>>> 0xf0)
+>>>>> +
+>>>>> #define REG_SET(x) ((x) + 0x4)
+>>>>> #define REG_CLEAR(x) ((x) + 0x8)
+>>>>>=20
+>>>>> @@ -114,6 +118,7 @@ enum jz_version {
+>>>>> ID_X1830,
+>>>>> ID_X2000,
+>>>>> ID_X2100,
+>>>>> + ID_X2600,
+>>>>> };
+>>>>>=20
+>>>>> struct ingenic_chip_info {
+>>>>> @@ -164,7 +169,8 @@ static const unsigned long enabled_socs =3D
+>>>>> IS_ENABLED(CONFIG_MACH_X1600) << ID_X1600 |
+>>>>> IS_ENABLED(CONFIG_MACH_X1830) << ID_X1830 |
+>>>>> IS_ENABLED(CONFIG_MACH_X2000) << ID_X2000 |
+>>>>> - IS_ENABLED(CONFIG_MACH_X2100) << ID_X2100;
+>>>>> + IS_ENABLED(CONFIG_MACH_X2100) << ID_X2100 |
+>>>>> + IS_ENABLED(CONFIG_MACH_X2600) << ID_X2600;
+>>>>>=20
+>>>>> static bool
+>>>>> is_soc_or_above(const struct ingenic_pinctrl *jzpc, enum =
+jz_version
+>>>>> version)
+>>>>> @@ -3545,15 +3551,21 @@ static void =
+ingenic_gpio_shadow_set_bit(struct
+>>>>> ingenic_gpio_chip *jzgc,
+>>>>> else
+>>>>> reg =3D REG_CLEAR(reg);
+>>>>>=20
+>>>>> - regmap_write(jzgc->jzpc->map, REG_PZ_BASE(
+>>>>> - jzgc->jzpc->info->reg_offset) + reg, BIT(offset));
+>>>>> + if (is_soc_or_above(jzgc->jzpc, ID_X2600))
+>>>>> + regmap_write(jzgc->jzpc->map, jzgc->reg_base +
+>>>>> X2600_GPIO_SHADOW_OFFSET + reg,
+>>>>> +      BIT(offset));
+>>>>> + else
+>>>>> + regmap_write(jzgc->jzpc->map, REG_PZ_BASE(jzgc->jzpc->info-
+>>>>>> reg_offset) + reg,
+>>>>> +      BIT(offset));
+>>>>> }
+>>>>>=20
+>>>>> static void ingenic_gpio_shadow_set_bit_load(struct =
+ingenic_gpio_chip
+>>>>> *jzgc)
+>>>>> {
+>>>>> - regmap_write(jzgc->jzpc->map, REG_PZ_GID2LD(
+>>>>> - jzgc->jzpc->info->reg_offset),
+>>>>> - jzgc->gc.base / PINS_PER_GPIO_CHIP);
+>>>>> + if (is_soc_or_above(jzgc->jzpc, ID_X2600))
+>>>>> + regmap_write(jzgc->jzpc->map, jzgc->reg_base +
+>>>>> X2600_GPIO_PAGLD, 1);
+>>>>> + else
+>>>>> + regmap_write(jzgc->jzpc->map, REG_PZ_GID2LD(jzgc->jzpc->info-
+>>>>>> reg_offset),
+>>>>> +      jzgc->gc.base / PINS_PER_GPIO_CHIP);
+>>>>> }
+>>>>>=20
+>>>>> static void jz4730_gpio_set_bits(struct ingenic_gpio_chip *jzgc,
+>>>>> @@ -3618,6 +3630,12 @@ static void irq_set_type(struct =
+ingenic_gpio_chip
+>>>>> *jzgc,
+>>>>> break;
+>>>>> }
+>>>>>=20
+>>>>> + if (type =3D=3D IRQ_TYPE_EDGE_BOTH &&
+>>>>> +     (is_soc_or_above(jzgc->jzpc, ID_X2000) ||
+>>>>> +      (is_soc_or_above(jzgc->jzpc, ID_X1600) &&
+>>>>> +       !is_soc_or_above(jzgc->jzpc, ID_X1830))))
+>>>>=20
+>>>> I remember you saying (in another patchset) that the X1830 was =
+older than
+>>>> the
+>>>> X1600, if that's the case the IDs for X1600 and X1830 should be =
+swapped. I
+>>>> believe this patch would then become much simpler.
+>>>=20
+>>> Indeed. So I can swap the ID's in V2.
+>>=20
+>> I just checked in the programming manuals and indeed it seems to be =
+the case.
+>> Weird! I had no idea.
+>>=20
+>> Cheers,
+>> -Paul
+>>=20
+>>>>> + val2 =3D true;
+>>>>> +
+>>>>> if (is_soc_or_above(jzgc->jzpc, ID_JZ4770)) {
+>>>>> reg1 =3D JZ4770_GPIO_PAT1;
+>>>>> reg2 =3D JZ4770_GPIO_PAT0;
+>>>>> @@ -3640,6 +3658,9 @@ static void irq_set_type(struct =
+ingenic_gpio_chip
+>>>>> *jzgc,
+>>>>> ingenic_gpio_shadow_set_bit(jzgc, reg2, offset, val1);
+>>>>> ingenic_gpio_shadow_set_bit(jzgc, reg1, offset, val2);
+>>>>> ingenic_gpio_shadow_set_bit_load(jzgc);
+>>>>> +
+>>>>> + if (is_soc_or_above(jzgc->jzpc, ID_X1600) &&
+>>>>> !is_soc_or_above(jzgc->jzpc, ID_X1830))
+>>>>> + ingenic_gpio_set_bit(jzgc, X2000_GPIO_EDG, offset,
+>>>>> val3);
+>>>>> } else {
+>>>>> ingenic_gpio_set_bit(jzgc, reg2, offset, val1);
+>>>>> ingenic_gpio_set_bit(jzgc, reg1, offset, val2);
+>>>>> @@ -3714,7 +3735,8 @@ static void ingenic_gpio_irq_ack(struct =
+irq_data
+>>>>> *irqd)
+>>>>> bool high;
+>>>>>=20
+>>>>> if ((irqd_get_trigger_type(irqd) =3D=3D IRQ_TYPE_EDGE_BOTH) &&
+>>>>> -     !is_soc_or_above(jzgc->jzpc, ID_X2000)) {
+>>>>> +     (!is_soc_or_above(jzgc->jzpc, ID_X1600) ||
+>>>>> +     (is_soc_or_above(jzgc->jzpc, ID_X1830) && =
+!is_soc_or_above(jzgc-
+>>>>>> jzpc, ID_X2000)))) {
+>>>>> /*
+>>>>>  * Switch to an interrupt for the opposite edge to the one
+>>>>> that
+>>>>>  * triggered the interrupt being ACKed.
+>>>>> @@ -3726,7 +3748,9 @@ static void ingenic_gpio_irq_ack(struct =
+irq_data
+>>>>> *irqd)
+>>>>> irq_set_type(jzgc, irq, IRQ_TYPE_LEVEL_HIGH);
+>>>>> }
+>>>>>=20
+>>>>> - if (is_soc_or_above(jzgc->jzpc, ID_JZ4770))
+>>>>> + if (is_soc_or_above(jzgc->jzpc, ID_X2600))
+>>>>> + regmap_write(jzgc->jzpc->map, jzgc->reg_base +
+>>>>> X2600_GPIO_FLAG_CLR, BIT(irq));
+>>>>> + else if (is_soc_or_above(jzgc->jzpc, ID_JZ4770))
+>>>>> ingenic_gpio_set_bit(jzgc, JZ4770_GPIO_FLAG, irq, false);
+>>>>> else if (is_soc_or_above(jzgc->jzpc, ID_JZ4740))
+>>>>> ingenic_gpio_set_bit(jzgc, JZ4740_GPIO_DATA, irq, true);
+>>>>> @@ -3754,7 +3778,9 @@ static int ingenic_gpio_irq_set_type(struct =
+irq_data
+>>>>> *irqd, unsigned int type)
+>>>>> irq_set_handler_locked(irqd, handle_bad_irq);
+>>>>> }
+>>>>>=20
+>>>>> - if ((type =3D=3D IRQ_TYPE_EDGE_BOTH) && =
+!is_soc_or_above(jzgc->jzpc,
+>>>>> ID_X2000)) {
+>>>>> + if (type =3D=3D IRQ_TYPE_EDGE_BOTH &&
+>>>>> +     (!is_soc_or_above(jzgc->jzpc, ID_X1600) ||
+>>>>> +     (is_soc_or_above(jzgc->jzpc, ID_X1830) && =
+!is_soc_or_above(jzgc-
+>>>>>> jzpc, ID_X2000)))) {
+>>>>> /*
+>>>>>  * The hardware does not support interrupts on both edges.
+>>>>> The
+>>>>>  * best we can do is to set up a single-edge interrupt and
+>>>>> then
+>>>>> @@ -3849,16 +3875,35 @@ static inline void
+>>>>> ingenic_shadow_config_pin(struct
+>>>>> ingenic_pinctrl *jzpc,
+>>>>> unsigned int pin, u8 reg, bool set)
+>>>>> {
+>>>>> unsigned int idx =3D pin % PINS_PER_GPIO_CHIP;
+>>>>> + unsigned int offt =3D pin / PINS_PER_GPIO_CHIP;
+>>>>>=20
+>>>>> - regmap_write(jzpc->map, REG_PZ_BASE(jzpc->info->reg_offset) +
+>>>>> - (set ? REG_SET(reg) : REG_CLEAR(reg)), BIT(idx));
+>>>>> + if (set)
+>>>>> + reg =3D REG_SET(reg);
+>>>>> + else
+>>>>> + reg =3D REG_CLEAR(reg);
+>>>>> +
+>>>>> + if (is_soc_or_above(jzpc, ID_X2600)) {
+>>>>> + u32 target_reg =3D (offt * jzpc->info->reg_offset) +
+>>>>> X2600_GPIO_SHADOW_OFFSET + reg;
+>>>>> +
+>>>>> + regmap_write(jzpc->map, target_reg, BIT(idx));
+>>>>> + } else {
+>>>>> + regmap_write(jzpc->map, REG_PZ_BASE(jzpc->info->reg_offset) +
+>>>>> reg, BIT(idx));
+>>>>> + }
+>>>>> }
+>>>>>=20
+>>>>> static inline void ingenic_shadow_config_pin_load(struct =
+ingenic_pinctrl
+>>>>> *jzpc,
+>>>>> unsigned int pin)
+>>>>> {
+>>>>> - regmap_write(jzpc->map, REG_PZ_GID2LD(jzpc->info->reg_offset),
+>>>>> - pin / PINS_PER_GPIO_CHIP);
+>>>>> + unsigned int offt =3D pin / PINS_PER_GPIO_CHIP;
+>>>>> +
+>>>>> + if (is_soc_or_above(jzpc, ID_X2600)) {
+>>>>> + u32 target_load_reg =3D (offt * jzpc->info->reg_offset) +
+>>>>> X2600_GPIO_PAGLD;
+>>>>> +
+>>>>> + regmap_write(jzpc->map, target_load_reg, 1);
+>>>>> + } else {
+>>>>> + regmap_write(jzpc->map, REG_PZ_GID2LD(jzpc->info-
+>>>>>> reg_offset),
+>>>>> +      pin / PINS_PER_GPIO_CHIP);
+>>>>> + }
+>>>>> }
+>>>>>=20
+>>>>> static inline void jz4730_config_pin_function(struct =
+ingenic_pinctrl
+>>>>> *jzpc,
+>=20
+>=20
+
