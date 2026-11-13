@@ -1,89 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794595143;
-	b=y089l4tl6PEPGXzL9TXInxD/0aHH+lS0/L/0IZ+Yi0jkN8jrnSaNxebi71WqWHdgebCd
-	 uKzURUpbalEBPV4Qdhw5eMMQN6nUjHGRK6SJWyg8jqTsKSkAiYabmxXg9RC65Najn/2oP
-	 HOrXJpbruhuLLyXpNbT0SJXdde/eucJYFp15YL8wl6eN4/fXiYRs9yOJOHYxdAzMNrzdY
-	 qH9itRlbzVjrd6q++QtNaD+GczGwpqRwr1atXFL4rfvdpVKH/hAbjDkn53hYDtdJjG+GG
-	 4sP2n4Sozrp/QOvTk9++i8Li3gXeYTftjZzVxE+RqMO0hWqRCaXVytKpTw8pGPgc23Q==
+	t=1794595157;
+	b=Tw+FZ25lLXL0eJK3TaPy/arHhu4NL+ewzr0z6fNgnmwKRYezGialBy6JU2MdfkMNNAdf
+	 UGkC95DfYVEl0fu/by8EWmvHJ9db1w3DnN2FEfHEMlAtZ3DwC3bdMZ8n+HrPMbokYXeY0
+	 4LVDgt1she5FLzPnkq9aGkzucaeyx01mWCTp9nIVRe9kqXolZRO7qID/NhHJ0HLiEufgY
+	 /1lRa4E/uz8ijwyQwfsXDKJkix7AwYd5RM/AlML5oAFo/iw66z4s9qMjru7Z88Dk/3ZpI
+	 EqixlFfRHYqhQSa2oHlpW/tkP+Nwe4UPqYv02kpConxW+9LXcf/uW3KpWg13nwftLpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794595143;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=aohr4CdhF4N1r2Y2HSLshvRZaHbmXDknX6LvcOsHqZI=;
-	b=HHzVN4Lyo6zeF7QEz9dt+Ynn2+rbRqAyRM6NLbaXs7E1+25/ODGGH8kiZ2ssgh1bs5rT
-	 Daib4QuU7JLDVAh54besnc1AO8e6QT+RcjGVviAqlYvMgt7HIJcjjfe9D5Cn5b8stjPjZ
-	 +Kv9hPzMqWNw/I1XnTEbO6WS2M24YsLwyAm1YeJPrCukL2lnbsyJzD4r6l2S6k9h1DGNc
-	 ldYmMkC+At6lA2lmPQNVVNAvBVFBWK3Gaeg47TWb4zUbAldXDsLbnyAkYC4F4a1PFz26M
-	 o4RQJmyrG+TIog2vOjz9kThjZiXouA8U1f8MoHRnkYGhuG2ryQswdRfZ3aALEo6UWog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794595157;
+	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
+	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
+	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
+	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
+	bh=hYDbl4umyRX8oh0AE2DeiWPxBXMm+JRB6zjUrINsNvs=;
+	b=IMyATWLfqGP45d1oMlieN7NE0qO6+OblMLlNo2ObRiBn3TK46FdjzanDVNov9zYCaFGu
+	 FpwTnUO7ETlBEMyzjq2LDXRYpgEYNwucI6ARrsE0BVLfqsQx63dpwI2UFsKFldaiBL/VU
+	 97pmFKqOXXj4YlxSasV1DlemtjoJTgcFdA/MA3IXZjPpf/LFRWAVmEXBA9sFAgX/z08H/
+	 +1/2JIhCb1VIiI1GdznOrqRKKncWWM3M8kLI2B27+G3DEfC4Co1CtiHj4jlC4S4jutPbf
+	 cdEDh9GuXZkTJSlhrU7jVEi/yVSLyXTmDJq3j1K38r2HkI4ZcmIDiPMxrXGvyzeyV0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=nGXC2mr8;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OX9FGclq;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 329E5607685B
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:39:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 329E5607685B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6C57607037E;
+	Fri, 13 Nov 2026 18:39:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=nGXC2mr8
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-492fcbfaa87so701128f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 10:39:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794595142; x=1795199942; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aohr4CdhF4N1r2Y2HSLshvRZaHbmXDknX6LvcOsHqZI=;
-        b=nGXC2mr8jDEFHh8X7rT1WEuyQyAOtyoVaJp5hD24VULt5Dm7tn5F4rQogcz1AKkt8B
-         GbsQRDgwSeNRHydCV8O1Hf2dk9YPkq8TTOacvrvqNUcKJhd0pmpYNxAhee9OAn3Q3CBb
-         ZrLDMEXjtXAByco6PMvyEc4Xctx+kkdofg5qfcfru3MRhroRs5e8pFa7aQn0UfFZsG5M
-         IawcxBBflPCVPeX9BBMQ76gpLVA7LVYCgcNqtEAO7pfK5UbS4qgGZFXxWtBsDRRjMzcE
-         xmBeK91uK9gZwr+1rZrafLNgqEXXbHruS92N+aVKjk5Mm+T2BzzvS4ELissMU9eRY1Yp
-         90Ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794595142; x=1795199942;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aohr4CdhF4N1r2Y2HSLshvRZaHbmXDknX6LvcOsHqZI=;
-        b=CGRgxM/Ls/kH4jmB8bUKuIBP+dZxrp3bwx4CvcHMwDrv57+VCj0ZZc5XVw0SjqW/B5
-         5a5UxHMkuOkQsy+DH1Uma3clVQNrb+Aq07hKp7X+w1U0wpdMTZWcYbr9re8aqJ0oMlnQ
-         gFsIzPP8LIukh9lIwU3RSpLggzIrwgwugj9JPyLhNE+JTJZCtp81x4aaFnXwtXtdZpU3
-         MrxrLsMHg9z8wIYuoStpJIA30raI9lC2OX2rVgVSa+SJyYLDSObuEx0Up+vfBDN99IqY
-         1WsOliMOfF5wxjHMzQNJSLNzbj+gH/iFnU/1EIkde3WNMsAfyoJx4gcZOhdkOxi4tGQM
-         o3Bg==
-X-Forwarded-Encrypted: i=1; AL+hErFqYvkN+zus/OZEklYQUlaKKS65Bo1I/dzUsCWX+8SuJwUwYV7WQAS+prL2mDtPHQ0d4w/C1NUX+y+Hk9E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8CWfngQjctXu3w3nOvKrWU/GrPQdInPf7mdXyhZj0VaceTDGBD
-	PYSUUW6fzuzeJ/T1N9OfKmOD8QE9sNlkUXq9q/Qwum2RdD0hR0SqgPBCA0UXfYsQlW8=
-X-Gm-Gg: AYBFou0TAHe2MoroG8JbycjiO1baAdkkEt/4u+OU+6O1Xxom/IUgkYToEFm6EH9EqJu
-	3btTb0/O+77iwWVkJddd+60a3zYTN5JRaHK5bBZa05SCpEstC6U8dK0eG77LoPKBOke81Q2tjRG
-	YH5cEXU+IYfHq/Js4apEfu6zMqvS2WUx2b+XrknTV5u1zw8kc73226kX5s97LLbPhB/qBtc2ZoZ
-	H0jYPWpvanuBxNua5jXx/az1sq9LCmHiHCMA4Uxni+QFghikJinGpoEElpcQYbALaX9VJgOnysN
-	oAQEVtJNeDIDa1nGz2yi+J/h8dtL1tR+futSSIZ+oROXU3aykf1MGHfDxFJv1CBA8tz2zhw7UXj
-	a2LzsC9qhQhqsikRVjCdJkF4swNVxlhUmsgOTwWSw+CY8haT4faCnv1PEtzLApys2wv5w8wJT4y
-	0LvzmNhj9VHTuAAJNZuosRvnKiD5qG8e2+PkyM9NyOyGNtswbXKvUKwhT+2NGUtok+jxstYUGkl
-	ldvzXY5EMEX4xYGvQ6Yxd0LnfcMzQkes49N2wCHRMzkAYSmlKnRKC5DPgUMfl79AoEZziUI1moW
-	8WpbdsfAWfeYrszewJE7DzgNZ62qyPixu917vo1DTPU=
-X-Received: by 2002:a05:6000:4697:b0:492:c53e:2ea8 with SMTP id ffacd0b85a97d-49c7458620emr5628794f8f.49.1794595141531;
-        Fri, 13 Nov 2026 10:39:01 -0800 (PST)
-Received: from arrakeen-2.home ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f7828a4sm6865870f8f.23.2026.11.13.10.39.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 10:39:01 -0800 (PST)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Fri, 13 Nov 2026 19:38:36 +0100
-Subject: [PATCH RFC 22/23] arm64: dts: qcom: sm8650-valve-deckard: enable
- audio
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OX9FGclq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80E911F000C4;
+	Fri, 13 Nov 2026 18:39:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794595157;
+	bh=hYDbl4umyRX8oh0AE2DeiWPxBXMm+JRB6zjUrINsNvs=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=OX9FGclqUCUTyrwAtzn/gyAZ1p7+jTngdEku5mow/eGIU4WVktlv+LsCcj/kVWA5l
+	 NNDiVVcZIvqB7kRzYpKBdYzf8ZJRhvR7L4N4xNR6xR5u2QDu9YjurJQHC8CdBgMSoS
+	 FZZSF+s8sv9EJEci68530WkAXzViCyknIu7vcDIBcIfyTXI2um+T0p18IJVmFcY1cj
+	 +1xIicX7nLRHgvLgjuoUZ8Z7R1emjJ8eIC5jdQOe40/sZajjraC2EVSBoMwNdqR2v1
+	 g9luXCVvn/NTRqUdlvKomqSkUQ72SQx95Sl/c/i5whclEJYxrjleXw4jZKQRAGIN/X
+	 F7cNsItlbsmCA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 77687392E998;
+	Fri, 13 Nov 2026 18:39:17 +0000 (UTC)
+Subject: Re: [GIT PULL] sound fixes for 7.4-rc3
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <87pkw8pvsi.wl-tiwai@suse.de>
+References: <87pkw8pvsi.wl-tiwai@suse.de>
+X-PR-Tracked-List-Id: <linux-sound.vger.kernel.org>
+X-PR-Tracked-Message-Id: <87pkw8pvsi.wl-tiwai@suse.de>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git tags/sound-7.4-rc3
+X-PR-Tracked-Commit-Id: bca568589ad118a9b0bac086760baee2a41976a5
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 2800868f63227c8237d70c41e70d441c919620d6
+Message-Id: <179459515613.1691752.1951028645356072024.pr-tracker-bot@kernel.org>
+Date: Fri, 13 Nov 2026 18:39:16 +0000
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Linux Sound Mailing List <linux-sound@vger.kernel.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,145 +67,16 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-topic-sm8650-el2-v1-22-5183f6aab9fc@linaro.org>
-References: <20261113-topic-sm8650-el2-v1-0-5183f6aab9fc@linaro.org>
-In-Reply-To: <20261113-topic-sm8650-el2-v1-0-5183f6aab9fc@linaro.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Srinivas Kandagatla <srini@kernel.org>, 
- Rohit kumar <quic_rohkumar@quicinc.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Konrad Dybcio <konradybcio@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-clk@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
- linux-gpio@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2284;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=V5W1xkU5JSLg+slKk1AfIWeDvtlCZVv2u4mE0vZ1GEw=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBq91koLJdzmuJYexHUXqCwf/rguGD0uVlz2GY/nKi3
- xzdtgDCJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCavdZKAAKCRB33NvayMhJ0bV8EA
- CP6h7TdIv30wzog9Ph/7TaDUOU9Q0KoVpgAYqjAzcf+icYGmJ2kONvsVh8/7PH4note+jLzG4tDvTg
- nzrwuAj4KUDPAlz6PsQ0XHZ29zJ75rEWfDIcEdF7vdhPYIovfSgs6QqLDpS1desaMEODAJoS795EuR
- iEfrJWyLP5ef/bcOxxWzXNzoSsZ8A/Bt5LvYXk1HHAUA+tFPJhz/gcwCBydcEOTB1yo4qRJayeiKVJ
- Rcu1DJoYfimFMS66fRmnsNY6R5eAQZ1B8TESR7wnoyE+HFaY7XEe2rWXyhtMp9D39ig0ofzVxfvBfX
- xClL2KpG9LTBkZ+JVJyZ0ZGlzjrbxZ57KV9KGfbgr/ifMSJ/eBIUb8zKdUnuqKwQG/0xmOgGYXvoaQ
- oUkbQeo4YfP7z7bTQ/6Nx7byp2lGcbrehRCaO08sxRUtNvRMx0txP92TmhKIVG0+kRyH056YcHvSfl
- uFXPOGWBL0r5Hbvb0nq80KI4A0cCyrHZ5L7hEzBaIZY0mL/EEWfx31q7RHb8acgQTvlh+WLJBIuuKi
- SHdv3y0nTLm8aCpLij24hLvJwvowGkLPsz0Nqz3L7r9XD7eBVkTeWrfOzngpRAPTHBq7P3NEAWHkft
- L83kztdj+ctg8j8LHeuyGltN3XftbP1L7HKNTQojJmNX5Zlac2vC7lPbC0rg==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-Deckard boots Linux at EL2 without the ADSP audio firmware, its speakers
-and DMICs need to be driven through lpass-cpu.
+The pull request you sent on Fri, 13 Nov 2026 16:59:09 +0100:
 
-Include sm8650-lpass-cpu.dtsi and add the SM8650 sound card with the
-speakers amplifiers on Senary MI2S and the DMICs on the VA macro.
+> git://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git tags/sound-7.4-rc3
 
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
- arch/arm64/boot/dts/qcom/sm8650-valve-deckard.dts | 64 +++++++++++++++++++++++
- 1 file changed, 64 insertions(+)
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/2800868f63227c8237d70c41e70d441c919620d6
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8650-valve-deckard.dts b/arch/arm64/boot/dts/qcom/sm8650-valve-deckard.dts
-index a365caa28cee..723f7911fc54 100644
---- a/arch/arm64/boot/dts/qcom/sm8650-valve-deckard.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8650-valve-deckard.dts
-@@ -16,6 +16,7 @@
- #include "pm8550ve.dtsi"
- #include "pm8550vs.dtsi"
- #include "pmk8550.dtsi"
-+#include "sm8650-lpass-cpu.dtsi"
- 
- / {
- 	model = "Valve Deckard";
-@@ -160,6 +161,37 @@ framebuffer_mem: framebuffer-region@af400000 {
- 		};
- 	};
- 
-+	sound: sound {
-+		compatible = "qcom,sm8650-sndcard", "qcom,sm8450-sndcard";
-+		model = "VALVE-DECKARD";
-+
-+		audio-routing = "VA DMIC0", "vdd-micb";
-+
-+		speaker-dai-link {
-+			link-name = "SPKR Playback";
-+
-+			cpu {
-+				sound-dai = <&lpass_cpu MI2S_SENARY>;
-+			};
-+
-+			codec {
-+				sound-dai = <&left_spkr_i2s>, <&right_spkr_i2s>;
-+			};
-+		};
-+
-+		va-dai-link {
-+			link-name = "VA Capture";
-+
-+			cpu {
-+				sound-dai = <&lpass_cpu LPASS_CDC_DMA_VA_TX0>;
-+			};
-+
-+			codec {
-+				sound-dai = <&lpass_vamacro 0>;
-+			};
-+		};
-+	};
-+
- 	wcn7850-pmu {
- 		compatible = "qcom,wcn7850-pmu";
- 
-@@ -776,6 +808,38 @@ eeprom@50 {
- 	};
- };
- 
-+&lpass_cpu {
-+	status = "okay";
-+
-+	pinctrl-0 = <&i2s2_active>;
-+	pinctrl-names = "default";
-+
-+	dai-link@22 {
-+		reg = <MI2S_SENARY>;
-+		qcom,playback-sd-lines = <0>;
-+	};
-+
-+	dai-link@19 {
-+		reg = <LPASS_CDC_DMA_VA_TX0>;
-+	};
-+
-+};
-+
-+&lpass_rxmacro {
-+	status = "okay";
-+};
-+
-+&lpass_txmacro {
-+	status = "okay";
-+};
-+
-+&lpass_vamacro {
-+	pinctrl-0 = <&dmic01_default>;
-+	pinctrl-names = "default";
-+	vdd-micb-supply = <&vreg_l10b_1p8>;
-+	qcom,dmic-sample-rate = <2400000>;
-+};
-+
- &pcie0 {
- 	wake-gpios = <&tlmm 96 GPIO_ACTIVE_HIGH>;
- 	perst-gpios = <&tlmm 94 GPIO_ACTIVE_LOW>;
+Thank you!
 
 -- 
-2.34.1
-
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
