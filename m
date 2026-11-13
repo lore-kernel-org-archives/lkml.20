@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794609222;
-	b=uAcpfwdZdpkQxpStHqkUODpT9lFAR48g+LYjXvk7ziQXYT/VL18GhsjPpSH78roOD9+6
-	 4aQ7KMhVxx8K9I79X6zb8sAEYX2RWT1YNgUv3sn5r7eaZc8D6ynAnnsfpfwUtMxt2XnU6
-	 g5ouwftrnGCBPsq84JQQrNQmuitrN7y+J/1P9UfKb79eRImXRzmBX7bzE7mqnGqftWUoe
-	 JZOkIzgOHIUvQHCuajvamGwfGI3EWd10UMFkWbGDOnv+fhEayVnpE+QVosdcyz5h8qryw
-	 b6dMFWdCRHsjyGvwvPHocWGQf8YbS2jR2/rAGEupK1qc0GQyZNdHN9TBWsUou6sTx2A==
+	t=1794609217;
+	b=F4cFxz3eGUd34ObldWEdzV5PKzo8P4eN7maFVvYTd5zCqJMnrBaA6cEmmkdixK+4nLH7
+	 g52EapZBCaTgp3IZzDP5JBMeF5kEcq3P7II40+y3oCZIFEhhH9LFpbDR6T0uFo7lEu2TP
+	 TVztf1qg+Lw1UcEK5h2Y7sUgfKt00zwIrhrrTddoueo0jFj3QUh3MOsT4m+2XQsyIBs2H
+	 p9O/A4+zQ1BZ9mA9ZSJ3LeubMsdqBXaZuU1T+dWhZDNb+bYpDPFdMAdwEutumiGJCcR1o
+	 BLZeu0K9yfN6rh4pxsh5H1T3AsSGkfrv/aVx66fJZPXzRlhk2wVPu6DhhIxDTcC57Ug==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794609222;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794609217;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=tAMzkHW3x619qcSE6ghe9OxhnYf9AsPfwmmVyuti68Q=;
-	b=1E75ZA87KXehpEkEc2jnUs3mJDgcGFNt9Qsq401yKTURI5rkpxmZWrHzMUG+BXASt/Vq
-	 WH8ERiIR1Pnn2/wHYxJsELLUc9swreoPEgbu0/uGgHut1tqUIfWrEQl69KLb/BDL6f7fW
-	 4TDpItxU9F19AZuOr2iSRQ5atv+DSJzudNeFUF0jxu0IP7O+UyjQzWi0+bKXadSBN2lAC
-	 khnU9OnigxfD+A8lPxyZ+MiyFNuxZ8efrViw5SGTdf89CexRselZEJJQzAjbp2wWyioXI
-	 qphsTo28ozqaD5dzCSEBC6m9KzOE6HxcE3ETE8l/e1LgNmh2c2WlYHoC/2ZWEFWDFVw==
+	bh=+LYiK/955nfnWYhkJP54cSbyAVpIlwPTqmzMMmypLBQ=;
+	b=YaXATm5I6Yq29RNqwdWTSCU6pqw4gVybdT/PRI7VF7fZhO96EeaIHBgavuOYFfhSkPN2
+	 ySBxCszG2t9Q9HngShMrDrwPwVS+Mn301PfQRMBfhVtliziVRgz0g6apmmUshBNf9U0as
+	 XgOT6W6RQ0CN40Om0Q922q7b9zx8kJGX2ZMRyIZUD6A+5OxJGS3Zk2w2gvUTtjmRz4eBD
+	 qpJTPl+pqIfSvTh8smqXHcTN1bdmt7mygspcWOL5x8LKTbvpWqafOth/nLhZ7ZBsOlVm0
+	 W6cY5L1eiazCzjmW7fnpf5iSFhefMDqnxNvZO1XnR7ab2pL2RpsLrBNMIzZsxsGAK2A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fyd4+BWo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nbs63U4M;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07EC060A6F5E;
-	Fri, 13 Nov 2026 22:33:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58DF8606A88F;
+	Fri, 13 Nov 2026 22:33:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fyd4+BWo
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nbs63U4M
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794609221;
-	b=ixXZyX6PNaFH4FrMFF2i7WsHjvAc23Yx3BPq41Mg5Jqj9kYtllKpGrBwJ4pW0m8u9bjv
-	 sJTKkiJ1qb5VNJeaftulTfGTVw7eOrN8GUzOUVP8GnGI9/zCp5LGnr20DjkV1gnWKTe5N
-	 5Ps+JPcetfh5sq719Ooj7D0HAjkyHmWMK8ORLNJe+6KqcH4HOLeOx0vzEY4FjcMEz/miC
-	 9uuLsYi0/UuynrMHFkT4ZHz+5SMpchOo6X6v8lTZUnkdqjexq8ybSHnnC8cV2nppm3Id7
-	 MPbWrUyYNFJpuRgdNKB6ykp3jQ3UgEjUXxcTwqy2asJxz/BkFA3TZwBbQA5/OWhgshA==
+	t=1794609217;
+	b=rm3gq3VaqNmbUVDuF6cC3EJdz+5iPw78YnNODPIdvKPJGsDnhPRRI5dWUlxf0Tv8On8O
+	 BsyTMBZ2/aBJUu54xUb1G05pW0sUIZ4ABvvzp3HLo28T0cz4mohIS3ZYH8BE3tlKJErhB
+	 1SzryVarflM/qo/MtIBjRnedVaULams3hWNDJ3KJqPpLA9E8trX576LitMPDhDXPNEaWe
+	 m/StjAP88Hy0oJu9vR6F9iF1lNie4YfyRkx8AVq2fxDD4t+RF+SMUXxZLoIngBVon8Zhy
+	 UJpIIQrRE2rOhHI9qfDk7004Ucqkq3FsDB0mOId9AdxlgNlX6JSh7qrGCkI2lmqHHPA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794609221;
+	c=relaxed/relaxed; t=1794609217;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=tAMzkHW3x619qcSE6ghe9OxhnYf9AsPfwmmVyuti68Q=;
-	b=SMRh+U51g4jzVdRWM55LG3pe3X4WEfzIcyhhu0usWl8oYSR1HIh+eeMOOxnZZLiutTs5
-	 LGcTbn7auv65H0DTaeDuiHZwT+Qc5LsulEwQVY8F3Jm3qESK4N7CSLpUaZq1XjQ2bVxiR
-	 H47ZIj/aBgM0IcOVl9DIMFpONDwPUyQvTnr+ScGzDTZfT5DKhzFpWrNnDXeuvy2KHfSdf
-	 EBKDdhMEeYwuASl36zHZPnvS9xms3S3iWqK9NBI9KXK5UVgvrK3H6atr3S5hEVBXJR6er
-	 P5tQMY20OD40AumDBt/IIUyvGhHczNYkkWhNwnpIQK2mf15xM2UCcZ+9x/8L7feY8zA==
+	bh=+LYiK/955nfnWYhkJP54cSbyAVpIlwPTqmzMMmypLBQ=;
+	b=hYy+2mRa69+MNmWzlv/k3vZZCWLKqB4d72cbQEng7EFtT8976hKztYLpnbkuw8wNI2eR
+	 W648pndhdJEpHXj1PKLYuuHnLqo9Z8GmZdzD3TUahuUcuu2bjLyUe6KM1jLN+VymgBvkt
+	 pF2OmKwmDZ344ApoO/p/2n04+sNOmNucYeIZwR2i6PgXiDVJpD1myN83Ew7lw0rFSBlV7
+	 k9epVYe4Grl05DPD7QIr6/z1vnDrFvzDWKP0bqwrKBO45lI9vh2GTNOSC+4or647RMilG
+	 Xowe0W60L4gnIP9b1aHA/h4CSA7zsZMtCevZm0LVNQArxcoDt3H3CMce5tZ72kpP7SA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 543BE1F0182E;
-	Fri, 13 Nov 2026 22:33:38 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 035961F000C8;
+	Fri, 13 Nov 2026 22:33:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794609221;
-	bh=tAMzkHW3x619qcSE6ghe9OxhnYf9AsPfwmmVyuti68Q=;
+	s=k20260515; t=1794609217;
+	bh=+LYiK/955nfnWYhkJP54cSbyAVpIlwPTqmzMMmypLBQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Fyd4+BWo9SAEAgTUcWSfp2jxVvQglhZmUdq5m0HhB9GSHbPHNJ4hy0bQfcI1UrD6s
-	 VT6t9XNz+rWbIr6EEM8YzAMtMKHq0py10+BDgugqm22w/9LBy32gek518/jq/5WmTx
-	 KcXgfVQPQBlKYO+9DwIyztRbPZSpPG3oGaiYG8YAdMW1AG8i63CrpB+BKngj6VMNir
-	 zc3HfNLLzho1gNekNo/GrNLbTXeKc4UdRSBZpK2xKMqIYx8oijBdKMRUFQbC5rhS2l
-	 TlueSpQIxt7bC0vM/DugKKZsIfl2Byyw8j26Dir8fDdnMdUwOJ7zDJDDGJj6sepsR1
-	 b/ZEuSqXBBMSg==
+	b=Nbs63U4MikP4u7GXTWu/Yh05G7PSpAOzdZ2YwMuL/uvPyy1bnfrGQGlkhz1B375bt
+	 Lok75LO1oo5DXupGOvpeHeBeSb8aSFKEawx3QGQj32wdywbMIAmy/W9Mbt2fMqcFNB
+	 IYH5bpflUx9C2xWueOSonWLM3YV0Lfe66fsx/IUUnPwXvUpN+OHrwHwZDcOz4czthQ
+	 ErmXMQKFt58/G0Y2Cr8Rsx0IQrMq9ueYf3g/F8osAT0i0OKNDP/GlIqToQA/Av/ZIk
+	 53DM960oWCTAwUPKQuY8cJ77+2hxDM0YqSYw4UWKMZalr81YkBvlpZQjH8qrGuZD7u
+	 uptEuZlat6ncA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 1DCB049B9A;
-	Fri, 13 Nov 2026 22:33:34 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 5352949B78;
+	Fri, 13 Nov 2026 22:33:33 +0000 (UTC)
 From: Han Gao via B4 Relay <devnull+gaohan.iscas.ac.cn@kernel.org>
-Date: Sat, 14 Nov 2026 06:33:44 +0800
-Subject: [PATCH 18/19] riscv: dts: allwinner: add the YuzukiHD Avaota F2
- board
+Date: Sat, 14 Nov 2026 06:33:35 +0800
+Subject: [PATCH 09/19] clk: sunxi-ng: sun6i-rtc: allow variants without a
+ 32k fanout mux
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261114-v861-v1-18-eb71ec3ee523@iscas.ac.cn>
+Message-Id: <20261114-v861-v1-9-eb71ec3ee523@iscas.ac.cn>
 References: <20261114-v861-v1-0-eb71ec3ee523@iscas.ac.cn>
 In-Reply-To: <20261114-v861-v1-0-eb71ec3ee523@iscas.ac.cn>
 To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
@@ -111,11 +111,11 @@ Cc: Han Gao <rabenda.cn@gmail.com>, linux-riscv@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org, 
  linux-gpio@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794609209; l=2024;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794609209; l=1175;
  i=gaohan@iscas.ac.cn; s=20261021; h=from:subject:message-id;
- bh=KqCPsLCb1dJ4aF8ZRP+gwHxIPe0+kCAp6k+KqhGB/tU=;
- b=JAcotxw+M6j30G6Y+hS6IIthgJBH9a0dFcYqiLwL8VfrQYXbseALNWB7FyvsQlLFdrq1ifsfd
- XTqr4BlvW/tAFUhX0NaT1c1hZjH3ZcIUsvJ3w2wYbmlHtGbMZ+QCYs9
+ bh=IjLpSZK52EbD2RXTMonjExKRJ8v5cc72rNy+1BJSluw=;
+ b=u4Lz8S44b3ToLaBsujWDUTqNOl1o4PgdcDpKDa/XwGcMxJt8sFC/p1XpwLiV3n6qI2MWpZyKs
+ moCFg0R6xxABDqHcZkHiY1smc7VBl2uZEKHM2N3ESxOzRNNPALUPA2A
 X-Developer-Key: i=gaohan@iscas.ac.cn; a=ed25519;
  pk=J8WHEK3filS86QaCaIHDGafqhxKyQ4K7+vFgRirTIiY=
 X-Endpoint-Received: by B4 Relay for gaohan@iscas.ac.cn/20261021 with
@@ -126,73 +126,33 @@ Content-Transfer-Encoding: 7bit
 
 From: Han Gao <gaohan@iscas.ac.cn>
 
-Add the YuzukiHD Avaota F2, a V861 board, with its memory and serial
-console.
+Some RTC clock blocks have no 32 kHz fanout mux. Do not register the
+fanout clock for variants whose match data lists no fanout parents.
 
 Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
 ---
- arch/riscv/boot/dts/allwinner/Makefile             |  1 +
- .../boot/dts/allwinner/sun252i-v861-avaota-f2.dts  | 43 ++++++++++++++++++++++
- 2 files changed, 44 insertions(+)
+ drivers/clk/sunxi-ng/ccu-sun6i-rtc.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/arch/riscv/boot/dts/allwinner/Makefile b/arch/riscv/boot/dts/allwinner/Makefile
-index 1c91be38ea16..725919d9a4af 100644
---- a/arch/riscv/boot/dts/allwinner/Makefile
-+++ b/arch/riscv/boot/dts/allwinner/Makefile
-@@ -9,3 +9,4 @@ dtb-$(CONFIG_ARCH_SUNXI) += sun20i-d1-lichee-rv.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun20i-d1-mangopi-mq-pro.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun20i-d1-nezha.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun20i-d1s-mangopi-mq.dtb
-+dtb-$(CONFIG_ARCH_SUNXI) += sun252i-v861-avaota-f2.dtb
-diff --git a/arch/riscv/boot/dts/allwinner/sun252i-v861-avaota-f2.dts b/arch/riscv/boot/dts/allwinner/sun252i-v861-avaota-f2.dts
-new file mode 100644
-index 000000000000..e3f5e6c8d350
---- /dev/null
-+++ b/arch/riscv/boot/dts/allwinner/sun252i-v861-avaota-f2.dts
-@@ -0,0 +1,43 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
-+/* Copyright (c) 2026 Han Gao <gaohan@iscas.ac.cn> */
-+
-+/dts-v1/;
-+
-+#include "sun252i-v861.dtsi"
-+
-+/ {
-+	model = "Avaota F2";
-+	compatible = "yuzukihd,avaota-f2", "allwinner,sun252i-v861";
-+
-+	aliases {
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	/* U-Boot updates this node with the detected DRAM capacity. */
-+	memory@40000000 {
-+		device_type = "memory";
-+		reg = <0 0x40000000 0 0x08000000>;
-+	};
-+
-+	reg_vcc3v3: regulator-vcc3v3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc-3v3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-always-on;
-+	};
-+};
-+
-+&pio {
-+	vcc-ph-supply = <&reg_vcc3v3>;
-+};
-+
-+&uart0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart0_ph_pins>;
-+	status = "okay";
-+};
+diff --git a/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c b/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c
+index 98ae10307f43..0e40fd5fa624 100644
+--- a/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c
++++ b/drivers/clk/sunxi-ng/ccu-sun6i-rtc.c
+@@ -436,8 +436,12 @@ int sun6i_rtc_ccu_probe(struct device *dev, void __iomem *reg)
+ 	if (data->rtc_32k_single_parent)
+ 		rtc_32k_init_data.num_parents = 1;
+ 
+-	osc32k_fanout_init_data.parent_data = data->osc32k_fanout_parents;
+-	osc32k_fanout_init_data.num_parents = data->osc32k_fanout_nparents;
++	if (data->osc32k_fanout_nparents) {
++		osc32k_fanout_init_data.parent_data = data->osc32k_fanout_parents;
++		osc32k_fanout_init_data.num_parents = data->osc32k_fanout_nparents;
++	} else {
++		sun6i_rtc_ccu_hw_clks.hws[CLK_OSC32K_FANOUT] = NULL;
++	}
+ 
+ 	if (data->have_dcxo_status)
+ 		sun6i_rtc_ccu_hw_clks.hws[CLK_OSC24M_32K_DIV] =
 
 -- 
 2.55.0
