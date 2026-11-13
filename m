@@ -1,65 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794536961;
-	b=LuTib6/YBbwgdzPnF8ZCYT++oywyG6bVlVOaCcAkRlaTOjnr/7KBQvvv5kS1wfp0Tuws
-	 MDpueIWb4tSySzpkEa9D2w2kjZ+cNvNaFlsIKpmgvcUeavBCX9fRvpGAvIB7SXVu+VEe+
-	 oNToCeua4ZIC4OXiNDoHex7+YxoeVPwUkpYkRxIyit26jwtiYBRrBQcNjP3pn8jY6YSFJ
-	 pyo4BZVpWB5lihdduwYLpQVZ4U9xn1GkvPXOGzW3H8dAkxQ8BiuQgbcTZPjvWbcw8ZX+c
-	 5VhdElB/NUo6xdq1b4aVRl0kZHreRQcJMqc4JGOi9zq8R0p6n8qTf8oYwUjH5e9D/MQ==
+	t=1794536968;
+	b=e0VXMtR+eApAbTqb1GN/44XBGjhw5VesIZakiDdU178debxu1pFcqyEFh2sP1cyPQv3K
+	 cE3lr5dMJQvTrfP7+fsf1pY2TvgSNXHYdsRJ4G8iZWvBiFWLqVvFvhTYSvY46/2uiwo6p
+	 lNA8enxLRkN0GwiUsvWY29292vIz3ORn7VsWGuaFKKuQXamxijmsQuRkUDmjxoaPdf9F0
+	 MgS3VF3eXAQ/abRdHTymJ7ELeyXgOwDTMOwvSyKp5SIMTvsofFJsm9BnNd2+dkjb5y8rq
+	 i2RqXyrzxaRxy3vRcxu5zrl+nyEfEdIYb8UTUdCq0txcxm71GWU0Er9sVDFv/bILgxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794536961;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=TghEp7p8+eQn+xXccg/iuYCg44RMlbPitTII5OfFE0U=;
-	b=GO1jafc0hCAmR29tyiNaCttE4XQFGN1SUo8b4v0Cqk/X29MCoVnV5qV0YKxIqb/PQ8iQ
-	 msr4w3++wimt5t2DtTjvEddF7LaWOyq6e5dXXkVlP2QRt8IGYYP7el1l2HI9uGSGKNlED
-	 ZTYm5etcxD17YNRYESGR01f12flGVjdOsuNTZvrNGJNAcXdzuaX9tQQfPiETQfrnqucJH
-	 tvZvK+kEf9c/ucmmUGyVslRt+wHL6cDXmJ1kJRLl/ozBLUeWlvfeFqlrggdmc+IcJ2WxL
-	 BwHUtgtfC6VJZJOOJA7+usMmB3zjA+f6BCjocO4hsZFaoDjbU+tLQi0Gka8Eao5OoKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794536968;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=3Raodpl8vL3TKabak0c6oEO9mzM/EGv53fn3bT+vKQ4=;
+	b=WFvFT0gg34aLU6x1l0ZsBbFVqXU3E+nochJEQ289wfvqhDJdg9pr7ZV11aY1JaPH/T+B
+	 7v/OY2YAxLA03m8ufJ7vYDRpExFWdlyuSTz9py6JRvPVL169BRj8dIXpmhhrHC3S3iZ/v
+	 1PM52h9jTMV8ZzmUfDw22mYF1ackFlkByROBBCfmYqESeUqplti46jl3ImwoNEzTZcfvL
+	 U7DQk8yffFNS72ja4EseMAhkUN1x06R4ZC9e9pfLmxST+4h2lQdesdtny06PTAKB/GdAZ
+	 1biyJJFlXVtIEXdS5ASsoP1RoJkCFQPDcjFt2vEKTyLxqJhxi2nFP6OcSeftSenpyOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QLKxCfku;
-	arc=none smtp.remote-ip=91.218.175.43
-Received: from mta0.migadu.com (out-43.mta0.migadu.com [91.218.175.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=DpNmXlrE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9830D606A32D
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:29:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9830D606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09BFB606A333
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 02:29:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QLKxCfku
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=0OtJooa9aydrZp8DkVzRpBy+NvnMkoj0XNcJ9NHvkEE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794536958; v=1; x=1795141758;
- b=QLKxCfku/igd/Zp1PGFhiPVVBxmx7oZeWWj2Q5TQLsKaR3hbK0epfsB3xJH3OS53IlTh4FLk
- zESjxfYuLDnNYOWmjt82BO/4fLwgRiV8zRAvSiGZwqzz61QJUycyHgP/fqn4hmoT8IrBmIbuXI5
- jh84gdxnIipaLpLTCRPkzras=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 1be86121f214132c;
-	Fri, 13 Nov 2026 02:29:18 +0000
-X-Mizu-Trace-ID: 1be86121f214132c
-X-Migadu-Flow: FLOW_OUT
-Date: Fri, 13 Nov 2026 10:29:05 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Wenbo Sun <sunwenbo@cmss.chinamobile.com>
-Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Hangbin Liu <liuhangbin@kylinos.cn>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, 1342116488@qq.com
-Subject: Re: [PATCH net-next v2 0/2] ipv6: fix rt6_fill_node() multicast
- route query handling
-Message-ID: <avZ18UxLG0q9rh_i@fedora>
-References: <20261112094630.197244-1-sunwenbo@cmss.chinamobile.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=DpNmXlrE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 373D81F000C5;
+	Fri, 13 Nov 2026 02:29:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1794536967;
+	bh=3Raodpl8vL3TKabak0c6oEO9mzM/EGv53fn3bT+vKQ4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=DpNmXlrEQvDVvglPuf+1xK3d6VyatMSOfSp9Nwd5YSKyaYMcPJWknK9bPWrRtfmPO
+	 E8D3nr1+eAAKcqnnr11SLSDjXz6zjLjdh1BKIUK+Fz/hh8KxeOoSlwhPCeQ3HvexuB
+	 M2Wp4WK/bjvmjZCNWalm7fFis28J5dMyDNUjFYNo=
+Date: Thu, 12 Nov 2026 18:29:25 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Eliav Farber <farbere@amazon.com>
+Cc: David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, Lorenzo
+ Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, Vlastimil
+ Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ "Suren Baghdasaryan" <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache
+ <nico.pache@linux.dev>, "Ryan Roberts" <ryan.roberts@arm.com>, Dev Jain
+ <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, Lance Yang
+ <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau
+ <kas@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar
+ <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
+ <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ <x86@kernel.org>, William Kucharski <william.kucharski@linux.dev>, Vishal
+ Moola <vishal.moola@gmail.com>, "Alex Williamson" <alex@shazbot.org>,
+ Matthew Wilcox <willy@infradead.org>, Peter Xu <peterx@redhat.com>,
+ "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, <linux-mm@kvack.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 3/4] mm/huge_memory: don't warn when a page table
+ blocks a huge pfn insert
+Message-Id: <20261112182925.6ce741ec3584e9401ed94238@linux-foundation.org>
+In-Reply-To: <20261112051440.16140-4-farbere@amazon.com>
+References: <20261112051440.16140-1-farbere@amazon.com>
+	<20261112051440.16140-4-farbere@amazon.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,49 +71,46 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112094630.197244-1-sunwenbo@cmss.chinamobile.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 12, 2026 at 05:46:28PM +0800, Wenbo Sun wrote:
-> When querying an IPv6 multicast route with an input interface via
-> "ip -6 route get <mcast_addr> from <src_addr> iif <dev>", rt6_fill_node()
-> currently calls ip6mr_get_route() unconditionally and masks any negative
-> error returned by ip6mr_get_route() with -EMSGSIZE at nla_put_failure.
-> 
-> Patch 1 checks mc_forwarding before calling ip6mr_get_route(), matching
-> IPv4 rt_fill_info() so queries succeed with RTA_IIF when multicast
-> routing is disabled. Patch 2 preserves the negative error returned by
-> ip6mr_get_route() instead of overwriting it with -EMSGSIZE when
-> multicast forwarding is enabled.
-> 
-> Thanks to Hangbin Liu for reviewing v1 and pointing out the error
-> masking issue in rt6_fill_node().
-> 
-> Changes in v2:
-> - Reword patch 1 commit message for clearer tone and carry
->   Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>.
-> - Add patch 2 to preserve negative errors returned by ip6mr_get_route()
->   instead of returning -EMSGSIZE from nla_put_failure, with
->   Suggested-by: Hangbin Liu <liuhangbin@kylinos.cn>.
-> - Verify both mc_forwarding=0 and mc_forwarding=1 (MRT6_INIT) cases in
->   a UML kernel alongside W=1 builds on UML, x86_64 allmodconfig, and
->   x86_64 allyesconfig.
-> 
-> Link: https://lore.kernel.org/netdev/20261111094528.425826-1-sunwenbo@cmss.chinamobile.com/ [v1]
-> 
-> Wenbo Sun (2):
->   ipv6: check mc_forwarding before calling ip6mr_get_route()
->   ipv6: preserve ip6mr_get_route() error in rt6_fill_node()
-> 
->  net/ipv6/route.c | 14 +++++++++-----
->  1 file changed, 9 insertions(+), 5 deletions(-)
-> 
-> -- 
-> 2.33.0
-> 
-> 
-> 
+On Thu, 12 Nov 2026 05:14:39 +0000 Eliav Farber <farbere@amazon.com> wrote:
 
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+> insert_pmd() and insert_pud() treat a non-empty entry at their own level
+> as a leaf and compare its PFN against the one being inserted. A page
+> table installed by a concurrent order-0 fault also makes the entry
+> non-empty, and pmd_pfn()/pud_pfn() then report the PFN of that table,
+> which never matches. insert_pmd() warns unless the entry is the huge
+> zero PMD, and insert_pud() warns on any mismatch.
+> 
+> A VM_PFNMAP mapping with both ->fault and ->huge_fault can produce the
+> mixed orders: an order-0 fault installs a page table over an address
+> while a concurrent huge fault on the same address reaches insert_pmd().
+> Changing an mm's THP policy while another thread faults the same PMD,
+> for example with prctl(PR_SET_THP_DISABLE), is enough to do it.
+> 
+> Compare the PFN only for a leaf entry. A page table is not an error, so
+> take the existing out_unlock path, which returns VM_FAULT_NOPAGE and
+> lets the access refault onto the smaller entry.
+
+Thanks.  Sashiko says this fixes a cant-happen.
+
+	https://sashiko.dev/#/patchset/20261112051440.16140-1-farbere@amazon.com
+
+> Fixes: f9e54c3a2f5b ("vfio/pci: implement huge_fault support")
+
+But that's because Sashiko only considered f9e54c3a2f5b.
+
+It seems that DRM shmem and Panthor and mshv pass FAULT_FLAG_WRITE and
+can reach the warnings.
+
+So... patch looks good but the Fixes: might be inaccurate.  
+
+Fixes: c6f3c5ee40c1 ("mm/huge_memory.c: fix modifying of page protection by insert_pfn_pmd()")
+
+might be better.
+
+Also, we don't want current production kernels to do this so please
+consider adding an explicit cc:stable to the patch.
+
