@@ -1,83 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.133.4.66
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794563713;
-	b=D1aWBtK+m3aqavG10GXyMNuC0C0I3aTz4OS0z0kQvMSHxhmbZICMlTEgSst6uHwD3P2a
-	 LIGfS20QdVN8aw7ScIUgk0PfpQ7RlMeZl13cko7fipZCcwlv3jYQqi+qOW8z+BXWqmYPL
-	 pd2Zn3H+zZLHpU9cx5eUkMc9YabxMmSE4Nh9AN+DyaiSgOieGSkMhHZA1KGhmJOsamv35
-	 yE8oafTxhVQVRdyUJC97U5zKe8s3KO1LA+LgDYZ33qb/CUIe9DN/qJwMpVICB8tgeDPsQ
-	 cxXiYLM/WlZbn1jiiHd/syrTQ6zC0LErQHzPOe80qnC1qxTsqqjxzaX+67jjsUqvb0Q==
+	t=1794563806;
+	b=K1SrTSy5iwnblu1UaQWnR5Rok2PAKqbCfwKTEd2cRLmFZ3lG64jYN4HurGZEfyW4bIW9
+	 ajmvb+ceYWpaEFfGpWrmgady6NtlsHaNHmI80mSYrpwIgceZfyrwn2Ki+oIkbC1kTok2G
+	 CijTO2rksXHUzMIyX3AQ62M0UdaEcjBJ1T4D5j/EoTfGDUJRn29AOGIItnWffSpEu4cpW
+	 2ZgzdoxR81eyMirCgzktByI7lRvsjvpG8iuGybk1xedckFo8ShEnQrt71g57ItSR1Sg8b
+	 3HD6uMOQ6YAlgwjQ0qfMbGBNzSs7d/+p7xktD0YBabDNwsgUTcfISCvPFnOujr8QeUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794563713;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-Original-Sender:
-	 X-Originating-IP:X-ZEDAT-Hint;
-	bh=DSxYOaCEQUN98hO0auoHWXR5OBU2d9UCjSU81ozd6Vw=;
-	b=E1XwNxh9Mea7lQrydepT3BL2CADVWQZOMeGCFU/sOMXmiWlcqczgqOVhNFuLqltQ5G41
-	 syNbzIydJysH8NBhX6OuKGpkzD2GFoSULe1yy6KiMGoA9K99jkbg754L4fIwIYcm3M21j
-	 7yokkdIUnb5Wfg83Qpn3WADD7UXPFMwK9Mw1XGrkyAfJmR1QbiSvb5GVjlPGLouY7OgGJ
-	 EuICGuYDIlW0ToxMC1CZzm53LVw3FSALpSUUINzREV1lIokw1REWoUj6HKRY2WzKQ09oH
-	 +et2HYyywYMjpPo1evdqR9ibfBmqbMm8CKgRP30FtRSfKdHoxQfidRTDB6ql7Cc0gXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794563806;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=kluHAf30lOQTvYGq+YH2c2fBsSTyc5d5qn0rYtZKUsw=;
+	b=TV3/vekdo82IeRfr5PHS0PgOCG4UseCVRG8XQ1qyPmufTsf00M3D/iD5XHlPDMkJp8+r
+	 QMDsdPud1xQh7PynRX7/DeqaCXLiWFpV2N2spGS3iKRwPOmYvslW23Wf7YHC9wH91JS2e
+	 YB+ZkFixsubQMvjSVNmhwGGgbfxMGFuHt6RD6ZJ+lqYx/boItRutOh0w20wXgHn0C0n6n
+	 yUAwQcqEcM/QvNFxyJf6kpPTqxQfS8n6tE8veUnXlSnSjYv1xpe7Wv46cr8BIjMUtYhuu
+	 0CbxiYrMN7zDjsoOBC8D+qFRZpV9WTnF0qSPNRByu24Y2Dz9IbFtOkM2CYHW7LHYNDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=physik.fu-berlin.de;
-	spf=pass smtp.mailfrom=zedat.fu-berlin.de;
-	dkim=pass header.d=fu-berlin.de header.i=@fu-berlin.de header.a=rsa-sha256 header.s=fub01 header.b=EGfWTiK3;
-	arc=none smtp.remote-ip=130.133.4.66
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=p7wzYuMY;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC8BD606A332;
-	Fri, 13 Nov 2026 09:55:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC8BD606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3F8A606A32E
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 09:56:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3F8A606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fu-berlin.de header.i=@fu-berlin.de header.a=rsa-sha256 header.s=fub01 header.b=EGfWTiK3
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
-	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
-	References; bh=DSxYOaCEQUN98hO0auoHWXR5OBU2d9UCjSU81ozd6Vw=; t=1794563711;
-	x=1795168511; b=EGfWTiK3ifpjW/ySH1THz/wwUiQESm+W4OCd4TPjqCMMfcTa3zVWMU2Clbf9Z
-	gqZa5RzGowO63DT3S7qiycaFyN7BDez50qR4ZX50CBQeMMPbXbuqBntt6Kf30lTBaF4yO+gxULjZP
-	H0MlIW0fwNdwqrAHZC8mha/lGIpAlYN0UUUvfM5Jzf15T26oAnD47uItCzx9gnYf8w4xvHBsW3n63
-	YqE1OADboJ+M+V6cVa90zsEgHqizeSqSbw+sF6XEg+SbnRNFEMRmpj2YOBksHgfZehRbthtPV7QS0
-	oOK8lidqBoas/qnVjnqr1MLsfQnY/e1LQH2ub0CxAqd9Oa/Cow==;
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
-          by outpost.zedat.fu-berlin.de (Exim 4.100)
-          with esmtps (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@zedat.fu-berlin.de>)
-          id 1xRnzo-00000002wpb-2rN9; Fri, 13 Nov 2026 10:55:00 +0100
-Received: from p57bd95b5.dip0.t-ipconnect.de ([87.189.149.181] helo=[192.168.178.61])
-          by inpost2.zedat.fu-berlin.de (Exim 4.100)
-          with esmtpsa (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@physik.fu-berlin.de>)
-          id 1xRnzo-00000003r0U-1ePu; Fri, 13 Nov 2026 10:55:00 +0100
-Message-ID: <5e3fbef26b8500de7c4192bd6cb6eb5248496e14.camel@physik.fu-berlin.de>
-Subject: Re: [PATCH 0/5] Input: tsc2007 - drop platform data support and
- cleanups
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: Svyatoslav Ryhel <clamor95@gmail.com>, Dmitry Torokhov
-	 <dmitry.torokhov@gmail.com>
-Cc: "H . Nikolaus Schaller" <hns@goldelico.com>, Yoshinori Sato	
- <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, Andy
- Shevchenko	 <andy.shevchenko@gmail.com>, Andreas Kemnade
- <andreas@kemnade.info>,  Johannes Kirchmair
- <johannes.kirchmair@skidata.com>, Yuki Horii <yuuki198708@gmail.com>, Geert
- Uytterhoeven	 <geert+renesas@glider.be>, Kuninori Morimoto
- <kuninori.morimoto.gx@renesas.com>, 	linux-input@vger.kernel.org,
- linux-sh@vger.kernel.org, 	linux-kernel@vger.kernel.org
-Date: Fri, 13 Nov 2026 10:54:58 +0100
-In-Reply-To: <CAPVz0n25-LyOFFu-h7Sc0iUcjLMk0njOuAAHr-NepQbnZU6gxg@mail.gmail.com>
-References: <20261112065037.1800467-1-dmitry.torokhov@gmail.com>
-	 <CAPVz0n25-LyOFFu-h7Sc0iUcjLMk0njOuAAHr-NepQbnZU6gxg@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.62.1 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=p7wzYuMY
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so4152125e9.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 01:56:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794563804; x=1795168604; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kluHAf30lOQTvYGq+YH2c2fBsSTyc5d5qn0rYtZKUsw=;
+        b=p7wzYuMYn7brPyloBx7mav2Z9jHCXjOnldCsKhPHo8MSBai+ow1PAU0djODR5o38dJ
+         x74xWoL2nYvNOhHW9Ep9BJ4gEw733A/AWPy+Yx6UCXA5GcXMLP/kVyMoAxoEfkj3MX/l
+         sB6cKjkU48UH2zhF2ob95aKfByOQVKAENq7BF0jj8U2HAHyXqWrFNsitIBApShyesq34
+         P83vj6qH0eecVK7TXgVgZnhrZ1Rp0e8GNY+plEUZFK72hDhMSeHKiGGC+0aREJax8LEt
+         wSFCxlZ399jgRaACJZGG+NAHtDlL7KeKeUYpeO6c13pCDh+NCX288O21ifmemvFI0Vdn
+         RqIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794563804; x=1795168604;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kluHAf30lOQTvYGq+YH2c2fBsSTyc5d5qn0rYtZKUsw=;
+        b=o+a9HZ4Wc4zB/o+3bzQYhx+XSi66PPPPmvZ9zD221fRgTcWp19tGpEzYUHwIzTkk1P
+         qaGczKDoujqSzghN2TQ7Fh4Zxj33DtEL7zPeg3LHy6sC2d35phH5BfPyyj/G2M0SEqyT
+         s2PBT28hCzI0hwTyZ5fsC3jFA70OgKdzzCQv2IjLT4VVWINOLdw0ntOhfWynZMEHLIWy
+         0G+jOs5K4vEjz6IhUiKBoYweAPvad9F9OiWeuZzbAeLXz41nSzQFqE2XiuS2UVLxrEk4
+         yjAc3QpITBfWYiCi8Xs0TKjOsxWfgz2c8GTm85tkEyRsvzussE8AMqurbH3nyHOybqMG
+         JbcQ==
+X-Forwarded-Encrypted: i=1; AL+hErGIRXIqS6lV0c7SVZN+HJN/YtoSW+Exx/2+pi9a5gOpqwTM72XNF/ilEjrukhPr4rmOvAECVqdPK2Wapa4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+V6GslmWh0a8XDaCbnRMpJBBB3VeOfpOApRfPQI6QqFz3ZwarZ
+	FH2ib8Wwa1+Xpnji8Z89gVbCfDycfHEwLfF96OpmXQVBbLQfPLO3Oq/c
+X-Gm-Gg: AYBFou3dQ7FnW8UhzJxxZidCAaOsepQPURj+KG/HCdK9EeJbajE7hgzE/0/ywQ3fM4u
+	wAaEQ73z9j3Xz9SBqF1OVtoPE5/3Th76/rPaKNv1ImJQJG2BirGvXWVaO+l7vJEWA6OXhO0xzmI
+	j6suYap/LL41nYeSgXrBmdWh72zligKTXF3sqar5Bk9POZUFs6+pDl35DSx4XVDdlNUeEFrE4Zz
+	ts5iamyr42RiHeaboWOu1tt1sS8mUiywcQMqLbixrEPjxk53QHNTm948lefiEsO8ELznnNeHLyy
+	6ZTvL1YSKGim1UVl5bMgeUJE3NvFCFlnNK7VrCJ75nOtH9LoNmsR2fyMAmM8ZzGrSOzMenfcEkc
+	AX0ZoEuMX1IAveacOs/l/eZ4J0gGBZ1zmasUbE+soHti9qPRd7fj6KwRDuxDyo+EQjzNhfi2tYF
+	r+JAFlKMjrq8xPuNwhU4A/Wh8DN4rtuIKdVE2wxROxPVb+j+05D5KzFwcPM6f2Vlr0IdcQZeMZw
+	RsUUhZWcBnFc5Wx0dia5I6NxRPMISLM4/5NzmR7noKKtXOjxAKIwsmjHE93R8M+fUZV1UPID43N
+	lKXWJC4eapXBaNy77dLzFhFEQu4IA4viX7Ee/T973/PEjcnG1K/Tg5tGzF0MywQ/+DOJq9LOQjf
+	TO0uaAoZuDu53JqXfZtEHUNWccph385ex28BqluYkg/D7WtP8y/f5Y+jLVVEq0pND2Lc07cY6ao
+	DXvt8+EM/4EqJqYAmz
+X-Received: by 2002:a05:600c:6286:b0:4a1:7e77:c382 with SMTP id 5b1f17b1804b1-4bb55a5d634mr37035575e9.5.1794563804181;
+        Fri, 13 Nov 2026 01:56:44 -0800 (PST)
+Received: from navid-pc ([2a01:4b00:a856:6220::a11])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb571d7e87sm28500015e9.3.2026.11.13.01.56.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 01:56:43 -0800 (PST)
+From: Navid Ghahremani <ghahramani.navid@gmail.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: linux-arm-kernel@lists.infradead.org,
+	arnd@arndb.de,
+	stefandoesinger@gmail.com,
+	krzk@kernel.org,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: Re: [PATCH v2 16/24] net: phy: Add Sanechips ZX5201 PHY support
+Date: Fri, 13 Nov 2026 09:56:39 +0000
+Message-ID: <20261113095639.1667143-1-ghahramani.navid@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <95e7fc97-2bd1-4b68-a9ef-246302ed9ec7@lunn.ch>
+References: <20261014072109.1759502-1-ghahramani.navid@gmail.com> <20261014072109.1759502-17-ghahramani.navid@gmail.com> <788c9b01-473e-4c45-b6f0-b2ba054da8e9@lunn.ch> <20261113003655.3665572-1-ghahramani.navid@gmail.com> <95e7fc97-2bd1-4b68-a9ef-246302ed9ec7@lunn.ch>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,63 +109,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-ZEDAT-Hint: PO
+Content-Transfer-Encoding: 8bit
 
-Hi Svyatoslav,
+Hi Andrew,
 
-On Fri, 2026-11-13 at 11:33 +0200, Svyatoslav Ryhel wrote:
-> =D1=87=D1=82, 12 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 08=
-:50 Dmitry Torokhov <dmitry.torokhov@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> >=20
-> > Now that all in-tree boards using tsc2007 (including SuperH ecovec24)
-> > have been converted to generic device properties, this series drops
-> > legacy platform data support and its header file, removes redundant
-> > memory barriers, fixes minor coding style issues, skips registering a
-> > non-functional input device when no interrupt is wired (when the chip i=
-s
-> > used purely as an IIO ADC), and uses IRQF_NO_AUTOEN when requesting the
-> > threaded interrupt.
-> >=20
-> > Thanks.
-> >=20
-> > Dmitry Torokhov (5):
-> >   Input: tsc2007 - drop platform data support
-> >   Input: tsc2007 - remove unneeded memory barriers
-> >   Input: tsc2007 - fix minor coding style issues
-> >   Input: tsc2007 - do not register input device without IRQ
-> >   Input: tsc2007 - use IRQF_NO_AUTOEN when requesting interrupt
-> >=20
-> >  arch/sh/boards/mach-ecovec24/setup.c     |   1 -
-> >  drivers/input/touchscreen/tsc2007.h      |   5 +-
-> >  drivers/input/touchscreen/tsc2007_core.c | 183 ++++++++---------------
-> >  include/linux/platform_data/tsc2007.h    |  23 ---
-> >  4 files changed, 60 insertions(+), 152 deletions(-)
-> >  delete mode 100644 include/linux/platform_data/tsc2007.h
-> >=20
-> > --
-> > 2.56.0.567.gdb80ae8cd5-goog
-> >=20
->=20
-> Hello Dmitry!
->=20
-> I have tested this series on top of the latest next/master on the LG
-> Optimus Vu P895. My device uses this chip as an ADC for battery
-> temperature measurements.
->=20
-> Your patches works as expected. Input device was no longer registered,
-> ADC part was present and worked as intended. Thank you!
->=20
-> All series
->=20
-> Tested-by: Svyatoslav Ryhel <clamor95@gmail.com> # LG P895
+Andrew Lunn wrote:
+> https://www.sanechips.com.cn/en/Products/WiredEn/fixedNetworkTerminalEn/1558027080778723330.html
+>
+> This says it is RGMII.
 
-Interesting. What kind of device is this? Is this a SuperH-based phone?
+Thanks for the links, that settles it. I will treat the link to the
+ZX5201 as RGMII.
 
-Adrian
+> So picking SERDES is probably causing some of this confusion. SERDES
+> implies there is a PCS, and the PCS is doing signalling for SGMII or
+> 1000BaseX. With RGMII, none of that exists. The registers might be
+> controlling clocks, or regulators etc.
 
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
+Makes sense. I will drop the SerDes name for those registers, work out
+what they really control and where the RGMII delays are set, before
+the networking patches go out again.
+
+Best regards,
+Navid
