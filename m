@@ -1,61 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794584419;
-	b=PuuIpMs83IwD7DrBs5Jn45uYclmFTm4Qgs1QIBQaIgO3I6PYc9TgPGAv+XDBlUAfQi+3
-	 BrELHovcbODsiH4UBCxQf2jZW/HjxoiXAoqAS1m2F1ObKeC+tVXnuTl4006iOklP32ssb
-	 iMfBwkA9X65W73+ar//GPqTAPy4xsV2uoSJsOLmaAST7hIBeyJ/jxOxTXwr/3j/IbY8x8
-	 Acy/ujcBjvYCOJhAg9vBq7Mo24U1+4Fnzu7+d4mJZFocWQY9Nr/BR/uMSFurBfjA6VPGI
-	 Z8WI8kTwgl8j3FHYHr+nXWcwDMMzW7ir3t96Bb0DSWlXj9Z0+xpaQ5hhFB1KV4GK91Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794584419;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794584430;
+	b=QnfURZSBqM+BilAHg3YAVJ6Amvo0UePbYw4o2VNbQ4NAQIqjG2Z8IDQSizKP2rmc+x0U
+	 7WbOwIXX4hd+c7ye/KGcSmyK00KpQHWIhC72zhqa7sErgjtf35GP4MyeM2fGGDoBXQ05L
+	 rjmMQ8PIg5YAHJRDWqJrmgtb55SF9NmljnizJLU51EhhZ5MaxzFDI+8vmy/dCB6ktM++g
+	 uzXucEunZVHzdZ48a4O7fDK9wQD2tGPaX5rlVVH+CZ/uvno/zd7QeIZ6YXszVaQHRWQU8
+	 HBE94apdYxRwVvpLIUDKSJReSTxrCqXN5ZadgYFsB6WiDz37o9eFPwgVUgWmWR1wZsw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794584430;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=mHchkc+i3m3/kNWz27BIotBWVw1HxYTF3vT+5QXs7GE=;
-	b=1jj0Rrf6z1Iqg60s8GYgPPjbqCYU6pR4FVK+mfUY2FrXc8vSmoFD0mM2NT0XzIO30mcY
-	 PLHUVVbbh61W6Xp6bxyCRVob5sAU4GTyXhrlTvhj+z2iqrRZeXknMKveORlMYRo7psGmW
-	 hQMbYhd8ikbM6e1uGLs+hRg5qj666dSOMAuANoB69VoaLkWvkDjh1FUyfh/ITgoB/0/hW
-	 w3JF69bya6vIS3XCZ6n2b3ZEEz76K/pmiIlwK3bARj10c9G4qfaSBt1sQmJVCSe8lldxW
-	 LbzD+AXBHkLIoBl2DqxM+yZmR8BIdMFAnVfMz8ITtOEaCtHOSZSeCn23FoITQBAUkOg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=adzkssnM;
-	arc=none smtp.remote-ip=100.103.45.18
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ANQ3/bg3Uk8FuOZwxlcjmLvpGxkRq2me1jlvChXTFBg=;
+	b=L5ohJplSV+B21LdQTCukmatGC8AXMuzZ2sAIBBWDNExj7ztFZrgOeqVln4es4eqGwlXO
+	 Mu7D3JbrEtWVxvDrMUV/+p+xWQxWFx2jQvJSu+cnm0ERrCXB0hWYgeD3xzebIK7+PZ2vr
+	 hC+4tEjdZm+hu95ZGLhglAW/LbXbsfK7GWL8e5uYvnJ5aKWBCJ+eNxr/7fBdRmNHHhD0J
+	 062H9m8t2Oy7LHyaFUSOht+WOf8/4SIElwM0vBDxF2SpL2DkXqNHRPo6uki5ghku5/dn0
+	 mFeJ0RZdAGGHJiVHyQ2jMOW3/gTstRyCcvbnsLrk9HRBzt42CrBdOZHF2mFjfDxYf7Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZMLGVTvr;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 29D54606A323;
-	Fri, 13 Nov 2026 15:40:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22C2A606A323;
+	Fri, 13 Nov 2026 15:40:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=adzkssnM
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 761881F000C4;
-	Fri, 13 Nov 2026 15:40:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZMLGVTvr
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794584429;
+	b=xvG/+qFZG0nZqR+D/A/DPPapUiTeBIs/CBdJ2WxUb7KJvQ11hT2+Bk/CojiUZ5TzWD5Q
+	 UtG0oBxlYyUmjLKpA/mn/5JMWlHuREmWElJqJ5OSa2Ua3s8FTSYfDCPWL6F+LE5eP9Bgx
+	 XivgBq+2a1ZBA6bA0XqaykoT3R69N+Trx6bXO+er5qURKNbdmCitCb6hSeBJ3wSFEHsqT
+	 osVEhBpfBNgCf/FVcrBx3mDId91ldwvUWOpzkIMxF0qLlkwPsW/bCtLapdLdG3qvlyrQP
+	 mf+tC+xgJr5mTI3DzHW5PpzFTz1AQwMx7VQjIaFTZmA65BIvWDyiT7EFdRUI7M7KB4A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794584429;
+	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
+	 References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ANQ3/bg3Uk8FuOZwxlcjmLvpGxkRq2me1jlvChXTFBg=;
+	b=npz/DpYg+aArr+amwRgXciPG8hl9yBKtFHYHSogTVSjlRcW1R71AXMzrOfQEGCpt1HNL
+	 ZlbtTAuyuI3n324aCbmB5Ak5HsZQ6m78DncI4G8CTusqS6D2aEwmIrYv63B8By6Sx60o3
+	 jVMfkzZaOdeGpwWbDEldhvc//+GDCsHsnDELyfrIdbtWNr+QfwSCtCeIlVvKJoQaNmbXw
+	 R1TwKTWncFMc1EqHd0LRFqVVo5N1yPBh2vwYG4nNhagh8JweuDUZF/RNXERE+T1KPv++q
+	 wk0xIGN19hb+dy5qKrTMk31IlT5Y46s/vC/VFdB4lrAoE5b+66IHyRo/7hfvKEvC7JA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=90.182.112.124
+Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPSA id 73B141F000C7;
+	Fri, 13 Nov 2026 15:40:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794584419;
-	bh=mHchkc+i3m3/kNWz27BIotBWVw1HxYTF3vT+5QXs7GE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=adzkssnMniVs7TpMNzEjl8mo34JNiD/1UXooZX4wsir8cA6AmaikpgyofXf9s3FjS
-	 JXL1PunfRzx57sJxVWAndSGYtD0wGX0suiG4wJbDcIdVmtpWSIq7hm5biF5SKMg5Cm
-	 SAkz16fstIAIoJgf4pCnxK6nNIfF8J3kU+zp5yiS/GK0mwfTe8rcO8SsIfKDW2FzDb
-	 CQgsZUbF1vkWSFKVMZOQVuvht+7Kburln9JPxB2oqC/T3hQMyLiZ2JgghY54UYigbX
-	 tXE2yixc2uyni8SpqG5AKMJMH2deAV58TSwZ39CCWhO6KNSMw1ezFy8lq9D6v2LXsP
-	 cJ1o7T4ynTL2g==
-Date: Fri, 13 Nov 2026 17:40:08 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Breno Leitao <leitao@debian.org>,
-	Stefan Mahnke-Hartmann <stefan.mahnke-hartmann@infineon.com>
-Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org,
-	surenkj@amazon.com, noodles@meta.com, linux-doc@vger.kernel.org,
-	kernel-team@meta.com
-Subject: Re: [PATCH v3 1/2] tpm: Disable a TPM that stops responding
-Message-ID: <avcvWJMidN7p0LUM@kernel.org>
-References: <20261113-tpm_unresponsive-v3-0-8138c8e283b8@debian.org>
- <20261113-tpm_unresponsive-v3-1-8138c8e283b8@debian.org>
- <avchzL3uEXHbvNv_@kernel.org>
- <avconeIiDzMIq40n@gmail.com>
+	s=k20260515; t=1794584429;
+	bh=ANQ3/bg3Uk8FuOZwxlcjmLvpGxkRq2me1jlvChXTFBg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ZMLGVTvrDMUiRvPrWXkZXBEcdbAok8tErr2+Iix9+yLBy85gq/xmAqJBKJTQxAPv+
+	 mjrQdPUckFOBXXKRJH+kQOAgDZcV913L0dyWaUSM3E5BHfLFGDs+CBUlT9+2NkofAR
+	 BAx2NxoApM7/HoH8mO9O+MP3Gp8ltroO0Zs/pLpTrcoFsp5YOMdEkCL2JyKVZBq4QY
+	 VCsZzfcegEOyrhTUGzpPw+3dkC52tVSJNVC2NY4rJ6NgQ3wl5an9ZsCIH1LwmmqGGb
+	 xwnH6Po7Coi0UEDkA8ILQDX9yP5QxsyezYJJuyz2VUu0sEsZqZhhhJVe8aaWbUng5Q
+	 suhvIGkopDv7Q==
+Date: Fri, 13 Nov 2026 16:40:25 +0100
+From: Joshua Crofts <crofts@kernel.org>
+To: Bjorn Helgaas <bhelgaas@google.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] PCI/portdrv: remove redundant
+ pm_runtime_dont_use_autosuspend() calls
+Message-ID: <20261113164025.00003eab@kernel.org>
+In-Reply-To: <20261113-pci-remove-dont-use-autosuspend-v1-1-413cb01fa0f6@kernel.org>
+References: <20261113-pci-remove-dont-use-autosuspend-v1-1-413cb01fa0f6@kernel.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,63 +84,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avconeIiDzMIq40n@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, Nov 13, 2026 at 07:14:39AM -0800, Breno Leitao wrote:
-> On Fri, Nov 13, 2026 at 04:42:20PM +0200, Jarkko Sakkinen wrote:
-> > On Fri, Nov 13, 2026 at 02:38:58AM -0800, Breno Leitao wrote:
-> > > @@ -40,6 +40,11 @@ module_param_named(suspend_pcr, tpm_suspend_pcr, uint, 0644);
-> > >  MODULE_PARM_DESC(suspend_pcr,
-> > >  		 "PCR to use for dummy writes to facilitate flush on suspend.");
-> > >  
-> > > +static unsigned int tpm_max_missed_responses = 60;
-> > 
-> > This looks good but I started to think this number. I guess it is high
-> > because there's never reset-to-zero for chip->nr_missed_responses.
-> >
-> > I think three or four trials at most should be enough, and when there 
-> > is a successful transmission chip->nr_missed_responses should reset.
+On Fri, 13 Nov 2026 16:14:59 +0100
+Joshua Crofts <crofts@kernel.org> wrote:
+
+> Since commit d1706f9da9f4 ("PM: runtime: call pm_runtime_dont_use_autosuspend() on reinit()"),
+> driver core is now responsible for undoing any
+> pm_runtime_use_autosuspend() calls on driver exit.
 > 
-> It does reset. Any command that gets an answer, whatever its return
-> code, sets the count back to zero:
+> Remove the redundant function calls.
 > 
-> 	if (ret >= 0) {
-> 		chip->nr_missed_responses = 0;
+> Signed-off-by: Joshua Crofts <crofts@kernel.org>
+> ---
+>  drivers/pci/pcie/portdrv.c | 2 --
+>  1 file changed, 2 deletions(-)
 > 
-> so the TPM is only disabled after 60 timeouts with no answer in between.
-
-Oops, sorry had a blind spot.
-
-This made me thinking that it is unlikely that there would be a sequence
-of -ETIME's and then things started suddenly working. It is not a likely
-world scenario.
-
-So really TPM_CHIP_FLAG_MISSED_RESPONSE could be the counter: it is set
-when -ETIME happens, allowing a single -ETIME failure but not a sequence
-of them.
-
-Sorry, this simply did not cross mind earlier.
-
-Second open question: do we want to disable or move into firmware
-upgrade mode?
-
-Stefan, could you review this patch set from this angle? I don't feel
-I have enough expertise on this topic.
-
-
->     Some TPMs stop responding at runtime, hours to months after they
->     passed probe. The first sign is usually "invalid TPM_STS.x 0xff",
->     and from then on every command fails only after the transport
->     timeout. A TPM that is already dead at boot fails tpm2_probe() and
->     never registers, which is not affected by this patchset/feature.
-
-This is much better. It is as accurate as possible, which is good
-enough.
-
+> diff --git a/drivers/pci/pcie/portdrv.c b/drivers/pci/pcie/portdrv.c
+> index 32fc623dd41087c7f92552117499359fae4c73d8..3ce960b4ea25e4a2bec1c9991398bc445871085d 100644
+> --- a/drivers/pci/pcie/portdrv.c
+> +++ b/drivers/pci/pcie/portdrv.c
+> @@ -728,7 +728,6 @@ static void pcie_portdrv_remove(struct pci_dev *dev)
+>  	if (pci_bridge_d3_possible(dev)) {
+>  		pm_runtime_forbid(&dev->dev);
+>  		pm_runtime_get_noresume(&dev->dev);
+> -		pm_runtime_dont_use_autosuspend(&dev->dev);
+>  	}
+>  
+>  	pcie_port_device_remove(dev);
+> @@ -741,7 +740,6 @@ static void pcie_portdrv_shutdown(struct pci_dev *dev)
+>  	if (pci_bridge_d3_possible(dev)) {
+>  		pm_runtime_forbid(&dev->dev);
+>  		pm_runtime_get_noresume(&dev->dev);
+> -		pm_runtime_dont_use_autosuspend(&dev->dev);
+>  	}
+>  
+>  	pcie_port_device_remove(dev);
 > 
-> Thanks,
-> --breno
 
-Br, Jarkko
+Ah, made a mistake, it can only be removed in pcie_portdrv_remove() and not in
+pcie_portdrv_shutdown(). I'll send a new version, unless you can fix this up when
+applying.
+
+Thanks!
+
+-- 
+Kind regards,
+Joshua Crofts
