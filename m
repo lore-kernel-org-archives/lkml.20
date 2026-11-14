@@ -1,94 +1,145 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794639245;
-	b=G8rAbpNsENpwoqYTPpR/jdA0Ae5Fc+i/3FQR1VgBYFFSLpbWWa8BHLr3vMemNiBg1lxQ
-	 Ws3l6mpaR4cA/OokPi9z5p08fH5A01nmnUP8i7i85fJPSB36moSWcP3fJrAaoN2SrCZK+
-	 KeQyl5HjXXUHOVEkp8R5wlMaJIGcgtYjrGNzo18D5lFHs2G9SXG0gEG7tLntks8gLdV42
-	 r5UtiEPpr9WphJ8ZJvyDtS9On5YXwV4uMB1eqHmkJSCklgyOHitl94NxOkOndWxw8abDh
-	 gKsKU0jJ0uQWrsD5G8UNVxvKmkHTRyQKE6x43BL+YfWOnJ9M9xBIf/W2CQfLb0V9Img==
+	t=1794640206;
+	b=uN1NdnT9t5kHqbinnqbf9jC8SICSer9BMgG/eQ8/Ar9Oc8Sqc++eRfnyF2+LBIsdI0mh
+	 /vAbhbRt0FkuXPcmX/kmS93hv8GjaLt8pwytXFuPn5h1HImPkXDzE/Vg+p/MURJ4toL4r
+	 RQgd2e6K0SL7ybVurtcAkGS25dopqJFasAIsa9KEWaEfAjP1eKLgqdSJu4WKJS8rX1+MW
+	 N4+aw6Th1CxigYLLatmwx91cCHqJjg/0XvVscL73JTHQr5HUogRavmLHlTouZBFLgitdg
+	 DkUgZIJ463IbLLbbqIWHwvHHWIvdljOnhIWd4sDtb0WEBF5diHWa+R7a6Vw9u7Xml2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794639245;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794640206;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=jpc7xYgRbp0PzEsHnP3QCuDwXQdtcMONN5oNV3WRItQ=;
-	b=Ft2wK3UEZU7Fm7HhVVnNnzvtxwtFzwKn40cUldf8NgODsYUpCOQ0pDhrPdQOV4SjbSqL
-	 4zcW10mmgzVZAWJOyJ3NgNOhMd9HNmyaoN8zYLnGXw7x5eG/bESsZrLti8J3zQLovzs36
-	 dDnESQwlOXGUH5t4fHMwXbO8S0VFas5n28zgmbD1p5EU9iqwO9oYyAgrx5bP7cUDJZWVQ
-	 rHdzsELXkAPiXolSjIMLQ9P3wiRB+2uI5BTtfiGbSE+RxUM2P2XfrGz2aXXxvFj0Xpe7p
-	 Qc3FeRh/ua7uxVfAbkRg4J4hPwA647Q6T9PWn5UtGHsIO1UEP4frQZFFVsbcKyDMGmQ==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=oRfBKleHhU3BUp7ltu8uNKVynP2g/0Xp3jgnuf+J/Eo=;
+	b=pWZeYvDIXRrte6w82Y5+jU+DYymTBoP76IxuHFVu0EgAxK9T1mS9jTR4Gglfic84INrC
+	 UZ3wVfL3lOAcu2CmfWU3fr9Z1IH5qUhrrU5DagZ/be0yGCCMB+AWQ4S8ewfjx4nsuqp8e
+	 9MJhQbbqkMLqZOnXU8WibE0QKF9eF7+Zw2VD7JvPzZb4fkTY0+vEceAO7tRUqgAF+CqjH
+	 T/Nhv5yf4N0JouPsrWDViQT7cLojBTSTuR8dRT9HBXLFntNRaNB9nMCA4nEhW6/lAirNS
+	 JZYjXr/W0hWRP/FclCKGUMkFzqzvWwl7/6yPdWdcTeICVhwcEEzTrd+iz5dy/vrXxCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bGPtVb5D;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=a14J+ivW;
+	arc=none smtp.remote-ip=209.85.222.177
+Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com [209.85.222.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 419FF606A327
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:54:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 419FF606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 484B8606A323
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 07:10:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 484B8606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bGPtVb5D
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso3360673eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:54:05 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=a14J+ivW
+Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-9495d543b91so53676485a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 23:10:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794639244; x=1795244044; darn=vger.kernel.org;
+        d=gourry.net; s=google; t=1794640204; x=1795245004; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jpc7xYgRbp0PzEsHnP3QCuDwXQdtcMONN5oNV3WRItQ=;
-        b=bGPtVb5DVnXyHuArAWU3QQt4Uni/sTb1VbSfPsJj5O7lruPR0h4KdsQlcD8U+Wkhzi
-         v6e6BMZPdm99X9r95d6ZqBUqBU53+CWHrEDgBOslM0DRUUnWJ5Bp9I+u/Mox39mfKqEM
-         o5C7mos2LaQZrcci2bJSAVItt+jmf2pQf5JZoxgmCEeVV6gCEccFu4YgZ9BemGQ4OI77
-         hF2BC8NLFszsF7SwMSmIbGlsIBGwXASTjGyeTClni2lkGvob/APThpeiUyuDL6DixNV0
-         3tJvClwlwGog60x10XghCogBeF1jdxI47/mQdHGsKQoqd+0gFQeRl//qdQA5mo16VHFm
-         94Nw==
+        bh=oRfBKleHhU3BUp7ltu8uNKVynP2g/0Xp3jgnuf+J/Eo=;
+        b=a14J+ivWzJ/poYORcK4nNkkQRbfvwDjPC+e6K1Ne6hUI5q5zkfi2YJp38SflEWnqEp
+         XFZVhHKO/Qe4IhOAtPdb+5xWEBDEf+CRvZFv/Xmb9JJ0i82uZjhBpiUGQztIMksos6gg
+         xGxFElFmKZ2suNnoBeSLuTQBsMs5Nf7OrYOFYJvYQISHbw4+R+RO8si0+OvQHKqhkbjY
+         KvHL4cxvfPXZ96A4VSjq+VnxjO1TGDXLVYg9VsVWtLyw/p2B3+9BUPO/onXKp3RxqVR1
+         qrOcQEof96hwqfQFb6IQQIBoMEN2I3TrYTw361/F+VmC6r7ByoRMkxiD8WOkiQSjh60S
+         xLvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794639244; x=1795244044;
+        d=1e100.net; s=20260707; t=1794640204; x=1795245004;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jpc7xYgRbp0PzEsHnP3QCuDwXQdtcMONN5oNV3WRItQ=;
-        b=JTU71ZDvlT8pQZF71PyPQ2aZ6B6XkQNtxttInpQZVRnUcMcDBQObAJywYsLAz3yMHY
-         6xUa8dU/sGAPVdvoghkAwinn0aMQYDI0B6VcvalAhGT9Jf5T+PEAFS/qupBNpzgRrK/n
-         lGJyFNohPASLkZ2ceKtZ0l8U+8rmYMDneWdgBLVXW68fk+VX98gwCZ1a0V22JGgNmE4R
-         OJXazNmEczGTHGpMv44IWqwiogChrtiSpw38WXrl3HXN0vGxRXoHLf0KoR2Db2LsRvzT
-         dKpoAV5+EIUmLdAGBIJLhc/OHud9JE31guPnaRXYjOthLl7p+W6sAjr0gZB07aB3G5+q
-         ZzIA==
-X-Forwarded-Encrypted: i=1; AL+hErH4vAZtZlKLOA5TU2DJtztXLgl9+9dRBrAvq/9Xxulkvwa2FbRGbZDcmC6M7fReCd3Ts/0LBN7f9J87QKA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/5/mcdRPP/EMtxIUhsPBZP/V0Et1q/ta14hlDQYxGoQdavvVl6
-	SQOF8oQHHL0Hsg0LTj6Mo66OxFco9JOtn1SJAYOeaDQb/g6rW5kbwiG2
-X-Gm-Gg: AYBFou2l3t2xagdQhCZw+IhxM1zVFGZaPNF+HzhRhzcBksZXwQrOWFVD6deIioCqPl2
-	EAsjfZxYb4q8KJyNi3DPy6EZ9lixsEay3juAxI13qeksVdJbWmY8RvymSy1zPuWTDomySv5+Clu
-	N44c4iqV2ktQ3daRcDzY3Ik0szpl56fHXCOBaGu3Iky20ECr/msFP1t+Y3+jK/po4peEXyDAq5k
-	Z5+7QpcgfyQZn9gB/Wda3kVP9KVWtmX7zK0LuZZ5UQPBdC1VPmqFQL4FRHhufLBk0exFyTwCcxq
-	TRzUgluduQxYZnP5wd+M5owd8bGUpsKrj6mwWCrCKjZ7o8qLFEbnMkuidN8Fe8Sn8S5f6nDxnjv
-	zRA5YY0B6yj5fQ0dpTELu0zZRHytOsyXQBvQY9D/WlzLPWtdjJINVTABQEsgoEJnFiTHwSNBHIe
-	PRUZ0dRxUy4MwKgZhrt4lE729aKTc9ZcNqR6KQ5AN1vpEdAMUa0hyBPLLM2g6bEkUChEl++mUON
-	cJ0AZrdbwe9tICQkCCMMwr2WUShTK9O0jrUFL3Leiyt5Ljgpqd9IwyZWiqb1sjKIEvaWV6s7VEw
-	Z3ikmgHNClFH2IWK3ZjlRvT94dMT39xEQeMzyTHMXko5o1yYflSYZNpJuddGE5lj5/vmIqhFA0J
-	q+zuX605QDyIu4exPVtBVxwiVSw==
-X-Received: by 2002:a05:7301:2024:b0:36a:18e2:64c with SMTP id 5a478bee46e88-379655d3d12mr4902007eec.11.1794639244069;
-        Fri, 13 Nov 2026 22:54:04 -0800 (PST)
-Received: from kdev ([131.179.133.114])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795378d7e5sm13297026eec.3.2026.11.13.22.54.03
+        bh=oRfBKleHhU3BUp7ltu8uNKVynP2g/0Xp3jgnuf+J/Eo=;
+        b=k0WqB2830D0PczByeg8NOF72YWSoZQtAxGODwkDD+U7FPPfwztOAp83WBDr12VdxrJ
+         DJJUfiVqHu38pVR/us7ttzxF2RsV1NAnbPO018PPRmz2TJHZ4ntjt/uyssaEEKBhzFk+
+         VGPzAxl8X6F5sT7d2KBlgUOA4OTGQjSXIySJC2BfMtKk0G30xGrlXzI8t5s7wIrI6bIO
+         s66uB/ZnFxVAU364a11ZXRbC9Ke3uHRykyXZMG5j+WqlXt1sFN9/MgXC086vq8hkQS/M
+         gzEnhMzTxcG5b/5pxn28Z/RCWbmBYTagcFHcphgbdrMUSMuoxthdWgHTF1GEChOT5Wpw
+         E+eA==
+X-Gm-Message-State: APuU4Z/u6TRHVCLO5YVR+EUfvfHTmcbMDlgsL0sdFfOoAGwOT+I8b2wM
+	zLkPmb7Cexq0MoCwzrP3E2vNXI45XroajFZREPdSwVFUTZ/T+Z6AtDJ1zwBpdmW7YNc=
+X-Gm-Gg: AYBFou33aVldAqxPxbGBVtoQKly0Pin9RTT4CogPSbW0BJ5nGjJJNxPKIHTjr2yCSIG
+	XK0l4GyaERUkJ2CIvJkMgj7dxGCsWQ/uxd3G48CVVw3UM+yB7IGPl20oVo5+jK2SAsAgkIE1mfw
+	vnLizJSuUz+U06zS//3kZkiHq17xUG+v7JZWz6N3GcEd+xqo1gXll51rwsvZMCUFZEJPCaCDpB7
+	Jai4vPtVihN/KCHHmgDtKdxtAo2dOuIOmGUabJnXs2AnHd6SZ0mH03b2VQ4UvfhlBFt5Za4Cb7H
+	QVFwtKrsxAW0C0wXZGnmttQTnjxqASi/WuZIow6m/4LfbghFP+5ZKwTsb6YMb1b/GdBAB8GxoNz
+	KiV/BD81/UB7GQbfGShePJuDq8DF2cFyFpRbE7NOCkr3Chv4M5ta8yZozbi7GOgPA9QmFcUqYsz
+	vSqcXrCDkgzHY4Q0untlGQIPLeRaiq7cfLTrjUbEkIEbwNGXZFliqm947L8Gt6SBO+OrgLvE2JM
+	e9PNFPEGjNooOIsELzhglfswk9BbNV2FHftFbxzoUyw+gsT2rUqZgIyZOdKkZqfTEgRQLlDP8Ny
+	Dz1F+wpWAFaTjWWyMudY/UlrCyeoIzKIgWlAPOengAd5wb44ob87xt6l3enT1QcvvKmXClVxGN5
+	7fsiX733w91jKCJOl
+X-Received: by 2002:a05:620a:8398:b0:93c:ba88:cd65 with SMTP id af79cd13be357-9494b9e13damr803141185a.7.1794640204107;
+        Fri, 13 Nov 2026 23:10:04 -0800 (PST)
+Received: from gourry-fedora-PF4VCD3F (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23db3a99sm37730986d6.40.2026.11.13.23.10.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 22:54:03 -0800 (PST)
-From: Niloy Meharchandani <niloymeharchandani@gmail.com>
-To: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
-	Christian Gromm <christian.gromm@microchip.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Niloy Meharchandani <niloymeharchandani@gmail.com>
-Subject: [PATCH] staging: most: net: use guard(mutex) for probe_disc_mt
-Date: Fri, 13 Nov 2026 22:53:58 -0800
-Message-ID: <20261114065358.149853-1-niloymeharchandani@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Fri, 13 Nov 2026 23:10:03 -0800 (PST)
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	linux-doc@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	linux-serial@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	damon@lists.linux.dev,
+	linux-cxl@vger.kernel.org,
+	akpm@linux-foundation.org,
+	david@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	gregkh@linuxfoundation.org,
+	rafael@kernel.org,
+	dakr@kernel.org,
+	johan@kernel.org,
+	jirislaby@kernel.org,
+	kasong@tencent.com,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	baohua@kernel.org,
+	axelrasmussen@google.com,
+	yuanchu@google.com,
+	weixugc@google.com,
+	baoquan.he@linux.dev,
+	baolin.wang@linux.alibaba.com,
+	yury.norov@gmail.com,
+	linux@rasmusvillemoes.dk,
+	pavel@kernel.org,
+	lenb@kernel.org,
+	hannes@cmpxchg.org,
+	brendan.jackman@linux.dev,
+	ziy@nvidia.com,
+	sj@kernel.org,
+	muchun.song@linux.dev,
+	osalvador@suse.de,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	kas@kernel.org,
+	xu.xin@linux.dev,
+	chengming.zhou@linux.dev,
+	gourry@gourry.net,
+	joshua.hahnjy@gmail.com,
+	rakie.kim@sk.com,
+	ying.huang@linux.alibaba.com,
+	matthew.brost@intel.com,
+	byungchul@sk.com,
+	apopple@nvidia.com,
+	rientjes@google.com
+Subject: [PATCH 00/22] mm: introduce N_MEMORY_COMMON
+Date: Sat, 14 Nov 2026 02:09:37 -0500
+Message-ID: <20261114070959.3490008-1-gourry@gourry.net>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,167 +151,136 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Replace manual mutex_lock() and mutex_unlock() calls on probe_disc_mt
-with guard(mutex)(&probe_disc_mt) in most_nd_open(), comp_probe_channel(),
-and comp_disconnect_channel(). Include <linux/cleanup.h> and
-<linux/mutex.h> explicitly.
+This is phase 1 of the Private NUMA node series.
 
-This simplifies error paths by removing the unlock goto labels and
-temporary return variables while ensuring the mutex is always released
-on scope exit.
+I will send v6 "Private Memory NUMA nodes" (phases 2 and 3) separately
+next week for further discussion - but I pulled this out ahead to make
+the core filtering mechanism easier to review.
 
-No functional change intended. Compile-tested only.
+The series is now broken up like so:
 
-Signed-off-by: Niloy Meharchandani <niloymeharchandani@gmail.com>
----
- drivers/staging/most/net/net.c | 57 ++++++++++++----------------------
- 1 file changed, 20 insertions(+), 37 deletions(-)
+Phase 1: Introduce N_MEMORY_COMMON to define "general purpose" (common)
+         memory as a concept separate from a node having memory as a
+         topological feature (N_MEMORY).
 
-diff --git a/drivers/staging/most/net/net.c b/drivers/staging/most/net/net.c
-index e6e4498d33ab..e08804c8ec6e 100644
---- a/drivers/staging/most/net/net.c
-+++ b/drivers/staging/most/net/net.c
-@@ -13,7 +13,9 @@
- #include <linux/init.h>
- #include <linux/list.h>
- #include <linux/wait.h>
-+#include <linux/cleanup.h>
- #include <linux/kobject.h>
-+#include <linux/mutex.h>
- #include <linux/most.h>
- 
- #define MEP_HDR_LEN 8
-@@ -175,21 +177,18 @@ static void on_netinfo(struct most_interface *iface,
- static int most_nd_open(struct net_device *dev)
- {
- 	struct net_dev_context *nd = netdev_priv(dev);
--	int ret = 0;
- 
--	mutex_lock(&probe_disc_mt);
-+	guard(mutex)(&probe_disc_mt);
- 
- 	if (most_start_channel(nd->iface, nd->rx.ch_id, &comp)) {
- 		netdev_err(dev, "most_start_channel() failed\n");
--		ret = -EBUSY;
--		goto unlock;
-+		return -EBUSY;
- 	}
- 
- 	if (most_start_channel(nd->iface, nd->tx.ch_id, &comp)) {
- 		netdev_err(dev, "most_start_channel() failed\n");
- 		most_stop_channel(nd->iface, nd->rx.ch_id, &comp);
--		ret = -EBUSY;
--		goto unlock;
-+		return -EBUSY;
- 	}
- 
- 	netif_carrier_off(dev);
-@@ -201,9 +200,7 @@ static int most_nd_open(struct net_device *dev)
- 	if (nd->iface->request_netinfo)
- 		nd->iface->request_netinfo(nd->iface, nd->tx.ch_id, on_netinfo);
- 
--unlock:
--	mutex_unlock(&probe_disc_mt);
--	return ret;
-+	return 0;
- }
- 
- static int most_nd_stop(struct net_device *dev)
-@@ -299,7 +296,6 @@ static int comp_probe_channel(struct most_interface *iface, int channel_idx,
- 	struct net_dev_channel *ch;
- 	struct net_device *dev;
- 	unsigned long flags;
--	int ret = 0;
- 
- 	if (!iface)
- 		return -EINVAL;
-@@ -307,15 +303,13 @@ static int comp_probe_channel(struct most_interface *iface, int channel_idx,
- 	if (ccfg->data_type != MOST_CH_ASYNC)
- 		return -EINVAL;
- 
--	mutex_lock(&probe_disc_mt);
-+	guard(mutex)(&probe_disc_mt);
- 	nd = get_net_dev(iface);
- 	if (!nd) {
- 		dev = alloc_netdev(sizeof(struct net_dev_context), "meth%d",
- 				   NET_NAME_UNKNOWN, most_nd_setup);
--		if (!dev) {
--			ret = -ENOMEM;
--			goto unlock;
--		}
-+		if (!dev)
-+			return -ENOMEM;
- 
- 		nd = netdev_priv(dev);
- 		nd->iface = iface;
-@@ -330,22 +324,18 @@ static int comp_probe_channel(struct most_interface *iface, int channel_idx,
- 		ch = ccfg->direction == MOST_CH_TX ? &nd->tx : &nd->rx;
- 		if (ch->linked) {
- 			netdev_err(nd->dev, "direction is allocated\n");
--			ret = -EINVAL;
--			goto unlock;
-+			return -EINVAL;
- 		}
- 
- 		if (register_netdev(nd->dev)) {
- 			netdev_err(nd->dev, "register_netdev() failed\n");
--			ret = -EINVAL;
--			goto unlock;
-+			return -EINVAL;
- 		}
- 	}
- 	ch->ch_id = channel_idx;
- 	ch->linked = true;
- 
--unlock:
--	mutex_unlock(&probe_disc_mt);
--	return ret;
-+	return 0;
- }
- 
- static int comp_disconnect_channel(struct most_interface *iface,
-@@ -354,23 +344,18 @@ static int comp_disconnect_channel(struct most_interface *iface,
- 	struct net_dev_context *nd;
- 	struct net_dev_channel *ch;
- 	unsigned long flags;
--	int ret = 0;
- 
--	mutex_lock(&probe_disc_mt);
-+	guard(mutex)(&probe_disc_mt);
- 	nd = get_net_dev(iface);
--	if (!nd) {
--		ret = -EINVAL;
--		goto unlock;
--	}
-+	if (!nd)
-+		return -EINVAL;
- 
--	if (nd->rx.linked && channel_idx == nd->rx.ch_id) {
-+	if (nd->rx.linked && channel_idx == nd->rx.ch_id)
- 		ch = &nd->rx;
--	} else if (nd->tx.linked && channel_idx == nd->tx.ch_id) {
-+	else if (nd->tx.linked && channel_idx == nd->tx.ch_id)
- 		ch = &nd->tx;
--	} else {
--		ret = -EINVAL;
--		goto unlock;
--	}
-+	else
-+		return -EINVAL;
- 
- 	if (nd->rx.linked && nd->tx.linked) {
- 		spin_lock_irqsave(&list_lock, flags);
-@@ -390,9 +375,7 @@ static int comp_disconnect_channel(struct most_interface *iface,
- 		free_netdev(nd->dev);
- 	}
- 
--unlock:
--	mutex_unlock(&probe_disc_mt);
--	return ret;
-+	return 0;
- }
- 
- static int comp_resume_tx_channel(struct most_interface *iface,
+         This phase is a no-op for existing systems, but creates the
+         baseline for ensuring private node memory is default opted-out
+         of being touched by MM (much like ZONE_DEVICE).
+
+
+Phase 2: Introduce N_MEMORY_PRIVATE to define memory not part of the
+         general purpose pool. With this we can introduce a minimum set
+         of KUnit tests for the page allocator to demonstrate the
+         isolation mechanism.
+
+         At this point it will be possible for a driver to re-use the
+         buddy allocator to make uniform order-N allocations.
+
+
+Phase 3: Introduce feature bits (COMPACTION, RECLAIM, MEMPOLICY) which
+         is the minimum viable set to allow userland to manage a private
+         memory node via mbind() and migrate_pages().  
+
+         This enables management of HBM and Coherent GPU memory via
+         userland tools (numactl, cpuset) while protecting them from
+         incidental allocation (no fallbacks, only explicit placement).
+
+         The memory could even be hotplugged in ZONE_NORMAL and pinned.
+
+Actual cover letter for this portion
+====================================
+
+N_MEMORY has two meanings today:
+  1) this node has memory
+  2) ordinary allocations and MM services can use this node's memory
+
+The two are the same today. They stop being the same once a NUMA node
+with memory isn't part of the general allocation pool.
+
+This series adds N_MEMORY_COMMON for the second meaning and converts
+the relevant N_MEMORY users accordingly. N_MEMORY continues reporting
+memory topology - and some users (cpusets) still utilize it.
+
+At the end of this series, N_MEMORY == N_MEMORY_COMMON, so the series
+changes no behavior for existing systems. A later series will add memory
+outside N_MEMORY_COMMON without having to audit every N_MEMORY user again.
+
+Rather than add new hooks for page-table and pfn walkers, we consolidate
+existing ZONE_DEVICE checks (page/folio_is_zone_device()) into a general
+`page/folio_is_common_memory()` check.
+
+The series is laid out as:
+
+  1-3   helper functions to check node states and a folio's
+        membership to a common memory node.  N_MEMORY_COMMON itself, and
+        the `has_common_memory` sysfs ABI.
+  4     zonelists: the fallback lists hold common nodes, and a node's
+        __GFP_THISNODE list is built only for a common node
+  5-21  N_MEMORY->N_MEMORY_COMMON and zone_device -> common_memory
+        conversions. One component per patch.
+  22    removal of first_memory_node/next_memory_node, which no longer
+        have users after this series.
+
+Each conversion restricts or adjusts:
+  - an MM service (reclaim, compaction, KSM, collapse, etc)
+  - an allocation target to common memory
+  - accounting meant for ordinary allocations from common memory only
+
+has_common_memory lists the same nodes as has_memory until memory
+outside N_MEMORY_COMMON exists. It is added now so that userspace, such
+as libnuma, can start choosing allocation targets from it, and so that
+the meaning is fixed before anything makes the two lists differ.
+
+first/next_memory_node() is replaced by first/next_node_state().
+
+Gregory Price (Meta) (22):
+  mm: add node-state-filtered zone and node iterators
+  mm: publish and clear node memory states via helpers
+  mm: introduce the common-memory node state
+  mm/page_alloc: build zonelists from common memory
+  mm/mempolicy: keep interleave and tmpfs mount policies on common memory
+  mm: base hash distribution on common memory nodes
+  mm/memory_hotplug: migrate offlined pages to common memory
+  mm/memory-tiers: restrict demotion topology to common memory
+  mm/ksm: restrict merging to common memory
+  mm/khugepaged: restrict collapse to common memory
+  mm/mempolicy: don't NUMA-hint folios outside common memory
+  mm/damon: restrict DAMON-native folio operations to common memory
+  mm/hugetlb: restrict pool growth to common memory
+  mm/page_alloc: count common memory nodes for kswapd recovery
+  mm/oom_kill: compare OOM constraints against common memory
+  tty/sysrq: use common memory for the manual OOM zonelist
+  mm/vmscan: restrict reclaim to common memory
+  mm/compaction: restrict compaction to common memory
+  mm/migrate: restrict move_pages() destinations to common memory
+  PM: hibernate: size the image from common memory
+  mm/khugepaged: base the recommended min_free_kbytes on common memory
+  nodemask: remove the now-unused first_memory_node/next_memory_node
+
+ Documentation/ABI/stable/sysfs-devices-node | 16 +++++++
+ Documentation/mm/physical_memory.rst        |  8 +++-
+ drivers/base/node.c                         |  2 +
+ drivers/tty/sysrq.c                         |  3 +-
+ include/linux/mmzone.h                      | 46 +++++++++++++++++++++
+ include/linux/nodemask.h                    | 38 +++++++++++++----
+ kernel/power/snapshot.c                     |  7 +++-
+ mm/compaction.c                             | 14 +++----
+ mm/damon/ops-common.c                       |  7 ++--
+ mm/damon/vaddr.c                            |  2 +-
+ mm/hugetlb.c                                | 44 +++++++++-----------
+ mm/internal.h                               | 18 ++++++++
+ mm/khugepaged.c                             | 12 ++++--
+ mm/ksm.c                                    |  8 ++--
+ mm/memory-tiers.c                           | 23 ++++++-----
+ mm/memory_hotplug.c                         | 25 ++++++-----
+ mm/mempolicy.c                              | 30 +++++++-------
+ mm/migrate.c                                |  2 +-
+ mm/mm_init.c                                | 16 ++++---
+ mm/oom_kill.c                               |  7 ++--
+ mm/page_alloc.c                             | 43 +++++++++++++------
+ mm/vmscan.c                                 | 26 ++++++------
+ 22 files changed, 266 insertions(+), 131 deletions(-)
+
 -- 
-2.53.0
+2.53.1-Meta
 
