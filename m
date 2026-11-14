@@ -1,60 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794638671;
-	b=LiMisQoZGn83fsISUCDvO9h3LkhjD5MKsNqZUISU3ZAQ0Ze9UecD2BLpGBy3e42uWWHB
-	 l5domQdTWrRHCoKWAZ69q9QkHbop0XFyK9KwubIIpkNNgCpryoj3CZbUKxvliydrlb9Sv
-	 EIcC19w3qGz7SM6o/0VUzab8n3fsr4cWktBjQ2jfEVL/Bs6ilCTklu2IUMUcKUSgvwW98
-	 TLQvTD2M5KfdHv6j1afmxMQbRil+wV+qSsumRtqVL33nD7TfmGu2TTUDWXz1VtRD1mCcV
-	 +wszVju6yL0pxV+GW1DRzTUasp9vBIU5vCWgftfFprCZly23jt+xGHwP2Ijb0iKaGdQ==
+	t=1794638673;
+	b=g4GNkMQujf7QZ22WC/33BkYxRzcphSofgYlkl+b9UrfpRDs4pF0G6JY0zc60UuVNvuY2
+	 Lu+1eJA2jn/ZqdWJoA61jr0CDiwnmnnrbK6Y8I56KgK2r8oy0NIFB1teD8MfSUxWSR5Ng
+	 i++M5XFfjv2f9t17ATTAw4O0q4Iw8r+2GoG9Mwh8gwfIPS26MB7vwDXjfRTToVUfZghJ1
+	 WBf2p+Ny5chh7P1bCfPAzn7SrYz/sGEtJ3W3LYsBCfsp13DwU6xIByGnIGhiJQFiOLODH
+	 VznQOVLOmr0Q7GEM/TJaCyC/bSE55HB+x8YR5M3HVezavD3ZGnqYxaWkiHgVEH8emfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794638671;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=GQtdBeiFOXP728SD4q3k0TWUdrvTTTXxrXqVYnu7l4k=;
-	b=Q/Ear70bdVCW1vLAANxrm//WFsyR4N1NQdTWTpIaZiTqoDdutE5eBPykgDqfho2YGgYT
-	 pSPF28IpJjo9tzeEQX3Zes8rKRRhkBFp+1j+lBwzZK1oogl27bioAM0cGcgK0eBmbHvCJ
-	 xJIlqY3oGSoDhXt9iMM181cfgSseiVFup5PbqsnT3jugBONQCBYBDk60SuncKS4AAsD4j
-	 wAfQx/pPnvWVtxSEoyM+Yi5oJsE3StZqm5OA0z+1xdjHDZvPhQJByf26slcaVyR6wWo5o
-	 TYKZwWQ9j7fk2pfbvgz0liQF2nerbbKRDHTHrdj+lKt+muyGXh5944/S9qcVBv16Pjg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794638673;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=aL543kydGu3Z9WJl9D/pxWL683tGWWiFwX80/nLuatE=;
+	b=2vVFOerKvOn4WgDEfm73cO/KhLBmMDrUMbTFRDxCgFDndR9nbCQkuXfjAX43tc/awLfv
+	 kj4Qx0jRdv3ir0n8fhzVl5tUTnKv+NgghCNl6F2JPm7fGAmY41MsV6SDMe6Jd9ADO5K3S
+	 9xAkxni4zMo2lorrClzY6k8+huCZVgF8USzmSueVupItzYXMbBlzpiVuIUvCttI92wL4e
+	 +6us6phAuCl4fDJuoB9ARnTWM3PTTCtyeKrrtwaISvcoBnrOqIWdQd7nQiWFVymi/1vvk
+	 tumMBDQQca5LTGT8FxCTL8CBokVsvpkODjqwwzTf5HnPqliC+H37FDh1SB+Lxm+4fcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=mVxvbNwo;
-	arc=none smtp.remote-ip=185.70.43.16
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=YIjZpVUk;
+	arc=none smtp.remote-ip=44.202.169.35
+Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D23606A323;
-	Sat, 14 Nov 2026 06:44:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2D23606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8025B606A330
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:44:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8025B606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=mVxvbNwo
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1794638667; x=1794897867;
-	bh=GQtdBeiFOXP728SD4q3k0TWUdrvTTTXxrXqVYnu7l4k=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=mVxvbNwoQ2fLHFpZy8VDIpt7Sfr0JRryBGhX2h6oZlv2edn/kMNqa17j+XRJUQsLZ
-	 LJ0cBxT9ZumVd5w59stkhKSM7R5MakEL2+o2KXpYPmn3/cmUGy5yAUHqqLyfcCH7H/
-	 ToRp8BaJa5nqbHBLtgAIUExqeQznjJCC988tfWzVKqPAHL9l/+EZHtevivBh6Js2z1
-	 YSwodNAiUpbngiMQ2L9VFzjx6kg+saq8zcgTCjmtcvxop98mCOpY83R16OohTx65yi
-	 W7ElhL/GGvWC8+2rnsjUADndrmsAIKQc4dWM2sWzFj6V5MHaXQFfToOlD2eHX1y1zj
-	 07fBwsNX8Z8JA==
-Date: Sat, 14 Nov 2026 06:44:23 +0000
-To: Vinod Koul <vkoul@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>
-From: Soheyb Boulaa <soheyb_boulaa@proton.me>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>, linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, Soheyb Boulaa <soheyb_boulaa@proton.me>, stable@vger.kernel.org
-Subject: [PATCH v3 1/3] phy: exynos5-usbdrd: power the Exynos2200 phy down when its init fails
-Message-ID: <20261114064400.45572-2-soheyb_boulaa@proton.me>
-In-Reply-To: <20261114064400.45572-1-soheyb_boulaa@proton.me>
-References: <20261114064400.45572-1-soheyb_boulaa@proton.me>
-Feedback-ID: 140697376:user:proton
-X-Pm-Message-ID: b61ff92e42010bfa9a4b2839dd5c983310e9ecf9
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=YIjZpVUk
+Received: from eig-obgw-6007b.ext.cloudfilter.net ([10.0.30.166])
+	by cmsmtp with ESMTPS
+	id RejVx94oR4vCDS7V1xy8g0; Sat, 14 Nov 2026 06:44:31 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id S7V0x5OF13nNNS7V1xaH9l; Sat, 14 Nov 2026 06:44:31 +0000
+X-Authority-Analysis: v=2.4 cv=TuLmhCXh c=1 sm=1 tr=0 ts=6af8034f
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=VwQbUJbxAAAA:8 a=BDRlbv-OHeEz9Lyx7CoA:9
+ a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:MIME-Version:
+	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=aL543kydGu3Z9WJl9D/pxWL683tGWWiFwX80/nLuatE=; b=YIjZpVUke8MslLUsS1TpjXa7KE
+	olL0ba4Yh7r1QIXKf6Qq96ygKVX/d2bmJ9/XjtBKLIxkaPKt+7C0aDKzQbG+FUgAmE3MC9EJ++qOa
+	JoH+Uls/t9V3qBBIaT0F1tbfDzEO9Vpll+KLeeV6y0W10rAGoYkJP17W6OEwxFcsmHn/XZKnWWLN3
+	oycJzNjZnn8QAqoGClUV+rMmhsLYNbd0BviwAKSwn03GVm7sOx86L65eAj0dOvOfcAoK1fwRO00SW
+	lzHn2wCMUYjDZ0uCT+OkkV+3ab/XLs+9914k9BlDpb8LEHhjQmwUE319CC2FbMhh2ZTHgTWNIxVvW
+	WiB1OMHw==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:38024 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xS7V0-000000000he-2pAy;
+	Sat, 14 Nov 2026 12:14:30 +0530
+From: Guenter Roeck <linux@roeck-us.net>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [GIT PULL] hwmon fixes for v7.4-rc3
+Date: Fri, 13 Nov 2026 22:44:29 -0800
+Message-ID: <20261114064430.2779677-1-linux@roeck-us.net>
+X-Mailer: git-send-email 2.45.2
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,68 +80,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xS7V0-000000000he-2pAy
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:38024
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 32
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfLhU8qYdv34kFrtr+N1paxTjHfBUJhr61PsSSBcMi8tCipP7zjNJ5tXguYWw9T1UFoB1UzCF3No/BbgYSlCZ6h6GfUCAib78XmblmWiwr43e5JSmJrHP
+ t0zT9lkCixL5NF57+eMkwqSuhZhgFNzNVEvsczZR6txT+jpkfr0cCCpyFSTDGOy981UY82XcZpvXvS2OrHU/3iPSPDZBmIVscBit9MZRE33HdR1dKbN9bAPP
 
-exynos2200_usbdrd_phy_init() enables the regulators of the UTMI phy and
-takes the phy out of isolation in the PMU before it enables the clocks.
-When clk_bulk_prepare_enable() fails, it returns without undoing
-either. The phy core does not count a failed init, so no exit undoes
-them later: the phy stays out of isolation, and its supplies stay
-enabled, until an init and an exit succeed.
+Hi Linus,
 
-Isolate the phy again and disable the UTMI regulators when the clocks
-or the phy-specific init fail. The phy-specific init does not fail yet;
-the next patch makes the UTMI init return the result of the init of the
-high-speed phy.
+Please pull hwmon fixes for Linux v7.4-rc3 from signed tag:
 
-Fixes: cc52a697f87e ("phy: exynos5-usbdrd: support Exynos USBDRD 3.2 4nm co=
-ntroller")
-Cc: stable@vger.kernel.org
-Signed-off-by: Soheyb Boulaa <soheyb_boulaa@proton.me>
----
-v3: full name in From and Signed-off-by.
-v2: new patch.
+    git://git.kernel.org/pub/scm/linux/kernel/git/groeck/linux-staging.git hwmon-for-v7.4-rc3
 
- drivers/phy/samsung/phy-exynos5-usbdrd.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+Thanks,
+Guenter
+------
 
-diff --git a/drivers/phy/samsung/phy-exynos5-usbdrd.c b/drivers/phy/samsung=
-/phy-exynos5-usbdrd.c
-index 087d552..a6fe779 100644
---- a/drivers/phy/samsung/phy-exynos5-usbdrd.c
-+++ b/drivers/phy/samsung/phy-exynos5-usbdrd.c
-@@ -1462,7 +1462,7 @@ static int exynos2200_usbdrd_phy_init(struct phy *phy=
-)
-=20
- =09ret =3D clk_bulk_prepare_enable(phy_drd->drv_data->n_clks, phy_drd->clk=
-s);
- =09if (ret)
--=09=09return ret;
-+=09=09goto power_down;
-=20
- =09/* Set up the link controller */
- =09exynos2200_usbdrd_link_init(phy_drd);
-@@ -1475,6 +1475,17 @@ static int exynos2200_usbdrd_phy_init(struct phy *ph=
-y)
-=20
- =09clk_bulk_disable_unprepare(phy_drd->drv_data->n_clks, phy_drd->clks);
-=20
-+=09if (ret)
-+=09=09goto power_down;
-+
-+=09return 0;
-+
-+power_down:
-+=09exynos5_usbdrd_phy_isol(inst, true);
-+=09if (inst->phy_cfg->id =3D=3D EXYNOS5_DRDPHY_UTMI)
-+=09=09regulator_bulk_disable(phy_drd->drv_data->n_regulators,
-+=09=09=09=09       phy_drd->regulators);
-+
- =09return ret;
- }
-=20
---=20
-2.56.0
+The following changes since commit 7475ea8b58616b33c04afb976cf0fbaad9dd63fb:
 
+  Linux 7.4-rc2 (2026-11-08 16:22:20 -0800)
 
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/groeck/linux-staging.git tags/hwmon-for-v7.4-rc3
+
+for you to fetch changes up to b5c5b67e02406fb48acf57cf2c30a570230fd6aa:
+
+  hwmon: (aht10) Fix update_interval overflow on 64-bit (2026-11-13 12:08:12 -0800)
+
+----------------------------------------------------------------
+hwmon fixes for v7.4-rc3
+
+* Read tracking-mode voltage fault limits dynamically in the mp2975
+  PMBus driver instead of caching probe-time snapshots, avoiding false
+  over-voltage alarms when CPU voltage changes at runtime.
+
+* Fix SCMI sensor probe by enabling supported sensors via firmware IDs
+  before exposing channels and checking channel config allocations.
+
+* Fix runtime PM enable and reference count imbalances during probe and
+  teardown in the gpio-fan driver.
+
+* Fix max31760 fan controller initialization and reporting, including
+  leaving standby at probe, initial 0 RPM reporting, and swapped
+  temperature limit registers.
+
+* Assorted minor sensor reading, interval clamping, and register
+  handling fixes in other drivers.
+
+----------------------------------------------------------------
+Anton Lundin (1):
+      hwmon: (nct6775) Handle dual use registers
+
+Felix Radensky (1):
+      hwmon: (pmbus/mp2975) Get vout fault limits dynamically
+
+Guenter Roeck (1):
+      hwmon: (gpio-fan) Fix runtime PM imbalance in probe and teardown
+
+Pablo Mazzini (1):
+      hwmon: (sy7636a) fix negative temperatures
+
+Rupesh Majhi (1):
+      hwmon: (aht10) Fix update_interval overflow on 64-bit
+
+Stanislav Aleksandrov (3):
+      hwmon: (max31760) Fix the local temperature limit registers
+      hwmon: (max31760) Leave standby mode at probe
+      hwmon: (max31760) Report 0 RPM before the first fan speed measurement
+
+Sudeep Holla (2):
+      hwmon: (scmi) Check channel config allocation
+      hwmon: (scmi) Configure sensors before exposing channels
+
+Xu Rao (1):
+      hwmon: (scmi) Enable temperature sensors using their sensor IDs
+
+ drivers/hwmon/aht10.c         |   2 +-
+ drivers/hwmon/gpio-fan.c      |  24 +++--
+ drivers/hwmon/max31760.c      |  12 ++-
+ drivers/hwmon/nct6775-core.c  |   6 +-
+ drivers/hwmon/pmbus/mp2975.c  | 207 +++++++++++++++++++++++-------------------
+ drivers/hwmon/scmi-hwmon.c    |  25 ++---
+ drivers/hwmon/sy7636a-hwmon.c |   2 +-
+ 7 files changed, 150 insertions(+), 128 deletions(-)
