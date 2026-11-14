@@ -1,91 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794619092;
-	b=zg/7RSjfM8m72QZFFEx7a4jX1l5BwRWi5CDLyfCavneUfN9aq0i5QcIaV9xPwcb5Z50k
-	 B7BIBYUPAn/pWIvMWULZNmEn9q4zALT2QL7eih0yh1xoAT591Ns0o2z27k2kLGSMM6bUa
-	 R5s2L3mhybxcHnR6W/vVAuqeHs7HM78PEj0/wGh1ZSdhJ0ng4GHOji6Ybp8Gh1zJ7ViYf
-	 /fC6P/u1XjD+OAX9sefu65LoClkPbujWGtIHZyfW0+PAqf0xKoe259TCLjzTA25ubvMCu
-	 rt16jdNmp/Xn1GrP5UydF5UAeg2UIeO4FWoQIyKAVQBZS/DH7TO+sV+TWWI/WfGys1Q==
+	t=1794619679;
+	b=zSbP669P5gtBqtPuDobHbtQQ8sdpoe4wc/lWB81p5I+04yNnzHARgirPv6CLxViEbzfb
+	 RBZRtzM6zBjHbX9DuIn0leUP9+ekqsrAp3ek5bUBn9F9cDxntg9XsF/+pS3epIBPAZkuz
+	 T2LGHJWBZIz/Z+5NAM/ngvoR3cYUnCERxgTA3/uVKhWscyrYgZ2LgOxUKaiSQL4rk+H/C
+	 GibZejDsSXxB52xlT7c3t/u7R2piJYxK1ra4SPcfGxISzHUJFFSbIcodchM0do85q67r3
+	 9OVAUTAArD9iTYDqORmK/0A1Z3ZCiX1xSU1PUULc3ZAah7MFRicQK+G3VY09mKcD4Qw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794619092;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794619679;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=/NJq1tNVgAxL0JcudyOin08tnS8RNWNKJF+n6CZo2GE=;
-	b=c3GffJoRaO9ApPthY3GYoyuiT4Azbajcr5NyQ6LU93hBJUY4YaEOiNhcmi842k+8ha+P
-	 NcOQuqcZKip2lGl5n1hyfBLvB/vRkWKBRiPTI/zt3byhwwIgCG+QF8sXqMx7ZtFKE6B93
-	 pjAW+s9Qqec5nBXUae0vXzFkf2HZyfESpO2cGGjUZb+zS9aeVjqQqYKHUyVSGZGhagmLI
-	 kVyEuH5KRxBuDbpp/Wb13J6p/xfGGYrduGTDWoZHNP6FSj/xHUaRluHTNdT5mQ68pHO5I
-	 GLSKYOy2x/CCt+A9u5tTfW57smBpoTztU2aWsZX8eM4uFnc3AqkNaNUF2hzTvpkM2fw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=6CvH9xDs6NNAjm4CdXogsoT63KOhmd6mIYSEOWAkQKA=;
+	b=eEQq/kaSH9jWTulw9kfM08RpVESdXo1I+/KmVCVQh4ilkRWS7+sqqinmJCkVOgx+sTo5
+	 nHaJUNhciOK/bSn7M0iX3Nps++JcMlmGV+BumBXjQEnzyxYOOVdQMDWxsfDMzb1nUQFD9
+	 aXXMPauJdqXj+0NBIloU/nT3ugYUjJnKwTmqs6uRD1BunxBUtiSQ0S9mtKzyR32QT0UgV
+	 HeEUlkNidphmaBMRBYBRt4K7OdtTbkrks6nEYTWYDYifKSiirS1pKenoIy0rL1yPw7hWP
+	 Hy4RRoW8qUeZdYHjfbrYthFx48kqQHf9dv0hhPUjIMatVVhN59oKZFTNpO7qUgL9JyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KB+9mxD+;
-	arc=none smtp.remote-ip=209.85.214.181
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=B6VMhVGV;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8E2F606A32E
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 01:18:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8E2F606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBAD6606A332
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 01:27:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBAD6606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KB+9mxD+
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2ed08b07213so9094115ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:18:11 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=B6VMhVGV
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4b467581b98so12515125e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:27:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794619091; x=1795223891; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794619677; x=1795224477; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/NJq1tNVgAxL0JcudyOin08tnS8RNWNKJF+n6CZo2GE=;
-        b=KB+9mxD+U/w09snMg9VwFIyoYp2PJn+2v2jhVADiVo5o5+HtwvHu0ToedoLpyZySFB
-         VtlRcpPXfKbh2Ux7gGWVGjksViW7qsJj5Cihzl08465l1YY98mrfT+oI1OwPwxPYunnp
-         o0AIiPm4e8QNqY39yT7tIXl4kxUzqKhpmZhUVD9kmOa5Ql656LU9wFy/xI2KIc7LrK7D
-         U5/9Zey4vKSSRod/9p5I0LLdeCfku2HrpDwQPJfWZca0L50pBzfghZa88D7kiQ0ZTgHA
-         29eMnkDmeN9/+a5LTB83HFKjGcqbpaWCalqi0qIxnyPZss85ZjdYT5p4pccohXBcBoSk
-         CclQ==
+        bh=6CvH9xDs6NNAjm4CdXogsoT63KOhmd6mIYSEOWAkQKA=;
+        b=B6VMhVGVelQ9ZrSDC03pRf4miM7zCDR9HUs2ANt98LCkadIWUyeYORv3dqoYws0ndV
+         /q6lhXmAjYSkJkCizR+vwNLly8V5y76WkHz1ESTA2rDEE4VTYnfZpuqA4AF4SGWeghLW
+         njas1NYqvep3tyNevmQWOCOoqnzu16DWaA8iXiEutmUGiHx0IbknsjrhCqPmpE6wbP5F
+         upNqJaHz7K/B1yTyjOWY8xh4PtDAzLi6524msoRpDVQqBKMOJcuZWv24LYCakgDn5Y1t
+         dWNJdWNW5lwVOnOz8ugGME3GtlyFsZ5VrG1727tZH55R+N3skVd0J5lB/n+AMC/T5672
+         BCEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794619091; x=1795223891;
+        d=1e100.net; s=20260707; t=1794619677; x=1795224477;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/NJq1tNVgAxL0JcudyOin08tnS8RNWNKJF+n6CZo2GE=;
-        b=focs1gN8U89XaXuOtPKhdhLJQWPdVitcPhynFuvtsEHkoTitZ08dCjzARxwpwMfjth
-         X4X8RPH71WAxIx81QT/bWOPW82wP+aHeBKOqnz7qEPCcASzo6+5F9Mp85RmTNmR4z8tY
-         i8gqpG8qvauO0CT2xpPeHUe6vL+r3BMpRdHBW60+aruNybs0DmIQKhkthINb9YdxJ9n4
-         tvm+RFM/jVhTGpfjkv1MASnh271xtNOKUg7d0rlDxtzRVTcLCDNehdU7HC89/PVlzLF1
-         4Fl9fXx+MnPjr/pCjFtzvs8R7HjaFMwF7RNVsewnHsbFK6hfHGNoJ7pxjpoMyWSyor+3
-         uOog==
-X-Gm-Message-State: APuU4Z+xwU8dVDbVOgGM5tbOrn7L/rs7mePn7HmO+F93GSCQ6/PBVZQE
-	bmdohvcWb1SwG/Z2gv9mIghMm9VgATi1+fCdD78Aove8qw1MXY+40xaziXKd8w==
-X-Gm-Gg: AYBFou01jA+4ECqlhsOA4hBhcwpjWZ2IFtLrJgPgXARMxYa5u5QZIClJQU+iHgAl7fr
-	kTmRUOhklzufn1X7Wqvfs77yDhLZx/oUtn0rFRH1GltZR8gSsfUkWOWt95bIkGNMOT54VBCCp9i
-	8ldwKzFSkrbpgY34nX0jeIZJoTUDPziD+V2yuAhmdcsq+Z5Jf7egiTY+BRrDwkKKd0jkGLheSGQ
-	wa3j00dm6Y/fUm6i1Daf/v73Jz0bqVSrmwOQDf0cWYwEW7ruHS+NbxrVfGxkFnw4E6hsoPQ+Ja8
-	0PS5T6dRJtSliO43MXDWcebpiBXWT21ZIw0jaKAJ5ex64BW+C8jpgO12ruD6QxtF70EQfK5WgoU
-	yyoUtacGTcN9yssWf99jxGbr9h9PzQYx+o7Wd/5RFuDAn6GkQczapsX7E4pq+D4+rUlj4AAgBJS
-	fgPSBCgTDmoH1yKQtQAy9jVgqabZyHEGhvB0cxem+OwcMpZkcZwwOCFLDh5Yucm9TE/SoSXPgKv
-	hdBGxvE11ZQ7aVxnoYWv+PnIiKMOte2sbfdurVBcfSp81y30fb0WT0KlGSU3bWIyRZ9wfzbTIZK
-	ylWHeEvFJaoFOeOFEpDqbyXFPFH8kpe+VQcB97/a+NNCB3oqPKVmKQSn54XpBWWGM1eGsWIyyP6
-	PsgXrXUN6scqcGFOxIIp77nc3fLVQBbU8pLB8OLNIUDjYos4=
-X-Received: by 2002:a17:903:3d10:b0:2e9:401f:f0f8 with SMTP id d9443c01a7336-2ee0dd2c33emr40369315ad.53.1794619091051;
-        Fri, 13 Nov 2026 17:18:11 -0800 (PST)
-Received: from f2fs-test.c.googlers.com.com (193.67.125.34.bc.googleusercontent.com. [34.125.67.193])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee228b2581sm7755715ad.63.2026.11.13.17.18.10
+        bh=6CvH9xDs6NNAjm4CdXogsoT63KOhmd6mIYSEOWAkQKA=;
+        b=RvuftNkh/X2Qy8MNsqKn3l3rVMGQ5sKUtVKvVmoZ65zRRPwx+JsBNRwgiTZkqEQkDd
+         +YfNHmVqxLDSogrA6uwNOnga4yTeeyy9xZXyz2tKh7D5RamgM9TwjEw9U6fprP7CeRGa
+         wQwWkNn6ExNrNjPBlBKRQ5L6KcBRmv7FabZkfLeKIbWooOPYQ3PhWJ+8dusj+ezYEoAF
+         Xo3TRjXJ4ZJjvM24CJISIBd12nsfu54m7A47ETEO8nYNR72sfKCUcikBo6jFw13MILpJ
+         WgOJOcd6uuPxIGxXXKOj9sxO/UTDbhvqGdeRtd+r4465iOaX0ZdholQrWpCyd6gvfqD9
+         YszQ==
+X-Forwarded-Encrypted: i=1; AL+hErGFeZIfE8ZPsc7eaRumj6Fyn5SrtRn20A9zI5ycx4Ems4fJMTvZUlHKfsghCHZuV0p1IMtjyKuHF9GSSKc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8k/jeJxKVGo8T61VZ4c/NxzuiqXJSdN8oPFaUwAHhaThy2rBpr
+	V2UnQYG3jHlLglpAVl9ux/gCbDVsCoyLzZQ0AZ6c4ltTIwIPmIZI9nsE
+X-Gm-Gg: AYBFou0jW0a74haRAJma0l3uzy73AFGRHzAONpg0YF0BcKfIk/ynb6zmvZJz3WLHTIx
+	N73UN6itcJ91jEBLI/0pSRNUMfhi79oHZrmS14dAKHcFDUM4sgArslHnSVoD7u4jeaVEu6RLEHb
+	DHq+9CNYMQYkK1i8oinH7yKw6/G55mQ58SFbXyhnR4rsVxqaaCKWSjogCeZIPDFig45WQSRpTEh
+	ATUFpIk9pd4V7uB5HDZ2eiyvrHuSB6Wh8h2qYqHvshVLHFGJbWg7JJzJ00FYXAE+E3dkQBkpWYw
+	Jl8I1hj06goVlxQoy6xHi+3SulPl5licUKuhxRn6A09GUVNZpNH88l9FF3A3MciJJTOO2aqsrup
+	mpoDL3xo23EWoz4mrCEcYfyxVhRDCUcc4iSYpPZR9nXjrMz6VUy9Vq16cnn0Ekc1orOT+sIPihD
+	2u6lknqyzQPelsNvamr92Sn1ldZ/F03Gz2VNazNcSDO/I2sQqOj4e9nQAECpPRqQV45F1/pe/5B
+	I33pAz1jKpwHDgwjH9/LbhveNvHDRdJh9ILtxOYwfVQck+iptnFmw9fxo22VRk42hu5P/tlQCo0
+	XHzKXVoqpvKrhrkPJALntdjP
+X-Received: by 2002:a5d:5f46:0:b0:48e:68d5:81a6 with SMTP id ffacd0b85a97d-49c72306b88mr9208114f8f.34.1794619676936;
+        Fri, 13 Nov 2026 17:27:56 -0800 (PST)
+Received: from infinity ([2001:b07:5d26:7a6a:365a:60ff:fe0d:cfc6])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c609c602dsm7904342f8f.46.2026.11.13.17.27.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 17:18:10 -0800 (PST)
-From: Daeho Jeong <daeho43@gmail.com>
-To: linux-kernel@vger.kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net,
-	kernel-team@android.com
-Cc: Daeho Jeong <daehojeong@google.com>,
-	Chao Yu <chao@kernel.org>
-Subject: [PATCH v3] f2fs: reserve space to be shrunk during resize_fs
-Date: Fri, 13 Nov 2026 17:18:07 -0800
-Message-ID: <20261114011807.3811774-1-daeho43@gmail.com>
-X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
+        Fri, 13 Nov 2026 17:27:56 -0800 (PST)
+From: koraynilay <koray.fra@gmail.com>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Tom Talpey <tom@talpey.com>,
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+	Hyunchul Lee <hyc.lee@gmail.com>,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	koraynilay <koray.fra@gmail.com>
+Subject: [PATCH v2] ksmbd: decode and honor DOS attribute validity flags
+Date: Sat, 14 Nov 2026 02:27:36 +0100
+Message-ID: <20261114012736.639171-1-koray.fra@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,250 +101,298 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Daeho Jeong <daehojeong@google.com>
+Currently, when setting file attributes via FSCTL_SET_SPARSE,
+FSCTL_SET_COMPRESSION or FileBasicInformation, ksmbd hardcodes
+flags = 0x51 (XATTR_DOSINFO_ATTRIB | XATTR_DOSINFO_CREATE_TIME |
+XATTR_DOSINFO_ITIME). This injects unrequested creation time and itime
+into user.DOSATTRIB on disk, even though the client only requested an
+attribute modification.
 
-f2fs_resize_fs() drops gc_lock and the cp lock between the free space
-check and freeze_super(). In that window, others can allocate the free
-space, so the second check after freeze_super() fails with -ENOSPC.
-This is easy to hit on a busy filesystem, e.g. at OTA install time.
+Furthermore, ndr_decode_dos_attr() discards the validity flags on read
+by reading them into NULL. When reading a file with an attribute-only
+xattr (flags = 0x01, where create_time on disk is 0), ksmbd treats the 0
+as a valid timestamp and reports NTTIME(0) instead of falling back to
+the underlying filesystem's btime. Modifying any attribute via
+set_file_basic_info() then clobbers the xattr back to 0x51.
 
-Reserve the space to be shrunk via resize_reserved_blocks once the
-first check passes, and deduct it in __get_available_block_count() like
-alias_reserved_blocks. Release it on success or on error.
+Fix this by:
+1. decoding da->flags in ndr_decode_dos_attr() and only updating
+   create_time and itime if their validity flags are set (in
+   smb2_update_xattrs() and ksmbd_vfs_fill_dentry_attrs());
+2. reading existing attributes and only setting XATTR_DOSINFO_ATTRIB in
+   fsctl_set_sparse(), __ksmbd_vfs_set_compression(), and
+   set_file_basic_info() so unrequested timestamps are not injected.
 
-With the reservation, the second check should not fail anymore, so:
-- allow root reserved blocks, which root may use in the meantime,
-- recheck DISABLE_CHECKPOINT, which remount may set in the meantime,
-  since freeze_super() fails only when the fs is still dirty,
-- keep the check only as a WARN_ON_ONCE() safety net.
+Reproducer, with /tmp as the local filesystem folder exported as [test]
+in ksmbd.conf and /mnt as the smb folder mounted with mount -t cifs:
 
-Also exclude the alias/resize reservations when updating
-current_reserved_blocks via sysfs. Otherwise, the reserved blocks can
-take the space which is already reserved, and the second check fails.
+  mount -t cifs //127.0.0.1/test /mnt -o username=user,password=pass
 
-Suggested-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Daeho Jeong <daehojeong@google.com>
+test with sparse (for compression, use chattr +c instead of fallocate):
+
+  echo data > /tmp/sparse.txt
+  chmod 777 /tmp/sparse.txt
+
+  stat -c 'Local btime (%n): %w' /tmp/sparse.txt
+  getfattr -n user.DOSATTRIB -e hex /tmp/sparse.txt
+
+  # punching hole via CIFS triggers FSCTL_SET_SPARSE
+  fallocate -p -o 0 -l 4 /mnt/sparse.txt
+  getfattr -n user.DOSATTRIB -e hex /tmp/sparse.txt
+
+  stat -c 'CIFS btime (%n):  %w' /mnt/sparse.txt
+  smbclient //127.0.0.1/test -U user%pass -c 'allinfo sparse.txt'
+
+  # evict cache so btime is read fresh again
+  umount /mnt
+  mount -t cifs //127.0.0.1/test /mnt -o username=user,password=pass
+  stat -c 'CIFS btime (%n):  %w' /mnt/sparse.txt
+
+which prints:
+
+  Local btime (/tmp/sparse.txt): 2026-11-13 21:13:27.167926440 +0000
+  /tmp/sparse.txt: user.DOSATTRIB: No such attribute
+
+  # file: tmp/sparse.txt
+  user.DOSATTRIB=0x000004000400000051000000200200000000000000000000209542d3b373dd01
+     0x51 = 0x1 | 0x10 | 0x40 -----^^         |      unrequested --^^^^^^^^^^^^^^^^
+   (ATTRIB | CREATE_TIME | ITIME)             |   creation time = btime
+                                     SPARSE --^
+  CIFS btime (/mnt/sparse.txt):  2026-11-13 21:13:27.167926400 +0000
+  [...]
+  create_time:    Fri Nov 13 21:13:27 2026 UTC
+  [...]
+  CIFS btime (/mnt/sparse.txt):  2026-11-13 21:13:27.167926400 +0000
+
+test with setmode:
+
+  echo data > /tmp/attrib.txt
+  chmod 777 /tmp/attrib.txt
+
+  stat -c 'Local btime (%n): %w' /tmp/attrib.txt
+  getfattr -n user.DOSATTRIB -e hex /tmp/attrib.txt
+
+  # modify attribute via CIFS
+  smbclient //127.0.0.1/test -U user%pass -c 'setmode attrib.txt +r'
+  getfattr -n user.DOSATTRIB -e hex /tmp/attrib.txt
+
+  stat -c 'CIFS btime (%n):  %w' /mnt/attrib.txt
+  smbclient //127.0.0.1/test -U user%pass -c 'allinfo attrib.txt'
+
+  # evict cache so btime is read fresh again
+  umount /mnt
+  mount -t cifs //127.0.0.1/test /mnt -o username=user,password=pass
+  stat -c 'CIFS btime (%n):  %w' /mnt/attrib.txt
+
+which prints:
+
+  Local btime (/tmp/attrib.txt): 2026-11-13 21:13:27.195647069 +0000
+  /tmp/attrib.txt: user.DOSATTRIB: No such attribute
+
+  # file: tmp/attrib.txt
+  user.DOSATTRIB=0x000004000400000051000000210000000000000000000000f6cf46d3b373dd01
+     0x51 = 0x1 | 0x10 | 0x40 -----^^       |        unrequested --^^^^^^^^^^^^^^^^
+   (ATTRIB | CREATE_TIME | ITIME)           |     creation time = btime
+                                 READONLY --^
+  CIFS btime (/mnt/attrib.txt):  2026-11-13 21:13:27.195647000 +0000
+  [...]
+  create_time:    Fri Nov 13 21:13:27 2026 UTC
+  [...]
+  CIFS btime (/mnt/attrib.txt):  2026-11-13 21:13:27.195647000 +0000
+
+After this patch, the outputs should be:
+
+sparse:
+
+  Local btime (/tmp/sparse.txt): 2026-11-13 21:20:25.856425751 +0000
+  /tmp/sparse.txt: user.DOSATTRIB: No such attribute
+  # file: tmp/sparse.txt
+  user.DOSATTRIB=0x0000040004000000010000002002000000000000000000000000000000000000
+          0x01 = 0x1 (ATTRIB) -----^^         | no creation time --^^^^^^^^^^^^^^^^
+                                     SPARSE --^
+  CIFS btime (/mnt/sparse.txt):  2026-11-13 21:20:25.856425700 +0000
+  create_time:    Fri Nov 13 21:20:26 2026 UTC
+  CIFS btime (/mnt/sparse.txt):  2026-11-13 21:20:25.856425700 +0000
+
+setmode:
+
+  Local btime (/tmp/attrib.txt): 2026-11-13 21:20:25.976415893 +0000
+  /tmp/attrib.txt: user.DOSATTRIB: No such attribute
+  # file: tmp/attrib.txt
+  user.DOSATTRIB=0x0000040004000000010000002100000000000000000000000000000000000000
+          0x01 = 0x1 (ATTRIB) -----^^       |   no creation time --^^^^^^^^^^^^^^^^
+                                 READONLY --^
+  CIFS btime (/mnt/attrib.txt):  2026-11-13 21:20:25.976415800 +0000
+  create_time:    Fri Nov 13 21:20:26 2026 UTC
+  CIFS btime (/mnt/attrib.txt):  2026-11-13 21:20:25.976415800 +0000
+
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3") # ndr decode/basic info
+Fixes: f44158485826 ("cifsd: add file operations") # ksmbd_vfs_fill_dentry_attrs
+Fixes: 159e727f763d ("ksmbd: persist FSCTL_SET_SPARSE state") # sparse
+Fixes: 0fb327626ad9 ("ksmbd: support file compression attributes") # compression
+Cc: stable@vger.kernel.org
+Assisted-by: Gemini:3.8-flash-high antigravity-cli-1.5.3
+Signed-off-by: koraynilay <koray.fra@gmail.com>
 ---
-This patch depends on "f2fs: avoid underflow in
-get_available_block_count()", which is sent separately.
+v2 changes:
+- Check XATTR_DOSINFO_ATTRIB on read in smb2_update_xattrs() and
+  ksmbd_vfs_fill_dentry_attrs() to prevent overwriting in-memory attributes
+  with 0 when an xattr lacks DOS attributes (found by sashiko[2]);
+- unconditionally preserve current attributes and set XATTR_DOSINFO_ATTRIB
+  in set_file_basic_info() so setting CreationTime alone does not write
+  zeroed attributes to disk (found by sashiko[2]);
+- decode version 3 fields (ea_size, size, alloc_size, change_time) in
+  ndr_decode_dos_attr() instead of reading into NULL so preserving flags on
+  version 3 xattrs retains their values (found by sashiko[2]).
 
-v2: https://lore.kernel.org/linux-f2fs-devel/20261022165526.1539629-1-daeho43@gmail.com/
+This should be (hopefully) the last of the fixes needed to implement ptime[1].
+Thanks for testing all of them and merging them <3
 
-Changes in v3:
-- Rebase on top of the patch above. In the case from the v2 review
-  (user_block_count = 1000, root_reserved_blocks = 100, valid = 30, resize
-  reserves 500, then 500 is written to reserved_blocks),
-  current_reserved_blocks becomes 470. The reservations add up to 1070 for
-  a user who cannot use the root reserved blocks, so that user gets 0
-  instead of a wrapped value. Root gets 30, which equals the valid blocks,
-  so the second check still passes.
-- Update the comment in the sysfs hunk: the reservations are excluded so
-  that the second check does not fail, not to avoid the underflow.
-- Rebase onto the latest dev-test.
+Best,
+koraynilay
 
-Changes in v2:
-- Exclude alias/resize reservations from current_reserved_blocks.
-- Allow root reserved blocks in the second check, with WARN_ON_ONCE().
-- Recheck DISABLE_CHECKPOINT after freeze_super().
+[1]: https://lore.kernel.org/all/20261101015551.786044-1-koray.fra@gmail.com/T/#t
+[2]: https://sashiko.dev/#/patchset/20261113221610.392113-1-koray.fra%40gmail.com
 
- fs/f2fs/f2fs.h  | 19 +++++++++++++----
- fs/f2fs/gc.c    | 54 ++++++++++++++++++++++++++++++++++++++-----------
- fs/f2fs/super.c |  1 +
- fs/f2fs/sysfs.c | 11 +++++++++-
- 4 files changed, 68 insertions(+), 17 deletions(-)
 
-diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index 59bc3c2fb70a..d9cf2d4fae21 100644
---- a/fs/f2fs/f2fs.h
-+++ b/fs/f2fs/f2fs.h
-@@ -1920,6 +1920,7 @@ struct f2fs_sb_info {
- 	block_t reserved_blocks;		/* configurable reserved blocks */
- 	block_t current_reserved_blocks;	/* current reserved blocks */
- 	block_t alias_reserved_blocks;		/* reserved blocks for device alias */
-+	block_t resize_reserved_blocks;		/* reserved blocks for resize_fs */
+ fs/smb/server/ndr.c     | 10 +++++-----
+ fs/smb/server/smb2pdu.c | 34 ++++++++++++++++++++++------------
+ fs/smb/server/vfs.c     | 11 +++++------
+ 3 files changed, 32 insertions(+), 23 deletions(-)
+
+diff --git a/fs/smb/server/ndr.c b/fs/smb/server/ndr.c
+index 7e546c22e284..1376d5a59fc8 100644
+--- a/fs/smb/server/ndr.c
++++ b/fs/smb/server/ndr.c
+@@ -256,7 +256,7 @@ int ndr_decode_dos_attr(struct ndr *n, struct xattr_dos_attrib *da)
+ 		return -EINVAL;
+ 	}
  
- 	/* Additional tracking for no checkpoint mode */
- 	block_t unusable_block_count;		/* # of blocks saved by last cp */
-@@ -2707,13 +2708,14 @@ static inline bool __allow_reserved_root(struct f2fs_sb_info *sbi,
- 	return false;
- }
+-	ret = ndr_read_int32(n, NULL);
++	ret = ndr_read_int32(n, &da->flags);
+ 	if (ret)
+ 		return ret;
  
--static inline unsigned int get_available_block_count(struct f2fs_sb_info *sbi,
--						struct inode *inode, bool cap)
-+static inline unsigned int __get_available_block_count(struct f2fs_sb_info *sbi,
-+						       bool allow_root)
- {
- 	u64 reserved = (u64)sbi->current_reserved_blocks +
--					sbi->alias_reserved_blocks;
-+					sbi->alias_reserved_blocks +
-+					sbi->resize_reserved_blocks;
+@@ -271,15 +271,15 @@ int ndr_decode_dos_attr(struct ndr *n, struct xattr_dos_attrib *da)
  
--	if (test_opt(sbi, RESERVE_ROOT) && !__allow_reserved_root(sbi, inode, cap))
-+	if (test_opt(sbi, RESERVE_ROOT) && !allow_root)
- 		reserved += F2FS_OPTION(sbi).root_reserved_blocks;
+ 		ret = ndr_read_int64(n, &da->create_time);
+ 	} else {
+-		ret = ndr_read_int32(n, NULL);
++		ret = ndr_read_int32(n, &da->ea_size);
+ 		if (ret)
+ 			return ret;
  
- 	if (unlikely(is_sbi_flag_set(sbi, SBI_CP_DISABLED)))
-@@ -2726,6 +2728,15 @@ static inline unsigned int get_available_block_count(struct f2fs_sb_info *sbi,
- 	return sbi->user_block_count - reserved;
- }
+-		ret = ndr_read_int64(n, NULL);
++		ret = ndr_read_int64(n, &da->size);
+ 		if (ret)
+ 			return ret;
  
-+static inline unsigned int get_available_block_count(struct f2fs_sb_info *sbi,
-+						     struct inode *inode,
-+						     bool cap)
-+{
-+	bool allow_root = __allow_reserved_root(sbi, inode, cap);
+-		ret = ndr_read_int64(n, NULL);
++		ret = ndr_read_int64(n, &da->alloc_size);
+ 		if (ret)
+ 			return ret;
+ 
+@@ -287,7 +287,7 @@ int ndr_decode_dos_attr(struct ndr *n, struct xattr_dos_attrib *da)
+ 		if (ret)
+ 			return ret;
+ 
+-		ret = ndr_read_int64(n, NULL);
++		ret = ndr_read_int64(n, &da->change_time);
+ 	}
+ 
+ 	return ret;
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index dac7cd05e023..748061a0899d 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -3866,9 +3866,12 @@ static void smb2_update_xattrs(struct ksmbd_tree_connect *tcon,
+ 					    path->dentry, &da);
+ 	if (rc > 0) {
+ 		if (store_dos_attrs) {
+-			fp->f_ci->m_fattr = cpu_to_le32(da.attr);
+-			fp->create_time = da.create_time;
+-			fp->itime = da.itime;
++			if (da.flags & XATTR_DOSINFO_ATTRIB)
++				fp->f_ci->m_fattr = cpu_to_le32(da.attr);
++			if (da.flags & XATTR_DOSINFO_CREATE_TIME)
++				fp->create_time = da.create_time;
++			if (da.flags & XATTR_DOSINFO_ITIME)
++				fp->itime = da.itime;
+ 		} else {
+ 			fp->f_ci->m_fattr &=
+ 				~(FILE_ATTRIBUTE_COMPRESSED_LE |
+@@ -9039,12 +9042,22 @@ static int set_file_basic_info(struct ksmbd_file *fp,
+ 	    (crtime > 0 || file_info->Attributes)) {
+ 		struct xattr_dos_attrib da = {0};
+ 
+-		da.version = 4;
+-		da.itime = fp->itime;
+-		da.create_time = fp->create_time;
++		rc = ksmbd_vfs_get_dos_attrib_xattr(idmap, fp->filp->f_path.dentry, &da);
++		if (rc <= 0) {
++			da.version = 4;
++			da.flags = 0;
++		}
 +
-+	return __get_available_block_count(sbi, allow_root);
-+}
-+
- static inline void f2fs_i_blocks_write(struct inode *, block_t, bool, bool);
- static inline int inc_valid_block_count(struct f2fs_sb_info *sbi,
- 				 struct inode *inode, blkcnt_t *count,
-diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
-index 337ecf4df945..7609c23ec27b 100644
---- a/fs/f2fs/gc.c
-+++ b/fs/f2fs/gc.c
-@@ -2420,6 +2420,7 @@ int f2fs_resize_fs(struct file *filp, __u64 block_count)
- 	struct f2fs_lock_context glc;
- 	struct f2fs_lock_context clc;
- 	unsigned int secs, old_tail;
-+	bool reserved = false;
- 	int err = 0;
- 	__u32 rem;
- 
-@@ -2471,10 +2472,17 @@ int f2fs_resize_fs(struct file *filp, __u64 block_count)
- 	f2fs_lock_op(sbi, &lc);
- 
- 	spin_lock(&sbi->stat_lock);
--	if (shrunk_blocks + valid_user_blocks(sbi) +
--		sbi->current_reserved_blocks + sbi->unusable_block_count +
--		F2FS_OPTION(sbi).root_reserved_blocks > sbi->user_block_count)
-+	if (shrunk_blocks + valid_user_blocks(sbi) >
-+			__get_available_block_count(sbi, false)) {
- 		err = -ENOSPC;
-+	} else {
 +		/*
-+		 * Reserve the space to be shrunk so that no one, including
-+		 * root, can allocate it until the shrink is done.
++		 * itime gets preserved when reading the xattr if already present
++		 * otherwise don't write it as it wasn't asked for by the client
 +		 */
-+		sbi->resize_reserved_blocks += shrunk_blocks;
-+		reserved = true;
-+	}
- 	spin_unlock(&sbi->stat_lock);
++		if (crtime > 0) {
++			da.create_time = fp->create_time;
++			da.flags |= XATTR_DOSINFO_CREATE_TIME;
++		}
+ 		da.attr = le32_to_cpu(fp->f_ci->m_fattr);
+-		da.flags = XATTR_DOSINFO_ATTRIB | XATTR_DOSINFO_CREATE_TIME |
+-			XATTR_DOSINFO_ITIME;
++		da.flags |= XATTR_DOSINFO_ATTRIB;
  
- 	if (err)
-@@ -2488,29 +2496,45 @@ int f2fs_resize_fs(struct file *filp, __u64 block_count)
- out_drop_write:
- 	mnt_drop_write_file(filp);
- 	if (err)
--		return err;
-+		goto out_release;
- 
- 	err = freeze_super(sbi->sb, FREEZE_HOLDER_KERNEL, NULL);
- 	if (err)
--		return err;
-+		goto out_release;
- 
- 	if (f2fs_readonly(sbi->sb)) {
- 		err = thaw_super(sbi->sb, FREEZE_HOLDER_KERNEL, NULL);
--		if (err)
--			return err;
--		return -EROFS;
-+		if (!err)
-+			err = -EROFS;
-+		goto out_release;
-+	}
-+
-+	/* checkpoint can be disabled by remount before freeze_super() */
-+	if (test_opt(sbi, DISABLE_CHECKPOINT)) {
-+		f2fs_err(sbi, "Checkpoint should be enabled.");
-+		err = thaw_super(sbi->sb, FREEZE_HOLDER_KERNEL, NULL);
-+		if (!err)
-+			err = -EINVAL;
-+		goto out_release;
- 	}
- 
- 	f2fs_down_write_trace(&sbi->gc_lock, &glc);
- 	f2fs_down_write_trace(&sbi->cp_global_sem, &clc);
- 
- 	spin_lock(&sbi->stat_lock);
--	if (shrunk_blocks + valid_user_blocks(sbi) +
--		sbi->current_reserved_blocks + sbi->unusable_block_count +
--		F2FS_OPTION(sbi).root_reserved_blocks > sbi->user_block_count)
-+	/*
-+	 * shrunk_blocks is already accounted in resize_reserved_blocks, so
-+	 * this should not fail. Allow root reserved blocks here since root
-+	 * may have used them after the first check, regardless of resize.
-+	 */
-+	if (WARN_ON_ONCE(valid_user_blocks(sbi) >
-+			__get_available_block_count(sbi, true))) {
- 		err = -ENOSPC;
--	else
-+	} else {
- 		sbi->user_block_count -= shrunk_blocks;
-+		sbi->resize_reserved_blocks -= shrunk_blocks;
-+		reserved = false;
-+	}
- 	spin_unlock(&sbi->stat_lock);
- 	if (err)
- 		goto out_err;
-@@ -2559,5 +2583,11 @@ int f2fs_resize_fs(struct file *filp, __u64 block_count)
- 	f2fs_up_write_trace(&sbi->cp_global_sem, &clc);
- 	f2fs_up_write_trace(&sbi->gc_lock, &glc);
- 	thaw_super(sbi->sb, FREEZE_HOLDER_KERNEL, NULL);
-+out_release:
-+	if (reserved) {
-+		spin_lock(&sbi->stat_lock);
-+		sbi->resize_reserved_blocks -= shrunk_blocks;
-+		spin_unlock(&sbi->stat_lock);
-+	}
- 	return err;
- }
-diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index 78dbf1e92285..f5966ae2d11b 100644
---- a/fs/f2fs/super.c
-+++ b/fs/f2fs/super.c
-@@ -5414,6 +5414,7 @@ static int f2fs_fill_super(struct super_block *sb, struct fs_context *fc)
- 	sbi->reserved_blocks = 0;
- 	sbi->current_reserved_blocks = 0;
- 	sbi->alias_reserved_blocks = 0;
-+	sbi->resize_reserved_blocks = 0;
- 	limit_reserve_root(sbi);
- 	adjust_unusable_cap_perc(sbi);
- 
-diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
-index 430356e500af..8ab9a5098f1c 100644
---- a/fs/f2fs/sysfs.c
-+++ b/fs/f2fs/sysfs.c
-@@ -594,6 +594,8 @@ static ssize_t __sbi_store(struct f2fs_attr *a,
- 	}
- #endif
- 	if (a->struct_type == RESERVED_BLOCKS) {
-+		block_t avail, valid;
-+
- 		spin_lock(&sbi->stat_lock);
- 		if (t > (unsigned long)(sbi->user_block_count -
- 				F2FS_OPTION(sbi).root_reserved_blocks)) {
-@@ -601,8 +603,15 @@ static ssize_t __sbi_store(struct f2fs_attr *a,
- 			return -EINVAL;
+ 		rc = ksmbd_vfs_set_dos_attrib_xattr(idmap, &filp->f_path, &da,
+ 				true);
+@@ -11877,10 +11890,7 @@ static inline int fsctl_set_sparse(struct ksmbd_work *work, u64 id,
+ 						     fp->filp->f_path.dentry, &da);
+ 		if (ret <= 0) {
+ 			da.version = 4;
+-			da.itime = fp->itime;
+-			da.create_time = fp->create_time;
+-			da.flags = XATTR_DOSINFO_CREATE_TIME |
+-				XATTR_DOSINFO_ITIME;
++			da.flags = 0;
  		}
- 		*ui = t;
-+		/*
-+		 * Exclude the space reserved for device aliasing and resize_fs,
-+		 * otherwise the reserved blocks can take it and make them fail.
-+		 */
-+		avail = sbi->user_block_count - sbi->alias_reserved_blocks -
-+					sbi->resize_reserved_blocks;
-+		valid = valid_user_blocks(sbi);
- 		sbi->current_reserved_blocks = min(sbi->reserved_blocks,
--				sbi->user_block_count - valid_user_blocks(sbi));
-+				avail > valid ? avail - valid : 0);
- 		spin_unlock(&sbi->stat_lock);
- 		return count;
- 	}
+ 
+ 		da.attr = le32_to_cpu(fp->f_ci->m_fattr);
+diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
+index 0c95d4668370..40d86abaad7a 100644
+--- a/fs/smb/server/vfs.c
++++ b/fs/smb/server/vfs.c
+@@ -1935,8 +1935,10 @@ int ksmbd_vfs_fill_dentry_attrs(struct ksmbd_work *work,
+ 
+ 		rc = ksmbd_vfs_get_dos_attrib_xattr(idmap, dentry, &da);
+ 		if (rc > 0) {
+-			ksmbd_kstat->file_attributes = cpu_to_le32(da.attr);
+-			ksmbd_kstat->create_time = da.create_time;
++			if (da.flags & XATTR_DOSINFO_ATTRIB)
++				ksmbd_kstat->file_attributes = cpu_to_le32(da.attr);
++			if (da.flags & XATTR_DOSINFO_CREATE_TIME)
++				ksmbd_kstat->create_time = da.create_time;
+ 		} else {
+ 			ksmbd_debug(VFS, "fail to load dos attribute.\n");
+ 		}
+@@ -2475,10 +2477,7 @@ static int __ksmbd_vfs_set_compression(struct ksmbd_work *work,
+ 		rc = ksmbd_vfs_get_dos_attrib_xattr(idmap, dentry, &da);
+ 		if (rc <= 0) {
+ 			da.version = 4;
+-			da.itime = fp->itime;
+-			da.create_time = fp->create_time;
+-			da.flags = XATTR_DOSINFO_CREATE_TIME |
+-				XATTR_DOSINFO_ITIME;
++			da.flags = 0;
+ 		}
+ 
+ 		da.attr = le32_to_cpu(fp->f_ci->m_fattr);
 
-base-commit: b9d7379d10d43386b59082da8c9a0b111e054781
-prerequisite-patch-id: 5b947a4267506336d2083e4b20686c7c39a4233e
+base-commit: 2cc92355992022c1c6edad59499c49814e17cac0
+prerequisite-patch-id: 049ae0eba275b5be35a238833107e0b251a55aa2
 -- 
-2.56.0.611.g1030f0b940-goog
+2.56.0
 
