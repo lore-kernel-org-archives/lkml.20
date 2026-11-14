@@ -1,100 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794676291;
-	b=VF65484NV/Sbt1tv8zJIkwK4s5pDcpbYLZMfBh4ZnBrNWDRYLL8zZX3FOaEI3yRaSeDP
-	 Xwy0o5QDLrwaQ/QdmMV6ygWfEZ7CvuDBlLOQqEbadp52BRcX3fwlLyeoqfInt4zuJrHj6
-	 D46Mnw3Sc3xHKrvCxp5VsEpHoHBix8lwGfBWAlH+pSgCRbJaEwksZGJB8wcs7TyuaInH5
-	 WQzFjcnVdo6XVFPq0KpUfo0u0HxPQbLNrw93ETZTqYGcCMYpOLzxOi0o2JuHCKxRFWdvP
-	 /5YQj0fZAd5t8ex6gBFG4kZ3/xzjM+VuEOefgpxKzTCn+mo+GMDLZaC9U5/b7KedbNA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794676291;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794676296;
+	b=vwzmoNt9hf2zFXDrX4KISA0dpdHxQqVU/OJcWucCTzX3+A0VEtx8nXbJusfZRc29q9F9
+	 XjHdYi01TSUYXirg+Gv0PPSVCcLBUVMw1nweUZiGCsg1ZYVjuS5NliL2TEa3kvJKoPg/2
+	 818gP+Kz3AfaHdlb33n9lk6ffW9CleHGTy2+PEM2RkIK02zaTx+QGBbOvRaALyFoX9O5i
+	 +HfvPnZwNp4Xw4INcIsf6E36sVx0n6ngpacabLbxfR3WOGYiKLRlspOUpGBd4XWp1ED1I
+	 nr5RTmifVRTQe01g7v89rTXnsF1UmT+nl/gsuXrOfJWrJZaV7LO5BP9zN83be+DK+qA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794676296;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=VSOfGERFH4pEDKWamyJaLP62gyGxpA0Ka4pqh6Z9BNk=;
-	b=E5J/shvsjVOEOYMtwTY3qVXyTIfjsOkEt4VuhJDa8MULD3QetvXaThxepzRv54anc2Bp
-	 AjgR2+DJC7hd/3FyeTPPmnie7h9cmhGbkgtWEQkPlaeKdIHCca1V/oMOJLJ4plKo/5Ttl
-	 1vJ5L/RmWj27LD1itVkkT/2vcqf4mJoBP1IXwHCyIhqcgChS+SG1NhGKeRfn100Nl3oJU
-	 3fEBv9EpFsjDV5Q4BxiKOR5WnDK74+pfypOhVd8YLqEK0fa/+eDpPHmW6FYwsrIqYjeB5
-	 hUttECsobTL+WGdQm9yVR3DCCUcjwAL5e4W8JUw8+MNtguQjb0n6SPJoV4FlMQQ48iQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=Vu2U1+fwMEinJNUOf8+8+cd7a79YlcPU8MSMu5EqhgI=;
+	b=tWu4TaK+ZAuJr3BGWZANtK+LhXFCGNAGPjbW2y2pGHyBPakYl4QffAaZH6LQPUIxVXOS
+	 yHwSzdq9rTWz9UL7HYiyByRmxi1eCIVspvGXQDM9l9YAXkz8zVdnEqoxM8fW0mN8dwjJW
+	 2Wa2x7U2wNewTS8LXVX45iBzD/tBaaewU2YAhSTlUHNa8USvYHWYOvqw62BrD24MENZZe
+	 vY19owtPhPu2rwbEaN39GbaPe0rF2RZpnVN1M05pO0MkGPYj9a4nnAfMo2tJ8Puc0a96K
+	 ghbmQCihoQeayrcLjHSXuB8+PLGkJqcouWhtj08GiKbAT9aOU+9uj1VQ6ejDcNKA/0w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CHfKscxP;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.48
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SXDFbhyC;
+	arc=none smtp.remote-ip=209.85.216.45
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73B4C606A32D
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:11:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73B4C606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F27ED606A327
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:11:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F27ED606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CHfKscxP
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-67bf3c6654fso2119122d50.1
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 09:11:31 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794676290; cv=none;
-        d=google.com; s=arc-20260327;
-        b=dFkowtTDncpz+Q3HzPnhTJgw+Vd0l53nvnk9PMR6UQD+VKCMZiaEx2PR8M6N3Dk8ge
-         fZNOODSxr5dGbywX8WsMeFcbystP4aapjtsL6U0/ZE5omMn7J74kHbBX87j7l0a1NPJM
-         Tced2esrk16SKN3oznTakW1kuaipKAuOg4K/6xpKIYU6+jkF++A/IR5qbmH+3EtVnBk9
-         caLfrlOjn6orXtXg3u+btCGcg003R/jdFpm3soUqcuwPLeA8LEKB2RNhvUbBUi/hC5NX
-         WIGUyGtrbdnaOkO2h7wa3Xbn8cstW0Oeo3dWrfCe6AvR1DlYW3MaYJUFZtn+cGzIqlAT
-         zurA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=VSOfGERFH4pEDKWamyJaLP62gyGxpA0Ka4pqh6Z9BNk=;
-        fh=PUZajKkIiQ9oO3bNwjGsIEN5ncnJUkk9GmjgyJlDlPA=;
-        b=DF2k33lqrh0gVfb9GI6RRJfDvqgkR9NH6au+uxT2Kw7ycWFfDCgAH9eZJU8XwxC7s3
-         Y7HvKxD9b+SYZLBwt0mCeo6utqIwnPpMmvES6Dt+Nr856XjzZ2slPc+BfXyBX5vUFVEo
-         A9Ql1MqIgJ33ZYR4hlN1LiMZCMZtDWbxJEQvPiFwS0TM7G+rGi3kNGoA5i4ZEA6JssU0
-         CS5oHVq1SnZZ0Oe3RlhzPX66LUa2qT/drC4xy9pKEYnGxEyYy6duAkwNyUymhbEE5O5P
-         +qXR6IGwiEaFZzXUUaXVQm85KjqB015qwKVQTY4JtpJSOoJ7oIl/wrihbdFvEtADzeMc
-         WZ0Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SXDFbhyC
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ada4c06b7bso1056252a91.2
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 09:11:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794676290; x=1795281090; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VSOfGERFH4pEDKWamyJaLP62gyGxpA0Ka4pqh6Z9BNk=;
-        b=CHfKscxPs8539x7E4zQhLhGlVq4r46kaEqLOWYdcsgWj70uDsw7b/2JzILz/RI4N/S
-         oHiMEk7jvfcsum0bDbG6dwxgnmVbouto4NJsgAm/agziM0rikFtXiA5mqimhdTfXvNLZ
-         AXmdYT302MZUTW50GtBwPL7oNfuaTdfspfGa4TngY6eua0ZnrRcTg3007eT7ya3AtnbC
-         5+l87GUVtmxO35Hfyh4vpo9fX0xmBmJGFWDN+qkZfZPGliNBuTyCyQxYY4jB5SMA91Wc
-         fALtofyLAEKNm2LIFnd+97w7Lo1k9XP3PdOQv2uFme3N4mIrajIUwM1VqQ+PIBr03wvD
-         I6NQ==
+        d=gmail.com; s=20260707; t=1794676295; x=1795281095; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Vu2U1+fwMEinJNUOf8+8+cd7a79YlcPU8MSMu5EqhgI=;
+        b=SXDFbhyCSupAaqXvko1MniVBLA4ymeUu72/El1zS4anKe84a5WopoMcYKhiHvCtG1c
+         00eJpTZz8EBmgsatfCvOyARtn6JcnIfJD6IwLFKpe39JseCqK42sY5UX3o+TxJA6VYl4
+         xRiniVY4seBNbId0y1dcQvNJAUCHqZsuWvXKPmYsgz2cLFCyW87HhUo9dtucJGOy4J3B
+         HkLfHdih5QA4TFH12s3jQn/U8JWCdagrc/a6HCDCpWvSgDQtrAuzmynoYlgk5FgYFzti
+         c7w/ObNc7Qk8eeBNvK2xSyN5pq9/VCUgzX8GXCE4DzrMQV3c9YC5zQNOSur4Z9HekADJ
+         sb1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794676290; x=1795281090;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VSOfGERFH4pEDKWamyJaLP62gyGxpA0Ka4pqh6Z9BNk=;
-        b=x3etVXlV/JazNsvUkeGArb4XfiRqm/vvSNNITN1SKwGhP9VgYXILR0Gpax8jMcZtyu
-         JV4fBFo8HTZ45pRXLWReC2UoTj/Sp2tvg0uJuyaJ/WEIk0QS3vY5JZYJBN9DmRd5iDA3
-         Th3HgMTdgmN/VPzoh7/YKZGZfSSMBkIIC5zo3V6XDdmGzQ5Dh3rnfC0J5TuvFwhMDb3A
-         eU51BTnRlO38hWw+oVGnLlCXYWeeVrobSMyi05lwjILn1SrM2EkIfMK63KC9N34JJChQ
-         619Ye5qRM9qWUrAUBeXODSZuvAy0tVCP4E6Lpq1s8KWi0m80UaHRPLw3y51D/dGkEKot
-         TjTw==
-X-Forwarded-Encrypted: i=1; AL+hErHxlBOa7dnHsBkx77aWjhi2F5aEmBoVcsXKxVb73cjuevSN0gQVyD6ysul+KFWiv2JploLhpXL+TQwm/eA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+5FLsTIEY1A6w0SMYq8iPMUOberarygbgwSBwl+tqcQyjMAzPd
-	HiQ605t4vASNzcjY3v+3xLZb+3WDBT1+N7otDS93SLnZcpk8BZdutGKhwBv+I4IOGlttM1mmU+9
-	KS+NMK0SMP0JS1REnSGpT5VkcO+vVPrw=
-X-Gm-Gg: AYBFou33l4it5MhRpYPcc7cMdkfCFrh//BiqqWlq5yuXAVum+F/8gsBKlHHvLeUGUNE
-	9ZkenpXEbL++C8Nt37eHxtzYSTDOfDx+TvlNuCGfRkGicavxW23Euv4ZGz/R+xHyRExcMEr0nu8
-	sqGdlK/ZAxTtWRFk8p8DXagwKt7iHD9XdQbGxARz85SNMJUqvYkNgmUJWW49noZ6yDmprNSANmI
-	/ZN+F9VOJr1lZwmTtV3aUi4XfyFWG1MTBxFOi2EL5o1CXgQiTGwxzvfN3fV2XwoGvrRj8Tk6ugV
-	WY+PCsnkhqcJk7lWH8d/9b8aZkrn1qWaQVeRJSNeQZyUpNrOoAnV18kY5iXCdv7VPhJG5wS9exg
-	8Fa+e7MxryMykFP9+OvDJJUh3lQlGot+HJJoPdqg=
-X-Received: by 2002:a05:690e:4845:b0:674:981:a937 with SMTP id
- 956f58d0204a3-67d8972f1eamr2440317d50.121.1794676290257; Sat, 14 Nov 2026
- 09:11:30 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794676295; x=1795281095;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=Vu2U1+fwMEinJNUOf8+8+cd7a79YlcPU8MSMu5EqhgI=;
+        b=1AqaIyk7+a555Iv2FDcxr6N2raXVH+7vS1wLAQ6lV9+ARmByNvQVEtz34hIl+0aiM3
+         +ohJu/P1OO/JdEpSLvlGZoJsv7BEbbO71QZpOFTKXSt7NT5D691Xn+l/XWF6Bpvrmrpp
+         76DBSExBTgFX8IAc4iRPBMnb4Jnf0s5CSx9DPHRuYDoWkvw2Yx/XvfRIOTRfeXECWTKK
+         lodcmv3fS5qkk2Y3mzuXNXlO2xRhPfQz0jdRssCD0M2NH3t3kbuXMJJ7rA8byqn3GiF9
+         Gv78iqDge/M+lPDAnwYQrQ/uk7LaFdKBDwotTDimJuKErWg+xNjFxPbJa0kcHxwoO94b
+         l4Tw==
+X-Forwarded-Encrypted: i=1; AL+hErHi7PpiZ6gDUsth3unRxMF3LyfBYQ9mnZeNuFmEiEWn77816XQ9J8Dlg3e4FcuiFOp292dscKnx7fJaAAQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+vNEO91TeQWb7BQXwdKZUzafg3ceP/ibgDep0lBcIEX/hejXWR
+	pRagwi9MzY2V3GuEAZ1JS6vDm19rqmZ3QZvLtOiCFl/0+u1rK+7URGQn/3/yVA==
+X-Gm-Gg: AYBFou3sDWSJeGimz6Kp1Ab7QzjOndVyNZNkPWjgJb2Sm0oFZ+FHfKKTE6yJ5UrNFKz
+	DE9mJOLKP6E77gVPO1YsjryZsl18dk+PxcfJrIPB6cyxwXtubt4Zcto7l25IC01Y9gILi17dnn7
+	jGxfVoQdmY9LQXpOGj3bnmBoVuQyAMuyBnx+paAW1hjSkB4rJBqmvrUnjg0UfdBhn3VZsACQB6h
+	WyxaFTTd1j0Xv+Vnas8gHGzxS8FxVKnXx3By4s6kqtv7HFz7bmFAshZAE1e0hRR6m0/QbbZqR6Z
+	DRbqchQnYv5YeBlZbbob7q4wXkDg6LQF9ZyV6Dx7O7ybteZmRI028FP/9lCy/kI2jl5HzdvkGRv
+	EQU/bWWp41/oXNbTWCdz6DBgFEXWLO1hx9eXNvmS82efmcdKLgwo7OO3df77CmyGTi9j0vOr9pE
+	wewRAZsaOEAznyyEGnb0+dMg3pTH2DeBEcaPpEvfAr6+LqcljfDq3sTpzM0ivzf4/puW445d6jd
+	gl2ygKKMFqIXINKm7MXwLPag0jWfP8iRI9SEKFvSJuJaN3uxPWHuGyIzAbVKLLvd+U0zxZ7fwj9
+	KoSk2Q+fK+GKxoZ/TkNJralY5aCe7CLu70LBEQqmKDIoXHYQoeaKzpjNp+dsvosLfeaabqsl+01
+	nnR6K+UVy
+X-Received: by 2002:a17:90b:3148:b0:3ac:450a:fa22 with SMTP id 98e67ed59e1d1-3b1b081835fmr6048766a91.2.1794676295330;
+        Sat, 14 Nov 2026 09:11:35 -0800 (PST)
+Received: from junjungu-PC.localdomain ([2408:820c:9009:b6e2::7dee])
+        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-3b197ce49d6sm14956895a91.4.2026.11.14.09.11.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 09:11:34 -0800 (PST)
+From: Felix Gu <ustc.gu@gmail.com>
+Date: Sun, 15 Nov 2026 01:11:19 +0800
+Subject: [PATCH] spi: sunplus-sp7021: Fix target transfer completion
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,37 +92,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104133158.3187525-1-luolongjuna@gmail.com>
- <avZ9Ku61M8z-2axF@jpoimboe> <CAKL4jwXA4OBVLFGAP4DWw6i9d5bneU=Ur=D58FnrssOt7ygm6A@mail.gmail.com>
- <avdWz3m2YJnlGgnS@jpoimboe>
-In-Reply-To: <avdWz3m2YJnlGgnS@jpoimboe>
-From: Longjun Luo <luolongjuna@gmail.com>
-Date: Sun, 15 Nov 2026 01:11:19 +0800
-X-Gm-Features: AclHuK8SkhxY4RW-7U4DuqAnwzbj1NmDVqMiHao8193oK5xeW2NzqHxvET-tpi0
-Message-ID: <CAKL4jwXicjF4xJR0HSK7X49gUqp3df1_sGF9KBmeTKGeE_uwVw@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 00/11] objtool/klp: DWARF-based cross-build symbol correlation
-To: Josh Poimboeuf <jpoimboe@kernel.org>
-Cc: peterz@infradead.org, mbenes@suse.cz, pmladek@suse.com, 
-	joe.lawrence@redhat.com, song@kernel.org, puranjay@kernel.org, 
-	nathan@kernel.org, ndesaulniers@google.com, morbo@google.com, 
-	justinstitt@google.com, live-patching@vger.kernel.org, llvm@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261115-sunplus-sp7021-v1-1-43d06657fc90@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMywqDMBBA0V+RWRuYCb7aX5EufIx1RNKQaUQQ/
+ 93ULs/i3gOUg7DCMzsg8CYqH5dAeQbD3Lk3GxmTwaKtiKg0Gp1foxr1NVoy3YSPokHiBitIkQ8
+ 8yX4P29ffGvuFh+/vAud5AZ7/CkFyAAAA
+X-Change-ID: 20261115-sunplus-sp7021-af094801e806
+To: Li-hao Kuo <lhjeff911@gmail.com>, Mark Brown <broonie@kernel.org>
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Felix Gu <ustc.gu@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794676291; l=2354;
+ i=ustc.gu@gmail.com; s=20261030; h=from:subject:message-id;
+ bh=5PNIgpMkTtdvI/ZRkhXJrC2kmlfX3FnZr2LhsZDy1Vc=;
+ b=FS6ZTa0NF+yKbgI3TVX2H/KePnOVCPJl8l1mElnWdixI9iHmnD5DKKOJVXd7SfsTnq4uPkFhc
+ YmZeW+NkBRcDlNRTB+70QuHGupbeqVes6f7fbvbTEpjyBmyzx2a4ONp
+X-Developer-Key: i=ustc.gu@gmail.com; a=ed25519;
+ pk=fjDJtbnSeysEBjmOfNYqYUUDS6g7Tfov9W5oGngTBfo=
 
-> Thanks, that makes sense, but for upstreaming I think we will need to
-> take a more iterative approach, even if it ends up causing some
-> intermediate patches to be obsoleted by later ones.
+Target transfers wait on isr_done, but the target IRQ handler completes
+target_isr. Consequently, a target interrupt does not wake the transfer
+wait.
 
-Agreed. I actually got into livepatch through kpatch =E2=80=94 I guess I go=
-t a
-bit nervous and wrote the RFCs like papers.
+Use target_isr consistently for both TX and RX, and stop completing
+isr_done in target_abort()
 
-I'll follow up case by case within the current design. For cases
-klp-build leaves unsupported for now, I think documenting the limits
-would help patch authors and AI tools know what to check.
+Found by code review, no hardware for test.
 
-The two RFCs can stay as background on another approach, for
-cross-checking and future discussion.
+Fixes: f62ca4e2a863 ("spi: Add spi driver for Sunplus SP7021")
+Signed-off-by: Felix Gu <ustc.gu@gmail.com>
+---
+ drivers/spi/spi-sunplus-sp7021.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-Longjun
+diff --git a/drivers/spi/spi-sunplus-sp7021.c b/drivers/spi/spi-sunplus-sp7021.c
+index 54431c363bbc..c5706f557ce9 100644
+--- a/drivers/spi/spi-sunplus-sp7021.c
++++ b/drivers/spi/spi-sunplus-sp7021.c
+@@ -113,7 +113,6 @@ static int sp7021_spi_target_abort(struct spi_controller *ctlr)
+ 	struct sp7021_spi_ctlr *pspim = spi_controller_get_devdata(ctlr);
+ 
+ 	complete(&pspim->target_isr);
+-	complete(&pspim->isr_done);
+ 	return 0;
+ }
+ 
+@@ -130,7 +129,7 @@ static int sp7021_spi_target_tx(struct spi_device *spi, struct spi_transfer *xfe
+ 	value = readl(pspim->s_base + SP7021_DATA_RDY_REG);
+ 	value |= SP7021_SLAVE_DATA_RDY;
+ 	writel(value, pspim->s_base + SP7021_DATA_RDY_REG);
+-	if (wait_for_completion_interruptible(&pspim->isr_done)) {
++	if (wait_for_completion_interruptible(&pspim->target_isr)) {
+ 		dev_err(&spi->dev, "%s() wait_for_completion err\n", __func__);
+ 		return -EINTR;
+ 	}
+@@ -142,12 +141,12 @@ static int sp7021_spi_target_rx(struct spi_device *spi, struct spi_transfer *xfe
+ 	struct sp7021_spi_ctlr *pspim = spi_controller_get_devdata(spi->controller);
+ 	u32 value;
+ 
+-	reinit_completion(&pspim->isr_done);
++	reinit_completion(&pspim->target_isr);
+ 	value = SP7021_SLAVE_DMA_EN | FIELD_PREP(SP7021_SLAVE_DMA_CMD, 3);
+ 	writel(value, pspim->s_base + SP7021_SLAVE_DMA_CTRL_REG);
+ 	writel(xfer->len, pspim->s_base + SP7021_SLAVE_DMA_LENGTH_REG);
+ 	writel(xfer->rx_dma, pspim->s_base + SP7021_SLAVE_DMA_ADDR_REG);
+-	if (wait_for_completion_interruptible(&pspim->isr_done)) {
++	if (wait_for_completion_interruptible(&pspim->target_isr)) {
+ 		dev_err(&spi->dev, "%s() wait_for_completion err\n", __func__);
+ 		return -EINTR;
+ 	}
+
+---
+base-commit: 793807ca13bf3072fc6d16ce6d90e9ab9beff2a5
+change-id: 20261115-sunplus-sp7021-af094801e806
+
+Best regards,
+--  
+Felix Gu <ustc.gu@gmail.com>
+
