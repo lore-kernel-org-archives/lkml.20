@@ -1,85 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.178
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794687951;
-	b=pA/2/N+BSIRtbp0rQ6Q68uhohgD88+0c6v66bL/J9FZMKZmv9/Bf/bUs1xW+7kcktMRQ
-	 nKvWH84AmQ8iQ8ExK9m+WXGnvQowyPqAOLHXpD2Dr7YBl80IMXxv5/FOSUDS6su2z79DL
-	 JD+FXAwEhy4Hrb21Zgq3LBXyYhiHD9aJ/Ua+Fvy3P0jJFzHky0siD1oY8xMvoQQ3feAQy
-	 3Uc6JpkajHIvORFT1yVO3UfUQY5zqWSERaRhf6a9PC8gx4LMQrzvqhUS3Y6/2WkaOf4ro
-	 AqBcol4VLXUbXZlQXHHgxKmjDMNYD4LFg0YICPpaQEkL2C4K8ykyRbMezCSFbAlLI1A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794687951;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794687991;
+	b=QcfQ+IHo8N7rEaSgUpISNlyNJBzikPFlJ1fIzaYSI7h4C4/abvm521pJJ8fKrcjaOrJB
+	 u01AmpeDIZpYauaXWVADhTxI7GRJYgc3r0Kl4Qf1nDQyrBAutN1Zkt9BkN2sgBwasnxQA
+	 /w8nz6SgeUzXjc2MKqXqNbCzcgjaOyOH/uHaSlHufcueatCSAdNdzdrBlK+skCA0npeij
+	 0LNR3jTv8g3LNkZLoFw6xPhd+bJaMbSQ+bGJYpJVuADM4VS0ImR3ojjdqU4eXA/gpDZ1Z
+	 6ICQupZJ6xPFi1AJcWDmL9bt2l5YMp2LYfMF9l5RgYPtcrnPiL+KIFFHe+as3GngP0A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794687991;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=uhFgL5mQ4FmBEnWXxDB8G4YBTGpdQKsK7XBv176IhtY=;
-	b=oxGZFC+hF4jYvaLXi29R6OhLD8jn2T4LVU6j7zn9TA9Mjr+zWhwWXloL8Pi6Vjcwoljv
-	 pgtSmrv76Tw8IQ0i6wjyiJMaSR/qTlzoE/05sAWTIF8UmDBF2mc2Jlefujd/D2N0/aPtt
-	 9DVHFP0PoGkY36GCqMxo0hkBnuV6ZHBMXdQe1TbQkxj4Htir3EHbpp4OanaW7gXgEcPiO
-	 EFM/TvaPHDmY1rhpECAg4SLFReiriWpnKAURfzfzBwpyfcUIZF5m/Jfwg9Lb2opDW2avi
-	 e+JZDg8aQBEvTPDHcxCe3kWidUaawFCMKAKHD06popdJYlDw5p/0HlbQMnCvP82nIjA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=Umr5E+Um;
-	arc=none smtp.remote-ip=209.85.160.178
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=xuJyCXQBwA8FBqL6zWHOSxmjnnqXS73oC55pi2iJ3dU=;
+	b=B6fdCMLzhxN2hGluwpWwjC2SdMoLhP2jZdCFSrIyl5mmZb9ll0D8er6eclN4vQxKNCEt
+	 c/xIxm5Joz5ucgtcDEzXgugca54DTCbyT5potU9Ogcd4ESSHNnIo0qxTvzmw03QUEn6CN
+	 eBevWo45uX65NKR7ZadrTPkYq6tcdbs1vYsxZadT12A5lMGtr191aOs6fa9wMxO0Qdsbg
+	 lclLYd/W6Ne7hgYoZe12qQEbEReLFliTbWlVsdc3U7Vhe3m6+yCfUYR1H4uPxRlaITX0C
+	 6HYYRxbKzh+m9OuboZKjhahqgR2VKSk84potkfbM/FQycXnfPsNglVo/+lJsdOKnr0Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="ysVS/Pc2";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.42
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38DC6606A880
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 20:25:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38DC6606A880
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9767C606A323
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 20:26:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9767C606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=Umr5E+Um
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-55ade1de0b4so31809941cf.3
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 12:25:51 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ysVS/Pc2
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c4cb6834eaaso421324966b.2
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 12:26:31 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794687990; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aGJCjxMRCIqCQ0y3K4s7uHj00T+l06s9vl6abIWA45sAXV+wZgbj5h0IR8RpnlyfIz
+         M1JqyXAWuPkrHWtWL9eOvi9u5P6gGIZqNeombDT6WKUFuyr8SGjOcYPAQc/LO9RX0BJM
+         gPE9lsERg/wOD9caqQvuKys+WQg8KgwdfrFhb7AgzQnbDCplVhRsN6IxLa/NdyRUvWoh
+         ms10kyJP4fFiQ19KeuJTV57p4g1msGYrUQMc+/DFuFoRajckWVL+BYvxEBSm01oU8+9G
+         2SX71zALKAbUW5AQq4rjAtkplwkERjJv1aJDacqPmRV1muJEUoXspVI4bBgAXZhJEZuP
+         Slyw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=xuJyCXQBwA8FBqL6zWHOSxmjnnqXS73oC55pi2iJ3dU=;
+        fh=TRNEMpSoT3aA6yGW2AXbMqXpJcBvZ2Jj7zPfyZKJ1dI=;
+        b=WfbdoCt7pQndYnHnpDogYnFrJoBAgNELXwQfdFrFJHCcQ9w7RVTQCGCF163KU4TYZs
+         8yKyE7UoPuSRO5Qk876cvOnK5JoQF/sDyCVQTzok6N160J8UbxpHuFaHZ9Skd42cObjv
+         I7hILZtHCZrPf9eY2AAR81u/QyqIRPkwqiidvRWyH1QBbqSGn19XZKkGLwMSagnOGoSe
+         SSSwBFzLJfJw/YPJeArzacSzmiavzl9mUakQvGQR10ZgfvXc+hPORVC9Lei8wlOoaBU6
+         mibTYkKstMeh3HVP43tV/DQhpxo9qjOCivIESkkpuE5M76bkOvGBapcN/k5u5AnKOBLD
+         NN5w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1794687950; x=1795292750; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=uhFgL5mQ4FmBEnWXxDB8G4YBTGpdQKsK7XBv176IhtY=;
-        b=Umr5E+UmqmQJUEtXniscPQJbti6YD2DHitWwub7Ht3Og9pJeig5ihXV2Z4T9u/CQar
-         ELecvn5Etdz2Cp5NYxT0dDCgI+3y3/csLjrjwcVOzDvq9Ixd4fJ2N/GTi/XLkUaTDgX1
-         i0ICXQzR7wbfXQB/GV7oZJuG3JWcxo605hw4EBuSlfDunXA0mUsNN1DLC3CPc8h6OrlV
-         AdD7yEtHYuI6saCYQnVwVFhNbkOuTy8TawCgHFcx84SLpC0DPVu+Gc5lA2eMkrpUB4IY
-         NWqX7nqtqf59Xs2h8IB2WJgW3S+bQjvcaGi34kiAmjO1HyPcFnDvoNJJQ6aA/sXkaY7i
-         R+VQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794687950; x=1795292750;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1794687990; x=1795292790; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=uhFgL5mQ4FmBEnWXxDB8G4YBTGpdQKsK7XBv176IhtY=;
-        b=O0iBdkG0EU6/Wg7xyG7PyINMQQ9gUSdEpg53q6GJxKBqzBnwtwbBxcpSQoZgsLBPQw
-         cLKdlcUVHx60QMsezAJTVEpcJMlaoxyi6V84kfRbr64H9TPUgVnONeqfWW48W8qyQ8w8
-         xIeL/dqsNDsC0CIOtf/Y7vUhErawOUEeSPoZf6gvDAYosw5wM0Jw3kOQwxvOeSGrbTON
-         Nq+1d9UAkAFm6ZTiwKwghofeyDl4vI1Zvu9JCgdVmrClu7q35c4mVUfgd8x4eOj+JmZK
-         iO1DKGM2TtTZmmjUvtbRGx36bbHQNBxeaEUQTQ6VIWj2oOxR/sS/v0yA/uWvflaKFpo9
-         U4EA==
-X-Forwarded-Encrypted: i=1; AL+hErE2QL52jR+OVokmTBFulHuTyhVUUQMZhFQGIC+7AX6WpMx3DTQwTWqK5cDK29hPLSvW6fvz4av9JIAoFdw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Lz4yo8+D2nIFNedOUvv1UzLQG+5FWerkMlDbVRwnwsX5rUhfN
-	SbO7sS1yGO5/awNsp1K+/pgehnW5G6zQ+V/2m2cpvuCZSJK1spFYORU43qY/0APHS7c=
-X-Gm-Gg: AYBFou04mR/Yp7th7DCWYZqY/RcHOQ0pSSZjYwzr8da+x/0l0hEgu1Mm/Dngrnr6Upu
-	uEnrXZrytgI/llEPKlf5aQXIaP4OkOiNNzxfQ6/KAOLZJ1SaKIrybHtjO0rAOpLDT3OR4OdfP+h
-	fN/Wgjji2uMbqKkbsTRt38SXqWEOERES3lthbpHnRTzTAdDrTMXkppZ67TfW0dnuiDKWykxJ0jh
-	Pxm2jXqSoxgCk9ffjjhqM8yS1DY7oE5ELrVfaYCGpXTD9lchdoD/jx393nlLxMi+bXNblv9Jt3T
-	QLYvjotZ5pDW06T4fH6ZyJYQGASW2KyAA06is4KIrI60j/WArQT27HTanlv7WltLH3JUyutuLa5
-	e8VOVtJVrowWcLGvO63JnLApWugbEwJ3Hl5k54tiam1+OmxcQrwxLjvU81blReg3WI+d9O7mUbB
-	+90fgHMUpOvcbc39VKIiF1RCNCy0rRa0wNGtfmkPHtYdTzBfZDGRKzYzHvlyOeLdYGrWvgl01o6
-	4tYTLLTclu219ZLShiBY+66wINPACH2py+mPEuC8w+85+Sjnt40JH6jFfzoHHG8Q008ABh8F0a1
-	68Y80gM96vV6Fx56ymNSLGUWRk8DATrh/t01U1voxHCb1Zst8pKybm2Z+dAolYXXaLwZlqwsMZn
-	yxTL7Nsg=
-X-Received: by 2002:a05:620a:4481:b0:93e:c12c:f11e with SMTP id af79cd13be357-9494bcd396cmr1068763285a.74.1794687950152;
-        Sat, 14 Nov 2026 12:25:50 -0800 (PST)
-Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23d5f3e4sm50436436d6.16.2026.11.14.12.25.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 12:25:49 -0800 (PST)
+        bh=xuJyCXQBwA8FBqL6zWHOSxmjnnqXS73oC55pi2iJ3dU=;
+        b=ysVS/Pc2B/Ws02ekmGuPCfumWT667tLchxxPbDG1p/VWu7+gUOB/XgYvUL/BXFAhVi
+         y4A5t/WN6JzoxwZCu5WECaKnxP+zBXEkv8wljUxrXydvUsPBmx8z5rB97J3bAkzJC4s8
+         Cj3VL857RDu8ZqAMlJabs7KQq3kEPBE22D9/r80pfCflHl3mBXHmmeAv8UPNCTg3ty6R
+         yIlRpZ9fP3Huqen5QBnUstB5ET7QtVGA2UsRtjUMmo0uJ+DGUtpusLpGy3klUt0Np9mP
+         VlcgMxPfN7yJTzsJcpBpUNH+8oNAupuvvISa6HqTS7f4oeSLAdfXkG3tEjOGJfYwo2vg
+         TeUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794687990; x=1795292790;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=xuJyCXQBwA8FBqL6zWHOSxmjnnqXS73oC55pi2iJ3dU=;
+        b=mTEz4WXT/o8aIfXkZP/ExAvkWfdJx9nl6v2bBsTMjmXgSr/5qpjPROLkpGQcgLKSHk
+         g9QILBZpl+F9u9PrZksNylW4yW67+hn1BYIbG1758imcVAxiHAYqDtD+Ugvx4/J/67Yh
+         sNIz1VfKUYotIZ6HW4gyIfp9tgNYjigEmnxXRfq+8t3xcF0Pj55isyLLLiZZQHNgfaNn
+         eWRfkJ1wUgxHD7WrNTqSi0gbevj8c++OlNA6veItkT+2+cTfmtKPKPC40alPhpzn7ng2
+         7qlmYKcByK4vXcHHiNcOjpFGVh6YlCrWqLk2xF9uW6zHHqeBI+CgICIP4kBoWRZhJ9p6
+         00uw==
+X-Forwarded-Encrypted: i=1; AL+hErF9++AmP9lAyRTwuNy9lagd9lhJ8E12UQHSzJTMgXlWlvf7W1VUOvBZ96jyX3H1YVU5n0Xs/JgH4Pn33qQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/PY3IPGdu2c8tCHBqP8ipq/jWtgn5QdfjK5IRr5oypCYWq4dpT
+	QJbwtCgglAiN7KKPtwzURQDQbvFK2zyWjdCQRnHa7CUVn8/VhgBFfEr8bJ6XztXRQgJdu8flDPc
+	Tc6o+hDWR9RUIlSnzrEunb7Qe/gIheNwLnLflJESfqQ==
+X-Gm-Gg: AYBFou0RmUr6EVw13qamaK1UA56FiF3AX9WEPO2U+DpuLoFOwvObF144F2uJDsY8Drq
+	dxk02by8kJy4xV938VI2CbDd4ZrSgfjmzm01ZPxsPZH1XuyBTnk92LE7d/22FUuHuAGz24x/+ck
+	+hz3qAoQV3SKsCNUuVujnyyUObB2g8JCWHl7ovb0GmXgAtnhIZXW1C+SpN//xGUH/pJF0+L5xaf
+	QDXiYHHyMWhuA1FkGqwezbNf5/GAwgCSym65WVPRTrW+E2Es8/sxlwrmJhu3ZcMb66bXIVSIA6S
+	Ct5xuc5a1voAQwTtehLURIjf2Yxk8CoLwTbziVTjWtKI6K/RllrWzkJ1Mh6YOHkHPSw4WZkX55s
+	d+qv9iX1UotZkZWpxVU/N4aF3Ud0+MTHK7K3H
+X-Received: by 2002:a17:907:60d3:b0:c40:4f39:22e8 with SMTP id
+ a640c23a62f3a-c50963d3237mr547794966b.44.1794687989782; Sat, 14 Nov 2026
+ 12:26:29 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,60 +103,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 2/2] mm/mempolicy: limit shared policy ranges per inode
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: "Gregory Price (Meta)" <gourry@gourry.net>, 
- Hugh Dickins <hughd@google.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Zi Yan <ziy@nvidia.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
-In-Reply-To: <70740a32-92f5-4425-8676-68863f3e44c3@kernel.org>
-References: <20261113-mempolicy_limit-v1-0-16688b2644dc@kernel.org>
- <20261113-mempolicy_limit-v1-2-16688b2644dc@kernel.org>
- <179467808112.482102.13365594235443107281.b4-reply@b4>
- <70740a32-92f5-4425-8676-68863f3e44c3@kernel.org>
-Date: Sat, 14 Nov 2026 15:25:48 -0500
-Message-Id: <179468794889.482102.14066028910704780583.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+References: <20261112-rtl8365mb-dcb-ingress-v2-0-f8e6fbdf8c99@pengutronix.de>
+ <20261112-rtl8365mb-dcb-ingress-v2-9-f8e6fbdf8c99@pengutronix.de> <CAD++jL=EGaGXJCMGoTX-R5YU+OSU26NpbO3MBbr+yWBO0q6-yA@mail.gmail.com>
+In-Reply-To: <CAD++jL=EGaGXJCMGoTX-R5YU+OSU26NpbO3MBbr+yWBO0q6-yA@mail.gmail.com>
+From: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+Date: Sat, 14 Nov 2026 17:26:16 -0300
+X-Gm-Features: AclHuK-opAqBbnVl3SMbicdNR5dV_cuAzme9VQuR9-JlWqPoWq-RhUXkE5AY_ck
+Message-ID: <CAJq09z4rKOPb9DdMmOq8LeRjZr2HysLz4waFOcNntR+xUYSX5w@mail.gmail.com>
+Subject: Re: [PATCH net-next v2 09/10] net: dsa: realtek: rtl8365mb: offload
+ DCB apptrust
+To: Linus Walleij <linusw@kernel.org>
+Cc: Oleksij Rempel <o.rempel@pengutronix.de>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, =?UTF-8?Q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>, 
+	Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, kernel@pengutronix.de
+Content-Type: text/plain; charset="UTF-8"
 
-On 2026-11-14 21:16 +0100, David Hildenbrand (Arm) wrote:
-> On 11/14/26 18:41, Gregory Price (Meta) wrote:
-> > 
-> > Multi-task mappers were previously unlimited, but that seems like more
-> > of a nasty unintended corner case - not a real feature.
-> > 
-> > A single process is already limited on the number of vmas/policies based
-> > on `max_map_count`, so it seems natural to just use max_map_count
-> > directly, but I took a brief look at some distros and most seem to
-> > ship a raised `max_map_count` (>1 million) by default).
-> > 
-> > I tested that and even 1 million can cause a soft lockup.
-> > 
-> > Not sure there's an easy solution here, we might have to rework the shm
-> > policy locks.
-> 
-> Do you know a single valid use case that's not solved by patch #1 and would
-> trigger that many policies?
-> 
-> Ai was not able to come up with anything for me.
+> > Wire up port_get_apptrust and port_set_apptrust. The admin can then
+> > choose through dcbnl apptrust which ingress classification a port trusts
+> > for its priority: 802.1p (PCP), DSCP or both. A port that trusts nothing
+> > keeps the port default priority.
+> >
+> > In the driver's model of the hardware, the trusted priority-decision
+> > table is switch-wide, so all ports that trust something must trust the
+> > same selectors. While another port trusts a set of selectors, a request
+> > to trust a different set is refused with -EBUSY.
+> >
+> > When both are trusted, DSCP must come first. When PCP is trusted, the
+> > switch classifies an untagged frame by the PCP given to untagged
+> > frames. A PCP source ranked above DSCP would then hide DSCP from
+> > untagged IP frames. Refuse the order pcp dscp and any unknown selector
+> > with -EOPNOTSUPP.
+> >
+> > Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+> > ---
+> > Changes in v2:
+> > - move selector and precedence validation into rtl83xx-qos.c behind new
+> >   qos_get/set_apptrust callbacks; weights and -EBUSY stay here (Linus)
+> > - use one-hot decision weights; in the driver's model, the v1 linear
+> >   weights could tie PCP with DSCP (Linus)
+> > - define the apptrust slot order once (enum rtl83xx_apptrust_slot) for
+> >   the shared selector table and the backend source table
+> > - write the PCP and DSCP weights with one register update, so a failed
+> >   write cannot leave the trusted table half programmed (sashiko)
+> > - check that all apptrust sources share the one register that is updated
+> > - rank DSCP above PCP and refuse pcp dscp with -EOPNOTSUPP, because
+> >   with PCP first, untagged IP frames never reach DSCP
 
-Just want to make sure the bases are covered.
-
-If others are ok with this change, it doesn't look unreasonable to me.
-
-Although I'd wonder whether just using max_map_count's limit instead of
-adding a new toggle would just be cleaner and avoid adding a new uapi.
-
--- 
-~Gregory
-
+Reviewed-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
