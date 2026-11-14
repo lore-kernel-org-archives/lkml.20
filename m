@@ -1,100 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794618131;
-	b=3pix7xbxZ9DY5HdkxdmmkPgQmvpIicmwQuPY7mHAF/ooyqgORdQETAhNJDCncXEu62Ia
-	 7AbmWgUCToiohieKgTBEvz1IL/aF7LZSmvMuHF4idqDoZLR8l4maixw5q7VA9ptcYiyIi
-	 B1uRmjfJ3nksVf2kobGNneO2fyi01aAhsEZas5I6YSfb0KUcJhSzqlnHQm7ka2yJpF7kZ
-	 F/LS8Ai0XfrfNq7k2ESlfs+pJLqOuQxAxRHUhhmlfEg1FPiTg7+mO311F56pXw4crk8oR
-	 Qaf353gHQASbXyxiArp3+uYu7Gj1xzw3sLIgc540HJLCzDZLDMqYF98tFzbiC3JGndQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794618131;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=/m5d7czP0+mAkTXvCBEQeqM+jQc19scZ/VuN8vwz6lk=;
-	b=v8f1q5um75DudvNAxkUOinVALr7qUDR0XSB27NNLbU0hY+e5UGfZ0ftNVAgOp57y5xYj
-	 1HrNyFiS1LoBiv81T/Bv3KdZYIkN9Av5lrN7nXlITqKJRAlI8TG2SfjrJklZ10kq/RAGs
-	 k9W3UmEUcQNJt8SsKtHwo2w0OmGCwdGI6CPbhvcRAKNgPOPQsXoZFNdEvUHSarNv+KKZ1
-	 lJEfy0MzR6lcyZwmc/IvWtNKyhuCcQ/zEzpClpIF214lPT0zHHh6unpDdx9FLAZCbqhLM
-	 tuZjDGmH7YGTm3xopW0unn64lJxWfT4o/ol11rcJB6iU5pI49EBerK0xEgNY3N5v/Mg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BU9q51b+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794618168;
+	b=bEsAyXzC1tUrgNK+9UiRAw8pXnQ9uslZNRMY6kXGMRxqhsB6gRkoP+I/QMaiuqmnRZzw
+	 hwPA4Vt0A/mBTs/EO/Op1wwPr1ivwfxpL8KlsomCQMjvsjKxvBLnCUFgXL3FwIZQYGOeQ
+	 3h7RSZfWTVMtr5AYm61vEduHzFpwRTC0TLkJdYwninsO1q5vT7Nn1qkB0s2B5v3XjfrUM
+	 n6Q7WFMC3OM/QLVNVfaX1XZ3a/nPsfCDCk6ms9F4E+ETm08RzWCqfa63LdzlzibocxzNC
+	 81guJdMY0nNaYZX5IMohoH0Hgil8Pl4hmaxWF09PZh1ew9rHP0xWJDimo3F5eYsszAA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794618168;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=+B9aebVwfiAumfBffTjefgnIhBZHkMO9u3GJcorpwBs=;
+	b=iW+2ajWLLHrEEvr2M6ZrJ/JxLMLNUhsZIYF8fSh0JzN+0q5uZGlQ4J1ROybgnMi3giva
+	 C2tSKZrwK2Gw1agir4lybhAD8D9k0h/l8yUxM7BROnHjSZkINZMEGtB2ziZ6nJoVyAeg1
+	 SZ3vWE6sjEOcKXkKZzku1WME6FojE92PqaoicBSusdIyOI0O20rxeRc2kbfmVxmJ8CryB
+	 hNig+vsOOAzhh0gSG71g3O17R6OafQ+ULrdPVAJo7/vSLLi6y4LaDKJma+8yQMrupRY+U
+	 hniR/wHjMifLuRsSl+v8jAelXz6VnVZkAMUTvGjrrQJi4TAK8Ee7ye1vLNHIE4dMs0Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=GXlLRdUt;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92D26606A339
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 01:02:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92D26606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DC82606A33F;
+	Sat, 14 Nov 2026 01:02:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DC82606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BU9q51b+
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c4682977f9aso300225166b.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:02:10 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794618129; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WiD/O+S1W30n9z2aEU613Zv610XlQiq2BmMfKeC6wgkG81TrCFclvB7B9UIa/l4uOk
-         B24bXRY6+FGLsGw5ug6nAbo26p6Tpbp0S+p1vcZGAoNnc+gVfeT90NGpl/x90Yp1r82z
-         atGIz6Ti6x0mQ3ld+c/hMuK4QKmivFIqDzacqKxGUlGmNNygdvJ70WRF7lAh7y1E3GyL
-         VGta1kAPwe7Hp9LgPwmrjK5i7x0yjHZDzJRO3E6SZTBbR7MxkUv4zNNDXxYLMt3Oz1I8
-         svF2sZeX4chItD+hVXdrUQHdQSup0VikUDk3t0Yizc2xZ6m7cfzWidsRnYgQjQ1f1FEi
-         5MqA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=/m5d7czP0+mAkTXvCBEQeqM+jQc19scZ/VuN8vwz6lk=;
-        fh=s8I296FVl/6SbOL2Z4v/r7r+WqOQtWyaYYUk2zGcw6Y=;
-        b=edpB2TQv8eMaPcsT1sfXfSDhox6WIVZYQAs91asyidzlQbtav0W+nYt5NeKvW/UxoB
-         SW09S5cv+CHkZeg0btw3Ei0kw1UIYTQIZSwS+dLXi+RWy3WRAt8JVd1hKJYjcGHvmkF0
-         b4mCJWxEaEc96mNoN7cPRoHiO4VCq25QhfyEjfx4cyqmAzF5KyDVs61RPH9QpAshMmkY
-         iHxRrejFB3tsXOk0KIw+WzvcRJvLVH67xVfRN/mluBxpPYWMc8y1g/jRMo+PcDbWWHXM
-         eG/DfIPajQkwV++bzVz+b0nv06IhQYuAstISIil2icwXT+EQUmpuzhEYCVbJQ060Hdc1
-         apGQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794618129; x=1795222929; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/m5d7czP0+mAkTXvCBEQeqM+jQc19scZ/VuN8vwz6lk=;
-        b=BU9q51b+qIJpzYDPk22/yVpWZX81by8BeuEdqZRj3hJsh1Uf/rZxAT1JLa3NOnUvZJ
-         B0B8kgEH5e/8oYq9DXLRNPRbdUqR5nb5RBJa9XPJvkMYd/iUttJpM+hChgj7Rb3nJJm0
-         LroCX4V5KWRDi0i9ulgdRMnGoaIMIyWTCb/21zBqu7amw6T3lcIPV6a8ATgEI6ekuSW7
-         AeB0haBR2KP1f55/asA5+4kVtwjNfrez12ghsELF+Maq4RytNFl14DC3rdyj8ZmbmFZC
-         y5VlNo58HqUjZjqTnPApbbowg90CpsZEG8fQ+MC7XEAlujK94GCAt5WbKlYlsQ3IadmU
-         GgPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794618129; x=1795222929;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/m5d7czP0+mAkTXvCBEQeqM+jQc19scZ/VuN8vwz6lk=;
-        b=nosDkjPxgvaQUA/hueX/EmVn8ndDDVvBkKM/qZPtK7v+IzHOuImPvIcrpu36kfvbH8
-         v4Q5pN3DIiRmNwQJLjsgF3EaeXKt7Pbv+et0XjuS4cCK67TbhXAkPGx/WG44N5ORQ940
-         9ORIAAiL+XRGGhiRwvXx+hVbyKbQGAvC5l3JhWogdVKdOuqwSlwt3db7c4psawJ+5tNc
-         6eDcP2obHyJxod12iBfOWAxg2Ln+IsjME0zx7+gDNDkBI91gRBK852uSz4i1AM1ffs+m
-         +kgQKfcd5PG4OR75EzHL7VmzAPXrqMu3uqzbCXbdDWCD7HuixurzGQeNaUB/ZkCZJqnH
-         u6SA==
-X-Forwarded-Encrypted: i=1; AL+hErHrzDqlHlj5fWaVvgrmmdGIS315rDo5RzcCs67CP6dyh8VB/D/zb3VbQUzTM2HEUlcMwHZPIleVgXCGZr0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+O5TtggWiz8kcG3YroE09IiDGodXhBMUJill12ah82bsVbI0Yn
-	e4g/rimmOYA2WJoXmJ0XMk1wE8V3yZ/nWU2wKZtqkjviPsHXxkXGsIyQPGSbvTqB08WvIj/U5f+
-	uTRy0SwsvhVRPm2evv1337hB5fMjr2N5y6PLqYbtT
-X-Gm-Gg: AYBFou0I5M4T6E+y8ZdU1iDxvQqHXrB6pWubvuRkq0qvNRBHdCnNjckkMj5FMdib1Vu
-	CmxYVh/tSF4xFl4DSOCQnhDaaWlERibApQRu9Xqe9nmsg101Pi9X4s1l5xZ8vVXlEEBwCHYc0UQ
-	WX++SioHehGhkgyltMcxkp5J2P8H1Ym47BPNs3UQF4/WfGT7q2C6L8oi2kWHIDzrec2I94dOrjG
-	DgNp6Z0CRTteCBP4wik9xBdAsDzUkS2H/UuTztQbzLrKi935Xtzg6VwVuHIeubRUthrZ7lvICWC
-	NrmAZOEg5yYgm+ENpipcEQwoPnASwfhOrumz49zqOb9PtFNj/Pd9A4mBatCI9b/vX9fYcz3lOeP
-	h6sgdLdoxAX+CpR9Z+sv9OwmKWU7FaACVXy7Q+j/tnhyZ5oN+ne3q146+UXBCjUUvpR/a8Q==
-X-Received: by 2002:a17:907:72c8:b0:c2d:c98f:4824 with SMTP id
- a640c23a62f3a-c509640e213mr344745266b.30.1794618128439; Fri, 13 Nov 2026
- 17:02:08 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=GXlLRdUt
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794618166;
+	bh=SYxcdDtyKbqLMgK+NpoqNuUD79S7Z8A1s3uyXcWzLZ4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=GXlLRdUtTG1TJUvu9wZ6f1hZfQdHAMNUkjVaMfWTOcAfzZHUn9y5xGR8qJ2iHep/d
+	 gVJL+8INdgMbwfvK2XZmPvnMpJjSEG5DRDmGxoRJsZ06r3n0NfaQYVo6DZpml422cQ
+	 vLh8b9d0qdXTans+eJMniHL4JietSYeRXknFidmNLhvi2NDqZbM/oSZ9P8CEqFbCkJ
+	 ANLReUYKLMNlJqLT65KxuCruNzCmKNe6AxoNtYyItJI7Qj8UffslLX9iljAkMYG2ez
+	 oE22NXttDlBdnOaMAFEzgugEqiqe/ofc/uwGujDuU3jvgoTDEXkSLEB00+chUhsjBS
+	 fvvV8zHmfN9Rg==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0E43517E0F7F;
+	Sat, 14 Nov 2026 02:02:46 +0100 (CET)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id C62AB480035; Sat, 14 Nov 2026 02:02:45 +0100 (CET)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Sat, 14 Nov 2026 02:02:03 +0100
+Subject: [PATCH v19 4/6] usb: dwc3: core: add post PHY registration hook
+ for platform glue
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,308 +66,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111115911.1142000-1-david.laight.linux@gmail.com> <20261111115911.1142000-10-david.laight.linux@gmail.com>
-In-Reply-To: <20261111115911.1142000-10-david.laight.linux@gmail.com>
-From: Samuel Wu <wusamuel@google.com>
-Date: Fri, 13 Nov 2026 17:01:56 -0800
-X-Gm-Features: AclHuK92ZDtDkLGXySEyJcsPwdTi7Im-tlh3FuOteUS-nzQ2KxAv8LMSfv9gpak
-Message-ID: <CAG2KctruqvRDU46Q58Sk3Bkr=i1yuhs8znqgWWP65ZydBnT+Hw@mail.gmail.com>
-Subject: Re: [PATCH v3 next 09/13] kallsyms: Add a kernel parameter to change
- the kallsyms_markers[] density
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Petr Mladek <pmladek@suse.com>, Kees Cook <kees@kernel.org>, linux-kernel@vger.kernel.org, 
-	linux-kbuild@vger.kernel.org, bpf@vger.kernel.org, 
-	Jim Cromie <jim.cromie@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Luis Chamberlain <mcgrof@kernel.org>, Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Andrii Nakryiko <andrii@kernel.org>, linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261114-b4-rockchip-dwc3-rockchip-glue-v19-4-b79fb5f4b42a@collabora.com>
+References: <20261114-b4-rockchip-dwc3-rockchip-glue-v19-0-b79fb5f4b42a@collabora.com>
+In-Reply-To: <20261114-b4-rockchip-dwc3-rockchip-glue-v19-0-b79fb5f4b42a@collabora.com>
+To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Heiko Stuebner <heiko@sntech.de>, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>
+Cc: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, 
+ Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>, 
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
+ Igor Paunovic <royalnet026@gmail.com>, Alexey Charkov <alchark@flipper.net>, 
+ linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-phy@lists.infradead.org, kernel@collabora.com, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2197;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=SYxcdDtyKbqLMgK+NpoqNuUD79S7Z8A1s3uyXcWzLZ4=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr3szXLxyZak1kTZPsvLz4maLq8PemiO7Yql
+ 76kHj3SupmkCokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq97M1AAoJENju1/PI
+ O/qabE0P/iD4GdiX/tOlYqOvtQS88CZ843fg0SfwiPpg9AokapVRQ2qMdAZXaKMUVjT9ZB8LJ3T
+ 14RQc/slbiq/1M5Zd1LrGvmMnikn8E42j3DNWkY58S6GrpTLyu9qV/CzLSVYqvFKyxHtV6XtRdN
+ f2ATTSRGrEZkuOkqiqPjeTTWCXoRiphUSupewknRJ46txys0/Rnr44D1cqyjapHdWPmYFysyFiw
+ 2InDwiveoa6gDVmwFSv0ziba0yWci313/nGgGdYMJhIeuFgsjddDIJiaCoeeGDfgo18byM8Dq1E
+ jVSmJj9cCAAR3PBxGiUNUTv1BudhdNJ9omr8RoL9ppKpm+6INztjZvetAsO0agR7AP+/2lQCy+n
+ RvMqRmYuD99oROPUfqpXTv2mWG7Ok9jNGW4plkyLMRqk5k/345k+8FNBfMBENEix1PAI9EWcmZZ
+ l9fUjutRaFVax2y7ajobW9yZqXBb+3wS5qBEYxYTMwsUhLB+CVHhG6wXDElq8Du6QWrbyWmQPp/
+ 7iX8Z+neJFn2FGzpZ8N1V+KMsJMzJ12vt0qhZcOHs47zi3DuzXs7MGuATStUFbNBQcsydo1/4lD
+ 98qKboGY37qNK8wj6z3Vv0SRw0TgVP/kf6s6lljYATq/ClIu2R4qYgcILkirYCHtdofoPN/75Z/
+ Gaho/E3QoBBqrOYRgPugsrg==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-On Wed, Nov 11, 2026 at 3:59=E2=80=AFAM David Laight
-<david.laight.linux@gmail.com> wrote:
->
-> The density is a tradeoff between data size and execution speed.
-> Reducing it from 256 to 64 gives a 35% improvement for name lookups.
->
-> Change scripts/kallsyms to take the density from a --marker-shift command
-> line parameter so that it can be build specific.
-> Write the value used to the output file to ensure the kernel uses the
-> correct value.
->
-> The program's default is unchanged at 1 marker per 256 symbols,
-> The kernel config defaults to 1 marker per 64 symbols.
-> This increases the static data by a little less than 1 bit for every
-> two symbols.
->
-> Signed-off-by: David Laight <david.laight.linux@gmail.com>
-> ---
->
-> v3: Previously patches 8 and 9
->
->  init/Kconfig               | 19 +++++++++++++++
->  kernel/kallsyms.c          | 16 ++++++-------
->  kernel/kallsyms_internal.h |  1 +
->  scripts/kallsyms.c         | 49 ++++++++++++++++++++++++++------------
->  scripts/link-vmlinux.sh    |  6 +++++
->  5 files changed, 67 insertions(+), 24 deletions(-)
->
-> diff --git a/init/Kconfig b/init/Kconfig
-> index 4013781e0a02..b2db123a51d7 100644
-> --- a/init/Kconfig
-> +++ b/init/Kconfig
-> @@ -1908,6 +1908,25 @@ config KALLSYMS
->           symbolic stack backtraces. This increases the size of the kerne=
-l
->           somewhat, as all symbols have to be loaded into the kernel imag=
-e.
->
-> +config KALLSYMS_MARKER_SHIFT
-> +       int "Interval between kallsyms markers (6 =3D> 64, 8 =3D> 256)"
-> +       depends on KALLSYMS
-> +       default 6
-> +       range 0 24
-> +       help
-> +         Set the interval between the kallsyms marker entries as a power=
- of 2.
-> +
-> +         This bounds the linear search when locating the name of a symbo=
-l
-> +         from its index in the array of values (and v.v.).
-> +
-> +         Smaller values speed up the search but increase the memory foot=
-print.
-> +         Values below 5 (one 32 bit marker every 32 symbols) are unlikel=
-y to
-> +         make a significant difference because other parts of the code
-> +         dominate.
-> +
-> +         The default of 6 is a reasonable compromise. It makes looking u=
-p a
-> +         symbol by name around 35% faster than setting it to 8.
-> +
->  config KALLSYMS_SELFTEST
->         bool "Test the basic functions and performance of kallsyms"
->         depends on KALLSYMS
-> diff --git a/kernel/kallsyms.c b/kernel/kallsyms.c
-> index fd42a1a8ed3e..2c4264a3e0c5 100644
-> --- a/kernel/kallsyms.c
-> +++ b/kernel/kallsyms.c
-> @@ -147,13 +147,11 @@ static int kallsyms_strcmp_symbol(unsigned int off,=
- const char *name)
->  static unsigned int get_symbol_offset(unsigned long pos)
->  {
->         const u8 *name;
-> -       int i, len;
-> +       int len;
->
-> -       /*
-> -        * Use the closest marker we have. We have markers every 256 posi=
-tions,
-> -        * so that should be close enough.
-> -        */
-> -       name =3D &kallsyms_names[kallsyms_markers[pos >> 8]];
-> +       /* Scan from the marker before the requested symbol number */
-> +       name =3D &kallsyms_names[kallsyms_markers[pos >> kallsyms_marker_=
-shift]];
-> +       pos &=3D (1 << kallsyms_marker_shift) - 1;
->
->         /*
->          * Sequentially scan all the symbols up to the point we're search=
-ing
-> @@ -161,7 +159,7 @@ static unsigned int get_symbol_offset(unsigned long p=
-os)
->          * so we just need to add the len to the current pointer for ever=
-y
->          * symbol we wish to skip.
->          */
-> -       for (i =3D 0; i < (pos & 0xFF); i++) {
-> +       while (pos--) {
->                 len =3D *name;
->
->                 /*
-> @@ -185,7 +183,7 @@ static unsigned long get_name_address(unsigned int na=
-me_offset)
->         unsigned int low, pos, high;
->
->         low =3D 0;
-> -       high =3D ((kallsyms_num_syms - 1) >> 8) + 1;
-> +       high =3D ((kallsyms_num_syms - 1) >> kallsyms_marker_shift) + 1;
->
->         while (high - low > 1) {
->                 pos =3D low + (high - low) / 2;
-> @@ -196,7 +194,7 @@ static unsigned long get_name_address(unsigned int na=
-me_offset)
->         }
->
->         pos =3D kallsyms_markers[low];
-> -       for (low <<=3D 8; pos < name_offset; low++) {
-> +       for (low <<=3D kallsyms_marker_shift; pos < name_offset; low++) {
->                 unsigned int len =3D kallsyms_names[pos];
->                 if (len & 0x80)
->                         len +=3D (kallsyms_names[pos + 1] << 7) - 0x7f;
-> diff --git a/kernel/kallsyms_internal.h b/kernel/kallsyms_internal.h
-> index 11fb0de92ede..9137870ad00f 100644
-> --- a/kernel/kallsyms_internal.h
-> +++ b/kernel/kallsyms_internal.h
-> @@ -12,6 +12,7 @@ extern const unsigned int kallsyms_num_syms;
->  extern const char kallsyms_token_table[];
->  extern const u16 kallsyms_token_index[];
->
-> +extern const unsigned int kallsyms_marker_shift;
->  extern const unsigned int kallsyms_markers[];
->
->  /* Although constant, size is volatile for better code generation. */
-> diff --git a/scripts/kallsyms.c b/scripts/kallsyms.c
-> index 930ec27a53c0..c27aaabccd1b 100644
-> --- a/scripts/kallsyms.c
-> +++ b/scripts/kallsyms.c
-> @@ -59,6 +59,8 @@ static unsigned int table_size, table_cnt;
->  static int all_symbols;
->  static int pc_relative;
->  static int verbose;
-> +/* Default to one kallsyms_markers[] entry for each 256 symbols */
-> +static unsigned long marker_shift =3D 8;
->
->  static int big_endian; /* Extracted from the elf file */
->
-> @@ -441,8 +443,8 @@ static void write_src(void)
->         stamp("write token table");
->
->         /* table of offset markers, that give the offset in the compresse=
-d stream
-> -        * every 256 symbols */
-> -       markers_cnt =3D (table_cnt + 255) / 256;
-> +        * every (1 << marker_shift) (typically 64 or 256) symbols */
-> +       markers_cnt =3D (table_cnt + 255) >> marker_shift;
+Add support for custom PHY handling steps in platform glue code
+by adding a post registration hook. This will be used for handling
+PHY reset notifications on the Rockchip platform.
 
-Should be (table_cnt + (1 << marker_shift) - 1) >> marker_shift.
+Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus
+Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Reviewed-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+Tested-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ drivers/usb/dwc3/core.c | 2 +-
+ drivers/usb/dwc3/core.h | 9 +++++++++
+ 2 files changed, 10 insertions(+), 1 deletion(-)
 
-Otherwise, looks good to me!
+diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
+index 4b7132887a03..daf5aec07fbf 100644
+--- a/drivers/usb/dwc3/core.c
++++ b/drivers/usb/dwc3/core.c
+@@ -1613,7 +1613,7 @@ static int dwc3_core_get_phy(struct dwc3 *dwc)
+ 		}
+ 	}
+ 
+-	return 0;
++	return dwc3_post_phy_registration(dwc);
+ }
+ 
+ static int dwc3_core_init_mode(struct dwc3 *dwc)
+diff --git a/drivers/usb/dwc3/core.h b/drivers/usb/dwc3/core.h
+index f3dabb37f806..5f745838b30c 100644
+--- a/drivers/usb/dwc3/core.h
++++ b/drivers/usb/dwc3/core.h
+@@ -1002,10 +1002,12 @@ struct dwc3_scratchpad_array {
+  *				need to be passed on to glue layer
+  * @pre_set_role: Notify glue of role switch notifications
+  * @pre_run_stop: Notify run stop enable/disable information to glue
++ * @post_phy_registration: Called directly after PHY got registered
+  */
+ struct dwc3_glue_ops {
+ 	void	(*pre_set_role)(struct dwc3 *dwc, enum usb_role role);
+ 	void	(*pre_run_stop)(struct dwc3 *dwc, bool is_on);
++	int	(*post_phy_registration)(struct dwc3 *dwc);
+ };
+ 
+ /**
+@@ -1674,6 +1676,13 @@ static inline void dwc3_pre_run_stop(struct dwc3 *dwc, bool is_on)
+ 		dwc->glue_ops->pre_run_stop(dwc, is_on);
+ }
+ 
++static inline int dwc3_post_phy_registration(struct dwc3 *dwc)
++{
++	if (dwc->glue_ops && dwc->glue_ops->post_phy_registration)
++		return dwc->glue_ops->post_phy_registration(dwc);
++	return 0;
++}
++
+ #if IS_ENABLED(CONFIG_USB_DWC3_HOST) || IS_ENABLED(CONFIG_USB_DWC3_DUAL_ROLE)
+ int dwc3_host_init(struct dwc3 *dwc);
+ void dwc3_host_exit(struct dwc3 *dwc);
 
->         markers =3D xmalloc(sizeof(*markers) * markers_cnt);
->
->         output_label("kallsyms_names");
-> @@ -476,14 +478,14 @@ static void write_src(void)
->                 }
->
->                 if (out_bin_file) {
-> -                       if ((i & 0xFF) =3D=3D 0)
-> -                               markers[i >> 8] =3D big_endian ? htobe32(=
-off) : htole32(off);
-> +                       if ((i & ((1u << marker_shift) - 1)) =3D=3D 0)
-> +                               markers[i >> marker_shift] =3D big_endian=
- ? htobe32(off) : htole32(off);
->
->                         fwrite(len, 1, len_len, out_bin_file);
->                         fwrite(se->sym, 1, se->len, out_bin_file);
->                 } else {
-> -                       if ((i & 0xFF) =3D=3D 0)
-> -                               markers[i >> 8] =3D off;
-> +                       if ((i & ((1u << marker_shift) - 1)) =3D=3D 0)
-> +                               markers[i >> marker_shift] =3D off;
->
->                         printf("\t/* n:%u */\t.byte\t%u", off, len[0]);
->                         if (len_len =3D=3D 2)
-> @@ -504,6 +506,10 @@ static void write_src(void)
->         printf(".size kallsyms_names, . - kallsyms_names\n");
->         printf("\n");
->
-> +       output_label("kallsyms_marker_shift");
-> +       printf("\t.long\t%lu\n" , marker_shift);
-> +       printf("\n");
-> +
->         output_label("kallsyms_markers");
->         if (out_bin_file) {
->                 write_incbin_header("markers", &bin_offset);
-> @@ -926,6 +932,7 @@ static void usage(void)
->                 "Usage: kallsyms [options] [vmlinux [out.bin]] > out.S\n"
->                 "       kallsyms --sysmap vmlinux > out.map\n"
->                 "           --all-symbols     Include all local symbols\n=
-"
-> +               "           --marker-shift=3Dn  Interval between makers (=
-6 =3D> 64, 8 =3D> 256)\n"
->                 "           --pc-relative     Output symbol offsets\n"
->                 "           --sysmap=3Dout.map  Text map file\n"
->                 "           --verbose         Extra diagnostic output\n"
-> @@ -946,21 +953,33 @@ int main(int argc, char **argv)
->
->         while (1) {
->                 static const struct option long_options[] =3D {
-> -                       {"all-symbols",     no_argument, &all_symbols,   =
-  1},
-> -                       {"pc-relative",     no_argument, &pc_relative,   =
-  1},
-> -                       {"sysmap",    optional_argument, NULL,           =
-'s'},
-> -                       {"verbose",         no_argument, &verbose,       =
-  1},
-> +                       {"all-symbols",        no_argument, &all_symbols,=
-     1},
-> +                       {"marker-shift", required_argument, NULL,        =
-   'm'},
-> +                       {"pc-relative",        no_argument, &pc_relative,=
-     1},
-> +                       {"sysmap",       optional_argument, NULL,        =
-   's'},
-> +                       {"verbose",            no_argument, &verbose,    =
-     1},
->                         {},
->                 };
->
-> -               int c =3D getopt_long(argc, argv, "", long_options, NULL)=
-;
-> -
-> -               if (c =3D=3D -1)
-> +               switch (getopt_long(argc, argv, "", long_options, NULL)) =
-{
-> +               case -1:
->                         break;
-> -               if (c =3D=3D 's')
-> +               case 0:
-> +                       continue;
-> +               case 'm':
-> +                       if (!optarg[0])
-> +                               continue;
-> +                       marker_shift =3D strtoul(optarg, NULL, 10);
-> +                       if (marker_shift > 24)
-> +                               usage();
-> +                       continue;
-> +               case 's':
->                         sysmap =3D optarg ?: "";
-> -               else if (c !=3D 0)
-> +                       continue;
-> +               default:
->                         usage();
-> +               }
-> +               break;
->         }
->
->         stamp(NULL);
-> diff --git a/scripts/link-vmlinux.sh b/scripts/link-vmlinux.sh
-> index 44b5a6d78ce5..61cf8f287ebe 100755
-> --- a/scripts/link-vmlinux.sh
-> +++ b/scripts/link-vmlinux.sh
-> @@ -37,6 +37,10 @@ is_enabled() {
->         grep -q "^$1=3Dy" include/config/auto.conf
->  }
->
-> +value() {
-> +       sed -n "/^$1=3D/{s///;p;q}" include/config/auto.conf
-> +}
-> +
->  # Nice output in kbuild format
->  # Will be suppressed by "make -s"
->  info()
-> @@ -140,6 +144,8 @@ kallsyms()
->                 kallsymopt=3D"${kallsymopt} --pc-relative"
->         fi
->
-> +       kallsymopt=3D"${kallsymopt} --marker-shift=3D$(value CONFIG_KALLS=
-YMS_MARKER_SHIFT)"
-> +
->         info KSYMS "${2}.S"
->         scripts/kallsyms ${kallsymopt} ${1:+"${1}" "${2}.bin"} > "${2}.S"
->
-> --
-> 2.39.5
->
+-- 
+2.53.0
+
