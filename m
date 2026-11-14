@@ -1,80 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.35
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794675281;
-	b=KVKDGl2mb2gT+jRM+9zyS5utiMYDL9JOypP7hdsk40CpOCXPZg2MUUXFzUOHxYbs63Z7
-	 1njM/ijO052NJzhM/tnlI/AUwPiOBganwK6i1qlAsknTVbcSRMx2Tgy0V9EWusaYvtfDa
-	 u2AJHHGfCwwr6V23mI4UyEi7ltaoFSnLVaq1Wa9TIQUHwnuH7X1uOSVQOvMmxbmh18ExX
-	 bXGuPDdzcedylqouN++UNUsZr14K+ocQPw7ovaNr7A9gqW67LOLra1G6XWGwmWSpyh124
-	 xb5BZ1vywh7QHIyHsdlF4rBBGpyQz1kiIGTgruoZgm/9SNj6/cXtdzBYljEQsjPVmqg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794675281;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=n5UsVPtZvhQiUvUeNRBWwsmppzZEReyOurASB6aSeh8=;
-	b=bjhUSeg71cdbNIse8ixKOUEsytJvMtnvV2Qp4UXqCQuhV+8Gt8XzBybQBrkCiNMrnIdv
-	 rmNyj6xNbJ4mJRV1dRHqaCuOrhBFJdu0/Z9TTJQI7ch/dlvSo3q2P9HqmPhBKoQBgfHA2
-	 5SYwgy+0rTHtT+O4e3yUGhiHVat4TgrKGlOE7eEXljEJpAorOL6oWRZcNB8ChIiiJgsmO
-	 FQgmGmcKcl8YG6u9EdmDhQDUBjHnj17EdyXAqk7rZ9hIpdxS6lLfJ4XprMGe8GgtbYycL
-	 orWJ6Ipc7BaXPskti4Q6uCWUXaogZ1pHxs25xirbUZOig/MnBE6sqVrusr4kRpwBruA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=Mhn270Wx;
-	arc=none smtp.remote-ip=35.89.44.35
-Received: from omta36.uswest2.a.cloudfilter.net (omta36.uswest2.a.cloudfilter.net [35.89.44.35])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.169
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794675289;
+	b=LZ8iVNZ0YLdsDv3Rd4nlRAF7KqlNacYXmylAtYKLQ5MyHrk8oZJ4orYyGkxRG/F9I8FC
+	 V1f95VAMAo/e+OAHeA+EZIx8ndt5i4KlnIeYbcc6Z8v5qK/j8thF0EhsdlBnk+Jf7B2AI
+	 sdGe0Kg0wiRpZHorw2tUa9gqX6oWcnZqkP2OqpTFa2wfUZi556QhG+Z6a4/PQPQQmIfnJ
+	 OZWWOdu2JULZfd/z+2di4v/Uw/8mnyvz47b0QhtvwLju2yzRmcgvD4leTsuli9PXDjD+G
+	 B5FV0whXJHo/vIv8t55MHNJxPzIiv25i8Ndyvye1ziCb5QgOR+lBBMRv/Gdz305tTdQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794675289;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=CF2sg4s32j52wgctvWrapA+d98gMLIJ8r2rlSSFzULk=;
+	b=km8K3K79ZLJye8x6p6tA8sksWPfQMDqRtg8jMT1eDMRqma/mAEMsCYhB+sMgQFyL7bTT
+	 Ors1wG0xTlYiwVV8MEtnvCeCj7aWTgesfnK+VOHA/uhOXBt2yQYG1U4AAQhMC/F0AgXcK
+	 znqx1N3A7zx7iIioXWPHrUE/AAfW95wLxR+UOdKtS/tK/W3hLeB9oEMsKgBm3GKqNi+5U
+	 nwjEWnRDJlvVV3nYDgpIbaUWrfVWiVwpUyLFlYJMm61+mo1PHWYwjAn832aUDDwlniqgm
+	 ttEr039/a1DEmNlVwkjGWtCS8uwVPA+HPPPBiFlY/g8fB9rdyIbOMt/yGRLdEiqoYoQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XFHvuLER;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.169
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14E0E606A32E
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:54:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14E0E606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 950F5606A881
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:54:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 950F5606A881
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=Mhn270Wx
-Received: from eig-obgw-5003b.ext.cloudfilter.net ([10.0.29.155])
-	by cmsmtp with ESMTPS
-	id SBUKxGIrKRiNxSH1UxCKrP; Sat, 14 Nov 2026 16:54:40 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id SH1UxzxjdSgq1SH1UxTxna; Sat, 14 Nov 2026 16:54:40 +0000
-X-Authority-Analysis: v=2.4 cv=c8KrQQ9l c=1 sm=1 tr=0 ts=6af89250
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=pGLkceISAAAA:8
- a=CTxgCXsYzwGYwadptLEA:9 a=CjuIK1q_8ugA:10 a=ZXulRonScM0A:10
- a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=n5UsVPtZvhQiUvUeNRBWwsmppzZEReyOurASB6aSeh8=; b=Mhn270WxrsvwR0XKkiCAka/6g0
-	8RYgA4rLnAH4/dcm6iIHaDYcqOoF+DAIWqGXUji8+ajq4FHCLkmIRSGevPO32b5FC+yZ5t3Lmo+Hj
-	VjXOIA2nRU3ARhjjZV53jSFXVgVagKSOYYz6DwcvXE6WLks7mhx1yvU+rFeHfPcjTCpu9Rf1f8Jz9
-	Y+iX1ttgu0B5BYC/jN3cxRL2PZlG+djFRuvnimPlugzxCPdTgWSUvODGTOSPemBY9ZEzCdebpRK4p
-	ixRghwxFvbdTZwoSmmMHEsF8vIuOhmkia2zksl1r+eaWw30UWo6UU1gRK12I/6CesDrSsBxFy6SZ8
-	6U4UrUEw==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:41990 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xSH1T-00000000Pyj-3jJB;
-	Sat, 14 Nov 2026 22:24:39 +0530
-Date: Sat, 14 Nov 2026 08:54:39 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Shady Abu-Hussein <shady.abh@gmail.com>
-Cc: Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
-	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] hwmon: (dell-smm) Add Dell Pro Precision 7 16
- PW716260 to fan control whitelist
-Message-ID: <996a06e5-3b2a-4cf7-aa27-49bfb896e725@roeck-us.net>
-References: <20261111172707.84072-1-shady.abh@gmail.com>
- <20261112160447.136279-1-shady.abh@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XFHvuLER
+Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3acd523a802so23589161fa.2
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:54:48 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794675287; cv=none;
+        d=google.com; s=arc-20260327;
+        b=efM4tNpH1v4sOkQgB6UYsiqPFQ/2C4L2oj9RWGXeUGpotY1zHg9Wxux5/fF+JMT+jw
+         Q3dqAbAVcKDllYwDh4hdRPrOiWGxcR84bKIBxZgMa3TASSZcUZyB+xcdFFyydh5tRG45
+         keGhNcfDEeGhLawNzLxQ6aqD9Gm0B9Mo2PLere5ovkcWSv/vfQfb0aHl6KDVSCIgwa3E
+         wSTn1IfEHiW+mMZWp7czTXlh9VYagFjWZkRSrK/n8lsa/No4TMbmbVXcrJ4m4RnwRkM7
+         k+3/57OLwKkPf3fZQC/6cV0O1TxfYbmlelQ26kTKtnfRXrK5ZfqH1aPv/VFLH1eVxd83
+         7TLg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=CF2sg4s32j52wgctvWrapA+d98gMLIJ8r2rlSSFzULk=;
+        fh=7CavwKseMpg9Gxkxr/z5uu1ultobfgsxMpzEVBfqocs=;
+        b=CSe7elcGT+7DAOG4CC3dLGyjb/czWJCH8MB34Qumux/QOllIF2B8CBkFmudtyJ9Scf
+         Pk3osGT+vRbQZ3n8rBoCrXjtk9JuWV9mCFZtUxPvKUFy6O4qx3OxO8EAq5XWr10WZaDV
+         mzJEfsd9cJpRpA3sFxufgtM9KVgdGB0s8DMcpTO1lcsWQP1Lbkn5jFjYAc6klE3RX1J4
+         rDdCAxVeNxF2nMc2oi2LEbo1slKcYJN+iWbmxNa9Dk7G7HINptsmczHaeyaq3z9uJfuQ
+         gqrubcn24FwSJvce7YT+Jb1oTUVbx9nGwfJlxQvBdIvkepjWzGM3hAqve+Prx1gsGO6s
+         638A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794675287; x=1795280087; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CF2sg4s32j52wgctvWrapA+d98gMLIJ8r2rlSSFzULk=;
+        b=XFHvuLERxLWaiXCeE49sALtCyWFdESrxx+rfmFUwsPIg4y31Pau9ZD63BGRXdEP8AR
+         SOzbYRY/+Ts95qKSUWlYY4rpoNQ+U9NaVy/Volm6uwuG0JE0YStQBNCCmYj8qd/hJVMe
+         DnH8Tj7FPa2oc0EIj7Mwrpdx96DEvY5c275PQtrYYUudnR15FrAF/y5P23SgGRJpOJRL
+         3weuOg0cH7opmmjxQ/+d+jx/BikIBwLyOAK72uw60Y4uxbCIRTyuZb52jOfEOiCMaLE/
+         QCdjeKLmNsqZpst4WrsHxCP1JhkiKlQIkPwnW/Vwa5ikmDTAEfOy5KoHTgQNSWAa1Hsj
+         mfdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794675287; x=1795280087;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CF2sg4s32j52wgctvWrapA+d98gMLIJ8r2rlSSFzULk=;
+        b=RbFtZphmr3SwUOiei1Q5710qBvaJS7KSFVqJZhg+Qmapmuhvf6rYHROCzZ9UPzdDjt
+         5idai/9wYqsSJGhBD71Z34lvFqSjTuEqudItgyz6HagLOOpbQ5jS/ZaftvMlYH5rWI5f
+         92/oUIBaiJ0f3Anth04qdtBYllvZVqybbbKiyydHX3AEUsMAliLOCXUBw9/aZ9AxaPJt
+         KugYeLR17m1xwBuJImMNfdVRxV4eVDI8Q9m3zsahUhkaE3BCFDArth0Gdhra0159Hcjy
+         8qto875dUha3orjSZUSKzu9IaZZsJDXTU50B5PRTLpw6afnNzu6hUG8HYeYkzYiSjCmr
+         cCiQ==
+X-Forwarded-Encrypted: i=1; AL+hErEMUW+6kfir8QQLV10Ez5Pt04oN0Th6sGYvQERzdlQp4fzoI05MRC+35bx2RiW5TMEBldYEAbkn/q/ZF5I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/jKQh2O2xolCy6GlF2vHZVWcCw5XASqxbQv9u58RNrZZtow28X
+	NcczkkGFZ544Qs2YMnWX1TlFWO3y1D14ESId2/0x7rwRhts2zU1WvEV2fdUBXY6bvWpvNj0+0/f
+	iSmnq3DvUttkEexWPzxaJHPG6ELY50ciKYPGU78Q=
+X-Gm-Gg: AYBFou2QKDTs5FTPt0GzAvvcX9F0kSoF2rGhDBzQ9Hyod/xtqQobPeW0SLz9QA06yfL
+	zDjhZ2jP9cPgAcggKaqEorf2D/Ow7grNyIVZJpf5aoqw53Fvy74Pa0+ingzBllfAa3Vo5zVnIX2
+	Qwme1oJRchJJO2z1ARmKzO+JnVSKU5euAGEHDjUHmEJfhDbrX4KQmmH+MGUAIiY6GB+zmMDFJkB
+	LJFlk3btJ442m0ostPGsRUrm/z3XXR5BC+SgphIrZlkJ4c2aoA3aYPrUGu85Tj+OkPNwv1KMNYJ
+	nXUV3uxpAMLg+NWbp3LZS46kEzncNDk9S96wRYSE/xm/MjQ1Bh2HHAKQCRpLtLzyJSDiga5Jb/m
+	bFjLsyI9BUlEgtuUksk9cfMEmXDUsepj95LT/57IFpxUYrXo9LwPqEDBbvi+cRqUI6FNqcd9Vl4
+	OWblzI3N6VkgZy5P6sR1J5
+X-Received: by 2002:a2e:a105:0:b0:3a9:a1ed:634a with SMTP id
+ 38308e7fff4ca-3ae2b5223dbmr17570241fa.21.1794675286552; Sat, 14 Nov 2026
+ 08:54:46 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,49 +105,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112160447.136279-1-shady.abh@gmail.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xSH1T-00000000Pyj-3jJB
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:41990
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 143
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfAXb/Xq5lYoKGubvho6chDBJvfKcipmY6Q0iswXjEpyfPHrH1yayEmCnHu4cYTY70XrdNWGBqawZnf/kHQJtjYTjxvboSclnUgF21sFh85w3M9iH8BUB
- uFmAcHadCkMo7HJ0MMwy5e1jqj6+/ZC78c5pnOHb/pQUGTpSiZRVUbfoWUeJ4m8sS+5E5sL0PfEcXHeLVd/93kYnZPdBXCdlLcM9noyupDrHz+l8/WHv7Vfj
+References: <20261114094826.1282965-1-linmag7@gmail.com> <20261114094826.1282965-2-linmag7@gmail.com>
+In-Reply-To: <20261114094826.1282965-2-linmag7@gmail.com>
+From: Matt Turner <mattst88@gmail.com>
+Date: Sat, 14 Nov 2026 11:54:33 -0500
+X-Gm-Features: AclHuK_MrK0yJPPK27NhA5Tq6yYsNjKGRvII1NkeAvzQvNnX6YCbiW-FDudKjyE
+Message-ID: <CAEdQ38FMuOzdFkU4RQFhZJkSiczzVLu-eBiZmjwpiUUahDvjCQ@mail.gmail.com>
+Subject: Re: [PATCH v3] alpha: Add support for HAVE_ARCH_JUMP_LABEL
+To: Magnus Lindholm <linmag7@gmail.com>
+Cc: richard.henderson@linaro.org, linux-kernel@vger.kernel.org, 
+	linux-alpha@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 12, 2026 at 04:04:47PM +0000, Shady Abu-Hussein wrote:
-> On the Dell Pro Precision 7 16 PW716260 the firmware fan control
-> cannot be overridden using the default SMM method, writes to pwmX
-> are ignored and pwmX_enable returns -EINVAL. The firmware AC fan
-> policy also requests speeds below the minimum sustainable speed of
-> the fans, so one fan repeatedly stops and restarts every few
-> seconds at low load.
-> 
-> Add the machine to the fan control whitelist using the
-> I8K_FAN_30A3_31A3 SMM codes. With this, writing 1 to pwm1_enable
-> disables automatic fan control, the fans follow the requested
-> state (0: off, 1: ~2500 RPM, 2: ~3950 RPM), and writing 2 to
-> pwm1_enable restores automatic fan control.
-> 
-> Tested on BIOS 1.5.0 with kernel 7.2.15.
-> 
-> Signed-off-by: Shady Abu-Hussein <shady.abh@gmail.com>
+On Sat, Nov 14, 2026 at 4:48=E2=80=AFAM Magnus Lindholm <linmag7@gmail.com>=
+ wrote:
+> diff --git a/arch/alpha/kernel/Makefile b/arch/alpha/kernel/Makefile
+> index 850f1265cc55..4088cd56866e 100644
+> --- a/arch/alpha/kernel/Makefile
+> +++ b/arch/alpha/kernel/Makefile
+> @@ -92,3 +92,5 @@ obj-$(CONFIG_ALPHA_TITAN)   +=3D err_ev6.o err_titan.o
+>  obj-$(CONFIG_ALPHA_TSUNAMI)  +=3D err_ev6.o err_tsunami.o
+>
+>  endif # GENERIC
+> +
+> +obj-$(CONFIG_JUMP_LABEL) +=3D jump_label.o
 
-Applied.
+Nit: this would read better up with the other unconditional obj-
+lines near the top of the file rather than trailing the GENERIC
+block.
 
-Thanks,
-Guenter
+> +#include <linux/jump_label.h>
+> +#include <linux/kernel.h>
+> +#include <asm/cacheflush.h>
+
+Nit: checkpatch --strict suggests <linux/cacheflush.h> here.
+
+> +     if (WARN_ON_ONCE(disp < -(1L << 20) || disp > ((1L << 20) - 1)))
+> +             return false;
+
+Thanks. The target is always within the same function and Alpha gcc
+doesn't do hot/cold partitioning, so I don't expect this to fire, but
+it's a cheap safety net.
+
+> +static inline void alpha_patch_text(u32 *site, u32 insn)
+> +{
+> +     WRITE_ONCE(*site, insn);
+> +     /*
+> +      * Alpha needs an I-cache sync after patching executable text.
+> +      */
+> +     flush_icache_range((unsigned long)site, (unsigned long)site + sizeo=
+f(*site));
+> +}
+
+On SMP this is smp_imb(), so every key flip IPIs all CPUs once per
+site. That's correct, and fine as a starting point; batching via
+arch_jump_label_transform_queue()/_apply() would be the natural
+follow-up you mention in the cover letter.
+
+I applied this on 0b4cadbe7c39 and cross-built an SMP defconfig with
+JUMP_LABEL and STATIC_KEYS_SELFTEST at W=3D1 with no new warnings. The
+patch sites in vmlinux are the expected 0x47ff041f nops with nearby
+targets.
+
+The diffstat in the cover letter is stale (63/146 vs. 65/148 in the
+patch), but that doesn't matter for applying.
+
+None of the above needs a respin from my side.
+
+Reviewed-by: Matt Turner <mattst88@gmail.com>
