@@ -1,69 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.59.229
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794682830;
-	b=WdQq+QN62ZQz50e0GLA7SprPEya4ShIY8tq/LFpPSO7qSf9zgKq988c3LZgT7jYRRLHP
-	 6jFWsy28Lej/JIwkWlJV/2KNsXi7ssD/zAyvDP6Iyu3KLOXUmRTaTeArlnWhuawkOndmb
-	 rrsl33Vp/5dOLon/GK673vWyli9hp5TZeAvRONZd/0U7l+l35y48yxmKuo6Yhm4fhkdxe
-	 JwL6NZ7WCUGSZKhEgkI1gOihdGsKxpQDItJOM7d13ORTorpGLCng691wswNi0d1dHh271
-	 ikImBOzqAsQdf4AF7VYN3gbpfFJ5aWV6FfXLSi4bWxi3cXRGI8aSN6q8PyiC6mEI6FQ==
+	t=1794682858;
+	b=jeatvrKVr/ZXcRoCQDN5+AGeUuIpP0SCAMkvknINXpYuXlVfApcSn8cDmc9J8oUWQioA
+	 0xte//itZBSQe6m1zxes44871dNjuUhNt/2U9vCles9fxDQ2m1GqdjG+OPHu9l9CAxOBZ
+	 NrvPAcz1SFAsDPKWXpc0ybkjuQGLAtk/vuNJyDHDcBRf5KFJRjf4Mcl07+Y8gRiwdbPO8
+	 OAQhtPJMsiyzfbY1NHFIhXywQOlOeaF3HwQURXDVYpqBaeDmGIcp83Ty2KaTTcDm/tD1F
+	 11AcPBgdRh2KjbAr9fgkyJ3SkZP96nqBnXk4Q3BGaTzcOqKua1MYxKJNjXvaA6qk6Lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794682830;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ykOliHYisYLBLFi//mbVDidPMVZQXccME0RpNUmjbYw=;
-	b=4OIdeg1NFWgjD13W9996t1foyvMhdP+Eym5eeI3mcpD0AripfaAzoBCOuMR0hW6yIbi5
-	 IK0sfVCKA/ZJdE13eePO/H7rip2/YPJv0OFE0IRad3QwC/YCRHo3XJyGB8lVFNWPFarLK
-	 M/2AxT6/ILbDG4j/jkFexUv0bgJ+z0MiM1i23FtCSojyGLaaftCsy4XqosfkNkl6ImAPW
-	 9DEidL+vu/+iG/x0RSm5nQSDWektzPO6jp7sN2WTO9j3xauWpDFqrOJURl82b0w9d8VJJ
-	 zvcshHIC2A3nv8YYI26jnZm7LVWqOMnjSu2IXx5zUlZPHuTXiPJgleS9aZz+WvwOhIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794682858;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=HrpSgkNeKUnB3ra6VtwJ8vLJ84rrOK16D8diOtzFrr0=;
+	b=Y5vQpiGknMx+RXiwdy7tHWtUFtrYDS2hrt1QXXPEpXwAldHqgu8IGyc22iiseRMRgSuH
+	 JiFgW5ocxNlpoVEWZcVNtRmOk6l0oeJmqf6UFD1n2btnTUob4cc3QArjB4SQpJwL13iEO
+	 XQeFZyPLMzgTODJWmA4rZg5BK8A8kF2T8Df+An+th3i/yDJgbbfhoxZvw96cffQtd2fS/
+	 9xRe4FERkox+CrjaZD5w1NUtwIGl6/hYMUVNSonpxdvNV+b67iqFCWHb8aSvXYGxl+Zx5
+	 5EvzNDDQvNCddJF/9oUMHCA3xnduE5z9qVDADNINfNv9x86/do1/PNNzYzA+VvNt/RQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Rfg0/1Pk";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=1wt.eu;
+	spf=pass smtp.mailfrom=1wt.eu;
+	dkim=pass header.d=1wt.eu header.i=@1wt.eu header.a=rsa-sha256 header.s=mail header.b=FJc7YS5A;
+	arc=none smtp.remote-ip=51.159.59.229
+Received: from mta1.formilux.org (mta1.formilux.org [51.159.59.229])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30936606A334;
-	Sat, 14 Nov 2026 19:00:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BAB3606A33A;
+	Sat, 14 Nov 2026 19:00:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BAB3606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=1wt.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1wt.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rfg0/1Pk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 001B61F000C5;
-	Sat, 14 Nov 2026 19:00:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794682830;
-	bh=ykOliHYisYLBLFi//mbVDidPMVZQXccME0RpNUmjbYw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Rfg0/1Pk8suTUhXDA0y90Ui/FXQ4F06sERFWjW4pyC83dFj8izLJwUt7QzrrMFNSD
-	 ql02v31bmtjF8ZR2YRHnahby7K2E6o11BVCT3FxRQB5JRjSO9UPLAsrQmkyAXmxIxF
-	 3CBMYWmhQ8oNeyiaEoEaEgdsShOFnvbCBLpTckOIoErmebq8wvG4f6h5Ey11vHlWRc
-	 NRJD7ylckfHUYWfHmH9DdnC5aUgBSOrwgc1H1JYVNImibEi5ELw3xbDgj+d0BYBj5v
-	 cDIJNe0+wwVKhNrh8gT6BWrLRsSxMKT20yN5fX8fonNWqvshzQl/ifdqQ6nFhte+BJ
-	 OIY+K2eSyrv5Q==
-Date: Sat, 14 Nov 2026 20:00:22 +0100
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Joe Perches <joe@perches.com>
-Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
-	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
-	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
-	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v6 02/19] string: Add strprefix()
-Message-ID: <avitCbGKfZgrfh3e@devuan>
-References: <cover.1794667407.git.alx@kernel.org>
- <0eaa4ce73a2b164fd49e3a9f71244a2e3f45b7bb.1794667407.git.alx@kernel.org>
- <c113f651d1ce1b2d42ab9d0c59ae5a0cd17ddb6a.camel@perches.com>
- <aviOPo6bZ-WGsndf@devuan>
- <32e7bdb5b8a4a522566b00763ba13974733290dd.camel@perches.com>
+	dkim=pass (1024-bit key) header.d=1wt.eu header.i=@1wt.eu header.a=rsa-sha256 header.s=mail header.b=FJc7YS5A
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1wt.eu; s=mail;
+	t=1794682837; bh=HrpSgkNeKUnB3ra6VtwJ8vLJ84rrOK16D8diOtzFrr0=;
+	h=From:Message-ID:From;
+	b=FJc7YS5AUZCYp0nF86kLMXAfGswwXfFdeta7OW3IGSUoE1MWvaiwf/2XrjE1C4WQC
+	 NquHPxXr1RBTlDiMmouX/2pYBLNpGoPf/6RSBlQYwAHjwxMBThDIBpOQyw6z/Q/4Z8
+	 VoBV9coKviGeoIG5KuT5FizI40oycrAeU3JVXW/g=
+Received: from 1wt.eu (ded1.1wt.eu [163.172.96.212])
+	by mta1.formilux.org (Postfix) with ESMTP id 2D5ACC095C;
+	Sat, 14 Nov 2026 20:00:37 +0100 (CET)
+From: Willy Tarreau <w@1wt.eu>
+To: Jonathan Corbet <corbet@lwn.net>
+Cc: skhan@linuxfoundation.org, Randy Dunlap <rdunlap@infradead.org>,
+        workflows@vger.kernel.org, linux-doc@vger.kernel.org,
+        linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+        gregkh@linuxfoundation.org, Johan Hovold <johan@kernel.org>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>
+Subject: [PATCH v2 00/14] security-bugs doc updates
+Date: Sat, 14 Nov 2026 20:00:00 +0100
+Message-ID: <20261114190014.17826-1-w@1wt.eu>
+X-Mailer: git-send-email 2.52.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,142 +63,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="35i2uj2e65774ccj"
-Content-Disposition: inline
-In-Reply-To: <32e7bdb5b8a4a522566b00763ba13974733290dd.camel@perches.com>
+Content-Transfer-Encoding: 8bit
 
+Hi,
 
---35i2uj2e65774ccj
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Joe Perches <joe@perches.com>
-Cc: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org, 
-	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
-	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
-	Namhyung Kim <namhyung@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Saravana Kannan <saravanak@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v6 02/19] string: Add strprefix()
-Message-ID: <avitCbGKfZgrfh3e@devuan>
-References: <cover.1794667407.git.alx@kernel.org>
- <0eaa4ce73a2b164fd49e3a9f71244a2e3f45b7bb.1794667407.git.alx@kernel.org>
- <c113f651d1ce1b2d42ab9d0c59ae5a0cd17ddb6a.camel@perches.com>
- <aviOPo6bZ-WGsndf@devuan>
- <32e7bdb5b8a4a522566b00763ba13974733290dd.camel@perches.com>
-MIME-Version: 1.0
-In-Reply-To: <32e7bdb5b8a4a522566b00763ba13974733290dd.camel@perches.com>
+Here comes the v2 of a new batch of updates for the security bugs
+doc, essentially to make it more readable and to address some of
+its apparent contradictions for those not reading it entirely. Some
+additions were made to explain how to send a patch and a reproducer
+separately, and to ask that first-time reporters send a single report
+at once first.
 
-Hi Joe,
+The first patch looks big, it only reorders paragraphs to fix the
+current mess resulting from minimal and incremental updates we've
+done over the last 6 months in reactions to some repeated mistakes
+found in reports. This accumulation has resulted in certain topics
+being discussed in a somewhat inconsistent way at different places
+in the document.
 
-> Date: 2026-11-14 10:24:26-0800
-> From: Joe Perches <joe@perches.com>
->
-> On Sat, 2026-11-14 at 17:59 +0100, Alejandro Colomar wrote:
-> > > A negative of this is that it implies the return should
-> > > always be tested even though it can be known that the
-> > > return is effectively bool.
-> >=20
-> > I'm not sure I follow.  The attribute is about the arguments, not the
-> > return value.  Perhaps I don't understand what you mean by "this".
->=20
-> 'this' is the return of the strprefix function itself.
->=20
-> It returns either a const char * or a char * or NULL.
->=20
-> Because it can return NULL, then the return value
-> could/should be tested.
+Aside this big patch (which only reorders, doesn't change a word,
+which can be verified with "git show --color-moved", there are 13
+small patches each touching a single paragraph.
 
-Yes, it must be tested, when not used as a boolean.
-The usual replacement of
-	s +=3D str_has_prefix(s, prefix);
-would be
-	s =3D strprefix(s, prefix) ?: s;
+Interestingly, I discovered that the list's address was still present
+in historic areas of the netdev doc and in submitting-patches, which
+could be an explanation for the non-negligible amount of reports we
+receive showing proofs that the doc was never read, so I've fixed
+that as well.
 
-The boolean use remains trivial:
+Changes since v1:
+  - drop the security section in netdev doc instead of trying to fix it
+    (as suggested by Jakub)
+  - few grammatical fixes and from Johan
+  - added the Johan's reviewed-by
 
-	-       return strstarts(name, ".init") ||
-	-               strstarts(name, ".ARM.extab.init") ||
-	-               strstarts(name, ".ARM.exidx.init");
-	+       return strprefix(name, ".init") ||
-	+               strprefix(name, ".ARM.extab.init") ||
-	+               strprefix(name, ".ARM.exidx.init");
-and
-	-       if (!str_has_prefix(p, "console=3D") && !strstr(p, " console=3D"))=
- {
-	+       if (!strprefix(p, "console=3D") && !strstr(p, " console=3D")) {
+Thanks!
+Willy
 
-The non-boolean use would look like this (actual diffs from the patch
-set):
+--
+Willy Tarreau (14):
+  docs: security-bugs: reorganize the document without changing its
+    contents
+  docs: security-bugs: clarify when to Cc the security team
+  docs: security-bugs: never publish reproducers of bugs with a security
+    impact
+  docs: threat-model: clarify the case of automatically mounted file
+    systems
+  docs: security-bugs: explain how to send a fix that can be applied
+  docs: security-bugs: do not send archives or binary attachments
+  docs: security-bugs: first-time reporters must send a single report
+    first
+  docs: security-bugs: explain what to do when a report gets no response
+  docs: security-bugs: reports left unanswered for 7 days will be
+    dropped
+  docs: security-bugs: add a section for maintainers receiving reports
+  docs: security-bugs: explain why directly sent reports add extra work
+  docs: security-bugs: explain why AI-found bugs are handled publicly
+  docs: submitting-patches: defer to security-bugs.rst for security
+    fixes
+  docs: netdev: drop references to the securit list in the doc
 
-	-       prefix_len =3D str_has_prefix(name, PDSC_FW_COMPONENT_PREFIX);
-	-       if (prefix_len)
-	-               name +=3D prefix_len;
-	+       name =3D strprefix(name, PDSC_FW_COMPONENT_PREFIX) ?: name;
+ Documentation/process/maintainer-netdev.rst  |  12 -
+ Documentation/process/security-bugs.rst      | 409 +++++++++++++------
+ Documentation/process/submitting-patches.rst |  10 +-
+ Documentation/process/threat-model.rst       |  23 +-
+ 4 files changed, 300 insertions(+), 154 deletions(-)
 
-(the old code, actually, didn't need that test, and could have been
- simply 'name +=3D str_has_prefix(name, PDSC_FW_COMPONENT_PREFIX);')
+-- 
+2.52.0
 
-and
-	-       len =3D str_has_prefix(*str, "brl,");
-	-       if (len) {
-	+       p =3D strprefix(*str, "brl,");
-	+       if (p) {
-			*brl_options =3D "";
-	-               *str +=3D len;
-	+               *str =3D p;
-			return 0;
-		}
-
-and
-		cmp =3D strstrip(option);
-	=20
-	-       len =3D str_has_prefix(cmp, "no");
-	-       if (len)
-	+       p =3D strprefix(cmp, "no");
-	+       if (p) {
-			neg =3D 1;
-	-
-	-       cmp +=3D len;
-	+               cmp =3D p;
-	+       }
-
-
-Have a lovely night!
-Alex
-
---=20
-<https://www.alejandro-colomar.es>
-
---35i2uj2e65774ccj
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr4r8UACgkQ64mZXMKQ
-wqlfkg//V7LVhwRC67R3K+HVDesilnNmhBhL9ma7hlpnjFIiV+UwBz+EYDH02pVT
-POFfgIzuRWM09i/+cn/scMVxlUr0slXUWWzJ4BTX2cpaMFVay+zefnbfRJ83+fcL
-0koUgrp24/dDHTF5u1XgaqrXpRmehSHWRCOPkVknoLKtpTh72YeAIFlJPRvgBtYi
-+mt+rEsnbPZRarv1i/T/Gf+ymSLkNWFPEDVJ2/thk6aEFUewMMQFLOntut8+eBcl
-ENUHgp3KsnlSvYafsGKCVczTpxFhjWQJidlRGjTPWjdPeWVEbO1BsQvjLJmo+9Tn
-s2FbjVOo/gLX5RgE07ojZA3ZS4oQ2mXjHSW0GxSKdLLoyB0K4++ib3MqbekqcUA2
-+ZZK84OudamjbhYAnJFhgeAJ9OIuoKP8bA0yG3977nGMQkaLv3+FEQKrXLVeI/K6
-ehRXT3Gs6s2RSbX7BFZWZpwQ/Fo8duTc4+fum4f0rQqjr59WU57RZlY4xtVg2elE
-8YobEAPhZDlh1Xkj4aL69SR20dx14MUPfMN5XTZki43dUZqup8LGTuPYO6wvnUdd
-X2271H5JQ4NmXvQfjfVWHFaWWG1fqJewD9fKXRjUSanHhUeTR/NLXPJiDN5SY7rK
-upWO1K7/qWdEWjkv3G7M/vKPBAI1VsDKUEj13IJzb9HUYJGtZxU=
-=rAzI
------END PGP SIGNATURE-----
-
---35i2uj2e65774ccj--
