@@ -1,59 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794689172;
-	b=Br24Dg/UjC9wf2IYqsctBjSciz3wNa6FllREABtCb2JuN4DGwYZJJXByAaui/zfB2y51
-	 +m5cTKlSlVYPQ1PDcrIeHHOsn7WVXFgxecuf1h4N0Asff1FCZw7rhoe4gMvp1BvFugrXE
-	 uPMWG+i1PzBEBmsMo9nI0U0DLdWULsIzFp+hdnptKhuOlUsomRbUSvel7Efl6qUgz84wl
-	 MR8lbi4tzSyik8bdi5+yd8/rBFlppvEvhEtt9VmTRmkh1hq/53+zzkmKhJ6bDpPUDs6yz
-	 FbzMsALV2JgVbGy90pufjXZZeUYEO8ulAG3X70GS5Md1B++nY89+TEI+xkepjcX4UUQ==
+	t=1794689682;
+	b=s+2JeoGq2KPZ4Bx9xsD+C/ihloN562I2zAwlINaHiuRI1eqIHfbZcldO25pZjmyfNjMt
+	 skQkUE6Ji9/gLB8mMu8/jhasWRYJcSNOYQGe1EljxiKWB/MttUA6Y10RmeCNSGVPomHVT
+	 8qe+SlXefbFQPcVUPLY2inImrMbv5Mgtl2IZc3EPbV1QAKzcTQgN50Plo0vON63SiRpn7
+	 HlbTTEsHUqfkYWSCegbnYEeYHir3DIoxcThJVo1uQHwGGctaXJX/IYAsmw4UNW/Gwy9Dg
+	 jJOXZfmLUuHfRZLIz+x33AZP8h0KsyhbbH7nVoMU2+UnMdRDP2oJfQfgm3109v98/mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794689172;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794689682;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=TPRCWORSqF8ZjYcKMrEN1FixOiVWDLvhJDYEhpk+m5g=;
-	b=I7PZlgkGmSmisVF79ZXczWbqijMQDYExPOryBoLtj6qNyw43zDtPGaasQ0TOjqyWEdWe
-	 dgZ+4QqmKnRugFuUQL+e6Aqciyuc4Xtu0qKXhYynNxN1cZmG43FAFwpLlR/NSrbYc5td4
-	 rbC0h5Q5rnRj2gx3eTUAe+8uBBv00b0ySsDsxjk8kRPyzRIXhVv3tr9nLesrTnB4hgBAi
-	 0IFabmBz6MBdJftErGAjCR2nQB9NcRhILL8cZpTVhY9WRgb9ISIeTJ7LbwahkLy67s6AB
-	 B7OjgvdBk5waGGU4Ff9Pf5Er+QbGDKIlmXNTr9Ch6eoetB+B7sQXMiQ60zdUj50XV8w==
+	bh=TQ5kdfKoDSHHA0HH18rdLeWqyiK2C+E+94Dvl/EaRP4=;
+	b=T/I2cuToBQmtT2pfGOUze3Muh850J6Y0eC9o4FEPzp0rycCY2Hc5bA35VUFjYer7IVlt
+	 +MwnNhdOMWkHXine9DXbTjHor6+h2reQIeU37KZByTMYXC8A+BdZlvTcXuxlJ/N3KxBQo
+	 DW/Vz6SHDyRlOXGKFEHDb8zc0BFFtrqI8tvzZM0VNtljUPPi8YPirYn4wxflxfo/KB2Oc
+	 eBcy25Dy4TE43QcTHaN60Mg6iHT2+L3jodq8KleJvBc4ngzj8Xgq+2FkLcA/AC8hgMFIf
+	 mDJA2UvR/eeWJNbvgKa4Qa/iA2mkCQ8RoJz363SOyO5I3WM58SubVKb/XrH6Kb3xLlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VlTmiNCQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TNLafLHh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01A8A606A331;
-	Sat, 14 Nov 2026 20:46:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 91528606A327;
+	Sat, 14 Nov 2026 20:54:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VlTmiNCQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52D0F1F000C4;
-	Sat, 14 Nov 2026 20:46:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TNLafLHh
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 889CE1F000C4;
+	Sat, 14 Nov 2026 20:54:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794689170;
-	bh=TPRCWORSqF8ZjYcKMrEN1FixOiVWDLvhJDYEhpk+m5g=;
+	s=k20260515; t=1794689682;
+	bh=TQ5kdfKoDSHHA0HH18rdLeWqyiK2C+E+94Dvl/EaRP4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VlTmiNCQR8Rx93B+APIqwf+sbbdYCT8jmE9sKo2Wc0iQ5NVywQDvtuqiDcZcs5faG
-	 ZTyy9kJyXogpOOhBlp0StBtbLPtiJbjseeQFaqh1wQndyO3lCjVkjacnyhcv+5LUBG
-	 eUok3bye0KWPOtrJN6S/CcB0UT9l97eI5MWK4bV9ayAZAo6e169DmILZqx3iQvsnYq
-	 xLNq2+8ZgIV+kVzcoLqoDzgOsjFw+Gi9x1IZ1sIYUXxprAauPDcDSnP/rAhHvVLrmQ
-	 ZwWbh0OFGvR80ibhJKV4DODsM/LLXFnfSveMA3IHyshDOVMHnHV0dOur7qfYVfNlUy
-	 QF/SsRx941KqA==
-Date: Sat, 14 Nov 2026 13:46:05 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Borislav Petkov <bp@alien8.de>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH] x86/build: Do not allow X86_NATIVE_CPU to be enabled on
- non-x86_64 hosts
-Message-ID: <20261114204605.GA173332@ax162>
-References: <20261113-x86-no-march-native-on-non-x86_64-v1-1-cbc8b096d1c4@kernel.org>
- <20261114202524.GBavjDtC9Z3j7PrV3Y@fat_crate.local>
+	b=TNLafLHhzihIlLmpX3PZK0OvfuUoTn8XvOH66sIKV/vACxM7YxgJmIA5XI8Ts83jW
+	 HgrxQndKz1If7qPrDB4UyQmEuh+V8FIOKyBoSmlA79x0xdxQK4AQygoXnzzN7GpvmV
+	 XMnReFMgq90uxInCSuF8opZHsm1O9hlb1hSFcTTi6U/1HDlK6GEW/LaFMYyK43rgKz
+	 iOKwTZuwcxRm1yg5n5aBD5XZpd00YFqs6dvX2q4uPda0Nf56mqPXIxahKTWwopGi3s
+	 DvMOj7NkQ/XCfunBcoMTvnlkLBDCe+BctOm02N16Bf6lqz2fWP8yCd6Apt62COZ56f
+	 FJ2WXFJaV8BjQ==
+Date: Sat, 14 Nov 2026 22:54:38 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Yeoreum Yun <yeoreum.yun@arm.com>,
+	Stuart Yoder <stuart.yoder@arm.com>, apais@microsoft.com,
+	rlmenge@gmail.com, hargar@linux.microsoft.com,
+	linux-integrity@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] tpm: Cache TPM2 start method
+Message-ID: <avjKjhmtPChVMaF2@kernel.org>
+References: <20261114193434.117714-1-sidchintamaneni@gmail.com>
+ <20261114193434.117714-2-sidchintamaneni@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,29 +64,74 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261114202524.GBavjDtC9Z3j7PrV3Y@fat_crate.local>
+In-Reply-To: <20261114193434.117714-2-sidchintamaneni@gmail.com>
 
-On Sat, Nov 14, 2026 at 12:25:24PM -0800, Borislav Petkov wrote:
-> This looks like a whack-a-mole-y fix to me. Especially if the other arches
-> would have the same problem.
-
-I made that comment more about the different architecture
-implementations in the clang driver but I guess it could apply to the
-kernel as well. However...
-
-> So wouldn't a more generic fix checking
+On Sat, Nov 14, 2026 at 07:34:31PM +0000, Siddharth Chintamaneni wrote:
+> From: Jarkko Sakkinen <jarkko@kernel.org>
 > 
-> 	native arch == target arch
+> Both tpm_tis and tpm_crb retrieve the start method from the ACPI TPM2
+> table during device probe, and tpm_crb_ffa also needs it before chip
+> allocation.
 > 
-> somewhere in the makefile be better?
+> Cache the start method in tpm2_acpi_start_method during tpm_init() and
+> export it for the leaf drivers, defaulting to ACPI_TPM2_NOT_ALLOWED when
+> the table is absent or invalid.
+> 
+> Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+> Co-developed-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+> Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+> ---
+>  drivers/char/tpm/tpm-interface.c | 21 +++++++++++++++++++++
+>  drivers/char/tpm/tpm.h           |  1 +
+>  2 files changed, 22 insertions(+)
+> 
+> diff --git a/drivers/char/tpm/tpm-interface.c b/drivers/char/tpm/tpm-interface.c
+> index e0385b16616b..7b7da79bee7c 100644
+> --- a/drivers/char/tpm/tpm-interface.c
+> +++ b/drivers/char/tpm/tpm-interface.c
+> @@ -534,8 +534,17 @@ int tpm_get_random(struct tpm_chip *chip, u8 *out, size_t max)
+>  }
+>  EXPORT_SYMBOL_GPL(tpm_get_random);
+>  
+> +#ifdef CONFIG_ACPI
+> +u32 tpm2_acpi_start_method = ACPI_TPM2_NOT_ALLOWED;
+> +EXPORT_SYMBOL_GPL(tpm2_acpi_start_method);
+> +#endif
+> +
+>  static int __init tpm_init(void)
+>  {
+> +#ifdef CONFIG_ACPI
+> +	struct acpi_table_tpm2 *tbl;
+> +	acpi_status status;
+> +#endif
+>  	int rc;
+>  
+>  	rc = class_register(&tpm_class);
+> @@ -562,6 +571,18 @@ static int __init tpm_init(void)
+>  		goto out_unreg_chrdev;
+>  	}
+>  
+> +#ifdef CONFIG_ACPI
+> +	if (!acpi_disabled) {
+> +		status = acpi_get_table(ACPI_SIG_TPM2, 1,
+> +					(struct acpi_table_header **)&tbl);
+> +		if (ACPI_SUCCESS(status)) {
+> +			if (tbl->header.length >= sizeof(*tbl))
+> +				tpm2_acpi_start_method = tbl->start_method;
+> +			acpi_put_table((struct acpi_table_header *)tbl);
 
-No other architectures provide an option to turn on '-march=native' like
-x86 does. It all lives within arch/x86, so I would just be adding a
-check to arch/x86/Makefile instead of arch/x86/Kconfig.cpu. Making the
-option unselectable seems like a better option. If other architectures
-did want to add this option, I agree generically abstacting this check
-would be reasonable.
+I would add right after acpi_put_table:
 
--- 
-Cheers,
-Nathan
+	pr_info("tpm: TPM2 ACPI start method: 0%02x\n", tpm2_acpi_start_method);
+
+It covers all three possible conditions:
+
+1. No TPM2: nothing gets printed.
+2. Has TPM2 and start method: start method gets printed.
+3. Has TPM2 but no start emthod: 0x00 gets printed.
+
+I hate fostering klog messages as we have acquired great tracing
+capabilities over the years but here I think having this is even
+"sysadmin-useful".
+
+Br, Jarkko
