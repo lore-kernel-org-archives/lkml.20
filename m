@@ -1,62 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794632461;
-	b=qiFblpE9wYybC6NUt3rgAIhK+5A3JQC7wWdc7xHkRQn6Cbsns3wbzPmKqwRWieos5VSE
-	 6Nuz4twlT3OS6HXWgdR6jguvZf/oQZZC4MSIUSj/PZqgKocu7wk5fjgSUQeVBr8XkIaRW
-	 koBSOrlEyIffp5JjZIebUkwbAbVz0W2xpBwQ6nKU53hIPbbx/rWrDSojnFt4SQ7nukvgB
-	 YFBWOoWOe/Z57JtiuXKIbPrxwC76aJWfidMSQQnRs1Ijt8709CttpjbhXBrf0bMIbfdKQ
-	 5TbHYjtXkmG5XfEISUKC+pl2KtDMeCbL3R91PaR0oXTAm2p0mWn+T+h1yO7/0PE4bEg==
+	b=qMZVU2edIZysZbtvcb6xtsXgfZEa2WkVuZv4oDbN3kHjYt1WfdTCHexivK2tDdrskpOn
+	 SZFhRU4aE9kZlUGQb+hdY5r+gwgtxcxlktlBRGBZ5kgu8U5pEImqDbyUJfw1uwNqgwunH
+	 8Ha1++SWLixTOhJBKXru75A/kSHYNEWrvYC33nlOY2gvEzjsp51t/cL/PKNA+eLLevl0W
+	 HQy+RNNcxBove7ckftN372sISoJRPletfOeHPgM9kPW7O+9kY+YOin1BnCoScnq/cPC7h
+	 9tpQbk3Rgfh3xGBrEhZ9xEKRCgCe95oC09uwPmX/grVVWsL0L+pGirOiPrcGtF3NECA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794632461;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=SA6Amvy8hWb+j5390vVNpKnnYb7JEyN8Q5nmxQv9Hz4=;
-	b=OZEfLecKss/OJ9cpwF4pyP8/B6x6ZmiQsgQxtA7irb7JLrx4NcOaBBf0cGQyQBV2jp1l
-	 E8m/GwpBkrn20nft9PW2Xt9xNKmcv81Ttbj74dGxuVxfGeJg+jC4KN7HeENsalhUp/Gzq
-	 GkFFsXsG6TEVuCk7j74RN+4YJJ1NeNusKp8EqoMJdzGiHwCz3BHnZeqHQ2/WEw2xZZKQh
-	 M7XRHwU0AuKdxaE+Dv2Ily+WuRoZWutj4aY5HWdCzwfCRizMkConBvXHNpZkMnUw8ZJ3I
-	 NrshRCVenxDE122GJ/Zk/GVEJG/fV9hg4dC5juKEAHqZ2Wi2pl2R142VYaqUqQ2aT7g==
+	bh=aq1wklvUfz6y80ena7Y5LbjdHFmcTT/kgWcd6FQG4hs=;
+	b=p2aFK96tIknfrdC7gnVQwvFqKCQaHWCwpkzxavJIY5paQ3i8XPEznN0Sh6vZliYd3d6F
+	 q9UyRbwWXNZ7dFKwY7bEymGPBstktK5NXLBgDC2YNShkvM5KEzF1mQ23q5ZuAd3KBNgkO
+	 eGD8+DR9wuvswiMD3Vttkl2fqn2w3GLggfI4E5zYMD/N/8i/ZHxh8WJZoEYNd0k/BMGtz
+	 5E4k1SyIQA4RgiWdNaKaQbPJs+MnONOKOs6qXO/EONZZYLrj/HL2lwU6hy274JP9hLJRo
+	 3l19ZGGED4DQuNtInyl5br+QLg2A0PZ8l6hbf9G8zL8NdKOkdpDkgJTZyhIz2BVliyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Cfwg245a;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=AXUzCspi;
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAE4D606A8B8;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B166F606A8AA;
 	Sat, 14 Nov 2026 05:01:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EAE4D606A8B8
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B166F606A8AA
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Cfwg245a
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=AXUzCspi
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794632457;
-	bh=jW3pTq3R7bOpTIyh4wVZ51psj2/mar6tT6/Xkgyz95U=;
+	s=mail; t=1794632456;
+	bh=aaF9G9vRtyHxyxIaTY8fV2Bu+8vPGjYVQJ9ai3cxtRY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=Cfwg245aIg22lpownZsOmrhQm3NyLBV9MH2XACwSCMNpmS/4kFtwZE6fXPLDsZME5
-	 lLUKv+gdIQWhpX0gjcuGF4KaHdBCETymWyLfz4l9JWc+wSQ9mX4hsmHYBrzjLclmaS
-	 gHP3HBdB3e4EsPrWyp1qEWhpcz9e1W4b7CllMqDaFycjX0T6YEkYHl1clXGgKr+xZi
-	 SmIPOmicU8FDpzddBoKWMHEoNn5IRXRjjPG90MeW6SiTYBfj/P7kXhygIUgNX5EuWW
-	 7DTx67dvcZow4EurZOrq5htyJUKsyw8nDpyE41VXs02di9WRYyIZNYhbqzTf75Nt/+
-	 H5+TbPK8OefSw==
+	b=AXUzCspihXgF5F/RfbTaPjagSIWOhEsqe9SIsy5Mt0EwTWrQtcpohsZzgbSESyPnF
+	 /rN44luMWZL5Z0fqCQJAxcutaniyg2lTP9HQcakHS8eQwsue/9l0p5soQ3CqXMKoLy
+	 OPdjr+hwVe/h9Qs8j9flL+XBlRrIn+SZzIJ/rdwJskdyZiTzj95j1ixuh2NH7gfTW+
+	 A6ICpj0KF8f3j4aeFQVt9hhHaP2Xi+eGRTqPGbE8ED7O39+III+OjKcGn7IZiAS34x
+	 +RgBT/zWzGdSSilu5mhgxbKCxQABD1g7ccDF24b6i07bGWAecb+rFR59l9AG3HMIOr
+	 ag3TcakqJMUhg==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id CEA2117E3BE8;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id B083117E3BCE;
 	Sat, 14 Nov 2026 06:00:56 +0100 (CET)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 1EF70480052; Sat, 14 Nov 2026 06:00:56 +0100 (CET)
+	id 1593A48003D; Sat, 14 Nov 2026 06:00:56 +0100 (CET)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Sat, 14 Nov 2026 06:00:46 +0100
-Subject: [PATCH v12 13/23] drm/rockchip: dw_dp: Implement out-of-band HPD
- handling
+Date: Sat, 14 Nov 2026 06:00:40 +0100
+Subject: [PATCH v12 07/23] drm/bridge: synopsys: dw-dp: Fix support for
+ short I2C reads
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,7 +68,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261114-synopsys-dw-dp-improvements-v12-13-d42d3dc5bdd4@collabora.com>
+Message-Id: <20261114-synopsys-dw-dp-improvements-v12-7-d42d3dc5bdd4@collabora.com>
 References: <20261114-synopsys-dw-dp-improvements-v12-0-d42d3dc5bdd4@collabora.com>
 In-Reply-To: <20261114-synopsys-dw-dp-improvements-v12-0-d42d3dc5bdd4@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -93,225 +93,62 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  devicetree@vger.kernel.org, kernel@collabora.com, 
  linux-arm-kernel@lists.infradead.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Igor Paunovic <royalnet026@gmail.com>
+ Sashiko <sashiko-bot@kernel.org>, Igor Paunovic <royalnet026@gmail.com>, 
+ Andy Yan <andyshrk@163.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6431;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1595;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=jW3pTq3R7bOpTIyh4wVZ51psj2/mar6tT6/Xkgyz95U=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr36weIOLemRYG8AS8zuIkjV18ZzUojTLjK1
- wMCLKX5BebR84kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq9+sHAAoJENju1/PI
- O/qagsQP+QE4IBi+H2jk02AviXZbcohR6OfA6KCLqERt71uAjHrLO2fZnrI1HX6iDIJggIi4UPd
- n12JjEOKW+gkyIeuPOQs+M7hNmaDgIx7K/EKXgi1BmIxYGTUZJg5g4aMRrGEJr7Ki6+KmXFd1An
- oVxy6a7H8YBQGQAgPmhvtyUdFFHIcrCHFqdT0Bs2tuCRr8lR9Jzw7kaEV+6imIgQE+65SyKsKI3
- oksVF9S75ubd83fZrtuylo6zTpUMAZ8p4VCqEjEdA+QyrqFT/egfLygzb3THU5wd1495fcygxHb
- BgZ7OAIYrGrX4Bf8wMMOaAGDRBR2MVDjp3BWGTXs5O5jk0hxj7RzBJTMcFJKzvgX2/jBdiRvLRw
- 4C+lVYdRZZsxMI0jDrFXVOP0lEbauRw3XxJBaXMT/eXt/xBkLtMbspgYmYCMNYKSsYoWhY71J/e
- pctpm5MEdwSxLZK1B7ZxsnV/BsPSOl+t10I/c8DP1kHVedkRJi/fODjYZK7q2H2s7yc2S+H2Yvt
- t/qfctTrNI2+CgLh8FGX4ipEbSmbsuw2iXoqDKU6ZytJVb7R0Vo0z91Z5chbA4rF+EsDgbXjIKT
- O65pHg3FzjqBEJ6dWQK4EanGQPio8tPFRPq4NrpKYcL23dF9DRzZSY/SNDXE5sFvinm++crPTV7
- w8O5jGD/95QyiA6anqN8oSA==
+ bh=aaF9G9vRtyHxyxIaTY8fV2Bu+8vPGjYVQJ9ai3cxtRY=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr36wdsrZe53j9kYc0qHSAmKExD9Cz35Jq49
+ 2NVa6ysBl1A5IkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq9+sHAAoJENju1/PI
+ O/qasPAP/0B0prUvCL0gg6/fUlIt4Nhwnp3juBsDCMHQ1OfzKajQgsI1y5YZcT4KrPlX5j2rtiA
+ RMgTnl1hYiAPKsR+MqHyEuqmiIX+9gStLTHJDg+EImTc75n1SXZ2BgJagKTMlR5+1ZKthu3pnka
+ Ew2QlL2TUSajtWw3dWwX43k8svSrF2n4P13uVsialiZZpMq55zAmDOXmgDjdi1+zs2+42i/R35u
+ tqfd+Ot/1E97sAkYpAQ8uWhF1A+3CD8zMdtgEAiwHyGvyIX7/nAXYORgmor8qIixdzZhpgJNITY
+ FYaFm2Z2rD539fL6qGirl97hCa+Izd/8rfqLNCWdlmtRxmB7lGREmlh63FGwsQKJ2mjmpmrA0WF
+ FFFl8zqOHujh81CcjyZ6EIiu3/AGjQNhrC0OttyFRQx5+KbMqgsmIc9Wtsig3kkgenDI90B0KdI
+ P6yIG7lVz/8w1nhY9ccZF4SxZN4TUJHwk5/bdYF8ObS+6AgNSZURSKl/IrZyikIFkeIYrz3rxxA
+ F0uoMtKF+iAAFVN801cdiH2tBeQH9y9E7Z+ACgGDU4bk0vTHG0hv2Jez+nia1Cc8T8Ao5yN/lox
+ evTbtHpd7hmbHKorXD+P/krPwVweGN2JEmCPEpftlKcRh+aTedQJ41muhZJD3CZFPD5tScU4tea
+ wiklWFLo9F+veZc50+YMt9w==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Implement out-of-band hotplug handling, which will be used to receive
-external hotplug information from the USB-C state machine. This is
-currently handled by the USBDP PHY, which brings quite some trouble
-as the register being accessed requires the power-domain from the DP
-controller. Thus this patch prevents massive SError problems once
-runtime PM is implemented (and enabled) in the DP driver. Apart from
-that it avoids custom TypeC HPD info parsing in the USBDP PHY driver.
+The transfer functions returns the amount of bytes read for
+DP_AUX_I2C_READ. By returning -EBUSY for short reads, the caller has
+less information available what is going wrong and possibly simply
+resends the read request. On sinks not supporting long reads, this will
+simply run into the same issue again.
 
-In contrast to the USBDP PHY this does not just enable the hotplug
-signal when a DP AltMode capable adapter is plugged in, but instead
-properly detects if a cable is plugged in for things like USB-C to
-HDMI adapters.
+Instead it makes more sense to return the data from the short read with
+the length information, which allows drm_dp_i2c_do_msg() to read data in
+smaller chunks and succeed in the end.
 
+Due to lack of a sink, which only supports short reads, this change is
+effectively untested.
+
+Fixes: 86eecc3a9c2e ("drm/bridge: synopsys: Add DW DPTX Controller support library")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Reviewed-by: Andy Yan <andy.yan@rock-chips.com>
 Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5+
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_dp-rockchip.c | 116 ++++++++++++++++++++++++++++--
- 1 file changed, 111 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-index 38e8fe75718e..c5386653991d 100644
---- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-@@ -7,9 +7,12 @@
-  */
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+index df0b98cbbaab..4afa57f4bce2 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+@@ -1512,7 +1512,7 @@ static ssize_t dw_dp_aux_transfer(struct drm_dp_aux *aux,
+ 		if (msg->request & DP_AUX_I2C_READ) {
+ 			size_t count = FIELD_GET(AUX_BYTES_READ, value) - 1;
  
- #include <linux/component.h>
-+#include <linux/hw_bitfield.h>
- #include <linux/media-bus-format.h>
-+#include <linux/mfd/syscon.h>
- #include <linux/of_device.h>
- #include <linux/platform_device.h>
-+#include <linux/regmap.h>
- #include <linux/videodev2.h>
+-			if (count != msg->size)
++			if (!count || count > msg->size)
+ 				return -EBUSY;
  
- #include <drm/bridge/dw_dp.h>
-@@ -23,12 +26,46 @@
- 
- #include "rockchip_drm_drv.h"
- 
-+#define ROCKCHIP_MAX_CTRLS 2
-+
-+#define ROCKCHIP_VO_GRF_DP_SINK_HPD_SEL BIT(10)
-+#define ROCKCHIP_VO_GRF_DP_SINK_HPD_CFG BIT(11)
-+
-+struct rockchip_dw_dp_plat_data {
-+	u8 num_ctrls;
-+	u64 ctrl_ids[ROCKCHIP_MAX_CTRLS];
-+	u32 max_link_rate;
-+	u8 pixel_mode;
-+	u32 hpd_reg[ROCKCHIP_MAX_CTRLS];
-+};
-+
- struct rockchip_dw_dp {
- 	struct dw_dp *base;
- 	struct device *dev;
-+	const struct rockchip_dw_dp_plat_data *pdata;
-+	struct regmap *vo_grf;
- 	struct rockchip_encoder *encoder;
-+	int id;
- };
- 
-+static void dw_dp_rockchip_hpd_sw_sel(void *data, bool force_hpd_from_sw)
-+{
-+	struct rockchip_dw_dp *dp = data;
-+	u32 hpd_reg = dp->pdata->hpd_reg[dp->id];
-+
-+	regmap_write(dp->vo_grf, hpd_reg,
-+		     FIELD_PREP_WM16(ROCKCHIP_VO_GRF_DP_SINK_HPD_SEL, force_hpd_from_sw));
-+}
-+
-+static void dw_dp_rockchip_hpd_sw_cfg(void *data, bool hpd)
-+{
-+	struct rockchip_dw_dp *dp = data;
-+	u32 hpd_reg = dp->pdata->hpd_reg[dp->id];
-+
-+	regmap_write(dp->vo_grf, hpd_reg,
-+		     FIELD_PREP_WM16(ROCKCHIP_VO_GRF_DP_SINK_HPD_CFG, hpd));
-+}
-+
- static int dw_dp_encoder_atomic_check(struct drm_encoder *encoder,
- 				      struct drm_crtc_state *crtc_state,
- 				      struct drm_connector_state *conn_state)
-@@ -71,6 +108,35 @@ static const struct drm_encoder_helper_funcs dw_dp_encoder_helper_funcs = {
- 	.atomic_check		= dw_dp_encoder_atomic_check,
- };
- 
-+static struct regmap *dw_dp_rockchip_get_vo_grf(struct rockchip_dw_dp *dp)
-+{
-+	struct device_node *np = dev_of_node(dp->dev);
-+	struct of_phandle_args args;
-+	struct regmap *regmap;
-+	int ret;
-+
-+	ret = of_parse_phandle_with_args(np, "phys", "#phy-cells", 0, &args);
-+	if (ret)
-+		return ERR_PTR(-ENODEV);
-+
-+	/*
-+	 * Limit this workaround to RK3576 and RK3588, potential future platforms
-+	 * reusing the driver should just add a VO GRF phandle in the DisplayPort
-+	 * controller DT node.
-+	 */
-+	if (!of_device_is_compatible(args.np, "rockchip,rk3576-usbdp-phy") &&
-+	    !of_device_is_compatible(args.np, "rockchip,rk3588-usbdp-phy")) {
-+		regmap = ERR_PTR(-ENODEV);
-+		goto out_put_node;
-+	}
-+
-+	regmap = syscon_regmap_lookup_by_phandle(args.np, "rockchip,vo-grf");
-+
-+out_put_node:
-+	of_node_put(args.np);
-+	return regmap;
-+}
-+
- static int dw_dp_rockchip_bind(struct device *dev, struct device *master, void *data)
- {
- 	struct rockchip_dw_dp *dp = dev_get_drvdata(dev);
-@@ -121,19 +187,53 @@ static const struct component_ops dw_dp_rockchip_component_ops = {
- 
- static int dw_dp_rockchip_probe(struct platform_device *pdev)
- {
--	const struct dw_dp_plat_data *plat_data;
-+	const struct rockchip_dw_dp_plat_data *plat_data_const;
-+	struct dw_dp_plat_data *plat_data;
- 	struct device *dev = &pdev->dev;
- 	struct rockchip_dw_dp *dp;
-+	struct resource *res;
-+	int id;
- 
--	plat_data = of_device_get_match_data(dev);
--	if (!plat_data)
-+	plat_data_const = device_get_match_data(dev);
-+	if (!plat_data_const)
- 		return -ENODEV;
- 
-+	plat_data = devm_kzalloc(dev, sizeof(*plat_data), GFP_KERNEL);
-+	if (!plat_data)
-+		return -ENOMEM;
-+
- 	dp = devm_kzalloc(dev, sizeof(*dp), GFP_KERNEL);
- 	if (!dp)
- 		return -ENOMEM;
- 	platform_set_drvdata(pdev, dp);
- 	dp->dev = dev;
-+	dp->pdata = plat_data_const;
-+
-+	res = platform_get_mem_or_io(pdev, 0);
-+	if (!res)
-+		return -ENODEV;
-+
-+	/* find the DisplayPort ID from the io address */
-+	dp->id = -ENODEV;
-+	for (id = 0; id < plat_data_const->num_ctrls; id++) {
-+		if (res->start == plat_data_const->ctrl_ids[id]) {
-+			dp->id = id;
-+			break;
-+		}
-+	}
-+
-+	if (dp->id < 0)
-+		return dp->id;
-+
-+	dp->vo_grf = dw_dp_rockchip_get_vo_grf(dp);
-+	if (IS_ERR(dp->vo_grf))
-+		return PTR_ERR(dp->vo_grf);
-+
-+	plat_data->max_link_rate = plat_data_const->max_link_rate;
-+	plat_data->pixel_mode = plat_data_const->pixel_mode;
-+	plat_data->hpd_sw_sel = dw_dp_rockchip_hpd_sw_sel;
-+	plat_data->hpd_sw_cfg = dw_dp_rockchip_hpd_sw_cfg;
-+	plat_data->data = dp;
- 
- 	dp->base = dw_dp_probe(pdev, plat_data);
- 	if (IS_ERR(dp->base))
-@@ -147,14 +247,20 @@ static void dw_dp_rockchip_remove(struct platform_device *pdev)
- 	component_del(&pdev->dev, &dw_dp_rockchip_component_ops);
- }
- 
--static const struct dw_dp_plat_data rk3588_dp_plat_data = {
-+static const struct rockchip_dw_dp_plat_data rk3588_dp_plat_data = {
-+	.num_ctrls = 2,
-+	.ctrl_ids = {0xfde50000, 0xfde60000},
- 	.max_link_rate = 810000,
- 	.pixel_mode = DW_DP_MP_QUAD_PIXEL,
-+	.hpd_reg = {0x0000, 0x0008},
- };
- 
--static const struct dw_dp_plat_data rk3576_dp_plat_data = {
-+static const struct rockchip_dw_dp_plat_data rk3576_dp_plat_data = {
-+	.num_ctrls = 1,
-+	.ctrl_ids = {0x27e40000},
- 	.max_link_rate = 810000,
- 	.pixel_mode = DW_DP_MP_DUAL_PIXEL,
-+	.hpd_reg = {0x0000},
- };
- 
- static const struct of_device_id dw_dp_of_match[] = {
+ 			ret = dw_dp_aux_read_data(dp, msg->buffer, count);
 
 -- 
 2.53.0
