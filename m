@@ -1,21 +1,21 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.142.180.65
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794651773;
-	b=ak4V3vC2LFYHkNsbQd0MCEQYVgV19B4TnMPKKRjLyRHD/1GUGRyJbdPFtxTwkgmYumBF
-	 nT0E8jm+ZKKEqdrPCBWWB/o3rlJWAjp3EyO7Oq4mBWuwp1m1NCmtGTGLDT9DAzSQfhJrM
-	 mfn3CAhJPwDZUiuvMtyF+2DmvQ2Vf0xCJGpchJIlcI9BwRPBbT3Qq2lzZCEHElCHFIjP+
-	 p5B9KwITnrUSU7fM3bTxRfBCnKtiosh6ZjQelISoyypkDEER8nzVNQdu1vcQtncz1V00E
-	 ymiS/E5LQwyZKYUQiHXXyL5dUqIogsmfDzWe3LnWreEeUaYG1nAMu1KHXK2azlwA7xQ==
+	t=1794651780;
+	b=QJpj4XXERvJvHPy2acyLFeO+PL6zXrXP6Sm7IPkQ6qvyLalXYlkUlmrlH6UPrnIwRUWU
+	 A53niudKcqdP90H78AgoFC0qLNctJ+ppQiqAnyTEsK/Zjk03//LyyuSqgq2jBYbKQ3L6b
+	 nSp7tnp/7vh8+Bjtin/PmU8g/8yISDw8zORP8/++LMIa07jNIndpNP2pv6s9V4tIDhRQq
+	 5QtH1FkELCTN6rWBEVlrUqAM6sXBfq9MmSZBG4G9G9ppv6Ti6x3sZdcNL/E/NLITFbANu
+	 tv2IhNhHwpk1Dfk+nP4QPuoQ/GEU7GntWMeeU8Of5z1oFOJIZ4e/e/unHDkYdtPQtmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794651773;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794651780;
 	h=DMARC-Filter:Received:Date:From:To:Subject:Message-ID:References:
 	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ECmqalV3vVXhuW7AJJvBBOVkwd6W+mrSEV8Bq0CD+AY=;
-	b=dmf38lPpnF2LiZKbsP1wAsy3wkJ2RaiOurowvRZDC01BaKUMzETbXzO0b3liEYC+qBr2
-	 TE2KlGXuN7gmvSKmc+YGDItEvLfM+R0AeFcJhY7Oi53Up/25WNAwktWSJN1lHE7NhPdSr
-	 RJ/sqVeV4Zu2qKwO/0IQRyJuCe5nY8SMcDYE+aNTEBtdgth0nyW3pTPCMnqy1ZZEIz91u
-	 96WG9VEtmjI9aedLPECy44Qlg0atxk6nlnaIHPZqe6OeDpzhZT2Y3kYBsMsRss3XCkX40
-	 STqSMgBnlMl72NYCxa5Oajn2jLasmh4Cb0rycwLOZ47PNx+rs2Dkk85k1COn+0Dyycw==
+	bh=h+vA9r9n4WkcSpsjfAj26/xWi1Iy6en+RLiUeVeS0jI=;
+	b=OVC68jHVt5VmVgs2cBIL+twBHqZal1zrevd78oC4q8FNygLylXtp3sUdBElh17C2KKKy
+	 QjoFDHrZ52Mzx380FxwV731eG/vVbfWtFLuISzCSWVLvAkF8Pgc571+9ZLWuIeLzF3VWI
+	 R6D5056dgel7xEIoCx3NeEKoAtYcS++vUZkVnbN0JaukIaNOamDkkVYE6UE4K4xcYddK+
+	 TznifJdgbTmQ47BlnQhPjQqnSaNTzd3jAN7SQQ8E/hh+xWgJteAREHBtPZR/K6kh3OR46
+	 w94JZyOhjBYhF+PDDVR9MiLNV4PocIKmFG8YgG25bBsuMSBRQ6a3sQr+CrQwyR5Ijwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=makrotopia.org;
 	spf=pass smtp.mailfrom=makrotopia.org;
@@ -24,18 +24,18 @@ Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E980606A330;
-	Sat, 14 Nov 2026 10:22:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E980606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF64606A330;
+	Sat, 14 Nov 2026 10:22:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAF64606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
 Received: from local
 	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
 	 (Exim 4.100.1)
 	(envelope-from <daniel@makrotopia.org>)
-	id 1xSAuD-000000003aW-1gHM;
-	Sat, 14 Nov 2026 10:22:45 +0000
-Date: Sat, 14 Nov 2026 10:22:42 +0000
+	id 1xSAuK-000000003aj-37ZX;
+	Sat, 14 Nov 2026 10:22:52 +0000
+Date: Sat, 14 Nov 2026 10:22:50 +0000
 From: Daniel Golle <daniel@makrotopia.org>
 To: Detlev Casanova <detlev.casanova@collabora.com>,
 	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
@@ -48,8 +48,8 @@ To: Detlev Casanova <detlev.casanova@collabora.com>,
 	Sebastian Fricke <sebastian.fricke@collabora.com>,
 	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
 	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 1/7] media: rkvdec: hevc: apply request controls first
-Message-ID: <0050fba7666592bb95c784eda4013a6054016d84.1794645268.git.daniel@makrotopia.org>
+Subject: [PATCH 2/7] media: rkvdec: vdpu383: complete refused HEVC requests
+Message-ID: <1c2a7d695a34ff9a1603d981da53fbeb564f6dfe.1794645268.git.daniel@makrotopia.org>
 References: <cover.1794645268.git.daniel@makrotopia.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -64,48 +64,36 @@ Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <cover.1794645268.git.daniel@makrotopia.org>
 
-rkvdec_hevc_run_preamble() takes the control pointers and the slice
-count before rkvdec_run_preamble() applies the request. When a request
-carries more elements of a dynamic array control than the control has
-held so far, v4l2_ctrl_request_setup() reallocates the array and frees
-the old one, which leaves run->slices_params, run->ext_sps_st_rps or
-run->ext_sps_lt_rps pointing to freed memory, and run->num_slices holds
-the element count of the previous request. The EXT SPS RPS controls are
-also looked up depending on has_sps_st_rps and has_sps_lt_rps before
-the request's own controls could set them.
+rkvdec_hevc_run() returns -EINVAL when the RPS controls are missing,
+after rkvdec_hevc_run_preamble() applied the request's controls but
+without completing them. rkvdec_device_run() then returns the buffers
+with VB2_BUF_STATE_ERROR, which unbinds the source buffer from the
+request, while the request's control handler object stays incomplete.
+The request never reaches MEDIA_REQUEST_STATE_COMPLETE: poll() on its
+file descriptor never reports it, and MEDIA_REQUEST_IOC_REINIT fails
+with -EBUSY.
 
-A userspace V4L2 client that can open the RKVDEC m2m decoder can submit
-a request that grows one of these dynamic array controls and reach the
-freed array through the stale pointer.
+Complete the request's controls before returning the error, as
+rkvdec_vp9_run() does.
 
-Apply the request first, as rkvdec_vp9_run_preamble() does.
-
-Fixes: 3595375c2301 ("media: rkvdec: Add HEVC backend")
+Fixes: e3b5b77e3689 ("media: rkvdec: Add HEVC support for the VDPU383 variant")
 Cc: stable@vger.kernel.org
 Signed-off-by: Daniel Golle <daniel@makrotopia.org>
 ---
- drivers/media/platform/rockchip/rkvdec/rkvdec-hevc-common.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-hevc-common.c b/drivers/media/platform/rockchip/rkvdec/rkvdec-hevc-common.c
-index 2b8e04dd15727..c249e3f16f42c 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec-hevc-common.c
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-hevc-common.c
-@@ -429,6 +429,8 @@ void rkvdec_hevc_run_preamble(struct rkvdec_ctx *ctx,
- {
- 	struct v4l2_ctrl *ctrl;
- 
-+	rkvdec_run_preamble(ctx, &run->base);
-+
- 	ctrl = v4l2_ctrl_find(&ctx->ctrl_hdl,
- 			      V4L2_CID_STATELESS_HEVC_DECODE_PARAMS);
- 	run->decode_params = ctrl ? ctrl->p_cur.p : NULL;
-@@ -460,6 +462,4 @@ void rkvdec_hevc_run_preamble(struct rkvdec_ctx *ctx,
- 	} else {
- 		run->ext_sps_lt_rps = NULL;
+diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c
+index 3462d995d4cf0..e9d8b590f0d58 100644
+--- a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c
++++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c
+@@ -553,6 +553,7 @@ static int rkvdec_hevc_run(struct rkvdec_ctx *ctx)
+ 	if ((!ctx->has_sps_lt_rps && run.sps->num_long_term_ref_pics_sps) ||
+ 	    (!ctx->has_sps_st_rps && run.sps->num_short_term_ref_pic_sets)) {
+ 		dev_err_ratelimited(rkvdec->dev, "Long and short term RPS not set\n");
++		rkvdec_run_postamble(ctx, &run.base);
+ 		return -EINVAL;
  	}
--
--	rkvdec_run_preamble(ctx, &run->base);
- }
+ 
 -- 
 2.56.0
