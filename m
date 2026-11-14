@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794674092;
-	b=lsuRPkuN4jpzHFBKuw+L/fohfH3BNhfQGPb+MMxMtn8JpD2PgiN3fHzSaFUJApbCN1Nv
-	 4cnG6yGGSEM+UzaYUQezaHO+pXBNrLFQf8+oowY62HVzkEGKc9JGsQYOv4BtK2kC9Q7Be
-	 1hYCPHqIPnFIxk0XhBhzM6XVf0mUQh/k7GmyufPQlVi6IzPajEgsZ6lij+Inm9hpGRvEp
-	 D4fMmk5C5JNd/6vWWloHZIoZZqkVafknIhHqr6bmnte+eB7vvQ1ni3Jg6cU31Nfg8siqG
-	 bkyPqDrPq7aCC/G2wZOnipvkoSAUwJQC8zaGdIz5l0o4cZo4q0IMuW3ckQ7he2B4Dcg==
+	t=1794674428;
+	b=MH9n6mf/vdp7go/H4lyHknBPq/xaErNI2JKEKkW3ouzW74MmvN0VPd7ynkI7YWABTpeh
+	 7lW/APQUA+dg+eHN9FTit4MocYj5jTB+KmkkFNl5hqMo49911APcJDpl2UxF1dMX6zH3E
+	 rGrVdgHxFOY4Sj1okISDPMwDUoCOmI+r9A79GWt+EAM155BbdhAQiG/zOWOL2c/kQeQvr
+	 XviPMWe8yxZLvi1V3nWCwQ7kj1zKA9Py50/S5aiE4CbrNqpE/I08a6OD1SAjSSzD0IxY1
+	 51W4gra5YUrNngSyclxdZ8cEphgsqaZTouXH7ts7X3z0zbumtRvsIohuPVqU5OJ1q2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794674092;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794674428;
 	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
 	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
@@ -15,37 +15,37 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
 	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
 	 X-Local-Domain:X-CMAE-Envelope;
-	bh=nYPcb6RWAzSWV1D7qe4gDy3zAPUEX8E78823vNjFEUI=;
-	b=Vg7Cep/7Ugwe7krj8L1Gh4G7em647qH0RyUkKoX4ZJpTObP0GCqV61DHtir4tEBY8+F4
-	 sNY1JrvhgXRtuG+fpKOp8IRBxC9sF6wdCftI+NDBb+PuQ/wLPN1b6SbhyRSYXt01tugxj
-	 h91GZC7eDKmHXhmEkvvmCwtEPIUu0B0vWRClzQGvqAwTbStQh2DIiiEeq8C1DbT/etIhM
-	 5Uv8sbIgx/1duGreuZu4mqY3Ffg0OUOk0ioCwpCrhlMSy5Hih2ViYP4642nSL9RIrvmbr
-	 s9fDGGvxtKBfEEO4mgVs4wU5HF9d0Tk212QS0jV4Ri7Lz6gUDuSHp84OA3a4sGkd55w==
+	bh=qT+oFTqjnXfJ1mpiTL8Xu0OZE4Z9H1kospYw4y7hkE4=;
+	b=OAQKsBeDrBxv2/MAu+K+X9QKKbYmlQHMOGsHai+IaNQzXIxQSrtBK9lwmLesOsj6op+L
+	 ByrpVQk0VCvgt/a3w4L2bt31PcIyoqYhwk+G1wxuElRYWe2VOUQjTPko+t8j5i8bUz7XV
+	 48yVRNsY0DTY67e74LsmAdiVPscex91XlxxOGeSQKVM7ABrcAStVOyy2y7DgNWFA5pA77
+	 ybUgX7/7aUtOo9ZOofpJk5DwBUsVkVyaptIipVoIzkJE3P1uAMpXHXeHwi5i+SUVuM00N
+	 XrV/R14evPx4oXlD8n6tQCufPH+HadiB6IJ/WiPWEWJm1+oW4qh6LXRESH1oi+duRTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=roeck-us.net;
 	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=vuDKDegQ;
-	arc=none smtp.remote-ip=44.202.169.37
-Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=wFUjJzq2;
+	arc=none smtp.remote-ip=35.89.44.39
+Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DB73606A323
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:34:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DB73606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5645F606A32D
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:40:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5645F606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=vuDKDegQ
-Received: from eig-obgw-6007b.ext.cloudfilter.net ([10.0.30.166])
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=wFUjJzq2
+Received: from eig-obgw-5004b.ext.cloudfilter.net ([10.0.29.208])
 	by cmsmtp with ESMTPS
-	id SDMRxzHo8JFmFSGiJxydwR; Sat, 14 Nov 2026 16:34:51 +0000
+	id S9cCxednJyb4YSGnjxgHuy; Sat, 14 Nov 2026 16:40:28 +0000
 Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
 	by cmsmtp with ESMTPS
-	id SGiIxLnqd3nNNSGiIxpD8I; Sat, 14 Nov 2026 16:34:50 +0000
-X-Authority-Analysis: v=2.4 cv=TuLmhCXh c=1 sm=1 tr=0 ts=6af88daa
+	id SGnjx0wSauJrPSGnjxlgn6; Sat, 14 Nov 2026 16:40:27 +0000
+X-Authority-Analysis: v=2.4 cv=WLZ/XmsR c=1 sm=1 tr=0 ts=6af88efb
  a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=VwQbUJbxAAAA:8
- a=pGLkceISAAAA:8 a=OBINIw4Rw6YrgAu89ioA:9 a=CjuIK1q_8ugA:10
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=UeLHFo6_AAAA:8
+ a=hB7I0uFEIlzqdhcDmNIA:9 a=CjuIK1q_8ugA:10 a=EDBwm2zjIHkEGtbFp8of:22
  a=KPbNTLLc3YvdawN95zVk:22
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
@@ -53,26 +53,29 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
 	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
 	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=nYPcb6RWAzSWV1D7qe4gDy3zAPUEX8E78823vNjFEUI=; b=vuDKDegQqIh7a8xxzbs3JggogA
-	e/Ue0gq0xXFo4TYOFCFPbO3Pa/+v1HH3rEfZkykVHLDMPZXU++8Qt9bmsQdQJW6Sc7poo4Y19e+k6
-	QSILn/98p2yuAgE8ioY1NLtYdByrkGuC72F6uMXij892k/1hU6UTHKcP3OKaB49hmcCr214aqO/H5
-	XvhFNqLxgwGDNwoSCY1r/zbcTHP5moMs7n4shTNZpk1mqKR74RWPhhkw/yPoB0YQyKvqfchtwvpYq
-	8E+JV5ICk8zxV8QiBQIhG+nWHmEI3TP8MKRUc3myHR4VU6/CX/6iXZ+ljmiZqObzCzCf70jTSW55P
-	yP+t1phg==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:35708 helo=server.roeck-us.net)
+	bh=qT+oFTqjnXfJ1mpiTL8Xu0OZE4Z9H1kospYw4y7hkE4=; b=wFUjJzq2OCZylB5jkgSnrPmk3T
+	7+VxmlluBOYlGfsfOlpiMqrb4Dr5HGM5EjYpl6Nq26YhH86N5tFQmCM7QNEnqY1bhtFx0TrCZcyF7
+	IUpBikUeVBwTAWsELP/t8kMMoUEfHk2sHP3qhFj7LAuCDGp5nvEJMegqlhl4E61vTAMRL0YtEut36
+	QiVNmH1YUheXwAyjIPhYz6XdxBr5OPu9Uefx1+PRNjUaIEPcZVwtAF/GBwTEJxs1bvqAHOIpuPqqU
+	TqN90IaYTzzDv21KDidNAx1lYqNYEL13yaj1c+LVn5a+hvf0rBcoDPObQ/2O0wZ5iCEAp/8NpIgHn
+	PIsbQc4g==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:45206 helo=server.roeck-us.net)
 	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.100.1)
 	(envelope-from <linux@roeck-us.net>)
-	id 1xSGiI-00000000Fy2-0pRu;
-	Sat, 14 Nov 2026 22:04:50 +0530
-Date: Sat, 14 Nov 2026 08:34:49 -0800
+	id 1xSGnj-00000000Ifr-0eDh;
+	Sat, 14 Nov 2026 22:10:27 +0530
+Date: Sat, 14 Nov 2026 08:40:26 -0800
 From: Guenter Roeck <linux@roeck-us.net>
-To: Wayne Ho <wayneho219@gmail.com>
-Cc: Pascal Sachs <pascal.sachs@sensirion.com>, linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH] hwmon: (sht3x) Fix overflow when writing alert limits
-Message-ID: <45a41724-f9da-48be-a3dd-cbdcac5dcf0a@roeck-us.net>
-References: <20261113054857.97048-1-wayneho219@gmail.com>
+To: Samuel Herdman <lk.gzpc0@passmail.com>
+Cc: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-hwmon@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Johan Dahlin <jdahlin@gmail.com>
+Subject: Re: [PATCH] hwmon: (nct6683) Add customer ID for ASRock X600DC-ITX
+Message-ID: <bde7ca8f-b3c7-4b81-9596-825c52e3af7a@roeck-us.net>
+References: <20261114-nct6683-asrock-x600dc-itx-v1-1-cbccf1a627fe@passmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +87,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261113054857.97048-1-wayneho219@gmail.com>
+In-Reply-To: <20261114-nct6683-asrock-x600dc-itx-v1-1-cbccf1a627fe@passmail.com>
 X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
 X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
 X-AntiAbuse: Original Domain - vger.kernel.org
@@ -93,46 +96,54 @@ X-AntiAbuse: Sender Address Domain - roeck-us.net
 X-BWhitelist: no
 X-Source-IP: 108.223.40.66
 X-Source-L: No
-X-Exim-ID: 1xSGiI-00000000Fy2-0pRu
+X-Exim-ID: 1xSGnj-00000000Ifr-0eDh
 X-Source: 
 X-Source-Args: 
 X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:35708
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:45206
 X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 72
+X-Email-Count: 77
 X-Org: HG=direseller_whb_net_legacy;ORG=directi;
 X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
 X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfOQt215QHHZat86xe013IG71SAxp5gNRHkPA50Rw96srg6nVH2fvsRIqbg43+rF2lmfrrk3YFu/oJnc7Lbfy3B8dQ5iscivfjtIDKGIZN7mabkKloHhO
- Q7D4MRCBDcxgclUJkbsXJy0TyEhZpK+sfmEan2fb91I1f6xHzZnoTmodMz3D908eS19D5gxTUw85yPN/1y+SPRIVCFJs/8GSJfkuCAOxTXSstL7x7s1Cmi/s
+X-CMAE-Envelope: MS4xfMNsfbvaZl2Z5ZQGqJ9puCmtKw5AVD294WtI/qc4js4Z1C7dVR16uEFQSCldr9SgUAVmFq0I9eaZvRYR4BcSVzJvS7brt68AmqTd4yv88kLoG6T4Ur6I
+ lNPU0lqo/yy3kYkhdxz/f5MCfPWbhCI3aUIULzpRyB9g0Dskzt5/0DHmK8kLm4wPeD7wEl7ODxK7NpBs8CoNwkQNFyRiCqIUGi3VuC2K+FE8IPeDZDjpcLPS
 
-On Fri, Nov 13, 2026 at 01:48:57PM +0800, Wayne Ho wrote:
-> limit_write() encodes the limits with 32-bit arithmetic, which overflows
-> for the largest accepted values:
+On Sat, Nov 14, 2026 at 08:37:11PM +1100, Samuel Herdman wrote:
+> From: Samuel Herdman <lk.gzpc0@passmail.com>
 > 
->   (130000 + 45000) * 24543 = 4295025000 > U32_MAX
->   100000 * 42950           = 4295000000 > U32_MAX
+> The ASRock X600DC-ITX (BIOS 2.02) has an NCT6686D with customer ID
+> 0x165f, which the driver does not know, so it only binds with force=1:
 > 
-> Writing 130000 to temp1_max therefore programs -45 degrees C, and
-> writing 100000 to humidity1_max programs 0 %RH, so a limit set to its
-> maximum makes the alert fire instead of never firing. Reading the
-> attributes back returns the cached values, so this is not visible from
-> sysfs.
+>   nct6683: Found NCT6686D or compatible chip at 0x2e:0xa20
+>   nct6683 nct6683.2592: Enabling support for unknown customer ID 0x165f
+>   nct6683 nct6683.2592: NCT6686D EC firmware version 1.0 build 12/23/25
 > 
-> Use 64-bit arithmetic and clamp each result to its field width. Even
-> with 64-bit arithmetic, 130000 encodes to 0x200, which overflows the
-> 9-bit temperature field, and 100000 encodes to 0x10000, which is still 0
-> after masking.
+> The change:
 > 
-> Prepared with the help of an AI coding assistant (Claude); I reproduced
-> the bug and tested the fix on hardware.
+> Add the customer ID so the driver binds on this board without force=1,
+> and add the board to the list of tested boards.
 > 
-> Fixes: 7c84f7f80d6f ("hwmon: add support for Sensirion SHT3x sensors")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/linux-hwmon/20260725222229.EA69B1F000E9@smtp.kernel.org/
-> Signed-off-by: Wayne Ho <wayneho219@gmail.com>
+> Tests:
+> 
+> - With force=1 the readings are plausible: the CPU temperature (AMD TSI
+>   Addr 98h) is within a few degrees of k10temp's Tctl, VCC, VSB and
+>   AVSB read 3.36 V, VBAT reads 3.2 V, and fan1 reads about 1450 RPM.
+> - With the same change applied to v7.3.3 on this board, the driver
+>   binds without force=1 and reports temperature and fan readings.
+> 
+> The patch and this changelog were drafted with an AI coding assistant
+> (Claude Code); I reviewed them and ran the tests above on my board.
+> 
+> Signed-off-by: Samuel Herdman <lk.gzpc0@passmail.com>
+> ---
+> This overlaps with Johan Dahlin's pending series "hwmon: (nct6683) Fan
+> control and sensor names for ASRock NCT6686D boards" (v2, 11 Nov 2026).
+> Its first patch also adds NCT6683_CUSTOMER_ID_ASROCK8 (0x164a) and a
+> table row at the same spot, and its later patches key fan control on
+> that macro. Whichever lands second needs its macro renumbered
+> throughout; I'm happy to rebase on top of that series if preferred.
 
-Appied.
+Applied, fixed conflicts. Thanks a lot for letting me know.
 
-Thanks,
 Guenter
