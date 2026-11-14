@@ -1,86 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794684734;
-	b=eSnlBbcJJGXe5332+2deUjsh6L8kvz3YZlWRX3mhv8ABoB1IZZCjcxWE1NTTcfevZyum
-	 wJsKLwtmvxLAej8VEIxWkVdzQZGJZ0cSud3LqyGklBVH0LL5L/DzhpK5sK20cc9Yu6j21
-	 MadM84hcd93ZKsQKdTOztzYNfA5Nvc/uzbOmeaV+QAgfpWVYHG0rQsgVRI669RpkD5ZfX
-	 WcEyM7sMGWCeiO99DaWwdbk6f7e8dUV7wiJDbIA85Lg4M0kc2cUu/hDWsMP73buBx/hUi
-	 VClse4xXxBzUVUBhXWUDsRnMXTLUpIPy0CsAfrGxaKDM1g4ubg/U+mDCyjUv19ej04g==
+	t=1794684880;
+	b=mz8VwYnKsUJkjFRRtGxS+5HEywe703RUpB5nCyRolO3iwXVIREQXzrNyUoj1Op+d2+nj
+	 CxQ0eU07MiUqI81uvwNRkaQ2Es0z7tBYkoYIBaf5dr1kOFN2RYUu3MLVBdDOKNSsdotV6
+	 Ih62SxrapnpVbJ7s/UPYsWhGPX8cr3QPzv0TwMQKYVN6Z3qgqZBx1gtc4sRswEbYBLGUu
+	 LRYECFb008YQkcG6XmpNmDfJ/CdUJiJjgIN5tvKeasqHCpM09/jmjoJwEYD8desJ1+KAj
+	 0e8sbP65O+VS72szSBxVv7ocNT30gn3ruKpu//1gcsIOPJTtTJ0qToNK2h+4h2aC24w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794684734;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794684880;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=sI3Abw782ICodBFXVcAkqffcR+yD9cYQ88bcpAcT5c4=;
-	b=4TlljfN8N4qYVPy23hE1VJNme0KNex+lT8p3C5Z8zOJGbnHAZqCEm44nxhAC73ksEiSr
-	 nY3Tae2+nN38o2ao6h6xWCOc6l0XjLqFvKPg6yf2B8hhgH2KAB4HQwRrekf22ytNzcZwY
-	 ef7vDaRZToohe5BwpQ6gJxGnWAYWCuLOjDHIK9i1679FuBmrU8xszuWwCgx7HroTQ2W2e
-	 +kQwa3ik/NDNe+EJU4weFoMYqGtxkDZE2xTOrE+OeYlcUy17KJUj4eYbbIh94FgWdr4q4
-	 DXawh+lk069JNYTMfMmsUbYrgFUlhbePI1uRaiaUdZsjBgd9rYD9b9pr8JxDkoNCLbw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Qn36dnXShc4fUhcrYLZ1Zx2GoiXFD/fDCBgNyF4SH4c=;
+	b=quia9wPBmv8Ub7XVpxROknBD2zYbg8eOi5ny3Nla+M7pQkfiJGn+97ImleSsrWfwL4h3
+	 t5nJJv1bNWXOKlXpD9EaVmKIHm1hjfvINbS1pYkXTTIgQ+WH5opjsol0d+/lmUXkYbAn6
+	 /7cOMghyaiysUnlKnOnclN+Pso97KllIR3JnC8B4/UBSFSLE1EPuNclH2BkGY4LgFuRaC
+	 Xcvy33O1C1OdORDLlIrIyxADkQ9nyQxGQ16/Lp5gU/lFypNj4MP4UjCTdT/KMPgmskv/L
+	 ePWlrrcJ/e4n10eca8Onoch/r+mYCMuEKFhpTMXwbXWYifEGEz6TMT/u+LGsVt6rr+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="RHfS3/wJ";
-	arc=none smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rRMlHQpd;
+	arc=none smtp.remote-ip=209.85.216.41
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60453606A323
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 19:32:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60453606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94FE9606A327
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 19:34:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94FE9606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RHfS3/wJ
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48e3b22e971so1006875f8f.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 11:32:14 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rRMlHQpd
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3b0a519049aso2703140a91.1
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 11:34:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794684733; x=1795289533; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=sI3Abw782ICodBFXVcAkqffcR+yD9cYQ88bcpAcT5c4=;
-        b=RHfS3/wJrDol4DI0TKgyihIk55dxyGpQap0d2Z4BDmNp3VkaVlH3TiL+6xQz59jHAw
-         lCVBWOr1Bw6XSEUHid+u5OJyueRH3NcgI5mG2gA9ZF21PVWoBkZtt/DOzgZNArZigG2d
-         IJkhAUgF+7AcqkJU+jIRIjWAJlWIv1SFHzP6CPlh18yOCEZu6VYqWb6Lu59K+KofkKBh
-         KycobUARTCdV7oK6CpDj8r9qASzhFylctJE+28ev6gngAy0RHqbfVJI6qYz7cyLTzvZ9
-         lEy+MxFBnI/Wh0ryWvSPsg09z9CvIvCHmOU3sPsO7ZEODt8YNXU1NvUuM/1PirvD0UOJ
-         yTCQ==
+        d=gmail.com; s=20260707; t=1794684879; x=1795289679; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Qn36dnXShc4fUhcrYLZ1Zx2GoiXFD/fDCBgNyF4SH4c=;
+        b=rRMlHQpd3xcMxRzce5C2JT6+g3EWg4pQWv9Jm19FsHZVrZCAk91SHCJ5jWyt3RHY5k
+         jTNPEv8N26/vNZ6oQU/+Bm1dl7Wa8AhikSd9DZC2FkP7B5FP7VuY/6pSCinX+YbkuimI
+         SI1zOH7nfmfr776cMeRjixgQr6C80Q8okIEGQVdNXOS0vpNJfyDp2ep+lqTkjXtnB9EN
+         xr3/XjhVwTRmPyrsZH4B1e1P54fMOKgSziC7w0msS4i4P812CxFJAwSn4Pha2bt4/Byl
+         /PljtDcYv59+LPtzQjZVBLI7Q4UO7EluQwPXLsuqMB+wUneTrvsnlw2iK0LAU+h5X2g0
+         kb3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794684733; x=1795289533;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=sI3Abw782ICodBFXVcAkqffcR+yD9cYQ88bcpAcT5c4=;
-        b=SbH8Cbq7nesG8LS3/GV5YJEOhAOz6xCrsowcJQDH3d/pxEkiwoKDxvXFnY5akMMTxH
-         0y5bO/7IoMQYz26PBxvKpiz8/pEa7VxGfFHjLJGusgPBHovZHwrmGJCd+JkMP75c+Snr
-         9CvQVQvTQJUyL7dFSUgBd25AJYinFp0/KYew8qOlYP27xqvmG0wCQx0mQQGQdkPDxHxq
-         hDy+H5lC0swvEPFviKMzG2kK0uKTHdb96O2x21lAf5Qxh4S6J9mmjDDq/w5XiUxXKtiz
-         wvzfAfwggPs2VjcPaof/xLtDwYcmU9xe88I3TTz4xSYo7i0jzXwlFT1VxBzwQjVpC8zM
-         y8yQ==
-X-Forwarded-Encrypted: i=1; AL+hErEjuX8Jq3GFugIgqDXlGASkocSb+39MiYUHvsJ2BugJRojzP84JM+YWDV4UwoU6/9tdw+w6CbP3m3FSAWc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+WLsZ7MHqMEgtOTjP4SHIfLldi5ZTMACBQLL3G8CqZly4ST/eu
-	gRqk7urGPRPBu/xZq6KD9xAi5CCqlcdB5R+fW3COK2yulKfZSW4AF+m/
-X-Gm-Gg: AYBFou3l+JrejP34bY1zQu4pFkaJSfs+1NYF+rafiBk7Y/ws2Bj+CZQwQXWRjczCmu0
-	cuMICZooYRBF70+0ls+hyBSIywy67Q+iMMlvMPDqQntckbihO2pQ8RJLy03FU+mYkCfkKvkrQxf
-	rnsevBjsByU3hTtWclzmB7WW+6D6tBq3koqBB3KK/WQ2PBhigwjKOmg3isvGbpd/8hOERBMgy1v
-	I8Tk6JbgKc5zNDUf0rXjI9Oqdo8mwY3mHlBSagX+il7Ne7l4W6L9L5MWTci98/+zuH4E3cS5/dL
-	U5E+g+BfWh2ftwiDOjWu8cDJfCl08QaXmcy+5GjQi0Kuv4ODv4GA1YAMjMQ/a8nVADfJqpx0VuB
-	Sy/J3jRkXOMoTstfT69CMxA20jFdt59d30qT7FcD/lgfR8K5uzUetg9iEu+Pwnwz5bl1wMZfsQG
-	FWnKZCaZdzqTWyWs1aM85kgDK2aE2fG9tdKrFcp8EiRsXqGnZPuEGckAPT+WxqWyySr81yoWyVe
-	Sbgm61wqE09KJ6VYCZ/mM0L1OqTLCU4P8h8FIzkWh0xaL7rXPHrsL9V+JErhM6R76kTuz/bwwIN
-	t7uEblvjSQqpkFU3CxkClhBKP4TMHxjWRdHLmVKFLA==
-X-Received: by 2002:a05:6000:29c9:b0:493:1004:96f7 with SMTP id ffacd0b85a97d-49c747700f2mr8953180f8f.54.1794684732494;
-        Sat, 14 Nov 2026 11:32:12 -0800 (PST)
-Received: from [10.111.176.198] ([2001:19f0:6c01:2c43:5400:5ff:fef6:1b30])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c608cf46dsm12965021f8f.43.2026.11.14.11.32.07
+        d=1e100.net; s=20260707; t=1794684879; x=1795289679;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Qn36dnXShc4fUhcrYLZ1Zx2GoiXFD/fDCBgNyF4SH4c=;
+        b=H6THZziqCfrDwVDH1bLPtex/pBozfU++ueJ6qhqGcrEM9ur9Ml7H7reK/Sr9CWlkqd
+         RLOMIOjzk0pi7lYTkDmBtb5NNisRchiPBVw6gh0TdUQHEXy52lK+uJ6Tv59b9vCfGehO
+         Pw/FZbKp03VfrARWkFH86trr/QeLHItuB5wSMcQAGfM5jVoCNntBNOLDtUuiqnBY2b6K
+         pbP9XekbNiX3/GZD0gVnX3S5/GF/x4i5DgnMZB6fd7YECzy/pdRAbcpWVfrbjHqHaLi3
+         rfrKpcTgFxs0npvfobkxDJJufODxETwbxPZfuyXkJtnOBUVz/e+DaquzMPSf4s8G/rea
+         wv6Q==
+X-Forwarded-Encrypted: i=1; AL+hErHdUjhTLCHgeKEW9bkX7/KyXs1gz9s9fruHP5bShXuYiwmeDmxG4PfANdrf3MAfjBVsuBU3+gROoyBRjO0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+O9ilAhyf9+DZFVO5FzI8RjZ45ryZ7NrPwhRml11XeXB3PZqIa
+	j++LlTR0q99IefeVTsxy8upSf7uyiiv4yABopnm6ifJXhjKvJf5CSnmP
+X-Gm-Gg: AYBFou3q2VmDNPSOZSm6LQMiQ8Gds779sz7SQFgc36ejwm9xUUwOw2D6sl9M5k/xVzo
+	uauRS9JJ9paR4x0zd5UmSYSpGbVzRdI6es1Pc+F5ywCKzYghWlzm1Cd1SGzXGtFydrwj3r6A2Qb
+	VPkD2xGUZj3h202X9tf+E1gLd/gYEgANV9pC6Byp3obVlxQhHkyDf/DH8NA4bJckoQHcRyj7FeQ
+	lPfhFD9VSbD+sN66k3m6Rn5OMZl0VpbBy0Rfggc+Qvh20mI35OrQPFgUTWf8YEsgTmm9u5gZGZ5
+	+Q2IoBKRmFeTUkPmHWwiKqdheHV+CxM8fZ/KwaeN9foKMFbA+3/8BJ5qJtpMVuq57aw+iYpEd+Y
+	ChVIMNiRlQEaVNlOgsiEM+261HqPMSUwRswK4qvNnk70pJMoAwAM9rEv7H2gqYpRP0MDDeM+FXT
+	3NRo+Yk6S+xDkeBpmrR4LR4PBz1ye83mS2IMaRG3VEXuey4KgPHg8+u2wZaq2Uyw3uCR1V4k6ay
+	vzXEv+K6lUOoZpnEexkNCfWi5sLxiUqjo7+g2zy/g+18SuxJK+lFFIqQLUCdC78sonN4pQuXhe0
+	YEWzzipJS0adViE4uqtdc3ZvFtRZU9M8gCpxvzTQMdZeUBMi2G2EQQbBzmkvw+xmIVB54eD1O10
+	8AlahhimVKgFl477u1hCTAy2rP3rOhJXzcTU6QAYwFbhUHtCZXAIlQqGxZAfNDqr9aeKwzL0csa
+	3Prba44XBeUnMAjb0MrtRLDBTejtgl+qLdLrnKhhVu7qVcC2wKJ95i+L3uvpqddg==
+X-Received: by 2002:a17:90b:548e:b0:3ac:9df3:6b07 with SMTP id 98e67ed59e1d1-3b1b0b8c31emr6819520a91.24.1794684878851;
+        Sat, 14 Nov 2026 11:34:38 -0800 (PST)
+Received: from sid-dev-env.cgrhrlrrq2nuffriizdlnb1x4b.xx.internal.cloudapp.net ([4.155.54.158])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b24938bdsm5093969a91.1.2026.11.14.11.34.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 11:32:11 -0800 (PST)
-From: Oarora Etimis <oaroraetimis@gmail.com>
-Date: Sat, 14 Nov 2026 20:32:02 +0100
-Subject: [PATCH] drm/tests: bridge: check the bridge chain callback order
+        Sat, 14 Nov 2026 11:34:38 -0800 (PST)
+From: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+To: Peter Huewe <peterhuewe@gmx.de>,
+	Jarkko Sakkinen <jarkko@kernel.org>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Yeoreum Yun <yeoreum.yun@arm.com>,
+	Stuart Yoder <stuart.yoder@arm.com>,
+	apais@microsoft.com,
+	rlmenge@gmail.com,
+	hargar@linux.microsoft.com,
+	linux-integrity@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+Subject: [PATCH v2 0/4] tpm: Cache ACPI TPM2 start method and gate tpm_crb_ffa probe
+Date: Sat, 14 Nov 2026 19:34:30 +0000
+Message-ID: <20261114193434.117714-1-sidchintamaneni@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,215 +106,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261114-bridge-order-v1-1-4f11d1c21937@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ5AMBCE4VeRPWuiiIhXEQdtp6wDskUk4t0Vx
- 2+S+S8KEEagJrlIcHDgZY7QaUJ27OcBil005Vleaa0LZYRdXBdxEIXal/AmM7UHxcsq8Hx+ubb
- 7HXYzwW5vg+77AeKZY3dwAAAA
-X-Change-ID: 20261113-bridge-order-e8f4efb0b8fe
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Daniel Stone <daniel@fooishbar.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Oarora Etimis <oaroraetimis@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-drm_atomic_bridge_chain_pre_enable() and
-drm_atomic_bridge_chain_post_disable() document the order in which a
-chain's bridges get their callback called, but nothing tests it. That
-order has been wrong before: commit e18aeeda0b69 had to fix both
-directions at once.
+This series caches the ACPI TPM2 start method in tpm_init() and uses
+the cached tpm2_acpi_start_method value across tpm_crb_ffa, tpm_tis,
+and tpm_crb.
 
-Add a KUnit test for the example those comments give, and for the chain
-where no bridge sets @pre_enable_prev_first.
+Patch 1 caches the ACPI TPM2 start method once in tpm_init() into
+tpm2_acpi_start_method (defaulting to ACPI_TPM2_NOT_ALLOWED when
+absent or invalid).
+Patch 2 checks tpm2_acpi_start_method in tpm_crb_ffa_probe() and
+returns -ENODEV unless ACPI advertises ACPI_TPM2_CRB_WITH_ARM_FFA,
+skipping FF-A probing on non-FF-A platforms while keeping modular
+tpm_crb/tpm_crb_ffa loading intact.
+Patches 3 and 4 update tpm_tis and tpm_crb to use the cached
+tpm2_acpi_start_method value during probe.
 
-Signed-off-by: Oarora Etimis <oaroraetimis@gmail.com>
----
- drivers/gpu/drm/tests/drm_bridge_test.c | 112 ++++++++++++++++++++++++++++++++
- 1 file changed, 112 insertions(+)
+Changes in v2:
+- Expand into a 4-patch series caching tpm2_acpi_start_method in
+  tpm_init() and converting tpm_crb_ffa, tpm_tis, and tpm_crb to use
+  it (Jarkko Sakkinen).
+- Move the tpm_crb_ffa start_method check from module_init into
+  tpm_crb_ffa_probe() so tpm_crb.ko and tpm_crb_ffa.ko still load
+  cleanly on non-FF-A systems when built as modules.
 
-diff --git a/drivers/gpu/drm/tests/drm_bridge_test.c b/drivers/gpu/drm/tests/drm_bridge_test.c
-index 15583ade8494..e910f22ee581 100644
---- a/drivers/gpu/drm/tests/drm_bridge_test.c
-+++ b/drivers/gpu/drm/tests/drm_bridge_test.c
-@@ -20,6 +20,9 @@
- 
- #include "drm_kunit_edid.h"
- 
-+/* Chain length of the callback order test, and size of its call log. */
-+#define DRM_TEST_BRIDGE_CHAIN_LEN 5
-+
- /*
-  * Mimick the typical "private" struct defined by a bridge driver, which
-  * embeds a bridge plus other fields.
-@@ -31,6 +34,8 @@ struct drm_bridge_priv {
- 	unsigned int enable_count;
- 	unsigned int disable_count;
- 	struct drm_bridge bridge;
-+	/* Position in the chain, as an index into test_bridges */
-+	unsigned int chain_index;
- 	void *data;
- };
- 
-@@ -59,6 +64,11 @@ struct drm_bridge_chain_priv {
- 	 *                of which the first @num_bridges entries are valid.
- 	 */
- 	struct drm_bridge_priv **test_bridges;
-+
-+	/** @call_log: @test_bridges indices of the bridges whose function was called, in order */
-+	unsigned int call_log[DRM_TEST_BRIDGE_CHAIN_LEN];
-+	/** @call_log_len: number of calls logged, may exceed the size of @call_log */
-+	unsigned int call_log_len;
- };
- 
- static struct drm_bridge_priv *bridge_to_priv(struct drm_bridge *bridge)
-@@ -99,6 +109,27 @@ static const struct drm_bridge_funcs drm_test_bridge_atomic_funcs = {
- 	.atomic_create_state	= drm_atomic_helper_bridge_create_state,
- };
- 
-+/* @data points to the drm_bridge_chain_priv for bridges using these funcs */
-+static void drm_test_bridge_chain_atomic_log(struct drm_bridge *bridge,
-+					     struct drm_atomic_commit *state)
-+{
-+	struct drm_bridge_priv *bridge_priv = bridge_to_priv(bridge);
-+	struct drm_bridge_chain_priv *priv = bridge_priv->data;
-+
-+	if (priv->call_log_len < ARRAY_SIZE(priv->call_log))
-+		priv->call_log[priv->call_log_len] = bridge_priv->chain_index;
-+
-+	priv->call_log_len++;
-+}
-+
-+static const struct drm_bridge_funcs drm_test_bridge_chain_funcs = {
-+	.atomic_pre_enable	= drm_test_bridge_chain_atomic_log,
-+	.atomic_post_disable	= drm_test_bridge_chain_atomic_log,
-+	.atomic_destroy_state	= drm_atomic_helper_bridge_destroy_state,
-+	.atomic_duplicate_state	= drm_atomic_helper_bridge_duplicate_state,
-+	.atomic_create_state	= drm_atomic_helper_bridge_create_state,
-+};
-+
- static int dummy_clear_infoframe(struct drm_bridge *bridge)
- {
- 	return 0;
-@@ -459,6 +490,7 @@ drm_test_bridge_chain_init(struct kunit *test, unsigned int num_bridges,
- 		return ERR_PTR(-ENOMEM);
- 
- 	priv->num_bridges = num_bridges;
-+	priv->call_log_len = 0;
- 
- 	for (i = 0; i < num_bridges; i++) {
- 		priv->test_bridges[i] = devm_drm_bridge_alloc(dev, struct drm_bridge_priv,
-@@ -467,6 +499,7 @@ drm_test_bridge_chain_init(struct kunit *test, unsigned int num_bridges,
- 			return ERR_CAST(priv->test_bridges[i]);
- 
- 		priv->test_bridges[i]->data = priv;
-+		priv->test_bridges[i]->chain_index = i;
- 	}
- 
- 	priv->plane = drm_kunit_helper_create_primary_plane(test, drm, NULL, NULL,
-@@ -1357,6 +1390,84 @@ static void drm_test_bridge_rgb_yuv_no_path(struct kunit *test)
- 	drm_modeset_acquire_fini(&ctx);
- }
- 
-+/* B, D and E ask for prev first: the example the documentation gives. */
-+static const bool bde_prev_first[DRM_TEST_BRIDGE_CHAIN_LEN] = { false, true, false, true, true };
-+static const unsigned int bde_pre_enable[DRM_TEST_BRIDGE_CHAIN_LEN] = { 2, 3, 4, 0, 1 };
-+static const unsigned int bde_post_disable[DRM_TEST_BRIDGE_CHAIN_LEN] = { 1, 0, 4, 3, 2 };
-+
-+/* No bridge does: both walks are plain reversals. */
-+static const bool none_prev_first[DRM_TEST_BRIDGE_CHAIN_LEN] = { false };
-+static const unsigned int none_pre_enable[DRM_TEST_BRIDGE_CHAIN_LEN] = { 4, 3, 2, 1, 0 };
-+static const unsigned int none_post_disable[DRM_TEST_BRIDGE_CHAIN_LEN] = { 0, 1, 2, 3, 4 };
-+
-+/* Order documented by drm_atomic_bridge_chain_pre_enable()/_post_disable(). */
-+static void drm_test_bridge_chain_order(struct kunit *test,
-+					const bool *prev_first,
-+					const unsigned int *expected_pre_enable,
-+					const unsigned int *expected_post_disable)
-+{
-+	static const struct drm_bridge_funcs *funcs[DRM_TEST_BRIDGE_CHAIN_LEN] = {
-+		&drm_test_bridge_chain_funcs,
-+		&drm_test_bridge_chain_funcs,
-+		&drm_test_bridge_chain_funcs,
-+		&drm_test_bridge_chain_funcs,
-+		&drm_test_bridge_chain_funcs,
-+	};
-+	struct drm_modeset_acquire_ctx ctx;
-+	struct drm_bridge_chain_priv *priv;
-+	struct drm_atomic_commit *state;
-+	unsigned int i;
-+
-+	priv = drm_test_bridge_chain_init(test, ARRAY_SIZE(funcs), funcs);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, priv);
-+
-+	for (i = 0; i < ARRAY_SIZE(funcs); i++)
-+		priv->test_bridges[i]->bridge.pre_enable_prev_first = prev_first[i];
-+
-+	drm_modeset_acquire_init(&ctx, 0);
-+
-+	/* The chain helpers skip the callbacks when @state is NULL. */
-+	state = drm_kunit_helper_atomic_state_alloc(test, &priv->drm, &ctx);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
-+
-+	drm_atomic_bridge_chain_pre_enable(&priv->test_bridges[0]->bridge, state);
-+	KUNIT_ASSERT_EQ(test, priv->call_log_len, DRM_TEST_BRIDGE_CHAIN_LEN);
-+	KUNIT_EXPECT_MEMEQ(test, priv->call_log, expected_pre_enable,
-+			   sizeof(priv->call_log));
-+
-+	priv->call_log_len = 0;
-+	drm_atomic_bridge_chain_post_disable(&priv->test_bridges[0]->bridge, state);
-+	KUNIT_ASSERT_EQ(test, priv->call_log_len, DRM_TEST_BRIDGE_CHAIN_LEN);
-+	KUNIT_EXPECT_MEMEQ(test, priv->call_log, expected_post_disable,
-+			   sizeof(priv->call_log));
-+
-+	drm_modeset_drop_locks(&ctx);
-+	drm_modeset_acquire_fini(&ctx);
-+}
-+
-+static void drm_test_bridge_chain_callback_order(struct kunit *test)
-+{
-+	drm_test_bridge_chain_order(test, bde_prev_first, bde_pre_enable,
-+				    bde_post_disable);
-+}
-+
-+static void drm_test_bridge_chain_callback_order_no_flags(struct kunit *test)
-+{
-+	drm_test_bridge_chain_order(test, none_prev_first, none_pre_enable,
-+				    none_post_disable);
-+}
-+
-+static struct kunit_case drm_bridge_chain_tests[] = {
-+	KUNIT_CASE(drm_test_bridge_chain_callback_order),
-+	KUNIT_CASE(drm_test_bridge_chain_callback_order_no_flags),
-+	{ }
-+};
-+
-+static struct kunit_suite drm_bridge_chain_test_suite = {
-+	.name = "drm_bridge_chain",
-+	.test_cases = drm_bridge_chain_tests,
-+};
-+
- static struct kunit_case drm_bridge_bus_fmt_tests[] = {
- 	KUNIT_CASE(drm_test_bridge_rgb_yuv_rgb),
- 	KUNIT_CASE(drm_test_bridge_must_convert_to_yuv444),
-@@ -1376,6 +1487,7 @@ kunit_test_suites(
- 	&drm_bridge_helper_reset_crtc_test_suite,
- 	&drm_bridge_alloc_test_suite,
- 	&drm_bridge_bus_fmt_test_suite,
-+	&drm_bridge_chain_test_suite,
- );
- 
- MODULE_AUTHOR("Maxime Ripard <mripard@kernel.org>");
+v1: https://lore.kernel.org/linux-integrity/20261112233807.70664-1-sidchintamaneni@gmail.com/
 
----
-base-commit: c88084027d0e922dd925b96e5a0d184ba04a8f43
-change-id: 20261113-bridge-order-e8f4efb0b8fe
+Jarkko Sakkinen (1):
+  tpm: Cache TPM2 start method
 
-Best regards,
---  
-Oarora Etimis <oaroraetimis@gmail.com>
+Siddharth Chintamaneni (3):
+  tpm: tpm_crb_ffa: Only probe when ACPI TPM2 uses FF-A
+  tpm: tpm_tis: Use cached tpm2_acpi_start_method
+  tpm: tpm_crb: Use cached tpm2_acpi_start_method
+
+ drivers/char/tpm/tpm-interface.c | 21 +++++++++++++++++++++
+ drivers/char/tpm/tpm.h           |  1 +
+ drivers/char/tpm/tpm_crb.c       | 19 ++++++++++++-------
+ drivers/char/tpm/tpm_crb_ffa.c   |  5 +++++
+ drivers/char/tpm/tpm_tis.c       | 18 +++++++-----------
+ 5 files changed, 46 insertions(+), 18 deletions(-)
+
+
+base-commit: 912c3bad2eb993eb3e83c2689cd4e17361ef087f
+-- 
+2.45.4
 
