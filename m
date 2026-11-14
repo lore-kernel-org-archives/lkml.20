@@ -1,60 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794694192;
-	b=STOYrMbLiMvHFNmhKbrB8aQN9mfknTNG4rgB1ji6U2p2IedBuhOZsVQieDtml3aiPEtw
-	 uMr/btDWEjY8CxDmorGJC8snyKrnCkeP/iwJinaFwuL37Z6xWSn/GuMnO1Z+DJrFVF3cv
-	 qvH9yA4zmXYZPTnVE8axSJLrDWKkV5Be/0654cyJrBK2X7M/kQpfsP4y6hZSmUXjlwEuf
-	 D8CdPRM6k81bWcS91xDe3mr+6DEIBzVe2R4AYybbqENG3ycNb7aFPEyQl29BxXifC3GdR
-	 72ksRi5mtj0NHqY6liFQBgCJrX5f4Gi4iDXrMWiKQzMB8PW8cAjhkcdlqXBXLJPbL4A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794694192;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=zZRbRJI9Vfz0+GoIhf4fGkbxNtQ+z8NpL4ZipSXqN5g=;
-	b=qDi3uMJWiCPzaO18Yzk5eJ7hlc8XMLejU5NXLLsp130h63HkR8u2xRn/MwrVM0MyJN5Q
-	 F0eFIdAhpU8CF2WV4L8jMmcZlRbBAQozg+gEBcJluJQr/FoLZ9LRs98+GnMAPiwHLvk2R
-	 RlEM7Dzw6hHtIO1gprRMAdcdl8OA91cK0Uxoyblu8OSDI1+Fht9CG/MrUKyR3zfRD05PE
-	 Zb84aWnaESvtbnTcWdevwcFljJjKXudt/iXoKBecBfKgqF8O8hpaiadiaJd5UgdNMyT7c
-	 aVTaiAJShYFV4ZJCf0uunAPHeZTuGaLUwTlcIIoeLPYiO5cQy4Xrk+4Yn6GTKiCY5Yg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=pQ1xnE8y;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794694384;
+	b=SYpQCdshhChul7JfW4RzdT9U+6zJsyfGqn9NO52ikASbsdPdDDcgYrp9Xu4MfM0qXaz3
+	 D/KYGYxarjSMZ2QdUB5lV1YQjhAmugQrQYqKnTRGjg2AGM9Skk9Y5KGzY3wvgfs1aZmxl
+	 CaJ7q+pqTxJDZqnAvo+A0VfJ0nz2EdGLtJ8mdLy+EBPbo9XBn15oUfAx7H2QevzHVlCNK
+	 64FT+EssGYlvHSt6FFpZG9ygX1FlV35J9G6wZ1WaI/XkFDrUYNtetqj4W+IKtyV/ZrSgr
+	 skj/Q9f0/mfzVrtHQk8rh6iE7Wsj4yzeCXfKfFs6/WCIEDiTIuYv576CckVpj5WUR5A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794694384;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=JZYytunKML3y7PA1IDzFlQnkI0F6TBG/gdk3jD0lV4Y=;
+	b=DA3jr9Aw31qYAifXaUfzm1Wm1/yRaigyJhOvo8NrqRPs3GapemhjCyuWhoRlRwRyIpss
+	 rpRmVSoRVtlWQN6QoPl5wkZb3WH+oGMjvcISOTHXXcMLt+y88CSeaJQJGCQ80YcOdmg2z
+	 Q36e4uWgdMIvTbxBhBP22dC9up3UGvt2QfAnQgSf2JUgp5MbuplTPWvMAD61Nvywat/re
+	 9dYTrndZ+VIpnS3WRhMnEauOD7DRjk7ltj2peCM7ANX51PIJ//M8vRH5OdMqLnjmkqxhj
+	 O0C16n6k2s3rJECKCTwEId55y6ocH8GNbiyIoKzRiArXdZMW3QdmjT6WQnpTosoKbBQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LqSzYkdA;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C1A5606A323
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 22:09:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AA55606A335;
+	Sat, 14 Nov 2026 22:13:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=pQ1xnE8y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FF721F000C4;
-	Sat, 14 Nov 2026 22:09:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794694191;
-	bh=zZRbRJI9Vfz0+GoIhf4fGkbxNtQ+z8NpL4ZipSXqN5g=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=pQ1xnE8yPumAkeB71CPePY8aiJFttjOk57W09/iavHP6m48JR7RpUGWYzxnCCtKOY
-	 FZ3CK9rV0qhKeAC1POMyJekHHFdfO+Y1xjv+wjfarsWzELIGgc0epGqWOCmc55l4d7
-	 teVNR94jewpcIWV27YoNo/t6uDQ/JlBGwx9YQzFY=
-Date: Sat, 14 Nov 2026 14:09:49 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: "Barry Song (Xiaomi)" <baohua@kernel.org>
-Cc: linux-mm@kvack.org, axelrasmussen@google.com,
- baolin.wang@linux.alibaba.com, baoquan.he@linux.dev, hannes@cmpxchg.org,
- hui.zhu@linux.dev, kasong@tencent.com, kunwu.chan@gmail.com,
- liam@infradead.org, lianux.mm@gmail.com, linux-kernel@vger.kernel.org,
- liuxiang.277@bytedance.com, lyugaofei@xiaomi.com, mhocko@kernel.org,
- mhocko@suse.com, qi.zheng@linux.dev, ridong.chen@linux.dev,
- rppt@kernel.org, ryncsn@gmail.com, shakeel.butt@linux.dev,
- surenb@google.com, wangzicheng@honor.com, weixugc@google.com,
- yuanchu@google.com, zhangbo56@xiaomi.com, zhuhui@kylinos.cn,
- sidchintamaneni@gmail.com
-Subject: Re: [PATCH v9 00/16] mm: mglru: fix swappiness behavior
-Message-Id: <20261114140949.c47f9cf9c1ea22315092d880@linux-foundation.org>
-In-Reply-To: <20261114200803.23129-1-baohua@kernel.org>
-References: <20261114200803.23129-1-baohua@kernel.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LqSzYkdA
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794694384;
+	b=sHWlb4juzpxFpZKl4VWkH+1YxfHRUrBgpROCqIFdC59EdOnK9gdoFWI/LSkTYqGZvO5u
+	 0c/0yDdnDorno3KySml9HShdzQWS8E61JH/yHgzZYWh+Ip30BaDBQz2WIFiiqek+9/Piq
+	 3ICHzqcEITS8szwPiiVRnlMqJ4Z2Ak9UBVtlEMEjqr0uUYOfrMIVRxMn+GQQHWYMlwl5e
+	 75DSUoRcGCQu4o0RR7AZO3uw9xheR3eWDiCAochU8ULqEBBVvj8Ewg29tKKVlBnYu4P3S
+	 R3zyKePDr4/Bi3r8ZLplHixInHga3wfi+gOIoLwqHgDwaAXsc9DgxERqCYz+cd1LijA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794694384;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=JZYytunKML3y7PA1IDzFlQnkI0F6TBG/gdk3jD0lV4Y=;
+	b=H40o4TZ9pzT8h03QFENMIGZzjIIQnLytrph2ahqbMKcoxf+pWbBmFgFvvj15vJMdEDFm
+	 D5ehVD1VREAtJYD2zmn1M4Lg4uZ8X4Cvoc9De0IC0CXiIkJ181sysrt4vEjbiH/1GeO33
+	 5r0mMBUO0c3GpMhkNYrFt9PJEV4CSRLfbMIiIsl0pFptw9Qgp5WM37GryKh77iuI8W7fa
+	 YMecAjiglZJNml2aHbloMtKW0L+eLno6LxGBxRjuElN3TLlaO7RfWfj4NK4muX+cjSC8q
+	 q4a5NyUTuievk8GWdyOjMlP7B2s+4XhZHeYQ04yOH45OlmmdnwJqFY4Z7SbVS5zdRQQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 6850F1F000C7;
+	Sat, 14 Nov 2026 22:13:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794694384;
+	bh=JZYytunKML3y7PA1IDzFlQnkI0F6TBG/gdk3jD0lV4Y=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=LqSzYkdAGBJzfV/U9emY+CTs8KHhXW6+KtbvUEUn6x8dBfYskSnkA5uj8BsKLNIf1
+	 PMUFx5XdZNXMl75KuW6dx/36TU2B/hRZcDX8pE6+87thA227x17kBY9ID09xEMX+P4
+	 rkajep+H+gPeJIQFlj5jyfIINFKEyYNtqLk9FnHYJ5EyE9KssqTFiwOb3A8Dg5j2Gx
+	 wmJhNSIVGmclZFWW4WSeaxg5cn1rxGB7T0KmUh5xwqrJJDoz/I2Nzk9V6SADeVVZuc
+	 qXvfvlGKhkCN5Nxb9SUx8u0hUOTxTLuGBg+v9cFlt6Ijtke2f5vgDnTOuMMyywNhFC
+	 pYFG2eDnNeJ6Q==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id E97A749EAC;
+	Sat, 14 Nov 2026 22:13:02 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Date: Sat, 14 Nov 2026 22:12:59 +0000
+Subject: [PATCH 2/2] PCI: meson: Add system suspend/resume support
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,361 +81,195 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261114-b4-pci-meson-suspend-v1-2-be3d04a13304@iav.lv>
+References: <20261114-b4-pci-meson-suspend-v1-0-be3d04a13304@iav.lv>
+In-Reply-To: <20261114-b4-pci-meson-suspend-v1-0-be3d04a13304@iav.lv>
+To: Yue Wang <yue.wang@Amlogic.com>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: linux-pci@vger.kernel.org, linux-amlogic@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Igor Velkov <iav@iav.lv>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5260; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=MeM+aGdPJAWmnUmNJwf7DDqjZs0SyCzmsgJmymZ7zbo=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFk/7rwVPihZuTDPPzQ7h/9pz5wzbadeZUprzjDMYJg/0
+ VUie8rCjlIWBjEuBlkxRZYJhzRuZSy5+tffw/wBzBxWJpAhDFycAjCRFUyMDJtM+jp9o/ZMtxLR
+ Fw/S/ayTdeZLxbx7vS/+TTXNFp5h95eRYVZKguzmtvi6M/Y3pIIuZXxkua/z38m+YnGmhuK2r2F
+ SjAA=
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
+Reply-To: iav@iav.lv
 Content-Transfer-Encoding: 7bit
 
-On Sun, 15 Nov 2026 04:07:47 +0800 "Barry Song (Xiaomi)" <baohua@kernel.org> wrote:
+From: Igor Velkov <iav@iav.lv>
 
-> Classic LRU respects swappiness, while MGLRU only weakly
-> honors it when selecting the scan type. The fallback logic
-> can easily override the bias established by
-> get_type_to_scan(). As a result, swappiness has a much
-> smaller overall impact when changing from 1 to 200, as
-> shown by the data presented later in this cover letter.
-> 
-> In this patchset, patches 1-8 from Kairui introduce a model that uses
-> refaults to determine nr_to_scan[] for both file and anon in MGLRU.
->
-> ...
->
+On SM1 the controller sits in the PCIE power domain, which genpd
+switches off in the noirq suspend phase.  The driver has no PM
+callbacks, so the controller comes back unprogrammed and the first
+config access to the Root Port after resume hangs the CPU.  On
+ODROID-HC4 (ASM1061 SATA behind the port) s2idle never returns.
 
-Thanks, I updated mm.git to this version.  I included that Sashiko
-fixup.
+Add noirq PM callbacks that call dw_pcie_suspend_noirq() and
+dw_pcie_resume_noirq(): suspend broadcasts PME_Turn_Off and waits for
+L2 if the link is up, then calls .deinit; resume calls .init, programs
+the Root Complex, MSI and iATU registers and restarts the link.  Set
+suspend_poweroff, so that suspend enters L2 even when D3cold is not
+possible.
 
-The patchset does seem to be changing pretty quickly so I'll continue
-to hold it in the mm-new branch until things have settled down.
+Send PME_Turn_Off through the apps_pm_xmt_turnoff bit of PCIE_CFG0
+in a .pme_turn_off callback, so that no outbound iATU window is needed
+for the Msg TLP.  Bit 12 is apps_pm_xmt_turnoff in the description of
+this wrapper in the Amlogic A311D (G12B) datasheet, where bit 7 is the
+app_ltssm_enable the driver already uses.
 
-> v9:
-> * reduce one iteration for lruvec_populated_min_seq();
-> * let lruvec_is_reclaimable() count all zones, for min_ttl;
-> * refine lru_gen_imbalanced(), AGING_PRIORITY macro, roundup/down swappiness;
->   per Kairui;
-> * let evict_folio_lists() return "drained" per Kairui, thanks!
-> * one bounded retry for scanned=0 and reduce concurrent aging
->   for no-populatable(drained) aging;
+Do this only when the controller has a power domain, as on SM1.  G12A,
+G12B and AXG have none; entering L2 and powering the PHY off in
+suspend is untested there, so the callbacks return at once.
 
-Here's how v9 altered mm.git:
+A resume that fails to start the link or times out waiting for it
+calls .deinit itself, and the next suspend calls it again.  A second
+phy_power_off() and phy_exit() would unbalance the PHY counts, and the
+next .init would not power the PHY on, so .deinit leaves a controller
+that is already off alone.
 
- mm/vmscan.c |  131 ++++++++++++++++++++++++--------------------------
- mm/vmscan.h |    2 
- 2 files changed, 66 insertions(+), 67 deletions(-)
+Signed-off-by: Igor Velkov <iav@iav.lv>
+---
+ drivers/pci/controller/dwc/pci-meson.c | 53 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 53 insertions(+)
 
---- a/mm/vmscan.c~b
-+++ a/mm/vmscan.c
-@@ -2736,6 +2736,8 @@ static bool should_clear_pmd_young(void)
- #define get_memcg_gen(seq)	((seq) % MEMCG_NR_GENS)
- #define get_memcg_bin(bin)	((bin) % MEMCG_NR_BINS)
+diff --git a/drivers/pci/controller/dwc/pci-meson.c b/drivers/pci/controller/dwc/pci-meson.c
+index 627470c83bb5..5ef7369bb21b 100644
+--- a/drivers/pci/controller/dwc/pci-meson.c
++++ b/drivers/pci/controller/dwc/pci-meson.c
+@@ -9,6 +9,7 @@
+ #include <linux/clk.h>
+ #include <linux/delay.h>
+ #include <linux/gpio/consumer.h>
++#include <linux/of.h>
+ #include <linux/pci.h>
+ #include <linux/platform_device.h>
+ #include <linux/reset.h>
+@@ -27,6 +28,7 @@
+ /* PCIe specific config registers */
+ #define PCIE_CFG0			0x0
+ #define APP_LTSSM_ENABLE		BIT(7)
++#define APPS_PM_XMT_TURNOFF		BIT(12)
  
-+#define AGING_PRIORITY	(DEF_PRIORITY / 2)
-+
- static int get_swappiness(struct lruvec *lruvec, struct scan_control *sc)
- {
- 	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
-@@ -3995,7 +3997,7 @@ static unsigned long lruvec_populated_mi
- 	lockdep_assert_held(&lruvec->lru_lock);
- 
- 	min_seq = READ_ONCE(lrugen->min_seq[type]);
--	while (min_seq <= max_seq) {
-+	while (min_seq < max_seq) {
- 		gen = lru_gen_from_seq(min_seq);
- 		for (zone = 0; zone < zone_limit; zone++) {
- 			if (!list_empty(&lrugen->folios[gen][type][zone]))
-@@ -4199,7 +4201,8 @@ static void set_initial_priority(struct
- }
- 
- static void lruvec_evictable_size(struct lruvec *lruvec, struct scan_control *sc,
--				  int swappiness, unsigned long nr[])
-+				  int swappiness, unsigned long nr[],
-+				  int max_zone)
- {
- 	int type;
- 	unsigned long seq;
-@@ -4216,16 +4219,17 @@ static void lruvec_evictable_size(struct
- 		if (type == LRU_GEN_ANON && !can_reclaim_anon_pages(memcg, nid, sc))
- 			continue;
- 		for (seq = min_seq[type]; seq <= max_seq; seq++)
--			nr[type] += lruvec_gen_size(lrugen, type, seq, sc->reclaim_idx + 1);
-+			nr[type] += lruvec_gen_size(lrugen, type, seq, max_zone);
- 	}
- }
- 
--static bool lruvec_is_sizable(struct lruvec *lruvec, struct scan_control *sc)
-+static bool lruvec_is_sizable(struct lruvec *lruvec, struct scan_control *sc,
-+		int max_zone)
- {
- 	unsigned long total, sizes[ANON_AND_FILE];
- 	int swappiness = get_swappiness(lruvec, sc);
- 
--	lruvec_evictable_size(lruvec, sc, swappiness, sizes);
-+	lruvec_evictable_size(lruvec, sc, swappiness, sizes, max_zone);
- 	total = sizes[LRU_GEN_ANON] + sizes[LRU_GEN_FILE];
- 
- 	/* whether the size is big enough to be helpful */
-@@ -4244,13 +4248,8 @@ static bool lruvec_is_reclaimable(struct
- 	if (mem_cgroup_below_min(NULL, memcg))
- 		return false;
- 
--	/*
--	 * As in __alloc_pages_may_oom(), avoid triggering OOM for low-zone
--	 * allocations. Also, defer the LRU size check until reclaim reaches
--	 * a very low priority to avoid premature OOM.
--	 */
--	if (sc->priority <= 1 && sc->reclaim_idx >= ZONE_NORMAL &&
--	    !lruvec_is_sizable(lruvec, sc))
-+	/* counting all zones to avoid premature OOM */
-+	if (!lruvec_is_sizable(lruvec, sc, MAX_NR_ZONES))
- 		return false;
- 
- 	gen = lru_gen_from_seq(evictable_min_seq(min_seq, swappiness));
-@@ -4783,12 +4782,15 @@ static int scan_folios(unsigned long nr_
- 	 */
- 	if (sc->priority == DEF_PRIORITY)
- 		seq = lrugen->max_seq - MIN_NR_GENS;
--	else if (sc->priority > DEF_PRIORITY / 2)
-+	else if (sc->priority > AGING_PRIORITY)
- 		seq = lrugen->max_seq - 1;
- 	else
- 		seq = lrugen->max_seq;
- 
- 	seq = lruvec_populated_min_seq(lruvec, type, sc->reclaim_idx + 1, seq);
-+	if (seq < lrugen->min_seq[type])
-+		return 0;
-+
- 	*scanned_seq = seq;
- 	gen = lru_gen_from_seq(seq);
- 	max_gen = lru_gen_from_seq(max_seq);
-@@ -4893,8 +4895,8 @@ static int get_tier_idx(struct lruvec *l
-  * r_file / r_anon: refault rate for file / anon.
-  * w_file / w_anon: LRU size weight of file / anon.
-  *
-- * We don't calculate the scan cost, MGLRU uses lazy promotion, which will
-- * cancel the scan budget natually.
-+ * We don't calculate the scan cost. MGLRU uses lazy promotion, which will
-+ * cancel the scan budget naturally.
-  */
- static void lru_gen_balance_scan(struct lruvec *lruvec, struct scan_control *sc,
- 		int swappiness, unsigned long total_scan, unsigned long nr[])
-@@ -4950,12 +4952,12 @@ static void lru_gen_balance_scan(struct
- 	file_weight = nr[LRU_GEN_FILE] + nr[LRU_GEN_ANON] / size_bias;
- 
- 	if (swappiness == MIN_SWAPPINESS + 1)
--		anon_factor = sc->priority <= DEF_PRIORITY / 2 ?
-+		anon_factor = sc->priority <= AGING_PRIORITY ?
- 			      refault_rate[LRU_GEN_FILE] * anon_weight : 0;
- 	else
- 		anon_factor = (u64)swappiness * refault_rate[LRU_GEN_FILE] * anon_weight;
- 	if (swappiness == MAX_SWAPPINESS)
--		file_factor = sc->priority < DEF_PRIORITY / 2 ?
-+		file_factor = sc->priority < AGING_PRIORITY ?
- 			      refault_rate[LRU_GEN_ANON] * file_weight : 0;
- 	else
- 		file_factor = (u64)(MAX_SWAPPINESS - swappiness) *
-@@ -5090,9 +5092,18 @@ static bool lru_gen_imbalanced(struct lr
- 	DEFINE_MIN_SEQ(lruvec);
- 	int type;
- 
--	if (sc->priority > DEF_PRIORITY / 2)
-+	if (sc->priority > AGING_PRIORITY)
- 		return false;
- 
-+	/*
-+	 * Round up or down corner swappiness, to balance the heavy biased
-+	 * type better
-+	 */
-+	if (swappiness == MIN_SWAPPINESS + 1)
-+		swappiness = MIN_SWAPPINESS;
-+	else if (swappiness == MAX_SWAPPINESS)
-+		swappiness = MAX_SWAPPINESS + 1;
-+
- 	for_each_evictable_type(type, swappiness) {
- 		unsigned long seq;
- 
-@@ -5102,23 +5113,12 @@ static bool lru_gen_imbalanced(struct lr
- 	}
- 
- 	/* the vast majority of pages sit in the youngest gen */
--	if (youngest[LRU_GEN_ANON] + youngest[LRU_GEN_FILE] >
--	    (old[LRU_GEN_ANON] + old[LRU_GEN_FILE]) * MAX_NR_GENS)
--		return true;
--
--	/* Swappiness extremes: the corresponding type matters */
--	if (swappiness == MIN_SWAPPINESS + 1)
--		return youngest[LRU_GEN_FILE] > old[LRU_GEN_FILE] * MAX_NR_GENS;
--
--	if (swappiness == MAX_SWAPPINESS)
--		return youngest[LRU_GEN_ANON] > old[LRU_GEN_ANON] * MAX_NR_GENS;
--
--	return false;
-+	return youngest[LRU_GEN_ANON] + youngest[LRU_GEN_FILE] >
-+	       (old[LRU_GEN_ANON] + old[LRU_GEN_FILE]) * MAX_NR_GENS;
- }
- 
- static bool should_run_aging(struct lruvec *lruvec, unsigned long max_seq,
--			     struct scan_control *sc, int swappiness,
--			     bool no_populatable)
-+			     struct scan_control *sc, int swappiness)
- {
- 	DEFINE_MIN_SEQ(lruvec);
- 
-@@ -5130,13 +5130,6 @@ static bool should_run_aging(struct lruv
- 	if (sc->priority == DEF_PRIORITY)
- 		return false;
- 
--	/*
--	 * Run aging if scan budget remains but no folios
--	 * in populatable generations are available to scan.
--	 */
--	if (no_populatable)
--		return true;
--
- 	/* better to run aging even though eviction is still possible */
- 	if (evictable_min_seq(min_seq, swappiness) + MIN_NR_GENS == max_seq)
- 		return true;
-@@ -5151,7 +5144,7 @@ static void lru_gen_prepare_scan(struct
- {
- 	unsigned long total;
- 
--	lruvec_evictable_size(lruvec, sc, swappiness, nr_to_scan);
-+	lruvec_evictable_size(lruvec, sc, swappiness, nr_to_scan, sc->reclaim_idx + 1);
- 	total = nr_to_scan[LRU_GEN_ANON] + nr_to_scan[LRU_GEN_FILE];
- 
- 	total = apply_proportional_protection(memcg, sc, total);
-@@ -5190,7 +5183,8 @@ static bool should_abort_scan(struct lru
- }
- 
- static long evict_folio_lists(unsigned long nr_to_scan[], struct lruvec *lruvec,
--			     struct scan_control *sc, int swappiness, unsigned long max_batch)
-+			     struct scan_control *sc, int swappiness,
-+			     unsigned long max_batch, bool *drained)
- {
- 	int type;
- 	unsigned long batch, scanned, total_scanned = 0;
-@@ -5206,6 +5200,8 @@ static long evict_folio_lists(unsigned l
- 		batch = min(nr_to_scan[type], max_batch);
- 		scanned = evict_folios(batch, lruvec, sc, type, swappiness);
- 
-+		if (drained && !scanned)
-+			*drained = true;
- 		nr_to_scan[type] -= min(nr_to_scan[type], scanned);
- 		total_scanned += scanned;
- 	}
-@@ -5221,16 +5217,15 @@ static long evict_folio_lists(unsigned l
- static bool try_to_shrink_lruvec(struct lruvec *lruvec, struct scan_control *sc)
- {
- 	unsigned long nr[ANON_AND_FILE];
--	bool need_rotate = false, should_age = false;
-+	bool need_rotate = false, should_age = false, retried = false;
- 	int swappiness = get_swappiness(lruvec, sc);
- 	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
- 	/*
--	 * Avoid aging the lagging type under extreme swappiness,
--	 * as reclaim of the unpreferred type is disabled until
--	 * DEF_PRIORITY / 2.
-+	 * Avoid aging the lagging, unpreferred type at extreme swappiness;
-+	 * rely on imbalanced aging once priority reaches AGING_PRIORITY
- 	 */
--	bool allow_no_populatable_age = (sc->priority <= DEF_PRIORITY / 2) ||
--		(swappiness > MIN_SWAPPINESS + 1 && swappiness < MAX_SWAPPINESS);
-+	bool allow_drained_age = sc->priority < DEF_PRIORITY &&
-+		swappiness > MIN_SWAPPINESS + 1 && swappiness < MAX_SWAPPINESS;
- 
- 	/*
- 	 * Proactive reclaim initiated by userspace for anonymous memory only.
-@@ -5248,9 +5243,9 @@ static bool try_to_shrink_lruvec(struct
- 	lru_gen_prepare_scan(lruvec, sc, memcg, swappiness, nr);
- 
- 	while (nr[LRU_GEN_ANON] > 0 || nr[LRU_GEN_FILE] > 0) {
--		unsigned long orig_file, orig_anon;
--		unsigned long max_seq;
--		bool no_populatable;
-+		bool drained = false, do_drained_age;
-+		DEFINE_MAX_SEQ(lruvec);
-+		unsigned long new_seq;
- 		long scanned;
- 
- 		if (mem_cgroup_below_min(sc->target_mem_cgroup, memcg)) {
-@@ -5258,9 +5253,7 @@ static bool try_to_shrink_lruvec(struct
- 			break;
- 		}
- 
--		orig_anon = nr[LRU_GEN_ANON];
--		orig_file = nr[LRU_GEN_FILE];
--		scanned = evict_folio_lists(nr, lruvec, sc, swappiness, MIN_LRU_BATCH);
-+		scanned = evict_folio_lists(nr, lruvec, sc, swappiness, MIN_LRU_BATCH, &drained);
- 
- 		if (should_abort_scan(lruvec, sc))
- 			break;
-@@ -5272,20 +5265,26 @@ static bool try_to_shrink_lruvec(struct
- 		if (root_reclaim(sc) && should_age)
- 			break;
- 
--		/* Limit no_populatable aging to once per try_to_shrink_lruvec() */
--		no_populatable = allow_no_populatable_age &&
--			((nr[LRU_GEN_ANON] && nr[LRU_GEN_ANON] == orig_anon) ||
--			(nr[LRU_GEN_FILE] && nr[LRU_GEN_FILE] == orig_file));
--		allow_no_populatable_age &= !no_populatable;
--		max_seq = READ_ONCE((lruvec)->lrugen.max_seq);
--		if (should_run_aging(lruvec, max_seq, sc, swappiness, no_populatable)) {
-+		/*
-+		 * Allow drained aging only once per invocation and skip it if
-+		 * max_seq advanced concurrently during eviction
-+		 */
-+		new_seq = READ_ONCE(lruvec->lrugen.max_seq);
-+		do_drained_age = drained && allow_drained_age && max_seq == new_seq;
-+		allow_drained_age &= !do_drained_age;
-+		if (do_drained_age || should_run_aging(lruvec, new_seq, sc, swappiness)) {
- 			trace_mm_mglru_aging(lruvec, sc, swappiness);
--			if (try_to_inc_max_seq(lruvec, max_seq, swappiness, false))
-+			if (try_to_inc_max_seq(lruvec, new_seq, swappiness, false))
- 				need_rotate = true;
- 			should_age = true;
- 		}
--		if (!scanned)
--			break;
-+
-+		if (!scanned) {
-+			/* Retry once if aging advanced max_seq */
-+			if (retried || max_seq == READ_ONCE(lruvec->lrugen.max_seq))
-+				break;
-+			retried = true;
-+		}
- 
- 		cond_resched();
- 	}
-@@ -5332,7 +5331,7 @@ static int shrink_one(struct lruvec *lru
- 	if (need_rotate)
- 		return MEMCG_LRU_YOUNG;
- 
--	if (lruvec_is_sizable(lruvec, sc))
-+	if (lruvec_is_sizable(lruvec, sc, sc->reclaim_idx + 1))
- 		return 0;
- 
- 	/* one retry if too small */
-@@ -5915,11 +5914,11 @@ static int run_eviction(struct lruvec *l
- 		if (sc->nr_reclaimed >= nr_to_reclaim)
- 			return 0;
- 
--		lruvec_evictable_size(lruvec, sc, swappiness, nr_to_scan);
-+		lruvec_evictable_size(lruvec, sc, swappiness, nr_to_scan, sc->reclaim_idx + 1);
- 		lru_gen_balance_scan(lruvec, sc, swappiness,
- 				     nr_to_reclaim - sc->nr_reclaimed, nr_to_scan);
- 
--		if (!evict_folio_lists(nr_to_scan, lruvec, sc, swappiness, MAX_LRU_BATCH))
-+		if (!evict_folio_lists(nr_to_scan, lruvec, sc, swappiness, MAX_LRU_BATCH, NULL))
- 			return 0;
- 
- 		cond_resched();
---- a/mm/vmscan.h~b
-+++ a/mm/vmscan.h
-@@ -117,7 +117,7 @@ struct scan_control {
+ #define PCIE_CFG_STATUS12		0x30
+ #define IS_SMLH_LINK_UP(x)		((x) & (1 << 6))
+@@ -68,6 +70,8 @@ struct meson_pcie {
+ 	struct meson_pcie_rc_reset mrst;
+ 	struct gpio_desc *reset_gpio;
+ 	struct phy *phy;
++	bool power_domain;
++	bool powered;
  };
  
- #ifdef CONFIG_LRU_GEN
--/* The number of pages of @type in the generation @seq, summed over all zones */
-+/* Number of pages of @type in generation @seq below @max_zone */
- static inline unsigned long lruvec_gen_size(struct lru_gen_folio *lrugen,
- 					    int type, unsigned long seq,
- 					    int max_zone)
-_
+ static struct reset_control *meson_pcie_get_reset(struct meson_pcie *mp,
+@@ -385,6 +389,8 @@ static int meson_pcie_host_init(struct dw_pcie_rp *pp)
+ 		return ret;
+ 	}
+ 
++	mp->powered = true;
++
+ 	pp->bridge->ops = &meson_pci_ops;
+ 
+ 	meson_set_max_payload(mp, MAX_PAYLOAD_SIZE);
+@@ -397,13 +403,29 @@ static void meson_pcie_host_deinit(struct dw_pcie_rp *pp)
+ {
+ 	struct meson_pcie *mp = to_meson_pcie(to_dw_pcie_from_pp(pp));
+ 
++	/* After a failed resume the next suspend calls .deinit once more */
++	if (!mp->powered)
++		return;
++
+ 	gpiod_set_value_cansleep(mp->reset_gpio, 1);
+ 	meson_pcie_power_off(mp);
++	mp->powered = false;
++}
++
++static void meson_pcie_pme_turn_off(struct dw_pcie_rp *pp)
++{
++	struct meson_pcie *mp = to_meson_pcie(to_dw_pcie_from_pp(pp));
++	u32 val;
++
++	val = meson_cfg_readl(mp, PCIE_CFG0);
++	meson_cfg_writel(mp, val | APPS_PM_XMT_TURNOFF, PCIE_CFG0);
++	meson_cfg_writel(mp, val, PCIE_CFG0);
+ }
+ 
+ static const struct dw_pcie_host_ops meson_pcie_host_ops = {
+ 	.init = meson_pcie_host_init,
+ 	.deinit = meson_pcie_host_deinit,
++	.pme_turn_off = meson_pcie_pme_turn_off,
+ };
+ 
+ static const struct dw_pcie_ops dw_pcie_ops = {
+@@ -429,6 +451,13 @@ static int meson_pcie_probe(struct platform_device *pdev)
+ 	pci->pp.ops = &meson_pcie_host_ops;
+ 	pci->num_lanes = 1;
+ 
++	/*
++	 * Genpd switches the controller's power domain off in suspend.  Only
++	 * SM1 has one, and only SM1 gets suspend support.
++	 */
++	mp->power_domain = of_property_present(dev->of_node, "power-domains");
++	pci->pp.suspend_poweroff = mp->power_domain;
++
+ 	mp->phy = devm_phy_get(dev, "pcie");
+ 	if (IS_ERR(mp->phy)) {
+ 		dev_err(dev, "get phy failed, %pe\n", mp->phy);
+@@ -477,6 +506,29 @@ static void meson_pcie_remove(struct platform_device *pdev)
+ 	dw_pcie_host_deinit(&mp->pci.pp);
+ }
+ 
++static int meson_pcie_suspend_noirq(struct device *dev)
++{
++	struct meson_pcie *mp = dev_get_drvdata(dev);
++
++	if (!mp->power_domain)
++		return 0;
++
++	return dw_pcie_suspend_noirq(&mp->pci);
++}
++
++static int meson_pcie_resume_noirq(struct device *dev)
++{
++	struct meson_pcie *mp = dev_get_drvdata(dev);
++
++	if (!mp->power_domain)
++		return 0;
++
++	return dw_pcie_resume_noirq(&mp->pci);
++}
++
++static DEFINE_NOIRQ_DEV_PM_OPS(meson_pcie_pm_ops, meson_pcie_suspend_noirq,
++			       meson_pcie_resume_noirq);
++
+ static const struct of_device_id meson_pcie_of_match[] = {
+ 	{
+ 		.compatible = "amlogic,axg-pcie",
+@@ -494,6 +546,7 @@ static struct platform_driver meson_pcie_driver = {
+ 	.driver = {
+ 		.name = "meson-pcie",
+ 		.of_match_table = meson_pcie_of_match,
++		.pm = pm_sleep_ptr(&meson_pcie_pm_ops),
+ 	},
+ };
+ 
+
+-- 
+2.43.0
+
 
