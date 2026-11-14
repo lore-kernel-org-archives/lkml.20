@@ -1,52 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794629818;
-	b=00lFJ7cBWFtRRW93RimQgyil3ehgM+mu0Gwq9lNi8vDS/xmq1J3E501gPo3Mq/f/xYWF
-	 RJEsNPeXS5W6n+WvVjNNuiwnILb8Fx66wDmF7kixIjDo4OaFLQ91WEJhJ1ELLoDVp0bxM
-	 mC3bBf+o4uL958Pve1ZpQU/YJhl8Uv3cXKzVVf19vnrLxxacTlF6Y0fNzcaXPfcFLXgyp
-	 SzWOCnCJ69WCLcvi4/iNCKwG6c5oCeB2U01urw8Z0OPBqZYw5sYrNUGW3Ty9nZayAqMF3
-	 3MOphoiJaReQjsNpOVrQJ0LgX6ly0bFHQp3W3BenSe5gqpb8EuSGs2YUaUKjqG4EPIg==
+	t=1794629849;
+	b=pKkIvPWaZK+n8/dniqPaOkNUXQGktEWebgZe5TnwR0QIjU6krc4TrGznvP6mj2DkKEL5
+	 6uexIkozNceaSt+IFw9hXPwp95OVePy/jsRAlPhK4oqmNdJi9w0RQmQf71xvwdgr/smQO
+	 4uThODnUZswrQskng6sQ0bxU3Z+LMLX8YTotF+evIDUFOd1G1Qg8zhqHvgaYppzDTvS8F
+	 QSul1w0KFp6cKMaDQl6qluKINqmE/azDzC5o1mFE+ExVMzn4NrzlPmGWUz/FetAggquJh
+	 /qpMrZN79QHXsZP8vNexoTt2GHes37sWtlf/B/5/pRfbG47Y6cisRRVS2C3vjYCmBeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794629818;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=S6kiqdVKMkVNYTChARUpKHlGdEeOPXN5Ha+0Av6nzJ8=;
-	b=qhYHnYgA+zDLEQktpOh1+/bKzUgajUWVHOA6e2qJVaqSEx43CPY/oBXHyCGrjw6rErcH
-	 JvBRCxZpc4WvtLQjC/i6+PIFDvsye63CPoQa9pUR+UKri7IotnWbOprV7PCR17cKnhEk9
-	 WJ9aiA+UXSRlaU18hoCDoZ/k6ptCYmbNQC18kgip2apIA9gBomJAFVoGUQ/uDyvDxfQZY
-	 CuXXyp01p7GroBFhH05LfvjxInV0O/SundoDlHhPrrs7bUMJ/Yn9LVcu+E2O02Gu3r1nF
-	 9Y/Y9L6FT/V+4s3NwGnm0SmDbNQQuExj8Q60RfzdG6sJ84EYbqTDauuiA2kSpfu7Ddw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794629849;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=iB/K03lI4KCa3CigydQl65EWnXtxB4ckz0UoZC12GJM=;
+	b=YiTVVVumNKE6Q4yMgSmRc4aEzjwIfGbDzDACdSluBvd8PXUfmlyjuJMBrdQdAFtaWpft
+	 WtE71X47jyNN+wXicKXneYdt7mreJv9cl+SKzjNheTSnU+2j0DfMrzRrEBst1gwE6Pv2F
+	 fW/mbmTL7I0RW+kFCmKd8XhytABKNrgYJUVJJPOKOW4Ioqaeq2O5uVBCfq3y84xZYcTlG
+	 obnhFy8upjAsgWh3B+RbddrabFMcRIruqsVzxPgt9cLRko8HILPk25NqZQ7cWzK0XjjA8
+	 b+4Q+76PQWoaeriXx9WcL5iKQrCZxdCWw17td571FFd0D76kqnzTHbD30vLPXjrzTVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=OuFlSZ8M;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8130606A32E;
-	Sat, 14 Nov 2026 04:16:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8130606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from [172.100.0.8] (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowACHl5iu4Pdqpa7+AA--.17162S2;
-	Sat, 14 Nov 2026 12:16:46 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Herbert Xu <herbert@gondor.apana.org.au>, ayush.sawal@chelsio.com,
- davem@davemloft.net, harsh@chelsio.com, linux-crypto@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] crypto: chelsio - Fix wrcount leak in chcr_aes_decrypt()
-In-Reply-To: <e34e5630-2f3e-4f7f-9f47-4fec11c1a61e@kernel.org>
-References: <20260916092359.2001753-1-vulab@iscas.ac.cn>
- <arNk6ujyrvTsFBfS@gondor.apana.org.au>
- <e34e5630-2f3e-4f7f-9f47-4fec11c1a61e@kernel.org>
-Date: Sat, 14 Nov 2026 04:16:58 -0000
-Message-ID: <179462981823.3213356.6963922528052260032@iscas.ac.cn>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 114DA606A327
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 04:17:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 114DA606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=OuFlSZ8M
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso3119419eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:17:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1794629848; x=1795234648; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iB/K03lI4KCa3CigydQl65EWnXtxB4ckz0UoZC12GJM=;
+        b=OuFlSZ8MQIsrwDi8G4zjq3k4pLwpvbrHSKiXX6UOXn/y5OvcQVTwJ5FB83JYBW2ON1
+         HPYLr1mbypw2ko+jPnccdjGAf9K+pz+0Em9zot5d6svD+mog6lio2H3/cJe5orVXUSyB
+         wOAAyqfk/v/JdxSytCjnZSG/Dfmdw7i7anf/3UN20SwqZrlRlUy5b6c9j8WYu+i5Tyzv
+         sxSERoMfahWESVOmlN45nFSnvZERoZJOu0zlqHsO1jfKreKbjRILtHbVTQsZYZlx7CMe
+         M2IXtNcjwRP4mlcG+oT/rujgGAG7Z6CLWCwgFSDEBAfcdRGl9MP+Eu+eTgLc1dWUPmyS
+         zPbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794629848; x=1795234648;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iB/K03lI4KCa3CigydQl65EWnXtxB4ckz0UoZC12GJM=;
+        b=ddYCwOXmn4pFfodBpIN1MTSDWTFfQdEAR9q73ZrDZl2spuiiT+helkS+blWjFdT0N5
+         XAFkUrVqcmVMe4JzX2XZUrET7d1v2n2Nof7kTUkYZP6A/yK7awhLC8BynQhGofMfvLH1
+         pIq1Td6e320xEYvmp7ZSQxcR9/D/g5IR5RzuSkUZbKVFVKRyRbTblhEhN1f2Rnjuo8/M
+         X+C6yUoaDSLjC8KLQTtUBQzZpsUzO9pG26pHNNNOtlrpjxzSdBxRtMJ/6MhgDttnMJnw
+         lklO/fOeleffOVZ6p11LZmkSzCyEX7EAcQhAU3u9K3gVyrD6wwDoH5XCADUPZqXp4Yge
+         HRaQ==
+X-Forwarded-Encrypted: i=1; AL+hErGElVmcs5wShd4ludxMFKe3S5WuDfxextpEX0/4KLLDNoqw93KU2H/9y6v94DBRYzmRoamE2bhpapteUHM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/yN7r+CIi0r5mH1UHAL79ytNCezSMYJBijubu2loboZsetP+Ga
+	7OuM7LQFS7MSF/PT/X7rziw6lTTWZXskIz7sSvq3Pxge2LgPE3VvpBW6ef5WK8uL1O4=
+X-Gm-Gg: AYBFou3qhDGIUu/4Di7CIjs1A/8rk165WHyJF4dzvScH00LaPXEl//MzQ+fJ+9yqJAP
+	X6d8FBxYhjYn8QJDEGgJJwYQxPv6PzuNdxm9yKru2ik7IFuy6yOT0fjZMxp/Nwgz4SbeuL9iM//
+	IXAJerNVG7xgKZJmtfxdXr2NThHSsZfitlQHDdjAdqeENCF97Aiga/05Pyb2FtHWazMdyIcttla
+	+M/giSS2jeOSAoBvNt4GpIoEQqbxvlRYf/6+U/wZ4qKYqWBWF3apH1eGD2c9LoeOW3Q9eHifKGa
+	jW0500pqbfizmtxJ6vR8IMXm9J7uO2M9DImkwuUaGviK013+Va5IgyE1ZxjuRjgbkPO1MRaLkWx
+	qtuUhbr0TPf2JfRjZ9N2SPE+5gGa/nbaV3LORIi077RMzTE6qZld2wlxJyI9fE3q8WvnnrGwLgM
+	2M4qsxFGPfTREAd5762lYtsU+OF3VKUqIqfm3R/pUwlTOy7qoMi06qvyoVz8GD0HuEmv/3Ts2bO
+	mN7z7rIhcdDl9iVHRWj12YmfYq0+xZcP/Dm9rFd1SmJg/YssWAMa4u+Ewvl+ON3VzU80ixpupeH
+	54QvRERxoj+dT/C3wq06vRDQjSK9IDG831KjEiauHZ67D/AZ0mSvb8X/JX6R5G4jaDh++Bv/jnU
+	ULDL+DhzjsDvQQJDKTtWJONZF13e1JLZjZtCnOg==
+X-Received: by 2002:a05:7022:2390:b0:18d:96e8:b913 with SMTP id a92af1059eb24-1b503195191mr6210044c88.47.1794629848063;
+        Fri, 13 Nov 2026 20:17:28 -0800 (PST)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:f861:b117:6318:c068])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50309b27dsm11046075c88.2.2026.11.13.20.17.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 20:17:27 -0800 (PST)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: mkp@kernel.org,
+	James.Bottomley@HansenPartnership.com,
+	ching2048@areca.com.tw
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	thenzl@redhat.com,
+	erich@areca.com.tw,
+	yhlee@isslab.korea.ac.kr
+Subject: Re: [PATCH v4 3/4] scsi: arcmsr: wrap the type B completion index
+Date: Sat, 14 Nov 2026 13:17:18 +0900
+Message-ID: <20261114041718.551698-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <sashiko-outbox-214130@kernel.org>
+References: <20261114033810.549787-1-yhlee@isslab.korea.ac.kr> <20261114033810.549787-4-yhlee@isslab.korea.ac.kr> <sashiko-outbox-214130@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,56 +105,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:rQCowACHl5iu4Pdqpa7+AA--.17162S2
-X-Coremail-Antispam: 1UD129KBjvJXoWrtw4fGFW7WFWxKrW5GFy5CFg_yoW8Jr4rpF
-	Z3G3WfKw1Utr4jyFW8C3y7JF15Ww4rAa4DGrySq3yvkayYva47Zw109r4Uur43uFs8W3W3
-	ArWavrWqkF98AaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv0b7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6r4j6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxV
-	WxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
-	Yx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7
-	v_Jr0_Gr1lF7xvr2IY64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l
-	42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c
-	02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_
-	Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7
-	CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v2
-	6r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU5
-	7rcDUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRULA2r3wMY6pQAAsQ
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Krzysztof,
+The review above is right about the Fixes tag on this patch.
+1c57e86d75cf has no type B code at all; struct MessageUnit_B and both
+doneq_index readers arrived with 1a4f550a09f8, so the tag should be:
 
-My goal is to contribute to the Linux kernel and to study how to
-effectively detect bugs in it.
+Fixes: 1a4f550a09f8 ("[SCSI] arcmsr: 1.20.00.15: add SATA RAID plus other fixes")
 
-I have never intended to introduce bugs or to use a large batch of
-patches to hide a harmful change. I ask that you stop suggesting
-that this was my intent.
+Nothing else changes.  I can send a v5 with only that line corrected
+right away, but I did not want to put another version in front of you
+just for a tag.  Martin, would you prefer a v5, or could you fix the tag
+up when applying?
 
-I have personally replied to all the concerns raised so far. For
-example, I explained to Jeff why I had used a shared address and
-how I would handle the remaining feedback. I answered Laurent's
-question about why I submitted the patches. I also apologized for
-submitting too many patches, for not validating them well enough,
-and for taking too long to reply:
-
-https://lore.kernel.org/all/179385786361.1679257.11036002925458972121@iscas.a=
-c.cn/
-https://lore.kernel.org/all/179430684554.3011466.3431045638041318447@iscas.ac=
-.cn/
-https://lore.kernel.org/all/179436839700.3055208.16759622808608708086@iscas.a=
-c.cn/
-
-I wrote the first draft of each reply myself. English is not my
-first language, so I used AI only to help with grammar and wording.
-I checked the final text before sending it to make sure it said
-what I meant.
-
-I'd be grateful if you'd give me a chance to make up for my mistakes
-and earn back your trust.
-
-Thanks,
-Wentao
-
+Best regards,
+Yehyeong Lee
