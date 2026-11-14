@@ -1,62 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794632461;
-	b=PDRk1sxrHIk2lLBmGNOb9BEq9jje/HCFqZBSW0vJmkjxcvUWFh0U3W4j4TyKpFolspqS
-	 W7/lP0Z/5MiKHPI8bDuW66m8NFEc6N8xgsuBt9biByl2VVdNWbZBDVWnVKq+oi1f0AshU
-	 HCx3T/otqLqndefOVzFyreqxWoVb/NEz1gtBR+qGGZBrOon8VDqV07vQVLOVTynxJqVee
-	 4DM/Gzy0ljvk3Ok1til0fNArg5biZLa3OXvq/Oy71qEWjD6KehTC/qXmQQgmkd0KNRF7A
-	 1gvpt80267PYFCL1EaD5y9iWae087Gd2+QHwj5KRnTAkVuMM125EpWexR/4KOl/fyzQ==
+	t=1794632500;
+	b=dWbiHbVQSMmGA3PJjOVmv3vUGV4Eu7DFF0PNxQwRWp+d8s9S1w2DWnsrbJQDPmmHKuqd
+	 7iZIDdYJQK+vB6bxpy6vRY3Ki8HTU49JHIXCc0jR2CwehlLkZ80WImBVDzp5Rz+pHrCms
+	 lREoZrc2kuTk02vEygZzrI+fzaAZvuoKly/3dh9UZ2H5sq73PIwcmpf030AAj0yL1YaGh
+	 EPOU85xNIRdzMtlHGx6FPE/a4SNflH18pfYYn7QtTJh5iqflWfUFW3PHtdo7l9Qt0ENYi
+	 SVSCDZwtjsJgs9M//2DAJ8IxzX4HU0eLDprIilsCSJRoU+UrLSvG2cyhAFWbzYozC9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794632461;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=FShdlslzM911JtukmWMX2/ZVY+TqW//QbC3HYu/eN2M=;
-	b=Ow2Sz9+aI71E1RZ9fyrOTdKzmQJdpPO/jo4oJJPDeTmwLE+jT++G54/Sa9vyrfMT68jq
-	 fvg44abNYOeLoa0jDVKkx8l/mS3QMtGKB5tv/Nqu6Mbbw8u2bVMEZ2ryDtqamlsw1x5v9
-	 ESzprWqkSVhnvBxBgHc2SJwr+qsok7X5UBt+clobW/4y6fdqeL3fUxvoQrEXm7K1fE7cR
-	 UKRhgi9Em71bQmtMZ9Fo7vsm4oeO/rKx+mdc13riKf6EYXNKfzOdFXjSELxj6n69w4CT4
-	 vvRVfITD88y8PM+mdTpFwNnxJiIKOi7JlULzPt4c7E5+EQ3/DoW9Uhk/NCX/3G7MyMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794632500;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=XsyBqFQpB4uqfmK/Q9kt69A4CrjPtbiX6wa6hMkSoPo=;
+	b=kz+XYk7uNt/WQlT977y3fH/n7q2TlO+MKPalzsvsgqtdBXTUcWfGuKEGEIAsyIAwHRH+
+	 wiJ05WM8VRnSyEVDm8KER8mOdcC36oPr1zzZnnarQCwzq9GIt5rPgcrUQFWn7A/WjJImj
+	 tvBHW2LikWc7FX/sMYEyb7jFCa9wEnpTt0VkZBibzBp7GsFqDZau08N3IUvOaYyGhoHPD
+	 4+bJWK4l48CDKmQCDGamap7G7CitDf9n2rvh2w+bEfL2xQ9NjpFDmHjwXGKCJcDfdnZ6p
+	 EiHYRzc20CRIkdNc/WxINkwJM0TOCtFcjbDX8ntYctAdJaXSsU46wapm191o2XdzKkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=YWB52lWn;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JoOiROaT;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9324606A8AD;
-	Sat, 14 Nov 2026 05:01:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9324606A8AD
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2379606A89B
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 05:01:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2379606A89B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=YWB52lWn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794632456;
-	bh=A66z4fzdw8+ZbWsKu+Y9Zbehkc3QRLS+yNEvhHjuAYI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=YWB52lWncr5W13EDdDNOdLdyMjFxvJV25UfjaZ89ELhFqCdWSaX/oeENFnons80oD
-	 9oXyidy4wHZBo/iJPFvh2wgZeo+jGkY0xryOMyPptohXTchwSqT3eqgszw2f/VsDJi
-	 rRoslH/5O+iMA337w9WXRTfGacn8xbgfMnPKceTsrCEIWbvPISu69GdAlxjDSMJQeb
-	 NFbTNze7yXnZsW0XbkONnmhlXl6eECYKO/3XVbGotYR+xDo0jQjp1j6pQ9myA2oghK
-	 bKW+yNxLUuDyooZ0YD8WnLDVtQaW2cnu2YzPX4W0K8PqnGXI7EMKfN0JSSPIsL2syf
-	 9763wZ0HBYSlg==
-Received: from jupiter.universe (unknown [100.64.1.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id BD4C317E3BDB;
-	Sat, 14 Nov 2026 06:00:56 +0100 (CET)
-Received: by jupiter.universe (Postfix, from userid 1000)
-	id 1A6DF480048; Sat, 14 Nov 2026 06:00:56 +0100 (CET)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Sat, 14 Nov 2026 06:00:43 +0100
-Subject: [PATCH v12 10/23] drm/bridge: synopsys: dw-dp: Add follow-up
- bridge support
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JoOiROaT
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4bb6057b03fso2944245e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:01:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794632494; x=1795237294; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XsyBqFQpB4uqfmK/Q9kt69A4CrjPtbiX6wa6hMkSoPo=;
+        b=JoOiROaTWElWJE/9OqmMcTcIEuBaZ9LFk+zZjR+KV3E2MgEALRFAz8g9l44oWgTpKW
+         qclPPYr9pwJp8ludq/OulNKENxbDXJdVjUDL09hiEt6S4Y/X21V1+cUKZizLzoQx7Asd
+         klCu4PjDeXbR6e511SzOwQ2lngjkAjWv1/vuNQBEHmGQP86DbbsqHK7q8jwWg3pEyFCc
+         RvDxhUgfx+Q3sCp6ZYd6kpIZWXhCS5Jhvz1z6mnydrf2BWaj8ZXV7BBbCEe/DqAx3pDp
+         BdpRZ7NqcVFMXKNUCRmxuXNKatZHpxvdb7cbakINnm7zFC41L2EBYnAVeS3vSHnGZMBq
+         T1PQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794632494; x=1795237294;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XsyBqFQpB4uqfmK/Q9kt69A4CrjPtbiX6wa6hMkSoPo=;
+        b=S+ftKkT0c5m269PHN+zSoFRnzSiQABaUcteCTVSriQf6J8n4PdFHi5HO5DGxWMrrOS
+         bZ2Cy01CG9xcx4T3PYcMi+s4YFULjLrb1+L7HkEzvPkrVSmmbud2A33wL0J8pPom1bka
+         YjB5K6fGEb3dhmm6JYXFsqUQos8e+NKfJzeLccn2t4v3HquezP+vsMsSOpQwhjwsYGBz
+         IXC9MXrX3UXyXA/lSHnvMUuspCgGEdF9MCaI3spZJ/MA8cw38KKoGtlyb57JlM9OTOjO
+         jrUBd/9pgU1zHk9USC3S8KxQjU3CWNBj+Q615qg7M7ZP5SP1M7ugbwnLfihzWSe6EkXr
+         HI2w==
+X-Forwarded-Encrypted: i=1; AL+hErFlQzRQY2nVQ05bD75pItZt/yyxb+iOcta3/CMT5VvWXz4aViystl8QeP629JD2Zo1RcqBmLOTQai8JXRE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/wNey7RC5Ljj7a9iXiZAo1RQCxCzW30chwvpV6JVm1+j0kTt7i
+	UTAXIBmjt1TunDmNQJdobI8cc/H84ljuUn86rUG6WnfxZca8wx2tzJOf
+X-Gm-Gg: AYBFou2LsW5nwa02T3PPnw+e1622sBar/2mv8y+P3PY8+2nZot0YbfGmX1jmwgo75Ef
+	p+QLWko7GUepYLN8xzVpcUs0s17QVRrBbkGzEUU6IpepHf1adlE9mkqxKOvxDb2DbMRB1qYTGgQ
+	vS8rEckQHfB1jIJRqarWkjoZBdTsMQokb2JzxJQzA2+T+hvJP93mVDVB8Xboq7zZR/STYarzq3s
+	KeQL739/S4fWz/sdK6nkgpFePjt4lydxlKtbX1vDygmw5VU5rNgfJibAw6YGyc/W2NDwAkA5CNS
+	JMAdnpFZHDwWOLqswefcYbLDbsUd29gZDEqxuaHou9QHNNla1shQiDclodn5r6AIcgNgKlFiFNs
+	Z/9v8HE8daUV8Cna/GykIWgO6RoYlhdpDXEVn64OQl/HBwuEVtv5KPXvS/KYPSF0/N2RSgCq+GQ
+	pxvZJb5GTOnk790Oh+5kiV9/s14E2PTyPhK2VwFK04io24MQxZL3sEAE3R/Cpg6e9PwgAQ+Txt+
+	rRlfEjegLF5B8rRZgxqn2pHvr0kBQs66xXWIB7fYj9xwKF+96WOjQ2CoySEmVB+TSZy0sd6VWmi
+	988lbEaCSwWFKzfXKIBzVJyalisarAzDiv1+Y54lNfbCW1f0CzIPYA8mvMLQ1vkXZbZIjKqdRQH
+	+OJGMPsiruEsxWoTQD50yUVsnv6hVMlYzdNEHAznQvnPxB3Qnjjsg1IxTIt4JYiyXql4=
+X-Received: by 2002:a05:600c:1913:b0:4b1:2026:6b41 with SMTP id 5b1f17b1804b1-4bb55ab021bmr98950275e9.30.1794632493836;
+        Fri, 13 Nov 2026 21:01:33 -0800 (PST)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb5671059bsm65540875e9.1.2026.11.13.21.01.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 21:01:33 -0800 (PST)
+Date: Sat, 14 Nov 2026 08:01:29 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Shunbo Shi <shishunbo@cmss.chinamobile.com>
+Cc: dan@pereq.eu, elder@kernel.org, gregkh@linuxfoundation.org,
+	greybus-dev@lists.linaro.org, johan@kernel.org,
+	linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-usb@vger.kernel.org,
+	syzbot+0b456664585fa81a47f6@syzkaller.appspotmail.com,
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [PATCH v3] greybus: verify the received message size covers the
+ message header
+Message-ID: <avfrKSBbpEp7vQyO@stanley.mountain>
+References: <avV8I97uZJgX8Osk@stanley.mountain>
+ <20261113234739.1432-1-shishunbo@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,155 +103,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261114-synopsys-dw-dp-improvements-v12-10-d42d3dc5bdd4@collabora.com>
-References: <20261114-synopsys-dw-dp-improvements-v12-0-d42d3dc5bdd4@collabora.com>
-In-Reply-To: <20261114-synopsys-dw-dp-improvements-v12-0-d42d3dc5bdd4@collabora.com>
-To: Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andyshrk@163.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
- Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Alexey Charkov <alchark@flipper.net>, dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, kernel@collabora.com, 
- linux-arm-kernel@lists.infradead.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
- Igor Paunovic <royalnet026@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3163;
- i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=A66z4fzdw8+ZbWsKu+Y9Zbehkc3QRLS+yNEvhHjuAYI=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr36weQXp2TpQc0ktSq3phqETqABg9yRFQTm
- TMrd0NLtcVYtIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq9+sHAAoJENju1/PI
- O/qaa4oP/REA0d18YRdrXn8W1+NBUMnYf1bPCPwXntiD/fPHV1B6LtMe2oGAEL4dMoytij/ggcD
- cGqFYLo9+gOha9r32AX9D5ILQpHR19oOLv9MXg7q5G4MhToN/ZrOlipVfc5dHhvzHgxLlEPOVmo
- AHtyepbe9Tsa7zAIs4sEiauNBLfCrsUfwtR5vxmV9A8ytDQFJf6m/UCN4ruNk/7l1Dt11eFdiYt
- /YmmmZ2bcVZmFcOZINdkO8z8lYy3M07j9Mmf3rViHXtkYB80h8jMaSkaUeZo12LZPgf88FLvFf+
- 6LJIdUqGHKXSIW3jdrrMMonrd8IzIgeY1nnrV0onq23WAH9FG1QB4Z1NPPS49oYCe5WwdTEtyXY
- ghS8Sh4FVUyc7xiDK79liQF4A7dJsUvoIZTpTaej+8gzse+ESHiAJBCRojjodGBgTu+i6fFd99V
- YRnnZMreVavbvVhP/rsRnPNnTqNNUxqPK/u1Vhg9rE1umR6v4ur5FX+xQr0jptvos8yR+YWFl8O
- GFmuEKTDU2S0PN3EO6ZHL0QNBWXpTRq5SufQCjt92g6Fv08g6IwkiPcecK5o6cRNEuYAZIIBkkq
- wzpq3+k3Jd42Gc/mg30dsVpHoitT3ctAvHI//iMIt4NXUzVMc79qDB8voTNUmcxeSoSQSytFQaH
- /EMB9U2ZGvN7hcyqFLcIqcw==
-X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
- fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261113234739.1432-1-shishunbo@cmss.chinamobile.com>
 
-Add support to use USB-C connectors with the DP altmode helper code on
-devicetree based platforms. To get this working there must be a DRM
-bridge chain from the DisplayPort controller to the USB-C connector.
-E.g. on Rockchip RK3576:
+On Fri, Nov 13, 2026 at 11:47:39PM +0000, Shunbo Shi wrote:
+> In gb_connection_recv(), the size of the received data is checked
+> against sizeof(struct gb_operation_msg_hdr) and against the message
+> size encoded in the header (msg_size), but msg_size itself is never
+> checked against the header size.
+> 
+> If a peer sends a message whose header claims a size smaller than
+> the header itself (e.g. header.size == 3), the two existing checks
+> both pass (size >= sizeof(header) and size >= msg_size), and the
+> message is dispatched with the undersized msg_size.
+> 
+> In gb_operation_create_incoming(), this leads to an unsigned
+> integer underflow in:
+> 
+> 	request_size = size - sizeof(struct gb_operation_msg_hdr);
+> 
+> The underflowed request_size then wraps back around in
+> gb_operation_message_alloc():
+> 
+> 	message_size = payload_size + sizeof(*header);
+> 
+> causing kzalloc() to allocate a buffer that is too small to hold
+> the message header.  When the response is later prepared in
+> gb_operation_response_alloc(), reading
+> request_header->operation_id reads past the end of the undersized
+> allocation, triggering a KASAN slab-out-of-bounds report.
+> 
+> Link: https://lore.kernel.org/all/sashiko-outbox-210716@kernel.org/T/
+> Fixes: d90c25b0a279 ("greybus: let operation layer examine incoming data")
+> Reported-by: syzbot+0b456664585fa81a47f6@syzkaller.appspotmail.com
+> Closes: https://syzbot.org/bug?extid=0b456664585fa81a47f6
+> Signed-off-by: Shunbo Shi <shishunbo@cmss.chinamobile.com>
+> ---
+> Changes in v3:
+> - combine the two separate conditions and unify the error message
+>  as suggested by dan. Thanks!
 
-root@rk3576 # cat /sys/kernel/debug/dri/0/encoder-0/bridges
-bridge[0]: dw_dp_bridge_funcs
-        refcount: 7
-        type: [10] DP
-        OF: /soc/dp@27e40000:rockchip,rk3576-dp
-        ops: [0x47] detect edid hpd
-bridge[1]: drm_aux_bridge_funcs
-        refcount: 4
-        type: [0] Unknown
-        OF: /soc/phy@2b010000:rockchip,rk3576-usbdp-phy
-        ops: [0x0]
-bridge[2]: drm_aux_hpd_bridge_funcs
-        refcount: 5
-        type: [10] DP
-        OF: /soc/i2c@2ac50000/typec-portc@22/connector:usb-c-connector
-        ops: [0x4] hpd
+Thanks!
 
-It's fine to fatally error out when there is no follow-up bridge
-as the Rockchip Designware Displayport controller is the only
-user of the bridge helper and has the port marked as required
-in its binding.
+Reviewed-by: Dan Carpenter <error27@gmail.com>
 
-Reviewed-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5+
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
----
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 33 +++++++++++++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
-
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index 5db9063ee97e..74ba1306caee 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -327,6 +327,7 @@ struct dw_dp {
- 
- 	struct dw_dp_link link;
- 	struct dw_dp_plat_data plat_data;
-+	struct drm_bridge *next_bridge;
- 	u8 pixel_mode;
- 
- 	DECLARE_BITMAP(sdp_reg_bank, SDP_REG_BANK_SIZE);
-@@ -1895,7 +1896,22 @@ static int dw_dp_bridge_attach(struct drm_bridge *bridge,
- 
- 	enable_irq(dp->irq);
- 
-+	ret = drm_bridge_attach(encoder, dp->next_bridge, bridge,
-+				DRM_BRIDGE_ATTACH_NO_CONNECTOR);
-+	if (ret) {
-+		dev_err(dev, "Failed to attach next bridge: %d\n", ret);
-+		goto err_disable_irq;
-+	}
-+
- 	return 0;
-+
-+err_disable_irq:
-+	disable_irq(dp->irq);
-+	cancel_work_sync(&dp->hpd_work);
-+
-+	drm_dp_aux_unregister(&dp->aux);
-+
-+	return ret;
- }
- 
- static void dw_dp_bridge_detach(struct drm_bridge *bridge)
-@@ -2061,6 +2077,13 @@ void dw_dp_unbind(struct dw_dp *dp)
- }
- EXPORT_SYMBOL_GPL(dw_dp_unbind);
- 
-+static void dw_dp_put_next_bridge(void *data)
-+{
-+	struct dw_dp *dp = data;
-+
-+	drm_bridge_put(dp->next_bridge);
-+}
-+
- static void dw_dp_phy_exit(void *data)
- {
- 	struct dw_dp *dp = data;
-@@ -2156,6 +2179,16 @@ struct dw_dp *dw_dp_probe(struct platform_device *pdev, const struct dw_dp_plat_
- 	if (ret)
- 		return ERR_PTR(ret);
- 
-+	dp->next_bridge = of_drm_get_bridge_by_endpoint(dev->of_node, 1, 0);
-+	if (IS_ERR(dp->next_bridge)) {
-+		dev_err_probe(dev, PTR_ERR(dp->next_bridge), "failed to get follow-up bridge\n");
-+		return ERR_CAST(dp->next_bridge);
-+	}
-+
-+	ret = devm_add_action_or_reset(dev, dw_dp_put_next_bridge, dp);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
- 	dw_dp_init_hw(dp);
- 
- 	ret = phy_init(dp->phy);
-
--- 
-2.53.0
+regards,
+dan carpenter
 
