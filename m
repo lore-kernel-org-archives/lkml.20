@@ -1,101 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794684645;
-	b=Fo7wfNeCfxkTrRnNNH3+2F6yW2jaV2MG058lrnihTHt9siG9xfJuuIR35BMefRpyVWB/
-	 c4rVJOPwXgzl3JMnt9591qxm+GEh8vzHlfKw19oRL3KXka/aSR1Oy4O1OlaHPfG+iz3GG
-	 +JpSYtRKsMigSQox3Rf6KKRk4CNdxCQA2B6iQ1hFyxaQ5z4R96X6Albcw2yDp1npxSg0o
-	 GYdWYNhtkk189hgcWTl5TNExMTKDmWGFWGtoq9w5fRePgnb8r8dZJsIOs06IbNp4dHla1
-	 mUFhfqCq031hpsW7kh421dOvxpTIBWgse0IcAPwBj+H8SHkTyIyreW8wyIa0fLrZ52A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794684645;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794684734;
+	b=eSnlBbcJJGXe5332+2deUjsh6L8kvz3YZlWRX3mhv8ABoB1IZZCjcxWE1NTTcfevZyum
+	 wJsKLwtmvxLAej8VEIxWkVdzQZGJZ0cSud3LqyGklBVH0LL5L/DzhpK5sK20cc9Yu6j21
+	 MadM84hcd93ZKsQKdTOztzYNfA5Nvc/uzbOmeaV+QAgfpWVYHG0rQsgVRI669RpkD5ZfX
+	 WcEyM7sMGWCeiO99DaWwdbk6f7e8dUV7wiJDbIA85Lg4M0kc2cUu/hDWsMP73buBx/hUi
+	 VClse4xXxBzUVUBhXWUDsRnMXTLUpIPy0CsAfrGxaKDM1g4ubg/U+mDCyjUv19ej04g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794684734;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ozUGgq3FlDQBKsPKBBbxJSLE1LvNcxvIXuIqXKlgpTk=;
-	b=sayL+BjzHLgUK1ADoGfTcBJneEZ4LwVTEfUXwmFxz29HCBsEzzCwnDMHjCenv3P9yjuD
-	 ePXEnXqMZsbNhbPQaqhnOG6RKjvTZLM8ngOunbsf30NEtfsuG0hur5SKjTyAVM5EWHR99
-	 qnMkrHac7ymJ1sZ3ouex+VOkSbYyCesGVsMBN8K9iEC64YplHwvjIGxUsNQnvGz4AZ9Dj
-	 2e6xATlbCsurCSMvazN/XoRMiAjOymALqeAbE9NsSyg7PNySv/QygTwCEcoCoBWHHbJ6K
-	 7bfb3AQETR9jK2m2T0PoV2epNpaInzZicIqMv605VcNoKrGgEE4v2tFAecmZ9lq1h4w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=sI3Abw782ICodBFXVcAkqffcR+yD9cYQ88bcpAcT5c4=;
+	b=4TlljfN8N4qYVPy23hE1VJNme0KNex+lT8p3C5Z8zOJGbnHAZqCEm44nxhAC73ksEiSr
+	 nY3Tae2+nN38o2ao6h6xWCOc6l0XjLqFvKPg6yf2B8hhgH2KAB4HQwRrekf22ytNzcZwY
+	 ef7vDaRZToohe5BwpQ6gJxGnWAYWCuLOjDHIK9i1679FuBmrU8xszuWwCgx7HroTQ2W2e
+	 +kQwa3ik/NDNe+EJU4weFoMYqGtxkDZE2xTOrE+OeYlcUy17KJUj4eYbbIh94FgWdr4q4
+	 DXawh+lk069JNYTMfMmsUbYrgFUlhbePI1uRaiaUdZsjBgd9rYD9b9pr8JxDkoNCLbw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IKEQuOm7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.44
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="RHfS3/wJ";
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2FAA606A323
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 19:30:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2FAA606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60453606A323
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 19:32:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60453606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IKEQuOm7
-Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-862b273ed58so45279a34.2
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 11:30:44 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794684644; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ESaDOTMIVdgvV8JqiAcfQUjk2aWWfV3VoObAG751+goVuP7lDdbH9iSXnsxQLw34at
-         1R1hAJsv9td9U53CpZUoTRS0bhRqcbftUVkvCNahNkJUSOHK3M542R6KCvHlid0Fz+Z3
-         6xtHRHrHgWN6QXxthoIJ+FAnfmAd+Osl4ksaHkQeLeUMrCxvhKH6KacFC5RLJwr8RooR
-         wGyXPf3yuSYtx8GP0KFjBfF4rSAtTGMPrcjQqBl9Ix66fE5Oe586gcUytWsegZWmNJrJ
-         +sEF33M/qQ2jICcNNNBj0t0j6KBV9jtZ0UxU444P7x/fOe0D3Izv7gLly1z9YQXVpMci
-         G9sQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ozUGgq3FlDQBKsPKBBbxJSLE1LvNcxvIXuIqXKlgpTk=;
-        fh=vK9XqAEYq7fAmpLTbRCQWBIsNlipr/X3FDswRnCHIag=;
-        b=nIfXCJvZOPAJxRWfulWX8yh7AV8DGUncH1c5FOvcn0KKMyA1DOmGB/rukED3O4HCqW
-         F5JIfNtomodx7n+x02dtQiZnxIVZITfBB95ATjqhFRvpVyvP/QYZfhNsetEaSeZeuDom
-         SSNZh+rU3Lb8QXN+5wlCS6pVqsCfFYtl3kBIpOL8ApgYTfZlBl8zaQ3GifiXNRyxAVfK
-         5afNvp+IQX4hY2ZBwIsvyAmXtQMgCtozZwSL7yyFwil0xIqs83m88Z581ftDI1R1R+ul
-         bKn6ITOB3fWPp4oiv/HohvUMyfdBOiYhaJrdQJAweB+aoo/ruPk96CDl+DqQ+jHsqy7P
-         OQtw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RHfS3/wJ
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48e3b22e971so1006875f8f.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 11:32:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794684644; x=1795289444; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ozUGgq3FlDQBKsPKBBbxJSLE1LvNcxvIXuIqXKlgpTk=;
-        b=IKEQuOm7CvVi+8RoAGbVP3jnrSJ8t2dR0Wu17c5WNraRao3RAXIC4K7J32agBWnKG2
-         WH23tsKt2Bki2xcJi8cjEz9N0NnNOcrJ36CwKd0y2TisXv98sjX+OwcHR6wG9UNOp+lC
-         5YjvKxcA3frstK6FQpTK0IG2unKoJMn2wOvqQZ/gBwlj3pwYvf6RQRsGbOz8cWgrFYwZ
-         irAJhf25B78pX4NzqQ80VElmJ8nXkJHyM2eBdcVapAX+jClFGgWRx35PHSuugRC07Ak2
-         ROpr/qSmqaFYD+LYBot0iHgyuIvRuY0GfMwBPMO1mQJ1SdFcG5kXDwBU0OJ46voW8NZO
-         Zkrw==
+        d=gmail.com; s=20260707; t=1794684733; x=1795289533; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=sI3Abw782ICodBFXVcAkqffcR+yD9cYQ88bcpAcT5c4=;
+        b=RHfS3/wJrDol4DI0TKgyihIk55dxyGpQap0d2Z4BDmNp3VkaVlH3TiL+6xQz59jHAw
+         lCVBWOr1Bw6XSEUHid+u5OJyueRH3NcgI5mG2gA9ZF21PVWoBkZtt/DOzgZNArZigG2d
+         IJkhAUgF+7AcqkJU+jIRIjWAJlWIv1SFHzP6CPlh18yOCEZu6VYqWb6Lu59K+KofkKBh
+         KycobUARTCdV7oK6CpDj8r9qASzhFylctJE+28ev6gngAy0RHqbfVJI6qYz7cyLTzvZ9
+         lEy+MxFBnI/Wh0ryWvSPsg09z9CvIvCHmOU3sPsO7ZEODt8YNXU1NvUuM/1PirvD0UOJ
+         yTCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794684644; x=1795289444;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ozUGgq3FlDQBKsPKBBbxJSLE1LvNcxvIXuIqXKlgpTk=;
-        b=ee6y/7bEtfkozNfIndPpFQE3MNwHciVT1nEDNHXbid00s/gl5uD6iDChMpMZj5vshz
-         mVjsoYaxr8nG8JGRgaDRYZ68HSlo4KRyyaHELtz2DYjScHtqc+zuoiKjrpCt46COCOSu
-         dEgrJ9xcaVlXpKGtYG9gu5tuxbuNjKvewCVzfCgXTap/0RjKFk7uxEtt63QddodIdpWd
-         ZcWEuwti+1jm/vR13PH0xYDW1RRTK9pifZhh9mqI00U5XDjSvnlRNne6/VSXoJawyExS
-         1cVB88wodp0kBHK8Zub8lFlxlPZXE1oPlQDS3uh6GKT/zeAQdeeutjxHDxLWXJQWObVs
-         sTxw==
-X-Forwarded-Encrypted: i=1; AL+hErFzY+6/8KSu+8SaklXVQ0ZavA72RK8mcff8eBzfIH+cP9cxV6eFloZMCErglN44Jcp6DrdfnKzJ8wqmVY4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8gBscplwKqaoAQ4nKQkuhw3ieDVNqEBBa4WXkocMk19y+vxVR1
-	+TIfuTYyKw0MvjrnrFKKJd9eveL3cLr/QtbGccLWeZvx6ex1KZpdakmAQAdiLXLeGpQ2/Do/vID
-	nGPutARLVsyLL5wm1d0YiiEPbMNSNvp4=
-X-Gm-Gg: AYBFou2DthbL5rDgaz6KCIBzDkZ8hOn9H47Bmd5SAl8uAEUhedOJKzKkeQHMNuGn9Oi
-	7ZLCLKlcTaOGMqHOZaaJXQ56UPzvQNKfS7ep7xUpDXBYLlDZZ2dLWbLpUOF099T6nc+YOkdOOCJ
-	KFzt9sztFnMV2/I7UO3hH9qMNPCzv5w8C6/aOsLWMESHF8NjmiGWQIs+xEvGY0OqSHZHrt63kBM
-	PY4277yUPBGLbU4CNppZRhtEYfm/9FRDjGdmLVLVaSJDEyyxoyaK1JlaGg1vRU4r3lqRMkZS71q
-	WSaHOtWYOTYVoRmNs4mh1cSghVFwNOtfGDoR2+UaHOJAKpVwrnsWQHniT2/wU/pdxJPmI3EZzk8
-	jlHQaozA0IZ5wzaZknotfLE9I49WOfxsUwmXYYzmytcr0RNRo5x1rPGGcBY3tOytoehS66FkA/I
-	XLn8wtSvsgM2A3KG4gaAZX2MQu89Et8gMyNsN296IoQE8HeeueJB4f6TEhFY/1
-X-Received: by 2002:a05:6808:3509:b0:55c:836:5992 with SMTP id
- 5614622812f47-56e64df328emr7649759b6e.4.1794684643579; Sat, 14 Nov 2026
- 11:30:43 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794684733; x=1795289533;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=sI3Abw782ICodBFXVcAkqffcR+yD9cYQ88bcpAcT5c4=;
+        b=SbH8Cbq7nesG8LS3/GV5YJEOhAOz6xCrsowcJQDH3d/pxEkiwoKDxvXFnY5akMMTxH
+         0y5bO/7IoMQYz26PBxvKpiz8/pEa7VxGfFHjLJGusgPBHovZHwrmGJCd+JkMP75c+Snr
+         9CvQVQvTQJUyL7dFSUgBd25AJYinFp0/KYew8qOlYP27xqvmG0wCQx0mQQGQdkPDxHxq
+         hDy+H5lC0swvEPFviKMzG2kK0uKTHdb96O2x21lAf5Qxh4S6J9mmjDDq/w5XiUxXKtiz
+         wvzfAfwggPs2VjcPaof/xLtDwYcmU9xe88I3TTz4xSYo7i0jzXwlFT1VxBzwQjVpC8zM
+         y8yQ==
+X-Forwarded-Encrypted: i=1; AL+hErEjuX8Jq3GFugIgqDXlGASkocSb+39MiYUHvsJ2BugJRojzP84JM+YWDV4UwoU6/9tdw+w6CbP3m3FSAWc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+WLsZ7MHqMEgtOTjP4SHIfLldi5ZTMACBQLL3G8CqZly4ST/eu
+	gRqk7urGPRPBu/xZq6KD9xAi5CCqlcdB5R+fW3COK2yulKfZSW4AF+m/
+X-Gm-Gg: AYBFou3l+JrejP34bY1zQu4pFkaJSfs+1NYF+rafiBk7Y/ws2Bj+CZQwQXWRjczCmu0
+	cuMICZooYRBF70+0ls+hyBSIywy67Q+iMMlvMPDqQntckbihO2pQ8RJLy03FU+mYkCfkKvkrQxf
+	rnsevBjsByU3hTtWclzmB7WW+6D6tBq3koqBB3KK/WQ2PBhigwjKOmg3isvGbpd/8hOERBMgy1v
+	I8Tk6JbgKc5zNDUf0rXjI9Oqdo8mwY3mHlBSagX+il7Ne7l4W6L9L5MWTci98/+zuH4E3cS5/dL
+	U5E+g+BfWh2ftwiDOjWu8cDJfCl08QaXmcy+5GjQi0Kuv4ODv4GA1YAMjMQ/a8nVADfJqpx0VuB
+	Sy/J3jRkXOMoTstfT69CMxA20jFdt59d30qT7FcD/lgfR8K5uzUetg9iEu+Pwnwz5bl1wMZfsQG
+	FWnKZCaZdzqTWyWs1aM85kgDK2aE2fG9tdKrFcp8EiRsXqGnZPuEGckAPT+WxqWyySr81yoWyVe
+	Sbgm61wqE09KJ6VYCZ/mM0L1OqTLCU4P8h8FIzkWh0xaL7rXPHrsL9V+JErhM6R76kTuz/bwwIN
+	t7uEblvjSQqpkFU3CxkClhBKP4TMHxjWRdHLmVKFLA==
+X-Received: by 2002:a05:6000:29c9:b0:493:1004:96f7 with SMTP id ffacd0b85a97d-49c747700f2mr8953180f8f.54.1794684732494;
+        Sat, 14 Nov 2026 11:32:12 -0800 (PST)
+Received: from [10.111.176.198] ([2001:19f0:6c01:2c43:5400:5ff:fef6:1b30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c608cf46dsm12965021f8f.43.2026.11.14.11.32.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 11:32:11 -0800 (PST)
+From: Oarora Etimis <oaroraetimis@gmail.com>
+Date: Sat, 14 Nov 2026 20:32:02 +0100
+Subject: [PATCH] drm/tests: bridge: check the bridge chain callback order
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,255 +90,215 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <8eb61179-c5b8-41df-a466-8b5c388b6b41@gmail.com>
- <CADnq5_OrGuMJT4Tvt+wktPzTYEopdkCjyqq8sSdvJou40-HoKw@mail.gmail.com>
- <a6093dab-c38d-4dad-af3b-7173a6eaa78c@gmail.com> <CADnq5_MRA2bQG5x9xiGAT5ddh0jHMqg=u2OhCPvJxPr3ddTurA@mail.gmail.com>
- <b9f69d90-73ef-4a22-a347-0d70f014a7de@gmail.com> <CADnq5_PZ3B863S238TkrGSubWa_VExySu9pkh5xDfrST11y5GQ@mail.gmail.com>
- <5c3aeee1-1436-4b77-b742-ba916376b479@gmail.com>
-In-Reply-To: <5c3aeee1-1436-4b77-b742-ba916376b479@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Sat, 14 Nov 2026 14:30:31 -0500
-X-Gm-Features: AclHuK9Lt1BNNOh5THRY3gz36jwhtbUayWeg1u0J9Xol-AhZnO5UPrOXyZlFtp0
-Message-ID: <CADnq5_NfuE_ck3VN7c6b0xgcKrYPonjPV9zdq50aMnVddm7Rxw@mail.gmail.com>
-Subject: Re: [PATCH v2 3/3] drm/amd/display: report synced displays to
- PowerPlay for MCLK switch
-To: Richard Lane <richardlanedev@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
-	Rodrigo Siqueira <siqueira@igalia.com>, Mario Limonciello <mario.limonciello@amd.com>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261114-bridge-order-v1-1-4f11d1c21937@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ5AMBCE4VeRPWuiiIhXEQdtp6wDskUk4t0Vx
+ 2+S+S8KEEagJrlIcHDgZY7QaUJ27OcBil005Vleaa0LZYRdXBdxEIXal/AmM7UHxcsq8Hx+ubb
+ 7HXYzwW5vg+77AeKZY3dwAAAA
+X-Change-ID: 20261113-bridge-order-e8f4efb0b8fe
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Daniel Stone <daniel@fooishbar.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Oarora Etimis <oaroraetimis@gmail.com>
+X-Mailer: b4 0.15.2
 
-On Sat, Nov 14, 2026 at 9:18=E2=80=AFAM Richard Lane <richardlanedev@gmail.=
-com> wrote:
->
-> On 13/11/2026 14:05, Alex Deucher wrote:
-> > On Thu, Nov 12, 2026 at 7:15=E2=80=AFPM Richard Lane <richardlanedev@gm=
-ail.com> wrote:
-> >>
-> >> On 10/11/2026 19:59, Alex Deucher wrote:
-> >>> On Tue, Nov 10, 2026 at 1:49=E2=80=AFPM Richard Lane <richardlanedev@=
-gmail.com> wrote:
-> >>>>
-> >>>> On 09/11/2026 20:34, Alex Deucher wrote:
-> >>>>> On Mon, Nov 2, 2026 at 3:31=E2=80=AFAM Richard Lane <richardlanedev=
-@gmail.com> wrote:
-> >>>>>>
-> >>>>>> When driving multiple displays or tiled panels with identical timi=
-ngs
-> >>>>>> (such as the two 2560x2880 tiles of an Apple 5K iMac panel), Displ=
-ay
-> >>>>>> Core's program_timing_sync() aligns the CRTCs into a timing sync g=
-roup
-> >>>>>> in hardware during dc_commit_streams().
-> >>>>>>
-> >>>>>> However, on DCE < 12, Display Core leaves
-> >>>>>> pp_display_cfg.all_displays_in_sync unset. Because PowerPlay is no=
-t
-> >>>>>> informed that the streams have synchronized vertical blanking inte=
-rvals,
-> >>>>>> SMU7 prevents MCLK switching at idle or causes modeset underflows.
-> >>>>>>
-> >>>>>> If all active streams belong to the same timing sync group
-> >>>>>> (timing_sync_info.group_size =3D=3D params.stream_count), report
-> >>>>>> all_displays_in_sync =3D true to PowerPlay after committing the st=
-reams so
-> >>>>>> SMU7 can safely downclock MCLK at idle.
-> >>>>>>
-> >>>>>
-> >>>>> Looking at this a little deeper, the function bw_calcs() in
-> >>>>> dce_calcs.c already calculates all_displays_in_sync using the helpe=
-r
-> >>>>> all_displays_in_sync().  Can you look into this and figure out why
-> >>>>> that is not working as expected?  My concern with this patch is tha=
-t
-> >>>>> DCE and DCN have different logic for handling mclk switching so I'm
-> >>>>> not sure it's safe to call dm_pp_apply_display_requirements() direc=
-tly
-> >>>>> from common code.
-> >>>>>
-> >>>>> Thanks,
-> >>>>>
-> >>>>> Alex
-> >>>>
-> >>>> Moving it to dce_clk_mgr.c and using resource_are_streams_timing_syn=
-chronizable() also works. Is that a solution?
-> >>>
-> >>> I think that would be preferred, but in general, why doesn't the
-> >>> current flow I described work?  The function bw_calcs() dce_calcs.c
-> >>> already calculates the all_displays_in_sync flag using the helper
-> >>> all_displays_in_sync().  Is all_displays_in_sync() not checking
-> >>> something properly or is the overall call timing wrong such that
-> >>> all_displays_in_sync() can't properly calculate whether all of the
-> >>> displays are synced at the point that it gets called?
-> >>>
-> >>> Alex
-> >>>
-> >>
-> >> I think this could be limited to DCE 6,8,10 rather than DCE < 12 as in=
- these
-> >> cases DC uses dce100_validate_bandwdith() which doesn't call bw_calcs(=
-) and
-> >> dce_pplib_apply_display_requirements() in dce_clk_mgr.c so
-> >> pp_display_cfg->all_displays_in_sync is unset.
-> >
-> > How about adding bw_calcs() to dce100_validate_bandwdith()?  Or if
-> > there are issues there, just add the all_displays_in_sync() checks to
-> > dce100_validate_bandwdith().
-> >
-> > Alex
-> >
->
-> bw_calcs() itself cannot be called in dce100_validate_bandwidth() because
-> bw_calcs_init() only initializes dc->bw_dceip and dc->bw_vbios on DCE
-> 11.0, 11.2, and 12.0.
->
-> However, adding the all_displays_in_sync check directly to
-> dce100_validate_bandwidth() (which is shared by DCE 6, 8, and 10) and
-> copying context->bw_ctx.bw.dce.all_displays_in_sync to
-> pp_display_cfg->all_displays_in_sync in
-> dce_pplib_apply_display_requirements() works. Is this solution preferable=
-?
+drm_atomic_bridge_chain_pre_enable() and
+drm_atomic_bridge_chain_post_disable() document the order in which a
+chain's bridges get their callback called, but nothing tests it. That
+order has been wrong before: commit e18aeeda0b69 had to fix both
+directions at once.
 
-Yes, this looks great.  Thanks for reworking it.
+Add a KUnit test for the example those comments give, and for the chain
+where no bridge sets @pre_enable_prev_first.
 
-Alex
+Signed-off-by: Oarora Etimis <oaroraetimis@gmail.com>
+---
+ drivers/gpu/drm/tests/drm_bridge_test.c | 112 ++++++++++++++++++++++++++++++++
+ 1 file changed, 112 insertions(+)
 
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c =
-b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-> @@ -320,6 +320,9 @@ static void dce_pplib_apply_display_requirements(
->  {
->         struct dm_pp_display_configuration *pp_display_cfg =3D &context->=
-pp_display_cfg;
->
-> +       pp_display_cfg->all_displays_in_sync =3D
-> +               context->bw_ctx.bw.dce.all_displays_in_sync;
-> +
->         dce110_fill_display_configs(context, pp_display_cfg);
->
->         if (memcmp(&dc->current_state->pp_display_cfg, pp_display_cfg, si=
-zeof(*pp_display_cfg)) !=3D  0)
-> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resour=
-ce.c b/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
-> @@ -692,6 +692,14 @@ enum dc_status dce100_validate_bandwidth(
->                 /* TODO implement when needed but for now hardcode max va=
-lue*/
->                 context->bw_ctx.bw.dce.dispclk_khz =3D 681000;
->                 context->bw_ctx.bw.dce.yclk_khz =3D 250000 * MEMORY_TYPE_=
-MULTIPLIER_CZ;
-> +               context->bw_ctx.bw.dce.all_displays_in_sync =3D context->=
-stream_count > 1;
-> +               for (i =3D 1; i < context->stream_count; i++) {
-> +                       if (!resource_are_streams_timing_synchronizable(
-> +                                   context->streams[0], context->streams=
-[i])) {
-> +                               context->bw_ctx.bw.dce.all_displays_in_sy=
-nc =3D false;
-> +                               break;
-> +                       }
-> +               }
->         } else {
->                 /* On DCE 6.0 and 6.4 the PLL0 is both the display engine=
- clock and
->                  * the DP clock, and shouldn't be turned off. Just select=
- the display
-> @@ -703,6 +711,7 @@ enum dc_status dce100_validate_bandwidth(
->                         context->bw_ctx.bw.dce.dispclk_khz =3D 0;
->
->                 context->bw_ctx.bw.dce.yclk_khz =3D 0;
-> +               context->bw_ctx.bw.dce.all_displays_in_sync =3D false;
->         }
->
->         return DC_OK;
->
-> Richard
->
-> >>
-> >> Richard
-> >>
-> >>>>
-> >>>> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_m=
-gr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-> >>>> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-> >>>> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-> >>>> @@ -31,6 +31,7 @@
-> >>>>  #include "dmcu.h"
-> >>>>  #include "core_types.h"
-> >>>>  #include "dal_asic_id.h"
-> >>>> +#include "resource.h"
-> >>>>
-> >>>>  /*
-> >>>>   * Currently the register shifts and masks in this file are used fo=
-r dce100 and dce80
-> >>>> @@ -319,8 +320,17 @@ static void dce_pplib_apply_display_requirement=
-s(
-> >>>>         struct dc_state *context)
-> >>>>  {
-> >>>>         struct dm_pp_display_configuration *pp_display_cfg =3D &cont=
-ext->pp_display_cfg;
-> >>>> +       int j;
-> >>>>
-> >>>>         dce110_fill_display_configs(context, pp_display_cfg);
-> >>>> +       pp_display_cfg->all_displays_in_sync =3D pp_display_cfg->dis=
-play_count > 1;
-> >>>> +       for (j =3D 1; j < context->stream_count; j++) {
-> >>>> +               if (!resource_are_streams_timing_synchronizable(
-> >>>> +                           context->streams[0], context->streams[j]=
-)) {
-> >>>> +                       pp_display_cfg->all_displays_in_sync =3D fal=
-se;
-> >>>> +                       break;
-> >>>> +               }
-> >>>> +       }
-> >>>>
-> >>>>         if (memcmp(&dc->current_state->pp_display_cfg, pp_display_cf=
-g, sizeof(*pp_display_cfg)) !=3D  0)
-> >>>>                 dm_pp_apply_display_requirements(dc->ctx, pp_display=
-_cfg);
-> >>>>
-> >>>> Richard
-> >>>>
-> >>>>>
-> >>>>>> Signed-off-by: Richard Lane <richardlanedev@gmail.com>
-> >>>>>> ---
-> >>>>>>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 ++++++++++
-> >>>>>>  1 file changed, 10 insertions(+)
-> >>>>>>
-> >>>>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/d=
-rivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> >>>>>> index 74cd88d8d580..b4531383437e 100644
-> >>>>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> >>>>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> >>>>>> @@ -4777,6 +4777,16 @@ static void amdgpu_dm_commit_streams(struct=
- drm_atomic_commit *state,
-> >>>>>>         dc_exit_ips_for_hw_access(dm->dc);
-> >>>>>>         WARN_ON(!dc_commit_streams(dm->dc, &params));
-> >>>>>>
-> >>>>>> +       if (params.stream_count > 1 &&
-> >>>>>> +           dm->dc->current_state->stream_status[0].timing_sync_in=
-fo.group_size =3D=3D
-> >>>>>> +           params.stream_count) {
-> >>>>>> +               struct dm_pp_display_configuration *pp_cfg =3D
-> >>>>>> +                       &dm->dc->current_state->pp_display_cfg;
-> >>>>>> +
-> >>>>>> +               pp_cfg->all_displays_in_sync =3D true;
-> >>>>>> +               dm_pp_apply_display_requirements(dm->dc->ctx, pp_c=
-fg);
-> >>>>>> +       }
-> >>>>>> +
-> >>>>>>         bool frl_stream_found =3D false;
-> >>>>>>
-> >>>>>>         for (i =3D 0; i < params.stream_count; i++) {
-> >>>>>> --
-> >>>>>> 2.55.0
-> >>>>
-> >>
->
+diff --git a/drivers/gpu/drm/tests/drm_bridge_test.c b/drivers/gpu/drm/tests/drm_bridge_test.c
+index 15583ade8494..e910f22ee581 100644
+--- a/drivers/gpu/drm/tests/drm_bridge_test.c
++++ b/drivers/gpu/drm/tests/drm_bridge_test.c
+@@ -20,6 +20,9 @@
+ 
+ #include "drm_kunit_edid.h"
+ 
++/* Chain length of the callback order test, and size of its call log. */
++#define DRM_TEST_BRIDGE_CHAIN_LEN 5
++
+ /*
+  * Mimick the typical "private" struct defined by a bridge driver, which
+  * embeds a bridge plus other fields.
+@@ -31,6 +34,8 @@ struct drm_bridge_priv {
+ 	unsigned int enable_count;
+ 	unsigned int disable_count;
+ 	struct drm_bridge bridge;
++	/* Position in the chain, as an index into test_bridges */
++	unsigned int chain_index;
+ 	void *data;
+ };
+ 
+@@ -59,6 +64,11 @@ struct drm_bridge_chain_priv {
+ 	 *                of which the first @num_bridges entries are valid.
+ 	 */
+ 	struct drm_bridge_priv **test_bridges;
++
++	/** @call_log: @test_bridges indices of the bridges whose function was called, in order */
++	unsigned int call_log[DRM_TEST_BRIDGE_CHAIN_LEN];
++	/** @call_log_len: number of calls logged, may exceed the size of @call_log */
++	unsigned int call_log_len;
+ };
+ 
+ static struct drm_bridge_priv *bridge_to_priv(struct drm_bridge *bridge)
+@@ -99,6 +109,27 @@ static const struct drm_bridge_funcs drm_test_bridge_atomic_funcs = {
+ 	.atomic_create_state	= drm_atomic_helper_bridge_create_state,
+ };
+ 
++/* @data points to the drm_bridge_chain_priv for bridges using these funcs */
++static void drm_test_bridge_chain_atomic_log(struct drm_bridge *bridge,
++					     struct drm_atomic_commit *state)
++{
++	struct drm_bridge_priv *bridge_priv = bridge_to_priv(bridge);
++	struct drm_bridge_chain_priv *priv = bridge_priv->data;
++
++	if (priv->call_log_len < ARRAY_SIZE(priv->call_log))
++		priv->call_log[priv->call_log_len] = bridge_priv->chain_index;
++
++	priv->call_log_len++;
++}
++
++static const struct drm_bridge_funcs drm_test_bridge_chain_funcs = {
++	.atomic_pre_enable	= drm_test_bridge_chain_atomic_log,
++	.atomic_post_disable	= drm_test_bridge_chain_atomic_log,
++	.atomic_destroy_state	= drm_atomic_helper_bridge_destroy_state,
++	.atomic_duplicate_state	= drm_atomic_helper_bridge_duplicate_state,
++	.atomic_create_state	= drm_atomic_helper_bridge_create_state,
++};
++
+ static int dummy_clear_infoframe(struct drm_bridge *bridge)
+ {
+ 	return 0;
+@@ -459,6 +490,7 @@ drm_test_bridge_chain_init(struct kunit *test, unsigned int num_bridges,
+ 		return ERR_PTR(-ENOMEM);
+ 
+ 	priv->num_bridges = num_bridges;
++	priv->call_log_len = 0;
+ 
+ 	for (i = 0; i < num_bridges; i++) {
+ 		priv->test_bridges[i] = devm_drm_bridge_alloc(dev, struct drm_bridge_priv,
+@@ -467,6 +499,7 @@ drm_test_bridge_chain_init(struct kunit *test, unsigned int num_bridges,
+ 			return ERR_CAST(priv->test_bridges[i]);
+ 
+ 		priv->test_bridges[i]->data = priv;
++		priv->test_bridges[i]->chain_index = i;
+ 	}
+ 
+ 	priv->plane = drm_kunit_helper_create_primary_plane(test, drm, NULL, NULL,
+@@ -1357,6 +1390,84 @@ static void drm_test_bridge_rgb_yuv_no_path(struct kunit *test)
+ 	drm_modeset_acquire_fini(&ctx);
+ }
+ 
++/* B, D and E ask for prev first: the example the documentation gives. */
++static const bool bde_prev_first[DRM_TEST_BRIDGE_CHAIN_LEN] = { false, true, false, true, true };
++static const unsigned int bde_pre_enable[DRM_TEST_BRIDGE_CHAIN_LEN] = { 2, 3, 4, 0, 1 };
++static const unsigned int bde_post_disable[DRM_TEST_BRIDGE_CHAIN_LEN] = { 1, 0, 4, 3, 2 };
++
++/* No bridge does: both walks are plain reversals. */
++static const bool none_prev_first[DRM_TEST_BRIDGE_CHAIN_LEN] = { false };
++static const unsigned int none_pre_enable[DRM_TEST_BRIDGE_CHAIN_LEN] = { 4, 3, 2, 1, 0 };
++static const unsigned int none_post_disable[DRM_TEST_BRIDGE_CHAIN_LEN] = { 0, 1, 2, 3, 4 };
++
++/* Order documented by drm_atomic_bridge_chain_pre_enable()/_post_disable(). */
++static void drm_test_bridge_chain_order(struct kunit *test,
++					const bool *prev_first,
++					const unsigned int *expected_pre_enable,
++					const unsigned int *expected_post_disable)
++{
++	static const struct drm_bridge_funcs *funcs[DRM_TEST_BRIDGE_CHAIN_LEN] = {
++		&drm_test_bridge_chain_funcs,
++		&drm_test_bridge_chain_funcs,
++		&drm_test_bridge_chain_funcs,
++		&drm_test_bridge_chain_funcs,
++		&drm_test_bridge_chain_funcs,
++	};
++	struct drm_modeset_acquire_ctx ctx;
++	struct drm_bridge_chain_priv *priv;
++	struct drm_atomic_commit *state;
++	unsigned int i;
++
++	priv = drm_test_bridge_chain_init(test, ARRAY_SIZE(funcs), funcs);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, priv);
++
++	for (i = 0; i < ARRAY_SIZE(funcs); i++)
++		priv->test_bridges[i]->bridge.pre_enable_prev_first = prev_first[i];
++
++	drm_modeset_acquire_init(&ctx, 0);
++
++	/* The chain helpers skip the callbacks when @state is NULL. */
++	state = drm_kunit_helper_atomic_state_alloc(test, &priv->drm, &ctx);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
++
++	drm_atomic_bridge_chain_pre_enable(&priv->test_bridges[0]->bridge, state);
++	KUNIT_ASSERT_EQ(test, priv->call_log_len, DRM_TEST_BRIDGE_CHAIN_LEN);
++	KUNIT_EXPECT_MEMEQ(test, priv->call_log, expected_pre_enable,
++			   sizeof(priv->call_log));
++
++	priv->call_log_len = 0;
++	drm_atomic_bridge_chain_post_disable(&priv->test_bridges[0]->bridge, state);
++	KUNIT_ASSERT_EQ(test, priv->call_log_len, DRM_TEST_BRIDGE_CHAIN_LEN);
++	KUNIT_EXPECT_MEMEQ(test, priv->call_log, expected_post_disable,
++			   sizeof(priv->call_log));
++
++	drm_modeset_drop_locks(&ctx);
++	drm_modeset_acquire_fini(&ctx);
++}
++
++static void drm_test_bridge_chain_callback_order(struct kunit *test)
++{
++	drm_test_bridge_chain_order(test, bde_prev_first, bde_pre_enable,
++				    bde_post_disable);
++}
++
++static void drm_test_bridge_chain_callback_order_no_flags(struct kunit *test)
++{
++	drm_test_bridge_chain_order(test, none_prev_first, none_pre_enable,
++				    none_post_disable);
++}
++
++static struct kunit_case drm_bridge_chain_tests[] = {
++	KUNIT_CASE(drm_test_bridge_chain_callback_order),
++	KUNIT_CASE(drm_test_bridge_chain_callback_order_no_flags),
++	{ }
++};
++
++static struct kunit_suite drm_bridge_chain_test_suite = {
++	.name = "drm_bridge_chain",
++	.test_cases = drm_bridge_chain_tests,
++};
++
+ static struct kunit_case drm_bridge_bus_fmt_tests[] = {
+ 	KUNIT_CASE(drm_test_bridge_rgb_yuv_rgb),
+ 	KUNIT_CASE(drm_test_bridge_must_convert_to_yuv444),
+@@ -1376,6 +1487,7 @@ kunit_test_suites(
+ 	&drm_bridge_helper_reset_crtc_test_suite,
+ 	&drm_bridge_alloc_test_suite,
+ 	&drm_bridge_bus_fmt_test_suite,
++	&drm_bridge_chain_test_suite,
+ );
+ 
+ MODULE_AUTHOR("Maxime Ripard <mripard@kernel.org>");
+
+---
+base-commit: c88084027d0e922dd925b96e5a0d184ba04a8f43
+change-id: 20261113-bridge-order-e8f4efb0b8fe
+
+Best regards,
+--  
+Oarora Etimis <oaroraetimis@gmail.com>
+
