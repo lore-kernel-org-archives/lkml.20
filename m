@@ -1,45 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794687872;
-	b=DaBsTS9NoolLlaq/Czkf8DGbFP3nk095ZADBUInrCPKMHZ82RdTXP1U9t8dZVCRzI37Y
-	 iF6EYIJKK0TQNaCd19GzVio3A+90jXZKk2k5U8bvpGJdtzcTk3Ezd7uLH0ARqpVrPRrw4
-	 musBWWFr0H13zKSueLY88WSOMUNe6Brk3Ahkazt8o5HphHDXpboVSI+SaZQuSubzA+olW
-	 JrfrlmSGx8fUutXuN3BKs9krVnuz0S3ibutNgKzd4NiGFpCocnWfilxzqH8YSZ65t3WZQ
-	 6h8rVgf/DX9xXg5svM9GpUMDPCervSF+mbEZfIsdq/nXUUQ+lMJ3WxdVTOrOqeu+ktA==
+	t=1794687948;
+	b=1q6Fm4lv3s7V2Kzhx3HsYkoLuojw7ktiBoIsytDRnGgXCCvG0mH3ggpW4o+SiRKvjNMt
+	 Jz4HozAAHBbLbGVRYpFO0bEzuny/PNJnAuFsXAEw3T0Es+Nrx1dEZE9CkhnVOYTLTRRmV
+	 IZV8CaX7zqSzlLde4YCiGEe1Pvgw7TCgpXB3tjPLegnIqiaFv1ao58RRbJF+jgkc9aVhh
+	 ysaElTQsNXPE9xwSFxHOr505vfgAL0JlPiiGGjfzqziyXzy55VMotb0KUF6SvrCIwNQtf
+	 73HPd955sWTKiVqM6ADZszabCOs5rkDRA0ZJ0dfEbrrg8AbvJEoY4bKTBNvyx9h+gIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794687872;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=V9Oz70E155O9jInt6hTC5pYZasQgcnWNCVJSKndXa7k=;
-	b=XM+gSjmVvc1o6nNXIcrZ0D195COcDYLAZiWYV8XuZntC73DL+Mmu/4W5h8TfQYrxzJBL
-	 Ank682qqcLTPsA8Xq9PMcZ83ReHD2za2D0AdpuDm+L+CGcAh0lQGglXgYve9YwIjYSAge
-	 nWoTq1yPAStIveO+fmvrGDg5ifjd2TTPXwJSnEB+2qygm9zzWKqkyJXCsOdiSnB2PTpjs
-	 nK+rPmqx70zK4GcaEShgO7MrjKu2Y9jRJGbhELz+N+UByNP51iVkST0XpSFijC4/XNu/t
-	 npVcAUsGoK92jigSrnS8BRR69YftJJ9Q4kVkPxkUvf25T4IDDtWTuQRqPmfzdC/uM2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794687948;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=vRrAXztdODnH1CKdqe/Log9jwTdTF6QE5zhsHAVoEhY=;
+	b=4mywGrl5T2HZNdOGdUOC6mB6CvYV1lUGVx8cVWiDPXXqLwEpxoouhPayRFKqB49QL/8H
+	 MHJ06rq3IXfQ5/Pr5XEsPSBBImxf0iG4zG1ndg2PQ2JXN9KNoq7pF1HStByzP1h3Bf1MB
+	 SpxFKwLJOrLGQD9vLIaJlwbcJfHK1+GWpxFpEFdEUpeWwtkaSsOingVMeKLtIKcNgfrg/
+	 BRIgbZmYmGiIkN4GpdkqTogZP/5c9zSJWOke8DTdwAIRwiL2UVbwnc7kuG4GtDNBDvGlg
+	 OQMWk+JFX20RHFVnebRwMoFJR56l8mIPi1mO1Zugm0X+oGXEbIIqfdR7W38wip/8pig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=fail reason="signature verification failed" header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jjyAKqBD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2325E606A329;
-	Sat, 14 Nov 2026 20:24:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jjyAKqBD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 360D21F000C4;
-	Sat, 14 Nov 2026 20:24:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794687871;
-	bh=V9Oz70E155O9jInt6hTC5pYZasQgcnWNCVJSKndXa7k=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=jjyAKqBDcfwj3adWi8yNdPH+HlRifwnvumzIU4W0VCkulv16TycwN4NG2NMOzVuBa
-	 F8kZfYeoNSO1X73ZEEtPzIvcCcVg0fXWpqxl/ECrCSxl3abjRb4E1MaEdts1VS5JDf
-	 X3gcenvuxtT8Grm0f5iy95PvQIPr/MmvcWMTAa0Lrj2YLQ0EeFkpyrReIqDfLMCqPq
-	 sXPlSdQhkATWRwgtUR6FL7PR169AzBS6PV/QZV2LpdKJhusIIYNmoqItbOAgBizTcm
-	 /YMzVQf/1uAMwwQZo3IqIWPrR/hIxBWuJXk3oe1fDt+TFmZnQQyeYck8z+dDPX89s3
-	 AvRmJ3rlFmRQg==
-Content-Type: multipart/mixed; boundary="===============2241572966179256876=="
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17941606A327;
+	Sat, 14 Nov 2026 20:25:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17941606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 881E540E0140;
+	Sat, 14 Nov 2026 20:25:44 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id ixGd063xhOPR; Sat, 14 Nov 2026 20:25:41 +0000 (UTC)
+Received: from stx.tnic (unknown [209.52.143.85])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 23FAF40E021B;
+	Sat, 14 Nov 2026 20:25:28 +0000 (UTC)
+Date: Sat, 14 Nov 2026 12:25:24 -0800
+From: Borislav Petkov <bp@alien8.de>
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH] x86/build: Do not allow X86_NATIVE_CPU to be enabled on
+ non-x86_64 hosts
+Message-ID: <20261114202524.GBavjDtC9Z3j7PrV3Y@fat_crate.local>
+References: <20261113-x86-no-march-native-on-non-x86_64-v1-1-cbc8b096d1c4@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,93 +66,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <717a43d830b7a6544a51f3c227592eaadcd0afcf61ec9bf922ad517a280b8bfe@mail.kernel.org>
-In-Reply-To: <20261114193631.731615-7-jarkko@kernel.org>
-References: <20261114193631.731615-7-jarkko@kernel.org>
-Subject: Re: [PATCH v13 6/7] KEYS: Replace assoc_array with rhashtable
-From: bot+bpf-ci@kernel.org
-To: jarkko@kernel.org,dhowells@redhat.com
-Cc: jarkko@kernel.org,bpf@vger.kernel.org,dm-devel@lists.linux.dev,fsverity@lists.linux.dev,keyrings@vger.kernel.org,linux-doc@vger.kernel.org,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,linux-security-module@vger.kernel.org,agk@redhat.com,agordeev@linux.ibm.com,ast@kernel.org,alexs@kernel.org,anastasia.eskova@ibm.com,akpm@linux-foundation.org,andrii@kernel.org,bmarzins@redhat.com,borntraeger@linux.ibm.com,daniel@iogearbox.net,dzm91@hust.edu.cn,eddyz87@gmail.com,emil@etsalapatis.com,ebiggers@kernel.org,ignat@linux.win,hca@linux.ibm.com,ihor.solodrai@linux.dev,James.Bottomley@HansenPartnership.com,jmorris@namei.org,jolsa@kernel.org,corbet@lwn.net,memxor@gmail.com,torvalds@linux-foundation.org,martin.lau@linux.dev,snitzer@kernel.org,mpatocka@redhat.com,zohar@linux.ibm.com,paul@paul-moore.com,oberpar@linux.ibm.com,rdunlap@infradead.org,roberto.sassu@huawei.com,serge@hallyn.com,skhan@linuxfoundation.org,song@kernel.org,svens@linux.ibm.com,tytso@mit.edu,gor@linux.ibm.com,
- si.yanteng@linux.dev,yonghong.song@linux.dev,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Sat, 14 Nov 2026 20:24:27 +0000 (UTC)
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261113-x86-no-march-native-on-non-x86_64-v1-1-cbc8b096d1c4@kernel.org>
 
---===============2241572966179256876==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Fri, Nov 13, 2026 at 05:31:34PM -0700, Nathan Chancellor wrote:
+> When cross compiling x86_64 from an aarch64 machine using clang with
+> CONFIG_X86_NATIVE_CPU enabled, there may be a slew of warnings from each
+> .c file, which makes it nearly impossible to find real issues.
+> 
+>   '+crc' is not a recognized feature for this target (ignoring feature)
+>   '+fp-armv8' is not a recognized feature for this target (ignoring feature)
+>   '+lse' is not a recognized feature for this target (ignoring feature)
+>   '+neon' is not a recognized feature for this target (ignoring feature)
+>   '+sha2' is not a recognized feature for this target (ignoring feature)
+>   '+sha3' is not a recognized feature for this target (ignoring feature)
+>   '-rand' is not a recognized feature for this target (ignoring feature)
+>   '-sme' is not a recognized feature for this target (ignoring feature)
+>   '-sme2' is not a recognized feature for this target (ignoring feature)
+>   '-sve' is not a recognized feature for this target (ignoring feature)
+> 
+> Internally, clang expands '-march=native' into a list of target features
+> to enable based on the detected CPU. The x86 part of the clang driver
+> notes
+> 
+>   // FIXME: Reject attempts to use -march=native unless the target matches
+>   // the host.
+> 
+> which was first added by the initial '-march=native' support in clang in
+> 2009 [1] (other architecture drivers appear to have a similar problem).
+> 
+> Due to the lack of validation that the host CPU is an x86_64 CPU,
+> '-march=native' is expanded using the aarch64 host CPU's target
+> features, which are unrecognized by the x86 backend.
+> 
+> While this should obviously be fixed in the compiler, this does not help
+> currently released toolchains that have this issue. As a simple
+> workaround, only allow CONFIG_X86_NATIVE_CPU to be enabled when
+> targeting and running on an x86_64 host.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: ea1dcca1de12 ("x86/kbuild/64: Add the CONFIG_X86_NATIVE_CPU option to locally optimize the kernel with '-march=native'")
+> Link: https://github.com/llvm/llvm-project/commit/e13ada6a3b236f505b24501d456dec2518e4944c [1]
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+> ---
+>  arch/x86/Kconfig.cpu | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/x86/Kconfig.cpu b/arch/x86/Kconfig.cpu
+> index 6e7a366f0798..4043b7227e36 100644
+> --- a/arch/x86/Kconfig.cpu
+> +++ b/arch/x86/Kconfig.cpu
+> @@ -216,7 +216,7 @@ config RUSTC_HAS_APXF
+>  
+>  config X86_NATIVE_CPU
+>  	bool "Build and optimize for local/native CPU"
+> -	depends on X86_64
+> +	depends on X86_64 && $(success,test "$(shell,uname -m)" = "x86_64")
+>  	depends on CC_HAS_MARCH_NATIVE
+>  	depends on !RUST || RUSTC_HAS_APXF
+>  	help
 
-> KEYS: Replace assoc_array with rhashtable
+This looks like a whack-a-mole-y fix to me. Especially if the other arches
+would have the same problem.
 
-TL;DR: Comment only, not a bug today: the new keyring_read() comment says no
-semaphore is needed and concurrent changes are possible, but the caller's
-semaphore prevents that. Suggests rewording it.
+So wouldn't a more generic fix checking
 
-> diff --git a/security/keys/keyring.c b/security/keys/keyring.c
-> --- a/security/keys/keyring.c
-> +++ b/security/keys/keyring.c
+	native arch == target arch
 
-[ ... ]
+somewhere in the makefile be better?
 
->  /*
->   * Read a list of key IDs from the keyring's contents in binary form
->   *
-> - * The keyring's semaphore is read-locked by the caller.  This prevents someone
-> - * from modifying it under us - which could cause us to read key IDs multiple
-> - * times.
-> + * The walk is RCU-protected, so the keyring's semaphore is not required.  A
-> + * keyring modified concurrently may list a key twice or miss one, but it can
-> + * never have a link freed under the walk.
->   */
->  static long keyring_read(const struct key *keyring,
->  			 char *buffer, size_t buflen)
+Thx. 
 
-[ ... ]
+-- 
+Regards/Gruss,
+    Boris.
 
-> +		ret = keyring_iterate(keyring, keyring_read_iterator, &ctx);
-> +		if (ret < 0)
->  			return ret;
-
-[ ... ]
-
-This isn't a bug today, but the new comment looks inaccurate.  It says the
-keyring's semaphore is not required and that a concurrent modification may
-list a key twice or miss one.
-
-keyring_read() walks the list under RCU, but the length it returns is
-computed separately afterwards:
-
-    ret = keyring_iterate(keyring, keyring_read_iterator, &ctx);
-    ...
-    ret = keyring_nr_links(keyring) * sizeof(key_serial_t);
-
-keyctl_read_key() allocates key_data with kvmalloc(), which is not zeroed,
-and when the returned length is <= buflen it does:
-
-    ret = __keyctl_read_key(key, key_data, key_data_len);
-    if (ret <= 0 || ret > buflen)
-        break;
-    ...
-    if (copy_to_user(buffer, key_data, ret))
-
-If a link were added between the walk and keyring_nr_links(), ret would
-cover more entries than were written, and the extra uninitialised bytes
-would be copied to userspace.
-
-Today this can't happen, because __keyctl_read_key() does
-down_read(&key->sem) (as does the s390 invalidate_keyring_keys()), and every
-writer of index->list and index->nr (__key_link_lock(), __key_move_lock(),
-__key_unlink_lock(), keyring_clear(), keyring_gc(), and key_revoke() via
-keyring_revoke()) holds the semaphore for write.  So the concurrent
-modification described by the comment does not occur.
-
-Could the comment instead say that the caller holds the keyring's semaphore,
-which keeps the list and the link count stable across the walk and the
-length calculation, with RCU only keeping the walk itself memory-safe?
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/43634583011
---===============2241572966179256876==--
+https://people.kernel.org/tglx/notes-about-netiquette
