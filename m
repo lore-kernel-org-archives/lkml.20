@@ -1,71 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.54.127.134
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794626549;
-	b=rNgp5z3ZM1m3laLR1WE+hg5eRCZF6ezNJsF49EU0DL87DSB0fyAeKY2fp4RCq2/eq5iw
-	 w5V55yTyIhrEGOLUoeNgjLRspZ2NxIekfbjStAaTxwcQbCjHEDrGdLZATY0XokNplfB8H
-	 F+L72Uw08OsqXzGYfFdF0x3uTR3WIQd3bFIu45dFFPYAHtDOocQv7cAVlP4OApxUK/bPF
-	 hryt2ljMYoQVuBpzxJJb8cQbLnCRj/FMMw+B5NMwD2aBoO99qhzCKSK6DQL6AXYRHsMDp
-	 1nkv+BFQ3y5ykigTgfNF3H8JlkysS2nvVKaUQL/0bKHuep9KkfLh3OOaYlxHGH+kDSg==
+	t=1794626737;
+	b=JXB+eoPdVEORKwAbO5SRHbxIznylHGKeNjn6YJpKUqGxaIPWVM6oQrcZXvKMd5xIacKy
+	 jZgINsUlIh8lwTmmE+vE+amJeYCbD9KPDfcgJs3pYYFIjJmYZgdmv7HLkRm1TePX+2SS2
+	 85X/RifFiPegBd0Kj3DYKE/d8gLakUixET2rJQtxyZlttRd3RAaU9SlTp+hZgLTmtJz2D
+	 tR5rp5ZE89mqd9wnrolETYxqgQTw4k/VVxE3TazyXSU2iasdCfq94wdd+r7oYQoTi0sUY
+	 Rxx2uqtHdgEqbKX2RLIvnK9ODGJqv8RI04+xdyV6M4QcczDEGqymMgReVdRZARGzOAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794626549;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Ps3dmenyy5Kz+Ld8FFyPnRbKN1BblcpmGxOsdgzLlkg=;
-	b=SR2NjE0gtvnG0bwEqpkc3VMdKp7EaTmX3l69R8N2M8ESjPQOzXfC2hOkHb+Cx8gA97Rj
-	 9BZAKiZP0RMRifFxFG/5pZGCsErS/T8cOWXMP/s7lpyFnU/9ON2sr1+U5uez52AZqE2su
-	 +mwVGNMVgcffSvAdtHzYvhY2G9y7brprIpMSXOf12lsSLfZrbj08JC0rkrsgLHjk9njaU
-	 naA0Yv5jdIGIzRazDImmxsggmiH6NT8oS9FNupOkjL4I3H+fpMTa9ZLuUdm+V2JRH/qD5
-	 LXJkFcXL8iB4MuYOd2ZBBf5DeTJsrtU+f/xKFscqnZKEqGP57Kt8Kr5xRIQ12f+XPtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794626737;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Envelope-From;
+	bh=oyAxY85GFEZYnIl3FuV7SY+GGs/c3oBnxtIqltqNgug=;
+	b=l4irWUUV3W6C6selnag6Qx9TBJWL8+4gqQJ929hty6lagyAlpWeBJF/gjvm7f9yK0gjT
+	 XuysVJopmM/ICDm2jRVzGMwCuquwdJX5011ALY+/42k5Fa6wtvS5sk5Rb+l1k505eXmh5
+	 EyWwO6nUdey3YG2wMC02OW7BV804PuSmCaFanWYRnAbrVRkulhUnf83d+dAo4Omda/FUD
+	 TXBbzDW6pvNSUGYhtWhH0reBso3R9tCMWDBSaNT8urlXOPf5wTAst0cc5NGuFKUGj8EUz
+	 Ipsa2kmxY92kH71Nc0c/TIQkPhwY5k6cHuIbw1sDllimWhPnBmXv2MFrThWuPgfzreg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="TIy/8/QR";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=chrispinetinega.com;
+	spf=pass smtp.mailfrom=chrispinetinega.com;
+	dkim=pass header.d=chrispinetinega.com header.i=@chrispinetinega.com header.a=rsa-sha256 header.s=default header.b=CAn1GsUi;
+	arc=none smtp.remote-ip=198.54.127.134
+Received: from out-2z4y-a134.jellyfish.systems (out-2z4y-a134.jellyfish.systems [198.54.127.134])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAAE7606A330;
-	Sat, 14 Nov 2026 03:22:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46A00606A329
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:25:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46A00606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chrispinetinega.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrispinetinega.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TIy/8/QR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7E051F000C4;
-	Sat, 14 Nov 2026 03:22:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794626549;
-	bh=Ps3dmenyy5Kz+Ld8FFyPnRbKN1BblcpmGxOsdgzLlkg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TIy/8/QR+2mlmACX84mPKLSgJxGh4qT76lUA4A3S1YpdyK77CzZC68FU7aL2FIFBQ
-	 jae7Dpulhl2CHjlCq01tazNkJXGreqxHnTqkgo0hs/EIn8qKYi7lwYGqAeadKFUgkQ
-	 mA0rbZwDZGDF4Kc0u31SjgQAebM6rnTjqiUwMzET07rHjG+pF0XORy3f9TcJAsPyOk
-	 xeGkim+ufquQcsHVJav6pkh8bnOupmwr7GMYldXT1JijUcHxB8kMMbW/uR6NN9mU/4
-	 hE3WJ2CDjnxweiqtJcOs5oumz0u04v+Q5xeqJV84Xq6jrOV/ZzoC9Qj0adQGVRmXpg
-	 qHzl77KcUcUvw==
-From: netdev-bot+sinfo@kernel.org
-To: Bobby Eshleman <bobbyeshleman@meta.com>
-Cc: Stefano Garzarella <sgarzare@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Stefan Hajnoczi <stefanha@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
- Jason Wang <jasowangio@gmail.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
- Eugenio =?utf-8?q?P=C3=A9rez?= <eperezma@redhat.com>,
- Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
- Donald Hunter <donald.hunter@gmail.com>, Eric Dumazet <edumazet@kernel.org>,
- George Zhang <georgezhang@vmware.com>, Andy King <acking@vmware.com>,
- Dmitry Torokhov <dtor@vmware.com>, virtualization@lists.linux.dev,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, kvm@vger.kernel.org,
- linux-kselftest@vger.kernel.org, sargun@sargun.me, jlinbox@meta.com,
- Bobby Eshleman <bobbyeshleman@gmail.com>, Michal Luczaj <mhal@rbox.co>
-Subject: Re: [PATCH net-next v6 0/8] vsock: assign the guest vsock device to a
- network namespace
-Date: Sat, 14 Nov 2026 03:22:27 +0000
-Message-ID: <179462654726.2168702.15872918295479571326@kernel.org>
-In-Reply-To: <20261113-vsock-guest-ns-v6-0-3737ce4673c0@meta.com>
-References: <20261113-vsock-guest-ns-v6-0-3737ce4673c0@meta.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=chrispinetinega.com header.i=@chrispinetinega.com header.a=rsa-sha256 header.s=default header.b=CAn1GsUi
+Received: from mail.privateemail.com (unknown [62.8.90.37])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.privateemail.com (Postfix) with ESMTPSA id 4jRKJH5dDlzyNc;
+	Sat, 14 Nov 2026 03:25:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chrispinetinega.com;
+	s=default; t=1794626726;
+	bh=oyAxY85GFEZYnIl3FuV7SY+GGs/c3oBnxtIqltqNgug=;
+	h=From:To:Cc:Subject:Date:From;
+	b=CAn1GsUirKL6+dqPmQs2DDDkuZtVTJlE95li865Nv4fHZ2ZNUMdEfAjT5W3XhBckg
+	 j0rF58kSQF6mUzGYdghtHabY4bsU4hWjtrlsaWic1GRJaVlc/Mp+tPhEwtEfRGXrqm
+	 BNPTQS+P03qmLohFi6ODkQ4Ag2IY9wTh0DYBhNpHmLnYZmMJXWhUbxgjwcPcoOf+vh
+	 6I6ybprVC7Zodz9M9oAZuBZ/sYFCJHuL/VVBlWDC8YZ3VHaLgfKkHaUkv0Z7VK4l1T
+	 N3mHu5C/L/BpmlB+m1ENc19futqHtdGRd2zP5nWIdZgrGePuIGEbvnMbWBMjyL+ViW
+	 iRJMDlxqNSkeA==
+From: Chrispine Tinega <dev@chrispinetinega.com>
+To: Lee Jones <lee@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Tony Lindgren <tony@atomide.com>,
+	Jerome Neanne <jerome.neanne@baylibre.com>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-omap@vger.kernel.org,
+	mfd@lists.linux.dev
+Subject: [PATCH 0/3] mfd: tps65219: Let a board run past the warm threshold
+Date: Sat, 14 Nov 2026 06:24:53 +0300
+Message-ID: <20261114032457.3434248-1-dev@chrispinetinega.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,22 +79,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Envelope-From: dev@chrispinetinega.com
 
-Hi!
+The TPS65219 has four die temperature sensors, each with a warm and a
+hot threshold. With a sensor's warm warning unmasked, the PMIC sequences
+all its outputs down at the warm threshold, 110 to 130 C. With all four
+masked, it only reports the warning and powers off at the hot threshold,
+130 to 150 C. The masks come from NVM, so a board that wants the second
+behaviour has to set them on every boot.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+The BLIIoT ARMxy BL350, an AM6254 industrial controller rated to 85 C
+ambient, ships a vendor kernel that does this from a devicetree flag.
+This series adds a binding for it and the driver code, and corrects the
+MASK_EFFECT macro on the way: it named bits 2:1 of MASK_CONFIG, which
+are warm masks, instead of bits 6:5. Nothing used it yet.
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by LLM and not proven at runtime). If it was triggered
-   please include the symptoms, like the stack trace or kernel messages.
+The property is limited to the TPS65219. I have not checked the
+MASK_CONFIG layout of the TPS65214 and TPS65215.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account.
+This series is build-tested for arm64 with W=1, and dt_binding_check
+passes. It has not run on a board in this form. On a BL350, the
+vendor's equivalent code sets the same four bits, and the PMIC reads
+MASK_CONFIG = 0xef.
 
-*IMPORTANT*: If you do repost (for other reasons) - please include
-the relevant info in the cover letter or commit messages.
+Chrispine Tinega (3):
+  mfd: tps65219: Correct the MASK_EFFECT field of MASK_CONFIG
+  regulator: dt-bindings: ti,tps65219: Add ti,no-warm-shutdown
+  mfd: tps65219: Keep running past the warm threshold when asked
+
+ .../bindings/regulator/ti,tps65219.yaml           | 11 +++++++++++
+ drivers/mfd/tps65219.c                            | 15 +++++++++++++++
+ include/linux/mfd/tps65219.h                      |  8 ++++++--
+ 3 files changed, 32 insertions(+), 2 deletions(-)
+
 -- 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+2.53.0
+
