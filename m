@@ -1,55 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.70.183.196
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794662153;
-	b=VlQKLWFNqtHTJWl1gahtk5LP8t+7uwYQDA63h0YbS262JxtmEDAHWVUlqJR7C1ZW0lJu
-	 J8IOBHOh8PjOCFbwsCTOg0H+Q2IcOdkTz92mmr7PC1gYcGPHqkXwDu/GQcwIefmzVin7l
-	 oMgaGJUExhzCe0ZWp9H6XorSmhZHU6Z2HZRfKtgJHX2SGN6gnI2oM1R/iHS/q7pQwCAZl
-	 +hfGJ899WqN7ISH1aYFpqWS4B0VPAtGgcg86fbcYjwTpzQZzOIYEYKLpf5l7dCsjXkW+T
-	 e8arUis51SfZ+HfE+7VWKyf+TWbhZGQOrGgvvmCHzjT5/OPfQQBKMs39mmmzJb8ePPA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794662153;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-GND-Sasl:X-GND-Score:
-	 X-GND-Cause:X-GND-State;
-	bh=UBuyPxfkpGD+TN9xYc/6SdKxTT0pxjh+orcFTW1lF78=;
-	b=P5528Q7EYxzBwIBHXQN/YYha47h9JBX0Id7Z4i8n2RqqEnnRGgj/2kr2SoRXR1DV4Efc
-	 Pz50ntUOOrky7OI08Ow70Gl9qVBR7SL6ryc9dJPLQYbEQkdw0Xj3bPePGntkcTrZImEbb
-	 2j1OONco6/7rBnum/AIsjDk6U9UnB5S4ZiV+1KDo0N/zNBYkDJhMwGCQt+LJekKXfe2Cq
-	 HovE/d4IXlyVkEJqsaI0iEFQFkobgiK+FH1Hlh5N6hay/lF4VubaxhOxPr7UIVrxjOMX4
-	 i1/QLqtNhQsDafOY+aUJpsj6RA0wWK/5zf1c0iX1nQh23V0gmIiPb0Y4RsTt3vQwxvA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gtucker.io;
-	spf=pass smtp.mailfrom=gtucker.io;
-	dkim=pass header.d=gtucker.io header.i=@gtucker.io header.a=rsa-sha256 header.s=gm1 header.b="FyH3o/PA";
-	arc=none smtp.remote-ip=217.70.183.196
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net [217.70.183.196])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794662234;
+	b=DTim8rdTnwegx2YC6yGl0Y5ncjuh5sAAuxX0awWRLkCPtcC2jFlcs42mD8KDBz+G7jD7
+	 m0rQ+5gG9mh4Z0HeX07TRAKeJh6eT9y27bitLGLOZRAAEOULiRmpphMBqmYMbWWLuB76F
+	 t8rx3MdXvC4qO3Is5htd1Ase5Ohb2FHB5M2QPK3KXJxi4TGyjW+RcDEKUW1Ealwx2+hDg
+	 jb6UFkXoXnkbe4N1mOXx2G77rDDz18+Joip92AM+F3INzLS48KhLsMhnqKYi8u8aihJg4
+	 +f2zaiciN8lqdjfnCzJ+LPmKWLdwcyMZnT39q8lR0WOwF3k5Xq2xPKu8dcYY85oDdrg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794662234;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ITM4+BMzeI3EvIOixDqTXlM4tReFquWP1v2DgL7ZSL4=;
+	b=nGBB2vFanpJAcUf840gM6WrdTQl1iwMEZ3dW2hGsxGKKIcbLxsteKMhwwztscQDp1yfi
+	 a7ajUC/U17+Unly7WnwmcNJW7HwQfFnX0b3iFhxLUL6sfRzsGz65giT+hfYJ6u+jZk8f/
+	 X+oAjzr5xBCsynllWcew8nri3xi3M/ClhH9+7ja1Fi1ZAapDLYmOrXkuhnoJkyBDdu7T2
+	 0THtX3xkWo+axf2Ph5h+DhIuGbygdnh2Op0PIKu0WUpUBSy9RJu26x3tSfutAxwr7KDbh
+	 YDNC8edNMZgU5rRVOUTzCmMMWt4LQTAnqwAJtywGoq62XLp7MDSl4aLrXUVV4Ni5LmQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bkBiYsFf;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.42
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97342606A335;
-	Sat, 14 Nov 2026 13:15:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97342606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gtucker.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F6B9606B0EA
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 13:17:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F6B9606B0EA
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gtucker.io header.i=@gtucker.io header.a=rsa-sha256 header.s=gm1 header.b=FyH3o/PA
-Received: by mail.gandi.net (Postfix) with ESMTPSA id B51603EDB6;
-	Sat, 14 Nov 2026 13:15:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gtucker.io; s=gm1;
-	t=1794662144;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UBuyPxfkpGD+TN9xYc/6SdKxTT0pxjh+orcFTW1lF78=;
-	b=FyH3o/PAXilxApaipvidfBBjonIe/VgR5HKWDXIGI/VXcfFfmZyL9Pa8WKV5slexGl1ZTI
-	9UAOmBTtF1u0UgoN9MoiWppMbBCsTuRYrETqQ9mEkiB5rLulvV+c7EYZDfQ0RHGnxn8Tas
-	4k6bNkizi6MGOTNgBqaIFZlVkcLPR9MX0bbdOQdPSmqmwxnSCDXtxvl/0ft41jL/yuvN+V
-	yTXn/gg3zD8u8mSYce1xPxZRQMn8Q1yjNG6QTekow4C6DXRG2nQ1EmKSqZcc84L/ZP2aoi
-	yxNwkusnodtnvsVSmv89nVg/s4HdEfxfBz3tTNP+/9WfwgjyMw3dVz5Mp8zccA==
-Message-ID: <4756911d-1981-4edc-8c85-e45165f0fc59@gtucker.io>
-Date: Sat, 14 Nov 2026 14:15:41 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bkBiYsFf
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c445c95d553so316189566b.1
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 05:17:14 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794662233; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Be3FxvpkEyGDQI3HRdQ+tpZ5OdfeuHTu7hcsPdp0MeVEF4XtQKiV17Bmh6A7Cj2YYw
+         c9kItoK465RQaody5l8HLXNQFkXZVPWAkFIKLtWjkYVZMcvHRLYryMKJvJ8BEZyegZ/s
+         gG/u5MvhlOkoosaXFdGfUyedpIrL6cgODsroDT0nqcjBiw9XF3UHE0RlZxmawtjuRt19
+         LLjep3NtqeZUqTWUXCVXaghUaX+eh9zuvMQMVAX2xoeEXdYh/rYJ/6CGCknUNmDar48m
+         C/5fpYG4ldoWggeZD4gaUBJ1/LYM//4gMfgftMpEsB8g7W2RSLiWGCAMXOOCw9WqkXF/
+         2KTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ITM4+BMzeI3EvIOixDqTXlM4tReFquWP1v2DgL7ZSL4=;
+        fh=Cv5zlEiqvsVntoLYo06lzcom/r/ES6MvGexrjVVPXqY=;
+        b=Zmctth3zhxqw0Nn/Fk2KSsbpVzf+XCYOnxBboYqEGegrlgTTm92Ah64c4yiD43jAw7
+         nS6hhDU08NMUKehkPA87akzJBZyGWqIt0Wp6MLU91VVhU83lmoZmdDT5odbJvupTf1cP
+         mKrfVmguhnKygMVSjvXPe8ZmTMO/Unod1ZYjVNBO2MQ3dQWj5Ymao9KIUxcUiPjWMuil
+         1Oc77ayaGcKPuBEGs6ofOp1JDlB4roOuVpBRmjBumybyL4uCFsc9Bz984Lbuo/mrmKZD
+         9ErsA1eM/hMQwimGiddSIyRRB5Za5fErV5eud6i+cFpb7aBxgku1YC3t1bWpCcvm6EfU
+         170w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794662233; x=1795267033; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ITM4+BMzeI3EvIOixDqTXlM4tReFquWP1v2DgL7ZSL4=;
+        b=bkBiYsFfmEtp7IJKvH7hEn7KTFWusZlaAuAdlpmYXF803sUqFCC1KYxa9tyrf34zN1
+         XEF5zkbgkyIS48qvP5a5GB3ex7t7UtUZYJboxL0XL4tLGHUYaONVZb6rUO8eATYZ1QXL
+         8+UQQA+DM8uDBp6Hk2hDrEFaQbRoNXoI4sdU/oLAIoBHSwdiO0Ay272h0WfUXQYhiEyJ
+         e2QaMbc1FuXjzS/yNEbZqG1YlIpj/OsymtVLBErLFBFscJ/L9ut44gQSUhbnqudxfjKt
+         sK7WJvoJ/AvY0cJmbn/C2ArMEwRPABus1HpWmclIlurEsjmpX9yiYldYqDoxhrn8mpyz
+         4Fxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794662233; x=1795267033;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ITM4+BMzeI3EvIOixDqTXlM4tReFquWP1v2DgL7ZSL4=;
+        b=H8adLX1URwVItNvNAO0HmwjU50gx3jBTFe8rhvx1mSL+4B5U5f/xOy6olUggjSHAnY
+         YVkgSbBAcEDCFPpL6TCW148jmFosycyOkuegGXpzr9ANezFQrgkhc21cNbGvPe9VlwUs
+         n+ptRm05/MHahpvXLIxP2ighRWeZnO8t0K9H8CNAUBtASrXmsEjtmBWkrBG31XFWColk
+         U5dO5S1FYDMmZ83sLKAbh2b0Skh5QVg/KfwO/9D5Ky5joayrdPCR22a9CWX48vZJfUzT
+         cJ4pg3Xhh/L0+IaiijwTM4Gq9oaVMzUuOVefHaht9DESO8aMlrC8OR6M8F9AW2ejhDRB
+         U65A==
+X-Forwarded-Encrypted: i=1; AL+hErF9o/BALtxZmA0Nhx4XUQye2x5SDCP3lAbfvkW5sh/5um7Ih6MZKI2FQ85+6oFCUQ6fBuEvcOWpsWR6ZYg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z88PaLXQGRW7lOpsBl04SfPBjVdxSw3sY+dNNBtiEsaClDNqzxz
+	YA77ce6TI9ahR4p53YOidMvi4l5DFA+vhS/iEjNgCfLZelOJjwcyRMZxuHyHDB/DaZWq+dSynpt
+	n1nfBz15xK+/FmGXvTUELikXyy16mBWI=
+X-Gm-Gg: AYBFou3ARTh1LmJjHF/6/E0yfRCW3f9ia9wJjjYI+p4yBxIU2w7dqf5mncexVPKlIuK
+	LKy8ORL1y7HdXhG5wyD+N7QQpVVjGolgyuYsXA4aM+Qtw/aEcfTPtTIFqlGhK+kEFAIJHfeCbZ/
+	LgenpGBIG1tDvR+Zm3AXJLP/izX2hNVvEoRD3K9w+LqiiC8Kx0COjeA553REXd1uWByYZ5w2T7u
+	zvgjKpdFd3K83WQGcGSy611HiV3X9rrL3MKlkohL/noRcRzgNnrzHwM1y2ohHUX2xFkrrxYSu2z
+	P4ZwP6BN1sYUcSkMi8zzApL/Vc9BTGQfNDxC2sthGhzwcqGy/nFk7p5TzRbNZLuiX76QD3R3GlJ
+	yOUmiGd9ReNhPOWhStUOas9QKvnwIAhZqsJOV0Q==
+X-Received: by 2002:a17:906:dc91:b0:c50:5a93:3bd7 with SMTP id
+ a640c23a62f3a-c509614d52cmr448037466b.3.1794662232406; Sat, 14 Nov 2026
+ 05:17:12 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,82 +104,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] scripts: add --registry option to container tool
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Nicolas Schier <nsc@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Miguel Ojeda <ojeda@kernel.org>, =?UTF-8?Q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, linux-doc@vger.kernel.org, workflows@vger.kernel.org,
- linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
- Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-References: <06ee7c694c3e9716bff5c9b1b8e9dc95cc0b38d3.1791751900.git.gtucker@gtucker.io>
- <179385298671.826739.5987343385077824329.b4-review@b4>
-Content-Language: en-US
-From: Guillaume Tucker <gtucker@gtucker.io>
-In-Reply-To: <179385298671.826739.5987343385077824329.b4-review@b4>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-GND-Sasl: gtucker@gtucker.io
-X-GND-Score: -100
-X-GND-Cause: dmFkZTEosKJeFP+27beNxaiEZHskixttPg7g7iXs0p1k1tYJayIk5inh6w97znoi9hb8cCJrdIrjkTGRfXrra8Ix851B4APZNHqK+vTkwSWjKS+02tUJktRNce6mUdOZovDO3W7S/SBqbIiYz06kEL/FZ65Vxxgpys7lQtymdu+2oE92LemqoBa0ATHDnyrDgAVypdkbfFGOCeTJcsFVFcEhcizCbE93zoSJd45DmqUll2rG7Nlny/28xj7GSeiVwQZb9uVChT+TTOa7Uua6d+w/FwSg6hyPvOpujJdBFhEIx1Ndx4RO8r5dxBfw7I9M5GxAuQiLc0EvQh6vOYpq3/pM35AiX/gkoaJEa0QW5sW2Y1jGpkdxYK1JyezWm9wRhIT2PwH1q17sI5OwBppkkwu9Qa9PqJ2clGXtY7ameQEj5pri4/KhrOm4yz+o8PKCsTL9W7vTiQHW8sHLhxQ5+UD/h1v5k/joOfCWJ/Pl6jSP8GvZbpHWG0ewUHslrIR0n+57g6E1mXRGknTeM0ZccNvlJLsT/Fub1KAt3pygrpHW+sp1+kMJ7+XG6raj1LgK91q70TlAsw7gj6yMZuOeImHAIPvbCXjEMbThQG1QBe/A4YLIgtV3WTv2gcbrsRb97s0ClHwhkZOMl3ubNXGME4Viq0EYj33iyY/4arJKlF4Z6Bqj0Q
-X-GND-State: clean
+References: <20261113110546.173624-1-a.shimko.dev@gmail.com>
+ <20261113110546.173624-2-a.shimko.dev@gmail.com> <20261113-good-renovator-99924ca0d55b@spud>
+In-Reply-To: <20261113-good-renovator-99924ca0d55b@spud>
+From: Artem Shimko <a.shimko.dev@gmail.com>
+Date: Sat, 14 Nov 2026 16:17:01 +0300
+X-Gm-Features: AclHuK8rhFfFvkBwbKflVQt0QnoMak0rCeWcBpwf3o6KE4ySn9wUi4t5_Sc9CCY
+Message-ID: <CAOPX74613tpMONAYkvY+6=UqDtJ7h8r8FmHmnodmNZ3Zi3RBbw@mail.gmail.com>
+Subject: Re: [PATCH net-next 1/3] dt-bindings: net: dptel,dap8211r: add led nodes
+To: Conor Dooley <conor@kernel.org>
+Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk, 
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	maxime.chevallier@bootlin.com, pavel@ucw.cz, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-leds@vger.kernel.org, 
+	netdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Nathan,
+Hi Conor,
 
-On 05/11/2026 5:29 am, Nathan Chancellor wrote:
->> Add a --registry / -R command line argument to the container tool to
->> specify an altnerative image registry and support it in the TOML
->> configuration file accordingly.
->>
->> This uses a mechanism based on regular expressions to parse the
->> container registry and image names and construct the final one based
->> on a set of priority rules.  A registry can be included directly in an
->> image name; an empty string means a local image.  It can then be
->> overridden by explicitly specifying a registry name via the CLI option
->> or the TOML file, with the CLI option taking precedence as always.
->>
->> Signed-off-by: Guillaume Tucker <gtucker@gtucker.io>
-> 
-> Hi Guillaume,
-> 
-> I don't have any real strong opinions on the patch itself (although
-> Sashiko seems to have its usual complaints about validation and such)
-> but I am not sure the commit message or documentation make it very clear
-> why it is useful to support this. In theory, the registry can be added
-> to the image parameter, is that not sufficient?
+On Fri, Nov 13, 2026 at 8:17=E2=80=AFPM Conor Dooley <conor@kernel.org> wro=
+te:
 
-Thanks for taking a look.  Yes, after taking a step back I tend to
-agree with this too.  In fact it seems like doing the work for this
-series helped prove it was generally a bad idea in the end.  It's
-over-complicating things and causes some code bloat for very little
-useful features.  There are corner use cases where it makes things a
-bit easier e.g. when building a modified container image locally or
-on an alternative registry, but handling the full image path isn't
-such a big deal.
+> > +  leds:
+> > +    type: object
+> > +    description:
+> > +      Optional node describing the three configurable LEDs of the PHY.
+> > +      Each LED can be assigned a color, function and default trigger
+> > +      (e.g. "netdev" for link/activity indication).
+>
+> Please add some blank lines here,
+>
+> > +    patternProperties:
+> > +      '^led@[0-2]$':
+> > +        type: object
+>
+> here,
+>
+> > +        properties:
+> > +          reg:
+> > +            maxItems: 1
+>
+> here,
+>
+> > +        required:
+> > +          - reg
+>
+> and here.
+>
+> > +        additionalProperties: true
+>
+> This whole leds node needs to go down below tx-internal-delay-ps, child
+> nodes are typically sorted after regular properties.
+>
+> pw-bot: changes-requested
 
-Validating the image name is also not strictly required IMHO as the
-underlying tools e.g. Podman or Docker will report any problems
-anyway.  I'll see if we can still have just the regex validation in
-place without the extra CLI options, maybe send an RFC but if that's
-also bloating the code then I would probably just drop this series
-altogether.
+Thank you for your review, i'll all of the above.
 
-As a collateral benefit, I basically ended up with a small Python
-package to parse container image names so I might tidy that up and
-submit it to PyPI :)  Or upstream it in an OCI toolbox or something.
-I haven't found any ready-to-use one, all the container runtimes have
-their own independent implementation.
-
-Looking ahead, the next item on my list is to improve out-of-tree
-build support with the tool so I'll start tackling that soon.  And
-the related topic of hosting reference images in a kernel.org
-registry[1] is also making some progress after some discussions at
-Kernel Recipes and Plumbers too.  We've reached a consensus with
-several key maintainers so we now need to find a way to land this.
-
-Best wishes,
-Guillaume
-
-[1] 
-https://lore.kernel.org/all/01a87de4-8de5-4ff0-941b-2e5932a3a19c@gtucker.io/
-
+Best regards,
+artem
