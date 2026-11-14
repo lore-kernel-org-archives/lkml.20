@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794629683;
-	b=NNOomSUZXH2s11yMiZwAo+MHhk1NK4AnVLszAV/KQKsNurTlaB7f+nGJ/+VYpEAR6vZ0
-	 +lYvHoT9hgH7LZe3xQbHqibgPQeBK38g1mxKP4HF68lTBJ0o1ScTxr3bBNaq7vKzGdEia
-	 NbFbdjScLYqtLxyx/vGjIXlpWW4Ui0hmCFv8PpqPVj0nncvJCkEDage+cW0rCXVDTp03G
-	 uHpZhaD1tXq60Uz357VdjxIFZFJHyRXraalrUBVRCk7Bi6f08VHpYC78o9gX8QbFsehAv
-	 QnadzCpSFtySW4AGCl+zN0nK8IhahVbigKDbJhV6CBmRunlW0pUk/DgJLc774YSBntw==
+	b=A3LMkjGlhx4hJ1x6bMf8I01i2lSiglBD/4Pt1lfnWLWq8IWjksS2oT9VeFTo0Egb/7jA
+	 zQje98OlAF9kYSzVgrRwU94L+xdMmShNVdBzzXdmxvlCohdpgLf1+M5PWbL9z6OwLGwu0
+	 SQKHDq7kmgEMGCfOI8tA9n/7xU4NCKd4TD5v3WnneROUP6agB/TWUM5Y3WHkItZz5RqSu
+	 7WoI2CBlwex3x2mPfa4tGV+AmUEmzZ8ePHIJjgJstucpB1fKjDeiz/nFty2472wXMEprD
+	 7XNrutxaBieGvArVKO9GBALBk4RGcHrKe2wlQyKSw3dyApf3hWFh8axOW8lDo7wyVbg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794629683;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=CVwzZWJvemgk17AWrU0DUj2CaQ/fEJaJ3wW6uMJrMnM=;
-	b=f4P/r8WA0vtXxLatooAMXGrZeSKaHy230CEM56IvUyCCCg849k3OV8eRMSadWoj6fjEg
-	 6NEEfsB7bLiFcCLaYnhMiGG7sA00+0BAVlR2+xLWQJtxCAHxc81pTVDaD3GU1JD0O/U3f
-	 9oQAGldq/HELq3ADprATX444iYRAaDrZgo1kNYif7hMMag8TYdGiFNn7BLPCL26G8LmKJ
-	 ZAkZSYhiOor/TFMI2ShGfaVASNY9lfp+K+dOCAPtnwYPWP7F4+VDnMXAQTv0zG2FLI/Km
-	 yGE8imk3lZ1XFEzh5RiWDoPk98b8MA9dr81MWPdZtrH//DZyV8Bn6hxZnk26Sgc8Hpw==
+	bh=cO6oAOXIgzMpetBE3e7i5weblbBDQaW8Yu+sv7kIn3I=;
+	b=w/Ju8uhK9iEP2zZ0VYXHkX3JQY0Lwe3rZvmj/N84QhjWaG7061vi0UKbbYKMfkgt3dvI
+	 M9WcGy0Alx0uPn5UMLOVWwBWtRAtNKQGizu8HqkZPYA07RPczVqCCTFk+SPtMIBdBE0iZ
+	 9MoV0qBsoderiA7qhoXWsJ4OOTA33ai09kFSEMZCXK9k1+TkU38ffgcABb57L9Oc+4xda
+	 QL7MMDFycV0LsRwm4G4coEg24EnBENueMGtIeXKmu6bP57xvdHnXPOkUf7vTDqeuJjjsU
+	 b5yEBf5R/Mha0X07MH54rRtBSmjYkdbAGSbxOP+fmLAfJHkjpTj4ULj9QBHSrz6e1kw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jszqxbfy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EPzxDc45;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 020C7606A327;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83AE5606A8A4;
 	Sat, 14 Nov 2026 04:14:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jszqxbfy
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EPzxDc45
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794629682;
-	b=BISghUVzUiQpkBdTHQz0AOBg1C9xHmmAnHVf85mxbi2eBhXq7pjXLB343M/dvgb9GYZC
-	 kGPT6DEi4OQ7SA+YXtcYlw8e5/RwJCbHlzTPH0EymTyV5OOIx4KsGRV3NKs72ZAfyDgSt
-	 k735oAIt/jyiOrNpgu7E/hHxQUdhnvg/9QzGEpNj8stMlu4JcSBptCSjkPg3VBlYUh5wF
-	 +ExJuLu1pPr5lRdZ9vZ2UcFPd03UiPRdYR+c4Zbn4Sy/vVO9xggCPZo4IOIKzy2lkfNSs
-	 bGci/qH/GseFiF8k590ZszmaLM23W+MKccwd7V8jfHXOb0sY2CSwRi1T9sGHjPXzD5w==
+	t=1794629683;
+	b=cLSPLILHkA40YqWTIAIZJ1cqCnCYdpqNQTHdKsD64nzb+D0nGBQy6QD6ypZmvuabkXt8
+	 5mWRpSwnPEgsTYE6/5rGGJXACERtyfEoC64KeZjkKIj8G+6zscaauLyCZ5W2g+LRyYbfH
+	 YH+dkarZyGoXzxrc7qfFgf4tRT+t7AWNN07vvDu8K0RLTy5D1RBy8dva9XiWJyWoo0gDg
+	 G2nTe+lWO11s6ddmXmBsyEJkIuZv5mFas87vMOXIq5j7Eadw7luZINfuicT6T8B8jhfVc
+	 Jpee3lo734jK+0ZuAuDWJ1MTBZ3WB1j74XtoRG+KVXQK8BXnGieUqG1D6O6zrGrt/eQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794629682;
+	c=relaxed/relaxed; t=1794629683;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=CVwzZWJvemgk17AWrU0DUj2CaQ/fEJaJ3wW6uMJrMnM=;
-	b=rB8gg5tPrXqXHra8Ol2NZlVNVwR6Mgw+aBEu6/EvbF8PgtJiLQeWD4lWthYMK59UMFu8
-	 8/IkE0e4sy5IWCK8lhlnnx5eXbvA9ZJskQ+9QuBP/FZjawP5T56dilJw9N7qXrvvbe0+L
-	 IFwtXquMQCgCKzOIAeKQuBGKT/O246+nkeeGGfyfA7Z8JVcH/d9iwoI7wQE9zbRrmVhd9
-	 g/u+V2sfz6j6gBAJHksFiCboX4es79Gsl6Cn0JVIBo3LtpoDAWO5Y422lan0CUzKKZqks
-	 whJiwqBD5/xjnZmCmtAWB26yQDmXK08I+GCUwu0kXMWWvRt1sV5khFRW7z+7IVAyvBQ==
+	bh=cO6oAOXIgzMpetBE3e7i5weblbBDQaW8Yu+sv7kIn3I=;
+	b=ZqMq1vP10hUW+Iotni6tjKGzTeQWPKKOccDTnAv92eUwSiUkPzzbEMnBTC3Xp1mg8UaM
+	 Vd9RD19Ipr7HC50lNUMCL0cbX9EpL0QN5QLLuHWuLIMA7G5RHAzBaMOEoVJPytYuu35xL
+	 80FXda+5bdZtpp1V+7+/3oZ6aNd81vdSPxpyuvH4ZVwSALy7/RTKf3234VFaZCw/2sh3V
+	 60gOypBmFRTN+pF4g1imekZZSNdoNdP6QKM2TJ9GlSA7qVtKl79HEyrdWgns94APLv67P
+	 yWSBOeae7OE7qgTi6Mqyc4s5z6lVE3cuCiC4AsUW63MsJtG2FCwpG3b53ZHaiZtl/cA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D5DDE1F000C8;
+	by smtp.kernel.org (Postfix) with ESMTPS id C31001F000C7;
 	Sat, 14 Nov 2026 04:14:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794629682;
-	bh=CVwzZWJvemgk17AWrU0DUj2CaQ/fEJaJ3wW6uMJrMnM=;
+	s=k20260515; t=1794629683;
+	bh=cO6oAOXIgzMpetBE3e7i5weblbBDQaW8Yu+sv7kIn3I=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=jszqxbfysQYyl+XtUMKd/X4Q64mOtRaV6ASXfJPxjCVKLMvdAzWGNONMAviVKKCtp
-	 UUln8/TobxJsiF5ZErHTguzAGNEhqJ9jWe0dicI81ziWS8TBfxGdMVxo593SMRO+SE
-	 a4MBjr0SDTnP+2zaI6mld3h77CfCdMgDNQbF24V8R/cKa4+rEE/W4ITo/u7XKjL8b4
-	 GFWdQEZO+NbjN/k+ZVJABiut0xImRI54Mi5zBMUYAdEwrbLXfFzQPLw3XfQRO6ItVC
-	 wTWv+oLOfkEv9mrr3GIL9hTzVWQYJKu9T0hb+Jipg7tq9dQEjIyPkPO3cIzC23di3z
-	 oLwcYWfLxe6sg==
+	b=EPzxDc45vExe9fyNulgEEgJaLgFjaUCVptyzJGfMWRXpitnmIZftrlWLH2o7gk1cn
+	 5To57l0cfihECi786oqxYgAS8BSx58Y2Lhq0lYQd4ELl1Zch9m2rxtLsxj8VQfVhR5
+	 PSH36J+wUzSpP5xHuH1oS44OsiB1a9JFjB9xtGpXmf5QGqwROf0QKcMohmlTD/w1qn
+	 sR2NMReqTWLH77SCv8buoYqpFnDQnnvN+W7C+MOIcNh98UofBKAAJrc7cEAaIvySNK
+	 YHTJ4d8UpEqpvm7xhwBdY+s8JRqMIvrEf81IlyAUWoDOCVfSF4jtH6gkDcIaBDYqX5
+	 rIAli3nMRuOdg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 6456949C85;
+	by lkml.kernel.org (Postfix) with ESMTP id 503BF49C81;
 	Sat, 14 Nov 2026 04:14:41 +0000 (UTC)
 From: Bryam Vargas via B4 Relay <devnull+hexlabsecurity.proton.me@kernel.org>
-Date: Fri, 13 Nov 2026 23:14:43 -0500
-Subject: [PATCH net 4/4] net/smc: order the urgent mark across the cursor
- wrap rollover
+Date: Fri, 13 Nov 2026 23:14:42 -0500
+Subject: [PATCH net 3/4] net/smc: fix the failover catch-up across the
+ cursor wrap rollover
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-b4-disp-1a9ab9b0-v1-4-4a7c8d85d849@proton.me>
+Message-Id: <20261113-b4-disp-1a9ab9b0-v1-3-4a7c8d85d849@proton.me>
 References: <20261113-b4-disp-1a9ab9b0-v1-0-4a7c8d85d849@proton.me>
 In-Reply-To: <20261113-b4-disp-1a9ab9b0-v1-0-4a7c8d85d849@proton.me>
 To: Dust Li <dust.li@linux.alibaba.com>, 
@@ -100,11 +100,11 @@ Cc: Guangguan Wang <guangguan.wang@linux.alibaba.com>,
  Wen Gu <guwen@linux.alibaba.com>, Stefan Raspl <raspl@linux.ibm.com>, 
  linux-rdma@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794629679; l=2415;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794629679; l=4137;
  i=hexlabsecurity@proton.me; s=default; h=from:subject:message-id;
- bh=H0cDzBMU5jnWhuir5b0Y+uamDOQJx9v7YnLHHqnWujU=;
- b=alisxctGY78SwE7oHxLyUorWTGmWoZBmYFTPJ7GI45VR5SB/8i0kWOibNF6J7f4E+tArli1n2
- Lz/ru3MfW06AG4Oar/5Hyqm71sIY1CnsCs2ed4wib0RTDUhShCTI8WV
+ bh=MVHarJC77cCCLJEzqiGRuVpi6O8XQzj00ArzQHD908I=;
+ b=F74AfkgSmjHIJIkI11G6+klEgg5afXLKUyZ+MgiafeDZN5uFBsKxa2QREh+gp2N2FTyRZcd3/
+ sEaJOr5FktXDaaM12ytCJMfZ4oOK01LFbHkVs6yBy5KhEbQS6xLAT2A
 X-Developer-Key: i=hexlabsecurity@proton.me; a=ed25519;
  pk=xw1AhCtQdvuoQc+bOQIYy9o8G++cp4/VniI2G/tc3G8=
 X-Endpoint-Received: by B4 Relay for hexlabsecurity@proton.me/default with
@@ -115,66 +115,103 @@ Content-Transfer-Encoding: 7bit
 
 From: Bryam Vargas <hexlabsecurity@proton.me>
 
-smc_rx_update_consumer() orders the consumer cursor against urg_curs
-with smc_curs_comp(), which misorders them across the 65535 -> 0
-rollover of the RMB wrap. Without SO_OOBINLINE, with the reader on wrap
-65535 and the urgent byte on wrap 0, the mark reads as already passed:
-urg_state becomes SMC_URG_READ before the byte is reached and
-recv(MSG_OOB) fails with -EINVAL. The urgent byte, which bytes_to_rcv
-leaves out, is then never skipped, and the sender, which waits for its
-urgent data to be consumed before it sends more, sends nothing more:
-the connection stalls.
+smc_switch_cursor() orders the peer's consumer cursor against
+local_tx_ctrl_fin with smc_curs_comp(), which misorders them across the
+65535 -> 0 rollover of the u16 wrap. A consumer cursor behind reads as
+ahead: the catch-up can credit sndbuf_space for bytes never sent and
+tell the peer they are in its RMB, so the next send() can copy past the
+end of the send buffer. One ahead reads as behind and the catch-up is
+skipped. With a send buffer larger than the peer's RMB, the catch-up can
+also be short once the peer is more than one RMB past local_tx_ctrl_fin,
+and the connection then stalls.
 
-Use smc_curs_sdiff(), which orders the two cursors across the
-rollover. smc_curs_comp() has no other user; remove it.
+Use the signed cursor distance, advance the RMB cursors across any
+number of wraps, and bound the catch-up by the bytes sent, which a
+peer's consumer cursor cannot legitimately pass.
 
-Fixes: de8474eb9d50 ("net/smc: urgent data support")
+Fixes: c6f02ebeea3a ("net/smc: switch connections to alternate link")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261029-b4-disp-33001ace-v8-0-f9bb96e17827%40proton.me?part=4
 Cc: stable@vger.kernel.org
 Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
 ---
- net/smc/smc_cdc.h | 13 -------------
- net/smc/smc_rx.c  |  4 ++--
- 2 files changed, 2 insertions(+), 15 deletions(-)
+ net/smc/smc_cdc.h  | 10 ++++++++++
+ net/smc/smc_core.c | 22 ++++++++++++++--------
+ 2 files changed, 24 insertions(+), 8 deletions(-)
 
 diff --git a/net/smc/smc_cdc.h b/net/smc/smc_cdc.h
-index 4b586a20dfc2..eecd0cc5bb79 100644
+index 597acb2e123f..4b586a20dfc2 100644
 --- a/net/smc/smc_cdc.h
 +++ b/net/smc/smc_cdc.h
-@@ -167,19 +167,6 @@ static inline int smc_curs_diff(unsigned int size,
- 	return max_t(int, 0, (new->count - old->count));
+@@ -97,6 +97,16 @@ static inline void smc_curs_add(int size, union smc_host_cursor *curs,
+ 	}
  }
  
--/* calculate cursor difference between old and new - returns negative
-- * value in case old > new
-- */
--static inline int smc_curs_comp(unsigned int size,
--				union smc_host_cursor *old,
--				union smc_host_cursor *new)
--{
--	if (old->wrap > new->wrap ||
--	    (old->wrap == new->wrap && old->count > new->count))
--		return -smc_curs_diff(size, new, old);
--	return smc_curs_diff(size, old, new);
--}
--
- /* signed distance from old to new; the wrap difference is taken as s16,
-  * so it holds across the u16 wrap rollover, for cursors less than 32768
-  * rings apart
-diff --git a/net/smc/smc_rx.c b/net/smc/smc_rx.c
-index 63c178c10bf1..0345167cdc0d 100644
---- a/net/smc/smc_rx.c
-+++ b/net/smc/smc_rx.c
-@@ -68,8 +68,8 @@ static int smc_rx_update_consumer(struct smc_sock *smc,
++/* smc_curs_add() for a value that may span more than one ring */
++static inline void smc_curs_advance(unsigned int size,
++				    union smc_host_cursor *curs, u32 value)
++{
++	u32 count = curs->count + value;
++
++	curs->wrap += count / size;
++	curs->count = count % size;
++}
++
+ /* Copy cursor src into tgt */
+ static inline void smc_curs_copy(union smc_host_cursor *tgt,
+ 				 union smc_host_cursor *src,
+diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
+index fb9f6a4eb683..76a577a20e4a 100644
+--- a/net/smc/smc_core.c
++++ b/net/smc/smc_core.c
+@@ -1054,22 +1054,28 @@ static int smc_switch_cursor(struct smc_sock *smc, struct smc_cdc_tx_pend *pend,
+ 			     struct smc_wr_buf *wr_buf)
+ {
+ 	struct smc_connection *conn = &smc->conn;
+-	union smc_host_cursor cons, fin;
++	union smc_host_cursor cons, fin, sent;
+ 	int rc = 0;
+-	int diff;
++	s64 diff;
  
- 	/* did we process urgent data? */
- 	if (conn->urg_state == SMC_URG_VALID || conn->urg_rx_skip_pend) {
--		diff = smc_curs_comp(conn->rmb_desc->len, &cons,
--				     &conn->urg_curs);
-+		diff = smc_curs_sdiff(conn->rmb_desc->len, &cons,
-+				      &conn->urg_curs);
- 		if (sock_flag(sk, SOCK_URGINLINE)) {
- 			if (diff == 0) {
- 				force = true;
+ 	conn->tx_switch_gen++;	/* completions of earlier sends: no credit */
++	smc_curs_copy(&sent, &conn->tx_curs_sent, conn);
+ 	smc_curs_copy(&conn->tx_curs_sent, &conn->tx_curs_fin, conn);
+ 	smc_curs_copy(&fin, &conn->local_tx_ctrl_fin, conn);
+ 	/* set prod cursor to old state, enforce tx_rdma_writes() */
+ 	smc_curs_copy(&conn->local_tx_ctrl.prod, &fin, conn);
+ 	smc_curs_copy(&cons, &conn->local_rx_ctrl.cons, conn);
+ 
+-	if (smc_curs_comp(conn->peer_rmbe_size, &cons, &fin) < 0) {
++	/* not past what was sent, whatever cons says; that also keeps
++	 * diff within one send buffer for smc_curs_add()
++	 */
++	diff = min(smc_curs_sdiff(conn->peer_rmbe_size, &fin, &cons),
++		   smc_curs_sdiff(conn->sndbuf_desc->len,
++				  &conn->tx_curs_fin, &sent));
++	if (diff > 0) {
+ 		/* cons cursor advanced more than fin, and prod was set
+ 		 * fin above, so now prod is smaller than cons. Fix that.
+ 		 */
+-		diff = smc_curs_diff(conn->peer_rmbe_size, &fin, &cons);
+ 		smc_curs_add(conn->sndbuf_desc->len,
+ 			     &conn->tx_curs_sent, diff);
+ 		smc_curs_add(conn->sndbuf_desc->len,
+@@ -1079,10 +1085,10 @@ static int smc_switch_cursor(struct smc_sock *smc, struct smc_cdc_tx_pend *pend,
+ 		atomic_add(diff, &conn->sndbuf_space);
+ 		smp_mb__after_atomic();
+ 
+-		smc_curs_add(conn->peer_rmbe_size,
+-			     &conn->local_tx_ctrl.prod, diff);
+-		smc_curs_add(conn->peer_rmbe_size,
+-			     &conn->local_tx_ctrl_fin, diff);
++		smc_curs_advance(conn->peer_rmbe_size,
++				 &conn->local_tx_ctrl.prod, diff);
++		smc_curs_advance(conn->peer_rmbe_size,
++				 &conn->local_tx_ctrl_fin, diff);
+ 	}
+ 	/* recalculate, value is used by tx_rdma_writes() */
+ 	atomic_set(&smc->conn.peer_rmbe_space, smc_write_space(conn));
 
 -- 
 2.56.0
