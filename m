@@ -1,93 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794665575;
-	b=iLH7jcWojfIfCnsCLO0AdM2kqKFv6IAV25V8sAcD/GAR3kq70LqezjlydDfzKC9aXi0B
-	 XVXDq6NisFpzXM/x+d7kYhfrOfao7dJAO1oJ0kXUHYNXFvYWmddM0DrYnbir+nbNDZPK7
-	 w5pwMMxKgjymsP+GeuHYCeXl/pEdcKmG3Xc0MFlUFq4YfPbwRjXAEprtZ4AxXAglBLzQ3
-	 3YrjWWFfnAPaymfWdym+ppXMkxNanZmgopv1r6NMpCce/cqV0jea8e7MRCXpkzUv/QcAU
-	 jxp1XO94gVs/1QfZeDxOYHulxEOU2iXTCiRy3npTUDlkdOsbhhaV6FHoru5fM7xtKyQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794665575;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794665584;
+	b=dLRQZkdf/7gfGKbAODbP47VQzt8WruSNV3a13cYMdPGMhqtAzqTULPKKYS3DPfoLIP7B
+	 tjaaYssHe4SFA+cY/7MhuafIbvDUNKMxhZSio8FYq0oG2Xgt3g/og2Mpw24Ey9524posk
+	 5vWWUBVHhGvCv+MbZtSQuN3pow3+BcBu3m25980G3G1VCAnJtLKhqFMUF9zZ3mGPiw8Xp
+	 Vknhqj2PNWWMkpfs5zL39NgBnAV3LRc6Fh3KU9qodo6aAwwEnI2XV1k1GkiZTXcoxnPzv
+	 eZMP8+BhPobjPb5r0gjEhjddGQCV/nOl7aZIDA9bQ2Rb79ccqkxlCrjl+ZmylYuo2nQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794665584;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=7bD/tTxkN5IVY6wxaY9USIisxYaqviNPjAz31Te7PWk=;
+	b=3CH/qdrgSOW+2fRmmO0EgewU7gWvw30tiHbvCicAOuOvgDAhymA4egXbqUjezo4wLWbq
+	 DYmsZUoZlStXCRtnIeGVT4ZlMEQW5++co9o+Xire/S5nZhUGyOQ3kPnH8s0TV/LhDHwjQ
+	 yugeaARKBUkwQ2f+lxD5tAYza+GxF501Y1hOA4VWIVOuz7LXr02cMctKTTZ8JxqpLB1Ur
+	 3RDbHdzIb2DaW2Icn9JMCE8zj1GHllrM3SFNJ2aIBgYTUMW9PyZNH855wefz64w2M5cic
+	 d29k8cAQTCf/LDmmFtSGhm3L0ql+wF6S4IVdqdBGmlsJs4csCcBcyHXNmjJV62aJ5bQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L7pm6wqL;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27002606A327;
+	Sat, 14 Nov 2026 14:13:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L7pm6wqL
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794665584;
+	b=ka+KsQwPaigpxqQxEO8YQeuhR/QtWX3iWuhx2SugI0bwFvjA/1SnbJz9fhZknbIYQTBA
+	 shB8g88/h5BXguBG80rWE9pyJZB1amkAMUAKJq2DcI6qVCwdXg00QL2di3LptBKcVthVR
+	 J4acPoIN1ufDVGGo+oLZC8qJ+CKe2pW5tpKBLIPelS5feGSL9pF5GcykMaz1kmmf0L2/H
+	 q0YPK10Arf/sNl6BLtxpLGui0ej9tRT1sZEQTkvCSv48gBQQKeJnT6Iwzexs/plfE6rDS
+	 Oni6TweZ7Dl1DsdRmjXoHGtfAwGZoVOhSHU8YMYUTKfKr58NQbZxbVVBrY+0wjgWn1w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794665584;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
 	 Content-Transfer-Encoding;
-	bh=encOT2lGGk5rdoymU88Q4AHYj754IywsJbZgBdkPycA=;
-	b=UTSAH60F95xiAzfryJJLdGT4NHs7tq8s30CI3jpx/3MFR9gBtFR7joMcnBuGIdyPrwt4
-	 AWEdSdIof4gZ/qUQgWOxCsKtiLGQebC5NJexMgr9eKrhC9KA8lmUnCn7XtlZPSIfmKyEr
-	 HH5I+rnvpQbaY+cnGs92KQ1pjZonju8O8rYLN9imymGMOYmkXBhMc174YLMTTCAd6I9GT
-	 DHNgPvRLZCksFaKo2SRb5vhTBfEPuIFCjSojvgb596JlEnCB4ICqjFCRRlvuqaSraBjul
-	 /BoPOTDUgWRCwaQIOzOMC4BmKOqVHnboVBMsUTY3obPN3NEock1w6RFOF+ykpQjzTSg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=isslab.korea.ac.kr;
-	spf=none smtp.mailfrom=isslab.korea.ac.kr;
-	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=LyVn7sUN;
-	arc=none smtp.remote-ip=74.125.82.46
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	bh=7bD/tTxkN5IVY6wxaY9USIisxYaqviNPjAz31Te7PWk=;
+	b=orjw7CCO9vUJIaNBaCo9jVhWfger74Z7NKFTBX+3b9s+eDJ/6HF/1FgUuRkUNCWdsrJd
+	 XDDPSitPppT+RE4zvE15OaBHfunZ2HlMiaFz+VYQmY8db2H1sO/6IEYtLE23KEuMi9/NC
+	 dWeCSz4bZqbjAckTU5xDbpzYAtzB+98rbGOlhV3zOuXw4HUx1GQLYMtAqqXSJUmDnkBVM
+	 gJmlBfNtNW8/z+vvKxqmVlAgp0wFhvJ1H752fV/W7cvpfc/v1abhPAsQvC48AGTGgq1N6
+	 UhRL6v5FjCa7ShFTteUtcz892NlXLDt81Z9+ckEE5vxrLjB5k1q0rAf9WoLfiZcBZiw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74336606A327
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 14:12:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74336606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=LyVn7sUN
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1b3acec6677so2573492c88.1
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:12:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1794665573; x=1795270373; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=encOT2lGGk5rdoymU88Q4AHYj754IywsJbZgBdkPycA=;
-        b=LyVn7sUN/NQl7EPDDaa27u7ibbS3NAnWa2SKmdd7T0iZ/OMIXxZ5Ebqoiq2VY4XfLQ
-         ZB0zs/tGvA8rx9yOW1EmQYNEALEeBmQ3n78q+gdrkoW1yvwu/4JmYzV1xSHTVh6rhBin
-         Z0YA8p+3GPkYATC6XCZO5Dr+S71A+zwg0nMPhX9vO3nFwS7TA98cmOIVIugY4HMSQCOF
-         xo7yCWbqj6ir3PZX/ZGetaQQF6hMLyS5C1NzYgPGGlygKRNibDV96zvP8xceiC40vvWV
-         c2jnYuz3igdXnG8TuipVbbWmd0aIIWKOKstlqkEo5uGa5fRs7L8kGnQHWZ21hvRCSO1i
-         Kt/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794665573; x=1795270373;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=encOT2lGGk5rdoymU88Q4AHYj754IywsJbZgBdkPycA=;
-        b=fUjRP3U6gD3+VnVYu5s66oKuCQg+KuMxWCqolJLU9oPr0w0aTDPdQ2hTgMI9nSXJMx
-         TwUwgA+ctKxiOEer+7IiE811y5LsZpa2+gUfX0NfYawucFfy/NaMjO9Y03iDf5Z4NTWN
-         i1a33u2cCvwRUUx1Xd6n44Hrm/nAMOpHX0VSNVc4zihBRFM/ME89KDOmc2yCpopJwc7+
-         vV476NJj5WbDMeOw8JE5m83tcTefEmvxXWWXWM1qEnLMuQQAOTn7LqjV9F0GcdPPK4/9
-         /jRz5jSyirwNvclwACR/a8G3w2r6ZIgw+NOXNZL7+SVwc+RgWcyQgDuZ5Rli41HoTZyR
-         87zQ==
-X-Forwarded-Encrypted: i=1; AL+hErHUcYQgKhG8hiXECpCzd1QJzOnwcmYgRon1lUASGOVKTxgCPt9H/7vddOqrfzkkIb+uM5GVoyMoVbbKPa8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8LZt2cHWZ78v5UoVl2h+5yb7hZkca7QaRwfgs09Wg4dy+b+Vub
-	a3tl/zUhJ0GhQOFkMts83tWfsHlY1d2meg5PmG0NOBdhSUWWeQzWw/gcQgOjue2s0uk=
-X-Gm-Gg: AYBFou0RZtzNu5gaJwlh/YKCWLKNRgmy+hi//RRwejbKoJYJsHZzxiWVntrXRlZ5IyQ
-	Q+bUZLUVgKwZalQn6oeJRZdB92Rrv/MNU7VF7pgx06zYZQwvvL9PQYJBEIs5/59u2Md+HVLWxeH
-	IE3Nxpg+HDeHPPq0ywiVG1R/GV4Xw84RfGzRBqdkG168Y9nIEYkuI2RVpzzdua8n2za/yhQLong
-	aIUCKaDXCfG2vhTZizdfuS6XtuqNJVK3hqSWNpxQJuM+6Yva9IOfUMb8qgG/WrgsgzCpxbCDJUq
-	UHzpVOPpxSWDA1ayfuhS6R7YYuUqbByOxPRSMJCY/cfsDkuZGmpM8rW/BJyv5xRVxuLZB0iiSfK
-	zjsmQCFOSwcwAYEaIHnvQRs4Z7r6moloC9Ul7E2mTbekpmAIxiBhgw08ZzDdoxGBr102qD8C4NE
-	tGCoZnuxWTL6h13M0uRH+rAY81zMN91NoGHtWV5mpHXuGkHwv2xV7M/kOZJPlG4d/XCzu/Tx+h+
-	CP3VlUn6fARcytyHdp0dvHLAvn9TM0P+QgQCc+hNANQ993440e+T6Smh4OXdhxGlUoeMf2a2/UV
-	2hVJ4uzPlYJkGW6Xah6/CGwKnFuAxM9GSOgEypqZucPcY4LAKtSNpz4+EUpMMHlSBUd+SXbt/jI
-	fdR/wXmsv7zbPpGdsRkVu7yj7ixL2wY+REsWv0A==
-X-Received: by 2002:a05:701b:271c:b0:1b2:43b0:4794 with SMTP id a92af1059eb24-1b5030d4941mr4325877c88.9.1794665573011;
-        Sat, 14 Nov 2026 06:12:53 -0800 (PST)
-Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:bfe1:56d2:91a4:93d9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031918c7sm23185178c88.9.2026.11.14.06.12.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 06:12:52 -0800 (PST)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: "Martin K . Petersen" <mkp@kernel.org>
-Cc: Mike Christie <michael.christie@oracle.com>,
-	target-devel@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] scsi: target: iscsi: match the login keys exactly in iscsi_target_locate_portal()
-Date: Sat, 14 Nov 2026 23:12:40 +0900
-Message-ID: <20261114141240.820264-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+	by smtp.kernel.org (Postfix) with ESMTPS id 6F1091F000C5;
+	Sat, 14 Nov 2026 14:13:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794665584;
+	bh=7bD/tTxkN5IVY6wxaY9USIisxYaqviNPjAz31Te7PWk=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=L7pm6wqLXJPMvFyNzKr+arToKN/2jtrqHliKuqzp5ts3WcPJpjAXXwCzpFUEV8Out
+	 fYY+1FDQQx1svbJbirzgJ8VbDA1REkwhEa7pifapd335eCxLpDerKxSpQ8DCsmW46+
+	 bnr5B3KJipEVip64ygNdJhKDn0EVYzYVGUW5yUxm3a+h0ePIrFK+/t7FOVHOTEoCWC
+	 MFn+b4U4Zk78h8R18alUav7q4WmPXV0TblCfVCP5RNxvmm9+Zybg6i18w0jBt8wRY8
+	 4iZQz+9YO/Sfu/ZGQjCxXrQCgWJyeI/y5rkOnt/OAFCGZ/5XBcPH7jwbXZINMS0cOJ
+	 zeJMrJ8W+Racg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id EDC8649DDA;
+	Sat, 14 Nov 2026 14:13:02 +0000 (UTC)
+From: Volodymyr Chapman via B4 Relay <devnull+volodymyrchapman.gmail.com@kernel.org>
+Date: Sat, 14 Nov 2026 14:12:49 +0000
+Subject: [PATCH] ARM: tegra: nyan: Enable the 32 kHz clock for the Wi-Fi
+ module
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,145 +83,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261114-nyan-wifi-32k-v1-1-311c6f2163d4@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAGBs+GoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQ0MT3bzKxDzd8sy0TF1jo2xdS0szkxRjU0PjJPNUJaCegqLUtMwKsHn
+ RsbW1AMJLh35fAAAA
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>
+Cc: devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Volodymyr Chapman <volodymyrchapman@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794665582; l=1933;
+ i=volodymyrchapman@gmail.com; s=20261114; h=from:subject:message-id;
+ bh=ZYcx9OmFDEjiXweNhRDW+WsVewYRwZNRDfsX+1SjsDc=;
+ b=NMdixx4IBeNvJhZM1A6u2yGr3+ELQuQjkDfkP8V8Bcrh/XFhHeTIMPhoj9VEJ16PrrFP1lz20
+ sN18NkBfuSPAcuuarT8GdILuCfV9gx2CI+nazixyLImdiEMivERyqGw
+X-Developer-Key: i=volodymyrchapman@gmail.com; a=ed25519;
+ pk=MFRHEFOAD35s30Ob7oHqbHPECBoWpPLCMrM4ekqB900=
+X-Endpoint-Received: by B4 Relay for volodymyrchapman@gmail.com/20261114
+ with auth_id=1527
+X-Original-From: Volodymyr Chapman <volodymyrchapman@gmail.com>
+Reply-To: volodymyrchapman@gmail.com
+Content-Transfer-Encoding: 7bit
 
-iscsi_target_locate_portal() scans the first Login Request for
-InitiatorName, SessionType and TargetName, and the values it picks decide
-which portal group the connection is attached to and which node ACL
-authorises it.  It picks them differently from the parameter list that the
-rest of the login uses:
+From: Volodymyr Chapman <volodymyrchapman@gmail.com>
 
-  - the key is matched with strncmp() over the key's own length, so
-    "SessionTypeX" is taken for "SessionType", while
-    iscsi_find_param_from_key() matches with strcmp() and answers
-    "SessionTypeX" with NotUnderstood;
+The Marvell SD8897 Wi-Fi/Bluetooth module on the Nyan Chromebooks needs
+a 32.768 kHz sleep clock, which these boards take from the PMC blink
+output (CLK_32K_OUT_PA0). Nothing in the device tree requests that
+clock, so whether it is running when the SDIO card is brought up
+depends on the state the firmware left it in. On warm reboots it is
+usually off, and every attempt to bring up the card fails with:
 
-  - the loop assigns on every match, so a repeated key leaves the last
-    occurrence, while iscsi_check_key() rejects the second occurrence and
-    leaves the first value in the parameter list.
+  mmc2: error -110 whilst initialising SDIO card
 
-Either difference lets an initiator make the two disagree about
-SessionType.  iscsi_target_locate_portal() takes the discovery path, which
-attaches the connection to iscsit_global->discovery_tpg and jumps to
-alloc_tags, so core_tpg_check_initiator_node_acl() never runs and
-sess->se_sess->se_node_acl stays NULL, while iscsi_post_login_handler()
-applies the parameter list on top of that decision:
+leaving the system without Wi-Fi. Toggling the reset GPIO on each retry
+does not help.
 
-	iscsi_set_session_parameters(sess->sess_ops, conn->param_list, 1);
-	iscsi_release_param_list(conn->param_list);
-	conn->param_list = NULL;
+Describe the clock in the SDIO power sequence, as the Tegra30 Asus
+Transformer and Nexus 7 device trees already do for their Wi-Fi
+modules, so that mmc-pwrseq-simple enables it before releasing the
+module from reset.
 
-	iscsit_determine_maxcmdsn(sess);
+Tested on an HP Chromebook 14 G3 (nyan-blaze) running v6.6.144: with
+this change Wi-Fi came up on 8 out of 8 warm reboots, against 1 out of
+22 before, and on 5 out of 5 cold boots (4 of them on battery), and
+the clock summary shows pmc_blink enabled by pwrseq-sdhci0 (ext_clock).
+nyan-big shares this file but was not tested.
 
-SessionType therefore goes back to 0, and iscsit_determine_maxcmdsn() stops
-treating the session as a discovery session and dereferences the NULL node
-ACL:
-
-	if (sess->sess_ops->SessionType)
-		return;
-
-	se_nacl = sess->se_sess->se_node_acl;
-	sess->cmdsn_window = se_nacl->queue_depth;
-
-A first Login Request carrying
-
-	InitiatorName=iqn.2003-01.org.example:init
-	TargetName=iqn.2003-01.org.example:tgt
-	SessionType=Normal
-	[operational keys]
-	SessionTypeX=Discovery
-
-or the same login with SessionType declared twice, as Normal and then
-Discovery, faults on a QEMU guest:
-
-  Unable to locate key "SessionTypeX".
-  Oops: general protection fault, probably for non-canonical address 0xdffffc000000001c: 0000 [#1] SMP KASAN NOPTI
-  KASAN: null-ptr-deref in range [0x00000000000000e0-0x00000000000000e7]
-  CPU: 2 UID: 0 PID: 128 Comm: iscsi_np Not tainted 7.4.0-rc2-00563-g97d73c825122 #1 PREEMPT(lazy)
-  Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-  RIP: 0010:iscsit_determine_maxcmdsn+0xd4/0x170
-  Code: 48 c1 ea 03 80 3c 02 00 0f 85 a2 00 00 00 48 b8 00 00 00 00 00 fc ff df 48 8b 6d 10 48 8d bd e4 00 00 00 48 89 fa 48 c1 ea 03 <0f> b6 14 02 48 89 f8 83 e0 07 83 c0 03 38 d0 7c 04 84 d2 75 7b 48
-  RSP: 0018:ffffc9000087fcd8 EFLAGS: 00010203
-  RAX: dffffc0000000000 RBX: ffff88800eb20000 RCX: 0000000000000000
-  RDX: 000000000000001c RSI: 0000000000000000 RDI: 00000000000000e4
-  RBP: 0000000000000000 R08: 0000000000000001 R09: 0000000000000000
-  R10: 0000000000000001 R11: 0000000000008000 R12: ffff88800eb20468
-  R13: ffff88800e9fdd88 R14: ffff88800ebd4000 R15: ffff88800eb20000
-  FS:  0000000000000000(0000) GS:ffff8880e5a9d000(0000) knlGS:0000000000000000
-  CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-  CR2: 00000000005a1b6b CR3: 000000000588e004 CR4: 0000000000770ef0
-  PKRU: 55555554
-  Call Trace:
-   <TASK>
-   iscsi_post_login_handler+0x1ee/0xc90
-   iscsi_target_login_thread+0x1e10/0x3290
-   kthread+0x2ce/0x3b0
-   ret_from_fork+0x52e/0x780
-   ret_from_fork_asm+0x1a/0x30
-   </TASK>
-  Modules linked in:
-  ---[ end trace 0000000000000000 ]---
-
-The fault is taken by the portal's iscsi_np login thread, which does not
-come back, so the target stops accepting logins on that portal until it is
-restarted.  No credentials are needed: iscsit_load_discovery_tpg() clears
-tpg_attrib.authentication on the discovery portal group, so the crafted
-login is accepted on a target whose normal portal group requires CHAP and
-which answers the same login with AUTH_FAILED when SessionType is declared
-only once.  The global discovery_auth and enforce_discovery_auth
-attributes do close that door, but they are 0 by default.
-
-InitiatorName behaves the same way: with the name declared twice, the node
-ACL that authorises the session is the one named last, while
-sess->sess_ops->InitiatorName keeps the one named first.  On a target with
-an ACL for each name and LUN 1 mapped in the first name's ACL only, such a
-session is refused LUN 1 with NON_EXISTENT_LUN naming the second name, is
-listed under the second name's ACL as having the first name, and reinstates
-- drops - the first name's session with the same ISID.
-
-Match the keys with strcmp() and keep the first occurrence of each, which
-is what the parameter list ends up holding, and compare the SessionType
-value with strcmp() as iscsi_check_string_or_list_value() does.
-
-Fixes: e48354ce078c ("iscsi-target: Add iSCSI fabric support for target v4.1")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Signed-off-by: Volodymyr Chapman <volodymyrchapman@gmail.com>
 ---
- drivers/target/iscsi/iscsi_target_nego.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ arch/arm/boot/dts/nvidia/tegra124-nyan.dtsi | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/target/iscsi/iscsi_target_nego.c b/drivers/target/iscsi/iscsi_target_nego.c
-index b03ed154ca34e9..619a843e3c849c 100644
---- a/drivers/target/iscsi/iscsi_target_nego.c
-+++ b/drivers/target/iscsi/iscsi_target_nego.c
-@@ -1151,11 +1151,15 @@ int iscsi_target_locate_portal(
- 			goto out;
- 		}
+diff --git a/arch/arm/boot/dts/nvidia/tegra124-nyan.dtsi b/arch/arm/boot/dts/nvidia/tegra124-nyan.dtsi
+index 89a749c..c98de0d 100644
+--- a/arch/arm/boot/dts/nvidia/tegra124-nyan.dtsi
++++ b/arch/arm/boot/dts/nvidia/tegra124-nyan.dtsi
+@@ -645,6 +645,9 @@
+ 	sdhci0_pwrseq: pwrseq-sdhci0 {
+ 		compatible = "mmc-pwrseq-simple";
  
--		if (!strncmp(key, "InitiatorName", 13))
-+		/*
-+		 * Match keys exactly and keep the first occurrence, as
-+		 * iscsi_decode_text_input() does for the parameter list.
-+		 */
-+		if (!i_buf && !strcmp(key, INITIATORNAME))
- 			i_buf = value;
--		else if (!strncmp(key, "SessionType", 11))
-+		else if (!s_buf && !strcmp(key, SESSIONTYPE))
- 			s_buf = value;
--		else if (!strncmp(key, "TargetName", 10))
-+		else if (!t_buf && !strcmp(key, TARGETNAME))
- 			t_buf = value;
++		clocks = <&tegra_pmc TEGRA_PMC_CLK_BLINK>;
++		clock-names = "ext_clock";
++
+ 		reset-gpios = <&gpio TEGRA_GPIO(X, 7) GPIO_ACTIVE_LOW>;
+ 	};
  
- 		start += strlen(key) + strlen(value) + 2;
-@@ -1193,7 +1197,7 @@ int iscsi_target_locate_portal(
- 	/*
- 	 * Use default portal group for discovery sessions.
- 	 */
--	sessiontype = strncmp(s_buf, DISCOVERY, 9);
-+	sessiontype = strcmp(s_buf, DISCOVERY);
- 	if (!sessiontype) {
- 		if (!login->leading_connection)
- 			goto get_target;
+
+---
+base-commit: 97d73c8251226cf27cc6656b4c542869bb8c69fa
+change-id: 20261114-nyan-wifi-32k-9964d3513b7e
+
+Best regards,
 -- 
-2.43.0
+Volodymyr Chapman <volodymyrchapman@gmail.com>
+
 
