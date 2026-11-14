@@ -1,79 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794683369;
-	b=xMWQOUoBEdxT9HCIjukw8LdjbHgcK4TDeOFQmoC1h0KqG9pz5kfbsXvaJFbjqKYZYG0h
-	 6aZiKnEbTEJNWIgp+ZDWz+OPAfYpXiUnKqaDh/l5TFJYRUsTeXMmUGcy00DyHjMGIJ2D6
-	 u6BtTMPFfuVAycUCAA4S030Tz3mJs2Qi250/3f5MHw2z4d6ytDyY7LqSPlEdaHRsojivO
-	 bNvsQGD3rhaH9cikGxmxrM3ZZLu5BZ4sUbbbSZtEzZet/xV8diSzvHIRTxgl1e24rosjm
-	 1hiKVNS+L60n3uLko1c8VEyIGT8TjN9KXnFrPRvicU5nBd6TBULkKqw7F0ApaZtKNuw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794683369;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=DgpYO/VSAfAhMfvdbl5shO5wtKU1LiPu1ETvfgfLye0=;
-	b=wKdBCKedzm5iVnPKpIOjcbHEuBGgOUL4aADU+3+zFqFY+HcA7XFByaMwhCJ4VrpQykuY
-	 EddwYAREd3P8z6hEFC/CXDIpv3gI8z56BGxodTbYddhVWSCf2xZDf7DwQyl40Tp7EGlxL
-	 cTNH3ujuiEXQ+d8qezSfBlKJaDOdPmyMwVanETKzYsMvf7Q/bBwaLbpwNNGChP8l0T1tz
-	 ABrzqhrhqBO/erQ49J56MOBiuMANapasdQtwtTMMeYLt/zZy1iyLmEjK61C2fAeB5i5D+
-	 rXuYF8CRx+1kVZkbd1gftle95cVQldj2JWEOtENdcoRXkF3wFmNLia8yBjJGhGOjQ5Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b5o62hjG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794683407;
+	b=VddxYQ168anXAXv0M7xrjUsXaxEMwFxeUa6aq47OoFr4HXfKrjgu5VXRMM6znISewDxw
+	 bwa8SzmT8pcTCQtIRgs2klXDVZOjVWc3In34SMo+8dlYAd+nuVex9Gwfg7FVUWMCBaHny
+	 LR+RHRqn1J4BJ7s8VZXayJk9ODrqUf+7ta1I7x5elzm/AxC+nMIAGX9GCVfPugxyKUq74
+	 iCMJPrjLvURU2F8nxBDN8GCl4dSK13DhljUJkXgDH8g3MlOLU9YJ7fRz4FcO2WZjBMF/c
+	 7drqNWgqXqw5UlPSROU0vba78XHZ22nCCUv1Zf+jCUuxtL5gbjoKvBs8h3fHAAhh4ZA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794683407;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=tKT6x4msThxj0gozIVJttaxZay8pW0TdepjyA9p1YpA=;
+	b=UaP7iy9XnpZeAf3COZ8u5iwQ0siAaA15/pWBrF7kQpV4fncccTjCc7NRnHxE5ifk9m4B
+	 NTbtVG+orKCpIuAsDt0OQdKJBZBYWqKBFWKvtbpZ01DMX4T2pz6xnBhzD7QUOKVQvG5ME
+	 5p3DBOOQ+VbGZrbZP6KQaFSIC0fjKVMZ5dP8YeZuzEfOcqSOQ26SIEheYTRj9MWGCohew
+	 sqcaDjuge1kBhc+5gDh5NZgIK8lRgqJ3WuqP/0mlSUuyfa1g/jdirm5RWK+K/7KSig5Ln
+	 s/D4N4Wkk3nLox2Wpvgl2ySUcwm3eVf/hCwl6zOthUYbWPQstjTx6kUdiPjJCA1qLww==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bsZzNwuY;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE0B606A327;
-	Sat, 14 Nov 2026 19:09:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4AED606A327;
+	Sat, 14 Nov 2026 19:10:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b5o62hjG
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794683369;
-	b=v0+FXH3ujV66egQAqsg3Ets65w10eAN/1pfKA8X1r5vfj6A3ONgqVBmCoAlGHw3e3Atg
-	 uFHZr3Pg+sY83zugZ7ec94jMUtFpEbMgKRS4nxYbvYN3Krb/QrgsfXtTtGFh2jPo61c+X
-	 O2uD+HwhRVHypG4b86tOxcY9BGfsHmxJGso9/j3I17gstK7RQRY5OsjYcqKchq6bVDXLu
-	 V+PG0eoBB4DdYVKqBHHUoB6hiVX6434dLiwHh6kWXxsuLBkdKeNyzQMDQvn8rreFSSb9K
-	 B/axO1GggyZBHSwOGIchorFad0xUxQEdOhroze6rdRyNFlOR7+JR3JhE9h5eeV4Ro8Q==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794683369;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=DgpYO/VSAfAhMfvdbl5shO5wtKU1LiPu1ETvfgfLye0=;
-	b=1Gv9EJKkWMqM13+HQorYOCHUAOEOIDYAbLy7tcB9Zrjpt4p0hp1oJd75KqCRiwKdhfH3
-	 ZJcCUqPqHvOjCGPPSoBXu4DwHjnFrFkHES2moa5VIMoRLaaXvW+4mGRwcfrDIyWC+k5eu
-	 X5d/wsGdPlWkQTNYEBByKuxw9tnrbbga4u3dTVIoSADlKPmE243XpSzMaarP9WUtTJtqh
-	 WLIIL9QJGTW2WJluegBgpPpvnp/yZkMV62d8f31YHBK6B5qPyMPvgYl4cPU7jCUCHiBYO
-	 0ANsLP64TT0QJ4YpSq6YCt4qj+AMKGorFponkKOu2Nj3HLogen7LSbkXN+RclgNgqew==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B3C801F000C4;
-	Sat, 14 Nov 2026 19:09:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bsZzNwuY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43AD51F000C4;
+	Sat, 14 Nov 2026 19:10:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794683369;
-	bh=DgpYO/VSAfAhMfvdbl5shO5wtKU1LiPu1ETvfgfLye0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=b5o62hjGuh5zTpsuAztcENuS/XaJ7Asc2pOomM2eqLRH/loCPnPjM48CvMuutVuhN
-	 YNBv04w1ca0yKZPMIv6JLxnlKXVuKuqdIID9xKg2cupzRrGhg4LyYRNVs7SIMtkb/5
-	 abRL6DsSZ6JQiqMD0HfYn9fXBCtAgcSbKBYUO6BG3AEd7gMZvGH/hR4ZZTb7ZiYLGZ
-	 FV1hGeRv3BFmcfpw/SJfnZuvI+ofHT6alNJDXV4xD8VfvmuG2vbcVxC6sP4fQ6opsL
-	 UZdJDN0SOPGjtRMH4rv2pmzszIXwpie90Hurvp1yCFRUALOKav7viGENLvaWaHokuc
-	 w6NAwlV948hMg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 3D7BF49E36;
-	Sat, 14 Nov 2026 19:09:28 +0000 (UTC)
-From: Bryam Vargas via B4 Relay <devnull+hexlabsecurity.proton.me@kernel.org>
-Date: Sat, 14 Nov 2026 14:09:28 -0500
-Subject: [PATCH net v2 1/2] dibs: loopback: reset the client id when the
- owner unregisters a DMB
+	s=k20260515; t=1794683407;
+	bh=tKT6x4msThxj0gozIVJttaxZay8pW0TdepjyA9p1YpA=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=bsZzNwuYRG6dqootzkmC0PXDAZfKQigfM6YLQIYBhwwlnmjQr+JryGxNEZDe0eK8r
+	 bCgbPFcxHgCBhnpKmRSId1jpUo28sEi6NhUMpy7UPbenmYxbl0MHdgpUh4kff/vWwn
+	 +8BiGQ/zpdJ7JtOf2iU/v6IoqDXk6RKBux5GxR9N91NXnBo5TObhzObDF9HTWwn5Fj
+	 VYgEgrD95eujp8gnb8SKR7Rc7sR5syIupCDiN/hVDqpZV/vca3qJDDNbidiDVVRiiv
+	 TZMgUFZjGjd4zQlmiBH5cyD5L409ZXH/pDoLT5iLdTNtgrXh1kQvQudACMWuH/kJ5D
+	 1zFyhO6Bpv0Iw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A409380821F;
+	Sat, 14 Nov 2026 19:10:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,94 +53,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261114-b4-disp-4e6374c2-v2-1-3b7050bddef7@proton.me>
-References: <20261114-b4-disp-4e6374c2-v2-0-3b7050bddef7@proton.me>
-In-Reply-To: <20261114-b4-disp-4e6374c2-v2-0-3b7050bddef7@proton.me>
-To: Dust Li <dust.li@linux.alibaba.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Mahanta Jambigi <mjambigi@linux.ibm.com>, 
- Alexandra Winter <wintera@linux.ibm.com>, Paolo Abeni <pabeni@redhat.com>, 
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
- Sidraya Jayagond <sidraya@linux.ibm.com>, 
- "D. Wythe" <alibuda@linux.alibaba.com>
-Cc: Hidayath Khan <hidayath@linux.ibm.com>, linux-kernel@vger.kernel.org, 
- linux-rdma@vger.kernel.org, netdev@vger.kernel.org, 
- Simon Horman <horms@kernel.org>, Tony Lu <tonylu@linux.alibaba.com>, 
- Wen Gu <guwen@linux.alibaba.com>, linux-s390@vger.kernel.org, 
- Wenjia Zhang <wenjia@linux.ibm.com>, Julian Ruess <julianr@linux.ibm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794683367; l=2169;
- i=hexlabsecurity@proton.me; s=default; h=from:subject:message-id;
- bh=KBghDMOoyAS0OHozRJLfnD9xGKdfuhieCEeZH/+0AEo=;
- b=/9l8QPQYZLAIou3waAEOmy+zpFjlJVw19f5ZDrxH/n1Pdo4KNR8nNujFrK+VzFgABmShbGPew
- W6a1rVU+4TLC7ExKV491fm+hkAuA4Or/R3n7Sqkr50NmdSy6nTUKyVp
-X-Developer-Key: i=hexlabsecurity@proton.me; a=ed25519;
- pk=xw1AhCtQdvuoQc+bOQIYy9o8G++cp4/VniI2G/tc3G8=
-X-Endpoint-Received: by B4 Relay for hexlabsecurity@proton.me/default with
- auth_id=893
-X-Original-From: Bryam Vargas <hexlabsecurity@proton.me>
-Reply-To: hexlabsecurity@proton.me
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH bpf-next 0/3] bpf,
+ cgroup: Don't wait for cgroup_mutex to read or free cgroup bpf state
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179468340603.2344194.2562831381781655798.git-patchwork-notify@kernel.org>
+Date: Sat, 14 Nov 2026 19:10:06 +0000
+References: <20261112172721.440275-1-shakeel.butt@linux.dev>
+In-Reply-To: <20261112172721.440275-1-shakeel.butt@linux.dev>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: bpf@vger.kernel.org, ast@kernel.org, daniel@iogearbox.net,
+ andrii@kernel.org, martin.lau@linux.dev, eddyz87@gmail.com, memxor@gmail.com,
+ song@kernel.org, yonghong.song@linux.dev, john.fastabend@gmail.com,
+ jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
+ roman.gushchin@linux.dev, ameryhung@gmail.com, tj@kernel.org,
+ hannes@cmpxchg.org, mkoutny@suse.com, kernel-team@meta.com,
+ cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
 
-From: Bryam Vargas <hexlabsecurity@proton.me>
+Hello:
 
-dibs_lo_unregister_dmb() resets the DMB's dmb_clientid_arr[] entry only
-on the last put. If an attacher still holds the DMB, as when an SMC link
-group is freed while a peer is still attached, the entry stays set after
-the attacher's dibs_lo_detach_dmb() frees the DMB.
-dibs_unregister_client() then warns at rmmod smc and returns -EBUSY,
-which smc_ism_exit() ignores: smc stays in clients[] and dibs->subs[],
-and a later dibs_dev_add() or dibs_dev_del() (rmmod dibs, ISM hotplug)
-calls into the unloaded module.
+This series was applied to bpf/bpf.git (master)
+by Alexei Starovoitov <ast@kernel.org>:
 
-Reset the entry when the owner unregisters, before its put, as
-ism_unregister_dmb() does. The index stays allocated until the last put,
-and the attacher's writes no longer raise an interrupt for a client that
-gave the DMB up.
+On Thu, 12 Nov 2026 09:27:12 -0800 you wrote:
+> In the Meta fleet, BPF_PROG_QUERY callers, link-info readers and the
+> cgroup bpf release work often wait minutes for cgroup_mutex. The holder is
+> almost always a cgroup mkdir or rmdir stuck on kernfs_rwsem. In one day,
+> hung-task reports showed this on 1,075 hosts (query), 94 hosts (link info)
+> and 458 hosts (release work).
+> 
+> Patch 3 gives the cgroup bpf state its own mutex, so these paths no longer
+> take cgroup_mutex. Attach, detach and replace still take cgroup_mutex
+> first, because they walk the descendants.
+> 
+> [...]
 
-Fixes: cc21191b584c ("dibs: Move data path to dibs layer")
-Cc: stable@vger.kernel.org
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
----
- drivers/dibs/dibs_loopback.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+Here is the summary with links:
+  - [bpf-next,1/3] bpf, cgroup: Don't read freed effective arrays in BPF_PROG_QUERY
+    https://git.kernel.org/bpf/bpf/c/90f4e698f9c1
+  - [bpf-next,2/3] bpf, cgroup: Don't attach to a removed cgroup
+    https://git.kernel.org/bpf/bpf/c/b2e007371909
+  - [bpf-next,3/3] bpf, cgroup: Protect cgroup_bpf state with its own mutex
+    https://git.kernel.org/bpf/bpf/c/40aec6bab02e
 
-diff --git a/drivers/dibs/dibs_loopback.c b/drivers/dibs/dibs_loopback.c
-index 44a2e74c2efc..566e61a013d0 100644
---- a/drivers/dibs/dibs_loopback.c
-+++ b/drivers/dibs/dibs_loopback.c
-@@ -138,6 +138,13 @@ static int dibs_lo_unregister_dmb(struct dibs_dev *dibs, struct dibs_dmb *dmb)
- 
- 	ldev = dibs->drv_priv;
- 
-+	/* Reset before the owner's put: after it, an attacher's detach can
-+	 * free the index for a new DMB.
-+	 */
-+	spin_lock_irqsave(&dibs->lock, flags);
-+	dibs->dmb_clientid_arr[dmb->idx] = NO_DIBS_CLIENT;
-+	spin_unlock_irqrestore(&dibs->lock, flags);
-+
- 	/* find dmb from hash table */
- 	write_lock_bh(&ldev->dmb_ht_lock);
- 	hash_for_each_possible(ldev->dmb_ht, tmp_node, list, dmb->dmb_tok) {
-@@ -155,13 +162,8 @@ static int dibs_lo_unregister_dmb(struct dibs_dev *dibs, struct dibs_dmb *dmb)
- 		hash_del(&dmb_node->list);
- 	write_unlock_bh(&ldev->dmb_ht_lock);
- 
--	if (last) {
--		spin_lock_irqsave(&dibs->lock, flags);
--		dibs->dmb_clientid_arr[dmb_node->sba_idx] = NO_DIBS_CLIENT;
--		spin_unlock_irqrestore(&dibs->lock, flags);
--
-+	if (last)
- 		dibs_lo_free_dmb(ldev, dmb_node);
--	}
- 	return 0;
- }
- 
-
+You are awesome, thank you!
 -- 
-2.56.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
