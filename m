@@ -1,75 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794668750;
-	b=AXGEdQc/TB+/X9qNk9umyizrRzPp1V9s3rZAsf6NykgDn73fneYTZezuQUkvqJoDJT0O
-	 t5tEzFZSt623IwndTWQK5BPkBQkIJMaPgU5UHJQlEc4fbu78QPZhMlRfXPlVqZO6X1Agd
-	 cwhc73ipBestA8GqrALy2BGgiZonLm2m/u/N4NjSSho7RNZRJC/ZxXkJXZKu5hgqgb+PL
-	 Ueh3enjHvh2PPEmuc0TsnVCDVj/zAN3LzvtsIpvFA9Gt8POYNK0Ft6NUa5Dcbo1qbtvU9
-	 PPRHcgzADsQCl1TeKOBN/xPOSKqxHFnGhdFJ9JVBMJ481EZFVQoIaSJFtlEzjfmuiog==
+	t=1794668760;
+	b=hxzQMGUPxGqGxYz+HuEnmvl5V890/oCBU+Ap7Dv3sn824/c6ndiIOKXF9DJo6AMT5nhX
+	 mwKH3kyU0YoJpEJzuXtuim5r2KscfRNzn4/SaezotCfZdBTpZHA3iC/oaElgNgsT5tykL
+	 qz0B4MkL1rVTUEXYU7wH/oe9rakThdLkdLvtJZqwZr3loQtwLNgESYL1ODcYTnl83xEiZ
+	 O/2rZYjgrGv5Bl+oINMmzyYvzEK1uk+S+mN+AgYPKrehQ3nPBB4OQMFYrN+L/CfL+KdU9
+	 Xtt30Ey641xmUE/JXmFPVh/oEIgUBlYc1sYqKuWRA6K/vvOLWWIwhhrT7W8IkL9/Deg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794668750;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794668760;
 	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
 	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
 	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=MknYh1wdceisoj5BD7eTiAMi//3cMI6ldwjYjtC94HY=;
-	b=4TD8zLwPZkJwO6ZHbxWFTQIfm8vFbG8Sk2ONVivbzOgc/MkJabqUEgbZOMe8t57BQ07M
-	 1g5RU6sbadwFSW/hbOnOudFu3311fwbtI7bXKBrJfi3Eetw96+hvmDKSpVKmdj56DqwRN
-	 3DRisI0FmwJ/44tK2oq7lYzUOH1HZrVrfD1905Z3lEcs53rbHXnsGRbf7a1iJW3NjGk4g
-	 +AYKrUd7NE8O+28/5xCuZ8u5LjDAanrIwAtZeoqK2W1lbWHedytLhBtZx4EupSA9X+RDc
-	 FDIXyyvSTqcAsSG5QoiToH9rYcVWeP5KpGaH6f4R8O1A3Pxfiq3ACzF+p0sZFQwVvhA==
+	bh=/mxt8P+p8nf0AiOazDgUB7JS7ORkdSvZiaaLa5AtUKc=;
+	b=LXolftgfT0ydqIOKm0Nry5LgmeynfgLe5UoLcfyXYvknDbTc+hqHBXuhg4ftulZLBV2M
+	 iMRuTRhE6DH/rFPVwAkMJg/dNS1XOadPsj6IX5a7clw2SVz4Ic/Pq/cGZSpXffM7bUWBo
+	 +gnw14g08aZJi5r3qNgR3jxkN7CCsdQzDqH7Z1ESOIt5CWU5p6ou67bCN+Av64XX/YGqX
+	 sLVPSqHICf7CsQm8BErS5JamB2f5wtxP6kMaovFGj1y9jrX371idgkf6FK9a7kCp71rvO
+	 Ju2fH5iwqel2dVkG9spH3Rirw4gMW3QLDqxz9SyJyTSsBwoZ5IcoNpI2NulRHdEPDzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cmss.chinamobile.com;
 	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ojjO05m+;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9D322606A32D;
-	Sat, 14 Nov 2026 15:05:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D322606A32D
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=mf5fqHeK;
+	arc=none smtp.remote-ip=111.22.67.137
+Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 950E7606A330;
+	Sat, 14 Nov 2026 15:05:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 950E7606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ojjO05m+
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=mf5fqHeK
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=cmss.chinamobile.com; s=default; l=0;
 	h=from:subject:message-id:to:cc:mime-version;
 	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=ojjO05m+amjySMBH98i9bWYiy6rc2mTAuL2hLCRak0cXVZ2n4cgEnpzHDQ348gF7rbyK5y2/1Q6sW
-	 weyHEtvG0BtFtS+PYna2Ci2GkK2kEIlgVqIFuN+eZFU3WR8BYi78GRhzhkgMC3megwS6dyU1whm3u3
-	 qyuv8LyhtfTPc85E=
+	b=mf5fqHeKuc5bU5TH8fTSzCRqE13f/jgJFdelRXx6kMGeDMulRczsq9NTFgf1Ds94uK0thS95oObIm
+	 PcHn1FieVBL2lnLEDMeI3tRMvuqp7iWcbsEa+RbNXvIHpz+7KRP703tCyaGW9b2lvM2Uud7B2kDoXW
+	 temuXqNFacPRBob4=
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56af878c6dde-ef5bc;
-	Sat, 14 Nov 2026 23:05:45 +0800 (CST)
-X-RM-TRANSID:2ee56af878c6dde-ef5bc
+	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86af878cebd0-91f2c;
+	Sat, 14 Nov 2026 23:05:50 +0800 (CST)
+X-RM-TRANSID:2ee86af878cebd0-91f2c
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from FHD-W7400297 (unknown[10.55.1.70])
-	by rmsmtp-syy-appsvr03-12003 (RichMail) with SMTP id 2ee36af878c6a22-46641;
-	Sat, 14 Nov 2026 23:05:45 +0800 (CST)
-X-RM-TRANSID:2ee36af878c6a22-46641
+	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66af878cb188-47d2b;
+	Sat, 14 Nov 2026 23:05:49 +0800 (CST)
+X-RM-TRANSID:2ee66af878cb188-47d2b
 From: Aibing Chen <chenaibing@cmss.chinamobile.com>
-To: jgg@ziepe.ca,
-	leon@kernel.org,
-	achender@kernel.org
-Cc: davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
+To: josef@toxicpanda.com,
+	axboe@kernel.dk
+Cc: edumazet@kernel.org,
+	kuniyu@google.com,
 	pabeni@redhat.com,
+	willemb@google.com,
+	davem@davemloft.net,
+	kuba@kernel.org,
 	horms@kernel.org,
-	linux-rdma@vger.kernel.org,
-	netdev@vger.kernel.org,
-	rds-devel@oss.oracle.com,
+	linux-block@vger.kernel.org,
+	nbd@other.debian.org,
 	linux-kernel@vger.kernel.org,
-	hdanton@sina.com,
-	hackerowskiy@gmail.com,
-	syzbot+ccdb5058c3df2d94811c@syzkaller.appspotmail.com,
-	Aibing Chen <chenaibing@cmss.chinamobile.com>
-Subject: [PATCH] RDMA/cma: add rdma_destroy_id_wq() and use it from RDS
-Date: Sat, 14 Nov 2026 23:05:41 +0800
-Message-ID: <20261114150541.1908-1-chenaibing@cmss.chinamobile.com>
+	syzbot+b29ed72382b0e218323a@syzkaller.appspotmail.com,
+	Aibing Chen <chenaibing@cmss.chinamobile.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] nbd: do not reinitialize a live socket lock when reclassifying
+Date: Sat, 14 Nov 2026 23:05:46 +0800
+Message-ID: <20261114150547.842-1-chenaibing@cmss.chinamobile.com>
 X-Mailer: git-send-email 2.50.1.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,114 +81,92 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-syzbot reported a possible circular locking dependency between
-rds_trans_sem and the RDMA CM handler mutex:
+d532cddb6c60 ("nbd: Reclassify sockets to avoid lockdep circular
+dependency") reclassifies the socket passed via NBD_SET_SOCK (or the
+netlink equivalent) with sock_lock_init_class_and_name().  That helper
+is meant for freshly created sockets: besides setting the lockdep
+class it clears sk_lock.owned, reinitializes the wait queue and
+reinitializes sk_lock.slock with spin_lock_init().
 
-  CPU0 (bind path)                    CPU1 (CM callback path)
-  ----                                ----
-  down_read(&rds_trans_sem)           mutex_lock(&handler_mutex)
-  rds_ib_laddr_check()                cma_ib_req_handler()
-    rdma_destroy_id()                   rds_ib_cm_handle_connect()
-      mutex_lock(&handler_mutex)          rds_conn_create()
-                                            rds_trans_get_preferred()
-                                              down_read(&rds_trans_sem)
+The NBD protocol has userspace keep the socket fd open, so the socket
+can be in active use while it is being reclassified: an inet_shutdown()
+or lock_sock() racing the reclassification can hold sk_lock.slock
+across spin_lock_init(), leaving the live lock zeroed.  On
+DEBUG_LOCK_ALLOC kernels this surfaces as "BUG: spinlock already
+unlocked" (debug_spin_unlock()) from the shutdown/lock_sock path
+running in parallel.
 
-rds_ib_laddr_check_cm() destroys the CM id from inside
-rds_trans_get_preferred()'s read-side critical section, while CM
-callbacks create RDS connections (taking the same read lock) from
-under handler_mutex.
+Add sock_lock_reclassify_and_name(), a variant that only re-arms the
+lockdep class and name of the live sk_lock (plus the module owner
+tracking) without touching the lock itself, sk_lock.owned or the wait
+queue, and switch nbd_reclassify_socket() to it.  The
+sock_allow_reclassification() guard is kept to narrow the window in
+which the lock is in use by lock_sock().
 
-Break the cycle by destroying the CM id asynchronously: add
-rdma_destroy_id_wq(), which queues the destruction on cma_wq, and
-switch rds_ib_laddr_check_cm() to it.  The destroy work is embedded
-in struct rdma_id_private, which keeps the id alive until the work
-runs; rds does not touch cm_id after the destroy call.
-
-This formalizes the approach proposed and syzbot-tested by Hillf
-Danton; Eduard Zateev additionally verified the fix on a real QEMU
-system (KASAN + lockdep + RDMA_RXE, active and passive RDS
-connections established without any lockdep output).
-
-Reported-by: syzbot+ccdb5058c3df2d94811c@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=ccdb5058c3df2d94811c
-Suggested-by: Hillf Danton <hdanton@sina.com>
-Tested-by: syzbot+ccdb5058c3df2d94811c@syzkaller.appspotmail.com
-Tested-by: Eduard Zateev <hackerowskiy@gmail.com>
+Reported-by: syzbot+b29ed72382b0e218323a@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=b29ed72382b0e218323a
+Fixes: d532cddb6c60 ("nbd: Reclassify sockets to avoid lockdep circular dependency")
+Cc: stable@vger.kernel.org
 Signed-off-by: Aibing Chen <chenaibing@cmss.chinamobile.com>
 ---
- drivers/infiniband/core/cma.c      | 19 +++++++++++++++++++
- drivers/infiniband/core/cma_priv.h |  1 +
- include/rdma/rdma_cm.h             |  1 +
- net/rds/ib.c                       |  2 +-
- 4 files changed, 22 insertions(+), 1 deletion(-)
+ drivers/block/nbd.c |  6 +++---
+ include/net/sock.h  | 16 ++++++++++++++++
+ 2 files changed, 19 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/infiniband/core/cma.c b/drivers/infiniband/core/cma.c
-index 337a49d1a..d10aaf51e 100644
---- a/drivers/infiniband/core/cma.c
-+++ b/drivers/infiniband/core/cma.c
-@@ -2126,6 +2126,25 @@ void rdma_destroy_id(struct rdma_cm_id *id)
- }
- EXPORT_SYMBOL(rdma_destroy_id);
+diff --git a/drivers/block/nbd.c b/drivers/block/nbd.c
+index ffce519bf..28274a48d 100644
+--- a/drivers/block/nbd.c
++++ b/drivers/block/nbd.c
+@@ -1251,19 +1251,19 @@ static void nbd_reclassify_socket(struct socket *sock)
  
-+static void destroy_id_work(struct work_struct *work)
-+{
-+	struct rdma_id_private *id_priv =
-+		container_of(work, struct rdma_id_private, destroy_work);
+ 	switch (sk->sk_family) {
+ 	case AF_INET:
+-		sock_lock_init_class_and_name(sk, "slock-AF_INET-NBD",
++		sock_lock_reclassify_and_name(sk, "slock-AF_INET-NBD",
+ 					      &nbd_slock_key[0],
+ 					      "sk_lock-AF_INET-NBD",
+ 					      &nbd_key[0]);
+ 		break;
+ 	case AF_INET6:
+-		sock_lock_init_class_and_name(sk, "slock-AF_INET6-NBD",
++		sock_lock_reclassify_and_name(sk, "slock-AF_INET6-NBD",
+ 					      &nbd_slock_key[1],
+ 					      "sk_lock-AF_INET6-NBD",
+ 					      &nbd_key[1]);
+ 		break;
+ 	case AF_UNIX:
+-		sock_lock_init_class_and_name(sk, "slock-AF_UNIX-NBD",
++		sock_lock_reclassify_and_name(sk, "slock-AF_UNIX-NBD",
+ 					      &nbd_slock_key[2],
+ 					      "sk_lock-AF_UNIX-NBD",
+ 					      &nbd_key[2]);
+diff --git a/include/net/sock.h b/include/net/sock.h
+index 3144efad8..2b305777c 100644
+--- a/include/net/sock.h
++++ b/include/net/sock.h
+@@ -1704,6 +1704,22 @@ do {									\
+ 	lockdep_init_map(&(sk)->sk_lock.dep_map, (name), (key), 0);	\
+ } while (0)
+ 
++/*
++ * Reclassify the lockdep class of a live socket lock.  Unlike
++ * sock_lock_init_class_and_name() this variant does not touch the
++ * lock itself, sk_lock.owned or the wait queue, so it is safe on a
++ * socket that userspace still holds.  The caller should check
++ * sock_allow_reclassification() first to narrow the window in which
++ * the lock is in use by lock_sock().
++ */
++#define sock_lock_reclassify_and_name(sk, sname, skey, name, key)	\
++do {									\
++	sk_owner_set(sk, THIS_MODULE);					\
++	lockdep_set_class_and_name(&(sk)->sk_lock.slock,		\
++				   (skey), (sname));			\
++	lockdep_init_map(&(sk)->sk_lock.dep_map, (name), (key), 0);	\
++} while (0)
 +
-+	mutex_lock(&id_priv->handler_mutex);
-+	destroy_id_handler_unlock(id_priv);
-+}
-+
-+void rdma_destroy_id_wq(struct rdma_cm_id *id)
-+{
-+	struct rdma_id_private *id_priv =
-+		container_of(id, struct rdma_id_private, id);
-+
-+	INIT_WORK(&id_priv->destroy_work, destroy_id_work);
-+	queue_work(cma_wq, &id_priv->destroy_work);
-+}
-+EXPORT_SYMBOL(rdma_destroy_id_wq);
-+
- static int cma_rep_recv(struct rdma_id_private *id_priv)
+ static inline bool lockdep_sock_is_held(const struct sock *sk)
  {
- 	int ret;
-diff --git a/drivers/infiniband/core/cma_priv.h b/drivers/infiniband/core/cma_priv.h
-index 04332eb82..95ff8bbd4 100644
---- a/drivers/infiniband/core/cma_priv.h
-+++ b/drivers/infiniband/core/cma_priv.h
-@@ -110,6 +110,7 @@ struct rdma_id_private {
- 	 */
- 	struct rdma_restrack_entry     res;
- 	struct rdma_ucm_ece ece;
-+	struct work_struct destroy_work;
- };
- 
- #if IS_ENABLED(CONFIG_INFINIBAND_ADDR_TRANS_CONFIGFS)
-diff --git a/include/rdma/rdma_cm.h b/include/rdma/rdma_cm.h
-index d639ff889..ac1c1d917 100644
---- a/include/rdma/rdma_cm.h
-+++ b/include/rdma/rdma_cm.h
-@@ -167,6 +167,7 @@ struct rdma_cm_id *rdma_create_user_id(rdma_cm_event_handler event_handler,
-   * asynchronous operations associated with the id.
-   */
- void rdma_destroy_id(struct rdma_cm_id *id);
-+void rdma_destroy_id_wq(struct rdma_cm_id *id);
- 
- /**
-  * rdma_restrict_node_type - Restrict an RDMA identifier to specific
-diff --git a/net/rds/ib.c b/net/rds/ib.c
-index 4ea9838d0..1290747cd 100644
---- a/net/rds/ib.c
-+++ b/net/rds/ib.c
-@@ -484,7 +484,7 @@ static int rds_ib_laddr_check_cm(struct net *net, const struct in6_addr *addr,
- 		 cm_id->device ? cm_id->device->node_type : -1);
- 
- out:
--	rdma_destroy_id(cm_id);
-+	rdma_destroy_id_wq(cm_id);
- 
- 	return ret;
- }
+ 	return lockdep_is_held(&sk->sk_lock) ||
 -- 
 2.50.1.windows.1
 
