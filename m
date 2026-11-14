@@ -1,81 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.221
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794661764;
-	b=2FSgnL+jtudZv4KHgllf3HeqP0ulqixNWqRARmO+yNkO06tvRMERsqX55kLxi2oDbWBx
-	 3dLkaOFyEc1ccW3nKLUkbdMtlFdYuXkyya5Gex9eCEP9c+S6gKJCUwxd0pHc5tgZmKRL+
-	 4y+mMyv06JrCjWvfzRc09KmFeaqgRttZLaCkiJmf2z3ky9G57b9p1Rl4QxEREz4pOtk+F
-	 FSRtzwZ5G25cl0OjSc1J++v3xkF3QR4UwZ9VDaN1YPNW3gUkYJmI9DTADh8sA46uAXNNM
-	 pjawufWPCjLGJSiIr0NKmskMCJ/voLFeHUZ+hex2iUzQT0lHXFzqRBOuqUyJcokjPuw==
+	t=1794661773;
+	b=ZHuHdq96+j/PZRJ8Hx5gkhlPxqnAI12t5t/HafiL6wfuH5XX8kVmFuK02Bv/gWH1hzh+
+	 ykmOy5OSToyasGJRhyCZFBodMd+nSPZBVDz8mwCX5aqKq9MxK6y+NH85UM5XWpoGJcOIc
+	 NDksSn/GUJLoPLapHJrfuzVYPzwOr5OVkTnBZYd4+YC5W9xWR6vDx6b4gWGVNvte/SJ+a
+	 o4Vn0uw1kkMz4uNB1tJyzfC8jzhjCPc/cHxoYIfFHkieJCnBhmuv61Du9oSMmEK1A7rWd
+	 G0HU3he0zq6GpWunNHMkZAB9b1XAMmSBcHd+RZ+HbYJ99y8eB+8X8S6q61u+sOyy79Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794661764;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version;
-	bh=9QHmD6CbC3B8E4Fu+2pBtpNfJsF3diLcnyMXeoB/6ZA=;
-	b=g4jUpKudLdAcTTbTnU+K8L/VvpsObKnLBPEZUO2KjjJaY6UA2H47zDCdyHiF306w7uWt
-	 uA3m3KNkhCmO4vmkiLY/1Oy5BxQbhaAzy3D/FSiXtkxcmdAaSf2456VDTCbpIBL2p1qlc
-	 EppqtA5rghXS3RRWKY+h5GMWNQM5Jn2pGb4A5uv/aLQTEGTDqswR2RZHVCdT6E2IOUHGo
-	 huHZFzYGuTSD8MxKACx74uDJPhFQMKfKbSC++oD/Cb4TdO9uNEnZW1bnRryxoumvcTsTW
-	 Wt+/xvXVJjdBIoQ5ONzW6wgR2KOP5Th+BIRATGZN42xfNm5j1OylMLO/98tvkQZZxrA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794661773;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=yTGQ1aK3YK82hsq0r4vmh7QrXw/LxtQj96hfn8kq+8w=;
+	b=sRL/gw3Fs/h6PP8E0ErGnAtQRyBvJ6SkT9u+fTkFeJKt8cjKV/juXicThFLEyQL39150
+	 Ibql7n+yoQEvhImCh36ET1IFA74nuX/O81uNGaeJGzB+tgmD4leXdN6szlJVbSQX64mg1
+	 IEMLUnpYAfQ6eHkZj8Kg9FzVBoFBaioXOYmONx9Fh1P4vyu4IPzOMe9nxFG+A+jzo9Znb
+	 bq61s+YJGwYsvmU6MezdHYiHqH80+7oXb/MrOpmCG2bU6FyO0WcabvDYzDb66L22oEp++
+	 IY8YaT3oUVskMrQFKAG3qGRxf6YMafnVZIDK/sJtL37nVv0Ug8Sl5NYJXi/R/d4Sfmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=XGeu1j6X;
-	arc=none smtp.remote-ip=203.205.221.221
-Received: from out203-205-221-221.mail.qq.com (out203-205-221-221.mail.qq.com [203.205.221.221])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.210.72
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96D6A60A5BCF;
-	Sat, 14 Nov 2026 13:09:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96D6A60A5BCF
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=XGeu1j6X
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794661759; bh=9QHmD6CbC3B8E4Fu+2pBtpNfJsF3diLcnyMXeoB/6ZA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XGeu1j6X9c+XhZIxXMf6I89I4jBXiihDyH9/Neqw5+HZdNRJOOvWZx1ZHfsjnnlA4
-	 YBBUGENAcbhiOo1V2+IFraL511fgz/uCcqZF77PvFMI84pkvSg+tm5Fm8/ATzfCIp1
-	 OgLx67SH455DORnYuuJ3XUJGgi4OLEG8JvMVLXv4=
-Received: from [127.0.0.1] ([2409:8d5c:8f0:65e5:7443:873c:1230:8af8])
-	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
-	id 24F86472; Sat, 14 Nov 2026 21:09:15 +0800
-X-QQ-mid: xmsmtpt1794661755twccmgsz6
-Message-ID: <tencent_D60B0B7B6362D7A729A4FEAFFDF4D8328107@qq.com>
-X-QQ-XMAILINFO: OATpkVjS499uL2TWbxEEsFke5p/dO2hZuv9UzZTpEyVpZFZr0fMQ5/Be7DDHSE
-	 iwge78Q/cUM0f/Pn4F+DbXY1UOlESf2fEjA2ol1RUMZo7wUZCjtP2M126E2J48m5aY05T/BUmyfc
-	 DVxnfO8x5TUxaJPAyf6M9W1vXtIFmh44hS9uadpYPBK/DZ8g00UTQAPeUd5qcT7uSyAQANeB9v/K
-	 72dP75mtuKAWrjldn/zSw8NXOE4spmXwd1CQ9Sw2kcW11jWSNfYGrYg6D0kjw82JUMD28dq1Lip7
-	 589nLyX9Mi8jXl2QfR0UlxNyKyRWixafkXMhGOlvnu+aA2gMRidu0lLV9WQ7i7D9UaibLRUNRHKj
-	 xMimR7b6JpTXNDRD8/8o8sIabsxzj/nyBQT/YvVGzXPngIA078MgXxJNRD/5QdhUdwjcHJl3YcBF
-	 r/BW/9RNjssm48e0joFoylp6PNcG6MscJQ+mEE6Rhom+qWAkSM4KPXaPipU8vdEEIZVvUhmgnO7o
-	 MrlYaufuhn4sE19G8dDp1ovwxc9SVZRGzOVsBj211HaDpuVV+DCg9TDLzxTEyjU8mSFTGyfyJm/s
-	 GI/nS4S5qTPJpd3XMNDZOfwYDpluQHIcnP4erEjAxbOyoMLBtAf2+M0h02nAo+c2xR0rXFerXz6T
-	 dyh8giwUKeCoMepmVNVmYwIfbo4iFL1vK7vhD+pED9zMmIey/qbclE40szrW22JBkXkWr8VtrJMx
-	 knT5iTSRCG1e8VXLXHFkgNqKMZykF7+9tDhDrJNhJMXdq20W3O5mSwZiaifWPsvEn7hy5XiuiL/r
-	 JQ3LFtfR84K3ysaI90xnSAeJkKs+zWdM/eP+i9xyO/LDcxxEnR02gWgBLy4PqYxR06qg0AivJ808
-	 dSH/hW62P/S/f2i4csTZ5YyOnIt+mPxKjBLkOOxa+d3rdkzVDrKdOCbsMYD5l38vdwWsBUT4Fqkg
-	 26rZFHEEq/I0o6dnVGZtYATCUX7lYKq5yz3vcimP/xqMPzUxJeevm4NJN+XKXxkk/KMK9qp2m+23
-	 /WZkOGYFqMj1TG1eHntzU4Je1uCrh21gIP/FQMtsA2bf3q0tZU2z4k1AZs3gfFfR5bIRPMHw==
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-From: Hang Nan <2122295973@qq.com>
-To: sashiko-bot@kernel.org
-Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, matttbe@kernel.org,
- martineau@kernel.org, geliang@kernel.org, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- kuniyu@google.com, willemb@google.com, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, 2122295973@qq.com
-Subject: Re: [PATCH net 1/2] net: mptcp: take token lookup references with
- acquire ordering
-Date: Sat, 14 Nov 2026 21:09:14 +0800
-X-OQ-MSGID: <179466175477.91732.2161918558371491672@qq.com>
-In-Reply-To: <179448794830.196117.14284634941387773647@qq.com>
-References: <20261112124547.193812-1-2122295973@qq.com>
- <179448794830.196117.14284634941387773647@qq.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 414D5606E0C2
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 13:09:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 414D5606E0C2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-851f720d7afso1065846a34.3
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 05:09:33 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794661772; x=1795266572;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yTGQ1aK3YK82hsq0r4vmh7QrXw/LxtQj96hfn8kq+8w=;
+        b=C8PmSCoiOhsfFh3AeEDTqYuvscIdRuZI7MZLD5yNNSjQ15BBjmwdhCY5rSC/TBE3+X
+         SMU/SM0ZLeyEHssb7Lcev4bToJeoc8ZR9BgR45gECOxkXz/zPouK1WZ7duyHso7yoOeA
+         R/29ctQ2WNPPTqBRlidBPWQ1R2LxZ46owq8WiXuR5knmuJWu6UFNTjE6fpvr92wYWP2w
+         CdPvTB+xUOXFhXLKL2h+UFgrwS7dC7yA8KONqTuX49ss/YDnT4wCHmlyXJvB/mhJ2JQ9
+         dKRShHC5e9oDZKBX+SlVGD8SyE1JA1DhC3YemfbT/gxIfLcBUG9qMf/bp4TXmJidY5BW
+         XRkA==
+X-Forwarded-Encrypted: i=1; AL+hErEoy7WchsbZn61Wavgz626xHvZXK3zkVnFtgqahZ/ZHl1GICy7oSPdK9xNI8r4Cw1sdxq7bAjA9xVKmMBk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+IV8wCtY0iWqESHwMvBSkC1DXa+uS95NprhDWvdmuWt94+8vJX
+	mnYwyQjXRpz6R/OozhoPaNnIzz1gAktLeF9fHwZx63Tzloe6mK/8Bp3th0zD4GwHdpbOF9mWgrG
+	Zdx1rOC/y4PMhA/ka5bc39q/PsAvEjHnH77o+Pu5hxMqkZoYC5IE5o4ECMx0=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,71 +58,395 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-Received: by 2002:a05:6808:bc1:b0:4cb:ae51:5971 with SMTP id
+ 5614622812f47-56e640d29f9mr4931195b6e.32.1794661772242; Sat, 14 Nov 2026
+ 05:09:32 -0800 (PST)
+Date: Sat, 14 Nov 2026 05:09:32 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af85d8c.097d52ff.3d440.0008.GAE@google.com>
+Subject: [syzbot] [mm?] possible deadlock in dup_mmap
+From: syzbot <syzbot+1cd3a506d57e74040004@syzkaller.appspotmail.com>
+To: akpm@linux-foundation.org, jannh@google.com, liam@infradead.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org, 
+	pfalcato@suse.de, syzkaller-bugs@googlegroups.com, vbabka@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thanks.  All four points are correct; respun as v3 with two additional
-patches.  Details below.
+Hello,
 
-[High] token 0 accepted by mptcp_token_get_sock()
+syzbot found the following issue on:
 
-Agreed, and it is a real defect rather than a consequence of the missing
-ordering.  Both validations compare the socket's token with the requested
-one, and for a requested token of 0 that comparison is satisfied by
-exactly the states a socket must not be accepted in: the value
-mptcp_token_destroy() stores, and the zeroed state of a newly allocated
-msk.  The ordering change does not help there, because the comparison
-itself is vacuous.
+HEAD commit:    7e1392a42ea2 Merge tag 'net-7.4-rc3' of git://git.kernel.o..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=10de62c3580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=e3d788a0111c0780
+dashboard link: https://syzkaller.appspot.com/bug?extid=1cd3a506d57e74040004
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
 
-What I verified statically before sending v3:
+Unfortunately, I don't have any reproducer for this issue yet.
 
-  - mptcp_parse_option() copies the MP_JOIN SYN token with
-    get_unaligned_be32() and does not reject 0;
-  - subflow_token_join_request() passes the result straight to
-    mptcp_pm_get_local_id(), and for a subflow with a different source
-    port to mptcp_pm_announced_has_ssk(), which walks
-    msk->pm.anno_list under msk->pm.lock;
-  - that list is initialised from mptcp_pm_data_init(), i.e. well after
-    a socket can be found on a chain.
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/cab3108790d1/disk-7e1392a4.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/d2cfcac3b02d/vmlinux-7e1392a4.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/0b6b5a126605/bzImage-7e1392a4.xz
 
-Patch 3 now rejects token 0 before walking the chain.  I did not manage
-to reproduce the resulting crash, so I am not claiming to have observed
-it: the description in the patch is a static argument, and the Fixes: tag
-points at the commit that introduced the lookup, not at an observed
-failure.
+AI-generated root cause summary:
+The circular locking dependency is rooted in drivers/block/nbd.c, where the
+Network Block Device driver handles block I/O under direct memory reclaim
+(fs_reclaim) using a network socket provided by userspace. In
+nbd_reclassify_socket(), NBD silently fails to reclassify the socket's lockdep
+class when sock_allow_reclassification() returns false (e.g., if the socket is
+already in use by userspace), leaving it in the generic sk_lock-AF_INET6 class.
+Furthermore, because userspace retains the socket descriptor, concurrent user
+operations like sendmsg() acquire lock_sock before faulting on user buffers
+(which acquires mm->mmap_lock), while NBD I/O and shutdown paths (e.g.,
+nbd_mark_nsock_dead()) acquire lock_sock via kernel_sock_shutdown() under
+nsock->tx_lock in the fs_reclaim path. Because MM operations (such as
+fork/dup_mmap) take mm->mmap_lock and hugetlbfs_i_mmap_rwsem_key prior to
+GFP_KERNEL allocations (fs_reclaim), this establishes an inverted cycle:
+mm->mmap_lock -> hugetlbfs_i_mmap_rwsem_key -> fs_reclaim -> nsock->tx_lock ->
+sk_lock -> mm->mmap_lock.
 
-[High] mptcp_token_iter_next() re-checks only net_eq()
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=1cd3a506d57e74040004
 
-Agreed.  Patch 4 re-reads the token after the acquisition and drops the
-socket unless it is non-zero and still hashes to the slot being walked.
-A socket on a chain always hashes to that slot, so the check only rejects
-objects whose memory has been reused in the meantime.  I kept the
-severity assessment lower than the one above because both consumers
-(mptcp_diag, the userspace path manager) are netlink paths that require
-privileges in the target network namespace, so the bad state is reached
-locally rather than from the wire.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+1cd3a506d57e74040004@syzkaller.appspotmail.com
 
-[Medium] the commit message gives the wrong reason
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Tainted: G             L     
+------------------------------------------------------
+syz.9.7569/29103 is trying to acquire lock:
+ffff888052efb930 (&hugetlbfs_i_mmap_rwsem_key){+.+.}-{4:4}, at: i_mmap_lock_write include/linux/fs.h:508 [inline]
+ffff888052efb930 (&hugetlbfs_i_mmap_rwsem_key){+.+.}-{4:4}, at: dup_mmap+0xb09/0x2180 mm/mmap.c:1802
 
-Agreed, and the correction is in patch 1.  The acquire does not pair with
-anything in mptcp_token_destroy(): that function does not touch
-sk_refcnt.  What it pairs with is the publication in
-sock_init_data_uid(), smp_wmb() followed by refcount_set(&sk->sk_refcnt,
-1), in the SLAB_TYPESAFE_BY_RCU reuse window, which is the case
-refcount.h documents.  The message now says that, and keeps the teardown
-comment only as background for what the re-check is looking at.
+but task is already holding lock:
+ffff88807fe0e540 (&mm->mmap_lock/1){+.+.}-{4:4}, at: mmap_write_lock_nested include/linux/mmap_lock.h:556 [inline]
+ffff88807fe0e540 (&mm->mmap_lock/1){+.+.}-{4:4}, at: dup_mmap+0x16e/0x2180 mm/mmap.c:1722
 
-[Low] Fixes: trailer
+which lock already depends on the new lock.
 
-Agreed, and corrected in v2 (now v3): 2c5ebd001d4f and 96d890daad05 for
-the two mptcp sites, and 1cd62c21572c for the reuseport patch, whose site
-also postdates the consolidation.
 
-On testing: the ordering change itself has no runtime observable on
-x86-64 (both variants compile to lock cmpxchg) and we have no way to
-observe the reordering on the hardware at hand, so patches 1 and 2 carry
-an instruction-level argument only (on arm64 the CAS becomes CASA; I can
-include the disassembly if useful).  Patches 3 and 4 are plain
-functional checks and both objects build; I have not run a KUnit case
-for token 0 yet.
+the existing dependency chain (in reverse order) is:
 
-pw-bot: cr
+-> #9 (&mm->mmap_lock/1){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       down_write_nested+0x8f/0x1f0 kernel/locking/rwsem.c:1757
+       mmap_write_lock_nested include/linux/mmap_lock.h:556 [inline]
+       dup_mmap+0x16e/0x2180 mm/mmap.c:1722
+       dup_mm kernel/fork.c:1549 [inline]
+       copy_mm kernel/fork.c:1602 [inline]
+       copy_process+0x7c5c/0x88e0 kernel/fork.c:2328
+       kernel_clone+0x176/0x9d0 kernel/fork.c:2798
+       __do_sys_clone+0xd9/0x120 kernel/fork.c:2940
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x7b0 arch/x86/entry/syscall_64.c:89
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
+-> #8 (&mm->mmap_lock){++++}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __might_fault+0xde/0x140 mm/memory.c:7575
+       _inline_copy_from_user include/linux/uaccess.h:169 [inline]
+       _copy_from_user+0x29/0xd0 lib/usercopy.c:18
+       copy_from_user include/linux/uaccess.h:222 [inline]
+       csum_and_copy_from_user include/net/checksum.h:31 [inline]
+       copy_from_user_iter_csum net/core/skbuff.c:7677 [inline]
+       iterate_ubuf include/linux/iov_iter.h:30 [inline]
+       iterate_and_advance2 include/linux/iov_iter.h:302 [inline]
+       csum_and_copy_from_iter_full+0x21a/0x1fe0 net/core/skbuff.c:7689
+       ip_generic_getfrag+0x172/0x270 net/ipv4/ip_output.c:949
+       raw6_getfrag+0x22c/0x290 net/ipv6/raw.c:743
+       __ip6_append_data+0x37f0/0x4b30 net/ipv6/ip6_output.c:1739
+       ip6_append_data net/ipv6/ip6_output.c:1894 [inline]
+       ip6_append_data+0x10b/0x410 net/ipv6/ip6_output.c:1863
+       rawv6_sendmsg+0x169c/0x4630 net/ipv6/raw.c:917
+       inet_sendmsg+0x11c/0x140 net/ipv4/af_inet.c:866
+       sock_sendmsg_nosec net/socket.c:800 [inline]
+       __sock_sendmsg net/socket.c:818 [inline]
+       ____sys_sendmsg+0x9a0/0xb90 net/socket.c:2713
+       ___sys_sendmsg+0x208/0x270 net/socket.c:2770
+       __sys_sendmsg+0x160/0x210 net/socket.c:2802
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x7b0 arch/x86/entry/syscall_64.c:89
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #7 (sk_lock-AF_INET6){+.+.}-{0:0}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       lock_sock_nested+0x41/0xf0 net/core/sock.c:3906
+       lock_sock include/net/sock.h:1717 [inline]
+       inet_shutdown+0x67/0x410 net/ipv4/af_inet.c:913
+       nbd_mark_nsock_dead+0xae/0x5c0 drivers/block/nbd.c:319
+       sock_shutdown+0x16b/0x200 drivers/block/nbd.c:420
+       nbd_clear_sock drivers/block/nbd.c:1463 [inline]
+       nbd_config_put+0x3d5/0x9b0 drivers/block/nbd.c:1492
+       nbd_genl_connect+0xd72/0x1770 drivers/block/nbd.c:2319
+       genl_family_rcv_msg_doit+0x214/0x300 net/netlink/genetlink.c:1114
+       genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
+       genl_rcv_msg+0x560/0x800 net/netlink/genetlink.c:1209
+       netlink_rcv_skb+0x159/0x420 net/netlink/af_netlink.c:2585
+       genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
+       netlink_unicast_kernel net/netlink/af_netlink.c:1336 [inline]
+       netlink_unicast+0x668/0x950 net/netlink/af_netlink.c:1362
+       netlink_sendmsg+0x9ac/0x10c0 net/netlink/af_netlink.c:1921
+       sock_sendmsg_nosec net/socket.c:800 [inline]
+       __sock_sendmsg net/socket.c:818 [inline]
+       ____sys_sendmsg+0xa13/0xb90 net/socket.c:2713
+       ___sys_sendmsg+0x208/0x270 net/socket.c:2770
+       __sys_sendmsg+0x160/0x210 net/socket.c:2802
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x7b0 arch/x86/entry/syscall_64.c:89
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #6 (&nsock->tx_lock){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x19f/0x1c10 kernel/locking/mutex.c:821
+       nbd_handle_cmd drivers/block/nbd.c:1143 [inline]
+       nbd_queue_rq+0x42d/0xfa0 drivers/block/nbd.c:1207
+       blk_mq_dispatch_rq_list+0x428/0x1e60 block/blk-mq.c:2141
+       __blk_mq_do_dispatch_sched block/blk-mq-sched.c:168 [inline]
+       blk_mq_do_dispatch_sched block/blk-mq-sched.c:182 [inline]
+       __blk_mq_sched_dispatch_requests+0xcea/0x1620 block/blk-mq-sched.c:307
+       blk_mq_sched_dispatch_requests+0xd7/0x1c0 block/blk-mq-sched.c:329
+       blk_mq_run_work_fn+0x130/0x380 block/blk-mq.c:2555
+       process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
+       process_scheduled_works kernel/workqueue.c:3578 [inline]
+       worker_thread+0x5ef/0xe50 kernel/workqueue.c:3659
+       kthread+0x373/0x450 kernel/kthread.c:436
+       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #5 (&cmd->lock){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x19f/0x1c10 kernel/locking/mutex.c:821
+       nbd_queue_rq+0xba/0xfa0 drivers/block/nbd.c:1199
+       blk_mq_dispatch_rq_list+0x428/0x1e60 block/blk-mq.c:2141
+       __blk_mq_do_dispatch_sched block/blk-mq-sched.c:168 [inline]
+       blk_mq_do_dispatch_sched block/blk-mq-sched.c:182 [inline]
+       __blk_mq_sched_dispatch_requests+0xcea/0x1620 block/blk-mq-sched.c:307
+       blk_mq_sched_dispatch_requests+0xd7/0x1c0 block/blk-mq-sched.c:329
+       blk_mq_run_work_fn+0x130/0x380 block/blk-mq.c:2555
+       process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
+       process_scheduled_works kernel/workqueue.c:3578 [inline]
+       worker_thread+0x5ef/0xe50 kernel/workqueue.c:3659
+       kthread+0x373/0x450 kernel/kthread.c:436
+       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #4 (set->srcu){.+.+}-{0:0}:
+       lock_sync kernel/locking/lockdep.c:5991 [inline]
+       lock_sync+0xb5/0x120 kernel/locking/lockdep.c:5979
+       srcu_lock_sync include/linux/srcu.h:261 [inline]
+       __synchronize_srcu+0xa2/0x310 kernel/rcu/srcutree.c:1662
+       blk_mq_wait_quiesce_done block/blk-mq.c:284 [inline]
+       blk_mq_wait_quiesce_done block/blk-mq.c:281 [inline]
+       blk_mq_quiesce_queue block/blk-mq.c:304 [inline]
+       blk_mq_quiesce_queue+0x149/0x1c0 block/blk-mq.c:299
+       elevator_switch+0x17b/0x7e0 block/elevator.c:576
+       elevator_change+0x352/0x530 block/elevator.c:681
+       elevator_set_default+0x29e/0x360 block/elevator.c:754
+       blk_register_queue+0x49e/0x640 block/blk-sysfs.c:992
+       __add_disk+0x7dd/0xf10 block/genhd.c:531
+       add_disk_fwnode+0x118/0x480 block/genhd.c:600
+       add_disk include/linux/blkdev.h:799 [inline]
+       nbd_dev_add+0x779/0xb10 drivers/block/nbd.c:2026
+       nbd_init+0x2c5/0x2e0 drivers/block/nbd.c:2743
+       do_one_initcall+0x11c/0x6f0 init/main.c:1419
+       do_initcall_level init/main.c:1481 [inline]
+       do_initcalls init/main.c:1497 [inline]
+       do_basic_setup init/main.c:1517 [inline]
+       kernel_init_freeable+0x6ea/0x7b0 init/main.c:1732
+       kernel_init+0x21/0x1e0 init/main.c:1622
+       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #3 (&q->elevator_lock){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x19f/0x1c10 kernel/locking/mutex.c:821
+       elevator_change+0x1bc/0x530 block/elevator.c:679
+       elevator_set_none+0x92/0xf0 block/elevator.c:769
+       blk_mq_elv_switch_none block/blk-mq.c:5168 [inline]
+       __blk_mq_update_nr_hw_queues block/blk-mq.c:5213 [inline]
+       blk_mq_update_nr_hw_queues+0x4e1/0x1690 block/blk-mq.c:5281
+       nbd_start_device+0x1a6/0xbd0 drivers/block/nbd.c:1530
+       nbd_genl_connect+0xfc2/0x1770 drivers/block/nbd.c:2310
+       genl_family_rcv_msg_doit+0x214/0x300 net/netlink/genetlink.c:1114
+       genl_family_rcv_msg net/netlink/genetlink.c:1194 [inline]
+       genl_rcv_msg+0x560/0x800 net/netlink/genetlink.c:1209
+       netlink_rcv_skb+0x159/0x420 net/netlink/af_netlink.c:2585
+       genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
+       netlink_unicast_kernel net/netlink/af_netlink.c:1336 [inline]
+       netlink_unicast+0x668/0x950 net/netlink/af_netlink.c:1362
+       netlink_sendmsg+0x9ac/0x10c0 net/netlink/af_netlink.c:1921
+       sock_sendmsg_nosec net/socket.c:800 [inline]
+       __sock_sendmsg net/socket.c:818 [inline]
+       ____sys_sendmsg+0xa13/0xb90 net/socket.c:2713
+       ___sys_sendmsg+0x208/0x270 net/socket.c:2770
+       __sys_sendmsg+0x160/0x210 net/socket.c:2802
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x7b0 arch/x86/entry/syscall_64.c:89
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #2 (&q->q_usage_counter(io)#49){++++}-{0:0}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       blk_alloc_queue+0x610/0x790 block/blk-core.c:505
+       blk_mq_alloc_queue+0x174/0x290 block/blk-mq.c:4468
+       __blk_mq_alloc_disk+0x29/0x120 block/blk-mq.c:4515
+       nbd_dev_add+0x491/0xb10 drivers/block/nbd.c:1996
+       nbd_init+0x2c5/0x2e0 drivers/block/nbd.c:2743
+       do_one_initcall+0x11c/0x6f0 init/main.c:1419
+       do_initcall_level init/main.c:1481 [inline]
+       do_initcalls init/main.c:1497 [inline]
+       do_basic_setup init/main.c:1517 [inline]
+       kernel_init_freeable+0x6ea/0x7b0 init/main.c:1732
+       kernel_init+0x21/0x1e0 init/main.c:1622
+       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #1 (fs_reclaim){+.+.}-{0:0}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __fs_reclaim_acquire mm/page_alloc.c:4375 [inline]
+       fs_reclaim_acquire+0xc4/0x100 mm/page_alloc.c:4389
+       might_alloc include/linux/sched/mm.h:316 [inline]
+       slab_pre_alloc_hook mm/slub.c:4673 [inline]
+       slab_alloc_node mm/slub.c:5011 [inline]
+       __kmalloc_cache_noprof+0x63/0x6d0 mm/slub.c:5676
+       _kmalloc_noprof include/linux/slab.h:991 [inline]
+       allocate_file_region_entries+0x1a0/0x630 mm/hugetlb.c:711
+       region_chg+0x85/0x140 mm/hugetlb.c:831
+       __vma_reservation_common+0x34b/0x6f0 mm/hugetlb.c:2495
+       vma_needs_reservation mm/hugetlb.c:2562 [inline]
+       hugetlb_unmap_range+0x10be/0x1710 mm/hugetlb.c:5415
+       __unmap_hugepage_range+0x186/0x2f0 mm/hugetlb.c:5445
+       __zap_vma_range+0x3870/0x46c0 mm/memory.c:2195
+       unmap_vmas+0x294/0x5f0 mm/memory.c:2275
+       exit_mmap+0x1ef/0xa40 mm/mmap.c:1315
+       __mmput+0x12a/0x410 kernel/fork.c:1192
+       mmput+0x62/0x70 kernel/fork.c:1215
+       exit_mm kernel/exit.c:586 [inline]
+       do_exit+0x80c/0x2a00 kernel/exit.c:967
+       do_group_exit+0xd5/0x2a0 kernel/exit.c:1123
+       get_signal+0x1f58/0x22e0 kernel/signal.c:3113
+       arch_do_signal_or_restart+0x91/0x7e0 arch/x86/kernel/signal.c:337
+       __exit_to_user_mode_loop kernel/entry/common.c:66 [inline]
+       exit_to_user_mode_loop+0x139/0x700 kernel/entry/common.c:101
+       __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
+       syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
+       syscall_exit_to_user_mode include/linux/entry-common.h:343 [inline]
+       do_syscall_64+0x661/0x7b0 arch/x86/entry/syscall_64.c:107
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #0 (&hugetlbfs_i_mmap_rwsem_key){+.+.}-{4:4}:
+       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
+       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+       validate_chain kernel/locking/lockdep.c:3952 [inline]
+       __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       down_write+0x86/0x1f0 kernel/locking/rwsem.c:1631
+       i_mmap_lock_write include/linux/fs.h:508 [inline]
+       dup_mmap+0xb09/0x2180 mm/mmap.c:1802
+       dup_mm kernel/fork.c:1549 [inline]
+       copy_mm kernel/fork.c:1602 [inline]
+       copy_process+0x7c5c/0x88e0 kernel/fork.c:2328
+       kernel_clone+0x176/0x9d0 kernel/fork.c:2798
+       __do_sys_clone+0xd9/0x120 kernel/fork.c:2940
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x7b0 arch/x86/entry/syscall_64.c:89
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+other info that might help us debug this:
+
+Chain exists of:
+  &hugetlbfs_i_mmap_rwsem_key --> &mm->mmap_lock --> &mm->mmap_lock/1
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(&mm->mmap_lock/1);
+                               lock(&mm->mmap_lock);
+                               lock(&mm->mmap_lock/1);
+  lock(&hugetlbfs_i_mmap_rwsem_key);
+
+ *** DEADLOCK ***
+
+locks held by syz.9.7569/29103: 3, on CPU#1:
+ #0: ffffffff9014abf0 (dup_mmap_sem){++++}-{0:0}, at: dup_mm kernel/fork.c:1536 [inline]
+ #0: ffffffff9014abf0 (dup_mmap_sem){++++}-{0:0}, at: copy_mm kernel/fork.c:1602 [inline]
+ #0: ffffffff9014abf0 (dup_mmap_sem){++++}-{0:0}, at: copy_process+0x7b73/0x88e0 kernel/fork.c:2328
+ #1: ffff88807fe0ccc0 (&mm->mmap_lock){++++}-{4:4}, at: mmap_write_lock_killable include/linux/mmap_lock.h:566 [inline]
+ #1: ffff88807fe0ccc0 (&mm->mmap_lock){++++}-{4:4}, at: dup_mm kernel/fork.c:1537 [inline]
+ #1: ffff88807fe0ccc0 (&mm->mmap_lock){++++}-{4:4}, at: copy_mm kernel/fork.c:1602 [inline]
+ #1: ffff88807fe0ccc0 (&mm->mmap_lock){++++}-{4:4}, at: copy_process+0x7b99/0x88e0 kernel/fork.c:2328
+ #2: ffff88807fe0e540 (&mm->mmap_lock/1){+.+.}-{4:4}, at: mmap_write_lock_nested include/linux/mmap_lock.h:556 [inline]
+ #2: ffff88807fe0e540 (&mm->mmap_lock/1){+.+.}-{4:4}, at: dup_mmap+0x16e/0x2180 mm/mmap.c:1722
+
+stack backtrace:
+CPU: 1 UID: 0 PID: 29103 Comm: syz.9.7569 Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2087
+ check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2219
+ check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
+ check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+ validate_chain kernel/locking/lockdep.c:3952 [inline]
+ __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
+ lock_acquire kernel/locking/lockdep.c:5942 [inline]
+ lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+ down_write+0x86/0x1f0 kernel/locking/rwsem.c:1631
+ i_mmap_lock_write include/linux/fs.h:508 [inline]
+ dup_mmap+0xb09/0x2180 mm/mmap.c:1802
+ dup_mm kernel/fork.c:1549 [inline]
+ copy_mm kernel/fork.c:1602 [inline]
+ copy_process+0x7c5c/0x88e0 kernel/fork.c:2328
+ kernel_clone+0x176/0x9d0 kernel/fork.c:2798
+ __do_sys_clone+0xd9/0x120 kernel/fork.c:2940
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x7b0 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f421cfa94d9
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f421de4afd8 EFLAGS: 00000206 ORIG_RAX: 0000000000000038
+RAX: ffffffffffffffda RBX: 00007f421d225fa0 RCX: 00007f421cfa94d9
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000002820000
+RBP: 00007f421d03804e R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000206 R12: 0000000000000000
+R13: 00007f421d226038 R14: 00007f421d225fa0 R15: 00007ffe923e2998
+ </TASK>
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
