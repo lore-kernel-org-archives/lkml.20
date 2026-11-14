@@ -1,57 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.136
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794622898;
-	b=yXJvciNnji4mLuZlr+Fx05Ua1xJ24/MfmjgPn28Kh6l8ZRfP2oho9tYyFP5NTjxHEnfn
-	 T23RJB2ALcYV/ezrk+j0SDERX5bFlISlrHnEcY4RAkdTH+6ohojK9zM+13VyBpGMrCxaf
-	 0iqky3aGIwQEs3jw6Uh9NviygpKvKGe7D3xudRVOODikNgDHlFphMnvGRYshOuoxDW3RH
-	 VJjoRvXNtDduiq0JrYnnC7scfOTLILZp7Y3dRBRh5lP82FwFi8CA8BN9U7t3CA9Z0ydhj
-	 GgDYMeX6NNvbJ3FhyGeAZqaEU6DDlA5xXV/r9cMQ2iTIwg3G/TQryBjQZWrCz2f/bgQ==
+	t=1794622934;
+	b=NeY62Wdvz/Y9VKOepLuNNgxee6XxmdItJk+aLSEj99gxHbbMHWc073FsWlFNV7YIjpRv
+	 3erxq+HK3lf5+yJNYefy2POtIGyh3vBB0cPrQYbdzjLCoa02UGlHSm5N4sfSrajRSExyc
+	 vuHHuxWO9BAqHbKayNOn6MVO74PL4gCxTrOz8xL2W0zI1U27irB4ie8AdwQeCr52SX4oa
+	 aTl9r3U4DSMuhQCE9Y+CvqnQBUTgfb7Qp3F401SWBwlm6l43Gz3dJ+oIyQx0AbawsKGpH
+	 RnITPYyHscHSjUOF/q35AFsseQnBQt7VhT1Wbfpjn4q0fEiHv+FVLDwOXBxiLJ3uxyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794622898;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=LNUYU7pXy4dPQv+n0/00gK7Iv0h5927fuy55p2uNzJs=;
-	b=A692ALgNvFZJ9SRB94051tc9O6nug4yJFtG1eNFesulycKxaQm6JTxr256tI3BWtuLUI
-	 jhV6IJMLC6GMKS3Rd1Yo55hfyZbOy3ZspftqHwV4TqNTN2xgnLwn3thDsLpQtkap4Ul/l
-	 5l8BUU1ZquxHzCmmeJlRS+fDyquV0u2gNw7tJ9o42uewHp+aso3XvFSD9zcPNDne/Ar+z
-	 DVgOe1GyJvjCjeLfREALmZSPQ3VxW8CNz787haM5xswO9pWQYbpXsbDNmC7ncfneKvHaA
-	 W2W1J0s5ylEa/CPLahXYHWsS4Cxp19hBGYGBoLB45b5e8wjrNaEN9OHUo8MJ5nYfkcg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794622934;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Date:From:To:CC:
+	 Subject:User-Agent:In-Reply-To:References:Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=AIQbKLU43LccGRdCT2aBSjvUNYwADfWwVpipaPEX5yE=;
+	b=LTIVFBOzvRxfKUlC+NhQRTSF7t0xbwV69D0fZ27/vfJHg/jt/u46XO2FnU51y3Ekvo0p
+	 6pKE07XakhFhVT7XyjB9btd3m7OPnrfV1VVjVZoZzTixop/BCokODrPLgV5z73rwH3BQc
+	 ilSDjf40QyuFkRBKdVBfwNqj5QRcAPYIWoqMd41Evd1XrwfubHABkuiIuvOKIdFY5SCZ2
+	 Y9FNTrEN20aaeQglsT5auFp8W4BIkHRMlwoOzF/NHQ0EqfNB70vLT7wJLN5JYFQQcBY/j
+	 Zd2eJqWHUkOJInpSGPaIg8VkoTeuwb/99m56pbn9cACqzuCFQ+pHfnTJbVILsgEnksw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mYJWrpPO;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=zytor.com;
+	spf=pass smtp.mailfrom=zytor.com;
+	dkim=pass header.d=zytor.com header.i=@zytor.com header.a=rsa-sha256 header.s=2026102901 header.b=oipzlGEN;
+	arc=none smtp.remote-ip=198.137.202.136
+Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99A91606A332;
-	Sat, 14 Nov 2026 02:21:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A0D8606A323
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 02:22:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A0D8606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mYJWrpPO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32E971F000C4;
-	Sat, 14 Nov 2026 02:21:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794622898;
-	bh=LNUYU7pXy4dPQv+n0/00gK7Iv0h5927fuy55p2uNzJs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mYJWrpPODuJU1uwQd2fjcZgTZsCwjPpp54gSH3BU2DooVZjdSeMQ+TaX6vAc7QKyJ
-	 OcB8opfbkOMLLHlhNvIiMvSw2T8h+sKA1HgSI2RRtv4/L9vZgA3oNUBwpk0j9o9DqA
-	 s/0qGLmpOYEYQH6gi8+4feU5axeZwyRNa6FIgGClPVZc5gExATbuy+rHI68qeR7Dac
-	 jJTCL6t2INh2nPv2mD5UET5BH4DFfrPffdf9TujQfaza4FWM7rnVPHLi6OAycZD4dy
-	 1Dk2gIPO/LggKZh2OLUjp36ufjRjV8R/JtpXr26ikib7vv9V6PGxCh9e6aHZy0C1oZ
-	 QUiA27aa34MmQ==
-From: SJ Park <sj@kernel.org>
-To: Jason Angelov <jasonangelov@ucla.edu>
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] mm/damon/tests: add KUnit coverage for age_ms filters
-Date: Fri, 13 Nov 2026 18:21:30 -0800
-Message-ID: <20261114022131.110196-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261113-test-age-ms-filter-v1-0-b99eab2f71bb@ucla.edu>
-References: 
+	dkim=pass (2048-bit key, unprotected) header.d=zytor.com header.i=@zytor.com header.a=rsa-sha256 header.s=2026102901 header.b=oipzlGEN
+Received: from ehlo.thunderbird.net (c-76-133-66-138.hsd1.ca.comcast.net [76.133.66.138])
+	(authenticated bits=0)
+	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 6AE2LSUm3991062
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+	Fri, 13 Nov 2026 18:21:29 -0800
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 6AE2LSUm3991062
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2026102901; t=1794622890;
+	bh=AIQbKLU43LccGRdCT2aBSjvUNYwADfWwVpipaPEX5yE=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
+	b=oipzlGENzY2Kcmv+sjX1xsxIs/F5idBbiPree/Qcj2b9RS1k6efUAF0NB2z4OoKi+
+	 K1dDKTVS7A8HCxQbwG2R3Kiy9qNFJPTGRoXV/DujZHTz/kZyG0xLCB8fJECLhc1pT9
+	 +IhFviNfMbqzjXmFJy+4rAgXRRkGqZQjNSNOTTVL9AqAYMIkkWcQSezdLGWB/XLTgI
+	 iGu3mH8V50gCfi6KPe6p3BuZ2Hc0DdixOJdwStco2ei0UyBwdSHlXS4PhnUJuMNqBl
+	 qIVunAND1T84Nu4CknXpKjWPpShr5WfMu5SFO4OYOmpLtY16cWzIjuC+rL1Zh9fe5s
+	 HOp4Bjn27lwiw==
+Date: Fri, 13 Nov 2026 18:21:23 -0800
+From: "H. Peter Anvin" <hpa@zytor.com>
+To: Borislav Petkov <bp@alien8.de>
+CC: Linus Torvalds <torvalds@linux-foundation.org>,
+        David Laight <david.laight.linux@gmail.com>,
+        Usama Arif <usama.arif@linux.dev>, dave.hansen@linux.intel.com,
+        dsterba@suse.com, linux-kernel@vger.kernel.org, mingo@redhat.com,
+        terrelln@fb.com, tglx@kernel.org, x86@kernel.org, kas@kernel.org,
+        hannes@cmpxchg.org, riel@surriel.com, shakeel.butt@linux.dev,
+        kernel-team@meta.com
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v3_2/2=5D_x86/lib=3A_Use_REP_MOVSB_f?=
+ =?US-ASCII?Q?or_large_memcpy=28=29_on_ERMS_CPUs_without_FSRM?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <20261113233703.GCavefHwxVZX8mGFCm@fat_crate.local>
+References: <20261111234608.GAavT-QFRo6EtvoL0y@fat_crate.local> <20261113141137.1113517-1-usama.arif@linux.dev> <20261113160300.3f0d0a37@pumpkin> <CAHk-=wjmnpCmhyOta1EBR6D8_JFgLNz7Jb2s_PgbPq6cBiQ0wg@mail.gmail.com> <E9C129F6-61F5-49CE-8948-064DAE86EF4F@zytor.com> <20261113233703.GCavefHwxVZX8mGFCm@fat_crate.local>
+Message-ID: <628BDCC5-B599-4B70-B512-E13DEE926DFA@zytor.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,27 +74,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Jason,
+On November 13, 2026 3:37:03 PM PST, Borislav Petkov <bp@alien8=2Ede> wrote=
+:
+>On Fri, Nov 13, 2026 at 10:36:30AM -0800, H=2E Peter Anvin wrote:
+>> Well, we can put a request in for compiler support=2E This equally appl=
+ies to
+>> other compiler runtime functions, for that matter=2E=2E=2E
+>
+>I was going to suggest that too=2E Lemme know if I should ping my gcc fol=
+ks=2E=2E=2E
+>
 
-On Fri, 13 Nov 2026 07:58:54 -0800 Jason Angelov <jasonangelov@ucla.edu> wrote:
-
-> The DAMON core tests do not cover DAMOS_FILTER_TYPE_AGE_MS. Add tests for
-> committing valid and invalid age ranges, identifying the filter as
-> core-handled, and matching ages at and outside the range boundaries.
-> 
-> Region age is counted in aggregation intervals, but age_ms filter bounds
-> are in milliseconds. The interval-change test checks age rescaling and
-> filter matching after both increasing and decreasing the aggregation
-> interval.
-
-Thank you for this series.  I show only small nits in the first two patches.
-But the third one looks a revisioning is needed.  Could you please address my
-comments?
-
-
-Thanks,
-SJ
-
-[...]
+Seems like a good idea to me=2E Presumably it would be using the rep movsb=
+ convention=2E
