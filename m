@@ -1,76 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.192
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794618318;
-	b=zNI5BgpqolIuEcnbiX+iHmZQCsitbhe8EJBzkZ/p9vYLHhx+dOSXTzwdSZVkiq29KVZO
-	 FKuJHSDOWj5q3aqLsC6OprpqerME5fRM10Q609Up1IrLiO/4rLvwSTEtaxF4UxflLlHIa
-	 F+e1v5o4PT61MRBDbJt6KTyWr9xjAhUfb9aMU2vtIsBA5bBfSegxlmxVySK6/K3qq9rV/
-	 DYZ1x7QM9BWcXxORgPt7si8TVpGZDHKu7kNK7tr0Y/JPHuH3W7l36FpP4YzWvUbJ1x6cO
-	 h3aVIqsclFFpISptvAtSdW8tD0Zgemhws3+Yui6+tlOe46VtsiownROnujnxOwZkAAA==
+	t=1794618414;
+	b=5faGNC+7bj7IWJD/Upoj27A0i3d+/wPZ09aiyhUJE91m1iQ1bmvGiZ1Okd1nXBK7dMHD
+	 ox7Yidzp2T2nvaqNgN/XBvbTef0mcQVsHqSBk0S/cOZ+rB5rdKpt1GpDt1HC5aYXnUWMs
+	 yXn1vJTzc4+RIzRhsxBB973cfihoLau1i2+sHuWnzbZpv8M9Q8zIYCXpZB0JUGEAQtyFo
+	 edXkxN4dWH4+h78mvHc2j9yFEsk94x0ZwHFdj7hjYimk4kKHvTj1z+SVcJ5KygoHon7hh
+	 uHvddbYOo/C9zliZ3L/p5g4U0G4oitHCYpnXgEaQBBHnRWxSh67k6QKHR0GlhkL+z7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794618318;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=Eg1aWZgHvhHXiees9Lk2jDCP70jKX8ALjN7+QJls73Y=;
-	b=1wtD7VziKa/QnjeSwBX2efjVHUkRGZN2aMBsQv7/Zj7gcPZHYweUdv6+xxwV0PFi5lF1
-	 AKG2M1QOPiQ3Ljn41rOeQAcydvb9E/RL+UZFpEaA5Nq1k2xHPT10yN/EH+dMwkcHbaRNW
-	 VaDSf8vzZJuS8g7HXeO/2t3qYTZhwQcMOj40v5677eGe0BnKPFoH2KvapB73zwzImf4tG
-	 2UNQKYpfqh8ed9fy5JQBToVjmHKDf5vzZAf3t40ZhwdJ9mc9z2D8OGe3i5GB82kH+OW97
-	 8+Y0hdDvO8m2h2uJ28l5X6wXPEYFL9qx2k14FdxoDkYWlVaAwUlEqSzIoRMKnyUPELA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794618414;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=B2e76bhPXFe3TTOBltWF8laVYOhrcZJqYieGLm3qKQQ=;
+	b=ocxbWOGSS6TXor5YHUMi9pWsDWgaOk+0QLxcJcj+5c+ch/GynB3fQslx1h0QtT+2kuDT
+	 29wAbOxpoW/7B9e8avZVNfQkzdjImi1V3enavkoCZ712QWPI8962GDguVSjvm+SLsZ+Ff
+	 eSlz1KvsIQRMtE1L/i6uN5GijqS/IxlxuNt9pWEakNuP1LFv4nSsjKGzICbIIHaquKuU2
+	 yYys79YHxIR90SW0SwF5C3ywX0EQNYuAObL5Iee5eB36SxtXewEE86/DVPajzgD9yUSJj
+	 bIyFOTlaTFApmc95lIhXWyn/D9sgHd7izzboMHyF3G9PmY9De9/h8mmOLXRVvPjGXLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=wI5jNPdm;
-	arc=none smtp.remote-ip=203.205.221.192
-Received: from out203-205-221-192.mail.qq.com (out203-205-221-192.mail.qq.com [203.205.221.192])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c2g78JQ9;
+	arc=none smtp.remote-ip=209.85.214.169
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECA58606A32D;
-	Sat, 14 Nov 2026 01:05:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECA58606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 488E5606A33F
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 01:06:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 488E5606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=wI5jNPdm
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794618307; bh=Eg1aWZgHvhHXiees9Lk2jDCP70jKX8ALjN7+QJls73Y=;
-	h=From:To:Cc:Subject:Date;
-	b=wI5jNPdmWIkNmLo2oIa8g4NmR1hS9q2f99kar2pFfrKbUdL+DAKBn2O1LUJJbe/Kd
-	 20Ez/IpgVHaM9atVhCINn3W78NW5Iur2N0/VLQ0lnjqSrM7sQcoRFWUBXEVrhrzfDg
-	 eAGkPZJ8BH32qAHfHoPO/iUcAlcljGw3Z8IuEsdU=
-Received: from shuai-VMware-Virtual-Platform.. ([117.158.156.199])
-	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
-	id 14537450; Sat, 14 Nov 2026 09:05:05 +0800
-X-QQ-mid: xmsmtpt1794618305t09ygcrex
-Message-ID: <tencent_5FBF490F375F4C66A2C8DD421A8E8542FE05@qq.com>
-X-QQ-XMAILINFO: MRMtjO3A6C9XbXZ2D+oNSNEDFiFEBNtznPWKIx1ZWVpKJrivKl0LSRXCHyk1VB
-	 pk33VVrkhL5ua1yOnw3ZuhdxLSA7WyuejaXnkI+iUn7rhLvro6OnoHdwXk0WDhTGTduUDMtLwxp0
-	 o/vHBCcFhEwTMlodL+XsvFzQVq8Q1VL9cY9urKg2YHAgNrAtv7yawKDT3vce4hzhP+5zLUwQwHrH
-	 ABZ8KeyLMMKR4br1sWWWOXa8KG7I0qJatqCaDpDLRuOaHu2l7k/xOqA6fB79X21scLURSz7se/6I
-	 1BmSxhdu0dwIG1PrNPXyOCawjLBNcaf3PHX5Z9myyWZgWWtL19j0CJ7SnHh4MzfA3HiLPp9HfGRx
-	 Dzm1I71arlDqol3MM0PtBjo4rioE+lffjKmebEFNH3gwStp9QZ2Uquqg3hPb3x2enqfBeJ02tyzz
-	 Ze3qrWJBzTYvwi6fzJRB7cauYEoNhCHCesIey9GAx2Vs89tsHsVpJFxGrHMpUqoRdNthLMrlcdeX
-	 mZfJgIhhOSDtknuq9el470VoGXrrL6nSUkuxh67OWtC+o4Cd+pX7iJVG4pl8RlQneQQhjrEG6REw
-	 caKwmloI0pxfoIFQS4cBbAP4tC4vPUmkWO1gUNOYBSaxoPKLQ3CWyc2gbEm/PjVh+mBry12jdUYT
-	 q1S+dF7JQ91r5HRBIIpTX2n4x6rSD1RlhdC9yGIExlli3HsfKH/p4cuaR1VLidx13AqKUkSBrMQU
-	 pHq+cFwpLlfu1RpWzR2mN8hFY0ajbH6pft1hL5nn1JqhRX0424t+i1GxbKYJqkXWddhVRtgQJYI9
-	 ox9NW6qemPDbjUUAiStRhMWStlZet7tre4YXVmFkNLpNkvte7rO/hhyM+RnpZWgO7wF3sD/fhoEL
-	 r+VjJsaFGMU12eAJF0506kvVPVDj5m9UV3VS8EZjHMKlIx4tmLbLpYv43XQ3QOG/qoQAIl8oHisB
-	 UXtXVHoqkjf4w03jv8OSjMcIi4F3mKTzfPo9sRl5eX/39pdE3YY+tu2Uk3ZOhjtirZRInHLEom7N
-	 OrD6zasPq3M8ek8WCbwcupH6QzA5pLMLu/OW4xv8OJInYAFpEIAw2B2hpT18J+GgCajwfi5g==
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-From: Shuai Liu <847807867@qq.com>
-To: linux-spi@vger.kernel.org
-Cc: rust-for-linux@vger.kernel.org,
-	Mark Brown <broonie@kernel.org>,
-	ojeda@kernel.org,
-	dakr@kernel.org,
-	linux-kernel@vger.kernel.org,
-	847807867@qq.com
-Subject: [PATCH v8 0/3] rust: spi: add SPI driver abstractions
-Date: Sat, 14 Nov 2026 09:05:04 +0800
-X-OQ-MSGID: <20261114010505.81436-1-847807867@qq.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c2g78JQ9
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2edd50e36f2so9528245ad.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:06:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794618413; x=1795223213; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=B2e76bhPXFe3TTOBltWF8laVYOhrcZJqYieGLm3qKQQ=;
+        b=c2g78JQ9ITc/EFcuKhARjltX2dU7rNuSdGyE+qt6IpQzAD9RZb5kEOFlh5bK58LWYJ
+         67s3CmZPE8ivdvnHmp1/mDx+3j2uNuC0ijJM6kB6OjAN7wfBYROODrc6wFuggVvNLE70
+         Gbu+hUxtF0m39Y9IFcGhmmaKfi6S1YQABFj4d3r8n/3UH03SqPeMceJqOpZFDFDPwQRv
+         2lL8K2V6N+tvdG+ZyoG+PILEDag3fOC2JhcOjZua/HiZ/Z5TVlYDQAMPBjm+IjgoTTLh
+         BEfnLpeNjx0zpKnDlHX8diHWRt7HCd9RBND2UgWeTb1fXDKx39PPFSM3GV2EsPGUitja
+         U8gw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794618413; x=1795223213;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=B2e76bhPXFe3TTOBltWF8laVYOhrcZJqYieGLm3qKQQ=;
+        b=f96BZdW5ieHM1dnwatNQ8y60MBo4g6px8+ARUoW3js1O1nVKKuYgEhfpFtuHP175Sz
+         P3I7IwYpuZ+Z+qxolwcHP0AQx1djoJoLtcG+CNm6GPrDiOISFBv9ivmKZJuk02qYrY4u
+         1u1XFn5a9gLhAkrOI4gmiAOhz/NPvJRwzzaPBoDseMszW9FnT3KaaJoQ0aPRf/36QZIW
+         cKat348C8Kzm4rdaSI3Bs4LXTyWumeFwZlZN6+tDFwMl3XdpAVKS9UkLRATgplBtkHvY
+         WWKoEZDZpCB3HC8s1yvGJVioJ1Ao91L+gqeyoKCmVqOG2xn1kLFq/1HOew8rFdAvbXsq
+         5JCQ==
+X-Forwarded-Encrypted: i=1; AL+hErEa48kOzL984fDgP583e7/9NH9/lVMUV4Q1mn8UGatDiwxHubVlllKIZQ4kL3fK8hZ30WmeO2KgRLquX8Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+HVcKSY+iVY4Ap2VZz0RqATXUdP4McH6nqB6JH2s77AAXwtBvB
+	igbJkAd6ONAENIV7zoMOGj956YpVxWgE1CaDXR946tSWlf186FTa/HZ9
+X-Gm-Gg: AYBFou16PuEoBPGie9jD21Y9Z3MrK/oBvGll/lcL1/fyAhZAnUFT1RPgo+Asl11AofZ
+	c91UvgfcOibmFbtLms+w4HYHPjEmVu8/dbhi6l3PO9J5iTlLctVDnUJ6J0MVDDDgevlHGhqKSFC
+	v/RBPhVtHnSSvdqnIOAZwhhicLznnP0uYQU1Aes3JdU20RU4b+/xsrk1USXg/b5gEcUh4F21LnV
+	YJCu9q9194YmsHKBgAaOQ1IIItAj4MYDOAvjDaYxc3cfFXojByftMUqCgJ4cA2VHSBHHq2BOshQ
+	4H1PKDQ9TxlfHwGxS1Ia0C04AV2ZhAAI6/QpK5RLC2TtHw+c7H1UxjpyPgjowhh/Yj6z8siQj59
+	5QyR+DfC3QKyEkdR0zGA53Pf+tJNUCNppmIVhOx/PGnQugEqc6T8XZBmPPR1+IzFy5DxX4aShR+
+	1PQtdvkhNO9YxbhjegeajOFmNghSalMfAZoJMudO7KO+0CNmhc+qgL4wAwSYuZUW+FG2eA6zd3c
+	dq4RNubpQzP9mHKSTaRkMoP+4JMaWgo2KMZaLpBHYjtC0yK4qZ54iEcCYe/9fyTcGpDI5TCl/Dr
+	twkqR6NmeU4d0huDWZ4SXzIkiv9gShPWYNBPhvW7
+X-Received: by 2002:a17:903:3843:b0:2ed:18cc:d3ac with SMTP id d9443c01a7336-2ee0de41dd4mr36568865ad.16.1794618412485;
+        Fri, 13 Nov 2026 17:06:52 -0800 (PST)
+Received: from TheRealOne ([2409:40e1:1d:6fc6:f687:5d72:dcf5:c0a5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f7d99fasm16531025ad.35.2026.11.13.17.06.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 17:06:52 -0800 (PST)
+From: Chandradhar Kumar <chandradhar.2003@gmail.com>
+To: Song Liu <song@kernel.org>,
+	Yu Kuai <yukuai@fygo.io>,
+	Li Nan <magiclinan@didiglobal.com>,
+	Xiao Ni <xiao@kernel.org>,
+	linux-raid@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Chandradhar Kumar <chandradhar.2003@gmail.com>,
+	syzbot+9e3014263a35700ab49b@syzkaller.appspotmail.com
+Subject: [PATCH v2] md: enforce MD_SB_DISKS bounds across v0.90 superblock paths
+Date: Sat, 14 Nov 2026 06:36:23 +0530
+Message-ID: <20261114010635.6048-1-chandradhar.2003@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,42 +101,205 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the Rust abstractions for the SPI driver subsystem, allowing SPI
-drivers to be written in Rust.
+The legacy v0.90 superblock format (mdp_super_t) embeds a fixed-size
+array of MD_SB_DISKS (27) disk descriptors (sb->disks[27]). Currently,
+several configuration and metadata load paths fail to enforce this
+upper bound, allowing mddev->raid_disks, rdev->raid_disk, or
+rdev->desc_nr to exceed MD_SB_DISKS - 1 and trigger an out-of-bounds
+array access in super_90_sync():
 
-Changes in v8:
-- Rebase onto linux-next (next-20261113); the v7 patches no longer
-  applied, per Mark Brown's review.
-- Send as a fresh thread rather than as a reply to the previous series,
-  per Mark Brown's review.
+  UBSAN: array-index-out-of-bounds in drivers/md/md.c:1740:29
+  index 124 is out of range for type 'mdp_disk_t [27]'
 
-Changes in v7:
-- Rework device I/O around a `transfer()` primitive that maps onto
-  spi_sync(), per Mark Brown's review.
-- Drop the spi_write()/spi_read() helpers; add
-  spi_message_init()/spi_message_add_tail() helpers instead.
+Fix this across all entry points and harden super_90_sync():
 
-Shuai Liu (3):
-  rust: helpers: add SPI helpers
-  rust: spi: add SPI driver abstractions
-  samples: rust: add SPI driver sample
+1. In super_90_load(), reject superblocks with sb->raid_disks >
+   MD_SB_DISKS or sb->this_disk.number >= MD_SB_DISKS, and guard
+   rdev->desc_nr in super_90_validate() before indexing sb->disks[].
+2. In metadata_store(), validate existing mddev->raid_disks against
+   MD_SB_DISKS when major == 0 and initialize mddev->max_disks so
+   sysfs-configured v0.90 arrays enforce the 27-disk limit regardless
+   of the order in which raid_disks and metadata_version are written.
+3. In raid_disks_store(), slot_store(), and md_set_array_info(),
+   reject disk counts or slot indices that exceed MD_SB_DISKS or
+   mddev->max_disks across all configuration and reshape branches.
+4. In super_90_sync(), bounds-check desc_nr and mddev->raid_disks
+   before indexing sb->disks[], and synthesize a faulty/removed
+   this_disk descriptor if rdev->desc_nr is out of range rather than
+   indexing out-of-bounds or zeroing this_disk (which would alias
+   slot 0).
 
- rust/bindings/bindings_helper.h |   1 +
- rust/helpers/helpers.c          |   1 +
- rust/helpers/spi.c              |  26 ++
- rust/kernel/Kconfig.test        |  11 +
- rust/kernel/lib.rs              |   2 +
- rust/kernel/spi.rs              | 673 ++++++++++++++++++++++++++++++++
- samples/rust/Kconfig            |  11 +
- samples/rust/Makefile           |   1 +
- samples/rust/rust_driver_spi.rs |  66 ++++
- 9 files changed, 792 insertions(+)
- create mode 100644 rust/helpers/spi.c
- create mode 100644 rust/kernel/spi.rs
- create mode 100644 samples/rust/rust_driver_spi.rs
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: syzbot+9e3014263a35700ab49b@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=9e3014263a35700ab49b
+Signed-off-by: Chandradhar Kumar <chandradhar.2003@gmail.com>
+---
+Changes in v2:
+- Drop early return in super_90_sync() so rdev->sb_size and sb_page are
+  properly initialized before sync_sbs() sets rdev->sb_loaded = 1.
+- Do not reset rdev2->desc_nr = -1 or zero sb->this_disk on skip; instead
+  populate sb->this_disk as faulty/removed with rdev->desc_nr so a skipped
+  device cannot alias slot 0 on reassembly.
+- Validate mddev->raid_disks and set mddev->max_disks = MD_SB_DISKS in
+  metadata_store() when major == 0, and move the raid_disks_store() check
+  above the reshape/active branches to cover all sysfs paths.
+- Remove the info->major_version == 0 condition in md_set_array_info().
+- Drop redundant unsigned < 0 check on sb->this_disk.number in
+  super_90_load() and guard rdev->desc_nr in super_90_validate().
 
+ drivers/md/md.c | 58 ++++++++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 55 insertions(+), 3 deletions(-)
 
-Base-commit: 84abb955b1015f216d794566ed3c4fdd4bbd0f14
+diff --git a/drivers/md/md.c b/drivers/md/md.c
+index 03e35386a802..71f536d6257c 100644
+--- a/drivers/md/md.c
++++ b/drivers/md/md.c
+@@ -1407,7 +1407,8 @@ static int super_90_load(struct md_rdev *rdev, struct md_rdev *refdev, int minor
+ 		goto abort;
+ 	}
+ 
+-	if (sb->raid_disks <= 0 || sb->raid_disks > MD_SB_DISKS)
++	if (sb->raid_disks <= 0 || sb->raid_disks > MD_SB_DISKS ||
++	    sb->this_disk.number >= MD_SB_DISKS)
+ 		goto abort;
+ 
+ 	if (md_csum_fold(calc_sb_csum(sb)) != md_csum_fold(sb->sb_csum)) {
+@@ -1587,6 +1588,8 @@ static int super_90_validate(struct mddev *mddev, struct md_rdev *freshest, stru
+ 			return 0;
+ 	}
+ 
++	if (rdev->desc_nr < 0 || rdev->desc_nr >= MD_SB_DISKS)
++		return -EINVAL;
+ 	desc = sb->disks + rdev->desc_nr;
+ 
+ 	if (desc->state & (1<<MD_DISK_FAULTY))
+@@ -1708,6 +1711,12 @@ static void super_90_sync(struct mddev *mddev, struct md_rdev *rdev)
+ 		else
+ 			desc_nr = next_spare++;
+ 		rdev2->desc_nr = desc_nr;
++
++		if (desc_nr < 0 || desc_nr >= MD_SB_DISKS) {
++			pr_warn("md: %s: desc_nr %d out of range for rdev %pg, skipping\n",
++				mdname(mddev), desc_nr, rdev2->bdev);
++			continue;
++		}
+ 		d = &sb->disks[rdev2->desc_nr];
+ 		nr_disks++;
+ 		d->number = rdev2->desc_nr;
+@@ -1736,7 +1745,7 @@ static void super_90_sync(struct mddev *mddev, struct md_rdev *rdev)
+ 			d->state |= (1<<MD_DISK_FAILFAST);
+ 	}
+ 	/* now set the "removed" and "faulty" bits on any missing devices */
+-	for (i=0 ; i < mddev->raid_disks ; i++) {
++	for (i = 0 ; i < mddev->raid_disks && i < MD_SB_DISKS; i++) {
+ 		mdp_disk_t *d = &sb->disks[i];
+ 		if (d->state == 0 && d->number == 0) {
+ 			d->number = i;
+@@ -1752,7 +1761,17 @@ static void super_90_sync(struct mddev *mddev, struct md_rdev *rdev)
+ 	sb->failed_disks = failed;
+ 	sb->spare_disks = spare;
+ 
+-	sb->this_disk = sb->disks[rdev->desc_nr];
++	if (rdev->desc_nr >= 0 && rdev->desc_nr < MD_SB_DISKS) {
++		sb->this_disk = sb->disks[rdev->desc_nr];
++	} else {
++		sb->this_disk.number = rdev->desc_nr;
++		sb->this_disk.major = MAJOR(rdev->bdev->bd_dev);
++		sb->this_disk.minor = MINOR(rdev->bdev->bd_dev);
++		sb->this_disk.raid_disk = rdev->desc_nr;
++		sb->this_disk.state = (1 << MD_DISK_FAULTY) |
++				      (1 << MD_DISK_REMOVED);
++	}
++
+ 	sb->sb_csum = calc_sb_csum(sb);
+ }
+ 
+@@ -3353,6 +3372,12 @@ slot_store(struct md_rdev *rdev, const char *buf, size_t len)
+ 		if (slot >= rdev->mddev->raid_disks &&
+ 		    slot >= rdev->mddev->raid_disks + rdev->mddev->delta_disks)
+ 			return -ENOSPC;
++		if ((rdev->mddev->max_disks &&
++		     slot >= rdev->mddev->max_disks) ||
++		    (rdev->mddev->persistent &&
++		     rdev->mddev->major_version == 0 &&
++		     slot >= MD_SB_DISKS))
++			return -ENOSPC;
+ 
+ 		rdev->raid_disk = slot;
+ 		if (test_bit(In_sync, &rdev->flags))
+@@ -3374,6 +3399,12 @@ slot_store(struct md_rdev *rdev, const char *buf, size_t len)
+ 		if (slot >= rdev->mddev->raid_disks &&
+ 		    slot >= rdev->mddev->raid_disks + rdev->mddev->delta_disks)
+ 			return -ENOSPC;
++		if ((rdev->mddev->max_disks &&
++		     slot >= rdev->mddev->max_disks) ||
++		    (rdev->mddev->persistent &&
++		     rdev->mddev->major_version == 0 &&
++		     slot >= MD_SB_DISKS))
++			return -ENOSPC;
+ 		rdev->raid_disk = slot;
+ 		/* assume it is working */
+ 		clear_bit(Faulty, &rdev->flags);
+@@ -4442,6 +4473,13 @@ raid_disks_store(struct mddev *mddev, const char *buf, size_t len)
+ 	if (err)
+ 		return err;
+ 	noio_flags = memalloc_noio_save();
++	if ((mddev->max_disks && n > mddev->max_disks) ||
++	    (mddev->persistent && mddev->major_version == 0 &&
++	     n > MD_SB_DISKS)) {
++		err = -EINVAL;
++		goto out_unlock;
++	}
++
+ 	if (mddev->pers) {
+ 		if (n != mddev->raid_disks)
+ 			err = update_raid_disks(mddev, n);
+@@ -5029,6 +5067,7 @@ metadata_store(struct mddev *mddev, const char *buf, size_t len)
+ 		mddev->external = 0;
+ 		mddev->major_version = 0;
+ 		mddev->minor_version = 90;
++		mddev->max_disks = 0;
+ 		goto out_unlock;
+ 	}
+ 	if (strncmp(buf, "external:", 9) == 0) {
+@@ -5043,6 +5082,7 @@ metadata_store(struct mddev *mddev, const char *buf, size_t len)
+ 		mddev->external = 1;
+ 		mddev->major_version = 0;
+ 		mddev->minor_version = 90;
++		mddev->max_disks = 0;
+ 		goto out_unlock;
+ 	}
+ 	major = simple_strtoul(buf, &e, 10);
+@@ -5056,10 +5096,14 @@ metadata_store(struct mddev *mddev, const char *buf, size_t len)
+ 	err = -ENOENT;
+ 	if (major >= ARRAY_SIZE(super_types) || super_types[major].name == NULL)
+ 		goto out_unlock;
++	err = -EINVAL;
++	if (major == 0 && mddev->raid_disks > MD_SB_DISKS)
++		goto out_unlock;
+ 	mddev->major_version = major;
+ 	mddev->minor_version = minor;
+ 	mddev->persistent = 1;
+ 	mddev->external = 0;
++	mddev->max_disks = (major == 0) ? MD_SB_DISKS : 0;
+ 	err = 0;
+ out_unlock:
+ 	mddev_unlock(mddev);
+@@ -7951,6 +7995,14 @@ int md_set_array_info(struct mddev *mddev, struct mdu_array_info_s *info)
+ 		mddev->ctime         = ktime_get_real_seconds();
+ 		return 0;
+ 	}
++
++	if (info->raid_disks < 0 ||
++	    (!info->not_persistent && info->raid_disks > MD_SB_DISKS)) {
++		pr_warn("md: %s: invalid raid_disks %d for v0.90 superblock\n",
++			mdname(mddev), info->raid_disks);
++		return -EINVAL;
++	}
++
+ 	mddev->major_version = MD_MAJOR_VERSION;
+ 	mddev->minor_version = MD_MINOR_VERSION;
+ 	mddev->patch_version = MD_PATCHLEVEL_VERSION;
 -- 
-2.43.0
+2.56.0
 
