@@ -1,84 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794629394;
-	b=IX2TDTPMv3MThFLDAkLijUCpOOJbzoOEHU76wm3bczo7vPqJZEvZSYoBTH63ypW1h+fN
-	 h5NMClLZa5UK0ITyd6bw8XjKC3i7hiBzybBgnPnYmV4JsVekyE+PUHFFRDzEbdP8c0fng
-	 mjxZfnY1TGTrvnhldeIF7mKGC2ACbtFgrUVVKWkRQ9naZrZTsfyG/dC9BvSe2rtXLsKvo
-	 /ijyvnVmGDiTE+l0Ml+e3nFvtBTaOEnOedFl1kz5URvywGFekZjL6FIN9HIGBtOWZaT4i
-	 3Ms3fIHQtspiATe7DPWqveDnIJ6YseXNWHu+i+mTlX8vfoazqd3gU5CAVp9p9EuA2Yw==
+	t=1794629398;
+	b=lIa8ONRXgsbml2FwY7uPu4ilLcK7Vf5cBR3bRI1bHnHb+C4u81O2PDeIUcLUySisqbrT
+	 qmhjtD+s48SEaDxqL1jxU8ITb7q1dVZiNiPhquaVAntKXNQ1CGeToMMm0N3YWuPPUizxo
+	 aBlpCf1aA9oZRNgGCxihCtUgzBINPiCFw7UUUZU5suK2fBoVoPfbQVOmS/+mElJqUc2aO
+	 ZEIVUhRRR7xTuGCXQ/f6JdlKHKtODKo4ppJO66e5RlIofIikWYBMYKrHiE9L5QtRhM3Xr
+	 8eM/GidcwIUO6fCs4OtjZuRdSXporG5ycM9+gFyfoicn8EHrquTdNbLrxsKrseVhaFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794629394;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794629398;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Aug5HYuUexp65lrDsNz0aPnl/1iCDZSOI0eqGOeKB/Q=;
-	b=bAeKDc/lhnc8qm7UJxNz4WzREREM2SEllfIGdY/6NxHXcm+9B3xc6Rqvy+at3PQeM15F
-	 +411mHn6aBSmUP+uzLFpMOCrCT405btLbkyiPFxi5GSWGAeIhIT/G5QvuoTwT5IvEAPI0
-	 H4W5MVWstHVoTIwz4o6AcK00mF340Y6kWtWpjj3yDpK/iBwBs31GZvJ9HRVFdKGYZDsKk
-	 06E92dJ4Y5qmrBB/DIo7PRyGZlrZ/yu0E4kSiPfriAsgaFv79KaHaTIloTvXyJk9YsIV4
-	 8hnF3/kNSU1FEA9ByhO3BEFt5s1CS66yZ679Tp4ZP5o/qKkOpFyLx+/9gjPIj7heiLw==
+	bh=JQ9pWmTzRU2aDakRqvN5/kHHIhXbN1ax/IQYt/5jaU0=;
+	b=nXE57XTSaa3jQlmp9Ceo+JVuGltAoCCSBL95Y3+jPGn4k5Hs3OE8mAUrihFiE/cXaQuc
+	 dmoBS87jBOWpmF9MmqhcEJ7uCpazuifOpfOQLn8iJuooJXp7hkydwmjkkrdyddk0HvoW4
+	 hw2VVCiBy/g6MAacu9+AW7ZbRlx/WXKdMk4CeC8kxtp4DRKONBqf37bCJ4CppVpgC1gSO
+	 JChQpKbBlZ2+kJ/GFF/L1RhOd58vSSorhb6rt1Q5m+8A/X9+Ia+1YCzgYzZbhSs14Wwsb
+	 HSh1lQNtK290tcJdIpr0LFgTc6npj9KUYfpUW8RMLS3j1fQeJbEePpN6xObAvGttmjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pCcuU7rt;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qOU97C23;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B8DC606A331
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 04:09:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B8DC606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DBF6606A8A1
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 04:09:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DBF6606A8A1
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pCcuU7rt
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-4919a880834so797805f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:09:53 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qOU97C23
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-498f5fa4f70so2099474f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:09:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794629392; x=1795234192; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794629395; x=1795234195; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Aug5HYuUexp65lrDsNz0aPnl/1iCDZSOI0eqGOeKB/Q=;
-        b=pCcuU7rtvVEVR7ck5sqalvIz2Gyn9Z37WacUtLrd/PED12Hx7Jh393W/1AqAXyUSfP
-         +0VAaAUEANN5p/+/K2PGcvJ6TMvyv73o0u2BQx7nN+x1lHk1LPh79HNbKUJe77Kf8qSr
-         W4YMusWo5a9KMaupPm7QKUn2jZCr7G2YcJ99zXHHzuSVgpRehlXBFBG8IOuu/zneoXVs
-         8p7Hqy/zhuGPZOpsJV/O5kTaumLG/w/n0wer06lwN9hZIJrIOXf3CwsXlbkCxl/3rPnf
-         rJLqLGc7buDhpk2vuxM2Wo+YkX+lgPRTUvIIl9CnSyStIcsWPcBbbtVBarfxCRCL/Rm0
-         CJbQ==
+        bh=JQ9pWmTzRU2aDakRqvN5/kHHIhXbN1ax/IQYt/5jaU0=;
+        b=qOU97C23tJrVXbI/6rw5qBPMW271Ogm8mDnbk0068t8ehxGrqfWxGKPdV5iDVsEuOY
+         /otzUFgB/lnVgdGGUVPn0kNvOVnlsQbKlZ7rh7aPbvtbEzroP5VjXri15H8FxA56Xtix
+         rYKp0XCljVfdiY3FA/yruinXLQIz7a50DfxSktrzVNEGPps+AfUskrb2RT+NiBdatpLA
+         rCli+CynfPtzhRPwTzhebhynei6uarIAhKoP0enE5TUx5EBdTKibI9wL4Us59KSaHYlF
+         PyJhSXIYTZ7KCr30N32wjnV91KjB0MWIhaPCkjFO6qEzwXLNuAXnpAagtYjlmbDrPUO/
+         IFNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794629392; x=1795234192;
+        d=1e100.net; s=20260707; t=1794629395; x=1795234195;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Aug5HYuUexp65lrDsNz0aPnl/1iCDZSOI0eqGOeKB/Q=;
-        b=TwOmVhakZIDCXB8NtRhC2H4ucUFizxmrO0lyZ9WirMyw2wDHmCgoL7QiDc3AOqXga1
-         ZD/El8rjs0q7sOpHHi2yOY6wykziTxRVWSV/YoEQ0w4aP0Y9nZeS2zzHZLqv7tui+drV
-         qAeVMK0ZHXJU9om0WDsU0KMdafljde/X9X3DZDtmoAuCMGfK4o52z4fhFoWC50cz9Z5y
-         GWeIzJIL/Ts/WMFDekmjwjNGnUnkJ0rYeKoUIWACwI5r42rfGCBOJ9NmSxLnlwHKaYQ4
-         j2iFI9PxDpBV3kc5NvpuAYGqT25nEdAmJJeMKf2BanoBX5djq7eG24NOLEK4m7hhOXIc
-         lJXA==
-X-Forwarded-Encrypted: i=1; AL+hErEcuzcHh66A1Zxmm7rbRYOXN4s4UeL8HMboxrN+B8nBlecdlxoULeY7Za1CeqEHZIMSPRSZVnEXuQTaqxE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+cnHtlv3T5aTZnG387YgfeUuHcqAFE5KJLFSxxrVKZ3gLvnlNh
-	hTnNt3V//wO8GhOsBwhNTurGUvOn4Arw1VeOFTCYwRH5+pme6H4ayQoA
-X-Gm-Gg: AYBFou0Sbh0L4N2wIRoIIFLiWg6uWM7fAKUkK/eGapxClCQgZat3ACI0y+W6CF+riC/
-	re/0hBMAjhmgP2ePbKdHz6jzpOTtU/Gyq7XQWil0T+tgJYahKeDFr5j+gLZj4iWz3LKgLD/65zv
-	qeCZyklBXo5HZcamMVS4cBivpdXxf9r9C62N3FuBXNZ1iF52N0ZxmIKAJSTs/bXc8vxGvXmRb6f
-	/QPIDH+VvAkU0rhAt7BQ5B5rASN91HTmwNUG5LP7MKPYXVUSEjRbemfFZeFdPXpil6drs4ww5Qs
-	SqSRnQ58OFkobaxyPik5vl16b+JmjSDWqb8ymy5X6/0hV6srGDl4Q5aa3Z1XimAj2VmESqvZjgE
-	wgUg+DGy3g/IMmJ9DcrejhqEJzvcZAk6H3uzGepGUbFHInsteZ+JR7llKsUxdDXqFU5Wtmts292
-	6vx9/9NQi0pqVy+g4YQtxywPgj6DQGnehXSJGfSnZwvmCBQqtp20Dcvz6/sul67PiiJMEBkFOtW
-	abz90ciPBKa4lLwJIcnAshg682Hl99zRpAaqHa2UfulQo4raMREYh+X6yqPT5WBDNAK5XbsRE3H
-	SjL6KDju7cyDM7fRaNJJhMILHIEMcLS3QWJqU7F1BTBe2nyV70WvysMdyzEYhmuqhIB5DRZv3wU
-	2T6kEVFhm
-X-Received: by 2002:a05:6000:2411:b0:493:59c9:ebcf with SMTP id ffacd0b85a97d-49c7335112dmr9072910f8f.57.1794629391616;
-        Fri, 13 Nov 2026 20:09:51 -0800 (PST)
+        bh=JQ9pWmTzRU2aDakRqvN5/kHHIhXbN1ax/IQYt/5jaU0=;
+        b=MCr708T8iDvkN0KJU+TrCYgfbJdXyhZJx/SqLGIuOae391JUGqDIOgRXRKEZj21GZ0
+         AQpZb9hM4MsNuU1AId1BIsUuPXjgnSmenkFwNmVBL9mDwFD1uPwaKJN7IAK2jB+p4lzo
+         EcuHNH2JqKykzc9ZWVaZHorXVAyboZ8iP/yA68Dr8RIIfJ4TniNaL+kPe5SfMcBpVXtO
+         WmLUagFdA4ha4WPR4O/DJUH0R9KitAzkLruH51oMWFiQ3Qlyu4BcIm2Z3lloXh8aT/Ex
+         Fo/D6FiwZ/HEFooNyvEVGYKWWL8rLELoPDumAWCaKfnwjSd5ZrBMYAdroFNTQtvdM+C7
+         QOmA==
+X-Forwarded-Encrypted: i=1; AL+hErH16gdJo3y000HIrvj0WpSbS118jHqjB/dzePuYPL5On6f1fWprETaxfnMlM2sMdE2NlLmXLDaGSGdH/Zs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+jw1uG0A4m7naXIu+1UHY2n7SYMPwCw0jJIJOvImDycXcZij4h
+	iuZ+bMdbgHoVTsO2lN0Aws6HwuoXZxoYuE+H8W1muklifPdM2kWI1TBd
+X-Gm-Gg: AYBFou3qnHPl/hvYfcN8vmHjrcRaztpXdi8mUyiBsIfrdi5uFew21JUa007buYFXWsp
+	KotFhgroCcYtMykT5oVA8nJHBojUks6OGnRxGPMtNZh7zIXpVXwXQTZE74V4ZY5xVu6i8XmwUpE
+	f2qy/DjU+xzevq8FNX2WRKFOQIXRYS8yjerqmiNXyO1kOH/V1i+Y0fmtVXWm907OJp8k1lKf0oz
+	Iu6ZB4MUPjiRPfVebQKyMqShEvTzmBbEh5eVW3MBbYFbDIFEgRe11fpxQlhcrxdilA6X1WV/hDn
+	GjFV0A+ReLyE/FLEA94cJY7PYGY71m9bFhN3mWCeYAIpXUmjpVCUjZ6/nRbE8fd7zB/LpKpVKFr
+	OnXoXB91RfvqgJph0ejIHCAsB/rTQMayg1rEChHV0wsKmKVPEbVjaGp5s4tL/ltAeN4pIcWzp3t
+	O1/4hEExFQD4h0FxursB6BPREZ3UkXhFF11kJvBMRhpfgWdPbqzvwYR5t57QihAXhG8NoP7G40V
+	E2yg/9wK4UO8mhC7B2Db4/rji3KJ0RzmVdNk87TnjCUUSbdtDpoihRmjtVPjVTxDlKbxnIY/hzx
+	LywWFG8nkgz6zoIfaApmI8HdwtehVs40q9Z8BaglRmNXaIzgZh7yl8GGyWqj8kk=
+X-Received: by 2002:a05:6000:25ec:b0:493:803e:800f with SMTP id ffacd0b85a97d-49c725e5749mr9765352f8f.29.1794629395288;
+        Fri, 13 Nov 2026 20:09:55 -0800 (PST)
 Received: from demian.play.pl (83-175-177-170.dynamic.play.pl. [83.175.177.170])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c609c602dsm8488670f8f.46.2026.11.13.20.09.48
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c609c602dsm8488670f8f.46.2026.11.13.20.09.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 20:09:51 -0800 (PST)
+        Fri, 13 Nov 2026 20:09:53 -0800 (PST)
 From: Demian Shulhan <demyansh@gmail.com>
 To: Catalin Marinas <catalin.marinas@arm.com>,
 	Will Deacon <will@kernel.org>
@@ -98,9 +97,9 @@ Cc: Mark Rutland <mark.rutland@arm.com>,
 	netdev@vger.kernel.org,
 	kunit-dev@googlegroups.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/2] arm64: csum: Add fused copy and Internet checksum
-Date: Sat, 14 Nov 2026 03:57:00 +0000
-Message-ID: <20261114040943.219870-2-demyansh@gmail.com>
+Subject: [PATCH v2 2/2] lib/tests: checksum: Add KUnit tests for csum_partial_copy_nocheck()
+Date: Sat, 14 Nov 2026 03:57:01 +0000
+Message-ID: <20261114040943.219870-3-demyansh@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261114040943.219870-1-demyansh@gmail.com>
 References: <20261114040943.219870-1-demyansh@gmail.com>
@@ -115,173 +114,487 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-arm64 currently falls back to the generic csum_partial_copy_nocheck() in
-lib/checksum.c, which performs memcpy() followed by a second pass in
-csum_partial(). This double pass is hit on software GSO paths
-(skb_segment() without SG or TX checksum offload, e.g. TCP over
-WireGuard) and UDP/ICMP replies.
+Extend the checksum KUnit test suite to cover csum_partial_copy_nocheck()
+across alignments, tail lengths, bit patterns, vmalloc() guard pages with
+canary checks, and concurrent task/softirq/hardirq execution.
 
-Implement a single-pass csum_partial_copy_nocheck() in
-arch/arm64/lib/csum.c using four independent __uint128_t accumulators
-over a 32-byte stride, followed by 16/8/4/2/1-byte tail handling. Each
-word is read once into a GPR before storing and summing, emitting paired
-ldp/stp and adds/cinc carry propagation with no stack frame.
+Compare folded checksums against both a standalone C reference and
+csum_partial(), canonicalizing 0xffff (-0) to 0x0000 (+0) after
+csum_fold() so zero and all-zero inputs match across architectures such
+as x86_64.
 
-Throughput on ARM Neoverse-V2 (Google Axion, 3.0 GHz, GCC 15.2 -O2,
-warm L1 cache):
+Also add an optional throughput benchmark gated behind
+CONFIG_CHECKSUM_KUNIT_BENCHMARK (default n).
 
-   len   memcpy + do_csum   csum_partial_copy_nocheck   speedup
-  ----   ----------------   -------------------------   -------
-    64         10245 MB/s                  15902 MB/s    +55.2%
-   256         18851 MB/s                  26026 MB/s    +38.1%
-   512         22465 MB/s                  28421 MB/s    +26.5%
-  1024         24330 MB/s                  29900 MB/s    +22.9%
-  1368         24192 MB/s                  30221 MB/s    +24.9%
-  1448         24188 MB/s                  30279 MB/s    +25.2%
-  1500         24165 MB/s                  30096 MB/s    +24.5%
-  4096         25299 MB/s                  29946 MB/s    +18.4%
-
-Suggested-by: David Laight <david.laight.linux@gmail.com>
 Signed-off-by: Demian Shulhan <demyansh@gmail.com>
 ---
- arch/arm64/include/asm/checksum.h |   3 +
- arch/arm64/lib/csum.c             | 100 ++++++++++++++++++++++++++++++
- 2 files changed, 103 insertions(+)
+ lib/Kconfig.debug          |  10 +
+ lib/tests/checksum_kunit.c | 410 +++++++++++++++++++++++++++++++++++++
+ 2 files changed, 420 insertions(+)
 
-diff --git a/arch/arm64/include/asm/checksum.h b/arch/arm64/include/asm/checksum.h
-index dc52b733675d..9f766db01152 100644
---- a/arch/arm64/include/asm/checksum.h
-+++ b/arch/arm64/include/asm/checksum.h
-@@ -44,6 +44,9 @@ static inline __sum16 ip_fast_csum(const void *iph, unsigned int ihl)
- extern unsigned int do_csum(const unsigned char *buff, int len);
- #define do_csum do_csum
+diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
+index 2d22638ec13a..588343ced260 100644
+--- a/lib/Kconfig.debug
++++ b/lib/Kconfig.debug
+@@ -2770,6 +2770,16 @@ config CHECKSUM_KUNIT
  
-+#define _HAVE_ARCH_CSUM_AND_COPY
-+__wsum csum_partial_copy_nocheck(const void *src, void *dst, int len);
+ 	  If unsure, say N.
+ 
++config CHECKSUM_KUNIT_BENCHMARK
++	bool "Benchmark for the checksum functions"
++	depends on CHECKSUM_KUNIT
++	help
++	  Include a benchmark of csum_partial_copy_nocheck() against
++	  memcpy() followed by csum_partial() in the checksum KUnit test
++	  suite, for a range of buffer lengths and misalignments. The
++	  throughput of both is logged as test output. Only meaningful on
++	  real hardware and is not intended for production builds.
 +
- #include <asm-generic/checksum.h>
+ config UTIL_MACROS_KUNIT
+ 	tristate "KUnit test util_macros.h functions at runtime" if !KUNIT_ALL_TESTS
+ 	depends on KUNIT
+diff --git a/lib/tests/checksum_kunit.c b/lib/tests/checksum_kunit.c
+index be04aa42125c..69611daa7c0c 100644
+--- a/lib/tests/checksum_kunit.c
++++ b/lib/tests/checksum_kunit.c
+@@ -3,8 +3,15 @@
+  * Test cases csum_partial, csum_fold, ip_fast_csum, csum_ipv6_magic
+  */
  
- #endif	/* __ASM_CHECKSUM_H */
-diff --git a/arch/arm64/lib/csum.c b/arch/arm64/lib/csum.c
-index 75db718e5b6a..a9617cde28c1 100644
---- a/arch/arm64/lib/csum.c
-+++ b/arch/arm64/lib/csum.c
-@@ -2,8 +2,10 @@
- // Copyright (C) 2019-2020 Arm Ltd.
++#include <kunit/run-in-irq-context.h>
+ #include <kunit/test.h>
++#include <linux/math64.h>
++#include <linux/prandom.h>
++#include <linux/preempt.h>
++#include <linux/string.h>
++#include <linux/vmalloc.h>
+ #include <asm/checksum.h>
++#include <net/checksum.h>
+ #include <net/ip6_checksum.h>
  
- #include <linux/compiler.h>
-+#include <linux/export.h>
- #include <linux/kasan-checks.h>
- #include <linux/kernel.h>
-+#include <linux/unaligned.h>
- 
- #include <net/checksum.h>
- 
-@@ -116,6 +118,104 @@ unsigned int __no_sanitize_address do_csum(const unsigned char *buff, int len)
- 	return sum >> 16;
+ #define MAX_LEN 512
+@@ -619,18 +626,421 @@ static void test_csum_ipv6_magic(struct kunit *test)
+ 	}
  }
  
-+static __always_inline __wsum csum_fold128(__uint128_t sum)
-+{
-+	u64 s;
++/*
++ * csum_partial_copy_nocheck() tests: verify copied bytes, folded checksum
++ * against a standalone reference and csum_partial(), canary/guard-page
++ * bounds, and concurrent task/softirq/hardirq execution.
++ */
++#define COPY_MAX_OFF 16
++#define COPY_MAX_LEN 4352
++#define COPY_BENCH_MAX_LEN 16384
++#define COPY_GUARD 128 /* canary span on each side of dst */
++#define COPY_CANARY 0xa5
++#define COPY_SEED 0x5eed
 +
-+	sum += (sum >> 64) | (sum << 64);
-+	s = sum >> 64;
-+	s += (s >> 32) | (s << 32);
-+	return (__force __wsum)(u32)(s >> 32);
++static struct rnd_state copy_rng;
++/* vmalloc()ed with a page-aligned length, so each is followed by a guard page */
++static u8 *copy_src_area;
++static u8 *copy_dst_area;
++static u8 *copy_shadow; /* expected contents of copy_src_area */
++static size_t copy_area_len;
++
++static int checksum_suite_init(struct kunit_suite *suite)
++{
++	copy_area_len = round_up(COPY_BENCH_MAX_LEN + COPY_MAX_OFF, PAGE_SIZE);
++	copy_src_area = vmalloc(copy_area_len);
++	copy_dst_area = vmalloc(copy_area_len);
++	copy_shadow = vmalloc(copy_area_len);
++	if (!copy_src_area || !copy_dst_area || !copy_shadow) {
++		vfree(copy_src_area);
++		vfree(copy_dst_area);
++		vfree(copy_shadow);
++		return -ENOMEM;
++	}
++	prandom_seed_state(&copy_rng, COPY_SEED);
++	return 0;
++}
++
++static void checksum_suite_exit(struct kunit_suite *suite)
++{
++	vfree(copy_src_area);
++	vfree(copy_dst_area);
++	vfree(copy_shadow);
++}
++
++static void copy_fill_random(void)
++{
++	prandom_bytes_state(&copy_rng, copy_src_area, copy_area_len);
++	memcpy(copy_shadow, copy_src_area, copy_area_len);
++}
++
++static void copy_fill_bytes(const u8 *pattern, int pattern_len)
++{
++	size_t i;
++
++	for (i = 0; i < copy_area_len; i++)
++		copy_src_area[i] = pattern[i % pattern_len];
++	memcpy(copy_shadow, copy_src_area, copy_area_len);
++}
++
++/* Place @len bytes at misalignment @off as close as possible to the guard page. */
++static u8 *copy_place_at_end(u8 *area, int off, int len)
++{
++	u8 *end = area + copy_area_len;
++	int pad = ((unsigned long)(end - len) - off) & (COPY_MAX_OFF - 1);
++
++	return end - len - pad;
++}
++
++/* Naive reference: folded ones' complement sum, same semantics as csum_fold(). */
++static u16 ref_csum_fold(const u8 *buf, int len)
++{
++	u64 sum = 0;
++	u16 word;
++	int i;
++
++	for (i = 0; i + 1 < len; i += 2) {
++		memcpy(&word, buf + i, sizeof(word)); /* native endian */
++		sum += word;
++	}
++	if (len & 1) {
++		u8 pad[2] = { buf[len - 1], 0 };
++
++		memcpy(&word, pad, sizeof(word)); /* LE: low byte, BE: high byte */
++		sum += word;
++	}
++	while (sum >> 16)
++		sum = (sum & 0xffff) + (sum >> 16);
++
++	sum = ~sum & 0xffff;
++	return sum == 0xffff ? 0 : sum;
 +}
 +
 +/*
-+ * Single-pass copy and ones' complement sum. Each word is read once into a
-+ * GPR before storing and summing, so the returned sum always matches @dst
-+ * even if @src is concurrently modified.
++ * RFC 1071: 0xffff (-0) and 0x0000 (+0) are equivalent. Canonicalize to 0 so
++ * ~0U-seeded archs (e.g. x86_64) match 0-seeded refs on zero/all-zero inputs.
 + */
-+__wsum csum_partial_copy_nocheck(const void *src, void *dst, int len)
++static u16 fold_csum(__wsum csum)
 +{
-+	const u8 *s = src;
-+	u8 *d = dst;
-+	__uint128_t sum0 = 0, sum1 = 0, sum2 = 0, sum3 = 0;
-+	unsigned int n;
++	u16 sum = (__force u16)csum_fold(csum);
 +
-+	if (unlikely(len <= 0))
-+		return 0;
-+
-+	n = (unsigned int)len >> 5;
-+	if (n) {
-+		do {
-+			u64 v0, v1;
-+
-+			v0 = get_unaligned((const u64 *)s);
-+			v1 = get_unaligned((const u64 *)(s + 8));
-+			put_unaligned(v0, (u64 *)d);
-+			put_unaligned(v1, (u64 *)(d + 8));
-+			sum0 += v0;
-+			sum1 += v1;
-+
-+			v0 = get_unaligned((const u64 *)(s + 16));
-+			v1 = get_unaligned((const u64 *)(s + 24));
-+			put_unaligned(v0, (u64 *)(d + 16));
-+			put_unaligned(v1, (u64 *)(d + 24));
-+			sum2 += v0;
-+			sum3 += v1;
-+
-+			s += 32;
-+			d += 32;
-+		} while (--n);
-+
-+		sum0 += sum2;
-+		sum1 += sum3;
-+	}
-+
-+	if (len & 16) {
-+		u64 v0 = get_unaligned((const u64 *)s);
-+		u64 v1 = get_unaligned((const u64 *)(s + 8));
-+
-+		put_unaligned(v0, (u64 *)d);
-+		put_unaligned(v1, (u64 *)(d + 8));
-+		sum0 += v0;
-+		sum1 += v1;
-+		s += 16;
-+		d += 16;
-+	}
-+	if (len & 8) {
-+		u64 v = get_unaligned((const u64 *)s);
-+
-+		put_unaligned(v, (u64 *)d);
-+		sum0 += v;
-+		s += 8;
-+		d += 8;
-+	}
-+	if (len & 4) {
-+		u32 v = get_unaligned((const u32 *)s);
-+
-+		put_unaligned(v, (u32 *)d);
-+		sum1 += v;
-+		s += 4;
-+		d += 4;
-+	}
-+	if (len & 2) {
-+		u16 v = get_unaligned((const u16 *)s);
-+
-+		put_unaligned(v, (u16 *)d);
-+		sum0 += v;
-+		s += 2;
-+		d += 2;
-+	}
-+	if (len & 1) {
-+		u8 v = *s;
-+
-+		*d = v;
-+		sum1 += v;
-+	}
-+
-+	return csum_fold128(sum0 + sum1);
++	return sum == 0xffff ? 0 : sum;
 +}
-+EXPORT_SYMBOL(csum_partial_copy_nocheck);
 +
- __sum16 csum_ipv6_magic(const struct in6_addr *saddr,
- 			const struct in6_addr *daddr,
- 			__u32 len, __u8 proto, __wsum csum)
++static int first_non_canary(const u8 *p, int n)
++{
++	int i;
++
++	for (i = 0; i < n; i++)
++		if (p[i] != COPY_CANARY)
++			return i;
++	return -1;
++}
++
++/* Verify one csum_partial_copy_nocheck() call with @before/@after canaries. */
++static void check_csum_copy_at(struct kunit *test, const u8 *src, u8 *dst,
++			       int len, int before, int after)
++{
++	unsigned long src_off = (unsigned long)src & (COPY_MAX_OFF - 1);
++	unsigned long dst_off = (unsigned long)dst & (COPY_MAX_OFF - 1);
++	const u8 *lo, *hi;
++	u16 expect, got;
++	int bad;
++
++	memset(dst - before, COPY_CANARY, before + len + after);
++	expect = ref_csum_fold(src, len);
++
++	got = fold_csum(csum_partial_copy_nocheck(src, dst, len));
++
++	KUNIT_ASSERT_EQ_MSG(test, got, expect,
++			    "checksum mismatch src_off=%lu dst_off=%lu len=%d",
++			    src_off, dst_off, len);
++	KUNIT_ASSERT_EQ_MSG(test, memcmp(src, dst, len), 0,
++			    "copied data mismatch src_off=%lu dst_off=%lu len=%d",
++			    src_off, dst_off, len);
++
++	bad = first_non_canary(dst - before, before);
++	KUNIT_ASSERT_EQ_MSG(test, bad, -1,
++			    "wrote %d bytes before dst (src_off=%lu dst_off=%lu len=%d)",
++			    before - bad, src_off, dst_off, len);
++
++	bad = first_non_canary(dst + len, after);
++	KUNIT_ASSERT_EQ_MSG(test, bad, -1,
++			    "wrote at dst+len+%d (src_off=%lu dst_off=%lu len=%d)",
++			    bad, src_off, dst_off, len);
++
++	/* Source untouched, including a margin on either side. */
++	lo = max(src - COPY_GUARD, (const u8 *)copy_src_area);
++	hi = min(src + len + COPY_GUARD, (const u8 *)copy_src_area + copy_area_len);
++	KUNIT_ASSERT_EQ_MSG(test,
++			    memcmp(lo, copy_shadow + (lo - copy_src_area), hi - lo), 0,
++			    "source buffer modified (src_off=%lu dst_off=%lu len=%d)",
++			    src_off, dst_off, len);
++
++	/* Must be interchangeable with the arch csum_partial() semantics. */
++	KUNIT_EXPECT_EQ_MSG(test, got,
++			    fold_csum(csum_partial(src, len, 0)),
++			    "disagrees with csum_partial() src_off=%lu dst_off=%lu len=%d",
++			    src_off, dst_off, len);
++}
++
++/* Source against its guard page, destination between canaries. */
++static void check_csum_copy(struct kunit *test, int src_off, int dst_off,
++			    int len)
++{
++	KUNIT_ASSERT_TRUE(test, src_off >= 0 && src_off < COPY_MAX_OFF);
++	KUNIT_ASSERT_TRUE(test, dst_off >= 0 && dst_off < COPY_MAX_OFF);
++	KUNIT_ASSERT_TRUE(test, len >= 0 && len <= COPY_MAX_LEN);
++
++	check_csum_copy_at(test, copy_place_at_end(copy_src_area, src_off, len),
++			   copy_dst_area + COPY_GUARD + dst_off, len,
++			   COPY_GUARD, COPY_GUARD);
++}
++
++/* Representative source offsets used with all 16 destination offsets. */
++static const int copy_src_offs[] = { 0, 1, 3, 8, 15 };
++
++/* Every len 0..64 with every src/dst misalignment: the scalar tail ladder. */
++static void test_csum_copy_small_all_alignments(struct kunit *test)
++{
++	int len, src_off, dst_off;
++
++	copy_fill_random();
++	for (len = 0; len <= 64; len++)
++		for (src_off = 0; src_off < COPY_MAX_OFF; src_off++)
++			for (dst_off = 0; dst_off < COPY_MAX_OFF; dst_off++)
++				check_csum_copy(test, src_off, dst_off, len);
++}
++
++/* Large unaligned buffers exercising multi-block strides and GSO/MTU lengths. */
++static void test_csum_copy_large_unaligned(struct kunit *test)
++{
++	static const int extra_lens[] = {
++		1368, 1448, 1500, 2033, 2034, 2035, 2039, 2040, 2041, 2047,
++		2048, 2049, 2055, 2056, 2057, 2062, 2063, 3072, 4095, 4096,
++		4097, 4352,
++	};
++	int len, i, j, dst_off;
++
++	copy_fill_random();
++	for (len = 1024; len < 1024 + 80; len++)
++		for (i = 0; i < ARRAY_SIZE(copy_src_offs); i++)
++			for (dst_off = 0; dst_off < COPY_MAX_OFF; dst_off++)
++				check_csum_copy(test, copy_src_offs[i], dst_off,
++						len);
++
++	for (j = 0; j < ARRAY_SIZE(extra_lens); j++)
++		for (i = 0; i < ARRAY_SIZE(copy_src_offs); i++)
++			for (dst_off = 0; dst_off < COPY_MAX_OFF; dst_off++)
++				check_csum_copy(test, copy_src_offs[i], dst_off,
++						extra_lens[j]);
++}
++
++/* Patterns stressing carries, zero/MSB bytes, and odd-offset byte order. */
++static void test_csum_copy_patterns(struct kunit *test)
++{
++	static const u8 pat_ff[] = { 0xff };
++	static const u8 pat_00[] = { 0x00 };
++	static const u8 pat_80[] = { 0x80 };
++	static const u8 pat_ff00[] = { 0xff, 0x00 };
++	static const u8 pat_ramp[] = { 0x01, 0x02, 0x04, 0x08,
++				       0x10, 0x20, 0x40, 0x80 };
++	static const struct {
++		const u8 *pat;
++		int len;
++	} patterns[] = {
++		{ pat_ff, ARRAY_SIZE(pat_ff) },
++		{ pat_00, ARRAY_SIZE(pat_00) },
++		{ pat_80, ARRAY_SIZE(pat_80) },
++		{ pat_ff00, ARRAY_SIZE(pat_ff00) },
++		{ pat_ramp, ARRAY_SIZE(pat_ramp) },
++		{ NULL, 0 }, /* random */
++	};
++	static const int lens[] = {
++		1, 2, 3, 7, 8, 15, 16, 17, 31, 32, 33, 63, 64, 65, 127, 128,
++		255, 256, 511, 512, 1023, 1024, 1025, 1368, 1448, 1500, 2048,
++		4095, 4096, 4352,
++	};
++	static const int offs[][2] = {
++		{ 0, 0 }, { 1, 0 }, { 0, 1 }, { 1, 1 }, { 3, 7 }, { 7, 3 },
++		{ 9, 5 }, { 15, 15 },
++	};
++	int p, l, o;
++
++	for (p = 0; p < ARRAY_SIZE(patterns); p++) {
++		if (patterns[p].pat)
++			copy_fill_bytes(patterns[p].pat, patterns[p].len);
++		else
++			copy_fill_random();
++
++		for (l = 0; l < ARRAY_SIZE(lens); l++)
++			for (o = 0; o < ARRAY_SIZE(offs); o++)
++				check_csum_copy(test, offs[o][0], offs[o][1],
++						lens[l]);
++	}
++}
++
++/* Place dst against its trailing guard page so any over-write faults. */
++static void test_csum_copy_dst_guard_page(struct kunit *test)
++{
++	static const int lens[] = {
++		1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
++		31, 32, 33, 63, 64, 65, 79, 80, 81, 127, 128, 129, 1023, 1024,
++		1025, 1368, 1448, 1500, 2048, 4095, 4096, 4097,
++	};
++	int l, src_off, dst_off;
++
++	copy_fill_random();
++	for (l = 0; l < ARRAY_SIZE(lens); l++)
++		for (dst_off = 0; dst_off < COPY_MAX_OFF; dst_off++) {
++			u8 *dst = copy_place_at_end(copy_dst_area, dst_off, lens[l]);
++			int after = copy_dst_area + copy_area_len - (dst + lens[l]);
++
++			src_off = (dst_off * 7 + lens[l]) & (COPY_MAX_OFF - 1);
++			check_csum_copy_at(test,
++					   copy_place_at_end(copy_src_area,
++							     src_off, lens[l]),
++					   dst, lens[l], COPY_GUARD, after);
++		}
++}
++
++/* len == 0: folded checksum must be zero and dst must not be touched. */
++static void test_csum_copy_zero_len(struct kunit *test)
++{
++	u8 *dst = copy_dst_area + COPY_GUARD;
++	__wsum sum;
++
++	copy_fill_random();
++	memset(copy_dst_area, COPY_CANARY, 2 * COPY_GUARD);
++	sum = csum_partial_copy_nocheck(copy_src_area, dst, 0);
++	KUNIT_EXPECT_EQ(test, fold_csum(sum), 0);
++	KUNIT_EXPECT_EQ(test, first_non_canary(copy_dst_area, 2 * COPY_GUARD), -1);
++}
++
++/* Concurrent execution across task, softirq, and hardirq contexts. */
++#define COPY_IRQ_NUM_MSGS 3
++#define COPY_IRQ_NUM_CTX 3 /* task, softirq, hardirq */
++
++static const int copy_irq_lens[COPY_IRQ_NUM_MSGS] = { 100, 1500, 4097 };
++
++struct copy_irq_test_state {
++	const u8 *src[COPY_IRQ_NUM_MSGS];
++	u16 expected[COPY_IRQ_NUM_MSGS];
++	u8 *dst[COPY_IRQ_NUM_CTX];
++	atomic_t seqno;
++};
++
++static bool copy_irq_test_func(void *state_)
++{
++	struct copy_irq_test_state *state = state_;
++	u32 i = (u32)atomic_inc_return(&state->seqno) % COPY_IRQ_NUM_MSGS;
++	int ctx = in_hardirq() ? 2 : in_serving_softirq() ? 1 : 0;
++	const u8 *src = state->src[i];
++	u8 *dst = state->dst[ctx];
++	int len = copy_irq_lens[i];
++	u16 got;
++
++	got = fold_csum(csum_partial_copy_nocheck(src, dst, len));
++	return got == state->expected[i] && memcmp(src, dst, len) == 0;
++}
++
++static void test_csum_copy_interrupt_context(struct kunit *test)
++{
++	struct copy_irq_test_state state = { };
++	int i;
++
++	copy_fill_random();
++	for (i = 0; i < COPY_IRQ_NUM_MSGS; i++) {
++		/* Distinct, misaligned messages. */
++		state.src[i] = copy_src_area + i * (COPY_MAX_LEN + 64) + 2 * i + 1;
++		state.expected[i] = ref_csum_fold(state.src[i], copy_irq_lens[i]);
++	}
++	for (i = 0; i < COPY_IRQ_NUM_CTX; i++)
++		state.dst[i] = copy_dst_area + i * (COPY_MAX_LEN + 64) + 2 * i + 1;
++
++	kunit_run_irq_test(test, copy_irq_test_func, 100000, &state);
++}
++
++/* Optional throughput benchmark vs memcpy() + csum_partial(). */
++static void test_csum_copy_benchmark(struct kunit *test)
++{
++	static const int lens[] = {
++		16, 40, 64, 128, 256, 512, 1000, 1024, 1368, 1448, 1500,
++		2048, 4096, 16384,
++	};
++	static const int offs[][2] = { { 0, 0 }, { 1, 3 } };
++	int l, o, i, len, num_iters;
++	u64 t, t_fused, t_split;
++	u32 acc = 0; /* keeps every call alive via OPTIMIZER_HIDE_VAR() */
++
++	if (!IS_ENABLED(CONFIG_CHECKSUM_KUNIT_BENCHMARK))
++		kunit_skip(test, "not enabled");
++
++	copy_fill_random();
++
++	/* warm-up */
++	for (i = 0; i < 10000000; i += COPY_BENCH_MAX_LEN)
++		acc ^= (__force u32)csum_partial_copy_nocheck(copy_src_area,
++							      copy_dst_area,
++							      COPY_BENCH_MAX_LEN);
++	OPTIMIZER_HIDE_VAR(acc);
++
++	for (o = 0; o < ARRAY_SIZE(offs); o++) {
++		const u8 *src = copy_src_area + offs[o][0];
++		u8 *dst = copy_dst_area + offs[o][1];
++
++		for (l = 0; l < ARRAY_SIZE(lens); l++) {
++			len = lens[l];
++			num_iters = 10000000 / (len + 128);
++
++			preempt_disable();
++			t = ktime_get_ns();
++			for (i = 0; i < num_iters; i++)
++				acc ^= (__force u32)csum_partial_copy_nocheck(src, dst, len);
++			t_fused = ktime_get_ns() - t;
++			OPTIMIZER_HIDE_VAR(acc);
++
++			t = ktime_get_ns();
++			for (i = 0; i < num_iters; i++) {
++				memcpy(dst, src, len);
++				acc ^= (__force u32)csum_partial(dst, len, 0);
++			}
++			t_split = ktime_get_ns() - t;
++			OPTIMIZER_HIDE_VAR(acc);
++			preempt_enable();
++
++			kunit_info(test,
++				   "src+%d dst+%d len=%5d: csum_partial_copy_nocheck %6llu MB/s, memcpy+csum_partial %6llu MB/s\n",
++				   offs[o][0], offs[o][1], len,
++				   div64_u64((u64)len * num_iters * 1000,
++					     max_t(u64, t_fused, 1)),
++				   div64_u64((u64)len * num_iters * 1000,
++					     max_t(u64, t_split, 1)));
++		}
++	}
++}
++
+ static struct kunit_case __refdata checksum_test_cases[] = {
+ 	KUNIT_CASE(test_csum_fixed_random_inputs),
+ 	KUNIT_CASE(test_csum_all_carry_inputs),
+ 	KUNIT_CASE(test_csum_no_carry_inputs),
+ 	KUNIT_CASE(test_ip_fast_csum),
+ 	KUNIT_CASE(test_csum_ipv6_magic),
++	KUNIT_CASE(test_csum_copy_small_all_alignments),
++	KUNIT_CASE(test_csum_copy_large_unaligned),
++	KUNIT_CASE(test_csum_copy_patterns),
++	KUNIT_CASE(test_csum_copy_dst_guard_page),
++	KUNIT_CASE(test_csum_copy_zero_len),
++	KUNIT_CASE(test_csum_copy_interrupt_context),
++	KUNIT_CASE(test_csum_copy_benchmark),
+ 	{}
+ };
+ 
+ static struct kunit_suite checksum_test_suite = {
+ 	.name = "checksum",
+ 	.test_cases = checksum_test_cases,
++	.suite_init = checksum_suite_init,
++	.suite_exit = checksum_suite_exit,
+ };
+ 
+ kunit_test_suites(&checksum_test_suite);
 -- 
 2.53.0
 
