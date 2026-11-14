@@ -1,88 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794677041;
-	b=ySFGA3TTybhqoIKFUnY1vEA/l0kwKIRjlToXUDIPStSR+BldmT97p8rcifGcJ5szwLHo
-	 CxCNb8prAEE/OsKE+rMS3bPWfgMRGGbzkF12zPLx3cTolaRY+mW1G7Q5PdG1mggju1FI9
-	 UoaTytM/fxBBIiRdNLlLyg9m+5PFFoefUwID1J559GawpM32evIvuGFUX9dfMuDUPF0Im
-	 KkiyZzrHzxAIgfrA/tViQp18hULNub2jdfIwEm/lGWP02ozZ4b+WK6OY8oItgsvhpKkql
-	 c1Ey5h9kBqZ6FpGSQnuFL0jOqXNC2qB1xeOYyW0PNeeWYd1qOiHlbnjvkOUndxE4Xag==
+	t=1794677079;
+	b=cD/eewVQw14CtPfae1k9SwO2UVXUsbAzKfkk88F5aZKl5sSjE2MhthQAh2Ck80ZdJjsr
+	 d+Vvdv6NtIQCtDkJmcrNgARF6xQs/2Rf4EBpV+ZHOcO15ggLFZU4GPJcXoPEoPinMxxiN
+	 SWSWWQLp1Kj8Vj68jZGd91UKTLmKyidUkunU0r19cuPWqTIhZbvKaS/r/C6uLnTHlUTQr
+	 iwmR9+Zl/5FGRMx1xjvfB6MOTGh/bhNRRWJgesuc+si41Rzaogv0q7Tv1KqsiWSOhNCml
+	 yTtx2BT6nhVgGIgPuqay7G9We+fn9GDjcKD1cFg5taPXF9GILoxSgglLjKhm6zdLk1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794677041;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=dqQSndqpZPRSMRb9R3b1Tnrq4ikt3n8lwLKgdp6GvN0=;
-	b=CACTf+JAa5r/yg6J1Id8kZL5jqYU71nikBZGBk+6isjmDrYpRUVBiGqK0nDF5T9YGYhV
-	 rM171vPuo0GKQlPM+1JyMgZ/ghybwXh7G7WRqDL3cZDsW01eCrKjAmasrL5qE9RxZV0vB
-	 tSd4ftT72hAoHzXmkCGkZP8Q8VYbSO4kIPtcxxG0YeqvBCWXyofar25rq3BmDvbyCqvUa
-	 Wm857VxRyBkDGHglfb/vgAgmwmA98WT8/4hTFUdr7uhhR7vrcODjakW4lA5fBYPUsRW3S
-	 cTSS71sEsZbOV9LFLjs9unsnhymHWW5ShOM1eJ+O/8TpmtYsA9uSmgCAH+a5I6ihRoA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794677079;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=KGSNI6t1r+TulC/SiKfw3w2XYf50+KvxOFXvkwA2+b0=;
+	b=bbkUlSWBOE5Q5JBgjYVLKjMap4QJl3emWJI8mUy8zQ28ndH+PP23cyT0Ln0c0Da0Iu/c
+	 QMNAHQrterchoRehS2NHXAqxTX7KsIJe8AKEvPe6N+jybqWT4LDtQTHgPHCbLvVxaiy63
+	 Mga5XRa5m8+HmVMJjkHkLvJ2dBCMnnnAAkj400iaPAnXRggQhetqEGmHKTU8P3G+UXjCp
+	 vpOVG1wjBVWMD6i0CE8Gmt081WtjRPEEMr/PZV8RFMaCPl7PmiPNC5RMzCO/0iFCiU9G2
+	 vaiVMApLLf8MUtKMElo5y+DJTuhC6pplNOYXhmKjV7B3QgUr8XQxDKL/u3//yPd+MEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AHftsPkn;
-	arc=none smtp.remote-ip=209.85.214.181
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="gBaw/DQH";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FD45606A330
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:24:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5FD45606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08C87606A323
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:24:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AHftsPkn
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2ed1e9ae5a8so7226665ad.1
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 09:24:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794677041; x=1795281841; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dqQSndqpZPRSMRb9R3b1Tnrq4ikt3n8lwLKgdp6GvN0=;
-        b=AHftsPkncyeNzCw35cYmUb5uWh3idT8JrBvFxVGL/wN3/L35yj5itI78iLapXYJP08
-         o29VMAhIEUoqPQkvbH0XIBQdXuM+Nl3LfgznI0+abVovu+waFjrr4gu0uahphbErnYjR
-         MXJPLp4GTEzS/paquWKnCiSuP3EzpoerW3qyOZrejRL/wtV/vDak0btq6yY4m3cxXcUz
-         oeUN9ZRW3g7Z6ZOmPZK8Jpo4+Wm0EfpFTB+VQ14W7IFL5/2XHuScyhlmd40j7bE+6MC0
-         KVeTfHbO7CYLuEofYvoY7FfPzue4v/86hhWVBqKfzwlhdo1enxcPVukGiyJBC8waq9LA
-         fMKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794677041; x=1795281841;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dqQSndqpZPRSMRb9R3b1Tnrq4ikt3n8lwLKgdp6GvN0=;
-        b=cjT+7s194iYI9YkhOF0uzcgo65RrbqYqYWPOTDGPyFdgy42rMbt/vMA0rCXh3LahzA
-         BqRxmksobovmq52TvRbd/qDbninlNLvd64R/qFaBBjzGMv1wk8GlcjayHb57j+2/gPNv
-         Ef6vQXPBag8JJ1gitG4H3rJMNXh0/Csfju6FaY7S0uTlymYVvpMBQDqward6Gmau0R2Z
-         XqWUALIfkrmBD559yfpH3eylUUiZrE0z3v8Yf9Qv3XN/QOURtEzzegQfeRPeg3cC2TMy
-         BSAkyq1+qXssboUGBMYHauIQ1DTxhXoXtYpKzuzKqjQMjY9ergXiOJ4ThHQagR/WGb98
-         zJmw==
-X-Forwarded-Encrypted: i=1; AL+hErGXnkbnChsUHurGxusTiH5Qv2ORu1V9IVKZNTsTeUpQhYKGhKKuZ8sy51Gf2hN9l4V1Cj5yxermxLpjZII=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+hoqE/64n/j9bmNehep53cVjLtrPine1fHfVw1u+o2uHUd1S2v
-	kd5WjdMZuuJTxim4iIPe1E77hUyhxdxLaXx/wdxv10EAwKmn0RGfRiZPnz9P4NHL
-X-Gm-Gg: AYBFou1Ted9ICO8tamJxkWu8dI1xhiQIrCIVFSMs8TKtdY+v4K4AZcVi9EjibbbFfoZ
-	A+oqK8WgFGMjdLGm7QAX2nm0GIVrWWK94ZE1mnyTBQFniu2pIGl9WjzKhf1k70mayMBTxIspPJa
-	M2tQYOLVHc0GJ0DbGi55R+pQ77UYoQfBLZ0ZH7P7BTuo6vMaGwDzwJWHi0t5QtDtkmsPuy0bMl/
-	NaNmJmf8h9McGYc8/DY45qBadDMrXWypa9OFXx8k/z3Ej/8q4lhw9ChqEW7zHBOXBXqwtmbFYpa
-	7YESm5SewJkgmbjTsevRRD8Cf4QChMAaNOLw3C/mDul97Iq0+ntcGFoFcHDZbJRt72Z+hLDeMTT
-	TVUllJMTKWIY/XylD8GjWYNZJ2f7HyEyskaFX4LUr4U+MevEvTJ9SjCFWxtWYuqoDUhn6gHqhQp
-	5zhreikYUrvt3pwLK/sNgeshdRfO3HbWsng77IHFf1uw2hNY/x9NatIHOmXfActC7vwkO6uZ2/K
-	F39UWrrDA39tYtGxVhvXPJfZqQcTM92vAtJF7dwMUtIou4eIKBs4dYLyC5axx8LxDh4rSlcjoOO
-	hpqYQ0SNJQRIFvIivGkYFkndepK2YTE4kPptPaZpJzdjXLv7dYW7WxfNGyRTfH/VJMk=
-X-Received: by 2002:a17:902:d4c9:b0:2e5:4604:c375 with SMTP id d9443c01a7336-2ee0dc91820mr60268405ad.48.1794677040704;
-        Sat, 14 Nov 2026 09:24:00 -0800 (PST)
-Received: from [172.20.11.208] ([64.141.80.139])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f4ad534sm22503985ad.9.2026.11.14.09.23.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 14 Nov 2026 09:23:59 -0800 (PST)
-Message-ID: <2d7db808-607b-4004-b9fe-8386ad4723d1@gmail.com>
-Date: Sat, 14 Nov 2026 09:23:58 -0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gBaw/DQH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 465281F000C4;
+	Sat, 14 Nov 2026 17:24:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794677078;
+	bh=KGSNI6t1r+TulC/SiKfw3w2XYf50+KvxOFXvkwA2+b0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gBaw/DQHE+HCt6pgA2K22JnPxufqmdmb70RTz6zh2rh6lcVOvYytTGcYnND/l19Wn
+	 OYpFhHDZgUkF/qRDpnS5wakWtsv1IrEWO2Tx82L7oopmkW1vHH3I8Wry3t6GB8EzHk
+	 K1DaLmCizuUM5I4uwa/xV5CxGICy3FOVV1cB1Tr7cpvP++FmOejT2gt+S1MJp9qNYn
+	 NDrQ2kLGCuJx01c613gbf+TNsdJNKNTi//4d+gqHHXb94fPou4M5QRAQ7Hvbel4f4I
+	 8H8QppBMlDCxPoB0HF9xxWB5Xbjv24TB1ybA56gIHhhwrzDdL5ArR2ySyDFey6RDPo
+	 pzdpJnT4Qugbg==
+Date: Sat, 14 Nov 2026 17:24:33 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: shao.mingyin@zte.com.cn
+Cc: akpm@linux-foundation.org, liam@infradead.org, linux-mm@kvack.org, 
+	vbabka@kernel.org, jannh@google.com, pfalcato@suse.de, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/mremap: enforce the driver's page size on resize and
+ move
+Message-ID: <aviY3AWCYlTjHHSv@gremlin>
+References: <20261115004700194_SpQtdnE3JL6bzx51l-a5@zte.com.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,18 +57,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/7] docs/sp_SP: Add translation of process/4.Coding.rst
-To: Antonia Ruiz <antonia86.ruiz@gmail.com>
-Cc: avadhut.naik@amd.com, bilbao@vt.edu, corbet@lwn.net,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <CALv9EdcctPgU2i2MJiQWwMCy=sDN2ridqbeWodz5VcaBhvj+Fw@mail.gmail.com>
-Content-Language: en-US
-From: Carlos Bilbao <carlos.bilbao.osdev@gmail.com>
-In-Reply-To: <CALv9EdcctPgU2i2MJiQWwMCy=sDN2ridqbeWodz5VcaBhvj+Fw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261115004700194_SpQtdnE3JL6bzx51l-a5@zte.com.cn>
 
-Body is empty, Antonia. Thanks!
+On Sun, Nov 15, 2026 at 12:47:00AM +0800, shao.mingyin@zte.com.cn wrote:
+> From: Shao Mingyin <shao.mingyin@zte.com.cn>
+>
+> mm/mremap: enforce the driver's page size on resize and move
+>
+> device-dax exposes its mapping granularity through vm_ops->pagesize()
+> and requires both VMA boundaries to be aligned to it. mremap() checks
+> may_split() when moving a subrange, but does not validate the new end of
+> an in-place expansion or both boundaries of the destination VMA.
+>
+> An unaligned expansion or move can therefore succeed and leave a VMA
+> that device-dax rejects at fault time with SIGBUS. Check the final
+> new_addr and new_len before moving, and check vm_end + delta before
+> expanding in place.
+>
+> Checking the actual boundaries preserves an expansion starting inside a
+> VMA when its resulting end remains aligned. The move check also covers
+> equal-length MREMAP_FIXED moves. Existing PAGE_SIZE mappings pass both
+> checks, and the existing hugetlb restrictions remain in effect.
+>
+> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-On 11/13/26 22:41, Antonia Ruiz wrote:
+NAK obviously.
+
+This patch is broken, wrong, and it's not even a bug.
+
+Also, you are flooding the kernel with patches, 17 series across 7
+subsystems over 23 hrs:
+
+https://lore.kernel.org/all/?q=f%3Ashao.mingyin%40zte.com.cn
+
+Please just go away. Nobody wants your AI slop.
+
+--
+Cheers, Lorenzo
