@@ -1,100 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794635923;
-	b=ss+Wf3knMdkjWcVnOK8CKHSb5qXychkoHN3fVV5ajCdoXm/1Oqy93zbnckHb5sssDgZc
-	 Yv3j8wnmOGLXoEfmOyZ/N3lhDKcAKeInv/iDAXdQ0XNTbFyy/1xBDXWyajaKNcIKR6lGy
-	 kqtdVqFAKkSEjTLWJZmVxB5NbwQ4ZIV4obfe8ch6gvE6vp9nmlqJtYSs+ep1EBVKJJfvN
-	 Xt8FN4ScrIP+Jt6r/gEebFizGZZylJXHCdAly8wONa7gKBDMYSOpv2UrUxbteTNwj2iI2
-	 Yi+oU/IuPy4Qk0yDe3Gf/Nqjjyl3UiV3V/fKQ9Lgie5b1DA/7dDzVAQRNpQ58VybTRQ==
+	t=1794636004;
+	b=4dp++18YAix4JHlKqAjrktIBwYvkZ7SxaJPlMwQHUFOnnpdge7eDBPm0gNpYgUydE27L
+	 Pf+tMgfPrR+7mR809ghB52uhSNP0nKNs6Yu+hRbqtvEbhCgSx3ebywEHWAVF7/oFRBINt
+	 v7T87ZvY4+z7GlATV4ybstsEDSq35/pMsAEwtGIw8GOvKi+hy7A6HJZ9HlI35LbBy4pJm
+	 /BFHdRQo8aFJFqhaA4yWLGj73Jn2ABun50lKTgtfqs/XRsRFGfw3ibNMxMHI/CEsfnroX
+	 r4dkJZCZPxYOMyIdl22XdpkPwL0uZcszUwa7tkpwzX3PWPIJy6OD5smlo2IdXq7xj8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794635923;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794636004;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Date:Message-Id:From:To:Cc:Subject:In-Reply-To:
-	 References:Content-Transfer-Encoding:MIME-Version;
-	bh=Ym/b1fWsEbJtm9qFvOFht1VdLbQA2jNfhiJxfk6+BKU=;
-	b=1cROjcDbrWT4W6bAQ06RvWCKhksbunLWVhBxvopbrF/5uZ6nPAGjS7rIbH7Wy4Wvlyi9
-	 LlfnUYur2MoM5GfdPcVwkCrfJfQ1NxA0yoxoagmBlO0Cpw0SbGbWiz/n5EeQdVwDKIPcf
-	 AtlKJTSqeFgOR0ujJyABOTXnH6JwKewOsJ7fAWONQ5BzeEnIELYujYUp8ENJdXHMaQ/7B
-	 PeckfSFdANt6WW4F8TFFd6P4SQ6uw/UzHp14VJraFghVNiEj17CDMHlFC2TbVyR7qTiTF
-	 C9X2+0tVfGEUhwuETIASaPiLCRUu7ZRYrqndPofrnpDdVMxHvQRdMtIn0tcmy4QJP4A==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=mgLVCzwEEWzs9CinX/+7QiADn4eqTPW4ogsrN1nMB7g=;
+	b=W5tT6HrUiLad+u3FJm3UJY6REhv6KK7xtQ3+LrcQ0J9exDp/cbbOI8p/daoJBjIHxJ9t
+	 Urv3Om3zGXjf10LyRC9v2WhfM4CJSHQTNd2b4hF71JYjkEeFAAl+ZEmzPTw2atsE3MDNE
+	 Yq08gJWsrMY/JKuIKMdDbDvEuGkMPG/mkAL2XeYrh8c4xgDsQmIZRn6wr7gjpaYRKzAsL
+	 ckGZoSKgFU14IZZ5JLBstjbqTdSLdruwRBwKs5XcsdGYdbCYhgEWjeIb/ko3o73Fv5VFv
+	 FTinR1c30aFbEhK7Bgh5bUKgYU/KM9lQqBEQyHSdPl29GQZLhgNZADRKHR9wp2wTJow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iAMSHfJS;
-	arc=none smtp.remote-ip=209.85.214.174
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pSrzRYDo;
+	arc=none smtp.remote-ip=74.125.82.45
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2652B606A327
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 05:58:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2652B606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A721606A327
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:00:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A721606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iAMSHfJS
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2ed408b0d9dso6789445ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:58:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pSrzRYDo
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-1438d9363fbso908624c88.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:00:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794635922; x=1795240722; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to
-         :subject:cc:to:from:message-id:date:content-type:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ym/b1fWsEbJtm9qFvOFht1VdLbQA2jNfhiJxfk6+BKU=;
-        b=iAMSHfJSyZ9aJiv8I2N2EwOA0IagQKe+xY0cWdblJ1VkkBcu1DaDiYHnj/WX701mMs
-         bNg53GAa1AuloyF0zl7ct869w7xQdvk4H2hAQJAX8sdPVO1IWF+XuuVyxqjn9BMMFntx
-         gj0bbZcPyT5WfAJOh8l9Smumxzu0oj26xD5Z4or/VyPb73ZPq/JOBF0ps+/CFuHFaXE+
-         YsYltkrh2t6jR7x2zLZBWD4DJWlFXzJg1mRNLniAMiDjZYjGDvhEd7HdQr/JWcltj1w8
-         qUrGFD48E6ynEJDqHdi0+st27DrGP33AGQcwTVEeSDOXP3DUVcg8S+t4HAkboFW8jFMv
-         qYIw==
+        d=gmail.com; s=20260707; t=1794636002; x=1795240802; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mgLVCzwEEWzs9CinX/+7QiADn4eqTPW4ogsrN1nMB7g=;
+        b=pSrzRYDowsSSYc1//w68QUfa2cBuROaP0oEKgpP7Y57cArUc6zvkzvkyZqwMuEv9fA
+         AZ/sg0KYTwtvwIIx0zNG+HddOk3r1XaXVVuEvI5g16eLUZbvtXrC7e9noqjvtpYWi9+8
+         43QXMP+y7OOZNLBTUp5ZD8Of5l5KPUqFe6HSn5Y+/nvJP9FHhZEafEnWbKbbtZkiENOt
+         jEsHVOPwodtfYqpNAFgmBb+HJdDFD3NqImpWhDhWnlSUkaNgeP8SlInhCGEbsX6OOOf7
+         ZFa29cdHdgkSJ7VOAQot6bb10atZtCzrmNW1Kz+l/yYfV7+N8ycHzWoQ44b12aptUjGM
+         stnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794635922; x=1795240722;
-        h=mime-version:content-transfer-encoding:references:in-reply-to
-         :subject:cc:to:from:message-id:date:content-type:x-gm-gg
+        d=1e100.net; s=20260707; t=1794636002; x=1795240802;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Ym/b1fWsEbJtm9qFvOFht1VdLbQA2jNfhiJxfk6+BKU=;
-        b=dVhic032AJQoMPMSTMA4TRAu8CCji99PE4I9llEHDx5JQke7qKN3sFDAr1ZRebWOKZ
-         2aidxCvZu2KPFMcgKuWFFQY5uBKieaN9rwRWUjMYYVi+1uN/rzzvfBvt58/Ibjq+ejR0
-         gBnM+grup33CaJiDkHcR7CExb/lj85H2f5l/ZexZaMU1Nd9gXAPE2BhAb228mctCOs+u
-         I9IP6lzcoSmd5UXS1SjeGH7Ffjpql7qifaZdLW592F+k2Jmf9C7TX2XCqpVDlvkP4I8t
-         nLAlM5ly2YS/bTWRHK6sYcS0uLcPabBDY8M3mJfpBQK4PuUrYdEgzht9h7Pajvue4T9d
-         +f2g==
-X-Forwarded-Encrypted: i=1; AL+hErHD6hYsAmpSbucbi+G5dV9v5AlqucD11suNmUCR4ZlOCLdNftuRm6Lbx/pBv6nwLNSYEnBYYjXwfAn/+CA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/dbP9HNV/vGPg/ELEnkBY0SkC7YXS5s7aVJSBnu5qGTodnC2H7
-	dekMK59cZ+xV7mCZi2iUnbJS/CdsqRr4PRecRicPAaD91vCUhdquZqdJ
-X-Gm-Gg: AYBFou26KyM+zH1d5C0etJUjvOdczNIoMRmIg5CmTO78Kh9lH9teNTv9SvH1xGIs165
-	6Rl4sZEOER50+l8ZlBjgAStV+eLFoK6Q+vfM45zKW9Dif1KZO/XBRyfvF3wF784LgiDMOaBwkg4
-	6ncm1n1w3fBsW28uBnBoLWcSElOSzVfOrd0/v0Sntust4xj7QE09wZoi60XKeBqGbVgCFeeHe1g
-	yRnpEA9wUf/wN8wlHihvaJmfzZbVnfoRn2pbNAKydZYvi4hGt7RIdiVjB3+FKCr124hLeNYrr5v
-	FPVFkAgrX7EWvzNWX1OaHYnsjR4eNkeE6TMB6RQ/FIlAkWVHJ2UYMMa+6NMt7fVV1BA3dZ/85EL
-	hHWb52SND03/Eqc+ntdKqPfMqyypFWFaPL/SsOupzC293eKTxS/EdECaeHx2y/P+uooI5F6XsaF
-	ueTcXO6YVuCqHR+Rsg8witzF0dQof/M1F0HWhdZuf5dpck8Gu5+4pmjOOAY4Timri6H4HeGZjew
-	XAUT5QsGj+RlqKOiB2hkQMUma+/N4zeRSQDkWUJo/nrZMOlhmkoIRSykGfzKipUEvpGLbnlID33
-	U+gYddXWFgj+7KkTQ86oSRQltGf3vJTGbM7ZudJaisY/bg8feybXukflB7Ido1NLE1OCb+PL04O
-	UaarRj+zh/GmIVRl1X0e7KIJaqG7TCYMngA==
-X-Received: by 2002:a17:903:184:b0:2eb:201c:91a8 with SMTP id d9443c01a7336-2ee0de4fa67mr48849665ad.29.1794635922261;
-        Fri, 13 Nov 2026 21:58:42 -0800 (PST)
-Received: from localhost ([153.61.198.243])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f862744sm17702925ad.44.2026.11.13.21.58.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 21:58:41 -0800 (PST)
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 14 Nov 2026 05:58:41 +0000
-Message-Id: <DMUPC8KHIGGC.1GSNJVGA8XC98@gmail.com>
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Hungyu Lin" <dennylin0707@gmail.com>, <andrii@kernel.org>,
- <bpf@vger.kernel.org>
-Cc: <eddyz87@gmail.com>, <ihor.solodrai@linux.dev>, <daniel@iogearbox.net>,
- <memxor@gmail.com>, <martin.lau@linux.dev>, <song@kernel.org>,
- <yonghong.song@linux.dev>, <jolsa@kernel.org>, <emil@etsalapatis.com>,
- <alan.maguire@oracle.com>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH bpf-next] libbpf: Fix sign extension of unaligned enums
- in btf_dump_get_enum_value()
-In-Reply-To: <20261113223449.97604-1-dennylin0707@gmail.com>
-References: <20261113223449.97604-1-dennylin0707@gmail.com>
-Content-Transfer-Encoding: 8bit
+        bh=mgLVCzwEEWzs9CinX/+7QiADn4eqTPW4ogsrN1nMB7g=;
+        b=1xfz6o2/ByosQULcwBPgFr+yJMMOefTyjvbydvccEL2/VANq677VVCyvephRMnuwtw
+         LglVDGN7RBsLEwvLzgkQBIZJiILaQZIrTpJDjk7izQk9nxfIEOQiR1cQ/5URTjVFGAQe
+         mypHIzXfjJubbW4/caGxF456ppe9MYJZrU1+8W4NIFUz++rWm6kG5wBSYwF1A32XK280
+         3mKfynZPpq4bi8toolR2d9En4nR7KATM9f7Rgj2Ru2fsePF/Coaa7Nq/RZ4pWm7UfBZq
+         YKCIxAMJ0LXrO4pifMG7iuJvVkKVt8i5DMyKfkj/v/atnFeCUuLcwXjej4pMNXnOvY8z
+         S9Mg==
+X-Forwarded-Encrypted: i=1; AL+hErEQV2aAC1rZPU4djADnPXrNDRkXBy1aS4PsXpaJuWySTl5P4b8D8XG7HVVBcmqqaC8gSSgQft7mjhvPiWg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z99UB5kzCKtzPu4wGLgLr+MshmZaTk9J1KM2W7WReHet1GCO9e6
+	RHxt3eCyCTulygxbCoFi8tl//44F008jyFUSOegKPjV0Om1KZ6HWnbE3
+X-Gm-Gg: AYBFou13A8h4aB8SAl20L/FeyRTBNfe9QyFwPJxJlQSTqL10mPysfIRFDfkuzETWmqv
+	Jktl3PaEtljwgXMcksd9E2F8hqf386GaWDtKojuKawGgFQTN2F0/l/e4LR+7P6q1+A5t3T0n0jc
+	xrPVn9E7+qIc+ZYeKWgakgFj8e4ijcpDUSfgFgEX+PydMUwM1nXsXZFSjlmuhJkzcGm4onNAuTr
+	fW82uWXidiRY1OZ2zK2lQJCGi3KzDdI394AXiuX813FyWn/zCFxbeu0iXi4hpuoJF3vWJeYnpAv
+	TUH+joh6avY5N9B/v5nRFaGN+wEMimUDlZshXPUd6VXyAYHE6txlpALZpYZMH51czEAzYm3wVpf
+	4orIwNZg4Yvp3lNEcxe2liP7I59tekrzNxOvLama3/QQI0EAA3JAWBq/0k/Xuipgbf/E8Z/ngCB
+	vkMr6yCRJanFKF0m7Raq2pJhqrOa3qe4OvXwsikxA/Jb0eMvQLL+zwC+fbCuoq6TpMA5jkAc+gm
+	dIGCS/UUdKlaEiBis1CJ8qBLk5v36yubWPDWeQ7ifzJoIA5DhoUXH8ee/6LMo6YYP9OKI/Y0y1H
+	pQiQ859BkQahplFhU5fjUwNoGMT58PdGcDiMOcLCB7HddYPI6GYFO/Un2/9JI83piAOb2+bgzoC
+	7FCYwBD+tN3bvBY7S
+X-Received: by 2002:a05:701b:4551:20b0:14e:d0ba:75af with SMTP id a92af1059eb24-1b50308a20bmr4240827c88.6.1794636002333;
+        Fri, 13 Nov 2026 22:00:02 -0800 (PST)
+Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:560:7267:5908:e9a5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031b2519sm11323590c88.13.2026.11.13.22.00.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 22:00:01 -0800 (PST)
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Date: Fri, 13 Nov 2026 21:59:51 -0800
+Subject: [PATCH 01/12] HID: rmi: return error on short output report writes
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,78 +92,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261113-hid-rmi-v1-1-afc43d97d766@gmail.com>
+References: <20261113-hid-rmi-v1-0-afc43d97d766@gmail.com>
+In-Reply-To: <20261113-hid-rmi-v1-0-afc43d97d766@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
+ Andrew Duggan <aduggan@synaptics.com>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.17-dev-6b8b8
 
-On Fri, Nov 13, 2026 at 02:34 PM Hungyu Lin <dennylin0707@gmail.com> wrote:
-> btf_dump_get_enum_value() reads unaligned enum values through
-> btf_dump_get_bitfield_value() with a zero bit size. That path
-> zero-extends the value instead of using the signed loads that are used
+HID output report transfers return the byte count transferred on
+success, allowing short writes to either be ignored or propagate
+positive byte counts as errors to callers expecting 0 or a negative
+errno.
 
-Not quite. bit_sz == 0 makes right_shift_bits == 64 in
-  *value = (num << left_shift_bits) >> right_shift_bits;
-That's undefined behavior for __u64 on both endians.
-Pls say it in the commit log.
+Treat short transfers as -EIO errors and return 0 when the full output
+report is written.
 
-> +	if (t->size <= sizeof(buf) && !ptr_is_aligned(d->btf, id, data)) {
-> +		if (data + t->size > d->typed_dump->data_end)
-> +			return -E2BIG;
+Fixes: 9fb6bf02e3ad ("HID: rmi: introduce RMI driver for Synaptics touchpads")
+Fixes: dd8df28459dc ("HID: rmi: Add functions for writing to registers")
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+---
+ drivers/hid/hid-rmi.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
 
-This breaks the dump of struct fs_context when emit_zeroes is not set.
-'phase' is an enum bitfield of 8 bits, 3 bytes before the end of the
-struct. btf_dump_type_data_check_zero() ignores bit_sz of an enum:
-
-  btf_dump_struct_data()
-    btf_dump_dump_type_data(data = end - 3, bit_sz = 8)
-      btf_dump_type_data_check_overflow()    1 byte, ok
-      btf_dump_type_data_check_zero()
-        btf_dump_get_enum_value()            t->size == 4, unaligned
-          end - 3 + 4 > data_end             -E2BIG
-
-Today it reads 1 byte past data_end and the dump succeeds.
-The over-read is an old bug of enum bitfields. It needs its own fix.
-The fs_context test in test_btf_dump_struct_data() sets emit_zeroes,
-so it doesn't notice.
-
-Drop the check. btf_dump_int_data() copies without it.
-The check against data_end belongs in one place for all types.
-
-The first case below fails on bpf-next today.
-The second case fails with this patch.
-I didn't build it and didn't run it:
-
-diff --git a/tools/testing/selftests/bpf/prog_tests/btf_dump.c b/tools/testing/selftests/bpf/prog_tests/btf_dump.c
-index b5c90f7..d6fd993 100644
---- a/tools/testing/selftests/bpf/prog_tests/btf_dump.c
-+++ b/tools/testing/selftests/bpf/prog_tests/btf_dump.c
-@@ -945,7 +945,7 @@ static void test_btf_dump_enum_data(struct btf *btf, struct btf_dump *d,
- 				    char *str)
- {
- 	__u32 high = 0x80000000;
--	__s32 neg = -1;
-+	__s32 neg[2] = { -1, -1 };
-
- 	/* enum where enum value does (and does not) exist */
- 	TEST_BTF_DUMP_DATA_C(btf, d, "enum", str, enum bpf_cmd, BTF_F_COMPACT,
-@@ -994,6 +994,8 @@ static void test_btf_dump_enum_data(struct btf *btf, struct btf_dump *d,
- 				"(enum test_enum_u32)TEST_ENUM_HIGH"), "dump unsigned enum");
- 	ASSERT_OK(btf_dump_data(btf, d, "test_enum_s32", NULL, 0, &neg, 4, str,
- 				"(enum test_enum_s32)TEST_ENUM_NEG"), "dump signed enum");
-+	ASSERT_OK(btf_dump_data(btf, d, "test_enum_s32", NULL, 0, (void *)neg + 1, 4, str,
-+				"(enum test_enum_s32)TEST_ENUM_NEG"), "dump unaligned enum");
- 	btf_dump__free(d);
- }
-
-@@ -1182,6 +1184,12 @@ static void test_btf_dump_struct_data(struct btf *btf, struct btf_dump *d,
- 		type_sz = btf__resolve_size(btf, type_id);
- 		str[0] = '\0';
-
-+		/* 'phase' is an enum bitfield 3 bytes before the end */
-+		ret = btf_dump__dump_type_data(d, type_id, zero_data, type_sz, &opts);
-+		ASSERT_EQ(ret, type_sz,
-+			  "unexpected return value dumping zeroed fs_context");
+diff --git a/drivers/hid/hid-rmi.c b/drivers/hid/hid-rmi.c
+index 20dda1992f98..cacf81ed56a7 100644
+--- a/drivers/hid/hid-rmi.c
++++ b/drivers/hid/hid-rmi.c
+@@ -130,7 +130,7 @@ static int rmi_set_page(struct hid_device *hdev, u8 page)
+ 
+ 	retval = rmi_write_report(hdev, data->writeReport,
+ 			data->output_report_size);
+-	if (retval != data->output_report_size) {
++	if (retval) {
+ 		dev_err(&hdev->dev,
+ 			"%s: set page failed: %d.", __func__, retval);
+ 		return retval;
+@@ -182,7 +182,13 @@ static int rmi_write_report(struct hid_device *hdev, u8 *report, int len)
+ 		return ret;
+ 	}
+ 
+-	return ret;
++	if (ret != len) {
++		dev_err(&hdev->dev, "short write to hid device (%d < %d)\n",
++			ret, len);
++		return -EIO;
++	}
 +
-+		str[0] = '\0';
- 		opts.emit_zeroes = true;
- 		ret = btf_dump__dump_type_data(d, type_id, zero_data, type_sz, &opts);
- 		ASSERT_EQ(ret, type_sz,
++	return 0;
+ }
+ 
+ static int rmi_hid_read_block(struct rmi_transport_dev *xport, u16 addr,
+@@ -216,7 +222,7 @@ static int rmi_hid_read_block(struct rmi_transport_dev *xport, u16 addr,
+ 
+ 		ret = rmi_write_report(hdev, data->writeReport,
+ 						data->output_report_size);
+-		if (ret != data->output_report_size) {
++		if (ret) {
+ 			dev_err(&hdev->dev,
+ 				"failed to write request output report (%d)\n",
+ 				ret);
+@@ -300,13 +306,12 @@ static int rmi_hid_write_block(struct rmi_transport_dev *xport, u16 addr,
+ 
+ 	ret = rmi_write_report(hdev, data->writeReport,
+ 					data->output_report_size);
+-	if (ret < 0) {
++	if (ret) {
+ 		dev_err(&hdev->dev,
+ 			"failed to write request output report (%d)\n",
+ 			ret);
+ 		goto exit;
+ 	}
+-	ret = 0;
+ 
+ exit:
+ 	mutex_unlock(&data->page_mutex);
 
-pw-bot: cr
+-- 
+2.56.0.679.gc527c65306-goog
+
