@@ -1,71 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794699819;
-	b=cw0KC67IBCoHbfbvRig45XfiNmBMLjKbfBCdsRiSJhACJXGreonCxyNPpOu7pl7+Nq22
-	 2+0EvdLqQXiNO4CErHN2FNW5xBoUiUr5aJDiqKnKXE8Y+2ceXEdhPFOEpoKyqqr4gEJi6
-	 Qy3ncosSrzWUxmYoDFOrVZ12l/byEKJQeXeAjwSI1NbBBsZzi+RHAv0YiivGaJLmAkyFb
-	 50JL2H+0sW7B3MUuSJ8xMwNvqDS1qdCWUajV+vt0XgiW7FN0/Fw62AqOOFgrsK7TxnTh/
-	 3F6mvknbKgZVWGXHEkxbpi4dM9+tMkFc74LT6mSXJcPXO9S4yRCzXLr8GNIx23lsxuQ==
+	t=1794699887;
+	b=gaIuo+wr9oi3a9HN/10RC+a2IPvlwdlE+y/SClG9OaAs0hfiNC4ag6OOzEakZWhxiPtJ
+	 eJDS61sF3wGjJ7ph4yutMeEDL6QHc7goMr+xLQjV6f0W+XdFppVomky7m2CtkgMnFSIWn
+	 paO4cEjVgTeS/YLcv33Nn1qchGF/cjQY+RlV5b9aR/5RApsiH279ZN+/6iH05YWqvRaYd
+	 4Ib/nC2AcNn47ehnUOygoCV9aMpySmAs0uAj0CkJH3MCu57ivTYf19C8aBOQy903PnnzS
+	 qYWx0inaUb6rWbwxqJ9TeFFAoou3evTPDrug7qpMYznPntMu1IKhVnwpquIXt9S/tsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794699819;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=VgPgzRBTEZawyAypOvRkCasEHHDXiWmJn4tANhssVTA=;
-	b=TENEn5c47pSjDFEeVSEZR8R0dIAsdc78Aiwxa13j4UdzCuMN5SyFlcEY9yG0oijVzgfK
-	 vwE4DNijWhGKRK1JwQ5llxLL57iYLqUIu0sUxAMGQkiHJJvch2UQWlsAAmfNr8yORqX5N
-	 33wT88kYkua8fHUWo9mhjyZ3bDIp+IPUr/VbpMYsLgnmnVfhcn3ZlHbN1FPHPvapTFRXi
-	 eqn6ig6FkGhSE99Gdp9DUdn8XOJub6BjDMuZJ4OGzwiRQodqZ25vJCLFnYTB/MDbWtcm+
-	 hYkkCqySJwQi9SydtJNlRaK3tiWk9I2syze6NrzmqztiSi6C1FXDiw8xA1+2+sThHgg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794699887;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=2KmlMcUCn1VuTpuR2dzvTUv5vVaG8QkaQ53na1ScPCo=;
+	b=EePk/1tePi+ZwFCPk5C0UESY7jauD5+66dpbguuTQZTy9YB5F4H6GyPMXA5VDrd05Zsj
+	 6oRVOpGmspat2RNpCp0/Phs4aFCiOVv0VWa3TzX556kmZOv0saL/xWz9soonuhHSK6IKK
+	 FEFHIdjm3JhbLftaz2Vv1xwGqBpOCZcVqil+VRXh0Yy9HoixqbIgJKUsj+jyhDfPs3tTW
+	 CwNsGWb0TXrpabc4PNysWW09AJUXxLMOqcaHGdVv92onA+Prh+Khq3k4ZgRXWawuCD9vy
+	 tJNKRahYwUg8J+Rqm57SOIT5Db65JnuLx5DFYDUnEiZ58FN8rQJ52ZAl0SE3e8fizFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YYUUchTe;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jhN6hYFd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED1D0606A329;
-	Sat, 14 Nov 2026 23:43:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D181606A329;
+	Sat, 14 Nov 2026 23:44:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YYUUchTe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B6A91F000C4;
-	Sat, 14 Nov 2026 23:43:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jhN6hYFd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85A871F000C5;
+	Sat, 14 Nov 2026 23:44:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794699818;
-	bh=VgPgzRBTEZawyAypOvRkCasEHHDXiWmJn4tANhssVTA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YYUUchTePltL7ctXo3UyBJwQZRaLgGaxWl6b/xU66mKxT/3Uyr5aXyJKxhEZVtuas
-	 RicjkwvvtmUpPwOCMSWDP69B4kQCIAOr54k0NfWxi9k1FX8qCAoCtLKWWzdDMp6tEQ
-	 8RnR/a3q4vjahDz+0bjd3SV+ZJmpc9PohVkkAjBvOnGxsOfJnvclpdRpECLpqIdmKV
-	 RsQKjhqRZQrrMufCAL2M5CTxNJ82ZQqwZJfnZRKAiU0FxzGDyGRp55M2v4WVRDMg0H
-	 /MTZCIu3BAct3i3ZMAU1z6yU0oZq1UML8TQJhHmfR+n4PJLRB2yhtUWSLimzOFOJum
-	 IrJN2RAhs0uSQ==
-From: Danilo Krummrich <dakr@kernel.org>
-To: dakr@kernel.org,
-	acourbot@nvidia.com,
-	aliceryhl@google.com,
-	abdiel.janulgue@gmail.com,
-	daniel.almeida@collabora.com,
-	robin.murphy@arm.com,
-	a.hindborg@kernel.org,
-	ojeda@kernel.org,
-	boqun@kernel.org,
-	gary@garyguo.net,
-	bjorn3_gh@protonmail.com,
-	lossin@kernel.org,
-	tmgross@umich.edu,
-	tamird@kernel.org,
-	work@onurozkan.dev
-Cc: driver-core@lists.linux.dev,
-	nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	rust-for-linux@vger.kernel.org
-Subject: [PATCH 2/2] gpu: nova-core: remove unnecessary firmware pin-init
-Date: Sun, 15 Nov 2026 00:42:54 +0100
-Message-ID: <20261114234324.82387-2-dakr@kernel.org>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261114234324.82387-1-dakr@kernel.org>
-References: <20261114234324.82387-1-dakr@kernel.org>
+	s=k20260515; t=1794699887;
+	bh=2KmlMcUCn1VuTpuR2dzvTUv5vVaG8QkaQ53na1ScPCo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=jhN6hYFdT8VglO1MPzWZNHQs3OzGZ9a3EF58LkQ9HX4qCvBbE4K+bKTqeI+brW/xX
+	 zR+CQGno9U/UcqhBXTccm6yVLAGFoKXsSSikBVJpboQkf2oIJFM93Yz4XmmRkTtlYI
+	 VXjRPG5M07+044ZjUvRdfHuwQK8LqYTCZedweAw1w2DYB1Ys8lvlFFeBU00bUGUAOp
+	 uEEVdg/C7Rz58EZza/8UbujvJ5Gzs3MmWaYbgDg1vCzDVvpGBUwAC0VNxu9LNYu8ev
+	 N3aQlPkcVbRyrMqJIplPqBsQ/pToG34Sn+fCYiGBChXfvPONqdLg0Jk8pIdGKZHnQ3
+	 cpq99D6Jg075g==
+Date: Sat, 14 Nov 2026 23:44:40 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Arka Mondal <arka@arkamondal.net>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Robert Eshleman
+ <bobbyeshleman@gmail.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] iio: light: Report the available lists via
+ read_avail()
+Message-ID: <20261114234440.60d61186@jic23-hlaptop>
+In-Reply-To: <20261109050738.93424-1-arka@arkamondal.net>
+References: <20261109050738.93424-1-arka@arkamondal.net>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,201 +62,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Now that SGTable no longer requires pinning, remove the pin-init
-machinery from Radix3 and GspFirmware.
+On Mon,  9 Nov 2026 14:07:36 +0900
+Arka Mondal <arka@arkamondal.net> wrote:
 
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
----
- drivers/gpu/nova-core/firmware/gsp.rs    | 43 +++++--------
- drivers/gpu/nova-core/firmware/radix3.rs | 82 +++++++++++-------------
- drivers/gpu/nova-core/gsp/boot.rs        |  2 +-
- 3 files changed, 56 insertions(+), 71 deletions(-)
+> These are patches 1 and 3 of the v1 series. Patches 2, 4, 5 and 6 are
+> applied and are not resent.
+> 
+> Changes since v1:
+> 
+> - isl29125: the available bit goes in info_mask_shared_by_all_available
+>   instead of info_mask_shared_by_type_available, which is the sharing
+>   level that names the file scale_available, so the attribute keeps the
+>   name it has and no ABI changes. The Fixes: tag is gone with it, and
+>   the patch is a cleanup rather than a fix.
+> 
+> - max44009: the list is IIO_VAL_INT_PLUS_MICRO instead of
+>   IIO_VAL_INT_PLUS_NANO. All eight values are a whole number of
+>   microseconds, so three zeros go and nothing is rounded.
+> 
+> I loaded both drivers against CONFIG_I2C_STUB under qemu and read the
+> attributes. isl29125 shows in_intensity_scale and scale_available, no
+> in_intensity_scale_available, and scale_available still reads
+> 0.005722 0.152590. max44009 shows in_illuminance_integration_time_available
+> reading 0.800000 0.400000 0.200000 0.100000 0.050000 0.025000 0.012500 0.006250,
+> and no unprefixed name.
+> 
+> Link: https://lore.kernel.org/r/20261102074700.63075-1-arka@arkamondal.net
 
-diff --git a/drivers/gpu/nova-core/firmware/gsp.rs b/drivers/gpu/nova-core/firmware/gsp.rs
-index 341a8b19aa38..ff92a12b2994 100644
---- a/drivers/gpu/nova-core/firmware/gsp.rs
-+++ b/drivers/gpu/nova-core/firmware/gsp.rs
-@@ -25,10 +25,8 @@
- };
- 
- /// The GSP firmware image, its signatures, and the GSP bootloader.
--#[pin_data]
- pub(crate) struct GspFirmware<'a> {
-     /// The firmware image and the radix3 table that maps it.
--    #[pin]
-     radix3: Radix3<'a>,
-     /// Device-mapped GSP signatures matching the GPU's [`Chipset`].
-     pub(crate) signatures: Coherent<'a, [u8]>,
-@@ -39,34 +37,27 @@ pub(crate) struct GspFirmware<'a> {
- impl<'a> GspFirmware<'a> {
-     /// Loads the GSP firmware binaries, map them into `dev`'s address-space, and creates the page
-     /// tables expected by the GSP bootloader to load it.
--    pub(crate) fn new(
--        dev: &'a device::Device<device::Bound>,
--        chipset: Chipset,
--    ) -> impl PinInit<Self, Error> + 'a {
--        pin_init::pin_init_scope(move || {
--            let firmware = request_tlv(dev, chipset, "gsp")?;
--            let tlv = Tlv::new(firmware.data())?;
--            dev_dbg!(dev, "loaded gsp firmware v{}\n", tlv.get_string(b"VERS")?);
-+    pub(crate) fn new(dev: &'a device::Device<device::Bound>, chipset: Chipset) -> Result<Self> {
-+        let firmware = request_tlv(dev, chipset, "gsp")?;
-+        let tlv = Tlv::new(firmware.data())?;
-+        dev_dbg!(dev, "loaded gsp firmware v{}\n", tlv.get_string(b"VERS")?);
- 
--            let size = usize::from_safe_cast(tlv.get_u32(b"SIZE")?);
--            let mut fw_vvec = VVec::zeroed(size, GFP_KERNEL).map_err(|_| ENOMEM)?;
-+        let size = usize::from_safe_cast(tlv.get_u32(b"SIZE")?);
-+        let mut fw_vvec = VVec::zeroed(size, GFP_KERNEL).map_err(|_| ENOMEM)?;
- 
--            let chip_name = chipset.name();
--            let file = tlv.get_string(b"FILE")?;
--            let filename = CString::try_from_fmt(fmt!("nvidia/{chip_name}/gsp/{file}"))?;
--            firmware::request_into_buf(&filename, dev, fw_vvec.as_mut_slice())?;
-+        let chip_name = chipset.name();
-+        let file = tlv.get_string(b"FILE")?;
-+        let filename = CString::try_from_fmt(fmt!("nvidia/{chip_name}/gsp/{file}"))?;
-+        firmware::request_into_buf(&filename, dev, fw_vvec.as_mut_slice())?;
- 
--            let signatures = Coherent::from_slice(dev, tlv.get_bytes(b"SIGN")?, GFP_KERNEL)?;
-+        Ok(Self {
-+            radix3: Radix3::new(dev, fw_vvec)?,
-+            signatures: Coherent::from_slice(dev, tlv.get_bytes(b"SIGN")?, GFP_KERNEL)?,
-+            bootloader: {
-+                let bl = request_tlv(dev, chipset, "gsp_bootloader")?;
- 
--            Ok(try_pin_init!(Self {
--                radix3 <- Radix3::new(dev, fw_vvec),
--                signatures,
--                bootloader: {
--                    let bl = request_tlv(dev, chipset, "gsp_bootloader")?;
--
--                    RiscvFirmware::new(dev, &bl)?
--                },
--            }))
-+                RiscvFirmware::new(dev, &bl)?
-+            },
-         })
-     }
- 
-diff --git a/drivers/gpu/nova-core/firmware/radix3.rs b/drivers/gpu/nova-core/firmware/radix3.rs
-index a3e43fc8ec86..2c8787d5930d 100644
---- a/drivers/gpu/nova-core/firmware/radix3.rs
-+++ b/drivers/gpu/nova-core/firmware/radix3.rs
-@@ -32,60 +32,54 @@
- };
- 
- /// A radix3 page table and the data it maps.
--#[pin_data]
- pub(crate) struct Radix3<'a> {
-     /// The mapped data.
--    data: SGTable<Owned<'a, VVec<u8>>>,
--    /// Level 2: one entry per page of `data`.
--    level2: SGTable<Owned<'a, VVec<u8>>>,
--    /// Level 1: one entry per page of `level2`.
--    level1: SGTable<Owned<'a, VVec<u8>>>,
--    /// Level 0: one page, whose single entry is the DMA address of the first `level1` page.
-+    _data: SGTable<Owned<'a, VVec<u8>>>,
-+    /// Level 2: one entry per page of `_data`.
-+    _level2: SGTable<Owned<'a, VVec<u8>>>,
-+    /// Level 1: one entry per page of `_level2`.
-+    _level1: SGTable<Owned<'a, VVec<u8>>>,
-+    /// Level 0: one page, whose single entry is the DMA address of the first `_level1` page.
-     level0: Coherent<'a, [u64]>,
--    /// Length of `data`, in bytes.
-+    /// Length of `_data`, in bytes.
-     size: usize,
- }
- 
- impl<'a> Radix3<'a> {
-     /// Builds a radix3 page table over `data`, mapped for `dev` to read. May sleep.
--    pub(crate) fn new(
--        dev: &'a device::Device<device::Bound>,
--        data: VVec<u8>,
--    ) -> impl PinInit<Self, Error> + 'a {
-+    pub(crate) fn new(dev: &'a device::Device<device::Bound>, data: VVec<u8>) -> Result<Self> {
-         let size = data.len();
- 
--        pin_init::pin_init_scope(move || {
--            Ok(try_pin_init!(Self {
--                data: SGTable::new(dev, data, DataDirection::ToDevice, GFP_KERNEL)?,
--                level2: {
--                    let l2 = build_lvl(data)?;
--                    SGTable::new(dev, l2, DataDirection::ToDevice, GFP_KERNEL)?
--                },
--                level1: {
--                    let l1 = build_lvl(level2)?;
--                    SGTable::new(dev, l1, DataDirection::ToDevice, GFP_KERNEL)?
--                },
--                level0: {
--                    // Allocate the level 0 page table as a device-visible DMA object, and map the
--                    // level 1 page table onto it.
--
--                    // Fill level 1 page entry.
--                    let level1_entry = level1.iter().next().ok_or(EINVAL)?;
--                    let level1_entry_addr = level1_entry.dma_address();
--
--                    // Create level 0 page table data and fill its first entry with the level 1
--                    // table.
--                    let mut level0 = CoherentBox::<'_, [u64]>::zeroed_slice(
--                        dev,
--                        GSP_PAGE_SIZE / size_of::<u64>(),
--                        GFP_KERNEL,
--                    )?;
--                    level0[0] = level1_entry_addr.to_le();
--
--                    level0.into()
--                },
--                size,
--            }))
-+        let data = SGTable::new(dev, data, DataDirection::ToDevice, GFP_KERNEL)?;
-+
-+        let l2 = build_lvl(&data)?;
-+        let level2 = SGTable::new(dev, l2, DataDirection::ToDevice, GFP_KERNEL)?;
-+
-+        let l1 = build_lvl(&level2)?;
-+        let level1 = SGTable::new(dev, l1, DataDirection::ToDevice, GFP_KERNEL)?;
-+
-+        // Allocate the level 0 page table as a device-visible DMA object, and map the
-+        // level 1 page table onto it.
-+
-+        // Fill level 1 page entry.
-+        let level1_entry = level1.iter().next().ok_or(EINVAL)?;
-+        let level1_entry_addr = level1_entry.dma_address();
-+
-+        // Create level 0 page table data and fill its first entry with the level 1
-+        // table.
-+        let mut level0 = CoherentBox::<'_, [u64]>::zeroed_slice(
-+            dev,
-+            GSP_PAGE_SIZE / size_of::<u64>(),
-+            GFP_KERNEL,
-+        )?;
-+        level0[0] = level1_entry_addr.to_le();
-+
-+        Ok(Self {
-+            _data: data,
-+            _level2: level2,
-+            _level1: level1,
-+            level0: level0.into(),
-+            size,
-         })
-     }
- 
-diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/gsp/boot.rs
-index 4fb1b69ac9d5..ac09b40832aa 100644
---- a/drivers/gpu/nova-core/gsp/boot.rs
-+++ b/drivers/gpu/nova-core/gsp/boot.rs
-@@ -40,7 +40,7 @@ pub(crate) fn boot(
-         let dev = pdev.as_ref();
-         let hal = super::hal::gsp_hal(chipset);
- 
--        let gsp_fw = KBox::pin_init(GspFirmware::new(dev, chipset), GFP_KERNEL)?;
-+        let gsp_fw = GspFirmware::new(dev, chipset)?;
- 
-         self.cmdq
-             .send_command_no_wait(commands::SetSystemInfo::new(pdev, chipset))?;
--- 
-2.56.1
+Applied both to the testing branch of iio.git.
+I added a note on the ABI break in patch 2 being a fix of buggy ABI and
+cross our fingers case
+
+Thanks
+
+Jonathan
+
+> 
+> Arka Mondal (2):
+>   iio: light: isl29125: Report the scale list via read_avail()
+>   iio: light: max44009: Report the integration time via read_avail()
+> 
+>  drivers/iio/light/isl29125.c | 29 +++++++++++++++-------
+>  drivers/iio/light/max44009.c | 48 ++++++++++++++++++++----------------
+>  2 files changed, 47 insertions(+), 30 deletions(-)
+> 
+> 
+> base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
 
