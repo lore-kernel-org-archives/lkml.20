@@ -1,47 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794641679;
-	b=RVZpKA6FqGK6+X//z4RLDb7VgMM/D6RG/wpobTXWBr9XvYeKGPuov0kZeVh5D2O/uG8U
-	 AD8mye+XL09g3V5UhYjOp3FHpQVkwOq9e6YQpui4pmpcGeDmYGe/3oJfoCAhxunOMarlK
-	 lHCKjiMaaotNCrZMS7sEeyxaggTgCZOjjMUtD9u+M46WJRAhEMEkeXM/WWx6OEs3KW3qD
-	 CVSHcw2GIE6yObjRouXl5vQSvLLD8y0zYwrSP63LETd3jhCZBybOKBpwvg2qyMNdK9yFj
-	 ULRl6UZxo4JNbvrjE7eVoEaxSp6t6hld5THhydJoe7Hpj01p4Stbeye8z+j5bSTTvVg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794641679;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=uEokkUGALWPMex2Voc4BEuMdUXr/l2om92W9ukshPYg=;
-	b=dOJ+rCASlcEcr5AzD7x02upA10m/yP+O9A7zd5iaXPxmPjYYfx0crStEnZSqwURhN8EE
-	 0GeBpBmbvlTCJ/QKz+G0YR7s7+KD15vcGfwJFwNHf2hfwlHfFKsYTIUDdqWXx4n2TulVD
-	 mKvLflams5WrCFXDTo5RDwAvIVEVS0sflbkgaQSDHrp9cSuQcLbRyYQ1Ti8kT6DuAyT0h
-	 Q1JB0QhEuYVdmGxGIWL30A+zM+MW6/dYIr8hoiofUwzlmcMatfYXbxhPGHPQZYgb9c5Wr
-	 ZCV2wFk4FK3O5eujsFAmbUIHYbm+5lixwr4ObXfrjdpbNWNbmyHGR/b7BYBVH/ldoEg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FlsL5vIv;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794641694;
+	b=B63jBZOKYN6eplNaEIodVbJD+XU64RUdo68IjN9rz4qSVsBDqTgXakB+VVf14WyZ3zou
+	 MSVDvbbrNGgbC1DCQ2Z2dKPDdeUmIEQjsZQEgz84S5Kc2IZxQW4Qy6RFQ/qKUDC2qE+vQ
+	 jnoI7FqBy0JEXjCViWnFfXmqzn2P/v3b3TQ5wiqXZZ5Jo7XmBw8RZQ9tBCBN9gHuWHtt4
+	 ySitYQzV1eAMIcYp0hici1zp4vCA0EYDs3vPEilZ+AeBIt4TvVyKxiWswtC08b0ndugyH
+	 KMV09xGxFbewroexUmNIOwzl5VZ9jX+5QF/l9ppq+GQTxsTtC+JCD20Z8rRjCsnsohA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794641694;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=GRJntM954CwnT8rI30qD6SSnpdFLcDqPLA4DnHTwOM4=;
+	b=TXwu8j/1TNAN+xerc76evNgh/CGWPsg5W38wxxn43Sr2O1ggIn1Jpi1G4rxcRHiVK86+
+	 ZpL4p2pk8p0HQa1VOuSHs+3iLbg36TPabeHegSZxMvUQAttvOcfKDem60GXGIR9watMgz
+	 a7hu+rp3Ev9PHqCK2TG4X26P9dQuU8KjetlGKVM5L7wE9cLDLweZWSgRrpEhWd3FnBGkz
+	 AgesHxAjCOALr+/EcVUjCRRcATsy/lm7Byc6TBa5Qlpmbtp0loAZf/IINIk5cK+3c4AGT
+	 jNZsugts8UYZ+r+rbWB9PFCjXopT923mZ0CqTLrA8WsvJqEN3CN5EUZ3Wbeh0ZJmgQg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i8IeW9Hg;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8A2C606A329;
-	Sat, 14 Nov 2026 07:34:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E874606A329;
+	Sat, 14 Nov 2026 07:34:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FlsL5vIv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04F8B1F000C4;
-	Sat, 14 Nov 2026 07:34:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i8IeW9Hg
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794641693;
+	b=3D5wUYqQ+OkVlx1Re5w59KKwQcohM6uFogNv+JgJxT7E5m+Pp1u3gSU/7Sdhe6I1Eyzt
+	 042c0vF417+9GRz/3dugnRZX0DE7WbJkdYB+yypFxukDgjXlnSZ88lJEfHJfp/aMaNTZ+
+	 pkprHJOcK3yKOMBOgZBIusRghp2PhJtNx9OK+XIjvjE8lXOMHlDMcHQlJNukn0F0SpduI
+	 YVEZuBSItVoKyats6k1lAy0p5LO+5xztnsORGjH1vmz/v3+uB9QDc7zJcjXAnD9qU2fvu
+	 O4y+7y40ZgZ2zOIGtwwzZOuXXCnQazeF+xcwZXPfAQM6ckIeLGxDz5A4gNsA5F9XpYg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794641693;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=GRJntM954CwnT8rI30qD6SSnpdFLcDqPLA4DnHTwOM4=;
+	b=dxHH+5IHzcKnLZ9ZGCff8sJNFT6LpnIpPISXRWmUN5mo+FxyEaydlWcDI09gYKm6wfhQ
+	 vOblMfYtgsP9mdIkP9riakgUzUuZ0lO3WRPPB27vYAzYYHi+c8sfrCiLrwr0rTxmI3+0D
+	 B8RpG//BYpa1iEuC0HtG4U7L2CNLcCCeNk4tvS0DIDwxGf61YREwFXP8oN9vJo82zz6oA
+	 IIZfD1DeCh0rak/nfvJnljbYfwqnZQVobIDr5v5aAaq8sHfd9Pz3ZRis/h0tiV6h9yHo9
+	 X20DjO5e1KeIW0iPt4L35fwsYtwq4guVwrz8icNCXcLeZK5nys2klgIZ17oS/IuNoKw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 043C31F000C8;
+	Sat, 14 Nov 2026 07:34:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794641678;
-	bh=uEokkUGALWPMex2Voc4BEuMdUXr/l2om92W9ukshPYg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=FlsL5vIv1WenXpL7fXrA2kwbY7mqvf4afQo4lgUw+vdE9EN0aY2UPCLtjlWK4qn/F
-	 Ut06NcqVqn3SpiJBfkQluCe/+31O4S7z2ZRHjNQyF/3NOyWGglAp6rnGNSo2ndIB4B
-	 DHDlkYPkqtSIpaAlu1KaipI6wKhXHuEPmyEhU4BCMmFPodnFeHYntMPnwmxla5cjuw
-	 zLrkRnqkQ7qRPIw+QVjOtuPSoJ/oPKZUqyE56B5sfPwI/d71jVlhEYiMhCVFC8slTw
-	 t/XCpWtClKSGRvKqNCUrtdL3DcWLGcTQzYvDePUe8uJqcImGeI8MG3eIsXBQqIMaD/
-	 vEqgALhGSY8DQ==
-Message-ID: <1a94e854-84a5-43a2-9fc1-1de9acf03b9e@kernel.org>
-Date: Sat, 14 Nov 2026 08:34:31 +0100
+	s=k20260515; t=1794641693;
+	bh=GRJntM954CwnT8rI30qD6SSnpdFLcDqPLA4DnHTwOM4=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=i8IeW9HgAaJuHDn47+MhDCnlRtP7w0eYmOjX/YReZt+TIujp+97qDsKAFil4iKeWi
+	 pJJVGE/OT+n9XW19rOz7FIFzHVKVYgEjl/Yn8mEbVythh1YwAC7eAG53UBG35Uwne8
+	 1dVaKX9mXSImhxbz76nQmyA2nFkBaCVmUg+QoWk83Zu9l4g9qM4ppcj9wxL4WukFvT
+	 xDY3w26BpKGIxqQJealnvXTwkEVrL43X5EXRKTGAUatrzA0IOwMwC0XnAyHxuPdtdZ
+	 GOC9KCPAHpN1BEBeJzbibokICsoPgHb7NCbWq7cEG/2ISOF99zSrrmDnB7sEEfrZcj
+	 Zvgr9jaa6M92Q==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 5878D49CCA;
+	Sat, 14 Nov 2026 07:34:52 +0000 (UTC)
+From: Jonathan Bastari Thamrin via B4 Relay <devnull+thamrinjonathan.gmail.com@kernel.org>
+Date: Sat, 14 Nov 2026 14:34:26 +0700
+Subject: [PATCH sched_ext for-7.4-fixes] selftests/sched_ext: Measure
+ rt_stall runtime over sleep window only
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,75 +83,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] dt-bindings: qcom: document Asus Vivobook 16
- X1607QA
-To: Daniel Carter <yass27106@gmail.com>, andersson@kernel.org,
- broonie@kernel.org, srini@kernel.org, konradybcio@kernel.org
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- vkoul@kernel.org, tiwai@suse.com, perex@perex.cz, lgirdwood@gmail.com,
- pierre-louis.bossart@linux.dev, yung-chuan.liao@linux.intel.com,
- abelvesa@kernel.org, linux-arm-msm@vger.kernel.org,
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <9032798812284dd2842cbf003c75cc0b@gmail.com>
- <2c4a807496c04047b6d5735e3946dd16@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <2c4a807496c04047b6d5735e3946dd16@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261114-scx-rt-stall-v1-1-4188a9378067@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM0QrCMAwAf6Xk2YgdZRV/RUSyLnWBsUlSRmHs3
+ y3z8TjudjBWYYOH20F5E5N1aeAvDtJEy4dRxsbQ3breex/QUkUtaIXmGRP52Ee60xAytOSrnKW
+ euydYmnh8cy0ur4rxGvDvXsfxA+cLDU93AAAA
+X-Change-ID: 20261114-scx-rt-stall-ca1767a8ab4f
+To: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>, 
+ Andrea Righi <arighi@nvidia.com>, Changwoo Min <changwoo@igalia.com>, 
+ Shuah Khan <shuah@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ "Peter Zijlstra (Intel)" <peterz@infradead.org>
+Cc: sched-ext@lists.linux.dev, linux-kselftest@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+ Cheng-Yang Chou <yphbchou0911@gmail.com>, 
+ Jonathan Bastari Thamrin <thamrinjonathan@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794641691; l=3171;
+ i=thamrinjonathan@gmail.com; s=20261102; h=from:subject:message-id;
+ bh=64ICNfU8iUX1UX4sbMTXozzlz4bDJsKLO9wf23ALotc=;
+ b=7es2OxIPB/1qY7wtNWGRVEsLn9zmcDTLh5smtHVSoGjQ0sjYgYAWKrh4J2Ie0dTzNFlcQWw7G
+ mKc8sNLNOnfD3v3wSuqake8zPPoh17U4mrikPpmFcwO7CyBcCkARc4u
+X-Developer-Key: i=thamrinjonathan@gmail.com; a=ed25519;
+ pk=mr0q5PZVaUIrv8WvTxIfK7QVcAiRSYI8hOByBQL1ZRo=
+X-Endpoint-Received: by B4 Relay for thamrinjonathan@gmail.com/20261102
+ with auth_id=1383
+X-Original-From: Jonathan Bastari Thamrin <thamrinjonathan@gmail.com>
+Reply-To: thamrinjonathan@gmail.com
 Content-Transfer-Encoding: 7bit
 
-On 13/11/2026 21:33, Daniel Carter wrote:
-> Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
->  1 file changed, 1 insertion(+)
-> 
+From: Jonathan Bastari Thamrin <thamrinjonathan@gmail.com>
 
+In sched_stress_test(), the parent can be slow to start as it has
+to wait for the DL server before reaching sleep() while the RT task
+still runs. The runtime of each task is read as a total since fork
+instead of during sleep(). This adds extra time to RT and makes the
+ratio inaccurate which causes flaky failures on CI.
 
-Not much improved.
+With the parent pinned to CORE_ID, the RT task had already run for
+~0.95s before sleep(), so it was measured at 5.69s in a 5s window and
+the EXT share dropped to ~4.2% against the 4% threshold. CI has seen
+3.0-3.9%.
+
+Measure CPU time right before calling sleep() and use deltas to get
+an accurate measurement window. With the parent pinned to CORE_ID, RT
+measures 4.75s and EXT share stays between 4.81% and 5.57% over 20
+runs.
+
+Fixes: be621a76341c ("selftests/sched_ext: Add test for sched_ext dl_server")
+Link: https://github.com/kernel-patches/vmtest/issues/458
+Cc: Ihor Solodrai <ihor.solodrai@linux.dev>
+Cc: Cheng-Yang Chou <yphbchou0911@gmail.com>
+Signed-off-by: Jonathan Bastari Thamrin <thamrinjonathan@gmail.com>
+---
+ tools/testing/selftests/sched_ext/rt_stall.c | 21 ++++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
+
+diff --git a/tools/testing/selftests/sched_ext/rt_stall.c b/tools/testing/selftests/sched_ext/rt_stall.c
+index a1552b38a6e8..0c6403d25298 100644
+--- a/tools/testing/selftests/sched_ext/rt_stall.c
++++ b/tools/testing/selftests/sched_ext/rt_stall.c
+@@ -149,7 +149,7 @@ static bool sched_stress_test(bool is_ext)
+ 	const float expected_min_ratio = 0.04; /* 4% */
+ 	const char *class_str = is_ext ? "EXT" : "FAIR";
+ 
+-	float ext_runtime, rt_runtime, actual_ratio;
++	float ext_runtime_start, rt_runtime_start, ext_runtime, rt_runtime, actual_ratio;
+ 	int ext_pid, rt_pid;
+ 	int ext_ready[2], rt_ready[2];
+ 	bool ret = false;
+@@ -201,6 +201,23 @@ static bool sched_stress_test(bool is_ext)
+ 	if (!wait_ready(ext_ready[0]) || !wait_ready(rt_ready[0]))
+ 		goto out_kill;
+ 
++	/*
++	 * The parent can be delayed before reaching sleep(). Record each task's
++	 * CPU time right before calling sleep() so only time used during the
++	 * measurement window is counted.
++	 */
++	ext_runtime_start = get_process_runtime(ext_pid);
++	if (ext_runtime_start == -1) {
++		fprintf(stderr, "Failed to read %s task runtime\n", class_str);
++		goto out_kill;
++	}
++
++	rt_runtime_start = get_process_runtime(rt_pid);
++	if (rt_runtime_start == -1) {
++		fprintf(stderr, "Failed to read RT task runtime\n");
++		goto out_kill;
++	}
++
+ 	/* Let the processes run for the specified time */
+ 	sleep(RUN_TIME);
+ 
+@@ -218,6 +235,8 @@ static bool sched_stress_test(bool is_ext)
+ 		goto out_kill;
+ 	}
+ 
++	ext_runtime = ext_runtime - ext_runtime_start;
++	rt_runtime = rt_runtime - rt_runtime_start;
+ 	/* Verify that the scx task got enough runtime */
+ 	actual_ratio = ext_runtime / (ext_runtime + rt_runtime);
+ 	fprintf(stderr, "%s task ran %.3fs, RT task ran %.3fs (%.2f%% of runtime)\n",
+
+---
+base-commit: 0021f17128de5dc0b19f1a523f448df2440d8088
+change-id: 20261114-scx-rt-stall-ca1767a8ab4f
 
 Best regards,
-Krzysztof
+-- 
+Jonathan Bastari Thamrin <thamrinjonathan@gmail.com>
+
+
