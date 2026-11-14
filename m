@@ -1,103 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.181
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794631816;
-	b=wY+/1/xB6P2/9fyX0L/XnXgOESA4pbXBNqso8yaJ8hAq/m/QjCjluxIAMkNwS0maDVq3
-	 7FCzQqh5yuQ+sWNl4iSf3w6KMnV4jCERzJEJHrkcifsWPjIfsH7ric9vDXGQHDA71MMAd
-	 9++1faiZkcpy0rpQ76xBWNfYoCMwB7O7F+y8sGC1IRi+25z8Nc30sTB3Zar0j4eVMFfIw
-	 JgRBeDUrOCRbX6b7KYF10GR48qKTk+zikAZJ/TQhXtfKosbz3nTrgoLUJNAcA/1F+Xgg2
-	 T4UUKyvYZxQetgXj4MqVdQ3DzdFoIOA92G2EfK+isI6Z0r1zreizXGJ55E0rAk8VuRw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794631816;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.173
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794632250;
+	b=u19cvVOvhkJkAPTjy585yWQQkprGp8JqCZFtaLkNPm4ZBixJ486qVR6zSbHQ87JNhUCi
+	 AAP8FNu/yVJc/8hagart5odWkGdG5wSAD7elU0UzKMO9eFltiQUse4Q30qAqyy8UlJG9J
+	 Hep4GznqNJAcV9B0b3SqhC5S94qxRD4DTUW+qh0UBwoFTlsbK3bbrbKMZHXsCaBwsCtSC
+	 18vaiRmRd/W7kb09xix0bQpMTtT6qBXjz2plOzLJHio1eKjn9utzGeiaXitnnxM67b5oZ
+	 a41WrFfXJiMaBFVTJ63IeZoLqNoUr/ngeLPjHpdUHvVcLHQ9W7XbF6vOkpHP0WoWv6A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794632250;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=fl1s83XUSSgJEmjMrzHDXuBkyCkMWW9Bq4zRv3Gu3C8=;
-	b=2aUSlkazWnCehnhnxY0V5DRs9RfmaWZonwG5d81zQuE/osl7Yfe/YVhHtcXC5piwFVai
-	 l8fOXBwSkg3gqgTCqU93SKTCTvBfd4tGkKOFeyylDEoQ+oFCuT4NZzrO91lJQqUNa8p3a
-	 P98OQkAdo/QsKE5ghPQgyZLSHixtHkjFF0CbOxAQiGyLgS/iorO6eVGLISlLQxJFtBtjA
-	 bXGFA9AEj3W2aOrZSf7FIbjMK9wcZ6mUtPpT4bylklA/L4wt3Uq5749cs6eAVe3kZ8lhB
-	 /aROprTNqk+Yiq+7WguGXdltx9M7yYnMb6urwAPWv7aGZIp1GH9LP0O9z/jelcbkR5g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=mAWpV1M0Nu9QZUQqIslKLnJ4FSbGHgAq0csTQNUImDg=;
+	b=mOQ1caWRpg7yv5Oo9kfo8SUYQeNMMgh9zBBRlOWCxqHaoxzYO9ZqYClLnPtGdl1Nr5FX
+	 L3upMOM0+82Tx7SQSvnxk+a/NTXq1wr+5aafgItyzjclWLECLg17OXNdUW7XpaeohBgTV
+	 t6SBXluOt+knPyQMKSFQ0XJ04a6RtsuNOQJ0YPvp6KDRQ4v9yW+7NGzAxbvOjBd/Qw8ww
+	 0ZGwetEZlGEEvl0QFlgEk2ozfqNabXj0yOcXhCYYxfrZQDlXmWFFINWWBtlGjxgUeMueu
+	 6PkxOmOriBRv44R6k7THHI+fadwkgDEPAMvxTaIgrXgnl3w+ApAI4TbtaNU49Yl8xow==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JphtRj7f;
-	arc=none smtp.remote-ip=209.85.214.181
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wDniHRqv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.173
+Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com [209.85.167.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DF10606A323
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 04:50:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DF10606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0857A606A32D
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 04:57:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0857A606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JphtRj7f
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2eac4936dfdso3169085ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:50:16 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wDniHRqv
+Received: by mail-oi1-f173.google.com with SMTP id 5614622812f47-571888655f1so275861b6e.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:57:28 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794632248; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cIFT5IQmloOytc9yUzPLBMZFSXuhdSM2xYIjZ5M2yZyfAF1wO9J2nE6dv051UhUYnd
+         rJmtoSZbKafSEPmBe2vWY5E+GbfnveOqxoVnOo24Mw2XrSgQ+wjB9fTSaiFF+MMHZK7T
+         2EM/qc4pcuCFBS0RwZGY0nOdJ+mOXYU3hyHng8ObHKiEyVh/1zB6mpyw0MmnksK1g/Ke
+         Ie0AO7y6bNY1SIT5V7Zd3x625wv+yCjijqmoBTxvJizeGSvmS9CIA216EcHRopDrCePT
+         h95vJUJY4UirrQ3ZeLlMRMHbQ7vwjOsg2J2QD2VekwCsXYkaUM9HU9L/hlS78jxt51Aq
+         QPxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=mAWpV1M0Nu9QZUQqIslKLnJ4FSbGHgAq0csTQNUImDg=;
+        fh=hPXwyRikmibFPpuEpWC0VuWxI782pFnjXwjGkJfM2tc=;
+        b=SNGpMCtQY5LjWL6AmuPPsnPd8rISLJuGe7TjpAxC0vKvCkTKnuhVzEhQ7mOu9w+Slf
+         1P8LDaNUBctqAtTzbikiujvJhb6aOgjJCZ83W9jJKTkjzjmtnEcMStT4fqRcZHgiv8qR
+         ocHwUfEKzdCuvxb13iUbChkTjvLzkJybMzNfrZkt7ncgRXje8davduri5PTmTd68SnUG
+         UEKCQneXaKvaQYm4eRxHOp5ha78j65z898fqzF3H4FJhjyH1ujYM9luTsvxGo7aWM37F
+         TstAAo93RY0wJnG9ZI+fELDizs6Vi2P2gQ6FRYBMzoQP5bgP1BZxi5ob0BeGCtrxIaTa
+         FpEg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794631816; x=1795236616; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fl1s83XUSSgJEmjMrzHDXuBkyCkMWW9Bq4zRv3Gu3C8=;
-        b=JphtRj7f3HVMIULAQ8ELkcLLXpYn5oqFJ116GY0ZMR1bKvBPTecqskk4D2jpXcG92T
-         EDGrbgMotD340kI6uOr3eO3CWZfJZuE7VAzeEl7/KG5zkNAPJ9HAhNPoh86EoyhhrEXi
-         5ZpL2TRGUh98wONaOenjy/2VWbx4uj/v8PlsCVnW4lnZv6dI8c/6qSyqFUmg+mjhwish
-         /oIF4xvvSwFMYzydbwEFZ6FW5ADFR1zP1D9aGIltptILATSilRyxWSajaic7xMf0fB5k
-         rXDhak7HgctYDlLHw5iuMT1I6VLV0kXDmn3ihKkFC8K1ZneDwr9k26bBsR9wJ08+n19J
-         H4Pw==
+        d=gmail.com; s=20260707; t=1794632248; x=1795237048; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mAWpV1M0Nu9QZUQqIslKLnJ4FSbGHgAq0csTQNUImDg=;
+        b=wDniHRqvqInTmMs5XREYzCcMfA+Zht7UInOa08L1cPTi6JGmRJ0HDX09HCQ5oyAJWb
+         lfh7lHAiysWJ0zQWo02uYzPCe1zMkemAAWdaS7ghcTEY8ab9rvT7HoyH4KMzyyavvYSf
+         BxUEEp4xRA5d5cmFr7q5aMn/KJv5wQ7fvpS2EAwtpfkgJWFTDVdhzpOZNixGPpP9FsGV
+         SN49dRGAGqFX0liNYcWamL3PbxORIKQYUh8nchu0VosH/xaNEIXiQPcle81ioxaQsNRT
+         468XlL8gQks/13TOPENBe1O57EwFst+ham+VKI/soCBRcacPN4TYkE6dSOAA9mavgs3S
+         4OPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794631816; x=1795236616;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1794632248; x=1795237048;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=fl1s83XUSSgJEmjMrzHDXuBkyCkMWW9Bq4zRv3Gu3C8=;
-        b=VCaJ1b/1Jid3qfhIzqZfpWt0L2loPxoWHOuaL/8PkKoOZSHJRkcweE1SDGZwopURTx
-         8bhWVnib9XkB3BWz6axZwDz+QKWkwPEUYwwxHKCEE2AnO54fMAAaCDo9Be0x9dF+vi/A
-         ex2sYGgdzWTNGFJ1OKD1hbnEtvOItGL4UvR8crYs4jcERoXC9/CPHIiyTfNBLq9MNKYj
-         tBCZQ7MiiJwC8n1RXSvxjSoA5kGhhAd+5KsfQZ+/uOkIRtpLlN+7kf3gW1mGfiX7n92b
-         CnoJ2jCs6JIIwFy1Ocwp6jyNjTlBMlzbcxDWEwUQQaSNg+QWdRL1y2T8U++ssw+kTS9g
-         skHw==
-X-Forwarded-Encrypted: i=1; AL+hErEg8CoQFAioHpxr0CC1YyJn8wLlDiZRkIYvijglvKW1vhgsUjbEWuLdvGJfs8F1WBc+07Qiw7Kv9MtNdY0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+IqwxrGIk5njt9qqrX9YqOwp0abLJLj7TzQD725W0WZ1+IPMOM
-	+WeAObpaibnWNnOlzWAEdb6GlqWwuf3ttMKLHxH8t4m/5hn3DOqG9lpO
-X-Gm-Gg: AYBFou2d3wB9ly1nYTKQN7jTFRqS39dSM40hHZ15nRZUSZjGdQBKICJ/tdMNBYmXyLf
-	7t0Rm5JhocrpwpU4j76rXJ/cvfFHCb4n2lNOgzYKezFq6x3NunS37fCGbqMPHuLj0Btb5QUiTCY
-	LyaZigA62Bta/d1Veej7XNnE3/EII98WXPXSlXnIXOUlTmT5eI6oe++hhyuz0IPZpX/0kIHsMT7
-	pFi3JavGfbwN1VkBFj0dSNAFBdVPCAKyGFTVIvv+PVClsL/SlG8JrqcENPQs6Fml6ZdPZfccZ4M
-	RwZuHo9VOnAb8VgJR3uD4EB/aibzkrp8Kk62GZuVYSYen3OGEDuKBKozTbRkjmnfVoQ6tQFQbh/
-	B+e3IFi4QTGWwNOurDarvcxLsIy53cbEVD18xJklzq6sozUz4OLVOx2Gk/rRzUqKSpOkS2/NlIH
-	KswA3qohP6xsFyKtLvrWxbUBwc+VAGCFYJc3PrGdBcjxy5Z0E3eN1rbMHsAp+/+RDTu1kyx6YVv
-	Am7atZdyAFLDXAB3i3MEx9JuIEQ8TKEjiz1b2nYTLRxqKAxEae5HHGjsJecG/DMCIeizEkgsE5J
-	BfcYRkfxLsQlq6HjKpiVuTOoyN7fNKyjqTd7jD3Z9ojrZ80QLQwLG/N4CRpgJxNWkKU8NQ/dyw4
-	NrkgbVA==
-X-Received: by 2002:a17:90b:1d47:b0:3ac:9e76:aa96 with SMTP id 98e67ed59e1d1-3b1b09f966bmr6902083a91.3.1794631815820;
-        Fri, 13 Nov 2026 20:50:15 -0800 (PST)
-Received: from claudebox.iyengar.cloud ([50.39.139.68])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197d04336sm12649072a91.7.2026.11.13.20.50.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 20:50:15 -0800 (PST)
-From: Arun Iyengar <aiyengar1990@gmail.com>
-To: Sven =?utf-8?q?P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Cc: Jacob Chen <jacob-chen@iotwrt.com>,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-media@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, kernel@pengutronix.de,
- Detlev Casanova <detlev.casanova@collabora.com>,
- Michael Tretter <m.tretter@pengutronix.de>, lgs201920130244@gmail.com,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Subject: Re: [PATCH v2 00/17] media: rockchip: rga: Add multi-core support
-In-Reply-To: <20260916-spu-rga3multicore-v2-0-23aa2cb74e61@pengutronix.de>
-References: <20260916-spu-rga3multicore-v2-0-23aa2cb74e61@pengutronix.de>
-Date: Sat, 14 Nov 2026 04:50:12 -0000
-Message-ID: <179463181227.3521962.17897555296763209132@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+        bh=mAWpV1M0Nu9QZUQqIslKLnJ4FSbGHgAq0csTQNUImDg=;
+        b=zw7fwJ/+ohlubGRBdKftHDKB6MRNgP81v3Hh/3y9QlXhbYwLdv8AqtL7mnuNgNED2z
+         TnU66w6TKACSV1pbuyTtJ4gxAMBm71mDmoUNpOnKjNVa4Qcd2ZGgGtR7Zk/4hIv84x++
+         F6/hFe3wv5dw4XNhykcyUSh5xFuIFQNs/dUT0FDPyhUKRPPH7FLwmvrkZLPz8uC9+XQ2
+         Z0IFioiM/05jzWX27uDBUCtHBFpPEJFOsOGBooQfZcLihXi13r9uTdyN7WWdhJb7HzhV
+         vCQXS7WTAYCEYCxOyc/609EcxwjA+op08Jlw7KT2nPy/69B7Cf13wXmsIz9y/uz88uVh
+         GKKA==
+X-Forwarded-Encrypted: i=1; AL+hErEpwNPMEIy4yCQ9I7hDCopyFCbm9p/Yvz4QwY0/whkpmF60y4WEWOaOqpD5hJvxINiEv2HqkQFj4KLtXWE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/wYxmydTM79BWBo3BoGb2RS6MVTE6bNYzUEn2QG/uO645C527I
+	9vrjMEdQ2D4gcDwiQcTRSnZpUeR8KvgM498Axx2JznsXrOyk5nOFrfD6qYAIW0oks8oqq8MzxBb
+	pZnV4bxppJcX2k7Oee6+aaD+cNjfcJBnrn6PzSIgTyQ+NhAs=
+X-Gm-Gg: AYBFou2fqLj5q9vIFTw9zpchV1HaRSSET7ZE9/Hk5+QEYCyNqHQpeDsLUQwEd7SwYrP
+	3UOkfJzWlE4IuKAzQUF89oTOL5hq/pzqAIr/JxwpVie1MVVFNRTQpbEwyuqz6BInYutFcO/tpHK
+	6xOmC6eV+nYX9vsSSfvkF24PbLA7Ch9JMiwg5w4QgkWD1Ene1gOCU8LQNT0NVECa7AdNoQGGsW8
+	3+TwuXSt6Ht0DV/YQGHNstotLuCKRdyesi12y3NYLijR7v6w6qR9DzpH6nuUjRcSAYBJYmTf/KZ
+	9pr4A8/h3rve7OLWLnp9MDhtwIckTqC4amGDr2C93RPojj2yjK0+eWOsq8R1aKg7/0quTa2UF3/
+	es2UPn4gvw92z49LscMnuci0WQljM0lQphBD+2LU4gPLBZVpgABhPd5g5HxMTgKIH05ySH6HFwi
+	/1Vm5lbi8ZnPDY0YRE
+X-Received: by 2002:a05:6808:831b:b0:572:6ee:8b6b with SMTP id
+ 5614622812f47-57206eeac9emr372158b6e.66.1794632247852; Fri, 13 Nov 2026
+ 20:57:27 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,20 +105,153 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261107174215.15818-1-swizzguy76@gmail.com> <f585562b-dbdc-415b-a493-475cf545a092@linux.intel.com>
+In-Reply-To: <f585562b-dbdc-415b-a493-475cf545a092@linux.intel.com>
+From: Toast <swizzguy76@gmail.com>
+Date: Sat, 14 Nov 2026 10:27:17 +0530
+X-Gm-Features: AclHuK8QlfT2uRLD1uAa8XnAGmCLr9nS6RezPS4g9Ri_LHUcmb3SIj8Cm9mcaUQ
+Message-ID: <CAHBKUQYt-GjFnTNZRFbwo5DCf9hzN=sBW=XSwcGhEUKvCf-t9w@mail.gmail.com>
+Subject: Re: [PATCH] accel/ivpu: Disable recovery work on probe failure
+To: Karol Wachowski <karol.wachowski@linux.intel.com>
+Cc: jacek.lawrynowicz@linux.intel.com, jeff.hugo@oss.qualcomm.com, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	ogabbay@kernel.org, andrzej.kacprowski@linux.intel.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Sven,
+Tested on Meteor Lake (Core Ultra 5 125H, vpu_37xx firmware 20260219)
+on top of v7.4-rc1:
 
-Tested on an Orange Pi 5 (RK3588S), v7.3 with rga/ and rkvdec/ synced
-to the 7.4 merge window, all 17 patches, together with Detlev's rkvdec
-multi-core v2 on top of your two v4l2-mem2mem patches. Both RGA3 cores
-bind into one video node, and 4 parallel NV12 to BGRx jobs complete
-with interrupts on both cores. rkvdec runs parallel jobs on both
-cores through 06 and 07 (2 parallel 4K HEVC streams: 202 fps against
-111 on one core, bit-exact). No IOMMU faults or timeouts.
+- kexec from a 7.0 kernel and from 7.4 with the NPU runtime-suspended:
+  both runs hit ATS_ERR during probe, recovery_work was not queued,
+  probe failed once with -ETIMEDOUT, and there was no oops
+- FLR plus rebind brings the NPU back
+- debugfs force_recovery after a successful probe recovers the NPU
 
-One cosmetic thing: the core bound first prints "HW Version: 0x00.00",
-probably because the version is read before that core is powered.
+I couldn't hit an error IRQ after ivpu_boot() succeeds, so the deferred
+recovery in ivpu_pm_enable() isn't covered by this.
 
-Tested-by: Arun Iyengar <aiyengar1990@gmail.com>
+Tested-by: Daksh Sahni <swizzguy76@gmail.com>
 
-Arun
+On Tue, Nov 10, 2026 at 2:03=E2=80=AFPM Karol Wachowski
+<karol.wachowski@linux.intel.com> wrote:
+>
+> On 07-Nov-26 18:42, Daksh Sahni wrote:
+> > If the NPU raises an error interrupt while ivpu_dev_init() boots the
+> > firmware, the Buttress, MMU or WDT IRQ handler calls
+> > ivpu_pm_trigger_recovery(), which queues recovery_work. When ivpu_boot(=
+)
+> > then fails, the err_ipc_fini path tears the device down without
+> > disabling recovery_work and probe returns an error. devres unmaps the
+> > register BARs while the work is still queued or running, and the work
+> > faults on the first register access:
+> >
+> >    BUG: unable to handle page fault for address: ffffcfc6680200f4
+> >    Workqueue: events_unbound ivpu_pm_recovery_work [intel_vpu]
+> >    RIP: 0010:ivpu_hw_ip_ipc_rx_addr_get+0xc/0xb0 [intel_vpu]
+> >    Call Trace:
+> >     ivpu_wait_for_ready+0x155/0x220 [intel_vpu]
+> >     ivpu_boot+0x9e/0x270 [intel_vpu]
+> >     ivpu_resume+0xa4/0xd0 [intel_vpu]
+> >     ivpu_pm_reset_complete+0x2c/0x90 [intel_vpu]
+> >     ivpu_pm_recovery_work+0xf6/0x140 [intel_vpu]
+> >     process_one_work+0x1da/0x3c0
+> >     worker_thread+0x1af/0x340
+> >     kthread+0xfa/0x130
+> >     ret_from_fork+0x2b9/0x380
+> >     ret_from_fork_asm+0x1a/0x30
+> >
+> > The work dies between pm_runtime_disable() in ivpu_pm_reset_begin() and
+> > pm_runtime_enable() in ivpu_pm_reset_complete(), so the PCI device is
+> > also left with runtime PM disabled and never autosuspends after a later
+> > rebind.
+> >
+> > Commit 5eaa49741119 ("accel/ivpu: Prevent recovery invocation during
+> > probe and resume") stopped IPC failures during probe from triggering
+> > recovery, but the IRQ handlers still can.
+> >
+> > Call ivpu_pm_disable_recovery() at the start of the err_ipc_fini path,
+> > as ivpu_dev_fini() already does, so the work is flushed and cannot be
+> > queued again before the device is torn down.
+> >
+> > Reproduced on Meteor Lake (Core Ultra 5 125H, vpu_37xx firmware
+> > 20260219) by kexec'ing with the NPU runtime-suspended: probe in the new
+> > kernel gets an ATS_ERR Buttress IRQ during firmware boot. With this
+> > change probe still fails with -ECANCELED, there is no oops, and an FLR
+> > followed by a rebind brings the NPU back.
+> >
+> > Fixes: 852be13f3bd3 ("accel/ivpu: Add PM support")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Daksh Sahni <swizzguy76@gmail.com>
+>
+>   Hi Daksh,
+>
+>   Thanks for the report and the thorough analysis, it's correct. An error
+>   IRQ that fires once ivpu_boot() has enabled interrupts can queue
+>   recovery_work during probe, and nothing on the probe error path stops
+>   it.
+>
+>   As Sashiko pointed out, disabling the work on err_ipc_fini comes too
+>   late. By then recovery_work may already have run concurrently with
+>   ivpu_boot(). It can also race with a probe that succeeds, which you saw
+>   yourself in one of your runs.
+>
+>   I'll send a v2 that addresses this along the lines you offered and
+>   Sashiko suggested. recovery_work stays disabled for the whole of probe
+>   and is enabled in ivpu_pm_enable(). A recovery requested during probe
+>   is not lost. If ivpu_boot() fails, probe unwinds with nothing pending.
+>
+>   If  probe succeeds, ivpu_pm_enable() runs the deferred recovery and
+>   waits for it before issuing the initial autosuspend request. The NPU is
+>   then reset before first use, and the autosuspend no longer lands while
+>   runtime PM is disabled, which covers your second note too. The patch
+>   will keep your Reported-by.
+>
+>   I'm running it through our internal CI first and will post it once that
+>   passes. When it's out, could you test it on your Meteor Lake kexec
+>   setup and reply with your Tested-by? Once I have it, I'll go ahead
+>   and merge.
+>
+>   Thanks,
+>   Karol
+> > ---
+> >
+> > Notes:
+> >      Tested on v7.4-rc1 (d48723711bae).
+> >
+> >      Two things this patch does not address:
+> >
+> >      The trigger is kexec with the NPU runtime-suspended in the old ker=
+nel.
+> >      The driver has no .shutdown hook, so the new kernel's probe sees s=
+tale
+> >      NPU state and gets ATS_ERR. A cold boot doesn't hit it. Whether th=
+at
+> >      wants a shutdown hook or a reset at probe seems like your call.
+> >
+> >      In one of four runs that hit ATS_ERR, probe succeeded while
+> >      recovery_work was running concurrently. Probe returned 0, but the
+> >      autosuspend request from ivpu_pm_enable() landed while recovery ha=
+d
+> >      runtime PM disabled, so the NPU stayed active until first use. Not
+> >      allowing IRQ-triggered recovery until ivpu_pm_enable() would cover=
+ both
+> >      cases; I can send a v2 that does that if you prefer.
+> >
+> >   drivers/accel/ivpu/ivpu_drv.c | 1 +
+> >   1 file changed, 1 insertion(+)
+> >
+> > diff --git a/drivers/accel/ivpu/ivpu_drv.c b/drivers/accel/ivpu/ivpu_dr=
+v.c
+> > index 247ed6b2ff62..4fcccf78ec5d 100644
+> > --- a/drivers/accel/ivpu/ivpu_drv.c
+> > +++ b/drivers/accel/ivpu/ivpu_drv.c
+> > @@ -852,6 +852,7 @@ static int ivpu_dev_init(struct ivpu_device *vdev)
+> >       return 0;
+> >
+> >   err_ipc_fini:
+> > +     ivpu_pm_disable_recovery(vdev);
+> >       ivpu_ipc_fini(vdev);
+> >   err_fw_fini:
+> >       ivpu_fw_fini(vdev);
+>
