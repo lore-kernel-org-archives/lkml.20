@@ -1,60 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794617430;
-	b=mUeQGBgLPdQy1oqhb49a5fuyV6Lu5Z27zVSRWsT9ZY5viiAR5AIrRP0LTtMegjbv3BHa
-	 4cNEAgiFpuN3wGLH9bw+uFfGtpTnh+m2SiMpj/fa0gEDPnfOjOQHT2fnbOhS/PR9xpdFE
-	 +Twfb/JKPUAcnlIrf8iP0tNupSjvhpPYybGrzQiUPuwTkpsjxrdpRo7r919Nrb+bHaTZP
-	 OnAKaGJVJBrlRpOMg1gjQ5qcXdFBK67CkfCEMQ99AhrvYxMn78BrmNh9rdN6U7rX2CrJi
-	 /PWPHKoZle10rdhyuLgCL4EqZCTODL/cyYaxTSV76nunu/k1sjn7hqBo3hpdaP4HwiQ==
+	t=1794617469;
+	b=z1SnXBUHECGDyqd+SrBOFxhGweWBe27gvC1aHf3xlz0qMgBoXdlfIUYuMocrVuFKlgyB
+	 Tj7HRN2csh/zJZl1iEVSb6/BFC95p9erFCHxnufJFMwDk8kdW4CO3bE/RviK67Cd8ocDc
+	 2SMr8bAVA5wEswB/1uYYCLkjv1Yf5OwRfRYA3aQEh4Z5Iug2VrldzzudzRqnnM5BimF0e
+	 YFp3PkI7pLT5OtHzGdBhRucut0LQERlZKpujTCaxXKiGE75jNCuLmkbdyAUZFRxpw47TU
+	 S0kiqkTf+b9BRQbfzHYk0AZkCEsWQuPJ1EEqV+IUJ7HYtKaBL60Fz8jASyg3baioE6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794617430;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=rLSKJAjdQ30Vjky7tJx+bCFWc1SyvtYYvxDMUVTLXvE=;
-	b=Ebd1hkoqh/MyMAP4vmPAqakQp5danaw7pMeFrJAzQpvhjenPKnlKXIt4vCVsUpguis4v
-	 rkpng7nqpwGt96MjQAptwisULbI///LZo0ymQaMZnxrY3RdJNepThRy1ssFNSrklIk2oR
-	 nlI5SK2TfmveSom+xilZYWWcaGTmADptCIeGtVTQg9sRq1Dg42ZTkfkCQC/A+rnuTctCG
-	 uUAUd4Y7VwhroikKS7iihh4o3fPNyDSgwt94tUgQ1hxvaxsz1svC7BOqYvbkJEwx5nBLE
-	 HV6i1ePnNaTK4YBWV/tXewsH9wyByc7luSTgth87jVwxAcLyVSQ2D8xX2fS3/+A1scQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794617469;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=4P7DMRpzI67L+ckc1ZBMVeAzQ4J+BH4io4JBuf9M6QI=;
+	b=xXlxOGvY6oiJCyljDVN04msb7VjGTYBe1jJeVM0QM7QuFU/V6DJFZ4+B6RSlOhtwn+ak
+	 3dJowcZ6hnh6zStGCKA2pA6JJXjbZx3p9572NFnfFOSR10e0e1P60ugbHiHzg4jwc01T9
+	 XutyCWy4YTs3UJh/KUSg+3I1py+KqSWH5S0nKrljV/yJ1wWW7e8FP4fqy+S8rXDZHcLDP
+	 ZGvXEwg0ctdxiWon3Qa/pszXWsht2nA8exhj4NIFO5XloiugOQCD+gzliazuOqFrOUcZ0
+	 mKeImHyOImugewBNlw8J9ATpXpVLyRBhy9zImgm/Rcswt7TC2qTL8heCCvU13i69JMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=S7p3BxY3;
-	arc=none smtp.remote-ip=185.70.43.19
-Received: from mail-4319.protonmail.ch (mail-4319.protonmail.ch [185.70.43.19])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oVMcLii0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0D61606A327;
-	Sat, 14 Nov 2026 00:50:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0D61606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0AE0606A32D;
+	Sat, 14 Nov 2026 00:51:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=S7p3BxY3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1794617426; x=1794876626;
-	bh=rLSKJAjdQ30Vjky7tJx+bCFWc1SyvtYYvxDMUVTLXvE=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=S7p3BxY3+zyWG/4+usTUelBlt7jQ6oBsNBXH/4O6QaTuZmKuXpVmIJplfewyYqC1h
-	 h2Tka5t8M2ZG+gm6FPVItdZKB5BS12DpknnHXvTSuY3g0T15EUWiQtfvPkgaHWtZp4
-	 RY4BsPFKOxuW2XlxZQvD90xWPUoI7Add3baCMhsqG6e67AMetYGmFRGie8FM9XksGr
-	 2AiMNWcIqEMJUDD69BSN0wyBVbg5AbpWMSHgOr+wYZLDaLVsX36i+pK763j4G8fOVY
-	 etE4OabbVX7H/FVVVkUaI2COUASETuRtQp5eAzOynOJrB8mWHqclx+fbbiaov1sB1B
-	 NnDxnBv2F7UQQ==
-Date: Sat, 14 Nov 2026 00:50:19 +0000
-To: Denis Benato <denis.benato@linux.dev>
-From: Aspecky <tarrihmoad@proton.me>
-Cc: Corentin Chary <corentin.chary@gmail.com>, "Luke D. Jones" <luke@ljones.dev>, Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, Antheas Kapenekakis <lkml@antheas.dev>, Benjamin Tissoires <bentiss@kernel.org>, Sercan GOKMEN <gokmensercan@gmail.com>, Burak Goncu <burakgon12@gmail.com>, Denis Benato <benato.denis96@gmail.com>, platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v4] platform/x86: asus-wmi: Ignore unusable kbd backlight WMI device on ROG Strix G814FP
-Message-ID: <-sHRKK56awNgHWFUXMcBVRL0SSag0CruNAfbxPNPYJJC8qqk_N74k3wCldWqNkfw-CBwHj-6CvkYhrkCsBYqgNNUQV2oT31VbehOxMbR87E=@proton.me>
-In-Reply-To: <04c46822-9baa-4152-8193-d8aa9d757b4e@linux.dev>
-References: <20261111-asus-wmi-kbd-readback-v4-1-79df1567476d@proton.me> <04c46822-9baa-4152-8193-d8aa9d757b4e@linux.dev>
-Feedback-ID: 110671326:user:proton
-X-Pm-Message-ID: a91a08dbf9326579b6cc51664856e37e4569519b
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oVMcLii0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 560D81F000C4;
+	Sat, 14 Nov 2026 00:51:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794617468;
+	bh=4P7DMRpzI67L+ckc1ZBMVeAzQ4J+BH4io4JBuf9M6QI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oVMcLii0dUHW5lJ0aO2FOmzV+DtpO2BAO3mNVRP0i0LIE6D5kLt6SrgDhXsucm8mC
+	 C8ZQpUMueJXSpnm7ywh3lwmbIMgUwhyXiAAfrus8oblsQmbj0zZCRx0MfWCawJGdDa
+	 EefuKEHnAmO6bpzC8yMwOuUfyQSeK5FtDKXYNT4eduq0M3/iHfMDpUCgQUOM1dJoiF
+	 Sqbplwg5b3TwtDDG/NEY3JqGAqMM9xSxxoJ4Dy7xxpu9dhxQ1hJP7vvENFbql46WqB
+	 CXreMYZzU80aPeCqlP634fGxyAOCYtEuGDKtqDac3RsNQF8BdP16XOxkOkI3lmUP51
+	 C/CJ9RPPV57Lw==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id 8D99C32AA096; Sat, 14 Nov 2026 00:51:06 +0000 (GMT)
+Date: Sat, 14 Nov 2026 00:51:06 +0000
+From: Mark Brown <broonie@kernel.org>
+To: shao.mingyin@zte.com.cn
+Cc: william.zhang@broadcom.com, linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	pjw@kernel.org, samuel.holland@sifive.com, kursad.oney@broadcom.com,
+	jonas.gorski@gmail.com, bcm-kernel-feedback-list@broadcom.com,
+	anand.gore@broadcom.com, florian.fainelli@broadcom.com,
+	rafal@milecki.pl, linux-arm-kernel@lists.infradead.org,
+	sven@kernel.org, j@jannau.net, neal@gompa.dev,
+	asahi@lists.linux.dev, ryan.wanner@microchip.com,
+	nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com,
+	claudiu.beznea@tuxon.dev
+Subject: Re: [PATCH v2 3/5] spi: bcmbca-hsspi: fix division by zero for
+ devices without a max speed
+Message-ID: <1d8b7784-f217-45ef-8f09-658044e441ea@sirena.org.uk>
+References: <CAHi4H7GHGO27Q=O8Upfds8jk-ujSHU5h91hCZw6qjftNX7a2Ng@mail.gmail.com>
+ <20261111173637687ugnRPRBKJkF0zihl662i2@zte.com.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,50 +69,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="D7xosyWN3K0hIeX/"
+Content-Disposition: inline
+In-Reply-To: <20261111173637687ugnRPRBKJkF0zihl662i2@zte.com.cn>
+X-Cookie: I'm wet!  I'm wild!
 
-On Thursday, November 12th, 2026 at 10:21 AM, Denis Benato <denis.benato@li=
-nux.dev> wrote:
 
->> On the ASUS ROG Strix G18 G814FP, writing a level to the keyboard
->> backlight brightness in sysfs works, but reading it back always gives
->> 0, and the read makes the Fn brightness keys misbehave.
->
-> With "works" do you mean the write report success but does nothing or
-> that it is actually changing the brightness?
+--D7xosyWN3K0hIeX/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Sorry about the confusion, the write does actually change the brightness.
-Writing 3 to /sys/class/leds/asus::kbd_backlight/brightness turns the
-LEDs to high. asus-wmi passes the level both to the WMI device and to
-hid-asus, the latter is the one that registers as a listener on the LED.
-The DEVS(0x00050021) write to the WMI device fails with -ENODEV and
-changes nothing, hid-asus is what actually sets the LEDs:
+On Wed, Nov 11, 2026 at 05:36:37PM +0800, shao.mingyin@zte.com.cn wrote:
 
-sysfs write -> asus-wmi |- DEVS(0x00050021) -> firmware -> rejected
-                        |_ hid-asus -> USB HID report -> LEDs
+> > IMHO the upper layer should fail ... rather than having the controller
+> > driver to override with a risky 1Hz clock.
 
->> DSTS(0x00050021) always returns 0x50000, which is level 0
->
-> Always returns level zero with the presence bit set.
+> Agreed; the fix belongs upstream of the driver, not in ->set_clk().
+> Mark, which do you prefer: reject max_speed_hz == 0 in spi core, or
+> have these two drivers clamp FCW >= 1?  I'll wait for your call and
+> won't spin a v3 meanwhile.
 
-Correct, always returns level zero with the presence bit set,
-i'll say that in v5.
+Ideally the core should do this but that's quite hard to do due to knock
+on effects of handling 0 as a default everywhere, together with having a
+bunch of existing drivers that don't provide any information.
 
->> As a side effect, the kbd_rgb_mode and kbd_rgb_mode_index attributes are
->> no longer created on this board, they never worked here since the firmwa=
-re
->> rejects those writes as well.
->
-> Isn't this a contraddiction to what is written above? That writes
-> actually succeeds?
+--D7xosyWN3K0hIeX/
+Content-Type: application/pgp-signature; name="signature.asc"
 
-It's not a contradiction, the sysfs brightness write succeeds because
-of hid-asus, while the WMI DEVS(0x00050021) writes are rejected and
-so are the ones behind kbd_rgb_mode. The commit message doesn't make
-that clear, I'll reword it in v5 and wait a day or so in case there
-are more comments.
+-----BEGIN PGP SIGNATURE-----
 
-Thanks,
-Moad
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCavewegAKCRAv73Ows9A4
+iWN2AQClR5sOK8gylXjPGozoKNkL8che7F9VYkofFkYIAbamjwD/ReYiG72diC+8
+NHMu21kmTY9APQadD0105SE1A4OM0wg=
+=FhG5
+-----END PGP SIGNATURE-----
 
+--D7xosyWN3K0hIeX/--
