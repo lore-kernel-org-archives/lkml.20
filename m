@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794634196;
-	b=o+m9JkEoL5AQEGR3FdiZgehwnOpJlhDZjm9ufjSYI+JtSrQ3y6opQOfkacSPPPcqeE6o
-	 iES0O4JQ48mcI4dfNAdh8Kf57k1NpOR9Bfr615qWHto4O92dkKwqR+wEAZ91cF+m5HEZI
-	 zHd15mh4xr1hnTQj/FllK91zKQR2hYq16yEzr39UsDl6tA9S5AqwTJ1auT43Y+HmJoWNX
-	 Z1jwtYxxIIuC20q2HGIFxJL22NT+QrrJqqY7M/h8MBysOjXdKukmY6tLkJRQ/SmgH1anh
-	 zer4xkD7Jico8KagqKOYq6gmKw6J+WadJUovDX79Jm0duUoNbkQtJHi4XDWoRBX2tZw==
+	t=1794634200;
+	b=iMk/it4R6RVffyW7QfOZRFP26iPYj0AdHz+R5j203icD9Coz6T4YhzuxMrh49kMAuxPx
+	 11ql5nA+F3ruKA5Dc8mDXMjcLBWZsr5HV2Mkpr6BZBRq4M8voRyDn0cT0EZj34HImmiAd
+	 wAe5/ozMT25Ar291koK6M8ACcvIOzu96D5o/nncx/yHogT+yz/Mv970L86tHCrbzCbZ6J
+	 L+2luPyFBys6DhjHyc0mGcFU7cxXmCrkKlfghfgAQRRS400jMUUewnSWspq6Ryke+fx9T
+	 k4KQ2cf9KtSHou5o3GHQDmlqPAEuPepCrP4Jvn4NCpn61A2pbpiV7GVDcauAVNsLuGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794634196;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794634200;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Subject:Date:
-	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=bMIC1kskP5GdqBrbGoext4Aqt+LqpqVvPyut75h6qnQ=;
-	b=CQX+O0gCXJjbLTQHPBJKcScHVRRicWWFhY7MOPkUvrAc6l6P3Rdix6lVjWG2AcJ8GyAP
-	 zVjl2JsDsLskAg5N+FgABd8raUbHTutLci1VWc0YtywVBfOK3Af1QAy97IeW9HEcOivPN
-	 dNIR2pVeeGK5dH4NR1DKJUqDzq5f6+mZadBK3jy+6j5PI2s2NGNaOiv7/GUMjfat3X6hs
-	 mb96VzSoH5goyLQsDHotlviWCaz5407QgbZTLxnL6Rhyl1H8aU/bNktrunB5KYZrietqT
-	 FhbCucMLnRhfPOWuOmYbBOwCTMtCGzC9ho/uDc5fUlk5C+iZ2/AYYbGQu08GfSo0Tlg==
+	bh=v7tiXwNesGNvlwhrKa30W0lwvT4MH6zCN7lk+DjVWfM=;
+	b=Om04274fNJWsz9Z2lK9AtROiv3FLpY5Q0AvC+KTCzYFrd2NqnFNmf6JvO6Eyfy99K1ZW
+	 rxAMu22bYGPkjZAfiE85aqa5rEgaNOZrgSj2d4lRMXlp4x4CZsEu+Fk25wvk4JcXhFO28
+	 p5BNhZB+CH6/o3LPgTRKlkC4BmfFArxzoKWSxFYUyJkCz6+yMuG2o9dSX+j7hWSMBoV1Y
+	 zflE+d4/7z9+6Bj3gG3u6epZjZQzZ7BLQyvnTxXDpKDRJh9Jkj/gmjBm5Mpv4vx+jOQLX
+	 iZ0ghbeS9VnRjmBpHC41NX2LSpXRlUhFTxHAfhtrwC9dXPwzRHDqFIJvAwUvQJfANDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x9QUns8L;
-	arc=none smtp.remote-ip=209.85.214.179
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Aff7W8dw;
+	arc=none smtp.remote-ip=209.85.214.173
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D772606A337
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 05:29:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D772606A337
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D63F0606A884
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 05:29:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D63F0606A884
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x9QUns8L
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2e9d7791b00so19862245ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:29:55 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Aff7W8dw
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e9ae391a05so9783015ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:29:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794634195; x=1795238995; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=bMIC1kskP5GdqBrbGoext4Aqt+LqpqVvPyut75h6qnQ=;
-        b=x9QUns8LygYER6rS+zrUErCDxfCuEzZFMjnJYYstTzqa3hPY+e5AWl2n9ZIT5whLpI
-         cOsh6wCFXx6xDsVpJoouiu66DQsZvc0ffkRkgD8j7QjIwIDH4HAj6CcC7nCcc/T828Rg
-         euxQf0MBKZy4HOIrktd6BIVikqb+9rjXvI4JfwfmzX5QY6jftYNmYrewD13mlko7rGc5
-         N8czpTaHHxKJy1unoOYXFz43QkPFOOSqSfFUswQmO8jvYOkTfCQSSW8QxMos1cOgCtMK
-         S5OYfp3xRXCI1TP6hFIYS4+D2Rns9yUshBVSOPXpn1rxXk8pC3LbFU6auUhS2n5iRojz
-         5kbg==
+        d=gmail.com; s=20260707; t=1794634199; x=1795238999; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=v7tiXwNesGNvlwhrKa30W0lwvT4MH6zCN7lk+DjVWfM=;
+        b=Aff7W8dwRWUmPT5Z/fScXq1J+ef9a/+thKodDB2J31gBDrFhworS6ljAZGwSuP1JTE
+         hHfBLHULz1oGj4MTOZs5BKkm6kx3vevdKWOh40j1rKyC0sU3T7liiqThcTBz9dfo0OV8
+         4bkcT07UkQ2AZUHh9CiV02uEgV0RofPSr8EEg3aF8l29fhemK4zNPaU+tj1+ksdoXxfF
+         UrI/Yl/fumBgqb/mUu0SzCa0QBsXB+3Dcct2+Ar2XfIV2y9JbTNuW96X5UfMhRLDUzVB
+         F1hZ4855oCbECyOzbWgtUZE2F52ykmG2e4TU01lWjFwYcW2B0V8tcSIrpErA1+m1pM3K
+         zE5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794634195; x=1795238995;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=bMIC1kskP5GdqBrbGoext4Aqt+LqpqVvPyut75h6qnQ=;
-        b=13Cx3kX0znfP7n/N2magIeSr+cq5LPf4L+KTVz2AGjlV0yuAdirec8q9WmBiNZ9p0l
-         8d2hwfHLKG1HPMxA7K/bTH7Z6tAXAVYO9zhn4KQDGsST/Hnd8TwwpqOQRYVEWs0yY4+3
-         Tc8oFZer7xHLoe1G3G8gQlqFvkbWSaC4ajgcVDRpSHKRDS5Mkd8vpKiXaq253nvcsIYa
-         0YavmNYResKlzi4kUAWgw9oJ8xXwg3Ju5xxZZZ8ySnBFdMe4KepoNhAJlHIaT16KrJsT
-         +FprBMK7rglfV0GfnV/g6D6qO5eCB8qX81tuLFrvxciUIK8jWyoQ1JiRzOq/xggmR/vk
-         O98w==
-X-Gm-Message-State: APuU4Z+qRwDtxLxLQ4R/6TZ9YI0B2C2U5zSdT2idnjlmWTSziHVWtDFO
-	9/P11tGhfVDxsz5W52NF0hejDMzITJT9Cgz/u+DiP/5Ho97gr+GnyYCj4/wMyFYT
-X-Gm-Gg: AYBFou2mh3mo+NhwDNvGzpe+PMsaQz98WevVFT00b7snpHDSmEzg2WjGqysQWhaJq5P
-	sDocLg5KaS9vhWzgl7cIVxTz2t6P30p37xsQHtz7XR6dGw6gKxArH4Uf7A4VaG+xJbF5XztCR15
-	RKXIZdOXlrllPpCjGbHBwLqoNRvEd7nVFOO94N7k/X/6XWQTsjQ1QkPbJcok/28HbQeHKRnzp4W
-	JJAJ8Xa17ei3lxjWOrdDqBM6u+ze+CHDVRIB1g6oCtcfqYz56g+ddWquASYI+yndveZennZvIn+
-	nTDstXXBqP+WfNAye8i24Hdy+ajsCOLDx0sbEmSJINEcDoFXRCDHMwriBywwkAd36WRUhrddm4w
-	jgzp6YE5TaX8C1Er3UbqxmBMSyMg3Qs/2OWHRRd2wec8/z0a8fiBV+vGDqbbq/Q7k93F4NqF+G8
-	/b5Dr//IqPBa/w893c5nTF+n0yUSwCKbC9UBuMAe0ItaiT2WnZaU4RCh6nsORjLyON9MWLWjDaI
-	/ru0C4OOxYp3KUSHsr3gYYqxK07WUTxw0VZcWnx2k0jH5PWdyA+3cLocM/ErlSdghkBKH7rTsr2
-	AuO7XuZnHFK3TnJcszGi436WFejDRxWSQLkxm38i3fblAfVZzoo2G7Z75SKtuLfBCDWboJEKn2Y
-	jojGK0jm44lb98ZKKPjTAyVKt68Sh8Wx8qHAo9NjGRM+QxOCv3+heaFM=
-X-Received: by 2002:a17:902:ccc7:b0:2e9:6c15:6b2f with SMTP id d9443c01a7336-2ee0dc93a16mr44755005ad.25.1794634195250;
-        Fri, 13 Nov 2026 21:29:55 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794634199; x=1795238999;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=v7tiXwNesGNvlwhrKa30W0lwvT4MH6zCN7lk+DjVWfM=;
+        b=wOx31FYESz4lbrdc3FdkTMKPPVAUet8KWmmHRehXaqOUGeUODHDu9+P7btJVm2uQWL
+         8o0NVJ/1r8ziPMjVNf4cXjgKOznEunPSTqqoHuI/l5V6X5egdPbvtt4F5qrwSvKPQokh
+         gpgXAOkkNz/i5J1GOCJTyP1cPHuPVOG9feiqQ25j+7/lrDVdUYipt8ptPJIrbI0LYy36
+         B+qIaa6f3p0AYyaJpfZRmlyTfWB7wWU2nRs8F8Avhyy9Wwgb9irlDBXNt+wYsPwqGWmo
+         fKGX99/e/4OVhjdtsV3ovlWzrLaVrY0yzgZV0FLAAo3agqC/j+ya27jATk3VrEBnyjxD
+         4xiA==
+X-Gm-Message-State: APuU4Z8ncAOKSDhU91yZ8KB17/EdgFVmX4vqAXNpvAsW62EQ0axsGSnD
+	QI/U2Rkr74B91RHrppQ3heEGaK8AbrvcOTG+cZZ2WsCeHL1jhNH5juqgSTGxHxgX
+X-Gm-Gg: AYBFou0+2B/20of2f4YhNEPm57Hlsi5bLCXjPwFasOXOMNmlAKsVGG5gYT46679tlLi
+	Xj6Z9ma2Pk52OZfbNjHRlPaTNgDDlpq+Q00x6S/sp+wKu0PiknJAbOqrLgg1TLbboikkaOnqJSy
+	jNF5qDd6h5SRsx6fUsM1O7eErztx1yL6Bz8soTFebbhJlk0ZPDLSA5NYbBNMga9IiiEsrCjPIZv
+	CWI0L5zvc0loYARXhwmEz+YM4yLx366+DD5sKH1tDEU/n0nEOKKGKvMb453qq9l5lnrEgMNld8R
+	H1QXO8bL3CIgJ2fxFMugAkjq0GfaN4QQEPA9pcMNaEG4pVu3w6ZRpql78DRlOLUrNoVSCUtO3eF
+	EjeL8v5q/HzokNuWXAUBLfgTrCTettBD3rmSKmqRon5LFe+62seA9Iv4n16wcjBzwP/vYTzNuEK
+	ZwO5Weqmr7FSZNmkBxRgZKQOCCzpqNuN1g36Ea4xLfiRwS/e+7RnThS5KEtLKUnAEq9f/9xrESN
+	FrnQ/2ehenzASG1W8RGQNQlQ2U6XRQ4SM9din7c7CqJe6aTWteNLKVChZVcXO7rDYz+uPSeO+cT
+	F0AIuxpN4n3XCLzWt87TsJjOOOCNlkBzzLMCNOJ+F7GqZ0vyyACvAdZVZ1pR44NrQ/cH4fYRtsg
+	UoXpJiNn+rb9EwqXBueobY2ngJZhRRUcieWynDkrP3HpOjlmoicA17u4=
+X-Received: by 2002:a17:902:c411:b0:2e5:debe:cb4b with SMTP id d9443c01a7336-2edf1e7b0a5mr61346585ad.10.1794634199067;
+        Fri, 13 Nov 2026 21:29:59 -0800 (PST)
 Received: from 1.0.0.127.in-addr.arpa ([2001:f40:90e:5ed4:d53:b5f5:a144:fe4f])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f874871sm17760225ad.54.2026.11.13.21.29.52
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f874871sm17760225ad.54.2026.11.13.21.29.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 21:29:54 -0800 (PST)
+        Fri, 13 Nov 2026 21:29:58 -0800 (PST)
 From: Izaac Chong <izaacchong934@gmail.com>
-Subject: [PATCH v2 0/2] configfs: fix use-after-free races in
+Date: Sat, 14 Nov 2026 13:29:46 +0800
+Subject: [PATCH v2 1/2] configfs: fix use-after-free of default group in
  configfs_symlink()
-Date: Sat, 14 Nov 2026 13:29:45 +0800
-Message-Id: <20261114-configfs-symlink-uaf-v2-0-48c9cf068a91@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,61 +95,108 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/4WNSw6CMBRFt0Le2BpLSv2M3Idh0C88hdb0AZEQ9
- m7BBZg7Osm99yxALqEjuBULJDchYQwZykMBplWhcQxtZihPpeScC2Zi8Nh4YjT3HYYXG5VnprI
- XobVU17OEPH0n5/Gz3z7qH9Oon84M29fWaJGGmObdO/Gt90cxcZYjhOSVUNpadW96hd3RxB7qd
- V2/Zii3tcoAAAA=
-X-Change-ID: 20261114-configfs-symlink-uaf-c5d84bb6a976
+Message-Id: <20261114-configfs-symlink-uaf-v2-1-48c9cf068a91@gmail.com>
+References: <20261114-configfs-symlink-uaf-v2-0-48c9cf068a91@gmail.com>
+In-Reply-To: <20261114-configfs-symlink-uaf-v2-0-48c9cf068a91@gmail.com>
 To: Breno Leitao <leitao@debian.org>, 
  Andreas Hindborg <a.hindborg@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>
 Cc: linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
  syzbot+b0996ac2197dd7420c3e@syzkaller.appspotmail.com, 
  linux-nvme@lists.infradead.org, Izaac Chong <izaacchong934@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794634191; l=1520;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794634191; l=3255;
  i=izaacchong934@gmail.com; s=20261114; h=from:subject:message-id;
- bh=9HaOXwSMwzKzPRbmaH7JW1q/kvKxDa6hssIZEkktu2c=;
- b=rW8QB5s2N3tYg5kXg2dxxatXuShumKYKJNvd+OxMHLlUDbvc2euh1vEI8+phoHZm58K7gwdjg
- uNpq5iNyl2uCPKSjn74kj+SFs1Dd4UJBYL4ncLs+sYnGvpszhu6ID77
+ bh=BLAVQgSrEVNkosJ1RawvnEwRkMMxTH81O2DKWV4iSkg=;
+ b=xwJeQRV6EtAOLyaWisKx2TbtvO1K9D6hg9FkRjY8VTX+fnyRwQVeAN35/0byNBdaNsvX7iYMl
+ 1rIG8bSOcNnCMtfjXczQrkkQiq5s1v3j5nv2pud5kUaBkDHcaEfyOI+
 X-Developer-Key: i=izaacchong934@gmail.com; a=ed25519;
  pk=IFfOWcK2ZRkDtCqaNggolAwpvIidYMt3Oar3NEnvqzY=
 
-configfs_symlink() drops the parent directory's lock while it resolves
-the link target. Two races in that window are fixed here:
+configfs_symlink() drops the parent directory's inode lock while it
+resolves the link target, and keeps a reference to parent_item across
+that window. When the parent is a default group, such as
+ports/<n>/subsystems/ in the NVMe target, parent_item is embedded in
+the containing object (struct nvmet_port). A reference on the embedded
+item does not keep the containing object alive, so a concurrent rmdir of
+the port can free it. allow_link() and the final config_item_put() then
+touch freed memory:
 
-1/2 fixes a use-after-free when the parent is a default group whose
-    containing object is freed by a concurrent rmdir (syzbot,
-    nvmet_port_subsys_allow_link).
-2/2 pins the target against rmdir before ->allow_link(), so drivers
-    that walk the target's ->ci_parent do not see it unlinked
-    (NULL deref in uvcg_streaming_header_allow_link). Found by Sashiko
-    review of v1.
+  BUG: KASAN: slab-use-after-free in nvmet_port_subsys_allow_link+0x41/0x2e0
+  Call Trace:
+   nvmet_port_subsys_allow_link+0x41/0x2e0 drivers/nvme/target/configfs.c:1059
+   configfs_symlink+0x59a/0x1030 fs/configfs/symlink.c:196
+   vfs_symlink+0x18b/0x330 fs/namei.c:5794
 
-Changes in v2:
-- Add patch 2/2. Patch 1/2 is unchanged.
+detach_groups() marks a default group's directory S_DEAD while holding
+that directory's inode lock, before the containing object can be freed.
+So drop the parent_item reference before unlocking dir, and after
+re-taking the lock return -ENOENT if dir is dead. Otherwise look
+parent_item up again, which is safe while dir is locked and alive.
 
-Testing (QEMU + KASAN, v7.4-rc2): the syzbot
-reproducer crashes without 1/2; a UVC symlink-vs-rmdir reproducer
-crashes without 2/2 (with 1/2 applied). With both patches, both
-reproducers plus an nvmet target-side race run clean, normal
-link/unlink/rmdir still work, and rmdir of a linked target still
-returns -EBUSY. syzbot #syz test is currently disabled.
-
-Not tested: lockdep was off; LIO (target_fabric_mappedlun_link) was not
-exercised.
-
+Fixes: 351e5d869e5a ("configfs: fix a deadlock in configfs_symlink()")
+Reported-by: syzbot+b0996ac2197dd7420c3e@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=b0996ac2197dd7420c3e
+Cc: linux-nvme@lists.infradead.org
+Signed-off-by: Izaac Chong <izaacchong934@gmail.com>
 ---
-Izaac Chong (2):
-      configfs: fix use-after-free of default group in configfs_symlink()
-      configfs: pin symlink target against rmdir before ->allow_link()
+ fs/configfs/symlink.c | 24 ++++++++++++++++++------
+ 1 file changed, 18 insertions(+), 6 deletions(-)
 
- fs/configfs/symlink.c | 66 +++++++++++++++++++++++++++++++++++----------------
- 1 file changed, 46 insertions(+), 20 deletions(-)
----
-base-commit: 97d73c8251226cf27cc6656b4c542869bb8c69fa
-change-id: 20261114-configfs-symlink-uaf-c5d84bb6a976
+diff --git a/fs/configfs/symlink.c b/fs/configfs/symlink.c
+index 89178f5d371a..1b2c9048a920 100644
+--- a/fs/configfs/symlink.c
++++ b/fs/configfs/symlink.c
+@@ -166,11 +166,11 @@ int configfs_symlink(const struct mnt_idmap *idmap, struct inode *dir,
+ 
+ 	parent_item = configfs_get_config_item(dentry->d_parent);
+ 	type = parent_item->ci_type;
++	config_item_put(parent_item);
+ 
+-	ret = -EPERM;
+ 	if (!type || !type->ct_item_ops ||
+ 	    !type->ct_item_ops->allow_link)
+-		goto out_put;
++		return -EPERM;
+ 
+ 	/*
+ 	 * This is really sick.  What they wanted was a hybrid of
+@@ -200,7 +200,20 @@ int configfs_symlink(const struct mnt_idmap *idmap, struct inode *dir,
+ 	ret = get_target(symname, &target_item, &target_sd, dentry->d_sb);
+ 	inode_lock(dir);
+ 	if (ret)
+-		goto out_put;
++		return ret;
++
++	/*
++	 * parent_item may be a default group embedded in an object that a
++	 * concurrent rmdir freed while dir was unlocked, so we dropped our
++	 * reference above.  detach_groups() marks dir S_DEAD under its inode
++	 * lock before the containing object can go away, so it is safe to
++	 * look parent_item up again only if dir is still alive.
++	 */
++	if (IS_DEADDIR(dir)) {
++		ret = -ENOENT;
++		goto out_put_target;
++	}
++	parent_item = configfs_get_config_item(dentry->d_parent);
+ 
+ 	if (dentry->d_inode || d_unhashed(dentry))
+ 		ret = -EEXIST;
+@@ -218,11 +231,10 @@ int configfs_symlink(const struct mnt_idmap *idmap, struct inode *dir,
+ 						     target_item);
+ 	}
+ 
++	config_item_put(parent_item);
++out_put_target:
+ 	configfs_put(target_sd);
+ 	config_item_put(target_item);
+-
+-out_put:
+-	config_item_put(parent_item);
+ 	return ret;
+ }
+ 
 
-Best regards,
---  
-Izaac Chong <izaacchong934@gmail.com>
+-- 
+Git-143)
 
