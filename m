@@ -1,78 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794670226;
-	b=rV0btiZ1r4RxKjhO4yaBprVz0lTk7ZR8+nro/q41ioGvgZ+fk4m6i9tjmHt6TqMgeQ8G
-	 B3wO1LfFMrZxWTVV+Sv5l05EwlXJ1HyBL4v8v4B/ZLAqDy2bbKAYESQv9TfpKS1zUj0bI
-	 BIXLr8daCIaX+x5d8qS/G6OEssdh00HOFtJHi/DsJj92iZI+ydMQMuM8V9XlUmqhy3xiC
-	 o4D1OZI/XN1aovKbxERNIlfQYzqstfUdlE7d+veLdP1MlKOEjDe/fadUyu+hlmgZTWVEN
-	 Pw1uZ4gwp+VHPUnWQ8LZ4wdO/+tLiU/PqXwr76Vjlw9rw5Y4m4Oc9pIGcAszWb5h0Vw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794670226;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
-	 X-SA-Exim-Scanned;
-	bh=icGyiR0uE2382AnPCFPae3R/fkT1DCY3Eri8AeWkibw=;
-	b=Rea/7XwOpJakJhf7AwnyNqsL1WAmzG9wA0jmPQLs6rz4xkM3MNV5cwpo5VMBfvZiFAq4
-	 IhWdXApUQXqMfMZknQxFJEZczoNvKVryy/f0dUwrhmN+HInxT0X05Kwo1pBrTl2UFpmOP
-	 bvFgMmvGfD0GvGDHyNEdE9X8AREq7+c1CM8qKsIYGqhViuQNfjv7Y4XHVMseUAO0asV3u
-	 frPaEYYUnIYL/IqJkMZN54Iv4aOmOUmvd7jMuQ4Ui6or9ky0444Gdj/Bno1SkqoyY09JE
-	 fXkEVEx3vPakelOa+kwEgJ27Nrz/AJDaR//StOKJiTcQ9U+cZgH1w3YSf7OC6zRLXHw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cP5RmpnH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794670357;
+	b=eAgKPbW8J+M5h2Mlr06cuX1zN7pUp4dtab8UtoCfXTw9QrqDdxWD005eF4NS1cAw6HMK
+	 W/f/bwIIXi9TyFhkf12/Fbc+lKLXZcGGGAx2rPzmVO2AmgneAWnfvwQaoSKnfLX90Far8
+	 pxcoopm8qJStABBRgEqrHzv5BUuLLdAefwdqRkY4/k6qWCEPf0+sAK6gIlv3BocQd9akB
+	 xBcOYcQaM5rvA0ZNAcOzNslIObdni56ADkDSaGIhPDtSgoCr+FJhAeK1trLgJVJP8WAFv
+	 XzYV+EU/5VxIEmTTQynOxBs4/ncTIRMKXDD2YPwPF/v++lf0xzTJ4Sqs+rfd+agsyAA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794670357;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=YjN6mtWcOCsjlBrJP8cJGczeHs+0ITKRtbxV1uFNID4=;
+	b=YTaQeWpOURnm85VeVq0XwlAdi5OBrZH73MBM26tZP3CZtjVSXChksN5fB53sIOLWE8H0
+	 Eznzt9ByqtQg02jU0xw/k1wmJqR/+50pxkmD31/pnAhtOqpY8C5ttRPXbCrmtJx9U/sTs
+	 +sDMTiL19Xk6dni25UxEBZTUaVbiAN6N3fVH1iST8j79RAh3BLDjowPg1F3b/p7jHE4yb
+	 6CbyhNXDhKNNebLr21GQwHbqt3MfmhSqXioryatG4xMrCq3aQdSWHAncXOji0Ei0ynxpR
+	 159wxcBEJBrwiLsQbFjFyskouTCZtPV429Qfwa5KcQCCI9sq6w+diKlFbGsLuXplNng==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pgrOhZRp;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.43
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62AE3606A327;
-	Sat, 14 Nov 2026 15:30:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA60606A331
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 15:32:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DA60606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cP5RmpnH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE90D1F000C7;
-	Sat, 14 Nov 2026 15:30:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794670226;
-	bh=icGyiR0uE2382AnPCFPae3R/fkT1DCY3Eri8AeWkibw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=cP5RmpnHHgTGfDQytX/wV6G7iqKv/yFkZ9OArq3Mvs43GA+vZJy2Aa3valFNwKSTW
-	 1UbCoW0F8WmQCp6s22RO0h9ieyXbJo+6h3ls7oL4fd5PcnL7YNPopKyTQQ5AFt0d9b
-	 IZKPA3ySIW4DzEbmspecu6jd0sBUPY2vs8ZlenwMopuTOdJ/sRtbH6xQSr+F8mPh0o
-	 l7m/tcYg8uDxRLlBfcdubJ9JlwTAtJZcUp3B4Py6HHL4CMy57bKi3UQH2ydB26lsQ1
-	 XrNsjFrg/apSPVGF0xibQ2Te8IfHSga4Akb86jcwI/RfzE3dHB1lr6hdZW12lNoFgO
-	 hnu0D8Xukr+ng==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xSFhu-0000000Fo7y-3uda;
-	Sat, 14 Nov 2026 15:30:23 +0000
-Date: Sat, 14 Nov 2026 15:33:44 +0000
-Message-ID: <87jymf8m1z.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: oupton@kernel.org,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	joey.gouly@arm.com,
-	seiden@linux.ibm.com,
-	suzuki.poulose@arm.com,
-	yuzenghui@huawei.com,
-	catalin.marinas@arm.com,
-	will@kernel.org,
-	mark.rutland@arm.com,
-	vdonnefort@google.com,
-	ryan.roberts@arm.com,
-	qperret@google.com,
-	steven.price@arm.com,
-	tabba@google.com
-Subject: Re: [PATCH] KVM: arm64: Keep firmware Spectre-v4 mitigation on for protected guests
-In-Reply-To: <20261113081934.1715497-1-fuad.tabba@linux.dev>
-References: <20261113081934.1715497-1-fuad.tabba@linux.dev>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pgrOhZRp
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c4203bbb1e9so399799666b.3
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 07:32:36 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794670355; cv=none;
+        d=google.com; s=arc-20260327;
+        b=l4FHgi8SZXRAh1roCWyJnLqBGWzMreJ34/2/FtNkxSZ+GlSVlJAwnMHGX+coxq7zcu
+         oaj4QFos0NEi0wh4gyFsD30GnQodjdmYhwNn9MQVdAaTa7eTvOy71mwRh8aA6lxw0fk8
+         qTJKbclJZxTBvfF7zrp5BiBgQUvmikyXoymv1ofU/lXLAKdHwowPkqAKELwbYpDMlqKm
+         H5DAPn2mtWKcqmR0RUsoZjSGq4/Uub21RpyI/ANi9tzjM1S0DzinwTEJAiIPPcCQfB1S
+         eY1ajMQmsZpBW2btshy+9DljXKeDXOoNWvKB8r1fzgocEVCeOqBNNAwx0D6O0AAk4K8E
+         ZwIg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=YjN6mtWcOCsjlBrJP8cJGczeHs+0ITKRtbxV1uFNID4=;
+        fh=dxtbfA8i4Jqqygwj4yZGcWaZOt2qUsdnptO9irv5zdc=;
+        b=YvIHBCeMNc7lyt/NGalp9smD2+QKN4rjJOrftLr9iwkT15vXkzz3h0K9u3/n0/J/HM
+         QCD+pBNauCf5yHwwIUa4ZK3GXmQxsYvl3Eao3axUxCvGVW+yxA9rnm2UU/SHG9Vff2we
+         0v/4ctKSSkfBXNSCCt7yb/5l70VtjfWQyBcgq5idFG4harmOX3nueOLDJcYz4XRYMgFk
+         2OaGhgNbR8YWzRmP/gRCppQBV6KOWxoqisAMH96a7Szz64fGD6ul7D5uu9i+O4R9we/J
+         4K3DXtsKZTVko80bKT7ZfSDTtqvkuBXChn26OPyVsY1QiOnXCr4zURd4jjlRTdSXC4Nm
+         joCg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794670355; x=1795275155; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YjN6mtWcOCsjlBrJP8cJGczeHs+0ITKRtbxV1uFNID4=;
+        b=pgrOhZRp05KImLhRrhLjrWt50iEsX2rldYqswYgsVQNsni6GZ7hMZFhhEAsvzYl+XI
+         pDxmlgRtgXeVD282942Y9MC1GgAIs4rNVhm9odZW/f2y2srKDssKPHzL037mIIt7q6UE
+         tYe4MH3o76oQ5NfhwSZxAoN+RwnvALSJclUP8WgvpS8B/+J7dSGb4FwmSL9M7f+4e7TI
+         jPqnY564o9gAucXpqlDNyAV+Ml9dr6o+UXPsD1dWTw3G6g6JvW7b6X2gsL2fuVsOMB4U
+         NYynnyQli0Zr172tTLKl3QPS2vt1trdjq1+3vrarZJXPCSRrSjs+1oogfjcKHzGciZ2B
+         zskg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794670355; x=1795275155;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YjN6mtWcOCsjlBrJP8cJGczeHs+0ITKRtbxV1uFNID4=;
+        b=VvHRd6rSs05CHCc/or+hdMHBBBKa/hV1euXZ5jfwYUVEo57qRxRUFNPEN5JoD5mpuG
+         kGeZhWM1IIyFNDNQ75f9SsjDYIRmBBXh9VQOupDsk0QqtkW57X9CEXF+yMXzRDJnpvuy
+         elJsAwkO7sprjFOgtzeZiCCfmBoTbbbXVAKmmFGI4CUhP8aAjmWbwO5KXEB16gkPwEpF
+         EA21vX7mNtvYMzSuhIV7zP91TlBg/0GxhSNhSqmWdaVD3TlcIq8d06sxP49UOGHcn1Fh
+         yAI1nVDLRKshYqt5uB/yJadrTEStvo8nCN+X72wIvwcjS3eqZ6QotrFh3zoTa3Mq7cAx
+         eaeg==
+X-Forwarded-Encrypted: i=1; AL+hErE5giq8/DdhiIYVvCTvWtID06EQR0HMtJ6qEBx+cAajaEKU8nevQvz7ePaod2rnCnhglBoCRIVqDnJfOqg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9TuWVpo2wKqe8tVVCuOEAR0V5CPD5S5MC0dPobC+TLDY7GSeb8
+	wHzAVJ+PS5VGNyMc9TWsKm/8wt1oCJ87waeDaNqfAjfgJzKc6dN3JiFrsAtUU8BX9yNEyS3cjUx
+	jLRZcjFqzvQeagCaqoR6ywkRYTEraPiVXfeae
+X-Gm-Gg: AYBFou25UOcsqvPO68SYqqpHkUQYleFfdYG3u0miYa2rCMz54FKJCPRnpR3/s/dnsUU
+	/puYaCoLHm9lOBPwlAT6YEMP2IOY/W6XeeVSHTfPLifwKWyHFgwX3Spzn9eJtsGnBV8cx0YzlNs
+	MS19u2I/IUI/Xvz8IX83il2kvTPRlsyuOgAdsMDDEVQ7GNDgLc63Aq7ogKmxZ1nWAd+6B+NQaew
+	OZzJf4T9OP0aTtgHHowqGN0e9pQRxELuvHBx9Oct5FG2CHCDRKcNFEpsAEmEwi0uRgEkhPL+luI
+	cSnRQLLRZZGLDTzurwveZ86O/GpsWd0v43VaLe4xwnwgcJ98a5scj+3/RlhmHQHme9xZqLpo0Jk
+	BLqEfKp0WW2sp3SwtccUVci6IcBXCzm/VydjKew==
+X-Received: by 2002:a17:906:9f8e:b0:c4c:b4fe:c9f1 with SMTP id
+ a640c23a62f3a-c5096385149mr526284666b.35.1794670355209; Sat, 14 Nov 2026
+ 07:32:35 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,132 +103,42 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, vdonnefort@google.com, ryan.roberts@arm.com, qperret@google.com, steven.price@arm.com, tabba@google.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+References: <20261113110546.173624-1-a.shimko.dev@gmail.com>
+ <20261113110546.173624-4-a.shimko.dev@gmail.com> <8ef5b0a7-58f6-4c62-8153-6a9c8d3703f7@lunn.ch>
+ <CAOPX745=Mx9Q+Wijt9+=Mmjtdk4fsenEeV2h0gPCvNpqc8kN=A@mail.gmail.com> <43b83555-df27-4b8b-a1d4-bf0cd9c46893@lunn.ch>
+In-Reply-To: <43b83555-df27-4b8b-a1d4-bf0cd9c46893@lunn.ch>
+From: Artem Shimko <a.shimko.dev@gmail.com>
+Date: Sat, 14 Nov 2026 18:32:24 +0300
+X-Gm-Features: AclHuK8X0DQZe3Z31cK9XuFE51dX6ITpI-bm5svIaVnP3cI8G5bXUmovC3tRnYs
+Message-ID: <CAOPX746c7uJt1fhV6s2=VjjeinQs+R4zDmMqCO3_UqkMrjzMew@mail.gmail.com>
+Subject: Re: [PATCH net-next 3/3] net: phy: dap8211r: add led hardware control support
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net, 
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, maxime.chevallier@bootlin.com, 
+	pavel@ucw.cz, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-leds@vger.kernel.org, netdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 13 Nov 2026 08:19:34 +0000,
-Fuad Tabba <fuad.tabba@linux.dev> wrote:
-> 
-> EL2 handles a protected guest's ARM_SMCCC_ARCH_WORKAROUND_2 discovery
-> query from the host's Spectre-v4 state at init. If the system is
-> mitigated and the guest doesn't have SSBS, it returns NOT_REQUIRED,
-> which means that firmware mitigation is permanently enabled. However,
-> the host can disable the mitigation before running a protected vCPU,
-> with an ARM_SMCCC_ARCH_WORKAROUND_2 call that EL2 forwards to the
-> firmware.
-> 
-> The host makes that call for its own userspace, so keep forwarding it,
-> without hints so that the firmware decodes it as EL2 does. Track it per
-> CPU, and on a mitigated system enable the mitigation again before
-> running a protected vCPU on a CPU where the host has disabled it.
-> Firmware enables it when a CPU powers up, so the tracked state isn't
-> reset on CPU_ON or resume.
-> 
-> Fixes: fe40ff87ead5c ("KVM: arm64: Implement HVC handling for protected guests at EL2")
-> Reported-by: Ryan Roberts <ryan.roberts@arm.com>
-> Closes: https://lore.kernel.org/all/5fa8a1fb-4e2c-4746-8a70-a47f387ef0d6@arm.com/
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> ---
-> 
-> Notes:
->     Tested on QEMU with TF-A. Upstream TF-A implements the dynamic
->     workaround only for Cortex-A76, so I patched it to advertise the
->     workaround on the Cortex-A57 that QEMU models. With a host that
->     disables the mitigation before running a protected vCPU, TF-A gets the
->     call to enable it again from EL2 with this patch, and doesn't without
->     it. TF-A's handler for the call does nothing there and QEMU doesn't
->     model the mitigation, so this tests the calls and not their effect.
->     
->     Calling the firmware before every protected vCPU run would do without
->     the tracking, at the cost of an SMC per run.
->     
->     Based on Linux 7.4-rc2 (7475ea8b58616).
-> 
->  arch/arm64/kvm/hyp/nvhe/hyp-main.c | 20 ++++++++++++++++++++
->  1 file changed, 20 insertions(+)
-> 
-> diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> index 179d7c8277b88..081a8780fa3b7 100644
-> --- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> +++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> @@ -21,6 +21,7 @@
->  #include <asm/kvm_mmu.h>
->  
->  #include <nvhe/alloc.h>
-> +#include <nvhe/arm-smccc.h>
->  #include <nvhe/ffa.h>
->  #include <nvhe/mem_protect.h>
->  #include <nvhe/mm.h>
-> @@ -30,6 +31,8 @@
->  
->  DEFINE_PER_CPU(struct kvm_nvhe_init_params, kvm_init_params);
->  
-> +static DEFINE_PER_CPU(bool, host_ssbd_disabled);
-> +
+Hi Andrew,
 
-Why do we need yet another set of per-CPU booleans to track the host
-state that is supposed to be stored in kvm_host_data? We already have
-a metric bazillion of flags for any odd state tracking, and I really
-can't see why this should be an exception.
+On Sat, Nov 14, 2026 at 6:13=E2=80=AFPM Andrew Lunn <andrew@lunn.ch> wrote:
+>
+> > The LED_COMCON register does include "force-on/force-off" bits,
+> > but i have intentionally chosen not to use them here.
+> > To be honest, i=E2=80=99m not yet convinced that they need to be added.
+>
+> They allow you to implement set_brightness. That is ideally the base
+> for all LEDs, being able to turn them on/off. If you can do that, all
+> the trigger can work with software driving the LEDs. You can show the
+> heartbeat, shift-lock, and all networking settings.
+>
+> Making use of the hardware to blink on network activity is an optional
+> extra, reduced the CPU load etc, but just nice to have.
 
->  /*
->   * Define a hypercall handler: handle_<name> unmarshals the arguments from
->   * the host context and hands them, correctly typed, to the body that
-> @@ -940,6 +943,17 @@ DEFINE_KVM_HOST_HCALL(int, __kvm_vcpu_run, struct kvm_vcpu __kern *, vcpu)
->  			return ret;
->  		}
->  
-> +		/*
-> +		 * Firmware Spectre-v4 mitigation can be advertised to a
-> +		 * protected guest as permanent. The host kernel runs with it
-> +		 * enabled, so nothing is restored on exit.
+I got it, thanks for the clarification, will do.
 
-I don't understand this. If the host is supposed to run with the
-mitigation enabled, how did we get here with the mitigation disabled?
-It's not like we can get here directly from userspace...
-
-So either the reasoning in the comment is wrong (and therefore needs
-fixing), or this is a buggy (malicious?) host that tries to trick the
-hypervisor (and then I question whether we should even try to continue
-running the guest).
-
-> +		 */
-> +		if (pkvm_hyp_vcpu_is_protected(hyp_vcpu) && spectre_v4_state == SPECTRE_MITIGATED &&
-> +		    __this_cpu_read(host_ssbd_disabled)) {
-> +			hyp_smccc_1_1_smc(ARM_SMCCC_ARCH_WORKAROUND_2, true, NULL);
-> +			__this_cpu_write(host_ssbd_disabled, false);
-> +		}
-> +
->  		flush_hyp_vcpu(hyp_vcpu);
->  
->  		ret = __kvm_vcpu_run(&hyp_vcpu->vcpu);
-> @@ -1671,6 +1685,12 @@ static void handle_host_smc(struct kvm_cpu_context *host_ctxt)
->  		goto exit_skip_instr;
->  	}
->  
-> +	if (func_id == ARM_SMCCC_ARCH_WORKAROUND_2) {
-> +		/* Drop the hints, so that the firmware decodes the ID as EL2 did. */
-> +		cpu_reg(host_ctxt, 0) = func_id;
-> +		__this_cpu_write(host_ssbd_disabled, !lower_32_bits(cpu_reg(host_ctxt, 1)));
-> +	}
-> +
-
-This should be pushed into default_host_smc_handler() rather than left
-dangling here (it is pretty obvious that it has nothing to do with
-PSCI or FFA).
-
->  	handled = kvm_host_psci_handler(host_ctxt, func_id);
->  	if (!handled)
->  		handled = kvm_host_ffa_handler(host_ctxt, func_id);
-> 
-
-Thanks,
-
-	M.
-
--- 
-Jazz isn't dead. It just smells funny.
+Best regards,
+artem
