@@ -1,59 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794698205;
-	b=GPLi4HWPttYyefKK7exYyZmNr6ruf91rNd4zXk4Xdpe2siBGTflKutebjCSlDj4o/H5Y
-	 1DLgsALJLHOG++cL3aP18slcdXl9qK7AKlmY+J5mled/jWFXM/G1K9bfpQr3jCMJtqXQC
-	 ADg2DG6J2cFznau0XHNn3rP0Unjeak0GZgsiR0u+yhYebz4brJPXQqpJRCsJtN8zsVIi4
-	 VH8um/jKRSKFayTW1/BU+Lh+wlUI4ZQKgNSJHkS8UGu+8TTWiEcNkFfR2tdiUz9Ej8Iy7
-	 quVZfa5IHh8ONooPmeFDK6R+FvQBKkp+IvWyL1L1+MxDMlSgUes3V8Jh8fFswWTddkQ==
+	t=1794698295;
+	b=YfGyeDRunHq6MfzDzUuqrjx1ltffQx/TgwqhR8BP/kQLQW12dmQ71WHU4hQip+usKt/r
+	 84eKedAAMX59hq+W+eriMpjXglgGHMQyS7nSTdsqN7+a/+fx9ijfk+8kRG08zxuMtcJgg
+	 8AwVuYAq8N3Y+Wxf5ahBDOheJqFosBpE5blUYpRoIBYFf/yziDYpkS6C9zW5zXwiSxHi2
+	 0L4KcR9k2eWvvKt37+VyyUadc8S/Uvg7skO4BwtOzBXAdU7Xly6ysVp5xfAh0oiuY5/E7
+	 SIjKw52OcCq7K1Q470720FdgvV9Sih7xLk4/6PkRnFu0V66+BA5CZSM4U4If+zVCRJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794698205;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=79ksDii4s7CLZnmejbxE4792h8Xt7p7jEiyY96vDxXo=;
-	b=ydejfmwZ8uhWcaX2M4kudE3u4azbmO6zxjIIX8Hzj6Bfb8tL4NvKA6TwsVfsLJdY5iuy
-	 Vko9VZU2/RkmczbzWCIf1b0GtjsAlG/aeBWlaHa8YnfpNip72ZtD3Drg8fifs1btZIbK0
-	 AfT3BY6YQRjuliIj3QJMVKmB0WyTiG+8T4ghp3f5SF7LgfIw/UGqkmzW1n9UH+PjABu1L
-	 c4V9nLqmO4piofHH8ktE9kUy8OXlA4V4TpRJRFw83vxoCN696emI5e+uOCyVM4ukl+UjB
-	 r+xk6H8a7xtA6NGCKa01bQH0Sa0nPMLLP3crs9to2Ph2gpxe+hjrk7ThOH5/Mo+rvaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794698295;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Debian-User;
+	bh=Vi/p4fUVhpFjb9s6Vzfmbzm5sEOD5y84qq3KlrB9vm0=;
+	b=F9xdeG2vXCUeyasaV9oH1GwK22Ml/HP0cixl8u9RTZkCZL90EYtOjzQpXICs4Uu8/xmC
+	 ZHCHIRSejrZ8jlR/L76Z6RHFOEZN5PoAWNShhERb8JTlOhAMHinpmqStb4tTsizOPnPgX
+	 Sux/60ITqqq0XXlFQAK77EkfXGUGt+POm91HE1mOBOHb879GPIwAsOwoNatsx9gdnvtnE
+	 dSXKgcsL1yaV19A56rFVz4Z3GBphDSB4B5idz7swruRuEe0Yy+7ID/sk4QC0qF4ShKK6G
+	 /Qqvs/XNuFntfcUU9qhVKxoGL4qsaUYz8v9ROdPv2qnx9KQZNqQPrfPLGAea/n8MrXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K7xQK29i;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=dezgWBh2;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFD79606A323;
-	Sat, 14 Nov 2026 23:16:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9032B606A327;
+	Sat, 14 Nov 2026 23:18:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9032B606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K7xQK29i
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D816B1F000C4;
-	Sat, 14 Nov 2026 23:16:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794698205;
-	bh=79ksDii4s7CLZnmejbxE4792h8Xt7p7jEiyY96vDxXo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=K7xQK29iea6sAQi0ZvtPSFLJL2a8gQ+0prHqZ3AoohNDBGiVOUjcOwcs7v+uc5NGA
-	 3eTwKuVqXHY94JRwOg684WHF+pnDsNT/bvipWlFZHkKucDrBDmECEwm6YmaH/mBXh0
-	 oeOGExfhV5Vc+l1RzWgCGYF3teHkjC/fAmr8yyftpAebn9gC4S+CmjRSZGVWiqc2xs
-	 5Yjk8aj7r2GId4zlFhbS3Vlrr/xRF5dG0Stk/4m2pPs+MMwYYvzJWfVpV31rGgwPUA
-	 ixL4M9gin7EVu2YTKLSVHXuFWEuk1JrgsejhVD7iffuQvSlCLySB4uHtXWMUP5VCEz
-	 SXgepGnuv/gRg==
-Date: Sat, 14 Nov 2026 23:16:38 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Raffaele Tranfaglia via B4 Relay
- <devnull+raffaele.tranfaglia.gmail.com@kernel.org>
-Cc: raffaele.tranfaglia@gmail.com, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
- David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
- linux@analog.com, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: light: adux1020: use guard() to simplify lock
- handling
-Message-ID: <20261114231638.420e70f4@jic23-hlaptop>
-In-Reply-To: <20261108-adux1020-guard-v1-1-db9c582f1eea@gmail.com>
-References: <20261108-adux1020-guard-v1-1-db9c582f1eea@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=dezgWBh2
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Content-Transfer-Encoding:MIME-Version
+	:Message-ID:Date:Subject:Cc:To:From:Reply-To:Content-Type:Content-ID:
+	Content-Description:In-Reply-To:References;
+	bh=Vi/p4fUVhpFjb9s6Vzfmbzm5sEOD5y84qq3KlrB9vm0=; b=dezgWBh2FEc4ztJF/MRQz6EXXn
+	8/1nD5ixSfz7+6+7Bj1cnhTvdVx6E38/olpPH1kWA28uLzTbiSpU/kkpJwRhKEVs90HwPH3bpP2Ol
+	FICPuf28tt09gn3L73uVnLrqhfwjdx91iep0c4PM1X24H93u22u2kbMnuM8FFDgucIZmSe8ZcmwtO
+	1x7nGSFF17mGg69HX7aZ5OKBGmoHNfO1pFC/rie4oASn8bEu2WSp+HXgPF3NYLJSepx8VEkbdYnoE
+	yx5aqF0lXg5++8tE37oB/gs7ltRMacI2kId4zt4JyYebiVT3epal7IdKu8XzNavVKlhyeWxupeqJz
+	MqD7Kc0g==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <emfox@debian.org>)
+	id 1xSN0a-00FtUe-09;
+	Sat, 14 Nov 2026 23:18:08 +0000
+From: Emfox Zhou <emfox@debian.org>
+To: Even Xu <even.xu@intel.com>,
+	Xinpeng Sun <xinpeng.sun@intel.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] HID: intel-thc-hid: intel-thc: rewrite PRD tables on reset
+Date: Sun, 15 Nov 2026 07:17:33 +0800
+Message-ID: <20261114231733.3916070-1-emfox@debian.org>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,265 +69,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Debian-User: emfox
 
-On Sun, 08 Nov 2026 20:16:13 +0000
-Raffaele Tranfaglia via B4 Relay <devnull+raffaele.tranfaglia.gmail.com@kernel.org> wrote:
+RxDMA reset takes the DMA configuration down and puts it back, but leaves
+the PRD entries as the controller wrote them. A frame that was queued and
+not read keeps its shortened length, so the next frame runs past the end of
+the table: the controller reports a buffer overrun, which is a transfer
+error and leads back into the same reset, with the tables still untouched.
 
-> From: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
-> 
-> Use guard(mutex) in adux1020_read_raw(), adux1020_write_raw() and
-> adux1020_write_event_config() so the lock is released automatically on
-> return. This allows returning directly instead of jumping to a common
-> unlock label, and lets adux1020_write_raw() drop its ret variable.
-> 
-> No functional change intended.
-> 
-> Suggested-by: Jonathan Cameron <jic23@kernel.org>
-> Link: https://lore.kernel.org/all/20261107222957.5332237b@jic23-hlaptop/
-> Signed-off-by: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
-Nice change, but in the way of cleanups it reveals some more options
-to improve things whilst we are here.
+Write the receive tables again while both engines are paused, before the
+configuration starts them. The configuration is the wrong place for it: on
+resume it runs with a frame that arrived before the suspend still queued.
 
-This often happens with cleanup.h changes as simpler early error
-paths etc no longer need gotos and so end up being worth doing
-when perhaps they were not previously.
+Signed-off-by: Emfox Zhou <emfox@debian.org>
+---
+ drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
+diff --git a/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c b/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c
+index c80ef8c20..28a1aa97b 100644
+--- a/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c
++++ b/drivers/hid/intel-thc-hid/intel-thc/intel-thc-dma.c
+@@ -211,6 +211,9 @@ static void thc_copy_sgls_to_prd(struct thc_device *dev,
+ {
+ 	unsigned int i;
+ 
++	if (!config->is_enabled)
++		return;
++
+ 	memset(config->prd_tbls, 0, array_size(PRD_TABLE_SIZE, config->prd_tbl_num));
+ 
+ 	for (i = 0; i < config->prd_tbl_num; i++)
+@@ -598,6 +601,10 @@ int thc_rxdma_reset(struct thc_device *dev)
+ 
+ 	thc_dma_unconfigure(dev);
+ 
++	/* Still paused: the configuration starts the receive engine again. */
++	thc_copy_sgls_to_prd(dev, &dev->dma_ctx->dma_config[THC_RXDMA1]);
++	thc_copy_sgls_to_prd(dev, &dev->dma_ctx->dma_config[THC_RXDMA2]);
++
+ 	ret = thc_dma_configure(dev);
+ 	if (ret) {
+ 		dev_err(dev->dev, "Re-config DMA failed during RxDMA reset\n");
 
-> ---
-> This follows Jonathan's suggestion, made when applying the sampling
-> frequency hardening patch. It applies on top of iio/testing.
-> 
-> Tested on arm64 QEMU with i2c-stub and lockdep enabled: reading and
-> writing the sampling frequency (valid and invalid values), reading the
-> LED current, reading in_proximity_raw (error path) and enabling the
-> threshold event. No lockdep warnings and no hangs after the error
-> paths.
-> 
-> I prepared this patch with the help of an AI coding assistant, and
-> reviewed and tested it myself.
-> ---
->  drivers/iio/light/adux1020.c | 104 ++++++++++++++++---------------------------
->  1 file changed, 39 insertions(+), 65 deletions(-)
-> 
-> diff --git a/drivers/iio/light/adux1020.c b/drivers/iio/light/adux1020.c
-> index d4281b9754c3..3e8f53e5a1a0 100644
-> --- a/drivers/iio/light/adux1020.c
-> +++ b/drivers/iio/light/adux1020.c
-> @@ -9,6 +9,7 @@
->   */
->  
->  #include <linux/bitfield.h>
-> +#include <linux/cleanup.h>
->  #include <linux/delay.h>
->  #include <linux/err.h>
->  #include <linux/i2c.h>
-> @@ -362,10 +363,10 @@ static int adux1020_read_raw(struct iio_dev *indio_dev,
->  {
->  	struct adux1020_data *data = iio_priv(indio_dev);
->  	u16 buf[3];
-> -	int ret = -EINVAL;
-> +	int ret;
->  	unsigned int regval;
->  
-> -	mutex_lock(&data->lock);
-> +	guard(mutex)(&data->lock);
-Now we have guard and direct returns are an option there are
-some nice things we can do.
->  
->  	switch (mask) {
->  	case IIO_CHAN_INFO_RAW:
-> @@ -373,69 +374,56 @@ static int adux1020_read_raw(struct iio_dev *indio_dev,
->  		case IIO_PROXIMITY:
-Style wise this is curiously different from write_raw().
-I'd take a leaf out of that book and make this similar (but not quite - see below)
-	switch (mask) {
-	case IIO_CHAN_INFO_RAW:
-		if (chan->type != IIO_PROXIMITY)
-			return -EVIAL;
-
-		ret = adux1020_set_mode(data, ADUX1020_MODE_PROX_I);
-		if (ret < 0)
-// could switch to simpler if (ret)  but maybe not worth it.
-			return ret;
-  
-		ret = adux1020_measure(data, ADUX1020_MODE_PROX_I, buf);
-		if (ret < 0)
-			return ret;
-
-		*val = buf[0];
-
-		return IIO_VAL_INT;
-
-	case IIO_CHAN_INFO_PROCESSED:
-		if (chan->type != IIO_CURRENT(
-			return -EINVAL;
-
-...
-
-	default:
-		return -EINVAL;
-	}
-}
-
->  			ret = adux1020_set_mode(data, ADUX1020_MODE_PROX_I);
->  			if (ret < 0)
-> -				goto fail;
-> +				return ret;
->  
->  			ret = adux1020_measure(data, ADUX1020_MODE_PROX_I, buf);
->  			if (ret < 0)
-> -				goto fail;
-> +				return ret;
->  
->  			*val = buf[0];
-> -			ret = IIO_VAL_INT;
-> -			break;
-> +			return IIO_VAL_INT;
->  		default:
-> -			break;
-> +			return -EINVAL;
->  		}
-> -		break;
->  	case IIO_CHAN_INFO_PROCESSED:
->  		switch (chan->type) {
->  		case IIO_CURRENT:
->  			ret = regmap_read(data->regmap,
->  					  ADUX1020_REG_LED_CURRENT, &regval);
->  			if (ret < 0)
-> -				goto fail;
-> +				return ret;
->  
->  			regval = regval & ADUX1020_LED_CURRENT_MASK;
->  
->  			*val = adux1020_led_currents[regval][0];
->  			*val2 = adux1020_led_currents[regval][1];
->  
-> -			ret = IIO_VAL_INT_PLUS_MICRO;
-> -			break;
-> +			return IIO_VAL_INT_PLUS_MICRO;
->  		default:
-> -			break;
-> +			return -EINVAL;
->  		}
-> -		break;
->  	case IIO_CHAN_INFO_SAMP_FREQ:
->  		switch (chan->type) {
->  		case IIO_PROXIMITY:
->  			ret = regmap_read(data->regmap, ADUX1020_REG_FREQUENCY,
->  					  &regval);
->  			if (ret < 0)
-> -				goto fail;
-> +				return ret;
->  
->  			regval = FIELD_GET(ADUX1020_PROX_FREQ_MASK, regval);
-> -			if (regval >= ARRAY_SIZE(adux1020_rates)) {
-> -				ret = -EINVAL;
-> -				goto fail;
-> -			}
-> +			if (regval >= ARRAY_SIZE(adux1020_rates))
-> +				return -EINVAL;
->  
->  			*val = adux1020_rates[regval][0];
->  			*val2 = adux1020_rates[regval][1];
->  
-> -			ret = IIO_VAL_INT_PLUS_MICRO;
-> -			break;
-> +			return IIO_VAL_INT_PLUS_MICRO;
->  		default:
-> -			break;
-> +			return -EINVAL;
->  		}
-> -		break;
->  	default:
-> -		break;
-> +		return -EINVAL;
->  	}
-> -
-> -fail:
-> -	mutex_unlock(&data->lock);
-> -
-> -	return ret;
->  };
->  
->  static inline int adux1020_find_index(const int array[][2], int count, int val,
-> @@ -455,9 +443,9 @@ static int adux1020_write_raw(struct iio_dev *indio_dev,
->  			      int val, int val2, long mask)
->  {
->  	struct adux1020_data *data = iio_priv(indio_dev);
-> -	int i, ret = -EINVAL;
-> +	int i;
->  
-> -	mutex_lock(&data->lock);
-> +	guard(mutex)(&data->lock);
->  
->  	switch (mask) {
->  	case IIO_CHAN_INFO_SAMP_FREQ:
-> @@ -465,15 +453,13 @@ static int adux1020_write_raw(struct iio_dev *indio_dev,
-In here, I'd do similar to above and use an inverted condition to exit
-early.
-
-		if (chan->type != IIO_PROXIMITY)
-			return -EINVAL;
-
-		i = adux1020_find_index(adux1020_rates,
- 					ARRAY_SIZE(adux1020_rates),
-  					val, val2);
-...
-
->  			i = adux1020_find_index(adux1020_rates,
->  						ARRAY_SIZE(adux1020_rates),
->  						val, val2);
-> -			if (i < 0) {
-> -				ret = i;
-> -				goto fail;
-> -			}
-> -
-> -			ret = regmap_update_bits(data->regmap,
-> -						 ADUX1020_REG_FREQUENCY,
-> -						 ADUX1020_PROX_FREQ_MASK,
-> -						 ADUX1020_PROX_FREQ(i));
-> +			if (i < 0)
-> +				return i;
-> +
-> +			return regmap_update_bits(data->regmap,
-> +						  ADUX1020_REG_FREQUENCY,
-> +						  ADUX1020_PROX_FREQ_MASK,
-> +						  ADUX1020_PROX_FREQ(i));
->  		}
->  		break;
->  	case IIO_CHAN_INFO_PROCESSED:
-> @@ -481,24 +467,19 @@ static int adux1020_write_raw(struct iio_dev *indio_dev,
->  			i = adux1020_find_index(adux1020_led_currents,
->  					ARRAY_SIZE(adux1020_led_currents),
->  					val, val2);
-> -			if (i < 0) {
-> -				ret = i;
-> -				goto fail;
-> -			}
-> -
-> -			ret = regmap_update_bits(data->regmap,
-> -						 ADUX1020_REG_LED_CURRENT,
-> -						 ADUX1020_LED_CURRENT_MASK, i);
-> +			if (i < 0)
-> +				return i;
-> +
-> +			return regmap_update_bits(data->regmap,
-> +						  ADUX1020_REG_LED_CURRENT,
-> +						  ADUX1020_LED_CURRENT_MASK, i);
->  		}
->  		break;
->  	default:
->  		break;
->  	}
->  
-> -fail:
-> -	mutex_unlock(&data->lock);
-> -
-> -	return ret;
-> +	return -EINVAL;
->  }
-
-> 
-
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
