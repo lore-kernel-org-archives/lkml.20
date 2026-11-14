@@ -1,87 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794665807;
-	b=M00Mx7WQLdEo0H+18JRwCZ17NL5anc1a9vSDMu/Vvdugm34W+CvgkRNSxlpLAPQoOot3
-	 R9R8fYQGYwEpOESpBkjkX2Z8+ScAkmCMEl1mbGavSYxqjTa5iL2l+VE9XKOvPXyB89gJZ
-	 YsV8RytNvYqHNNqfhBE7wyCDPB+PAMDmq7QLpaYj+kHrg/Q7paE6ZP3er0REULZEZ17wM
-	 h9Xh7YMK6F2TYLaBtKiz84xdAypPpc3H9RIZnG6260CjqssSXrK5z/nkYXN6qqGMYH/Y1
-	 IpgdzpMi9euYZXpBtoiuJHTLWz83lJ9GSD3ftXW4zZW7FeCiDSTEvpQr6BADcPuZg4Q==
+	t=1794665855;
+	b=eJr/G3YDu0ITplpa+mkbbkEWUcXCMskvFi7EmfUY3b9nbJFixfgR3YLwX+CpOVfhxqHs
+	 wV102JfrrZOwwWT01zNev2JC6SjfnydlaFu7zblq5Mg1WkVj1ac446lDuVmSDVTNlBYav
+	 dYiDxx0yVBBWN8bCb9OT6adb4IcVQk2QVljAbHWnSYAk2eW5uhfwte2VlliEThH/+T/Dn
+	 QWgeq7jZ+fbFiFAWobEd82j11XFis577lUO2iqkPhjL37ZfwLrss5z5/3gZ5h2PKLSdqL
+	 fyEh7CVZHT8xd3b/SsuOtrLPlwUuPxXWxZFaxpfXjlm4sZtKJF96VJmPBmyU5Vj4M4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794665807;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794665855;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
-	 Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Rsh3PSgy5EeLZfkj2Ume/HSuLoP9g7O08oXc9D5ZzEE=;
-	b=pHMPYJDRaUHsO+sxh/Ah9B63KJkEb1n/S357Pmc9MO6t9d+hR96I6cuxLPR91/nMIHcx
-	 cEQU06EjdNrF97dTY+/pQjd2+ijf0Y2rkK1zJa9h2UekPcG7dE0HeTIVyDHI2+nuNOa9R
-	 FCTS95qjStNtCq9+eFpNTnpzoTmRn1D6ZaG4w2KShwo/3nHtUqlv22RFdg65jWVFPAaQD
-	 9OCh60F7sbAdhLY0Beg0sW0lTjpoDStGON4EPsp0/cRWPfrkA0KrmYKEgGtVOe6Rytfz4
-	 +/jV8C8InXzcZczWCJLDWWXGYaagwLCzN0ktWpUcMKR8ThLK1Y5HTycZiRSjLLM51mQ==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=GS4jbtYtW/yhZKnq1AkXrMxrXCWzFQup/7DDpI9kC2U=;
+	b=l9yY90SAUVhOOLFPP+N0BpkKbCuc0Pnzc8r2LvE4XhyvcM13q31GOVGrU03zlPOm8MyK
+	 doU/PrtTbXNtRfiqbbxD2mbImoc3ytMQv1+Nvsd9D0cNF9fbSkfjAR19dZrHFlXDvfstT
+	 vq+YVffhjXy/Y9qbdqOurJJ+ztkQeeuliq+xb7sc5JsODCeNU0niYO3/dj8tpPhdZFZKr
+	 VOY3rwSwFoEPlhj/cFAaLnQp53gdcywK2EKH0FIPN+2foTJC5zO+lfiI+F8qFGPniWoB9
+	 NpDlgQPJ9bcHsIErO2uNPIB5HFvCMpnNx8Lek+/Mp77dta0/N//zZV3RBM6AwqODjhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0c5nFMdk;
-	arc=none smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=joGTMJS1;
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B23A1606A329
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 14:16:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B23A1606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BCA2606A329
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 14:17:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BCA2606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0c5nFMdk
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3b18717a193so1063555a91.1
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:16:46 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=joGTMJS1
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48dee593f18so2368386f8f.3
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:17:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794665806; x=1795270606; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Rsh3PSgy5EeLZfkj2Ume/HSuLoP9g7O08oXc9D5ZzEE=;
-        b=0c5nFMdk+yWbf+C71VnSAz6BsODM7dxwkDZmx2JZm5IkItwZpYWzZfIvg6VsN8404b
-         HTmIIYJuqYP2sCa26kYtaDGmw6/fSO7ma0s4eNBzdDrUw3NI2mgBJn6HxyZACOODKRbJ
-         bBZJb8UzWt3pXG97XUG3hFsbegZjKtfiU5HgKEYcOGj1LdurgttVu+PCFtUoacel/GXa
-         zKWYHFe572C1e/q2OkehmmkkAFBLAmY6X/Qu0lQGzE+2FU6SrMxsAsjFV+jPxQNxVGMJ
-         kxtKQovgbBec4A8Y6J4uilYZFLQB1yzzBSyO3jfoToPvImCHJOga22LziUdcDaYNuwu1
-         5aCA==
+        d=google.com; s=20260707; t=1794665854; x=1795270654; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GS4jbtYtW/yhZKnq1AkXrMxrXCWzFQup/7DDpI9kC2U=;
+        b=joGTMJS19VoihDS1FaYgbHhavZw44ArpFI5chZKmCDeCxGbMady8B4QB8gbDqXqQwM
+         Te4gPj1Z4ZBdNO2lJipqJ5Y9luQ7hBLY78HmbUYSwoRTL86jhq4BpK1kl/pJYCiBQ+9u
+         fZ0JooljA3GAIZ6E+Vawp7UnZU9ZARtxB5iyAzxHNqy4dJ1bQeQNqNLU37R5/c6Y7w5K
+         KsrHRR+h97bltBOXI6rN1QyCdba3k9UdL4QV+BYCW/GmA9GHKnlBuC1mf+NG/bxaZ5SE
+         /n+x/FotCth5AivPyOk1/34jcr+cUKmBv76FMXaVgX8jERX6Xv3lnaDIMJ6syxehaMXE
+         Isdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794665806; x=1795270606;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Rsh3PSgy5EeLZfkj2Ume/HSuLoP9g7O08oXc9D5ZzEE=;
-        b=0Aggc51/2bwsfT9QuRMVUQTsxdqMsaxP6NanK0dxkSMCrrtSSe7mVdVnBh+e3HRe6H
-         gmJaNhWfGyfr+SE7G7+j+6Iz2AT0uXn1MN9Tjd/Bfpt3wIk/epZqYiF+4KNful9QYJD7
-         ZtlQLzsgs6rkL4bet/dinvBDZb09cwbhimHozNqaIrpW+MUg1Tf4462r+Gh4YRieAehe
-         B5HfDq9yHYa4affVAakrAR6o4jbdw7buWsR3lq9eSE07MAEQ2KL+ynqhJ4yn5heQq1HB
-         42ZhFkNG7skb1FazA3yqNBasPCOMHmn6ffgObYt8obuIlfLJppivsHXg1FFo2zmbx2Wn
-         bEqQ==
-X-Forwarded-Encrypted: i=1; AL+hErGCobqIVOIzPLRFn4whyOrrwvZmjeS0BQddsN79mrjLYQ/MZGAWKc7LeYkePpmYyApCqCfL/Tyv1866yOA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8h0AKqojbbmEirLd3ZjgNVQfSHwCqEt5s/1L4W2APl7Xz6gzIp
-	rmfOfv2DNOw/USNFxC3RV0VmnnVAy8tAJoixpx9y8JFIDsT33IXRWahHByopaIXZ
-X-Gm-Gg: AYBFou29/2cMRzQnSObgeDxZdLdhxE+t5/q/aAgYKL6k95DG55n8azJhQc9Q7pYToET
-	Jp8T1v1zV0fJX10GVb0iLF90ZUJ7tlcF7ylQwHnGBaulG3PBeqi7wUTSJdQ9r2lsYxlMYaz9pcw
-	F0yx+vOE6WCbse5uO+Jd0LBR42BRMECkgwVJ3jBpS/V8AAr5BI1QrLxXHQm7x55FprZJs2ytCD5
-	hjonP/hw0aYTku3ppZ+YgV9RaRLc2ajeVAYVs/q5k/sAfO/rhTAnz+sgkWc7PTLLgJXrQZ/GrSp
-	WGPMpVkDw5q1kZFq5qf8HKM04AVM+RLfl3GLhtQoiVLA/6B1HG5Q6LJCpDr4E8UX4rdNF2s9NjX
-	sDOjr8X9k2fNs4R8Z6Vhn8GNvmF5h/ea2Fy4IJ023y0n3fXCGHU7sdsumLIw+isiKel5SQmviTD
-	zzVeERLHaKDfT5q3OwF2HQ8hRoyxX6xha5mpFkPHUGsMkZ9YaUtF/8Zz0B+SPnSlhHLHjM9XV2D
-	ty3mrieUvNqkKR2fT3BPg6i4grg5ekCSTPp6ZcLhjwboQow20ymxRmZnd07ZKPAdL9oIyKaXR/2
-	KjkH5gl5Au30mOKZKLyY3bce7qKtt5r6tCyrtegJ0CdQJH/heTq2NhE+tx4TvjVw9xc=
-X-Received: by 2002:a17:90b:440b:b0:3ac:adce:60a8 with SMTP id 98e67ed59e1d1-3b1b07ef8bbmr5367145a91.5.1794665805884;
-        Sat, 14 Nov 2026 06:16:45 -0800 (PST)
-Received: from [192.168.35.40] ([218.50.238.131])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b245f0c3sm4377768a91.0.2026.11.14.06.16.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 14 Nov 2026 06:16:45 -0800 (PST)
-Message-ID: <94a65d65-e81f-4942-b119-51b71e8eabb4@gmail.com>
-Date: Sat, 14 Nov 2026 23:16:41 +0900
+        d=1e100.net; s=20260707; t=1794665854; x=1795270654;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GS4jbtYtW/yhZKnq1AkXrMxrXCWzFQup/7DDpI9kC2U=;
+        b=lx8Bz8watZLmnOiC6jMxTiBLjmR8XxhnFfvOemAErVbEyb3UNgp5bNr2AKSKDBlAtY
+         jH5i23d1y+o2FlRNaRriSYX+2yNGmT60fpVnvAwScU/VH1gumDuZ4aBtib9RID4hQx5g
+         aIrBrze1zm13vJ9zm9mqWJxWMjJHemFSnWK2tv0NIERMKtj3y+5v+azleLNJxEaloXFu
+         ros4DT+Dvga54hDX+9ADGHa57PkYqgsMUjpbHLiqT6FV/2IbwskrpSsD/Iq7woWzYx1U
+         zxlGh0oUBYD3JL+gksdaQiz8GuwRRz/6YYKJWykEV1XzizZJrSySaiNbW1x+pdk4xAtG
+         DfBg==
+X-Forwarded-Encrypted: i=1; AL+hErGasndCMMpKnxA9nXgkbuyh9Jq1ol5LFEeMTDaa+m1T6pfpf8s71ETOqqrcEGdKDP2mpx4XmdogCOitBpU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Y5lEvLRB1ZLznkkwBwYAhEsHOoplU2bYp1Tw6qWa6d74WvIgI
+	TltH6a+WSgFGTdebRd3cPmz/vOZxBibXoSVOr8XhSPt7N/OhjMJKDYQTkCFq+ViWpQ==
+X-Gm-Gg: AYBFou25Af4T64yfr/qOyoZ+u4hVw3yBdUeS3dvJyuDls4ps2WYSJIJgtJ5yFYCw7x7
+	sG3eOQFqkDbVMceDvn6h46LQ23W7j/paCkitL3N8bHSfszTKl4RXM9fphzMdmLAGVNopA5Tkn+B
+	27RCB0/mc/z2XnYTN+YE90gAaIvRC4ik8ddCZEx0HxJts+zD3Qy9+2pBGAyD6PJUIhnSMGNPTFO
+	eSk9TpuDb+t/1+mZBQ2UYx6IyJE93g4kWAbVPmTZ2inDkCmYRchqlYVNtlzFE2gPj7MsT4ek07I
+	BhTl2bRABQCg6hRjaeJ+jkWavGsprk7KKviat6St44oUdnqD7RRaUvrBhHMTzJBbFS65whxzyk8
+	H0T44+245i8kkYgfoT8FXWOLHoPE9f0vV2MdaSCbaZd9i0ED1r67Hs8L34BwONEMazNfIltJ62N
+	7LSFFwt51xYu/p9m4S+1/1GeyTixdtIJh5pLNmL9J16IWea+B2bsERH0XfJZ0i4o0nbiDmDftN6
+	TlIHhWGWye1HkIU3Nz0/GUvHoT5d6pCSoqU9kF+FdMAxzXEnBildw4CEUzSpMEbqUkCyB4X2Olt
+	Uj9nUzdZ3uqqEI2ZlF13xL6JwSlQ42fJu226iozBHsXtL1/80fdhtQGN5ICqYueI77vDlUgi5Lx
+	xbiUPLOBdrfE=
+X-Received: by 2002:a5d:5c05:0:b0:49d:8d2e:40e with SMTP id ffacd0b85a97d-49d8d2e0438mr7872479f8f.16.1794665853122;
+        Sat, 14 Nov 2026 06:17:33 -0800 (PST)
+Received: from google.com (0.182.34.34.bc.googleusercontent.com. [34.34.182.0])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c888b90d4sm10147934f8f.9.2026.11.14.06.17.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 06:17:32 -0800 (PST)
+Date: Sat, 14 Nov 2026 14:17:29 +0000
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Xiang Gao <gxxa03070307@gmail.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lorenzo Stoakes <ljs@kernel.org>, gao xu <gaoxu2@honor.com>,
+	yinchuang1@xiaomi.com, linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Xiang Gao <gaoxiang17@xiaomi.com>
+Subject: Re: [PATCH v5 1/4] ring-buffer: add ring_buffer_memory_size()
+Message-ID: <avhteUQSrWPFuQ3a@google.com>
+References: <20261105140221.44614-1-gaoxiang17@xiaomi.com>
+ <20261105140221.44614-2-gaoxiang17@xiaomi.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,112 +103,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] PM / devfreq: governor_userspace: Guard against NULL
- governor_data during switch
-Content-Language: ko
-To: Finley Xiao <finley.xiao@rock-chips.com>, heiko@sntech.de,
- linux-pm@vger.kernel.org
-Cc: cw00.choi@samsung.com, myungjoo.ham@samsung.com, kant@allwinnertech.com,
- kyungmin.park@samsung.com, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, tony.xie@rock-chips.com,
- huangtao@rock-chips.com, stable@vger.kernel.org
-References: <20261022022109.642339-1-finley.xiao@rock-chips.com>
-From: Choi Chanwoo <cwchoi00@gmail.com>
-In-Reply-To: <20261022022109.642339-1-finley.xiao@rock-chips.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105140221.44614-2-gaoxiang17@xiaomi.com>
 
-
-
-On 10/22/2026 11:21 AM, Finley Xiao wrote:
-> The userspace governor is the only one that uses devfreq->governor_data,
-> allocated in its DEVFREQ_GOV_START handler (userspace_init()) and freed
-> in its DEVFREQ_GOV_STOP handler (userspace_exit()).
+On Thu, Nov 05, 2026 at 10:02:18PM +0800, Xiang Gao wrote:
+> Add a helper to report the page memory consumed by a ring buffer for a
+> given CPU. It accounts for the data sub-buffers, the reader page, the
+> cached read page, and the mmap metadata page. Unlike
+> ring_buffer_capacity(), which reports the usable data capacity, this
+> reports the full pages allocated to the buffer.
 > 
-> When switching governors via sysfs (governor_store in devfreq.c), the
-> sequence is:
+> The function is generic and returns a size for any buffer type, so
+> callers that need the memory footprint of remote or persistent buffers
+> can use it as well.
 > 
-> STOP(old) -> df->governor = userspace -> START(userspace) -> userspace_init
-> 
-> Between the df->governor assignment and userspace_init() completing,
-> governor_data is still NULL (the previous governor never touched it,
-> and the core does not clear or pre-allocate it). During that window,
-> asynchronous paths that call update_devfreq() outside of the driver's
-> control -- the OPP notifier (devfreq.c:686) and the pm_qos notifier
-> (devfreq.c:707) -- run devfreq_update_target() under df->lock and reach
-> devfreq_userspace_func(), which dereferences governor_data without a
-> NULL check, causing:
-> 
->   Unable to handle kernel access to user memory outside uaccess routines
->   pc : devfreq_userspace_func+0xc/0x28
->   lr : devfreq_update_target+0x58/0x158
-> 
-> Add a NULL check in devfreq_userspace_func() and fall back to
-> previous_freq, which is the same behaviour as the existing "no user
-> frequency specified yet" branch. This closes the race for all callers
-> since every path ultimately goes through get_target_freq.
-> 
-> Additionally, take devfreq->lock around the kfree()/NULL assignment in
-> userspace_exit(). Without it, a concurrent OPP/pm_qos notifier running
-> under devfreq->lock could read governor_data after it is freed but
-> before it is set to NULL, constituting a use-after-free.
-> 
-> Fixes: 5fdded844892 ("PM/devfreq: governor: Add a private governor_data for governor")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Finley Xiao <finley.xiao@rock-chips.com>
-> 
-> Link: https://lore.kernel.org/linux-pm/20260723080806.1451-1-finley.xiao@rock-chips.com/
+> Signed-off-by: Xiang Gao <gaoxiang17@xiaomi.com>
 > ---
-> Changes in v2:
-> - Add Fixes: tag and Cc: stable@vger.kernel.org
+>  include/linux/ring_buffer.h |  1 +
+>  kernel/trace/ring_buffer.c  | 37 +++++++++++++++++++++++++++++++++++++
+>  2 files changed, 38 insertions(+)
 > 
->  drivers/devfreq/governor_userspace.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/devfreq/governor_userspace.c b/drivers/devfreq/governor_userspace.c
-> index 3906ebedbae8..f7a485c43fd7 100644
-> --- a/drivers/devfreq/governor_userspace.c
-> +++ b/drivers/devfreq/governor_userspace.c
-> @@ -24,7 +24,7 @@ static int devfreq_userspace_func(struct devfreq *df, unsigned long *freq)
->  {
->  	struct userspace_data *data = df->governor_data;
+> diff --git a/include/linux/ring_buffer.h b/include/linux/ring_buffer.h
+> index 649b2276b557..e83e94623e76 100644
+> --- a/include/linux/ring_buffer.h
+> +++ b/include/linux/ring_buffer.h
+> @@ -174,6 +174,7 @@ int ring_buffer_iter_empty(struct ring_buffer_iter *iter);
+>  bool ring_buffer_iter_dropped(struct ring_buffer_iter *iter);
 >  
-> -	if (data->valid)
-> +	if (data && data->valid)
->  		*freq = data->user_frequency;
->  	else
->  		*freq = df->previous_freq; /* No user freq specified yet */
-> @@ -110,8 +110,10 @@ static void userspace_exit(struct devfreq *devfreq)
->  	if (devfreq->dev.kobj.sd)
->  		sysfs_remove_group(&devfreq->dev.kobj, &dev_attr_group);
+>  unsigned long ring_buffer_capacity(struct trace_buffer *buffer, int cpu);
+> +unsigned long ring_buffer_memory_size(struct trace_buffer *buffer, int cpu);
+>  unsigned long ring_buffer_max_event_size(struct trace_buffer *buffer);
 >  
-> +	mutex_lock(&devfreq->lock);
->  	kfree(devfreq->governor_data);
->  	devfreq->governor_data = NULL;
-> +	mutex_unlock(&devfreq->lock);
+>  void ring_buffer_reset_cpu(struct trace_buffer *buffer, int cpu);
+> diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+> index 1fd28a72e6ee..0396ec671998 100644
+> --- a/kernel/trace/ring_buffer.c
+> +++ b/kernel/trace/ring_buffer.c
+> @@ -6566,6 +6566,43 @@ unsigned long ring_buffer_capacity(struct trace_buffer *buffer, int cpu)
 >  }
+>  EXPORT_SYMBOL_GPL(ring_buffer_capacity);
 >  
->  static int devfreq_userspace_handler(struct devfreq *devfreq,
+> +/**
+> + * ring_buffer_memory_size - return the memory used by the buffer (in bytes)
+> + * @buffer: The ring buffer.
+> + * @cpu: The CPU to get ring buffer memory from.
+> + *
+> + * Returns the page memory consumed by @cpu, including the data sub-buffers,
+> + * the reader page, the cached read page, and the mmap metadata page. Unlike
+> + * ring_buffer_capacity(), which reports the usable data capacity, this
+> + * accounts for the full pages allocated to the buffer.
+> + */
+> +unsigned long ring_buffer_memory_size(struct trace_buffer *buffer, int cpu)
 
-Hi,
+memory_size() may be confusing because we don't account for all the other
+kmalloc() allocations. 
 
-Looks good to me.
+I have also just realised, do we really need yet another accessor? With the
+existing ones:
 
-I think that it is needed to lock  on usrespace_init.
+  nr_pages = ring_buffer_capacity(buffer, cpu) / (ring_buffer_subbuf_size_get(buffer) - BUF_PAGE_HDR_SIZE);
 
-diff --git a/drivers/devfreq/governor_userspace.c b/drivers/devfreq/governor_userspace.c
-index f7a485c43fd7..cfbd72892598 100644
---- a/drivers/devfreq/governor_userspace.c
-+++ b/drivers/devfreq/governor_userspace.c
-@@ -94,7 +94,9 @@ static int userspace_init(struct devfreq *devfreq)
- 		goto out;
- 	}
- 	data->valid = false;
-+	mutex_lock(&devfreq->lock);
- 	devfreq->governor_data = data;
-+	mutex_unlock(&devfreq->lock);
- 
- 	err = sysfs_create_group(&devfreq->dev.kobj, &dev_attr_group);
- out:
+(Alhough there's a race with ring_buffer_subbuf_size_set() to be resolved!!!)
 
+And if the caller knows if a cpu_buffer is a remote, or a persistent buffer, it
+can just add nr_pages++.
+
+This only leaves free_page unaccounted for. But does that really matter if the
+other solution would be to have a very racy free_page accounting?
+
+-- 
+Vincent
+
+> +{
+> +	struct ring_buffer_per_cpu *cpu_buffer;
+> +	unsigned long subbuf_size;
+> +	unsigned long size;
+> +
+> +	if (!cpumask_test_cpu(cpu, buffer->cpumask))
+> +		return 0;
+> +
+> +	cpu_buffer = buffer->buffers[cpu];
+> +	subbuf_size = PAGE_SIZE << READ_ONCE(buffer->subbuf_order);
+> +
+> +	/* Data sub-buffers plus the reader page. */
+> +	size = (READ_ONCE(cpu_buffer->nr_pages) + 1) * subbuf_size;
+> +
+> +	/* The cached read page, if present, is a full sub-buffer page. */
+> +	if (READ_ONCE(cpu_buffer->free_page.data))
+> +		size += subbuf_size;
+> +
+> +	/* The mmap metadata page is a single system page. */
+> +	if (READ_ONCE(cpu_buffer->meta_page))
+> +		size += PAGE_SIZE;
+> +
+> +	return size;
+> +}
+> +EXPORT_SYMBOL_GPL(ring_buffer_memory_size);
+> +
+>  /**
+>   * ring_buffer_max_event_size - return the max data size of an event
+>   * @buffer: The ring buffer.
+> -- 
+> 2.34.1
+> 
