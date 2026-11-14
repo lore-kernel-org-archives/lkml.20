@@ -1,102 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.100
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794628822;
-	b=SWSdfAxmiv0w3XzXryUZ1fUaQiUSdy4v2CrW46pdfITE544PPVaoxoq2mrzCoiAZwPVI
-	 DVic7g4iEmkvZwgrjmH9AuBflUeMACKLJIvuuHsodu7bbz6xskdgyYh5cn+AmfzgodZZl
-	 44o/6Hxih0qymTuBslh6RDSc3B7ss0CB6QgYkfIN2RQ0JD6m7wSKoWOJQUcC3ZxEiVi4j
-	 cxiyJDnxKN35letnDABmYMIrF93McU89Zd0lNfI5922KWgmm+Nah2d6T8arXEzZSguRbh
-	 Rk9zgKRy3tJioF7kfp98KNXoAt5X7B69B+qaMnkLt4AIZsn7y6+4X3tgeP8JeyGZ5jg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794628822;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-DetectorID-Processed;
-	bh=dJrTH631TyOstG97Yl7r7XDNqbCGb4beLO4O8KmPNE0=;
-	b=zmFlxqIBYD3MCArjCus8t9akiyzgtZlij3zYJ5XuAtC0o5sCfFwoYkuN5UaRhqMQwCWC
-	 nvsoPWuZFjdKDkl6gwAWMK21g5aGt7hKeZcaBa8sG2KBS8jdFvUjFqHgmZZDlnEss5vGU
-	 ROMpfS7nKe2ROPMy91ts3YemyYvp+WKQh7iWhBrhtDWAwP7U+DyqthvmxA8zLTGLM8k9X
-	 RslC00PiGWrd3OhfThG5bzI6InjztlLyP7QElUiXmsxIq+IgswUE4C+b76w9OpI8BlBfc
-	 w1kLBCj9rTW8+4WMAZASho8TTcXODjqmC9AooDMmVJOOeZddm0D45lDvxMf7Vkn8vbg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=BNbCw627;
-	arc=none smtp.remote-ip=209.85.216.100
-Received: from mail-pj1-f100.google.com (mail-pj1-f100.google.com [209.85.216.100])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.174
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794628873;
+	b=zDxN8Pk3mEM3zFt+hFFk10pttzrxn+J9yun3hh8bccGSjrIAbepp1ems10B5XgT5iMNL
+	 5/orQjPfQcp83uUGwoLFQIiVbtxGOMTxXXNB6MG4eJI7q1/YeMtWRFvXe2A4TbdDFgBHh
+	 gty+7yCc6QE7KQBmxpCsJOfd94ym9f9msdC7DGil26KBuaSeTBCeRd7EmVIWWMG/bxlEW
+	 Z8mDTZnJPoJ4rPD4zj4yLgXuTtQMO7+v2lR1v+Nu/66lQdAFIC7KkMgZb0EVfQGxPQyz0
+	 6ZT9shrwtoIPPuf1n/oN/y6GNMFuWPATODbbhi3jjXmwomsCuVIS/whOMjcF+j16dew==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794628873;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=1B2T0Qlp7SxuW+qGAUFg3vBl1toeAk+9yB0Qb2CaAgQ=;
+	b=kaZjQ73kMqUKHZ9g4LHtCjFvGbw0kg+PhPQgfopk8uK91rTCtNAYLA+kjbCEADM3TwyV
+	 tSXIm30j6/ys6vgaoUXxAiiJY2xFEx3pyjPA4JO0FvhQK3AOC1Vc1ykJURTbEX1g3cAZh
+	 xFh2BXLE/Et4foC7z/ypyAIoOKaFbQMjgb7y0WqOgELzQZpPPQb7iwe0Yv7fPT58iyDEt
+	 zI3NBUdrSCQ5lkrudrwYCcLf7S/aL0bZnjM/gCmXSrdt0PaFw/1HxtYBCX28sPHTZhHvc
+	 y19KUeFyXRDrtMSfHOkLZuCQGFsk7jKECoAxI00eLH01xKWilJBvKmJ9aeCsTVI40lA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=uber.com;
+	spf=fail smtp.mailfrom=uber.com;
+	dkim=pass header.d=uber.com header.i=@uber.com header.a=rsa-sha256 header.s=google header.b=giZQU52T;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.174
+Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1F78606A323
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 04:00:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1F78606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C84B606A880
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 04:01:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C84B606A880
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=uber.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=BNbCw627
-Received: by mail-pj1-f100.google.com with SMTP id 98e67ed59e1d1-3b0d0b80fb9so1390537a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:00:21 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794628821; x=1795233621;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=dJrTH631TyOstG97Yl7r7XDNqbCGb4beLO4O8KmPNE0=;
-        b=RBaS8leEKRkAtbP5vvfDezt5xTcZkyiQUagNfTQ4L9r9T9SInqSFg0YyRN1SfEoinP
-         rg+zYUgxiMAuUW9gGz+ZpgUztgLA8/8q6xCxBrmXSdbmAhmhXJeLvn6M4Ly7VEaWQwVt
-         l2+vic5/qE4FvcnpLgQbNO7a8OSokTEsDd0T94RIpAbpXB0S1QmNXDCIJqAh35N278uI
-         J0InTA1eOc0ioSu9ZgvFt+no/8G6CnEanFVRe+lLroV49d6gctoDFPkqhOO/Kd0raoGf
-         fgLdW18RVvRLclQWMpb/S6X1spzME+cu/Z+1MJkUvqzgCXiz+D91JujZNPL2ZBlrNuQR
-         uq1Q==
-X-Forwarded-Encrypted: i=1; AL+hErHXio2Jz7wF8D88AEX8oViI6l+F+eDx5+dfC3aMHui0LmqRPU5Zhyek5+sNdzoZ1zhMkUFvPanyJEZnfKw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z86l+nicWZ81G5TOY6YT4ZwD7y3nv6K4aUdgq0m9j+itVUm6m+u
-	Wo4/cc5LX3v8XFVOawncA5Rubx7d1vBLdoOdzPkbHZxYvYM0OdUhbiVVRgPQQbcZjrS6KweAoWR
-	ILO5ZPTQHNRs9VYLNup14lssuZxn7JQl7SWoIZ4tlOOBQGFo4FCEJhp719MnE8qoFjIBRe279Hb
-	vjXxOpj8H42x6Qi0iij9dBfCczvzMxBWtjjYyhMcVaVlUiDU899EGTSPYxGUueGnhRIK3b7sHIl
-	Nep/oZeVg1rSeBEht2TVKJ7
-X-Gm-Gg: AYBFou3C0H6Zf0c32MutGR5/3qYzbZoINNyz56ho3PTE+Waq00tfwadnC4adZbG9S90
-	UwaVXWzPmfsyqseZCk+xSddjbWQVSvv5bt/EfQ0AIzlvCfZwE6L6eCBoK6aGbkvCIRmppOznBBH
-	Q3pi9clrSzXYA/IZE9km0VTrI04/+acAHvnbwdtA0c/GgR72sDp8RF3zuZ/SFzlw1fgBAWrHf8N
-	+21dvU8I5D+DhgkCe43dnrYv8A7vD2xfrkfyeGByJllWhdU8pt3OeyJf96SHJGxfryVhLDuzn6n
-	BKv+bmupSu8vcUdiVUBJgJsj2tTVOU0Ab8IDj6ESzar7XVu5SO7MxzVBPSlWfOyMFFGWhNAzKuw
-	kzhhviDsJuDSlbGx+Hha3a+KIM3bjRxlZcwtpjcJKKsOkWciVKw7nft5B15l65WyLsL01OHqEtQ
-	eq1/hZv9KzhC0mTbFG2Zxotf0aVjJahc3A2nkdfRQu
-X-Received: by 2002:a17:90b:4ad0:b0:3b0:ada3:b505 with SMTP id 98e67ed59e1d1-3b1b09f3fa7mr4778714a91.19.1794628821115;
-        Fri, 13 Nov 2026 20:00:21 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b197c1a3e7sm8949555a91.2.2026.11.13.20.00.19
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 13 Nov 2026 20:00:21 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-139b62317d0so1052817c88.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:00:19 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=uber.com header.i=@uber.com header.a=rsa-sha256 header.s=google header.b=giZQU52T
+Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-8b3a332105bso15411367b3.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:01:13 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794628872; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SIrhvBKT5YpH/WHBFgIb2wT3M8eIyfhoIYwhNkrUTOWsLHa9EibAvf9NtAXsoBv17r
+         /e2A3WSEdYU4PE78mp+FPsCAQs5Fy9NmYEw+R8RTo2fVUdPaaZbdBfJfSEspa02BIgZh
+         +YNhJhXYmv2LSEK+xjvHuJKkB8scVTLtjmzieebZSH6EYDN6pKSqYk5JYT2aB2qdmhQz
+         9r0Lsj6wuObRGYK7gfZG77faqTdFmAlpJ/LqxGJKdNxGx97RV2DUlqVE7aqcISGRmqGc
+         947w7a/+X24zw5TcqnCT63U3w57T3aRGPvG7Q13v0yCSagxeAgwSyMvzempJboewu7ab
+         JYAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=1B2T0Qlp7SxuW+qGAUFg3vBl1toeAk+9yB0Qb2CaAgQ=;
+        fh=jPFL868EFTwkbkhUqT4K0BIcQSI7SUaC7KSCmO1usx4=;
+        b=dQnSq1nngRFSio89YoWTk5WgN/DjhG08nmIgunfM0us5D/GbG9o8mevhl/2+1jS+5X
+         XJuiiuUKe2stQHrAhWWVMTwiDpS9oR/e+GgRSYt3rtB7QWsno3HINr2g/+MzNRvYrYrI
+         Ls3lWAZj3ojbHZzjT6eNeEISXV3ulRWOPVcRnnd6EbFuzUVgLXlQQqIK7hyATKjw71Rz
+         OC9yuMfTB2z7kada7kr4cY/IC2vrMMxj6c7xjfF6qApxZmsvTGcbCeHT/psE3pFkLEuI
+         jQW7v9ib27Ee8wwLsDpx/VnWoGO7N6VWvYwpVhsXCXOGDKN4GUWdUE8GL0dpMTUNu7XL
+         7vQg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794628818; x=1795233618; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=uber.com; s=google; t=1794628872; x=1795233672; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=dJrTH631TyOstG97Yl7r7XDNqbCGb4beLO4O8KmPNE0=;
-        b=BNbCw627KCX7akfNEYu15tPGdx9Kfu23wt/rhSEY8IVb3iH+5p+W90Z/UxBkivzXE+
-         nKyFRmDzqAhD+qM+Y+WUzI+BGZGvKxkZ2aThyJl+dfaJi0QPxUciyzx4HSjPz2lUK0BO
-         J7ZwINYpJ6nQFbnj9WQEzpunIZ3WBIljMRfqg=
-X-Forwarded-Encrypted: i=1; AL+hErEE5DxctlTFgk3LkagHOX8owny7jj77KNlKyqTeE+A+hFCV01vLrt0EQen3qg5dvOYntGSqJ4FMaaxnjV0=@vger.kernel.org
-X-Received: by 2002:a05:7022:6b8e:b0:1b3:a05f:8929 with SMTP id a92af1059eb24-1b50317ab17mr6582014c88.39.1794628818431;
-        Fri, 13 Nov 2026 20:00:18 -0800 (PST)
-X-Received: by 2002:a05:7022:6b8e:b0:1b3:a05f:8929 with SMTP id a92af1059eb24-1b50317ab17mr6581961c88.39.1794628817562;
-        Fri, 13 Nov 2026 20:00:17 -0800 (PST)
-Received: from [192.168.10.3] (ip70-187-214-22.oc.oc.cox.net. [70.187.214.22])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955f01d68sm11737395eec.17.2026.11.13.20.00.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 20:00:16 -0800 (PST)
-Message-ID: <8518ea1b-41a3-41ee-84af-7f41d8298799@broadcom.com>
-Date: Fri, 13 Nov 2026 20:00:15 -0800
+        bh=1B2T0Qlp7SxuW+qGAUFg3vBl1toeAk+9yB0Qb2CaAgQ=;
+        b=giZQU52T402qCV+fpfDf0qxgdq+5QVENrYtKz3T0DfbRaYxgc4YEGd16+rNEGO0zTP
+         KoTtdZEGHGzOgtZcz2rwxvWpntH0Z8nuAOJLyyHWdO0oZxkDvRHYDLcY32cxqR8q4zOV
+         035DLlW8COEgogerrQwaNoTfp/+Iof/dqfcsU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794628872; x=1795233672;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=1B2T0Qlp7SxuW+qGAUFg3vBl1toeAk+9yB0Qb2CaAgQ=;
+        b=oqeEJA+7HzTyOA4e7o1r9gDeKkiF9PBbvdvPhxWKwolZ2x+vKJmJqkRHAWodrQGW81
+         OnDOX3kYSpHP0EZRjrMANBWWbucH7JNZkq4osOmesAiJOelNIPRKPN8XZBmeOMENNSbl
+         hB3R/yZKp5eLtvyu5xZofv8OOP5FsTOteDgkAgvbSEuKc+8ZHNkaQtxcM0bXNAYZZKwG
+         /8jwchNg5lz8g1imOiKBY5pf6XAVHqSXScoj87WaIFst6Gz1scRAfRSVEnd9pKxEzLsI
+         jO2Y3mX85FPnsxA/mfqJPf1eBqQKH/MZoZnvuhHodyQju59j4qdSrKcCKX7J8Jwa7CXk
+         fZCQ==
+X-Forwarded-Encrypted: i=1; AL+hErGuZce8U2lyb76HheCAgh6wOqScGzEl/+LvwldiqjYEIbtwUIvtGJvSoKfTDDYHzadmo31gaaB7qFV+D1c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9OrugcFhigbTFnPN3JpiUvRDKb2F4LI2sPUlUCfZF7S5xmZRAM
+	vin5glHSD6wwTXo9MHGcKcssYl2chnEmtmmEtgPvWjhl57s/R8nXHvT/IoZcW+8522mFGPs84y8
+	a3mf6Tiw2UXTfZbmm3rJLHu6OrQ1LWmKzjL1Uiz47xA==
+X-Gm-Gg: AYBFou09mOsNfwQY7SM1cYSwz7Pi7va4G+X7uzkIwem3wDA/171dExZ3aK0qBSqh+kx
+	rSsbpmy/mhLyYq6hQccSsBAsGmuabaCc6JRS9uBPeUY8tu+VtWQ2vv98BjDZuCEQoZuQG5C12Uw
+	74MXNq53IH68Bgmk6aJWozeE8AHzEysKzKrSY5Knh7kjhYvvpb0rM1vhlG76qn7xLOhY6Um4h22
+	dwKZ2JrhgoEkw1baYfj9b84S0LRCmEkZxxQsk8GoBf4Q72sq0/YNMZhWIOxZV75gK4y/77A7NVa
+	Ey19Ro9cKgs6l5lMWCVG3j4PfG770awolUPw374dmpP5lI7WLlVpTkiUVdFiIZIwfpt5gzqxnx1
+	qdiguuV2zwMvJdOnKseA9/5QoJIyQvZd0jNHuH7l+C+dA1LO8iYEyw+H+AuczzM3cpnSaww==
+X-Received: by 2002:a05:690c:f15:b0:8b0:a01e:2ce2 with SMTP id
+ 00721157ae682-8b3bb1a2e7bmr50130047b3.15.1794628871618; Fri, 13 Nov 2026
+ 20:01:11 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,69 +100,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv2] ARM: dts: BCM5301X: AC56U: add nvram node
-To: Rosen Penev <rosenp@gmail.com>, devicetree@vger.kernel.org
-Cc: Hauke Mehrtens <hauke@hauke-m.de>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?=
- <zajec5@gmail.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>,
- "moderated list:BROADCOM BCM5301X ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>,
- open list <linux-kernel@vger.kernel.org>
-References: <20260911191823.80631-1-rosenp@gmail.com>
-Content-Language: en-US
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20260911191823.80631-1-rosenp@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+References: <20261028-perf-symbol-memory-send-v6-0-7e90415f0101@uber.com>
+ <20261028-perf-symbol-memory-send-v6-4-7e90415f0101@uber.com>
+ <CAP-5=fU9Du9cCge2aTm10ejtwBKX1THQpm=h7EMR=WVQLww6DA@mail.gmail.com> <auacxQZKtlFa9Pc3@z2>
+In-Reply-To: <auacxQZKtlFa9Pc3@z2>
+From: Alireza Haghdoost <haghdoost@uber.com>
+Date: Fri, 13 Nov 2026 20:00:55 -0800
+X-Gm-Features: AclHuK-PAd8WaFSlUgwMAK01VlUdCFUGPmX-smvUPTx6hiYe7HFC--zgfoa4cgE
+Message-ID: <CA+w=M=S-H4d_-KCZJqdPoUCyfYtNDsKLd8t37kT134bwpKD7qw@mail.gmail.com>
+Subject: Re: [PATCH v6 4/5] perf script: Add --lazy-load-symbols to load
+ symbol names lazily
+To: Namhyung Kim <namhyung@kernel.org>
+Cc: Ian Rogers <irogers@google.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andriin@fb.com>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+On Sat, Oct 31, 2026 at 6:58 PM Namhyung Kim <namhyung@kernel.org> wrote:
+>
+> On Fri, Oct 30, 2026 at 08:55:55AM -0700, Ian Rogers wrote:
+> > I'm thinking this option should really be the default, requiring
+> > people to opt out.
+>
+> Agreed on making it default.  I'm not sure what's the case that needs
+> eager loading.  We can change the code to load all symbols just before
+> it (oh, it seems the patch already handles the cases) then no option
+> would be needed. :)
 
+Sorry for the slow reply. I wanted to have v7 ready before answering.
+I agree that lazy loading should become the default, but I would like
+to keep it opt-in in v7 and flip it in a separate patch later.
 
-On 9/11/2026 12:18 PM, Rosen Penev wrote:
-> Add it and set MAC for gmac2, to avoid having to handle in userspaace.
-> 
-> nvram size found from a random bootlog online.
-> 
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
+While checking what default-on would change, I found that a binary
+replaced during the run gave wrong names. Lazy loading reads a name
+later, at the offset the symbol table had at load time. If a deploy
+replaces the binary in between, or the path resolves to another file
+because the process of a mount namespace exited, perf read the names
+from the new file. I reproduced it by swapping the binary under gdb;
+perf printed names of the other build. Eager loading reads every name
+at load time, so it is not affected. I fixed that in v7 and kept the
+device, inode,
+size and modification time of the file and checks them whenever it opens
+the file again. If they changed, perf warns once and shows the
+remaining symbols of that DSO as [unknown].
 
-Applied
--- 
-Florian
+Also, each batch of names opens the file again, resolves its name and
+enters the mount namespace. On my test profile this is cheap (1.3 s
+lazy vs 2.9 s eager, identical output), but I have not measured it for
+containers or debuglink layouts. The type-aware data cache that we
+discussed on v5 would remove most of that cost.
 
+So my plan is to run lazy loading in our continuous profiling at scale
+first, and then send a patch that makes it the default. By that time,
+hopefully we will have already added the type-aware data cache.
+Does that work for you?
+
+> > I'm curious if this is global just to avoid the expense of a mutex per
+> > symbol or it needs to be global? [...] but perhaps the dso__lock works?
+>
+> Probably.  dso__load() already takes the dso lock.
+
+It was global because dso__named_symbols() and dso__sort_by_name()
+already hold the DSO lock when they load names, and the mutex is not
+recursive. Nothing that holds the DSO lock looks up symbols, so v7
+uses it: a lookup takes it only when the symbol it returns still needs
+its name, and the batch loader requires it held.
+
+> Nit: I'm hesitate to argue about naming, but it seems a bit confusing.
+> Why does it skip to load when it doesn't have a (lazy) name?  Probably
+> symbol__needs_lazy_name() would be a little better...?
+
+Agreed, renamed in v7.
+
+Thanks,
+Alireza
