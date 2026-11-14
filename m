@@ -1,48 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.88.97.239
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794653274;
-	b=t7VqZYAUhSBHw9SWTkGVgCs31wHVTzr+KZeWX0yVj7RZWF2L8GiXFeV54UXkKTcX/5X7
-	 f08Jk1rSy/lAhUmkX18IWny/mWioKdquLnibf1Ws1Zv+bnQ/9Hki3GgKDvTgQQ+gZBVAT
-	 AcDtoiKSfRlWlrfngWO7zUHHCf4xY6jt3OLUD3zk87LjXuzDlCXcebS47KS35Ds+g18a6
-	 Gl7q9uHTAbxyME4ERThOxsAIZXvDUJv8ZbUD/yfgCCNwxKBaYDpnvb27nUS8HuF6jIJee
-	 cikwsJeMII7JlVl0gjgu+sG+a7SyHzyRA0uIJD2meYLekDv2MxElLYpccMrmPkfyS3w==
+	t=1794653280;
+	b=zPw2v0Do2Gb2piZxrMen5R2smwJdA19mNqWNiQTXSLPu4Q8eWy2hSuT2pOM3U9l2zWbk
+	 UmShUfiakT/QbV0gudzvlXgA68cRsaCnHLbZ8XE3Osyx7VTwFLDo0KKXCYnV2xykgH8e2
+	 NKqbRgFQ3KA+29hEkaPufd9JYBEBuBDfFrSiBti+r4RiLLrOfll581Oee20V38bTxpqbQ
+	 opVf3jBYn4/oPuM8pa+elDg9XlU5QMgcALwRvYLVcDaWea7UMt5/kYxKFA1SjVFu0bQoO
+	 HQb9e1j5ki1K/e0CJlzMoVT/4N39Ghavi1PWoS4q9Ff/zNyyZjbdmjFxcE0EnlxP6sA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794653274;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=CI9BXHoSo4hfYw6MSGjf+jziOWIqLjAx8eHfXINQv1I=;
-	b=E05Eg2Vp+O0WCRTkxzs8AEvbk0z2Mca/2DPzeYRPd7h0MtRg3MhMxHJmy38lzn9Z48gN
-	 Z+vlam7y8oDOKCsXidB/sbvRsdXPLt4eh4E4ub2PReZ4jrHDY/ydOpMT0KmgMo2tRslNz
-	 3OesS8tQPSygydc6j5ME4hkS5KEOs1NiVbihehK2FAkmKcHWCwHUHGJQMFXe5Mrew8oJC
-	 N6vX0TmkqsNaJ3GU3RTdeGOPpvbeQDyADEWwoksErcmLmLurk7wTcS8H99UrkL3AnbkAs
-	 mVFYTij5CCGkNW85Iz1crfYQtRy/bJWk46fdRxv9iwlIIqGoS3V5HLC43LQxMEuNy6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794653280;
+	h=DMARC-Filter:DKIM-Signature:Received:X-Spam-Checker-Version:
+	 X-Spam-Level:X-Spam-Status:DKIM-Signature:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=CJh0rQjybtbAzplTNGEHCAHXCfQuBs4/UVdR5kq7ds0=;
+	b=RihR2Z2DSNckR+k3EwixSVqDUUbYF7WQyFvKp63FWZgA3F9aX6Ah+6z3emEpWlxItmyd
+	 nhUj6L/i4a6cy8cOzpLRX3MNEBWYA7eIVDj67jq9LlHh2lVzrIpUw/9t16x7QMKJiVkP7
+	 Nb+wSinjw1IMJE1UcnoByxaEJGu4x6pf+dTDBELwlAcIZnqqGelTBJMghO0ADW11zsMrN
+	 TcPEGhu5kivPZ3fV0i06QXK6innzCQL4eeOBtRF6YjkSwnxJrNiTbvS6g4zig9f4Q7/wY
+	 x6SubmxOyY/MagBt+0giXD0U/q9u93GnIJ3bjEnvfK9yXbKwTylv/Z4KeeWeA2f6cGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WUWMqCg0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=birger-koblitz.de;
+	spf=pass smtp.mailfrom=birger-koblitz.de;
+	dkim=pass header.d=birger-koblitz.de header.i=@birger-koblitz.de header.a=rsa-sha256 header.s=default header.b=VroJM849;
+	dkim=pass header.d=birger-koblitz.de header.i=@birger-koblitz.de header.a=rsa-sha256 header.s=default header.b=BGRfHca2;
+	arc=none smtp.remote-ip=23.88.97.239
+Received: from bkemail.birger-koblitz.de (bkemail.birger-koblitz.de [23.88.97.239])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47484606A32D;
-	Sat, 14 Nov 2026 10:47:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA40C606A894;
+	Sat, 14 Nov 2026 10:47:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA40C606A894
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birger-koblitz.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WUWMqCg0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F7C21F000C5;
-	Sat, 14 Nov 2026 10:47:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794653273;
-	bh=CI9BXHoSo4hfYw6MSGjf+jziOWIqLjAx8eHfXINQv1I=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=WUWMqCg0MvjwxhosjPVlLW35iERwAuMI0IOvHnB7Ic1LxGRTErr4mATbmvotIsQ13
-	 wxit1TVX2KhvGp6mQCTPm4c324g1i9+7kwUAqOHBFZLPWIXABURfhbX0r36mFouSgQ
-	 dpytERSs58TQBzUDr9CKM7yW13D/di1MWetZd3UUW+Ih/J7/+4x8BIXHsIRmNaRpoL
-	 juCKNWZuzdjpWFD9w5+pWWu2u9rRR479wFDmsSahAqQxjWKTfCcqbJIwksAy65muiy
-	 aRTyUEfcITCc0DRWrmzIhzkZgR2aB5pwvdPgA1WPhXKo7CVSc0M+sY2mrIhhABxHfH
-	 zyB7fOETtqPjA==
-From: Christian Brauner <brauner@kernel.org>
-Date: Sat, 14 Nov 2026 11:47:09 +0100
-Subject: [PATCH 02/12] zloop: take freeze protection for writes
+	dkim=pass (2048-bit key, unprotected) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.a=rsa-sha256 header.s=default header.b=VroJM849;
+	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.a=rsa-sha256 header.s=default header.b=BGRfHca2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
+	s=default; t=1794653271;
+	bh=VioXCKKaai/212jHFYdg0u5SsfRdIHmnqLj7K8cc+Bg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=VroJM8496zM5m3DklAtZXegP/o6kxv6xl4Q67PpX+EDYdAcN5YCvRigMa770VFw5w
+	 v33A7r0+i87RnsBgmhgxZ1jeZMA/s3OW5rv4Iqu71KY5YuIJRI5o2SGdE0JEYVgmZA
+	 WKnnehsh4eCs5IvU9WzlBmSbzvboZCwyJieXAIcjA5Sd5jYTDjSQ75hfnIO2oLOjEw
+	 YPS/tWPhS4gFV5T/Sdtk1ebI1LPv1/2eaBfnYW+a+VHbhJ7VNm6bE+6zbQW/ZMKJe/
+	 KBqfFgfyE2TdOnDcxqaCWs5Izl4Pqvv5xg9w41UKGx9w5qOxUFv9InHzJsGq4wvM2a
+	 1LaIqqFVqBTFw==
+Received: by bkemail.birger-koblitz.de (Postfix, from userid 109)
+	id E8EAF489BF; Sat, 14 Nov 2026 10:47:51 +0000 (UTC)
+X-Spam-Level: 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
+	s=default; t=1794653269;
+	bh=VioXCKKaai/212jHFYdg0u5SsfRdIHmnqLj7K8cc+Bg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=BGRfHca2V3wLOB3sZYGm8qgzfbRok0ZSjkjZQWo0bZksICKyxo5wUC8gh+R3ke8pf
+	 oWGK+xidlDbpzkAGVxY2NN6nOexi0XuDjsQY6zNKlaGRRF24Q/zPxDRoeyR023IfTs
+	 ZFu+Bn2N61djsIXRVvK2DRH9qbZqAFd3piEgbbugTWcHIsTIjwpPHBN+KRBzM5Quuw
+	 5JyYbNYz8dmua3B+ZkqYkG+JwtXRVTOURdvOUooCYwxsiqJ6EzeF34vJw83Eb183Ax
+	 FZtAffLQRmcq56xp3h7ZwbD9sH0QBUy7RUEBTlbUvzASn1RZMoVc7jWNWfOQAMf7sp
+	 nwV+o/Dl/s+kA==
+Received: from [IPV6:2a00:6020:47a3:e800:271c:c6c5:9fde:77cb] (unknown [IPv6:2a00:6020:47a3:e800:271c:c6c5:9fde:77cb])
+	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id 43415489A6;
+	Sat, 14 Nov 2026 10:47:49 +0000 (UTC)
+Message-ID: <b855f0d7-a7ff-4de8-b71f-3822e7b55554@birger-koblitz.de>
+Date: Sat, 14 Nov 2026 11:47:43 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,124 +73,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v20 11/13] ax88179_178a: Update driver name and
+ information
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Paolo Abeni <pabeni@redhat.com>,
+ Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Huacai Chen <chenhuacai@kernel.org>,
+ WANG Xuerui <kernel@xen0n.name>, Eric Dumazet <edumazet@kernel.org>,
+ linux-usb@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
+ Jianhui Xu <neuromoments@gmail.com>,
+ Emir Beganovic <beganovic.emir@gmail.com>, Nicolai Buchwitz <nb@tipi-net.de>
+References: <20261106-ax88179a-v20-0-37b5a1189983@birger-koblitz.de>
+ <20261106-ax88179a-v20-11-37b5a1189983@birger-koblitz.de>
+ <20261113190535.0e74cbb7@kernel.org>
+From: Birger Koblitz <mail@birger-koblitz.de>
+Content-Language: en-US
+In-Reply-To: <20261113190535.0e74cbb7@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261114-work-fs-frozen_writes-v1-2-f5ae61c898b1@kernel.org>
-References: <20261114-work-fs-frozen_writes-v1-0-f5ae61c898b1@kernel.org>
-In-Reply-To: <20261114-work-fs-frozen_writes-v1-0-f5ae61c898b1@kernel.org>
-To: Jan Kara <jack@suse.cz>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, Jens Axboe <axboe@kernel.dk>, 
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- io-uring@vger.kernel.org, Christoph Hellwig <hch@lst.de>, 
- linux-block@vger.kernel.org, linux-nvme@lists.infradead.org, 
- linux-scsi@vger.kernel.org, target-devel@vger.kernel.org, 
- linux-unionfs@vger.kernel.org, bpf@vger.kernel.org, 
- linux-nfs@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3149; i=brauner@kernel.org;
- h=from:subject:message-id; bh=r1h5MgSQFDBwFsX7xlLDHP8qbFBtss93W1Z6lJbarq0=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWT9sLEPPNaw/ZshOxczp1jiz3tVL+a3H0uZ+kkw+e6f1
- U378j9+7ShlYRDjYpAVU2RxaDcJl1vOU7HZKFMDZg4rE8gQBi5OAZhI8QZGhvtz3Hb3C62o9b+e
- WsnbbGwstOf6LN38A/Y13xfVbdf5fYfhr/C37Mk/+5IVlycUiPwyudAc3BH5Q/1FvAZLrAJnwLz
- NXAA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-zloop calls ->write_iter() of the zone files without taking freeze
-protection. So a write to a zloop device goes through to a filesystem
-that is frozen. With the zone files on ext4:
+On 14/11/2026 4:05 am, Jakub Kicinski wrote:
+> On Fri, 06 Nov 2026 08:21:26 +0100 Birger Koblitz wrote:
+>> -config USB_NET_AX88179_178A
+>> -	tristate "ASIX AX88179/178A USB 3.0/2.0 to Gigabit Ethernet"
+>> +config USB_NET_AX88179
+>> +	tristate "ASIX AX88179/179A/178A USB 2.0/3.0 to 100M/1G/2.5GbE Adapters"
+>>   	depends on USB_USBNET
+>> -	select CRC32
+>>   	select PHYLINK
+>> +	select AX88796B_PHY
+>> +	select CRC32
+>>   	default y
+> 
+> The rename of the symbol causes the question to pop back up and it will
+> likely annoy Linus. There's no reason for this to 'default y', let's
+> stay on the safe side and drop the 'default y'
+I will drop the "default y"
 
-  WARNING: fs/ext4/ext4_jbd2.c:90 at ext4_journal_check_start+0x1f6/0x2d0, CPU#3: kworker/u16:4/507
-  Workqueue: zloop0 zloop_cmd_workfn
-  Call Trace:
-   <TASK>
-   __ext4_journal_start_sb+0x7a/0x470
-   ext4_dirty_inode+0xa1/0x120
-   __mark_inode_dirty+0x154/0x1110
-   file_update_time_flags+0x3ab/0x4b0
-   ext4_buffered_write_iter+0x143/0x630
-   ext4_file_write_iter+0x7b9/0x1570
-   zloop_do_rw+0x8ac/0xe10
-   zloop_cmd_workfn+0xac5/0x1ff0
-   process_one_work+0x946/0x1820
-   worker_thread+0x4f1/0xd60
-   kthread+0x364/0x460
-   ret_from_fork+0x525/0x770
-   ret_from_fork_asm+0x1a/0x30
-   </TASK>
+> 
+> You need to rebase the series, too. Someone mass-renamed a bunch of
+> kmallocs to kmalloc_objs upstream, let's make sure we use the _obj
+> form in the new places too.
+Will fix and re-send shortly.
 
-Take freeze protection around the write like loop does. A write that
-wasn't queued drops it right away. A write that was queued drops it in
-the completion callback.
-
-Note that zloop_rw() also called the completion callback for I/O that
-wasn't queued or that failed before it was submitted. It completes
-these itself now so the callback only ever sees queued I/O.
-
-Fixes: eb0570c7df23 ("block: new zoned loop block device driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- drivers/block/zloop.c | 22 +++++++++++++++++-----
- 1 file changed, 17 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/block/zloop.c b/drivers/block/zloop.c
-index 65634a39b0bfc..34ed925e86f1a 100644
---- a/drivers/block/zloop.c
-+++ b/drivers/block/zloop.c
-@@ -514,6 +514,10 @@ static void zloop_rw_complete(struct kiocb *iocb, long ret)
- {
- 	struct zloop_cmd *cmd = container_of(iocb, struct zloop_cmd, iocb);
- 
-+	/* A queued write still holds freeze protection. */
-+	if (req_op(blk_mq_rq_from_pdu(cmd)) != REQ_OP_READ)
-+		kiocb_end_write(iocb);
-+
- 	cmd->ret = ret;
- 	zloop_put_cmd(cmd);
- }
-@@ -527,6 +531,7 @@ static int zloop_do_rw(struct zloop_cmd *cmd)
- 	struct zloop_zone *zone = &zlo->zones[rq_zone_no(rq)];
- 	struct req_iterator rq_iter;
- 	struct iov_iter iter;
-+	int ret;
- 
- 	if (rq->bio != rq->biotail) {
- 		struct bio_vec tmp, *bvec;
-@@ -566,9 +571,14 @@ static int zloop_do_rw(struct zloop_cmd *cmd)
- 		cmd->iocb.ki_flags = IOCB_DIRECT;
- 	cmd->iocb.ki_ioprio = IOPRIO_PRIO_VALUE(IOPRIO_CLASS_NONE, 0);
- 
--	if (rw == ITER_SOURCE)
--		return zone->file->f_op->write_iter(&cmd->iocb, &iter);
--	return zone->file->f_op->read_iter(&cmd->iocb, &iter);
-+	if (rw == ITER_DEST)
-+		return zone->file->f_op->read_iter(&cmd->iocb, &iter);
-+
-+	kiocb_start_write(&cmd->iocb);
-+	ret = zone->file->f_op->write_iter(&cmd->iocb, &iter);
-+	if (ret != -EIOCBQUEUED)
-+		kiocb_end_write(&cmd->iocb);
-+	return ret;
- }
- 
- static int zloop_seq_write_prep(struct zloop_cmd *cmd)
-@@ -690,8 +700,10 @@ static void zloop_rw(struct zloop_cmd *cmd)
- 		ret = zloop_do_rw(cmd);
- 	}
- out:
--	if (ret != -EIOCBQUEUED)
--		zloop_rw_complete(&cmd->iocb, ret);
-+	if (ret != -EIOCBQUEUED) {
-+		cmd->ret = ret;
-+		zloop_put_cmd(cmd);
-+	}
- 	zloop_put_cmd(cmd);
- }
- 
-
--- 
-2.53.0
+Thanks for taking the time to look at this!
+   birger
 
