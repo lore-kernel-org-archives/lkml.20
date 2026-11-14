@@ -1,59 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794670361;
-	b=nbt+JixghfYEp4gwWc2eDIRF9Es3+uHFvqGjZygkdbbVOdR9seDdLV/g/WyUlPaRfW9n
-	 +cJPjByTEGkFv0JZtkYdvv2d2KDSqhanftO3YS6pwBIRWAqW6BxtLvH03G2CWvI78Lk6G
-	 Qz63Sq1jx5VDg1r73pW3AVDWBnnMtTE8tLUIq2UKfTRpIlaM6m9ZdeLdGGYAKJzqmZ5Fp
-	 j1FFyhVkNN39ofpxYnjvLNVNj8BpN8N7u3Z+7DXHiILuCQoNFjIZyDrHLqRWm/ay1n/IP
-	 zOPiIxjlqp8BdoshDXtvh+0ZqE1iacQRUVt4SoteHOCpYoA+nOhd75YWuNYGc3unvhQ==
+	t=1794670405;
+	b=eY8dHew+ZEDMo1m6MCueRg6ZgxBQpOHoN3WBrKT1V3bKCDqfSI/uaTPxXlF2AUHMHyOo
+	 fWLJJWcxT3il9zhNDs0cN//YgoijGbXnDbQDImh076vdKhr3p06ka11tMpJnQqd9SCora
+	 olfmTuWG0upg+OsZzObB0GDyt2nBGTBCIFY8qnnQTsyZD1Ittdq2rgg+pnpAoYOilylXq
+	 /Fuu1iGZnJRIpKsz4Z7iiQPrp7pmKjcoQSovEWbQY7IWlSjiGo6gAGoidY070NLtTCk2T
+	 uOww8LHV/hv2IBWMLqTADyeeXWySUKk2qcVFp4rHJe+jw/rgTga1R1FFOMa75xCGAig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794670361;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=OObaiReGgzbiBlX9zLflu3sKpD5VzXBlItf6A41YB84=;
-	b=HjXe5bnK1JiuyZ4t9VnLVCnl9fRTIoaf6zu9uma34pOJoYuYMPa083s3ZaR2fXoNcSSw
-	 QXkx9jVFtkf0FnljlKaPJmRPDS7uia3v3Cjq8kK6bviu8STO+l/SiwS5cLMik3yf32sFk
-	 h64wZJ7zbAV8C4R94+/bc69nKMQI5sA9MZWlCmOSsiroDS9HjKnGJbWJ7Qf5vqz1ZX/7+
-	 pjJO3W8YhP73QggR4IqtQprYWI15hnad79Nyj0pBalXkEzr9OgbD/dhsLjXIZr1/y7FRc
-	 Dm/ci0fzqliAW3XOymc75oAdj//rXg6De0rkcunzVePx7Jod1MnyVUnALQyQj2rAoPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794670405;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=4q3kUu9JIedyxJ4iVH9PzI9Cl+q0QeVcndIO9QpwHY0=;
+	b=vYLCXL8/Ct/tHbniXccLSnw0oRmUfnP55piDbmAHiI663HjtPVXqLBAh9r/9Ccm5Pg01
+	 4tSzac9y+sIK+E0xHkhUOYIWe4j5SdlxpTml41RLwddyxCL7q62S8RqW+60ZTKJvk+GDV
+	 B/NuQxiwi+4AY922765xD5YTMQnG2IdeODjQKCwwKNw/ehComIMHKz3k+ymH/Jc//u0B6
+	 4HlSj7F6Ub4IP2g7re9bkbLmrsyLGbwhwG477b64c01E1hDXs1g2GbeJXA2QvLAJnULf5
+	 maD2WycqDrC94YhX2GH3aWHBfyzoB9JekF07DK4e/bEuJ6PZNt4Z8+EAzgCQTnaBSuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=ZvM0rG0n;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96369606A334;
-	Sat, 14 Nov 2026 15:32:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96369606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=MwwbkSDC;
+	arc=none smtp.remote-ip=111.22.67.151
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 93A65606A327
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 15:33:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93A65606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=ZvM0rG0n
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=OObaiReGgzbiBlX9zLflu3sKpD5VzXBlItf6A41YB84=; b=ZvM0rG0nU2ysVQlLru6tyytZNP
-	bxxyTnEwECh783UGOcMJ45MFt8zYu2kBsy8eqN1o0t/xuB/mg+MZEpNZnG2Tokkfzt8gDlTwVLS+9
-	981mF2n6ecE/MpoNJ0AwVYi7FNVO+iO9o19urjYBJDepVY/thc9Ot0jt7rKCdtSD9S2U=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xSFk1-00GVpB-5b; Sat, 14 Nov 2026 16:32:33 +0100
-Date: Sat, 14 Nov 2026 16:32:33 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Elias Pukari <elias.pukari@gmail.com>
-Cc: hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next] net: phy: et1011c: don't write an error code to
- the config register
-Message-ID: <57352e98-4a9b-4476-9ed6-974b1533e17d@lunn.ch>
-References: <20261113221917.3542509-1-elias.pukari@gmail.com>
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=MwwbkSDC
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=MwwbkSDCAmjx4a1mauM2h6gz7ykse4J/DZ7Cjkv4Kcdj1bYuPoEJxkAWJOMBe9N/qeI5ABQyG6COZ
+	 tSG+WeKc8XDEs++GpbWOp6JaN/AY3GIzH0Yd9VytVSVZsSmiYiU1cbIrg2gxhoslK0XJjVMMWditJT
+	 hfk79h/6zP+Tt3sM=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66af87f3ece0-beb16;
+	Sat, 14 Nov 2026 23:33:21 +0800 (CST)
+X-RM-TRANSID:2ee66af87f3ece0-beb16
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from FHD-W7400297 (unknown[10.55.1.70])
+	by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96af87f3e6db-48513;
+	Sat, 14 Nov 2026 23:33:21 +0800 (CST)
+X-RM-TRANSID:2ee96af87f3e6db-48513
+From: Aibing Chen <chenaibing@cmss.chinamobile.com>
+To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Cc: ntfs3@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ntfs3: avoid freeing the primary MFT record during attribute list removal
+Date: Sat, 14 Nov 2026 23:33:19 +0800
+Message-ID: <20261114153319.658-1-chenaibing@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,23 +67,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261113221917.3542509-1-elias.pukari@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-> Discovered by an AI agent (LLM) inspecting the code. The issue was not
-> seen on a real system.
+ni_try_remove_attr_list() keeps a backup copy of the primary MFT record
+and, when moving an attribute out of a subrecord fails, restores it with
+swap(mrec, ni->mi.mrec) and frees the buffer that ni->mi.mrec used to
+point to.
 
-MDIO busses pretty much never give errors.
+ntfs_readdir() now drops ni_lock before walking the root index header
+(commit 7a5aa6c45072), assuming that the header lives in the main record
+whose lifetime is bound to the inode.  Background writeback does not
+take i_rwsem: ni_write_inode() only needs ni_trylock(), which succeeds as
+soon as ntfs_readdir() has released the lock.  If the attribute list is
+dirty, writeback calls ni_try_remove_attr_list(), and the error path
+above frees the record that the unlocked reader is walking:
 
-> 
-> Fixes: dbb7a95d810a ("phy: Add LSI ET1011C PHY driver")
+  BUG: KASAN: slab-use-after-free in ntfs_read_hdr
+  Read of size 2 at ...
+  Freed by task ...:
+   kfree
+   ni_try_remove_attr_list
+   ni_write_inode
+   write_inode
 
-Please drop the Fixes and submit to net-next.
+Restore the primary record contents in place with memcpy() so that the
+allocation stays alive for concurrent readers, and free only the backup
+copy.
 
-Please also make the commit message less verbose. Assigning the return
-value to a u32 is an old problem. Look back in the git history to the
-pre LLM age and find a similar bug fixes. What do those commit
-messages look like?
+Reported-by: syzbot+7f14bc1da1f4da6518e5@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=7f14bc1da1f4da6518e5
+Fixes: 7a5aa6c45072 ("ntfs3: release ni_lock before dir_emit in ntfs_readdir to fix deadlocks")
+Signed-off-by: Aibing Chen <chenaibing@cmss.chinamobile.com>
+---
+ fs/ntfs3/frecord.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-	 Andrew
+diff --git a/fs/ntfs3/frecord.c b/fs/ntfs3/frecord.c
+index 16ac847de..50c5d301b 100644
+--- a/fs/ntfs3/frecord.c
++++ b/fs/ntfs3/frecord.c
+@@ -755,8 +755,13 @@ static int ni_try_remove_attr_list(struct ntfs_inode *ni)
+ 	kfree(mrec);
+ 	return 0;
+ out:
+-	/* Restore primary record. */
+-	swap(mrec, ni->mi.mrec);
++	/*
++	 * Restore the primary record contents in place.  ntfs_readdir() walks
++	 * the root index header after releasing ni_lock (see commit 7a5aa6c45072),
++	 * so a concurrent reader may still hold pointers into this buffer; swapping
++	 * it out and freeing it would leave that reader with freed memory.
++	 */
++	memcpy(ni->mi.mrec, mrec, sbi->record_size);
+ 	kfree(mrec);
+ 	return 0;
+ }
+
+
