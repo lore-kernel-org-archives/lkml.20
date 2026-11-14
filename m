@@ -1,100 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794659731;
-	b=h4jpMN/4hibq/ge/WqfPVe/UKs4P3mWTKcdXOUi1GbVKbgSQQbleVsgrz/YL+Ds2pd2L
-	 2nPI+RMXNkvAz201IFZQGtwXcBhTmbs2CzI7Hktg5RXnITtzqMfs/wfQQIyEyFHZxxZui
-	 N4zJygZOLMkkbVGyLkR/EQilkMaK2GAXpTlo9OLZWNsbzBrZZLV6cEjKpFSabUQmWGfve
-	 yBzjXBYmXAKHvmZHEWRe6ppSR4PoClEhViNn7Go0EnXXUPqp7HoblN8I4tLzU0IAu4Zeb
-	 rjXdrVHnoYCeEvgudZCGseTvJdh2KylvfqHMDFTolmKKd6yFECx5cj4SUVEp9zeIqEA==
+	t=1794659758;
+	b=TddMwWwCrOsOpipmckANPyFFT/ErNZy8tkXzyNN4XSheTuOZQwP54baS/2pOSXJKQ0Ad
+	 y6UnA73ZUf2FewKs+O4uao1MrRiAlxFmhs0p/HgApghAeokYKMmXxDKpVUVuNPsrOFalO
+	 09f+AVkQ4ej1Icwz9747iiMnQary9ar/8TKylT+nvLZOL69Q8KjfdngMO2d720Xe6fcNe
+	 EMj8czRGrA7BPe1GDr+47SkgRYuV/hA/Fe0BKjNP/1VBKJA9WuaUXEu2gf+uMQsuoFVU4
+	 R6OxMEf7CJDHb1Nxqcp1cF0zGTBHipzhwC3imOx60okz8Ckki8I3myE9tKK4YDFmIDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794659731;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=r/p2WSDDwlfZY2s5fg8yxPMJg5gzcfRu8Vq8eK0Izk8=;
-	b=ckD7MUy5AumbQJ0qlV+8yNPF54ROAR7m5VdLDE0WhWIEc7vNXlI99yyF/L2jmlfT5YVm
-	 BXP4kWrdzCQGwJVBsqce0HT/sdGFfqT5Q4VRVXD4e5v5rIIntj6M6sP4InuVntNKmPMuN
-	 v6QKWEOChWQRzmr9jIVComRwduEz/fgR7ylNkX1Y7XWs5hwM/7qIJcleYshA4N14fM7Xx
-	 ZHNsMQ0UjwbeNesn0MP9HZs2qWwPqJykWAmjWKdJIVt05ydErH1GAzvqkKK36s0UjY3lE
-	 7XyCSG8xsYejk5qTdhjqDe5hwQFW2ouA9a5wBO9x4nKwdrNsltzF7+Ss8HMPBJbmV6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794659758;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=kQ9PlLFanJO97/TILxd2Tgvdrkk2cvOpGFZUv4vINAg=;
+	b=gos3HRYK721RS0OFg6aIK1lJaKS5EYzKKw3XyBERUkCoW2JK328yVYjJOrBBplIxiCMa
+	 UWZOW/1ldyHyFkpBAo0FUqFeHKeUckAKWm6LGbruKlmuEc0FKyEg1OsZecjGq2KGITVVo
+	 pe0ovRmSgaLYEIBZGkO5eAVvyqV1+SnhbSvGoFsFtzrTjgpyNFGwM91ELeSYTxElRmshR
+	 Egx7Iv21DSl0xbXxocQjurRy54EV0Hagdzwvjn7WTCvSD+dsoT5AMsyRm5dEYRYYVIUgd
+	 mqzUYfqAeJUib8xQ5vBCvyZhKN3VmuCAQVcXakOYz7Ps0MVaWksl/+QaD8kte1Dc/Bw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.unc.edu;
-	spf=pass smtp.mailfrom=cs.unc.edu;
-	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=hXv6Xwym;
-	arc=none smtp.remote-ip=209.85.222.173
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=A0VbVAiX;
+	arc=none smtp.remote-ip=198.175.65.14
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5682606A32D
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 12:35:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5682606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55F94606A329;
+	Sat, 14 Nov 2026 12:35:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55F94606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=hXv6Xwym
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-9494d734351so276821285a.1
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 04:35:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1794659730; x=1795264530; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=r/p2WSDDwlfZY2s5fg8yxPMJg5gzcfRu8Vq8eK0Izk8=;
-        b=hXv6XwymXGceUlZL7WtVJXNSY2KLzR+5XuCCQRaOMligXzCYmtrC8D6aptBBlf3TwD
-         8V0CleuJzCudM/1aOV9zIPC1XxuMBkAZSzIbmoxT5LxnBIV8NgrpcCg1yUy36XCyAL9W
-         1sK+EVhwH8bk8s2tGGt74SZ/By3N0v53GZ0TPQEoqtSABq+sdkjex/3hyNymufZg6f98
-         Thucq/GqHHZjYB3h0E5Msa49iaoDnugvQoWtHjwkKt9OY6WuK2Bq6sO5RVyTas5FPS6J
-         e53rgl8t2/pzvVEh1yhCOScgscYP1KBvkVuaHx0E9UHqFZEFsu8hIdaqqxzOT3uhFM48
-         ZbZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794659730; x=1795264530;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=r/p2WSDDwlfZY2s5fg8yxPMJg5gzcfRu8Vq8eK0Izk8=;
-        b=VPN+8NIw45syPftt/NDLV5UGJgN9RYg4w/ft3ydRKbQdn1vQVgZT6OXBOB+bbpMxnh
-         U/tXNSqn/GviuiZ11+Ch720sfvhHpiXrpvkzXdsMtOjpU6133+YwCbuRrkmOoOvmMGTq
-         F4ZWWajZje6sFfeu8d20IFa9MjqbWBVdzf4wYUuyoUveE03QfsIafdKQ7DIEhzavhBNX
-         uTMWwjng2YzBE3HqCcc2ZcI40XNUbvV4YaVjDwmJXBPLhdTNS0iCk1ZDBiKavzkR6SIo
-         3RA4KEtNhF/eHaUjPahC2Z7ulpCC8j4VQyCwH3nFXThJwwu6ilsBhktvIX/kgFrCBUr9
-         NoMQ==
-X-Forwarded-Encrypted: i=1; AL+hErFgoQxlABbhmmUlHIWAjgR/MvbZ6jRnQBFwtHufP2XKoIja8o6oxFki36T+AORjLENpv16VKLYDuMsJZ7M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8U86mxFaRrWItqiB4UR79eLRTIojvjPlYRdkOG5aWxZIky1gqK
-	G0TrA23d5uqnE0K4zDBwT3O0f+uCqzCea4x8a7XbTRf4vgwOv+8wa9u2IkHQ4THbXA==
-X-Gm-Gg: AYBFou1T+gzbEEa/yFsyR6KWHQD8DVM4KHMK5n6a1vYDvRhPSqOu8YXwChW9+CLEjcm
-	FCcvbwIeWciG+vweu+9XyGlY1DO7asDiFj8T2HgoCVHqJHixnWg74GeSW8hxAV0HY+jGVdV3lvZ
-	EnQOnBIaHpusE6YZenzirGe0VJH+AW189sTWzIt7kiiRr5CnJAUjO11EnsomCRRkfEWU6+MPg9D
-	9xJjbMkugiLLxLzPFd2UUAO1uUlHuhyqdpBN+mscnv/jr/uzgl4XrpIY+8Or7LaYc+Y/5GzCijW
-	6WvO7R2aP8heZh++KdgCi6+pmm+HM3gkY9HlJvyzr3Izs1W/hLOlZmBU6WD1kRqueK/wGKAs/N5
-	U07TxK+S6FSACnDnqWAQ7iYkTObp4nZv1MVQTnKc0xY/QkqzRZT6wscfWj1Jj+AAKtQYX2b5LLm
-	CLOKoEHDXTLRQVfR/YdoUl1ImuXx/ZFX6Zxyrh/Z8SbOSxbWrZdvr5ZUqxdGaIUI2VU70kDmDSZ
-	qq9I8KwkgYl6b86WTLT+ewnBF5tzWpwj++ftlxnn9f+qtQ037plE3pSTfACv9tY0oNtFyjEqdxj
-	V5nJVF7Ke+8VZhkV4YcfC71K0Skp3vqizF+snSaoL5j0YoBQCNdZ
-X-Received: by 2002:a05:620a:4711:b0:949:6d95:f630 with SMTP id af79cd13be357-9496d96005emr75577985a.37.1794659729734;
-        Sat, 14 Nov 2026 04:35:29 -0800 (PST)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9495a5ef5c4sm277233885a.6.2026.11.14.04.35.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 04:35:29 -0800 (PST)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Simon Horman <horms@kernel.org>,
-	Donald Hunter <donald.hunter@gmail.com>,
-	netdev@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=A0VbVAiX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794659757; x=1826195757;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=vDRFfV23uhcbw8/Ilbo/MSNuNcIIWAFjYui4as218es=;
+  b=A0VbVAiXkf0t8+erCvdYSZo57RK5e40q1pQZTsAA86oawfHQYA3l1KEd
+   K246JXkphMIXwgbD25nqmkxx+Rju3RQCB82w4uNzGJrZZmvm+XBIM4/x7
+   0NNBbZruyVArskk5MnZtlIMOmQ6w7CcxCDXwNjDKr8c0OdUaFjewKZQpg
+   7WCn2R/eXM2MqOIM5fSdhp9ilfp8mTIh9HfiWwJ7NkOyafby6Kxo1lrmd
+   eMTM96Q2K30hieGWUl2hMAfNLw1DbBHRRPov/xTFj9xQLaJnFTNDwKcL7
+   E4Xiw7b6vvET57GOQkJItUHyzWmQUSzVEIdms0YDKAkPJe72AMXuBbBja
+   g==;
+X-CSE-ConnectionGUID: x/i/Q6YAQg2QjGWMaSiH1g==
+X-CSE-MsgGUID: K6yFU9NvThWgzhOZ9tROzg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11966"; a="3349402"
+X-IronPort-AV: E=Sophos;i="6.27,213,1787036400"; 
+   d="scan'208";a="3349402"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Nov 2026 04:35:57 -0800
+X-CSE-ConnectionGUID: /caIdS6PQ2G50gGjtxR2Vg==
+X-CSE-MsgGUID: ElFoNmapTBupmIVLjZ+Z5w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,213,1787036400"; 
+   d="scan'208";a="9144398"
+Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
+  by orviesa006.jf.intel.com with ESMTP; 14 Nov 2026 04:35:56 -0800
+Date: Sat, 14 Nov 2026 20:27:31 +0800
+From: Xu Yilun <yilun.xu@linux.intel.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Moritz Fischer <mdf@kernel.org>, Xu Yilun <yilun.xu@intel.com>,
+	Tom Rix <trix@redhat.com>, linux-fpga@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] ipv6: bring NLM_DONE out to a separate recv() in link and address dumps
-Date: Sat, 14 Nov 2026 07:35:21 -0500
-Message-ID: <20261114123521.452385-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261113182633.1bff5ce5@kernel.org>
-References: <20261113182633.1bff5ce5@kernel.org>
+Subject: Re: [PATCH] fpga: altera-hps2fpga: do not request reset by index
+Message-ID: <avhTs52FZQt3JGAA@yilunxu-OptiPlex-7050>
+References: <20261106-reset-deindex-fpga-v1-1-5672928ba5f6@pengutronix.de>
+ <au8Szj1uhBsP++es@yilunxu-OptiPlex-7050>
+ <a061bc4358465b5cf3b887249a48000fe07ae5ab.camel@pengutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,13 +81,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a061bc4358465b5cf3b887249a48000fe07ae5ab.camel@pengutronix.de>
 
-On Fri, 13 Nov 2026 18:26:33 -0800 Jakub Kicinski wrote:
-> IDK. Maybe others will disagree but I feel like uAPI changes that
-> happened (almost) 3 years ago are "settled". At this point just
-> fix the user space.
+On Mon, Nov 09, 2026 at 08:54:59AM +0100, Philipp Zabel wrote:
+> On Sa, 2026-11-07 at 20:00 +0800, Xu Yilun wrote:
+> > On Fri, Nov 06, 2026 at 04:43:19PM +0100, Philipp Zabel wrote:
+> > > There is no need to request a single reset by index.
+> > > Use of_reset_control_get_exclusive() to request the first and only
+> > > reset.
+> > > 
+> > > Signed-off-by: Philipp Zabel <p.zabel@pengutronix.de>
+> > > ---
+> > >  drivers/fpga/altera-hps2fpga.c | 3 +--
+> > >  1 file changed, 1 insertion(+), 2 deletions(-)
+> > > 
+> > > diff --git a/drivers/fpga/altera-hps2fpga.c b/drivers/fpga/altera-hps2fpga.c
+> > > index f2f1250689cb..9b7f5b8191b8 100644
+> > > --- a/drivers/fpga/altera-hps2fpga.c
+> > > +++ b/drivers/fpga/altera-hps2fpga.c
+> > > @@ -134,8 +134,7 @@ static int alt_fpga_bridge_probe(struct platform_device *pdev)
+> > >  
+> > >  	priv = (struct altera_hps2fpga_data *)device_get_match_data(dev);
+> > >  
+> > > -	priv->bridge_reset = of_reset_control_get_exclusive_by_index(dev->of_node,
+> > > -								     0);
+> > > +	priv->bridge_reset = of_reset_control_get_exclusive(dev->of_node, NULL);
+> > 
+> > Saved a 0 arg but add a NULL arg, Any benifit to justify the code churn?
+> 
+> I'd like to remove the _by_index() API once there are no users left.
 
-Understood. Thanks for taking a look.
+Then you need to show your intent by having a series that includes both
+the changes to the users and the removal of the API.
 
-Hengyu
+> For a while now, these functions are only ever called with index == 0.
+> 
+> regards
+> Philipp
