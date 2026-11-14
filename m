@@ -1,65 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794617469;
-	b=z1SnXBUHECGDyqd+SrBOFxhGweWBe27gvC1aHf3xlz0qMgBoXdlfIUYuMocrVuFKlgyB
-	 Tj7HRN2csh/zJZl1iEVSb6/BFC95p9erFCHxnufJFMwDk8kdW4CO3bE/RviK67Cd8ocDc
-	 2SMr8bAVA5wEswB/1uYYCLkjv1Yf5OwRfRYA3aQEh4Z5Iug2VrldzzudzRqnnM5BimF0e
-	 YFp3PkI7pLT5OtHzGdBhRucut0LQERlZKpujTCaxXKiGE75jNCuLmkbdyAUZFRxpw47TU
-	 S0kiqkTf+b9BRQbfzHYk0AZkCEsWQuPJ1EEqV+IUJ7HYtKaBL60Fz8jASyg3baioE6g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794617469;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=4P7DMRpzI67L+ckc1ZBMVeAzQ4J+BH4io4JBuf9M6QI=;
-	b=xXlxOGvY6oiJCyljDVN04msb7VjGTYBe1jJeVM0QM7QuFU/V6DJFZ4+B6RSlOhtwn+ak
-	 3dJowcZ6hnh6zStGCKA2pA6JJXjbZx3p9572NFnfFOSR10e0e1P60ugbHiHzg4jwc01T9
-	 XutyCWy4YTs3UJh/KUSg+3I1py+KqSWH5S0nKrljV/yJ1wWW7e8FP4fqy+S8rXDZHcLDP
-	 ZGvXEwg0ctdxiWon3Qa/pszXWsht2nA8exhj4NIFO5XloiugOQCD+gzliazuOqFrOUcZ0
-	 mKeImHyOImugewBNlw8J9ATpXpVLyRBhy9zImgm/Rcswt7TC2qTL8heCCvU13i69JMw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oVMcLii0;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794617542;
+	b=eMCzHL5EM6UxZuUHe0A0U8IPy/U38x/XTHh79y955TuYCwiAMwLkTuVN0Pes65zS8kMQ
+	 wHdBHDWKm2OObh5/NgAmt/FfWjZQXrRA12BTLlx8txTY6hXdJNB5gHtPYA5b4OU6sh6nM
+	 haOHPz0v6XU00SpXS58YPZbRfG0myY0/2IXUHKFEA7P8OOhKIBdK5E1YLGeQrYh1xwMIe
+	 tLQiGJTfjym4sirJo0jfPUloEeFXZSwXf8lEE2gUdxihawPNYjYiZnUyRCsF8Y4sf70o5
+	 wngzGdNGu02SYH5U6y1fIBru5O98CHKO/n2bogTX9NFOhmPEVhZHX8d3lSJtJ737Fng==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794617542;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Kf5Lt7yzOAUQ5ueELRwWwf4JNFuNEzgr8IOrFVpUyq8=;
+	b=gBsB/wx7L+EsEaIeTausHAQnco5MflrUOr//yV/yKLQxU4c+dlodumQ6yWRH3Wler/ey
+	 O25CmHZPPX3EFn+D9vs53hLKZJDuo2lIPCrP16qqyXHloYf683LQkRRYLTY0Jc0B8tVoD
+	 6Z5LpSiiFAhvRDC2Dhylq5PrBTNWR7ko+DP9lwmdNcegXp6fSlrPHWyQm4LtDqCTSRkcu
+	 pYs6E+3xlBpbDTw7bl9As6cO+zS0OFQ9cWY8Y1QaugZGDngq3ZLNd0n6Jwrg3M3trQaTw
+	 cNPH/zs7y2jNngCDL3I1SZcdfnDIrAO3DnX10MRE3Fi2Z9aTUwqXDVaWg+Tdpcg7zSg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kwd5Exqc;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0AE0606A32D;
-	Sat, 14 Nov 2026 00:51:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA922606A337;
+	Sat, 14 Nov 2026 00:52:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oVMcLii0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 560D81F000C4;
-	Sat, 14 Nov 2026 00:51:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kwd5Exqc
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794617542;
+	b=FNX5M15F5U5VS3C8zZDSE9YVfipPmI+kTzQy4A1uTXNTPdC6l+Q4uAKQpi6gRjseQTYu
+	 wVpQj9RBuF95C9JQpPlPm4aTIL0pEzh/+YQoAJPW9TXxb5c9iHCps/Qqq6DCBSDo4W8b1
+	 1YOh5Le2CdTXyubqD4ddRBF58AByfKONnBvul900iWxJk9G2l6T/c2VEwglNQEqvxLXXP
+	 rzInpQ/rIhuWK2os1/UGbwEzyJb8V/KE0JKtLsK4hpWsrYf5u6MrxsnVo5azFq83dm/Sq
+	 f1kZu4RsomTQDCiE0qX4LlcV7VnSiR6wyjkrMd9NMyr//P0HezJ80NcVgMKS1ZedcxQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794617542;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Kf5Lt7yzOAUQ5ueELRwWwf4JNFuNEzgr8IOrFVpUyq8=;
+	b=KWXXkWScFAi0HiE7r0IfMaHiR2B55p1KmMJjAUxKLXb1fwXf8TDm6os7aJWYq29UopiO
+	 9a0YJUsZcrn1As0Rm6JFrKb2sY0H9tMpBDMF/f90AbQjyCV0i2eB49zg8y6LUj/+0UToQ
+	 Rd9g9GBr8t+XAJnKCZhMq88/5GNhPuKrcoC9ITRBldKcXQ9/TUe5HuQ94Ja4NSw9mpD/Y
+	 f8fVENPlqGRAJWvm+eKnYKsP9gNmfsqgw+fapzZ2hB3eFlRPDQMMnLXzmSn4v5uzHRCIX
+	 iBXerOyfg6axLd+Cm5LCKtsS8JgXaJP1X/lnlnNfUQAmQTDBfp8gNrg7tpTazj4MIFQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id C3CC71F000C8;
+	Sat, 14 Nov 2026 00:52:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794617468;
-	bh=4P7DMRpzI67L+ckc1ZBMVeAzQ4J+BH4io4JBuf9M6QI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oVMcLii0dUHW5lJ0aO2FOmzV+DtpO2BAO3mNVRP0i0LIE6D5kLt6SrgDhXsucm8mC
-	 C8ZQpUMueJXSpnm7ywh3lwmbIMgUwhyXiAAfrus8oblsQmbj0zZCRx0MfWCawJGdDa
-	 EefuKEHnAmO6bpzC8yMwOuUfyQSeK5FtDKXYNT4eduq0M3/iHfMDpUCgQUOM1dJoiF
-	 Sqbplwg5b3TwtDDG/NEY3JqGAqMM9xSxxoJ4Dy7xxpu9dhxQ1hJP7vvENFbql46WqB
-	 CXreMYZzU80aPeCqlP634fGxyAOCYtEuGDKtqDac3RsNQF8BdP16XOxkOkI3lmUP51
-	 C/CJ9RPPV57Lw==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id 8D99C32AA096; Sat, 14 Nov 2026 00:51:06 +0000 (GMT)
-Date: Sat, 14 Nov 2026 00:51:06 +0000
-From: Mark Brown <broonie@kernel.org>
-To: shao.mingyin@zte.com.cn
-Cc: william.zhang@broadcom.com, linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	pjw@kernel.org, samuel.holland@sifive.com, kursad.oney@broadcom.com,
-	jonas.gorski@gmail.com, bcm-kernel-feedback-list@broadcom.com,
-	anand.gore@broadcom.com, florian.fainelli@broadcom.com,
-	rafal@milecki.pl, linux-arm-kernel@lists.infradead.org,
-	sven@kernel.org, j@jannau.net, neal@gompa.dev,
-	asahi@lists.linux.dev, ryan.wanner@microchip.com,
-	nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com,
-	claudiu.beznea@tuxon.dev
-Subject: Re: [PATCH v2 3/5] spi: bcmbca-hsspi: fix division by zero for
- devices without a max speed
-Message-ID: <1d8b7784-f217-45ef-8f09-658044e441ea@sirena.org.uk>
-References: <CAHi4H7GHGO27Q=O8Upfds8jk-ujSHU5h91hCZw6qjftNX7a2Ng@mail.gmail.com>
- <20261111173637687ugnRPRBKJkF0zihl662i2@zte.com.cn>
+	s=k20260515; t=1794617542;
+	bh=Kf5Lt7yzOAUQ5ueELRwWwf4JNFuNEzgr8IOrFVpUyq8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=Kwd5ExqcLXQ9Pg2oGDBqJ1goYBv79NFE2f3Ajw+WLCSQop6EWRz9Niy4Uc+RINgiX
+	 WdeJeHev62ZJiotAuNoXdhdJ6N0i1O3ARb5kiADV2AE3uPXLkySYsBLgOPkRwUAQdc
+	 QewPVfDtd90Ime/cfbAPr6Gz6LbkQrn3iccC/vLJ9DigKrzmYp9gfv3ZfXaF586Kk2
+	 t2fobkQBp6nJ3xnSwEqGzWCPyCvJ9uHgJdoz6BsGm/WqkQqVTqvimgqV+RXkpEYR8J
+	 Gw6nLb+PPV4A00kPxeUdj/qZMppCSMejzUlDUbbrkjf36c2BbamleXnZx9up2CVRp3
+	 ni4EjG8UKV/lg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id E01F449BF0;
+	Sat, 14 Nov 2026 00:52:20 +0000 (UTC)
+From: Matt Thompson via B4 Relay <devnull+matt.boondocker.io@kernel.org>
+Date: Fri, 13 Nov 2026 17:52:19 -0700
+Subject: [PATCH RFC v2 1/3] PCI: rockchip-host: Skip downstream config
+ access while link is down
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,40 +83,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="D7xosyWN3K0hIeX/"
-Content-Disposition: inline
-In-Reply-To: <20261111173637687ugnRPRBKJkF0zihl662i2@zte.com.cn>
-X-Cookie: I'm wet!  I'm wild!
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261113-rfc-b4-v2-1-d6b14f95c1d6@boondocker.io>
+References: <20261113-rfc-b4-v2-0-d6b14f95c1d6@boondocker.io>
+In-Reply-To: <20261113-rfc-b4-v2-0-d6b14f95c1d6@boondocker.io>
+To: Shawn Lin <shawn.lin@rock-chips.com>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ linux-pci@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794617540; l=2087;
+ i=matt@boondocker.io; s=rk3399-rfc-20261113; h=from:subject:message-id;
+ bh=dQmkjngK0wLJ2jAFS1PjdlLb7zJkoCy2sJ8WeTsPps4=;
+ b=9/6wJ4fyi0li8ktfa0g1y80t+yToemwpZHRpl1FuuUR8wL8NcQvQf5YZ4ISCzVYGGfIX4Nbbp
+ 60UfS2buuMTDRX0VvcUOUgovZRSmUUdjXveUqPlOyYx8G0qNHPWZfLK
+X-Developer-Key: i=matt@boondocker.io; a=ed25519;
+ pk=WMnh3kwFFRkrqamL/FbDcdl1/9rBF2uT03VdvGGP40k=
+X-Endpoint-Received: by B4 Relay for matt@boondocker.io/rk3399-rfc-20261113
+ with auth_id=1517
+X-Original-From: Matt Thompson <matt@boondocker.io>
+Reply-To: matt@boondocker.io
+Content-Transfer-Encoding: 7bit
+
+From: Matt Thompson <matt@boondocker.io>
+
+On a RockPro64, a PCI bus rescan with the downstream FPGA unavailable
+faulted in rockchip_pcie_rd_conf() during a vendor ID read. The rescan
+task exited with interrupts disabled and the watchdog reported a lockup.
+
+Check the controller's link-up and link-training status before issuing
+downstream config requests. Return PCIBIOS_DEVICE_NOT_FOUND while the
+link is unavailable. Root port config access still uses the local
+controller registers.
+
+This check cannot prevent the link from dropping during the transaction.
+
+Signed-off-by: Matt Thompson <matt@boondocker.io>
+---
+ drivers/pci/controller/pcie-rockchip-host.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/drivers/pci/controller/pcie-rockchip-host.c b/drivers/pci/controller/pcie-rockchip-host.c
+index 5b071bd..35105c1 100644
+--- a/drivers/pci/controller/pcie-rockchip-host.c
++++ b/drivers/pci/controller/pcie-rockchip-host.c
+@@ -143,12 +143,23 @@ static int rockchip_pcie_wr_own_conf(struct rockchip_pcie *rockchip,
+ 	return PCIBIOS_SUCCESSFUL;
+ }
+ 
++static bool rockchip_pcie_downstream_ready(struct rockchip_pcie *rockchip)
++{
++	return PCIE_LINK_UP(rockchip_pcie_read(rockchip, PCIE_CLIENT_BASIC_STATUS1)) &&
++	       PCIE_LINK_TRAINING_DONE(rockchip_pcie_read(rockchip, PCIE_CORE_CTRL));
++}
++
+ static int rockchip_pcie_rd_other_conf(struct rockchip_pcie *rockchip,
+ 				       struct pci_bus *bus, u32 devfn,
+ 				       int where, int size, u32 *val)
+ {
+ 	void __iomem *addr;
+ 
++	if (!rockchip_pcie_downstream_ready(rockchip)) {
++		*val = ~0U;
++		return PCIBIOS_DEVICE_NOT_FOUND;
++	}
++
+ 	addr = rockchip->reg_base + PCIE_ECAM_OFFSET(bus->number, devfn, where);
+ 
+ 	if (!IS_ALIGNED((uintptr_t)addr, size)) {
+@@ -182,6 +193,9 @@ static int rockchip_pcie_wr_other_conf(struct rockchip_pcie *rockchip,
+ {
+ 	void __iomem *addr;
+ 
++	if (!rockchip_pcie_downstream_ready(rockchip))
++		return PCIBIOS_DEVICE_NOT_FOUND;
++
+ 	addr = rockchip->reg_base + PCIE_ECAM_OFFSET(bus->number, devfn, where);
+ 
+ 	if (!IS_ALIGNED((uintptr_t)addr, size))
+
+-- 
+Git-155)
 
 
---D7xosyWN3K0hIeX/
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Wed, Nov 11, 2026 at 05:36:37PM +0800, shao.mingyin@zte.com.cn wrote:
-
-> > IMHO the upper layer should fail ... rather than having the controller
-> > driver to override with a risky 1Hz clock.
-
-> Agreed; the fix belongs upstream of the driver, not in ->set_clk().
-> Mark, which do you prefer: reject max_speed_hz == 0 in spi core, or
-> have these two drivers clamp FCW >= 1?  I'll wait for your call and
-> won't spin a v3 meanwhile.
-
-Ideally the core should do this but that's quite hard to do due to knock
-on effects of handling 0 as a default everywhere, together with having a
-bunch of existing drivers that don't provide any information.
-
---D7xosyWN3K0hIeX/
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCavewegAKCRAv73Ows9A4
-iWN2AQClR5sOK8gylXjPGozoKNkL8che7F9VYkofFkYIAbamjwD/ReYiG72diC+8
-NHMu21kmTY9APQadD0105SE1A4OM0wg=
-=FhG5
------END PGP SIGNATURE-----
-
---D7xosyWN3K0hIeX/--
