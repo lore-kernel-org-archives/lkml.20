@@ -1,81 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.110
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794673223;
-	b=c9cgyE8XQZiQF4woFUhnixnbgR5c0SprXgwZa9BR7oPdPaoksxdxQ8FrpYcUBRwlipzJ
-	 y5KWeGw3/IrybjI/ZOZqkpRmNz+Cv9NphLPr2TJHNfBSxe9bM2pAx1asq0vZhcsdYnyLq
-	 xXautfMBn5Vy5WWIGyS6+EXuQdND7gNq99DJYfiuinWgrr1xQPsvpYgQLjYCkhUbDfCax
-	 RlPYC8KWm1emEgwVp4hdtZWUhXu6LSWDHIrAf0lIeNQuQc2CW7b9jGOBjcUnrYbdvbOSh
-	 GSVjIMuVHYZ8C1iSFe6w5BofIQyutZ/G3VEkA0GofIZlClEmmlwo7M+ozVljjfXZioA==
+	t=1794673264;
+	b=vB5Tyux1oQniWabLS7syowEX+yUOVGRsR7bOSJh7Hm0h8Nm+Qu6Wkop7I5h999sp1D+a
+	 hnIWA0UivDpq+Ok3tycCltHu8M9nkOUUeDxEdzfpu/TfeXkGVyMtSD8418IXNTwLZqG67
+	 8haaScJemZll5HfOdp254FJBVm/HNLuOAiG7/fdQ6yiPLuhr9MNji5+4f+dH4NG0YJjtC
+	 mZas3jgNwMLLZWRIy0rLtTi+A4M09jrKx4QXyfuqFoU/lr1d0C5RpgYmAilh3RNGGwnzY
+	 3H+xG6y4F2oIhV4ipWvJjpMYFc/d27w0nG2BVayEmIQSqx/v5h1szUpYHwTyIcFhSrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794673223;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=ZxwhgSYpDoXwHxHLVzNNenoKfmFE9x1vWok7rQPvhLg=;
-	b=zyN9mbaj+iVrQgXQD80tqYWT1CSGBh93djMyxVOsBCvh/ONQyZEZVPe+y52GxNGLkMm5
-	 5A0Jdkw+o5tbwAVY9fZYfQFPV1HZgfDirVQQgGfMb/lZ6q0VaDDAsoCsk/RBJW+AgXlqi
-	 LgH3Idrqps2x3su5CZHGA3DQ45LmOVE/XSdMyagxf09oo3uwtCZxkYoPBMgneroA0vlay
-	 kyK1jXZJ41I4Oqb/6KjA00KE82ei3RPjrXpiAS3jz4zbd5VlABcf8ieflpMVOvtAZWPdN
-	 blcW/s8IyLrNPXwf6erMNQ6BTOgdBCfSkj74dQdnpIP3QPk7xl/CYV0MX0AiwjF4PXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794673264;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=vc8EBtQgu2BWn5PQ5GP1/SsZSGSHdYgDv62oR4Cy3is=;
+	b=gMx4NIDOSKm0kgbb2blh/6qoxfu2n0A4cK6HJjqiR0Me57DLHx37bsAearGfKSlX2BeD
+	 FeoYR/iQGRx8zvh2I7U2G1NgXbEJDQLbPA/WQBnp6FHjXUxTD/MhEsfCK95GbbRXNg3LV
+	 uQ7CjfI5e1NCNknNTCNeDjqKCaHKyYjgbe3wH1Y/USoDFpuEBex9JlUsZafEvtjfcWgwI
+	 HDzJ59Hk2Zv/XCoMtX+DjLk5515jGAjfbHNbcwxGH0eGGg88dbKLVBjOtctpoaC6XwugT
+	 7d8Lj6rG+Iu4PgvtdpRRGDh51RfEUVHSjMRjttfHnsqM75z9XIN12CUDaV1GxEAIuTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=yxko4Opj;
-	arc=none smtp.remote-ip=35.89.44.39
-Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=debian.org;
+	spf=none smtp.mailfrom=master.debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.master header.b=DuReHRmQ;
+	arc=none smtp.remote-ip=82.195.75.110
+Received: from master.debian.org (master.debian.org [82.195.75.110])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C7B2606A327
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:20:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C7B2606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E047D606A327
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:21:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E047D606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=master.debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=yxko4Opj
-Received: from eig-obgw-6006b.ext.cloudfilter.net ([10.0.30.211])
-	by cmsmtp with ESMTPS
-	id SBMkxeu4hyb4YSGUJxgCtj; Sat, 14 Nov 2026 16:20:23 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id SGUIxXUA1FhzrSGUIxLVjf; Sat, 14 Nov 2026 16:20:22 +0000
-X-Authority-Analysis: v=2.4 cv=JY+8rVKV c=1 sm=1 tr=0 ts=6af88a46
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=rJQTfqSEcvX7QKNp:21 a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10
- a=pGLkceISAAAA:8 a=cDTaPH7Phgbu5lDjgQUA:9 a=CjuIK1q_8ugA:10
- a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=ZxwhgSYpDoXwHxHLVzNNenoKfmFE9x1vWok7rQPvhLg=; b=yxko4OpjcB3eDKvGXGy3lCQha6
-	qYnBatw/d03wNuymE+oiMJ7W1HLq4TYV5YCEOnd29yWXG+4IjDgYSsH5fnb1LlyPqbnPbL7wvOUFL
-	CwkXy6OK4VpQ5fV1Tc3ffKDqHFHaGfT6fGd5I31IXmM5dZwgAop1ZSwX7TdSuUrh1YxYh/E+opIeA
-	/haViLROweizpxQV/lMMTnmnXVKp0aUrIYJJ/+2e75o9PaWTmHudDGL0QdWN4ymIDMeq/lD+Rya1O
-	RZLczoeIgi9CeLNq8SjVPHANCTVivsbf8nPfNwUK2hj95/ClRWFw7npWcILZOboPw7LhLJtd9RO9S
-	evvx0C3w==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:53504 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xSGUI-000000008s3-0xYW;
-	Sat, 14 Nov 2026 21:50:22 +0530
-Date: Sat, 14 Nov 2026 08:20:21 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Johan Dahlin <jdahlin@gmail.com>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Alwyn Kik <alwyn@kik.pw>, Fabio Baltieri <fabio.baltieri@gmail.com>,
-	Hamza Mahfooz <someguy@effective-light.com>
-Subject: Re: [PATCH v2 7/7] hwmon: (nct6683) Scale the +5V and +12V inputs of
- the ASRock B850 Steel Legend WiFi
-Message-ID: <900c0952-7f04-41db-9b99-3be5c32f16ef@roeck-us.net>
-References: <20261111082838.1418051-1-jdahlin@gmail.com>
- <20261111082838.1418051-8-jdahlin@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.master header.b=DuReHRmQ
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.master; h=In-Reply-To:Content-Type:MIME-Version:References:
+	Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
+	Content-ID:Content-Description;
+	bh=vc8EBtQgu2BWn5PQ5GP1/SsZSGSHdYgDv62oR4Cy3is=; b=DuReHRmQgNiGPm9txLeEMmXY/E
+	CrBN08i9wK+Tt45LdgZIqk0wvsyVY4g5XENtccYhHUVFHFwMVgi8Eie53TL9GU2MA+zHAB6p1xQmm
+	SMXO4AW4aDJbxEVuS2pCdK9+Dmou3arUW3kqWIgbYQFqZCCNp8ecN5N+Zd4sUrrVtQA8cZ0GjXZys
+	DSqOQNPIjwJELfYC+ar1CP0wElJIfvUx77pWODzt2LAHvkaIo0A59zkG+K+nefu0tmGc+aPx4F71+
+	rjYT/8l8yEyAe2D9d89qRsqymHaVghV5XamBl/rBlbpzydnla0+OBqoRUyyJKxuwGrd5lcO8q67jK
+	R28gw+xA==;
+Received: from ukleinek by master.debian.org with local (Exim 4.96)
+	(envelope-from <ukleinek@master.debian.org>)
+	id 1xSGUR-009uyU-1y;
+	Sat, 14 Nov 2026 16:20:31 +0000
+Date: Sat, 14 Nov 2026 17:20:30 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@debian.org>
+To: Marek Vasut <marex@nabladev.com>, dri-devel@lists.freedesktop.org
+Cc: Danilo Krummrich <dakr@kernel.org>, David Airlie <airlied@gmail.com>, 
+	Li Chen <me@linux.beauty>, Lyude Paul <lyude@redhat.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Ole Carlsen <ole.carlsen@tutamail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] Revert "nouveau: pci: quiesce GPU on shutdown"
+Message-ID: <aviIPk4xbKhgqcTy@monoceros>
+References: <20261025213027.842978-1-marex@nabladev.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,42 +67,135 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="xowislqauromtdk7"
 Content-Disposition: inline
-In-Reply-To: <20261111082838.1418051-8-jdahlin@gmail.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xSGUI-000000008s3-0xYW
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:53504
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 62
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfGku4hKBwvPZafVIVQYVuB870o/RWVRsDWOg4EO7FH/tlJJFEjyV/b8TjorGwmXcV50v3W5+shxiITl6+o76gyLtrFTD+MkOkq6l7RmplMuY30Wg/BIj
- G61krprA+++6IbRmVbIQ8PnDd5uxhVMuAzppoBiJPUSA9ANxrc7mmDDI59N6DF8asb8OkERqIzqfMIuyu4Ly6vAcnMBQ5CjOYhx8NxFBHWHGfTPHV9x+ZcBN
+In-Reply-To: <20261025213027.842978-1-marex@nabladev.com>
 
-On Wed, Nov 11, 2026 at 09:28:38AM +0100, Johan Dahlin wrote:
-> The +5V and +12V rails reach the chip through resistor dividers, so they
-> read as 1.70 V and 2.03 V while the UEFI setup shows 5.04 V and 12.19 V.
-> 
-> Let the sensor table carry a divider ratio and apply it when reading the
-> input, with ratios of 3 and 6 on this board. sysfs-interface.rst asks for
-> such conversions in user space because dividers differ between boards.
-> Here the board is identified by its customer ID, so the ratios are fixed.
-> 
-> Signed-off-by: Johan Dahlin <jdahlin@gmail.com>
 
-Again, this belongs into sensors3.conf.
+--xowislqauromtdk7
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] Revert "nouveau: pci: quiesce GPU on shutdown"
+MIME-Version: 1.0
 
-Thanks,
-Guenter
+Control: forwarded -1 https://lore.kernel.org/nouveau/aviIPk4xbKhgqcTy@mono=
+ceros
+
+Hello,
+
+On Sun, Oct 25, 2026 at 10:30:06PM +0100, Marek Vasut wrote:
+> This reverts commit 310326bb7df4bba094a3fc60364c641c547fd923.
+>=20
+> This breaks shutdown on ThinkPad W510, without the offending commit
+> the system normally powers off, with the offending commit the system
+> ends up spinning indefinitely and the CPU fan goes full throttle on
+> shutdown.
+>=20
+> The behavior was already reported in debian bugtracker multiple times
+> for various other computers too, and git bisect lands as this commit.
+> https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=3D1141969
+
+I think the original bug #1141969 is a different issue.
+
+> https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=3D1146033
+
+Here it affects a Lenovo ThinkPad T510 and I think that's the same issue
+that Marek has.
+
+
+> I tested the revert with Linux 7.2.12 from debian unstable, not next
+> or drm trees, mainly because it was easier with debian test-patches
+> script on that machine.
+>=20
+> Signed-off-by: Marek Vasut <marex@nabladev.com>
+> ---
+> Cc: Danilo Krummrich <dakr@kernel.org>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Li Chen <me@linux.beauty>
+> Cc: Lyude Paul <lyude@redhat.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Ole Carlsen <ole.carlsen@tutamail.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: Uwe Kleine-K=C3=B6nig <ukleinek@debian.org>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: nouveau@lists.freedesktop.org
+> ---
+> NOTE: Maybe the revert is not the ideal solution, but it does fix my
+>       problem, and I think being able to shut computer down is a good
+>       functionality to have.
+> ---
+>  drivers/gpu/drm/nouveau/nouveau_drm.c | 32 ---------------------------
+>  1 file changed, 32 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouv=
+eau/nouveau_drm.c
+> index 5e1336615cf6d..36c74f9edaa83 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_drm.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+> @@ -1090,37 +1090,6 @@ nouveau_pmops_resume(struct device *dev)
+>  	return ret;
+>  }
+> =20
+> -static void
+> -nouveau_drm_shutdown(struct pci_dev *pdev)
+> -{
+> -	struct nouveau_drm *drm =3D pci_get_drvdata(pdev);
+> -	int ret;
+> -
+> -	if (!drm)
+> -		return;
+> -
+> -	if (drm->dev->switch_power_state =3D=3D DRM_SWITCH_POWER_OFF ||
+> -	    drm->dev->switch_power_state =3D=3D DRM_SWITCH_POWER_DYNAMIC_OFF)
+> -		return;
+> -
+> -	ret =3D nouveau_do_suspend(drm, false);
+> -	if (ret)
+> -		NV_ERROR(drm, "shutdown suspend failed with: %d\n", ret);
+> -
+> -	pci_save_state(pdev);
+> -	pci_disable_device(pdev);
+> -	pci_set_power_state(pdev, PCI_D3hot);
+> -	/*
+> -	 *  This is just to give the pci power transition time to settle
+> -	 *  before an immediate kexec jump. it=E2=80=99s mirroring the existing
+> -	 *  nouveau_pmops_suspend() behavior, which already does
+> -	 *  udelay(200) right after pci_set_power_state(..., pci_d3hot). In
+> -	 *  ->shutdown() we=E2=80=99re allowed to sleep, so I used usleep_range=
+()
+> -	 *  instead of a busy-wait udelay().
+> -	 */
+> -	usleep_range(200, 400);
+> -}
+> -
+
+I cannot reproduce it, but maybe it's helpful to find out where/how the
+driver hangs. Adding printks might be enough, and if not, remove stuff
+=66rom nouveau_drm_shutdown() until it works. I'd guess this gives the
+needed insights to determine a fix without reverting the identified
+commit.
+
+Best regards
+Uwe
+
+--xowislqauromtdk7
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr4iksACgkQj4D7WH0S
+/k5Ddwf/ZQhRWfT25ajkrlMZB7Yy22dbIY9AYVPqks3pLi+iRApmlVlicq/ISs9P
+FZ9vhyC03ZBC36UV0syL4ayAAHBgWL4c7TM1pgLEUlIkVGgCp79svNqrlCXS1FqA
+SVIGEptvevPbe9FfsGoyXhfGPPyxdZ8hEUrijzGJ5GA2MwUfQsYO9+gQP7sw8wOq
+mNvf/HaxcQtH6LZ5i59I1f9ttRmD66s2jCIclrabbn1jiHFjhut/VCwHGvTvsjZf
+wLS5IIxlKJldiaXOLWiFNjS5kpw2vHbNcFsVU+CAk5vJkMdD1r5EZIyIH/jK5RuK
+6RDKqiy/Lgs1+cUfnTFxjKuZwBTHDA==
+=97RD
+-----END PGP SIGNATURE-----
+
+--xowislqauromtdk7--
