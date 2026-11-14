@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794686898;
-	b=uxDOUaG7ERXPdn9b0cJ3hM9oF+50JjOn5Qu/COxYicALYXmzvyhw2+WcugVINpKi15df
-	 asV84CIQXEx+gAwJ20dLg2jOy/XpSTYW1cvyMRdCu9NlT5uCA5af+TIpcivJ/YD/U2vo8
-	 p2YPZtB6W3+00sx2n/tPPTSLILDWXuZ9H0xynQ3S7YBGpB8Pbue0QjdOzFMFMvo0xtFEf
-	 9aiAH8OwVO84+pcu6/y0x14ja084FDhI66ZQWPHoZG4CQnrM7bLYCyclAM0mtxthfeaUu
-	 0lgvv6af3obkCaoBNCc91Va33rPAbEd8z405AIOEiePrzsf7HhMuw6ItZdNPj1tQqFQ==
+	t=1794686903;
+	b=jcIPOynLozW9ABPS+KJUn+ygUBjK77Rbx+OOiruanYurG2uFDKDeYPEzkYsojVZ6qX7F
+	 dtdSwogPr3E48NXwNBq9r4/E4kHGl6EYLVNu0BLvZmkZLGsDfrPgcpKfCKbQqKgw5LBcm
+	 zSQmltuYLYgxtkUWGOpOfEkZWA8poxSOwQ7P4qmbyxd+9UFQsJ7jwVZnzPIC8Sri+GsGk
+	 pWcxdBGAuscGLhXSHsbSJzXaF2UrMOdyTy3qMz3J3O/O7h8d2fgbOZQIrQZokQ2Y+uZN9
+	 8JSQG9og/MczwjBqmpDeJsxcRLaky2ut0O4EovnDTKs4+a4GoeVj/yvrrqIMRWROmaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794686898;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794686903;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=/dKIjKxFlwknpbWJVXX/cmtGsbGxhiJgbgpOqLZNO10=;
-	b=zFdBB50sp4IGc1EDl/vAJv6h/hS+z+ALBzl4lzPOLN83jhWyv5inE1kZjl2Z9ABBGexG
-	 42s62Drtk/lADYaUEZlirLN+xiY58qM654EGhURVMovv65Ty021dAzRwOIB7VTNLgfUnI
-	 rqpQCh+sZyLpSsPmbiJ2lImGJXdrbBuD232FQpF8VyHwbS+lySW32wK3jmZoCnGeyH/3t
-	 hRBceXzCBirRtQau4mLuhr+tDr07Mb0pVMDfCRcEHHLq/83xOl90whOFEHjTtZNzob5vO
-	 3U2LWy7DoNHQiFK6Ht3XwpszUO+wDPFDDwhq/4ObCfm9GrKfBW2wXmYfdPWLW/cZ+tg==
+	bh=a77mtASibmNRpSvCk4qjY5DapLOB/+QPvfDiCbB3EpM=;
+	b=N19SKao4ilSU59Xy87B865B2DSSzG7/RUGwSO2Zg1SXoGaLqPOtqJOQYCKXRJtjElNDv
+	 BuTrCQJwbOuSUveZBPNLpiyXyNOmVBwsEDOngBMot+g86RatMZvi/bOp7UsyyRJgk+6my
+	 l5SfVkXyTu4dkBwc3/3+xiuyyT5KE7ApAHLk3PG1c5jbcgAyDBgy6unFIDJMy/nWPkucF
+	 X/zZBgazl58MJYmQLIJ6VYtrbyvVyk46vNYSheimSE9mfXSFjEHVt9RRgVKU8ZrVsUTDB
+	 YkHNcOKOZB2b/ysEEPw7SxRa/OVzW0kIUxEIUF00YgXlS9srrJF7nnroPaT8GfLndIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HxtoOFve;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oXIC0n4w;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9380606A331
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 20:08:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0865606A329
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 20:08:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HxtoOFve
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A7721F000C6;
-	Sat, 14 Nov 2026 20:08:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oXIC0n4w
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6C381F000C8;
+	Sat, 14 Nov 2026 20:08:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794686898;
-	bh=/dKIjKxFlwknpbWJVXX/cmtGsbGxhiJgbgpOqLZNO10=;
+	s=k20260515; t=1794686903;
+	bh=a77mtASibmNRpSvCk4qjY5DapLOB/+QPvfDiCbB3EpM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HxtoOFve2T3VgwogTRiEZv3A4RdpF8863bbifdj51BC0LUnJhxcFyu6b8FUp9ehPS
-	 13gdPW3bKoK3uPH0rqHF+OQlbpJ/tcMsXu+wBGzBwTmJsbfBnmGcOoUUTbIO2A1Qs2
-	 +URqoL7N/Zsunypjrq6QxBhB1s5sNXfSNEPGT5Ke+b7EfddtEzs4C0+HJEL4n6uKGt
-	 CEXXwPiR/LOiZHKLhVOyeXfTjzeJ+HIVEYsP4qR+hkMsb9Awa8HdPaOdXo1W4sTvkv
-	 Gh8dH3is7b2QzKsg2AFRpYnCsmdke976eJ6ZVlTBGmUaRjEq2rWO+4BXZ3t7RnLlzz
-	 fuxsKWJ/JdRPA==
+	b=oXIC0n4wRCmwWSji2V7+PkU/4qChsSTxJGYkEYumI2UuNruxVrDLQzKwu6DI/KVmc
+	 HPb6/z3+R+LZb1Tr4vsr/F1P4uMC9BmXWbHfXycYIizCmh5F3oGCqEQVN4EeLorPCA
+	 uhh1z8cJ8V/nAsgTTZxrZkCkFJAzUg80oJt2nM0IcuRX7ANX7N6c9VSGBg818tT8iK
+	 /Vlr9qccXonbn9Bies8t5lXD3HhSza0gFqFklX6WE0iA1Jd8G9gbgGZkb1GfR0kR6K
+	 LtEvCo27NzK2fsBBJvnCWHF+U2bulsQz8Hc43Sx3cymTHJmgG3iSilO4iC1i+NTAVt
+	 l6ImXlUC5bB2Q==
 From: "Barry Song (Xiaomi)" <baohua@kernel.org>
 To: akpm@linux-foundation.org,
 	linux-mm@kvack.org
@@ -69,9 +69,9 @@ Cc: axelrasmussen@google.com,
 	zhuhui@kylinos.cn,
 	sidchintamaneni@gmail.com,
 	Barry Song <baohua@kernel.org>
-Subject: [PATCH v9 01/16] mm/mglru: report evictable sizes per type
-Date: Sun, 15 Nov 2026 04:07:48 +0800
-Message-Id: <20261114200803.23129-2-baohua@kernel.org>
+Subject: [PATCH v9 02/16] mm/mglru: extract lruvec_populated_min_seq() helper
+Date: Sun, 15 Nov 2026 04:07:49 +0800
+Message-Id: <20261114200803.23129-3-baohua@kernel.org>
 X-Mailer: git-send-email 2.39.3 (Apple Git-146)
 In-Reply-To: <20261114200803.23129-1-baohua@kernel.org>
 References: <20261114200803.23129-1-baohua@kernel.org>
@@ -88,83 +88,94 @@ Content-Transfer-Encoding: 8bit
 
 From: Kairui Song <kasong@tencent.com>
 
-Change lruvec_evictable_size() to return the number of evictable
-anonymous and file pages separately instead of a single total, so
-that callers can weigh the two types independently.
+The search for the oldest populated generation of a type, previously
+embedded in try_to_inc_min_seq(), is extracted into the new
+lruvec_populated_min_seq() helper. It returns the oldest populated seq
+of a given type, bounded by the given max_seq so the search never goes
+beyond it.
 
-Update lruvec_is_sizable() and get_nr_to_scan() accordingly; the
-summed totals are unchanged, so there is no functional change.
+No functional change.
 
 Signed-off-by: Kairui Song <kasong@tencent.com>
 Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
 Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 ---
- mm/vmscan.c | 22 +++++++++++++---------
- 1 file changed, 13 insertions(+), 9 deletions(-)
+ mm/vmscan.c | 45 +++++++++++++++++++++++++++++----------------
+ 1 file changed, 29 insertions(+), 16 deletions(-)
 
 diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 46be9c7e967c..400f87fc51e1 100644
+index 400f87fc51e1..ae3e13b1fb27 100644
 --- a/mm/vmscan.c
 +++ b/mm/vmscan.c
-@@ -4193,28 +4193,31 @@ static void set_initial_priority(struct pglist_data *pgdat, struct scan_control
- 	sc->priority = clamp(priority, DEF_PRIORITY / 2, DEF_PRIORITY);
+@@ -3992,30 +3992,45 @@ static bool inc_min_seq(struct lruvec *lruvec, int type, int swappiness)
+ 	return true;
  }
  
--static unsigned long lruvec_evictable_size(struct lruvec *lruvec, int swappiness)
-+static void lruvec_evictable_size(struct lruvec *lruvec, int swappiness,
-+				  unsigned long nr[])
- {
- 	int type;
--	unsigned long seq, total = 0;
-+	unsigned long seq;
- 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
- 	DEFINE_MAX_SEQ(lruvec);
- 	DEFINE_MIN_SEQ(lruvec);
- 
-+	nr[LRU_GEN_ANON] = 0;
-+	nr[LRU_GEN_FILE] = 0;
++/* Similar to lruvec_evictable_size, return the oldest populated seq of the type */
++static unsigned long lruvec_populated_min_seq(struct lruvec *lruvec, int type,
++					      unsigned long max_seq)
++{
++	int gen, zone;
++	unsigned long min_seq;
++	struct lru_gen_folio *lrugen = &lruvec->lrugen;
 +
++	lockdep_assert_held(&lruvec->lru_lock);
++
++	min_seq = READ_ONCE(lrugen->min_seq[type]);
++	while (min_seq < max_seq) {
++		gen = lru_gen_from_seq(min_seq);
++		for (zone = 0; zone < MAX_NR_ZONES; zone++) {
++			if (!list_empty(&lrugen->folios[gen][type][zone]))
++				return min_seq;
++		}
++		min_seq++;
++	}
++
++	return max_seq;
++}
++
+ static void try_to_inc_min_seq(struct lruvec *lruvec, int swappiness)
+ {
+-	int gen, type, zone;
++	int type;
+ 	bool seq_inc_flag = false;
+ 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
+ 	DEFINE_MIN_SEQ(lruvec);
++	unsigned long seq;
+ 
+ 	VM_WARN_ON_ONCE(!seq_is_valid(lruvec));
+ 
+-	/* find the oldest populated generation */
++	/* Requires at least MIN_NR_GENS gens for basic functionality */
++	seq = lrugen->max_seq - MIN_NR_GENS;
  	for_each_evictable_type(type, swappiness) {
- 		for (seq = min_seq[type]; seq <= max_seq; seq++)
--			total += lruvec_gen_size(lrugen, type, seq);
-+			nr[type] += lruvec_gen_size(lrugen, type, seq);
- 	}
+-		while (min_seq[type] + MIN_NR_GENS <= lrugen->max_seq) {
+-			gen = lru_gen_from_seq(min_seq[type]);
 -
--	return total;
- }
- 
- static bool lruvec_is_sizable(struct lruvec *lruvec, struct scan_control *sc)
- {
--	unsigned long total;
-+	unsigned long total, sizes[ANON_AND_FILE];
- 	int swappiness = get_swappiness(lruvec, sc);
- 
--	total = lruvec_evictable_size(lruvec, swappiness);
-+	lruvec_evictable_size(lruvec, swappiness, sizes);
-+	total = sizes[LRU_GEN_ANON] + sizes[LRU_GEN_FILE];
- 
- 	/* whether the size is big enough to be helpful */
- 	return total >> sc->priority;
-@@ -5028,7 +5031,7 @@ static bool should_run_aging(struct lruvec *lruvec, unsigned long max_seq,
- static long get_nr_to_scan(struct lruvec *lruvec, struct scan_control *sc,
- 			   struct mem_cgroup *memcg, int swappiness)
- {
--	unsigned long nr_to_scan, evictable;
-+	unsigned long nr_to_scan, evictable, sizes[ANON_AND_FILE];
- 	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
+-			for (zone = 0; zone < MAX_NR_ZONES; zone++) {
+-				if (!list_empty(&lrugen->folios[gen][type][zone]))
+-					goto next;
+-			}
+-
+-			min_seq[type]++;
++		min_seq[type] = lruvec_populated_min_seq(lruvec, type, seq + 1);
++		if (min_seq[type] > lrugen->min_seq[type])
+ 			seq_inc_flag = true;
+-		}
+-next:
+-		;
+ 	}
  
  	/*
-@@ -5044,7 +5047,8 @@ static long get_nr_to_scan(struct lruvec *lruvec, struct scan_control *sc,
- 			return 0;
- 	}
+@@ -4027,8 +4042,6 @@ static void try_to_inc_min_seq(struct lruvec *lruvec, int swappiness)
  
--	evictable = lruvec_evictable_size(lruvec, swappiness);
-+	lruvec_evictable_size(lruvec, swappiness, sizes);
-+	evictable = sizes[LRU_GEN_ANON] + sizes[LRU_GEN_FILE];
- 
- 	nr_to_scan = apply_proportional_protection(memcg, sc, evictable);
- 	nr_to_scan >>= sc->priority;
+ 	/* see the comment on lru_gen_folio */
+ 	if (swappiness && swappiness <= MAX_SWAPPINESS) {
+-		unsigned long seq = lrugen->max_seq - MIN_NR_GENS;
+-
+ 		if (min_seq[LRU_GEN_ANON] > seq && min_seq[LRU_GEN_FILE] < seq)
+ 			min_seq[LRU_GEN_ANON] = seq;
+ 		else if (min_seq[LRU_GEN_FILE] > seq && min_seq[LRU_GEN_ANON] < seq)
 -- 
 2.39.3 (Apple Git-146)
 
