@@ -1,83 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.246.68.102
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794647553;
-	b=a5UdPPQLUz5lXjpJoSq4NEkHe1DWqfr0Ve7Oy7sY9AvfXWhe6/3+SjIEPUzJK2UFd7m/
-	 iweROm5F63DRcWuIOm329k57TJEHEJQYlHEdcTeQDez+7wYVwgVYXoKzeVVal/l3dv4Ul
-	 DKld0Saa5r7FAxIgn9EaiRmGdjSc+vZcvuPiDQnriym0yvsmm8H4QYgySAHuYkal5kU1W
-	 3VDMJVYmwpDXW6PAKRYiMbsgCfrI9bKAFjRYVe8IB8RANJ1i6Jf3S8Zr5ltiHbw8cjcWF
-	 IKyBO/nUG+ks/ZBRXnOFnrW0LV1I0jzSJsW4bphRx0qCRbEBrOfhEeLdcRAEYyyQR7g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794647553;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=ewPtHXrv7EUANlzuM5mAXHrHQ84ZayQ1dYeaX0xwzDM=;
-	b=ZAODrCp2TxRgDZ5cKdrjt98ACGLygQhrmdKTBi0xG/42PhFgETpzWJqWhZCMcjybz4VF
-	 e7su/dh3vbRRMy8uEfVvyQIRCulWU0oyPdPaRSXqDBobMoY/X18JbiEu9JEQ6MIbKTubI
-	 YFKOdmAk3eIXk8OLswDC3m0LqZY2L1s6r8t9u/w1p6joWx4y5Z7jEYcCxYJ+cXtBh3cwV
-	 58gYGn86iWwtQ7HJdvl+lWTtOZKfobcGe//Wnomg9E8F9YPGsX5Jlbnb9iGD4EpzQz50z
-	 eHDTMDZ6r4iY0amQnQ6CMPYFcopDS7IjVRbEj40CUZ8WNoy9Wi0Ue6xb6uK0/6yXbBQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=loAHwaBJ;
-	arc=none smtp.remote-ip=44.246.68.102
-Received: from pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.68.102])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794647556;
+	b=0p27xicvpYFfczvywj4Hw24ZoWZiHanxIjyBDhrIk2rMwmTLU+spw3h0xnP/Yjar5oWz
+	 JpKOmC0bghOfjNtiMhAhm8aZhHDjdRx3g/FuraVRp2XqlzXc5ZqB1s7iehRFowmZ68Fee
+	 /5kB+tnppLVPdOaCOpK8u5hShDoAjNQSOqwBllJeeWJ46fiMv/msaLwCOrzBnSziOfd7l
+	 VHgiK7wZnvvEu7fKe/W8rdJ9WLxdw+t6OKe2rzBiYGnaF25Ceoh8Wx+7PzjoCaJ/XL4Vz
+	 9fjDUtwGHQXSeQ8fMB++++BkWMI64MQwNbtbOIwAPkD+dmkAhQXNHMH91gcUQgm0bcg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794647556;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=K2e2n2f0dPZQunPWOM/IqDNSeCUqCz06+hLqPXwzTUE=;
+	b=aSqPX2NhxJrZwGmL1GBO2b0F0s+JZcmTNayQvtnvnSJonrbWmXdmfSJNDq66v4y6/oe2
+	 7pWg6vesEcw7LcLeVnRocKDONqqdjaCsSMjVGiRefSzStMwLoPEtFbURcm6UeZPhJ/tPu
+	 x87BRhfqPJsJmlvTsxHxbdD/dVTZKYVyORDRQFQ10T1KIQGl9FvrYhouXIFChdu9KysAC
+	 MBXWh8qzReVcgyv0Ij8pmpxOv6ofLFRu9q1wc+ogVQEU3L0Q71uO59tV7KiKMQZrXet/+
+	 +waEZSbb0PBReqU085q18f+wxVT+c2+c30Xm5BRj2juxJ04JJMVcsWjq+zE1oWYSCsg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KHR9iPT4;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ED2A606A33A;
-	Sat, 14 Nov 2026 09:12:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9ED2A606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02956606A8A2;
+	Sat, 14 Nov 2026 09:12:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=loAHwaBJ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794647552; x=1826183552;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=ewPtHXrv7EUANlzuM5mAXHrHQ84ZayQ1dYeaX0xwzDM=;
-  b=loAHwaBJHr2XeOA0TtOzcyBzJLlXfgxj6uaa+1vbNAnoi80KwRuKk9Sn
-   aaNg6KZrM2Dhw0Gx1SDd/ZrD2ILGZ072X7uM50REw6f9k2ur3hpGUF0n5
-   UgFiGOxLzM7dMFWsQgyGUUMPlR73oiaWS3QFCyd5rZDM4FCuNLgcF3pQC
-   RRSnG40RiiGZVU+lfXra+xFmDRgsLD/QCRzq3U3vIYkyIanUo3cEcU9hS
-   3G6K1Dkam4fidI7krO3jy2vnnPgLuyITao7c3m+IMQo3KLhwFvi4y5CzI
-   Yz4OiWlxVYEu/B68KOp2rccYNhzL/YfOBrUQBdywwzMVsI0qsyxaJqO1A
-   Q==;
-X-CSE-ConnectionGUID: CN5O7v6lQ22t9bOeqTC4UA==
-X-CSE-MsgGUID: vd0zNEgXSrSDgAxymbcbtg==
-X-IronPort-AV: E=Sophos;i="6.27,213,1787011200"; 
-   d="scan'208";a="33904262"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-003.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Nov 2026 09:12:30 +0000
-Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.236:23248]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.34.255:2525] with esmtp (Farcaster)
- id 2c4611d0-5f5e-43c3-8896-3f90b5ab17ff; Sat, 14 Nov 2026 09:12:29 +0000 (UTC)
-X-Farcaster-Flow-ID: 2c4611d0-5f5e-43c3-8896-3f90b5ab17ff
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA001.ant.amazon.com (10.250.64.218) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Sat, 14 Nov 2026 09:12:29 +0000
-Received: from dev-dsk-surenkj-2b-416930d2.us-west-2.amazon.com (10.169.26.94)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Sat, 14 Nov 2026 09:12:29 +0000
-From: Surendran Kanagaraj <surenkj@amazon.com>
-To: <jarkko@kernel.org>
-CC: <corbet@lwn.net>, <graf@amazon.de>, <gunnarku@amazon.com>, <jgg@ziepe.ca>,
-	<joshlev@amazon.com>, <leitao@debian.org>, <linux-doc@vger.kernel.org>,
-	<linux-integrity@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<nh-open-source@amazon.com>, <noodles@earth.li>, <peterhuewe@gmx.de>,
-	<surenkj@amazon.com>
-Subject: Re: [RFC PATCH v3 1/8] tpm: Add a single table for all TPM wait limits
-Date: Sat, 14 Nov 2026 09:12:22 +0000
-Message-ID: <20261114091222.32721-1-surenkj@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <avdoybHEoRd0Fhie@kernel.org>
-References: <20261112163846.97654-1-surenkj@amazon.com> <20261112163846.97654-2-surenkj@amazon.com> <avdoybHEoRd0Fhie@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KHR9iPT4
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794647555;
+	b=zc/LBpqN1G+3d7xrHIjT8Z7b2j1GjBtDyi/t56VlY4aq9RRvyhvPZNLKXFdAl2YMsvBQ
+	 qT9k/LaR1sW2k3OdzB8e4Useqpik63k/soQAjb7vZQzke9J5nQr8EcT+GRnYUQPzy9wvy
+	 Pcam5grGbZMbq7TNbWO49rq94+5/YQyCFiYzllJPZkGB05TPsNiiCBYeXqpW2XeRn82RO
+	 SnTj74h2KkjBS5qfZEt8m97ZDdQ4UPT68vb/w0a0SBe4WuDowHKEfXHb9rQWnUjptdZml
+	 Air8y4DBKCY66R48KrsuVTyd++FK92z7GuHkj7jXfOnDqu3A05qG9wBg2ygvfMzPTow==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794647555;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=K2e2n2f0dPZQunPWOM/IqDNSeCUqCz06+hLqPXwzTUE=;
+	b=qvhonCWSEHXD/6Tr6w35GxsqnsO9Tq7Yr7WCcrkVIEnwPmTvLoyCX1AE/lMKgdzN6wBD
+	 uMNfrx/OLYDhm+qEL6JobW4HqMNcbe2l5lkhkeUl03HPitJfRtotze8qIP+mBuNtyENCZ
+	 HDMXEgQA3URZ5cKsrGVQbNk9pXJdEVY4NFhECSaRvpp2mtj4rl3MIVn1lYQMSjMrCRepF
+	 m0YRFmEW4+GKzvkJwEWF1Tn8LOLfeyEpiS3ZQpty9s37qOajohX5Bkt3cMcr1EnMyMFIx
+	 oa/pT/WG0PivIj+jF62P14HsoRgF8dcZ+d6AiwE708PRHeO+rZhzlK5c48BzzQsHoSg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 77F011F000D0;
+	Sat, 14 Nov 2026 09:12:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794647555;
+	bh=K2e2n2f0dPZQunPWOM/IqDNSeCUqCz06+hLqPXwzTUE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=KHR9iPT4curqjuwFLE8HR6YK68+p/ECg3twcfWygoBpfx8BnXcn+WL33KEVz6i0AI
+	 HG4HKIbGUCcmRq9eJ1hTWSJi+8aHkRJSmZzq2eIrTz/p/lSbXPI94lRXoZW5dcUqCz
+	 HXXKUOa70RYvumC84x4nzYM1x4OUjgH94vooDrn6YoleqxZOb9tG0VOjnuZ/izryDo
+	 epWOMdRFueyB52QsV0b67H4+X/xAr71/GAi/ExINMJiKK1EdRInXl8+VZ7oqHHsE4c
+	 jWXRGmxVk8Pby6rfrQ7XYacT+hDK0yXZRSmeVBqIoCAulkEbRwRih1cxdvtoT7Fhu4
+	 VdXkKygm6+Bbg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id EFE0649D1A;
+	Sat, 14 Nov 2026 09:12:33 +0000 (UTC)
+From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
+Date: Sat, 14 Nov 2026 10:12:30 +0100
+Subject: [PATCH v4 3/5] soc: fsl: guts: add the RCW override of any RCWSR
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,106 +82,156 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA001.ant.amazon.com (10.13.139.88) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261114-for-upstream-lx2160a-rcw-pinmux-v1-v4-3-eefcea066a55@free.fr>
+References: <20261114-for-upstream-lx2160a-rcw-pinmux-v1-v4-0-eefcea066a55@free.fr>
+In-Reply-To: <20261114-for-upstream-lx2160a-rcw-pinmux-v1-v4-0-eefcea066a55@free.fr>
+To: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>, 
+ Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ NXP S32 Linux Team <s32@nxp.com>, Linus Walleij <linusw@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, 
+ Vladimir Oltean <vladimir.oltean@nxp.com>, 
+ Ioana Ciornei <ioana.ciornei@nxp.com>, Vincent Jardin <vjardin@free.fr>, 
+ Frank Li <Frank.li@nxp.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794647552; l=4092;
+ i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
+ bh=qmpWO2UIwwok1/NH6X0xAVlyzqob0UppXneZjaDgtC0=;
+ b=hxOYUB9ZLhLimfk2NjjY3amSsGbohxb3JnlDLN6cgdBXOOqU/2Vxn6ns1NRtLIxeFK+IiG+WF
+ SD4h15yViRwAtH3/i2rim3wFvIys80FU54bSBqOfZMs4m6DwHLJPlT8
+X-Developer-Key: i=vjardin@free.fr; a=ed25519;
+ pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
+X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
+ auth_id=871
+X-Original-From: Vincent Jardin <vjardin@free.fr>
+Reply-To: vjardin@free.fr
+Content-Transfer-Encoding: 7bit
 
-Hi Jarkko,
-Thanks for the review.
+From: Vincent Jardin <vjardin@free.fr>
 
-On Fri, Nov 13, 2026 at 09:45:13PM +0200, Jarkko Sakkinen wrote:
-> On Thu, Nov 12, 2026 at 04:38:39PM +0000, Surendran Kanagaraj wrote:
-> > The hook sets values with tpm_limits_driver_set() or from a quirk
-> > table through tpm_limits_apply_quirks(). tpm_poll_timeout() waits on
->
-> OK, but ...
->
-> I.e. I'm not fully following what is the diffence between these call
-> paths.
+fsl_guts_rcw_rmw() only serves the SerDes lane modes. Export it for
+other fields of the RCW:
+ - fsl_guts_rcw_read() reads a status register
+ - fsl_guts_rcw_override() changes fields of one under rcwcr_lock and
+   waits for the status register to follow
+ - fsl_guts_rcw_override_supported() tells whether the DCSR view of DCFG,
+   which holds the override registers, is mapped
 
-They are used from the same place. tpm_limits_update(), which is called
-from tpm*_get_timeouts(), builds the table. The driver hook
-->adjust_limits() runs from tpm_limits_update() and uses
-tpm_limits_apply_quirks() to apply the quirks. tpm_limits_apply_quirks()
-finds the matching quirk entry and calls tpm_limits_driver_set() to
-update the limit.
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Acked-by: Frank Li <Frank.li@nxp.com>
+Signed-off-by: Vincent Jardin <vjardin@free.fr>
+---
+ drivers/soc/fsl/guts.c   | 73 ++++++++++++++++++++++++++++++++++++++++++++++++
+ include/linux/fsl/guts.h |  3 ++
+ 2 files changed, 76 insertions(+)
 
-tpm_limits_update(...)
-{
-    tpm_limits_stage_defaults(&p, family);
-    if (reported)
-        tpm_limits_stage_reported(&p, reported);
-    if (chip->ops->adjust_limits)
-        chip->ops->adjust_limits(chip, &p);
-    tpm_limits_stage_validate(&p);
-    tpm_limits_commit(chip, &p);
-}
+diff --git a/drivers/soc/fsl/guts.c b/drivers/soc/fsl/guts.c
+index 28361c63e26c..d2e3f66d0da4 100644
+--- a/drivers/soc/fsl/guts.c
++++ b/drivers/soc/fsl/guts.c
+@@ -369,6 +369,79 @@ int fsl_guts_lane_set_mode(int serdes_idx, int lane, enum lynx_lane_mode lane_mo
+ }
+ EXPORT_SYMBOL_NS_GPL(fsl_guts_lane_set_mode, "FSL_GUTS");
+ 
++/**
++ * fsl_guts_rcw_read() - read a RCW status register
++ * @index: one-based index, RCWSR1 to RCWSR32
++ * @val: the value read
++ *
++ * Return: 0 on success, -ENODEV before the DCFG block is mapped,
++ * -EINVAL when @index is not 1 to 32
++ */
++int fsl_guts_rcw_read(unsigned int index, u32 *val)
++{
++	if (!soc.dcfg_ccsr)
++		return -ENODEV;
++	if (index < 1 || index > ARRAY_SIZE(soc.dcfg_ccsr->rcwsr))
++		return -EINVAL;
++
++	*val = fsl_guts_read(&soc.dcfg_ccsr->rcwsr[index - 1]);
++
++	return 0;
++}
++EXPORT_SYMBOL_NS_GPL(fsl_guts_rcw_read, "FSL_GUTS");
++
++/**
++ * fsl_guts_rcw_override() - override fields of a RCW
++ * @index: one-based index of the RCWSR and RCWCR pair
++ * @val: the new value of the fields, in place
++ * @mask: the fields to change
++ *
++ * The fields outside @mask keep the value the status register shows. The
++ * override register is written and the status register polled until it
++ * shows the result, as fsl_guts_lane_set_mode() does for a SerDes lane.
++ *
++ * Context: takes rcwcr_lock, shared with fsl_guts_lane_set_mode(), and
++ * busy-polls the status register for up to RCW_TIMEOUT_US. Does not
++ * sleep; must not be called from interrupt context.
++ *
++ * Return: 0 on success, -EOPNOTSUPP without a DCSR mapping of DCFG,
++ * negative error otherwise
++ */
++int fsl_guts_rcw_override(unsigned int index, u32 val, u32 mask)
++{
++	int err;
++
++	if (!soc.dcfg_ccsr)
++		return -ENODEV;
++	if (!soc.dcfg_dcsr)
++		return -EOPNOTSUPP;
++	if (index < 1 || index > ARRAY_SIZE(soc.dcfg_ccsr->rcwsr))
++		return -EINVAL;
++
++	spin_lock(&soc.rcwcr_lock);
++	err = fsl_guts_rcw_rmw(index - 1, val & mask, mask);
++	spin_unlock(&soc.rcwcr_lock);
++	if (err)
++		pr_err("RCW override of RCWSR%u failed: %pe\n", index,
++		       ERR_PTR(err));
++
++	return err;
++}
++EXPORT_SYMBOL_NS_GPL(fsl_guts_rcw_override, "FSL_GUTS");
++
++/**
++ * fsl_guts_rcw_override_supported() - can a Reset Configuration Word be
++ *				       overridden?
++ *
++ * Return: true when the DCFG block is mapped with its DCSR view, the
++ * second reg of the dcfg node, which holds the override registers
++ */
++bool fsl_guts_rcw_override_supported(void)
++{
++	return soc.dcfg_ccsr && soc.dcfg_dcsr;
++}
++EXPORT_SYMBOL_NS_GPL(fsl_guts_rcw_override_supported, "FSL_GUTS");
++
+ static u64 fsl_guts_get_soc_uid(const char *compat, unsigned int offset)
+ {
+ 	struct device_node *np;
+diff --git a/include/linux/fsl/guts.h b/include/linux/fsl/guts.h
+index 8d5ffb985fee..7127de897c23 100644
+--- a/include/linux/fsl/guts.h
++++ b/include/linux/fsl/guts.h
+@@ -142,6 +142,9 @@ int fsl_guts_lane_validate(int serdes_idx, int lane,
+ 			   enum lynx_lane_mode lane_mode);
+ int fsl_guts_lane_set_mode(int serdes_idx, int lane,
+ 			   enum lynx_lane_mode lane_mode);
++int fsl_guts_rcw_read(unsigned int index, u32 *val);
++int fsl_guts_rcw_override(unsigned int index, u32 val, u32 mask);
++bool fsl_guts_rcw_override_supported(void);
+ 
+ /* Alternate function signal multiplex control */
+ #define MPC85xx_PMUXCR_QE(x) (0x8000 >> (x))
 
-Hope this clarifies.
+-- 
+2.43.0
 
-> > +/*
-> > + * Handles time limits for a TPM chip.
->
-> I'd extend this to just have brief description how this works. Just a
-> high-level overview.
 
-Ack. I will add a short overview in the next rev.
-
-> > +static int tpm_poll(struct tpm_chip *chip, u32 timeout_us,
-> > +		    enum tpm_limit limit,
-> > +		    bool (*cond)(struct tpm_chip *chip, void *arg), void *arg)
-> > [...]
-> > +int tpm_poll_timeout(struct tpm_chip *chip, enum tpm_limit limit,
-> > +		     bool (*cond)(struct tpm_chip *chip, void *arg), void *arg)
-> > +{
-> > +	if (WARN_ON_ONCE(limit >= TPM_NR_LIMITS))
-> > +		return -EINVAL;
-> > +
-> > +	return tpm_poll(chip, tpm_limits_us(chip, limit), limit, cond, arg);
-> > +}
-> > +EXPORT_SYMBOL_GPL(tpm_poll_timeout);
-> > [...]
-> > +int tpm_poll_timeout_us(struct tpm_chip *chip, u32 timeout_us,
-> > +			bool (*cond)(struct tpm_chip *chip, void *arg),
-> > +			void *arg)
-> > +{
-> > +	return tpm_poll(chip, timeout_us, TPM_NR_LIMITS, cond, arg);
-> > +}
->
-> I did not check all the details but could this be reorganized into:
->
-> 1. __tpm_poll(): the same as tpm_poll() but exported and defined in
->    drivers/char/tpm.h.
-> 2. tpm_poll(): a single static inline function declared fully at
->    drivers/char/tpm.h
->
-> __tpm_poll() would e.g., make a nicer trace point for a kprobe or
-> kretprobe.
-
-Good point. __tpm_poll() then becomes the single kprobe point. Will do
-this in the next rev.
-
-> > +/* per-device overrides based on id the driver defines e.g. DID/VID */
-> > +struct tpm_limits_quirk {
-> > +	u32 id;				/* driver-defined device identity */
-> > +	u32 time_us[TPM_NR_LIMITS];	/* 0 leaves the limit alone */
-> > +};
->
-> I think it would make more sense to fully initialize the database per
-> device, if that is possible.
->
-> It is a non-concern if two TPM drivers do some redundant work, as it
-> is not a real-world production use case :-)
->
-> I'm just wondering if this quirk/entry division.
->
-> I.e. in my world view chip owns its limits (not e.g., tpm2_space).
-
-Makes sense. The quirk table is just a convenience, a common table fmt
-for drivers, and the chip still owns the table. Without it the driver
-calls tpm_limits_driver_set() for each limit it changes. I am happy to
-drop it in the next rev.
-
-Thanks,
-Surendran
