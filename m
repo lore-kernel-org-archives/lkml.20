@@ -1,66 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794674028;
-	b=yeTH9hhArGf7oN9EI3aJjnLC0yKsJUwCvTclVz5d5I5gXPwFN+LqwGlYT9NbXY+6GSM+
-	 2Dhmj924QjMaCQuQmFeQoqtxx9OtrBfxVXQr0JQTgpbVNrbhuLvAFYflTFbQisd0a1Vom
-	 sh5c3IP9HnUp2zRaWjQC6tbF7yZmpheX9tzz1u58wdTt4y7V++YEAej7YZNIox8fKBDNe
-	 tbvbDidbOK5Khs6/F9YRbuLIhSsfSndTwBBFbL46/2dMMRqwEJct3xIt63FzPUL9oq74K
-	 Qz0r9rtdRftV2T8gLIMoxdyEk6Eq3dWiPpzGgtz8MAl45xTuYhNIis9J586BSUVGOJg==
+	t=1794674064;
+	b=EYIxaPBPtBF70NkLn8goRj4ScTy1VU70cWRe/NfPozfRmjFKDJHq4EvRLQTCmEdReEms
+	 BqoTIWSu74Vpt8p11DhPFKhGRJt9INPLPP8o7vPpo/91NPBpSPhZA+zDcdRhM4BJEpW0u
+	 +EkklETFtpewuNGSAaI2x1CVQytND4hXtYqamamzB1x1lPQLd00CzMVjzS4E9qS0qH82G
+	 VRBZWrIIxnpYckimWp/wBhZuA+fy0HJ1OUJkoq5KBurySsQcyQ2L+eRP3wrruJlyMN++v
+	 MQvdudcsG5KO131fRU8nc1qNiOtD+ZK6662CHWWH+TjTpUaPjKb2M9AvQh2uYXEvlyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794674028;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
-	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=W2zDL4geR378WvyhEn7GmGt0y2c7M9/zJ3AuickV6Jk=;
-	b=5fDaGKwr40IJLkTym9ezT3Yvw/J5Gg3gPeZ6OqYxGRWzOCth2ipUW4XZmtlMBWFDo2p9
-	 YshDoCGKdVIls8leixWBxMXCcQopBcEpOHDc17chKFq1Xfrkhhm0JhWZ3o5zDuLU+YjjQ
-	 XvsrQ8AoSm4gMokTI40lU/iPBem0Ay2i2j2Rg1A7ezXvfbd/Yh+GxJg9NKkdC70cMhc6b
-	 lyyyX0hcAwdyOBW54DZyLZCyUywGzS21dWABz+bEPzCcTgAaACAIf0g3Wp4izKz8+vsH3
-	 B7Di8gA0VuTYMFHkb/AqC2Rf9aHMeAkR+iPm0fWqxGTzDpE3h6NoXuseclenIbhndzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794674064;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
+	 References:Content-Transfer-Encoding:MIME-Version;
+	bh=uIusyOIhmUCph+qRkqcgrTGen1lvnPy/jnK8ZUFUW0g=;
+	b=i7H7tG/iOTj30Xrez8s2kfvYVeCyQvJ0STsCAxNyzmJsIr4sqn90LaExMNTuhdJ1+HFo
+	 jRs7mB7Am4icFx+l4QpbFgYvo+FXDUdAgoGcyDpHtgbp7h5W5DFcyqTI64XwrJvOw/mlv
+	 u+qqHzL0elVC4b7DkX3YFFZL45D206MfHmmXXbTBFSy05eM37OcllO5Q2YLVBt5CitJA0
+	 0NKmcZ2eOAVSYV16DPyHNIw9Wg/1JB17PXhVSnIY1IL03ghNrO4jsuhRFVkPfLAl71PiJ
+	 T46tq2GGRyJXx1ErDurT3+erLJ7T5vgHTPls9p1MlNM3Oty69x0OU1vWIqlewJlAQLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b="WJYvF/20";
-	arc=none smtp.remote-ip=160.30.148.34
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e6FERMf3;
+	arc=none smtp.remote-ip=209.85.210.174
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B57B606A333;
-	Sat, 14 Nov 2026 16:33:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B57B606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA9FA606A8A4
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:34:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA9FA606A8A4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=WJYvF/20
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jRfp30DSRz5BNS0;
-	Sun, 15 Nov 2026 00:33:47 +0800 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794674027;
-	bh=H8JF3rYwEnZ84r8VypXxSWCtK5FCJxOn5Tz5inOK078=;
-	h=Date:From:To:Cc:Subject;
-	b=WJYvF/2025zfIXyCvBb6FUas+bEPVc6dqq4FHdd+pjlzUUtQGAcZDIq5KAZlNvdcm
-	 T/lgUDuiCicbiu4WOpmeJoHHtNOnTI/aja0KXxzwP4No2EbGkGyd/rI/3qlGe3HOFO
-	 upV1EQ07PEzWySWQBSS6qcu02/BXs/qrNHgRboBZgrqrTuORZJYRB3EDVg0Hb3b8kr
-	 dR1LuYc+LbCAfdejnmFj0YbZLJ4YLtZxI7vrWDLl2JMCJgr7fcQn0cxLVJszoVLolA
-	 qsJf1l++mXtKkpUOChVY7iVQVbg/4aOmaHpXMcMlOK1ghJdGCm/9AWMIJwqNoyCfsP
-	 scoDSq8poOV/A==
-Received: from xaxapp05.zte.com.cn ([10.99.98.109])
-	by mse-fl1.zte.com.cn with SMTP id 6AEGXdkg081495;
-	Sun, 15 Nov 2026 00:33:39 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp05[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Sun, 15 Nov 2026 00:33:43 +0800 (CST)
-X-Zmail-TransId: 2afc6af88d6721a-251f5
-X-Mailer: Zmail v1.0
-Message-ID: <20261115003343115xWF0x9AV2qGdi-QiqbwhB@zte.com.cn>
-Date: Sun, 15 Nov 2026 00:33:43 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e6FERMf3
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8b68e59ab33so2314051b3a.2
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:34:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794674063; x=1795278863; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uIusyOIhmUCph+qRkqcgrTGen1lvnPy/jnK8ZUFUW0g=;
+        b=e6FERMf3c3yD17BhvoNIpWQb4t45y4DIJCQ7OY3vra4DI0ay8y/ksjW3Y7VLoFySG1
+         Z8og4d0qXuFTYi6wVdTsH2/fpl8pdHLA3TU+3K/xEtd/iBXFRX+7u6yn5IUovnzvVW44
+         Flx7ZK6fRYplHSRb/2KrldN85TLfg+tKs0yiVzXJP5eVcI4jUntt0aZrfiZNjAlqdov3
+         oJfznTuyHQTuV4U87ABE1tPqnmPwqj9kKM8OEtREOEapq6RLaqYFO8Lgr/V6S5AH73pb
+         IEtXE4+3CHIrdshJZsMMd6VViw2FjZr1T3+0D4Fy/ezGpMA01VKBst4MtPZSG1sDeMTs
+         8nqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794674063; x=1795278863;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uIusyOIhmUCph+qRkqcgrTGen1lvnPy/jnK8ZUFUW0g=;
+        b=T5xEp/EQU1hWEnV1lnILlD6tzCiwTlKa0k1c9mH3Q4OVVK8Sz2LgRM5TTJz8rgwGGq
+         npE7fPaFPk3XE9nS9B6GSq4QDJnDcgjpZBM5EAn4k0j+k12n7EOd/OkBcL53x85lywAz
+         zt9EIGtZxBHSZN7GtOHpQ0WWOn9wiLKG3dSTQuSlxqr+aahXPkvksdwhVPAGC9lgYT+6
+         r39a2ht+JjhgTrr5Tf+HqOVoOCM+AZ+8knnBtvNx3HKfYjjqErVRd7YRmWEIUpX5guXq
+         GzM+yKC8AxDW2Xcfx/pP7NjdNdu4lUw79t6jGGlDam+ctB1h/pVc/X8bUZ+r0RiVAsN7
+         cXjg==
+X-Forwarded-Encrypted: i=1; AL+hErEwsGcTkeHzbaUGuTq2BshQXom48PzXDRPNYlOGfEXdx/0e2WLem71Upv+NCDokLKO3NbWQjJ+ltReOddc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/L7mJKx3zjfGpqh++rfd7XIcsQDcQMyF2WE3fk88k0V9o5LFzu
+	iE6w8k7r8dfBiUxGUo+VbeTuovdZg9iG0Atqjhn6dHWFh3MHrdVU8M6g
+X-Gm-Gg: AYBFou1PZdOFeRS3i4Hf7EQFDqkrGMbcEcv8Dx7Kbhh+EOmKPd2qLmJp2+mH9eiITGF
+	D/w4LJdt9WnIuyKpGGLll6sgwU3K+8u2+96c3Mh+1gekDEkmQAzTBIJ9NDcTsoHZFZ7Xviqr7DN
+	f20xF5O2ZaGDjHE3DR6iZReQbafNw1XgXXCKa/0uoQfejUVxw2q6UKaXeG8Va5bdsS0j9q8M5/N
+	S1YpDvGT+b79IGY/+uzTTLG6fgTOIzvLhgaZdDAfHchg5R4law7lr840A/xssoph3jSz9PaayWf
+	zi7cx2NmtV1GP9zqnM1VCCZaOBiV/3pRLLz/j3LgM85DMDQuZt82f9k3mx6BUw11mxtu+FYvJrH
+	NoovezZ0N3BsPqCQrsqD+ci0JE4x6WfJpR+z/psYi59HuTCTY0JV5czKjUf+pL5Zl3tYOqb8507
+	ImpuIuXWU1Hiv8+XwBmt1uiQfum7Zj5FYdC8tImVjByD5WwTBonZ78ngTC+OxRrdCGOKRv0rF3H
+	J3M05guMv+Ac59a2k4uJJBJuDZgIel0n0EuY6+n/XMM5Y3B/Ahk495h/IdrWlHrB0qmosgwkmGJ
+	SuWIcXMev6xVdNjU+cDbzAopstFXnfpJ5NB3CP0SRB2oVty7JC7tltFevq+Pd9/kPzyOldppyu/
+	pkuZjSGM5G4/cyWiIXSlMYO4JNAiETON89Q==
+X-Received: by 2002:a05:6a00:1ad3:b0:89e:fe2d:abe8 with SMTP id d2e1a72fcca58-8beb3b3d902mr5766668b3a.8.1794674062835;
+        Sat, 14 Nov 2026 08:34:22 -0800 (PST)
+Received: from localhost ([153.61.198.253])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed2b190cfsm2173447b3a.51.2026.11.14.08.34.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 14 Nov 2026 08:34:21 -0800 (PST)
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 14 Nov 2026 16:34:20 +0000
+Message-Id: <DMV2UXIE0LQ9.29AJR2CMSPH67@gmail.com>
+Cc: "Eric Dumazet" <edumazet@kernel.org>, "Neal Cardwell"
+ <ncardwell@google.com>, "Kuniyuki Iwashima" <kuniyu@google.com>, "David S .
+ Miller" <davem@davemloft.net>, "Jakub Kicinski" <kuba@kernel.org>, "Paolo
+ Abeni" <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>, "Daniel
+ Borkmann" <daniel@iogearbox.net>, <netdev@vger.kernel.org>,
+ <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] bpf, sockmap: fix cork data loss after redirect
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: =?utf-8?q?=C3=96mer_Mete_Kaya?= <omermetekaya0@gmail.com>, "John
+ Fastabend" <john.fastabend@gmail.com>, "Jakub Sitnicki"
+ <jakub@cloudflare.com>, "Jiayuan Chen" <jiayuan.chen@linux.dev>
+In-Reply-To: <20261114115222.180345-1-omermetekaya0@gmail.com>
+References: <20261114115222.180345-1-omermetekaya0@gmail.com>
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,60 +105,17 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <axboe@kernel.dk>, <linux-block@vger.kernel.org>
-Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIXSBibG9jazogcmVqZWN0IHVudGVybWluYXRlZCBwYXJ0aXRpb24gbmFtZXMgaW4gYmxrZGV2cGFydHM=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6AEGXdkg081495
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Sun, 15 Nov 2026 00:33:47 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF88D6B.000/4jRfp30DSRz5BNS0
+MIME-Version: 1.0
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+On Sat, Nov 14, 2026 at 03:46 AM Ömer Mete Kaya <omermetekaya0@gmail.com> wrote:
+> In tcp_bpf_send_verdict(), when a corked message is redirected via
+> __SK_REDIRECT, the cork cleanup path unconditionally frees the entire
+> message and sets msg to NULL, even when only a partial send was
+> performed (tosend < total msg size due to apply_bytes).
 
-When a blkdevparts entry contains an opening parenthesis without a
-closing parenthesis, strsep() returns the remaining name and sets
-partdef to NULL. Checking its return value therefore accepts the
-malformed entry, and the subsequent strncmp() calls dereference NULL
-while scanning the disk's partitions.
+It's fixed already. See bpf tree:
+commit 13c41b87e4a7 ("bpf, sockmap: Keep the rest of the cork after a redirect")
+tcp_bpf_send_verdict() puts the rest back into psock->cork
+and goes to more_data.
 
-Check the updated cursor instead so that the parser releases the
-partially allocated entry and returns -EINVAL for a missing delimiter.
-
-Fixes: bc2e07dfd2c4 ("block: fix and simplify blkdevparts= cmdline parsing")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
----
-Testing:
-Tested on x86_64 Linux next-20261113 in QEMU/KVM with virtio-blk.
-A blkdevparts entry with no closing parenthesis crashes the base kernel
-in strncmp() during partition scanning. The fixed kernel rejects it and
-boots normally. A well-formed named partition is parsed in both kernels.
-Also built with W=1 for m68k and i386.
-
-base-commit: 84abb955b1015477aa11a96e2f3ac1b938b77f48
-
- block/partitions/cmdline.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/block/partitions/cmdline.c b/block/partitions/cmdline.c
-index 4fd52ed154b4e81984cdb7119669846263446623..454a4ce9c9f0ac0b7980f626a6a5fe2d479e4490 100644
---- a/block/partitions/cmdline.c
-+++ b/block/partitions/cmdline.c
-@@ -73,7 +73,7 @@ static int parse_subpart(struct cmdline_subpart **subpart, char *partdef)
- 		partdef++;
- 		char *next = strsep(&partdef, ")");
- 
--		if (!next) {
-+		if (!partdef) {
- 			pr_warn("cmdline partition format is invalid.");
- 			ret = -EINVAL;
- 			goto fail;
--- 
-2.43.0
+pw-bot: cr
