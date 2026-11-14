@@ -1,65 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794665699;
-	b=oOYsmuBWGAtTdsTbbmIuLf3riK1rPz80mq5X8LWHFmUkRaWM/2IjIfJ1k3hVKn5nXzvF
-	 M7Rlo/9K0k899O03iI00KDUdwTOIasl1Y46zeOOSLwPIj0/cFPI087l16hm9fDyGbZB84
-	 coPXtqtcvVwB6UTNNQ5HcVGnDk/thOUmQSgA0DefLr72WhNvdwlUss2PKHcdrugpV2Oqu
-	 eGnbVry+E27pfezXhuhXkhzpLNQP77Q4bDlvBMKZks9iDmgyOXatwQP/a7tnMqb3m2+Fw
-	 CedQE2VRq08exfamF0oAfB+LHWuDtGn0xzY+JYHgDNJrlRSz2/IWW6Ds0yxqhmZWtTg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	b=M7vr4gyPutrTsTlYsceULCQe3Irq/6b4Ogzvuy0qM87Qapt+fUQVD1NHdCTugSyk1WsA
+	 d7gJrxzB8Oi2J5KmijtHMCo/1SEloZhz/z3bJ1DupZHtcKn8Peo1CYecChZGw0LEJLhGj
+	 GE5dvU5PazKACAzetEOMsz/HGMhdctrGPC9Qix1A7/H+cQs6P7/DaAm2mvPntNhy6V+IG
+	 qojtT5VnNzCkdTSqgpodz8uY/gPB1aJijDuivKi+pbkxXVuUzkEQeFD9F2bqaI/dw70aF
+	 4BWOINxACJZ9wr9nE+9NtZIdIyAeqKXZv7+TOTK+cpgDAIFt8pTuE6muAliBWSRI/rQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794665699;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=72U7+AqtHKP0x8muIDrhMnmzZwnSsUdy39CDbj4j1GM=;
-	b=ogvGaKQkHAxqHysvyD1vRUwl+uhIcGMmHrwh8gM0FCir5fc2ItRLrJ/yXKHIYPTg7XKk
-	 aiKgeUN9y2U4aifZla2TiUzhZuWMlVl2HQ4zSpQRXRcTIT76rP1OqjQMeqSOA5s999KDV
-	 IlDyw+sJbCPcPSLGJzt6SQM5UkgAEsB9mxKUja/p9vzVOSXd1CoGhJNNKktX7MEByJaEu
-	 QMiHufji4LqFKfesZ4Q3p29r2A+I3fpdOHTzYQ7daNYYZRqqRoENiYjuSbq5tokQAV1kF
-	 ZDoDrmATa0etAic/BDBJxt0w4bYwmdGiPC1UKn3m3odmYq7Bcy3zLP3kBwl6p9lqCBA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hrBTatZ9;
-	arc=none smtp.remote-ip=100.103.45.18
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=G4u5AhIOFg3Un7/OVQVhcKducbdMvClYNxtPBHy/Mz8=;
+	b=sEuU+jJJn0Oc7TmwbmdQWL1/wFJIwOROre9o/noRGqBjAQ/RWjayleGV7wFAzPbGoQiK
+	 H/1RCrKeCumsW090xPo7Ji7NDy6M5fet15Qqqnt95l8loYH0CR4eLFPHyDg/ieRZmiXcS
+	 bOyU0wP7dkFAJtT0TmX0pmdkY8rCoRwRw9auQMwrYbCeoDQtvDEbkD5nxJ9c4HEJsITr6
+	 fVPOnm5OJgxPOdfJ9SZYI5ppEwf+KBEvIq3ObDpqDboLXPyH5Qn9u+v0e3HeZ3KZmODNq
+	 x58t2/l2xUBUHXo6+SRQ+1Zc8LHIWyoeljZdXDKJ1C3rM/XmCaLnlF2y6smG8giz5og==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="hVrZ/rGO";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 193C7606A323;
-	Sat, 14 Nov 2026 14:14:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F85E606A327;
+	Sat, 14 Nov 2026 14:14:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hrBTatZ9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F8881F000C5;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hVrZ/rGO
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794665699;
+	b=RvjmogUU3g74TpbeFcqom0zbCVG3TzvQ9Iw2LdjpiS1XOLDYqrvrwCx7tYxI2ZesHdL4
+	 WVwKA7MU1iUq7IuFqk3EvIuOOHmhGeiEfLxLYw6fa/palMSFFv3eM8qu81H2JNUH8ZXuz
+	 lKMGiAFBIhPInKv9mJlUjMz+0boxtybX/LfcgLGlVgs3/hLtStg4IBNHm1gOm8NMQ4gk1
+	 t5lO756i75ViDcind1tXnmVgrUVs5TikMSiThLXqgkFR0jrwSeCV7pCXicE0C+2zyro2q
+	 9UO7YFHHzcIuD1zQnQvCe7DYc2Ch4GdEJs/pJGOegS+i1gMdHREpa3PXHbfZyCSGZqg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794665699;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=G4u5AhIOFg3Un7/OVQVhcKducbdMvClYNxtPBHy/Mz8=;
+	b=iz/ge9ybdGVyeJt70tfC4QYFyn9WqD9vIwIsKgIBquHrhd6uKCscsldbmIx9tOhNSeus
+	 uo25VkuyITZVfvzQMHSqPtVXWbJt8/MH7VN0Uv+gOUenYX/iYYZs1XgZuy0ajsUSHUSUO
+	 R3X4HZoSwF0m9aOWdHxBOpWHHbX1DDsk2OninsBIwvLdGvs0J0j1n2nsantP3Il57HKHu
+	 rlSbTkW8+mHXCzAIviAsbtXj7Eb1amOpdvEpuZCC3XTxMkHH6QYQTsE9a0ycvgS6uUDYG
+	 TF53FzUgWt3exG88UDNnDuA/xx2XZp/wVe+RB+ogt0xB29S17eSVQGmA1tF+M7QBDrg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 5B0DB1F000C4;
 	Sat, 14 Nov 2026 14:14:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794665698;
-	bh=72U7+AqtHKP0x8muIDrhMnmzZwnSsUdy39CDbj4j1GM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hrBTatZ95dSn+bxZPrsTL4b7q7ny265GJboFq0ZXfdCCznkhSrXwtbCSzvaI5lo34
-	 iJpLT/GdrqKXmbGC0pVKNVuyhPnp6xyufy8v0hQ+7/fMtqrbKZe2FQCSZe+dA95ysK
-	 +goXp1loNQ4dmKmiw6qHIKuJvyWYFzEDc1tLN8IBbsC2Ui0URBJVu5VrHnaEhJLovr
-	 JeIeSxe8IhMNxpzEF7RVpzoUgVsEoPXByn0S1C8G3WzBL2V8npovVd/cpas0H04BM0
-	 S/tErP7EQPQSCn0Ra8kV8GNaj0KUaawDZhBroLf5Jt1Ps54d4au8PIdtb4MBypyxxC
-	 /zWGeifgJ5L7A==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id F3EFF32DAFF3; Sat, 14 Nov 2026 14:14:55 +0000 (GMT)
-Date: Sat, 14 Nov 2026 14:14:55 +0000
-From: Mark Brown <broonie@kernel.org>
-To: shao.mingyin@zte.com.cn
-Cc: william.zhang@broadcom.com, linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	pjw@kernel.org, samuel.holland@sifive.com, kursad.oney@broadcom.com,
-	jonas.gorski@gmail.com, bcm-kernel-feedback-list@broadcom.com,
-	anand.gore@broadcom.com, florian.fainelli@broadcom.com,
-	rafal@milecki.pl, linux-arm-kernel@lists.infradead.org,
-	sven@kernel.org, j@jannau.net, neal@gompa.dev,
-	asahi@lists.linux.dev, ryan.wanner@microchip.com,
-	nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com,
-	claudiu.beznea@tuxon.dev
-Subject: Re: [PATCH v2 3/5] spi: bcmbca-hsspi: fix division by zero for
- devices without a max speed
-Message-ID: <6a977239-f9fa-4eee-b2b4-944e77026b30@sirena.org.uk>
-References: <CAHi4H7FCOxcXnYkNfXNa_iO9KFZRSC96urJthPkgoem7C52ppg@mail.gmail.com>
- <20261114140757347tqYOa2IkTGVulSwLrw2Mf@zte.com.cn>
+	bh=G4u5AhIOFg3Un7/OVQVhcKducbdMvClYNxtPBHy/Mz8=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=hVrZ/rGO3odB2su7yszr8y9pYB3O5fkkH6BnS1a8frqlgG1e6wpck42mn/s7IFZnM
+	 WlwVnCJVjRVLrN0fkai0ez2ltB16WTXLJg5vxTMfBNoaZcOnQ/NVVJKEB7mXq3Lm4x
+	 M+akdMp+bkgOHLSNAM2avjj134+t930xXgIYcPrMVsVVdm2l6zejyT00d1seEYdmNW
+	 pg9WLRd46Zf4QI4j759AcmsWTV2WhTnPK0Iqylp7rxhjmvvRJtlhIy1uQ7qXgiT8WG
+	 FBhyBLR5kUwJUqHUAiFaZKtfP4pEs7IJCRprXj7ASv8RyVYoZZEZHEIyQgt2SqwVoy
+	 TPP7CukSQJCUA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id CA43649DC2;
+	Sat, 14 Nov 2026 14:14:57 +0000 (UTC)
+From: Bryam Vargas via B4 Relay <devnull+hexlabsecurity.proton.me@kernel.org>
+Date: Sat, 14 Nov 2026 09:14:58 -0500
+Subject: [PATCH net] net/smc: set the lkey of every SGE in
+ smcr_tx_rdma_writes()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,33 +83,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ZNqZEe0eKx9dEgrH"
-Content-Disposition: inline
-In-Reply-To: <20261114140757347tqYOa2IkTGVulSwLrw2Mf@zte.com.cn>
-X-Cookie: A watched clock never boils.
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261114-b4-disp-dd99cd41-v1-1-009e1c022346@proton.me>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQqDMBAAvyJ77oIbEyH9SumhZte6PaSStaUg/
+ t1ojzMws4JJUTG4NisU+arpO1egSwNpeuSnoHJlcK3ricjj4JHVZmSOMbEndL4fKcRAoWOo2Vx
+ k1N+5vEGWBe5/aZ/hJWk5ZrBtO8eVIEx5AAAA
+X-Change-ID: 20261114-b4-disp-dd99cd41-246f1595153d
+To: Eric Dumazet <edumazet@kernel.org>, 
+ Mahanta Jambigi <mjambigi@linux.ibm.com>, Paolo Abeni <pabeni@redhat.com>, 
+ Jakub Kicinski <kuba@kernel.org>, "D. Wythe" <alibuda@linux.alibaba.com>, 
+ Sidraya Jayagond <sidraya@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Dust Li <dust.li@linux.alibaba.com>
+Cc: Simon Horman <horms@kernel.org>, Tony Lu <tonylu@linux.alibaba.com>, 
+ linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org, 
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Wen Gu <guwen@linux.alibaba.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794665697; l=3051;
+ i=hexlabsecurity@proton.me; s=default; h=from:subject:message-id;
+ bh=dkZIYkWO+afWCtaRXB6rlTNCb1w2kuhU8KVl6AzBpmo=;
+ b=Fm8nUYS5YgF6A3OcDnR5fkM8Orc+GUr95QOvYntRgXnITsnFV4EDHR4MiR8VzCWTYThWu/cjf
+ Zs0fz8/hNPpB+OWQnISb0UUVBidefyMvTCFi4cHl1aZbeW+xNJm+A35
+X-Developer-Key: i=hexlabsecurity@proton.me; a=ed25519;
+ pk=xw1AhCtQdvuoQc+bOQIYy9o8G++cp4/VniI2G/tc3G8=
+X-Endpoint-Received: by B4 Relay for hexlabsecurity@proton.me/default with
+ auth_id=893
+X-Original-From: Bryam Vargas <hexlabsecurity@proton.me>
+Reply-To: hexlabsecurity@proton.me
+Content-Transfer-Encoding: 7bit
+
+From: Bryam Vargas <hexlabsecurity@proton.me>
+
+smcr_tx_rdma_writes() sets the lkey of an SGE only for a virtually
+contiguous send buffer; for a physically contiguous one it leaves the
+lkey the work request slot already holds. With net.smc.smcr_buf_type=2
+a send buffer falls back to vzalloc() when alloc_pages() fails, so one
+link carries both kinds, and a slot last used by a virtually contiguous
+buffer posts the DMA address of a physically contiguous one under the
+earlier buffer's MR lkey. That write fails, the link goes down and,
+with no link to switch to, the link group is terminated with all of
+its connections.
+
+Set the lkey on both branches: the MR's for a virtually contiguous
+buffer, local_dma_lkey otherwise.
+
+Fixes: b8d199451c99 ("net/smc: Allow virtually contiguous sndbufs or RMBs for SMC-R")
+Cc: stable@vger.kernel.org
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+---
+Repro on SMC-Rv2 with soft-RoCE (rxe) over a veth pair between two
+namespaces, one link, 64 KiB send buffers; smc.ko built from the
+base-commit below, with and without the patch, on a v7.4-rc2 KASAN
+kernel. smcr_buf_type=2 is set in init_net, where the rxe devices are.
+A test-only knob in smc.ko fails alloc_pages() for the server's first
+send buffer, so connection A gets a virtually contiguous send buffer
+and connection B a physically contiguous one. The server sends 1 MiB on
+A, then 1 MiB on B, in 16 KiB writes.
+
+Unpatched, B's first RDMA write is posted with the lkey of A's MR
+(recorded by test code added to smc.ko). None of its 16384 bytes reach
+the peer, though send() returned 16384. The write and the CDC message
+behind it both complete with IB_WC_WR_FLUSH_ERR. By reading rxe (not
+measured), the requester rejects the write, puts the QP in the error
+state and flushes the send queue. The link goes down and the link group
+is terminated, so A is aborted too: its next send() fails with EPIPE.
+Patched, both streams arrive intact and the link stays up. Both builds
+also deliver both streams intact with smcr_buf_type=0, with
+smcr_buf_type=1, and with smcr_buf_type=2 without the knob. No KASAN
+splat in any run.
+---
+ net/smc/smc_tx.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/net/smc/smc_tx.c b/net/smc/smc_tx.c
+index 0f0c6df3bf2c..2c8bcaccad83 100644
+--- a/net/smc/smc_tx.c
++++ b/net/smc/smc_tx.c
+@@ -393,9 +393,9 @@ static int smcr_tx_rdma_writes(struct smc_connection *conn, size_t len,
+ 			sge[srcchunk].addr = conn->sndbuf_desc->is_vm ?
+ 				(virt_addr + src_off) : (base_addr + src_off);
+ 			sge[srcchunk].length = src_len;
+-			if (conn->sndbuf_desc->is_vm)
+-				sge[srcchunk].lkey =
+-					conn->sndbuf_desc->mr[link->link_idx]->lkey;
++			sge[srcchunk].lkey = conn->sndbuf_desc->is_vm ?
++				conn->sndbuf_desc->mr[link->link_idx]->lkey :
++				link->roce_pd->local_dma_lkey;
+ 			num_sges++;
+ 
+ 			src_off += src_len;
+
+---
+base-commit: ead6fa9a0ab194f02a2f36d634b193e9c5f9a1c6
+change-id: 20261114-b4-disp-dd99cd41-246f1595153d
+
+Best regards,
+--  
+Bryam Vargas <hexlabsecurity@proton.me>
 
 
---ZNqZEe0eKx9dEgrH
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Sat, Nov 14, 2026 at 02:07:57PM +0800, shao.mingyin@zte.com.cn wrote:
-
-> If you would still like an explicit FCW lower bound in both drivers,
-> I can prepare an incremental patch on top of the applied commits.
-
-It might make it clearer that everything is OK.
-
---ZNqZEe0eKx9dEgrH
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCavhs2wAKCRAv73Ows9A4
-iXsrAQCU0JQox4pMECKuQI7VngVhCYweIy1XfePH/c1L1CUWtgEAjUGgmB2MHEDZ
-5uNQOCvE/OVvVSAqED8H7eMtyw8n5Q4=
-=eBce
------END PGP SIGNATURE-----
-
---ZNqZEe0eKx9dEgrH--
