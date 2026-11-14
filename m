@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794657377;
-	b=OsZokqASwjiLJjKZLN59S2jcS4jgy7K8TT/rUoXuK0qTyKHHyYjVr9aSPDhjvMd5boYM
-	 a/gcMeFNQ3YrQ2uszfiOmnjP4z+keAbqbN0Lr+iapC5BOO/FtCGssoNOlDXFsG/c4VOq1
-	 hrqDf2tgbwymRgltgEpkBqhYTdOF3AYc/PMiW3NFgtnH3BGngJs19W0iGfl5RUwZuLCpP
-	 jVn5p6vFmDF3BtqLI5BnAtVQOClTkrsFdKYHNQKGAN2NJwutDoKxw4CALgUs7GwMIVMgh
-	 PdAQ0fnyG5qN5jIxo+X0lQQWJYC+gQ5dTjtb1uT6939QxYpKEyEwpIPi7nbkchlqLIw==
+	t=1794657378;
+	b=1sI49BaTsVpQQ2gvG5Tk6x0fOHgNdhwk/zkr8hQSaO1NVmpEI/RwBtGC9R30hSuEuPn2
+	 wjv4MSW/wmVOsK0Alkyd4yB0sNG0s1H00m+bJDQY5dqHiZiG75I8AHi0X8EqdnxE7SuhG
+	 NiSnizlv6mYHOOtJFf9F/dT0kx7zqClkd3y2UunHxfnKXs6pJwIMi2OQXaH6RAkhdOOH+
+	 Knj8lO2nHQbi2W+QgKhppcRV8EwPnvV+sm2diNBPDA9VnzxhyU6eHlF/1VKOpUPgReqHj
+	 Qet4uluFdJ3FF4KgOSXpQCSzzeNlLZsagUcjlgmmaZOE8gYbdbtu+yKnT3vaNknHx9g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794657377;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794657378;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=gdJ+j079/tz92iQCRVcdVPV5S6mtELTh8SSjxTPVU+k=;
-	b=1E8TZnkMKFZDuw87KBDptSxjwT15drbTn9tuIjCdIcxC6ysNUVMQgM41E2Yf0rdA7OpZ
-	 0P2irX494WsnwDhUH2POj2or7NnLSQoQhKHHm2ZCQHN21gkNuT7ln2wM936PFaCvWVaze
-	 tx3nO3d1TynJt8JeGkVhMQicj9Kh2WyKp8+b0jTWnGiefjtHnf7xM3sTA9bx93IJoqqwf
-	 nm5fZf0ph8/3yFWcpra2xHff4BAlmRi/x7wEhipasYlrib1RgWpOzrtNGlgMylgNMVcI6
-	 mNSmTirlDtiSTen7jHqLxA2WYTGXt+SymYjHRZH2Nc868//ynigYoXcS6LQnSGi1jSA==
+	bh=QXT25GfABHQ7dGUKCmyGeYY4yAxmb7F7mN+bb7k+BXM=;
+	b=5S2/jWzjafaUkbszFPMj7MLW8J19u9TecAqqhKZBBIpcM1mOL5gKMaKg7AG8kGIuheBP
+	 SOZ+7+ZLkCantM4hH6XGAMkf8/oucdZZqHM/YRSZZgpO/U+er8W/I+NVaUxBHQsag63YG
+	 EzadAcLd1O8S+GHWLnB/A0+S7jq6WRSSOjUObkcDX1/vcYxvR9DJgG/itHSVuhTrkuWZe
+	 8uFLtVH4YGyGRRm5xTq2S3gBVpcrCvHHSDR7ZpwxPQkDHQBOLrUteAaLzy6DrpKjol0p5
+	 lLtLtvxhkdjtClTQ4AploBejqHNbY/rWOCUjuEoYLIHEP3QHwFcIvzKh1JO62Q1fPXg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OevaAhq0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cbAPQuwb;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9855260A2612;
-	Sat, 14 Nov 2026 11:56:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C23460A3803;
+	Sat, 14 Nov 2026 11:56:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OevaAhq0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cbAPQuwb
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794657377;
-	b=dcxpX3I8HDVcmCNwCPi8OM5kogKh+VqqdC0rX72ZJqgp4QPxNPVCVoSKkEBfrNdXmV35
-	 lMkRE5qMePguwTZOdl5zkN9qXt5O8MW9R0cOwptZP94r6dzfJCkZoRgOfd89Qv6+XZKMG
-	 hJMHQ8ZJgfU0Q1/OJE57nmAi8DYWllF6asI4bFhJ31ArMcfrJLPXUDTYivyC5TL6TGYvL
-	 5LfikVwKB1QyQB6XBh0/ByQXjP8Unh87gPFWSmrP3Ml+pNKK6KUcnTPQjmLoDM8dq9WCL
-	 vKQ4/hqyNdg8dGqwOeZxEftwKR2AkgauJ+aZCv3XciTUNX9PMBm9SAdaDS8YUAwnVfg==
+	t=1794657378;
+	b=Tdrv/duaBqEDHPXaqJvuixIJacxvu49PXgffaQWIV5aORndGSBIwwaGctXlem37Tlmuy
+	 LDNFhmtmeK2Oaoh95ViEUDn3EVR9+Gu6Tm/OUHsM+dE26Neq1y8J0HFck8hYvY05BAsNZ
+	 PazgBBxOmXeVmyQ9AcEgbz7WvZDnsth1jR7F/niPeFYhpmhlR87MKgJebOxQC++qctRKR
+	 OMs9pj7BxU9j2pqFyh2oXc57To7VTdEAt9YK/IuHZiujzBiTTlAuq+g6jTNdrVXa7keSs
+	 W98GIOfYsRl6/sewnZnLYnwUljuZfLeqJuyH21uY50NFHaHUmLQDRL/2eScdonfI3NQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794657377;
+	c=relaxed/relaxed; t=1794657378;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=gdJ+j079/tz92iQCRVcdVPV5S6mtELTh8SSjxTPVU+k=;
-	b=lwMtL7dAcdOw/MigKHsXZZ6C9f8EG4VZoUw3mzHuPfkMsch4HvHpUUYdKvTtk6bOc88Z
-	 0HlHvjBTKts4/1lD8lzX3lbKUUKMID98vYBl8Q1iJSislquhD/qclARWNbHN34bE65z9E
-	 qSVN0udasirOI8J6nTcdAE0HQC3Vq3A2XVJ0uiHJvn3gN63+IJjnRo2fAu7is70DkGj6b
-	 ZchvrtJBvUvXZQrmDzpalIOi6t5mn5wjoAeGnrzdfmH8S5QU9giWX8RaDmIo2C94Jibgo
-	 is9+bIX9Y5MpmzD0UdBTaMvyU048vqgaHdVKtO1pFgdz5/Ur3bFyvIbsdZzV38AJkXA==
+	bh=QXT25GfABHQ7dGUKCmyGeYY4yAxmb7F7mN+bb7k+BXM=;
+	b=F8LuH2i2y3jlQNcLNasjVWnBAPouKlnmAC10pj/Px1t9RXg9gwdeQdGLVGpYGurfAPIt
+	 pTRAzqrVaX/7tfZu4bOORi09G8LOdx+BrspPbECmBWTA3nHrm2f1fd9FeS6k4TIKM4fEC
+	 UmmaZB9HP1BJ4LawEwzyOIk97qEwAyw4x4ZYbeQM3toFFZY5EZKSKgtQquH16RhWeojAW
+	 4okyz16mWfJpx+Fx9vc08ob+WaiQ+50HfobW6R9dPg0QFwatY8gvqkm+EpmFIUw6/jkWt
+	 YfZl/90ok//M10GEvPDYv3Zxs/E4uEVm59vCA8fyfSa/lILSA8+L2osL+nirdFwtUQw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D60381F000CA;
-	Sat, 14 Nov 2026 11:56:14 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 283211F000D3;
+	Sat, 14 Nov 2026 11:56:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794657377;
-	bh=gdJ+j079/tz92iQCRVcdVPV5S6mtELTh8SSjxTPVU+k=;
+	s=k20260515; t=1794657378;
+	bh=QXT25GfABHQ7dGUKCmyGeYY4yAxmb7F7mN+bb7k+BXM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=OevaAhq0SbP/urN4dH7OYYCCFc7OE2RxMzeKBRfJJElrxU9P/Dsb0Kt39Qgo+aTXt
-	 Te5NQtVFBFWJMcK/X3b+L/d/+nbKPRlOh8M4itk8/NWnOsAsxUHihrng8p8QbYqj3B
-	 7nNsn8OGsNnEi+l42K4OgbFiYclV8E3lGOvd+GceEdEpVtXmAQg0BQuXFku7LJv71f
-	 Tq3OjXv5ZhqukuTeiHVPNkNVnsFmiyyf6B3ehooNeSvhBFRdzXwDhndE6gTh0iEh2D
-	 BXylfCc8UuMLB6Wh9/GxKkg+/Ksa0DFEDSmHw3UFceF1SFSMOXYTtcd/xpoJeABlPU
-	 J7BGyEnNTJ/Kg==
+	b=cbAPQuwbsyLhrO2Om7Nm+a6dvPfGd8VWlPCH2XS/hvJLsvgmy7bZJmjOYZIQBp9Bt
+	 uTtTBodRWv2gCyXKHvlzYOxphitBr6uhrTE5JDFFKRNLznUXO4fQVRhsSgcSj6jfHv
+	 N4smTHLW25I8AXPLywkxvbl6gF3EyueJUGIsBc6/o6j2+3+Cel4jsjlI4beGgO5VAe
+	 zQ2dg/E0eUWjnc8VthYqSS4W/kv7NH7NP4T2qV/Y8DSp6ru3s5lHuQ6XHGJwkwtdW8
+	 QZccfzilQSVBEoKM/9oaIiWjucjPFD5pmWgMwAubj07/l92vBnkSX0KkTpcU1calmD
+	 iUs3QX9fid2rg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 654FA49D76;
+	by lkml.kernel.org (Postfix) with ESMTP id EEC3649D8D;
 	Sat, 14 Nov 2026 11:56:13 +0000 (UTC)
 From: Larisa Grigore via B4 Relay <devnull+larisa.grigore.oss.nxp.com@kernel.org>
-Date: Sat, 14 Nov 2026 12:55:37 +0100
-Subject: [PATCH v11 05/14] ufs: core: Add common Hibern8 TX FSM polling
- helper
+Date: Sat, 14 Nov 2026 12:55:43 +0100
+Subject: [PATCH v11 11/14] ufs: pltfrm: Add a flag to manage fixed rate
+ clocks
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261114-b4-ufs-s32n7-v11-5-dc36e11919d5@oss.nxp.com>
+Message-Id: <20261114-b4-ufs-s32n7-v11-11-dc36e11919d5@oss.nxp.com>
 References: <20261114-b4-ufs-s32n7-v11-0-dc36e11919d5@oss.nxp.com>
 In-Reply-To: <20261114-b4-ufs-s32n7-v11-0-dc36e11919d5@oss.nxp.com>
 To: "Martin K. Petersen" <mkp@kernel.org>, 
@@ -114,11 +114,11 @@ Cc: devicetree@vger.kernel.org, Ajay Neeli <ajay.neeli@amd.com>,
  Orson Zhai <orsonzhai@gmail.com>, aruizrui@redhat.com, 
  linux-renesas-soc@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794657369; l=9301;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794657370; l=5794;
  i=larisa.grigore@oss.nxp.com; s=20261114; h=from:subject:message-id;
- bh=4qonTc/Um2UG9wkdhK2e+Hz460fp+LEpHAWSOS8XOD4=;
- b=6RA5Ig2W1R2Xt2fNnEQnGKMV4afJaVfCpLq/X42KY62ZN/pPdXAsdwSxoc/bJ3Ip0Anlumu1v
- I2gvjbGnA42BRoemA/Yi/F6o3JPRdjtB1Kzx0XvX1QxhzdOfN7a7i1W
+ bh=gfpDkcJvEuz9ohkYzalTe5JXhCA/VTTkJXlX970pQDU=;
+ b=o1tlKOyaboHDGeDGhpmh3x4nGW0otGNWGbqfiXBQ0n0U/gzpzUz43PtRaIkF+qw47BCvRW8KU
+ ho70Z9Qj3ZtDkP9m/+ELCNqFq+O1bVFQtCXo0Gf7h0LuaRtowpustei
 X-Developer-Key: i=larisa.grigore@oss.nxp.com; a=ed25519;
  pk=Jpt52sb6ETKTtvWjUzhz5Sv5FjB9AEg9QKCcbpWFx3w=
 X-Endpoint-Received: by B4 Relay for larisa.grigore@oss.nxp.com/20261114
@@ -129,281 +129,170 @@ Content-Transfer-Encoding: 7bit
 
 From: Larisa Grigore <larisa.grigore@oss.nxp.com>
 
-Factor out the common logic used to poll TX_FSM_STATE until the TX lanes
-enter Hibern8 into ufshcd_dme_check_tx_hibern8().
+Some UFS host controllers have clocks whose rate is set by the clock
+provider and is never scaled. ufshcd_parse_clock_info() registers the
+clocks listed in clock-names only when freq-table-hz is present, and
+ufshcd_parse_operating_points() only when operating-points-v2 is
+present. On such platforms the UFS core therefore neither enables the
+clocks at probe nor gates them on idle and on suspend.
 
-The HiSilicon and Qualcomm drivers currently implement similar checks
-using the M-PHY TX_FSM_STATE attribute after PHY bring-up. Move this logic
-to a common helper in ufshcd so it can be shared across host controller
-drivers.
+Describing these clocks with a dummy operating-points-v2 table, or with
+the deprecated freq-table-hz property, only to make the core manage
+them is not desirable.
 
-Switch the HiSilicon and Qualcomm drivers to use the new helper and drop
-their local implementations. While at it, normalize the "TX lane failed to
-reach Hibern8" error path to return -ETIMEDOUT instead of the raw
-TX_FSM_STATE value (qcom) or -1 (hisi), so all callers get a proper errno.
-A failed TX_FSM_STATE read that completes with a positive UIC result code
-is reported as -EIO. This is an intentional, harmless change of the
-returned error value; the pass/fail behaviour at the call sites is
-unchanged.
+Registering the clocks unconditionally is not possible either: some
+glue drivers list clocks without a frequency table and manage them
+themselves (e.g. ufs-rockchip on rk3576), and the core would then start
+to enable, gate and possibly scale the same clocks.
 
-This also prepares for reusing the same M-PHY specific Hibern8 check in
-a subsequent commit.
+Add UFSHCD_PLTFRM_FIXED_RATE_CLKS. When a glue driver passes it to
+ufshcd_pltfrm_init() and neither freq-table-hz nor operating-points-v2
+is present, register the clocks from clock-names with min_freq and
+max_freq set to 0. ufshcd_init_clocks() then leaves their rate
+unchanged, and the UFS core enables and gates them like any other
+clock. The flag is not meant to be combined with
+UFSHCD_CAP_CLK_SCALING.
 
+Assisted-by: LLM
 Signed-off-by: Larisa Grigore <larisa.grigore@oss.nxp.com>
 ---
- drivers/ufs/core/ufshcd.c   | 97 +++++++++++++++++++++++++++++++++++++++++++++
- drivers/ufs/host/ufs-hisi.c | 48 +---------------------
- drivers/ufs/host/ufs-qcom.c | 42 +-------------------
- include/ufs/ufshcd.h        |  2 +
- 4 files changed, 101 insertions(+), 88 deletions(-)
+ drivers/ufs/host/ufshcd-pltfrm.c | 57 ++++++++++++++++++++++++----------------
+ drivers/ufs/host/ufshcd-pltfrm.h |  9 +++++++
+ 2 files changed, 44 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index a6817e4bd1f8..9b893e4ada19 100644
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -4494,6 +4494,103 @@ int ufshcd_dme_get_attr(struct ufs_hba *hba, u32 attr_sel,
- }
- EXPORT_SYMBOL_GPL(ufshcd_dme_get_attr);
+diff --git a/drivers/ufs/host/ufshcd-pltfrm.c b/drivers/ufs/host/ufshcd-pltfrm.c
+index f8b2d64b6b4b..50afc2816dc7 100644
+--- a/drivers/ufs/host/ufshcd-pltfrm.c
++++ b/drivers/ufs/host/ufshcd-pltfrm.c
+@@ -21,7 +21,7 @@
  
-+/**
-+ * ufshcd_tx_lanes_in_hibern8 - Check TX_FSM_STATE of all TX lanes once
-+ * @hba: host controller instance
-+ * @num_lanes: number of TX lanes to check
-+ *
-+ * Read TX_FSM_STATE for every lane and verify it reached Hibern8.
-+ *
-+ * Return: 0 if all lanes are in Hibern8, -EAGAIN if at least one lane is
-+ * not in Hibern8 yet, or a negative errno if reading TX_FSM_STATE failed.
-+ */
-+static int ufshcd_tx_lanes_in_hibern8(struct ufs_hba *hba,
-+				      unsigned int num_lanes)
-+{
-+	u32 tx_fsm_val = 0;
-+	unsigned int i;
-+	int err;
-+
-+	for (i = 0; i < num_lanes; i++) {
-+		err = ufshcd_dme_get(hba,
-+				     UIC_ARG_MIB_SEL(TX_FSM_STATE,
-+						     UIC_ARG_MPHY_TX_GEN_SEL_INDEX(i)),
-+				     &tx_fsm_val);
-+		if (err) {
-+			dev_err(hba->dev,
-+				"%s: unable to get TX_FSM_STATE for lane %u, err %d\n",
-+				__func__, i, err);
-+			/* A positive value is a UIC result code, not an errno. */
-+			return err > 0 ? -EIO : err;
-+		}
-+
-+		if (tx_fsm_val != UFS_TX_STATE_HIBERN8)
-+			return -EAGAIN;
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * ufshcd_dme_check_tx_hibern8 - Check if all TX lanes entered Hibern8 state
-+ * @hba: host controller instance
-+ * @num_lanes: number of TX lanes to check
-+ * @timeout_ms: overall timeout in milliseconds shared by all lanes
-+ *
-+ * Return: 0 on success, negative errno on failure.
-+ */
-+int ufshcd_dme_check_tx_hibern8(struct ufs_hba *hba, unsigned int num_lanes,
-+				unsigned int timeout_ms)
-+{
-+	unsigned int i;
-+	int err, ret;
-+	u32 state;
-+
-+	if (!num_lanes)
-+		return -EINVAL;
-+
-+	/*
-+	 * Poll every lane until ufshcd_tx_lanes_in_hibern8() stops returning
-+	 * -EAGAIN, i.e. all lanes reached HIBERN8 (err == 0) or a real error
-+	 * was hit. A read error has already been reported by the helper.
-+	 */
-+	ret = read_poll_timeout(ufshcd_tx_lanes_in_hibern8, err,
-+				err != -EAGAIN, 200,
-+				(u64)timeout_ms * USEC_PER_MSEC, false,
-+				hba, num_lanes);
-+	if (!ret)
-+		return err;
-+
-+	/*
-+	 * Timed out. The poll helper stops at the first lane that is not in
-+	 * HIBERN8, so read every lane again to report each one that is stuck,
-+	 * together with its TX_FSM_STATE.
-+	 */
-+	ret = 0;
-+	for (i = 0; i < num_lanes; i++) {
-+		err = ufshcd_dme_get(hba,
-+				     UIC_ARG_MIB_SEL(TX_FSM_STATE,
-+						     UIC_ARG_MPHY_TX_GEN_SEL_INDEX(i)),
-+				     &state);
-+		if (err) {
-+			dev_err(hba->dev,
-+				"%s: unable to get TX_FSM_STATE for lane %u, err %d\n",
-+				__func__, i, err);
-+			/* A positive value is a UIC result code, not an errno. */
-+			return err > 0 ? -EIO : err;
-+		}
-+		if (state != UFS_TX_STATE_HIBERN8) {
-+			dev_err(hba->dev,
-+				"%s: TX lane %u stuck in TX_FSM_STATE %u\n",
-+				__func__, i, state);
-+			ret = -ETIMEDOUT;
-+		}
-+	}
-+
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(ufshcd_dme_check_tx_hibern8);
-+
- /**
-  * ufshcd_dme_rmw - get modify set a DME attribute
-  * @hba: per adapter instance
-diff --git a/drivers/ufs/host/ufs-hisi.c b/drivers/ufs/host/ufs-hisi.c
-index 3e3d44ee0c14..5217e2e294f8 100644
---- a/drivers/ufs/host/ufs-hisi.c
-+++ b/drivers/ufs/host/ufs-hisi.c
-@@ -22,50 +22,6 @@
- #include <ufs/ufshci.h>
- #include <ufs/ufs_quirks.h>
+ #define UFSHCD_DEFAULT_LANES_PER_DIRECTION		2
  
--static int ufs_hisi_check_hibern8(struct ufs_hba *hba)
--{
--	int err = 0;
--	u32 tx_fsm_val_0 = 0;
--	u32 tx_fsm_val_1 = 0;
--	unsigned long timeout = jiffies + msecs_to_jiffies(HBRN8_POLL_TOUT_MS);
--
--	do {
--		err = ufshcd_dme_get(hba, UIC_ARG_MIB_SEL(TX_FSM_STATE, 0),
--				      &tx_fsm_val_0);
--		err |= ufshcd_dme_get(hba,
--		    UIC_ARG_MIB_SEL(TX_FSM_STATE, 1), &tx_fsm_val_1);
--		if (err || (tx_fsm_val_0 == UFS_TX_STATE_HIBERN8 &&
--			tx_fsm_val_1 == UFS_TX_STATE_HIBERN8))
--			break;
--
--		/* sleep for max. 200us */
--		usleep_range(100, 200);
--	} while (time_before(jiffies, timeout));
--
--	/*
--	 * we might have scheduled out for long during polling so
--	 * check the state again.
--	 */
--	if (time_after(jiffies, timeout)) {
--		err = ufshcd_dme_get(hba, UIC_ARG_MIB_SEL(TX_FSM_STATE, 0),
--				     &tx_fsm_val_0);
--		err |= ufshcd_dme_get(hba,
--		 UIC_ARG_MIB_SEL(TX_FSM_STATE, 1), &tx_fsm_val_1);
--	}
--
--	if (err) {
--		dev_err(hba->dev, "%s: unable to get TX_FSM_STATE, err %d\n",
--			__func__, err);
--	} else if (tx_fsm_val_0 != UFS_TX_STATE_HIBERN8 ||
--			 tx_fsm_val_1 != UFS_TX_STATE_HIBERN8) {
--		err = -1;
--		dev_err(hba->dev, "%s: invalid TX_FSM_STATE, lane0 = %d, lane1 = %d\n",
--			__func__, tx_fsm_val_0, tx_fsm_val_1);
--	}
--
--	return err;
--}
--
- static void ufs_hisi_clk_init(struct ufs_hba *hba)
+-static int ufshcd_parse_clock_info(struct ufs_hba *hba)
++static int ufshcd_parse_clock_info(struct ufs_hba *hba, unsigned int flags)
  {
- 	struct ufs_hisi_host *host = ufshcd_get_variant(hba);
-@@ -224,9 +180,7 @@ static int ufs_hisi_link_startup_pre_change(struct ufs_hba *hba)
+ 	int ret = 0;
+ 	int cnt;
+@@ -51,32 +51,43 @@ static int ufshcd_parse_clock_info(struct ufs_hba *hba)
  
- 	/* Unipro VS_mphy_disable */
- 	ufshcd_dme_set(hba, UIC_ARG_MIB_SEL(0xD0C1, 0x0), 0x0);
--	err = ufs_hisi_check_hibern8(hba);
--	if (err)
--		dev_err(hba->dev, "ufs_hisi_check_hibern8 error\n");
-+	err = ufshcd_dme_check_tx_hibern8(hba, 2, HBRN8_POLL_TOUT_MS);
- 
- 	if (!(host->caps & UFS_HISI_CAP_PHY10nm))
- 		ufshcd_writel(hba, UFS_HCLKDIV_NORMAL_VALUE, UFS_REG_HCLKDIV);
-diff --git a/drivers/ufs/host/ufs-qcom.c b/drivers/ufs/host/ufs-qcom.c
-index a96ac35994de..979d223230a6 100644
---- a/drivers/ufs/host/ufs-qcom.c
-+++ b/drivers/ufs/host/ufs-qcom.c
-@@ -413,46 +413,6 @@ static int ufs_qcom_init_lane_clks(struct ufs_qcom_host *host)
- 	return 0;
- }
- 
--static int ufs_qcom_check_hibern8(struct ufs_hba *hba)
--{
--	int err;
--	u32 tx_fsm_val;
--	unsigned long timeout = jiffies + msecs_to_jiffies(HBRN8_POLL_TOUT_MS);
--
--	do {
--		err = ufshcd_dme_get(hba,
--				UIC_ARG_MIB_SEL(TX_FSM_STATE,
--					UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)),
--				&tx_fsm_val);
--		if (err || tx_fsm_val == UFS_TX_STATE_HIBERN8)
--			break;
--
--		/* sleep for max. 200us */
--		usleep_range(100, 200);
--	} while (time_before(jiffies, timeout));
--
--	/*
--	 * we might have scheduled out for long during polling so
--	 * check the state again.
--	 */
--	if (time_after(jiffies, timeout))
--		err = ufshcd_dme_get(hba,
--				UIC_ARG_MIB_SEL(TX_FSM_STATE,
--					UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)),
--				&tx_fsm_val);
--
--	if (err) {
--		dev_err(hba->dev, "%s: unable to get TX_FSM_STATE, err %d\n",
--				__func__, err);
--	} else if (tx_fsm_val != UFS_TX_STATE_HIBERN8) {
--		err = tx_fsm_val;
--		dev_err(hba->dev, "%s: invalid TX_FSM_STATE = %d\n",
--				__func__, err);
+ 	sz = of_property_count_u32_elems(np, "freq-table-hz");
+ 	if (sz <= 0) {
+-		dev_info(dev, "freq-table-hz property not specified\n");
+-		goto out;
 -	}
--
--	return err;
--}
--
- static void ufs_qcom_select_unipro_mode(struct ufs_qcom_host *host)
- {
- 	ufshcd_rmwl(host->hba, QUNIPRO_SEL, QUNIPRO_SEL, REG_UFS_CFG1);
-@@ -638,7 +598,7 @@ static int ufs_qcom_hce_enable_notify(struct ufs_hba *hba,
- 		break;
- 	case POST_CHANGE:
- 		/* check if UFS PHY moved from DISABLED to HIBERN8 */
--		err = ufs_qcom_check_hibern8(hba);
-+		err = ufshcd_dme_check_tx_hibern8(hba, 1, HBRN8_POLL_TOUT_MS);
- 		ufs_qcom_enable_hw_clk_gating(hba);
- 		ufs_qcom_ice_enable(host);
- 		ufs_qcom_config_ice_allocator(host);
-diff --git a/include/ufs/ufshcd.h b/include/ufs/ufshcd.h
-index be62165b785e..09ad11f7165f 100644
---- a/include/ufs/ufshcd.h
-+++ b/include/ufs/ufshcd.h
-@@ -1505,6 +1505,8 @@ int ufshcd_make_hba_operational(struct ufs_hba *hba);
- void ufshcd_remove(struct ufs_hba *);
- int ufshcd_uic_hibern8_enter(struct ufs_hba *hba);
- int ufshcd_uic_hibern8_exit(struct ufs_hba *hba);
-+int ufshcd_dme_check_tx_hibern8(struct ufs_hba *hba, unsigned int num_lanes,
-+				unsigned int timeout_ms);
- void ufshcd_delay_us(unsigned long us, unsigned long tolerance);
- void ufshcd_parse_dev_ref_clk_freq(struct ufs_hba *hba, struct clk *refclk);
- void ufshcd_update_evt_hist(struct ufs_hba *hba, u32 id, u32 val);
++		/*
++		 * Without a frequency table the clocks are either registered by
++		 * ufshcd_parse_operating_points() or managed by the glue driver,
++		 * unless the glue driver asked for fixed rate clocks.
++		 */
++		if (!(flags & UFSHCD_PLTFRM_FIXED_RATE_CLKS) ||
++		    of_property_present(np, "operating-points-v2")) {
++			dev_info(dev, "freq-table-hz property not specified\n");
++			goto out;
++		}
+ 
+-	if (sz != 2 * cnt) {
++		dev_dbg(dev, "no frequency table, using fixed rate clocks\n");
++		sz = 0;
++	} else if (sz != 2 * cnt) {
+ 		dev_err(dev, "%s len mismatch\n", "freq-table-hz");
+ 		ret = -EINVAL;
+ 		goto out;
+ 	}
+ 
+-	clkfreq = devm_kzalloc_objs(dev, *clkfreq, sz);
+-	if (!clkfreq) {
+-		ret = -ENOMEM;
+-		goto out;
+-	}
++	if (sz) {
++		clkfreq = devm_kzalloc_objs(dev, *clkfreq, sz);
++		if (!clkfreq) {
++			ret = -ENOMEM;
++			goto out;
++		}
+ 
+-	ret = of_property_read_u32_array(np, "freq-table-hz",
+-			clkfreq, sz);
+-	if (ret && (ret != -EINVAL)) {
+-		dev_err(dev, "%s: error reading array %d\n",
++		ret = of_property_read_u32_array(np, "freq-table-hz",
++						 clkfreq, sz);
++		if (ret && (ret != -EINVAL)) {
++			dev_err(dev, "%s: error reading array %d\n",
+ 				"freq-table-hz", ret);
+-		return ret;
++			return ret;
++		}
+ 	}
+ 
+-	for (i = 0; i < sz; i += 2) {
+-		ret = of_property_read_string_index(np,	"clock-names", i/2,
++	for (i = 0; i < cnt; i++) {
++		ret = of_property_read_string_index(np,	"clock-names", i,
+ 						    &name);
+ 		if (ret)
+ 			goto out;
+@@ -87,8 +98,10 @@ static int ufshcd_parse_clock_info(struct ufs_hba *hba)
+ 			goto out;
+ 		}
+ 
+-		clki->min_freq = clkfreq[i];
+-		clki->max_freq = clkfreq[i+1];
++		if (clkfreq) {
++			clki->min_freq = clkfreq[2 * i];
++			clki->max_freq = clkfreq[2 * i + 1];
++		}
+ 		clki->name = devm_kstrdup(dev, name, GFP_KERNEL);
+ 		if (!clki->name) {
+ 			ret = -ENOMEM;
+@@ -97,8 +110,8 @@ static int ufshcd_parse_clock_info(struct ufs_hba *hba)
+ 
+ 		if (!strcmp(name, "ref_clk"))
+ 			clki->keep_link_active = true;
+-		dev_dbg(dev, "%s: min %u max %u name %s\n", "freq-table-hz",
+-				clki->min_freq, clki->max_freq, clki->name);
++		dev_dbg(dev, "%s: min %u max %u name %s\n", __func__,
++			clki->min_freq, clki->max_freq, clki->name);
+ 		list_add_tail(&clki->list, &hba->clk_list_head);
+ 	}
+ out:
+@@ -670,7 +683,7 @@ int ufshcd_pltfrm_init(struct platform_device *pdev,
+ 
+ 	hba->vops = vops;
+ 
+-	err = ufshcd_parse_clock_info(hba);
++	err = ufshcd_parse_clock_info(hba, flags);
+ 	if (err) {
+ 		dev_err(dev, "%s: clock parse failed %d\n",
+ 				__func__, err);
+diff --git a/drivers/ufs/host/ufshcd-pltfrm.h b/drivers/ufs/host/ufshcd-pltfrm.h
+index 0dc48c8d89d5..1f612734507c 100644
+--- a/drivers/ufs/host/ufshcd-pltfrm.h
++++ b/drivers/ufs/host/ufshcd-pltfrm.h
+@@ -5,6 +5,7 @@
+ #ifndef UFSHCD_PLTFRM_H_
+ #define UFSHCD_PLTFRM_H_
+ 
++#include <linux/bits.h>
+ #include <ufs/ufshcd.h>
+ 
+ #define UFS_PWM_MODE 1
+@@ -25,6 +26,14 @@ struct ufs_host_params {
+ 	u32 desired_working_mode;
+ };
+ 
++/*
++ * Register the clocks listed in clock-names even when neither freq-table-hz
++ * nor operating-points-v2 is present. Their rate is set by the clock provider
++ * and is not scaled, but the UFS core enables and gates them. Not meant to be
++ * combined with UFSHCD_CAP_CLK_SCALING, as there is nothing to scale.
++ */
++#define UFSHCD_PLTFRM_FIXED_RATE_CLKS	BIT(0)
++
+ int ufshcd_negotiate_pwr_params(const struct ufs_host_params *host_params,
+ 				const struct ufs_pa_layer_attr *dev_max,
+ 				struct ufs_pa_layer_attr *agreed_pwr);
 
 -- 
 2.43.0
