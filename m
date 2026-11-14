@@ -1,60 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794648519;
-	b=GCO88+5XVgGGX0Sg39O0Y6AW1XfNtVw4vrlzCGMl4rOrMn9+iR35w0T2C0jhAfJ4BjjC
-	 ZuUI+FMv2Nl3uozR8aTinGSbQ5AZT3FAuhnHGyaE6AMnbbKQc26Rd74Ai3DxBh2z1K0FJ
-	 ep5KjhZ80WgdTBJyLk/rhusIxlqt3h56h7QyQ/bwDaYaWyZp4acnq1/Irew7vEZs/hRsm
-	 FTtM0JBM/XYrpbCgQO3LRPgJpBEbHPBaOgLfIYI0RT87gUZhuQwUB+vgD0AUgeed+Hxzd
-	 oLe3I5C8WTyLundw1CRhVh5Y4+nwRW6HZKRfukQefIPlwPKzP9Z48qr+OB2LEyFz2jw==
+	t=1794648574;
+	b=2lZ3jZp8E/6znRUgb4Gzv10D6yKfx9BfQmFTCUCmbF7KMCn9NCGkH1+7QuMaFX9WU0zy
+	 kGn0r37AfeqLJaqn2NvcM6dMHGNnRq4fw2zH5WBzSrZM6PEzTtE0jSgut6k3/ld+FkfDb
+	 9C9FzC10HRCestVos2DEYFJ7qSo3XJMTDO6IU6aV3djR0EgQ5Lv0CV+bFR5pqXRctY32O
+	 gcN7unz08clnUNlDF2KT1uxkYFwHswdXtoWCW4LQjGAUa5eh9BNRFbEsik5Jsqlmnno16
+	 c49GbQnf4WVDcR5IkQi37mVERsGaMC37gk2eJEsUfsx66M7xwiBHMGp9Hv/ljsBqGrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794648519;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=xrLvPdJEUUqaQ/n89kUTd0s6jU/al9JGuEDtjAUCSLM=;
-	b=LBWa0BmaxqIDOX+1PtOVNyrazu3NtiSfB8CT9G9fpOk6hbuIaJ7E7fzuDLwEyMGkCKOY
-	 bHF2HE9XJLLf/EfY8q6TPOMo1A74vnNOsjqV5i/C0uGefKyDPGq3nkrjRRbtucxa0TQOn
-	 hRD555+4IyPwHzarWWfapNPBO3UpgUDVz+cbAp7xKYO/f4bhYBu9w1bakbvhEdrgUItWT
-	 j5WtdtfHCD8r4dDv8pVnCScOAgaf7+j63AeiTD5+usrCdQccbXZxLc7ZbIxN0+Vnxzvaw
-	 nwOM9CitRqKVv73Bilvqc2aHRZOo/rJcFCrHNjIbfptr9YE53+D6Hg+kOBFj8Mn71+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794648574;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=vz0vstI9OA5h3bsTRS3tRWw1Hwov6sM88rpH9FbtfYM=;
+	b=GTqZk28dy4c0OAvl/Mk6RW2WsU6tzxJOYysP2sHBM2YgFKgbgUCOwOSgiXOLkvfPRG4z
+	 WBtiiuwV5M7uQOcF/W0IZ0YD1TS0PSKNg4GnfrrC2puK9uGfBNVfdHhwqKYeHgd9iw6eE
+	 65PQxrfZYVGCU2pPuWNG9VqPMpd94b/vtAQbsPHQhBtWa472e6o7ON/2MRWp+mt/70gDk
+	 bEfEX0fVivWNHWIyyMzKKSS4VlOZw0A473kjAk9t4M++R9KaNuDSoKL2vYeuuQkyb3EQz
+	 pD7UpR5fPE4ZHw48p5wiVBxfsJeLj8pnGMmmTF5/KYunbZfwHHKsSkgC6klhlfrr51Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cKwCspk2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZBvC6WSB;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 807A460A3838;
-	Sat, 14 Nov 2026 09:28:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C222E606A331
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 09:29:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C222E606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cKwCspk2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C149F1F000C4;
-	Sat, 14 Nov 2026 09:28:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794648519;
-	bh=xrLvPdJEUUqaQ/n89kUTd0s6jU/al9JGuEDtjAUCSLM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=cKwCspk2cK546Np7fu/oTXn/wNK38jyDkkggnMcmHgRYMPR5qfdlLswvAD/nOKnbh
-	 XlSA52QozaZHQD4+ZqNJU3SYtCNSknIHeH91Ek125k6JNYw/aGEcnXEBWA7P8yvaVd
-	 4XA33Kum3IC3Q/AKdgh2hMy8OTCU/YVt2Hd4FGiulWECqTMzYfBI7Kz88arh1aJia+
-	 0tommdnutJcXZU1LzM7WWOy9zC2vFbHE7xzVUraGAFSmkgQ1m5yMQ3v4axvaYe1zYF
-	 Cnex4YyufgE8aAE4wZaeHzxaB9GJZ9SYU7jj8VQDWJzKCCBsKsGRIcnFHKEbipdF0z
-	 0JsdwGRcFz7rw==
-Subject: Re: [PATCH net-next v8 10/11] r8152: add TGPHY register access for
- RTL8157 and RTL8159
-From: netdev-bot+sashiko@kernel.org
-To: hsu.chih.kai@realtek.com
-Cc: davem@davemloft.net, kuba@kernel.org, netdev@vger.kernel.org,
- nic_swsd@realtek.com, linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
- edumazet@google.com, bjorn@mork.no, pabeni@redhat.com, andrew+netdev@lunn.ch,
- mail@birger-koblitz.de
-Date: Sat, 14 Nov 2026 09:28:38 +0000
-Message-ID: <179464851836.2199510.10154643847175029122@kernel.org>
-In-Reply-To: <20261110032416.16968-11-nic_swsd@realtek.com>
-References: <20261110032416.16968-11-nic_swsd@realtek.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZBvC6WSB
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-4910b863b84so1635588f8f.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 01:29:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794648572; x=1795253372; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vz0vstI9OA5h3bsTRS3tRWw1Hwov6sM88rpH9FbtfYM=;
+        b=ZBvC6WSBenV8D8YKmhIHmzrsfPzp/N6h0hYS/3wHkdiCKdbm4Xtz4No8qQTORs+3po
+         OMYGjJKvA/hgscbCUMcKpIsUgA0bXQlRqUThDkXox1dsNIw4CZaPUnywScY/+US/Q1O7
+         VtU9CPPpQ0btH6YK0sLKD2WCOxNoPny5NHxP/y1CoNe0j8iPgtRhOkDNwqKDudbaowut
+         Hg/7OxMFDrLJzntvbrkEy+Bx7cE0ux9CZkkOs47kPuU8KruPPc+7sDPli2KmBKii60/W
+         /IQ8vIXPAruXsqI3GbfdSg3tpLdx6wiYM5cWOd3ZbhU91nDnIeSK4JbT+F1WuLwoT+jZ
+         g0Nw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794648572; x=1795253372;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=vz0vstI9OA5h3bsTRS3tRWw1Hwov6sM88rpH9FbtfYM=;
+        b=BCJwur6lem+e+m0kXH5SbW6FMmQb9z4/Yi2AdTc7A1waciyAWIQaBLGj7wY/FRVDdk
+         Lge2QJbrTdtsXk4YcMQcOdn22iV0H02eT0lb7svXXA/TkS6mBuqkPRmAQhD9Y3xuCZs/
+         F/KSbJ5WrMTszcsPESEd2OHlCc0viTNrt16uVmzZUCY9+8ta0DFk3cEF5LMcr46Lq+RE
+         YP2J76TPE9X03TB2YL+R5tvLmbhAWYmUHzedRBA+ul5y0ld+DslD9xUH3ksdWfhuZcsG
+         XMu6axA6wwKF7b2DXBJr6hRR7cWViFNKSwDrnxYK2pzgslvQcQmTkTARnyAvFBXBOLfG
+         dFlA==
+X-Forwarded-Encrypted: i=1; AL+hErHHNAF/qlfLVo0niB5dEzsVuBVKHl8nXdSiAkEQuEA2L0zyQ7u+2MLE1jhCNmd/wCobq6IYEsx9KV5/ZJk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z99RqSjKK2zRpjVxgsXPWYhSvnsGwY2aV/FRhgHU1pu+/dvzVss
+	IlDcdyUEOUJOt0FPW7k13uoSeQk9FCqoSx3D2d2CwVj4oXBSinycd3md
+X-Gm-Gg: AYBFou0cJ94U2lQOQH1DmcMWVnm4R+UXsns40K7+DhmzcvqDqRK9FXk/AqXpGUI3M7h
+	NkD+osv/v8jqm/VGToaXwG9lUGGlqxGE1j+w6Honl3aT3VyYdH/kHK/UWmWN8T6TOUUQCfFwb0q
+	zMsyyhnvlXoSUA42r0ZKFyPb9pzTHuFFP/fhOeNfiwspG7W/9kiGXac7IPMKIUSfEc+0vV5jcu6
+	FTRzEiEdUhjlU+GkPPlWJzinBhOmx4yVE6D6mHhQaMJAnRySZhvIogb17NGqMfSo1DQ649/hUu4
+	ycVYBKv7AWmWEjyScMoPZfUQmR9Kel+GpJo2Ce/whhE6c/4st7zZoIReHpet6+xbwN4cWSlTYtz
+	NqACWby3O5WZS98eYXCcSFpB5xikb44fPc2jzM4Yk0BSyYhp+oEqT44Y4Up7n5z+SjVRRIHJ1BR
+	DAa2qgOM5J4VQ8MoevwiIA3NlxcFAogJenDpDIcH+Hnu2HylXldBsfXoIFrn6aWMnQRNjTOZdRw
+	yNx67G57DX4CVxaac7YFOsAmq2ZPJDNUFqkyULpVJTN5xYdN3oBsheGb3Z7MFH/Gog1xYif0ftX
+	eXssm0EuiAN+PqFZySNCdifj3PEzAGHEghtKFhczhyw8q9cldkbxnJ/iGrV2Be9PNRewLxrWMa6
+	okbiEVfl7F+zZ1nTdppxG7E9i6SXngdDDpbQr3fvjbhLC0zv9VWsGtKi40YCgHxjMsw48GXzHgx
+	0usUJW0dPWt13ba59Q4CY76MTFkbc5YI741w==
+X-Received: by 2002:a05:600c:4504:b0:49e:6581:7baf with SMTP id 5b1f17b1804b1-4bb559f044amr99585225e9.2.1794648572072;
+        Sat, 14 Nov 2026 01:29:32 -0800 (PST)
+Received: from unknown748F3CBA5068 (dynamic-2a02-3100-b358-dd01-fd08-0f0c-fef7-8409.310.pool.telefonica.de. [2a02:3100:b358:dd01:fd08:f0c:fef7:8409])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c60da0a03sm8078945f8f.53.2026.11.14.01.29.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 01:29:30 -0800 (PST)
+Date: Sat, 14 Nov 2026 10:29:29 +0100
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>
+Cc: Alexandre Ghiti <alex@ghiti.fr>, Mike Rapoport <rppt@kernel.org>, 
+	Luis Chamberlain <mcgrof@kernel.org>, =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, 
+	linux-riscv@lists.infradead.org, bpf@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] riscv: mm: Pre-allocate module page tables for execmem
+Message-ID: <avgpqlpWf01mwo9P@gmail.com>
+References: <20261016102847.96530-1-kmehltretter@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,280 +101,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261016102847.96530-1-kmehltretter@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issue(s) to consider.
+On Fri, Oct 16, 2026 at 12:28:47PM +0100, Karl Mehltretter wrote:
+>   Unable to handle kernel paging request ...
+>   [ffffffff78000000] pgd=0000000000000000
+>   ...
+>   bpf_jit_fill_hole_with_zero
+>   bpf_prog_pack_alloc
+> 
+> Use CONFIG_EXECMEM for the module-range pre-allocation, as powerpc does
+> for its execmem page-table setup. Both CONFIG_MODULES and CONFIG_BPF_JIT
+> select it.
+> 
+> Fixes: 2c9e5d4a0082 ("bpf: remove CONFIG_BPF_JIT dependency on CONFIG_MODULES of")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> Acked-by: Björn Töpel <bjorn@kernel.org>
+> ---
+> Changes in v2:
+> - State that the BPF JIT region lies inside the module region (Mike).
+> - Add Acked-by tags from Mike Rapoport and Björn Töpel.
+> - No code changes from v1.
+> 
 
-Critical: 0 Â· High: 1 Â· Medium: 3 Â· Low: 1
+A friendly ping on v2 of this RV64 execmem page-table fix.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Is anything else needed from my side?
 
-- [High] set_carrier() (drivers/net/usb/r8152.c:7468) was not converted
-  to the new error contract.
-- [Medium] The commit message says rtl8152_get_link_ksettings() now
-  propagates the error.
-- [Medium] rtl8153_in_nway() (line 7431) now returns false when the
-  OCP_PHY_STATE read fails, which means 'the PHY is not inâ€¦
-- [Medium] r8152: negative errnos returned by read_mii_word() to MII
-  library
-- [Low] rtl8152_set_speed() (line 6835) can now return early on a failed
-  PHY access, after it has already written some advertisement registersâ€¦
-
---
-
-r8152: add TGPHY register access for RTL8157 and RTL8159
-
-This patch adds a TGPHY command channel for PHY register access on RTL8157
-and RTL8159. Access goes through new rtl_ops.phy_read/phy_write hooks.
-A TGPHY access can fail, so the PHY accessors and their helpers now return
-int, and a set of callers is updated to act on errors.
-
-> diff --git a/drivers/net/usb/r8152.c b/drivers/net/usb/r8152.c
-> index fad4473caf2a4..703ec5483778b 100644
-> --- a/drivers/net/usb/r8152.c
-> +++ b/drivers/net/usb/r8152.c
-
-[ ... ]
-
-> @@ -1669,16 +1680,33 @@ static void ocp_reg_write(struct r8152 *tp, u16 addr, u16 data)
-
-[ ... ]
-
-> -static inline int r8152_mdio_read(struct r8152 *tp, u32 reg_addr)
-> +static int r8152_mdio_read(struct r8152 *tp, u32 reg_addr)
->  {
-> -	return ocp_reg_read(tp, OCP_BASE_MII + reg_addr * 2);
-> +	u16 data;
-> +	int ret;
-> +
-> +	ret = ocp_reg_read(tp, OCP_BASE_MII + reg_addr * 2, &data);
-> +
-> +	return ret < 0 ? ret : data;
->  }
-
-[Severity: Medium]
-The added comment says a failed read must not reach the MII library
-as an errno, but the two early returns at the top of read_mii_word()
-still pass one on. The RTL8152_INACCESSIBLE check returns -ENODEV and
-the phy_id check returns -EINVAL. Neither goes through the new
-ret < 0 ? 0 : ret conversion. Those returns are not new, but with this
-patch they no longer match the stated contract.
-
--ENODEV is 0xffffffed, which has BMCR_ANENABLE, BMSR_LSTATUS and
-BMSR_ANEGCOMPLETE set. -EINVAL is 0xffffffea, which also has
-BMCR_ANENABLE set. The MII library always passes tp->mii.phy_id,
-though, so the -EINVAL path is mostly theoretical.
-
-mii_nway_restart() tests BMCR_ANENABLE directly on the mdio_read()
-result. Suppose RTL8152_INACCESSIBLE is set when rtl8152_nway_reset()
-or rtl_ethtool_set_eee() calls it. The -ENODEV then reads as autoneg
-enabled, write_mii_word() drops the restart without reporting it, and
-mii_nway_restart() returns 0.
-
-Neither caller checks the flag first. On RTL8157/RTL8159,
-r8152_set_eee() can latch it through rtl_eee_enable() right before the
-mii_nway_restart() call. Userspace is then told the renegotiation
-succeeded on a device that is gone.
-
-In mii_ethtool_get_link_ksettings() the two conventions get mixed. The
-TGPHY access that latches the flag makes the MII_BMCR read return 0.
-The MII_BMSR, MII_CTRL1000, MII_STAT1000 and MII_ADVERTISE reads after
-it hit the early return and come back as 0xffed.
-
-Should these early returns also return 0, so read_mii_word() follows
-its own comment? Or, since a 0 BMCR has problems of its own, would it
-be better for the callers of the MII library to check
-RTL8152_INACCESSIBLE before calling into it?
-
-[Severity: High]
-With this change, r8152_mdio_read() can return a negative errno on
-RTL8157/RTL8159. The failure comes from
-ocp_reg_read()->r8157_phy_read()->rtl_tgphy_access().
-
-Was set_carrier() meant to be converted too? It still treats the return
-value as register content:
-
-drivers/net/usb/r8152.c:set_carrier() {
-	if (r8152_mdio_read(tp, MII_BMSR) & BMSR_LSTATUS) {
-		if (!netif_carrier_ok(netdev)) {
-			tp->rtl_ops.enable(tp);
-			...
-			netif_carrier_on(netdev);
-			rtl_start_rx(tp);
-	...
-	} else {
-		if (netif_carrier_ok(netdev)) {
-			netif_carrier_off(netdev);
-			...
-			tp->rtl_ops.disable(tp);
-	...
-		if (rtl8152_get_speed(tp) & LINK_STATUS) {
-			set_bit(RTL8152_LINK_CHG, &tp->flags);
-			schedule_delayed_work(&tp->schedule, 0);
-		}
-	}
-}
-
--ENODEV is 0xffffffed, which has BMSR_LSTATUS (bit 2) set. If the
-device is gone and the carrier is off, set_carrier() would see link up.
-It would then call rtl_ops.enable(), netif_carrier_on() and
-rtl_start_rx().
-
--ETIMEDOUT is 0xffffff92, which has BMSR_LSTATUS clear. One TGPHY busy
-timeout from wait_tgphy_cmd_ready() while the carrier is up would read
-as link down. The carrier would go off and rtl_ops.disable() would run.
-rtl8152_get_speed() still reports LINK_STATUS, so LINK_CHG is
-rescheduled. Wouldn't that give a carrier off/on flap?
-
-set_carrier() runs from rtl_work_func_t() on every link change, and that
-function checks RTL8152_INACCESSIBLE only on entry. set_carrier() is
-missing from both lists in the commit message: the converted callers and
-the callers left for the follow-up series.
-
-[ ... ]
-
-> @@ -6726,12 +6929,19 @@ static int rtl8152_set_speed(struct r8152 *tp, u8 autoneg, u32 speed, u8 duplex,
->  		}
->  
->  		if (orig != new1) {
-> -			r8152_mdio_write(tp, MII_ADVERTISE, new1);
-> +			ret = r8152_mdio_write(tp, MII_ADVERTISE, new1);
-> +			if (ret < 0)
-> +				goto out;
-> +
->  			tp->mii.advertising = new1;
->  		}
->  
->  		if (tp->mii.supports_gmii) {
-> -			orig = r8152_mdio_read(tp, MII_CTRL1000);
-> +			ret = r8152_mdio_read(tp, MII_CTRL1000);
-> +			if (ret < 0)
-> +				goto out;
-> +
-> +			orig = ret;
->  			new1 = orig & ~(ADVERTISE_1000FULL |
->  					ADVERTISE_1000HALF);
-
-[ ... ]
-
-> @@ -6776,20 +6995,26 @@ static int rtl8152_set_speed(struct r8152 *tp, u8 autoneg, u32 speed, u8 duplex,
->  	if (test_and_clear_bit(PHY_RESET, &tp->flags))
->  		bmcr |= BMCR_RESET;
->  
-> -	r8152_mdio_write(tp, MII_BMCR, bmcr);
-> +	ret = r8152_mdio_write(tp, MII_BMCR, bmcr);
-> +	if (ret < 0) {
-> +		if (bmcr & BMCR_RESET)
-> +			set_bit(PHY_RESET, &tp->flags);
-> +		goto out;
-> +	}
-
-[Severity: Low]
-The commit message says a failed write in rtl8152_set_speed() leaves the
-cached advertising and a pending PHY reset untouched. Does that cover all
-the state changed before these early exits?
-
-In the autoneg branch, MII_ADVERTISE may already be written when the
-MII_CTRL1000 or OCP_10GBT_CTRL access fails. tp->mii.advertising and
-tp->ups_info.speed_duplex may already be updated too. The early return
-skips BMCR_ANRESTART. The PHY then keeps the new 10/100 advertisement
-together with the old 1000/multi-gig one, and the next renegotiation
-uses that mix.
-
-In the forced branch, tp->mii.force_media, tp->mii.full_duplex and
-tp->ups_info.speed_duplex are set before the MII_BMCR write. If that
-write fails, only PHY_RESET is restored, and the PHY is still
-autonegotiating.
-
-Since ret is non-zero, rtl8152_set_link_ksettings() keeps the old
-tp->autoneg/speed/duplex/advertising. Later in the series,
-r8157_ups_en() calls r8156_ups_flags(), which writes
-tp->ups_info.speed_duplex into USB_UPS_FLAGS. The stale value would then
-reach the UPS firmware as well.
-
-Should this partly applied state be rolled back, or should the commit
-message describe what is left behind?
-
-[ ... ]
-
-> @@ -7205,7 +7430,12 @@ static bool rtl8152_in_nway(struct r8152 *tp)
->  
->  static bool rtl8153_in_nway(struct r8152 *tp)
->  {
-> -	u16 phy_state = ocp_reg_read(tp, OCP_PHY_STATE) & 0xff;
-> +	u16 phy_state;
-> +
-> +	if (ocp_reg_read(tp, OCP_PHY_STATE, &phy_state) < 0)
-> +		return false;
-
-[Severity: Medium]
-Is false the safe answer when the read fails? RTL8157/RTL8159 use
-rtl8153_in_nway() as ops->in_nway. delay_autosuspend() relies on it to
-avoid suspending while the PHY is negotiating:
-
-drivers/net/usb/r8152.c:delay_autosuspend() {
-	...
-	/* If the linking down is occurred by nway, the device may miss the
-	 * linking change event. And it wouldn't wake when linking on.
-	 */
-	if (!sw_linking && tp->rtl_ops.in_nway(tp))
-		return true;
-	...
-}
-
-A TGPHY timeout while the PHY is mid-negotiation would let runtime
-suspend go ahead. The adapter could then miss the link-up wake event
-and stay suspended.
-
-Before this patch, a failed control transfer filled the data with 0xff
-through get_registers(). The low byte then read as "in nway", which
-delayed suspend. Would returning true on a failed read be the safer
-choice here?
-
-[ ... ]
-
-> @@ -9388,8 +9621,16 @@ int rtl8152_get_link_ksettings(struct net_device *netdev,
->  			 cmd->link_modes.supported, tp->support_10000full);
->  
->  	if (tp->support_2500full || tp->support_5000full || tp->support_10000full) {
-> -		u16 ocp_10gbt_ctrl = ocp_reg_read(tp, OCP_10GBT_CTRL);
-> -		u16 ocp_10gbt_stat = ocp_reg_read(tp, OCP_10GBT_STAT);
-> +		u16 ocp_10gbt_ctrl;
-> +		u16 ocp_10gbt_stat;
-> +
-> +		ret = ocp_reg_read(tp, OCP_10GBT_CTRL, &ocp_10gbt_ctrl);
-> +		if (ret < 0)
-> +			goto out_unlock;
-> +
-> +		ret = ocp_reg_read(tp, OCP_10GBT_STAT, &ocp_10gbt_stat);
-> +		if (ret < 0)
-> +			goto out_unlock;
-
-[Severity: Medium]
-The commit message says rtl8152_get_link_ksettings() propagates the
-error. Does that apply only to these two OCP_10GBT reads?
-
-Earlier in this function, mii_ethtool_get_link_ksettings() reads BMCR,
-BMSR, CTRL1000, STAT1000, ADVERTISE and LPA through tp->mii.mdio_read,
-which is read_mii_word(). After this patch, read_mii_word() turns a
-failed read into 0:
-
-	return ret < 0 ? 0 : ret;
-
-A BMCR of 0 looks like autoneg off with forced 10M half duplex.
-mii_ethtool_get_link_ksettings() also stores that duplex into
-tp->mii.full_duplex. Suppose the MII reads fail but the 10GBT reads
-succeed. Can ethtool then return success with a made-up forced 10M/half
-configuration?
-
-The same 0 makes mii_nway_restart() return -EINVAL (autoneg off) instead
-of the I/O error. That affects rtl8152_nway_reset() and the eee_set path.
-
-[ ... ]
-
--- 
-Sashiko AI review Â· https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261110032416.16968-1-nic_swsd%40realtek.com
+Thanks,
+Karl
