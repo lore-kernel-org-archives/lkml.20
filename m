@@ -1,93 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794640772;
-	b=r05ASegyiM6A85+EvPYKa55FtG+TgJOS00DBCvvKgrhz0mVLAR7SUayZkF6ISvuHFrvO
-	 JwWiAxgeCbHzr1dwFZaSG9n8UPjpQBkzMzbYMPKTvVkkl9s1OnrARQvbH8ZmOShPpRCW6
-	 L6cQNUjz7fuCl3cCPYUx6gP7JyqzUcWtMjm4rsoXv++v9ONfnH3Se9YeujC2a3PtLkYpT
-	 GuRxG9FNjph24E3zpCoX7c/x5sDZj1V/h/OC93U01iYhyUPqbF7fy6YlKK/uU2HA1xXao
-	 s0qvCPj65LM7oZNJGtRW5WevAk9Ir5wZizu+lGpvkyUZl2KwptUH7ApUOGrwaBLf4nQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794640772;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=8/GdzvtxKmiHkx7Wprg5vBg/lLqnSbK4sHJwh0fCEF0=;
-	b=1azGnS3Se2ISaTsEjGg8Fx1edFhy9yA0rqI7nTAoUPaD5h7oV3/kjU9/fK+Wn2QeFvo7
-	 /n+8th9quiJsgP9wOpQAEz3he8ngeNoaK0n8iiEghnbeYxpKHpXV+RyHozaVf/PX+y7KW
-	 wGCLrP4RpWdzspSkNjhazQRXIXt1omR+2ohvlstVXdYDs9BrqHX+6lwOpsTwNcdBFuGJA
-	 fqB45/8eGrHi6FIkRfGzKAHBh2wIVsU44KKBzbnGGWxbYlOjvNcJJ4DFSOiOaanPFdyN4
-	 G+aIR/zeVw5z4D64jvRaSulbosBVqWhU9w1eKuSAVH2hlBcnYSAL+pGQepxP+fyEJig==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=H6iatDZ3;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.171
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794641128;
+	b=z+V3GSQ19rpUbiktSkPK+Y7aos1hQjq5VzH7YWvIao71VL/0750hAe0aaPc0VyAeaGB7
+	 Jq/jx7lz8Izi2nA7GoR89a7M/gaEhs8F6ZiC1fr3VkIcXU4tmzDXUXU7wwDqLcrYUQGC/
+	 gQ1VDBHfBhhU+Kn+Do1EwgXMRrSZ6QjMGTz4gcOwzka+FD6IPHh5n7Db7CQLfQCJGK0mG
+	 1NQhav5Hb2YTxVzqOc3yjUgsvvIx47Q66XFeIE8gq60GZb7WFgizVhdaDXblJeb5OYSSI
+	 7CI5a01MUjtz5uwSue8vm+5neQGI5ovziBUrNYq5CSx8GN5+3i5Jt8as+hcc60RXTXQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794641128;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=FOpOMGwOLM8SRhOfI4bc8Q6VvL2aj4ajoW8MlVZKv38=;
+	b=5alf7Wh/hr+h+5wyDC51O6nW4bs6kkzZ7Fz0/wTtQA6z45gd+dVgNMehpuCL+OBJ1LX3
+	 HkkzwE2VPNb8xZr+Pwk42IPuflwdx1R37a7thgNAtrUwXdmycrw31EUJIkGpZgTWc6mSc
+	 lVYMR7uUYZrglMm4AnqBSfePxuha+MXGyC/hPqSS2hOCvPCxD66zFOVnrf2AZlv0MbSpT
+	 J+Ax2ArXb+aLaBy5nYOZnuCeoDN9WNus/e8NL4SOvH5NALHxFq6McKIXrGsDPotpTDbni
+	 kGvdwxk3NHhCTH1MtFVTjtojNSc+6tX+39TJCVTOjmaaG12QNnR/3dSaNSN9Xg+Mt6A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=uEaDDz95;
+	arc=none smtp.remote-ip=209.85.222.171
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0374606A329;
-	Sat, 14 Nov 2026 07:19:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0374606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84E99606A32D
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 07:25:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84E99606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=H6iatDZ3
-Received: from ptx.office.stw.pengutronix.de (ptx.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::109])
-	(Authenticated sender: relay-from-ptx.office.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 9900A20167D;
-	Sat, 14 Nov 2026 08:19:28 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794640768;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8/GdzvtxKmiHkx7Wprg5vBg/lLqnSbK4sHJwh0fCEF0=;
-	b=H6iatDZ3jxMyvn1FSBCMwP6IoQgQVoRDrO+bMQ3UT/rI/sFbTC2A/aS33e9LS2ximbkest
-	DgLifX8j8PutkI4FviHqly8L29CKLTRTsSYY3+7Z6i9VOn5SbFoKly+8DXOxejVe2TyqYM
-	8yRg2eNvAWGTQ8VfvBXoykP5oNhds6O8yz5rcRKajaDUGNE50AnC5rs6aRqQf3sapC7h8P
-	lXAvN2FglmbJc2oLaw9x/VAJWj/IJ+xnOsyvcMbtM7GxLj99Y1zW7o7Ne5CzOgNZzVjg2T
-	vZqXyl6QINwgzqGEKWUARNWAz6cJtqNLGB59TFBXe4mW33StyCv7Z9xySSP6JQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794640768;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8/GdzvtxKmiHkx7Wprg5vBg/lLqnSbK4sHJwh0fCEF0=;
-	b=YBsJfh3+5eL27NpeThVdcrO+FAYXtUd0vmL1Yj75odPC/sNNQj3loUZ1/fHuQUjiLPE8t/
-	Ll7MxhOtLIMfBRQyDyVuwFZTTj7I5Pi8UH6zD7gTTjCALeUq+2zEHZ4j4lt32QYEyP2MRR
-	3R89CkN2vGenIJ24pgHBEfIaehBGPeUzJg/xMU7tYw6NiN9SMlIjnumIp7LiuultSC3UqX
-	WtK/wzPsEXT4cH1SkA3i2+5EV+HWxFw+axo2rmmRU4uZlpNyaXIHZlV313FjZjAitsNmnw
-	1syQx1VbRuABW8JVyPvjMkYRcqU2yROY8i/BIpH0naguhF2dEdjchedpofbJXw==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794640768; a=rsa-sha256;
-	cv=none;
-	b=ZZGVU2/5L8jDFs9KwASXmvmgLZyYVWHRwGc3v8rbeUBwQpgjYWppEWEN/40vs4npXkscN5
-	Fq4DVKIvI7w+mCQ946Rv6QvZ3huecrNDE5JLcvUXTmrmmd2tQRmBcNbqfABFS+5DwccBmu
-	Uu5NmL0Pn6/fBV8Wgq06Yi3RQGt9Nr4lLuUVH9OVo1xvEpWrMyXEvG+nPwmhx8SUF3Hvy/
-	DbKgRojw2u7bajo+5KFMcDWsuXiMxFAauWUc0CNQyJ3BzFaAOpQqINQDRE25i8z4NwfLu8
-	0HtxGFmBHKlYabrQQlhP2hpOdP+sIPmi+AITRKo+aaWz6kC8x4N1tOavY9IcFQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-ptx.office.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
-Received: by ptx.office.stw.pengutronix.de (Postfix, from userid 1058)
-	id 6A3531C00E0; Sat, 14 Nov 2026 08:19:28 +0100 (CET)
-Date: Sat, 14 Nov 2026 08:19:28 +0100
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kernel@pengutronix.de,
-	Jens Emil Schulz =?utf-8?Q?=C3=98stergaard?= <jensemil.schulzostergaard@microchip.com>
-Subject: Re: [PATCH net-next 3/3] net: dsa: forget the port ageing time when
- the port leaves the bridge
-Message-ID: <avgLgGkgh8sJAqNE@pengutronix.de>
-References: <20261104-ksz-stp-ageing-v1-0-2c2bc7217dea@pengutronix.de>
- <20261104-ksz-stp-ageing-v1-3-2c2bc7217dea@pengutronix.de>
- <ac9079a2-a197-4572-9771-c04d4bba438f@lunn.ch>
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=uEaDDz95
+Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-94961d90b79so63599785a.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 23:25:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1794641126; x=1795245926; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=FOpOMGwOLM8SRhOfI4bc8Q6VvL2aj4ajoW8MlVZKv38=;
+        b=uEaDDz957LMgBdwavvtEYSujZ3m5D5PlEFFjYhpsPN7/NU/fwtpxznRDJ92m+i2WH/
+         efCyf2vhCjQtXdPvaHbwridlNUQX53P6T2z4p17qPmGEb8H4z9w2Uq+mpCSPirx60vEI
+         lgr9asU901PFNiNytOagMNaOy+cHb8To1w+7eP7DlF1kJHXsWfBYgkxhxHvD7mlDp49r
+         Qr9hv0Ft7bA6ygSZUr5EVSIWkqCLdX1spYhWA9zMUXdP5+H5C9rNqLDP2X/AlMYKmIXt
+         cJDyvWYErmX9LSQag3EZfnxW9NIaQBDg6BGaayzP5haJQnqaAPPkCbYpP0KTPN1BjKZh
+         Ytbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794641126; x=1795245926;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FOpOMGwOLM8SRhOfI4bc8Q6VvL2aj4ajoW8MlVZKv38=;
+        b=qr4n+hV+Frr2Pqz8MghO7DQNrMFGfK//Mqy1KU+P0En7dhk0FGBDXw/r4/y0li7ZWN
+         sxK4oYeaUHci7WdHSyH9FETG31s77VrGTSJVDeq2xpnlRHRKV4GUwzXoWn4LPIf4xpL4
+         dLHzhQHg83hVloVEw7d3jO6JXPS5Z/PfKGXsYKoEuhlV3+h6+jrB3tQ8YDX2uPsy9Q3O
+         a+8/gFaf781fJLR8OIus0FK3a1EdcAHg087vRrskOu8q7cRash05uNT9/GnhndQr/Fdx
+         0DMi6hI+UHezEBZXuoH0BxbsDy3kaTn5RyjB3FEvhXgoAVNBXP71odUk3v6Gaw6pyi0E
+         kh1g==
+X-Forwarded-Encrypted: i=1; AL+hErFwMXh6Ly5O3CRj5bHWFlIck2YWdsv9viqJQA+mU6Wz/d9VHZyMToyHHfV32KlCaTQFWSZkWR5CglguNwI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9+9XzukklTBbLP1V9fK1fuQ1I28+ivKIGRnMxAThu6x1dAyJvx
+	9wyvaAy+KVIpFvswMkq6Mb4cXjeSsVm+jHXt90BZ4wCctj+jGXSX6f5bluvbnuKitCk=
+X-Gm-Gg: AYBFou3kRsYeLBKbWH9NhmxVjI6xCJkkrwPXmpfF2j4uMWXqMkhZfUu1GslvDSjrZx2
+	kX8o0jluY7JH0mqZx6O2Thy8EjDA32M1a3SL2NfSUxrCrf+A/6NGSX09dG+igJRpkhA27p3fqCZ
+	tn6f/E4dHltwU3Vs0GwY8YC+s24FzxB4A72iAOxxQ9WArCTghRmyw844kCxahoUJhMpdbAkFt+0
+	v9V1Fwya0ig32SfJ22fleDsdpmrNTofhw9DwDavxYtzIm6jXsHAN4SVIRXbvdLzHTYKpIVomlQW
+	2wP44FoBj4IJCpXgYFWapa73c4marCVK1LQ3bnC/ar1fSZLcFrLgtwWT23YaZW0+A7lszOcF9Ha
+	JtY3+pzqqAGy2G//l4+34gIYkII/aKMjF/n1pyKuabMvKPrmF9PAiOuyLobADGCqrQAZ0Q1Ficn
+	SfZSXY2Ohr9b16+o1Doxo4Le6RsBHNl8aSsCKENC5IiVbAGYaaI8TxEzUq/uJBtJlrGaPAieWq+
+	XE1VjYq4CenbaJLrdl4r9C+WjFBTzN3EXT0jhNyx0kgM6n3/yRCOJ99qgWILwXowQZI0ma3cAMP
+	A4EesZCSTlgi6IDqFTwOCGFNXMwGpQEvhPvzRe6ZAZ0OikYIrhrllyTrRFGk5Ia9mQpSrYjlg0Z
+	Lie0jXA0=
+X-Received: by 2002:a05:620a:2a06:b0:93e:b0c3:388d with SMTP id af79cd13be357-9494b9432demr830714785a.11.1794641126492;
+        Fri, 13 Nov 2026 23:25:26 -0800 (PST)
+Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c803abbsm351077885a.7.2026.11.13.23.25.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 23:25:26 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,36 +89,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <ac9079a2-a197-4572-9771-c04d4bba438f@lunn.ch>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] mm/hmm: reject shadow-stack mappings
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, kernel-team@meta.com, leon@kernel.org, 
+ akpm@linux-foundation.org, david@kernel.org, kas@kernel.org, 
+ dave.hansen@linux.intel.com, bp@alien8.de, rppt@kernel.org, 
+ stable@vger.kernel.org, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+In-Reply-To: <20261114002027.GE3706007@nvidia.com>
+References: <20261113195536.2660763-1-gourry@gourry.net>
+ <20261113200303.GA395967@nvidia.com>
+ <179460249376.482102.14669935557901467762.b4-reply@b4>
+ <20261114002027.GE3706007@nvidia.com>
+Date: Sat, 14 Nov 2026 02:25:25 -0500
+Message-Id: <179464112539.482102.8723246686117488051.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-On Fri, Nov 06, 2026 at 02:30:05PM +0100, Andrew Lunn wrote:
-> On Wed, Nov 04, 2026 at 12:48:30PM +0100, Oleksij Rempel wrote:
-> > A port that leaves the bridge keeps its cached dp->ageing_time, and it
-> > still counts for dsa_switch_fastest_ageing_time(). A port that leaves
-> > during an STP topology change keeps the switch at the short value until
-> > the port joins a bridge again.
-> >
-> > Clear the cached value when the port leaves the bridge. The switch is
-> > not reprogrammed on leave. If the leaving port held the shortest ageing
-> > time, for example during a topology change, the switch keeps that value
-> > until the next ageing time change or bridge join in the DSA tree.
+On 2026-11-13 20:20 -0400, Jason Gunthorpe wrote:
+> On Fri, Nov 13, 2026 at 03:41:33PM -0500, Gregory Price (Meta) wrote:
+> > On 2026-11-13 16:03 -0400, Jason Gunthorpe wrote:
+> > > On Fri, Nov 13, 2026 at 02:55:36PM -0500, Gregory Price (Meta) wrote:
+> > > > HMM can grant ordinary device write access to a userspace shadow stack.
+> > > > On x86, pte_write() is true for a shadow-stack PTE, so a populated page
+> > > > can be returned with HMM_PFN_WRITE without taking a CPU write fault.
+> > > 
+> > > I'm not sure I understand this? The pte is writable but you don't want
+> > > only DMA to write to it?
+> > >
+> > > Is there something special on x86 that makes the shadow stack pte
+> > > non-writable by the CPU?
+> > >
+> > 
+> > Some of the context is here:
+> > https://lore.kernel.org/all/20261111-mason-migrate-et-al-fixes-v1-10-3d2454362e8d@kernel.org/
+> > 
+> > We had a similar issue with migration, but this should handle the DMA
+> > case as well.
+> > 
+> > It's "technically writable" but the kernel is supposed to prevent that.
+> 
+> Bah, it's not writable at all. The CPU PTE has write disabled and
+> someone thought it was a good idea to make pte_write() return true
+> because the CPU allows writes through a special instruction on this
+> special PTE? So now all the places like this think its writable, when
+> it really isn't.
 >
-> Does the software bridge trigger an ageing time change soon
-> afterwards?
 
-Only if a topology change is running. Its end is the next change.
+I completely missed this, that will teach me to trust pte_write() I
+guess... what a bizarre design choice.  I'm sure there's "reasons".
 
-> Does a port leaving the software bridge trigger a topology change?
+> You could also fix this by having something like pte_real_write() or
+> whatever that doesn't lie about the write bit in the PTE :|
+> 
 
-Sometimes, for example when the bridge becomes root afterwards. In my
-test it didn't
+or rename pte_write() to pte_fake_write() instead and restore
+pte_write() to its former truthful glory
 
-> I'm just trying to understand how long the fast ageing value will be
-> left in place.
+:| indeed
 
-With patch 3, until the topology change ends. Without it, until the port
-joins a bridge again.
+> The patch is still fine, in that it matches what everything else does,
+> but I'd include these details someplace..
+> 
 
-Oleksij
+Thank you for taking a closer look, I think Andrew's changelog
+adjustment is an improvement if you're ok with it.
+
+-- 
+~Gregory
+
