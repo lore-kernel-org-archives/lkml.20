@@ -1,67 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794699804;
-	b=DR4LX187jrj02oIj8pwsURnIFQeWwhuS9wi3mV3EAP7jSeeLlB/8t/KntohS+wdjW3yU
-	 SX4wgzhm093zUFllXZp0PBlG8AZA/IzLPYC+mlB1jk5aZi/ECcJ2yzyVqU4WeDySmTNJK
-	 m0Rbnw3dLq1UXTKWr3RhGZ+cnin+IuN14uaxqTse7kMOVd0fapXaPtzLFMtzisnHnZNYJ
-	 JQp4CkHfLMGzdL1yAm0FaaxHriOt44x+bK6R3HegOiytkrikjibpE70Qip6XDUBdqJr4t
-	 M5Um/PsL0T37adFlCmw90YlqN2O0C6p5f3rPQyLiHIyw90CIxiiHrcUhoLtPapcc5IA==
+	t=1794699814;
+	b=VSzaOxuELunZIlUrnCfAPpPTZrfDQTQ4rXXDx8UAK+yz2dfP/vvejWIH9Y4cnbhCJNl4
+	 U08C3/OUZ/2ylvFtwwHUjgk0XY10li3HeleRPfQ5tBW/Nt+px7Ls7J3Gk8wzTfH9vMaRX
+	 +1UnHFfamtYLPQK8DVBeRFWKK+kGBA9CQClcJxQgfQ+BVANc0/G+pP9gD3nejyANQAjxm
+	 mLdN3t7Rp7Ey3zuuBjiG2/AshGBcKFyn5NxKU5FCaVNzW5ZEJR9z4izUGmCAPXxJQe5ZI
+	 2SkkAxUZuwzWpA2Db42vihr9Xmg7fl1qr4D3LuQiOhj8tWE4jrXYI09P22x1GDCCuRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794699804;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Debian-User;
-	bh=nHvcGLEPN+KJmAbgmVxEdpoj9yjLpharhHP3szST0sk=;
-	b=NxzETiwkU0txrdfyBGHEoh26OGknEwwZyH86do2GWKMjo/kOR0ldFV1xKzOqQOWlkA7y
-	 4A/2RP+yz+bdXE9ckNKFnFBJqeXkj/UHSscqfyRgMY3y4Mddb5rpNfRHwEL3/13NWCrcS
-	 MoK8d4XGnoVEduUyT2tZx9Q2RxkEMvqf7ZkWrNad3dSEl+nFY/qTXgT/IwkBd5rDBzC5t
-	 qCuBmPJmgMFRmGYxOWXJatzFYiDPuW7I6VnzWHGcq7GC5ZhZdEzXD7aUg1Nyar10t0Iys
-	 HidGDL/6I5IpQJFsjvqfQXJmHSLc0qrpmmK9Lc8PQItTDN8a69p+PbwZIzZ8ffyk9JA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794699814;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=MxgAUxz8lITz4H+mvvbKLXgHIWwjdp7/ARMhyf/aP2k=;
+	b=5WRV+b3d3iEGvjbbVi4PDjhRcM9Mw1CYDEZ4KanG0QN6sdoHivVow+9ILMUb9ZzcPB/T
+	 hVZk56Gto5h9TvbPdSIJPZEQEzZVM6thPiuEScIcKjOr8J1HAQdDc9/OE4PVnjWUYQmlc
+	 5fgwTNl+DXPKNJJZIvns7FbEXAgB1ub/NObdxe/g4g7MyVDOSGWx7nsn5mZIacqORw8pe
+	 uiAUMAvtOc+sNeJDgu7EIb1ajvyrBdEUS8wEY+CICuU3T/Acln/CcaMiGcbEqw0WckLKI
+	 LKodxphBXuliNxcdi53yB9YTCk7bjSYe8+IfJSlqW2WlwDq0aypmvfruAbW2CR871kg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=VrZYV28P;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S0cNU0XM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A475606A89C;
-	Sat, 14 Nov 2026 23:43:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A475606A89C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59DAF606A33B;
+	Sat, 14 Nov 2026 23:43:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=VrZYV28P
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Content-Transfer-Encoding:MIME-Version
-	:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To:
-	Content-Type:Content-ID:Content-Description;
-	bh=nHvcGLEPN+KJmAbgmVxEdpoj9yjLpharhHP3szST0sk=; b=VrZYV28P5XFEWh86FGUtp8duzY
-	DlOwg3wehY9JWuqKkCtBIdjdO+j6kmDsq6GgnIxy5iiCDdf0EuxdDY+39Yo/bae+mWoXMS1tVgBLk
-	H2EGagjdhNN7aLacQZuEbDG8tnp2cmRAibmnCdNRtOP/TFla4MadcBFpqqi2rbs8XPNq3OqFD0DOZ
-	Q6Xn5agctL7FKPb5Ix5ndUN6R0M99D6iZ4oPXjhmo1LEQfQ+UxJSB0hYF4k5JuH3JtNxlC7zizgR+
-	MU+db5X3D3E5uxVqWO2/PlJ9kQ4yoIujY3C4oglkHtOD0j/EmvQQi41pGPhAXapsXUONwawwaBZod
-	xrzaEYpg==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <emfox@debian.org>)
-	id 1xSNOw-00FuGV-2r;
-	Sat, 14 Nov 2026 23:43:19 +0000
-From: Emfox Zhou <emfox@debian.org>
-To: Even Xu <even.xu@intel.com>,
-	Xinpeng Sun <xinpeng.sun@intel.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 5/5] HID: intel-thc-hid: intel-ipts: document the IPTS mode
-Date: Sun, 15 Nov 2026 07:42:42 +0800
-Message-ID: <20261114234242.177387-6-emfox@debian.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261114234242.177387-1-emfox@debian.org>
-References: <20261114234242.177387-1-emfox@debian.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S0cNU0XM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA3671F000C6;
+	Sat, 14 Nov 2026 23:43:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794699814;
+	bh=MxgAUxz8lITz4H+mvvbKLXgHIWwjdp7/ARMhyf/aP2k=;
+	h=From:To:Cc:Subject:Date;
+	b=S0cNU0XMTNWkFYuMguUbH6TECNztbe39I8DWNsRF75NLOPbbknrJT2eKguKaTNcHp
+	 ibLbh5zBRE76xkPqKclnz5p8HDDskfYQvuk8r/YylSnF3fN4Xm5/BKewx50ETD1hB9
+	 B+905+TQ+qWrO5vGxQDziFEuNuTUk6sYQIXJnKYFWgRds8aZi1XI0W5hqLFrmy8TgI
+	 slHcAePZyMxPNOPgOEeRMN+yqHk/gRdCP525aRtXqvzvtI3Ehs7JlATzwVOLC9SYbR
+	 LS9RgWLRplCLmI791pfaqyQlOS+6lnAu/hM+PPBWrqoXUJ5xl3QGfIrAL4ZfUWKB00
+	 bnL7QqU9kpMCA==
+From: Danilo Krummrich <dakr@kernel.org>
+To: dakr@kernel.org,
+	acourbot@nvidia.com,
+	aliceryhl@google.com,
+	abdiel.janulgue@gmail.com,
+	daniel.almeida@collabora.com,
+	robin.murphy@arm.com,
+	a.hindborg@kernel.org,
+	ojeda@kernel.org,
+	boqun@kernel.org,
+	gary@garyguo.net,
+	bjorn3_gh@protonmail.com,
+	lossin@kernel.org,
+	tmgross@umich.edu,
+	tamird@kernel.org,
+	work@onurozkan.dev
+Cc: driver-core@lists.linux.dev,
+	nova-gpu@lists.linux.dev,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org
+Subject: [PATCH 1/2] rust: scatterlist: tie owned tables to the device's bound lifetime
+Date: Sun, 15 Nov 2026 00:42:53 +0100
+Message-ID: <20261114234324.82387-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,125 +74,412 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Debian-User: emfox
 
-The THC documentation only covers HIDSPI and HIDI2C. Ports from before
-Meteor Lake run in a third mode, and the intel-ipts driver is
-written against behaviour that is not described anywhere in tree.
+Add a lifetime parameter to Owned that ties owned scatter-gather tables
+to the device's bound scope, ensuring their DMA mappings are released
+before the device is unbound.
 
-Record what the driver depends on: the layout of the configuration
-block, the frame codes and header sizes, the bulk data window, and the
-order in which quiesce, interrupt configuration and the DMA engines
-have to be set up.
+The DMA mapping currently holds a pointer into Owned, requiring the
+table to stay at a fixed address and its cleanup to be ordered around
+the device-managed mapping.
 
-Signed-off-by: Emfox Zhou <emfox@debian.org>
+Let DmaMappedSgt own RawSGTable and borrow Device<Bound>. Its destructor
+unmaps the entries before RawSGTable frees them, and Owned releases the
+backing pages last. This removes the internal pointer and makes the
+mapping constructor safe without a self-reference.
+
+Carry the device lifetime through Owned and its users. Remove pin
+initialization from Owned and SGTable, return tables by value, and update
+the callers accordingly.
+
+Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 ---
- Documentation/hid/intel-thc-hid.rst | 95 ++++++++++++++++++++++++++++-
- 1 file changed, 94 insertions(+), 1 deletion(-)
+ drivers/gpu/nova-core/firmware/radix3.rs |  29 +++--
+ rust/kernel/scatterlist.rs               | 141 ++++++++---------------
+ samples/rust/rust_dma.rs                 |  11 +-
+ 3 files changed, 62 insertions(+), 119 deletions(-)
 
-diff --git a/Documentation/hid/intel-thc-hid.rst b/Documentation/hid/intel-thc-hid.rst
-index 8b378c57b..0f6328aae 100644
---- a/Documentation/hid/intel-thc-hid.rst
-+++ b/Documentation/hid/intel-thc-hid.rst
-@@ -590,7 +590,100 @@ To debug THC, event tracing mechanism is used. To enable debug logs::
-   echo 1 > /sys/kernel/debug/tracing/events/intel_thc/enable
-   cat /sys/kernel/debug/tracing/trace
+diff --git a/drivers/gpu/nova-core/firmware/radix3.rs b/drivers/gpu/nova-core/firmware/radix3.rs
+index 94235bd1209d..a3e43fc8ec86 100644
+--- a/drivers/gpu/nova-core/firmware/radix3.rs
++++ b/drivers/gpu/nova-core/firmware/radix3.rs
+@@ -35,14 +35,11 @@
+ #[pin_data]
+ pub(crate) struct Radix3<'a> {
+     /// The mapped data.
+-    #[pin]
+-    data: SGTable<Owned<VVec<u8>>>,
++    data: SGTable<Owned<'a, VVec<u8>>>,
+     /// Level 2: one entry per page of `data`.
+-    #[pin]
+-    level2: SGTable<Owned<VVec<u8>>>,
++    level2: SGTable<Owned<'a, VVec<u8>>>,
+     /// Level 1: one entry per page of `level2`.
+-    #[pin]
+-    level1: SGTable<Owned<VVec<u8>>>,
++    level1: SGTable<Owned<'a, VVec<u8>>>,
+     /// Level 0: one page, whose single entry is the DMA address of the first `level1` page.
+     level0: Coherent<'a, [u64]>,
+     /// Length of `data`, in bytes.
+@@ -59,14 +56,14 @@ pub(crate) fn new(
  
--7. Reference
-+7. IPTS Mode
-+============
+         pin_init::pin_init_scope(move || {
+             Ok(try_pin_init!(Self {
+-                data <- SGTable::new(dev, data, DataDirection::ToDevice, GFP_KERNEL),
+-                level2 <- {
+-                    build_lvl(&data)
+-                        .map(|l2| SGTable::new(dev, l2, DataDirection::ToDevice, GFP_KERNEL))?
++                data: SGTable::new(dev, data, DataDirection::ToDevice, GFP_KERNEL)?,
++                level2: {
++                    let l2 = build_lvl(data)?;
++                    SGTable::new(dev, l2, DataDirection::ToDevice, GFP_KERNEL)?
+                 },
+-                level1 <- {
+-                    build_lvl(&level2)
+-                        .map(|l1| SGTable::new(dev, l1, DataDirection::ToDevice, GFP_KERNEL))?
++                level1: {
++                    let l1 = build_lvl(level2)?;
++                    SGTable::new(dev, l1, DataDirection::ToDevice, GFP_KERNEL)?
+                 },
+                 level0: {
+                     // Allocate the level 0 page table as a device-visible DMA object, and map the
+@@ -81,7 +78,7 @@ pub(crate) fn new(
+                     let mut level0 = CoherentBox::<'_, [u64]>::zeroed_slice(
+                         dev,
+                         GSP_PAGE_SIZE / size_of::<u64>(),
+-                        GFP_KERNEL
++                        GFP_KERNEL,
+                     )?;
+                     level0[0] = level1_entry_addr.to_le();
+ 
+@@ -105,7 +102,7 @@ pub(crate) fn size(&self) -> usize {
+ 
+ /// Returns the size of the level that maps `sg_table`: one `u64` entry per [`GSP_PAGE_SIZE`]
+ /// page of each DMA-mapped region, rounded up to whole pages.
+-fn lvl_size(sg_table: &SGTable<Owned<VVec<u8>>>) -> usize {
++fn lvl_size(sg_table: &SGTable<Owned<'_, VVec<u8>>>) -> usize {
+     let entries: usize = sg_table
+         .iter()
+         .map(|sg_entry| usize::from_safe_cast(sg_entry.dma_len()).div_ceil(GSP_PAGE_SIZE))
+@@ -122,7 +119,7 @@ fn lvl_size(sg_table: &SGTable<Owned<VVec<u8>>>) -> usize {
+ ///
+ /// - `ENOMEM` if the level cannot be allocated.
+ /// - `EINVAL` if `sg_table` yields more entries than [`lvl_size`] sized the level for.
+-fn build_lvl(sg_table: &SGTable<Owned<VVec<u8>>>) -> Result<VVec<u8>> {
++fn build_lvl(sg_table: &SGTable<Owned<'_, VVec<u8>>>) -> Result<VVec<u8>> {
+     let mut dst = VVec::<u8>::zeroed(lvl_size(sg_table), GFP_KERNEL).map_err(|_| ENOMEM)?;
+     let mut entries = dst.chunks_exact_mut(size_of::<u64>());
+ 
+diff --git a/rust/kernel/scatterlist.rs b/rust/kernel/scatterlist.rs
+index 6379a8748117..93f431d7f548 100644
+--- a/rust/kernel/scatterlist.rs
++++ b/rust/kernel/scatterlist.rs
+@@ -19,7 +19,8 @@
+ //! The main entry point is the [`SGTable`] type, which represents a complete scatter-gather table.
+ //! It can be either:
+ //!
+-//! - An owned table ([`SGTable<Owned<P>>`]), created from a Rust memory buffer (e.g., [`VVec`]).
++//! - An owned table ([`SGTable<Owned<'a, P>>`]), created from a Rust memory buffer (e.g.,
++//!   [`VVec`]) and tied to the [`Device<Bound>`] lifetime.
+ //!   This type manages the allocation of the `struct sg_table`, the DMA mapping of the buffer, and
+ //!   the automatic cleanup of all resources.
+ //! - A borrowed reference (&[`SGTable`]), which provides safe, read-only access to a table that was
+@@ -33,15 +34,13 @@
+     alloc::allocator::VmallocPageIter,
+     bindings,
+     device::{Bound, Device},
+-    devres::Devres,
+     dma,
+     error,
+     page,
+     prelude::*,
+-    sync::aref::ARef,
+     types::Opaque, //
+ };
+-use core::{ops::Deref, ptr::NonNull};
++use core::ops::Deref;
+ 
+ /// A single entry in a scatter-gather list.
+ ///
+@@ -123,9 +122,7 @@ unsafe impl Sync for Borrowed {}
+ ///
+ /// All [`SGTable`] variants can be iterated over the individual [`SGEntry`]s.
+ #[repr(transparent)]
+-#[pin_data]
+ pub struct SGTable<T: private::Sealed = Borrowed> {
+-    #[pin]
+     inner: T,
+ }
+ 
+@@ -177,63 +174,41 @@ pub fn iter(&self) -> SGTableIter<'_> {
+ ///
+ /// # Invariants
+ ///
+-/// - `sgt` is a valid pointer to a `struct sg_table` for the entire lifetime of the
+-///   [`DmaMappedSgt`].
+ /// - `sgt` is always DMA mapped.
+-struct DmaMappedSgt {
+-    sgt: NonNull<bindings::sg_table>,
+-    dev: ARef<Device>,
++struct DmaMappedSgt<'a> {
++    dev: &'a Device<Bound>,
++    sgt: RawSGTable,
+     dir: dma::DataDirection,
+ }
+ 
+-// SAFETY: `DmaMappedSgt` can be sent to any task.
+-unsafe impl Send for DmaMappedSgt {}
+-
+-// SAFETY: `DmaMappedSgt` has no interior mutability and can be accessed concurrently.
+-unsafe impl Sync for DmaMappedSgt {}
+-
+-impl DmaMappedSgt {
+-    /// # Safety
+-    ///
+-    /// - `sgt` must be a valid pointer to a `struct sg_table` for the entire lifetime of the
+-    ///   returned [`DmaMappedSgt`].
+-    /// - The caller must guarantee that `sgt` remains DMA mapped for the entire lifetime of
+-    ///   [`DmaMappedSgt`].
+-    unsafe fn new(
+-        sgt: NonNull<bindings::sg_table>,
+-        dev: &Device<Bound>,
+-        dir: dma::DataDirection,
+-    ) -> Result<Self> {
++impl<'a> DmaMappedSgt<'a> {
++    /// Takes ownership of `sgt` and maps it for DMA.
++    fn new(dev: &'a Device<Bound>, sgt: RawSGTable, dir: dma::DataDirection) -> Result<Self> {
+         // SAFETY:
+         // - `dev.as_raw()` is a valid pointer to a `struct device`, which is guaranteed to be
+         //   bound to a driver for the duration of this call.
+-        // - `sgt` is a valid pointer to a `struct sg_table`.
++        // - `sgt.as_raw()` is a valid pointer to a `struct sg_table`.
+         error::to_result(unsafe {
+-            bindings::dma_map_sgtable(dev.as_raw(), sgt.as_ptr(), dir.into(), 0)
++            bindings::dma_map_sgtable(dev.as_raw(), sgt.as_raw(), dir.into(), 0)
+         })?;
+ 
+-        // INVARIANT: By the safety requirements of this function it is guaranteed that `sgt` is
+-        // valid for the entire lifetime of this object instance.
+-        Ok(Self {
+-            sgt,
+-            dev: dev.into(),
+-            dir,
+-        })
++        // INVARIANT: `sgt` was successfully DMA mapped and is owned by this object until drop.
++        Ok(Self { dev, sgt, dir })
+     }
+ }
+ 
+-impl Drop for DmaMappedSgt {
++impl Drop for DmaMappedSgt<'_> {
+     #[inline]
+     fn drop(&mut self) {
+         // SAFETY:
+         // - `self.dev.as_raw()` is a pointer to a valid `struct device`.
+         // - `self.dev` is the same device the mapping has been created for in `Self::new()`.
+-        // - `self.sgt.as_ptr()` is a valid pointer to a `struct sg_table` by the type invariants
+-        //   of `Self`.
++        // - `self.sgt.as_raw()` is a valid pointer to a `struct sg_table` for the lifetime of
++        //   `self`.
+         // - `self.dir` is the same `dma::DataDirection` the mapping has been created with in
+         //   `Self::new()`.
+         unsafe {
+-            bindings::dma_unmap_sgtable(self.dev.as_raw(), self.sgt.as_ptr(), self.dir.into(), 0)
++            bindings::dma_unmap_sgtable(self.dev.as_raw(), self.sgt.as_raw(), self.dir.into(), 0)
+         };
+     }
+ }
+@@ -308,38 +283,27 @@ fn drop(&mut self) {
+ ///
+ /// - The backing memory pages.
+ /// - The `struct sg_table` allocation (`sgt`).
+-/// - The DMA mapping, managed through a [`Devres`]-managed `DmaMappedSgt`.
++/// - The DMA mapping, released before the table and backing pages are freed.
+ ///
+ /// Users interact with this type through the [`SGTable`] handle and do not need to manage
+ /// [`Owned`] directly.
+-#[pin_data]
+-pub struct Owned<P> {
++pub struct Owned<'a, P> {
+     // Note: The drop order is relevant; we first have to unmap the `struct sg_table`, then free the
+     // `struct sg_table` and finally free the backing pages.
+-    #[pin]
+-    dma: Devres<DmaMappedSgt>,
+-    #[pin]
+-    sgt: RawSGTable,
++    dma: DmaMappedSgt<'a>,
+     _pages: P,
+ }
+ 
+-// SAFETY: `Owned` can be sent to any task if `P` can be send to any task.
+-unsafe impl<P: Send> Send for Owned<P> {}
+-
+-// SAFETY: `Owned` has no interior mutability and can be accessed concurrently if `P` can be
+-// accessed concurrently.
+-unsafe impl<P: Sync> Sync for Owned<P> {}
+-
+-impl<P> Owned<P>
++impl<'a, P> Owned<'a, P>
+ where
+-    for<'a> P: page::AsPageIter<Iter<'a> = VmallocPageIter<'a>> + 'static,
++    for<'b> P: page::AsPageIter<Iter<'b> = VmallocPageIter<'b>> + 'static,
+ {
+     fn new(
+-        dev: &Device<Bound>,
++        dev: &'a Device<Bound>,
+         mut pages: P,
+         dir: dma::DataDirection,
+         flags: alloc::Flags,
+-    ) -> Result<impl PinInit<Self, Error> + '_> {
++    ) -> Result<Self> {
+         let page_iter = pages.page_iter();
+         let size = page_iter.size();
+ 
+@@ -367,34 +331,22 @@ fn new(
+ 
+         let max_segment = max_mapping_size.min(max_seg_size);
+ 
+-        Ok(try_pin_init!(&this in Self {
+-            // SAFETY:
+-            // - `page_vec` is a `KVec` of valid `struct page *` obtained from `pages`.
+-            // - The pages contained in `pages` remain valid for the entire lifetime of the
+-            //   `RawSGTable`.
+-            sgt: unsafe { RawSGTable::new(&mut page_vec, size, max_segment, flags) }?,
+-            dma <- {
+-                // SAFETY: `this` is a valid pointer to uninitialized memory.
+-                let sgt = unsafe { &raw mut (*this.as_ptr()).sgt }.cast();
+-
+-                // SAFETY: `sgt` is guaranteed to be non-null.
+-                let sgt = unsafe { NonNull::new_unchecked(sgt) };
+-
+-                // SAFETY:
+-                // - It is guaranteed that the object returned by `DmaMappedSgt::new` won't out-live
+-                //   `sgt`.
+-                // - `sgt` is never DMA unmapped manually.
+-                // - `sgt` is structurally pinned and therefore cannot move.
+-                Devres::new(dev, unsafe { DmaMappedSgt::new(sgt, dev, dir) })
+-            },
++        // SAFETY:
++        // - `page_vec` is a `KVec` of valid `struct page *` obtained from `pages`.
++        // - The pages contained in `pages` remain valid for the entire lifetime of the
++        //   `RawSGTable`.
++        let sgt = unsafe { RawSGTable::new(&mut page_vec, size, max_segment, flags) }?;
 +
-+THC also supports IPTS mode, the private Intel Precise Touch and Stylus
-+protocol. The port drives the touch controller over plain SPI and moves the
-+data through the same DMA engines, but the framing is private and the
-+parameters come from the controller itself instead of ACPI. The
-+``intel-ipts`` module handles ports in that mode, which is what Tiger Lake,
-+Lakefield, Alder Lake and Raptor Lake hardware use.
-+
-+This section describes how the driver uses those ports. It is not a
-+specification: everything below comes from observing the controller and is
-+limited to what this driver relies on.
-+
-+7.1 Configuration Block
-+-----------------------
-+
-+At SPI address 0 the controller exposes a 64 byte block. The driver reads it
-+over the PIO path after releasing the controller from reset, and retries
-+until the tag ``$TIC`` (``0x43495424``) appears, because the block is only
-+partially filled while the controller is still starting.
-+
-+Fields the driver uses:
-+
-+======  ==========================================================
-+Offset  Meaning
-+======  ==========================================================
-+0x00    pending interrupt causes
-+0x08    buffer sizes, ``(size / 64) - 1``; Rx bits 13:0, Tx 23:14
-+0x0c    touch engine control, writable
-+0x14    controller tag, ``$TIC``
-+0x18    SPI timing the controller asks for
-+0x1c    vendor and product ID reported to HID
-+0x20    product revision
-+0x24    firmware version word
-+======  ==========================================================
-+
-+The touch engine control word carries an enable bit, a bit asking for HID
-+reports instead of raw data, and a three bit power state. The driver enables
-+it with reports and full power, and clears it again when the port is shut
-+down.
-+
-+7.2 Frames
-+----------
-+
-+Both directions carry a code and a length in front of the payload. Frames
-+from the controller use a 64 byte header, frames to it an 8 byte header, and
-+only the latter has the payload padded to a four byte boundary.
-+
-+==== ========================== =======================
-+Code Received from controller   Sent to controller
-+==== ========================== =======================
-+3    input report               set feature
-+4    feature report             get feature
-+5    report descriptor          output report
-+7    reset request              get report descriptor
-+==== ========================== =======================
-+
-+A report descriptor comes back with eight bytes of preamble that the driver
-+skips.
-+
-+7.3 Data Window
-+---------------
-+
-+Bulk transfers go through address ``0x1000`` of the controller, not through
-+address 0. The DMA engines have to be pointed there explicitly, otherwise
-+they write into the configuration block and the controller drops the frames
-+without reporting an error. The input header address is zero: that is where
-+the controller writes the interrupt cause word, at the start of the
-+configuration block.
-+
-+7.4 Enabling and Flow Control
-+-----------------------------
-+
-+The port has to be released from quiesce before the controller will send
-+anything: quiescing gates the whole data path, not just the interrupt. The
-+interrupt configuration programs the interrupt type field in the device to
-+the invalid value, and starting the receive engine then replaces that field
-+with the type it expects, so the two have to happen in that order.
-+
-+The controller starts streaming once user space asks for it, through a set
-+feature request on report 5. The driver does not do that on its own; the
-+daemon that opens hidraw sends it.
-+
-+7.5 What Is Left to User Space
-+------------------------------
-+
-+The reports carry heatmap data, and turning that into contacts is a
-+substantial image-processing job that already exists in user space. The
-+driver therefore stops at the HID layer: the report descriptor comes from
-+the controller and is not written by the driver, the report stream is
-+available through hidraw, and ``iptsd`` decodes it into input events.
-+
-+8. Reference
- ============
- - HIDSPI: https://download.microsoft.com/download/c/a/0/ca07aef3-3e10-4022-b1e9-c98cea99465d/HidSpiProtocolSpec.pdf
- - HIDI2C: https://download.microsoft.com/download/7/d/d/7dd44bb7-2a7a-4505-ac1c-7227d3d96d5b/hid-over-i2c-protocol-spec-v1-0.docx
++        Ok(Self {
++            dma: DmaMappedSgt::new(dev, sgt, dir)?,
+             _pages: pages,
+-        }))
++        })
+     }
+ }
+ 
+-impl<P> SGTable<Owned<P>>
++impl<'a, P> SGTable<Owned<'a, P>>
+ where
+-    for<'a> P: page::AsPageIter<Iter<'a> = VmallocPageIter<'a>> + 'static,
++    for<'b> P: page::AsPageIter<Iter<'b> = VmallocPageIter<'b>> + 'static,
+ {
+     /// Allocates a new scatter-gather table from the given pages and maps it for DMA.
+     ///
+@@ -403,8 +355,7 @@ impl<P> SGTable<Owned<P>>
+     /// pages of `P`, and maps the table for DMA with the specified [`Device`] and
+     /// [`dma::DataDirection`].
+     ///
+-    /// The DMA mapping is managed through [`Devres`], ensuring that the DMA mapping is unmapped
+-    /// once the associated [`Device`] is unbound, or when the [`SGTable<Owned>`] is dropped.
++    /// The table is tied to the [`Device<Bound>`] lifetime and unmaps the DMA mapping when dropped.
+     ///
+     /// # Parameters
+     ///
+@@ -428,38 +379,38 @@ impl<P> SGTable<Owned<P>>
+     ///     let size = 4 * page::PAGE_SIZE;
+     ///     let pages = VVec::<u8>::with_capacity(size, GFP_KERNEL)?;
+     ///
+-    ///     let sgt = KBox::pin_init(SGTable::new(
++    ///     let sgt = SGTable::new(
+     ///         dev,
+     ///         pages,
+     ///         dma::DataDirection::ToDevice,
+     ///         GFP_KERNEL,
+-    ///     ), GFP_KERNEL)?;
++    ///     )?;
+     ///
+     ///     Ok(())
+     /// }
+     /// ```
+     pub fn new(
+-        dev: &Device<Bound>,
++        dev: &'a Device<Bound>,
+         pages: P,
+         dir: dma::DataDirection,
+         flags: alloc::Flags,
+-    ) -> impl PinInit<Self, Error> + '_ {
+-        try_pin_init!(Self {
+-            inner <- Owned::new(dev, pages, dir, flags)?
++    ) -> Result<Self> {
++        Ok(Self {
++            inner: Owned::new(dev, pages, dir, flags)?,
+         })
+     }
+ }
+ 
+-impl<P> Deref for SGTable<Owned<P>> {
++impl<P> Deref for SGTable<Owned<'_, P>> {
+     type Target = SGTable;
+ 
+     #[inline]
+     fn deref(&self) -> &Self::Target {
+         // SAFETY:
+-        // - `self.inner.sgt.as_raw()` is a valid pointer to a `struct sg_table` for the entire
++        // - `self.inner.dma.sgt.as_raw()` is a valid pointer to a `struct sg_table` for the entire
+         //   lifetime of `self`.
+         // - The backing `struct sg_table` is not modified for the entire lifetime of `self`.
+-        unsafe { SGTable::from_raw(self.inner.sgt.as_raw()) }
++        unsafe { SGTable::from_raw(self.inner.dma.sgt.as_raw()) }
+     }
+ }
+ 
+@@ -467,7 +418,7 @@ mod private {
+     pub trait Sealed {}
+ 
+     impl Sealed for super::Borrowed {}
+-    impl<P> Sealed for super::Owned<P> {}
++    impl<P> Sealed for super::Owned<'_, P> {}
+ }
+ 
+ /// An [`Iterator`] over the DMA mapped [`SGEntry`] items of an [`SGTable`].
+diff --git a/samples/rust/rust_dma.rs b/samples/rust/rust_dma.rs
+index ffb693544673..844e137cddc8 100644
+--- a/samples/rust/rust_dma.rs
++++ b/samples/rust/rust_dma.rs
+@@ -35,8 +35,7 @@
+ struct DmaSampleData<'bound> {
+     pdev: &'bound pci::Device<Bound>,
+     ca: Coherent<'bound, [MyStruct]>,
+-    #[pin]
+-    sgt: SGTable<Owned<VVec<u8>>>,
++    sgt: SGTable<Owned<'bound, VVec<u8>>>,
+ }
+ 
+ const TEST_VALUES: [(u32, u32); 5] = [
+@@ -96,13 +95,9 @@ fn probe<'bound>(
+             let size = 4 * page::PAGE_SIZE;
+             let pages = VVec::with_capacity(size, GFP_KERNEL)?;
+ 
+-            let sgt = SGTable::new(pdev.as_ref(), pages, DataDirection::ToDevice, GFP_KERNEL);
++            let sgt = SGTable::new(pdev.as_ref(), pages, DataDirection::ToDevice, GFP_KERNEL)?;
+ 
+-            Ok(try_pin_init!(Self::Data {
+-                pdev,
+-                ca,
+-                sgt <- sgt,
+-            }))
++            Ok(try_pin_init!(Self::Data { pdev, ca, sgt }))
+         })
+     }
+ }
+
+base-commit: 2268cf8e3d7b4192629e4beff4a413efe5501f11
+-- 
+2.56.1
+
