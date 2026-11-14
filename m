@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794645516;
-	b=dRlbAGYFqfFO4Iz0XcG3cBhUF3vY+3BqLsSD0jdnaEDs9i8PYc1tjWcU4mfDhd87A1OG
-	 mjcGQGd/893gDzKikiQQpz7HndXBGSoOZde3uqaBfxkoYrieZAJE9DKIHjZfox0BCaI5k
-	 /zZEBCZuU0QZSLQ91Loq4CwqQjUwI1fmGTXnrA811yFnljYc4UREwYQjpLBYjg0vK+Rwq
-	 gP/XP9J8Wc/lCYxTGZnOIjE//S/IWWmAfeSxDDesiNRHpnFZp1Esg38YsR3UziRFCtx1d
-	 hxEHRTSfxO6FM5F1tn4xWg4k5s0cbP0bMHIs8uX39HZrq7R0fQtgLO1qLsbcddAGDYQ==
+	t=1794645519;
+	b=aa4wYzY4Vgv4IAkI7Tbeq11qZggYefOdV5DBRiW5eCojm6PTiM5g/TxraDqT5d49VzMm
+	 yv9/EmFj7VjcresVA1VXzdkr/08UQGxHrGSM9WlpcSW1gVpbjsXMrDoG6Rf0D4jNBwBIJ
+	 dQzvYCA5IJB6fhjnMZVESgRHfKFdf05YYEY8TQl2fqxnkCmGZldwQ/2i/boieVOQgU6fn
+	 g5tpfpQe9aZLn5Shg2plY2EuZIW1JyPZE4KMPo79+DLPXOcP2B5dRHwQcV5CMl8yN071/
+	 U9AHO9UOq4zAqcOMKQucXUGxOlX4YlDoRFSSpl35OJk7+Tcs8zzxYhcgpn84WSndLsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794645516;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794645519;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=YYFVJGGbyI9lOzoIR2dS97Q3Ec0TWi5IYxjDhkHBa8U=;
-	b=phyovtHiWr3i4IalluTm7+lCPD/rgPpf36e+2ZYZCc5xa9RJrJ9/wOfw3ssrQEf34Fup
-	 Sy/Pozd+58ERmh+q4uuYKKOnySd674R+qinRS43nuROWl4I8m5X2+epGUMlM1OspytR5F
-	 dM6AKvwo1bnIu3U0IfXtCJVIXS42lWvTZ2Fo2njga9IqYTe8qe2qPKNuHA7Un8AXnev+2
-	 esbi5F4mkDxFGxxITWLwLegrhgKfyBTGHexuRlFuxuDamPafQkYtLpZdDO0b71j6Sze3m
-	 99iReOY3b8BJmN3yzRlIjg6BitL6Rx2aDeQ/a0Ayo7Tj9xpEHtJwHPY/PFzKa3qX+2g==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=IrLTARzuKGpNCEUALTN/Yh4br8W0rH7Am+lSrApsbX0=;
+	b=Kxz/uxbmHZL/bTWAAxeVNkHgmgsOJmiCzaUXBPhzCPVRwtqQLAJMsIu8/N7b1W1LxMtG
+	 eabNFLhAJmrk4AOA2AhU32RUer20DAaDR8RLD+thizAFdy/V/I/zk09H/dBcVfDFiB3Tg
+	 x/OtFQRjrZYyehnLrNWGnJFSz8ZAB9E8cZP6BGcXefMM8YfrbBIRKvDfbXiwqDRCuck/R
+	 WRPRqkLwmkfPtP1wrW07se4JOEsETwmGMdeq5leGsbEe1Gystkf3f1e7yklcgGl+drmdJ
+	 +6wCKr5PGXqCw+VXi/5bSbLR/CDZwlJlvhudeP7gqairj/cxThdOnrsp30ouWI4IdvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RJvV71qL;
-	arc=none smtp.remote-ip=209.85.167.45
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t0Mb++yI;
+	arc=none smtp.remote-ip=209.85.208.173
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68254606A330
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:38:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68254606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8BD8606A89E
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:38:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8BD8606A89E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RJvV71qL
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5be4b61fd3dso1796685e87.3
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 00:38:35 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t0Mb++yI
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3adff684a52so22905421fa.1
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 00:38:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794645514; x=1795250314; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YYFVJGGbyI9lOzoIR2dS97Q3Ec0TWi5IYxjDhkHBa8U=;
-        b=RJvV71qLB4A5+TxPVIrOLati6BchBPyqQWwB81OvQdBLtvmVhWmZbposYFQ3X0KQwQ
-         ikbJOPNhi+fmRKqb8dxHA2mkFMXyRjVqBlz/6Xn5CEUJqPwXT4kf6N+R2gj4A8aBMVB6
-         YrEMvRdiPrvdWeesu775bVTSSEfISf2wFjFFMecE8Ty4W7Bx1SBRCD7tB5NcLihcI0Qo
-         /qxqsnsiQ+fid9GjsApiF0LJYm5u4B0MTe9zUGHecVbqVmiMZx9eYu1oKcNtk6hh94+3
-         BBUlgxVn1aU1CI4P8qXE3hOc4H7extgTx6/uW4btcz6fJT/6qdTSi/rH6+gxFUmub3Tf
-         69Qw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794645514; x=1795250314;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794645517; x=1795250317; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=YYFVJGGbyI9lOzoIR2dS97Q3Ec0TWi5IYxjDhkHBa8U=;
-        b=YPJ7n78JLFEFtDtML1KRE2m3kHxe9L3rOLfxa5EXHe0gKYQcigwrGATpcUmsLuCWpD
-         Gy0liei+LNz0AaE1TRHkcAILrHl0muVV/aep8fKLz/0APwp9TpQaXpQ8UCUl3mZi6TDN
-         K65uWJbXCVOxPMtJXj2D+MMUs3CXO6ZzAjQo1BoJN4kbN0nfdT+8uN2HSokoqMCNtqUA
-         Ms6dD058wK2a0rWPsgG5oGUH/0sA/ZGEKcn6vMS+glmWkvwKjSX2pcgihocBob8iNubR
-         rSMYHXgle9fWuyE3kDX5mt0vQG3lKdjbjcCWafTQutcfhdJZpXK3L1EIP6kLu8pYAcry
-         6GXw==
-X-Forwarded-Encrypted: i=1; AL+hErGIUm4pGDx/xSj7lMnT4nlFfeVS+DEmr2zR2iImN01/qj/5ks3VW+GHSrFeNcYT2zamx2l1gPS9pi/RvP4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/9w91J3yUq6KYu0AZ9/BpIVE6IdWGzDMRgiyi9ZboBDmjGEaK0
-	ydGOKRSJDYxXhVdD2Je6mJ2slhYJsi9bwBC3QKM0rSa078mxdCuEe03W
-X-Gm-Gg: AYBFou02ERMlYA1Kb16fs5rBQ4mxoV/EQdevY4fp6ZaAnvD6ThN2HlKHgi00D5YawU9
-	2+uxc8buCbK3IZygNMmleBme0SiZ6stXfJMdmbXbNpu+svCXj/YKHuYMUtkkODu7riyMPkZZ+RH
-	JLQfNS6J+mXnK/t0A4m2eGx98FWkjnc2M+DJ66vMwx0a/eUuZ/mWALfWyrIMQ2kREtgeR3qDgOu
-	PXOz17X4VMTl+lO6dKJlRiI81dKsyoxYRjD3vDOcstRvkHrKAoZh7uxNxx1UMd4ikz/eJbNYfGy
-	gsmhpemvHhrVtaLHP7s9zsbmL2fmj2J2OhvtkhJoX8Z3yval+QXCEU5x3S4zMqOWAcVTN+F2xi3
-	hm4cE+eRy1MvHc9fy2B6qzAFkBgCGFDZBHsSoIJwbE6zax+dKsTXDMgnQJ9t5XNPyAk/TzYu6em
-	0k276GDN94boTUdSqX6cQDjIKL79Md2T1XpbJlOObgbLIgcbeudctyNUlsSZW5CRgkrxvuaKhUz
-	kY5TGQ9D8GZ3ThCUcKNRgFnE4ft/ujobZqZ+Mc1gGVlyvK8Wrqq+/Ep+PujnKUYYL698i/J3uNc
-	70S5kHiL41l3NYKWwdCKv66f49vcd/Chupe4Fr/ys98yG/0V5hkfn1dyTc+GljH+AEFrpKH+IeP
-	oWzBHadGdO87HO6CW3xBHUfCWpXuwwV4MtRsTynPJsaqwYdvf1bnJfa10f0Q=
-X-Received: by 2002:a05:6512:401b:b0:5be:516e:5728 with SMTP id 2adb3069b0e04-5c170774474mr1723810e87.32.1794645513336;
-        Sat, 14 Nov 2026 00:38:33 -0800 (PST)
+        bh=IrLTARzuKGpNCEUALTN/Yh4br8W0rH7Am+lSrApsbX0=;
+        b=t0Mb++yIbpunMuxHHwKZuirS6kHgEIlj7XoC7EmEihDJtgIj3Cwk0gKAO0305MGXd0
+         3x9PYJr/2WJaI9StZ+dQCTjk2p4jiHiIeqgQTk4fJ+hofbbc05trklIFVtT1OxHXg2XI
+         0rOiEvHMjiOs39KnOMCkVnXpKveQgC3j3e+eX1JYHZMAyGiJ7NEa4p2Q7ZK2QCH26w7F
+         MuGf0LMQ7sun8vH0IRFRrUBUvHvrTNgqKhkWKtd3+t8rn3n6g782HAAhCOUvS6Hjzwyi
+         D99bK9fHfdNZ5mSEyRLhMpESKW2A2+gOb1Di6Y1cQMdqIqyJHuQFV+Uqz8IKAjb3BKNQ
+         L2+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794645517; x=1795250317;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IrLTARzuKGpNCEUALTN/Yh4br8W0rH7Am+lSrApsbX0=;
+        b=CkMSMXGdQeESYxmhr+0t92p/LSCDYzRAKOQfKut+rZhR6TRts2aYoNdMMBwdMUsEu3
+         k5Wj6lW7CYjii6IXiwUxIc6PUK0ccHkkgjBXf3Psa4P364mK46AUy1q7HLlxLnqi0Hlv
+         PdgHRdSinEmulpKIBZvVt4kj7p9trPEZydztB1C/SxP3HxtYiufeAUmsqP3hyfEigyNr
+         fWX9953Udwd6fN4c/pS7YD5Ms4p7bIWbZ/OHDyOzlTCIv0v0E5mNFYLFoJ5qZsjjpM3W
+         WNWS63hxxKoAyL2N+40Pifa8VRK8OrZ+4VOcSN6//pCAKtSi0aTTfQ9FKq8BYa6rtsBQ
+         OI9A==
+X-Forwarded-Encrypted: i=1; AL+hErFyf8c860X1c+qiYR9sCoPiwfgwKh1BFfMkKMnxnO3rCZJ4kKcXzHNaG8jFPy23cfWcO7gU9mfUEjM1KqY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z877et4XSp4H5TStWJLyFu2CIK71zmfJfhcSlBM/P8tC5RIhRv1
+	e9rYKJt5Ld/TY021wx/41Hjn9gdf9ud0ypaZZs08UZYaciqKxrUaSsJl
+X-Gm-Gg: AYBFou3sUYmvlwZ/XcYy67i+wsSjLvPb22gm3lXf+l3xdQyjZ94iqePnfxrMEMhIDHj
+	oL8w06S45ryC4G4w9IxbTkLOHd2M23E8+6bkqo4VjvcD2MHzarFV2My7UX1/MX7NDLU2ThlljmA
+	fZlprDVimpJexe5Ym6AaJHs6wMQplmLplOQibMeDLu5p/KLnGwnW5U0Z8Ejltj0ECOLGcqIYdhE
+	834nQneClm6ClVBQ0EbLDSgFOW0327u+scL0KITsuHXZNUP3/Z7TfLChLS8zMQS6fUDf/8KUxb0
+	Gcsr0GfXzF9ZZ/8Y3PN0s21BKAxniAsTmvlkD855smAkhj19KYnp4CRKZZiZNkueczVDFLYmxWc
+	Zst0e0LT7icPnA3uMpewK+sPhCQB/rmFlQ3sDDbPX1ssylo7hyda5JFLEwl9/FmzLdsLqrXtcLD
+	Fh+HMrj/QXTKsx+WO8KwIgFss9AcU3XWA96Y4+oD5AehOzH6EW86AzVAQuoxKue7hqsL2Ec7z/5
+	JGvybjwuesAtaUWD6L3FxpAdaRVnOPvh7e74IeREtEVxRlzUlfJ/ycePzcKli6Q8m8Ezwz1v/9O
+	0gvSCSvus/wh4dwMZJ5Cuwvnhn4aBQkUqx8D9dKOB135GZQYg8WYdzR7bioa9ehe4wmsQlBbFKo
+	Lm5ALe83pbR1xouWtXJPo6aLPR4BGw6Css2JChg==
+X-Received: by 2002:a05:651c:1596:b0:3ae:920:ac4f with SMTP id 38308e7fff4ca-3ae1bfb800fmr22203951fa.8.1794645516894;
+        Sat, 14 Nov 2026 00:38:36 -0800 (PST)
 Received: from yantra.. (nekmmqusxj170dz200l-1.v6.elisa-laajakaista.fi. [2001:99a:d7d:c300:b551:8edb:536d:8395])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1713565a6sm1527803e87.78.2026.11.14.00.38.31
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1713565a6sm1527803e87.78.2026.11.14.00.38.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 00:38:32 -0800 (PST)
+        Sat, 14 Nov 2026 00:38:36 -0800 (PST)
 From: Rupesh Majhi <zoone.rupert@gmail.com>
 To: Andy Shevchenko <andy@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
@@ -92,10 +93,12 @@ Cc: devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Rupesh Majhi <zoone.rupert@gmail.com>,
 	Paulius Zaleckas <paulius.zaleckas@gmail.com>
-Subject: [PATCH v2 0/2] iio: pressure: dps310: data-ready trigger
-Date: Sat, 14 Nov 2026 10:38:26 +0200
-Message-ID: <20261114083828.18059-1-zoone.rupert@gmail.com>
+Subject: [PATCH v2 1/2] dt-bindings: iio: pressure: infineon,dps310: Add interrupts
+Date: Sat, 14 Nov 2026 10:38:27 +0200
+Message-ID: <20261114083828.18059-2-zoone.rupert@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261114083828.18059-1-zoone.rupert@gmail.com>
+References: <20261114083828.18059-1-zoone.rupert@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,47 +110,54 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-DPS310 can raise an interrupt on SDO for each new result. Document it
-and use it for a data-ready trigger, so triggered captures follow the
-measurements and are stamped with the interrupt time.
+DPS310 signals new results and a full FIFO on its SDO pin. In I2C mode
+the same pin sets the address LSB, and interrupt polarity must be the
+opposite of how SDO is strapped.
 
-With pressure sampled faster than temperature, scans with pressure
-need the trigger handler fix [1] to keep up. Without it they come at
-the temperature rate, as with any other trigger.
-
-Tested on a DPS310 breakout (0x77) on a BeagleBone Black with SDO to a
-GPIO, level-low and falling-edge, with [1] applied: one scan per result
-at 1 and 8 Hz, also with the rates at 8/1 and 1/8 Hz, stamps steady to
-0.2 ms. With pressure at 1 Hz and temperature at 8 Hz, one temperature
-result a second comes 2.4 ms late and the stamps show it. Without an
-interrupt nothing changes. Not tested: active high, which needs SDO
-strapped low (0x76), and ZTS8032.
-
-If the chip stalls, the case the timeout reset is for, the trigger stops
-firing until the buffer is disabled and a read resets the chip.
-
-v2:
-- interrupt on temperature results when pressure is not in the scan,
-  so a temperature only scan no longer waits in the handler
-- limit the trigger to this device, as the interrupt depends on its scan
-- local regmap pointer in set_state and probe (Andy)
-- rebase on iio/testing
-
-v1: https://lore.kernel.org/linux-iio/20261110154254.39092-1-zoone.rupert@gmail.com/
-[1] https://lore.kernel.org/linux-iio/20261113230241.82046-1-zoone.rupert@gmail.com/
+Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
+---
+v2: no change
 
 Cc: Paulius Zaleckas <paulius.zaleckas@gmail.com>
 
-Rupesh Majhi (2):
-  dt-bindings: iio: pressure: infineon,dps310: Add interrupts
-  iio: pressure: dps310: add a data-ready trigger
+ .../bindings/iio/pressure/infineon,dps310.yaml         | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
- .../iio/pressure/infineon,dps310.yaml         |  10 ++
- drivers/iio/pressure/dps310.c                 | 139 +++++++++++++++++-
- 2 files changed, 145 insertions(+), 4 deletions(-)
-
-
-base-commit: 7c054db85b5a3ce4d5465cc5cc682cc44ae9eabd
+diff --git a/Documentation/devicetree/bindings/iio/pressure/infineon,dps310.yaml b/Documentation/devicetree/bindings/iio/pressure/infineon,dps310.yaml
+index 416117dfd927..cded6e0af147 100644
+--- a/Documentation/devicetree/bindings/iio/pressure/infineon,dps310.yaml
++++ b/Documentation/devicetree/bindings/iio/pressure/infineon,dps310.yaml
+@@ -23,6 +23,12 @@ properties:
+   reg:
+     maxItems: 1
+ 
++  interrupts:
++    maxItems: 1
++    description:
++      New result or full FIFO, on SDO pin. SDO also selects I2C address, so
++      interrupt is active high at 0x76 (SDO low) and active low at 0x77.
++
+   "#io-channel-cells":
+     const: 0
+ 
+@@ -42,6 +48,8 @@ additionalProperties: false
+ 
+ examples:
+   - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++
+     i2c {
+         #address-cells = <1>;
+         #size-cells = <0>;
+@@ -49,6 +57,8 @@ examples:
+         dps: pressure-sensor@76 {
+             compatible = "infineon,dps310";
+             reg = <0x76>;
++            interrupt-parent = <&gpio0>;
++            interrupts = <17 IRQ_TYPE_LEVEL_HIGH>;
+             #io-channel-cells = <0>;
+             vdd-supply = <&vref1>;
+             vddio-supply = <&vref2>;
 -- 
 2.43.0
 
