@@ -1,66 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.153.30
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794626454;
-	b=onWQ9sYvlEdpRZ9k41dn3LvUcL+AcNrcdRlu/oIaHtcrpjYOGnejizuzwCN2qvGxRoM/
-	 yITA1AN6yzTQ0CVrfwVxYKmuRKJgRpgp8tHUjqNLNI1WMBee+ZW8Ky2eDYx879gZZFIRt
-	 TJDa2Q5hYVlaeDMM1QIt1Rclkg2QSWjYk40z40N5stQgchiZ0+MN8fxLC5jw3p4WgzOJ9
-	 NxDhUw5UXouaqii6rgztfoXbr7kUi9OXT5YXEVPu30GlmrKtn8sHzaP4Ho2uEH5bctn07
-	 /TM/prq4dqB0iI3NFBZqyNf6u9bLIo4i0Q4jgwi8JfVNFMxK5bI90MsooLWrcWURDLw==
+	t=1794626451;
+	b=nA41TA8FBIyuNAdepDP6sEYVzM5Au/qNjHuE/NGjAvUMAEwyq+vdSIDW3RVZaLKgKQFu
+	 omeKyLtzqHb2nf9TSp5XcscJwlpG+3WkKCl7dY1eqt5vOFqUO/TNWai6S48x+SWfZlLkS
+	 NU11f2nlONhGF1/722kaa6trbznsNq1OpZxNEZyf40dTAZqaKlZ+gawBr7vI5Wcq1JsFA
+	 LIsGjyVRBtjj012QToDxpTa0HAAKYkZkFBYdEYQAuZopnFcWExEqd3N8GpsKgdvQ85XFF
+	 5aQL1iPox2QPbIqpeYtlrzPi+81DTmGgpnEOUIaLSjkR6Yd6NugHRCGU+RlSLqgaorg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794626454;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794626451;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-ID:References:In-Reply-To:To:CC:X-Mailer:X-Originating-IP:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
 	 X-Proofpoint-Virus-Version;
-	bh=ZqC1JO7Xij1xDzS6PMbXLcvgwSoz4/mlT8vfbhBue/k=;
-	b=pVtT+FUKcIPpH7QsKkLOTQW8ELqBxwtjeAp2yz1iSTvnu36vAUvCs0VmKq6yCi3PQRA8
-	 Ok09AEFLiVzyNE6dOt4B9Gg3Kx6xV6MtldSiP8yxDf7hM8q4k440DQCU7okCFaA7R4lTE
-	 sXwgpo0Kh2qYMPk4PxmDHMx0x5KN3qE2XzTIBXgk3KSmD7lQeD0tQay/cvvg6kbG/Uk9C
-	 ff1EW8EnF/4Z/AOImB+VGNrquiWfJDJlfJgjaGSGk72erxFrmubFqVgq+tmvDxN2I27YJ
-	 xWwCggMJLFMed34GnM3ZefaD79/aVsDEYSsERvx4phI+LzwNjfAAcPUwlrV4GT2xqbg==
+	bh=rYrFlTJB+UyawFkAk0hfqRmJvjhfc3t73nvjA5LiMm0=;
+	b=YNv9tAvj/xBsQR3JAQVG04BCO+kQ2m7F73o6eDJa8b7yFqtAbOm6egXtBSna9CapE+Bo
+	 0KqBde7kSvuJ7PNJVlLrh57m7WySjWF1WQ5ZxpuSsqvXqCkGsAvCDBlidYt3xJ2t3KwEP
+	 xRklAPnqma6Hdhh8n5yd1vqwPndbZcaD4kI6li1WHyzXoaceZMTODTIP280OPxtM7JUP3
+	 H/bIcnBHNZw/yd/mTDUKOPnEbiq7ZnKXEvrO3SQB5YBuOigsgQhKWXxv52mjwv//sICP6
+	 cb4y0wtAwfgvEbPjllnXtuGGPwETuXDwMrtgG6kDIMQ7hfZuy17l1ANkhuLBBX/BIRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=meta.com;
 	spf=pass smtp.mailfrom=meta.com;
-	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b="g/+EcXOx";
-	arc=none smtp.remote-ip=67.231.153.30
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
+	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=V1VzAOam;
+	arc=none smtp.remote-ip=67.231.145.42
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1550660A3813;
-	Sat, 14 Nov 2026 03:20:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1550660A3813
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 422BF606A8A4;
+	Sat, 14 Nov 2026 03:20:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 422BF606A8A4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=g/+EcXOx
-Received: from pps.filterd (m0528005.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AE22XEI2844953;
-	Fri, 13 Nov 2026 19:20:22 -0800
+	dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=V1VzAOam
+Received: from pps.filterd (m0044012.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AE22bu31684277;
+	Fri, 13 Nov 2026 19:20:25 -0800
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=
-	pps82601-s2048-2026-q3; bh=ZqC1JO7Xij1xDzS6PMbXLcvgwSoz4/mlT8vfb
-	hBue/k=; b=g/+EcXOx5cW9mVJHEM8GncVbH3mmWp41iKCEnUAfBZN6c7qJZQJBd
-	6/cqweK9stIwn7f3Ah7fTmQ4eX6PYiTQGFCWCBfYLHyfZWZIur0w0Kl9wYvd9A/V
-	hmFtWWgsS89EbZTwdZUOjArXAx0dcGvOZfIIln2JsyH/9TfQnfhBj+yQOjFDbYD2
-	Yl3yyc4iE1Y9vhVmNzxSliIhlGujh3c0tEHWTC5POaBoouexKmObugdS2D6b1UNy
-	vtBWBh0dWlSHr7eDYUcGyNbxMp+HJ9j3wBGzZFpCgeV2s7mguT+LDF5Kv8iXDEEK
-	0O+SWzE0XAFj8lVT69f7syt/Hdgntln2w==
-Received: from mail.thefacebook.com ([163.114.134.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hws2jg391-2
+	pps82601-s2048-2026-q3; bh=rYrFlTJB+UyawFkAk0hfqRmJvjhfc3t73nvjA
+	5LiMm0=; b=V1VzAOamwKmwLlO7KobU5F7uVSo6pVnD6if5nGqEZSb6UIvWG16xK
+	K/NxSSBCNlxjuHTPGfJWk2QXHbiLSk7NqLp9Qs0m1ZwwAxyCT2f3Ul/LUWfgAU8u
+	COteckQwXV/Hf8Vx+cxlBY4ZpsEA7dK+5hUSr8E/VJI+OjzxeWU8qKHAUtB1Rd8q
+	ZudQEcB5KQoMuSSIoTfnoSsI/eQOlE0SvwIoHmvIz5UkREoYMOaDvZVV34eCgPIa
+	AdM8W4bA/2E3zvBQLIsKkkRfU7DrQxFy61ZLk3ORbo8kE7KjUYWQ7PTF4ALfHhf1
+	j1NoGI060xiswOOXD6TJ5jdQh7CGbW21Q==
+Received: from maileast.thefacebook.com ([163.114.135.16])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hwftjv17u-2
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Fri, 13 Nov 2026 19:20:22 -0800 (PST)
-Received: from localhost (2620:10d:c085:108::150d) by mail.thefacebook.com
- (2620:10d:c08b:78::2ac9) with Microsoft SMTP Server (version=TLS1_2,
+	Fri, 13 Nov 2026 19:20:24 -0800 (PST)
+Received: from localhost (2620:10d:c0a8:1c::1b) by mail.thefacebook.com
+ (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Sat, 14 Nov
- 2026 03:20:20 +0000
+ 2026 03:20:23 +0000
 From: Bobby Eshleman <bobbyeshleman@meta.com>
-Date: Fri, 13 Nov 2026 19:14:12 -0800
-Subject: [PATCH net-next v6 1/8] vsock: only undo SS_CONNECTING when
- connect() fails
+Date: Fri, 13 Nov 2026 19:14:14 -0800
+Subject: [PATCH net-next v6 3/8] vsock: rename the vsock pernet operations
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,7 +71,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261113-vsock-guest-ns-v6-1-3737ce4673c0@meta.com>
+Message-ID: <20261113-vsock-guest-ns-v6-3-3737ce4673c0@meta.com>
 References: <20261113-vsock-guest-ns-v6-0-3737ce4673c0@meta.com>
 In-Reply-To: <20261113-vsock-guest-ns-v6-0-3737ce4673c0@meta.com>
 To: Stefano Garzarella <sgarzare@redhat.com>,
@@ -105,97 +104,97 @@ CC: <virtualization@lists.linux.dev>, <netdev@vger.kernel.org>,
         <sargun@sargun.me>, <jlinbox@meta.com>,
         Bobby Eshleman <bobbyeshleman@gmail.com>,
         Bobby Eshleman
-	<bobbyeshleman@meta.com>, Michal Luczaj <mhal@rbox.co>
+	<bobbyeshleman@meta.com>
 X-Mailer: b4 0.14.3
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE0MDAxMiBTYWx0ZWRfX0LeEncCIbCaW
- fC3lFb2IkSRz3V2Np/fgkBvG7+gjVtqQQIjiL+VHt2t//RfXYAYNKmGpb8hHsa5gCmMbUnuJIlS
- aBRk2EvEsFU8wbqAiknHuJ/bUU1+FlY=
-X-Authority-Analysis: v=2.4 cv=B7QsQ+tM c=1 sm=1 tr=0 ts=6af7d376 cx=c_pps
- a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
+X-Authority-Analysis: v=2.4 cv=ZYiIpcVA c=1 sm=1 tr=0 ts=6af7d378 cx=c_pps
+ a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=7x6HtfJdh03M6CCDgxCd:22 a=jCddH8ec0KUNCymVuxII:22 a=VwQbUJbxAAAA:8
- a=VabnemYjAAAA:8 a=8SSc3Ac-GxnkQpnFFP0A:9 a=QEXdDO2ut3YA:10
+ a=7x6HtfJdh03M6CCDgxCd:22 a=PAz_-FQ8hEVmOPYdF0yf:22 a=20KFwNOVAAAA:8
+ a=VabnemYjAAAA:8 a=-BBy4ptD6Xa2-Mryg3AA:9 a=QEXdDO2ut3YA:10
  a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-ORIG-GUID: RVUn9LSV9M2pNuqbPtv7VbHlZwx4nBmc
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE0MDAxMiBTYWx0ZWRfXwMTQsn1M5UcJ
- xwwyUxNwy8vC0EzXDAOukpvFPAR332z94bdQ1YYeTn1hRqSab5rNdsBahmtCj2+mcJ9UnzttiOM
- 6WQ3VtOIe8W0C75rtlSwMagOxvyB6R9GGUckemjij80yMttLJjdp2kZgh5bAg6L96QS3mMWy9e2
- xqHiSNLmaoJZVM1XLt+sBQYZbBDFxF/Ov9S+SwI16MAs7evesSBPzE2H/yVJLZa9kgg1dDgm3UK
- 0yQY7DoJ3rSUHY+2BMGkmHVL60sQvujVIVn/yd098ZpFKCPBTZRIuZYIUVTqBcIlNq2Iq7lakV7
- etFbtHJYUwp/5RtZ6AhdKcQpbvHum6PysWfw1Se/liPYvVlrkFr1Ow9wJl8Gzr8silaX1yOI0rF
- OqQ9Ijgy2Z0m0EFN30kX+htzo0H+7Ny1R8k9/T5tVLKMW6Q13kMauwP5O6GpU3zbeiRx+EYul8C
- aTbke8V9bqRWwoP8fLA==
-X-Proofpoint-GUID: RVUn9LSV9M2pNuqbPtv7VbHlZwx4nBmc
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE0MDAxMiBTYWx0ZWRfX089up6LRXeZp
+ yb9MqCMhkxXK1o5GKnLy3HkL6syPE0dEGL6egjHec2DBMiBRCmi5gCG/yasaWbtvv9lC25LtVDC
+ PtcEP2W2i/XHSFrp4nfxkEIHOSlrDs/EJaBpnFm/gFWLvs6p7ANsM6vJQFbPm2Plp3bFB9Qt2yY
+ glVme3X79Bx7V0s/Iq3m2/v8EftFXk7C0wCb0MDGXSOmGbcvioGf/nKsnX/og/Lhj9m+ehkFYZ9
+ ZSKIpiE1zpFxdBpV7/FPK8YcJ4q5S0uBjdarG6oFAGIijb3+zqTVCfbmnFG/bSmS0D4X8Cto3Ir
+ Hyg6iEasta59K/iN1AnjA16eKWwagDno5Tr1I2gL81zzUANagNf33xqiit66n7Mm2R+A2JjP40W
+ AGfICNzNMJqv150wl076Z65zS/4hI3BYTt8jf92+nNAGpIOI0rY3ceBZ128/WAqOXKRTjEgq/Y/
+ 2xyy9u3vXeYNv1OorEA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE0MDAxMiBTYWx0ZWRfX6U58HonYd5on
+ cjUKuxIic7k/g3JbDkA6NyNVblKVpadF+eTbZddeNGcZmyb6kz6eGPAVw4Xgho6W5uBRjPu6jfc
+ GTGLXvJqQ+YsvfeEKTaTLfI3gV7ru8w=
+X-Proofpoint-ORIG-GUID: SbAGkdZ09bkgC5EpHsHzONk5UAULgjRj
+X-Proofpoint-GUID: SbAGkdZ09bkgC5EpHsHzONk5UAULgjRj
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-14_01,2026-11-11_03,2025-10-01_01
 
-vsock_connect() sleeps with the socket unlocked. Meanwhile the transport
-can complete the handshake, setting sock->state to SS_CONNECTED, and then
-reset the connection, e.g. in vhost_vsock_reset_orphans(),
-virtio_vsock_reset_sock() or vmci_transport_handle_detach(). When
-connect() gets the lock back, it finds sk_err set and moves the socket
-back to SS_UNCONNECTED. Userspace can then connect() the socket again,
-and a connect() to a CID on another transport makes
-vsock_assign_transport() release the transport the socket was connected
-on.
+vsock_sysctl_ops and its two callbacks are named for the sysctl tables
+they register, but the init callback already does more than that: it
+also initialises the per-namespace vsock state through vsock_net_init().
 
-Only move the socket back to SS_UNCONNECTED if it is still
-SS_CONNECTING. A socket that got connected stays SS_CONNECTED, and
-another connect() fails with -EISCONN.
+Rename them to vsock_pernet_ops, vsock_pernet_init and
+vsock_pernet_exit, so that later per-namespace work can be placed here
+too.
 
-Fixes: d021c344051a ("VSOCK: Introduce VM Sockets")
-Suggested-by: Michal Luczaj <mhal@rbox.co>
-Link: https://lore.kernel.org/netdev/179447093204.2199510.8895677421994612994@kernel.org/
+No functional change.
+
+Reviewed-by: Stefano Garzarella <sgarzare@redhat.com>
 Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
 ---
- net/vmw_vsock/af_vsock.c | 19 +++++++++++++------
- 1 file changed, 13 insertions(+), 6 deletions(-)
+ net/vmw_vsock/af_vsock.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
-index 483af15a5109..dc81cd47f099 100644
+index eaf77ab55321..4dee7af259ab 100644
 --- a/net/vmw_vsock/af_vsock.c
 +++ b/net/vmw_vsock/af_vsock.c
-@@ -1703,6 +1703,16 @@ static void vsock_connect_timeout(struct work_struct *work)
- 	sock_put(sk);
+@@ -3044,7 +3044,7 @@ static void vsock_net_init(struct net *net)
+ 	net->vsock.g2h_fallback = 1;
  }
  
-+/* Avoid breaking the socket when another thread has changed its sock->state
-+ * while we were asleep.
-+ */
-+static void vsock_connect_close(struct socket *sock)
-+{
-+	sock->sk->sk_state = TCP_CLOSE;
-+	if (sock->state == SS_CONNECTING)
-+		sock->state = SS_UNCONNECTED;
-+}
-+
- static int vsock_connect(struct socket *sock, struct sockaddr_unsized *addr,
- 			 int addr_len, int flags)
+-static __net_init int vsock_sysctl_init_net(struct net *net)
++static __net_init int vsock_pernet_init(struct net *net)
  {
-@@ -1861,8 +1871,7 @@ static int vsock_connect(struct socket *sock, struct sockaddr_unsized *addr,
- 			 * sk_state == TCP_SYN_SENT, which hereby we break.
- 			 * In such case VIRTIO_VSOCK_OP_RST will follow.
- 			 */
--			sk->sk_state = TCP_CLOSE;
--			sock->state = SS_UNCONNECTED;
-+			vsock_connect_close(sock);
+ 	vsock_net_init(net);
  
- 			/* Try to cancel VIRTIO_VSOCK_OP_REQUEST skb sent out by
- 			 * transport->connect().
-@@ -1876,10 +1885,8 @@ static int vsock_connect(struct socket *sock, struct sockaddr_unsized *addr,
+@@ -3054,14 +3054,14 @@ static __net_init int vsock_sysctl_init_net(struct net *net)
+ 	return 0;
+ }
+ 
+-static __net_exit void vsock_sysctl_exit_net(struct net *net)
++static __net_exit void vsock_pernet_exit(struct net *net)
+ {
+ 	vsock_sysctl_unregister(net);
+ }
+ 
+-static struct pernet_operations vsock_sysctl_ops = {
+-	.init = vsock_sysctl_init_net,
+-	.exit = vsock_sysctl_exit_net,
++static struct pernet_operations vsock_pernet_ops = {
++	.init = vsock_pernet_init,
++	.exit = vsock_pernet_exit,
+ };
+ 
+ static int __init vsock_init(void)
+@@ -3091,7 +3091,7 @@ static int __init vsock_init(void)
+ 		goto err_unregister_proto;
  	}
  
- 	err = sock_error(sk);
--	if (err) {
--		sk->sk_state = TCP_CLOSE;
--		sock->state = SS_UNCONNECTED;
--	}
-+	if (err)
-+		vsock_connect_close(sock);
+-	if (register_pernet_subsys(&vsock_sysctl_ops)) {
++	if (register_pernet_subsys(&vsock_pernet_ops)) {
+ 		err = -ENOMEM;
+ 		goto err_unregister_sock;
+ 	}
+@@ -3115,7 +3115,7 @@ static void __exit vsock_exit(void)
+ 	misc_deregister(&vsock_device);
+ 	sock_unregister(AF_VSOCK);
+ 	proto_unregister(&vsock_proto);
+-	unregister_pernet_subsys(&vsock_sysctl_ops);
++	unregister_pernet_subsys(&vsock_pernet_ops);
+ }
  
- out_wait:
- 	finish_wait(sk_sleep(sk), &wait);
+ const struct vsock_transport *vsock_core_get_transport(struct vsock_sock *vsk)
 
 -- 
 2.53.1-Meta
