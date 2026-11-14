@@ -1,61 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794618171;
-	b=ovgJFFRN75Ld5eOvfw0+9iqzCwJSfFRGCxS8SlyXQ1vQG1OpuAACPIrLsMUm+jTpLSOc
-	 8PkzH5UL8VddqVXhvMxZgOZ2N4MIMbhUGbqNWXvTvNI0GkJ2EwrFU5RE/WIH5Qn0DlLs+
-	 UbqCaD80qn/ov5Y8Mv9RJASGgBCtNDkJFD40qd0gmoYWUJ+4ucRkUlyElbfXdUUKH6Jk1
-	 4ouSCRnxDVaj5qew5WnLso6g/nTTc3EtplUboXa7Y+mNfw3ZobNHvO5u/NPFYFDp5f28a
-	 uVZJPOGv6VagaalMUn5WwZETajiJNrVVIo0febntPfhzN27m5Uy3tynTtLdNVUSKvjg==
+	t=1794618205;
+	b=wSQAQXSC2rMvb4jLyC5pPQPJQlFPdBWEeeMaUAtrto/GJDJeq5GKigzB70BPxHtgJYmB
+	 dbT6MewL1lrCTLfvpYMXotF5SdSnpyrHZCXWFAk2klLzjBmRp0zPNnPml3ygqBlRPGutl
+	 DHbdGrrL+jj9HZkC5+XEz96SrtRI43vfu1bDihxj+o49hi3z3q15jLyl6pAUqw3OT0YI4
+	 JY0azwpKIwQYidWDl0nQp1DmCBrnVXCaZ5Wtl6oKpsM2zKr3NMEYN3Ihp1QFmr/sCV13+
+	 F2DCAx9NNTdySmLVFYITNOrXXckxlKXgGEKkVr2F3O+2TZLAWXIfdFFIga0tJRZPIDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794618171;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=Cv8P5miVZuYEKgmArl1OJs1HmGv8dXHrbdg23EvDXYA=;
-	b=pRGiiPgz7a+1J6Cv3L0gi3RWDkX82ZfkOUGFjSaw1ExgUBX1ZtN2ZBRrz8VncgMDIT4v
-	 sdb9qScIkRchEu2hKrMhNQ3GU9caA7dq+F2rmlOdVb/PWlJFVPn3gLIZ3l1Wo41bJKooh
-	 fCRQxqvHrJKI/PRL3goc3Wq0dSiJYhs12IoBSlfubUnGMrbwPh18IBNLHCiyf53QJuSmb
-	 QioS3MlemeYJ7zi+ETixR63ppJZjJY6zG6M3GVYmhyu9V9OLdXQ85Y3lmDx7Zrr6Hwbow
-	 pr2czI0WlHVRvpQZUcYv15J8edrvMlP8V2oNGS6oAwl2WKBM2UeQcUIBrcYDFg1utDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794618205;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=QpwB0ZIIopDZ7bOpYzdGymZfwxeUUgl1Dluep8tBvuI=;
+	b=leX2sClfRAIVOpsiQA0HmZYLpcWYDo9wYNWl8MEMe8vOehxHnJijSE1+CnughlAC6EX5
+	 bB0NOy2c/11RbBYWLGNOM3XHl6J/rD4oOFxQG+WCaLyjCN74o4Ggp1wqAMa+D3Zf60jDe
+	 w48GYIgPjLG8GkM9D8u8LZpGjEGksLOjusFw4azISqEpiBO0DIGvUo/xMuObEaCcM+p7G
+	 cEj9OmUmCsAqH/Q+4ZC4bugaUI/qyuO2CjEjw2q1D7wJTQWL/PWn3hDZ0Sf6oJ0j/lTMu
+	 FX3jOrEZEJm2dHWFMri/S0r+Ovup3/HXXxdtkzim1SWhj+BaQvkmbWTPiVkVpSjSCVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=qMANL379;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=LAvBks23;
+	arc=none smtp.remote-ip=35.89.44.39
+Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C03F606A331;
-	Sat, 14 Nov 2026 01:02:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C03F606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A86D606A339
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 01:03:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A86D606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=qMANL379
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794618166;
-	bh=g0X6JocB2VyTivc72aE0Omr9YagRRa/kK2iKOuWwk04=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=qMANL379jhUDGWFPor10CFnutR7LqDDBUfzMGf6lkUyVufvtrOcdaDRFUeB+htiJd
-	 1Cr3Ub8Odk2zGGrf8nOC9q31N4Kc2F2QJfy6gklHbBsboEaMinsAUpvEnFHZ6nHRwp
-	 g0iM/iD3K1AFU+hecnuEX1V6v2h6WC4qaHN/K4/LfWUdO8lF6ayYJirlHHQ0tb82ju
-	 XuKsEEGzHjTI9klGcwxeD+KNXcoL7bXwKDTKR4FSSECCJdgPOfCtSVLy45KStD1Q4t
-	 fWunbim4z2Uv9AyyFZLUzLBkcPGJLg7T1Z2EoFUy37jAvWSLltIXsS8ZrylhkCsRcr
-	 YTrg2HzDdlY4A==
-Received: from jupiter.universe (unknown [100.64.1.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5E58017E14AA;
-	Sat, 14 Nov 2026 02:02:46 +0100 (CET)
-Received: by jupiter.universe (Postfix, from userid 1000)
-	id C9CAF48003A; Sat, 14 Nov 2026 02:02:45 +0100 (CET)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Sat, 14 Nov 2026 02:02:05 +0100
-Subject: [PATCH v19 6/6] usb: dwc3: rockchip: add USBDP PHY reset quirk
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=LAvBks23
+Received: from eig-obgw-5007b.ext.cloudfilter.net ([10.0.29.167])
+	by cmsmtp with ESMTPS
+	id RctaxW7y9yb4YS2ApxcpCI; Sat, 14 Nov 2026 01:03:19 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id S2AoxigjvxqjjS2AoxhOjG; Sat, 14 Nov 2026 01:03:19 +0000
+X-Authority-Analysis: v=2.4 cv=bZxrUPPB c=1 sm=1 tr=0 ts=6af7b357
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10
+ a=OXwR1HB4QsiTIq7gI9QA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=QpwB0ZIIopDZ7bOpYzdGymZfwxeUUgl1Dluep8tBvuI=; b=LAvBks23t1dF
+	bRptP54JuCH6zp0SmBEhFSX6Pnzh6Gsg/ajRJptbjC2Eq9oeXMRq85p7UPnwXg3xHySkGXJ2zE+lp
+	GCMtd6K27ehxBZYY6IYqezxJvL+gZZzpGiadukLFhxdp/TdTOF1WmLwLOda1xmwwOq+YxGUTImuJd
+	txLn+SVX38+sqZk3rxnjBxf02myNP40XovrhK1F1ZYHFcrWqlSY3Qc13w0h3lzanCQJBJ2lTNk70w
+	xm5sArhf/QqfVKfC6RdgzBsXuvjIZrZ+9uLwNkhZYjMZwkT7Cmx0lSWu+Zu83Qxr8ScsauvLA7vsq
+	lEUNLEh0aZys3+S7F/8InA==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:55080)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xS2Am-00000001svq-2CaA;
+	Sat, 14 Nov 2026 06:33:16 +0530
+Message-ID: <02d8986f-64ef-42ee-a440-7c66a48f5801@roeck-us.net>
+Date: Fri, 13 Nov 2026 17:03:15 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,297 +76,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261114-b4-rockchip-dwc3-rockchip-glue-v19-6-b79fb5f4b42a@collabora.com>
-References: <20261114-b4-rockchip-dwc3-rockchip-glue-v19-0-b79fb5f4b42a@collabora.com>
-In-Reply-To: <20261114-b4-rockchip-dwc3-rockchip-glue-v19-0-b79fb5f4b42a@collabora.com>
-To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Heiko Stuebner <heiko@sntech.de>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>
-Cc: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, 
- Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>, 
- Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
- Igor Paunovic <royalnet026@gmail.com>, Alexey Charkov <alchark@flipper.net>, 
- linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-phy@lists.infradead.org, kernel@collabora.com, 
- Sebastian Reichel <sebastian.reichel@collabora.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7897;
- i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=g0X6JocB2VyTivc72aE0Omr9YagRRa/kK2iKOuWwk04=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr3szVhtZpqns5w2s0Zg7SSkBkwC+W2H7yMF
- 23mFsaqd87kaokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq97M1AAoJENju1/PI
- O/qaNhAP/1X0jU5hid9o2gP4+cwGm5zAJ0PHCOTPJyPu3c8tNkyhZ9+xKQ2pgbvvoHL3YuhvrcY
- e7uK682v5ofZaQV2hKOdL3hf79IL2mudZioN7zgS9zRj44vSbOO3xlqHQcHBOfcC2/hmppyCerl
- RCXW2hl1cFT7L4o7w08CnSSBY9C+HAXvp63QT42F9j6D4nsnF5rP/N1chJxqovN/9XYXimaz16F
- oN7MMXTUrbcJCZTe8iPO55sxEHGmZYrjhA5P02mnTgJhKn0Ylmyg8p09yfaYhq740M9ZRZ0Z7wy
- I1PwrJcbYhZzxTNcgmUiAcuiEPNadakNm9KRh00zQJTKdF0HhhubYqSRsI41r52JlMOCPSKOt5S
- GY9tTVuGuvhEWngvf2YFhqffbn/AE12lkw6pzTqY5z1ZLdpeQxl66M/3rzElNoCxVUuKooDg6LV
- ahqGIrTEvNEdNf3OP+06uwKd9eL67LZg6CodpYyacW6tadu00D0kYoWK9L60S/o5aTPNtpvyQRm
- e0sstC+nIXopKbDOh5SEUaCT5hek0ksWt/5QKTE+ptpcuw5c9tXphxTHiLtN2BLnhh+obH+xlNJ
- 7MpAigCnAy048QW1PDyBqD/1Qu5Fd88ueHEARkffHCD5SF2PlTbBDADWhOANhLB/GWD2++RPZi5
- NnHTauir7xqGPU191CFM4Eg==
-X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
- fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/4] hwmon: (adt7475) Add thermal sensor and PWM provider
+ support
+To: =?UTF-8?Q?Dav=C3=AD=C3=B0_Steinn_Geirsson?= <david@dsg.is>,
+ Jean Delvare <jdelvare@suse.com>, linux-hwmon@vger.kernel.org
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ linux-pwm@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261114004110.328050-1-david@dsg.is>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20261114004110.328050-1-david@dsg.is>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xS2Am-00000001svq-2CaA
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:55080
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 1
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfLm4ugwg6b4Hz22FbJHGfhkS1wxrJIwENZREdnndHbOi5rG5Enqb2h4CXfExTz1tRkMyHGnSFBFfsLrqt/27D8EQq29vWd3dg37l1Pt8f2j5LX/6HMx+
+ 3I1Hsi4TGBFMepwS9026a5oSh9nBESu2MRRzqWLNl3xDuEbNrguEekrgNTdF6GoldjFB3VKGiuOC9DcWtK65F4MyZrguVvyD8F+Im3tiYAgxfkZat58JjT7n
 
-On recent Rockchip platforms (at least RK3588 & RK3576), DWC3 IP is used
-with a USBDP PHY providing USB3 and DP. This PHY needs to be reset when
-the mode changes, which may happen when plugging in different USB-C
-devices.
+On 11/13/26 16:41, Davíð Steinn Geirsson wrote:
+> 
+> This series lets boards use the temperature channels of the ADT7473,
+> ADT7475, ADT7476 and ADT7490 as thermal zone sensors, and drive their
+> PWM outputs with a PWM consumer such as pwm-fan. The kernel thermal
+> framework can then control the fans. It follows the ADT7470 series [1],
+> merged for v7.3.
+> 
 
-If the USBDP PHY resets with the DWC3 IP running, its internal state
-corrupts resulting in the USBDP PHY not being able to lock some PLL
-clocks, which effectively renders USB3 unusable.
+I am getting flooded with patches, and I have no time to review them all.
 
-To fix the issue this adds a Rockchip USBDP specific quirk, which will
-assert PHYSOFTRST before the actual PHY is disabled and will deassert it
-once the PHY returns.
+Rule change: Functional changes for any hardware monitoring driver which
+does not already implement it will have to include conversion to the
+with_info hardware monitoring API.
 
-The quirk is skipped while DWC3 is suspended, as its registers may be
-inaccessible and the device being suspended is a quirk in itself (the
-vendor BSP enables runtime PM with very short autosuspend as a
-workaround for this issue). Thus the code just ensures the PM state
-does not change while the PHY reset is going on.
-
-Note, that the same platforms also use DWC3 with a different PHY
-(rockchip-naneng-combphy), so the PHY calls are protected by a
-driver name check.
-
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
----
- drivers/usb/dwc3/Kconfig         |   1 +
- drivers/usb/dwc3/dwc3-rockchip.c | 154 +++++++++++++++++++++++++++++++++++++--
- drivers/usb/dwc3/trace.c         |   3 +
- 3 files changed, 153 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/usb/dwc3/Kconfig b/drivers/usb/dwc3/Kconfig
-index 3c120ea9746d..c86c1ac293bf 100644
---- a/drivers/usb/dwc3/Kconfig
-+++ b/drivers/usb/dwc3/Kconfig
-@@ -193,6 +193,7 @@ config USB_DWC3_OCTEON
- config USB_DWC3_ROCKCHIP
- 	tristate "Rockchip DWC3 Platform Driver"
- 	depends on ARCH_ROCKCHIP || COMPILE_TEST
-+	depends on PHY_ROCKCHIP_USBDP || !PHY_ROCKCHIP_USBDP
- 	depends on OF
- 	default USB_DWC3
- 	help
-diff --git a/drivers/usb/dwc3/dwc3-rockchip.c b/drivers/usb/dwc3/dwc3-rockchip.c
-index 4129aefd6a8b..25bf2794c1fc 100644
---- a/drivers/usb/dwc3/dwc3-rockchip.c
-+++ b/drivers/usb/dwc3/dwc3-rockchip.c
-@@ -2,11 +2,120 @@
- /* Copyright (c) 2026, Collabora Ltd. */
- #include <linux/module.h>
- #include <linux/platform_device.h>
-+#include <linux/phy/rockchip-usbdp.h>
- #include <linux/pm_runtime.h>
-+#include <linux/wait.h>
- #include "glue.h"
-+#include "io.h"
- 
- struct dwc3_rockchip {
- 	struct dwc3		dwc;
-+	wait_queue_head_t	phy_reset_wq;
-+	u8			phy_reset_active;
-+	bool			pm_suspended;
-+};
-+
-+static inline struct dwc3_rockchip *to_dwc3_rockchip(struct dwc3 *dwc)
-+{
-+	return container_of(dwc, struct dwc3_rockchip, dwc);
-+}
-+
-+static void dwc3_rockchip_set_suspended(struct dwc3_rockchip *dwc_rk, bool suspended)
-+{
-+	struct dwc3 *dwc = &dwc_rk->dwc;
-+
-+	guard(spinlock_irq)(&dwc->lock);
-+
-+	wait_event_lock_irq(dwc_rk->phy_reset_wq, !dwc_rk->phy_reset_active, dwc->lock);
-+	dwc_rk->pm_suspended = suspended;
-+}
-+
-+static void dwc3_rockchip_phy_pre_reset(struct dwc3_rockchip *dwc_rk, int port)
-+{
-+	struct dwc3 *dwc = &dwc_rk->dwc;
-+	u32 reg;
-+
-+	guard(spinlock_irqsave)(&dwc->lock);
-+
-+	dwc_rk->phy_reset_active |= BIT(port);
-+
-+	/* DWC3 being suspended also works as a quirk */
-+	if (dwc_rk->pm_suspended)
-+		return;
-+
-+	/*
-+	 * Assert USB3 PHY soft reset within DWC3 before the external
-+	 * PHY resets. This disconnects the PIPE interface, preventing
-+	 * the DWC3 from interfering with PHY reinitialization and
-+	 * avoiding LCPLL lock failures.
-+	 */
-+	reg = dwc3_readl(dwc, DWC3_GUSB3PIPECTL(port));
-+	reg |= DWC3_GUSB3PIPECTL_PHYSOFTRST;
-+	dwc3_writel(dwc, DWC3_GUSB3PIPECTL(port), reg);
-+}
-+
-+static void dwc3_rockchip_phy_post_reset(struct dwc3_rockchip *dwc_rk, int port)
-+{
-+	struct dwc3 *dwc = &dwc_rk->dwc;
-+	u32 reg;
-+
-+	scoped_guard(spinlock_irqsave, &dwc->lock) {
-+		dwc_rk->phy_reset_active &= ~BIT(port);
-+
-+		if (!dwc_rk->pm_suspended) {
-+			reg = dwc3_readl(dwc, DWC3_GUSB3PIPECTL(port));
-+			reg &= ~DWC3_GUSB3PIPECTL_PHYSOFTRST;
-+			dwc3_writel(dwc, DWC3_GUSB3PIPECTL(port), reg);
-+		}
-+	}
-+
-+	wake_up(&dwc_rk->phy_reset_wq);
-+}
-+
-+static void dwc3_rockchip_phy_reset(void *data, int port, bool pre)
-+{
-+	struct dwc3_rockchip *dwc_rk = data;
-+
-+	if (pre)
-+		dwc3_rockchip_phy_pre_reset(dwc_rk, port);
-+	else
-+		dwc3_rockchip_phy_post_reset(dwc_rk, port);
-+}
-+
-+static void dwc3_rockchip_phy_unregister_reset_handler(void *data)
-+{
-+	struct dwc3_rockchip *dwc_rk = data;
-+	struct dwc3 *dwc = &dwc_rk->dwc;
-+	int i;
-+
-+	for (i = 0; i < dwc->num_usb3_ports; i++) {
-+		struct phy *phy = dwc->usb3_generic_phy[i];
-+
-+		if (phy && !strcmp(dev_driver_string(phy->dev.parent), "rockchip-usbdp-phy"))
-+			rk_udphy_unregister_reset_handler(phy);
-+	}
-+
-+	WARN_ON(dwc_rk->phy_reset_active);
-+}
-+
-+static int dwc3_rockchip_phy_register_reset_handler(struct dwc3 *dwc)
-+{
-+	struct dwc3_rockchip *dwc_rk = to_dwc3_rockchip(dwc);
-+	int i;
-+
-+	for (i = 0; i < dwc->num_usb3_ports; i++) {
-+		struct phy *phy = dwc->usb3_generic_phy[i];
-+
-+		if (phy && !strcmp(dev_driver_string(phy->dev.parent), "rockchip-usbdp-phy"))
-+			rk_udphy_register_reset_handler(phy, dwc3_rockchip_phy_reset, dwc_rk, i);
-+	}
-+
-+	return devm_add_action_or_reset(dwc->dev,
-+					dwc3_rockchip_phy_unregister_reset_handler, dwc_rk);
-+}
-+
-+static const struct dwc3_glue_ops dwc3_rockchip_glue_ops = {
-+	.post_phy_registration = dwc3_rockchip_phy_register_reset_handler,
- };
- 
- static int dwc3_rockchip_probe(struct platform_device *pdev)
-@@ -25,8 +134,9 @@ static int dwc3_rockchip_probe(struct platform_device *pdev)
- 	if (!dwc_rk)
- 		return -ENOMEM;
- 
-+	init_waitqueue_head(&dwc_rk->phy_reset_wq);
- 	dwc_rk->dwc.dev = &pdev->dev;
--	dwc_rk->dwc.glue_ops = NULL;
-+	dwc_rk->dwc.glue_ops = &dwc3_rockchip_glue_ops;
- 
- 	probe_data.dwc = &dwc_rk->dwc;
- 	probe_data.res = res;
-@@ -42,12 +152,29 @@ static void dwc3_rockchip_remove(struct platform_device *pdev)
- 
- static int dwc3_rockchip_runtime_suspend(struct device *dev)
- {
--	return dwc3_runtime_suspend(dev_get_drvdata(dev));
-+	struct dwc3 *dwc = dev_get_drvdata(dev);
-+	struct dwc3_rockchip *dwc_rk = to_dwc3_rockchip(dwc);
-+	int ret;
-+
-+	ret = dwc3_runtime_suspend(dwc);
-+	if (!ret)
-+		dwc3_rockchip_set_suspended(dwc_rk, true);
-+
-+	return ret;
- }
- 
- static int dwc3_rockchip_runtime_resume(struct device *dev)
- {
--	return dwc3_runtime_resume(dev_get_drvdata(dev));
-+	struct dwc3 *dwc = dev_get_drvdata(dev);
-+	struct dwc3_rockchip *dwc_rk = to_dwc3_rockchip(dwc);
-+	int ret;
-+
-+	dwc3_rockchip_set_suspended(dwc_rk, false);
-+	ret = dwc3_runtime_resume(dwc);
-+	if (ret)
-+		dwc3_rockchip_set_suspended(dwc_rk, true);
-+
-+	return ret;
- }
- 
- static int dwc3_rockchip_runtime_idle(struct device *dev)
-@@ -57,12 +184,29 @@ static int dwc3_rockchip_runtime_idle(struct device *dev)
- 
- static int dwc3_rockchip_suspend(struct device *dev)
- {
--	return dwc3_pm_suspend(dev_get_drvdata(dev));
-+	struct dwc3 *dwc = dev_get_drvdata(dev);
-+	struct dwc3_rockchip *dwc_rk = to_dwc3_rockchip(dwc);
-+	int ret;
-+
-+	ret = dwc3_pm_suspend(dwc);
-+	if (!ret)
-+		dwc3_rockchip_set_suspended(dwc_rk, true);
-+
-+	return ret;
- }
- 
- static int dwc3_rockchip_resume(struct device *dev)
- {
--	return dwc3_pm_resume(dev_get_drvdata(dev));
-+	struct dwc3 *dwc = dev_get_drvdata(dev);
-+	struct dwc3_rockchip *dwc_rk = to_dwc3_rockchip(dwc);
-+	int ret;
-+
-+	dwc3_rockchip_set_suspended(dwc_rk, false);
-+	ret = dwc3_pm_resume(dwc);
-+	if (ret)
-+		dwc3_rockchip_set_suspended(dwc_rk, true);
-+
-+	return ret;
- }
- 
- static void dwc3_rockchip_complete(struct device *dev)
-diff --git a/drivers/usb/dwc3/trace.c b/drivers/usb/dwc3/trace.c
-index 088995885678..8c4e2a7b142e 100644
---- a/drivers/usb/dwc3/trace.c
-+++ b/drivers/usb/dwc3/trace.c
-@@ -9,3 +9,6 @@
- 
- #define CREATE_TRACE_POINTS
- #include "trace.h"
-+
-+EXPORT_TRACEPOINT_SYMBOL_GPL(dwc3_readl);
-+EXPORT_TRACEPOINT_SYMBOL_GPL(dwc3_writel);
-
--- 
-2.53.0
+Thanks,
+Guenter
 
