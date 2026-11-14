@@ -1,150 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794625553;
-	b=Ke2c6gWadCIFC+xHdLW6SDYE/362NltBaj1OQjeVMde07sk480XgPgo5YPpNwISXrJWJ
-	 pG7vRQoVt8QDHL0rnVGwQx1yZvlX47/VEc487aQ2XcdarL6CV7VFJbWzeVacKYNiMfVDB
-	 6vRI1L8cxok29ZL92lUDcnlDmAf4CxNZ00MC8j3k5E7wL3Rpyi5+wXDq7FnlQIFCO1jaV
-	 dLWKtfdq122DvoxEKBATrU5EI5gIDwqhoAWiKUferJSoLaMn4BSTWOut7O7KuiYMTrs+Q
-	 +LtmGOQs6sYCywQqkwU6jHwt5j5FWw75EGsk65eOdUucVD5b6R9JDFhAOZ9WjdPaQLw==
+	t=1794625554;
+	b=4lNSQJWWvnwcXQdqOlMqvIAg2gOP3Uy7XI/6Tu4evYTsKpkNkjkFEBpxB7Lbn0xbMLCr
+	 RfE4UU9aN3kRtoe9dk+zNQwCmcazl9F4YM/DWi/JsnsHevzbigXa3vvhQYPCNePXGUB8T
+	 VOLhqoZlYQjO9rZyTK/ecu+WfQzIqTZPzoN6XjHYgTEP4ieSwrKrBhO9nJj8ylAiTg00W
+	 Ip/txpYwN511NrrA6m5+pWMkOK7OLb9DJ2ilHUIEyMnAXVYubkUg/USivkHhd3JkAMCh6
+	 SqrE1FoNHpleGu7k0i0+u/V4lgmIhAPVkYcTh0OH7/mML94jdIdVu0WK2Vw+tvtyWdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794625553;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=62GIe8JvYP4f0TG0UnjGBes9su8g8+bruNHEN2VgCBU=;
-	b=pxKmKet4O3fxMFs4hQTsfcZQ2Snq0Hgchb03J6DXV4N8khKU8Y4lfmv0xpzACppY+cHm
-	 7Zef6wWqQsJMU+5ACoDOypf4Jq8W90jwY6v0TrRAMUA/T2G5tH6bQ841WJ+egXyQCU26r
-	 IcgwONspH96l/awdxv8iq7jG0URSXPObaXHiSyRYn9sLbbvKcf0q3OdYpTZhzrfAZzcI/
-	 8Fqd/hdcDRmQvx7ojLmGMYqfwOmWJVbt0jjW3knkCOUUGTfePuDR8gox7zqf4psMYc8RK
-	 edGfjz+Q4d1OUqLrpQGEjeDCCXHiy1YswTJGEOtL6ACxJ4uZfKtSVSO5dbrGDLFKFBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794625554;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=cNitPS2mKtkkWvG3Koj/BsDrCRsqIPAWTzui6Y3UlPA=;
+	b=E46cMZMI1E/IeveU2G61W2U83CZ464wvwyC42SblJbgXrPLlHtX26vgrDE6PVeDCIp7/
+	 yjhGfWDqx/w8olyBGDrZNO0QA1fLQ7gibx6Y/+9ifc11EsFP1bdm7m6WbEX3WrXxgfkUi
+	 DQhO2PZKVVN3r39SsVQ48r9PLtB9wy/mGut14KVM3zR3gE3nH60qsDBDyjvLwCBv9v/Ls
+	 AyMfnbqDDcpGUZxuzSBJ1ezY5J2YcZJheHxee6p7V8dhZqMSaL7yssklG/mvHDO+dDZE0
+	 QBlOudaHbx43+lM3tN2gmDnon/qe2dO6xQ49Xe9vf+3WnTi5g9a7Xf0tRqwATa9quQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gahingwoo.com;
-	spf=pass smtp.mailfrom=gahingwoo.com;
-	dkim=pass header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b="OP8/R+8u";
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=LgBsqteO;
-	arc=none smtp.remote-ip=103.168.172.139
-Received: from flow-a4-smtp.messagingengine.com (flow-a4-smtp.messagingengine.com [103.168.172.139])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b="eg02osW/";
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE958606A8B5
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:05:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE958606A8B5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3D7A606A897
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:05:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3D7A606A897
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=OP8/R+8u;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=LgBsqteO
-Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
-	by mailflow.phl.internal (Postfix) with ESMTP id 136641381A4D
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:05:52 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-11.internal (MEProxy); Fri, 13 Nov 2026 22:05:52 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1794625551; x=
-	1794632751; bh=62GIe8JvYP4f0TG0UnjGBes9su8g8+bruNHEN2VgCBU=; b=O
-	P8/R+8uzC82AUnPVpEMcQaXw01cFs8GL1wYadqer1/d1py+00feJRBxN7+bwyeF5
-	he0rDGOMVzJt+NYv83andxOGLK+oXLLa1iVYsdpAwn3jehpt1OW2hnAF3dNkTRo+
-	GieamTiKXiiPPu3QX4bwkw/0M8ljWxfdEcyLNkFifuSQVmbJG9Afy4tuvLf2kmdc
-	s7GCMcr+p6ayyQSFTswp7SNyR0/bTf3h1FaVpKWsuDf9SSBFFAIekae1zTvgAPud
-	e+ybDeMHBXruPI3cO1TUGbWSTCQMGWpZ43DwVZh4my732uoMqURDLff2qWOnaw6n
-	gkSBsj+GmxL73JqDUMwgA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1794625551; x=1794632751; bh=6
-	2GIe8JvYP4f0TG0UnjGBes9su8g8+bruNHEN2VgCBU=; b=LgBsqteOojkADG1eW
-	qT265h2X0t35F3HXIIqlBN0sOIU7g193Oy2Nu2w3ubNxbGPfk8N4bBR2ftCgeu8R
-	qIlcrKkCsAZByHcujYkPpCfFf97EWPy6fReia6fWO5kjFMeRV2apGqkRRkd6XkT7
-	kGR+27Wn4fq1jUnywlqzEVd5xrvIPwfYHywLkX/jA511eRpV1iCpcCcMFVkBO6Ct
-	86d54Jcpzb/d5+MWyvJD8/SdPirmWcV7w40pXTiNo+204PfJ/eECT3HdsKukTdUg
-	kFD14QzlKX7szrO3p7F2ljBttphwt9BGk06aPl4AN1fHTjANV4p016J48cJOaN7+
-	nW4TA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=gahingwoo.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794625551; d=gahingwoo.com;
-	mf=PGdhaGluZ0BnYWhpbmd3b28uY29tPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:ghcntV2B6gbouunQC/yRrW40nGz0S0BIRWM9yn5qvGO028e
-	JyQdao5sJ2SUOyQO6F2zjqxcaa9o6SFFzsvB5NQ94kwjulsv/9jLwMaMsj8LiXVD
-	3Wf/jp9wFw1QYEQII9mNsDrElab4XKNX2YLIec2ELhuql0BeT2C+p8xV8S1LbbaL
-	jP2imoDtqvscggQLD2sBwHwgnyyELCDZhyNfqiy1J/fSWMfI2Ku10zPKM65exhnZ
-	TOfWkXMjUJelgZtsAiG4Xu5GTdiSZORDimzUqrwAm2bi4eaL9wt7SoIgMIrmZ+21
-	vPN/siqF7D7VReY7v9EAAyXHTJp3Gbs736naq+g==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:NDXTvodY/WebqUiVdhIPdhL95PeiyKDkhELKQ8x+mYs=:DkRlgBDxCZU9QmygKRhVEtuZ+HRBJSSY3HPelOlhjMQ=;
-X-ME-Sender: <xms:D9D3aulk1jmvaNs-tHZDS1h883Vs9CAhly9gcQ5lQuec9eRSVt5uVA>
-    <xme:D9D3ah-YnF7NtNcrx5V0FtOxaLcpLbSWWE_U3myVj3HPXKRqYHyNLjxuxaoZMM1hp
-    OWnkUlveAbhb1X_etK_lm440YBkoH_GhIERC-0EOGf63D_iKJLQvuU1>
-X-ME-Received: <xmr:D9D3al67QdU7-rqg8OuJ8qNYtW1O6VeSY-BpQfgNurKuJkZH4YFXEduw7flzpUVUdQpuSUMk>
-X-ME-Proxy-Cause: dmFkZTENh3Cq6bNtRDDqH//naJpK03OGhXB8Cp3eHHX2EpHYf2oBjZ1/43ruyqVDLzR5bI
-    q7gV+k53czH7SJj0JMNaMvWBGkaUqaereb01ifHpul1q14DobEKJC2mDvQQE3HzqoOU9gl
-    QO0UnCSJOnNpWmY1qWdj/IivEZ+5eJmA8XcRYmqsfPBSZaKqk9zCnQvCGUQuYFJdsYZGP5
-    L8zECb373LU+oefpY9jKwOjkFDiU4CWxV3iExHL3zPnpeZwM1wkFJxhm/yJk+2AJ3ju4OO
-    RXCknd9xSS299sQU1FiikwzYfEAyF9m0XTBIDoIn2qfRRJDU3uzKkImCFIAQPMS5Q++Urw
-    eS6HPGHV1gD/K/rJZ0zWB5zuwTXkHj9Yzz6cNqJHild+o/2RHDPR0AfKkj6U+pMxGxlurT
-    CsQSU2ZPvUgZ7DnLy/bNgvWxTC4RfY4FFkUFTjvFSIGwdt+t7+k+VCzbA9aAiolBzENHMX
-    6cznB3i70KQBHhKmO8BnD21pBn0ONWMfuWoQ5X5omniaEX6pUr4UegyZFxHXLiTSnh0yGp
-    YuP7q6DqdgRRPLkSNePsun/T00jigo92FpkMFA71jgS8OiKWS0v9xUJwzVO8RejQh0VyRg
-    82y7djvbSxYSWExcyVlo5TqvZegL4fe1BCMVAp46KcHCnETM7asJKqZdZ4Mw
-X-ME-Proxy: <xmx:D9D3ahqg3m0IMedWXhnW4rBxgFnF353P26mcgHpWWVMXeoNJwr_dQQ>
-    <xmx:D9D3ahB-GUZ7SEAyvFmnyoHKWHXjhn7PkzXGlf_4q9HaYx12ujoASA>
-    <xmx:D9D3aqMBv6sAEMwAWm21tAE-G-Vz7I4HCAlmjwUhZUIfJrunpyyzPQ>
-    <xmx:D9D3agmn2jkzNzh8hTIwOGCkqC-2ofjIWQ1rKRA_h5ys1swH8831fg>
-    <xmx:D9D3al-wnSH9_daQh1I-j2TUUqcE6wFrG-HMIMoJLzyDLRHWzUGevXYE>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 13 Nov 2026 22:05:42 -0500 (EST)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: tomeu@tomeuvizoso.net,
-	heiko@sntech.de,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	joro@8bytes.org,
-	will@kernel.org,
-	robin.murphy@arm.com,
-	p.zabel@pengutronix.de,
-	ogabbay@kernel.org,
-	zhangqing@rock-chips.com
-Cc: royalnet026@gmail.com,
-	ulf.hansson@oss.qualcomm.com,
-	abel.vesa@oss.qualcomm.com,
-	sebastian.reichel@collabora.com,
-	sidong.yang@furiosa.ai,
-	u.kleine-koenig@baylibre.com,
-	chaoyi.chen@rock-chips.com,
-	shawn.lin@rock-chips.com,
-	finley.xiao@rock-chips.com,
-	diederik@cknow-tech.com,
-	alchark@flipper.net,
-	leonard@lausen.nl,
-	vlwwwwww@gmail.com,
-	jeff.hugo@oss.qualcomm.com,
-	rfoss@kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	iommu@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v17 01/12] accel/rocket: request the core clocks by name
-Date: Sat, 14 Nov 2026 16:05:18 +1300
-Message-ID: <13f16cecfc7082c865b4d9308f0ccb50bee57500.1794615323.git.gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1794615324.git.gahing@gahingwoo.com>
-References: <cover.1794615324.git.gahing@gahingwoo.com>
+	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=eg02osW/
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3720addb068so2604359eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:05:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1794625553; x=1795230353; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cNitPS2mKtkkWvG3Koj/BsDrCRsqIPAWTzui6Y3UlPA=;
+        b=eg02osW/N0j6Vll5BHRAk3xTowb9P7gpiae8E9OE8djefJ09K8SocKsqGQJOGk1uZE
+         adDlBG7+6nvlSSBPe6zUFE6ADTPWY0nZwbr4LQ6782f2UBDbih8a9vd3gL5IYDNjbQJj
+         TChQW2/0ytoRjyCtfVCghQUyY1fLucgck05CI1i/mdXjokx+Yqn6Kjl0QKZyxPBx0DGw
+         bcTP+7iIVTV9FD14L12hZ+mKnmRkvtGnznWxgIsY2dzoh/+TT/cChEbHv88kPJaftm0z
+         kqqnp0RmQCmRxWbiGxGi0celKm2/8hHgACjb283jqwG1SDjMmoOC6Prg9GG0DI5wikvU
+         3Xqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794625553; x=1795230353;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cNitPS2mKtkkWvG3Koj/BsDrCRsqIPAWTzui6Y3UlPA=;
+        b=2FM87UqDBFzUM+EdZPSB5rcIZmkMbB2kw3Uce2QwGprepqXBmuiUJlNKG8l7s/3oki
+         h6eLkga4MlMSjokfUW6/LAwFqpgVgBt3kLCeFqoopTp0tB8954U4BMeBvOl25xZurJcL
+         RkhcYGHcEKAAoXad4zHRb3zg/Ll6IxEIjOi3H7L969epxelZEESfjkklFQYXBKf1VjeU
+         zZ2Ev+RagFCuQKkbwU0+RB5xOUUpsYgEgf+4NoM9aqwOMvnYGp0L36WKeSOA4s7/wx2P
+         vFxSL9bo5H/lVJUQCibXOHPYn9uV42RX08ZL0ZjWwzBqX7LL7/C+QSsrco+oTqPTIxhP
+         xo6g==
+X-Forwarded-Encrypted: i=1; AL+hErHOJSmykoENdyM0h1sseis3Rp1maZtDIJWvqu1+LaHUS3gVTJZ5Cf3/fg/t2pJdkcEll7wozfviVyBdCKU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9SPLm0yRw+GA4p7gJENcGuIUlxx0Xcdu10J/jgNpGz3S8br0u+
+	FkdGQ5Qb2pdkAXwvPGRkvN79krkX0Nq/nBO08JeOI5JTpOi3HWkaT3V2030g8UbeFxE=
+X-Gm-Gg: AYBFou2ZpBCwfF1/Bbv/67pA6yKptL0FWRGHfaTkI4FyimcLIq2BSLBw8twKcqNLwVK
+	AudgiTP79FN6j47zuX+pxQN5jDVjjwBluidOCLl10j1F9szuuXWXBMvd7F9Zc5y272r98DYTIcp
+	tR3q+qGxoBlgl1OOvComefy67M96m2ibdeEkyzuyWs38lGCk5h3EkJHxWDppvAfHQnLhVtrYRC6
+	wzVST5RUPTNMTGkX+y/j2y8DbD1TxJTAuzb0h2Mn1OJtHjfmVBn8Pyh84GraN5owHht3OpmUvRo
+	mQwfPbGwwx903lHgSs5YZYJm15WKaveo/PKiSCnPcn83zFPETo6H50hQS67fpBQ/blDW7s+EYa+
+	vs5NaJv69Q1Vo8LSdUWWzJEQDyX31IGcdAZ2Mh49KJtfRtQvJmwkjCiAdXedKyqYiRC7LNROjy/
+	VR3j+1EptvDtQdVSOviJvuk5jnjWjmwN75eSvydqYuyXJhmJX3MANAjK7zuFcUpF1x6nJm1jdQZ
+	ZS9wKbIn9YudttHmC5redjixVKwe43oj3WRhTlAPWz4IiR4IuWWfKaJ9D+gNWDAF4kpOEjr5RbJ
+	xYtSlgJRW3IyPULPWwUqed0YTPW8y3+YMRHkeO5hjtINTC9aNLnKOS+SmC4cBf+JIcbtM+wXBg=
+	=
+X-Received: by 2002:a05:7022:b056:10b0:1b5:1a6c:af64 with SMTP id a92af1059eb24-1b51a6cb8ebmr564905c88.17.1794625552354;
+        Fri, 13 Nov 2026 19:05:52 -0800 (PST)
+Received: from apollo.purestorage.com ([208.88.152.253])
+        by smtp.googlemail.com with ESMTPSA id a92af1059eb24-1b50316e008sm10829382c88.6.2026.11.13.19.05.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 19:05:52 -0800 (PST)
+From: Mohamed Khalfella <mkhalfella@purestorage.com>
+To: Keith Busch <kbusch@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>
+Cc: Justin Tee <justin.tee@broadcom.com>,
+	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
+	Paul Ely <paul.ely@broadcom.com>,
+	Hannes Reinecke <hare@kernel.org>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	James Smart <jsmart833426@gmail.com>,
+	Randy Jennings <randyj@purestorage.com>,
+	Mohamed Khalfella <mkhalfella@purestorage.com>,
+	Daniel Wagner <dwagner@suse.de>,
+	linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Hannes Reinecke <hare@suse.de>
+Subject: [PATCH v7 04/17] nvmet: Implement CCR logpage
+Date: Fri, 13 Nov 2026 19:04:18 -0800
+Message-ID: <20261114030454.2836543-5-mkhalfella@purestorage.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261114030454.2836543-1-mkhalfella@purestorage.com>
+References: <20261114030454.2836543-1-mkhalfella@purestorage.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -156,79 +113,134 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Igor Paunovic <royalnet026@gmail.com>
+Defined by TP8028 Rapid Path Failure Recovery, CCR (Cross-Controller
+Reset) log page contains an entry for each CCR request submitted to
+source controller. Implement CCR logpage for nvme linux target.
 
-rocket_core_init() never sets the .id of the clocks, so all four are
-requested with a NULL name and each one resolves to the first clock in the
-DT, aclk.
-
-As a result aclk is taken and enabled four times, while hclk, pclk and the
-NPU compute clock are never enabled by the driver. It only works today
-because the power-domain driver enables those clocks for it.
-
-Give the four clocks their names, in the order the binding defines: aclk,
-hclk, npu and pclk.
-
-With that, a DT that lacks any of these clock-names fails probe with
--ENOENT instead of running on the wrong clock.
-
-Fixes: ed98261b4168 ("accel/rocket: Add a new driver for Rockchip's NPU")
-Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
-Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
-Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, NanoPC-T6 Plus
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-Reviewed-by: Jiaxing Hu <gahing@gahingwoo.com>
-[Jiaxing: shortened the commit message, named the clock indices]
-Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
-Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
+Reviewed-by: Hannes Reinecke <hare@suse.de>
+Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
+Reviewed-by: Daniel Wagner <dwagner@suse.de>
 ---
- drivers/accel/rocket/rocket_core.c |  4 ++++
- drivers/accel/rocket/rocket_core.h | 10 +++++++++-
- 2 files changed, 13 insertions(+), 1 deletion(-)
+ drivers/nvme/target/admin-cmd.c | 43 +++++++++++++++++++++++++++++++++
+ include/linux/nvme.h            | 29 ++++++++++++++++++++++
+ 2 files changed, 72 insertions(+)
 
-diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/rocket_core.c
-index 1b27a2c2f435..c1458423cb69 100644
---- a/drivers/accel/rocket/rocket_core.c
-+++ b/drivers/accel/rocket/rocket_core.c
-@@ -28,6 +28,10 @@ int rocket_core_init(struct rocket_core *core)
- 	if (err)
- 		return dev_err_probe(dev, err, "failed to get resets for core %d\n", core->index);
+diff --git a/drivers/nvme/target/admin-cmd.c b/drivers/nvme/target/admin-cmd.c
+index 3df9db454db9..25c320752d2a 100644
+--- a/drivers/nvme/target/admin-cmd.c
++++ b/drivers/nvme/target/admin-cmd.c
+@@ -220,6 +220,7 @@ static void nvmet_execute_get_supported_log_pages(struct nvmet_req *req)
+ 	logs->lids[NVME_LOG_FEATURES] = cpu_to_le32(NVME_LIDS_LSUPP);
+ 	logs->lids[NVME_LOG_RMI] = cpu_to_le32(NVME_LIDS_LSUPP);
+ 	logs->lids[NVME_LOG_RESERVATION] = cpu_to_le32(NVME_LIDS_LSUPP);
++	logs->lids[NVME_LOG_CCR] = cpu_to_le32(NVME_LIDS_LSUPP);
  
-+	core->clks[ROCKET_CLK_ACLK].id = "aclk";
-+	core->clks[ROCKET_CLK_HCLK].id = "hclk";
-+	core->clks[ROCKET_CLK_NPU].id = "npu";
-+	core->clks[ROCKET_CLK_PCLK].id = "pclk";
- 	err = devm_clk_bulk_get(dev, ARRAY_SIZE(core->clks), core->clks);
- 	if (err)
- 		return dev_err_probe(dev, err, "failed to get clocks for core %d\n", core->index);
-diff --git a/drivers/accel/rocket/rocket_core.h b/drivers/accel/rocket/rocket_core.h
-index f6d7382854ca..01a12664566c 100644
---- a/drivers/accel/rocket/rocket_core.h
-+++ b/drivers/accel/rocket/rocket_core.h
-@@ -27,6 +27,14 @@
- #define rocket_core_writel(core, reg, value) \
- 	writel(value, (core)->core_iomem + (REG_CORE_##reg) - REG_CORE_S_STATUS)
+ 	status = nvmet_copy_to_sgl(req, 0, logs, sizeof(*logs));
+ 	kfree(logs);
+@@ -617,6 +618,46 @@ static void nvmet_execute_get_log_page_features(struct nvmet_req *req)
+ 	nvmet_req_complete(req, status);
+ }
  
-+enum rocket_clk {
-+	ROCKET_CLK_ACLK,
-+	ROCKET_CLK_HCLK,
-+	ROCKET_CLK_NPU,
-+	ROCKET_CLK_PCLK,
-+	ROCKET_CLK_MAX,
++static void nvmet_execute_get_log_page_ccr(struct nvmet_req *req)
++{
++	struct nvmet_ctrl *ctrl = req->sq->ctrl;
++	struct nvmet_ccr *ccr;
++	struct nvme_ccr_log *log;
++	int index = 0;
++	u16 status;
++
++	log = kzalloc_obj(*log);
++	if (!log) {
++		status = NVME_SC_INTERNAL;
++		goto out;
++	}
++
++	mutex_lock(&ctrl->lock);
++	list_for_each_entry(ccr, &ctrl->ccr_list, entry) {
++		u8 flags = NVME_CCR_FLAGS_VALIDATED | NVME_CCR_FLAGS_INITIATED;
++		u8 ccr_status = ccr->ctrl ? NVME_CCR_STATUS_IN_PROGRESS :
++					NVME_CCR_STATUS_SUCCESS;
++
++		log->entries[index].icid = cpu_to_le16(ccr->icid);
++		log->entries[index].ciu = ccr->ciu;
++		log->entries[index].acid = cpu_to_le16(0xffff);
++		log->entries[index].ccrs = ccr_status;
++		log->entries[index].ccrf = flags;
++		index++;
++	}
++
++	/* Cleanup completed CCRs if requested */
++	if (req->cmd->get_log_page.lsp & 0x1)
++		nvmet_ctrl_cleanup_ccrs(ctrl, false);
++	mutex_unlock(&ctrl->lock);
++
++	log->ne = cpu_to_le16(index);
++	status = nvmet_copy_to_sgl(req, 0, log, sizeof(*log));
++	kfree(log);
++out:
++	nvmet_req_complete(req, status);
++}
++
+ static void nvmet_execute_get_log_page(struct nvmet_req *req)
+ {
+ 	if (!nvmet_check_transfer_len(req, nvmet_get_log_page_len(req->cmd)))
+@@ -650,6 +691,8 @@ static void nvmet_execute_get_log_page(struct nvmet_req *req)
+ 		return nvmet_execute_get_log_page_rmi(req);
+ 	case NVME_LOG_RESERVATION:
+ 		return nvmet_execute_get_log_page_resv(req);
++	case NVME_LOG_CCR:
++		return nvmet_execute_get_log_page_ccr(req);
+ 	}
+ 	pr_debug("unhandled lid %d on qid %d\n",
+ 	       req->cmd->get_log_page.lid, req->sq->qid);
+diff --git a/include/linux/nvme.h b/include/linux/nvme.h
+index d31c9648af43..98961f80b173 100644
+--- a/include/linux/nvme.h
++++ b/include/linux/nvme.h
+@@ -1440,6 +1440,7 @@ enum {
+ 	NVME_LOG_ANA		= 0x0c,
+ 	NVME_LOG_FEATURES	= 0x12,
+ 	NVME_LOG_RMI		= 0x16,
++	NVME_LOG_CCR		= 0x1e,
+ 	NVME_LOG_FDP_CONFIGS	= 0x20,
+ 	NVME_LOG_DISC		= 0x70,
+ 	NVME_LOG_RESERVATION	= 0x80,
+@@ -1466,6 +1467,34 @@ enum {
+ 	NVME_FIS_CSCPE	= 1 << 21,
+ };
+ 
++/* NVMe Cross-Controller Reset Status */
++enum {
++	NVME_CCR_STATUS_IN_PROGRESS,
++	NVME_CCR_STATUS_SUCCESS,
++	NVME_CCR_STATUS_FAILED,
 +};
 +
- struct rocket_core {
- 	struct device *dev;
- 	struct rocket_device *rdev;
-@@ -36,7 +44,7 @@ struct rocket_core {
- 	void __iomem *pc_iomem;
- 	void __iomem *cna_iomem;
- 	void __iomem *core_iomem;
--	struct clk_bulk_data clks[4];
-+	struct clk_bulk_data clks[ROCKET_CLK_MAX];
- 	struct reset_control_bulk_data resets[2];
- 
- 	struct iommu_group *iommu_group;
++/* NVMe Cross-Controller Reset Flags */
++enum {
++	NVME_CCR_FLAGS_VALIDATED	= 0x01,
++	NVME_CCR_FLAGS_INITIATED	= 0x02,
++};
++
++struct nvme_ccr_log_entry {
++	__le16			icid;
++	__u8			ciu;
++	__u8			rsvd3;
++	__le16			acid;
++	__u8			ccrs;
++	__u8			ccrf;
++};
++
++struct nvme_ccr_log {
++	__le16				ne;
++	__u8				rsvd2[6];
++	struct nvme_ccr_log_entry	entries[NVMF_CCR_PER_PAGE];
++};
++
+ /* NVMe Namespace Write Protect State */
+ enum {
+ 	NVME_NS_NO_WRITE_PROTECT = 0,
 -- 
-2.43.0
+2.56.0
 
