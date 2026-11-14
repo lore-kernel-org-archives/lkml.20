@@ -1,71 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.88.97.239
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794653495;
-	b=kskzV++q4JEC2PcHyRrpG6E/ebZcjPj5WY6i5Saia9vu5p1wYc/PVlVwHgided1aOhif
-	 AaiW9KITeMiUDzQZGPDAAFC5TZxkwdr807Fo/+ojQQSCSvcQVb/wNNg/gU2IY51DifGYE
-	 qcHg/b3q7seVSZhjvQzKD4QxCzr5RXAZYXjBAa/Bk/t2KCqCvuwBPiAsfxWCFBHhLY8MW
-	 6KcO21rPH3Oh6kH9Url1TdCHYbsAZlNk3PedU4Dsc3HLPO7W4GFEr4VqrVcRKIVXXdDdO
-	 5Lo8Cd92Df2EhtZQKY4I84AkGC8o5yJANPgKGTF1rZ6n54q4Lif91xQCQwymMALJLrg==
+	t=1794654387;
+	b=a3t+DHkVOGRI92CQjbAi1q4EoWjSTEp7QRORySTsOFVaGO8z83CDOCdv+3TTNeSqqRWa
+	 bVlDAwh6TsVptxwScmGDGbS2P/jrMs0+BnNVSZ6ctF5vBTTDd01X9rNKcLtMNLEFDBih8
+	 6CJdptdf8CUnDJH/AO7ylDEfeQ13sPqv6M5j2t2Ijhgvku8IU6LKe7gLvDx8B5AM4ak8j
+	 7BQceBpjYNhhHsreWyBg+5Y6GtZLkI2S+CAlJ5VOO9EDjtY7t69CKOdH+M1wfQduIxe2W
+	 JROtj89r2BKHzEHFuHzBA9AWFW3ajFdXxoiXtJ3RoNU6ltoaFg0JQmtQ7f7AOO1q6zQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794653495;
-	h=DMARC-Filter:DKIM-Signature:Received:X-Spam-Checker-Version:
-	 X-Spam-Level:X-Spam-Status:DKIM-Signature:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=MhADV3IyydkqsTPMH3tU3wvA/vLc7fc8EWdcpm0ov70=;
-	b=n4McjLaSISnK85/zUm57TLXouNeYfvtcGrGDImmg2S1BunR4e6r7FGrlonjSNM5ulUBm
-	 +6GD43AbpVI85tQrypkI+7neMeUG789ddOLEIeYTOxjA2oOhIkBtuOsoIOkDpfCKrW4Lx
-	 YRXVCzLMBPsMcIgreJXFvNn+ckjwpO2htleYOnsEkzGCTw5eQ77Uenn/pDd9Idkq86g2A
-	 lgJTZLk6FZPBvv85FLG0cg6kCmO1+Tj05YB6BqFy7IZKKsCWZHJ5RWwHWf6Q4XpZqS5X0
-	 KPOVwb0djNptWKwSxjsO7h6DvQXYuEuKJJZblsWI58xhveNTTf54uM8qYazGxRZ/fyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794654387;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:X-Developer-Signature:X-Developer-Key:
+	 Content-Transfer-Encoding;
+	bh=3TJsO1c6i6qRWo9XIWzztf8Qe/qn5kjQjnDvYcZnLyI=;
+	b=zmJkZkpCsIwYLyB4lmJQJjAk5ONelLYPvSQZEGyJq9mOZPUXxsczxAGFrbgSRPm5Aads
+	 OjFHWVUa5wcvaYW3bsbFTS1cl1mhGxjAkQmksiKPiqqtRF59uw0hrVyPGXdMX+7Xmpafz
+	 05zN4teCA8vnhscCpr96/Rr7qrvJjFvVA26axcStIZjT8i7S5QGt/LHNIdRSWo1A7ZDFo
+	 usvqWxUuOOE8RjNuHYnv0MOs2Ne4AtxU4R8iOYaA3Af4DamH6wtiI8VtmgTO2efHEnQ6N
+	 bGxENAw6fRax3mX6/7l1yL8+k+NCVmwUpWlUFPZLwpRTTJ0irV0QS1YvGHezDTrhb+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=birger-koblitz.de;
-	spf=pass smtp.mailfrom=birger-koblitz.de;
-	dkim=pass header.d=birger-koblitz.de header.i=@birger-koblitz.de header.a=rsa-sha256 header.s=default header.b=z5JrUCDk;
-	dkim=pass header.d=birger-koblitz.de header.i=@birger-koblitz.de header.a=rsa-sha256 header.s=default header.b=oujzd2ir;
-	arc=none smtp.remote-ip=23.88.97.239
-Received: from bkemail.birger-koblitz.de (bkemail.birger-koblitz.de [23.88.97.239])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U+XfOTmZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EA21606B96A;
-	Sat, 14 Nov 2026 10:51:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EA21606B96A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birger-koblitz.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE252606A323
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 11:06:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.a=rsa-sha256 header.s=default header.b=z5JrUCDk;
-	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.a=rsa-sha256 header.s=default header.b=oujzd2ir
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
-	s=default; t=1794653493;
-	bh=cg39L093dm5ZgWsTfiATniGIm12jPVEs5/MdqNtJY2Q=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=z5JrUCDkieatB2Age/UzV55ZYAYSvefmYvErbw8VacoF+s1opGmtLwQ0OurgSoOb7
-	 o4pUvWJ9ul8tT02NBiPmz8jqdqNbTPE8maH+xTJYsVf6iDyyG/hg4EFkruSL8LtIJh
-	 FvDDFkZdh6gQU4nUYCNroE6tnPKOZZg4jkR3G5zL6xHS62lnC5mcfnRhV0aLv1at12
-	 mziL9BQfy58WjAP3cFax2CdWXhfZ+RYOLCe5H/1moQn+5msiD4kbTtL1nQXrJMI/vB
-	 xMtiMHgOJHCzUWgfUkNEMxRgBWsQ9t9mNi8vxj38xag++AaAv/V+8I1W4yZk1oBlbS
-	 p4frllRjnuHIA==
-Received: by bkemail.birger-koblitz.de (Postfix, from userid 109)
-	id B9234489E7; Sat, 14 Nov 2026 10:51:33 +0000 (UTC)
-X-Spam-Level: 
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
-	s=default; t=1794653482;
-	bh=cg39L093dm5ZgWsTfiATniGIm12jPVEs5/MdqNtJY2Q=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=oujzd2irR52p3Bs3IoHDOw6JV6bj0Tf/bQCCDZx/UAMhdgnmpGE57CO8jt41ahSue
-	 god4HnAW6b8JGSxt74Exqg16QATRNBj6rm2XcBvlQtuN7QEwCpi2lOG1uyt/SF6hye
-	 iJMcL2++svrqa7UI1UNU1x+NcmBNuG08RBn20t0b7rQnZ6NJB5HAOZQFoXDO1HW3+d
-	 XDc+3S0PPf6VGaoF5oBDsSqcBL9seBQy6+RdKOdixLZBbh8Nk/5+Q11uoHxWTfU2Nx
-	 BTbWzkecaKET2abXpJ6d8kGEW0IPlFkcXpkaZf1cbJJVqcXprKtZYH5YBANPKWIjGj
-	 IB9sxb+MykCUg==
-Received: from AMDDesktop.lan (unknown [IPv6:2a00:6020:47a3:e800:271c:c6c5:9fde:77cb])
-	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id 6DEC3489C8;
-	Sat, 14 Nov 2026 10:51:22 +0000 (UTC)
-From: Birger Koblitz <mail@birger-koblitz.de>
-Date: Sat, 14 Nov 2026 11:51:02 +0100
-Subject: [PATCH net-next v21 06/13] ax88179_178a: Add EEE configuration
- support for AX88179A PHYs
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U+XfOTmZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A82761F000C4;
+	Sat, 14 Nov 2026 11:06:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794654387;
+	bh=3TJsO1c6i6qRWo9XIWzztf8Qe/qn5kjQjnDvYcZnLyI=;
+	h=From:To:Cc:Subject:Date;
+	b=U+XfOTmZcae3eFgB14z/89MyMTjqQhl09XHYIjBSWMIbBvxuCiJVTn8cxgOlVVZZT
+	 Jiyl3kMJeebOURosQMWjqpHmg4DF2K7szICdqJPDj1hOx021lPBkW8SQGRjme/mzCA
+	 J4E94dL44jOCPA/qnAt8IJ/c7zQo4O11Juo7i21dDb/aCNuUDoBjWwzFxTU/+FbCt0
+	 /oK2l++05mh9Ft37UU+ee/cn1zL38xlWXDdHD+6254Thu1yIKKSJ6EA19CHEZz6fUm
+	 D+cYU35SyTGqtYCiRFxLRfmoMdHS0aONbNAhCNWg818jUWNJlm8ubFBIS6egicQ6S/
+	 8dBWtXqQwYFWQ==
+From: Thorsten Blum <blum@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Sang-Heon Jeon <ekffu200098@gmail.com>,
+	Breno Leitao <leitao@debian.org>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	Ryan Roberts <ryan.roberts@arm.com>
+Cc: Thorsten Blum <blum@kernel.org>,
+	Wilson Felipe Pereira <wfelipe@google.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] init: Remove strlcat() and sprintf() from do_one_initcall()
+Date: Sat, 14 Nov 2026 12:05:31 +0100
+Message-ID: <20261114110531.26138-2-blum@kernel.org>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,80 +64,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261114-ax88179a-v21-6-c2d34410bcbe@birger-koblitz.de>
-References: <20261114-ax88179a-v21-0-c2d34410bcbe@birger-koblitz.de>
-In-Reply-To: <20261114-ax88179a-v21-0-c2d34410bcbe@birger-koblitz.de>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Russell King <linux@armlinux.org.uk>, 
- Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
- Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
- Eric Dumazet <edumazet@kernel.org>, Eric Dumazet <edumazet@kernel.org>
-Cc: linux-usb@vger.kernel.org, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, loongarch@lists.linux.dev, 
- Jianhui Xu <neuromoments@gmail.com>, 
- Emir Beganovic <beganovic.emir@gmail.com>, 
- Birger Koblitz <mail@birger-koblitz.de>, Nicolai Buchwitz <nb@tipi-net.de>
-X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1682; i=blum@kernel.org; h=from:subject; bh=HssEf/X14wqhEWrCqz/c62Xd6B9OlXq7PQtWWGExo4c=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFk/HKpdjp7XWP24Pnx66IcKQTNWrg6OJGGl1e23VE9pm Kh0Rgt3lLIwiHExyIopsjyY9WOGb2lN5SaTiJ0wc1iZQIYwcHEKwER0Whj+KdrFFCdktU/MZEz+ 3D9736zy78/j11uEMVh1Vax9dCHfleGfScRGwfxfJgf/PftWbnjyYtvFC5P5+yPneO5nT9Wpr5v BAQA=
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+Content-Transfer-Encoding: 8bit
 
-Configure phylink to work with the PHYs in the AX88179A controllers
-and provide ethtool get/set eee operations calling into phylink.
+In preparation for removing strlcat() from the kernel [1], format the
+warning directly in WARN(). This also removes the temporary 64-byte
+buffer and the sprintf() call while preserving the warning text.
 
-Signed-off-by: Birger Koblitz <mail@birger-koblitz.de>
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+Link: https://github.com/KSPP/linux/issues/370 [1]
+Signed-off-by: Thorsten Blum <blum@kernel.org>
 ---
- drivers/net/usb/ax88179a_devices.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ init/main.c | 21 +++++++++++----------
+ 1 file changed, 11 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/net/usb/ax88179a_devices.c b/drivers/net/usb/ax88179a_devices.c
-index 62619fd68c408f453e48c94020bce2254da9a1f9..272e92365683247b42a5fd25013c728a9c1af711 100644
---- a/drivers/net/usb/ax88179a_devices.c
-+++ b/drivers/net/usb/ax88179a_devices.c
-@@ -225,6 +225,20 @@ static int ax88179a_get_eeprom_len(struct net_device *net)
- 		return AX88179A_EEPROM_LEN;
- }
+diff --git a/init/main.c b/init/main.c
+index 93a2b12976f0..430b403e0880 100644
+--- a/init/main.c
++++ b/init/main.c
+@@ -1397,7 +1397,8 @@ static inline void do_trace_initcall_level(const char *level)
+ int __init_or_module do_one_initcall(initcall_t fn)
+ {
+ 	int count = preempt_count();
+-	char msgbuf[64];
++	bool preempt_imbalanced;
++	bool irqs_left_disabled;
+ 	int ret;
  
-+static int ax88179a_get_eee(struct net_device *net, struct ethtool_keee *edata)
-+{
-+	struct ax88179_data *ax179_data = netdev2data(net);
-+
-+	return phylink_ethtool_get_eee(ax179_data->phylink, edata);
-+}
-+
-+static int ax88179a_set_eee(struct net_device *net, struct ethtool_keee *edata)
-+{
-+	struct ax88179_data *ax179_data = netdev2data(net);
-+
-+	return phylink_ethtool_set_eee(ax179_data->phylink, edata);
-+}
-+
- static const struct ethtool_ops ax88179a_ethtool_ops = {
- 	.get_link		= ethtool_op_get_link,
- 	.get_msglevel		= usbnet_get_msglevel,
-@@ -234,6 +248,8 @@ static const struct ethtool_ops ax88179a_ethtool_ops = {
- 	.get_eeprom_len		= ax88179a_get_eeprom_len,
- 	.get_eeprom		= ax88179_get_eeprom,
- 	.set_eeprom		= ax88179_set_eeprom,
-+	.get_eee		= ax88179a_get_eee,
-+	.set_eee		= ax88179a_set_eee,
- 	.nway_reset		= phy_ethtool_nway_reset,
- 	.get_link_ksettings	= ax88179a_get_link_ksettings,
- 	.set_link_ksettings	= ax88179a_set_link_ksettings,
-@@ -451,6 +467,10 @@ static int ax88179a_phylink_setup(struct usbnet *dev)
- 		phy_if_mode = PHY_INTERFACE_MODE_SGMII;
- 	}
+ 	if (initcall_blacklisted(fn))
+@@ -1407,17 +1408,17 @@ int __init_or_module do_one_initcall(initcall_t fn)
+ 	ret = fn();
+ 	do_trace_initcall_finish(fn, ret);
  
-+	memcpy(data->phylink_config.lpi_interfaces,
-+	       data->phylink_config.supported_interfaces,
-+	       sizeof(data->phylink_config.lpi_interfaces));
+-	msgbuf[0] = 0;
+-
+-	if (preempt_count() != count) {
+-		sprintf(msgbuf, "preemption imbalance ");
++	preempt_imbalanced = preempt_count() != count;
++	if (preempt_imbalanced)
+ 		preempt_count_set(count);
+-	}
+-	if (irqs_disabled()) {
+-		strlcat(msgbuf, "disabled interrupts ", sizeof(msgbuf));
 +
- 	phylink = phylink_create(&data->phylink_config, dev->net->dev.fwnode,
- 				 phy_if_mode, &ax88179a_phylink_mac_ops);
- 	if (IS_ERR(phylink))
-
--- 
-2.47.3
-
++	irqs_left_disabled = irqs_disabled();
++	if (irqs_left_disabled)
+ 		local_irq_enable();
+-	}
+-	WARN(msgbuf[0], "initcall %pS returned with %s\n", fn, msgbuf);
++
++	WARN(preempt_imbalanced || irqs_left_disabled, "initcall %pS returned with %s%s\n", fn,
++	     preempt_imbalanced ? "preemption imbalance " : "",
++	     irqs_left_disabled ? "disabled interrupts " : "");
+ 
+ 	add_latent_entropy();
+ 	return ret;
