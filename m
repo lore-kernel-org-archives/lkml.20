@@ -1,48 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794653278;
-	b=OJ4xqEJ60wUqXFOulTR1XutSjxwvz1PXiVrQqAoyB82upbmytMbZ86jEmeB8qj9xGNO3
-	 H/20nH3Wd1pdp8DJGlz3yzlfuW/f6VnamACMXouL+3NowUFt9QZrq1PDn+nG97XARQ9Ak
-	 GQxi9Kls+rmecrpw9jm+mqwdIORG9DZLuh9Knl8jOByBq4/1J+CAlu5L4foMJa4vn1xnm
-	 0W32WqcnGLIbnkL4g0904TWMIK5T1TRni1R2+AmiCfgSC6eLr7DKVfnoFoZtUprtG7wIn
-	 2iCcmc76bh3QhaZJyk0Oms7FiuDD9uVtkKhSZFT68rd3E3seymPCbfmJu2qJEQ5wmRA==
+	t=1794653289;
+	b=qP8/8IvRz97MjOOQUUI4r3LGJu3NYNiGLR6r/99BQV13aELtOAuhtKCRfJeqHhB3orv8
+	 NMau/j9M9/FrBsoGrSN1fc1fUKP1AnDC2j0uz2FSOxtLS/a5CT1QxXQA4CLA2Q/zhhxLW
+	 cGsPjCOOXawNAErohZVeQ/hbytYQ4nPa8OpThT+eTwSBzrPD7RRLZFN5/5lKGNHp15Tgq
+	 ZZUDtKegyjj50upNik8Or1oejLR8FdVpKYZtbp7TP1KiLJqfy47cWf51tRedvs6jQsghC
+	 xKeDLAGjf+XRgZRCbSIYg4T5BOLOGoFg6AeLHNPI12wV2DAY3XN7exzmNMgAQGabNJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794653278;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794653289;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=EPXfSvBCYCPKb/RAX3GCQEpLV4ev3a42UOQga3sf9mQ=;
-	b=rcjuFb1jbpZOj2Uq9kI7E9ZX6GeVKmcOxTBuU9Jc30mNobEFn8myqKQIr8sJGoO4y0K5
-	 FUpOIko9KTHsWAFQyz57YUEutDCw6eaSuw1+bs9/Cj0wdflNlgJ+W77NSsFyp26eyZGum
-	 0blABKekP3jp5rryjX4bnpbz1j3XYRHbjaauKJDb7y9TWZPi22Lr0YzMqSZU6KX5jv9M0
-	 qC/uoIDTCD4xVR7/gAg4en/62ql0ZAQMAh7d+glVAoW3CuijMiv13Icy+RnR/z9fF2QFS
-	 X1AYfSWogUNGDcuNPcxXbsCYNyv6H3sxIaeHCjnujSh+mkjWJ0im2idDSEYJ+fbLl6w==
+	bh=gbCVq4/5eiYFaf+PhR9hp/bgYYe511qQstYUk8yenAg=;
+	b=v/DDjlsp/eXgnw0lJPCPptX+icW4jfwm+Q4grB5YFX1PAgAQ073OYgo6I67QL7dkqRCt
+	 ZbXHbCHcvoWFRuKs75U/CqTuC4qSqchmp34lnuLwxrjnrtswf8HV/4QcThF343cH9x8HS
+	 8vonmpyj7ZELTEmGAGRsAKtxt7GSoaNIrc6WkbrAw7yGPmNd2V7Jl0WbrQzyPyvSMnSVv
+	 b/Yw161oGkBfC1vVfEsJP4/7v0Xfn2lSwIBU7U0Jwx/C4UVj7BPu+GZXOVdyFd0zIRUJY
+	 mPA7bOJwAcpNXC3gZAIWmg0fuEGU3VrQ38GPcxASYa0jZcQfu4Ul/t9tt4D9FWXA3pw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DakOD7A1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C85Y3Cm+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CCDF606A880;
-	Sat, 14 Nov 2026 10:47:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF88A606A32E;
+	Sat, 14 Nov 2026 10:48:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DakOD7A1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F1161F000C6;
-	Sat, 14 Nov 2026 10:47:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C85Y3Cm+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22D6E1F00ADB;
+	Sat, 14 Nov 2026 10:48:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794653277;
-	bh=EPXfSvBCYCPKb/RAX3GCQEpLV4ev3a42UOQga3sf9mQ=;
+	s=k20260515; t=1794653289;
+	bh=gbCVq4/5eiYFaf+PhR9hp/bgYYe511qQstYUk8yenAg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=DakOD7A1n3IwqMYolCiPetDw15uh3sm7RVPBY43kM2NYOc+qn3vhRPYwb8szRRAmQ
-	 jv92DwWqAz2F0TNUfjZBwyk7JDnEKCPiOMBQZhohvxm3R0z7RtQeZsPwQZxURAAlPu
-	 5manaU69aDlpz59ajGmPJAFiijZjYz8EoowbPxVGi4mZhn5NHtsKW3wY6NSvoc2BkJ
-	 /KZkmnSbRcqC1DmQ72gjw/GC+XCY/48V+VRWijzOvnfA/VsSElGPBf7kPHJvWD/xrb
-	 9Q57wmAjqVi15M9QDrRTgGz4JMcotHqRweJq851hy99NQBd2DfMK3eb4yZOLkI3NXd
-	 t4TBWDY19rQRg==
+	b=C85Y3Cm+x4ix8leBBiSDG9Fb4Ss6w5SPx2bBk675rPnAs9wQca1+FOUGBhv2xuxw7
+	 MK0TWIbAZocOlPzC+eNHjZzXFrIartDFgirA5LLHTYK6FMX7vb4Rc09IGDAn5/YBLl
+	 b7oDPnZv2aK2wdSGEbscs8nzdjUU3HKPxU5oLD/Z6NZ5kE+8noXMmX+PlpZVr3Sb+Q
+	 uF1CPyiyyGh6+6Don0HFTMptVIMeKDH1/BsbrmNOfQNwRJf2+L3dY6EaZ/wjL/uArI
+	 IflUJ2auYkZiYC+bTHRNmE7FhUs7kksihdKyw3g49S3BPRCv68b17YPahKv00vn70b
+	 XL1qNDb7gwh/A==
 From: Christian Brauner <brauner@kernel.org>
-Date: Sat, 14 Nov 2026 11:47:10 +0100
-Subject: [PATCH 03/12] nvmet: take freeze protection for writes to files
+Date: Sat, 14 Nov 2026 11:47:13 +0100
+Subject: [PATCH 06/12] loop: take freeze protection for discard and write
+ zeroes
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261114-work-fs-frozen_writes-v1-3-f5ae61c898b1@kernel.org>
+Message-Id: <20261114-work-fs-frozen_writes-v1-6-f5ae61c898b1@kernel.org>
 References: <20261114-work-fs-frozen_writes-v1-0-f5ae61c898b1@kernel.org>
 In-Reply-To: <20261114-work-fs-frozen_writes-v1-0-f5ae61c898b1@kernel.org>
 To: Jan Kara <jack@suse.cz>
@@ -68,32 +69,31 @@ Cc: Shakeel Butt <shakeel.butt@linux.dev>,
  linux-nfs@vger.kernel.org, 
  "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4272; i=brauner@kernel.org;
- h=from:subject:message-id; bh=YSrX1zIKRv3jJ31B+unsoiKy8FJYqJOmxZhrDtaDVhQ=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWT9sHHIuxawSj37dst58ZS0yX/DJ0mr/V4R8OpUeHfK6
- pDpKtKBHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABPZ7cbIcDg/RayD2V9XXvqx
- 1tHyY0v2Jd9bb/dLITVra/O7mapcagx/xR58zN99qfGwwar5wu+2SaqxBk9kM2jiFVu95eSL3DP
- xzAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1706; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=xHFfdTQ766WF3iw3WyUIkHbq04BvqXzbCzn5QRQPOhQ=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWT9sHFe2uP2eit76RRN2/P7Ch4xJy7svPFPQYaNQ7F0t
+ YgZ17bnHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABORymRk6LxwQDPU1ke6KrWN
+ 0/DNt5X/U2cqFlXvvDfHcFnELm7T74wMk+/8WTR5ft0Jh7vyXv9e/5VZ/rjbJ3vz/F6dRd84hVv
+ U+AA=
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-The file backend calls ->write_iter() of the backing file without
-taking freeze protection. So a write to a namespace goes through to a
-filesystem that is frozen. With the backing file on ext4 and
-buffered_io:
+Discard and write zeroes requests end up in lo_fallocate() which calls
+->fallocate() of the backing file directly. That skips the freeze
+protection vfs_fallocate() would have taken. So they go straight
+through to a filesystem that is frozen. With the backing file on ext4:
 
-  WARNING: fs/ext4/ext4_jbd2.c:90 at ext4_journal_check_start+0x1f6/0x2d0, CPU#1: kworker/1:1/56
-  Workqueue: nvmet-buffered-io-wq nvmet_file_buffered_io_work
+  WARNING: fs/ext4/ext4_jbd2.c:90 at ext4_journal_check_start+0x1f6/0x2d0, CPU#3: kworker/u16:1/44
+  Workqueue: loop1 loop_rootcg_workfn
   Call Trace:
    <TASK>
    __ext4_journal_start_sb+0x7a/0x470
    ext4_dirty_inode+0xa1/0x120
    __mark_inode_dirty+0x154/0x1110
    file_update_time_flags+0x3ab/0x4b0
-   ext4_buffered_write_iter+0x143/0x630
-   ext4_file_write_iter+0x7b9/0x1570
-   nvmet_file_submit_bvec+0x2e7/0x590
-   nvmet_file_execute_io+0x460/0x830
+   ext4_fallocate+0x286/0x3440
+   lo_fallocate+0x13e/0x290
+   loop_process_work+0x486/0xe70
    process_one_work+0x946/0x1820
    worker_thread+0x4f1/0xd60
    kthread+0x364/0x460
@@ -101,102 +101,28 @@ buffered_io:
    ret_from_fork_asm+0x1a/0x30
    </TASK>
 
-The same happens with direct I/O.
+Take freeze protection around ->fallocate() like vfs_fallocate() does.
 
-Take freeze protection around the write. A write that wasn't queued
-drops it right away. A write that was queued drops it in the completion
-callback. nvmet_file_io_done() is also called for I/O that wasn't queued
-so queued I/O gets its own callback.
-
-Note that buffered I/O is tried with IOCB_NOWAIT first. That attempt
-must not wait until the filesystem is thawed. So it only tries to get
-freeze protection and fails with -EAGAIN otherwise. The write is then
-retried from the workqueue like any other write that would have
-blocked.
-
-Fixes: d5eff33ee6f8 ("nvmet: add simple file backed ns support")
+Fixes: dfaa2ef68e80 ("loop: add discard support for loop devices")
 Cc: stable@vger.kernel.org
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- drivers/nvme/target/io-cmd-file.c | 37 ++++++++++++++++++++++++++++++-------
- 1 file changed, 30 insertions(+), 7 deletions(-)
+ drivers/block/loop.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/nvme/target/io-cmd-file.c b/drivers/nvme/target/io-cmd-file.c
-index 695963dd932ee..2a2be95263733 100644
---- a/drivers/nvme/target/io-cmd-file.c
-+++ b/drivers/nvme/target/io-cmd-file.c
-@@ -77,27 +77,39 @@ static ssize_t nvmet_file_submit_bvec(struct nvmet_req *req, loff_t pos,
- 		unsigned long nr_segs, size_t count, int ki_flags)
- {
- 	struct kiocb *iocb = &req->f.iocb;
--	ssize_t (*call_iter)(struct kiocb *iocb, struct iov_iter *iter);
-+	struct file *file = req->ns->file;
- 	struct iov_iter iter;
-+	ssize_t ret;
- 	int rw;
+diff --git a/drivers/block/loop.c b/drivers/block/loop.c
+index a3325ceab484a..77f0601475bb9 100644
+--- a/drivers/block/loop.c
++++ b/drivers/block/loop.c
+@@ -259,7 +259,9 @@ static int lo_fallocate(struct loop_device *lo, struct request *rq, loff_t pos,
+ 	if (!bdev_max_discard_sectors(lo->lo_device))
+ 		return -EOPNOTSUPP;
  
- 	if (req->cmd->rw.opcode == nvme_cmd_write) {
- 		if (req->cmd->rw.control & cpu_to_le16(NVME_RW_FUA))
- 			ki_flags |= IOCB_DSYNC;
--		call_iter = req->ns->file->f_op->write_iter;
- 		rw = ITER_SOURCE;
- 	} else {
--		call_iter = req->ns->file->f_op->read_iter;
- 		rw = ITER_DEST;
- 	}
- 
- 	iov_iter_bvec(&iter, rw, req->f.bvec, nr_segs, count);
- 
- 	iocb->ki_pos = pos;
--	iocb->ki_filp = req->ns->file;
--	iocb->ki_flags = ki_flags | iocb->ki_filp->f_iocb_flags;
-+	iocb->ki_filp = file;
-+	iocb->ki_flags = ki_flags | file->f_iocb_flags;
- 
--	return call_iter(iocb, &iter);
-+	if (rw == ITER_DEST)
-+		return file->f_op->read_iter(iocb, &iter);
-+
-+	/* The IOCB_NOWAIT attempt must not wait for a thaw. */
-+	if (ki_flags & IOCB_NOWAIT) {
-+		if (!kiocb_start_write_trylock(iocb))
-+			return -EAGAIN;
-+	} else {
-+		kiocb_start_write(iocb);
-+	}
-+	ret = file->f_op->write_iter(iocb, &iter);
-+	if (ret != -EIOCBQUEUED)
-+		kiocb_end_write(iocb);
-+	return ret;
- }
- 
- static void nvmet_file_io_done(struct kiocb *iocb, long ret)
-@@ -117,6 +129,17 @@ static void nvmet_file_io_done(struct kiocb *iocb, long ret)
- 	nvmet_req_complete(req, status);
- }
- 
-+static void nvmet_file_io_complete(struct kiocb *iocb, long ret)
-+{
-+	struct nvmet_req *req = container_of(iocb, struct nvmet_req, f.iocb);
-+
-+	/* A queued write still holds freeze protection. */
-+	if (req->cmd->rw.opcode == nvme_cmd_write)
-+		kiocb_end_write(iocb);
-+
-+	nvmet_file_io_done(iocb, ret);
-+}
-+
- static bool nvmet_file_execute_io(struct nvmet_req *req, int ki_flags)
- {
- 	ssize_t nr_bvec = req->sg_cnt;
-@@ -175,7 +198,7 @@ static bool nvmet_file_execute_io(struct nvmet_req *req, int ki_flags)
- 	 * for the IOCB_NOWAIT case.
- 	 */
- 	if (!(ki_flags & IOCB_NOWAIT))
--		req->f.iocb.ki_complete = nvmet_file_io_done;
-+		req->f.iocb.ki_complete = nvmet_file_io_complete;
- 
- 	ret = nvmet_file_submit_bvec(req, pos, bv_cnt, total_len, ki_flags);
++	file_start_write(file);
+ 	ret = file->f_op->fallocate(file, mode, pos, blk_rq_bytes(rq));
++	file_end_write(file);
+ 	if (unlikely(ret && ret != -EINVAL && ret != -EOPNOTSUPP))
+ 		return -EIO;
  
 
 -- 
