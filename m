@@ -1,51 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=152.53.16.207
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794675879;
-	b=3I5hGSvFHelvBIG3iA2WScgubWjHf9kSEWf2CP66wxCPvBNRfIMB/RZ1BFoDWowe/hDn
-	 bFuTBH9C3j5e0OMmz8jyyo9jatD0No8VodOm7lTEPLtNELTBXYSeefI0x4xzBaK7NI4el
-	 Uzg6707CTysHrqEg9yjgUCY+j/V1+TgNRkG/9J6BJ75S1xRhC8Wm/dEQzc0nYiwxqsfGB
-	 jFqe5ukCurLlJxTAzn1ka0pPbHG1L/moK2Ii5mVqaJTcOKakNcJ2jJCzGxh5ZQJwXP1M3
-	 mKaD/9cCrlAYEdG3jPMSUTVpw/Zlqr3Enp57Q3GVrJCpcoJo+0U9IqR1YCumHu2YKyg==
+	t=1794675995;
+	b=z/nRIdmmevmB+Y0ZrkEeTpGuQnGm1LSaSMLAojU1ly2JhfqbAX84zJT6YsXlvUSbNkuV
+	 bPiSk+TRdo/hh4R5KA+jYU40sTf4q9N41hgQgAAWKmRzt94iN918V3ouhJGRKHhuo34e3
+	 98L2Np37bzLaiSky3hnR9MNRPBJLqo0xgYP+dp+dnqK5JirQl9bC/yzWxHfjl4hKNpLZz
+	 CEapkCPWRn8FfekVzrNnBGp4z29JFQZ4EAEaRLElDGLAlcUfTebDNCEykbY8vVeM8mqRg
+	 zj1JaEYcgr+1IqieVe6hhfnklsYiA7oJaJ3Ua2iX4+zDNGbaksSIkY2I3O4HKYguiWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794675879;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=jT4ljBE/NbhTGODfv1aO/Y34+Uzmxp+qCJ9yPuMME0A=;
-	b=WtnnS4A/HS2d8hXqdb2oyXKudCMmLkEkXngJ9Rw+TWJ819RT3O8ZddTFZt5aA2TYWmew
-	 WYV2nZZB4o/T+nzJZRnHKOlN7VmFhZUtOwRzbOKeQ1G+39CFYkyDxwYKeQJCNfflHdt63
-	 Uw4M9tGvo8nos6oiGg09gmlSZoMxRG7/D3EysMoL4zKSyWOncbg6OIuLGBckkQd0OFJiJ
-	 dW6ilaYMnwVjU4Ai11ySrHVyPRL/4YMWKf26rm1AWzn83PnlD1j80i9IC99Sddd03iOJx
-	 Hxyk5aUFY6PlS9sNF4FpJ6m4BwR03MNXqz1mJNTFXAYFQJNsHQ8jBG0PgW170/fZBHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794675995;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=I2mHcP1mwk6dUHtT8vIUdtDocr92q0IuVaHz+943o84=;
+	b=huKZzkrCl00+4UGuXFLUtKLvNzd3kqSZx+zBSCh12Fh9ScirKxX1kOJQUGXnKGmzU4Rj
+	 EZ7RfIb7tiaHZ//GgzzNO5Eiv0xiKtYHP/dFGON7AyW57UIrnkFcPtuOxXWQkvxh29Wuf
+	 6QZ3+i3BpneJYSBUIPmIbAyBIWkEOkNR2jFC7PEBuwjliMaN4ROvzlHXAoQsK9pmKBVI+
+	 umi8zxDNV9j38zqsA8Xz0KSabcbjxOCANAwnKuVgdYbL/AHTiL+IG2f5vx7khIjxJrWnr
+	 4xO7NruAZlUHgM2ZyETQ8PRQYtWhixivjVIKJTQooI1dNe2y8AdN0DcfpKnBuLwSTUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kaiser.cx;
-	spf=pass smtp.mailfrom=kaiser.cx;
-	arc=none smtp.remote-ip=152.53.16.207
-Received: from akranes.kaiser.cx (akranes.kaiser.cx [152.53.16.207])
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=JCihaRIK;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87521606A329;
-	Sat, 14 Nov 2026 17:04:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87521606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kaiser.cx
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kaiser.cx
-Received: from [185.104.138.115] (helo=nb282.user.codasip.com)
-	by akranes.kaiser.cx with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <martin@kaiser.cx>)
-	id 1xSHB3-00000000iNz-0cTn;
-	Sat, 14 Nov 2026 18:04:33 +0100
-From: Martin Kaiser <martin@kaiser.cx>
-To: Herbert Xu <herbert@gondor.apana.org.au>
-Cc: linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Martin Kaiser <martin@kaiser.cx>
-Subject: [PATCH 1/2] hwrng: cctrng - simplify runtime pm refcount code
-Date: Sat, 14 Nov 2026 18:03:14 +0100
-Message-ID: <20261114170335.1680546-2-martin@kaiser.cx>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20261114170335.1680546-1-martin@kaiser.cx>
-References: <20261114170335.1680546-1-martin@kaiser.cx>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F63A606A331;
+	Sat, 14 Nov 2026 17:06:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F63A606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=JCihaRIK
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:
+	From:Reply-To; bh=I2mHcP1mwk6dUHtT8vIUdtDocr92q0IuVaHz+943o84=; t=1794675993;
+	x=2110035993; b=JCihaRIKHFr9WNgPriGP5Msto+tUKCjXFE+5glKqOyOHWj/7qRYEytuabwoYc
+	QpXCIDnFs0qMZzy60AS4k/Udha9dMVff36WziTzQYCqyEAlKcShMhqoNO8cfKe1zD5557kEnxRku3
+	rBAkV/0WEDEoROmmiBuXGXxKnU8P8r2mNo9xkY1hpz5nASKZSdAznyIWIehVgNzCe3k01I92dGIwP
+	PX0P/GtldPOqgW07pB/Q7pABwP0X7TN5UUVMLJGc7p3H05b83E2ccEm+3KSRxVckfHcHwL03FPGdx
+	cUkN5IBMmuK4GuiBCOanO23byFqmTo6/TvPN5bzisxI5VljR3w==;
+Received: from 179-125-72-1-dinamico.pombonet.net.br ([179.125.72.1] helo=quatroqueijos.cascardo.eti.br)
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1xSHCp-00AeTs-64; Sat, 14 Nov 2026 18:06:23 +0100
+Date: Sat, 14 Nov 2026 14:06:18 -0300
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+To: Luka Gejak <luka.gejak@linux.dev>
+Cc: linux-wireless@vger.kernel.org,
+	Mauricio Faria de Oliveira <mfo@igalia.com>,
+	Ping-Ke Shih <pkshih@realtek.com>,
+	Po-Hao Huang <phhuang@realtek.com>, Kalle Valo <kvalo@kernel.org>,
+	kernel-dev@igalia.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] wifi: rtw88: fix skb leak in hw_scan probe request
+ length check
+Message-ID: <aviVCqxRQfNvtl_g@quatroqueijos.cascardo.eti.br>
+References: <20261113-rtw88-hw-scan-skb-leak-v1-1-3bd47562abf6@igalia.com>
+ <9AF24DB9-D92E-479C-A678-0571B1557198@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,63 +67,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9AF24DB9-D92E-479C-A678-0571B1557198@linux.dev>
 
-Clean up the code for runtime pm refcounts.
+On Sat, Nov 14, 2026 at 02:40:24PM +0100, Luka Gejak wrote:
+> On November 13, 2026 4:17:33 PM GMT+01:00, Mauricio Faria de Oliveira
+> <mfo@igalia.com> wrote:
+> >In _rtw_hw_scan_update_probe_req(), if the first loop fails (goto out;)
+> >the
+> >skb is leaked. It does not reach kfree_skb() at the end of the loop body
+> >or
+> >in the second loop (out:) since it is unlinked from probe_req_list.
+> >
+> >Fix the leak by calling kfree_skb() if the first loop fails.
+> >
+> >In /sys/kernel/debug/kmemleak, after simulating the failure:
+> >
+> >  unreferenced object 0xffff88810965a000 (size 232):
+> >    comm "iw", pid 4729, jiffies 4345008185
+> >    hex dump (first 32 bytes):
+> >      00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+> >      00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+> >    backtrace (crc 20f7de11):
+> >      kmem_cache_alloc_node_noprof+0x302/0x380
+> >      __alloc_skb+0x74/0x2f0
+> >      skb_copy+0x57/0xe0
+> >      rtw_hw_scan_update_probe_req+0xff/0x230
+> >      rtw_hw_scan_prehandle+0x4e/0x180
+> >      rtw_hw_scan_offload+0x186/0x1d0
+> >      rtw_ops_hw_scan+0x61/0xb0
+> >      drv_hw_scan+0x81/0x130
+> >      __ieee80211_start_scan+0x2e0/0x760
+> >      rdev_scan+0x42/0x100
+> >      nl80211_trigger_scan+0x53b/0x730
+> >      genl_family_rcv_msg_doit+0x103/0x160
+> >      genl_rcv_msg+0x1b5/0x2c0
+> >      netlink_rcv_skb+0x52/0x100
+> >      genl_rcv+0x28/0x40
+> >      netlink_unicast+0x26d/0x3b0
+> >
+> 
+> Should this dump go under --- so it doesn't end up in commit message?
+> 
 
-The cc_trng_pm_get helper function isn't really useful, call
-pm_runtime_resume_and_get directly.
+I find stack traces particularly helpful in commit messages. The help find
+out fixes for bugs one encounter, avoiding duplicate work, and they also
+justify the commit.
 
-In dev_err_probe, show the error code only once.
+Cascardo.
 
-Signed-off-by: Martin Kaiser <martin@kaiser.cx>
----
- drivers/char/hw_random/cctrng.c | 14 ++++----------
- 1 file changed, 4 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/char/hw_random/cctrng.c b/drivers/char/hw_random/cctrng.c
-index b5f2c75d2eb8..ef3ca6d8cc85 100644
---- a/drivers/char/hw_random/cctrng.c
-+++ b/drivers/char/hw_random/cctrng.c
-@@ -85,12 +85,6 @@ static inline u32 cc_ioread(struct cctrng_drvdata *drvdata, u32 reg)
- 	return ioread32(drvdata->cc_base + reg);
- }
- 
--
--static int cc_trng_pm_get(struct device *dev)
--{
--	return pm_runtime_resume_and_get(dev);
--}
--
- static void cc_trng_pm_put_suspend(struct device *dev)
- {
- 	pm_runtime_put_autosuspend(dev);
-@@ -239,11 +233,11 @@ static int cctrng_read(struct hwrng *rng, void *data, size_t max, bool wait)
- 			/* re-check space in buffer to avoid potential race */
- 			if (circ_buf_space(drvdata) >= CC_TRNG_EHR_IN_WORDS) {
- 				/* increment device's usage counter */
--				int rc = cc_trng_pm_get(dev);
-+				int rc = pm_runtime_resume_and_get(dev);
- 
- 				if (rc) {
- 					dev_err(dev,
--						"cc_trng_pm_get returned %x\n",
-+						"pm_runtime_resume_and_get returned %x\n",
- 						rc);
- 					return rc;
- 				}
-@@ -521,9 +515,9 @@ static int cctrng_probe(struct platform_device *pdev)
- 		return dev_err_probe(dev, rc, "cc_trng_pm_init failed\n");
- 
- 	/* increment device's usage counter */
--	rc = cc_trng_pm_get(dev);
-+	rc = pm_runtime_resume_and_get(dev);
- 	if (rc)
--		return dev_err_probe(dev, rc, "cc_trng_pm_get returned %x\n", rc);
-+		return dev_err_probe(dev, rc, "pm_runtime_resume_and_get failed\n");
- 
- 	/* set pending_hw to verify that HW won't be triggered from read */
- 	atomic_set(&drvdata->pending_hw, 1);
--- 
-2.43.7
-
+> >This leak exists in the first loop since the function was introduced, and
+> >still happened with the addition of the second loop, in these two commits:
+> >
+> >Fixes: 10d162b2ed39 ("rtw88: 8822c: add ieee80211_ops::hw_scan")
+> >Fixes: d95984b5580d ("rtw88: fix memory overrun and memory leak during hw_scan")
+> 
+> Should this perhaps cc stable?
+> 
+> >Signed-off-by: Mauricio Faria de Oliveira <mfo@igalia.com>
+> >---
+> 
+> Either way I'm fine with the code, so just fix the commit message. Feel
+> free to carry the tag for v2.
+> 
+> Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
+> 
+> Best regards,
+> Luka Gejak
