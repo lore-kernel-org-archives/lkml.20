@@ -1,125 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794674445;
-	b=VqpbSFlLC7b6ApyEXO26VwqdGcPUcCqx1bmTqjkcIfrHc65PJ92uMvrp+g487j29lArL
-	 gviEEItXV+yNss+bklDEJ1WQCNdCmnBxFvkmxGeHHpLGei6Ii2IfbCn4oF8MD5vtRXGfz
-	 2wlEzTTsPpOlZEpVXnI2bYDpiXlFtz3vu6tVO+Qz12FIGeYZys+xqhhvpWDDLuZ5qMOHk
-	 sFJTXIemqmv8p+F6ZSz+0M01OJy0flDjaJVL/uyfP27abiqWAGaF1n3eleixThq5COYzF
-	 06qsrakaiHPqh4/3JxuP0A/fZ2fyOchLheXjyUugDPezQYICDA6nENb64QlDWSsH8+Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794674445;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:Reply-To:From:Date:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=bXkHJphoEY20da+45qB+WjPGBGb3UoQAwSXHDIUPxh4=;
-	b=IdT4CwOu8B1dcN3hjtPVni+s5TW2jROWIP1XZH5K53CYS7mRgOzOqmbh6+bV1B4NVzZ+
-	 LgPiLhg0xekIP2IF+oBnCBEkpV5BsUdiyDOHHAcMez7FuQEfZCyb5a1hIgoG/j1KYbZp6
-	 Ab/LJWo8rpXXJjFdTIt7g25t4zxwvqwAeSeXkqMldCJNgsOMwjsjnXz835LIaIDUne9pZ
-	 rSacgJ1OS8Xv4fUAUu8AzMielEzc9Acl16cLXplCBTYhxQx0nwyaBOTd7zTGWW5rtyhvs
-	 T/GrZGJk2aB/GUy/9JhlHS28MsHkokw1zcz1UO2hOFxUwR3hEw1SIbaPThO974uWc2Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fpYXnSkd;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=PEyKBndF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794674504;
+	b=ANZefSeYtZbliwH6qQ3cMUrgQ++T7uKynAR1IRjiamgCHEnrU0EKDOX3M3B2bI4C8e3g
+	 9QUNljQp/eqgh68PvoLcmd31rN29JpQHNOvhDL9lIZjYIep2KnHo1a/mX2zhazKYyOiyF
+	 2c05edUs7qQeWntyK7viMmYJ8lL8lkL6RKQY4x7BZ2GJQMsHRBE8FPrZ1MspINtrehWgT
+	 b9xiyNP9SWXhauLUBbY12+Tin8YeHF3/PXPOfUnFxaY4oB2SYvwrTPDvNDI18c77HOlh9
+	 0PG9ZzpK886j7AuSEvNUG0TXWl+VnSDdQbA2lYVmJNNiVudTosS+h2nw77aJmlg+bUg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794674504;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=gw9rNwmZP2BAUweKXHlIiA/7poa4mRSBBabGfBVJKZk=;
+	b=48FQQx0xg3AsXsrNKg8v6oNd0TKf5ldtKXVn+NnFXkWeVDDsD5uWFARrxR/oieQJ2Bft
+	 pkrAqHq4sP1aSHhgVE7Njq0WOQKV068xxxSSQ5g6NDI2lBWGd+tIuHCLcATRnBhWifFLZ
+	 aAbGiGmhMabEc9UxYwf/PL+FVqfFshdbtiV7lH+W6AGOSvRBlilX4MIsPf1qaLdocqDV3
+	 zo0sUWimkRaoiaB3G+6TRM5nuqIOhV3RhAl31KGEzYglkdtp7ByDJtKixOGdoyns+QhQy
+	 AFyaNc2zTHzmKwJ6lyOesgaXBmEFaMOY3tL3cUTMz1IExd84Q/51vTUo9ufMOdPRxFQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VxGN2VLb;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B88BA606A333
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:40:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B88BA606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 20D0A606A323;
+	Sat, 14 Nov 2026 16:41:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fpYXnSkd;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=PEyKBndF
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AEDkOuH3174232
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:40:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:to; s=
-	qcppdkim1; bh=bXkHJphoEY20da+45qB+WjPGBGb3UoQAwSXHDIUPxh4=; b=fp
-	YXnSkdnG4BA4y8XDLRl8x2Co9x2NAPivGl8Owm4IYNiITvILAgSN3/MakeeFTb51
-	oQ8ysc9yiMQMzZ6pOGm6khvyUOxdnIydruCt5uqV4NQvj3bpmKyr+kOnzdaUlXKB
-	hevt+FA4bZxt2sFFHBKSpKAMO1WBHi30sU/FjKa0QRmwba52oYXcestA+zmoVJft
-	Yym1C5/qt8+wUAa/sTnxPbYtcn4CE8g9YUD0UZo6STZrnIOTbUaR5h4Z7ev67KyG
-	3CA7GXlrMqCtC3IE49B4siNKjkxkxF1tIYcUo3ePvlp92/FNIZAg6xKIAOZmIsjV
-	NCZGFDSvrVLBR78lAFWA==
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hxhmhh7br-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:40:43 +0000 (GMT)
-Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-703a37d970eso2409980eaf.1
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:40:43 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794674443; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YNeP7bvlEnC0wa4L8A/6gF8Q4cB+HgYlUbR4Yyh9176ouLZrbE1T4dha6V/g46I7tG
-         /CNBqjQVa9Oufl4RlcPzSwEbQWwdrka6AWE5t6qliaAFXmBGp5xSjNGhtbsh1oRSa8jZ
-         tg4XCa5GGdmfJDsD+i8gBWiZrXl5oceZgfay92vjrPwRox1ybuqgsBJ39qIP34BzZNc0
-         Xdnz/I5wMlUBLUHq4j44snoDQ2hLaU8WYnWGpPhRax8hjE9e4wPPPNuHoUVoipZjHly1
-         T0C0SrSmkOTd4a+lxAxdfffjFLolRK98AiVRThmDV6rcS21piqh8kXqJSKbn8MH1g2IO
-         XWeQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :reply-to:in-reply-to:references:mime-version:dkim-signature;
-        bh=bXkHJphoEY20da+45qB+WjPGBGb3UoQAwSXHDIUPxh4=;
-        fh=ADxeEaKWxWdHW0kKKw8gQCghFzPChiznqYiirqeX3sw=;
-        b=NkCuZMLN9o+6cvbL9Ho2q5tGFQofG2kZKxYsoxAS1LTtu1xbYWWbcsHpzOK2Qjtb1e
-         h0pBMdzFH7vkQpgED9IP06i6E3t0+Kyj8e1VCm6jKgjVjsxbBMCs6jFeauXes6CsMD7H
-         XEsuKEEZ4UyUC9lzpGpoZtYA/aoHg8jKLajKhOOliSD3vRvMkv0KklLn4xSPIUTX4MXt
-         wbbpkEhTCaLpyeQUHJmvwDek221GxLv6H2/wDgz3u3PDoGLZFObF4x/4cj2UAJbLyhKY
-         EFKDn7VgUNuSFdEawbc1wAKAx8GJZWiXW0fMM3ZtzJMq6MI09OK3Er42kbv614HlGwxM
-         9uEA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794674443; x=1795279243; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=bXkHJphoEY20da+45qB+WjPGBGb3UoQAwSXHDIUPxh4=;
-        b=PEyKBndFsBRy6cE+pH6wvUPpxLuqOFsAMgUnt6zROwdejjuihiLQYeOlCBoLvqUiHI
-         NLrND11V6vM9gjVqZMMrelLjeLmYj1wDFK1X2Ldq0nQ2xT96OQRxjbGywolczIHnudsG
-         gmFL+d4iKq1E6nJUbFVW5VRqr841KnY3HZNv7OAtqswQvjb3aE0bqGVngXb2nbyl0Bp0
-         TkzLqPI8j0OdDrkDWZfYOm+6gF4C0YC25rElTQE8HWIUck6KdnJEh8KQvUqn10jntAH6
-         MlFC7E7/nJQw7wYZxz0PYlY7XVboE5D1FkuogrYeCywEDFY8VSN910NjT0FFbUuLGWJP
-         WYYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794674443; x=1795279243;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bXkHJphoEY20da+45qB+WjPGBGb3UoQAwSXHDIUPxh4=;
-        b=uRKmfvrCBiNRrVFjiu5vblJrI6t9pfzt1rxrhq86+08UElzLt9YQXnTxR2AtSImDLJ
-         Ylt4I1oRlkfhzWX3GotoaH/ZrcaRDXDYJiCPnnP49te1PJCPRPWyfbzlmc5Yl5B8Mpe+
-         0kjiw2KgCvGT8NdiAteAVUb7zi9nNpWEzBUyC0y17+q4tER9qOtJZIBs6S1wnKZHMhGy
-         NtBO7ndxaX3FoHWapixBp3wBhLGJM1Yc0mzWqYb/q5yrWQLDoxD8X/pDI2MPKnqvetIA
-         iliM/DaQgmuzj5+h67hPp7oiXiu43VBcmR337KUb/yqhmP2Gc1yebgt3/bmuYKyEDNC7
-         uNlw==
-X-Forwarded-Encrypted: i=1; AL+hErF00FHDlwP+oST77T38NN3lj/5aewCsXEi3LknoQzOtSj8zeuOlTIOQ8HqlNGAlM2lZC1jQA7ElO2M76w8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z880IwOOTF1oZMcoTD5ucyPm9uHicXwYXgOuAXOSqJzk+2c3bYz
-	Egn/1H7YfZ+X2HGtHBX2XX8yFQzbazJiBrFdKo9WmSLCMYBtbdRW9SqYVqK2plFXSQ4ZYcL+sTx
-	3P4VQ8az+AoS4khkTa4A+ZevSk9kO8I83Pm75ZpyJN1UUCjq8zSXVvEiArcvNorwOfkmkNE9/fn
-	JQ/WgI/eGan21+mJT8US/gY+3fbyNJk7ebr9DEUP3OJeZu1rPj3l8T
-X-Gm-Gg: AYBFou2msnNWjx8ZuIahyo8/1o49YnmorgCVoqpukFnGTBesWaBCjJeaX7j0mlIOZ2y
-	HnUMSkmNFCg+OmHXQ36/W6Firii+wf5lJuLmfjTE6xwECYFQ7qwotdkHWUvEr8nP2H1m5bh5ZPW
-	l1jmCKBA9C0OtFk+2+c7AFBnTOipA286LBlADTELG8RQjDwQsv3Otjq7HaRCkMHe0wvTwwztbFv
-	8gu3PPx4nFMtaSInvEtwA==
-X-Received: by 2002:a05:6820:1394:b0:715:453:c6e2 with SMTP id 006d021491bc7-71ab4fbfbebmr3860139eaf.33.1794674443076;
-        Sat, 14 Nov 2026 08:40:43 -0800 (PST)
-X-Received: by 2002:a05:6820:1394:b0:715:453:c6e2 with SMTP id
- 006d021491bc7-71ab4fbfbebmr3860118eaf.33.1794674442621; Sat, 14 Nov 2026
- 08:40:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VxGN2VLb
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 1A9441F000C4;
+	Sat, 14 Nov 2026 16:41:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794674503;
+	bh=gw9rNwmZP2BAUweKXHlIiA/7poa4mRSBBabGfBVJKZk=;
+	h=From:To:Cc:Subject:Date;
+	b=VxGN2VLbDqsMqx9R5YPIbFQZ6gev+/zng2L7ypWiFCz22AYm9Dh0+l6h8eFPGma1p
+	 UpUjamU6lR4GzH9LQHLZKLWosuj3RK7LxcKd4Cg3czbNlkrtOimheZANG177HrLo5A
+	 8Gvh1fLlpEOPOkd1d2zVArwl4NcOqzFPZpEmYbDRvcJ6/Vm6nHpfHDgNUjhGzkugZd
+	 9LqrJpeyBjGrMoENF2cKcYyvBEw7kgAwZ7RufOhs6zu/0iWmvzhjNX+Krz0gkz9Lif
+	 CiilXf1JTZLjMujhS4wZoeDHjVJ5RJe4Gs85OXEc9WzgeClHPytU5XCMr8i8N993JO
+	 P+M7Ni4s5VwjA==
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: David Howells <dhowells@redhat.com>
+Cc: Jarkko Sakkinen <jarkko@kernel.org>,
+	bpf@vger.kernel.org,
+	dm-devel@lists.linux.dev,
+	fsverity@lists.linux.dev,
+	keyrings@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	Alasdair Kergon <agk@redhat.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Alex Shi <alexs@kernel.org>,
+	Anastasia Eskova <anastasia.eskova@ibm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Benjamin Marzinski <bmarzins@redhat.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Dongliang Mu <dzm91@hust.edu.cn>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Ignat Korchagin <ignat@linux.win>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	James Morris <jmorris@namei.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Mimi Zohar <zohar@linux.ibm.com>,
+	Paul Moore <paul@paul-moore.com>,
+	Peter Oberparleiter <oberpar@linux.ibm.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Roberto Sassu <roberto.sassu@huawei.com>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Song Liu <song@kernel.org>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	"Theodore Y. Ts'o" <tytso@mit.edu>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Yanteng Si <si.yanteng@linux.dev>,
+	Yonghong Song <yonghong.song@linux.dev>
+Subject: [PATCH v12 0/6] KEYS: Replace assoc_array with rhashtable
+Date: Sat, 14 Nov 2026 18:41:33 +0200
+Message-ID: <20261114164139.429814-1-jarkko@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -129,148 +102,215 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CACSVV02fCwbFXVjE+XHCo68xMxYUHovJ9ZHRYd98L74N1T14Hw@mail.gmail.com>
- <20261114153622.148125-1-arpe1618@gmail.com>
-In-Reply-To: <20261114153622.148125-1-arpe1618@gmail.com>
-Reply-To: rob.clark@oss.qualcomm.com
-From: Rob Clark <rob.clark@oss.qualcomm.com>
-Date: Sat, 14 Nov 2026 08:40:31 -0800
-X-Gm-Features: AclHuK8v6yocAMov5_kcb3jEgrVHdGlRUdiYk4AGEpFJ8mzDlgn5asj4NprUyOQ
-Message-ID: <CACSVV00ZppfBKwsHJ+NBYBB7a2f3g1O=6J4Gt1m_A74fudZQoQ@mail.gmail.com>
-Subject: Re: [PATCH v2 0/3] drm/msm: Fix VM_BIND job, queue and entity lifetimes
-To: Jiwoo Kim <arpe1618@gmail.com>
-Cc: Dmitry Baryshkov <lumag@kernel.org>,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Anna Maniscalco <anna.maniscalco2000@gmail.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: -ZKt1w3pt5KAbgrPtxHBCS_IXZrwbHAh
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE0MDA2NiBTYWx0ZWRfXwsvZqTCs3Idk
- 5X4uE1xLQRw5Y30dfynaweH+ht2tGK7bRUhvMyVSLyW+8Rr1gjaZ3p/OEhimNTTy6BGYu/l6ZP5
- rxro/LA8U/v/G25QWTaf4Al0sS4ll90=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE0MDA2NiBTYWx0ZWRfXxttgRwkh7041
- VEGL7aGy0A1aFBqiYQ+GD5I3o9sAyk0/f8MCNJDQ6I4mpW5UYpg7CCo+D6zy18uyztQQopTNSvv
- rPYnD0XgIYb3s3ZS/JzAl9ObMqzLKge/E10wmCsH6b7n2iXYM83Fhzf9NXgEQoLhNTFMkvBf2fo
- A3JyfbglIsWAxQN7yirQWoOVmdlao2alshrA4TDir6Pfns7u9alzsjWGwMmLAXdx7MJbisPVVA6
- 6YymiZDybKtv1owu0iCBFJf5PgM0sQt1cIDvZ5f+/K06bbuu0dZrFaWDA4XoG/FkfbsUnaeuHo8
- 2lDGfPTYUhPinHVh6X8pBp/fRgJtQZAv25+aFoTvvC/hKaF0iTd3iaYEDn7s+Sy/p1n5mp//Hmb
- KYWA8159bwd42DuTMr/GkFeh3K65aPdUEtLCrXM7u2amZKxg8xgij5dOdQ/j1V/Tm64Jyv68OS/
- KIuzC3AQm371HPIFUZg==
-X-Authority-Analysis: v=2.4 cv=e/2T2qp/ c=1 sm=1 tr=0 ts=6af88f0b cx=c_pps
- a=V4L7fE8DliODT/OoDI2WOg==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8
- a=2g9MNY1Fx1-Z8oZBzW0A:9 a=QEXdDO2ut3YA:10 a=WZGXeFmKUf7gPmL3hEjn:22
-X-Proofpoint-ORIG-GUID: -ZKt1w3pt5KAbgrPtxHBCS_IXZrwbHAh
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-14_04,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 impostorscore=0 bulkscore=0 priorityscore=1501
- malwarescore=0 spamscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611140066
+Content-Transfer-Encoding: 8bit
 
-On Sat, Nov 14, 2026 at 7:36=E2=80=AFAM Jiwoo Kim <arpe1618@gmail.com> wrot=
-e:
->
-> On Sat, Nov 14, 2026 at 7:03 AM Rob Clark <rob.clark@oss.qualcomm.com> wr=
-ote:
-> > msm_gem_vm_close() waits on vm->last_fence which will be signaled
-> > after msm_vma_job_run() returns.
->
-> vm->last_fence only collects the fences of GEM_SUBMIT jobs, in
-> submit_attach_object_fences(). VM_BIND jobs don't add theirs, so
-> msm_gem_vm_close() waits for a VM_BIND job only if a submit depends
-> on it.
+The keyrings subsystem is the sole user of assoc_array. It has over 1700
+lines of code, no test suite, and a long history of bugs, with LLMs now
+finding more.
 
-Oh, right.  We should probably just update last_fence for VM_BIND in
-the same way.  (Ie. using dma_fence_unwrap_merge() to deal with the
-case that the current last_fence is on a different timeline.)  I
-overlooked that.
+This unfortunate outcome has evolved over time by large from the shortage
+of in-kernel callers, time bandwidth and 3rd party contributors.  What the
+keyrings subsystem needs is just a generic key-value store, which performs
+well with sparse key sets. Replace assoc_array with an rhashtable-backed
+keyring index and remove assoc_array from the kernel.
 
-> > My expectation is that if thread A is in midst of a VM_BIND ioctl,
-> > perhaps not having created/updated last_fence yet, while thread B is
-> > racing it closing the device fd, that file_operations::release will be
-> > called after thread A's ioctl call returns.  Is this not the case?
->
-> It is the case. (The vm_bind_closed check in patch 2 is only for
-> MSM_SUBMITQUEUE_CLOSE, which can race with a VM_BIND ioctl on the same
-> queue in another thread.)
->
-> The problem is a job that the ioctl has already pushed and that is
-> still waiting for its in-fence, e.g. one from another device or
-> drm_file, when the file is released:
->
-> - If the queue was closed with MSM_SUBMITQUEUE_CLOSE first,
->   msm_submitqueue_close() no longer sees it, and nothing waits for the
->   job. Otherwise drm_sched_entity_flush() waits at most
->   MAX_WAIT_SCHED_ENTITY_Q_EMPTY for an exiting task, and kills the
->   remaining jobs only on SIGKILL. Either way, the job's reference
->   keeps the queue, and so the entity in it, alive.
-> - msm_gem_vm_close() then calls drm_sched_fini() on vm->sched, which
->   frees the run queue that the entity still points to.
-> - When the in-fence signals, drm_sched_entity_wakeup(), which the
->   scheduler registered on it, uses entity->rq->sched;
->   drm_sched_entity_kill() leaves that callback in place. A killed job
->   is freed then too, and the final put of the queue calls
->   drm_sched_entity_destroy(), whose flush reads entity->rq->sched
->   again.
+CHANGES
+=======
 
-I think if last_fence is also accounting for VM_BIND jobs, this should
-ensure that all VM_BIND jobs are also finished.
+v12:
+- Fixed Sashiko reported issues in s390/cert_store patches.
 
-> Patch 2 destroys a VM_BIND queue's entity when the queue is closed,
-> by MSM_SUBMITQUEUE_CLOSE or on file close, so always before
-> msm_gem_vm_close() tears the scheduler down.
->
-> This comes from code review (see the note in the patches), and I have
-> not reproduced it.
->
-> v3 is at
-> https://lore.kernel.org/r/20261114141851.134290-1-arpe1618@gmail.com
-> and its patch 2 is unchanged from v2.
->
-> Separately, Sashiko's review of v3 found an ordering problem that
-> predates this series: the VM_BIND queues of a VM update the VM's VMAs
-> at ioctl time, but their pgtable updates are not ordered across
-> queues, so an unmap can reach the pgtables before the map it undoes.
-> That does not need a queue to be closed, but v3 patch 1 adds another
-> way to get there: the unmaps it applies when freeing a killed job are
-> not ordered against other queues either. (Its other point, that a
-> killed job's fence signals before those unmaps are applied, I'll
-> address in v4 as well.)
+v11:
+- RCU-safe iterator for keyring_read().
+- Addresses s390 issues. I won't carry them for long in the series.
 
-Yes, userspace must use fences/syncobjs to synchronize VM_BINDs if it
-is using multiple VM_BIND queues with overlapping updates.  An error
-would mark the vm unuseable, and the kernel will stop accepting
-SUBMITs and VM_BINDs.  But maybe we should also handle errors in the
-UNMAP path as well, as that also indicates that userspace is doing
-something wrong?
+v10:
+- No changes since the previous round. This is a sanity check round
+  given the lack of feedback to v9. I'll apply these patch very soon,
+  unless nothing (relevant) comes up fast.
 
-Userspace shouldn't be allowed to cause the kernel to do something bad
-(use-after-free, freeing pages that are still mapped, etc).  But it is
-perfectly fine to let userspace shoot its own foot, for example
-triggering an SMMU fault due to pages unmapped while the GPU is still
-accessing them.
+v9:
+- Replace __free(kfree) with explicit cleanup so early goto out paths
+  cannot bypass initialization of the link pointer. Preserve kleave()
+  tracing on all exit paths.
 
-BR,
--R
+v8:
+- Fixed broken rebase.
+- Restructured __key_link_begin() a bit as a response to a minor
+  complaint from Sashiko.
+- Fixed a minor glitch in __key_link_begin(): now also first invariant
+  invokes kleave() on failure.
 
-> For v4 I would make a job that unmaps a VMA wait for the job that maps
-> it. The other way round, a map that overtakes an unmap of the same
-> range fails or gets undone, which breaks that VM but doesn't leave
-> freed pages mapped. Ordering all VM_BIND jobs of a VM would be
-> simpler, but turnip uses one VM_BIND queue per device plus one per
-> Vulkan queue. Would that be the right direction?
->
-> Thanks,
-> Jiwoo Kim
+v7:
+- Rebased.
+
+v6:
+- Eric Biggers: Set .insecure_elasticity = true in keyring_link_params and
+  drop the -EBUSY retry loop in __key_link_begin().
+- Addeded Reviewed-by's from Eric Bigger and Ignat Korchagin.
+
+v5:
+- Eric Biggers: Include <linux/jhash.h> explicitly in keyring.c.
+- Eric Biggers: Document why hashing type/domain_tag pointers with SipHash
+  and truncating the digest to 32 bits are safe.
+- Eric Biggers: Rework the commit message for "KEYS: Replace assoc_array
+  with rhashtable", including behavioral and operational changes.
+- Retry rhashtable_insert_fast() on transient -EBUSY in __key_link_begin().
+
+v4:
+- Eric Biggers: Correct the kerneldoc summary for keyring_is_empty().
+- Eric Biggers: Truncate keyring_index_key hash to u32 and drop index_id.
+- Eric Biggers, David Howells: Use a proper struct instead of a two-element
+  array to pass the edits.
+- Eric Biggers: __keyring_link(): Call key_put() in the rollback of
+  rhashtable_replace_fast().
+- Eric Biggers: Retract from using __free(kfree) in keyring_get_index().
+- Eric Biggers: Reuse keyring_link_key() in keyring_obj_cmpfn().
+- Eric Biggers: Document why keyring_index_free() uses queue_rcu_work().
+- Eric Biggers: Fix the commit message for "KEYS: Replace assoc_array with
+  rhashtable".
+
+v3:
+- Since David is away for the next week I decided to address the
+  low hanging fruit that I reported myself.
+- Unified and sanitized function and variable naming and removed
+  unnecessary asymmetry e.g., by renaming keyring_remove_all_links
+  as keyring_index_free, 'links' as 'index' and '_edit' as 'edit'.
+- Flattened the implementation by refactoring out some useless
+  wrappers and other constructs.
+- Addressed continuation after triggered WARN_ON() on at the three
+  sites that I've described in my email response to the previous
+  patch set version.
+- Reworked keyring_read() so that it triggers the scheduler between
+  the iterations.
+- Dropped "Assisted-by: LLM" tag because checkpatch.pl told me so.
+
+v2:
+- Tried to address all the issues pointed out by David and Eric. Tell me
+  if something was ignored, as that would be an unintentional mishap.
+- Updated and trimmed the source code comments.
+- For assoc_array_edit I decided to go with two-element pointer array,
+  which shifts a bit what David suggested.
+- Dropped is_keyring flag. It was so obvious call so I mention it here
+  just in case because too obvious maxes out my self-doubt ;-)
+- Used cleanup.h primitives where I possibly could especially in order
+  to make fallible initializations more bug-resistant.
+- The already-ack'd bug fixes are included but will be dropped as soon
+  as I've sent them over to Linus.
+
+VERSIONS
+========
+
+- v11:
+  https://lore.kernel.org/keyrings/20261114161211.376859-1-jarkko@kernel.org/
+- v10:
+  https://lore.kernel.org/keyrings/20261113161836.3587552-1-jarkko@kernel.org/
+- v9:
+  https://lore.kernel.org/keyrings/20261110053323.2936729-1-jarkko@kernel.org/k
+- v8:
+  https://lore.kernel.org/keyrings/20261110044043.2608600-1-jarkko@kernel.org/
+- v7:
+  https://lore.kernel.org/keyrings/20261110033738.2495880-1-jarkko@kernel.org/
+- v6:
+  https://lore.kernel.org/keyrings/20261107195605.3929659-1-jarkko@kernel.org/
+- v5:
+  https://lore.kernel.org/keyrings/20261105031401.956609-1-jarkko@kernel.org/
+- v4:
+  https://lore.kernel.org/keyrings/20261029232437.2581640-1-jarkko@kernel.org/
+- v3:
+  https://lore.kernel.org/keyrings/20261025001105.1824178-1-jarkko@kernel.org/
+- v2:
+  https://lore.kernel.org/keyrings/20261023120953.1206778-1-jarkko@kernel.org/
+- v1:
+  https://lore.kernel.org/keyrings/20261016215326.4110064-1-jarkko@kernel.org/
+
+Cc: bpf@vger.kernel.org
+Cc: dm-devel@lists.linux.dev
+Cc: fsverity@lists.linux.dev
+Cc: keyrings@vger.kernel.org
+Cc: linux-doc@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-kselftest@vger.kernel.org
+Cc: linux-security-module@vger.kernel.org
+Cc: Alasdair Kergon <agk@redhat.com>
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: Alexei Starovoitov <ast@kernel.org>
+Cc: Alex Shi <alexs@kernel.org>
+Cc: Anastasia Eskova <anastasia.eskova@ibm.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Andrii Nakryiko <andrii@kernel.org>
+Cc: Benjamin Marzinski <bmarzins@redhat.com>
+Cc: Christian Borntraeger <borntraeger@linux.ibm.com>
+Cc: Daniel Borkmann <daniel@iogearbox.net>
+Cc: David Howells <dhowells@redhat.com>
+Cc: Dongliang Mu <dzm91@hust.edu.cn>
+Cc: Eduard Zingerman <eddyz87@gmail.com>
+Cc: Emil Tsalapatis <emil@etsalapatis.com>
+Cc: Eric Biggers <ebiggers@kernel.org>
+Cc: Ignat Korchagin <ignat@linux.win>
+Cc: Heiko Carstens <hca@linux.ibm.com>
+Cc: Ihor Solodrai <ihor.solodrai@linux.dev>
+Cc: James Bottomley <James.Bottomley@HansenPartnership.com>
+Cc: James Morris <jmorris@namei.org>
+Cc: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: Jiri Olsa <jolsa@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Martin KaFai Lau <martin.lau@linux.dev>
+Cc: Mike Snitzer <snitzer@kernel.org>
+Cc: Mikulas Patocka <mpatocka@redhat.com>
+Cc: Mimi Zohar <zohar@linux.ibm.com>
+Cc: Paul Moore <paul@paul-moore.com>
+Cc: Peter Oberparleiter <oberpar@linux.ibm.com>
+Cc: Randy Dunlap <rdunlap@infradead.org>
+Cc: Roberto Sassu <roberto.sassu@huawei.com>
+Cc: "Serge E. Hallyn" <serge@hallyn.com>
+Cc: Shuah Khan <skhan@linuxfoundation.org>
+Cc: Song Liu <song@kernel.org>
+Cc: Sven Schnelle <svens@linux.ibm.com>
+Cc: "Theodore Y. Ts'o" <tytso@mit.edu>
+Cc: Vasily Gorbik <gor@linux.ibm.com>
+Cc: Yanteng Si <si.yanteng@linux.dev>
+Cc: Yonghong Song <yonghong.song@linux.dev>
+
+Jarkko Sakkinen (6):
+  s390/cert_store: Pin the user session keyring
+  s390/cert_store: Return an owned reference from find_cs_keyring()
+  s390/cert_store: Skip keys that disappeared during invalidation
+  KEYS: Introduce keyring_is_empty()
+  KEYS: Replace assoc_array with rhashtable
+  lib: Remove assoc_array
+
+ Documentation/core-api/assoc_array.rst        |  564 ------
+ Documentation/core-api/index.rst              |    1 -
+ .../zh_CN/core-api/assoc_array.rst            |  473 -----
+ .../translations/zh_CN/core-api/index.rst     |    1 -
+ arch/s390/kernel/cert_store.c                 |   49 +-
+ drivers/md/dm-verity-verify-sig.c             |    2 +-
+ fs/verity/signature.c                         |    2 +-
+ include/keys/keyring-type.h                   |    1 -
+ include/linux/assoc_array.h                   |   88 -
+ include/linux/assoc_array_priv.h              |  178 --
+ include/linux/key-type.h                      |    1 -
+ include/linux/key.h                           |   29 +-
+ kernel/bpf/keys.c                             |    2 +-
+ lib/Kconfig                                   |   14 -
+ lib/Makefile                                  |    1 -
+ lib/assoc_array.c                             | 1724 -----------------
+ security/keys/Kconfig                         |    1 -
+ security/keys/internal.h                      |   14 +-
+ security/keys/key.c                           |   22 +-
+ security/keys/keyring.c                       | 1016 +++++-----
+ security/keys/request_key.c                   |    8 +-
+ .../dm-verity/test-dm-verity-keyring.sh       |    2 +-
+ 22 files changed, 532 insertions(+), 3661 deletions(-)
+ delete mode 100644 Documentation/core-api/assoc_array.rst
+ delete mode 100644 Documentation/translations/zh_CN/core-api/assoc_array.rst
+ delete mode 100644 include/linux/assoc_array.h
+ delete mode 100644 include/linux/assoc_array_priv.h
+ delete mode 100644 lib/assoc_array.c
+
+--
+2.47.3
+
