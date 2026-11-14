@@ -1,69 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794682724;
-	b=GeqZuNfu6imbTx15dyT1QubwAZrQ92jmRJZJSUfQXEBmTnwnWkCVZtQXpPagmbkApawK
-	 ArcAgZtJorP+sEYg1bJKwsT2HV8kuuRSdf/2T0VmuNKEjfaWHJvTY/42rgMjg6y/HWQsE
-	 P1sRkMt5KurV5uEtHHjYnfspVslikDhKhIzEq9DPxGDmCpXWpCFV/YsHEZGUQYwfekc/y
-	 cDbtlyw6pEpxFNXetsnuHUXtJ+JfuL3keazysu1SyD/GaOMluvujmk2wPMlHImdqOuRBL
-	 +Zh8+y3lOS6LiVuy684ua81kwX2IDA5r+ge7xsbOG1OlRl3VY90/rx05Gq0BK0Fd8ng==
+	t=1794682749;
+	b=DQ3U+MJ/Zq4/vWERnL0LvwNtM92orc7FFyg+vHU1DD4NB90uc5qlx/xL4unSra9j+AnX
+	 HYTAZtUTAwUNKvb6OLtvOKL4+429AFBL1k1ZX+UjnRUhhmKVewmMAEK1ZvwonS1C3itAF
+	 lOiBpA9kmgzsj5upD9Qq4d4DolT3GybC09W162vBxNwl2S7+XVGstMCu3gVoNudWiPisi
+	 59VjM4P2GzrlHxZPTsa/CeVxJtUYTCm/3uRDbec3YjtaKeTt/Vbq708ArPPWR8kkiC267
+	 TOqXo9p4B3q4q0kC8svcRro1wjEtuN7r5Mbrd1SEyBy0P4l5ALYF4FkOys4E5MEiUKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794682724;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
-	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
-	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
-	 X-Fangmail-MID-QID;
-	bh=fMcSbwNMVuFNWt2PwLWq1x2zQdIariZoeomQcnglzNI=;
-	b=bVaY6oopkEU//VcEhTq+xxv8foF1r8v9U4CF3WGaSHAPw9MWMunjNVM3pWjviNF7LvVi
-	 V5YmI3n3e4cEtYvL5yBsRkZbPd7KTg4iI0hcWk9A7+n/5G+WxhzesW5nNP1y8ytu1MRgE
-	 n+fjlcGoOFqZGTkxUcovMXl8A6+TJuDr/6WSyDmdgmdOUtFn8jUwgA9wkYewDvFL4nU6M
-	 eJ4tsqpofAf90yEEIH9XvlPqyrQQH3O9VTXm/bG+aOCA9Y1N64/e/py6mVTs524ltB8Io
-	 HqzJ00yqWQmEh86RgOno9IGjNxxCqUhgahUjyrPx67LW5yd8S/MqwEifkB9+DvUoLmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794682749;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=9RzpuEYsnkvuLxM7zo3RdF3Gc3FUtoCDNsh2Uv68tmA=;
+	b=oppkEJCWbsL9l+YUN3PzXUlKQdjqBwTNjodcxQlgCkZL9SOCUBOczlKbhA+NV1xuH3E7
+	 2zJxgYjOphF51ox80QnC1vy6zXeWyla3rhzh/06RSM2c7+O/MO+uA8QxVh/MHCvnEpslU
+	 dje4DBluWMl8sJFXdcSd63ovkLubQRu5s5FeS0lq1NCclG7g5yxRU34qt5N4T6XKQIybX
+	 v4AP2MpIzs6usLHCkXgPF9ujFe9//r9lM3dLdzetKrpMLAEYBMMwZDCI9409OZY+DU6P2
+	 oGWazhBY3da0X/PXcdsyc4ePA/lS0M5leD6yKV7iQYqOBPmHqSE3EsTceyAWNKmtMcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=YFljydJT;
-	arc=none smtp.remote-ip=160.30.148.35
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g+siPjM4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1ED0606A329
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 18:58:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1ED0606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19588606A327
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 18:59:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=YFljydJT
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jRk1D1BM5z8Xrr9;
-	Sun, 15 Nov 2026 02:58:40 +0800 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794682720;
-	bh=e1/Ez/h43f4/Alk6q3O4DTkElJ6uxXkrIVkjdt3GNQA=;
-	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=YFljydJTBeiracuHceVruwh4WJ3hJmYCYp0riookSAefz2m8nIn3PV8l18y27Bqdi
-	 htdgCxQO0GD0o++9o/HN/vRau7vTEQrYj2vK0kXhDShXLb7hJ1sUljAa8F2UvuXpV2
-	 VqmqajpQ85MW7ONNFd2wXyo2rBHd/xktWNXJtqJG7o7H9xtCVg1ubvbSleEPDEMofo
-	 S01MOaaSUybdSr19D9bsLfbb++fUfR1nzYA9Ovt74eJVFB2a4U31Fl1uxA+Z1suplZ
-	 THNXRxm9Jw/htAFjHcZ70U+FSonJryZ3w/zOSPNBqgVtujwumFtUhUsjNSN9RKsXvH
-	 HR9oIotVX5DXA==
-Received: from xaxapp05.zte.com.cn ([10.99.98.109])
-	by mse-fl1.zte.com.cn with SMTP id 6AEIwTPw067780;
-	Sun, 15 Nov 2026 02:58:29 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp01[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Sun, 15 Nov 2026 02:58:32 +0800 (CST)
-X-Zmail-TransId: 2af96af8af58f20-86e9a
-X-Mailer: Zmail v1.0
-Message-ID: <20261115025832904-wsPy8LPoyIcDJ6FMU1_H@zte.com.cn>
-In-Reply-To: <aviVQ40at8rZEyjW@gremlin>
-References: 20261115004655564ix3vefI54RZ3HhYOmxuKX@zte.com.cn,aviVQ40at8rZEyjW@gremlin
-Date: Sun, 15 Nov 2026 02:58:32 +0800 (CST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g+siPjM4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54B311F000C4;
+	Sat, 14 Nov 2026 18:59:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794682748;
+	bh=9RzpuEYsnkvuLxM7zo3RdF3Gc3FUtoCDNsh2Uv68tmA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=g+siPjM4yAFSviPGPS/cwHbu8OZzs8PoMVBZNdEnXQLMBPyyPFkTXapgCKl/hjAae
+	 dCJNWlK/TEWojBDTpL/ghuz087T3k/gyiU1eB4mNldla+3S52rlDtKLQugauMusEqP
+	 6RRTxZxPcFw62PN+1KM6bBdAb6eh04dR903SHM9pa1o6uQw8B29gZKllO+p9VBvKP4
+	 AykfttBIFa99OrjXCIgHJOPgJL1GKmxAXilXFDc6jR9GA0S/RI7teedpBYOyDfm618
+	 MHfCc3/0hBDuNZP996VXFGHsvBIYJnGDN7X2XFBKb+zgXGpV+9xAoBHm8lRzgwoq1R
+	 tW/dULWGdjNCw==
+Date: Sat, 14 Nov 2026 18:58:59 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Willy Tarreau <w@1wt.eu>, 
+	Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+	Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Chris Wilson <chris@chris-wilson.co.uk>, Matthew Auld <matthew.auld@intel.com>, 
+	Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, 
+	Nicholas Piggin <npiggin@gmail.com>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, 
+	Rik van Riel <riel@redhat.com>, Benjamin Herrenschmidt <benh@kernel.crashing.org>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
+	dri-devel@lists.freedesktop.org, linuxppc-dev@lists.ozlabs.org
+Subject: Re: [PATCH 3/5] drm/i915/selftests: request read access for mmap
+ access tests
+Message-ID: <avivbKZSctYksFqd@gremlin>
+References: <20261112-access_shite-v1-0-988a5c470db2@kernel.org>
+ <20261112-access_shite-v1-3-988a5c470db2@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,75 +69,46 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <ljs@kernel.org>
-Cc: <akpm@linux-foundation.org>, <liam@infradead.org>, <linux-mm@kvack.org>,
-        <vbabka@kernel.org>, <jannh@google.com>, <pfalcato@suse.de>,
-        <linux-kernel@vger.kernel.org>
-Subject: =?UTF-8?B?UmU6IFtQQVRDSF0gbW0vdm1hOiByZXN0b3JlIFZNQSBpdGVyYXRvciBvbiBmdWxsLXJhbmdlIG1lcmdlIGZhaWx1cmU=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6AEIwTPw067780
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Sun, 15 Nov 2026 02:58:40 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF8AF60.000/4jRk1D1BM5z8Xrr9
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112-access_shite-v1-3-988a5c470db2@kernel.org>
 
-Hi Lorenzo,
+On Thu, Nov 12, 2026 at 11:08:59PM +0100, David Hildenbrand (Arm) wrote:
+> __igt_mmap_access() reads the buffer with access_process_vm() without
+> FOLL_FORCE, but creates the mapping with only PROT_WRITE. Request
+> PROT_READ as well so the test remains valid when we fix the ->access
+> fallback to properly check VMA access permissions.
+>
+> Fixes: 9f909e215fea ("drm/i915: Implement vm_ops->access for gdb access into mmaps")
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Thank you for taking the time to review these patches. I am sorry for
-interrupting your work and for the unnecessary review effort caused by
-the iterator report.
+Seems sensible so:
 
-I checked the mprotect() caller again. You are right: when the VMA is
-revisited, its flags have already been updated and mprotect_fixup()
-returns without changing them again. My added assertion established an
-iterator position change, not a functional failure. I have withdrawn
-that patch.
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Since you also raised the breadth of my submissions in the related
-threads (https://lore.kernel.org/all/avibe0HG4ssUUuBX@gremlin/), I
-checked my submission records to provide some per-subsystem context.
-Below are selected subsystems with recorded Reviewed-by or Applied
-outcomes through 14 November (UTC+8). Patches first submitted on
-15 November are excluded. Each distinct patch is counted once, including
-fixes and cleanups; revisions, resends, cover letters and discussion
-replies are not counted again.
+> ---
+>  drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+> index 303be698891fd..d9c828032a1aa 100644
+> --- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+> +++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
+> @@ -1460,7 +1460,8 @@ static int __igt_mmap_access(struct drm_i915_private *i915,
+>  	if (err)
+>  		return err;
+>
+> -	addr = igt_mmap_offset(i915, offset, obj->base.size, PROT_WRITE, MAP_SHARED);
+> +	addr = igt_mmap_offset(i915, offset, obj->base.size,
+> +			       PROT_READ | PROT_WRITE, MAP_SHARED);
+>  	if (IS_ERR_VALUE(addr))
+>  		return addr;
+>  	ptr = (unsigned long __user *)addr;
+>
+> --
+> 2.43.0
+>
 
-Subsystem                 Sent  Reviewed-by  Applied  Withdrawn
-NVMe/nvmet                  19           11        7          0
-UBIFS                       12            6        0          0
-ATA                         18            5        7          1
-GPIO                         5            3        0          1
-target                       8            2        5          0
-SCSI                         9            2        3          1
-ublk                         5            2        0          0
-PCI                          5            1        1          0
-MFD                          7            1        0          0
-ALSA/ASoC                    5            0        5          0
-SPI                          5            0        5          0
-
-"Reviewed-by" counts patches with that explicit review tag. "Applied"
-means merged or explicitly applied by a maintainer. A patch can appear
-in both columns. "Withdrawn" includes patches I withdrew after review.
-
-For two concrete examples of accepted work:
-
-https://git.kernel.org/linus/08a6572441a4e646c96c2b8d8ead9eea0e458332
-https://git.kernel.org/pub/scm/linux/kernel/git/mkp/scsi.git/commit/?id=fe5988e8708e1d42cb844bd9ac8f0a51388061fc
-
-The first fixes zone-append sector reporting in virtio-blk's polled
-completion path; the second fixes a NULL dereference in target ALUA.
-These independently reviewed or accepted fixes are why I believe
-AI-assisted work can make useful contributions. I remain responsible
-for understanding each report and for the correctness of each patch.
-
-I would like to learn from the technical feedback and improve the
-quality of my contributions. Thank you for any further guidance you
-are willing to offer, and again, sorry for the interruption.
-
-Thanks,
-Shao
+--
+Cheers, Lorenzo
