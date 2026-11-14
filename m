@@ -1,112 +1,144 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794621571;
-	b=qOcJ100jFbwtkcJLIHaetZ+PC9roJr67P0RUB42v/YopHgptWgXfAY9kLtHNSqKaur4r
-	 V9/tq++nV3BEdO365X3JXkdTMTESEX3HmwHYsMKHTFrl6MS5/XY4yKhdFchh+9+sU25Yz
-	 JuJbyZtASEXH9o1PhVy8jQlrU0+fMoPUgHEPNqshaqR7ft4Qf5SPfIdI+2R8+vJI8RXlD
-	 c/JX2FnmDyD41URY17t2+0osT1sQwIFt4QU7GXlFmYVxnikMJw3iicsyY/g12KCogf/uu
-	 ItULPI0K6dBxv0AhMh71D2uZsxA/b0EqX4C2Nd6WHtbe6ao9zmxdu587EWqOiVzNptA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794621571;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=H47W/ULwr2k6/yvJ7HvMMOZaxS3u2gLpACgrzkSuK2k=;
-	b=UI6gTaCINOwP6I8E1FC0kOfAP2xyiDBeBi7OO/8WC8z61ClavmeQOoS0yhDuSH+hW+RO
-	 zNkck2v/8e26s5xb6xMsTllY0RW7+GqLemC/mgEpaZEZD2JqkJUuw9640FKIsI3xLgjOG
-	 aZi6z+n1F0uccPka9gjd5XUlQ+AGEQctWreSOP2hienSL4QE2CjhSIdJ6FdvIiX6TMjHE
-	 b7s9pe5xNYTv292uN/2Kj0fBfJaauDZgG3ofTyt8nJLvyQMdYifG3EW4ZhcA//11X4c4M
-	 gowRq4WkDn5Eo3HqXI4D/9hQZFKsVrrTm11u3YwXeMgpfzbJzzMHJLL+tW/BkBjl9rA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mWqzWnOt;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YqGW0fVJ;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.8
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794621590;
+	b=fy3voJUNQA3SngeqUsvTDa+GW5LAg4li+3hR3g5/PNB9hvJKPj++6XmChwiY+6agxUt6
+	 v44z709hsdYsRm8PT1HvViAWmnOz7WkzLWWCO+s2iduxM6K5Nanfi8ZHi7VXDqcFicI8U
+	 K9EBL1YHf6SAbPNZ6VCrGzcsFJTg5teO2ILTBLy8Yd7zmXEL2rLIuttIDHDS7byhjzQX4
+	 VOZ0dgMFMx/RmrcG5t62USYdjDdcxCN8BlwgRIXNB2TrrxDuo5scEAo8F7iPPbY0BNFg8
+	 WZbSq29/wqpmSiDyzpcAPjw8idX+w5xP46vQEBXlw4V212yhMPO0xliewlUixxb8eXQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794621590;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:DKIM-Signature:Received:Received:Date:From:To:CC:Subject:
+	 Message-ID:References:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=DMrsSUfxlz+zh5Rad/UpbycUqXTYv+FOHrlJBNyzcII=;
+	b=Pacoz+mYqXvNeZr+PM06pem66nu3gja3XvEaxgWjX+tsriJAUKbURZu06qab1dLAR1iu
+	 2g2XmIWpg2/3WB+ecshEhxOlZkzmq2H+DsYlwssojkIy1OtnZwup0xH5aYHjDz2Xdtaxw
+	 Dv3ckxiGg7ExEwuTJwEuMydyuq46q8a8wMRt02T39hNDbvcYHsfjfRkYdskLWH1m8O2ML
+	 z1DBo+GBCSNuSgNc9ncYw+ZO6e/CzRnDHS4ZsOWMGOEZS4b3JqPZV7p5EqPERDYG72/QN
+	 5T68Ddnoo7EdKOrZh3A2OnTAM+ayUNBZqVOK1pCJvXBhu4GbyfVffFR04gbzc0baQBA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=m+Ubxc6e;
+	dkim=fail reason="signature verification failed" header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=Oi5zvBww;
+	arc=fail smtp.remote-ip=192.198.163.8
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60FB4606A339
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 01:59:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60FB4606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B1B0606A333
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 01:59:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B1B0606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mWqzWnOt;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YqGW0fVJ
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AE0hELE3453527
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 01:59:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	H47W/ULwr2k6/yvJ7HvMMOZaxS3u2gLpACgrzkSuK2k=; b=mWqzWnOtyjcZ28PX
-	i8rSPIzVIxYYHi20GiKVcYzP1YAPyQsnsquh0C0SLRS9x8D1Io61rEf0Z//+7lQD
-	J9P+4q7sMlpA/j0hFS0bJt9lZPr0I2thEsY22C4WrDr/NQSZ6uJGL6lFxgEq//7B
-	KpcLO8ENn/rOWnfXbVpGLVX1/6urGa+e9Ied3sn5VK9GPKh4Ll3hse6LcEw/DVKk
-	jM9pxF2LzHDSoOTCjBvHCETJyhuxRd4jRH9qVCrCw1hw3kjMOn3NANp6uHvUmNPa
-	g+CZzb+gJsG/7zD5zr1hsfraLRRwtYrUsKBaZHC1JkQSiziGYlaelhRICkNd1nIJ
-	8a84Eg==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hxdbnr5qu-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 01:59:30 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-375f0fd31f4so2011050eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:59:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794621570; x=1795226370; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=H47W/ULwr2k6/yvJ7HvMMOZaxS3u2gLpACgrzkSuK2k=;
-        b=YqGW0fVJv8EqIUevGZqgCIRhLgPy0Cwns5ltjmcNvdfd9Ud6cJwlFwTkyoHSm7gX9k
-         Rbq0pJUZNloYVlFmKTiQPmcIlkzuLe1SKXfacZWm9DeQr5TSpWSqynFRMHabWqmnG2sH
-         6rVkubjeVrUnx9k5HsHhiHQPRaqqIXifGdMatW76OG/RF1CGyAJj3TxVGItAJnKAEwQN
-         zqypw7obwQRupKXunE4BsKetyX3BwSAbuE7aAoD8m48h5Hn+OrBR5cVL4ANUyND42Y3G
-         POKH9t2Nnbacbq7j4gbYmSfnYMUtfP7TN4xcvf+Ek2Lk1D80a5YcE/G8fK/RvaUTqGLe
-         Vd3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794621570; x=1795226370;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=H47W/ULwr2k6/yvJ7HvMMOZaxS3u2gLpACgrzkSuK2k=;
-        b=g2OHmPZNMiVJkok8DFO6vqeCdg/JwiXAfNaMW28M2h1cdcjAPA8tr0QfJPdx5px3Ow
-         VtX1ve7dvxxYdlMbrBPa/e4zVyBsSxdJSoPqIACWRe31vctcIBorxi9IyN580CZDEXm9
-         hk3bfnjKk28RAuCsmGMgn6F2XmUUVw2Jw3c+PUwGNpYCeLMfiMUaHD6xgO1KvWKyGpIh
-         DIHtyb87Q2/UsPZITLAFiEHdLkfZUl0geBdEk6Hpm+K+YC4N3R9XVc1YoIi0MgxFD3e7
-         BoV75T2oGGoguWxTh1cQDiBXZmdZeTAzbjOlCle/NQsG/4hF+Ul4qFf22bcoANedktNu
-         RBmQ==
-X-Forwarded-Encrypted: i=1; AL+hErHjeDfxdPLs94LXuOjbxbzQRPPj/NEBn6fqpjsgK8jPBZil5Lz/EPtnvOemzU5wGmok8YR5GU/EKYLzKZM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8K8UoEFplqfTcWrBWA/zw9e7XKUXGCu3bvLrAniSvOaHh0hVT2
-	jUloiwwF15aQJZr8he11JRShrwGJFlXB1sBR5tmvMfqNUDy2ny8hLI4lbu4dBdTyUtqlD+hm6JG
-	M+OGmmPEjMa8f3XAbA9DJnL1obtAQAmFjMO2GEGCMhsZBf5trFH7QhAAiugWqTVJHWso=
-X-Gm-Gg: AYBFou3DD6ZS5mTxwvaE+9+jmyOrc+gggSnPG+fqLN7QcktbKLRJNNYcJpfKSf27dL2
-	xi6ifAIltuDyYf7Ax0kbqMWu/1rCWqL5guziAV6a1Qh/WSpnW4CseU3HiQ0yzHzcjTKvIrnRJeq
-	bwDpp7igOiT+K6Kx/+onTm992RadKJW24QP7eux68UZVSHiotvTDu+R005HRNHzuuM2VQj7CQJ+
-	w9SinRuhZ+/7MKBrjhv85P78WhiUJXI6IjyIvIs+qXHSyYt9KxqUiZeci8iEMIUfYOXte/65/A3
-	VR/EZl9Gd2quE6jtb3TEb6nII1Rt6l60/IYXL27y8DRco/Z19ZI5s2Ukc/pRDzSS6ThSGPUfPNf
-	cEMBkcnU8Xnae++CpFsovW+nwfEtTdkQN0Bscvk95c5wCloAUGCAoeEDsuilmMzumabD8c1LIqJ
-	MUInAqLMVf
-X-Received: by 2002:a05:693c:4153:10b0:36c:9af3:22eb with SMTP id 5a478bee46e88-379681c99b3mr4512355eec.34.1794621569722;
-        Fri, 13 Nov 2026 17:59:29 -0800 (PST)
-X-Received: by 2002:a05:693c:4153:10b0:36c:9af3:22eb with SMTP id 5a478bee46e88-379681c99b3mr4512315eec.34.1794621568916;
-        Fri, 13 Nov 2026 17:59:28 -0800 (PST)
-Received: from [192.168.29.63] ([49.43.231.124])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379508762a5sm11346264eec.0.2026.11.13.17.59.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 17:59:28 -0800 (PST)
-Message-ID: <6a87cefd-7dcc-4e68-9c4b-413176360a00@oss.qualcomm.com>
-Date: Sat, 14 Nov 2026 07:29:23 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=m+Ubxc6e;
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=Oi5zvBww
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794621589; x=1826157589;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=cTT2FtYYLWYHUM1TiOol4Rw5BMCB50lstK9cV18zjiE=;
+  b=m+Ubxc6eHYUanaBd+EedZeD1fjF8Jw9AhGC75DpUfboJ2l4MG8WRsk2g
+   Ri+XXJF8T33phsLc6KMxn9oQeuEemaaJoYmH2hKnuM7uaprwJqlHKHlAc
+   7mxQU7hWy4zUNqn3y8d7XZR7UBN1SsnCQu2stAm3FE8nWVAsSI+6K9t08
+   MQSgGolEStuk5NI4lneYIKlF5942+ADuy5Ez34AjxGqEJpi3HAtCKsU3G
+   AqPpBTEwTA5X3EEWWXAHXgQqU4S9+bfbyXxdD/4liE+h5+pFp1QOTXSGA
+   MDtkuX+nSyxUYWi8UV6BtOmcLKdAeKFgQemVGafhUO3kC96bZ8NElBCle
+   A==;
+X-CSE-ConnectionGUID: fMt6ecBmSguGrX7nLZqcoQ==
+X-CSE-MsgGUID: EUYe/xtKT5Sl3AZIXTCn9w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3326659"
+X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
+   d="scan'208";a="3326659"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 17:59:49 -0800
+X-CSE-ConnectionGUID: JKyAdVZJQQKAvj+C5kvo6g==
+X-CSE-MsgGUID: 0ArLy7BZQ0WMxzvkryHG/A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,212,1787036400"; 
+   d="scan'208";a="10972411"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+  by fmviesa013.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 17:59:49 -0800
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 13 Nov 2026 17:59:48 -0800
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Fri, 13 Nov 2026 17:59:48 -0800
+Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.51) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 13 Nov 2026 17:59:47 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bQh9fsWOR+CwMOwBirnF6LY71TMSVQ0MQOGjkynKgWMzHlS94A3vG3VZTffB1MgLxtTSX7tQ45fxRyl2Fun2DkhlinnwC9kYaS3nZu8z4RFxGr8EvpqAGUXdZInovRgx/Vw4i4fuBUhmJgE1RmoHL0AM/Y08WlWYUSQCSf5ZDKSPfdEzrhqpxB8IXd7QJ5DD8v6cHLkJ4yFfvhyt7USKV4P6nC21YVwJQw1cyLM1ieWnYXg2DlarlVW1xOIVB1EDiTxsZDVKbfQf4235HS+0T0ROvrMOuhCjOAG4ZRCSAtfyDT/cPM1px+QU1xMdo3uCvngvp2/XJIFkRgCewWcoLA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=STM7tsdPNPMCg6l67xUav9C96AgoAi3PBMYpvyyebmo=;
+ b=KSLSsvM125i+pjbO21vn8SqK/wGK+3UepDhhk/SYwTecVTRpUhYQOhtLfmlWffyUZfctsmqS4VNJVQlT9MYNEo78UDQGX/Lh1ZzbUFqgwAjUwMaZKY6TFo7x5auIz+0ro7zRY4QFvKMexHpN29z4S3El/8z1U9adrsjabe1kA936uj+9mAmd2tCyFmwFT+hRlLoDFO/XoFKn3ahZf238PG/XS7TbU2XkfyBw6Lf5vKseGbdr2NQFRsQl06bd7PAp0yXh3sKYtmZr4qqxV0IHVUx2L5H4THGu1ZpQKw/eDxTl+uT3sKyBAQYN1fY+19jXD5XUJTWsK4P7EPtAm6LdJQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=STM7tsdPNPMCg6l67xUav9C96AgoAi3PBMYpvyyebmo=;
+ b=Oi5zvBwwdDI3j7JfVqtgjIG4AlNRJrrtpXp38knYxyjrAWPlccooSZV5n5ljqukNgP6SUWHrjv1ExRyoezMMrALNy0LbRY+iLc7WA0oqAgLYTmbIpOjm/5Eos/r3ehjHXW4HetSZCPWWeU+YzTcPjYBnyg3Fjg8OBhB+q16vkfs=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from MW3PR11MB4684.namprd11.prod.outlook.com (2603:10b6:303:5d::14)
+ by PH0PR11MB5926.namprd11.prod.outlook.com (2603:10b6:510:14d::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Sat, 14 Nov
+ 2026 01:57:42 +0000
+Received: from MW3PR11MB4684.namprd11.prod.outlook.com
+ ([fe80::2f5a:96ce:f7e4:c315]) by MW3PR11MB4684.namprd11.prod.outlook.com
+ ([fe80::2f5a:96ce:f7e4:c315%7]) with mapi id 15.21.0615.009; Sat, 14 Nov 2026
+ 01:57:42 +0000
+Date: Fri, 13 Nov 2026 17:57:40 -0800
+From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
+To: Matthew Brost <matthew.brost@intel.com>
+CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+	Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
+	Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+	Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>, Thomas
+ =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Subject: Re: [PATCH v3 31/33] drm/xe: Blit src-natural to dst-packed for
+ defrag-IOVA copies
+Message-ID: <avfAFMt0eQysdiq7@nvishwa1-desk>
+References: <20260711025619.2540575-1-matthew.brost@intel.com>
+ <20260711025619.2540575-32-matthew.brost@intel.com>
+Content-Type: text/plain; charset=iso-8859-1; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260711025619.2540575-32-matthew.brost@intel.com>
+X-ClientProxiedBy: SJ0PR13CA0063.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c4::8) To MW3PR11MB4684.namprd11.prod.outlook.com
+ (2603:10b6:303:5d::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,159 +148,623 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 4/4] PCI: qcom: Implement shutdown() callback
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Jingoo Han <jingoohan1@gmail.com>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org
-References: <20261107-shutdown-v8-0-bf607c6429b0@oss.qualcomm.com>
- <20261107-shutdown-v8-4-bf607c6429b0@oss.qualcomm.com>
- <fd8b69b2-5487-4e99-a45e-d6c2ce9ae1f1@oss.qualcomm.com>
-Content-Language: en-US
-From: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-In-Reply-To: <fd8b69b2-5487-4e99-a45e-d6c2ce9ae1f1@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE0MDAwNyBTYWx0ZWRfX5m70DkMcpcXT
- 9Qp99pypBY24nycoq5H6fn6r6DqZr/EfODjA5Mg7Y6fRwTSMjYVoLSx/R3zK20S2Ha6tIcjTNk9
- RYxp981W1yp1TKXTAxFqFG6Ojk52C27S8Vk9l+EeDVnNPtnivijfoFqjFmwApmjLw/n9iAAAdiM
- pWsOz/GDwJPKJ9M4BXrsMvbN+C0Kd6Pyn2xAasaj1zwVm9g7Z2cl6yD1RffJ1VrZ+wC1teXzvsn
- Am/AAozxRDa0a4275hvJPFZjRZRL068f6JMgbUEFpl0UgnEJvqxS+TmGPPai3TmUi1RchlTves8
- DloGN/CBGHfa4yJyMLeQeLtA2xsvNBQkpxNFlqTKAM5FqtIX0DoN1jZBkt3LgA/dAPCZjAXyFbK
- Ly4YJgwt0iuTs41HNJBFWubpSNeNjr83QajK4opY/+FVR8aVkiI4bdMSOxCUzdX75tAL3R3eiS0
- 6k8zWMl4iSQgvMzc1bg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE0MDAwNyBTYWx0ZWRfXy7nwomhC68/L
- 3CAFF6DU0Zs3SMR/ZG4uwEFOhKzo7zLxqRGpUBThoBN3GyRXKgynkAbvky6Z2lYl2ROPFkvzjd2
- 0s1J5FAw6/yblsHCEWK154t2uC1MY1A=
-X-Proofpoint-ORIG-GUID: hNL9QM5HteVCLW56N7NT3_LezutK8-H_
-X-Authority-Analysis: v=2.4 cv=ULFIjyfy c=1 sm=1 tr=0 ts=6af7c082 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=OgdsqUoHhxF4GfobPiU6/w==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=3O9PIZBSMK0NwXvH1SEA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=bBxd6f-gb0O0v-kibOvt:22
- a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-GUID: hNL9QM5HteVCLW56N7NT3_LezutK8-H_
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-13_07,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0 phishscore=0 malwarescore=0 suspectscore=0
- bulkscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611140007
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW3PR11MB4684:EE_|PH0PR11MB5926:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1a0f2e67-3ec0-4efc-0ede-08df41f2ab6e
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|366016|18002099003|22082099003|6133799003|261009223027099003|3023799007|5023799004|11063799006|56012099006|261028144727099003|261102123227099003|261021121427099003|261026121527099003|261022105027099003|261021123027099003|261026140227099003|4143699003|10067099003;
+X-Microsoft-Antispam-Message-Info: io2PZ37HV09t7r/sCEnyomc6TOWkFJcrkbio+piLnEMhOUqa2sB2VTU9v0vN0k8vm573xK6TQZFVkz/4UwLHb1N6KeRxAqiM72BPbiVTY36m7w/7Jgu3xPLxkyf1SNy8CYKXMVp/Nw4dWejpZ5LdruN9rrYqx954NGxfWzLj1j7mACeoBY5xwEQz2+fHoBDFjFzl1Rq7nhhVBj2BzXmbS5BJighGrAW4itJ3Uf3/J567BS0vuRZqqps07PgNaS3hsyOmRDdI5NgyFo1wHm+N8PrUZmHdl9lwdbh+n16cpwprikX5VuUG7jxp/+7GcEIQ1DR8VF9+AHB9ltcW4Cl91fpDdrWAX1NbKVWqxOrkTnX980NSNI9grw3weoV0GBDzwmjyBTcp6zgyZOkHGgeYT46GP85BnePdxfEXdz+mGMOYSdO3BFU6r3TwLJF3Ad49/vi3c9yTXXIIlN+K9HifiMg/NCatwtNwrxB3s6grEzdkO/pfeLkRUzGWCKBYF1HLoAa+ulIFvu8YHc8ka0qNh5+lBrhLYyNEfistFqOTL3Eo7pLMmpdMpY7oO3pbLIUsKYb2UVbnvQ3E5jb6BOp3606UeSnfMpeeREl40WJWwZOolUoccND0WTZu4neQ+KEbMbSbcyV6VHQaIR16dTMeIHu3tQUFR9ZwppFhre5fvzQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW3PR11MB4684.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(18002099003)(22082099003)(6133799003)(261009223027099003)(3023799007)(5023799004)(11063799006)(56012099006)(261028144727099003)(261102123227099003)(261021121427099003)(261026121527099003)(261022105027099003)(261021123027099003)(261026140227099003)(4143699003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?ZZTpSwWZSVz6IHTa2zMgXMa19dMWwNE7eOQ+TVZiWK/ZFTSVuPg+FbmTmj?=
+ =?iso-8859-1?Q?Op0MKJKBUkaWuEWM1mZUwP0xpOKKxGYzlP9eBBWO5TcKsBuh0V8O8gkCsc?=
+ =?iso-8859-1?Q?I3GMKlXxjjSRZ+mNcFHI1rhlBUzTRwKAkp7lO+5tLO1o/vmAmnKfyPfHgv?=
+ =?iso-8859-1?Q?sZ28zF7ce+zoWxXH6DcNUyeiFoza2GzFNT8MlhcFyshUOYs+yaSZkk7Fx7?=
+ =?iso-8859-1?Q?JIGKJH03u71PmFSeQhxRFpCgfMSV4heue150StD+qv2jtNvshaWqKggkkJ?=
+ =?iso-8859-1?Q?IeyDGnTWmBbzNyzW1atSAq0s5D1I9BndOHQf62mRM30TAIN7KPTYnZzl5y?=
+ =?iso-8859-1?Q?cd8vv9Rmdv/hkDjuTQh1FMF2cBvtxtUim3ewEO0StcksleMY2SJ3Nky4Tk?=
+ =?iso-8859-1?Q?Ip1/aoQgkABORVxiVWPLkj1+v/UB6qUnp4vs0HdwZdsaM+B275UHmBAyHa?=
+ =?iso-8859-1?Q?N06eudyR9MP5oJB5C96+PYQ+SUGkW+HPK59iOSRsf1B2HiSVfLDvS7EZJC?=
+ =?iso-8859-1?Q?Ek4mkNM5/a9V19Ks0XY1IvBSW2dDQTc9jRVfm/bXlZxyaWW5LO+m+IAVPD?=
+ =?iso-8859-1?Q?UQMzWCjKbFuDAT1jK6GAYANDEyGNzi/U0qyOdHX6LgtXhY7YFIG9nxHyL1?=
+ =?iso-8859-1?Q?r2RzFIKD5Zen8vlDBuVBKjoukOeUQa83URAY8X+J7PFUMMyacWxxJdMo2X?=
+ =?iso-8859-1?Q?8Hy5sNanYOxNhdA/16jvo4S2354ysp1yr2uf0XSXfGS03qCVJnzfVjn+Zs?=
+ =?iso-8859-1?Q?MKoFGYyQZbjeTRYzGArbx0ivPGl41Qdp8EFT9z/O639w4P9decD6hjnoNO?=
+ =?iso-8859-1?Q?3K8SVdKpzkEd7XokoRITFajgjamBZFtORYxOmau9QqiaMYyi3MZYIKTizv?=
+ =?iso-8859-1?Q?+lOY7VU76AKWed0vSCQ7/V/ryzMVz+jnEpfC+0FaMJENhsydl+IrAJAfvP?=
+ =?iso-8859-1?Q?xJF3ukQModj4SdttbmbXpuZN/3vFeYLgV9cCwVGiXBi3cGE+yRzJLfcUrf?=
+ =?iso-8859-1?Q?JewIMmcZCxksLg6qmHoUqA3rI0wYOweDrxI2Nmi9P4vUb+67Pv1oyK/8nw?=
+ =?iso-8859-1?Q?uh5DC/HmDlq6wrUv+mapCP4PZISwUi5N061x1pwTvNDdb74RzgWTqnIGV1?=
+ =?iso-8859-1?Q?CU8gNnle4mV/dJoQPAo5/cKjlXsMYVqV0+CXtMMhv3wX5hGoqjxmahtgVv?=
+ =?iso-8859-1?Q?hjDKWahBa2CCXiVeKTJdsSYAfMSdJA44FC4DABwIIdLzhxa7YPhJrgRoaA?=
+ =?iso-8859-1?Q?IbIM81dodJOu2O6FdmDojQ/jzfPnib7UlQXFPyY9y6WgudrzrnSZnnNM5W?=
+ =?iso-8859-1?Q?/qmbvixLPcnQRutfFWV2u/Y6aJ24ZpoCh7jXJIAZUM4XiUXbn0bApJzmFS?=
+ =?iso-8859-1?Q?JvtRWBgL9RFEwZquRIMkCCtNpZ9vf52aa54tQMO6UbM1cPQSsxX+4N9Kae?=
+ =?iso-8859-1?Q?L83wS3DMD7Ps+2aYMnjXBrKYHhTghBdTCDkD1qGfTA3AZOHe7iHYeG3n8f?=
+ =?iso-8859-1?Q?3GQDJ6ocHoIkuN2zhPw5ly8YGvLXWnIQZDh+GScbgjTtHWT8e7N5h6ApqE?=
+ =?iso-8859-1?Q?o2xOikPisrDjmp2Aq4Pp/MTmTuRM/9yvj0nlNO89fgCTiKAvNoMUt/iiTI?=
+ =?iso-8859-1?Q?j8Bo/umGCKRfs5Q6SrmESfQeu9hrg3HB2qJBKC943zmoU2gv99L6pI65df?=
+ =?iso-8859-1?Q?6T5k/3/qgN0++AzDy0lGTqMKlDUQbKwqCD7v2JsAERd8B1djc+Cu2SVBuT?=
+ =?iso-8859-1?Q?B+bpcG51i6xFnR9GH9yIB8PZv35MUb9O8RXzRMRLBsEUv5Ai6Gv5U7LIY1?=
+ =?iso-8859-1?Q?CZaomX2NEzr7XxwKt4FnFoZCOm7bEx5+vL7it3EgouX4UU+4hArG?=
+X-Exchange-RoutingPolicyChecked: Km3z3SVgY9VdY7RcApA6j32zwEfX7DrQfgl9cKF+dFNtoZt/I9NbtOtGRls9JbKpjlp2vVnsE/GD94IuKC/X8JA0J90Q+te2VRmjJlN++ok1MQDtcNflBN3uyWvJOW87WHyl/y8nDZz3RpF8dnSLhsmapaMv8yrGtfgqc/NY7FpBXZqFRLDfKxShgcramaB5K3fr4zxxY5mQi7lPyEkCZH+cy+lYJxhV+F9SBRHxZb0vqZA1wsaX814p4ixkl1BuxOx/MCYlIz0HXQw7momwUIeI3KH3jXPGR6u3Kiok0VxfX9/oeoDIw7OjAGzqbeeSLhmCkk/JuaNBqIqHLQhCpQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1a0f2e67-3ec0-4efc-0ede-08df41f2ab6e
+X-MS-Exchange-CrossTenant-AuthSource: MW3PR11MB4684.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2026 01:57:42.5896
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZmQvOWqYpuMLih9txwJQcId4TJTE+VHrvspjsj/6krm0CwP1Bn8C1+wBivq5prFbiObPkfx1Meb6ITpTWYpJknkAwEABZMr+bVPoXZKYeAbu3BcMJRBUrMLiax9Qr738
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB5926
+X-OriginatorOrg: intel.com
 
-
-
-On 11/9/2026 7:59 PM, Konrad Dybcio wrote:
-> On 11/7/26 2:45 AM, Krishna Chaitanya Chundru wrote:
->> From: Manivannan Sadhasivam <mani@kernel.org>
->>
->> PCIe host controllers should bring the link down cleanly before system
->> shutdown/reboot proceeds to remove power/clocks from the controller.
->> Without this, the link may still be up and endpoints still have
->> transactions in flight when power/clocks are cut, which can trip SMMU
->> translation faults or NoC protocol errors.
->>
->> Reuse dw_pcie_suspend_noirq() in the shutdown path to force the link
->> into L2, putting it into D3cold.
->>
->> device_shutdown() runs with interrupts enabled, unlike suspend_noirq().
->> Mask the chained MSI IRQ(s) and the Global IRQ before tearing down the
->> link and clocks/PHY, since a late/spurious interrupt could otherwise
->> reach a handler that touches now-unclocked PARF/DBI registers. Use
->> dw_pcie_mask_msi() rather than dw_pcie_free_msi() so the MSI IRQ domain
->> and the MSI mappings held by downstream devices (which device_shutdown()
->> does not remove) are left intact.
->>
->> Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
->> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
->> ---
->>  drivers/pci/controller/dwc/pcie-qcom.c | 41 ++++++++++++++++++++++++++++++++++
->>  1 file changed, 41 insertions(+)
->>
->> diff --git a/drivers/pci/controller/dwc/pcie-qcom.c b/drivers/pci/controller/dwc/pcie-qcom.c
->> index d39753f0e724..c5b06db3b92a 100644
->> --- a/drivers/pci/controller/dwc/pcie-qcom.c
->> +++ b/drivers/pci/controller/dwc/pcie-qcom.c
->> @@ -2046,6 +2046,9 @@ static int qcom_pcie_ecam_host_init(struct pci_config_window *cfg)
->>  
->>  	dw_pcie_msi_init(pp);
->>  
->> +	/* Stash pci so qcom_pcie_shutdown() can mask the MSI IRQ(s) later */
->> +	platform_set_drvdata(to_platform_device(dev), pci);
->> +
->>  	return devm_add_action_or_reset(dev, qcom_pci_free_msi, pp);
->>  }
->>  
->> @@ -2466,6 +2469,43 @@ static int qcom_pcie_probe(struct platform_device *pdev)
->>  	return ret;
->>  }
->>  
->> +static void qcom_pcie_shutdown(struct platform_device *pdev)
->> +{
->> +	const struct qcom_pcie_cfg *pcie_cfg = of_device_get_match_data(&pdev->dev);
->> +	struct qcom_pcie *pcie = NULL;
->> +	struct dw_pcie *pci;
->> +
->> +	if (pcie_cfg && pcie_cfg->firmware_managed) {
->> +		/*
->> +		 * Firmware owns the link teardown and clock/PHY shutdown in
->> +		 * this mode; Linux only owns the chained MSI IRQ(s), which
->> +		 * still need to be masked off before shutdown proceeds.
->> +		 */
->> +		pci = platform_get_drvdata(pdev);
-> Revisiting my older comment, we can still stash `pci` in drvdata regardless
-> of the flavor and do `struct qcom_pcie *pcie = to_qcom_pcie(pci);` in
-> places where we need it
-I am going with uniform drvdata but stashing struct qcom_pcie (not the bare
-struct dw_pcie) in both paths â€” to_qcom_pcie() resolves through
-dev_get_drvdata(), so stashing pci here would have returned pci again and
-broken the existing dw_pcie_ops callbacks. The firmware/ECAM path now
-allocates a thin qcom_pcie wrapper, letting shutdown() drop the branch and
-recover everything (Global IRQ, cfg, dw_pcie) uniformly.
-
-- Krishna Chaitanya.
-> Konrad
+On Fri, Jul 10, 2026 at 07:56:17PM -0700, Matthew Brost wrote:
+>A defrag move with IOVA enabled only DMA-maps the changed (non-borrowed)
+>pages of the new tt, packed contiguously into the front of its IOVA
+>reservation (xe_tt_map_iova_copy()). The GPU copy therefore has an
+>asymmetric geometry: the source is read from the old tt at its natural
+>page offsets (via the old tt's full IOVA), while the destination only
+>exposes the changed pages, packed.
 >
->> +	} else {
->> +		pcie = platform_get_drvdata(pdev);
->> +		pci = pcie->pci;
->> +
->> +		if (pcie->global_irq)
->> +			disable_irq(pcie->global_irq);
->> +	}
->> +
->> +	if (pci->pp.use_imsi_rx)
->> +		dw_pcie_mask_msi(&pci->pp);
->> +
->> +	/*
->> +	 * In firmware-managed mode 'pcie' stays NULL and firmware owns the
->> +	 * link/clock teardown. Otherwise, skip if the controller is already
->> +	 * suspended (e.g. a prior resume failed), since dw_pcie_suspend_noirq()
->> +	 * would touch DBI registers with clocks/interconnects already off.
->> +	 */
->> +	if (pcie && !pcie->pci->suspended)
->> +		dw_pcie_suspend_noirq(pcie->pci, true);
->> +
->> +	pm_runtime_put_sync(&pdev->dev);
->> +	pm_runtime_disable(&pdev->dev);
->> +}
->> +
->>  static int qcom_pcie_suspend_noirq(struct device *dev)
->>  {
->>  	struct qcom_pcie *pcie;
->> @@ -2657,5 +2697,6 @@ static struct platform_driver qcom_pcie_driver = {
->>  		.pm = &qcom_pcie_pm_ops,
->>  		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
->>  	},
->> +	.shutdown = qcom_pcie_shutdown,
->>  };
->>  builtin_platform_driver(qcom_pcie_driver);
->>
+>Teach __xe_migrate_copy() about this packed-destination mode:
+>
+>- Add a @dst_packed_pages argument. When non-zero the destination tt
+>  cursor walks just that many packed pages and the source (not the
+>  destination) drives the chunk size, so the smaller packed prefix never
+>  clamps the source walk.
+>
+>- Size the destination PTE update for each chunk from the changed-page
+>  count (xe_migrate_count_changed_pages()) rather than the full chunk,
+>  and skip the destination PTEs entirely for an all-borrowed chunk.
+>
+>- Extend emit_copy_chunks() with a @pack_dst flag so each emitted run is
+>  blitted from its natural source offset into a running packed
+>  destination offset that only advances for changed runs. The
+>  all-borrowed skip leaves the packed destination cursor untouched.
+>
+>Expose this via xe_migrate_copy_defrag_iova(). It is only valid when the
+>BO needs no CCS pass, since the separate CCS pass migrates aux state for
+>all pages and would require the full destination mapping. The existing
+>xe_migrate_copy_defrag() (full destination mapping) remains the path for
+>CCS BOs and the non-IOVA fallback.
+>
+>No users yet; xe_bo_move() is wired to this path in a later patch.
+>
+>Cc: Carlos Santa <carlos.santa@intel.com>
+>Cc: Ryan Neph <ryanneph@google.com>
+>Cc: Christian Koenig <christian.koenig@amd.com>
+>Cc: Huang Rui <ray.huang@amd.com>
+>Cc: Matthew Auld <matthew.auld@intel.com>
+>Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>Cc: Maxime Ripard <mripard@kernel.org>
+>Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>Cc: David Airlie <airlied@gmail.com>
+>Cc: Simona Vetter <simona@ffwll.ch>
+>Cc: dri-devel@lists.freedesktop.org
+>Cc: linux-kernel@vger.kernel.org
+>Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+>Assisted-by: GitHub_Copilot:claude-opus-4.8
+>Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+>---
+> drivers/gpu/drm/xe/xe_migrate.c | 307 ++++++++++++++++++++++++++++++--
+> drivers/gpu/drm/xe/xe_migrate.h |   8 +
+> 2 files changed, 296 insertions(+), 19 deletions(-)
+>
+>diff --git a/drivers/gpu/drm/xe/xe_migrate.c b/drivers/gpu/drm/xe/xe_migrate.c
+>index 666c715a9067..e1dc2fb5c5cb 100644
+>--- a/drivers/gpu/drm/xe/xe_migrate.c
+>+++ b/drivers/gpu/drm/xe/xe_migrate.c
+>@@ -811,6 +811,64 @@ static void emit_copy(struct xe_gt *gt, struct xe_bb *bb,
+> 		emit_xy_fast_copy(gt, bb, src_ofs, dst_ofs, size, pitch);
+> }
+>
+>+/*
+>+ * xe_migrate_count_changed_pages() - Count non-borrowed pages in a defrag chunk.
+>+ * @src_tt: Source (old) tt providing the page pointers.
+>+ * @dst_tt: Destination (new) tt providing the page pointers.
+>+ * @start_page: Page offset of this L0 chunk within the tt page arrays.
+>+ * @npages: Number of pages in the L0 chunk.
+>+ *
+>+ * A defragmentation move may harvest already beneficial-order chunks from the
+>+ * old tt, so the new tt references (borrows) some of the same physical pages.
+>+ * Count the pages that actually differ (src page != dst page) within the chunk.
+>+ *
+>+ * Return: The number of non-borrowed (changed) pages.
+>+ */
+>+static u32 xe_migrate_count_changed_pages(struct ttm_tt *src_tt,
+>+					  struct ttm_tt *dst_tt,
+>+					  pgoff_t start_page, u32 npages)
+>+{
+>+	u32 i, nchg = 0;
+>+
+>+	for (i = 0; i < npages; i++)
+>+		if (src_tt->pages[start_page + i] !=
+>+		    dst_tt->pages[start_page + i])
+>+			nchg++;
+>+
+>+	return nchg;
+>+}
+>+
+>+/*
+>+ * xe_migrate_leading_borrowed_pages() - Count the run of borrowed pages at the
+>+ * head of the remaining copy.
+>+ * @src_tt: Source (old) tt providing the page pointers.
+>+ * @dst_tt: Destination (new) tt providing the page pointers.
+>+ * @start_page: Page offset of the next page to copy within the tt page arrays.
+>+ * @max_pages: Pages left to copy.
+>+ *
+>+ * A defragmentation move borrows the already beneficial-order chunks from the
+>+ * old tt, so the new tt references (borrows) the same physical pages for the
+>+ * unchanged majority of a large object. Those pages alias on both the source
+>+ * and destination GPU mappings and need no copy. Count how many consecutive
+>+ * pages starting at @start_page are borrowed so the caller can advance past the
+>+ * whole run at once instead of rediscovering it one L0 chunk at a time.
+>+ *
+>+ * Return: The number of leading borrowed (src page == dst page) pages, capped
+>+ * at @max_pages.
+>+ */
+>+static u32 xe_migrate_leading_borrowed_pages(struct ttm_tt *src_tt,
+>+					     struct ttm_tt *dst_tt,
+>+					     pgoff_t start_page, u32 max_pages)
+>+{
+>+	u32 n = 0;
+>+
+>+	while (n < max_pages &&
+>+	       src_tt->pages[start_page + n] == dst_tt->pages[start_page + n])
+>+		n++;
+>+
+>+	return n;
+>+}
+>+
+> /*
+>  * emit_copy_chunks() - Emit the data blits for one defrag L0 chunk, skipping
+>  * borrowed pages.
+>@@ -822,6 +880,9 @@ static void emit_copy(struct xe_gt *gt, struct xe_bb *bb,
+>  * @src_tt: Source (old) tt providing the page pointers.
+>  * @dst_tt: Destination (new) tt providing the page pointers.
+>  * @start_page: Page offset of this L0 chunk within the tt page arrays.
+>+ * @pack_dst: If true the destination only maps the changed pages packed
+>+ *	      contiguously, so the destination offset advances by changed-page
+>+ *	      runs instead of tracking the source page index.
+>  *
+>  * A defragmentation move may harvest already beneficial-order chunks from the
+>  * old tt, so the new tt references (borrows) some of the same physical pages.
+>@@ -830,16 +891,21 @@ static void emit_copy(struct xe_gt *gt, struct xe_bb *bb,
+>  * only blit runs of pages that actually differ (src page != dst page),
+>  * coalescing contiguous to-copy pages into a single blit.
+>  *
+>+ * When @pack_dst is set the source pages are read from their natural offsets
+>+ * (@src_L0_ofs + page index) while the destination pages were packed into a
+>+ * contiguous prefix, so the destination offset is a running counter that only
+>+ * advances for emitted (changed) runs.
+>+ *
+>  * Return: The number of blits emitted (or that would be emitted when @bb is
+>  * NULL).
+>  */
+> static u32 emit_copy_chunks(struct xe_gt *gt, struct xe_bb *bb,
+> 			    u64 src_L0_ofs, u64 dst_L0_ofs, u32 src_L0,
+> 			    struct ttm_tt *src_tt, struct ttm_tt *dst_tt,
+>-			    pgoff_t start_page)
+>+			    pgoff_t start_page, bool pack_dst)
+> {
+> 	u32 npages = src_L0 >> PAGE_SHIFT;
+>-	u32 i = 0, nblits = 0;
+>+	u32 i = 0, pack = 0, nblits = 0;
+>
+> 	while (i < npages) {
+> 		u32 run = 0;
+>@@ -859,9 +925,71 @@ static u32 emit_copy_chunks(struct xe_gt *gt, struct xe_bb *bb,
+>
+> 		if (bb)
+> 			emit_copy(gt, bb, src_L0_ofs + (u64)i * PAGE_SIZE,
+>-				  dst_L0_ofs + (u64)i * PAGE_SIZE,
+>+				  dst_L0_ofs +
+>+				  (u64)(pack_dst ? pack : i) * PAGE_SIZE,
+> 				  run * PAGE_SIZE, XE_PAGE_SIZE);
+> 		nblits++;
+>+		pack += run;
+>+		i += run;
+>+	}
+>+
+>+	return nblits;
+>+}
+>+
+>+/*
+>+ * emit_ccs_copy_chunks() - Emit the indirect CCS aux copies for one packed
+>+ * defrag L0 chunk, skipping borrowed pages.
+>+ * @gt: The GT.
+>+ * @bb: The batch buffer to emit into, or NULL to only count the copies needed.
+>+ * @src_L0_ofs: GPU offset of the source pages mapped (comp PAT) for this chunk.
+>+ * @dst_L0_ofs: GPU offset of the destination pages mapped (comp PAT) for this
+>+ *	        chunk (the packed changed-page prefix).
+>+ * @src_L0: Byte size of the L0 chunk (page aligned).
+>+ * @src_tt: Source (old) tt providing the page pointers.
+>+ * @dst_tt: Destination (new) tt providing the page pointers.
+>+ * @start_page: Page offset of this L0 chunk within the tt page arrays.
+>+ *
+>+ * Companion to emit_copy_chunks() for the packed defrag CCS pass. The flat-CCS
+>+ * aux state is migrated indirectly through the data-page mappings, so it
+>+ * follows the physical page regardless of the (packed) GPU VA layout. Borrowed
+>+ * pages alias the same physical page on both sides, so their aux is already
+>+ * identical and is skipped; only the changed runs are copied, from the source
+>+ * at its natural offset to the destination at its packed offset.
+>+ *
+>+ * Return: The number of CCS copies emitted (or that would be emitted when @bb
+>+ * is NULL).
+>+ */
+>+static u32 emit_ccs_copy_chunks(struct xe_gt *gt, struct xe_bb *bb,
+>+				u64 src_L0_ofs, u64 dst_L0_ofs, u32 src_L0,
+>+				struct ttm_tt *src_tt, struct ttm_tt *dst_tt,
+>+				pgoff_t start_page)
+>+{
+>+	u32 npages = src_L0 >> PAGE_SHIFT;
+>+	u32 i = 0, pack = 0, nblits = 0;
+>+
+>+	while (i < npages) {
+>+		u32 run = 0;
+>+
+>+		/* Skip a run of borrowed pages (src and dst alias). */
+>+		if (src_tt->pages[start_page + i] ==
+>+		    dst_tt->pages[start_page + i]) {
+>+			i++;
+>+			continue;
+>+		}
+>+
+>+		/* Coalesce a run of pages whose aux must be migrated. */
+>+		while (i + run < npages &&
+>+		       src_tt->pages[start_page + i + run] !=
+>+		       dst_tt->pages[start_page + i + run])
+>+			run++;
+>+
+>+		if (bb)
+>+			emit_copy_ccs(gt, bb,
+>+				      dst_L0_ofs + (u64)pack * PAGE_SIZE, true,
+>+				      src_L0_ofs + (u64)i * PAGE_SIZE, true,
+>+				      run * PAGE_SIZE);
+>+		nblits++;
+>+		pack += run;
+> 		i += run;
+> 	}
+>
+>@@ -949,6 +1077,7 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
+> 					   struct ttm_resource *src,
+> 					   struct ttm_resource *dst,
+> 					   struct ttm_tt *src_tt,
+>+					   pgoff_t dst_packed_pages,
+> 					   struct xe_migrate_copy_flags flags)
+> {
+> 	struct xe_gt *gt = m->tile->primary_gt;
+>@@ -981,6 +1110,23 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
+> 	 */
+> 	struct ttm_tt *dst_tt = dst_bo->ttm.ttm;
+> 	bool skip_borrowed = flags.defrag_copy && src_tt && dst_tt;
+>+	/*
+>+	 * Defrag-IOVA copy: the destination tt only maps the changed
+>+	 * (non-borrowed) pages, packed contiguously into the first
+>+	 * @dst_packed_pages pages of its IOVA. The source is read from the old
+>+	 * tt at natural offsets and each changed run is blitted into the packed
+>+	 * destination prefix.
+>+	 */
+>+	bool pack_dst = dst_packed_pages != 0;
+>+	/*
+>+	 * Packed defrag CCS pass: migrate the flat-CCS aux state of the changed
+>+	 * pages only, from the source at its natural offset to the destination
+>+	 * packed prefix. Borrowed pages share the physical page (and thus its
+>+	 * aux) on both sides, so they are skipped exactly like the data pass.
+>+	 */
+>+	bool ccs_pack = flags.defrag_ccs && pack_dst && src_tt && dst_tt;
+>+	/* Per-run, borrowed-skipping defrag emission (data or packed CCS). */
+>+	bool defrag_runs = skip_borrowed || ccs_pack;
+>
+> 	/*
+> 	 * For decompression operation, always use the compression PAT index.
+>@@ -1009,7 +1155,9 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
+> 	else
+> 		xe_res_first(src, 0, size, &src_it);
+> 	if (!dst_is_vram)
+>-		xe_res_first_tt(dst_bo->ttm.ttm, 0, size, &dst_it);
+>+		xe_res_first_tt(dst_bo->ttm.ttm, 0,
+>+				pack_dst ? (u64)dst_packed_pages << PAGE_SHIFT :
+>+				size, &dst_it);
+> 	else
+> 		xe_res_first(dst, 0, size, &dst_it);
+>
+>@@ -1030,29 +1178,86 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
+> 		u32 pte_flags;
+> 		pgoff_t start_page = (xe_bo_size(src_bo) - size) >> PAGE_SHIFT;
+> 		u32 ndata_blits = 1;
+>+		u32 nchg = 0;
+>+		u64 dst_size;
+>
+> 		bool usm = xe->info.has_usm;
+> 		u32 avail_pts = max_mem_transfer_per_pass(xe) / LEVEL0_PAGE_TABLE_ENCODE_SIZE;
+>
+>+		/*
+>+		 * Defrag fast-forward: the new (destination) tt borrows the
+>+		 * unchanged beneficial-order chunks from the old tt, so for a
+>+		 * large object the bulk of the copy is borrowed pages that alias
+>+		 * the same memory on both sides. Skip the entire leading
+>+		 * borrowed run in a single cursor stride rather than discovering
+>+		 * it one (8 MB) L0 chunk at a time - each such pass would
+>+		 * otherwise pay xe_migrate_res_sizes() + pte_update_size() + a
+>+		 * full chunk walk only to copy nothing. The non-vram tt cursors
+>+		 * are normally advanced by emit_pte(); replicate that with
+>+		 * xe_res_next(). In pack_dst mode the destination only maps the
+>+		 * changed pages, so its cursor must not advance for borrowed
+>+		 * pages.
+>+		 */
+>+		if (defrag_runs) {
+>+			u32 brun = xe_migrate_leading_borrowed_pages(src_tt,
+>+								     dst_tt,
+>+								     start_page,
+>+								     size >> PAGE_SHIFT);
+>+
+>+			if (brun) {
+>+				u64 brun_bytes = (u64)brun << PAGE_SHIFT;
+>+
+>+				xe_res_next(&src_it, brun_bytes);
+>+				if (!pack_dst)
+>+					xe_res_next(&dst_it, brun_bytes);
+>+				size -= brun_bytes;
+>+				continue;
+>+			}
+>+		}
+>+
+> 		src_L0 = xe_migrate_res_sizes(m, &src_it);
+> 		dst_L0 = xe_migrate_res_sizes(m, &dst_it);
+>
+> 		drm_dbg(&xe->drm, "Pass %u, sizes: %llu & %llu\n",
+> 			pass++, src_L0, dst_L0);
+>
 
+Assisted-by: LLM
+
+With above 'continue', this drm_dbg never gets printed, is that fine?
+
+>-		src_L0 = min(src_L0, dst_L0);
+>+		/*
+>+		 * In pack_dst mode the destination is the (smaller) packed
+>+		 * prefix, so it must not clamp the source chunk size; the
+>+		 * source drives the walk and the destination is sized
+>+		 * independently from the changed-page count below.
+>+		 */
+>+		if (!pack_dst)
+>+			src_L0 = min(src_L0, dst_L0);
+>
+> 		pte_flags = src_is_vram ? PTE_UPDATE_FLAG_IS_VRAM : 0;
+> 		pte_flags |= use_comp_pat ? PTE_UPDATE_FLAG_IS_COMP_PTE : 0;
+> 		batch_size += pte_update_size(m, pte_flags, src, &src_it, &src_L0,
+> 					      &src_L0_ofs, &src_L0_pt, 0, 0,
+> 					      avail_pts);
+>+		/*
+>+		 * The source chunk size may have been clamped above, so derive
+>+		 * the packed destination size from the changed-page count of
+>+		 * the final chunk.
+>+		 */
+>+		if (pack_dst) {
+>+			nchg = xe_migrate_count_changed_pages(src_tt, dst_tt,
+>+							      start_page,
+>+							      src_L0 >> PAGE_SHIFT);
+>+			dst_size = (u64)nchg << PAGE_SHIFT;
+>+		} else {
+>+			dst_size = src_L0;
+>+		}
+> 		if (flags.copy_only_ccs) {
+> 			dst_L0_ofs = src_L0_ofs;
+>+		} else if (pack_dst && !nchg) {
+>+			/* All borrowed: no destination PTEs for this chunk. */
+>+			dst_L0_ofs = 0;
+>+			dst_L0_pt = 0;
+> 		} else {
+> 			pte_flags = dst_is_vram ? PTE_UPDATE_FLAG_IS_VRAM : 0;
+> 			batch_size += pte_update_size(m, pte_flags, dst,
+>-						      &dst_it, &src_L0,
+>+						      &dst_it, &dst_size,
+> 						      &dst_L0_ofs, &dst_L0_pt,
+> 						      0, avail_pts, avail_pts);
+> 		}
+>@@ -1072,26 +1277,31 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
+> 		 * is split into one command per run of non-borrowed pages, so
+> 		 * size for the number of runs actually needed.
+> 		 */
+>-		if (skip_borrowed)
+>+		if (defrag_runs)
+> 			ndata_blits = emit_copy_chunks(gt, NULL, 0, 0, src_L0,
+>-						       src_tt, dst_tt, start_page);
+>+						       src_tt, dst_tt, start_page,
+>+						       pack_dst);
+>
+> 		/*
+> 		 * If every page in this chunk was borrowed there is nothing to
+> 		 * copy: don't build a batch or issue any GPU commands, just
+> 		 * advance the cursors past the chunk. The non-vram tt cursors
+>-		 * would otherwise be advanced by emit_pte().
+>+		 * would otherwise be advanced by emit_pte(). In pack_dst mode
+>+		 * the destination consumed no packed pages, so leave its cursor
+>+		 * untouched.
+> 		 */
+>-		if (skip_borrowed && !ndata_blits) {
+>+		if (defrag_runs && !ndata_blits) {
+
+LLM says this 'if' clause is dead code now as defrag_runs will
+always have non-zero ndata_blits.
+
+> 			xe_res_next(&src_it, src_L0);
+>-			xe_res_next(&dst_it, src_L0);
+>+			if (!pack_dst)
+>+				xe_res_next(&dst_it, src_L0);
+> 			size -= src_L0;
+> 			continue;
+> 		}
+>
+> 		batch_size += ((flags.copy_only_ccs || flags.defrag_ccs) ? 0 :
+> 			       ndata_blits * emit_copy_cmd_len(xe)) +
+>-			((needs_ccs_emit ? EMIT_COPY_CCS_DW : 0));
+>+			(ccs_pack ? ndata_blits * EMIT_COPY_CCS_DW :
+>+			 (needs_ccs_emit ? EMIT_COPY_CCS_DW : 0));
+
+We are using ndata_blits returned from emit_copy_chunks to find calculate
+the batch size for ccs part. Though it might work, shouldn't we be getting
+that from emit_ccs_copy_chunks() with 'bb' set to NULL?
+
+Niranjana
+
+>
+> 		bb = xe_bb_new(gt, batch_size, usm);
+> 		if (IS_ERR(bb)) {
+>@@ -1111,7 +1321,7 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
+> 		else if (!flags.copy_only_ccs)
+> 			emit_pte(m, bb, dst_L0_pt, dst_is_vram,
+> 				 copy_system_ccs || flags.defrag_ccs,
+>-				 &dst_it, src_L0, dst);
+>+				 &dst_it, dst_size, dst);
+>
+> 		if (copy_system_ccs)
+> 			emit_pte(m, bb, ccs_pt, false, false, &ccs_it, ccs_size, src);
+>@@ -1121,16 +1331,22 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
+>
+> 		if (skip_borrowed)
+> 			emit_copy_chunks(gt, bb, src_L0_ofs, dst_L0_ofs, src_L0,
+>-					 src_tt, dst_tt, start_page);
+>+					 src_tt, dst_tt, start_page, pack_dst);
+> 		else if (!flags.copy_only_ccs && !flags.defrag_ccs)
+> 			emit_copy(gt, bb, src_L0_ofs, dst_L0_ofs, src_L0, XE_PAGE_SIZE);
+>
+>-		if (needs_ccs_emit)
+>+		if (ccs_pack) {
+>+			if (emit_ccs_copy_chunks(gt, bb, src_L0_ofs, dst_L0_ofs,
+>+						 src_L0, src_tt, dst_tt,
+>+						 start_page))
+>+				flush_flags = MI_FLUSH_DW_CCS;
+>+		} else if (needs_ccs_emit) {
+> 			flush_flags = xe_migrate_ccs_copy(m, bb, src_L0_ofs,
+> 							  IS_DGFX(xe) ? src_is_vram : src_is_pltt,
+> 							  dst_L0_ofs,
+> 							  IS_DGFX(xe) ? dst_is_vram : dst_is_pltt,
+> 							  src_L0, ccs_ofs, copy_ccs);
+>+		}
+>
+> 		job = xe_bb_create_migration_job(m->q, bb,
+> 						 xe_migrate_batch_base(m, usm),
+>@@ -1218,7 +1434,7 @@ struct dma_fence *xe_migrate_copy(struct xe_migrate *m,
+> 				  struct ttm_resource *dst,
+> 				  bool copy_only_ccs)
+> {
+>-	return __xe_migrate_copy(m, src_bo, dst_bo, src, dst, NULL,
+>+	return __xe_migrate_copy(m, src_bo, dst_bo, src, dst, NULL, 0,
+> 				 (struct xe_migrate_copy_flags) {
+> 					 .copy_only_ccs = copy_only_ccs,
+> 				 });
+>@@ -1267,7 +1483,7 @@ struct dma_fence *xe_migrate_copy_defrag(struct xe_migrate *m,
+> 					 bool need_ccs)
+> {
+> 	struct dma_fence *fence2, *fence =
+>-		__xe_migrate_copy(m, bo, bo, src, dst, src_tt,
+>+		__xe_migrate_copy(m, bo, bo, src, dst, src_tt, 0,
+> 				  (struct xe_migrate_copy_flags) {
+> 					 .defrag_copy = true,
+> 					 });
+>@@ -1275,7 +1491,7 @@ struct dma_fence *xe_migrate_copy_defrag(struct xe_migrate *m,
+> 	if (IS_ERR(fence) || !need_ccs)
+> 		return fence;
+>
+>-	fence2 = __xe_migrate_copy(m, bo, bo, src, dst, src_tt,
+>+	fence2 = __xe_migrate_copy(m, bo, bo, src, dst, src_tt, 0,
+> 				   (struct xe_migrate_copy_flags) {
+> 				   .defrag_ccs = true,
+> 				   });
+>@@ -1286,6 +1502,59 @@ struct dma_fence *xe_migrate_copy_defrag(struct xe_migrate *m,
+> 	return fence2;
+> }
+>
+>+/**
+>+ * xe_migrate_copy_defrag_iova() - Copy a defrag move into a packed IOVA dst.
+>+ * @m: The migration context.
+>+ * @bo: The buffer object being defragmented.
+>+ * @src: The source (old) TTM resource.
+>+ * @dst: The destination (new) TTM resource.
+>+ * @src_tt: The stashed source (old) tt providing the page pointers, fully
+>+ *	    IOVA-mapped at natural offsets.
+>+ * @dst_packed_pages: Number of changed pages packed into the destination tt's
+>+ *	    IOVA prefix by xe_tt_map_iova_copy().
+>+ * @need_ccs: Whether the BO has flat-CCS aux state that must be migrated too.
+>+ *
+>+ * Defrag copy variant for IOVA-mapped BOs where the destination only maps the
+>+ * changed (non-borrowed) pages, packed contiguously into the first
+>+ * @dst_packed_pages of its IOVA. The source is read from the old tt at its
+>+ * natural offsets and each changed run is blitted into the packed destination
+>+ * prefix. When @need_ccs is set a second pass migrates the flat-CCS aux state
+>+ * of the same changed pages indirectly through their (packed) data mappings;
+>+ * borrowed pages share the physical page and its aux, so only the changed runs
+>+ * are touched.
+>+ *
+>+ * Return: Pointer to a dma_fence representing the last copy batch, or an error
+>+ * pointer on failure.
+>+ */
+>+struct dma_fence *xe_migrate_copy_defrag_iova(struct xe_migrate *m,
+>+					      struct xe_bo *bo,
+>+					      struct ttm_resource *src,
+>+					      struct ttm_resource *dst,
+>+					      struct ttm_tt *src_tt,
+>+					      pgoff_t dst_packed_pages,
+>+					      bool need_ccs)
+>+{
+>+	struct dma_fence *fence2, *fence =
+>+		__xe_migrate_copy(m, bo, bo, src, dst, src_tt, dst_packed_pages,
+>+				  (struct xe_migrate_copy_flags) {
+>+					 .defrag_copy = true,
+>+				 });
+>+
+>+	if (IS_ERR(fence) || !need_ccs)
+>+		return fence;
+>+
+>+	fence2 = __xe_migrate_copy(m, bo, bo, src, dst, src_tt,
+>+				   dst_packed_pages,
+>+				   (struct xe_migrate_copy_flags) {
+>+					 .defrag_ccs = true,
+>+				   });
+>+	if (IS_ERR(fence2))
+>+		dma_fence_wait(fence, false);
+>+	dma_fence_put(fence);
+>+
+>+	return fence2;
+>+}
+>+
+> /**
+>  * xe_migrate_resolve() - Resolve and decompress a buffer object if required.
+>  * @m: The migrate context
+>@@ -1301,7 +1570,7 @@ struct dma_fence *xe_migrate_resolve(struct xe_migrate *m,
+> 				     struct xe_bo *bo,
+> 				     struct ttm_resource *res)
+> {
+>-	return __xe_migrate_copy(m, bo, bo, res, res, NULL,
+>+	return __xe_migrate_copy(m, bo, bo, res, res, NULL, 0,
+> 				 (struct xe_migrate_copy_flags) {
+> 					 .is_vram_resolve = true,
+> 				 });
+>diff --git a/drivers/gpu/drm/xe/xe_migrate.h b/drivers/gpu/drm/xe/xe_migrate.h
+>index 4094ea1c19c1..da066cdf01bf 100644
+>--- a/drivers/gpu/drm/xe/xe_migrate.h
+>+++ b/drivers/gpu/drm/xe/xe_migrate.h
+>@@ -141,6 +141,14 @@ struct dma_fence *xe_migrate_copy_defrag(struct xe_migrate *m,
+> 					 struct ttm_tt *src_tt,
+> 					 bool need_ccs);
+>
+>+struct dma_fence *xe_migrate_copy_defrag_iova(struct xe_migrate *m,
+>+					      struct xe_bo *bo,
+>+					      struct ttm_resource *src,
+>+					      struct ttm_resource *dst,
+>+					      struct ttm_tt *src_tt,
+>+					      pgoff_t dst_packed_pages,
+>+					      bool need_ccs);
+>+
+> struct dma_fence *xe_migrate_resolve(struct xe_migrate *m,
+> 				     struct xe_bo *bo,
+> 				     struct ttm_resource *res);
+>-- 
+>2.34.1
+>
