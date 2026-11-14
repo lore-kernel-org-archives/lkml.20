@@ -1,93 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794637615;
-	b=NfMVhB6EYlaqHzax90ufMsNoZFJW0Y6eccDTKVjmrE0wZmlpIYao5ZaBHMgIa/ivNMcl
-	 t43OiudUlzUgdAQJVHL4XsI2r6t2j4cKWSsAcEK6rQihJ/QkRQn7UMGZmEXCtTHHedOki
-	 XsUArf71vLR5sseL2dz0WrLnTCokO2frGIR0H8NO01YxL0C24fCdBqB6e1Z0T4D2qtNwO
-	 HWp8wFLR2dLXN4SRdWEIlRaoGzViJw3NJ7P2/XfFMDAMqXJJB40GYJpgdRB1DMvYnJjR6
-	 AvSMxW9FPDtEDvVNayJPz71tfS1EldVtUY9lkuNZ3dN9Vc+atTO67rBm9UfA3JeuWTw==
+	t=1794637776;
+	b=vLzSwiSwljurMZ6bhEbMGmORvR+KNbgZjK7hhYWuDpouHsW9eJT7YzSFqRBsQI1Qr8uJ
+	 ghscVnHAyLzyN9NGop8QRkaRnV+cBYgSGL03caVkeFeJ/3gOBxY6Iy+qvUU/jwLxmcxZy
+	 mARHnu2VWphfykRUq2Njm3jDNX8uvPrlwkVyex7b/jYGerXpxItrQUVTR31/MHqzkvQh6
+	 UxXlVgGtaDmW56qiUOKeGWGgPA3fAmq9rDDiqVLuvXWTau15BJavolk4vnJ6Mbrxny5Ug
+	 2VAYNx8hayAmdPEzj6bOx4NTTm6ftpLnX6v7ogSJLa28hZWjrhT6RiWmDbjuP8qyzKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794637615;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794637776;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=bxBLjEs863AOQJyjFQT8wZX0uAHa+N/y/eBxALEdB90=;
-	b=pzwV3zpBwlQu5RKHyt1x+6//++KBgICsQfuJH4V0v0ojoEb8kuhJugC934vQ50XAwwZN
-	 axNi6k5QBL5so+fGOoEusNUr7V6eFQBKhUTr/QxyqQFEcGLbWScSqtY3eZyxjHpEUOywP
-	 zYnjOjytEG82V4gwsd0WAk+x8cbGLCAnzAH5JITMQY9j3AhiCqaRCjNJotM8LtzgDfWEM
-	 87riwiWHm9sPb7mqqUv9SvqvzIAiP9mjmyNn6IvrDU/+qMNwSrCKSgmDNovwGqvlnDJ3R
-	 8H6oj5HeBfhjqsOo+cH+rW/33nQI5mXmQccJqmbxYT+0DZeR166gdNqzwX4D7GnVf3w==
+	bh=i9+suZUiW2w1H/nLvdwr8UFe/AqgIN0hpaBbLaNfQrY=;
+	b=LfyG2Ptu4/WyGbV7MGCS64C53xbplj8DIqexLK59HDSO9citza6bi4K7Ww3ufZAhl3wR
+	 6wq4MDLxF+oNQtkA0PCKaIh/PPRYVRDOuqFyfvirc8Oy23gv40L1/O5GklGdOcCwfFpQd
+	 5iYzchhUrF4J6TmzaYvUqEtpmpZbIpJrZVuDQ2cDrne2gpXF8/Nn5P2bb7HQXceQcKvXG
+	 iTfC9R+K16GV7AwYrxcxDV7Z4gYL1ayGsfuxIY6WcWcWIc1Gf222yG3IzDHyBSXpXoWNW
+	 RMp5uxBjK5JRRlQuPDa9FBlpJXHm2Dis4kp8l/Y8hwdmGz69LQrgzWyOY4Oipub+yuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VLHfSk5r;
-	arc=none smtp.remote-ip=209.85.216.48
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wdakY2AI;
+	arc=none smtp.remote-ip=209.85.214.178
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27486606A88C
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:26:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27486606A88C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E31F8606A327
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:29:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E31F8606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VLHfSk5r
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3b197cd42b0so1394974a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:26:55 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wdakY2AI
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2e95bd1c14cso27778055ad.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:29:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794637614; x=1795242414; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794637775; x=1795242575; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bxBLjEs863AOQJyjFQT8wZX0uAHa+N/y/eBxALEdB90=;
-        b=VLHfSk5r3zezAWag9cJkqsAK8egkEX2cdFSYA/LZTrWyWnEMcQdNqXtbzbPQq/cBFh
-         FiMIdIhp+WBAxCTJikQGiUAFYcUCK5fVM0DFuKknI5KI8Ch1l4OytOo11HmKqW6T9+dD
-         SSzefxz5zBO4CVsOSGjGP7Cgx5QOwhFZca6nC6yejBc1XgPIMpdfR/UYE4/HWnsD6HSs
-         dhUYaPX71/dZTwCrc38YyoCQbFUvQNwFzRdYR6TbtRch2qX9qGjEJI+5veMb8BEAI+zF
-         6DcCuiwcbYnW5FVcMf02tG6AZoR4ZxJCyUpNuZv1lYDbkTCTO4Ja1dsW/5za7SsPuNdo
-         mGJA==
+        bh=i9+suZUiW2w1H/nLvdwr8UFe/AqgIN0hpaBbLaNfQrY=;
+        b=wdakY2AIl5dU8gPIjU7P1qXU7P8hQIaIlWiyB6RVVH61maO+QZli+X7JbADKU/T3Xp
+         rKQd1H6/6pb8zkAQg3shBm+UkilFvFahy+IeKa/ixDcE/oA70rgmQ6elP/E/0tqnzEOZ
+         KfbjS0fH6qTekJXB3Mu2Ewp75BgLqUHpYzBr/9ZNRFdEyFlscqlnLHlqBp/onsXC2XDp
+         t2jT/IHOLZ7OjK0SiLCFfh4nxGVGEvHHQJlEbwXHzmXgS2WBMNPP1ffIO06WOMjmGNoR
+         02VHm3oOWmRXL3iAOCnyvR85hXKxXDafrJMW4l8RH+mFvhCnNYW+xSA+o/gPN0WGE0KG
+         ZY+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794637614; x=1795242414;
+        d=1e100.net; s=20260707; t=1794637775; x=1795242575;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=bxBLjEs863AOQJyjFQT8wZX0uAHa+N/y/eBxALEdB90=;
-        b=yPMGi6/hbpbxnCVI1COYBLOXkBHeSea5q5WP8yA2jmd+2UWv8XiKMvGnce0lQxKcEi
-         mlZpMy2OaiiGL7jorNWHtl87fFVPIIGZcJd0P8ZOhvsCKjhfMaLyJU49bCjCNTJP6Kps
-         dzyaeehNm0ZBK0MNltRThjFE0kCL+Z5DaVOH2QqsDRWKgx6yDmeWeMhXqRzxC3yPwtaO
-         sM3c2sYg25JsMQhnwr14b++UeMQdC08e01JHD7h23L77YfOvAsza51Hbf/D4tw0BjeUy
-         HPBwjkt/CPkiBrdCBagH8LdiqofJajABQ5/1VKNo6AEey7zSpkC6BDXBqTZOmZdGC3K/
-         SF/Q==
-X-Forwarded-Encrypted: i=1; AL+hErHdmHSugsLi6TeyhS1kmio42J2bvlZ04mn07BJ8/DClfIKryxsmYlrV+LmbSYopYrVUxrPEk+Zlj0Pj6QU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+mEiH9Cw9hvAonVD00HoHwGklQJ0NJ18bqdzXwkXK9Xwtw3n0g
-	SeBXQdu2wB29L49La52a76NoWRf0+i9IV75/pRDJL+RVKn29NZVy7p+I
-X-Gm-Gg: AYBFou37UGFtDCQd0dNPTXEewkA1h6z7ruQjljFJFj89vo0h9vVv+RSXJ3+hKCPvJGr
-	Ju4AuzPrWE494cz6LCnVLYf8jfvl5+QgFonwIeOgFC7zGTnkDzsA4HWQ5VXkASD1O2KpT3nKTAI
-	M6GgItGKZubcENkCsMzS2qvEiqseApnATzcaR84cnW7ks5PL5dF2DD9eOQggn/8tonjN4C5/pKY
-	seRxzAm7YmlmaC14+Q2s1v8a4j4csRDxwfGKA1BwQTCYI5H/YsUUX8y5En7tcGqBGrsM6/eKu0Y
-	HTirktBHPFHFQQEEiNuUt4tCe5BtBJzqX2ZPVjl+D2qaBsmblV5vtrC9vp1uFEX1OaLh95GQf8g
-	eakZjEkETMGkaiadftpobYaG3jVXSoM2LOs4Sr2rYh0Dr1fPMMVVy6+8+5Bxo4JKgx0GtTLAptG
-	GQ9WW8v9gWPccIJJaeD/sJcI6ZVTBekA8NbSwRrhhDQJTmcqiI2uy/2dkf8SrJ8NwhtcuRtEUkr
-	9gJqz6+kJjlQ7lpG2yxDYXjf62ux0HlldLhFn76I+T7rneQ0ZOxK6EQl6MgTDDyBdsrzAtnXNlK
-	TWveHMfH7Sj9hFXxjeX/vd6rtkBw3IhH5RRoQxJAi+XJ2/mSahoZ2TiKUnfL0ULDmG7T2Ca8V9U
-	db75C91sV5o2m2MpluK9D5ceSqqAZeHOYLN2ZOLXL1s5wNP6G5l9DOcE6EnlLXclgg8ilh2zysH
-	eZ0g==
-X-Received: by 2002:a17:90b:1d03:b0:3ab:c80:9365 with SMTP id 98e67ed59e1d1-3b1b0b4cdf7mr4172862a91.42.1794637614509;
-        Fri, 13 Nov 2026 22:26:54 -0800 (PST)
+        bh=i9+suZUiW2w1H/nLvdwr8UFe/AqgIN0hpaBbLaNfQrY=;
+        b=fotpLnHL94MGFZoLaJjvJ9tABpBIpF94MiHpyO4S26BDF3GkwJpvEJNzhqyJZJcyPN
+         102Y9u3EeBnII/tdoScWhXBJPMWIDDqNj17x4fBHvMt0tsiHk/Lb0NQxRfBSB4H3H6eP
+         aC/9ReGX1q1R4/mmfPRpAi5geTrOrJczRbEem0t/DiHrUwBE0xbUWqduMI9AAIGeJEPA
+         QUbltmmBuIWi5EBJEiLsi5ggiO/xawpQLX5HulNBOTy+mXCBMXL1A13QFRdZK2KMsZjs
+         2A7u2zPxRfmHrG5ADizcMINufmGUvk3yfzz+ooliHgbY40xD9IDsSJUKi1YT9q7yT4M9
+         +Nqg==
+X-Forwarded-Encrypted: i=1; AL+hErGT4fFll+7W+lkX299lCUhb6SdfRu+aKLlxD6JY14cSRsoKhX1lLZAmDBC/2S97AzR5xXB5z7duovx7hTs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+CQJuca5dGoB5JwbaakGJ139YFrOdmY6W3Pu4s4/f0Hr3baEBr
+	ZmV/GS/2o+h//jrlfJA4UUGjj2JHs0qdhNmrbb8psXk+edm+tiCO3IGg
+X-Gm-Gg: AYBFou0y5wm4iuxQitONludkY3NKJjH68C3ZimMuuwmTazbCSPkQliI83wauFsfPhwJ
+	jM9YccxwhLuKShjThqRQcEo+fuykmf/rktG3TguCEfhVezWWBlZlxKTLTrwQzxqPWy7itY45jKp
+	9TnI25V8okmHZLA+voL1qHTSaxNO8ftlq8buszZUrW3UNElrKaeEF6x/Q4qUo+E0AIgdqUMGcnF
+	alzc7MRQmE2xTdj9AOqUOvp8fOIEFzx6f3Ljq68qdccXjY7Ves3HqScWwVIqcYA8A2tagaZhaQP
+	CbCpQaMssHcHwLDk9sDL6+PY8lEEgxbH7NUkGtIAzbb7kqKHT8LfS9b7n+a5abGgPqseEWiM1in
+	PcoHHYyiEg0xVWgf2jb52pYcwe7SqwtRaoFdBCyl2Ry/v1fIOKL3T3Efy+KGfuaX6GprWbgb+Sd
+	Om7xjyQYldtyNzCD2IVv7SrGRNSWJrD+YuybiwJ9WbjcNA7kxLJiThglnmevz0PeqMCBe7NYkQs
+	5vw/NGJZbz3GkDAr9yS2eDodDXJic2qwScgcFIzyLIbbRebsw3agAdLGXlN8IkB5pg5XTNrWuFW
+	DREmrRNn01hy99T08KMylNnlfl0zbJLPQB1xAwdsh24aoAsV+z9W2SX6rNNkP4g7bI5QP4qJz8f
+	lat8ZnQ9du8eaICUcdOvBY1is1fjFweBm3vovo8fuX1bEdmVNDFBdcMArPfSE4Dn+pwgXeGFUnV
+	r2Eg==
+X-Received: by 2002:a17:903:1aab:b0:2ed:3ca1:848d with SMTP id d9443c01a7336-2ee0ddb1fc5mr52433425ad.25.1794637775107;
+        Fri, 13 Nov 2026 22:29:35 -0800 (PST)
 Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197b76ccesm12817446a91.0.2026.11.13.22.26.53
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f224370sm18382465ad.0.2026.11.13.22.29.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 22:26:54 -0800 (PST)
+        Fri, 13 Nov 2026 22:29:34 -0800 (PST)
 From: Rosen Penev <rosenp@gmail.com>
-To: Lyndon Sanche <lsanche@lyndeno.ca>,
+To: Matthew Garrett <mjg59@srcf.ucam.org>,
+	=?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
 	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Darren Hart <dvhart@linux.intel.com>,
+	Gabriele Mazzotta <gabriele.mzt@gmail.com>
 Cc: platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] platform/x86: dell-pc: Read the AAC mode from cbRes3
-Date: Fri, 13 Nov 2026 22:26:46 -0800
-Message-ID: <4fa7525f8f8d4c85aff4ee7320e5b5a86e79cda8.1794633180.git.rosenp@gmail.com>
+Subject: [PATCH 0/3] platform/x86: dell-laptop: Fix keyboard backlight and charge threshold handling
+Date: Fri, 13 Nov 2026 22:29:24 -0800
+Message-ID: <cover.1794633179.git.rosenp@gmail.com>
 X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -99,45 +102,37 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Message-ID: <20261114062924.U1xfNKsGHFfGPsOYd4Tu6FhUdx7NwG7U3zHEnt1wBUQ@z>
 
-thermal_set_mode() keeps the current Active Acoustic Controller (AAC)
-mode when changing the thermal mode, by reading it back with
-thermal_get_acc_mode() and passing it in byte 1 of cbArg2. As
-documented at the top of the driver, and as libsmbios'
-smbios-thermal-ctl implements it, the current AAC mode is byte 2 of
-cbRes3, which is output[2]. thermal_get_acc_mode() reads output[3]
-(cbRes4) instead, so every profile change, including the one done at
-probe to sync the mode, writes back an AAC mode taken from the wrong
-register.
+Three fixes for dell-laptop: keyboard backlight timeouts that overflow
+during unit conversion were silently accepted, an unread keyboard state
+was used at init when the SMBIOS call failed, and the charge end
+threshold was parsed as unsigned into an int.
 
-Read it from output[2].
+These patches were developed with the help of an AI coding assistant
+(Claude Opus 5.5): it reviewed the drivers, found the issues and drafted
+the fixes and changelogs. I reviewed every change and I am responsible
+for them.
 
-Fixes: 996ad4129810 ("platform/x86: dell-pc: Implement platform_profile")
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
-Developed with the help of an AI coding assistant (Claude Opus 5.5),
-which found the issue and drafted the fix; I reviewed it and am
-responsible for it. Builds cleanly with W=1.
+All patches build cleanly with W=1.
+
 Tested on a Dell Precision M4800 running v7.2.15, using the equivalent
-backports built as out-of-tree modules: switching between all four platform profiles works.
-I did not independently verify the AAC value read back.
+backports built as out-of-tree modules:
+ - writing 4424214d / 18989323d to stop_timeout set 4m / 2m before
+   patch 1 and is rejected with -EINVAL after it; 5m still works
+ - charge_control_end_threshold rejects -1 and 101, accepts 85
+The kbd_get_state() failure path of patch 2 was not triggered.
 
- drivers/platform/x86/dell/dell-pc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/platform/x86/dell/dell-pc.c b/drivers/platform/x86/dell/dell-pc.c
-index becdd9aaef29..3b2089e5cf6c 100644
---- a/drivers/platform/x86/dell/dell-pc.c
-+++ b/drivers/platform/x86/dell/dell-pc.c
-@@ -162,7 +162,7 @@ static int thermal_get_acc_mode(int *acc_mode)
- 	ret = dell_send_request(&buffer, CLASS_INFO, SELECT_THERMAL_MANAGEMENT);
- 	if (ret)
- 		return ret;
--	*acc_mode = FIELD_GET(DELL_ACC_GET_FIELD, buffer.output[3]);
-+	*acc_mode = FIELD_GET(DELL_ACC_GET_FIELD, buffer.output[2]);
- 	return 0;
- }
- 
+Rosen Penev (3):
+  platform/x86: dell-laptop: Reject keyboard backlight timeouts that
+    overflow
+  platform/x86: dell-laptop: Don't use an unread keyboard state at init
+  platform/x86: dell-laptop: Parse the charge end threshold as an int
+
+ drivers/platform/x86/dell/dell-laptop.c | 30 ++++++++++++++++++-------
+ 1 file changed, 22 insertions(+), 8 deletions(-)
+
 
 base-commit: 2800868f63227c8237d70c41e70d441c919620d6
 -- 
