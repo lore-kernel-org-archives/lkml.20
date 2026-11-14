@@ -1,60 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.100
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794677358;
-	b=sU+MIx1Aw6tV9RqJbMA3zpzXUVHEZRwPQ36zY7G5If49noVbzTPoGJrvWN3C1qcsE3SF
-	 Q5gg2OkeTky0sjbTE5lUpl7+l5yQib+LZP5cPfkrMqXmGlTubMiiKdLh+gVKzq9LTC1TU
-	 8wyKzUFCLnw5sjerEcgrCjzX2BVNfkdYdwDDngb1N+7+v0xEsGajQTUjkBcqSpvXU9qTo
-	 xLgKjzeXDOhu13olIvXIJt6USOoe89WND60GYJQmyOBxRtcYfjFDwcg2IyVz++e/uxQ4L
-	 yzyTsx9sH30HXz797JQSkyXcllc7WZvykj+HBzb2g+vMBhrtW8YmNO53wKmL1cpoIJg==
+	t=1794677402;
+	b=cFAEBuuCFPvK69Mw+UXjL/tUEBAuYWnvEwsrQHwAGTyn6rqDTRPcMwcDW8tqES/xVMzj
+	 zBZojL4OxbD1HQ0HFD0T5AWmvl2LWTWk1eLJXaZGuD7tt1TFaxo83NAfTz/m4/3nIzcoq
+	 v5pCyf0CR+2KIvS2DOTXVrT6CRVKvbKLGPCnHuhKta64XiUiAbOsViyDmT5P2j4i0mtuz
+	 WzzK+j+h0qbkVBkkzO5GbHZwVn0Jxgx2fXRpd4RxPS/LvG7SaY5u5CrBp1QPAT/VN+ykK
+	 ihkB9mT59LXEhGOE9SjBxCoAMCAikB/51A7xAImGqfxRu/Jhu0XTkuhZTNrtUMrfi6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794677358;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Ybh1orfb8A+hMu6JRpXnjbCXh3N9F/ZtSbUT1lv0xWw=;
-	b=trD4ytU+CjcjaM9tf/VKHUwEsS6fxn5tBKrJrFcMD9imvIs9TpeD55J7wh89s+fCmwSq
-	 gsiFc7RNp77BbdQ5+KVptD23aMdiXCz36SoIWgD/kbDg2UtrZ0vlEwBcy+INWJyhnDTPM
-	 69acKZGhIc4ct1Q9IEahqRnav8K6vF+lmXH1QhUI9iV4igkHF5Pcu/7kMdrj5npW+kGd9
-	 dyIMF1iFMAYN/40gLyqdUkhrxFzH1arv03AiGtukIxx+NPl3nj5vT1eIHxsE4a/iYz3Rw
-	 +r+wvxmIjrcJ9BEY1ptFdVGFFZPvowOONUx2yeuPc/ffvOUaGEvMKFrC6B/Gfj3Yp7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794677402;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=7Te+t7OtGxT0dPdL9u2tghkY5k5mawz+59vJIbdstxc=;
+	b=4Qhek8163bguq6KmY8QFxKa2bM5T9EZJDxWPoeq/h93BH4l3MvaWnDNzH4CZe54uLSjH
+	 4hJiPyAW+mStP+uc1OpHynPA3Z60fj0kD99BzOQOJep5JT0P22zl+3p/y/8SkDp9fdJjy
+	 VD9SrS6J5lwwx3UprLc/xrEO/VJcw724yICbaeW7sEwiVZhTH2ewqrJDJkuoF55CQz/Rs
+	 1DvfZbLkBeNJRc0L1jPAcfR/DrGoKer3HLlJMCgh3NakLg9f52iv/RtgMJEAOzps522CA
+	 r+Rbh/2B6P68GYrHngzJKrbyiv3wil5roxADK/y6dxtrld2Vr3VXIR6dPT4J3RrdFMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=becholey.ch;
-	spf=pass smtp.mailfrom=becholey.ch;
-	dkim=pass header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=fYImpxWX;
-	arc=none smtp.remote-ip=79.135.106.100
-Received: from mail-106100.protonmail.ch (mail-106100.protonmail.ch [79.135.106.100])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mKidUnyD;
+	arc=none smtp.remote-ip=74.125.82.49
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63B8D606A323
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:29:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63B8D606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=becholey.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=becholey.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2795606A32D
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:30:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2795606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=fYImpxWX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=becholey.ch;
-	s=protonmail; t=1794677354; x=1794936554;
-	bh=Ybh1orfb8A+hMu6JRpXnjbCXh3N9F/ZtSbUT1lv0xWw=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=fYImpxWXUXbRjLaY3xkxyYB/RZg38SNqRq3aXR5RxCH4pXIYQLWww1KNJY/fEjkCP
-	 mjI7qkAZjmQvM3tw9GeQDzx54oWS1eK9doEYKVboF6RgCSaIADX7T3gW9dzjn87msP
-	 iWsyfr3yzYeR3kOjGe7tnpUxAGwg8vaNqlVFwy/zKIvj9OgbNRitri1daJS+WGVVAe
-	 8ln3VxrAg9MOQmmeBp+4Ixha6LhWJlKJHmGKKcfXcc2KGfVtwZhAbvpF3hqjWVse7D
-	 luJ3hBk0YJHYgNHmyypJEjLHAj8eIzuF5ML4FpXIo+VNWiJPlYSRq/9oI/qtXFTr4I
-	 5VoPcCMxTbf6A==
-Date: Sat, 14 Nov 2026 17:29:09 +0000
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, =?utf-8?Q?=C5=A0erif_Rami?= <ramiserifpersia@gmail.com>
-From: Alexandre Becholey <alex@becholey.ch>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, Hanxiang Xu <xuhx@hust.edu.cn>, Alexandre Becholey <alex@becholey.ch>, stable@vger.kernel.org, Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH 5/5] ALSA: usx2y: us144mkii: do not restart the stream while stop_work runs
-Message-ID: <20261114172806.88710-6-alex@becholey.ch>
-In-Reply-To: <20261114172806.88710-1-alex@becholey.ch>
-References: <20261114172806.88710-1-alex@becholey.ch>
-Feedback-ID: 60743817:user:proton
-X-Pm-Message-ID: 38c2bad81bf20be97b7bd1c9ec524b2d54f4795c
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mKidUnyD
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-1a3c08d6928so2805440c88.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 09:30:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794677401; x=1795282201; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7Te+t7OtGxT0dPdL9u2tghkY5k5mawz+59vJIbdstxc=;
+        b=mKidUnyDCwgB/q6+u/Hv+BjH6rf9bG5oW08mT1BNrbqA/7zvkvy+GztAJnHKnrLfXT
+         pxi8SlCj15xaSSGwkNiPoJ4jGU0LAi81S0o9nZs6DGh2Nnc/H0A9s1j3q1jOiV9nXyP/
+         jukIPufne7Bq4y2Gnw4Opk+sxL+Bn85iuuxvrKLBZRg0yER4xPHNoe7xoNRQe/Ent/bn
+         NcgBXcCedRGxvN74l91qih2+REOAj7QMPk44/BT6/rpDmHIv6Sr63p+jGsztJ+31Xwfr
+         MGQCfb2jJAzVAQfJqS+V8npBjWO/P5ZGZu+gts4av8cOwI7sahey0Gwl/HkdYAh4Sd7/
+         AfLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794677401; x=1795282201;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7Te+t7OtGxT0dPdL9u2tghkY5k5mawz+59vJIbdstxc=;
+        b=LiXIE3X70Gyg9AJWuWtCBFLDb9efoKw77gTufnEXXd66WgP8UcxFAaNjAcSorSa9UJ
+         aAS3BibtIu0IHZmiOq+WPGB9r5ESi9xqY/ukoLMFydi9ngh4wA+UeTAnhHk6oaBqo3zM
+         97o4lLKxEQDPGgLHPBhknQkusLe7i3kb4lkO2gL48gKIyTIJwKjXyQjGu91CpIgdZxCO
+         0N6vLQqCNx+cTUcPWfEa2VIh1g7XXOV9H3qxcOfj3T5SvzyIwS2etQPufBca3v+5zOth
+         rvd8I7qA8Eb5Km4P+Aznth77Gb57idB1kmC+9jSGikZbSyPGaN5EWs67DuXZE9jdOGvO
+         ABMw==
+X-Forwarded-Encrypted: i=1; AL+hErGuVqvw3AZJB0EoPfngB1ucl70owFW9L+7oZT3QVlq2E7HdZH6dZXlRQewxRrvRmAz45C38ytLyaIuC8ho=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8iKbp8MPUL5coU269oGrR0bQCj9lz8Q6xiMjaqra2dMqLzWdzd
+	pt1j6RmHhs5kvEjjKCz1mGGwdVH6XSbs+mXEWyGjGW/K8MPof2MCfmYN
+X-Gm-Gg: AYBFou06sKchjT+nRO3w1ROTWzntQSFccfVVaa/iuteulpBaC1+H+aQlgtWSfHyCmc3
+	9I+mTbDKrBb1qXbKPpuBqh5UGoiHJ8ukly9pvnMdnzBXw605kCGl80vr+AY0iot1z3LpnZ8mVZQ
+	zjZlp3AlMukqGxueX72N5MuqACJCsjcSuFG0bNYSorV8F95QMV6D8e2pEGdQptsvF8oPPJ+e+Bg
+	nVjhhUsjJbLDMRUEzVNEnekwPU2oxdyPpEEf3KijTgGy71MjvKSo45j2uRTHV4u0ElTctd9D2Ez
+	OGSCxg4HJyMsQwKsUD56DPwyR3Ev5Fmh4PKz3gRYruVx891qLnig3rXChsRvlp/VsRnuuN3yABM
+	HXFQsbhilDUMQVwV7ckA6lFqpmB/OzH+vgATbK1+/dh1PRNePlE1OBpU1Tm1feSYPgiF8KgjaTZ
+	pTOQ+OhTvy2pbRn1uON/SqO5wBC+fFMJvkTSQNpXfFCjYkqbuxaLk6POpAB1Fy8gPMeFiCKydQf
+	ekXGiQWbgR8WEVPoNJvm9d50+FO+r7lqKlg4aL7kB7joweOLWs/GgpOrRzgQUQ7B7ig+4Q//uZI
+	fFabzvFUOmwfPwT224FkD4pOsVeiTA==
+X-Received: by 2002:a05:7022:28a:b0:1ac:d029:70cb with SMTP id a92af1059eb24-1b5030e3824mr5168117c88.30.1794677400642;
+        Sat, 14 Nov 2026 09:30:00 -0800 (PST)
+Received: from gentoo ([49.204.145.8])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50313d8f5sm27319086c88.3.2026.11.14.09.29.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 09:30:00 -0800 (PST)
+From: Shreesh Adiga <16567adigashreesh@gmail.com>
+To: Eric Biggers <ebiggers@kernel.org>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Demian Shulhan <demyansh@gmail.com>
+Cc: linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] lib/crc: arm64: Add NEON PMULL+EOR3 crc64_nvme implementation
+Date: Sat, 14 Nov 2026 22:59:51 +0530
+Message-ID: <20261114172955.1598929-1-16567adigashreesh@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,333 +96,171 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-tascam_pcm_trigger(STOP) clears the stream flags and schedules
-stop_work, which kills the URBs and then sets active_urbs to 0.
-START only checks active_urbs > 0 before it anchors and submits the
-URBs again, and that check does not hold:
+Add a 4x-folding implementation for CPUs with FEAT_SHA3 which benefits
+newer ARMv9 CPUs like Cortex-X925.
+Usage of EOR3 from SHA3 extension improves performance by 20% compared
+to the regular PMULL without EOR3 on Cortex-X925 measure in userspace
+application via libbenchmark for 512 byte input size.
+Measured about 3x speedup for 512 byte input compared with the existing
+NEON single fold implementation on Cortex-X925 in userspace.
 
- - START sets playback_active before the check, so when it fails with
-   -EAGAIN the PCM core undoes it with trigger(STOP), which schedules
-   stop_work again. If the work is running, it runs once more as soon
-   as it has finished, i.e. exactly when the next START passes the
-   check. That stale run kills the feedback URBs START has just
-   submitted, misses the playback URBs submitted behind it, and resets
-   active_urbs to 0 while they are in flight.
- - The START error path decrements active_urbs for the URB that failed
-   to submit, which was never counted.
- - A STOP of the other substream can schedule stop_work while START is
-   still submitting, as the submission is done without tascam->lock.
-
-The next STOP and START then anchor and submit playback URBs that are
-still anchored and owned by the host controller, which corrupts the
-anchor list. Retrying START after a STOP from user space, which the
--EAGAIN invites, triggers it within seconds. On torvalds/master
-7e1392a42ea2:
-
-  URB 00000000d35257ae submitted while active
-  WARNING: drivers/usb/core/urb.c:387 at usb_submit_urb+0x1318/0x1630, CPU#=
-0: repro/77
-
-and in another run, without the WARNING first, a "list_add double add"
-from usb_anchor_urb() in tascam_pcm_trigger():
-
-  kernel BUG at lib/list_debug.c:35!
-  Internal error: Oops - BUG: 00000000f2000800 [#1]  SMP
-
-Track a queued or running stop_work in a new stop_pending flag, set
-with the STOP under tascam->lock and cleared by the work under the lock
-after the URBs are dead, and refuse START with -EAGAIN while it is set,
-without touching the stream flags. Submit the URBs with the lock held,
-so that a STOP cannot come in between, and on a failed submission stop
-through the same path instead of miscounting active_urbs. Flush
-stop_work instead of cancelling it on suspend, so stop_pending cannot
-be left set.
-
-The bug was found, and the reproducer and this fix were written, by AI
-agents (Claude Mythos and Claude Opus models). The analysis and the
-patch were reviewed by a human.
-
-Fixes: a2a2210f2c2e ("ALSA: usb-audio: us144mkii: Implement audio playback =
-and feedback")
-Cc: stable@vger.kernel.org
-Signed-off-by: Alexandre Becholey <alex@becholey.ch>
+Signed-off-by: Shreesh Adiga <16567adigashreesh@gmail.com>
 ---
-Notes for reviewers (not part of the commit message):
+Changes in v2:
+  Improved the 4x to 1x reduction by using x^255 and x^319 x2 reduction.
+  Added static keys for the CPU feature checks instead of regular
+  branches.
 
-Trigger: an emulated US-144MKII on an emulated xHCI controller, QEMU
-arm64, KASAN; the device only streams normally. A local program with
-access to the PCM device stops (DROP) a running playback substream and
-retries START in a loop while the driver answers -EAGAIN ("Cannot
-start, URBs still active"), then does one more DROP/PREPARE/START. A
-device can supply the STOP itself with bad feedback packets (the
-stop_pcm_work path of patch 1/5); that variant was seen in our tests
-of 1/5 over USB/IP but not reproduced on its own. The reproducer is
-available to maintainers on request.
+ lib/crc/arm64/crc64.h | 24 +++++++++++--
+ lib/crc/crc64-neon.c  | 83 +++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 104 insertions(+), 3 deletions(-)
 
-Decoded, torvalds/master 7e1392a42ea2:
-
-  WARNING: drivers/usb/core/urb.c:387 at usb_submit_urb+0x1318/0x1630, CPU#=
-0: repro/77
-  Call trace:
-   usb_submit_urb (drivers/usb/core/urb.c:387 (discriminator 12)) (P)
-   tascam_pcm_trigger (sound/usb/usx2y/us144mkii_pcm.c:320 (discriminator 1=
-))
-   snd_pcm_do_start (sound/core/pcm_native.c:1530 sound/core/pcm_native.c:1=
-523)
-   snd_pcm_action_single (sound/core/pcm_native.c:1384)
-   snd_pcm_action (sound/core/pcm_native.c:1467)
-   snd_pcm_common_ioctl (sound/core/pcm_native.c:1480 sound/core/pcm_native=
-.c:1584 sound/core/pcm_native.c:3526)
-   snd_pcm_ioctl (sound/core/pcm_native.c:3591)
-
-The list_add case is usb_anchor_urb() (drivers/usb/core/urb.c:132)
-from tascam_pcm_trigger() (us144mkii_pcm.c:318). On v7.3.1 the same
-program shows the WARNING at urb.c:379, and runs that continue past it
-end in "list_del corruption" in __usb_unanchor_urb().
-
-Testing, KASAN, panic_on_warn: without the patch the program hit the
-WARNING or the list corruption in every run (v7.3.1 1/1 in this test;
-16/16 in the verification on v7.3.1, 7e1392a42ea2 and v7.3.1 with
-patches 1/5..3/5). With the whole series applied: no report in 18
-runs (v7.3.1 14, 97d73c825122 4), 593 to 1114 STOP/START cycles per
-run, with the new stop_pending check refusing a START in about a
-third of the cycles of the main program. A control run that waits
-200 ms after each DROP streams normally: 187 of 187 STARTs succeed.
-
-Not changed here (pre-existing): the .open callbacks clear the
-*_active flags without stopping anything, and PAUSE_RELEASE is not
-handled although SNDRV_PCM_INFO_PAUSE is advertised; source reading
-only, not tested.
-
-Thanks,
-Alexandre Becholey
-
- sound/usb/usx2y/us144mkii.c     |   5 +-
- sound/usb/usx2y/us144mkii.h     |   2 +
- sound/usb/usx2y/us144mkii_pcm.c | 148 ++++++++++++++++----------------
- 3 files changed, 78 insertions(+), 77 deletions(-)
-
-diff --git a/sound/usb/usx2y/us144mkii.c b/sound/usb/usx2y/us144mkii.c
-index 58ef23146f20..8270e09281cb 100644
---- a/sound/usb/usx2y/us144mkii.c
-+++ b/sound/usb/usx2y/us144mkii.c
-@@ -266,7 +266,10 @@ void tascam_stop_work_handler(struct work_struct *work=
-)
- =09usb_kill_anchored_urbs(&tascam->playback_anchor);
- =09usb_kill_anchored_urbs(&tascam->feedback_anchor);
- =09usb_kill_anchored_urbs(&tascam->capture_anchor);
+diff --git a/lib/crc/arm64/crc64.h b/lib/crc/arm64/crc64.h
+index c7a69e1f3d8f..e5be0ef21140 100644
+--- a/lib/crc/arm64/crc64.h
++++ b/lib/crc/arm64/crc64.h
+@@ -9,20 +9,38 @@
+ #include <linux/sizes.h>
+ 
+ u64 crc64_nvme_neon(u64 crc, const u8 *p, size_t len);
++u64 crc64_nvme_neon_pmull_eor3(u64 crc, const u8 *p, size_t len);
 +
-+=09guard(spinlock_irqsave)(&tascam->lock);
- =09atomic_set(&tascam->active_urbs, 0);
-+=09tascam->stop_pending =3D false;
++static __ro_after_init DEFINE_STATIC_KEY_FALSE(have_eor3);
++static __ro_after_init DEFINE_STATIC_KEY_FALSE(have_pmull);
+ 
+ #define crc64_be_arch crc64_be_generic
+ 
+ static inline u64 crc64_nvme_arch(u64 crc, const u8 *p, size_t len)
+ {
+-	if (len >= 128 && cpu_have_named_feature(PMULL) &&
++	if (len >= 128 && static_branch_likely(&have_pmull) &&
+ 	    likely(may_use_simd())) {
+ 		size_t chunk = len & ~15;
+ 
+-		scoped_ksimd()
+-			crc = crc64_nvme_neon(crc, p, chunk);
++		scoped_ksimd() {
++			if (static_branch_likely(&have_eor3))
++				crc = crc64_nvme_neon_pmull_eor3(crc, p, chunk);
++			else
++				crc = crc64_nvme_neon(crc, p, chunk);
++		}
+ 
+ 		p += chunk;
+ 		len &= 15;
+ 	}
+ 	return crc64_nvme_generic(crc, p, len);
  }
-=20
- /*
-@@ -311,7 +314,7 @@ static int tascam_suspend(struct usb_interface *intf, p=
-m_message_t message)
-=20
- =09snd_pcm_suspend_all(tascam->pcm);
-=20
--=09cancel_work_sync(&tascam->stop_work);
-+=09flush_work(&tascam->stop_work);
- =09cancel_work_sync(&tascam->capture_work);
- =09cancel_work_sync(&tascam->midi_in_work);
- =09cancel_work_sync(&tascam->midi_out_work);
-diff --git a/sound/usb/usx2y/us144mkii.h b/sound/usb/usx2y/us144mkii.h
-index 95c4341f038a..852551e0b5d0 100644
---- a/sound/usb/usx2y/us144mkii.h
-+++ b/sound/usb/usx2y/us144mkii.h
-@@ -174,6 +174,7 @@ struct us144mkii_frame_pattern_observer {
-  *
-  * @lock: Main spinlock for protecting shared driver state.
-  * @active_urbs: Atomic counter for active URBs.
-+ * @stop_pending: stop_work is queued or running; protected by @lock.
-  * @current_rate: Currently configured sample rate of the device.
-  * @line_out_source: Source for Line Outputs (0: Playback 1-2, 1: Playback=
- 3-4).
-  * @digital_out_source: Source for Digital Outputs (0: Playback 1-2, 1: Pl=
-ayback
-@@ -232,6 +233,7 @@ struct tascam_card {
- =09atomic_t playback_active;
- =09atomic_t capture_active;
- =09atomic_t active_urbs;
-+=09bool stop_pending;
- =09int current_rate;
-=20
- =09/* --- Playback State --- */
-diff --git a/sound/usb/usx2y/us144mkii_pcm.c b/sound/usb/usx2y/us144mkii_pc=
-m.c
-index 5add9c1b253a..0890884a55eb 100644
---- a/sound/usb/usx2y/us144mkii_pcm.c
-+++ b/sound/usb/usx2y/us144mkii_pcm.c
-@@ -278,93 +278,89 @@ int tascam_pcm_trigger(struct snd_pcm_substream *subs=
-tream, int cmd)
- =09struct tascam_card *tascam =3D snd_pcm_substream_chip(substream);
- =09int err =3D 0;
- =09int i;
--=09bool do_start =3D false;
--=09bool do_stop =3D false;
--
--=09scoped_guard(spinlock_irqsave, &tascam->lock) {
--=09=09switch (cmd) {
--=09=09case SNDRV_PCM_TRIGGER_START:
--=09=09case SNDRV_PCM_TRIGGER_RESUME:
--=09=09=09if (!atomic_read(&tascam->playback_active)) {
--=09=09=09=09atomic_set(&tascam->playback_active, 1);
--=09=09=09=09atomic_set(&tascam->capture_active, 1);
--=09=09=09=09do_start =3D true;
--=09=09=09}
--=09=09=09break;
--=09=09case SNDRV_PCM_TRIGGER_STOP:
--=09=09case SNDRV_PCM_TRIGGER_SUSPEND:
--=09=09case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
--=09=09=09if (atomic_read(&tascam->playback_active)) {
--=09=09=09=09atomic_set(&tascam->playback_active, 0);
--=09=09=09=09atomic_set(&tascam->capture_active, 0);
--=09=09=09=09do_stop =3D true;
--=09=09=09}
--=09=09=09break;
--=09=09default:
--=09=09=09err =3D -EINVAL;
--=09=09=09break;
--=09=09}
--=09}
-=20
--=09if (do_start) {
--=09=09if (atomic_read(&tascam->active_urbs) > 0) {
-+=09/*
-+=09 * Hold the lock while submitting, so that a STOP of the other
-+=09 * substream cannot schedule stop_work in the middle of a START.
-+=09 */
-+=09guard(spinlock_irqsave)(&tascam->lock);
 +
-+=09switch (cmd) {
-+=09case SNDRV_PCM_TRIGGER_START:
-+=09case SNDRV_PCM_TRIGGER_RESUME:
-+=09=09if (atomic_read(&tascam->playback_active))
-+=09=09=09return 0;
-+=09=09/*
-+=09=09 * stop_work kills the URBs of the previous run asynchronously;
-+=09=09 * they must not be anchored and submitted again before it is
-+=09=09 * done.
-+=09=09 */
-+=09=09if (tascam->stop_pending ||
-+=09=09    atomic_read(&tascam->active_urbs) > 0) {
- =09=09=09dev_warn(tascam->card->dev,
- =09=09=09=09 "Cannot start, URBs still active.\n");
- =09=09=09return -EAGAIN;
- =09=09}
-+=09=09atomic_set(&tascam->playback_active, 1);
-+=09=09atomic_set(&tascam->capture_active, 1);
-+=09=09break;
-+=09case SNDRV_PCM_TRIGGER_STOP:
-+=09case SNDRV_PCM_TRIGGER_SUSPEND:
-+=09case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-+=09=09if (!atomic_read(&tascam->playback_active))
-+=09=09=09return 0;
-+=09=09goto stop;
-+=09default:
-+=09=09return -EINVAL;
-+=09}
-=20
--=09=09for (i =3D 0; i < NUM_FEEDBACK_URBS; i++) {
--=09=09=09usb_get_urb(tascam->feedback_urbs[i]);
--=09=09=09usb_anchor_urb(tascam->feedback_urbs[i],
--=09=09=09=09=09       &tascam->feedback_anchor);
--=09=09=09err =3D usb_submit_urb(tascam->feedback_urbs[i],
--=09=09=09=09=09=09     GFP_ATOMIC);
--=09=09=09if (err < 0) {
--=09=09=09=09usb_unanchor_urb(tascam->feedback_urbs[i]);
--=09=09=09=09usb_put_urb(tascam->feedback_urbs[i]);
--=09=09=09=09atomic_dec(&tascam->active_urbs);
--=09=09=09=09goto start_rollback;
--=09=09=09}
--=09=09=09atomic_inc(&tascam->active_urbs);
-+=09for (i =3D 0; i < NUM_FEEDBACK_URBS; i++) {
-+=09=09usb_get_urb(tascam->feedback_urbs[i]);
-+=09=09usb_anchor_urb(tascam->feedback_urbs[i],
-+=09=09=09       &tascam->feedback_anchor);
-+=09=09err =3D usb_submit_urb(tascam->feedback_urbs[i], GFP_ATOMIC);
-+=09=09if (err < 0) {
-+=09=09=09usb_unanchor_urb(tascam->feedback_urbs[i]);
-+=09=09=09usb_put_urb(tascam->feedback_urbs[i]);
-+=09=09=09goto start_rollback;
- =09=09}
--=09=09for (i =3D 0; i < NUM_PLAYBACK_URBS; i++) {
--=09=09=09usb_get_urb(tascam->playback_urbs[i]);
--=09=09=09usb_anchor_urb(tascam->playback_urbs[i],
--=09=09=09=09=09       &tascam->playback_anchor);
--=09=09=09err =3D usb_submit_urb(tascam->playback_urbs[i],
--=09=09=09=09=09=09     GFP_ATOMIC);
--=09=09=09if (err < 0) {
--=09=09=09=09usb_unanchor_urb(tascam->playback_urbs[i]);
--=09=09=09=09usb_put_urb(tascam->playback_urbs[i]);
--=09=09=09=09atomic_dec(&tascam->active_urbs);
--=09=09=09=09goto start_rollback;
--=09=09=09}
--=09=09=09atomic_inc(&tascam->active_urbs);
-+=09=09atomic_inc(&tascam->active_urbs);
-+=09}
-+=09for (i =3D 0; i < NUM_PLAYBACK_URBS; i++) {
-+=09=09usb_get_urb(tascam->playback_urbs[i]);
-+=09=09usb_anchor_urb(tascam->playback_urbs[i],
-+=09=09=09       &tascam->playback_anchor);
-+=09=09err =3D usb_submit_urb(tascam->playback_urbs[i], GFP_ATOMIC);
-+=09=09if (err < 0) {
-+=09=09=09usb_unanchor_urb(tascam->playback_urbs[i]);
-+=09=09=09usb_put_urb(tascam->playback_urbs[i]);
-+=09=09=09goto start_rollback;
- =09=09}
--=09=09for (i =3D 0; i < NUM_CAPTURE_URBS; i++) {
--=09=09=09usb_get_urb(tascam->capture_urbs[i]);
--=09=09=09usb_anchor_urb(tascam->capture_urbs[i],
--=09=09=09=09       &tascam->capture_anchor);
--=09=09=09err =3D usb_submit_urb(tascam->capture_urbs[i],
--=09=09=09=09=09     GFP_ATOMIC);
--=09=09=09if (err < 0) {
--=09=09=09=09usb_unanchor_urb(tascam->capture_urbs[i]);
--=09=09=09=09usb_put_urb(tascam->capture_urbs[i]);
--=09=09=09=09atomic_dec(&tascam->active_urbs);
--=09=09=09=09goto start_rollback;
--=09=09=09}
--=09=09=09atomic_inc(&tascam->active_urbs);
-+=09=09atomic_inc(&tascam->active_urbs);
-+=09}
-+=09for (i =3D 0; i < NUM_CAPTURE_URBS; i++) {
-+=09=09usb_get_urb(tascam->capture_urbs[i]);
-+=09=09usb_anchor_urb(tascam->capture_urbs[i],
-+=09=09=09       &tascam->capture_anchor);
-+=09=09err =3D usb_submit_urb(tascam->capture_urbs[i], GFP_ATOMIC);
-+=09=09if (err < 0) {
-+=09=09=09usb_unanchor_urb(tascam->capture_urbs[i]);
-+=09=09=09usb_put_urb(tascam->capture_urbs[i]);
-+=09=09=09goto start_rollback;
- =09=09}
--
--=09=09return 0;
--start_rollback:
--=09=09dev_err(tascam->card->dev,
--=09=09=09"Failed to submit URBs to start stream: %d\n", err);
--=09=09do_stop =3D true;
-+=09=09atomic_inc(&tascam->active_urbs);
- =09}
-=20
--=09if (do_stop)
--=09=09schedule_work(&tascam->stop_work);
-+=09return 0;
++#define crc64_mod_init_arch crc64_mod_init_arch
++static void crc64_mod_init_arch(void)
++{
++	if (cpu_have_named_feature(PMULL)) {
++		static_branch_enable(&have_pmull);
++		if (cpu_have_named_feature(SHA3))
++			static_branch_enable(&have_eor3);
++	}
++}
+diff --git a/lib/crc/crc64-neon.c b/lib/crc/crc64-neon.c
+index 4753fb94a4be..767e55edc0e0 100644
+--- a/lib/crc/crc64-neon.c
++++ b/lib/crc/crc64-neon.c
+@@ -10,6 +10,17 @@
+ 
+ u64 crc64_nvme_neon(u64 crc, const u8 *p, size_t len);
+ 
++#ifdef CONFIG_ARM64
++u64 crc64_nvme_neon_pmull_eor3(u64 crc, const u8 *p, size_t len);
 +
-+start_rollback:
-+=09dev_err(tascam->card->dev,
-+=09=09"Failed to submit URBs to start stream: %d\n", err);
-+stop:
-+=09atomic_set(&tascam->playback_active, 0);
-+=09atomic_set(&tascam->capture_active, 0);
-+=09tascam->stop_pending =3D true;
-+=09schedule_work(&tascam->stop_work);
-=20
- =09return err;
++/* x^575 mod G, x^511 mod G */
++static const u64 fold_consts_4x_val[2] = { 0x0c32cdb31e18a84aULL,
++					   0x62242240ace5045aULL };
++/* x^319 mod G, x^255 mod G */
++static const u64 fold_consts_2x_val[2] = { 0xb0bc2e589204f500ULL,
++					   0xe1e0bb9d45d7a44cULL };
++#endif
++
+ /* x^191 mod G, x^127 mod G */
+ static const u64 fold_consts_val[2] = { 0xeadc41fd2ba3d420ULL,
+ 					0x21e9761e252621acULL };
+@@ -45,3 +56,75 @@ u64 crc64_nvme_neon(u64 crc, const u8 *p, size_t len)
+ 
+ 	return vgetq_lane_u64(v0, 1);
  }
++
++#ifdef CONFIG_ARM64
++#define SHA3_TARGET __attribute__((target("arch=armv8.2-a+crypto+sha3")))
++
++SHA3_TARGET
++static inline uint64x2_t fold_single_round(uint64x2_t fold,
++					   uint64x2_t temp,
++					   uint64x2_t consts)
++{
++	uint64x2_t temp1 = pmull64(consts, fold);
++	uint64x2_t temp2 = pmull64_high(consts, fold);
++
++	return veor3q_u64(temp, temp1, temp2);
++}
++
++SHA3_TARGET
++u64 crc64_nvme_neon_pmull_eor3(u64 crc, const u8 *p, size_t len)
++{
++	/* Assumes len >= 64. */
++	uint64x2_t fold_consts = vld1q_u64(fold_consts_val);
++	uint64x2_t fold_consts_4x = vld1q_u64(fold_consts_4x_val);
++	uint64x2_t fold_consts_2x = vld1q_u64(fold_consts_2x_val);
++	uint64x2_t v0 = { crc, 0 };
++	uint64x2_t zero = { };
++	uint64x2_t v1, v2, v3;
++
++	v0 ^= vreinterpretq_u64_u8(vld1q_u8(p));
++	v1  = vreinterpretq_u64_u8(vld1q_u8(p + 16));
++	v2  = vreinterpretq_u64_u8(vld1q_u8(p + 32));
++	v3  = vreinterpretq_u64_u8(vld1q_u8(p + 48));
++
++	p += 64;
++	len -= 64;
++	while (len >= 64) {
++		uint64x2_t t0 = vreinterpretq_u64_u8(vld1q_u8(p +  0));
++		uint64x2_t t1 = vreinterpretq_u64_u8(vld1q_u8(p + 16));
++		uint64x2_t t2 = vreinterpretq_u64_u8(vld1q_u8(p + 32));
++		uint64x2_t t3 = vreinterpretq_u64_u8(vld1q_u8(p + 48));
++
++		v0 = fold_single_round(v0, t0, fold_consts_4x);
++		v1 = fold_single_round(v1, t1, fold_consts_4x);
++		v2 = fold_single_round(v2, t2, fold_consts_4x);
++		v3 = fold_single_round(v3, t3, fold_consts_4x);
++		p += 64;
++		len -= 64;
++	}
++
++	v0 = fold_single_round(v0, v2, fold_consts_2x);
++	v1 = fold_single_round(v1, v3, fold_consts_2x);
++	v0 = fold_single_round(v0, v1, fold_consts);
++
++	while (len >= 16) {
++		uint64x2_t t0 = vreinterpretq_u64_u8(vld1q_u8(p));
++
++		v0 = fold_single_round(v0, t0, fold_consts);
++		p += 16;
++		len -= 16;
++	}
++
++	/* Multiply the 128-bit value by x^64 and reduce it back to 128 bits. */
++	v0 = vextq_u64(v0, zero, 1) ^ pmull64_hi_lo(fold_consts, v0);
++
++	/* Final Barrett reduction */
++	uint64x2_t bconsts = vld1q_u64(bconsts_val);
++	uint64x2_t final = pmull64(bconsts, v0);
++
++	v0 = veor3q_u64(v0, vextq_u64(zero, final, 1),
++			pmull64_hi_lo(bconsts, final));
++
++	return vgetq_lane_u64(v0, 1);
++}
++#endif
+-- 
+2.56.1
 
