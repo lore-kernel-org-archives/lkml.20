@@ -1,93 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794673185;
-	b=g82QH4NxR4OXTRllRyDiJVrEF7E8LgcOP1AmY+hkOnA65dgP4GGeZL13ZhnWdjQzHTbx
-	 omrHqsLT9dlhDdbr9LduEVP0L3IgX8mMJCqRVv/BSO0aOVVOwLYAsVAVKQpjo6Tv1QkBw
-	 uE+rzSpVHCrXuGQEInE82gFn1/BiohGX2vZnFuLnnr1wW/5EmPjFe1vD3Lpc6yNokiMR0
-	 vepqvdPDqcEj84UN+/a5c/bchhzWTh3fOK9WHrzMeme0yFE30qN81y1CzQMjRvvVv4nuY
-	 qjMVYYmjVXUZBe622TjuZjz561Uj7G9f2tFP834PQ7Kub3g7uTZNQUSKuNBPkc+Xc0w==
+	t=1794673223;
+	b=c9cgyE8XQZiQF4woFUhnixnbgR5c0SprXgwZa9BR7oPdPaoksxdxQ8FrpYcUBRwlipzJ
+	 y5KWeGw3/IrybjI/ZOZqkpRmNz+Cv9NphLPr2TJHNfBSxe9bM2pAx1asq0vZhcsdYnyLq
+	 xXautfMBn5Vy5WWIGyS6+EXuQdND7gNq99DJYfiuinWgrr1xQPsvpYgQLjYCkhUbDfCax
+	 RlPYC8KWm1emEgwVp4hdtZWUhXu6LSWDHIrAf0lIeNQuQc2CW7b9jGOBjcUnrYbdvbOSh
+	 GSVjIMuVHYZ8C1iSFe6w5BofIQyutZ/G3VEkA0GofIZlClEmmlwo7M+ozVljjfXZioA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794673185;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=XDtYjphGVkc/uulVWko7CeJe+AuX4KnYa+TPlDxQrlo=;
-	b=gtevlUGw9fFlkbm65wcYnqdVQHbVe8wcGrtCYRfbgEOksbA7IorTf6vR0epF0iDO6tTi
-	 XaHfAovhAHugo0Uu5M7GpJHKhBOosBLug5aNp1ZiISBxMh2a5lOiwZy+byQrVLIJcTQ44
-	 mJn4wo8la65PB4FOC5cu6hAfSBgCVLlFvMXGC8qxxxRAjaPFsEM4/FMTaV8qCnjD3aH0d
-	 1dN8Z+U4nyd8bu3icJ5Z+jsew2cMAaAFQ806ilxrVhHTPna+uII9G1OzzEnhIHt1UENf5
-	 efHpBeTZz9mq5Yt94FBs5BaQ6YssX/8FQSQzwy/7Sxp2T+p3qX5UlRCJ3fR20a1qC1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794673223;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=ZxwhgSYpDoXwHxHLVzNNenoKfmFE9x1vWok7rQPvhLg=;
+	b=zyN9mbaj+iVrQgXQD80tqYWT1CSGBh93djMyxVOsBCvh/ONQyZEZVPe+y52GxNGLkMm5
+	 5A0Jdkw+o5tbwAVY9fZYfQFPV1HZgfDirVQQgGfMb/lZ6q0VaDDAsoCsk/RBJW+AgXlqi
+	 LgH3Idrqps2x3su5CZHGA3DQ45LmOVE/XSdMyagxf09oo3uwtCZxkYoPBMgneroA0vlay
+	 kyK1jXZJ41I4Oqb/6KjA00KE82ei3RPjrXpiAS3jz4zbd5VlABcf8ieflpMVOvtAZWPdN
+	 blcW/s8IyLrNPXwf6erMNQ6BTOgdBCfSkj74dQdnpIP3QPk7xl/CYV0MX0AiwjF4PXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=isslab.korea.ac.kr;
-	spf=none smtp.mailfrom=isslab.korea.ac.kr;
-	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=AUea9Ojr;
-	arc=none smtp.remote-ip=209.85.210.179
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=yxko4Opj;
+	arc=none smtp.remote-ip=35.89.44.39
+Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE4A9606A323
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:19:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE4A9606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C7B2606A327
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:20:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C7B2606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=AUea9Ojr
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8a0880a46e7so888537b3a.1
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:19:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1794673183; x=1795277983; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XDtYjphGVkc/uulVWko7CeJe+AuX4KnYa+TPlDxQrlo=;
-        b=AUea9OjrvSRKc4FdV0DiS3YzPJggCkPgz1KqGJWjwcBIl6QFsVCNJ8QFOJdXaCUjqU
-         2uSLa8KkUuRE9/4o8RqDHHH999DG5LoNaszRyBPHGWLKwyYvkGv8Sz/PfzSItMVUCYwe
-         ZuKKtBnzLZV6TJwFHZNr0/eCAamTYBhbm+gpNIsZuafr1GH43BAURcCiH2UIhVwHMsKX
-         ilZfHrFvNZZs+//1rqzaSjB2O1KgWXffXUa/gOv8dslD8SokyUl9nYjVWTwJwl5EA/cf
-         HW6QuAwoUl1KUGy6fr1i9Zlff09ipnldeqrE985MclKckBdHyBdj6dGxl0mUlb9kDG7i
-         kP0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794673183; x=1795277983;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XDtYjphGVkc/uulVWko7CeJe+AuX4KnYa+TPlDxQrlo=;
-        b=R5AMWp2BgZc1d1m0H0lvoB2qpidv/3sUs7Fj3hx22qbeKdLTkUiYrRAOM4wLE4em7y
-         J3bJKS1oVoTrUMV/YiKfopktOoPyOw/FVv91zUofQeoEp2FPAG5bizJxlMZkL9E1gNwy
-         rNoB5WVqw+JR8zE91/TeNHkK7q/mkSNzjasWULHghQWZcuo7hRNBAa+Vbp6WfgZHdtLE
-         DZ5MjuEI83lB622mcLA5EWgPp2Md6TtRDaxDBOdD9qCABI6sDYYwdNs52QEyOmEZH2RS
-         LIEed0Yn8mLkr6IiAtPtYp4ydHIo8PcYTWYi+NsiKsq9SJZxZN2GhQ+OXmfdj+W9HRKi
-         5q6w==
-X-Forwarded-Encrypted: i=1; AL+hErGjSguAHGQ1LChjCY43zhxZJ4pjOurb5jzxXtYUIMP+s8LLiY6V4aw5hBrHDJ4tuNjA5W4ZTFDJ3UX3x2I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/t8TY6g0F2B5334UyRfYKBJMS6Z2ebQPxQPZjftb630700rO+j
-	rfDvWmD14dVmWcBMEhhN9DWhxuihF9Yg1s79uKScKo3I7ipG3t1rpHXQDdFk2FIiCVY=
-X-Gm-Gg: AYBFou0vnc2z3FQzk5U1wV6XveJJlrCPbc5pZMZZQ8ySmTL9YhG/Qu5sWeBVBoT+e6n
-	Ev8hNcD603xNXtU+cs5SLdrPCNMGJVqJLPK2Oaka21u2dmLqPaj5F+ffEXiPx33wz7+h3bTxMtD
-	McSWFlp4xlKB5HKes2rBtb21zgNtKkikh8uMVbRnOIXBaV9Sew80W19GcyXtfv/nAujUyUFhrTb
-	8/aqxgFvD4Xq0Pwgxuk6pdVP3lC4MZHcX1t3FtHalRgqIkkBNTcWgjmXfXX2ltoXk8Jar59jgRV
-	XLFqtC3Rkbw470OUr++LAffBXqQOQBUDxKMbrWXHHy+abXf0/8FgXY5JnNqfXTNwYxGz+vF/ib3
-	+Q9ZqOwZmqjodU37XE3anoaBROvLuyEcBgF20+VGp7V/XW3znmeAJW1nry1W64pbym/GcCQfLcw
-	z5SlPEn8WE76pRf8ZCSaQNc+C2ybToslg5X0/ZjXNXslGD8UR8A/8WmC1a5GBzJA3VQMrdlWCwT
-	AkfW+yujtaNppc0Za3SkPZ+94Ro+TO0abgymlC4pJOW2vh3A9k39srjcpxPlgbVY/18z+WSwrP+
-	QFiP8RX1SmV8KUPeCIgPrwGhe2zz6mAlZzexhidwQNPBDhYRbus9TsnD26zLmWX5HN0ZrRgTAuj
-	W88uLWgStSuT2BpyJ1e2/Bab2pVrpYf48/fPwLyUcnWwfblJZc+mhFBuyckY=
-X-Received: by 2002:a05:6a00:991:b0:89e:70fb:9da with SMTP id d2e1a72fcca58-8bd58c0e209mr5993888b3a.0.1794673183031;
-        Sat, 14 Nov 2026 08:19:43 -0800 (PST)
-Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:bfe1:56d2:91a4:93d9])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed12a818asm2198159b3a.17.2026.11.14.08.19.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 08:19:42 -0800 (PST)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: mkp@kernel.org
-Cc: michael.christie@oracle.com,
-	target-devel@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] scsi: target: iscsi: do not reject the command on a Data-Out overflow
-Date: Sun, 15 Nov 2026 01:19:31 +0900
-Message-ID: <20261114161931.941441-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=yxko4Opj
+Received: from eig-obgw-6006b.ext.cloudfilter.net ([10.0.30.211])
+	by cmsmtp with ESMTPS
+	id SBMkxeu4hyb4YSGUJxgCtj; Sat, 14 Nov 2026 16:20:23 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id SGUIxXUA1FhzrSGUIxLVjf; Sat, 14 Nov 2026 16:20:22 +0000
+X-Authority-Analysis: v=2.4 cv=JY+8rVKV c=1 sm=1 tr=0 ts=6af88a46
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=rJQTfqSEcvX7QKNp:21 a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10
+ a=pGLkceISAAAA:8 a=cDTaPH7Phgbu5lDjgQUA:9 a=CjuIK1q_8ugA:10
+ a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=ZxwhgSYpDoXwHxHLVzNNenoKfmFE9x1vWok7rQPvhLg=; b=yxko4OpjcB3eDKvGXGy3lCQha6
+	qYnBatw/d03wNuymE+oiMJ7W1HLq4TYV5YCEOnd29yWXG+4IjDgYSsH5fnb1LlyPqbnPbL7wvOUFL
+	CwkXy6OK4VpQ5fV1Tc3ffKDqHFHaGfT6fGd5I31IXmM5dZwgAop1ZSwX7TdSuUrh1YxYh/E+opIeA
+	/haViLROweizpxQV/lMMTnmnXVKp0aUrIYJJ/+2e75o9PaWTmHudDGL0QdWN4ymIDMeq/lD+Rya1O
+	RZLczoeIgi9CeLNq8SjVPHANCTVivsbf8nPfNwUK2hj95/ClRWFw7npWcILZOboPw7LhLJtd9RO9S
+	evvx0C3w==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:53504 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xSGUI-000000008s3-0xYW;
+	Sat, 14 Nov 2026 21:50:22 +0530
+Date: Sat, 14 Nov 2026 08:20:21 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Johan Dahlin <jdahlin@gmail.com>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Alwyn Kik <alwyn@kik.pw>, Fabio Baltieri <fabio.baltieri@gmail.com>,
+	Hamza Mahfooz <someguy@effective-light.com>
+Subject: Re: [PATCH v2 7/7] hwmon: (nct6683) Scale the +5V and +12V inputs of
+ the ASRock B850 Steel Legend WiFi
+Message-ID: <900c0952-7f04-41db-9b99-3be5c32f16ef@roeck-us.net>
+References: <20261111082838.1418051-1-jdahlin@gmail.com>
+ <20261111082838.1418051-8-jdahlin@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,119 +85,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111082838.1418051-8-jdahlin@gmail.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xSGUI-000000008s3-0xYW
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:53504
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 62
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfGku4hKBwvPZafVIVQYVuB870o/RWVRsDWOg4EO7FH/tlJJFEjyV/b8TjorGwmXcV50v3W5+shxiITl6+o76gyLtrFTD+MkOkq6l7RmplMuY30Wg/BIj
+ G61krprA+++6IbRmVbIQ8PnDd5uxhVMuAzppoBiJPUSA9ANxrc7mmDDI59N6DF8asb8OkERqIzqfMIuyu4Ly6vAcnMBQ5CjOYhx8NxFBHWHGfTPHV9x+ZcBN
 
-__iscsit_check_dataout_hdr() answers a Data-Out whose offset plus length
-exceeds the command's EDTL with iscsit_reject_cmd(), which queues the
-Reject on the offending command and then drops its reference:
+On Wed, Nov 11, 2026 at 09:28:38AM +0100, Johan Dahlin wrote:
+> The +5V and +12V rails reach the chip through resistor dividers, so they
+> read as 1.70 V and 2.03 V while the UEFI setup shows 5.04 V and 12.19 V.
+> 
+> Let the sensor table carry a divider ratio and apply it when reading the
+> input, with ratios of 3 and 6 on this board. sysfs-interface.rst asks for
+> such conversions in user space because dividers differ between boards.
+> Here the board is identified by its customer ID, so the ratios are fixed.
+> 
+> Signed-off-by: Johan Dahlin <jdahlin@gmail.com>
 
-	cmd->i_state = ISTATE_SEND_REJECT;
-	iscsit_add_cmd_to_response_queue(cmd, conn, cmd->i_state);
-	/*
-	 * Perform the kref_put now if se_cmd has already been setup by
-	 * scsit_setup_scsi_cmd()
-	 */
-	if (do_put) {
-		pr_debug("iscsi reject: calling target_put_sess_cmd >>>>>>\n");
-		target_put_sess_cmd(&cmd->se_cmd);
-	}
+Again, this belongs into sensors3.conf.
 
-For a command that has already completed that put is the last reference.  A
-WRITE that failed before it consumed its data - because the LUN does not
-exist, or the LBA is out of range - stays on conn->conn_cmd_list until the
-initiator's ExpStatSN acknowledges it in iscsit_ack_from_expstatsn(), which
-Data-Out PDUs never reach.  So iscsit_release_cmd() runs on a command that
-is still on that list and still queued for the tx thread, and the command's
-tag goes back to se_sess->sess_tag_pool.  The tx thread then builds the
-queued Reject from the released command and sets ISTATE_SENT_STATUS in it,
-and the next PDU from the initiator frees it a second time.
-
-Two PDUs on a session that may write are enough:
-
-	WRITE(10), EDTL 512, to a LUN that is not mapped  -> CHECK CONDITION
-	Data-Out, same ITT, Offset 512, DataSegmentLength 1, no payload
-
-Declaring a DataSegmentLength that is not sent keeps the connection in
-sync, so the session stays up and the second free arrives with the next
-command; if the connection does drop first, it comes from
-iscsit_release_commands_from_conn() instead.  On a KASAN + PROVE_LOCKING +
-DEBUG_LIST guest, 5 boots out of 5:
-
-  WARNING: drivers/target/iscsi/iscsi_target_util.c:658 at iscsit_release_cmd+0x2e0/0x390, CPU#0: iscsi_trx/140
-  CPU: 0 UID: 0 PID: 140 Comm: iscsi_trx Not tainted 7.4.0-rc2-00563-g97d73c825122 #1 PREEMPT(lazy)
-  Call Trace:
-   <TASK>
-   target_release_cmd_kref+0x3ea/0x9f0
-   target_put_sess_cmd+0x48/0x60
-   iscsit_add_reject_from_cmd+0x164/0x3c0
-   iscsit_check_dataout_hdr+0x1c1/0x360
-   iscsit_get_rx_pdu+0x5da/0x35d0
-   iscsi_target_rx_thread+0x132/0x2f0
-   kthread+0x2ce/0x3b0
-   ret_from_fork+0x52e/0x780
-   ret_from_fork_asm+0x1a/0x30
-   </TASK>
-  ---[ end trace 0000000000000000 ]---
-
-  refcount_t: underflow; use-after-free.
-  WARNING: lib/refcount.c:37 at refcount_warn_saturate+0xad/0xe0, CPU#0: iscsi_trx/140
-  CPU: 0 UID: 0 PID: 140 Comm: iscsi_trx Tainted: G        W           7.4.0-rc2-00563-g97d73c825122 #1 PREEMPT(lazy)
-  Call Trace:
-   <TASK>
-   transport_generic_free_cmd+0x296/0x2d0
-   iscsit_free_cmd+0xa0/0x180
-   iscsit_ack_from_expstatsn+0x31c/0x6c0
-   iscsit_process_scsi_cmd+0xd4/0x300
-   iscsit_get_rx_pdu+0x118c/0x35d0
-   iscsi_target_rx_thread+0x132/0x2f0
-   kthread+0x2ce/0x3b0
-   ret_from_fork+0x52e/0x780
-   ret_from_fork_asm+0x1a/0x30
-   </TASK>
-  ---[ end trace 0000000000000000 ]---
-
-KASAN stays quiet because iscsit_release_cmd() ends in target_free_tag()
-and commands are reused from the session tag pool instead of being freed to
-the slab, so the second free lands on whichever command owns that tag.
-
-Reject the PDU instead, with iscsit_add_reject(), which is what the
-DataSegmentLength check in iscsit_check_dataout_hdr() a few lines below
-already does for the same kind of protocol error: it builds the Reject from
-a command of its own and leaves the offending command, and its reference,
-where they are.
-
-The put was added to this path by commit 3e1c81a95f0d77 ("iscsi-target:
-Refactor RX PDU logic + export request PDU handling"), where it ran after
-wait_for_completion(&cmd->reject_comp), that is after the tx thread had
-sent the Reject; commit ba159914086f06 ("iscsi-target: Fix
-iscsit_add_reject* usage for iser") removed that wait, so the release can
-now also race the Reject that is still queued.
-
-Fixes: 3e1c81a95f0d77 ("iscsi-target: Refactor RX PDU logic + export request PDU handling")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
- drivers/target/iscsi/iscsi_target.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/target/iscsi/iscsi_target.c b/drivers/target/iscsi/iscsi_target.c
-index 124ff269b8e759..b101f1e7376d4e 100644
---- a/drivers/target/iscsi/iscsi_target.c
-+++ b/drivers/target/iscsi/iscsi_target.c
-@@ -1485,7 +1485,12 @@ __iscsit_check_dataout_hdr(struct iscsit_conn *conn, void *buf,
- 		pr_err("DataOut Offset: %u, Length %u greater than iSCSI Command EDTL %u, protocol error.\n",
- 		       be32_to_cpu(hdr->offset), payload_length,
- 		       cmd->se_cmd.data_length);
--		return iscsit_reject_cmd(cmd, ISCSI_REASON_BOOKMARK_INVALID, buf);
-+		/*
-+		 * Reject the PDU, not the command: iscsit_reject_cmd() would
-+		 * drop its last reference while it is on conn_cmd_list.
-+		 */
-+		return iscsit_add_reject(conn, ISCSI_REASON_BOOKMARK_INVALID,
-+					 buf);
- 	}
- 
- 	if (cmd->unsolicited_data) {
--- 
-2.43.0
-
+Thanks,
+Guenter
