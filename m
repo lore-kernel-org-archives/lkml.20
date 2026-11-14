@@ -1,119 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794667891;
-	b=DttK5ZrnxIGGJGaf54OLXzY6KCY86xGb9wP8pKBiqwd4K0cRJ6R4Gu9Tc94u5ukJ8dk5
-	 L7qNuD6e8n6FtiVkSxZWjRJw+FWxkqZmGnevnow4u0LGgssxB/7brhJLdVDucHkzvm0Ob
-	 Md7P/ZpTJvOL5W1pEoQnw/wZw6hCtt4CpVT6QtQge98OScmgd/dGf2wPLu9uDblyi3AHR
-	 d7KdyV9UuwIMWTieSTA/t3MX2wvD/g/y/fAwoF0hqneXt/kCTwGDQLYCvOwAEVhPSt7wO
-	 8Ahx8WgUD/viVnolv+9W0zqFUrubCg5hcXYpyzDCnRUe4FKm9X/r2Z1ELKy4ZVkS9Nw==
+	t=1794667898;
+	b=Weya230Pjr9u4FU3bUCeKN8QIr95SwEMEJccUJtTVTp7R69tiy/2/XyaiUQCd8DNsGb0
+	 OwWUzFzbE4plvT3ovuwcZiTXRWtI6UHGX2tqJTQ0tBYm6ccE5/rG8yrwvsdyxiZe0AAJL
+	 VZCNo7L4/osXMYEH8qkjXiPNla8uqRZypFs8ZAq8miT9TRwAZaUFyuZR88Ui8UBOOVw6a
+	 SfPqcgk3cD4k6wTnE7NPryNYPzuEVlcc6uZqsmFb5I32OCOBAUdcc4/n1IHygLCuw3iqZ
+	 LcEXiLRUQp/WXQZ45DCKRvqYY2CsomYyxJHXhr0xw/8eGwcMr4ikDznG8TPHrhosaxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794667891;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=q9ZNYCxlssK4yR8eH0wNLKCFUZea4SJuw0eYLqnOMy8=;
-	b=T0yK7v26aBKwI+Xuf4w9rHjDjrcn1XAd8P8Jjl5m1BX2LmhtFkDhCvq4pzM+JNHbck9t
-	 RT5D51yDhzKSt9511KRAjh6MNFUABINr7tU98Vla+kSv+6dbXi/fwv39NKMgYTGYMKioB
-	 ZpH7Se1FjbfbTqK72laOwV+W3R15luFsOpDcAvMegYggXhAnu03G46k5X2BgfGuAZ75Dd
-	 nq7YyPinPoYTNIrdlhxi2wcuW3erqIAynPMFlvtgqb9PhQxC0uPjuKFPSqKdNWU04sJI/
-	 zbpKETa5CgMPVHTDzMdKeaz1HROyEGQHok6Gh3ibhIh7uTQ8pOmxgUREbeFL3rk2T4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794667898;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=/UR5Zo0wRKbcij33V62VKJthhxekG8JQTUMaRu26LN8=;
+	b=xXeq+7Ue67EQOXVnZ3AZ80QHHrf9FHuqshU3zaVgAGqsUsU3wdcPUWDiK4dKacFtbZfx
+	 IwCsgzMMcFpJojnJiy7lhTG8tZ4KsER49zGw0RjCDCen8x96isA8oUc+d2qPtSlEaldZv
+	 uzdi2U0zShZHv2E0qomMkkuU4tGZw3jtKWYLqhhUgwMEH3EFqu1ab2jyzYVHYDvjxBqRE
+	 aa49yqftWy/bKtXsA+HO5fZ4evSUfR23Zno+ViwE5YQ5qN+1K5HZjYWWFrfr2TL7hz8H8
+	 JWOiD32Y/iEKWzaocuc18tg5SZQA4d5HKrjsg8Ds+jKlVDIx3/DdLqOD60WMlzJmISw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gIPPTd2u;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Xqb+Tsxq;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77276606A330
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 14:51:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77276606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=XlMsRIe+;
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AA188606A33F
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 14:51:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA188606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gIPPTd2u;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Xqb+Tsxq
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AEDkSSq3741019
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 14:51:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=q9ZNYCxlssK4yR8eH0wNLKCF
-	UZea4SJuw0eYLqnOMy8=; b=gIPPTd2uAPZpDL2kwsF3Hkp0tGPE8zpM2Uh9P1vt
-	UPocFTdDIP5bZFfQvDxmMv66BnsrkMrxIhgBeVkPTaYyhgXkyWpikSS6dP2sT2ez
-	5jzrGlpkqOmCniu+ywA6MBtkasXtcDEhSvF5PHED9hZzq2RV5CQeNXLVm3tZPSbn
-	A34fOwM8RydN97g/WT03xRD8lyHDSVgKqXMy20v0ydaEUGtCSYuHl+WSzZJVEpiF
-	65bec7k/07AKR+PbSvgdfQe2KBOcnEZm81sHIlfXouCtI0RgUDZI8eh3VGBFJ/ui
-	KwIG4/KRqEH+2rf1BvhLaSP9Oldt+hruoTIVYfxtgu1j9A==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hxhjqh415-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 14:51:30 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-94960131befso175574885a.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:51:30 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=XlMsRIe+
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794667890; x=1795272690; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=q9ZNYCxlssK4yR8eH0wNLKCFUZea4SJuw0eYLqnOMy8=;
-        b=Xqb+Tsxqj+cVOPDli5Yd4SN7aLQCbqKHkekW7jKosq5Pm2T082GSvVwrDjtz4o2OPi
-         BdphgqITJteyhukQQeMVX+fqJ9sUQmbwk0wbLPr39hjgRGC0T7edT25bs4TXHNoM6bCX
-         46Bp5wfBrJ/4/Zx51OOIIvz5A66y8K2i7E31bjaJKy21up8FvJhcu0uRdGuX422xVLWN
-         +Pbjur8UVxdhdF7n/fg20g2ZDjYUkCoMeZXjtrhGl4VpNn5vPXdmf/pJd0H6nvC8GM2K
-         Oe8GcSYgI9BL36sqJOGcOnMttQetXFwSCjLm5IUG8olTX8KE1nzTviw7JtCLprH0PbwO
-         12tQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794667890; x=1795272690;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=q9ZNYCxlssK4yR8eH0wNLKCFUZea4SJuw0eYLqnOMy8=;
-        b=aCSXyTikp1E6mtY2DX7oIiw16ItcOs5p7jHCAi51q6obLxxDAJx/QvSYEKL145RRZt
-         i1FWsE8hBZUa7QwLNIUgANCZRhkf384VkeVGDZR1i73dqh9kxJXH21aM7JY9t3YEK1An
-         m9qSidWf//46UeOVIv99lVGi6681Mlm97gZDgklOq/AtVG3ru4J6jja5wLJOyOTPR/Dn
-         PYzsi+R0NQvRPv6LbnIfVA/VguvR+9jZ70StQGay0QrbWjkKgwNYvCgSJnGfYFeP1Mxe
-         P1o1mDnKvs7XfoVBKwiprw5vkv+k9Gw9RbuWITHIMuhAAtZmAWTsBcGrURvVMgq2b3mb
-         pSVQ==
-X-Forwarded-Encrypted: i=1; AL+hErHXcVsTHuImdj0oqIuloeaHIe61Ymwcg17+I0glUYZ6VofNNBmSyyRB6QhFaT5XSIQ30Ht1Muf0mzyUGXE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/9byffneGyojigtFe7HLuiQvnI66SPPRO95JMPBfX0f/vBLYtz
-	1FJTjydlkQQ9aZPntr8LlAFhXyHPC5i5yPq/1f6tSxDI4Rbp6jlqci/mG4/3L6ThkbC1EGC/Bx1
-	loeSgQZqfscdifmJ9cPbvb1QqYaTh623niKl6bxDHFgStrpbRJ90QbEB5diUfB1HHuPcG1eiaI0
-	k=
-X-Gm-Gg: AYBFou10lE+W5p/a3/LXMqf0liW62J24rkb9QAUdngo6uYOXml7oY2Su6wD/QLNQkso
-	vtq/2l7eCoQJ4rz8yLEL1NPMfXqfTx1oigBy+giT/+NLg1X8ZDTDCBNFaalVzZw5G0FyAMgTwFy
-	kahYMzD6limz1+tU7CbkAjcOLe3sKTNWhhYWedfYyXTCF/F0CewD4bcj5hXK1D7oUa870rQ5Fvs
-	HllHzwKBewoqMhXcLxodBJXk+bcoq87BVddphxTh92Y8lGPQDxcuKh2WRBcv82eipu3L62bVBdb
-	gJCbgToLGoVdpqoobaTq/4o6WCG4MlJq/Xnzjw09PWfZN/0b1c8NNNWA2slRh1e+pa0Zw+98T/0
-	IeBpBt79aSXh9v7aLvcVnWfg1SP9X4oTvvWLVUqXOkTEnViBV1Kmu0S7smLmFkkcp
-X-Received: by 2002:a05:620a:801c:b0:93e:e2a4:b0fe with SMTP id af79cd13be357-9494bc7f596mr915054085a.66.1794667889566;
-        Sat, 14 Nov 2026 06:51:29 -0800 (PST)
-X-Received: by 2002:a05:620a:801c:b0:93e:e2a4:b0fe with SMTP id af79cd13be357-9494bc7f596mr915050685a.66.1794667888920;
-        Sat, 14 Nov 2026 06:51:28 -0800 (PST)
-Received: from oss.qualcomm.com ([188.27.161.77])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d223a29sm11678492f8f.8.2026.11.14.06.51.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 06:51:28 -0800 (PST)
-Date: Sat, 14 Nov 2026 16:51:26 +0200
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] arm64: dts: qcom: Correct white-space style
-Message-ID: <hssvanq6jmddyd2zwp6s56dvj5chk47oiirlmougvhmc44qgkx@jsqitc6ybjal>
-References: <20261113185426.183501-3-krzysztof.kozlowski@oss.qualcomm.com>
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=XlMsRIe+kAHy3iG7wBZRz9YecKMvctkjymHtfy14BkDqJ82w0lb8kdCTuwUpRWueB1fwbJClwqLQH
+	 5iG+JcLTM22NRn7tfqz5eQVMqT7kZmFYycYZCVQExuflzetfmvZDMXeocgg2snC7LAU3zG+6hI/8T1
+	 xoz3erllmb9/bEmo=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36af8756b4bf-bdf50;
+	Sat, 14 Nov 2026 22:51:31 +0800 (CST)
+X-RM-TRANSID:2ee36af8756b4bf-bdf50
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from  (unknown[10.55.1.70])
+	by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96af8756f972-477a4;
+	Sat, 14 Nov 2026 22:51:31 +0800 (CST)
+X-RM-TRANSID:2ee96af8756f972-477a4
+From: Aibing Chen <chenaibing@cmss.chinamobile.com>
+To: akpm@linux-foundation.org,
+	phillip@squashfs.org.uk
+Cc: phillip.lougher@gmail.com,
+	squashfs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	syzbot+5d7ba5f6127ed887f459@syzkaller.appspotmail.com,
+	syzbot+0b7a8fb8279a59e8a188@syzkaller.appspotmail.com,
+	Aibing Chen <chenaibing@cmss.chinamobile.com>
+Subject: [PATCH 2/2] squashfs: return -EIO on out-of-bounds directory entry in lookup
+Date: Sat, 14 Nov 2026 22:51:28 +0800
+Message-ID: <20261114145128.625-2-chenaibing@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
+In-Reply-To: <20261114145128.625-1-chenaibing@cmss.chinamobile.com>
+References: <20261114145128.625-1-chenaibing@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,44 +74,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261113185426.183501-3-krzysztof.kozlowski@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=KelHIgYD c=1 sm=1 tr=0 ts=6af87572 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=YbccLBt-SqBNLZOCNAYA:9 a=CjuIK1q_8ugA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE0MDA1OSBTYWx0ZWRfX8kxf1jfCxjkr
- 1YMOBjsoMZqwVGG0KjO4PcKG7d4nOhB6dIe3c8xY+R8Tb29Txsp5qPHAeAmMGjdh2kxL9GYk6FL
- Tn508n77OlKCjn7xsJbuJiXtmxyxzn4=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE0MDA1OSBTYWx0ZWRfX5CLqUkr+A7Ut
- PRFNP+lSuda1ZBjGAYunifN7J+jOBfSUO2t37SqFY/CQXshngsFTNqz8cs+uiVwwyAtttz062xg
- VmPfGNGDED7HqU8q2yT16dbP8Du/ZD6/92spt2FvCGELVrdx+0hGRTPayjcBNnPOkJM0GqrMNEL
- 1sLfpc9CLMvT92vVo6t2BTsIZYy7re4+lUYC8xi3a0nqGvqvHL/r+G6uW0Jf3FF4hzCUH88ovaV
- x62Owj+eDkHXtgBWEhGwDSxJnG6vkui3ycbMWcSSkuN8vRTh857YQIfF7a0feLrGUxjxzhC77mJ
- RFDp8yjAhDzjTNYJDSG7qAWX531g02zAirwgGF4KBUrexDFxOTaTfWs4lpc6ueb4nOpmdEbVcXN
- +4mLcUwtp7mmdcDoKkzrpLV0N2hQ3naQfoBVsKfO3s5+HYAVtvPrQSHNbjxcmaI+iQyRFLTgtVA
- eeCBbWNBn9ZtX4IDsbA==
-X-Proofpoint-GUID: GAE6goiEIfSLsKB3zJMOoPC_AUV8_-MG
-X-Proofpoint-ORIG-GUID: GAE6goiEIfSLsKB3zJMOoPC_AUV8_-MG
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-14_04,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 suspectscore=0 lowpriorityscore=0 phishscore=0
- clxscore=1015 spamscore=0 adultscore=0 priorityscore=1501 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611140059
+Content-Transfer-Encoding: 8bit
 
-On 26-11-13 19:54:27, Krzysztof Kozlowski wrote:
-> Correct minor style issues around white-spaces (e.g. double space before
-> '=', missing space before bracket, spaces used for indentation) to fix
-> dt-style-check warnings like:
-> 
->   monaco-ac-evk.dts:825: [redundant-whitespace] extra whitespace after :
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+The three squashfs_dir_space() bounds checks added to
+squashfs_lookup() by commit 5213b0a08263 ("Squashfs: fix variables in
+directory code and add more sanity checks") jump to read_failure
+without setting err.  err then holds the positive number of bytes
+read by the last successful squashfs_read_metadata() (8 for a
+directory entry), and squashfs_lookup() returns ERR_PTR(err) with a
+positive value, which IS_ERR() does not catch.  The VFS dereferences
+the bogus pointer and crashes:
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+  general protection fault in lookup_open ...
+  RIP: lookup_open+0x890/0x16e0 fs/namei.c:4648
+  ...
+  squashfs_lookup fs/squashfs/namei.c:250 [inline]
+  ...
+
+The squashfs_dir_space() checks validate on-disk directory content,
+so jump to data_error (which sets err = -EIO), matching the
+neighbouring content validation checks.
+
+Reported-by: syzbot+0b7a8fb8279a59e8a188@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=0b7a8fb8279a59e8a188
+Fixes: 5213b0a08263 ("Squashfs: fix variables in directory code and add more sanity checks")
+Signed-off-by: Aibing Chen <chenaibing@cmss.chinamobile.com>
+---
+ fs/squashfs/namei.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/fs/squashfs/namei.c b/fs/squashfs/namei.c
+index 5f8decee2..5dc21ddaf 100644
+--- a/fs/squashfs/namei.c
++++ b/fs/squashfs/namei.c
+@@ -203,7 +203,7 @@ static struct dentry *squashfs_lookup(struct inode *dir, struct dentry *dentry,
+ 		 * Read directory header.
+ 		 */
+ 		if (!squashfs_dir_space(dir, length, sizeof(dirh)))
+-			goto read_failure;
++			goto data_error;
+ 
+ 		err = squashfs_read_metadata(dir->i_sb, &dirh, &block,
+ 				&offset, sizeof(dirh));
+@@ -222,7 +222,7 @@ static struct dentry *squashfs_lookup(struct inode *dir, struct dentry *dentry,
+ 			 * Read directory entry.
+ 			 */
+ 			if (!squashfs_dir_space(dir, length, sizeof(*dire)))
+-				goto read_failure;
++				goto data_error;
+ 
+ 			err = squashfs_read_metadata(dir->i_sb, dire, &block,
+ 					&offset, sizeof(*dire));
+@@ -237,7 +237,7 @@ static struct dentry *squashfs_lookup(struct inode *dir, struct dentry *dentry,
+ 				goto data_error;
+ 
+ 			if (!squashfs_dir_space(dir, length, size))
+-				goto read_failure;
++				goto data_error;
+ 
+ 			err = squashfs_read_metadata(dir->i_sb, dire->name,
+ 					&block, &offset, size);
+-- 
+2.50.1.windows.1
+
+
+
