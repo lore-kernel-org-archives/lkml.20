@@ -1,114 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794686869;
-	b=Z8JmPel4RI1Xy0O49b9XDnXkm4Cb6AdufecEgOPChzDns0fMbns1djWb3x5IDjtbIuCB
-	 XCkmX0/yg2F923GClYjEix1AgX1/ZcNARvEVx5/6KMlfSH3as6NfECrPcoVgdprJa6Eft
-	 byfrKPTZmqyiMBxHH3nX9+oJfBAw7XJY/EeUsGKUxe5b0rFbhWWLnchz/0amCzktxlGqN
-	 cve8q/wD5LJmlyVhr47QVhkoelCiNT8xzEjMjGwbCklBgW74kUdzoB/1Nk1deDb8FzLhx
-	 z4S5CxwLjwZxdOEGhqJGJucVLHex67T7K+6xpVDPJNbfl1v5HqJGLtbPkJtER2E1G4A==
+	t=1794686893;
+	b=tS9l0zHpZ2Th+6ITwZwSLel0R2eW8xXMDu4d81iEgGfxJorWgOg7mZq7c9+LCoC4MZ9b
+	 5MwXcnaK/cMOU/eTwMM0IBNF3liLgz4Fy0oVwiMteMqcrWFzLPmBwcq/9rQR/UD06kWny
+	 ZrEpWa6b+OLgtoo340sdrJsEbRzZkyOpFzgNcJuUbq+aStkUAko/sqkdvtmp/d3XBgbH1
+	 Q+RRvDRe5f+msCrY5vKQr/8cEYLzzH/kfeGo2f79NdOHaA+InWkqF6hLZ7Q/eY3S/BcJF
+	 iWwhvU4uzqsMHGz2wLnssQJ4t5Z51AzfwUMvCf4QBYqNjMw824vIehVhDxPMpUAI14A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794686869;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=h59xmQEXNiVf2Fhkdj+7iJHbOtfNt9kdz0X5y1ytH2k=;
-	b=h+ESWXGXt5pgKJZ/7fhJmxnbBlr5Pxkuw0iBLZOAL/q+SW8ibb7U1EiHqXryfQjalmtc
-	 Ksf7tngkFSPosRewVExsBnI/9a5FbNMEM2IG6ue5wAvCYd09H36RqBZj5Ct3nAZxzSYY0
-	 hBitGTEe+AxemH7v0uqHVhtZCx1uD5xydaf3mp407uygrLJ4Obgf7n+/8QFbrfcSu/aaF
-	 LRdt7CDIz+zQpS5uJdnjlfkWiGjYYeBdxG99xGEWKR0B+NQq7k6wL4UrJxRFt3gN1AQRh
-	 7TYQocmwO7IxFrOOaCq9yOnYrqZoqpbst//8AzJWA33/I2byaFSV+luHiYLDxYI4HVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794686893;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=3I9GMuQ4koTWMmC1a0y1hzNB/jsgqGShcvnACFMvVh8=;
+	b=qnCe7IugdJUSfFTy8mVrXKjWkEKDtYY3likZLItGwyV4LPlxA7f2uAA4eWe2MMyKN4JQ
+	 3BuN/vLjugNsNkvzSDSsCFSH2m2zMkXjw7oZS7IYePEHvIgkHlNR85S7C+seX/dRoZ6Ut
+	 HWp3mIPqKsFMtns1597V+QfARPTF7pYyBLA9RWgP670o2IifA9VRlXjQn5oI/Dw45LxwZ
+	 57aAE8y+1H9NHudO565e/tubngKrXUzReq7lT1zYc7Uw+l18LIO+m+Z3c54V0S0rgeJO8
+	 eJj95wC9elTpa0We0cSpTsy1jwFGGRgrazCSAgS8o1N65qh0Q+8qu8oG3lkuj6VrK2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="OSxw07/e";
-	arc=none smtp.remote-ip=209.85.208.181
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DOlnrJEN;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AEEF606A32D
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 20:07:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AEEF606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89645606A32D
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 20:08:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OSxw07/e
-Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3acf82fdcdbso24607331fa.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 12:07:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794686866; x=1795291666; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=h59xmQEXNiVf2Fhkdj+7iJHbOtfNt9kdz0X5y1ytH2k=;
-        b=OSxw07/eDUL4JHk9FzdzhliztgepJPtw7phsB2GKNx5vQRtrJ5Jh3Fuf1XeoNeBzFt
-         YPKNhcgkI9FHcWoS3+uHyEAYoej/MF1uk+dIcBrbx5EjeY3lZqYOd2oK1mI4eENvMahY
-         rwKMXzhlvG4N3xy4DIVKwecpAPM2maLGQqr9/iJy8SBd8TKHwIg9XYTQWiTB84IxFXot
-         wu00P/cdURr67I83L3HTPbpyqw3kAjFTubQfSHqDH/J886/zUBIzeg22XC6OtAeIJCAf
-         gYYZWgAsUtdQXAT/ma5u7X0dyaDNbVfT1aeA4FyZ7f/DIefOVYUfYA14kUtHS1jKL0D1
-         0eaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794686866; x=1795291666;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=h59xmQEXNiVf2Fhkdj+7iJHbOtfNt9kdz0X5y1ytH2k=;
-        b=sSvX0kMOdde0ZtNI1UYwpSiWlSY6Q/A6icBHv9Wm1wN7ZSYrYUPk/ZPwi13wU1euCA
-         9V3AUHvWoZi+r6TrSE2cNvmPrgMJLc0O3i/h1/wLUW+uEtQH5wk9wflMhe5AYGPc41ez
-         D/NFPCLz6ZOZ4SGwiVKpH1B79mz+va4IrkM8gVd9+Ehv0Wg2banfsZx3fPqRmwvZYUZB
-         ZaANyd1ZkTiS9aam+nioDbA6LtPUIn0zXMa31YseidZZ9/ThvceVMw0qPet1+NWf1i/i
-         1k2peiaHlEVOb1fhh3QOlNKQIZYdw5k58VYainGZtbmtnENj4zC82XuY8wCp6Su94KiN
-         xW/A==
-X-Forwarded-Encrypted: i=1; AL+hErEJo59Yt4T6f2PPa/PDG5/SKHkxt+EY3M47f38LMvHHZZMNUu52mqHNvoXufG91y31XwgXurveY1X6qKV4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/dJQmvnV76FCWO6Pfi5mm1pnS0sPWugPDqy0vs1dqikR9mepoq
-	dokFlMZcETAgiVr0UnxnLYagBCCce3FW4JkxSMGN7cElUNHlxVmgbbhr
-X-Gm-Gg: AYBFou3xzgLj6r4bJU0fmzBuY8mPI3aDLj0RECBWJWa5PvE3qwnIxUbHB8cU7m4Ec+M
-	30LUs+VWZiCVzoiBj6Uqxbwx0zkNGsNcsJ9T2srNfNtd144LzuhpPn74SSL1HuiKHpr87soC5Ro
-	Rxb3nwAKPDi8BXBK8Rgge4tZHd/XclK30oCc3NrXa4R3mX58ayweCAW0S4Scqq69OAUmS1ToESs
-	rTT5JF7K/c8NLJQmF9gcr0bCyL+NtMlE1YXzHLF1NY5f3q4F1RSY9sVu908dDBPHCAtG3W9FlaL
-	47kAm5MNjUoMnVagtShef/shduOQ7g1OF0WCGTxQoRRnk0pOEXw37ipUVhHCworQEHRb4Ggzcot
-	A+zZrTTwYr6znmJpptnuBlkpPoUr/zI05Wdk9OPwm+cain5aqRMJQBGAnnWMIirVNjq9G1uO9BI
-	qqpfWh8ZNi+Z0zL6jHAm74wPDS4ZW03ORJChBvA0irSyIR6OVyUMFDKiL0MlRyrC/59MoLvTjcD
-	c5aWvBIG6LQoq4ScaEiOAY1Lw84R0J5jG0oL2Uar3V1jlRNMuthglHorfWzjyno/ws5wg4UN2ep
-	mo/eCV6+GyRZHnRReXyZgbq1Io2ss7MnoAL+OSg=
-X-Received: by 2002:a05:651c:2204:b0:3ad:f2f4:3fb8 with SMTP id 38308e7fff4ca-3ae2b4e899emr18932731fa.21.1794686866101;
-        Sat, 14 Nov 2026 12:07:46 -0800 (PST)
-Received: from IuseArchBTW ([194.28.181.64])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1712da125sm1891070e87.1.2026.11.14.12.07.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 12:07:45 -0800 (PST)
-From: Ivan Tverdokhleb <mbkchelofficialdev@gmail.com>
-To: rust-for-linux@vger.kernel.org
-Cc: Matthew Auld <matthew.auld@intel.com>,
-	Arun Pravin <arunpravin.paneerselvam@amd.com>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Will Deacon <will@kernel.org>,
-	Waiman Long <longman@redhat.com>,
-	Lyude Paul <lyude@redhat.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] rust: gpu: buddy: store the allocator inside the Mutex
-Date: Sat, 14 Nov 2026 22:07:01 +0200
-Message-ID: <20261114200703.33229-3-mbkchelofficialdev@gmail.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261114200703.33229-1-mbkchelofficialdev@gmail.com>
-References: <20261114200703.33229-1-mbkchelofficialdev@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DOlnrJEN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FABF1F000C4;
+	Sat, 14 Nov 2026 20:08:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794686893;
+	bh=3I9GMuQ4koTWMmC1a0y1hzNB/jsgqGShcvnACFMvVh8=;
+	h=From:To:Cc:Subject:Date;
+	b=DOlnrJENwYVKGy6yIHLGDukT26XNSSkFjZ7D+ZPqsV5kMyqCjb3gi6widIknUAyym
+	 Zfh+vTzcHHENkjdhyzZN1TT5g0SQaR/fBrvfwbuCIARF8mhRwLljRPXarUI/nVPAk7
+	 h2aaFPsCqalyi0S5XrY+yzqIvmcmGy6T3LSdvvML8FVOCp6eb0V1w73lSCUieXuhQq
+	 EJlrdt5k8FPb+J5o4UL0QjIbOnxo2erPTOollaIcTq8kIr1WWQUPPUV0ngdoX9fJEq
+	 o6wGf05+hGXvqaj1T6RTacNC6ax6WLZHwE1KIkJZcpunp+PXnen+hRrNDm5h1qUtU6
+	 MmEKVIcrg5F/g==
+From: "Barry Song (Xiaomi)" <baohua@kernel.org>
+To: akpm@linux-foundation.org,
+	linux-mm@kvack.org
+Cc: axelrasmussen@google.com,
+	baolin.wang@linux.alibaba.com,
+	baoquan.he@linux.dev,
+	hannes@cmpxchg.org,
+	hui.zhu@linux.dev,
+	kasong@tencent.com,
+	kunwu.chan@gmail.com,
+	liam@infradead.org,
+	lianux.mm@gmail.com,
+	linux-kernel@vger.kernel.org,
+	liuxiang.277@bytedance.com,
+	lyugaofei@xiaomi.com,
+	mhocko@kernel.org,
+	mhocko@suse.com,
+	qi.zheng@linux.dev,
+	ridong.chen@linux.dev,
+	rppt@kernel.org,
+	ryncsn@gmail.com,
+	shakeel.butt@linux.dev,
+	surenb@google.com,
+	wangzicheng@honor.com,
+	weixugc@google.com,
+	yuanchu@google.com,
+	zhangbo56@xiaomi.com,
+	zhuhui@kylinos.cn,
+	sidchintamaneni@gmail.com,
+	"Barry Song (Xiaomi)" <baohua@kernel.org>
+Subject: [PATCH v9 00/16] mm: mglru: fix swappiness behavior
+Date: Sun, 15 Nov 2026 04:07:47 +0800
+Message-Id: <20261114200803.23129-1-baohua@kernel.org>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,123 +82,245 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-GpuBuddyInner keeps the C gpu_buddy structure next to a separate
-Mutex<()>, so nothing in the type system ties the data to the lock.
-A TODO asked to replace Mutex<()> with Mutex<Opaque<..>> once
-Mutex::new() accepts a fallible initializer.
+Classic LRU respects swappiness, while MGLRU only weakly
+honors it when selecting the scan type. The fallback logic
+can easily override the bias established by
+get_type_to_scan(). As a result, swappiness has a much
+smaller overall impact when changing from 1 to 200, as
+shown by the data presented later in this cover letter.
 
-That is now possible, so put the Opaque<gpu_buddy> directly inside the
-Mutex. The allocator can then only be reached through the lock guard,
-which lets the compiler enforce that the lock is held. This also
-removes the now unneeded `inner` field from GpuBuddyGuard.
+In this patchset, patches 1-8 from Kairui introduce a model that uses
+refaults to determine nr_to_scan[] for both file and anon in MGLRU.
+For each reclaim operation, we calculate how many file and anon
+folios to scan, similar to CLRU, rather than relying on
+get_type_to_scan() and fallback mechanisms to decide what to
+reclaim, which have proven rather unreliable in honoring swappiness.
+This model also allows scanning and reclaiming from the two youngest
+generations, including the youngest generation itself. This can help
+resolve OOM situations[1] and reduce the need for aging.
 
-Update the safety comments that referred to the removed `inner` field.
+As Kairui mentioned, the OOM reproducer was demonstrated
+previously [2], and that series was merged in v7 [3].
+The problem was largely alleviated as described, but not
+completely fixed. Under higher memory pressure, the system
+could still hit OOM. Before this series, Kairui could still
+reproduce OOM after hundreds of iterations. With the fixing
+patch in this series applied, the problem no longer occurs.
 
-Signed-off-by: Ivan Tverdokhleb <mbkchelofficialdev@gmail.com>
----
- rust/kernel/gpu/buddy.rs | 38 +++++++++++++++-----------------------
- 1 file changed, 15 insertions(+), 23 deletions(-)
+Patch 9 from Barry fixes a cold/hot inversion exacerbated by patches
+1–8 (which also exists in mainline) and improves reclaim efficiency.
 
-diff --git a/rust/kernel/gpu/buddy.rs b/rust/kernel/gpu/buddy.rs
-index d502ada6ebbd..3397eb584ead 100644
---- a/rust/kernel/gpu/buddy.rs
-+++ b/rust/kernel/gpu/buddy.rs
-@@ -313,16 +313,11 @@ pub struct GpuBuddyParams {
- ///
- /// # Invariants
- ///
--/// The inner [`Opaque`] contains an initialized buddy allocator.
-+/// The `lock` field contains an initialized buddy allocator wrapped in `Opaque`.
- #[pin_data(PinnedDrop)]
- struct GpuBuddyInner {
-     #[pin]
--    inner: Opaque<bindings::gpu_buddy>,
--
--    // TODO: Replace `Mutex<()>` with `Mutex<Opaque<..>>` once `Mutex::new()`
--    // accepts `impl PinInit<T>`.
--    #[pin]
--    lock: Mutex<()>,
-+    lock: Mutex<Opaque<bindings::gpu_buddy>>,
-     /// Cached creation parameters (do not change after init).
-     params: GpuBuddyParams,
- }
-@@ -338,22 +333,20 @@ fn new(params: GpuBuddyParams) -> impl PinInit<Self, Error> {
-         // `gpu_buddy_*` APIs. `try_pin_init!` only completes if all fields succeed,
-         // so the invariant holds when construction finishes.
-         try_pin_init!(Self {
--            inner <- Opaque::try_ffi_init(|ptr| {
--                // SAFETY: `ptr` points to valid uninitialized memory from the pin-init
--                // infrastructure. `gpu_buddy_init` will initialize the structure.
--                to_result(unsafe {
--                    bindings::gpu_buddy_init(ptr, size, chunk_size.as_usize() as u64)
--                })
--            }),
--            lock <- new_mutex!(()),
--            params,
-+            lock <- new_mutex!(Opaque::try_ffi_init(|ptr| {
-+            // SAFETY: `ptr` points to valid uninitialized memory from the pin-init
-+            // infrastructure. `gpu_buddy_init` will initialize the structure.
-+            to_result(unsafe {
-+                bindings::gpu_buddy_init(ptr, size, chunk_size.as_usize() as u64)
-+            })
-+        })),
-+         params,
-         })
-     }
- 
-     /// Lock the mutex and return a guard for accessing the allocator.
-     fn lock(&self) -> GpuBuddyGuard<'_> {
-         GpuBuddyGuard {
--            inner: self,
-             _guard: self.lock.lock(),
-         }
-     }
-@@ -364,7 +357,7 @@ impl PinnedDrop for GpuBuddyInner {
-     fn drop(self: Pin<&mut Self>) {
-         let guard = self.lock();
- 
--        // SAFETY: Per the type invariant, `inner` contains an initialized
-+        // SAFETY: Per the type invariant, `lock` contains an initialized
-         // allocator. `guard` provides exclusive access.
-         unsafe { bindings::gpu_buddy_fini(guard.as_raw()) };
-     }
-@@ -381,14 +374,13 @@ unsafe impl Sync for GpuBuddyInner {}
- ///
- /// The `_guard` holds the lock for the duration of this guard's lifetime.
- struct GpuBuddyGuard<'a> {
--    inner: &'a GpuBuddyInner,
--    _guard: MutexGuard<'a, ()>,
-+    _guard: MutexGuard<'a, Opaque<bindings::gpu_buddy>>,
- }
- 
- impl GpuBuddyGuard<'_> {
-     /// Get a raw pointer to the underlying C `gpu_buddy` structure.
-     fn as_raw(&self) -> *mut bindings::gpu_buddy {
--        self.inner.inner.get()
-+        self._guard.get()
-     }
- }
- 
-@@ -428,7 +420,7 @@ pub fn size(&self) -> u64 {
-     pub fn avail(&self) -> u64 {
-         let guard = self.0.lock();
- 
--        // SAFETY: Per the type invariant, `inner` contains an initialized allocator.
-+        // SAFETY: Per the type invariant, `lock` contains an initialized allocator.
-         // `guard` provides exclusive access.
-         unsafe { (*guard.as_raw()).avail }
-     }
-@@ -463,7 +455,7 @@ pub fn alloc_blocks(
-                 // Lock while allocating to serialize with concurrent frees.
-                 let guard = buddy.lock();
- 
--                // SAFETY: Per the type invariant, `inner` contains an initialized
-+                // SAFETY: Per the type invariant, `lock` contains an initialized
-                 // allocator. `guard` provides exclusive access.
-                 to_result(unsafe {
-                     bindings::gpu_buddy_alloc_blocks(
+Patches 10-15 from Gaofei and Barry optimize aging based on folio
+distribution imbalance and improve reclaim behavior at extreme
+swappiness values such as 1 and 200.
+
+Patch 16 from Bo Zhang addresses the GFP_NOIO issue in MGLRU.
+
+After the patchset, the results track CLRU across the full swappiness
+range (see table below), with more file scanning at low swappiness
+and more anon scanning at high swappiness.
+
+pgsteal_file
+
+swappiness   CLRU          MGLRU         MGLRU+patches
+1            6,620,680     745,968       6,197,601
+36           807,807       508,974       564,256
+71           553,144       417,700       420,008
+106          402,880       402,474       363,635
+141          240,293       337,797       312,624
+176          187,682       330,045       238,722
+200          0             343,949       0
+
+
+pgsteal_anon
+
+swappiness   CLRU          MGLRU         MGLRU+patches
+1            4,436,199     2,671,934     5,011,932
+36           2,858,117     3,032,747     3,039,483
+71           3,042,392     2,827,735     3,132,431
+106          3,292,622     3,184,314     3,238,658
+141          3,612,869     2,999,000     3,306,901
+176          3,827,154     3,134,127     3,714,411
+200          13,825,283    3,269,753     14,481,445
+
+
+pgscan_file
+
+swappiness   CLRU          MGLRU         MGLRU+patches
+1            11,853,625    877,311       13,108,154
+36           1,016,826     582,783       657,973
+71           662,823       474,772       457,686
+106          496,374       451,285       390,056
+141          277,109       382,604       329,819
+176          206,261       372,059       246,141
+200          0             393,608       0
+
+
+pgscan_anon
+
+swappiness   CLRU          MGLRU         MGLRU+patches
+1            20,804,386    5,847,747     6,936,021
+36           17,830,330    6,740,075     5,975,744
+71           18,357,293    6,126,194     6,797,243
+106          19,938,920    6,431,355     7,602,990
+141          19,609,579    5,997,762     8,540,965
+176          21,612,749    6,071,032     10,532,510
+200          44,776,474    6,544,125     30,296,434
+
+
+refault_file
+
+swappiness   CLRU          MGLRU         MGLRU+patches
+1            6,523,070     667,302       6,118,731
+36           722,110       431,585       486,604
+71           477,062       340,241       342,746
+106          327,610       324,747       286,465
+141          161,827       265,959       233,860
+176          115,551       258,515       171,174
+200          0             268,049       0
+
+
+refault_anon
+
+swappiness   CLRU          MGLRU         MGLRU+patches
+1            867,728       552,829       1,368,563
+36           419,635       657,745       636,567
+71           536,299       611,345       689,528
+106          580,742       693,689       707,227
+141          706,151       639,850       753,779
+176          706,499       685,086       934,553
+200          4,693,850     733,273       5,491,234
+
+With a normal swappiness setting (without extreme bias), I
+see almost no noticeable performance difference between
+the two versions.
+
+For example, with `swappiness=60`, the average results
+over 5 rounds are:
+
+metric          W/o patch     W/ patch
+real            1m49.273s     1m48.836s
+user            25m33.186s    25m33.368s
+sys             3m41.851s     3m38.388s
+
+[1] https://github.com/ryncsn/emm-test-project/tree/master/file-anon-mix-pressure
+[2] https://lore.kernel.org/all/20260318-mglru-reclaim-v1-0-2c46f9eb0508@tencent.com/
+[3] https://lore.kernel.org/linux-mm/20260428-mglru-reclaim-v7-0-02fabb92dc43@tencent.com/
+
+v9:
+* reduce one iteration for lruvec_populated_min_seq();
+* let lruvec_is_reclaimable() count all zones, for min_ttl;
+* refine lru_gen_imbalanced(), AGING_PRIORITY macro, roundup/down swappiness;
+  per Kairui;
+* let evict_folio_lists() return "drained" per Kairui, thanks!
+* one bounded retry for scanned=0 and reduce concurrent aging
+  for no-populatable(drained) aging;
+v8 link:
+ https://lore.kernel.org/linux-mm/20261113185541.70203-1-baohua@kernel.org/ 
+
+v8:
+* Fixed Gaofei Lyu's name;
+* for debugfs proactive reclaim, use DEF_PRIORITY;
+* refine no-populatable aging (limit frequency, allow an aging
+  after eviction returns 0 scanned)
+* refine "restrict eviction accounting to eligible zones" for
+  potential premature OOM;
+* Collect Baolin's reviewed-by tag, thanks!
+v7 link:
+  https://lore.kernel.org/linux-mm/20261111232603.9934-1-baohua@kernel.org/
+
+v7:
+* fix a build error of bisect and address some other sashiko minor comments;
+* add no-populatable aging;
+v6 link:
+  https://lore.kernel.org/linux-mm/20261110202025.25736-1-baohua@kernel.org/
+
+v6:
+* rebase on top of mm-new(a lot of conflicts due to recent active mglru
+  developments);
+* only count eligible zones below sc->reclaim_idx for
+  lruvec_evictable_size() and lru_gen_imbalanced();
+* GFP_NOIO further fixing by Bo Zhang, exclude unreclaimable type
+  in lruvec_evictable_size().
+* Add Kunwu's reviewed-by, thanks!
+* RFC v5 link:
+ https://lore.kernel.org/linux-mm/20261022220203.91911-1-baohua@kernel.org/
+
+RFC v5:
+* Remove the aging optimizations, which have been merged - thanks for Baolin,
+  Baoqun, Lian Wang, Kairui, Kunwu, Ridong reviewing on this;
+* Add Kairui's model for determining nr_to_scan[] for both types.
+* Fix cold/hot inversion for rejected folios - Barry.
+* Improve and clean up imbalanced aging, and optimize extreme
+  swappiness values of 1 and 200 - Gaofei, Barry.
+* Address the GFP_NOIO issue in MGLRU - Bo Zhang.
+* RFC v4 link:
+ https://lore.kernel.org/linux-mm/20260812121658.69965-1-baohua@kernel.org/
+
+RFC v4:
+* Clean up isolate_folios() based on Baolin's feedback. Thanks!
+* Further improve isolate_folios() and scan_folios(), including
+  handling of exhausted reclaim types.
+* Add fixes and performance improvements to inc_min_seq(),
+  and reduce lock contention.
+* Improve the handling of imbalanced aging and remaining
+  generation-based aging.
+*  RFC v3 link:
+ https://lore.kernel.org/linux-mm/20260731083843.37811-1-baohua@kernel.org/
+
+RFC v3:
+ - Added Ridong's patch of improving isolate_folios() readability;
+ - for lru_gen_imbalanced(), apply some suggestions from Zicheng
+   and Kairui, considering lruvec size and use macro;
+ - drop "mm: mglru: only fall back when reclaim is running at high
+   priority"
+ - mitigate aging for balanced swappiess value(near middle 100)
+   as swappiness bias is less a concern for them; but slightly
+   increased aging overhead might not be good.
+ *  RFC v2 link:
+   https://lore.kernel.org/linux-mm/20260726122123.7614-1-baohua@kernel.org/
+
+RFC v2:
+ - Quickly address a few issues raised in the Sashiko comments so
+   reviewers can ignore v1 and review a cleaner version instead.
+   https://sashiko.dev/#/patchset/20260726012946.18684-1-baohua@kernel.org
+   Thanks, Sashiko!
+
+Barry Song (Xiaomi) (5):
+  mm/mglru: Avoid placing rejected folios below populated gen
+  mm/mglru: Run aging when one type is drained
+  mm/mglru: Restrict eviction accounting to eligible zones
+  mm/mglru: Reduce LRU lock contention by shrinking folio batches in
+    inc_min_seq
+  mm/mglru: Make swappiness=1 file reclaim more aggressive
+
+Bo Zhang (1):
+  mm/mglru: Avoid scan anon while swapcache is low for GFP_NOIO
+    allocation
+
+Gaofei Lyu (2):
+  mm/mglru: Run aging when pages are rare outside the youngest gen
+  mm/mglru: Avoid prolonged anon reclaim with swappiness=200
+
+Kairui Song (8):
+  mm/mglru: report evictable sizes per type
+  mm/mglru: extract lruvec_populated_min_seq() helper
+  mm/mglru: reclaim from the oldest populated gen
+  mm/mglru: lift the forced protection of reclaimer
+  mm/mglru: skip zones above reclaim_idx instead of rotating them
+  mm/mglru: return for unavailable anon reclaim earlier
+  mm/mglru: balance anon and file scan budget by refault rate
+  mm/mglru: lift youngest gen protection for higher priority
+
+ include/linux/mm_inline.h |  22 +-
+ mm/trace_vmscan.h         |   4 +-
+ mm/vmscan.c               | 514 +++++++++++++++++++++++++-------------
+ mm/vmscan.h               |   7 +-
+ 4 files changed, 364 insertions(+), 183 deletions(-)
+
 -- 
-2.56.1
+2.39.3 (Apple Git-146)
 
