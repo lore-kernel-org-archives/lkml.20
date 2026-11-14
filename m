@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794679478;
-	b=5haBCN/oFGN4TYbG0QE7dyQO+rXoueMMsB5Dqkt08ZqLkXMV2ZiznG+jY89i1x5bZnc5
-	 BgCRAbN4fm6RfOqPlTd/XwmX8gioW+utj8U/E3nZ1T7ux6BrEsgsMHg4c3tYhOZigL5LN
-	 Z+c9ISxEKnelIwq07WdnhI6fsQ4An0k4YDTznliOVmDsk1rKSpCq8eaS17mKYE/f9y9ZE
-	 UmIyIz2t69g8fpz1WFSeOmJ/qDmaoHzv3GwejdYPXjLvQHKD6jOSdmc1ljhCPDbn7CxRO
-	 xmVEwJ1CDLdnf78BY88nP3KNCKyHnWFIiwON53r7kxtmsRccsrX6OOLMxJQ236mj8ag==
+	t=1794679468;
+	b=BRYagJxlaNLenbhfG0DectIACXJwNM5ISr3B4i7KXMghLK+BNlyFLaERzLRAJlExBpVs
+	 9LoAWo1ITk3FeeJb+vss4W53S26FxqrForsnEWGvOrxzVjkp+GbSLGnu90TDxDEglYD4W
+	 6EJYqY4K0H0ISU06l8nI+nI9MAKTZYAQcyaf40KA9nIZzENZ3dzo04Tlz7xagm/5dECd+
+	 Ddo9pqjhYnaN5s1TZVY9kQN6oU2AG0ywzYARgF8BuInL3qQa1ZDJ0vAoxN08wXEoYtV3j
+	 aSkSHyN9bOGsepcaT/gplvHoUJopCp6Y9lIuD2r4K5CN9/xYHjasUXfBTtwN4csdKyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794679478;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794679468;
 	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer;
-	bh=tvrlBCAz84IHnVHjiXPVpSOzxSHOVov+E7/ouzhKgDE=;
-	b=UT6hPjYalzwQpbBqVvVTIS8UFRMvoaryNMa6aoxrqMALEa0JGPdjhqHr8AXuALTnzbO4
-	 x5/hl0nXtP9h6b8DhT1B2Wpggg0sULm0uwb2fN8RFyNJ/lmHra+ZJR8jPtMC4SC+q3QUI
-	 3NjXhJjzwo8VseOrKBxVEifRC8kM5w3Y5+H2M9BheS+MCqCJKsYv1Ig61B9My46u/8Kjr
-	 ksbYKwg8OVTEO7LqIAYhQ54hd/nj4roYJP100dcjp8jgcZZnnkicPGLd8HmX9e2JWFOD+
-	 7Wc2fr+ikflDfvRVIEiY2fe4aTIq8EQbDZ/nVq8hOheFpCqFxwSKEd2mIM2iqXc3wkA==
+	bh=vKvyFSSR/5Ksq4dTL61APESefVgnjqQrG44vv1NJvK0=;
+	b=PlztacHPMVNp7Wj06jCiziUdVLu4vFIZEhu8G7EcLgh/evsGdPAKB/UxDIYuhpAuuA1W
+	 mP7+7fy4PckItmaiX+NvaQsN7yL14SeVw+zYOcbNd8bXTMR64QRYhlDYVJ0WMQ3lwJqJk
+	 7nzeTEdsuwpKJC136HeM/phuax43Q5+6U2frqmP6YmStdBc1mzV9lGJcrhl+HXzeikEFJ
+	 xHhA9Io0qTqoS+GSSLF1qbIc0KuhOh4LmgPhmsZa94JnuPVveOFT5vqDKkz+jYLT1aPP1
+	 KcawgAWzWCdDlvzoG3llKYxyzsg6whiYrfqneCTEPQ637nD9hY68STOkbYwsogBJlBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=k5mGdByu;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=GuC7YZw+;
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A022B60A2609;
-	Sat, 14 Nov 2026 18:04:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A022B60A2609
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5543C60A2607;
+	Sat, 14 Nov 2026 18:04:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5543C60A2607
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=k5mGdByu
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=GuC7YZw+
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794679476;
-	bh=q8YxitCLXIoiDyHwWcus3cdVy65RpFGHngoEFCcMx6o=;
+	s=mail; t=1794679464;
+	bh=O+60358tIvY1UQJe6wfwALoe9EIRxZdOzbQbGuY0aLg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=k5mGdByucvJCu/9/LXu64cV+Whyiea554iaACB+BhjTqqSvESi/8kPSw+0ijUEyQ2
-	 UDifp/O0v+k1iOGLRbWutXXKOBpW4bORwmCHiUlDJDI3fmPDbIuSQ7O+JGWWaXP7Gz
-	 iom8Q8PzSrWQc6RvLQO8eNyXpTfBSTSFGAmx4NuP8g0yotqJT2vQ7hC5o0WMgmSNgX
-	 0R5VG7Gp0vXJFQd/7E/9a7KSWLM2qqGApgCyJgDQ+k1KgloRlSI9nJD5TTAFeW882A
-	 YPmqRSEYbzGLRplQwxScRMC4qE/uHA8CLL5sNjwoaJHIYUgcLEAMzNTWm3LXcCsNAl
-	 wN8XzCI7fWBRA==
+	b=GuC7YZw+WelMNqvBLGvpo9VxrpJcKE9rvOIrQ8pVqZwJ3G+v4+fpZ2ZmprgaZw/qx
+	 N2CdeSLBHsbLLabHvn8aMHAJ6xe9OS1MUsZOhPNEr0Ys2qQCbS6QazGWXBs20s9OzY
+	 98c4/9a8A2QcRq21CXdRvBw6jv/nmI1WN8k0TR0Op9WkzgLhB8lcgeRB6SVq8FwfAx
+	 al7R6Gilf6/CzU/LXi0X4TW678FYbSJoVM7IzqqgO8FsXtHk6iMru0hFBq7o+dMo5V
+	 m0eZEJMUChY1j8y3914s90SxO3jYPZyd227r0ESs6qwa+9WkhkxUhyN0EASAKgzyQJ
+	 7ab6h7s/rYAqw==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2031A17E35C9;
-	Sat, 14 Nov 2026 19:04:36 +0100 (CET)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 04ACB17E15E8;
+	Sat, 14 Nov 2026 19:04:23 +0100 (CET)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Sat, 14 Nov 2026 20:03:49 +0200
-Subject: [PATCH 25/25] drm/tests: probe-helper: Add .force_ctx() callback
- coverage
+Date: Sat, 14 Nov 2026 20:03:33 +0200
+Subject: [PATCH 09/25] drm/connector: Drop redundant hdmi supported_formats
+ field
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,8 +64,8 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261114-drm-conn-hdmi-cleanup-v1-25-20e8a33a2286@collabora.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261114-drm-conn-hdmi-cleanup-v1-9-20e8a33a2286@collabora.com>
 References: <20261114-drm-conn-hdmi-cleanup-v1-0-20e8a33a2286@collabora.com>
 In-Reply-To: <20261114-drm-conn-hdmi-cleanup-v1-0-20e8a33a2286@collabora.com>
 To: Helge Deller <deller@gmx.de>, Martin Bugge <marbugge@cisco.com>, 
@@ -75,362 +75,75 @@ To: Helge Deller <deller@gmx.de>, Martin Bugge <marbugge@cisco.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
 Cc: kernel@collabora.com, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Diederik de Haas <diederik@cknow-tech.com>, 
+ =?utf-8?q?Robin_R=C3=A4ber?= <robin.raebi@gmail.com>, 
+ Igor Paunovic <royalnet026@gmail.com>
 X-Mailer: b4 0.15.2
 
-The .force_ctx() connector helper callback takes precedence over the
-.force() connector callback when probing a forced connector.
+Now that all users migrated to the new drmm_connector_hdmi_init()
+signature, supported_formats is provided through struct
+drm_connector_hdmi_funcs, a reference to which is already stored in
+drm_connector_hdmi.
 
-Add tests to make sure that:
+Drop the redundant field from drm_connector_hdmi and point its users to
+hdmi.funcs->supported_formats instead.
 
-- .force_ctx() is called instead of .force(), with the forced status
-  already set and the connection_mutex held through the acquire context
-- errors other than -EDEADLK don't prevent the connector from being
-  probed
-- .force() is still called when .force_ctx() is not provided
-- -EDEADLK makes the probe back off and retry, while restoring the
-  connector status beforehand, so that the status change gets detected
-
-For the latter, a genuine deadlock is needed, since
-drm_modeset_backoff() expects a contended lock.  Create one with an
-older acquire context in a kthread, which wounds the probe context by
-requesting the connection_mutex while holding a lock that the probe
-context tries to take from .force_ctx().
-
+Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, Rock 5B
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
+Tested-by: Robin Räber <robin.raebi@gmail.com>
+Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588 Orange Pi 5 Plus, dual HDMI
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/tests/drm_probe_helper_test.c | 296 ++++++++++++++++++++++++++
- 1 file changed, 296 insertions(+)
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c | 2 +-
+ drivers/gpu/drm/drm_connector.c                 | 3 ---
+ include/drm/drm_connector.h                     | 6 ------
+ 3 files changed, 1 insertion(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/tests/drm_probe_helper_test.c b/drivers/gpu/drm/tests/drm_probe_helper_test.c
-index ebc0392585e7..5d7dc4725518 100644
---- a/drivers/gpu/drm/tests/drm_probe_helper_test.c
-+++ b/drivers/gpu/drm/tests/drm_probe_helper_test.c
-@@ -3,6 +3,9 @@
-  * Kunit test for drm_probe_helper functions
+diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+index 0e282abb118d..97027dd17276 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+@@ -427,7 +427,7 @@ sink_supports_format_bpc(const struct drm_connector *connector,
+ 		return false;
+ 	}
+ 
+-	if (!(connector->hdmi.supported_formats & BIT(format))) {
++	if (!(connector->hdmi.funcs->supported_formats & BIT(format))) {
+ 		drm_dbg_kms(dev, "%s format unsupported by the connector.\n",
+ 			    drm_hdmi_connector_get_output_format_name(format));
+ 		return false;
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index b1b7662c575b..2fb6fc0243b5 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -617,9 +617,6 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
+ 	if (ret)
+ 		return ret;
+ 
+-	/* TODO: remove after conversion to new drmm_connector_hdmi_init() */
+-	connector->hdmi.supported_formats = hdmi_funcs->supported_formats;
+-
+ 	/*
+ 	 * The supported HDMI version can be used to determinate the maximum
+ 	 * TMDS character rate allowed by the specification. Some controllers,
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index c75bf65532d4..312638824918 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -2180,12 +2180,6 @@ struct drm_connector_hdmi_audio {
+  * struct drm_connector_hdmi - DRM Connector HDMI-related structure
   */
- 
-+#include <linux/completion.h>
-+#include <linux/kthread.h>
-+
- #include <drm/drm_atomic_state_helper.h>
- #include <drm/drm_connector.h>
- #include <drm/drm_device.h>
-@@ -11,14 +14,24 @@
- #include <drm/drm_mode.h>
- #include <drm/drm_modes.h>
- #include <drm/drm_modeset_helper_vtables.h>
-+#include <drm/drm_modeset_lock.h>
- #include <drm/drm_probe_helper.h>
- 
- #include <kunit/test.h>
- 
-+struct drm_probe_helper_contender;
-+
- struct drm_probe_helper_test_priv {
- 	struct drm_device *drm;
- 	struct device *dev;
- 	struct drm_connector connector;
-+
-+	unsigned int force_count;
-+	unsigned int force_ctx_count;
-+	int force_ctx_ret;
-+	bool force_ctx_locked;
-+	enum drm_connector_status force_ctx_status;
-+	struct drm_probe_helper_contender *contender;
- };
- 
- static const struct drm_connector_helper_funcs drm_probe_helper_connector_helper_funcs = {
-@@ -212,6 +225,289 @@ static struct kunit_suite drm_test_connector_helper_tv_get_modes_suite = {
- 
- kunit_test_suite(drm_test_connector_helper_tv_get_modes_suite);
- 
-+/*
-+ * Runs an acquire context older than the probe one, which first takes @lock,
-+ * then waits to be told to also request the connection_mutex held by the
-+ * probe context.  Being older, it wounds the probe context, which will get
-+ * -EDEADLK as soon as it tries to take @lock.
-+ */
-+struct drm_probe_helper_contender {
-+	struct drm_device *drm;
-+	struct drm_modeset_lock lock;
-+	struct completion locked;
-+	struct completion go;
-+	struct completion done;
-+	int ret;
-+};
-+
-+static int drm_probe_helper_contender_fn(void *data)
-+{
-+	struct drm_probe_helper_contender *contender = data;
-+	struct drm_modeset_acquire_ctx ctx;
-+
-+	drm_modeset_acquire_init(&ctx, 0);
-+
-+	contender->ret = drm_modeset_lock(&contender->lock, &ctx);
-+	complete(&contender->locked);
-+
-+	if (!contender->ret) {
-+		if (wait_for_completion_timeout(&contender->go, 5 * HZ))
-+			contender->ret =
-+				drm_modeset_lock(&contender->drm->mode_config.connection_mutex,
-+						 &ctx);
-+		else
-+			contender->ret = -ETIMEDOUT;
-+	}
-+
-+	drm_modeset_drop_locks(&ctx);
-+	drm_modeset_acquire_fini(&ctx);
-+
-+	complete(&contender->done);
-+
-+	return 0;
-+}
-+
-+static struct drm_probe_helper_test_priv *
-+connector_to_probe_priv(struct drm_connector *connector)
-+{
-+	return container_of(connector, struct drm_probe_helper_test_priv, connector);
-+}
-+
-+static void drm_probe_helper_test_force(struct drm_connector *connector)
-+{
-+	connector_to_probe_priv(connector)->force_count++;
-+}
-+
-+static int drm_probe_helper_test_force_ctx(struct drm_connector *connector,
-+					   struct drm_modeset_acquire_ctx *ctx)
-+{
-+	struct drm_probe_helper_test_priv *priv = connector_to_probe_priv(connector);
-+	struct drm_probe_helper_contender *contender = priv->contender;
-+	int ret;
-+
-+	priv->force_ctx_count++;
-+	priv->force_ctx_status = connector->status;
-+	priv->force_ctx_locked =
-+		drm_modeset_is_locked(&connector->dev->mode_config.connection_mutex);
-+
-+	if (contender && priv->force_ctx_count == 1) {
-+		complete(&contender->go);
-+
-+		ret = drm_modeset_lock(&contender->lock, ctx);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return priv->force_ctx_ret;
-+}
-+
-+static int drm_probe_helper_test_get_modes(struct drm_connector *connector)
-+{
-+	return 0;
-+}
-+
-+static const struct drm_connector_helper_funcs drm_probe_helper_force_ctx_helper_funcs = {
-+	.get_modes	= drm_probe_helper_test_get_modes,
-+	.force_ctx	= drm_probe_helper_test_force_ctx,
-+};
-+
-+static const struct drm_connector_helper_funcs drm_probe_helper_force_helper_funcs = {
-+	.get_modes	= drm_probe_helper_test_get_modes,
-+};
-+
-+static const struct drm_connector_funcs drm_probe_helper_force_connector_funcs = {
-+	.force			= drm_probe_helper_test_force,
-+	.atomic_create_state	= drm_atomic_helper_connector_create_state,
-+	.atomic_destroy_state	= drm_atomic_helper_connector_destroy_state,
-+	.atomic_duplicate_state	= drm_atomic_helper_connector_duplicate_state,
-+};
-+
-+static int drm_probe_helper_force_test_init(struct kunit *test)
-+{
-+	struct drm_probe_helper_test_priv *priv;
-+	int ret;
-+
-+	priv = kunit_kzalloc(test, sizeof(*priv), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, priv);
-+	test->priv = priv;
-+
-+	priv->dev = drm_kunit_helper_alloc_device(test);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, priv->dev);
-+
-+	priv->drm = __drm_kunit_helper_alloc_drm_device(test, priv->dev,
-+							sizeof(*priv->drm), 0,
-+							DRIVER_MODESET | DRIVER_ATOMIC);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, priv->drm);
-+
-+	ret = drmm_connector_init(priv->drm, &priv->connector,
-+				  &drm_probe_helper_force_connector_funcs,
-+				  DRM_MODE_CONNECTOR_HDMIA,
-+				  NULL);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	drm_connector_helper_add(&priv->connector,
-+				 &drm_probe_helper_force_ctx_helper_funcs);
-+
-+	priv->connector.force = DRM_FORCE_ON;
-+
-+	return 0;
-+}
-+
-+static int drm_probe_helper_test_probe(struct drm_probe_helper_test_priv *priv)
-+{
-+	int count;
-+
-+	mutex_lock(&priv->drm->mode_config.mutex);
-+
-+	count = drm_helper_probe_single_connector_modes(&priv->connector, 1920, 1080);
-+
-+	mutex_unlock(&priv->drm->mode_config.mutex);
-+
-+	return count;
-+}
-+
-+/*
-+ * Test that probing a forced connector calls .force_ctx(), in favour of
-+ * .force(), with the forced status already set and the connection_mutex held
-+ * through the acquire context.
-+ */
-+static void drm_test_probe_helper_force_ctx(struct kunit *test)
-+{
-+	struct drm_probe_helper_test_priv *priv = test->priv;
-+	int count;
-+
-+	count = drm_probe_helper_test_probe(priv);
-+	KUNIT_EXPECT_GT(test, count, 0);
-+
-+	KUNIT_EXPECT_EQ(test, priv->force_ctx_count, 1);
-+	KUNIT_EXPECT_EQ(test, priv->force_count, 0);
-+	KUNIT_EXPECT_EQ(test, priv->force_ctx_status, connector_status_connected);
-+	KUNIT_EXPECT_TRUE(test, priv->force_ctx_locked);
-+	KUNIT_EXPECT_EQ(test, priv->connector.status, connector_status_connected);
-+}
-+
-+/*
-+ * Test that probing a connector forced off calls .force_ctx() with the
-+ * disconnected status set.
-+ */
-+static void drm_test_probe_helper_force_ctx_off(struct kunit *test)
-+{
-+	struct drm_probe_helper_test_priv *priv = test->priv;
-+	int count;
-+
-+	priv->connector.force = DRM_FORCE_OFF;
-+
-+	count = drm_probe_helper_test_probe(priv);
-+	KUNIT_EXPECT_EQ(test, count, 0);
-+
-+	KUNIT_EXPECT_EQ(test, priv->force_ctx_count, 1);
-+	KUNIT_EXPECT_EQ(test, priv->force_ctx_status, connector_status_disconnected);
-+	KUNIT_EXPECT_EQ(test, priv->connector.status, connector_status_disconnected);
-+}
-+
-+/*
-+ * Test that a .force_ctx() error other than -EDEADLK doesn't prevent the
-+ * forced connector from being probed.
-+ */
-+static void drm_test_probe_helper_force_ctx_error(struct kunit *test)
-+{
-+	struct drm_probe_helper_test_priv *priv = test->priv;
-+	int count;
-+
-+	priv->force_ctx_ret = -EIO;
-+
-+	count = drm_probe_helper_test_probe(priv);
-+	KUNIT_EXPECT_GT(test, count, 0);
-+
-+	KUNIT_EXPECT_EQ(test, priv->force_ctx_count, 1);
-+	KUNIT_EXPECT_EQ(test, priv->connector.status, connector_status_connected);
-+}
-+
-+/*
-+ * Test that a .force_ctx() returning -EDEADLK makes the probe back off and
-+ * retry, while restoring the connector status beforehand, so that the status
-+ * change still gets detected.
-+ */
-+static void drm_test_probe_helper_force_ctx_deadlock(struct kunit *test)
-+{
-+	struct drm_probe_helper_test_priv *priv = test->priv;
-+	struct drm_probe_helper_contender *contender;
-+	struct task_struct *task;
-+	int count = 0;
-+	bool done;
-+
-+	KUNIT_ASSERT_EQ(test, priv->connector.status, connector_status_unknown);
-+	KUNIT_ASSERT_FALSE(test, priv->drm->mode_config.delayed_event);
-+
-+	contender = kunit_kzalloc(test, sizeof(*contender), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, contender);
-+
-+	contender->drm = priv->drm;
-+	drm_modeset_lock_init(&contender->lock);
-+	init_completion(&contender->locked);
-+	init_completion(&contender->go);
-+	init_completion(&contender->done);
-+
-+	task = kthread_run(drm_probe_helper_contender_fn, contender,
-+			   "drm-probe-contender");
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, task);
-+
-+	/* Make sure the contender context is the older one */
-+	wait_for_completion(&contender->locked);
-+	if (!contender->ret) {
-+		priv->contender = contender;
-+		count = drm_probe_helper_test_probe(priv);
-+	}
-+
-+	/* The contender must be gone before releasing its resources */
-+	done = wait_for_completion_timeout(&contender->done, 10 * HZ);
-+	KUNIT_ASSERT_TRUE(test, done);
-+	KUNIT_ASSERT_EQ(test, contender->ret, 0);
-+
-+	KUNIT_EXPECT_GT(test, count, 0);
-+	KUNIT_EXPECT_EQ(test, priv->force_ctx_count, 2);
-+	KUNIT_EXPECT_EQ(test, priv->force_ctx_status, connector_status_connected);
-+	KUNIT_EXPECT_EQ(test, priv->connector.status, connector_status_connected);
-+	KUNIT_EXPECT_TRUE(test, priv->drm->mode_config.delayed_event);
-+}
-+
-+/*
-+ * Test that probing a forced connector still calls .force() when no
-+ * .force_ctx() is provided.
-+ */
-+static void drm_test_probe_helper_force(struct kunit *test)
-+{
-+	struct drm_probe_helper_test_priv *priv = test->priv;
-+	int count;
-+
-+	drm_connector_helper_add(&priv->connector,
-+				 &drm_probe_helper_force_helper_funcs);
-+
-+	count = drm_probe_helper_test_probe(priv);
-+	KUNIT_EXPECT_GT(test, count, 0);
-+
-+	KUNIT_EXPECT_EQ(test, priv->force_count, 1);
-+	KUNIT_EXPECT_EQ(test, priv->force_ctx_count, 0);
-+	KUNIT_EXPECT_EQ(test, priv->connector.status, connector_status_connected);
-+}
-+
-+static struct kunit_case drm_test_probe_helper_force_tests[] = {
-+	KUNIT_CASE(drm_test_probe_helper_force_ctx),
-+	KUNIT_CASE(drm_test_probe_helper_force_ctx_off),
-+	KUNIT_CASE(drm_test_probe_helper_force_ctx_error),
-+	KUNIT_CASE(drm_test_probe_helper_force_ctx_deadlock),
-+	KUNIT_CASE(drm_test_probe_helper_force),
-+	{ }
-+};
-+
-+static struct kunit_suite drm_test_probe_helper_force_suite = {
-+	.name = "drm_probe_helper_force",
-+	.init = drm_probe_helper_force_test_init,
-+	.test_cases = drm_test_probe_helper_force_tests,
-+};
-+
-+kunit_test_suite(drm_test_probe_helper_force_suite);
-+
- MODULE_AUTHOR("Maxime Ripard <maxime@cerno.tech>");
- MODULE_DESCRIPTION("Kunit test for drm_probe_helper functions");
- MODULE_LICENSE("GPL");
+ struct drm_connector_hdmi {
+-	/**
+-	 * @supported_formats: Bitmask of @drm_output_color_format
+-	 * supported by the controller.
+-	 */
+-	unsigned long supported_formats;
+-
+ 	/**
+ 	 * @max_tmds_char_rate: Maximum TMDS character rate, in Hz,
+ 	 * supported by the controller.
 
 -- 
 2.56.0
