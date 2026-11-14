@@ -1,77 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794659758;
-	b=TddMwWwCrOsOpipmckANPyFFT/ErNZy8tkXzyNN4XSheTuOZQwP54baS/2pOSXJKQ0Ad
-	 y6UnA73ZUf2FewKs+O4uao1MrRiAlxFmhs0p/HgApghAeokYKMmXxDKpVUVuNPsrOFalO
-	 09f+AVkQ4ej1Icwz9747iiMnQary9ar/8TKylT+nvLZOL69Q8KjfdngMO2d720Xe6fcNe
-	 EMj8czRGrA7BPe1GDr+47SkgRYuV/hA/Fe0BKjNP/1VBKJA9WuaUXEu2gf+uMQsuoFVU4
-	 R6OxMEf7CJDHb1Nxqcp1cF0zGTBHipzhwC3imOx60okz8Ckki8I3myE9tKK4YDFmIDA==
+	t=1794659889;
+	b=Srl7z4YfPp0myDEiOVYSiChNa8aV76pbU4e474evE2JYHeXJr3PtTaKJCavvOsmy7xGT
+	 UrUTGIdeNKkhSD5toDKYD3dvQhQqffeMC794S2h2dWQnHNZw0pwZm67ZnI+i23qjSjoTI
+	 aSRvch2fromOZ5TuuPTmKDeh3exHEO1ID1m3CzaqcFIYEB4cADKdB6tehMA3t/bLyG07H
+	 yTt3Wm15tRvRKeHflV0oWhsAjlzs4sr1DTT4ejfz8pqjyQqd2owePMtWIgWq3YkHcT/RO
+	 XXfco3gOPAn8Bc5GJ0Bc+VY+6UqLa9oSNUeHidT7CO+NlRbJWHjtoDeDB3ge64/u9DA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794659758;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=kQ9PlLFanJO97/TILxd2Tgvdrkk2cvOpGFZUv4vINAg=;
-	b=gos3HRYK721RS0OFg6aIK1lJaKS5EYzKKw3XyBERUkCoW2JK328yVYjJOrBBplIxiCMa
-	 UWZOW/1ldyHyFkpBAo0FUqFeHKeUckAKWm6LGbruKlmuEc0FKyEg1OsZecjGq2KGITVVo
-	 pe0ovRmSgaLYEIBZGkO5eAVvyqV1+SnhbSvGoFsFtzrTjgpyNFGwM91ELeSYTxElRmshR
-	 Egx7Iv21DSl0xbXxocQjurRy54EV0Hagdzwvjn7WTCvSD+dsoT5AMsyRm5dEYRYYVIUgd
-	 mqzUYfqAeJUib8xQ5vBCvyZhKN3VmuCAQVcXakOYz7Ps0MVaWksl/+QaD8kte1Dc/Bw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794659889;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=UzVGxU4MW62VeR80v0cSXY3TrPWVP7dGkSQALMLtfec=;
+	b=wjVBabf6U1HduEFjJ67UfHGSYEdn8rpj2k8sb/KB3zD2MBfxQkmUPm+AevpLuCxpeO3s
+	 /tHuZbTM9NEi78i1i5BOxjc+VpGITXXYOSqjbjx7V3AmixBgExhDuKhFNsbrvPC+UF9oo
+	 icaAsA/fhvRnEMUZp1eiX4ukbEvjui2jigZgsqWsQawE2L8K80n2XLpoqV8p3HrX69Jqo
+	 C8OkjiqqcSBn2ymUL4+N7TyH7CJboDaKK/0gEpC5V4D7zuSbWeITKW0kba71f2d/krqkY
+	 fZvOFuGXMKpp0/Qai4pNsUy54o1U/Sml4GtFRJ/r80R8iPF183ZOMiTBpCU3HaenXXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=A0VbVAiX;
-	arc=none smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55F94606A329;
-	Sat, 14 Nov 2026 12:35:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55F94606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=AA317Jo+;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A4120606A329;
+	Sat, 14 Nov 2026 12:38:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4120606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=A0VbVAiX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794659757; x=1826195757;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=vDRFfV23uhcbw8/Ilbo/MSNuNcIIWAFjYui4as218es=;
-  b=A0VbVAiXkf0t8+erCvdYSZo57RK5e40q1pQZTsAA86oawfHQYA3l1KEd
-   K246JXkphMIXwgbD25nqmkxx+Rju3RQCB82w4uNzGJrZZmvm+XBIM4/x7
-   0NNBbZruyVArskk5MnZtlIMOmQ6w7CcxCDXwNjDKr8c0OdUaFjewKZQpg
-   7WCn2R/eXM2MqOIM5fSdhp9ilfp8mTIh9HfiWwJ7NkOyafby6Kxo1lrmd
-   eMTM96Q2K30hieGWUl2hMAfNLw1DbBHRRPov/xTFj9xQLaJnFTNDwKcL7
-   E4Xiw7b6vvET57GOQkJItUHyzWmQUSzVEIdms0YDKAkPJe72AMXuBbBja
-   g==;
-X-CSE-ConnectionGUID: x/i/Q6YAQg2QjGWMaSiH1g==
-X-CSE-MsgGUID: K6yFU9NvThWgzhOZ9tROzg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11966"; a="3349402"
-X-IronPort-AV: E=Sophos;i="6.27,213,1787036400"; 
-   d="scan'208";a="3349402"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Nov 2026 04:35:57 -0800
-X-CSE-ConnectionGUID: /caIdS6PQ2G50gGjtxR2Vg==
-X-CSE-MsgGUID: ElFoNmapTBupmIVLjZ+Z5w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,213,1787036400"; 
-   d="scan'208";a="9144398"
-Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
-  by orviesa006.jf.intel.com with ESMTP; 14 Nov 2026 04:35:56 -0800
-Date: Sat, 14 Nov 2026 20:27:31 +0800
-From: Xu Yilun <yilun.xu@linux.intel.com>
-To: Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Moritz Fischer <mdf@kernel.org>, Xu Yilun <yilun.xu@intel.com>,
-	Tom Rix <trix@redhat.com>, linux-fpga@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] fpga: altera-hps2fpga: do not request reset by index
-Message-ID: <avhTs52FZQt3JGAA@yilunxu-OptiPlex-7050>
-References: <20261106-reset-deindex-fpga-v1-1-5672928ba5f6@pengutronix.de>
- <au8Szj1uhBsP++es@yilunxu-OptiPlex-7050>
- <a061bc4358465b5cf3b887249a48000fe07ae5ab.camel@pengutronix.de>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=AA317Jo+
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C73201516;
+	Sat, 14 Nov 2026 04:37:57 -0800 (PST)
+Received: from [10.163.159.227] (unknown [10.163.159.227])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EB0F73F632;
+	Sat, 14 Nov 2026 04:37:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794659880; bh=VZwlqyk/0X7EMW4/W5ZH00FGZKTMqa/W1AB43sYEXDk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=AA317Jo+BG0PVX+zpc3wReQawZ4z6+3EkeKUwuHZSpCwd8RnNYmuGr3KGZtt8ziaC
+	 evp3GfOCJj2imiJeW2gD2EeRZuvZgeXcUK2tyqPEH9U0ISg5xcknH4RHwfPaksLdBZ
+	 6F4ajfnCZ/zsi51R7YBArbkNHQ0vHUXnXDSGXCyQ=
+Message-ID: <09e19be5-933c-4921-9d68-ae22f5a27e75@arm.com>
+Date: Sat, 14 Nov 2026 18:07:46 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,42 +53,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a061bc4358465b5cf3b887249a48000fe07ae5ab.camel@pengutronix.de>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/4] MAINTAINERS: remove my reviewerships, add CREDITS
+ entry for THP
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ David Hildenbrand <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
+ <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Uladzislau Rezki <urezki@gmail.com>,
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ rust-for-linux@vger.kernel.org
+References: <20261110-drop-reviewerships-v1-0-07c2f06e8dfa@kernel.org>
+Content-Language: en-US
+From: Dev Jain <dev.jain@arm.com>
+In-Reply-To: <20261110-drop-reviewerships-v1-0-07c2f06e8dfa@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 09, 2026 at 08:54:59AM +0100, Philipp Zabel wrote:
-> On Sa, 2026-11-07 at 20:00 +0800, Xu Yilun wrote:
-> > On Fri, Nov 06, 2026 at 04:43:19PM +0100, Philipp Zabel wrote:
-> > > There is no need to request a single reset by index.
-> > > Use of_reset_control_get_exclusive() to request the first and only
-> > > reset.
-> > > 
-> > > Signed-off-by: Philipp Zabel <p.zabel@pengutronix.de>
-> > > ---
-> > >  drivers/fpga/altera-hps2fpga.c | 3 +--
-> > >  1 file changed, 1 insertion(+), 2 deletions(-)
-> > > 
-> > > diff --git a/drivers/fpga/altera-hps2fpga.c b/drivers/fpga/altera-hps2fpga.c
-> > > index f2f1250689cb..9b7f5b8191b8 100644
-> > > --- a/drivers/fpga/altera-hps2fpga.c
-> > > +++ b/drivers/fpga/altera-hps2fpga.c
-> > > @@ -134,8 +134,7 @@ static int alt_fpga_bridge_probe(struct platform_device *pdev)
-> > >  
-> > >  	priv = (struct altera_hps2fpga_data *)device_get_match_data(dev);
-> > >  
-> > > -	priv->bridge_reset = of_reset_control_get_exclusive_by_index(dev->of_node,
-> > > -								     0);
-> > > +	priv->bridge_reset = of_reset_control_get_exclusive(dev->of_node, NULL);
-> > 
-> > Saved a 0 arg but add a NULL arg, Any benifit to justify the code churn?
+
+
+On 10/11/26 5:33 pm, Lorenzo Stoakes (ARM) wrote:
+> Given the current throughput in the kernel resulting from AI-generated
+> series, I unfortunately lack the bandwidth to generally be able to offer
+> review except in those areas I maintain.
 > 
-> I'd like to remove the _by_index() API once there are no users left.
-
-Then you need to show your intent by having a series that includes both
-the changes to the users and the removal of the API.
-
-> For a while now, these functions are only ever called with index == 0.
+> I have separated the patches into areas maintained by David, Andrew, and
+> Alice + Danilo, so each can take the patches relevant to the subsystems,
+> for convenience.
 > 
-> regards
-> Philipp
+> Apologies for doing this, but given the current trends I'd like to do
+> something to make my inbox a little more manageable :)
+
+Yeah even when I know I am going to simply ignore a patchset, it is
+frustrating to see it in my inbox nonetheless.
+
+
+> 
+> Also add a CREDITS entry for THP, as, since Zi's rightful and well-earned
+> appointment as co-maintainer there, I have no fear of needing to step in
+> there, and so would like to record my time in that role.
+> 
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+
+Acked-by: Dev Jain <dev.jain@arm.com>
+
+
+> Lorenzo Stoakes (ARM) (4):
+>       MAINTAINERS: Remove myself from MM core reviewership
+>       MAINTAINERS: Remove myself from MM misc, reclaim reviewership
+>       MAINTAINERS: Remove myself from MM rust reviewerships
+>       CREDITS: add entry for THP maintenance
+> 
+>  CREDITS     | 6 ++++++
+>  MAINTAINERS | 5 -----
+>  2 files changed, 6 insertions(+), 5 deletions(-)
+> ---
+> base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
+> change-id: 20261110-drop-reviewerships-264c745b11b5
+> 
+> Cheers,
+
