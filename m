@@ -1,102 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.179
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794674999;
-	b=j+MAWlcjVQ0JTgegR3e+0cKwDkZwDS3Jna614VSFLEEDfzsV2+GtU2uK1ThkvBqoJuaT
-	 g3lg0TP1VgwNgal8Xid2TLOusl/Eo+GjgaAY1chuL+o04Lw7oxe6qOj65VRqAFwqSBO/s
-	 oaqjXv/fjsNOHny+A7LWAlDS9HsCMv+335TmVeqTZE3M56exKr+VwSuvk0SoCntEZRBmG
-	 lNWQjc91pBIyQilhhGRgvqxlwL2fnZ0xZikqPpVULTkZYb6pkAGo9efEoditOGU25nI3C
-	 2Hv64OVYF4F5c+u1T0fr4lFA6nN1AJ/XjQbSszVB9XKnQk1VDWYwneZAsdt8RXSWIyw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794674999;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=GUFPtUc78Ff2nzctbKPfIz/d8+p1b1chHezhK1s1XBg=;
-	b=fDIjinsIGEFpEaAUNQRpKbubbhKV8OhOR9xhqZsp5Tw5aqddJCH4mrR/XyeCdLY9bJmo
-	 VLL8Vbmm2aeNL6X2O74G/KEp/qzMdBnai6UYOgPfNc1Hq1y94qFJGnwjnCquc7j8HonqL
-	 i2pMbnQ5d0lRkwfVQRRyvWBPuEG35Ymm0tgwxpdyJqkRgiQCQ1vJanvGBYihXhvSgC8Ie
-	 jpoNOYWBpbB4IyvF41Em+wxHldqks7hMlVE8L1LXUsIekt6J6JOfdHHSifnEO/ZyU5bMA
-	 iOBElAvRxQhjb9Reoa59rvrlqtjgpQnfoeHBNF+gJd4PDew4vVnqPrNc2YxI4TDb1Ag==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QT1ksmBZ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.37
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794675072;
+	b=h3tepjdT7PoCQ0qNLqy02fnc4ysQwEf3XxAO0q3JPm7aGiugbi4agmoden02d49CTGQQ
+	 EhduGdpoZO4hycCUTgZtwi/pPibk3wCAbCAhr3a9AvjQ038oprIA5TW+awM91+4mzEDkv
+	 UQndrot2shDqQVleOxTiv0Puw7UbyUnal8ASl01ASy03n/wdmL5akHum7crVwSdWbB91y
+	 c6HJ8b6eLFLjzcitk39/XhBa/XXlYfqhepRr8KVPIXZk2iEh7dyDBvIP7G7UndgEYUBp1
+	 1V467uIJmU16A9Vy+QFyCajIzfpf2f+FxizJOEk0v18X4etzhAD5l5tNjn+dm14QuDQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794675072;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=x4mJUjjI/Oh1UCSsTjAERe2/4gGU2vp2ktqLpo6QJMY=;
+	b=WXt0MKIYkK/47g8fY0dGeSpYxFu1RLbjMayUOT643WTeubi5nDRigWIHHiSsAM3TKmBL
+	 b94xDUWHCxeO+AEknhrd94yp+nalnJerwyfaBzoANLp+h+bKVu55lO1NjU17UoFgLyP49
+	 NhUkQ6pNnGDOyHAycIzMmJQ1WVx49Fw+Bz9INqFASdLmR73Nh2NqQnvrWsqMxhwsGsKt3
+	 HcJl3dTT8hHqP7lw1yqgqKD+OymBgMnR8m+uz4zYCvYQwZOgRXD57VRwyVdzTz3TAH01K
+	 PsDw50fqaemzYQPffjIm/p002FXIK6NWTpDC12zCzS5hT9ZItgl+w8LPwAqk/1lVLWw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=bCSE1qb9;
+	arc=none smtp.remote-ip=35.89.44.37
+Received: from omta38.uswest2.a.cloudfilter.net (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59814606A329
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:49:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59814606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 498D6606A327
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:51:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 498D6606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QT1ksmBZ
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-37198ed3727so3493918eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:49:59 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794674998; cv=none;
-        d=google.com; s=arc-20260327;
-        b=a7iFbTBhIfmbZqwZbg6Q5I3ZBjENBECrc/rVXsJ24a+A5bFzY/IXes+d+ZhNjqY+lz
-         zXbompJXbXQf2fQ+I/WrugId4ehl8SXRQZ5h0/B+teYrI1Ub9kEzGgA8JjRecE04BXY/
-         +MQwqdBaMtPGUyG//2Rq2yhADbaDCy0dIuT+pL7bJtcROwSHBbFYN9Rcx4L35BuklnCs
-         M0vH6CuxDPQQ/HHYJqC2oRb8iL7l6KvcMl1fqJIOCyh+oqmo7sFHkXpCLGe0UMpgHcIn
-         tDOvXde+rK7IvbyiK9VqNBy+fFW1mZ0vyZFl77mM8mUt031dpZF3RAqgLzN0h9yb2WK0
-         sEMw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=GUFPtUc78Ff2nzctbKPfIz/d8+p1b1chHezhK1s1XBg=;
-        fh=jlhfdQkaLGSLjHEgoeGz2hLnqaENjVkBte0+hh1zGBM=;
-        b=aYrVdV0RV6c8hH2Db8qEsrtv3o3yYCi8gipGuD4Mzu8TGLNJ9SX9w43nHYGgR8+HUY
-         F0f9ZVEMJ2Q4wRIdkalNWpTaKDmSYz/pOZlQqrnsTsjaVQcUdIAq6n/xCOJ71lQJ3O8+
-         9o58GBrgYzVFRTRzbGnsUD/n+J0gcqc5IOHf8u+Kk/n5cxAYVWkPEDoO6Dyeivh3JeOt
-         75ZCk2qxra5FAwgW1E+xk+/kdyqNKH4+5yB+SRylhHwGh55AtzjmMeJpKwTS/cp8VOcd
-         83NR6741mirFp/ijMbh474E1brdv0/vmPEI9zErTE/z1msgwOAToZT6UW034W4Pzz1n7
-         u7DQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794674998; x=1795279798; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GUFPtUc78Ff2nzctbKPfIz/d8+p1b1chHezhK1s1XBg=;
-        b=QT1ksmBZYJTHxX9VIlJwOkYoAstbMSNvCaFil6h6hB7coI8Hw0/trYb8/BMFP8L3fX
-         VQ0d4Q5KMWznywYHFZYnXNMwytK/r7aSnoBfBAdgPTXmUg3decfIcPro1HNYaTmxGDfQ
-         XH4FayJY8UfjC2uS1WGGz3AqQcrezsGeq/dq48l/RA/ITDWvOiKJU1CmXJ9fKeaieLOk
-         8NdEcmr9lMQCGiFdEAdk4vxnGuGB5epLM8Xx03pOaJBMTvLnPmle54txUURtXFHl3juz
-         61QIeBAEt2A22ZWotJwrWFktgzUwDphy1KtsGoj/B87AAJKWW8EL647xaEu5Ps1++/N/
-         W/Jw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794674998; x=1795279798;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GUFPtUc78Ff2nzctbKPfIz/d8+p1b1chHezhK1s1XBg=;
-        b=Yb9eFHoMp0uxB19RDA/2NRYwPDGXdywXIU1w93xkOsDOl1ZNEpNilX6cilaeDQWxGp
-         tuPbS5hTMTyl2GHgXNX3hn/hecGeJW6L79H9l+xTm5G5LoFUJ9jf9N7kNsrbzlPMHkZ6
-         Acewy56EeG92dqgxaglZlyI/jVZpcaYJHeOrM6hP02KTyXNcy4w+fMKE0kaSbaLH8XCr
-         8OKLBOvwatdh27Jg2kxouDSIOEk3Nhat+4SIo1CdqZ8yRRGVFAnJu2o02oIHW6R7G+Xo
-         XJNABvBM7bOmsi5i+OidFQYn2JoFOvWKMbcpUGrTqavH6LeAVjd1ILMmmjPBjneHnflI
-         0mKA==
-X-Forwarded-Encrypted: i=1; AL+hErHSxcBxNVzDfNFge4ViG/xA2dot8SH2vzAdOx78tIrfMxxaZmfFSWIqkgT06jazMX/yOdjrCEpSdfJh3xg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z86RUpFhP/SV4254oE2/Yd+VqE/vZomo2fJeVrzv6WYWwGaNUqr
-	qZgMCTACCbzFETN44gYs+XKl695VhnAzprsIpmw3+/6w+1QkZfW27JPmGJcufgsqPyPxptNWNfd
-	PRRlSGiw2fSoyvCytt9J+73Y9nVg3q59KO0OulCE/
-X-Gm-Gg: AYBFou1tlyefFdkqSjAIyBEkaKB02SYHO4go00ZaP3cQD8cUGHCcl+B7Ues5g3pqSd/
-	tJaA3KHHNScIGrE2BQhhyCGLaMUygBCCjRHdLaprrRTz62iGw8GN2KbqeOzaJizo6sHsxyDIcZn
-	TyTiLA5ftu4kxy1bpE1kNSl5LOTjex10abVN5gDDZUJsopfI3c5yxqqKNs4ugdsowaJFuyXmP4q
-	28UqI6q/A+ZVJMX1i6CPwEns0HCDQVNkUOW+4einfHnXYkLhFibwT7T1xN6g9jSt2kUZkMepXLx
-	wVV51hBWQ+Fkymu/2WuyFKNT1tEqMeUEAmVFJtbhPoHPdfffOBMOqMI867e4pOpzQvrhZq8al+a
-	216Llbmmu4OKZcW2qqUQBWAK+9gwu63LFqZ/Il4dIHI7/YJrzU5i3izC8N7GNBlHg9V4DV2En4N
-	EZqY4CU6iBNjKtiB4gDXsa7gNVwEFmaokr0B/WYDczzLgQINLmO+54+lcPtY0nM4pgE4c+WGYQY
-	q23NnL/ZQ==
-X-Received: by 2002:a05:7022:3c0f:b0:143:808b:b178 with SMTP id
- a92af1059eb24-1b4f5f93ca2mr6484146c88.26.1794674997531; Sat, 14 Nov 2026
- 08:49:57 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=bCSE1qb9
+Received: from eig-obgw-6001b.ext.cloudfilter.net ([10.0.30.143])
+	by cmsmtp with ESMTPS
+	id S6xkxJKukVK9USGy7xmNON; Sat, 14 Nov 2026 16:51:11 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id SGy7xbZbtdRrRSGy7xluGB; Sat, 14 Nov 2026 16:51:11 +0000
+X-Authority-Analysis: v=2.4 cv=LOhmQIW9 c=1 sm=1 tr=0 ts=6af8917f
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=pGLkceISAAAA:8
+ a=2n3nD9T5GNQZjHGig_cA:9 a=CjuIK1q_8ugA:10 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=x4mJUjjI/Oh1UCSsTjAERe2/4gGU2vp2ktqLpo6QJMY=; b=bCSE1qb9VUvZTnNnxwhVodzeUk
+	LGhfRLRTNasZNxW6fqIR56+rtZM5Z99yS+FVTAA9G3wdJ1RlbVmapsJHxunUPj4B63iUipDl1k4UD
+	qxhSndc49U/HKUNSiXWV9FLH7tFd37bAkbC5Rd+Eu6KCpqG1VEWniB1QmTl0W/8r/2KwxISSmRzHQ
+	iDk9SUXThEsHcrxXo2z0MSEfJyTxtrjI15GNQl3lL8cLqk7TCAmkBwRjaogONhQ8RKnf8+3IyZLZQ
+	pTq7S/n0m6lyWSnSfdPJuPLeNOba9QhC1vEsvJHAbnEvIGbNykdHoU0OLFYIFYjN3UfahI6+ORGAL
+	dpLD0Upw==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:33524 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xSGy6-00000000Nu5-3izz;
+	Sat, 14 Nov 2026 22:21:10 +0530
+Date: Sat, 14 Nov 2026 08:51:10 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] hwmon: (dell-smm) Clamp the pwm value before scaling
+ it
+Message-ID: <87a561dd-338b-422d-ac0f-da1125b3068f@roeck-us.net>
+References: <cover.1794633179.git.rosenp@gmail.com>
+ <3c36959a51788bbc5d08f364fe7d922b5c4d4d87.1794633179.git.rosenp@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,31 +85,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261114162632.16346-1-sidchintamaneni@gmail.com> <20261114162632.16346-3-sidchintamaneni@gmail.com>
-In-Reply-To: <20261114162632.16346-3-sidchintamaneni@gmail.com>
-From: Kuniyuki Iwashima <kuniyu@google.com>
-Date: Sat, 14 Nov 2026 08:49:45 -0800
-X-Gm-Features: AclHuK8e2NpHhPJrGzHc56g3dEpZLqRfkrJ7tU89mCr43OpsTZY4kmX_0Ds9uN4
-Message-ID: <CAAVpQUBxBDe6kwE_0nKcjnNyfH8_DgYXC99xP5-UATpGn36Vhw@mail.gmail.com>
-Subject: Re: [PATCH net v3 2/2] selftest: af_unix: Test scm_fds on dgram disconnect.
-To: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-Cc: "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Shuah Khan <shuah@kernel.org>, Kirill Tkhai <tkhai@ya.ru>, apais@microsoft.com, 
-	hargar@linux.microsoft.com, rlmenge@gmail.com, egoriluk@gmail.com, 
-	netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3c36959a51788bbc5d08f364fe7d922b5c4d4d87.1794633179.git.rosenp@gmail.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xSGy6-00000000Nu5-3izz
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:33524
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 131
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfN3pafcd8tZ4QovJ5y1UZxQfKVpbCawqknuKhZ+8QOMyM3vy7CtZ67hE7GB9Wuxp8baXPwXDY3ZiEandXfJEMr1RlY95v/kap62O1116+8wtt7/xdit4
+ SNjLNwk/038WrghDAJXvIn8t8ZWU3mikdDq4xBJpSmWxMeMeuXwzvVymGB9p4GY6OFtKA0g9f1ODbt0bParwR6w7ZxX/z7/ZR7EBMsPrBD/dD/47IBvhVV8E
 
-On Sat, Nov 14, 2026 at 8:26=E2=80=AFAM Siddharth Chintamaneni
-<sidchintamaneni@gmail.com> wrote:
->
-> Add dgram_disconnect_fdinfo in scm_rights.c verifying that scm_fds in
-> /proc/self/fdinfo/<fd> returns to 0 when a connected SOCK_DGRAM socket
-> with queued SCM_RIGHTS datagrams disconnects via connect(AF_UNSPEC) or
-> observes a dead peer in send().
->
-> Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+On Fri, Nov 13, 2026 at 10:20:22PM -0800, Rosen Penev wrote:
+> dell_smm_write() scales the value written to pwmN with
+> 
+> 	DIV_ROUND_CLOSEST(val, data->i8k_pwm_mult)
+> 
+> before clamping the result to the valid fan states. The rounding adds
+> i8k_pwm_mult / 2 to val first, which overflows for values near
+> LONG_MAX and wraps to a large negative number. That is then clamped to
+> 0, so writing a huge value turns the fan off instead of running it at
+> the highest speed. With the default fan_max of 2, writing any value
+> from LONG_MAX - 63 up to LONG_MAX selects fan state 0.
+> 
+> Clamp val to the pwm range of 0 to 255 first.
+> 
+> Fixes: e7f5f275c62a ("i8k: Implement hwmon based fan speed control")
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  drivers/hwmon/dell-smm-hwmon.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/hwmon/dell-smm-hwmon.c b/drivers/hwmon/dell-smm-hwmon.c
+> index 5ec487843faa..e8b4e8a29e8b 100644
+> --- a/drivers/hwmon/dell-smm-hwmon.c
+> +++ b/drivers/hwmon/dell-smm-hwmon.c
+> @@ -1030,6 +1030,7 @@ static int dell_smm_write(struct device *dev, enum hwmon_sensor_types type, u32
+>  	case hwmon_pwm:
+>  		switch (attr) {
+>  		case hwmon_pwm_input:
+> +			val = clamp_val(val, 0, 255);
 
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Per convention, invalid pwm value writes should return -EINVAL
+(because the range is well defined, unlike other limits which
+are chip dependent).
+
+Thanks,
+Guenter
