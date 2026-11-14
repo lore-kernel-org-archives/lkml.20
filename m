@@ -1,64 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.164
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794647198;
-	b=4rUeG+Hz7L9n/OufrQE2wuXvtcoS/ZNQchpGmXwn1tuTOMBYrPWIebZJ6tb1RuObCYIK
-	 yd3HnS9+BrgGB3U9JhbegMPvZiSC4Ueed4b8GQssusYqW/obFWUb1nUK6KKbN2VGFb8To
-	 zIq79xZF1GNvlz3GSv+G1N3Y8YEwh0K/z53K13a7Uz84Au82//Tdek9GqY36ArEs6+e71
-	 BB1MWt5QjHqjxC2Xqx9dcmceQ5KCZjDyKIMA+s7Dhho+V0PxJBIgDsMUeB8WW1b7Aodso
-	 FaMS1CdAXvABuUYVTLsz/W81UBhTsFlZX3UO5GHN6BgeNlJACmf2oYwKQwAsyKCCA3w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794647198;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
-	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
-	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:X-QQ-mid;
-	bh=JXKV9yBeccjNq1Et+QafTbNfkBMQIYmYCKEPSBE7nNg=;
-	b=NMlBtzH8x8yVQZ9MYWbf+6h8bT+g23YgMHlyx08Gj+QkAWOWXaFbocCz6zeXO8Tou60f
-	 JMSvfl7ZLGKgeqDUyvJcEn8CmJfdMSEh9Odx6JTYwOrgwRolae6HmKfpR7p7qxgX9XEkz
-	 8euY0MZyfxHSpWJtra/atKTW5TZHvbxPX5eZ+x0tqSUAhoZGzLsiENpbcpLjbyn8+gTNF
-	 R+gCPdVVt6OnSB0uhy5UVb27eD0osEODRktf6+UEAOdPG5TD5pNZKQKXukgkFA6WfVWCk
-	 zHbpd+xnF9zUDBuz0dftwQgRwOsZJ0jFgzHyws+2nSNSMQIFz1BUYNmL8jTlQg0e0MA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=s9zeQvKK;
-	arc=none smtp.remote-ip=203.205.221.164
-Received: from out203-205-221-164.mail.qq.com (out203-205-221-164.mail.qq.com [203.205.221.164])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794647201;
+	b=jFUk3TwBZAT2v71IVEBJeqkigmcTgoUkBTUDEIV3Hbpr5M44+PqO1QJqbika5BpYQ5u7
+	 kdNVeENv0SUNBDflKFxbsbzM5Gs8UtFxy7sGicSoRQGXda8LQGRlUBuJNOWLcMsZf9m40
+	 pnYK+zEwPZklTfV27W4XqFEb+mWvy/YM9MQ1eEtTlfrSNlPsJkp9oGsihzsXPPZXGhaXV
+	 jq8eAGFIZ7tnsFXh6+EFsfOp+e53asVh0wEcVc0weexF0epl+GKoKIokTozB33Z7KO/zw
+	 z/6XRf+eJ3SyaRhGNsSX4q/lZC5fHh/6nBOpmwAcQoRhdlO+BFK2f8bFFW3gFFEwzhA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794647201;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=KC/D7lIYHzmkgBpZ+9jVAdY9saV20tL5VSJJ2hWkrLU=;
+	b=lhW2VfnruBuf7d/Lf5dEoxGGuUQzdhbmZOQ/VSvJ025++N5Jxt6rmy8STS+h5nGcqION
+	 qwLgbBkY5zvNXZoHdQwyG2tPO9Z3lQHkUqIPFCdpa/oGHbiCLbNKw/VadvkBSEYeOty/s
+	 ElnCo76ijNt51PggHe9gpR1Wiuayl7D8MyEzY77+AaTHSV3E4lwO8Irrf8H0IgpxvlEMN
+	 5ISzvu/eryhRcVX52Tgt0PRxNBfI5dJWDqYptTGF50zerzcvgsvnSPbN17Kk3q3guMLUt
+	 CQ+x3tiCMCgscVXhCdCY+DTfqwf1j99mQ19zPkZj7naKX+1Gwekz+QSHTdvbbp+BFiQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=KAPee24q;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.42
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2807606A88F;
-	Sat, 14 Nov 2026 09:06:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2807606A88F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C926606A8A3
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 09:06:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C926606A8A3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=s9zeQvKK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794647194; bh=JXKV9yBeccjNq1Et+QafTbNfkBMQIYmYCKEPSBE7nNg=;
-	h=From:To:Cc:Subject:Date;
-	b=s9zeQvKKJBGPLonUm9UdxiN8zY0lZNIvAAaCiltnkyfrLz+M9TkMViHWreH3npVQ9
-	 yO0gaoDiKKE1H/4Ysx/CAJZUsqS0JVhEZoW8lM6FMpABqtH0L5g+wRAGVyTJgNRAQ+
-	 1pt2uIlmF0/0lizvoClQW8di+6StwSxJ1qcCJOYg=
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-XMAILINFO: MiMbQr1sY9IH3dq3cvoVu0hbq8Se0CmTA/heji1DwEBfcU7YtF0e9t+9NO8uoy
-	 ilP8+hwuvzWxIIo0dU8R650zFdQMj6YsQZqOfdeea/SemJbII+mhqKW6h3GWP0wGw7etC8nhoVlWh
-	 QTEB4q9je1bChdXbnUUtrWLJ/cJceu2NUoe/gmTP7FhHhxGOCMT/WeRl0BNgvmJtxUmGtR3OU+M0F
-	 ULbWl+QE18hpI5LFFANQChhVgkPtGzyythl+UdtaJ2FtcqVcX8Z+xqyScMe0egl58EGUK7ot6X+/P
-	 N1QYTAj4qOn0CAdHYKCBTgDVzzLUbMRM3lirJsZQSexBC8szQvfsTVVnG2ORh3VWF+ATkvgjhJGcR
-	 BJwaliO8FvmGRzv2Fi9Yqr7Zfe7shxk32tj6e8kxkQVu3CkwATetMPax45H8HFq3Kr2WiFF28HYvd
-	 aRlthV/zqeGMeEt5goaODZQPpebs+WZMUIvga/s3XFntbmEB5gPMmW2qxi478A5njQ2CCUjVFfgfa
-	 B4wQW+fofrE3LNMciRYfol6KJNatiyqBfdCaP2uxIDp0VzYuIF7etxC39RK1Y1xG8BrCaKAnAce7x
-	 rshbHF6HWP0ZrzB3fqWlRqiM8JWN6K2TOL3Urdolzsv/KYniwVU3Zqa3mbiz44jXvg4hRTuEGFJ3R
-	 TmqzIzcHFUfaFqAbtd3KVgeYGJjxxMkdFk2lgrLknL1FoOz7DGzXrq7foQlS0PkLo/hOezzxB4r3l
-	 7QKxaqhVknt7EEAyb63e2zr2B0fXJQWRHoNOWulxs3wZLZB04spNYnRgH0tU82eZT697X0pYZa1oA
-	 JYrlGfnq+ll4xpTqfMwmiCm9ZpHJExyTC/NJqGK5R3mnc8aAeVlzPaFpwv0S9FSeZHGJE6qbwEOaU
-	 eqt8/b2Y64Y+16Ci5135e1iM9h34KF5VCNQ/Lb+JqablDVwkQIrXtID1Mz3FQMGpUxV32xSdsGr3f
-	 Y4dEIOJaECyYleUs1cjyXRGCAPSkRTEfRrWBSxpxpm6lvDmqKQXhQECcmlRDa8jiBmuJbvEbdeP7f
-	 mtydlqhH34ytXjOJffTBDUZH6JIQBPR+p/iv2R1yjh4DvHLIicjL3xlGp3RqMsfNjMZq6QLoaj6V9
-	 tQxfJy8kvNWzq0UtyVatUdOh
-From: "=?utf-8?B?6Zey6YCb?=" <2368492046@qq.com>
-To: "=?utf-8?B?Y29yYmV0?=" <corbet@lwn.net>, "=?utf-8?B?bWNoZWhhYg==?=" <mchehab@kernel.org>
-Cc: "=?utf-8?B?d3k=?=" <wy@wyuan.org>, "=?utf-8?B?bGludXgtZG9j?=" <linux-doc@vger.kernel.org>, "=?utf-8?B?c2toYW4=?=" <skhan@linuxfoundation.org>, "=?utf-8?B?cmR1bmxhcA==?=" <rdunlap@infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>
-Subject: [PATCH v2 3/4] docs: kernel-doc: honor environment warning error settings
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=KAPee24q
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b71b012e3cso2355285a12.1
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 01:06:39 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794647198; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qyOYb9aNNSR3fHD/eOsfnm+4C3U03CWvC+7Le2j7HoZZbwOx/HjXIn+SRc23typE5a
+         Sg4PYfj4WyEySyDTZUrSsji470geioJxaWH+ZuSl/BGi+O+ePueoVzGmINocqOv7OFhZ
+         n+hLBk6x9EAjDNT6xVH5/XWJLYSsejChVFI/SpwtcgiVnOmI+bIKLagU5PTqIOkrJAep
+         oPXgJD95WAEv8pAoRVvjhSrbjIUPuEy5Q+ofwesqfVD0ie2ALiSfvzxu1pF5aOnWjJna
+         2tZu6VGcIAbux2uA0Hq/SUL8pWR1FGl5v7SQJ7WqO+wlPo/OJAqdyjM/ZoFIcaBKLMzI
+         lbeA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=KC/D7lIYHzmkgBpZ+9jVAdY9saV20tL5VSJJ2hWkrLU=;
+        fh=bNcHxkWoE7rHfQxAexbYOHsiKwHEdfgdHfYJsxxKYHU=;
+        b=hm+1eQ4g/yUKwyZ12glYaYnzEY7VPpWJ/6UN6Ed6QG/7RRjpFWgFSCDyFBYl5Um9lk
+         HVi5ldk4CvrzrFnX6ymxTLi+K+L0j0d1Cf8F2G7/SXmQTgYZFy1If2IZ1zIaoQhuGAiy
+         cVDsRG1f91aXeM5lDPB/cLVWGOiPDPd3/n7Hb8HK4OlZC3gvHVwyIqXUrL1zGKcYGKkQ
+         cmvpEFAVjj3HgrQykHE9L392A73tsKz84pkRGpPJujs8xKgICd2PXjwGaSjOKBQ1IdqM
+         TdPtnFU1bwAxLSmPpCWptdJkwYRrLy2rjBZ/ZDu9u1DMHL+zMgroC7MYNlLHHfcaOz0X
+         t7PQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1794647198; x=1795251998; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KC/D7lIYHzmkgBpZ+9jVAdY9saV20tL5VSJJ2hWkrLU=;
+        b=KAPee24q6sgn4tuwSJPcT5mLv4nmEJVkDQTJnS3b+A4tCcKaMvDPOKxx1Aj0rGa2QG
+         leV18YbE0vVTDhU6LlzF8ZTir96MSfp1D2V5a222yjeNBxo5wagZiO/Hvlp4pN2zlZEv
+         zjPCTuFUfgk6vHc1CIzwSsiGn7lPWY1kINJj1S8C8gFjTkfHPDCH1bWLsj1S7GvjH1Uw
+         kkP2Dpe85Kp+wwGyRSZPVJrpSiifJHeFp9Yvp1P3aUVrF41YQ4YzFYP7QidbmC3DxWva
+         vhXpThWJ6cLfCK9UzT26tub/pSdMc5opTCc+FAnKvTp8qMyme2PvTxUQdpWKoB8soGua
+         csMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794647198; x=1795251998;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=KC/D7lIYHzmkgBpZ+9jVAdY9saV20tL5VSJJ2hWkrLU=;
+        b=QWzAqzU1/98JPOlwqR3CW3OtUH5oWj7x4z4DneX1MWhS1N7dEpSwu4aKA2oHAG8YJ2
+         xmJFlSCysnVsozaQ26TwRfsTj3aAcTBUt91Liuo6oI0v1yS5WIGRzSmuuU6gRrU/bqzb
+         g6BG/9KcIo3+Rr8GlwbhkrbrXQRuvw1puneJbE/4lqx8hnuKFt0t9HVT1tUNaZ8LnYWd
+         IGZsqh9HXPuOhkE9RcEztALnsL9vOTCl0rfPuBEd7GFSS3WiLTY966U0VwdRXGNBNhfR
+         gYBqWN0YUklel+bN1VJnoe13BQIQ8m97fIe0YN1W1kSipmIU8Qv2srt8QarQf6e+hFJs
+         f3BA==
+X-Forwarded-Encrypted: i=1; AL+hErHkAJ1KvMXnxG2Gzp6HK/ZQfn3g8WhMKbrt3hH2U+6Wu9/ja6s/XlEyAfh9EFg7x4Kl7fte2x+e2qNMpYQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8vqpvPHUD9E1L6W4T4LTFGvldA22UteVniXl9kZmD5luH20yOD
+	HiLITs4rCfTQYxeW7KL/nCVITqVzehO+yLLJne+UeEExNB7pYQrSdXsHH6DiKMQgvjgTsGfTHSf
+	feRQ+NUBLrMpIqSEK3A/5Tsxuj7UoBsvjWX+YYCWUDw==
+X-Gm-Gg: AYBFou1uUpUZiknv0ys4ZGnwIFwHDqHs7COUtVUrLWpI4u8hG/iC0M87IG1Tp2Nlkx0
+	4aSVwd1GotcCyv2FcGMCARnFlKlO6AiQTnNJUT6Y5s/4O7sXf4mBdS9UHgwhZyaPxRu+0BU4SoS
+	OgxaazqzoXthxz24eRwatrISeMuc2qwI3m6NyPhk67IGmubCvmWHu83k+z5h6sngDNB6IcyRsEG
+	plnF2G/4Ji2YiRhi3u6qOxCF7mf7qF8zjXI4xc6ysQOXsP9xB/Gjelob6EsVayVM6qtbBpHkvNO
+	a2uf5oaEgQ/JeVnuxP8uP7gs8Xtr1C7jr+Qu9yvd55IR20Qslo0YI3bopAqZrwFSglSWU1eFMmO
+	7nZ4rZvJQwfcQ/yb2yneNnxVg9bUrgNPy0GW164OkvUoGGiWLoIl9ItrRqoSyyKgMJFuu0ZsLl9
+	Os6+tpG8Ql9w6+fg0=
+X-Received: by 2002:a05:6402:4506:b0:6b7:defd:acf9 with SMTP id
+ 4fb4d7f45d1cf-6b7defdb6bemr1404551a12.34.1794647198143; Sat, 14 Nov 2026
+ 01:06:38 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,100 +103,214 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Sat, 14 Nov 2026 17:06:33 +0800
-X-Priority: 3
-Message-ID: <tencent_3F24F325BB81DAD964AD06F826A395C7FE07@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-X-QQ-mid: xmsezc52-0t1794647193tl11li1wi
+MIME-Version: 1.0
+References: <avdIycF_mZV8CHKb@gpd4> <20261113182601.569981-1-usama.arif@linux.dev>
+ <aveB5xbos9hRa3Nn@gpd4>
+In-Reply-To: <aveB5xbos9hRa3Nn@gpd4>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Sat, 14 Nov 2026 10:06:25 +0100
+X-Gm-Features: AclHuK_wLmstZb0WHt9M0jEhM6A8d8lYmDBXOAyA5nS1_mXmCAMCKdveqZ2jn3M
+Message-ID: <CAKfTPtCgzJakXU1o7C2EMEVTnD_mVS_xrdOJkQ9d_70U4_yCPg@mail.gmail.com>
+Subject: Re: [PATCH] Revert "sched/fair: Add SIS_UTIL support to select_idle_capacity()"
+To: Andrea Righi <arighi@nvidia.com>
+Cc: Usama Arif <usama.arif@linux.dev>, peterz@infradead.org, mingo@redhat.com, 
+	kprateek.nayak@amd.com, juri.lelli@redhat.com, dietmar.eggemann@arm.com, 
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
+	samuelcrossley@gmail.com, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, kas@kernel.org, riel@surriel.com, 
+	Arnav Aghav <aghav@meta.com>
+Content-Type: text/plain; charset="UTF-8"
 
-RnJvbTogeXVlaHVhLW1lbmcgPDIzNjg0OTIwNDZAcXEuY29tPgoKS0NGTEFHUz0tV2Vycm9y
-IGRvZXMgbm90IG1hdGNoIHRoZSBmbGFnIGV4cHJlc3Npb24gYmVjYXVzZSBpdApyZXF1aXJl
-cyBhIHRyYWlsaW5nIHNsYXNoLiBJbiBhZGRpdGlvbiwgdGhlIENMSSBpZ25vcmVzIHRoZQpy
-ZXNvbHZlZCBwb2xpY3ksIHNvIEtET0NfV0VSUk9SPTEgYWxzbyByZXR1cm5zIHN1Y2Nlc3Mg
-b24gd2FybmluZ3MuCgpSZW1vdmUgdGhlIGV4dHJhIHNsYXNoIGFuZCB1c2UgdGhlIHJlc29s
-dmVkIGNvbmZpZ3VyYXRpb24gdG8KY2hvb3NlIHRoZSBleGl0IHN0YXR1cy4gVGVzdCB0aGUg
-Q0xJIGZsYWcsIGJvdGggZW52aXJvbm1lbnQKc2V0dGluZ3MsIGZsYWcgYm91bmRhcmllcywg
-YW5kIGNsZWFuIGlucHV0LiBQcmVzZXJ2ZSB6ZXJvIGFuZCBlbXB0eQpLRE9DX1dFUlJPUiBv
-dmVycmlkZXMgYW5kIGV4cGxpY2l0IGNvbW1hbmQtbGluZSAtV2Vycm9yIHByZWNlZGVuY2Uu
-CgpGaXhlczogMDk0YTQ4NDU3ODliICgic2NyaXB0cy9rZXJuZWwtZG9jLnB5OiBhZGQgYSBQ
-eXRob24gcGFyc2VyIikKRml4ZXM6IDgwMjc3NGQ4NTM5ZiAoImRvY3M6IGtkb2M6IGF2b2lk
-IGVycm9yX2NvdW50IG92ZXJmbG93cyIpCgpTaWduZWQtb2ZmLWJ5OiB5dWVodWEtbWVuZyA8
-MjM2ODQ5MjA0NkBxcS5jb20+Ci0tLQpDaGFuZ2VzIGluIHYyOgpSZWJhc2Ugb250byBkb2Nz
-LW5leHQ7IG5vIGZ1bmN0aW9uYWwgY2hhbmdlIGZyb20gdGhlIHNpZ25lZCB2MS4KCiB0b29s
-cy9kb2NzL2tlcm5lbC1kb2MgICAgICAgICAgICAgICB8ICAyICstCiB0b29scy9saWIvcHl0
-aG9uL2tkb2Mva2RvY19maWxlcy5weSB8ICA2ICsrLS0tCiB0b29scy91bml0dGVzdHMvdGVz
-dF9rZG9jX3dlcnJvci5weSB8IDQxICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrCiAz
-IGZpbGVzIGNoYW5nZWQsIDQ1IGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pCiBjcmVh
-dGUgbW9kZSAxMDA2NDQgdG9vbHMvdW5pdHRlc3RzL3Rlc3Rfa2RvY193ZXJyb3IucHkKCmRp
-ZmYgLS1naXQgYS90b29scy9kb2NzL2tlcm5lbC1kb2MgYi90b29scy9kb2NzL2tlcm5lbC1k
-b2MKaW5kZXggZDkxOTJjM2YxLi4xNDIyYmRiMzcgMTAwNzU1Ci0tLSBhL3Rvb2xzL2RvY3Mv
-a2VybmVsLWRvYworKysgYi90b29scy9kb2NzL2tlcm5lbC1kb2MKQEAgLTM4MSw3ICszODEs
-NyBAQCBkZWYgbWFpbigpOgogICAgIGlmIG5vdCBlcnJvcl9jb3VudDoKICAgICAgICAgc3lz
-LmV4aXQoMCkKIAotICAgIGlmIGFyZ3Mud2Vycm9yOgorICAgIGlmIGtmaWxlcy5jb25maWcu
-d2Vycm9yOgogICAgICAgICBwcmludCgiJXMgd2FybmluZ3MgYXMgZXJyb3JzIiAlIGVycm9y
-X2NvdW50KSAgICAjIHB5bGludDogZGlzYWJsZT1DMDIwOQogICAgICAgICBzeXMuZXhpdChX
-RVJST1JfUkVUVVJOX0NPREUpCiAKZGlmZiAtLWdpdCBhL3Rvb2xzL2xpYi9weXRob24va2Rv
-Yy9rZG9jX2ZpbGVzLnB5IGIvdG9vbHMvbGliL3B5dGhvbi9rZG9jL2tkb2NfZmlsZXMucHkK
-aW5kZXggMDExODQ3MGFhLi5hZmM2ZjQ0ODcgMTAwNjQ0Ci0tLSBhL3Rvb2xzL2xpYi9weXRo
-b24va2RvYy9rZG9jX2ZpbGVzLnB5CisrKyBiL3Rvb2xzL2xpYi9weXRob24va2RvYy9rZG9j
-X2ZpbGVzLnB5CkBAIC0yNTEsNyArMjUxLDcgQEAgY2xhc3MgS2VybmVsRmlsZXMoKToKICAg
-ICAgICAgaWYgbm90IHdlcnJvcjoKICAgICAgICAgICAgIGtjZmxhZ3MgPSBvcy5lbnZpcm9u
-LmdldCgiS0NGTEFHUyIsIE5vbmUpCiAgICAgICAgICAgICBpZiBrY2ZsYWdzOgotICAgICAg
-ICAgICAgICAgIG1hdGNoID0gcmUuc2VhcmNoKHIiKFxzfF4pLVdlcnJvcihcc3wkKS8iLCBr
-Y2ZsYWdzKQorICAgICAgICAgICAgICAgIG1hdGNoID0gcmUuc2VhcmNoKHIiKFxzfF4pLVdl
-cnJvcihcc3wkKSIsIGtjZmxhZ3MpCiAgICAgICAgICAgICAgICAgaWYgbWF0Y2g6CiAgICAg
-ICAgICAgICAgICAgICAgIHdlcnJvciA9IFRydWUKIApAQCAtMjU5LDggKzI1OSw4IEBAIGNs
-YXNzIEtlcm5lbEZpbGVzKCk6CiAgICAgICAgICAgICAjIHNvbWVvbmUgd2FzIGNhbGxpbmcg
-aXQgd2l0aCB0aGUgdmFyaWFibGUgZnJvbSBvdXRzaWRlIHRoZQogICAgICAgICAgICAgIyBr
-ZXJuZWwncyBidWlsZCBzeXN0ZW0KICAgICAgICAgICAgIGtkb2Nfd2Vycm9yID0gb3MuZW52
-aXJvbi5nZXQoIktET0NfV0VSUk9SIiwgTm9uZSkKLSAgICAgICAgICAgIGlmIGtkb2Nfd2Vy
-cm9yOgotICAgICAgICAgICAgICAgIHdlcnJvciA9IGtkb2Nfd2Vycm9yCisgICAgICAgICAg
-ICBpZiBrZG9jX3dlcnJvciBpcyBub3QgTm9uZToKKyAgICAgICAgICAgICAgICB3ZXJyb3Ig
-PSBrZG9jX3dlcnJvciBub3QgaW4gKCIiLCAiMCIpCiAKICAgICAgICAgaWYgbm90IGxvZ2dl
-cjoKICAgICAgICAgICAgbG9nZ2VyID0gbG9nZ2luZy5nZXRMb2dnZXIoImtlcm5lbC1kb2Mi
-KQpkaWZmIC0tZ2l0IGEvdG9vbHMvdW5pdHRlc3RzL3Rlc3Rfa2RvY193ZXJyb3IucHkgYi90
-b29scy91bml0dGVzdHMvdGVzdF9rZG9jX3dlcnJvci5weQpuZXcgZmlsZSBtb2RlIDEwMDY0
-NAppbmRleCAwMDAwMDAwMDAuLjM4MjNkNzFlZQotLS0gL2Rldi9udWxsCisrKyBiL3Rvb2xz
-L3VuaXR0ZXN0cy90ZXN0X2tkb2Nfd2Vycm9yLnB5CkBAIC0wLDAgKzEsNDEgQEAKKyMgU1BE
-WC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAKKyIiIlJlZ3Jlc3Npb24gdGVzdHMgZm9y
-IGtlcm5lbC1kb2Mgd2FybmluZy1wb2xpY3kgZXhpdCBzdGF0dXNlcy4iIiIKKworZnJvbSBr
-ZG9jX2NsaV9oZWxwZXIgaW1wb3J0IEtlcm5lbERvY0NsaVRlc3QKKworCitjbGFzcyBUZXN0
-S2VybmVsRG9jV2Vycm9yKEtlcm5lbERvY0NsaVRlc3QpOgorICAgIGRlZiB0ZXN0X3dhcm5p
-bmdfZXhpdF9zdGF0dXMoc2VsZik6CisgICAgICAgIHNvdXJjZSA9IHNlbGYuc291cmNlKCJ3
-YXJuaW5nLmMiLCAoCisgICAgICAgICAgICAiLyoqXG4gKiBleGFtcGxlIC0gZnVuY3Rpb24g
-d2l0aCBhbiB1bmRvY3VtZW50ZWQgcGFyYW1ldGVyXG4gKi9cbiIKKyAgICAgICAgICAgICJ2
-b2lkIGV4YW1wbGUoaW50IHZhbHVlKSB7fVxuIgorICAgICAgICApKQorICAgICAgICBjYXNl
-cyA9IFsKKyAgICAgICAgICAgICh7fSwgW10sIDApLAorICAgICAgICAgICAgKHt9LCBbIi1X
-ZXJyb3IiXSwgMyksCisgICAgICAgICAgICAoeyJLQ0ZMQUdTIjogIi1XZXJyb3IifSwgW10s
-IDMpLAorICAgICAgICAgICAgKHsiS0NGTEFHUyI6ICItV2FsbCAtV2Vycm9yIC1PMiJ9LCBb
-XSwgMyksCisgICAgICAgICAgICAoeyJLQ0ZMQUdTIjogIi1XYWxsXHQtV2Vycm9yIn0sIFtd
-LCAzKSwKKyAgICAgICAgICAgICh7IktET0NfV0VSUk9SIjogIjEifSwgW10sIDMpLAorICAg
-ICAgICAgICAgKHsiS0RPQ19XRVJST1IiOiAiMCJ9LCBbXSwgMCksCisgICAgICAgICAgICAo
-eyJLQ0ZMQUdTIjogIi1XZXJyb3IiLCAiS0RPQ19XRVJST1IiOiAiMCJ9LCBbXSwgMCksCisg
-ICAgICAgICAgICAoeyJLQ0ZMQUdTIjogIi1XZXJyb3IiLCAiS0RPQ19XRVJST1IiOiAiIn0s
-IFtdLCAwKSwKKyAgICAgICAgICAgICh7IktET0NfV0VSUk9SIjogIjAifSwgWyItV2Vycm9y
-Il0sIDMpLAorICAgICAgICAgICAgKHsiS0NGTEFHUyI6ICItV2Vycm9yPXVudXNlZCJ9LCBb
-XSwgMCksCisgICAgICAgICAgICAoeyJLQ0ZMQUdTIjogIi1Xbm8tZXJyb3IifSwgW10sIDAp
-LAorICAgICAgICBdCisgICAgICAgIGZvciBlbnZpcm9ubWVudCwgYXJncywgZXhwZWN0ZWQg
-aW4gY2FzZXM6CisgICAgICAgICAgICB3aXRoIHNlbGYuc3ViVGVzdChlbnZpcm9ubWVudD1l
-bnZpcm9ubWVudCwgYXJncz1hcmdzKToKKyAgICAgICAgICAgICAgICByZXN1bHQgPSBzZWxm
-LnJ1bl9rZG9jKCphcmdzLCBzb3VyY2UsIGVudmlyb25tZW50PWVudmlyb25tZW50KQorICAg
-ICAgICAgICAgICAgIHNlbGYuYXNzZXJ0SW4oIm5vdCBkZXNjcmliZWQiLCByZXN1bHQuc3Rk
-ZXJyKQorICAgICAgICAgICAgICAgIHNlbGYuYXNzZXJ0RXF1YWwocmVzdWx0LnJldHVybmNv
-ZGUsIGV4cGVjdGVkLCByZXN1bHQuc3RkZXJyKQorCisgICAgZGVmIHRlc3RfY2xlYW5fZG9j
-dW1lbnRhdGlvbl93aXRoX3dlcnJvcihzZWxmKToKKyAgICAgICAgc291cmNlID0gc2VsZi5z
-b3VyY2UoImNsZWFuLmMiLCAoCisgICAgICAgICAgICAiLyoqXG4gKiBleGFtcGxlIC0gZG9j
-dW1lbnRlZCBmdW5jdGlvblxuICovXG4iCisgICAgICAgICAgICAidm9pZCBleGFtcGxlKHZv
-aWQpIHt9XG4iCisgICAgICAgICkpCisgICAgICAgIGZvciBlbnZpcm9ubWVudCBpbiAoeyJL
-Q0ZMQUdTIjogIi1XZXJyb3IifSwgeyJLRE9DX1dFUlJPUiI6ICIxIn0pOgorICAgICAgICAg
-ICAgd2l0aCBzZWxmLnN1YlRlc3QoZW52aXJvbm1lbnQ9ZW52aXJvbm1lbnQpOgorICAgICAg
-ICAgICAgICAgIHJlc3VsdCA9IHNlbGYucnVuX2tkb2Moc291cmNlLCBlbnZpcm9ubWVudD1l
-bnZpcm9ubWVudCkKKyAgICAgICAgICAgICAgICBzZWxmLmFzc2VydEVxdWFsKHJlc3VsdC5y
-ZXR1cm5jb2RlLCAwLCByZXN1bHQuc3RkZXJyKQotLSAKMi41My4wLndpbmRvd3MuMgoK
+On Fri, 13 Nov 2026 at 22:32, Andrea Righi <arighi@nvidia.com> wrote:
+>
+> On Fri, Nov 13, 2026 at 10:26:00AM -0800, Usama Arif wrote:
+> > On Fri, 13 Nov 2026 18:28:41 +0100 Andrea Righi <arighi@nvidia.com> wrote:
+> >
+> > > Hi Usama,
+> > >
+> >
+> > Hello Andrea!
+> >
+> > > On Fri, Nov 13, 2026 at 07:31:57AM -0800, Usama Arif wrote:
+> > > > This reverts commit 61ea17a63719 ("sched/fair: Add SIS_UTIL support to
+> > > > select_idle_capacity()").
+> > > >
+> > > > That commit applied the SIS_UTIL scan budget to select_idle_capacity().
+> > > > The early checks in select_idle_sibling() consider a few specific
+> > > > candidates: the target, previous and recently used CPUs. If none is
+> > > > selected, the asymmetric path calls select_idle_capacity() to search
+> > > > the allowed domain. With SIS_UTIL enabled, a zero scan budget makes it
+> > > > return -1 before that search. The caller then returns the selected
+> > > > target, even if an unexamined CPU in the domain is idle and fits the
+> > > > task.
+> > >
+> > > Isn't this consistent with select_idle_cpu(), which also skips the scan
+> > > when the SIS_UTIL budget is zero? Missing an idle CPU is an intentional
+> > > tradeoff of that heuristic. Could you clarify why we should remove the
+> > > budget specifically from the asymmetric path?
+> > >
+> >
+> > It is consistent.
+> >
+> > Symmetric path also has this (I didnt check this before sending the patch).
+> > The service is running on Grace servers which report capacity differences
+> > and updating the kernel from 6.16 resulted in the problem I outlined below.
+> >
+> > Maybe the symmetric path needs to be audited as well?
+> >
+> > Or maybe this service should not have ever run with SIS_UTIL at all..
+> > (The only thing is that kernel upgrade caused a serious regression)
+> >
+> > (Should have made this patch RFC :))
+> >
+> > > >
+> > > > The budget is derived from aggregate CFS utilization. High aggregate
+> > > > utilization can coexist with idle CPUs when a task wakes.
+> > > >
+> > > > On a 72-CPU NVIDIA grace arm64 server, small reported capacity differences
+> > > > (1013-1024) within the single LLC activate asymmetric selection. Both
+> > > > the reference and affected kernels were observed with a zero scan
+> > > > hint. The reference kernel ignored it and still searched the domain.
+> > > > A latency-sensitive, wakeup-heavy production workload saw its reported
+> > > > minute p50 latencies average 129 ms on the reference kernel and 223 ms
+> > > > on the affected kernel.
+> > >
+> > > Have you tried forcing the symmetric idle-selection path through
+> > > select_idle_cpu(), with SIS_UTIL both enabled and disabled?
+> > >
+> >
+> > This cant be done from a running kernel, right? My understanding is
+> > that the cpu capacities come from firmware, so cant be changed at
+> > runtime to be constant across all CPUs in kernel?
+> >
+> > Changing kernel on a production service can be a bit of a process.
+>
+> Yeah, this would require a patch and a reboot. Unfortunately there isn't
+> an existing runtime switch to force symmetric/asym idle selection.
+>
+> >
+> > > It'd be useful to see whether disabling SIS_UTIL produces the same
+> > > improvement there and whether symmetric idle selection performs better
+> > > overall on this system.
+> > >
+> > > >
+> > > > Disabling SIS_UTIL reduced the aggregate involuntary context switch
+> > > > rate of worker main threads from 71.6k/s to 13.3k/s; re-enabling it
+> > > > raised the rate to 73.7k/s. A five-minute disabled run also reduced
+> > > > kernel CPU time per request by 10.9%. The available minute p50 samples
+> > > > averaged 149 ms, compared with 241 ms before the trial.
+> > > >
+> > > > These measurements come from disabling SIS_UTIL on the installed
+> > > > kernel. The feature toggle also disables the symmetric scan limit and
+> > > > shared scan-hint updates.
+> > > >
+> > > > Restore the search of the allowed domain, retaining the capacity,
+> > > > uclamp and SMT selection rules and their early returns. Domains with
+> > > > no suitable idle CPU can again require a full scan, potentially increasing
+> > > > scan CPU cost.
+> > >
+> > > Yeah, this is my main concern, full scans can become quite expensive on
+> > > large systems with lots of CPUs in the same LLC.
+> > >
+> >
+> > Yeah I imagine this was the reason for the initial patch.
+> >
+> > The same workload on 6.16 kernel placed 69% of wakeups on an idle CPU,
+> > the affected kernel with the patch that this is reverting only placed 7%.
+>
+> That's a substantial difference, I agree the regression should be
+> addressed. Perhaps this points to a limitation of the SIS_UTIL
+> heuristic?
+>
+> We could investigate incorporating observed idle CPU availability into
+> the SIS_UTIL budget calculation, rather than relying solely on aggregate
+> utilization. Periodic load balancing already collects idle CPU
+> statistics, which might help distinguish actual saturation from high
+> utilization with CPUs still available.
 
+We want to keep same behavior for select_idle_cpu and
+select_idle_capacity with both using the same SIS_UTIL algorithm.
+
+That being said, the current algorithm is probably a bit too cautious,
+particularly for systems with a small number of CPUs
+
+And for a latency-sensitive workload, it would be good to consider
+setting a shorter slice to the latency sensistive task would run 1st
+even on a busy CPU
+
+>
+> Prateek, do you have any thoughts on this? Do you see a way to improve
+> SIS_UTIL for this workload while keeping the symmetric and asymmetric
+> paths consistent?
+>
+> >
+> > Do you know how much CPU usage can be attributed to the scan on these
+> > large systems if you do full scans?
+>
+> I don't have a measured CPU-cost figure for this case. My concern is
+> the worst-case scan cost under frequent wakeups when few or no CPUs
+> are idle.
+>
+> Thanks,
+> -Andrea
+>
+> >
+> > > Thanks,
+> > > -Andrea
+> > >
+> > > >
+> > > > Reported-by: Arnav Aghav <aghav@meta.com>
+> > > > Fixes: 61ea17a63719 ("sched/fair: Add SIS_UTIL support to select_idle_capacity()")
+> > > > Cc: stable@vger.kernel.org
+> > > > Signed-off-by: Usama Arif <usama.arif@linux.dev>
+> > > > ---
+> > > >  kernel/sched/fair.c | 19 -------------------
+> > > >  1 file changed, 19 deletions(-)
+> > > >
+> > > > diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> > > > index d4cc0caee6265..def5cda2e6bad 100644
+> > > > --- a/kernel/sched/fair.c
+> > > > +++ b/kernel/sched/fair.c
+> > > > @@ -9091,7 +9091,6 @@ select_idle_capacity(struct task_struct *p, struct sched_domain *sd, int target)
+> > > >   int fits, best_fits = ASYM_IDLE_THREAD_MISFIT;
+> > > >   int cpu, best_cpu = -1;
+> > > >   struct cpumask *cpus;
+> > > > - int nr = INT_MAX;
+> > > >
+> > > >   cpus = this_cpu_cpumask_var_ptr(select_rq_mask);
+> > > >   cpumask_and(cpus, sched_domain_span(sd), p->cpus_ptr);
+> > > > @@ -9100,28 +9099,10 @@ select_idle_capacity(struct task_struct *p, struct sched_domain *sd, int target)
+> > > >   util_min = uclamp_eff_value(p, UCLAMP_MIN);
+> > > >   util_max = uclamp_eff_value(p, UCLAMP_MAX);
+> > > >
+> > > > - if (sched_feat(SIS_UTIL) && sd->shared) {
+> > > > -         /*
+> > > > -          * Same nr_idle_scan hint as select_idle_cpu(), nr only limits
+> > > > -          * the scan when not preferring an idle core.
+> > > > -          */
+> > > > -         nr = READ_ONCE(sd->shared->nr_idle_scan) + 1;
+> > > > -         /* overloaded domain is unlikely to have idle cpu/core */
+> > > > -         if (nr == 1)
+> > > > -                 return -1;
+> > > > - }
+> > > > -
+> > > >   for_each_cpu_wrap(cpu, cpus, target) {
+> > > >           bool preferred_core = !has_idle_core || is_core_idle(cpu);
+> > > >           unsigned long cpu_cap = capacity_of(cpu);
+> > > >
+> > > > -         /*
+> > > > -          * Stop when the nr_idle_scan is exhausted (mirrors
+> > > > -          * select_idle_cpu() logic).
+> > > > -          */
+> > > > -         if (!has_idle_core && --nr <= 0)
+> > > > -                 return best_cpu;
+> > > > -
+> > > >           if (!choose_idle_cpu(cpu, p))
+> > > >                   continue;
+> > > >
+> > > > --
+> > > > 2.53.1-Meta
+> > > >
+> > > >
+> > >
+> >
