@@ -1,96 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.228
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794626193;
-	b=ogZoJYhET7QtsIls5fDkEkQnUKSvMi7KZuMZgm8nWwuqIRwIeojZWc7UZTU2MACVTb2M
-	 gttZNXupNyeWQZR3RzfiAePsk/0x6ZLvo52L39jfPfN9Hf76UyIgOsNOYE/0txPkK8nOH
-	 xc7ggzPmxLaeZrO+PTQ5J5QTv7C5aENkaXFkcyB0Zv6gFUYd1tpcx1XlmL4qE96pxIaHA
-	 UkuXwHnaRNxIGfFuCHXBwMT4bChxkaQjNPx6afnVWh+L7k4KhWwfygFaQAm0x1VH4pTes
-	 DqeMQ6wRUmXoX95FNWZjZ5sb+YbaA7TZ1pfzn4zCXvzBVXDHs5dsSle9HFaFcnuInAg==
+	t=1794626198;
+	b=hFxChlT09Or0iQfEP2XvJz89rzKn4tFS4NN26vbGnAuOySaQ6UwWJZPFXw2Cjwh5gge5
+	 tB0BJIFLHY7kFURLif5IOJRFYyJ12Lh5nOJfJjgo+ziVDQgardXCnv9odJD7U74uRl9EX
+	 j2hM9b6tO7s3qewJdla9EDf8+cyeGWdvVu1lRMjJHJ6r7jUC/wFdZXmx4lt0FgQ10AD7+
+	 kgM3sFbu8IJ3KDaf2cmiChd5SqlcT7uQqfOGpg/fnAVUqSvYLofl/hzks6IXqPlv3INYu
+	 ZxkC4kp47DHAUFGEZEkMr9eVfkpr5/16WJaFDlj+mrf/X1iopLWxDUaeVAyoZBqj4Xw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794626193;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794626198;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 X-Relaying-Domain:Received:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=VEL33wrZ6oTLFS70Xi76QGCdvLv0OeejiOglWoQk1dI=;
-	b=MMRUqXarV3EMBVVR6Of+yZu5yDBfGXnoySFZxAXW1BWviJjrMyx0QMAscj7tTjGEV/Ic
-	 9dl3xdd/fBoYExpy5H5RwZs3qr8+WfJBr7prUHQS2KJ+W18WpUt62XUugMClICJgPExxB
-	 Pwgb1w+zWJ+TDKlQAJpYmFM5ElJM+Rkde6YmdghuMcE4YDNqqfqQw34zRJBV3ye2Q6DFY
-	 RttPI25pLhZQDCda3H6miuvSYZWcHdX9aPCBnMl+WwIgWuW1sbTcgVMKJp9A4SuYZ4yYV
-	 ebJZHNk5G0snDCR9XNvtYTyCJt3VTD+6xQQTzgNwcek8S5NKucbO8Jvi/PC/77e4Pdw==
+	bh=3uZCrEWxOH69+GTCH3HSB6MoUQF0BV83RO/XTXzhfSA=;
+	b=GxtipgXkSHyy8T0C80xusntaHOaMY/TsQOCpA+s5Dvp9c038h9bG6Rqvg03lKaCzZuNu
+	 9oDstYCzKk2/Q6gu3/qHgHDn4njuO61Xvi906azL3P9XZfcPBRgLIKlWKcjGrhFs594kb
+	 MnhaR/y/Qjh0D5ds690v0QoBJ1LGB1aai9zsA3c+DDgKjIsFa1Yb0fVsnIRZukKMIDGaq
+	 PeUP3rKvhZobLnywUaNN5RFFv08TMDHE6DLBrWLGY2Fz/gXtXmlwN9Y8hceou5g1zisUX
+	 s68pCUs3MfO3W54Xox1/3JYhh3uRwgjWhxYmvVBdJarCBoUeJ0TdEKfglgI3FcVq6Dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=purestorage.com;
 	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=PAxkRSRI;
-	arc=none smtp.remote-ip=209.85.216.98
-Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=YKgvOZfc;
+	arc=none smtp.remote-ip=209.85.214.228
+Received: from mail-pl1-f228.google.com (mail-pl1-f228.google.com [209.85.214.228])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 534AD606A33A
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:16:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 534AD606A33A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2F75606A8B0
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:16:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2F75606A8B0
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=PAxkRSRI
-Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3b0d0f38abdso306258a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:16:29 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=YKgvOZfc
+Received: by mail-pl1-f228.google.com with SMTP id d9443c01a7336-2ed58279115so2618325ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:16:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1794626189; x=1795230989; darn=vger.kernel.org;
+        d=purestorage.com; s=google2022; t=1794626188; x=1795230988; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VEL33wrZ6oTLFS70Xi76QGCdvLv0OeejiOglWoQk1dI=;
-        b=PAxkRSRI9hINZJRUP/CNnlIlRx69IykmhPXo3sLpnIhW1b8c+0J+VXkIiYba8zI15q
-         QURRbQEqS0TwhA72NPVnAK49hhcQRNs42jnTBPHeLkqKtCceuv30a59ujibmixhkaj84
-         W2EuS9MMar8qi5YSDZLBzEGg7cnqyL9cwgnFx9o2nLH9mioASXjvKWkwwux6kMFpcfQ2
-         G1rzZDHTPcWzSReZZhO2XZ8Y+gOzcAa9x7ZJ3cEXxDtFYkLOsi3fFZ0+C4ix1N8hb7WO
-         ZmOh0S7yhNNWUXdZ3I8hEOrwGSt19UPjzm6NNcBHZ81dmrVtHYw5FaOG3KTW9jYInwQM
-         im/w==
+        bh=3uZCrEWxOH69+GTCH3HSB6MoUQF0BV83RO/XTXzhfSA=;
+        b=YKgvOZfcTF/6HHXNhEBKkeNay2MqZJMARRZJa+geb16nAdi1bV5lLegaR+el2zpm8+
+         t2vmuxLdkdG4M6VGRdfxMwWXUPi4WaKsmtUzRgHEskOtcRnygtvvOL2qX8FCRbXHS8z+
+         NfVji+RpUu3um3skMNkzu5w0bLVtZ45Xeur3+SMTkZ3QY6u0Uc4b4h8WdMys3uNTJh1p
+         rXK5Gvpo4S07gJ0kf2piXt6z5iy1xM883CWO13Cw9GKEMb9/Gu9/0lapnZ1uHYAIX+EL
+         EIwHJk8iNCi2CNZLzhpCXKdhcPNLQGAxtmY1I6/pYwpBFXcI2pBSbUynvEWmX1C4Rnok
+         nbcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794626189; x=1795230989;
+        d=1e100.net; s=20260707; t=1794626188; x=1795230988;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VEL33wrZ6oTLFS70Xi76QGCdvLv0OeejiOglWoQk1dI=;
-        b=l0S4fEWRkFjHc0zlpBuXt07FOoBJdWVyRQN+JPtiz/E09XnqDt4Bhh2OLc0TEHq/bk
-         dNizqI+lpJTHZjiUbNJ++YUAMKKn4QMqgVpyrE3Wf8yFcaLDonbCXijaSjB/YsSJ9PM0
-         g6gs6qs+Ue9hCDFiFiMLF7sHvYAKJwJbFeiTHdnqYhQeT3hfXqLCzU/3MM2YmLhXqZmu
-         iIrv92tguMpKwPMr7aoPdLvmdJhL3/8XpNk/VgEyxxncNQ8YizMAlZmIbqzY+a63K5rT
-         tCxMoAQ/3dIqpLHfWOmOKFp3wtV+Be4355w9Sk7cRuSuf0e5rLdE8u2exoVRnv3SLqQT
-         oeHQ==
-X-Forwarded-Encrypted: i=1; AL+hErHxltXw6qp0n4qa5mO3N95TuaFVcTFr7wnDIkv+BYotom7/+xx/jocLPDENFCbneSjBwIeZNUMDtWalyww=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9AaYkzuR8jBhIompWfsTyQ+PwXUsKzL6KhB5hx543q/sGRvHZK
-	bGVBdyzdPLcpesYmD0cC6fo2JGhsG9s6axAx72qQhE1CduDA+dCeW7YYxs8FRl6CKjYgmchjTZ4
-	aSUD4eHFQQCoNtKi4kEXdhF/qTpUVKLOWaWrKRE7ZGBdfaeZ0Q0Ey
-X-Gm-Gg: AYBFou0fqlAvRGEFHF5jcvHa08GMFNKEXRorVsdDx1jxtEiEqcjtCWHK49DrpWoLYyb
-	RG+Yx2K6fCd8DZ8DwZC7vkI9AHul93wpSPyBgFVtf/G07KCncqLzst2f3tF1aeKHSqCnmXxhFgY
-	5/8rob7n/4EdPflwLhWnN5ypz41I2kQlcLwv9tikeOpb5730QsNNlzxrQ3HvXgcf7b8BQCzNdvV
-	xCyaOYgHT+u6eoxr0ewYvELo+wzzttRAMLVnkBw2EbiARZKDkQCx48WT3eImOVp4GG/sy/y7qHC
-	5TTXlMCzbrOJh2IezQTB/yb1W9pQBVv7Yr/0eGZPAfox0Lwq8mVCtyPk5KA/e8TaoH24lDwZHgO
-	FZ37cmWLX2aYD/g0D
-X-Received: by 2002:a17:90b:574f:b0:3a8:736e:c19b with SMTP id 98e67ed59e1d1-3b1b0a2b57fmr6381951a91.4.1794626188548;
+        bh=3uZCrEWxOH69+GTCH3HSB6MoUQF0BV83RO/XTXzhfSA=;
+        b=U0dJO8oPI+ep0bL1lrNj/oQiC1uP51V3ejoVg6SCmQC36pp+vM+NxHAr+nckdi1xty
+         5VJxjoxWsaSIoqp01tDxqiBkBocGlhz8HEnK22b0MO6QVJ4kthWz0sjLl6OSo4lte4p6
+         EAP42MKfALRpIhIjGChVp7YTDNr9kuRA/Jgvumm4qLpQ9Dhbz/B5xB6VmlOPrJ7K3CJO
+         dhYGMDgBHmTbus680WThNoFuqk7mlk2OHPI7vYQH+OWL9IVzZLB23hGn9vin4+wZuoF5
+         H8iLOmtYM6KUkYlVDvIYn5EnaD59RVwhv+xxGk60cIIwOTh8Nw9BS09FUvYW03WewafD
+         B50A==
+X-Forwarded-Encrypted: i=1; AL+hErHIEiLykxCH4xnlret8uMVHS0EXoHrtaeNsqpeXzy+mk27WLtijuyvBaRai+W2KYU97cyNc5C07F+eD7dw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9FtyqrnXqdEG+bSrgqO/pzTM3Uk70aTfqFy660mTYkUjblebIz
+	LzJ0enJH3sqq3A/5TrJXIOUwNKTUEbpKvKRL5+EqFXgErW93gdmnub6ZduVam5vzmExWEZWaMMo
+	NcVCxIwCRzGCMsjuVKSb9GWr3SzFtYRCB84yVHdq5dsFszSHIXvGu
+X-Gm-Gg: AYBFou3LW280Nu3/mjp5i8wWgTwEFTV65kyu0TuDSm4uP9yNthGDI03Z1w3G+Ns9z25
+	v2Gs8/7FRXbCKQ92d+HWmz85NKla0MIugh/S5/qoApUzT9K6g724qV9QVVNjOC5b0d+0DH2bZC0
+	BtEY90LeEMS74fjDssmnn5yoL9nkmNIVgzH67W96NiuiKSOgmWElif4gH12YMChndqb4W+HICjM
+	X1c5Qt+kROLQYsEFU3Smv0XLwuCGdCJyFHgn9cKvUfEYZE4BPATO+QGs2Bxr0ACMcJBDlSJLSJH
+	FX4r06uP7293Codsn+MllRlfYYzkbf9D4BMh+PWhPssBG3AONE3gcBO19t+dsVgEHk6TLdSS3FS
+	y3ZjwBnrDJVH8OunN
+X-Received: by 2002:a17:90b:2e90:b0:3ac:77a2:18b1 with SMTP id 98e67ed59e1d1-3b1b0a44b0amr6710056a91.5.1794626188078;
         Fri, 13 Nov 2026 19:16:28 -0800 (PST)
 Received: from c7-smtp-2026.dev.purestorage.com ([2620:125:9017:12:36:3:6:0])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b1c3e09606sm1050084a91.3.2026.11.13.19.16.28
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b1ae8da103sm6489932a91.1.2026.11.13.19.16.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Fri, 13 Nov 2026 19:16:28 -0800 (PST)
 X-Relaying-Domain: purestorage.com
-Received: from dev-csander.dev.purestorage.com (dev-csander.dev.purestorage.com [10.17.2.4])
-	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id 8C2F440228;
+Received: from dev-csander.dev.purestorage.com (dev-csander.dev.purestorage.com [IPv6:2620:125:9025:23::204])
+	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id 66197401FA;
 	Fri, 13 Nov 2026 20:16:27 -0700 (MST)
 Received: by dev-csander.dev.purestorage.com (Postfix, from userid 1557716354)
-	id 89EBDE4049B; Fri, 13 Nov 2026 20:16:27 -0700 (MST)
+	id 63E0BE4049B; Fri, 13 Nov 2026 20:16:27 -0700 (MST)
 From: Caleb Sander Mateos <csander@purestorage.com>
 To: Jens Axboe <axboe@kernel.dk>
 Cc: io-uring@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Caleb Sander Mateos <csander@purestorage.com>
-Subject: [PATCH 3/4] io_uring: add io_req_{set,clear,switch}_flags()
-Date: Fri, 13 Nov 2026 20:16:20 -0700
-Message-ID: <20261114031621.2924144-4-csander@purestorage.com>
+Subject: [PATCH 2/4] io_uring: add multishot_flags constant in io_wq_submit_work()
+Date: Fri, 13 Nov 2026 20:16:19 -0700
+Message-ID: <20261114031621.2924144-3-csander@purestorage.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261114031621.2924144-1-csander@purestorage.com>
 References: <20261114031621.2924144-1-csander@purestorage.com>
@@ -105,63 +105,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-clang likes to set/clear flag bits using the narrowest possible or/and
-instructions (e.g. an 8-bit or if all flag bits are in the same byte).
-This causes store-to-load forwarding failures on subsequent wider loads
-of req->flags.
-
-Introduce helpers io_req_set_flags() and io_req_clear_flags() to set and
-clear bits in req->flags. Use a volatile write to prevent clang from
-emitting a narrower store to part of req->flags. The downside of
-volatile writes is that consecutive req->flags updates must store to
-req->flags multiple times. So provide io_req_switch_flags() as well,
-which can both set and clear flags in a single volatile write.
+REQ_F_MULTISHOT|REQ_F_APOLL_MULTISHOT is repeated twice in
+io_wq_submit_work(). Introduce a constant variable multishot_flags for
+it to reduce the repetition.
 
 Signed-off-by: Caleb Sander Mateos <csander@purestorage.com>
 ---
- include/linux/io_uring.h | 25 +++++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
+ io_uring/io_uring.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/io_uring.h b/include/linux/io_uring.h
-index 505caa99c621..c70f7887ea72 100644
---- a/include/linux/io_uring.h
-+++ b/include/linux/io_uring.h
-@@ -5,10 +5,35 @@
- #include <linux/io_uring_types.h>
- #include <linux/sched.h>
- #include <linux/xarray.h>
- #include <uapi/linux/io_uring.h>
- 
-+/*
-+ * clang likes to set/clear flag bits using the narrowest possible or/and
-+ * instructions (e.g. an 8-bit or if all flag bits are in the same byte).
-+ * This causes store-to-load forwarding failures on subsequent wider loads
-+ * of req->flags.
-+ * Store to req->flags using volatile writes to prevent this "optimization".
-+ */
-+static inline void io_req_switch_flags(struct io_kiocb *req,
-+				       io_req_flags_t clear_flags,
-+				       io_req_flags_t set_flags)
-+{
-+	WRITE_ONCE(req->flags, (req->flags | set_flags) & ~clear_flags);
-+}
-+
-+static inline void io_req_set_flags(struct io_kiocb *req, io_req_flags_t flags)
-+{
-+	io_req_switch_flags(req, 0, flags);
-+}
-+
-+static inline void io_req_clear_flags(struct io_kiocb *req,
-+				      io_req_flags_t flags)
-+{
-+	io_req_switch_flags(req, flags, 0);
-+}
-+
- static inline void req_set_fail(struct io_kiocb *req)
+diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
+index 5db57bf675f0..28ef95851510 100644
+--- a/io_uring/io_uring.c
++++ b/io_uring/io_uring.c
+@@ -1617,10 +1617,11 @@ void io_wq_free_work(struct io_wq_work *work)
+ void io_wq_submit_work(struct io_wq_work *work)
  {
- 	req->flags |= REQ_F_FAIL;
- 	if (req->flags & REQ_F_CQE_SKIP) {
- 		req->flags &= ~REQ_F_CQE_SKIP;
+ 	struct io_kiocb *req = container_of(work, struct io_kiocb, work);
+ 	const struct io_issue_def *def = &io_issue_defs[req->opcode];
+ 	unsigned int issue_flags = IO_URING_F_UNLOCKED | IO_URING_F_IOWQ;
++	io_req_flags_t multishot_flags = REQ_F_MULTISHOT|REQ_F_APOLL_MULTISHOT;
+ 	bool needs_poll = false;
+ 	int ret = 0, err = -ECANCELED;
+ 
+ 	/* one will be dropped by io_wq_put_work() after returning to io-wq */
+ 	if (!(req->flags & REQ_F_REFCOUNT))
+@@ -1647,22 +1648,22 @@ void io_wq_submit_work(struct io_wq_work *work)
+ 	 * right context, however this is not the case of auxiliary CQEs,
+ 	 * which is the main mean of operation for multishot requests.
+ 	 * Don't allow any multishot execution from io-wq. It's more restrictive
+ 	 * than necessary and also cleaner.
+ 	 */
+-	if (req->flags & (REQ_F_MULTISHOT|REQ_F_APOLL_MULTISHOT)) {
++	if (req->flags & multishot_flags) {
+ 		err = -EBADFD;
+ 		if (!io_file_can_poll(req))
+ 			goto fail;
+ 		if (req->file->f_flags & O_NONBLOCK ||
+ 		    req->file->f_mode & FMODE_NOWAIT) {
+ 			err = -ECANCELED;
+ 			if (io_arm_poll_handler(req, issue_flags) != IO_APOLL_OK)
+ 				goto fail;
+ 			return;
+ 		} else {
+-			req->flags &= ~(REQ_F_APOLL_MULTISHOT|REQ_F_MULTISHOT);
++			req->flags &= ~multishot_flags;
+ 		}
+ 	}
+ 
+ 	if (req->flags & REQ_F_FORCE_ASYNC) {
+ 		bool opcode_poll = def->pollin || def->pollout;
 -- 
 2.56.1
 
