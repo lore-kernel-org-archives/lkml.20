@@ -1,81 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794686976;
-	b=XAbG5gJIcUoUZ4vrbmDcEOSBosX2rjkHcHY0u+37MIsGatw//U6iVAemKzQYdznwofjp
-	 9RZ4PR1Pr2pCeSXesqLKv97+1GAU6AJ+3XXVV+1XUtINBl3xBHG92X2Kpi3iFJ0x5CT5h
-	 Z9GWcDhJRw2OICp2Gx3CE3PDVxYNckulfwqH0Kjg2Vjt96HstTCz5LLfzqZfVINgIMq0P
-	 IMDmY0K+GbiR6e++r9L3tmev/zeH9zvjeZYqaR+BC+l7zi0+2AgsEzOqbXc1FyMNS2oMP
-	 Lhf/e1vQbjZok79kRVi3+HSGtuwtOE3gINQmUZBImS6m8NbkIkUjwVSsV/B5hUTC4Sg==
+	t=1794687059;
+	b=YPiyEmqgGWUIONs17d9uIDjHQcV38sihieUHj1P8UbMptvqx7uQvrTaxm+CM4VDf1fk0
+	 SC865sPa7DNUdVtnJ9biYUmaD2+r9gbVBtx315H/7YchOk7e+ui/1DdzIKxa8kbyEd4LV
+	 x3/Rn0Cu7/DyqoLTSkIgzzAp+fE8SwO8qZw2jHRxTuPJd79Rny65LjUFRqJAgpzBLHpHI
+	 R0FNkw2U2bgcJCtUob/73R5k8oPspqS+NRmlljqR/0Dl8wMHQBsMKgqR2EnsIvDPoMZ7m
+	 /WlFj2NHGeSc4oLCs7eSt9uvreURcu7krnM7hHs3po0BvWTFDEbzJyTtSJqitI20Ong==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794686976;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=KMsf6Mo2Oliqh2qahQUMTcuFw8dO50/oLEMB2urj64g=;
-	b=o4UfPCPNguhK4EWi/nTJPGcLxmzCZa6Ds8va0+dpRk3mZ340WKjZaE70hkcIQ8ZLmPXi
-	 dmGMpjXWkU001QOSi3oo3os4qBgrz1+A8Gah0sit+JustIjNs5iULjUqbncqs1P7+5PgE
-	 N3eHip/GbM1wMlHxXMoZnniMonG4yMkHaNFVT5vmYNJikDqzUszm1kivw/PbonlPL2NDn
-	 ltz2vitwhrhxUK0PTQGjWsMxXpLoi/DkcmLZeoKYrfH+FR29Feu8e9CAZwXHTiI1Vs5Uz
-	 HToJ/3CjNk2CAxNdH2XjUtZ6yE5Chn5UpXTOH6frmtumDIWH4Aizx+u4JkBspVphwBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794687059;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Q1YarXMG41jTbZALuXo8AzZfZMlmVAmtGfykhB4MycA=;
+	b=JK/fU0G5TMLJyDHt5QlnUpVvrs9rN/Yoo8BB2SAhSDTYmHyG3BsjUPIqLi6bDXwL9tFB
+	 rYe1OL/DFkq8nL/A+YgVVXibkSn/BEwKqA1Px6OeF5UPgSfBWl3GgtCyY+MqbPkrlRMmp
+	 TJQhmeFQDxuqCdpGPxlmXOgdbVHZ2SV3TYbCuzzGHsxT2tYpJg0lHgrI99RHhT2I16hDe
+	 6ugabsrxRHoYPaCHWuX46HCoZOz1zeBjQftJDb/uLaEj8mhozfs1x1vswxK5gK2+zCxo/
+	 27RyuboGxnpzf2DScRnt0e3cyw8IVeR/8lBB3iTMvOMLfMkRgezh7e1w6QHpGrHN3fA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OrKapMpP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BT1HumBE;
+	arc=none smtp.remote-ip=209.85.222.173
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F38DE606A323
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 20:09:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AFC1606A323
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 20:10:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AFC1606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OrKapMpP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBA4A1F000C4;
-	Sat, 14 Nov 2026 20:09:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794686975;
-	bh=KMsf6Mo2Oliqh2qahQUMTcuFw8dO50/oLEMB2urj64g=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OrKapMpP6pkOi0Fuy4QrZNWpY7WBehVmVTM50FXTiI/Ke0bvtDiGixm7H2HeACL/V
-	 WjFFrZMfegaoxr9692/qNEyP587PYjLyGjE7h4dkB3UU+BRFGC4u2z7DNGo5yf6pqx
-	 IyLGT/WIoTfRJCpqhZkIaJmlwZcYXGMoUKrFk0Sx1WS30a3+9kAzfhwF74s86SV9LH
-	 nugw5tT7mHnEvEQXf579/nxA5evaIyblcXqTWJInVbiLQSe7ovxbqjK+KfDO/BXSG+
-	 yp7KB6IDCrTXMrKm94u/8T6wikGpATZdDSQUZtXqSf/prgIetlBhgFScZZJ+MqocSs
-	 07Z/i9wlz+sWQ==
-From: "Barry Song (Xiaomi)" <baohua@kernel.org>
-To: akpm@linux-foundation.org,
-	linux-mm@kvack.org
-Cc: axelrasmussen@google.com,
-	baolin.wang@linux.alibaba.com,
-	baoquan.he@linux.dev,
-	hannes@cmpxchg.org,
-	hui.zhu@linux.dev,
-	kasong@tencent.com,
-	kunwu.chan@gmail.com,
-	liam@infradead.org,
-	lianux.mm@gmail.com,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BT1HumBE
+Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93f22a8515eso264392085a.2
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 12:10:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794687058; x=1795291858; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Q1YarXMG41jTbZALuXo8AzZfZMlmVAmtGfykhB4MycA=;
+        b=BT1HumBEm5CVESTkzmoL6X7tg1NZGHm7gfqxegng6gX5yy/Ktn0eIVo6XVF9++xyjO
+         g/LuTm2K5WwJYUpqhg0+GtqxCzesnopsvPn7tbBsPlMun5HQo0DdC+xx9E7RS3k/fjoO
+         iZ4kz+pxfB63bE0YaLUt3EAqfpYGXt1+wV5wWoN3ESio33ZFbGXnCCqt5VZNZk6q9oth
+         w1IypezPutOFjF4p72AqGe6RJ9c5V6fvE1xbaSDOkNRrJ+0hneCr9x6RK1svWdWK/CRw
+         YkCfuV9LybFp/vKZFccBvRBmMmqfb1EcpCvxY1nCA/i3Wo6mCRrfm10PgZ+xioBxsJLW
+         /DMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794687058; x=1795291858;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Q1YarXMG41jTbZALuXo8AzZfZMlmVAmtGfykhB4MycA=;
+        b=SpetDG18qndZUa/Cr9e+G0y2fIBnC+iZfLex5sVUywQGTZs+P6xVjWA0bD/XxuLQO9
+         klSoTPoN7A2/Gy/O3r2sOZ3ytFMvarfVjB/AqGCIv3ixcGVbty46T2yjX/Km7dikPeUF
+         9BxqucOKZXzfRs8z9fL3ZbIjP+0W9geZOiAT2CudO3Z/DYCIaPFTbOrc7uZof4tfD7jv
+         V3xBVDMY1Lo0sreYG5jYJS1innuVVHaCBG+KlZbNFukxTg02DZCW4nmMFiQdG0vGq9/Q
+         osy3BpWRdyesbcUN6hxGnQ97WSXCcEPV00EAp9baWUQIZipYm3BPOL/TsJZL91RDg+IP
+         8PKA==
+X-Forwarded-Encrypted: i=1; AL+hErHAysivO4dWJ7a2vidUBGbRdaOJFRnF3Js7YgxUoG7aV3eThdmVCMLlRljPE/XSW30ftV43WNsSdZma4CM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9sModm3NN6mlFG4V93aGhhauIZMsCDR1Xvf1xIMnkBhv7StciM
+	nZid0kyQlRCyi2fQO46jr4R+LxCbxd11Wiy/+GWNoq6YIXZjs+aG412k
+X-Gm-Gg: AYBFou00mldXX19C9JXaD/hxZ1yWk431tG/qWrWPkJGQ08WfR8HZwQfu/jsrGxysP0X
+	xUz0A2cCqiQXkaYj9gWT2q2K9CLms2181W2rneqKbZIRhvuUC2s5+JlMp1XR6l+pljbuoDFmSV0
+	oY2fLvCd7PxIFrJmfluBOiiMSwkRLsA/nDCtdc3fCF4quVAjm4dIbgffqTmsZe2WjUTFOUEQvK2
+	O3ObnKRxFXJgflo5gzDBpZTYMKaxCP3/OUaSbWTVJ0tazbWQ5oDa8Lk/1XWcbur+2AdZi9/gNEm
+	pUSdlwoj9F9TYEg1fsnvtjLsE+K/noAlzS7i6rg0KsaQCEkhJIA33aQ70h96ldW6/5Y2nAPn4wn
+	c1aWiDIlgMaQRNGt7o16xie35UMjZG1WDW40WNuSwBOdEr0Q6Cu2sFpUDHcIIAPa22yKKRIVeVO
+	iCab8mARb19oArUmuioxQMq+eyM/efdv1txsSb3Zmw/RRDeBgFOsfZ55V1GO6mOolp7saAGjKBu
+	gYIuqvhEyi8Z92TM9QKsIiHh2hvFlXFtvyvObAHBdcElMX+XwHgA9RnGmxL18omQ1ykRtnMTUky
+	WXjTBQQby2xCBb9ywkas27VBI08KI0Q2JaE=
+X-Received: by 2002:a05:620a:ac19:b0:949:5708:3c9c with SMTP id af79cd13be357-94957084b2bmr644160885a.39.1794687058217;
+        Sat, 14 Nov 2026 12:10:58 -0800 (PST)
+Received: from deb05.proceq.com ([213.160.61.66])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c803afbsm476303285a.15.2026.11.14.12.10.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 12:10:57 -0800 (PST)
+From: Mehmet Fide <mehmet.fide@gmail.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Stefan Agner <stefan@agner.ch>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Boris Brezillon <bbrezillon@kernel.org>,
+	Brian Norris <computersforpeace@gmail.com>,
+	Alexey Klimov <alexey.klimov@linaro.org>,
+	linux-mtd@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	liuxiang.277@bytedance.com,
-	lyugaofei@xiaomi.com,
-	mhocko@kernel.org,
-	mhocko@suse.com,
-	qi.zheng@linux.dev,
-	ridong.chen@linux.dev,
-	rppt@kernel.org,
-	ryncsn@gmail.com,
-	shakeel.butt@linux.dev,
-	surenb@google.com,
-	wangzicheng@honor.com,
-	weixugc@google.com,
-	yuanchu@google.com,
-	zhangbo56@xiaomi.com,
-	zhuhui@kylinos.cn,
-	sidchintamaneni@gmail.com,
-	Barry Song <baohua@kernel.org>,
-	Kunwu Chan <chentao@kylinos.cn>
-Subject: [PATCH v9 16/16] mm/mglru: Avoid scan anon while swapcache is low for GFP_NOIO allocation
-Date: Sun, 15 Nov 2026 04:08:03 +0800
-Message-Id: <20261114200803.23129-17-baohua@kernel.org>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <20261114200803.23129-1-baohua@kernel.org>
-References: <20261114200803.23129-1-baohua@kernel.org>
+	mehmet.fide@screeningeagle.com
+Subject: Re: [PATCH v2 3/3] mtd: rawnand: vf610_nfc: return an error when a command times out
+Date: Sat, 14 Nov 2026 21:10:54 +0100
+Message-ID: <20261114201054.975225-1-mehmet.fide@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261114192031.959376-4-mehmet.fide@gmail.com>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,103 +106,14 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Bo Zhang <zhangbo56@xiaomi.com>
+Hi Miquel,
 
-With GFP_NOIO, we cannot reclaim anon folios unless they are in
-the swap cache. CLRU skips anon reclaim when the swap cache is
-very low by commit 74d9aa0d8e98 ("mm: vmscan: avoid anon scanning
-for GFP_NOIO with low swapcache"). Apply the same logic to MGLRU.
+Please do not apply this patch as it is. Sashiko is right: when the
+timeout hits the raw re-read in vf610_nfc_correct_data(),
+vf610_nfc_read_page() counts it as an ECC failure and returns 0 instead
+of the error. I could reproduce it by forcing the timeout there.
 
-The new scan-budget-based mechanism makes this straightforward to
-implement. Thanks also to Xiang Liu, who previously attempted to fix
-this before we had the scan-budget-based model [1].
+v3 will return it. Patches 1/3 and 2/3 are not affected.
 
-One thing worth noting is that, for GFP_NOIO allocations, the
-lruvec size accounted for by lruvec_evictable_size() may be
-underestimated during lru_gen_age_node(), even though we count
-all zones for the min_ttl check.
-
-As explained in the commit message, the proper solution is to
-decouple the size check from min_ttl handling. We leave that
-improvement to a separate patch series.
-
-[1] https://lore.kernel.org/linux-mm/179248830836.1744016.8424217811286616919.noio-mglru-rfc-v2@bytedance.com/
-
-Cc: Xiang Liu <liuxiang.277@bytedance.com>
-Signed-off-by: Bo Zhang <zhangbo56@xiaomi.com>
-Co-developed-by: Barry Song (Xiaomi) <baohua@kernel.org>
-Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
-Reviewed-by: Kunwu Chan <chentao@kylinos.cn>
----
- mm/vmscan.c | 27 ++++++++++-----------------
- 1 file changed, 10 insertions(+), 17 deletions(-)
-
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index a9b97d23838b..4960ac012392 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -272,13 +272,6 @@ static inline bool reclaimable_anon_is_low(struct mem_cgroup *memcg,
- 	if (!sc || (sc->gfp_mask & __GFP_IO))
- 		return false;
- 
--	/*
--	 * FIXME: MGLRU doesn't fully respect can_reclaim_anon_pages() for the
--	 * scanning type, so only apply this to the traditional LRU for now.
--	 */
--	if (lru_gen_enabled())
--		return false;
--
- 	if (memcg) {
- 		struct lruvec *lruvec = mem_cgroup_lruvec(memcg, pgdat);
- 
-@@ -4214,6 +4207,8 @@ static void lruvec_evictable_size(struct lruvec *lruvec, struct scan_control *sc
- 	int type;
- 	unsigned long seq;
- 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
-+	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
-+	int nid = lruvec_pgdat(lruvec)->node_id;
- 	DEFINE_MAX_SEQ(lruvec);
- 	DEFINE_MIN_SEQ(lruvec);
- 
-@@ -4221,6 +4216,8 @@ static void lruvec_evictable_size(struct lruvec *lruvec, struct scan_control *sc
- 	nr[LRU_GEN_FILE] = 0;
- 
- 	for_each_evictable_type(type, swappiness) {
-+		if (type == LRU_GEN_ANON && !can_reclaim_anon_pages(memcg, nid, sc))
-+			continue;
- 		for (seq = min_seq[type]; seq <= max_seq; seq++)
- 			nr[type] += lruvec_gen_size(lrugen, type, seq, max_zone);
- 	}
-@@ -4903,23 +4900,19 @@ static void lru_gen_balance_scan(struct lruvec *lruvec, struct scan_control *sc,
- {
- 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
- 	u64 refault_rate[ANON_AND_FILE], anon_factor, file_factor;
--	u64 anon_scan, file_scan, total;
-+	u64 anon_scan, file_scan;
- 	u64 anon_weight, file_weight;
- 	int size_bias;
- 
--	total = nr[LRU_GEN_ANON] + nr[LRU_GEN_FILE];
--	if (!total)
--		return;
--
--	if (swappiness <= MIN_SWAPPINESS) {
-+	if (swappiness <= MIN_SWAPPINESS)
- 		nr[LRU_GEN_ANON] = 0;
--		nr[LRU_GEN_FILE] = min_t(u64, total_scan, nr[LRU_GEN_FILE]);
--		return;
--	}
- 
--	if (swappiness == SWAPPINESS_ANON_ONLY) {
-+	if (swappiness == SWAPPINESS_ANON_ONLY)
- 		nr[LRU_GEN_FILE] = 0;
-+
-+	if (!nr[LRU_GEN_ANON] || !nr[LRU_GEN_FILE]) {
- 		nr[LRU_GEN_ANON] = min_t(u64, total_scan, nr[LRU_GEN_ANON]);
-+		nr[LRU_GEN_FILE] = min_t(u64, total_scan, nr[LRU_GEN_FILE]);
- 		return;
- 	}
- 
--- 
-2.39.3 (Apple Git-146)
-
+Thanks,
+Mehmet
