@@ -1,77 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.54.127.154
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.98
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794626778;
-	b=ikRxF7El0RHfEa+OPTBMmTZamBf6CmTtTrTpGpRvFn38zBhf3cPJdrqy7/QW6k7xqpD8
-	 5lbSB6PiY2mY5t3EJkQBLWmVgfrGhcsFWA/U0YKXNjjAr9tKs2viewuSugrR6jlA5Sc6U
-	 UPXRCa2bQU0zi2icg3Aa5s6X4bwIFfUBJz4ZdSF+WscKljbJ5fq3ic5WTGJQcbSa5KbSa
-	 yYaUfQmkQM6FaVckxevDYMl+0x9rqjMaznubeW4BHn05sEsGA5TVHFHGoChKLciatdDKs
-	 1ecZaLXrHQKfnBKUPBTqiqJRLYmtDFjwG+8K8EDt0L5dupgQGMX3qjYNCBnbnt69ZHQ==
+	t=1794626781;
+	b=p1weMzF+wiGVsxdHEF0IG36mXIBN2gPPgfYCCXlCeTZTWwXmOKLcDPzi6le9hQDnG2MT
+	 a8bn2jOLxqFfI3JjpwOYzHBRZ/sD/AwUnRsAyG2kBTRQdtRD+XxZkeJIdlk8uz+pEOMdz
+	 ff80/la4TXaYII4HOy6DkNUGGoFX3XjmQbQBwekIj3l8R73xSTw9vXpW0wPjL9tyKK7db
+	 /UmvE+lv6JCjvsLN5m7IC+nYC0OqaJd2YBrn4lHh6EyT1EpXVCqY9gLqEFdzPzcrMZuEf
+	 LbHeT73knHvQCk0GowHWEwCThmlkPdfI+Rlmddt7u12WUA8+IofFKcZIPDtG+C4Jxiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794626778;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Envelope-From;
-	bh=BE6Q7lwOQS+JLVi3m1rKA+wYs4mH0nfmw3zjAxeKYQI=;
-	b=W1OAJZPqbU0Ge7LYN47sy4zVELQqxBmZCP8Gpn6i6Sh7Mh4qSeo+QE6B7TKqq8tqK2o1
-	 WT+MOo1+o5NwN1TB09d3lmEF1UbDJnEZeQNyaa9YnBAfi/W8XTneWoYpJL92pYhRv/+qq
-	 ehXVR1626W4kYA9QwJZl/PTqYuGSeeycw5y6+gaZVujYRPd/oSZFUMRZ4FLrGHnIuwSj6
-	 gCGTWr/QlhbPof4DHthtyMbrdAUEV6QHpEWkc1G6auVbxcSA6LzGvR9j9Jpu1g6u5HjeR
-	 X3AVC7mcEN3pjABMapgmLpHYbKWJr97W65dC5tH6QwfHE+c9aYD/K/Npn6ZF8ZPNjPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794626781;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-DetectorID-Processed;
+	bh=PhRZX/7e51oyabbxdjdkBY4WBe9PwD1txTeNO1MwifA=;
+	b=qQ+yBMOzs7/T4vtWBPrF9b30Qvw0cfbRa0l+cfzv8o3+cbfxqC8yRV+4khWSd6MyCWI1
+	 g3qofOrQ8G0uTxIMJkgvDX5BSoxhD+nDaCsCxbVah8Yw1F8j0YP9hxOSuHPjAFWmAJ52W
+	 +BWHzcTaBv+7zZlfVLnETAp2R8XRoHhukTMKUPhxw1Wf3SpcuHqTLvC2+6v/HLjvGXbzg
+	 TKVNSTQkLWjR1jGVOV4//Xk+PItkhG+Wdfg7b6N9dWbBw8oryhNUjDxRCz7MFtdpPMnc9
+	 jtFFzeYWwxpLnzW6BV7+SxpGf3qC0Fqqa+pir3hrtmgwfM05U4on04X74dAtSdgWBzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chrispinetinega.com;
-	spf=pass smtp.mailfrom=chrispinetinega.com;
-	dkim=pass header.d=chrispinetinega.com header.i=@chrispinetinega.com header.a=rsa-sha256 header.s=default header.b=pEsp9+R3;
-	arc=none smtp.remote-ip=198.54.127.154
-Received: from out-2z4y-a154.jellyfish.systems (out-2z4y-a154.jellyfish.systems [198.54.127.154])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=NEiDPlUr;
+	arc=none smtp.remote-ip=209.85.216.98
+Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39A71606A885
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:26:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39A71606A885
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chrispinetinega.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrispinetinega.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53A2D606A882
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:26:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53A2D606A882
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=chrispinetinega.com header.i=@chrispinetinega.com header.a=rsa-sha256 header.s=default header.b=pEsp9+R3
-Received: from mail.privateemail.com (unknown [62.8.90.37])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.privateemail.com (Postfix) with ESMTPSA id 4jRKJn6TNJzyNf;
-	Sat, 14 Nov 2026 03:25:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chrispinetinega.com;
-	s=default; t=1794626753;
-	bh=BE6Q7lwOQS+JLVi3m1rKA+wYs4mH0nfmw3zjAxeKYQI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=pEsp9+R3n7npaw6OVTgEubZQ2Qk47YlPKtzFjn29EguNpMuOEnPdUSTnt/JwUXDQU
-	 +5OllUSS21O8hq5mcgfJWiknF9QrTM+PP7gp5ttxap1AtK86Cvqlr7Z9LfvEPSL2O6
-	 if0k/JPVd6gWK5/FgJUsPgsd5AxJPb6JsMpwSEyBHUsN8yF4RXAy3kFW+NM0JSUCxM
-	 pzqa91/7/xN4ZzjWeXeQzAPeFIW2tC1htsbLVAUt+obfIIfwf++qpOAD+s1Uf/j3mc
-	 vTHrH/E12EJQoprMtatr4Fs9z0NmeVtPs9O9/3ZRPXFfnnF7+lu0f/aqKXQQ39m+lP
-	 KuXgAg4X0lc+g==
-From: Chrispine Tinega <dev@chrispinetinega.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	Tony Lindgren <tony@atomide.com>,
-	Jerome Neanne <jerome.neanne@baylibre.com>,
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=NEiDPlUr
+Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3b08a162d4bso853395a91.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:26:21 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794626780; x=1795231580;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PhRZX/7e51oyabbxdjdkBY4WBe9PwD1txTeNO1MwifA=;
+        b=PssdYdzLxJga6eFQTb4xfvsPn8rRni2axQPjtpgL2dDBI8Ynd0tt+TgFQqtqWtGEKs
+         +r+eR68a6izIFx9LB5NUDPCFpN5yASCA4k9sxJLBcZbuN2hektyi/1Q75Xa9eM4x4mTx
+         q9Ck80jNVPq/RCJHmBbeGRmaIBWaAC6zOUhyYdoDgmv4lRdRkT/e1oeINV9A4ItuxudO
+         vV7eyosmskOhTKr3d3Ol060aO77kOB9Ff/s0NvZwdmFWolR/YeV9whRVTeTeJovtLpbI
+         DDeO1VyTnNrMdEHsOBfErUrbdLzqFS0TNxCWjKYm8uCb8n24xhNUBSOrCLVc1VYdGh1j
+         P9SQ==
+X-Forwarded-Encrypted: i=1; AL+hErG88jKB4WbrlL8dkZucSv/K3Fg/7EavGr5sLwCPi499kbB83KEXJky9AmmzA3o6o1QCs9gZbKXKCgQd3zw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9h5ZjH5T3R8zff9ASfjmIljtBXVRWmiNP7QTYkl4ht1EWLtLGA
+	jIf8PV+ifJiT7uFcKA68k43WuVblQgUx29fCoO4pVrEmNjTVUGiaHzB5SQIEq2dMKe70wr7Ppqm
+	8S6fJGlNwL6KOsV4Fal5Zkp6F4zqB7XgnWRdUBva0aWeVwNvx6hIOOpiZUNZ8zpTYZw87BW5bgk
+	snj2iKsBSFDEywokjuUXmDp9t/i2cxULGqOIFbbqsPxFYfItVjGqY2T6Wvm2aDacQWk0vfgnkMW
+	75jruJ2WglFPzsvanQ7DEc6
+X-Gm-Gg: AYBFou2pw3XsgoBbwr/3XRRkU51yKuHfpAWcdijIrijwaIps/2GsMw8Va3HuN4ywknA
+	NH3SKOlMMRshyW8zeQOQO37cOAecjR2uX69hjAX979pf7KjOsqoyMNFzzDf9du/C1QmjN4/O2zM
+	OTEsUSqbLcs2ZGQWNO1Mi2l412nHWm8Sk3sclocnDVLvA6rZN8EuFNNx36GpTG08k8u9+A91UG3
+	5OpGzTcySW+ep28Zw5wqPZ9x/KjDLJQfI9/dI7MqFFyZOR0gsNLy/mrtVqaAnXC6ZYZN82tIZGE
+	SXL1YusI9La3ZlkyOPypUNEcqn0MFy4EU8gid2L0Ci3VRNh1127oZ2EaDT/UBUFMkUyLO1TjHsc
+	CYqLzrKRL36TvcStc4ZZ2bw9ndBWbB9ACo4nDQ492euGr4NSQeMTKoIRR9fPo1UkyGpSKZvbgrm
+	IXxboE3O6tBk8nrrky98R1D5lS43Aq+C4wPHpmKAYQ
+X-Received: by 2002:a17:90b:584b:b0:3a7:9e3d:b3 with SMTP id 98e67ed59e1d1-3b1b0ccefabmr4069922a91.66.1794626780492;
+        Fri, 13 Nov 2026 19:26:20 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-17.dlp.protect.broadcom.com. [144.49.247.17])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b1ae81cfa5sm6101267a91.0.2026.11.13.19.26.19
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 13 Nov 2026 19:26:20 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-375f0fd31f4so2070476eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:26:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1794626778; x=1795231578; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PhRZX/7e51oyabbxdjdkBY4WBe9PwD1txTeNO1MwifA=;
+        b=NEiDPlUrW5CXC+wl3oI1nbnz0QDGSTKwZemkNoH47Cr6+piZAwSMF5IY2+gAw24u16
+         n9P8gaFPbAW4BLDwZqVIf3+fGXfdOXkMQ/maBGh7HgrUXveAWI3M7MTvetKMeGm+HDcr
+         i7Ubd6PZ9/H8uekjiClLJuW8Ejr6VRdrjDj2c=
+X-Forwarded-Encrypted: i=1; AL+hErFseoZZljOleR4EZMfaqb4IBsQBKBCo8ZBMhjmKOTJ5KgVUpOIDpA02pquXmwkkjXq5r3cCtTTmPWX/sFA=@vger.kernel.org
+X-Received: by 2002:a05:7300:8818:b0:36c:a390:8907 with SMTP id 5a478bee46e88-3796750684emr4626095eec.21.1794626777524;
+        Fri, 13 Nov 2026 19:26:17 -0800 (PST)
+X-Received: by 2002:a05:7300:8818:b0:36c:a390:8907 with SMTP id 5a478bee46e88-3796750684emr4626066eec.21.1794626776854;
+        Fri, 13 Nov 2026 19:26:16 -0800 (PST)
+Received: from fainelli-desktop.igp.broadcom.net ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379508762a5sm11863608eec.0.2026.11.13.19.26.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 19:26:16 -0800 (PST)
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+To: bcm-kernel-feedback-list@broadcom.com,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	Stefan Wahren <wahrenst@gmx.net>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Phil Elwell <phil@raspberrypi.com>,
+	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+	Martin Wetterwald <martin@wetterwald.eu>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-omap@vger.kernel.org,
-	mfd@lists.linux.dev
-Subject: [PATCH 3/3] mfd: tps65219: Keep running past the warm threshold when asked
-Date: Sat, 14 Nov 2026 06:24:56 +0300
-Message-ID: <20261114032457.3434248-4-dev@chrispinetinega.com>
+	linux-rpi-kernel@lists.infradead.org,
+	linux-media@vger.kernel.org,
+	Paul Elder <paul.elder@ideasonboard.com>
+Subject: Re: [PATCH v5 08/11] platform/raspberrypi: vchiq-mmal: Move headers to include/linux
+Date: Fri, 13 Nov 2026 19:26:14 -0800
+Message-ID: <20261114032614.873772-1-florian.fainelli@broadcom.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261114032457.3434248-1-dev@chrispinetinega.com>
-References: <20261114032457.3434248-1-dev@chrispinetinega.com>
+In-Reply-To: <20261112-b4-vc-sm-cma-v5-8-d25e3b687e71@ideasonboard.com>
+References: <20261112-b4-vc-sm-cma-v5-0-d25e3b687e71@ideasonboard.com> <20261112-b4-vc-sm-cma-v5-8-d25e3b687e71@ideasonboard.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,65 +127,25 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Envelope-From: dev@chrispinetinega.com
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-When the devicetree sets ti,no-warm-shutdown on a TPS65219, set the
-four SENSOR_x_WARM_MASK bits in MASK_CONFIG at probe. The PMIC then
-reports a warm die instead of powering the board down, and powers off
-only at its hot threshold.
+From: Florian Fainelli <f.fainelli@gmail.com>
 
-The masks are loaded from the PMIC's NVM at every power-up, so they are
-set on every probe.
+On Thu, 12 Nov 2026 16:48:06 +0530, Jai Luthra <jai.luthra@ideasonboard.com> wrote:
+> Now that VCHIQ interface is destaged, different drivers (like ISP or
+> codec) no longer live under the same tree as VCHIQ-MMAL, but in their
+> relevant trees like media or audio.
+> 
+> Enable access to the MMAL headers for such drivers by moving them under
+> include/linux/raspberrypi with other VCHIQ headers.
+> 
+> Reviewed-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
+> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Reviewed-by: Paul Elder <paul.elder@ideasonboard.com>
+> Tested-by: Paul Elder <paul.elder@ideasonboard.com>
+> Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+> ---
 
-Signed-off-by: Chrispine Tinega <dev@chrispinetinega.com>
----
- drivers/mfd/tps65219.c       | 15 +++++++++++++++
- include/linux/mfd/tps65219.h |  6 +++++-
- 2 files changed, 20 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/mfd/tps65219.c b/drivers/mfd/tps65219.c
-index e52fbf148..d8e352f35 100644
---- a/drivers/mfd/tps65219.c
-+++ b/drivers/mfd/tps65219.c
-@@ -507,6 +507,21 @@ static int tps65219_probe(struct i2c_client *client)
- 		}
- 	}
- 
-+	/*
-+	 * The warm masks are loaded from NVM at every power-up, so they are set
-+	 * again on every probe. With a sensor unmasked, the PMIC powers down at
-+	 * the warm threshold; with all masked, only at the hot threshold.
-+	 */
-+	if (chip_id == TPS65219 &&
-+	    of_property_read_bool(tps->dev->of_node, "ti,no-warm-shutdown")) {
-+		ret = regmap_set_bits(tps->regmap, TPS65219_REG_MASK_CONFIG,
-+				      TPS65219_REG_MASK_SENSOR_WARM_MASK);
-+		if (ret) {
-+			dev_err(tps->dev, "Failed to mask warm shutdown: %d\n", ret);
-+			return ret;
-+		}
-+	}
-+
- 	ret = devm_regmap_add_irq_chip(tps->dev, tps->regmap, client->irq,
- 				       IRQF_ONESHOT, 0, pmic->irq_chip,
- 				       &tps->irq_data);
-diff --git a/include/linux/mfd/tps65219.h b/include/linux/mfd/tps65219.h
-index 5a6be84e2..688173044 100644
---- a/include/linux/mfd/tps65219.h
-+++ b/include/linux/mfd/tps65219.h
-@@ -196,7 +196,11 @@ enum pmic_id {
- #define TPS65219_REG_MASK_UV_BUCK3_UV_MASK		BIT(6)
- #define TPS65219_REG_MASK_UV_RETRY_MASK			BIT(7)
- /* MASK Config */
--// SENSOR_N_WARM_MASK already defined in Thermal
-+#define TPS65219_REG_MASK_SENSOR_3_WARM_MASK		BIT(0)
-+#define TPS65219_REG_MASK_SENSOR_2_WARM_MASK		BIT(1)
-+#define TPS65219_REG_MASK_SENSOR_1_WARM_MASK		BIT(2)
-+#define TPS65219_REG_MASK_SENSOR_0_WARM_MASK		BIT(3)
-+#define TPS65219_REG_MASK_SENSOR_WARM_MASK		GENMASK(3, 0)
- #define TPS65219_REG_MASK_INT_FOR_RV_MASK		BIT(4)
- #define TPS65219_REG_MASK_EFFECT_MASK			GENMASK(6, 5)
- #define TPS65219_REG_MASK_INT_FOR_PB_MASK		BIT(7)
--- 
-2.53.0
-
+Applied to https://github.com/Broadcom/stblinux/commits/drivers/next, thanks!
+--
+Florian
