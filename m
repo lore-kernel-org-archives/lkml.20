@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794697755;
-	b=EzzpFZvtFhts9wWQCvPW9dpP40VXchTaP9FY0pKG82dN8F8t3zOGG9xPOw0eKlr3T7br
-	 YPRX2Ayd/M0VQlvsaOFdha7vJRMFNnhMnGb8u+mYVEM6+JPkpr+8LfMl5ViaN3lrT1A8j
-	 fbY+EZhI3XtUl63Mc6v/YtqZMpbf045K0J0RdVHwDcXCehHq8Q1DpXdsFaOeQHEB9kXUy
-	 GSbk3gIhSDltHVVbYZjpVEUhebVB+qFW4lbl4JGl2jYFruM41aQAuOC7pvJr721qPouNc
-	 nDSAPAUwjwGZlY4fz3Du8hzOJXhTJ7jBmTWe8En1C9xWjvH/7F5Cjwwxqaw68ej71dw==
+	b=Tn7rOEKJ6NW1p6imfAWkn3fjsWoAq0jvnr6HUggaMc7pdea7hFZUTAkFNPOWOR/cFGGc
+	 QmuDSUW1QOGzMqy0VezUDJ2DIudWYRmaTTCndbUOzSs57FuD9lLqRe3QM0cq6dZEKmaC6
+	 PanJ5XOFqCVGckJs4pfmXVZdiT3ZgSZLr5ud6SoTd0P4Kb+9EmLj1TdD8H7OChizX3jx8
+	 x4vwCaoMpxICW/z98ukz+/EPtJd9TaaFEhyTIXS7/wDj8slrUpZyI5lMFevLQ0pepar3Z
+	 gFy+O+NpJ7GG3U3gEg4Vto5DGdqAcjx1JXk7GhI6JKK3pItz3cOuwdN3eytffUCr0aA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794697755;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=1PTPiOEKRlp9Zsw9ftcdqrl7XVRQXVPvWk2EJN7ugKQ=;
-	b=NQww8bQXM5+6ddQRBkJZO24OdeWXIXr4yXBEnhZD2ulz7aCTzwrfkV9Y5DqwO114f+Tq
-	 t40DExOfc9QpO6Cp6JpCIeoiHDaa36Fv9yg1Yh6Mek8dBR1c7Tlj45ghHIneLWY4gWSUL
-	 Cftt+0Q4SO0JYS2zvUdxAHviyQyYTRvS6LnyjOq4IOjEXAwNAqaHpkADk4N82q3h35228
-	 1vFJgAsnnUoIcXT31vC61PMjWUb0vVaIt6/NbjGm7iONzXrSc5OsgE15tbcrzqUyArIO4
-	 0kHA3XoSFkqV+H/t8eXLoKibFwF4Lo0VrdIhMYVnHolRajWUZrt1kjiQgdayc9DAy5g==
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=5nRX9BV8mjVmto8Gsx3EfTDHCBTdBSYk1raaxm4LEB4=;
+	b=y/hHrgVmSwSGs/0nRVHB0kGGzNIRyxoEVoYXFFbzHNGOo5eXXWwm/IMqEeN8kZ4/5q1E
+	 6YSnqse9eaorwA7K3778frxM5aFkuUyi981DJUQnkIxzmZslFptYtPdgL2eN7HO2JIcJs
+	 u1u0YiYgnXfc0jBjdAhXdJlobTZU2pNDhNOxwooYmlm5sFrKMFQYbLUzk7Dbb+K5dhV4v
+	 sySJLEe59GeLYu5YvHj1QvST7++ciTy1/R4KLBIGS89Hia1kIv6pQLSgAdSDfDFDfd+jW
+	 giRKcOGdS5a4neYyLlVc845iVbJ+2EYR+V7WE1lJNpZ3YmKH/mrz3kEpwvS4ilrtrKw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YQhVQxNK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XL4q1Dri;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC480606A337
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD206606A331
 	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 23:09:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YQhVQxNK
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XL4q1Dri
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794697755;
-	b=Uh90h/f4a8KHHE87P4ViZ17yvwOwMXh5e9pCXklgxk471fiPr8lB/kvzL8cKppAbQiOf
-	 MttOClIsskvm0IC/nnhe1S4+9BNy/wrtuQOjLHs7wm421PvM1TaYoC9tXUPLIlC9UwtLH
-	 tydv9uCLPUlTFCZg6uKllfx2KTAbobSLSfsLIa+prWZLSuhm8TtklduhEG1Y8gUTGgtzG
-	 fQeJLNAw/4J11Hif6VTaZ6VOjYl3/tl4x6WuIw0q5M4RiZT2ht8tA6nVCO4z+vNligIRE
-	 b/Tikpt0rn2+I4uvK515bZDz0BwghlEvUbJ6tpFy+XUTjXj+KPfTpZSR1Qa/439TvUg==
+	b=x8gnMIw2EWGCWTIBUBm3V+bDKcYRoCWUChvegY92w3fHrBtW3QaIry3mVZol9GegNpgR
+	 9mUaLADnIL2MIlLoh9zWKou5Q0BEi0h6PYxIcMJZhs0APBgYv8Y4cyuARLgSSxud3Uw9G
+	 POWnfoxRse0YjURzE16btKtuUTQmgqCYXDL30xirxt+9ueRcPtU8FBkLcsoECIGF9LcTK
+	 ITbrrTcP+oS8CXbpwc4+t6Evpu8XWxj2gNto3wFeEd/ipm6HQISv0LtseRpUXgUvK3/O7
+	 NOM6toQarLnZgKjRJTTtKh67S/VUtDB2t+rok433MV2C0w+4Mzcdk+h+BIG4UOSTYwQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794697755;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=1PTPiOEKRlp9Zsw9ftcdqrl7XVRQXVPvWk2EJN7ugKQ=;
-	b=2VYzhItxzBeG8B+6VMzXrdV2on0NVdKbNbYiSfJZPCLP5r3aj3usM7fLRpqjzGYAGN+R
-	 E8wDTsPGkImBWKhWby8EMK8qM26EvDQuBN3pLk2+Lxhp3QHVI2y6Qlf127e0ASK95ApO8
-	 /LClrjavN719iFKbgnoluT8L/EOixLU0EWwno5C1oLQD60r8zN9bSRXTzyNV3oNyhbo7y
-	 kPQbbThKhDL8jrMMX5sYvrd+05NDVAJAZekc5C2IAvxMpo4MXI9gq3trPLanDYrodISA9
-	 4idU4LlVoTUQB/0BrdHMvj5cPmtHZwStNmzYNcnWIyIR5HA8CGL2tw+Vwax1W10R8PA==
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=5nRX9BV8mjVmto8Gsx3EfTDHCBTdBSYk1raaxm4LEB4=;
+	b=dNvweEgrEpFPzeCucWnINuZ4Mz0Wf+x5VAOTheHfQcgnrSAP04nTM9c4923Qj2AaMp8Q
+	 9fseWu20ZGIiYYj+HVn1fOxtEjcQdhLEMjcjdKqf5LB7FKsG1hz35rPA476H9oEN00SKp
+	 0tUShg3sbSliO7RX5M8T0ZmENNZwG0yg3TzYC32fr8YLkI7SJMw/Iz0n4L9bejae5zT7U
+	 yVNj7OdsrExRpmIdr0D8geVJ5AU4Z6+/UC1tzTtFloL4gp173UZAvVJX2tPUNQJbyDw5X
+	 4KyhUXVLVGASTcB6Uxq7o6EMRiBVzZ4+HePhraqA6jEX3Civo3wKc8TBipHxcgoVERA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 75E231F000C5;
+	by smtp.kernel.org (Postfix) with ESMTPS id 78BD91F000C6;
 	Sat, 14 Nov 2026 23:09:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794697755;
-	bh=1PTPiOEKRlp9Zsw9ftcdqrl7XVRQXVPvWk2EJN7ugKQ=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=YQhVQxNK/56nTI3fAqmt39i0g/j7zkCdwv5/uKuD3leTAknrDxNdCnnbh3uYuHgpl
-	 1q/a9Tls3Gj7neYytWoVm90r4zHjAqNyRjqEX15ezrOFe1j+sPYQ3sTNHNDfXRjqUw
-	 OsneOj2U9R7EkBjgWL/TFHtWOM5ReEi7uKn7PHRAUxQ6nZIYkBrhEveOf50WXJvjAY
-	 n1fJY+12vpKBTq+GuIxJyjfK609KF3O4t/p8OJUuVOjweqUSb+5vxahedNgb7jT0RG
-	 JB5T4yVWIBk4boEXzmq76d2/cRVk0uYbVg2UYGzEfZgIpE6yecQMXTY5DwfThv2pkG
-	 Uk/Pi8r2R+6hw==
+	bh=5nRX9BV8mjVmto8Gsx3EfTDHCBTdBSYk1raaxm4LEB4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=XL4q1DridIVtEc+NF5IaqRJXHuGlxTAgyTE8/Eao7MPKjEXWCFiEmi07CfOA7UOpR
+	 OkNeADGim6BTADD8BaA81ME5YRhyaHnVr5CUi+s0iLNlHskVaQ5RPXIviUEm0y+emD
+	 k39jdrNE+4+INNsX0PcQ2FJgFYotTInHU1PXc6hM9xeiPBXcDoUeiibwuo4wGFUUy6
+	 qGiHd9RflvaEXY3g+Yh3yzOvodCc0g+Ttdc/WrIw8NJ0ZElSUvrzGnfsRMihycPkhC
+	 4szpPyYXkklY5cgfK8MswZ/27K0NuHoEgxurkA9RY1lHaMARhhW+DUnNdYzdjoWuv2
+	 8h+bNsVVMad6g==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id CC97049EBB;
-	Sat, 14 Nov 2026 23:09:13 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 081F849EBF;
+	Sat, 14 Nov 2026 23:09:14 +0000 (UTC)
 From: Hugo Sales via B4 Relay <devnull+hugo.hsal.es@kernel.org>
-Subject: [PATCH 0/8] drm/amd/display: Copy probed modes for atomic_check
-Date: Sat, 14 Nov 2026 23:09:11 +0000
-Message-Id: <20261114-amdgpu-modes-four-v1-0-f11e2a6cd407@hsal.es>
+Date: Sat, 14 Nov 2026 23:09:13 +0000
+Subject: [PATCH 2/8] drm/amd/display: Don't match FreeSync video modes
+ against the last probe
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,11 +84,9 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqDMBBA4avIrDtg/MerlC4mZtQRNJJppCDev
- Wldfov3TlAOwgp9dkLgQ1T8lmAeGQwzbROjuGQo8qIxJq+QVjftEVfvWHH0MWDdErGrSrKmg9T
- tgUf5/J/P122NduHh/RvBdX0BTEQDDnUAAAA=
-X-Change-ID: 20261104-amdgpu-modes-four-57aaed43ab18
+Message-Id: <20261114-amdgpu-modes-four-v1-2-f11e2a6cd407@hsal.es>
+References: <20261114-amdgpu-modes-four-v1-0-f11e2a6cd407@hsal.es>
+In-Reply-To: <20261114-amdgpu-modes-four-v1-0-f11e2a6cd407@hsal.es>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
  Rodrigo Siqueira <siqueira@igalia.com>, 
  Alex Deucher <alexander.deucher@amd.com>, 
@@ -101,89 +99,156 @@ Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  =?utf-8?q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, 
  Aurabindo Pillai <aurabindo.pillai@amd.com>, Hugo Sales <hugo@hsal.es>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3829; i=hugo@hsal.es;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5805; i=hugo@hsal.es;
  h=from:subject:message-id;
- bh=+dDISwyisNdvJwt3B/p7Y642cJGXY2iQt7K7XzoHftQ=;
- b=owJ4nJvAy8zAJVbLU7f+5A3TBYyn1ZIYsn68kmCebrPd1v+MlmhdJK9C9cNofplHL//ExW1I/
- Oh7f3sc++aOUhYGMS4GWTFFFt0bngwsEyfPzCl6vgRmDisTyBAGLk4BmIhFKcM/1ZeTGH7/71+9
- UH7ePY/pk3piq4KStp/9+FTJOH9BVeUXLkaGTb9/NDnrRh5j+r9X9UJEbqmhN7uCX/CJt12nD8V
- VK/1mBgBfp0ul
+ bh=yWWy7i9YetkE5GAq3UFyqpx2cMMLNJIdP9f/Q6iE3xM=;
+ b=owJ4nJvAy8zAJVbLU7f+5A3TBYyn1ZIYsn68kmh5vitWNXVa0wYXy+sLipbJLD3wY1/Ka+GtB
+ hoa4TMuldzqKGVhEONikBVTZNG94cnAMnHyzJyi50tg5rAygQxh4OIUgImsmcDI8GfD9LYvPRcq
+ jF1PM73ber72xwUPlpLF3cpRIX+/liU1MzD8L5K4ImfN0HD0/LmPK89MsTRSElZ1W5ClxhHWWsx
+ 0b/E5DgChSkyL
 X-Developer-Key: i=hugo@hsal.es; a=openpgp;
  fpr=193D095149CF7E8737B39064D912B0DB205A91C1
 X-Endpoint-Received: by B4 Relay for hugo@hsal.es/default with auth_id=1417
 X-Original-From: Hugo Sales <hugo@hsal.es>
 Reply-To: hugo@hsal.es
+Content-Transfer-Encoding: 7bit
 
-mode_config.mutex protects connector->modes, but amdgpu_dm walks it from
-atomic_check, in create_stream_for_sink() and
-amdgpu_dm_get_highest_refresh_rate_mode(), without that mutex.
-atomic_check can't take the mutex because of lock ordering. An earlier
-patch I submitted moved the probe helper's sort under the modeset locks
-so this walk couldn't race it, and Ville pointed out that the bug is in
-the reader:
-https://lore.kernel.org/r/auh8pUx_kXUYSdZ8@intel.com
+From: Hugo Sales <hugo@hsal.es>
 
-atomic_check only needs the preferred mode and the highest refresh rate
-mode. This series copies both at the end of each probe, under
-mode_config.mutex and connection_mutex, and atomic_check reads the
-copies under connection_mutex. The highest refresh rate copy is the mode
-add_fs_modes() built the FreeSync video modes from, as upstream's cached
-freesync_vid_base is. It's done this way because a search of
-connector->modes at the end of the probe could pick a command line mode
-with a higher refresh rate, and amdgpu_dm_is_freesync_video_mode() would
-then reject the video modes
+add_fs_modes() runs in ->get_modes() and skips a FreeSync video mode
+that is_duplicate_mode() finds. Since commit 828cfa384e23
+("drm/amd/display: Fix unadvertised mode detection"),
+is_duplicate_mode() also searches connector->modes, which during a
+re-probe still lists the previous probe's modes. add_fs_modes() then
+takes every FreeSync video mode for a duplicate and adds none, and the
+probe helper prunes the old ones as stale. With amdgpu.freesync_video=1,
+the FreeSync video modes disappear on every second probe
 
-The copies also need work to stay current after a monitor swap. Until
-the next probe they still describe the previous monitor, as
-connector->modes could, and two paths read them before that probe.
-mode_valid runs before the probe refreshes them, and after a swap the
-HPD handlers commit before the next probe. Patch 3 has mode_valid
-validate each mode with its own timing, so it no longer needs the
-preferred mode. Patch 4 records the EDID of the sink the copies came
-from, and patch 7 uses them only for a sink with that EDID. atomic_check
-checks them against the sink of the stream it builds, since a hotplug
-can swap dc_sink under it. With another sink, atomic_check uses the
-requested mode's own timing until the next probe, as before the first
-probe
+The connector->modes search was for the unadvertised mode check, which
+is gone, so search only probed_modes again
 
-Patch 1 drops a debug check that walked probed_modes and
-connector->modes from atomic_check, and asks its author below the cut
-whether to keep it behind mutex_trylock() instead. Patch 2 stops
-add_fs_modes() matching against connector->modes, which dropped the
-FreeSync video modes on every second probe. Patch 4 adds the copies,
-patches 5 and 6 pass the sink of the stream being built to the code that
-checks them, patch 7 switches the readers to them, and patch 8 adds
-tests for the copies
-
-Patch 6 also changes one behaviour, only with amdgpu.freesync_video=1,
-which is off by default. A CRTC turned on straight into a FreeSync video
-mode now gets its fixed refresh config, which it never got before
-
+Fixes: 828cfa384e23 ("drm/amd/display: Fix unadvertised mode detection")
+Signed-off-by: Hugo Sales <hugo@hsal.es>
 ---
-Hugo Sales (8):
-      drm/amd/display: Drop the unadvertised mode check
-      drm/amd/display: Don't match FreeSync video modes against the last probe
-      drm/amd/display: Validate modes with their own timing
-      drm/amd/display: Copy the preferred and highest refresh modes after probe
-      drm/amd/display: Pass the sink to the FreeSync and stream timing helpers
-      drm/amd/display: Pick the FreeSync video config for the new stream's sink
-      drm/amd/display: Stop reading connector->modes from atomic_check
-      drm/amd/display: Add KUnit tests for the mode copies
+ .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    |  5 -----
+ .../amdgpu_dm/tests/amdgpu_dm_connector_test.c     | 26 +++++++++++-----------
+ 2 files changed, 13 insertions(+), 18 deletions(-)
 
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |   38 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |   23 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    |  499 +++++---
- .../amd/display/amdgpu_dm/amdgpu_dm_connector.h    |   13 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |    2 +-
- .../amdgpu_dm/tests/amdgpu_dm_connector_test.c     | 1209 +++++++++++++++++---
- .../amd/display/amdgpu_dm/tests/amdgpu_dm_test.c   |  153 +++
- 7 files changed, 1644 insertions(+), 293 deletions(-)
----
-base-commit: 47df73aa49d1988c8f684b7caf8be6570e966844
-change-id: 20261104-amdgpu-modes-four-57aaed43ab18
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index 89f8427433af0..da2ee6179cb67 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -1409,11 +1409,6 @@ STATIC_IFN_KUNIT bool is_duplicate_mode(struct amdgpu_dm_connector *aconnector,
+ 			return true;
+ 	}
+ 
+-	list_for_each_entry(m, &aconnector->base.modes, head) {
+-		if (drm_mode_equal(m, mode))
+-			return true;
+-	}
+-
+ 	return false;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+index addc407841a2a..5af111698e355 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+@@ -1136,7 +1136,6 @@ static void dm_test_is_duplicate_mode_empty_list(struct kunit *test)
+ 	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, aconnector);
+ 
+-	INIT_LIST_HEAD(&aconnector->base.modes);
+ 	INIT_LIST_HEAD(&aconnector->base.probed_modes);
+ 	mode.hdisplay = 1920;
+ 	mode.vdisplay = 1080;
+@@ -1157,12 +1156,11 @@ static void dm_test_is_duplicate_mode_match(struct kunit *test)
+ 	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, aconnector);
+ 
+-	INIT_LIST_HEAD(&aconnector->base.modes);
+ 	INIT_LIST_HEAD(&aconnector->base.probed_modes);
+ 	existing.hdisplay = 1920;
+ 	existing.vdisplay = 1080;
+ 	existing.clock = 148500;
+-	list_add_tail(&existing.head, &aconnector->base.modes);
++	list_add_tail(&existing.head, &aconnector->base.probed_modes);
+ 
+ 	candidate.hdisplay = 1920;
+ 	candidate.vdisplay = 1080;
+@@ -1172,10 +1170,14 @@ static void dm_test_is_duplicate_mode_match(struct kunit *test)
+ }
+ 
+ /**
+- * dm_test_is_duplicate_mode_probed_match - Test probed mode duplicate match
++ * dm_test_is_duplicate_mode_previous_probe - Test modes of the previous probe don't count
+  * @test: The KUnit test context
++ *
++ * During a re-probe, base.modes still holds the previous probe's modes. A
++ * mode listed only there is not a duplicate, so add_fs_modes() builds the
++ * FreeSync video modes again on every probe
+  */
+-static void dm_test_is_duplicate_mode_probed_match(struct kunit *test)
++static void dm_test_is_duplicate_mode_previous_probe(struct kunit *test)
+ {
+ 	struct amdgpu_dm_connector *aconnector;
+ 	struct drm_display_mode existing = {};
+@@ -1189,13 +1191,13 @@ static void dm_test_is_duplicate_mode_probed_match(struct kunit *test)
+ 	existing.hdisplay = 1920;
+ 	existing.vdisplay = 1080;
+ 	existing.clock = 148500;
+-	list_add_tail(&existing.head, &aconnector->base.probed_modes);
++	list_add_tail(&existing.head, &aconnector->base.modes);
+ 
+ 	candidate.hdisplay = 1920;
+ 	candidate.vdisplay = 1080;
+ 	candidate.clock = 148500;
+ 
+-	KUNIT_EXPECT_TRUE(test, is_duplicate_mode(aconnector, &candidate));
++	KUNIT_EXPECT_FALSE(test, is_duplicate_mode(aconnector, &candidate));
+ }
+ 
+ /**
+@@ -1212,11 +1214,10 @@ static void dm_test_is_duplicate_mode_no_match(struct kunit *test)
+ 	KUNIT_ASSERT_NOT_NULL(test, aconnector);
+ 
+ 	INIT_LIST_HEAD(&aconnector->base.probed_modes);
+-	INIT_LIST_HEAD(&aconnector->base.modes);
+ 	existing.hdisplay = 1920;
+ 	existing.vdisplay = 1080;
+ 	existing.clock = 148500;
+-	list_add_tail(&existing.head, &aconnector->base.modes);
++	list_add_tail(&existing.head, &aconnector->base.probed_modes);
+ 
+ 	candidate.hdisplay = 2560;
+ 	candidate.vdisplay = 1440;
+@@ -1238,13 +1239,12 @@ static void dm_test_is_duplicate_mode_same_size_different_clock(struct kunit *te
+ 
+ 	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, aconnector);
+-	INIT_LIST_HEAD(&aconnector->base.probed_modes);
+ 
+-	INIT_LIST_HEAD(&aconnector->base.modes);
++	INIT_LIST_HEAD(&aconnector->base.probed_modes);
+ 	existing.hdisplay = 1920;
+ 	existing.vdisplay = 1080;
+ 	existing.clock = 148500;
+-	list_add_tail(&existing.head, &aconnector->base.modes);
++	list_add_tail(&existing.head, &aconnector->base.probed_modes);
+ 
+ 	candidate.hdisplay = 1920;
+ 	candidate.vdisplay = 1080;
+@@ -10402,7 +10402,7 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
+ 	/* is_duplicate_mode */
+ 	KUNIT_CASE(dm_test_is_duplicate_mode_empty_list),
+ 	KUNIT_CASE(dm_test_is_duplicate_mode_match),
+-	KUNIT_CASE(dm_test_is_duplicate_mode_probed_match),
++	KUNIT_CASE(dm_test_is_duplicate_mode_previous_probe),
+ 	KUNIT_CASE(dm_test_is_duplicate_mode_no_match),
+ 	KUNIT_CASE(dm_test_is_duplicate_mode_same_size_different_clock),
+ 	/* amdgpu_dm_get_encoder_crtc_mask */
 
-Best regards,
---  
-Hugo Sales <hugo@hsal.es>
+-- 
+2.56.0
 
 
