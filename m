@@ -1,65 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794682260;
-	b=dYrtemFy835VUk3TCG7zdaXcLQGqoOT1djJXaUmt1+a1w9kSY1ZfFhJTDNATbUR4Fpzf
-	 euHu0lUB+EQ86GfcUu8L0HjZ6BseksSk1sBG0dSw7wjUWGXaMc0phoIU7Kw+3kuztGJiR
-	 oLCrtApfI3hK/PoMqTRQJlYneIduk1+ijmZUwMdvVOaNB53rg9DkM08KKMGAkhjeDLzET
-	 fagblts2E54Tvgw+dCgsd+suKZa8sQOi+OdWb/UJ/u/z/H2GXMb3zb4/S24WQh7NhQjca
-	 MTecQzqtbwqv4eKmto0r/TPPZMxqAKlnbQ8p1w3kqd0GUqk45dHK0FnZ/WA7Dc0ZaWg==
+	t=1794682265;
+	b=C/AxxzML5LWUKGq5qJQmiK8INWZbV3t8z0gRp7VdHKnOIwUbvD6SMNYWpxL64EE/aGwl
+	 THySdbdm2ZwIs3LzsyW2WK4QZK8T72db2K8wwpe8X0OZhblJab2tIWW1JoNRKyNi27xJa
+	 5eNSFI6L3XIc2PP+B3HrBpTfPBuzrNLs+hM8jEly/w1ojDJA3/vXQ3BZrgxkkQb39AGy2
+	 LCc9BZnq4gv5N02yxPgz4BqycsrDzGoTEfM8MOXIdjnhg0kmBRc5C1FxOaQOI9crSJoJN
+	 srWuyGNbdzG/kQ0ZIqrppOMHw2gIj67tFpIyxSSO8u+jz54U1o8bHhDeOOggrXFQbSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794682260;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=sMXrHsolRG3J/I2nE1oI1F3DJZKjH3O2j2E6lRmGAtI=;
-	b=N1J72bmZiohbAT6uEicY+mu1a337nDkXkhojjtgXONmWkaJRDL+i7I1VZwTrwvbLICGd
-	 in71SfmXpvANoQRUtgw4NjGRFM8V2ZrqpI+/tx72Rj4ff9CtVvfrG/BFtmHSXRBnTrRdi
-	 duWOHrKwOTiV6Njz2qczPZhVv3FYVhUYwtUekbKugMuAO/ww05zODjHF/sDVTvhhrmrC8
-	 Wd/dNEDimrwp6z/I0oHm0C8UwFla1Ef5u3B9ErDDRjpW+L82Qyli2GDSbYig6gfj9ppjM
-	 yR1zAI1Db3yp4Gr7wHiJuBo+m++yaKmIFbefnnqfqsqOpBSI5cRfMEgmQFw8eOVzKMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794682265;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:From:To:Cc:References:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Ti+Jb+6rot6D0fGqe0TLD4jEkN6i8C21i0D0JqlvkBM=;
+	b=VIiprRVCs2sojzinCuQ6dVXckALT2l2PH1IwSVCCoG68xl9cio5l5sWIQLB261dqZ1uh
+	 AO8huoUvAWV7hEAVeMlWXESvAX3lBUbeon2/qO19JdfsYRnglSsBirwCQRfiFgO0LxAoW
+	 z9CYD1ss1AFo9f5S4L1ar+X4g70GPYUta+nOgfrwO+L6/2Dy/v4DLNNo6Z0Ud3RXIT64v
+	 zI4WYoJhcFRUSXFKalL6+HxelFc0h3913ReAuxpSKgQ5IA6cpoLVVm0Ub0lfvRMVAbdIG
+	 cT4jLz06AZu8osHlTiM3+hRlWKwRzJUrE6y8ZXmplunLQn99TzVXPsXUkkkgvdQ+m9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NlsSzBI4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Fy9f+vMz;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28E96606A329;
-	Sat, 14 Nov 2026 18:50:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE46A606A886
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 18:51:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE46A606A886
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NlsSzBI4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CCB71F000C4;
-	Sat, 14 Nov 2026 18:50:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794682259;
-	bh=sMXrHsolRG3J/I2nE1oI1F3DJZKjH3O2j2E6lRmGAtI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=NlsSzBI45RTY2QD9JZZw15/cPFKHjhMg1sEMEBxkV8amdg1yO+DFVQ8AQqHYY0z5L
-	 jLO7hZiQS0cqtBZ68PLHxfjCWzE7EJAJHPFzXQx63FHzG0S4XE6FZ4grX2dWC4Ih5f
-	 rvcGcgSTx6Fs7qzSYnN+fiGVYf997qz9wsTJFwqspOPNZI5xchKyzHRea03RDyxBUx
-	 ZV8pGBQREZ5dfECdGUF/1oOF7pOed9HxTfJ5JMRvWaN73lIXS/Jdw1fm/FldNWmZrZ
-	 JtH6Ok24KutZDvWBMjCZuXBj25LaiYExQ04VwC7l62ECsPgSZocMAVi/fgXZweQn7Z
-	 +fNbHAAymlQGg==
-Date: Sat, 14 Nov 2026 18:50:50 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Roman Vivchar <rva333@protonmail.com>
-Cc: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>,
- David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>, "=?UTF-8?B?TsOtY29sYXM=?= F. R.
- A. Prado" <nfraprado@collabora.com>, Chen-Yu Tsai <wenst@chromium.org>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH 2/3] iio: adc: mt6359-auxadc: mask conversion ready bit
- in mt6358_read_imp
-Message-ID: <20261114185050.1aa08612@jic23-hlaptop>
-In-Reply-To: <hAkgxe6jt5EJW-8bHBs53r3CWCxKxjjzGm6u-l-RzYaGedsBunJrv8nOB48zDSLaMD_jJqtC1Xt1wlz0zDdGF28li-clCdIjUzE9xSbh7Hk=@protonmail.com>
-References: <20261103-6768-6358-fixes-v1-0-2a868a33152b@protonmail.com>
-	<20261103-6768-6358-fixes-v1-2-2a868a33152b@protonmail.com>
-	<20261103234540.46cc8c1b@jic23-hlaptop>
-	<hAkgxe6jt5EJW-8bHBs53r3CWCxKxjjzGm6u-l-RzYaGedsBunJrv8nOB48zDSLaMD_jJqtC1Xt1wlz0zDdGF28li-clCdIjUzE9xSbh7Hk=@protonmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Fy9f+vMz
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-36fc0a3fe93so3951221eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 10:51:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794682264; x=1795287064; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ti+Jb+6rot6D0fGqe0TLD4jEkN6i8C21i0D0JqlvkBM=;
+        b=Fy9f+vMzmp7n3Hmbvma919FMJ8R1j+p1Tpy+wUmx8IywgHAGrHs7VQYCPqRmfdl80y
+         D+CAa/1e6U4t0jniDpoZ1pdsmE+UAMuSpDKhdIkbFpxhikWI3eC3Wqj36qgibQxtDEuq
+         CH+n4AQQawGQVIjnCz4jqvcKowbaeLd/a605/FOcMph6pN/OZT20Zca9g23GD1GYSsZL
+         YqMWj8mmihvIV1Jnk01q3zQnYoSyMfqibMbycAERSGMaeilyBDfjXBPFxgYWjg8NduHk
+         zfZfLPoXmFfSYMyL2YXIXX1pR88j1Qs9Y5F9bnZp//qY5pkUvPYqlGmph3U4TfVYNYA9
+         WNeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794682264; x=1795287064;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ti+Jb+6rot6D0fGqe0TLD4jEkN6i8C21i0D0JqlvkBM=;
+        b=EEziqghK75NtShjmaXMTv9mp/rutRo/X+7xR+0biqE6+JP50sijlkYIis5theLA4p4
+         Qd/2KN2n90NP/UrDsT8Uvxng7eYMVYAlbA1OWk/MNQBof+uck8Df9AUioI8hokmsuyWa
+         goKbttCprd7tO/xrnDV5iWYMkSS0G5Q6sMcZccSKlV38Z15x4yzMIagoMHaJ98XOhQNW
+         n2Dig5kWuFBf3eJy8/hFyO8hWPuD1pzjrzD88DKqpAeLXGupkZDFJ9znJ2HB0HDqAYLT
+         5WvCVPxRAOV3h/I7bQjuRYa5AU9kmG2DEPL3JpZ00//7mQJT+7XTugGp5hHJmzUZ8c8o
+         WtnQ==
+X-Forwarded-Encrypted: i=1; AL+hErG65TNCNHh73nzkqemfEsaTvtCZqXf8soSGhF3GudzzcSQpZFVJuX8Oa116sb6P60N6uJae+4tk3rQgxf0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+GUrmPBiQyMiTr41L19AXh/PVKoWAbSGtP+x0ST4E6e1C5khxL
+	rGfoGpwoWkeLSMmP/h8Uyz3x7tuQk+O3jhcyT8ec4sf/aFEQcgW+2J+0z+jG1b7J
+X-Gm-Gg: AYBFou2XxSFu/I5cl2w0wohEFE5XNgxemKka2iHREkNpSSJvN4lUjuDdQyJk73DoRx7
+	R+dQZxLE4VEp43CbtTmRqbY6H/HqXzykNlm3n1H7s5H3jbBMEAwXNB27hpuVkgsQsjfBzveXDKV
+	nIV1w+rLlqyW08JwcieRD/MUG1YTU8qXL6CGSQYRWoA2n0yduN2gqMamjEwBmqQJfwITKb9xBvX
+	eWOHR8jj2mHx6y9i8Z3JjWAx2w+qkPytkEVrQWnT8P2ODpGOE0jq49h4+DvH5RGuQ+YtO6LzF1E
+	GHO2e/kJDxF+y7DmS8qb8St4Lx4CjDNoem5/hRtR335autxrq5Xl+3XAeHqQBfYMAYHEoSEfvrF
+	q+AqcC0Cp7MYXdjakpPik2rRUEXaTWC+6whliQ1Cvnsp4XYDZkc4umNcocM2GA2nDNXARL5bv4M
+	3JsTqwFEOvW29qoEk+hb4AUBvRD1o4w1l69xAotDS/BXC2FBc9xg9jrBOikkQ/V5Z0gW/wYHLCT
+	Xollb1frYWPemS7ns/P9j3ZTXIkAu6XP1y7dTBdOE3mNjJhdQRfi/AqQyr8AvB9K4F2eGdnP9rE
+	WCzFUNSwBwhy8ucyZaiAM/QZGyfe1hqZjX2pH4E6VY/gC7ES27UGxIJaHtQ0Xl/k09nZxnIsztu
+	zmzIQBjs=
+X-Received: by 2002:a05:7300:8b85:b0:36a:1f8:a56e with SMTP id 5a478bee46e88-37966a5848emr9057429eec.23.1794682263819;
+        Sat, 14 Nov 2026 10:51:03 -0800 (PST)
+Received: from ?IPV6:2600:8800:1aa1:b100:2831:c6dd:8b01:b6b1? ([2600:8800:1aa1:b100:2831:c6dd:8b01:b6b1])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d269asm20079398eec.23.2026.11.14.10.51.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 14 Nov 2026 10:51:03 -0800 (PST)
+Message-ID: <da130728-86f4-43f5-a8db-796562c3d0f0@gmail.com>
+Date: Sat, 14 Nov 2026 11:51:02 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,73 +91,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/5] drm/vkms: support more formats and fix RGB565
+ regression
+From: Sidharth Saha <ssaha2000@gmail.com>
+To: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Melissa Wen <melissa.srw@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260928005301.367977-1-matheus.aalmeida@inf.ufrgs.br>
+ <f3707b72-07f2-41ae-aefa-c46ef84de3e3@gmail.com>
+Content-Language: en-US
+In-Reply-To: <f3707b72-07f2-41ae-aefa-c46ef84de3e3@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Wed, 04 Nov 2026 00:19:33 +0000
-Roman Vivchar <rva333@protonmail.com> wrote:
+On 11/12/2026 5:18 PM, Sidharth Saha wrote:
+> Tested-by: Sidharth Saha ssaha2000@gmail.com
 
-> On Wednesday, November 4th, 2026 at 1:45 AM, Jonathan Cameron <jic23@kernel.org> wrote:
-> 
-> > On Tue, 03 Nov 2026 18:32:08 +0200
-> > Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org> wrote:
-> >   
-> > > From: Roman Vivchar <rva333@protonmail.com>
-> > >
-> > > In mt6358_read_imp() the raw ADC value is returned directly without
-> > > masking out ready bit, resulting in incorrect battery voltage reporting.  
-> > 
-> > Can you add where the ready bit is.  That might help someone
-> > looking at wrong values and wondering if this is what is causing them.  
-> 
-> It's at the end of mt6359_auxadc_read_adc() function, which is included in
-> the commit message. Do you mean include the code part too?
-> "*out = val & GENMASK(chan->scan_type.realbits - 1, 0);"
+Sorry, I got the tag format wrong above (and in my reply to 1/5).
+Corrected:
 
-Nope. I mean which bit is the one that will be set and shouldn't be.
-Is it Bit 15 for instance? 
-
-Just having a note in the commit message may help someone (or these days
-an LLM most likely) find this.
-
-
-> 
-> > This one is pretty glaring as bugs go (given I think this means the
-> > top bit is set?) so any reason it wasn't obvious to anyone testing
-> > this device?  
-> 
-> I can't really tell if the driver was properly tested. As far as I understand,
-> Chromebook devices use some embedded controller, which likely manages this
-> kind of stuff without PMIC ADC. There's no in-tree mobile SoCs with mt6357,
-> 6358 or 6359, nor fuel gauge or thermal drivers (yet), so maybe that's why.
-> 
-> > Jonathan
-> > 
-> >   
-> > >
-> > > Apply the mask to strip the ready bit, matching the behavior in
-> > > mt6359_auxadc_read_adc() function.
-> > >
-> > > Fixes: 3587914bf61d ("iio: adc: Add support for MediaTek MT6357/8/9 Auxiliary ADC")
-> > > Signed-off-by: Roman Vivchar <rva333@protonmail.com>
-> > > ---
-> > >  drivers/iio/adc/mt6359-auxadc.c | 2 +-
-> > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > >
-> > > diff --git a/drivers/iio/adc/mt6359-auxadc.c b/drivers/iio/adc/mt6359-auxadc.c
-> > > index 951d236f972b..09432d0974cf 100644
-> > > --- a/drivers/iio/adc/mt6359-auxadc.c
-> > > +++ b/drivers/iio/adc/mt6359-auxadc.c
-> > > @@ -502,7 +502,7 @@ static int mt6358_read_imp(struct mt6359_auxadc *adc_dev,
-> > >  	mt6358_stop_imp_conv(adc_dev);
-> > >
-> > >  	if (vbat)
-> > > -		*vbat = val_v;
-> > > +		*vbat = val_v & GENMASK(chan->scan_type.realbits - 1, 0);
-> > >  	if (ibat)
-> > >  		*ibat = 0;
-> > >
-> > >  
-> > 
-> >  
+Tested-by: Sidharth Saha <ssaha2000@gmail.com>
 
