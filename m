@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794677494;
-	b=nolTUR29AUrUF7/v/DwxA57zeIumJAjblHtDroIDFBDB6axxk7OnUpelEsOxxcJgBkuJ
-	 EEQ8TqYQGJFaRXZ6JDjf678Ih3WKYX8K1JkBszyhgZG8IEhPflXPJKpEHVSdVwSQeFKuh
-	 5qfB74zXDxUDXHzdD2JII6+SoImWz0JYhdOAjLTnOqyzFwKtTkAX89QwQMMcLM/bGqgoS
-	 rwvaB58wb5v6W1EN1h1MqQtqLb4np4jouMTJV44zYBJbZheQHiBVgCNuVTdlVUxHTHQ0w
-	 p4Mb6EEH7rRrufTHs3HdkAuFinR4tMJ9vjBkLQI4NNKUO5U2MPziFEoJRf5M8ZVu4Gw==
+	t=1794677522;
+	b=0zRtqv5+6ARyLIvKzS0Ha2NdeCjcJXrewOWwKiwGFDdN0fVgHVbChdkkPNa9Va+Q7DoJ
+	 J9/PtT65OX4EtXDGdu3kCg/Neqewft58+Fu1NvZU8UZpHutXWuSJbc7ItBarT2sPoYxDD
+	 qDq2sWwmqplZPAOd/m8o5DxEgttz7Mp+SWUNoow8fhG6hVe5qpqi6YsuBCEbxwF01uBG2
+	 s1S/xPjOrTSknWwkynVg0W2R6Nqis7G+7eI1cPUCdHoBCn4xv08yP/qRc59LwLJpdsnO4
+	 xq8D37xlERcKtKUi/rLQ+asij6anyQCyZig8A7YEr1mKqWcxrZqxZ4mGCCbRK4CS3tQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794677494;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794677522;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=xu6Ta+VGcVrBTjJvTLtQRPi6ZkVQp0lKmr8llfO95ro=;
-	b=TUEUN0Vs9wTT6VugBbcvJ5pkqAy8Lj4u717bo22VroIpesVEwsOXV84IJ1BpB3NPfEkT
-	 oClFh1MxVEt4f9h9WoIWW3eY2dk20HYi71MAJ7zwGgM0DPhc58n+aDih6USYmRx+6LUR5
-	 yPj4cV9nJdhi1EgaPqQdFLQ1MYN5qs774eEO+zaIRp7ohYKJg2NyJXqvsLcjDlBojvaYd
-	 zAmzkvfgBLVbIhIxqGqLTi4KSpjIvsFk0Fh65QyRiYIp2m6XiBI763R4kvTRlhgQTiDji
-	 JrKtYOH7hybk5TQPQ9TCmiLJhmv6rRo7l4TnNWAJcyR2fwQxQsfT0qkQ280HPN9ND9Q==
+	bh=AljFBfIqcD1ZWecoMIIEjM2yrPFU4geEAa8J3J+RzSI=;
+	b=Tz+OKAkweab0lhCbgSR0kw0W6r/wA7Po6PBYSuz2LrpWzyZDPCKF1iO2Z60pOFAn1M7m
+	 MnSjMrcVra6ikzvKCfJQDzwreSzcVOn7TwJ2K3rKPO0/6q0Z/ubm8syas/aKVZz8NEsUz
+	 FL1HZEWzS81OKo3Pr1LgfANzhpuiF3BflwnzTyCjg6BBwkY++HHWzzKRD7Q/tAmbdOnTY
+	 7KyhLVpBryjSuAcOvqbTG1q4DSWYM+YxGQs4/8Z3F6/9eFSflXQXOl9ykDTTYSvqPkE+F
+	 ++a5rN4Slz0Ps9MTNBZUqe0oWuu9SgAPR1yGfsojTDGN7eHH3N6Fgfo0wUjO/UVsoMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XubAwCv6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ObqNUb3r;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0A43606A32D
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:31:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 429D2606A327;
+	Sat, 14 Nov 2026 17:32:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XubAwCv6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 973541F000C4;
-	Sat, 14 Nov 2026 17:31:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ObqNUb3r
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F9E01F000C4;
+	Sat, 14 Nov 2026 17:31:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794677494;
-	bh=xu6Ta+VGcVrBTjJvTLtQRPi6ZkVQp0lKmr8llfO95ro=;
+	s=k20260515; t=1794677521;
+	bh=AljFBfIqcD1ZWecoMIIEjM2yrPFU4geEAa8J3J+RzSI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XubAwCv6+ETbPYyk95JCbkpKK5A+JFqtao9ua+CADY8vxNic4QukZaRvgMbdbueZu
-	 dEGJTBnNmnjXvWBuiPPxvJZXK1r8ot6BynZQ9rO+SyX/AqRObbBLAdsEnojlAUFntr
-	 eQmCxpQVq8bKZd5U4lRQqIPvhS42ofy3tE3U4slpb49itS3F7tCAyTqKVMTPx0/3ab
-	 amZ40UQLximBy+DKck5n90zX4/5rVfbMCYf2K3XyUsGcbOX3L5Z1kc80rD9YoAKJlH
-	 nJD3FdjWxo2PJvuWcRJjJlxz60fgVH9bbJPUn9+jN23fDkFwzcQ1N2CB7DlEH8ENUk
-	 wfJQFPEc+672w==
-Date: Sat, 14 Nov 2026 17:31:29 +0000
+	b=ObqNUb3rKiS4yM6Gx8oWG4UUqxI61uIvOXGmQ5kWt6uCoyS6klGsYFAfIFeZjQK7Z
+	 WmodSxBw2K8Gc7zgtTpEDad5gKA+SXjpbSL8F36t3CGb2c9u4LYPinBOj4tluVSh8g
+	 cZNAV50PT6+QvQFvppbopy9lIinxs1Sq3vyZ2U62s7bmDVYWa6bHKnsrOO/pBVabK/
+	 myCdflNoBM5deUNg0EcV2g+NndbsfDXCR/xJalleom0x3NppP8fBJXFETJ/msTOljp
+	 jV9gpvzRpQTmen093PZThK7Lmzd9W7rA1CFZAobft/EkWhvP1vxu2BOxJUvMb523HW
+	 3bH9Z8rz1R7PQ==
+Date: Sat, 14 Nov 2026 17:31:57 +0000
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 To: shao.mingyin@zte.com.cn
-Cc: surenb@google.com, akpm@linux-foundation.org, linux-mm@kvack.org, 
-	hao.ge@linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm: snapshot alloc tags in alloc_tag_top_users() to
- avoid UAF
-Message-ID: <aviaKvQu1QqlMvNB@gremlin>
-References: <20261115004711126EXlXUnHk7NZz7rkWhDkyP@zte.com.cn>
+Cc: akpm@linux-foundation.org, david@kernel.org, linux-mm@kvack.org, 
+	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/balloon: fix NR_BALLOON_PAGES accounting on migration
+ failure
+Message-ID: <avia_XgVOuN_pZ72@gremlin>
+References: <20261115004708909xx05JgB9nXnOCG0zL7h_K@zte.com.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,29 +59,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261115004711126EXlXUnHk7NZz7rkWhDkyP@zte.com.cn>
+In-Reply-To: <20261115004708909xx05JgB9nXnOCG0zL7h_K@zte.com.cn>
 
-On Sun, Nov 15, 2026 at 12:47:11AM +0800, shao.mingyin@zte.com.cn wrote:
+On Sun, Nov 15, 2026 at 12:47:08AM +0800, shao.mingyin@zte.com.cn wrote:
 > From: Shao Mingyin <shao.mingyin@zte.com.cn>
 >
-> mm: snapshot alloc tags in alloc_tag_top_users() to avoid UAF
+> mm/balloon: fix NR_BALLOON_PAGES accounting on migration failure
 >
-> alloc_tag_top_users() selects tags under the codetag module-list lock,
-> then returns raw codetag pointers. __show_mem() dereferences the tags,
-> their strings and per-CPU counters after that lock has been released.
-> Concurrent module unloading can invalidate those objects before they
-> are printed in the OOM or SysRq-m report.
+> A balloon driver's -ENOENT migration result means that the old page was
+> deflated but the replacement was not inflated. vmw_balloon returns this
+> when its deflate operation succeeds and the subsequent inflate fails.
 >
-> Copy the selected tags and counters while holding the module-list lock,
-> and print only the copies. Reuse allocinfo_to_params(), which copies
-> names into fixed-size buffers and retains at most their last 63
-> characters. Preserve the signed comparison used to select the top tags.
+> balloon_page_migrate() accounts the deflation and frees the old page,
+> but does not decrement NR_BALLOON_PAGES. Each such failure therefore
+> leaves one extra page in the per-node count, which also contributes to
+> the Balloon value in /proc/meminfo.
 >
-> Keep the larger output array static under the existing show_mem lock
-> to avoid increasing the stack frame. The counters remain approximate
-> lockless per-CPU observations; the copy protects object lifetime.
+> Decrement the counter on the old page's node, matching normal dequeue
+> accounting.
 >
-> Fixes: 1438d349d16b ("lib: add memory allocations report in show_mem()")
+> Fixes: 4d689474e1b2 ("balloon_compaction: update the NR_BALLOON_PAGES state")
 > Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 
 NAK.
