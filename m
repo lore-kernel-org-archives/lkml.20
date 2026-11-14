@@ -1,75 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794668760;
-	b=hxzQMGUPxGqGxYz+HuEnmvl5V890/oCBU+Ap7Dv3sn824/c6ndiIOKXF9DJo6AMT5nhX
-	 mwKH3kyU0YoJpEJzuXtuim5r2KscfRNzn4/SaezotCfZdBTpZHA3iC/oaElgNgsT5tykL
-	 qz0B4MkL1rVTUEXYU7wH/oe9rakThdLkdLvtJZqwZr3loQtwLNgESYL1ODcYTnl83xEiZ
-	 O/2rZYjgrGv5Bl+oINMmzyYvzEK1uk+S+mN+AgYPKrehQ3nPBB4OQMFYrN+L/CfL+KdU9
-	 Xtt30Ey641xmUE/JXmFPVh/oEIgUBlYc1sYqKuWRA6K/vvOLWWIwhhrT7W8IkL9/Deg==
+	t=1794668785;
+	b=tz2AO8z5anTF4LgNcfaSs9QUn4hWX0twiCpS9HUf1ds0d1YFUTfxzcItiwveKCW0iU8h
+	 wE9jf56AXfzXh3LkSoaD5DaCCzzDxIz61oxCZOkzZxj7CL4ZAK3dF6Lt4hVaehQ5ZYKuU
+	 rxSO1KjYOxj/olWuaq9SmymjNk1VrSikUmpVVeqDDzlfTY6ax+mmwWmRVKJxvuBLh/JKK
+	 GAwSS/NQDg5viNDzHDqfJhjcNjE2fymDHKYhGIsD41AOBpvVHLiNwDH6iM5yVEsDs3QX2
+	 ncl/GNaACXFZvAUyffUUZIzQczgQ6tDjcMV3n3Wz2eUtq8hExJ+9aWkoeuE335EHRAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794668760;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=/mxt8P+p8nf0AiOazDgUB7JS7ORkdSvZiaaLa5AtUKc=;
-	b=LXolftgfT0ydqIOKm0Nry5LgmeynfgLe5UoLcfyXYvknDbTc+hqHBXuhg4ftulZLBV2M
-	 iMRuTRhE6DH/rFPVwAkMJg/dNS1XOadPsj6IX5a7clw2SVz4Ic/Pq/cGZSpXffM7bUWBo
-	 +gnw14g08aZJi5r3qNgR3jxkN7CCsdQzDqH7Z1ESOIt5CWU5p6ou67bCN+Av64XX/YGqX
-	 sLVPSqHICf7CsQm8BErS5JamB2f5wtxP6kMaovFGj1y9jrX371idgkf6FK9a7kCp71rvO
-	 Ju2fH5iwqel2dVkG9spH3Rirw4gMW3QLDqxz9SyJyTSsBwoZ5IcoNpI2NulRHdEPDzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794668785;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=gPlumqmMy/TS1Z79coN07+eLGMuUh+Q2c2xpM92oPK0=;
+	b=20hzwxFxJp3RalUwWVWbWapiJftlrLaGvu1h/oJ0vRoTIDvdG4dAXbbFc5kvpzjezX2T
+	 AYrOikYVDT2/5maP6N7mIdHTx4Y8GNkUavSCzp65/xC4dlnZOoRhBY5M/3XhNVGHf2n7H
+	 mJ8GlEfutHKzp3gLRVikgID0mPouwEeidQW26115nnihjwUc6tCZanhNemUKfPyrfb8mg
+	 DehQKBKtN1h6vQwOZvAL5zudyAQJI9V1T1YP06YmiwkAhPiEck5UhjV0EGZV0+cRz5X6+
+	 k891RIAhZ8ZBW+QIZyW9mnnZNPU4/Lu74PvLHQs/h4UYZcLEdh5Id1881AzODcYH+ig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=mf5fqHeK;
-	arc=none smtp.remote-ip=111.22.67.137
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 950E7606A330;
-	Sat, 14 Nov 2026 15:05:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 950E7606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P0Is9jPV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B157F606A332
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 15:06:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=mf5fqHeK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=mf5fqHeKuc5bU5TH8fTSzCRqE13f/jgJFdelRXx6kMGeDMulRczsq9NTFgf1Ds94uK0thS95oObIm
-	 PcHn1FieVBL2lnLEDMeI3tRMvuqp7iWcbsEa+RbNXvIHpz+7KRP703tCyaGW9b2lvM2Uud7B2kDoXW
-	 temuXqNFacPRBob4=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86af878cebd0-91f2c;
-	Sat, 14 Nov 2026 23:05:50 +0800 (CST)
-X-RM-TRANSID:2ee86af878cebd0-91f2c
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from FHD-W7400297 (unknown[10.55.1.70])
-	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66af878cb188-47d2b;
-	Sat, 14 Nov 2026 23:05:49 +0800 (CST)
-X-RM-TRANSID:2ee66af878cb188-47d2b
-From: Aibing Chen <chenaibing@cmss.chinamobile.com>
-To: josef@toxicpanda.com,
-	axboe@kernel.dk
-Cc: edumazet@kernel.org,
-	kuniyu@google.com,
-	pabeni@redhat.com,
-	willemb@google.com,
-	davem@davemloft.net,
-	kuba@kernel.org,
-	horms@kernel.org,
-	linux-block@vger.kernel.org,
-	nbd@other.debian.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+b29ed72382b0e218323a@syzkaller.appspotmail.com,
-	Aibing Chen <chenaibing@cmss.chinamobile.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] nbd: do not reinitialize a live socket lock when reclassifying
-Date: Sat, 14 Nov 2026 23:05:46 +0800
-Message-ID: <20261114150547.842-1-chenaibing@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P0Is9jPV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A6AD1F000C4;
+	Sat, 14 Nov 2026 15:06:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794668785;
+	bh=gPlumqmMy/TS1Z79coN07+eLGMuUh+Q2c2xpM92oPK0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=P0Is9jPV8V7EDDghiT7VHrcFj3kSnB2meK+9wfamwMFQSt9LC1mUTxr5pIy4aCWjl
+	 pUfToTL5MPmVsnD3O+F7PPlzn8jMCoGMZJIumApN1DSrXX/QfvlXXAcKCOTGhphiCJ
+	 gz7m5t5dJPvSdi0pAeGOuCZ+CEr6MssBiKI7mJZtn6ke7VIQFVo1496Mzl80WprPrx
+	 up4FYVNdJpTDA7k9o96nSoiAwrF4+sI2jAC5aUq4n4s8NjKJXcQhbitYc3umOlG/9Q
+	 Gp/DgP2lI2Q5BuTlnfBssN8YNcekQlJ3iZ++tGmeU5bUmVUmGC4FzSv06zKhN24mUc
+	 lBOGKo6oysySA==
+Message-ID: <7c6e733e-a464-404d-8b69-607eaede0c5c@kernel.org>
+Date: Sat, 14 Nov 2026 16:06:16 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,96 +51,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/pagewalk: document missing struct members
+To: =?UTF-8?Q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20261112-pagewalk-doc-v1-1-6cc5ce7148da@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261112-pagewalk-doc-v1-1-6cc5ce7148da@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-d532cddb6c60 ("nbd: Reclassify sockets to avoid lockdep circular
-dependency") reclassifies the socket passed via NBD_SET_SOCK (or the
-netlink equivalent) with sock_lock_init_class_and_name().  That helper
-is meant for freshly created sockets: besides setting the lockdep
-class it clears sk_lock.owned, reinitializes the wait queue and
-reinitializes sk_lock.slock with spin_lock_init().
+On 11/13/26 01:44, Oscar Alejandro Sánchez Lucero wrote:
+> Add missing kernel-doc entries for @walk_lock in struct mm_walk_ops, and
+> for @ptep, @pudp, @pmdp, and @vma in struct folio_walk. Also fix @pte,
+> @pud, and @pmd descriptions to state they hold entry values, not pointers.
+> 
+> Signed-off-by: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
+> ---
+>  include/linux/pagewalk.h | 14 ++++++++++----
+>  1 file changed, 10 insertions(+), 4 deletions(-)
+> 
+> diff --git a/include/linux/pagewalk.h b/include/linux/pagewalk.h
+> index b41d7265c01b..978714d5e32f 100644
+> --- a/include/linux/pagewalk.h
+> +++ b/include/linux/pagewalk.h
+> @@ -63,6 +63,8 @@ enum page_walk_lock {
+>   *                      install. If allocations fail, the walk is aborted. This
+>   *                      operation is only available for userland memory. Not
+>   *                      usable for hugetlb ranges.
+> + * @walk_lock:          locking requirement during the page walk (see
+> + *                      enum page_walk_lock).
+>   *
+>   * p?d_entry callbacks are called even if those levels are folded on a
+>   * particular architecture/configuration.
+> @@ -161,10 +163,14 @@ enum folio_walk_level {
+>   * struct folio_walk - folio_walk_start() / folio_walk_end() data
+>   * @page:	exact folio page referenced (if applicable)
+>   * @level:	page table level identifying the entry type
+> - * @pte:	pointer to the page table entry (FW_LEVEL_PTE).
+> - * @pmd:	pointer to the page table entry (FW_LEVEL_PMD).
+> - * @pud:	pointer to the page table entry (FW_LEVEL_PUD).
+> - * @ptl:	pointer to the page table lock.
+> + * @ptep:	pointer to the page table entry (FW_LEVEL_PTE).
+> + * @pudp:	pointer to the page table entry (FW_LEVEL_PUD).
+> + * @pmdp:	pointer to the page table entry (FW_LEVEL_PMD).
+> + * @pte:	page table entry value (FW_LEVEL_PTE).
+> + * @pud:	page table entry value (FW_LEVEL_PUD).
+> + * @pmd:	page table entry value (FW_LEVEL_PMD).
+> + * @vma:	pointer to the VMA (for internal use only).
+> + * @ptl:	pointer to the page table lock (for internal use only).
 
-The NBD protocol has userspace keep the socket fd open, so the socket
-can be in active use while it is being reclassified: an inet_shutdown()
-or lock_sock() racing the reclassification can hold sk_lock.slock
-across spin_lock_init(), leaving the live lock zeroed.  On
-DEBUG_LOCK_ALLOC kernels this surfaces as "BUG: spinlock already
-unlocked" (debug_spin_unlock()) from the shutdown/lock_sock path
-running in parallel.
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Add sock_lock_reclassify_and_name(), a variant that only re-arms the
-lockdep class and name of the live sk_lock (plus the module owner
-tracking) without touching the lock itself, sk_lock.owned or the wait
-queue, and switch nbd_reclassify_socket() to it.  The
-sock_allow_reclassification() guard is kept to narrow the window in
-which the lock is in use by lock_sock().
-
-Reported-by: syzbot+b29ed72382b0e218323a@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=b29ed72382b0e218323a
-Fixes: d532cddb6c60 ("nbd: Reclassify sockets to avoid lockdep circular dependency")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aibing Chen <chenaibing@cmss.chinamobile.com>
----
- drivers/block/nbd.c |  6 +++---
- include/net/sock.h  | 16 ++++++++++++++++
- 2 files changed, 19 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/block/nbd.c b/drivers/block/nbd.c
-index ffce519bf..28274a48d 100644
---- a/drivers/block/nbd.c
-+++ b/drivers/block/nbd.c
-@@ -1251,19 +1251,19 @@ static void nbd_reclassify_socket(struct socket *sock)
- 
- 	switch (sk->sk_family) {
- 	case AF_INET:
--		sock_lock_init_class_and_name(sk, "slock-AF_INET-NBD",
-+		sock_lock_reclassify_and_name(sk, "slock-AF_INET-NBD",
- 					      &nbd_slock_key[0],
- 					      "sk_lock-AF_INET-NBD",
- 					      &nbd_key[0]);
- 		break;
- 	case AF_INET6:
--		sock_lock_init_class_and_name(sk, "slock-AF_INET6-NBD",
-+		sock_lock_reclassify_and_name(sk, "slock-AF_INET6-NBD",
- 					      &nbd_slock_key[1],
- 					      "sk_lock-AF_INET6-NBD",
- 					      &nbd_key[1]);
- 		break;
- 	case AF_UNIX:
--		sock_lock_init_class_and_name(sk, "slock-AF_UNIX-NBD",
-+		sock_lock_reclassify_and_name(sk, "slock-AF_UNIX-NBD",
- 					      &nbd_slock_key[2],
- 					      "sk_lock-AF_UNIX-NBD",
- 					      &nbd_key[2]);
-diff --git a/include/net/sock.h b/include/net/sock.h
-index 3144efad8..2b305777c 100644
---- a/include/net/sock.h
-+++ b/include/net/sock.h
-@@ -1704,6 +1704,22 @@ do {									\
- 	lockdep_init_map(&(sk)->sk_lock.dep_map, (name), (key), 0);	\
- } while (0)
- 
-+/*
-+ * Reclassify the lockdep class of a live socket lock.  Unlike
-+ * sock_lock_init_class_and_name() this variant does not touch the
-+ * lock itself, sk_lock.owned or the wait queue, so it is safe on a
-+ * socket that userspace still holds.  The caller should check
-+ * sock_allow_reclassification() first to narrow the window in which
-+ * the lock is in use by lock_sock().
-+ */
-+#define sock_lock_reclassify_and_name(sk, sname, skey, name, key)	\
-+do {									\
-+	sk_owner_set(sk, THIS_MODULE);					\
-+	lockdep_set_class_and_name(&(sk)->sk_lock.slock,		\
-+				   (skey), (sname));			\
-+	lockdep_init_map(&(sk)->sk_lock.dep_map, (name), (key), 0);	\
-+} while (0)
-+
- static inline bool lockdep_sock_is_held(const struct sock *sk)
- {
- 	return lockdep_is_held(&sk->sk_lock) ||
 -- 
-2.50.1.windows.1
+Cheers,
 
-
-
+David
