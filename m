@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794636002;
-	b=QlWEjnkCLh2Q/1AualuWp2BXHlGXTr136/u0QPRzrTU5k+qXCDmrptA9iT8YLtVpPaQS
-	 3IGmr/GZPctNww1qMt2/b889loD5ED5/ZfJ8Ey9pK93Id2AjrBQtmupY1q5mXLfCR2SaM
-	 rZEhWt6rYEEgdY0Ke3TS0fKWcApq/TqEM4i6lygLB6WNjr6v1znuUGfy6Z94Bw52vaVpC
-	 mMGsuC4XyfH/wdj0lZqtLNwhQmMHakCSaBDg+q8s+lW1Qhf7maOSsYLM4iPouNPreMbcg
-	 lyjyJmTSE+UtpiX8DB6T7vn0qFpK1D5tjVWwZN6L6oS/gcvAWJEVQckhGJvtDRjfRUQ==
+	t=1794636009;
+	b=y4c0dN+GxNuYODZAJRnNQAmhw0/iW8o1ygunfqYNe7BT+rHNQHob7CGNA6x3QIBznqRp
+	 e5XdJk73ONO4ppEIAn7N9F2bpCTdxgz6yQeRJIx5HJ6+VcKjOdszW50Qwx8HA9BZlLC5Q
+	 3FsIjOlOjIyYylBahlhOpKUPmAwCWKLvuJp2i96ZRr23cI+vH27RyHxTm7nKKcTYnBm0K
+	 8lsm4Xedg+WHs9/DlPAo7JjhEbgOwVvWjh4YTr+HiGM1DMURx7IzDpc5xcrUohjX5WLG6
+	 ERQneKPR7gk0PRmi1OtryYx/Iq5fCeuXAqDcLr9Ga0elPNSmUnYWe6aA304ugPGSR8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794636002;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794636009;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=nitv642DJIuPKcSaK1AiD/SOvyc25qlxCIBt+/0tYtI=;
-	b=XW9Z04N/1B3dcQVK0D0MetrQ9ftLziGDc9Ttr/pld5ADzrAx539fFVgpiYA6w4fYVfAR
-	 IwKGDsf+mQO8y7ZhWDSchvRi9fs0BM+BG1KMCrD1c2nVUX0lUExYDjuuEgKvAHNBD09UI
-	 NbSPTBdSD1Ew5NX9yNw0/FVtTWNosNqwB/xC8IVvnTkXheMBs5iWww9ST5/hXMOPNlwvA
-	 P82BYICTj/7VuvZHVP2xxj9SXx29cGbtRZqjSDDqpNc2D4nzCUpn33VsB0LLsDgQjYzPi
-	 glGrK6igkUHTNIi+FbPF3ubiOlmZlyd3GIOpKT2wp2I24+x64vv1FpAnHxVVcsgMpfA==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=mKtZVVnVdYNwaU/trNKiWVHOkmKtGkSe73ghcg3XOGQ=;
+	b=xCosd0pzLbdiFz6yRmWkHA2eSuh6vlTkUyq/2GiEU4u33eE/K2oaCwJmsUJk2HuzDGDu
+	 9yddfdkgHayq4L07TCBw1GZs1znIHEzVHB+IpYhJ33VtmRw+iFBXJ0vX7Q9h5FxrIcar0
+	 vzdXJxHrv2JeQQ1jKoDsi9oIPrxxYdsBsw33/SuZ8Z3j9tmzH90EVSsYQIcyJV0xsHk6m
+	 YQrjAnjsg10OtkhYDeyPvha07pUnSbKX+0mrpohCveZsFCfcZIDW8cW4Yp7yOCH/B8Z88
+	 BgUefFCzbF52t5kg7nFJwtlvCyoJZjyo+7/ej+ev+FFwLAPS4AmRXxCp9Krkx3N2yaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tz0QAjXA;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZaQsH2zM;
+	arc=none smtp.remote-ip=74.125.82.44
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C907606A332
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:00:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C907606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A788D606A898
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:00:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A788D606A898
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tz0QAjXA
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-37628596783so2992473eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:00:01 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZaQsH2zM
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1b3a05f8b5bso2107894c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:00:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794636001; x=1795240801; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=nitv642DJIuPKcSaK1AiD/SOvyc25qlxCIBt+/0tYtI=;
-        b=tz0QAjXAf1Cc2MKwU31CKxEfqGZtKCSRW6xsbROQULBVyz+kyY+hS+d48ZfMPnZGT3
-         EXOO6qfV8SFS/YJXx2PkxyDKoaaXUK0RNSuH59qXR6BjYdaG+Rl5THkDj9KGr6j5ng0M
-         sdt6TIG3DuX08xc+7XQXedXZZpaJV0nNFAtA3IiTZz+ecmLNva2decH7FQqza9yCMqYJ
-         3vQvmaZEDJfC+yGobQr5n1lu5BDLPCyFKgpLfi+r71i3JDTMgVYlEGn/1VT2UgNJFFzi
-         K56Lve6mXHsanyxWMadPOovdPC8M0CU4IIIsQLL8lW8Q6n8AoJE7N4V5q9oZy+T5rwmn
-         K4zg==
+        d=gmail.com; s=20260707; t=1794636007; x=1795240807; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mKtZVVnVdYNwaU/trNKiWVHOkmKtGkSe73ghcg3XOGQ=;
+        b=ZaQsH2zMCA7J8MgFBELmIC5gfUWbd4E4i1x97KHtv3tRj3Drf8UxcMTP/Sepu+ypWd
+         VBYzwmdrAsi6p4IVv/Lv7n+HxmBF7qyk+yYwA0qoEoMPpmIDxh5ht8rwyde6+03J9B7V
+         Ex6pTuLAW6BPWrcxfuL/m3a+proerp+ewwiAqiBueMtcNU2xm9zOXhnR4ZwYJh3OGb50
+         bgY2XMUttGcIEOvG6DcQvX4lM0QbF1/WZ2OIoQeYAA+ggOTXDWTRkgqnX0mnrtndopMW
+         7F6N4uLq5TUZnQzJvWveRRrJit7QIRig5/G6JcskiZLgxqdiTmsdRb1pm2eAYfi39fOu
+         mPoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794636001; x=1795240801;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=nitv642DJIuPKcSaK1AiD/SOvyc25qlxCIBt+/0tYtI=;
-        b=KURfwNqHrgC9LpIA5H72sbKQT9BeN2k8FhdRU7TlFPENxHVIo6z51rSFj632vdfIqy
-         1MK6RqsUDTGzoLdkUDl1DIZyCSAHB8BDFX5EUWM4iNX9+vHt6SmtFr2pEKCDBfoLH/QN
-         wKVTcomHVGjHR90IGEp9ceSCeBu7kwwkoMJ7vmT6kZ4Hbwpd6UZZN8ArmGlxO+NSfsSZ
-         jtDYcihFFVeWK4y08KC8JT+IHGJJcgD34fkZzacw4w6QaL/guXAEqQQe0CTnISXhnw2H
-         NnFmcrxuD2QnDqFLDQV+VSd1PpeUDrcoqrL1D00FsPqRNIHtHmZcR/BRNn9QSAnYnjqt
-         isVA==
-X-Forwarded-Encrypted: i=1; AL+hErEsw8GN4m8/9F09amcmKlhVcXddQBeu1izmOnQcUtwh/oEcE6G87eSCI4dFLktQfCVkUeTotOEfiNYkg8I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ijg2BPPaGkoiGchf74yZPhuZJt71wBsHkgi1sFhEonwNbEqkV
-	y9Ltb6dEWEQZy99QFr63HLchBKOLXeJbvJ/El+8momY+1KODm3YYoR0XGZG2+g==
-X-Gm-Gg: AYBFou2zy4IQ2itIA15CGu2p9isJtT10on5AvDkTNDTFfyZSVG9IAyk51pIJTCPgBWP
-	FbtX7crBHCorfnV2NvYWJkthllfH9OIDi+Ofip645bsXEppYgqKCM20ghvWtROh6FVPFWoYvIFz
-	yg6TAeUbEG/67LhQq0k5FFoo7lTT6hLKBJ4ZOiIIXUXRJL52XE5ClmD75SdFUOdnHXViKOEziCf
-	nb7DpDWQONHCwydGTzp3L3LKBalXQPrpBvNUP93oh7PrbWIycuXv78hno/WEPyqfJiCQ2F2jiN1
-	ngJQ6D+Pg2mJ8PBVEckTOPa30bFlQfw8OqpYrhpyyYYLAiIsXR7ObPkxMtK53IMDXUl7E4Zco1c
-	hzXGwxKeQP7yaWRdYQKcU4+61VMzk3XFbnGIZHFCTVlar/jeXWYEE0TW9b/6dE7apwR5S6d9Drr
-	qiqK7bhO37F/MIYnTQwdmcsoD8eVFIpj0AgorK6/IKhw03peFzdApdlwdRlBFwO0dhlH/uiPjwP
-	TbP3QtOnGjW4bn1iUiQaqWoXeRkUi5PkIwfWzA4m8Qe4/4xf0Ct8uGSxLK1TUgsQSmPAGBUxYpE
-	eK08+ESY0yfnE3S1rVRosM0m+wbELTdMBSMDZx63AEOwbzDzL8tSMk8yooWBSkp0Ac95kkP96Ss
-	UYxAi3Rr1nxvhW/Ln
-X-Received: by 2002:a05:7022:3a85:b0:185:fd0c:4585 with SMTP id a92af1059eb24-1b50312b3b0mr4578152c88.33.1794636000901;
-        Fri, 13 Nov 2026 22:00:00 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794636007; x=1795240807;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mKtZVVnVdYNwaU/trNKiWVHOkmKtGkSe73ghcg3XOGQ=;
+        b=AdfseHsqyip5W12xkFFkA1rQJM1YMEboKny9GEsyNRIH5HiSbO/y+aNxEtmMj6REK5
+         eDjM9475hqPpIoEDROCv3qn6gCzPqJ8V3hPHHwQGa58EwgCrnDWw2pm7KIbGccfuvJo0
+         uFeOMRwxYLGC2PygUhGzI9UTZczUh+YA1BjcMndqqcppFrExU0mKC8a3vPPhql7Pn4V/
+         hNpEQHizNVgK9hrwvI4fSnDYV6o1uGfaC/WrXPcrhtCYab1tO+EbJxo8jHfVlQ6l8O2U
+         1597YLB7047VF+7xDKKd40hdtGAu7MG2RdkQgg390vdxSRKsc3kZzuB5urPzNeXVsFkA
+         wQYQ==
+X-Forwarded-Encrypted: i=1; AL+hErG11W7IeUEIbtGpU8nz+l/CGulSI9+piWpLfJQdnGEIUJml11spoYN/SWM1s3lzpVp1d3UQETilV+w0rRk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/4S0KWVcGQTYJKsFXHGrVXETN5+VNNwYww67JFesY6naeD6XU2
+	k5r6Us1FNGtrI3gC9RS/AHuBpeF9h4Ju7wWXpJMpCBuOkjuu8L2lXXrN
+X-Gm-Gg: AYBFou1E9jXw5xWt52NFPZ1IVbGyzX9G2A4ypBHiShVhze+biUD552Xpg7R9Y2bFtFL
+	oJlu5J8ZLo2VR3ATqJPQlvVljdzv+BFBF76umA0bHcOINrNAsn4jrQf89JGaZ+7/lG/em17y3gA
+	ZJa25oJTvLObyju3f/C8VozjKr9uE0Pr/4nkrms1Abef+k9WwOkVQolUUhzF9tlx4xcs/MFkQdp
+	xL2cpTDdod4fRHpstzi6s2OHfMncgYGT/D5jtMusAimbakAWqU5kJdIF2YVCaI96mJ4p0VwEI8k
+	mCIlwOZNjEmXWTwmJAgbdqFeat8JGchYyCFugYcaMMSJLmbMZETt3eBSdF0ieP4opkmwX06H8dc
+	V5epO8/Pz1dwoMmXEZptbBcit+ARVqSXuaDy/jIY0bqy6Vprls8sGux4E5XVvklKFftLvuP45po
+	xt345NXgH/BHo9uZ0R7gjDTsHmLo2ILrKYfUZ+6fGlPf35QjqHs52lnZhVfUAEAGkfabsFBZflv
+	rd5+SS8knHU7a7we8/qBBsofdd83IffAAiMm78ImmSc56m9DYRrQ5YAV2JdIWmkuBXX3bpmzYuZ
+	e4rAlsJuVe61EcpSIDthpElx7mku1OQxOYq4OolnZVtw1Ez6D55RMAUc1/wJSodGwnzR3MUpyrB
+	TPW+MOUWf1Qsze+TW
+X-Received: by 2002:a05:7022:1583:b0:1b5:dc3:209b with SMTP id a92af1059eb24-1b50dc32734mr2517153c88.22.1794636007187;
+        Fri, 13 Nov 2026 22:00:07 -0800 (PST)
 Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:560:7267:5908:e9a5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031b2519sm11323590c88.13.2026.11.13.21.59.59
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031b2519sm11323590c88.13.2026.11.13.22.00.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 22:00:00 -0800 (PST)
+        Fri, 13 Nov 2026 22:00:06 -0800 (PST)
 From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Subject: [PATCH 00/12] HID: rmi: Fix report handling, device lifecycle, and
- clean up code
-Date: Fri, 13 Nov 2026 21:59:50 -0800
-Message-Id: <20261113-hid-rmi-v1-0-afc43d97d766@gmail.com>
+Date: Fri, 13 Nov 2026 21:59:54 -0800
+Subject: [PATCH 04/12] HID: rmi: fix device lifecycle, suspend, and reset
+ work handling
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,57 +95,124 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIANb492oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDAyND3YzMFN2i3EzdJAsLk0Qj0zTjxBRDJaDqgqLUtMwKsEnRsRB+cWl
- SVmpyCUi7Um0tAIratKlrAAAA
-X-Change-ID: 20261021-hid-rmi-b884a25f3ad1
+Message-Id: <20261113-hid-rmi-v1-4-afc43d97d766@gmail.com>
+References: <20261113-hid-rmi-v1-0-afc43d97d766@gmail.com>
+In-Reply-To: <20261113-hid-rmi-v1-0-afc43d97d766@gmail.com>
 To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
  Andrew Duggan <aduggan@synaptics.com>
 Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.17-dev-6b8b8
 
-This series fixes several report handling and device lifecycle bugs in
-hid-rmi: it treats short output report writes as errors, limits trailing
-0xff stripping to attention reports so register read replies are not
-truncated, and validates read data report and transfer length bounds. It
-also gates reset work and power management callbacks on device start and
-suspend state, re-selects page 0 across resets, avoids GFP_ATOMIC
-allocations with hard IRQs disabled, and stops modifying the shared
-platform data template during probe.
+Incoming events can schedule reset work before transport initialization
+completes or re-queue it during suspend and removal, power management
+callbacks can dereference uninitialized device structures on failure,
+and failed resume steps can leave transport interrupts disabled.
 
-The rest of the series switches output report packing to unaligned
-accessors, uses scope-based cleanup for the mode buffer and page mutex,
-drops dead code, and cleans up coding style and logging.
+Gate reset work scheduling and power management callbacks on device
+state, track suspended state to prevent work execution, ensure resume
+re-enables transport interrupts, and permanently disable reset work on
+removal.
 
-Jiri, Benjamin, could this series go through the input tree once
-reviewed, as I have follow-up RMI4 core changes that depend on it? Also,
-would it make sense to move hid-rmi to drivers/input/rmi4/ alongside the
-rest of the RMI4 transport drivers?
-
+Fixes: 0b2c7a897378 ("HID: rmi: Make hid-rmi a transport driver for synaptics-rmi4")
+Fixes: 8725aa4fa7de ("HID: rmi: Check that the RMI_STARTED bit is set before unregistering the RMI transport device")
 Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
-Dmitry Torokhov (12):
-      HID: rmi: return error on short output report writes
-      HID: rmi: only strip trailing 0xff bytes from attention reports
-      HID: rmi: validate read data report and protocol transfer bounds
-      HID: rmi: fix device lifecycle, suspend, and reset work handling
-      HID: rmi: re-select page 0 across device resets
-      HID: rmi: avoid GFP_ATOMIC allocation with hard IRQs disabled
-      HID: rmi: do not mutate shared platform data template
-      HID: rmi: use put_unaligned_le16() to populate output reports
-      HID: rmi: use scope-based cleanup for mode feature buffer
-      HID: rmi: switch to scoped mutex guards
-      HID: rmi: remove dead code and reorder report write helper
-      HID: rmi: clean up coding style and logging
+ drivers/hid/hid-rmi.c | 35 ++++++++++++++++++++++-------------
+ 1 file changed, 22 insertions(+), 13 deletions(-)
 
- drivers/hid/hid-rmi.c | 506 +++++++++++++++++++++++++-------------------------
- 1 file changed, 252 insertions(+), 254 deletions(-)
----
-base-commit: 84abb955b1015477aa11a96e2f3ac1b938b77f48
-change-id: 20261021-hid-rmi-b884a25f3ad1
-
-Thanks.
+diff --git a/drivers/hid/hid-rmi.c b/drivers/hid/hid-rmi.c
+index d9181fd66c5c..8783edb7fd6a 100644
+--- a/drivers/hid/hid-rmi.c
++++ b/drivers/hid/hid-rmi.c
+@@ -31,6 +31,7 @@
+ #define RMI_READ_REQUEST_PENDING	0
+ #define RMI_READ_DATA_PENDING		1
+ #define RMI_STARTED			2
++#define RMI_SUSPENDED			3
+ 
+ /* device flags */
+ #define RMI_DEVICE			BIT(0)
+@@ -428,6 +429,8 @@ static int rmi_event(struct hid_device *hdev, struct hid_field *field,
+ 	struct rmi_data *data = hid_get_drvdata(hdev);
+ 
+ 	if ((data->device_flags & RMI_DEVICE) &&
++	    test_bit(RMI_STARTED, &data->flags) &&
++	    !test_bit(RMI_SUSPENDED, &data->flags) &&
+ 	    (field->application == HID_GD_POINTER ||
+ 	    field->application == HID_GD_MOUSE)) {
+ 		if (data->device_flags & RMI_DEVICE_HAS_PHYS_BUTTONS) {
+@@ -469,12 +472,16 @@ static int rmi_suspend(struct hid_device *hdev, pm_message_t message)
+ 	struct rmi_device *rmi_dev = data->xport.rmi_dev;
+ 	int ret;
+ 
+-	if (!(data->device_flags & RMI_DEVICE))
++	if (!test_bit(RMI_STARTED, &data->flags))
+ 		return 0;
+ 
++	set_bit(RMI_SUSPENDED, &data->flags);
++	cancel_work_sync(&data->reset_work);
++
+ 	ret = rmi_driver_suspend(rmi_dev, false);
+ 	if (ret) {
+ 		hid_warn(hdev, "Failed to suspend device: %d\n", ret);
++		clear_bit(RMI_SUSPENDED, &data->flags);
+ 		return ret;
+ 	}
+ 
+@@ -486,27 +493,31 @@ static int rmi_post_resume(struct hid_device *hdev)
+ 	struct rmi_data *data = hid_get_drvdata(hdev);
+ 	struct rmi_device *rmi_dev = data->xport.rmi_dev;
+ 	int ret;
++	int err;
+ 
+-	if (!(data->device_flags & RMI_DEVICE))
++	if (!test_bit(RMI_STARTED, &data->flags))
+ 		return 0;
+ 
+ 	/* Make sure the HID device is ready to receive events */
+ 	ret = hid_hw_open(hdev);
+ 	if (ret)
+-		return ret;
++		goto out;
+ 
+ 	ret = rmi_reset_attn_mode(hdev);
+ 	if (ret)
+-		goto out;
++		hid_warn(hdev, "Failed to reset attention mode: %d\n", ret);
+ 
+-	ret = rmi_driver_resume(rmi_dev, false);
+-	if (ret) {
+-		hid_warn(hdev, "Failed to resume device: %d\n", ret);
+-		goto out;
++	err = rmi_driver_resume(rmi_dev, false);
++	if (err) {
++		hid_warn(hdev, "Failed to resume device: %d\n", err);
++		if (!ret)
++			ret = err;
+ 	}
+ 
+-out:
+ 	hid_hw_close(hdev);
++
++out:
++	clear_bit(RMI_SUSPENDED, &data->flags);
+ 	return ret;
+ }
+ 
+@@ -787,10 +798,8 @@ static void rmi_remove(struct hid_device *hdev)
+ {
+ 	struct rmi_data *hdata = hid_get_drvdata(hdev);
+ 
+-	if ((hdata->device_flags & RMI_DEVICE)
+-	    && test_bit(RMI_STARTED, &hdata->flags)) {
+-		clear_bit(RMI_STARTED, &hdata->flags);
+-		cancel_work_sync(&hdata->reset_work);
++	if (test_and_clear_bit(RMI_STARTED, &hdata->flags)) {
++		disable_work_sync(&hdata->reset_work);
+ 		rmi_unregister_transport_device(&hdata->xport);
+ 	}
+ 
 
 -- 
-Dmitry
+2.56.0.679.gc527c65306-goog
 
