@@ -1,78 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794699348;
-	b=1Wb9XrXVcsBFizCfoluSzpywGcgS5n+WOkx79mLLlcylfOAzyofhykWRc1Aeu6awI5tt
-	 s0HI6BM2OJfih16WZ1cPyV9utCGxOX5htm8DjtiKDZxV455PkaOxWMypYyJIpmhjPBmFS
-	 4fOD8oEdfe7s4Vcz0FAfe9ziYaaneYUopGs1pfABzZ3z/PduGrZdCi+VnvpV2huzSUT60
-	 bFBBiIEBx6x2EHB8diJV1oBq4GKkGI3jBQKox/3MaxGVzducTgqeMRO8R77rCQwfVrsSG
-	 TmFri4L23TFnztKD/0NqJhzV2lDhnpN3grh+AJ8mf+UCseX9tQtqvl1f7IyUaTOu1Fg==
+	t=1794699352;
+	b=wQHjy1FJxojIIPfG2F0Bl8SAu6d0u/f2h64mCtIA4Ulgq2N+vSDV3/RyAassq5EufnzF
+	 7lxDJsCUscZkwtPXu9woEhS3EDYx1bhBZ463XzYxj4bxmqYwjbv8NCYLHOqKXdhPiNRs8
+	 ot7eH0OJMwD7K62Y9MUOC7aW2mSfFV1JxW/JMcFepVi0OKrSg5FIU479Tpgl5rXXNh5As
+	 nqbGpS2rLTNVBzEbncFsXL+33K7RY6tv1Za1MPlb6ar7300apJElbqyIdnB4J5OHJ4HUO
+	 +Azm0tbUbR+c7j7uGokM27mOakqg7jiX9t3ifUewJkRJP3SWAlUVviCwlEx0Yz4X+5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794699348;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794699352;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=VIR6mXYK3ETiApKWl+z2FejP/5a8onBjeYRAKhIC2pc=;
-	b=oME7icCvfLRnlNUlBjEljHrxDnBSt60jUksFlx1BlF8FevroSG5+N2kJ7DQJ/MPiDD0E
-	 omQpC1x1r4Ucfyipql9Zvgl64X2brPfaCnjiYYzk8jEiIPlCKJKqDpIC3wAhIvVHLRVE1
-	 xupD7Fsaul/DxjJ5w7pEedFY3HWcsAnswe2QdPw5hMSKfLnVFKjWbzJ4uOXuNT3W1/ZlF
-	 nIldnw7RJ5+l1exM0ckWk084mhHwfAZhvcjI3Khzfrs5E71HsKdk77fHlrNdfjbtaLd+t
-	 qddjqxXkq5EBcD6sok15QVXtV5RrReu51xRQj1ZoLT/iDspi/RKp9SYrTfIpPqhr0MA==
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=0hLijEQmrtO8f9MefoCcZ2hV97tr8JlMlp8crB1A2uo=;
+	b=4YAYWGu1EhPn2mAOVPr7I5K53eejxljy5hZ8dcWyY5MCgBuSH5qcVVe3CxBOa1uXYjJH
+	 QeY2D6lWlAmtdRQDOmgecVWFqWkH7SEw6E/8+8FJDr3FEQy96Dpw6VzOmk00I6W24z/td
+	 /ZgKy4byf3usoPfv7hb+odAQNT5OgqtepSGNDp5U2ldMA8xGHOsPSnjEX5uM+JRMCLKz4
+	 1UxWuPLpXnHuWh6bbVSS/6A3IWwilAPpPn3LPVN5GX9TFIm3FYzOF59Jcj85jHTRz0VdE
+	 Pw6Cf2mikWMcT7KTdMkOeBUtvKTqelL2/R1KaEYyLCBWwRAEGIyxAOPmqMDxI9EVXig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZZQFDPr2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nPgquv5P;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 5DCCC606A329;
-	Sat, 14 Nov 2026 23:35:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DB24606A329;
+	Sat, 14 Nov 2026 23:35:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZZQFDPr2
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 42A021F000C4;
-	Sat, 14 Nov 2026 23:35:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nPgquv5P
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E9361F000C5;
+	Sat, 14 Nov 2026 23:35:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794699348;
-	bh=VIR6mXYK3ETiApKWl+z2FejP/5a8onBjeYRAKhIC2pc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZZQFDPr2OBteoJK60ty3lgYNXS982/JqevYnayq5M2JVQt56VdJ0f7HgXeEBXp7XF
-	 CYD7i9q4a6s4qq48G33GZIZ7L7NDnGKKgS+Zd7cfEUxuqFx+vjuOFx7fJkkIjLF3j7
-	 BPxRY+5oqsHntFgHsq77skoWTKPkj0x48vYhVdR8SAWzHLjrkNJiwM8qHDB7G0wZNW
-	 K3FzuiTooW3tl0aiWfgk/x35HLj1Fmx8h/X9zphKIrw+uzyLGMw4pFFdjyFbLxmWmq
-	 7Sky8LjYCk3m7OheBofEcorLf8EV13An9NDMZNhLmq8c4R/5NoM//E+m0T9xsssCgg
-	 jYU0VRyjZhqhQ==
-Date: Sun, 15 Nov 2026 01:35:44 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: keyrings@vger.kernel.org, linux-afs@lists.infradead.org,
-	linux-cifs@vger.kernel.org, linux-integrity@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org,
-	linux-s390@vger.kernel.org, linux-security-module@vger.kernel.org,
-	netdev@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
-	Anna Schumaker <anna@kernel.org>,
-	Bharath SM <bharathsm@microsoft.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Biggers <ebiggers@kernel.org>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	James Morris <jmorris@namei.org>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	Mimi Zohar <zohar@linux.ibm.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>, Paul Moore <paul@paul-moore.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Simon Horman <horms@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
-	Sven Schnelle <svens@linux.ibm.com>, Tom Talpey <tom@talpey.com>,
-	Trond Myklebust <trondmy@kernel.org>,
-	Vasily Gorbik <gor@linux.ibm.com>
-Subject: Re: [PATCH v6 00/13] KEYS: Sanitize the garbage collector
-Message-ID: <avjwUDaXiAwNvFai@kernel.org>
-References: <20261112040242.247168-1-jarkko@kernel.org>
- <avjutAro2-Q5VPvx@kernel.org>
+	s=k20260515; t=1794699352;
+	bh=0hLijEQmrtO8f9MefoCcZ2hV97tr8JlMlp8crB1A2uo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=nPgquv5P6XwYkI2+baujnMYvwXejM9eYxtLRD5WmDc2AKewb1ObR2EBWVId3VSye+
+	 TkDJ4ZQc4aJWQkjWBfMXqeWonIFrxQUrghK6yie7Kx3HxT/WRWGvo0a/r/kpSvYWBy
+	 GUbsPCuyNE5UD5XUY1wWzcPu1xShU7TNwCmU/FJWut4a1us6IqSHLvAAbFftu2RDfH
+	 X//JssVyWr0MC0IkFjDLMI0sBrZIdnQ9/8EPF39gEaKr9VopNxRBatpic9EkXxeJBP
+	 hQqvOuWoBkgCIBZNAJAhtlLcA41kFJnIOsMmP/B+CGoNK8RX/jXvGiExHL215TrT29
+	 //frY5Q/S1GKw==
+Date: Sat, 14 Nov 2026 23:35:43 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Joshua Crofts <crofts@kernel.org>
+Cc: linux-iio@vger.kernel.org, Miquel Raynal <miquel.raynal@bootlin.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, Alexandre Belloni
+ <alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Song Qiang <songqiang1304521@gmail.com>, Radu Sabau
+ <radu.sabau@analog.com>, Maxwell Doose <maxwell@maxwelld.cc>, Tomasz
+ Duszynski <tduszyns@gmail.com>, Erikas Bitovtas <xerikasxx@gmail.com>,
+ Waqar Hameed <waqar.hameed@axis.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, linux-kernel@vger.kernel.org, Jonathan
+ Cameron <jonathan.cameron@oss.qualcomm.com>
+Subject: Re: [RESEND PATCH 11/14] iio: proximity: vl53l1x-i2c: poll own
+ trigger from interrupt handler
+Message-ID: <20261114233543.66b66ae7@jic23-hlaptop>
+In-Reply-To: <20261109094202.0000284f@kernel.org>
+References: <20261109042851.1326940-1-jic23@kernel.org>
+	<20261109042851.1326940-12-jic23@kernel.org>
+	<20261109094202.0000284f@kernel.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,36 +70,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avjutAro2-Q5VPvx@kernel.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sun, Nov 15, 2026 at 01:28:56AM +0200, Jarkko Sakkinen wrote:
-> On Thu, Nov 12, 2026 at 06:02:29AM +0200, Jarkko Sakkinen wrote:
-> > 1. Replace key_type_dead retyping with module reference pinning so live
-> >    keys and restrictions keep their backing key_type module loaded until
-> >    key_gc_unused_keys() or keyring_destroy() completes.
-> > 2. Process serial-tree scans and graveyard destruction in fixed 64-key
-> >    chunks to a bound workqueue execution latency without hurting overall
-> >    throughput for a significant amount.
+On Mon, 9 Nov 2026 09:42:02 +0100
+Joshua Crofts <crofts@kernel.org> wrote:
+
+> On Mon,  9 Nov 2026 04:28:48 +0000
+> Jonathan Cameron <jic23@kernel.org> wrote:
+> 
+> > From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 > > 
-> > The first part has a user-space visible effect: rmmod returns -EBUSY while
-> > keys or keyring restrictions still pin the backing module.
+> > Keep a pointer to the driver's trigger in struct vl53l1x_data and poll
+> > that from vl53l1x_irq_handler() rather than indio_dev->trig. Only the
+> > driver's own trigger is accepted, via iio_validate_own_trigger(), so
+> > with the buffer enabled that is the trigger in use.
 > > 
-> > Internal key caches or transport state bottlenecks are addressed by either
-> > clearing their private caches on last-client teardown or splitting key
-> > types into dedicated provider modules.
+> > This removes a dependency on the trig field of struct iio_dev, which
+> > is to become private to the IIO core.
+> > 
+> > Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+> > ---
+> >  drivers/iio/proximity/vl53l1x-i2c.c | 4 +++-
+> >  1 file changed, 3 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/iio/proximity/vl53l1x-i2c.c b/drivers/iio/proximity/vl53l1x-i2c.c
+> > index bce238d1b6de..ffc6fe45b165 100644
+> > --- a/drivers/iio/proximity/vl53l1x-i2c.c
+> > +++ b/drivers/iio/proximity/vl53l1x-i2c.c
+> > @@ -102,6 +102,7 @@ struct vl53l1x_data {
+> >  	enum vl53l1x_distance_mode distance_mode;
+> >  	u8 gpio_polarity;
+> >  	int irq;
+> > +	struct iio_trigger *trig;  
 > 
-> This passes bot+bpf-ci@kernel.org and Sashiko other than the remark
-> about inline comment.
+> Pahole reports a 4 byte hole between irq and trig. Reordering
+> like this yields a better result:
 > 
-> I'll update the inline comment, and make the commits available at
-> -next.
+> struct regmap *            regmap;               /*     0     8 */
+> struct completion          completion __attribute__((__aligned__(8))); /*     8    32 */
 > 
-> I'll leave S390 fixes out as they are out-of-band. They can be
-> picked from this patch set; or I can later on send a separate
-> patch set.
+> /* XXX last struct has 1 hole */
+> 
+> struct reset_control *     xshut_reset;          /*    40     8 */
+> struct iio_trigger *       trig;                 /*    48     8 */
+> enum vl53l1x_distance_mode distance_mode;        /*    56     4 */
+> int                        irq;                  /*    60     4 */
+> /* --- cacheline 1 boundary (64 bytes) --- */
+> u8                         gpio_polarity;        /*    64     1 */
+> 
+Good point. I guess I need to poke my llm to take this into account.
 
-Done: https://git.kernel.org/pub/scm/linux/kernel/git/jarkko/linux-tpmdd.git/log/?h=for-next-keys
+tweaked whilst applying.
 
-Br, Jarkko
+Thanks,
+
+Jonathan
+
+
