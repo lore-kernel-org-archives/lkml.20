@@ -1,66 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794678156;
-	b=bmblkd7FbEJGmDzUU8A+ghOGMf0BwYVhC8vLmpi5qkI1C0zD31yhEefpmCwC5txOBcW+
-	 3FpbpMO9L7Jrg+R20pYraD1N+l5p7RxMm++mSlUgdQk7zRfZOXWzdl+3Btby7fWSRLDzs
-	 x8uG2agwJMrdvx/3RyxMQccDemMANqPkgYQO82PK/YqhOy4Zm6YkpXuWNmEZvKglofif5
-	 SBfXoK1AsB22RK0WZ3WP+XBygLCI3HZJXlahvhAcq1eFebC8W+f720ClMOLYtcKWHya//
-	 TjWHXZ9ElGc9rEJbEEX0AlgUbLIbPMHx23tptTH0CMq3kHsFWLCEp8QfBgEufjwKjCA==
+	t=1794678146;
+	b=pYfmS9eYwRgpFeReAxIjKSnD9hoazUUaaWuQZnYWIT08rV5sZ2m/rQNHNk5uMtOkKD46
+	 3mK2AttqwSooOtTjZA8Qx1mnF6AkJ1vUqs7dstMOwt6i+yw9VFcY8jH32+HyVPT3YElN3
+	 ZW039lVKCjXYqykuGgv/mkWI4qTa2rqRtpnDoZmgAj9yx+bFu6NfX2w872HU2reLqyEPO
+	 TeO57x1l25VswHYWRn52w3W0mXPdInCimvA31OxDV320HCHYYHN8W1CsQ9Qmw/cXMMw69
+	 6ZTK1DuwDh6XrwRnQC8fU75pQHfWyappBhp04Kag2D9GiQtTf/naGZ1E1kIaYc0qhrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794678156;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794678146;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=HtJYtgROtdGCoMRM0DSu7ITj/G1KdynVsDgrtLNJ9w0=;
-	b=xno/jTYH47G0SAXCjF7yH9m1HxK3YEuVDIvQwjXMs0xGJ2mBp/lR/NZlMm6hwntrwg4v
-	 aHz9JSARd0uQ5xG7U80xyjC/2hsPkHeftk7skRxloJaVnXJNK+ei+zAYKtrV7IjbXvYJp
-	 DGCOt+XqX49iTMZstx/M0KcEKMeXSjw8q9ouYHtgtykAmtSrlnhTSBtXMYsvPxT7tYKBM
-	 i1+77JlUtXpOipZgc6drEi7s/8xeITsATinQioRi2zgktJYKnyMSaz99cJjm5pPj4C4SA
-	 xKy0/0evAf4ZAeC9oDK9jVohocCqfhT4mgQCc7A71p9011pC1z4D/Gx0f8T76qeuoOw==
+	bh=dFUURcKLA5xFxnWUOGSllcX6Y3/uDYDVlu7q6QIBkgo=;
+	b=AhqJeEHZMZ6f9q+RwA5XjEAmBPnJJg3YiGrlFHebI3lt8u3GOySFqPbGjB95Y3T70e0h
+	 kXLVj12wezgLHXc0ESgU85aTaxWo3T9XMfs9tmry9MD4RyuBRilnOHiwnSHBHDMV1XEFq
+	 GdS4UtixookGrTX1CaHtRncxajbYJOUjOIG6WL5PqTKD5t0RfOhGvXAxM0vSeZm2pRrSE
+	 mvFpWEVVxCrBF3+thV/k9t43wQr2J+GX3W55gDKWyLL3UbcuXm9WcnE2VaLZJ8DED1n85
+	 zhkPoaZ6x6w3c6O2lu5pEsg0G/98+0s4iL5IwmnL10W39bWnRYtmXfn9EQVpXb3OXPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HeHAFnLj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L28goqBX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B67606A332;
-	Sat, 14 Nov 2026 17:42:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAEEB606A334;
+	Sat, 14 Nov 2026 17:42:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HeHAFnLj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47A161F000C9;
-	Sat, 14 Nov 2026 17:42:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L28goqBX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BE731F000C6;
+	Sat, 14 Nov 2026 17:42:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794678155;
-	bh=HtJYtgROtdGCoMRM0DSu7ITj/G1KdynVsDgrtLNJ9w0=;
+	s=k20260515; t=1794678146;
+	bh=dFUURcKLA5xFxnWUOGSllcX6Y3/uDYDVlu7q6QIBkgo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HeHAFnLjjgJ7xVGh6nHTYL18M3cImWBWBn8+POcOP8326sGeDaspl+g70rSiHmhJr
-	 eR1CGHrn0CfFkcIQgxi/4pi0ryrpz6k0Ny5gd3xhdndvYM+nokidjFsAvfVLi4jtDS
-	 ON+yH9VxTKNmhnfh5QneakEBEKg6odggqqGns3fIgc/U8n7XuOnRywChRecAch6WyN
-	 5NgB+LsRhowvucBz0LQIzAqg3RFb/ttTg8GhgQcQp8u3aq6x7vUh3fz4hBdAonMm3w
-	 FvWc87dk8WDJIp3WprSHXCExE6m5eNTM6CzYoQoXcMLPQNlfdD6RuEgk/XkXFyXAsk
-	 aF5sBRAG1dXjA==
+	b=L28goqBX21fwhDcTfKLO15qt85aFvH6QHQaistXZbZTUmy2Yvv0X7IQK8ehB439Is
+	 9Ric+QyH1+L5M+ShE7uu19kfmpejti3iE/xzhzFG3wyZQoLS6FS0UCY+TwZ7c8LXIB
+	 1UoC9ArOTh9VOCT2clcCsKOZxZb3RC4maJJ8R+ORpZt9rEM0gINqvya8S1ttAI699x
+	 XOB1r5jSutK+0rCTtNt9njXIPcJCTCsEXarF4hsaUdLnO3l5kGZgslFeznvWWPlqnc
+	 3c6JvIdtpfnLqTMCHLeNPh5ETTSJKdpmjtna8kMJJuBTB0+Jki/p6Y2zor/K1kWhTt
+	 7VBt2utrKlwVg==
 From: Sasha Levin <sashal@kernel.org>
-To: Mike Rapoport <rppt@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>
+To: Matt Turner <mattst88@gmail.com>
 Cc: Sasha Levin <sashal@kernel.org>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Magnus Lindholm <linmag7@gmail.com>,
+	linux-alpha@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	regressions@lists.linux.dev,
-	Salvatore Bonaccorso <carnil@debian.org>
-Subject: Re: [REGRESSION 6.12.117] CPA detected W^X violation: 0000000000000121 -> 0000000000000123 range: 0xffffffffc0477000 - 0xffffffffc0477fff PFN 109c1f and WARNING at arch/x86/mm/pat/set_memory.c:665 __change_page_attr_set_clr+0xf62/0xfb0
-Date: Sat, 14 Nov 2026 12:42:19 -0500
-Message-ID: <draft-agent5-0008-re-pat-wx-regression-612@kernel.org>
+	Mingcong Bai <jeffbai@aosc.io>
+Subject: Re: [7.3.y] Please backport e517a172b776 ("alpha: select SYSCTL_EXCEPTION_TRACE")
+Date: Sat, 14 Nov 2026 12:42:13 -0500
+Message-ID: <draft-agent5-0002-re-alpha-show-signal-msg@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <avdb9EPXBv2hRCzQ@eldamar.lan>
-References: <avdb9EPXBv2hRCzQ@eldamar.lan>
+In-Reply-To: <4ab8d1e3-4e8d-4172-b36e-570eb1ef9e11@aosc.io>
+References: <4ab8d1e3-4e8d-4172-b36e-570eb1ef9e11@aosc.io>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,17 +65,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On 2026-11-13, Salvatore Bonaccorso <carnil@debian.org> wrote:
-> One followup to this. Reverting 
->
-> Fixes: 091c44b2d3c3 ("x86/mm/pat: Use pr_warn() for early W^X warnings")
-> Fixes: 11d1ba991c07 ("x86/mm/pat: Fix effective RW computation in lookup_address_in_pgd_attr()")
+On 2026-11-14, Mingcong Bai <jeffbai@aosc.io> wrote:
+> Please consider (partially) backporting this patch to fix build on Alpha.
 
-Thanks for testing. Queued reverts of both for 6.12.
-
-The same two patches are also dropped from the 6.6 and 6.1 queues, where they
-had not been released yet. 7.3 and 6.18 keep them, since there the check only
-prints a pr_warn.
+Queued the whole commit for 7.3, 6.18, 6.12 and 6.6, thanks. We have no alpha
+compiler here, so a build check on your side would be welcome.
 
 -- 
 Thanks,
