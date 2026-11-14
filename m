@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794636012;
-	b=Z1mwTOtqEagHiGUt/JxJ6zq1/ZAEY/fZwugDOJlLYh1k/2M+9bL+idYUnLaosue9erEM
-	 rowuPl9k0SjjuntV0q0GSLspGkLd1ASdh27I1npnrhC/AavbfqGjn4GbZtIzw0pO6aiOC
-	 KjiziaQpL3zidzBV83iNf4+0vo4axu3WhLLlFkBdzlLSV05DP6HanLBtp3YbLSdPFp4gz
-	 1D6oW8yWsXphnX+YdSh0FGtI1csI28/N46FUn0MaBNSwgVMYhkM0WiOJonqQ47eqaUyxe
-	 HWFuk6F7XqMn2zYeJVp9gxsN8PSM6Hos3YTWSuffZ+i3sQd1Z1BewlJ/cqobtZhIr0g==
+	t=1794636014;
+	b=W7se8aR+v2Qnihk8JrvQUXOF0qvymyb45cqmpUd0qBS4J+f2sBttx2yGLRvlJdb3GHOY
+	 g2rPc/5uCYugXebyKdq9It2ZdR+n9XZi0Z56/Cs/rnYPwymFr60E/FuPn4H3BWLnQdlrk
+	 VeKixVl/KShl1Dj2JsKF97U9QU02JLWnz+/wr2CRXf069B92jvF8i0HhZ+Z5oZTkfnv2D
+	 XbkACptLnb4hWRnWG1TLqkdSaQz0xddlFzFzXs1Cxzdk7u3RDfdDXUc0n2xlAI+7tavjn
+	 eg3qJ0zkrCT9aSFFT/0sRIJURsQEpaJ+QTnsXDz5bP0i4rGDFzE5Q9jJffJ+BpzdixQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794636012;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794636014;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=NfuC547+tfDP/ZnK34MTsgmeKITWfmTasB7CUQvzVbo=;
-	b=Qf9OGr+Gt62PTC7sK8n0KihQBqb2YKw3InLvv6h41ZQv8GrE1jI36uWxTeAg6Md2ADq0
-	 16yBwHqPGQYhkXYH1OUn2H3Rr80sNbQxu38zf/mEI3MbQEEcM/HMq2Xvjk5l9zIreT3Vw
-	 UiwGrnIdzrJhc2fOrRuGQpNuKXw+pF0O3LoC5HNhy/Pt8nodV6dIjU7AEPE8LP79DDweY
-	 LaSF4O2pYHsvxV674hys3ngzpWqjXhfBOGfCXt1Td9rHdFXICzpSYrhX+EnFDWexwFRXC
-	 IrZEujV78D+x7S/qsmdF4dRwiouYVBcr8KeEFsEzIQ64DQw6HZuGe81oZcGX8uJzYPw==
+	bh=V5vFPK32ZMQWprKRPGreWVAcROr/+4kRa727HzscJ4g=;
+	b=k0qPAsUfVW511QKagR5+IrwuuEfDzQVKPZ8hlD5VWvOFfd69CaFHIBWkyU3Vacs0bYFU
+	 WeOgujCY798hY/zlX2XYneHCl/PddqXdh3gFn+xfeZbILaC/3i2l/Mj2YpIaWPMp9cdVb
+	 WMuF1rsUnZbcof6hV1EmKxs1pWlXEMYH3/ALuDtQnIJStTwt1+tPuFWpuf9nx1jONa23p
+	 LCG4scz3kyNC97FgICMiyp5dLwQU54h9OM8jUBOsOQjrlrUm79ZlTcOtIjjqiZ4huv3g7
+	 MzE3nC1KwcrGGs6Its3uxzF/RvbWEit1bt+mw3odQWVZGd0nn/NbYNWuZiTXRR7SbgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EiKPqTQU;
-	arc=none smtp.remote-ip=74.125.82.52
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WS9H+bPs;
+	arc=none smtp.remote-ip=74.125.82.42
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E76D60A262A
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:00:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E76D60A262A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBCAA60A3808
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:00:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBCAA60A3808
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EiKPqTQU
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-15dd124bbe7so1141127c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:00:12 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WS9H+bPs
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1aefd1bf74aso1260863c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:00:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794636011; x=1795240811; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794636013; x=1795240813; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NfuC547+tfDP/ZnK34MTsgmeKITWfmTasB7CUQvzVbo=;
-        b=EiKPqTQUMCQoiFs9r/xUvD8DNKzfFBFi0GGeN0/JEQIr+4/yw+9louFBnp8gtkfNAD
-         o7W6TAQ9+6+pifP08PqVl1CAClUbRhoS5hxLxZ0cco+iHjNDbimraaXo3RqXR53OCi49
-         iqzrDU+HGdbjFBBteFyjzf4euwrtdNUK+UV+Fx09SyVmiefGNkGeishOfENAYKAOG5qD
-         ztK47c1QArK/SZrt6IMj3RsKnvixtsueFTeVOmq//GvxjCqmMe7a3HUIAFjJbvpel62z
-         HZeq0dsaRCjLL1Mq2SvB5wU0WikzgueXNoEx4DM0vlDbiNxpFOXKg5fcTCXBDnLKjnBG
-         F0Ig==
+        bh=V5vFPK32ZMQWprKRPGreWVAcROr/+4kRa727HzscJ4g=;
+        b=WS9H+bPsKsSlIpGtl/XQGa8+Sds7Bo9LhuF5FEL1Sjyl9UatMboccnQvKDFYAbn2Zi
+         /nBRrgEQVjI9l9YzvCNnSNRV/YqBfaMo/+H78M/rPu95jRY+Fb6nU6h6wqUt7wfv693L
+         eWUOsAgtkAECaUmvRppWHoMLwSuxA8EUe1Fhi7hDpBu+8W0PtgbAVRCBnXqtG3ejgssA
+         RSkDflkgqFB7/sHHwjEU4liUs8VcTDKhfDig87c+Zwlzhk0AYXHVmUq6XnM1sMhJ1vCr
+         id8cLv6rEqthPuTQ8sllV/+t5qB0qLWq6Fz30pJ9gChEao8RgRSqsKEjmQ1J9z88eSBW
+         1PTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794636011; x=1795240811;
+        d=1e100.net; s=20260707; t=1794636013; x=1795240813;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NfuC547+tfDP/ZnK34MTsgmeKITWfmTasB7CUQvzVbo=;
-        b=FIf0Zhe+lXEEascbXDIV+3Bn/YD5e/Z0WObC+tdfGpEufaxuDDY+LCy6LpxT8G+xdO
-         Rt9eBpofi2n2A2gWMJcb8ye248gCC+Lx1J2aZEJA31PMhcDQuhhObW0p3GLm3fxrWsNH
-         2rCXkBw/VfPocNv0sgii2bKqtVPE8YZWhSXM11KoBKB13DCEy1AEemlvgE4lltazHq69
-         wmHwnmtCB4KUmu3HXzWjuFcdJ+kHCbj3K7bcH7GYA48ZpHbCYSUlU2cfAbk/pS40K2iq
-         cVBVBVgmRMcul6XIjNCOYr4EQn0htpIJghzGlFanK8qqvHN6PiIYtdZVf/3do3CA2Bdj
-         ViDw==
-X-Forwarded-Encrypted: i=1; AL+hErF9u7M0bIeAy1c64L1q4Cj+4RVKjQFCBI/44bkCXn6GO/zox7PsDGeRVFBasVaQdECiSqJ5LhMvFCSrhBg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/8ic2U+8R5lzk2a2EQyb7C16wc7tupp2J+NObGgR6kCriA/Sc1
-	ivrzoQ6nwx2ZCWw8PrcB3QxuoNXHMdQ8rNTCws/sQGLbETay8alGt1kc3FD4ig==
-X-Gm-Gg: AYBFou2HZbOpBOqCJpEvT2DnCgn30HwzSSegGQokeJAAX7zm2fKFPDDeItOIf+4ndfa
-	c1Im1+Lfu8YBNJliVRWh70NEKhdVJ6Arzls/qMSlUYR7FNxOOw/qByfEwkcRr3ia18FVfatGyR4
-	j3N+c2uiXxJ8DdkW6wKmEuMFJPP5XukmFwuvcKWFGtkel9zInvcvMkX2w2tG8+t7MExhzvd7nQw
-	GDbDfJ0ESQ++/znuy6Hi+IFhTS+QynKtJGklDCzt1queBaIQsQGQOlRUnyyzyEuv+F0SvLc3WDf
-	YflF7FcJHXZWKmrWONOHSXSLoiWXspfN5nKo1q78Y7MOWwXyHuRr+FYp1EQGjeD3iusa9lfnosh
-	lf0h8ERJvUSSAoGSCD98SqwsG5aUuYCKsT44krg15942OuUVsN/uuPkPBF0xfOCIabWvbxZ7bBN
-	uPQPqA9GTJGpSqZm7Fjp4e/BtowVJYK87TXsFF01UFya5tGV1ySkWWbdvQD9FP9y+k8577GbJgO
-	hKIv7lJEFBF74d7Vy2uMA1P6FE+kE2jEQcafF337Nmiku91mR2fMaaFjotL8M3/hlEhCij4c/qU
-	kk7k1DEhxVO3niTnx2vqtYBdguXfZh7sYL2lAL4YSyATRd7z3i6McExCtEWSSjan1G2naXgN8kH
-	z7dFu+oQQOdFyuzl5
-X-Received: by 2002:a05:701b:418f:20b0:1ab:de8b:5f0f with SMTP id a92af1059eb24-1b50319d4f5mr4632900c88.40.1794636011415;
-        Fri, 13 Nov 2026 22:00:11 -0800 (PST)
+        bh=V5vFPK32ZMQWprKRPGreWVAcROr/+4kRa727HzscJ4g=;
+        b=XUnfrxr1XAPbOHPBblweu4QCrm95hkmjvunl9k2fM1t5zMkfDrwE3hhjrh5K77LsWQ
+         aZsOoO2qAt3+PPnJqvj8i2ihS9w0uvg92ixy1CAfFXd6MoaEJjoNz3Duu7y+q2nZI8T4
+         52h5PCgSPUQLIrXtll8kKqcv6aaBC/EJwLK5yOisIbBCXJ2BZbUo55SK3RWFYoNeZosx
+         nsx1lUmwr9gb22FnW8/pQ1D2MpRm8pvXskswmyZHy7so/LEGcP1bRZ6v8GNY/G6MMo5+
+         hP9ApuRqtly/hU/6fUVZThca5x+/0bmyYumCwKcknK5pu9z9WzwA9ZgNLB3g7rGT54jh
+         16XA==
+X-Forwarded-Encrypted: i=1; AL+hErFu5BymnWzGJt5r6U1M3dk/FpDbpWbdsIBErEG6N6H1qWwoocUVacpFGR1RA/lMoARPWe1dDfbra0t3O6k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+1HxRmNXGZ6/5uBtfEXqFdMRUqx2MEEPQtNZCC+kBnl3g5qBZ5
+	gIaFsi3a7R0UxbkyZ6MgTDmMY4t0uF7EExxxf6x6boJbTMJD7pilJ786oK0/qw==
+X-Gm-Gg: AYBFou0zfW6MBBC21dTVRYKsPkWeO3l6GlBMoQ/tUAoH6NpkXmEodZN+RaptP7WshAK
+	jJ+0eQvRZLNzpP8djPlOOcCR8qqWSJ3aFEEM1xFgu5UA4r88gX46rJk+pEi/arXqHrmvM20KUf0
+	rM4WJESH3cVgdfhQG20V5GE1xWlEN0U6tOTvJzNOeZ5Kve+PnlaqDwRRit+tanPoMqfe/Kr5al5
+	SH0fD32g2JLYTzEZsSFX+bQHXOBwGlL04A/QK0SLFTc7+oUwRsrKRINfDT77JQI+wzaYQTsLSHW
+	iiw1q+QiDaSlvL22u4fB5aJVEnANGjlmBcIxPjyEQBUjxcI0T9cK4osgEFcohY1WqioZEdOcim2
+	RTs+mm5nGpoq0CPXKs81xjxjtSum0risvCC9/3dDgUh34QQL//FftdTeIIy6Oxi1xhMASyoAkls
+	QJN6InFGR6VC+RXCvxuDyu3fZKPAJKNdx8E9E6nwMjONJVGA1NpdlzO8WMb/p0bp/HYmuWzO0dv
+	MHAbQhSYXIOnWcIjK6jS8inytDR6ZM8brsEFLwgaz5j4QDw+yT+W69a96jC5CCFy6E5gfJGuX+j
+	SH0TjaQjCXMI23yxDq+4pOiuO/yt0UkqZfL0PamZmjTo+3Th5MC36tpu+dR45SVLstEW6zx41Cz
+	ffOZ8xkbtIktm92Nu
+X-Received: by 2002:a05:701b:2616:b0:159:f192:5290 with SMTP id a92af1059eb24-1b4f5f37854mr5951635c88.13.1794636012896;
+        Fri, 13 Nov 2026 22:00:12 -0800 (PST)
 Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:560:7267:5908:e9a5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031b2519sm11323590c88.13.2026.11.13.22.00.10
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031b2519sm11323590c88.13.2026.11.13.22.00.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 22:00:10 -0800 (PST)
+        Fri, 13 Nov 2026 22:00:12 -0800 (PST)
 From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Date: Fri, 13 Nov 2026 21:59:57 -0800
-Subject: [PATCH 07/12] HID: rmi: do not mutate shared platform data
- template
+Date: Fri, 13 Nov 2026 21:59:58 -0800
+Subject: [PATCH 08/12] HID: rmi: use put_unaligned_le16() to populate
+ output reports
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-hid-rmi-v1-7-afc43d97d766@gmail.com>
+Message-Id: <20261113-hid-rmi-v1-8-afc43d97d766@gmail.com>
 References: <20261113-hid-rmi-v1-0-afc43d97d766@gmail.com>
 In-Reply-To: <20261113-hid-rmi-v1-0-afc43d97d766@gmail.com>
 To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
@@ -103,48 +103,61 @@ To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
 Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.17-dev-6b8b8
 
-Probing a device with physical buttons modifies the static platform data
-template directly, altering GPIO configuration for any devices probed
-afterward.
+Open-coded byte shifts for 16-bit integers are verbose and left the
+upper page address byte uninitialized when reusing the output buffer.
 
-Make the shared template read-only and adjust the per-device platform
-data copy instead.
+Use put_unaligned_le16() when packing 16-bit fields into output reports.
 
-Fixes: 0b2c7a897378 ("HID: rmi: Make hid-rmi a transport driver for synaptics-rmi4")
+Fixes: 9fb6bf02e3ad ("HID: rmi: introduce RMI driver for Synaptics touchpads")
 Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
- drivers/hid/hid-rmi.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/hid/hid-rmi.c | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/hid/hid-rmi.c b/drivers/hid/hid-rmi.c
-index a4406bc6af43..0a5d32dbe881 100644
+index 0a5d32dbe881..ad2ab6c13550 100644
 --- a/drivers/hid/hid-rmi.c
 +++ b/drivers/hid/hid-rmi.c
-@@ -613,7 +613,7 @@ static int rmi_check_valid_report_id(struct hid_device *hdev, unsigned type,
- 	return 0;
- }
+@@ -15,6 +15,7 @@
+ #include <linux/module.h>
+ #include <linux/pm.h>
+ #include <linux/slab.h>
++#include <linux/unaligned.h>
+ #include <linux/wait.h>
+ #include <linux/sched.h>
+ #include <linux/rmi.h>
+@@ -126,7 +127,7 @@ static int rmi_set_page(struct hid_device *hdev, u8 page)
  
--static struct rmi_device_platform_data rmi_hid_pdata = {
-+static const struct rmi_device_platform_data rmi_hid_pdata = {
- 	.sensor_pdata = {
- 		.sensor_type = rmi_sensor_touchpad,
- 		.axis_align.flip_y = true,
-@@ -776,12 +776,12 @@ static int rmi_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 		return ret;
- 	}
+ 	data->writeReport[0] = RMI_WRITE_REPORT_ID;
+ 	data->writeReport[1] = 1;
+-	data->writeReport[2] = 0xFF;
++	put_unaligned_le16(0x00ff, &data->writeReport[2]);
+ 	data->writeReport[4] = page;
  
--	if (data->device_flags & RMI_DEVICE_HAS_PHYS_BUTTONS)
--		rmi_hid_pdata.gpio_data.disable = true;
--
- 	data->xport.dev = hdev->dev.parent;
- 	data->xport.pdata = rmi_hid_pdata;
- 	data->xport.pdata.irq = data->rmi_irq;
-+	if (data->device_flags & RMI_DEVICE_HAS_PHYS_BUTTONS)
-+		data->xport.pdata.gpio_data.disable = true;
-+
- 	data->xport.proto_name = "hid";
- 	data->xport.ops = &hid_rmi_ops;
+ 	retval = rmi_write_report(hdev, data->writeReport,
+@@ -217,10 +218,8 @@ static int rmi_hid_read_block(struct rmi_transport_dev *xport, u16 addr,
+ 	for (retries = 5; retries > 0; retries--) {
+ 		data->writeReport[0] = RMI_READ_ADDR_REPORT_ID;
+ 		data->writeReport[1] = 0; /* old 1 byte read count */
+-		data->writeReport[2] = addr & 0xFF;
+-		data->writeReport[3] = (addr >> 8) & 0xFF;
+-		data->writeReport[4] = len  & 0xFF;
+-		data->writeReport[5] = (len >> 8) & 0xFF;
++		put_unaligned_le16(addr, &data->writeReport[2]);
++		put_unaligned_le16(len, &data->writeReport[4]);
  
+ 		set_bit(RMI_READ_REQUEST_PENDING, &data->flags);
+ 
+@@ -293,8 +292,7 @@ static int rmi_hid_write_block(struct rmi_transport_dev *xport, u16 addr,
+ 
+ 	data->writeReport[0] = RMI_WRITE_REPORT_ID;
+ 	data->writeReport[1] = len;
+-	data->writeReport[2] = addr & 0xFF;
+-	data->writeReport[3] = (addr >> 8) & 0xFF;
++	put_unaligned_le16(addr, &data->writeReport[2]);
+ 	memcpy(&data->writeReport[4], buf, len);
+ 
+ 	ret = rmi_write_report(hdev, data->writeReport,
 
 -- 
 2.56.0.679.gc527c65306-goog
