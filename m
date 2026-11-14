@@ -1,99 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794632500;
-	b=dWbiHbVQSMmGA3PJjOVmv3vUGV4Eu7DFF0PNxQwRWp+d8s9S1w2DWnsrbJQDPmmHKuqd
-	 7iZIDdYJQK+vB6bxpy6vRY3Ki8HTU49JHIXCc0jR2CwehlLkZ80WImBVDzp5Rz+pHrCms
-	 lREoZrc2kuTk02vEygZzrI+fzaAZvuoKly/3dh9UZ2H5sq73PIwcmpf030AAj0yL1YaGh
-	 EPOU85xNIRdzMtlHGx6FPE/a4SNflH18pfYYn7QtTJh5iqflWfUFW3PHtdo7l9Qt0ENYi
-	 SVSCDZwtjsJgs9M//2DAJ8IxzX4HU0eLDprIilsCSJRoU+UrLSvG2cyhAFWbzYozC9A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794632500;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.181
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794632505;
+	b=LnR9SBUFnO8yEnHv94sG7d3FPAd3r9uMEf+Yjalr/GrGt2C0IdBnRzQOCm4R0jMkWxWw
+	 xPqDnahySxpe8kIXnns3GUxIFfUgWUIsiPiXPwQ+0qNLi4O5VGbkgf8lSQvMfKUcsVOc/
+	 gwJjTdt+UQq0wzIzbcXaAoEAlP3KIsmMRuICiaz9qOPXCYgE5VBYVtbDp8RMOjd3buKNl
+	 ur6FZZSWgzFQBkOJ3pRCV8reuAejIJyPBpHt/kd2Eyt4Yq9kuqkY9dRZURwc7swJwYliC
+	 eSy45mgtxiAm8cixt4S/kQgku4YkggZdozkz1kNSuCVfarht+0oZlpU7HG8lBUhL4qg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794632505;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=XsyBqFQpB4uqfmK/Q9kt69A4CrjPtbiX6wa6hMkSoPo=;
-	b=kz+XYk7uNt/WQlT977y3fH/n7q2TlO+MKPalzsvsgqtdBXTUcWfGuKEGEIAsyIAwHRH+
-	 wiJ05WM8VRnSyEVDm8KER8mOdcC36oPr1zzZnnarQCwzq9GIt5rPgcrUQFWn7A/WjJImj
-	 tvBHW2LikWc7FX/sMYEyb7jFCa9wEnpTt0VkZBibzBp7GsFqDZau08N3IUvOaYyGhoHPD
-	 4+bJWK4l48CDKmQCDGamap7G7CitDf9n2rvh2w+bEfL2xQ9NjpFDmHjwXGKCJcDfdnZ6p
-	 EiHYRzc20CRIkdNc/WxINkwJM0TOCtFcjbDX8ntYctAdJaXSsU46wapm191o2XdzKkw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=jMYTvmPr+KSRh1RdxaI2+rPAQFMAD6SO9Ci4p9a+jr4=;
+	b=y62BWzSMI2jB9KpiaaRmajneZ68ZUqDTeTO/UNCQMufb/fdNNZ+6PDHWnHtcyadaW1ts
+	 XhrZhYu6wH/Ju7+IzluWY8kxFOgUfmLyV5xgKQkTumpwk9gUhKB8I9tE4YaWjRZbYZthJ
+	 9IxxQGNKBtrcHJR64+aITTThsn8hjtsq6kkHzzj30FmCAAcGVyYAqNskA1q2AdbIHeEZw
+	 A0TVAnKa+FIfxNuWmbFbq8gxurLR9pElJ7lgDFX4jYPQa6sNYdYqrb0jKnNaMhdlibRyo
+	 d8uhcYwGlxFbENFtnoE2oQW7rI5mCBh/NlRCY96PO0cSPSHw6BUZHLptQRjypQgVZyQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JoOiROaT;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yLvHB6Tw;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.181
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2379606A89B
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 05:01:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2379606A89B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAB1B606AB51
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 05:01:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CAB1B606AB51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JoOiROaT
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4bb6057b03fso2944245e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:01:35 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yLvHB6Tw
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8a091e4eea2so180783b3a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:01:44 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794632504; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DkPwuFgEX6O7seC8I5SXh/tYZzRDOF/kK0X1caF5c3I2o+obEfNcNFyG2TIjRC0g10
+         VhMY9Q9/wAI4VuhRR29GGGb7fwSkHNBnPLvnnG4eJXVtuhwPehebRxkfROXg67RcVSpf
+         zyC1yQT/XOTqy3q7Hr15qFmzXi/xQ2jfu4BdFNgHQq1eYDVzoFxT0+Sdr9nyCSEg7XdN
+         dIJSd+byFMdWXzN+yyMynYqOVQhFoxW1lg2KhbFz6vKRbfEyoPNnoLqrLOxfQK3PEdSp
+         b9FxWXjdVSAnUl/3DYfimgedVCE1L9bET0ct3ksdbYMnGMuP5OrqqeDcfO7CidGd12Wt
+         Ti4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=jMYTvmPr+KSRh1RdxaI2+rPAQFMAD6SO9Ci4p9a+jr4=;
+        fh=JZDMfBOoqO5NkZu2ln2bBYvM+XbAMPLHTOsp8uaEnuw=;
+        b=BiWqjy+5ai48pXjz7MiCzEJyIu1rNQ0HZwmWsAww2NkM+FHBTWwyI9Ncbvq79HUtKX
+         4bLVkcVtAGjvSe0KbjJTfPHtFOk70FWB6NU61D5CaKkMd/x8RCuHMGxeB4omnrd2IUgD
+         lNnPrNO+W4/2ytmQCN4LmdgkayOs2KwY73G5HwJeHaKe3eZV2nOkDWeyxChmXqTgwqlz
+         H0X/IGXGhkOodC80m1K3xwFqX5oHVhRNSBFz0Y/+32VyQsHxo7RVHpQP4JV/oVMTenNB
+         rkT5OUeTn6N85PDtczbSrOLZn0rQtbOMIqHBOMDcP+DfdQ8dO3fvqBsDE49T3/jfZAKD
+         A6Jw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794632494; x=1795237294; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1794632504; x=1795237304; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=XsyBqFQpB4uqfmK/Q9kt69A4CrjPtbiX6wa6hMkSoPo=;
-        b=JoOiROaTWElWJE/9OqmMcTcIEuBaZ9LFk+zZjR+KV3E2MgEALRFAz8g9l44oWgTpKW
-         qclPPYr9pwJp8ludq/OulNKENxbDXJdVjUDL09hiEt6S4Y/X21V1+cUKZizLzoQx7Asd
-         klCu4PjDeXbR6e511SzOwQ2lngjkAjWv1/vuNQBEHmGQP86DbbsqHK7q8jwWg3pEyFCc
-         RvDxhUgfx+Q3sCp6ZYd6kpIZWXhCS5Jhvz1z6mnydrf2BWaj8ZXV7BBbCEe/DqAx3pDp
-         BdpRZ7NqcVFMXKNUCRmxuXNKatZHpxvdb7cbakINnm7zFC41L2EBYnAVeS3vSHnGZMBq
-         T1PQ==
+        bh=jMYTvmPr+KSRh1RdxaI2+rPAQFMAD6SO9Ci4p9a+jr4=;
+        b=yLvHB6Tw+n5zRGbneX/y2Nt0MBMkN4rYRxOLprnvZp+GSe8llWUPyw1f8imqYXsu4A
+         YW4J1B8GglH1Frx2+9gA/v0Uon0ARHMkZ8g/WCrmsfvU8FlaT1Y+eST8NdVVGbRQr34P
+         o71mESNozGnUQrGKOOCbRoMtyLhNVACAoIHKrJ1fKk4ECRWuezZEQxuCSP9/w1rrMC3D
+         dewSAH8sd8wYLc6GNYzRhtM0i5y4CaBQkaXZ6OJAlzKLU7MsUZVk577Yx1b5qx/4jbpJ
+         p3KusfCnQaMIaVm/U4c9nhLt1X0DoyQbzgYf8mwD2rDwIgFY/BXFRRkbKtLTea+myX7o
+         yztg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794632494; x=1795237294;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1794632504; x=1795237304;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XsyBqFQpB4uqfmK/Q9kt69A4CrjPtbiX6wa6hMkSoPo=;
-        b=S+ftKkT0c5m269PHN+zSoFRnzSiQABaUcteCTVSriQf6J8n4PdFHi5HO5DGxWMrrOS
-         bZ2Cy01CG9xcx4T3PYcMi+s4YFULjLrb1+L7HkEzvPkrVSmmbud2A33wL0J8pPom1bka
-         YjB5K6fGEb3dhmm6JYXFsqUQos8e+NKfJzeLccn2t4v3HquezP+vsMsSOpQwhjwsYGBz
-         IXC9MXrX3UXyXA/lSHnvMUuspCgGEdF9MCaI3spZJ/MA8cw38KKoGtlyb57JlM9OTOjO
-         jrUBd/9pgU1zHk9USC3S8KxQjU3CWNBj+Q615qg7M7ZP5SP1M7ugbwnLfihzWSe6EkXr
-         HI2w==
-X-Forwarded-Encrypted: i=1; AL+hErFlQzRQY2nVQ05bD75pItZt/yyxb+iOcta3/CMT5VvWXz4aViystl8QeP629JD2Zo1RcqBmLOTQai8JXRE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/wNey7RC5Ljj7a9iXiZAo1RQCxCzW30chwvpV6JVm1+j0kTt7i
-	UTAXIBmjt1TunDmNQJdobI8cc/H84ljuUn86rUG6WnfxZca8wx2tzJOf
-X-Gm-Gg: AYBFou2LsW5nwa02T3PPnw+e1622sBar/2mv8y+P3PY8+2nZot0YbfGmX1jmwgo75Ef
-	p+QLWko7GUepYLN8xzVpcUs0s17QVRrBbkGzEUU6IpepHf1adlE9mkqxKOvxDb2DbMRB1qYTGgQ
-	vS8rEckQHfB1jIJRqarWkjoZBdTsMQokb2JzxJQzA2+T+hvJP93mVDVB8Xboq7zZR/STYarzq3s
-	KeQL739/S4fWz/sdK6nkgpFePjt4lydxlKtbX1vDygmw5VU5rNgfJibAw6YGyc/W2NDwAkA5CNS
-	JMAdnpFZHDwWOLqswefcYbLDbsUd29gZDEqxuaHou9QHNNla1shQiDclodn5r6AIcgNgKlFiFNs
-	Z/9v8HE8daUV8Cna/GykIWgO6RoYlhdpDXEVn64OQl/HBwuEVtv5KPXvS/KYPSF0/N2RSgCq+GQ
-	pxvZJb5GTOnk790Oh+5kiV9/s14E2PTyPhK2VwFK04io24MQxZL3sEAE3R/Cpg6e9PwgAQ+Txt+
-	rRlfEjegLF5B8rRZgxqn2pHvr0kBQs66xXWIB7fYj9xwKF+96WOjQ2CoySEmVB+TSZy0sd6VWmi
-	988lbEaCSwWFKzfXKIBzVJyalisarAzDiv1+Y54lNfbCW1f0CzIPYA8mvMLQ1vkXZbZIjKqdRQH
-	+OJGMPsiruEsxWoTQD50yUVsnv6hVMlYzdNEHAznQvnPxB3Qnjjsg1IxTIt4JYiyXql4=
-X-Received: by 2002:a05:600c:1913:b0:4b1:2026:6b41 with SMTP id 5b1f17b1804b1-4bb55ab021bmr98950275e9.30.1794632493836;
-        Fri, 13 Nov 2026 21:01:33 -0800 (PST)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb5671059bsm65540875e9.1.2026.11.13.21.01.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 21:01:33 -0800 (PST)
-Date: Sat, 14 Nov 2026 08:01:29 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Shunbo Shi <shishunbo@cmss.chinamobile.com>
-Cc: dan@pereq.eu, elder@kernel.org, gregkh@linuxfoundation.org,
-	greybus-dev@lists.linaro.org, johan@kernel.org,
-	linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-usb@vger.kernel.org,
-	syzbot+0b456664585fa81a47f6@syzkaller.appspotmail.com,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [PATCH v3] greybus: verify the received message size covers the
- message header
-Message-ID: <avfrKSBbpEp7vQyO@stanley.mountain>
-References: <avV8I97uZJgX8Osk@stanley.mountain>
- <20261113234739.1432-1-shishunbo@cmss.chinamobile.com>
+        bh=jMYTvmPr+KSRh1RdxaI2+rPAQFMAD6SO9Ci4p9a+jr4=;
+        b=Cma7U6cWS09AvZHkZMqZ58ABO0skSPjXwBZDJjypHQgZP6OzJoDXrxnrP7Cx0kqfIa
+         xO6ip/rO2GYXZ+RrX9KSmqK2V5FbT97Kn3AwcIx3+AEL5NuKMy3QnJg6MwAtezcrRdPE
+         tZhin4KMnCUz6HsDbE61Ulyjr2idLnd+8vImvGzagA3/YARzIxxFNKksYGEMUWYVUV/s
+         t/89LKZFbVqcwi1f4DNpKwQSbZyUbtCSGfJSMReoYkHYQo613WCpqLeDDywfkVcHs4w9
+         QNeDz47vAdR5U9/A7iGbqU0IAeeUZKy41IOIuvCMNxX13HHgnlz6S9F/nQi4B6vgUOGB
+         R1XA==
+X-Forwarded-Encrypted: i=1; AL+hErF89D6MuJy+ZcbU6Rq3ZTKu6vG4dkg68A5zZd4V5hllQZZgNap41MwJ8GGzv4yiA6PGpJVfmfPyDGc5s7I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ADl91nxDa1eB3pZ9jXzUr865G8En3QCAwWh/xxVYyiv5rQfjZ
+	Fdk27scecFwDNX0qcFvrULNteJZDRI494QqM9ASPnAQyBSqLCi2q6Dkzvee/JLGF2/AK8HsY/Jb
+	S2kolPeHCo+rDgbmXYAem05BaLnMYcoqSppUtpDxeng==
+X-Gm-Gg: AYBFou2n0I/R8hIyN7/ZZr8/w+LG7mtJPSZv3khQ8+e/xCpGR4FeUy/2Gt1IIhj4Prd
+	R2devUXgTDit3RMOucH4w9Wl9ziiS2zjEftcbk4DDsM0qacqavKJO1ycFCeh+AbtNkOybwSIT6Z
+	PNrBAZEhNY6h+YvX1QoAr0v/eOckJUmM37dqqo1DxA3GiK72gbtCWeruBGhCysULF1bi0+RJhBW
+	DtT+kRVA2bN8R5Vb7lwa0wvwXYGKgvyPUkHpTMl0OoLm8tobc//acvZoQWyloYKUqsIWvDBH+PU
+	noijIQxOdVho+U71Sj4ixcMlTXj9XeX0XHxOwmlN7AexrNRjnni4SAVk6DJ7FviAinbxEzdGpN2
+	suZp7PwyKy8p8+WwULzl38vdV0FoVfcajZKSEsYNWzAlFPmehGrrf3tJ9oBOhZQ3oPHK7ow==
+X-Received: by 2002:a05:6a00:2b8a:20b0:8bc:35d4:a983 with SMTP id
+ d2e1a72fcca58-8beb63a0d7emr4947055b3a.3.1794632503862; Fri, 13 Nov 2026
+ 21:01:43 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,51 +104,234 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261113234739.1432-1-shishunbo@cmss.chinamobile.com>
+References: <20261105065509.94627-1-q.h.hack.winter@gmail.com> <avJqUf4_aBq_zkRo@chamomile>
+In-Reply-To: <avJqUf4_aBq_zkRo@chamomile>
+From: Qihang <q.h.hack.winter@gmail.com>
+Date: Sat, 14 Nov 2026 13:01:31 +0800
+X-Gm-Features: AclHuK9PCwUMjk3k3_3TWX_7upd_aucCkRivxjBESCeq8VS_CuRBZq74-OGcivY
+Message-ID: <CAH78Gvu+_-aD6tOn4A9OfDWWwrbrb3-vX1YiP827i_-UFMg5wg@mail.gmail.com>
+Subject: Re: [PATCH net] netfilter: nf_flow_table: defer pernet stats release
+ to last flowtable teardown
+To: Pablo Neira Ayuso <pablo@netfilter.org>
+Cc: fw@strlen.de, phil@nwl.cc, vladbu@nvidia.com, ozsh@nvidia.com, 
+	netfilter-devel@vger.kernel.org, coreteam@netfilter.org, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 13, 2026 at 11:47:39PM +0000, Shunbo Shi wrote:
-> In gb_connection_recv(), the size of the received data is checked
-> against sizeof(struct gb_operation_msg_hdr) and against the message
-> size encoded in the header (msg_size), but msg_size itself is never
-> checked against the header size.
-> 
-> If a peer sends a message whose header claims a size smaller than
-> the header itself (e.g. header.size == 3), the two existing checks
-> both pass (size >= sizeof(header) and size >= msg_size), and the
-> message is dispatched with the undersized msg_size.
-> 
-> In gb_operation_create_incoming(), this leads to an unsigned
-> integer underflow in:
-> 
-> 	request_size = size - sizeof(struct gb_operation_msg_hdr);
-> 
-> The underflowed request_size then wraps back around in
-> gb_operation_message_alloc():
-> 
-> 	message_size = payload_size + sizeof(*header);
-> 
-> causing kzalloc() to allocate a buffer that is too small to hold
-> the message header.  When the response is later prepared in
-> gb_operation_response_alloc(), reading
-> request_header->operation_id reads past the end of the undersized
-> allocation, triggering a KASAN slab-out-of-bounds report.
-> 
-> Link: https://lore.kernel.org/all/sashiko-outbox-210716@kernel.org/T/
-> Fixes: d90c25b0a279 ("greybus: let operation layer examine incoming data")
-> Reported-by: syzbot+0b456664585fa81a47f6@syzkaller.appspotmail.com
-> Closes: https://syzbot.org/bug?extid=0b456664585fa81a47f6
-> Signed-off-by: Shunbo Shi <shishunbo@cmss.chinamobile.com>
-> ---
-> Changes in v3:
-> - combine the two separate conditions and unify the error message
->  as suggested by dan. Thanks!
+Hi Pablo,
 
-Thanks!
+You are right, your nf,v4 patch covers this.  I re-ran my reproducer on
+a clean 7.3.0-rc6 tree, same .config and initramfs, your patch as the
+only difference: the unpatched kernel reports the percpu write in 3/3
+runs, yours is clean in 3/3 with the counters still demonstrably live.
 
-Reviewed-by: Dan Carpenter <error27@gmail.com>
+Your synchronous purge removes the teardown GC passes that could queue
+further DEL work, which covers the path my reproducer exercises, so I am
+withdrawing the patch and do not plan a v2.
 
-regards,
-dan carpenter
+One correction to my report: act_ct sets NF_FLOWTABLE_HW_OFFLOAD
+unconditionally, so my "flushes were skipped" explanation does not apply.
 
+Thanks,
+Qihang
+
+On Tue, Nov 10, 2026 at 8:50=E2=80=AFAM Pablo Neira Ayuso <pablo@netfilter.=
+org> wrote:
+>
+> On Thu, Nov 05, 2026 at 02:55:09PM +0800, Qihang wrote:
+> > The pernet flowtable statistics (net->ft.stat) are released when the
+> > netns exits, but the flowtables attached to a dying netns are torn down
+> > asynchronously afterwards: the tc conntrack action frees its flowtable
+> > from an RCU-delayed workqueue item (tcf_ct_flow_table_cleanup_work()),
+> > and nf_tables releases flowtables from the transaction release work.
+> >
+> > nf_flow_table_free() ends with a garbage-collection pass that queues
+> > offload works; flow_offload_queue_work() increments the pernet counters
+> > when scheduling them and the handlers decrement the counters again once
+> > they complete.  The flushes in nf_flow_table_free() only drain those
+> > workqueues when hardware offload is in use, so after free_percpu() the
+> > stray workers still this_cpu_inc()/this_cpu_dec() into freed percpu
+> > memory.
+> >
+> > Account flowtables at init time and defer the release of the statistics
+> > to the last nf_flow_table_free() of a dismantled netns, after draining
+> > the offload workqueues.  A netns without flowtables keeps the
+> > synchronous release.
+>
+> Looks like a duplicate of:
+>
+> https://patchwork.ozlabs.org/project/netfilter-devel/patch/20261029230657=
+.302417-1-pablo@netfilter.org/
+>
+> > Fixes: b038177636f8 ("netfilter: nf_flow_table: count pending offload w=
+orkqueue tasks")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
+> > ---
+> >  include/net/netfilter/nf_flow_table.h |  1 +
+> >  include/net/netns/flow_table.h        | 11 +++++++
+> >  net/netfilter/nf_flow_table_core.c    | 44 ++++++++++++++++++++++++++-
+> >  net/netfilter/nf_flow_table_offload.c |  7 +++++
+> >  4 files changed, 62 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/include/net/netfilter/nf_flow_table.h b/include/net/netfil=
+ter/nf_flow_table.h
+> > index 5b22d31cb1407..91ffa3072a0cc 100644
+> > --- a/include/net/netfilter/nf_flow_table.h
+> > +++ b/include/net/netfilter/nf_flow_table.h
+> > @@ -376,6 +376,7 @@ void nf_flow_offload_stats(struct nf_flowtable *flo=
+wtable,
+> >
+> >  void nf_flow_table_offload_flush(struct nf_flowtable *flowtable);
+> >  void nf_flow_table_offload_flush_cleanup(struct nf_flowtable *flowtabl=
+e);
+> > +void nf_flow_table_offload_drain(void);
+> >
+> >  int nf_flow_table_offload_setup(struct nf_flowtable *flowtable,
+> >                               struct net_device *dev,
+> > diff --git a/include/net/netns/flow_table.h b/include/net/netns/flow_ta=
+ble.h
+> > index 1c5fc657e2675..6d2dc0d1f06c7 100644
+> > --- a/include/net/netns/flow_table.h
+> > +++ b/include/net/netns/flow_table.h
+> > @@ -2,6 +2,9 @@
+> >  #ifndef __NETNS_FLOW_TABLE_H
+> >  #define __NETNS_FLOW_TABLE_H
+> >
+> > +#include <linux/spinlock.h>
+> > +#include <linux/types.h>
+> > +
+> >  struct nf_flow_table_stat {
+> >       unsigned int count_wq_add;
+> >       unsigned int count_wq_del;
+> > @@ -9,6 +12,14 @@ struct nf_flow_table_stat {
+> >  };
+> >
+> >  struct netns_ft {
+> > +     /* Protects nr_ft and exiting. */
+> > +     spinlock_t              lock;
+> > +     /* Number of flowtables attached to this netns. */
+> > +     int                     nr_ft;
+> > +     /* Set at netns exit; the statistics are then released by the
+> > +      * last flowtable teardown.
+> > +      */
+> > +     bool                    exiting;
+> >       struct nf_flow_table_stat __percpu *stat;
+> >  };
+> >  #endif
+> > diff --git a/net/netfilter/nf_flow_table_core.c b/net/netfilter/nf_flow=
+_table_core.c
+> > index 0d72dc8ae47a1..de0a9f0e4f7b9 100644
+> > --- a/net/netfilter/nf_flow_table_core.c
+> > +++ b/net/netfilter/nf_flow_table_core.c
+> > @@ -715,6 +715,7 @@ EXPORT_SYMBOL_GPL(nf_flow_dnat_port);
+> >
+> >  int nf_flow_table_init(struct nf_flowtable *flowtable)
+> >  {
+> > +     struct net *net;
+> >       int err;
+> >
+> >       INIT_DELAYED_WORK(&flowtable->gc_work, nf_flow_offload_work_gc);
+> > @@ -733,6 +734,13 @@ int nf_flow_table_init(struct nf_flowtable *flowta=
+ble)
+> >       list_add(&flowtable->list, &flowtables);
+> >       mutex_unlock(&flowtable_lock);
+> >
+> > +     net =3D read_pnet(&flowtable->net);
+> > +     if (net) {
+> > +             spin_lock(&net->ft.lock);
+> > +             net->ft.nr_ft++;
+> > +             spin_unlock(&net->ft.lock);
+> > +     }
+> > +
+> >       return 0;
+> >  }
+> >  EXPORT_SYMBOL_GPL(nf_flow_table_init);
+> > @@ -771,6 +779,8 @@ EXPORT_SYMBOL_GPL(nf_flow_table_cleanup);
+> >
+> >  void nf_flow_table_free(struct nf_flowtable *flow_table)
+> >  {
+> > +     struct net *net;
+> > +
+> >       mutex_lock(&flowtable_lock);
+> >       list_del(&flow_table->list);
+> >       mutex_unlock(&flowtable_lock);
+> > @@ -781,19 +791,51 @@ void nf_flow_table_free(struct nf_flowtable *flow=
+_table)
+> >       nf_flow_table_iterate(flow_table, nf_flow_table_do_cleanup, NULL)=
+;
+> >       nf_flow_table_gc_run(flow_table);
+> >       nf_flow_table_offload_flush_cleanup(flow_table);
+> > +
+> > +     /* The gc pass above can still queue offload works whose handlers
+> > +      * decrement the pernet statistics.  Drain them all.
+> > +      */
+> > +     nf_flow_table_offload_drain();
+> >       rhashtable_destroy(&flow_table->rhashtable);
+> > +
+> > +     net =3D read_pnet(&flow_table->net);
+> > +     if (net) {
+> > +             bool release;
+> > +
+> > +             spin_lock(&net->ft.lock);
+> > +             release =3D net->ft.exiting && !--net->ft.nr_ft;
+> > +             spin_unlock(&net->ft.lock);
+> > +
+> > +             /* Released by the last flowtable teardown, see
+> > +              * nf_flow_table_fini_net().
+> > +              */
+> > +             if (release)
+> > +                     free_percpu(net->ft.stat);
+> > +     }
+> >  }
+> >  EXPORT_SYMBOL_GPL(nf_flow_table_free);
+> >
+> >  static int nf_flow_table_init_net(struct net *net)
+> >  {
+> > +     spin_lock_init(&net->ft.lock);
+> >       net->ft.stat =3D alloc_percpu(struct nf_flow_table_stat);
+> >       return net->ft.stat ? 0 : -ENOMEM;
+> >  }
+> >
+> >  static void nf_flow_table_fini_net(struct net *net)
+> >  {
+> > -     free_percpu(net->ft.stat);
+> > +     bool release;
+> > +
+> > +     spin_lock(&net->ft.lock);
+> > +     net->ft.exiting =3D true;
+> > +     release =3D !net->ft.nr_ft;
+> > +     spin_unlock(&net->ft.lock);
+> > +
+> > +     /* Pending flowtables still update the statistics from workqueue
+> > +      * context; the last one releases them, see nf_flow_table_free().
+> > +      */
+> > +     if (release)
+> > +             free_percpu(net->ft.stat);
+> >  }
+> >
+> >  static int nf_flow_table_pernet_init(struct net *net)
+> > diff --git a/net/netfilter/nf_flow_table_offload.c b/net/netfilter/nf_f=
+low_table_offload.c
+> > index 4365859220e6a..6ac28802ef632 100644
+> > --- a/net/netfilter/nf_flow_table_offload.c
+> > +++ b/net/netfilter/nf_flow_table_offload.c
+> > @@ -1180,6 +1180,13 @@ void nf_flow_table_offload_flush(struct nf_flowt=
+able *flowtable)
+> >       }
+> >  }
+> >
+> > +void nf_flow_table_offload_drain(void)
+> > +{
+> > +     flush_workqueue(nf_flow_offload_add_wq);
+> > +     flush_workqueue(nf_flow_offload_del_wq);
+> > +     flush_workqueue(nf_flow_offload_stats_wq);
+> > +}
+> > +
+> >  static int nf_flow_table_block_setup(struct nf_flowtable *flowtable,
+> >                                    struct flow_block_offload *bo,
+> >                                    enum flow_block_command cmd)
+> > --
+> > 2.54.0 (Apple Git-157)
+> >
