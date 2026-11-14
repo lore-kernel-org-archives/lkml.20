@@ -1,87 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794700462;
-	b=tZV4SfmfMs1c9uXQn+MTi3Uaias/UfqqXogMRaGQ9ssbsKc7/vtxUnSQtTmLIS2xS9LE
-	 OuE9R4oxJBzEzVVYaQfsPUQhUx0aV4fhZVW4/ySzMGSO50tJ59foITGRw6ODqFeb8KCrD
-	 dxCZBlILuu+bMXvPrnG0NZ7qCu8Pq647louIYJU85njaSzkP5W0C9u7ERqq4MzXMAAue/
-	 UPPSsYxydlY4crDQUeBHnnAAApbCiFaqtHR6hHSQHlZl6OQ1pBc8Z4A9MovN1Gbqu0E9+
-	 2+nnF/SD6bE7p7NsiZZSFPyWQyq01gTsEHSi+sg48qHvv6LTXzb8czScwF/BFxUhHTA==
+	t=1794700464;
+	b=rWFbdlJO+A9bjMnZQsK9S3f19b/R1J7BXjcLSUMSPII452qs6tuxBLzE7eJYtb5b2uNG
+	 /HQn4iLL5j0hkSypjTE1lftzggkkMvD1EMOUIfq5x9Gk7w+HFJcmIzV7LNPV5QvTvBDbj
+	 iTQGJGmWJSbJu7z6V/1OnzBCKg4XH8BT8FQuEMmzGxEBh8oaq9wHzEiNcWft3bEjjNkED
+	 ql5weNQoT8HbzypWnCXtpa3TCbXukqZ3zIbNt1WAxJi5Jn5wcLio+mXOEeEDe+I+ZWZ3g
+	 KUCsdk5xvgL9sDjdhpUS6lmwtEjZ+APXFChUJKS+DV31HVbwUa7/s56qUgFcsABJIZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794700462;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Reply-To:Subject:
-	 Content-Language:To:References:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794700464;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=IufCbieA6Qd8N+6xo9KKOPiazDCkVPjgFR48LE6emEs=;
-	b=s5NaKC6WzTuhvRDJZvE+1Cm+3piH7h7oBG+dtDBehvz8N3KKy64OK7e/kkPiPR6OsTXF
-	 FNQvsC0cWbBuYxrKfS6fPxb7oxNXX9m4TMdf9Xoa30jQaRNzIKYGYI5oWNQGAFh0ZD9/C
-	 n/RyGY/0u/de9MT0fjtQ7KoPIrdnYTno4dN5or21auV54iRlcZQXatKn4rr8a2aKJdVXT
-	 LIM+R7sWF5qMxaPJ7K3DHURIQYhIyEffHfLxy7+ZAvvrdloMws2vopsVBzamTzUFnP7gi
-	 YXDqv/2v7fQqxAGKY1NFKGmXD3Ths26Y87W/J6iJmSjmFuup3j/yDOyphv7W8Fg8OZg==
+	bh=OmOWDTHs4v8eGfBw9Zf1YFY4jTOyvl+0L69mZ0TJgW0=;
+	b=460N+d8+Er9b0guDK58oFwMshqOqjOlRn6KbMRqmO3ywwdkmGbE+6pzOOXDVQ7VnndkN
+	 O09oimA8CAUdU3BKiaxNpsLTQDRlwj3G1lf8iUeUlFiBknWvC+oaUDSjkImghIRpq0oA5
+	 DCYfpKlqEY60CF9lpAANnCgi6VKqgRkkTOu+1wui37nOwso2+qa8g2LtMLoYiLyYBaocF
+	 vABiIc4bUm36BPo6I/ZrAPKRENsOiB1cPp0R1m6ffF0dzq8XuneDeqqpwYj/t/a201u8m
+	 O8cQ41LyIFI0v3R85K5e1CmfF+wCFWIO1WaDBkVmNggLkraOBNIMPat/VfZeqRITCUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AcwcReT+;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PM8Epa91;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E3EC606A32C
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 23:54:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E3EC606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1563606A880;
+	Sat, 14 Nov 2026 23:54:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AcwcReT+
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-36dbde64409so3337845eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 15:54:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794700461; x=1795305261; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :to:content-language:subject:reply-to:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IufCbieA6Qd8N+6xo9KKOPiazDCkVPjgFR48LE6emEs=;
-        b=AcwcReT+QC044IPHT6exIOLUEgeeK49xIuqeNAggMyZFbImm4qBXyiu6GnzPTnzF0O
-         LyIgtMrKl1ZmN5XjVs6vL7C8ALbllys6YBCjcALl19AjHF8kZgB1gaDggpQyV9VrU9zD
-         Syo17s9Vq08yv2z9WuwKPD8uw8rACx16MuX7r7bj7/9DH99+LefTGqCCMB9A23z2HZzR
-         NWFuOGadUVdkAKILcwFUnEClxLZ/UQG5X4y1k43QRdgGsC8Sskrl/RDLXBMgJBxzkKIE
-         75LEOqBwq0+MFF9sGjLZOZiDzItFi9AM+cK2i747T2pMvMN6mbeU3OG5qAdFEuGCGk81
-         +vIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794700461; x=1795305261;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :to:content-language:subject:reply-to:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IufCbieA6Qd8N+6xo9KKOPiazDCkVPjgFR48LE6emEs=;
-        b=nP0eIf1KUMOwN+Jz/yk9yZ3rmu/NoIOCELrEF6lvdZxY3iLXkJXNXbvbWu3bQOb+YT
-         3yf2Ee+6bBAZXEjoJBi0CZTmxcxipxvvf7cmlDw69tpWL3JAoe3h8sqWegy+g32KZrrg
-         Ju2W45MQmCZtrM6wsH5IDJ9S0dih71fTjkyvcL4va23PGrkyqf6Jh2AIz4PjSSK3lyib
-         3HRKIBLXYujEmBI02bd1OdGU+Ts+9EwnPN09ir6bLuH5xpsT2Smk1Gr+uoCM0QYT9JuL
-         PWzrwsCVICbWAcAn4SZUa+KT571yg+/DCglvkehEdiaEgfACb7y+ToULcXPsBv3YXZy1
-         dHSg==
-X-Forwarded-Encrypted: i=1; AL+hErGawXki7WUyijeXzb3A7eYwafi/lBlkIzXoMNeQ052q1MiPy0qW7pyd9u6KYt/8j9idxJvzOPCeniE6umI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8qD3MPlRAtkuoA/LFEKX2+BKPS+B6m6mDwgpz9qCVbxh+BfNjG
-	++Yy83cXm1B0NyM+FsFaIizYhCCGdWMC4LlgEXGtkGiNrK45KkQAv1LT
-X-Gm-Gg: AYBFou0K1lZ6jMYBhINMrh+g9ZprviTEF2ZxFCvUaVaYblSJiYMSFx+A1Ub0y7k7axD
-	3WI4Jh/BUdKhEKr067duUt6N50U0In9oQAx/2VO+8z1jkfMauFeTusWi7pmdIG+LZVsWzTqNH3h
-	BsNxUQ6Q3MtTMOc3a7Kfgy5BDbXsm8KVkvjqqjPCh3tN9zgbJOdqsylYKdGL1v0xd9837miY/0X
-	ZaqZnHn99hmugt/a0mx6zVquAYmvZRfp7yndBiQ5aF6LBSlqriZyKbRjKLd0CkXFYc6PkG0Q24t
-	s1my01Tm2i+dSjNwdxgcwWfvFIucUfnmgws5KqztadrHOUz7M84H5dXKp2fSLVd8tjSE8nrjnzj
-	SBAUwHQLZRqkRI0hfS1g7w0QjZvo3TYCon4i8Ivastj3OrV05bKZEYb7z5dnemAlcM08r5OxiY2
-	iA7gnR0Uj8wnQfYjQ0WJnk9L6bZnfb/vUjOubTprMXcMFwV5L44pzraXcM5Yn1Mwj/zCQkiQJf6
-	1wQjIqlQSHEY/pcRI58B4+B4rrV8EpU8t3EI8SOSqGBZFqUTj/Qf4QKZy7BvLB/SzPF7jfw+Eu1
-	mt3xwLggiLd/g1qGteCMPB7jfu1e10inlsvMbgyXHjBt2E5mC1iyEZ/yTPIp+J4h5ko=
-X-Received: by 2002:a05:7022:f116:b0:1b3:af3a:e793 with SMTP id a92af1059eb24-1b502fe37c6mr6384471c88.0.1794700460496;
-        Sat, 14 Nov 2026 15:54:20 -0800 (PST)
-Received: from [192.168.35.43] ([218.50.238.131])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50313d8f5sm29226208c88.3.2026.11.14.15.54.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 14 Nov 2026 15:54:19 -0800 (PST)
-Message-ID: <4b8a7510-808b-40fc-a6c5-551e7d88d5e4@gmail.com>
-Date: Sun, 15 Nov 2026 08:54:17 +0900
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PM8Epa91
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBA041F000C7;
+	Sat, 14 Nov 2026 23:54:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794700464;
+	bh=OmOWDTHs4v8eGfBw9Zf1YFY4jTOyvl+0L69mZ0TJgW0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=PM8Epa911DWKIWkB/cSA9N1Q9ONn3UyiuR8llUtY0uvvw0Xpmr3Y8Fklcb6vWT6DD
+	 Hbf51fXONGnNJM8yhsQXICXLDJXcDa45cCI2KpTOPyzXEYtjZ9QPXiTk8MBy2f6gCU
+	 HSEPe9PkYh6EurOGqIoLyNztDsfeJ1v7MyCezA9/URsWFSIKdb+50B6kE9FqomRsvV
+	 T+zLnuG8kv1uQWtQfmreblewXheWaomvXmemWI/EeYnkQqgNBS37Y1S31SjeHwuBe6
+	 oD3zPrzs4QUC3evkEJhg+vy7AI+oaTSvfZXKWYFGTqBVfv3YOtwkfXQ4L6Vlsc+CWv
+	 sfoVLNzHP2HnA==
+Date: Sat, 14 Nov 2026 23:54:16 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>
+Cc: linux-iio@vger.kernel.org, Per-Daniel Olsson
+ <perdaniel.olsson@axis.com>, Kurt Borja <kuurtb@gmail.com>, David Lechner
+ <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] iio: light: opt4060: fix inverted own trigger check
+Message-ID: <20261114235416.5589888a@jic23-hlaptop>
+In-Reply-To: <20261109085631.00007485@oss.qualcomm.com>
+References: <20261109024746.1253593-1-jic23@kernel.org>
+	<avHsKUE4xJ0vdu6P@nsa>
+	<20261109085631.00007485@oss.qualcomm.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,60 +63,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: chanwoo@kernel.org
-Subject: Re: [PATCH v2 0/2] PM / devfreq: add Airoha SoC Subsystem scale
- support
-Content-Language: ko
-To: Christian Marangi <ansuelsmth@gmail.com>,
- MyungJoo Ham <myungjoo.ham@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Chanwoo Choi <cw00.choi@samsung.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261009073330.18175-1-ansuelsmth@gmail.com>
-From: Choi Chanwoo <cwchoi00@gmail.com>
-In-Reply-To: <20261009073330.18175-1-ansuelsmth@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 
-On 10/9/2026 4:33 PM, Christian Marangi wrote:
-> Airoha SoC contains multiple subsystem that are scaled to a
-> specific OPP taking the CPU clock as reference. Such sybsystem
-> can enter idle or performance state based on the system load
-> and power consumption conditions.
-> 
-> Example of such subsystem are GSW (Gigabit Switch), NPU (Custom
-> Risc Co-Processor for Network acceleration), SOE (Crypto Module) BUS...
-> 
-> Changes v2:
-> - Rename to a more symbolic name
-> - Address some sashiko bot warning
-> - Better describe the use of this devfreq driver
-> 
-> Christian Marangi (2):
->   dt-bindings: devfreq: Document support for Airoha Subsystem Scale
->   PM / devfreq: add Airoha SoC Subsystem devfreq driver
-> 
->  .../devfreq/airoha,subsystem-scale.yaml       | 114 ++++++++++++++++++
->  drivers/devfreq/Kconfig                       |  10 ++
->  drivers/devfreq/Makefile                      |   1 +
->  drivers/devfreq/airoha-subsystem-devfreq.c    | 100 +++++++++++++++
->  4 files changed, 225 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/devfreq/airoha,subsystem-scale.yaml
->  create mode 100644 drivers/devfreq/airoha-subsystem-devfreq.c
-> 
+On Mon, 9 Nov 2026 08:56:31 -0800
+Jonathan Cameron <jonathan.cameron@oss.qualcomm.com> wrote:
 
-Hi,
+> On Mon, 9 Nov 2026 15:52:31 +0000
+> Nuno S=C3=A1 <nuno.sa@analog.com> wrote:
+>=20
+> > On Mon, Nov 09, 2026 at 02:47:45AM +0000, Jonathan Cameron wrote: =20
+> > > From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+> > >=20
+> > > opt4060_set_driver_state() is meant to keep sampling and the interrupt
+> > > on every conversion enabled while the buffer is in use with the
+> > > driver's own trigger, as that interrupt is what fires the trigger.
+> > >=20
+> > > When converted to use IIO_DEV_GUARD_CURRENT_MODE() the negation of
+> > > iio_trigger_validate_own_device(), which returns 0 for the device's o=
+wn
+> > > trigger, was lost. As a result, with the driver's own trigger in use,
+> > > enabling or disabling a threshold event switches the interrupt to
+> > > thresholds only and buffered capture stops. With another trigger in
+> > > use, the one shot conversions requested by opt4060_trigger_new_sample=
+s()
+> > > are instead forced to continuous mode.
+> > >=20
+> > > Restore the negation so the code matches the comment above it.
+> > >=20
+> > > Fixes: 8284a4985416 ("iio: light: opt4060: Use IIO cleanup helpers")
+> > > Cc: stable@vger.kernel.org
+> > > Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+> > > ---
+> > > This was found by an LLM whilst doing a refactor of related code.
+> > > Indeed seems there was a change of behavior in the sited patch that
+> > > wasn't as intended.
+> > > ---   =20
+> >=20
+> > Reviewed-by: Nuno S=C3=A1 <nuno.sa@analog.com> =20
+>=20
+> Fixed the linux-iio address.  I'll probably post a v2 so I can pick these=
+ up
+> as normal though.=20
+>=20
+> Thanks for the review Nuno,
+Similar to previous, I decided to be a bit naughty and pick it up
+on basis it was on LKML and this email with full content went to the
+right list.
 
-The devicetree contains ths only clock information for scaling without any parent device
-information even if this drier has used the passive governor as default.
-I think that you better to use 'userspace' governor.
+Applied to the testing branch of iio.git
 
-Also, are there any connected device to provide the utilization?
+thanks,
 
--- 
-Best Regards,
-Chanwoo Choi
-Principal Engineer, Samsung Electronics
+Jonathan
+
+>=20
+> J
+>=20
+> >  =20
+> > >  drivers/iio/light/opt4060.c | 2 +-
+> > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > >=20
+> > > diff --git a/drivers/iio/light/opt4060.c b/drivers/iio/light/opt4060.c
+> > > index 8253a6a8bee4..1a7d429453be 100644
+> > > --- a/drivers/iio/light/opt4060.c
+> > > +++ b/drivers/iio/light/opt4060.c
+> > > @@ -310,7 +310,7 @@ static int opt4060_set_driver_state(struct iio_de=
+v *indio_dev,
+> > >  	 * IRQ and sampling must go to or remain continuous.
+> > >  	 */
+> > >  	if (iio_buffer_enabled(indio_dev) &&
+> > > -	    iio_trigger_validate_own_device(indio_dev->trig, indio_dev))
+> > > +	    !iio_trigger_validate_own_device(indio_dev->trig, indio_dev))
+> > >  		return opt4060_set_state_common(chip, true, true);
+> > > =20
+> > >  	/*
+> > > --=20
+> > > 2.56.0
+> > >    =20
+>=20
+
