@@ -1,105 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.58
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794664893;
-	b=S/HX/DZnCK+MRYDL3wHIkLfHBJOFiy+S268pNREtSzEhEzsKNgF6F/11KpLjcIsuEuY7
-	 MGtykI7OIvVUDYGX74PqNJsI4L3Vf8XL//uLAEz6F8s7/TLfLbjc9UNocIO7HNM/lcpIF
-	 MJpRqxAN0D0CxhTPLbVOjAjiKchaNhA4li1qJ00YH02rm1qNz18SRJlt9hZrvUjgvDVvk
-	 Kx0BPEthYJ2h0Ls96FHAGgUaTyetOWL6qWXf/8nW9tyUj7Ca+tDjbioDsW2U2mshf9lED
-	 A6yDqs8xetDe1KAeI1FuGGOng3oiYXBOHw7WNzbLCWI09A4MAe3yQ0q3DeloDnO7mew==
+	t=1794664975;
+	b=ariTv1wkRaFP1c0TjbRHwstsv4v4Ujz5DsM5iT6chd1ZTnrs0EI85/3CjTIpnE2a5aQW
+	 Uzbr6L/kWGTRbjDQRrIXe6yuqOdGzRAkbK/MYHRbxzrG8IXpJHG06g5W/9TaIXUdo64X9
+	 ApTYxadzOp5DLkWtMHHbkvZffIc79zXn5WzbhfU6KY2vJKdnBVGoZkRScvIiUBXveujn6
+	 MPpIDMsJJo2aFRtFbnY3uBN/wv/S6uBn/u1L9o1qQoWPi0sHn7cVMIPTvSgoi+JO9GOXg
+	 b7VvTN/BNdrFmcXyicQcgWlhcr6oPM79+dQHaL3+SCq1QNkfJX8sP9SGC5agX/McY5Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794664893;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=+SLTM6oj4Hp+3JVEJeLw0qiEEKr0kwGunMWiDoj4IXc=;
-	b=Ezw5bCIQf7u5Tgj/DuHahlAsiGv3S+WBECtIlzWhPHZmqqJwJJZE60eX075Ba0TpWGMZ
-	 HoOVvNRkQxjcy16KT4x6FaDF88X3/G2A1RYbMJBj6xiftbKcc2qdf7ZA7gko7IqCV6C7p
-	 2npuAL7UcGylV3qeHMlDUFZAVmz7YS2tS83NUtQlkdcYsOlXXCSqwVqJS76KRaxK7pmxn
-	 FBoTPbzmGZekRiFVosc14Yj2/R/urzSsh/HGTpu31ICzGTNoFshsP7v/fYkHmL0t6JqpC
-	 vAY5SP5JlBslKd54VwCW/Zt99/n3FO2PhW7RGMb8vvVe6Sdx3SHdSOlSfxiSuDymEtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794664975;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=hyjEvWjCmu9ZhqykLopS+0U4K+phVlInpXperM3Jliw=;
+	b=LxYWNyyPzoJMSxzKxegf6ySx9997VO3fx3IYqognDlSOWb5nsUOCToH3V8JY6hX6P3Hr
+	 EIEq+ARQElk6LJ4f3ltDIBzv1fyz+8F6RVhhnytXC5O+EU4mSkqb7coWnRx0hxt5Uot8P
+	 oMJZwi/25RlI5USCtvMGvAQ2UJcVzdJYzZeu3cMiLyL4N/yx+DbBMdSY3VKZsD5t/Q7Dg
+	 gBqRJprIzoDGRZkuxGDRIWtpVpe4GjcFtWiv+31RDF7IgQf9aX8N7QGwNdWGGeTsJF+MJ
+	 KHZ7Q7snFLi5bHzQIGlZwsj/F+70kif+lDfMAhfGZaNF4Ad4RJa7xAC77s7sk0wLlDA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=qAyb+pJS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.58
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011058.outbound.protection.outlook.com [40.107.208.58])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WyfieUFo;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0011606A330;
-	Sat, 14 Nov 2026 14:01:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0011606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65169606A327;
+	Sat, 14 Nov 2026 14:02:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=qAyb+pJS
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=q2ncHhBBiIk4jyf4jLPD/ZQ3cJYx4XYhaRAZW3WFSmyQv/1NQb9p6KoyGo869OOFLQakEJtaXBJjh5p8PtoRmQURffiF0Q2h39mGObkZtL6+QV0Vhji+LRkx+d4aMMzVpjdYkMOQTwyWBDmqs+VFJnUp2SKT1tBme9toTdN2lOG8FhZX3aOT4n7KHdJlfwrgoHmPAt3x6bsTdTjBJwzHS5H4NHr/6n+DAJWVdO2krWGutzpSLYPiOQztIXyY4CPXRVDcyflnn/Q35igAEXTV33PTM3WTFQxaFWTd5xVqt4sAtSkRifzo10WsraeSCoFOFIkBk3Vera+0eKIho5Rj7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+SLTM6oj4Hp+3JVEJeLw0qiEEKr0kwGunMWiDoj4IXc=;
- b=osxq0MqFnpS3zhb/5tHUtcqZYvuSzp/kdYH4vuXDdbIVw/u11A6sslMoVOhhJr9JzYkYzXFzaqJDhnRgkUMXsRLXA81d1xxqeX+3mJtAQZjyN6QNcBy/SRoYojup6X+qgusHN38IWYOldzW4IheSzYmMHZ9LmbWE/LBpk5IC8lhJiVK7peY6dzXdzLlKbw0OJ84hbRIyH+FrWF3FDkNVUQ+HUx6vHUISe734K0esY1sLDX4DWC+y9aNDdFNmt2hdRKMwdlGziqxDSDE1xDdUjues00Q2+6caWzTsZ5fiZOlAneRZGSQhTAs0H9nzPiy6FauK16Of9ypfzE5ioxfaCQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+SLTM6oj4Hp+3JVEJeLw0qiEEKr0kwGunMWiDoj4IXc=;
- b=qAyb+pJSfrgDzw5JFkP4a4yRXOtgK+t3Xfi92h9gBYp2kVGyQ5uoiV94oribFDm9x343q5n10CcnoxKk2p/78rrJEh9Fh7uh2zellAZlk81roL6xrqB3UMCS5mVH8lXApc3KWvuFxEag/CHHhUTChUMndktU/thQEcUUQ2FThuH0UQqVYYjLHqVESBVeQL2HNsL4K9dTnOczh2KBncJNEgBeIH/ffEsl7YidbRijSPbDEJzAD3Ce1Uf8giFLQdxaUKhDV8cPXUAvFLef8d7j523iQFrsXdB0jZOg9lGj1yNJvMgNSGavlTfKcXXhtMHCnKiesTAhqlh8xL9Mvazi+A==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL0PR12MB2370.namprd12.prod.outlook.com (2603:10b6:207:47::27)
- by SJ0PR12MB8613.namprd12.prod.outlook.com (2603:10b6:a03:44d::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Sat, 14 Nov
- 2026 14:01:28 +0000
-Received: from BL0PR12MB2370.namprd12.prod.outlook.com
- ([fe80::86cf:c3ec:2cf5:74c8]) by BL0PR12MB2370.namprd12.prod.outlook.com
- ([fe80::86cf:c3ec:2cf5:74c8%5]) with mapi id 15.21.0615.009; Sat, 14 Nov 2026
- 14:01:28 +0000
-From: Richard Cheng <icheng@nvidia.com>
-To: tony.luck@intel.com,
-	reinette.chatre@intel.com,
-	shuah@kernel.org,
-	ben.horgan@arm.com,
-	fenghuay@nvidia.com
-Cc: x86@kernel.org,
-	Dave.Martin@arm.com,
-	james.morse@arm.com,
-	babu.moger@amd.com,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	kaihengf@nvidia.com,
-	kobak@nvidia.com,
-	newtonl@nvidia.com,
-	kristinc@nvidia.com,
-	Richard Cheng <icheng@nvidia.com>
-Subject: [PATCH v6 2/2] selftests/resctrl: Check that CBM limits LLC occupancy in CMT test
-Date: Sat, 14 Nov 2026 22:01:08 +0800
-Message-ID: <20261114140108.36954-3-icheng@nvidia.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261114140108.36954-1-icheng@nvidia.com>
-References: <20261114140108.36954-1-icheng@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: TPYP295CA0047.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:7d0:8::16) To BL0PR12MB2370.namprd12.prod.outlook.com
- (2603:10b6:207:47::27)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WyfieUFo
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794664975;
+	b=du+zeb9dFdwa6PR3y0vU+JiHER4aEM/fWx89NDXpUhNoruxaG3JXmTgQJueDLXgrtrC0
+	 ZBaoM2BhlD6NPS+/kHFlfj3YUBSflUlsoSXwu11bXNIOhyYMyczIVfpLVwnW2vbqSqurt
+	 3Z+7r5gCNCGZ1Ka5uXtdipr5Daj8i3CseWQa9uyYPtM0cu7pcd+ELHRtm4GWmM8Opxx9y
+	 ZqyBKzWgFpn9U93haM443fUPl8CA6pZrcw1MLNEuLJPI0IwiEaW594KV3SFJVRh57pgDQ
+	 ErFjc1UPT9vZbTQzwtXXs3c3kNV2M30Wrpwd3xpu2Y4j+xZFz464z7xIyvFvvJLj1dQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794664975;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=hyjEvWjCmu9ZhqykLopS+0U4K+phVlInpXperM3Jliw=;
+	b=HJEAGqAHU2mnTAQZO2rZBLtgZoAnPyLmUPlnDC7JtWSvcYdNqEj+1tWWCATQILUfTnok
+	 vjVR3fOmdktDYzP2Dg7q+noAYHPHsrxCFzCJCXS6ZqrmklswL1YS12aZQKn0b4YbpXYvz
+	 woP/nPbo7RMgc3BNAvBzNhpkaUyv9HtXUChLTWopdAYUbQxWwouP4zwYx1RKV3Jk21UQa
+	 nKRGJpht5B1vUdcwfSGkPHbFLLV7fqMgSEOyIBP+bWa43W24e6J6JRB152GT2SEVbLTl5
+	 kwEip0ri5B6wY+UH5ya6YmrAPQDk2e2Z+6zhyM6f8tMkTEGdjkLs7BFsAwFzVl76mMQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 6F92A1F000C4;
+	Sat, 14 Nov 2026 14:02:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794664974;
+	bh=hyjEvWjCmu9ZhqykLopS+0U4K+phVlInpXperM3Jliw=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=WyfieUFofS87Clr9a2qfL+fZnAK4XOSJu0lelpKoAcghXY7dym7+WfC0A/fwX4asQ
+	 OR/vWngKhde42mL3TT3dzH2d0Tl0Km1hB1NNStXUksulIYKQ3mQ1w8G2X6aC0MWQwg
+	 NtdTBq2iMwndGBGIB5jcnfZD8yGGrMFV9AdTALiykRpZEI/XCQglcFdTxpeycvuvjt
+	 oE8jcE+zdoRWGGKxunsIGZY780SjD3blu0cSv7u3ta64h5Fc++OJ2s1MmhxM+mKc0x
+	 4b+asMUyK5KKzOVciDmmq5HekJwsow3/TUQh+Y6JeQW7vmWKZJReHJ7fdvR772mrFx
+	 h/qVK8OaibV0Q==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id F29A049DC2;
+	Sat, 14 Nov 2026 14:02:53 +0000 (UTC)
+From: cookys via B4 Relay <devnull+cookys.gmail.com@kernel.org>
+Date: Sat, 14 Nov 2026 22:02:54 +0800
+Subject: [PATCH] i2c: qup: scale the transfer timeout with the transfer
+ length
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,199 +83,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2370:EE_|SJ0PR12MB8613:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9eb302d1-ddc7-4935-5031-08df4257c6fc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|10067099003|11063799006|56012099006|261021123027099003|261021121427099003|261009223027099003|261102123227099003|261026121527099003|261026140227099003|261022113327099003|261022105027099003|261028144727099003|18002099003|22082099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	cOl22d2mTsq7ssHhNlASLX+rJmjezWftAsMSnQL2sem43kbr+6/bqxeHqA+OHKN/95zpWrKzu+2lmPX9SKBBKvefS3/ez2ENL9HEx/HNWbxwmnvvPjzlA4c0i8m4faeqbq03L2Ao7QUp1Pe6ZnCI7P/yTvADAsDNKtlEZseFE/PlMjAP9Zn646Vl9ySA2DXDIL0TOm8KKCzpmogA69rrA9GxIjTc3FEY6iQhtHhutDNb+K8PgZ3JRY2sYuiSy8i21eSsDccCwPKuCWljoYMrWlmIBEkArkjYRgI9Zv80h2Ajzkky/Yf7x70mGKavly7ELzev4cUR0HM1HoJROebFEQdCQhiyv3GKLo9T2M2C9b89mM12IDvJJn0mfXTteGJ2l6gmJnYImPYK/uNK/n5Cl6wWDLQgVFnSBw05JQiepSCWE9OULIPEqYjMERj8h3AhEUsm1VTX2tPQCTT5jDqxKXQGZl0DukMTDhDg1GkIeVu+lLqodKjBGx9c6xTKwb1exoDhJ4Pq+DPwJiwwurYn8r0BcjKv7t25VocklIu9MVIn8jRHg+/rRbHesldBurkoihyTpp1xLWHAND7z4vz0o3fMS2S4iURTBDuQ6/no43XTOXsdCBbJVpMYtCZO8Ql/iqgyCrD+yHz8NkIJsSbG9Ks0mDZL4ma7Kl23DzORzVw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR12MB2370.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(10067099003)(11063799006)(56012099006)(261021123027099003)(261021121427099003)(261009223027099003)(261102123227099003)(261026121527099003)(261026140227099003)(261022113327099003)(261022105027099003)(261028144727099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?3ri+HL0Jh3hLcJZq4HkBoFEOiHK1XXopJF1ZkS9Lpx9C0OmsCSCNCynQ23W+?=
- =?us-ascii?Q?eST30oLIhHAWKM1zVRVX5HAD5LEfyqi2Wa1NB+2DErTx2Oe9s0t+WSU7lP/T?=
- =?us-ascii?Q?WF3UqlMlS4dN/SSA0E5FFxwkYTnL4uFy3nByIG7v6LBCy8J/c1gjP8AZFAjO?=
- =?us-ascii?Q?/tgMX6EgsgP+LIrss3iK76ZMNbBwyFix9dANPICdQOmusijvOn8ee+YBt7z1?=
- =?us-ascii?Q?josq/V3uLnEgZEU3L629WyNNRv5DnsXCQyV2P8TIWbyyFULuHTSVVoZKQ9D+?=
- =?us-ascii?Q?3h9yJhUEbCm9Ms0uzibS0LwvVijO0FcP3Kj5jXyXnPUyARjZbRqvUyTvpztD?=
- =?us-ascii?Q?M04T16Wm8rA66lvj6YcO22EDYAhyMcWl5lmYeA/pRtpQ1Oa1yG0BGdUGqG+P?=
- =?us-ascii?Q?U7eHDlvXY4EjJ2REXsndcfhbPfehTghX+DjuXavK2rxbyRfAOlMEdA6dzJCA?=
- =?us-ascii?Q?DtJ1hG10xxDAzgBeetuayJePdLdeiu1LQkm6OvowFTApBVpQCsgMVeNJZF7G?=
- =?us-ascii?Q?m5q2LXfShA3UYNkokfNAV/4BGH6gJAF7L3CuZPeckzBgdGSew0v7AJPOWM1F?=
- =?us-ascii?Q?aTYewGnm1UE132xDJJjfZe0x9mRwqHiabOkXkkPng5VQavgC+bXByncjPFV+?=
- =?us-ascii?Q?xK63JKKw57hewS9FsOPIlCW1/ktbgYraMcwEa5rPQAS3OF+bH1iyUNKnzl/c?=
- =?us-ascii?Q?UuIeHnDNs4sKbxrmx6OOOToiuYLx/YQ4yvz8sM2ypiAlZQBWyeGKqn8E0Tvy?=
- =?us-ascii?Q?F/mX8IMyTDgDV4F79AOk+SX1ksmGgNsYrvYB2CqZ/AkeaJaDXxpr3gBAT/G9?=
- =?us-ascii?Q?atY/TyaTYrRSIxX0LKKPKo/530kDa1tO8AnaQnqhJ4tpZJmSVnd117oftRZQ?=
- =?us-ascii?Q?XOLA/12TR4BHn//rvU/Lp+nCxKCBEUykH7bud11A8bXOCa0Ce8nHk6pQG042?=
- =?us-ascii?Q?cjzJ14MB7be5PvRWv3plQPRtMbV8DQZz18C7cuNja8lnsLotU6bhI30qhau2?=
- =?us-ascii?Q?0CfsYMNXk2rAbBz2U57NrUnvw6OQ/QiepU4XAb8bcwviL2xOzIN1hfjdzogx?=
- =?us-ascii?Q?65K97rZ4b+a69vqDl1L8cNinEp6LSCj6nzdwowB0w6t8rrmw/zWxnbDz8p/Z?=
- =?us-ascii?Q?MKxfWPldH7Rv7f8JQ2OsCKnsWlD9zY+5fyhYWK9M4/mr0egQDMMh+1ft/FTd?=
- =?us-ascii?Q?MZERnPb4uSO88h2qvT487XrarBpE7GmC5kpxFjBOcToY4OFrxBle5skx0WKC?=
- =?us-ascii?Q?K/Obudhy+xWEQvV3fMm9Eur+ltObvz26ZZgEs333xDUknMy5bxHt2nwiL8a3?=
- =?us-ascii?Q?8WtTH56ZrCAJY91lr8C5xgkQdc4WlsADY0kvjHvFGfD6Qh0E+6QoLCPr/Jc3?=
- =?us-ascii?Q?tzBYD6InWmiRqcGkzVo1X2HygA/CRqRelgQsHO+iODKxjwVFbXpNOQsYfgU2?=
- =?us-ascii?Q?jitZzEki0+/Oll8nqyg7/bvyC6/krpkSJhZzADLc/3lFI54LcjOVPeHekXDm?=
- =?us-ascii?Q?v609ptXlLUr7nRUvPb70XdDB0zyO2gPiwNVQqTPYCTmiTjK/NGnIAHR5b2z7?=
- =?us-ascii?Q?4zTKNL9RFLSWTn1gZ3u1wxeaOF0KH15pU8GT2kyKUB8DS+sRbfC1GtM0ZaPR?=
- =?us-ascii?Q?S7KHYTa1nXFAP5wFSYeWsnhwDwP7yUfHGxtwWElJ1UCREWt+u9PYz47fYsRA?=
- =?us-ascii?Q?ven+OnHsjyWIhkPw+AwXXJ/mSsrJOnuvJj58MbyTSJ5AceZtbY1R72iqTwz5?=
- =?us-ascii?Q?d0Hoten3eg=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9eb302d1-ddc7-4935-5031-08df4257c6fc
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2370.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2026 14:01:28.1790
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: k80eOj5qHOQsdqDgIWnusb/Yz9QXG+2NBOMNFDqBWX/i9cnoMCOSrI86fwpPW8/tvR3AJFUgp61UYrbMW0AOow==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8613
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261114-qup-timeout-v1-1-ab3be931d506@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMyw5AMBBA0V+RWWtiEBW/IhYtg5F49SES8e+K5
+ Vnce4Elw2Shii4wdLDldQnAOIJ2VMtAgrtgSJO0QMRc7H4TjmdavROFlirpykxqiRCKzVDP53e
+ rm9/W64la9y7gvh8wYiE2bwAAAA==
+X-Change-ID: 20261114-qup-timeout-6b7a0d837b71
+To: Andi Shyti <andi.shyti@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794664973; l=3701;
+ i=cookys@gmail.com; s=20261114; h=from:subject:message-id;
+ bh=zxianrKojbq9bic6+na8V+oRSupTcgwcBLkFgdWYgvE=;
+ b=x9S2ehW1Zf27K0+xaHExDuSiTdAXjX1Fkaef3wnZLrOUEFHb5ECZSiGELuPKVY00avdXYKso0
+ V4JMCGOiaA9AgE7PWsLO8h+pzBuFprYTVKWyWYQulhtB93iLr6YaoBk
+X-Developer-Key: i=cookys@gmail.com; a=ed25519;
+ pk=CR+HDlVDbzSn6HgGtSLe9WwOu5qDJieqaLN/LgFay6c=
+X-Endpoint-Received: by B4 Relay for cookys@gmail.com/20261114 with
+ auth_id=1525
+X-Original-From: cookys <cookys@gmail.com>
+Reply-To: cookys@gmail.com
+Content-Transfer-Encoding: 7bit
 
-The CMT test measures LLC occupancy with one CBM and never checks that
-the CBM limits it.
+From: cookys <cookys@gmail.com>
 
-Measure again with all CBM bits set while the benchmark keeps running.
-This needs no cache flush, what the group has in the cache is covered by
-the wider CBM too.
+qup_i2c_probe() sets one transfer timeout for the adapter, sized for the
+largest DMA transfer: TOUT_MIN (2 s) plus MX_DMA_TX_RX_LEN (128 KiB)
+byte times. At the default 100 kHz that is 2 s + 131072 x 99 us, about
+15 s, and every wait uses it, even for a one-byte read. A transfer that
+never completes therefore stalls its caller for 15 s before -ETIMEDOUT.
 
-The buffer is twi the tested portion, so occupancy should about double.
-Only require an increase above MAX_DIFF_PERCENT.
+On the Lenovo ThinkSmart View (APQ8053) the FT8201 touch controller
+sometimes does not complete the first read after power-up (about one
+boot in four). edt_ft5x06 probes asynchronously, so for those 15 s
+every module init waits in async_synchronize_full(), and boot stalls:
 
-Skip this for an user-provided benchmark or a buffer larger than the
-cache.
+  probe of 2-0038 with driver edt_ft5x06 returned 0 after 15343275 usecs
 
-Signed-off-by: Richard Cheng <icheng@nvidia.com>
+Set the timeout before each wait from the bytes that wait covers: the
+message length on the FIFO and block paths (v1 and v2), the total of
+the messages in the batch on the BAM path. The probe-time value is now
+only the initial default. With this change the same failed read returns
+after about 2 s:
+
+  probe of 2-0038 with driver edt_ft5x06 returned 0 after 2353169 usecs
+
+Tested on the ThinkSmart View (msm8953-mainline 7.3 with this change),
+24 boots: touch probe 0.32-0.35 s, and 2.35 s in the one boot where
+the controller missed its first read.
+
+Assisted-by: Grok:grok-4.6
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: cookys <cookys@gmail.com>
 ---
- tools/testing/selftests/resctrl/cmt_test.c | 74 +++++++++++++++++++---
- 1 file changed, 66 insertions(+), 8 deletions(-)
+ drivers/i2c/busses/i2c-qup.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/tools/testing/selftests/resctrl/cmt_test.c b/tools/testing/selftests/resctrl/cmt_test.c
-index 5d0bb27b7817..5962aeb0cd8b 100644
---- a/tools/testing/selftests/resctrl/cmt_test.c
-+++ b/tools/testing/selftests/resctrl/cmt_test.c
-@@ -19,6 +19,12 @@
- #define CON_MON_LCC_OCCUP_PATH		\
- 	"%s/%s/mon_data/mon_L3_%02d/llc_occupancy"
- 
-+/*
-+ * CBM that the control group being tested is widened to after the first
-+ * NUM_OF_RUNS measurements. Zero when measuring with a single CBM only.
-+ */
-+static unsigned long wide_mask;
-+
- /*
-  * Initialize capacity bitmasks (CBMs) of:
-  * - control group being tested per test parameters,
-@@ -62,10 +68,26 @@ static int cmt_setup(const struct resctrl_test *test,
- 		     const struct user_params *uparams,
- 		     struct resctrl_val_param *p)
- {
--	/* Run NUM_OF_RUNS times */
--	if (p->num_of_runs >= NUM_OF_RUNS)
-+	char schemata[64];
-+	int ret;
-+
-+	/* Run NUM_OF_RUNS times with each CBM */
-+	if (p->num_of_runs >= (wide_mask ? 2 * NUM_OF_RUNS : NUM_OF_RUNS))
- 		return END_OF_TESTS;
- 
-+	/*
-+	 * Widen the CBM while the benchmark keeps running. All that the
-+	 * control group has in the cache was allocated using the narrower
-+	 * CBM and thus is covered by the wider CBM also, no flush is needed
-+	 * between the two sets of measurements.
-+	 */
-+	if (wide_mask && p->num_of_runs == NUM_OF_RUNS) {
-+		snprintf(schemata, sizeof(schemata), "%lx", wide_mask);
-+		ret = write_schemata(p->ctrlgrp, schemata, uparams->cpu, test->resource);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	p->num_of_runs++;
- 
+diff --git a/drivers/i2c/busses/i2c-qup.c b/drivers/i2c/busses/i2c-qup.c
+index a0e076fc5..cda78933e 100644
+--- a/drivers/i2c/busses/i2c-qup.c
++++ b/drivers/i2c/busses/i2c-qup.c
+@@ -439,6 +439,12 @@ static int qup_i2c_change_state(struct qup_i2c_dev *qup, u32 state)
  	return 0;
-@@ -107,10 +129,12 @@ static int show_results_info(unsigned long sum_llc_val, int no_of_bits,
- 
- static int check_results(struct resctrl_val_param *param, size_t span, int no_of_bits)
- {
-+	unsigned long sum_llc_occu_resc = 0, sum_llc_occu_wide = 0;
- 	char *token_array[8], temp[512];
--	unsigned long sum_llc_occu_resc = 0;
--	int runs = 0;
-+	int runs = 0, runs_wide = 0;
-+	unsigned long llc_occu, avg, avg_wide;
- 	FILE *fp;
-+	int ret, ret_wide;
- 
- 	ksft_print_msg("Checking for pass/fail\n");
- 	fp = fopen(param->filename, "r");
-@@ -130,13 +154,36 @@ static int check_results(struct resctrl_val_param *param, size_t span, int no_of
- 		}
- 
- 		/* Field 3 is llc occ resc value */
--		sum_llc_occu_resc += strtoul(token_array[3], NULL, 0);
--		runs++;
-+		llc_occu = strtoul(token_array[3], NULL, 0);
-+		if (runs < NUM_OF_RUNS) {
-+			sum_llc_occu_resc += llc_occu;
-+			runs++;
-+		} else {
-+			sum_llc_occu_wide += llc_occu;
-+			runs_wide++;
-+		}
- 	}
- 	fclose(fp);
- 
--	return show_results_info(sum_llc_occu_resc, no_of_bits, span,
--				 MAX_DIFF, MAX_DIFF_PERCENT, runs, true);
-+	ret = show_results_info(sum_llc_occu_resc, no_of_bits, span,
-+				MAX_DIFF, MAX_DIFF_PERCENT, runs, true);
-+	if (!runs_wide)
-+		return ret;
-+
-+	/*
-+	 * The buffer is twice the size of the cache portion being tested and
-+	 * LLC occupancy is expected to about double with the wider CBM. Only
-+	 * check that it increased by more than the tolerated difference.
-+	 */
-+	avg = sum_llc_occu_resc / runs;
-+	avg_wide = sum_llc_occu_wide / runs_wide;
-+	ret_wide = avg_wide <= avg + avg * MAX_DIFF_PERCENT / 100;
-+	ksft_print_msg("%s Check cache occupancy increased with wider CBM\n",
-+		       ret_wide ? "Fail:" : "Pass:");
-+	ksft_print_msg("Number of bits: %u\n", count_bits(wide_mask));
-+	ksft_print_msg("Average LLC val: %lu\n", avg_wide);
-+
-+	return ret || ret_wide;
  }
  
- static void cmt_test_cleanup(void)
-@@ -193,6 +240,17 @@ static int cmt_run_test(const struct resctrl_test *test, const struct user_param
- 		param.fill_buf = &fill_buf;
++static void qup_i2c_set_xfer_timeout(struct qup_i2c_dev *qup, unsigned int len)
++{
++	qup->xfer_timeout = TOUT_MIN * HZ +
++		usecs_to_jiffies(len * qup->one_byte_t);
++}
++
+ /* Check if I2C bus returns to IDLE state */
+ static int qup_i2c_bus_active(struct qup_i2c_dev *qup, int len)
+ {
+@@ -864,6 +870,7 @@ static int qup_i2c_bam_xfer(struct i2c_adapter *adap, struct i2c_msg *msg,
+ 	struct qup_i2c_dev *qup = i2c_get_adapdata(adap);
+ 	int ret = 0;
+ 	int idx = 0;
++	unsigned int xfer_len = 0;
+ 
+ 	ret = qup_i2c_vote_bw(qup, qup->src_clk_freq);
+ 	if (ret)
+@@ -900,6 +907,8 @@ static int qup_i2c_bam_xfer(struct i2c_adapter *adap, struct i2c_msg *msg,
+ 		if (ret)
+ 			break;
+ 
++		xfer_len += qup->msg->len;
++
+ 		/*
+ 		 * Make DMA descriptor and schedule the BAM transfer if its
+ 		 * already crossed the maximum length. Since the memory for all
+@@ -910,11 +919,13 @@ static int qup_i2c_bam_xfer(struct i2c_adapter *adap, struct i2c_msg *msg,
+ 		if (qup->btx.sg_cnt > qup->max_xfer_sg_len ||
+ 		    qup->brx.sg_cnt > qup->max_xfer_sg_len ||
+ 		    qup->is_last) {
++			qup_i2c_set_xfer_timeout(qup, xfer_len);
+ 			ret = qup_i2c_bam_schedule_desc(qup);
+ 			if (ret)
+ 				break;
+ 
+ 			qup_i2c_bam_clear_tag_buffers(qup);
++			xfer_len = 0;
+ 		}
  	}
  
-+	/*
-+	 * The buffer is twice the size of the cache portion being tested. If
-+	 * the entire buffer fits in the cache then also measure with the full
-+	 * CBM to check that the tested CBM is what limits the LLC occupancy.
-+	 */
-+	wide_mask = 0;
-+	if (param.fill_buf && 2 * n <= count_of_bits)
-+		wide_mask = long_mask;
-+	else
-+		ksft_print_msg("Not measuring with wider CBM\n");
-+
- 	remove(RESULT_FILE_NAME);
+@@ -1054,6 +1065,7 @@ static int qup_i2c_conf_xfer_v1(struct qup_i2c_dev *qup, bool is_rx)
+ 	if (ret)
+ 		goto err;
  
- 	ret = resctrl_val(test, uparams, &param);
--- 
-2.43.0
++	qup_i2c_set_xfer_timeout(qup, qup->msg->len);
+ 	ret = qup_i2c_wait_for_complete(qup, qup->msg);
+ 	if (ret)
+ 		goto err;
+@@ -1432,6 +1444,7 @@ qup_i2c_conf_xfer_v2(struct qup_i2c_dev *qup, bool is_rx, bool is_first,
+ 	if (ret)
+ 		goto err;
+ 
++	qup_i2c_set_xfer_timeout(qup, msg->len);
+ 	ret = qup_i2c_wait_for_complete(qup, msg);
+ 	if (ret)
+ 		goto err;
+
+---
+base-commit: 04e9bf1648f846976b543e91c1838a712433772a
+change-id: 20261114-qup-timeout-6b7a0d837b71
+
+Best regards,
+--  
+cookys <cookys@gmail.com>
+
 
