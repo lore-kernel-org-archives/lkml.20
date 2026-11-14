@@ -1,80 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794673147;
-	b=NBoAb57BnEEFbqYDrdUlTxWr1sMNdbCfVLq1c3pb1loonJJJ44zSHoMvu3c3NEfxn3Y4
-	 MU/8w7n/8L9zi10eGur3jCTwGWb/LA5MM5fYV7hYdiTwJ7++S7f/t37Ahh4hRD7vWnARh
-	 9vO+JNhm1bjNKhCkAMoqvdikeVZ714HPfWLaxE5HLBe9fH2O7NL2UJk0b1uI3pxPDySRp
-	 YX6sYOkeTKN3oofIpz0UUvLiCzLARb/+2VI01GpMxxfRToNJ4gIwqIKcxvahUosivMDjZ
-	 wrjuIIl6g0dlVDgCNqdGjld22cvVh1BQsHIIahU7tSraAyvKjGvVwlGm4FQ8qgei9LA==
+	t=1794673152;
+	b=HXkr7A2kYfH2ILNP8HsGrtcMHeloJVZkcNEuDax0GavJNfG1aUZsyNiBAHxiDoP5Fh6B
+	 29cQbpqnN3+zHIdXFuTXk8mizuDnQD+KLlWQGdFVSS4vIbaOz05UiYG8pvPJAk1qXkb32
+	 bnS+5Dx1Qv8P8yX43/DpmtHLzgrKTzZAMWT30RqVtGZjoP8FE/8Uo6R0wq2NvxjO0Erb2
+	 atCIySy89rFmb71zOr7oV2hVq+KE7btb81x9HyGp1TYch0VtyFqbWtZ/+SPiSFhHCiy1A
+	 7y3mWrIMMVx8fPY85/tERNXe48D8vvozkZNTCgnPK61MCBgLtI1Yz0uZVlLm27dJA6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794673147;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=JCDCkpZpZx3msxFpU0K7Bh+oLFZlG0e5BdfbB0gsogA=;
-	b=GmxK1vOv4Qs7L4HtPAEvCvB8orLab6/NwHqKX6z6YsEpDN4DM/Hkwpfv754YGbn7BpPC
-	 9M+9UYqK/v2zQcVWii4/3MZwNEPklZ03ArfY6ChDxn3FXnbZEacqEOSG4Uebu9YTwKody
-	 kIk945TwHDicKWKpmif5gmDBVzt/r0I5m6+S1anMsRGQQqfk4Mlclz8DbglB2iVlWShUH
-	 TYFqV+WxHHuuTR964+COgTSUMpvyRBcGOtt3AP0+cZoqb9oJPmhyxwznRmiRZwTeb65S/
-	 VE9D8IfCexhHsH5PmFuID+wfRtSafyrHXZVQ9DLsC4HTlDabHeDIOFa0G2xsa/WnXfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794673152;
+	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=szGS1CeGbYGPkWuMoRnLaZZO05Fgspcv4JaKgVqioX8=;
+	b=hXaVfH+LzSf4Uf0kKo5CVADBt5lOLGOGM+rYPBImTFhFvHa5AHm9INZpKYCyw68F4OZ9
+	 MNO6osBoJ4T+ymKhOMfUOR8pSTYVLVAd+57GnHi6WqByhAudma9YZ2EJfqPAlBpTS/JgS
+	 81n3wsr4xX0TU9szZJb3CGUYgfRzDEe1CO/iIoN81iIB+MKeT+VStR6POpAjeIS9ogDq2
+	 k0fhO8ef6ZZ7l5Qys1F9gK73ZMcxHbNmaEuDqb+u2FkNDTpwttPfLdvBUGuKYt//9pG5f
+	 umQrYNp7eCFjzd/w1zCWNIAB+8J94+tZA4BKS3dxEJ6M2JZajoxBVFTSVoaoa1YDVuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=VYCQKKLo;
-	arc=none smtp.remote-ip=44.202.169.37
-Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jd12V7r+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C20E3606A32D
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:19:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C20E3606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35350606A334;
+	Sat, 14 Nov 2026 16:19:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=VYCQKKLo
-Received: from eig-obgw-6005b.ext.cloudfilter.net ([10.0.30.162])
-	by cmsmtp with ESMTPS
-	id S3znxxxy2JFmFSGT3xyZtz; Sat, 14 Nov 2026 16:19:05 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id SGT2xeCsB0288SGT3xZvrs; Sat, 14 Nov 2026 16:19:05 +0000
-X-Authority-Analysis: v=2.4 cv=a5Iw9VSF c=1 sm=1 tr=0 ts=6af889f9
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=pGLkceISAAAA:8
- a=mn8VwWfJFaLlvHgQrZwA:9 a=CjuIK1q_8ugA:10 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=JCDCkpZpZx3msxFpU0K7Bh+oLFZlG0e5BdfbB0gsogA=; b=VYCQKKLoer5ezSDEIGlp3u7A8x
-	uZ+iLGexfw8yPMd4Jqau/5dc4FCpE6Gkm/7E2ngLDLCgjG6ayuR1bg0xzdrn7FRmmeMSG75JU2YT3
-	5wZz6E1m3UPfUSYBxj8XNBPRUeYvfprWvdZlChJngSPMxyc8avaKc5Xfx3QbAQQCPr3exTidfXcKu
-	gJ7/0HF/oWlRQ60ttF2Zu9U4EFo8X5DhRlwzB/MuJktN87pR1zuJPl7ioqLkZ+ea6b4hwg0E1zCVL
-	c0xIWvF2wgQtK5xTCrnv+X1eY1NgPJCYlTTIP+jMr6p9St1xhOSNOTQRZXFmbjPLnG+qnzQfE/My+
-	yBH7uNGw==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:43562 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xSGT2-000000008Gd-2VUG;
-	Sat, 14 Nov 2026 21:49:04 +0530
-Date: Sat, 14 Nov 2026 08:19:03 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Johan Dahlin <jdahlin@gmail.com>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Alwyn Kik <alwyn@kik.pw>, Fabio Baltieri <fabio.baltieri@gmail.com>,
-	Hamza Mahfooz <someguy@effective-light.com>
-Subject: Re: [PATCH v2 6/7] hwmon: (nct6683) Name the fan headers of the
- ASRock B850 Steel Legend WiFi
-Message-ID: <1155bf6d-9a68-42cd-91d2-d336f345a020@roeck-us.net>
-References: <20261111082838.1418051-1-jdahlin@gmail.com>
- <20261111082838.1418051-7-jdahlin@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jd12V7r+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1D811F000C4;
+	Sat, 14 Nov 2026 16:19:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794673152;
+	bh=szGS1CeGbYGPkWuMoRnLaZZO05Fgspcv4JaKgVqioX8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Jd12V7r+vrzapn2IZRbFJR/sbCR5TzTLJWCErWJDigzmgTMNu/l29Jb66myp5H/v2
+	 ecp1DUFbBgvzJ2mLE7g1ouBu/4glAz4No0HFxfDRU3SyGw4QIBmk2T8YDeySpKS88x
+	 x35rMQ+HBMJRIi0l1EqP4twHkC5ttwo+wvRQOt07pLF4KR3//EEBdeubxiKyxdn+SG
+	 /nUMhMkBNRBDaIsGkgSTTjS3iK76rU/NYIZHpvYnhtQRc8sZf+ZXHKJ2N6NxX9g0jj
+	 kpGNoP9GT0dETMfuBbiIiLE8AKg0xAmTjBHD+QV2bfm8Ng07fF6r4FYz4SrvTy1QXS
+	 ZnvGBHME4+Xvw==
+Date: Sat, 14 Nov 2026 06:19:10 -1000
+Message-ID: <ec53c6d48e537677b488f5d82b3f3f0f@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: bpf@vger.kernel.org, Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>, Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, John Fastabend <john.fastabend@gmail.com>, Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, Roman Gushchin <roman.gushchin@linux.dev>, Amery Hung <ameryhung@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>, Meta kernel team <kernel-team@meta.com>, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH bpf-next 0/3] bpf, cgroup: Don't wait for cgroup_mutex to read or free cgroup bpf state
+In-Reply-To: <20261112172721.440275-1-shakeel.butt@linux.dev>
+References: <20261112172721.440275-1-shakeel.butt@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,41 +58,20 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111082838.1418051-7-jdahlin@gmail.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xSGT2-000000008Gd-2VUG
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:43562
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 56
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfC+pSd0Z9Yol/YzYCyKgM3gOFYf8haOcR4Mr4DLBHHcrasLIh7wVFQPmns8sXtl5eO+LYEBMQI0TUsqDOTBNFZHcVWfS/MY7EZx372llBuDAyjc8iRmX
- wW6vwzJmN7EXwdes5B7Qtnn3MxVAGce2J7OdKecUqEQVuwRGzRqVFCWHBxqADQ8QaC0x8V/EG2/HoE1hX9MlHX4ME851GMULEs2X37yG2DOepIbegKxuDS1S
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 11, 2026 at 09:28:37AM +0100, Johan Dahlin wrote:
-> With fan control available, users need to know which pwm channel drives
-> which header. The driver has no fan labels.
-> 
-> Add a fanN_label attribute, visible on boards with a name table, and name
-> the channels of the ASRock B850 Steel Legend WiFi after the headers
-> printed on the board: CPU_FAN1, CPU_FAN2, AIO_PUMP and CHA_FAN1 to
-> CHA_FAN3. The order was inferred from the readings and the BIOS defaults.
-> 
-> Signed-off-by: Johan Dahlin <jdahlin@gmail.com>
+On Thu, Nov 12, 2026 at 09:27:12AM -0800, Shakeel Butt wrote:
+> In the Meta fleet, BPF_PROG_QUERY callers, link-info readers and the
+> cgroup bpf release work often wait minutes for cgroup_mutex. The holder is
+> almost always a cgroup mkdir or rmdir stuck on kernfs_rwsem. In one day,
+> hung-task reports showed this on 1,075 hosts (query), 94 hosts (link info)
+> and 458 hosts (release work).
 
-Again, please add per-board sensor names to sensors3.conf.
+For the series,
 
-Thanks,
-Guenter
+Acked-by: Tejun Heo <tj@kernel.org>
+
+Thanks.
+
+--
+tejun
