@@ -1,71 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794671620;
-	b=QaLALX4jUIbcV3hfFLqjCxxwBL89hvAb7CT41Y7mz543pRMIYUqIyyU6K0dmEt+iK2FA
-	 AyhTBjMVYMpI2Md60T0pJF09Uit1cFsueKG/L33fiv39an0Y36NDCc4ibxK4JvWBHdAh8
-	 MwxPs+66c9B/KYsNFf83gmBmPcGXWy61hnk9zctxfUgDYULrI0mwxoNGqGPHH1gVk/NYW
-	 HftoOFu2PNHbLkD1y+kyAYf/BDO9XJ1r51zxHwit0NnRkBO+RTuQe+HTnAePG4E8WnQQH
-	 r718yY4C4h2FZh4nlfCUudIPNz4I9TCuVe9ZetNtBLaO5p8WrCozIC83yaPozD/e3HA==
+	t=1794671781;
+	b=TWPhqQGRnp5R01ELmELhrvtWddWk8JWTRTrcbf2oWzn01Q2IYoN8uSU1qc6oWNoHX8aO
+	 1vUeI2t8g1p6I1ZCiveoidin59AG7dBVVNTL36JlGt3+ZF1krgrOTpA8+UctJdmQdjzRC
+	 cojAQETgywkaaJk0r5Yc6fpuD4cRBhJD+9WABzCRBsEdPWdQdJZEjythRNOeq403WAnqi
+	 YAZQP73dlHT3zOOqa2cQDtk6RVs7NgTxnZy9hsly8L2ffGpQlZNZ1gKFmH2FUVNl7NsQn
+	 lfjaQ5qSQtWLhN5Zd7Xr/VrhgHwtcWJY4FKG4ILsb63Mtmn5XbdEcAfnOf1v2YtwuOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794671620;
-	h=DMARC-Filter:Received:Received:Message-ID:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version:X-Rspamd-Queue-Id:X-Rspamd-Server:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:X-HE-Tag:
-	 X-HE-Meta;
-	bh=eNWfi9GOiU1H0L6HIja6i+gawTbPJhBoUQGTRucnQ9U=;
-	b=LGT1C/gjitshqygSSqarb1wclX0sz6AEZcCotY3RW73xgBqL7l1L4x1fqR/3sku2D7Fa
-	 6QDaWHSjooI3uHj8m+t6AGFzfdxYaNlKZSnWX09M5PVdOFyTAITFAZtamA25JqNhiN/vl
-	 szasOfaaWEzST1rmgd3HwJyy+3w0QaoCnWuyQZfZuJKzP7OQFZI9KgNT4d7ZtdQHqkort
-	 FFHGd/wPFKhZJUsuTlT9cSUA0ZTw+zIUUpPlNpn114q+MYT3jclsQG9FW5W4ajs1t+eqp
-	 yCA+9gU3K4kOiRVlcaJiLB71yyTX6AuyV6GPsIiz+uawMWwTm7n7gourQhR5fuCV0qw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794671781;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=p+Jyx/3SNbd8LRAUKMO+bqq+INYj8uTh6OWad9ZPL3k=;
+	b=IfQ1ofdxmzvlYSRCoTsitpmBZ5SHwyIYrU3PHbMiyTqomdiyYpmG0u0Zp4/3GHwUxv/Q
+	 NenOmAgURkrGLQ6D7zJOMPlBJy1rg4UKeLjYHFCFkjsKGsN5I9ffQgNGlfyx9ten/GX49
+	 9ovPp5ddtUIT5tuGnLBzJvIttNVpi/gau73VT7rEjKtuPip6PQWdWPO+WqWyx1Ay9VE4f
+	 OaceCx1uPy+OodTZezYLEb1oVDu8PGqXD5mH0ETW6rRpIcccTQNgS23DEv7F/vIclQ0hz
+	 IKeU4Mz1ElOvyzxyZUAd5WzOy9XQ8NBhTI8+jELYaUr6tv06xCPZ+Itmb98BtrSfULQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=perches.com;
-	spf=pass smtp.mailfrom=perches.com;
-	arc=none smtp.remote-ip=216.40.44.15
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=Hus3msys;
+	arc=none smtp.remote-ip=44.202.169.39
+Received: from omta040.useast.a.cloudfilter.net (omta040.useast.a.cloudfilter.net [44.202.169.39])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2DC5606A323;
-	Sat, 14 Nov 2026 15:53:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2DC5606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perches.com
-Received: from omf20.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay01.hostedemail.com (Postfix) with ESMTP id 826291C36F3;
-	Sat, 14 Nov 2026 15:53:35 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf20.hostedemail.com (Postfix) with ESMTPA id 1370B20026;
-	Sat, 14 Nov 2026 15:53:25 +0000 (UTC)
-Message-ID: <c113f651d1ce1b2d42ab9d0c59ae5a0cd17ddb6a.camel@perches.com>
-Subject: Re: [PATCH v6 02/19] string: Add strprefix()
-From: Joe Perches <joe@perches.com>
-To: Alejandro Colomar <alx@kernel.org>, linux-hardening@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki"	
- <macro@orcam.me.uk>, Geert Uytterhoeven <geert@linux-m68k.org>, Andreas
- Schwab	 <schwab@linux-m68k.org>, Andy Shevchenko <andy@kernel.org>, Bartosz
- Golaszewski	 <brgl@kernel.org>, Daniel Scally <djrscally@gmail.com>, Danilo
- Krummrich	 <dakr@kernel.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>, Johan Hovold
- <johan@kernel.org>, Kees Cook <kees@kernel.org>, Laurent Pinchart	
- <laurent.pinchart@ideasonboard.com>, Len Brown <lenb@kernel.org>, Linus
- Torvalds <torvalds@linux-foundation.org>, Linus Walleij
- <linusw@kernel.org>, Namhyung Kim	 <namhyung@kernel.org>, "Rafael J.
- Wysocki" <rafael@kernel.org>, Rob Herring	 <robh@kernel.org>, Sakari Ailus
- <sakari.ailus@linux.intel.com>, Saravana Kannan	 <saravanak@kernel.org>,
- Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi	 <zanussi@kernel.org>,
- linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, Bartosz Golaszewski	
- <bartosz.golaszewski@oss.qualcomm.com>
-Date: Sat, 14 Nov 2026 07:53:25 -0800
-In-Reply-To: <0eaa4ce73a2b164fd49e3a9f71244a2e3f45b7bb.1794667407.git.alx@kernel.org>
-References: <cover.1794667407.git.alx@kernel.org>
-	 <0eaa4ce73a2b164fd49e3a9f71244a2e3f45b7bb.1794667407.git.alx@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3318606A327
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 15:56:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3318606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=Hus3msys
+Received: from eig-obgw-6004b.ext.cloudfilter.net ([10.0.30.210])
+	by cmsmtp with ESMTPS
+	id S6nzxZATOOOJnSG6wxuz0S; Sat, 14 Nov 2026 15:56:14 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id SG6vxZQfvlaNKSG6vxopm7; Sat, 14 Nov 2026 15:56:13 +0000
+X-Authority-Analysis: v=2.4 cv=UbpRSLSN c=1 sm=1 tr=0 ts=6af8849d
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=pGLkceISAAAA:8
+ a=hOo1w0eeKtI6XsFcmb0A:9 a=QEXdDO2ut3YA:10 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=p+Jyx/3SNbd8LRAUKMO+bqq+INYj8uTh6OWad9ZPL3k=; b=Hus3msysfDoo
+	/aM2EWOJkJULKWGqSvbNlwOmzR7Uy5Ke28dF00TRkypiyCGHzKdZ/msgYvIehf6tMZlzmzCn8QinM
+	Ila+JWKZIprpOeB40tBy86/fK+lWqWaM+VsonwqEEAZ5oJL7KHk7tPuMs+gxeHpb3IpHrzx0Gr+n0
+	vCbSYHtoy+YSRioWsm71Rys2ZdAvXMsACR0RPaYiSwzDSqSThcpiq2eU77xjv8/rZso6IacDXcjxk
+	f8UdZMZ1m4t2SLGkAJ8E2Je8fIocIzz6C2f7kKARy05eEQ0K9ftM9+FHzB9W++RXE1l1Vg/olVenZ
+	Bs89wDvUKrVupVmgaQBnZQ==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:47996)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xSG6v-00000004MEQ-12rL;
+	Sat, 14 Nov 2026 21:26:13 +0530
+Message-ID: <db3a09f6-a560-4522-9954-8aa63eb2d5fb@roeck-us.net>
+Date: Sat, 14 Nov 2026 07:56:12 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,92 +75,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Rspamd-Queue-Id: 1370B20026
-X-Rspamd-Server: rspamout08
-X-Stat-Signature: xnwnob8oq6t6i5c5p5cjbo3brg66pmci
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Session-ID: U2FsdGVkX1/iviamKIERabUGi7VyUJDz6YDYNMM0ODY=
-X-HE-Tag: 1794671605-49699
-X-HE-Meta: U2FsdGVkX1/PscWlXj8hrMl1UReSYw3dM2m3OiBWsvz3QyeKXfa9mr/+pRCD6ATTC2OKs3NQpXJcuoducTEvCc2emcwDrcObIvk4Gx48OMsXSH/TsUDdl72G/M2cyJ9H+vxXxdcdovXNA8lpy8Da9SXAmEmInPyI33xN5WLNIAjVXPHEOeBc4LBGkko3rT/TL6xeGVOpBt8xGl6OtBka7S8WaLAfXd3o/wEANc6uWX4CAiEYNiPEwlXB1mq3exRHaDvn8YQvxEYyO10MWg1d1u3mVBGGOj+4QV1Yzi8HjGXpUvmlkHqytcKlrbefNtuxfD2Q7nIFgS0mvSFf/tGEicSlADm5IA2G1s8rZ0z5vjQPUKspU/bztA==
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] watchdog: Add ARM TWD (MPCore private) watchdog driver
+To: filipp.dunsky@gmail.com, Wim Van Sebroeck <wim@linux-watchdog.org>
+Cc: linux-kernel@vger.kernel.org, linux-watchdog@vger.kernel.org,
+ Russell King <linux@armlinux.org.uk>, linux-arm-kernel@lists.infradead.org
+References: <20261114-arm-twd-wdt-v4-1-5a3104b36331@gmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20261114-arm-twd-wdt-v4-1-5a3104b36331@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xSG6v-00000004MEQ-12rL
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:47996
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 4
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfLTfB5uxJXqeysv79DoyL0RkHfsv1Q9A4fMQ19M3Vczl4fEFJ2X2aReAq3zP0+fNFJOyX3XKH0RDqhHIiRDuFccEJetwyZPC7YOQrJ73Ycm0fHJVdV8K
+ fSfAKxW+3HfjPOGOM0Gad+UYrM7y4FET6meiSgybm/r08fMHWmjFwLdx0lY9IqNH1LTUXuhwHKb5xCDtVkLkUyJJkdUB/3pvi+sOF9dR8m5KQINVVkLqQoqU
 
-On Sat, 2026-11-14 at 16:22 +0100, Alejandro Colomar wrote:
-> As Bartosz reported, str_has_prefix() has a bug: it can't differentiate
-> between an empty prefix matching an empty string from a non-matching
-> prefix.  This is a fundamental design flaw in this API, and not
-> something that can be fixed.
->=20
-> As always, this is a consequence of choosing sizes instead of pointers.
-> Sizes are often the wrong choice.  In this specific case, pointers are
-> more capable of differentiating these cases, as NULL is a special
-> sentinel value that doesn't need to overload a valid value.
->=20
-> Let's implement strprefix(), a function that returns a pointer
-> right after the prefix if found, and a null pointer if not found.
->=20
-> We'll slowly migrate existing code from str_has_prefix() to strprefix().
->=20
-> Move the description from str_has_prefix(), and describe
-> str_has_prefix() by comparing it to strprefix().
->=20
-> Closes: https://lore.kernel.org/linux-hardening/20261104-fwnode-for-each-=
-prop-v1-1-6e28fe1c72c4@oss.qualcomm.com/
-> Reported-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Signed-off-by: Alejandro Colomar <alx@kernel.org>
-> ---
->  include/linux/string.h   | 29 ++++++++++++++++++++++++-----
->  lib/tests/string_kunit.c |  9 +++++++++
->  2 files changed, 33 insertions(+), 5 deletions(-)
->=20
-> diff --git a/include/linux/string.h b/include/linux/string.h
-> index 9b3e578d9aca..14e825e902eb 100644
-> --- a/include/linux/string.h
-> +++ b/include/linux/string.h
-> @@ -557,16 +557,35 @@ void memcpy_and_pad(void *dest, size_t dest_len, co=
-nst void *src, size_t count,
->  	       sizeof(*(obj)) - offsetof(typeof(*(obj)), member));	\
->  })
-> =20
-> +/**
-> + * strprefix - string prefix
-> + * @s: The string to be tested
-> + * @prefix: The string to see if @s starts with
-> + *
-> + * A common way to test a prefix of a string is to do:
-> + *  strncmp(s, prefix, sizeof(prefix) - 1)
-> + *
-> + * But this can lead to bugs due to typos, or if prefix is a pointer
-> + * and not a constant.  Instead use strprefix().
-> + *
-> + * Returns:
-> + * *  @s + strlen(@prefix) if @s starts with @prefix
-> + * *  NULL if @s does not start with @prefix
-> + */
-> +__attribute__((nonnull(1, 2)))
+On 11/14/26 06:11, Fil Dunsky via B4 Relay wrote:
+> From: Fil Dunsky <filipp.dunsky@gmail.com>
+> 
+> ARM11 MPCore, Cortex-A5 and Cortex-A9 MPCore systems have a watchdog
+> next to the local timer of every CPU, banked at the same address. The
+> binding "arm,cortex-a9-twd-wdt" exists, but there has been no driver
+> since mpcore_wdt was removed in v3.11, among other reasons because it
+> only ever programmed the CPU that ran the ioctl.
+> 
+> Program, ping and stop the watchdogs of all online CPUs together with
+> on_each_cpu(), and use a CPU hotplug state to arm the watchdog of a CPU
+> coming online while the device is active and to stop it on a CPU going
+> offline, which could not ping it any more. The watchdog is used in reset
+> mode only, its interrupt is not needed.
+> 
 
-__nonnull_args(1, 2)
+Watchdog drivers are supposed to watch the system as a whole, not on a
+per-CPU level. This patch goes way beyond the scope of a system watchdog
+driver. Per-CPU watchdogs are handled in kernel/watchdog.c. I do not think
+it is a good idea to overlay that with a second per-CPU watchdog mechanism.
 
-A negative of this is that it implies the return should
-always be tested even though it can be known that the
-return is effectively bool.
+Guenter
 
-Also the block
-
-> + * A common way to test a prefix of a string is to do:
-> + *  strncmp(s, prefix, sizeof(prefix) - 1)
-
-IMO isn't useful and the description doesn't say what happens
-when prefix is an empty string (which IMO should match).
-
-And the name strprefix could be confused with a function
-that actually prefixes a string to another string.
-
-maybe strprefixed or str_is_prefixed ?
-
-And these are all candidates for converted uses to
-whatever is the function name or steq:
-
-$ git grep -P '[^w]strncmp\s*\(\s*[\w\.\-\>\s]*,\s*\"\w*"\s*,\s*\d+\s*\)' -=
-- '*.[ch]' | wc -l
-946
-
-[^w] because of prom_strncmp
