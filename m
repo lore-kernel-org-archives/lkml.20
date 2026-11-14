@@ -1,98 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794622662;
-	b=5FmGl3naOm4BLL+xoj9h9iYoVktgImn3S5ag4t8Bsf6MrVTtDh8ROfA3A5SZOcQgyLPa
-	 TdWa3X39bg6HSKKHGBbaOYQ/kHEHwU1gxTA3Afv3qF7ZjoPCxxl5Z3LdNMdhPUor1k32r
-	 1jXnCf5or+QXDUZwquoOxJx2v4NaPEzqHTZPBsSMurTPFEzrlHzDZatBVIdGbcXjQ7TrC
-	 vcgpF/b/cQa+hna0PIxvMTK0eLXfnZ8pXIyKg8/8vxh1smaE/kZFahIW817sBeYTN6LMg
-	 saLsbC6rr7UkgphkngujZ7GXWrSq4ZkmaKJ2Xyn9IJ24ikRWOp2eB3Agl1xmijl1TLg==
+	t=1794622766;
+	b=ZEg72sm/mI91Hc+kc9CfEIO9vE10sJDb5FYfw/RsnSKwfPlN0T3UpjKvx+OCzxOxWWyB
+	 ITuq3XGAsdlw4YKcOWA8J7VoUMc9QDoTnZIEOZuMvxoWTWyYn617PO5snFE7VTv69O3LX
+	 A8e4hTClZQSlO10mMMLkEJojoLW3blGmrjgVtDSy2JwbDHBGiSwpthhwNTUimNNOUBckA
+	 YEZeU53gSAW8E6ICt4v9n6FBVG11eChfH0Kqj9st14gpNDrmFu0oTLCm7GVufdg3B4vaE
+	 pYZ3a+TQL+Pc/9kdkjUYeKDvwKaRLvANLu4O/OcKj3cSEFY1huyQPZJUnfZ0cAYe/+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794622662;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794622766;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=OfIKBZnhOOiL2WcgTc07r4rHGBprvyQL2SchtUxUdKw=;
-	b=xpyMeNk32Ai2yPLQY5uc2tN4NT9EyJBqVL61qnSD6eS2yQ3ruMCQ6a1+Bf86rxnD21kb
-	 RHv29lZF7qLFFiqYpVxDISxXJF8Y8avztw8uTfSkoyUVWZFBTvK7AysNaVnwbiMn26QaK
-	 ALumcIJ/hjEiONmZEReWJiygMeQg3QouWulNdmBdFtMm3b5xAbacYRdtLEAGAB4hlh9UW
-	 6FkqUYfxzi/IR2CyXhamHsX/BE6sIKAcn2pFQFVKIchgEZa6Us69Fct0z6Qm23pOwVABs
-	 e4XOuuPQDzhNmErPmvXVLhbKGK/PXtuR7Izt6GMKrilkxnWjJMlUFkzKMIuzivcke9g==
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=xFEobrAf6WirewKCvSBOHq5k7Hbpzktec7ALKOJWs3s=;
+	b=RXDttsRjba4INGaxeBPMlIHJLNCv9UY4eIe8+TL7vu8zysm7KI/ds42t6YJlQeSnC5uS
+	 Us3xqCypOVFcI+jwZmc4D63q+Ee1ZMqSvzzUr34JaM5a34xq43+55HJsR9KLtnpZ8sEkq
+	 GpYWtqOFn+1qk8BCQ/VZ3kCg9OrRYZ1oGWsmfVM+Mkb7ZohH2F21dlEKv2J2UXZUIqSqa
+	 ySUSZxdRqM8XPpYp2w46QTMe+cIuO95Fqrop1FdSmlptRc4t/Dlny2MDHlbiNpVH0QR/n
+	 Zy2QJWbiCuvid3IDLTyopiwwq6NdOKmSpIZbZbWjVhAgZtkX8eTXKx9TnBYvWJcRPHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lBTySpgG;
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	dmarc=none header.from=linux-foundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b="cWPtPf/I";
+	arc=none smtp.remote-ip=209.85.208.48
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85059606A33B
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 02:17:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85059606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D08F2606A32D
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 02:19:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D08F2606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lBTySpgG
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-36f8cdd30beso1058472eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:17:42 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=cWPtPf/I
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b408f2d936so2831632a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:19:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794622662; x=1795227462; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=OfIKBZnhOOiL2WcgTc07r4rHGBprvyQL2SchtUxUdKw=;
-        b=lBTySpgGD/QnNG/ZxyjrFEiehOFqMoyUzvo5UapiKvWUxbefYbV/Tnr0dOrP4gcfkF
-         FY8pZ5GK4hn2Ypxb4dspKTumrL7ODfcwrTWXU2hMoOgrNSlHvyAavT/Bw88ykGvlknzr
-         alLcnJKYiR4CqkHanHmZJ5Vd0nMLkIps4gxSjrb6oJfx0lyA8suUqcF4ujAqK8YGjJ3E
-         bZhPCUv10u1lZ7vOMWJF1dU7DzNGMHdzLbAhRptsSSZ8NeRIoY5afLXlrmnv4St3VKyJ
-         g7YQgUjnNKeeCa7AgWrmXgP2PSirrJoPYMYarW9zzL1cOXx5AXJ/FFwiwASYHvQpyaiN
-         j2XA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794622662; x=1795227462;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=linux-foundation.org; s=google; t=1794622763; x=1795227563; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=OfIKBZnhOOiL2WcgTc07r4rHGBprvyQL2SchtUxUdKw=;
-        b=RaFrm7ivoI4pECTaiHJJdmmcfOHpjNZzYa3tNqz5CFjGax3g/vBB5asmASCa7EnXe6
-         +5YczLU1bf55IScnoAkdscDGfpVhTpdWq5AD6VXCbZ6Do71qEj+JwXi4rI+gLiLtEF91
-         W1gxvhTXPM0NSEv7tqYLTcuekRbo+87KpFqqWJ+oN58uHXiJOWOA2HHgdKJtZTPbxIK/
-         0aac1Db2rNPDEJHARFgNYpmQjlGTHxqc53HQu6ajT+lwEAYW0u5reVaZviJt30bXI68S
-         AwaUSLv4ijtdpsvS/ICWWPHOWdqEBt1IDsN8v+28Xix6P1Qede20bDq7YHuryEV8seJA
-         5eGw==
-X-Forwarded-Encrypted: i=1; AL+hErGY6ISkNCudEI18zf0xe0vRxJtift9HYADJE1ebYApGIxWyKDDInoMNxYMk0lHqOB5nArVh/6qpRLOwA4s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8QaEoDPVWk8cUp9IoX7h2eFVReiKdkjmROvx9uNx8l5e2TrVSI
-	NcJQr/9c66FoNlMv0SB6yHxYrQh3GKpv8lTuF5oxPBYuxVBwRvVGGgJ3
-X-Gm-Gg: AYBFou1RkfAe4fyfHqQnd2A8FIY1W4ujGvMYEyFaNaSvFqIMU8uB20OcAJ+Nj+/lGbB
-	P5jLWRP6RyFHWoawG+6TvelzIT5lYBzsb7kuxI3vhtMAcTJEDU57FGjzweYIjgybGluMRMU/UsC
-	EmI/2t3Wvo9fUBlilWkl+Wqpar4KwMJ+CHz2xMSgGAY3LxHPAZeIIDP5Oiv3zV/c2lQOVn4ntM2
-	jZ/NYJv6k/mKdPmTynVup/oqCEF2H1F+OyMuiRsVkCJAcenTH0ZIHii6Tq9yiz1C0bydD5s72u9
-	yv0J+8MuKVue2JRjc2v5SXglcrGFxo99muPtFpAE1mtNpuD7rowlQeTNEScthK/DbkKPGdyewHS
-	oQm4ruYdqrTg59EhpvtXy/HGfwRQa6fje37gRLK0ayiqmFezDxvehjOhSQga7ukvk8lX6zWg8zn
-	MM1PRjb+NeXkxHWWmAvtqfvEzlP4jXJ1XlKqYQmd1Q8LsKng14i4GiqHIe9Qisvfo/aM+X+Vb6r
-	M/Xq1/LruBf/usLkQxXQGv9Xt8KsWQa6/l47D5gfx1R8FU8uRgh0jp4xk4JAnKH5GZ8zV/TM4YQ
-	4J8qSggK37kmCK0rZuy1sqofxvO93JlQrf/WTiwreKP6Ig5nB0Y71X6s7cj2RYEp3bKjkEPMmPh
-	m2FoH0bdbKD1+h06eYqEnpUNs
-X-Received: by 2002:a05:7300:c8c5:b0:379:e0a2:1a1 with SMTP id 5a478bee46e88-379e0a20687mr3206612eec.35.1794622661423;
-        Fri, 13 Nov 2026 18:17:41 -0800 (PST)
-Received: from [127.0.1.1] ([2602:feda:30:cafe:ec49:38a8:0:1866])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795378d7e5sm11298969eec.3.2026.11.13.18.17.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 18:17:40 -0800 (PST)
-From: Yaohan Li <shunsheng1218@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject:
- Re: [RFC] spi: handling a stuck queue worker during controller unregister
-Date: Sat, 14 Nov 2026 10:17:37 +0800
-Message-ID: <179462265760.266954.15125504985835019625@gmail.com>
-In-Reply-To: <03d73980-f558-4dd4-8ec1-a8d40bd2474d@sirena.org.uk>
-References:
- <CAGTEBTY2EhOHwmWhB0_YdnP-nMyGzzhnwH+ta9yeynHD-Y0JyQ@mail.gmail.com>
- <03d73980-f558-4dd4-8ec1-a8d40bd2474d@sirena.org.uk>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+        bh=xFEobrAf6WirewKCvSBOHq5k7Hbpzktec7ALKOJWs3s=;
+        b=cWPtPf/IODKmFPRI2t9QaVMTi/lF1zEM1BXVjQdNGEUECeW/7ZbU2dCRlzqw/yQfIm
+         tA5OCKXWOV06DZWiL6CpXThiUk63HoPwKqnhUeZTB2N3rU9/TcXhW2pfJBze01zFeaFE
+         ZYOadCsKXaMk621tpcg22e2Mh4h8tnJ9MmX7k=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794622763; x=1795227563;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=xFEobrAf6WirewKCvSBOHq5k7Hbpzktec7ALKOJWs3s=;
+        b=sWb9BK9zenXlL8646iqAfY+kKOd1iyQhMIVdvv2yKnfSDVjq4ve8bHZrPn5jjUxVC1
+         8Tqlyct+iArb1DgG/vvkk147rf5bmOf4ZRTYQRDyy9bzposi9c9oL1YdB0Vvkx971WW9
+         7/XAHVInFNCfA0q8HJ7+o/3eY8aepvZJLeLFstPgg6UF2a2itlJFWlN17ipbRZ4OEQGX
+         eKuJYcagWPEEcmfgVfZXW3LnXwp2qkTQBrfVWHFXvNKmDK0cR/nE3fMt+mA8d9/G4bX1
+         Xm3YIcJxE2sFYwtvFdxsloQ9J7K7Xq9QkDQpv9yBtXWaiVGjaYGli1JYLkem3f6JuLXQ
+         yBPQ==
+X-Forwarded-Encrypted: i=1; AL+hErFgZ8arrhdNki0wxL1VJG8D/8wlo10n+jJalAMjBI4OSFswxUIULhFEuLmrsm36OLW9GTzpqO/CfUU+T9o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8FK+xGJb3pFX0gpyz6eCkcDjGF349wxuGra1z03mIA6mc/WXxw
+	RC8b8v8/BWnl/fzW4++qwgnL97cAFd0h8uNaypxsmjlOxSA41juTDiEwEl/AUAUE+sLZCUPGwfw
+	gh3PSPCFGDg==
+X-Gm-Gg: AYBFou0Q5WXq4A9GeKOzD0R/80D9510tvJEfaqFoYKQzhfyyb5HD8sKx35A9bX16VUu
+	EK4PNTGG4g774cFzIq72TCezPY80fbQX7NCxuVcRy36sKYSHwmuWAZjBuWNL2waki8WCmeuVso/
+	cSjvYaBrPyP99JNev8H17xIgSDGUIRYDROelerWElME9BJWvmupZrMpWoszSK03DXMvCYpLi2wx
+	5qXypFkhQXhkaCwXt7c3sMkvbXeaZ7yKcN9GpbG1Lg50O/VnQJcnfvNHDNdKZx3dpF9tgVF83HH
+	uEpStmKZ7cTwjUzpPmSwXUyg7SV4rEySjyWn9GHh0qeY1zmZgasgMl2R+75voFhgEENcrQDbavc
+	LFzWbgAuO2fgqSL2OxIcDNJcaqtlFbG9RF04MQSrvSKGkjRWLoVd7wBU20HZgt28XVJabSscy6J
+	g/wyzu0ta1M9BRrML+9oiEYKMmNdw2J25C3EZHU3/J+8zrNDMnm7kkTrK8+b40qeVj9MS6a1DFk
+	l40I1tR9NuMyf4oiLsWkjObCcNiTBODbnU3zZCvMnAk8EQUX3iIM2P7PilarWjla9EoZgHXcQs8
+	PgN+03qiVcokDv4X8uxOWumAqwQI29rA6IwG/h7kWvkW7VEfnYp2+r0IK6SvvaTI2hOD7G2sFhk
+	ZJ/4=
+X-Received: by 2002:a05:6402:280a:b0:6b7:c8fa:cc31 with SMTP id 4fb4d7f45d1cf-6b7c8facd7cmr2982525a12.27.1794622763086;
+        Fri, 13 Nov 2026 18:19:23 -0800 (PST)
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com. [209.85.208.45])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c25df671sm1795369a12.32.2026.11.13.18.19.23
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 13 Nov 2026 18:19:23 -0800 (PST)
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b408f2d936so2831626a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:19:23 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErE3GZT2FzK6VRqbs5S5fnOW5v2GGCdZZSxVZGdrTzMkWKuk2PwMDuFvSNV26V5rKnTe2gzZ1GeDtrzA0oE=@vger.kernel.org
+X-Received: by 2002:a05:6402:2b87:b0:6b5:8695:f839 with SMTP id
+ 4fb4d7f45d1cf-6b7c0d24fdfmr3606529a12.45.1794622762852; Fri, 13 Nov 2026
+ 18:19:22 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,49 +94,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <CAHk-=wiE0KG+jkhmJWifXuAVivtB63WCWtdEpGAex7-T0SHd2g@mail.gmail.com>
+ <aurAxRpCwzeyXeVj@gondor.apana.org.au> <CAHk-=wgPvbYRcKpQ8WTH-EYZRgMG0KSH+cZxY5-Hyf+X7JjWsw@mail.gmail.com>
+ <aurJZ81qnbiHH_P1@gondor.apana.org.au> <ausS3LQNkdc6lBy3@milan>
+ <auxDm_YO4oACA_d2@gondor.apana.org.au> <CAHk-=whXvVO6a5AreZu3LPBj_wjpzUanwhvu8WqWP2q7g5S7Vw@mail.gmail.com>
+ <auy-7TvVzJ-VCrG4@milan> <avcKfEvln8_2a7fJ@gondor.apana.org.au>
+ <CAHk-=wg9baZ9EDhZr7ONxjuO65+vvWFo5E2hgxt+3rYo1vnhyA@mail.gmail.com> <aves3p5vrqqAuHma@gondor.apana.org.au>
+In-Reply-To: <aves3p5vrqqAuHma@gondor.apana.org.au>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Fri, 13 Nov 2026 18:19:06 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wjhtBnAz6YniHqcVJDCDvVVNp_UUL3QbiYyS6u+yKcNgQ@mail.gmail.com>
+X-Gm-Features: AclHuK9T8qB_5bmjhcK4UnFzb5yfP0GrEfjJOo4l7azLABG4Kermbip3IVeKi4Q
+Message-ID: <CAHk-=wjhtBnAz6YniHqcVJDCDvVVNp_UUL3QbiYyS6u+yKcNgQ@mail.gmail.com>
+Subject: Re: [PATCH] mm: kvmalloc: Bail if called with soft or hard IRQs disabled
+To: Herbert Xu <herbert@gondor.apana.org.au>
+Cc: Uladzislau Rezki <urezki@gmail.com>, "Liam R. Howlett (Google)" <liam@infradead.org>, 
+	Davidlohr Bueso <dave@stgolabs.net>, Michal Hocko <mhocko@suse.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Alexander Potapenko <glider@google.com>, Andrey Ryabinin <ryabinin.a.a@gmail.com>, 
+	Marco Elver <elver@google.com>, Michal Hocko <mhocko@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Thomas Graf <tgraf@suug.ch>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, maple-tree@lists.infradead.org, 
+	Lorenzo Stoakes <ljs@kernel.org>, Chris Mason <mason@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+	Andrew Ballance <andrewjballance@gmail.com>, stable@vger.kernel.org, 
+	"David Hildenbrand (Arm)" <david@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Mark,
+On Fri, 13 Nov 2026 at 16:35, Herbert Xu <herbert@gondor.apana.org.au> wrote:
+>
+> That would make sense for direct vmalloc calls.  But this is
+> kvmalloc, which is supposed to choose automatically between
+> kmalloc and vmalloc.
 
-Thanks for offering to review a patch.
+Yes. But that cl;early caused problems, and then people seemed to
+start thinking that it meant that the vmalloc side should also work
+with GFP_ATOMIC.
 
-I tried a core-side fix for the unregister race, but found that the lifetime
-rules need more thought before the patch is ready.
+If you are in atomic context, then kvmalloc() makes no sense, since
+the vmalloc makes no sense. You should use kmalloc.
 
-The original problem is that spi_destroy_queue() can time out while the pump
-worker is still running. Unregister then continues, potentially releasing the
-controller while the worker is still using it.
-
-I experimented with tracking active I/O and waiting for it during removal.
-This helped with the original test, but I found a problem with my accounting
-for asynchronous transfer_one_message() controllers.
-
-spi_finalize_current_message() signals cur_msg_completion before calling the
-message's completion callback. In my experimental patch, the pump can
-therefore drop the active I/O count before that callback returns.
-
-I confirmed this with a fake controller and a non-sleeping callback using a
-bounded busy-wait to expose the ordering. spi_unregister_controller() returned
-while the callback had entered but not exited. The test produced no KASAN
-report; it was intended to demonstrate the ordering, not a separate UAF. The
-fake peripheral driver deliberately left an asynchronous request outstanding
-during remove().
-
-I also found that core-side accounting cannot protect private resources that
-a peripheral driver frees while its own asynchronous callbacks can still
-access them.
-
-I've stopped work on the experimental patch for now. Before extending it, I'd
-appreciate your guidance on two points:
-
-1. Is it the peripheral driver's responsibility to stop new requests and
-   drain outstanding asynchronous callbacks before releasing private
-   resources in remove(), including requests submitted during removal?
-2. If a controller cannot terminate an active transfer, should its driver
-   ensure that the transfer completes before unregister returns? Given that
-   spi_unregister_controller() returns void, would the core need a different
-   contract to handle an unabortable transfer safely?
-
-I can provide the test module, logs and experimental diff if useful.
-
-Thanks,
-Yaohan
+          Linus
