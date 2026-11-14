@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794657378;
-	b=TRKl4J7NPz+zd6gD7qQpLo/T9jaRB0ao9A80XEC4rKupfV5ab9+TLHoVi4G71EX68av1
-	 hqb59q5nlw/MMEX4o0fgEPrhHFa4ANPZ6ZahrIPdYRxzvozKVZzrOicb2GlqWDYYM1IP3
-	 0/XYaQND0tCmHefXw3CIol0vWgdZnpIE6KvR2EdJKj3gi1z9mZCaaJr8Pcwc2Csd+0tkL
-	 7bTPLASkSnAdZ4d0YRdiSAhShCKMixRuhcrv30Rr3FecRgSQjvaK0H8UfFwhCe2SVwhLy
-	 JYSI0bX5XUkAMBarkYBMy6qmIwzsIuUFRsDMe7boHNJ3aL8wdyXUi+eSX7YDbApoNdg==
+	t=1794657379;
+	b=uZHOLNa8DsCUQ4szNRh3ngPpBjioBRqv/Z1IfX7N457ZHBGKvFcvbEaLGoUjHpRan2WL
+	 TDCrNdSI8L63FdazD0xz8GhWM3iF88mzZYF9lVJSflxpfhs9dr9yCF7Kjw+q25nkO1wvd
+	 XhIkU45ixS+QD/qr/bmMiiB+hQ430pc9gqWOEVvzwmsPeNLIzVWsgKRtcxYk+ShUj8rBN
+	 jbRC9AuRegiM+sknutFlWenbHwwwg+XH/0jDThBpIUpMiA7H4+o09VB7e4monr3I76dXZ
+	 oD1B2PpC0VAu8j0A5XJCFWTYmeXLcvDt5+A5kzvgNqHl4OG6HSuWZJCw4nDeHcrqAbA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794657378;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794657379;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=9OQmEHykAQ2R39AIIxgEl7/iSUIXzW+Cm4JhQ4PShDs=;
-	b=IxjFaE5F6eJjxaaNtVamUyBba4igcnEIkDnvWicnNxdQN78OrEo1ysIwSiBIFKr7TZRL
-	 rC4tLZGMYTpD6h1TL8og+5LlVG1F0Az0h29d/O7Gdczzc/nsdWtYbUhrpy7Zd9OaizJZ1
-	 Sr+HaE4keq3ze3gsImiC9YMRtNLpLg//fenybWeZWX7bbcOkZCLOHGgtIwGx9WCZrluLH
-	 hJ0pJc69/7i4zQ8LJFAQyw4O8LCGNmbdsscdjKMHEOXbAdVCI/EXeG66c+md4v1vywhgM
-	 vdGKUD7BIzUv1HbNZWqORL1uqWNfNL7mVBgVEopOwwzkUhJxmCd6BvEGBQ9OYUd5XjA==
+	bh=HWk0WYN5IVoXtxxzPx740RbTnpR7la1Mc7st0qczOJw=;
+	b=SD84A3SH/pb4sixUb8ziXF9hG+5MaGA9lpuF2iHgrRC7qOptO6bC635w0+0Q1vyVCEey
+	 iHK4lfS11Ev3wEcx0UgeoSA2QoT2aKqVlGUn/ZT2nRqziGWw/W6/vuLFUCXTon9v+BDd9
+	 mgiKRnQJsmdFZodtyacuhgATjsZlB2rUn3K3gCKG6WJN2qlXFjoCddEltknJG24rqrV+k
+	 ZZNgALAEnzLHjEkn6FIeGrOwS2H43qdLW1+xEW2cKVvlEu2WCPpA0Sv9cfisFdluNUweF
+	 Tsn5RavF7S+65q9NUBICTxUdn4ov+PaTbzXWKx5GKBht1/v9tJ6CdBlLrEkeH90Jpqg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=On+uf3D0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="EVR/izhe";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C7BC60A3807;
-	Sat, 14 Nov 2026 11:56:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9972560A5BE2;
+	Sat, 14 Nov 2026 11:56:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=On+uf3D0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EVR/izhe
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794657378;
-	b=lvKPgFV5ItIaG+qLmKOoiGYm0ln+Zos8uKaPSjuXdZNZp0IqfCVPAto4bf5Tea2LD5vg
-	 wo8Yw7c/3TaQ8LrfWQxqWtNiYNOZYGShODzNzaLeJb2Kmv8YyTHHuPKF6GpDvj/CwoVXa
-	 PHOz5r/SAiO4/LMD/jkAk+VTJcjGQkegwJpIKyT4AGNv3LqfHrdYRj5Cp2MWWzqUSYV+9
-	 joC3CFBWczb/E4hWFETM7++/XvvyN2m2eufQc3k+kI8n/Lc9wxxAxuAKZdsSlUq2u/NeK
-	 kv8swLcgvrFhtk2MwV995eH4c/O5ZasBlGcc1KfgG0M5ufKolwCpxdul5dr+KB6xnKA==
+	t=1794657379;
+	b=CW7TppYNmwwwNw/nlZnkhmc1mIIHcXRhJ8vV7/yEz+Og9hp5K4Z/r6T6QFTRzXdqtvR2
+	 oH3OFG0rzgEl/pqm6kerIny+QHbEfs6pp7zxZHFAqiqavlbZuZ3+/UqQ1L4vydTxWnUBd
+	 TpiO6Sm2GI7svG/ZoSakkqCxnQuoUmR28gHAimviUfbj0yeEX/jTHvoaskJ8oDfqm1HcR
+	 8fT0aRiFzObpAS2tFjbf3zgLWrxUAygn/4XAAoIdbM0WX+k33sox3QtBHv5j4PAmSXtq1
+	 SyTSWmLwZiiXSDM+yjssycym674pAkuvgarT4lAZTUTFauYIeOJBrcToeYJsx1C5J8g==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794657378;
+	c=relaxed/relaxed; t=1794657379;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=9OQmEHykAQ2R39AIIxgEl7/iSUIXzW+Cm4JhQ4PShDs=;
-	b=h7uyCaYRI2kUAvzSyAHE7ZkfxT6Rg8O96K+QP9nDk0cnCIgKxXmfZrCGBVNPviqwJVsG
-	 8nLSy0cnsG1EGM3b9oU/8DL6jA1mL3dCyicRJcRrIiJCQ1pOCwXb9EcZr4TlxjgGW0qja
-	 El+RXJ0whPQblYZybLZI4b6oUVeiFO7criY//j0ErvHtos9aqFYsMBCCr04PDqjvqaIeQ
-	 qu4IpdIouJr2uqWweoA/cDG4e5OKr2UMLYWR1Z7PH7l5WcwKEWZxw5kynyMBlrBQMuq6p
-	 +QCJwFkyaN3E56HDjdboSwK6Xv7K0lRDWzG7VtSUTokOwjD/NtknrLK9GDRwisSO5IA==
+	bh=HWk0WYN5IVoXtxxzPx740RbTnpR7la1Mc7st0qczOJw=;
+	b=X5cSS/PfRH3FtvLW+kvIEUbnRlXETMyy1OP5rMImxGwbBNNlTn5HWw75+ZhjC4PNUhdX
+	 6GAQXSDc2xnvqAakxNeLxkq7rkQ74liFJYTJecS7+Jsqa6l4KL72Eylh+spIvhInMWHpg
+	 ZUaGyi7uhWg4jPFLWgjMYTOysrbPgawFjmt2o4HuPb0tI68syN3/RtONcFujZAOuCV2EV
+	 AYnpGxHLBYhHwpJqole8BmRp81wfPr3RJoOCftWrXfVUrja4LJoX2mTaVn0TCpCAgQ+Ap
+	 VKB+L+6YyakZ7UwLeMxSzpfMBNI5f4baWb+x26jzA6A2b4m29R1Ma0o84/1uz4SWocQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id E7E851F000D2;
-	Sat, 14 Nov 2026 11:56:15 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 2B4021F000C4;
+	Sat, 14 Nov 2026 11:56:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794657378;
-	bh=9OQmEHykAQ2R39AIIxgEl7/iSUIXzW+Cm4JhQ4PShDs=;
+	s=k20260515; t=1794657379;
+	bh=HWk0WYN5IVoXtxxzPx740RbTnpR7la1Mc7st0qczOJw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=On+uf3D0eMfvLrgxgjrVgsHPqB0XWWCtVKkj03Q/0BH+q/CV0vkmm4lzbdM5J/hgl
-	 xXkQUyskVpxGkIF83MOuGm0FV16d0frXwIc2Gz6HnvxViwq9eEthPdtCoULH+eKmdu
-	 dEX0u6i0mjPXv0iWL+zSlRUlLS5dZZ3UXU+rgattk4MAs2wfiuEwTn24H56Y+Mk5Is
-	 c68il4MwURZDDoGmkdKBJsXKdF/ht6CiBeB3UiHgxN3M4KyjcD4e53f9KZPYEROhY6
-	 vJepK/XD12GVV/8n/IKbyIIWZHaMKCVO54aTlxUDJ+UlzBS26o64lXdEm4pU5+B6li
-	 Is/xiduCPl46A==
+	b=EVR/izheucfSV6bwkNJXd6zuJcnfa10bTMVE8QA0ZqYy25Kz0hxkY/0SG+v6W+ya9
+	 U6dPL0BplDV4DjC8B0mIln3W+jsx5gn3CXaKVCikc53ZGAD/+j2lafYm51u/6KtQYD
+	 GjQVPxyPoNzL0YbP4sguqj7Uu4EP8IGEzYUaeSOJK83IN2LPBEPFvJzlrpF9ct667k
+	 e8VZuPEU0w5FM+4TUdkd/3iY4Re0zWwFPtQhhfIwzmhuv0La5oW5PTsrOS/vDYN69k
+	 M9ED/5qxNIrW8o/JAXQ+xx6Fes3nyy5G8pFxf92sDVqEUDXjorTeX6fBPFzLFhRu9n
+	 fxBjmt3Od8blA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D6E3349D89;
-	Sat, 14 Nov 2026 11:56:13 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 25F3D49D95;
+	Sat, 14 Nov 2026 11:56:14 +0000 (UTC)
 From: Larisa Grigore via B4 Relay <devnull+larisa.grigore.oss.nxp.com@kernel.org>
-Date: Sat, 14 Nov 2026 12:55:42 +0100
-Subject: [PATCH v11 10/14] ufs: pltfrm: Add a flags argument to
- ufshcd_pltfrm_init()
+Date: Sat, 14 Nov 2026 12:55:45 +0100
+Subject: [PATCH v11 13/14] ufs: s32n7: Add NXP S32N79 UFS host controller
+ driver
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261114-b4-ufs-s32n7-v11-10-dc36e11919d5@oss.nxp.com>
+Message-Id: <20261114-b4-ufs-s32n7-v11-13-dc36e11919d5@oss.nxp.com>
 References: <20261114-b4-ufs-s32n7-v11-0-dc36e11919d5@oss.nxp.com>
 In-Reply-To: <20261114-b4-ufs-s32n7-v11-0-dc36e11919d5@oss.nxp.com>
 To: "Martin K. Petersen" <mkp@kernel.org>, 
@@ -114,11 +114,11 @@ Cc: devicetree@vger.kernel.org, Ajay Neeli <ajay.neeli@amd.com>,
  Orson Zhai <orsonzhai@gmail.com>, aruizrui@redhat.com, 
  linux-renesas-soc@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794657370; l=7753;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794657371; l=22610;
  i=larisa.grigore@oss.nxp.com; s=20261114; h=from:subject:message-id;
- bh=uqwIomSzy0PEvlFV96Px59Ss9lbqTn7kBdME7ujSvaY=;
- b=whX7ZIwJN+OZzdu4rmY09TRleffoMpPhI7rIA8tJWx2+DRO8Gmg9KRRXSF/y/PY+j8hr72525
- ldG1FaMSFdRCUCBfN3mC6WO4GyGpdibAJ9AYzSNbEc+FRutle4ZWGev
+ bh=xbAbcxciMPvd5T3SKK/F/H6GWDptVGMOJckCeOlOURI=;
+ b=ctu81nbxnW7aJXIV1DhvsrqtOYcOHZ3dWvgcXggjPS29ByjyoRPSfBEXd+tifZG8GmJtOVtrD
+ w1ppmnysIPhBGkSlxXMwHiHVK8zdY8ryRpPKtCs3dyc8vsl+Ym8bSl8
 X-Developer-Key: i=larisa.grigore@oss.nxp.com; a=ed25519;
  pk=Jpt52sb6ETKTtvWjUzhz5Sv5FjB9AEg9QKCcbpWFx3w=
 X-Endpoint-Received: by B4 Relay for larisa.grigore@oss.nxp.com/20261114
@@ -129,192 +129,689 @@ Content-Transfer-Encoding: 7bit
 
 From: Larisa Grigore <larisa.grigore@oss.nxp.com>
 
-Add a flags argument to ufshcd_pltfrm_init() so that glue drivers can
-request optional behavior from the common platform code without
-affecting the other users of the helper.
+Add support for the UFS host controller on the NXP S32N79 SoC, built on
+the Synopsys DesignWare (DWC) UFS architecture, using the UFSHCD DWC and
+UFSHCD platform glue.
 
-No flags are defined yet, so all callers pass 0. No functional change.
+This controller requires S32N79-specific initialization prior to
+UIC_LINKSTARTUP, including:
+  - programming SCM.ONE_US_TICK and HC.HCLKDIV based on the core clock,
+  - applying the vendor-defined M-PHY calibration sequence,
+  - selecting the M-PHY rate series and applying the RX rate-select
+    override before each switch to an HS power mode, and
+  - clearing the DWC BUSTHRTL low-power gating enables (LP_PGE and
+    LP_AH8_PGE) and clock gating (CGE) after each HCE enable, because
+    clock and power gating are not supported on this platform.
+
+The M-PHY supports several boot modes for loading its firmware. Only the
+mode where the firmware runs from the internal ROM is supported for now.
+
+The connection setup done after link startup follows the Synopsys
+recommended sequence for this HC/M-PHY integration.
+
+UFSHCD_QUIRK_PERFORM_LINK_STARTUP_ONCE is set because the link_startup
+PRE_CHANGE hook resets, re-initializes and re-calibrates the M-PHY. A
+single DME_LINKSTARTUP is sufficient on this platform, and issuing it a
+second time would needlessly repeat this sequence on an already
+established link.
+
+The "core" clock has a fixed rate set by the clock provider. Pass
+UFSHCD_PLTFRM_FIXED_RATE_CLKS to ufshcd_pltfrm_init() so that the UFS
+core enables and gates it without an OPP table or freq-table-hz.
+
+During system suspend the firmware removes power from the whole UFS
+block, so neither the device nor the link state can be retained. Set
+spm_lvl to UFS_PM_LVL_5 (device powered off, link off) so the core does a
+full re-initialization on resume.
 
 Assisted-by: LLM
 Signed-off-by: Larisa Grigore <larisa.grigore@oss.nxp.com>
 ---
- drivers/ufs/host/cdns-pltfrm.c        | 2 +-
- drivers/ufs/host/tc-dwc-g210-pltfrm.c | 2 +-
- drivers/ufs/host/ufs-amd-versal2.c    | 2 +-
- drivers/ufs/host/ufs-exynos.c         | 2 +-
- drivers/ufs/host/ufs-hisi.c           | 2 +-
- drivers/ufs/host/ufs-mediatek.c       | 2 +-
- drivers/ufs/host/ufs-qcom.c           | 2 +-
- drivers/ufs/host/ufs-renesas.c        | 2 +-
- drivers/ufs/host/ufs-rockchip.c       | 2 +-
- drivers/ufs/host/ufs-sprd.c           | 2 +-
- drivers/ufs/host/ufshcd-pltfrm.c      | 4 +++-
- drivers/ufs/host/ufshcd-pltfrm.h      | 3 ++-
- 12 files changed, 15 insertions(+), 12 deletions(-)
+ drivers/ufs/host/Kconfig         |  12 +
+ drivers/ufs/host/Makefile        |   1 +
+ drivers/ufs/host/ufs-nxp-s32n7.c | 546 +++++++++++++++++++++++++++++++++++++++
+ drivers/ufs/host/ufshcd-dwc.h    |  12 +
+ drivers/ufs/host/ufshci-dwc.h    |   8 +
+ 5 files changed, 579 insertions(+)
 
-diff --git a/drivers/ufs/host/cdns-pltfrm.c b/drivers/ufs/host/cdns-pltfrm.c
-index 3ef62acb04fa..f6a19a5d7f14 100644
---- a/drivers/ufs/host/cdns-pltfrm.c
-+++ b/drivers/ufs/host/cdns-pltfrm.c
-@@ -292,7 +292,7 @@ static int cdns_ufs_pltfrm_probe(struct platform_device *pdev)
- 	vops = (struct ufs_hba_variant_ops *)of_id->data;
+diff --git a/drivers/ufs/host/Kconfig b/drivers/ufs/host/Kconfig
+index ff170c0b6da0..e8ee7dd05f1a 100644
+--- a/drivers/ufs/host/Kconfig
++++ b/drivers/ufs/host/Kconfig
+@@ -168,3 +168,15 @@ config SCSI_UFS_AMD_VERSAL2
  
- 	/* Perform generic probe */
--	err = ufshcd_pltfrm_init(pdev, vops);
-+	err = ufshcd_pltfrm_init(pdev, vops, 0);
- 	if (err)
- 		dev_err(dev, "ufshcd_pltfrm_init() failed %d\n", err);
+ 	  Select this if you have UFS controller on AMD Versal Gen 2 SoC.
+ 	  If unsure, say N.
++
++config SCSI_UFS_S32N7
++	tristate "NXP S32N7 platform driver"
++	depends on SCSI_UFSHCD_PLATFORM && (ARCH_S32 || COMPILE_TEST)
++	help
++	  This selects the S32N7 specific additions on top of the UFSHCD DWC
++	  and UFSHCD platform driver. UFS host on S32N79 needs some vendor
++	  specific configurations like PHY and vendor specific register accesses
++	  before accessing the hardware.
++
++	  Select this if you have UFS controller on an S32N7 based board.
++	  If unsure, say N.
+diff --git a/drivers/ufs/host/Makefile b/drivers/ufs/host/Makefile
+index 7d8db67eb23c..a2f4a1d0b3ae 100644
+--- a/drivers/ufs/host/Makefile
++++ b/drivers/ufs/host/Makefile
+@@ -4,6 +4,7 @@ CONTEXT_ANALYSIS := y
  
-diff --git a/drivers/ufs/host/tc-dwc-g210-pltfrm.c b/drivers/ufs/host/tc-dwc-g210-pltfrm.c
-index 454ac88c357d..5ac1bc8ee7ce 100644
---- a/drivers/ufs/host/tc-dwc-g210-pltfrm.c
-+++ b/drivers/ufs/host/tc-dwc-g210-pltfrm.c
-@@ -62,7 +62,7 @@ static int tc_dwc_g210_pltfm_probe(struct platform_device *pdev)
- 	vops = (struct ufs_hba_variant_ops *)of_id->data;
+ obj-$(CONFIG_SCSI_UFS_DWC_TC_PCI) += tc-dwc-g210-pci.o ufshcd-dwc.o tc-dwc-g210.o
+ obj-$(CONFIG_SCSI_UFS_DWC_TC_PLATFORM) += tc-dwc-g210-pltfrm.o ufshcd-dwc.o tc-dwc-g210.o
++obj-$(CONFIG_SCSI_UFS_S32N7) += ufs-nxp-s32n7.o ufshcd-dwc.o
+ obj-$(CONFIG_SCSI_UFS_CDNS_PLATFORM) += cdns-pltfrm.o
+ obj-$(CONFIG_SCSI_UFS_QCOM) += ufs-qcom.o
+ obj-$(CONFIG_SCSI_UFS_EXYNOS) += ufs-exynos.o
+diff --git a/drivers/ufs/host/ufs-nxp-s32n7.c b/drivers/ufs/host/ufs-nxp-s32n7.c
+new file mode 100644
+index 000000000000..8d73a7179d99
+--- /dev/null
++++ b/drivers/ufs/host/ufs-nxp-s32n7.c
+@@ -0,0 +1,546 @@
++// SPDX-License-Identifier: (GPL-2.0-or-later OR BSD-3-Clause)
++/*
++ * Copyright 2026 NXP
++ *
++ */
++
++#include <linux/bitfield.h>
++#include <linux/bits.h>
++#include <linux/clk.h>
++#include <linux/device.h>
++#include <linux/iopoll.h>
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
++#include <linux/pm.h>
++
++#include "ufshcd-pltfrm.h"
++#include "ufshcd-dwc.h"
++#include "ufshci-dwc.h"
++
++/* SCM Register Offsets. */
++#define SCM_ONE_US_TICK			0x2C
++#define SCM_STATUS			0x30
++
++/* SCM_ONE_US_TICK Register. */
++#define SCM_ONE_US_TICK_MASK		GENMASK(8, 0)
++
++/* SCM_STATUS (MPHY_RAM_CONFIG_STATUS in the RM) register fields. */
++#define SCM_STATUS_PHY_RESET_MASK		BIT(0)
++#define SCM_STATUS_SRAM_BYPASS_MASK		BIT(1)
++#define SCM_STATUS_SRAM_EXT_LD_DONE_MASK	BIT(2)
++#define SCM_STATUS_SRAM_INIT_DONE_MASK		BIT(16)
++
++#define SCM_STATUS_PHY_RESET(val)		\
++	FIELD_PREP(SCM_STATUS_PHY_RESET_MASK, val)
++
++#define SCM_STATUS_SRAM_BYPASS(val)		\
++	FIELD_PREP(SCM_STATUS_SRAM_BYPASS_MASK, val)
++
++/* Driver-defined upper bound for the M-PHY SRAM init to complete: 3 s. */
++#define CFG_MPHY_INIT_TIMEOUT_VALUE_US	3000000
++/* Driver-defined poll interval while waiting for SRAM_INIT_DONE: 1 ms. */
++#define CFG_MPHY_INIT_POLL_INTERVAL_US	1000
++
++/* Clock validation limits. */
++#define MAX_VALID_ONE_US_TICK		SCM_ONE_US_TICK_MASK
++
++/* CPort definitions */
++#define CPORT_0				0
++
++/* Driver-defined upper bound for completing a Hibern8 transition: 1 s. */
++#define HBRN8_POLL_TOUT_MS		1000
++
++/* The M-PHY sequences below program exactly two lanes per direction. */
++#define S32N7_NUM_LANES			2
++
++/**
++ * struct s32n7_phy_reg - PHY CR (config-register) write entry
++ * @reg: Register offset/address
++ * @val: Value to write
++ */
++struct s32n7_phy_reg {
++	u32 reg;
++	u32 val;
++};
++
++/**
++ * struct s32n7_soc_data - SoC-specific configuration data
++ * @vops: UFS host controller variant operations
++ * @reset_config: MPHY reset DME attributes (programmed while PHY held in reset)
++ * @reset_config_count: number of entries in @reset_config
++ * @calib_mphy_disabled: CR calibration writes performed while the MPHY is disabled
++ * @calib_mphy_disabled_count: number of entries in @calib_mphy_disabled
++ * @calib_mphy_enabled: CR calibration writes performed while the MPHY is enabled
++ * @calib_mphy_enabled_count: number of entries in @calib_mphy_enabled
++ */
++struct s32n7_soc_data {
++	struct ufs_hba_variant_ops vops;
++	const struct ufshcd_dme_attr_val *reset_config;
++	size_t reset_config_count;
++	const struct s32n7_phy_reg *calib_mphy_disabled;
++	size_t calib_mphy_disabled_count;
++	const struct s32n7_phy_reg *calib_mphy_enabled;
++	size_t calib_mphy_enabled_count;
++};
++
++/**
++ * struct s32n7_ufs - S32N7 UFS host controller data
++ * @reg_scm: SCM register base address
++ * @soc_data: SoC-specific configuration data
++ */
++struct s32n7_ufs {
++	void __iomem *reg_scm;
++	const struct s32n7_soc_data *soc_data;
++};
++
++/**
++ * ufs_s32n7_phy_write_sequence - Write a sequence of PHY registers
++ * @hba: UFS host controller instance
++ * @cfg: Array of register configurations
++ * @count: Number of entries in the array
++ *
++ * Return: 0 on success, error code on failure
++ */
++static int ufs_s32n7_phy_write_sequence(struct ufs_hba *hba,
++					const struct s32n7_phy_reg *cfg,
++					size_t count)
++{
++	int ret;
++	size_t i;
++
++	for (i = 0; i < count; i++) {
++		ret = ufshcd_dwc_phy_reg_write(hba, cfg[i].reg, cfg[i].val);
++		if (ret) {
++			dev_err(hba->dev,
++				"Failed to write PHY reg 0x%x = 0x%x (step %zu)\n",
++				cfg[i].reg, cfg[i].val, i);
++			return ret;
++		}
++	}
++
++	return 0;
++}
++
++static int ufs_s32n7_configure_clocks(struct ufs_hba *hba)
++{
++	struct s32n7_ufs *ufs = ufshcd_get_variant(hba);
++	struct device *dev = hba->dev;
++	struct ufs_clk_info *clki;
++	unsigned long clk_rate = 0;
++	unsigned long one_us_tick;
++
++	/*
++	 * The core reference clock is managed by the UFS core (it is listed in
++	 * the DT via clock-names as a fixed rate clock and added to
++	 * hba->clk_list_head). Read its rate from there to derive
++	 * ONE_US_TICK/HCLKDIV.
++	 */
++	list_for_each_entry(clki, &hba->clk_list_head, list) {
++		if (!IS_ERR_OR_NULL(clki->clk) &&
++		    !strcmp(clki->name, "core")) {
++			clk_rate = clk_get_rate(clki->clk);
++			break;
++		}
++	}
++
++	if (!clk_rate) {
++		dev_err(dev, "Failed to get valid clock rate.\n");
++		return -EINVAL;
++	}
++
++	one_us_tick = clk_rate / USEC_PER_SEC;
++	if (one_us_tick == 0 || one_us_tick > MAX_VALID_ONE_US_TICK) {
++		dev_err(dev, "Invalid one_us_tick value: %lu (clk_rate: %lu Hz).\n",
++			one_us_tick, clk_rate);
++		return -EINVAL;
++	}
++
++	dev_dbg(dev, "Core clock rate: %lu Hz, one_us_tick = %lu.\n",
++		clk_rate, one_us_tick);
++
++	/*
++	 * Configure the micro-second tick rate generator based on core
++	 * clock rate.
++	 */
++	writel(one_us_tick, ufs->reg_scm + SCM_ONE_US_TICK);
++	ufshcd_dwc_program_clk_div(hba, one_us_tick);
++
++	return 0;
++}
++
++static int ufs_s32n7_hce_enable_notify(struct ufs_hba *hba,
++				       enum ufs_notify_change_status status)
++{
++	u32 reg;
++
++	if (status != POST_CHANGE)
++		return 0;
++
++	/*
++	 * Clear the DWC low-power gating (BUSTHRTL) so a doorbell write can
++	 * wake the link out of hibernate. LP_PGE (generic low-power) and
++	 * LP_AH8_PGE (Auto-Hibern8) both reset to 1.
++	 * Clock gating is not supported either, so also clear CGE (resets
++	 * to 1) to stop the core from generating ufs_idle_ind.
++	 */
++	reg = ufshcd_readl(hba, DWC_UFS_REG_BUSTHRTL);
++	reg &= ~(DWC_UFS_BUSTHRTL_CGE | DWC_UFS_BUSTHRTL_LP_PGE |
++		 DWC_UFS_BUSTHRTL_LP_AH8_PGE);
++	ufshcd_writel(hba, reg, DWC_UFS_REG_BUSTHRTL);
++
++	return 0;
++}
++
++static int ufs_s32n7_phy_initial_calib(struct ufs_hba *hba)
++{
++	struct s32n7_ufs *ufs = ufshcd_get_variant(hba);
++	int ret;
++
++	/* Calibrations that must run while the MPHY is disabled. */
++	ret = ufs_s32n7_phy_write_sequence(hba, ufs->soc_data->calib_mphy_disabled,
++					   ufs->soc_data->calib_mphy_disabled_count);
++	if (ret)
++		return ret;
++
++	ret = ufshcd_dme_set(hba, UIC_ARG_MIB_SEL(VS_MPHYCFGUPDT, 0), 0x1);
++	if (ret)
++		return ret;
++
++	ret = ufshcd_dme_set(hba, UIC_ARG_MIB_SEL(VS_MPHYDISABLE, 0), 0x0);
++	if (ret)
++		return ret;
++
++	/* Calibrations that must run while the MPHY is enabled. */
++	ret = ufs_s32n7_phy_write_sequence(hba, ufs->soc_data->calib_mphy_enabled,
++					   ufs->soc_data->calib_mphy_enabled_count);
++	if (ret)
++		return ret;
++
++	return ufshcd_dme_set(hba, UIC_ARG_MIB_SEL(VS_MPHYCFGUPDT, 0), 0x1);
++}
++
++static int ufs_s32n7_link_startup_pre_change(struct ufs_hba *hba)
++{
++	struct s32n7_ufs *ufs = ufshcd_get_variant(hba);
++	struct device *dev = hba->dev;
++	int ret;
++	u32 reg;
++
++	ret = ufs_s32n7_configure_clocks(hba);
++	if (ret)
++		return ret;
++
++	/*
++	 * Each MPHY start-up sequence must begin with the PHY held in reset.
++	 * The PHY may still be running here (host reset / error recovery), so
++	 * first restore the register to its reset value (PHY_RESET = 1) before
++	 * changing the SRAM configuration. No delay or readback is required
++	 * between the two writes.
++	 */
++	writel(SCM_STATUS_PHY_RESET(1), ufs->reg_scm + SCM_STATUS);
++
++	/*
++	 * The M-PHY firmware runs from the internal ROM:
++	 *  SCM_STATUS.SRAM_BYPASS = 1
++	 *  SCM_STATUS.SRAM_EXT_LD_DONE = 0
++	 */
++	writel(SCM_STATUS_PHY_RESET(1) | SCM_STATUS_SRAM_BYPASS(1),
++	       ufs->reg_scm + SCM_STATUS);
++
++	/* MPHY reset configuration: vendor attributes set while PHY in reset. */
++	ret = ufshcd_dwc_dme_set_attrs(hba, ufs->soc_data->reset_config,
++				       ufs->soc_data->reset_config_count);
++	if (ret)
++		return ret;
++
++	ret = ufshcd_dme_set(hba, UIC_ARG_MIB_SEL(VS_MPHYCFGUPDT, 0), 0x1);
++	if (ret)
++		return ret;
++
++	/* Release PHY_RESET. */
++	writel(readl(ufs->reg_scm + SCM_STATUS) & ~SCM_STATUS_PHY_RESET_MASK,
++	       ufs->reg_scm + SCM_STATUS);
++
++	/* Wait until SRAM_INIT_DONE = 1. */
++	ret = readl_poll_timeout(ufs->reg_scm + SCM_STATUS, reg,
++				 reg & SCM_STATUS_SRAM_INIT_DONE_MASK,
++				 CFG_MPHY_INIT_POLL_INTERVAL_US,
++				 CFG_MPHY_INIT_TIMEOUT_VALUE_US);
++	if (ret) {
++		dev_err(dev, "UFS MPHY init not done!\n");
++		return ret;
++	}
++
++	/* Start of initial calibration */
++	ret = ufs_s32n7_phy_initial_calib(hba);
++	if (ret) {
++		dev_err(dev, "UFS MPHY initial calibration failed!\n");
++		return ret;
++	}
++
++	/* Network layer: set Local DeviceID. */
++	ret = ufshcd_dme_set(hba, UIC_ARG_MIB_SEL(N_DEVICEID, 0), 0x0);
++	if (ret)
++		return ret;
++
++	/* End of Gear1 settings */
++
++	return ufshcd_dme_check_tx_hibern8(hba, hba->lanes_per_direction,
++					   HBRN8_POLL_TOUT_MS);
++}
++
++static int ufs_s32n7_link_startup_post_change(struct ufs_hba *hba)
++{
++	static const struct ufshcd_dme_attr_val cport_setup[] = {
++		{ UIC_ARG_MIB_SEL(T_CONNECTIONSTATE, CPORT_0),
++				CPORT_IDLE, DME_LOCAL },
++		{ UIC_ARG_MIB_SEL(T_CPORTFLAGS, CPORT_0),
++				CPORT_DEF_FLAGS, DME_LOCAL },
++		{ UIC_ARG_MIB_SEL(T_CONNECTIONSTATE, CPORT_0),
++				CPORT_CONNECTED, DME_LOCAL },
++	};
++	u32 data = 0;
++	int ret;
++
++	/* Set Connection State to IDLE (it allows CPort Attributes to be set). */
++	ret = ufshcd_dwc_dme_set_attrs(hba, cport_setup, ARRAY_SIZE(cport_setup));
++	if (ret)
++		return ret;
++
++	ret = ufshcd_dme_get(hba, UIC_ARG_MIB_SEL(T_CONNECTIONSTATE, CPORT_0), &data);
++	if (ret)
++		return ret;
++
++	if (data != CPORT_CONNECTED) {
++		dev_err(hba->dev, "CPort 0 not connected (state %u)\n", data);
++		return -EIO;
++	}
++
++	return 0;
++}
++
++static int ufs_s32n7_link_startup_notify(struct ufs_hba *hba,
++					 enum ufs_notify_change_status status)
++{
++	int err;
++
++	if (status == PRE_CHANGE)
++		return ufs_s32n7_link_startup_pre_change(hba);
++
++	/* POST_CHANGE */
++	err = ufshcd_dwc_link_is_up(hba);
++	if (err) {
++		dev_err(hba->dev, "Link is not up.\n");
++		return err;
++	}
++
++	return ufs_s32n7_link_startup_post_change(hba);
++}
++
++static int ufs_s32n7_pwr_change_pre_change(struct ufs_hba *hba,
++					   const struct ufs_pa_layer_attr *pwr)
++{
++	/*
++	 * RX rate-select override sequence: assert the override, then deassert
++	 * the value, then drop the override enable so normal operation resumes.
++	 */
++	static const struct s32n7_phy_reg pwr_change_phy_regs[] = {
++		{ RX_OVRD_IN_1(0), MPHY_RX_OVRD_EN | MPHY_RX_OVRD_VAL },
++		{ RX_OVRD_IN_1(1), MPHY_RX_OVRD_EN | MPHY_RX_OVRD_VAL },
++		{ RX_OVRD_IN_1(0), MPHY_RX_OVRD_EN },
++		{ RX_OVRD_IN_1(1), MPHY_RX_OVRD_EN },
++		{ RX_OVRD_IN_1(0), 0x0 },
++		{ RX_OVRD_IN_1(1), 0x0 },
++	};
++	u32 rate;
++	int ret;
++
++	/* Rate change only applies to the HS power modes. */
++	if (!ufshcd_is_hs_mode(pwr))
++		return 0;
++
++	/*
++	 * Select the M-PHY rate (rate series) that matches the mode the core
++	 * has negotiated with the device.
++	 */
++	rate = (pwr->hs_rate == PA_HS_MODE_B) ? CB_RATE_B : CB_RATE_A;
++
++	ret = ufshcd_dme_set(hba, UIC_ARG_MIB_SEL(CBRATESEL, 0), rate);
++	if (ret)
++		return ret;
++
++	ret = ufshcd_dme_set(hba, UIC_ARG_MIB_SEL(VS_MPHYCFGUPDT, 0), 0x1);
++	if (ret)
++		return ret;
++
++	/* Apply the RX rate-select override now that the target rate is set. */
++	return ufs_s32n7_phy_write_sequence(hba, pwr_change_phy_regs,
++					   ARRAY_SIZE(pwr_change_phy_regs));
++}
++
++static int ufs_s32n7_pwr_change_notify(struct ufs_hba *hba,
++				       enum ufs_notify_change_status status,
++				       struct ufs_pa_layer_attr *pwr)
++{
++	int err = 0;
++
++	if (status == PRE_CHANGE) {
++		err = ufs_s32n7_pwr_change_pre_change(hba, pwr);
++		if (err)
++			dev_err(hba->dev, "Power mode pre-change failed (%d).\n",
++				err);
++	}
++
++	return err;
++}
++
++static int ufs_s32n7_init(struct ufs_hba *hba)
++{
++	struct device *dev = hba->dev;
++	struct platform_device *pdev = to_platform_device(dev);
++	struct s32n7_ufs *ufs;
++
++	ufs = devm_kzalloc(dev, sizeof(*ufs), GFP_KERNEL);
++	if (!ufs)
++		return -ENOMEM;
++
++	ufs->soc_data = container_of_const(hba->vops, struct s32n7_soc_data, vops);
++
++	if (hba->lanes_per_direction != S32N7_NUM_LANES)
++		return dev_err_probe(dev, -EINVAL,
++				     "unsupported lanes-per-direction %u (expected %u)\n",
++				     hba->lanes_per_direction, S32N7_NUM_LANES);
++
++	hba->quirks |= UFSHCD_QUIRK_PERFORM_LINK_STARTUP_ONCE;
++	hba->spm_lvl = UFS_PM_LVL_5;
++
++	ufs->reg_scm = devm_platform_ioremap_resource_byname(pdev, "scm");
++	if (IS_ERR(ufs->reg_scm))
++		return dev_err_probe(dev, PTR_ERR(ufs->reg_scm),
++				     "ioremap failed for SCM registers.\n");
++
++	ufshcd_set_variant(hba, ufs);
++
++	return 0;
++}
++
++/*
++ * MPHY reset configuration: vendor DME attributes programmed while the PHY is
++ * held in reset. Programs the reference-clock, RX squelch, RX Rhold and
++ * CR-parallel control attributes.
++ */
++static const struct ufshcd_dme_attr_val s32n79_reset_config[] = {
++	/*
++	 * Disable reference clock gating support and override the UniPro and
++	 * application reference clock enable inputs to 0.
++	 */
++	{ UIC_ARG_MIB_SEL(CBREFCLKCTRL2, 0),
++		CBREFREFCLK_GATE_OVR_EN | CBREFCLK_EN_UNIPRO_OVR_EN |
++		CBREFCLK_EN_APP_OVR_EN, DME_LOCAL },
++	/* RX squelch control. */
++	{ UIC_ARG_MIB_SEL(RXSQCONTROL, SELIND_LN0_RX), 0x1, DME_LOCAL },
++	{ UIC_ARG_MIB_SEL(RXSQCONTROL, SELIND_LN1_RX), 0x1, DME_LOCAL },
++	/* RX Rhold control option. */
++	{ UIC_ARG_MIB_SEL(RXRHOLDCTRLOPT, SELIND_LN0_RX), 0x2, DME_LOCAL },
++	{ UIC_ARG_MIB_SEL(RXRHOLDCTRLOPT, SELIND_LN1_RX), 0x2, DME_LOCAL },
++	/* CR parallel selection. */
++	{ UIC_ARG_MIB_SEL(CBCRCTRL, 0), 0x1, DME_LOCAL },
++};
++
++/* Calibrations that must run while the MPHY is disabled. */
++static const struct s32n7_phy_reg s32n79_calib_mphy_disabled[] = {
++	/* Bypass RX AFE calibration. */
++	{ FAST_FLAGS(0), MPHY_FAST_RX_AFE_CAL },
++	{ FAST_FLAGS(1), MPHY_FAST_RX_AFE_CAL },
++};
++
++/* Calibrations that must run while the MPHY is enabled. */
++static const struct s32n7_phy_reg s32n79_calib_mphy_enabled[] = {
++	/* Write ATT offset compensation code to internal DAC. */
++	{ RX_DAC_CTRL_OVRD(0), 0x1 },
++	{ RX_DAC_CTRL_OVRD(1), 0x1 },
++	{ RX_DAC_CTRL(0), 0x8E },
++	{ RX_DAC_CTRL(1), 0x91 },
++	{ RX_DAC_CTRL_SEL(0), 0x1 },
++	{ RX_DAC_CTRL_SEL(1), 0x1 },
++	{ RX_DAC_CTRL_EN(0), 0x1 },
++	{ RX_DAC_CTRL_EN(1), 0x1 },
++	{ RX_DAC_CTRL_OVRD(0), 0x0 },
++	{ RX_DAC_CTRL_OVRD(1), 0x0 },
++	/* Write CTLE offset compensation code to internal DAC. */
++	{ RX_DAC_CTRL_OVRD(0), 0x1 },
++	{ RX_DAC_CTRL_OVRD(1), 0x1 },
++	{ RX_DAC_CTRL(0), 0x71 },
++	{ RX_DAC_CTRL(1), 0x7F },
++	{ RX_DAC_CTRL_SEL(0), 0x2 },
++	{ RX_DAC_CTRL_SEL(1), 0x2 },
++	{ RX_DAC_CTRL_EN(0), 0x1 },
++	{ RX_DAC_CTRL_EN(1), 0x1 },
++	{ RX_DAC_CTRL_OVRD(0), 0x0 },
++	{ RX_DAC_CTRL_OVRD(1), 0x0 },
++	/* FW Calibration configuration. */
++	{ FW_CALIB_CCFG(0), MPHY_FW_CALIB_CFG_VAL },
++	{ FW_CALIB_CCFG(1), MPHY_FW_CALIB_CFG_VAL },
++};
++
++static const struct s32n7_soc_data s32n79_soc_data = {
++	.vops = {
++		.name = "s32n79",
++		.init = ufs_s32n7_init,
++		.link_startup_notify = ufs_s32n7_link_startup_notify,
++		.hce_enable_notify = ufs_s32n7_hce_enable_notify,
++		.pwr_change_notify = ufs_s32n7_pwr_change_notify,
++	},
++	.reset_config = s32n79_reset_config,
++	.reset_config_count = ARRAY_SIZE(s32n79_reset_config),
++	.calib_mphy_disabled = s32n79_calib_mphy_disabled,
++	.calib_mphy_disabled_count = ARRAY_SIZE(s32n79_calib_mphy_disabled),
++	.calib_mphy_enabled = s32n79_calib_mphy_enabled,
++	.calib_mphy_enabled_count = ARRAY_SIZE(s32n79_calib_mphy_enabled),
++};
++
++static const struct of_device_id ufs_s32n7_match[] = {
++	{
++		.compatible = "nxp,s32n79-ufshc",
++		.data = &s32n79_soc_data,
++	},
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, ufs_s32n7_match);
++
++static int ufs_s32n7_probe(struct platform_device *pdev)
++{
++	const struct s32n7_soc_data *soc_data;
++
++	soc_data = device_get_match_data(&pdev->dev);
++	if (!soc_data)
++		return -ENODEV;
++
++	return ufshcd_pltfrm_init(pdev, &soc_data->vops,
++				  UFSHCD_PLTFRM_FIXED_RATE_CLKS);
++}
++
++static const struct dev_pm_ops ufs_s32n7_pm_ops = {
++	SYSTEM_SLEEP_PM_OPS(ufshcd_system_suspend, ufshcd_system_resume)
++	RUNTIME_PM_OPS(ufshcd_runtime_suspend, ufshcd_runtime_resume, NULL)
++	.prepare	= pm_sleep_ptr(ufshcd_suspend_prepare),
++	.complete	= pm_sleep_ptr(ufshcd_resume_complete),
++};
++
++static struct platform_driver ufs_s32n7_driver = {
++	.probe = ufs_s32n7_probe,
++	.remove = ufshcd_pltfrm_remove,
++	.driver	= {
++		.name	= "ufs-s32n7",
++		.pm	= pm_ptr(&ufs_s32n7_pm_ops),
++		.of_match_table	= ufs_s32n7_match,
++	},
++};
++
++module_platform_driver(ufs_s32n7_driver);
++
++MODULE_AUTHOR("Larisa Grigore <larisa.grigore@oss.nxp.com>");
++MODULE_DESCRIPTION("NXP S32N7 UFS Host Controller platform driver");
++MODULE_LICENSE("Dual BSD/GPL");
+diff --git a/drivers/ufs/host/ufshcd-dwc.h b/drivers/ufs/host/ufshcd-dwc.h
+index a76009b42088..214f7a67bf88 100644
+--- a/drivers/ufs/host/ufshcd-dwc.h
++++ b/drivers/ufs/host/ufshcd-dwc.h
+@@ -13,6 +13,8 @@
+ #include <ufs/ufshcd.h>
  
- 	/* Perform generic probe */
--	err = ufshcd_pltfrm_init(pdev, vops);
-+	err = ufshcd_pltfrm_init(pdev, vops, 0);
- 	if (err)
- 		dev_err(dev, "ufshcd_pltfrm_init() failed %d\n", err);
+ /* RMMI Attributes */
++#define RXSQCONTROL		0x8009
++#define RXRHOLDCTRLOPT		0x8013
+ #define CBC10DIRECTCONF2	0x810E
+ #define CBRATESEL		0x8114
+ #define CBCREGADDRLSB		0x8116
+@@ -26,8 +28,18 @@
+ #define CBREFCLKCTRL2		0x8132
  
-diff --git a/drivers/ufs/host/ufs-amd-versal2.c b/drivers/ufs/host/ufs-amd-versal2.c
-index dcca6be5dad0..061666125fa3 100644
---- a/drivers/ufs/host/ufs-amd-versal2.c
-+++ b/drivers/ufs/host/ufs-amd-versal2.c
-@@ -444,7 +444,7 @@ static int ufs_versal2_probe(struct platform_device *pdev)
- 	int ret;
+ #define CBREFREFCLK_GATE_OVR_EN		BIT(7)
++#define CBREFCLK_EN_UNIPRO_OVR_EN	BIT(3)
++#define CBREFCLK_EN_APP_OVR_EN		BIT(1)
++
++/* CBRATESEL: 0 - rate A, 1 - rate B. */
++#define CB_RATE_A		0x0
++#define CB_RATE_B		0x1
  
- 	/* Perform generic probe */
--	ret = ufshcd_pltfrm_init(pdev, &ufs_versal2_hba_vops);
-+	ret = ufshcd_pltfrm_init(pdev, &ufs_versal2_hba_vops, 0);
- 	if (ret)
- 		dev_err(dev, "ufshcd_pltfrm_init() failed %d\n", ret);
+ /* M-PHY registers */
++#define RX_DAC_CTRL(n)		(0x10AF + ((n) * 0x100))
++#define RX_DAC_CTRL_OVRD(n)	(0x10B0 + ((n) * 0x100))
++#define RX_DAC_CTRL_SEL(n)	(0x10B1 + ((n) * 0x100))
++#define RX_DAC_CTRL_EN(n)	(0x10B8 + ((n) * 0x100))
+ #define RX_OVRD_IN_1(n)		(0x3006 + ((n) * 0x100))
+ #define RX_PCS_OUT(n)		(0x300F + ((n) * 0x100))
+ #define FAST_FLAGS(n)		(0x401C + ((n) * 0x100))
+diff --git a/drivers/ufs/host/ufshci-dwc.h b/drivers/ufs/host/ufshci-dwc.h
+index 6c290e272106..a62fa56355e9 100644
+--- a/drivers/ufs/host/ufshci-dwc.h
++++ b/drivers/ufs/host/ufshci-dwc.h
+@@ -12,9 +12,17 @@
  
-diff --git a/drivers/ufs/host/ufs-exynos.c b/drivers/ufs/host/ufs-exynos.c
-index 265e01467a9b..c96ebf12c218 100644
---- a/drivers/ufs/host/ufs-exynos.c
-+++ b/drivers/ufs/host/ufs-exynos.c
-@@ -2137,7 +2137,7 @@ static int exynos_ufs_probe(struct platform_device *pdev)
- 	if (drv_data && drv_data->vops)
- 		vops = drv_data->vops;
+ /* DWC HC UFSHCI specific Registers */
+ enum dwc_specific_registers {
++	DWC_UFS_REG_BUSTHRTL	= 0xC0,
+ 	DWC_UFS_REG_HCLKDIV	= 0xFC,
+ };
  
--	err = ufshcd_pltfrm_init(pdev, vops);
-+	err = ufshcd_pltfrm_init(pdev, vops, 0);
- 	if (err)
- 		dev_err(dev, "ufshcd_pltfrm_init() failed %d\n", err);
- 
-diff --git a/drivers/ufs/host/ufs-hisi.c b/drivers/ufs/host/ufs-hisi.c
-index 5217e2e294f8..8537602a594a 100644
---- a/drivers/ufs/host/ufs-hisi.c
-+++ b/drivers/ufs/host/ufs-hisi.c
-@@ -528,7 +528,7 @@ static int ufs_hisi_probe(struct platform_device *pdev)
- 
- 	of_id = of_match_node(ufs_hisi_of_match, pdev->dev.of_node);
- 
--	return ufshcd_pltfrm_init(pdev, of_id->data);
-+	return ufshcd_pltfrm_init(pdev, of_id->data, 0);
- }
- 
- static void ufs_hisi_remove(struct platform_device *pdev)
-diff --git a/drivers/ufs/host/ufs-mediatek.c b/drivers/ufs/host/ufs-mediatek.c
-index 7691349c502a..2e1992e0125a 100644
---- a/drivers/ufs/host/ufs-mediatek.c
-+++ b/drivers/ufs/host/ufs-mediatek.c
-@@ -2438,7 +2438,7 @@ static int ufs_mtk_probe(struct platform_device *pdev)
- 
- skip_phy:
- 	/* perform generic probe */
--	err = ufshcd_pltfrm_init(pdev, &ufs_hba_mtk_vops);
-+	err = ufshcd_pltfrm_init(pdev, &ufs_hba_mtk_vops, 0);
- 	if (err) {
- 		dev_err(dev, "probe failed %d\n", err);
- 		goto out;
-diff --git a/drivers/ufs/host/ufs-qcom.c b/drivers/ufs/host/ufs-qcom.c
-index 979d223230a6..301dbf4f5d88 100644
---- a/drivers/ufs/host/ufs-qcom.c
-+++ b/drivers/ufs/host/ufs-qcom.c
-@@ -2974,7 +2974,7 @@ static int ufs_qcom_probe(struct platform_device *pdev)
- 		vops = &ufs_hba_qcom_vops;
- 
- 	/* Perform generic probe */
--	err = ufshcd_pltfrm_init(pdev, vops);
-+	err = ufshcd_pltfrm_init(pdev, vops, 0);
- 	if (err)
- 		return dev_err_probe(dev, err, "ufshcd_pltfrm_init() failed\n");
- 
-diff --git a/drivers/ufs/host/ufs-renesas.c b/drivers/ufs/host/ufs-renesas.c
-index e418c5878038..4267202185d8 100644
---- a/drivers/ufs/host/ufs-renesas.c
-+++ b/drivers/ufs/host/ufs-renesas.c
-@@ -535,7 +535,7 @@ MODULE_DEVICE_TABLE(of, ufs_renesas_of_match);
- 
- static int ufs_renesas_probe(struct platform_device *pdev)
- {
--	return ufshcd_pltfrm_init(pdev, &ufs_renesas_vops);
-+	return ufshcd_pltfrm_init(pdev, &ufs_renesas_vops, 0);
- }
- 
- static void ufs_renesas_remove(struct platform_device *pdev)
-diff --git a/drivers/ufs/host/ufs-rockchip.c b/drivers/ufs/host/ufs-rockchip.c
-index 8ce6534a73de..600460aa118f 100644
---- a/drivers/ufs/host/ufs-rockchip.c
-+++ b/drivers/ufs/host/ufs-rockchip.c
-@@ -253,7 +253,7 @@ static int ufs_rockchip_probe(struct platform_device *pdev)
- 	if (!vops)
- 		return dev_err_probe(dev, -ENODATA, "ufs_hba_variant_ops not defined.\n");
- 
--	err = ufshcd_pltfrm_init(pdev, vops);
-+	err = ufshcd_pltfrm_init(pdev, vops, 0);
- 	if (err)
- 		return dev_err_probe(dev, err, "ufshcd_pltfrm_init failed\n");
- 
-diff --git a/drivers/ufs/host/ufs-sprd.c b/drivers/ufs/host/ufs-sprd.c
-index 8c0a13e95556..fbd53cc4d3c8 100644
---- a/drivers/ufs/host/ufs-sprd.c
-+++ b/drivers/ufs/host/ufs-sprd.c
-@@ -415,7 +415,7 @@ static int ufs_sprd_probe(struct platform_device *pdev)
- 	const struct of_device_id *of_id;
- 
- 	of_id = of_match_node(ufs_sprd_of_match, dev->of_node);
--	err = ufshcd_pltfrm_init(pdev, of_id->data);
-+	err = ufshcd_pltfrm_init(pdev, of_id->data, 0);
- 	if (err)
- 		dev_err(dev, "ufshcd_pltfrm_init() failed %d\n", err);
- 
-diff --git a/drivers/ufs/host/ufshcd-pltfrm.c b/drivers/ufs/host/ufshcd-pltfrm.c
-index c238f6073ad0..f8b2d64b6b4b 100644
---- a/drivers/ufs/host/ufshcd-pltfrm.c
-+++ b/drivers/ufs/host/ufshcd-pltfrm.c
-@@ -641,11 +641,13 @@ EXPORT_SYMBOL_GPL(ufshcd_init_host_params);
-  * ufshcd_pltfrm_init - probe routine of the driver
-  * @pdev: pointer to Platform device handle
-  * @vops: pointer to variant ops
-+ * @flags: bitmask of UFSHCD_PLTFRM_* flags
-  *
-  * Return: 0 on success, non-zero value on failure.
-  */
- int ufshcd_pltfrm_init(struct platform_device *pdev,
--		       const struct ufs_hba_variant_ops *vops)
-+		       const struct ufs_hba_variant_ops *vops,
-+		       unsigned int flags)
- {
- 	struct ufs_hba *hba;
- 	void __iomem *mmio_base;
-diff --git a/drivers/ufs/host/ufshcd-pltfrm.h b/drivers/ufs/host/ufshcd-pltfrm.h
-index 0a18a8aed94d..0dc48c8d89d5 100644
---- a/drivers/ufs/host/ufshcd-pltfrm.h
-+++ b/drivers/ufs/host/ufshcd-pltfrm.h
-@@ -31,7 +31,8 @@ int ufshcd_negotiate_pwr_params(const struct ufs_host_params *host_params,
- void ufshcd_init_host_params(struct ufs_host_params *host_params);
- void ufshcd_parse_gear_limits(struct ufs_hba *hba, struct ufs_host_params *host_params);
- int ufshcd_pltfrm_init(struct platform_device *pdev,
--		       const struct ufs_hba_variant_ops *vops);
-+		       const struct ufs_hba_variant_ops *vops,
-+		       unsigned int flags);
- void ufshcd_pltfrm_remove(struct platform_device *pdev);
- int ufshcd_populate_vreg(struct device *dev, const char *name,
- 			 struct ufs_vreg **out_vreg, bool skip_current);
++/* Clock Gating Enable: core generates the ufs_idle_ind signal. */
++#define DWC_UFS_BUSTHRTL_CGE		BIT(12)
++/* Low-Power Power Gating Enable. */
++#define DWC_UFS_BUSTHRTL_LP_PGE		BIT(16)
++/* Low Power - AH8 Power Gating Enable. */
++#define DWC_UFS_BUSTHRTL_LP_AH8_PGE	BIT(17)
++
+ /* Clock Divider Values: Hex equivalent of frequency in MHz */
+ enum clk_div_values {
+ 	DWC_UFS_REG_HCLKDIV_DIV_62_5	= 0x3e,
 
 -- 
 2.43.0
