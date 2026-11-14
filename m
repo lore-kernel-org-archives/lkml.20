@@ -1,58 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.38.221.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794616248;
-	b=Xx6MrbzZnSLfmfCXnNhZNHhs1ITKlU4/D6PTfPVMPcq2XUXDm2LGzSkNFKHycMs4WZk1
-	 Ivzz0A2DF/K46FczxjZzuB/KWjVCYiXdNlpzksmgrEqnpDwQy/1Mps9tUqjyHAE1I3n3G
-	 jAqSXmy2iKFODAAWOM9OgbiKzfZIjXbUkjRbgtk3tgL2W5748PSo8bzA+OGg2ZZaF8pnL
-	 v5c+az3x7x0CHE5bnjrnxU6VJoNs8jSHM/pXdAu1sZ6cSj0KiRSh3EwAoMB292iz7gaDd
-	 y1lM9Wg8XwgbC7CvXOxFxxktrkPFPPmgo8XGr7XTJnCfcRHAJgJ9+3HqqEQXlaWVRWg==
+	t=1794616301;
+	b=U4x7gIxvNfeSdW4Rrs5mBF30//Yimoz5cUNji+dmNfWtMQHSrKjSobGg14f9fTXAOO3A
+	 UIE8GPqxmzIFxROXNE3OmvHU2y2QzXlcrjrcOmJdaEgvy9/Js7I1yVeQOdh2GlS7XMfQo
+	 3y081cjN6WDGOs+e+ugjmI/l5dBVHxJluzYOy4q/XLcDMsZkhmU/Huzrn/+eVWgK8aXIP
+	 OEJXAJXwwNrgPt0j+bk4i15NzimAqJxwQO3ZzgUa6b2bg2hzb1qpP0lc+oB2cIxRo+80G
+	 Wv6nxYFqsZjUpcoUfFSipZyOsT0AjAGycuiEtMG7Acfv/G6mbuXTzbxxexLU7jNIXTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794616248;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=jT5AA4fH/fUrpiMbqTK77bzcToBq/eOTA9L2fbmIQCE=;
-	b=dc0gaQUpZUdvjKOzix9wQ7SktJX/lPCyDPxRpn2aBvcPEuJtur4hI+J0ZKDMB/kpG/NW
-	 lmaiq/zqkYrAp6cN9IJiKHsEV0C/13If3S0Weu+/YVmNZGwmZEew24fpCJGh2b8zvXmbi
-	 CyYCZ7B9tokX2HsJRzkJ/W/VtRH9uUOcZihaDmanQxvyZms5pqdslTSIl4u9Q6T6L0BK1
-	 pxcwOwlboOZpr/YQL2EG/lxw85i+XZFfcjXR+MtijwqEvYhbENwwN/PDxXjE0Auw9wN6i
-	 WafY2udVr1cIQIcyPPtTWzwHQcbrzHH+k1Ln9BwX0WRQ8s7LW9C85nzr2YT5Uyh99oA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794616301;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=nWFJU6jG2nUMaqkeyLP3XCyQiCaq/xk6DozgGya/SAU=;
+	b=fyQQ0h1M9Vkph7EQ4NRdI+B97AXnh1hI9JTMvtzfYOxXbQM+qeVdoZuvBrzN49qDNFiJ
+	 8auomO+zCAehsLG4MtRM/8p4r8WQTCbNvl/TZF09vQJQqG9hzSaD0URdUs2dLDw7MjKRL
+	 kFKtYDf+x9scESuqEIApRQzizVkzx8MxtDNq1Ffv1LW9NGIjvXsELkMZ/6LK298UMXmaA
+	 hy/EPXXX8lpL6V6fDyVt818xkN0BhZVVfYwGI68CHXUgbESrGFQm0ehx5SPIXGICrTEdu
+	 oOgOWcOp4d4nUgHPv2mUmtZzmNaAuHcLSwh4teXXiJsLHqKrb2F+qJY5qez2Y2+Pm/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=loljews.com;
-	spf=pass smtp.mailfrom=loljews.com;
-	dkim=pass header.d=loljews.com header.i=@loljews.com header.a=rsa-sha256 header.s=mail header.b=uBCufPzX;
-	arc=none smtp.remote-ip=54.38.221.178
-Received: from mnc015mcc432.ss7-reroute.local (unknown [54.38.221.178])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NMYaxWkO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30982606A333;
-	Sat, 14 Nov 2026 00:30:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30982606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=loljews.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loljews.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAAA1606A886;
+	Sat, 14 Nov 2026 00:31:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=loljews.com header.i=@loljews.com header.a=rsa-sha256 header.s=mail header.b=uBCufPzX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=loljews.com; s=mail;
-	t=1794616243; bh=jT5AA4fH/fUrpiMbqTK77bzcToBq/eOTA9L2fbmIQCE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=uBCufPzXKj0a7/M5I7EEEl7C14Z430QRJ5o6xkEBzvSu5QH2lDExdSbu3jHlusDsj
-	 RgTB/mHcQwzvzGuFoDnOOCcrFYlIHa1IZrazPdf22+5F2Z5k72AbyGKKqCnBjOuhts
-	 /baLVdKz3Kr4/kvsLhjjmhWc1MhB8O4tIsForX3Ehdh0mvz7SCcXYCzm9lvDYF8kRc
-	 cOq9l6WwxhgVKGLES5UHoTezaru3EuTnEVwEBKX6FhzhEjDu9p7zuiwwcgW56QrDiB
-	 tBs+82OL7fky4upj9YBrUgO7HijwJDz8DqHoZg0x3KZL6PNbXOkR3qjn2mwnfZeEkP
-	 v8NAcxFEjkHPg==
-Received: from loljews.com (localhost [127.0.0.1])
-	by postfix (Postfix) with ESMTP id 5184C27A66F9;
-	Sat, 14 Nov 2026 02:30:43 +0200 (EET)
-From: Sandeep Haemoon <sandeeph@loljews.com>
-To: netdev@vger.kernel.org
-Cc: Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, David S. Miller <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Russell King <linux@armlinux.org.uk>, Daniel Golle <daniel@makrotopia.org>, Mason Chang <mason-cw.chang@mediatek.com>, Frank Wunderlich <frank-w@public-files.de>, linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v6 1/3] net: ethernet: mtk_eth_soc: fix the RX
-Date: Sat, 14 Nov 2026 00:34:14 +0200
-Message-Id: <patch-4b4c5003bcf028fafd094e719c5e910b@loljews.com>
-In-Reply-To: <patch-9e765e74d06edbba3fd85a0cd49c4bb5@loljews.com>
-References: <patch-9e765e74d06edbba3fd85a0cd49c4bb5@loljews.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NMYaxWkO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBF691F000C4;
+	Sat, 14 Nov 2026 00:31:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794616301;
+	bh=nWFJU6jG2nUMaqkeyLP3XCyQiCaq/xk6DozgGya/SAU=;
+	h=From:Date:Subject:To:Cc;
+	b=NMYaxWkOsZ5OMtX2IWuSRS7ohG7e+p4s0tg5fR5BZ4XxHMPiaipIoELxuCioerXY4
+	 EGvAIcvR6vMXnGHMOEDUOQci62r5mSo3Rwfg2yN/Ds0H87ZG5ZKgrn2LJo5gmleD02
+	 tFnlAdcsSjH7besKfiMWJkB00RoYhWrrEMmZYx2KRwikBtNkuGrnOAdMhxZfNvtJb7
+	 +v9tIdkCEB4b/UBBmcTB6UQzkvMXf+9wosJ0nVTzfqmt53+ndo+bCEIdp08AyjTwuD
+	 xB66YqTxQlL0KOjEdm+amiLhkoXyUWVWc6cOb3owunZ5NsaP8jmK6a4HNT20B7QgSA
+	 XVyk/meUmfmSg==
+From: Nathan Chancellor <nathan@kernel.org>
+Date: Fri, 13 Nov 2026 17:31:34 -0700
+Subject: [PATCH] x86/build: Do not allow X86_NATIVE_CPU to be enabled on
+ non-x86_64 hosts
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,68 +53,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261113-x86-no-march-native-on-non-x86_64-v1-1-cbc8b096d1c4@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/yWNUQqDMBAFryL73YUmkRh6lVIkxlW30E1JVATx7
+ sb2c+bBvB0yJaYMj2qHRCtnjlJA3SoIk5eRkPvCoO/aKqUMbs6iRPz4FCYUP/NKGKUouabW1ui
+ cNqarnW/6Bkrnm2jg7ffxfP05L92bwnyF4ThOEKG5RYUAAAA=
+X-Change-ID: 20261113-x86-no-march-native-on-non-x86_64-88233b48a7d7
+To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>
+Cc: x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev, stable@vger.kernel.org, 
+ Nathan Chancellor <nathan@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2878; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=eywPKAu/kU8DQhuF328zoSAitB85AxpSw0zyNWVg8h8=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFnfVz+f82PxgaNrppb4WrLuXaDId33OyXkvT4q3tc1/U
+ x+q9jrnVkcpC4MYF4OsmCJL9WPV44aGc84y3jg1CWYOKxPIEAYuTgGYiEYdw3+3Euklt08v3unG
+ f2v1xwbd6VtuW/H/1NjDtVvzvsUSC55rDP+MEgs4U1d+PPDB6F3Z49unRLnWdmn+3v9r6alNbfM
+ Df/BxAgA=
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-mtk_poll_rx() keeps one dma_addr_t across the whole poll loop and only
-refreshes it when a replacement buffer was mapped for the descriptor
-being processed.  The paths that jump straight to release_desc (no
-netdev for the source port, MTK_RESETTING set, or a refill allocation
-failure) re-arm the descriptor with the buffer it still holds.  The
-address written back must therefore come from the descriptor's own
-rxd2, and the release path relies on dma_addr being DMA_MAPPING_ERROR
-to select those bits.
+When cross compiling x86_64 from an aarch64 machine using clang with
+CONFIG_X86_NATIVE_CPU enabled, there may be a slew of warnings from each
+.c file, which makes it nearly impossible to find real issues.
 
-That protection was added by commit 6e0490fc36cd ("net: ethernet:
-mtk_eth_soc: fix SER panic with 4GB+ RAM") for the MTK_RESETTING path,
-but commit e10a35abb3da ("net: ethernet: mtk_eth_soc: fix
-uninitialized variable") moved the DMA_MAPPING_ERROR initialisation
-out of the loop, so it only holds for the first iteration.  From the
-second iteration on, the previous descriptor's high address bits are
-combined with the current descriptor's low bits in rxd1.  With
-MTK_36BIT_DMA and DRAM above 4 GiB the hardware then DMAs the next
-frame to an address that is neither buffer, and the driver passes the
-stale contents of the untouched buffer up the stack.  mtk_rx_clean()
-unmaps the same mismatched address during a SER, which is the panic
-commit 6e0490fc36cd ("net: ethernet: mtk_eth_soc: fix SER panic with
-4GB+ RAM") was fixing.
+  '+crc' is not a recognized feature for this target (ignoring feature)
+  '+fp-armv8' is not a recognized feature for this target (ignoring feature)
+  '+lse' is not a recognized feature for this target (ignoring feature)
+  '+neon' is not a recognized feature for this target (ignoring feature)
+  '+sha2' is not a recognized feature for this target (ignoring feature)
+  '+sha3' is not a recognized feature for this target (ignoring feature)
+  '-rand' is not a recognized feature for this target (ignoring feature)
+  '-sme' is not a recognized feature for this target (ignoring feature)
+  '-sme2' is not a recognized feature for this target (ignoring feature)
+  '-sve' is not a recognized feature for this target (ignoring feature)
 
-Reset dma_addr to DMA_MAPPING_ERROR at the start of every iteration,
-so a descriptor that is released without a new mapping keeps its own
-address bits.
+Internally, clang expands '-march=native' into a list of target features
+to enable based on the detected CPU. The x86 part of the clang driver
+notes
 
-Fixes: 2d75891ebc09 ("net: ethernet: mtk_eth_soc: support 36-bit DMA addressing on MT7988")
-Signed-off-by: Sandeep Haemoon <sandeeph@loljews.com>
+  // FIXME: Reject attempts to use -march=native unless the target matches
+  // the host.
+
+which was first added by the initial '-march=native' support in clang in
+2009 [1] (other architecture drivers appear to have a similar problem).
+
+Due to the lack of validation that the host CPU is an x86_64 CPU,
+'-march=native' is expanded using the aarch64 host CPU's target
+features, which are unrecognized by the x86 backend.
+
+While this should obviously be fixed in the compiler, this does not help
+currently released toolchains that have this issue. As a simple
+workaround, only allow CONFIG_X86_NATIVE_CPU to be enabled when
+targeting and running on an x86_64 host.
+
+Cc: stable@vger.kernel.org
+Fixes: ea1dcca1de12 ("x86/kbuild/64: Add the CONFIG_X86_NATIVE_CPU option to locally optimize the kernel with '-march=native'")
+Link: https://github.com/llvm/llvm-project/commit/e13ada6a3b236f505b24501d456dec2518e4944c [1]
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 ---
- drivers/net/ethernet/mediatek/mtk_eth_soc.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ arch/x86/Kconfig.cpu | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/mediatek/mtk_eth_soc.c b/drivers/net/ethernet/mediatek/mtk_eth_soc.c
-index 21abeccfe0..6c8b039fad 100644
---- a/drivers/net/ethernet/mediatek/mtk_eth_soc.c
-+++ b/drivers/net/ethernet/mediatek/mtk_eth_soc.c
-@@ -2210,7 +2210,7 @@ static int mtk_poll_rx(struct napi_struct *napi, int budget,
- 	u8 *data, *new_data;
- 	struct mtk_rx_dma_v2 *rxd, trxd;
- 	int done = 0, bytes = 0;
--	dma_addr_t dma_addr = DMA_MAPPING_ERROR;
-+	dma_addr_t dma_addr;
- 	int ppe_idx = 0;
+diff --git a/arch/x86/Kconfig.cpu b/arch/x86/Kconfig.cpu
+index 6e7a366f0798..4043b7227e36 100644
+--- a/arch/x86/Kconfig.cpu
++++ b/arch/x86/Kconfig.cpu
+@@ -216,7 +216,7 @@ config RUSTC_HAS_APXF
  
- 	while (done < budget) {
-@@ -2219,6 +2219,12 @@ static int mtk_poll_rx(struct napi_struct *napi, int budget,
- 		u32 hash, reason;
- 		int mac = 0;
- 
-+		/* The release paths below hand the descriptor back with the
-+		 * buffer it still holds, so only overwrite its address when
-+		 * a new buffer was actually mapped for it.
-+		 */
-+		dma_addr = DMA_MAPPING_ERROR;
-+
- 		ring = mtk_get_rx_ring(eth);
- 		if (unlikely(!ring))
- 			goto rx_done;
--- 
-2.53.0
+ config X86_NATIVE_CPU
+ 	bool "Build and optimize for local/native CPU"
+-	depends on X86_64
++	depends on X86_64 && $(success,test "$(shell,uname -m)" = "x86_64")
+ 	depends on CC_HAS_MARCH_NATIVE
+ 	depends on !RUST || RUSTC_HAS_APXF
+ 	help
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+change-id: 20261113-x86-no-march-native-on-non-x86_64-88233b48a7d7
+
+Best regards,
+--  
+Cheers,
+Nathan
 
