@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.136.161.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794680385;
-	b=2NoWyFN7cir5Vir9ATg0VMQb9q5NayIl9AMVYaCw2FLw+mpiD5xrFYGJ1+uqZ/U9VqWb
-	 9P9iUFeFJ2vi8BMgE2qHSImdIsljps2QI/Poa2mhC7dkoEJ/LxqtrYZ/71JevidXpNg9+
-	 /pVsgWwKdW2Fv0Wb4+O1WsWn0j+7eOpN7quLTzJt+gKexLLtyJSSMAqY8YYrApAqSU+aH
-	 QqSy0sMPTIxv9gcyQBzqeaqxQm5agBw4D9Y0wqhLwusK5o1nOoRglJHLHKyupOKkJNRZ7
-	 +Z3g4OVmUzpct4tH8FOW2rcW4rhjV0yXz6siI4mMC3sWcXLL9tuH8iANgv7mpMWxiBg==
+	t=1794680384;
+	b=b879PSpsWlTo4GxJJcU8Qfj5tE+64+IexI8iOMF3JKl3kJE0mac8SGy8Ouy/n4iDaKsI
+	 mxGTSDJGzZeUZm3/7zvzV+/GCb1c1yTtYK2lJjzs9DbDWAYWirKdjI2c9e2+E4ZAeLXPB
+	 hSXqCr6iGhIqs9gwkaDFMMALr3pO9MjTjYlcBccoFiLpf6kpJ5YVDApoGG38/jmiuxBqX
+	 xOsiQ5KN5b2FVjIae+S2ADnSp6cMlZ8Pv+Jc0Pcf5+zGtXhMkO/YRYE4+6V5LHSidSLST
+	 +O5rN+Y4nQ0J/SO4GDG7BSqKpBXTzpma3Fsbb1KH1mQvVrigCN+c3Nwb5uE9X39puPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794680385;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794680384;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=E3vCj5tUgzGkPFi9k75RiC9oPN7M2Lkb82L+I2HGw/Y=;
-	b=10U/Eb9DxpQg0oq2bJRzAnRZz/dabqjfTmo0KFim+nLZwlZ46dL3b2K7pYK53iimucHe
-	 dUorTIES27WBqHA4cyvMh9wYKF+8Up5TzTXxG1p98kq4pJGZrwg7mEhsRikvWqarqagRM
-	 RLONM/MxJplLjyCkYTRG6bJ5F73k8sfU3LBZTe5cwKp526aB4KYmUmqkpjfMWB+gELcKC
-	 iFU1ZUPNdFAMs1cJhdfbBCJRfA1WD06zjfHPQVndJIbcxq+IO80y2MKgLRwTO/PteA+dN
-	 Mw3gOKtDSVE1NjjixYA3HS1OSfByjCcj+MJKjSaYhnhmIVhQ56ITzC1lU+nttQApVnw==
+	bh=IEN6DMmQ7DzcccVgC+QAOPS2C8pTq6JAPLeqeTnDenE=;
+	b=bfcSiHQvEPYKTa38EiOQ6eJYU2yATeA7o9T2chTbvjCRwT7o+xTA8fdRGjqwxl1BE68l
+	 QKcehn3QjIswdba+sVFBjc47vYjoX4B9KmGdrqypJSKjZ5Tr0saHXDx2Y6ZXDLbd0kywB
+	 Wv27UsmVGb+cLIiVqfDUsV6/gMxleILRCZK9fEX7pxifHNENNOkqdz0KTdBlhbEENlqAj
+	 9qShhVG5DWyyz2tk6qGPoPLye5uT/SZ0DMB9UJs/pTV8XVGuIa7+WeZuTN+vKEZ5yjZBO
+	 oL91GXe20l7KJnSPx+JqM81UZJhwojXH9N8F4nvWdmCg4AcuMY/OOBa7GEx3uKBQDbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cs.unibo.it;
 	spf=pass smtp.mailfrom=cs.unibo.it;
-	dkim=pass header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=ciw9jSd+;
+	dkim=pass header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=QQcmgZIM;
 	arc=none smtp.remote-ip=130.136.161.50
 Received: from mail.virtlab.unibo.it (mail.virtlab.unibo.it [130.136.161.50])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 636F5606A884;
-	Sat, 14 Nov 2026 18:19:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 636F5606A884
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9C7DC606A331;
+	Sat, 14 Nov 2026 18:19:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C7DC606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cs.unibo.it
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unibo.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=ciw9jSd+
+	dkim=pass (1024-bit key, unprotected) header.d=cs.unibo.it header.i=@cs.unibo.it header.a=rsa-sha256 header.s=virtlab header.b=QQcmgZIM
 Received: from eipi10.cs.unibo.it (host0.studiodavoli.it [109.234.61.1])
-	by mail.virtlab.unibo.it (Postfix) with ESMTPA id 95C6B1C0264;
-	Sat, 14 Nov 2026 19:19:38 +0100 (CET)
+	by mail.virtlab.unibo.it (Postfix) with ESMTPA id 1FAB31C025B;
+	Sat, 14 Nov 2026 19:19:36 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=cs.unibo.it;
-	s=virtlab; t=1794680378;
-	bh=bpoTWuAHUl034Z+d9Tywg/ip83+J02Key3fpE1ExJfQ=;
+	s=virtlab; t=1794680376;
+	bh=Y/wiJwTpddm1xSyZCLed0jyYCYmsGZG6L6nJZ7ZUclc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=ciw9jSd+sWIlEcklSZ6htPVTgHexLE0yO/dmzuse2AJQ87VVQsZ/BdDQdohN1Cz5Q
-	 htmzyr8tCT7Rw/NLzYYPI6/vspvW4tKi8Bfz+XP/lCR1O9s3bPkn1mMb7FtqOE4HIH
-	 l6WSabr/K41fQfH2/Z5dOFSMsxIL1KSGOFGJV4iA=
+	b=QQcmgZIM4eUKQaJmmxs7LkgSkcXAbxRoaW587WOysJrhwn5shxypf+lmjo3PI0FrC
+	 bXY6+ieOqfZhbLMf3aCN5DLhzgZyc0XqC6GPkl0zILAJaj4tyWcj8PEDcVUjoeMk3J
+	 5qg7f0cnUNvFlmmkqm0SymqCk9Sm7tuiIp4XeOMU=
 From: Renzo Davoli <renzo@cs.unibo.it>
 To: linux-kernel@vger.kernel.org
-Cc: Renzo Davoli <renzo@cs.unibo.it>,
+Cc: Davide Berardi <berardi.dav@gmail.com>,
 	Oleg Nesterov <oleg@redhat.com>,
 	=?UTF-8?q?Michal=20Such=C3=A1nek?= <msuchanek@suse.de>,
 	Kees Cook <kees@kernel.org>,
@@ -54,7 +54,6 @@ Cc: Renzo Davoli <renzo@cs.unibo.it>,
 	"Dmitry V . Levin" <ldv@strace.io>,
 	Alexey Gladkov <legion@kernel.org>,
 	Eugene Syromyatnikov <evgsyr@gmail.com>,
-	Davide Berardi <berardi.dav@gmail.com>,
 	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
 	Heiko Carstens <hca@linux.ibm.com>,
 	Vasily Gorbik <gor@linux.ibm.com>,
@@ -62,10 +61,11 @@ Cc: Renzo Davoli <renzo@cs.unibo.it>,
 	linuxppc-dev@lists.ozlabs.org,
 	linux-s390@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
-	strace-devel@lists.strace.io
-Subject: [PATCH v11 3/3] selftests/ptrace: add a test case for PTRACE_SET_SYSCALL_INFO syscall skipping
-Date: Sat, 14 Nov 2026 19:19:22 +0100
-Message-ID: <20261114181923.370930-4-renzo@cs.unibo.it>
+	strace-devel@lists.strace.io,
+	Renzo Davoli <renzo@cs.unibo.it>
+Subject: [PATCH v11 1/3] seccomp: let the tracer skip a syscall independently of its number
+Date: Sat, 14 Nov 2026 19:19:20 +0100
+Message-ID: <20261114181923.370930-2-renzo@cs.unibo.it>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261114181923.370930-1-renzo@cs.unibo.it>
 References: <20261114181923.370930-1-renzo@cs.unibo.it>
@@ -78,318 +78,149 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Check whether PTRACE_SET_SYSCALL_INFO syscall skipping semantics
-implemented in the kernel matches userspace expectations.
+From: Davide Berardi <berardi.dav@gmail.com>
 
-Signed-off-by: Renzo Davoli <renzo@cs.unibo.it>
-[v8: also check an error return value, and that the syscall cannot be
- changed anymore once skipped while its return value still can;
- checkpatch fixes]
-[v11: check that PTRACE_GET_SYSCALL_INFO reports an exit stop once
- the syscall is skipped]
+At a PTRACE_EVENT_SECCOMP stop the tracer can only skip the system call
+by setting its number to -1, which seccomp reads back with
+syscall_get_nr().  This depends on how each architecture lays out the
+syscall number and the return value in the registers:
+
+ - on some architectures the syscall number shares a register with the
+   return value (e.g. v0 on MIPS), so setting the return value after the
+   number would overwrite the skip request, and each of them needs its
+   own way to keep it (MIPS keeps a copy of the number in thread_info);
+
+ - on s390 syscall_get_nr() returns the low 16 bits of int_code, so -1
+   is read back as 65535: seccomp does not skip the call but runs the
+   filters again on syscall 65535, which kills the task if the filter
+   denies unknown syscalls.
+
+Add a per-task flag which the tracer sets with
+seccomp_ptrace_skip_syscall() while the tracee is stopped at the
+PTRACE_EVENT_SECCOMP stop, after it has set the return value.  When the
+tracee resumes, seccomp skips the system call like for
+SECCOMP_RET_ERRNO, which every architecture already handles without
+touching the return value.
+
+The flag is cleared by the tracee before the stop and written by the
+tracer only while the tracee is stopped, so it needs no locking: the
+wake-up of the tracee orders it like the registers written by the
+tracer.
+
+The next patch uses this in PTRACE_SET_SYSCALL_INFO.
+
+Suggested-by: Michal Suchánek <msuchanek@suse.de>
 Assisted-by: claude-opus-5-5
+Signed-off-by: Renzo Davoli <renzo@cs.unibo.it>
 ---
- .../selftests/ptrace/set_syscall_info.c       | 249 +++++++++++++++++-
- 1 file changed, 248 insertions(+), 1 deletion(-)
+ include/linux/seccomp.h       | 33 +++++++++++++++++++++++++++++++++
+ include/linux/seccomp_types.h |  4 ++++
+ kernel/seccomp.c              | 11 ++++++++++-
+ 3 files changed, 47 insertions(+), 1 deletion(-)
 
-diff --git a/tools/testing/selftests/ptrace/set_syscall_info.c b/tools/testing/selftests/ptrace/set_syscall_info.c
-index 1cc411a41cd6..0e2fc2cdf1dc 100644
---- a/tools/testing/selftests/ptrace/set_syscall_info.c
-+++ b/tools/testing/selftests/ptrace/set_syscall_info.c
-@@ -11,9 +11,15 @@
- #include <err.h>
- #include <fcntl.h>
- #include <signal.h>
-+#include <stdlib.h>
-+#include <stddef.h>
- #include <asm/unistd.h>
-+#include <sys/prctl.h>
- #include <linux/types.h>
- #include <linux/ptrace.h>
-+#include <linux/filter.h>
-+#include <linux/seccomp.h>
-+#include <linux/prctl.h>
- 
- #if defined(_MIPS_SIM) && _MIPS_SIM == _MIPS_SIM_NABI32
- /*
-@@ -36,6 +42,7 @@ struct si_exit {
- 
- static unsigned int ptrace_stop;
- static pid_t tracee_pid;
-+static pid_t tracer_pid;
- 
- static int
- kill_tracee(pid_t pid)
-@@ -64,6 +71,25 @@ sys_ptrace(int request, pid_t pid, unsigned long addr, unsigned long data)
- 		       ptrace_stop, ##__VA_ARGS__);		\
- 	} while (0)
- 
-+static int sys_seccomp(unsigned int operation, unsigned int flags, void *args)
+diff --git a/include/linux/seccomp.h b/include/linux/seccomp.h
+index 3b6cc376fff5..0dd0a6960e96 100644
+--- a/include/linux/seccomp.h
++++ b/include/linux/seccomp.h
+@@ -76,6 +76,32 @@ static inline int seccomp_mode(struct seccomp *s)
+ #ifdef CONFIG_SECCOMP_FILTER
+ extern void seccomp_filter_release(struct task_struct *tsk);
+ extern void get_seccomp_filter(struct task_struct *tsk);
++
++/**
++ * seccomp_ptrace_skip_syscall - make a tracee skip the current system call
++ * @tsk: tracee stopped at a PTRACE_EVENT_SECCOMP stop
++ *
++ * Must only be called by the tracer of @tsk while @tsk is stopped at a
++ * PTRACE_EVENT_SECCOMP stop, after it has set the return value of the system
++ * call.  When the tracee resumes, the system call is skipped and the return
++ * value is left untouched, like with SECCOMP_RET_ERRNO.
++ */
++static inline void seccomp_ptrace_skip_syscall(struct task_struct *tsk)
 +{
-+	return syscall(__NR_seccomp, operation, flags, args);
++	tsk->seccomp.ptrace_skip = true;
 +}
 +
-+static struct sock_filter seccomp_filter[] = {
-+	BPF_STMT(BPF_LD+BPF_W+BPF_ABS, offsetof(struct seccomp_data, nr)),
-+
-+	BPF_JUMP(BPF_JMP+BPF_JEQ+BPF_K, __NR_restart_syscall, 0, 1),
-+	BPF_STMT(BPF_RET+BPF_K, SECCOMP_RET_ALLOW),
-+
-+	BPF_STMT(BPF_RET+BPF_K, SECCOMP_RET_TRACE),
-+};
-+
-+static struct sock_fprog seccomp_prog = {
-+	.filter = seccomp_filter,
-+	.len = ARRAY_SIZE(seccomp_filter)
-+};
-+
- static void
- check_psi_entry(struct __test_metadata *_metadata,
- 		const struct ptrace_syscall_info *info,
-@@ -128,7 +154,6 @@ check_psi_exit(struct __test_metadata *_metadata,
- 
- TEST(set_syscall_info)
++/**
++ * seccomp_ptrace_syscall_skipped - check for seccomp_ptrace_skip_syscall()
++ * @tsk: tracee stopped at a PTRACE_EVENT_SECCOMP stop
++ *
++ * Return: true if the tracer requested to skip the system call during the
++ * current PTRACE_EVENT_SECCOMP stop of @tsk.
++ */
++static inline bool seccomp_ptrace_syscall_skipped(struct task_struct *tsk)
++{
++	return tsk->seccomp.ptrace_skip;
++}
+ #else  /* CONFIG_SECCOMP_FILTER */
+ static inline void seccomp_filter_release(struct task_struct *tsk)
  {
--	const pid_t tracer_pid = getpid();
- 	const kernel_ulong_t dummy[] = {
- 		(kernel_ulong_t) 0xdad0bef0bad0fed0ULL,
- 		(kernel_ulong_t) 0xdad1bef1bad1fed1ULL,
-@@ -138,6 +163,7 @@ TEST(set_syscall_info)
- 		(kernel_ulong_t) 0xdad5bef5bad5fed5ULL,
- 	};
- 	int splice_in[2], splice_out[2];
-+	tracer_pid = getpid();
- 
- 	ASSERT_EQ(0, pipe(splice_in));
- 	ASSERT_EQ(0, pipe(splice_out));
-@@ -516,4 +542,225 @@ TEST(set_syscall_info)
- 	ASSERT_EQ(ptrace_stop, ARRAY_SIZE(si) * 2);
+@@ -85,6 +111,13 @@ static inline void get_seccomp_filter(struct task_struct *tsk)
+ {
+ 	return;
  }
- 
-+TEST(set_syscall_info_seccomp)
++static inline void seccomp_ptrace_skip_syscall(struct task_struct *tsk)
 +{
-+	/*
-+	 * Check for seccomp filter support without installing a filter:
-+	 * a NULL filter fails with EFAULT if SECCOMP_SET_MODE_FILTER is
-+	 * supported, and with EINVAL or ENOSYS otherwise.
-+	 */
-+	ASSERT_EQ(-1, sys_seccomp(SECCOMP_SET_MODE_FILTER, 0, NULL));
-+	if (errno != EFAULT)
-+		SKIP(return, "SECCOMP_SET_MODE_FILTER: %m");
-+
-+	tracer_pid = getpid();
-+	tracee_pid = fork();
-+
-+	ASSERT_LE(0, tracee_pid) {
-+		TH_LOG("fork: %m");
-+	}
-+
-+	/* tracee */
-+	if (tracee_pid == 0) {
-+		tracee_pid = getpid();
-+		ASSERT_EQ(0, sys_ptrace(PTRACE_TRACEME, 0, 0, 0)) {
-+			TH_LOG("PTRACE_TRACEME: %m");
-+		}
-+		ASSERT_EQ(0, kill(tracee_pid, SIGSTOP)) {
-+			/* cannot happen */
-+			TH_LOG("kill SIGSTOP: %m");
-+		}
-+
-+		ASSERT_EQ(0, prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0)) {
-+			TH_LOG("prctl: %m");
-+		}
-+		ASSERT_EQ(0, sys_seccomp(SECCOMP_SET_MODE_FILTER, 0,
-+					(void *) &seccomp_prog)) {
-+			TH_LOG("seccomp: %m");
-+		}
-+
-+		/*
-+		 * From now on every syscall stops the tracee, so do not use
-+		 * ASSERT_*() here: it would write() its message before
-+		 * _exit(1) and the tracer would report a syscall nr mismatch
-+		 * instead of the test case that failed.
-+		 */
-+
-+		/* run getpid unmodified */
-+		if (getpid() != tracee_pid)
-+			_exit(1);
-+
-+		/* run getppid instead of getpid */
-+		if (getpid() != tracer_pid)
-+			_exit(1);
-+
-+		/* skip getpid and return 42 */
-+		if (getpid() != 42)
-+			_exit(1);
-+
-+		/* skip getpid and fail with ESRCH */
-+		errno = 0;
-+		if (syscall(__NR_getpid) != -1 || errno != ESRCH)
-+			_exit(1);
-+
-+		_exit(0);
-+	}
-+
-+	int status;
-+
-+	/* tracer */
-+	ASSERT_LE(0, waitpid(-1, &status, 0)) {
-+		LOG_KILL_TRACEE("waitpid: %m");
-+	}
-+
-+	ASSERT_EQ(0, sys_ptrace(PTRACE_SETOPTIONS, tracee_pid, 0,
-+			(PTRACE_O_TRACESECCOMP | PTRACE_O_TRACESYSGOOD)))
-+		LOG_KILL_TRACEE("PTRACE_SETOPTIONS: %m");
-+
-+	ASSERT_EQ(0, sys_ptrace(PTRACE_CONT, tracee_pid, 0, 0)) {
-+		LOG_KILL_TRACEE("PTRACE_CONT: %m");
-+	}
-+
-+	static const char * const testname[] = {
-+		"unknown error",
-+		"getpid seccomp unchanged",
-+		"getpid seccomp nr change: getppid",
-+		"getpid seccomp skip+set retvalue",
-+		"getpid seccomp skip+set error"
-+	};
-+
-+	static const unsigned int expected_nr[] = {
-+		__NR_getpid,
-+		__NR_getpid,
-+		__NR_getpid,
-+		__NR_getpid,
-+		__NR_exit_group
-+	};
-+
-+	for (ptrace_stop = 0; ; ++ptrace_stop) {
-+		ASSERT_EQ(tracee_pid, wait(&status)) {
-+			/* cannot happen */
-+			LOG_KILL_TRACEE("wait: %m");
-+		}
-+
-+		if (WIFEXITED(status)) {
-+			tracee_pid = 0; /* the tracee is no more */
-+			ASSERT_EQ(0, WEXITSTATUS(status)) {
-+				LOG_KILL_TRACEE("unexpected exit status %u",
-+						WEXITSTATUS(status));
-+			}
-+			break;
-+		}
-+		ASSERT_FALSE(WIFSIGNALED(status)) {
-+			tracee_pid = 0; /* the tracee is no more */
-+			LOG_KILL_TRACEE("unexpected signal %u",
-+					WTERMSIG(status));
-+		}
-+		ASSERT_TRUE(WIFSTOPPED(status)) {
-+			LOG_KILL_TRACEE("unexpected wait status %#x", status);
-+		}
-+
-+		ASSERT_EQ(status >> 8, SIGTRAP | (PTRACE_EVENT_SECCOMP << 8)) {
-+			LOG_KILL_TRACEE("unexpected stop, wait status %#x", status);
-+		}
-+
-+		struct ptrace_syscall_info info = {
-+			.op = 0xff  /* invalid PTRACE_SYSCALL_INFO_* op */
-+		};
-+		size_t info_size = sizeof(info);
-+
-+		ASSERT_LT(0, sys_ptrace(PTRACE_GET_SYSCALL_INFO, tracee_pid,
-+					info_size, (uintptr_t) &info)) {
-+			LOG_KILL_TRACEE("PTRACE_GET_SYSCALL_INFO: %m");
-+		}
-+		ASSERT_EQ(PTRACE_SYSCALL_INFO_SECCOMP, info.op) {
-+			LOG_KILL_TRACEE("entry op mismatch: %m");
-+		}
-+		ASSERT_TRUE(info.arch) {
-+			LOG_KILL_TRACEE("entry arch mismatch: %m");
-+		}
-+		ASSERT_TRUE(info.instruction_pointer) {
-+			LOG_KILL_TRACEE("entry instruction_pointer mismatch: %m");
-+		}
-+		ASSERT_TRUE(info.stack_pointer) {
-+			LOG_KILL_TRACEE("entry stack_pointer mismatch: %m");
-+		}
-+
-+		ASSERT_LT(ptrace_stop, ARRAY_SIZE(expected_nr)) {
-+			LOG_KILL_TRACEE("ptrace stop overflow");
-+		}
-+		ASSERT_FALSE(info.seccomp.nr == __NR_exit_group && info.seccomp.args[0] == 1) {
-+			LOG_KILL_TRACEE("tracee error: %s",
-+					testname[ptrace_stop]);
-+		}
-+		ASSERT_EQ(info.seccomp.nr, expected_nr[ptrace_stop]) {
-+			LOG_KILL_TRACEE("syscall nr mismatch");
-+		}
-+		const struct ptrace_syscall_info seccomp_info = info;
-+
-+		switch (ptrace_stop) {
-+		case 0:
-+		case 4:
-+			break;
-+		case 1:
-+			info.seccomp.nr = __NR_getppid;
-+			break;
-+		case 2:
-+			info.op = PTRACE_SYSCALL_INFO_EXIT;
-+			info.exit.rval = 41;
-+			info.exit.is_error = 0;
-+			ASSERT_EQ(0, sys_ptrace(PTRACE_SET_SYSCALL_INFO,
-+						tracee_pid, info_size,
-+						(uintptr_t) &info)) {
-+				LOG_KILL_TRACEE("PTRACE_SET_SYSCALL_INFO: %m");
-+			}
-+			/* once skipped, the stop is reported as an exit stop */
-+			struct ptrace_syscall_info exit_info = {
-+				.op = 0xff  /* invalid PTRACE_SYSCALL_INFO_* op */
-+			};
-+
-+			ASSERT_LT(0, sys_ptrace(PTRACE_GET_SYSCALL_INFO,
-+						tracee_pid, info_size,
-+						(uintptr_t) &exit_info)) {
-+				LOG_KILL_TRACEE("PTRACE_GET_SYSCALL_INFO after skip: %m");
-+			}
-+			ASSERT_EQ(PTRACE_SYSCALL_INFO_EXIT, exit_info.op) {
-+				LOG_KILL_TRACEE("op mismatch after skip");
-+			}
-+			ASSERT_EQ(41, exit_info.exit.rval) {
-+				LOG_KILL_TRACEE("rval mismatch after skip");
-+			}
-+			ASSERT_EQ(0, exit_info.exit.is_error) {
-+				LOG_KILL_TRACEE("is_error mismatch after skip");
-+			}
-+			/* the syscall cannot be changed anymore once skipped */
-+			ASSERT_EQ(-1, sys_ptrace(PTRACE_SET_SYSCALL_INFO,
-+						 tracee_pid, info_size,
-+						 (uintptr_t) &seccomp_info)) {
-+				LOG_KILL_TRACEE("PTRACE_SET_SYSCALL_INFO after skip succeeded");
-+			}
-+			ASSERT_EQ(EINVAL, errno) {
-+				LOG_KILL_TRACEE("PTRACE_SET_SYSCALL_INFO after skip: %m");
-+			}
-+			/* but its return value can */
-+			info.exit.rval = 42;
-+			break;
-+		case 3:
-+			info.op = PTRACE_SYSCALL_INFO_EXIT;
-+			info.exit.rval = -ESRCH;
-+			info.exit.is_error = 1;
-+			break;
-+		}
-+
-+		ASSERT_EQ(0, sys_ptrace(PTRACE_SET_SYSCALL_INFO, tracee_pid,
-+					info_size, (uintptr_t) &info)) {
-+			LOG_KILL_TRACEE("PTRACE_SET_SYSCALL_INFO: %m");
-+		}
-+
-+		ASSERT_EQ(0, sys_ptrace(PTRACE_CONT, tracee_pid, 0, 0)) {
-+			LOG_KILL_TRACEE("PTRACE_CONT: %m");
-+		}
-+	}
 +}
-+
- TEST_HARNESS_MAIN
++static inline bool seccomp_ptrace_syscall_skipped(struct task_struct *tsk)
++{
++	return false;
++}
+ #endif /* CONFIG_SECCOMP_FILTER */
+ 
+ #if defined(CONFIG_SECCOMP_FILTER) && defined(CONFIG_CHECKPOINT_RESTORE)
+diff --git a/include/linux/seccomp_types.h b/include/linux/seccomp_types.h
+index cf0a0355024f..4bdb8424055b 100644
+--- a/include/linux/seccomp_types.h
++++ b/include/linux/seccomp_types.h
+@@ -18,11 +18,15 @@ struct seccomp_filter;
+  *
+  *          @filter must only be accessed from the context of current as there
+  *          is no read locking.
++ * @ptrace_skip: set by the tracer while the task is stopped at a
++ *               PTRACE_EVENT_SECCOMP stop to request that the system call is
++ *               skipped, after it has set the return value.
+  */
+ struct seccomp {
+ 	int mode;
+ 	atomic_t filter_count;
+ 	struct seccomp_filter *filter;
++	bool ptrace_skip;
+ };
+ 
+ #else
+diff --git a/kernel/seccomp.c b/kernel/seccomp.c
+index 3eecba5ccdef..31a7772ebb7d 100644
+--- a/kernel/seccomp.c
++++ b/kernel/seccomp.c
+@@ -1314,6 +1314,7 @@ static bool __seccomp_filter(int this_syscall, const bool recheck_after_trace)
+ 		}
+ 
+ 		/* Allow the BPF to provide the event message */
++		current->seccomp.ptrace_skip = false;
+ 		ptrace_event(PTRACE_EVENT_SECCOMP, data);
+ 		/*
+ 		 * The delivery of a fatal signal during event
+@@ -1327,7 +1328,15 @@ static bool __seccomp_filter(int this_syscall, const bool recheck_after_trace)
+ 		 */
+ 		if (fatal_signal_pending(current))
+ 			goto skip;
+-		/* Check if the tracer forced the syscall to be skipped. */
++		/*
++		 * Check if the tracer forced the syscall to be skipped, either
++		 * with seccomp_ptrace_skip_syscall(), which does not depend on
++		 * how the architecture encodes the syscall number and the
++		 * return value in the registers, or by setting the syscall
++		 * number to -1.
++		 */
++		if (current->seccomp.ptrace_skip)
++			goto skip;
+ 		this_syscall = syscall_get_nr(current, current_pt_regs());
+ 		if (this_syscall < 0)
+ 			goto skip;
 -- 
 2.47.3
 
