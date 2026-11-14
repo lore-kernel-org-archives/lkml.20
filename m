@@ -1,65 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=154.81.10.97
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794645238;
-	b=nn1SSHnQsCzLS67eYPgSk1qq4g+qMf2cg7LGSKQEsPI74ifladxhAtcLi31JBauVGLiq
-	 r4cuqmOU3BUN/fFLr7/uViLP532EBJTIbtDbRkpCHo7SOV51UJcLVIG+cSpYTsjfmjRA2
-	 YwWCuIAdsU/kyuTePU1Q+Nm5Pcb1mV/PDcPbNSOpguQPPEal4FxGia1g3ChnCiXJBWMeX
-	 uA9Bv5GImvUIs/eLXstIF+vGbPEGS1nJxLF/E/MESLHaAPIXzcP4oSn6Nw92j+DA4tsiy
-	 Tv46CE/7dhz7kOxeQcBujEOb0SXnu8gY0n6eyuxJHGzpqxg9wX4Idij8LvHGdGw6FZg==
+	t=1794645331;
+	b=wqKkciZGWjKXE60WqLMZPaeT+pPwbppec1/12kumd4qGszYhBm95cV6uHpk1AvW2F9vV
+	 rrTxOAPIFvf/t8FfdOPB6CMHJ9z3p/Pb+UFkPxnwTZitkTv0cpRWUwTqH2ryiTyGFiakc
+	 y9ZtYXy/zSe3wV/F4sY1E4yvti48lg2JE04RXFWUP+Si6nYLi9wXwd7ZyW2AvEKdINXEn
+	 Upo6QzueY4khQZnudKNUs8w6rpANf/KxZNc97l2edT4lkTqN92pokUdkMuXTTSAr1Dr4K
+	 jv4oILeyIUE70U6vlZghuNm3hDWMkUCCdcTxmpeMJXFubUq5p5ftXw1Cp1hiWy/QINA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794645238;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=ms1ju7huIjhl6AXZ2LHEfgvi0JgbTGMgbEyfAcNQlLA=;
-	b=4V2OXusMal82S/Vt3q7XqKA4pNRldt3S3WpgfQ1mKZ5ECqrMJfWzCf9hgffQiXzVCpk6
-	 MRcjjojtCb5pFDfAmRGFyVnrrxu0L/DL86SI2bBA+2o8jgc/uCx1PzsiEYieQ6jYQCKdQ
-	 ictiFJ3GsS6BOWFh3zHdUP0ZC7dbJmcDyshKHTZD3pU8KOZyZNCcZf0jaGteWre4mTMxO
-	 t52DddfjnUdjia5okm3Ekyph8m8YWO+mXnsCCgCCYBvryHvELxJ6TZlVgEGmhjjGaOQMl
-	 4TPTw0MNJZUNqZZRoPCiX7bv6W/N6RTVzBnTbVnMKm1/pRDyMfEojnT03xFOQFdBmLA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794645331;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=yfnJG4iiDKKQuxyCDYfideniNtJsvgutAwnUooh0Jdk=;
+	b=V4u4Qu0V56wr9pDFeHu3R6h+0jp3RPumei9WWmWGZGP09UisHXdnajiJ1PisBfqqVmRB
+	 Dd9KnbHOjnKFAWV6kV6CDCjdnyHnCiPBg4dtexWGR8bnsag30zyoZkEwtQd30OZqCHtQv
+	 pAKXfnAYaQPuLIGKmYfogQJdd86wn4vwkkPmp9zPIPdH0k9g+iyIq8yWcNKipZe2qsLge
+	 Nmhy8xgVqQ4YR5fxcydJ+INAzI+HriyK8OzzGCotQy5VTbp5MMYS+bkPRJVLeBX9Bli1K
+	 ol3W6SrAmFVf2MhoGsoav9UJdKLsEOP4/2VYmRZTS/jbEUISNcxlfYMGQ21Ajki93qQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=LYW78VGY;
-	arc=none smtp.remote-ip=154.81.10.97
-Received: from mail-m1097.netease.com (mail-m1097.netease.com [154.81.10.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Y37AXEGZ;
+	arc=none smtp.remote-ip=209.85.167.51
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC2E9606A334;
-	Sat, 14 Nov 2026 08:33:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC2E9606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A78A606A32D
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:35:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A78A606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=LYW78VGY
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 54aa88684;
-	Sat, 14 Nov 2026 16:33:47 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: Vinod Koul <vkoul@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	Dave Jones <s.dave.jones@gmail.com>,
-	linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Y37AXEGZ
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5c0a520df2eso2214779e87.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 00:35:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794645329; x=1795250129; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yfnJG4iiDKKQuxyCDYfideniNtJsvgutAwnUooh0Jdk=;
+        b=Y37AXEGZNRjjow8p4LgjZLoRKWt+vX4mg8SYvuImT7FGNVyGidP9cBiU+r9aFgF/Yk
+         APWWK33jwEvWKXta0k6KDONTButeyotr3NxYw05JrR9yVuPscVHnKuuaKSwyqY87IvAZ
+         f0clJOvbwYnoDcdd2V8hHQs+lUqQ9EKgm/h6fUsnrrZ3QVo8TxEDcrj0ZxFIXJJntXPU
+         2wQ0t9E2rUx5W1SnFl1JVxao7ECM8XiXbyLpN6PGyQV0Ezph2uKLrCpUUgjKy0aLhmXq
+         A8nMvYmMfMSW7YkUUHEd7/vSv9ZOhTX6HGsYZV7J4USXZmbpEg6e8kSbiLzLfaFLv3ZB
+         QEMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794645329; x=1795250129;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yfnJG4iiDKKQuxyCDYfideniNtJsvgutAwnUooh0Jdk=;
+        b=r0N5PiR2nSNqk4ewNdjiI9wyQQxCSMbj1/7/WPWrKWX/4SL//XNZ39C34rtOVDiR6i
+         0UX1Lo6J4pQ6yjEk74wZiOFjf+3S10m5DM8AeWMUlx1JJlQYVJ+E7uDHtkvCEBQCuQtd
+         FcZoy+Yz8girCmAIcUC9OC5Q9erHXHyFxVdxW5i8wOj0KrdKdEZ1DB4GH/gkDRdtaFcA
+         3QFUvC07+elOrpD57yDWtk+dm0BszcwpDPbvro7KFDAU6LMMiz7ugnbHZ51fO8qQ61zV
+         lmSzlXcWzn3pAF3aitX4qTMEYOw/uuJ/W8f2qT14k/a1rdgNzo5qA+hwD+cUlJ72KXCr
+         gwwg==
+X-Forwarded-Encrypted: i=1; AL+hErGZCuO5j9xu+7xrKPr7xu28Z9S5+wdgBRgvPIUqp/5CNaLFPYLdWK1YE5Cwb8/WK6sefzQ4LhX1ACH/EMw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+rG+zhSn7W4tBWYtltC275hOq/eWDGhBxOSvH7xgTHX6MSf/MS
+	jZgr6SN5ActXdjooHuExFkU9HtNBF6C9YZ5+JVetcQAH5UzjHCoNJEhkpnCYnKPa
+X-Gm-Gg: AYBFou2Ars9BGMHkPERUR8BRGFiuIVebSSpYqIGapcJdgaUTS5ci0v700eQQE1CWP+7
+	ykX49K4BIXCJ7cWrKhSSUPws3309td42tBgo2ToPzVeKTUhZX8ZoY5plQAnghqHAf4Wbp6vWySu
+	DahuhlLmDeeHHGloLxkmDtQhaKjMNt4P7HytY/W79rjpzY9trPQ0lVtvHZoTjc6kV41Sx/vXOx+
+	rayaTryPFMnTUCO/mA7yhUPtTyvnClr7JyHxSV5Cz3ZqimWwPiQ8L17lH7i6UgtJk8yrEV5D0d6
+	5haFmHtJ4KWeGrJ5CJGRW6vjwgAF5zJYCaVLM6WLlW1PARrrsfo7mhhCeRzAoZPqIi6/3AM2LOb
+	iIKU1/rQrxicx4qgqZt505rqUyRToMF5HOK5dlzLW+jqWwSsnqSgBYWVIpOKh4sQ8Q375exGjCB
+	nfpatBSH7o9+FSMrEfJqTeQjaoCeh3H9WujwWP4rIUOLar+JXLwbqBzw06fNm8h/HXsgyMGtavs
+	gis5t2ouFP6ozMSbhjCzp2eFg7bviHqcNsj1pieAfSe9GRPxvM3hHD1mMuNFitLPSRZ7n+qYhKg
+	ZIpxpx0UwxokPdJ9l3g0qt5UGw8D68gr9/Wi/QTcPq5jcuDWPVB1Mo7Agx1KNKyWGevAmAp7q7V
+	hr4rCERnKbTGPB0fEEqXrU5yJlOCgr1wngpqaqg==
+X-Received: by 2002:a05:6512:3a88:b0:5c1:488e:a069 with SMTP id 2adb3069b0e04-5c17079a9d0mr1861830e87.13.1794645329214;
+        Sat, 14 Nov 2026 00:35:29 -0800 (PST)
+Received: from yantra.. (nekmmqusxj170dz200l-1.v6.elisa-laajakaista.fi. [2001:99a:d7d:c300:b551:8edb:536d:8395])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c171356581sm1487024e87.66.2026.11.14.00.35.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 00:35:28 -0800 (PST)
+From: Rupesh Majhi <zoone.rupert@gmail.com>
+To: jic23@kernel.org
+Cc: Andy Shevchenko <andy@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Eddie James <eajames@linux.ibm.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v6 2/4] phy: rockchip: Add support for Naneng eDP phy
-Date: Sat, 14 Nov 2026 16:33:37 +0800
-Message-Id: <20261114083339.600986-3-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261114083339.600986-1-damon.ding@rock-chips.com>
-References: <20261114083339.600986-1-damon.ding@rock-chips.com>
+	Sashiko <sashiko-bot@kernel.org>,
+	Arnav Kapoor <kapoorarnav43@gmail.com>
+Subject: Re: [PATCH v2] iio: pressure: dps310: don't wait for new temperature in trigger handler
+Date: Sat, 14 Nov 2026 10:35:25 +0200
+Message-ID: <20261114083525.11972-1-zoone.rupert@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261114013817.476f8fb9@jic23-hlaptop>
+References: <20261113230241.82046-1-zoone.rupert@gmail.com> <20261114013817.476f8fb9@jic23-hlaptop>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,573 +106,24 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1d930f66b03a8kunmf52e9804102258
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGhgfVk0aTUIfGh9IGUsfSVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	JDQ0xVSktLVUtZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=LYW78VGYuSWSZGV02cSGRYmTSTc0wv6XtEVUpvMXSHngJZwZ87O9Pkc/4K2cBzdPOZZA1O7JKa6llhDJJ5XE9URWO4rfEnZpZbg9JHIgaJ++SIN/OfV5upBAsYOFgaUStFyePgaokDPVZl2ECKLik9H/AZK4S6PsLFxI5uxUd7k=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=ms1ju7huIjhl6AXZ2LHEfgvi0JgbTGMgbEyfAcNQlLA=;
-	h=date:mime-version:subject:message-id:from;
 
-Add a driver for the Rockchip eDP transmitter PHY with Naneng IP
-block, as found on the RK3568 SoC.
+On Sat, 14 Nov 2026 01:38:17 +0000
+Jonathan Cameron <jic23@kernel.org> wrote:
 
-The PHY has its own register window inside the eDP PHY GRF, so its
-node is modeled as a child of the eDP PHY GRF syscon with a reg
-property describing that window, and the driver maps that window
-directly.  The PHY supports 1/2/4 lanes at 1.62 Gbps and 2.7 Gbps,
-optional spread spectrum clocking, as well as per-lane voltage swing
-and pre-emphasis tuning, all exposed through the generic PHY
-DisplayPort configuration interface.
+> > Read pressure first and take the latest temperature, as a direct
+> > pressure read already does. Wait for temperature only when pressure is
+> > not in the scan. Read a temperature in probe, so there is a latest one
+> > from the first scan on.
+>
+> That was potentially a while back.  Why not do it in preenable for the buffer?
+> Will make the buffer start a bit slow but should 'work' from there on.
 
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+Probe value only lasts until the next temperature result. By the
+time the buffer starts TMP_RDY is set, so first scan takes a new
+temperature anyway (checked on the board, buffer enabled 5 s after
+probe). The probe read also covers direct pressure reads.
 
----
+Happy to move it to preenable if you prefer.
 
-Changes in v2:
-- Apply the lane-dependent TX configurations in set_lanes() instead of
-  set_rate(), and store the lane count for set_voltages(), since the
-  Analogix DP core issues separate phy_configure() calls and the lane
-  count is only valid in the set_lanes/set_voltages calls. (Sashiko)
-- Initialize val to zero in rockchip_edp_phy_enabled() to avoid using
-  an uninitialized variable when regmap_read() fails. (Sashiko)
-
-Changes in v3:
-- Add the changes which were missing in v2 for unexpected reasons.
-
-Changes in v4:
-- Map the PHY registers from its own reg property instead of
-  accessing them through the parent syscon regmap.
-
-Changes in v5:
-- Move the APB clock (PCLK_EDPPHY_GRF) from the parent syscon node to
-  the PHY node and enable it in the driver. (Sashiko)
-- Validate the voltages against the effective lane count, to also
-  cover combined set_lanes + set_voltages requests. (Sashiko)
-- Select REGMAP_MMIO. (Sashiko)
-- Rename the reference clock to "ref", following the review of the
-  binding.
----
- drivers/phy/rockchip/Kconfig                  |  11 +
- drivers/phy/rockchip/Makefile                 |   1 +
- .../phy/rockchip/phy-rockchip-naneng-edp.c    | 471 ++++++++++++++++++
- 3 files changed, 483 insertions(+)
- create mode 100644 drivers/phy/rockchip/phy-rockchip-naneng-edp.c
-
-diff --git a/drivers/phy/rockchip/Kconfig b/drivers/phy/rockchip/Kconfig
-index 39759bb2fa1d..efa49d6b620d 100644
---- a/drivers/phy/rockchip/Kconfig
-+++ b/drivers/phy/rockchip/Kconfig
-@@ -74,6 +74,17 @@ config PHY_ROCKCHIP_NANENG_COMBO_PHY
- 	  Enable this to support the Rockchip PCIe/USB3.0/SATA/QSGMII
- 	  combo PHY with NaNeng IP block.
- 
-+config PHY_ROCKCHIP_NANENG_EDP
-+	tristate "Rockchip Naneng eDP Transmitter PHY driver"
-+	depends on ARCH_ROCKCHIP && OF
-+	select GENERIC_PHY
-+	select REGMAP_MMIO
-+	help
-+	  Enable this to support the Rockchip eDP Transmitter PHY with
-+	  Naneng IP block. The PHY, which is controlled through the eDP
-+	  PHY GRF, provides 1/2/4 lanes running at 1.62/2.7 Gbps per lane
-+	  for the eDP controller found on the RK3568 SoC.
-+
- config PHY_ROCKCHIP_PCIE
- 	tristate "Rockchip PCIe PHY Driver"
- 	depends on (ARCH_ROCKCHIP && OF) || COMPILE_TEST
-diff --git a/drivers/phy/rockchip/Makefile b/drivers/phy/rockchip/Makefile
-index 117aaffd037d..260a10157461 100644
---- a/drivers/phy/rockchip/Makefile
-+++ b/drivers/phy/rockchip/Makefile
-@@ -7,6 +7,7 @@ obj-$(CONFIG_PHY_ROCKCHIP_INNO_DSIDPHY)	+= phy-rockchip-inno-dsidphy.o
- obj-$(CONFIG_PHY_ROCKCHIP_INNO_HDMI)	+= phy-rockchip-inno-hdmi.o
- obj-$(CONFIG_PHY_ROCKCHIP_INNO_USB2)	+= phy-rockchip-inno-usb2.o
- obj-$(CONFIG_PHY_ROCKCHIP_NANENG_COMBO_PHY)	+= phy-rockchip-naneng-combphy.o
-+obj-$(CONFIG_PHY_ROCKCHIP_NANENG_EDP)	+= phy-rockchip-naneng-edp.o
- obj-$(CONFIG_PHY_ROCKCHIP_PCIE)		+= phy-rockchip-pcie.o
- obj-$(CONFIG_PHY_ROCKCHIP_SAMSUNG_DCPHY)	+= phy-rockchip-samsung-dcphy.o
- obj-$(CONFIG_PHY_ROCKCHIP_SAMSUNG_HDPTX)	+= phy-rockchip-samsung-hdptx.o
-diff --git a/drivers/phy/rockchip/phy-rockchip-naneng-edp.c b/drivers/phy/rockchip/phy-rockchip-naneng-edp.c
-new file mode 100644
-index 000000000000..7f0ecc347c78
---- /dev/null
-+++ b/drivers/phy/rockchip/phy-rockchip-naneng-edp.c
-@@ -0,0 +1,471 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Copyright (c) 2026 Rockchip Electronics Co., Ltd.
-+ *
-+ * Author: Damon Ding <damon.ding@rock-chips.com>
-+ */
-+#include <linux/bitfield.h>
-+#include <linux/clk.h>
-+#include <linux/delay.h>
-+#include <linux/hw_bitfield.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/phy/phy.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+
-+#define EDP_PHY_GRF_CON0		0x0000
-+#define EDP_PHY_TX_IDLE_MASK		GENMASK(11, 8)
-+#define EDP_PHY_TX_PD_MASK		GENMASK(7, 4)
-+#define EDP_PHY_IDDQ_EN_MASK		BIT(1)
-+#define EDP_PHY_PD_PLL_MASK		BIT(0)
-+
-+#define EDP_PHY_GRF_CON1		0x0004
-+#define EDP_PHY_PLL_DIV_MASK		GENMASK(14, 0)
-+
-+#define EDP_PHY_GRF_CON2		0x0008
-+#define EDP_PHY_TX_RTERM_MASK		GENMASK(10, 8)
-+#define EDP_PHY_RATE_MASK		GENMASK(5, 4)
-+#define EDP_PHY_REF_DIV_MASK		GENMASK(3, 0)
-+
-+#define EDP_PHY_GRF_CON3		0x000c
-+#define EDP_PHY_TX3_EMP_MASK		GENMASK(15, 12)
-+#define EDP_PHY_TX2_EMP_MASK		GENMASK(11, 8)
-+#define EDP_PHY_TX1_EMP_MASK		GENMASK(7, 4)
-+#define EDP_PHY_TX0_EMP_MASK		GENMASK(3, 0)
-+
-+#define EDP_PHY_GRF_CON4		0x0010
-+#define EDP_PHY_TX3_AMP_MASK		GENMASK(14, 12)
-+#define EDP_PHY_TX2_AMP_MASK		GENMASK(10, 8)
-+#define EDP_PHY_TX1_AMP_MASK		GENMASK(6, 4)
-+#define EDP_PHY_TX0_AMP_MASK		GENMASK(2, 0)
-+
-+#define EDP_PHY_GRF_CON5		0x0014
-+#define EDP_PHY_TX_MODE_MASK		GENMASK(9, 8)
-+#define EDP_PHY_TX3_AMP_SCALE_MASK	GENMASK(7, 6)
-+#define EDP_PHY_TX2_AMP_SCALE_MASK	GENMASK(5, 4)
-+#define EDP_PHY_TX1_AMP_SCALE_MASK	GENMASK(3, 2)
-+#define EDP_PHY_TX0_AMP_SCALE_MASK	GENMASK(1, 0)
-+
-+#define EDP_PHY_GRF_CON6		0x0018
-+#define EDP_PHY_SSC_DEPTH_MASK		GENMASK(15, 12)
-+#define EDP_PHY_SSC_EN_MASK		BIT(11)
-+#define EDP_PHY_SSC_CNT_MASK		GENMASK(9, 0)
-+
-+#define EDP_PHY_GRF_CON7		0x001c
-+
-+#define EDP_PHY_GRF_CON8		0x0020
-+#define EDP_PHY_PLL_CTL_H_MASK		GENMASK(15, 0)
-+
-+#define EDP_PHY_GRF_CON9		0x0024
-+#define EDP_PHY_TX_CTL_MASK		GENMASK(15, 0)
-+
-+#define EDP_PHY_GRF_CON10		0x0028
-+#define EDP_PHY_AUX_RCV_PD_SEL_MASK	BIT(5)
-+#define EDP_PHY_AUX_DRV_PD_SEL_MASK	BIT(4)
-+#define EDP_PHY_AUX_IDLE_MASK		BIT(2)
-+#define EDP_PHY_AUX_RCV_PD_MASK		BIT(1)
-+#define EDP_PHY_AUX_DRV_PD_MASK		BIT(0)
-+
-+#define EDP_PHY_GRF_CON11		0x002c
-+#define EDP_PHY_AUX_RCV_VCM_MASK	GENMASK(14, 12)
-+#define EDP_PHY_AUX_MODE_MASK		GENMASK(11, 10)
-+#define EDP_PHY_AUX_AMP_SCALE_MASK	GENMASK(9, 8)
-+#define EDP_PHY_AUX_AMP_MASK		GENMASK(6, 4)
-+#define EDP_PHY_AUX_RTERM_MASK		GENMASK(2, 0)
-+
-+#define EDP_PHY_GRF_STATUS0		0x0030
-+#define PLL_RDY				BIT(0)
-+
-+#define EDP_PHY_GRF_STATUS1		0x0034
-+
-+struct rockchip_edp_phy {
-+	struct regmap *regmap;
-+	struct device *dev;
-+	struct clk *refclk;
-+	u8 lanes;
-+};
-+
-+static struct {
-+	int amp;
-+	int amp_scale;
-+	int emp;
-+} swing_pre_emph_table[4][4] = {
-+	{ {0x1, 0x1, 0x0}, {0x2, 0x1, 0x4}, {0x3, 0x1, 0x8}, {0x4, 0x1, 0xd} },
-+	{ {0x3, 0x1, 0x0}, {0x5, 0x1, 0x7}, {0x6, 0x1, 0x6}, { -1,  -1,  -1} },
-+	{ {0x5, 0x1, 0x0}, {0x7, 0x1, 0x4}, { -1,  -1,  -1}, { -1,  -1,  -1} },
-+	{ {0x7, 0x1, 0x0}, { -1,  -1,  -1}, { -1,  -1,  -1}, { -1,  -1,  -1} },
-+};
-+
-+static void rockchip_edp_phy_set_voltage(struct rockchip_edp_phy *edpphy,
-+					 struct phy_configure_opts_dp *dp,
-+					 u8 lane)
-+{
-+	u32 amp, amp_scale, emp;
-+
-+	amp = swing_pre_emph_table[dp->voltage[lane]][dp->pre[lane]].amp;
-+	amp_scale = swing_pre_emph_table[dp->voltage[lane]][dp->pre[lane]].amp_scale;
-+	emp = swing_pre_emph_table[dp->voltage[lane]][dp->pre[lane]].emp;
-+
-+	switch (lane) {
-+	case 0:
-+		regmap_write(edpphy->regmap, EDP_PHY_GRF_CON3,
-+			     FIELD_PREP_WM16(EDP_PHY_TX0_EMP_MASK, emp));
-+		regmap_write(edpphy->regmap, EDP_PHY_GRF_CON4,
-+			     FIELD_PREP_WM16(EDP_PHY_TX0_AMP_MASK, amp));
-+		regmap_write(edpphy->regmap, EDP_PHY_GRF_CON5,
-+			     FIELD_PREP_WM16(EDP_PHY_TX0_AMP_SCALE_MASK, amp_scale));
-+		break;
-+	case 1:
-+		regmap_write(edpphy->regmap, EDP_PHY_GRF_CON3,
-+			     FIELD_PREP_WM16(EDP_PHY_TX1_EMP_MASK, emp));
-+		regmap_write(edpphy->regmap, EDP_PHY_GRF_CON4,
-+			     FIELD_PREP_WM16(EDP_PHY_TX1_AMP_MASK, amp));
-+		regmap_write(edpphy->regmap, EDP_PHY_GRF_CON5,
-+			     FIELD_PREP_WM16(EDP_PHY_TX1_AMP_SCALE_MASK, amp_scale));
-+		break;
-+	case 2:
-+		regmap_write(edpphy->regmap, EDP_PHY_GRF_CON3,
-+			     FIELD_PREP_WM16(EDP_PHY_TX2_EMP_MASK, emp));
-+		regmap_write(edpphy->regmap, EDP_PHY_GRF_CON4,
-+			     FIELD_PREP_WM16(EDP_PHY_TX2_AMP_MASK, amp));
-+		regmap_write(edpphy->regmap, EDP_PHY_GRF_CON5,
-+			     FIELD_PREP_WM16(EDP_PHY_TX2_AMP_SCALE_MASK, amp_scale));
-+		break;
-+	case 3:
-+		regmap_write(edpphy->regmap, EDP_PHY_GRF_CON3,
-+			     FIELD_PREP_WM16(EDP_PHY_TX3_EMP_MASK, emp));
-+		regmap_write(edpphy->regmap, EDP_PHY_GRF_CON4,
-+			     FIELD_PREP_WM16(EDP_PHY_TX3_AMP_MASK, amp));
-+		regmap_write(edpphy->regmap, EDP_PHY_GRF_CON5,
-+			     FIELD_PREP_WM16(EDP_PHY_TX3_AMP_SCALE_MASK, amp_scale));
-+		break;
-+	}
-+}
-+
-+static int rockchip_edp_phy_set_voltages(struct rockchip_edp_phy *edpphy,
-+					 struct phy_configure_opts_dp *dp)
-+{
-+	u8 lane;
-+
-+	for (lane = 0; lane < edpphy->lanes; lane++)
-+		rockchip_edp_phy_set_voltage(edpphy, dp, lane);
-+
-+	return 0;
-+}
-+
-+static int rockchip_edp_phy_set_rate(struct rockchip_edp_phy *edpphy,
-+				     struct phy_configure_opts_dp *dp)
-+{
-+	u32 value;
-+	int ret;
-+
-+	regmap_write(edpphy->regmap, EDP_PHY_GRF_CON0,
-+		     FIELD_PREP_WM16(EDP_PHY_TX_IDLE_MASK, 0xf) |
-+		     FIELD_PREP_WM16(EDP_PHY_TX_PD_MASK, 0xf));
-+	usleep_range(100, 101);
-+	regmap_write(edpphy->regmap, EDP_PHY_GRF_CON5, FIELD_PREP_WM16(EDP_PHY_TX_MODE_MASK, 0x3));
-+	regmap_write(edpphy->regmap, EDP_PHY_GRF_CON0, FIELD_PREP_WM16(EDP_PHY_PD_PLL_MASK, 0x1));
-+
-+	switch (dp->link_rate) {
-+	case 1620:
-+		regmap_write(edpphy->regmap, EDP_PHY_GRF_CON1,
-+			     FIELD_PREP_WM16(EDP_PHY_PLL_DIV_MASK, 0x4380));
-+		regmap_write(edpphy->regmap, EDP_PHY_GRF_CON2,
-+			     FIELD_PREP_WM16(EDP_PHY_TX_RTERM_MASK, 0x1) |
-+			     FIELD_PREP_WM16(EDP_PHY_RATE_MASK, 0x1) |
-+			     FIELD_PREP_WM16(EDP_PHY_REF_DIV_MASK, 0x0));
-+		regmap_write(edpphy->regmap, EDP_PHY_GRF_CON8,
-+			     FIELD_PREP_WM16(EDP_PHY_PLL_CTL_H_MASK, 0x0800));
-+		regmap_write(edpphy->regmap, EDP_PHY_GRF_CON9,
-+			     FIELD_PREP_WM16(EDP_PHY_TX_CTL_MASK, 0x0000));
-+		break;
-+	case 2700:
-+		regmap_write(edpphy->regmap, EDP_PHY_GRF_CON1,
-+			     FIELD_PREP_WM16(EDP_PHY_PLL_DIV_MASK, 0x3840));
-+		regmap_write(edpphy->regmap, EDP_PHY_GRF_CON2,
-+			     FIELD_PREP_WM16(EDP_PHY_TX_RTERM_MASK, 0x1) |
-+			     FIELD_PREP_WM16(EDP_PHY_RATE_MASK, 0x0) |
-+			     FIELD_PREP_WM16(EDP_PHY_REF_DIV_MASK, 0x0));
-+		regmap_write(edpphy->regmap, EDP_PHY_GRF_CON8,
-+			     FIELD_PREP_WM16(EDP_PHY_PLL_CTL_H_MASK, 0x0800));
-+		regmap_write(edpphy->regmap, EDP_PHY_GRF_CON9,
-+			     FIELD_PREP_WM16(EDP_PHY_TX_CTL_MASK, 0x0000));
-+		break;
-+	}
-+
-+	if (dp->ssc)
-+		regmap_write(edpphy->regmap, EDP_PHY_GRF_CON6,
-+			     FIELD_PREP_WM16(EDP_PHY_SSC_DEPTH_MASK, 0x9) |
-+			     FIELD_PREP_WM16(EDP_PHY_SSC_EN_MASK, 0x1) |
-+			     FIELD_PREP_WM16(EDP_PHY_SSC_CNT_MASK, 0x17d));
-+	else
-+		regmap_write(edpphy->regmap, EDP_PHY_GRF_CON6,
-+			     FIELD_PREP_WM16(EDP_PHY_SSC_EN_MASK, 0x0));
-+
-+	regmap_write(edpphy->regmap, EDP_PHY_GRF_CON0, FIELD_PREP_WM16(EDP_PHY_PD_PLL_MASK, 0));
-+	ret = regmap_read_poll_timeout(edpphy->regmap, EDP_PHY_GRF_STATUS0,
-+				       value, value & PLL_RDY, 100, 1000);
-+	if (ret) {
-+		dev_err(edpphy->dev, "Failed to wait for PHY PLL ready: %d\n", ret);
-+		return ret;
-+	}
-+
-+	regmap_write(edpphy->regmap, EDP_PHY_GRF_CON5, FIELD_PREP_WM16(EDP_PHY_TX_MODE_MASK, 0x0));
-+
-+	return 0;
-+}
-+
-+static int rockchip_edp_phy_set_lanes(struct rockchip_edp_phy *edpphy,
-+				      struct phy_configure_opts_dp *dp)
-+{
-+	edpphy->lanes = dp->lanes;
-+
-+	regmap_write(edpphy->regmap, EDP_PHY_GRF_CON0,
-+		     FIELD_PREP_WM16(EDP_PHY_TX_PD_MASK, ~GENMASK(dp->lanes - 1, 0)));
-+	regmap_write(edpphy->regmap, EDP_PHY_GRF_CON0,
-+		     FIELD_PREP_WM16(EDP_PHY_TX_IDLE_MASK, ~GENMASK(dp->lanes - 1, 0)));
-+
-+	return 0;
-+}
-+
-+static int rockchip_edp_phy_verify_config(struct rockchip_edp_phy *edpphy,
-+					  struct phy_configure_opts_dp *dp)
-+{
-+	int i;
-+
-+	/* If changing link rate was required, verify it's supported. */
-+	if (dp->set_rate) {
-+		switch (dp->link_rate) {
-+		case 1620:
-+		case 2700:
-+			/* valid bit rate */
-+			break;
-+		default:
-+			return -EINVAL;
-+		}
-+	}
-+
-+	if (dp->set_lanes) {
-+		/* Verify lane count. */
-+		switch (dp->lanes) {
-+		case 1:
-+		case 2:
-+		case 4:
-+			/* valid lane count. */
-+			break;
-+		default:
-+			return -EINVAL;
-+		}
-+	}
-+
-+	/*
-+	 * If changing voltages is required, check swing and pre-emphasis
-+	 * levels, per-lane.  The effective lane count is dp->lanes when
-+	 * set_lanes is requested, or the previously stored count otherwise.
-+	 */
-+	if (dp->set_voltages) {
-+		u8 lanes = dp->set_lanes ? dp->lanes : edpphy->lanes;
-+
-+		for (i = 0; i < lanes; i++) {
-+			if (dp->voltage[i] > 3 || dp->pre[i] > 3)
-+				return -EINVAL;
-+
-+			/*
-+			 * Sum of voltage swing and pre-emphasis levels cannot
-+			 * exceed 3.
-+			 */
-+			if (dp->voltage[i] + dp->pre[i] > 3)
-+				return -EINVAL;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static int rockchip_edp_phy_configure(struct phy *phy, union phy_configure_opts *opts)
-+{
-+	struct rockchip_edp_phy *edpphy = phy_get_drvdata(phy);
-+	int ret;
-+
-+	ret = rockchip_edp_phy_verify_config(edpphy, &opts->dp);
-+	if (ret) {
-+		dev_err(edpphy->dev, "Invalid params for phy configure\n");
-+		return ret;
-+	}
-+
-+	if (opts->dp.set_rate) {
-+		ret = rockchip_edp_phy_set_rate(edpphy, &opts->dp);
-+		if (ret) {
-+			dev_err(edpphy->dev, "Failed to set rate\n");
-+			return ret;
-+		}
-+	}
-+
-+	if (opts->dp.set_lanes) {
-+		ret = rockchip_edp_phy_set_lanes(edpphy, &opts->dp);
-+		if (ret) {
-+			dev_err(edpphy->dev, "Failed to set lanes\n");
-+			return ret;
-+		}
-+	}
-+
-+	if (opts->dp.set_voltages) {
-+		ret = rockchip_edp_phy_set_voltages(edpphy, &opts->dp);
-+		if (ret) {
-+			dev_err(edpphy->dev, "Failed to set voltages\n");
-+			return ret;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static bool rockchip_edp_phy_enabled(struct rockchip_edp_phy *edpphy)
-+{
-+	u32 val = 0;
-+
-+	regmap_read(edpphy->regmap, EDP_PHY_GRF_STATUS0, &val);
-+
-+	return FIELD_GET(PLL_RDY, val);
-+}
-+
-+static int rockchip_edp_phy_power_on(struct phy *phy)
-+{
-+	struct rockchip_edp_phy *edpphy = phy_get_drvdata(phy);
-+	int ret;
-+
-+	ret = clk_prepare_enable(edpphy->refclk);
-+	if (ret < 0) {
-+		dev_err(edpphy->dev, "Failed to prepare_enable refclk [%d]\n", ret);
-+		return ret;
-+	}
-+
-+	if (rockchip_edp_phy_enabled(edpphy))
-+		return 0;
-+
-+	regmap_write(edpphy->regmap, EDP_PHY_GRF_CON10,
-+		     FIELD_PREP_WM16(EDP_PHY_AUX_RCV_PD_MASK, 0x1) |
-+		     FIELD_PREP_WM16(EDP_PHY_AUX_DRV_PD_MASK, 0x1) |
-+		     FIELD_PREP_WM16(EDP_PHY_AUX_IDLE_MASK, 0x1));
-+	regmap_write(edpphy->regmap, EDP_PHY_GRF_CON0,
-+		     FIELD_PREP_WM16(EDP_PHY_TX_IDLE_MASK, 0xf) |
-+		     FIELD_PREP_WM16(EDP_PHY_TX_PD_MASK, 0xf) |
-+		     FIELD_PREP_WM16(EDP_PHY_PD_PLL_MASK, 0x1));
-+	usleep_range(100, 101);
-+
-+	regmap_write(edpphy->regmap, EDP_PHY_GRF_CON11,
-+		     FIELD_PREP_WM16(EDP_PHY_AUX_RCV_VCM_MASK, 0x4) |
-+		     FIELD_PREP_WM16(EDP_PHY_AUX_MODE_MASK, 0x1) |
-+		     FIELD_PREP_WM16(EDP_PHY_AUX_AMP_SCALE_MASK, 0x1) |
-+		     FIELD_PREP_WM16(EDP_PHY_AUX_AMP_MASK, 0x3) |
-+		     FIELD_PREP_WM16(EDP_PHY_AUX_RTERM_MASK, 0x1));
-+
-+	regmap_write(edpphy->regmap, EDP_PHY_GRF_CON10,
-+		     FIELD_PREP_WM16(EDP_PHY_AUX_RCV_PD_MASK, 0x0) |
-+		     FIELD_PREP_WM16(EDP_PHY_AUX_DRV_PD_MASK, 0x0));
-+	usleep_range(100, 101);
-+
-+	regmap_write(edpphy->regmap, EDP_PHY_GRF_CON10,
-+		     FIELD_PREP_WM16(EDP_PHY_AUX_IDLE_MASK, 0x0));
-+	usleep_range(10000, 11000);
-+
-+	return 0;
-+}
-+
-+static int rockchip_edp_phy_power_off(struct phy *phy)
-+{
-+	struct rockchip_edp_phy *edpphy = phy_get_drvdata(phy);
-+
-+	regmap_write(edpphy->regmap, EDP_PHY_GRF_CON0,
-+		     FIELD_PREP_WM16(EDP_PHY_TX_IDLE_MASK, 0xf) |
-+		     FIELD_PREP_WM16(EDP_PHY_TX_PD_MASK, 0xf));
-+	usleep_range(100, 101);
-+	regmap_write(edpphy->regmap, EDP_PHY_GRF_CON5, FIELD_PREP_WM16(EDP_PHY_TX_MODE_MASK, 0x3));
-+	regmap_write(edpphy->regmap, EDP_PHY_GRF_CON0, FIELD_PREP_WM16(EDP_PHY_PD_PLL_MASK, 0x1));
-+	regmap_write(edpphy->regmap, EDP_PHY_GRF_CON10,
-+		     FIELD_PREP_WM16(EDP_PHY_AUX_RCV_PD_MASK, 0x1) |
-+		     FIELD_PREP_WM16(EDP_PHY_AUX_DRV_PD_MASK, 0x1) |
-+		     FIELD_PREP_WM16(EDP_PHY_AUX_IDLE_MASK, 0x1));
-+
-+	clk_disable_unprepare(edpphy->refclk);
-+
-+	return 0;
-+}
-+
-+static const struct phy_ops rockchip_edp_phy_ops = {
-+	.power_on = rockchip_edp_phy_power_on,
-+	.power_off = rockchip_edp_phy_power_off,
-+	.configure = rockchip_edp_phy_configure,
-+	.owner = THIS_MODULE,
-+};
-+
-+static const struct regmap_config rockchip_edp_phy_regmap_config = {
-+	.reg_bits = 32,
-+	.val_bits = 32,
-+	.reg_stride = 4,
-+	.max_register = EDP_PHY_GRF_STATUS1,
-+};
-+
-+static int rockchip_edp_phy_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct rockchip_edp_phy *edpphy;
-+	void __iomem *regs;
-+	struct clk *clk;
-+	struct phy *phy;
-+	struct phy_provider *phy_provider;
-+
-+	edpphy = devm_kzalloc(dev, sizeof(*edpphy), GFP_KERNEL);
-+	if (!edpphy)
-+		return -ENOMEM;
-+
-+	edpphy->dev = dev;
-+
-+	regs = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(regs))
-+		return PTR_ERR(regs);
-+	edpphy->regmap = devm_regmap_init_mmio(dev, regs, &rockchip_edp_phy_regmap_config);
-+	if (IS_ERR(edpphy->regmap))
-+		return dev_err_probe(dev, PTR_ERR(edpphy->regmap), "Failed to init regmap\n");
-+
-+	clk = devm_clk_get_enabled(dev, "apb");
-+	if (IS_ERR(clk))
-+		return dev_err_probe(dev, PTR_ERR(clk), "Failed to get apb clock\n");
-+
-+	edpphy->refclk = devm_clk_get(dev, "ref");
-+	if (IS_ERR(edpphy->refclk))
-+		return dev_err_probe(dev, PTR_ERR(edpphy->refclk), "Failed to get reference clk\n");
-+
-+	phy = devm_phy_create(dev, NULL, &rockchip_edp_phy_ops);
-+	if (IS_ERR(phy))
-+		return dev_err_probe(dev, PTR_ERR(phy), "Failed to create PHY\n");
-+
-+	phy_set_drvdata(phy, edpphy);
-+
-+	phy_provider = devm_of_phy_provider_register(dev, of_phy_simple_xlate);
-+	if (IS_ERR(phy_provider))
-+		return dev_err_probe(dev, PTR_ERR(phy_provider),
-+				     "Failed to register PHY provider\n");
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id rockchip_edp_phy_of_match[] = {
-+	{ .compatible = "rockchip,rk3568-edp-phy", },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, rockchip_edp_phy_of_match);
-+
-+static struct platform_driver rockchip_edp_phy_driver = {
-+	.driver = {
-+		.name = "rockchip-edpphy-naneng",
-+		.of_match_table	= of_match_ptr(rockchip_edp_phy_of_match),
-+	},
-+	.probe = rockchip_edp_phy_probe,
-+};
-+module_platform_driver(rockchip_edp_phy_driver);
-+
-+MODULE_AUTHOR("Damon Ding <damon.ding@rock-chips.com>");
-+MODULE_DESCRIPTION("Rockchip Naneng eDP Transmitter PHY driver");
-+MODULE_LICENSE("GPL");
--- 
-2.34.1
-
+Thanks,
+Rupesh
