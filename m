@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794640224;
-	b=ibwkgrNjitXGpfHjo9Aj9NbrAAnovzFMxp2yZvW2tKTx4RUXi24gGFYhEseEBtQPi4Qi
-	 7xjSEpB+RJwApmxm6Sd1jWkzpQ4RoJQMwHoL4ROrDnYZjEHjAcTutrtxFPokKlyjfQRYI
-	 IhOeHe+rC0gfWhprnR6HUJhOS8EvG3VXlfCn7+X1m1ulSfUKtqr77gO81AKEEuI26dvVu
-	 KHpuewakW7Y4PIkYhNjkhZsDsUYHH2M49FwF4Zr1vULpWl9gylJFlH/iBPCazYKD+XDnl
-	 BscspP4v6idAvD5jgk3BJyjfGwbizGnFl5iUBCfrz3AW0Grnhrk7k20VTzivAt7XUXg==
+	t=1794640227;
+	b=JMRb9f5hYrBPwicZjWKgQKemuVc569ayZE+RrMJzzvEM1F39OdqpUi1ToeKVYIXZaA4a
+	 AULaRp3T5ZihlGtpZjGHjjp8VCDikjM7lX7NMtZ6d+/tpBU46hrlpOwF76P9EpoLUC847
+	 a0Egq+Ehpc0cdgXiQ6qJoCx92A+QTlI5qIN+8x1TrwIZKq7pBTxUA6qKK8PH4hiVe3zdT
+	 hRlu97nHJjKTrBhjPPK1Mnp7U3M4hJiv96UfVaPnnCYRKH9zaLjZH/ht7UkVzEUH8+Ve3
+	 oj1OD6VV45yUJHXTgPEyy9q0XUZOBNu+Xlv9z6OxIMBUumAI0jzuj6qb5JVDnKIU4Fg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794640224;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794640227;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Y6oxwUC9/qQIZVXuymnHKur3Vt67CPiMCpmdjljurXM=;
-	b=qY9VdxCx7DeiveNjD/WipXloY54i/kDtj9z0678CilbvCplx8JyM3uEtUeooKeOvI49a
-	 D83A9M/AlH/6wvR9cr/0Zz4Ue8WVaZoSwJHEDlmX+HKj/XDdcWUZ+hBs769UftCkehLMh
-	 nnCKVhKdWTUVep7Fof/582j2qrKSYZWvqUolP2786v8WpCpHaHyV+uuEHrbMp1bYiOWg+
-	 zZKzS3JuL6/1hb3QGzAULbTxBGk2dhIqeDuQ3NJuPzeJPdmU2aXOC7mbNQD16F5xamXAV
-	 6H/ufBE7VOZ1SWS8vFn+eSwcodZDkf5w8LHwyC9WQCuec105GAghNWIIeYCxG9ZR1fA==
+	bh=Tt496ll4IbdlqeCDi3ioSW9/vXDsw+lkgrGBEmtKDJU=;
+	b=2XDYhfX05qWM9EyJkfAzPYsrDPn0XeK049lp8kOmGPKzXpM6CEUs7pWfErMhP9Bhsxcm
+	 NrRftwglMoF/KpEpnpyWJWcKjLB6plW11q0JtRwYiitQ05CkXhteYnwRbw+rWkR95Kb85
+	 af3RwUQDvxESOjB87I639Q/GldAB5xgzg1Gnv+V6lywvDustvfr5ctRI4iNJN9Y5OYZsi
+	 tm5K4RNTSQ8K3nSv6od4l2eUPE8Axc+kQlzYNl6qAaliJGifs11jXaQ6mttZWXp70tHiW
+	 /qBpNerHquJCCbfYYauxKUuXbGgvp2BKh8NiADtKbY1S6ybn+g8TsHCYqIeXFfQ9MuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=gourry.net;
 	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=XlayBPV+;
-	arc=none smtp.remote-ip=209.85.219.42
-Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=Wak6pwPF;
+	arc=none smtp.remote-ip=209.85.219.47
+Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2763A60A5BCB
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 07:10:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2763A60A5BCB
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A517B60A5BE2
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 07:10:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A517B60A5BE2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=XlayBPV+
-Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-91ea2e29d90so38112026d6.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 23:10:23 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=Wak6pwPF
+Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-91e7af9a67fso11101306d6.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 23:10:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1794640223; x=1795245023; darn=vger.kernel.org;
+        d=gourry.net; s=google; t=1794640226; x=1795245026; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Y6oxwUC9/qQIZVXuymnHKur3Vt67CPiMCpmdjljurXM=;
-        b=XlayBPV+6O94G4EvOv/apyiTo3m5/u93nKnLcvDMZ5IZPd0h+zJdRRruMsVEzi3WoC
-         z+Si2hEa+Ua87rapVuCjiDYM3x1e6qBeqGGKaT+0sgS14MzxbWyx2Ucw9pF8mizmV1OF
-         i/t/Oeuq2KCow2Q0aWnwaQcVV2jadem/GeVnEOD0NFZfkI+oaWFfXNpjKd+lsCUarnli
-         6377+lF8LMdQhAtCoZ7vh4YMKQp23DrTIh9X0RMqS66GPLHgLk13lDoRAz5VubUIW3tN
-         IQtaAGEJaTre22tDiHAkUzUrRrP/waHscFQx+6pylgrnkPGeI2Z6Qg3IFhDHNBbaaDlL
-         nLIA==
+        bh=Tt496ll4IbdlqeCDi3ioSW9/vXDsw+lkgrGBEmtKDJU=;
+        b=Wak6pwPFiUkKyhQgMf4rS7ScgYnhLHPu/BQFbJsFq7WKKXSUOmiu+EsQFsjVZ8zFDO
+         FDrlS7y+5O55UEGv/kTSaX8dffsOnEXEa6/2U/GCtWcFwv0S/O1x4yRSmj13AtftFa/d
+         2LHhZ1Xzh9y1vx57sBVWmEQqxXZeF/gRFDaivKFbqeTHuyd1MOWBIFDDx6qnA+nzwI3j
+         f0FWi5bqe5XptEAAFE0ZLXHTalZ4ObmYUba1bTQ7a5ucsWoZ5b9b8qD9ay1zcLACOuUw
+         HN4jHEZ3DD/E9fTfoTkj/qDM3H/u15Vo16V1SDswP6q5IvcI5vpIGBny10cK9BBE6q/X
+         KPYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794640223; x=1795245023;
+        d=1e100.net; s=20260707; t=1794640226; x=1795245026;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Y6oxwUC9/qQIZVXuymnHKur3Vt67CPiMCpmdjljurXM=;
-        b=UruxlOga3AKC7MHDA2bjTXKVG3B/5ShWQYEcLAB/HND/We0QFxiOLC9Tug5+Y3iSAk
-         ODJuH1IV9JSW5R3EchX0lCuOpbDGueeU1Tlf2k4Ka/MAI5k4wAW0ffuznSL/2kHADiKy
-         wpKlILacBB0NYFT305oZ3m0qyxV0o7Fa7ueQjWVfBFBvZGcHckgyG8vGkpRZ8LlkMVFO
-         fM2FTamSFYJv3RqJc2GOoEjjfntHu+Kq9WsfovFj+eNhDFWIO+aJIHDP9CQWLCPS/4ip
-         GTyv6Lxmx04AZKN3p3flo+W5w4gz7AkWrCHZ1MhMqjwxjOk6r2473fKuTyeZ+2R+ONDd
-         ILxQ==
-X-Gm-Message-State: APuU4Z++qy+WMq/VeIMhXi4JUv2koEswDxCVT5OzHa3PK370BuJFRT1E
-	QQd0itqZIoRxotdEwVWY6ulXtqhm8Os/NxwhVyJKyjlMR46zVfj/BeIJ5O4m3XPlpYs=
-X-Gm-Gg: AYBFou2qNUIFJpfftudQX/6qICfpDCA3/g9M1hypm5704TDnwlx64PoXZUHvkEwr1gX
-	3YQFQVgw6Rt4PAwCQ5g1goTWUoxoGMO7Jpy11fzf5FMPFcI77FVIHnYXojuKgkoQfMiObMDUrUa
-	AEGLoGkjqi/TZEiAATQSF8+Dr8GiKn3qHeLNZFDmQjmlvbC7dWIUUK7mGXqlQ39ERHXDDWk6r81
-	N81pUkrdOEO7ElyjT+L/nxh/0YZeThMgFt5rS7kfTEMrPUPaP/Kis8aA44uQqZhf0VNhuKKarOA
-	tWfHtljB0A/9LKkCS/BGJNqY9LX9EtHk5FJLeyQRVPDKGhbvX7RKk8Jq+WnLkCaku3VWPieqF2B
-	/r0l0UhdN60JdO1iRqIpBL6moqo9Vw9qLuurW73pw8hWPgLYbx/GvFyyg9haI6RTlvUDSRi5FrW
-	ooFUBgR9LTY2eBIPNdLjA9OvfnAb1n2DOj9A6LT09QO+JMPb6Wels89NYSST125Nh18rJNJJuBn
-	iusqpMTkeeb0EgCUIjxNr4AI4g0FEe6BO/o4Or1+YcwxEOeZtE5H1Z2KacGJlkc6q+KxErPReAK
-	W+vBbTwuPNpkuZhE1DO1sQtSCDsLiZrgcpXbSHI688ESriy7MQHmfLuRGlCj6mFksZhrGU592kh
-	Hwyc/W5HP9bIQco8=
-X-Received: by 2002:a05:6214:2462:b0:91f:3182:e94e with SMTP id 6a1803df08f44-91f3182ea72mr35908656d6.8.1794640223087;
-        Fri, 13 Nov 2026 23:10:23 -0800 (PST)
+        bh=Tt496ll4IbdlqeCDi3ioSW9/vXDsw+lkgrGBEmtKDJU=;
+        b=uJ56ixRorKqRI8RRHquhb518PAI1wRXVVDhrgdwfRvsfSuEbgR0jdaje3RHPLo6h7s
+         vgTzPnqQ3Kb99OjzIoB0oZL4a3NQyYlyb3QcR7yefDQJvIabwD4/htPJFapR87mhXozC
+         FYelX7FTNGbFqzU2o/sHxQnynt+SiBQZwSGjaYF2E0pSFQ6h9jYb1mcHabhp/6zzaxgi
+         Yrvs//9nrwydbzv4FBE/RybpNaIsgjHAU6bf8ERI/oOI7WwSdbEZL1kV5n3c2i9HjbO/
+         q8wC266gsmCfMUPWqDKY6BlS/5XVJHKEghoVEaSef0cUJ/ujxDIrzyJlZWJxMAlkru3d
+         aYoA==
+X-Gm-Message-State: APuU4Z9ih67uJosxlKSF5NqGa9DQbXOg4+wXq+6qx2HHFHOqfxhNFl5t
+	muj/6kykeW+uN+pdnehHgauwPfREEy4Aj8YZmeUkzYshuQFwdWl1ev+RyacI+RMFSng=
+X-Gm-Gg: AYBFou3nAvlDDHEOPyGwEKI66JKzaoyoZDFzUsW6hkpL92ZCc+mdmej2hztvIPvbz4s
+	T+ludW1pMEHL2xPz/Zz+VgDxs82ZW7EShOKu4VQMxHkITAbsM9TYW1+owPL77AQFT05rZOesSKy
+	HKhyNX6PUXb7jQcq7YPaE6/wGlJnTIlXpd2gqZsGlT3U0PHgp2QxvEoREX4sqgzxNvA3rCuC3Yh
+	VMww+lX6ffyjgR/MRPlTMTjjdt48ae/vE3qOxe0u1EYR0IQ7HT8oCgkVNUPBGcBsHpe2XC28bIo
+	LKssYTftHou0vERMFlpEp4XYck0y5c5OgyjUOvT4MnDvIq3ED+JXWBiFqF8RMiFHw1s8F5gujM4
+	vRn7NwNDlmJY+8N7gm90ICc+wtm0jV1JxnIospzwNUPD/85+UNVC+eJOLFElxsh9qfnNxe29QZi
+	WzzrwGn4URs5h91opSORqa6eBTR75xlY5PuwdhcMxTsd/9rtOA9Yy8BGR866ZMXF5An7Z3dkPA+
+	QVn4+6hcEBp9B7m8eZqOmMGz3bWCq2Fd+U6FXu9Kr2NhauyPDBA3We8MjL0+krqTansy/ObM1v6
+	LzdCD/P1E7cGQ5eNdGcb7NoUEtVdyhZBPnm3GWu2RSgHumHXarc2OLI6avMpbO9sQh+8ozEu1vw
+	71vPSoReOxCYoAMc=
+X-Received: by 2002:a05:6214:e8a:b0:91e:7bb7:fd65 with SMTP id 6a1803df08f44-91f24292699mr81332616d6.56.1794640225203;
+        Fri, 13 Nov 2026 23:10:25 -0800 (PST)
 Received: from gourry-fedora-PF4VCD3F (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23db3a99sm37730986d6.40.2026.11.13.23.10.21
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23db3a99sm37730986d6.40.2026.11.13.23.10.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 23:10:22 -0800 (PST)
+        Fri, 13 Nov 2026 23:10:24 -0800 (PST)
 From: "Gregory Price (Meta)" <gourry@gourry.net>
 To: linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org,
@@ -138,9 +138,9 @@ Cc: linux-kernel@vger.kernel.org,
 	byungchul@sk.com,
 	apopple@nvidia.com,
 	rientjes@google.com
-Subject: [PATCH 09/22] mm/ksm: restrict merging to common memory
-Date: Sat, 14 Nov 2026 02:09:46 -0500
-Message-ID: <20261114070959.3490008-10-gourry@gourry.net>
+Subject: [PATCH 10/22] mm/khugepaged: restrict collapse to common memory
+Date: Sat, 14 Nov 2026 02:09:47 -0500
+Message-ID: <20261114070959.3490008-11-gourry@gourry.net>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261114070959.3490008-1-gourry@gourry.net>
 References: <20261114070959.3490008-1-gourry@gourry.net>
@@ -155,51 +155,58 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-KSM is an opportunistic MM service and should leave memory outside
-the ordinary memory pool alone - as it already does for ZONE_DEVICE
-folios at each acquisition point.
+Collapse is an opportunistic MM service and should operate only on
+common memory. The anonymous scan and isolation paths already filter
+zone device for the same reason.
 
-Use folio_is_common_memory() at those same sites, which still rejects
-ZONE_DEVICE folios.
+Replace the zone_device check with page_is_common_memory().
+
+collapse_scan_file() gains a folio_is_common_memory() check. Page-cache
+folios are never ZONE_DEVICE, so there it only filters memory outside
+N_MEMORY_COMMON.
+
+All memory is common at this point, so behavior is unchanged.
 
 Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 ---
- mm/ksm.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ mm/khugepaged.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/mm/ksm.c b/mm/ksm.c
-index 623a2cdb39242..25b2c2f944862 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -831,7 +831,7 @@ static struct page *get_mergeable_page(struct ksm_rmap_item *rmap_item)
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index 4bbe319ef86fa..b4bd29f25c145 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -628,7 +628,7 @@ static enum scan_result __collapse_huge_page_isolate(struct vm_area_struct *vma,
+ 			goto out;
+ 		}
+ 		page = vm_normal_page(vma, addr, pteval);
+-		if (unlikely(!page) || unlikely(is_zone_device_page(page))) {
++		if (unlikely(!page) || unlikely(!page_is_common_memory(page))) {
+ 			result = SCAN_PAGE_NULL;
+ 			goto out;
+ 		}
+@@ -1673,7 +1673,7 @@ static enum scan_result collapse_scan_anon(struct vm_area_struct *vma,
+ 		}
  
- 	folio = folio_walk_start(&fw, vma, addr, 0);
- 	if (folio) {
--		if (!folio_is_zone_device(folio) &&
-+		if (folio_is_common_memory(folio) &&
- 		    folio_test_anon(folio)) {
- 			folio_get(folio);
- 			page = fw.page;
-@@ -2571,7 +2571,8 @@ static int ksm_next_page_pmd_entry(pmd_t *pmdp, unsigned long addr, unsigned lon
- 				goto not_found_unlock;
- 			folio = page_folio(page);
+ 		page = vm_normal_page(vma, addr, pteval);
+-		if (unlikely(!page) || unlikely(is_zone_device_page(page))) {
++		if (unlikely(!page) || unlikely(!page_is_common_memory(page))) {
+ 			result = SCAN_PAGE_NULL;
+ 			goto out_unmap;
+ 		}
+@@ -2741,6 +2741,12 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
+ 			break;
+ 		}
  
--			if (folio_is_zone_device(folio) || !folio_test_anon(folio))
-+			if (!folio_is_common_memory(folio) ||
-+			    !folio_test_anon(folio))
- 				goto not_found_unlock;
- 
- 			page += ((addr & (PMD_SIZE - 1)) >> PAGE_SHIFT);
-@@ -2595,7 +2596,8 @@ static int ksm_next_page_pmd_entry(pmd_t *pmdp, unsigned long addr, unsigned lon
- 			continue;
- 		folio = page_folio(page);
- 
--		if (folio_is_zone_device(folio) || !folio_test_anon(folio))
-+		if (!folio_is_common_memory(folio) ||
-+		    !folio_test_anon(folio))
- 			continue;
- 		goto found_unlock;
- 	}
++		if (unlikely(!folio_is_common_memory(folio))) {
++			result = SCAN_PAGE_NULL;
++			failed_pfn = folio_pfn(folio);
++			folio_put(folio);
++			break;
++		}
+ 		node = folio_nid(folio);
+ 		if (collapse_scan_abort(node, cc)) {
+ 			result = SCAN_SCAN_ABORT;
 -- 
 2.53.1-Meta
 
