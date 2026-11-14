@@ -1,82 +1,129 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.155
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794663462;
-	b=EWiKFltJy7+apmqpPVBSR0MwNU+dkl6H2T0ORn/nbUL9Y8QjcySvAxKVnFr33xIkCAjl
-	 0Xx1tnrpY8kkyH/rVK2bg4AV2ALMJN1yWuv6rbPGcfRVmBx74/BYh7lL7E+7iIpfd0YV0
-	 vw3WI1B4Jj9CqGk54KzT7Rk5vinBO7LX08YwwBCSE8x/9aQQYh1zgeVgF0tu98KF/tfCZ
-	 e2WgiHs6G7Cg99qoAjpxXjhgGZPgBIkNfUP5ieVEKzAPyBMNncYuRNwdGuzJ3TirUa568
-	 VqWvBBYhqhRT7FOpTxUiP4Am4TSW6xvZvvS0wL2y1enyPeas7SSCwq+TNK1cVF0p4xg==
+	t=1794663511;
+	b=V7D2okcNlE9GLoNda8BByPGPgi8QNA56L23w6sPjPZ72MdiFoILeRBWp3TIeGlCJ+vQk
+	 G1soYBDiMdjBt0660F+TP3Y9kLlk2mTNrDqSq1KdIELfi8n99VT7gCkwfE0h7MV/Dzx4a
+	 5fRaDUVTTJG7GHuylr+phKJ6rbsBdbOMVy13JFufu2rscoDes/M2WCGn/tujRIasLCgba
+	 ac4hwwdFyTELZDincyrLABPIZe0m5vHif1LRqBn/7r6Aob4yURYcWQtfXtAMgacDMO3PB
+	 +qHzgoB8ZucRi+O4fs1rAvV2ua1Bt5ZwMLc25okaLobqeHTW3Tb20mNQt6hxbB5dsIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794663462;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=1aisXE/Mnz/GaVHezDHTY2TUxsmFNrmsLepJDfVkiso=;
-	b=zfnkngI5q4VPbL+9iVOAmXERdL3q0kQY8EUn8X0Sd9RYEUahdXub6VdfGz6KbuqRHfO9
-	 vDa1+QEsi9waZ6H9x0P59EgWe2AYgwcjsTNEyeIfvdhOmQ4512uON4uu7IKyxZFont3uk
-	 M1UE8OzCyrJkNy1t+fC0Sthcz1luyq0598MQGDKmM9v6CmbckAlJOX1y80t2YipyxrV5p
-	 XXlPiGj9hAz0vFJ7kDrOvmq0bjanH7ueoqltz/kfFkkSVPKGupD9mNnJO9GQXg/rDMsU8
-	 GYoq1p+JmD2QrhtVrPepgiYq5dCJTIVm5x/NpyE1chcDhMmUmvGiPy2ny8OgZ2CspKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794663511;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:Message-Id:To:Cc:Subject:From:In-Reply-To:References:
+	 Mime-Version:Content-Type:Content-Transfer-Encoding;
+	bh=SNG1HRb8nHFIie74LXwMhLAKLST7T7jquSoOJxOlEK0=;
+	b=VL1+uu019UR/5uBvcgR8/vH8Lo/0JeyrfYmv4T7V4NHa4MkINBfn5++D89O+kEMRCb9p
+	 iNCNmOfOK1UhiKHQ39UfyA87wdcGr/WwN5r0Yhq7FudEkXtZz5HUgjx7Jrb2I4ZlcTDB8
+	 O6Ha5XumBap1NjdCiZ1SwUGGCxPOZlSJItcarUXeZ7VLGl5SumOwLKXnBTRq7eF8IP+Qw
+	 3Y0dTg1q8K+zFu8+b7XTp29NbuhocN/CQ371rgDTVUVY58h4V7vYMqGnt0mjm+7h7AGAD
+	 gxtVURXiOl8MyW8CZclHPGXtTPMsrOIVmf2Op3e3zJ7VDmcnThqMV2VGIys8i2MxwPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=linux.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=flapping.org;
+	spf=pass smtp.mailfrom=flapping.org;
+	dkim=pass header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm2 header.b=kjDDMOtI;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=ZXkXzX04;
+	arc=none smtp.remote-ip=103.168.172.155
+Received: from fhigh-a4-smtp.messagingengine.com (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3FF0606A329
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 13:37:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3FF0606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4b7252a32c8so26116195e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 05:37:41 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794663460; x=1795268260;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1aisXE/Mnz/GaVHezDHTY2TUxsmFNrmsLepJDfVkiso=;
-        b=xucNptIMx3zlT3rP/yvacjC1fdFkwNQXlaRk17TMAPuxcru7mZZXc1Jjtf30R3zaA5
-         RcQ6Iek2fAfDDSrdU62EPHh7/xTFjzO8A4lAmJ+xDbO/HO8HlypycO00B/hvQmh54ALQ
-         NwaDjHygmK1wgdG1vzmxdTZJ8k+zxRh9IA86xyXKHySUbaog7lOmGp2Z7ksVFWXjfKNH
-         EuRxMsFU79ArFrQcg7mDGk6q6+Bb9O8splSMG7qr+BtwGEhFdz7Th6NnkPu5ySBHlOW5
-         gE9mpncm0ZYc7MzED8ZzjqCm65L8gXj9mxce4BvLOZ5pPSyIJz/5roSh45IOasX8wtgk
-         x4/A==
-X-Forwarded-Encrypted: i=1; AL+hErFPdWgjmKRjQpqlBH4ruLM0Nzog6UjG51i+cmWNNIyDpS+wgeybdo27G/AvcnzcluveVWhQn1DlVcojWpA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z82jd+7L1HO539Yne61E9jm9vD2ctMxXdPohOt9FBJ03iO4hgql
-	zOnTbTKGWP+59y9GqsDgbFRQRooOC3H9z9WFoJVpVoZnLRHdY96UaRzI
-X-Gm-Gg: AYBFou3Ch8x/VrMxBWlL5MdN77yDf2hiJ86MdiEh2SXgeoUrq6dESVlhn1LDggLz+S0
-	bNP6PXIFAQuV1CpvfKBBevYlVxDTVlkJtHrQiiSZ9G3EnwOXLF5Px//wYBzXntEdb1E/DpcggLE
-	Zm8Qw3lo7bKKX9Gc8ObUpCiB4r6pOIkhZoaoCELakFARQjFWq8vAmZTTIqDtzl4uGrJmygicTW4
-	x2tD9dnArd9LnkUOPWmBfQNvKvZ2Gt9rCjQYNisajx7vDuhnxAiiIU++IdGp2s0rFpEuCQnmnl3
-	Q1xePlIsrgKtL8MHCRo7tgfX7ajXrG25nt0O0vxGBxhZ/CmdqFOyPB/bEvZgT2OBbO0bLCFYdk2
-	+yO1oTeZBI1Y2tSEZdgd6WVjlyofMjtenPQLwA6rQYi0TNu9a1U/TmZP3QAaVXYUQhLLNWy++b8
-	O9+K2ueb/7zjhpTq9prh9SBjC0oVlwrv0M9gdsTY6v/bOQ4XJpE8h96vjfY99tH49SNmWSxKBd5
-	fSZqLuYmT6sbq77enHe5y0wAlbOId8/dwXpspEFndR1x7+Ml3rC3QvavgVaEUWvkRRhbmD0vnTU
-	z2FWbVXc+J1Jee+cqmQIetwnSlKpZNlEiTVvGY1DIfVr9TNu5M6iDs7Lmu8UpE8Yrr9a4s6Vu3G
-	cjxew6qteCI5ndpiPb/4IRZfm
-X-Received: by 2002:a05:600c:8905:b0:4ba:4395:5755 with SMTP id 5b1f17b1804b1-4bb55a6a5fbmr77311935e9.5.1794663460057;
-        Sat, 14 Nov 2026 05:37:40 -0800 (PST)
-Received: from threads.localdomain ([84.70.166.92])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb55a68c5asm131315015e9.1.2026.11.14.05.37.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 05:37:39 -0800 (PST)
-From: Lucas Tanure <tanure@linux.com>
-To: "Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	iommu@lists.linux.dev (open list:IOMMU SUBSYSTEM),
-	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Rockchip SoC support),
-	linux-rockchip@lists.infradead.org (open list:ARM/Rockchip SoC support),
-	linux-kernel@vger.kernel.org (open list)
-Cc: stable@vger.kernel.org,
-	Robin Murphy <robin.murphy@arm.com>
-Subject: [PATCH] iommu/rockchip: do not walk the page tables of a disabled MMU
-Date: Sat, 14 Nov 2026 13:37:37 +0000
-Message-ID: <20261114133738.52817-1-tanure@linux.com>
-X-Mailer: git-send-email 2.56.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B5D7606A327
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 13:38:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B5D7606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flapping.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm2 header.b=kjDDMOtI;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=ZXkXzX04
+Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 6A75914000A7
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:38:25 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-07.internal (MEProxy); Sat, 14 Nov 2026 08:38:25 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flapping.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794663505;
+	 x=1794749905; bh=SNG1HRb8nHFIie74LXwMhLAKLST7T7jquSoOJxOlEK0=; b=
+	kjDDMOtIsUw7bSdWWMIMxExjuwJMfM6fUrRhZ/kFv1JsJBLXywr9mHhX+SQDzzKL
+	rKTLGR37Le4FAOmgLPO0KiDyAVR3YCYNb0KVZG5JNRvkJIO4s6Kdh5y5z4gvHxuD
+	YoBd6lFVs/24bKmI9bnee/fjcTf4jdUZ+ubQCVjr9Lk3RlKwIswN7V5hHEdKM3Ws
+	KUZXeEUA5otuYK85n6SwzwHm9Z+/QFhWWw5YLxnlJRvuW+b680eNQbJhAtk/X0ru
+	K/d/r1qWZ7kseS+YbngpiXfIL7iYYXQccr7Cq6Cs+vYUOXmgSmNDVZtljBk7/6WN
+	t0VXWL1hN7FszJUBrep20Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794663505; x=
+	1794749905; bh=SNG1HRb8nHFIie74LXwMhLAKLST7T7jquSoOJxOlEK0=; b=Z
+	XkXzX04q4UyVz+lf8NtnAgfAHirWryfPU5tFvaA69SsZe0EW7fjK87bBsFggvRpW
+	J2f+3lARbnoLTkqwtl35LjIb0iUpLtmCwrnrBYEikvU0Jwcgavp8aFLkSnylEuam
+	lV5ex/fR1r5uzupd6qCJaJOQKGlfAXcZQXmQ5YSydfcL2DTX5HHcIHvHF76i+7aQ
+	fhxuq5ksXHxYucjDpTQRgYVe6LfDuMiBo8HKNPI8zj7pJ6XxBOd/QJSq9udXruZs
+	KTXMSrxV3OuCOJs0AyyWvDGaSvumSOXPhBONC3zy39O6Eg2ZZR6AcwKFGeD9EMuO
+	BhlEvcRK48YyymFm4jqjw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=flapping.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794663505; d=flapping.org;
+	mf=PHRvbW9AZmxhcHBpbmcub3JnPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:aIVU6BRpEb2R8GY654+bbUZBP5PkgtGV7YU3tM8ZhhYQwcW
+	dmYIseLJeuvaP128K1pqiyNivNeRocdLs/k2mWbiQC8nKTbdDMsYT37Vm70QeTLA
+	VP+2Uskzp+GEDkh898ysjghuhH3Cx8gr9VG6t5SnxA3A85SJ9Q7qdM3GKyIvipsw
+	PMRRm7EE2AjekrWJyxuPJZfs/0SZnudFSwsmUzSN3AGbO0bjJeXtRR4ehyXBQXy9
+	fcVW0tR2O0iKj7/CqmOelVnMY1sVdZ0ZO4JUL9XPdMTA0E9ebZhKzD/+EatEGoP5
+	/5DA/B317azSCXTT0s9EglxL8ldYRvGmHtBMinQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:f9opZpIyqagmduFeeGp+xKUJT++WTJdd2E/jjBkBYfo=:lU5PHoFLOrW5W3SGXZtCpCZosecH1DWsdh966u97RCw=;
+X-ME-Sender: <xms:UGT4agKAWa5ySOtc97TQISMy-97FHL2OfzX4uSuKWCjKjS1-qIU2BA>
+    <xme:UGT4atWjLXkvN2rwfSSzfQ5RsUvoMnhL0nkz4wTXfoBK8IEIg-YzKxB-urofSq_81
+    S88oAytwY2-srH-PjH8_0i8fJiTU9mwDAzM1QBjnqod2DOyW2T4I9s>
+X-ME-Received: <xmr:UGT4alOYs099Ivx7PoBIhrdjgUoi_H9LMpqmJbh-FSMQUlJgnlxCm9ae7k9o2eSPuQlj7aLuo8OpjI8Vinlrs76B>
+X-ME-Proxy-Cause: dmFkZTGP3BUWlQUihCukVcPKcTSgRT44A4NtkjyCSrpXOA/rwXWHPdz16CsJwJJyEfGatL
+    lN7ru0/bjWuVwus+qg8IqcETdlNBpF48fef4z6tyHamWyDNIIzYe03ACQowYrwSJHAZ8Vo
+    lvfypnf3SveEnc3NnZR4xRbeVLvsA/FkY75IBy+dYZd6B7umcwKRfgMYFd/WK5QM57Vnj9
+    BmeVgMpoO/QOvVLovaVWsh8nVgQuZu4003ZqUiazRIRGRLF3S70i9QhkTtXD9RzX7Czkmn
+    MgWG+ZxTViB8Xw02wyuvpZ45gFna4jOQNaOt1JFnvKw+0f8ie4mpP7NZIWqxFpdmlz1kKe
+    y6mh+4B83bYFIJ0yFcWsfd1rFn5SmSEnudjOYZK7gYqCCwbMuhnMpexVFxv9ob9ECe4I67
+    by5e77wcZfvni8QYKNOaKXwrl2jxeEbJOIR1pNN3PB3KVKRXCoOmlm6V6Me+St6KWuc06J
+    xPt1KCwstHXAvPslZk0UMcWTc9ubQcq8uJAYSywQHe0VwHvctj4Vdl7z4KQdJ9uM/25bhJ
+    XXQCdN1KprZ+6AE5H2qB0zIpkeCXi829c66eEWFkab/pH680qxI+BuVSZxBUl6vkFZ10Fy
+    llHgiwxI+0uxLOI67X1HIa+ljQs19jVFyJOuUYlCGKfjNDFicbB4MA7kV9vg
+X-ME-Proxy: <xmx:UGT4apl0n8bbnI0VZnG8vgM23u56GC-tSbvAkf2oazmZhu2zYMcnfA>
+    <xmx:UGT4aoUAdGYNJXWIuqt-sf5wY7IDdoZCFKyAeGoI7PrqT2BcodgtVQ>
+    <xmx:UGT4aoJdiW5JK61Ond5x6dJoQpUc0dJ6LS9xEMJ8OqI6qsuvUOZk8w>
+    <xmx:UGT4asY4Ujiow9_baoCz-AyZMP2tdtO_uR2T4Vlt3pOFv0T67ss44g>
+    <xmx:UWT4auPybT4Cfr1pYKtDssyRL9DWsNAIDtacQe3SZir_YQbu25i7Xauv>
+Feedback-ID: i51fe4b43:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 14 Nov 2026 08:38:19 -0500 (EST)
+Date: Sat, 14 Nov 2026 22:38:16 +0900 (JST)
+Message-Id: <20261114.223816.1091200428221776094.tomo@flapping.org>
+To: a.hindborg@kernel.org
+Cc: tomo@flapping.org, boqun@kernel.org, fujita.tomonori@gmail.com,
+ frederic@kernel.org, lyude@redhat.com, tglx@kernel.org,
+ anna-maria@linutronix.de, jstultz@google.com, sboyd@kernel.org,
+ ojeda@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com,
+ lossin@kernel.org, aliceryhl@google.com, tmgross@umich.edu,
+ dakr@kernel.org, daniel.almeida@collabora.com, tamird@kernel.org,
+ acourbot@nvidia.com, work@onurozkan.dev, rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] rust: hrtimer: add active() method to query timer
+ state
+From: FUJITA Tomonori <tomo@flapping.org>
+In-Reply-To: <87wlqiv386.fsf@t14s.mail-host-address-is-not-set>
+References: <20261105-hrtimer-active-v3-1-52636808ccda@kernel.org>
+	<20261105.201145.828445900027892304.tomo@flapping.org>
+	<87wlqiv386.fsf@t14s.mail-host-address-is-not-set>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,196 +132,46 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: Text/Plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-A page fault handler running while another CPU detaches the same IOMMU
-can read a cleared RK_MMU_DTE_ADDR, turn it into a linear-map pointer
-and dereference it, which panics the machine. A dummy or firmware-left
-address is as unsafe.
+On Thu, 12 Nov 2026 09:55:05 +0100
+Andreas Hindborg <a.hindborg@kernel.org> wrote:
 
-Seen on PX30 at reboot: the display controller still fetched an
-unmapped framebuffer, its IOMMU sat in a page fault, ignored the stall
-and paging-disable commands, and had RK_MMU_DTE_ADDR cleared during
-the handler's second run.
+> FUJITA Tomonori <tomo@flapping.org> writes:
+>
+>>> +    /// Query the state of the timer.
+>>> +    ///
+>>> +    /// Returns [`true`] if the timer is in the started or running states.
+>>> +    ///
+>>> +    /// This method synchronizes internally and does not require exclusive access to the timer.
+>>> +    ///
+>>> +    /// The returned value is a snapshot. A concurrent start or expiry can change the state of the
+>>> +    /// timer right after this method returns, so callers that need the state to be stable must
+>>> +    /// serialize against those operations by other means.
+>>
+>> Does "expiry" here mean that the callback returns HrTimerRestart::NoRestart
+>> on another CPU? An expiry alone moves the timer from started to running, so
+>> active() still returns true. If so, I think it is clearer to write this case
+>> directly, and to add the case where the timer is canceled on another CPU.
+>>
+>> The same sentence is in the commit message, so please update it too.
+> 
+> Right. How about this:
+> 
+>   The returned value is a snapshot. A concurrent evnet can change the state of the
+>   timer right after this method returns, so callers that need the state to be stable must
+>   serialize against those operations by other means.
+> 
+> The intention is not to reiterate the state machine, but to indicate
+> that things might changes.
 
-No wait works: the master shares the line, the RK3588 NPU driver
-detaches from its interrupt thread, where synchronize_irq() deadlocks,
-and synchronize_hardirq() skips a force-threaded handler. A spinlock
-orders the walk against the register clear.
+Looks good to me, except for one small point. Since "start or expiry"
+was removed, it's not clear what "those operations" refers to. How
+about something like:
 
-6.1 vendor kernel log, rk_pagefault_done is the walk, per CPU:
+  must serialize against such events by other means.
 
-  CPU 1, init, reboot path:
-  [ 1069.789374][    T1] rk_iommu ff460f00.iommu: Enable stall request timed out, retry_count = 0, status: 0x0002cb
-  [ 1069.791314][    T1] rk_iommu ff460f00.iommu: Disable paging request timed out, retry_count = 0, status: 0x0002cb
-  [ 1069.830197][    T1] Call trace:
-  [ 1069.830922][    T1]  iommu_detach_device+0xd0/0xdc
-  [ 1069.831483][    T1]  rockchip_drm_dma_detach_device+0x1c/0x34
-  [ 1069.832033][    T1]  vop_crtc_atomic_disable+0xb0c/0xc44
-  [ 1069.832751][    T1]  drm_atomic_helper_commit_modeset_disables+0x348/0x690
-  ...
-  [ 1069.836601][    T1]  drm_atomic_helper_shutdown+0xa0/0x158
-  [ 1069.837152][    T1]  rockchip_drm_platform_shutdown+0x18/0x2c
-  [ 1069.837870][    T1]  platform_shutdown+0x3c/0x54
-  [ 1069.838599][    T1]  device_shutdown+0x194/0x260
-  [ 1069.839160][    T1]  kernel_restart+0x40/0x128
-
-  CPU 0, page fault handler:
-  [ 1069.790364][    C0] rk_iommu ff460f00.iommu: Page fault at 0x00000000ffee0000 of type read
-  [ 1069.792129][    C0] rk_iommu ff460f00.iommu: Page fault while iommu not attached to domain?
-  [ 1069.792184][    C0] rk_iommu ff460f00.iommu: Page fault at 0x00000000ffee0280 of type read
-  [ 1069.794604][    C0] Unable to handle kernel paging request at virtual address ffffff8000000ffc
-  [ 1069.805998][    C0] Internal error: Oops: 0000000096000006 [#1] PREEMPT SMP
-  [ 1069.809484][    C0] pc : rk_pagefault_done+0x1b4/0x3c8
-  [ 1069.810548][    C0] lr : rk_pagefault_done+0x19c/0x3c8
-  [ 1069.832390][    C0] Call trace:
-  [ 1069.833116][    C0]  rk_pagefault_done+0x1b4/0x3c8
-  [ 1069.833844][    C0]  rk_iommu_irq+0x64/0xc8
-  [ 1069.834395][    C0]  __handle_irq_event_percpu+0xe8/0x2ac
-  [ 1069.834945][    C0]  handle_irq_event+0x40/0xbc
-  [ 1069.835675][    C0]  handle_fasteoi_irq+0x118/0x28c
-  [ 1069.836404][    C0]  generic_handle_domain_irq+0x44/0x6c
-  [ 1069.836954][    C0]  gic_handle_irq+0x60/0xf0
-  [ 1069.837505][    C0]  call_on_irq_stack+0x3c/0x5c
-  [ 1069.838235][    C0]  do_interrupt_handler+0x4c/0x94
-  [ 1069.838963][    C0]  el1_interrupt+0x44/0xa8
-  [ 1069.839446][    C0]  el1h_64_irq_handler+0x18/0x2c
-  [ 1069.839997][    C0]  el1h_64_irq+0x78/0x7c
-  [ 1071.215224][    C0] Kernel panic - not syncing: Oops: Fatal exception in interrupt
-
-Fixes: c68a292152d3 ("iommu/rockchip: rk3288 iommu driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Lucas Tanure <tanure@linux.com>
----
- drivers/iommu/rockchip-iommu.c | 28 ++++++++++++++++++++++------
- 1 file changed, 22 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/iommu/rockchip-iommu.c b/drivers/iommu/rockchip-iommu.c
-index 1fa3110b142a..0f40d9678344 100644
---- a/drivers/iommu/rockchip-iommu.c
-+++ b/drivers/iommu/rockchip-iommu.c
-@@ -115,6 +115,7 @@ struct rk_iommu {
- 	struct iommu_device iommu;
- 	struct list_head node; /* entry in rk_iommu_domain.iommus */
- 	struct iommu_domain *domain; /* domain to which iommu is attached */
-+	spinlock_t lock;
- 	const struct rk_iommu_ops *rk_ops;
- };
- 
-@@ -543,7 +544,8 @@ static int rk_iommu_force_reset(struct rk_iommu *iommu)
- 	return 0;
- }
- 
--static void log_iova(struct rk_iommu *iommu, int index, dma_addr_t iova)
-+static void log_iova(struct rk_iommu *iommu, struct iommu_domain *domain,
-+		     int index, dma_addr_t iova)
- {
- 	void __iomem *base = iommu->bases[index];
- 	u32 dte_index, pte_index, page_offset;
-@@ -563,6 +565,12 @@ static void log_iova(struct rk_iommu *iommu, int index, dma_addr_t iova)
- 
- 	mmu_dte_addr = rk_iommu_read(base, RK_MMU_DTE_ADDR);
- 	mmu_dte_addr_phys = iommu->rk_ops->pt_address(mmu_dte_addr);
-+	if (domain == &rk_identity_domain ||
-+	    mmu_dte_addr_phys != to_rk_domain(domain)->dt_dma) {
-+		dev_err(iommu->dev, "iova = %pad: page directory %#x is not the attached domain's, not walked\n",
-+			&iova, mmu_dte_addr);
-+		return;
-+	}
- 
- 	dte_addr_phys = mmu_dte_addr_phys + (4 * dte_index);
- 	dte_addr = phys_to_virt(dte_addr_phys);
-@@ -593,6 +601,7 @@ static void log_iova(struct rk_iommu *iommu, int index, dma_addr_t iova)
- static irqreturn_t rk_iommu_irq(int irq, void *dev_id)
- {
- 	struct rk_iommu *iommu = dev_id;
-+	struct iommu_domain *domain;
- 	u32 status;
- 	u32 int_status;
- 	dma_addr_t iova;
-@@ -606,6 +615,8 @@ static irqreturn_t rk_iommu_irq(int irq, void *dev_id)
- 	if (WARN_ON(clk_bulk_enable(iommu->num_clocks, iommu->clocks)))
- 		goto out;
- 
-+	spin_lock(&iommu->lock);
-+	domain = READ_ONCE(iommu->domain);
- 	for (i = 0; i < iommu->num_mmu; i++) {
- 		int_status = rk_iommu_read(iommu->bases[i], RK_MMU_INT_STATUS);
- 		if (int_status == 0)
-@@ -625,15 +636,15 @@ static irqreturn_t rk_iommu_irq(int irq, void *dev_id)
- 				&iova,
- 				str_write_read(flags == IOMMU_FAULT_WRITE));
- 
--			log_iova(iommu, i, iova);
-+			log_iova(iommu, domain, i, iova);
- 
- 			/*
- 			 * Report page fault to any installed handlers.
- 			 * Ignore the return code, though, since we always zap cache
- 			 * and clear the page fault anyway.
- 			 */
--			if (iommu->domain != &rk_identity_domain)
--				report_iommu_fault(iommu->domain, iommu->dev, iova,
-+			if (domain != &rk_identity_domain)
-+				report_iommu_fault(domain, iommu->dev, iova,
- 						   flags);
- 			else
- 				dev_err(iommu->dev, "Page fault while iommu not attached to domain?\n");
-@@ -651,6 +662,7 @@ static irqreturn_t rk_iommu_irq(int irq, void *dev_id)
- 
- 		rk_iommu_write(iommu->bases[i], RK_MMU_INT_CLEAR, int_status);
- 	}
-+	spin_unlock(&iommu->lock);
- 
- 	clk_bulk_disable(iommu->num_clocks, iommu->clocks);
- 
-@@ -921,16 +933,19 @@ static struct rk_iommu *rk_iommu_from_dev(struct device *dev)
- /* Must be called with iommu powered on and attached */
- static void rk_iommu_disable(struct rk_iommu *iommu)
- {
-+	unsigned long flags;
- 	int i;
- 
- 	/* Ignore error while disabling, just keep going */
- 	WARN_ON(clk_bulk_enable(iommu->num_clocks, iommu->clocks));
- 	rk_iommu_enable_stall(iommu);
- 	rk_iommu_disable_paging(iommu);
-+	spin_lock_irqsave(&iommu->lock, flags);
- 	for (i = 0; i < iommu->num_mmu; i++) {
- 		rk_iommu_write(iommu->bases[i], RK_MMU_INT_MASK, 0);
- 		rk_iommu_write(iommu->bases[i], RK_MMU_DTE_ADDR, 0);
- 	}
-+	spin_unlock_irqrestore(&iommu->lock, flags);
- 	rk_iommu_disable_stall(iommu);
- 	clk_bulk_disable(iommu->num_clocks, iommu->clocks);
- }
-@@ -997,7 +1012,7 @@ static int rk_iommu_identity_attach(struct iommu_domain *identity_domain,
- 	if (iommu->domain == identity_domain)
- 		return 0;
- 
--	iommu->domain = identity_domain;
-+	WRITE_ONCE(iommu->domain, identity_domain);
- 
- 	spin_lock_irqsave(&rk_domain->iommus_lock, flags);
- 	list_del_init(&iommu->node);
-@@ -1051,7 +1066,7 @@ static int rk_iommu_attach_device(struct iommu_domain *domain,
- 	if (ret)
- 		return ret;
- 
--	iommu->domain = domain;
-+	WRITE_ONCE(iommu->domain, domain);
- 
- 	spin_lock_irqsave(&rk_domain->iommus_lock, flags);
- 	list_add_tail(&iommu->node, &rk_domain->iommus);
-@@ -1227,6 +1242,7 @@ static int rk_iommu_probe(struct platform_device *pdev)
- 		return -ENOMEM;
- 
- 	iommu->domain = &rk_identity_domain;
-+	spin_lock_init(&iommu->lock);
- 
- 	platform_set_drvdata(pdev, iommu);
- 	iommu->dev = dev;
--- 
-2.56.1
+Also typo: evnet -> event
 
