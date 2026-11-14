@@ -1,88 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.190
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794661788;
-	b=H5iA0Pwv1IFxWGw3wHHfBmD5LHFYKB3aEAcWOg2xqfOJuH+E959nlEsvsOtv0NDzH05A
-	 mcxDMxICm1vcyAVmfU2XI+c5rtCrK76ki/xezFu/bK9K4cmVT1iaOu96zK/eHIUNss9Pl
-	 JgCsTcgFR0xh2oF20YsAiIvIoa14/tS/OGagSefQb/WmZZVNU8ingxZWQDBptygJzh68c
-	 ahPWyrQ5+4SJG3f3W4ordRXtfJSRoWwzeg6k15EPPs6YUuJF+wbrgLI8TT37QCp8YGTu6
-	 MsPsCBlTalFwAQ6GU2UwQbN+VZ8CE0bqKQVHjjQCzmFCnYclU8PmU+OT/H414jTfZSw==
+	t=1794661801;
+	b=N840/Qpb51bUToLERYBQ4Mi7MwXJYPSewmziMJqA3ZewIUSDMpNE0UncJW/vLYuh7Zi3
+	 r+Q7q9boaTTcYcD4ebFQkXdlPDR13KYmeQ01seiuydBo/I+ZJrNPUlZzqxB36AfdQTzQi
+	 wEKFz4JaYBlKc/+HcYfGJ+RvW5/O3nln/YE8jqKlncMDISYkgRRiHQtsrHxV726tbNoBn
+	 AFT3PajvsOrz4cIXo3IOT/axMkbFcE2s050Z8VE6wi2PVhfMHU2bTKY4SGW/zgHGfHz7D
+	 f+fgF3La/8avGnNdJhDYah3pP4dtP6DRzNf7AZmCKosdhMk2jkGuP24wEqoaIcY8KLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794661788;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=3VoQXyEijSo/xuq/fhROFbh3/2Km0UUjaAcWVlWjklI=;
-	b=Y8pnhbZCR5zr7Xw38zSevIc9qQjmYmfsuMlyUmLzp3Tkzu9TacXRLPPFgag+xMFtOllc
-	 cWgBj2o3UEvwCWVoSroyt2XY8/P+wI355uNjEQz++0Qa5zpGpkJGzDmjy8JPmsTUL+uUA
-	 5Zrty+iVrF0YgeCeWO0PzJtAt/YtBhnUy3r5OOJKcZCkFquCspF+zTf+VsdaTfiV9m4Fb
-	 90fLI2ZF4YVx6bmK+fg6XLHcoJXcG+Yt0YCyPVfxskwS1cGCZB1VrqorSye4gJlCQq65Y
-	 hsHB++AAKyNoE20q5zTb10Am8HHL46qqoBgpzBnQyVSwBJKaBa0M66YYuloXZaqA7Vw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794661801;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=BtdVhasomzr0bfxo27t8Irh0dfW28m0T6GW65uzhTXc=;
+	b=sBASe3PlbUyN5BcizZM3qyvSaoSS8g2m1He9vq2wNUdoT+36juPDO6pJXqTm9SXZlEYz
+	 7o/e9wTVwB2ek0ZPoaUsO6REEstXrDAjZO/r+IMgJJPuno0flD6SZr+1n6ZK2KOzzWO9A
+	 SjBe6+z5HjxYMQYmxbgZNOPl9S3tC6mTsTPxssJTd/Z5LxhkL5E7PeOZWTr2V2eAmhT6J
+	 1DngtEAxqSqQZdoFlJf9ebLFm8S1LcPrE3pIvHx9Th0fLjTLimxHYxn40R7D+9n2cn3gG
+	 IYLglBFNa1tiA2zyTEopjy5wrRKQXxPs8BKvQoJSMJBw/6NjZC8fsRlJTqkcDzQXlHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=faDmI32Q;
-	arc=none smtp.remote-ip=203.205.221.190
-Received: from out203-205-221-190.mail.qq.com (out203-205-221-190.mail.qq.com [203.205.221.190])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RHocOdW6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DF796079E25;
-	Sat, 14 Nov 2026 13:09:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DF796079E25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48522606EDCE;
+	Sat, 14 Nov 2026 13:10:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=faDmI32Q
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794661780; bh=3VoQXyEijSo/xuq/fhROFbh3/2Km0UUjaAcWVlWjklI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=faDmI32QRcBwVGSdy+cTxOF97AFSNCjinoPMweml8LiQ2ap3yA+AkxePmjK4kWUWA
-	 UNz4tG6EJ/bXEVRsYeAF9u1OeclGM5LUyhoWKpG51DWMmA0o3LdWCnfmDpbeR+325L
-	 vu3dnqoHLfzleH5hIGbP2EuZP1TZFp1K44mp3UHA=
-Received: from localhost.localdomain ([2409:8d5c:8f0:65e5:7443:873c:1230:8af8])
-	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
-	id 25C3B2E4; Sat, 14 Nov 2026 21:09:28 +0800
-X-QQ-mid: xmsmtpt1794661776tbemqpb4v
-Message-ID: <tencent_280CEDB388319F3A9004BE64D245CA3C2F09@qq.com>
-X-QQ-XMAILINFO: N1yXN3LLlHerrKeu4kPi7XH9fWy3OE1gLAJ44HzdrrWiY8ns/+tD6LCNei7lPl
-	 fMb4P6i3UxvXxIfnzFuymfXp6VHCWmW7wHeiRnGLTSGIX+ofr/jbtJbluPGFGbQg7vJhECgIJpF4
-	 LYhA+zd+W41enCBmkvBeyjRAsApEnrAQt2UVyB1bZ4t4aCxX1qfAOBsoPLaPtL8vk8uoEO/jK5Yk
-	 SPLRRx/XBR+WMjPd3qUZ7A66gqum/CUTXTjtcB8euz8Yun+Ejj7o20c6SqQ9uNI/VeuioEmEz71r
-	 AH/8rZmBe//EoqzJHKIto2uljBCv8ajOWVTBR54uGFh+vcIBKqqF0dVFdCTpFEj6NpXgy8vU02mW
-	 onpJw13IR4xCVFvfnJEVJRxoFsIBCFijoR/AmO75hFb/iBFqfn87hWxee1740s24ycATqskPBlZm
-	 NW7MeDP7kxNWHLpoVyQQN5ZNapiw+Mu/gZyDqQV7IA0+Uwgc3ynpbXPaK1XFsCb4yY8q7yvd2IaM
-	 t163252iZK45pxh2L9rO2TmxuyX1duGXqlMiLBMQo8WjiArKciBdb8Gu9c2a9IlsBI3TYf/N9dhY
-	 H6qBPCr65gAmzeuDCOQ7kyTGLWlMHatYspfs4JKrCgWs1XELkspB4U6oSViQX7wc3s8fTsVUcOhM
-	 arH8dHYV+a2K5naK5GmYmwNLaE7Tny799I8hQiie4d7YZNeZFnHZBHj/iv+Ss7jZNTg9NUsgrmib
-	 PtQSKsaQE9IEokF4+rQiRY5cA/8rqPh1M4PnMD+Ixc1/sqOQXjNRRsi5B+Bp5STP+ToRO1t5Fb5J
-	 vR2BGT1+EeJRmHRIsqRQiuriNUivFWA3Ov8Uimidthzpa/96H2X9fSboSmjSMBxnAXnHdw+FFi3v
-	 9HORVJ8asat4aJucWm4iDb2laXUBXYiwzXOyfDIkA02QGi4qSnOg3yguhq2WmZ62+Gm4Ny43fLdK
-	 caqAujUjY/ozkYQIJ6WZtjdCY/J/OLfH3rXgVt2HMMhqw3UqoKxhqKqVODqGPDNsOd9Fh9Kyj2X7
-	 Rl1lPw1XLg7pVS1EZl0XvCGxuqU8piUaDbjq24pYU+A9vebpsOv/9YERGKcJD0nQCGlmqGKbcvCM
-	 6kJnsq2tUBag9YGrd6WZcTI7voyfn0yfVPN0tvPch2t5j7HKAYtj/+YAQbOCy5xES5e9f6
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-From: Hang Nan <2122295973@qq.com>
-To: netdev@vger.kernel.org
-Cc: mptcp@lists.linux.dev,
-	matttbe@kernel.org,
-	martineau@kernel.org,
-	geliang@kernel.org,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	kuniyu@google.com,
-	willemb@google.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	2122295973@qq.com
-Subject: [PATCH net v3 3/4] net: mptcp: reject token 0 in mptcp_token_get_sock()
-Date: Sat, 14 Nov 2026 21:09:26 +0800
-X-OQ-MSGID: <20261114130927.91839-4-2122295973@qq.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261114130927.91839-1-2122295973@qq.com>
-References: <20261114130927.91839-1-2122295973@qq.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RHocOdW6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20AF01F000C5;
+	Sat, 14 Nov 2026 13:09:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794661801;
+	bh=BtdVhasomzr0bfxo27t8Irh0dfW28m0T6GW65uzhTXc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=RHocOdW6W3FpasM0EYmnFsXgxF36o/JK6WS2DdytW5tVYqJjWMISgUoBOsWmYXoz8
+	 8cuAgHtoR3/4JGCuVTBVa6TNJzyWo7Rn8kALoXvU81rS7TBOcX/WeoOhTQDeQjMX1N
+	 KTmcoH8tEAJXXnQi+46MgcKsaJ74xkFRIMalxhSu0fRwUdgfRAmprIgYcxclGQpVpv
+	 m/OYB5cOGueEYAb6sJxKMVFXTu9cdUT7Nz1FJ5RJGAOqZBnLtSGyEic+ZCGuIFWNTT
+	 NyjKBdSXxoQ0RtqgYl2GTfzZ0SkSuzexfL2JtdazdHQZOrpYXI9dQcaGC8BVxNjlwb
+	 I3tgtCasNQh1g==
+From: Christian Brauner <brauner@kernel.org>
+Date: Sat, 14 Nov 2026 14:02:19 +0100
+Subject: [PATCH RFC v2 38/42] fuse: refuse files on pseudo filesystems as
+ passthrough backing files
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,51 +53,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261114-work-loop-pseudo-v2-38-98639a2286fb@kernel.org>
+References: <20261114-work-loop-pseudo-v2-0-98639a2286fb@kernel.org>
+In-Reply-To: <20261114-work-loop-pseudo-v2-0-98639a2286fb@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Jann Horn <jannh@google.com>, Chris Mason <mason@kernel.org>, 
+ Josef Bacik <josef@toxicpanda.com>, Christoph Hellwig <hch@lst.de>, 
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org, 
+ target-devel@vger.kernel.org, driver-core@lists.linux.dev, 
+ linux-mm@kvack.org, bpf@vger.kernel.org, 
+ linux-security-module@vger.kernel.org, selinux@vger.kernel.org, 
+ apparmor@lists.ubuntu.com, linux-nfs@vger.kernel.org, 
+ netdev@vger.kernel.org, fuse-devel@lists.linux.dev, 
+ linux-efi@vger.kernel.org, xen-devel@lists.xenproject.org, 
+ ocfs2-devel@lists.linux.dev, linux-s390@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, linux-usb@vger.kernel.org, 
+ Amir Goldstein <amir73il@gmail.com>, linux-erofs@lists.ozlabs.org, 
+ linux-kselftest@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1390; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=2GPVGdPmuRydfdxygQI1vepom0ppxgkvC8v8Lqvdx8k=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWT9iJnomXd12pWfUVWTpW7s1uFaJbz65rLkQEZN5j6RF
+ KY/m6Jud5SyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAEyEW4Phr1xIEuNTx1T/Ht6n
+ hlVu3fM+HJX4fO0n7+/d4fcSF9yrfcrIcJjh3o3qm9JZX1wXNHfOCRb+0heYGJQ1wecpZ/6UMiF
+ XTgA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-Token 0 is never assigned to a connection: __token_bucket_busy() treats
-it as busy.  It is, however, the value mptcp_token_destroy() stores into a
-socket that is being torn down, and the value a freshly allocated msk
-holds until it is hashed.
+The fuse server can register any regular file as a backing file. procfs
+and binfmt_misc files are already refused by the stacking depth check as
+both set s_stack_depth to FILESYSTEM_MAX_STACK_DEPTH. sysfs and the
+other pseudo filesystems aren't. Reads and writes of the fuse file would
+then be done on the pseudo file with the fuse server's credentials.
+Refuse files on pseudo filesystems just like loop does.
 
-Both validations in mptcp_token_get_sock() compare the socket's token
-with the requested one, so for a request for token 0 they cannot tell a
-match apart from a socket whose token has just been cleared.  With
-SLAB_TYPESAFE_BY_RCU the same is true for a socket whose memory has
-already been reused by a new msk that has not been hashed yet.
+Note that the backing file is only registered here and opened again for
+every fuse file that uses it. Only its path is used and O_PATH file
+descriptors are allowed since commit efad7153bf93 ("fuse: allow O_PATH
+fd for FUSE_DEV_IOC_BACKING_OPEN"). So pass FMODE_PATH to
+file_check_backing() to keep them working.
 
-The token comes from the wire: mptcp_parse_option() copies the MP_JOIN
-SYN token without validating it.  A lookup for token 0 can therefore
-return a dying or half-initialised msk, which subflow_token_join_request()
-then hands to mptcp_pm_get_local_id() and, when the subflow uses a
-different source port, to mptcp_pm_announced_has_ssk(), which walks
-msk->pm.anno_list.  That list is only initialised later, from
-mptcp_pm_data_init().
-
-Reject token 0 before walking the chain.
-
-Fixes: 2c5ebd001d4f ("mptcp: refactor token container")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hang Nan <2122295973@qq.com>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- net/mptcp/token.c | 4 ++++
+ fs/fuse/backing.c | 4 ++++
  1 file changed, 4 insertions(+)
 
-diff --git a/net/mptcp/token.c b/net/mptcp/token.c
-index 3429b43a9f7c..8a603fc8dc05 100644
---- a/net/mptcp/token.c
-+++ b/net/mptcp/token.c
-@@ -299,6 +299,10 @@ struct mptcp_sock *mptcp_token_get_sock(struct net *net, u32 token)
- 	struct mptcp_sock *msk;
- 	struct sock *sk;
+diff --git a/fs/fuse/backing.c b/fs/fuse/backing.c
+index 8c21a8a74efb9..7527f3ecb90dc 100644
+--- a/fs/fuse/backing.c
++++ b/fs/fuse/backing.c
+@@ -147,6 +147,10 @@ static int fuse_backing_open_file(struct fuse_conn *fc, struct fuse_backing *fb,
+ 		if (inode->i_sb->s_stack_depth >= fc->max_stack_depth)
+ 			return -ELOOP;
  
-+	/* Token 0 is never assigned, but is what a torn down socket holds. */
-+	if (!token)
-+		return NULL;
++		err = file_check_backing(file, FMODE_PATH, 0);
++		if (err)
++			return err;
 +
- 	rcu_read_lock();
- 	bucket = token_bucket(token);
- 
+ 		fb->type = FUSE_BACKING_PATH;
+ 		fb->path = file->f_path;
+ 		path_get(&fb->path);
+
 -- 
-2.47.3
+2.53.0
 
