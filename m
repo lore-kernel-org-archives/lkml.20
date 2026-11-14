@@ -1,106 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.10.208.40
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794649516;
-	b=dtHUb/SRELP0eUhdXHn+LOyxpVz5j/hOGl5/+bwM01PwEnOmAJn6b0SETzMzi+Qlz5rk
-	 Vet+bhnGBnTSk0k/knCqw+pGCm9Fpij+exqLMZlvAAtGJshc1BXlhwNqgkDI1/hcz03cK
-	 0WMkYVH0xkHAevYEelluXiEi/9PxbV2id/y/iIiD70YzLMXUvDC8go2OZtnWaxvPb65YA
-	 UEIm/tX8B12/iDWuQghBek3omF5KuqFaVUZXBIBPW39ha6WJWNJnjwXopfQnmNXs4uh17
-	 p6Kah+ZbnqcN+//vQFZLeyrrHbyoNiFNcDJ04UO+CAC4SMAc8xM868+ImGWI4RvAt4g==
+	t=1794649659;
+	b=wmyYsAiKE1akr/rg93tZCl5V6DZpMxBr4ADlNptqJ753sCJQYZISYzPjoZfyu76es4L/
+	 y4hrRDhhSJ2zBGbsrVtlBIYZmXTVtB751eALVgd9Fq89YmBhTzqqKMIuL3CWgXsj+HPxV
+	 TeGFRPoNfbxdD85lFsjFymqa4WLWHsM/35bc+y9wDhy9EZpDdDL495NJZJJUsOuRNTuwq
+	 7vHXwXwaJxW0V4LGAOpbmgubLQOndVmTOm0fk7ANXPBS/VIm60EQGiShQ4mfSstZj8Ko1
+	 4BGD3REtzgd3YeYzdPuBC036Xh3xCooW8XKnCt/vtLAnymS0Za5G2dXAQ/3FDkB5BRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794649516;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=37e47cL8nK91UujMUai9IjESXvG2R6mAt8cHf2aHgUc=;
-	b=KpIWBVUB8dP7qR3MwPbaLegja+xumesdadQvbTirCrG9bvgInY5aVgr52Pef6neFeJom
-	 4oAJTEDRZHSAd3Fb1DVSyhfvoAA6jOG4Yyryc/C/xzqX00iOLUWH5FjXEX3tTZNe8Xl29
-	 6+P9kKpTXl3LrTaI0Gve1IVzC4QP90oBBhpGaRGB0WDWe6GX555ZVIzI4Ax0JiskFWq76
-	 RO07uMU+eSUyZcHvvmTOOVikrny5B5EgQiPIMUc4i/IvgfuYRsJSgNjgQ6wdR1mn+6fl4
-	 rPhX7rxd74iVMGeB/zW1qI9hKiUrkpM8twmEkMUDiyG0EW6iQFw2TY99qcfxJlUXdvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794649659;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
+	bh=PTY1o7j7L5nX7oMObMEPbTXGH2Y/CuCX5bnofZ59I48=;
+	b=Nhy099poo/5z1DA+hatWu18ugCAA/gypR+LVPdk8tuFsVcdXql8OH1ECNktpX/Sf26Pd
+	 h15VhHYbW7Dlf3LAys+WyM1oM7MMKpbeetX4rU4n4EzbjypuczLTxVt5Y11vgA8wXTmT5
+	 l+Tsm1Ls5j/jKdm4Na7TC7GlZ16K4iNcqleXt5HBz4ay8t+iAWGIEeuxjiSu11rApKkjV
+	 AQlpR6c8zvjFgiGz1PhEb095Z0ctb6qCfaLTEB1xXqkQnNYPaas5FYffw1U3pZbaBDKOL
+	 NqgqBcBX6ukvOMVe+sB5EDUDns5PKtarSQhueI0W/jKdQz/viVr8N5fDaFYukrJ60Nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F3hU3zVy;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=mandelbit.com;
+	spf=pass smtp.mailfrom=mandelbit.com;
+	dkim=pass header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=s6oNpMlq;
+	arc=none smtp.remote-ip=195.10.208.40
+Received: from mout-b-210.mailbox.org (mout-b-210.mailbox.org [195.10.208.40])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B17606A330
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 09:45:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9B17606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F302E606A327;
+	Sat, 14 Nov 2026 09:47:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F302E606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mandelbit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F3hU3zVy
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4bb5f49a61bso3062715e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 01:45:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794649514; x=1795254314; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=37e47cL8nK91UujMUai9IjESXvG2R6mAt8cHf2aHgUc=;
-        b=F3hU3zVyNcC+H+CmJ06ak6bPg38SHaqt0RdYZWvpTeDkcZ3evsgeSbmX3tYdIDTENR
-         pNqCOrvqyIBnw49Cy9vBzNnMFGjKkVkGpvvtu+xrmmyi4/nKyJmiSDvpvGKzjOnN65zG
-         M+NK1JOLclCliuCDw/6j3dnkQ1GRdZiN0hk1dM5TBSg+bqxy+SHDDWBBwSliFcSig+v3
-         9yxpat0FUgG1ryVQ5Oi2Km3HpRRbaMiZTBgxASY0N2J22rmEJTSQ9WDoxZ5+5wW4iRug
-         n7Q29sjNPJqK5kbn+YSavgQvOqbrlnKyKTOGrG6KIdjWdFuuBKKRonsB14GFJo1zMix0
-         aH0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794649514; x=1795254314;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=37e47cL8nK91UujMUai9IjESXvG2R6mAt8cHf2aHgUc=;
-        b=IP01sOXQQ+XmFUw1yop88beusVCUnDGIV83yav9EAFXMF+p6MynLzHDoc+KoqmbXFY
-         ILbqk2mv7oHBf2XdsxG3aCLJgqUeE6P2mxfzkWNHKhfxTKx3NZDpv8ntViwzHmch4zm1
-         PI33mxiOnSf8DbdUtL+lrbq8sXbEJnFnY/DJgQHpOzL+cMXQ/CC3MtFywQpkfhzUED2Q
-         I/Ke0DLbBkHtw4eJqKqkmmjx0tKKjo88AnX4oHFGq6E//gXR6CA1CtOszbp+t8aUFUXm
-         8tOJHNJmaVBiOCHl76xiMrRvQrz4rNWO58dWjyZXRPDbkNk13WjfSUmYmGipSekGt8c/
-         xgLw==
-X-Forwarded-Encrypted: i=1; AL+hErEDhGPZyVWs4jlc0cc4AtoI3G7eGijqN17TOIX2y7MhDcOxDCvIJdoEvN1Ju8sac3UolTabkSXdi6gwfTM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+R/veA9icGvRH4STxGSsS+aelC75o4PIjaR/bERA/QypSlKfE/
-	vFyc2oKwc9qHp8VLziFPJ3lBCDTYDNTTECfed2MqxS+dcMpYrok3hvJzT+hBsI3nTaAEiQ==
-X-Gm-Gg: AYBFou3M5bL8KxUz268I0vob+2w7/+CL+ufmoh4o1hlPUp6E2yvlOnpHCtJX5vNzAu2
-	+wDrjn9Wn+F51QcG3xg10P+WMH8NkkGa7L7upkkPjXjID6USjOHkCZp81ni0lM/+sh+cqUP8YDQ
-	aOy3l1zO1nLsNqoOuXMqGrAhTXMg43bJG0Jsrnmg+xP43AesmzMlBrP2xywQrHiZKsQWuQwWbDW
-	5QPdBOfEw/JKwNA08ZRpKF3n/2y4geWH16VWlF7hc4V12NGJxut/pmhzkBpbQK2kGL7zP8GgOzt
-	7GVBNPFuIATG6fTLZH2NjtIXjKwnyUqYij1G0RHhLahzW+h0MfYBTcGc6DJEdE9/lQK9QChqHpp
-	pQjuxLwL+XqhYynZ0rjBf9uyH3P76SYavIur5QkOseSHt2OvPTuk8h4e0lHZL71SR/WGfJXY8bJ
-	JlSV5+NdZ19XGg7ADoG5QoxIEh7RBsarBEHEZ7uLMb//zOd+W+uKainwcSJkFlyIMbIRp2+URIZ
-	dlKQmg/95gVjb+4DCXkzn/MOYlzrypOP1sdViATCH/4xXriiczKhHNRk4AKtsNxfLWQIfULE6BU
-	KYPnPeiN8rhqqRh7bzziNvquF1bDUt0/Z9KQiAhEL4ygzbfmcx0ynfsBPemfYEG2/Cz3+KvdjDQ
-	=
-X-Received: by 2002:a05:600c:4ecd:b0:4a1:e6a9:4086 with SMTP id 5b1f17b1804b1-4bb5599a73fmr120286225e9.0.1794649513834;
-        Sat, 14 Nov 2026 01:45:13 -0800 (PST)
-Received: from vlw-PC.. (static.18.103.245.188.clients.your-server.de. [188.245.103.18])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb5faf05f8sm45787065e9.10.2026.11.14.01.45.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 01:45:12 -0800 (PST)
-From: Vladimir Bely <vlwwwwww@gmail.com>
-To: Jiaxing Hu <gahing@gahingwoo.com>
-Cc: ulf.hansson@oss.qualcomm.com,
-	ulfh@kernel.org,
-	heiko@sntech.de,
-	finley.xiao@rock-chips.com,
-	shawn.lin@rock-chips.com,
-	sebastian.reichel@collabora.com,
-	leonard@lausen.nl,
-	abel.vesa@oss.qualcomm.com,
-	tomeu@tomeuvizoso.net,
-	linux-pm@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v17 1/3] pmdomain: rockchip: switch off the subdomains of a regulator domain at probe
-Date: Sat, 14 Nov 2026 12:45:00 +0300
-Message-ID: <20261114094505.401228-1-vlwwwwww@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <733b921576828ca70a3f5048691400130f8a5dbc.1794615323.git.gahing@gahingwoo.com>
-References: <cover.1794615323.git.gahing@gahingwoo.com> <733b921576828ca70a3f5048691400130f8a5dbc.1794615323.git.gahing@gahingwoo.com>
+	dkim=pass (2048-bit key, unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=s6oNpMlq
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-b-210.mailbox.org (Postfix) with ESMTPS id 4jRTnL2sTRzFqbv;
+	Sat, 14 Nov 2026 10:47:34 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
+	s=MBO0001; t=1794649654;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PTY1o7j7L5nX7oMObMEPbTXGH2Y/CuCX5bnofZ59I48=;
+	b=s6oNpMlqY5TOV7G82Irnq1EDMUVG13acT8vn2wqkq1tMD7NBwCQRx2xY/R9xsQL1kHxWvo
+	sxKMJfS/rFD7Gr3id9jDnz7lsZ7oNmec1Z4YaatiCh9rTkAaOs9VcfFBcNy+TABu+AuTCr
+	HI3Tasu6gs8gwNWPGct2JI3PWuRbBcIKgCZ6a1BZxkE7RWy7ZyQGCmTw8gswsfQClQc5H8
+	v0Qb6LjjzAcimuTnD0/6+t1F66yjkXy40FSmqpUsgLC7N+oMLbSY+Q71VvBP2juKT8zzP1
+	OyiDIX+cZPNak7kGmmRilFxc+YjoEu9CXRmeueLh8PAuEvu/E03D4qEmQSV4QA==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of ralf@mandelbit.com designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=ralf@mandelbit.com
+From: Ralf Lici <ralf@mandelbit.com>
+To: Xavier HSINYUAN <XavierHsinyuan@outlook.com>
+Cc: antonio@mandelbit.com,
+	bgalvani@redhat.com,
+	coreteam@netfilter.org,
+	davem@davemloft.net,
+	dsahern@kernel.org,
+	dxld@darkboxed.org,
+	edumazet@kernel.org,
+	fw@strlen.de,
+	horms@kernel.org,
+	idosch@nvidia.com,
+	kuba@kernel.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	pabeni@redhat.com,
+	pablo@netfilter.org,
+	phil@nwl.cc,
+	toke@kernel.org,
+	xavierhsinyuan@outlook.com
+Subject: Re: [RFC net-next v2 00/18] net: introduce ipxlat stateless IPv4/IPv6 translation
+Date: Sat, 14 Nov 2026 10:47:21 +0100
+Message-ID: <20261114094722.114623-1-ralf@mandelbit.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <TYTPR01MB11000E65B4D5C27C27D7414B4CA762@TYTPR01MB11000.jpnprd01.prod.outlook.com>
+References: <TYTPR01MB11000E65B4D5C27C27D7414B4CA762@TYTPR01MB11000.jpnprd01.prod.outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,47 +90,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 4jRTnL2sTRzFqbv
 
-On Sat, Nov 14, 2026 at 04:04:59PM +1300, Jiaxing Hu wrote:
-> Mark a regulator domain and every domain below it as off when it is
-> added, and once the subtree is complete, switch it off from the leaves
-> up. If a subdomain fails to switch off, leave its parents on and warn.
+On Fri, 06 Nov 2026 22:17:57 +0800, Xavier HSINYUAN <XavierHsinyuan@outlook.com> wrote:
+> Hi Ralf,
+>
 
-I tested this patch on the board I reported the hang on, a FriendlyElec
-NanoPi R76S (RK3576), and it fixes it.
+Hi Xavier,
 
-What I ran: Armbian's 7.3.4 edge kernel (armbian/build main, which
-carries v14 of the RK3576 NPU series, so PD_NPU already needs a
-regulator there) plus this patch as armbian/build#11366 carries it.
-The code is the same as this 1/3 (I compared the diff). I did not
-test 2/3 and 3/3 of v17.
+> Thanks for your v2 series!
+>
 
-DT: the R76S DT with the NPU disabled, i.e. no domain-supply on pd_npu,
-which is the case that hung. No regulator_ignore_unused, no
-regulator-always-on. Serial console attached, warm reboots, PMU read
-from the regmap debugfs about 42 s after the kernel started, after
-regulator_late_cleanup() has turned vdd_npu_s0 off.
+Thanks for the review.
 
-Without the patch (Armbian 7.3.3, same DT): hung on 3 of 4 boots; on
-the boots that survived, NPUTOP, NPU0 and NPU1 were still powered and
-not idled while genpd listed them off.
+> Here is a question about netfilter hooks in ipxlat-lwt. In RFC v1,
+> netdev-based ipxlat allows POST_ROUTING rules to be applied for
+> original-family before translation. Currently LWT path translates first
+> and does not check nf_hooks_lwtunnel to optionally run original-family
+> POST_ROUTING before translation.
+>
+> Is this difference intentional since it keeps LWT path simple and leave
+> such cases to netdev path, or would an optional pre-translation pass in
+> LWT path also be worth considering?
+>
 
-With the patch: 11 of 11 boots, no hang. "vdd_npu_s0: disabling" is
-in the log on every boot, and every boot reads
+Actually v2 has no netdevice attachment any more, the LWT is the only
+harness in this series.
 
-               without     with this patch
-  0x110 req    0x000013e0  0x000013fe
-  0x214 pwr    0x0000003e  0x000001fe
+Aside from that, yes, the difference you describe follows from the v2
+contract. The selecting route terminates original-family processing, so
+that family only sees PRE_ROUTING (received) or LOCAL_OUT (local), and
+FORWARD/POST_ROUTING/LOCAL_IN run in the translated family only. That is
+indeed the first open question in the cover letter.
 
-so the three subdomains are idled and off before the rail goes away.
-(Bit 9 of 0x214 is clear because the GPU is in use on this board.)
+Looking into it again, there seems to be two concrete problems with that
+contract:
 
-With the NPU enabled on the same kernel, rocket probes both cores and
-an LLM runs on them, with identical output on two runs.
+- original-family conntrack entries are created at the entry hook and
+  never confirmed, so stateful rules in that family see replies as new
+  or invalid and a conventional ct state established firewall drops
+  them;
+- SNAT in the original family before translation is not possible, which
+  rules out NAT44 in front of a CLAT and the NAPT66-based NAT64 recipe
+  from the v1 documentation.
 
-Tested-by: Vladimir Bely <vlwwwwww@gmail.com>
+So I do not consider the current behaviour settled.
 
-Thanks for the quick fix,
-Vladimir
+nf_hooks_lwtunnel is one way to add an original-family exit hook, and
+seg6 is a good precedent for the hook placement. I am less sure about
+the gate itself because it is global, cannot be switched off again, and
+is off by default, so the default configuration would keep the problem.
+
+Two alternatives I am evaluating are calling the exit hook
+unconditionally, and moving the translation point to the LWT xmit stage
+so the original family completes its normal path. I will come back with
+a concrete proposal and a per-hook table.
+
+Which setup do you have in mind: SNAT before translation, filtering, or
+accounting?
+
+-- 
+Ralf Lici
+Mandelbit Srl
