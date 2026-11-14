@@ -1,98 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794674980;
-	b=U5NU6Gi0ByIPuOzR1cSwd+/ijRsL0LsU4op2ViR9YbGzLgV5KwpOAX7iQ2u2euB9sgIs
-	 fQZUQxSnMcGr1Aa6UgJ1e/JuPTPeFDEI9wfZwTAa+aOzjdoHEmiEBdms/OamAGC7BeLWB
-	 TCWbHw1B+oKnDs7x8rUMi/1au2T8NzYV5O23xvCWxK2dqCPpzzpQGICke506/x3i4avpj
-	 PfiXFaifZopytegaiXbolLEjoyuvM8LfX1XsocSJjf9lG8qDp52H4Z6FyXEvWhWYU8sLG
-	 6s1estdegiUDQgR1rb3IJb4PEEPI02KhKiWZFpAPOUtVXUykz036CKKtDma+/Gf+adA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794674980;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.179
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794674999;
+	b=j+MAWlcjVQ0JTgegR3e+0cKwDkZwDS3Jna614VSFLEEDfzsV2+GtU2uK1ThkvBqoJuaT
+	 g3lg0TP1VgwNgal8Xid2TLOusl/Eo+GjgaAY1chuL+o04Lw7oxe6qOj65VRqAFwqSBO/s
+	 oaqjXv/fjsNOHny+A7LWAlDS9HsCMv+335TmVeqTZE3M56exKr+VwSuvk0SoCntEZRBmG
+	 lNWQjc91pBIyQilhhGRgvqxlwL2fnZ0xZikqPpVULTkZYb6pkAGo9efEoditOGU25nI3C
+	 2Hv64OVYF4F5c+u1T0fr4lFA6nN1AJ/XjQbSszVB9XKnQk1VDWYwneZAsdt8RXSWIyw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794674999;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=4MfgnZUAxYtPMdkCLogJEqW5pilJx/+POXbl7hayrsw=;
-	b=O+SQIqb7BrcpaATmEM2+lZSSpVweW+PyYtoOOUnwliLehWak39cUQQHJnhWrosw9NfE6
-	 NRxeoVIg8suLxOF1kotXH10AILYw8rtxs5vkE7Kt0L7ED1gBHOdiRXTa5zCUEqvOAatGa
-	 6jpVK+NWgI37G0mNQY9xUSQ8rn0xwSihrUrkKe08VoDDgTcYLAKnWSaNcbTx385Mlf2or
-	 myewJndSg9l8ZWwZSCvHfqghCasUVAPL7c6KTd0Y9WFB0+7T/qDPd/RZEOBNVnjuyIGFB
-	 dbtu98ytEHk+7j7K0EzHyu/opbLeas9JFZc4DCcylk6QGcXNrpRq7iZvH/RTboYBfMQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TdxsQxDx;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=GUFPtUc78Ff2nzctbKPfIz/d8+p1b1chHezhK1s1XBg=;
+	b=fDIjinsIGEFpEaAUNQRpKbubbhKV8OhOR9xhqZsp5Tw5aqddJCH4mrR/XyeCdLY9bJmo
+	 VLL8Vbmm2aeNL6X2O74G/KEp/qzMdBnai6UYOgPfNc1Hq1y94qFJGnwjnCquc7j8HonqL
+	 i2pMbnQ5d0lRkwfVQRRyvWBPuEG35Ymm0tgwxpdyJqkRgiQCQ1vJanvGBYihXhvSgC8Ie
+	 jpoNOYWBpbB4IyvF41Em+wxHldqks7hMlVE8L1LXUsIekt6J6JOfdHHSifnEO/ZyU5bMA
+	 iOBElAvRxQhjb9Reoa59rvrlqtjgpQnfoeHBNF+gJd4PDew4vVnqPrNc2YxI4TDb1Ag==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QT1ksmBZ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D41A606A8A3
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:49:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D41A606A8A3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59814606A329
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:49:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59814606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TdxsQxDx
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-49a92144733so770587f8f.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:49:39 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QT1ksmBZ
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-37198ed3727so3493918eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:49:59 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794674998; cv=none;
+        d=google.com; s=arc-20260327;
+        b=a7iFbTBhIfmbZqwZbg6Q5I3ZBjENBECrc/rVXsJ24a+A5bFzY/IXes+d+ZhNjqY+lz
+         zXbompJXbXQf2fQ+I/WrugId4ehl8SXRQZ5h0/B+teYrI1Ub9kEzGgA8JjRecE04BXY/
+         +MQwqdBaMtPGUyG//2Rq2yhADbaDCy0dIuT+pL7bJtcROwSHBbFYN9Rcx4L35BuklnCs
+         M0vH6CuxDPQQ/HHYJqC2oRb8iL7l6KvcMl1fqJIOCyh+oqmo7sFHkXpCLGe0UMpgHcIn
+         tDOvXde+rK7IvbyiK9VqNBy+fFW1mZ0vyZFl77mM8mUt031dpZF3RAqgLzN0h9yb2WK0
+         sEMw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=GUFPtUc78Ff2nzctbKPfIz/d8+p1b1chHezhK1s1XBg=;
+        fh=jlhfdQkaLGSLjHEgoeGz2hLnqaENjVkBte0+hh1zGBM=;
+        b=aYrVdV0RV6c8hH2Db8qEsrtv3o3yYCi8gipGuD4Mzu8TGLNJ9SX9w43nHYGgR8+HUY
+         F0f9ZVEMJ2Q4wRIdkalNWpTaKDmSYz/pOZlQqrnsTsjaVQcUdIAq6n/xCOJ71lQJ3O8+
+         9o58GBrgYzVFRTRzbGnsUD/n+J0gcqc5IOHf8u+Kk/n5cxAYVWkPEDoO6Dyeivh3JeOt
+         75ZCk2qxra5FAwgW1E+xk+/kdyqNKH4+5yB+SRylhHwGh55AtzjmMeJpKwTS/cp8VOcd
+         83NR6741mirFp/ijMbh474E1brdv0/vmPEI9zErTE/z1msgwOAToZT6UW034W4Pzz1n7
+         u7DQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794674978; x=1795279778; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4MfgnZUAxYtPMdkCLogJEqW5pilJx/+POXbl7hayrsw=;
-        b=TdxsQxDxZc0T9Cps6oqeJyMpBITPAEyoh+qpULe++WfWK+v6XZXF45CGxiluV9d3CE
-         MVbEGey/x66s7G07TrCz9wReJwNoKcKgGqY7Sl3QUCKg1c8N3FAe66sBJ1rQzKBsNL3g
-         Gxsye2duxBnaElcU9Py721YBQQrG1X8a7JH23KREZ1bOARkGNJ7ATX6K3f050R2/YIiC
-         /E4L9/iHY7Z6o7RCNWg/RO2vq0t5LAxplcFAtvraVMUfchP8gK03JOxIc1fDBX1UvtoL
-         jshd6CJm+X5WZiI9oEj3N8JpRm/VvnT7kvJdcHkIvi03KWLgkyzSbi70GVEqwiregruT
-         MchA==
+        d=google.com; s=20260707; t=1794674998; x=1795279798; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GUFPtUc78Ff2nzctbKPfIz/d8+p1b1chHezhK1s1XBg=;
+        b=QT1ksmBZYJTHxX9VIlJwOkYoAstbMSNvCaFil6h6hB7coI8Hw0/trYb8/BMFP8L3fX
+         VQ0d4Q5KMWznywYHFZYnXNMwytK/r7aSnoBfBAdgPTXmUg3decfIcPro1HNYaTmxGDfQ
+         XH4FayJY8UfjC2uS1WGGz3AqQcrezsGeq/dq48l/RA/ITDWvOiKJU1CmXJ9fKeaieLOk
+         8NdEcmr9lMQCGiFdEAdk4vxnGuGB5epLM8Xx03pOaJBMTvLnPmle54txUURtXFHl3juz
+         61QIeBAEt2A22ZWotJwrWFktgzUwDphy1KtsGoj/B87AAJKWW8EL647xaEu5Ps1++/N/
+         W/Jw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794674978; x=1795279778;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4MfgnZUAxYtPMdkCLogJEqW5pilJx/+POXbl7hayrsw=;
-        b=E29Trf9TIbWUPVld4u2sr5T2RUkFmEtKadY0KWZXMUy9/uoWhjTHLemhobMB7JnoFM
-         zLUoRCmZt0tmCHvDA69Q764UAzFf54MZFYVztxc+XXjVWE8em3RYAZ0FaIh0MYzsnQet
-         +mt8TL7qoCyEAWPkT3UcXJDCVv1fnig5mGJU+GxI1Mr/dEGe4w3dLikVhNc3OtJqATzm
-         4+hQYL87KQck7Ni5pZ8jBULB0s/1phrqBB4u+t3//b/0tDinSJAQJrNLQmtmD24o+HjY
-         9xrX7nSmCkh6ly0GGHPx7YMScnLqulLTyhwYU5iQwiiuaeGSYauyuRSUBVRVk8Cl/6cQ
-         8qmQ==
-X-Forwarded-Encrypted: i=1; AL+hErGkJ6ILrw9gQUGCksxVzyyZnHh63N7XrYYR96FZgXMjyj3gfSDzKZ32d9jr9MgZVNUJTfUsNekGvnLRqBE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+0+TY5omVv/FH/ri4btN3cAxtEHVHV0tejb80DHqsfRayItOD3
-	zyh4s7S0gwHGoYgpyaZO2GaYNitT25YYx4Bc+kIazdcW48Ee+Do3MLN6
-X-Gm-Gg: AYBFou1lpUM+Q+qbIivZazcbtWqzCInYqvHYB9z6lXgN8i9/J6Ooes5lMTxmU7bh+Py
-	RZmWnHPCcDaT81pRdT6r1x+7usCWBa7L7qbg5tsj1QtFNdX7gh6lS60oDVHqoZOMLLiTvxsJ8mO
-	b6AlrNpVtwcfnn7D7Myt3DqvZgInjjuSwAwXbZSXYZUtAo+KM6i5b8Na6FQp1KDEbCKkaKBtKkK
-	nNeKfASG2pLALc+aSTnoy15WRiSbIiV7Ep/4PhaDDT1iyMrIshqvNDnVriUSeAUnTrPoPm26HHY
-	CKt3TzEsT348RCyk/gvdRnGUeM+Y4RH5CI1mHlvOt+aBrHVi26whzlo6ahrWRh/TqkHuNb15kss
-	krgjQF9UcR9knXVLqTBmArGvrOAAJW1YtfQglCsnZllMMpPHrpCnwey1HO4/YDpAJslGW5L8pEU
-	Nm700AqDWtLhCvncmbFWTAcTlUN/6NXKVjATpE8oZRnWlwkWn3tXTAvd8QdLUogRyaszpbV9gY+
-	bu4YvipFa5SBwhyXfPunzIMrAe9Ib+ipzHx6osnhuFhhXSGlxoKRX4bDGzfH6euNzZlG3jHKQIR
-	a9qWgENRQFWG/y1yLDu/C+n+Y0V44x4HUARuyrpm0rzo4GqT0dr7PjbBtSUz7n909gJoTrQ9YJk
-	nnhjb/xBZmIq3DQ==
-X-Received: by 2002:a05:6000:4918:b0:493:2eb8:e7fb with SMTP id ffacd0b85a97d-49c72ab0a38mr12067465f8f.41.1794674977448;
-        Sat, 14 Nov 2026 08:49:37 -0800 (PST)
-Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c60d9fff8sm12107798f8f.52.2026.11.14.08.49.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 08:49:37 -0800 (PST)
-From: David Carlier <devnexen@gmail.com>
-To: linux-media@vger.kernel.org,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: Nayden Kanchev <nayden.kanchev@arm.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	David Carlier <devnexen@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: mali-c55: Serialise the ISP enable in the params and stats paths
-Date: Sat, 14 Nov 2026 16:49:33 +0000
-Message-ID: <20261114164933.2657337-1-devnexen@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20260707; t=1794674998; x=1795279798;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GUFPtUc78Ff2nzctbKPfIz/d8+p1b1chHezhK1s1XBg=;
+        b=Yb9eFHoMp0uxB19RDA/2NRYwPDGXdywXIU1w93xkOsDOl1ZNEpNilX6cilaeDQWxGp
+         tuPbS5hTMTyl2GHgXNX3hn/hecGeJW6L79H9l+xTm5G5LoFUJ9jf9N7kNsrbzlPMHkZ6
+         Acewy56EeG92dqgxaglZlyI/jVZpcaYJHeOrM6hP02KTyXNcy4w+fMKE0kaSbaLH8XCr
+         8OKLBOvwatdh27Jg2kxouDSIOEk3Nhat+4SIo1CdqZ8yRRGVFAnJu2o02oIHW6R7G+Xo
+         XJNABvBM7bOmsi5i+OidFQYn2JoFOvWKMbcpUGrTqavH6LeAVjd1ILMmmjPBjneHnflI
+         0mKA==
+X-Forwarded-Encrypted: i=1; AL+hErHSxcBxNVzDfNFge4ViG/xA2dot8SH2vzAdOx78tIrfMxxaZmfFSWIqkgT06jazMX/yOdjrCEpSdfJh3xg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z86RUpFhP/SV4254oE2/Yd+VqE/vZomo2fJeVrzv6WYWwGaNUqr
+	qZgMCTACCbzFETN44gYs+XKl695VhnAzprsIpmw3+/6w+1QkZfW27JPmGJcufgsqPyPxptNWNfd
+	PRRlSGiw2fSoyvCytt9J+73Y9nVg3q59KO0OulCE/
+X-Gm-Gg: AYBFou1tlyefFdkqSjAIyBEkaKB02SYHO4go00ZaP3cQD8cUGHCcl+B7Ues5g3pqSd/
+	tJaA3KHHNScIGrE2BQhhyCGLaMUygBCCjRHdLaprrRTz62iGw8GN2KbqeOzaJizo6sHsxyDIcZn
+	TyTiLA5ftu4kxy1bpE1kNSl5LOTjex10abVN5gDDZUJsopfI3c5yxqqKNs4ugdsowaJFuyXmP4q
+	28UqI6q/A+ZVJMX1i6CPwEns0HCDQVNkUOW+4einfHnXYkLhFibwT7T1xN6g9jSt2kUZkMepXLx
+	wVV51hBWQ+Fkymu/2WuyFKNT1tEqMeUEAmVFJtbhPoHPdfffOBMOqMI867e4pOpzQvrhZq8al+a
+	216Llbmmu4OKZcW2qqUQBWAK+9gwu63LFqZ/Il4dIHI7/YJrzU5i3izC8N7GNBlHg9V4DV2En4N
+	EZqY4CU6iBNjKtiB4gDXsa7gNVwEFmaokr0B/WYDczzLgQINLmO+54+lcPtY0nM4pgE4c+WGYQY
+	q23NnL/ZQ==
+X-Received: by 2002:a05:7022:3c0f:b0:143:808b:b178 with SMTP id
+ a92af1059eb24-1b4f5f93ca2mr6484146c88.26.1794674997531; Sat, 14 Nov 2026
+ 08:49:57 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,69 +106,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261114162632.16346-1-sidchintamaneni@gmail.com> <20261114162632.16346-3-sidchintamaneni@gmail.com>
+In-Reply-To: <20261114162632.16346-3-sidchintamaneni@gmail.com>
+From: Kuniyuki Iwashima <kuniyu@google.com>
+Date: Sat, 14 Nov 2026 08:49:45 -0800
+X-Gm-Features: AclHuK8e2NpHhPJrGzHc56g3dEpZLqRfkrJ7tU89mCr43OpsTZY4kmX_0Ds9uN4
+Message-ID: <CAAVpQUBxBDe6kwE_0nKcjnNyfH8_DgYXC99xP5-UATpGn36Vhw@mail.gmail.com>
+Subject: Re: [PATCH net v3 2/2] selftest: af_unix: Test scm_fds on dgram disconnect.
+To: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+Cc: "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Shuah Khan <shuah@kernel.org>, Kirill Tkhai <tkhai@ya.ru>, apais@microsoft.com, 
+	hargar@linux.microsoft.com, rlmenge@gmail.com, egoriluk@gmail.com, 
+	netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Only the capture devices hold isp->capture_lock around the
-mali_c55_pipeline_ready() check and the ISP enable or disable. When the
-last two queues to start are on different video devices, both can see
-a ready pipeline and both enable the ISP. The second call fails with
--EALREADY and its queue's start_streaming_called flag is cleared, so
-the ISP is never disabled again and every later start fails.
+On Sat, Nov 14, 2026 at 8:26=E2=80=AFAM Siddharth Chintamaneni
+<sidchintamaneni@gmail.com> wrote:
+>
+> Add dgram_disconnect_fdinfo in scm_rights.c verifying that scm_fds in
+> /proc/self/fdinfo/<fd> returns to 0 when a connected SOCK_DGRAM socket
+> with queued SCM_RIGHTS datagrams disconnects via connect(AF_UNSPEC) or
+> observes a dead peer in send().
+>
+> Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
 
-Take capture_lock in the params and stats paths too.
-
-Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Carlier <devnexen@gmail.com>
----
- drivers/media/platform/arm/mali-c55/mali-c55-params.c | 4 ++++
- drivers/media/platform/arm/mali-c55/mali-c55-stats.c  | 4 ++++
- 2 files changed, 8 insertions(+)
-
-diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-params.c b/drivers/media/platform/arm/mali-c55/mali-c55-params.c
-index 16e895e3488e..6515c78c1bb2 100644
---- a/drivers/media/platform/arm/mali-c55/mali-c55-params.c
-+++ b/drivers/media/platform/arm/mali-c55/mali-c55-params.c
-@@ -762,6 +762,8 @@ static int mali_c55_params_start_streaming(struct vb2_queue *q,
- 	struct mali_c55 *mali_c55 = params->mali_c55;
- 	int ret;
- 
-+	guard(mutex)(&mali_c55->isp.capture_lock);
-+
- 	ret = pm_runtime_resume_and_get(mali_c55->dev);
- 	if (ret)
- 		goto err_return_buffers;
-@@ -796,6 +798,8 @@ static void mali_c55_params_stop_streaming(struct vb2_queue *q)
- 	struct mali_c55 *mali_c55 = params->mali_c55;
- 	struct mali_c55_isp *isp = &mali_c55->isp;
- 
-+	guard(mutex)(&isp->capture_lock);
-+
- 	if (mali_c55_pipeline_ready(mali_c55)) {
- 		if (v4l2_subdev_is_streaming(&isp->sd))
- 			v4l2_subdev_disable_streams(&isp->sd,
-diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-stats.c b/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
-index a9c28b090b2a..cbd2a2f77da3 100644
---- a/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
-+++ b/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
-@@ -146,6 +146,8 @@ static int mali_c55_stats_start_streaming(struct vb2_queue *q,
- 	struct mali_c55 *mali_c55 = stats->mali_c55;
- 	int ret;
- 
-+	guard(mutex)(&mali_c55->isp.capture_lock);
-+
- 	ret = pm_runtime_resume_and_get(mali_c55->dev);
- 	if (ret)
- 		goto err_return_buffers;
-@@ -180,6 +182,8 @@ static void mali_c55_stats_stop_streaming(struct vb2_queue *q)
- 	struct mali_c55 *mali_c55 = stats->mali_c55;
- 	struct mali_c55_isp *isp = &mali_c55->isp;
- 
-+	guard(mutex)(&isp->capture_lock);
-+
- 	if (mali_c55_pipeline_ready(mali_c55)) {
- 		if (v4l2_subdev_is_streaming(&isp->sd))
- 			v4l2_subdev_disable_streams(&isp->sd,
--- 
-2.55.0
-
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
