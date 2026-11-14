@@ -1,76 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794661766;
-	b=0J9pKAVgCSwA0s9CgxFrFFUTu8PXgWbXJ11plRVMMKhivOSWm+gcUlyfvilO+JRcGDc2
-	 iQ8q2MUNZSr1adrqmZNk/7aUcyCNVulbocmyRyX6mJYbz3iVJUiyE9ln4mCYtV94RjrNN
-	 om8aUj2Y66Ab94JujdZkL+pCRNdoNGUImxHUKodqlHGYST59n3y+5sGgBXwO80hlIKPbN
-	 eFV6OukNbHx+8aodobnfsc0CrH/rFUOB4ko3DdXWMIUMc43uaHvL4msnxtFPPuPEVguXP
-	 tBmzxxiwNwXUWWagkaaiR87qj5A9GUuD9aFMxWVx1QGmPyBHlw5RpUQP+0+F94xcX7g==
+	t=1794661761;
+	b=LbWF0V9eaigxEAtieeJosu1yHsr9ZrjWLx46SPdOxbO/XgllZdElBFpFB40N8J9a7OR+
+	 IGd8irXSJs6LSN+L3wgriOqcVPDYeoe5XgvE/N5AJEOWH8NvjMe7dpNwubW23NJwJEjW/
+	 1MH96o449hp0eDxeKBKWmlHOODT3nesEUvGmBay8tQa6ZGATJeh6/L7DSr64N5ADrEBNU
+	 RiXaTTnDtMTzUSygMpjQrCFWbhcuZOGiiqaEkwPyelLsh+zGhaFoGGN7ViNJ/jwOSO/Eo
+	 GOVU7oBG9NSebAOlMZaL1YMOAMVdED6Q56ihGnY73nrsVw6caaji/bLD1vnEu2o3bqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794661766;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=3ZTzQECzP8zCA4zZIUOYcMmNhdFsxwT6/XtJiNtrnio=;
-	b=vy5FmxX4w1W1BZsghG6SYr3dAWpuhjO13SnwGCku+SNIIyc5/Oe3rO3LJ5+uqi4iMLEr
-	 wdbMpbioyedLvUeW4cTRfQ/ymWVe0HlFw4YMP0Ue0eAnYdRMdmQcoGxLKyX+bFEbtPHga
-	 cyHRN4zIe6v8HCte5jp0i3zx12rBtoCr1ChzjDjriT0alUdTbIEvCOkHggOs7th5lSlIg
-	 SppZo6FZX06hP+OQFoCo6jIBoCZHBB2J4eXux50pSbp+VfiLsRXrvpV4OyGHclM+RIydY
-	 okZSaL/qSdkc2K4/ZL/Z4Q7VACXEkEOD4OEJfJBegwkAwCHupTCXYHGKChP+88XV0gQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794661761;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=OdlKWawwdwZpGTfkQNHBk5b32jOSAzRsLtI4xTW1vDQ=;
+	b=ZAnAQbSqC2pVrDCw9p1b7rRDsviPVHdVQnFOChkfEtRLWk32gFe33R0kaoWFXlLaSYvU
+	 psGMkeQqvWZqJTAsHGlo2qTK9+UbqE99/f0gDVmsGLLvSV1jYUEt67ek7Q69xGml83UG6
+	 nQZ3QxQkhuuOxbd8gxY0Wo48VH8/mHOWeS6jry9Yb10nttrWu5JspOqqKdJs3mMaYwDtb
+	 xDdNHFCa3VIat1rcTrw2qqqjSKrl/v8VhbxulG9PL4YL9n+AhdtUH9edsrrGUZw3p8OCi
+	 iuxXPB/ZXWx0U8MuCLSuoLcao5qqmBPoP5C6elOph86o9EMvfZ+2Js4SRag9U2Eb/lQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cVGwYf1e;
-	arc=none smtp.remote-ip=192.198.163.18
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ahGg+gbK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CFD3606E0CE;
-	Sat, 14 Nov 2026 13:09:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CFD3606E0CE
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DABF86075C64;
+	Sat, 14 Nov 2026 13:09:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cVGwYf1e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794661765; x=1826197765;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=3LrEAWD2vso0+yzov29pKHt2uGcBzvsMBwzmMMJMss8=;
-  b=cVGwYf1eQ3SbkOsXKnm9vZwk30XqMO82lJ5uLZjPbwLzgZ0dheOBGsyT
-   u9rQoN0HU7pJHuLtvdn8k5eekJ8IuiXyJlaI6l+rKyfM8k648/Z5Y4eYQ
-   RY5ofKVcxTN9B58Z8fwnDX5e4V8s9EQRk4cBGmCxVzkctSLytiBt0aJIL
-   AfvKUeIRC9NTXnxfh60sQWAiETdSbxWwKYdRpwc/7zqVZoTQM8idbKKHy
-   U9kLhXJxgpRVOlUS2fFUM7TZ1ZqylCds3SFbQ8RX95Y3BBbDMpzfrkQnv
-   AuJO1/89hz9EX45ykFkoMcUcm13GR//FGnd/wF+EXaANDnepo1tAuYZGy
-   Q==;
-X-CSE-ConnectionGUID: IkFvKW0yT6ypIZWsUjzAmg==
-X-CSE-MsgGUID: f6XjP5iQRuCZphamSVQJAw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11966"; a="3488611"
-X-IronPort-AV: E=Sophos;i="6.27,213,1787036400"; 
-   d="scan'208";a="3488611"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Nov 2026 05:09:24 -0800
-X-CSE-ConnectionGUID: vx3GMDnIRuiBOgprM3V5lA==
-X-CSE-MsgGUID: vf8gb478SwiF8fB8umKoTg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,213,1787036400"; 
-   d="scan'208";a="9685598"
-Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
-  by fmviesa010.fm.intel.com with ESMTP; 14 Nov 2026 05:09:23 -0800
-Date: Sat, 14 Nov 2026 21:00:58 +0800
-From: Xu Yilun <yilun.xu@linux.intel.com>
-To: Aravind Thokala <aravind.thokala@amd.com>
-Cc: Moritz Fischer <mdf@kernel.org>, Xu Yilun <yilun.xu@intel.com>,
-	Tom Rix <trix@redhat.com>, Michal Simek <michal.simek@amd.com>,
-	linux-fpga@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, git@amd.com
-Subject: Re: [PATCH] fpga: xilinx-pr-decoupler: add shutdown() handler
-Message-ID: <avhbivs3HDdvzrtB@yilunxu-OptiPlex-7050>
-References: <20261110-pr_decoupler_shutdown_handler-v1-1-b833dfe9d380@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ahGg+gbK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BEE61F000C7;
+	Sat, 14 Nov 2026 13:09:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794661761;
+	bh=OdlKWawwdwZpGTfkQNHBk5b32jOSAzRsLtI4xTW1vDQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=ahGg+gbKJXxbgqkOcSvuZjZ7iPlwqVzDb7EoxKqbMYLfnwG2b1ybTE6823Yt3K+6g
+	 6pxGQrYoIqiTMRS2KhVum/gBvAKYjwtRqLYJCBO/9ug+3ibc96rUKSQG8oL+uPM/Cp
+	 otj/ItmyYhEy+iuvYfxXHkC9TxP25a1aDbikvQC0LaWKFqqkHfvi1rF3sXkQx5MRrH
+	 gup6EgTCHwl6mcX33AkMw33YPKcSKfn9nILfmzWaqX+7hRwWvA8CVF1JFBWIvMizqB
+	 9iaDWPBWP9dpOG/jN3GKX5YzZjKL84UtGahKm/OO3Hrc5uHtCRmGPTFTPgEI2L+fkM
+	 4xc2owYmq/A9A==
+From: Christian Brauner <brauner@kernel.org>
+Date: Sat, 14 Nov 2026 14:02:13 +0100
+Subject: [PATCH RFC v2 32/42] usb: gadget: gadgetfs: use fc_init_pseudo()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,67 +52,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110-pr_decoupler_shutdown_handler-v1-1-b833dfe9d380@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261114-work-loop-pseudo-v2-32-98639a2286fb@kernel.org>
+References: <20261114-work-loop-pseudo-v2-0-98639a2286fb@kernel.org>
+In-Reply-To: <20261114-work-loop-pseudo-v2-0-98639a2286fb@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Jann Horn <jannh@google.com>, Chris Mason <mason@kernel.org>, 
+ Josef Bacik <josef@toxicpanda.com>, Christoph Hellwig <hch@lst.de>, 
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org, 
+ target-devel@vger.kernel.org, driver-core@lists.linux.dev, 
+ linux-mm@kvack.org, bpf@vger.kernel.org, 
+ linux-security-module@vger.kernel.org, selinux@vger.kernel.org, 
+ apparmor@lists.ubuntu.com, linux-nfs@vger.kernel.org, 
+ netdev@vger.kernel.org, fuse-devel@lists.linux.dev, 
+ linux-efi@vger.kernel.org, xen-devel@lists.xenproject.org, 
+ ocfs2-devel@lists.linux.dev, linux-s390@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, linux-usb@vger.kernel.org, 
+ Amir Goldstein <amir73il@gmail.com>, linux-erofs@lists.ozlabs.org, 
+ linux-kselftest@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=982; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=YWRf7GOro6drmYRPuYvYnNI62ZxquNzo3CA3o8p8z3k=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWT9iOkuXt19v9szNHxy/sSShDNHi+s1AhW1jvfPOLx+v
+ 43t+vdHOkpZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACZi95Dhn+K7b5fV2hevnL5D
+ 2vJ8vvv+x1/kZkmvkvsmunJ/0t+X6ZmMDDeNr0oHP1bwdTnx7e2hwBWKTidX/diQpKYmvejZFYN
+ lK7gB
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-On Tue, Nov 10, 2026 at 12:46:35PM +0530, Aravind Thokala wrote:
-> Add a .shutdown() handler to decouple the Reconfigurable Partition
-> from the static logic on reboot, shutdown, and kexec.
+Initialize gadgetfs as a pseudo filesystem. This raises SB_I_PSEUDO and
+also SB_I_NOEXEC and SB_I_NODEV. gadgetfs never holds executables or
+device nodes.
 
-I'm not sure what problem are you going to solve by gating the PR region
-from static region regardless. Please specify.
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ drivers/usb/gadget/legacy/inode.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Before I get enough information, I generally think that's not the right
-way to solve problems. You need to gracefully handle the specific logic
-inside the PR region which actually impact kexec, so that they work in
-expected ways, rather than abruptly cutting down the HW connection
-regardless.
+diff --git a/drivers/usb/gadget/legacy/inode.c b/drivers/usb/gadget/legacy/inode.c
+index 7f6d8460152f9..8490e5d0351e1 100644
+--- a/drivers/usb/gadget/legacy/inode.c
++++ b/drivers/usb/gadget/legacy/inode.c
+@@ -13,6 +13,7 @@
+ #include <linux/module.h>
+ #include <linux/fs.h>
+ #include <linux/fs_context.h>
++#include <linux/pseudo_fs.h>
+ #include <linux/pagemap.h>
+ #include <linux/uts.h>
+ #include <linux/wait.h>
+@@ -2223,6 +2224,7 @@ static const struct fs_context_operations gadgetfs_context_ops = {
+ 
+ static int gadgetfs_init_fs_context(struct fs_context *fc)
+ {
++	fc_init_pseudo(fc);
+ 	fc->ops = &gadgetfs_context_ops;
+ 	return 0;
+ }
 
-> 
-> The handler writes CTRL_CMD_DECOUPLE to the control register. On the
-> PR Decoupler, this turns decoupling on, which stops signal changes
-> passing through the bridge. On the DFX AXI Shutdown Manager, it
-> requests that the IP stop passing AXI transactions through.
-> 
-> Signed-off-by: Aravind Thokala <aravind.thokala@amd.com>
-> ---
->  drivers/fpga/xilinx-pr-decoupler.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/drivers/fpga/xilinx-pr-decoupler.c b/drivers/fpga/xilinx-pr-decoupler.c
-> index 1405ddbe88f1..75b59edbf440 100644
-> --- a/drivers/fpga/xilinx-pr-decoupler.c
-> +++ b/drivers/fpga/xilinx-pr-decoupler.c
-> @@ -137,6 +137,13 @@ static int xlnx_pr_decoupler_probe(struct platform_device *pdev)
->  	return 0;
->  }
->  
-> +static void xlnx_pr_decoupler_shutdown(struct platform_device *pdev)
-> +{
-> +	struct fpga_bridge *bridge = platform_get_drvdata(pdev);
-> +
-> +	xlnx_pr_decoupler_enable_set(bridge, false);
-> +}
-> +
->  static void xlnx_pr_decoupler_remove(struct platform_device *pdev)
->  {
->  	struct fpga_bridge *bridge = platform_get_drvdata(pdev);
-> @@ -147,6 +154,7 @@ static void xlnx_pr_decoupler_remove(struct platform_device *pdev)
->  static struct platform_driver xlnx_pr_decoupler_driver = {
->  	.probe = xlnx_pr_decoupler_probe,
->  	.remove = xlnx_pr_decoupler_remove,
-> +	.shutdown = xlnx_pr_decoupler_shutdown,
->  	.driver = {
->  		.name = "xlnx_pr_decoupler",
->  		.of_match_table = xlnx_pr_decoupler_of_match,
-> 
-> ---
-> base-commit: b3dfbde62cf1981c4638939c159dfd087b7a72e9
-> change-id: 20261110-pr_decoupler_shutdown_handler-bf2596f6d1de
-> 
-> Best regards,
-> --  
-> Aravind Thokala <aravind.thokala@amd.com>
-> 
-> 
+-- 
+2.53.0
+
