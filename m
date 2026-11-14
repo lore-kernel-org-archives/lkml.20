@@ -1,48 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794661720;
-	b=Rn4vS2NY88LAHTG60G2dabfQWHLMuXjntlCoyG3hNWyLVqsoKwBee39t9rND1N0EaUvY
-	 smQrYueTNlGDb/0CTcbp7uMWXIqahWx0CW2xqKt/oOEj0FX4ZGSaW0iBLqY1YfJmJkaOR
-	 WNUbZA9PwrzJ0d5yOtKe8ENdY0E1aVBPGNWy0jyiCeYBXXCHbKEzSZq7qfTHbuawC4GH9
-	 fCK1XU3ePxoqsnEgbRKwQxgIJq1bpFilHa8AkjOdzrAtVsKeAN1sayLUo0h6D1KHFnNrS
-	 wQyjhbQUOG89Utw5crOEPnKR1WkoPgdLQYz74/pHHUpt5qcXc/EHn6AqyK4I26bHRYw==
+	t=1794661725;
+	b=5MKPJ/I3T1oraXNLE5XMS3rVQ9VSd5S8boYnPOGVFT8T5F0U9HVfyS5oPQQee9yvhLIX
+	 +IuEhCNeQxyZjv/DgFW3J6aeh8bZewOthOTJRTcaErdyaR/npzMcGq/SgN8Xj8PFZueJd
+	 i4qyZxstQYvY3HZ/JRtkO1Vgnzwt5BAE8GSCDfHHboEh3Tf5JUHqhRxWkWezY49uLcfgu
+	 3NWtj3DSKyS+4GM9oNfhwfnzme+ZdP1Od/SqsjE9ciEEJGvPs7oHpOO+KFL3Z5VXXom1q
+	 C3F4y5mR9nMzE32v5ioj6N3mANwkkbQeUr/jXK/srVmTBt8D1uxsIXp9tTqDAkXSBSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794661720;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=IrVRaUgylyW7dx1wUoEgP8enLWWhiisOApdkF3tckhc=;
-	b=Dg2doyJv5VuCBsV51TZQl94oNhlUTXwqboh8/SVj/1PTJaTVo0eyuvEX1Vf7SRywHxIV
-	 Cfv7lgiKLe9el7BQbNyc/O5zZRTHqeQZ3XEoA2FvCjOkvLhh+jofdiWPgcutiRr61IIm0
-	 rCgY2nzRqsejPk2dc7sbXsyjoQEuWnlumwegXw8Ob+25GJlUlogtkePpNMtAFCXthZj0P
-	 M27Ynb9bWyDTppoCmH3pB+ejoilzt8qqQsDxtglMTa8PeqYzAK4mLtDoLJV6NxK5yJGMs
-	 tEqUDMBtgfXXHZpQzSbVI9nQ6yU1/MugY5d3qWkO9UHSOkqEEZG427GP4ucE4fQRqSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794661725;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ENcuBo4USOfVQFhUObechYbDtZ2GfADFPof/Bg1RaM8=;
+	b=qKQ3QT8m+PtdOXiIEMIq/DklxWLBMqENEqDOz/2CCzB8jTBxN/qREjsgpRxoz1JR40fv
+	 NGPEiJ67gN4ONNTO1+biZnRb0etEIPCqCX/bgxKVttwu4K9+VUik59PNRNAxrSfEQ4aIq
+	 OUt3rpPus78B4scsMWg1NjEbNMpaLk/GpMlGjqCDqdlEymEy7zGLmI00G71RkZcE4vjq8
+	 TDMQLMHKFkLpPE2foM270fTffvwOH8QEiKKuNoR75SgcmxH0S5x3gb3jpAg0TA2lGDGew
+	 jkoHmA6bp2l9JC0TKCmWyErwj7gwfygs1XoICGfuqDLWPwICMNZ9vSxs/ZawBLSwO5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CSnJIGlX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UfZIYAbb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67F0F606A8B2;
-	Sat, 14 Nov 2026 13:08:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B10D6606C699
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 13:08:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CSnJIGlX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBB201F000C4;
-	Sat, 14 Nov 2026 13:08:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UfZIYAbb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57A171F0181E
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 13:08:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794661720;
-	bh=IrVRaUgylyW7dx1wUoEgP8enLWWhiisOApdkF3tckhc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=CSnJIGlXVCwPfZYGjaLB6IqanwTkuYMOqLjiIV98WyWx8/XlfQskQ4Ncrgj5RhMZR
-	 wSZWZkZtit+aDjyLJmmgvMVuloaMpGHPl4V5iV3BBa563e5JY9xO+gJBwtTb9q7Q8C
-	 mdg4xQ1+bqoQpc+gIpw5ks/W1KsdFYl1y8ZZRTzVOQ9kvuq4mogGtVJ4dS/PfMNIH3
-	 q1Qk3HwuKj12Ep3f9iEkAbgFiSF6DWteKE3HQuNBK6n0301E9uMdY5e48cCjb0q9en
-	 cBz3CDPb58li7HRkb67AF/RctpON8mZ6M2WcpSfLnE1Hp/QuclXpoedwNIpfQtb034
-	 yVf37SRkLjV4w==
-From: Christian Brauner <brauner@kernel.org>
-Date: Sat, 14 Nov 2026 14:02:07 +0100
-Subject: [PATCH RFC v2 26/42] xenfs: use fc_init_pseudo()
+	s=k20260515; t=1794661725;
+	bh=ENcuBo4USOfVQFhUObechYbDtZ2GfADFPof/Bg1RaM8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=UfZIYAbbcFGk1GP4Q4eKfAcqvuppW3Wvi9Psg08B3GWREll4Tdsxk/TqwaG6emPge
+	 K1zuRY+2fbOyuFHAl4Re7PYdfjDYozXFJQRCWe/VlTVxJlZEJa/fGud3tINeXQs76m
+	 xoT8i8SSpfj3RtdNDmUG8aYEVDzUCtGrIHnw0qAmJdIMQNzwBQn/3dVSmOzcQAmUFJ
+	 9gW5ZhzallYtftMidwJtEQDCX80k5Gi3bpwlGLBlFzbjvsOK1Om/iSDzsilcMNJtj2
+	 X7J9Dcc4io/tCbHG1RjRHyxw8N03cYszawfFPmlXkDpQ6HM3+Ox/90uqEesFxF+36v
+	 DXAVZgrsXU4EA==
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49d05d51553so10244325e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 05:08:45 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFMMrYweCheetgZgWyathK6ZU2KAh4rBV3u9ol5v+1gKz8pQ5OlyZKUgWlBF/gdE/pnAOSeqEFteEDCHfw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+0PmksuniS68F0BKhznS5WCuIWxBpGN4+QbwubCDa4stdzklM3
+	j6K/UrdGecdNILFQHnf1Uz+2Mqu16J8tJpLhSi8J0vO5K7t5HVNSmDIB/MJd1CAxTBEQjGAXgEL
+	UeDkhibV1ZK2RqNppYgQUnBHAtxa+xh4=
+X-Received: by 2002:a05:600c:3b16:b0:4a2:267:25b3 with SMTP id
+ 5b1f17b1804b1-4bb55ab4493mr118562415e9.35.1794661723805; Sat, 14 Nov 2026
+ 05:08:43 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,71 +59,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261114-work-loop-pseudo-v2-26-98639a2286fb@kernel.org>
-References: <20261114-work-loop-pseudo-v2-0-98639a2286fb@kernel.org>
-In-Reply-To: <20261114-work-loop-pseudo-v2-0-98639a2286fb@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Jann Horn <jannh@google.com>, Chris Mason <mason@kernel.org>, 
- Josef Bacik <josef@toxicpanda.com>, Christoph Hellwig <hch@lst.de>, 
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
- Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org, 
- target-devel@vger.kernel.org, driver-core@lists.linux.dev, 
- linux-mm@kvack.org, bpf@vger.kernel.org, 
- linux-security-module@vger.kernel.org, selinux@vger.kernel.org, 
- apparmor@lists.ubuntu.com, linux-nfs@vger.kernel.org, 
- netdev@vger.kernel.org, fuse-devel@lists.linux.dev, 
- linux-efi@vger.kernel.org, xen-devel@lists.xenproject.org, 
- ocfs2-devel@lists.linux.dev, linux-s390@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, linux-usb@vger.kernel.org, 
- Amir Goldstein <amir73il@gmail.com>, linux-erofs@lists.ozlabs.org, 
- linux-kselftest@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1019; i=brauner@kernel.org;
- h=from:subject:message-id; bh=FUjiFAJ818KMfzd+kfIYJM0T6xlI1Tybz/61rTbofEc=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWT9iGk2ymq59kHLQ6h8olLRV6eCMAf3indWE33bRHYYG
- yoaf7zdUcrCIMbFICumyOLQbhIut5ynYrNRpgbMHFYmkCEMXJwCMJEOK4bfbPpa60rvXBGfN9V1
- euu+TdOP9GV/muPCcL7yp0X8f6GmCIb/wbNO6i6ubdGYUd+54ZleikWZyucDWjzxvCyT2fm7JCz
- ZAQ==
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+References: <20261114-v861-v1-0-eb71ec3ee523@iscas.ac.cn> <20261114-v861-v1-4-eb71ec3ee523@iscas.ac.cn>
+In-Reply-To: <20261114-v861-v1-4-eb71ec3ee523@iscas.ac.cn>
+From: Guo Ren <guoren@kernel.org>
+Date: Sat, 14 Nov 2026 21:08:31 +0800
+X-Gmail-Original-Message-ID: <CAJF2gTScHWwSp6NbTf1+n0rS3fGUU0wRqhkZQVgjRLeu6XpvOA@mail.gmail.com>
+X-Gm-Features: AclHuK_1B3cdhqJcEVfShwQslZ0jrvNhdkA66924rVca4uIM67v6w9N5xpnc6Kg
+Message-ID: <CAJF2gTScHWwSp6NbTf1+n0rS3fGUU0wRqhkZQVgjRLeu6XpvOA@mail.gmail.com>
+Subject: Re: [PATCH 04/19] dt-bindings: timer: add the Allwinner V861 CLINT
+To: gaohan@iscas.ac.cn
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+	Samuel Holland <samuel.holland@sifive.com>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Anup Patel <anup@brainfault.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Samuel Holland <samuel@sholland.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Maxime Ripard <mripard@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Andre Przywara <andre.przywara@arm.com>, 
+	Han Gao <rabenda.cn@gmail.com>, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
+	Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, devicetree@vger.kernel.org, 
+	linux-csky@vger.kernel.org, linux-sunxi@lists.linux.dev, 
+	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rtc@vger.kernel.org, linux-gpio@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Initialize xenfs as a pseudo filesystem. This raises SB_I_PSEUDO and
-also SB_I_NOEXEC and SB_I_NODEV. xenfs never holds executables or
-device nodes.
+On Sat, Nov 14, 2026 at 6:33=E2=80=AFAM Han Gao via B4 Relay
+<devnull+gaohan.iscas.ac.cn@kernel.org> wrote:
+>
+> From: Han Gao <gaohan@iscas.ac.cn>
+>
+> The V861 uses the XuanTie C900 CLINT implementation, like the D1. Add an
+> SoC-specific compatible with "thead,c900-clint" as the fallback.
+It's allwinner,sun252i-v861-clint in the patch; please correct the commit l=
+og.
 
-SB_I_NOEXEC also refuses PROT_EXEC mappings. xenfs maps the xenstore
-page and guest memory through privcmd, both data.
+>
+> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+> ---
+>  Documentation/devicetree/bindings/timer/sifive,clint.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/Documentation/devicetree/bindings/timer/sifive,clint.yaml b/=
+Documentation/devicetree/bindings/timer/sifive,clint.yaml
+> index d53f52e80d88..313fb39bd453 100644
+> --- a/Documentation/devicetree/bindings/timer/sifive,clint.yaml
+> +++ b/Documentation/devicetree/bindings/timer/sifive,clint.yaml
+> @@ -49,6 +49,7 @@ properties:
+>        - items:
+>            - enum:
+>                - allwinner,sun20i-d1-clint
+> +              - allwinner,sun252i-v861-clint
+>                - canaan,k230-clint
+>                - sophgo,cv1800b-clint
+>                - sophgo,cv1812h-clint
+>
+> --
+> 2.55.0
+>
+>
 
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- drivers/xen/xenfs/super.c | 2 ++
- 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/xen/xenfs/super.c b/drivers/xen/xenfs/super.c
-index 37ea7c5c03469..aba7d038ed735 100644
---- a/drivers/xen/xenfs/super.c
-+++ b/drivers/xen/xenfs/super.c
-@@ -15,6 +15,7 @@
- #include <linux/module.h>
- #include <linux/fs.h>
- #include <linux/fs_context.h>
-+#include <linux/pseudo_fs.h>
- #include <linux/magic.h>
- 
- #include <xen/xen.h>
-@@ -80,6 +81,7 @@ static const struct fs_context_operations xenfs_context_ops = {
- 
- static int xenfs_init_fs_context(struct fs_context *fc)
- {
-+	fc_init_pseudo(fc);
- 	fc->ops = &xenfs_context_ops;
- 	return 0;
- }
+--
+Best Regards
 
--- 
-2.53.0
-
+ Guo Ren
