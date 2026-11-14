@@ -1,78 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.10.208.40
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794648707;
-	b=mqMZEkO3fXsrJEiIdM7yUBJ6EKQ1zQCQGeSgO6D4J+mCPRcMvkz7jPCi7UdEF0Yuchuk
-	 AS8TO17vKYhJ/pwrxGtl+F/ZrMQBSsSc+Ce1hW2eepcvnkWg/PNIEapmQvHfy27i8EyRA
-	 b99vGJRHz5cLXkjIK9p8bCO179q457YCUT4DDV2ERuT8UBunsiEtoGtULntV3wGn8UZ+o
-	 PmoIq/jfCrWwADktFpL81KAuukMzxQmyyb11uUP4zmLCP5xgx9p03ABHA68JYE3i+g/w8
-	 HywA5h5VTy/auqhDhF5wVFQ7FogA1seTsjQ+gOmvMD+KVMxf0wHGM4q9UoUboN1qA0A==
+	t=1794648708;
+	b=OSKRmKeWhxUXsn4t90DHCmI6uWT/ixInWF0TL2ow4bh5fKUNiYLf3ZMtL1PgzotyrugR
+	 94eiS3V/8DYVnXdMO6L44DvHj6oi4SQmoE1MJwhXShtRmBYm2B3wM1JVxef9YYyE/RQAm
+	 wvkwxwrqW1mzewiZjVQCLNwVTFDYm19m4PSQnez5yjtte2xaO9T2GY+QLh4gLDZXxba7Y
+	 EjUA4nXwOyYki4gVwL/2SEFOR0x0RJxwKs4gGfWIoW37zd0S4NozMXCI8eWeOoX5pRZad
+	 MfThgMgbmG9fNQdztjIWitc+anZgRvRnoY/f0spwAsFCDDdLcDGWLnVc/RotwCRsrIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794648707;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
-	bh=pjQ4hmRMXf86draSgE9PCPT1dsMh/hpnhuF72YIEcWc=;
-	b=v3ISqbz9ZyIRIC/w8qYLjB7F2OpaBFZ/5DUcUBErc7/Ti2TUk+QyMA/fDuChK+sEVJO6
-	 cuPY8gFoUg396tkhLP1uH6CiJxSPtdmpCneVGrLD+2EBhYnkxXZ3ywZ0XorsmkE4tgVe4
-	 4mfmETCyBgT2hZWmHRulF+e/8Z1k9aVkrsyxj5QH36nzht22WtbabVpqXK2PGUXAKYAtV
-	 fmHKTPGqbWKg/W4h1qwauRAnqutekW6LQTHUmp1eTMIHNPI/sxQz5OBt64dWyFAcin+qX
-	 JX6X4Gxy8rSl0S2vFa2dzEfY7VUElPfqXSeWgIxj6dvy/TZ2mg9PBB/tX4oP/0+6K8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794648708;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=y+O+j2J6ZI6uCwbPqc+nN+TK1ogvnK/G+NpPY+aJ55g=;
+	b=DUYZIm6xCceKN6tsN9jcrFJrmdNdlaH+8k4bmE2BcXph+fbnDL0/9T2AsQKbeYePK8aw
+	 5ZugAMpCaTtMD+j0fSR73EBA63i+F6Il07eoM1d99gC3MW/9luTZFtTTTUzbSCEZw/NPt
+	 PUuseSCR4oiVMpWdtOE1uhULBjel1QQ73YUQG++33/SvxCFTbzPgmYmMKTGnJQyhacCaG
+	 pyUZKuKIox6BPUszNEnmv20hmxFCYxTIE6eQLYvibmRBJCydrxh8mxA9tfrCoj3MQHB+2
+	 UpHzWUZoto/sYrc4ZE+j8UENrtNFFjokpOSnFnyJjpaxJcm4//OMFgc24iMDdNAe1Hg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mandelbit.com;
-	spf=pass smtp.mailfrom=mandelbit.com;
-	dkim=pass header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=h7RSDeBk;
-	arc=none smtp.remote-ip=195.10.208.40
-Received: from mout-b-210.mailbox.org (mout-b-210.mailbox.org [195.10.208.40])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 215AB606A323;
-	Sat, 14 Nov 2026 09:31:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 215AB606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mandelbit.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=y07kiuIg;
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E4AC9606A32E;
+	Sat, 14 Nov 2026 09:31:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4AC9606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=h7RSDeBk
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-b-210.mailbox.org (Postfix) with ESMTPS id 4jRTR35LRZzFqNv;
-	Sat, 14 Nov 2026 10:31:43 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
-	s=MBO0001; t=1794648703;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=pjQ4hmRMXf86draSgE9PCPT1dsMh/hpnhuF72YIEcWc=;
-	b=h7RSDeBk2zVD3zx6Goes5KaA8oQmvjQV7nxp2dqMH9r+zyfJGOZytf//QvM4NuzPo5iu0y
-	B9uy/bHcxzyJgI6CPJhwfrs8VCWpDoLlIU5+hgAhC0cq4J28W9yos48RtiMkP7PDKWzeDo
-	iM9jmgrr1pdeamIM19lDfBnS+Pedl/6msLiGiOccWvS+6CYk4ryGb0siu2BdgdkFN+o0NK
-	+eXTvZbbml3EqE9qUg47jrVHPPDzp4KekgifuL/n+TDGqjXytTStW9MEq75iihmGwVF2/W
-	OsPEtV1OTtsctyQlukVXIW+F4kBHiEmLFIa8zo3vJZAD6fFhmg+/G5WMSvfopQ==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of ralf@mandelbit.com designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=ralf@mandelbit.com
-From: Ralf Lici <ralf@mandelbit.com>
-To: Xavier HSINYUAN <XavierHsinyuan@outlook.com>
-Cc: antonio@mandelbit.com,
-	davem@davemloft.net,
-	dxld@darkboxed.org,
-	edumazet@kernel.org,
-	horms@kernel.org,
-	kuba@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=y07kiuIg
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=y07kiuIgb/pnAdM5tDGPigcrGZQvrS9EWQ8woZAseeHLknNFby0W4wMrwFX5wBkeLhdKCfZSZS8nY
+	 Gdv8qew7ID3ehjTJJWQCy9U0s3i3RJ1/qFdCxZ0SnM3QY7Yq+aHdwxesHMyRw5cOspMVqMJw/FoX6u
+	 9E/RpoXdSUvPbJsU=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app07-12007 (RichMail) with SMTP id 2ee76af82a762a8-f1df7;
+	Sat, 14 Nov 2026 17:31:36 +0800 (CST)
+X-RM-TRANSID:2ee76af82a762a8-f1df7
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from FHD-W7400297 (unknown[10.55.1.70])
+	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16af82a72329-40e44;
+	Sat, 14 Nov 2026 17:31:35 +0800 (CST)
+X-RM-TRANSID:2ee16af82a72329-40e44
+From: Aibing Chen <chenaibing@cmss.chinamobile.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: linux-usb@vger.kernel.org,
 	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	shuah@kernel.org
-Subject: Re: [RFC net-next v2 17/18] selftests: net: add ipxlat coverage
-Date: Sat, 14 Nov 2026 10:31:32 +0100
-Message-ID: <20261114093133.94298-1-ralf@mandelbit.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <TYCPR01MB11008CF54ABDF98AFA4CAF30ECA762@TYCPR01MB11008.jpnprd01.prod.outlook.com>
-References: <TYCPR01MB11008CF54ABDF98AFA4CAF30ECA762@TYCPR01MB11008.jpnprd01.prod.outlook.com>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] net: hso: fix tx skb leak when the device stops
+Date: Sat, 14 Nov 2026 17:31:32 +0800
+Message-ID: <20261114093133.465-1-chenaibing@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,24 +73,64 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jRTR35LRZzFqNv
 
-On Fri, 06 Nov 2026 21:39:00 +0800, Xavier HSINYUAN <XavierHsinyuan@outlook.com> wrote:
-> Hi Ralf,
->
-> How about adding a selftest variant that forces software GSO? This may
-> help catch checksum issues.
->
+hso_net_start_xmit() stashes the skb in odev->skb_tx_buf and stops the
+queue when hso_get_activity() reports -EAGAIN, which happens when the
+USB device is suspended or no longer configured.  If the interface is
+then brought down, or the device is disconnected, that skb is simply
+left behind: hso_net_close() and hso_free_net_device() never release
+it, and hso_net_open() clears the pointer, so the skb and its data
+buffer are leaked.
 
-Will do. The iperf3 step already produces GSO skbs, but veth hands them
-to the peer as CHECKSUM_PARTIAL and the receiver treats them as already
-verified, so a bad seed is never caught. The next revision will add a
-variant with tx checksum offload disabled on the egress veth, so
-software GSO computes the final checksums and the receiver actually
-verifies them.
+Free the pending skb in hso_net_close(), which is also reached from
+unregister_netdev() on disconnect.
 
-Thanks!
+hso_resume() loses a frame in the same way when the device is still not
+ready: it passes skb_tx_buf to hso_net_start_xmit() and then clears the
+pointer unconditionally, so a frame stashed again by that call is never
+freed.  Clear the pointer before the call instead and let
+hso_net_start_xmit() stash it again if it has to.
 
--- 
-Ralf Lici
-Mandelbit Srl
+Reported-by: syzbot+bf62ca9997f43d2fa521@syzkaller.appspotmail.com
+Link: https://lore.kernel.org/all/6af74e31.fe96acdb.12252b.0009.GAE@google.com/
+Signed-off-by: Aibing Chen <chenaibing@cmss.chinamobile.com>
+---
+ drivers/net/usb/hso.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/usb/hso.c b/drivers/net/usb/hso.c
+index 71caa3764..03956fa8e 100644
+--- a/drivers/net/usb/hso.c
++++ b/drivers/net/usb/hso.c
+@@ -728,6 +728,13 @@ static int hso_net_close(struct net_device *net)
+ 
+ 	hso_stop_net_device(odev->parent);
+ 
++	/*
++	 * A frame stashed by hso_net_start_xmit() will never be transmitted now,
++	 * so drop it instead of leaking it.
++	 */
++	dev_kfree_skb(odev->skb_tx_buf);
++	odev->skb_tx_buf = NULL;
++
+ 	/* done */
+ 	return 0;
+ }
+@@ -3055,12 +3062,13 @@ static int hso_resume(struct usb_interface *iface)
+ 				/* First transmit any lingering data,
+ 				   then restart the device. */
+ 				if (hso_net->skb_tx_buf) {
++					struct sk_buff *skb = hso_net->skb_tx_buf;
++
+ 					dev_dbg(&iface->dev,
+ 						"Transmitting"
+ 						" lingering data\n");
+-					hso_net_start_xmit(hso_net->skb_tx_buf,
+-							   hso_net->net);
+ 					hso_net->skb_tx_buf = NULL;
++					hso_net_start_xmit(skb, hso_net->net);
+ 				}
+ 				result = hso_start_net_device(network_table[i]);
+ 				if (result)
+
+
