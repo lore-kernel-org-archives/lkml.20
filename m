@@ -1,53 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794677617;
-	b=ZakIzZOAGyBK6MaqubfOcQy9QVyREHpBxyEe7PWHhy8j/r+F4oCL9cXHQF3KeYHJXLU6
-	 EJLJegSYCH/VgyHhK677CY2kFf9gKlwKFRbBo2ZO4pOMDo0JfnN0NDUJvQEHalmJSv70c
-	 SkVdJYlcz3R8KyLIMo4dwMx2o4b6L+0QbaWBs3nrADKjuRS2YlhmY67iEKkpbVcvP7yqL
-	 t25+6JsDPXRpuru+8rKQ74YJRNBs8HM1jR2d+K/RZD16wwUmDUQS3/Y3CPMi5i+2ABFxi
-	 9j1474Zow4r7Vv/DOGQb53PKOolyCN0AJD+/X5RIJkPq1ttPZIGwcTyFAgf0ypjj/Vw==
+	t=1794677640;
+	b=3FS14C8Y1oHkUEHS81X8FugVuOI4U64uF/GCjldIAwfSK9LdzUdBNjvXLifgvldSk5Fy
+	 d7hiXb+uE3PHrOV7SBnxKrDPNc2Ia1BLh72+HZxEXnNswaJTVE7NxrKdueiA4csLcGbeq
+	 8csTY4oGUk/ArkJIWooyuwiXKDUUOXZDfhlyKcKZS0XCbUc6GWfPJtE/zV+C3I8caC2+B
+	 IMoM9V5INmlJXzmdGAnuk7cJE3DanwuRJNdohKeUEaIR0vRbF9yAvu8DTcLXc+RTPfO7Q
+	 vGkCC2IOyEhYmTSVWpfmbWtJHTD4oPck2WXOmQrC5AGlapn0oTBOt/ED21HmIYJOmVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794677617;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794677640;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=VMjHeqkDRZE8dhy1hqRxTcDbSg1/bFbdQHaCHWsCozw=;
-	b=0VklDvVTSy/LTbn37vmRZ31MbXaRRNItZCRLp9p7EKJfZcXzzauFrlWNWS66EpVq9QJS
-	 dFpCHfj+arCxzI9jBgIYcJk9ftr/m1fluQjsqYkpmTFzS5ioMZGg5R8e2sWkKGXJ0Adaq
-	 5MjxK114cKE42B9ctT38NAfLw54i5PCcwt4PG1vZMtoZJ+cdZS120J3l5ePeDaE3/YX2g
-	 9PrLcuOLxzESYCSkfi9VWdnmWzluztbkH/504FAQOxT8i9zdYDqndZUoUOUj/Hrcy8oAT
-	 ffBtZrdedGd2vAX0x0rKIIGi2frIe4HS2Tyy47Zgs0CMibFyxFvzzU/yzeaGG1S45Qw==
+	bh=KFpXgHITgTKpJjTXjtCWWLVB9Sr0Cws6b+lQmt5jk1U=;
+	b=5MRKmAgc4XCiwhqaOUrRJ0W9UrL0d8Aut4QzMHaDVz7KPOuiDz5uVd7GdBu0NmaHJXei
+	 10aUMsCeFtGZOi8g6lHA6cfFGu1dO1TkiPPbLh0pHi4hpVbDUUtmzsiSZJx5XkUkr/jc/
+	 qxzhSEBXU1gd187Oet4n+ABDRxv11M5o4a1Yv7ZNOaP2S/k2vzw1Gj9xSJL2QHysXI7GJ
+	 pAySs3ZNFU19UldKpT1Yq1mHBdI263fBCYS5/oNqZergcQv/v6wQASTg/STfX8Kzajuje
+	 zrQ4ep5/EJflUXlaiokV24eqqDGs3i4cM49DgQDh6noQ5lqfoliyDdupKmt2dLynl1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O19UBMrA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FsLNePpJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D52D606A327;
-	Sat, 14 Nov 2026 17:33:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CDA3606A323
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:34:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O19UBMrA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3003A1F000C4;
-	Sat, 14 Nov 2026 17:33:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FsLNePpJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52F041F000C4;
+	Sat, 14 Nov 2026 17:33:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794677617;
-	bh=VMjHeqkDRZE8dhy1hqRxTcDbSg1/bFbdQHaCHWsCozw=;
+	s=k20260515; t=1794677639;
+	bh=KFpXgHITgTKpJjTXjtCWWLVB9Sr0Cws6b+lQmt5jk1U=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=O19UBMrAXkSoqPs2prqibtCjHeT2ADtnsEqYx5CwN2Oz2VgZ9KcZRHMdcNCOcdfgl
-	 ORgZffaPijVySmPmQ6Je7Leyt7vh8GDA4rqz4FakWw97AhfpzssLYjZupsgOQAZAAw
-	 rrsUb2D6bnRPbSgcp7Mrwd6/5MT3vLYsIs/m6OqPkVV7klRQMXXJtEbufp2JLV7xVv
-	 TH2lNKIi9KMJpq7YRLpHUuP6l7p+aka9NtHOoaViwLbdxP37X/QZV3kntbmTcqYy8e
-	 13Nj1AwEP17GmyWaTaNOEZA9ckwfLaHcaYngHulFXkulfjPwlvUstfQTsIBdPOscFI
-	 Lz6Ogx5In6jug==
-Date: Sat, 14 Nov 2026 17:33:32 +0000
+	b=FsLNePpJ67WtMpcBtQy5xfKYA8q8BcgKSYhg/XRLaH2t1/FF8hLR7UoKdJraBOxcE
+	 mUcuBh8eE6I3Gc2ugyua9WSmZ0AA6V1bC+vYLhS4By7aboCtudxrYBWFOWjmiIXlm9
+	 3yXMG6/bWUV1Dl2RBYP30+uk09PQc8G+doiN/1A3LmSQIzvB6IPQ6E81WOae4ZgXep
+	 Ex96VsoDe7GoeMgLCOzG4JLml+P/7byQ/edBRG3T2El3sOLbwfwWxhqn02s3DiYmGu
+	 KHVRl7BwzAImFEfP6iUMtKE62oFQTpdqd/amfbZSaHcD/7ElZWwQ3jrBMZkZw9loOk
+	 LgSv62x2CLRfw==
+Date: Sat, 14 Nov 2026 17:33:54 +0000
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 To: shao.mingyin@zte.com.cn
-Cc: akpm@linux-foundation.org, rppt@kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/execmem: check execmem_restore_rox() failure in
- execmem_cache_free()
-Message-ID: <avibYdE9NJKchXM-@gremlin>
-References: <20261115004704544fuMEkcx0F4A1sNBAzz46-@zte.com.cn>
+Cc: akpm@linux-foundation.org, david@kernel.org, linux-mm@kvack.org, 
+	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
+	mhocko@suse.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/util: fix off-by-one when checking folio index in
+ snapshot_page()
+Message-ID: <avibe0HG4ssUUuBX@gremlin>
+References: <20261115004657890Pz8ERDf5nCtE-B6M7KFzu@zte.com.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,26 +60,23 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261115004704544fuMEkcx0F4A1sNBAzz46-@zte.com.cn>
+In-Reply-To: <20261115004657890Pz8ERDf5nCtE-B6M7KFzu@zte.com.cn>
 
-On Sun, Nov 15, 2026 at 12:47:04AM +0800, shao.mingyin@zte.com.cn wrote:
+On Sun, Nov 15, 2026 at 12:46:57AM +0800, shao.mingyin@zte.com.cn wrote:
 > From: Shao Mingyin <shao.mingyin@zte.com.cn>
 >
-> mm/execmem: check execmem_restore_rox() failure in execmem_cache_free()
+> mm/util: fix off-by-one when checking folio index in snapshot_page()
 >
-> __execmem_cache_free() checks execmem_force_rw(), but ignores the
-> matching execmem_restore_rox() result before adding the block to the
-> free ROX cache. A failed restore can leave permissions only partially
-> updated, so a later cache allocation can return memory that is not ROX.
-> The cache allocation path does not reapply permissions.
+> snapshot_page() computes the page index before copying the folio state.
+> If the folio changes between those reads, the index can equal the copied
+> folio's page count. Valid indices are strictly less than that count,
+> but the current check accepts equality and marks the snapshot faithful.
 >
-> Check the restore result and return the error. The existing callers keep
-> failed frees pending and retry them through delayed work. This prevents
-> a block whose ROX restoration failed from entering the free cache, and
-> matches the error handling in execmem_vmalloc_rox().
+> Use >= so that this inconsistent snapshot is retried, or falls back to
+> the unfaithful single-page representation. This also avoids reporting an
+> out-of-range folio index without the corresponding dump_page() warning.
 >
-> Fixes: 187fd8521dd8 ("execmem: rework execmem_cache_free()")
-> Cc: stable@vger.kernel.org # 6.17
+> Fixes: d863a12108f2 ("mm/util: introduce snapshot_page()")
 > Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 
 NAK.
