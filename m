@@ -1,59 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.142.180.65
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794700464;
-	b=rWFbdlJO+A9bjMnZQsK9S3f19b/R1J7BXjcLSUMSPII452qs6tuxBLzE7eJYtb5b2uNG
-	 /HQn4iLL5j0hkSypjTE1lftzggkkMvD1EMOUIfq5x9Gk7w+HFJcmIzV7LNPV5QvTvBDbj
-	 iTQGJGmWJSbJu7z6V/1OnzBCKg4XH8BT8FQuEMmzGxEBh8oaq9wHzEiNcWft3bEjjNkED
-	 ql5weNQoT8HbzypWnCXtpa3TCbXukqZ3zIbNt1WAxJi5Jn5wcLio+mXOEeEDe+I+ZWZ3g
-	 KUCsdk5xvgL9sDjdhpUS6lmwtEjZ+APXFChUJKS+DV31HVbwUa7/s56qUgFcsABJIZQ==
+	t=1794700565;
+	b=Is+cBuZJ9IkJ7hgFOYk14PfVvwUPoAPrHFSfNQxXhHdwcZ5aD2bXsKuCDBqN0NinKH6r
+	 TTN7ZWOeEaOyh8KKx5APKCNQXXvo7t+XGZdQD02Sgn9L6B+HAdAP7/VSSDu8RYO5cnT1z
+	 XThO6u1CLw2FDc/lyyepu8cThYB7r/3VL2xV8Nqk8VsPNxkge/T0zV5Ty5YTqWG+FEkpm
+	 vKlqA00uiF9ervKlYT+SQJ/DgRu+QSpCgLWB4wU4RE6fM6pL3mvN7VK+Zy3Xxmqc1fiUL
+	 fFRb9nrTxONFPDCLbkXuMLdjsVRLcArieieUE+XpRYnSpMe6dhtb5he7T5fw0pHokQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794700464;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=OmOWDTHs4v8eGfBw9Zf1YFY4jTOyvl+0L69mZ0TJgW0=;
-	b=460N+d8+Er9b0guDK58oFwMshqOqjOlRn6KbMRqmO3ywwdkmGbE+6pzOOXDVQ7VnndkN
-	 O09oimA8CAUdU3BKiaxNpsLTQDRlwj3G1lf8iUeUlFiBknWvC+oaUDSjkImghIRpq0oA5
-	 DCYfpKlqEY60CF9lpAANnCgi6VKqgRkkTOu+1wui37nOwso2+qa8g2LtMLoYiLyYBaocF
-	 vABiIc4bUm36BPo6I/ZrAPKRENsOiB1cPp0R1m6ffF0dzq8XuneDeqqpwYj/t/a201u8m
-	 O8cQ41LyIFI0v3R85K5e1CmfF+wCFWIO1WaDBkVmNggLkraOBNIMPat/VfZeqRITCUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794700565;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=YEXoGF/IDM5Kwcu5RSHR6PL4LC33xulQf2BLi/eKlAw=;
+	b=m9VqgGnq7gY2dCSP/0Vvi4ORHWcIJHnljupUnuHUkbn4z1zEe2aaj3SQKovSThGDAq+c
+	 yOgI082K+7KlwPoUairySIkiyGZh9FWrQ+P7jnSAwJetjcWQzBRHTsxGGBkeg3WlBd4yn
+	 rAXWPQq9rGzJofn3HUpIpZyXDReoAudmOcBjqEW1fE/xNsnXTnpcpwLcicOK/BWy/RuJd
+	 PYWKf9hQqy30sleOfr+WkPgcP3t2FUyM8TflsiEGAm8OyXXT8oGd3/lJTdEvIy+mNVFSC
+	 II4Onmy9TJQE8P/JTcrYlUz+g6ndB7csqgykIMUHJfhN70I/jpko/s//+OgiOdci1qA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PM8Epa91;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=makrotopia.org;
+	spf=pass smtp.mailfrom=makrotopia.org;
+	arc=none smtp.remote-ip=185.142.180.65
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1563606A880;
-	Sat, 14 Nov 2026 23:54:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PM8Epa91
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBA041F000C7;
-	Sat, 14 Nov 2026 23:54:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794700464;
-	bh=OmOWDTHs4v8eGfBw9Zf1YFY4jTOyvl+0L69mZ0TJgW0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=PM8Epa911DWKIWkB/cSA9N1Q9ONn3UyiuR8llUtY0uvvw0Xpmr3Y8Fklcb6vWT6DD
-	 Hbf51fXONGnNJM8yhsQXICXLDJXcDa45cCI2KpTOPyzXEYtjZ9QPXiTk8MBy2f6gCU
-	 HSEPe9PkYh6EurOGqIoLyNztDsfeJ1v7MyCezA9/URsWFSIKdb+50B6kE9FqomRsvV
-	 T+zLnuG8kv1uQWtQfmreblewXheWaomvXmemWI/EeYnkQqgNBS37Y1S31SjeHwuBe6
-	 oD3zPrzs4QUC3evkEJhg+vy7AI+oaTSvfZXKWYFGTqBVfv3YOtwkfXQ4L6Vlsc+CWv
-	 sfoVLNzHP2HnA==
-Date: Sat, 14 Nov 2026 23:54:16 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>
-Cc: linux-iio@vger.kernel.org, Per-Daniel Olsson
- <perdaniel.olsson@axis.com>, Kurt Borja <kuurtb@gmail.com>, David Lechner
- <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] iio: light: opt4060: fix inverted own trigger check
-Message-ID: <20261114235416.5589888a@jic23-hlaptop>
-In-Reply-To: <20261109085631.00007485@oss.qualcomm.com>
-References: <20261109024746.1253593-1-jic23@kernel.org>
-	<avHsKUE4xJ0vdu6P@nsa>
-	<20261109085631.00007485@oss.qualcomm.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1FEC606A323;
+	Sat, 14 Nov 2026 23:56:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1FEC606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
+Received: from local
+	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
+	 (Exim 4.100.1)
+	(envelope-from <daniel@makrotopia.org>)
+	id 1xSNaz-00000000811-2Dg5;
+	Sat, 14 Nov 2026 23:55:45 +0000
+Date: Sat, 14 Nov 2026 23:55:32 +0000
+From: Daniel Golle <daniel@makrotopia.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Detlev Casanova <detlev.casanova@collabora.com>,
+	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	Michael Riesch <michael.riesch@collabora.com>,
+	David Heidelberg <david@ixit.cz>,
+	Christian Hewitt <christianshewitt@gmail.com>,
+	Marc Zyngier <maz@kernel.org>, linux-media@vger.kernel.org,
+	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/7] media: dt-bindings: rockchip: Add RK3568 Video
+ Decoder bindings
+Message-ID: <avj09DS5ZHCbMt_Y@makrotopia.org>
+References: <cover.1794654074.git.daniel@makrotopia.org>
+ <90878fc566a9752eb582a82d1324d811ebb324e7.1794654074.git.daniel@makrotopia.org>
+ <b4d6cc36-e986-41ce-a887-d7d9076cabd4@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,83 +67,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b4d6cc36-e986-41ce-a887-d7d9076cabd4@kernel.org>
 
-On Mon, 9 Nov 2026 08:56:31 -0800
-Jonathan Cameron <jonathan.cameron@oss.qualcomm.com> wrote:
+On Sat, Nov 14, 2026 at 06:57:46PM +0100, Krzysztof Kozlowski wrote:
+> On 14/11/2026 12:09, Daniel Golle wrote:
+> > From: Christian Hewitt <christianshewitt@gmail.com>
+> > 
+> > The video decoder in RK356X (vdpu346) is described in the same way as
+> > the one in RK3588 (vdpu381). A new compatible is added as the decoder
+> > capabilities are a subset of the vdpu381 capabilities.
+> > 
+> > Signed-off-by: Christian Hewitt <christianshewitt@gmail.com>
+> > Acked-by: Rob Herring (Arm) <robh@kernel.org>
+> 
+> > Tested-by: Diederik de Haas <diederik@cknow-tech.com> # PineTab2, Quartz64-A, NanoPi R5S
+> 
+> How v1 could get it?
+> 
+> Anyway, drop, not applicable here. You cannot test a binding on PineTab2.
 
-> On Mon, 9 Nov 2026 15:52:31 +0000
-> Nuno S=C3=A1 <nuno.sa@analog.com> wrote:
->=20
-> > On Mon, Nov 09, 2026 at 02:47:45AM +0000, Jonathan Cameron wrote: =20
-> > > From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-> > >=20
-> > > opt4060_set_driver_state() is meant to keep sampling and the interrupt
-> > > on every conversion enabled while the buffer is in use with the
-> > > driver's own trigger, as that interrupt is what fires the trigger.
-> > >=20
-> > > When converted to use IIO_DEV_GUARD_CURRENT_MODE() the negation of
-> > > iio_trigger_validate_own_device(), which returns 0 for the device's o=
-wn
-> > > trigger, was lost. As a result, with the driver's own trigger in use,
-> > > enabling or disabling a threshold event switches the interrupt to
-> > > thresholds only and buffered capture stops. With another trigger in
-> > > use, the one shot conversions requested by opt4060_trigger_new_sample=
-s()
-> > > are instead forced to continuous mode.
-> > >=20
-> > > Restore the negation so the code matches the comment above it.
-> > >=20
-> > > Fixes: 8284a4985416 ("iio: light: opt4060: Use IIO cleanup helpers")
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-> > > ---
-> > > This was found by an LLM whilst doing a refactor of related code.
-> > > Indeed seems there was a change of behavior in the sited patch that
-> > > wasn't as intended.
-> > > ---   =20
-> >=20
-> > Reviewed-by: Nuno S=C3=A1 <nuno.sa@analog.com> =20
->=20
-> Fixed the linux-iio address.  I'll probably post a v2 so I can pick these=
- up
-> as normal though.=20
->=20
-> Thanks for the review Nuno,
-Similar to previous, I decided to be a bit naughty and pick it up
-on basis it was on LKML and this email with full content went to the
-right list.
-
-Applied to the testing branch of iio.git
-
-thanks,
-
-Jonathan
-
->=20
-> J
->=20
-> >  =20
-> > >  drivers/iio/light/opt4060.c | 2 +-
-> > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > >=20
-> > > diff --git a/drivers/iio/light/opt4060.c b/drivers/iio/light/opt4060.c
-> > > index 8253a6a8bee4..1a7d429453be 100644
-> > > --- a/drivers/iio/light/opt4060.c
-> > > +++ b/drivers/iio/light/opt4060.c
-> > > @@ -310,7 +310,7 @@ static int opt4060_set_driver_state(struct iio_de=
-v *indio_dev,
-> > >  	 * IRQ and sampling must go to or remain continuous.
-> > >  	 */
-> > >  	if (iio_buffer_enabled(indio_dev) &&
-> > > -	    iio_trigger_validate_own_device(indio_dev->trig, indio_dev))
-> > > +	    !iio_trigger_validate_own_device(indio_dev->trig, indio_dev))
-> > >  		return opt4060_set_state_common(chip, true, true);
-> > > =20
-> > >  	/*
-> > > --=20
-> > > 2.56.0
-> > >    =20
->=20
+This patch was previously posted (see cover letter) and received a
+whoole-series Tested-by. It's true that for DT bindings that doesn't
+make much sense, I just mechanically copied the tag to the patches
+which have previosly been submitted and weren't changed.
 
