@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794644354;
-	b=VhpplmIyUKVbBCZmqSfLgQqND0yrvdbuvNplgtZdcYvnQQblHxKzQRJHQns45TJD6VS8
-	 he7qx2DfEqtxw2yy6kf+26geuGgRfjCnxEdVqqpkm9f7yw2W9kQqsPNNzJskLYj+itP45
-	 daVy+Sf8ooYC2hiHA3YQcx/TZCTypcfEvraQpAg1J/OBerNio1i7YSucrEKKBk2QShvXT
-	 BsHj9Iymfh0F+KvJkggcxRnEq1GMBE8UQ5Dnw3tV2vkSvraj4/F3/Aq6pxQhLg0wOTDnJ
-	 WWUA2muY8qN//QFis6tSftKtLDQjL32uQ0tNHW77FNJCBzXxi8NaltVlSIVouq4KgXw==
+	t=1794644359;
+	b=4BllhNZZX4f8t7KY4E/qItx5y2ffUmumTQOX1GZVk1GrQd37//w1Zk05vnNUVZQYCCWt
+	 1e/JzNl3nKtp+yIz4qcU2d8p38co3YUkB6yjYGqrXPoCzn5rrdol6k79aZ8MlWsi7S5l7
+	 Vw8vvphnzfnQCP5lRHo6FB2RJmwsn+95eyC5e/2Y+Q0zzHc91MyTRBvNWreoidT8I5MwR
+	 IlX+u3xSDz1okLogDhXqb8ch4G3cNGf6g2NLpY7263CWXO/rrg4YuetSGlZVbL0fQZs08
+	 sRgRDSoUg+mm6Q1B4nPxoF8OfpGWJKGi8dvbCiCu1E9g/reCJRu46p2ivjtgyR6LpzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794644354;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794644359;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=pyx07GG+cQ7r4tHVzwwWnT6ylPidCzpSMdub9ploOvw=;
-	b=WT3f28MNey3UWqnp99ZmY80MZ0EDvmHRRmZMo+90kSGOpnSY72iK5mNjDOIh09XV7FBq
-	 Id9ZFBKyhllcX/0DKd/GmU54zFhHpkOSTcczyAzp98ZB6EUqXm5D+nnq0eYv3Wu730vII
-	 EZgSYifn+SqdpCe/fB6O/Dbxq4K9DskTQ7Si6qEM+0XaN00RfC7evRvcA+3k1bZndLQ6a
-	 Quox/F9q4c+y5DJ6CsVt5If/zH/i6Zqfco2Qn6ieYib8XN4dzWQZ0Zfw19vj1D+Gsq50j
-	 fyMcJ8Dn4xVdbKMoRD3NyEj1m6/RqO3ku5x2M9Lv2fObMHjrwTwJpQAPq4g7VKErs7A==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=F88s34t6HgwaWc7KrjRKtNSJ/J1MLEeihPOI9axIS0Y=;
+	b=YUH7adFA5Jm70/tsbSh3tqhwn/V6ZLAjrDHv4wnozcwZYc3yOt7E6qelYjCenLio1ZJ3
+	 rjwTfoenhDmg4bKKjvxXEx2zjMY6uz8NltQrJNyaj2T2Mykh3m/oxKAFP4/Wke1HyXgeE
+	 p4+qY86uzakjqRnMJ5XM5CaoitnW/XqkUTZMeePub8kZgoi5IMA9Ab0X1kPreS08VkHW+
+	 B38b/s0mQk+eGzWCZfmpy3i/3u183kYRPAK9zr5oD0oJYKm3ZtAWaD/q8W6ImKTFsc/nS
+	 J767ilaGCOIKnVeQ6IvNxGUv6Ewq2QiNcP3uwGMSJywCTyTjD78EQctWfHvFCYZgWGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="aSrq/QuJ";
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SFNz83mT;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D58C606A32E
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:19:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D58C606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD988606A889
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:19:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD988606A889
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aSrq/QuJ
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-36ecc11bd26so225900eec.3
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 00:19:14 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SFNz83mT
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-36ecc11bd26so225902eec.3
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 00:19:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794644354; x=1795249154; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pyx07GG+cQ7r4tHVzwwWnT6ylPidCzpSMdub9ploOvw=;
-        b=aSrq/QuJ4Cupok7CN67Na0nW7sMjYue8p431hqYgT0HK11ejjJ4f5VH06C57XJmqFS
-         wgyCW3GLkthJFxM0pjzRWR2EevJMOcIu4GlLNLOPvC0M4NcXUBoUQ0OAkjUD1Zsy7AI+
-         P5OHmLOu32LXdmNgSU3WXDHv9rsv+pdk5UTeQuBkkVm/aHzjyMuQlN8BGEbqYOXPVNsR
-         86fGOQ62s8fDmzE256a2/DonL69m15pJ0ggww4TbYpod+h57UGT4cPU2YjN+j36GYhHd
-         V6AKOzmoYONuaUywHzmcxE220kLbyWKGFimE3yOeC6ToJPLDXWSOWH140FojDc3Xl190
-         UjSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794644354; x=1795249154;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794644358; x=1795249158; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pyx07GG+cQ7r4tHVzwwWnT6ylPidCzpSMdub9ploOvw=;
-        b=SzAStkZH2b6L1PqYFoEH5yJkYx/w+NYlcsS/5Gqaeq/ZwU+PUd+Pj9YwetTFEYkCp9
-         TUDJvf6LIVcbRlS/lhrTrnrqdKqkMc7rMWaEk838wYyH+zIHPhPo1cYzK7SxIpzpd/DI
-         iu93RznHAfy14wi8D8rh0o2uEF6NIasKYkFvFf5z6IEN7xe4OtYsxs+axBCUWQaA/ecP
-         7Y5KKry8jT/epdQPN7wZJhcI5oCKm30i1IS29oY9Dd0vAGsPHIWulA9moqBzEdnIsTOX
-         2KDjmbdVnBbHPXj5zmMWdsf+kpMq3rUOb+o5VTNAg1ZrPMFwOtlrHA2lY+EuJFDP1qdj
-         R84A==
-X-Forwarded-Encrypted: i=1; AL+hErFYn9AG0HoClJhwNtr3YqrdNA8lXrMWWnvds4PUuJzwlTcWsPNfY1rFwda1J/cuk9zIFFjoFmwljeOa3XU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/2KLCLL+XqvESf4PqNYY4F0w/Awv6SvtSYcAcBM7ul7rhv3GKi
-	AxLGrXYN6kWMX9vrJKznCYi6Pl4os5JuJZqDeLpAe6wcXZ+JHU/4ET1r
-X-Gm-Gg: AYBFou0AmD1TyIOn191vrst9+77OJtVfwj3KzyYnleUYe84N2IAA8t+z/Xd3/yUZBIl
-	/s15LPtKwBJpID4MnTw28y3JTNlSqcM4RMGD3cqw8ULgyekTw7JUTm0uTzvdv9TyL7OXpI/BOLb
-	DZ/QpC8+TDMvdUE+xrXFLhwW8BkvJ+GuGIAB1Iulc8UCHfGaChifdkB9xhpLiIT2WCt1+5hQ0hz
-	iLMqDyrZxBmK1RLpoCZm04+GJ31ngiwwBNZ7xNkBCp4DsEQsIlTX7a0Nbn6swYc+Ih6rbwFVECh
-	xIZFKkNeZYNBiHtqPgBMxYZqJCev+zPnPrNwi8L+2dr7OWr9Pq9ndSWQo+lnC78Al8y8V07XtIa
-	wsG3uD+Y5D+9WgNT9xCFv/ADt3Ei9S+WRgM6OI3+RJL/jTxCRz6k/jARJru1lRGOYyS5puTHKqJ
-	Eh1Bx8JsTJcIRC6e/ImRA8SzejJ/ktooBOAiZuUjQaxBffuGJmI/Op1wQUYvu51ssqSfbyQmYXF
-	pp7BsP/o9Z/BkGoSI4VTTrNCAplfdEF5R+BJriIjEkQk7/LTK5AnGSLp3icLbmlrVeUf8cYxaGo
-	zDR3gbOe798PgmmLR0EFrCys6nj5ugjyrjt2u7DuHjtIiRhGFSlKuxNHDuBOclxdGnLpQUWPiRS
-	J4TRWYYfNk+5j7VwXy8rBYCk7
-X-Received: by 2002:a05:693c:83cf:20b0:376:6ba5:6090 with SMTP id 5a478bee46e88-37964e03109mr8926328eec.1.1794644353569;
-        Sat, 14 Nov 2026 00:19:13 -0800 (PST)
+        bh=F88s34t6HgwaWc7KrjRKtNSJ/J1MLEeihPOI9axIS0Y=;
+        b=SFNz83mTcOPA3L7JSEyJ8LE8yDR/LmyRE4ocGf+ufqZMrtJYjCOsx7Eiq6jc1sq11P
+         BtM4cpYHk3vO1Nrs3lziT0EVlW+N59TOsGut+vCLDEFCyYmekQsJD9xGI/c+pVbuX14M
+         GIDoB6wGo1SoPXoYgNG2jvSxfL4l83t34FE7t7CLlQ5OpSQ8Sg6hYdMc+yQsf5AL9sir
+         FkaA9K66OUMpCzXIjcPmb/ns751UeJukzieZ5gZjo1l3nv4uEFclv1U/iceveItZhhuh
+         kbkl91Rb7uU9tbT6y/U2weZwvb6CpTdbuNfgAjpizMYppqHMYY8PDYd81sRXLBPTCXLf
+         V6vQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794644358; x=1795249158;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=F88s34t6HgwaWc7KrjRKtNSJ/J1MLEeihPOI9axIS0Y=;
+        b=bwi4HxlTL5dWDinZU5NM3pqPq2J/NKKmiTlnQZiHxEDChNhtpsPNM7ZWuekVsXPyp8
+         0ybG4hnVyHQeyE2/82mScjm7nGBTEDor0JuKwz4FOLBfilJnhKtdLDULC8MilXeZ+o4B
+         C7jSHZHb89hbIJe7ym3rIxSbbn5+VoPvMma5XmAgdo9Vi6x779bfYfcWvS+kHpkKbgAA
+         i99NLlxcQEMzNAqJdKppTz52M7b7RrtQcLT1nx5FxwKNUlRuOzT3rK8Hp7uQVmL01YNe
+         +bY+crBdrgJQh76Bkv0DH+os9d9o15JEmP77t0Bi9xd4BegNcEHkodhLYegECf49R0GI
+         6EDg==
+X-Forwarded-Encrypted: i=1; AL+hErF9cLkpBNykFqG3eS+ai568q9pShoyTAcRNF/d8yltZpRgTKS/nT1vo+gB5xUSbkj/z6bWg51MrlZuyxnU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/6GWsmRbIiQycC82ET2BsLzIDTtRVJBB9VQPoFjRKJmZeNoNl2
+	RbA/s2d3NuRjdpo/bPtxfFgY8xS1fszLGlkIxbSXibHiOGz/Fx56pCU1
+X-Gm-Gg: AYBFou2DcY+efZkhH+UDgodN+RV9Q5YXeGMTw7bS+AZQlCVa7qBSE9K91yraf+Sspn+
+	1zABgWr7Eohg04i++Ht0yjb5EMEb+vxtT+c+bRELzGFZwvjSyjW61Mqtb1vBcm9EgCOs4j4Dk6c
+	SM3C6mVywyNnjsLoXVPMG/E2S6TbapRZO+PHZ7EA+ltSN49IQ5maFGgWEd+GBXWQVyoUzboGdaZ
+	rx1a+tXMR82f/mdXGV+y5AumQqP4xHEKq9M9tdK8de1fmmf6HJO2s4QtiRBXtr6vJOId+DK9qo6
+	gbqRorrt9wKtMA2UPEPRpapnkA/F8OvLb7NOB740EzU7dD+B6KVtgA7bIzzt9+C45OluRi5+/lh
+	ZvNvP4pxv3rgIKr1uuBAA0b9yl6tHFSdDv25pQWqgg245ZHfDpcQlVzY5ZuniLt3miEMqsSlMHS
+	H36cnpQ0Xsm2KPGhBEEC6TKZt8pfu1XzPd+rvZHFprb/wVb1um5pPxxk4oPt9syyukK71VSV4aC
+	lVoTppYv0uv2xIRNRpXHUdBq9Zw2g0nscEGQOI943gZDo1VryLPbfyCD8G/G/Lzw0ceUAz6Y9js
+	M/Ukv7ly1Rn55I9DPOdIlr+kOMhYTERWi2zfdjltaKNFJUN1aqjZnKlic/LCNCF1Bz+qpWhGHxU
+	WjEE=
+X-Received: by 2002:a05:7301:a0a:b0:36c:a1bc:6114 with SMTP id 5a478bee46e88-3796038259fmr6915918eec.0.1794644357643;
+        Sat, 14 Nov 2026 00:19:17 -0800 (PST)
 Received: from DESKTOP-CJ1L666.localdomain ([211.198.99.62])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795378d7e5sm14008333eec.3.2026.11.14.00.19.09
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795378d7e5sm14008333eec.3.2026.11.14.00.19.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 00:19:13 -0800 (PST)
+        Sat, 14 Nov 2026 00:19:17 -0800 (PST)
 From: Jiwoo Kim <arpe1618@gmail.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
 	Dmitry Baryshkov <lumag@kernel.org>
@@ -95,10 +96,12 @@ Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
 	freedreno@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v2 0/3] drm/msm: Fix VM_BIND job, queue and entity lifetimes
-Date: Sat, 14 Nov 2026 17:18:59 +0900
-Message-ID: <20261114081902.1669-1-arpe1618@gmail.com>
+Subject: [PATCH v2 1/3] drm/msm: Release the pins and ops of a VM_BIND job that never ran
+Date: Sat, 14 Nov 2026 17:19:00 +0900
+Message-ID: <20261114081902.1669-2-arpe1618@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261114081902.1669-1-arpe1618@gmail.com>
+References: <20261114081902.1669-1-arpe1618@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,37 +113,160 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-These fix what happens to VM_BIND jobs, queues and entities when the
-file or a VM_BIND queue is closed while jobs are still pending.
+msm_vma_job_run() applies the pgtable updates that vm_bind_job_prepare()
+queued for a VM_BIND job, drops the GEM object references that
+vm_op_enqueue() took for them, and unpins the BOs of the job. A job can
+also be freed without having run: when its entity is killed, e.g. on
+SIGKILL while the process exits, and when msm_ioctl_vm_bind() fails
+part-way through vm_bind_job_prepare() or after it. msm_vma_job_free()
+then frees the queued ops without applying them and without dropping
+their references, and a killed job also keeps its BOs pinned. Besides
+the leaks, the VM no longer matches its pgtables: for example, the
+pages of a VMA that was unmapped from the VM are still mapped.
 
-Patch 1 makes a VM_BIND job that is freed without having run apply its
-queued unmaps before it drops the references that keep the unmapped
-pages alive, release its BO pins, and mark the VM unusable, as the VM
-no longer matches its pgtables. Patch 2 destroys the VM_BIND entity
-when its queue is closed, instead of on the final put, which can come
-after the VM's scheduler has been torn down. Patch 3 puts the queue
-last in msm_vma_job_free(), as the queue may hold the last reference to
-the VM.
+In msm_vma_job_free(), apply the queued updates the way
+msm_vma_job_run() does on error: skip the maps, but apply the unmaps,
+so that their references can be dropped without freeing pages that are
+still mapped, and mark the VM unusable. Move that part of
+msm_vma_job_run() into a helper for this. Also clear bos_pinned once
+msm_vma_job_run() has unpinned the BOs, as msm_job_run() does for
+submits, and unpin the BOs of a job that still has them pinned. The
+job's fence does not keep them busy anymore at that point, so take the
+object lock to unpin them.
 
-Changes in v2:
-- New patch 1, for an issue that Sashiko reported on v1 patch 1, which
-  that patch makes easier to hit.
-- Patch 2: changelog refers to patch 1.
+This also marks the VM unusable when msm_ioctl_vm_bind() fails after
+vm_bind_job_prepare() has queued updates, i.e. when the first op fails
+part-way or when sync_file_create() fails. The VM is then left
+partially updated, as when a later op fails.
 
-v1: https://lore.kernel.org/r/20261114062541.2001-1-arpe1618@gmail.com
+The patch and its changelog were drafted with an AI coding assistant.
+The issue has not been reproduced, and the change has only been
+compile-tested.
 
-Jiwoo Kim (3):
-  drm/msm: Release the pins and ops of a VM_BIND job that never ran
-  drm/msm: Destroy the VM_BIND entity when its queue is closed
-  drm/msm: Put the VM_BIND queue last in msm_vma_job_free()
+Fixes: 2e6a8a1fe2b2 ("drm/msm: Add VM_BIND ioctl")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/r/sashiko-outbox-214234@kernel.org
+Signed-off-by: Jiwoo Kim <arpe1618@gmail.com>
+---
+At commit 2e6a8a1fe2b2, msm_vma_job_run() still unpinned the BOs under
+the object lock, and msm_gem_vm_unusable() did not exist yet, so older
+stable trees need an adapted backport.
 
- drivers/gpu/drm/msm/msm_gem_vma.c     | 77 +++++++++++++++++++++------
- drivers/gpu/drm/msm/msm_gpu.h         |  6 +++
- drivers/gpu/drm/msm/msm_submitqueue.c | 50 ++++++++++++-----
- 3 files changed, 102 insertions(+), 31 deletions(-)
+ drivers/gpu/drm/msm/msm_gem_vma.c | 65 +++++++++++++++++++++++--------
+ 1 file changed, 49 insertions(+), 16 deletions(-)
 
-
-base-commit: 1e59855738454b14021b64115f0090eafc7526ae
+diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
+index 8b702422030a..a6f106d0cdef 100644
+--- a/drivers/gpu/drm/msm/msm_gem_vma.c
++++ b/drivers/gpu/drm/msm/msm_gem_vma.c
+@@ -700,16 +700,16 @@ static const struct drm_gpuvm_ops msm_gpuvm_ops = {
+ 	.sm_step_unmap = msm_gem_vm_sm_step_unmap,
+ };
+ 
+-static struct dma_fence *
+-msm_vma_job_run(struct drm_sched_job *_job)
++/*
++ * Apply the pgtable updates queued for a job, and drop the references that
++ * the ops hold.  If ret is an error, or one occurs, the remaining maps are
++ * skipped, but the unmaps are still applied, as the pages they unmap must
++ * not be freed while they are still mapped.
++ */
++static int
++vm_bind_job_apply_ops(struct msm_vm_bind_job *job, int ret)
+ {
+-	struct msm_vm_bind_job *job = to_msm_vm_bind_job(_job);
+-	struct drm_device *dev = job->vm->drm;
+ 	struct msm_gem_vm *vm = to_msm_vm(job->vm);
+-	struct drm_gem_object *obj;
+-	int ret = vm->unusable ? -EINVAL : 0;
+-
+-	vm_dbg("");
+ 
+ 	mutex_lock(&vm->mmu_lock);
+ 	vm->mmu->prealloc = &job->prealloc;
+@@ -740,6 +740,22 @@ msm_vma_job_run(struct drm_sched_job *_job)
+ 	vm->mmu->prealloc = NULL;
+ 	mutex_unlock(&vm->mmu_lock);
+ 
++	return ret;
++}
++
++static struct dma_fence *
++msm_vma_job_run(struct drm_sched_job *_job)
++{
++	struct msm_vm_bind_job *job = to_msm_vm_bind_job(_job);
++	struct drm_device *dev = job->vm->drm;
++	struct msm_gem_vm *vm = to_msm_vm(job->vm);
++	struct drm_gem_object *obj;
++	int ret;
++
++	vm_dbg("");
++
++	ret = vm_bind_job_apply_ops(job, vm->unusable ? -EINVAL : 0);
++
+ 	/*
+ 	 * We failed to perform at least _some_ of the pgtable updates, so
+ 	 * now the VM is in an undefined state.  Game over!
+@@ -753,6 +769,8 @@ msm_vma_job_run(struct drm_sched_job *_job)
+ 		msm_gem_unpin_active(obj);
+ 	}
+ 
++	job->bos_pinned = false;
++
+ 	mutex_unlock(&dev->gem_lru_mutex);
+ 
+ 	/* VM_BIND ops are synchronous, so no fence to wait on: */
+@@ -766,26 +784,41 @@ msm_vma_job_free(struct drm_sched_job *_job)
+ 	struct msm_gem_vm *vm = to_msm_vm(job->vm);
+ 	struct drm_gem_object *obj;
+ 
++	/*
++	 * In error paths, and if the job was killed before it ran, we could
++	 * have unexecuted ops.  Their changes were already made to the VM, so
++	 * apply the unmaps, and give up on the VM.
++	 */
++	if (!list_empty(&job->vm_ops)) {
++		vm_bind_job_apply_ops(job, -ECANCELED);
++		msm_gem_vm_unusable(job->vm);
++	}
++
+ 	vm->mmu->funcs->prealloc_cleanup(vm->mmu, &job->prealloc);
+ 
+ 	atomic_sub(job->prealloc.count, &vm->prealloc_throttle.in_flight);
+ 
+ 	drm_sched_job_cleanup(_job);
+ 
++	/*
++	 * A job that was killed before it ran still has its BOs pinned.  The
++	 * job's fence does not keep them busy anymore, so take the object lock
++	 * to unpin them.
++	 */
++	if (job->bos_pinned) {
++		job_foreach_bo(obj, job) {
++			msm_gem_lock(obj);
++			msm_gem_unpin_locked(obj);
++			msm_gem_unlock(obj);
++		}
++	}
++
+ 	job_foreach_bo (obj, job)
+ 		drm_gem_object_put(obj);
+ 
+ 	msm_submitqueue_put(job->queue);
+ 	dma_fence_put(job->fence);
+ 
+-	/* In error paths, we could have unexecuted ops: */
+-	while (!list_empty(&job->vm_ops)) {
+-		struct msm_vm_op *op =
+-			list_first_entry(&job->vm_ops, struct msm_vm_op, node);
+-		list_del(&op->node);
+-		kfree(op);
+-	}
+-
+ 	wake_up(&vm->prealloc_throttle.wait);
+ 
+ 	kfree(job);
 -- 
 2.43.0
 
