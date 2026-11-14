@@ -1,89 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.161
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794660528;
-	b=J8NkMztick37Ru8DpJuqqkgTUsGvmFieRi6iTd1Ujh899ElzhP0VdUUwnwR6ybvvgV5E
-	 C+U+cSjqvmXANGAHy0eVXVDQmRjCtz8K2ACT9o8jdMtGrPtq6CFg+lv1eoV/WtdNwxDhB
-	 y+wPV5cdF6W8H/1jDAXaF6FU++LsMqFjMadUTGyxLEfYP+30Wsy23KTNBeX9z5QvZGRYV
-	 lL86SNhU/IblBiKDwaZWr7ISebMm/ij8hQyFoLUd3SCAPgB2PO9wL2EdC8l7NOyp3TgjI
-	 HsIWoUAzxLniykM3BSXxEULeByhnmhv22NC+2a4bojvITv6wmKrhzibgx7ytDiLxDfQ==
+	t=1794660586;
+	b=bYjPDi1JCE+KZPBoLbnk2YnX3sys7iZnCgsYK4vguP5CdSBmSuw0Ps6h5JjBhznEqton
+	 I1rSAxkSgpN8c78/XWWI1bzyIcFf2sVqi8lTgyQ6W7ta1AHN9FzP1nOQ0oa1m1oXiExkq
+	 vD0/GZgy3r8gjxRJBF34g+SLEiXYvsiOzKPRZA9Be9LNodW6Qx0pVJNmNpcuF1NYks3+X
+	 ibV/TpezGbaNrxnKlAxDxvqgFqZq91BuWo6iSXN+RXXBUNYSa45oP8MBkHXulRzOnJYMR
+	 ghGiHBSJToVGNde5cccanZMTmvN175DqhptjWAGj1qW9Di5FzDUUSZdbzU0zebBSquQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794660528;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References;
-	bh=oj9na0DVBDJtudsZfLncNdoZFNBIlfRdys75ekuhQE0=;
-	b=cOpVAm31bnQvbj86JZYE0XWrUriwaDEupi4jTkxcOXIERK2mu9qtd0Dh9Zk1sG6lu7ae
-	 5zsTfSuVgB9P8i0z44nSKlhoQVM9XykA9M+X8AlR39ZuY4WYj0JoMf5EDy66woOIhdBpB
-	 5X3f524iMVcmpvbLsf5HZ1S26yd8CWR0FFor3BV38Ft976E0+hya1XSIzM6U5b0nBhXw8
-	 6dpqd6xSReYUz0vx3XFJoTzPtnvlVR4B8Xi0gr8dR9NNZiWAsjF2OMXhCPLw4FK0Si0SW
-	 +Ksvq2ijDQRuv/M/CWvkVG0N0mptE8aJq8rLWy3l3QY0q994Aw7QP7z7QtjA99jdCJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794660586;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-MBO-RS-ID:X-MBO-RS-META;
+	bh=KEM4YGG5ygN17VLr1WQz2hJ2gZgDzlnIP8CmpPo1DiY=;
+	b=xdXbyN7zuT6/M0d605d5tO85eZf87yzvwDIxgIuY/5Y/FkrILyvC1nE0bkZoQ3/8c/Nd
+	 5gT2z4OKSM+Uoqr2ouK4NtRdWrfbRqAWwz9ehnZ4aOpBLDDuT+K5YnjP618TQ4em91gZR
+	 H/zB0KQ8owSmCQBD+882rDl4NDkEJXN2m/eZuvHpkZIFi4gZ1hpUKx6DLjtwHUQojQVJ1
+	 xzmOrpOXqEo6IwQWArp8c8H1SCy27M5v99ajYaZyfh3xC/0DOj4ZTz9lXkoPGv4PdI6hd
+	 KlY/8WGhhf9SIaLa3lNo/JkfcRwPJV6L8SkSFWUzdZT6j38hYZIEFpRxcyf7TYuY35g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hfdQ4MEg;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=TLya7g0i;
+	arc=none smtp.remote-ip=80.241.56.161
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E39A4606A323
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 12:48:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E39A4606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84663606A329;
+	Sat, 14 Nov 2026 12:49:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84663606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hfdQ4MEg
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-37628596783so3330307eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 04:48:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794660527; x=1795265327; darn=vger.kernel.org;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=oj9na0DVBDJtudsZfLncNdoZFNBIlfRdys75ekuhQE0=;
-        b=hfdQ4MEgT0OcBrLyehsxdWw84F9f/5GCZOQqj2amNoCkIYk8eWe4OKfIVS90luZGXt
-         +w/W2fyscAdro0HxNBsyigoZJIrRGzXg03K1Mo8dxCrZC4w8CGZS2xfzGWaBhwAm5mVk
-         NW9ftwwqSBkSSsjMNvgDMIhiul3oQrsB+42SceuIquIJOa4ZqlCYZaQeS1AhPT8JvuJM
-         fvEJUs1wlk5l94qcRHzVFdToMuLJiYoxPlCBMhG9PaEMS5r3Oi1Ill5pmV3vFOeccr+T
-         dFkvGNuB1f/E/cW8/naZzkiklTu/PeY8pE6qPMyPo6w04yPmfMmYvzqmq8nP6EiRDgVw
-         APpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794660527; x=1795265327;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oj9na0DVBDJtudsZfLncNdoZFNBIlfRdys75ekuhQE0=;
-        b=JCq576nJyh7Z184uWckDNcCtyoEzCB0Ur3GsyVELFQavACgbEaSiZSKNgstUKFkL+P
-         bYKiAjteahgnZ77N5LM1lszWw/ITKA7+kqnHzW1BJ18qaOhD+sSWQthmiCnPFZp3g9Zc
-         j3Y2XmmWuJ4oCrD/AC8aTx8YZptselHLI4mkSUKYlAedn31qSni4SC3cYyOanxaNyGIu
-         Q70FKfCW+ERIb2Gm5IG02LWMRlNc5ktzDJr60vq9CGW36YDtAxBBhfQyv27DWfn2TBc0
-         /FLVZdXa5xvFqJkWS5T+Q2UC6rzxh7/JD4LeVVbQP58CxidIK89KTU075gshNud5xrua
-         6jvA==
-X-Forwarded-Encrypted: i=1; AL+hErGggQ00JHVe3OcLR1N9mE4gzq7lrKFQw6R3CIea/H9CDAcHkP35LTLfE+u42MnrE0wHRCuwic5AaBOE/Rg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+UAw+IEwir8zXrqe38s7/8e2A/P9Hq1R0et+8P3q2zVagAlp8H
-	k08LOqRwQNRkVaufE9NgfMJb2JV+dNfQyVHsFR64gaBe6Dd2/miiyKH/
-X-Gm-Gg: AYBFou0rWD7C/6MAKDCo611FmfjXqpwZ+6oaDlEHPCQt/2lzfGZ8bq0tG1C+RNzz2K/
-	i4dJQMgBC5c0wzRADLgkmys+vgyYVxZe4ymTlDtky6Bm27jBvK1i9sHvrJQw9ZhNOFiKOXs5bn9
-	T5YElGkWxEbpP4Q/8bsvK47PCra4UkAd8KcfXpxEvV3jkIP4K8x1hZw0q1wrsuVv3dmzTjeO2+b
-	fElT5/JDwaJwG0wFzDdKHS8p74FVAIKWkWulwmZNVEJfzdEHCaxlKvnTxvDRkDh4kbxnYt6aFZJ
-	coOpCZ6KP3zyS1cSnVTvb8rNI6hE/YqHbBJaskIz2COKY7sqmRfWA1VW03Ibl0dEVrgaWPI9BJP
-	PDarwjHjE0fr4zD9oe0jsXoRAT35NknbwlFSqT56nlOKhJ2zACAAenUop6rivDWNonvN1UjMEAX
-	/zjD6k5++oZA2U0Rd3hp24vruVhzWBK1AI8Cz/VFZ5WFnPYBX+VVZ03Z7zR4bKOZwF+rBjfLFsH
-	v3TdEXjn82JMhDwdEdwzYGGD85oft9sC0HMo1tnP8VMLw6ysmp6bjilYj3vv1EHSkGwGvwTa1R+
-	WUcbiOZcuG8GrSXzXs6QPi3y/JE=
-X-Received: by 2002:a05:7301:da0f:b0:36c:a42d:9bc9 with SMTP id 5a478bee46e88-37966961442mr5196237eec.25.1794660526823;
-        Sat, 14 Nov 2026 04:48:46 -0800 (PST)
-Received: from pve-server ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379569b8389sm28530823eec.25.2026.11.14.04.48.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 04:48:46 -0800 (PST)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: Karl Mehltretter <kmehltretter@gmail.com>, Hari Bathini <hbathini@linux.ibm.com>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Madhavan Srinivasan <maddy@linux.ibm.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>, Naveen N Rao <naveen@kernel.org>, Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, Abhishek Dubey <adubey@linux.ibm.com>, Dan Carpenter <error27@gmail.com>, Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, bpf@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>
-Subject: Re: [PATCH] powerpc32/bpf: return false from bpf_jit_supports_fsession() on ppc32
-In-Reply-To: <20261003184226.76740-1-kmehltretter@gmail.com>
-Date: Sat, 14 Nov 2026 18:06:33 +0530
-Message-ID: <cxs78u9a.ritesh.list@gmail.com>
-References: <20261003184226.76740-1-kmehltretter@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=TLya7g0i
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jRYqT15R5zKp8n;
+	Sat, 14 Nov 2026 13:49:41 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1794660581;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=KEM4YGG5ygN17VLr1WQz2hJ2gZgDzlnIP8CmpPo1DiY=;
+	b=TLya7g0iYN9dKmG34UTsq+6tYGcAb8vHzj7rq7tJS8/hklsaLpPMhqrjepRvDCDHFhj4ur
+	qlab3jeWSCTUQ3zHPuRfknKyUpRbe+8JGNN6BNsJRnpiozrGrJspfA//W2/Wlh9HJtrAQV
+	84h1a3k44veaPPnSWCv2mwFUJjiKacaHeq+ao0gn+276jqsp6lIUHYbECm2/m8Vp+G7ThJ
+	a12f7Lk2OSC+1QcBQE+lZdcxetLaGLWMZ4dydutmfm2K0uTApQA0HOoAj71+59os0pHZhp
+	jL7oviBupSkz51MHxlicl6BvdTcgb0Uj0JZCKyb/0XutmWJ2n3Haty3AME881A==
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+To: Carlos Bilbao <carlos.bilbao@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>
+Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
+	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+	workflows@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] kernel-docs: Update book info
+Date: Sat, 14 Nov 2026 13:48:14 +0100
+Message-ID: <20261114124813.1056807-3-manuelebnerli@mailbox.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,35 +72,39 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 9d6be96a53f0e9cfeb6
+X-MBO-RS-META: 17htyzo9xg71zqsn9em1x6ts6fmqsgqz
 
-Karl Mehltretter <kmehltretter@gmail.com> writes:
+Update info about Lorenzo's 'The Linux Memory Manager'. The source is:
+https://nostarch.com/linux-memory-manager
 
-> bpf_jit_supports_fsession() returns bool. Commit 92258b5bf1ec
-> ("powerpc32/bpf: Add fsession support") made it return -EOPNOTSUPP on
-> ppc32 until fsession is validated there. The negative value converts to
-> true, so the verifier does not reject fsession programs on ppc32. Such a
-> program loads, and only attaching it fails because
-> __arch_prepare_bpf_trampoline() returns -EOPNOTSUPP on ppc32.
->
-> Return false instead. The load then fails with "JIT does not support
-> fsession". Tested with a ppc32 kernel on QEMU g3beige.
->
+CC: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+---
+ Documentation/process/kernel-docs.rst | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Fair enough.
-
-> Fixes: 92258b5bf1ec ("powerpc32/bpf: Add fsession support")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Reported-by: Dan Carpenter <error27@gmail.com>
-> Closes: https://lore.kernel.org/r/202608010958.cYfBCQAC-lkp@intel.com/
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
->  arch/powerpc/net/bpf_jit_comp.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-
-Sorry, I guess, this must have falled through the cracks.
-Should mostly get queued for next -rc release.
-
-LGTM. Feel free to add:
-Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+diff --git a/Documentation/process/kernel-docs.rst b/Documentation/process/kernel-docs.rst
+index c67ac12cf7..dd5bef154d 100644
+--- a/Documentation/process/kernel-docs.rst
++++ b/Documentation/process/kernel-docs.rst
+@@ -79,11 +79,11 @@ Published books
+ 
+       :Author: Lorenzo Stoakes
+       :Publisher: No Starch Press
+-      :Date: February 2025
+-      :Pages: 1300
++      :Date: Spring 2027
++      :Pages: 1350
+       :ISBN: 978-1718504462
+       :Notes: Memory management. Full draft available as early access for
+-              pre-order, full release scheduled for Fall 2025. See
++              pre-order, full release scheduled for Spring 2027. See
+               https://nostarch.com/linux-memory-manager for further info.
+ 
+     * Title: **Practical Linux System Administration: A Guide to Installation, Configuration, and Management, 1st Edition**
+-- 
+2.56.0
 
