@@ -1,112 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.54
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794657338;
-	b=m8CFJuGdVwyxm2XYcpjjr0nJc2hLqWJG1pk8c1G25OtBTfhQ+saKsKdbi1rDeBwHGmuI
-	 OgcthrCMIHVNCeUNt1bs30hVOkg3jCTtNkuewakLHJesLIaF33KMsE58SzkqQB/2Xs2GL
-	 BJtgsXCQsuCarP/4sM2v0QN48auCKf8aQTtoR92eCASsQjao4Nur5vkzejquXhzIgjIZk
-	 muf1fCdN90vG1wV8nIzk2A9H0oR6IrHOSSBjjjy7IW3BueWyzVc7F4y9BQw6sPYN+ybqL
-	 NQ2712VwK1Qi0uFQeuVhpRfNhfz79v1rnWhIIxd/YCIqHH8bCKWDiRgcq9hPov8J/HQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794657338;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=nJvs09p7QWIuuw8YOzj5TR133+2IJ5+yRajckn/hsO0=;
-	b=KiPwkiHxxyErtpKoNXaYCJUuw/q6Lum1MjNGiI4JLTbizryqePxejpp91KQFDhM2tCsR
-	 kMOrJo+lnWyko7dk+L1DdWHxaH5Qbc9O/rA7NjBmZA4VHRp4Jji5mbnMJdhb1XfQ6HMER
-	 WqjUiWYSKz2pjwd9d6ceDjpjqoP9FVdfldTrezFCfQCFb8+sv7W/aq0c2mIRqtDetgMKe
-	 RTKgX2ngP+5ehL+VW+9M6+NyqNe/WDuppaTjjj+exU9IFIcJlXlP8/RB+Svm7cWdxbroj
-	 4Hmb4bY/EL+l27QUfeRaGFe7Eqo0nWcUvhsjYPm0/7qc2SQa7byhLAUvnLVRd5FkANg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MrTBjpIE;
-	arc=none smtp.remote-ip=209.85.218.54
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794657375;
+	b=SAzXPnZIs+wcNO4F/1jTcn/8fqtGReKq2rZ1HZGbrvFSYjWVzFfPPzdQz37cNFy61Aau
+	 Kzlwd1rb+KPaAMvj/FDag628mox7sR0IMuiY+vSQgKfUJWbers0GEmtL4hBQJ2QC2yw8O
+	 nfz/FTpytWCbwVzl0M6/f2hfHKJLyaOaKu0ORrxRHWGYlOO1jLlr/sY6iuwijcj/cdJlz
+	 CeK3+Yf+gw0NCl+QSbNoRj43hRQ2uf5oO4onmaJ7Ub281UMbcIoaUX5WO6+ymH0gbiO6T
+	 nxs5qFAxHx8CLh9dceFfjJL0aHVV48pmhnNUdkwuhLlHPod31CTtc+8XpOaOXSx3wjQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794657375;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=i/qff6vV9GpqqckqMDaVakLKsz4Q1suNmsJ/DaXLKtw=;
+	b=IfhbsuHOKCkCVcADDggFce+cP+A8+e/EdaJBBSH42aoovZaRSWzka2gHRnN2Nrjc2pWo
+	 ZkMTeU8CJRxikYS2LWojZs0xkZohl8vBYHmu7UxOhx6vkG4X3TPyjyPLr9GTMrV5NQHIj
+	 utlqDsv9+Ng8pBkohXK8CKeILvCmkwqOirZof4jUPWzCeE5SYLGBFg6kSUnhdkssNCKdr
+	 wQ+rS+UENQHfRVFng0KkfrNKe18jrNVeByBB2IGQH2UxqcFC8TFx00Obwcf70GS/TS8PF
+	 DfNQa4tG+jsFlqhrgQoiIzFmbY8N987D8o18lcEwyzrxaXdol2SjzdedeyH4rlgyAmA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aiSf3J1J;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7502E606A883;
+	Sat, 14 Nov 2026 11:56:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aiSf3J1J
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794657375;
+	b=s7/1nKsjQFaZfxQnxas+0LDkE292A5MOP4IAYzta5Pa8xUsujvSScYoZBXYuUJBj1fzd
+	 Kyolg6V9mLWE4YZg8jWxaNTaWhSSX/9onsswu7enNjQqxbS/rHXH7U/TM6a7V/ET/vVOV
+	 rBKHM5P2R9KYsbmqBEu5VO4DF2bm9672Qkz+ePHbVWkZnuvarNUtD6a3pcnzHFVdT/oP/
+	 IBxUG4o7ITtC8t4sHmtUUd+/59K3Qy7RxdlMfgOQ2MCGluZHsDZ83DXSA/UHa6eWWC3Zs
+	 oqxoMc1qKOK1sCLL0V0EYekhSM34ksaJBOlfjr+gcFeUgAsDfmIAiC2cSvjsunx7fxA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794657375;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=i/qff6vV9GpqqckqMDaVakLKsz4Q1suNmsJ/DaXLKtw=;
+	b=m308EkOrJErWLZF4j17R0Nrv7FTIU1lDZ2CbrGonn88Nb0yLVyqyJIXyusaPLUujfhH0
+	 M/mJGphoPa0fSmPbGUtZTLqIYDGDrpiDxZUvTRQbWHASd9hZ2tn0bgLsMCw0ZVJejYN6B
+	 6nqi7medZwROOba2IgsY5WqrU71vD4VsRh5hYhua+ryvdGb/KJQ9uDdwe/jrXERPaHI3Y
+	 NR/KC95R2GmPOjt91n8rc8+FEqkrRrN7XqjjPC1G4VuO0kUHv+pBOWHcsVKbbldJojOtG
+	 QNQyCPoz8nfwAaZojC9kLzVDaQunWw2xNzGtuErwu6WR0yS1to+wjCeQvy2JwfKffyw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B0D6606A335
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 11:55:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B0D6606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MrTBjpIE
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c4d2b741ed9so338682166b.2
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:55:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794657337; x=1795262137; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nJvs09p7QWIuuw8YOzj5TR133+2IJ5+yRajckn/hsO0=;
-        b=MrTBjpIEXzsSZaANjc7oExJhwGnF+j3pBQoJGLV3AozjECewWnT/dOn8PoCfUIeYGI
-         mRgldWBhVoyoY4kjpOu/TkcCPMpetn8bMN74Irqnk0JnK5MAQS777TE3iVfENO0qNvUE
-         8qb82pxhdLikkA/6tATGUpByZMee1vHTbdl6A6vtosorr3+hE9wD/mpuH76lS1WAZqyn
-         nUdTyabyG8UAyWqGnpYJGfY62DgpvBldD5kNADP5MARyaYxmHHJYDsQkr6qVKrnaldzF
-         KHIyaxdpU8Pcl80WjVwUUXXw+yU81KD0D8RdN7wE6Dhf//BzElFXAKq/AgQBu3vGzFII
-         7JmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794657337; x=1795262137;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=nJvs09p7QWIuuw8YOzj5TR133+2IJ5+yRajckn/hsO0=;
-        b=vIt5gDScZI7R3qcefA4oaYFrSfa26BwqBCLx/ZZ2P2dLF9h4pJ46gTzPlWVwWQPKLa
-         p7xWDl/kUUZXMOUWH1IFpJ5CLsmRD34yQTakrXS6ZtWZHkXs9Pz1jLjOfR6hzLOtSC4H
-         9RHVLZBa7QwvgK6IoAVPxSG3X+pokbV3mXqG2r+8/ZlshUlveM/msrcVrQAiLfwJq2d9
-         nHRHuT0g2+nhUDv0h3iHTH5PnJ14C4dY+uc9RxOM0JKt5Eg8SQGM93d01Aj3/bkQfvXV
-         6h6wNFyfomsQjsePyjNTnYupb4c3D9udIEPS3I6lh9T1+Fhq959Jd06J0M5AaGoWiWEt
-         VkCA==
-X-Forwarded-Encrypted: i=1; AL+hErFCRsx95roJUZkphVbu3PK6NFzGDqtBOPNdDaJ4NQDio2E3oWwX7YiPIa4zOv/Y/OottlAt5u88L0evrg8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9L8pqDYvY1pfbG02Oc4+uUTbsSa1CtXzZVneuL0tBKvUfWMY1V
-	VxYXYfYl3AKU8aHaNpGgu+GDV6jF+e/ZPw/hH0M26sgvRAAT1MbxDQ4I
-X-Gm-Gg: AYBFou0Zff5tWai+M/7UYsyqOltgrAFLCUHMEm/PtbcsFbDLUstsMavdmRk5l9r4gol
-	6nZ44fLorMLuszDAz15oZ3IX+8Fx67YgetrJSYnu7IACjJKJVhp8iBFfGHjMZcQeeii/Gh4VWVr
-	TG7NmKCo5cj6LnkDCaJDQLlcwnl/osyf8LZ4kX4x0ZtecTtn7P5eiIw15rWGc2gAbUaNboXMafy
-	ngP6Hxcn78TA4kLK6zcvArmT8CoEMTpheVgoUsIptald7CmxhBKfrstoPLL59iNUwQFyAQHpifS
-	JWu5wN185d/pk5F90aktaSuGzq33wQOcg96PItrRv9CXk4/O8YTXY757/sGNrEH+Eqd+rJFkpF0
-	aIk8FgoHzcgrEao6xFEFF6eh2conJ4Kuil6J9WwhiCyepCDog9vqz4G85hZfzlw++js/aHCySnK
-	1jaKKQ3xbrhTbVXBVUt75tBopE562x04mhGI/tj7VpP1YG4qlaaXeAtc+0/gu5dBjuFvj+aEyLu
-	G52G5EE4POvll3Qdo4BZzncUQb+seVbN+ET3GOO13p7sx91jWB7iYt9md7pjjZi/8/WC02No7Zo
-	0OVBKjCHFc6Ue62rOHPmJXkJUFFja/uqBOUyH6iRXocVMY4+aQmc+8W+J6q38WtkNTeMUMKT3ed
-	rojUZcLs07QU=
-X-Received: by 2002:a17:907:3e10:b0:c40:231:6eab with SMTP id a640c23a62f3a-c5096370c31mr441592966b.16.1794657336589;
-        Sat, 14 Nov 2026 03:55:36 -0800 (PST)
-Received: from localhost (178-84-201-199.dynamic.upc.nl. [178.84.201.199])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b41f44sm206223866b.31.2026.11.14.03.55.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 03:55:36 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id B41261F000C7;
+	Sat, 14 Nov 2026 11:56:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794657375;
+	bh=i/qff6vV9GpqqckqMDaVakLKsz4Q1suNmsJ/DaXLKtw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=aiSf3J1Ji+dYRGlzBmnX3u8wr4zpA20dGlqgq7VzJ+dIZoYG1QLBptK8x7Yvr+UUS
+	 OMBzukvLIVfB+8wmZChbeMdrGBeCdR+/K65L8PxX320HvicKlM40Wa9N7ryrVM/XRZ
+	 F+3aSI6C0TBgEG1i4XRZ6TobZpehrfCRYBHotCgJpp3DkZLrDte24otshmPJ9CCY5B
+	 QbeAO5X9u2hDLD/BcasFHspDApC8Rl9bIO05ZZ0+2E5ramoyLbxNoWcp5Wa6xHhnJ4
+	 XhGetlwdEK15iwRQfOCQ2IDNM9XryYr7saN2uchthNpAV5bF449NvbQ1gcAKyxlA0p
+	 dS4OBduN+peHQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 39D1649D6F;
+	Sat, 14 Nov 2026 11:56:13 +0000 (UTC)
+From: Larisa Grigore via B4 Relay <devnull+larisa.grigore.oss.nxp.com@kernel.org>
 Date: Sat, 14 Nov 2026 12:55:35 +0100
-From: Amir Goldstein <amir73il@gmail.com>
-To: Alexander Mikhalitsyn <alex@amutable.com>
-Cc: Christoph Hellwig <hch@lst.de>, Christian Brauner <brauner@kernel.org>,
-	linux-fsdevel@vger.kernel.org, Jann Horn <jannh@google.com>,
-	Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>,
-	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-nvme@lists.infradead.org,
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
-	linux-scsi@vger.kernel.org, target-devel@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-mm@kvack.org,
-	bpf@vger.kernel.org, linux-security-module@vger.kernel.org,
-	selinux@vger.kernel.org, apparmor@lists.ubuntu.com,
-	linux-nfs@vger.kernel.org, netdev@vger.kernel.org,
-	fuse-devel@lists.linux.dev, linux-efi@vger.kernel.org,
-	xen-devel@lists.xenproject.org, ocfs2-devel@lists.linux.dev,
-	linux-s390@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	linux-usb@vger.kernel.org, linux-erofs@lists.ozlabs.org,
-	linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH RFC 38/41] fuse: refuse files on pseudo filesystems as
- passthrough backing files
-Message-ID: <avhMN39TECaur0sS@amir-ThinkPad-T480>
-References: <20261110-work-loop-pseudo-v1-0-4c998976c6c7@kernel.org>
- <20261110-work-loop-pseudo-v1-38-4c998976c6c7@kernel.org>
- <20261111151202.GA11391@lst.de>
- <fb1d72cf25d10a960da627f6d93a3e041820ed3a.camel@amutable.com>
+Subject: [PATCH v11 03/14] ufs: unipro: Move Tx/Rx FSM state definitions to
+ unipro.h
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,34 +83,242 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <fb1d72cf25d10a960da627f6d93a3e041820ed3a.camel@amutable.com>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261114-b4-ufs-s32n7-v11-3-dc36e11919d5@oss.nxp.com>
+References: <20261114-b4-ufs-s32n7-v11-0-dc36e11919d5@oss.nxp.com>
+In-Reply-To: <20261114-b4-ufs-s32n7-v11-0-dc36e11919d5@oss.nxp.com>
+To: "Martin K. Petersen" <mkp@kernel.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Rob Herring <robh@kernel.org>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: devicetree@vger.kernel.org, Ajay Neeli <ajay.neeli@amd.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, linux-arm-msm@vger.kernel.org, 
+ Peter Wang <peter.wang@mediatek.com>, linux-kernel@vger.kernel.org, 
+ NXP S32 Linux Team <s32@nxp.com>, Asutosh Das <quic_asutoshd@quicinc.com>, 
+ linux-arm-kernel@lists.infradead.org, Stanley Jhu <stanleyjhu@google.com>, 
+ Frank Li <Frank.Li@nxp.com>, imx@lists.linux.dev, 
+ linux-scsi@vger.kernel.org, Bean Huo <beanhuo@micron.com>, 
+ linux-mediatek@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+ Pedro Sousa <pedrom.sousa@synopsys.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, eballetb@redhat.com, 
+ Peter Griffin <peter.griffin@linaro.org>, echanude@redhat.com, 
+ Chaotian Jing <chaotian.jing@mediatek.com>, 
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, 
+ Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>, 
+ Manivannan Sadhasivam <mani@kernel.org>, linux-rockchip@lists.infradead.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>, clizzi@redhat.com, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Heiko Stuebner <heiko@sntech.de>, Matthias Brugger <matthias.bgg@gmail.com>, 
+ Chunyan Zhang <zhang.lyra@gmail.com>, Can Guo <can.guo@oss.qualcomm.com>, 
+ Orson Zhai <orsonzhai@gmail.com>, aruizrui@redhat.com, 
+ linux-renesas-soc@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794657369; l=6648;
+ i=larisa.grigore@oss.nxp.com; s=20261114; h=from:subject:message-id;
+ bh=trkoKEdgDJvEOwdUNPcivOaHNBCVHWr9HRiB/HK5M28=;
+ b=7xexXiN/+K95N4rP6JaB2Vjpy/SOGGA3L9L2eLybPOHkrxWTLlw3BnEHhkxLByvRpXhe2rnF5
+ j4JlbwxZEaxDciA9YRwS80mh4JXoJUNIbBIMINQZP36DLEn4Lt6Dl4B
+X-Developer-Key: i=larisa.grigore@oss.nxp.com; a=ed25519;
+ pk=Jpt52sb6ETKTtvWjUzhz5Sv5FjB9AEg9QKCcbpWFx3w=
+X-Endpoint-Received: by B4 Relay for larisa.grigore@oss.nxp.com/20261114
+ with auth_id=1522
+X-Original-From: Larisa Grigore <larisa.grigore@oss.nxp.com>
+Reply-To: larisa.grigore@oss.nxp.com
+Content-Transfer-Encoding: 7bit
 
-On Fri, Nov 13, 2026 at 11:25:57AM +0100, Alexander Mikhalitsyn wrote:
-> Hi Christoph,
-> 
-> On Wed, 2026-11-11 at 16:12 +0100, Christoph Hellwig wrote:
-> > I've seen setups where people use fuse to mediate access to sysfs
-> > sysfs in odd ways.  No idea if that's still around, but if so, this
-> > patch will break it.
-> 
-> 
-> Oh, that's painful. Do they use backing files for that?
-> It's a relatively new feature in FUSE...
-> 
+From: Larisa Grigore <larisa.grigore@oss.nxp.com>
 
-Very unlikely that they use FUSE passthrough and if they did
-very unlikely that it would break their filesystem.
+Move the Tx/Rx FSM state definitions from ufshcd-dwc.h to
+include/ufs/unipro.h.
 
-The API for fuse passthrough is that the server requests to setup a
-backing file before open via ioctl and if ioctl fails (as this patch
-does) then server falls back to non-passthrough open.
+These state values are UniPro/M-PHY related and are not specific to
+the DesignWare UFS host controller implementation, so unipro.h is a
+more appropriate location for sharing them.
 
-The ioctl can already fail for many reasons such as MAX_STACK_DEPTH on
-procfs as the commit message says, so server needs to cope with the
-fall back.
+As part of this move, drop the driver-private TX_FSM_HIBERN8 define in
+ufs-hisi and ufs-qcom and repoint their Hibern8 checks at the shared
+UFS_TX_STATE_HIBERN8 enum constant. This is a no-op change.
 
-Thanks,
-Amir.
+Since the definitions become visible to every user of the shared
+header, prefix the enum constants with UFS_ (e.g. RX_STATE_HIBERN8
+becomes UFS_RX_STATE_HIBERN8) to avoid polluting the global namespace,
+and update the existing AMD Versal2 users accordingly.
+
+This also prepares for using these definitions in a subsequent commit.
+
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Larisa Grigore <larisa.grigore@oss.nxp.com>
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+---
+ drivers/ufs/host/ufs-amd-versal2.c |  8 ++++----
+ drivers/ufs/host/ufs-hisi.c        |  8 ++++----
+ drivers/ufs/host/ufs-hisi.h        |  1 -
+ drivers/ufs/host/ufs-qcom.c        |  4 ++--
+ drivers/ufs/host/ufs-qcom.h        |  1 -
+ drivers/ufs/host/ufshcd-dwc.h      | 19 -------------------
+ include/ufs/unipro.h               | 20 ++++++++++++++++++++
+ 7 files changed, 30 insertions(+), 31 deletions(-)
+
+diff --git a/drivers/ufs/host/ufs-amd-versal2.c b/drivers/ufs/host/ufs-amd-versal2.c
+index 65cb0b5028b9..3469e49df133 100644
+--- a/drivers/ufs/host/ufs-amd-versal2.c
++++ b/drivers/ufs/host/ufs-amd-versal2.c
+@@ -118,8 +118,8 @@ static int ufs_versal2_enable_phy(struct ufs_hba *hba)
+ 			if (ret)
+ 				return ret;
+ 
+-			if (reg == TX_STATE_HIBERN8 || reg == TX_STATE_SLEEP ||
+-			    reg == TX_STATE_LSBURST)
++			if (reg == UFS_TX_STATE_HIBERN8 || reg == UFS_TX_STATE_SLEEP ||
++			    reg == UFS_TX_STATE_LSBURST)
+ 				break;
+ 
+ 			time_left--;
+@@ -138,8 +138,8 @@ static int ufs_versal2_enable_phy(struct ufs_hba *hba)
+ 			if (ret)
+ 				return ret;
+ 
+-			if (reg == RX_STATE_HIBERN8 || reg == RX_STATE_SLEEP ||
+-			    reg == RX_STATE_LSBURST)
++			if (reg == UFS_RX_STATE_HIBERN8 || reg == UFS_RX_STATE_SLEEP ||
++			    reg == UFS_RX_STATE_LSBURST)
+ 				break;
+ 
+ 			time_left--;
+diff --git a/drivers/ufs/host/ufs-hisi.c b/drivers/ufs/host/ufs-hisi.c
+index 73eef0e0d278..d3fd340f2dd1 100644
+--- a/drivers/ufs/host/ufs-hisi.c
++++ b/drivers/ufs/host/ufs-hisi.c
+@@ -34,8 +34,8 @@ static int ufs_hisi_check_hibern8(struct ufs_hba *hba)
+ 				      &tx_fsm_val_0);
+ 		err |= ufshcd_dme_get(hba,
+ 		    UIC_ARG_MIB_SEL(MPHY_TX_FSM_STATE, 1), &tx_fsm_val_1);
+-		if (err || (tx_fsm_val_0 == TX_FSM_HIBERN8 &&
+-			tx_fsm_val_1 == TX_FSM_HIBERN8))
++		if (err || (tx_fsm_val_0 == UFS_TX_STATE_HIBERN8 &&
++			tx_fsm_val_1 == UFS_TX_STATE_HIBERN8))
+ 			break;
+ 
+ 		/* sleep for max. 200us */
+@@ -56,8 +56,8 @@ static int ufs_hisi_check_hibern8(struct ufs_hba *hba)
+ 	if (err) {
+ 		dev_err(hba->dev, "%s: unable to get TX_FSM_STATE, err %d\n",
+ 			__func__, err);
+-	} else if (tx_fsm_val_0 != TX_FSM_HIBERN8 ||
+-			 tx_fsm_val_1 != TX_FSM_HIBERN8) {
++	} else if (tx_fsm_val_0 != UFS_TX_STATE_HIBERN8 ||
++			 tx_fsm_val_1 != UFS_TX_STATE_HIBERN8) {
+ 		err = -1;
+ 		dev_err(hba->dev, "%s: invalid TX_FSM_STATE, lane0 = %d, lane1 = %d\n",
+ 			__func__, tx_fsm_val_0, tx_fsm_val_1);
+diff --git a/drivers/ufs/host/ufs-hisi.h b/drivers/ufs/host/ufs-hisi.h
+index 5a90c0f4e90c..6af6a268458d 100644
+--- a/drivers/ufs/host/ufs-hisi.h
++++ b/drivers/ufs/host/ufs-hisi.h
+@@ -43,7 +43,6 @@
+  * M-TX Configuration Attributes for Hixxxx
+  */
+ #define MPHY_TX_FSM_STATE	0x41
+-#define TX_FSM_HIBERN8	0x1
+ 
+ /*
+  * Hixxxx UFS HC specific Registers
+diff --git a/drivers/ufs/host/ufs-qcom.c b/drivers/ufs/host/ufs-qcom.c
+index 67c2a3b95e58..31ea7b294a42 100644
+--- a/drivers/ufs/host/ufs-qcom.c
++++ b/drivers/ufs/host/ufs-qcom.c
+@@ -424,7 +424,7 @@ static int ufs_qcom_check_hibern8(struct ufs_hba *hba)
+ 				UIC_ARG_MIB_SEL(MPHY_TX_FSM_STATE,
+ 					UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)),
+ 				&tx_fsm_val);
+-		if (err || tx_fsm_val == TX_FSM_HIBERN8)
++		if (err || tx_fsm_val == UFS_TX_STATE_HIBERN8)
+ 			break;
+ 
+ 		/* sleep for max. 200us */
+@@ -444,7 +444,7 @@ static int ufs_qcom_check_hibern8(struct ufs_hba *hba)
+ 	if (err) {
+ 		dev_err(hba->dev, "%s: unable to get TX_FSM_STATE, err %d\n",
+ 				__func__, err);
+-	} else if (tx_fsm_val != TX_FSM_HIBERN8) {
++	} else if (tx_fsm_val != UFS_TX_STATE_HIBERN8) {
+ 		err = tx_fsm_val;
+ 		dev_err(hba->dev, "%s: invalid TX_FSM_STATE = %d\n",
+ 				__func__, err);
+diff --git a/drivers/ufs/host/ufs-qcom.h b/drivers/ufs/host/ufs-qcom.h
+index 944b2e532a09..1bda960c1d87 100644
+--- a/drivers/ufs/host/ufs-qcom.h
++++ b/drivers/ufs/host/ufs-qcom.h
+@@ -11,7 +11,6 @@
+ #include <ufs/ufshcd.h>
+ 
+ #define MPHY_TX_FSM_STATE       0x41
+-#define TX_FSM_HIBERN8          0x1
+ #define HBRN8_POLL_TOUT_MS      100
+ #define DEFAULT_CLK_RATE_HZ     1000000
+ #define MAX_SUPP_MAC		64
+diff --git a/drivers/ufs/host/ufshcd-dwc.h b/drivers/ufs/host/ufshcd-dwc.h
+index c618bb914904..a5e40e7604a1 100644
+--- a/drivers/ufs/host/ufshcd-dwc.h
++++ b/drivers/ufs/host/ufshcd-dwc.h
+@@ -39,25 +39,6 @@
+ #define RX_AFE_CTLE_IDAC(n)	(0x4001 + ((n) * 0x100))
+ #define FW_CALIB_CCFG(n)	(0x404D + ((n) * 0x100))
+ 
+-/* Tx/Rx FSM state */
+-enum rx_fsm_state {
+-	RX_STATE_DISABLED = 0,
+-	RX_STATE_HIBERN8 = 1,
+-	RX_STATE_SLEEP = 2,
+-	RX_STATE_STALL = 3,
+-	RX_STATE_LSBURST = 4,
+-	RX_STATE_HSBURST = 5,
+-};
+-
+-enum tx_fsm_state {
+-	TX_STATE_DISABLED = 0,
+-	TX_STATE_HIBERN8 = 1,
+-	TX_STATE_SLEEP = 2,
+-	TX_STATE_STALL = 3,
+-	TX_STATE_LSBURST = 4,
+-	TX_STATE_HSBURST = 5,
+-};
+-
+ struct ufshcd_dme_attr_val {
+ 	u32 attr_sel;
+ 	u32 mib_val;
+diff --git a/include/ufs/unipro.h b/include/ufs/unipro.h
+index 9c168703b104..16b2051f7241 100644
+--- a/include/ufs/unipro.h
++++ b/include/ufs/unipro.h
+@@ -466,4 +466,24 @@ enum {
+ 	CPORT_CONNECTED,
+ };
+ 
++/* RX_FSM_State encoding, MIPI M-PHY v6.0 Table 50 (M-RX Status Attributes) */
++enum ufs_rx_fsm_state {
++	UFS_RX_STATE_DISABLED = 0,
++	UFS_RX_STATE_HIBERN8 = 1,
++	UFS_RX_STATE_SLEEP = 2,
++	UFS_RX_STATE_STALL = 3,
++	UFS_RX_STATE_LSBURST = 4,
++	UFS_RX_STATE_HSBURST = 5,
++};
++
++/* TX_FSM_State encoding, MIPI M-PHY v6.0 Table 47 (M-TX Status Attributes) */
++enum ufs_tx_fsm_state {
++	UFS_TX_STATE_DISABLED = 0,
++	UFS_TX_STATE_HIBERN8 = 1,
++	UFS_TX_STATE_SLEEP = 2,
++	UFS_TX_STATE_STALL = 3,
++	UFS_TX_STATE_LSBURST = 4,
++	UFS_TX_STATE_HSBURST = 5,
++};
++
+ #endif /* _UNIPRO_H_ */
+
+-- 
+2.43.0
+
+
