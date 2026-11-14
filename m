@@ -1,49 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.164
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794638773;
-	b=g3rdMDXvDD+h0Eld+aB3IJy/T14fuNY2dIY/Uz0K0z+X1yTmJnvQsss8CYu7oB1nZZuh
-	 9AXmaDxXqNzR5c+vRlWLR/kalAeQ+PP3HM5+CP2MsP9t2pFqIF/roPy/9f9RcKHpyla7N
-	 gA9v3RLf10FR6XkzXHVykYf3cGtErnlK9E7kpkSv+mhe8aXgPmTG7h9cLPWkAyXoKrRAC
-	 F4PN5iO9nxXUCA+3DPxZ8IE7+xNpW5sALjfvIzep960JlNCMRtOkhZ9OG6pyMDB1TfJ8L
-	 Q3eEHPycJ6SMTt5Qcckd5QumrJl21qymPqUQS9jxNCspkVAa2uhKTxLQKNdfuklLgig==
+	t=1794638777;
+	b=jKaxHmsr/eqs6UdSdIRaHNS5m/X+FrepzCg/2+mD+jdZu6g60pWGfvXdLjrz2SOwPHr8
+	 oZrXEJYRPFb9Kg+4J+uxj9vNRMv3erh66mp7K4LRdMQm8ZGUbW2wPsAEXUno0VEKuujSs
+	 q1wD9mH2dnoTuJ/1S8rDqacCL2rAVYxUdrZJfhbmlzyAAHwUaKVybzX8laHa09FLJVyaN
+	 P0chk5Y7pq2NVjUNd2apHYXj47GIy7yed5AH6dVw2YoxcMQUxqtTYvJjHKtvfU9CuiOu/
+	 UFULuQYpMtrHormddZJ620H7basqmb2TTO/6P54+0+Bhx5GRs4CSC+hbqCkqiwFZi+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794638773;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=H2sLgLOKrNeynVkasVZiOvcon7Y5kt9OU0MF0lujG9c=;
-	b=bk2+/kSq/GeDDJpgYFO8TUqkC2LQJPWlmz1+bXRWn9pJXQp/5Qhf5pp7jBBKVHXY+7ol
-	 DJQTRCPowhEWIOWwhctRkBV8w7Fa509Ez4t/LlxetqVu7XSt6tLutfqsrJQIPWyrn7mTN
-	 kMUE3m3qvpZ7XkQoec2zcbQFWSvZu76hCkctkhMYm715rTFpdQ+zBmTg0klLze8qDz4wL
-	 xK3Au4aBlrVoxGtvZFn/DYpuv4zEaCU69r1DrWBwaBPncfjhuqGZeeRP2qOCx9cfWSU8C
-	 3+yWUNQZVHW1vG3bjMBq/DG0GG4LquPO3/itucOhmrdUjFuV0OLH0Rp2IlynoRKcoIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794638777;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=AaPwVUrayMcOL53EO0YjPrtEQPyzLJXQlPQueQUBdho=;
+	b=BzdzJmu+a8EblWFdnGIKQ9wIS/V8pKy0KT9T7Y0TWl9XZbS0HH8gP1N/Cf08oeS2DzY+
+	 2iapxByoHz1ebrR74u99OjIkB739xG2BfuC1wnUAfYq9AlTcW6aUIF5PDWOLtMLFPN98c
+	 VN0UWXgiUZ0U4IMULm148SmdIcL0mHxVKnSAOvYuIKUtEyEnOXAeaa6/HNiE/u9vT2RaM
+	 ZUcukh0cQoUuqVDx3CMRAyjEboqYzfupEz73dUAyjZrttKucfNnHJP02vDlgRbQ0l2+4Y
+	 qf/5EPaejgFwG3utELaVVEwDug05Q2KZIBneamu4vTI1Rg7ORksPjVx8iomLkWIn4iA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=RphnadHq;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A0353606A327
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:46:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0353606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=wyuan.org;
+	spf=pass smtp.mailfrom=wyuan.org;
+	dkim=pass header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=Y+jzMvuE;
+	arc=none smtp.remote-ip=95.215.58.164
+Received: from mta1.migadu.com (out-164.mta1.migadu.com [95.215.58.164])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CCE9606A880
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:46:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CCE9606A880
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=RphnadHq
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A83B91516;
-	Fri, 13 Nov 2026 22:46:08 -0800 (PST)
-Received: from [10.163.154.162] (unknown [10.163.154.162])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D712C3F632;
-	Fri, 13 Nov 2026 22:46:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794638771; bh=2p+aENh47akfGlWR6ZTS9pUD8OTqWk1g+6Ivv38eA3c=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=RphnadHqNUso6hl5YrI4sir0E4KMlPFHhwYLkDbzg1C7hBuo/Y00JyeydDKOVwaeg
-	 +cgLWiUAkBPnOEz57Pg399P2TnUHxCvpDmjWLtlV9VXwxsxpSCkL5cefwBFrFx4tB/
-	 1WZu/r7k9IKPEDUoM8qx6OZiBwKBDiQBLPPoV9Tk=
-Message-ID: <0b018af5-0a97-4e3c-9d28-5efca28f163a@arm.com>
-Date: Sat, 14 Nov 2026 12:15:58 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=Y+jzMvuE
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=3cJyP5lKJCHlA77XpqOzvcgkBdaNcWgWzFkwIUEImyo=;
+ c=simple/simple; d=wyuan.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794638774; v=1; x=1795243574;
+ b=Y+jzMvuEampRL11n2cXF4oeIWscStxjd6yScIQGZFMaNzaYV6LCq1bJKH1ZCzdOfYmXnlx10
+ f3r0q2xpbgexD5QlfU/0dqKC7xHYTZeh4u4is5gHAFAptf9dA+5bpErzBUSw6SclIkrwT9ukowC
+ sWLtvAJG41tx0GP5HSx/yl7wP896y5hDTHfgdqgz3xPE072LUTl81++30ZWcqRqPPu7ylxriiFu
+ j4SEj/43W27ganBu/Gms8qSTt0zRs6XmCsujolwz0n/Y+N1DlgvAtFOFLEq4UzWQC2+gfFEi0nO
+ Pd6B05DjwgOMX7lhhQThgQt7eyfW3QSsa7j2GHAMtthgA==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d22ed1a8d6056b74;
+	Sat, 14 Nov 2026 06:46:14 +0000
+X-Mizu-Trace-ID: d22ed1a8d6056b74
+X-Migadu-Flow: FLOW_OUT
+Date: Sat, 14 Nov 2026 14:46:03 +0800
+From: Weijie Yuan <wy@wyuan.org>
+To: =?utf-8?B?6Zey6YCb?= <2368492046@qq.com>
+Cc: corbet <corbet@lwn.net>, mchehab <mchehab@kernel.org>,
+	linux-doc <linux-doc@vger.kernel.org>,
+	skhan <skhan@linuxfoundation.org>, rdunlap <rdunlap@infradead.org>,
+	linux-kernel <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 0/4] docs: kernel-doc: fix export selection and error
+ handling
+Message-ID: <avgDq_FrLSbuC7bK@wyuan.org>
+References: <tencent_9BF64A4FFFB7B990DD5E6D6CF26C43565306@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,128 +69,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/7] mm: batch rmap walks during large folio migration
-To: "Garg, Shivank" <shivankg@amd.com>,
- "joannelkoong@gmail.com" <joannelkoong@gmail.com>
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "kmanaouil.dev@gmail.com" <kmanaouil.dev@gmail.com>,
- "rppt@kernel.org" <rppt@kernel.org>, "weixugc@google.com"
- <weixugc@google.com>, "byungchul@sk.com" <byungchul@sk.com>,
- "rakie.kim@sk.com" <rakie.kim@sk.com>, "vbabka@kernel.org"
- <vbabka@kernel.org>, "harry@kernel.org" <harry@kernel.org>,
- "ying.huang@linux.alibaba.com" <ying.huang@linux.alibaba.com>,
- "riel@surriel.com" <riel@surriel.com>, "david@kernel.org"
- <david@kernel.org>, "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
- "matthew.brost@intel.com" <matthew.brost@intel.com>,
- "surenb@google.com" <surenb@google.com>,
- "rientjes@google.com" <rientjes@google.com>,
- "kinseyho@google.com" <kinseyho@google.com>,
- "Rao, Bharata Bhasker" <bharata@amd.com>,
- "linux-mm@kvack.org" <linux-mm@kvack.org>,
- "gourry@gourry.net" <gourry@gourry.net>, "ziy@nvidia.com" <ziy@nvidia.com>,
- "usama.arif@linux.dev" <usama.arif@linux.dev>,
- "jannh@google.com" <jannh@google.com>,
- "liam@infradead.org" <liam@infradead.org>, "mhocko@suse.com"
- <mhocko@suse.com>, "ljs@kernel.org" <ljs@kernel.org>,
- "lance.yang@linux.dev" <lance.yang@linux.dev>,
- "joshua.hahnjy@gmail.com" <joshua.hahnjy@gmail.com>,
- "apopple@nvidia.com" <apopple@nvidia.com>, "fvdl@google.com"
- <fvdl@google.com>
-References: <20260813-migrate-rmap-batch-v2-0-3c5424c555c7@amd.com>
- <CAJnrk1ZkhvyGLUyZrf_gA3XBv1XTfHArGOMgqr=5XbSCBJHz4Q@mail.gmail.com>
- <2ed65a57aaa676a59651abd671f18dc9b55f9195.camel@amd.com>
-Content-Language: en-US
-From: Dev Jain <dev.jain@arm.com>
-In-Reply-To: <2ed65a57aaa676a59651abd671f18dc9b55f9195.camel@amd.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <tencent_9BF64A4FFFB7B990DD5E6D6CF26C43565306@qq.com>
 
+On Sat, Nov 14, 2026 at 01:40:28PM +0800, 闲逛 wrote:
+> Hi Jonathan and Mauro,
+> 
+> This series fixes four reproducible kernel-doc issues:
+> 
+>   1. Multi-file export filtering reuses the first input's exports.
+>   2. Environment warning-as-error settings do not affect the exit status.
+>   3. YAML error paths call sys.exit() without importing sys.
+>   4. A separate -export-file triggers a missing-xforms TypeError.
+> 
+> Each fix includes CLI regression coverage. The warning-policy tests also
+> cover KDOC_WERROR=0, empty overrides, and command-line precedence.
+> 
+> Validation on Windows (Python 3.12) and Ubuntu 24.04 under WSL2
+> (Python 3.12.3):
+> 
+>   python3 -B -X utf8 -m unittest discover -s tools/unittests
+> 
+>   Ran 131 tests: 127 passed, 4 existing expected failures.
+> 
+> The series is based on mainline commit
+> b3dfbde62cf1981c4638939c159dfd087b7a72e9.
 
+> A complete Sphinx documentation build has not been performed.
 
-On 12/11/26 1:07 am, Garg, Shivank wrote:
-> On Tue, 2026-11-10 at 16:08 -0800, Joanne Koong wrote:
->> On Wed, Aug 12, 2026 at 9:24 PM Shivank Garg <shivankg@amd.com> wrote:
->>>
->>> Migrating a PTE-mapped large folio currently walks the folio's rmap
->>> one page at a time. It does so twice per migration:
->>> 1. try_to_migrate_one(): Replace present PTEs with migration entries
->>> 2. remove_migration_pte(): Restore migration entries to working PTEs.
->>>
->>> For a folio with N contiguous PTEs, each walk repeats page_vma_mapped_walk()
->>> and the associated operation per subpage of the folio. (256 iterations
->>> for 1M folio).
->>>
->>> This series enables both walks to process a batch of consecutive PTEs
->>> that map the same large folio and do some refactoring and clean up on
->>> the way.
->>>
->>> Performance:
->>>
->>> AMD EPYC ZEN 3, 2-socket system (1 node per socket).
->>> move_pages() migrating 1 GB from node 0 -> node 1, throughput
->>> in GB/s:
->>>                        batch-         batch-restore
->>> folio     vanilla       restore-only   + unmap         restore%   restore+unmap%
->>> 4K        2.96±0.15     3.02±0.14      2.99±0.17         +2.2%    +1.0%
->>> 64K       5.99±0.10     6.12±0.08      7.65±0.16         +2.2%   +27.7%
->>> 256K      6.48±0.09     6.67±0.08      9.23±0.14         +2.9%   +42.4%
->>> 1M        6.76±0.10     6.98±0.10      9.74±0.19         +3.1%   +44.0%
->>> 2M       10.50±0.20    10.44±0.16     10.67±0.21         -0.5%    +1.6%
->>>
->>> In plain migration, the folio copy itself dominates the cost, so these rmap walk
->>> savings are only partly visible end-to-end.
->>>
->>> When the folio copy is batched-copy and offloaded to DMA engine [1], the copy is
->>> no longer the bottleneck and rmap-walk batching translates into much larger gains:
->>>
->>> This series + [1], DMA Offload on PTDMA (DCBM), 16 channels:
->>>
->>>                     batch-copy                      dcbm+restore
->>> folio    vanilla    -offload(dcbm)  dcbm+restore    +unmap          (rmap batch impact)
->>> 4K       3.05±0.13   2.76±0.11       2.77±0.12        2.74±0.09
->>> 64K      5.85±0.11  10.66±0.27      11.56±1.45       17.55±0.56
->>> 256K     6.26±0.08  13.64±2.73      13.68±0.16       34.76±0.57       (2.54x)
->>> 1M       6.58±0.08  14.25±0.07      15.27±0.77       44.28±0.27       (3.11x)
->>> 2M      10.61±0.24  65.26±0.96      65.25±1.65       65.66±0.87
->>>
->>
->> Hi Shivank,
->>
->> Are you planning to send a v3 of this series? My reason for asking is
->> because batching the unmap also fixes an existing issue where when
->> try_to_migrate_one() unmaps a PTE-mapped anon mTHP one PTE at a time,
->> the folio looks partially mapped partway through and gets flagged for
->> deferred split. My mTHP underused shrinker series [1] makes this more
->> common since every underused mTHP split will now go through this path,
->> which makes this bug a blocker for the series. More context can be
->> found in [2], which was my attempt to fix this bug, but then David
->> suggested we fix it in a better way by batching, and Zi pointed me to
->> this series.
->>
->> Thanks,
->> Joanne
->>
->> [1] https://lore.kernel.org/linux-mm/20261103212004.1356327-1-joannelkoong@gmail.com/
->> [2] https://lore.kernel.org/linux-mm/20261109220958.2071687-1-joannelkoong@gmail.com/
-> 
-> 
-> Glad to hear this series helps your use case.
-> 
-> Yes, I'm working on v3. I slowed down on it because it depends on
-> Optimize anonymous large folio unmapping series [1], which hasn't been
-> merged yet.
+May I ask why? You could just run 'make htmldocs'.
 
-Hi, I was on vacation, I am going to send the next version of this soon.
+> I could not verify docs-next because the server's TLS connection
+> failed; checking for equivalent pending mailing-list patches is also
+> incomplete.
 
+I don't believe you can not clone Jon's repo and checkout docs-next
+branch. Is there any reason? (Looks like git.lwn.net is doing a pretty
+good job of keeping AI crawlers out.;)) And I suspect that this part is
+the output of your agent. :)
 
-> 
-> If it helps, I can send v3 sooner, addressing the v2 comments, rebase
-> on the current tree, and split into unmap-side and restore-side series
-> for easier review.
-> 
-> [1] https://lore.kernel.org/linux-mm/20260924131106.1730494-1-dev.jain@arm.com/
-> 
-> Thanks,
-> Shivank
+> Codex assisted with reproducing the failures, preparing the fixes and
+> regression tests, and executing the tests. The task was to inspect and
+> repair kernel-doc behavior in a local Linux source tree. I have reviewed
+> the changes and requested that my Signed-off-by be recorded.
+
+Thanks for the disclosure, but this may not be put in the commit message
+of your patches. They should better be under '---'.
+
+And please see also: "no attachments"
+
+https://docs.kernel.org/process/submitting-patches.html#no-mime-no-links-no-compression-no-attachments-just-plain-text
+
+Thanks.
+
 
