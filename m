@@ -1,68 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794683292;
-	b=xu5oQ9G18OxM8C8mxZ6uytWFVHQnuY1xJY4FS2Vnb8FqCu6dSiRyVOy8YYDs1ZKaVg4a
-	 TJ8+TJgMylY5xcwpWD6dKT0u9gGTM9RYbWwo0j+UJ+uFQi8S6wvc/dc8KsEedBu9cB2g1
-	 q+boBIRMJ0UlkenMhb69FUdt9ZXgHMOmaXxEBE1SNbY65/dvj5PLXi41KPdbZkFQ51/Ha
-	 wJ4840j8Q4KGzUd3pylm0alEZvKAQ+roX8oFNojaExM6jmkawYdDFaT5EUaUcaig1C7sW
-	 fl58Tdya8P5e+tK9y7lw/ZzBWi3NGPYui4IwjY4DSoUfU+z8P3EK+zpTGkqVVqU7guw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794683292;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=jrpYg7S3w1u/s304fksd+9WkuwgFpjkNMJMjxnYOktE=;
-	b=d5wSaGyIB36OuT7VPDHbcSpm61Bdw+uLFnXiFs5axHZlGHjiHL2enVeRXywmHmhwE5Ox
-	 Mcnd5iGMKNoBw0rBwh6QqUD6UJ+T8l6q9GsXhVZlJ/gBfN5UTTLmd+f2mAMMgJMR4Y1ik
-	 TaWzrp/8rEtqfteU2CeZWi+XDRk9Ts3Gq8lyMTiJdYPNixzw4MBfUcc3NO2eJv2oK2p8/
-	 2OyGWbBhbyPM6PR8wcAKs/iR05VIOddG9cyovLraPi8NCfL8eEPL6Nmw9X6e0gyfnTphH
-	 V8n8ZNQSszMRLEX2+zmG60iat+rjEa8hXDL/Xm5NxCfh7VRZLywQh4v7KudoDbCCHsA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QYNoTnXj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.176
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794683334;
+	b=x0U7QXsrXYMFPxScMGvOQPxUkg4+s7eNN5A9Vc/5wxTjWO8qNTJZQxogyHKOBqDAqQC8
+	 ZJpoUa9DnvRmEktRCmPP+Wabu4fxCptA4tHiiHMR9lhNDBC/TQMvTMIJByoft7AMjQ+J/
+	 mBXJmEpakcpVVyar9Ke+x1fWNNYTMAbsHDz7l7X6mC4zSq50wFHGRvkUgmYIl47S27cwA
+	 DQp4EQtjuISB9ypsAhSre2GL5nxHXJknpS9A1UWFt365ForVTKqIM5YoVGTb4nqCh6/8I
+	 zJcENZYlPJ1ZOwyyjxAY/A7DR7fS5vdJlMy2FDhq3OBaOkfaawKVm/CXTsxExJMCuLA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794683334;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=lxmRDFoHxpt+qxahysWPY8cNjC08++XK90U4r6nVLsw=;
+	b=TpUaWO65u5+UYEFsbPB8sXvsPbwQoHfEPiSf1vDs1A6fkNU5wwi6JYfG2PX5nU4jNLj7
+	 vP0Abj7nd78ArS/QuVVau6VVC5T+/EdQ8pnAIzWprNrq24PC6iFWmzrKUX1I6NYA+bNKS
+	 L+D0uSYmMP22u6vadiAmlRUfA7WvH2PL+29gI+44hMsNO1mhthE5YJ3iD016IVyCvwkFk
+	 J+OJUIfm3NFyB6OaOIvJL1uI9BGtnjUB6zqzJ9kRImwpm1DQUPn5WX9mP/1WzxatwyHEO
+	 KOcSTyakpdai3ZKbb1M8QFyWQspdsJ06aRKxFILEX5dfvFms/dsmnoW5V4UbaIYxJYw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hX6nwmg8;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.176
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B93AA606A323;
-	Sat, 14 Nov 2026 19:08:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95802606A32D
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 19:08:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95802606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QYNoTnXj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C2531F000C4;
-	Sat, 14 Nov 2026 19:08:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794683292;
-	bh=jrpYg7S3w1u/s304fksd+9WkuwgFpjkNMJMjxnYOktE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QYNoTnXjjZhBPnpa8pOfyk2yFfApF74bnIOvALp/oKYkwpyK77UolVRCAS9PWBwUT
-	 vTBNeJc2BT3hD65bSUXiJIzuZRodbsdX1fnL8/SMLFCYNn/+H570eO0UW2ZwVw9sWk
-	 GMxUycxR4kFYE/1x4BsPOWM6QfVcHWY7lAkRzLGYC2spj4KtaAwckhv3IaoPq1c+i0
-	 7WJXBqF1BvvLoxaDFl2abs10ZuIiJ39Ub7KZHMiai60iJ0e/m7v+0PTgqGv8kiifml
-	 yLA7l8Fl3UguxEqgTAbhHe6k1GakSXqMGY5FQ9ZyVqlS8LVqbDnHwiqz6bl9cWiY9E
-	 wqQgRo+ur+kWQ==
-Date: Sat, 14 Nov 2026 19:08:02 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Willy Tarreau <w@1wt.eu>, 
-	Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
-	Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Chris Wilson <chris@chris-wilson.co.uk>, Matthew Auld <matthew.auld@intel.com>, 
-	Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, 
-	Nicholas Piggin <npiggin@gmail.com>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, 
-	Rik van Riel <riel@redhat.com>, Benjamin Herrenschmidt <benh@kernel.crashing.org>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
-	dri-devel@lists.freedesktop.org, linuxppc-dev@lists.ozlabs.org, stable@vger.kernel.org, 
-	Felix Kuehling <Felix.Kuehling@amd.com>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
-	Chris Mason <mason@kernel.org>
-Subject: Re: [PATCH 5/5] mm: check permissions and bounds for vm_ops->access
-Message-ID: <aviwYZhpXFczMwRR@gremlin>
-References: <20261112-access_shite-v1-0-988a5c470db2@kernel.org>
- <20261112-access_shite-v1-5-988a5c470db2@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hX6nwmg8
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2ed1e9ae5a8so7614255ad.1
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 11:08:53 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794683333; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FwJSa4ZELRTwvpMJGZHlvKCNadoVBKpTgenS/G3rNNHNMF/9wDvyFsHoeciNkXMzWW
+         Q5huzwBmrM7nyty88iYz8LffrPWkyL/vgaBZGNoz3lGBmWGJ0YJLn35VL36W1hCU3hnC
+         3+b5wilPXObgqRHB3iFQ27Wgygrh6OsWKMI5U1KPB6RulxANRpGyzWuxuvjObPo4Eqv5
+         eSwsgmHvkQpy7JVgW3ngQu+QFP/ko9uYyareId8CzY8RrQtBbNESWoFX9KyyhGJie8JY
+         TLwv6SYLEatl88pGO4Oxrbszj83mAh55PYHtIvOuTPSWIZqiQ/C9TyTXRdzSPCgFUQTL
+         G09g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=lxmRDFoHxpt+qxahysWPY8cNjC08++XK90U4r6nVLsw=;
+        fh=eXhvudjB9VdfdLjt4v8tUZs6eU8RWTgM0KGlnLd1/O8=;
+        b=gIoGhG0U5qjaygdZK0MG8KuZMbXZVXAgN8mopNysd4k/2iVoM6k9HI96wxNB2zdM7v
+         vNOvRdZeBBxl+2FoJF3N6hVCkPa0r0sKWjRHGkkrRUyVI7YuHXmYgpMeWwnVgRS9Vdg9
+         Kyb0ZQZx5C/V012AGuO8wt10Yyv4H626xCrkZqU8HTCNKH4NsXVPhnCId+SLzOrjHxJY
+         phPjgKohPwt8OyMyKHWvM20KIEYguwISsfIw0na1BzcfVC0QC/t3THUt1GwrPEIhRItS
+         rEzu+GGeJWmn0NgsvWRGeqSeX4RUUCvg2+nN8BNeQkO9XtuWkTcpZ/RCq0E9eO1bZ36G
+         hVCw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794683333; x=1795288133; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lxmRDFoHxpt+qxahysWPY8cNjC08++XK90U4r6nVLsw=;
+        b=hX6nwmg8Rs65GoXZ5zZB7Gd+AOh9hOUa96uBWwnYwRTzYswLc3aPgt1QSSWIWJ2ZNL
+         w1OYUFY9NOmjZaShrhx2Jj1npiVNQ04Y6Hhu/S4bTfRY274mBn73KcPczVJKNfaDyTq/
+         s3EPjaXHTJx4ZUmVMtOGA+yLUeLpUtEhqR20JdQzsRQOCACtHjU4EzlwKOZC7SIxXH1w
+         /D4nbX2IcT9o7JbKePam36e+s+dAAKf2HaVd137ni10RqdwaEWxW0E6gqIN2/d1OAQBG
+         HpgEmk+cE8pKWnk/iVZuCp+BQ/Maeb2RHfQd/nXiMu3P8rJ1lUkCy8bZejy+nfIARXfJ
+         sWdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794683333; x=1795288133;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lxmRDFoHxpt+qxahysWPY8cNjC08++XK90U4r6nVLsw=;
+        b=clHWBV22yoGfCCFl97nU1binDNffzvpzd3aLiqDfeiaqOtRdHxm6J2sOclJG51cqoI
+         lueX3KaNOY7nw/HWG5ebkpleslHjBAVnB7UoWWI3kXUWwbqjRJiKYsBdyFmMPHpA6zRS
+         5RSZmmINSf41TxK8YlhWTwa1GgcijZjKKzW9G8Ox7gbvPzi7oaXKJie5dIf1/UWXlIRD
+         69QE8OqVKKnneKhYsdJhvOQijOwXpsFPrJO2aWzlix4CcSIJIJqg3TSrinUOhqFClQVX
+         4+NjxTes0EBoRfJx3rWxmCfVgRzMuy77wXooWr6+3mxV7WO5EC6LsQXMAmrCXSUu/ogE
+         3tBQ==
+X-Forwarded-Encrypted: i=1; AL+hErG49JI8G8xw371J8nt4gXH4L7or+MNoFy2NdWhxeyoNS0CMZQCOdwxdeM17n7w/bAEWxRjvsJ5zKdGGKuI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ny409drNQa+o7C5R3gvueTbz6lMxxCQOfyCoOWnssKcHfUipo
+	+3cVvu5gDIFno0NNLGfc5kWjo61BqWaKjKlW4ClbXagYFFmREEo5t0+8nV0eqLJNf/4PKVseuzP
+	vV/rIw3ozpPsGX+1R0WoI5WlkRx28hjs=
+X-Gm-Gg: AYBFou3gmBEjVLFCuR7GqmtRPHY7fDW9eT5aAebsUkgP2rfCVZMGc62ZSUeSvvj9Fe1
+	lGfpIBs6pYi2JzEIXtdG70eF7hHXKQyDNS49p4aql33fRym0ySmkVDp/ZuQx5hTIWDrBpiPpiyE
+	NOfmu0zg2I9/EoWOJ5xuoye4NcxtiKKols8EcaRh0u7BeGFdOVO9MIF9heUvJUYlzhhpQajzHJv
+	X+0q0jSu8jneur5jhpyg113bLk/X9++zuJYYYwn+9tanDRRFT0vs/l8yOtudecKPR9J6xLD4QCe
+	YdgWwdgfjBHMVjiWva42b2nZ61h3QB9anKfhgjQHFjDYkANdEvcQ3gvQy4FNCKfgdctY2Cscu9/
+	GafeK/4U1bmHJUZNOYgFyvre5somHJS9CEvcTp2C+FvDgLfDV7nELQsSfK/9cIom7lq6mi+6k0O
+	qiy3DOJbmLtkUExfz36nW8t1fs/rU7op0HaKcvs/2URzBGwo3JVjg=
+X-Received: by 2002:a17:902:da86:b0:2ed:1fb0:7784 with SMTP id
+ d9443c01a7336-2ee0da7bd5fmr58535095ad.10.1794683332797; Sat, 14 Nov 2026
+ 11:08:52 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,106 +105,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261112-access_shite-v1-5-988a5c470db2@kernel.org>
+References: <20261030042138.73739-1-kylebot@openai.com>
+In-Reply-To: <20261030042138.73739-1-kylebot@openai.com>
+From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Date: Sat, 14 Nov 2026 11:08:40 -0800
+X-Gm-Features: AclHuK--H_3_n6VCnyOL61NaQc63vtDDD0D0yPb0rGJY-Xl4-Bos2pmaPEQ1p5E
+Message-ID: <CAADnVQJ=nsuU6GTJFG8VnF1drWW9pQOy9=fB3UhUyRYAOUmGuQ@mail.gmail.com>
+Subject: Re: [PATCH] net: skmsg: fix copy cursor when coalescing clones
+To: Kyle Zeng <kylebot@openai.com>
+Cc: bpf <bpf@vger.kernel.org>, John Fastabend <john.fastabend@gmail.com>, 
+	Jakub Sitnicki <jakub@cloudflare.com>, Jiayuan Chen <jiayuan.chen@linux.dev>, 
+	Network Development <netdev@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>, 
+	outbounddisclosures@openai.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 12, 2026 at 11:09:01PM +0100, David Hildenbrand (Arm) wrote:
-> GUP rejects VM_IO and VM_PFNMAP mappings early. __access_remote_vm() then
-> falls back to vm_ops->access without checking VMA permissions and without
-> limiting the request to the VMA size.
+On Thu, Oct 29, 2026 at 9:22=E2=80=AFPM Kyle Zeng <kylebot@openai.com> wrot=
+e:
 >
-> Consequently, /proc/<pid>/mem can bypass protections even without
-> FOLL_FORCE, or cross into another mapping without checking its
-> permissions.
+> A splice or zero-copy append can leave the destination copy cursor at
+> sg.end. If sk_msg_clone() subsequently coalesces with the last entry,
+> sg.end does not advance and the cursor still points at an unused slot.
+> sk_msg_memcopy_from_iter() can then walk around the ring and write into
+> older entries, including file pages spliced from a read-only descriptor.
 >
-> Check VMA permissions before calling ->access and limit each request to
-> the current VMA. Implement similar access permission checks as GUP,
-> however:
->  (1) Reject writes to CoW mappings because the callbacks access backing
->      memory directly and cannot handle CoW.
->  (2) Allow forced writes to non-CoW mappings with VM_MAYWRITE.
+> Software TLS can reach this with an ordinary MSG_MORE send after a file
+> splice and a splice from another TCP socket. Both TCP and the TLS
+> encrypted-message allocation can use the sending task's page fragment,
+> so the TCP-sourced plaintext can be contiguous with the next cloned
+> encrypted-message range.
 >
-> This intentionally breaks forced writes through legacy amdgpu PROT_NONE,
-> MAP_PRIVATE debugger mappings. The workaround in commit fa5239f2af98
-> ("drm/amdgpu: workaround failed COW checks for Thunk VMAs") cleared
-> VM_MAYWRITE to avoid CoW, but debugger writes still succeeded by
-> exploiting the missing access-permission checks fixed here. Reads remain
-> supported. Userspace must use MAP_SHARED instead; ROCm 5.5.0, released
-> in May 2023, already does so.
+> When coalescing with an exhausted destination, move the copy cursor to
+> the tail and set copybreak to its old length before extending it. Find
+> the actual tail on each iteration using the ring iterator, including
+> when end wraps to zero. Leave an existing copy cursor unchanged and
+> preserve the normal coalescing, reference counting, and memory charging.
 >
-> Link: https://github.com/ROCm/ROCT-Thunk-Interface/commit/fea44fab6e84eda52fcf6b419b35600c18f4c022
-> Fixes: 272ddc8b3735 ("proc: don't use FOLL_FORCE for reading cmdline and environment")
+> Fixes: fda497e5f5b8 ("Optimize sk_msg_clone() by data merge to end dst sg=
+ entry")
 > Cc: stable@vger.kernel.org
-> Cc: Felix Kuehling <Felix.Kuehling@amd.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Reported-by: Chris Mason <mason@kernel.org>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Kyle Zeng <kylebot@openai.com>
 
-LGTM, yikes at this in general :)
+pls respin and target bpf tree.
 
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
-> ---
->  mm/memory.c | 25 +++++++++++++++++++++++--
->  1 file changed, 23 insertions(+), 2 deletions(-)
->
-> diff --git a/mm/memory.c b/mm/memory.c
-> index d4370c1b331c9..9872f289c1e49 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -7362,6 +7362,7 @@ EXPORT_SYMBOL_GPL(generic_access_phys);
->  static int __access_remote_vm(struct mm_struct *mm, unsigned long addr,
->  			      void *buf, int len, unsigned int gup_flags)
->  {
-> +	const bool force = gup_flags & FOLL_FORCE;
->  	void *old_buf = buf;
->  	int write = gup_flags & FOLL_WRITE;
->
-> @@ -7401,15 +7402,35 @@ static int __access_remote_vm(struct mm_struct *mm, unsigned long addr,
->  			if (gup_flags & FOLL_ANON)
->  				break;
->
-> +			if (write) {
-> +				if (!vma_test(vma, VMA_MAYWRITE_BIT))
-> +					break;
-> +				if (!vma_test(vma, VMA_WRITE_BIT) && !force)
-> +					break;
-> +				/*
-> +				 * In contrast to GUP, we historically allowed
-> +				 * FOLL_FORCE write access to non-CoW mappings.
-> +				 * However, we must always reject CoW mappings
-> +				 * as we cannot CoW here.
-> +				 */
-> +				if (vma_is_cow_mapping(vma))
-> +					break;
-> +			} else if (!vma_test(vma, VMA_READ_BIT)) {
-> +				if (!force || !vma_test(vma, VMA_MAYREAD_BIT))
-> +					break;
-> +			}
-> +
->  			/*
->  			 * Check if this is a VM_IO | VM_PFNMAP VMA, which
->  			 * we can access using slightly different code.
->  			 */
->  			bytes = 0;
->  #ifdef CONFIG_HAVE_IOREMAP_PROT
-> -			if (vma->vm_ops && vma->vm_ops->access)
-> +			if (vma->vm_ops && vma->vm_ops->access) {
-> +				bytes = min_t(unsigned long, len, vma->vm_end - addr);
->  				bytes = vma->vm_ops->access(vma, addr, buf,
-> -							    len, write);
-> +							    bytes, write);
-> +			}
->  #endif
->  			if (bytes <= 0)
->  				break;
->
-> --
-> 2.43.0
->
-
---
-Cheers, Lorenzo
+pw-bot: cr
