@@ -1,60 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.10.208.40
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794648511;
-	b=bUCcXVtJJnxwRH5JLoWr2bQB1ls4uNAejM1LEw3hz1bVg1n5e5oSJa/TDsiBigbXon1D
-	 6bCpYOFhQJRqag13BHaFmbT3RyJWeauR75Pb4GR1YurdnhqvSbUhqtawewqitUmmzL5HR
-	 +h+4fTza0TO21mV0v7gnZZDs7wwiBQqy2cgUF5GIVaaQU57L4Llmrqs83OyAU/CDv4DP2
-	 ox42cffT1ciwdejbxn/JfXH5LFJqjoDeaXOu1CtudAFxwRdI9VJi1yJn94pUHhYNgHngF
-	 j2vjVpJiVYgvzKO0WU6MWlhIy9ZK+23Wp5J7IlXnKMlr7weNjccDegEpbQqhfV7XBLA==
+	t=1794648517;
+	b=ez9bdw66yhwvR6Q8EXAfk0lHUjPeKj1SMzdtz9Ek+VpguqcV85hnXLtPyn+Fw6nSTkZ/
+	 gD6MN2na3I69LhXs1TK5OQ95SQosxXoQu9wIavGLjootXUwOBjKZWV2FPIIrt2tMOb+HD
+	 ZQWopDFsCMTas/c+Hp5Igiyy2j38v6mZP/O9mjLS5QK/r5LZ3lI+w7OyyWokH7LIF6TI7
+	 /eV+s0HhmtAotmJsKZdU7IesJVS9bxHMERhlvEsnjk1aQZQFKIkgCE6OuQupoAqak633r
+	 YiCtvGB5pYvgHUu7E2ykmnEXRnK8/6dt7+UDc/bgrCB97mqIQ0G/11Y8dJ/1mfowYJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794648511;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=ReAZj9IHOHT0VSZbe4tm6BtH6npKIpgYzWD4aIHiW1c=;
-	b=15pti4ioK/Eoq1UL4CNPb/xmV7kT/LmB/HqWn60B8fSwjpJOm1XDuXgtuZpiA2YObxEB
-	 qXYsYNI7KgIceP1KpX0u7JLil32/6e5mb6PhmCxDJ+vdQp3+4kEav26Ha7gcJzQQS4Ch6
-	 HHz+2ODiq4R05HWTjKnOhu7dcm4A7FO16J5vXKh25a/M28ecGUaCoGD9h3bjzdNXrkyV1
-	 AEgphlWwCwaaTAFZQ8Ay80Oh4IC8K00J/jdXJDNGWamUVJo8ml4Fn55vbTcT8RnW2xXNo
-	 DnP9uXVI54F5NDpwbD5IejuzXzq4Re9ohvj1wZeH34y08pUaCr++3MSzPsstQ8gYGhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794648517;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
+	bh=AJyd14pHI1BrRBcFnTM35qAErkg4x2UsTQx4b3jf9+s=;
+	b=2vgsnEK6/nT9TxFVmj/KzwX7gGYCJMIfA6eXh9jbbuBTPSlzf6BNCh8KnrJUKvYjkdTd
+	 IYhPlhuxe00r3PefWGNgCzkq9fa6aECo6YQYYQJ2vbfgZPNYf2VZyPzxThcmQZ9VLcdsb
+	 HxE7fA51H8eZaKpiyyKTrudJ4+ZLIIvceNVTYbcvJK5mZoGe6ulziANOCuthY4xc7fw9L
+	 +Ku4w3dqUZGnrBlKMl6j2niqxmOZSJYV124oh6mXkuz6+czbSTdKTsvm/ym52vF9QnU26
+	 7KqAgTkcD4FtN55JyEa+KLvae1q8qAkTrS0GCPgRviHZOHcNfmwew7FMIIVAqK6Ow7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VImuLngl;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=mandelbit.com;
+	spf=pass smtp.mailfrom=mandelbit.com;
+	dkim=pass header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=sSF3OFNk;
+	arc=none smtp.remote-ip=195.10.208.40
+Received: from mout-b-210.mailbox.org (mout-b-210.mailbox.org [195.10.208.40])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69011606A327;
-	Sat, 14 Nov 2026 09:28:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5AA6606A8BC;
+	Sat, 14 Nov 2026 09:28:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5AA6606A8BC
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mandelbit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VImuLngl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 524081F000C4;
-	Sat, 14 Nov 2026 09:28:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794648511;
-	bh=ReAZj9IHOHT0VSZbe4tm6BtH6npKIpgYzWD4aIHiW1c=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=VImuLngle11GB820MtTNqaVkqIanNtzWe60tyV1yKlKjLgQny/I3B6+oGvgJqe2t9
-	 qAzoFiuNL7N+QfQC0HdjkLkMMOSpazT3eyfLQcxKNqjcVUwwsWHGDnAwUx/tcU2wph
-	 AYyPu80rmqLL/+yFPxmcC0FxQ0v0DE2b5MOZFRvid233QABaH7AMGQoGafzvbp/lxY
-	 6hHWlViYJqD45MvapNQkkGf1xbCfZvgvyZp5UMEQ9ZoWN3EtNXnMk7fSoIAOK2vpq5
-	 LXQ4oQeZq+ph1XyxZ1FGiy0cqmIjnPyuUrpq37mmoNa+SkGP43t+LaZUpmle3LW1W2
-	 9rQU4eSVZw7jA==
-Subject: Re: [PATCH net-next v8 01/11] r8152: fix
- RTL8156/RTL8156B/RTL8157/RTL8159 up and down settings
-From: netdev-bot+sashiko@kernel.org
-To: hsu.chih.kai@realtek.com
-Cc: davem@davemloft.net, kuba@kernel.org, netdev@vger.kernel.org,
- nic_swsd@realtek.com, linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
- edumazet@google.com, bjorn@mork.no, pabeni@redhat.com, andrew+netdev@lunn.ch,
- mail@birger-koblitz.de
-Date: Sat, 14 Nov 2026 09:28:29 +0000
-Message-ID: <179464850985.2199510.8737117664492189004@kernel.org>
-In-Reply-To: <20261110032416.16968-2-nic_swsd@realtek.com>
-References: <20261110032416.16968-2-nic_swsd@realtek.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=sSF3OFNk
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-b-210.mailbox.org (Postfix) with ESMTPS id 4jRTMN3cwLzFqBS;
+	Sat, 14 Nov 2026 10:28:32 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
+	s=MBO0001; t=1794648512;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AJyd14pHI1BrRBcFnTM35qAErkg4x2UsTQx4b3jf9+s=;
+	b=sSF3OFNkagxz7H1ydfmRFrqiWaaXcOi0hy0+s+rz9IIOlOfYXTuj5z4F8CIS9tkcIJ7fQq
+	uplZFfEqrhlazzgT/E5cYLaj98Vt1CddVJYvcMrJxMIAwaKE+veonPzV5Tuq8oF2p0qnm0
+	QD0Hqbu4mUWzSszC28/yDOufH/AzPlQ1GqnzoES7KN/GJi5xMw3tqNK7XTrhHvXw8VYhVL
+	w/+3kNQAGkSvo2X3KCXxHzmTvZyQHX0TKvLWbSH9caZPcq4nzMCQ0MtEJ0iBsa7Vrm8M7k
+	ENu54aKMlEJMZLVXuig+oGPAyXvEAGVwWCDnGHM0wNFUzsuX/P+VCexbvHZnvA==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of ralf@mandelbit.com designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=ralf@mandelbit.com
+From: Ralf Lici <ralf@mandelbit.com>
+To: Xavier HSINYUAN <XavierHsinyuan@outlook.com>
+Cc: antonio@mandelbit.com,
+	davem@davemloft.net,
+	dxld@darkboxed.org,
+	edumazet@kernel.org,
+	horms@kernel.org,
+	kuba@kernel.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com
+Subject: Re: [RFC net-next v2 11/18] net: ipxlat: add IPv4/IPv6 header and transport translation
+Date: Sat, 14 Nov 2026 10:28:23 +0100
+Message-ID: <20261114092824.89857-1-ralf@mandelbit.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <TYCPR01MB1100852BD6000EFAFDF14A418CA762@TYCPR01MB11008.jpnprd01.prod.outlook.com>
+References: <TYCPR01MB1100852BD6000EFAFDF14A418CA762@TYCPR01MB11008.jpnprd01.prod.outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,77 +80,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 4jRTMN3cwLzFqBS
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+On Fri, 06 Nov 2026 21:37:52 +0800, Xavier HSINYUAN <XavierHsinyuan@outlook.com> wrote:
+> Hi Ralf,
+>
+> > +static int ipxlat_46_translate_tcp_csum(struct sk_buff *skb,
+> > +					const struct iphdr *in4)
+> > +{
+> > +	const struct ipxlat_cb *cb = ipxlat_skb_cb(skb);
+> > +	const struct ipv6hdr *out6 = ipv6_hdr(skb);
+> > +	struct tcphdr *tcp = tcp_hdr(skb);
+> > +
+> > +	/* CHECKSUM_PARTIAL contains a pseudo-header seed rather than a final
+> > +	 * checksum. Replace it with the translated IPv6 pseudo-header and
+> > +	 * leave completion to the later output path.
+> > +	 */
+> > +	if (skb->ip_summed == CHECKSUM_PARTIAL) {
+> > +		tcp->check = ~tcp_v6_check(ipxlat_skb_l4_seg_len(skb, cb),
+> > +					   &out6->saddr, &out6->daddr, 0);
+> > +		return ipxlat_set_partial_csum(skb,
+> > +					       offsetof(struct tcphdr, check));
+> > +	}
+> > +
+> > +	tcp->check = ipxlat_46_update_l4_csum(tcp->check, in4, out6);
+> > +	skb->ip_summed = CHECKSUM_NONE;
+> > +	return 0;
+> > +}
+> > +
+> > +static int ipxlat_46_translate_udp_csum(struct sk_buff *skb,
+> > +					const struct iphdr *in4)
+> > +{
+> > +	const struct ipxlat_cb *cb = ipxlat_skb_cb(skb);
+> > +	const struct ipv6hdr *out6 = ipv6_hdr(skb);
+> > +	struct udphdr *udp = udp_hdr(skb);
+> > +
+> > +	if (skb->ip_summed == CHECKSUM_PARTIAL) {
+> > +		udp->check = ~udp_v6_check(ipxlat_skb_l4_seg_len(skb, cb),
+> > +					   &out6->saddr, &out6->daddr, 0);
+> > +		return ipxlat_set_partial_csum(skb,
+> > +					       offsetof(struct udphdr, check));
+> > +	}
+> > +
+> > +	udp->check = ipxlat_46_update_l4_csum(udp->check, in4, out6);
+> > +	if (unlikely(!udp->check))
+> > +		udp->check = CSUM_MANGLED_0;
+> > +	skb->ip_summed = CHECKSUM_NONE;
+> > +	return 0;
+> > +}
+>
+> Pseudo-header seed in CHECKSUM_PARTIAL uses per-segment length instead
+> of the aggregate length, resulting in bad checksums for almost every
+> segments.
+>
 
-Low priority / nit picks for your consideration:
+You're right, just reproduced this locally. I confused the eventual
+segment length with the length represented by the CHECKSUM_PARTIAL seed
+on a GSO skb (the 6->4 path has the same bug). The current tests didn't
+catch the bug because veth passes CHECKSUM_PARTIAL packets through, so
+nothing ever computes or verifies the checksum.
 
-- [Low] The commit message for "r8152: fix
-  RTL8156/RTL8156B/RTL8157/RTL8159 up and down settings" does not say…
+> How about updating {tcp,udp}->check with a pseudo-header diff like
+> inet_proto_csum_replace_by_diff() to preserve the existing seed?
+>
 
---
+Yes, the next revision will preserve the existing seed in both
+directions by applying only the address delta, as the non-PARTIAL path
+already does.
 
-r8152: fix RTL8156/RTL8156B/RTL8157/RTL8159 up and down settings
-
-This commit changes the register programming in rtl8156_up() and
-rtl8156_down() for the RTL8156, RTL8156B, RTL8157 and RTL8159. It touches
-PLA_RCR1, USB_SPEED_OPTION, Clear_SDR, the OOB entry bits, the OOB RX size
-settings and PLA_MCU_SPDWN_EN, and says the datasheet requires these.
-
-> Several settings the datasheet requires for these chips were either
-> missing or gated on the wrong version range in the shared
-> rtl8156_up()/rtl8156_down():
-
-[ ... ]
-
-> Fixes: 195aae321c82 ("r8152: support new chips")
-> Fixes: fd3c7d080df5 ("r8152: Add support for the RTL8157 hardware")
-> Fixes: ad2a55b63b41 ("r8152: Add support for the RTL8159 chip")
-
-[Severity: Low]
-Could the commit message say what goes wrong for users without these
-changes?
-
-The only reason given is that the datasheet requires the settings. No
-symptom is described, such as WoL or OOB wake failing, RX stalls after
-resume, link problems, or suspend and power regressions.
-
-The three Fixes: tags mean stable will pick this up. It also bundles six
-independent register changes across three chip generations. Without a
-stated impact, it is hard to tell whether this is a user-visible fix for
-net or vendor-recommended tuning for net-next. It is also unclear which
-hunk fixes which problem.
-
-This affects backports, because 195aae321c82 predates RTL_VER_16 and
-RTL_VER_17, which fd3c7d080df5 added later. In older stable trees, the
-hunks that touch the version >= RTL_VER_16 and version < RTL_VER_16
-checks won't apply, and neither will the RTL_VER_16/RTL_VER_17 case arms.
-The RTL8156/RTL8156B parts would have to be pulled out by hand, such as
-these in rtl8156_up():
-
-    ocp_word_clr_bits(tp, MCU_TYPE_PLA, PLA_RCR1, BIT(3));
-    ...
-    case RTL_VER_13:
-    case RTL_VER_15:
-        /* Enable Clear_SDR */
-        ocp_word_set_bits(tp, MCU_TYPE_USB, 0xd3ca, BIT(15));
-
-and these in rtl8156_down():
-
-    ocp_word_set_bits(tp, MCU_TYPE_PLA, PLA_BDC_CR, ALDPS_PROXY_MODE);
-
-    ocp_byte_set_bits(tp, MCU_TYPE_PLA, PLA_OOB_CTRL,
-                      NOW_IS_OOB | DIS_MCU_CLROOB);
-
-By comparison, the later patch in this series, "r8152: fix flow control
-for RTL8156/RTL8156B/RTL8157/RTL8159", does state its impact ("they could
-keep sending pause frames indefinitely").
-
-Could the message be updated to describe the user-visible impact of each
-change, so maintainers and stable backporters can judge where each one
-belongs?
+Thanks for catching this!
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261110032416.16968-1-nic_swsd%40realtek.com
+Ralf Lici
+Mandelbit Srl
