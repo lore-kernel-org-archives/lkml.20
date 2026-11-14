@@ -1,96 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794637353;
-	b=Lhwvm3IxRAG7Nd0719bzJ9ZAiLuCTUQn4OinEzez46gMBq5ppRoPG76zX91ca7r8KGXH
-	 7E9EQtZwdgR4U/v37E1YjYfOjAeMEWSEPxuwvy4N9cjgYOIWvGTXciX6yNrpCFg7Z0IAT
-	 so5xJYXuEx2iWzZ0ql4IuUvnbRTA1fTpnIt8nC/s7w+qLol/a++dn61GkGUwE+YKecvX7
-	 zX+SvJb6kjzPzwixHfBdRNtx/ZduTcY3s8yR3JiOIYv7pJfmCkpDmYOQ/kgU7m01pXjnS
-	 1Ef6MvbYz2lT2q/sXACxjuSVnixVnryRAlj3h7PLtnSKEb9HmsLGLQ6jaMjBgyjmeoA==
+	b=U6TkALr/RoojqKWQEdISubzb1EIkn+UonhC+Jjciupz2Wx+TZOpPMsUGCfLUChyzdcYt
+	 OWXgoKRO0ONo+T7n6Go2ul3yLVKesbR7lyh0GuBqMX/7aL88X5GR87kISHRFUpGfz0y0K
+	 tUa51waQq3wjDLUl5XgUyXZ4vBeauOXMpoNhG4kLOKmmHJb455wzg9rwaklwJ3xR/oNyh
+	 pJ6KOqCmCO3mg3SY5R+0MAm+PSsxkiLgxGGTBFrEtMpELcMGuLXz56dGe+LXx7xazhLn5
+	 haSEf78jQeQNDWAKKcJmB5tJkZ1udLDJsLavcCi85SboW3xOuoN53LG6UMrJjdIzDTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794637353;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=a54BQTIFjPW8P0xkuWanHjV3ZdgHWnaMz+Ldxn8PqvM=;
-	b=Bu+O9AgrjhiViiTeWtkDrX6ICmDsdonmy7d3WRR0lLMdyfLvXXLahMV2YIZcPJehXuwW
-	 /9IzDKn7wJzwEOqS5y0YzsqD/cBxq/mWwPe8aYlHy/qtebuKqFJlNtrjEym++3TZeF9SY
-	 YWe8akl7FaPTrlUii1HE/fnXiWHSQUnkabXoOOHCVdurCjyJfSLw8Jd1dBGit3KOeCewb
-	 603l/m6UUWOAlC6GGXSMQFbEpODjs/Jcs5wEoMbDwI+VWhn8yVPPqEKvVE8e0chJad2Jw
-	 X6pD4+sGJpzTz+qCp6JKe0yJF0ESDGj8uhvBZ4brqJ0nsE04HQADQ4ftDl3gt8EfTog==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=KyLpXKnKTIyQF0OFuEovgw/bxqguxRHqnAp90g8bfao=;
+	b=RRD6j0Lo5SGT2nH7Lf5djDvHDbx2EOnnlcjcMSUXEQeO5cwzrsnRcNiR5ZnKv0r8mBn6
+	 5k+F3jMrZyyc+hyYo6g5ZWiViSYYTG9OpJyp8wTsW/Ip5a1yOmCF/muysiOPnXy5XnMAu
+	 piAMLOfXfgkyJWlosHIYb4KXjf6RPKEsSxtL9PZRJKGyXBZ69r6a38ssysAsX2jd0+4i4
+	 zYH9w+5lPqWZx1zL0km1RvR8+0sdVWfvO09VKeTTJCERilqJ9qSVwrGw23Ql1ELO3891y
+	 Ws6AJf9o+WHNr3RyHCfyHZ2Xjnrzrb5Tz26DR66rhdT3oSqOTB3TCoVlzwwuNhU/Vzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=k3ze6GhO;
-	arc=none smtp.remote-ip=209.85.215.180
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mMJFUWim;
+	arc=none smtp.remote-ip=209.85.210.200
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0684606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F691606A327
 	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:22:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0684606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F691606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=k3ze6GhO
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cdb684859cbso1590378a12.1
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mMJFUWim
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8b6463f95a4so1296866b3a.2
         for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:22:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794637352; x=1795242152; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=a54BQTIFjPW8P0xkuWanHjV3ZdgHWnaMz+Ldxn8PqvM=;
-        b=k3ze6GhOGxdLUFgZdt5Z9OexSj/i0OwBosPzmqlA8R7gXojUX8g2ifJvekL56/ipEC
-         1slzLFYh8mjaHI8hiiQhezREESOCUb08P6TrheUqWCmdCjs+ajpNDhnwPhvoD7C/7RDT
-         IH899UI2TPF4ztJugZDmVoaY0oWd8UEYNAMx0ujAkp8SkNOLmufPiGidpxV5jZfSLPgs
-         xuzLgizr2dsBLu8pL0SuEdbebpXDJytvipoV0aZ5F8uo2Pw47VHpL/co0jqvAdGBtXB4
-         TT2poLH6FIZkotwJqXaWxK+wUf/JaXlHJe3SfXpyIrDRuASGGdm4bm5HyMHftF6lPfdC
-         ALUg==
+        d=google.com; s=20260707; t=1794637352; x=1795242152; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KyLpXKnKTIyQF0OFuEovgw/bxqguxRHqnAp90g8bfao=;
+        b=mMJFUWimdqfkp4EJbS3j07OIyHMSPjcmBn5T4H4u3G6CfdkQg7do7nYlqgilY03S2H
+         /SI4eTidz6FAlIz/hn+/Ox/47OjRrNQSbDNszCmAN+0tzFR3IJNH5F6eEecioZAenTkP
+         OjqMuD36Dz6M/OXCNTijKKaB1UmkUGXV/Bca9LZDgVvDo8aNGDQcq7kbg0i9Y49XkedY
+         CVH37XGJTStX9gk6abeZtqcwNBsD7tNWOZXzlfIBnguxddWQURDpljblDA/Q6ln4ZcR3
+         5Ln4LMRrffERmhiBN4+jMQ6qiYRW2pl52L/NLOwu4LppLLygxYLDcYJ0J9hXDd3dZTZk
+         PoUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1794637352; x=1795242152;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=a54BQTIFjPW8P0xkuWanHjV3ZdgHWnaMz+Ldxn8PqvM=;
-        b=eKyB7e8lqgfPilxRu24O3R5u8lTKtIi7B110QwJceJ2bPHl88clugZ39dgNWRruwdA
-         yCunzs3ePvO9XxQTvvYe+Y5Zu4js681pfsAX5v3K4LR4dhcmUTu99S22mOWmN6CgDd7G
-         jvkLPEHd2Jrasd9dENMHEZ6P56yq+FUwwCSWWz5YMklCnYHN/297duvC7KzcQIkFLEwJ
-         kOagza7GUgRHR7otggw1cpyfEMy1yDSYuZUAiW0Sxqf0ud6RE2zuV55Jf4KnLqp2Dkvn
-         t/x9I9g6EIh19IrSpDO6ozsHORJ+9GHO6g+Gci73B9R6xb9gkfzhJ9NlyNDH2/3SS56N
-         h2Tw==
-X-Forwarded-Encrypted: i=1; AL+hErEFDptmO7vCB1rgonhi3CrKOG7a3YMhrNejHY91COBZ0rpl0Pz+MJwk40fG/jsWGXzCEKBYXqNsPYZS5l8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8SimHNj4eODrG0gZwoJY3Ejy+7NkESZGj4Tc4bzvHYhmhW2RfH
-	yP64OKNTAeTyS9UFLuyH1E6FURngykZ+i9BMsqC6Sh5LFjud34JlW6zF
-X-Gm-Gg: AYBFou3fa7zSIoz/iy4YZRxpEB/reqhptBbocgxFk3tNKHhFbhjR4mO6bheCjVrcmXZ
-	bxRJ8cdjmwCOnjBfEWiy117C8PQJiLnV+gkJl0p07VgY0jU+v3h3skKIspZ2SPg6NszReVYjRmD
-	lV/4gGt1oNOiWOyKwNhEsRaApfRb/Gj9tgysIIbolFsPn4pa3kjuD8pcg5AUtTsKUUVVGeaJRm3
-	yHgUsPnP2ByJc+djlbxPByiFPO8Lo+J4Eu1pvOrHm/vkrFmESAj5XKlKLGuGLWypZqtnJPWbyRD
-	E36s67+3WrScwwkt6piWbKWFs+vLIVaeFS92K6qQM0x7yBItdCeupmPGpblQp9QUUFaOeQ8sJx3
-	VijivMbvry+vngppWf8vfJaSCtgWkr4ILHN5f9eAWEMJx8AoH84SPPoPOXhyEyXpUFNXRtfRL45
-	nAVq7z+SIgsm2DarpvCtNgtOtP4wfdhRfHMIuLJCbEYMcBHYKHF6xkd5gDkgC/SNSqVk55KdH9m
-	T9R1lGAR1AWdAIA8z46X+jyLKIYGmzHXljBeHXx2XPcTb194+ssaPIBnAAoAsuHsl4dMXX59vml
-	zs/R1XfrUQId4fHzIC0X9u+2ZqBQjk/HYQC+yClfETBPJMDCrk0tFTJ8V5eGnUyKv5EtNMPNRnq
-	IKCKxOhdybpQ0WX00jhgAldpjg19mdq2KjYAPN8rZVGWt/kXrQRznudoAnoBZ5GPXXaQAy7xDxG
-	2viA==
-X-Received: by 2002:a17:90b:4cc9:b0:3b1:82fb:7e03 with SMTP id 98e67ed59e1d1-3b1b09e665emr4584940a91.11.1794637351981;
-        Fri, 13 Nov 2026 22:22:31 -0800 (PST)
-Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b266d873sm3457653a91.1.2026.11.13.22.22.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 22:22:31 -0800 (PST)
-From: Rosen Penev <rosenp@gmail.com>
-To: Matthew Garrett <mjg59@srcf.ucam.org>,
-	=?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Troy Rollo <linux2021@troy.rollo.name>
-Cc: platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] platform/x86: dell-wmi-base: Fix the data pointer for event sequences
-Date: Fri, 13 Nov 2026 22:22:19 -0800
-Message-ID: <5fa10b9dbe351074e61493c0ba3344ba6106137a.1794633180.git.rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.1
+        bh=KyLpXKnKTIyQF0OFuEovgw/bxqguxRHqnAp90g8bfao=;
+        b=1gZjM7mkTDFc3CBDFc9mmEnKANFPYhtSZ1xMT+kd1g/nOxFBV842kImrc66eF7e0W/
+         5xcXFbtmhjxryDUhi+/FX/kkxjuoAYrkFZmT0FMo8hFZqI3COQ/GOXgTL5qmnqNJpUN4
+         LjuFlbRwCzmA4VFuDDDUqHVmJDwBlT7O+cz7jvDI6M4u62VcdL9A20K3ii6/9gaFoOz4
+         aLIEBNTrhfMm9PsS710bMbvSnfRIOuj+qVcB+E0+JWQwrvFNGZqo28pIfq5bPfQVpJit
+         8WKcdJtAmkuA7VObfzOAdvty4yDxMlWeffooLYswKUE+bQIO/UBug3a02ETPYqpyHF7E
+         /RZA==
+X-Forwarded-Encrypted: i=1; AL+hErGWJeknwUv2iEVFoI07NScZahlpHdCRvAOBM0CjGvjiEtJ3RKmJuu3fYhlqz+j22Q+jajsp7hx6W/Us4pw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Etmu3X/P76/DePgMu8+UuocgDUWv3zBdHb83GLzRlvigkcUO0
+	COZYNyl1mCaRoR4ytB3OTN3VexZzEsMRtTD/DloMnXyJ6vs+DUCG4AVZnYINfYF/HsUS1DauNDO
+	l1taRdg==
+X-Received: from pffj8-n1.prod.google.com ([2002:a05:6a00:c2c8:10b0:8b6:c93c:12fa])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:17a8:b0:88d:3f61:20f3
+ with SMTP id d2e1a72fcca58-8beb80023bbmr4277418b3a.54.1794637351416; Fri, 13
+ Nov 2026 22:22:31 -0800 (PST)
+Date: Sat, 14 Nov 2026 06:22:30 +0000
+In-Reply-To: <20261111-mtu-probing-series-v4-4-6f2e484ca8ea@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,49 +77,34 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261111-mtu-probing-series-v4-0-6f2e484ca8ea@gmail.com> <20261111-mtu-probing-series-v4-4-6f2e484ca8ea@gmail.com>
+Message-ID: <avf-GWBmzjHr5agk@google.com>
+Subject: Re: [PATCH net-next v4 4/4] selftests/net: packetdrill: add TCP MTU
+ probing test
+From: Kuniyuki Iwashima <kuniyu@google.com>
+To: Yongjian Wang <echoowall@gmail.com>
+Cc: pabeni@redhat.com, kuba@kernel.org, shuah@kernel.org, edumazet@kernel.org, 
+	horms@kernel.org, ncardwell@google.com, davem@davemloft.net, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	netdev@vger.kernel.org, panweiping3@gmail.com
+Content-Type: text/plain; charset="us-ascii"
 
-dell_wmi_process_key() expects its buffer argument to point at the
-data that follows the event code. The 0x0000 and 0x0012 callers pass
-buffer_entry + 3 for a code at buffer_entry[2], and commit
-392c19faec6b ("platform/x86: dell-wmi-base: Fix handling of ultra performance key")
-relies on this. The remaining count passed for event sequences
-(len - i - 1) also counts from the word after the code.
+On Wed, 11 Nov 2026 00:45:58 +0800, Yongjian Wang wrote:
+> Packetization layer path MTU discovery (net.ipv4.tcp_mtu_probing=2) has
+> no selftest coverage.
+> 
+> Add a test for an active connection. Check that it starts at
+> tcp_base_mss, that it sends the first probe half way between
+> tcp_base_mss and the peer's MSS once cwnd allows it, and that an
+> acknowledged probe raises the MSS and leads to a larger probe.
+> 
+> The SYN offers timestamps and the scripted SYN-ACK declines them.
+> This also checks that MTU probing uses the negotiated header length
+> for the initial send MSS.
+> 
+> Signed-off-by: Yongjian Wang <echoowall@gmail.com>
 
-For sequences of type 0x0010 and 0x0011, however, buffer_entry + i is
-passed, which points at the code itself. The tablet mode switch event
-(type 0x0011, code 0xe070) then reports !0xe070, so SW_TABLET_MODE is
-always 0 and tablet mode is never reported.
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
 
-Pass the word after the code.
-
-Fixes: 5fbd827eb9c2 ("platform/x86: dell-wmi: Recognise or support new switches")
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
-Developed with the help of an AI coding assistant (Claude Opus 5.5),
-which found the issue and drafted the fix; I reviewed it and am
-responsible for it. Builds cleanly with W=1.
-Not runtime tested: the M4800 does not send the tablet mode event.
-
- drivers/platform/x86/dell/dell-wmi-base.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/platform/x86/dell/dell-wmi-base.c b/drivers/platform/x86/dell/dell-wmi-base.c
-index 44857e99fdfe..c778409ca099 100644
---- a/drivers/platform/x86/dell/dell-wmi-base.c
-+++ b/drivers/platform/x86/dell/dell-wmi-base.c
-@@ -523,7 +523,7 @@ static void dell_wmi_notify(struct wmi_device *wdev, const struct wmi_buffer *bu
- 			for (i = 2; i < len; ++i)
- 				i += dell_wmi_process_key(wdev, le16_to_cpu(buffer_entry[1]),
- 							  le16_to_cpu(buffer_entry[i]),
--							  buffer_entry + i,
-+							  buffer_entry + i + 1,
- 							  len - i - 1);
- 			break;
- 		case 0x0012:
-
-base-commit: 2800868f63227c8237d70c41e70d441c919620d6
--- 
-2.56.0
-
+Thanks
