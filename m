@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.59.229
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794682858;
-	b=4u2BcNjlkI58/fbvRDjDf0MyVfooBB19V8E352iaDAnmxkOO06/EC15khVrbZCZ4/ZKH
-	 PWyR92OKSOY9vhKmn/jwzQy4y9ashB/rTTFB4/89x7ncNjyH7nXqjKTws7wkzAZQoFzlY
-	 /k6Pb/I7ZqzFBjwnxXMjCbBM6mFhFM/1kfTRjFNKL2r30OR2RIQUZPfpnvhNFSIHh7EUr
-	 evkOgZSLRsXP/twVXfzYBkl2X3H3PyReMrLhSkJOo5q57he8nTb+hnob/p+psDLxAvH7Q
-	 U1Tygsy6nIrrsIHP6CMITSc0s1xkP1qJoevvoJd1fck2814fEGu+7xSfpCCzv+5nveA==
+	t=1794682860;
+	b=2nis2V271rhKofmQU6bY6Jaxq7xCqoCN+HHAKkGjsLIqbPXaP26/OZdeJkQecc7RKbfU
+	 pm5gvv6OJ2SJH9PRUCKU3RO0StcA0j7GqyKseG9Y+mW4vpDqymj0x0hWKXFsmaVJV3IrN
+	 LXxSnMwBA4Gjn1u7uE6IRG3iJxve0lHwNcD6nhAj145o3Zj5xnI7SkX/Lo4QKQkAmeuhk
+	 fslZPkje/2N/VduZZ1xyBh4kSqTTU74vPM7+MJJ1CRhK/nRp9Js+03tWrCQL1H2yFML2L
+	 uEpZ2HFwcQJzke3FyeBUqICOAepdqgCBx2XO4RIx/wzzTmEZd66Fbhhxh+gQarmLr1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794682858;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794682860;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=PpyIN9dgNCqcZNJmMZOkfWMDQoTLKiHYAG5EAb8Z1Yo=;
-	b=roAOEs9BEm63NPKnE7lJUUiJYPzATFq8saVAW3sZSzHunDzDEeilyr7qC0z3n3xHk0VQ
-	 6AVMByLF+J7Gbosab03W/e2okN1c3K1UOsqJw5kLu924iBTO3YwyN4PHcewJizNPUgpHV
-	 yAgFr8HGGOC3nUk9eudRU0hwY7RBMw12cwhhia5Jyo49rgNTOOdHZNf4ELMYrGAVVVDTZ
-	 mgOrDReCkL5h+o44b93DXYCoHAVRH3ZwgKEx4VPMDXJj65vIlUhrAtpM6YUnqLKhe+BEf
-	 ip/jsC0sDuAy2kOLRFFxFxSLOR2QApe/0Mo5yHTsGIWPA8nvQKWsG7xepSZJT2BX3Dw==
+	bh=w9yQx3Fszku1+AMI1UEi0i5x9EyyYJwrKjvTridGjuQ=;
+	b=hnFwHnGlQA5Xu4y9BBIYdsE0ArdNvk9lk8zViXVi4WwlpscX2PI+8rWw0wdj/cJgWzTb
+	 L/kaqdDyzbk5eSCyd/uwxnWxc46MICbrBOD9XduI39lahzh8CRkf3XK/xQgDxxSiqHh/m
+	 +ky7WXFPFCZFCPLwcocO9IxMVRAx88S+WO9UxUR7LOPG4XrWD4LegyvyRtCsVfoxTrWfT
+	 4Zk3+vInABdYJ/rtbj3E4nzz2hro//CLacfm61zXwuA6shiEHFH4bTqXIZrp8KcrkpuR3
+	 8pKCEmpXw9AAwLMOg6JLU9O9QBpZFuH5reWK4T6M6uqPvatl/oL7b2r9c/equydrO+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=1wt.eu;
 	spf=pass smtp.mailfrom=1wt.eu;
-	dkim=pass header.d=1wt.eu header.i=@1wt.eu header.a=rsa-sha256 header.s=mail header.b=jZafHkuH;
+	dkim=pass header.d=1wt.eu header.i=@1wt.eu header.a=rsa-sha256 header.s=mail header.b=H3IEzjou;
 	arc=none smtp.remote-ip=51.159.59.229
 Received: from mta1.formilux.org (mta1.formilux.org [51.159.59.229])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17997606A881;
-	Sat, 14 Nov 2026 19:00:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17997606A881
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5124960A2621;
+	Sat, 14 Nov 2026 19:01:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5124960A2621
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=1wt.eu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1wt.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=1wt.eu header.i=@1wt.eu header.a=rsa-sha256 header.s=mail header.b=jZafHkuH
+	dkim=pass (1024-bit key) header.d=1wt.eu header.i=@1wt.eu header.a=rsa-sha256 header.s=mail header.b=H3IEzjou
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1wt.eu; s=mail;
-	t=1794682837; bh=PpyIN9dgNCqcZNJmMZOkfWMDQoTLKiHYAG5EAb8Z1Yo=;
+	t=1794682853; bh=w9yQx3Fszku1+AMI1UEi0i5x9EyyYJwrKjvTridGjuQ=;
 	h=From:Message-ID:From;
-	b=jZafHkuHQS8HAKsCipAvGRRzSPBD7+9b2UIXRxeaoSj7g/IxK45I76zXw80hRKMp7
-	 sxe8KeKAlaK05Xo9BOptvkF0FVbRM+Qj2Q0zJ1Rs5HHNwUZNcNLjtayJFvBeRzQHLo
-	 vWETNxpGeGDJV3EimnZnyV7v+1Roj5/O5r4sYT3A=
+	b=H3IEzjou3bf1j3j9EUO+hdDyMBzttjoAKf2IXvhhpl1P/7d6Cy29ai9NU/QeIiN2X
+	 y6bHoM3GmLDMmHRoKNHZ+teh2xl+LKe9W/brf5xN+OhK96tiuRz953p1rtljxgoY2c
+	 0kTTV/QluqSesXOHZjbrwpj95RPHPcxYArI2VHWw=
 Received: from 1wt.eu (ded1.1wt.eu [163.172.96.212])
-	by mta1.formilux.org (Postfix) with ESMTP id 4809AC0960;
-	Sat, 14 Nov 2026 20:00:37 +0100 (CET)
+	by mta1.formilux.org (Postfix) with ESMTP id 8F935C096A;
+	Sat, 14 Nov 2026 20:00:53 +0100 (CET)
 From: Willy Tarreau <w@1wt.eu>
 To: Jonathan Corbet <corbet@lwn.net>
 Cc: skhan@linuxfoundation.org, Randy Dunlap <rdunlap@infradead.org>,
@@ -51,9 +51,9 @@ Cc: skhan@linuxfoundation.org, Randy Dunlap <rdunlap@infradead.org>,
         "David S. Miller" <davem@davemloft.net>,
         Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
         Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>
-Subject: [PATCH v2 09/14] docs: security-bugs: reports left unanswered for 7 days will be dropped
-Date: Sat, 14 Nov 2026 20:00:09 +0100
-Message-ID: <20261114190014.17826-10-w@1wt.eu>
+Subject: [PATCH v2 11/14] docs: security-bugs: explain why directly sent reports add extra work
+Date: Sat, 14 Nov 2026 20:00:11 +0100
+Message-ID: <20261114190014.17826-12-w@1wt.eu>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20261114190014.17826-1-w@1wt.eu>
 References: <20261114190014.17826-1-w@1wt.eu>
@@ -68,45 +68,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Between 5 and 10% of the questions or requests sent by the security
-team or maintainers to reporters never receive any response. The doc
-only said that such reports "may be abandoned", without any indication
-of time, and team members keep collection of unresponded threads in
-their boxes just due to this.
-
-Let's say that reports for which requests remain unanswered for 7 days
-will most likely be dropped. This matches the maximum embargo duration,
-which is how long the security team considers it reasonable to keep an
-issue private. Also remind that concurrent reports may cause the same
-bug to be addressed by someone else who will then receive the credit
-in this case.
+Many reporters imagine that contacting a maintainer directly will bring
+their report a special attention but it's exactly the opposite because
+it breaks the normal workflow, and deprives the maintainer from their
+usual tools (CI, reviews etc), and even requires extra care (e.g. use
+separate branches, avoid CCing stable etc). Let's just explain this
+upfront so that reporters understand that there is a reason for everyone
+insisting on public posts.
 
 Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Reviewed-by: Johan Hovold <johan@kernel.org>
 Signed-off-by: Willy Tarreau <w@1wt.eu>
 ---
- Documentation/process/security-bugs.rst | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ Documentation/process/security-bugs.rst | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
 diff --git a/Documentation/process/security-bugs.rst b/Documentation/process/security-bugs.rst
-index 82ece82ecfb75..992c8d8d9b1c1 100644
+index 791a78964a9d3..11a4ee5558947 100644
 --- a/Documentation/process/security-bugs.rst
 +++ b/Documentation/process/security-bugs.rst
-@@ -382,6 +382,14 @@ run additional tests.  Reports where the reporter does not respond promptly
- or cannot effectively discuss their findings may be abandoned if the
- communication does not quickly improve.
+@@ -15,7 +15,14 @@ It is important that most bugs are handled publicly so as to involve the widest
+ possible audience and find the best solution.  By nature, bugs that are handled
+ in closed discussions between a small set of participants are less likely to
+ produce the best possible fix (e.g., risk of missing valid use cases, limited
+-testing abilities).
++testing abilities). In addition, dealing with private discussions on patches
++adds much more burden to maintainers who cannot follow their usual process nor
++benefit from their usual tools. For example, many subsystems have CI jobs
++running on publicly posted patches and will not merge a fix before it has been
++validated, and automated review tools such as Sashiko review patches posted to
++the lists. Since the fix will have to be posted publicly anyway, sending it
++privately first only delays it by the time needed to ask for it to be reposted
++publicly, adds extra work, and loses the benefit of early reviews.
  
-+In practice, a report for which questions or requests from the security team
-+or the maintainers remain unanswered for 7 days will most likely be dropped.
-+This matches the maximum embargo duration described below, which is how long
-+the security team considers it reasonable to keep an issue private.  Given the
-+number of reports handled in parallel, the same bug may also end up being fixed
-+later after being reported by someone else, in which case credit can no longer
-+be guaranteed.
-+
- Messages sometimes get lost, especially those containing attachments or HTML.
- Since the report is private, you have no other way to know whether it was
- delivered than to ask. However, some subsystems have a long report queue, some
+ It turns out that the majority of the bugs reported via the security team are
+ just regular bugs that have been improperly qualified as security bugs due to
 -- 
 2.52.0
 
