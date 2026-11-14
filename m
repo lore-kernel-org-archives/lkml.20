@@ -1,97 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794649799;
-	b=m+QIiCcT1Nd/rj/syvFoj0k9zvdSpokl6yRUfkkd0veUfgxSdL0/ZqnlNlsJZgj1R1XZ
-	 TiFfcBh1ZGSo8buZ7oWbih9NS3NuYSOXgHaeYVA3AElgJI16dhJr2Buu1khMXMRWdNnPg
-	 Wgd9kgo16YIDSh6RYTdhgti9wfc/9WJ/79nmr8k/mAGuYenMSKqUKahUPiIyqbMYgO5t0
-	 uJRzSfiiB9SJtzWpFqT1DlQvTUnKXMBONfUvNxI1mcJ5uCyW0Eq3XjcEcqIS7OW3y0miB
-	 GqeHJptWQsCIutUS3Xcuk+v3KYx7TigG5QVXp0kB490+oukj69oeK4GJE5dXynLwzhw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794649799;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=vFwNPlEvu7ATJx2EG10LnH49Nl5k3kRFQXgy8RBgj+w=;
-	b=3ImTbLYMFPd/pNTuOH5BceY1H5faRhix9c/+kD9h9XNSkreXafooWZeAAxEnU41ipaX9
-	 c5sw1hTDoWTCwnlUbqHx+9dQUGuysRPurmyvWX9D0/jPDM4+QyQXUMIB3fCBKQuRmohki
-	 HcWD1ifyVfUtksvyB0kQti6OkAMrOXsxDP66tvE41XEYySf41nWgcrpYYrInKyL30yjB0
-	 Ja2Iz5db0kDv23cJWMtpZp+lcgGT5YHk0FdL6+Mf4h26MaMG7RwKLrE2Gew2rl+3Oapp3
-	 heuVTK5grXw+6/xHe4iWrqS5JcdYQ20TpfRSmGFPhkUOLFGZ0IwQyLlZuWlRzsvCKMA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FKtyYQMr;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794649874;
+	b=k7WYYF+eWMLdCSAbSRi+ekYdG7j64r5+NqkiYd83BL2ffiyyWmxNTPraCFux1EYFqj+b
+	 yD70iPMbsfi5ML7pAV3BUjaYSQaLsOYUY06nNWcWejE3meD9EXhMWUih+2FcwFK3ZNRCI
+	 +nz/BX3bM9cPiYixzufvwKvLLXSMnhshQI0i4AL4m2XG94ZenankJF07xjZztYjtWwz74
+	 GX6lPPLtymenJnBp4xt4UIyzJdRq96tLOXoBdGe1/9lnd77PZ8G6tcu+9arQBpWc9fVaU
+	 9CV4AfY8M3FfXgn3EzP5RHMqIqmxYRFovvJqclgocJ414HJ3pQ3TkAY4FGzQsY05vtw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794649874;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=DI/YxUPWTQkp+uQydFoBmrbMkDCZ52oeTpl1hDzDN5k=;
+	b=DobGj+G45oWRkGQUwBJGrMN346+j3u1Yu/Pt6S3SWj+P+Gilrl4+j3MV0nQK55Grmsw3
+	 8hOtNNstxOfXjoiUs9Fmi0dfNDQBWyjvdZ3KaQb1hlCgR6kF05T3hScWoDKKWOAfGqc0/
+	 CCobrr6v8iDg+/J1+VJRNwl88lrL/gNqLnhYow/DtFI5IKfD5iFr6Jy/ZiH9aTsu3lHVR
+	 uGbSvqBjAzdx2tCQfIiuC3pxfxabqn3VHZn4x/CZrraJtrF6PgNbUCW0r6g2ZJNGeeU0P
+	 nEccsEgDEPwU1Tq9vtuQFupxcVf36Q3eeVjPFCf/JOqTE7JHmO2GJaO7IQEomBleRSQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TFUAIsUs;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80FAD606A323;
+	Sat, 14 Nov 2026 09:51:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TFUAIsUs
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794649874;
+	b=aB072sVYml2j/9PzbNuMay7NdNBOQFsQ9lwsP2m5jA+CEX7B0n9tv8tVQVxpZyoMMiPH
+	 nJTns77sK1TTRYO8oePSEcNK3BGHCGzay/PzQmUd42PIc5BvEGll/nwGwdMGjh3D75aQM
+	 ZpgDGP6dCR171gzKYOBPT5NqHCevCUqcsHXrdzRJG+2qjdia9F/Y5nD6y9ueQTuHb5xyQ
+	 /MWiBIIeknohyHb1cvZY5t4wTJvRJB53sL8LisxC3yopEuVBweVGDDxO8vPk1PIPZg+IP
+	 zEcAD2QCG5scTfbbxp/5hndabOBzm22yBLgct7xgvg6Tjhp4lvhSchhEL5CqHJxBpeg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794649874;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=DI/YxUPWTQkp+uQydFoBmrbMkDCZ52oeTpl1hDzDN5k=;
+	b=MbZyxdY5mH4VQzVWJyXP9cmvf4QDt4b4L7cktxTWkMSaQKpaTxqthBMx98ql7bChBwr3
+	 f/nlrMOYQHDeubRPDB9Gj+cd5d836rjfP5EUs2jj2Yyla2zyJnUKsg9XqRqfin/wqyAfJ
+	 jI7D1TBK2Y+QU4cqdXeXCYkB5BW1WO9eNEj8gmmxEL4+YpGYlKjEhcJO5gW9ene2KIYLy
+	 P099/RfJNseKzNAiiTWv7b29bZ61eragYxNwFx95wiooqBZRJImqi1Gr9XFhlEt5yLxnr
+	 bwTM9WxtTXmrWd7dtL3kqKLglZuBkXhU5tFweGzhB2LH1bfydnX+y+eXe5GYBmm7ysQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D367D606A883
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 09:49:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D367D606A883
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FKtyYQMr
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so22862575e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 01:49:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794649797; x=1795254597; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vFwNPlEvu7ATJx2EG10LnH49Nl5k3kRFQXgy8RBgj+w=;
-        b=FKtyYQMr88dRuaVS24n3JWXoFZvyck1jwLNNw2RJ4HXtbr3Ji7u4ODqcAueVsBOqgr
-         gGKfAxqwCcR+RjTIj3ftjAwdeq8+RWgcg2zV5W8gucnn1baMmFK9fDItd2J97xTMI6M7
-         A8sowWoWnGyzAccPK60xKdZtegGFdsSquCvnpAxTm5bNRgYR+fp9wfhj95Uz8sbFrvmK
-         b2CvLzWMHtnB91mc58GSNkAJb/6fmchE1vUiFkjADCOUJM1O5EQ+v/WNeozTHjWyRKoZ
-         v5gryE3UY9ZuCcT+PdxeQ4P4Im8eGC3WLp2JBvudJi6wflOAejr0vHGFUTG9Xt8r9LQv
-         qs1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794649797; x=1795254597;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vFwNPlEvu7ATJx2EG10LnH49Nl5k3kRFQXgy8RBgj+w=;
-        b=JJNzNl/9NWS56J57zNCjz0QEuaYzgIQbFxDsulNBqo/SOP4TxmXH0tWSlL61L97VUi
-         kWXmPUdF2RKpgyBOEHJE+jqP2/qtGUgLf1n+93xSrXOrgHp4B93pcWCPfSdCVPnOEkt1
-         jiL2CPgKFVm2nvOy6oQFgEUQFha3/lD8Px7rarBLm0jEOlgaLjPsew/yES/mbqGCcnX7
-         NVqWPZ26nmghL1sRUPvIPeknZinsbw7fQ8JAkiKfY/RR/FwJyckmjPjXtwEXpinZOQ43
-         R5B7JZm+ExfMf8/6CyVA9mKZp1nlJzV0vQlEnaP3SWd4w+IVJ//TEfIJ3j9HEdzqIHbi
-         9dOA==
-X-Forwarded-Encrypted: i=1; AL+hErEji8nl3s5SjXMli58u5xNKmUvWLPazwRAhORBBqN+gKsaLcuYgtAi+CotfU4VCxwIump3NpaWoOEFRinU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/rxw2FSfXL2TxMAe5gvjxm1O+LiiyKlfOQJa7a6Jr1sqVrNSPl
-	hVQhhTF+NEey9wtzPKP7aV0lhbBqPPYsoii5agOItpukJU2o2hs/MZ/SCtvxKeKq
-X-Gm-Gg: AYBFou3BtICPElvGh+iJEQ0nedQhblrqyr/2xXET+JyjikqbYNxK21ociEdqy6vJg0Q
-	rFy0/fWIGB1DIm/HiJGanGltBHVJ2/Knt2I00jzg6LtljJxLfwQ2LAKWW9OF4X3WMVOkB4EVFc6
-	sgMBAH6ChG2V7Of5WBICyQCB71D6P19hn0CdX/DbaFEkeomXokn3+d6X0jxFE5mABUjlDRM4gcI
-	Pa+cnpEqZGWXze48hZ5zGA4gDkenmId0vfknhmNRWQOFbLEu9qj2LaGQshxOChqKVdCFwoJ8mDJ
-	kRrsqBxNlP0nY2gwxqGLtwAS9XppuzmQZQSsytBqNx6Cq4N7tXJXnj5Kdj4bdD72qVD54/BG4i5
-	3M7obwj7jSSzu8C34v/xv3eywq6V4Ir3zt8VnSQMUYjEnPwP5E5kiTxUk9gA2LYzYplsq4RTCCD
-	kyorHog8hOXo6zQgtfJb0nhVUfUnkzcLWXrqP0pMhw0fr0sNK8Pi5J19U46LKd3kVkZe83Kpkrw
-	3q8Hwmb5AI9Tvkhl7rf/egC36FP/UX6SlRB+rAX09lBnXO6jOcW+PDLwSWNYHKe0RpKRMdtlcTj
-	0z4zsd93mjl5V9k5QgZ3MsHtGZpjyqAD654=
-X-Received: by 2002:a05:600c:1912:b0:4a1:c5eb:b445 with SMTP id 5b1f17b1804b1-4bb55ad45admr104726075e9.35.1794649797098;
-        Sat, 14 Nov 2026 01:49:57 -0800 (PST)
-Received: from cachyos-x8664 ([46.196.225.181])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb55ae5299sm139612805e9.11.2026.11.14.01.49.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 01:49:56 -0800 (PST)
-From: =?UTF-8?q?Batuhan=20G=C3=BCvener?= <tuugspeedman@gmail.com>
-To: ilpo.jarvinen@linux.intel.com
-Cc: hansg@kernel.org,
-	jlee@suse.com,
-	linux-kernel@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org,
-	tuugspeedman@gmail.com
-Subject: [PATCH v3] platform/x86: acer-wmi: Add 4-zone RGB keyboard support for Nitro AN515-58
-Date: Sat, 14 Nov 2026 12:49:34 +0300
-Message-ID: <20261114094934.5792-1-tuugspeedman@gmail.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <2e931d55-1705-414b-9477-ce7c677d89c9@linux.intel.com>
-References: <2e931d55-1705-414b-9477-ce7c677d89c9@linux.intel.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 7AB9F1F000C4;
+	Sat, 14 Nov 2026 09:51:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794649874;
+	bh=DI/YxUPWTQkp+uQydFoBmrbMkDCZ52oeTpl1hDzDN5k=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=TFUAIsUsfCi9+1bORE6/GjSikOA7bvIp8oYShHc217l8aWQ0uaWPpsKw7pBycB91T
+	 ow64SJz4p3LrzC/rzOyxf0oQQSXmXER1z3jsLQstUhcBiqYX+guBPEX6MxdrG3GbKi
+	 U7UtpgGYUXFbq5B3Z6fMAtrzM39xFrpx1kAdr1YSv1aPACLQ7Zc3y4uR+WmKwYrEQ6
+	 tzDgirUcFADbr3yR9A7GF0z4YXfQs6Jom3LfdeOOXfRHYzu1rbivMt8q428nmFkNZ8
+	 SoBTWschBWWwP+73jr264wamr1WsnXlTNNhY4VNHVEPwlEx5WgGmHhvJsY3OSxkloP
+	 5qD3fxcQFdqMA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C1F9E49D22;
+	Sat, 14 Nov 2026 09:51:12 +0000 (UTC)
+From: Han Gao via B4 Relay <devnull+gaohan.iscas.ac.cn@kernel.org>
+Date: Sat, 14 Nov 2026 17:51:11 +0800
+Subject: [PATCH net] net: macb: limit jumbo frames to the RX buffer size
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,465 +82,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261114-macb-jumbo-jml-v1-1-f501395eaf9e@iscas.ac.cn>
+X-B4-Tracking: v=1; b=H4sIAA4v+GoC/x2MQQqAIBAAvxJ7bsEkivpKdEjdaiUttCKQ/p40t
+ znMJIgUmCL0RYJAN0fefZaqLECvk18I2WQHKWRTZdBNWqG9nNrRug3rzohWC206IyFHR6CZn38
+ 4gKcTxvf9AKLgem9lAAAA
+X-Change-ID: 20261111-macb-jumbo-jml-49d07c0cd9d2
+To: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Punnaiah Choudary Kalluri <punnaia@xilinx.com>, 
+ Harini Katakam <harini.katakam@xilinx.com>
+Cc: linux-riscv@lists.infradead.org, Han Gao <rabenda.cn@gmail.com>, 
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jingkun Zheng <zhengjingkun@iscas.ac.cn>, Han Gao <gaohan@iscas.ac.cn>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794649871; l=2770;
+ i=gaohan@iscas.ac.cn; s=20261021; h=from:subject:message-id;
+ bh=Ba0EhmfC/eB3reG4OHAFgVQBuZCONa6EOSwuE8i/JWE=;
+ b=cZLObGEtUvp/SP5azLnWEj3cPd4p6jtuyHY1VunFYe63DcPfgFR0aZxmd+G9sG4dRoq1cwPJa
+ X8PUu1Yfw47BErR31njhHCIlQ/ubs/5ETSdbgWCsByhmmFc+WvGq+fU
+X-Developer-Key: i=gaohan@iscas.ac.cn; a=ed25519;
+ pk=J8WHEK3filS86QaCaIHDGafqhxKyQ4K7+vFgRirTIiY=
+X-Endpoint-Received: by B4 Relay for gaohan@iscas.ac.cn/20261021 with
+ auth_id=1262
+X-Original-From: Han Gao <gaohan@iscas.ac.cn>
+Reply-To: gaohan@iscas.ac.cn
+Content-Transfer-Encoding: 7bit
 
-Add support for the 4-zone RGB keyboard backlights found on Acer Nitro
-AN515-58 laptops.
+From: Han Gao <gaohan@iscas.ac.cn>
 
-The hardware operates via a dual-control mechanism: global hardware
-brightness is managed by the EC via RAM offset 0x31 with a range of 0 to 4
-(where 0x04 is maximum intensity), while per-zone RGB color control is
-handled via WMI Method 6.
+GEM variants with MACB_CAPS_JUMBO accept frames up to jumbo_max_len
+regardless of the MTU, but the RX buffers are sized from the MTU. A
+frame longer than one RX buffer is split over several descriptors and
+dropped by gem_rx() with "not whole frame pointed by descriptor".
 
-Exposing max_brightness = 4 to match the EC hardware level causes the
-led-class-multicolor subsystem to scale color components down, restricting
-the palette to 5x5x5 (125) total color combinations. Keeping max_brightness
-at 255 allows fine-grained 8-bit per-channel control from userspace, though
-it creates a dual-control scenario where hardware EC brightness and
-userspace multicolor brightness operate concurrently (e.g. EC brightness at
-4 while userspace intensity is 0).
+Set JML from the RX buffer size in macb_configure_dma(), so that it
+follows MTU changes and longer frames are dropped by the MAC instead.
 
-Additionally, when the system resumes from a shutdown or power cycle
-while brightness is set to 0, the hardware initializes with 0
-brightness but cannot derive valid multi-intensity values. To ensure
-consistent state evaluation, it defaults to max intensity
-(255, 255, 255 - white).
-
-This implementation builds upon initial findings and reverse-engineering
-efforts by Dirga Yuza and open-source community driver implementations.
-
-Link: https://lore.kernel.org/r/20260503062131.158944-1-dirgayuza123@gmail.com/
-Link: https://github.com/0x7375646F/Linuwu-Sense
-Link: https://github.com/JafarAkhondali/acer-predator-turbo-and-rgb-keyboard-linux-module
-
-Signed-off-by: Batuhan Güvener <tuugspeedman@gmail.com>
-
+Fixes: 98b5a0f4a228 ("net: macb: Add support for jumbo frames")
+Reported-by: Jingkun Zheng <zhengjingkun@iscas.ac.cn>
+Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
 ---
-Changes since v2:
-- Remove redundant comments
-- Place new #include headers near alphabetical neighbors
-- Replace deprecated wmi_evaluate_method() with WMI_gaming_execute_buf() using __free(kfree)
-- Use __packed structs for WMI command payloads
-- Switch to guard(mutex), devm_mutex_init(), and FIELD_MAX()
-- Use dev_warn() instead of pr_warn()
-- Fix indentation and reverse xmas-tree variable ordering
-
-Changes since v1:
-- Clear non-English comments
-- Rebase onto linux-next
+Seen on a SiFive FU740 with the default MTU: every jumbo frame on the
+network caused two "not whole frame pointed by descriptor" errors.
 ---
- drivers/platform/x86/Kconfig    |   1 +
- drivers/platform/x86/acer-wmi.c | 305 ++++++++++++++++++++++++++++++++
- 2 files changed, 306 insertions(+)
+ drivers/net/ethernet/cadence/macb_main.c | 21 +++++++++++++++++++--
+ 1 file changed, 19 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/platform/x86/Kconfig b/drivers/platform/x86/Kconfig
-index 741653432f57..ccb1651992b5 100644
---- a/drivers/platform/x86/Kconfig
-+++ b/drivers/platform/x86/Kconfig
-@@ -169,6 +169,7 @@ config ACER_WMI
- 	select LEDS_CLASS
- 	select NEW_LEDS
- 	select PLATFORM_PROFILE
-+	select LEDS_CLASS_MULTICOLOR
- 	help
- 	  This is a driver for newer Acer (and Wistron) laptops. It adds
- 	  wireless radio and bluetooth control, and on some laptops,
-diff --git a/drivers/platform/x86/acer-wmi.c b/drivers/platform/x86/acer-wmi.c
-index 3a018fdf5138..4680b99001fa 100644
---- a/drivers/platform/x86/acer-wmi.c
-+++ b/drivers/platform/x86/acer-wmi.c
-@@ -14,11 +14,13 @@
- #include <linux/kernel.h>
- #include <linux/minmax.h>
- #include <linux/module.h>
-+#include <linux/mutex.h>
- #include <linux/init.h>
- #include <linux/types.h>
- #include <linux/dmi.h>
- #include <linux/fixp-arith.h>
- #include <linux/backlight.h>
-+#include <linux/led-class-multicolor.h>
- #include <linux/leds.h>
- #include <linux/platform_device.h>
- #include <linux/platform_profile.h>
-@@ -36,6 +38,10 @@
- #include <linux/unaligned.h>
- #include <linux/bitfield.h>
- #include <linux/bitmap.h>
-+#include <linux/bits.h>
-+#include <linux/container_of.h>
-+#include <linux/compiler_attributes.h>
-+#include <linux/cleanup.h>
- 
- MODULE_AUTHOR("Carlos Corbacho");
- MODULE_DESCRIPTION("Acer Laptop WMI Extras Driver");
-@@ -77,6 +83,21 @@ MODULE_LICENSE("GPL");
- #define ACER_WMID_SET_GAMING_MISC_SETTING_METHODID 22
- #define ACER_WMID_GET_GAMING_MISC_SETTING_METHODID 23
- 
-+#define ACER_WMID_SET_GAMING_STATIC_LED_METHODID 6
-+#define ACER_WMID_SET_GAMING_KBD_BL_METHODID 20
-+
-+#define ACER_GAMING_LED_KBD_BL_ENABLE	BIT_ULL(3)
-+#define ACER_GAMING_LED_KBD_BL_INTERFACE_MASK	GENMASK_ULL(43, 40)
-+
-+#define ACER_EC_KBD_BL_ZONE_COLOR_BASE_ADDR       0x3C
-+
-+#define ACER_KBD_STATIC_PREAMBLE_BRIGHTNESS 100
-+#define ACER_KBD_RGB_MAX_INTENSITY         255
-+#define ACER_KBD_NUM_ZONES                 4
-+#define ACER_KBD_NUM_COLOR_CHANNELS        3
-+
-+#define ACER_KBD_MODE_STATIC               0
-+
- #define ACER_GAMING_FAN_BEHAVIOR_CPU BIT(0)
- #define ACER_GAMING_FAN_BEHAVIOR_GPU BIT(3)
- 
-@@ -389,6 +410,136 @@ struct wmi_interface {
- /* The static interface pointer, points to the currently detected interface */
- static struct wmi_interface *interface;
- 
-+static acpi_status WMI_gaming_execute_u64(u32 method_id, u64 in, u64 *out);
-+static int WMI_gaming_execute_buf(u32 method_id, const void *in, size_t in_size, u64 *out);
-+
-+struct led_information {
-+	struct led_classdev_mc led_general;
-+	struct mc_subled led_colors[3];
-+	struct rgb_wmi *parent;
-+	u8 zone_id;
-+	u8 current_brightness;
-+};
-+
-+struct rgb_wmi {
-+	struct mutex led_lock; /* making sure EC receives single command at a time */
-+	struct led_information zones[4];
-+};
-+
-+struct acer_gaming_kbd_bl_input {
-+	u8 mode;
-+	u8 speed;
-+	u8 brightness;
-+	u8 reserved;
-+	u8 direction;
-+	u8 r;
-+	u8 g;
-+	u8 b;
-+	u8 cmd_flags[2];
-+	u8 padding[6];
-+} __packed;
-+
-+static int acer_kbd_set_static_preamble(u8 ec_brightness)
-+{
-+	struct acer_gaming_kbd_bl_input gm_input = {
-+		.mode = ACER_KBD_MODE_STATIC,
-+		.brightness = ec_brightness,
-+		.r = ACER_KBD_RGB_MAX_INTENSITY,
-+		.g = ACER_KBD_RGB_MAX_INTENSITY,
-+		.b = ACER_KBD_RGB_MAX_INTENSITY,
-+		.cmd_flags = { 3, 1 },
-+	};
-+	u64 resp = 0;
-+	int ret;
-+
-+	if (ec_read(ACER_EC_KBD_BL_ZONE_COLOR_BASE_ADDR, &gm_input.r) ||
-+	    ec_read(ACER_EC_KBD_BL_ZONE_COLOR_BASE_ADDR + 1, &gm_input.g) ||
-+	    ec_read(ACER_EC_KBD_BL_ZONE_COLOR_BASE_ADDR + 2, &gm_input.b)) {
-+		gm_input.r = ACER_KBD_RGB_MAX_INTENSITY;
-+		gm_input.g = ACER_KBD_RGB_MAX_INTENSITY;
-+		gm_input.b = ACER_KBD_RGB_MAX_INTENSITY;
-+	}
-+
-+	ret = WMI_gaming_execute_buf(ACER_WMID_SET_GAMING_KBD_BL_METHODID,
-+				     &gm_input, sizeof(gm_input), &resp);
-+	if (ret < 0 || resp)
-+		return -EIO;
-+
-+	return 0;
-+}
-+
-+struct acer_gaming_static_led_input {
-+	u8 zone_bit;
-+	u8 r;
-+	u8 g;
-+	u8 b;
-+	u32 padding;
-+} __packed;
-+
-+static int send_zone_color(u8 zone_bit, u8 r, u8 g, u8 b)
-+{
-+	struct acer_gaming_static_led_input input = {
-+		.zone_bit = zone_bit,
-+		.r = r,
-+		.g = g,
-+		.b = b,
-+	};
-+	acpi_status status;
-+	u64 resp = 0;
-+	u64 payload;
-+
-+	memcpy(&payload, &input, sizeof(payload));
-+
-+	status = WMI_gaming_execute_u64(ACER_WMID_SET_GAMING_STATIC_LED_METHODID,
-+					payload, &resp);
-+	if (ACPI_FAILURE(status) || resp)
-+		return -EIO;
-+
-+	return 0;
-+}
-+
-+static enum led_brightness rgb_get(struct led_classdev *led_cdev)
-+{
-+	struct led_classdev_mc *general_mcolor = lcdev_to_mccdev(led_cdev);
-+	struct led_information *led_info = container_of(general_mcolor,
-+							struct led_information,
-+							led_general);
-+	return led_info->current_brightness;
-+}
-+
-+static int rgb_set(struct led_classdev *led_cdev, enum led_brightness brightness)
-+{
-+	struct led_classdev_mc *general_mcolor = lcdev_to_mccdev(led_cdev);
-+	struct led_information *led_info = container_of(general_mcolor,
-+							struct led_information,
-+							led_general);
-+	struct rgb_wmi *data = led_info->parent;
-+	u8 r, g, b;
-+	int ret;
-+
-+	guard(mutex)(&data->led_lock);
-+
-+	if (brightness == 0) {
-+		r = 0;
-+		g = 0;
-+		b = 0;
-+	} else {
-+		led_mc_calc_color_components(general_mcolor, brightness);
-+		r = led_info->led_colors[0].brightness;
-+		g = led_info->led_colors[1].brightness;
-+		b = led_info->led_colors[2].brightness;
-+	}
-+
-+	ret = send_zone_color(led_info->zone_id, r, g, b);
-+	if (ret)
-+		return ret;
-+
-+	led_info->current_brightness = brightness;
-+	led_cdev->brightness = brightness;
-+
-+	return 0;
-+}
-+
- /*
-  * Embedded Controller quirks
-  * Some laptops require us to directly access the EC to either enable or query
-@@ -406,10 +557,107 @@ struct quirk_entry {
- 	bool hwmon;
- 	bool platform_profile;
- 	bool pwm;
-+	u8 kbl_four_zone;
- };
- 
- static struct quirk_entry *quirks;
- 
-+static int acer_kbd_rgb_init(struct platform_device *device, struct rgb_wmi *rgb_data)
-+{
-+	static const char * const zone_names[] = {
-+		"acer-wmi:rgb:kbd_backlight-left",
-+		"acer-wmi:rgb:kbd_backlight-center-left",
-+		"acer-wmi:rgb:kbd_backlight-center-right",
-+		"acer-wmi:rgb:kbd_backlight-right",
-+	};
-+	acpi_status status;
-+	u64 gaming_sysinfo;
-+	u64 led_mode;
-+	int ret, i;
-+
-+	if (!quirks || !quirks->kbl_four_zone)
-+		return -ENODEV;
-+
-+	status = WMI_gaming_execute_u64(ACER_WMID_GET_GAMING_SYS_INFO_METHODID,
-+					0, &gaming_sysinfo);
-+	if (ACPI_FAILURE(status))
-+		return -EIO;
-+
-+	led_mode = ACER_GAMING_LED_KBD_BL_ENABLE |
-+		   FIELD_PREP(ACER_GAMING_LED_KBD_BL_INTERFACE_MASK,
-+			      FIELD_MAX(ACER_GAMING_LED_KBD_BL_INTERFACE_MASK));
-+
-+	status = WMI_gaming_execute_u64(ACER_WMID_SET_GAMING_LED_METHODID,
-+					led_mode, NULL);
-+
-+	if (ACPI_FAILURE(status))
-+		return -EIO;
-+
-+	ret = acer_kbd_set_static_preamble(ACER_KBD_STATIC_PREAMBLE_BRIGHTNESS);
-+	if (ret)
-+		dev_warn(&device->dev, "Failed to set static preamble on init: %d\n", ret);
-+
-+	ret = devm_mutex_init(&device->dev, &rgb_data->led_lock);
-+	if (ret)
-+		return ret;
-+
-+	for (i = 0; i < ACER_KBD_NUM_ZONES; i++) {
-+		u8 start_offset = ACER_EC_KBD_BL_ZONE_COLOR_BASE_ADDR +
-+				  (i * ACER_KBD_NUM_COLOR_CHANNELS);
-+		struct led_information *zone = &rgb_data->zones[i];
-+		u8 r = 0, g = 0, b = 0;
-+		u8 max_val;
-+
-+		zone->zone_id = BIT(i);
-+		zone->parent = rgb_data;
-+
-+		if (ec_read(start_offset, &r) != 0 ||
-+		    ec_read(start_offset + 1, &g) != 0 ||
-+		    ec_read(start_offset + 2, &b) != 0) {
-+			dev_warn(&device->dev,
-+				 "Failed to read initial color for zone %d, defaulting to white\n",
-+				 i);
-+			r = ACER_KBD_RGB_MAX_INTENSITY;
-+			g = ACER_KBD_RGB_MAX_INTENSITY;
-+			b = ACER_KBD_RGB_MAX_INTENSITY;
-+		}
-+
-+		max_val = max3(r, g, b);
-+
-+		if (max_val == 0) {
-+			zone->led_colors[0].intensity = ACER_KBD_RGB_MAX_INTENSITY;
-+			zone->led_colors[1].intensity = ACER_KBD_RGB_MAX_INTENSITY;
-+			zone->led_colors[2].intensity = ACER_KBD_RGB_MAX_INTENSITY;
-+			zone->current_brightness = 0;
-+		} else {
-+			zone->led_colors[0].intensity = (r * ACER_KBD_RGB_MAX_INTENSITY) / max_val;
-+			zone->led_colors[1].intensity = (g * ACER_KBD_RGB_MAX_INTENSITY) / max_val;
-+			zone->led_colors[2].intensity = (b * ACER_KBD_RGB_MAX_INTENSITY) / max_val;
-+			zone->current_brightness = max_val;
-+		}
-+
-+		zone->led_colors[0].color_index = LED_COLOR_ID_RED;
-+		zone->led_colors[1].color_index = LED_COLOR_ID_GREEN;
-+		zone->led_colors[2].color_index = LED_COLOR_ID_BLUE;
-+
-+		zone->led_general.subled_info = zone->led_colors;
-+		zone->led_general.num_colors = ACER_KBD_NUM_COLOR_CHANNELS;
-+
-+		zone->led_general.led_cdev.name = zone_names[i];
-+		zone->led_general.led_cdev.max_brightness = ACER_KBD_RGB_MAX_INTENSITY;
-+		zone->led_general.led_cdev.brightness = zone->current_brightness;
-+		zone->led_general.led_cdev.brightness_set_blocking = rgb_set;
-+		zone->led_general.led_cdev.brightness_get = rgb_get;
-+		zone->led_general.led_cdev.flags = LED_RETAIN_AT_SHUTDOWN;
-+
-+		ret = devm_led_classdev_multicolor_register(&device->dev,
-+							    &zone->led_general);
-+		if (ret)
-+			return ret;
-+	}
-+	return 0;
-+}
-+
- static void __init set_quirks(void)
- {
- 	if (quirks->mailled)
-@@ -466,6 +714,7 @@ static struct quirk_entry quirk_acer_nitro_an515_58 = {
- 	.hwmon = true,
- 	.platform_profile = true,
- 	.pwm = true,
-+	.kbl_four_zone = 1,
- };
- 
- static struct quirk_entry quirk_acer_predator_ph315_53 = {
-@@ -1610,6 +1859,46 @@ WMI_gaming_execute_u64(u32 method_id, u64 in, u64 *out)
- 	return status;
- }
- 
-+static int WMI_gaming_execute_buf(u32 method_id, const void *in, size_t in_size, u64 *out)
-+{
-+	struct acpi_buffer result = { ACPI_ALLOCATE_BUFFER, NULL };
-+	struct acpi_buffer input = {
-+		.length = in_size,
-+		.pointer = (void *)in,
-+	};
-+	acpi_status status;
-+
-+	status = wmi_evaluate_method(WMID_GUID4, 0, method_id, &input, &result);
-+	if (ACPI_FAILURE(status))
-+		return -EIO;
-+
-+	union acpi_object *obj __free(kfree) = result.pointer;
-+
-+	if (!out)
-+		return 0;
-+
-+	if (!obj)
-+		return -ENOMSG;
-+
-+	switch (obj->type) {
-+	case ACPI_TYPE_INTEGER:
-+		*out = obj->integer.value;
-+		return 0;
-+	case ACPI_TYPE_BUFFER:
-+		if (obj->buffer.length >= 8)
-+			*out = get_unaligned_le64(obj->buffer.pointer);
-+		else if (obj->buffer.length >= 4)
-+			*out = get_unaligned_le32(obj->buffer.pointer);
-+		else if (obj->buffer.length >= 1)
-+			*out = ((u8 *)obj->buffer.pointer)[0];
-+		else
-+			return -ENOMSG;
-+		return 0;
-+	default:
-+		return -ENOMSG;
-+	}
-+}
-+
- static int WMI_gaming_execute_u32_u64(u32 method_id, u32 in, u64 *out)
- {
- 	struct acpi_buffer result = { ACPI_ALLOCATE_BUFFER, NULL };
-@@ -2815,6 +3104,8 @@ static int acer_wmi_hwmon_init(void);
- /*
-  * Platform device
-  */
-+static struct rgb_wmi acer_rgb_data;
-+
- static int acer_platform_probe(struct platform_device *device)
- {
- 	int err;
-@@ -2846,6 +3137,12 @@ static int acer_platform_probe(struct platform_device *device)
- 		if (err)
- 			goto error_hwmon;
+diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+index 5ad0e32e2b4001c37e230a2eb7badb468b14ab57..e7c9bb24c377babc8dfd57e82ebf55a8e996873d 100644
+--- a/drivers/net/ethernet/cadence/macb_main.c
++++ b/drivers/net/ethernet/cadence/macb_main.c
+@@ -3240,6 +3240,18 @@ static u32 macb_dbw(struct macb *bp)
  	}
-+	if (quirks->kbl_four_zone) {
-+		err = acer_kbd_rgb_init(device, &acer_rgb_data);
-+		if (err)
-+			dev_warn(&device->dev, "Failed to initialize 4-zone RGB keyboard: %d\n",
-+				 err);
-+	}
- 
- 	return 0;
- 
-@@ -2898,6 +3195,7 @@ static int acer_suspend(struct device *dev)
- static int acer_resume(struct device *dev)
- {
- 	struct acer_data *data = &interface->data;
-+	int ret;
- 
- 	if (!data)
- 		return -ENOMEM;
-@@ -2911,6 +3209,13 @@ static int acer_resume(struct device *dev)
- 	if (acer_wmi_accel_dev)
- 		acer_gsensor_init();
- 
-+	if (quirks && quirks->kbl_four_zone) {
-+		ret = acer_kbd_set_static_preamble(ACER_KBD_STATIC_PREAMBLE_BRIGHTNESS);
-+		if (ret)
-+			dev_warn(dev, "Failed to restore keyboard static mode on resume: %d\n",
-+				 ret);
-+	}
-+
- 	return 0;
  }
- #else
+ 
++/* Longest frame that fits in a single RX buffer */
++static u32 gem_jumbo_max_len(struct macb *bp)
++{
++	u32 len = bp->ctx->rx_buffer_size;
++
++	/* Frame data starts NET_IP_ALIGN bytes into the buffer without RSC */
++	if (!(bp->caps & MACB_CAPS_RSC))
++		len -= NET_IP_ALIGN;
++
++	return min(len, bp->jumbo_max_len);
++}
++
+ /* Configure the receive DMA engine
+  * - use the correct receive buffer size
+  * - set best burst length for DMA operations
+@@ -3286,6 +3298,13 @@ static void macb_configure_dma(struct macb *bp)
+ 		netdev_dbg(bp->netdev, "Cadence configure DMA with 0x%08x\n",
+ 			   dmacfg);
+ 		gem_writel(bp, DMACFG, dmacfg);
++
++		/* Jumbo frames are always enabled, so limit their length to
++		 * what fits in one RX buffer. Longer frames would otherwise be
++		 * split across several descriptors and dropped by gem_rx().
++		 */
++		if ((bp->caps & MACB_CAPS_JUMBO) && bp->jumbo_max_len)
++			gem_writel(bp, JML, gem_jumbo_max_len(bp));
+ 	}
+ }
+ 
+@@ -3422,8 +3441,6 @@ static void macb_init_hw(struct macb *bp)
+ 		config |= MACB_BIT(NBC);	/* No BroadCast */
+ 	config |= macb_dbw(bp);
+ 	macb_writel(bp, NCFGR, config);
+-	if ((bp->caps & MACB_CAPS_JUMBO) && bp->jumbo_max_len)
+-		gem_writel(bp, JML, bp->jumbo_max_len);
+ 	bp->rx_frm_len_mask = MACB_RX_FRMLEN_MASK;
+ 	if (bp->caps & MACB_CAPS_JUMBO)
+ 		bp->rx_frm_len_mask = MACB_RX_JFRMLEN_MASK;
+
+---
+base-commit: aa40afa831ebfe45e40a23721711059f2ac584d4
+change-id: 20261111-macb-jumbo-jml-49d07c0cd9d2
+
+Best regards,
 -- 
-2.56.1
+Han Gao <gaohan@iscas.ac.cn>
+
 
