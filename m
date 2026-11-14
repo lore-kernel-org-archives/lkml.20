@@ -1,108 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794629398;
-	b=lIa8ONRXgsbml2FwY7uPu4ilLcK7Vf5cBR3bRI1bHnHb+C4u81O2PDeIUcLUySisqbrT
-	 qmhjtD+s48SEaDxqL1jxU8ITb7q1dVZiNiPhquaVAntKXNQ1CGeToMMm0N3YWuPPUizxo
-	 aBlpCf1aA9oZRNgGCxihCtUgzBINPiCFw7UUUZU5suK2fBoVoPfbQVOmS/+mElJqUc2aO
-	 ZEIVUhRRR7xTuGCXQ/f6JdlKHKtODKo4ppJO66e5RlIofIikWYBMYKrHiE9L5QtRhM3Xr
-	 8eM/GidcwIUO6fCs4OtjZuRdSXporG5ycM9+gFyfoicn8EHrquTdNbLrxsKrseVhaFA==
+	t=1794629412;
+	b=AL0bh/sNUYirPDqvVX/McWKZZ54NcEGXs+ipbIQHSR+zj+wNaeMIXtuNj4NjOPBFYxMY
+	 aAQCY84wqb5Dl8YHAdx5evHl8FlGpLEi7JylUYbQn5RajsfEQCN0pKgbOyuaJLxSLmgaK
+	 xcPFL++GMgXwYctY/recgtxyyvFLTu1qlMz7ZEBEQqzqpXaVprDyU82UXw7I5Lni5Seco
+	 KwYMDPmd9Lf3fGNl2ZT7+bpqGz/5WQTLnr7+HK3q3PKRt/IyPZTm2vtHbppqyjFsMirqL
+	 8VaIbwDMQhncF/HUzfjU8hddOI87D0na8GTIC6k+WSb61zUN0w54VOWjhTzFQlCTs9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794629398;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794629412;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=JQ9pWmTzRU2aDakRqvN5/kHHIhXbN1ax/IQYt/5jaU0=;
-	b=nXE57XTSaa3jQlmp9Ceo+JVuGltAoCCSBL95Y3+jPGn4k5Hs3OE8mAUrihFiE/cXaQuc
-	 dmoBS87jBOWpmF9MmqhcEJ7uCpazuifOpfOQLn8iJuooJXp7hkydwmjkkrdyddk0HvoW4
-	 hw2VVCiBy/g6MAacu9+AW7ZbRlx/WXKdMk4CeC8kxtp4DRKONBqf37bCJ4CppVpgC1gSO
-	 JChQpKbBlZ2+kJ/GFF/L1RhOd58vSSorhb6rt1Q5m+8A/X9+Ia+1YCzgYzZbhSs14Wwsb
-	 HSh1lQNtK290tcJdIpr0LFgTc6npj9KUYfpUW8RMLS3j1fQeJbEePpN6xObAvGttmjw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Aawsi9qU8N0F2jhvdO/AEEcrRUHzJjyBxw/ofl4l/RE=;
+	b=o2g5DB+JKmcAbYpiwZrVY0M812Ja7AnZey61OYQojG2LoYA9AS35fIRpbKo+1wC2nBVL
+	 0Ii7T78m1HMbAUcn5salBa6fYN1ijWz78N1pyH0uhA93ry/Ry5FM2Jui02BqOHYk6b00K
+	 h3/zWzerGGa7AN1loMYcJ6FSitGfDdt3zrQoO162gCy7StksWHI05em4Tg7EcS0Hx6fLL
+	 WLDnp7XpwBXVn4eoC3horU+Momxo5XbMhHL2sAlpWQW15JARRL1EZliJM9kJhcecRJmj6
+	 +9W6t2SZs5Rc7fwQNh72EOloUez5tHQPpfgutTggt3HvW5zbX2f/Z9LNfLkdW7zLVTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qOU97C23;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MxdTDwsz;
+	arc=none smtp.remote-ip=209.85.214.172
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DBF6606A8A1
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 04:09:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DBF6606A8A1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3399606A327
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 04:10:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3399606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qOU97C23
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-498f5fa4f70so2099474f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:09:56 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MxdTDwsz
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e977109392so9390635ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 20:10:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794629395; x=1795234195; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JQ9pWmTzRU2aDakRqvN5/kHHIhXbN1ax/IQYt/5jaU0=;
-        b=qOU97C23tJrVXbI/6rw5qBPMW271Ogm8mDnbk0068t8ehxGrqfWxGKPdV5iDVsEuOY
-         /otzUFgB/lnVgdGGUVPn0kNvOVnlsQbKlZ7rh7aPbvtbEzroP5VjXri15H8FxA56Xtix
-         rYKp0XCljVfdiY3FA/yruinXLQIz7a50DfxSktrzVNEGPps+AfUskrb2RT+NiBdatpLA
-         rCli+CynfPtzhRPwTzhebhynei6uarIAhKoP0enE5TUx5EBdTKibI9wL4Us59KSaHYlF
-         PyJhSXIYTZ7KCr30N32wjnV91KjB0MWIhaPCkjFO6qEzwXLNuAXnpAagtYjlmbDrPUO/
-         IFNQ==
+        d=gmail.com; s=20260707; t=1794629411; x=1795234211; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Aawsi9qU8N0F2jhvdO/AEEcrRUHzJjyBxw/ofl4l/RE=;
+        b=MxdTDwszpHQAVrtbNNsDRKAQ/dgYDSiLWwLPbnU/4hyBnJpWWCvRjJyXW+H6Mis1Ep
+         XCVjTOf5XGuoSro6vQ5OOnYWoKzrRYBtT9H7xOIYP3Gg/rHKhXxw1UItkqOfZrK+ICvu
+         80wYlc6ERSVtPId7ceXKv4uBQErw7SwN5eFA1aHySLJ3oJD7jijq4+djFNRD0yWMlRJp
+         PR7Y4X/oswLX7iVBXKb6tgvTndcYVN5Rpgre5AKIMX+G8J9zh/UiX4y7XHXP4ZvtDwKo
+         X1/j5Nd5yqJFvcF6XmPtUPZjdQ+NnPCyuB0LBBqG6BRAa2kDaG1h4Humj64AVuJyj6lh
+         oOBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794629395; x=1795234195;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JQ9pWmTzRU2aDakRqvN5/kHHIhXbN1ax/IQYt/5jaU0=;
-        b=MCr708T8iDvkN0KJU+TrCYgfbJdXyhZJx/SqLGIuOae391JUGqDIOgRXRKEZj21GZ0
-         AQpZb9hM4MsNuU1AId1BIsUuPXjgnSmenkFwNmVBL9mDwFD1uPwaKJN7IAK2jB+p4lzo
-         EcuHNH2JqKykzc9ZWVaZHorXVAyboZ8iP/yA68Dr8RIIfJ4TniNaL+kPe5SfMcBpVXtO
-         WmLUagFdA4ha4WPR4O/DJUH0R9KitAzkLruH51oMWFiQ3Qlyu4BcIm2Z3lloXh8aT/Ex
-         Fo/D6FiwZ/HEFooNyvEVGYKWWL8rLELoPDumAWCaKfnwjSd5ZrBMYAdroFNTQtvdM+C7
-         QOmA==
-X-Forwarded-Encrypted: i=1; AL+hErH16gdJo3y000HIrvj0WpSbS118jHqjB/dzePuYPL5On6f1fWprETaxfnMlM2sMdE2NlLmXLDaGSGdH/Zs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+jw1uG0A4m7naXIu+1UHY2n7SYMPwCw0jJIJOvImDycXcZij4h
-	iuZ+bMdbgHoVTsO2lN0Aws6HwuoXZxoYuE+H8W1muklifPdM2kWI1TBd
-X-Gm-Gg: AYBFou3qnHPl/hvYfcN8vmHjrcRaztpXdi8mUyiBsIfrdi5uFew21JUa007buYFXWsp
-	KotFhgroCcYtMykT5oVA8nJHBojUks6OGnRxGPMtNZh7zIXpVXwXQTZE74V4ZY5xVu6i8XmwUpE
-	f2qy/DjU+xzevq8FNX2WRKFOQIXRYS8yjerqmiNXyO1kOH/V1i+Y0fmtVXWm907OJp8k1lKf0oz
-	Iu6ZB4MUPjiRPfVebQKyMqShEvTzmBbEh5eVW3MBbYFbDIFEgRe11fpxQlhcrxdilA6X1WV/hDn
-	GjFV0A+ReLyE/FLEA94cJY7PYGY71m9bFhN3mWCeYAIpXUmjpVCUjZ6/nRbE8fd7zB/LpKpVKFr
-	OnXoXB91RfvqgJph0ejIHCAsB/rTQMayg1rEChHV0wsKmKVPEbVjaGp5s4tL/ltAeN4pIcWzp3t
-	O1/4hEExFQD4h0FxursB6BPREZ3UkXhFF11kJvBMRhpfgWdPbqzvwYR5t57QihAXhG8NoP7G40V
-	E2yg/9wK4UO8mhC7B2Db4/rji3KJ0RzmVdNk87TnjCUUSbdtDpoihRmjtVPjVTxDlKbxnIY/hzx
-	LywWFG8nkgz6zoIfaApmI8HdwtehVs40q9Z8BaglRmNXaIzgZh7yl8GGyWqj8kk=
-X-Received: by 2002:a05:6000:25ec:b0:493:803e:800f with SMTP id ffacd0b85a97d-49c725e5749mr9765352f8f.29.1794629395288;
-        Fri, 13 Nov 2026 20:09:55 -0800 (PST)
-Received: from demian.play.pl (83-175-177-170.dynamic.play.pl. [83.175.177.170])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c609c602dsm8488670f8f.46.2026.11.13.20.09.51
+        d=1e100.net; s=20260707; t=1794629411; x=1795234211;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Aawsi9qU8N0F2jhvdO/AEEcrRUHzJjyBxw/ofl4l/RE=;
+        b=LTVX9NEdTjYlgF6Yw9xNrYP4/8ZwjmazswYIrLff8/JcMMm3md27DFVpr2x+vLxUT+
+         K6EJN/vXnxTq9GLQzM8vAxeX/e1XWI9V4WYnvK9K1qWyMwX1bOYaVjpUDoJjbHxcacJt
+         Em4TCgPKjFiZQnOZY7jGnGfEbiMNfuXCH1cDRzNe9qY3smJ6BKWO5vUjFYIozdTRCaMy
+         FIfLXHfU25D2WWgVBhTrHICOXLi5lKlorLlOCLWM2Vqk9xb3X/9YrjSAvLuZhHEkE2Fz
+         TXHGUUOzfxLTGgr51i/9rlDJaXNtaNczJvvzX+uD3RfIe2TmjAIS7m8vNqHQvWy3wxvY
+         W0Ew==
+X-Forwarded-Encrypted: i=1; AL+hErEdjARnBsAuGeqz0+NBBnT5phR7jKLmx7usifCYM1wcQNkEhro7xK9wvAi1Z3ihbefO3H5hDBE/npx+kO8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8wVQSONvZ0LfDfWudLHezVZ4aJXtYB/+q6JsfZFzUnOURehRk7
+	9SSAxe3JeFCdOBprJdfZvCM4VAHcTirN9fJcO5ALJUOosFWQIwQfKTe7
+X-Gm-Gg: AYBFou3sHWvIRw3MGsdq/YD1ogRnOpaLwMUaG08+ZroUbfxXKUjm6eiCmoPjYtDJgx5
+	h8Ih9qYrNjHkdn4fUyYXVB0jFdWtdkDhMuDJNvrsVr62cFfIFUxVzrjcgG52df+fhyxOrfVRWjA
+	zM+X148ZjNH9wg5uPcGGeqquojK5Kwre4l//N3mXPaATe6Y5qGkwVvqVO+HqxRgncLv7wbMF7QO
+	d8FvINlBYcF82Yi1TJZQS2f/4Q3yeGpuW3Tc+UPiyLercBMYk/Us0wMCX7Mq1nxzgk+U3SB4Eww
+	ty86N/qET32PuM3vnbD0ZaUHN3jyMkTEH+0oGVprrJeyRYpSticckrF7u35acgvL5iD/WfvAic1
+	5j1flkiW/i0BTLJbKbV7lfchJwW/ZZCq234bDnLNW+D+p/nWm2gNB5TZGZnAHGR26FIjZtzVrlq
+	tUF82YtRD4VJB85sei4j2kwdGP03GRfcbDeVf8greJC5OM5jUEMWrXGRvLKqzhkDg0ev9/si8X0
+	qKiM0gSccTsEkkUujKg90oPTZE1sd1FDp1qm18VOIoe55xMrEDPVwrA5FoKuUgIwJ9AfK+R6Agn
+	EkqLqw8KWvSkNfiFMNcbDgAzLkfQfTuTs3QG4flOy2+OLoC8uzFOiSkFLuDfXocTzMxA
+X-Received: by 2002:a17:902:e801:b0:2ed:1ca2:ea5a with SMTP id d9443c01a7336-2ee0dca839cmr49377635ad.51.1794629410847;
+        Fri, 13 Nov 2026 20:10:10 -0800 (PST)
+Received: from TheRealOne ([2409:40e1:45d:fe42:3372:604f:8d11:1b5a])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f224370sm17415915ad.0.2026.11.13.20.10.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 20:09:53 -0800 (PST)
-From: Demian Shulhan <demyansh@gmail.com>
-To: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>,
-	David Laight <david.laight.linux@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Saeed Bishara <saeed.bishara.os@gmail.com>,
-	Eric Biggers <ebiggers@kernel.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Marco Elver <elver@google.com>,
-	David Gow <davidgow@google.com>,
-	Brendan Higgins <brendan.higgins@linux.dev>,
-	linux-arm-kernel@lists.infradead.org,
-	netdev@vger.kernel.org,
-	kunit-dev@googlegroups.com,
+        Fri, 13 Nov 2026 20:10:10 -0800 (PST)
+From: Chandradhar Kumar <chandradhar.2003@gmail.com>
+To: Song Liu <song@kernel.org>,
+	Yu Kuai <yukuai@fygo.io>,
+	Li Nan <magiclinan@didiglobal.com>,
+	Xiao Ni <xiao@kernel.org>,
+	linux-raid@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/2] lib/tests: checksum: Add KUnit tests for csum_partial_copy_nocheck()
-Date: Sat, 14 Nov 2026 03:57:01 +0000
-Message-ID: <20261114040943.219870-3-demyansh@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261114040943.219870-1-demyansh@gmail.com>
-References: <20261114040943.219870-1-demyansh@gmail.com>
+Cc: Chandradhar Kumar <chandradhar.2003@gmail.com>,
+	syzbot+9e3014263a35700ab49b@syzkaller.appspotmail.com
+Subject: [PATCH v3] md: enforce MD_SB_DISKS bounds across v0.90 superblock paths
+Date: Sat, 14 Nov 2026 09:39:47 +0530
+Message-ID: <20261114040959.18009-1-chandradhar.2003@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,487 +101,274 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Extend the checksum KUnit test suite to cover csum_partial_copy_nocheck()
-across alignments, tail lengths, bit patterns, vmalloc() guard pages with
-canary checks, and concurrent task/softirq/hardirq execution.
+The legacy v0.90 superblock format (mdp_super_t) embeds a fixed-size
+array of MD_SB_DISKS (27) disk descriptors (sb->disks[27]). Currently,
+several configuration and metadata load paths fail to enforce this
+upper bound, allowing mddev->raid_disks, rdev->raid_disk, or
+rdev->desc_nr to exceed MD_SB_DISKS - 1 and trigger an out-of-bounds
+array access in super_90_sync():
 
-Compare folded checksums against both a standalone C reference and
-csum_partial(), canonicalizing 0xffff (-0) to 0x0000 (+0) after
-csum_fold() so zero and all-zero inputs match across architectures such
-as x86_64.
+  UBSAN: array-index-out-of-bounds in drivers/md/md.c:1740:29
+  index 124 is out of range for type 'mdp_disk_t [27]'
 
-Also add an optional throughput benchmark gated behind
-CONFIG_CHECKSUM_KUNIT_BENCHMARK (default n).
+Fix this across all entry points and harden super_90_sync():
 
-Signed-off-by: Demian Shulhan <demyansh@gmail.com>
+1. In super_90_load(), validate sb->this_disk.number, sb->delta_disks
+   (for v0.91+), and active/sync raid_disk indices against MD_SB_DISKS.
+   In super_90_validate(), check rdev->desc_nr at the start of the
+   function before any sb->disks[] dereference and guard desc->raid_disk
+   assignments.
+2. In metadata_store() and md_set_array_info(), validate existing
+   mddev->raid_disks against MD_SB_DISKS for persistent v0.90 arrays
+   and maintain mddev->max_disks across both persistent and
+   non-persistent transitions.
+3. In raid_disks_store() and slot_store(), reject values overflowing
+   INT_MAX or exceeding MD_SB_DISKS / mddev->max_disks across all
+   configuration and reshape branches.
+4. In super_90_sync(), bounds-check desc_nr and mddev->raid_disks
+   before indexing sb->disks[], and synthesize a faulty/removed
+   this_disk descriptor if rdev->desc_nr is out of range rather than
+   indexing out-of-bounds or zeroing this_disk (which would alias
+   slot 0).
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: syzbot+9e3014263a35700ab49b@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=9e3014263a35700ab49b
+Signed-off-by: Chandradhar Kumar <chandradhar.2003@gmail.com>
 ---
- lib/Kconfig.debug          |  10 +
- lib/tests/checksum_kunit.c | 410 +++++++++++++++++++++++++++++++++++++
- 2 files changed, 420 insertions(+)
+Changes in v3:
+- In super_90_load(), also validate sb->delta_disks (for minor >= 91)
+  and active/sync disk raid_disk indices against MD_SB_DISKS.
+- Move the rdev->desc_nr bounds check to the top of super_90_validate()
+  before the mddev->pers == NULL branch indexes sb->disks[], and check
+  desc->raid_disk < MD_SB_DISKS before assigning rdev->raid_disk.
+- Reject n > INT_MAX in raid_disks_store() to prevent signed overflow of
+  mddev->raid_disks prior to metadata_store().
+- Update mddev->max_disks in the info->raid_disks == 0 branch and the
+  non-persistent branch of md_set_array_info().
 
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index 2d22638ec13a..588343ced260 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -2770,6 +2770,16 @@ config CHECKSUM_KUNIT
- 
- 	  If unsure, say N.
- 
-+config CHECKSUM_KUNIT_BENCHMARK
-+	bool "Benchmark for the checksum functions"
-+	depends on CHECKSUM_KUNIT
-+	help
-+	  Include a benchmark of csum_partial_copy_nocheck() against
-+	  memcpy() followed by csum_partial() in the checksum KUnit test
-+	  suite, for a range of buffer lengths and misalignments. The
-+	  throughput of both is logged as test output. Only meaningful on
-+	  real hardware and is not intended for production builds.
-+
- config UTIL_MACROS_KUNIT
- 	tristate "KUnit test util_macros.h functions at runtime" if !KUNIT_ALL_TESTS
- 	depends on KUNIT
-diff --git a/lib/tests/checksum_kunit.c b/lib/tests/checksum_kunit.c
-index be04aa42125c..69611daa7c0c 100644
---- a/lib/tests/checksum_kunit.c
-+++ b/lib/tests/checksum_kunit.c
-@@ -3,8 +3,15 @@
-  * Test cases csum_partial, csum_fold, ip_fast_csum, csum_ipv6_magic
-  */
- 
-+#include <kunit/run-in-irq-context.h>
- #include <kunit/test.h>
-+#include <linux/math64.h>
-+#include <linux/prandom.h>
-+#include <linux/preempt.h>
-+#include <linux/string.h>
-+#include <linux/vmalloc.h>
- #include <asm/checksum.h>
-+#include <net/checksum.h>
- #include <net/ip6_checksum.h>
- 
- #define MAX_LEN 512
-@@ -619,18 +626,421 @@ static void test_csum_ipv6_magic(struct kunit *test)
+Changes in v2:
+- Drop early return in super_90_sync() so rdev->sb_size and sb_page are
+  initialized before sync_sbs() sets rdev->sb_loaded = 1.
+- Do not reset rdev2->desc_nr = -1 or zero sb->this_disk on skip; instead
+  populate sb->this_disk as faulty/removed with rdev->desc_nr.
+- Validate mddev->raid_disks and set mddev->max_disks in metadata_store(),
+  and move the raid_disks_store() check above the reshape/active branches.
+
+ drivers/md/md.c | 83 +++++++++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 80 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/md/md.c b/drivers/md/md.c
+index 03e35386a802..e733dcdd13a5 100644
+--- a/drivers/md/md.c
++++ b/drivers/md/md.c
+@@ -1407,7 +1407,18 @@ static int super_90_load(struct md_rdev *rdev, struct md_rdev *refdev, int minor
+ 		goto abort;
  	}
+ 
+-	if (sb->raid_disks <= 0 || sb->raid_disks > MD_SB_DISKS)
++	if (sb->raid_disks <= 0 || sb->raid_disks > MD_SB_DISKS ||
++	    sb->this_disk.number >= MD_SB_DISKS)
++		goto abort;
++
++	if (sb->minor_version >= 91 &&
++	    ((s64)sb->raid_disks - sb->delta_disks <= 0 ||
++	     (s64)sb->raid_disks - sb->delta_disks > MD_SB_DISKS))
++		goto abort;
++
++	if ((sb->disks[sb->this_disk.number].state &
++	     ((1 << MD_DISK_SYNC) | (1 << MD_DISK_ACTIVE))) &&
++	    sb->disks[sb->this_disk.number].raid_disk >= MD_SB_DISKS)
+ 		goto abort;
+ 
+ 	if (md_csum_fold(calc_sb_csum(sb)) != md_csum_fold(sb->sb_csum)) {
+@@ -1501,6 +1512,9 @@ static int super_90_validate(struct mddev *mddev, struct md_rdev *freshest, stru
+ 	clear_bit(Bitmap_sync, &rdev->flags);
+ 	clear_bit(WriteMostly, &rdev->flags);
+ 
++	if (rdev->desc_nr < 0 || rdev->desc_nr >= MD_SB_DISKS)
++		return -EINVAL;
++
+ 	if (mddev->raid_disks == 0) {
+ 		mddev->major_version = 0;
+ 		mddev->minor_version = sb->minor_version;
+@@ -1592,6 +1606,8 @@ static int super_90_validate(struct mddev *mddev, struct md_rdev *freshest, stru
+ 	if (desc->state & (1<<MD_DISK_FAULTY))
+ 		set_bit(Faulty, &rdev->flags);
+ 	else if (desc->state & (1<<MD_DISK_SYNC)) {
++		if (desc->raid_disk >= MD_SB_DISKS)
++			return -EINVAL;
+ 		set_bit(In_sync, &rdev->flags);
+ 		rdev->raid_disk = desc->raid_disk;
+ 		rdev->saved_raid_disk = desc->raid_disk;
+@@ -1601,6 +1617,8 @@ static int super_90_validate(struct mddev *mddev, struct md_rdev *freshest, stru
+ 		 * that is, so set to zero for now
+ 		 */
+ 		if (mddev->minor_version >= 91) {
++			if (desc->raid_disk >= MD_SB_DISKS)
++				return -EINVAL;
+ 			rdev->recovery_offset = 0;
+ 			rdev->raid_disk = desc->raid_disk;
+ 		}
+@@ -1708,6 +1726,12 @@ static void super_90_sync(struct mddev *mddev, struct md_rdev *rdev)
+ 		else
+ 			desc_nr = next_spare++;
+ 		rdev2->desc_nr = desc_nr;
++
++		if (desc_nr < 0 || desc_nr >= MD_SB_DISKS) {
++			pr_warn("md: %s: desc_nr %d out of range for rdev %pg, skipping\n",
++				mdname(mddev), desc_nr, rdev2->bdev);
++			continue;
++		}
+ 		d = &sb->disks[rdev2->desc_nr];
+ 		nr_disks++;
+ 		d->number = rdev2->desc_nr;
+@@ -1736,7 +1760,7 @@ static void super_90_sync(struct mddev *mddev, struct md_rdev *rdev)
+ 			d->state |= (1<<MD_DISK_FAILFAST);
+ 	}
+ 	/* now set the "removed" and "faulty" bits on any missing devices */
+-	for (i=0 ; i < mddev->raid_disks ; i++) {
++	for (i = 0 ; i < mddev->raid_disks && i < MD_SB_DISKS; i++) {
+ 		mdp_disk_t *d = &sb->disks[i];
+ 		if (d->state == 0 && d->number == 0) {
+ 			d->number = i;
+@@ -1752,7 +1776,17 @@ static void super_90_sync(struct mddev *mddev, struct md_rdev *rdev)
+ 	sb->failed_disks = failed;
+ 	sb->spare_disks = spare;
+ 
+-	sb->this_disk = sb->disks[rdev->desc_nr];
++	if (rdev->desc_nr >= 0 && rdev->desc_nr < MD_SB_DISKS) {
++		sb->this_disk = sb->disks[rdev->desc_nr];
++	} else {
++		sb->this_disk.number = rdev->desc_nr;
++		sb->this_disk.major = MAJOR(rdev->bdev->bd_dev);
++		sb->this_disk.minor = MINOR(rdev->bdev->bd_dev);
++		sb->this_disk.raid_disk = rdev->desc_nr;
++		sb->this_disk.state = (1 << MD_DISK_FAULTY) |
++				      (1 << MD_DISK_REMOVED);
++	}
++
+ 	sb->sb_csum = calc_sb_csum(sb);
  }
  
-+/*
-+ * csum_partial_copy_nocheck() tests: verify copied bytes, folded checksum
-+ * against a standalone reference and csum_partial(), canary/guard-page
-+ * bounds, and concurrent task/softirq/hardirq execution.
-+ */
-+#define COPY_MAX_OFF 16
-+#define COPY_MAX_LEN 4352
-+#define COPY_BENCH_MAX_LEN 16384
-+#define COPY_GUARD 128 /* canary span on each side of dst */
-+#define COPY_CANARY 0xa5
-+#define COPY_SEED 0x5eed
-+
-+static struct rnd_state copy_rng;
-+/* vmalloc()ed with a page-aligned length, so each is followed by a guard page */
-+static u8 *copy_src_area;
-+static u8 *copy_dst_area;
-+static u8 *copy_shadow; /* expected contents of copy_src_area */
-+static size_t copy_area_len;
-+
-+static int checksum_suite_init(struct kunit_suite *suite)
-+{
-+	copy_area_len = round_up(COPY_BENCH_MAX_LEN + COPY_MAX_OFF, PAGE_SIZE);
-+	copy_src_area = vmalloc(copy_area_len);
-+	copy_dst_area = vmalloc(copy_area_len);
-+	copy_shadow = vmalloc(copy_area_len);
-+	if (!copy_src_area || !copy_dst_area || !copy_shadow) {
-+		vfree(copy_src_area);
-+		vfree(copy_dst_area);
-+		vfree(copy_shadow);
-+		return -ENOMEM;
-+	}
-+	prandom_seed_state(&copy_rng, COPY_SEED);
-+	return 0;
-+}
-+
-+static void checksum_suite_exit(struct kunit_suite *suite)
-+{
-+	vfree(copy_src_area);
-+	vfree(copy_dst_area);
-+	vfree(copy_shadow);
-+}
-+
-+static void copy_fill_random(void)
-+{
-+	prandom_bytes_state(&copy_rng, copy_src_area, copy_area_len);
-+	memcpy(copy_shadow, copy_src_area, copy_area_len);
-+}
-+
-+static void copy_fill_bytes(const u8 *pattern, int pattern_len)
-+{
-+	size_t i;
-+
-+	for (i = 0; i < copy_area_len; i++)
-+		copy_src_area[i] = pattern[i % pattern_len];
-+	memcpy(copy_shadow, copy_src_area, copy_area_len);
-+}
-+
-+/* Place @len bytes at misalignment @off as close as possible to the guard page. */
-+static u8 *copy_place_at_end(u8 *area, int off, int len)
-+{
-+	u8 *end = area + copy_area_len;
-+	int pad = ((unsigned long)(end - len) - off) & (COPY_MAX_OFF - 1);
-+
-+	return end - len - pad;
-+}
-+
-+/* Naive reference: folded ones' complement sum, same semantics as csum_fold(). */
-+static u16 ref_csum_fold(const u8 *buf, int len)
-+{
-+	u64 sum = 0;
-+	u16 word;
-+	int i;
-+
-+	for (i = 0; i + 1 < len; i += 2) {
-+		memcpy(&word, buf + i, sizeof(word)); /* native endian */
-+		sum += word;
-+	}
-+	if (len & 1) {
-+		u8 pad[2] = { buf[len - 1], 0 };
-+
-+		memcpy(&word, pad, sizeof(word)); /* LE: low byte, BE: high byte */
-+		sum += word;
-+	}
-+	while (sum >> 16)
-+		sum = (sum & 0xffff) + (sum >> 16);
-+
-+	sum = ~sum & 0xffff;
-+	return sum == 0xffff ? 0 : sum;
-+}
-+
-+/*
-+ * RFC 1071: 0xffff (-0) and 0x0000 (+0) are equivalent. Canonicalize to 0 so
-+ * ~0U-seeded archs (e.g. x86_64) match 0-seeded refs on zero/all-zero inputs.
-+ */
-+static u16 fold_csum(__wsum csum)
-+{
-+	u16 sum = (__force u16)csum_fold(csum);
-+
-+	return sum == 0xffff ? 0 : sum;
-+}
-+
-+static int first_non_canary(const u8 *p, int n)
-+{
-+	int i;
-+
-+	for (i = 0; i < n; i++)
-+		if (p[i] != COPY_CANARY)
-+			return i;
-+	return -1;
-+}
-+
-+/* Verify one csum_partial_copy_nocheck() call with @before/@after canaries. */
-+static void check_csum_copy_at(struct kunit *test, const u8 *src, u8 *dst,
-+			       int len, int before, int after)
-+{
-+	unsigned long src_off = (unsigned long)src & (COPY_MAX_OFF - 1);
-+	unsigned long dst_off = (unsigned long)dst & (COPY_MAX_OFF - 1);
-+	const u8 *lo, *hi;
-+	u16 expect, got;
-+	int bad;
-+
-+	memset(dst - before, COPY_CANARY, before + len + after);
-+	expect = ref_csum_fold(src, len);
-+
-+	got = fold_csum(csum_partial_copy_nocheck(src, dst, len));
-+
-+	KUNIT_ASSERT_EQ_MSG(test, got, expect,
-+			    "checksum mismatch src_off=%lu dst_off=%lu len=%d",
-+			    src_off, dst_off, len);
-+	KUNIT_ASSERT_EQ_MSG(test, memcmp(src, dst, len), 0,
-+			    "copied data mismatch src_off=%lu dst_off=%lu len=%d",
-+			    src_off, dst_off, len);
-+
-+	bad = first_non_canary(dst - before, before);
-+	KUNIT_ASSERT_EQ_MSG(test, bad, -1,
-+			    "wrote %d bytes before dst (src_off=%lu dst_off=%lu len=%d)",
-+			    before - bad, src_off, dst_off, len);
-+
-+	bad = first_non_canary(dst + len, after);
-+	KUNIT_ASSERT_EQ_MSG(test, bad, -1,
-+			    "wrote at dst+len+%d (src_off=%lu dst_off=%lu len=%d)",
-+			    bad, src_off, dst_off, len);
-+
-+	/* Source untouched, including a margin on either side. */
-+	lo = max(src - COPY_GUARD, (const u8 *)copy_src_area);
-+	hi = min(src + len + COPY_GUARD, (const u8 *)copy_src_area + copy_area_len);
-+	KUNIT_ASSERT_EQ_MSG(test,
-+			    memcmp(lo, copy_shadow + (lo - copy_src_area), hi - lo), 0,
-+			    "source buffer modified (src_off=%lu dst_off=%lu len=%d)",
-+			    src_off, dst_off, len);
-+
-+	/* Must be interchangeable with the arch csum_partial() semantics. */
-+	KUNIT_EXPECT_EQ_MSG(test, got,
-+			    fold_csum(csum_partial(src, len, 0)),
-+			    "disagrees with csum_partial() src_off=%lu dst_off=%lu len=%d",
-+			    src_off, dst_off, len);
-+}
-+
-+/* Source against its guard page, destination between canaries. */
-+static void check_csum_copy(struct kunit *test, int src_off, int dst_off,
-+			    int len)
-+{
-+	KUNIT_ASSERT_TRUE(test, src_off >= 0 && src_off < COPY_MAX_OFF);
-+	KUNIT_ASSERT_TRUE(test, dst_off >= 0 && dst_off < COPY_MAX_OFF);
-+	KUNIT_ASSERT_TRUE(test, len >= 0 && len <= COPY_MAX_LEN);
-+
-+	check_csum_copy_at(test, copy_place_at_end(copy_src_area, src_off, len),
-+			   copy_dst_area + COPY_GUARD + dst_off, len,
-+			   COPY_GUARD, COPY_GUARD);
-+}
-+
-+/* Representative source offsets used with all 16 destination offsets. */
-+static const int copy_src_offs[] = { 0, 1, 3, 8, 15 };
-+
-+/* Every len 0..64 with every src/dst misalignment: the scalar tail ladder. */
-+static void test_csum_copy_small_all_alignments(struct kunit *test)
-+{
-+	int len, src_off, dst_off;
-+
-+	copy_fill_random();
-+	for (len = 0; len <= 64; len++)
-+		for (src_off = 0; src_off < COPY_MAX_OFF; src_off++)
-+			for (dst_off = 0; dst_off < COPY_MAX_OFF; dst_off++)
-+				check_csum_copy(test, src_off, dst_off, len);
-+}
-+
-+/* Large unaligned buffers exercising multi-block strides and GSO/MTU lengths. */
-+static void test_csum_copy_large_unaligned(struct kunit *test)
-+{
-+	static const int extra_lens[] = {
-+		1368, 1448, 1500, 2033, 2034, 2035, 2039, 2040, 2041, 2047,
-+		2048, 2049, 2055, 2056, 2057, 2062, 2063, 3072, 4095, 4096,
-+		4097, 4352,
-+	};
-+	int len, i, j, dst_off;
-+
-+	copy_fill_random();
-+	for (len = 1024; len < 1024 + 80; len++)
-+		for (i = 0; i < ARRAY_SIZE(copy_src_offs); i++)
-+			for (dst_off = 0; dst_off < COPY_MAX_OFF; dst_off++)
-+				check_csum_copy(test, copy_src_offs[i], dst_off,
-+						len);
-+
-+	for (j = 0; j < ARRAY_SIZE(extra_lens); j++)
-+		for (i = 0; i < ARRAY_SIZE(copy_src_offs); i++)
-+			for (dst_off = 0; dst_off < COPY_MAX_OFF; dst_off++)
-+				check_csum_copy(test, copy_src_offs[i], dst_off,
-+						extra_lens[j]);
-+}
-+
-+/* Patterns stressing carries, zero/MSB bytes, and odd-offset byte order. */
-+static void test_csum_copy_patterns(struct kunit *test)
-+{
-+	static const u8 pat_ff[] = { 0xff };
-+	static const u8 pat_00[] = { 0x00 };
-+	static const u8 pat_80[] = { 0x80 };
-+	static const u8 pat_ff00[] = { 0xff, 0x00 };
-+	static const u8 pat_ramp[] = { 0x01, 0x02, 0x04, 0x08,
-+				       0x10, 0x20, 0x40, 0x80 };
-+	static const struct {
-+		const u8 *pat;
-+		int len;
-+	} patterns[] = {
-+		{ pat_ff, ARRAY_SIZE(pat_ff) },
-+		{ pat_00, ARRAY_SIZE(pat_00) },
-+		{ pat_80, ARRAY_SIZE(pat_80) },
-+		{ pat_ff00, ARRAY_SIZE(pat_ff00) },
-+		{ pat_ramp, ARRAY_SIZE(pat_ramp) },
-+		{ NULL, 0 }, /* random */
-+	};
-+	static const int lens[] = {
-+		1, 2, 3, 7, 8, 15, 16, 17, 31, 32, 33, 63, 64, 65, 127, 128,
-+		255, 256, 511, 512, 1023, 1024, 1025, 1368, 1448, 1500, 2048,
-+		4095, 4096, 4352,
-+	};
-+	static const int offs[][2] = {
-+		{ 0, 0 }, { 1, 0 }, { 0, 1 }, { 1, 1 }, { 3, 7 }, { 7, 3 },
-+		{ 9, 5 }, { 15, 15 },
-+	};
-+	int p, l, o;
-+
-+	for (p = 0; p < ARRAY_SIZE(patterns); p++) {
-+		if (patterns[p].pat)
-+			copy_fill_bytes(patterns[p].pat, patterns[p].len);
-+		else
-+			copy_fill_random();
-+
-+		for (l = 0; l < ARRAY_SIZE(lens); l++)
-+			for (o = 0; o < ARRAY_SIZE(offs); o++)
-+				check_csum_copy(test, offs[o][0], offs[o][1],
-+						lens[l]);
-+	}
-+}
-+
-+/* Place dst against its trailing guard page so any over-write faults. */
-+static void test_csum_copy_dst_guard_page(struct kunit *test)
-+{
-+	static const int lens[] = {
-+		1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
-+		31, 32, 33, 63, 64, 65, 79, 80, 81, 127, 128, 129, 1023, 1024,
-+		1025, 1368, 1448, 1500, 2048, 4095, 4096, 4097,
-+	};
-+	int l, src_off, dst_off;
-+
-+	copy_fill_random();
-+	for (l = 0; l < ARRAY_SIZE(lens); l++)
-+		for (dst_off = 0; dst_off < COPY_MAX_OFF; dst_off++) {
-+			u8 *dst = copy_place_at_end(copy_dst_area, dst_off, lens[l]);
-+			int after = copy_dst_area + copy_area_len - (dst + lens[l]);
-+
-+			src_off = (dst_off * 7 + lens[l]) & (COPY_MAX_OFF - 1);
-+			check_csum_copy_at(test,
-+					   copy_place_at_end(copy_src_area,
-+							     src_off, lens[l]),
-+					   dst, lens[l], COPY_GUARD, after);
-+		}
-+}
-+
-+/* len == 0: folded checksum must be zero and dst must not be touched. */
-+static void test_csum_copy_zero_len(struct kunit *test)
-+{
-+	u8 *dst = copy_dst_area + COPY_GUARD;
-+	__wsum sum;
-+
-+	copy_fill_random();
-+	memset(copy_dst_area, COPY_CANARY, 2 * COPY_GUARD);
-+	sum = csum_partial_copy_nocheck(copy_src_area, dst, 0);
-+	KUNIT_EXPECT_EQ(test, fold_csum(sum), 0);
-+	KUNIT_EXPECT_EQ(test, first_non_canary(copy_dst_area, 2 * COPY_GUARD), -1);
-+}
-+
-+/* Concurrent execution across task, softirq, and hardirq contexts. */
-+#define COPY_IRQ_NUM_MSGS 3
-+#define COPY_IRQ_NUM_CTX 3 /* task, softirq, hardirq */
-+
-+static const int copy_irq_lens[COPY_IRQ_NUM_MSGS] = { 100, 1500, 4097 };
-+
-+struct copy_irq_test_state {
-+	const u8 *src[COPY_IRQ_NUM_MSGS];
-+	u16 expected[COPY_IRQ_NUM_MSGS];
-+	u8 *dst[COPY_IRQ_NUM_CTX];
-+	atomic_t seqno;
-+};
-+
-+static bool copy_irq_test_func(void *state_)
-+{
-+	struct copy_irq_test_state *state = state_;
-+	u32 i = (u32)atomic_inc_return(&state->seqno) % COPY_IRQ_NUM_MSGS;
-+	int ctx = in_hardirq() ? 2 : in_serving_softirq() ? 1 : 0;
-+	const u8 *src = state->src[i];
-+	u8 *dst = state->dst[ctx];
-+	int len = copy_irq_lens[i];
-+	u16 got;
-+
-+	got = fold_csum(csum_partial_copy_nocheck(src, dst, len));
-+	return got == state->expected[i] && memcmp(src, dst, len) == 0;
-+}
-+
-+static void test_csum_copy_interrupt_context(struct kunit *test)
-+{
-+	struct copy_irq_test_state state = { };
-+	int i;
-+
-+	copy_fill_random();
-+	for (i = 0; i < COPY_IRQ_NUM_MSGS; i++) {
-+		/* Distinct, misaligned messages. */
-+		state.src[i] = copy_src_area + i * (COPY_MAX_LEN + 64) + 2 * i + 1;
-+		state.expected[i] = ref_csum_fold(state.src[i], copy_irq_lens[i]);
-+	}
-+	for (i = 0; i < COPY_IRQ_NUM_CTX; i++)
-+		state.dst[i] = copy_dst_area + i * (COPY_MAX_LEN + 64) + 2 * i + 1;
-+
-+	kunit_run_irq_test(test, copy_irq_test_func, 100000, &state);
-+}
-+
-+/* Optional throughput benchmark vs memcpy() + csum_partial(). */
-+static void test_csum_copy_benchmark(struct kunit *test)
-+{
-+	static const int lens[] = {
-+		16, 40, 64, 128, 256, 512, 1000, 1024, 1368, 1448, 1500,
-+		2048, 4096, 16384,
-+	};
-+	static const int offs[][2] = { { 0, 0 }, { 1, 3 } };
-+	int l, o, i, len, num_iters;
-+	u64 t, t_fused, t_split;
-+	u32 acc = 0; /* keeps every call alive via OPTIMIZER_HIDE_VAR() */
-+
-+	if (!IS_ENABLED(CONFIG_CHECKSUM_KUNIT_BENCHMARK))
-+		kunit_skip(test, "not enabled");
-+
-+	copy_fill_random();
-+
-+	/* warm-up */
-+	for (i = 0; i < 10000000; i += COPY_BENCH_MAX_LEN)
-+		acc ^= (__force u32)csum_partial_copy_nocheck(copy_src_area,
-+							      copy_dst_area,
-+							      COPY_BENCH_MAX_LEN);
-+	OPTIMIZER_HIDE_VAR(acc);
-+
-+	for (o = 0; o < ARRAY_SIZE(offs); o++) {
-+		const u8 *src = copy_src_area + offs[o][0];
-+		u8 *dst = copy_dst_area + offs[o][1];
-+
-+		for (l = 0; l < ARRAY_SIZE(lens); l++) {
-+			len = lens[l];
-+			num_iters = 10000000 / (len + 128);
-+
-+			preempt_disable();
-+			t = ktime_get_ns();
-+			for (i = 0; i < num_iters; i++)
-+				acc ^= (__force u32)csum_partial_copy_nocheck(src, dst, len);
-+			t_fused = ktime_get_ns() - t;
-+			OPTIMIZER_HIDE_VAR(acc);
-+
-+			t = ktime_get_ns();
-+			for (i = 0; i < num_iters; i++) {
-+				memcpy(dst, src, len);
-+				acc ^= (__force u32)csum_partial(dst, len, 0);
-+			}
-+			t_split = ktime_get_ns() - t;
-+			OPTIMIZER_HIDE_VAR(acc);
-+			preempt_enable();
-+
-+			kunit_info(test,
-+				   "src+%d dst+%d len=%5d: csum_partial_copy_nocheck %6llu MB/s, memcpy+csum_partial %6llu MB/s\n",
-+				   offs[o][0], offs[o][1], len,
-+				   div64_u64((u64)len * num_iters * 1000,
-+					     max_t(u64, t_fused, 1)),
-+				   div64_u64((u64)len * num_iters * 1000,
-+					     max_t(u64, t_split, 1)));
-+		}
-+	}
-+}
-+
- static struct kunit_case __refdata checksum_test_cases[] = {
- 	KUNIT_CASE(test_csum_fixed_random_inputs),
- 	KUNIT_CASE(test_csum_all_carry_inputs),
- 	KUNIT_CASE(test_csum_no_carry_inputs),
- 	KUNIT_CASE(test_ip_fast_csum),
- 	KUNIT_CASE(test_csum_ipv6_magic),
-+	KUNIT_CASE(test_csum_copy_small_all_alignments),
-+	KUNIT_CASE(test_csum_copy_large_unaligned),
-+	KUNIT_CASE(test_csum_copy_patterns),
-+	KUNIT_CASE(test_csum_copy_dst_guard_page),
-+	KUNIT_CASE(test_csum_copy_zero_len),
-+	KUNIT_CASE(test_csum_copy_interrupt_context),
-+	KUNIT_CASE(test_csum_copy_benchmark),
- 	{}
- };
+@@ -3353,6 +3387,12 @@ slot_store(struct md_rdev *rdev, const char *buf, size_t len)
+ 		if (slot >= rdev->mddev->raid_disks &&
+ 		    slot >= rdev->mddev->raid_disks + rdev->mddev->delta_disks)
+ 			return -ENOSPC;
++		if ((rdev->mddev->max_disks &&
++		     slot >= rdev->mddev->max_disks) ||
++		    (rdev->mddev->persistent &&
++		     rdev->mddev->major_version == 0 &&
++		     slot >= MD_SB_DISKS))
++			return -ENOSPC;
  
- static struct kunit_suite checksum_test_suite = {
- 	.name = "checksum",
- 	.test_cases = checksum_test_cases,
-+	.suite_init = checksum_suite_init,
-+	.suite_exit = checksum_suite_exit,
- };
+ 		rdev->raid_disk = slot;
+ 		if (test_bit(In_sync, &rdev->flags))
+@@ -3374,6 +3414,12 @@ slot_store(struct md_rdev *rdev, const char *buf, size_t len)
+ 		if (slot >= rdev->mddev->raid_disks &&
+ 		    slot >= rdev->mddev->raid_disks + rdev->mddev->delta_disks)
+ 			return -ENOSPC;
++		if ((rdev->mddev->max_disks &&
++		     slot >= rdev->mddev->max_disks) ||
++		    (rdev->mddev->persistent &&
++		     rdev->mddev->major_version == 0 &&
++		     slot >= MD_SB_DISKS))
++			return -ENOSPC;
+ 		rdev->raid_disk = slot;
+ 		/* assume it is working */
+ 		clear_bit(Faulty, &rdev->flags);
+@@ -4437,11 +4483,20 @@ raid_disks_store(struct mddev *mddev, const char *buf, size_t len)
+ 	err = kstrtouint(buf, 10, &n);
+ 	if (err < 0)
+ 		return err;
++	if (n > INT_MAX)
++		return -EINVAL;
  
- kunit_test_suites(&checksum_test_suite);
+ 	err = mddev_suspend_and_lock(mddev);
+ 	if (err)
+ 		return err;
+ 	noio_flags = memalloc_noio_save();
++	if ((mddev->max_disks && n > mddev->max_disks) ||
++	    (mddev->persistent && mddev->major_version == 0 &&
++	     n > MD_SB_DISKS)) {
++		err = -EINVAL;
++		goto out_unlock;
++	}
++
+ 	if (mddev->pers) {
+ 		if (n != mddev->raid_disks)
+ 			err = update_raid_disks(mddev, n);
+@@ -5029,6 +5084,7 @@ metadata_store(struct mddev *mddev, const char *buf, size_t len)
+ 		mddev->external = 0;
+ 		mddev->major_version = 0;
+ 		mddev->minor_version = 90;
++		mddev->max_disks = 0;
+ 		goto out_unlock;
+ 	}
+ 	if (strncmp(buf, "external:", 9) == 0) {
+@@ -5043,6 +5099,7 @@ metadata_store(struct mddev *mddev, const char *buf, size_t len)
+ 		mddev->external = 1;
+ 		mddev->major_version = 0;
+ 		mddev->minor_version = 90;
++		mddev->max_disks = 0;
+ 		goto out_unlock;
+ 	}
+ 	major = simple_strtoul(buf, &e, 10);
+@@ -5056,10 +5113,14 @@ metadata_store(struct mddev *mddev, const char *buf, size_t len)
+ 	err = -ENOENT;
+ 	if (major >= ARRAY_SIZE(super_types) || super_types[major].name == NULL)
+ 		goto out_unlock;
++	err = -EINVAL;
++	if (major == 0 && mddev->raid_disks > MD_SB_DISKS)
++		goto out_unlock;
+ 	mddev->major_version = major;
+ 	mddev->minor_version = minor;
+ 	mddev->persistent = 1;
+ 	mddev->external = 0;
++	mddev->max_disks = (major == 0) ? MD_SB_DISKS : 0;
+ 	err = 0;
+ out_unlock:
+ 	mddev_unlock(mddev);
+@@ -7941,16 +8002,30 @@ int md_set_array_info(struct mddev *mddev, struct mdu_array_info_s *info)
+ 				info->major_version);
+ 			return -EINVAL;
+ 		}
++		if (!info->not_persistent && info->major_version == 0 &&
++		    (mddev->raid_disks < 0 || mddev->raid_disks > MD_SB_DISKS))
++			return -EINVAL;
+ 		mddev->major_version = info->major_version;
+ 		mddev->minor_version = info->minor_version;
+ 		mddev->patch_version = info->patch_version;
+ 		mddev->persistent = !info->not_persistent;
++		mddev->max_disks = (mddev->persistent &&
++				    info->major_version == 0) ?
++				   MD_SB_DISKS : 0;
+ 		/* ensure mddev_put doesn't delete this now that there
+ 		 * is some minimal configuration.
+ 		 */
+ 		mddev->ctime         = ktime_get_real_seconds();
+ 		return 0;
+ 	}
++
++	if (info->raid_disks < 0 ||
++	    (!info->not_persistent && info->raid_disks > MD_SB_DISKS)) {
++		pr_warn("md: %s: invalid raid_disks %d for v0.90 superblock\n",
++			mdname(mddev), info->raid_disks);
++		return -EINVAL;
++	}
++
+ 	mddev->major_version = MD_MAJOR_VERSION;
+ 	mddev->minor_version = MD_MINOR_VERSION;
+ 	mddev->patch_version = MD_PATCHLEVEL_VERSION;
+@@ -7980,6 +8055,8 @@ int md_set_array_info(struct mddev *mddev, struct mdu_array_info_s *info)
+ 		mddev->max_disks = MD_SB_DISKS;
+ 		mddev->flags = 0;
+ 		mddev->sb_flags = 0;
++	} else {
++		mddev->max_disks = 0;
+ 	}
+ 	set_bit(MD_SB_CHANGE_DEVS, &mddev->sb_flags);
+ 
 -- 
-2.53.0
+2.56.0
 
