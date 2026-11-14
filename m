@@ -1,54 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794677640;
-	b=3FS14C8Y1oHkUEHS81X8FugVuOI4U64uF/GCjldIAwfSK9LdzUdBNjvXLifgvldSk5Fy
-	 d7hiXb+uE3PHrOV7SBnxKrDPNc2Ia1BLh72+HZxEXnNswaJTVE7NxrKdueiA4csLcGbeq
-	 8csTY4oGUk/ArkJIWooyuwiXKDUUOXZDfhlyKcKZS0XCbUc6GWfPJtE/zV+C3I8caC2+B
-	 IMoM9V5INmlJXzmdGAnuk7cJE3DanwuRJNdohKeUEaIR0vRbF9yAvu8DTcLXc+RTPfO7Q
-	 vGkCC2IOyEhYmTSVWpfmbWtJHTD4oPck2WXOmQrC5AGlapn0oTBOt/ED21HmIYJOmVw==
+	t=1794677751;
+	b=y9IcmjInJnJLKpPfzE3x0Pmd6PssXN/2+O5cy2u1Ybc4AaJn9tpHvtD8cm4YTcgWR9c7
+	 TwzTcpX8+PVICLMYOr8zlp4P4Ba1FrkvtX6Zd/vUCCvBu+JS6M+rUOWRhKwy6mpyUCaWF
+	 /Idne9wKJ/+LwZXF+SHwKTywlq/95f2L5z+2AMx/yYCW7IdS5ed3Qt9At2wFiDKda6mvX
+	 yorOoNgTi8+Ss1e0lx/A/6HHyxkFOcNUVclATIrqqX6mBow25OfZN/nc+3B+4665KDVHq
+	 jCT+WgMAnccWKBQwSrloS+4VB6jQTRl1vrU+LAeWKcHJpw353ASjXB6Q1S72bm8gftw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794677640;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=KFpXgHITgTKpJjTXjtCWWLVB9Sr0Cws6b+lQmt5jk1U=;
-	b=5MRKmAgc4XCiwhqaOUrRJ0W9UrL0d8Aut4QzMHaDVz7KPOuiDz5uVd7GdBu0NmaHJXei
-	 10aUMsCeFtGZOi8g6lHA6cfFGu1dO1TkiPPbLh0pHi4hpVbDUUtmzsiSZJx5XkUkr/jc/
-	 qxzhSEBXU1gd187Oet4n+ABDRxv11M5o4a1Yv7ZNOaP2S/k2vzw1Gj9xSJL2QHysXI7GJ
-	 pAySs3ZNFU19UldKpT1Yq1mHBdI263fBCYS5/oNqZergcQv/v6wQASTg/STfX8Kzajuje
-	 zrQ4ep5/EJflUXlaiokV24eqqDGs3i4cM49DgQDh6noQ5lqfoliyDdupKmt2dLynl1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794677751;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=JNaJcXdU6JL88Hplnr1u9aTEynknq2tK7kpa3hgYbA8=;
+	b=loxlmxD3Hs2QB2Z4Z1ntICDQfJmzG1j8TKKdyu4vANNl4azpuCCAaSaCoXYMWBYJ25U3
+	 Gl2D1uNzhRlbn/hHxHK46Em9yDKdVRP/8CP/Lp/d5zBalV3MkhyjvDEzQZAtjrMakb6id
+	 1ys3fx3r1ybLt+KcfF70JT5xkFYCbn6cB+EPLYXOMv1k2BR3w7+6ISh2iZAxSeLwTufsv
+	 ufz19TT2XXJnkeW9fyeiNXS8kWHv+qOEG+gb7BmriNVaLULjX/zMddaVQW9WY/ANSEz/D
+	 xPQjZI3YmqgA2gJo+fSQMrddfi6NawjJ/IWjGX99NvBiKneU1wTCsN3J0xbpF3Gc09w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FsLNePpJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XSSeCau7;
+	arc=none smtp.remote-ip=209.85.218.72
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com [209.85.218.72])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CDA3606A323
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:34:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02884606A332
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:35:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02884606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FsLNePpJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52F041F000C4;
-	Sat, 14 Nov 2026 17:33:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794677639;
-	bh=KFpXgHITgTKpJjTXjtCWWLVB9Sr0Cws6b+lQmt5jk1U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FsLNePpJ67WtMpcBtQy5xfKYA8q8BcgKSYhg/XRLaH2t1/FF8hLR7UoKdJraBOxcE
-	 mUcuBh8eE6I3Gc2ugyua9WSmZ0AA6V1bC+vYLhS4By7aboCtudxrYBWFOWjmiIXlm9
-	 3yXMG6/bWUV1Dl2RBYP30+uk09PQc8G+doiN/1A3LmSQIzvB6IPQ6E81WOae4ZgXep
-	 Ex96VsoDe7GoeMgLCOzG4JLml+P/7byQ/edBRG3T2El3sOLbwfwWxhqn02s3DiYmGu
-	 KHVRl7BwzAImFEfP6iUMtKE62oFQTpdqd/amfbZSaHcD/7ElZWwQ3jrBMZkZw9loOk
-	 LgSv62x2CLRfw==
-Date: Sat, 14 Nov 2026 17:33:54 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: shao.mingyin@zte.com.cn
-Cc: akpm@linux-foundation.org, david@kernel.org, linux-mm@kvack.org, 
-	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
-	mhocko@suse.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/util: fix off-by-one when checking folio index in
- snapshot_page()
-Message-ID: <avibe0HG4ssUUuBX@gremlin>
-References: <20261115004657890Pz8ERDf5nCtE-B6M7KFzu@zte.com.cn>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XSSeCau7
+Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c50b0de2139so49523366b.3
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 09:35:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794677748; x=1795282548; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JNaJcXdU6JL88Hplnr1u9aTEynknq2tK7kpa3hgYbA8=;
+        b=XSSeCau7YgwEp6nAVRbbl/y7vrel4QlasSkkS3O+sdNhiVlZ/lYbebt6ZnY70vAdOD
+         eGHE2605aeE7eHPIdrg74PzC/qnZt8iFNDSyloLNhlQq+yFuWqtkOYmD1iThOxILmyYq
+         JV+pQsEsOeAVgs9+GoW8ueAyCKQVGd1B/S9cB58Yh2er6awjGmCDMy5Vm1Iz8mg2iioo
+         VWKfLdaBGF5Spc8RyDs1ELufEf/uo4Xo1aMAczXmftDLnFrizV/VdaIzMaivEBCMUbA6
+         h2OGOjExnQm9nyj8awbABd3LTl3W6dRW4EEnjVSAR3tCHL18axB7iF+i/BM9Ji5BGIWI
+         T66g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794677748; x=1795282548;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JNaJcXdU6JL88Hplnr1u9aTEynknq2tK7kpa3hgYbA8=;
+        b=GsJ7nbZgl3SGWP5PGKbP5A+BxO7giCFZovEc8UclNcmAO6XKSEOmRCStVRUbKJFour
+         3k3Wifjz6Rilf6KzzsM0Ji6ktdwGMhYpjcbmVnGJjFUecGNFjcq2NZ1HEOguzq2YXQBV
+         FuUKuxrbsACf+BoA2uqclKHUJrk2Fg4Ll5T5Hu6Jz+bBI/NSOvi6OFSVgipicf0n4/HD
+         fd6U73yvyecJAdy9Sh9rr+Wb5T4r42yHamZ8x7PsurFtpi4gB9LKyYEosOkIWUFMW0XA
+         9x99Oi6pgrZsTicAdP8nk6AtV1r3llktJ3+OCvufePIA1X9lNI1OY6ZVQMYVtCMNQv5F
+         w45A==
+X-Forwarded-Encrypted: i=1; AL+hErG9XVTY4lnGqCvgLgUImuW3H5THja6ij//LqFo2dJ9XcKSqfcPcsaD00Dmw8Qj+xFNxjiBKdVz+D9IdUuo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z95H3O8XJ9xD6je607kn3bpz0mFeyOxtAyfCDWsJA/voM8Ad1Fs
+	Q7CthsBR4Ppqo5I1JvRy0mA8wfhJCC0vpsqx8bWW4XB8LqLYESphXD7J01//StfhXUN3QZ4Bgos
+	piiq530FW8uWpba6trw==
+X-Received: from ejfz7.prod.google.com ([2002:a17:906:ac7:b0:c2e:3202:ef75])
+ (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:907:868f:b0:c33:ae8b:817d with SMTP id a640c23a62f3a-c509654f9admr515384166b.46.1794677747981;
+ Sat, 14 Nov 2026 09:35:47 -0800 (PST)
+Date: Sat, 14 Nov 2026 17:35:47 +0000
+In-Reply-To: <DMRO4QXXB8H4.127C1CPT3RZ18@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,40 +77,135 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261115004657890Pz8ERDf5nCtE-B6M7KFzu@zte.com.cn>
+Mime-Version: 1.0
+References: <20261110050202.529473-1-tarunsahu@google.com> <20261110050202.529473-17-tarunsahu@google.com>
+ <DMRO4QXXB8H4.127C1CPT3RZ18@google.com>
+Message-ID: <9huzmrrbpb7w.fsf@tarunix.c.googlers.com>
+Subject: Re: [PATCH v4 16/19] PCI: liveupdate: Add feature header to struct pci_dev_ser
+From: tarunsahu@google.com
+To: David Matlack <dmatlack@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Mike Rapoport <rppt@kernel.org>, robin.murphy@arm.com, maz@kernel.org, will@kernel.org, 
+	Alexander Graf <graf@amazon.com>, seanjc@google.com, jgg@nvidia.com, loganodell@google.com, 
+	arnd@arndb.de, dwmw2@infradead.org, baolu.lu@linux.intel.com, 
+	Bjorn Helgaas <bhelgaas@google.com>, oupton@kernel.org, alex@shazbot.org, 
+	gle.com@google.com, pbonzini@redhat.com, 
+	Andrew Morton <akpm@linux-foundation.org>, kevin.tian@intel.com, joro@8bytes.org
+Cc: kvmarm@lists.linux.dev, linux-pci@vger.kernel.org, 
+	Pratyush Yadav <pratyush@kernel.org>, kexec@lists.infradead.org, kvm@vger.kernel.org, 
+	iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	skhawaja@google.com, sagis@google.com, linux-arch@vger.kernel.org, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, Nov 15, 2026 at 12:46:57AM +0800, shao.mingyin@zte.com.cn wrote:
-> From: Shao Mingyin <shao.mingyin@zte.com.cn>
+"David Matlack" <dmatlack@google.com> writes:
+
+> On Tue Nov 10, 2026 at 5:01 AM UTC, Tarun Sahu wrote:
+>> Precede each serialized PCI device entry in the PCI Live Update KHO block
+>> set with struct kho_ser_hdr via DECLARE_KHO_SER so future per-device PCI
+>> Live Update features can append fields to struct pci_dev_ser without
+>> breaking compatibility between adjacent kernels.
 >
-> mm/util: fix off-by-one when checking folio index in snapshot_page()
+> Elements of a collection should not have their own feature headers. This
+> applies to patches 10, 12, 14, 16 and 18. I raised this during the v2
+> discussion [1][2], but I don't think it was addressed.
 >
-> snapshot_page() computes the page index before copying the folio state.
-> If the folio changes between those reads, the index can equal the copied
-> folio's page count. Valid indices are strictly less than that count,
-> but the current check accepts equality and marks the snapshot faithful.
+
+As per [3], I tried to add feature header to all possible instances of
+ser structs. Maybe this is the right time to audit these structs and decide
+which one will never need feature header.
+
+[3]: https://lore.kernel.org/kexec/CA+CK2bB9xoAWP0kC+KtXeDTdwt0kWqb-PLHN=6DsA=mnRpMfxA@mail.gmail.com/
+
+> All entries in a KHO block set are written by the same kernel using the
+> same struct, and the block set has a single entry_size, so every entry
+> header is necessarily identical. They don't convey anything that the
+> header of the struct that owns the collection can't. In this case,
+> struct pci_ser's header can define features that describe fields in
+> struct pci_dev_ser, and the PCI core checks them once before iterating.
+> If a feature only applies to some devices, the field's value in each
+> entry says whether that device uses it.
 >
-> Use >= so that this inconsistent snapshot is retried, or falls back to
-> the unfaithful single-page representation. This also avoids reporting an
-> out-of-range folio index without the corresponding dump_page() warning.
+
+pci_dev_ser can be refrained from using kho_ser_hdr but not
+memfd_luo_folio_ser.
+
+The difference lies in their API usage. one use kho block and other one
+kho_vmalloc. With kho block, we carry entry_size, so the parent
+pci_ser's kho_ser_hdr can communicate about the new field/feature in the
+pci_dev_ser and entry_size will carry correct the size of pci_dev_ser
+for iterator on deserialization. But for memfd_luo_ser, kho_vmalloc does
+not carry such entry_size. So we can solve this by adding the
+folio_ser_size into memfd_luo_ser struct.
+
+Without entry_size, we can only add new changes to such structs by
+adding feature in parent struct with required = 1. That way rollback or
+upgrade will fail to the kernel which does not support this required
+feature. Incase, if we have entry_size (folio_ser_size in above
+example), it will help marking such feature to be optional also and
+deserialization can correctly parse with entry_size and can ignore those
+changes if the kernel wants to.
+
+
+> Per-entry headers also cost a lot for small entries. struct pci_dev_ser
+> goes from 8 to 16 bytes, and to 24 bytes once the first feature is
+> added. Patch 18 does the same for every preserved memfd folio, which for
+> a large guest backed by 4K pages adds gigabytes of preserved metadata.
 >
-> Fixes: d863a12108f2 ("mm/util: introduce snapshot_page()")
-> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-NAK.
+Yeah, we are carrying 8/16 byte of extra memory where every entry share
+the same header. Which is a waste.
 
-this is generated by some AI slopper's script, spamming the kernel. The
-patches I looked at were wrong/broken, so no to anything from this person.
+> They also add new ways to read out of bounds. kho_ser_payload() trusts
+> nr_required/nr_optional in each entry, and nothing checks that the entry
+> header plus payload fit within entry_size. In patches 14 and 18 the walk
+> uses each entry's fhdr->size to find the next entry, so one bad header
+> throws off every entry after it.
 
-They've sent 300 mails in under four weeks spanniing: ata, scsi, target,
-ufs, nvme/nvmet, ubifs, ublk, zloop, dm, md, mmc, virtio-blk, mfd, gpio,
-pwm, spi, PCI, ASoC, ACPI, net, vfs mount, block partitions, and now mm.
+Bad feature header is not the reasoning here we should back this
+requirement. A bad feature header already imply the deserialization is
+compromised and hence accessing anything further is undefined. This
+holds true for any struct with feature header.
 
-and 17 series across 7 subsystems over the past 23 hours.
+>
+> Instead I would keep struct pci_dev_ser as a plain struct, take the
+> entry size from the KHO block header (patch 2), and in pci_flb_retrieve()
+> check once that the entry size covers the base fields, plus the fields
+> of any features set in struct pci_ser's header, e.g.:
+>
+> 	entry_size = kho_block_set_entry_size(&incoming->block_set);
+> 	if (entry_size < offsetofend(struct pci_dev_ser, refcount))
+> 		panic(...);
+>
+> That also restores the minimum entry size check that the v10 PCI series
+> had with PCI_DEV_SER_MIN_SIZE, which this version drops.
 
-We need a way to ban emails from people like this...
+offsetofend() is a good idea to replace PCI_DEV_SER_MIN_SIZE.
 
---
-Cheers, Lorenzo
+>
+> [...]
+>
+>> -	kho_block_set_init(&incoming->block_set, sizeof(struct pci_dev_ser));
+>> +	kho_block_set_init(&incoming->block_set, kho_ser_size(pci_dev_ser));
+>
+> This size is never used. kho_block_set_restore() overwrites it with the
+> entry size recorded by the previous kernel. Passing this kernel's size
+> here is misleading: pci_flb_retrieve() (and the LUO session/file restore
+> paths) read as if they iterate incoming entries with the outgoing entry
+> size, which would be a bug.
+>
+> Incoming block sets should not take an entry size at all.
+> kho_block_set_restore() should initialize the block set itself from the
+> incoming block headers, and the incoming paths should drop the
+> kho_block_set_init() call.
+
+Yes, We can avoid this dual initialization. kho_block_set_restore can
+take care of it. Also once we will agree on having having
+kho_block_set_ser to have entry_size which will be part of only
+block[0], then we will not have to update the entry_size inside the loop
+again and again and count_per_block can also be calculated before the
+loop for block 0 and 1..N.
+
+~Tarun
+>
+> [1] https://lore.kernel.org/kexec/atl6K2Juy6Bh29lh@google.com/
+> [2] https://lore.kernel.org/kexec/at-8vkVpN2SF3XgB@google.com/
