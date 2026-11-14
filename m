@@ -1,78 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794649033;
-	b=vqU+hk0l4+UE5yVZkREL7y1DjIM+khmzKlMyqh8O+Lu+rGT5mltmeF1Z1eXk9BMkB0pC
-	 CskUFQU9RyMKaS+nCcEE/V7/IxKjoF5PF59CaXPd7MJv1pxAvThL/883fOhBa/cMz/WAI
-	 lDVCGJHnaCGU+xiig+fi3xGBIEIwhBgX6i05mMDmxrqsF79wybLmADETQOjqjTsxLQsHK
-	 pLz4SZ4eysjTmW9T9293f7HPIActYZhL8JzGWvxebJDfEbU5dFRS1q9bnHCvX8XBLH6XF
-	 tKXVKzo86a/r/46RHAMaNKrLVATlBWcaFOwhbtPcQKxyBSCSsPuKlrZ38sDh5U+7QLA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794649033;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=LVmatjt0Kpf1teZNpyx311evR/TYigEPlZv/+0j5x0Y=;
-	b=DDYc/akq30GzUd6eM4n2zCeyGywh4e9TdbqWrAeOnPWl1rQqg7NfLY6qC3B6Yc4bf1VJ
-	 UmXoF5dWf69cmdgt24F16zSJIv6hKsK8ioOGwfOi3Pyn9I8mCDRwJmHBG9hGikNzq4KDV
-	 cT6aiASxMivgj0B/tPBmlhoWQAaL2PDE+IL98vyJ3e7ooNI9tsCrCKuWrh47Z6TcCvup5
-	 5tYp4IFpO2bGO7ipby52zmgruiBJMpAAFy1/8ysOl3m8WrmtRb/N2MffsqgEKW1NFGkUu
-	 fCnUGWzvh6foRe2GTb1Q1aJlL2ZGeRcNwMSR6EvGbpqTe4ywlX44JyAybAVFeZh9AgQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VCSTWvGH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794649108;
+	b=089Wb4sCFF9xKgu/BiFKbwtbGqvsppKUHbgPC4yd/iKSz5+HSa2xJKmvIe4/zGeri4mF
+	 b4nG7qLxoji3HSa0yvvGq/rzn5sPXd4YKfDRlN8TtR3TxcpC6u51rlZJ9C460NQPDY39/
+	 Cqls8T1l8A6PkY+50Dzy0awrDOLN9y8VZ+6GY6nyU7LhSjfApKECji96jACUsfEMRhR6R
+	 1PS+NG7ybwoMh2j2saepFKVVW81vE9M9NSF8abkjATeg2G4JHSc/B5PQ0+CrzCprLwK62
+	 8Km9gttbuPDH7KIyqL9tVYoNrC3W0YInrelvc2vrwgsaudJhC2btb8BsD1zMprlCFBA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794649108;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=rCcKjGQMxTYHkBUjL/k0P3CpYfeih7rVvw9hPQOr5+o=;
+	b=CFB6d3nr30oDg9ATvOLiL5pOTbpWyka/srHfACeLiSCuIt7intYpWs3744LcVbcGzLCw
+	 cIeb0YOM+Wa0CpYTldfhUKlQvsI6AnidEkq4JN5FWdT5okkUu3DcRBncL5V1ZN5hkCbnF
+	 m13x507E2C2lx0yZ1d7nhImM2Udycr+CrUFjpUIwXVGE4uvRcoGLdsbMxuRIsP3jb6ZDz
+	 HGiunf09FzM+CmuD2oLGJBnNmrYWg5e/SkW8MCGJZ57VFYnj+2Ul+UCfQiPbqUQiCrrqV
+	 vdRHcLfXRH2ZgbSP8zo7iSq+VyhuRZVH2Cm05aAgGXV68aavQ12jImnP8UObr9APZ/Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UWCD8tqv;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 266E5606A323;
-	Sat, 14 Nov 2026 09:37:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8EA3606A327;
+	Sat, 14 Nov 2026 09:38:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VCSTWvGH
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794649032;
-	b=qUAuv4brtcH8cHKz39ppAMs8tC6+zlcKkkN7i0SFUKQu9Sl4qgYMmyvo+QqwTli2KlUC
-	 xCJ5T/Xt+UWtQKzqbeUvYllt+MHK5sx8WRgtotXbUPps4VP4AJuwXeJe7tn3NfeuGFCzv
-	 L72qbjkwmubf47DZVUilFbx9kTuedo9Gi91YdC4Q8I6yU7PyLv1csLDRN/k4IKJh6Ttww
-	 rpU47t/P/NPAGeLRONoyCZdK5QPoa83HxIeE2ldV4vCRP1wgEG4yZ8tha7zLtcmXVcIKt
-	 LyERu+JZpBy+h9+Hqu9rB9ISJsUGtfNi6wqu31uwHyDSHOrDV4z2brcJ9Ul89uU1diQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794649032;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=LVmatjt0Kpf1teZNpyx311evR/TYigEPlZv/+0j5x0Y=;
-	b=nhUPlDm/m9Rvyvws/+ozS5HeI56fDFPNeWyLZlsRTtQpXIx7iwXYCiiXi7nw9AHwLoik
-	 IuHtYpg8y+sAU4i6iOTDBHRVlpI5w7SQQWObn1wXHrJo7Kqh4hW60uoXfhJwko7Is4b9v
-	 iI3RI+qxSWjMFfvwdug9l60JlnWZpU2HjGBBbuCM7RW4Ff/WQ+FaoLGBZszs4CsGPVH64
-	 8ZBp8k7UMbrw7LFFM6ahfqdJ3neQhd192Ob5lOH38CQOf4titeTOIWbx0Pxzje9KcI8CF
-	 dNdHUqHnK53fm5JA4oe6yuV5zVBib+fRxNIu/eudizwgVCWMWbVe4rZBFGTM1J3j/2w==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 53E5F1F000C4;
-	Sat, 14 Nov 2026 09:37:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UWCD8tqv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76F021F000C4;
+	Sat, 14 Nov 2026 09:38:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794649032;
-	bh=LVmatjt0Kpf1teZNpyx311evR/TYigEPlZv/+0j5x0Y=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=VCSTWvGHTh/0Hom/YWP39/gmX6A5ofRy/cVaDzDo71kn2esSmm2XdM+dDU56Axg47
-	 C4lgGgstfFDG9wpiHExHvfQ6hEfI7B6p+Tn+5mbMveo+Puj9IHr6b/LUmtsKdzy7Ww
-	 uX1PV1i6QntieUgfAu7yni0rMwqkwtmjPYbZJMIy2yW7pTVBzLXACvIePD8S8XwoZ3
-	 28SSq0QCT6ta4VR55Z4jROOMVSIMwYwgYMMhcSVJNlwMivCt0JfO9AHJgzN95lO6yU
-	 ejMvGBG2uXPwaaoV1YPuTC+b8z4g4ohnbZpdCXGmRx9ZrSh+KPG6ZQLbh+7ON1bzgZ
-	 XGl5KpxxXIE6g==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A53C149D2F;
-	Sat, 14 Nov 2026 09:37:11 +0000 (UTC)
-From: Samuel Herdman via B4 Relay <devnull+lk.gzpc0.passmail.com@kernel.org>
-Date: Sat, 14 Nov 2026 20:37:11 +1100
-Subject: [PATCH] hwmon: (nct6683) Add customer ID for ASRock X600DC-ITX
+	s=k20260515; t=1794649108;
+	bh=rCcKjGQMxTYHkBUjL/k0P3CpYfeih7rVvw9hPQOr5+o=;
+	h=Date:From:To:Cc:Subject;
+	b=UWCD8tqv7mF2QM7V8smGmZ4E6Z2vGWmCAGG6XSYTWKefEI3AiZzDc45nMIoCUePwt
+	 HxU0PwGAHitIhOalxxm5YQ7VZK++QaVemUSV/OZZJoVUKFABALcR3pBHRzRGEMdHCM
+	 LdWAr26ONdUPnKerGhOg5EB0cmmE1dqV72JcvxFxrZdoRWzrcrkh1GEfr3I7RRodEA
+	 d7vS9vfQRh4O0oqoMCUv1quvSnnT9sIHYTBFadlWo3YQQhC+JbnlgKcFPSxwxnQqH1
+	 yN/Wed6H3TmwgOtAWIN7OL7VoIZ9MFYDqQyW8nBIxEkDEzxtNzGcIznqorzeh5lnf7
+	 6Pa5nvgUpGnJg==
+Date: Sat, 14 Nov 2026 10:38:24 +0100
+From: Christian Brauner <brauner@kernel.org>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, 
+	Tom Talpey <tom@talpey.com>, ChenXiaoSong <chenxiaosong@chenxiaosong.com>, 
+	Jan Kara <jack@suse.cz>, linux-cifs@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: ksmbd: SET_INFO modifies frozen filesystems
+Message-ID: <20261114-chipsatz-gutachten-geklingelt-81574928a5f4@brauner>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,110 +57,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261114-nct6683-asrock-x600dc-itx-v1-1-cbccf1a627fe@passmail.com>
-X-B4-Tracking: v=1; b=H4sIAMYr+GoC/yXMSw7CMAwA0atUXmMpbkr4XAWxaB0DBilFcUCRq
- t6dAMu3mFnAJKsYHLsFsrzVdE4NtOmAb2O6Cmpsht71gYgGTFxC2HscLc/8wBqci4xaKvpIu2l
- wh+i3Hlr/zHLR+nufzn/ba7oLl+8Q1vUDqnQOyX0AAAA=
-X-Change-ID: 20261114-nct6683-asrock-x600dc-itx-3d17b409d353
-To: Guenter Roeck <linux@roeck-us.net>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Johan Dahlin <jdahlin@gmail.com>, 
- Samuel Herdman <lk.gzpc0@passmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794649030; l=3221;
- i=lk.gzpc0@passmail.com; s=linux-kernel-email; h=from:subject:message-id;
- bh=r00174raxcwNDJ0unlfuiA9FEN/TRz6+o/AOvvcTaUE=;
- b=r/OEHth9ckNwibOkJ4agSSH0EI4C5VV6R/ALYCm8m8Mc4qhxhGiCaD8JxZVzYX7weoH7ZenUu
- DPTXBRBQ7lxA8ovEtGlACvNNRP4QcttEk0GCMTOxvzTvD2l1tH/7fdp
-X-Developer-Key: i=lk.gzpc0@passmail.com; a=ed25519;
- pk=tqivbAq+N5SMZTlmU8VfcD5yzezM4r5J8zXeFSl+KIE=
-X-Endpoint-Received: by B4 Relay for
- lk.gzpc0@passmail.com/linux-kernel-email with auth_id=1519
-X-Original-From: Samuel Herdman <lk.gzpc0@passmail.com>
-Reply-To: lk.gzpc0@passmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 
-From: Samuel Herdman <lk.gzpc0@passmail.com>
+I'm working on a freeze protection series and this is the part that
+affects ksmbd that I don't just want to fix myself.
 
-The ASRock X600DC-ITX (BIOS 2.02) has an NCT6686D with customer ID
-0x165f, which the driver does not know, so it only binds with force=1:
+SMB2 SET_INFO changes timestamps, permissions and ACLs on the shared
+filesystem without freeze protection. So a client can modify a frozen
+filesystem. On ext4 that trips the WARN_ON() in
+ext4_journal_check_start().
 
-  nct6683: Found NCT6686D or compatible chip at 0x2e:0xa20
-  nct6683 nct6683.2592: Enabling support for unknown customer ID 0x165f
-  nct6683 nct6683.2592: NCT6686D EC firmware version 1.0 build 12/23/25
+Reproduced on v7.4-rc1 with a ksmbd share on ext4 mounted over cifs
+with cifsacl from 127.0.0.1:
 
-The change:
+    fsfreeze -f /srv/share
+    touch -d 2001-01-01 /mnt/cifs/f1
+    chmod 600 /mnt/cifs/f2
 
-Add the customer ID so the driver binds on this board without force=1,
-and add the board to the list of tested boards.
+Both complete right away. f1 has an mtime of 2001-01-01 and f2's mode
+changed on the frozen filesystem:
 
-Tests:
+  WARNING: fs/ext4/ext4_jbd2.c:90 at ext4_journal_check_start+0x1f6/0x2d0, CPU#0: kworker/0:2/40
+  Workqueue: ksmbd-io handle_ksmbd_work
+  Call Trace:
+   __ext4_journal_start_sb+0x7a/0x470
+   ext4_dirty_inode+0xa1/0x120
+   __mark_inode_dirty+0x154/0x1110
+   ext4_setattr+0x2bd/0x24e0
+   notify_change+0x81c/0xee0
+   set_file_basic_info+0x74c/0xcc0
+   smb2_set_info+0x1d73/0x3cd0
+   handle_ksmbd_work+0x89d/0x1d60
 
-- With force=1 the readings are plausible: the CPU temperature (AMD TSI
-  Addr 98h) is within a few degrees of k10temp's Tctl, VCC, VSB and
-  AVSB read 3.36 V, VBAT reads 3.2 V, and fan1 reads about 1450 RPM.
-- With the same change applied to v7.3.3 on this board, the driver
-  binds without force=1 and reports temperature and fan readings.
+  WARNING: fs/ext4/ext4_jbd2.c:90 at ext4_journal_check_start+0x1f6/0x2d0, CPU#0: kworker/0:0/9
+  Workqueue: ksmbd-io handle_ksmbd_work
+  Call Trace:
+   __ext4_journal_start_sb+0x7a/0x470
+   ext4_set_acl+0x22e/0x4e0
+   set_info_sec+0x2f1/0x7b0
+   smb2_set_info+0x606/0x3cd0
+   handle_ksmbd_work+0x89d/0x1d60
 
-The patch and this changelog were drafted with an AI coding assistant
-(Claude Code); I reviewed them and ran the tests above on my board.
+set_file_basic_info() calls notify_change() and set_info_sec() calls
+set_posix_acl() and notify_change() without mnt_want_write().
 
-Signed-off-by: Samuel Herdman <lk.gzpc0@passmail.com>
----
-This overlaps with Johan Dahlin's pending series "hwmon: (nct6683) Fan
-control and sensor names for ASRock NCT6686D boards" (v2, 11 Nov 2026).
-Its first patch also adds NCT6683_CUSTOMER_ID_ASROCK8 (0x164a) and a
-table row at the same spot, and its later patches key fan control on
-that macro. Whichever lands second needs its macro renumbered
-throughout; I'm happy to rebase on top of that series if preferred.
----
- Documentation/hwmon/nct6683.rst | 1 +
- drivers/hwmon/nct6683.c         | 3 +++
- 2 files changed, 4 insertions(+)
+It looks like smb2_open() has the same issue and also the EA, security
+descriptor and stream xattrs written on create: smb2_set_ea(),
+smb_inherit_dacl(), ksmbd_vfs_set_init_posix_acl(),
+smb2_set_stream_name_xattr() and the direct ksmbd_vfs_set_sd_xattr() all
+pass get_write=false or call set_posix_acl() directly, but nothing in
+smb2_open() holds write access at that point anymore since 4e45cca31d4e
+("smb/server: add ksmbd_vfs_kern_path()"). But I haven't looked into
+reproducing that.
 
-diff --git a/Documentation/hwmon/nct6683.rst b/Documentation/hwmon/nct6683.rst
-index 62da8fd01..e2e95a33e 100644
---- a/Documentation/hwmon/nct6683.rst
-+++ b/Documentation/hwmon/nct6683.rst
-@@ -97,6 +97,7 @@ ASRock X570			NCT6683D EC firmware version 1.0 build 06/28/19
- ASRock X670E			NCT6686D EC firmware version 1.0 build 05/19/22
- ASRock B650 Steel Legend WiFi	NCT6686D EC firmware version 1.0 build 11/09/23
- ASRock Z590 Taichi		NCT6686D EC firmware version 1.0 build 01/25/21
-+ASRock X600DC-ITX		NCT6686D EC firmware version 1.0 build 12/23/25
- MSI B550			NCT6687D EC firmware version 1.0 build 05/07/20
- MSI B550M			NCT6687D EC firmware version 1.0 build 05/07/20
- MSI B650			NCT6687D EC firmware version 0.0 build 09/27/22
-diff --git a/drivers/hwmon/nct6683.c b/drivers/hwmon/nct6683.c
-index de5b0194c..01784fa6a 100644
---- a/drivers/hwmon/nct6683.c
-+++ b/drivers/hwmon/nct6683.c
-@@ -209,6 +209,7 @@ superio_exit(int ioreg)
- #define NCT6683_CUSTOMER_ID_ASROCK5	0x1621
- #define NCT6683_CUSTOMER_ID_ASROCK6	0x1633
- #define NCT6683_CUSTOMER_ID_ASROCK7	0x163d
-+#define NCT6683_CUSTOMER_ID_ASROCK8	0x165f
- 
- #define NCT6683_REG_BUILD_YEAR		0x604
- #define NCT6683_REG_BUILD_MONTH		0x605
-@@ -1640,6 +1641,8 @@ static int nct6683_probe(struct platform_device *pdev)
- 		break;
- 	case NCT6683_CUSTOMER_ID_ASROCK7:
- 		break;
-+	case NCT6683_CUSTOMER_ID_ASROCK8:
-+		break;
- 	default:
- 		if (!force)
- 			return -ENODEV;
-
----
-base-commit: f9f5501d60c77c71f60bf5b273375e3777d66080
-change-id: 20261114-nct6683-asrock-x600dc-itx-3d17b409d353
-
-Best regards,
---  
-Samuel Herdman <lk.gzpc0@passmail.com>
-
-
+The SET_INFO ones go back to e2f34481b24d ("cifsd: add server-side
+procedures for SMB3").
