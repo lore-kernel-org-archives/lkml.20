@@ -1,83 +1,127 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794672210;
-	b=JWr05QtGZj8JSccc6San5fJ9i3UPGHZiXNW6hCyQaZ2Kp6FF0Z9mEB9PLiE8QpJmNv+J
-	 0h4sZx5WhTRY5N3TNW51mmFePJfL3801PY97dDCUZs/42+KcqnchswBkHXY4q7HIYptCR
-	 6dF8WxaiQN3lHA2zGhTHbZh8DOwFZ0adphxzOQ1p+fiP9i80SFxY8mEO+qLKdPOyeN4hv
-	 paaT4SLVPqq8eykRj8GhmsqQQOsJadt4p9TZIUUuE3OUYcM7s+9FGg9lGIz5yQVXEi4Cz
-	 qfk9PMTlK8NBlRWSgoQ+/E1zh9lSIPeWAsWOT8gBr7Y0rK5u+ZKU+ZgPqwXCXE9x5Vw==
+	t=1794672228;
+	b=Z+mYV6CcBfCrd5JDrDQ+VJKP9s6fQ4++YquERsOh+RLyMjNF0XBxIDUYe0zmPVTGJTud
+	 GufRbhCeL7mPO44AOEKBfkivm6wgYKn5tL3rDxaq99A4iEUjh1kCeRgb4hjX3ql7r/r+h
+	 OpElRzdTjCqkHysEovV95gXUkbuqkMsUYaM+PvfxatzqX4XNMZkf+e4Nfe1LAu8k0xnBV
+	 y70qgOUhDixWmPuoxPJNTNpEg24cJrWkR+kDaKyc/0MsulQR7qalvCZw12CZf2aK6qxBD
+	 IGa2GLqzQ5P3B55v8NSIwJklLrUs45X6bizeqniJ7BLiPnDgXz8ctW1JBPFm88BFbLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794672210;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=HLZcm2kGGNPkHrolsS7QSodgMr1auiEM7m7otpV8Qpc=;
-	b=ir56BWODQM2uoTAXcXl1smGHFXE7fRtm8XfCfDJpWdiVCFj1Ot0LMo/rfllJAdFaoIHd
-	 9gNlY79L35VWYkhn45YV9Ad/cfDc8tG80vfKWngZhApAz+w7QtYVP53A0U/S29Uh3ur5x
-	 PJs7CGyKiJ6lSHG9gMadnqZewShEXExUXiYxPXaXIRdO5gvv2xFepOka9F4NtyQo1Axdt
-	 A6S64jO9njNc4lq/9dI2o77O4lDERwrUA5R+YNZRHEYdXVD5H51GQZ2TOMIq6hFBFWzX4
-	 QiSy0Qabl62tvoBi297h+UIP/VsJUkHGKSpHx2eKd/a6rShru+IqD8nL1JUpf4VXbVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794672228;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=3tpJcsMXc0aeqXRbj+s5vAgoDF+CaAtCa+UvaxeoDr4=;
+	b=Jk/VrokAY9jOZcNNvPhdnXQLdETEYioBsv3kzWmb5uWgZlpmeQkjuiSWH9PlZXB2Py4R
+	 ZZfRu6F7tQR6v29/ERMCAQmczNSm7NPcF8MuqiuM3Il+s+r8XSzWmR8cptJsF+Z7LigaT
+	 sVE+F6Yy635e48jyyAf+Av0PFghwBna+sY3TDrOKe0N4LOU7qysDe2fjrzIB2AdK0KUFt
+	 +NyiI0sLu1QavppSrKgICGC3myDU2TFoK1tF9am813YPSOq7DwSswSurb7SZ2TzvN86Hb
+	 cnMkL6OGg1dO8ccaxuq0E8t8DEQJ4fs9sPbr8g0cwg9UrY7QhgIRGA9GH3bopthKngw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=vuGp4CDe;
-	arc=none smtp.remote-ip=35.89.44.39
-Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=JAoWUZs+;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=vzE15vAo;
+	arc=none smtp.remote-ip=103.168.172.139
+Received: from flow-a4-smtp.messagingengine.com (flow-a4-smtp.messagingengine.com [103.168.172.139])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99717606A331
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:03:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99717606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 436B7606A32D
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:03:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 436B7606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=vuGp4CDe
-Received: from eig-obgw-5005b.ext.cloudfilter.net ([10.0.29.189])
-	by cmsmtp with ESMTPS
-	id S7k2xeMpwyb4YSGDyxg7uj; Sat, 14 Nov 2026 16:03:30 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id SGDxxvhT0YskhSGDxxYOO1; Sat, 14 Nov 2026 16:03:30 +0000
-X-Authority-Analysis: v=2.4 cv=CKMqXQrD c=1 sm=1 tr=0 ts=6af88652
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10
- a=PJTSTX75uoluVfBDKb4A:9 a=CjuIK1q_8ugA:10 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=HLZcm2kGGNPkHrolsS7QSodgMr1auiEM7m7otpV8Qpc=; b=vuGp4CDeVz+rwR3TUp3oAyehS4
-	0L/a548VOLey5fO3Nc90aSLAgqL2+/53GCRGby1g4J/mvtI8p67am2BwPIVktAx6EkTjmBeYUH3t8
-	mBUiG/scRNANP+hSFM7B/teGf2me17VWOAY+oQtwdjIgsJyKLJfv9YVNKOgAXQoKZgladbrZ7qYB4
-	uM2D01e2GPTdCtwUSOYuTboUG9P0U7fW7IcskXBZQdTx4zQZpEI5m8/ISGk4T92WD0irIakKlZ+SA
-	rY6I8uu31+CocRiLGtIJ1iXnSWE4feU/cmLbT5tdZ+cfqbkMWwXEbn+OIzz4U80NwQRCjQ9rHlJFg
-	YoSaxn4g==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:33236 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xSGDx-000000001VK-0hDI;
-	Sat, 14 Nov 2026 21:33:29 +0530
-Date: Sat, 14 Nov 2026 08:03:28 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Tomasz Bojanowski <tomasz@bojanowski.me>
-Cc: linux-hwmon@vger.kernel.org,
-	Hamza Mahfooz <someguy@effective-light.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] hwmon: (nct6683) Make the fan curves of NCT6687D-R
- writable
-Message-ID: <6ca20e71-bcfd-4f60-9471-08c39da1a4ee@roeck-us.net>
-References: <20261109223442.509238-1-tomasz@bojanowski.me>
- <20261109223442.509238-3-tomasz@bojanowski.me>
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=JAoWUZs+;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=vzE15vAo
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailflow.phl.internal (Postfix) with ESMTP id 5C3491381C58
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 11:03:42 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Sat, 14 Nov 2026 11:03:42 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm3; t=1794672222; x=
+	1794679422; bh=3tpJcsMXc0aeqXRbj+s5vAgoDF+CaAtCa+UvaxeoDr4=; b=J
+	AoWUZs+EtMCpd9pU2f+8hv2G7TF5z04QTgCCqWYXZrXeY36rZltQB/97T7EkW4P2
+	szHdjmWTfqJtqoIw3ZiCuZsaAnBUsafkKcjROUTwmu+PUGfzRN46yRE7AeUPwl+o
+	bMWFpuDI0TSwJvUFaAAhCtiO89CbocYnWgvjzlCEBtetCTTQkZUflukuYk2UnNEd
+	t+RjmObEK+gLoNNeTE40p8wso9fcQpOdN2wbJsfq0iDPdzGtgFwyVzjYDGe+75AM
+	b4VFxa6THY3JIBVtwvbd6mDGi65E9xHmRD7ut2mNvNK7bsqVw+0uqZx5uzT5szgl
+	ncthACyjR2poV1qSTtDdQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm3; t=1794672222; x=1794679422; bh=3
+	tpJcsMXc0aeqXRbj+s5vAgoDF+CaAtCa+UvaxeoDr4=; b=vzE15vAodfT7OSCPQ
+	y/Wj6YrrR2it8mqZQZ0jCTycbIAfx77U3krQG6N8GYeYwWL1lDEFiAn2yFO6Nkch
+	UVXtPiwLvxxVmbSGKRgUPTo3KXZHjkBlQPhm9t51Xic1fK65LzhxuAJX3e3isKCq
+	jYoKQQjTutoXCx6KW0bnmFtzUEQZgqXrBTvM6Em5YSXD53ug2IIqC0QhSFhn6525
+	7hHidbtMG8auCIyPNGM0JqvJ5QeJFGcWLbdQ93Us3mNlF05176YVBqpLPZKO98uz
+	vKcE/bLtbg/OHUH8sGWsg3IJf+SCithPP17mpFv7kFR5BsfoRP7RbKp/E6tBR8ok
+	ELlIw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794672222; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:Mdil7eLEgfXpZXIJwtURpX82pRnv0oR/VtvOjPekIeSlNKl
+	FW0zfod1BAyAywEeCzeN0fBk4AXajU04Y9ZF4GptudBSzuv4B0NXFgnMiEmL21yZ
+	JUH9xj3ewKf/zY1hikt8dn+pbOyH+XRvDdd1zpNWxhhXGcFUEi65G2mGu42O6Glv
+	sGIB6h9Acsd7OYtC7DgJWpqioWj9YkcXzXU9Ijt2XYT9INmVDN9bnkB1anDH0o3X
+	y9kWuGU+x+3S95iYObTiZ2ya+SpvBsIrbz033bDzftTxgGs7X6Xfo2GgiLcWMED7
+	ljUEtf3it/UAAaqTdB79a68Bb7wGz7nUETAoO+Q==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=11;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:G/p1ROslvOk1G9DKe1Y3rHUjedf/qSDUI+C1Sq7G1lo=:vi2diju4+RETOfW0Qo7eWLD38/CL9z0CN81jxOTskvE=;
+X-ME-Sender: <xms:XYb4anIOS0NL6rYeMLuYINpw08xsao_IT9LCSmoCxtxPvJc0lJGN6Q>
+    <xme:XYb4alzCh8QwKFTdNoEKTSS1aDn3qxjochIfAzteGhpzW1_JddavVVYurwVA8DKLa
+    lAeJbBWMlo6iGjxRKvB49QOtcTJTY_n8qezsLrhcdSdGCea1QJIKEtx>
+X-ME-Received: <xmr:XYb4alsf3qzl083ubC2EOBxlk3lkMbziknKxIYadc_kZfIJkUP0rAk4cEfoQ9QXn>
+X-ME-Proxy-Cause: dmFkZTFnmOkQdukqetTLW/QnGIvHAj9CfHD6mbbJyREt0FBmSh0C9osZVwR0I5xCLJ/1ck
+    fHUQB8vF6yiXmE9fWFkFBqCteutak/p6xTNeZfbB5wf4iOJGxTPsWX1nuxYrbeFHo03utX
+    YX1/0WiwUFfw92uWByY2+XEgRpSuaiWectstkdwnpShfS0ckY0uTq/vyKMNtg6+ea6GPQg
+    y42BqFa8DzQwRWHQAMSVBmzASdTli+2FyFBSxf0cQgeKGnqjNhnnMU/AnyGanY+jBBaS50
+    ux5H/9mrMlShs8az++VTlMk6ekDKhxasS9gF2TAYc8I+NiwgAZl+tU1CpeAY8MuMcCwnbJ
+    S/5iA4S5u/8bQ4/kkJlSzKgnur+sFBPo3nxqz2Z1Knxf2bNTOFY4z8WR8yHnoG7XgJVlz6
+    PyKsz4jryU/hJ4k4GSmfJjNUt4ydJg1qLSTWBJfU6pv6dv9+VkSFNO/8nalx3+s4jQS7vC
+    voXwC0J16YfogS8kSDhOU+pfh+M55Tj0Ata5e97n6asaYS+iwnsxpVxylYqhZRKvPMpSmX
+    GOYHGCzZeQ1AMFdbIWljxO1AmaJdUnkB0Fd19e2Dn1lufnH6fbr3O9sgYYepscS+/R7uLA
+    RwouDlhqn0GxeFz6ibKFI/ETWCHeznK+7cN3RCqmguOb8gV8aPtsQq0lNRIw
+X-ME-Proxy: <xmx:XYb4agAYqsVqyfyJbXBcCq1FK1avMVeXkNu-mxhWrR1ZYFQEsWlZVA>
+    <xmx:XYb4avEeyJLGMvmsGX_W-cmW-KfL_jr1mymd-bMTJjmKz12MVKA56g>
+    <xmx:XYb4aoDr00JenlqvukKbUy4SRpJJzXnlP4jkqQ65JgHFwU1cAMeZEg>
+    <xmx:XYb4atlGRSR1etsnAz7wiXL3-4j8oJTysUtXcDAUknXeEte-1IC_uw>
+    <xmx:Xob4anuPFvjx_AwEWDgbi-lTOdFzrpzuZj_8V6augtKG7ZBWBjt8FIv6>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 14 Nov 2026 11:03:40 -0500 (EST)
+From: Ian Bridges <icb@fastmail.org>
+To: koray.fra@gmail.com
+Cc: linkinjeon@kernel.org,
+	senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	hyc.lee@gmail.com,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ian Bridges <icb@fastmail.org>
+Subject: Re: [PATCH v2] ksmbd: decode and honor DOS attribute validity flags
+Date: Sat, 14 Nov 2026 10:03:32 -0600
+Message-ID: <20261114160332.2228435-1-icb@fastmail.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261114012736.639171-1-koray.fra@gmail.com>
+References: <20261114012736.639171-1-koray.fra@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,56 +131,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109223442.509238-3-tomasz@bojanowski.me>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xSGDx-000000001VK-0hDI
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:33236
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 9
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfFj8nynO7KC+mQbdek1M/jDAswNX0JyoaDF0i2WsnoFtQ8yzv8SWnIk7FB0E9K7YmeazQUfZwYcvPYjVIJbnxdWj/7cDeSORpouTdy7mfSYGG7OSEjKH
- QCbfkxX1Bawl2DIqMQSwYhCR2yXeDD1TjmvxlUrFtrUT33eLuINVRtDj8bxtUDg2olEs8OXro14pxZly0glpGzOUxq554clXog4VekkyqGh2FsWqR4DPHobv
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 09, 2026 at 11:34:42PM +0100, Tomasz Bojanowski wrote:
-> Allow writing pwmN_auto_point[1-7]_temp and pwmN_auto_point[1-7]_pwm in
-> manual and in automatic mode. The points are writable if, when the driver
-> is loaded, the temperatures and the duty cycles of the curve do not
-> decrease and the temperatures are at most 127 degrees Celsius. The EC
-> firmware is not documented and does not take a curve whose duty cycles
-> decrease, so only curves like those set by the BIOS are written. The
-> limit of 127 degrees Celsius reads the same whether the EC treats the
-> temperature registers as signed or unsigned.
-> 
-> Temperatures and duty cycles are clamped to those of the adjacent points,
-> temperatures also to 0-127 degrees Celsius and duty cycles to 0-255. The
-> whole curve is written in one configuration phase and read back, to check
-> that the EC uses it as written. If that fails while the EC responds, the
-> previous curve is written again.
-> 
-> The BIOS may restore its own settings when resuming from suspend, so
-> restore the curves written through sysfs on resume, before manual mode.
-> 
-> Tested on an MSI MAG B850M MORTAR WIFI (MS-7E61) with pwm16: writing and
-> clamping of curve points, the written curve after suspend to RAM, and
-> manual mode after resume.
-> 
-> Signed-off-by: Tomasz Bojanowski <tomasz@bojanowski.me>
+Hi,
 
-Applied.
+There is an existing bug that matters when enabling these checks.
+
+ksmbd stores DOS attributes and the client's creation time in
+user.DOSATTRIB. The xattr also contains flags saying which fields
+are valid. Currently, ndr_decode_dos_attr() reads the values but
+discards those flags.
+
+When the sparse or compression code updates an existing xattr,
+it writes the creation time back but sets only
+XATTR_DOSINFO_ATTRIB. The time is still on disk, but its validity
+flag is missing. This has not affected the reported creation time
+because ksmbd currently reads it without checking the flag.
+
+Your patch preserves the flags on future updates. However, the new
+read-side checks also apply to xattrs that ksmbd has already written.
+Those files will stop reporting their stored creation time.
+
+For example, with DOS attribute storage enabled:
+
+1. On the unpatched server, create a file over SMB and set its
+   creation time to a date different from its filesystem birth time.
+2. Make the file sparse. Its xattr retains the requested time, but
+   now has only XATTR_DOSINFO_ATTRIB set.
+3. Upgrade to the patched server and reopen the file.
+
+The server now reports the filesystem birth time instead of the
+client's time. Directory listings change too. On a filesystem without
+birth time support, the fallback is ctime.
+
+The affected writers are fsctl_set_sparse() and
+__ksmbd_vfs_set_compression(). Their existing-xattr path differs from
+the no-xattr case in the commit message: it writes flags 0x01, not
+0x51.
+
+I am not sure whether handling these old xattrs belongs in this patch
+or in a separate one. Namjae, what do you think?
 
 Thanks,
-Guenter
+Ian
