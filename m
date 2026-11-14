@@ -1,66 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794669809;
-	b=U59Xv+bgH8TXCAFhDscdNKMTxHFiWeq0niPu3TY/ujEb69nVF2N/8jI9h7jRMNzJKzV6
-	 r/uqP//LLJZTqE/uk/+al4Z8DU9xRN6wgUFzvylvP25OTAiS5KbXWNQHxPdSZlcREbZHH
-	 sOYfrbwpr/3Qltxt4ruxWiQzsPrMiSNqfHeOaJDxzpPdGf3AjbRQfvhUgqPh6yaExElv+
-	 8VVnkB2eEGlxmo/QzyeT1A6KpYijb4y9UqxgQ6qZQF7ZXvKDl93yDKwQK/knrb40AmDlH
-	 5RkcD8vjCFuOBUNwWeDWmrDM6Aqq84fpaaUxJDtzcqI1K1TFwrtdIYYp75oFrIrlIkQ==
+	t=1794669807;
+	b=N7NpQb3gB17MdOPtOa9JBY9sLBg1f1Ws9oEsXqSZObFpgdlgls5ctbG++dwTiA2/SZF3
+	 NF4RPiTmxWNE13vHFRu1JMqXzcpWTVh0R4RzlosVfJgx4BsOUh1IAhJVsNyo++U81DpaG
+	 X/smzajIrVbRKEJQ1aMiho5ykOQhG5a1ENrTx1y0G3gavZqqOrAu3E1VbeFqF5KVgQ8Z1
+	 cOlt1eRp/8yjCFSCKaV0m+jWNeYEe3gnMLZH+kZndxp08hMWrlOVw2FK0EBJSU7azfa9A
+	 BqtT/WCU3ljVuBxcAKAGepq/Ux6VbLLzU6ss54Ro5gLWYyGLDrst9NOov2K89p65uaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794669809;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:X-Mailer:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=eXOLW0+HGjYK0J/azmDm4dM5bDe2n+IaCBFvyjJcskI=;
-	b=5jIQfC5ZEk+qCH6PzWMCCfh1owr3eQVUurS6ja29Xy9AZTMoVL1xFAepUQfhs6/f289L
-	 zhA5a8SkUIX4XS/0iQAuPuh8FFrWS8thNPz3e0RMab9O44Qruf3gGhJjByS6a61+xTGu4
-	 /21rKkzKoVmxFmFzsGbup6P7cqbq1r76NZpO2bkK8gayHLgBj5BQWgFMjcatY2dVj2Mnb
-	 8j9N2zE1/nz/Mtz26B6nGu/4aIUznPSkeQlFKkQIz7TPmJfMFpYtU6YKLe0AOZ+nU/bwA
-	 opxWQBIkx9walHPjIIpRNwOp6aiGZXkmPIIOGBTfxgwsarxX/lk5ULf/FdeR9YyBE2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794669807;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=3JMhWfUcU7fxNCU/ri2y5UyMUFxhaJHLZo8Ai7ubS5A=;
+	b=WLZFikepj5La6Jmf4rge4jNAFGhiQer5VBIjhZ84kEMTu3f2I0FiFHLAxL8xz2DDfdFv
+	 nW09FkeZHdhVtizZRIhnGqyP27zQ5rqZC7EfQzffNDch5lQyNIkvx8pjmh2SrRYbpez3T
+	 PaCrPtafpe1oESE6CPzK7/Mxt7M9+Ce7moCqi1I6LO50505i17F6tQ6a+GAjiQhuiLVkl
+	 X2+0lYLKZt443uBonYojwBG+B9681wcJskijWZqwmlxf3xerexks3y7O247XEwn97UpwY
+	 tuKgKeNNGH6WqInRNyohz4C1VMeOFoFd8z1Iu5AQmS4UERuKNUr+Wlq+An2WfC2jmVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="W5rd//gl";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZFJUXHnJ;
+	arc=none smtp.remote-ip=192.198.163.12
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E27606A32E;
-	Sat, 14 Nov 2026 15:23:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10813606A332;
+	Sat, 14 Nov 2026 15:23:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10813606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W5rd//gl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBF401F000C5;
-	Sat, 14 Nov 2026 15:23:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794669808;
-	bh=eXOLW0+HGjYK0J/azmDm4dM5bDe2n+IaCBFvyjJcskI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=W5rd//gl3NjJVeBFbK6T9LPrhQLa220r//SXlNgCx4rUZhX1OG78eYiuySVzh8ruh
-	 /nHkf5GcdKTcE+Kjd6+aVfPS0z+sX8r3TSGG6Bq4hM8ZwmS7SAnSZXyxNW1AMuk0D/
-	 y70kb05s9vOI2/ruMUNN2G5pXk7qD/nrC2JYleNAIqTU6rzAxCqTqi9x6gJoV/pupI
-	 8mQxTZC2P8pDxvYcQN0wTozXVi0wY9eoNtjKNHUDp6bSJTaxNaP4Z0msSeHlnIzPZE
-	 Hl4UKl1W2DcHawamSObc0vRGFjYhQ5lejAN+X40+SQ5WFiL2YGEzayTRx7noj3siJl
-	 wMGLsim2IeG7g==
-Date: Sat, 14 Nov 2026 16:23:21 +0100
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-hardening@vger.kernel.org
-Cc: Alejandro Colomar <alx@kernel.org>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
-	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: [PATCH v6 12/19] string: Remove strstarts()
-Message-ID: <cabc673b9ac73c137ad6f7dea52f8566c5821675.1794667407.git.alx@kernel.org>
-X-Mailer: git-send-email 2.55.0
-References: <cover.1794667407.git.alx@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZFJUXHnJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794669806; x=1826205806;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=kZGVpg2F7/HHNo/fRGXO4LMnPCizNrXdzI6fin2ZWoc=;
+  b=ZFJUXHnJ+ovNMLXwKFIXiLmXbcBnIfj1DwS9k30EgsmWsuyAmQVFBkvs
+   Sjw9qnevB9BwmQMtlY2Fd30bFrfcXmaEfDBjfFzBzpZBYeXRGvFUEj7lM
+   qPqMV0taozMeo8eVupJzjm9z4NwGrBDtVBxuyWgbWL6fyuxiS1ZoQHDHf
+   XoE5joiPH2EVyE+3/tPMD4QVziZAkQkYOrTQF2n90NzZioovI07OZE+AJ
+   DGzcoOcCemd2QAUyGa04RqbRU0moJGsNffV58zoxCE3KHjEZy6WL88r8l
+   fIeKYdx3JwwP3m/kTwi3qMOQaMb6OFdYvLEWpYlZx7UAwdWKO8abQvLc0
+   Q==;
+X-CSE-ConnectionGUID: gcvubHj9RHuOZkhvrxU56A==
+X-CSE-MsgGUID: PSD0OrMvTVSkJmNGkn/jKQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11966"; a="3365436"
+X-IronPort-AV: E=Sophos;i="6.27,213,1787036400"; 
+   d="scan'208";a="3365436"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Nov 2026 07:23:25 -0800
+X-CSE-ConnectionGUID: RUehccmiT2+4igswWMrX0g==
+X-CSE-MsgGUID: etcpffj8QLSD5YY8McYSaw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,213,1787036400"; 
+   d="scan'208";a="11066525"
+Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
+  by fmviesa013.fm.intel.com with ESMTP; 14 Nov 2026 07:23:23 -0800
+Date: Sat, 14 Nov 2026 23:14:58 +0800
+From: Xu Yilun <yilun.xu@linux.intel.com>
+To: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+Cc: mdf@kernel.org, yilun.xu@intel.com, trix@redhat.com,
+	linux-fpga@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] fpga: altera-hps2fpga: Fix reset control leak
+Message-ID: <avh68lVmIG6MwMby@yilunxu-OptiPlex-7050>
+References: <20261107150747.1152-1-laixiangwu@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,81 +79,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="y2obdjo25ujvfqvc"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <cover.1794667407.git.alx@kernel.org>
+In-Reply-To: <20261107150747.1152-1-laixiangwu@cmss.chinamobile.com>
 
+On Sat, Nov 07, 2026 at 11:07:47PM +0800, Xiangwu Lai wrote:
+> From: laixiangwu <laixiangwu@cmss.chinamobile.com>
+> 
+> alt_fpga_bridge_probe() acquires the bridge reset control with
+> of_reset_control_get_exclusive_by_index(), which is not
+> device-managed. None of the probe error paths release it, and
+> alt_fpga_bridge_remove() does not call reset_control_put() either,
+> so the reset control reference leaks both on a failed probe and on
+> every bind/unbind cycle.
+> 
+> Since the leaked exclusive reset remains acquired, rebinding the
+> driver afterwards also fails with -EBUSY.
+> 
+> Use devm_reset_control_get_exclusive_by_index() so the reset control
+> is released automatically when the driver is unbound or the probe
+> fails.
+> 
+> Fixes: e5f8efa5c8bf ("ARM: socfpga: fpga bridge driver support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
 
---y2obdjo25ujvfqvc
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx@kernel.org>
-To: linux-hardening@vger.kernel.org
-Cc: Alejandro Colomar <alx@kernel.org>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Andreas Schwab <schwab@linux-m68k.org>, 
-	Andy Shevchenko <andy@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Daniel Scally <djrscally@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil-cisco@xs4all.nl>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Joe Perches <joe@perches.com>, Johan Hovold <johan@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Len Brown <lenb@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>, 
-	Linus Walleij <linusw@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Saravana Kannan <saravanak@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Tom Zanussi <zanussi@kernel.org>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Subject: [PATCH v6 12/19] string: Remove strstarts()
-Message-ID: <cabc673b9ac73c137ad6f7dea52f8566c5821675.1794667407.git.alx@kernel.org>
-References: <cover.1794667407.git.alx@kernel.org>
-MIME-Version: 1.0
-In-Reply-To: <cover.1794667407.git.alx@kernel.org>
+Reviewed-by: Xu Yilun <yilun.xu@intel.com>
 
-It's now unused, as it's been fully replaced by strprefix().
+Applied to for-next, thanks
 
-Signed-off-by: Alejandro Colomar <alx@kernel.org>
----
- include/linux/string.h | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/include/linux/string.h b/include/linux/string.h
-index 0a466360dbb3..6b0de932e23a 100644
---- a/include/linux/string.h
-+++ b/include/linux/string.h
-@@ -609,7 +609,6 @@ static inline const char *strprefix(const char *s, cons=
-t char *prefix)
- 	return strncmp(s, prefix, len) =3D=3D 0 ? s + len : NULL;
- }
- #define strprefix(s, pfx)  const_cast(CQChar_of(s) *, strprefix(s, pfx))
--#define strstarts(s, pfx)  strprefix(s, pfx)  // legacy alias
-=20
- /**
-  * str_has_prefix - Test if a string has a given prefix
---=20
-2.55.0
-
-
---y2obdjo25ujvfqvc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmr4fOkACgkQ64mZXMKQ
-wqkPUhAApIeDHRhxFUKTf5avR9mQNXvCnsBfRwGq/S3Le+wldyh7+Rzep2cWle14
-s5EAftDqLtWBDI5kuHZilYRR1lRtm9chY8eoPL0B4l7d69i+QNVuysZmCp4WvDVt
-dWtSYeoScozke5bG2g5bDiGtW+FJguwBtt4CybvSc0sibGODC34el4tGRvZOZG28
-Zi1Bfk9w8DYVcga0gx0e9K4LBX2Q/afZj+3zTZ2YKRRyJS06I2JeqMJNbKzzo16p
-d9kQKxcn4Tomv6eeAw1qf+GGipJc2RWLvnEpKiiq4434oBl9UWtSsvW/kLqHqy6C
-kZPlQ7SlYAWpEx/cAd8Wjh1Jq46IIJGxGCw1iVaVveNvfvXxGWIlIqU0ZDJJiaVg
-0MYi+2NuDwIsUdPgVMMyM3/7fIOd1h9T6MBstLI4Xckq4R3wiaQqHDW1YRPNHN+v
-gPYOa+GGS9r5RcwQ5mjdC2tg3heu5tIl9cfQBAFDfXpn0h0pv9POEebxRD+d9lKT
-deofjAQKaOZWJ4Mo8Cwiuua4OW1qZvAThMGGSHYX7Hy5Gn6H/JGhLUGu7gzDZzMv
-cOA7TDMjJLzEX9uiw490ucMWa3SqzUvvobtGgb+QukpoBMvoy9uLqVJRDn4S+t+b
-GROJ7y8vK6nCAbGML4dzvI8vM+1Z4Ri412ZBnXhI7dfwNVveDp4=
-=IZjD
------END PGP SIGNATURE-----
-
---y2obdjo25ujvfqvc--
+> ---
+> Changes in v2:
+> - Drop the enumeration of probe error path examples from the commit
+>   message, as suggested by Xu Yilun.
+> - Add Cc: stable@vger.kernel.org for backporting.
+> 
+> Link: https://lore.kernel.org/r/20261103014240.1194-1-laixiangwu@cmss.chinamobile.com
+>  drivers/fpga/altera-hps2fpga.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/drivers/fpga/altera-hps2fpga.c b/drivers/fpga/altera-hps2fpga.c
+> index f2f125068..6d9798bb9 100644
+> --- a/drivers/fpga/altera-hps2fpga.c
+> +++ b/drivers/fpga/altera-hps2fpga.c
+> @@ -134,8 +134,7 @@ static int alt_fpga_bridge_probe(struct platform_device *pdev)
+>  
+>  	priv = (struct altera_hps2fpga_data *)device_get_match_data(dev);
+>  
+> -	priv->bridge_reset = of_reset_control_get_exclusive_by_index(dev->of_node,
+> -								     0);
+> +	priv->bridge_reset = devm_reset_control_get_exclusive_by_index(dev, 0);
+>  	if (IS_ERR(priv->bridge_reset)) {
+>  		dev_err(dev, "Could not get %s reset control\n", priv->name);
+>  		return PTR_ERR(priv->bridge_reset);
+> -- 
+> 2.50.1.windows.1
+> 
+> 
+> 
+> 
