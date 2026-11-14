@@ -1,94 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794624106;
-	b=rU7dDvmMcXKKDRL8QpmwZb9q+tY074tRrSXVUgEn3wImz8mdN/cFSFHm5V6zkTwn1ndg
-	 d2iiHtNef0sBz4Ca9Bc2vhNPFHXbW2c3SZ56zdUOt1WqJCY8HuHU2tdRkpUtljkXtlTXa
-	 7mpjU85vmBospPUA1Fu4A6nDJ4l3vZFYWDWOQuTpjiG3OcqA7AxB1JiXAyGQyRDBEPgyr
-	 lbfbSHh+D1j09AZzuFSR73J/Q8v+bTnddYGj6w+NIaRHfVnoioLFtPVTkE0122I4FtEzo
-	 q3aWvYVT0ju5B7KrFt2RfE4d+MtqHfRdrY2rh/CC81CcyNnYeQF6dK4rr3GvmUMKjyA==
+	t=1794624123;
+	b=LPb49Q+wqwf2jocgCRxbjHdtiYspj7yEW1FFXOQ9PuB43MFMpw4HlU25nXuHJYuTi7x0
+	 1yjchNhqiasmrCZ1gloMxKGGPdVuUPZ24SwThFi1r/SIJSnEb2+xpjiuz9Ev820SVIwbI
+	 M8BMKf6nAgBGSR+Cp9rKNX/IcHGnWD737F7R4cHknztB36D7mt4iBG/KvTnY4l5VeOp0u
+	 doJga96MJjUgpls6frnCz6ppWXq+VdOP76iS/dPD/pKuUss4mtfVy7M/MlPlh05NGQzfi
+	 HLCPIHoSkfBBmVWR/S+8rzeCFt85UT7gVx0f/sx6EbX7D9OZ+mjxiRfuiUOm8ovwzeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794624106;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=BRx4eAMdYV73QvASEjGEoxzHdyiMslK/yjtX9V0T5Tc=;
-	b=yqE3oGaJxyAxGRWfIH+A1R56kyEb3NKPZaTCHhGG+5MjaGaLvNcREsdKXQssFHlrdey6
-	 rnB7EEksm30sRm/tR/GZoQSocG8Oo2TYr5R1zNhOrGWb7rdGBqjt+uklxEfZnjU+nlZ6k
-	 thf9HnD0oh16XgMwcm360bzEl6ubAQAoETFt7i38hrezrK1Dxy4TapYjkD5vK3svCaU1D
-	 9gWJQP5AW3eeLLK7RXCp91dxxkeLBX4DkzOcojfv9NcF3A/JI1dRzJe3GtussCp/qRPmz
-	 ZwP6b7/FOJcVvAt3CH4+5k4G4YwngwPWxcrOLiZEFAogvA90RCjHl38JXI8Qs9TcNxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794624123;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=wAC+JdlNSh6ZSzeM4G6YrlNMLlUw7L1HmDhHG3TaP6A=;
+	b=GFfY1Ht/4H1BUOcW7rBbhthU4B/f73MFOq9JbJA0NWmBvYuUHMrzDrxGYwrnKZtXveVy
+	 AFaCn3ucYVBdIh7pv7dbFoHUQedIeB0HuRjQOjzouLsT/fYlK4CoEPCe/vTDjcDEYtFO2
+	 kKTXY1B9vxiHzAS0wJ2Uw9SR/8usi1Oks5xPqGE4Hh/JY9QaCGWmvAbPdY3ZNccsbkn4X
+	 Rp1a4vkU2HUPYa0CA0c2G5gbqeMB6uq17ZgnVGNwLiDz7SjdrvDCuFB2Zrc3mzK2BKA+8
+	 PgKwZL+eewOOC/ethrV5NCYdy+ZULb4w1P+1P0G/E4g6s8SNcoByftJwPfm5DuJDG7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="Oh/A7P2y";
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mu/Q+Gy+";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D384606A329
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 02:41:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D384606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC235606A330;
+	Sat, 14 Nov 2026 02:42:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Oh/A7P2y
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-36dbde64409so2449583eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:41:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794624105; x=1795228905; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BRx4eAMdYV73QvASEjGEoxzHdyiMslK/yjtX9V0T5Tc=;
-        b=Oh/A7P2y/i7OaeP0elOfugLH6LZVJdGwvDVLLPQTYFkuyjrI4DXSuTCQml9Ay2xisC
-         p01/pRceBbJVM+EvcmMhUNVKptbnP9KgK26AntLzuPB6BuW/azxZEzQL0GGB5nK7ZO4B
-         Rrx3Z04RzaYdTvWnLNvyHSTZIn9QXUy4Gd3gY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794624105; x=1795228905;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BRx4eAMdYV73QvASEjGEoxzHdyiMslK/yjtX9V0T5Tc=;
-        b=auyNBoV20iaD9+EY/hXXme2t5Kov/jWd5tThgdb7Ce868L/uVTLpA29Dcj7lK+nJAl
-         thJC/cHKMgzuBD5nXQB32T7q+5bDdM7cbbtQ1YKpx+gGQtkJlXbfP22J9ceWuDxof+0c
-         4Rfe75whezXotIDFkfqxkYiuG39ZdwQB3RwGBGGfsVpr+HzUh4zKGPqjSgHob/et5xoI
-         D5LpHP1x8a39HcKfzvfyTxvVgz4z6Qf18dyNfWrURWnNf527A6crrBbtQy5A3m6WjfGe
-         IaQkSbrF+/WgbJ1UaSjM/h2ylgDWsvW0L8ut3H2MVFcRETWkiRhIO48wgePHW3+TPolU
-         kj0A==
-X-Forwarded-Encrypted: i=1; AL+hErFjDBcGx+LR5y5gpawrMlXSHD3gOh3AVNkYVdgitGF6Z8SIzouRdgT4VO/PZU/wAqOfz8Xcm1MHrWnrcIc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8mO7WWdOQMgSKCV/HXEoNuk29u5h792NcOpKc/2b66qgnbCmTw
-	NW7sNIo1H444P6rqkkcjQCRb8bTcPgv5WnNvsBzijRFKa9b7SqQgimlzloaOEWKETQ==
-X-Gm-Gg: AYBFou1oXrHo72NBEJy+3XPxGS2avWULnX2Hk3614ozqAu+zTOeEgWFfCiTtSuEo3EI
-	jeTkttuyrEaw+SpuoIj9INVLFqWQtFSfAoDXtGwhOPbax3O2TPk2UTx/gcy9nAsQhHgOb7DgQ9u
-	WbVxZdDsxNaZrW9Gn6XmT6liNK4ZXiBp4h5NFkeKQmA+DO4UTSFh4OauAurvtwhhMJkIir3PWMb
-	dfp5f30fJBtTGDp1tHu6WejrANH1gGFuIV0zP5IUcMBq1PIFfFgEW2fucACG+Hsgh2bj6FIxCZP
-	4fpd7Clv2OK8Ac4lbQVcM3XhcwMA9eHTNICGP4l/jSqBcjlq5X+XE8P0rPxvtSKVWXVE99pKiIa
-	vuPoqmII1YH8+T5zjwuGT0+FdDs3foKa24fHTlM7quMQluU7NAxOhQTGUOLvsoqOey1comLwJeT
-	5rlBtfwOiJzcu4Jze3lhQjqrBwuLaYKab3ZwStl/Hjr+AqITZzFeuUOorofXXxL8V2MqHI0+l4i
-	fBUmqRB69r998KjUkDNb315dzDpwUadz5cjzhhz8a14J2eUcrKU9TelRzacAw9VdxRK3hTWWLLi
-	7IfmJicNNGob7D1AyXXjcUQmTQ6K4AeN5jgOW23An/eIRw1P4F78974jfZtE5iMxzu4tzdUP05X
-	q3KN15aPyhe3+44g=
-X-Received: by 2002:a05:693c:864b:10b0:35e:f4ac:5f8e with SMTP id 5a478bee46e88-37960384530mr3982500eec.0.1794624105009;
-        Fri, 13 Nov 2026 18:41:45 -0800 (PST)
-Received: from google.com ([2a00:79e0:2031:6:d97f:ef68:a8e1:6af5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955f02ff0sm10977717eec.16.2026.11.13.18.41.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 18:41:44 -0800 (PST)
-Date: Sat, 14 Nov 2026 11:41:39 +0900
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Sergey Senozhatsky <senozhatsky@chromium.org>, Jens Axboe <axboe@kernel.dk>, raoxu <raoxu@uniontech.com>, 
-	minchan@kernel.org, linux-kernel@vger.kernel.org, linux-block@vger.kernel.org
-Subject: Re: [PATCH] zram: Avoid duplicate slots in batched writeback
-Message-ID: <avfJOxrS2l-f5ZA3@google.com>
-References: <F24EF6333964B482+20261110061830.272091-1-raoxu@uniontech.com>
- <avK6Y1VmIYIBrorl@google.com>
- <20261112232621.6e8916a6e92bbb1afeb1e2a3@linux-foundation.org>
- <1707907e-2261-4d3b-87fb-3dfc662e0347@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mu/Q+Gy+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C30BE1F000C4;
+	Sat, 14 Nov 2026 02:42:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794624123;
+	bh=wAC+JdlNSh6ZSzeM4G6YrlNMLlUw7L1HmDhHG3TaP6A=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=mu/Q+Gy+KUxU7r2a0mdyC0L6ZKirxmajY0ZhtMxXdzcz9jcKBEYfrG2yOK0+2IzSr
+	 a38P9tXzyF+mBryWgUMudnMjSfF9DC548DQCzmZY+dOsWUKOXz/WIESpb/pDqdn25H
+	 a+FqTEA/wWtKU55L2Gwy9+7qQWyeqgAhq76iOX2vQLjjfM+pdMySoBwCCFOt5Dr//f
+	 X7HMpaEQU6IEtw0azdyqutAZiZF+t1EoVjZMCC01xkchVh0mutsOnw3hjBI4Q0nQcW
+	 EpWVodcgQ+Bxt4qXraRX4vld6duQL7bwYde94bj+ei3GgoEdOMefUy79kAmK5b9n22
+	 1lTe/Sm2m7K2g==
+Date: Fri, 13 Nov 2026 18:42:02 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: Ratheesh Kannoth <rkannoth@marvell.com>
+Cc: <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <andrew+netdev@lunn.ch>, <ast@kernel.org>,
+ <daniel@iogearbox.net>, <davem@davemloft.net>, <edumazet@kernel.org>,
+ <hawk@kernel.org>, <john.fastabend@gmail.com>, <pabeni@redhat.com>,
+ <sdf@fomichev.me>, <sgoutham@marvell.com>, Simon Horman <horms@kernel.org>
+Subject: Re: [PATCH v21 net-next 2/2] octeontx2: add mqprio bandwidth
+ offload for NIX TX schedulers
+Message-ID: <20261113184202.678ed2f7@kernel.org>
+In-Reply-To: <20261109033154.2161803-3-rkannoth@marvell.com>
+References: <20261109033154.2161803-1-rkannoth@marvell.com>
+	<20261109033154.2161803-3-rkannoth@marvell.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,33 +63,208 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1707907e-2261-4d3b-87fb-3dfc662e0347@kernel.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On (26/11/13 10:50), David Hildenbrand (Arm) wrote:
-> > I grabbed it.
-> > 
-> > I did recently attempt to pull zram out of the mm project, by moving it
-> > from mm.git's mm-unstable branch and into mm.git's mm-nonmm-unstable
-> > branch.  Because "why does the mm project contain a block device
-> > driver".
-> > 
-> > I undid that change after about a week - it didn't work out because
-> > zram is joined at the hip with mm/zsmalloc.c.  zsmalloc is also used by
-> > mm/zswap.c.
+On Mon, 9 Nov 2026 09:01:53 +0530 Ratheesh Kannoth wrote:
+> Add TC_SETUP_QDISC_MQPRIO offload with TC_MQPRIO_SHAPER_BW_RATE on PF and
+> VF netdevs. Program per-queue MDQ CIR/PIR via the NIX TX scheduler mailbox;
+> when active, allocate one SMQ per non-QoS queue under TL4[0].
 > 
-> Are there cleaner ways of isolating both things?
+> The TX scheduler cannot be reprogrammed live, so add/replace/delete and
+> failed setup bounce the netdev through ndo_stop()/ndo_open(). Cache rates
+> in software and restore them from otx2_mqprio_up() on open, failing closed
+> on error.
 > 
-> Like, many drivers use kmalloc() etc, and they are not part of core-mm :)
+> Stage tc replace in mq_offload_snap snapshots committed on TC_ROOT_GRAFT or
+> replaced-qdisc teardown.
+> 
+> Require a running interface with CIR+PIR support. Reject offload with PFC,
+> XDP, HTB, SDP representors, per-TC rates on multi-queue classes, and
+> ethtool channel changes while active.
+> 
+> Reviewed-by: Simon Horman <horms@kernel.org>
+> Signed-off-by: Ratheesh Kannoth <rkannoth@marvell.com>
+> ---
+>  .../marvell/octeontx2/nic/otx2_common.c       | 143 ++-
+>  .../marvell/octeontx2/nic/otx2_common.h       |  34 +
+>  .../marvell/octeontx2/nic/otx2_dcbnl.c        |   6 +
+>  .../marvell/octeontx2/nic/otx2_ethtool.c      |   8 +
+>  .../ethernet/marvell/octeontx2/nic/otx2_pf.c  |  34 +-
+>  .../ethernet/marvell/octeontx2/nic/otx2_tc.c  | 936 ++++++++++++++++++
+>  .../ethernet/marvell/octeontx2/nic/otx2_vf.c  |  28 +-
+>  .../net/ethernet/marvell/octeontx2/nic/qos.c  |  11 +
+>  8 files changed, 1179 insertions(+), 21 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c
+> index f4047b0d5d96..b4a738cf9a8b 100644
+> --- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c
+> +++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c
+> @@ -615,6 +615,139 @@ void otx2_get_mac_from_af(struct net_device *netdev)
+>  }
+>  EXPORT_SYMBOL(otx2_get_mac_from_af);
+>  
+> +static int
+> +otx2_nix_tmq_reg_write(struct otx2_nic *pfvf, int cnt,
+> +		       u64 reg_addr[MAX_REGS_PER_MBOX_MSG],
+> +		       u64 reg_val[MAX_REGS_PER_MBOX_MSG])
+> +{
+> +	struct mbox *mbox = &pfvf->mbox;
+> +	struct nix_txschq_config *req;
+> +	int i, err;
+> +
+> +	mutex_lock(&mbox->lock);
+> +	req = otx2_mbox_alloc_msg_nix_txschq_cfg(mbox);
+> +	if (!req) {
+> +		mutex_unlock(&mbox->lock);
+> +		return -ENOMEM;
+> +	}
+> +
+> +	req->lvl = NIX_TXSCH_LVL_MDQ;
+> +	req->num_regs = cnt;
+> +
+> +	for (i = 0; i < cnt; i++) {
+> +		req->reg[i] = reg_addr[i];
+> +		req->regval[i] = reg_val[i];
+> +	}
+> +
+> +	err = otx2_sync_mbox_msg(mbox);
+> +	mutex_unlock(&mbox->lock);
+> +
+> +	return err;
+> +}
+> +
+> +int otx2_nix_tm_clear_queue_shaper(struct otx2_nic *pfvf)
+> +{
+> +	u64 reg_addr[MAX_REGS_PER_MBOX_MSG];
+> +	u64 reg_val[MAX_REGS_PER_MBOX_MSG];
+> +	int err, smq, i, cnt = 0;
+> +
+> +	for (i = 0; i < pfvf->hw.txschq_cnt[NIX_TXSCH_LVL_SMQ]; i++) {
+> +		smq = pfvf->hw.txschq_list[NIX_TXSCH_LVL_SMQ][i];
+> +
+> +		reg_addr[cnt] = NIX_AF_MDQX_PIR(smq);
+> +		reg_val[cnt] = 0;
+> +		cnt++;
+> +
+> +		reg_addr[cnt] = NIX_AF_MDQX_CIR(smq);
+> +		reg_val[cnt] = 0;
+> +		cnt++;
+> +
+> +		if (cnt < MAX_REGS_PER_MBOX_MSG - 1)
+> +			continue;
+> +
+> +		err = otx2_nix_tmq_reg_write(pfvf, cnt,
+> +					     reg_addr, reg_val);
+> +		if (err)
+> +			goto fail;
+> +		cnt = 0;
+> +	}
+> +
+> +	if (cnt) {
+> +		err = otx2_nix_tmq_reg_write(pfvf, cnt,
+> +					     reg_addr, reg_val);
+> +		if (err)
+> +			goto fail;
+> +	}
+> +
+> +	return 0;
+> +fail:
+> +	return err;
 
-This dev cycle is a little unusual, because on the zsmalloc side we
-removed that "kmalloc()" [1] (along with other exported symbols that
-both zram and zswap use), introduced new "kmalloc" API and this
-happened atop of a very large and intrusive zram rework [2].
+just return err; why the label ?
 
-We don't change zsmalloc exported API too often, but it happens,
-sometimes.
 
-[1] https://lore.kernel.org/lkml/20261111064707.2568433-1-senozhatsky@chromium.org/
-[2] https://lore.kernel.org/linux-kernel/20261025021839.1542805-1-senozhatsky@chromium.org
+> +struct mq_offload_snap {
+> +	u64 min_rate[TC_QOPT_MAX_QUEUE];
+> +	u64 max_rate[TC_QOPT_MAX_QUEUE];
+> +	u32 flags;
+> +	__u8 num_tc;
+> +	__u16 count[TC_QOPT_MAX_QUEUE];
+> +	__u16 offset[TC_QOPT_MAX_QUEUE];
+> +	__u8 prio_tc_map[TC_QOPT_BITMASK + 1];
+
+Why is this using __u types?
+
+> diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_ethtool.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_ethtool.c
+> index 4fe473d9ea0d..5428b3d1b332 100644
+> --- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_ethtool.c
+> +++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_ethtool.c
+> @@ -287,6 +287,14 @@ static int otx2_set_channels(struct net_device *dev,
+>  		return -EINVAL;
+>  	}
+>  
+> +	if (pfvf->mqprio.rate_limit &&
+> +	    (channel->tx_count != pfvf->hw.tx_queues ||
+> +	     channel->rx_count != pfvf->hw.rx_queues)) {
+> +		netdev_info(dev,
+> +			    "Not permitted to change channel count while MQ prio is active\n");
+
+Why? This seems quite limiting.
+User has to remove the root qdisc to change the queue count?
+
+> +		return -EINVAL;
+> +	}
+> +
+>  	if (if_up)
+>  		dev->netdev_ops->ndo_stop(dev);
+
+> +	if (prog && pf->mqprio.rate_limit) {
+> +		netdev_err(dev,
+> +			   "XDP: cannot attach while mqprio bandwidth offload is active\n");
+
+Again - why?
+
+> +		return -EOPNOTSUPP;
+> +	}
+> +
+>  	if (prog && dev->mtu > MAX_XDP_MTU) {
+>  		netdev_warn(dev, "Jumbo frames not yet supported with XDP\n");
+>  		return -EOPNOTSUPP;
+
+> +static void otx2_mqprio_free_cache(struct otx2_nic *pfvf)
+> +{
+> +	devm_kfree(pfvf->dev, pfvf->mqprio.min_rate);
+> +	devm_kfree(pfvf->dev, pfvf->mqprio.max_rate);
+
+devm_kfree() is a red flag, either this is something tied to the
+lifetime of the driver, or you need to clean this up. Saying that
+something "doesn't leak because it was devm_kmalloc()ed" is invalid.
+Drivers don't get re-probed in real life, memory parked in devm_ is 
+as bad as leaked.
+
+> +static int otx2_mqprio_restart_netdev(struct net_device *netdev, bool rate_limit)
+> +{
+> +	struct otx2_nic *pfvf = netdev_priv(netdev);
+> +	const struct net_device_ops *ops = netdev->netdev_ops;
+> +	bool running = netif_running(netdev);
+> +	int err;
+> +
+> +	/* TODO: Explore live TX scheduler reprogramming to avoid a full
+> +	 * ndo_stop()/ndo_open() bounce on every mqprio change.
+> +	 */
+> +	netdev_dbg(netdev,
+> +		   "mqprio: restarting interface to reprogram TX scheduler\n");
+> +
+> +	if (running) {
+> +		clear_bit(__LINK_STATE_START, &netdev->state);
+
+Messing with internal netdev state like this from the driver is
+obviously unacceptable.
+
+> +		smp_mb__after_atomic(); /* Commit netif_running(). */
+> +	}
+
+> +	/* TODO: per-TC TL4 shapers or equal per-queue MDQ split for multi-queue TC rates. */
+> +	netdev_err(netdev,
+> +		   "mqprio: %s rate for tc %d not supported with %u queues\n",
+> +		   name, tc, qcount);
+> +	NL_SET_ERR_MSG_FMT_MOD(extack,
+> +			       "mqprio: tc %d rate needs 1 queue (has %u)",
+> +			       tc, qcount);
+
+Doubling out output to extack and dmesg is not okay, user space should
+look at the extack. And a decade after it was added it mostly does.
+
+You are at v21 this is nowhere near the acceptable quality. You should
+probably give up.
