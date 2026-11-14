@@ -1,66 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794616055;
-	b=JRg+I6RVAKi00RaYvso8mONFkvM9+MNLtgFE/QvBlCIVIwPdASGe73H1ru4O0LaPFVdo
-	 +O10XqCab/NO7xitbNEIxJx54+qbaABolEnqYaSqsDhfRNsh2/0KXsNwGHo0kuYA5GRLJ
-	 BLc4SLjAp+GMniT+o9ocgKsw9ITwfbCtzG8aQQJBDjwzXTA3svmFQs4GOFZZxeGJZDInv
-	 mnka/OuSq7y/+vpc3oCN9DOrR5BjPi+PBQLpgIHjh5X/RraJ9ck2HRc0wwFOWbAb4QRkY
-	 YNJ2B8mTSOKDdSWR3okCUFYX9Y8f2X7cEJNgAKdsrKMhTPAUpGQHcD3zCnHD0UlOMKA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794616055;
-	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
-	 Subject:Message-Id:Date:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=ki/ePS7jWs9uNuv0DOOM5RNpbzB+sOQfsfxY6BGgUp4=;
-	b=R+qaYF16/oqaTQIl7m75uH3lR99pA/5JZ56FTmvzpKuBK0qARP8pRrNezGpSgBMrdB1X
-	 8S+l6E+04vJF3wPFTAy5wWu0keIYH/xz7dFTSjB8d0NE7zsKqUqJm8wiQX5cTA2Qdnmk/
-	 4uEJFnAPZHhbJW4FwR3lw8mc1Zt617sj53qEiAYHWHfB9OktpsqREZ5MwBTSz2FS4sgSm
-	 VbR8jmyx8T7pKqw3OzhmIb5jTlWIPpw8YqOowQ2FQxIsCHp6/T3K9rJgUKOxN5PTC9OFK
-	 tbddUef4OGG3MZAc4Kxhmck9ReTGlO6EmVpFu7AG5vWBTKtrtX3F6k8ZwtPrpv5/Ivw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IjJgmRfT;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794616131;
+	b=LwumfMHh9MES4KFwd0PANe4Qy4fqqODTZNOodKWcm+G4WLI4AByDRKnSCuDnBlwoiyUx
+	 32iu0FZqTabK8kxiBwcJEuG2dh3uL1Vy/tVoNj4r4+sI3S9HSjh2GgWuZvxaNbs5k/V4e
+	 C4N5u3z84SnjgSOBmC2o1aqPBXYGbGHQ+J1S18sdaTnGGi4op8CvgtnuSEXzUG8cxN+xD
+	 Xv7n0EaKZmyLOBKtQvaBk1Wc0lNtUdrjXQWkYMzRAwJSWDh6Uupy57lnW5B6HcJoyMKGk
+	 04usR0SlDhZxlkQR2kkrKk9v4jWT0miqUaZtXKHEE2wASgCs3uKtAMW7onqqcm6Ie1A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794616131;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Kf5Lt7yzOAUQ5ueELRwWwf4JNFuNEzgr8IOrFVpUyq8=;
+	b=W1fXRxC2IFS/kFH6ZQsgwFIPD17TNXXrNAgtWr2dP9/NjV2PSTia0jiYF6qA1gqc0RjG
+	 q3i9qs3wuj735hbn0+HgM2UOZ132UuFgd7LaZVluSjadQs6E6Q9ze4qs9zIcMGP7BWTIn
+	 6zxtMmZep+DSx1OOvf0jgdfyN2AV5F1iXEAMv4pKNp49PzImWBv56u0rYnDvwMFws2rQd
+	 he8uiPjEb9mnlPtXtorHVyZkpIWP+347gcXXqoE6uADpK4ya7thox12FR8cZnSdx6YZR4
+	 I4M48M5cMvP4LWy4/hdNIr5EVud3Zb9iPTWJuxncEpopLs/87XGcurD9e62v34FO1kQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OG42TKth;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F9F4606A329;
-	Sat, 14 Nov 2026 00:27:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4DC8606A333;
+	Sat, 14 Nov 2026 00:28:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IjJgmRfT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3C6E1F000C4;
-	Sat, 14 Nov 2026 00:27:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OG42TKth
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794616131;
+	b=YQiOuav8So4UNAsPiliX3fAJmXQO8yqVUam7edSPaD+gGcmxwo9ZFPLfR0vKcwVaNTSJ
+	 EhYL7KBg3f4dxH9krhYHeb4LIxqxQ8PPujoflwJQ7uyhS6IZ5I9JZtZqKH6U5NpHrY28J
+	 clebEBhekqqFtSJdRYOyEKiIhZd5eN5B3RqMTNj5Giv/LdJNE9R9c7/Nq+9OxB0+oaSfw
+	 A5CQ3SFuzKY/hlNR5FaNjD7rDqLEFfkKRAS+vTV+djlYyKxbPmpGLeVR3ZKWsBrlWaMkL
+	 wX8lII2kGPHALEMmBfLCGHJ48GUidV3+qX6kUktFUKFYbi6+mNdkEGufM5zhCeDGLFw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794616131;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Kf5Lt7yzOAUQ5ueELRwWwf4JNFuNEzgr8IOrFVpUyq8=;
+	b=qd5g7kpc+OMqU1G1eiwuWsY/u7fp6qShzx0mmJS6CuTdvrPBJToQmA5s20fgdeCAKJDR
+	 ON4cdPujY+c9LR62Xg1/zG7QmwKWK7y84/jw3ncdM1pMAyYG2uzetjvMB41W8Imo3Idl9
+	 GG5Qi6+VTIoJBQvw8fhRHhpDdZC2KYhIAOeDKX9CF5ekq6cMsISrpCTTOZcljwsilzSir
+	 pNQCo/JIATjyVoXRiibt+7nkbmjm2nobSTDjcADQHBsldzv3N7D/B5K9IhjN1GPG32Mzm
+	 JzfFD6LIIaBZcJpz9u9ejaD4CIglNWgvEq6P6SaEzrQ0BJq/9QSdwOkCABKQqfjI+8g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id BA3B41F000C5;
+	Sat, 14 Nov 2026 00:28:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794616055;
-	bh=ki/ePS7jWs9uNuv0DOOM5RNpbzB+sOQfsfxY6BGgUp4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=IjJgmRfTMn0LDXFga6bVNSny1CE35GU8FBWb1A/nhj+KCs9P2O8qjs5GjDMbPKPqd
-	 E/PUv80wtNAHJAVM0RtVz5I1c8MJj6wGZJEWLLHGsbVs2AjKNjWa1Nt0OU//hgiPxZ
-	 V0xbkVIh1I1ZYq211qbIU67Dw+l2r7dahoDDKF5OgrzHu93CVDZOsy5lJ9/lIpumJ0
-	 babkNoNnfauJTkBURAc3vUfPxzEGwjB7OiBWEzwt00she+ujAkoI3kL3nO/xb9Ue8j
-	 e8hU+wOFal6FYl38dONN5BQZVzLdbezqXDNDIhYdqrMX62ASANqLaRdClZsqjIGEZe
-	 J5cBJi7CMPQww==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 82FAF329EA01;
-	Sat, 14 Nov 2026 00:27:32 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: linux-spi@vger.kernel.org, shao.mingyin@zte.com.cn
-Cc: linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
- pjw@kernel.org, samuel.holland@sifive.com, william.zhang@broadcom.com, 
- kursad.oney@broadcom.com, jonas.gorski@gmail.com, 
- bcm-kernel-feedback-list@broadcom.com, anand.gore@broadcom.com, 
- florian.fainelli@broadcom.com, rafal@milecki.pl, 
- linux-arm-kernel@lists.infradead.org, sven@kernel.org, j@jannau.net, 
- neal@gompa.dev, asahi@lists.linux.dev, ryan.wanner@microchip.com, 
- nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com, 
- claudiu.beznea@tuxon.dev
-In-Reply-To: <20261110233450305Smji446Uhvoxa7r8SHEgl@zte.com.cn>
-References: <20261110233450305Smji446Uhvoxa7r8SHEgl@zte.com.cn>
-Subject: Re: [PATCH v2 0/5] spi: fix division by zero with a zero transfer
- speed
-Message-Id: <179460764342.448985.18219249061160291658.b4-ty@b4>
-Date: Fri, 13 Nov 2026 22:07:23 +0000
+	s=k20260515; t=1794616131;
+	bh=Kf5Lt7yzOAUQ5ueELRwWwf4JNFuNEzgr8IOrFVpUyq8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=OG42TKthNV3+D24nHG8puXdYOgOTtlQldzxnYKIdWABgYCmqKpVvtwjSP2z8oqFkN
+	 oQiEI96p7xhPAfMSM20x9zNCpNxLTli4uvBtUOCpiaYFJtBcdPhbmABUvTcaEK1e3e
+	 tOafL5nSVpxFxbYEjr1w8R9MYzcMDn0A9SJM8YkweTqbGFdiDPpzZtK/ti8iauhFXp
+	 cRXFOI84z6f7truieORG+pAFeIlolCzq2FRFLpalTiGufI6de6SIfK/MmsLOsJcUPS
+	 tUdkVpB2aXkOILbFq5YgRodXFEM0KPunX7Mdbkxa86n7gFXQHbkur1Rtustoz/MWt6
+	 Y5CNz14BCY8FA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 4440949BDE;
+	Sat, 14 Nov 2026 00:28:50 +0000 (UTC)
+From: Matt Thompson via B4 Relay <devnull+matt.boondocker.io@kernel.org>
+Date: Fri, 13 Nov 2026 17:28:49 -0700
+Subject: [PATCH RFC 1/3] PCI: rockchip-host: Skip downstream config access
+ while link is down
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,63 +84,90 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261113-rfc-b4-v1-1-b91dcb502250@boondocker.io>
+References: <20261113-rfc-b4-v1-0-b91dcb502250@boondocker.io>
+In-Reply-To: <20261113-rfc-b4-v1-0-b91dcb502250@boondocker.io>
+To: Shawn Lin <shawn.lin@rock-chips.com>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ linux-pci@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794616129; l=2087;
+ i=matt@boondocker.io; s=rk3399-rfc-20261113; h=from:subject:message-id;
+ bh=dQmkjngK0wLJ2jAFS1PjdlLb7zJkoCy2sJ8WeTsPps4=;
+ b=JR1YncO5hnReTvvhdAwSDCsA13bb6Uh5v/R/4psAbauJ2HbOSxQ7HxJxRJcKSmMovrv74WMdl
+ mW6ULFx5WvtAmnsrDSHcGia9vEWR2Zu6zpVW62Hb7KUok9Or2TYt6YW
+X-Developer-Key: i=matt@boondocker.io; a=ed25519;
+ pk=WMnh3kwFFRkrqamL/FbDcdl1/9rBF2uT03VdvGGP40k=
+X-Endpoint-Received: by B4 Relay for matt@boondocker.io/rk3399-rfc-20261113
+ with auth_id=1517
+X-Original-From: Matt Thompson <matt@boondocker.io>
+Reply-To: matt@boondocker.io
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2160; i=broonie@kernel.org;
- h=from:subject:message-id; bh=Me9l+RLPg/bosA9FhUgKDZ9QSUrdM0aawNht8FMS9I4=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLK+r3rfUD5D64OkT3ut1F3Pz307/66Nyl0pO2dGUduKv
- MObtK2OdJSyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAiSkoM/8sc1JMDjoSe9+tg
- WL1+JlPeS5ngTcz2z2+7qO00mFfJJ8PwT81ntu+ddRtNN8hXmmm+e37oV/jxUzYzeJULKuedT7V
- /wAgA
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Tue, 10 Nov 2026 23:34:50 +0800, shao.mingyin@zte.com.cn wrote:
-> spi: fix division by zero with a zero transfer speed
-> 
-> Five SPI controller drivers compute a clock divider from the transfer
-> speed without checking that it is non-zero.  A SPI device whose
-> max_speed_hz is zero (a DT node without spi-max-frequency, or a device
-> created through the spidev sysfs new_device interface without a speed)
-> therefore reaches the division with speed_hz == 0.  The SPI core clamps
-> such a device to the controller limit only when host->max_speed_hz is
-> set, and none of these five drivers sets it.
-> 
-> [...]
+From: Matt Thompson <matt@boondocker.io>
 
-Applied to
+On a RockPro64, a PCI bus rescan with the downstream FPGA unavailable
+faulted in rockchip_pcie_rd_conf() during a vendor ID read. The rescan
+task exited with interrupts disabled and the watchdog reported a lockup.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.5
+Check the controller's link-up and link-training status before issuing
+downstream config requests. Return PCIBIOS_DEVICE_NOT_FOUND while the
+link is unavailable. Root port config access still uses the local
+controller registers.
 
-Thanks!
+This check cannot prevent the link from dropping during the transaction.
 
-[1/5] spi: sifive: clamp the clock divider to the register range
-      https://git.kernel.org/broonie/spi/c/49071cdbecd3
-[2/5] spi: bcm63xx-hsspi: fix division by zero for devices without a max speed
-      https://git.kernel.org/broonie/spi/c/82ff536b6049
-[3/5] spi: bcmbca-hsspi: fix division by zero for devices without a max speed
-      https://git.kernel.org/broonie/spi/c/167fe08d3ba5
-[4/5] spi: apple: fix division by zero in clock divisor calculation
-      https://git.kernel.org/broonie/spi/c/ee22df21fdf4
-[5/5] spi: atmel: use the maximum divider for an unspecified speed
-      https://git.kernel.org/broonie/spi/c/51953948d6a8
+Signed-off-by: Matt Thompson <matt@boondocker.io>
+---
+ drivers/pci/controller/pcie-rockchip-host.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+diff --git a/drivers/pci/controller/pcie-rockchip-host.c b/drivers/pci/controller/pcie-rockchip-host.c
+index 5b071bd..35105c1 100644
+--- a/drivers/pci/controller/pcie-rockchip-host.c
++++ b/drivers/pci/controller/pcie-rockchip-host.c
+@@ -143,12 +143,23 @@ static int rockchip_pcie_wr_own_conf(struct rockchip_pcie *rockchip,
+ 	return PCIBIOS_SUCCESSFUL;
+ }
+ 
++static bool rockchip_pcie_downstream_ready(struct rockchip_pcie *rockchip)
++{
++	return PCIE_LINK_UP(rockchip_pcie_read(rockchip, PCIE_CLIENT_BASIC_STATUS1)) &&
++	       PCIE_LINK_TRAINING_DONE(rockchip_pcie_read(rockchip, PCIE_CORE_CTRL));
++}
++
+ static int rockchip_pcie_rd_other_conf(struct rockchip_pcie *rockchip,
+ 				       struct pci_bus *bus, u32 devfn,
+ 				       int where, int size, u32 *val)
+ {
+ 	void __iomem *addr;
+ 
++	if (!rockchip_pcie_downstream_ready(rockchip)) {
++		*val = ~0U;
++		return PCIBIOS_DEVICE_NOT_FOUND;
++	}
++
+ 	addr = rockchip->reg_base + PCIE_ECAM_OFFSET(bus->number, devfn, where);
+ 
+ 	if (!IS_ALIGNED((uintptr_t)addr, size)) {
+@@ -182,6 +193,9 @@ static int rockchip_pcie_wr_other_conf(struct rockchip_pcie *rockchip,
+ {
+ 	void __iomem *addr;
+ 
++	if (!rockchip_pcie_downstream_ready(rockchip))
++		return PCIBIOS_DEVICE_NOT_FOUND;
++
+ 	addr = rockchip->reg_base + PCIE_ECAM_OFFSET(bus->number, devfn, where);
+ 
+ 	if (!IS_ALIGNED((uintptr_t)addr, size))
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+-- 
+Git-155)
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
 
