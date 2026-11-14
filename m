@@ -1,79 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.56.87.11
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794643610;
-	b=QvFGewRdGTmYX0PRxWqRF7RwAwcGJalfLrPdkxEMUGFijIKYUfNM0qE5GPH6d8gKLkH3
-	 da/C6ZQLJ6z++n+P1wHGgXGoQBjXL7XKj7k27+//hXhqAVHeJErkrp6dO5uKhkjnbHd3u
-	 DrMr0UMlcsBaArhDxBzlN+dGpOb28Rp+6cUeLFihpVMGSJdlWVMTnuVRTESx5ietgmuGk
-	 5BhOy+mj8+DkIjCwmrQlMU+0SVI0BHlwik5MVEo00UTWPuFH2tcJwdk7yGTLRLEQ15Xbi
-	 eQiqIV0sZJr2+oAM4W5B/gbtBIipsQEIiXm5bKp5o0UU5LpM8iDS7hlIfDJIjiypToQ==
+	t=1794643622;
+	b=VFxkZmXIf14AHTUv64t9/n5Xe300hnX9YUpzfaL1/q4x72G/ZDbLPY/ATRntY6aI9rSk
+	 wXCQdtY9gcr48N6ZgHeWR31CpQ+5zatZau9F32gXivd1DVHQ30skYFwptfEHZY2rmrQP6
+	 NgMuu34FGvvpEDvJXPxGJwPqu+L6idh8kz1wfpryE7CrRrWGYTkTlG5GfXFJHpZAmCn6F
+	 A+fx5DYjrOh+Xe0XEiV6QSh5P+K0AFCfW0j8pCJQD/DUXKy64CobvkxYDT5YawjpEkwh8
+	 iAxTYuAsD/iGtHLKI3u5S8Gze/YQULj5E4DQZrUjgSkNHpPwDZcB8ANndJQLOtMK2hQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794643610;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=6I/Hy8TiGryxMFy0x6WdKMhWE53+wPdp4ZPwW1N6CFo=;
-	b=kT+uwkg7/uTT1U8BtTMV2GX8mRoX3copgO8ONwJ0mY1l4eCZFN++v27NA1T/EySSkvkE
-	 FeItNQHNgP4k1JnwZOr1NyrZu4F74F/RCgrGW9fQsC3Qjwbb1+EEocLp09KmbPmroOLQv
-	 GCNKvZWpN7zVgowfC2pibhBRnOAm+Y+BDJmj2Q8r3A6zoig7PTY76ltNz/H4ptBO+DBSP
-	 52FqRSWu3OLAH5FV/DE8PyE9g1MLomtrsy8soNwPsZ6IRNJQGK1wLRUEoKZhoi/Qk8Z9j
-	 S1sm+K79ho8gUhCBciTqVeWWyzeNyU8LRAuCJh5WuHNVe5Wruzj/ulVOMHFSGyRlkJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794643622;
+	h=DMARC-Filter:DKIM-Signature:Received:DKIM-Signature:Received:From:
+	 Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-Source:X-Source-Args:
+	 X-Source-Dir:X-SGantispam-id:X-AntiAbuse:AntiSpam-DLS:AntiSpam-DLSP:
+	 AntiSpam-DLSRS:AntiSpam-TS:CFBL-Address:CFBL-Feedback-ID;
+	bh=G9rjOIpavuacUjvRSi5ebUTTYc8g/LcuSa6J4g+OVSQ=;
+	b=aUBA5ycwuVL1Tn+SrIIGc+Nwxtqxh7ppmVi5KYjurMW7lZPgfoYYidRNRlqJRtf/uLpo
+	 y2nEaLRi78SAuBxgG7Eh0vaHLQrgh/MNZCiDsyELoQneO52Pm0cH5RCLa+oWzLq+8tK05
+	 lMS0FyDlgJkxvFwI4PVPENIDmUzsq5OsTy0YAdk3ClgFrxJuox7aVJIlgNHBvr6Sowsgw
+	 Vnlga2eGkoIrocBD8jObuzkXBAwYkn0gJXvfBlCv7JKEb98H6fY4IqJ+KAqbuURzpxSkx
+	 dtKWnoefgEXChlWrCeZf6v8qmUaiUewHks5lsP6Tjql5WldA4CwLwofodKE5R8Phl2w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hjAIg1n5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB62C606A323;
-	Sat, 14 Nov 2026 08:06:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hjAIg1n5
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794643610;
-	b=AOSSnHnZSoIeC9Ei0KxVthU+BmzrRiPn03VDVjmtrmGuf1G2HZiIJzITGlnJJwZQDDwZ
-	 mczSbrc45tQ3oIeDQt4e5QhJuQJBSoEJhLhc1P9EydS+CF2gG+8Ni93+N/sX9dNLlvy16
-	 ZzWiqHjELmm2CnEmiwDWFd76X5lISKzKeIyGRRj8U3/i3tUYDbU/0YmiQzP7OUcyzOfsG
-	 mVJIvRzLTjSWia+9ksl9L+GheEjdaeJhcKcqfYcnb7aHU5HksXCJwuxvw8qER8XR4qCOO
-	 fw7/89yhwuaw12iO6ygvtFMmFtgAA2SX+4jOhGvi8cNHzQB1Fxqe0v/sD7Rkb48+fXg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794643610;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=6I/Hy8TiGryxMFy0x6WdKMhWE53+wPdp4ZPwW1N6CFo=;
-	b=hlWGDN3UuZuo/aGliB0W4zRTkQX4/4imQmQdkPIKKIFi7z63O3Beet3ct5iXmHXex/Px
-	 iyO3zaLK3Mcij8CQVCMDySQJq2h0xHPtkdAk85HZhjEFzP6MYXA0b9IQhbzljEAtW2Tie
-	 vYt1k98hwbAX/bGPMMXZZ7ayXEyLdxzOaSthdWNUB8cfa1qD678Eix9zC/H6IkXlF2IoP
-	 l6/G2IZD8RF1Ebn/JQhrt+NqvvADXO+sfnR8I7nvYTYWU40mWgiYenfMETLZ1mOmSp4ZL
-	 08ZvEyTud1ufqZ/wgWF4TfEslQfD8yvf0oGkMASH23SDQskUc51KoCHvHOxuJ0S0qyw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	dmarc=pass header.from=valla.it;
+	spf=pass smtp.mailfrom=valla.it;
+	dkim=pass header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=H8RpWCjM;
+	dkim=pass header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=KIEBHBDI;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.56.87.11
+Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B4C321F000C4;
-	Sat, 14 Nov 2026 08:06:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794643610;
-	bh=6I/Hy8TiGryxMFy0x6WdKMhWE53+wPdp4ZPwW1N6CFo=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=hjAIg1n5HrkBRR94tERnZuPCGH26Eba3a20b4nPPHBQ3Dek+lbcVNAdTDC8UKncmu
-	 WtWxaaKiuXnEcMqfuyxJH08pD2G4XKOuZ5CTY48VLl7Az9zpsz91mAlDAjVutmE85L
-	 2zT8BzRIp/sDJ+UZwiA6AkyfrTKn3DKvozzEuuRf5boSqtWcar9DTG7bN+npTnvAmh
-	 a/RLkmnFuny3J152K+l2+T9bobvTVhQ/ODgMBIglQaeztlFCwY8VPfZTLkZBL/u5+w
-	 4rm2kaaqX/uqFaUZtxaF2Cwu2f7N1XQhyxaKX6rBI0D/1JdACr4fjtZFRSE2TkuR6l
-	 wGqCzMI73Np1g==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 11AC649CF2;
-	Sat, 14 Nov 2026 08:06:49 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Sat, 14 Nov 2026 08:06:49 +0000
-Subject: [PATCH v2] PM / devfreq: Do not change the frequency of a
- suspended device
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A0D9606A330;
+	Sat, 14 Nov 2026 08:07:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A0D9606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=H8RpWCjM;
+	dkim=pass (1024-bit key, unprotected) header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=KIEBHBDI
+ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-c9nw.prod.antispam.mailspamprotection.com; s=arckey; t=1794643621;
+	 b=f1LoWRNHR2neSvLlWBcl0XYIR/bG6DJKEu0801QMSGmPdxbroissHtAHXURxc/pf83G/fKE38y
+	  oRDFOGSDjMDDlEuZffw1MV/JA9dheQVQuuSwVQEzVmvIk8od7JXSmf8fKJJhLLwlHT9ik8Dk+i
+	  3AyvREkuqO7yGtONjr5TQKfnA8e1cGCsHO2NXSLaOwAXIrnwRmjpjnlMVqUv9H+ur77ckZv/hQ
+	  jbN4L2TWt+pJEIXHh6sVEETs5Hu/ulOkESO7z0ng4bbqAjMo3PX2sq6RHQ2Xrap0Vd7lnpI2y1
+	  Fc+pQIGKWgnumdOsNnd0X1j5eeZW+L/uSLe0dXbyUKv3hg==;
+ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-c9nw.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-c9nw.prod.antispam.mailspamprotection.com; s=arckey; t=1794643621;
+	bh=1r7NtqsQwjSmDx1MJoZvy2Jbm0EyoUJQFPLgsR5MIWM=;
+	h=Cc:To:In-Reply-To:References:Message-ID:Content-Transfer-Encoding:
+	  Content-Type:MIME-Version:Subject:Date:From:DKIM-Signature:DKIM-Signature;
+	b=gb62InmhfsxcE2OiM4n65zWr9Tur9jLqW22ax+K0E/aOu7kwP4JoxhoMLJ67FOIFrzaEsfdMQ+
+	  TLXckieXOCoMXPHysPjH0kt/fXOlFW0ntrzVQ2tEthS+R39eMhhb74fxcfWCrJzYozhfwR7OML
+	  XTevCurz4sNGXUFcHtKDkUxvcIhKOZFp8HrL69HLEKkFPgp3A5X1AxCzgGOca2A+uyfqTg05xa
+	  kd/31dcxE48KcWaYO7RJUpQwHbk0ICn1kYv+nMdxf749VK9psYAxkfZ7WojTY93YOdaAfDorgu
+	  hho/Dab9WdgmEjXiiZRTtbfy4TNsMZuGUpeQRcOW8l0x3A==;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
+	:Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject
+	:Date:From:Reply-To:List-Unsubscribe;
+	bh=G9rjOIpavuacUjvRSi5ebUTTYc8g/LcuSa6J4g+OVSQ=; b=H8RpWCjM6r35lAKOWopdqUrMPK
+	k1bF9skxQVCh3TK9+nZ2CfIi9+7ebqESoJ+Zh+pqDtJBo5P7CV1ndUiawOzwBRuRsWQR/e7cH9WXY
+	4NIHCAfB7BdwRfE0uNVuyldzCH5yVWefKSH6+Zwz2Q/lDcjO9uM0hrITI9FPlUL9wSBg=;
+Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
+	by instance-europe-west4-c9nw.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <francesco@valla.it>)
+	id 1xS8mp-00000009qTs-0rl3;
+	Sat, 14 Nov 2026 08:06:59 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
+	s=default; h=Cc:To:Subject:Date:From:list-help:list-unsubscribe:
+	list-subscribe:list-post:list-owner:list-archive;
+	bh=G9rjOIpavuacUjvRSi5ebUTTYc8g/LcuSa6J4g+OVSQ=; b=KIEBHBDIlU5zAUmYeDWFPnh4Ah
+	D7aqQ4AkYRW1ZCjM7gPtct4//IOjwRmQMVRSRCfTc0AGIdjM4H3oY0uzTUd6ZDH/BxpIBIc14H+JR
+	1OApBDdvQuXmpV2ZgqFHMs2qYR7zEd+/OYUzLIQAbojIKEfp/1afEdf6/ifiS9CjQ094=;
+Received: from [95.75.15.255] (port=5068 helo=[10.167.111.42])
+	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <francesco@valla.it>)
+	id 1xS8mk-000000006Ml-3Ipq;
+	Sat, 14 Nov 2026 08:06:54 +0000
+From: Francesco Valla <francesco@valla.it>
+Date: Sat, 14 Nov 2026 09:06:35 +0100
+Subject: [PATCH v2 3/4] remoteproc: virtio: Drop rvdevs list and associated
+ functions
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,321 +98,243 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261114-devfreq-suspend-sync-v2-1-10f0c3e14245@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32Py27DIBBFf8ViXSpeJuBV/6PKYsBDQlXbCdhWo
- 8j/XrCrdtfdXGnmnLlPkjFFzKRrniThGnOcxhLES0P8FcYL0tiXTAQTmnMuaI9rSHineck3HHu
- aH6OnJw8m+Ja3LQNSTm8JQ/zase/nI+fFfaCfK+tno1CW4puPtT9dsR8y9iur5wPSfUYlENDpY
- ILpVl5hDjJSPw1DnLvGWWvBKxTKMGdPICXXrbKCO3AcjBcOpRPBkvrYNeZ5So+9fmHVP/5vunL
- KKQStNJMYlMS3ywDx87XYyXnbtm+YzRYhUQEAAA==
-X-Change-ID: 20261112-devfreq-suspend-sync-7ca8fc51550a
-To: MyungJoo Ham <myungjoo.ham@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Chanwoo Choi <cw00.choi@samsung.com>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794643608; l=11733;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=EI0y+BLKPjFBcDmDzlalQtLpyEYoapfaSTFvZTtOijc=;
- b=L9zhbsmchZoQhWkJundFa8kMK4Nzl3fxYpvXIh1errmPjcA2/itK/yJcSmIQfyz/T9Vva/5YH
- q7CFAmTs1Z9BC1dlpq1XzbsPZuNwGWONC7yhkIqMn2m3g4s7y/ggtXX
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261114-remoteproc_pdev_decouple-v2-3-95235dd056aa@valla.it>
+References: <20261114-remoteproc_pdev_decouple-v2-0-95235dd056aa@valla.it>
+In-Reply-To: <20261114-remoteproc_pdev_decouple-v2-0-95235dd056aa@valla.it>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, 
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, 
+ Joakim Zhang <joakim.zhang@cixtech.com>
+Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Francesco Valla <francesco@valla.it>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7229; i=francesco@valla.it;
+ h=from:subject:message-id; bh=1r7NtqsQwjSmDx1MJoZvy2Jbm0EyoUJQFPLgsR5MIWM=;
+ b=owGbwMvMwCX2aH1OUIzHTgbG02pJDFk/xOZcSr0dbcT65tnrE2e+fdNIW3DJPWFqqW/AYwflc
+ DbukAsSHaUsDGJcDLJiiiwh627c2zPX/FvaBsZHMHNYmUCGMHBxCsBEmo0YGa7bhy2YOPfUuhqR
+ e3urhRffft4981vU/8Cj/T7ZL+pDRLIY/srIv7oZky10RzGlKNp19fv6LtHAPXLtvamicpNmT7U
+ I4wMA
+X-Developer-Key: i=francesco@valla.it; a=openpgp;
+ fpr=CC70CBC9AA13257C6CCED8669601767CA07CA0EA
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - esm19.siteground.biz
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - valla.it
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-SGantispam-id: e108def4d8a05b3431dc72ced77d373f
+X-AntiAbuse: ID - e108def4d8a05b3431dc72ced77d373f
+AntiSpam-DLS: false
+AntiSpam-DLSP: 
+AntiSpam-DLSRS: 
+AntiSpam-TS: 1.0
+CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
+CFBL-Feedback-ID: 1xS8mp-00000009qTs-0rl3-feedback@antispam.mailspamprotection.com
+Authentication-Results: outgoing.instance-europe-west4-c9nw.prod.antispam.mailspamprotection.com;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+The rvdevs linked list is kept at rproc side to track the rproc_vdev
+devices registered at runtime and de-register them during cleanup, but
+the same information can be obtained from the driver core using
+parent-child relationships coupled with driver name.
 
-Once a driver has called devfreq_suspend_device(), its device may be
-clock gated or powered down, but devfreq can still call ->target() for
-it: a PM QoS or sysfs min_freq/max_freq change, a devfreq cooling state
-change, the userspace governor's set_freq, an OPP notifier or a change
-of the passive governor's parent all end up in devfreq_update_target()
-whatever the device state. DEVFREQ_GOV_SUSPEND only stops the load
-monitoring of the governors that poll.
+Drop the list and all associated functions and de-register the virtio
+children of a remoteproc using device_for_each_child(), with the
+following benefits:
 
-This is fatal where the clock is managed by firmware that has to access
-the device's power domain to change the rate. On RK3588 with the GPU
-core clock moved to SCMI_CLK_GPU (not in mainline yet), TF-A programs
-the GPU GRF to set the rate, and with the GPU power domain off that
-ends in an asynchronous SError.
+ - increased separation between the core and virtio parts of remoteproc;
+ - reduction in code and occupied memory;
+ - the platform devices whose probe fail are now de-registered correctly
+   during remoteproc cleanup.
 
-Drivers cannot filter these calls reliably in ->target(): the suspend
-count changes without devfreq->lock, and devfreq_suspend_device() and
-devfreq_resume_device() only take the lock around the suspend and resume
-frequency changes, so an update can run between a driver's check and its
-clocks going off, or be overwritten by the resume frequency. Returning 0
-from ->target() without changing the rate makes devfreq record a
-frequency the device does not run at, and returning an error loses the
-request.
+A dedicated macro is used to register rproc-virtio platform devices to
+avoid duplication (in code, not in memory) of the same string.
 
-Change the suspend count under devfreq->lock. While it is positive,
-devfreq_update_target() neither evaluates the governor nor calls
-->target(), it only records that an update was asked for.
-devfreq_resume_device() restores the resume frequency, or the current one
-if an update is pending, within the current limits, then runs that update,
-so requests made while the device is suspended take effect on resume.
-Polling governors are left to their next poll, as the driver has just
-reset their load data.
-
-The passive governor's parent updates are not deferred: exynos-bus
-devices must follow their parent to its suspend frequency, also at
-shutdown (exynos_bus_shutdown()).
-
-If devfreq_suspend_device() fails, it resumes the device again, as some
-callers abort their suspend without resuming, and a later
-devfreq_resume_device() does nothing. A caller that ignores the error
-and powers the device down anyway does so with devfreq resumed. If the
-deferred update fails on resume, the error is logged and
-DEVFREQ_GOV_RESUME is still sent.
-
-Suggested-by: Boris Brezillon <boris.brezillon@collabora.com>
-Link: https://lore.kernel.org/r/20261110140232.061d6844@fedora1.home
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+Signed-off-by: Francesco Valla <francesco@valla.it>
 ---
-This comes from the review of a panthor patch [1] that kept devfreq from
-changing the RK3588 GPU clock rate while the GPU is suspended by
-filtering the calls in its ->target(). Boris Brezillon pointed out that
-a driver cannot do that without races, and that the devfreq core should
-not call ->target() between devfreq_suspend_device() and
-devfreq_resume_device(). This patch does that in
-devfreq_update_target(), which every governor and every core path (PM
-QoS, sysfs, OPP notifier) goes through, so no governor needs a change.
+ drivers/remoteproc/remoteproc_core.c     | 34 ++++++++++++++++----------------
+ drivers/remoteproc/remoteproc_internal.h |  4 ++--
+ drivers/remoteproc/remoteproc_virtio.c   |  5 +----
+ include/linux/remoteproc.h               |  6 +-----
+ 4 files changed, 21 insertions(+), 28 deletions(-)
 
-It applies on top of "PM / devfreq: Resume at the frequency from before
-suspend" [2], which changes the same lines of devfreq_suspend_device().
-The panthor side, "drm/panthor: Suspend devfreq until the GPU is first
-resumed" [3], suspends devfreq from probe until the GPU is first
-resumed; without it updates are not deferred during that time.
-
-ufshcd already skips rate changes in its ->target() while its clock
-scaling is suspended; with this patch devfreq stops calling it in that
-state. No other driver was tested.
-
-Tested on an Orange Pi 5 (RK3588S) running a v7.3-based kernel with [2]
-and the panthor patch, GPU core clock on the firmware-managed
-SCMI_CLK_GPU with a 200 MHz opp-suspend (the configuration of Jonas
-Karlman's RFC, not in mainline): min_freq, max_freq, the userspace
-governor's set_freq and the cooling state written while the GPU was
-runtime suspended no longer end in an SError and take effect when it
-resumes; the userspace governor without a set_freq resumes within the
-new limits. After each of two s2idle cycles the GPU was still suspended
-at 200 MHz; a trace after the first showed no devfreq polling. A
-minimum frequency removed while suspended (a pending update) is left to
-simple_ondemand after resume: the first ten samples were all above
-1 GHz under load. 200 GPU jobs ran with no warnings.
-Not tested: the resume of a passive governor device (the board has
-none) and a suspend frequency that cannot be set.
-
-Developed with Claude (Anthropic), which wrote the code and the commit
-messages. I reviewed every change.
-
-[1] https://lore.kernel.org/r/20261110-panthor-suspend-clk-v1-1-53457050e51e@gmail.com
-[2] https://lore.kernel.org/r/20261110-devfreq-resume-freq-v1-1-90de450ccbd0@gmail.com
-[3] https://lore.kernel.org/r/20261112-panthor-suspend-clk-v2-1-62e1b168052d@gmail.com
----
-Changes in v2:
-- Keep only the suspend count, now a plain int changed under
-  devfreq->lock, instead of a separate suspended flag that could
-  disagree with it when suspend and resume race (Sashiko)
-- Resume at the resume frequency clamped to the current limits, then
-  run the deferred update: the userspace governor without set_freq
-  stayed at the suspend frequency (Sashiko)
-- Don't defer the passive governor's parent updates: exynos-bus
-  children must follow their parent to its suspend frequency, also at
-  shutdown (Sashiko)
-- Drop pending_freq: the deferred update runs like any update_devfreq()
-  call. If it fails, resume logs the error and still sends
-  DEVFREQ_GOV_RESUME (Sashiko)
-- Undo a failed devfreq_suspend_device(), as rk3399_dmc and lima abort
-  without resuming; an unbalanced devfreq_resume_device() is a no-op
-  (Sashiko)
-- Leave polling governors to their next poll after resume; the driver
-  has just reset their load data (Sashiko)
-- Link to v1: https://patch.msgid.link/20261112-devfreq-suspend-sync-v1-1-af64603ef43e@gmail.com
----
- drivers/devfreq/devfreq.c | 74 ++++++++++++++++++++++++++++++++++++-----------
- include/linux/devfreq.h   |  8 +++--
- 2 files changed, 63 insertions(+), 19 deletions(-)
-
-diff --git a/drivers/devfreq/devfreq.c b/drivers/devfreq/devfreq.c
-index 2cc4492f53c8..64fc88cdf6a2 100644
---- a/drivers/devfreq/devfreq.c
-+++ b/drivers/devfreq/devfreq.c
-@@ -407,6 +407,16 @@ int devfreq_update_target(struct devfreq *devfreq, unsigned long freq)
- 	if (!devfreq->governor)
- 		return -EINVAL;
- 
-+	/*
-+	 * The device may be powered down while it is suspended. Leave it
-+	 * alone, devfreq_resume_device() does the update. A passive device
-+	 * (freq set) still follows its parent, as exynos-bus needs.
-+	 */
-+	if (devfreq->suspend_count > 0 && !freq) {
-+		devfreq->update_pending = true;
-+		return 0;
-+	}
-+
- 	/* Reevaluate the proper frequency */
- 	err = devfreq->governor->get_target_freq(devfreq, &freq);
- 	if (err)
-@@ -871,7 +881,7 @@ struct devfreq *devfreq_add_device(struct device *dev,
- 	if (IS_ERR(devfreq->opp_table))
- 		devfreq->opp_table = NULL;
- 
--	atomic_set(&devfreq->suspend_count, 0);
-+	devfreq->suspend_count = 0;
- 
- 	dev_set_name(&devfreq->dev, "%s", dev_name(dev));
- 	err = device_register(&devfreq->dev);
-@@ -1145,19 +1155,22 @@ EXPORT_SYMBOL(devm_devfreq_remove_device);
- int devfreq_suspend_device(struct devfreq *devfreq)
- {
- 	unsigned long resume_freq;
--	int ret;
-+	int ret, count;
- 
- 	if (!devfreq)
- 		return -EINVAL;
- 
--	if (atomic_inc_return(&devfreq->suspend_count) > 1)
-+	mutex_lock(&devfreq->lock);
-+	count = ++devfreq->suspend_count;
-+	mutex_unlock(&devfreq->lock);
-+	if (count > 1)
- 		return 0;
- 
- 	if (devfreq->governor) {
- 		ret = devfreq->governor->event_handler(devfreq,
- 					DEVFREQ_GOV_SUSPEND, NULL);
- 		if (ret)
--			return ret;
-+			goto err;
+diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+index d5fa9d23bd5c..296b955f415f 100644
+--- a/drivers/remoteproc/remoteproc_core.c
++++ b/drivers/remoteproc/remoteproc_core.c
+@@ -431,17 +431,6 @@ void rproc_free_vring(struct rproc_vring *rvring)
  	}
+ }
  
- 	if (devfreq->suspend_freq) {
-@@ -1173,10 +1186,15 @@ int devfreq_suspend_device(struct devfreq *devfreq)
- 		devfreq->resume_freq = resume_freq;
- 		mutex_unlock(&devfreq->lock);
- 		if (ret)
--			return ret;
-+			goto err;
- 	}
- 
+-void rproc_add_rvdev(struct rproc *rproc, struct rproc_vdev *rvdev)
+-{
+-	if (rvdev && rproc)
+-		list_add_tail(&rvdev->node, &rproc->rvdevs);
+-}
+-
+-void rproc_remove_rvdev(struct rproc_vdev *rvdev)
+-{
+-	if (rvdev)
+-		list_del(&rvdev->node);
+-}
+ /**
+  * rproc_handle_vdev() - handle a vdev fw resource
+  * @rproc: the remote processor
+@@ -513,7 +502,8 @@ static int rproc_handle_vdev(struct rproc *rproc, void *ptr,
+ 	 * as device id, then we get duplication in sysfs, so need to use
+ 	 * PLATFORM_DEVID_AUTO to auto select device id.
+ 	 */
+-	pdev = platform_device_register_data(dev, "rproc-virtio", PLATFORM_DEVID_AUTO, &rvdev_data,
++	pdev = platform_device_register_data(dev, RPROC_VIRTIO_DRV_NAME,
++					     PLATFORM_DEVID_AUTO, &rvdev_data,
+ 					     sizeof(rvdev_data));
+ 	if (IS_ERR(pdev)) {
+ 		dev_err(dev, "failed to create rproc-virtio device\n");
+@@ -1212,6 +1202,19 @@ static int rproc_alloc_registered_carveouts(struct rproc *rproc)
  	return 0;
+ }
+ 
++static int rproc_unregister_vdev_pdev(struct device *dev, void *data)
++{
++	struct platform_device *pdev;
 +
-+err:
-+	/* Callers may abort their suspend without resuming: undo it */
-+	devfreq_resume_device(devfreq);
-+	return ret;
- }
- EXPORT_SYMBOL(devfreq_suspend_device);
++	if (!dev_is_platform(dev))
++		return 0;
++
++	pdev = to_platform_device(dev);
++	if (!strcmp(pdev->name, RPROC_VIRTIO_DRV_NAME))
++		platform_device_unregister(pdev);
++
++	return 0;
++}
  
-@@ -1190,30 +1208,52 @@ EXPORT_SYMBOL(devfreq_suspend_device);
-  */
- int devfreq_resume_device(struct devfreq *devfreq)
+ /**
+  * rproc_resource_cleanup() - clean up and free all acquired resources
+@@ -1224,7 +1227,6 @@ void rproc_resource_cleanup(struct rproc *rproc)
  {
--	int ret;
-+	unsigned long min_freq, max_freq, freq;
-+	int ret = 0, err;
-+	u32 flags;
+ 	struct rproc_mem_entry *entry, *tmp;
+ 	struct rproc_debug_trace *trace, *ttmp;
+-	struct rproc_vdev *rvdev, *rvtmp;
+ 	struct device *dev = &rproc->dev;
  
- 	if (!devfreq)
- 		return -EINVAL;
- 
--	if (atomic_dec_return(&devfreq->suspend_count) >= 1)
-+	mutex_lock(&devfreq->lock);
-+	/* Count 0: a failed devfreq_suspend_device() already resumed */
-+	if (!devfreq->suspend_count || --devfreq->suspend_count > 0) {
-+		mutex_unlock(&devfreq->lock);
- 		return 0;
-+	}
- 
--	if (devfreq->resume_freq) {
--		mutex_lock(&devfreq->lock);
--		ret = devfreq_set_target(devfreq, devfreq->resume_freq, 0);
--		mutex_unlock(&devfreq->lock);
--		if (ret)
--			return ret;
-+	freq = devfreq->resume_freq;
-+	if (!freq && devfreq->update_pending)
-+		freq = devfreq->previous_freq;
-+	if (freq) {
-+		/* Limits may have changed while suspended */
-+		devfreq_get_freq_range(devfreq, &min_freq, &max_freq);
-+		freq = clamp(freq, min_freq, max_freq);
-+		flags = freq == max_freq ? DEVFREQ_FLAG_LEAST_UPPER_BOUND : 0;
-+		ret = devfreq_set_target(devfreq, freq, flags);
-+	}
-+	/*
-+	 * Run the update deferred while suspended. Polling governors
-+	 * re-evaluate after DEVFREQ_GOV_RESUME, on fresh load data.
-+	 */
-+	if (!ret && devfreq->update_pending && devfreq->governor &&
-+	    !IS_SUPPORTED_ATTR(devfreq->governor->attrs, POLLING_INTERVAL)) {
-+		err = devfreq_update_target(devfreq, 0);
-+		if (err)
-+			dev_err(&devfreq->dev,
-+				"failed to update frequency on resume (%d)\n", err);
- 	}
-+	devfreq->update_pending = false;
-+	mutex_unlock(&devfreq->lock);
- 
- 	if (devfreq->governor) {
--		ret = devfreq->governor->event_handler(devfreq,
-+		err = devfreq->governor->event_handler(devfreq,
- 					DEVFREQ_GOV_RESUME, NULL);
--		if (ret)
--			return ret;
-+		if (!ret)
-+			ret = err;
+ 	/* clean up debugfs trace entries */
+@@ -1258,9 +1260,8 @@ void rproc_resource_cleanup(struct rproc *rproc)
+ 		kfree(entry);
  	}
  
--	return 0;
-+	return ret;
+-	/* clean up remote vdev entries */
+-	list_for_each_entry_safe(rvdev, rvtmp, &rproc->rvdevs, node)
+-		platform_device_unregister(rvdev->pdev);
++	/* unregister platform devices */
++	device_for_each_child(&rproc->dev, NULL, rproc_unregister_vdev_pdev);
+ 
+ 	rproc_coredump_cleanup(rproc);
  }
- EXPORT_SYMBOL(devfreq_resume_device);
+@@ -2521,7 +2522,6 @@ struct rproc *rproc_alloc(struct device *dev, const char *name,
+ 	INIT_LIST_HEAD(&rproc->carveouts);
+ 	INIT_LIST_HEAD(&rproc->mappings);
+ 	INIT_LIST_HEAD(&rproc->traces);
+-	INIT_LIST_HEAD(&rproc->rvdevs);
+ 	INIT_LIST_HEAD(&rproc->subdevs);
+ 	INIT_LIST_HEAD(&rproc->dump_segments);
  
-diff --git a/include/linux/devfreq.h b/include/linux/devfreq.h
-index dc1075dc3446..a1bd70449e1e 100644
---- a/include/linux/devfreq.h
-+++ b/include/linux/devfreq.h
-@@ -166,7 +166,10 @@ struct devfreq_stats {
-  * @stop_polling:	 devfreq polling status of a device.
-  * @suspend_freq:	 frequency of a device set during suspend phase.
-  * @resume_freq:	 frequency of a device set in resume phase.
-- * @suspend_count:	 suspend requests counter for a device.
-+ * @suspend_count:	 suspend requests counter for a device, protected by
-+ *		 @lock. While it is positive, frequency updates are deferred
-+ *		 until resume, except the passive governor's parent updates.
-+ * @update_pending:	 a frequency update was deferred while suspended.
-  * @stats:	Statistics of devfreq device behavior
-  * @transition_notifier_list: list head of DEVFREQ_TRANSITION_NOTIFIER notifier
-  * @cdev:	Cooling device pointer if the devfreq has cooling property
-@@ -209,7 +212,8 @@ struct devfreq {
+diff --git a/drivers/remoteproc/remoteproc_internal.h b/drivers/remoteproc/remoteproc_internal.h
+index 3a742ef6ef60..d587a3301811 100644
+--- a/drivers/remoteproc/remoteproc_internal.h
++++ b/drivers/remoteproc/remoteproc_internal.h
+@@ -18,6 +18,8 @@
+ #include <linux/io.h>
+ #endif
  
- 	unsigned long suspend_freq;
- 	unsigned long resume_freq;
--	atomic_t suspend_count;
-+	int suspend_count;
-+	bool update_pending;
++#define RPROC_VIRTIO_DRV_NAME	"rproc-virtio"
++
+ struct rproc;
  
- 	/* information for device frequency transitions */
- 	struct devfreq_stats stats;
+ struct rproc_debug_trace {
+@@ -122,8 +124,6 @@ struct resource_table *rproc_elf_find_loaded_rsc_table(struct rproc *rproc,
+ 						       const struct firmware *fw);
+ struct rproc_mem_entry *
+ rproc_find_carveout_by_name(struct rproc *rproc, const char *name, ...);
+-void rproc_add_rvdev(struct rproc *rproc, struct rproc_vdev *rvdev);
+-void rproc_remove_rvdev(struct rproc_vdev *rvdev);
+ 
+ #ifdef CONFIG_HAS_IOMEM
+ static inline int rproc_mem_entry_ioremap_wc(struct rproc *rproc,
+diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
+index 6cfdab831185..403519e78ee3 100644
+--- a/drivers/remoteproc/remoteproc_virtio.c
++++ b/drivers/remoteproc/remoteproc_virtio.c
+@@ -549,8 +549,6 @@ static int rproc_virtio_probe(struct platform_device *pdev)
+ 			goto unwind_vring_allocations;
+ 	}
+ 
+-	rproc_add_rvdev(rproc, rvdev);
+-
+ 	rvdev->subdev.start = rproc_vdev_do_start;
+ 	rvdev->subdev.stop = rproc_vdev_do_stop;
+ 
+@@ -588,7 +586,6 @@ static void rproc_virtio_remove(struct platform_device *pdev)
+ 	}
+ 
+ 	rproc_remove_subdev(rproc, &rvdev->subdev);
+-	rproc_remove_rvdev(rvdev);
+ 
+ 	put_device(&rproc->dev);
+ }
+@@ -598,7 +595,7 @@ static struct platform_driver rproc_virtio_driver = {
+ 	.probe		= rproc_virtio_probe,
+ 	.remove		= rproc_virtio_remove,
+ 	.driver		= {
+-		.name	= "rproc-virtio",
++		.name	= RPROC_VIRTIO_DRV_NAME,
+ 	},
+ };
+ builtin_platform_driver(rproc_virtio_driver);
+diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
+index 00019b1895e6..77ea0e1067e0 100644
+--- a/include/linux/remoteproc.h
++++ b/include/linux/remoteproc.h
+@@ -228,8 +228,7 @@ enum rproc_features {
+  * @carveouts: list of physically contiguous memory allocations
+  * @mappings: list of iommu mappings we initiated, needed on shutdown
+  * @bootaddr: address of first instruction to boot rproc with (optional)
+- * @rvdevs: list of remote virtio devices
+- * @vq_srcu: SRCU domain for the virtqueue callbacks of @rvdevs
++ * @vq_srcu: SRCU domain for the virtqueue callbacks of the virtio devices
+  * @subdevs: list of subdevices, to following the running state
+  * @notifyids: idr for dynamically assigning rproc-wide unique notify ids
+  * @index: index of this rproc device
+@@ -275,7 +274,6 @@ struct rproc {
+ 	struct list_head carveouts;
+ 	struct list_head mappings;
+ 	u64 bootaddr;
+-	struct list_head rvdevs;
+ 	struct srcu_struct vq_srcu;
+ 	struct list_head subdevs;
+ 	struct idr notifyids;
+@@ -351,7 +349,6 @@ struct rproc_vring {
+  * @subdev: handle for registering the vdev as a rproc subdevice
+  * @pdev: remoteproc virtio platform device
+  * @id: virtio device id (as in virtio_ids.h)
+- * @node: list node
+  * @rproc: the rproc handle
+  * @vring: the vrings for this vdev
+  * @rsc_offset: offset of the vdev's resource entry
+@@ -362,7 +359,6 @@ struct rproc_vdev {
+ 	struct platform_device *pdev;
+ 
+ 	unsigned int id;
+-	struct list_head node;
+ 	struct rproc *rproc;
+ 	struct rproc_vring vring[RVDEV_NUM_VRINGS];
+ 	u32 rsc_offset;
 
----
-base-commit: b999ac4e2480b97a331654921bab1a8c2be3b2f9
-change-id: 20261112-devfreq-suspend-sync-7ca8fc51550a
-prerequisite-change-id: 20261110-devfreq-resume-freq-e42eaeb6f8f8:v1
-prerequisite-patch-id: 36df3d7446ebdbd5093a58ba2aa8a83d2ecf9cf2
-
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
-
+-- 
+2.56.0
 
