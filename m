@@ -1,48 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.76.5.236
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794665266;
-	b=kEW8lOjtAkwvLuJAIAJo6H9k9VpOcsOYxx5Vbbf/sx0q+d5gkQ4NO+UKtPPNbwnvNvJd
-	 BP/2s7uFay1FKG2cZ6pdX1VuXu1mRYKRXA1vxZFmjdOuGKDC1SyiF+loxJfE+SfxLmehw
-	 BkuagwHnQAlwvRAGsvdHZVA9xM8ExsFuwTQxyL6Tx46G5Jlb07TRgb/YcS01kGKOrR4yt
-	 t4eO7jnFcwvm3G4WGnx5D96s7BRxyz/uIjEDSCB7VkKMwEKa5Bt7iw6tbUjwRvup4vrqA
-	 CauTDzYLo6JI94h029XL6MDU5L/otlrhla+9IvkuUcXTdCo000X0ZkjrPQMG5ITy+IA==
+	t=1794665346;
+	b=Dh/vSgf1POruhGwAbIzkEIyMb5kz+ZwOn4wA36l62ByyxUUGnXZYEIMNIWAQZ4wb7zyr
+	 fLoZ47uvWPkBxlk8C5ECNVcXVg9OuFLoypkVofhdLgAs2bS6dvzTTvI4Xlh//g9SCVuu2
+	 jg5hUA7t79XISl8g/J6WLlhfR4zx7MUK7fsFAKGwxSXhQ4s43e6ZSItF1t8/K9qPStDV7
+	 zbtcpsnx5d4XJAZJY0Q7/Bao2S2RqX8iwNat5ytpZUUECyKbJ5cF6oeSFmLKf1vByVibt
+	 I2HK/6z8xyAu+6g/FzM3ILGW60tX52A79jhCNBAWwg/YXJBfN98yacKR6izrXiUsSSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794665266;
-	h=DMARC-Filter:X-MD-Sfrom:X-MD-SrcIP:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 X-Originating-IP:X-ClientProxiedBy:DKIM-Signature;
-	bh=tP1acQlRWf6l7bmcZWZ2wj1d0QcgiPDNN8cVBdGDvOc=;
-	b=3umHLJJ/Sm1Qwd1e6rFFXRWFhySsy1fZj3Lb6+MsW9i6QABlxGJ/WIldYAEuVLPJANO0
-	 BbKn6RKNFvIMljnWPi0OxwA87Ii1jPBQyczTQasPCu9RL75h39S/tjwBFGx92yIuXk5zB
-	 RTP4ej4vwTNclvx+oqWshl1N2hfZC9Nv84QHyd+r6mkovrPPbKyZbGJL5p6t3drHqk8hU
-	 brazo1IyD8C+VV7mrd0cMg+PCzvEf6fVXGUXpEGMvrLxL743SIPyJdkowTxPMWt7SVrZ9
-	 0vgvDZ+oeQn1ZCOM6jQFosS+CV67kJkBccH+cEa8crnwJIfBGWh3M7dj1q6TnahzERQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794665346;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=pxxacMxVePFTDz82jsHDl0aYmUO9B1dpY0NS6vSmFbs=;
+	b=1TDytY6fPvQNZkPqdKf8zNjTI9Ffr+8BVtDYhgDm3M6RbbASHvLQ3g9N3sbrmOvSbT5t
+	 v8K2qACTNvh7fO3S7IMRU0xWTa7moZlEaNOZ7kDIyGGP95+zwv792DdLdkLGofC7tgAPH
+	 U7OKO804jIV7//8MyG4n40zfZ0qvMJKRf7BrkTt/1DxLZ2x6J/Jfg6moscEPkuxeXID/4
+	 yEQtEqWEfR3OSPGcGFBavWYqLv9LvwgvqOKEJi/GoxQ5gp32R6L4rujOJMtJNmJ7wnq+b
+	 4pJCsuGIHp59I0DOskzs6R0TNHmtICdeqwfjkomajoEIDbHc4pOkL2WKFrHAZE+wXSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baidu.com;
-	spf=pass smtp.mailfrom=baidu.com;
-	dkim=pass header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=mFdcQQ+M;
-	arc=none smtp.remote-ip=180.76.5.236
-Received: from outbound.baidu.com (outbound.baidu.com [180.76.5.236])
-	by smtp.subspace.kernel.org (Postfix) with SMTP id 18570606A32E;
-	Sat, 14 Nov 2026 14:07:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18570606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GNT2Nmfi;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 282A5606A327;
+	Sat, 14 Nov 2026 14:09:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=mFdcQQ+M
-X-MD-Sfrom: lirongqing@baidu.com
-X-MD-SrcIP: 172.31.50.47
-From: lirongqing <lirongqing@baidu.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>, Viresh Kumar
-	<viresh.kumar@linaro.org>, <linux-pm@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <zhongqiu.han@oss.qualcomm.com>, Li RongQing <lirongqing@baidu.com>
-Subject: [PATCH v6 1/2] cpufreq: acpi-cpufreq: fix P-state index mismatch in get_cur_freq_on_cpu()
-Date: Sat, 14 Nov 2026 22:07:23 +0800
-Message-ID: <20261114140724.2336-2-lirongqing@baidu.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20261114140724.2336-1-lirongqing@baidu.com>
-References: <20261114140724.2336-1-lirongqing@baidu.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GNT2Nmfi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1500E1F000C4;
+	Sat, 14 Nov 2026 14:09:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794665345;
+	bh=pxxacMxVePFTDz82jsHDl0aYmUO9B1dpY0NS6vSmFbs=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=GNT2Nmfi6jEnqJhxLaz4x1wAPeqHnv2My5LpcrnoJCbGBxGJjZ3Q/uiftkNGqA6x/
+	 VffIUjUGvLKKoWJgTsbeQuoY6dCmwVgJVPLeIxcVK0+PtAlmXakIT4hYUEzj8QP77j
+	 zV5oyd7vNWOXg+Hg0mfNd+5JBcFd6HRcY28zI50k42jZytOrJQNOiiYOaXXx3M267h
+	 pfqL1QtZrqs2S9CeZxQFnAhwjTralnWBXcRcZHWVaGIGk1LQ4nZsN4wmdeYAdHzvV8
+	 5mhJpyTjI0c3K67CIhNeSjMJmRTPLaTN864O5jKzaRfwKOOF0yAhlkWAbqz/f0eEz/
+	 ORdaMw52JjE9w==
+Subject:
+ Re: [PATCH net v2] net: usb: cdc_ncm: don't underflow the NDP room check
+From: netdev-bot+sashiko@kernel.org
+To: xujiahao@cmss.chinamobile.com
+Cc: oliver@neukum.org, netdev@vger.kernel.org, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ syzbot+1994e2ecf323ed90f255@syzkaller.appspotmail.com
+Date: Sat, 14 Nov 2026 14:09:04 +0000
+Message-ID: <179466534452.2199510.12286844115122956221@kernel.org>
+In-Reply-To: <20261110151624.696101-1-xujiahao@cmss.chinamobile.com>
+References: <20261110151624.696101-1-xujiahao@cmss.chinamobile.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,90 +64,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: bjkjy-exc3.internal.baidu.com (172.31.50.47) To
- bjkjy-exc3.internal.baidu.com (172.31.50.47)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
-	s=selector1; t=1794665256;
-	bh=tP1acQlRWf6l7bmcZWZ2wj1d0QcgiPDNN8cVBdGDvOc=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
-	b=mFdcQQ+MIVtmrvh4lsSeh4/mFcfqikDFmBjULU/RYVTrpfBMKNDd2dgmmzoRgtrDY
-	 yskRGeyWLJf3HbLryTyvPUPasS06tdr4XGj/Ord6Lxm/iFHGUdQYMVZs36+fRlFds9
-	 BCBsruoJ8BlZLoDE78nvt7QsRcD6yzWZiXBWGc7yNw4wcAtCGSrGq9WlSOcGtHA4v4
-	 efKSaL8k3uCCb04vuSCeC+RCQVjuSgif4ZpHgRiln1Ls5w8AG0OcJTrW/H4urRiSos
-	 VmBgSQJBWmJLqh4Bo3ZpFalAW4GhYIwqq6vqKXLuTmiDhPk+ujresueR9sjaXGhU1F
-	 9DBD0swHe86Ww==
 
-From: Li RongQing <lirongqing@baidu.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-get_cur_freq_on_cpu() uses perf->state, which is an index into
-perf->states[], to index policy->freq_table[]. However, freq_table[]
-is built by filtering _PSS entries that are not lower in frequency
-than the previous one, so its index space no longer matches
-perf->states[]. The original P-state index for each remaining
-freq_table entry is stored in driver_data.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-Once an entry has been skipped, using perf->state as an index into
-freq_table[] can therefore select the frequency of a different
-P-state.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-The reported current frequency itself remains correct because it is
-obtained from extract_freq(). The mismatch only affects the cached
-frequency used by get_cur_freq_on_cpu() to detect a firmware frequency
-change behind our back.
+- [Medium] The code change is correct, but the commit message explains
+  the bug wrongly, so maintainers and backporters get a false picture of…
 
-If the wrong table entry contains a frequency different from the one
-the CPU is actually running at, the check falsely detects a frequency
-change and sets data->resume. The next ->target() call then performs a
-redundant control-register write even if the requested P-state is
-already the current P-state.
+--
 
-Conversely, if the wrong table entry happens to contain the frequency
-to which firmware has changed the CPU, the frequency change is missed
-and data->resume remains clear. A subsequent ->target() call for the
-P-state that the cpufreq core believes to be current can then
-short-circuit without rewriting the control register, leaving the CPU
-at the firmware-selected frequency until a different P-state is
-requested.
+net: usb: cdc_ncm: don't underflow the NDP room check
 
-Fix this by taking the cached frequency directly from
-perf->states[perf->state].core_frequency. perf->state and
-perf->states[] use the same P-state index space, and converting
-core_frequency to kHz yields the same value stored in the corresponding
-freq_table entry during initialization.
+This patch rewrites the NDP room check in cdc_ncm_ndp16() and
+cdc_ncm_ndp32() as an addition instead of an unsigned subtraction. The
+old form could wrap when skb->len + reserve exceeded tx_curr_size, and
+then skb_put_zero() of max_ndp_size bytes could overrun the skb.
 
-Fixes: e56a727b023d ("[CPUFREQ] Make acpi-cpufreq more robust against BIOS freq changes behind our back.")
-Reported-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-Suggested-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-Signed-off-by: Li RongQing <lirongqing@baidu.com>
----
- drivers/cpufreq/acpi-cpufreq.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Closes: https://syzkaller.appspot.com/bug?extid=1994e2ecf323ed90f255
 
-diff --git a/drivers/cpufreq/acpi-cpufreq.c b/drivers/cpufreq/acpi-cpufreq.c
-index f64fa37..2d7d147 100644
---- a/drivers/cpufreq/acpi-cpufreq.c
-+++ b/drivers/cpufreq/acpi-cpufreq.c
-@@ -353,6 +353,7 @@ static u32 get_cur_val(const struct cpumask *mask, struct acpi_cpufreq_data *dat
- 
- static unsigned int get_cur_freq_on_cpu(unsigned int cpu)
- {
-+	struct acpi_processor_performance *perf;
- 	struct acpi_cpufreq_data *data;
- 	struct cpufreq_policy *policy;
- 	unsigned int freq;
-@@ -368,7 +369,9 @@ static unsigned int get_cur_freq_on_cpu(unsigned int cpu)
- 	if (unlikely(!data || !policy->freq_table))
- 		return 0;
- 
--	cached_freq = policy->freq_table[to_perf_data(data)->state].frequency;
-+	perf = to_perf_data(data);
-+	cached_freq = perf->states[perf->state].core_frequency * 1000;
-+
- 	freq = extract_freq(policy, get_cur_val(cpumask_of(cpu), data));
- 	if (freq != cached_freq) {
- 		/*
+> tx_max is only clamped to max_datagram_size + max_ndp_size + the NTH
+> header size, so tx_curr_size is just big enough for one datagram and
+> one NDP.
+
+[Severity: Medium]
+The code change looks correct. Is this description of the clamp accurate
+at bind time, though?
+
+cdc_ncm_setup() clamps tx_max before max_datagram_size is set:
+
+drivers/net/usb/cdc_ncm.c:cdc_ncm_setup() {
+    ...
+	/* clamp rx_max and tx_max and inform device */
+	cdc_ncm_update_rxtx_max(dev, def_rx, def_tx);
+    ...
+	/* set max datagram size */
+	cdc_ncm_set_dgram_size(dev, cdc_ncm_max_dgram_size(dev));
+    ...
+}
+
+ctx is zero-allocated. So when
+cdc_ncm_update_rxtx_max()->cdc_ncm_check_tx_max() computes:
+
+	min = ctx->max_datagram_size + ctx->max_ndp_size + sizeof(struct usb_cdc_ncm_nth16);
+
+max_datagram_size is still 0, and the lower bound is just max_ndp_size
+plus the NTH16 header.
+
+If a device advertises a small dwNtbOutMaxSize, can tx_max end up well
+below one datagram plus one NDP?
+
+> Here end is 0x140 = 320 = 140 + 172 + 8, i.e. the one-datagram minimum.
+
+Can max_datagram_size really be 140 here? cdc_ncm_set_dgram_size() clamps
+it to at least cdc_ncm_min_dgram_size(). That is CDC_NCM_MIN_DATAGRAM_SIZE
+(1514) or CDC_MBIM_MIN_DATAGRAM_SIZE (2048).
+
+Also, sizeof(struct usb_cdc_ncm_nth16) is 12 bytes, not 8.
+
+Could end = 0x140 instead come from alloc_skb() rounding a small
+tx_curr_size up to its allocation size, rather than from a tx_max minimum?
+
+> A second datagram in the same NTB is therefore exactly the
+> case this check has to reject
+
+Is this the right case? The room check only runs when there is no NDP
+with a matching dwSignature yet, because the chain walk in
+cdc_ncm_ndp16() returns early on a match:
+
+	/* follow the chain of NDPs, looking for a match */
+	while (ndpoffset) {
+		ndp16 = (struct usb_cdc_ncm_ndp16 *)(skb->data + ndpoffset);
+		if  (ndp16->dwSignature == sign)
+			return ndp16;
+		...
+	}
+
+cdc_ncm_tx_fixup() always passes the same NOCRC signature, so a second
+datagram with that signature never reaches the check.
+
+Wouldn't the triggering cases be the first datagram of an NTB, or a
+datagram with a different signature? One example is cdc_mbim_tx_fixup()
+with several MBIM sessions.
+
+Could the commit message be updated to describe how tx_curr_size ends up
+smaller than one datagram plus one NDP?
+
 -- 
-2.9.4
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261110151624.696101-1-xujiahao%40cmss.chinamobile.com
