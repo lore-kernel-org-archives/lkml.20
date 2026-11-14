@@ -1,90 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794675391;
-	b=GXzqhiHPlEA0XxSs+cqHMslH1p5Yf+YzdThXzVuj7f+n85kKbmrAo1P2sZZDWjUBqqbK
-	 LKTbqL3jgr16yRKLpPXq3K6GsTUcBCdzoJrbu2PXQYztTpEtojb/DIsfxz9Q6MuLVdDif
-	 GQ5Fx27CVoXGXvuyQtK0VWer1poPyTBLBundKrj4tQnYBXGj8a9y4W5CtCszeM4IqTSh3
-	 iuPVm/tMUvpgDRnxaRS0AQdIp6Tvgf+v+HHM0MZMSdRyzrX1ZPJdCB2ELMKLlpnwPU1dC
-	 R+Tt8/CqF+r/j98dZrVoMim70G41cFDvVMofnhtq39tax03Quily2b6zLOsupNdt0iQ==
+	t=1794675395;
+	b=g7g/3WZ2w5dzkClzbGpuD47q9M7Xzy/iUSobRBA2a0pyZGlPoapBfYPWTha6x3nLzece
+	 XY40nnYt3KEr9PIlgtC3+TFV2YjL7iIQRtia/pzy55tKlXxQf/0T89PC434mdyp6CAnmN
+	 3JDIzgehdSxzATkQvcJzbF8zwLQXOkUemxKgS0f+umpr1qpNQouHXvwb/ZANKTYbhgxaC
+	 rlEETacaKZ6AKJMsbBgofYQsrza9rrGLuei2vqxcnjoTvGqvKCglsc5zUrI+aq8SFb1Pb
+	 2XvXC0BXNtpUhDcGQGjKbBVoZUpazvMzVeVeBX1WtGB3H45Q0mGv/WZCweJJMD37fAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794675391;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794675395;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=BoGx1v4Z1NQVeBs7zsbtmYqWYVJeBsFO7IuMFNHDWKQ=;
-	b=WXYUczTXc8ArK9U8o8BzlWeC7SXHHWmOZZWEVjPWS2zOL+NzQY+/Awyy3nTB9xAjMZBF
-	 anmVsTD3p6t18/mtO4xlIeLCbUbncqCkHu/vcRtFaA5+9jECw/cjhG3Dsku4GRACzxAXk
-	 /xrRZzVPNx0oAmz2EW/zvvClI22tnT+sBI3t0TzsyxN1xw4X/ocFYrMTeMzdtVUM5ZIqI
-	 7sGlsYqPOTtARYsWfjUx1m2waR5u08ureszVv0sXtbhSd7ZbK9dISJQXd/qvjoBz+SZng
-	 d1HXCRroYt/vQV4M7mjsi6YPAQ3JJ8HPv6F6vx4r37P6ETRPLXWtIWNPZ7JRJoposuA==
+	bh=miuoSL/LBd8VdaEhsVpor+K2eCCoRMvUB9RQN3OlqTI=;
+	b=4vYDAzWhig9T1m1pXhzLNnTIJiXQizoDrxws0nVt4s6RqUrAXR5vd9XzOVTDn1ye4Geg
+	 KkaguM7DnCOQIvU1zsjRGdS27n5+c0XG6DSDRiiRwJFZP2taeM+ZSLDqA5zPiNZU+JPoO
+	 9fpbtFOUVRGRXB1xKFI4Za/Z1ml+PREGAjoNpl75IpCYfPlLdXp6CXUGXQDj4UZ9CPEAR
+	 inn+EEdkZqG3YlGzDDZLcoplqUZ6Xnx1IhZNK7mwNK5iScLwt4AAhDXmHXUt31GlYYerp
+	 DYTxcDkCevIMzrFSSvaxyahzItOqG6hwOmvOIGwZKQ36XjyR+Ku7aVM0TsqlCcoqKww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r6TCHDPF;
-	arc=none smtp.remote-ip=209.85.208.171
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zFN3yaFj;
+	arc=none smtp.remote-ip=209.85.167.53
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23524606A883
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:56:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23524606A883
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38BB3606A33D
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:56:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38BB3606A33D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r6TCHDPF
-Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3ae25c9f857so25692381fa.1
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:56:30 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zFN3yaFj
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5c1479a959aso1843719e87.2
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:56:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794675389; x=1795280189; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794675392; x=1795280192; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BoGx1v4Z1NQVeBs7zsbtmYqWYVJeBsFO7IuMFNHDWKQ=;
-        b=r6TCHDPFFRT7ZFt9TlJVcXKr1SGyjbeR8XFjmoMPh5kLwCjAARY2GC9LP/ozhIcsfY
-         kSpzFnJGGt4iSggcmbOub5donIRi0LusfwTlhkHdTF64yP8LdEgFleAHTdayV6TuD630
-         mMT8wKSqzfKWYvEzbe73HIyqt5KpVYv2LTecKf2YHpk/sPLsZGzDaOvY7eLQ3A9rytc6
-         wiWqJ0cZVetSjuLtDZQ5g4qpJlEZ2BWFBvj+aAa1eSR4Ibvjqs05SpDnuTlz5Tq2zdZ3
-         l22mlD5BJovrR1gRuuy5xRpG5rMiZ1p3o/VMxrwWqKGqgCP2Cto7zpWt+qliwWq47c07
-         q7IA==
+        bh=miuoSL/LBd8VdaEhsVpor+K2eCCoRMvUB9RQN3OlqTI=;
+        b=zFN3yaFjoYZk43JsQHrwvNZTX+RFND4fYF4eTxe0XhSlDwvLGk9cOO8JYD+y6WX9Xp
+         cHoznCbpu+xDgTLsrA1qkOS7dJwKqGjSXkOAxb0pImnKs1Tt4DM+yxxP+vcrbB/BJjmO
+         NQK3PFgjZJFhoBj7rMIuMqFIt8M8ZAmMVmFU1Mdn1aHOOISdgqWEz5CSxMjIddwAME5I
+         Mwbf6WZ58yiq1pf6vQ2S1j2m8dTLCRr1tOZ5aBsAQESzdVicEJsinA3o88GxNxzz9U+J
+         KSyQRwgor3iCH73G2aPM07kEsk5ntSK0qQEL8k8Yo7FkaKMJGlkLwjSBXSr63YXmC+F5
+         Zz2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794675389; x=1795280189;
+        d=1e100.net; s=20260707; t=1794675392; x=1795280192;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BoGx1v4Z1NQVeBs7zsbtmYqWYVJeBsFO7IuMFNHDWKQ=;
-        b=RtjCzQfdU9bxn6jmUu5KhDUVchqwDz8DrZhZydm9uVI9UYVOnafbHx9yGKSbkrzJGX
-         OmA/yVMscuqdj9myDZr52x46g42TMx+1IkgudWZkaSPPGxcrO2bGtGCVyeujUvrZGg2q
-         iageHssa6F5+4kxjHfow30mrbnODCh3WRnTkMeEis9OLpgPEe0x9I1zJrYpx3CIVBwCd
-         It4GOgFtEydtydAc6+LA6joCIxYIUBh19HZmHWkIfqMUGUQuVpJtE/q0xq60k0fo61xa
-         Y8qYkjpRVh0BYtxDBDMhLsBpzQc2ug9RFKcVQ26Ca6ASfbNUlhi8KyfYSrhPHB+8iX8c
-         R8/g==
-X-Gm-Message-State: APuU4Z8fbUw9x0SZhBBx72cGllBktKP9kAkUkW3H/n/gIwCZdt9VGrza
-	G6xERFU9k/YKr8oYMLYTuK7kf16D4Q5gCQAH2LhEVCrj2+ZAHblnNVIS
-X-Gm-Gg: AYBFou2Bw6ug35K5eSY0/m97+b504QFLe+twc0hie3fpQnbHIu5UBbi5+l8hhiTGl+l
-	Ep5TEzChlUtwERCv7VEVFvtfMJEYLZ62gH4Qk5yVcTwMqjcQv6FgbX19+EJSWQyEhKPQxk/XTGP
-	501dHtwks28KitNpriU007tH6ko5349S4NgbC2tN7BW17i/D6E0BxTYcUCwvaTcq8FPxySi9ZZ3
-	m0r0ZTUunz2PFmV1mpQsCNjYrcIy8dRd/IS3zY8Hxcl9cBHdVeUfr8H6DfcqOLJKZHfHZEyadFT
-	GUSEB+oVIuEcE2yrIpFU9PFaBt/bbq4udc7UTvqadz0WXLL1OVllJluccQdDSwbKhAnevVYbV6B
-	DczTxrNBEYiHLYefCy64hXObcINI4GS9e2y3J/Aa/rhpS4reumFzCM/rOe21k6KI8CLYiVml5ca
-	sDn8B/tCXGGTO2WpOObDRUsgVg+dE4oiMmKpXewI456sCijfmw5LyXb72W9UlVgqcaqlmvTYiAv
-	iVyDtGkd1xptEFhpxpj3bNNHluZtcuU8yb9qvsb1j3MQ+ufLcGhQLoCoflKc+Pcn4Qr5wX6U8eY
-	c3tISD8YoE9kRk7vFbkyrmK0rhqNY2tyDHzGOPyTfqc57k1ASpuFM3N0q14cHk40EBSEhHB1AfK
-	pyqiVkNZGbOsIoKSbmxQT6IR19HYncKY=
-X-Received: by 2002:a05:6512:3da9:b0:5c1:5b79:de99 with SMTP id 2adb3069b0e04-5c1707469b2mr2133629e87.9.1794675388881;
-        Sat, 14 Nov 2026 08:56:28 -0800 (PST)
+        bh=miuoSL/LBd8VdaEhsVpor+K2eCCoRMvUB9RQN3OlqTI=;
+        b=UeIbTQFBSZb0vam8nhQjIcbj5B+8XY+2ZCLLHYb46SIVg1Uc2K+sUxgWX2WRIrOfRm
+         sxrvicCSjMD8qLg/d6KNQMMKpf0oH68o/+8UZLGzkG28i/hnokcdsWznPqyyqAzEp+DT
+         GfGFH27lE98uu9Nn5sDlnBAWh/lEuzzCIk+bmS66b20kHRCUd41O8RD4D78CBxXtgROU
+         PHUeArpRNoiItbxRgkAokZMXjzgC0SJ9LdBaVn4akcQjU2Sd0FGD/7L2UDrLS3W1B0pW
+         +1oWFBrmoUyxr/J8um1iqrlNzcFC6TvKz1OIhxumU4Sk7hUYaAedUN0P07RSjXCjsgOp
+         0k0A==
+X-Gm-Message-State: APuU4Z/nWw9q1JwMKBUBR4AVOX43aVJxwwywbQ6Coj8k2OliBu7+lQJu
+	z2vee59YUUNcTVTKHtMmrgOG+y0QjhsG6LIWsw3g/MOY1W68QF27RI36ruu9WNAr3tLR+wYA
+X-Gm-Gg: AYBFou0x38H3gmGF2LfFBdn7LhXlmx6sYkEFAjxXGqLXiaiMcBQu+yVVFfGbYhVmLFj
+	JOFgD/pn1/BA/tOiE8CMZrHfVoIJF41EIFkvn+B95gERWr/OtSKwCeDyoa84N+kcjQzNbKZc7hS
+	W33X3cU4/54yHn1UWvr0b9xu1ezXVM7fxspKTduomJBXC774VI85HbwX8w89t97q9Sh918/65st
+	t2rFnm3iPZw0jIcKpVqc59z8XvDN2/Wed2KkDsL3GFVnFHawBfhGS25wdWvwXOsPVIs90R66mrg
+	pq//c6u+9RBqiCsPdUiboGxjq17kY9Fc8+sVu6r1/XLKdh1Z19Jl4QdnlZ6tYBkQkx8dXNgMPRk
+	jf7Cdu56medVqXv/VXoesV6AM55+HceHbLjZXq5UOW64gLq9nFTXKFQeoAtTeR1fRmVH1YwDNjo
+	YmjqsUXkVtCyDdktTztmn3kmwf6fFjEpXeABwsknIMtDA8J+qj6ZUV181/3651C6SAQSYDfmfuC
+	u3QOeRfEGu5UmQo9llTAiy3a6cBAfjOxq2k9FHdppjBGnXwwSPOIQsxtTAAk65GKV6cCsWjUVM6
+	4C3/8aa35LtMzbTfhHu1J/UTM/hkmkZr3fJ6ugxHB63jjdoelnGXddccEwKR+gAqjfPtzqa58Zu
+	l0RMpd+jH0A==
+X-Received: by 2002:ac2:51d5:0:b0:5bf:b93e:89f4 with SMTP id 2adb3069b0e04-5c1709fb9dbmr2101390e87.46.1794675391487;
+        Sat, 14 Nov 2026 08:56:31 -0800 (PST)
 Received: from SafoStation ([31.40.65.49])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1712dad26sm1792051e87.8.2026.11.14.08.56.26
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1712dad26sm1792051e87.8.2026.11.14.08.56.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 08:56:28 -0800 (PST)
+        Sat, 14 Nov 2026 08:56:31 -0800 (PST)
 From: Safocl Stollmannovic <safocl88@gmail.com>
-To: Russell King <linux@armlinux.org.uk>
+To: Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>
 Cc: linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v3 01/14] ARM: fix duplicate extern declarations
-Date: Sat, 14 Nov 2026 20:55:41 +0400
-Message-ID: <20261114165612.368785-2-safocl88@gmail.com>
+	loongarch@lists.linux.dev
+Subject: [PATCH v3 02/14] loongarch: fix duplicate extern declarations
+Date: Sat, 14 Nov 2026 20:55:42 +0400
+Message-ID: <20261114165612.368785-3-safocl88@gmail.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261114165612.368785-1-safocl88@gmail.com>
 References: <20261114165612.368785-1-safocl88@gmail.com>
@@ -111,36 +112,51 @@ The `extern` specifier must be removed.
 Link: https://bugzilla.kernel.org/show_bug.cgi?id=222257
 Signed-off-by: Safocl Stollmannovic <safocl88@gmail.com>
 ---
- arch/arm/include/asm/bug.h     | 2 +-
- arch/arm/include/asm/opcodes.h | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ arch/loongarch/include/asm/idle.h      | 2 +-
+ arch/loongarch/include/asm/smp.h       | 4 ++--
+ arch/loongarch/include/asm/switch_to.h | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/arch/arm/include/asm/bug.h b/arch/arm/include/asm/bug.h
-index ba8d9d7d2..985857d65 100644
---- a/arch/arm/include/asm/bug.h
-+++ b/arch/arm/include/asm/bug.h
-@@ -82,7 +82,7 @@ void hook_ifault_code(int nr, int (*fn)(unsigned long, unsigned int,
- 				       struct pt_regs *),
- 		     int sig, int code, const char *name);
+diff --git a/arch/loongarch/include/asm/idle.h b/arch/loongarch/include/asm/idle.h
+index f7f2b7dbf..9913191cb 100644
+--- a/arch/loongarch/include/asm/idle.h
++++ b/arch/loongarch/include/asm/idle.h
+@@ -4,6 +4,6 @@
  
--extern asmlinkage void c_backtrace(unsigned long fp, int pmode,
-+asmlinkage void c_backtrace(unsigned long fp, int pmode,
- 				   const char *loglvl);
- 
- struct mm_struct;
-diff --git a/arch/arm/include/asm/opcodes.h b/arch/arm/include/asm/opcodes.h
-index 38e3eabff..afa29833f 100644
---- a/arch/arm/include/asm/opcodes.h
-+++ b/arch/arm/include/asm/opcodes.h
-@@ -8,7 +8,7 @@
- 
- #ifndef __ASSEMBLY__
  #include <linux/linkage.h>
--extern asmlinkage unsigned int arm_check_condition(u32 opcode, u32 psr);
-+asmlinkage unsigned int arm_check_condition(u32 opcode, u32 psr);
- #endif
  
- #define ARM_OPCODE_CONDTEST_FAIL   0
+-extern asmlinkage void __arch_cpu_idle(void);
++asmlinkage void __arch_cpu_idle(void);
+ 
+ #endif /* __ASM_IDLE_H  */
+diff --git a/arch/loongarch/include/asm/smp.h b/arch/loongarch/include/asm/smp.h
+index dd1457065..c21a5b60e 100644
+--- a/arch/loongarch/include/asm/smp.h
++++ b/arch/loongarch/include/asm/smp.h
+@@ -87,8 +87,8 @@ struct secondary_data {
+ };
+ extern struct secondary_data cpuboot_data;
+ 
+-extern asmlinkage void smpboot_entry(void);
+-extern asmlinkage void start_secondary(void);
++asmlinkage void smpboot_entry(void);
++asmlinkage void start_secondary(void);
+ 
+ extern void calculate_cpu_foreign_map(void);
+ 
+diff --git a/arch/loongarch/include/asm/switch_to.h b/arch/loongarch/include/asm/switch_to.h
+index ab9e0292c..aa5d3da68 100644
+--- a/arch/loongarch/include/asm/switch_to.h
++++ b/arch/loongarch/include/asm/switch_to.h
+@@ -21,7 +21,7 @@ struct task_struct;
+  * This function is used whilst scheduling to save the context of prev & load
+  * the context of next. Returns prev.
+  */
+-extern asmlinkage struct task_struct *__switch_to(struct task_struct *prev,
++asmlinkage struct task_struct *__switch_to(struct task_struct *prev,
+ 			struct task_struct *next, void *sched_ra, void *sched_cfa);
+ 
+ /*
 -- 
 2.56.1
 
