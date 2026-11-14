@@ -1,150 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794625565;
-	b=Q+x/aj0/64T/lq6tf29n7KMnNifZscEXhxxjsL+2tuXQ0gckSkuEt9jMikWLB44qoHjh
-	 fDWYG/W+mnFu33dIgGbxaNPGsDD3pYtwxTtRdiIYLX0DEGKfqaCFekMZ6prVbksgkQQuI
-	 o2YYKQq65vNQFY0Cc+bsyk6bHsFScG585wjBKD2IMmGy1mhbUZ2VXJgI06Ax73N+i9cVC
-	 pWCgVr18VdOPwkw+zbgHCYfQUPb3J3TAhuAzGjURrYMhIfc7TOU7XSQIGoJXaEB1lmtVj
-	 0Dl/CVMLvZVRx9QEKaNqQMNYLWq2hJbf0e/cS6Ldhx8Mg5b6TgmSlO0+bXabCaJqTsw==
+	t=1794625566;
+	b=t/OZW0fwD3cUOyGjgeGZet4GMburmQQcVCk3ZDx1H6FZGPwpfT1paf55bgVqtq2nNpxD
+	 QXl5cPfj0pe6pXqbggAhnUqWS05YuT76H3irf617KdKCqx0F71dyUy80SqV35JSpuZoZp
+	 eNkEZUZieEcvcCjQHg8fYuQAw8oMVc/D1KEdKkl5rf+DZUPZk+81RroN2Zm2poMknBUEp
+	 2ddfpFhL0ZUeOsDS1E+KYxmBCbD2somC/PP61PtduL7g/urZ4JfhPTbnU9owfoBLaoRSb
+	 pVCzyBxFasn9XHp3OzI5k+yTVF1gHSjhJNADNcClQ2yefwEb+2j3a6t+5hov9mRllLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794625565;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=jLe41rxtvqSNao2UIdbEczdLg1Uh1yqAQx73nNAS2+o=;
-	b=xyiTD57vgtHc5SJrBcdna1L/LLR5CeSatuSCbgcOsGfHdCH+Ua+f+jaw2TSgnYnt+hdi
-	 a0Thc3ry+T8YG5y+soJwQGGMoLXVlPqNwckPgYbHWT+45OdgmVNyMV6+b/48dVNWzjq0h
-	 qnOrBmnO19fkNVKhqMW2WoLVYVaW3CDZs9s0lgg7WGdZUSiyv6AfqjQsvL7gUvZkDpSWh
-	 0GvtQH2bENpGoIpcwAxdXH8KyXEt5/3+UZsws6+2HEy12H0Q3En3vkevm993sgCE7Rr4r
-	 g52kQDRvV9b20lGO6HGrEbKwfZWeHGc8gCJIdcGgZsPM+p4zPZ2tTY5r3X9yJId5lmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794625566;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=BYo0W6AgTAD4HePkGTCtZZdNoeTJeu4/QhvV0yiNWAE=;
+	b=AoBVxem6T8vsr+Pgaz8rNcjEDCB7AicJiNaEKu8v9bRNKkCy8VseulLcycPpRJjjOtRE
+	 i2LMhYKQiD5c7vhr38XTcY8CeNBacd8dCeqoC9t2Wk2wPqi8tRWVxjfrzx02gIYdiOSyD
+	 IwzxcxxqgtdfRzC9/74mYpL4SuI9UTLzXsM8sel0eVIjXY10+d7gv24Feb1yBkoCbqupb
+	 8TcxmzTQa005N0EXXAyYN7T3ObRdUhhj23sGeRClWhO/WxM+HWlYJMAlZMsqwd0+tICY9
+	 vYRdWZNDW2CLRsRD+y0YUolZ4sHsoQDNkzrlswQIuBGvmAx9qpOKU7lDmYsH7JdjFhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gahingwoo.com;
-	spf=pass smtp.mailfrom=gahingwoo.com;
-	dkim=pass header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=Q2bis67B;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="B4vCN7n/";
-	arc=none smtp.remote-ip=103.168.172.139
-Received: from flow-a4-smtp.messagingengine.com (flow-a4-smtp.messagingengine.com [103.168.172.139])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=OPfv8jZo;
+	arc=none smtp.remote-ip=74.125.82.44
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9037A60A5BE3
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:06:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9037A60A5BE3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 597B960A6F59
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:06:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 597B960A6F59
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=Q2bis67B;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=B4vCN7n/
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailflow.phl.internal (Postfix) with ESMTP id C84441381A57
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:06:03 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Fri, 13 Nov 2026 22:06:03 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1794625563; x=
-	1794632763; bh=jLe41rxtvqSNao2UIdbEczdLg1Uh1yqAQx73nNAS2+o=; b=Q
-	2bis67BhJj54JWwFsmK/fPB8oUBjT61R0xXvk39k4dEQ/ED0y7bEKTXQMV8iig//
-	3y8LnPHtsV8rnufqemKOGZDs5NaF/dq5j4k+sru2mPc7mjG1ejfcrBDJ6+QUnV2n
-	Oy/LARV7p96A6se7uOBgYURdC0I+6kvJnRnGgVOEz74Jn/M2ojUP8tG+joaSuxBP
-	2VOakmQ5dgP5C/NtfvjJGLTeaP1nMzS3REmWHQ7K2k19cjvFZgOJgu7wchOYKyQb
-	2/UlX/GTY6iWwT1iZVu0IrKpLJc72jej7SH6Sar7pcJkiCUpTO2WRYM5Z8/FH6vC
-	sHUqP1TYbpqOP50YarJTg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1794625563; x=1794632763; bh=j
-	Le41rxtvqSNao2UIdbEczdLg1Uh1yqAQx73nNAS2+o=; b=B4vCN7n/WzyEO7hNX
-	rzQ0pKADmvpvu3gLLsXUGnytSEF658SWm1+tAJkrxi7L7tB8xSRdxbAQrIPTzHme
-	klxZEhcJee0Nz3nhGNVkAfzDOJedaWZzoQPjJsXUOi+ZueuTtOc3koCLDtR9yTLc
-	G8fqkDixoPC5e9zCW9S43iNMPqpGsfbqvEmsdF5Jrli09Dp9XAZqXeStaQEHmWgC
-	zDugmbEa2Aux1cM8S8DNpRXDmgB8TNPF2vc2iseRheCl2phZhhC+vZOu3RWLxJUi
-	0hoIoX0gWrHhLabLCd/mWeEGPVUPpWTHZxxNz+m95QuJe/zyN5ktcOLTgk3ilQK9
-	32v0w==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=gahingwoo.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794625563; d=gahingwoo.com;
-	mf=PGdhaGluZ0BnYWhpbmd3b28uY29tPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:j4dxzCHrdIJtu8po7K63dGmzbFZtWAMTV7cDRAH8MqP5n48
-	JyN+89iemWt7+S6VbxPscsKQQfpxnMGMXwWdFA5my29m8sGufe1/CDOGQ4oMo1AZ
-	4hL938XEMkw74JSs159IkrhrL5Jyfhtcx+3rnX+1sTVmGMrHQgKU9cwprdTkOQxI
-	qMpLda333iYhR+6SUBkO0ZEKwJlIEYJb6NP9iubrfdhBVpPNH0f1s8XwlBMYmKxB
-	zAoLJ8BbLPsN5uo1olr0HgzL3O2Ly6yEzJtZzecUnhgE1OSUPhrgGcImshGCKD3p
-	WEWhxljUkRGUBpSIlEKoFWwKzJ0JaDzA7ExvyuQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:KkU9OItywWMXa8xCxJXvpsCUuVVYeELHJ3ZywXHw29k=:7oH1PnecAoj3OHP3QYcSMmdKkLdmCJWxLcqrSSziT3Y=;
-X-ME-Sender: <xms:G9D3aoSLjEKSjs0QnKzQZxIP6-1_QH3SZvtWjCxW5jZ4lavCL_FpGQ>
-    <xme:G9D3aiOAb5Tdj7A3IpUIelKXn8T3Yj0CumWmHOcP1r8afC5npJEsTe7fVryhWgiMG
-    lqO47uLsWHuXu4dYYqmRr2YU7AAedGCvblygfz3nKGZ73xMcyiVdP4>
-X-ME-Received: <xmr:G9D3atFLu-VezKaxS5G_SCUZwFk9xOuQinha3XV4xVq12sYK-7dFJD7TyF559-jCzI8cRDJT>
-X-ME-Proxy-Cause: dmFkZTENh3Cq6bNtRDDqH//naJpK03OGhXB8Cp3eHHX2EpHYf2oBjZ1/43ruyqVDLzR5bI
-    q7gV+k53czH7SJj0JMNaMvWBGkaUqaereb01ifHpul1q14DobEKJC2mDvQQE3HzqoOU9gl
-    QO0UnCSJOnNpWmY1qWdj/IivEZ+5eJmA8XcRYmqsfPBSZaKqk9zCnQvCGUQuYFJdsYZGP5
-    L8zECb373LU+oefpY9jKwOjkFDiU4CWxV3iExHL3zPnpeZwM1wkFJxhm/yJk+2AJ3ju4OO
-    RXCknd9xSS299sQU1FiikwzYfEAyF9m0XTBIDoIn2qfRRJDU3uzKkImCFIAQPMS5Q++UYK
-    QT1oghQMiLOEEDqc0qJ2Gei+8zpQ5h9f1GYvfROcAztvhWDSYxYdo7YMX5wTM18aoSALCm
-    5wmJdp6uvygPFmK2xbqZJXBBZNVNDur6w2x2R+bjTrWRDzbVjqipo8zxlImtnjuEE2Axc7
-    ItcGzHZc78kbodAWVyQNpFeV2lkhDDCBF9t//GsvyG9IzF3/sIS52PfJEVWqLlmwMsV53K
-    EL/8bvqplcZ8FBIW3bT38f5Tl9LDGu+Jq1EYTJ9OPScIzc3/mocusb9PEy8pvTlTds4dJq
-    769cqL/rDifX+Q8SPEOIgG1wgVJEnt2qDoXmVrFsx+prKT7w1Ok45BQYUvJg
-X-ME-Proxy: <xmx:G9D3aigq3vbtqueHcg0UsqjvBJRwNtI4s75DY3xgp5q9zKbcCgwSHQ>
-    <xmx:G9D3ahxIO5dRfxtiOQbhCQ1vw4P4ZraV2l8EoGdD2osR-4nivWdfuA>
-    <xmx:G9D3aurSVr-PJOhlMIHENeO7J5-BcCe-lyq2nJBVoES5EcV0sF6FXw>
-    <xmx:G9D3anX-D6pijwhcb6qgMYEHOZwUHOGnlmQWdLjm60KDC4oUovc4dQ>
-    <xmx:G9D3ajV36tZGG6rr-HBXMH2F8KK2KwTCPBxXcodFKRJ7ZNBER7416FpB>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 13 Nov 2026 22:05:54 -0500 (EST)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: tomeu@tomeuvizoso.net,
-	heiko@sntech.de,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	joro@8bytes.org,
-	will@kernel.org,
-	robin.murphy@arm.com,
-	p.zabel@pengutronix.de,
-	ogabbay@kernel.org,
-	zhangqing@rock-chips.com
-Cc: royalnet026@gmail.com,
-	ulf.hansson@oss.qualcomm.com,
-	abel.vesa@oss.qualcomm.com,
-	sebastian.reichel@collabora.com,
-	sidong.yang@furiosa.ai,
-	u.kleine-koenig@baylibre.com,
-	chaoyi.chen@rock-chips.com,
-	shawn.lin@rock-chips.com,
-	finley.xiao@rock-chips.com,
-	diederik@cknow-tech.com,
-	alchark@flipper.net,
-	leonard@lausen.nl,
-	vlwwwwww@gmail.com,
-	jeff.hugo@oss.qualcomm.com,
-	rfoss@kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	iommu@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=OPfv8jZo
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1b3beeaf6f9so1861462c88.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:06:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1794625565; x=1795230365; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BYo0W6AgTAD4HePkGTCtZZdNoeTJeu4/QhvV0yiNWAE=;
+        b=OPfv8jZo8bg2QaahMI1hf3KiHRU6UJOlIwdYIbQEPlljsnjKPUy1hQFJ4u8c/3xhA3
+         uSujFik/WIqT7F/QbmwF2dyFA7nn9O3berqMu5B/qgrFnOZIUmpW4c3i44YiCuxc7vLh
+         SQMLodvlah6ag7SLTkY4GAmTtVG2cWiAk4wyF5Y643uXRpb/DxWFVsyjUjHuDV2plMtU
+         NvE/k5waElYbT0q+Im70/MVMsyKljv4cD/qIbOl/PGhhCXS0591rVRHXgXpNgXAlUetv
+         YKH8oVFGUwtnvaOEpDd8nX+q22EEiAx7lTVUPvUSJ2h3H1vKarO6hE7xtGWDKuQo8DD6
+         sZeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794625565; x=1795230365;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BYo0W6AgTAD4HePkGTCtZZdNoeTJeu4/QhvV0yiNWAE=;
+        b=FEQb1HA0AI9cXmxqSo+vwVVGWo9mS3rIgkAO65SQ4JGmXzTiaquHaOrxXv7fkD1Pg2
+         8OMZyIgJ8qSytZ9kV3jfTzrBbZvPxFNTGIudq+pbVtHBwMw0MoQHdNIG00+QFEgtGCfk
+         H+Z4n2fYNWqKK/KqSIOpg371PBsSKQiSiWR6z1qa0kgMhs+AF17J3EulSAgIl/u6ZgpA
+         1ZhQz3GXIL9i5p3ZI1ogwz7WOBqpbeFEpwejAoW6nmIJ1sjdVCs0bpwnbUus8HkcP3ap
+         FJofe80RC4Cbkn/wGajuOqRxFzh/sV2YWByhRy/ICGlOnGqfVqC/vMXLz7yz9ouNqyUN
+         DMSg==
+X-Forwarded-Encrypted: i=1; AL+hErFH9rhXDMJ5BmMVzIccERy66UHN4qOR/uUjmHoVnUjspnXyY3k+qU9tkAHfoSsVIXioF6Gx3COTFEYiyn4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9cpx6JZGAPw/iWq5VcRvjQXW25kdU4uDpVLRxV+SfZw8MAML7v
+	3ZvnjGBaTRpvijq3UYlu+rTDcigUkGC2pn+q0UHbEufJEBbdbs9vST8ejwcX7ooAego=
+X-Gm-Gg: AYBFou1UFx5Xe5ASwXWuqICAT5mba1n6Mfn8BQSuIb9ydz2786Z+QNCBHPk1tt6sM25
+	zdKPGIZFC7Foy/7TN30sgHrV3iEf5zKbGlkW26G3peeaD4HoefhpaTiDIcAI87rcUtUhr0IPt3p
+	gTcITEKEh8Le7tfEACoqHIofDVZp+5CktoLmqCGhGhBkRHJ0hQ0vh4wWhHCXhLb1wC1inEGxHi2
+	6nA1W45RZfcxh69p6z+EOyNS0mljBf8bGxZvMLwQslinvsF4uTb2gerZPT6iCBvvVdyHMAhSVMq
+	rbQd23wuN1X0ktvXfPJki5LRtm36XFXlsaS3WDPa/0O2WsxTxBtFlrYWU7GjQ2nClbkLegZH/cT
+	LnUY77l0T86gni+llMRRKyxSP17HJw7+DhxUVIvhwbD7qfre/dLiKfz3fGjDWZVgvUExBurr6xd
+	m6H2Lv5BJGpjFBndgFflZ+Q3ntef9jmAKWcbAUU8l1r9TuMmL2NcvvqbIyr30lSUxwyKe+rFq40
+	gXVH8A2atka38tt8IdHGd4um6e//Mesv4DaGB+Ff+q0hODloUBcVjuTDL5efuMXvwlYDawc+a9t
+	77CgHKfdQXlaWdlv8YLr61xlPNxsAYjDmoBKUSRofe4ey0Z/s++HXCy1R1WOLYcXA4PjDsNSiw=
+	=
+X-Received: by 2002:a05:701b:2810:b0:1a3:65d7:efae with SMTP id a92af1059eb24-1b5030f2c84mr3776124c88.21.1794625564996;
+        Fri, 13 Nov 2026 19:06:04 -0800 (PST)
+Received: from apollo.purestorage.com ([208.88.152.253])
+        by smtp.googlemail.com with ESMTPSA id a92af1059eb24-1b50316e008sm10829382c88.6.2026.11.13.19.06.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 19:06:04 -0800 (PST)
+From: Mohamed Khalfella <mkhalfella@purestorage.com>
+To: Keith Busch <kbusch@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>
+Cc: Justin Tee <justin.tee@broadcom.com>,
+	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
+	Paul Ely <paul.ely@broadcom.com>,
+	Hannes Reinecke <hare@kernel.org>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	James Smart <jsmart833426@gmail.com>,
+	Randy Jennings <randyj@purestorage.com>,
+	Mohamed Khalfella <mkhalfella@purestorage.com>,
+	Daniel Wagner <dwagner@suse.de>,
+	linux-nvme@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v17 02/12] accel/rocket: take the completion register writes under job_lock
-Date: Sat, 14 Nov 2026 16:05:19 +1300
-Message-ID: <1adbff3238fd312e23daab83ed936ad13d7f223f.1794615323.git.gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1794615324.git.gahing@gahingwoo.com>
-References: <cover.1794615324.git.gahing@gahingwoo.com>
+Subject: [PATCH v7 14/17] nvme-fc: Use CCR to recover controller that hits an error
+Date: Fri, 13 Nov 2026 19:04:28 -0800
+Message-ID: <20261114030454.2836543-15-mkhalfella@purestorage.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261114030454.2836543-1-mkhalfella@purestorage.com>
+References: <20261114030454.2836543-1-mkhalfella@purestorage.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -156,56 +112,163 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The IRQ handler writes OPERATION_ENABLE and INTERRUPT_CLEAR before it
-takes job_lock, while rocket_job_hw_submit() sets OPERATION_ENABLE to 1
-under that lock.
+A LIVE controller that hits an error now moves to FENCING instead of
+RESETTING. ctrl->fencing_work attempts CCR to terminate inflight IOs.
+Regardless of the success or failure of the CCR operation, the
+controller then moves to RESETTING to continue error recovery.
 
-If the two run at the same time, the 0 written by the IRQ handler can
-overwrite the 1 written for a new task and stop a task that has just
-started.
+nvme_fc_fencing_work() tears down the association before fencing so
+the LLDD can finish unregistering the remoteport/localport. With this
+patch alone that still completes the inflight requests at the start of
+the fence, which matches the behavior before this series. The next
+patch holds them until fencing has finished.
 
-Move both writes into the existing scoped_guard(), so they are under the
-same lock as the submit.
-
-Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
-Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
-Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588, three cores, induced reset, JOB_TIMEOUT_MS=2
-Reviewed-by: Heiko Stuebner <heiko@sntech.de>
+Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
 ---
- drivers/accel/rocket/rocket_job.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ drivers/nvme/host/fc.c | 69 ++++++++++++++++++++++++++++++++++++------
+ 1 file changed, 59 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-index b2a00992c889..b61bb4d242ce 100644
---- a/drivers/accel/rocket/rocket_job.c
-+++ b/drivers/accel/rocket/rocket_job.c
-@@ -371,10 +371,15 @@ static void rocket_job_handle_irq(struct rocket_core *core)
- {
- 	pm_runtime_mark_last_busy(core->dev);
+diff --git a/drivers/nvme/host/fc.c b/drivers/nvme/host/fc.c
+index 0ba621649afe..095adc9011cc 100644
+--- a/drivers/nvme/host/fc.c
++++ b/drivers/nvme/host/fc.c
+@@ -166,6 +166,7 @@ struct nvme_fc_ctrl {
+ 	struct blk_mq_tag_set	admin_tag_set;
+ 	struct blk_mq_tag_set	tag_set;
  
--	rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
--	rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
-+	scoped_guard(mutex, &core->job_lock) {
-+		/*
-+		 * Stopping the block belongs under the lock. hw_submit() writes
-+		 * OPERATION_ENABLE too, and outside the lock this zero can land
-+		 * after that one and stop a task that has only just started.
-+		 */
-+		rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
-+		rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
++	struct work_struct	fencing_work;
+ 	struct work_struct	ioerr_work;
+ 	struct delayed_work	connect_work;
  
--	scoped_guard(mutex, &core->job_lock)
- 		if (core->in_flight_job) {
- 			if (core->in_flight_job->next_task_idx < core->in_flight_job->task_count) {
- 				rocket_job_hw_submit(core, core->in_flight_job);
-@@ -386,6 +391,7 @@ static void rocket_job_handle_irq(struct rocket_core *core)
- 			pm_runtime_put_autosuspend(core->dev);
- 			core->in_flight_job = NULL;
- 		}
-+	}
+@@ -1877,6 +1878,33 @@ __nvme_fc_fcpop_chk_teardowns(struct nvme_fc_ctrl *ctrl,
+ 	}
  }
  
++static void nvme_fc_fencing_work(struct work_struct *work)
++{
++	struct nvme_fc_ctrl *fc_ctrl =
++			container_of(work, struct nvme_fc_ctrl, fencing_work);
++	struct nvme_ctrl *ctrl = &fc_ctrl->ctrl;
++	unsigned long rem;
++
++	/*
++	 * Tear down the association before fencing starts. Fencing can take
++	 * a long time and the LLDD can't finish unregistering the
++	 * remoteport/localport until all associations on it are gone.
++	 * Inflight requests are held and only completed once fencing has
++	 * finished.
++	 */
++	nvme_stop_keep_alive(ctrl);
++	cancel_work_sync(&ctrl->async_event_work);
++	nvme_fc_delete_association(fc_ctrl);
++
++	rem = nvme_fence_ctrl(ctrl);
++	if (rem)
++		dev_info(ctrl->device, "CCR failed, starting error recovery\n");
++
++	nvme_change_ctrl_state(ctrl, NVME_CTRL_FENCED);
++	if (nvme_change_ctrl_state(ctrl, NVME_CTRL_RESETTING))
++		queue_work(nvme_reset_wq, &fc_ctrl->ioerr_work);
++}
++
  static void
+ nvme_fc_ctrl_ioerr_work(struct work_struct *work)
+ {
+@@ -1921,11 +1949,20 @@ char *nvme_fc_io_getuuid(struct nvmefc_fcp_req *req)
+ EXPORT_SYMBOL_GPL(nvme_fc_io_getuuid);
+ 
+ /*
+- * Start recovery only if this caller can claim it with a state change.
++ * Start recovery only if this caller can claim it with a state change:
++ * FENCING from LIVE, or RESETTING otherwise.
+  */
+ static void
+ nvme_fc_start_ioerr_recovery(struct nvme_fc_ctrl *ctrl, char *errmsg)
+ {
++	if (nvme_change_ctrl_state(&ctrl->ctrl, NVME_CTRL_FENCING)) {
++		dev_warn(ctrl->ctrl.device,
++			 "NVME-FC{%d}: starting controller fencing %s\n",
++			 ctrl->cnum, errmsg);
++		queue_work(nvme_wq, &ctrl->fencing_work);
++		return;
++	}
++
+ 	if (nvme_change_ctrl_state(&ctrl->ctrl, NVME_CTRL_RESETTING)) {
+ 		dev_warn(ctrl->ctrl.device, "NVME-FC{%d}: starting error recovery %s\n",
+ 			 ctrl->cnum, errmsg);
+@@ -2439,6 +2476,12 @@ nvme_fc_ctrl_get(struct nvme_fc_ctrl *ctrl)
+ 	return kref_get_unless_zero(&ctrl->ref);
+ }
+ 
++static void
++nvme_fc_stop_ctrl(struct nvme_ctrl *nctrl)
++{
++	flush_work(&to_fc_ctrl(nctrl)->fencing_work);
++}
++
+ /*
+  * All accesses from nvme core layer done - can now free the
+  * controller. Called after last nvme_put_ctrl() call
+@@ -2554,6 +2597,7 @@ static enum blk_eh_timer_return nvme_fc_timeout(struct request *rq)
+ 	u16 qnum = op->queue->qnum;
+ 	struct nvme_fc_cmd_iu *cmdiu = &op->cmd_iu;
+ 	struct nvme_command *sqe = &cmdiu->sqe;
++	enum nvme_ctrl_state state;
+ 
+ 	dev_info(ctrl->ctrl.device,
+ 		"NVME-FC{%d.%d}: io timeout: opcode %d fctype %d (%s) w10/11: "
+@@ -2562,15 +2606,16 @@ static enum blk_eh_timer_return nvme_fc_timeout(struct request *rq)
+ 		nvme_fabrics_opcode_str(qnum, sqe),
+ 		sqe->common.cdw10, sqe->common.cdw11);
+ 
+-	if (nvme_ctrl_state(&ctrl->ctrl) != NVME_CTRL_LIVE) {
++	state = nvme_ctrl_state(&ctrl->ctrl);
++	if (state != NVME_CTRL_LIVE && state != NVME_CTRL_FENCING) {
+ 		/*
+-		 * The association is being set up, being torn down or is
+-		 * already gone, so recovery cannot be started from here.
+-		 * Abort the command so the connect or teardown it would
+-		 * block can make progress. It completes through
+-		 * nvme_fc_fcpio_done() once the LLDD has finished the
+-		 * abort, and the abort is counted so a teardown that
+-		 * follows waits for it.
++		 * The fence is over or the association is being set up,
++		 * being torn down or is already gone, so recovery cannot
++		 * be started from here. Abort the command so the connect
++		 * or teardown it would block can make progress. It
++		 * completes through nvme_fc_fcpio_done() once the LLDD has
++		 * finished the abort, and the abort is counted so a
++		 * teardown that follows waits for it.
+ 		 */
+ 		__nvme_fc_abort_op(ctrl, op);
+ 		return BLK_EH_DONE;
+@@ -2578,7 +2623,9 @@ static enum blk_eh_timer_return nvme_fc_timeout(struct request *rq)
+ 
+ 	/*
+ 	 * A LIVE controller starts error recovery, which tears the
+-	 * association down and completes this request.
++	 * association down and completes this request. While FENCING the
++	 * request must not be completed before the fence is over, so only
++	 * rearm the timer; the fence completes it.
+ 	 */
+ 	nvme_fc_start_ioerr_recovery(ctrl, "io timeout");
+ 	return BLK_EH_RESET_TIMER;
+@@ -3397,6 +3444,7 @@ static const struct nvme_ctrl_ops nvme_fc_ctrl_ops = {
+ 	.submit_async_event	= nvme_fc_submit_async_event,
+ 	.delete_ctrl		= nvme_fc_delete_ctrl,
+ 	.get_address		= nvmf_get_address,
++	.stop_ctrl		= nvme_fc_stop_ctrl,
+ 	.get_virt_boundary	= nvmf_get_virt_boundary,
+ };
+ 
+@@ -3516,6 +3564,7 @@ nvme_fc_alloc_ctrl(struct device *dev, struct nvmf_ctrl_options *opts,
+ 
+ 	INIT_WORK(&ctrl->ctrl.reset_work, nvme_fc_reset_ctrl_work);
+ 	INIT_DELAYED_WORK(&ctrl->connect_work, nvme_fc_connect_ctrl_work);
++	INIT_WORK(&ctrl->fencing_work, nvme_fc_fencing_work);
+ 	INIT_WORK(&ctrl->ioerr_work, nvme_fc_ctrl_ioerr_work);
+ 	spin_lock_init(&ctrl->lock);
+ 
 -- 
-2.43.0
+2.56.0
 
