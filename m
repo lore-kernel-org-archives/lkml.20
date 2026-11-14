@@ -1,62 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794632462;
-	b=5JEYftcaBTwADBQek1YCOTtuD3IRar4nOhk0fXNibAVsmBgwN7obc7hra9xT/MoqeZzn
-	 FNdTgsIe4YfTCjm9VApuH8NhHjZi7Lvxk7JqmG0rqDqL3uJQD9pKpJ6ERTsBl7B2sAWfd
-	 AGJ/OBxCCesZ97KlvKTp0kyuk9rfx+Bzpdu8y4zIkmJ5D73xhQWSGaC2fqncjjrUEkqBd
-	 6dc2bZraexfvNgntqWljo1GvYklVNIU+0nvqvcoSMl6V8VCli/px9wWK1RwKQoLWghQ/4
-	 Huyw4caqdiZag2dunOk0MbaRre1O9beTjd103tbbsslB8N0jn0yB1aPDoOCUjXFJ5jg==
+	t=1794632467;
+	b=YYZMxAYnQJIuCrOOyv6NyKD+RExQiMM4fO4t5/tVA9eDomDGhgS7yQQB7m42hMZJQVsa
+	 uAIU5O/iXKwl9ysE5L1DqQ/8Tc3Gquy9sCiCkufbw9rWiNkdOBBUG52ikHIMrULg9RH0c
+	 byrRLfRfqF/E6b/3SHfn1BDUSuwXXsolJEk6xmqBlyOzojlX5jKnH9NxchlsIp011xQ3s
+	 jKhgAU70gCLkWYDRjYgKXHNMUJyuYHH7m962oKd8i4l6o4T2BXZXU7FnmEEjk0SEyRDb3
+	 swaOpG69Y7w7RYB7IXsoVkZ1zcbfpkvUiHt2/UG+MyhWPSDVHMYwC2u8/iekvgsALfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794632462;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=F1C8im9EaIbJjknF2DtqYY+ccSHvnsK8nioNPS+7OL0=;
-	b=NcE6AnK3ULlh0wGeQfB5LkkK5ErlipM5y8xrhVONZm3AF4r8/fMAI27mVqVAKKZfabzf
-	 Y7BH1w4HEZ0VG65dhKnTUHyJNbGU6fFnvfpm1aazo5VJHzd27B9Q8wdfOU0Cywivqyj6y
-	 Jk0Hqmbne0QZcJkWSE0DVJvcI3GDCJf7IJ7aP7KfSaUMiovmWZ70pStDE3yslpi+9PyPF
-	 ltBGSY0CfR3CxQqJmNqxte03qyGgvYzMbVp6GUtLhz6A5gRKozebEmsHHowH9RPZUUbfN
-	 KoJ7xpE/HBoeeJFtK8Agxj6hKryXM7hKq75MNRlW0YNSCxHjpru0xhmlE+Oe/ZBPcRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794632467;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=7aG/eE5olsJwInv+bEoP1V0eDG7IVNV9VWAhiP+RMC4=;
+	b=oW1KVhhpdrn6Ods5AzHoyg9hNSeNAsgSTnOLfTtbmkw/O7qPIlYhbY5bYCX3wZgnMQPt
+	 X7f7tTJrx1tqxlQVgilKtaU22zlxsbF7MuaglYqfoLSYhu7SM9BOpf3nLx8Y4NDHuYGBr
+	 AdysP0xlKBoKbhTe7I1lakuGyhmLiNrwI31PpToOdXEGtOZeeuA1J97Z3pVnzLmdqGLrl
+	 swEc3Gduui/mqtfqXjltpvEraqEMIHFHV2Sr8lNcN94VUD0Q+M5caNceJCd+0AJ9iDfVD
+	 yI2eq8uONLjGpn8nayPi/wIsBT3JBN9l72I3uPZgDrb3SpMQkqYVFjWw/lymqH2V86Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b="havA/dBs";
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Gwsh/icK";
+	arc=none smtp.remote-ip=209.85.216.53
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B158E606A8A8;
-	Sat, 14 Nov 2026 05:01:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B158E606A8A8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E247606C213
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 05:01:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E247606C213
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=havA/dBs
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794632456;
-	bh=s5L6s2fj0KUYXfVyQ1DqZ+JQ9NOwnY5J+JG3saptonk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=havA/dBs65Byi5UoQBP8wJtmf7zNcIySraIf79Fv8OC8/G2Lf/S6++QjOuhIuPfpl
-	 jne9hLLseMKfcArFLuEWAZpNf5DMpn5Sl2jD8cZg27+lHFBZw9MOXJkjMcPRKkEVlh
-	 xpny/G9Wh6hBu4bASFAoP+h7J8MGIRTOmY/KEMmo4Om/9SAw8et0WR+7C04N7t/hmx
-	 xBAUYw9O9OhxhdEUhrOh5j4OIFrzKDHqQXhSaQ/PHRrwPB0u1YWyZ5lpXmZ99uDzgg
-	 BhHKp0oKX65KLdpSYoD42KHUBJZJmoSbMFuxF7OAj/neqZ6FU5O0ABE9IvrBEpNKMV
-	 zMgxR6XOIwKKA==
-Received: from jupiter.universe (unknown [100.64.1.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id B06F417E3873;
-	Sat, 14 Nov 2026 06:00:56 +0100 (CET)
-Received: by jupiter.universe (Postfix, from userid 1000)
-	id 176FA480041; Sat, 14 Nov 2026 06:00:56 +0100 (CET)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Sat, 14 Nov 2026 06:00:41 +0100
-Subject: [PATCH v12 08/23] drm/bridge: synopsys: dw-dp: Free output_fmts
- when none are valid
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Gwsh/icK
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3b0ac1900efso312634a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:01:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794632467; x=1795237267; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7aG/eE5olsJwInv+bEoP1V0eDG7IVNV9VWAhiP+RMC4=;
+        b=Gwsh/icKTb3/QeE3A1s1aZIu8OXdTtXq96YILfq9P9Pawq4oro8j7iFiTyJay+5MQT
+         GwNeKlopwVlq3/w99sAsdSX2OodzTlHh7EQfv7LxuK8zLWq2Km3NK5Id5pFE7KGHhTda
+         SAgvQ/60PGQmDUhqG0q6GHqjq1b/p5aV62QtQwE1r4p/3cuIUNeYoebbkV3iUlyROj5O
+         PUyuo3sefMuLGzwthk6k0R4S+YZAc1aT+NteSikZ6qQEHY/d96/eDgR+uNZCF2rowgqK
+         hQulNaBKvYPdblAl4AdaOItGpGUs65u3DySK28wIoGY1O0LP2zzbreieIfCIZLDhi+8/
+         id3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794632467; x=1795237267;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7aG/eE5olsJwInv+bEoP1V0eDG7IVNV9VWAhiP+RMC4=;
+        b=M2t7+2aJp8P9Y0ffankv/cF3/gBrrRlpa9l5c6pPxqG128AXdm3go6Fko7Ta+3AGpk
+         zS0mUruiAF2jarYrwFN0iEKHJ35sXhgxH0jWUS56C3JqkhCkMTgyjWllgzV+Y/io+jib
+         CxHXwmLcE8R2y74wzbB52umyVdcW1gkVGQJGLQ6qVlVdBZ855K14twSwiagM3L1kBLfD
+         8gqL7Hu/cAK4CWpYu3+FKE38743jetc8kRgffMHJa/P61q/w6mIXR4C01N3n4z+VMHcm
+         WDbrj7pBUCp2T6dVUrvZFaY+WDZeloTnMUUFh14MEsFMPQK8S6ajQtCNy4LhKZI6lL/B
+         jEbw==
+X-Forwarded-Encrypted: i=1; AL+hErEJo+4+6Qj5GysoFg8j2ygXtYcbb6IpPJ6y8C7AGdVohzdOl1NEP9oTzlbZjz8wi7cnup3aa5GopFHXkYc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+wHI8DrjbTl+QDKsLKIWVdwNdvDTPSgJyprID23XAK+bDKRd2x
+	MM7Dr3ckLLtIfWQpJtXEGxZgonWYtLWBoGsnQvgm/WeHHIPf0snr6uft13GhIfoOsdU=
+X-Gm-Gg: AYBFou2O9gOphbbeuqpVNouk3D9WbInG6ESrd/ISC0wfZoWvNVHJH2Mu/6ZtjGsbilV
+	zHLKoKOappYXo9Ph0WyW8T/Y7CSx9v+/1nY38lXUeOF96Ar8rQpZZnWtPcnFThMR9V03xdlaznx
+	M8sztDBbDVdwRlS7VuvpHLOfeN+YLCwkSrGTTB4aQZ7rKlNWnV0B9tbpVXAeNox50bSskdutRJU
+	9/FQfJN9tfu4ld1tDrt4zvhVnnt53tIPLVEA6+uvL9NQE5pc5Fir8z6nOPO4gpW1LogXxcDjEbO
+	IgxPuPgI/A5WUZCXvuKlPfBq7I4trE5tZGh7KDXlLcih+msF7Misr1Znd50ujRBcbuyprQfFOP3
+	v4+V+LCsXBTpwBNNDpuc4vO47cxxVXuE9eWTuE5AIU8ZkAxIy4rSBWoSYifa87k3aOzGJ4+5qsh
+	Vh6UoZyIQqL8z5PS2d8xQcPeRor6PDT/ypio3q54q2fdO0To2NFg/7xuob3ZkUjCNlkHbtPH7GN
+	7Z3yU16qMRgK2zSuiDFo1xT1iRYaGCkjHEdGiQ7v8y94E0CyD8ZNFjXQTOw2j01Ai4yxijOInQG
+	u1tw7dHTUTgC4LaSPT/5Tz6HkyWXamy4RfqyLbOVaWSRwE25RMryty75oWANOdsErTAWemPofI6
+	r4ZrEEoj6ql+Y456VUzv7qA1q6uI=
+X-Received: by 2002:a17:90b:1b06:b0:3a4:c895:570 with SMTP id 98e67ed59e1d1-3b1b0a0e7c9mr7131064a91.4.1794632466846;
+        Fri, 13 Nov 2026 21:01:06 -0800 (PST)
+Received: from claudebox.iyengar.cloud ([50.39.139.68])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdded58a9b9sm125917a12.12.2026.11.13.21.01.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 21:01:06 -0800 (PST)
+From: Arun Iyengar <aiyengar1990@gmail.com>
+To: Detlev Casanova <detlev.casanova@collabora.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Heiko Stuebner <heiko@sntech.de>,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>, hverkuil+cisco@kernel.org,
+ Jonas Karlman <jonas@kwiboo.se>,
+ Sven =?utf-8?q?P=C3=BCschel?= <s.pueschel@pengutronix.de>,
+ kernel@collabora.com, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 0/5] media: rkvdec: Enable multi-core support
+In-Reply-To: <20260810-rkvdec-multicore-v2-0-986f89d22cdc@collabora.com>
+References: <20260810-rkvdec-multicore-v2-0-986f89d22cdc@collabora.com>
+Date: Sat, 14 Nov 2026 05:01:04 -0000
+Message-ID: <179463246494.3611640.18079808669048880957@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,85 +107,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261114-synopsys-dw-dp-improvements-v12-8-d42d3dc5bdd4@collabora.com>
-References: <20261114-synopsys-dw-dp-improvements-v12-0-d42d3dc5bdd4@collabora.com>
-In-Reply-To: <20261114-synopsys-dw-dp-improvements-v12-0-d42d3dc5bdd4@collabora.com>
-To: Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andyshrk@163.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
- Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Alexey Charkov <alchark@flipper.net>, dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, kernel@collabora.com, 
- linux-arm-kernel@lists.infradead.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Sashiko <sashiko-bot@kernel.org>, Igor Paunovic <royalnet026@gmail.com>, 
- Andy Yan <andyshrk@163.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1171;
- i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=s5L6s2fj0KUYXfVyQ1DqZ+JQ9NOwnY5J+JG3saptonk=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr36wdVhJcVdhP9bjxZFQ1W/2gr23BLxdb50
- iBoRxLYYN7nkIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq9+sHAAoJENju1/PI
- O/qaNTMP/3PNDKw26kgszhl+kZVw6GXhu+cFR2amPDo/QudctDpi6POkP3xdts4iX/FAN+aM6qg
- iyK0qwwCxAVCJfOEHsHqfgf/ZJEuVxYun7fQ8dnjlOXJOc511FrNu3YbxdiWPchh889l0Uzy6zo
- HpGTCjgGX+ttaS7/BoWNAVyIgAGsgQIraXcMnVJ8VZdDcEhw4yPWwtZYKCWfpHAxAP+DSXODEIf
- Iw3lyVJEj8WPZS8dpvS+FmF2/dhOo0HmJl21hnzhs7wp1/Fy0To985rrehuUohuF+E40HIT/Fgt
- NhAfPtMMaG1FIDAdtsW3lrIqvWHBZkkNRmwxF8BsjRTPtbmr/KYa20r4bn7hEMdRZS2sTTBkCll
- UFH+GsmMF2vDeVcE+nHzRLrXrg+5521s7Z/ymoAW6uaOduNZpMOIRXqSZn3CoUIp0QxU/+Blb3u
- wPgPx0h7CIIsE0kKnq6cLnAFdFPrgSnD0OdaniYXzGNa5HzOTjiwm9N5UsQgMRbQ85BilqQ7Tqc
- qbBaMXF0PjoxvGOUd9qOJRutj8OaQXQDVGNb8k9zqvAhgQelA7uzOv7loUlpWMmK+BqgLUac7wj
- 1mx4UJ6Suuc/WPKTDI3Dt52zIcOi6qx4rqAHzM46DmNO/60Dz0QIw9Lqbb0bcC31qrRJDhtpRbX
- tg8POWXath6uekmYteTEu+w==
-X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
- fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-If dw_dp_bandwidth_ok() returns false for all formats, *num_output_fmts
-might end up becoming 0. In this case functions calling it assume that
-nothing needs to be free'd, so free output_fmts within the function to
-avoid leaking memory.
+Hi Detlev,
 
-Fixes: 86eecc3a9c2e ("drm/bridge: synopsys: Add DW DPTX Controller support library")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Reviewed-by: Andy Yan <andy.yan@rock-chips.com>
-Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5+
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
----
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 5 +++++
- 1 file changed, 5 insertions(+)
+One more data point for this series. On top of it I have one stream
+decoded on both RK3588 cores at once through the CCU, as the Rockchip
+BSP does ("soft CCU": each frame goes to the idle core, and the CCU
+holds back reference reads until the other core has written them).
+For a single 4K stream that gives HEVC 227 fps instead of 130 and
+H.264 121 fps instead of 67, bit-exact. It needs two v4l2-mem2mem
+additions, so that the next job of a context can be scheduled while
+the previous one is still decoding.
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index 4afa57f4bce2..158c727ab58b 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -1821,6 +1821,11 @@ static u32 *dw_dp_bridge_atomic_get_output_bus_fmts(struct drm_bridge *bridge,
- 		output_fmts[j++] = fmt->bus_format;
- 	}
- 
-+	if (j == 0) {
-+		kfree(output_fmts);
-+		output_fmts = NULL;
-+	}
-+
- 	*num_output_fmts = j;
- 
- 	return output_fmts;
+I'll post it as an RFC once this series has settled, so it can be
+rebased on what lands. The code was developed with Claude (Anthropic);
+I review and test every change.
 
--- 
-2.53.0
-
+Arun
