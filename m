@@ -1,106 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794667810;
-	b=mCnvqMUMT3ncBz/YsajGbBankYWio2Lv52UXCDVuOIcq+CDRCIuJGMKO6WmW8gAlT8Io
-	 aZjm9wwGVYLaZ38TB7XKZsCIct1VlQW5XgqI6U3An13sVrhy5a0UZNcNt3bdfBFlNFt7J
-	 1NiQsB048YDQb2uWnZBq6rqN2Rl9Hg9v0lqN+ohfTUxDr/KKtIeLyoYVk4LcLG7oYtrAE
-	 3y+87xqN7fQ93+Cyz03rHuTekLhHniXb9uHC89fRDDv+sA83Euxso8eU7Q9XN7TnVplEv
-	 Cu4kkYqEYTqz5eHAKsFFAnYOm4p9w36TItHizy9+k8eKlMcBHmdhXkQubwBUOSjmSpQ==
+	t=1794667817;
+	b=U/qGxUO2KD49ulutYD+TvccGs4YWcMtuXKanvEQgjgHti20Lw2ejZqdqIpFRW9ql4Vf8
+	 sCnZob7HTdwsmtHKS4pVvy0pm0WqeuPw/YZL+iNiHmv8pLMM6FXcY3SV6lZyO6gNPF/SZ
+	 Ws3l1PbV7vzaf7geUYt1AMbniCY6NfUoV7i375Dpj4ZI2dov+gxP0ZJvOF9lUm8LcgHti
+	 Bvrj930ZoVXJ/K+Z+N0qHiWkbpzsXR5ZpllB2uRU1y7xvIHa2ggFxsP6grXiLPcwvTyzU
+	 Bo5Fyqq741pJv0Mku2Em5Wefno8U+5iiggWMjYePPJLM6ehAdknmifjWYJ0D5pyGQ8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794667810;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=61DsEOxba8skZR4p3LqyMSQOqgKdFaCOdElEjJjoWTU=;
-	b=y9vUfnN6S9p5ftXTr35Ka2CsdCmyhpmEyOeKRQm07bWbJIe03304PJIVuOYWzZjcLcPv
-	 SwTXRsGKprzRqzYH7/8Swk2oTbmxL0QiIN4H01pMgDxF5gN9vfL8d2aQ78+49ruWxGfRm
-	 Cv8p4KFkJ4gSO69orJsHz7wraTV1aFQyFRzocLCC9l7Q/sngxg7nk3r6PfR9TDKwQmmJf
-	 MxUdE8ejDZzOf81vyFmf637bqqWTjPtRp+drucIIz2w6yz/uID4SbkzyQXks507VClXyX
-	 bFYWrAuixv6q7FDNPKTPe5+8KgMJEfnbgyVmQATNDLBOO3sZBp+kZ28fLBWaRjoun1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794667817;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=9jDnWKJJ0pLAld/G+MaxErfbFghz6SX2FaTcRT+rzJw=;
+	b=19Bm0GRIVZSsi42UWOnCHiD5RhKYItXMkHSQI4Ia5r6rv3EuXYDrPLIa/0w7KWI/rlXw
+	 zt5IBVRsp3qEH+OyADOl2n5hi0BqHrwVEgYxuu0LOFCzxOTgeQD7HRB7OY7GxdBRllKez
+	 qptmIFfrbaXvDIlmPak9ilhM6vfZaPooNJMb7eJMpEiRTvUDMQKXuuYnYP6Nwe18hXImv
+	 vgQ/ZB+iaBWBl08U7l/NoaOhzzkAcw5sjsfwKWnPycLEd7Uj5HpVcr1VndhTKdqgCM9e8
+	 YrHP3bLgVKok7lNJ6N4HICL4zW9zEyGQYx5x9Un9nNWgJhJjRjeK4fDDYs9sh8WBSVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mUIL9BTl;
-	arc=none smtp.remote-ip=209.85.214.177
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nM9CmwQC;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="R/4r8wfQ";
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDFA7606A32D
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 14:50:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDFA7606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C26E4606A331
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 14:50:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C26E4606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mUIL9BTl
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2ee0533d249so7178735ad.1
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:50:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=nM9CmwQC;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=R/4r8wfQ
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AEDkhQn3741417
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 14:50:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=9jDnWKJJ0pLAld/G+MaxErfb
+	Fghz6SX2FaTcRT+rzJw=; b=nM9CmwQCDWM1Y68yxe98uv8Shx2fbbvjArambs3C
+	ov8quEOMm+Dbu1yylZR9bjJNfEHXlDDKAo1hPizmYDAtnK0edBLTfhHulQmRe3W+
+	YLgJVAbaJJ6j3IFQ6DpliFGKu/YEstqcivf+2HRS840cmGoOJADrimWdKjJF/RkQ
+	apK8ZdOPQwolgelvS8ItdFU1ImP8PcfAdlFs8+J5eXHPNjd/cdopnwCTidNYiZ+O
+	LrveVt1ay8dbt7c0HkXbUEbKyO863eiyl0HFa+pXVriQwud9urWfOH8R3V1X4xV7
+	npOe5lzlf9GpxRu6X8rihcJ3Axf+JsXamAaHDXCBTXwMCg==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hxhjqh3xc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 14:50:15 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-94967c6d4f4so38823285a.2
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:50:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794667809; x=1795272609; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=61DsEOxba8skZR4p3LqyMSQOqgKdFaCOdElEjJjoWTU=;
-        b=mUIL9BTlS0dmocio5ZxOhki/8vWVly2KHdKU5Xvbut/jpOp67tuicY4D0n7O7ETNhG
-         auwoHkEfp+aIDunNEeWKLhREVaIAnQFtHCFYA9zIW6V18wuzYNmrfYWehz2KyaAGVEc3
-         mgUk2szJeScZtMW9EIdr21YPj6uV82B/Uj34tG98LCDpvkGxc1KfMsssStZOTqwc09Yw
-         WQk4Rs5424BU8thGY5BSk12ODnfxfinS1PBgauZGf4SbNQJIkNND47fbPPAcBgNOzUzC
-         RMGCiD0UVOvo2bLPABTPvMquC7de/e0Gu/CyV9SBfuO/dftkzykde9Gzm4ffFSBYgx6c
-         GTMw==
+        d=oss.qualcomm.com; s=google; t=1794667815; x=1795272615; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9jDnWKJJ0pLAld/G+MaxErfbFghz6SX2FaTcRT+rzJw=;
+        b=R/4r8wfQZLCOmBdjUFepWd30POpqYihRSirArJ6RJCvJzqvIIhnxAyKdnEp09go3Q9
+         TIvFvo76FRD9pcJGe8UJ3ylmd7tfBWdeRFtfZ5ALZZY07Fs2Ba0OmKdyxC/eBk68+pUG
+         y0CxgmPdTSlnvpShLvKAT3lUkJ8ckEYuDXM4mT+GtBnniRAQmtibQ6WNrN61BZK+r3yX
+         ndo3//zifDlj+JliI4lC1QKJwe0h0NNIW6Zk1mquvNHzY3ut6jRHBbDWGElV7XSDbfTY
+         qTSSSj722RdtpgP5IVI4juqYOGabMRNzDF8xLFhQLvNM46u9kSjbudEjPl8yz/AFy8VP
+         Ub8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794667809; x=1795272609;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=61DsEOxba8skZR4p3LqyMSQOqgKdFaCOdElEjJjoWTU=;
-        b=q6BcLUWEavVnWsLJB0eY6Hy3O58J876XbLIlQ9x2su/8X61Amf2+GgOyjC4FquFwg+
-         KPVbLvqavDSuTn+3Bo5UWK+G2SRrCjdZYqxxgSg/KP6a61DM5zKpnm4Svj6DwuTYMMHO
-         bJFQn4K8lI5kiPiNi+XScYIDrbVeockRl9oqOqYxrbA3LLuPoCz/FrJ7J/PFdqPZ1WYP
-         sOX2vKu+xFHSQwCf3D07sA856P3TRu8ypHQQcgO8CjiZ6JqbEVTVvD+2vdY40IB5CGum
-         /t2m7HnfOH4B2VF3Ca9fgMzJPLQfzcMCKUwH2sm9NUyiApMgudeiK2SosX2qw9MedqPD
-         IluA==
-X-Gm-Message-State: APuU4Z9IzQgVs1QSk6wxcRBFRXY6p16gW1D/EG/bligNoz/RnujdJTuz
-	5NHw0+r5H5TxIDjl8OOJMTy72JShn9mZx48lgHShUw5OVZE+esmsL8Xa
-X-Gm-Gg: AYBFou1AQNpOud3+EsSMC/6bnhZA/krE5K1mhOpvVcxU0l82PGffldr7mTDVOfVEREv
-	VIZfQ3LsDt8y8c9CqQn1iGXqjulAmnPOIOlzAyP+AdGa9lMHu6wJ1UmFzDHp5sCS7+za8hjy6sy
-	+JB3/DBH2VU93Ly5rIkKZWgKQKeT/DftCAy/a/5r1JS1MOJ1T6qLu2PSjC/G6MkjcNHjlMAQkAX
-	rpm6gqAXDpFXmREHHOdcFHUv5mUp4NiCRelRQmKtSANtP42V+tnaxIZMELdlb60BxaIBA/2D++2
-	JznSjkW1yxMb10LT47L+Z1rnCpGeobFoYBIsqHWwaw4KLlWLBgpeoV8SB5DziSan5jSLOlB5Xm4
-	unBvvUXO81NO8JO+Htuf796+satIzM4Xf5R4/CsoqnCOiEocO8rQn31A3YjBdYKXDelyLYLfZRz
-	8OYAyJTAySSP7kSISdYDBHT5jgzrUXgWL+nXb0H+eQ1P6zrGI/9/MLPISRC2/eJzuRyYiu+0+Fv
-	shkoFXfSwuFmJDXIoQtRx4a9Lru/RP9CrJfTkpgMU2pAYtQhYjCg+DxXlJbYOMQBzo39LgYKhXV
-	LruLFo9HO6dfj5p76gLl63zGDKFbf0OPHvbufXgyJpHnaJNn78RE+9doOF+zhq6qS4rsXIfJp1W
-	mxeoB3toTGPsiLw==
-X-Received: by 2002:a17:903:1904:b0:2e9:61bf:6587 with SMTP id d9443c01a7336-2ee0df758b3mr57253215ad.49.1794667809095;
-        Sat, 14 Nov 2026 06:50:09 -0800 (PST)
-Received: from localhost.localdomain (vmi2317719.contaboserver.net. [84.247.152.64])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0fa3ee33sm20913015ad.76.2026.11.14.06.49.58
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 14 Nov 2026 06:50:08 -0800 (PST)
-From: Lian Wang <lianux.mm@gmail.com>
-To: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Chris Li <chrisl@kernel.org>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Youngjun Park <youngjun.park@lge.com>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Kairui Song <kasong@tencent.com>,
-	Jihan LIN <linjh22s@gmail.com>,
-	Kunwu Chan <kunwu.chan@linux.dev>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	linux-hardening@vger.kernel.org
-Subject: [RFC PATCH v4 06/18] mm/swap: serialize swap publication before removing swapon mutex
-Date: Sat, 14 Nov 2026 22:49:54 +0800
-Message-ID: <ed10255256780c856689549e65654f8b01d40c2e.1794666741.git.lianux.mm@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1794666741.git.lianux.mm@gmail.com>
-References: <cover.1794666741.git.lianux.mm@gmail.com>
+        d=1e100.net; s=20260707; t=1794667815; x=1795272615;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9jDnWKJJ0pLAld/G+MaxErfbFghz6SX2FaTcRT+rzJw=;
+        b=YziSp1foJozU3XwU0DzdmbOdcuNYFjZloTlS2RbTqykId7Py6ygOfg9ouNKx0TibMs
+         5xwLYzOh5OUgMgjBViSxzVeGFcZWNPKdZaQEEOS0oXHHOCd/BjBabZmjJZ4yBu4w41KQ
+         u6z8xHQlWavpy+KF66isF7jTA2w4Q7vHQvJp3s4lx2a7m04+yZT6MSrFNvKXp7Bbo0fO
+         QcsI7fUQEcV/IxDo9ZNgPYO3HoZKtktH4Qaqb7bbCYKCdo+6X7qCSQELdFR31EWtzGjP
+         3y3nScbh+TBZiGhJWKTB3FiIlSpK87s5jf77uCvR8qF7jN3AcPCCrgfWzidE+RS+lXGp
+         nlcQ==
+X-Forwarded-Encrypted: i=1; AL+hErF7S07TYvyu9Snh7oa0BkxgcphkNuO+mwFe8qwSGV9iDi4wxI87HjyjMvtCiatvsiKOY4Qz0iOCmz+lQ2s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8wxr/G7d57pXTRl1HqQqghqs+FA0E99lqsI1EFf89Yb7Ewe2TO
+	iQkTtn4X30aLeMJ9KQAH8amZCGRsVLlh98io3Tf00EUBxuWrZ08z4nMlGj7Qkevdgw0ahyHGJs2
+	CgB60K28uadjtwChX8r3k32WtVDIU5UQVgggB7fU9lgf/oTcjOCGeKFGKPYTMTug2E5E=
+X-Gm-Gg: AYBFou36Ugv1DuTMbtr/0Ir6aIZij5MRFfFte5pqf5vrlVQhbhy0tJrNRTpVEJYI7Of
+	ovR3EjhyOI/tlGZS4lXwDxBjwc63QOPS6j9i8FFBb7txQA4AGJkxJ8EFJEET1NkO8Fp8rAP/rqS
+	N8qkR8lWtgyOmUYx62Q6K2bIbYXZaGUFVePWKyv0prxIRIZkGJivQpNM2pnHnAVRCrAMWapTM+8
+	2yaLg3njDVFCgRHQbpAhSO/flMXugCG8G5q2yXcgrF+djUmxAIkNt/z053FZGwDSGSfIso0ZD/p
+	DzzZQas2ufoud1DFV0MBqAKg67rieNi2+s/TTR16u2S3z6mEorxj/xrOyAwmPxG7o5xBvBPZINZ
+	bgS0Akgmzb9ecQWO7H16yIL+wwVS0H48dsthaGM9bSUpCfU7lVJcgziL+fuKQVXmA
+X-Received: by 2002:a05:620a:46aa:b0:949:6a51:5643 with SMTP id af79cd13be357-9496a516960mr173679685a.6.1794667814718;
+        Sat, 14 Nov 2026 06:50:14 -0800 (PST)
+X-Received: by 2002:a05:620a:46aa:b0:949:6a51:5643 with SMTP id af79cd13be357-9496a516960mr173674585a.6.1794667813989;
+        Sat, 14 Nov 2026 06:50:13 -0800 (PST)
+Received: from oss.qualcomm.com ([188.27.161.77])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c7da37b19sm11025041f8f.5.2026.11.14.06.50.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 06:50:13 -0800 (PST)
+Date: Sat, 14 Nov 2026 16:50:11 +0200
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Wei Deng <wei.deng@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        mani@kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: hamoa: Move the PCIe and UART graph
+ nodes to the board DTs
+Message-ID: <egxevic5xnzmjxikmr2hsj2tuvco7zjktbyiw6oifjsprgw73a@vflocomd7qds>
+References: <20261112-hamoa-dt-fix-v1-1-55efbac840f4@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,163 +125,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112-hamoa-dt-fix-v1-1-55efbac840f4@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=KelHIgYD c=1 sm=1 tr=0 ts=6af87527 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=c6MnNOAcyMoAY2_djnMA:9 a=CjuIK1q_8ugA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE0MDA1OCBTYWx0ZWRfX5QQEPUBy2M3W
+ 1b3XLftiSE3m2aoAEUuGwHSFUPN1GIb3KRvP+3LbJYYQZQOVbe3f5Vm6KSCp2BUfnBBCVXlbiXR
+ IF/+N3kIRmFC0ZzQnbzSBQ68uRCf6U0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE0MDA1OCBTYWx0ZWRfXw1Cnc8g9YbUS
+ acFPhq+Z+2eXA8WO4SuqTuSLGDci//9Z/IWbKpvLHtGz4h8p7lgr4weIR1EwxL4Y/ZhsvVH1+M0
+ LTvM1GuiPFRwFneHb2P/4wlgdbFO4qnhHk6l3zdRioQna5Twji2WC1XgajvPUf1KqbnJHhR0CFu
+ MpwH0YP9G+2zX+YznVji26axbe58JnluRhv4yo8gEgmrH48bXW5FId06RSE54jK/QC7p+L2x/Oo
+ Tb7NAJQcspbeNSPP3RsWTm9gdEFaHdsqaB2DcLMIRMGe3rqus6n1VSBbgdom7jHCmrwdJnD59Us
+ sKpmxLXF7ByEVwi0LjQHCN0+Nqjd5PFQpJn5Yp+9NIUQki06qnuxshtoXmtNFilp7GGQQwt5tRL
+ 4LkExUZE8GExkFqjWN/VW26jPshUQ+uuJb9WFn+8GgkpdwEW5As10wiMNspM/x3d5WCYqEP01cl
+ 1H0Xt6GujBt4Ml/3XCA==
+X-Proofpoint-GUID: upmLvcXCuvUqEZ9nqzEAmFsNpRQErw5U
+X-Proofpoint-ORIG-GUID: upmLvcXCuvUqEZ9nqzEAmFsNpRQErw5U
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-14_04,2026-11-11_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 suspectscore=0 lowpriorityscore=0 phishscore=0
+ clxscore=1015 spamscore=0 adultscore=0 priorityscore=1501 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611140058
 
-From: Kairui Song <kasong@tencent.com>
+On 26-11-12 16:00:25, Manivannan Sadhasivam wrote:
+> hamoa.dtsi describes an empty port/endpoint pair under the pcie4 Root Port
+> and another one under uart14 node. Both belong to the M.2 Key E connector
+> and only the Hamoa and Purwa IoT EVKs ever wire them up. Every other board
+> including hamoa.dtsi inherits two dead nodes they never connect.
+> 
+> Apart from the dead nodes, the change also confuses the pwrctrl driver.
+> 
+> So drop both pairs from the SoC dtsi and describe them in the two board
+> DTs, next to the connector they belong to.
+> 
+> Fixes: 014501d141ed ("arm64: dts: qcom: hamoa: Add graph port/endpoint anchors to pcie4_port0 and uart14")
+> Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-Move publication of swap_file, resurrection of the device reference and
-the writable transition into one swapon_rwsem writer section. Split out
-a writer-held enable helper so initial publication can share this
-section, while failed swapoff can use the locking wrapper.
-
-With file publication and teardown serialized by the writer, remove
-swapon_mutex and use a topology reader across /proc/swaps iteration.
-Keep the SWP_USED filter when advancing the swap_info array.
-
-The publication boundary excludes proc readers from partially published
-state and gives the lockless live-reference users initialized device
-metadata before the device becomes an allocation candidate.
-
-Signed-off-by: Kairui Song <kasong@tencent.com>
-Co-developed-by: Lian Wang <lianux.mm@gmail.com>
-Signed-off-by: Lian Wang <lianux.mm@gmail.com>
----
- mm/swapfile.c | 39 +++++++++++++++++++--------------------
- 1 file changed, 19 insertions(+), 20 deletions(-)
-
-diff --git a/mm/swapfile.c b/mm/swapfile.c
-index ae8421e18448..277a5c749987 100644
---- a/mm/swapfile.c
-+++ b/mm/swapfile.c
-@@ -139,9 +139,6 @@ static inline struct swap_info_struct *__swap_iter(int *i, unsigned long flag)
- 
- static struct kmem_cache *swap_table_cachep;
- 
--/* Protects si->swap_file for /proc/swaps usage */
--static DEFINE_MUTEX(swapon_mutex);
--
- static DECLARE_WAIT_QUEUE_HEAD(proc_poll_wait);
- /* Activity counter to indicate that a swapon or swapoff has occurred */
- static atomic_t proc_poll_event = ATOMIC_INIT(0);
-@@ -3161,9 +3158,9 @@ static int setup_swap_extents(struct swap_info_struct *sis,
-  * Mark a fully initialized swap device writable and expose it to the
-  * allocator. The caller must have resurrected its percpu ref first.
-  */
--static void swap_device_enable(struct swap_info_struct *si)
-+static void __swap_device_enable(struct swap_info_struct *si)
- {
--	percpu_down_write(&swapon_rwsem);
-+	lockdep_assert_held_write(&swapon_rwsem);
- 	spin_lock(&si->lock);
- 	spin_lock(&swap_avail_lock);
- 	si->flags |= SWP_WRITEOK;
-@@ -3173,11 +3170,16 @@ static void swap_device_enable(struct swap_info_struct *si)
- 	atomic_long_add(si->pages, &nr_swap_pages);
- 	total_swap_pages += si->pages;
- 	plist_add(&si->list, &swap_active_head);
--	percpu_up_write(&swapon_rwsem);
--
- 	add_to_avail_list(si);
- }
- 
-+static void swap_device_enable(struct swap_info_struct *si)
-+{
-+	percpu_down_write(&swapon_rwsem);
-+	__swap_device_enable(si);
-+	percpu_up_write(&swapon_rwsem);
-+}
-+
- static int swap_device_disable(struct address_space *mapping,
- 			       struct swap_info_struct **swap_info)
- {
-@@ -3340,7 +3342,6 @@ SYSCALL_DEFINE1(swapoff, const char __user *, specialfile)
- 	if (!(p->flags & SWP_SOLIDSTATE))
- 		atomic_dec(&nr_rotate_swap);
- 
--	mutex_lock(&swapon_mutex);
- 	percpu_down_write(&swapon_rwsem);
- 	spin_lock(&p->lock);
- 	drain_mmlist();
-@@ -3355,7 +3356,6 @@ SYSCALL_DEFINE1(swapoff, const char __user *, specialfile)
- 	percpu_up_write(&swapon_rwsem);
- 	arch_swap_invalidate_area(p->type);
- 	zswap_swapoff(p->type);
--	mutex_unlock(&swapon_mutex);
- 	kfree(p->global_cluster);
- 	p->global_cluster = NULL;
- 	free_swap_cluster_info(cluster_info, maxpages);
-@@ -3401,20 +3401,18 @@ static __poll_t swaps_poll(struct file *file, poll_table *wait)
- 	return EPOLLIN | EPOLLRDNORM;
- }
- 
--/* iterator */
- static void *swap_start(struct seq_file *swap, loff_t *pos)
- {
- 	struct swap_info_struct *si;
--	int type;
- 	loff_t l = *pos;
- 
--	mutex_lock(&swapon_mutex);
-+	percpu_down_read(&swapon_rwsem);
- 
- 	if (!l)
- 		return SEQ_START_TOKEN;
- 
--	for (type = 0; (si = swap_type_to_info(type)); type++) {
--		if (!(si->swap_file))
-+	for_each_swap(si) {
-+		if (!si->swap_file)
- 			continue;
- 		if (!--l)
- 			return si;
-@@ -3435,7 +3433,7 @@ static void *swap_next(struct seq_file *swap, void *v, loff_t *pos)
- 
- 	++(*pos);
- 	for (; (si = swap_type_to_info(type)); type++) {
--		if (!(si->swap_file))
-+		if (!(si->flags & SWP_USED) || !(si->swap_file))
- 			continue;
- 		return si;
- 	}
-@@ -3445,7 +3443,7 @@ static void *swap_next(struct seq_file *swap, void *v, loff_t *pos)
- 
- static void swap_stop(struct seq_file *swap, void *v)
- {
--	mutex_unlock(&swapon_mutex);
-+	percpu_up_read(&swapon_rwsem);
- }
- 
- static int swap_show(struct seq_file *swap, void *v)
-@@ -3958,7 +3956,6 @@ SYSCALL_DEFINE2(swapon, const char __user *, specialfile, int, swap_flags)
- 		goto free_swap_zswap;
- 	}
- 
--	mutex_lock(&swapon_mutex);
- 	prio = DEF_SWAP_PRIO;
- 	if (swap_flags & SWAP_FLAG_PREFER)
- 		prio = swap_flags & SWAP_FLAG_PRIO_MASK;
-@@ -3970,11 +3967,14 @@ SYSCALL_DEFINE2(swapon, const char __user *, specialfile, int, swap_flags)
- 	si->prio = prio;
- 	si->list.prio = -si->prio;
- 	si->avail_list.prio = -si->prio;
-+	/* Publish the file, live reference and writable state together. */
-+	percpu_down_write(&swapon_rwsem);
- 	si->swap_file = swap_file;
- 
--	/* Sets SWP_WRITEOK, resurrect the percpu ref, expose the swap device */
-+	/* Make the reference live before exposing the writable device. */
- 	percpu_ref_resurrect(&si->users);
--	swap_device_enable(si);
-+	__swap_device_enable(si);
-+	percpu_up_write(&swapon_rwsem);
- 
- 	pr_info("Adding %uk swap on %s.  Priority:%d extents:%d across:%lluk %s%s%s%s\n",
- 		K(si->pages), name->name, si->prio, nr_extents,
-@@ -3984,7 +3984,6 @@ SYSCALL_DEFINE2(swapon, const char __user *, specialfile, int, swap_flags)
- 		(si->flags & SWP_AREA_DISCARD) ? "s" : "",
- 		(si->flags & SWP_PAGE_DISCARD) ? "c" : "");
- 
--	mutex_unlock(&swapon_mutex);
- 	atomic_inc(&proc_poll_event);
- 	wake_up_interruptible(&proc_poll_wait);
- 
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
