@@ -1,111 +1,111 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794625619;
-	b=s63PgQst5BbOyoXHNggAgR4Wy52Wsu4L2vLcotJ0kmd0JFNKZ2qUSHhKC6hVHRk20oqU
-	 t4JVu6pLH2+Zvf9o5SXZlzOvhMv85MgNnV86Pjr9iaQ6OK7sNcsB9b01A4JS7QDz/0bR8
-	 OrxdavN1GWiJSU1TkRz7GCaMF2cPodQIXkG2yMdD/PZ8xDzqHnFdwDfRn5PiOVjVpiZWv
-	 0P57y6qwUfcPZwl8VKnX+O7MZHIGiBvyODzR7oUoKG8VCdNOl7FpUi1IhtK3kjF4uOl5N
-	 SyGJn6+s1KWaYHUKzx7vcJStIvLibLO4om0UatNuhi0Hi8FWVuDCnOagpBmQntsqiHQ==
+	t=1794625631;
+	b=PvW7g4/wJ4DiOJZraH3ki1lRqFOZQe20Qk864UU2s7NjN7SwRMeidCSEoYjQxOvIRo6n
+	 olL9g6BsiNIuK7kzqPtVG5KflaTupekxIKwuFbljyqZXtg65IDYC7VfP5ksQSq/FHYzgf
+	 NlpSsDRZscf3fBT3hlXHSRvAVUGbJfYhNO0HidiA4xwDZhya41XZzXe66MttC0DF8sLnD
+	 QyGpFl8Hh0UVyyNBdfVvfnHMHhOP60QKsmBxn/Oa2kli7fisDWyJsOuszgnfN6CAdbdbm
+	 pzyzIdCCCLo9xz9i/mDZ6q9IkOOlxgsQWKK5dKoU+LdNVs30I3Oixd0c+Kg3Z0t5usg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794625619;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794625631;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
 	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
 	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
 	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=6x2DdXPRXEfWTwXK9W5PcsBc7yr8Bb9BaYYA36DgAhY=;
-	b=01M8uldEFStLsbSpdwr7DfsKOaO5/VCytjrPdUdSQZ0uGm/lFRBdBt/1APgfns/SBulE
-	 Nfx8KI6TfKmF5Es2hQh5LkeC6wt+1C2TMEQ/mQavKURKsHqICxZ1mTsUQhApXMq6yrx/4
-	 D6ZYrG9ZtWqZr5riQQpcKgw6A2R1M7gmYcZO/P4K09PsQFwMRYeiDHS5tm+myj3rmYeKA
-	 drjyHq7CC1OU9163jjEadNqgOqH5nRbJW/gz9EBL4xGRpuJUJarESLWi6uzbdzSC2Akyl
-	 +cmbURKR8Wqc9K90VjIEgcu+1fehu99/JyWT3LbDIU8M/UdF519i5mOB+qQ6Gp9bK4g==
+	bh=iGWIXFPBAskkErhFkKBy4iJxNdoQOpKT8TAJDBnwcSA=;
+	b=1lSLaCZ08L/o7VTZUNUhi6NvVpHBjd429JYgRAKP+dBpYgWlw10+0MA2yn4VDgLnGa6i
+	 FfkoFnA/5jCaRPZSWVJtdqY5gfzwsovSRyk8GHd83LXBWOlOU6YRRiwhtWeJZAVOB9lUw
+	 YDTGxnQY4xrHmzgSo9dnUcUFCVJgBmttej45FlxVJ2SAo4P36YVd6aNq3belvaC5r/3Ov
+	 3tnP3ebxqWvhpMNUGhaRXJw0/IHha+xGDAvAqMBXGZOqNN0Or5LTGhke++EGZwt+eweH5
+	 zGH2oXyU5GbdmqHN/dQn1OmXtY8BLL5d6WLH5vTrfBJtOKWpBV+fFfOUR7wcKxRNCDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gahingwoo.com;
 	spf=pass smtp.mailfrom=gahingwoo.com;
-	dkim=pass header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=JOyZ0CFr;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=GAFzTvD0;
+	dkim=pass header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=FZGMFB4T;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=56+s65Ft;
 	arc=none smtp.remote-ip=103.168.172.139
 Received: from flow-a4-smtp.messagingengine.com (flow-a4-smtp.messagingengine.com [103.168.172.139])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CECA606A8A3
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:06:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CECA606A8A3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5FF5606A884
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:07:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5FF5606A884
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=JOyZ0CFr;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=GAFzTvD0
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailflow.phl.internal (Postfix) with ESMTP id D6C731381A50
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:06:58 -0500 (EST)
+	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=FZGMFB4T;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=56+s65Ft
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailflow.phl.internal (Postfix) with ESMTP id 18DAF1381A4D
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:07:10 -0500 (EST)
 Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-10.internal (MEProxy); Fri, 13 Nov 2026 22:06:58 -0500
+  by phl-compute-03.internal (MEProxy); Fri, 13 Nov 2026 22:07:10 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
 	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
 	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1794625618; x=
-	1794632818; bh=6x2DdXPRXEfWTwXK9W5PcsBc7yr8Bb9BaYYA36DgAhY=; b=J
-	OyZ0CFrc5h94lMOBy1I/MbIxQTNbfZFe/ma9Zcp7QWWAoi8lm5u2Gv/PC9yGqF7j
-	oumzmUj27S2v/Xzj1Fv/2ruxortxHN76VunmsvZr0hFlaVAvLTmL8Qonx+02Atbv
-	IwXFwgF6JVAeZpl5B3ElH6H3fx5Ewjy7ptdzPS7bJy26O5TDGUlTmU1SPAFtFgtS
-	+E0RUWfb+Kav8ZcUlKzjFTbzCH5HsbwPvJlUEhBb22FY1gGKlioTbi1Qfqat5ePw
-	3O7WCsS8lEUhxL9EngPXdkAF45DLIkeJRkvjLZjgJbcJWroIrafv8ctRHBXrwJxw
-	anjXaYOprKfj+aZ3xL2nA==
+	:reply-to:subject:subject:to:to; s=fm1; t=1794625629; x=
+	1794632829; bh=iGWIXFPBAskkErhFkKBy4iJxNdoQOpKT8TAJDBnwcSA=; b=F
+	ZGMFB4TJG7xtiYFo4Hk522Tz/pXGIXgNF3EZtaYoj0kJICfwSCEsieSlXjBGlnqd
+	q8w1YzQ5QKEMNBqhNRK3HOkXrgHFwy/GhNXGH9/yFZ6GbKxl31RbQJYWGBf6fRGC
+	JVJd70cCUXJy8hXy+ih2R9R0lUUI0BmyhgTpLap0d4CG0TFFN1VDQCCvtvrCWqJN
+	84q9mvVVaTHxnDht1iXZcXooovdJIdQTMWR+fxnUieulkUOhhqhQlt/jZm8icjpE
+	fLuUCqZaznPeu39dkw04pUVVQQZxMq9yMqEmvO+0ypBC/+QarjflxzhDpt8nl9Mn
+	aXlgRZ1XmhB/WR14yWZPg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
 	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1794625618; x=1794632818; bh=6
-	x2DdXPRXEfWTwXK9W5PcsBc7yr8Bb9BaYYA36DgAhY=; b=GAFzTvD0voW6TAMrF
-	L0u2FO9DBlnV9kNHR2Bch7rKfiBlOZywpeFUry1+DoO1mPn1ZyrXV7KyFQCRAYwe
-	XmKkqwjRB+HYj8uzBL61tdeWtqM7H5zgcTVL27pVScmzd2cYVLhdi5s7GusSXtBd
-	uOmezDELh8D0SEir88q+zwuYaEKmgGOOIgvDVAEeKvueHm6LtxjEjHejBp308CuY
-	/qudBwTYLw7DzkDDPhaf9Kb/Rh3jK5TjLS3sIo1uD4qYBCESmEpdzkISoHTL3VN9
-	a5boz5pdhexkaUBG13Nop/kw3bbs23NY+62MXxF/7V1KxXZ57nX8N7ywxl0brkoC
-	QvvCw==
+	:x-me-sender:x-sasl-enc; s=fm3; t=1794625629; x=1794632829; bh=i
+	GWIXFPBAskkErhFkKBy4iJxNdoQOpKT8TAJDBnwcSA=; b=56+s65FtBOsj2iBOp
+	bcoT6NTmYYMd2cIKkw6LjvFGnkQrLiEOwBfXTr/9HK7T3hhtU8SZTabkAgmovtaw
+	rC4yNIVqG9lfSbFCqoSDnV9Wyg8Qe3P8hsv6gM+hU4ttaqJKeqUq+5D+oxXiixFs
+	HhRu47wsFQMGNT6PiFFER/6OHtk8VpilHvWDUoI9HK3qWYBkB0svRlSxHmq1U15I
+	t/jkg5cYOCgtfN88NPYGGnqB5vPxyzjb9NjfoH15iwaVsgJX5qSp22WcXJdvutt1
+	lX+8d8uJI41O+A4C7Sx9kTabZ2ZkzIy+z+uK7tZle4Su40yNVZnQLasBCbpajw8U
+	vUjbQ==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
 	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
 	action=sign d=gahingwoo.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794625618; d=gahingwoo.com;
+DKIM2-Signature: i=1; m=1; t=1794625629; d=gahingwoo.com;
 	mf=PGdhaGluZ0BnYWhpbmd3b28uY29tPg==;
 	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:Ie1Ao8xdlcNffkvSRrIpOhoo/ow3fZnBU922fiXOdP0OTBf
-	+6yKxVQxtKGsT1KNq7U81bSj1ngHNCQvwttbF3snt2g/7XRMvAMq5vikHDw5CAYb
-	X+ezloB1ksRQHOsMNyHz5Vnv7FWGwo2U5zhbpMRboee/s74Hwr2vLxKLtNpNiCrT
-	Mm3Etp3mcLFgQm/cutSKwy4bdJMdSFvXeUfUaFO81J4vXN4Q1h/mWH/xZ37iAx+P
-	1lU4wYa1BKNWPCFYs01gfFvmMeqfv0Kcm5XIlZcsfXxPhhcsmlPgTu3e+luGRoGw
-	Y/ZHd2NqrlID3+RqWeiije33R6WB4XMYQgd0gNA==;
+	s=fm1:rsa-sha256:aUCtrpv200VVIVZBouwPTli2mbua1R7GuWXDhpG2Reo6Klh
+	+SGsXkgGB3Sb6Mx+mjcHO0RgMjQ45Np+tSZfQASk0sJ8kRN3+1hlmLXEf/ZHDgt4
+	f4rS93f6vqnhHEBqOG0yZBiz9C5IXS3ZFXe5QJF57RXOzRzj0P0z7qMJUbShGqsx
+	Yagqa1ILkycpshLjSswn7xg5LBdaghMhS4O1dRco3IuUBhdqSEyMi4OUpwMmKzl/
+	Of9G9CYYof7nu2PyThpC1GfhpFEpN6FBgXd4bivj+6eBHdqLKsGClIDc3wSlqCQO
+	3ME0W0HmlX45L5qbuGR139hh5aqPmyqUivzpLwg==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
 	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
 	action=mi-m=1; hc=11;
 	hn=cc,content-transfer-encoding,date,feedback-id,from,
 	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:QUCw6nHb/ESRMlEU+4iCUgaybt4lsW+WIT1tNwjwXlo=:laoGVPMLf2LRqPKwP6T2FlWgv2jsQM2NXAuJVqlbhm0=;
-X-ME-Sender: <xms:UtD3atyx9XcV4JYgGux7RZ5m5aXt6dzTZWkZTG_gvhVC_2ZnLZDmxA>
-    <xme:UtD3apvjx3P719V9fqo8RTvhBCXY_kJC8aIEZc9n16Pjxei8zJ_Pqq7ON6tf7Ks5W
-    iMajoKTfXFHIwWIEV2MqiKnOOPaOg4-XRUWKsCy2Q-_yk1FnjOK0_c>
-X-ME-Received: <xmr:UtD3aul1WypVUr3XzWXUVL_o_sxMkuBW19nixzbEBAow5F_Nlx6IHd_gXqK3VGs1nUXzVCCK>
+Message-Instance: m=1; h=sha256:zjek7cGZpIn7UJ/Qd1CE+tQiN0Lcz846LffH7xYq27M=:t4XZljyf4r49w/JA52om5qZZDmnryD7F5+35Gs6wz74=;
+X-ME-Sender: <xms:XdD3akv7y4amK4DwtcUqZIOQfDzKiPQ96A6-yJPNd7lwwXBloG4mSA>
+    <xme:XdD3at7hUj_Ze6uxtYZAoJ00Suh3GH6MN--C6MFgkaO2z3G9heDTOGDOMadsCuYuQ
+    7apJVpm8C4GmFbSJ2TJXSAF8Ekny27IzUhwgbrgSf9rTkelZBXHt1z5>
+X-ME-Received: <xmr:XdD3anDqvTTAwuPXBxvhzkQhD-7fxgRNBb7ZQEUywbzvIbkbS0sE9yq5FYvYj-lFev5XjUBZ>
 X-ME-Proxy-Cause: dmFkZTENh3Cq6bNtRDDqH//naJpK03OGhXB8Cp3eHHX2EpHYf2oBjZ1/43ruyqVDLzR5bI
     q7gV+k53czH7SJj0JMNaMvWBGkaUqaereb01ifHpul1q14DobEKJC2mDvQQE3HzqoOU9gl
     QO0UnCSJOnNpWmY1qWdj/IivEZ+5eJmA8XcRYmqsfPBSZaKqk9zCnQvCGUQuYFJdsYZGP5
     L8zECb373LU+oefpY9jKwOjkFDiU4CWxV3iExHL3zPnpeZwM1wkFJxhm/yJk+2AJ3ju4OO
-    RXCknd9xSS299sQU1FiikwzYfEAyF9m0XTBIDoIn2qfRRJDU3uzKkImCFIAQPMS5Q++UrR
-    WNEsUDtSeFBcBLt71bjQrvXXjb3WFgLUhsbvDWF80ZOJvDja3u+zakrCtyEU1urx1F6ck1
-    6F+8USBSfsd0wejYoVC9t8qjupZOwoSsBjG3q0ewwaUG6VRRZ/oDrWvdfAbQNuabm9mzH8
-    /BL5Nw2T3bIFzu3ItLq4PVCVIvnchLyuy57qeQrNb6X6qS/noci8K9DlljvDG7eMCy7Tna
-    SeoXVIQOlFrSqDLv5yt63f6wvnCWhk0p0PcEA6IH5GcynMFezoctP1nehgj7tijUh2aAd+
-    zczBCZ6zuHNG0zlVYh+D7cfW9NSI/FTr55zdEGblHoHReNCLIkjVHMJT0cpQ
-X-ME-Proxy: <xmx:UtD3amCmAbO9I8j2oAWINT2bwsq7fUcrVKwzS8WyHgSNlish6endgQ>
-    <xmx:UtD3avR7kadzBjo9OlY1hqWr7NVniMScNrXwQa-tNPAt60dVPqws-w>
-    <xmx:UtD3auL1vkGOR792CIpfzNyS5GxJBxgt667RCKfbg_BqWB53LaqAZQ>
-    <xmx:UtD3ag2ycQzQWCpTODyfrBed_NBZ3DS5bwaGccWr7ZxbVmJsuMsMvg>
-    <xmx:UtD3amG1kHLPu0HQitsT2mvQOhQQflP7JmDKsHnMJgwo76z463zfT6fr>
+    RXCknd9xSS299sQU1FiikwzYfEAyF9m0XTBIDoIn2qfRRJDU3uzKkImCFIAQPMS5Q++UsR
+    Pj8WGhog14V2oPv0Cbbor+mzw6PegcxRpm5myXv4LDEhkE1PkXw4sxqyUJNO/+Ym/WoTtY
+    tb+wGIzcEdR5gpJ/co3yvFnixhD41GzrC5cwFRLMOkoJNUefiqpzYTvbF89mCOgpXHkcbt
+    /SC0IgYaKIaxYmpKCKFIa6XINF/BgHg5SpjhwJdNmQtEtkQyf3c6uXdmAEvJL/O0Mgt6hP
+    QQitoEWPB/NvR+jtz/GGnwYE+plZ1G01Db2y81F9XGpwZrv85P5crk/n0P2JQ7Anh//hJX
+    XAhJDMWz6XDQ1NvCq46aIxmrDJB3gDVfUyllQ4UGMusM2kK3B9Yu8sPy8rJQ
+X-ME-Proxy: <xmx:XdD3atuNEhIGL-RLMV9DqXQuLYStSLCB57ORfDyf-pbwYJqZTbQUqQ>
+    <xmx:XdD3alONIGHGzzjoAqtndtXanGV0sVV-ngLB6FW6iv3I0fHANXBGnA>
+    <xmx:XdD3alW12DKdSgnpska55ukpVd_c5dGD2jngsXmPMyy8czpNn8au_A>
+    <xmx:XdD3agSIbQ4bpjHMTdIqY5wHBADZNtDhLpZg10Rdd9dGgzQEWmDxxQ>
+    <xmx:XdD3auVlcDyYiSpXx4E2a3hOfdLwpDAvEbSimxIhGQ5-xJ-sWIuuwURm>
 Feedback-ID: i7a5e4b5f:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 13 Nov 2026 22:06:49 -0500 (EST)
+ 13 Nov 2026 22:07:00 -0500 (EST)
 From: Jiaxing Hu <gahing@gahingwoo.com>
 To: tomeu@tomeuvizoso.net,
 	heiko@sntech.de,
@@ -139,9 +139,9 @@ Cc: royalnet026@gmail.com,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v17 07/12] dt-bindings: iommu: rockchip: describe the RK3576 NPU MMU
-Date: Sat, 14 Nov 2026 16:05:24 +1300
-Message-ID: <f2e91cd17bab66e4fd8901704c89ce0d717cff18.1794615323.git.gahing@gahingwoo.com>
+Subject: [PATCH v17 08/12] accel/rocket: select the per-core clock and reset counts from match data
+Date: Sat, 14 Nov 2026 16:05:25 +1300
+Message-ID: <fcdd7117d3d7fe99ea1658c39b6d1a05428823f4.1794615323.git.gahing@gahingwoo.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1794615324.git.gahing@gahingwoo.com>
 References: <cover.1794615324.git.gahing@gahingwoo.com>
@@ -156,83 +156,137 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The RK3576 NPU IOMMU is compatible with rk3568-iommu but needs four
-clocks: aclk, iface and the two CBUF clocks.
+The RK3576 and the RK3588 use the same NPU block, but with different
+numbers of clocks and resets.
 
-Measured: with only aclk and iface, the IOMMU reset fails and the NPU does
-not probe. Without either one of the CBUF clocks it fails as well, and one
-of those configurations does not even boot.
+Take the number of clocks and resets for each core from soc_data in the
+match data, so the driver uses the right count on each SoC.
 
-With all four clocks the IOMMU works, and the npu clock is not needed.
+The RK3588 keeps four clocks and two resets.
 
-rk_iommu enables every clock listed in the device tree (841363ebb508), so
-this list decides whether the IOMMU can reset.
+A device without match data fails before any resource is allocated.
 
 Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
 ---
- .../bindings/iommu/rockchip,iommu.yaml        | 26 +++++++++++++++++++
- 1 file changed, 26 insertions(+)
+ drivers/accel/rocket/rocket_core.c |  8 ++++----
+ drivers/accel/rocket/rocket_core.h |  6 ++++++
+ drivers/accel/rocket/rocket_drv.c  | 18 +++++++++++++++---
+ 3 files changed, 25 insertions(+), 7 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/iommu/rockchip,iommu.yaml b/Documentation/devicetree/bindings/iommu/rockchip,iommu.yaml
-index 6ce41d11ff5e..e40c9ac2b463 100644
---- a/Documentation/devicetree/bindings/iommu/rockchip,iommu.yaml
-+++ b/Documentation/devicetree/bindings/iommu/rockchip,iommu.yaml
-@@ -26,6 +26,7 @@ properties:
-       - items:
-           - enum:
-               - rockchip,rk3576-iommu
-+              - rockchip,rk3576-npu-iommu
-               - rockchip,rk3588-iommu
-           - const: rockchip,rk3568-iommu
+diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/rocket_core.c
+index c1458423cb69..040272573a72 100644
+--- a/drivers/accel/rocket/rocket_core.c
++++ b/drivers/accel/rocket/rocket_core.c
+@@ -23,7 +23,7 @@ int rocket_core_init(struct rocket_core *core)
  
-@@ -42,14 +43,20 @@ properties:
-     minItems: 1
+ 	core->resets[0].id = "srst_a";
+ 	core->resets[1].id = "srst_h";
+-	err = devm_reset_control_bulk_get_exclusive(&pdev->dev, ARRAY_SIZE(core->resets),
++	err = devm_reset_control_bulk_get_exclusive(&pdev->dev, core->soc->num_resets,
+ 						    core->resets);
+ 	if (err)
+ 		return dev_err_probe(dev, err, "failed to get resets for core %d\n", core->index);
+@@ -32,7 +32,7 @@ int rocket_core_init(struct rocket_core *core)
+ 	core->clks[ROCKET_CLK_HCLK].id = "hclk";
+ 	core->clks[ROCKET_CLK_NPU].id = "npu";
+ 	core->clks[ROCKET_CLK_PCLK].id = "pclk";
+-	err = devm_clk_bulk_get(dev, ARRAY_SIZE(core->clks), core->clks);
++	err = devm_clk_bulk_get(dev, core->soc->num_clks, core->clks);
+ 	if (err)
+ 		return dev_err_probe(dev, err, "failed to get clocks for core %d\n", core->index);
  
-   clocks:
-+    minItems: 2
-     items:
-       - description: Core clock
-       - description: Interface clock
-+      - description: Convolution buffer core clock
-+      - description: Convolution buffer interface clock
+@@ -106,9 +106,9 @@ void rocket_core_fini(struct rocket_core *core)
  
-   clock-names:
-+    minItems: 2
-     items:
-       - const: aclk
-       - const: iface
-+      - const: aclk_cbuf
-+      - const: hclk_cbuf
+ void rocket_core_reset(struct rocket_core *core)
+ {
+-	reset_control_bulk_assert(ARRAY_SIZE(core->resets), core->resets);
++	reset_control_bulk_assert(core->soc->num_resets, core->resets);
  
-   "#iommu-cells":
-     const: 0
-@@ -72,6 +79,25 @@ required:
-   - clock-names
-   - "#iommu-cells"
+ 	udelay(10);
  
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: rockchip,rk3576-npu-iommu
-+    then:
-+      properties:
-+        clocks:
-+          minItems: 4
-+        clock-names:
-+          minItems: 4
-+    else:
-+      properties:
-+        clocks:
-+          maxItems: 2
-+        clock-names:
-+          maxItems: 2
+-	reset_control_bulk_deassert(ARRAY_SIZE(core->resets), core->resets);
++	reset_control_bulk_deassert(core->soc->num_resets, core->resets);
+ }
+diff --git a/drivers/accel/rocket/rocket_core.h b/drivers/accel/rocket/rocket_core.h
+index 01a12664566c..05d34e538e36 100644
+--- a/drivers/accel/rocket/rocket_core.h
++++ b/drivers/accel/rocket/rocket_core.h
+@@ -35,9 +35,15 @@ enum rocket_clk {
+ 	ROCKET_CLK_MAX,
+ };
+ 
++struct rocket_soc_data {
++	unsigned int num_clks;
++	unsigned int num_resets;
++};
 +
- additionalProperties: false
+ struct rocket_core {
+ 	struct device *dev;
+ 	struct rocket_device *rdev;
++	const struct rocket_soc_data *soc;
+ 	unsigned int index;
  
- examples:
+ 	int irq;
+diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/rocket_drv.c
+index 5d7805c41dc3..1030d8407b78 100644
+--- a/drivers/accel/rocket/rocket_drv.c
++++ b/drivers/accel/rocket/rocket_drv.c
+@@ -159,8 +159,14 @@ static const struct drm_driver rocket_drm_driver = {
+ 
+ static int rocket_probe(struct platform_device *pdev)
+ {
++	const struct rocket_soc_data *soc = of_device_get_match_data(&pdev->dev);
+ 	int ret;
+ 
++	if (!soc) {
++		dev_err(&pdev->dev, "no match data for this device\n");
++		return -ENODEV;
++	}
++
+ 	if (rdev == NULL) {
+ 		/* First core probing, initialize DRM device. */
+ 		rdev = rocket_device_init(drm_dev, &rocket_drm_driver);
+@@ -179,6 +185,7 @@ static int rocket_probe(struct platform_device *pdev)
+ 
+ 	rdev->cores[core].rdev = rdev;
+ 	rdev->cores[core].dev = &pdev->dev;
++	rdev->cores[core].soc = soc;
+ 	rdev->cores[core].index = core;
+ 
+ 	rdev->num_cores++;
+@@ -216,8 +223,13 @@ static void rocket_remove(struct platform_device *pdev)
+ 	}
+ }
+ 
++static const struct rocket_soc_data rk3588_soc_data = {
++	.num_clks = 4,
++	.num_resets = 2,
++};
++
+ static const struct of_device_id dt_match[] = {
+-	{ .compatible = "rockchip,rk3588-rknn-core" },
++	{ .compatible = "rockchip,rk3588-rknn-core", .data = &rk3588_soc_data },
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(of, dt_match);
+@@ -243,7 +255,7 @@ static int rocket_device_runtime_resume(struct device *dev)
+ 	if (core < 0)
+ 		return -ENODEV;
+ 
+-	err = clk_bulk_prepare_enable(ARRAY_SIZE(rdev->cores[core].clks), rdev->cores[core].clks);
++	err = clk_bulk_prepare_enable(rdev->cores[core].soc->num_clks, rdev->cores[core].clks);
+ 	if (err) {
+ 		dev_err(dev, "failed to enable (%d) clocks for core %d\n", err, core);
+ 		return err;
+@@ -263,7 +275,7 @@ static int rocket_device_runtime_suspend(struct device *dev)
+ 	if (!rocket_job_is_idle(&rdev->cores[core]))
+ 		return -EBUSY;
+ 
+-	clk_bulk_disable_unprepare(ARRAY_SIZE(rdev->cores[core].clks), rdev->cores[core].clks);
++	clk_bulk_disable_unprepare(rdev->cores[core].soc->num_clks, rdev->cores[core].clks);
+ 
+ 	return 0;
+ }
 -- 
 2.43.0
 
