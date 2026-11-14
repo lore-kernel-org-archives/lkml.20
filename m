@@ -1,55 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794682495;
-	b=qnq+0HWrKTBuxTPQiv8C+a25I51P/Zi//PHWGzxVShrY7W8OPGJpP7iTpTQnhZm/tQG0
-	 rdK56fxxFUxzbr1kIHn6k8wzyl3a/Rx46yGlrEF/HdE3P/p5psL6i91P+WfIPVUT39jBJ
-	 Gp6M3S5MXvmV0w/6N0ccbwqBZZtWhvynXmU6G/9e9z76jkthVR4bj8eoel6f2z4y3pzPK
-	 JxS7p1Yeheldt4/W8FRf4t1/T6vzrLvux+zhgLoJITctq8O/E6UTnmlycPT1h6XpPjKE4
-	 dvJlSoiTnMmUKhMOM8zt0an0zEjqBpBEwrAWSpDegXEkc1h9VLrQWCHJJ/0idoqBEmQ==
+	t=1794682580;
+	b=V/MXdhzqjqVPODgDuT4heBbscwSPxzCRO3R2qtApE4yxNj5tXqCCWx0GpTPA9ee7dbJe
+	 rCNrdgG8otHB4yHFKKO1UhFkOEk5CF94nuDsBVn8pOFTviouq02VfiR7JCeY5dko4HEEN
+	 PK9gYYIXWS0L4pu+FWCuw7XFxKTA35e3yFWWHm1y/dzwfkTyitA751DDs1hlocur9A2B2
+	 AzY5S432Hf5jEGjseVZ2VzEjv9kE8DOW6PTL/TJe+orDbKtg94WaVhcOtR3MMwkl2L7wl
+	 QHhkPe6wiDBJjNrIpempw+ba4vl3tlfp1K8huB/npWdGPUC2RKjvIP3IWxIZITN2leQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794682495;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794682580;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=09Hma9V4IARPkRb3a7jpTHqq+0whdMizS7F304+jas4=;
-	b=MQJEUjP3r0kAb5ae7BAoPBGmfpwZ2VqvXW5+xf7UW5oP2O8dCoI4bajOuz9PBLbt4K2j
-	 BVf3mawPRSljTXme0n1x2I+6KcaizM/r+rq+YxaYI+lmHVlLAl5zc7jIupEvzuh3DF/eo
-	 q+Fe1DE8rDNgaUP3c/0nIdxEy1JBp07TIHdXCqF7wcDMUm6uwljjusJXPlC1MgvlZeo19
-	 u+aXC8CiMuWViHbAWLo8nr60FN11dFLeeFlUJKWse1dFOGf842uXRgmsdzspQZOhqwuI8
-	 FzxGVnISeS9XTvmyxQ0hwgQteva1Auk1YOuHTFioXG2Uy6jIn2J4gOER7vCbudrsiSQ==
+	bh=//GruLIthFISZCy43B0WDxoPfxAVchEQzL1ze90Ia1U=;
+	b=L4P0xdCpFqmrqjwmFECe9R2u0JqCuZyVQFxM+YfmvTPmjeV4S4rJXYreIDgUc0tGN1W3
+	 XP7gfM4jXZYh/iMZiA1QcSbGrjrUsAgYuvzdKdkJYLWUH0lCxHeNO91/belpl7vN4wtto
+	 H5IFvK19ycQX8Yx2nvACja3kNrsqZ7MJHc4SQxzIlRYcIrvb3s4Jcz2WP7n/bK+sbaIIL
+	 V1m979161JBmOsTW7eft3T1rGQJiaqkzcRuPfxDoPMVGDJa60JoAuALsUT7QnYVk8JzUo
+	 cUtbbXSYticcJSirf0sQXorj4vf9UeX7nXPKB17FWuhPQuzfLIjIjW8Ih8/pClEiI8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F1enGvJk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hFXT4w+R;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D44F606A327;
-	Sat, 14 Nov 2026 18:54:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C99C606A329;
+	Sat, 14 Nov 2026 18:56:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F1enGvJk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3F7B1F000C4;
-	Sat, 14 Nov 2026 18:54:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hFXT4w+R
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BC5C1F000C4;
+	Sat, 14 Nov 2026 18:56:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794682495;
-	bh=09Hma9V4IARPkRb3a7jpTHqq+0whdMizS7F304+jas4=;
+	s=k20260515; t=1794682580;
+	bh=//GruLIthFISZCy43B0WDxoPfxAVchEQzL1ze90Ia1U=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=F1enGvJkNNZApK5ODBg9ykcGIE5gubTnRhI9ub/a8gKjvjrbnX8Zcf3USTAt+nQdL
-	 q9blSES1HmmlWw2OcS5uJ21zulBR2Q6xqqw8ylAgtKyzvJ2vJnD/Fy0lmgh1baSqqQ
-	 Z39mbPb0I2HhOavBGvJGOzrC+Z5h55Bv8sBksfh+/02w9h8RikR2hDZPBItBguqbhN
-	 SwPXZI4AdqvB+UVD27z6oRVjyUK/8QGQ1USYQzQ0BEjzD8FecIC/yOOdGh5NAkprsF
-	 Xg2FE2LLwMrlYW2OdjKXhoUb3hS6osxr+Reh0+S+HI8bTqOeo+V2yOuPJD6XxCTytN
-	 1wKctlGWnf4hQ==
-Date: Sat, 14 Nov 2026 18:54:49 +0000
+	b=hFXT4w+RF00hYPkv+JLeIEZAjbBCTc5CY95xB7nG2ZeZC6xVNc/tyLfLCXLXXfzU/
+	 0xwjpH4uqHfJv3b9jTPfEDI05f7epSGY7WNGrFU65nrM599kdWjAEstILA4u/ArbNH
+	 FTR5pcJyhgtGykdCgnB9yTDQlTEGPmVB2LhUyMM/DydIocWWISlDCPO5SdDwgRJIHN
+	 4wq5xnK84S73I5MUqu84dXHgKrRnMmjnl0JRhFS++dhSPVoIn0UZspmNkPF5QG60KR
+	 Pr81J5yjOzly8Xwkbx+5AcxopvUR+FkweegBHOBezVZ17Bld0ubFOCo/dvixMRJFbK
+	 Aqop4pp6GTflA==
+Date: Sat, 14 Nov 2026 18:56:10 +0000
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: Manuel Ebner <manuelebnerli@mailbox.org>, 
-	Carlos Bilbao <carlos.bilbao@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, workflows@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] kernel-docs: Update book info
-Message-ID: <aviuWHgghr8wivll@gremlin>
-References: <20261114124813.1056807-3-manuelebnerli@mailbox.org>
- <37d65eb3-f4b1-4e45-87c5-5378d5355541@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Willy Tarreau <w@1wt.eu>, 
+	Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+	Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Chris Wilson <chris@chris-wilson.co.uk>, Matthew Auld <matthew.auld@intel.com>, 
+	Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, 
+	Nicholas Piggin <npiggin@gmail.com>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, 
+	Rik van Riel <riel@redhat.com>, Benjamin Herrenschmidt <benh@kernel.crashing.org>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
+	dri-devel@lists.freedesktop.org, linuxppc-dev@lists.ozlabs.org, Chris Mason <mason@kernel.org>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/5] mm: do not call vm_ops->access with FOLL_ANON
+Message-ID: <aviukG1XPZw2Rja9@gremlin>
+References: <20261112-access_shite-v1-0-988a5c470db2@kernel.org>
+ <20261112-access_shite-v1-1-988a5c470db2@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,48 +72,55 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <37d65eb3-f4b1-4e45-87c5-5378d5355541@kernel.org>
+In-Reply-To: <20261112-access_shite-v1-1-988a5c470db2@kernel.org>
 
-On Sat, Nov 14, 2026 at 07:28:10PM +0100, Vlastimil Babka (SUSE) wrote:
-> replace Lorenzo's address with a working one...
-
-Thanks :) yeah ljs@kernel.org is the email I use for the kernel in general now!
-
+On Thu, Nov 12, 2026 at 11:08:57PM +0100, David Hildenbrand (Arm) wrote:
+> From: Chris Mason <mason@kernel.org>
 >
-> On 11/14/26 13:48, Manuel Ebner wrote:
-> > Update info about Lorenzo's 'The Linux Memory Manager'. The source is:
-> > https://nostarch.com/linux-memory-manager
-> >
-> > CC: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-> > Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+> Reading /proc/<pid>/cmdline or /proc/<pid>/environ can block in a device
+> driver, or read device memory, if the virtual addresses point at a device
+> mapping.
+>
+> Ever since commit 7f7ccc2ccc2e ("proc: do not access cmdline nor environ
+> from file-backed areas") we use FOLL_ANON to only read from anonymous
+> memory. While GUP properly handles FOLL_ANON, __access_remote_vm()
+> will fall back on GUP errors to vma->vm_ops->access() without similarly
+> considering the flag.
+>
+> Fix it by not calling vm_ops->access if FOLL_ANON was specified, to
+> truly limit it to anonymous memory only.
+>
+> Fixes: 7f7ccc2ccc2e ("proc: do not access cmdline nor environ from file-backed areas")
+> Signed-off-by: Chris Mason <mason@kernel.org>
+> Cc: stable@vger.kernel.org
+> [ david: simplify description; slightly rework implementation ]
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Thanks for this! LGTM so:
+LGTM so:
 
 Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-> > ---
-> >  Documentation/process/kernel-docs.rst | 6 +++---
-> >  1 file changed, 3 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/Documentation/process/kernel-docs.rst b/Documentation/process/kernel-docs.rst
-> > index c67ac12cf7..dd5bef154d 100644
-> > --- a/Documentation/process/kernel-docs.rst
-> > +++ b/Documentation/process/kernel-docs.rst
-> > @@ -79,11 +79,11 @@ Published books
-> >
-> >        :Author: Lorenzo Stoakes
-> >        :Publisher: No Starch Press
-> > -      :Date: February 2025
-> > -      :Pages: 1300
-> > +      :Date: Spring 2027
-> > +      :Pages: 1350
-> >        :ISBN: 978-1718504462
-> >        :Notes: Memory management. Full draft available as early access for
-> > -              pre-order, full release scheduled for Fall 2025. See
-> > +              pre-order, full release scheduled for Spring 2027. See
-> >                https://nostarch.com/linux-memory-manager for further info.
-> >
-> >      * Title: **Practical Linux System Administration: A Guide to Installation, Configuration, and Management, 1st Edition**
+> ---
+>  mm/memory.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/mm/memory.c b/mm/memory.c
+> index 1a0ec09c56fd7..d4370c1b331c9 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -7398,6 +7398,9 @@ static int __access_remote_vm(struct mm_struct *mm, unsigned long addr,
+>  				continue;
+>  			}
+>
+> +			if (gup_flags & FOLL_ANON)
+> +				break;
+> +
+>  			/*
+>  			 * Check if this is a VM_IO | VM_PFNMAP VMA, which
+>  			 * we can access using slightly different code.
+>
+> --
+> 2.43.0
 >
 
 --
