@@ -1,63 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794622563;
-	b=nKo9ExdarRvN6EdXv06TY82Rec278W+7P692NGYj5rCW2EDLEPMNLiJ/1jLt7WGE9/Kn
-	 jjtUAXZUDYHP8PAb193JU4hmDw0OhTpJiN5gvtxsNk2YMPRVajapZwPcR53h3X2x8RR+b
-	 G7YLNokNCe2OjezrBshpTcFRQJve2YSpTPGIPzjBnixwtcLCi0V7yvvdsgaiFEJJRAzbo
-	 pXdDSGoNYFYgQ0KYBVX1aA/HppZJk989cAqDsoyjH0WVxVtzeaPpC1AoJJaUkcHsJ3BRs
-	 KgB6LErw+Fnv0RN3WE3gfJtuMorERxhU9STZVUXmIIr2xM1zWceeS3Uly+qHSU9P3nQ==
+	t=1794622659;
+	b=1u8Hi9S67Ht6e7ctPbWGM3VhnhZJilb68oSCC78GEId3/3soNxkB3nC+zSZfkI2LlDSO
+	 jPGZyu4fBI3l4GHwOBX14wHoiEkGUhtqZ3587IgUu/kY9uthg44QRAmeLHo2cTNbjMgzz
+	 zttoPWKv7JxqX4cfoRwzrH54TdlJ9iDLPF5VeQDQjZ0TeJIEYdvlsTWDBQGSy9blnzG6c
+	 KR4Ot+F6eTJhxPWq69dkot+lZvv8Kg8m3BWpqKHnFLtxmDOVvNHbaBnwbdpMaMvdOK7nl
+	 DO0X6Nn0dOWaL4j6kV2SboE951f7d1SXFKyNtXaFgfmtP9ItcYDEc6BcbnBmCscUSBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794622563;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794622659;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Roggx5/wkV3KhVWt1yynfm1Kzg49sxJrPoIQ3oBO9m8=;
-	b=AYnBi5C+vBvY0kcQ+X2JW8sTHL4KMeDsCpjlayUWffKupMlO8eQEyF5hxJ2TBXUPk1hK
-	 nw2eFN51JNIeObHW2YT0Bvxwcca1fGKCQQQB+56+gNebY3Z5+JZaFCI1WKph8Al5zzcsb
-	 u2OaSAs2ut1jahbvE1+Y5HfkQTRYxtQiGN1FuXChw+C0NRiJNVHLCnfFBKP8/tAcno148
-	 WJge8y3Ae3F0YlB9RLb37Y2KsV6dFVB34apyk9ml7koVvqym38UYPo2EwSOaK/hQq9lHt
-	 GGh00XvWNgr5farmuIkNXQYELpL4KTwCBEIMyOmgH25caXRmyzorVPtLDTQ2eYPdxvg==
+	bh=r9W6lneKPSQoMSpQFwAwWd9P0BB/8MDW8wL1asVEo54=;
+	b=vouhEHVoD0A9wxtk9J6K7re0AfvLWBvPf7bAkUMWsSrQJ7CyNp3o8dYMArhncyzsoTYA
+	 mg3wrY9562e9ZVtF3mctQC5Gd/hnogZp9z3g8pekjBos+nGFLtsJ3l8Atm1c2Bs1gcBY5
+	 IhjV1/4RvieKGWNnu9xiLwfCZVhoh0HscjhnxPATnfPzVCPUaZJ0d7I+hEgPPk8Y9oMqA
+	 doLCpjyrhv+dC5SAYeIa8+jJK9bC3xitWQxesQB31XVOwKie/x85dLV6sf6EkPbmp0ZMV
+	 wkD2cZu8Gpv+d/KuamTJ1tHIvhyx5VjE/hkeX3SP1/oZrkG9KELswe5enEOvRvia05w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UsfTA3oB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="E/EGpdbR";
+	arc=none smtp.remote-ip=209.85.215.174
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 451A7606A327;
-	Sat, 14 Nov 2026 02:16:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFFB6606A336
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 02:17:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFFB6606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UsfTA3oB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA43A1F000C7;
-	Sat, 14 Nov 2026 02:16:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794622563;
-	bh=Roggx5/wkV3KhVWt1yynfm1Kzg49sxJrPoIQ3oBO9m8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=UsfTA3oBI9zmZPuhfAO275YEO5Fc4IZbie/mxutRpY5aIKga/xk2aSXHOiKLiCDjq
-	 egH90qo6xXyAyPvXuWzNGYnBfheL4ZW8oWWccd6AZWrbxONaVpac3fVVS+FmnMsu8t
-	 8J6zPL49FoPsCTd1R8JJWAymrVOxKZR9O4gVxNHbQhCw3ShswD5+DZxzJU0oJ3PEzf
-	 hDuZ65m21mAgPoCXaSAHy25+Ah8y6wGkZ31CrJbP6FddrDC1+qI+oU3ycaj4Y06Owe
-	 RN2qeG+9Z/DMXih5VdeP+x++K6fGQ7sYpzqjx+LiCE9RM4ZmvdcJxZfYwJGxAm2EqF
-	 3RToxtXb55x/g==
-Date: Sat, 14 Nov 2026 02:15:54 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>, Di Wu <diwux@google.com>,
- dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org,
- bleung@chromium.org, groeck@chromium.org, tzungbi@kernel.org,
- linux-iio@vger.kernel.org, chrome-platform@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: cros_ec: use sysfs_emit() in show callbacks
-Message-ID: <20261114021554.2165a2bf@jic23-hlaptop>
-In-Reply-To: <20261113092305.00ec8be5@pumpkin>
-References: <20261111072608.3490763-1-diwux@google.com>
-	<avR-KT-6e77EexZn@ashevche-desk.local>
-	<20261112020439.37b0da70@jic23-hlaptop>
-	<20261112220218.1adae5e5@pumpkin>
-	<20261113013646.4c2f8456@jic23-hlaptop>
-	<20261113092305.00ec8be5@pumpkin>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E/EGpdbR
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc751eddf25so1699733a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:17:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794622658; x=1795227458; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=r9W6lneKPSQoMSpQFwAwWd9P0BB/8MDW8wL1asVEo54=;
+        b=E/EGpdbRuWjqN+bLHTOo1s6qhQ3TTm8RnEPIgBcvHfXgg1qeZhPVJP0UYTzYTqW2uG
+         AXwi0fz5TMPIndgev1rSK0uiZ2w8pxlpaIpd6WBmYxemV3EkP//2kXrKS6wewOuGuvZk
+         5vUdT8Bleow7S42YkX/AhJGKBgs75/b5hg8IqyH0NaYjT0ZvfsQdgY3Y8V8Ta5NLMovH
+         2VhJqO9/GiA9ri5GEbgoXBx3M5J6JoDtuLsxK/R8UacFBQiepodjgGETzwloACxLpzcz
+         iOoBTqy5KVF0sjSl5xM1uildk28/WPPL1FruKra7eRnVcr0BwqIYdNi5LSJoWONroy0Z
+         t3Pg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794622658; x=1795227458;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=r9W6lneKPSQoMSpQFwAwWd9P0BB/8MDW8wL1asVEo54=;
+        b=usSLI2DxtsvW4ZNBpyNFM88TCbEkLzPlE3V+hz0R8Evm+XpzLUb3Ru7OCGWaB0Er1e
+         u4MXkVWMVbH+lR8dR4R4AF4urljnAgN59OEe7F549yvWsRUTkRbmcaWLqnsrPnIN4g9G
+         IF4b827fdIZk9FN8tnXO0IDvXeKIX/VhgwHFH3GmXREDDAK7efaE5aGfRUr2Qm+V9JrE
+         aPLfh+/jYC7A8HkHJKW9b7bbi7rhEv/h2glz6361bjH2MWF9OPPsJLINI/Wvbw7ud6To
+         PwnZTANYqF42hMctUfE0/Fm0zHH/jNAqjEk9rSsOFXR2Q42bIJ70y4jFa1LYn4mHkdcd
+         /2OA==
+X-Forwarded-Encrypted: i=1; AL+hErHadPGhMekm8iiu5Oak1xamzTjKAiUUE7/6i8GhsiTQ23usHwrLv6PooEh8jNqIfPe9wi2sNhPPOxn6uA0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+dQ35M/rOFPfikApHFfEHQwIAvNqcCKG6qeUCE7XFjaG1oTQAu
+	OsxYHQE01waKGXPI+dcQJS2cjGsG9+rMCjmB0rv008O0W9/bif9jP27tVILCD9XdnqE=
+X-Gm-Gg: AYBFou3lqZkhtjCJu4aHLlAX3Z0ZkDNDZXebm5OupmhLHpm+apQlTUQblRLUTGoD4mj
+	4IiOFFXQTb7GA02Ocuju/aTkfl2YQ6SGWY9pR8XdZLn7FDA2sOdZCo3kDRDeCsHyAwIWa/RjYom
+	XRaNUKh9xO63RogpjPFGyR3j4DtAE4NSodnL+AfvDV26HAt/liLk9MlNCfY4IzNje27ZpCsy39P
+	wzvCmU4xHPDRS8LyEqPwH/mQCM7EMTb7Wsiq1aGxMsg2BtD5J9wbJpfK72YuLNArfJgk8SaUQcr
+	sipRBvJ2gHt9Za9fDy8QQuprnNOZdG47mx0YXDPtRrR7tqluutY0FWFDxzo3OiC/34uAh1cqwha
+	jSwDO+0K/2POfbyQj42/QVCxDfXq16ItVyd7wX/+jAOhSv+CU4FXSllS5xTZR+quJHGtTtn6eSY
+	KHmVLiY2speUMqi93LO/PEM7FUETTRsvixV4CNt8o20KP0UdVzsb5150bD0BUoobXdC8mf++dey
+	LvVwDMs1oJGn7POFQgSrUZFfnG7ed7OXNdE9TVoYd3H0L7VU4/jDDk9+zSb1zmayWZRE0Yvqaz7
+	Ng4FoSVOEtrwIzlOiGaRkyiELwimJWL4Qn9XQkWW/TLvvY/8bcyrgyF9KCyxPstpLrCZdPaZm8R
+	YU9eGjR4VZdlrvEfTNCFYB+8JRq1vE7v2CBQdN7zb
+X-Received: by 2002:a17:90b:548e:b0:3b0:9cc6:62bc with SMTP id 98e67ed59e1d1-3b1b0ca8ae3mr4175037a91.37.1794622657886;
+        Fri, 13 Nov 2026 18:17:37 -0800 (PST)
+Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1baaafdadsm4330732a91.13.2026.11.13.18.17.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 18:17:37 -0800 (PST)
+From: HyeongJun An <sammiee5311@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	sound-open-firmware@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	HyeongJun An <sammiee5311@gmail.com>
+Subject: [PATCH] ASoC: SOF: control: Reject out of range volume and switch values
+Date: Sat, 14 Nov 2026 11:17:30 +0900
+Message-ID: <20261114021730.2349347-1-sammiee5311@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,96 +105,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Fri, 13 Nov 2026 09:23:05 +0000
-David Laight <david.laight.linux@gmail.com> wrote:
+The snd_sof_volume_put() and snd_sof_switch_put() pass the user values
+to the IPC put handlers without a range check. The switch handlers
+store any value and send it to the firmware, so on IPC3 writing 2 or -1
+to a switch reads back as 2 or 4294967295. The volume handlers convert
+the value to u32 and clamp it to the end of the volume table. Writing -1
+sets the maximum volume, and on 64-bit writing LONG_MIN sets the
+minimum, both without an error.
 
-> On Fri, 13 Nov 2026 01:36:46 +0000
-> Jonathan Cameron <jic23@kernel.org> wrote:
-> 
-> > On Thu, 12 Nov 2026 22:02:18 +0000
-> > David Laight <david.laight.linux@gmail.com> wrote:
-> >   
-> > > On Thu, 12 Nov 2026 02:04:39 +0000
-> > > Jonathan Cameron <jic23@kernel.org> wrote:
-> > >     
-> > > > On Wed, 11 Nov 2026 16:39:37 +0200
-> > > > Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
-> > > >       
-> > > > > On Wed, Nov 11, 2026 at 07:26:08AM +0000, Di Wu wrote:        
-> > > > > > Replace sprintf() and snprintf() with sysfs_emit() in the sysfs show
-> > > > > > and ext_info read callbacks. sysfs_emit() is aware of the sysfs buffer
-> > > > > > PAGE_SIZE limit and is the preferred helper for show callbacks.          
-> > > > > 
-> > > > > Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> > > > > 
-> > > > > ...
-> > > > >         
-> > > > > > -	return sprintf(buf, "%d.%06u\n",
-> > > > > > -		       latency / 1000,
-> > > > > > -		       (latency % 1000) * 1000);
-> > > > > > +	return sysfs_emit(buf, "%d.%06u\n",
-> > > > > > +			  latency / 1000,
-> > > > > > +			  (latency % 1000) * 1000);          
-> > > > > 
-> > > > > As David said, since you touched these lines, make the less amount of them
-> > > > > while at it.
-> > > > > 
-> > > > > (But no need to resend, usually Jonathan is kind to tweak this small thing.)
-> > > > >         
-> > > > Done and applied.
-> > > > 
-> > > >       
-> > > 
-> > > I just looked at that line again.
-> > > Why is it multiplying the remainder by 1000?
-> > > It could be:
-> > > 	return sysfs_emit(buf, "%d.%03u000\n", latency / 1000, latency % 1000);
-> > > if the 6 digits after the decimal point are required.    
-> > 
-> > Good point, I guess unrelated change that we could have on top.  
-> 
-> Indeed.
-> 
-> > Those trailing zeros shouldn't matter.  
-> 
-> There is a matching oddity in the set function (just above).
-> It calls iio_str_to_fixpoint(buf, 1000000, &integer, &fract)
-> then does latency = integer * 1000 + fract/1000.
-> Just replace the 100000 by 1000 and you don't need the divide.
-> 
-> iio_str_to_fixpoint() will ignore are extra fractional digits.
-> 
-> Although I'm not at all sure its handling of negative value is correct.
-> It converts -1.5 to -1/5 and -0.5 to 0/-5.
-> I can't see how that is useful since i*10+f for both gives -5.
-> 
-> I'd have though that either the fractional part should always be positive
-> so -1.4 would need converting to -2/6 or it would have the same sign as
-> the integer part and -1.4 would be converted to -1/-4.
+Return -EINVAL for values outside the range reported by the info
+callback, as snd_soc_put_volsw() does. This fixes the write_invalid
+failures in mixer-test, and the event_spurious failures caused by the
+events those writes generated.
 
-That is rather odd use of the output of iio_str_to_fixpoint()
-which admittedly is a bit unusual because of the need to handle there
-being no where to put that negative when the integer is 0.
+Fixes: c3078f539704 ("ASoC: SOF: Add Sound Open Firmware KControl support")
+Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+---
+Tested on a Dell Latitude 9420 (Tiger Lake, SOF IPC3): the out of range
+writes now fail with -EINVAL, in range writes still work, and the 9
+mixer-test failures on the SOF controls are gone. IPC4 was not tested.
+Its put handlers store the value the same way and now go through the
+same check.
 
-Can get away with it here though as latencies aren't negative so.
-The code doesn't seem to actually check that though which might
-be a nice useability improvement rather than setting it to something odd.
+Prepared with Claude Code (Claude Opus 5.5). Tested on x86_64.
 
-Jonathan
+ sound/soc/sof/control.c | 34 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
-
-
-
-
-> 
-> David
-> 
-> >   
-> > > 
-> > > David    
-> >   
-> 
+diff --git a/sound/soc/sof/control.c b/sound/soc/sof/control.c
+index 74d997a4f620..b6497e50505b 100644
+--- a/sound/soc/sof/control.c
++++ b/sound/soc/sof/control.c
+@@ -30,6 +30,30 @@ int snd_sof_volume_get(struct snd_kcontrol *kcontrol,
+ 	return 0;
+ }
+ 
++/*
++ * Reject values outside the range the info callback reports, as
++ * snd_soc_put_volsw() does. The IPC put handlers do not check the range.
++ */
++static int sof_mixer_check_values(struct soc_mixer_control *sm,
++				  struct snd_sof_control *scontrol,
++				  struct snd_ctl_elem_value *ucontrol)
++{
++	long max = sm->max - sm->min;
++	unsigned int i;
++
++	if (sm->platform_max && sm->platform_max < max)
++		max = sm->platform_max;
++
++	for (i = 0; i < scontrol->num_channels; i++) {
++		long val = ucontrol->value.integer.value[i];
++
++		if (val < 0 || val > max)
++			return -EINVAL;
++	}
++
++	return 0;
++}
++
+ int snd_sof_volume_put(struct snd_kcontrol *kcontrol,
+ 		       struct snd_ctl_elem_value *ucontrol)
+ {
+@@ -38,6 +62,11 @@ int snd_sof_volume_put(struct snd_kcontrol *kcontrol,
+ 	struct snd_soc_component *scomp = scontrol->scomp;
+ 	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
+ 	const struct sof_ipc_tplg_ops *tplg_ops = sof_ipc_get_ops(sdev, tplg);
++	int ret;
++
++	ret = sof_mixer_check_values(sm, scontrol, ucontrol);
++	if (ret)
++		return ret;
+ 
+ 	if (tplg_ops && tplg_ops->control && tplg_ops->control->volume_put)
+ 		return tplg_ops->control->volume_put(scontrol, ucontrol);
+@@ -90,6 +119,11 @@ int snd_sof_switch_put(struct snd_kcontrol *kcontrol,
+ 	struct snd_soc_component *scomp = scontrol->scomp;
+ 	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
+ 	const struct sof_ipc_tplg_ops *tplg_ops = sof_ipc_get_ops(sdev, tplg);
++	int ret;
++
++	ret = sof_mixer_check_values(sm, scontrol, ucontrol);
++	if (ret)
++		return ret;
+ 
+ 	if (tplg_ops && tplg_ops->control && tplg_ops->control->switch_put)
+ 		return tplg_ops->control->switch_put(scontrol, ucontrol);
+-- 
+2.43.0
 
