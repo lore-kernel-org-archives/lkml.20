@@ -1,66 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794666003;
-	b=RIRDjtvTh+mg/oPD9pe5qkVrvI3ywx+1hMfDe36uY38a7m56j/bGrT+5iqmz4PxwBO79
-	 9nJ8bwO5xbt2qh2pgOk1639sWrB1XMrcOo8v9dBcB7bCFwoKL8o41LNCiSnBt0CDxiJ7w
-	 9ks30R1nUtyCxLupdBtgSzoAVTd7/C/Z6WeTfDiJhpWsFyaRb/PJ+OyusCn0d+puq2Zww
-	 U3outdxnEvn+yz7drD6StWmvwOXTh/XkzpVdwOJAVw5S7TKfO/7NrVaYdYMlmSzJPMSdV
-	 uMIZ1OruLSiawFV0joIk1H8JIIxpiEF41d5cc2XsmTDJ80wa0bcAvkwbnwTNuEZ/d7g==
+	t=1794666077;
+	b=BBRmNnWpdDFWTzeGwnt03WvvyWlPlnMk+60zaMRsZDLq29YzB1Hhuo6fN/k4ma3QmI/G
+	 zHjOOgS2xZ3koCHL8kj4/A9d2dJQzaNePPxsMbFfXMbFT5MeEvzGc/b7EGO4ZHS4ECX8F
+	 Km5hdGC2gGI6vMSww3VgqVhhugEzPMW9zxpNXP1S5a5yGu4/pJiHC35ru4fyWAbpF9qzH
+	 w9pWJbh3pbHYavNQ86A5wqA0S8WtZ6SmstaJelb/T00TpMnGE0W3SNCDXGpOS2WHgZd0g
+	 /oq8YH2NtzcZJP0FfPSOpXE4LX0DmTVn5np6Yfz9fh0/YGTY9wD7z+3i2ggB4yIqN+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794666003;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=GxhZTjvsMJxcg4iPJ8p2SPBamkZcuiYbrKcc+lfyNeY=;
-	b=VRW+o3PNHNCTOY8Rk2A5jnM+nIuqp17qy65yszihI/6cMNdHlMPlnA26ZO4X/AGqtWdz
-	 CC3+JQ0ib4slMW7LcRTXZ6v6Jn8fJlrDZETYq9kRXmq6eKu39kFSOYlkrix6N/bz/bkHQ
-	 G8LKFo7hfJYtpz3guVnSBDXcEOd/a/YY5dfL7SoW/J/3oyJ+P0jn+z35X8C8IEOq7N/f8
-	 /FgEYEa/fehY6VNvzZdfW+bG/Q3Z+qLVO0tpVsqiNsLWgxdHEYmJ0YdXn1mqxKG3LzwHj
-	 82KyzWsFRtpgrDLJp7ZU0usPVLQCnOxwN806mqZpSlhVHTVYbLWxW+rleL4ZzgBW+cw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794666077;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=FqnHMYlKaSA8Ft2QevowFaKT6pdWror7xfjpOfngALs=;
+	b=MdVigrakPBDnDPViRkPUSQAEwnVM4KdBoWFT3mqZljrTJfHKz1PD5bIqlHIgmuugQDzr
+	 4bKoAOiPbRHJjSRrNEfegwHe/f/EHdlWt13LSUZVnj34Iu5wcQVjuoQLmN1uVhQExEf0T
+	 tDVytsrVij8tFK7+me+kGlDIho5axPul8Y5f1mRCHOdl+XuKI6LcNCjV5F6kBLb+X6eQt
+	 v0GvevlqSINWX1PuQkbptTjECDHXVeAbu0WQNcCDGR6C0/bl53rUTqSHD+ARcDbqi9dwt
+	 G+Fcc5pXE5Mr5lI3dIpyBr7SbXJLKdIOtrnjAH3f4lqXdQrCTtRGj3oOczMbNBNqIvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jbXhkhqN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=wyuan.org;
+	spf=pass smtp.mailfrom=wyuan.org;
+	dkim=pass header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=OExVtD2D;
+	arc=none smtp.remote-ip=95.215.58.170
+Received: from mta1.migadu.com (out-170.mta1.migadu.com [95.215.58.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF09D606A323;
-	Sat, 14 Nov 2026 14:20:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB0E2606A327
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 14:21:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB0E2606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jbXhkhqN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A9901F000C4;
-	Sat, 14 Nov 2026 14:20:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794666003;
-	bh=GxhZTjvsMJxcg4iPJ8p2SPBamkZcuiYbrKcc+lfyNeY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jbXhkhqN9/y7CZOJSkoHGg1kF3FTw9QmpKBe+i9E4bq3oTN11gPKEWRpR9vu7RLOk
-	 H0Pv0UZtQPe9wcs7RqTKiQuKrxUr5C5taa5ao2nBDK9Vf6ws0q+eSYZmZ26lJ4seIR
-	 Sljnqw2J0yW42IfEUsr4J8W57F3HOPUDfl5qjeOrzRAOujA504e+29+1N4nN5GuRR1
-	 B76vnJeaYvh5yIkYpiLlmpX27z2s+CSgRtjW3Id1kqKCRnIMWh1gDqOn9Hodlr0HaV
-	 w+StmbtHbfxNoSAjRP4r0cmBSPpgUHmvM3RsPG+nphW15jxuh0HRa0S9VmtNvd4qOB
-	 bwMMnBuaJLd2A==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id 53E5932DB3E3; Sat, 14 Nov 2026 14:20:01 +0000 (GMT)
-Date: Sat, 14 Nov 2026 14:20:01 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Chrispine Tinega <dev@chrispinetinega.com>
-Cc: Lee Jones <lee@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
-	Jerome Neanne <jerome.neanne@baylibre.com>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-omap@vger.kernel.org, mfd@lists.linux.dev
-Subject: Re: [PATCH 2/3] regulator: dt-bindings: ti,tps65219: Add
- ti,no-warm-shutdown
-Message-ID: <cedb08d0-cfa0-452d-b4cd-511d6c852eed@sirena.org.uk>
-References: <20261114032457.3434248-1-dev@chrispinetinega.com>
- <20261114032457.3434248-3-dev@chrispinetinega.com>
+	dkim=pass (2048-bit key, unprotected) header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=OExVtD2D
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=qUS2XBe2YZ7bGkxDICrEYx9w9WRwXYDG0onMhdWkZeQ=;
+ c=simple/simple; d=wyuan.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794666068; v=1; x=1795270868;
+ b=OExVtD2DREEabuKkXYf+UPbQJ2cX5VXVFhgdMx3EwH3YZMqAQzhhO2madi843LxjssRkaALF
+ JGdZLh3MKjugnqwLrGArfxYp/9ekcfG4HWL7c3p6c0bJZcTxdoxu5vGAIiRlIREzqvUUqR452P5
+ +h6ImIvZkhIotJ7+9zXigHY9YJsPTFNX+DuztsPt8e/Dle3Cw+/zMCT4+rxhPl9KSMrceKCNvN0
+ tPyBLgTLRbfFL+boIAC//znoFE4bPQD8czGUA+UOATaphcW2Sr4e4kCZ0F78JDPGlcvjzlBB9yv
+ K4a+lqm2q+oIIY1B/OopR6o9E/57rg0Hnn5lSzTIYax7w==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ba8871558e610b89;
+	Sat, 14 Nov 2026 14:21:07 +0000
+X-Mizu-Trace-ID: ba8871558e610b89
+X-Migadu-Flow: FLOW_OUT
+Date: Sat, 14 Nov 2026 22:21:04 +0800
+From: Weijie Yuan <wy@wyuan.org>
+To: =?utf-8?B?6Zey6YCb?= <2368492046@qq.com>
+Cc: corbet <corbet@lwn.net>, mchehab <mchehab@kernel.org>,
+	linux-doc <linux-doc@vger.kernel.org>,
+	skhan <skhan@linuxfoundation.org>, rdunlap <rdunlap@infradead.org>,
+	linux-kernel <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 0/4] docs: kernel-doc: fix export selection and error
+ handling
+Message-ID: <avhuUH2BLm-EQpPw@wyuan.org>
+References: <tencent_9BF64A4FFFB7B990DD5E6D6CF26C43565306@qq.com>
+ <avgDq_FrLSbuC7bK@wyuan.org>
+ <tencent_79B4A967C5ADFFCE3CCF0EA9362419ABE105@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,43 +71,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="/DK5X7DFqIxlcSv/"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261114032457.3434248-3-dev@chrispinetinega.com>
-X-Cookie: A watched clock never boils.
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <tencent_79B4A967C5ADFFCE3CCF0EA9362419ABE105@qq.com>
 
+On Sat, Nov 14, 2026 at 05:05:38PM +0800, 闲逛 wrote:
+> Hi Weijie,
+> 
+> Thank you for reviewing my submission, and sorry for the mistakes.
+> Although I have been familiar with and using Linux for nearly ten
+> years, this is my first time submitting a bug fix to the kernel
+> community, and I still have a lot to learn about the process.
 
---/DK5X7DFqIxlcSv/
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thanks, you're welcome! No need to worry. And sorry if my previous reply
+was a bit straightforward. I was a bit out of form this afternoon. :)
 
-On Sat, Nov 14, 2026 at 06:24:55AM +0300, Chrispine Tinega wrote:
-> The TPS65219 has four die temperature sensors, each with a warm and a
-> hot threshold. A sensor whose warm warning is not masked makes the PMIC
-> sequence all its outputs down at the warm threshold, 110 to 130 C.
-> Masked, the warning is only reported, and the PMIC powers off at the hot
-> threshold, 130 to 150 C. Whether a board can run past the warm threshold
-> depends on its thermal design, so the board's devicetree has to say so.
->=20
-> Add ti,no-warm-shutdown for that. It is allowed on the TPS65219 only:
-> the masks are not described here for the TPS65214 and TPS65215.
+Unfortunately, your actual patches of v2 this time were not sent as
+replies to the cover letter. Usually, your actual patch, let's say
+[2/4], should have a 'In-Reply-To' email header that points to the
+Message-ID of your cover letter [0/4]. But now they do not have that
+header, therefore not in a thread. See also:
 
-Reviewed-by: Mark Brown <broonie@kernel.org>
+  https://docs.kernel.org/process/submitting-patches.html#explicit-in-reply-to-headers
+  https://docs.kernel.org/translations/zh_CN/process/submitting-patches.html#in-reply-to
 
-though we might still want a runtime override for when the user is more
-cautious.
+If you were using 'git format-patch' and 'git send-email', that should
+work well as expected. What did you use to send patches? Is it QQMail
+web page? I suspect it would damage the process of sending patches. (But
+it seems that your [1/4] can be applied successfully with 'b4 shazam',
+so anyway) I had heard before that using QQ email might cause problems,
+but I wasn't quite sure either. You may want to take a look at 'git
+send-email' or b4.
 
---/DK5X7DFqIxlcSv/
-Content-Type: application/pgp-signature; name="signature.asc"
+I'm not familiar with this part, so please wait for others to review.
+;-) I suggest that sending out your v3 after receiving some comments,
+so you don't need to reroll too often beacause of this format issues.
+(But if they want you to tidy it up, that's fine too.)
 
------BEGIN PGP SIGNATURE-----
+Yup, the process is not that easy to get familiar with at once. But
+please don't be discouraged. If still meet any problems, please feel
+free to let me know.
 
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCavhuEQAKCRAv73Ows9A4
-iZqSAP0eRQHN381xhc0NGI/6Y9SxV2C2n4RH0bBJUFkzmZBROAEA0yw2EzkrME0v
-wzS2oDz9JuAgGTbB3meXzCrjLu8wAQQ=
-=IsLC
------END PGP SIGNATURE-----
+[...]
 
---/DK5X7DFqIxlcSv/--
+> Thank you for your time and guidance.
+> 
+> Best regards,
+> yuehua-meng
+
+Thanks. The usual practice is to write it as "Yuehua Meng" in your
+From and Signed-off-by. But since I can tell that it's a known identity,
+I guess it's fine unless later asked. Or perhaps this is just your
+original intention. ;-)
+
+Thanks.
