@@ -1,93 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.72.192.78
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794656256;
-	b=KrOO6ldsGDAtcW8HSDwqkK36ol94Sciea2+KnP8Y7saA1en0ldmn6pqN6amn6FDfftt9
-	 KE4X36TmHx7ZahC8BXSj0iDCEHPY9FdzhRM8oGB3BbITXzFDKsz/11Ldm0/VFaaGbuu15
-	 HMyAnIbEkzZ6AG1NDCVdoOcs4NT3+9eh0+cwMDIhefTYr896FjlyfDqyItlAXAImBSWOo
-	 g9Xr3rNbMYf7mPtGjO8dAVY3g6Ajme8491hPGzGCgEbo+OLlgPGm61M6zVsNQFE0yvxw8
-	 DyIKlXjPIUop0HAHxqWXGTZQMoJiQPbtmF18ZYBauLluIuE3o06VwQmRWs+HenYH8LQ==
+	t=1794656373;
+	b=oNrTqyYhQ4Byidwshvt4qZX8ws626VYwZImR1W6sY8bsUTAj/Hxxv7nucK4TsP11WfAr
+	 XDGv9xMELoCQxq7lTzjC1np9qWLxj+COzXbxdmJYezBttYtPz80DVAZc8Hf/1fvjCx3fp
+	 GFkIX5v0X6Z69+WEXZ3PXOLaiKqw9bMQTiL7dfpO2OyLyXAARGW/4iW9Qc59qg68hzTwV
+	 ziN6NdhoMhbq0O4J3toSM3p6PnSfYJ2tw3IFBubi/nssIbqz+QrAOzydH/zYuDAzyHfml
+	 ahrohkpSyYdZwJOwinS44zjM1DWymshrX0d8V6Ucc9V/ppkDn6CQzBYuvF2xUEzXvCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794656256;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=wFDS8IHvTjvrQur5Gw6DLU3xwLaJDxffSY0UtpBe/ts=;
-	b=hFF39FXGFK/pA96bnLSXmkunMMrub39DY5tn8RJTm09bF4dtXaSVDdpBQm+Fp167WcpC
-	 jJ90y2depxQygpRiO4nBp9abj1vsmpseKeN+0zjPMMBCRcAbAlL7ZU9D7jW2RpHeS9Cqj
-	 Fw/0QKrz3rKqA0GclePn2KgwESeBBF1dHfj+0M5sBpVhO4+rvfuIcmc+NHdHAT2hfTW9w
-	 2Lnl6f+hG49e8INCGYI8PUdpqcN6jpCGEQAt7vC9oHj8MjjZCeb6P+LZ45C9DyX61tK3s
-	 5G/pGJcp9jMRvy2oh4X21j5ZhMxcsUogiqD2SEKJA+q9yO9UHGdBBEsZuwGdhGswQxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794656373;
+	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
+	 X-UI-Sender-Class:Received:Message-ID:Date:MIME-Version:User-Agent:To:
+	 Cc:References:Subject:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
+	bh=1rGoSOFouhQSZNi4fjMl797dAvkOec2L+glDBb0X6/0=;
+	b=bNr/PRqBANZIswbCnaZUvqpqb9uBU0L6iibRluM+RG9YxTyDl85YjWnGXup72MkRFuFH
+	 643Qt5LVLpFqfE6LMBhEQI6dFhS8c0jj7tvDAv/aBZVyB+cm1ydgB2bJZl8cYgAnIxbBb
+	 vVPDAnZf7ul3XZQEO+uQYJU+7DOyNWQwfWcrkNTMNDgpYB4ZSJKx8ZalFczG1eSK8M884
+	 GRnXu1CEIg1tQlPvVsbQaH2sperEg+ZiapJ7NP8viDSsXfnXZ1rmjAQ3gtT0d4aHhu0rc
+	 xT8vc7jcsIenJfMOtFzEG4cRjGaANzyqhirIdRBzyW6/tgLzEkvMYyCEw9W1zJte3dg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LaTMQsE+;
-	arc=none smtp.remote-ip=209.85.218.54
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=web.de;
+	spf=pass smtp.mailfrom=web.de;
+	dkim=pass header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=ehWud5zv;
+	arc=none smtp.remote-ip=217.72.192.78
+Received: from mout.web.de (mout.web.de [217.72.192.78])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5D2D606A332
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 11:37:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5D2D606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A247606A329
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 11:39:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A247606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LaTMQsE+
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c4322d310e7so417630266b.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:37:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794656254; x=1795261054; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wFDS8IHvTjvrQur5Gw6DLU3xwLaJDxffSY0UtpBe/ts=;
-        b=LaTMQsE+iubYDZJLNTd0/wJRwLbOWR2+92go1+3cSHmZBIqOauqTv/hCJMt7Mx7lIu
-         8xQVznwC7BDoO7EbQqnJhMn+GlWYjRJNA5XZPSP8skvmQ68S/SoJKI+O82ejQYHEhxta
-         JJ/sfMRYH9vG8bfYM/okDa2SSbQVjlBkKyu190GQBWOMDConsVMbd5UK0StR9KLWp/vU
-         ch6/UduCt5cWG6iDqsnCbgeHtwVpoWDdUEoKdkiL4aXzkqsCqGQUp1Nu95f2fwmsaGMU
-         NQvDI86TkdE0tk7RnI4/N19fxZQ3RrPUof9PcBTt2sS7SvEbaPsqlDUBByFJuNcWKYJ9
-         qMEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794656254; x=1795261054;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wFDS8IHvTjvrQur5Gw6DLU3xwLaJDxffSY0UtpBe/ts=;
-        b=bWsvco7obhu91d/IInKTBT71sKm8ikLtmsZl2yFQn6iwWuBMpHwpy40wnVgY/EQXmo
-         K/arDCV4FbNRUxMX65ZlN38ueWLPz+hoiXc0fuZdmJcxG2oR+H2w8uFHuP/5g/3T28zy
-         qC1aT9EbSGBbohWgg0xBw0fVYQFJR/pU76fB6YasIeJpC5LIjswMc7xoG6r0n+OwhvVH
-         mTstnzQs09NWP/oVFqRifceHbBRPghG3dfue8aWm91fm4X4gyy3KuumCunAnM/PYd8p8
-         aHJsIZKR0lVdTXBi0H0AsctW6p69uFLcnPOyvmLJA5hpk+m6LT/elSxHOM60qh4BHIRA
-         tl6Q==
-X-Forwarded-Encrypted: i=1; AL+hErHHKFJSs5rNutxV3PvPnm3sgZWsJhvwcE0y7Ln3kYcr7CRzsV7XgYIKmeoeKKb0XJ9Po4yuAbXrjNQmJ6I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+zR5E5f54Gic/F5Hhl39PM1SUWQP629t01LlX6nBXfWmY+GO5S
-	O3+UC+UZAWHKT18fMt7HjpBRiP6llXpufE4W/MCtqMOUovkf1fcubre8
-X-Gm-Gg: AYBFou1WC7J1HSzgjwSjoWCgoqp+P1xlwilaNGFO3GChnXl6ip2Pnq8IN5gZDWNAvFt
-	kt0k4CUuX17PCvEDWX9uDhK1R8M3AIqkBhg/l8DTZckOW49TsD4ZcF8rHaq+6w4L4ia7mxnoVwh
-	f+dqMr2HvoDYnvnWhXVc4IIztjfzm1cDOR+Lg92Utd7u2FJbWlMja8y1n34BG2f9KM/Dw8TC8+V
-	BeNZAGrpPGiKHEbFybLbsYfT0r2ZWtywQg3vCgMt+T5ZOEGeq4PM1/1Nf60pJHGvVaQk8LykwYV
-	FcT8LWzQqw9ZQfRz9LOwg2+Ysyv6OOSnn34ALka0gI9zCHVnE1vMCO3lSn393XY6SH5Gtrj2nKx
-	5hnbbmu811BPeqJJM51aK30+OGmEFaQrlQFytifJR4H//6aKhaNFJjueP6/sG28mxs8ayzZNwAd
-	1yBljIFiK6fEOKzJkn9bHFTTT5i49nZKoh4WMNEwR3HtjtLf1keufv7qIyk4Yvhbk6VCThQmcW/
-	Glz008s43bIvRVVp6Ez2tUw7dumoNkotn3pGyLtF33UgEfC8nyrSgW2jnkGuu22YYOR8mQ1htq1
-	WsDaEEVlBsUNRlrqJsHubVBw7NMyq3uUGduBvmofXY/Z/ODWJvsRgZsCZBz1yvGFvc9B5JHDnTe
-	h1znxj7ieBA==
-X-Received: by 2002:a17:907:96a3:b0:c1c:4a80:30c4 with SMTP id a640c23a62f3a-c50962eeff0mr452773366b.11.1794656253646;
-        Sat, 14 Nov 2026 03:37:33 -0800 (PST)
-Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b60988sm205279666b.59.2026.11.14.03.37.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 03:37:31 -0800 (PST)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1] media: i2c: ov5693: Implement PLL configuration
-Date: Sat, 14 Nov 2026 13:37:08 +0200
-Message-ID: <20261114113708.127185-1-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.a=rsa-sha256 header.s=s29768273 header.b=ehWud5zv
+DKIM2-Signature:  i=1; m=1; t=1794656370;
+ mf=PE1hcmt1cy5FbGZyaW5nQHdlYi5kZT4=;
+ rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+ d=web.de;
+ s=s29768273:rsa-sha256:r1ZTg6fYvWl6/x6D2DaTwJtHoYeg
+   vCFxelC2PmZHP0/QtjgURPArgNHBsQpedLgzRZeDiD+dXPzcJheA4nY8t2gaXOGRcUPHaI/XXiZ
+   lHNm3F0VfZNL2XIkyJE/vlIE9OJUqLNInRRQ90wtJAHDejcu3xIGDu52VQBMoxLzKL5+cBB1TYS
+   OpGW89XvCCLEbw8KMBYVpKBxU78eLVzAYKYXuqTIVqaIc6tBKg+18HWEIM5msXjDaGJbwnRA43z
+   J+y72WJoeymrsy6PLE+ApiNAJZLKYYBEEXALB4FcYyrhTcB/RyiREYA1qmuIL9sNIEw1r3+QoFM
+   seOGiWBor8EixQ==;
+Message-Instance:  m=1;
+ h=sha256:
+   zdHAUM5FRJIeSR5sWhjGOntbco54acETBERhA7AiYqU=:
+   cuyZn7ZahTNzUMhIuL3lGQQijBL76zQXFuKU4QQQtas=,
+  sha512:
+   uPh2vEx0rLQVsZKw4TP0aZffX8w0ZZAvf5AaFqNYd0AWI7AcCCh/7EForHh4NbDMScJKGUp1Mb3P5T0gzGmNFA==:
+   BaCxS+DpnDZwaIi48tdjHQarvZGVUFM3O8eSZO/HO/2ARD3dKEiY85IPrQLeWE49iTqBe1NMT/PuoMRd42YNAA==;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1794656356; x=1795261156; i=markus.elfring@web.de;
+	bh=1rGoSOFouhQSZNi4fjMl797dAvkOec2L+glDBb0X6/0=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+	 Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 cc:content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=ehWud5zvAQe3MlIk/DI3vvMAs2HDu/Ruulpn9ngB1zB6Kflq6fub5HFbCxWdcvmm
+	 jKTHWuStBZ+GGHtHrRjzhcmAvDTcVkXoOwLFCktarWk3BnXV7idHUAXYSkqdK90pl
+	 Kd77JoDQBOUCAy1UF/yoc7SSVI2nxjq8N++iHzchN6NWHg6FewhXcP41S80oHUrFb
+	 uLzkXpItnoM+3sw694UFzZg0tiln3N0jwZucNPes4+oRHy/zdyukV33IlqVF4MwCk
+	 cNvzkVAVw2hKFaaiYzuKAL25qsDwG6saH7DTL8w728udHu+YcuNiK5PrVX8lBfZY1
+	 IhySl31rCjHWef0W2Q==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb105
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1MhWor-1wpa231Ah9-00lMe5; Sat, 14
+ Nov 2026 12:39:16 +0100
+Message-ID: <0f715d51-1d85-4126-8cb4-7f60e5f84975@web.de>
+Date: Sat, 14 Nov 2026 12:39:01 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,412 +79,157 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+To: Adrian Nguyen <thenguyen1024@gmail.com>, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ Sebastian Reichel <sre@kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+ Casey Connolly <casey.connolly@linaro.org>
+References: <20261114112155.85068-3-thenguyen1024@gmail.com>
+Subject: Re: [PATCH v3 2/2] power: supply: Add Qualcomm SMB1351 charger driver
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20261114112155.85068-3-thenguyen1024@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:9zYkuzsMpY5pPIYTs1FsCfMZikB8p/w331GWnPvUAzbNOAtmUEL
+ 5yzXpsWyzydu4ibspe6AyAgq6rv7lG7ffv/TfS7jrXRkCz1SigLj34j1ITUoxzzcBb/sxB3
+ k0fdkbYxED9JalyG3887N1jVuo8/4cd07POaKp5ugyqux0PlAgstCLwSb1/NNBEHzBmEbx6
+ QNTiAIcfvfrHPmgzF/irA==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:nA5A5sNZ6B8=;V31XhEegMAsSA+cFi9yrMbAIIPG
+ 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
+ YXecLxHk0GNcpmcAZqetGjFUAjnepX2z0I
 
-Currently, the ov5693 driver hardcodes PLL register values in the global
-register sequence and assumes a fixed 19.2 MHz XVCLK input, resulting in
-hardcoded link frequency (419.2 MHz) and pixel rate (167.68 MHz) values.
+=E2=80=A6
+> +++ b/drivers/power/supply/qcom_smb1351.c
+> @@ -0,0 +1,439 @@
+=E2=80=A6
+> +static void smb1351_external_power_changed(struct power_supply *psy)
+> +{
+=E2=80=A6
+> +	spin_lock(&chip->lock);
+> +	WRITE_ONCE(chip->retry_until,
+> +		   jiffies + msecs_to_jiffies(SMB1351_SETTLE_MS +
+> +					      SMB1351_RETRY_TIMEOUT_MS));
+> +	mod_delayed_work(system_freezable_wq, &chip->work,
+> +			 msecs_to_jiffies(SMB1351_SETTLE_MS));
+> +	spin_unlock(&chip->lock);
+> +}
+=E2=80=A6
 
-Add dynamic PLL configuration support for multiple XVCLK frequencies
-(6 MHz, 13.5 MHz, 19.2 MHz, 24 MHz, and 27 MHz) by:
-- Introducing a PLL configuration table and ov5693_pll_configure() to
-  program PLL1 and PLL2 dividers and multipliers during sensor init.
-- Dynamically deriving the default link frequency and pixel rate from
-  the selected PLL1 clock rate rather than relying on static defines.
-- Updating VTS, frame interval, and V4L2 control initialization to use
-  the calculated pixel rate and link frequency.
-- Fetching XVCLK earlier in probe via devm_v4l2_sensor_clk_get() with a
-  NULL connection ID to support standard DT clock lookups before checking
-  the hardware configuration.
+Under which circumstances would you become interested to apply a statement
+like =E2=80=9Cguard(spinlock)(&chip->lock);=E2=80=9D?
+https://elixir.bootlin.com/linux/v7.3.1/source/include/linux/spinlock.h#L6=
+10-L612
 
-The new 19.2 MHz XVCLK link frequency and pixel rate calculations match
-the original hardcoded values.
-
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
-Tested on Nvidia Tegra Note 7 and ASUS Transformer TF701T, Tegra 4 devices
-where this sensor is used in the rear position.
----
- drivers/media/i2c/ov5693.c | 194 ++++++++++++++++++++++++++++---------
- 1 file changed, 150 insertions(+), 44 deletions(-)
-
-diff --git a/drivers/media/i2c/ov5693.c b/drivers/media/i2c/ov5693.c
-index 56599f9ca74ba..1a5647c7b764c 100644
---- a/drivers/media/i2c/ov5693.c
-+++ b/drivers/media/i2c/ov5693.c
-@@ -17,6 +17,7 @@
- #include <linux/delay.h>
- #include <linux/device.h>
- #include <linux/i2c.h>
-+#include <linux/math64.h>
- #include <linux/module.h>
- #include <linux/pm_runtime.h>
- #include <linux/regulator/consumer.h>
-@@ -44,6 +45,21 @@
- /* Yes, this is right. The datasheet for the OV5693 gives its ID as 0x5690 */
- #define OV5693_CHIP_ID				0x5690
- 
-+#define OV5693_PLL2_PRE_DIV_REG			CCI_REG8(0x3098)
-+#define OV5693_PLL2_MULT_REG			CCI_REG8(0x3099)
-+#define OV5693_PLL2_SYS_DIV_REG			CCI_REG8(0x309a)
-+#define OV5693_PLL2_SYS_DIV_DEFAULT		2
-+#define OV5693_PLL2_DIV_REG			CCI_REG8(0x309b)
-+#define OV5693_PLL2_DIV_DEFAULT			1
-+
-+#define OV5693_PLL1_MULT_REG			CCI_REG8(0x30b3)
-+#define OV5693_PLL1_PRE_DIV_REG			CCI_REG8(0x30b4)
-+#define OV5693_PLL1_PIX_DIV_REG			CCI_REG8(0x30b5)
-+#define OV5693_PLL1_PIX_DIV_8			4
-+#define OV5693_PLL1_PIX_DIV_10			5
-+#define OV5693_PLL1_SYS_DIV_REG			CCI_REG8(0x30b6)
-+#define OV5693_PLL1_SYS_DIV_DEFAULT		1
-+
- /* Exposure */
- #define OV5693_EXPOSURE_CTRL_REG		CCI_REG24(0x3500)
- #define OV5693_EXPOSURE_CTRL_MASK		GENMASK(19, 4)
-@@ -114,6 +130,7 @@
- #define OV5693_ACTIVE_START_TOP			6
- #define OV5693_MIN_CROP_WIDTH			2
- #define OV5693_MIN_CROP_HEIGHT			2
-+#define OV5693_DATA_DEPTH_RAW10			10
- 
- /* Test Pattern */
- #define OV5693_TEST_PATTERN_REG			CCI_REG8(0x5e00)
-@@ -122,11 +139,6 @@
- #define OV5693_TEST_PATTERN_RANDOM		0x01
- #define OV5693_TEST_PATTERN_BARS		0x00
- 
--/* System Frequencies */
--#define OV5693_XVCLK_FREQ			19200000
--#define OV5693_LINK_FREQ_419_2MHZ		419200000
--#define OV5693_PIXEL_RATE			167680000
--
- #define to_ov5693_sensor(x) container_of(x, struct ov5693_device, sd)
- 
- static const char * const ov5693_supply_names[] = {
-@@ -137,6 +149,14 @@ static const char * const ov5693_supply_names[] = {
- 
- #define OV5693_NUM_SUPPLIES	ARRAY_SIZE(ov5693_supply_names)
- 
-+struct ov5693_pll {
-+	u64 xvclk_rate;
-+	u8 pll1_pre_div;
-+	u8 pll1_mult;
-+	u8 pll2_pre_div;
-+	u8 pll2_mult;
-+};
-+
- struct ov5693_device {
- 	struct device *dev;
- 	struct regmap *regmap;
-@@ -147,7 +167,11 @@ struct ov5693_device {
- 	struct gpio_desc *reset;
- 	struct gpio_desc *powerdown;
- 	struct regulator_bulk_data supplies[OV5693_NUM_SUPPLIES];
-+
- 	struct clk *xvclk;
-+	const struct ov5693_pll *pll;
-+	u64 pixel_rate;
-+	s64 default_link_freq;
- 
- 	/* Gate the MIPI clock lane when idle (CSI-2 non-continuous clock) */
- 	bool clock_ncont;
-@@ -180,24 +204,40 @@ struct ov5693_device {
- 	} ctrls;
- };
- 
-+static const struct ov5693_pll ov5693_pll[] = {
-+	{
-+		.xvclk_rate = 6000000,
-+		.pll1_pre_div = 1, .pll1_mult = 134,
-+		.pll2_pre_div = 1, .pll2_mult = 20,
-+	}, {
-+		.xvclk_rate = 13500000,
-+		.pll1_pre_div = 2, .pll1_mult = 121,
-+		.pll2_pre_div = 3, .pll2_mult = 18,
-+	}, {
-+		.xvclk_rate = 19200000,
-+		.pll1_pre_div = 3, .pll1_mult = 131,
-+		.pll2_pre_div = 2, .pll2_mult = 25,
-+	}, {
-+		.xvclk_rate = 24000000,
-+		.pll1_pre_div = 3, .pll1_mult = 100,
-+		.pll2_pre_div = 3, .pll2_mult = 30,
-+	}, {
-+		.xvclk_rate = 27000000,
-+		.pll1_pre_div = 3, .pll1_mult = 89,
-+		.pll2_pre_div = 3, .pll2_mult = 27,
-+	},
-+};
-+
- static const struct cci_reg_sequence ov5693_global_regs[] = {
- 	{CCI_REG8(0x3016), 0xf0},
- 	{CCI_REG8(0x3017), 0xf0},
- 	{CCI_REG8(0x3018), 0xf0},
- 	{CCI_REG8(0x3022), 0x01},
- 	{CCI_REG8(0x3028), 0x44},
--	{CCI_REG8(0x3098), 0x02},
--	{CCI_REG8(0x3099), 0x19},
--	{CCI_REG8(0x309a), 0x02},
--	{CCI_REG8(0x309b), 0x01},
- 	{CCI_REG8(0x309c), 0x00},
- 	{CCI_REG8(0x30a0), 0xd2},
- 	{CCI_REG8(0x30a2), 0x01},
- 	{CCI_REG8(0x30b2), 0x00},
--	{CCI_REG8(0x30b3), 0x83},
--	{CCI_REG8(0x30b4), 0x03},
--	{CCI_REG8(0x30b5), 0x04},
--	{CCI_REG8(0x30b6), 0x01},
- 	{CCI_REG8(0x3080), 0x01},
- 	{CCI_REG8(0x3104), 0x21},
- 	{CCI_REG8(0x3106), 0x00},
-@@ -340,10 +380,6 @@ static const struct v4l2_mbus_framefmt ov5693_default_fmt = {
- 	.code = MEDIA_BUS_FMT_SBGGR10_1X10,
- };
- 
--static const s64 link_freq_menu_items[] = {
--	OV5693_LINK_FREQ_419_2MHZ
--};
--
- static const char * const ov5693_test_pattern_menu[] = {
- 	"Disabled",
- 	"Random Data",
-@@ -557,6 +593,32 @@ static const struct v4l2_ctrl_ops ov5693_ctrl_ops = {
- 
- /* System Control Functions */
- 
-+static int ov5693_pll_configure(struct ov5693_device *ov5693)
-+{
-+	const struct ov5693_pll *pll = ov5693->pll;
-+	int ret = 0;
-+
-+	/* PLL2 */
-+	cci_write(ov5693->regmap, OV5693_PLL2_PRE_DIV_REG, pll->pll2_pre_div,
-+		  &ret);
-+	cci_write(ov5693->regmap, OV5693_PLL2_MULT_REG, pll->pll2_mult, &ret);
-+	cci_write(ov5693->regmap, OV5693_PLL2_SYS_DIV_REG,
-+		  OV5693_PLL2_SYS_DIV_DEFAULT, &ret);
-+	cci_write(ov5693->regmap, OV5693_PLL2_DIV_REG, OV5693_PLL2_DIV_DEFAULT,
-+		  &ret);
-+
-+	/* PLL1 */
-+	cci_write(ov5693->regmap, OV5693_PLL1_MULT_REG, pll->pll1_mult, &ret);
-+	cci_write(ov5693->regmap, OV5693_PLL1_PRE_DIV_REG, pll->pll1_pre_div,
-+		  &ret);
-+	cci_write(ov5693->regmap, OV5693_PLL1_PIX_DIV_REG,
-+		  OV5693_PLL1_PIX_DIV_8, &ret);
-+	cci_write(ov5693->regmap, OV5693_PLL1_SYS_DIV_REG,
-+		  OV5693_PLL1_SYS_DIV_DEFAULT, &ret);
-+
-+	return ret;
-+}
-+
- static int ov5693_mode_configure(struct ov5693_device *ov5693)
- {
- 	const struct ov5693_mode *mode = &ov5693->mode;
-@@ -657,6 +719,11 @@ static int ov5693_sensor_init(struct ov5693_device *ov5693)
- 		return dev_err_probe(ov5693->dev, ret,
- 				     "software reset error\n");
- 
-+	ret = ov5693_pll_configure(ov5693);
-+	if (ret)
-+		return dev_err_probe(ov5693->dev, ret,
-+				     "PLL configure error\n");
-+
- 	ret = cci_multi_reg_write(ov5693->regmap, ov5693_global_regs,
- 				  ARRAY_SIZE(ov5693_global_regs), NULL);
- 	if (ret)
-@@ -771,7 +838,7 @@ static int ov5693_detect(struct ov5693_device *ov5693)
- 
- /* V4L2 Framework callbacks */
- 
--static unsigned int __ov5693_calc_vts(u32 height)
-+static unsigned int __ov5693_calc_vts(struct ov5693_device *ov5693, u32 height)
- {
- 	/*
- 	 * We need to set a sensible default VTS for whatever format height we
-@@ -780,10 +847,17 @@ static unsigned int __ov5693_calc_vts(u32 height)
- 	 */
- 
- 	unsigned int tgt_fps;
-+	u64 temp_fps, vts;
-+
-+	temp_fps = div_u64(ov5693->pixel_rate, (u64)OV5693_FIXED_PPL * height);
-+	tgt_fps = rounddown((u32)temp_fps, 30);
- 
--	tgt_fps = rounddown(OV5693_PIXEL_RATE / OV5693_FIXED_PPL / height, 30);
-+	if (tgt_fps == 0)
-+		tgt_fps = 30;
- 
--	return ALIGN_DOWN(OV5693_PIXEL_RATE / OV5693_FIXED_PPL / tgt_fps, 2);
-+	vts = div_u64(ov5693->pixel_rate, (u64)OV5693_FIXED_PPL * tgt_fps);
-+
-+	return ALIGN_DOWN(vts, 2);
- }
- 
- static struct v4l2_mbus_framefmt *
-@@ -879,7 +953,7 @@ static int ov5693_set_fmt(struct v4l2_subdev *sd,
- 	ov5693->mode.binning_y = vratio > 1;
- 	ov5693->mode.inc_y_odd = vratio > 1 ? 3 : 1;
- 
--	ov5693->mode.vts = __ov5693_calc_vts(fmt->height);
-+	ov5693->mode.vts = __ov5693_calc_vts(ov5693, fmt->height);
- 
- 	__v4l2_ctrl_modify_range(ov5693->ctrls.vblank,
- 				 OV5693_TIMING_MIN_VTS,
-@@ -1032,7 +1106,7 @@ static int ov5693_get_frame_interval(struct v4l2_subdev *sd,
- 	struct ov5693_device *ov5693 = to_ov5693_sensor(sd);
- 	unsigned int framesize = OV5693_FIXED_PPL * (ov5693->mode.format.height +
- 				 ov5693->ctrls.vblank->val);
--	unsigned int fps = DIV_ROUND_CLOSEST(OV5693_PIXEL_RATE, framesize);
-+	unsigned int fps = DIV_U64_ROUND_CLOSEST(ov5693->pixel_rate, framesize);
- 
- 	/*
- 	 * FIXME: Implement support for V4L2_SUBDEV_FORMAT_TRY, using the V4L2
-@@ -1119,15 +1193,15 @@ static int ov5693_init_controls(struct ov5693_device *ov5693)
- 	/* link freq */
- 	ctrls->link_freq = v4l2_ctrl_new_int_menu(&ctrls->handler,
- 						  NULL, V4L2_CID_LINK_FREQ,
--						  0, 0, link_freq_menu_items);
-+						  0, 0, &ov5693->default_link_freq);
- 	if (ctrls->link_freq)
- 		ctrls->link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
- 
- 	/* pixel rate */
- 	ctrls->pixel_rate = v4l2_ctrl_new_std(&ctrls->handler, NULL,
- 					      V4L2_CID_PIXEL_RATE, 0,
--					      OV5693_PIXEL_RATE, 1,
--					      OV5693_PIXEL_RATE);
-+					      ov5693->pixel_rate, 1,
-+					      ov5693->pixel_rate);
- 
- 	/* Exposure */
- 	exposure_max = ov5693->mode.vts - OV5693_INTEGRATION_TIME_MARGIN;
-@@ -1243,6 +1317,8 @@ static int ov5693_check_hwcfg(struct ov5693_device *ov5693)
- 		.bus_type = V4L2_MBUS_CSI2_DPHY,
- 	};
- 	struct fwnode_handle *endpoint;
-+	u64 xvclk_rate, pll1_clk;
-+	u32 ndata_lanes;
- 	unsigned int i;
- 	int ret;
- 
-@@ -1260,7 +1336,8 @@ static int ov5693_check_hwcfg(struct ov5693_device *ov5693)
- 	if (ret)
- 		return ret;
- 
--	if (bus_cfg.bus.mipi_csi2.num_data_lanes != 2) {
-+	ndata_lanes = bus_cfg.bus.mipi_csi2.num_data_lanes;
-+	if (ndata_lanes != 2) {
- 		dev_err(ov5693->dev, "only a 2-lane CSI2 config is supported");
- 		ret = -EINVAL;
- 		goto out_free_bus_cfg;
-@@ -1272,17 +1349,51 @@ static int ov5693_check_hwcfg(struct ov5693_device *ov5693)
- 		goto out_free_bus_cfg;
- 	}
- 
--	for (i = 0; i < bus_cfg.nr_of_link_frequencies; i++)
--		if (bus_cfg.link_frequencies[i] == OV5693_LINK_FREQ_419_2MHZ)
-+	xvclk_rate = clk_get_rate(ov5693->xvclk);
-+	if (!xvclk_rate) {
-+		dev_err(ov5693->dev, "XVCLK rate unknown\n");
-+		ret = -EINVAL;
-+		goto out_free_bus_cfg;
-+	}
-+
-+	for (i = 0; i < ARRAY_SIZE(ov5693_pll); i++) {
-+		if (xvclk_rate == ov5693_pll[i].xvclk_rate) {
-+			ov5693->pll = &ov5693_pll[i];
- 			break;
-+		}
-+	}
-+	if (!ov5693->pll) {
-+		dev_err(ov5693->dev, "Unsupported XVCLK rate %llu\n",
-+			xvclk_rate);
-+		ret = -EINVAL;
-+		goto out_free_bus_cfg;
-+	}
-+
-+	pll1_clk = div_u64(xvclk_rate * ov5693->pll->pll1_mult,
-+			   ov5693->pll->pll1_pre_div);
- 
--	if (i == bus_cfg.nr_of_link_frequencies) {
--		dev_err(ov5693->dev, "supported link freq %ull not found\n",
--			OV5693_LINK_FREQ_419_2MHZ);
-+	/*
-+	 * The default link frequency is derived from PLL1 divided by the
-+	 * number of data lanes.
-+	 */
-+	ov5693->default_link_freq = div_u64(pll1_clk, ndata_lanes);
-+
-+	if (bus_cfg.nr_of_link_frequencies != 1 ||
-+	    bus_cfg.link_frequencies[0] != ov5693->default_link_freq) {
-+		dev_err(ov5693->dev, "Invalid link-frequency, expected %llu\n",
-+			ov5693->default_link_freq);
- 		ret = -EINVAL;
- 		goto out_free_bus_cfg;
- 	}
- 
-+	/*
-+	 * The pixel rate is calculated from PLL1 by multiplying by the number
-+	 * of data lanes and dividing by the word length of the CSI-2 interface
-+	 * (e.g., 10 for RAW10, which is the OV5693 default).
-+	 */
-+	ov5693->pixel_rate = div_u64(pll1_clk * ndata_lanes,
-+				     OV5693_DATA_DEPTH_RAW10);
-+
- 	ov5693->clock_ncont = bus_cfg.bus.mipi_csi2.flags &
- 			      V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK;
- 
-@@ -1295,7 +1406,6 @@ static int ov5693_check_hwcfg(struct ov5693_device *ov5693)
- static int ov5693_probe(struct i2c_client *client)
- {
- 	struct ov5693_device *ov5693;
--	u32 xvclk_rate;
- 	int ret = 0;
- 
- 	ov5693 = devm_kzalloc(&client->dev, sizeof(*ov5693), GFP_KERNEL);
-@@ -1308,6 +1418,12 @@ static int ov5693_probe(struct i2c_client *client)
- 	if (IS_ERR(ov5693->regmap))
- 		return PTR_ERR(ov5693->regmap);
- 
-+	ov5693->xvclk = devm_v4l2_sensor_clk_get(&client->dev, NULL);
-+	if (IS_ERR(ov5693->xvclk))
-+		return dev_err_probe(&client->dev, PTR_ERR(ov5693->xvclk),
-+				     "failed to get xvclk: %pe\n",
-+				     ov5693->xvclk);
-+
- 	ret = ov5693_check_hwcfg(ov5693);
- 	if (ret)
- 		return ret;
-@@ -1316,17 +1432,6 @@ static int ov5693_probe(struct i2c_client *client)
- 
- 	v4l2_i2c_subdev_init(&ov5693->sd, client, &ov5693_ops);
- 
--	ov5693->xvclk = devm_v4l2_sensor_clk_get(&client->dev, "xvclk");
--	if (IS_ERR(ov5693->xvclk))
--		return dev_err_probe(&client->dev, PTR_ERR(ov5693->xvclk),
--				     "failed to get xvclk: %pe\n",
--				     ov5693->xvclk);
--
--	xvclk_rate = clk_get_rate(ov5693->xvclk);
--	if (xvclk_rate != OV5693_XVCLK_FREQ)
--		dev_warn(&client->dev, "Found clk freq %u, expected %u\n",
--			 xvclk_rate, OV5693_XVCLK_FREQ);
--
- 	ret = ov5693_configure_gpios(ov5693);
- 	if (ret)
- 		return ret;
-@@ -1342,7 +1447,8 @@ static int ov5693_probe(struct i2c_client *client)
- 
- 	ov5693->mode.crop = ov5693_default_crop;
- 	ov5693->mode.format = ov5693_default_fmt;
--	ov5693->mode.vts = __ov5693_calc_vts(ov5693->mode.format.height);
-+	ov5693->mode.vts = __ov5693_calc_vts(ov5693,
-+					     ov5693->mode.format.height);
- 
- 	ret = ov5693_init_controls(ov5693);
- 	if (ret)
--- 
-2.53.0
-
+Regards,
+Markus
