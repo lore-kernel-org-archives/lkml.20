@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794672667;
-	b=IRE9oqnfwOXnjBKYh7WoAY2Je2nFtNxanXY7z5uvRyuOEoBn6MQi61y/gWg+RgCnUB0u
-	 s6vqfksxGxa4NSGFLIH4j1+8rwC8raT+kpk471GK1V3LJp3RNzNP4NA8L3SjV7eTBt9r/
-	 gCU3j3jkmHGvoF1txjm5BApDnJigpEsW5Ysyv+pteUMsBvA1VEZrF1cxnbWHSbOxKGs5O
-	 awsAmlIuM6FnmWk5n1BwLL/DLHsiXbKQ0hDp7mkbNPkdKYRNa8CLUcZiCU6D3tp0uHq6E
-	 DIgMqexbzD9F4jzWJ6Qp/3+9qPG/ELziu0rf61mBSXRGWQmAEq2cUlYPWNc1TznAMOA==
+	t=1794672685;
+	b=1u22WPYPuC72m+jRkIlijqYjJp0hVFwK2mCRU6vd61xk5znuqiyVp3odqixESfN+uhuc
+	 F5yUbtonDItkgI0CKC4BAmjN7VHdBOWyWeIY2iCKy1MCgcd3jfxO+ufo6dlMIiSyq+oJ/
+	 5pcxLI+CGyKE5R7vs06z372/pNCJF+Tk6au/V7mu0zvgyLtfV/qXEiWr7bQYg/RMATiKR
+	 6vGoHs6EvreVGCSqn1HfGD8gA7y+1FbQ2MxLvHWYNwgaqHdDFAnwrwcZk/SRy49X4jicz
+	 qSGU4jyvLItW9Q4GRTeNeccfDsqlkhGH3lPKodpM3lXZJ7KcUiGiMov4w1oqWO/by1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794672667;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794672685;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=MmSYBT0oM+9e7OOhRP6rlPjvDndoWmXiY3l/U4zXmz0=;
-	b=baLHiBZh6KlrEGUAWnxt3bCyu8HMvueMo/bU/SKpYNeqAVMR1xZDSwrVRCrQbJdcL2Df
-	 hoT2kREk9bNYA7Ax40lZ2GA6omvylZWOrXkSiuTCfAXqdYktV6esIoGl4niai5ruC0D2+
-	 UCIBrtOl1RcfkBgPTu1at8IKuS9GuNveRAlFai17tFxQR4IyfNBcgn1HpizILRb9M4jmE
-	 1H5CDry0hJ32Or49fvbhjYHPx3qH2NAC+x6vDqe8RncxOkbfCZAncdD0mgSLmQdAuzzl3
-	 tYkRdgs5WSwb/9QmBpBJ5UoWEi74B19DNPcsuZN8+GxwdeBW1RU1lcKxsQm2Se/lc/w==
+	bh=kYhEGps0UomI4ThdCaZM/6xhr977LUTH98N7MCn1AQg=;
+	b=F5o8V1naljLNc7xsGlQc5Pg9TLmz6D1n7z3tzE8iH3/GthmDdLBgfMhWzY5GIndAc/F9
+	 iipY7EawfX70/9Prn6EHeKZjc/VclSyy66ZjBLnluM8dBIxuTpw1gFlz2czXVDGBI/uM2
+	 IJFIUfhkaxHb0ra+ZD+l591wf2lTk6y2lA9KziIY+6gU/vjy8a1JhkQAlEQgLAyBH7A2C
+	 JypshMLi1TlQkoeLW9kEtiWe1WsvzQ+z3lW4NTTogeqSW0iHnU03zU2tcYVU+yIiyLoyq
+	 TrNYlBPBMmqHDXszQQKYsIwdnvOEIgBsb2JNQIpIGRRUKW4qmBnVwMRf89YkI+cywww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qUiTkYMN;
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=woZHVd2i;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06C6B606A336
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:11:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06C6B606A336
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06AF3606A332
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:11:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06AF3606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qUiTkYMN
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-37000e7234bso95218eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:11:06 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=woZHVd2i
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-36fc0a3fe93so3783678eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:11:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794672666; x=1795277466; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794672683; x=1795277483; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=MmSYBT0oM+9e7OOhRP6rlPjvDndoWmXiY3l/U4zXmz0=;
-        b=qUiTkYMNIBLLP6fruNVmymNOken5TH+ZMKj5c5qKCKzeNVQPk+UaK2+j3L+Tsv6ICm
-         iUKuZU3aJlISkT/LuB0cFXQrpedRFoopgVw6y89nfkdBmJleyM/yS1fXDhyzXYtwFJuc
-         7rsC+8GPtcECcw8RNmn8s4e2Mn0wQNQL0xYzsVic78lR6/bNISZKbpLiuIGDvQRCw7Ok
-         ONfNaklfm5jAMQq95jt5HLSQih5LyF7q51PHZTucnSBsklZbFZGhLrcriSClBAIFbY5h
-         ZYIp5MBvgIrznXz9Z7r8myawp1pmbK7u4khIfnRegOFkmWsBgXWk3/ejyhfyRPWYhGZd
-         sScg==
+        bh=kYhEGps0UomI4ThdCaZM/6xhr977LUTH98N7MCn1AQg=;
+        b=woZHVd2iT20k8onAr2nEkXQnRJzo+gE+XboKYFuhp+KmzrYT6SgzU1/w8CLaRyxH7W
+         MG7hnoPZP1hoTDWDHF7hpqsnitZ7bgNjWJPRhDKjaswZGCPLZJTbE+SgOSioqSU56i8m
+         KaPJgYraiHigKrQF2TJpzcvdZ7ubfJ1rUoVZ+CvWKGnTNEhjHVGk2NFp9sE9OBY+umOz
+         6R+imaKPsGgejASGmM9w0fbxB3Ec6Z6TOitLqyHmr5StObSyx0wRx3uFLRFJrAg1pEmU
+         tEEXbqpH9J7fHogpX2xqUr9KTuElLmDAhnv8DcF4GOeM6dILd93+CZ8fHQyJuMqi91Iq
+         HJQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794672666; x=1795277466;
+        d=1e100.net; s=20260707; t=1794672683; x=1795277483;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MmSYBT0oM+9e7OOhRP6rlPjvDndoWmXiY3l/U4zXmz0=;
-        b=Ty5KItjiJVAgnj95EowP1orNQUtNqxXFX0FBupULqxqqM+P1ydDeK5jLbf1NILzgmW
-         wdV7t96R8P2aGg+psDvbZzDyxxy5spmSD15+s/6+m9CEGt9AnBTEVPrTLnFPUUtKErIc
-         mta0+zr4XApOGalLzp+PH9amtjo5J73TogqfC8BkWS11AmMd96EcVnWVMFzdOWELYtmv
-         Gaqqm1IvjuTC9hYfJN9bye6RXbK6X2f7mvS4YfHdTZhyGoBKe/Iz+6wiV5FK0K5RXcNo
-         YrX/yrmKpK9x6Zz1OHoM0Sg/O6hgtft3l7uk+V6DKaJ6yYh3tV2ugLsNHPonMrOifdFU
-         qwfg==
-X-Forwarded-Encrypted: i=1; AL+hErGCgk5acq90iXHlZ9aGE+gfpZ0ZfmIUjD9pJ1DgbvaHEAwx5huLzORFNb57ku892/oGye1aIe+Tak3b89k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9kI1h8iELOTlLKX/1GqA4iLnDEt+kM7X17/35UqKAm2Y5uyF2X
-	AdhqbFbOvhjLUU2DDI6hrPc+ZMITE6wGewb4BLdbc26wNXqJsM2ldx0=
-X-Gm-Gg: AYBFou23POB9uGAPWP2j59nWcYltvk6uL8hSlqLuep6XMlE1rj8MLlGyioVGCkryba9
-	OzNo9ULIilUEMTsS5rPRC3ePOLqX79ew+AmtHGjhev73a05Kv2FP+qlU8VJiC/bs5MOE08gSLDr
-	zsTnCiMYBylQppkRVIHZPl6uiPV4BqeYUrcfhhMVT8qeYiP+oWFrUU7dIgqY7p8BkIhPFK3JmOT
-	J8Eb2bEPap3pGmmSWB75swLVbnd4XUYiAVLUpDueJp7zeB/fAb0Mh+9gOKVTHbToZbSCXkrHPLQ
-	37L4VC2cgzQ3YQnLQDbWdDAHv+sxnKBXX29WrQm+5UjpQ8SXe2550dhC5tPi1p7GHfBE8ZzdT+9
-	fx+ZTWGEe525b5VSOyZrbWI3hUCt/kkvWxhIvMId14dx72zFkiLLRidvj4HArXiMDr1/aiNgZvl
-	pVlz9U5vijnxefLBYyKl+2ig5ZLg7k/LKl+9JNoUqQmFNrEyf51/vm7Sl0kjsQIIwKTH3EOAUE0
-	tMLwtdqraS6VlhaqCiKIG8yvIOX15+zNPFXCN7Gt1a8hWAOv7AOR3bFZdWryWl2XMuKezXvudHO
-	tiqzXKwP1hbqYdlRjsRKy029DtKpK0cgFiC1t4fbmfxmFHennAHV/Zrx4qTqfffDAA==
-X-Received: by 2002:a05:7300:cc9e:b0:372:2ed7:8f89 with SMTP id 5a478bee46e88-3796702a36amr5694460eec.34.1794672665837;
-        Sat, 14 Nov 2026 08:11:05 -0800 (PST)
+        bh=kYhEGps0UomI4ThdCaZM/6xhr977LUTH98N7MCn1AQg=;
+        b=XR7Zg14trCKgwAIxdunjBZGm9knZj9EL2jsabGREvE0LL0zr4SzQdTLHDG0LB8l9E/
+         T9ORfZ6YZtKGn01WbTp5Okm8Yk0dgoMb6VLsgYH/t61G5t32uoM8MyEtxK0rCkERtV7f
+         sS3dlIxhl6cPIov71Qrrkfd/XErB+10P5cdFqpzKQCrkvtEQabNbTx2kRi+zvQuHZX1B
+         OOYj4ZNzQ6ChFD73sPGy8J+fH1TUsswHrvA5IooZd/WqUST5rSL5fsr1WDAJ21A+/+CL
+         SITdXriRJW/lLMdbHxAbh/J9osLvLdBzMsT6yzZBfmjgegC9FXXnrZ7Qgtmy1LuzK4cB
+         0z1A==
+X-Forwarded-Encrypted: i=1; AL+hErG6jblYoQ8OPADFUgGuKxSpFG0SkYy7XRG3GOOxDMKDrTh2BwjirHSimfEn8tsyH2bDrTg/QGODJRxxKaE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8BzQt1ZRakrYLdQPJgR7n6kp74OB6QHluzZeVxNS09fTxE4YFZ
+	FOB+Cp/ux+tJvKtHmqSWhJcySQ3JL1dkcCiIgOsM1Rb3kJo0jZ97nzE=
+X-Gm-Gg: AYBFou1u4Svk+zpGxZD4pp4f2cNXLgV+Kaebes01klMUoB5fYKPpdLKctoQIawiQTIC
+	Wn49jgSbNPF+QX1G7LkY8HtoGHLKH6+TkF/9PTurglEG7Aa8TT0c+ZPxLj86a9Mm+dDbR2zkpX/
+	uonMvSPwtLaKqJsyJNxqng5upPeAjV1Ukg4voDjEjh/ilXSqSVsJMxx9P/ZfvO1BHTsc4tIGkOE
+	G7NalEF6gup4abw4Ym6Ywde02JzNUc5yr5TaGo4xAFPnxCDIyLhksjGC/L9QVgeiemWvyxhyrpJ
+	mYIn4E58ENCYfi5s15D41SZistAp30JlQhYhWfGrKStyV0VqGyckoxTpboJzoKfjUEzrY/izc/C
+	YSaQEyppTPHCwPMa3m1AxmvDA/NtIwuHkePukAaDZJRhL4xeBBBRfp0VZqbKMap8kWQJKaqm2uf
+	KHyFimGY5bx4RlkDHDTjtXJzAdW84hnqo3Zd5vJq1wJkDYtjnwvGl/zL6wHPJRAeuHbVnaALZKf
+	t54/LDrdGKYFxXKJRWsnTUcfecwhOtGj2QGptqDhqDCEWe8HfQPysQyQbm+e7qGHFuK/XOxNQs6
+	8jnbLOM+U9uQ9pJ2qGztfoBqiBGjATZwo0ihPwPVoAGBzIKG1TnH7aTxFa0ya+CtZg==
+X-Received: by 2002:a05:693c:8115:b0:36a:1008:5815 with SMTP id 5a478bee46e88-37963372d85mr5904580eec.5.1794672683015;
+        Sat, 14 Nov 2026 08:11:23 -0800 (PST)
 Received: from at-Standard-PC-Q35-ICH9-2009 ([106.202.127.108])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37956bb0919sm17567582eec.29.2026.11.14.08.10.51
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37956bb0919sm17567582eec.29.2026.11.14.08.11.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 08:11:05 -0800 (PST)
+        Sat, 14 Nov 2026 08:11:22 -0800 (PST)
 From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
 To: 
 Cc: Andre Eikmeyer <dev@deq.rocks>,
@@ -106,9 +106,9 @@ Cc: Andre Eikmeyer <dev@deq.rocks>,
 	amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
 	dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
 	platform-driver-x86@vger.kernel.org (open list:X86 PLATFORM DRIVERS)
-Subject: [PATCH v2 11/12] drm/amdgpu: Skip AC/DC notification while the GPU is runtime suspended
-Date: Sat, 14 Nov 2026 11:06:35 -0500
-Message-ID: <20261114160731.3756-12-atharvatiwarilinuxdev@gmail.com>
+Subject: [PATCH v2 12/12] drm/amd/display: Skip panel power savings on eDP links without a panel
+Date: Sat, 14 Nov 2026 11:06:36 -0500
+Message-ID: <20261114160731.3756-13-atharvatiwarilinuxdev@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261114160731.3756-1-atharvatiwarilinuxdev@gmail.com>
 References: <20261114160731.3756-1-atharvatiwarilinuxdev@gmail.com>
@@ -125,66 +125,48 @@ Content-Transfer-Encoding: 8bit
 
 From: Andre Eikmeyer <dev@deq.rocks>
 
-Plugging or unplugging the charger raises an ACPI AC event. The handler
-sent the new power source to the SMU without a runtime PM reference, so
-with GMUX keeping the GPU off every SMU message spun on skipped register
-reads for seconds. A runtime resume racing with that left the SMU
-firmware unable to start on MacBookPro15,1 and the GPU in runtime PM
-error state. Record the power source only and let the resume apply it.
+When GMUX routes the internal panel to the integrated GPU, the eDP link
+of the AMD GPU has no sink. It still exposed panel_power_savings, and
+tuned writes it on every switch between AC and battery. Each write sends
+a hotplug event and the following connector probe runtime resumes the
+GPU that GMUX had powered off. Only create the attribute when the link
+has a panel.
 
 Tested-by: Sebastian Zygadlo <szgit@icloud.com>
 Tested-by: Yossef Osman <yossef.osman@proton.me>
-Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
 Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
+Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
 ---
- drivers/gpu/drm/amd/pm/amdgpu_dpm.c | 19 ++++++++++++++-----
- 1 file changed, 14 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c    | 3 +++
+ .../drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c | 1 +
+ 2 files changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-index 808be6c42..3c6dde386 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-@@ -30,6 +30,7 @@
- #include "amd_pcie.h"
- #include "amdgpu_display.h"
- #include "hwmgr.h"
-+#include <linux/pm_runtime.h>
- #include <linux/power_supply.h>
- #include "amdgpu_smu.h"
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+index 703d0617d..c8fbd2167 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+@@ -761,6 +761,9 @@ amdgpu_dm_should_create_sysfs(struct amdgpu_dm_connector *amdgpu_dm_connector)
+ 	if (amdgpu_dm_connector->base.connector_type != DRM_MODE_CONNECTOR_eDP)
+ 		return false;
  
-@@ -498,19 +499,27 @@ int amdgpu_dpm_smu_i2c_bus_access(struct amdgpu_device *adev,
- 
- void amdgpu_pm_acpi_event_handler(struct amdgpu_device *adev)
- {
-+	int active = 0;
++	if (!amdgpu_dm_connector->dc_link->edp_sink_present)
++		return false;
 +
- 	if (adev->pm.dpm_enabled) {
- 		mutex_lock(&adev->pm.mutex);
-+		active = pm_runtime_get_if_active(adev->dev);
-+
- 		if (power_supply_is_system_supplied() > 0)
- 			adev->pm.ac_power = true;
- 		else
- 			adev->pm.ac_power = false;
+ 	if (link->panel_type != PANEL_TYPE_LCD && !link->panel_config.cacp.cacp_supported)
+ 		return false;
  
--		if (adev->powerplay.pp_funcs &&
--		    adev->powerplay.pp_funcs->notify_ac_dc)
--			amdgpu_dpm_notify_ac_dc(adev);
-+		if (active > 0) {
-+			if (adev->powerplay.pp_funcs &&
-+			    adev->powerplay.pp_funcs->notify_ac_dc)
-+				amdgpu_dpm_notify_ac_dc(adev);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+index 7ca17f803..d71f5e5da 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+@@ -52,6 +52,7 @@ static void setup_test_connector(struct kunit *test,
+ 	fixture->aconnector->dc_link = fixture->link;
+ 	fixture->aconnector->base.dev = &fixture->adev->ddev;
+ 	fixture->link->connector_signal = signal;
++	fixture->link->edp_sink_present = true;
+ }
  
--		if (is_support_sw_smu(adev))
--			smu_set_ac_dc(adev->powerplay.pp_handle, true);
-+			if (is_support_sw_smu(adev))
-+				smu_set_ac_dc(adev->powerplay.pp_handle, true);
-+
-+			pm_runtime_put(adev->dev);
-+		}
- 
- 		mutex_unlock(&adev->pm.mutex);
- 	}
+ static void setup_test_dm_ddev(struct kunit *test, struct amdgpu_display_manager *dm)
 -- 
 2.55.0
 
