@@ -1,54 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=141.14.17.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794616002;
-	b=h62oaUNgAhXEq6KXtGOOi3WFF60/yJ5dXJsaWi//4avIpBdD8xc1UG6C2FX3J5q5tPls
-	 1iNwjP7IZEd0A2b5wg9XkGLrNU53gXAq0nCgTD8cOK3M1yyCVLTET4lLYkSdlJqLo/V0P
-	 ky0MXPpRiDFKkGe2dRn/e9MJIRfhqWzsT/VSAdgToLflJpvd12aYscRE/ZBMw4ROAP6E2
-	 WqzXz4pLmKQtfXMHBX+zmdEK7RHNMef8Zc/WA1KOEPoJ4wJWtfPA51/GUm4qa8zEMi3DI
-	 1Dh/QG5S969E9gl+yeawb9WQ2mxPxQRRxIPDfQY7xJDEDLInBWA8HwkGMbeLNYDd4Ng==
+	t=1794616014;
+	b=F2tAIfZWE9AL0iuF9MH8adhTWQog8ai2RwLM/6STbVWPG/wjq3B0lj8lGXwKLdYH28lo
+	 GWFGXvAlC7ZF/IgMOy5NgxCfLirOSfRblBZGfvgoc0MTTuzvGLw1iCbiBHCs2fWbrjb5i
+	 XNurXhWfqLgMq4jWkP9d/JwCzlbkS4R/F+tDbs3EMkdh+kM9miB56y6S4mHk3ecsKPAJR
+	 RK9icc1fPNbXMwIStZxvrb3VrDG5HINRBs5n94j32tspxlNEqK9Bh3gewitX0yjCaFf4K
+	 +vYvRSDPHR3tlGAcYWMh+eQW6xFt2PIDnFvoWhwPfSRwoHH0nNSdBEabY3cYnpcG47g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794616002;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:DKIM-Signature;
-	bh=Jv6yDs3LTT1v1znBlsGVv5ch1NifUwAZdkQWosCA1T0=;
-	b=H1TtiyWIU1OVNAyKnPJx136WbZGBK0ga8g8TsGGI/ciwCTs5Fif4k7SmgIK3nIiOh+y0
-	 KDuNzegeTwZz5kdGu/jj+xLxMVmRxE/PCMSeiyiDvt6AunnWFZapZAFfb1qRvL+slU0RV
-	 l9rtpenDyWn6I68p5P5YTNm4Fa5KmaHBGOgiOxG9F951GqsQdmXa3AOZGy8J3ipE8Jq+I
-	 MjLwUYdqFC1hiYrFFGLq7D+CfXceXD5kbl+Hks5n60vUbqpP5pRpHGavjvytvgefTNxKA
-	 L0Y6uo/o7sHTMeiM5ikorZXEtPibHyfUY/FdTWpQ8q4a0LUyYuavQNOLjJgio+DGYMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794616014;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=qELRNAVaIgFR6qPOh/no43Bw75GkkUFI653vrqTrH8M=;
+	b=xWG608UQbSlZm0DlC7vcFn4MQs93QWAYEjsjkauVS8I4bkHOS5GG9yt6Hfy87Omy1hD5
+	 GTjkl/LZeGRSxT4nymiu+BSIbxX+D2Qf8kyUyqY8Pv1qEXCTmnFPQDs3VUblKHSBFJGyl
+	 8dT//4jr8DPF22HeWR2zEHQFAlkcDgDIpKo3TAHEqzAxkwHfIUR1TG7OU7LRwyVnfQ4HG
+	 TGbYux7I4+MF0xlN5f+IuDHfrx/nh+FXbIq3Mhsj6w3K+Al6ChTCA/zAgRjGh1n+D3fdS
+	 L0wTMwJt2e7KppVA0cThR6/HQ4SilI9UA1xoSRz8K95MZmkZkiXQPZtyNrp9J63e/qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=molgen.mpg.de;
-	spf=pass smtp.mailfrom=molgen.mpg.de;
-	dkim=pass header.d=molgen.mpg.de header.i=@molgen.mpg.de header.a=rsa-sha256 header.s=20260906 header.b=e9wDeplc;
-	arc=none smtp.remote-ip=141.14.17.11
-Received: from mx3.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dMuC75hw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E553606A32D;
-	Sat, 14 Nov 2026 00:26:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E553606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=molgen.mpg.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=molgen.mpg.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F016606A327
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 00:26:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=molgen.mpg.de header.i=@molgen.mpg.de header.a=rsa-sha256 header.s=20260906 header.b=e9wDeplc
-Received: from abreu.speedport.ip (p5b13abd5.dip0.t-ipconnect.de [91.19.171.213])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: pmenzel)
-	by mx.molgen.mpg.de (Postfix) with ESMTPSA id 025554C2F3FFF2;
-	Sat, 14 Nov 2026 01:26:33 +0100 (CET)
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-To: "Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>
-Cc: Paul Menzel <pmenzel@molgen.mpg.de>,
-	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ACPI: battery: Refresh the battery asynchronously after system resume
-Date: Sat, 14 Nov 2026 01:26:12 +0100
-Message-ID: <20261114002612.219894-2-pmenzel@molgen.mpg.de>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dMuC75hw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CECE21F000C8
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 00:26:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794616013;
+	bh=qELRNAVaIgFR6qPOh/no43Bw75GkkUFI653vrqTrH8M=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=dMuC75hwnViRMw2m8IO4Z/sEUVo66DAMUsmfpBbHiu9dGq89PizZbUJa4Ln/1RfE7
+	 i/zSjpv2LuVosTj25/Qc5oNigCkVWwG20Rs9+N9lD017IJ5RkAvY5mJsgNSxaOe3iJ
+	 8L3tQ0aFPcTLpW2FtOqFBUqb/oakTJsF40MyZ9NN81Vq97JR7ePAJ0Ca9a+xVPHZy+
+	 AqQY9CC3n2sEX5/Y5qU9jweIPRi/E6XKvBJROIOEDVtxlcNtE2ilnUwx3QBOlpcOUi
+	 dHSPXGgawWYdg2LkQjMtnMJZXPOo1SNlVzcS+eANxJwlkn8SosbVMpJ5uQytH8OITg
+	 z89Fmi2VREvaw==
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c4d473cfff6so252349866b.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:26:53 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGzNOs9InuQ1uFIrMDLYghqjQZ5KG2svsalf+4fa5JaSkYCR6uGovq99ZwdY6QLIJcXanFbS1HYHvOsNAY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9clptN+Sd5kxmetfDRTAk3rvx6tTlxAWhr7n9aDxSZx5u98Akk
+	f8+ZbmWRKbt+lLm0lh9+ZsnqE+n5CcQsi7aBiuvDWaUi4KhOAQP9hyzugk3+eKZqBC9+vL4unyH
+	rnKdK364o7NhfbiGfUuERIMYLfE2G0iM=
+X-Received: by 2002:a17:907:6d02:b0:c46:9ca9:f524 with SMTP id
+ a640c23a62f3a-c50963b6917mr375016666b.32.1794616012385; Fri, 13 Nov 2026
+ 16:26:52 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,161 +59,171 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=molgen.mpg.de; s=20260906; 
-	t=1794615994; 
-	h=from:from:subject:date:message-id:mime-version:content-type:content-transfer-encoding; 
-	bh=Jv6yDs3LTT1v1znBlsGVv5ch1NifUwAZdkQWosCA1T0=; 
-	b=e9wDeplc2GUNVHUN+hNfJis/3FlC1vN7/rDFFc1/k5b6c7LV7xRp2CF1dW1L7YtYhDLbC8xRRKf9
-	Uz+O4+HwncuaJv+fdN0+lK89VXvOG6RnwEbvVLTVWCadwKGWnnepvrrtF/GxcQ8TrpmSclkvXRX53c
-	Mnc/Tyx9QDERhZsxVRrkwWSO3XV3kf7xJG3h6fhFi+PMIPIHYhiYyyUhJKu8kR1RiE2a5EnVZHslIw
-	iUeUeX9wGEku4gPuqyu4dGlPvb+vY5xwW75YZvG7tk2+yzgPwLJb3d+0jp9SG7Qqh5GB3nqhkJ+pPV
-	fPN3t237KfR2S63XT0zKYOLyGW3cF9kA==
+References: <20261113221610.392113-1-koray.fra@gmail.com>
+In-Reply-To: <20261113221610.392113-1-koray.fra@gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Sat, 14 Nov 2026 09:26:40 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd-X_u1CapKjpLPJF+ecUo5LN15Zj9T8bLguhyYWY7YrWQ@mail.gmail.com>
+X-Gm-Features: AclHuK9SY2N95JqQXsUxzHPNoOBpk9fQTVDaT5aU9XnoxTNc6u6Ls8u8uyAxWOA
+Message-ID: <CAKYAXd-X_u1CapKjpLPJF+ecUo5LN15Zj9T8bLguhyYWY7YrWQ@mail.gmail.com>
+Subject: Re: [PATCH] ksmbd: decode and honor DOS attribute validity flags
+To: koraynilay <koray.fra@gmail.com>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, Hyunchul Lee <hyc.lee@gmail.com>, 
+	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The PM_POST_SUSPEND notifier evaluates _BIX, _BTP and _BST synchronously,
-and the notifier chain is the last step of the system resume: the write to
-/sys/power/state, and so systemd-sleep and everything waiting for it, only
-returns after it.
+On Sat, Nov 14, 2026 at 7:16=E2=80=AFAM koraynilay <koray.fra@gmail.com> wr=
+ote:
+>
+> Currently, when setting file attributes via FSCTL_SET_SPARSE,
+> FSCTL_SET_COMPRESSION or FileBasicInformation, ksmbd hardcodes
+> flags =3D 0x51 (XATTR_DOSINFO_ATTRIB | XATTR_DOSINFO_CREATE_TIME |
+> XATTR_DOSINFO_ITIME). This injects unrequested creation time and itime
+> into user.DOSATTRIB on disk, even though the client only requested an
+> attribute modification.
+>
+> Furthermore, ndr_decode_dos_attr() discards the validity flags on read
+> by reading them into NULL. When reading a file with an attribute-only
+> xattr (flags =3D 0x01, where create_time on disk is 0), ksmbd treats the =
+0
+> as a valid timestamp and reports NTTIME(0) instead of falling back to
+> the underlying filesystem's btime. Modifying any attribute via
+> set_file_basic_info() then clobbers the xattr back to 0x51.
+>
+> Fix this by:
+> 1. decoding da->flags in ndr_decode_dos_attr() and only updating
+>    create_time and itime if their validity flags are set (in
+>    smb2_update_xattrs() and ksmbd_vfs_fill_dentry_attrs());
+> 2. reading existing attributes and only setting XATTR_DOSINFO_ATTRIB in
+>    fsctl_set_sparse(), __ksmbd_vfs_set_compression(), and
+>    set_file_basic_info() so unrequested timestamps are not injected.
+>
+> Reproducer, with /tmp as the local filesystem folder exported as [test]
+> in ksmbd.conf and /mnt as the smb folder mounted with mount -t cifs:
+>
+>   mount -t cifs //127.0.0.1/test /mnt -o username=3Duser,password=3Dpass
+>
+> test with sparse (for compression, use chattr +c instead of fallocate):
+>
+>   echo data > /tmp/sparse.txt
+>   chmod 777 /tmp/sparse.txt
+>
+>   stat -c 'Local btime (%n): %w' /tmp/sparse.txt
+>   getfattr -n user.DOSATTRIB -e hex /tmp/sparse.txt
+>
+>   # punching hole via CIFS triggers FSCTL_SET_SPARSE
+>   fallocate -p -o 0 -l 4 /mnt/sparse.txt
+>   getfattr -n user.DOSATTRIB -e hex /tmp/sparse.txt
+>
+>   stat -c 'CIFS btime (%n):  %w' /mnt/sparse.txt
+>   smbclient //127.0.0.1/test -U user%pass -c 'allinfo sparse.txt'
+>
+>   # evict cache so btime is read fresh again
+>   umount /mnt
+>   mount -t cifs //127.0.0.1/test /mnt -o username=3Duser,password=3Dpass
+>   stat -c 'CIFS btime (%n):  %w' /mnt/sparse.txt
+>
+> which prints:
+>
+>   Local btime (/tmp/sparse.txt): 2026-11-13 21:13:27.167926440 +0000
+>   /tmp/sparse.txt: user.DOSATTRIB: No such attribute
+>
+>   # file: tmp/sparse.txt
+>   user.DOSATTRIB=3D0x0000040004000000510000002002000000000000000000002095=
+42d3b373dd01
+>      0x51 =3D 0x1 | 0x10 | 0x40 -----^^         |      unrequested --^^^^=
+^^^^^^^^^^^^
+>    (ATTRIB | CREATE_TIME | ITIME)             |   creation time =3D btime
+>                                      SPARSE --^
+>   CIFS btime (/mnt/sparse.txt):  2026-11-13 21:13:27.167926400 +0000
+>   [...]
+>   create_time:    Fri Nov 13 21:13:27 2026 UTC
+>   [...]
+>   CIFS btime (/mnt/sparse.txt):  2026-11-13 21:13:27.167926400 +0000
+>
+> test with setmode:
+>
+>   echo data > /tmp/attrib.txt
+>   chmod 777 /tmp/attrib.txt
+>
+>   stat -c 'Local btime (%n): %w' /tmp/attrib.txt
+>   getfattr -n user.DOSATTRIB -e hex /tmp/attrib.txt
+>
+>   # modify attribute via CIFS
+>   smbclient //127.0.0.1/test -U user%pass -c 'setmode attrib.txt +r'
+>   getfattr -n user.DOSATTRIB -e hex /tmp/attrib.txt
+>
+>   stat -c 'CIFS btime (%n):  %w' /mnt/attrib.txt
+>   smbclient //127.0.0.1/test -U user%pass -c 'allinfo attrib.txt'
+>
+>   # evict cache so btime is read fresh again
+>   umount /mnt
+>   mount -t cifs //127.0.0.1/test /mnt -o username=3Duser,password=3Dpass
+>   stat -c 'CIFS btime (%n):  %w' /mnt/attrib.txt
+>
+> which prints:
+>
+>   Local btime (/tmp/attrib.txt): 2026-11-13 21:13:27.195647069 +0000
+>   /tmp/attrib.txt: user.DOSATTRIB: No such attribute
+>
+>   # file: tmp/attrib.txt
+>   user.DOSATTRIB=3D0x000004000400000051000000210000000000000000000000f6cf=
+46d3b373dd01
+>      0x51 =3D 0x1 | 0x10 | 0x40 -----^^       |        unrequested --^^^^=
+^^^^^^^^^^^^
+>    (ATTRIB | CREATE_TIME | ITIME)           |     creation time =3D btime
+>                                  READONLY --^
+>   CIFS btime (/mnt/attrib.txt):  2026-11-13 21:13:27.195647000 +0000
+>   [...]
+>   create_time:    Fri Nov 13 21:13:27 2026 UTC
+>   [...]
+>   CIFS btime (/mnt/attrib.txt):  2026-11-13 21:13:27.195647000 +0000
+>
+> After this patch, the outputs should be:
+>
+> sparse:
+>
+>   Local btime (/tmp/sparse.txt): 2026-11-13 21:20:25.856425751 +0000
+>   /tmp/sparse.txt: user.DOSATTRIB: No such attribute
+>   # file: tmp/sparse.txt
+>   user.DOSATTRIB=3D0x0000040004000000010000002002000000000000000000000000=
+000000000000
+>           0x01 =3D 0x1 (ATTRIB) -----^^         | no creation time --^^^^=
+^^^^^^^^^^^^
+>                                      SPARSE --^
+>   CIFS btime (/mnt/sparse.txt):  2026-11-13 21:20:25.856425700 +0000
+>   create_time:    Fri Nov 13 21:20:26 2026 UTC
+>   CIFS btime (/mnt/sparse.txt):  2026-11-13 21:20:25.856425700 +0000
+>
+> setmode:
+>
+>   Local btime (/tmp/attrib.txt): 2026-11-13 21:20:25.976415893 +0000
+>   /tmp/attrib.txt: user.DOSATTRIB: No such attribute
+>   # file: tmp/attrib.txt
+>   user.DOSATTRIB=3D0x0000040004000000010000002100000000000000000000000000=
+000000000000
+>           0x01 =3D 0x1 (ATTRIB) -----^^       |   no creation time --^^^^=
+^^^^^^^^^^^^
+>                                  READONLY --^
+>   CIFS btime (/mnt/attrib.txt):  2026-11-13 21:20:25.976415800 +0000
+>   create_time:    Fri Nov 13 21:20:26 2026 UTC
+>   CIFS btime (/mnt/attrib.txt):  2026-11-13 21:20:25.976415800 +0000
+>
+> Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3") # ndr =
+decode/basic info
+> Fixes: f44158485826 ("cifsd: add file operations") # ksmbd_vfs_fill_dentr=
+y_attrs
+> Fixes: 159e727f763d ("ksmbd: persist FSCTL_SET_SPARSE state") # sparse
+> Fixes: 0fb327626ad9 ("ksmbd: support file compression attributes") # comp=
+ression
+> Cc: stable@vger.kernel.org
+> Assisted-by: Gemini:3.8-flash-high antigravity-cli-1.5.3
+> Signed-off-by: koraynilay <koray.fra@gmail.com>
+Can you check Sashiko's review comments ?
 
-On a Dell XPS 13 9310 nearly all of the PM_POST_SUSPEND notifier chain is
-battery_notify() (143 ms with the function_graph tracer):
+https://sashiko.dev/#/patchset/20261113221610.392113-1-koray.fra%40gmail.co=
+m
 
-    @ 143043.5 us |        } /* battery_notify [battery] */
-    @ 143513.1 us |      } /* notifier_call_chain */
-    @ 143536.0 us |  } /* pm_notifier_call_chain */
-
-Queue the refresh on system_freezable_wq instead.
-
-Time from "Restarting tasks: Done" (end of thaw_processes) to "PM: suspend
-exit" for suspend-to-idle cycles of 8 s with sleepgraph, in ms, on Linux
-7.4-rc1 with other resume changes, which do not run in this phase:
-
-                  panel lit at suspend       panel off at suspend
-    before        24.5  26.7  27.3  29.4     58.8  60.4  85.2
-    after         10.7  10.8  15.9  17.7      5.7   8.3   9.3
-    median        27.0 -> 13.4               60.4 -> 8.3
-
-After the change, pm_notifier_call_chain(PM_POST_SUSPEND) takes
-0.7-0.9 ms (function_graph, three cycles, hwrng_pm_notifier() being the
-largest), so the rest of the phase is outside the notifier chain.  The
-refresh still runs after each resume (kprobes, three cycles):
-battery_notify() returns after 4-8 us, acpi_battery_pm_worker() starts
-0.02-0.2 ms later and takes 17.8-18.6 ms, and it ends after rtcwake has
-already returned.
-
-Signed-off-by: Paul Menzel <pmenzel@molgen.mpg.de>
----
-
-Notes:
-    Assisted-by: claude-opus-5.5 (Claude Code), analysis and patch
-    draft; I reviewed it.
-
- drivers/acpi/battery.c | 63 +++++++++++++++++++++++++-----------------
- 1 file changed, 37 insertions(+), 26 deletions(-)
-
-diff --git a/drivers/acpi/battery.c b/drivers/acpi/battery.c
-index 6edea559a5bce..4e2a79d356ef9 100644
---- a/drivers/acpi/battery.c
-+++ b/drivers/acpi/battery.c
-@@ -105,6 +105,7 @@ struct acpi_battery {
- 	struct kfifo acpi_notif_fifo;
- 	struct delayed_work acpi_notif_dwork;
- 	struct notifier_block pm_nb;
-+	struct work_struct pm_work;
- 	struct list_head list;
- 	unsigned long flags;
- 
-@@ -1293,40 +1294,48 @@ static void acpi_battery_notify(acpi_handle handle, u32 event, void *data)
- 	pr_err_ratelimited("too many battery notifications within %dms\n", NOTIF_MERGING_MS);
- }
- 
--static int battery_notify(struct notifier_block *nb,
--			  unsigned long mode, void *_unused)
-+static void acpi_battery_pm_worker(struct work_struct *work)
- {
--	struct acpi_battery *battery = container_of(nb, struct acpi_battery,
--						    pm_nb);
--
--	if (mode == PM_POST_SUSPEND || mode == PM_POST_HIBERNATION) {
--		guard(mutex)(&battery->update_lock);
--
--		if (!acpi_battery_present(battery))
--			return 0;
--
--		if (battery->bat) {
--			acpi_battery_refresh(battery);
--		} else {
--			int result;
-+	struct acpi_battery *battery = container_of(work, struct acpi_battery,
-+						    pm_work);
- 
--			scoped_guard(mutex, &battery->property_lock) {
--				result = acpi_battery_get_info(battery);
--				if (result)
--					return result;
--			}
-+	guard(mutex)(&battery->update_lock);
- 
--			result = sysfs_add_battery(battery);
--			if (result)
--				return result;
--		}
-+	if (!acpi_battery_present(battery))
-+		return;
- 
-+	if (battery->bat) {
-+		acpi_battery_refresh(battery);
-+	} else {
- 		scoped_guard(mutex, &battery->property_lock) {
--			acpi_battery_init_alarm(battery);
--			acpi_battery_get_state(battery);
-+			if (acpi_battery_get_info(battery))
-+				return;
- 		}
-+
-+		if (sysfs_add_battery(battery))
-+			return;
- 	}
- 
-+	scoped_guard(mutex, &battery->property_lock) {
-+		acpi_battery_init_alarm(battery);
-+		acpi_battery_get_state(battery);
-+	}
-+}
-+
-+static int battery_notify(struct notifier_block *nb,
-+			  unsigned long mode, void *_unused)
-+{
-+	struct acpi_battery *battery = container_of(nb, struct acpi_battery,
-+						    pm_nb);
-+
-+	/*
-+	 * Evaluating _BIX, _BTP and _BST takes tens of milliseconds on some
-+	 * systems, and the PM notifier chain delays the end of the system
-+	 * resume, so do it asynchronously.
-+	 */
-+	if (mode == PM_POST_SUSPEND || mode == PM_POST_HIBERNATION)
-+		queue_work(system_freezable_wq, &battery->pm_work);
-+
- 	return 0;
- }
- 
-@@ -1516,6 +1525,7 @@ static int acpi_battery_probe(struct platform_device *pdev)
- 	if (result)
- 		return result;
- 
-+	INIT_WORK(&battery->pm_work, acpi_battery_pm_worker);
- 	battery->pm_nb.notifier_call = battery_notify;
- 	return register_pm_notifier(&battery->pm_nb);
- }
-@@ -1525,6 +1535,7 @@ static void acpi_battery_remove(struct platform_device *pdev)
- 	struct acpi_battery *battery = platform_get_drvdata(pdev);
- 
- 	unregister_pm_notifier(&battery->pm_nb);
-+	cancel_work_sync(&battery->pm_work);
- }
- 
- /* this is needed to learn about changes made in suspended state */
--- 
-2.54.0
-
+Thanks.
