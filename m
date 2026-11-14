@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794641640;
-	b=zfKbqvlsq+IC40F+JxPo2flLPJgk9p/EI/BsU35CPuUvbuOLjh9Lc4MUbuXFtu9z2BKB
-	 xbiN+z63WH9ZxK7/eCUYZrz87sGM2AGlMCMnwC7mCMCbJpYRHFA6Y6SFwXxWEib99jhel
-	 zXZ9wLCEHML/zhSsbi1xz4dYaocOJxqho85AJBtB9iAeBoDqFYCAws8s+ynCct7/MVCjq
-	 6bbMBHx+MWXBBhhModGznF97y0ErCo245opXZKdZLceXHZzKsd1D6wJeeS2Vxd5/E5Shj
-	 t0bdis6YfYwZTsi9QD2bGksrJlrsPRfAilIARXyu08ipXNOewl9VALCqmIIgnnNAMrw==
+	t=1794641679;
+	b=RVZpKA6FqGK6+X//z4RLDb7VgMM/D6RG/wpobTXWBr9XvYeKGPuov0kZeVh5D2O/uG8U
+	 AD8mye+XL09g3V5UhYjOp3FHpQVkwOq9e6YQpui4pmpcGeDmYGe/3oJfoCAhxunOMarlK
+	 lHCKjiMaaotNCrZMS7sEeyxaggTgCZOjjMUtD9u+M46WJRAhEMEkeXM/WWx6OEs3KW3qD
+	 CVSHcw2GIE6yObjRouXl5vQSvLLD8y0zYwrSP63LETd3jhCZBybOKBpwvg2qyMNdK9yFj
+	 ULRl6UZxo4JNbvrjE7eVoEaxSp6t6hld5THhydJoe7Hpj01p4Stbeye8z+j5bSTTvVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794641640;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794641679;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=skQyLbajY/JdnR4E6uMtkLCcC4Gk80WNRunpYsHQRok=;
-	b=UX3z2Jl0hTnrN6u9FpcLrhRw7oe+bA3vVAeFXn3m2BofRIEs9Sd/JtAIH5jcpVDbw5O5
-	 2j8H6fZuFDwr2kqhK3gCiR2xSHFpNxXrMdZCwjrTVZsvG/9r8f2wVH/45pJb5LJAHHbVW
-	 zbziOduAmS9s4NrGAP5TyOYlf604P3XH8+HqYiDBKZy0mOaeVE7qoSp8jM1wzYzVhIRot
-	 Vo4kbDqtaU5aqyiPzholuLGWCr2xITWL/NtmMuCTZMbsPvZ3Mv0c/GeTLSdw49WCtWo5O
-	 Q6BoC1ONRlIAkcdK4+0cIPI38fYKV+Pc/jmqr0/V9PKhfAPgWUWZUhXTvOfwal4hwHg==
+	bh=uEokkUGALWPMex2Voc4BEuMdUXr/l2om92W9ukshPYg=;
+	b=dOJ+rCASlcEcr5AzD7x02upA10m/yP+O9A7zd5iaXPxmPjYYfx0crStEnZSqwURhN8EE
+	 0GeBpBmbvlTCJ/QKz+G0YR7s7+KD15vcGfwJFwNHf2hfwlHfFKsYTIUDdqWXx4n2TulVD
+	 mKvLflams5WrCFXDTo5RDwAvIVEVS0sflbkgaQSDHrp9cSuQcLbRyYQ1Ti8kT6DuAyT0h
+	 Q1JB0QhEuYVdmGxGIWL30A+zM+MW6/dYIr8hoiofUwzlmcMatfYXbxhPGHPQZYgb9c5Wr
+	 ZCV2wFk4FK3O5eujsFAmbUIHYbm+5lixwr4ObXfrjdpbNWNbmyHGR/b7BYBVH/ldoEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j9821BeG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FlsL5vIv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B1AE606A329;
-	Sat, 14 Nov 2026 07:33:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8A2C606A329;
+	Sat, 14 Nov 2026 07:34:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j9821BeG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E8081F000C4;
-	Sat, 14 Nov 2026 07:33:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FlsL5vIv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04F8B1F000C4;
+	Sat, 14 Nov 2026 07:34:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794641639;
-	bh=skQyLbajY/JdnR4E6uMtkLCcC4Gk80WNRunpYsHQRok=;
+	s=k20260515; t=1794641678;
+	bh=uEokkUGALWPMex2Voc4BEuMdUXr/l2om92W9ukshPYg=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=j9821BeGF9glXFemfEqa1hJoxeskWujtRLwXUa9jq8/QlGCxdgAEJu4fiMpcOSWhm
-	 ++428UKU67Bi52gw04UhPe4GIy8hF1T1T8rWhHbtfeZXNTJwbhaGsw/mBe4m3p8Ixh
-	 6n2PCB9imMGxNgIxHi4dJF1MgVYwkJTdSYjoQ5qqyNOwiKiHRRVBsVkaQ1wjmCy2j6
-	 hFCNy02jbNpRlMCpa74PGzjoDFKszzZqqNbvSfsGQSOBew5IXEMsgRCoxE8N0gKeMK
-	 jZbKVvliaROMODRBx7SMx8UEPsD4H3/fyMw10UP5PGS0fxs5CU47te6bMLP7n+ZCbD
-	 ly4gxWANPAOLg==
-Message-ID: <a84e2db6-17d5-455a-9b3a-eb3d787ce92c@kernel.org>
-Date: Sat, 14 Nov 2026 08:33:53 +0100
+	b=FlsL5vIv1WenXpL7fXrA2kwbY7mqvf4afQo4lgUw+vdE9EN0aY2UPCLtjlWK4qn/F
+	 Ut06NcqVqn3SpiJBfkQluCe/+31O4S7z2ZRHjNQyF/3NOyWGglAp6rnGNSo2ndIB4B
+	 DHDlkYPkqtSIpaAlu1KaipI6wKhXHuEPmyEhU4BCMmFPodnFeHYntMPnwmxla5cjuw
+	 zLrkRnqkQ7qRPIw+QVjOtuPSoJ/oPKZUqyE56B5sfPwI/d71jVlhEYiMhCVFC8slTw
+	 t/XCpWtClKSGRvKqNCUrtdL3DcWLGcTQzYvDePUe8uJqcImGeI8MG3eIsXBQqIMaD/
+	 vEqgALhGSY8DQ==
+Message-ID: <1a94e854-84a5-43a2-9fc1-1de9acf03b9e@kernel.org>
+Date: Sat, 14 Nov 2026 08:34:31 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,17 +52,18 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: net: wireless: qcom,ath10k: add PCI devices
-To: Rosen Penev <rosenp@gmail.com>
-Cc: Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
- ath10k@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261111034418.194610-1-rosenp@gmail.com>
- <20261113-gabby-vigorous-dragon-6a2fed@quoll>
- <CAKxU2N846Ebd50z8adJsNcy-kJBSNDSKU8_ZLf68fJzoc+r+xA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/3] dt-bindings: qcom: document Asus Vivobook 16
+ X1607QA
+To: Daniel Carter <yass27106@gmail.com>, andersson@kernel.org,
+ broonie@kernel.org, srini@kernel.org, konradybcio@kernel.org
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ vkoul@kernel.org, tiwai@suse.com, perex@perex.cz, lgirdwood@gmail.com,
+ pierre-louis.bossart@linux.dev, yung-chuan.liao@linux.intel.com,
+ abelvesa@kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <9032798812284dd2842cbf003c75cc0b@gmail.com>
+ <2c4a807496c04047b6d5735e3946dd16@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -108,34 +109,17 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <CAKxU2N846Ebd50z8adJsNcy-kJBSNDSKU8_ZLf68fJzoc+r+xA@mail.gmail.com>
+In-Reply-To: <2c4a807496c04047b6d5735e3946dd16@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 13/11/2026 22:34, Rosen Penev wrote:
-> On Fri, Nov 13, 2026 at 3:11 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>
->> On Tue, Nov 10, 2026 at 07:44:18PM -0800, Rosen Penev wrote:
->>> ath10k PCI devices can be described as children of their PCI host
->>> bridge, for example to supply the MAC address and calibration data
->>> through nvmem cells. The only compatible for that was "qcom,ath10k",
->>> but the generic PCI device schema requires a node under a PCI bus to
->>> carry a "pciVVVV,DDDD" or "pciclass,..." compatible, so such nodes fail
->>> validation.
->>>
->>> Add the PCI vendor/device IDs handled by the ath10k PCI driver, as the
->>> ath9k and ath11k PCI bindings already do.
->>
->> We do not need to least all PCI devices here. Were is any actual DTS
->> user of these?
-> I have some WIP patches that include the QCA988X. Reason for it is
-> nvram calibration and MAC lookup.
+On 13/11/2026 21:33, Daniel Carter wrote:
+> Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> This is basically copy/paste of what's already present in ath9k.yaml.
-> 
-> AFAIK this came up because of dtbs_check
 
-It cannot come as dtbs_check result, because there are no DTS with these.
+
+Not much improved.
 
 Best regards,
 Krzysztof
