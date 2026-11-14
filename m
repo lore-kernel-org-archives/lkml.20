@@ -1,46 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794637838;
-	b=EyJY3xon7LJo08E7KS+VIW3EWDnAp2jCYYREf3zhebxsw+PAGBd2zOB7iw7iYhPQ1TsD
-	 OhxNfyaFjcm56SBPKnkTLivvbNakbnstJGfn+iAAVlAG5UQAKqn3rLxDJ5zezf/uR/2RO
-	 KvpdGGgBwnKp/Sp5aZ8JG77A1nWsmJEp7a75PxHl4ZI1tiJe/Vh+znAuJGRMzXKzeT4+f
-	 ewC6fDimk6w7fP4Hcy9dL2S4Dxmou1QOnDRfUIVngYGGijhpzEUit7N3HZ+48ci3YvsYE
-	 yonKXKsnMj5cxBjsa6btJLK6XSaRIL1GoJ07D3LCPAU+iyKnABPL4caR5c+1E/upUGQ==
+	t=1794637851;
+	b=AOtt2IEoMViIericQ89oaSsglDZ6IHIAui79kw3aRMK/tDFHbz20R8jrIyMnWpyiSf9j
+	 WfjZhM9ih08/w/hAyWq51dffPvtV6TBa5pF9lpEzD6X/n2MbpfHCBBMWmHNRjOcZquMDb
+	 qpU/6g217UOehG3F0XDJR6bJfVWgAJ6ZGSIx8CTvS4qnKsk1fPlPHE0NeISAzt/s2cv/J
+	 XcUlp3/p2KIj7OMkNcZOEQNhQK52qdbJ+ii18i6ZsVZ8c/+akGU/gyTcBFcBYYqWnuyWI
+	 p80NGBaiUnepCHZIC4hSZ84AqohvO9976NmNHUTm2XxL03jjb0eF4BFDuWb4Qdsrp0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794637838;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794637851;
 	h=Received:DKIM-Signature:Date:To:Cc:From:Message-Id:Subject;
-	bh=JVznsVsPInUpSLMrJJOTjWFvzhy/T2qZG1CdKQlMgyk=;
-	b=hRtG/etZDnkh57KOjRewH4rcHjK+aw4zfh3L9zAFSd9S3r2KTXYzuxT2kkHeKPy2hTtl
-	 kO83rAq6CpQsdw/DT+aWHHcQlq7f4wmpNrt+Lrm0FLjDDL7dg7H4hzwyfpO3bJljgZaZP
-	 FQrq1XSJrLDBCUx7entVNdvReGOgXk/4oizSdl56DTmBw3BUVP8ECyeOs73hIObV3Qezf
-	 /gXmRMW4tkUDVf8mz+ajOWg+vlJ61xvlRTjqJ6pNihubFJ1hsBfoVKtWrAvE2WMWL58v2
-	 Fol8LThf91B89mEuxEJee52xdfrmLllS2VmSe5ECalLCiuUUtA3yUVgN9Dnwpi1rx7w==
+	bh=oS9QFk6qCTqZmDiyydPycgUePjHsd6zHH42FyfHt1JU=;
+	b=D0nYPxWYoEaEl6cMiRH2NNT6af6ihbMAB8PMQOsJmTckUxOaW0wC0ZKM0ZmqPbYgyfkA
+	 X8iprFyUB8jSTnezua2u7D9e3ASPwJt7fYD/JDLnrcTjlG3G6rzEQLUbOoRqJFGpIX9Pl
+	 WexUhotQUinHuiC+wnl07Vt448Bksduyyl5qepXq+u3wr0kZHsoFnlTsxXSlUfcvQcAIO
+	 yTgO7TpOEyZ+Mdk7WpIdL0QVq9EyER8UHq8DgNqq5y9TovlOVLLG3lFQqqh5Q9i+jklqv
+	 VrcaDqolvHL4wdu8BgoKNXkzKUogBkag7goXGvYxkZI1yk6J78HK7ZTHYVdNGZ9I6zg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=FUDiKINR;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=URQzAA9G;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32F0F606A32D
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:30:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8316A606A323
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:30:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=FUDiKINR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9981B1F000C4;
-	Sat, 14 Nov 2026 06:30:37 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=URQzAA9G
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FE531F000C5;
+	Sat, 14 Nov 2026 06:30:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794637837;
-	bh=JVznsVsPInUpSLMrJJOTjWFvzhy/T2qZG1CdKQlMgyk=;
+	d=linux-foundation.org; s=korg; t=1794637851;
+	bh=oS9QFk6qCTqZmDiyydPycgUePjHsd6zHH42FyfHt1JU=;
 	h=Date:To:Cc:From:Subject;
-	b=FUDiKINRRFXHBQqnUif4afMHYPS+aAFHexcfSZohrT21Gm11GsDV+swyO2bebEM5E
-	 tM6c42EzSMC65xaqx+BlB+IQ4mRvpNLNyCOsHEj9rEi1p5Q1aXMkdp7ANHcS0gQ3tb
-	 86FosMTK5Krt/4EKV0ix69HkJze5GpB4TlIvKrzU=
-Date: Fri, 13 Nov 2026 22:30:37 -0800
+	b=URQzAA9GjFxBqcn+/SlJFAhBxIaJ5CrNwMr1u9uytsVbWCALxyV606nyJMgyQALVv
+	 SUH/68qGVpZClndEtUKhj/6oj2YJsYHxOaghbNWnpP0YEl6HanyD5MVN2Dwe/m9L1Y
+	 U2hK6QVjbgC9UIN2ypagHQZ+7B8BdtfXr/5qbhQg=
+Date: Fri, 13 Nov 2026 22:30:50 -0800
 To: Bradley Morgan <brads@mainlining.org>
 Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>
 From: Andrew Morton <akpm@linux-foundation.org>
-Message-Id: <41a747d4b3cd4bf3b266631a1f39ca69.1@linux-foundation.org>
-Subject: [PATCH 1/1] profile: account for partial /proc/profile reads
+Message-Id: <b271a138ea114d2d8436445cad2a1aab.1@linux-foundation.org>
+Subject: [PATCH 1/1] profile: simplify /proc/profile read layout
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,22 +51,33 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: profile: account for partial /proc/profile reads
-Date: Tue, 20 Oct 2026 15:28:00 -0700
+Subject: profile: simplify /proc/profile read layout
+Date: Tue, 20 Oct 2026 23:58:33 +0000
 
-read_profile() returns -EFAULT without advancing the file position
-when a user copy faults, even if earlier header bytes or a prefix of
-the counters were successfully copied.  A retry can therefore copy
-the same bytes again despite the previous read having delivered data.
+read_profile() is needlessly difficult to understand.  It copies the
+four-byte sampling-step header one byte at a time, then manufactures
+a pointer before prof_buffer so a file offset can be used as a
+counter-array offset.  Its signed byte counter, unsigned long file
+offset and repeated size calculations further obscure where each
+read starts and how many bytes it transfers.
 
-Return the number of successfully copied bytes and advance *ppos by
-that amount.  Return -EFAULT only if the fault occurs before any bytes
-are copied.  Preserve the four-byte sampling-step header, raw counter
-representation, and normal successful-read behavior.
+Treat the file as two consecutive regions: a four-byte header and
+the profiling counters.  Use size_t for byte positions and lengths,
+copy the bounded header in one operation, and address the counters
+relative to the start of prof_buffer.  Retain the full loff_t value
+for EOF and negative-offset checks before narrowing it to size_t.
+Brief comments explain each region.
 
-Avi Weiss's "profiling: fix sampling step on 64-bit big-endian
-systems" is unchanged.  This patch changes only short-read and fault
-reporting, not the output format.
+Keep the word-sized shift and explicit narrowing required by Avi
+Weiss's "profiling: fix sampling step on 64-bit big-endian systems".
+Assign the header value separately and explain why the 32-bit ABI
+requires a narrowing conversion.
+
+Preserve the partial-read and fault semantics established by [1/2],
+including short copies within either region.  The full-width offset
+check also prevents 32-bit pread64() offsets from wrapping into earlier
+profile data.  No other userspace-visible
+behavior change is intended.
 
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
@@ -78,43 +89,83 @@ user-copy faults, return values, file positions and retry behavior.
 The 64-bit big-endian sampling-step fix was not runtime tested.
 No separate per-patch or unpatched-versus-patched run was reported.
 
- kernel/profile.c |   17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
+ kernel/profile.c |   61 ++++++++++++++++++++++++++++-----------------
+ 1 file changed, 39 insertions(+), 22 deletions(-)
 
---- a/kernel/profile.c~profile-account-for-partial-proc-profile-reads
+--- a/kernel/profile.c~profile-simplify-proc-profile-read-layout
 +++ a/kernel/profile.c
-@@ -157,6 +157,7 @@ read_profile(struct file *file, char __u
- 	ssize_t read;
- 	char *pnt;
- 	unsigned int sample_step = (unsigned int)(1UL << prof_shift);
-+	size_t not_copied;
+@@ -153,35 +153,52 @@ void profile_tick(int type)
+ static ssize_t
+ read_profile(struct file *file, char __user *buf, size_t count, loff_t *ppos)
+ {
+-	unsigned long p = *ppos;
+-	ssize_t read;
+-	char *pnt;
+-	unsigned int sample_step = (unsigned int)(1UL << prof_shift);
+-	size_t not_copied;
++	const size_t header_size = sizeof(unsigned int);
++	const size_t file_size = (prof_len + 1) * sizeof(unsigned int);
++	unsigned int sample_step;
++	loff_t offset = *ppos;
++	size_t pos;
++	size_t done = 0;
++	size_t n, not_copied;
  
- 	if (p >= (prof_len+1)*sizeof(unsigned int))
+-	if (p >= (prof_len+1)*sizeof(unsigned int))
++	/* Keep the shift word-sized before narrowing to the 32-bit ABI. */
++	sample_step = (unsigned int)(1UL << prof_shift);
++
++	if (offset < 0)
++		return -EINVAL;
++	if (offset >= file_size)
  		return 0;
-@@ -166,15 +167,21 @@ read_profile(struct file *file, char __u
+-	if (count > (prof_len+1)*sizeof(unsigned int) - p)
+-		count = (prof_len+1)*sizeof(unsigned int) - p;
+-	read = 0;
++	pos = offset;
++	count = min(count, file_size - pos);
  
- 	while (p < sizeof(unsigned int) && count > 0) {
- 		if (put_user(*((char *)(&sample_step)+p), buf))
--			return -EFAULT;
-+			goto out;
- 		buf++; p++; count--; read++;
- 	}
--	pnt = (char *)prof_buffer + p - sizeof(atomic_t);
--	if (copy_to_user(buf, (void *)pnt, count))
--		return -EFAULT;
--	read += count;
-+	if (count) {
-+		pnt = (char *)prof_buffer + p - sizeof(atomic_t);
-+		not_copied = copy_to_user(buf, pnt, count);
-+		read += count - not_copied;
+-	while (p < sizeof(unsigned int) && count > 0) {
+-		if (put_user(*((char *)(&sample_step)+p), buf))
+-			goto out;
+-		buf++; p++; count--; read++;
++	/* Copy the four-byte sampling resolution. */
++	if (pos < header_size) {
++		n = min(count, header_size - pos);
++		not_copied = copy_to_user(buf, (u8 *)&sample_step + pos, n);
++		done += n - not_copied;
 +		if (not_copied)
-+			goto out;
-+	}
- 	*ppos += read;
- 	return read;
-+out:
-+	*ppos += read;
-+	return read ? read : -EFAULT;
++			goto fault;
++		buf += n;
++		pos += n;
++		count -= n;
+ 	}
++
++	/* Copy raw counters using offsets relative to the counter array. */
+ 	if (count) {
+-		pnt = (char *)prof_buffer + p - sizeof(atomic_t);
+-		not_copied = copy_to_user(buf, pnt, count);
+-		read += count - not_copied;
++		not_copied = copy_to_user(buf,
++					(u8 *)prof_buffer + pos - header_size,
++					count);
++		done += count - not_copied;
+ 		if (not_copied)
+-			goto out;
++			goto fault;
+ 	}
+-	*ppos += read;
+-	return read;
+-out:
+-	*ppos += read;
+-	return read ? read : -EFAULT;
++	*ppos += done;
++	return done;
++fault:
++	*ppos += done;
++	if (!done)
++		return -EFAULT;
++	return done;
  }
  
  /* default is to not implement this call */
