@@ -1,47 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794648166;
-	b=YYbKXWWh3lXRGH2PWIenAQ0IOShb0KZJtEPLR189NVaWP/CsteUQxkOcy9Lz6aCQXRsy
-	 Q4+//zCu3PtM7kbtmtWzoAt+/iDGZa0MpWb+o4dHD3zlPyDuiu0We1qenrT09QStOpseL
-	 Ttezd0qZTtrEaa8h03pUW8FKR7erDOWp3+PhBFePynALHa+44u4AwbZRgpXHV12Xs4ZRQ
-	 6QJLBT/HuhP4H9/m5GTT0fp8OeOwM4p1UxalfauoQIjImq4H4d95JSo1MwpWbc2f6bel4
-	 zEOPN4FSOoK3a0dJUv4kf5gqng2xkuNlYrIEPS16oAy41YTt7ZD1a8cXJHqk3WyHs0w==
+	t=1794648177;
+	b=bgXdqBmHV3QmK48dmKCgR1rE4bQ7HaARHKWm5VI8Zc8ZdND7VIip2TlxMw9/QVEKzRaM
+	 4+15WppDQFxySHqRBr0kXKReErU8nWOXQNUgXVhaLCIscgxQJ2wmTna8AEnGWkJaac+dZ
+	 IP4+fVwnEdH5j31H6bX0T2s8nyxJzaPAewIDfHWF4IKOzATtf0Eo6t9qsbVOYYSw4pq+k
+	 bKdCVPAaXg2bY+/SIQb5clGbNL1G3v1XBK9J4im0wcXENRMqHQTNoCjLT1Ejjo6jMSlo6
+	 tuGAJXWKDVX691nJDp0CLpJCFDve397F5ENGEzKwohmsAWSTPJEhvtk/FyBma6cE4GQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794648166;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=mhgwU6KGKAB5eJqw93LjEwh3/oUgQTitmGjKntJY39E=;
-	b=QRVPTsuyXHCX1Gq8hcQCYjSjtTU+FAmtjWOtltoTYOjzihq01UEzyXen4ANjMIRXwytY
-	 7bcaVwj+4CxU8+VknJKmp4Wc72wh1mg4Znr6oRIUkSIVB4Z72bkcYgoS5HlOs/nN7BPl7
-	 Kg00iD8qiJhnJsKaoazy90SEMT8m0YUnoAeMws2GZytqPa+srVcMbvxOopmYKLil4M7hh
-	 c4VbBFV1CKvpHb8z/xudQoQLDQck4pSfx1VeaaRUHC3CDNhNTIKm9llm9RPeXCNsAiyFT
-	 zivDJROul7Fl+Fgsov+oKLit3f7YfM9/7PQJ21/EOxjw/Ye2el6JiUowr5Fujh1CdCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794648177;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=P7RJ4ENzyw4AZHEmireO1YPhwe902JN+gKFUcZ8nVo4=;
+	b=J7abWnObCjhkmZaZyKNGGiIWyjy891lLoTccqo57jyNSsKDUKTnnVF+BEZahp49s0E0V
+	 QbFcYkRB6197kkdXvc/Cx57sgiTFql0FCGzRyrln9YhD8rRvcqTScHFLxbyNE0vsM2VG0
+	 klMSBfthsf5B9SHDATP224aAzTkifdztaaG/tbObqkVfK7BX5DkxfdV177O+YiTTTClf6
+	 8Fbs+1R4xGejvJRas9aPrtOMvvhnRRnZeAvnhvJt0nyGn4a2wwCTb8CEtA0lcsFGaYOG8
+	 Z+3f9qtcfUwbe5vgNeZY7NlMTLGI4Nlvx4Svcki7DRFx1p4QUpF7xZnq8qdPgrTS8tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="nrG/RqjO";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=KkaYtidi;
+	arc=none smtp.remote-ip=220.197.31.5
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C144606A323;
-	Sat, 14 Nov 2026 09:22:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AC42606A32E;
+	Sat, 14 Nov 2026 09:22:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AC42606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nrG/RqjO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 810A21F000C6;
-	Sat, 14 Nov 2026 09:22:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794648166;
-	bh=mhgwU6KGKAB5eJqw93LjEwh3/oUgQTitmGjKntJY39E=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=nrG/RqjOyQmTzJYpZalADLBfqXqb2WpNDIuol9x2PUbhMEEzW93rCWEWy9Tz18bMs
-	 dluvdPkteg6mM8d3Iu4xxC8E6Jjej3549TPwBgaiL7KsbJ0nfM1fIRYjVYJBT2xTFX
-	 x5CmB0ABhFoR6KOAYWW31YzGnbpthzcQTEysqwXqFo2NKllYQJGpi+LAEu1QzF3KKs
-	 eXv0KgnX/ruftIwLmpTdwDjCN7QfImzUmZ4QTHdhcrnliWHz7f3FY/BqlAJPV3ORUg
-	 fePOu2zvsOsg4DHYz9lSzMF6LTVna0ycXrcVSuD+uOX7MV2+UclKKVf3EiRbVclRzk
-	 PsKnQAreUSTaw==
-Message-ID: <ceb7b479-080f-4210-a1f2-be3e273779e5@kernel.org>
-Date: Sat, 14 Nov 2026 10:22:36 +0100
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=KkaYtidi
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=P7
+	RJ4ENzyw4AZHEmireO1YPhwe902JN+gKFUcZ8nVo4=; b=KkaYtidiEykt86e4Bg
+	R2nxjk9Pf1DvbjjwhQQCGZm+uOfQC7Sk/1DbGzlqP52cmK32rmRCbykEUM+PdW+x
+	xPAeQFY7NRGgI40MYQiiegl3DFmwNgekracLYx0D0CEZfX9Q5aqucltrvpM8FnoQ
+	2rrBXMExwPMQ7ookKcCuB/ayE=
+Received: from 4CV529F122.company.local (unknown [])
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wA3r6IRKPhqiIvzHA--.51340S4;
+	Sat, 14 Nov 2026 17:21:35 +0800 (CST)
+From: Ding Hui <dinghui1111@163.com>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	netdev@vger.kernel.org (open list:STMMAC ETHERNET DRIVER),
+	linux-stm32@st-md-mailman.stormreply.com (moderated list:ARM/STM32 ARCHITECTURE),
+	linux-arm-kernel@lists.infradead.org (moderated list:ARM/STM32 ARCHITECTURE),
+	linux-kernel@vger.kernel.org (open list)
+Cc: tommaso.merciai.xr@bp.renesas.com,
+	dinghui@lixiang.com,
+	xiasanbo@lixiang.com,
+	yangchen11@lixiang.com,
+	liuxuanjun@lixiang.com
+Subject: [PATCH net v7 2/4] net: stmmac: track unfilled XSK RX descriptors explicitly
+Date: Sat, 14 Nov 2026 17:21:14 +0800
+Message-Id: <92136a2c509f26f7a02053380a0b3c0fa426df48.1794646293.git.dinghui@lixiang.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1794646293.git.dinghui@lixiang.com>
+References: <cover.1794646293.git.dinghui@lixiang.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,91 +76,333 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 09/10] ARM: tegra: Remove fallback compatible from
- Tegra30 VI node
-To: Svyatoslav Ryhel <clamor95@gmail.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Hans Verkuil <hverkuil+cisco@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Cong Nguyen <congnt264@gmail.com>, Faisal Mukhtar
- <mukhtarfaisal03@gmail.com>, Dan Carpenter <error27@gmail.com>,
- Hungyu Lin <dennylin0707@gmail.com>, Hao-Qun Huang
- <alvinhuang0603@gmail.com>, Yury Norov <ynorov@nvidia.com>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Cc: linux-media@vger.kernel.org, linux-tegra@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev
-References: <20261113161819.36847-1-clamor95@gmail.com>
- <20261113161819.36847-10-clamor95@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261113161819.36847-10-clamor95@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wA3r6IRKPhqiIvzHA--.51340S4
+X-Coremail-Antispam: 1Uf129KBjvAXoW3Kr1DGryrKryfXrW5Cr4kZwb_yoW8Jw4DCo
+	Z7AFn8ta13Kr18Ar1kXr48Gry3Xanxuw1fJrZ8CrZ5uayI9a1aq343u3y5Jr13Ar15Kay7
+	Z3W8JFsFvFW7try5n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
+	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUaJKsUUUUU
+X-CM-SenderInfo: pglqwx1xlriiqr6rljoofrz/xtbC8x-pFmr4KB+i9gAA3i
 
-On 13/11/2026 17:18, Svyatoslav Ryhel wrote:
-> Tegra30 now has its own specific compatible string for the VI. Remove the
-> Tegra20 fallback, as it may interfere with the correct configuration of
-> the device.
-> 
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+From: Ding Hui <dinghui@lixiang.com>
 
+An XSK fill ring may supply fewer buffers than the RX ring needs. Those
+unfilled descriptors must remain CPU-owned, including on legacy cores
+whose clear callback only clears the buffer address. Add an ownership
+operation that preserves descriptor size and ring/chain control fields.
 
-DTS cannot be combined in this patchset and must be split. Don't mix
-patches from independent subsystems when you send something explicitly
-targeting only one subsystem (staging, USB).
-See also: Documentation/devicetree/bindings/submitting-patches.rst
+Track the number of descriptors awaiting refill independently of the
+ring indices, so an entirely empty ring can be distinguished from one
+with no pending refills. Initialize the pending region after the allocated
+prefix and stop consumption before entering it. Retry pending refills
+on each poll, including userspace wakeups with fewer than a batch of
+buffers, and retain batching during packet processing.
 
-Best regards,
-Krzysztof
+Update the tail after successful refills and kick legacy RX DMA. Use the
+end-of-ring tail address for a refill ending at index zero, including a
+completely empty ring populated before DMA has advanced from the base.
+Select the receive buffer size from the XSK pool even if no buffers were
+available at initialization.
+
+Fixes: bba2556efad6 ("net: stmmac: Enable RX via AF_XDP zero-copy")
+Signed-off-by: Ding Hui <dinghui@lixiang.com>
+---
+ .../ethernet/stmicro/stmmac/dwmac4_descs.c    |  6 +++
+ .../ethernet/stmicro/stmmac/dwxgmac2_descs.c  |  6 +++
+ .../net/ethernet/stmicro/stmmac/enh_desc.c    |  6 +++
+ drivers/net/ethernet/stmicro/stmmac/hwif.h    |  3 ++
+ .../net/ethernet/stmicro/stmmac/norm_desc.c   |  6 +++
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  2 +
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 49 +++++++++++++------
+ 7 files changed, 63 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
+index c6a8f8d73501..307bbd63dbcb 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
+@@ -176,6 +176,11 @@ static void dwmac4_set_tx_owner(struct dma_desc *p)
+ 	p->des3 |= cpu_to_le32(TDES3_OWN);
+ }
+ 
++static void dwmac4_clear_rx_owner(struct dma_desc *p)
++{
++	p->des3 &= cpu_to_le32(~RDES3_OWN);
++}
++
+ static void dwmac4_set_rx_owner(struct dma_desc *p, int disable_rx_ic)
+ {
+ 	u32 flags = (RDES3_OWN | RDES3_BUFFER1_VALID_ADDR);
+@@ -539,6 +544,7 @@ const struct stmmac_desc_ops dwmac4_desc_ops = {
+ 	.rx_status = dwmac4_wrback_get_rx_status,
+ 	.set_tx_owner = dwmac4_set_tx_owner,
+ 	.set_rx_owner = dwmac4_set_rx_owner,
++	.clear_rx_owner = dwmac4_clear_rx_owner,
+ 	.get_rx_vlan_tci = dwmac4_wrback_get_rx_vlan_tci,
+ 	.get_rx_vlan_valid = dwmac4_wrback_get_rx_vlan_valid,
+ 	.get_rx_frame_len = dwmac4_wrback_get_rx_frame_len,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
+index 6719ac6e395b..ad377c76ed4e 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
+@@ -51,6 +51,11 @@ static void dwxgmac2_set_tx_owner(struct dma_desc *p)
+ 	p->des3 |= cpu_to_le32(XGMAC_TDES3_OWN);
+ }
+ 
++static void dwxgmac2_clear_rx_owner(struct dma_desc *p)
++{
++	p->des3 &= cpu_to_le32(~XGMAC_RDES3_OWN);
++}
++
+ static void dwxgmac2_set_rx_owner(struct dma_desc *p, int disable_rx_ic)
+ {
+ 	u32 flags = XGMAC_RDES3_OWN;
+@@ -350,6 +355,7 @@ const struct stmmac_desc_ops dwxgmac210_desc_ops = {
+ 	.rx_status = dwxgmac2_get_rx_status,
+ 	.set_tx_owner = dwxgmac2_set_tx_owner,
+ 	.set_rx_owner = dwxgmac2_set_rx_owner,
++	.clear_rx_owner = dwxgmac2_clear_rx_owner,
+ 	.get_rx_vlan_tci = dwxgmac2_wrback_get_rx_vlan_tci,
+ 	.get_rx_vlan_valid = dwxgmac2_wrback_get_rx_vlan_valid,
+ 	.get_rx_frame_len = dwxgmac2_get_rx_frame_len,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/enh_desc.c b/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
+index 7ece8d4157a8..57909a9ba70d 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
++++ b/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
+@@ -299,6 +299,11 @@ static void enh_desc_set_tx_owner(struct dma_desc *p)
+ 	p->des0 |= cpu_to_le32(ETDES0_OWN);
+ }
+ 
++static void enh_desc_clear_rx_owner(struct dma_desc *p)
++{
++	p->des0 &= cpu_to_le32(~RDES0_OWN);
++}
++
+ static void enh_desc_set_rx_owner(struct dma_desc *p, int disable_rx_ic)
+ {
+ 	p->des0 |= cpu_to_le32(RDES0_OWN);
+@@ -460,6 +465,7 @@ const struct stmmac_desc_ops enh_desc_ops = {
+ 	.set_tx_ic = enh_desc_set_tx_ic,
+ 	.set_tx_owner = enh_desc_set_tx_owner,
+ 	.set_rx_owner = enh_desc_set_rx_owner,
++	.clear_rx_owner = enh_desc_clear_rx_owner,
+ 	.get_rx_frame_len = enh_desc_get_rx_frame_len,
+ 	.rx_extended_status = enh_desc_get_ext_status,
+ 	.enable_tx_timestamp = enh_desc_enable_tx_timestamp,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+index 8ae95e91a36a..05edec258a8b 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
++++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+@@ -65,6 +65,7 @@ struct stmmac_desc_ops {
+ 			 struct dma_desc *p, void __iomem *ioaddr);
+ 	/* Handle extra events on specific interrupts hw dependent */
+ 	void (*set_rx_owner)(struct dma_desc *p, int disable_rx_ic);
++	void (*clear_rx_owner)(struct dma_desc *p);
+ 	/* Get the receive frame size */
+ 	int (*get_rx_frame_len)(struct dma_desc *p, int rx_coe_type);
+ 	/* Return the reception status looking at the RDES1 */
+@@ -121,6 +122,8 @@ struct stmmac_desc_ops {
+ 	stmmac_do_callback(__priv, desc, get_rx_vlan_valid, __args)
+ #define stmmac_tx_status(__priv, __args...) \
+ 	stmmac_do_callback(__priv, desc, tx_status, __args)
++#define stmmac_clear_rx_owner(__priv, __args...) \
++	stmmac_do_void_callback(__priv, desc, clear_rx_owner, __args)
+ #define stmmac_set_rx_owner(__priv, __args...) \
+ 	stmmac_do_void_callback(__priv, desc, set_rx_owner, __args)
+ #define stmmac_get_rx_frame_len(__priv, __args...) \
+diff --git a/drivers/net/ethernet/stmicro/stmmac/norm_desc.c b/drivers/net/ethernet/stmicro/stmmac/norm_desc.c
+index d19bf7ca4db3..473d53c31072 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/norm_desc.c
++++ b/drivers/net/ethernet/stmicro/stmmac/norm_desc.c
+@@ -141,6 +141,11 @@ static void ndesc_set_tx_owner(struct dma_desc *p)
+ 	p->des0 |= cpu_to_le32(TDES0_OWN);
+ }
+ 
++static void ndesc_clear_rx_owner(struct dma_desc *p)
++{
++	p->des0 &= cpu_to_le32(~RDES0_OWN);
++}
++
+ static void ndesc_set_rx_owner(struct dma_desc *p, int disable_rx_ic)
+ {
+ 	p->des0 |= cpu_to_le32(RDES0_OWN);
+@@ -284,6 +289,7 @@ const struct stmmac_desc_ops ndesc_ops = {
+ 	.set_tx_ic = ndesc_set_tx_ic,
+ 	.set_tx_owner = ndesc_set_tx_owner,
+ 	.set_rx_owner = ndesc_set_rx_owner,
++	.clear_rx_owner = ndesc_clear_rx_owner,
+ 	.get_rx_frame_len = ndesc_get_rx_frame_len,
+ 	.enable_tx_timestamp = ndesc_enable_tx_timestamp,
+ 	.get_tx_timestamp_status = ndesc_get_tx_timestamp_status,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+index b76acfe0d958..b81695453cc6 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+@@ -128,6 +128,8 @@ struct stmmac_rx_queue {
+ 	unsigned int cur_rx;
+ 	unsigned int dirty_rx;
+ 	unsigned int buf_alloc_num;
++	/* XSK descriptors waiting for refill, including a completely empty ring. */
++	unsigned int xsk_rx_pending;
+ 	unsigned int napi_skb_frag_size;
+ 	dma_addr_t dma_rx_phy;
+ 	unsigned int state_saved;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 8bd244046195..f9ac82d2e726 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -436,7 +436,7 @@ static void stmmac_set_queue_rx_buf_size(struct stmmac_priv *priv,
+ {
+ 	u32 buf_size;
+ 
+-	if (rx_q->xsk_pool && rx_q->buf_alloc_num)
++	if (rx_q->xsk_pool)
+ 		buf_size = xsk_pool_get_rx_frame_size(rx_q->xsk_pool);
+ 	else
+ 		buf_size = priv->dma_conf.dma_buf_sz;
+@@ -453,6 +453,9 @@ static inline u32 stmmac_rx_dirty(struct stmmac_priv *priv, u32 queue)
+ {
+ 	struct stmmac_rx_queue *rx_q = &priv->dma_conf.rx_queue[queue];
+ 
++	if (rx_q->xsk_pool)
++		return rx_q->xsk_rx_pending;
++
+ 	return CIRC_CNT(rx_q->cur_rx, rx_q->dirty_rx,
+ 			priv->dma_conf.dma_rx_size);
+ }
+@@ -1610,6 +1613,9 @@ static void stmmac_clear_rx_descriptors(struct stmmac_priv *priv,
+ 				    priv->descriptor_mode,
+ 				    (i == dma_conf->dma_rx_size - 1),
+ 				    dma_conf->dma_buf_sz);
++		/* Only the allocated prefix may be handed to RX DMA. */
++		if (rx_q->xsk_pool && i >= rx_q->buf_alloc_num)
++			stmmac_clear_rx_owner(priv, desc);
+ 	}
+ }
+ 
+@@ -5601,7 +5607,7 @@ static bool stmmac_rx_refill_zc(struct stmmac_priv *priv, u32 queue, u32 budget)
+ 
+ 	budget = min(budget, stmmac_rx_dirty(priv, queue));
+ 
+-	while (budget-- > 0 && entry != rx_q->cur_rx) {
++	while (budget-- > 0) {
+ 		struct stmmac_rx_buffer *buf = &rx_q->buf_pool[entry];
+ 		dma_addr_t dma_addr;
+ 		bool use_rx_wd;
+@@ -5626,12 +5632,18 @@ static bool stmmac_rx_refill_zc(struct stmmac_priv *priv, u32 queue, u32 budget)
+ 		dma_wmb();
+ 		stmmac_set_rx_owner(priv, rx_desc, use_rx_wd);
+ 
++		rx_q->xsk_rx_pending--;
+ 		entry = STMMAC_NEXT_ENTRY(entry, priv->dma_conf.dma_rx_size);
+ 	}
+ 
+ 	if (rx_desc) {
+ 		rx_q->dirty_rx = entry;
+-		stmmac_set_queue_rx_tail_ptr(priv, rx_q, queue, rx_q->dirty_rx);
++		/* Use the end-of-ring address when filling an initially empty
++		 * ring completely, so the tail differs from its initial base.
++		 */
++		stmmac_set_queue_rx_tail_ptr(priv, rx_q, queue,
++					     entry ?: priv->dma_conf.dma_rx_size);
++		stmmac_enable_dma_reception(priv, priv->ioaddr, queue);
+ 	}
+ 
+ 	return ret;
+@@ -5652,7 +5664,6 @@ static int stmmac_rx_zc(struct stmmac_priv *priv, int limit, u32 queue)
+ 	struct stmmac_rxq_stats *rxq_stats = &priv->xstats.rxq_stats[queue];
+ 	struct stmmac_rx_queue *rx_q = &priv->dma_conf.rx_queue[queue];
+ 	unsigned int count = 0, error = 0, len = 0;
+-	int dirty = stmmac_rx_dirty(priv, queue);
+ 	unsigned int next_entry = rx_q->cur_rx;
+ 	bool in_progress = rx_q->state_saved;
+ 	u32 rx_errors = 0, rx_dropped = 0;
+@@ -5661,6 +5672,9 @@ static int stmmac_rx_zc(struct stmmac_priv *priv, int limit, u32 queue)
+ 	bool failure = false;
+ 	int xdp_status = 0;
+ 
++	if (rx_q->xsk_rx_pending)
++		failure = !stmmac_rx_refill_zc(priv, queue, rx_q->xsk_rx_pending);
++
+ 	if (netif_msg_rx_status(priv)) {
+ 		void *rx_head = stmmac_get_rx_desc(priv, rx_q, 0);
+ 
+@@ -5697,11 +5711,13 @@ static int stmmac_rx_zc(struct stmmac_priv *priv, int limit, u32 queue)
+ 		entry = next_entry;
+ 		buf = &rx_q->buf_pool[entry];
+ 
+-		if (dirty >= STMMAC_RX_FILL_BATCH) {
+-			failure = failure ||
+-				  !stmmac_rx_refill_zc(priv, queue, dirty);
+-			dirty = 0;
+-		}
++		if (!failure && rx_q->xsk_rx_pending >= STMMAC_RX_FILL_BATCH)
++			failure = !stmmac_rx_refill_zc(priv, queue,
++						     rx_q->xsk_rx_pending);
++
++		/* A CPU-owned slot in the refill region is not a packet. */
++		if (rx_q->xsk_rx_pending == priv->dma_conf.dma_rx_size)
++			break;
+ 
+ 		p = stmmac_get_rx_desc(priv, rx_q, entry);
+ 
+@@ -5714,10 +5730,8 @@ static int stmmac_rx_zc(struct stmmac_priv *priv, int limit, u32 queue)
+ 		/* Prefetch the next RX descriptor */
+ 		next_entry = STMMAC_NEXT_ENTRY(rx_q->cur_rx,
+ 					       priv->dma_conf.dma_rx_size);
+-		if (unlikely(next_entry == rx_q->dirty_rx))
+-			break;
+-
+ 		rx_q->cur_rx = next_entry;
++		rx_q->xsk_rx_pending++;
+ 
+ 		np = stmmac_get_rx_desc(priv, rx_q, next_entry);
+ 
+@@ -5746,7 +5760,6 @@ static int stmmac_rx_zc(struct stmmac_priv *priv, int limit, u32 queue)
+ 		if (unlikely(error)) {
+ 			xsk_buff_free(buf->xdp);
+ 			buf->xdp = NULL;
+-			dirty++;
+ 
+ 			if (status & rx_not_ls)
+ 				goto read_again;
+@@ -5761,7 +5774,6 @@ static int stmmac_rx_zc(struct stmmac_priv *priv, int limit, u32 queue)
+ 			buf->xdp = NULL;
+ 			rx_dropped++;
+ 			error = 1;
+-			dirty++;
+ 			goto read_again;
+ 		}
+ 
+@@ -5805,7 +5817,6 @@ static int stmmac_rx_zc(struct stmmac_priv *priv, int limit, u32 queue)
+ 		}
+ 
+ 		buf->xdp = NULL;
+-		dirty++;
+ 		count++;
+ 	}
+ 
+@@ -5817,6 +5828,9 @@ static int stmmac_rx_zc(struct stmmac_priv *priv, int limit, u32 queue)
+ 
+ 	stmmac_finalize_xdp_rx(priv, xdp_status);
+ 
++	if (!failure && rx_q->xsk_rx_pending)
++		failure = !stmmac_rx_refill_zc(priv, queue, rx_q->xsk_rx_pending);
++
+ 	u64_stats_update_begin(&rxq_stats->napi_syncp);
+ 	u64_stats_add(&rxq_stats->napi.rx_pkt_n, count);
+ 	u64_stats_update_end(&rxq_stats->napi_syncp);
+@@ -8460,6 +8474,11 @@ static void stmmac_reset_rx_queue(struct stmmac_priv *priv, u32 queue)
+ 	rx_q->state_saved = false;
+ 	rx_q->cur_rx = 0;
+ 	rx_q->dirty_rx = 0;
++	if (rx_q->xsk_pool) {
++		rx_q->dirty_rx = rx_q->buf_alloc_num % priv->dma_conf.dma_rx_size;
++		rx_q->xsk_rx_pending = priv->dma_conf.dma_rx_size -
++				       rx_q->buf_alloc_num;
++	}
+ }
+ 
+ static void stmmac_reset_tx_queue(struct stmmac_priv *priv, u32 queue)
+-- 
+2.34.1
+
