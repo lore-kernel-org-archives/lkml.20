@@ -1,80 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794618480;
-	b=Hu013kU5tjG6OxK/+wA2Pfm8pbFQBeEJNT3RA+3Lhwb5sLv8LgeOanNX5gm90AgEeVE9
-	 OnID9/ZNk4Y6wZOL9nKsF2mS6cREFbrAJF+V982x2q/gIivc3HLRdl2obt8stv+eP6LeO
-	 olynZUakuulKxGopNUJK5R4RV2nESoLibQLI/5y38s9SwySvobrs9QJL4Nt05wbfcXBez
-	 jMYm5cl3POrUpAar58iZRYHmOucLQWHPF05IXg2t7UT1UkbtD2PKgy1klYrsuVLTkzpfH
-	 gM2k3dbQMcLM8nlBCU+ydY2jGnUGb+SvyOtTmmMt7+0hRwwlxbJI3BNHAo69+qYv7ZA==
+	t=1794618597;
+	b=czyOKg5Z4u/4a3+XddRYpgCyEhmLfJzm+ANap+C7iMjvqFHbD9+LAQAfRvgrKj3YbymZ
+	 x2faKMbH79oQdlOrm8oa/KMBBSwQc2Za6HD2GAhwduIoSJLnFQ2tM6OTCgbCeX5UAxn8f
+	 MwDyyikwIWKC7vuICvK2gsSKMH0DbL0ZDqFRCIzxkJ8ZSrk7ToOxPiDrXnaBEhixtKt55
+	 0UId1ZXbU7SaYSe9fshtKG3PfTiybbKQz05UZbxlHM44KRq75MO28FGLnledsvPfdND30
+	 8At71Bt6ETZNzyo+lPAtF8wXGQ4RlRpr7HWsStDChRgabVk0QJCeZ+36qUIS6HlPCBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794618480;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794618597;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=rxRAgEE86SlLwK3IX5Xy1zhn3BrMGyKGzawkBpoWNRs=;
-	b=tn4/IllWrsFRhX5LU1wCdF67IU9DTk5h+AMitO4KVwHDros/hDbCXPHJeB1T4/cON9Ul
-	 LttI296JDklstXJ+jgqFnwHhBdlycToYFAmJfH3+sr8h0yTFvd/XLhwVMylwLJHgznkRz
-	 WUaIj3Oa/3mEZLl0rz3TQ5IgkEoxS/v8Q7fjtj08fy5+t58pTtUTAdvQR7XMoNvegqujP
-	 RAau1P/L7BiPUKz1ECdi5bM+dSK0A5p3gjJ1YsyHC41DrD0d2aFTVIwicUSxnBmoAPW6e
-	 aE8rV2+soAOIsyjTCF8W/MfLBkcAFqVgfKPiDiKYXXnj7JhN8ffVlwRCO3S8sP2AwHw==
+	bh=VDpGr0Ny1586UxfYRIA6pWm7qONogFd4lJKpBO64/Wg=;
+	b=mQ2QiwkOqRP3dQ9Fbd68VGg+vkp3nnDPHRnqglpJqAxJ8reUTg3RIAMG81+ahbhCmXaU
+	 KbL23OtZEv6B6V7XZUoC+bhlLta05Cn627N7hQmtopSIBc/gfp23KXC6tsmwqR1TlRVRA
+	 3m55mzdgTldRKHgRcQoYU+DVvk5Fse2bY4SfEs2syGZ/JM6riqJJx67el/n4TUvKRBTTu
+	 rPxwL+oFknekONvdmHNcT8b8NADJHt/+TxI+WjVrBLqtLnJ3SFSiLfK6a8RqXImvT6R9u
+	 U64inR48TwNUC5ac4Kd2pIdTbp2nROOSgWRMy/z6BAMOxZLJZ2q69JipnvAWBsxqa0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Wpw3RENQ;
-	arc=none smtp.remote-ip=162.62.57.49
-Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ejUgblt0;
+	arc=none smtp.remote-ip=209.85.208.51
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39210606A889;
-	Sat, 14 Nov 2026 01:07:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39210606A889
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83463606A336
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 01:09:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83463606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Wpw3RENQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794618468; bh=rxRAgEE86SlLwK3IX5Xy1zhn3BrMGyKGzawkBpoWNRs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Wpw3RENQU/oNTtgbEnuzV5TYSlIFCGaCDP1uPiZYH3DWOiD0/dxqm8FTpLLAm4VpB
-	 5ALcvSmjEzbRoaejTBVF7EkinYtncqbaRl/+pTmv6gygoF/Vd3nYj9Ev6XxMf6v6hq
-	 jyJu7H+VWYTIPTKFYxttKbZtb+vOyhNe9mldF9Gs=
-Received: from shuai-VMware-Virtual-Platform.. ([117.158.156.198])
-	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
-	id 1EE0C051; Sat, 14 Nov 2026 09:07:46 +0800
-X-QQ-mid: xmsmtpt1794618466t24zrybg4
-Message-ID: <tencent_848DC4EA263ADC71A4F3580EE4AB9A687009@qq.com>
-X-QQ-XMAILINFO: MRMtjO3A6C9XbXZ2D+oNSNEDFiFEBNtznNLdbW2ql85pn2kYASdqvpeuK1zqMk
-	 07l7u0GUg1fv5BK32iCsw3oFkXmK3MayLE2w66qmfMCWiqzM5bJx1vo9XJJ+qMw+1IlkyNwiB0MP
-	 M8EotzxykXm94SjwNa6YtgK08Ny3lIabuL2bajikuKCO0NkHMGGURRJyNo7eEhvNPbW5H6dqbLYq
-	 mmNNNbYSfo6RM5XmBi0AHMyv31HKyRewFu0ZeSJshMUmzlTOGrTSJJY0+mcfuVpbWcnVoQiUBRJ2
-	 UT9yX4bIFKbGLl65Kon1rAmjYFxTKw/pc661yal9hT7EKpwihG9X+KZWe/I7lHuroIKlSaVdr8qf
-	 De9z6/TEfGPIhdpAwbTBy/qWHNCWUNridkNXiUJvgBC9b9Rn36rjgipqvWcwaNptkGxyEIqanOV8
-	 w6vrHwZVx1CjOMPR3941ix92uQhRsiBfPPRFmkGngxIWzvFbB3kd8gRgdZeLrwxz10yhyvGMQlx4
-	 vHNd59H335TXJBOUnNCsSHkqoADNLRxpETRIgWw23OPxEv+aGkvest6BZhnerLFoEwMdGPUpYByF
-	 LvuLycRRiSWpO99KbDSChfEEIXgHMdqREXPSs+hrh2HToSS24gRWNUjvX32dtLbg79zy9nkWaMUU
-	 SwKvteXJiOT7FEPMKKcrGndVZcTe9FoL/grUxJfthzt1/BExO4qC3fV75Y4Yw3cR1HxU5VpT8n4P
-	 1HmeiD2pcxc793MdWqVzFr8V20gA/TPAl+czQZeNqYUWYZ/HVAdo4V2OZ3FPTRaUNNOogrWSLHPn
-	 qK86kjI6+V8mdGWQ7fSV5aoTwdMi4pWm5bQNQfAS0yg4bRFMRudlhhMCWr4etGZQG7EL369MOf+U
-	 dvZ3sFAHRoTxjgCyza2QWaoFMVaATherWapOpRSHFBP4azD4HA8y6GNHX9sHjShnTgfbAgHCwWaC
-	 DFk0u+D1143Y0Q/W0IERjOTPjbprSVptDfP6rQ2HCEf07TzLHg9PyQPXXrffy1liEVpLOXRH+wNM
-	 CYffV6vul3W+UbSm2iHqaGLj1v4WP1d78YIjgd4SMJwhxjoUtXUGhRrosMV2NE4rWbz97iBZUh9q
-	 FQh1yH
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-From: Shuai Liu <847807867@qq.com>
-To: linux-spi@vger.kernel.org
-Cc: rust-for-linux@vger.kernel.org,
-	Mark Brown <broonie@kernel.org>,
-	ojeda@kernel.org,
-	dakr@kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ejUgblt0
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b58cb69927so2926471a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:09:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794618595; x=1795223395; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VDpGr0Ny1586UxfYRIA6pWm7qONogFd4lJKpBO64/Wg=;
+        b=ejUgblt0QgSzqrA+wKI1dWhCdHE+iJYuNQl9dnTtG/CpI3/X06+XoTOkwjrsonmdog
+         e6i5gASNiAXOaGjpoSQIFK8CL2Df8sksLciFNTEH6434CqBAmaDf6ENxFK5RwcyXpmsJ
+         m4UvVSAAa4g47YV6G5LcjEAerLZIEzZvtTZMN45RkUHe2JjFQfjIZ8xC+gVf7udBnXXm
+         ks9Uwd49ojb10oOz2nci4zAvLW0b2M5pc0df7BXQrCRf8tRVNWpWjyT34ttnh2PkhfUW
+         PSAcWZKz3+xKzQhUckpT4srk0GNRa8qmpfThHnhxKJB7yBqU6yjVTGyarb3K7sYnbWKc
+         YUFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794618595; x=1795223395;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VDpGr0Ny1586UxfYRIA6pWm7qONogFd4lJKpBO64/Wg=;
+        b=Y4ecHouROfNCNoFA7YbwrLU7oTV+C3HCifoEq9wWRd8LDJot8VJbtiBCCkQSfgkRPv
+         yBfWxshdv5iC+rtM3eGUEAc09ohDpSKFlCHDvmc5mHUOJyTkvS63nbZfWrG/jRZQAbxc
+         bc6jcyFFiVVmAZWueIwH2K3oYsj7sJTPHPJ+Dvw5lROpNgMr+aDBKDwIrfHHX9sRdmmK
+         b5SQQ0FmdT07BWYaJmVyHhrGcyYYLKIOCtWSH+dScBi7G/YzgMS1SoVW2SDHJJDsSoJJ
+         IZfvvX9n4+buHIU+OqyjWfnbeSf4a01P0pOd+Z/3QVMZey40SosEW+dsS6hYcszEK7x/
+         /tHA==
+X-Forwarded-Encrypted: i=1; AL+hErHPoxAFzUqOtFu+VrCiDn771QMPlWf9CQJuKrRd/ZTIob4ZwxB1cUlEFQO++FAdXbCMIppj6zAxUy3Xwjw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9mPvW8TYNAa1exNFLCDHVyCYSJ3Xh/QgbZqJPjtfOz8xUmIQMh
+	EIGBwrABGdQWB7H+qjrzNDJyxVnSvHmKgkFtd7f7NzYKopK5c1iS7YHz
+X-Gm-Gg: AYBFou17zhNMla4j/hv3HjJ0bJ2swDermmo/qG2Q/ed3qEr7/qTXaTerjeCUdZGp7+f
+	dtpeJJL79d/HhfoV1K40thnesvNUenhrOFXr1pf5JVy5PRNQMt+KVCf9R28bzrObdfV9agxr22v
+	s0CbzlmDlRjFOgf3xk73Ko09WPiXqGojNUD5cU9XgH5VsZFxtk/ebl5KjorL272rk0xUrmMHv7d
+	K/EIeHVkwSCAUazLN9mzqPj6d8RQEpA94C8pjxU3BY5xURSGjfPBvoqncoNpd+wrsUrLzbF0hde
+	y4GHm1HWkIs7OTcep8gbYSccuY52jo9iG7FWqOMg/U67abEhBg1x6J7mb6UtnWSZigUVxnJtAGr
+	i+oYJHrVY/UHNHeWyAvi9uCTYCAVCjzgHhIESwth26TY+xgDLN0cTtG8X3p0097ArGw4CTqwe+L
+	YF7wXpGbCcip4lsQ12pp7mgDe9XhPqt1edk6LEXDreGSnwqPDuYqk3WBn2iK0ElxZc3jltX/nue
+	VjnDtBSq5b5MJU084KHkjAyYyhPulN6fb8q7rB8NQVqPUNDOgHVDgusaEl2quulGRlkD6JgsybA
+	SvFAMPXCh533Vjfs2XyWe0kvYOPyx+kPgc19G7wWLbkDbFmmFdhW962pe4Dv8vEbl9YvVSusLkE
+	p32H9pqrniEugv/Ks8310xMna
+X-Received: by 2002:a17:907:72cb:b0:c42:fc8b:6c6a with SMTP id a640c23a62f3a-c50963841e5mr330347366b.14.1794618594704;
+        Fri, 13 Nov 2026 17:09:54 -0800 (PST)
+Received: from SMOK.angora-ide.ts.net (mm-156-219-126-178.vitebsk.dynamic.pppoe.byfly.by. [178.126.219.156])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b71608sm156983166b.64.2026.11.13.17.09.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 17:09:54 -0800 (PST)
+From: ElXreno <elxreno@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	jani.nikula@linux.intel.com,
+	ville.syrjala@linux.intel.com,
+	j@metarealtyinc.ca,
+	litaliano00.contact@gmail.com,
+	amd-gfx@lists.freedesktop.org,
+	harry.wentland@amd.com,
+	sunpeng.li@amd.com,
+	alexander.deucher@amd.com,
 	linux-kernel@vger.kernel.org,
-	847807867@qq.com
-Subject: [PATCH v8 1/3] rust: helpers: add SPI helpers
-Date: Sat, 14 Nov 2026 09:07:43 +0800
-X-OQ-MSGID: <20261114010745.82389-1-847807867@qq.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <tencent_5FBF490F375F4C66A2C8DD421A8E8542FE05@qq.com>
-References: <tencent_5FBF490F375F4C66A2C8DD421A8E8542FE05@qq.com>
+	ElXreno <elxreno@gmail.com>
+Subject: [PATCH] drm/edid: Read the monitor range from the DisplayID Adaptive-Sync block
+Date: Sat, 14 Nov 2026 04:07:49 +0300
+Message-ID: <20261114010749.1949247-1-elxreno@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,80 +110,250 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add C helpers for the SPI functions that are `static inline` in C and
-therefore cannot be accessed from Rust directly: spi_unregister_driver(),
-spi_write() and spi_read().
+A DisplayID 2.x Adaptive-Sync data block (tag 0x2b) lists the refresh
+rate ranges a display supports with an adaptive vertical total. Some
+panels advertise their variable refresh range only there, and some
+keep a narrower one in the base block range limits. The BOE
+NE180QA1-MM1 is of the second kind: the range limits descriptor says
+48-120 Hz, the Adaptive-Sync block has three descriptors,
 
-The helpers are guarded by CONFIG_SPI, since the SPI core functions they
-call are not available when SPI support is disabled.
+ 27 00 30 ef 00 00
+ 27 00 30 77 00 00
+ 27 00 30 3b 00 00
 
-Also include <linux/spi/spi.h> in the bindgen bindings helper, so that
-the Rust side can access the SPI data types.
+for 48-240, 48-120 and 48-60 Hz. A driver that checks a mode against
+monitor_range then refuses VRR for the 240 Hz timing of that panel.
 
-Signed-off-by: Shuai Liu <847807867@qq.com>
+Use the block in both cases. Without a range from the base block take
+the range from the descriptors. With one, keep its minimum and only
+raise the maximum, and only from descriptors that reach down into it,
+so that the result never goes below what the base block promises.
+
+monitor_range stays one range per connector. Only descriptors for the
+native panel range that declare the adaptive vertical total operation
+mode count: a descriptor for fixed average vertical total alone does
+not describe a range to pick a vertical total from. Where several
+count, the highest minimum and the highest maximum are used. Without
+a base range every rate in the result is then within the descriptor
+that reaches highest. With one, every rate is within the base range
+or within that descriptor, which overlaps it.
+
+The layout is taken from edid-decode (parse_displayid_adaptive_sync()
+in utils/edid-decode/parse-displayid-block.cpp of v4l-utils), not
+from the DisplayID text: a descriptor is 6 bytes plus the count in
+bits 6:4 of the block revision, byte 0 has the native panel range
+flag in bit 0 and the operation mode in bits 3:2 (1 for fixed average
+and adaptive vertical total), byte 2 is the minimum refresh rate,
+bytes 3-4 hold the maximum refresh rate minus one in ten bits. The
+block is read from any section of structure version 2.0 or later,
+which is what the panel above declares.
+
+This reaches every driver that reads monitor_range. A display with
+such a block and no base block range now has a range where it had
+none, which is the point for i915 and xe (their other VRR conditions
+still apply). amdgpu scans DisplayID tag 0x25 on its own when the
+minimum or the maximum is zero, and with a range from the
+Adaptive-Sync block that scan is no longer reached. When the display
+has no AMD VSDB, amdgpu takes monitor_range as its refresh rate
+range, so it follows the raised maximum, and a DP or eDP display that
+has only the Adaptive-Sync block can now pass its FreeSync test (a
+range wider than 10 Hz and a sink that ignores the MSA timing). With
+a VSDB that advertises FreeSync the range still comes from there.
+
+Signed-off-by: ElXreno <elxreno@gmail.com>
 ---
- rust/bindings/bindings_helper.h |  1 +
- rust/helpers/helpers.c          |  1 +
- rust/helpers/spi.c              | 26 ++++++++++++++++++++++++++
- 3 files changed, 28 insertions(+)
- create mode 100644 rust/helpers/spi.c
 
-diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
-index cc41dc9467577..faa4149682fc2 100644
---- a/rust/bindings/bindings_helper.h
-+++ b/rust/bindings/bindings_helper.h
-@@ -89,6 +89,7 @@
- #include <linux/security.h>
- #include <linux/serdev.h>
- #include <linux/slab.h>
-+#include <linux/spi/spi.h>
- #include <linux/sys_soc.h>
- #include <linux/task_work.h>
- #include <linux/tracepoint.h>
-diff --git a/rust/helpers/helpers.c b/rust/helpers/helpers.c
-index 787dd8ff8c6c8..0f854e051415a 100644
---- a/rust/helpers/helpers.c
-+++ b/rust/helpers/helpers.c
-@@ -96,6 +96,7 @@
- #include "serdev.c"
- #include "signal.c"
- #include "slab.c"
-+#include "spi.c"
- #include "spinlock.c"
- #include "string.c"
- #include "srcu.c"
-diff --git a/rust/helpers/spi.c b/rust/helpers/spi.c
-new file mode 100644
-index 0000000000000..179a90e014e04
---- /dev/null
-+++ b/rust/helpers/spi.c
-@@ -0,0 +1,26 @@
-+// SPDX-License-Identifier: GPL-2.0
+Two parsers for this area were posted this spring, both as a fallback
+for panels with no range in the base block: Adriano Vero's for tag
+0x25, v1 in [1] and a v2 on April 1 after Jani's review, and Jake S's
+for tags 0x2b and 0x25 [2]. Asked by Ville why he had posted a
+different version, Jake offered to fold the 0x2b part into Adriano's
+series [3]. I found no later posting of either, and the DRM core in
+drm-tip parses neither tag. This one covers the case where the base
+block has a range that is narrower than the Adaptive-Sync one, looks
+at the native range flag and the operation mode of the descriptors,
+and leaves tag 0x25 alone. I am happy to rebase onto either of them
+instead.
+
+The i915 series that needs it for a 3840x2400@240 panel is "drm/i915:
+VRR with the pipe joiner" on intel-gfx.
+
+Tested on the BOE NE180QA1-MM1 only: monitor_range goes from 48-120
+to 48-240. No KUnit case comes with it.
+
+On tooling, per Documentation/process/generated-content.rst: written
+with an LLM coding assistant (Claude Code), which also decoded the
+panel's EDID against edid-decode. I have reviewed all of it and take
+responsibility for the result.
+
+[1] https://lore.kernel.org/r/20260328132027.22383-1-litaliano00.contact@gmail.com
+[2] https://lore.kernel.org/r/20260415130626.10523-2-j@metarealtyinc.ca
+[3] https://lore.kernel.org/r/69dfe22d.050a0220.60470.81b5@mx.google.com
+
+ drivers/gpu/drm/drm_displayid_internal.h | 17 ++++++
+ drivers/gpu/drm/drm_edid.c               | 68 ++++++++++++++++++++++++
+ include/drm/drm_connector.h              | 10 ++--
+ 3 files changed, 92 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_displayid_internal.h b/drivers/gpu/drm/drm_displayid_internal.h
+index ef7e6c9bd4db..6ea1c45c04b6 100644
+--- a/drivers/gpu/drm/drm_displayid_internal.h
++++ b/drivers/gpu/drm/drm_displayid_internal.h
+@@ -67,6 +67,7 @@ struct drm_edid;
+ #define DATA_BLOCK_2_TILED_DISPLAY_TOPOLOGY	0x28
+ #define DATA_BLOCK_2_CONTAINER_ID		0x29
+ #define DATA_BLOCK_2_TYPE_10_FORMULA_TIMING	0x2a
++#define DATA_BLOCK_2_ADAPTIVE_SYNC		0x2b
+ #define DATA_BLOCK_2_VENDOR_SPECIFIC		0x7e
+ #define DATA_BLOCK_2_CTA_DISPLAY_ID		0x81
+ 
+@@ -142,6 +143,22 @@ struct displayid_formula_timing_block {
+ 	struct displayid_formula_timings_9 timings[];
+ } __packed;
+ 
++/* Bits 6:4 of the block revision: descriptor bytes beyond the base six */
++#define DISPLAYID_ADAPTIVE_SYNC_DESC_EXTRA	GENMASK(6, 4)
 +
-+#include <linux/spi/spi.h>
++#define DISPLAYID_ADAPTIVE_SYNC_NATIVE_RANGE	BIT(0)
++#define DISPLAYID_ADAPTIVE_SYNC_MODE		GENMASK(3, 2)
++#define DISPLAYID_ADAPTIVE_SYNC_MODE_FAVT_AVT	1
++#define DISPLAYID_ADAPTIVE_SYNC_MAX_REFRESH	GENMASK(9, 0)
 +
-+#ifdef CONFIG_SPI
++struct displayid_adaptive_sync_descriptor {
++	u8 flags;
++	u8 max_duration_increase;
++	u8 min_refresh;
++	__le16 max_refresh;	/* [9:0] refresh rate - 1 */
++	u8 max_duration_decrease;
++} __packed;
 +
-+__rust_helper
-+void rust_helper_spi_unregister_driver(struct spi_driver *sdrv)
+ #define DISPLAYID_DEVICE_TECH_UNSPECIFIED	0
+ #define DISPLAYID_DEVICE_TECH_LCD		1
+ #define DISPLAYID_DEVICE_TECH_OLED		2
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index b8f882a17c8f..4307a4bc5899 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -6916,9 +6916,71 @@ drm_displayid_parse_display_params(struct drm_connector *connector,
+ 	}
+ }
+ 
++/*
++ * Collect the refresh rate range of the Adaptive-Sync descriptors that
++ * are for the native panel range and allow an adaptive vertical total.
++ */
++static void drm_displayid_parse_adaptive_sync(struct drm_connector *connector,
++					      const struct displayid_block *block,
++					      struct drm_monitor_range_info *as_range)
 +{
-+	spi_unregister_driver(sdrv);
++	const struct drm_monitor_range_info *range = &connector->display_info.monitor_range;
++	int size = sizeof(struct displayid_adaptive_sync_descriptor) +
++		FIELD_GET(DISPLAYID_ADAPTIVE_SYNC_DESC_EXTRA, block->rev);
++	const u8 *data = (const u8 *)(block + 1);
++	int i;
++
++	for (i = 0; i + size <= block->num_bytes; i += size) {
++		const struct displayid_adaptive_sync_descriptor *desc =
++			(const struct displayid_adaptive_sync_descriptor *)&data[i];
++		u16 min_vfreq = desc->min_refresh;
++		u16 max_vfreq = FIELD_GET(DISPLAYID_ADAPTIVE_SYNC_MAX_REFRESH,
++					  le16_to_cpu(desc->max_refresh)) + 1;
++
++		if (!(desc->flags & DISPLAYID_ADAPTIVE_SYNC_NATIVE_RANGE) ||
++		    FIELD_GET(DISPLAYID_ADAPTIVE_SYNC_MODE, desc->flags) !=
++		    DISPLAYID_ADAPTIVE_SYNC_MODE_FAVT_AVT)
++			continue;
++
++		if (!min_vfreq || min_vfreq >= max_vfreq)
++			continue;
++
++		/* Only extend a base block range the descriptor reaches down into */
++		if (range->max_vfreq && min_vfreq > range->max_vfreq)
++			continue;
++
++		as_range->min_vfreq = max(as_range->min_vfreq, min_vfreq);
++		as_range->max_vfreq = max(as_range->max_vfreq, max_vfreq);
++	}
 +}
 +
-+__rust_helper
-+void rust_helper_spi_message_init(struct spi_message *msg)
++/*
++ * Use the Adaptive-Sync range when the base block has no range limits,
++ * and to raise their maximum when it has: a panel may keep the base block
++ * range at what it does without Adaptive-Sync.
++ */
++static void drm_displayid_update_monitor_range(struct drm_connector *connector,
++					       const struct drm_monitor_range_info *as_range)
 +{
-+	spi_message_init(msg);
++	struct drm_monitor_range_info *range = &connector->display_info.monitor_range;
++
++	if (as_range->max_vfreq <= range->max_vfreq)
++		return;
++
++	if (!range->min_vfreq)
++		range->min_vfreq = as_range->min_vfreq;
++	range->max_vfreq = as_range->max_vfreq;
++
++	drm_dbg_kms(connector->dev,
++		    "[CONNECTOR:%d:%s] Adaptive-Sync refresh rate range is %d Hz - %d Hz\n",
++		    connector->base.id, connector->name,
++		    range->min_vfreq, range->max_vfreq);
 +}
 +
-+__rust_helper
-+void rust_helper_spi_message_add_tail(struct spi_transfer *t,
-+				      struct spi_message *msg)
-+{
-+	spi_message_add_tail(t, msg);
-+}
+ static void update_displayid_info(struct drm_connector *connector,
+ 				  const struct drm_edid *drm_edid)
+ {
++	struct drm_monitor_range_info as_range = {};
+ 	const struct displayid_block *block;
+ 	struct displayid_iter iter;
+ 	bool base_section_header_processed = false;
+@@ -6933,8 +6995,14 @@ static void update_displayid_info(struct drm_connector *connector,
+ 		if (displayid_version(&iter) == DISPLAY_ID_STRUCTURE_VER_20 &&
+ 		    block->tag == DATA_BLOCK_2_DISPLAY_PARAMETERS)
+ 			drm_displayid_parse_display_params(connector, block);
 +
-+#endif
++		if (displayid_version(&iter) >= DISPLAY_ID_STRUCTURE_VER_20 &&
++		    block->tag == DATA_BLOCK_2_ADAPTIVE_SYNC)
++			drm_displayid_parse_adaptive_sync(connector, block, &as_range);
+ 	}
+ 	displayid_iter_end(&iter);
++
++	drm_displayid_update_monitor_range(connector, &as_range);
+ }
+ 
+ static void update_display_info(struct drm_connector *connector,
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index f656ed8324d3..8fd484d36671 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -456,12 +456,15 @@ drm_hdmi_connector_get_broadcast_rgb_name(enum drm_hdmi_broadcast_rgb broadcast_
+  * &drm_display_info
+  *
+  * This struct is used to store a frequency range supported by panel
+- * as parsed from EDID's detailed monitor range descriptor block.
++ * as parsed from EDID's detailed monitor range descriptor block and
++ * from the DisplayID Adaptive-Sync data block.
+  *
+  * @min_vfreq: This is the min supported refresh rate in Hz from
+- *             EDID's detailed monitor range.
++ *             EDID's detailed monitor range, or from the Adaptive-Sync
++ *             data block when there is no such range.
+  * @max_vfreq: This is the max supported refresh rate in Hz from
+- *             EDID's detailed monitor range
++ *             EDID's detailed monitor range or the Adaptive-Sync data
++ *             block, whichever is higher.
+  */
+ struct drm_monitor_range_info {
+ 	u16 min_vfreq;
+@@ -1002,6 +1005,7 @@ struct drm_display_info {
+ 
+ 	/**
+ 	 * @monitor_range: Frequency range supported by monitor range descriptor
++	 * and the DisplayID Adaptive-Sync data block
+ 	 */
+ 	struct drm_monitor_range_info monitor_range;
+ 
+
+base-commit: f40cc5e715fe9e7a5e61f7cd44f63f68c1625f2c
 -- 
-2.43.0
+2.56.0
 
