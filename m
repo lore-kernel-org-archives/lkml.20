@@ -1,53 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794659366;
-	b=2rE9n4s08XNkg9V/3xGx0h/rnGY1pq5deYEGIhSJGpSfPkp6lDJm5lY40n3HSUqzOvuv
-	 IZhdS5eAbwfZtNfjaw98weNw55hGKm655YFVVRCQKHxglck1xf4o5s6yoxi0qEmC+RPMe
-	 GiFzmrujJmuW03ay07s7fQOeEq3vaBwJ6XigfkRfUGSlnrZFOiH9qf2/l3Qd+a8j8/CCB
-	 zpZ/zcjlRDtZQnB/937KLW40PhatG6cgsNUFKk7yzPSrqYWlT+G0+eqdwAwZstP/r2U3G
-	 gR5HAs+ABzaIW/gCHiR0mfL0RdSG5wznnGIFfQHKQr5nKAotkjSy6HPoYw9478rW/DA==
+	t=1794659490;
+	b=tfsxz3zUDocMGL/rv2LG/YwWWqo/EpLRDQJe440jRq1YcSNOlpmmDpaLUBgd6dHgTlha
+	 221aZF7sv9+f1H23JfndYfrr47j397OIEwGiIChI+H+09AYqt8/u4vyVb+d3qr90X1Gfg
+	 OYKieSp3ocP7u6QX1TIuuFvy6qsedBmdyep7sy4PVwXpa/wLABzUarGJhKPV8T7ete0uK
+	 Q4oyRZDhDhdEYI4QUmVE3ni+bD97AyTYsEcFRMPavSI+CecUUOwOHi9loCV1sea+Za725
+	 y02T7votIi12mAevDxV2a0LDLV4z0RhUIna43i8mkEZKxXsKeyd0D+ZkXBXv72sAayA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794659366;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=OXHD5Uokfvl6aJ4ScD7Bv2c5aa91gxV0mQD6awhz1gE=;
-	b=E7dFqeS3p/tH05Dn+D+U9h0qlDtaXoiXP/aTWhBUi5qa2V8a4EEn7T1vtiM4R6tb9i07
-	 D0OdnBtil9Wr/pzp0we15M5HujejT+tNWgywMUmzRcL07HL6+NlB7ZykfjVZWTcqn0ZHX
-	 jdhIDeYH0pUJH7JdthvEUgoPRgHySOfrOuJ22oQJxbWUVa4o3if83VH34kzOKABUeKK/g
-	 vMtG+GLiA4UiSol8D+PegHe3HsgJ/P1PFm5c07Y9WWpZ+RdibNlUVU931vQ7I+yyns2Xo
-	 aEa3y3gW6cPKPGuCepShdWigwYOwvsCz1O4hngNjGMrnM2HWscT+l86YyUXocN8AStQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794659490;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=CZfWByojIILKVZ4K9YT1Vj6xfFon+RCsS6XQhj1o2C8=;
+	b=2j9A+EE0225MYnCKDA7n+YpTr12g+FjqsCrKPQcc6Lt8DL2cpf0mZlOtgs+treoRAoz5
+	 KayHS9yJTD//iWc0VUzdSU8VOl87gaT/1DCP26CbXdvutQ6Ym6Rjz8awfvp6lNZ7lIwbt
+	 ghkxEAz1Ypqn7GqjPB3CIHC0tb1XnhSnDHFsFFepKSqDlIWCboS5lle5TtSHzvSXGFfO4
+	 kucOE+e+ZgLXDG0krO2BD+2t9KFCL0En4uQgOPceJrB1MAbB/kTp+NPHKvXWL4nd/NR3X
+	 XmBYR3ImF7QdOGoTtdiK64dHpG9ntR9Rv8EhNbXHkUz0w+NBdC5zBdtYFpnMqPeKvUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xk5k8AXF;
+	arc=none smtp.remote-ip=209.85.218.41
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B93F606A327
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 12:29:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B93F606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4dab94dc3e7so3904254b6e.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 04:29:26 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79365606A32D
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 12:31:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79365606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xk5k8AXF
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4d30639709so313502966b.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 04:31:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794659489; x=1795264289; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CZfWByojIILKVZ4K9YT1Vj6xfFon+RCsS6XQhj1o2C8=;
+        b=xk5k8AXFqxT7yef6MPPmF98XVHauF+JQ8FmSql+0Ywp7RT3PGtBMiEYRGugHWaA0yy
+         uHMHw27kawJIk8mS3DE87CZXO/JjudRZXCRfEy3ivSYTMQMQQ74EtLyl5tHmcDfFHRkZ
+         dbjIlRrhZS4J4qaj/c247cd+uOSHCpySrwox13uHjxz9mAJaWgWql5fdO1guL0OY36eH
+         2Iw7TOPEaq7nT4WptgccWuXT36/gG10tm8G31ueVP9rSW4UYUjlmSGpFpNn+GdaX3YZu
+         gWjohMCc/X12KQt7mrnMhw+85d3X0U1RCHuoaJeVzF9ZubEwvGj4M3hZ1JU3k4xA48HG
+         OlLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794659365; x=1795264165;
-        h=content-type:to:from:subject:message-id:date:mime-version
+        d=1e100.net; s=20260707; t=1794659489; x=1795264289;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=OXHD5Uokfvl6aJ4ScD7Bv2c5aa91gxV0mQD6awhz1gE=;
-        b=RViXda/r28emaE+EJtJfVNGCkBZjuUTOEo/2YwG4sq7nmpiqcaZkV38dqHOZy1oBmX
-         l7Wq9PA8Qkd3bKMfdzXxGTeDQT8oJr3XdgloIoBMs8U5TntpJYaY/oBXrPhCuL81HbGT
-         UG9we64A9nKps25rZH//CFHhINIig8aUEHa2df7zUZEV9nr8ZL5Q9HAesiwOlSpPh0ig
-         ifY/PLddQnoc+dVNB0riHVpePOGIoyjU6kCCYnwnMxyrTOqD5TDfdKTu7MlvOsJriixI
-         73PWUjZsaedVesWJl97jAgwIt7CNuNikvDWi27nvobuxDbIxX/hDFJCKrzQIKUzSl491
-         kZhQ==
-X-Gm-Message-State: APuU4Z8CNSBn094xvpWoi9T6HmWhKX72tRqcLryxEBEnrEvi9gBmrAxN
-	fQpWVCusIaBMhi+tYMCSvPxYi4rytORTvasBq0lYASGaEvw8+m6yq2Cj+tvXTqa8tO4toG1uGT+
-	iRcTH+DqQH0KP+EQFFgVKz5RNa1kAVZ34EB59u4IqqXehOQmQaBZZZ5GQgjA=
+        bh=CZfWByojIILKVZ4K9YT1Vj6xfFon+RCsS6XQhj1o2C8=;
+        b=lo6gjd/52B+44Hlob0r7seHfwWTpX+kb18s8QzfftoSexQhqslfVdlXd1QOygvbzY/
+         CCaQ716svWY88/DHEu8nI6xPdIRogs44yAJg7qhAsYVLlgoiS0NEbyubVCKq8Pc16l91
+         3qmuYvo2NkFZyLTxg0rPOEu8QJ8RGokJsW8yO82HNaLPWMN3gLgYrR4CuTNfOLc4JopU
+         n57JSyrWkGIHu1UpjPx2NgoQK/hW8nuNZNC36NDzxN7RLA86TQFhosST0SJmezFUMuKT
+         jB4X1+tFv8E0BsG3+kIR9oPX210d7n3L7gLE9njc4MFB2X7ZD9mfUIFkmA9eDJ7/5gxp
+         TVSg==
+X-Forwarded-Encrypted: i=1; AL+hErGntNwzYxMxl4HMQUCvlVaOEonMv0LfUynPQNxtrRHeYkfw1jXs+LTSd5sDXzNrhSqWY95OyG+TkmomkmI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+OSHQO8CS+kalm6yonU/QW527nd2KpycDavqpzT0i75gubfE0f
+	I7WhtwvVESmIFUD5a7/zvzYvcb4B+gcYjlCPYZg39AjcHlX/Q2wZa9DD
+X-Gm-Gg: AYBFou27xxskmsFKjyruKla5SijhkUgOrZY35pB5ZyhDafomgcW7lNQlIm6CUtddMC7
+	Og4UNsX7xAI/+JyBsSfLNgwqDc2J6tlNM0M5oh74aw8++FPtiEwHkVW0/miuNRmAJADpUZFExDU
+	cuhh8vMzhUQR4xY9WYVIgVl9xiVHRTh5cjZmVotsyV1W1+aABsEIGvJY/yuK8oYHiAYwub+PDji
+	wNB0Iw+IiMsO0Pei01UP+9Ps76zdr56ezOq+5HWV9woi7PFcH0cC6rKM13zIzEBrz7vzCgr6Rby
+	cYJG1H6NkyXISmJIE6ppg2u2mIfjKqvLD4wsf+UQvCqt4iZZWyf3iJ0eO094TbnTrD1vM4Z8BrZ
+	cPSIjbwb3xRG4mXBgnv/DRnHbQxuAuhSDXDjs4rE41fUUVa9afmJrJkom/jMCAO3KMIZKv0AHiu
+	08b6fPCyIsZFn5BiTksFXPqNBsuuCa2A14eo/NvJzdw1wWZKxHf9Ge/yAoFqLsBRbFeLPxMpn9/
+	Eon836ql6q9Flx0sX3GXzv6tE+vUrDfnE9M5ERJ5Jzgt7mr0h8t7Kb9w/nQ5/1CrXh8IZi18EEu
+	JEQVP+h9z9QsmCgTfp6UJ+h2a5QnDvLuusbGmHlFbVRY0etWVG2kOmcIsUXm9GstXK/3QlrCJCy
+	m9QghtBx1ilHJ
+X-Received: by 2002:a17:907:3d0d:b0:c46:7fa4:922b with SMTP id a640c23a62f3a-c509643babcmr407431366b.33.1794659488691;
+        Sat, 14 Nov 2026 04:31:28 -0800 (PST)
+Received: from localhost (178-84-201-199.dynamic.upc.nl. [178.84.201.199])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c50957c6c1fsm213162066b.0.2026.11.14.04.31.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 04:31:28 -0800 (PST)
+Date: Sat, 14 Nov 2026 13:31:27 +0100
+From: Amir Goldstein <amir73il@gmail.com>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Jan Kara <jack@suse.cz>, Shakeel Butt <shakeel.butt@linux.dev>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Jens Axboe <axboe@kernel.dk>, linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org, io-uring@vger.kernel.org,
+	Christoph Hellwig <hch@lst.de>, linux-block@vger.kernel.org,
+	linux-nvme@lists.infradead.org, linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org, linux-unionfs@vger.kernel.org,
+	bpf@vger.kernel.org, linux-nfs@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 00/12] fs: take freeze protection for writes to backing
+ files
+Message-ID: <avhUn1Hb5iT6zBZp@amir-ThinkPad-T480>
+References: <20261114-work-fs-frozen_writes-v1-0-f5ae61c898b1@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,142 +105,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1990:b0:4f4:d7:b15b with SMTP id
- 5614622812f47-56e611e1b17mr4846541b6e.4.1794659365260; Sat, 14 Nov 2026
- 04:29:25 -0800 (PST)
-Date: Sat, 14 Nov 2026 04:29:25 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af85425.097d52ff.3d440.0006.GAE@google.com>
-Subject: [syzbot] [squashfs?] general protection fault in __d_obtain_alias
-From: syzbot <syzbot+5d7ba5f6127ed887f459@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, phillip@squashfs.org.uk, 
-	squashfs-devel@lists.sourceforge.net, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261114-work-fs-frozen_writes-v1-0-f5ae61c898b1@kernel.org>
 
-Hello,
+On Sat, Nov 14, 2026 at 11:47:07AM +0100, Christian Brauner wrote:
+> While testing the pseudo filesystem series I noticed that zloop, the
+> nvme target's file backend and the fileio backend of the scsi target
+> with fd_async_io=1 call ->write_iter() of their backing files without
+> taking freeze protection. So their writes go straight through to a
+> frozen filesystem. ext4 complains loudly:
+> 
+>     WARNING: fs/ext4/ext4_jbd2.c:90 at ext4_journal_check_start+0x1f6/0x2d0
+> 
+> Loop doesn't get it right for discard and write zeroes. Those end up
+> calling ->fallocate() of the backing file directly. The fileio backend
+> does the same for UNMAP. And zloop records its write pointers on flush
+> with vfs_setxattr() which leaves freeze protection to the caller. So all
+> of them modify a frozen filesystem just the same. Fix them too.
+> 
+> Looking for more of the same turned up a few simple ones. coredump
+> truncates the core file, overlayfs stores its uuid xattr on mount, nfsd
+> truncates on OPEN and the BPF xattr kfuncs modify xattrs, all without
+> freeze protection. Fix those as well. The ones that need more work in
+> their subsystems I have reported separately.
+> 
+> The fileio backend also frees its aio command in the completion handler
+> while the filesystem may still be using the kiocb. KASAN catches ext4
+> doing that for direct reads on v7.4-rc1. ext4 gets its own fix (cf. [1])
+> but fileio should hold a reference across the submission like loop,
+> zloop and fs/backing-file.c do.
+> 
+> [1]: https://lore.kernel.org/r/20261113-work-ext4-dio_read_kiocb-v1-1-172a88be803c@kernel.org
+> 
 
-syzbot found the following issue on:
+Claude says you missed another one.
+nfs_local_write_iocb_done() does not end_write
+its ended too early right after submission.
 
-HEAD commit:    84abb955b101 Add linux-next specific files for 20261113
-git tree:       linux-next
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=122fbda1580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=d9d5eeb0ba036071
-dashboard link: https://syzkaller.appspot.com/bug?extid=5d7ba5f6127ed887f459
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=174cb369580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1136b011580000
+Thanks,
+Amir.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/ffae1d4a717e/disk-84abb955.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/fd2a35a63abf/vmlinux-84abb955.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/039ccf647778/bzImage-84abb955.xz
-mounted in repro: https://storage.googleapis.com/syzbot-assets/3d55211a7134/mount_0.gz
-
-AI-generated root cause summary:
-In fs/squashfs/inode.c:squashfs_read_inode(), squashfs_read_metadata() returns
-the number of bytes read on success (e.g. sizeof(struct squashfs_dir_inode) ==
-32) into err. When checking directory inodes (SQUASHFS_DIR_TYPE and
-SQUASHFS_LDIR_TYPE) where inode->i_size < 3, the code jumps to failed_read via
-goto without updating err to a negative error code (such as -EINVAL). As a
-result, squashfs_read_inode() returns a positive integer (32 or 40), which
-squashfs_iget() wraps with ERR_PTR(err) into (struct inode *)0x20. Callers like
-d_obtain_alias() check IS_ERR(inode), which evaluates to false for positive
-values, and subsequently dereference inode->i_sb at offset 0x28 (address 0x48),
-triggering a near-NULL pointer dereference crash.
-
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=5d7ba5f6127ed887f459
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+5d7ba5f6127ed887f459@syzkaller.appspotmail.com
-
-loop0: detected capacity change from 0 to 8
-SQUASHFS error: Unable to read inode 0x87
-Oops: general protection fault, probably for non-canonical address 0xdffffc0000000009: 0000 [#1] SMP KASAN PTI
-KASAN: null-ptr-deref in range [0x0000000000000048-0x000000000000004f]
-CPU: 0 UID: 0 PID: 5647 Comm: syz-executor372 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-RIP: 0010:__d_obtain_alias+0x50/0x880 fs/dcache.c:2359
-Code: e8 25 e6 64 ff eb 53 e8 1e e6 64 ff 49 c7 c5 8c ff ff ff eb 45 49 bf 00 00 00 00 00 fc ff df 49 8d 7d 28 48 89 f8 48 c1 e8 03 <42> 80 3c 38 00 74 05 e8 14 da e4 ff 4d 8b 75 28 4c 89 ef e8 a8 a8
-RSP: 0018:ffffc90003b2f9d0 EFLAGS: 00010206
-RAX: 0000000000000009 RBX: 0000000000000002 RCX: ffff888079600000
-RDX: 0000000000000000 RSI: 0000000000000001 RDI: 0000000000000048
-RBP: 0000000000000001 R08: ffffffff91bec8bf R09: 1ffffffff237d917
-R10: dffffc0000000000 R11: fffffbfff237d918 R12: ffff88807deca000
-R13: 0000000000000020 R14: 1ffff92000765f4c R15: dffffc0000000000
-FS:  000055556efe9400(0000) GS:ffff8881233cd000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007ffc93144b5c CR3: 000000007b0fe000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- squashfs_export_iget+0x1d8/0x370 fs/squashfs/export.c:117
- exportfs_decode_fh_raw+0x1c8/0x770 fs/exportfs/expfs.c:460
- do_handle_to_path+0xa4/0x1a0 fs/fhandle.c:274
- handle_to_path fs/fhandle.c:423 [inline]
- do_handle_open+0x6dd/0xb10 fs/fhandle.c:447
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x00007fab5525dc49
-Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fff9e969ae8 EFLAGS: 00000246 ORIG_RAX: 0000000000000130
-RAX: ffffffffffffffda RBX: 00007fab552bd0b0 RCX: 00007fab5525dc49
-RDX: 0000000000000000 RSI: 0000200000000340 RDI: 0000000000000004
-RBP: 0000000000000001 R08: 000055556efea580 R09: 000055556efea580
-R10: 0000000000000000 R11: 0000000000000246 R12: 00007fff9e969b10
-R13: 0000000000000002 R14: 431bde82d7b634db R15: 00007fab552bd04b
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:__d_obtain_alias+0x50/0x880 fs/dcache.c:2359
-Code: e8 25 e6 64 ff eb 53 e8 1e e6 64 ff 49 c7 c5 8c ff ff ff eb 45 49 bf 00 00 00 00 00 fc ff df 49 8d 7d 28 48 89 f8 48 c1 e8 03 <42> 80 3c 38 00 74 05 e8 14 da e4 ff 4d 8b 75 28 4c 89 ef e8 a8 a8
-RSP: 0018:ffffc90003b2f9d0 EFLAGS: 00010206
-RAX: 0000000000000009 RBX: 0000000000000002 RCX: ffff888079600000
-RDX: 0000000000000000 RSI: 0000000000000001 RDI: 0000000000000048
-RBP: 0000000000000001 R08: ffffffff91bec8bf R09: 1ffffffff237d917
-R10: dffffc0000000000 R11: fffffbfff237d918 R12: ffff88807deca000
-R13: 0000000000000020 R14: 1ffff92000765f4c R15: dffffc0000000000
-FS:  000055556efe9400(0000) GS:ffff8881233cd000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007ffc93144b5c CR3: 000000007b0fe000 CR4: 00000000003526f0
-----------------
-Code disassembly (best guess):
-   0:	e8 25 e6 64 ff       	call   0xff64e62a
-   5:	eb 53                	jmp    0x5a
-   7:	e8 1e e6 64 ff       	call   0xff64e62a
-   c:	49 c7 c5 8c ff ff ff 	mov    $0xffffffffffffff8c,%r13
-  13:	eb 45                	jmp    0x5a
-  15:	49 bf 00 00 00 00 00 	movabs $0xdffffc0000000000,%r15
-  1c:	fc ff df
-  1f:	49 8d 7d 28          	lea    0x28(%r13),%rdi
-  23:	48 89 f8             	mov    %rdi,%rax
-  26:	48 c1 e8 03          	shr    $0x3,%rax
-* 2a:	42 80 3c 38 00       	cmpb   $0x0,(%rax,%r15,1) <-- trapping instruction
-  2f:	74 05                	je     0x36
-  31:	e8 14 da e4 ff       	call   0xffe4da4a
-  36:	4d 8b 75 28          	mov    0x28(%r13),%r14
-  3a:	4c 89 ef             	mov    %r13,%rdi
-  3d:	e8                   	.byte 0xe8
-  3e:	a8 a8                	test   $0xa8,%al
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+> ---
+> Christian Brauner (12):
+>       fs: add kiocb_start_write_trylock()
+>       zloop: take freeze protection for writes
+>       nvmet: take freeze protection for writes to files
+>       target: fileio: don't free the aio command under the filesystem
+>       target: fileio: take freeze protection for aio writes
+>       loop: take freeze protection for discard and write zeroes
+>       zloop: take freeze protection when recording write pointers
+>       target: fileio: take freeze protection for unmap
+>       coredump: take freeze protection for the truncate
+>       ovl: take freeze protection when storing the uuid
+>       bpf: fs/xattr: take freeze protection in the xattr kfuncs
+>       nfsd: take freeze protection for the truncate on open
+> 
+>  drivers/block/loop.c              |  2 ++
+>  drivers/block/zloop.c             | 31 ++++++++++++++++++++-------
+>  drivers/nvme/target/io-cmd-file.c | 37 +++++++++++++++++++++++++-------
+>  drivers/target/target_core_file.c | 44 ++++++++++++++++++++++++++++++++-------
+>  fs/bpf_fs_kfuncs.c                |  8 +++++++
+>  fs/coredump.c                     |  6 ++++--
+>  fs/nfsd/nfs4state.c               | 10 ++++++++-
+>  fs/overlayfs/util.c               |  8 +++++--
+>  include/linux/fs.h                | 22 ++++++++++++++++++++
+>  io_uring/rw.c                     |  9 +-------
+>  10 files changed, 142 insertions(+), 35 deletions(-)
+> ---
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> change-id: 20261113-work-fs-frozen_writes-042ca762bfb8
+> 
