@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794648512;
-	b=SwhCFIPS70dLyQXGqnl0UEnm2fs0C4jp74heTfSUe8z/V28Q1nCIRJ+hiEOjD8DUyZU4
-	 TtI8gbF1oxsSfaIzD5K6FmrsTOqYYlZO0FJF+s0s0ZhhSw7K6mzmjsSOJ3X86HRkXgynT
-	 Tax08gMQFInD299y8ywFyc8zl/wBMQSqqg/2YbELDWO0pIGHoGHO46tU/PKGvJEoGfEKp
-	 ZQptTfyP7bd6h7R3bRHoFrHMd83dRF4bJjAV2J39Y1IDY6ufB5+6GPv6fXbI+S0DloBau
-	 8kbhiT7OBP0Pw6QysdGk+vk7HN0gjKKXAtrnY7FDHfCgi7KtbhDo94k6RGssiQxUmng==
+	t=1794648513;
+	b=wrCNEzyW6i1zkFeFbMPLeV0jh4kQ4e1DiJps5QpwIjS3IQwWVDoX93SX6N4Wj14Iv3zm
+	 jdXHJU+qguG8KIOWt92FJxGfcMbXttj0qnllD/UcRggs1+yf08RaLaI/vPU66OOVHJ/V7
+	 lORR1BbZUM5Bj9tvl6OFMH6vtUQB/CTqv/n9658AADpaRIMSopBl2NejuekIO+httA9Pd
+	 puLKFx7q/oMQZEjuwo4C3+Pl2xfalqJHPoLp71CNd+8PiVcFan/DUThCkCJ8CKfNP/iSh
+	 t8Sahhlg/m4knPdTDPMXnuZqn7KHcAKk+QTDle/9ZBOQjKkO0jCZnqhUVMqHMWUPADg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794648512;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794648513;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=BK9OngPoVpn+XwC4wZt1mFgJn/sKmMHZUCgyt9uLEb0=;
-	b=1gXvPZBk9998r5IkRyK+wAJAlU5qGQ8vA8iBFuUm8t7C9tusBZ+7MJc6kheMes+CyNOH
-	 0g+/IcIS7QFcbHZ7eOH0Ul6tGNMkrRYfityz7PLlAK3WxTIxiSXgb8wNJBhvRsoy6rlhB
-	 Sudd47ST32rEOsb7F3eF4n2ayGkIkUSoX0WAaFQ4zNg91vJZRMTL5HmjU243P3xEdX5uK
-	 mE6CMT4oZrfUP/LKcqtJJK6dA+Ek9f+QHnT8Iax/DUEMRRfpnzpNjVEeYpizEr0eJWcIY
-	 zH6iODeFM/igwZhnrVyErKOw/MhfYGksDbcudqGKIuk3TvVulicEQcPA32rtNH2hSXA==
+	bh=9q7KdoPOJAUBkHe+eMsuTBs/HDctpzeS5tV4z1fwdIE=;
+	b=5pPhBzJv2GyY9UHbw7lFO9+qtjFIqeSMcLmuduWvRnSBHduDCPlwWWDbzGlewjK7G7by
+	 0FVbmJv/F7wJDl6BoeOCTW1tEf60FwCCOndEcxOEE+Z08daHurJ9TEROVtPcu66PiJXri
+	 kPPY9Ny427TNpCS4wsdsVhsPZmhXscEjo19GfiuYG9Xi8phjOVi5LMnd+dan4SeY0e0PJ
+	 uu6y1RQ+GboBvtnrG9d8czBV7Rk9lpbxhKb3/k0OxhFJ8OdJeenLanMyx+G2ieZQFRXwl
+	 QjHKXya0nWufHg9JyzI/AbgSpGG2r9OQCvht3jRhbk3gTEYCaLo7XJPY4HfA+z7q3rw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z6M0VhQg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TLQXIPCr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42891606A32D;
-	Sat, 14 Nov 2026 09:28:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF73606A89C;
+	Sat, 14 Nov 2026 09:28:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z6M0VhQg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86CA61F000C5;
-	Sat, 14 Nov 2026 09:28:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TLQXIPCr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B84601F000C6;
+	Sat, 14 Nov 2026 09:28:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794648512;
-	bh=BK9OngPoVpn+XwC4wZt1mFgJn/sKmMHZUCgyt9uLEb0=;
+	s=k20260515; t=1794648513;
+	bh=9q7KdoPOJAUBkHe+eMsuTBs/HDctpzeS5tV4z1fwdIE=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Z6M0VhQgdub8BoutuQaCN3wyNO0wUQyem4J+cg6lGuJCEAPldf2QuFU5TK2oBo2Pp
-	 Hs8ZXPf7Ty1CvbBT+kHrfegJ29bVx9nobPxDL2BtjL1gh2407ZLlyItCDpHDtsUIvV
-	 k4B89zBaPm6kh3Rrhjts8pv7CtC+x+CK6taWk4pQYAXUbg14EhFHH/97pTdcYTLe+U
-	 qx70285hssf9roxxG8mCO84GWKS6WHQpBW6+CYs1/eLdKAeR3EUyD5g/k1hhYN98rj
-	 sQqiomqTGJs9+DYd2A035oVv0nSkTb8h81HwcLIIf/HCnqKnnGmao1t6pilfv59Uh7
-	 gXRFEAHfq2FLA==
-Subject: Re: [PATCH net-next v8 02/11] r8152: add rtl8157_unload() for RTL8157
- and RTL8159
+	b=TLQXIPCrbbgGPHmtwaZDTOtNoyDxyw6RCmNNHWW73nor1V9LhhExKAhoEN/2th2ma
+	 2VOsgpGfNipo3ILFUuhg9NAFZqVRy3SQlRzQZwz7d/NVGsf/3zcIPVjXrxy3Z4cJW1
+	 VIyQ8ocXcBd4iQMNpf8XCU1ET4XM4R+1EyGo3znIAukzmt6CYeht2MjN6zGAicnr/+
+	 xMz3TqD7xQxuqbk7N2RERy4cH+xoMq0UzBMqZYy9cdb6QJB2X09JgeWXVcvctgZiq8
+	 OMGwxfDoEILQTig5C3vCWaccfHt1bZOznvMb2A/eN24vV4d6HnbWO6AgVTcKAhWe5W
+	 NP1pd88Hyz+JQ==
+Subject: Re: [PATCH net-next v8 03/11] r8152: add rtl8157_change_mtu() for
+ RTL8157 and RTL8159
 From: netdev-bot+sashiko@kernel.org
 To: hsu.chih.kai@realtek.com
 Cc: davem@davemloft.net, kuba@kernel.org, netdev@vger.kernel.org,
  nic_swsd@realtek.com, linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
  edumazet@google.com, bjorn@mork.no, pabeni@redhat.com, andrew+netdev@lunn.ch,
  mail@birger-koblitz.de
-Date: Sat, 14 Nov 2026 09:28:31 +0000
-Message-ID: <179464851113.2199510.6038830098036518229@kernel.org>
-In-Reply-To: <20261110032416.16968-3-nic_swsd@realtek.com>
-References: <20261110032416.16968-3-nic_swsd@realtek.com>
+Date: Sat, 14 Nov 2026 09:28:32 +0000
+Message-ID: <179464851229.2199510.6886290228452142765@kernel.org>
+In-Reply-To: <20261110032416.16968-4-nic_swsd@realtek.com>
+References: <20261110032416.16968-4-nic_swsd@realtek.com>
 X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -71,137 +71,69 @@ you want to address the nit picks below when you respin.
 
 Low priority / nit picks for your consideration:
 
-- [Low] The commit message for "r8152: add rtl8157_unload() for RTL8157
-  and RTL8159" does not say what goes wrong for users.
-
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but older
-  sibling chips have the same init/unload mismatch the patch removes for…
+- [Low] This patch carries two Fixes: tags, so it will go to stable, but
+  the commit message gives no user-visible symptom for the old behaviour.
 
 --
 
-r8152: add rtl8157_unload() for RTL8157 and RTL8159
+r8152: add rtl8157_change_mtu() for RTL8157 and RTL8159
 
-This patch adds rtl8157_unload() for RTL8157 and RTL8159. On unload,
-power cut is now disabled with r8157_power_cut_en() instead of
-r8153_power_cut_en(). The Interrupt Mitigation clear of 0xcf04 also moves
-out of rtl8153_unload() and into the new helper.
+This adds rtl8157_change_mtu() for RTL8157 and RTL8159. It sets
+PLA_MTPS from the configured MTU (max_pkt_size / 64, at least 10K,
+capped at 0xff) instead of the fixed MTPS_JUMBO that rtl8156_change_mtu()
+uses. rtl8156_up() now calls tp->rtl_ops.change_mtu() so each chip gets
+its own helper.
 
 > diff --git a/drivers/net/usb/r8152.c b/drivers/net/usb/r8152.c
-> index d00cc911ae135..bb4106f238a3a 100644
+> index bb4106f238a3a..1517753f843ef 100644
 > --- a/drivers/net/usb/r8152.c
 > +++ b/drivers/net/usb/r8152.c
-
-[ ... ]
-
-> @@ -9711,6 +9706,16 @@ static void rtl8153b_unload(struct r8152 *tp)
->  	r8153b_power_cut_en(tp, false);
+> @@ -6800,6 +6800,28 @@ static void rtl8156_change_mtu(struct r8152 *tp)
+>  		       ALIGN(rx_max_size + tp->tx_desc.size, 1024) / 16);
 >  }
 >  
-> +static void rtl8157_unload(struct r8152 *tp)
+> +static void rtl8157_change_mtu(struct r8152 *tp)
 > +{
-> +	if (test_bit(RTL8152_INACCESSIBLE, &tp->flags))
-> +		return;
+> +	u32 max_pkt_size = mtu_to_size(tp->netdev->mtu);
+> +	u32 ocp_data;
 > +
-> +	r8157_power_cut_en(tp, false);
+> +	ocp_write_word(tp, MCU_TYPE_PLA, PLA_RMS, max_pkt_size);
+> +
+> +	/* Use at least 10K for MTPS */
+> +	ocp_data = max_t(u32, max_pkt_size, 10 * 1024) / 64;
+> +
+> +	/* 16 * 1024 / 64 = 0x100, so the max is 0xff for 8 bits data */
+> +	ocp_data = min_t(u32, ocp_data, 0xff);
+> +
+> +	ocp_write_byte(tp, MCU_TYPE_PLA, PLA_MTPS, ocp_data);
 
 [Severity: Low]
+Could the commit message say what user-visible problem the old fixed
+value caused?
 
-Could the commit message say what goes wrong for users with the old
-sequence? The patch has two Fixes: tags (fd3c7d080df5 and ad2a55b63b41),
-but the only reason given is:
+The patch has two Fixes: tags, so it will probably be picked up for
+stable. The only reason the message gives is:
 
-  Per the datasheet they need r8157_power_cut_en(), which r8156_init()
-  already calls for them.
+  Per the datasheet they need an MTPS scaled from the configured MTU
+  instead: max_pkt_size / 64, at least 10K and capped at 0xff.
 
-At unbind, the two helpers change different registers. The old path does:
+Before this patch, RTL8157 and RTL8159 always wrote MTPS_JUMBO to
+PLA_MTPS through rtl8156_change_mtu():
 
-r8153_power_cut_en(tp, false):
-	ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_POWER_CUT,
-			  PWR_EN | PHASE2_EN);
-	ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_MISC_0, PCUT_STATUS);
+  #define MTPS_JUMBO		(12 * 1024 / 64)
 
-The new path does:
+That value is 192. At the default MTU of 1500, mtu_to_size() returns
+1522. So rtl8157_change_mtu() now writes max(1522, 10240) / 64 = 160,
+which is 10K instead of 12K.
 
-r8157_power_cut_en(tp, false):
-	ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_POWER_CUT, PWR_EN);
-	ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_MISC_0, PCUT_STATUS);
-	ocp_byte_clr_bits(tp, MCU_TYPE_USB, USB_MISC_2, BIT(1));
+For any MTU below about 12266, MTPS is now lower than it was before.
 
-With this patch, unload no longer clears PHASE2_EN in USB_POWER_CUT, and
-it now clears BIT(1) in USB_MISC_2. PHASE2_EN can be set at this point,
-because r8156_ups_en(tp, true) sets it.
+Did the 12K setting cause a failure, such as stalled or dropped TX for
+jumbo frames above 12K? Or is this only a change to match the datasheet
+recommendation?
 
-This runs from rtl8152_disconnect() and from the probe error path, but
-only while RTL8152_INACCESSIBLE is clear. In practice that means unbind
-or rmmod with the adapter still attached, or a probe failure.
-
-Did the old sequence cause a visible problem, such as a failed re-bind,
-a power or wake issue, or a stuck device? If so, could the commit
-message describe it along with the register change above?
-
-> +	ocp_byte_clr_bits(tp, MCU_TYPE_USB, 0xcf04,
-> +			  BIT(0) | BIT(1) | BIT(2) | BIT(7));
-> +}
-> +
-
-[ ... ]
-
-> @@ -9889,7 +9894,7 @@ static int rtl_ops_init(struct r8152 *tp)
->  		ops->disable		= rtl8153_disable;
->  		ops->up			= rtl8156_up;
->  		ops->down		= rtl8156_down;
-> -		ops->unload		= rtl8153_unload;
-> +		ops->unload		= rtl8157_unload;
-
-[Severity: Medium]
-
-This isn't a bug introduced by this patch, but do the older sibling
-chips have the same init/unload mismatch that this patch removes for
-RTL8157 and RTL8159?
-
-In rtl_opsx_init(), RTL_VER_10/11 (RTL8156), RTL_VER_12/13/15 (RTL8156B)
-and RTL_VER_14 (RTL8153C) still use rtl8153_unload():
-
-	case RTL_VER_10:
-		ops->init		= r8156_init;
-		...
-		ops->unload		= rtl8153_unload;
-
-	case RTL_VER_14:
-		ops->init		= r8153c_init;
-		...
-		ops->unload		= rtl8153_unload;
-
-rtl8153_unload() calls r8153_power_cut_en(tp, false), which clears both
-PWR_EN and PHASE2_EN. The init and down paths for these chips use
-r8153b_power_cut_en(tp, false) instead, which clears only PWR_EN:
-
-r8156_init():
-	if (tp->version >= RTL_VER_16)
-		r8157_power_cut_en(tp, false);
-	else
-		r8153b_power_cut_en(tp, false);
-
-rtl8156_down():
-	if (tp->version < RTL_VER_16) {
-		r8153_u2p3en(tp, false);
-		r8153b_power_cut_en(tp, false);
-	}
-
-r8153c_init():
-	r8153b_power_cut_en(tp, false);
-
-These assignments go back to 195aae321c82 ("r8152: support RTL8156").
-They also look unchanged later in this series, at 20694877fe24.
-
-It isn't clear that clearing PHASE2_EN at unbind actually causes a
-problem on these chips. Do the RTL8156, RTL8156B and RTL8153C datasheets
-have the same requirement as RTL8157 and RTL8159?
-
->  		ops->eee_get		= r8153_get_eee;
->  		ops->eee_set		= r8152_set_eee;
->  		ops->in_nway		= rtl8153_in_nway;
+Could the message also say plainly that every RTL8157/RTL8159 at the
+default MTU now gets a smaller MTPS?
 
 [ ... ]
 
