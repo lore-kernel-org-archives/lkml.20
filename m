@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794648518;
-	b=ouKqR5KbzTDGMywUlOHMcVXwhBUHbTp3eQmyPpvARvMAVsgjVP+SwH4YtIat3R8o0k8T
-	 RSNk7G6HP6g3QegTfezQMLIxgQu05msgqDyIPrUze9MQvkpMGyMZois4jx8TJAY2COxe1
-	 Idhz49NKSWFQXyemudOOzjM/VBbY9YgQJKWlwVVyDjHqQv/I44FkH84ZMjIylwn+rcdKz
-	 s8eaz0pJ/UC/ViNjhjEWudyrrlNIiOfP4VcWN7mpMiDf67c1VMXYnV6Un/x1X7oWuz4eM
-	 6Ejli0Dwp8czrnrfkFtfd3Ala/J2cSNKTkCgmztOhYavduXT7PHj8lzxKXBDAeU58hw==
+	t=1794648519;
+	b=GCO88+5XVgGGX0Sg39O0Y6AW1XfNtVw4vrlzCGMl4rOrMn9+iR35w0T2C0jhAfJ4BjjC
+	 ZuUI+FMv2Nl3uozR8aTinGSbQ5AZT3FAuhnHGyaE6AMnbbKQc26Rd74Ai3DxBh2z1K0FJ
+	 ep5KjhZ80WgdTBJyLk/rhusIxlqt3h56h7QyQ/bwDaYaWyZp4acnq1/Irew7vEZs/hRsm
+	 FTtM0JBM/XYrpbCgQO3LRPgJpBEbHPBaOgLfIYI0RT87gUZhuQwUB+vgD0AUgeed+Hxzd
+	 oLe3I5C8WTyLundw1CRhVh5Y4+nwRW6HZKRfukQefIPlwPKzP9Z48qr+OB2LEyFz2jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794648518;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794648519;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=RENNZfG/pnKsnY0GRiJ1fVPMjdSy5AZ3i3jPYh5MFsM=;
-	b=vlgGPrM4kclkQbFgYx/gP5ME/hNdoHiXePs5bwxwtVPYc4vCJlaeBTDWj/e+jOtCRhPr
-	 BQyXcev0PZ/Nt2JwjKwGkZaBMte7qI7C/0EgjeHH8ExZ8vX+dpW5O1TLWJve9pc5ZOci2
-	 8Sxa+VhPz/I1e+6CvPDPKE38us/OYmYESfiFe4lJE0M/BkYdDAgwvioH1Er3YWEZGnqSG
-	 E65sM/Ri/FNYaUB0873eQtXfjdS9HekETN55vHduW4jJZXQU533cYgoYTyvOoBE4ZVVie
-	 79NM+5z+Gw8Bfu/PGG8H8wJqMgrBlZvLSuwMTLcpHQcKb5xlxwVrjdgWMG15sr7ed8A==
+	bh=xrLvPdJEUUqaQ/n89kUTd0s6jU/al9JGuEDtjAUCSLM=;
+	b=LBWa0BmaxqIDOX+1PtOVNyrazu3NtiSfB8CT9G9fpOk6hbuIaJ7E7fzuDLwEyMGkCKOY
+	 bHF2HE9XJLLf/EfY8q6TPOMo1A74vnNOsjqV5i/C0uGefKyDPGq3nkrjRRbtucxa0TQOn
+	 hRD555+4IyPwHzarWWfapNPBO3UpgUDVz+cbAp7xKYO/f4bhYBu9w1bakbvhEdrgUItWT
+	 j5WtdtfHCD8r4dDv8pVnCScOAgaf7+j63AeiTD5+usrCdQccbXZxLc7ZbIxN0+Vnxzvaw
+	 nwOM9CitRqKVv73Bilvqc2aHRZOo/rJcFCrHNjIbfptr9YE53+D6Hg+kOBFj8Mn71+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mjs5Mjqf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cKwCspk2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A9A4606A881;
-	Sat, 14 Nov 2026 09:28:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 807A460A3838;
+	Sat, 14 Nov 2026 09:28:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mjs5Mjqf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95C581F000C5;
-	Sat, 14 Nov 2026 09:28:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cKwCspk2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C149F1F000C4;
+	Sat, 14 Nov 2026 09:28:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794648518;
-	bh=RENNZfG/pnKsnY0GRiJ1fVPMjdSy5AZ3i3jPYh5MFsM=;
+	s=k20260515; t=1794648519;
+	bh=xrLvPdJEUUqaQ/n89kUTd0s6jU/al9JGuEDtjAUCSLM=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Mjs5MjqfMwPEACVbbaonWqHtO7Pu5x9zndh/9QS2TOB9IXl2s6YNI3OWhWCSq3UdB
-	 Ml94QxTWMI2kByJdCpWUAcc04TkTJE9pJ/mzQ2BGTMAoKEopMpyOLqJlPt5PUyjgIM
-	 TUazSslcoKKN15dFmQH8lwxMtT4Au7bAFLT9UiDKZGOfXtuJUGWs4Rlrx42+g4G1CS
-	 wGwFTKjDJhuC84KxXpv+eLWebjamC9WXEUf/f75jQNzsOJgvhne4XlehCkWKdivHoM
-	 HtI9vHhLuvnxRpjZQeh/syeu3eo+IXBRWNz1XActK6AiKcBCHiu1Pn9D+IZ2C9pybc
-	 s5Oqv6REUQjTQ==
-Subject: Re: [PATCH net-next v8 09/11] r8152: split r8157_hw_phy_cfg into
- RTL8157 and RTL8159 variants
+	b=cKwCspk2cK546Np7fu/oTXn/wNK38jyDkkggnMcmHgRYMPR5qfdlLswvAD/nOKnbh
+	 XlSA52QozaZHQD4+ZqNJU3SYtCNSknIHeH91Ek125k6JNYw/aGEcnXEBWA7P8yvaVd
+	 4XA33Kum3IC3Q/AKdgh2hMy8OTCU/YVt2Hd4FGiulWECqTMzYfBI7Kz88arh1aJia+
+	 0tommdnutJcXZU1LzM7WWOy9zC2vFbHE7xzVUraGAFSmkgQ1m5yMQ3v4axvaYe1zYF
+	 Cnex4YyufgE8aAE4wZaeHzxaB9GJZ9SYU7jj8VQDWJzKCCBsKsGRIcnFHKEbipdF0z
+	 0JsdwGRcFz7rw==
+Subject: Re: [PATCH net-next v8 10/11] r8152: add TGPHY register access for
+ RTL8157 and RTL8159
 From: netdev-bot+sashiko@kernel.org
 To: hsu.chih.kai@realtek.com
 Cc: davem@davemloft.net, kuba@kernel.org, netdev@vger.kernel.org,
  nic_swsd@realtek.com, linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
  edumazet@google.com, bjorn@mork.no, pabeni@redhat.com, andrew+netdev@lunn.ch,
  mail@birger-koblitz.de
-Date: Sat, 14 Nov 2026 09:28:37 +0000
-Message-ID: <179464851718.2199510.17123458125555803933@kernel.org>
-In-Reply-To: <20261110032416.16968-10-nic_swsd@realtek.com>
-References: <20261110032416.16968-10-nic_swsd@realtek.com>
-X-sashiko-severity: Low
+Date: Sat, 14 Nov 2026 09:28:38 +0000
+Message-ID: <179464851836.2199510.10154643847175029122@kernel.org>
+In-Reply-To: <20261110032416.16968-11-nic_swsd@realtek.com>
+References: <20261110032416.16968-11-nic_swsd@realtek.com>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -65,117 +65,277 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Thank you for your contribution! Sashiko AI review found 5 potential
+issue(s) to consider.
 
-Low priority / nit picks for your consideration:
+Critical: 0 · High: 1 · Medium: 3 · Low: 1
 
-- [Low] r8159_hw_phy_cfg() (drivers/net/usb/r8152.c,
-  RTL_VER_17_QFN68/QFN100 case) adds two GPHY OCP writes that neither…
-- [Low] This commit makes datasheet-driven corrections to already-
-  supported hardware without a Fixes: tag or any user-visible symptom.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] set_carrier() (drivers/net/usb/r8152.c:7468) was not converted
+  to the new error contract.
+- [Medium] The commit message says rtl8152_get_link_ksettings() now
+  propagates the error.
+- [Medium] rtl8153_in_nway() (line 7431) now returns false when the
+  OCP_PHY_STATE read fails, which means 'the PHY is not in…
+- [Medium] r8152: negative errnos returned by read_mii_word() to MII
+  library
+- [Low] rtl8152_set_speed() (line 6835) can now return early on a failed
+  PHY access, after it has already written some advertisement registers…
 
 --
 
-r8152: split r8157_hw_phy_cfg into RTL8157 and RTL8159 variants
+r8152: add TGPHY register access for RTL8157 and RTL8159
 
-This splits r8157_hw_phy_cfg() into r8157_hw_phy_cfg() for RTL8157
-(RTL_VER_16) and a new r8159_hw_phy_cfg() for RTL8159
-(RTL_VER_17_QFN68/QFN100). It also changes some RTL8159 EEE and clock
-settings per the datasheet, moves the 0xd3c8 BIT(0) clear into the shared
-prologue, and adds new RTL8159 PHY tuning parameters. Finally, it adds
-sram2_set_bits()/sram2_clr_bits() helpers.
+This patch adds a TGPHY command channel for PHY register access on RTL8157
+and RTL8159. Access goes through new rtl_ops.phy_read/phy_write hooks.
+A TGPHY access can fail, so the PHY accessors and their helpers now return
+int, and a set of callers is updated to act on errors.
 
 > diff --git a/drivers/net/usb/r8152.c b/drivers/net/usb/r8152.c
-> index 6adc198bc92ab..fad4473caf2a4 100644
+> index fad4473caf2a4..703ec5483778b 100644
 > --- a/drivers/net/usb/r8152.c
 > +++ b/drivers/net/usb/r8152.c
 
 [ ... ]
 
-> @@ -8223,11 +8234,14 @@ static void r8157_hw_phy_cfg(struct r8152 *tp)
->  	ocp_word_clr_bits(tp, MCU_TYPE_PLA, PLA_PHY_PWR, PFM_PWM_SWITCH);
->  
->  	/* Advanced Power Saving parameter */
-> -	ocp_reg_set_bits(tp, 0xa430, BIT(0) | BIT(1));
-> +	ocp_reg_set_bits(tp, OCP_POWER_CFG, EN_10M_PLLOFF | EN_ALDPS_PLLOFF);
->  
->  	/* Disable ALDPS force mode */
->  	ocp_reg_clr_bits(tp, 0xa44a, BIT(2));
->  
-> +	/* Disable bypass_turn_off_clk_in_aldps */
-> +	ocp_byte_clr_bits(tp, MCU_TYPE_PLA, 0xd3c8, BIT(0));
-> +
-
-[Severity: Low]
-With this change, r8157_hw_phy_cfg() also clears 0xd3c8 BIT(0) on RTL8157
-(RTL_VER_16). Before this patch the clear only ran in the RTL_VER_17 case,
-which was added by ad2a55b63b41 ("r8152: Add support for the RTL8159
-chip"). The RTL8157 support in fd3c7d080df5 ("r8152: Add support for the
-RTL8157 hardware") never cleared it.
-
-The r8159_hw_phy_cfg() part of the patch also changes existing RTL8159
-settings to follow the datasheet:
-
-	ocp_reg_clr_bits(tp, OCP_DOWN_SPEED,
-			 EN_EEE_100 | EN_EEE_1000 | EN_10M_CLKDIV);
-	tp->ups_info._10m_ckdiv = false;
-	...
-	ocp_reg_clr_bits(tp, 0xa5ea, BIT(0) | BIT(1) | BIT(2));
-
-and sram2 0x8ffe goes from 0xf450 to 0xf4ff.
-
-If these correct hardware that is already supported, should the commit
-carry Fixes: tags for fd3c7d080df5 and ad2a55b63b41, and describe the
-symptom users would see? Other datasheet corrections in the same series
-cite those commits, for example "r8152: fix RTL8156/RTL8156B/RTL8157/RTL8159
-up and down settings", "r8152: add rtl8157_unload() for RTL8157 and
-RTL8159", "r8152: add rtl8157_change_mtu() for RTL8157 and RTL8159" and
-"r8152: fix flow control for RTL8156/RTL8156B/RTL8157/RTL8159".
+> @@ -1669,16 +1680,33 @@ static void ocp_reg_write(struct r8152 *tp, u16 addr, u16 data)
 
 [ ... ]
 
-> @@ -8364,22 +8451,35 @@ static void r8157_hw_phy_cfg(struct r8152 *tp)
->  		sram_write_w0w1(tp, 0x81ae, 0xff00, 0x0f00);
->  		sram_write_w0w1(tp, 0x81b9, 0xff00, 0xb900);
->  		/* normal link TX filter */
-> -		sram2_write_w0w1(tp, 0x83b0, 0x0e00, 0);
-> -		sram2_write_w0w1(tp, 0x83c5, 0x0e00, 0);
-> -		sram2_write_w0w1(tp, 0x83da, 0x0e00, 0);
-> -		sram2_write_w0w1(tp, 0x83ef, 0x0e00, 0);
-> +		sram2_clr_bits(tp, 0x83b0, 0x0e00);
-> +		sram2_clr_bits(tp, 0x83c5, 0x0e00);
-> +		sram2_clr_bits(tp, 0x83da, 0x0e00);
-> +		sram2_clr_bits(tp, 0x83ef, 0x0e00);
+> -static inline int r8152_mdio_read(struct r8152 *tp, u32 reg_addr)
+> +static int r8152_mdio_read(struct r8152 *tp, u32 reg_addr)
+>  {
+> -	return ocp_reg_read(tp, OCP_BASE_MII + reg_addr * 2);
+> +	u16 data;
+> +	int ret;
 > +
-> +		ocp_reg_w0w1(tp, 0xbf38, 0x01f0, 0x0160);
-> +		ocp_reg_w0w1(tp, 0xbf3a, 0x001f, 0x0014);
-> +		/* shorten CLKS latency */
-> +		ocp_reg_clr_bits(tp, 0xbf28, BIT(14) | BIT(13));
-> +		ocp_reg_clr_bits(tp, 0xbf2c, BIT(15) | BIT(14));
-> +		/* CMP_Timer on MP_Timer=333
-> +		 * GPHY OCP 0xbf28 bit[0] = 0x1
-> +		 * GPHY OCP 0xbf28 bit[6:1] = 0x3
-> +		 * GPHY OCP 0xbf28 bit[12:7] = 0x3
-> +		 */
-> +		ocp_reg_w0w1(tp, 0xbf28, 0x1fff, 0x0187);
-> +		ocp_reg_w0w1(tp, 0xbf2a, 0x3f, 0x03);
+> +	ret = ocp_reg_read(tp, OCP_BASE_MII + reg_addr * 2, &data);
+> +
+> +	return ret < 0 ? ret : data;
+>  }
+
+[Severity: Medium]
+The added comment says a failed read must not reach the MII library
+as an errno, but the two early returns at the top of read_mii_word()
+still pass one on. The RTL8152_INACCESSIBLE check returns -ENODEV and
+the phy_id check returns -EINVAL. Neither goes through the new
+ret < 0 ? 0 : ret conversion. Those returns are not new, but with this
+patch they no longer match the stated contract.
+
+-ENODEV is 0xffffffed, which has BMCR_ANENABLE, BMSR_LSTATUS and
+BMSR_ANEGCOMPLETE set. -EINVAL is 0xffffffea, which also has
+BMCR_ANENABLE set. The MII library always passes tp->mii.phy_id,
+though, so the -EINVAL path is mostly theoretical.
+
+mii_nway_restart() tests BMCR_ANENABLE directly on the mdio_read()
+result. Suppose RTL8152_INACCESSIBLE is set when rtl8152_nway_reset()
+or rtl_ethtool_set_eee() calls it. The -ENODEV then reads as autoneg
+enabled, write_mii_word() drops the restart without reporting it, and
+mii_nway_restart() returns 0.
+
+Neither caller checks the flag first. On RTL8157/RTL8159,
+r8152_set_eee() can latch it through rtl_eee_enable() right before the
+mii_nway_restart() call. Userspace is then told the renegotiation
+succeeded on a device that is gone.
+
+In mii_ethtool_get_link_ksettings() the two conventions get mixed. The
+TGPHY access that latches the flag makes the MII_BMCR read return 0.
+The MII_BMSR, MII_CTRL1000, MII_STAT1000 and MII_ADVERTISE reads after
+it hit the early return and come back as 0xffed.
+
+Should these early returns also return 0, so read_mii_word() follows
+its own comment? Or, since a 0 BMCR has problems of its own, would it
+be better for the callers of the MII library to check
+RTL8152_INACCESSIBLE before calling into it?
+
+[Severity: High]
+With this change, r8152_mdio_read() can return a negative errno on
+RTL8157/RTL8159. The failure comes from
+ocp_reg_read()->r8157_phy_read()->rtl_tgphy_access().
+
+Was set_carrier() meant to be converted too? It still treats the return
+value as register content:
+
+drivers/net/usb/r8152.c:set_carrier() {
+	if (r8152_mdio_read(tp, MII_BMSR) & BMSR_LSTATUS) {
+		if (!netif_carrier_ok(netdev)) {
+			tp->rtl_ops.enable(tp);
+			...
+			netif_carrier_on(netdev);
+			rtl_start_rx(tp);
+	...
+	} else {
+		if (netif_carrier_ok(netdev)) {
+			netif_carrier_off(netdev);
+			...
+			tp->rtl_ops.disable(tp);
+	...
+		if (rtl8152_get_speed(tp) & LINK_STATUS) {
+			set_bit(RTL8152_LINK_CHG, &tp->flags);
+			schedule_delayed_work(&tp->schedule, 0);
+		}
+	}
+}
+
+-ENODEV is 0xffffffed, which has BMSR_LSTATUS (bit 2) set. If the
+device is gone and the carrier is off, set_carrier() would see link up.
+It would then call rtl_ops.enable(), netif_carrier_on() and
+rtl_start_rx().
+
+-ETIMEDOUT is 0xffffff92, which has BMSR_LSTATUS clear. One TGPHY busy
+timeout from wait_tgphy_cmd_ready() while the carrier is up would read
+as link down. The carrier would go off and rtl_ops.disable() would run.
+rtl8152_get_speed() still reports LINK_STATUS, so LINK_CHG is
+rescheduled. Wouldn't that give a carrier off/on flap?
+
+set_carrier() runs from rtl_work_func_t() on every link change, and that
+function checks RTL8152_INACCESSIBLE only on entry. set_carrier() is
+missing from both lists in the commit message: the converted callers and
+the callers left for the follow-up series.
+
+[ ... ]
+
+> @@ -6726,12 +6929,19 @@ static int rtl8152_set_speed(struct r8152 *tp, u8 autoneg, u32 speed, u8 duplex,
+>  		}
+>  
+>  		if (orig != new1) {
+> -			r8152_mdio_write(tp, MII_ADVERTISE, new1);
+> +			ret = r8152_mdio_write(tp, MII_ADVERTISE, new1);
+> +			if (ret < 0)
+> +				goto out;
+> +
+>  			tp->mii.advertising = new1;
+>  		}
+>  
+>  		if (tp->mii.supports_gmii) {
+> -			orig = r8152_mdio_read(tp, MII_CTRL1000);
+> +			ret = r8152_mdio_read(tp, MII_CTRL1000);
+> +			if (ret < 0)
+> +				goto out;
+> +
+> +			orig = ret;
+>  			new1 = orig & ~(ADVERTISE_1000FULL |
+>  					ADVERTISE_1000HALF);
+
+[ ... ]
+
+> @@ -6776,20 +6995,26 @@ static int rtl8152_set_speed(struct r8152 *tp, u8 autoneg, u32 speed, u8 duplex,
+>  	if (test_and_clear_bit(PHY_RESET, &tp->flags))
+>  		bmcr |= BMCR_RESET;
+>  
+> -	r8152_mdio_write(tp, MII_BMCR, bmcr);
+> +	ret = r8152_mdio_write(tp, MII_BMCR, bmcr);
+> +	if (ret < 0) {
+> +		if (bmcr & BMCR_RESET)
+> +			set_bit(PHY_RESET, &tp->flags);
+> +		goto out;
+> +	}
 
 [Severity: Low]
-What do the 0xbf38 and 0xbf3a writes configure in r8159_hw_phy_cfg()?
+The commit message says a failed write in rtl8152_set_speed() leaves the
+cached advertising and a pending PHY reset untouched. Does that cover all
+the state changed before these early exits?
 
-The commit message lists four new RTL8159 tuning items: shorten CLKS
-latency, CMP_Timer on MP_Timer=333, spdchg_pga1_lpf_cap, and ENET PLL
-jitter improvement. These two writes come before the "shorten CLKS latency"
-comment, have no comment of their own, and don't match any item on that
-list. None of these registers were used in r8152.c before this patch.
+In the autoneg branch, MII_ADVERTISE may already be written when the
+MII_CTRL1000 or OCP_10GBT_CTRL access fails. tp->mii.advertising and
+tp->ups_info.speed_duplex may already be updated too. The early return
+skips BMCR_ANRESTART. The PHY then keeps the new 10/100 advertisement
+together with the old 1000/multi-gig one, and the next renegotiation
+uses that mix.
 
-The CMP_Timer comment only describes bit fields of 0xbf28, but the block
-also writes 0xbf2a[5:0] = 0x03.
+In the forced branch, tp->mii.force_media, tp->mii.full_duplex and
+tp->ups_info.speed_duplex are set before the MII_BMCR write. If that
+write fails, only PHY_RESET is restored, and the PHY is still
+autonegotiating.
 
-Could 0xbf38/0xbf3a get a comment and a mention in the commit message?
-Could the CMP_Timer comment also cover 0xbf2a?
+Since ret is non-zero, rtl8152_set_link_ksettings() keeps the old
+tp->autoneg/speed/duplex/advertising. Later in the series,
+r8157_ups_en() calls r8156_ups_flags(), which writes
+tp->ups_info.speed_duplex into USB_UPS_FLAGS. The stale value would then
+reach the UPS firmware as well.
+
+Should this partly applied state be rolled back, or should the commit
+message describe what is left behind?
+
+[ ... ]
+
+> @@ -7205,7 +7430,12 @@ static bool rtl8152_in_nway(struct r8152 *tp)
+>  
+>  static bool rtl8153_in_nway(struct r8152 *tp)
+>  {
+> -	u16 phy_state = ocp_reg_read(tp, OCP_PHY_STATE) & 0xff;
+> +	u16 phy_state;
+> +
+> +	if (ocp_reg_read(tp, OCP_PHY_STATE, &phy_state) < 0)
+> +		return false;
+
+[Severity: Medium]
+Is false the safe answer when the read fails? RTL8157/RTL8159 use
+rtl8153_in_nway() as ops->in_nway. delay_autosuspend() relies on it to
+avoid suspending while the PHY is negotiating:
+
+drivers/net/usb/r8152.c:delay_autosuspend() {
+	...
+	/* If the linking down is occurred by nway, the device may miss the
+	 * linking change event. And it wouldn't wake when linking on.
+	 */
+	if (!sw_linking && tp->rtl_ops.in_nway(tp))
+		return true;
+	...
+}
+
+A TGPHY timeout while the PHY is mid-negotiation would let runtime
+suspend go ahead. The adapter could then miss the link-up wake event
+and stay suspended.
+
+Before this patch, a failed control transfer filled the data with 0xff
+through get_registers(). The low byte then read as "in nway", which
+delayed suspend. Would returning true on a failed read be the safer
+choice here?
+
+[ ... ]
+
+> @@ -9388,8 +9621,16 @@ int rtl8152_get_link_ksettings(struct net_device *netdev,
+>  			 cmd->link_modes.supported, tp->support_10000full);
+>  
+>  	if (tp->support_2500full || tp->support_5000full || tp->support_10000full) {
+> -		u16 ocp_10gbt_ctrl = ocp_reg_read(tp, OCP_10GBT_CTRL);
+> -		u16 ocp_10gbt_stat = ocp_reg_read(tp, OCP_10GBT_STAT);
+> +		u16 ocp_10gbt_ctrl;
+> +		u16 ocp_10gbt_stat;
+> +
+> +		ret = ocp_reg_read(tp, OCP_10GBT_CTRL, &ocp_10gbt_ctrl);
+> +		if (ret < 0)
+> +			goto out_unlock;
+> +
+> +		ret = ocp_reg_read(tp, OCP_10GBT_STAT, &ocp_10gbt_stat);
+> +		if (ret < 0)
+> +			goto out_unlock;
+
+[Severity: Medium]
+The commit message says rtl8152_get_link_ksettings() propagates the
+error. Does that apply only to these two OCP_10GBT reads?
+
+Earlier in this function, mii_ethtool_get_link_ksettings() reads BMCR,
+BMSR, CTRL1000, STAT1000, ADVERTISE and LPA through tp->mii.mdio_read,
+which is read_mii_word(). After this patch, read_mii_word() turns a
+failed read into 0:
+
+	return ret < 0 ? 0 : ret;
+
+A BMCR of 0 looks like autoneg off with forced 10M half duplex.
+mii_ethtool_get_link_ksettings() also stores that duplex into
+tp->mii.full_duplex. Suppose the MII reads fail but the 10GBT reads
+succeed. Can ethtool then return success with a made-up forced 10M/half
+configuration?
+
+The same 0 makes mii_nway_restart() return -EINVAL (autoneg off) instead
+of the I/O error. That affects rtl8152_nway_reset() and the eee_set path.
 
 [ ... ]
 
