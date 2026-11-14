@@ -1,73 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794681272;
-	b=B4qeywMMBnFb+ygEaT3GwFA2m1U06wfETaEUepbPV2fPtkxkmKektjeL204GlYuQH+O1
-	 G0cl9xFDA9nmZv1OlV3qSsLZcK8InmuyBXfw6KsLjtgzCRWmjH3XTaTbqr5k+HjaiKlcz
-	 BBplkAU4zccFGudcVdywV60SH8rN9DzfleJh5aPwDDBdRLyxZARb0hjrvMfgQqncItfnb
-	 magSHN4KJ18hUfElom6rXi29pLV+VFCbyIY0zvJiXkLf8Gb6lneweDUsUOWUm9v6uMLg4
-	 RXQcK4gT1bmM7XoIbgYyU+yphrdhSgErzvJ7Yzq/+3bzoxB49PQrZRVgDvn5k3JTpMQ==
+	t=1794681311;
+	b=O/ThwGflH6NhrVkPPRiagZEr06ZDDDEuHvrc14QQpsAKbOxFQs6PBCdX5nJWrZunDupT
+	 R4TO4YCoig7kmm5moOTT+msVHVvtzP9LgCI1jjkkKYuyqnS+4+hBn2pRPzBwZjPWUi68I
+	 /2KPf5tP5lU/BFB+r2kc3gzemKGr5eSgO/rfHpX+Vzl6CdJK9hwhrM2OrBkTVWqzrP7kM
+	 3KJN6ayMz+4abs/AK3DopnrEzzh6l8MtlBA7MoaqF2HUpIUXubUiWNdUEzJnOjGKvn7Ki
+	 rUvIargcHEwK+2sIupuVaaXxPm8CAylHuSYYDyxNstz44ah7dmLTicw8nCRBSGKmWgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794681272;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794681311;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=xIJH830yAU8Etb/lYqZfpJ4EsMpPggWMJX7lGP00TrM=;
-	b=aFJoFkE0clO/krJC915lxim2tPN2gALO27dAj3Lx8Ed1/UxIHx0RYH3MZxS2zy31dDjn
-	 R0azVfhdvlX5avXJvm/m7fhdAYrYaeWSpFLkPwTCQT3yMRDJjhopShwgO8u01ifo3UqB+
-	 DTB+/vpzm7xOxk6LHuFjwGV3j5DtQCa8q07mIQ3VO04RvLmRPwWiuR+sUN29Yo7aIc8Gt
-	 7B0PonLIPmqNYN8ktw0ihKiMMfyCAPWa8YTAm1qyz7/rWqF2sDRDn+y4RVqtNrEPELkxT
-	 VnQvdc8GKEdj+lGcIoWsFTxhXn30HzIJAEL/sLIb9ZWLmK4FUpb/+DFJX0PwWKV4/HA==
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=TvSKSRkg9AFrTcntLh7QJ1VF0aRsTmwl0gLaj0FgbTg=;
+	b=d8vzj9dSklRskP8qyfDn6zeE+bU5MDPIHGv1ZV4Q5bDZCVMcCNdMggFNtR2UXN/mfTaN
+	 onhf4pmRnWsnl/a3uwGG+OUay7xcDrhkJ/pX+Ks4qQvpJFvY7oBv7dSgxb64mnQQo1HAC
+	 GbjIuJo2gWQLT8wNDDPsj3RdUbFNod1fkjXqPvOr5ArgTmaSzLreGzsAYeoC0FacCJd2h
+	 Eql1lNwdPgYEVQYOLNSuDS4xyeIEvq3u2cVn4sX4T9BLJTXZJlnNHqUJQ8rpCS9ZeQb7s
+	 igMmnHndDw4raK7aixJuzXRheSgWLKOUYrOnTxw7YKJCUqpvDpyfAQsUcoFWFQ4lT8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kLdIUvRD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WkrWyKA0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9150606A323;
-	Sat, 14 Nov 2026 18:34:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCD9A606A323;
+	Sat, 14 Nov 2026 18:35:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kLdIUvRD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA86A1F000C4;
-	Sat, 14 Nov 2026 18:34:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WkrWyKA0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AA741F000C4;
+	Sat, 14 Nov 2026 18:35:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794681271;
-	bh=xIJH830yAU8Etb/lYqZfpJ4EsMpPggWMJX7lGP00TrM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kLdIUvRDvJxlUbY1ynRLNC3qDVm22HDJQ/oDoeAj04J3VQf5GOK2z+EVYkFf54oeO
-	 ojMxnJJciIKBWDTf+n2auyLYOSEpUgnGR63WYG6R7v0ceX42IOP9B6sHO9PCtbaxqU
-	 8FTFzMmpeWihgC5vIRFbUbZVoQJLQLQJ1FaYtUMWyWEvptvnftr8Gd8NEwSs/tjm4P
-	 IfryQo5zUxv5NMGHR4OmlosERhkQzHZgGtHy0jZYv0hXUSugT1jq3HrSUrJVoQAJ9j
-	 BHU7F3zmvwDZJSycFY0Uv4MQdEl6eRlTEvANgZi+rMgpityIDbYPWUvZR5PZlsfO2a
-	 LsMXcMZ02scMg==
-Date: Sat, 14 Nov 2026 18:34:19 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Mika =?utf-8?B?UGVudHRpbMOk?= <mpenttil@redhat.com>
-Cc: Balbir Singh <balbirs@nvidia.com>, 
-	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	David Rientjes <rientjes@google.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Nhat Pham <nphamcs@gmail.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
-	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
-	Kairui Song <kasong@tencent.com>, =?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>, 
-	Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, 
-	Christoph Lameter <cl@gentwo.org>, Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, 
-	Chris Mason <mason@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, "Borislav Petkov (AMD)" <bp@alien8.de>, 
-	Mark Brown <broonie@kernel.org>, "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 05/13] mm/migrate_device: don't collect a range twice
-Message-ID: <avinH6zgTzpjMCrf@gremlin>
-References: <20261113-mason-migrate-et-al-fixes-v2-0-50a2ed382b61@kernel.org>
- <20261113-mason-migrate-et-al-fixes-v2-5-50a2ed382b61@kernel.org>
- <avfrWjzLQdDcmXO6@parvat>
- <8c79ce88-7730-44c4-92a0-d760d6f8e9e1@redhat.com>
+	s=k20260515; t=1794681311;
+	bh=TvSKSRkg9AFrTcntLh7QJ1VF0aRsTmwl0gLaj0FgbTg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=WkrWyKA0yhj2F7gLBdmu0ep02BeBs/qlh6XcoAvZc0PYKQLjrtJEm9Ie9H3qJGCXQ
+	 bBdij8IjcqjGt8Z4S6ix+u5Za/iczJo8mvxr6c6gZhWNJZu8nnfYLIjLI8j3LuZFoy
+	 MK/fMV/BcM4ZaMJGjThZ9wng4q/WDh2i/xaYMv6dx0r4ivkcjw8nzooPv2b/L4C1uK
+	 rGR15aqmdWyHApyC2AiuQnn0fQRvoOopOe71APw7YU7k5E89U6/5fqYCj+8NuddsDq
+	 BXOUtWhw1V6u0dqa4MkdfFN09km3ep7W73HmcsSuFLwUwNzT/4sQTKyezFz04JXBWv
+	 nuzTVQNW3NbFA==
+Date: Sat, 14 Nov 2026 18:34:59 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Christopher Hoover <ch@murgatroid.com>
+Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, Lixu Zhang
+ <lixu.zhang@intel.com>, Joshua Crofts <joshua.crofts1@gmail.com>, David
+ Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/3] iio: hid-sensors: fix shared callbacks in
+ temperature and humidity
+Message-ID: <20261114183459.78fc3e31@jic23-hlaptop>
+In-Reply-To: <CACw0PsZ43YAQUcPuP7ec6gjd03Srn5QYUWp74SMZ0gzPLUp71A@mail.gmail.com>
+References: <20261019023420.83976-1-ch@murgatroid.com>
+	<20261102215606.5e36a2a2@jic23-hlaptop>
+	<20261111025336.051fbbcb@jic23-hlaptop>
+	<CACw0PsZ43YAQUcPuP7ec6gjd03Srn5QYUWp74SMZ0gzPLUp71A@mail.gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,70 +68,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <8c79ce88-7730-44c4-92a0-d760d6f8e9e1@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Nov 14, 2026 at 08:45:55AM +0200, Mika Penttilä wrote:
-> On 11/14/26 07:09, Balbir Singh wrote:
-> >> diff --git a/mm/migrate_device.c b/mm/migrate_device.c
-> >> index 9e5dab8e1b77..28ed706109da 100644
-> >> --- a/mm/migrate_device.c
-> >> +++ b/mm/migrate_device.c
-> >> @@ -257,13 +257,17 @@ static int migrate_vma_collect_pmd(pmd_t *pmdp,
-> >>  	pte_t *ptep;
-> >>
-> >>  again:
-> >> +	/* [start, addr) is collected if we get here after splitting a folio */
-> >>  	if (pmd_trans_huge(*pmdp) || !pmd_present(*pmdp)) {
-> >> -		int ret = migrate_vma_collect_huge_pmd(pmdp, start, end, walk, fault_folio);
-> >> +		int ret = migrate_vma_collect_huge_pmd(pmdp, addr, end, walk, fault_folio);
-> >>
-> >>  		if (ret == -EAGAIN)
-> >>  			goto again;
-> >> -		if (ret == 0)
-> >> +		if (ret == 0) {
-> >> +			if (unmapped)
-> >> +				flush_tlb_range(walk->vma, start, end);
-> >>  			return 0;
-> >> +		}
-> >>  	}
-> >>
-> >>  	ptep = pte_offset_map_lock(mm, pmdp, start, &ptl);
-> >>
-> > Is the intended race a concurrent MADV_DONTNEED reclaiming the PTE table while
-> > PTL is dropped for the split? That would leave pmd_none() true on retry, entering
-> > migrate_vma_collect_huge_pmd() through !pmd_present() and taking its hole path.
+On Tue, 10 Nov 2026 19:11:31 -0800
+Christopher Hoover <ch@murgatroid.com> wrote:
 
-Balbir - yeah exactly the PTE page table removal, and it zaps the migration
-entries installed for [start, adr) too, so those don't keep the table alive.
+> >> Dropped patch 1, that should go via the hid tre =20
+>=20
+> Do i need to do that ?    Sorry for the possibly dumb question -- I'm
+> well out of practice with the process.
+Ideally Jiri will notice this thread and pick it up.
 
-And yeah, we would then see pmd_none() on retry and
-migrate_vma_collect_hole(start, end, ...) would appends entries on top of those
-already collected.
+If that is looking unlikely by say rc5 then send a new version
+with just that patch so that it stands out a little better
 
->
-> I think this is "ok" for the fix, the hole is collected from [addr, end).
+Thanks,
 
-Thanks. Yeah addr > start, so it's not PMD-aligned so always ends up in the
-per-page path.
+Jonathan
 
-And if the split happened at the first entry then nothing is collected yet
-anwyay.
-
->
-> But couple of things follow. It can't be possibly collected as
-> MIGRATE_PFN_COMPOUND entry, only small pages. And the collected entries
-> in [start, addr) are wrong ones.  Finalize will recover, but the
-> migration will fail for those.
-
-But that's true for any zap that races after collection started, so there's
-nothing for this fix to do here.
-
-> These all are handled in the HMM walk based migration series.
-
-Ack great glad to hear :)
-
+>=20
+> -ch
+>=20
+> On Tue, Nov 10, 2026 at 6:53=E2=80=AFPM Jonathan Cameron <jic23@kernel.or=
+g> wrote:
+> >
+> > On Mon, 2 Nov 2026 21:56:06 +0000
+> > Jonathan Cameron <jic23@kernel.org> wrote:
+> > =20
+> > > On Sun, 18 Oct 2026 19:34:17 -0700
+> > > Christopher Hoover <ch@murgatroid.com> wrote:
+> > > =20
+> > > > hid-sensor-temperature and hid-sensor-humidity share one static
+> > > > struct hid_sensor_hub_callbacks across instances and overwrite its =
+pdev
+> > > > on every probe. With two temperature sensors, reports for one go to
+> > > > the other's pdev; once that device is removed,
+> > > > temperature_capture_sample() dereferences NULL. I hit this on 7.0
+> > > > with two uhid-created sensors.
+> > > >
+> > > > Patches 2-3 make the callbacks per instance, as the other HID sensor
+> > > > drivers do. Patch 1 makes sensor_hub_remove_callback() take
+> > > > pdata->lock, as sensor_hub_raw_event() does, so a report racing an
+> > > > unbind cannot call through the freed callbacks. =20
+> > > Applied to the fixes-togreg branch of iio.git with the ordering tweak=
+s Andy suggested. =20
+> >
+> > One day I'll remember some bits of this driver are in hid.
+> >
+> > Dropped patch 1, that should go via the hid tree.
+> >
+> > Sorry Jiri / Christopher.
+> >
+> > I only seem to notice I've done this whilst writing pull requests :(
+> >
+> > Jonathan
+> >
+> >
+> > =20
+> > >
+> > > Thanks,
+> > >
+> > > Jonathan =20
+> > > >
+> > > > Changes in v3:
+> > > > - Patches 2-3: set the callbacks with one compound literal (Jonatha=
+n).
+> > > > - Kept Joshua's Reviewed-by on all three; patches 2-3 changed only =
+in
+> > > >   style.
+> > > > - Rebased onto v7.3.
+> > > > - Sent as a new thread, not a reply to v2.
+> > > >
+> > > > Changes in v2:
+> > > > - New patch 1, for the use-after-free on unbind found by the Sashiko
+> > > >   review of v1.
+> > > >
+> > > > v2: https://lore.kernel.org/all/20261007184423.622445-1-ch@murgatro=
+id.com/
+> > > >
+> > > > Christopher Hoover (3):
+> > > >   HID: hid-sensor-hub: Synchronize callback removal with raw events
+> > > >   iio: temperature: hid-sensor-temperature: Use per-instance callba=
+cks
+> > > >   iio: humidity: hid-sensor-humidity: Use per-instance callbacks
+> > > >
+> > > >  drivers/hid/hid-sensor-hub.c                     | 12 ++++++++++--
+> > > >  drivers/iio/humidity/hid-sensor-humidity.c       | 14 +++++++-----=
 --
-Cheers, Lorenzo
+> > > >  drivers/iio/temperature/hid-sensor-temperature.c | 14 +++++++-----=
+--
+> > > >  3 files changed, 24 insertions(+), 16 deletions(-)
+> > > >
+> > > >
+> > > > base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222 =20
+> > >
+> > > =20
+> > =20
+
