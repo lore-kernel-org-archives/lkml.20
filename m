@@ -1,88 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.128
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794678533;
-	b=ihapVH5J0HWEvB0+Yie/Zv+9DXA9y2tyXy7MIG08eKxT3m6MPgeVNgSkryEQqDB+vzzq
-	 ytDqYd0efQNsM8aRGntLdpsi7WL50hZ39HO4oVgJDvFjS00X4hyjIx8XEH1a3kbxJD1Qn
-	 qNyxKZwZNV+68A+MxJ5QpaA+7aAcd0/lvfdXaHv6g4yolzaFU9RsxEdvcdWIzKU+WX/sa
-	 tfgN6/Gsfoqs1lGhILN5RWY2Pz64Y0iWP/fi8vGgsjpLjaGOIdlIS6XaiW1ON3yXljis8
-	 Q8WxfbdMqspMxcnG8JUFQ1o0k3voEY4U61wE9plQOcKq+L5XQCbHzpdV3o37lG5JHcQ==
+	t=1794678611;
+	b=PEwqZFMtZjbx1obigudcuESYPRast/614KwmZMUwpxSQ276soxuDzEEvmsS3zOt0x4U7
+	 FlJ+hzBBP8zygTTUlrI6IVj0RQZyuUapa7rt8uRHWgPbqcfsxlWQwHyr0Gp9bRiZ//RWD
+	 ZRYFQdE0P6tvqb/4+tcSi/dqKRAMIksYjcexzSsnLosa1eKRR2Niar9uleeFODsStAvS3
+	 ZOTL+G2Fnmh2Nig/PmjFXS822UyPGF1cNc3ByTNs0Sxm3UePGejtxrsW8/W1SY2k0RfBL
+	 qn6x0A0r9mnhmI6W/gTq9KJYMo7gwJ3pkWW9q2u6bBsMRkmM3FbawDgFewm4Fqg/ugg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794678533;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794678611;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=Z/UcwHcKXUqaXtKk/lpD8kvZeZD8k73uW8qTCjwCp54=;
-	b=hPyHIiPpAz+WmcHyaUZvQkI+umzQ6V55FqQXL+6QFySfjC/h5vj6Yz0OS0hhXyzC8QvM
-	 IeY4dQjxraQJ90PiqU9mf07iWBzOCqP6JmYBCBIVXLSKpU3+BGDArms43BCvnzQ4m48iD
-	 67gF7tvFwbZD9R8HsVRvr+sRB7NyfWhIZwbeKp9H0XG7d37HuJ39ftGDqMiRlM4dE4cKR
-	 UFG+MjC35ZVa77s5e5FqQszgtjsukeedGDOglx1yC4joY8EfUj/aurbwG42pp2zZ7+uhE
-	 xDRFNfWLcKXrSTgS2oezHKbWP6aVqfroFtP7J8ikLWClKqC9TWrfEdObaEUwjVawT0Q==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=EmcviWPYqTHYUpdenTWoXsDvHVqyudI3P29XUYf6ckM=;
+	b=hhqa1K9VUOkGEyWUHUu6kGmRtZ5lUxMdaIKjhfVQax5dkqzhdk+bt8k0LzAT1xcUgDIs
+	 ntQsVY7jjGNmI9MJFsfyn9LpmrmXiuw3r0u7ncmzs38Ma2R2AWeRlVBgWlA0dNTVwPvsf
+	 cmgOz2woyxnPpJEW/5AVIgpQE0FaSXxHJw3mjgLNHQ95NmcbYrW1G4zMyXRGBVmp/dboC
+	 Aqkf+3J2j82ejrfQAbbhktL8FXO7C9nJ0sTqvM0Onnmu5QifExXsonLegGw56NQ9mW6dp
+	 1WlrH1TQFvquS/i68Eog/CDNVjiX/+HUHEYhCoz7SimNJZG96+l4710OYl4pUC26irQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rRxj0ctq;
-	arc=none smtp.remote-ip=209.85.210.173
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Gkhylkuy;
+	arc=none smtp.remote-ip=74.125.227.128
+Received: from mail-pj2-f0.google.com (mail-pj2-f0.google.com [74.125.227.128])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA2E6606A32E
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:48:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA2E6606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C11606A327
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:50:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5C11606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rRxj0ctq
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8b5e5e64494so1404240b3a.1
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 09:48:52 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Gkhylkuy
+Received: by mail-pj2-f0.google.com with SMTP id 98e67ed59e1d1-3aec0b1d816so1095897a91.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 09:50:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794678532; x=1795283332; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Z/UcwHcKXUqaXtKk/lpD8kvZeZD8k73uW8qTCjwCp54=;
-        b=rRxj0ctqpPtesi/Omr/um2Z61N/3D7qp882DAP9S1NCCR8QNyqo52R9c/iXb9q35Lc
-         wBkDdAXhVY7dKlCcCRu54s6Rw27XQKmcPaIacL4r1OJQ0OS/6D1XSO3hYiNyEMGUeW+c
-         YQEgWGk5c0ehv0Vg0eugObUB8lFMW1vADrq77DK3rPrM1TBLURk3bzDA0AQvSj3OYITk
-         BrUxj8wRR7idJX+JzDgpu9T67rEMPrsdbbqFcX8UugxC2ZODiXHJ3UUg2lTq+EBii9Yh
-         BIOtwQSAwVgHfwUfwEZmbms4UAkpn8cZ+O71VwOiHWklyT3tQIOeLmcQ4meHSXJu7H/D
-         4c7w==
+        d=gmail.com; s=20260707; t=1794678610; x=1795283410; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EmcviWPYqTHYUpdenTWoXsDvHVqyudI3P29XUYf6ckM=;
+        b=GkhylkuyhAEELYpG7D/hOS3gmTHFDpRRiCfGU6Xf/2klyAEtwynUhORjNycnuIwB5l
+         9QUSnrtp6OzNT+LJ4A3RgX9ZyTYvpGix9aH96FXR6x74C0TQhl5UufozqHJMr6rMGHpG
+         Vi5eAr5yeykrj7VtNYNWIGZhqO16Gx29YbsCmAIFQazS1VzMIuMeowsk1ft93A70lsDz
+         gy/RdYdJ/pvrB/coi/3+PCjEUw93AdyXAdfBq+t0Wukj1woGnDlqfDLQR5E2Vplp98GM
+         z/QOQJLCRXzQ3y4Xc0pj4iymT+xTxoV+76W7fkx9z0JyaV24+puoZ1Ex3lMnzKGUXS9z
+         RpGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794678532; x=1795283332;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Z/UcwHcKXUqaXtKk/lpD8kvZeZD8k73uW8qTCjwCp54=;
-        b=j8w/DLQBeBokj2Z/cmw+z+xrYIKYKnamV7OE1DZ4IL0NmR+kwdRDDGpCZqObGbamwz
-         exKhcRCjUEQRiYGBTxNlBZSQaWAhXztdrSG1pAnE4LeXJ98r+CMzVqUJ1JGaiAZBSZmW
-         ESAqchjqD4QZOxCO1o9vmPYpCtXlc9zB4x4ApR4LIFafpgMKJme+IvYgbNhMmz7eeBCZ
-         zjvPHgisKMXXVw2TgHFKn6wN9CVZq9ZudYLqmmCoR7tLeLlnB44kueQ1fzhd56TmpNQJ
-         N6+wJLHiE0ZaHko7QKb5MeO2VXp9SdwNWX2SIhL7cDYDWT0fPKzXuJqS6Z8XdU15iJQH
-         JHJA==
-X-Forwarded-Encrypted: i=1; AL+hErEy9ACD8JUs8O5N9WbvtEuClOk9k6h1HnAzuKRGe7zmAP7B1PLpd2R7ODGqAVoDSk3wFqr48VU3n4g+RV4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Dtu52fK8YW68PHzww0sIGHZjhbRjCtKdXvUe646J6Pg5SkFka
-	cnvQcxeR24iXv03xUdOYFejhZ0w9QaQb0uQCI5NFjDHprRpGgR/dzqVo
-X-Gm-Gg: AYBFou3dN26Se4PsR7ASOgCgMxWMvgxaEUudJO9LT8FEYPD0DxUf5GJE50Lp30iUgeK
-	WuOxqDUd9U9qIViqw9QQ11nxZfszjC3trkQ4KHp6w4e6aT5iZwhcAx1x6x4KPK1mjQWBWUo81gK
-	UHJXD7Mdfkex5V0z9cftiRItgJoDreztX6OwOcIpRwU00J+AiAkxFHrCVKvMkdw/4SbgVWn9HGB
-	Z97Btui4MX+rtFto3KLOrZciLfFfCkQ2BowAAqvV+e2vF0lZ9pTq5dspgLmCLQVuAakiTSqojTm
-	pY0nMkkGOY3GRgTxIxQcWuJ3Eez9rYRgH/agIbPVRxXHpoEbAkVgiizhf7uaCg7XcTwLQ/XF+3X
-	meGIrCiSCxxZe739dBXBEU+5IWi5vxAaKaH7PMVnoy43df7nGtj/NfM1LSArWZOMTp4GWcR/53+
-	KOVqAFqWT08Ez/Car/s+t55jVWy1ZCYjDAd6INdPIbgX60pPfpMfhA5CWC6X0Ho88ySuZQfxc36
-	uUfV7ChK1SXkJ7Rn0WcuQFollWtTB/ublF/f3tVwyrsmEjDP6HT2oqm0UCEJ0c/uGh4FdKL+Ck3
-	uLBrsBdX3jCt96A3EUGU17NPYn2/My2bYWaQFzAISaPXZfccXiceBS2AJA5ko6IkQ5j+jl4oq/3
-	fhF/YPJ5Io2h5lHOBG2D5q02d7tWr4w==
-X-Received: by 2002:a05:6a21:8203:b0:3e2:490d:5127 with SMTP id adf61e73a8af0-3f7a4dbe495mr6706402637.2.1794678531850;
-        Sat, 14 Nov 2026 09:48:51 -0800 (PST)
-Received: from junjungu-PC.localdomain ([2408:820c:9009:b6e2::7dee])
-        by smtp.googlemail.com with ESMTPSA id 41be03b00d2f7-cddc18b4352sm2670802a12.24.2026.11.14.09.48.47
+        d=1e100.net; s=20260707; t=1794678610; x=1795283410;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EmcviWPYqTHYUpdenTWoXsDvHVqyudI3P29XUYf6ckM=;
+        b=UYMUPmkPk+6lNWgyoXiCg5vrVjlpj8/yTm+voGY6SuEmHcY9N+YSonrKmkZi+pELFb
+         nqMGX2fmYNiRQkrGhypSDuZnhIYrGGbNBlzVYDgm99DnrShL0ahVIpZBNy4j18b+2t2s
+         a+vza9kVIEMwOqZ0xAZW4baOOeB/y65IsDpcszvQci35vAyj62nF/QLqtFylK2CUa4iv
+         tAKTPHrD+mhjCua2WEldMEVdhMNGsPdiFksVLPWhrW+tw0jXUCyIeJCLmIApHUvpr25N
+         US4ancfU8la1sFORqkGPelnDK0md4e1wWh5F+gY9xSvuiJnKM2UVlNa3JzW8YTBIFIsF
+         R3Xw==
+X-Forwarded-Encrypted: i=1; AL+hErFONYNbpwCLDNh8xXdkrfQ4qjdQk4jdRQZMOV2YZ3hkWvD0EoEGSsDQtJ1cqIb2SqOywF49e8GZFut6nmk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+HXQOXWEgxG5lzO5uTYOuTktL44iMJIF2VzfU3acinzNSyG1KW
+	svuz/JPnsXc3rK0n6DQVE+7RAFY59B86l9vUrz6Aj+37vNvl8g4MoPOc
+X-Gm-Gg: AYBFou3yoz3IE4GQWis+7c0aSe7z05V2NxMOROIJBgly+Y9ZviLMhxcUMOLfSeBFuDz
+	G6MqxcNwMJzvtm67mA1BmWIGg5UaZwMok2TWj0gebisCTcQIaMb+STYPve2U4M5nKCpAWQHnGKF
+	lPvvGllNrVqsVUlf8WX0lManqhgKPQ98e/k0ZiIbP3DrWam0NgStl2tPKgjPK1TsZyiRR7yUkex
+	7gf7wBEM1omFbV4H/dqCliPv45+A2kF7H1Z9djEF5PQqjm5oTsnuGADGuZa75Xa1skTOSplhN5j
+	dnmKo/PoB7c8nW7kVEct1vGJvvCpuqz4jFsNMx5Cbn/lAKQRcFYNR4skYmgdGLVAP/9q8EPhkY/
+	7Y1M+t/yb6+yip/UkeFJlTp96qZQ5vGD9iGW9mfcY3luKUj/Y9Nt3B7rIm+AKR/Gy6WZ5plctCH
+	ZQPzlA43bg5WrPtNjRyoXLthyU40aFza19e2tOK1dirxnm8Z1OQ7Q+L6bd8JglWV95f3Aibj9rx
+	F7/ddcw9aGy74ULGdU1Owj9Zw8HC/AGk/ToNDy+pWXJ3NuPjyT8yZxny9WaiVdEl0C7xn3ouHNk
+	uc/jV0K3RnYLKEchlZ/i58PuINdi
+X-Received: by 2002:a17:90b:3912:b0:3ac:9d83:8856 with SMTP id 98e67ed59e1d1-3b1b087c1b3mr6348390a91.9.1794678610160;
+        Sat, 14 Nov 2026 09:50:10 -0800 (PST)
+Received: from ThinkPad ([192.220.23.71])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197c6c9c5sm14569383a91.1.2026.11.14.09.50.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 09:48:51 -0800 (PST)
-From: Felix Gu <ustc.gu@gmail.com>
-Date: Sun, 15 Nov 2026 01:48:42 +0800
-Subject: [PATCH] spi: spi-qpic-snand: fix DMA unmapping on probe failure
+        Sat, 14 Nov 2026 09:50:09 -0800 (PST)
+From: Qiling Zhu <kmatzkaczor244@gmail.com>
+To: Mark Pearson <mpearson-lenovo@squebb.ca>,
+	"Derek J. Clark" <derekjohn.clark@gmail.com>,
+	Rong Zhang <i@rong.moe>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Henrique de Moraes Holschuh <hmh@hmh.eng.br>
+Cc: Andrea Rabbaglietti <rabbagliettiandrea@gmail.com>,
+	Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Griffin Kroah-Hartman <griffin@kroah.com>,
+	vishnuocv@gmail.com,
+	vsankar@lenovo.com,
+	platform-driver-x86@vger.kernel.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	linux-leds@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/7] platform/x86: thinkpad_acpi: Add support for auto keyboard backlight
+Date: Sun, 15 Nov 2026 01:48:07 +0800
+Message-ID: <20261114174814.62153-1-kmatzkaczor244@gmail.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261102151211.40701-1-kmatzkaczor244@gmail.com>
+References: <20261102151211.40701-1-kmatzkaczor244@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,60 +110,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261115-qpic-snand-v1-1-74df634096ee@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ5AMBBA0avIrDVpCUldRSyqpoxF0UEkjbsrl
- m/xfwTGQMjQZBECnsS0+ASVZ2An40cUNCRDIYtaKVWJbSUr2Bs/CNSuRCeNtqaCFKwBHV3frO1
- +89HPaPf3APf9ANXl5tpuAAAA
-X-Change-ID: 20261115-qpic-snand-e9f3ef0a9ca5
-To: Mark Brown <broonie@kernel.org>, 
- Sricharan Ramabadhran <quic_srichara@quicinc.com>, 
- Varadarajan Narayanan <quic_varada@quicinc.com>, 
- Md Sadre Alam <quic_mdalam@quicinc.com>
-Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Felix Gu <ustc.gu@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794678527; l=1199;
- i=ustc.gu@gmail.com; s=20261030; h=from:subject:message-id;
- bh=PW6c9S/gzhT1sfHRfpQ0G/XwjJdB33xWHslK5WJM/Mg=;
- b=wat4but5y2s3u9Lfh4bhf/ILk8tlX+ZbL5jq8u2nhvZRjeLummejFXOWVqRDdm2yr0HimJEWD
- ZZ3YOS0ZfyoDxfsTB/wzrGls5bwE7glQnT0i2QSBN3rvMWambq5yTNB
-X-Developer-Key: i=ustc.gu@gmail.com; a=ed25519;
- pk=fjDJtbnSeysEBjmOfNYqYUUDS6g7Tfov9W5oGngTBfo=
+Content-Transfer-Encoding: 8bit
 
-The probe error path passes the physical MMIO address to
-dma_unmap_resource(). This can differ from the DMA address returned
-by dma_map_resource(), causing cleanup to unmap the wrong range
-and leave the original mapping allocated.
+Hi all,
 
-Use snandc->base_dma to unmap the resource, matching the remove path.
+Thanks, Rong, for the two rounds of detailed review, Vishnu and Mark
+for the firmware-side answers, and Andrea for the bug report that
+became the first patch. This v3 addresses the feedback in full; the
+series grew from two to seven patches to pick up the suggested
+structure and to make the fixes independently backportable.
 
-Fixes: 7304d1909080 ("spi: spi-qpic: add driver for QCOM SPI NAND flash Interface")
-Signed-off-by: Felix Gu <ustc.gu@gmail.com>
----
- drivers/spi/spi-qpic-snand.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The series in short:
 
-diff --git a/drivers/spi/spi-qpic-snand.c b/drivers/spi/spi-qpic-snand.c
-index b03e2e4f0f0b..6cb6e02d2498 100644
---- a/drivers/spi/spi-qpic-snand.c
-+++ b/drivers/spi/spi-qpic-snand.c
-@@ -1668,7 +1668,7 @@ static int qcom_spi_probe(struct platform_device *pdev)
- err_spi_init:
- 	qcom_nandc_unalloc(snandc);
- err_snand_alloc:
--	dma_unmap_resource(dev, res->start, resource_size(res),
-+	dma_unmap_resource(dev, snandc->base_dma, resource_size(res),
- 			   DMA_BIDIRECTIONAL, 0);
- 	return ret;
- }
+  1/7  Report auto mode as brightness 0 instead of 3          (stable fix)
+  2/7  Extract kbdlight_notify_change() helpers               (refactor)
+  3/7  Sync LED core state on level writes          (write-path sync)
+  4/7  Detect auto-mode capability via MLCG bit 20            (groundwork)
+  5/7  Skip LED suspend/resume on auto-mode machines
+  6/7  Add support for auto keyboard backlight                 (the feature)
+  7/7  Reconcile EC level on resume
 
----
-base-commit: 793807ca13bf3072fc6d16ce6d90e9ab9beff2a5
-change-id: 20261115-qpic-snand-e9f3ef0a9ca5
+Changes since v2, by comment:
 
-Best regards,
---  
-Felix Gu <ustc.gu@gmail.com>
+* The notification path is now split as suggested: a helper that accepts
+  a level and a wrapper that queries the EC (2/7), and the proc write
+  path goes through it (3/7), like commit 07f48f668fac did for the
+  ideapad FnLock LED. The manual check-then-act trigger removal is gone
+  entirely; leaving auto mode through either interface now drops the
+  trigger through the LED core.
 
+* LED suspend/resume is skipped entirely on machines that support auto
+  mode, keyed on the capability bit rather than the current level (5/7),
+  as suggested. My testing confirms the firmware restores the previous
+  level on its own in all cases except auto mode across hibernation;
+  less state remains in the driver, and the class of races around
+  LED_SUSPENDED disappears.
+
+* activate() is now a one-liner with no read-back verification (6/7);
+  it only writes the level, using the plain set helper. I did not use
+  the updating wrapper there on purpose: the trigger core is in the
+  middle of its own activation flow at that point, and the 0x1012 event
+  that follows the level change is expected to bring the state back in
+  sync through the regular notify path.
+
+* Trigger registration is gated on MLCG bit 20 as per Vishnu's
+  confirmation (4/7 + 6/7).
+
+* Andrea's report is fixed by 1/7, which reports auto mode as 0 to the
+  LED classdev and is marked for stable. It is deliberately minimal -
+  a single check, no further splitting - to keep backporting easy.
+
+* On the proc attribute deprecation: I support the idea, deferring to
+  the thinkpad_acpi maintainers.
+
+One addition that was not in v2: testing showed that the firmware does
+not restore auto mode across hibernation - the EC comes back with the
+backlight off, without an event. Rather than re-attaching the trigger
+from the pre-suspend state, 7/7 simply re-reads the EC level on resume
+and routes it through the regular notification path. If the firmware
+exits auto mode across hibernation, the driver simply reflects the
+resulting EC state rather than restoring the previous mode: it stays
+out of the firmware's way and only synchronizes, which keeps the code
+simple. Happy to hear opinions.
+
+A few notes on the result:
+
+* Writing a level through either interface now also emits
+  brightness_hw_changed: both write paths share the same notify helper,
+  which keeps the LED core and userspace listeners consistent with the
+  new level no matter which interface was used. Rewriting the current
+  level emits nothing, matching the firmware's own
+  no-event-on-same-level semantics. Extending the notification to
+  userspace-initiated changes seemed reasonable to me - the OSD then
+  also reflects echo-based changes - but I'm happy to restrict it to
+  hardware-initiated transitions if that is considered the better
+  semantics.
+
+* All state transitions now run under kbdlight_mutex in single
+  critical sections (query + reconcile, write + reconcile), with the
+  set and notify helpers expecting the caller to hold it. On the
+  ordering with the LED core's trigger_lock, my reasoning is that the
+  trigger callbacks (activate, hw_offloaded) are reached with
+  trigger_lock held and then take kbdlight_mutex, while the
+  notification helper is lock-free (it only queues the worker), so I
+  don't see a reverse nesting. Extra eyes on this are welcome.
+
+* The cached level is now the raw EC level including auto mode, so the
+  kbdlight_brightness name has drifted a bit from what it holds.
+  Renaming it would touch quite a few places; I left it as is for now
+  and can do the rename as a follow-up if preferred.
+
+One open question, mainly for Mark and Vishnu: the skip of LED
+suspend/resume assumes the firmware turns the backlight off on suspend
+and restores it on resume on all auto-mode capable machines, which is
+what I observed here for manual levels (suspend and hibernation), auto
+across suspend, and auto across hibernation coming back off. My belief
+is that most machines handle this fine, but more testing on other
+models or a look at the EC documentation from the Lenovo side would be
+needed to be sure; if an exception turns up, a DMI quirk could restore
+the old path for that machine.
+
+Tested on my ThinkPad X1 Carbon Gen 14 (linux-next next-20261030).
+
+I'm still learning the ways of upstream; thank you all for your time
+and reviews, and any further comments are most welcome.
+
+This series was developed with LLM assistance; I reviewed every design
+decision against the framework sources and validated the behavior on
+real hardware myself.
+
+Regards,
+Qiling Zhu
+
+Qiling Zhu (7):
+  platform/x86: thinkpad_acpi: Report auto keyboard backlight mode as off
+  platform/x86: thinkpad_acpi: Extract kbdlight_notify_change() helpers
+  platform/x86: thinkpad_acpi: Sync LED core state on level writes
+  platform/x86: thinkpad_acpi: Detect auto-mode capability via MLCG
+  platform/x86: thinkpad_acpi: Skip LED suspend/resume on auto-mode machines
+  platform/x86: thinkpad_acpi: Add support for auto keyboard backlight
+  platform/x86: thinkpad_acpi: Reconcile EC level on resume
