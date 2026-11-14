@@ -1,79 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794666384;
-	b=NDB50ytxI7zuJYy0k726EKuLCP91tK/LILR5DpuIk4ZxBugye0mEJvlztG79lk0U8EPB
-	 K0zKdEfSH6KUvRgf0S4ASwp6IgLP1H8Fi9DA0/LT1cqT5OYs3dgjj9mZH2bk+YrtRYsmg
-	 su4OpWSB0l+iHU8AXAUBSpg4LFJyf5y6v/JZFpPSTXDI7j34kt6oeW35D279Fko1FG/JQ
-	 eVipD5V1Hgj0IovcRu6riGQK+tyVEZ0eIAqkVjZu8ixtaoIvhDHprlJ5kRrUhnB05Evss
-	 Vngus4713juijZOpgXI1wSz9kNoZm2kQ8oOre2Z2trlq8e4SY0bW6ItCO1i9FTLhNqw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794666384;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=c5hLouU63MKf0S+VRKxiE981wQdchdO7ZcCZzt70ziY=;
-	b=M7IKJiJeOurZdqovvT7jBeocHxK8YSNlT1mh5gGHJF+7ZCIF4Jufx6ceOqSZboJnhd5w
-	 PC0KJR0SnyI02Yh4ZzhU4YndRCnPLaZh90S4HI73Gv6UCS+xrITrDtyGHFzRLVDE/UUrG
-	 I2ntNrtXh07VI338SpTIJRvLgRTTvZGlrhHLqKiLCpvbnkGSf+hnne1LP5EFqoRWb660m
-	 pF6tDG3g3SzgED40Bea31SRoFVXCyuPu3BCv/GSLvnMM/cEJj7WtNCvtaAdoOqTjKl+gU
-	 s9ZNPf80pxVq4VGOmNk5QsxPiGSs3owAqcoYvTs94UFhSMqi7+7oS9qZ0C8i827LkQA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cSHX7OCo;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61CF9606A327;
-	Sat, 14 Nov 2026 14:26:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cSHX7OCo
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794666384;
-	b=Ni9pWeetlRoIbVu++EoUYDLoC3dqPczDVK/O+UENFmOmrxAs8qQliiR1DXoOZbvcXzcd
-	 qKsL6mDFgGbPMOecYGHPROxFT1ym2o6kf0m2OSrcvoXf6YZRagibVY6wXUmafWiazzsaJ
-	 ykiPwQm5b1hcYWGQeJi5ed8m3cEB2XPTxZ7wwvzouHWot6uF2D8hMe42V7m0d1TCjBkNX
-	 nk974RlsFxMZ1myAsLHhHidCXisT6sxHxmaD18ZvFgQ8wEVkJp4j2vT60UIQwtDvrRTHU
-	 WEesgxji2jzL+SuBezQWleF5XhtcmGoTzOlkD7qP+YG7TATR0jcFlko47Ldg9TxGKqw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794666384;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=c5hLouU63MKf0S+VRKxiE981wQdchdO7ZcCZzt70ziY=;
-	b=I1mbt+3kbGLwdubseCPLltPhGpXi6N/+xqWwRaplHG3tVZKEBeRtzW+4flWc5EtqhftQ
-	 Je1KKn6bzeGTIhNviaB+Wd/QqOwvFuAFhj3NHaaHI2PqC1VLJ4jeYEm8VRdxhhBpxYvWP
-	 pAMM8GZwFYntLSQdnXFIr/AhRN3t9uw+K42QFjZ6qXO5MuIMN5OyInud/90P3RyXyxcqE
-	 rCw5Qx+16/iQmD8EAHNbLBkyIjp0yPeCDSk71sxWEFVFOZVXjSqjrirWrkswso3ZM1UtU
-	 yT7khSayskSpqIcQP6EACBmf8bRNcfchAvaJltkFXFguxpBN/pkxCwRr24sB/RggOVw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.69
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794666453;
+	b=Wmx83NlWvSPR8hU6wvoL1mnqyc7SVJ2uyucDCpBrkrpaVHWHzd0bDs9+2SQtL2zFVdxu
+	 V/F0WoR3ej3EJI21bt6VNh/9RVmdTNj2Jj+CKQ8hIcXA93vtVSTHuyoio/Jz9kjhgmf1s
+	 hCDOd0eZLfWubuzZ4y8a4iUzCxNllREaubTsrUT97yV1Zh4kOPk3tQw0OFJgQWnrAN/HI
+	 3FCmKVofzFiT5Z5cHaBkWhLy437G2ygChoOQjGhnVjnVzN13umTEYamFGagIXt4UAXwJv
+	 bqJJxlFC96+NdPw/YoEamBIevXD31mLZQc3oAwrPZ5zT3/9SliIPs09hVBiuxaFpMWg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794666453;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=YfG/qSQI5pTIdG2JUWK/8TRtadRGl682+LLoIQ+5zow=;
+	b=p7JoYshpOj0UjsSvmct4bHDVfGYMUy2qUffYfwIdUk4R+2j4LXJkEB0EiHyUcZhCyhRN
+	 JA/xd0NBuJdtCfo7V5+fEhIXYb4/XwPlJtdkTw2Xw/xjJXrVwfcCI0hYAsxBzrkG6CkUl
+	 CKOOBBKJU0imSp+lW7047ys4D6SJRLY/J12X0lZulZpG8/8KHgHgLA2c6CkWdgt+6bV0z
+	 kC0qrf9j38G/dcA2VYvB1fJTxUXqqt2mxn48x5VmS31uXqqPbzgbJBgr2p9gHaNttJfB/
+	 nLVuREs3r1jMEIRiDzXyMv23x/M0FoB08jHuJ+5wjA/dWRS5B4I9F5CGuNzLrzflvFg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.210.69
+Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id F1ED41F000C4;
-	Sat, 14 Nov 2026 14:26:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794666384;
-	bh=c5hLouU63MKf0S+VRKxiE981wQdchdO7ZcCZzt70ziY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=cSHX7OCoEIhz3ZIVbAETmk2CGkxkSe2ImUmA5TAKiGZ10zxRF4qv4N97Ih5TeegTD
-	 j/2mtjb752evoELy+CV2dQJ7NQN+6lk7ZuOqulg0DqSoN/1ShDPTD5YarHDGm2HZCz
-	 6tUN1iiIPb/WqDChYpiFjeb5+M70oaoPrVz8kO6pYvu4Q99A3+aS93JHekkYCw/Ytq
-	 vuwtBKNwRi4j169QL8CCOayfC9YWYIa/dTQ0YUAFbmDLy4ya7L7o8Kt/Mav1cYvpU2
-	 IpZFwcU22OSlLnF4EQxuy/xrstmWi+4C5vOOEi5Qiow1Byi0xYKmTgOPlVlENIQSZc
-	 7DQu2TaEGZfqw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 6BDE549E0A;
-	Sat, 14 Nov 2026 14:26:22 +0000 (UTC)
-From: Manivannan Sadhasivam via B4 Relay <devnull+manivannan.sadhasivam.oss.qualcomm.com@kernel.org>
-Date: Sat, 14 Nov 2026 06:26:13 -0800
-Subject: [PATCH net-next v6 1/4] net: qrtr: Allow the host QRTR to assign a
- unique node id
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 449E8606A327
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 14:27:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 449E8606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-847e2926d94so4474674a34.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:27:33 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794666452; x=1795271252;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YfG/qSQI5pTIdG2JUWK/8TRtadRGl682+LLoIQ+5zow=;
+        b=0Ze4NzwxRVvVFQtVUhWxho7RPOVL5nXI34wg6O9TacSmOPzQw9j6yKAkw8YLkIwRo9
+         563859QDFBrGrEpIJj2JOZk9Kx1uMIAlEHSnS8X0qI+YZeMXvZmDZYFIm1tc4V4H9pKx
+         R82s/c6QF/ebD34SurDujePtrAbD9TKf4Kp+duAK0AXM/7s4rnQMKRCDMHsXaKFooWYs
+         11xME66ypJdqwQJWuBvco7WyjRhF1TE1MLzkAGXjto3SVfscvmZKkixcBNIsdIrfaaH5
+         awMHrBXXIKDDhuL4aHCOFvJq6ktsJWo85pnJzhnVUqYssrsw2CKW1kCetDujPgd+NJTk
+         sQzQ==
+X-Forwarded-Encrypted: i=1; AL+hErGinxTAdeQ+ohKibEfPhe5if1ckhBNzimaX0RpRi06xWhiSaI31OTkWirlMIdkIfSN0tRaSgq2tgclLcm4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+puefJ8BszxINYQFhRsEZcAZb/1JcwI6uLGUdotBAkf7dP2QW2
+	tWMFgssAZa0Ve2Nvx7qWIpmBokc8PFE7T3f+EAXlU3cjvXbNhUArI3GHn0Eqwldmk8sGLrE3NRE
+	OIJ0s+nTaFkuMJNloYFy+HNulhZMAevU4DGhcxiQcEc0siqL0xFHJLiMDLvQ=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,337 +58,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261114-qrtr-multi-ep-v6-1-2eb9885659e2@oss.qualcomm.com>
-References: <20261114-qrtr-multi-ep-v6-0-2eb9885659e2@oss.qualcomm.com>
-In-Reply-To: <20261114-qrtr-multi-ep-v6-0-2eb9885659e2@oss.qualcomm.com>
-To: Manivannan Sadhasivam <mani@kernel.org>, 
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Jeff Johnson <jjohnson@kernel.org>, Eric Dumazet <edumazet@kernel.org>, 
- Eric Dumazet <edumazet@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org, 
- ath11k@lists.infradead.org, ath12k@lists.infradead.org, 
- Bjorn Andersson <andersson@kernel.org>, 
- Chris Lew <christopher.lew@oss.qualcomm.com>, 
- Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>, 
- Raj Kumar Bhagat <raj.bhagat@oss.qualcomm.com>, 
- Juha-Matti Tilli <juha-matti.tilli@iki.fi>, 
- Jeff Hugo <jeff.hugo@oss.qualcomm.com>, 
- Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9753;
- i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
- bh=itpNcDJIBJ3puJEbvOx8X3vEbV1CcVXXyMZImRMrqBY=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq+G+Lqsf7WRyyALsoiiLhgISSH7S/iaH0G+EJG
- zXj0BDWJnmJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCavhviwAKCRBVnxHm/pHO
- 9R0dCACYgNDnM8HvDJandAjPcrDCUimBm2MNIfoh11meyuHyMIfKfPIbA5dHCiQ50V+zzzaCIsE
- vc4I6kSb9afW8Qeq3YWHp4sCD1vhi6qYPjwujzpKFxK65ouz1H7F1gDmXkUzjpGVPcIbdokWBzl
- p0mtrhFH1X450PYkHBQJswYG7N3/cdUDt+GfM3Rl+lWyGjW+grU8qnYk6LyLrdv+midKUev2/dC
- S3HYnWEkXZobmDfvxxnf7G0APL5bRVkhQND369wVSh9+BAixq7YhH3+nVXywZjCIBxzaZ4qFwBo
- rPVNRQFBAq4X+QotK2ClGUwtxO/3uEqA6pAvrQ58EVwvdRYa
-X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
-X-Endpoint-Received: by B4 Relay for
- manivannan.sadhasivam@oss.qualcomm.com/default with auth_id=461
-X-Original-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Reply-To: manivannan.sadhasivam@oss.qualcomm.com
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:2208:b0:572:d0fb:ae57 with SMTP id
+ 5614622812f47-572d10afe15mr174078b6e.28.1794666452208; Sat, 14 Nov 2026
+ 06:27:32 -0800 (PST)
+Date: Sat, 14 Nov 2026 06:27:32 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af86fd4.07d0a7c9.39b765.0005.GAE@google.com>
+Subject: [syzbot] [squashfs?] kernel BUG in vfs_get_tree (3)
+From: syzbot <syzbot+7b1d0ea11475e857d063@syzkaller.appspotmail.com>
+To: brauner@kernel.org, jack@suse.cz, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, phillip@squashfs.org.uk, 
+	squashfs-devel@lists.sourceforge.net, syzkaller-bugs@googlegroups.com, 
+	viro@zeniv.linux.org.uk
+Content-Type: text/plain; charset="UTF-8"
 
-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Hello,
 
-Currently, QRTR identifies each remote node by the value of the
-'src_node_id' field in the received packet and uses the node id as the key
-to store the node to the internal 'qrtr_nodes' radix tree.
+syzbot found the following issue on:
 
-But this approach comes with a limitation. When more than one remote node
-share the same id, then QRTR can only add the first node to the radix tree
-and has to drop the successive nodes with the same node id as the 'key' in
-radix tree has to be unique. This prevents connecting identical Qcom PCIe
-WLAN devices to a single host at the same time.
+HEAD commit:    84abb955b101 Add linux-next specific files for 20261113
+git tree:       linux-next
+console+strace: https://syzkaller.appspot.com/x/log.txt?x=149b45be580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=d9d5eeb0ba036071
+dashboard link: https://syzkaller.appspot.com/bug?extid=7b1d0ea11475e857d063
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=17da103d580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1352844d580000
 
-To fix this limitation, allow the host QRTR to use the node id (nid)
-received from the endpoint driver during qrtr_endpoint_register() as the
-unique node id and use it as the 'key' for the internal radix tree. Also,
-store the received 'src_id' in a new 'qrtr_node->ep_nid' field and replace
-the 'ep_nid' with the unique 'nid' in the QRTR control packets if both
-differ i.e., an endpoint driver has passed a unique 'nid' during
-qrtr_endpoint_register(). To maintain symmetry, replace the 'nid' with the
-'ep_nid' while sending the packet back to the remote node if both differ.
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/ffae1d4a717e/disk-84abb955.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/fd2a35a63abf/vmlinux-84abb955.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/039ccf647778/bzImage-84abb955.xz
+mounted in repro: https://storage.googleapis.com/syzbot-assets/dbda48ecccdc/mount_0.gz
 
-A node can also bridge other distant nodes, so the source id of an
-incoming packet is not always the id the endpoint advertises for itself.
-Keep adding such ids to the radix tree as additional keys for the same
-node, as it was done before this change. Otherwise the bridged nodes would
-lose their route and qrtr_sendmsg() would start failing with -ECONNRESET
-for them.
+AI-generated root cause summary:
+In squashfs_read_inode(), reading directory metadata via
+squashfs_read_metadata() returns the positive number of bytes read (32 for
+SQUASHFS_DIR_TYPE and 40 for SQUASHFS_LDIR_TYPE). When the directory size sanity
+check fails (inode->i_size < 3), the code jumps to failed_read without setting
+err to a negative errno such as -EINVAL. Consequently, squashfs_read_inode()
+returns positive 40 (or 32), which propagates up through squashfs_fill_super()
+and get_tree_bdev() to vfs_get_tree(). Because vfs_get_tree() only checks for
+error < 0, it observes a positive return value without fc->root being populated,
+triggering an explicit kernel BUG().
 
-Currently, all QRTR endpoint drivers pass 'QRTR_EP_NID_AUTO' as the 'nid'
-during qrtr_endpoint_register(). So 'ep_nid' and 'nid' are same and the
-routing behavior is not changed.
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=7b1d0ea11475e857d063
 
-Finally, since qrtr_node_rewrite_ctrl() dereferences the control packet for
-DEL_SERVER and DEL_CLIENT as well, extend the existing length check in
-qrtr_endpoint_post() to cover both types.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+7b1d0ea11475e857d063@syzkaller.appspotmail.com
 
-Reviewed-by: Simon Horman <horms@kernel.org>
-Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+loop0: detected capacity change from 0 to 8
+SQUASHFS error: Unable to read inode 0x11f
+Filesystem squashfs get_tree() didn't set fc->root, returned 40
+------------[ cut here ]------------
+kernel BUG at fs/super.c:2174!
+Oops: invalid opcode: 0000 [#1] SMP KASAN PTI
+CPU: 0 UID: 0 PID: 5645 Comm: syz-executor247 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
+RIP: 0010:vfs_get_tree+0x29c/0x2a0 fs/super.c:2174
+Code: 1b 48 89 d8 48 c1 e8 03 42 80 3c 28 00 74 08 48 89 df e8 07 2b eb ff 48 8b 33 48 c7 c7 00 6b 40 8c 44 89 f2 e8 85 81 c9 fe 90 <0f> 0b 66 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f
+RSP: 0018:ffffc90003a67c88 EFLAGS: 00010246
+RAX: 000000000000003f RBX: ffffffff903c9a60 RCX: f236a142641ab000
+RDX: 0000000000000000 RSI: 0000000000000001 RDI: 0000000000000000
+RBP: ffffc90003a67df0 R08: ffffffff9014d12b R09: 1ffffffff2029a25
+R10: dffffc0000000000 R11: fffffbfff2029a26 R12: 1ffff11003b5f455
+R13: dffffc0000000000 R14: 0000000000000028 R15: 0000000000000000
+FS:  0000555561a2d400(0000) GS:ffff8881233cd000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007ffd3ab27000 CR3: 000000007b7a8000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ fc_mount fs/namespace.c:1300 [inline]
+ do_new_mount_fc fs/namespace.c:4030 [inline]
+ do_new_mount+0x325/0xb00 fs/namespace.c:4106
+ do_mount fs/namespace.c:4470 [inline]
+ __do_sys_mount fs/namespace.c:4683 [inline]
+ __se_sys_mount+0x31d/0x420 fs/namespace.c:4660
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x00007f7481046aca
+Code: 56 53 b8 9d 00 00 00 0f 05 83 f8 ea 75 a2 c7 05 c4 ff 08 00 00 00 00 00 eb 96 e8 51 05 00 00 90 49 89 ca b8 a5 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffd3ab26658 EFLAGS: 00000206 ORIG_RAX: 00000000000000a5
+RAX: ffffffffffffffda RBX: 00007ffd3ab26680 RCX: 00007f7481046aca
+RDX: 00002000000001c0 RSI: 0000200000000200 RDI: 00007ffd3ab26680
+RBP: 00002000000001c0 R08: 00007ffd3ab266c0 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000206 R12: 0000200000000200
+R13: 00007ffd3ab266c0 R14: 0000000000000003 R15: 0000000000000000
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:vfs_get_tree+0x29c/0x2a0 fs/super.c:2174
+Code: 1b 48 89 d8 48 c1 e8 03 42 80 3c 28 00 74 08 48 89 df e8 07 2b eb ff 48 8b 33 48 c7 c7 00 6b 40 8c 44 89 f2 e8 85 81 c9 fe 90 <0f> 0b 66 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f
+RSP: 0018:ffffc90003a67c88 EFLAGS: 00010246
+RAX: 000000000000003f RBX: ffffffff903c9a60 RCX: f236a142641ab000
+RDX: 0000000000000000 RSI: 0000000000000001 RDI: 0000000000000000
+RBP: ffffc90003a67df0 R08: ffffffff9014d12b R09: 1ffffffff2029a25
+R10: dffffc0000000000 R11: fffffbfff2029a26 R12: 1ffff11003b5f455
+R13: dffffc0000000000 R14: 0000000000000028 R15: 0000000000000000
+FS:  0000555561a2d400(0000) GS:ffff8881233cd000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007ffd3ab27000 CR3: 000000007b7a8000 CR4: 00000000003526f0
+
+
 ---
- net/qrtr/af_qrtr.c | 136 ++++++++++++++++++++++++++++++++++++++++++++++-------
- 1 file changed, 120 insertions(+), 16 deletions(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/net/qrtr/af_qrtr.c b/net/qrtr/af_qrtr.c
-index 45cb8e8c36ca..fff1d70fd8bf 100644
---- a/net/qrtr/af_qrtr.c
-+++ b/net/qrtr/af_qrtr.c
-@@ -118,7 +118,8 @@ static DEFINE_XARRAY_ALLOC(qrtr_ports);
-  * @ep_lock: lock for endpoint management and callbacks
-  * @ep: endpoint
-  * @ref: reference count for node
-- * @nid: node id
-+ * @nid: node id assigned by the host QRTR
-+ * @ep_nid: endpoint's own node id as received
-  * @qrtr_tx_flow: xarray of qrtr_tx_flow, keyed by node << 32 | port
-  * @qrtr_tx_lock: lock for qrtr_tx_flow inserts
-  * @hello_sent: hello packet send successful
-@@ -132,6 +133,7 @@ struct qrtr_node {
- 	struct qrtr_endpoint *ep;
- 	struct kref ref;
- 	unsigned int nid;
-+	unsigned int ep_nid;
- 
- 	struct xarray qrtr_tx_flow;
- 	struct mutex qrtr_tx_lock; /* for qrtr_tx_flow */
-@@ -349,6 +351,7 @@ static int qrtr_node_enqueue(struct qrtr_node *node, struct sk_buff *skb,
- {
- 	struct qrtr_hdr_v1 *hdr;
- 	size_t len = skb->len;
-+	unsigned int dst_node;
- 	int rc, confirm_rx;
- 
- 	mutex_lock(&node->ep_lock);
-@@ -371,10 +374,14 @@ static int qrtr_node_enqueue(struct qrtr_node *node, struct sk_buff *skb,
- 	hdr->src_node_id = cpu_to_le32(from->sq_node);
- 	hdr->src_port_id = cpu_to_le32(from->sq_port);
- 	if (to->sq_port == QRTR_PORT_CTRL) {
--		hdr->dst_node_id = cpu_to_le32(READ_ONCE(node->nid));
-+		hdr->dst_node_id = cpu_to_le32(READ_ONCE(node->ep_nid));
- 		hdr->dst_port_id = cpu_to_le32(QRTR_PORT_CTRL);
- 	} else {
--		hdr->dst_node_id = cpu_to_le32(to->sq_node);
-+		/* Put back the endpoint's own node id */
-+		dst_node = to->sq_node;
-+		if (dst_node == READ_ONCE(node->nid))
-+			dst_node = READ_ONCE(node->ep_nid);
-+		hdr->dst_node_id = cpu_to_le32(dst_node);
- 		hdr->dst_port_id = cpu_to_le32(to->sq_port);
- 	}
- 
-@@ -424,23 +431,75 @@ static struct qrtr_node *qrtr_node_lookup(unsigned int nid)
- 	return node;
- }
- 
--/* Assign node id to node.
-+/*
-+ * Add 'nid' as a lookup key for 'node', and adopt it as the node's own id if
-+ * the node does not have one yet.
-+ *
-+ * Callers must hold 'qrtr_nodes_lock'.
-  *
-- * This is mostly useful for automatic node id assignment, based on
-- * the source id in the incoming packet.
-+ * Return: 0 on success; negative error code on failure
-  */
--static void qrtr_node_assign(struct qrtr_node *node, unsigned int nid)
-+static int __qrtr_node_assign(struct qrtr_node *node, unsigned int nid)
- {
--	unsigned long flags;
-+	int rc;
- 
- 	if (nid == QRTR_EP_NID_AUTO)
--		return;
-+		return 0;
-+
-+	if (radix_tree_lookup(&qrtr_nodes, nid) == node)
-+		return 0;
-+
-+	rc = radix_tree_insert(&qrtr_nodes, nid, node);
-+	if (rc)
-+		return rc;
- 
--	spin_lock_irqsave(&qrtr_nodes_lock, flags);
--	radix_tree_insert(&qrtr_nodes, nid, node);
- 	if (node->nid == QRTR_EP_NID_AUTO)
- 		WRITE_ONCE(node->nid, nid);
-+
-+	return 0;
-+}
-+
-+/*
-+ * Assign node id to node.
-+ *
-+ * Return: 0 on success; negative error code on failure
-+ */
-+static int qrtr_node_assign(struct qrtr_node *node, unsigned int nid)
-+{
-+	unsigned long flags;
-+	int rc;
-+
-+	spin_lock_irqsave(&qrtr_nodes_lock, flags);
-+	rc = __qrtr_node_assign(node, nid);
- 	spin_unlock_irqrestore(&qrtr_nodes_lock, flags);
-+
-+	return rc;
-+}
-+
-+/*
-+ * Replace the node id in the control packet with 'node->nid', if both are
-+ * different.
-+ */
-+static void qrtr_node_rewrite_ctrl(struct qrtr_node *node, unsigned int type,
-+				   struct sk_buff *skb)
-+{
-+	unsigned int ep_nid = READ_ONCE(node->ep_nid);
-+	unsigned int host_nid = READ_ONCE(node->nid);
-+	struct qrtr_ctrl_pkt *pkt;
-+	__le32 *nid;
-+
-+	if (host_nid == ep_nid)
-+		return;
-+
-+	pkt = (struct qrtr_ctrl_pkt *)skb->data;
-+	if (type == QRTR_TYPE_DEL_CLIENT || type == QRTR_TYPE_RESUME_TX)
-+		nid = &pkt->client.node;
-+	else
-+		nid = &pkt->server.node;
-+
-+	/* Rewrite only the endpoint's node id, not those of bridged nodes */
-+	if (le32_to_cpu(*nid) == ep_nid)
-+		*nid = cpu_to_le32(host_nid);
- }
- 
- /**
-@@ -459,9 +518,12 @@ int qrtr_endpoint_post(struct qrtr_endpoint *ep, const void *data, size_t len)
- 	struct qrtr_sock *ipc;
- 	struct sk_buff *skb;
- 	struct qrtr_cb *cb;
-+	unsigned long flags;
- 	size_t size;
- 	unsigned int ver;
-+	unsigned int nid;
- 	size_t hdrlen;
-+	int rc = 0;
- 
- 	if (len == 0 || len & 3)
- 		return -EINVAL;
-@@ -523,6 +585,8 @@ int qrtr_endpoint_post(struct qrtr_endpoint *ep, const void *data, size_t len)
- 		goto err;
- 
- 	if ((cb->type == QRTR_TYPE_NEW_SERVER ||
-+	     cb->type == QRTR_TYPE_DEL_SERVER ||
-+	     cb->type == QRTR_TYPE_DEL_CLIENT ||
- 	     cb->type == QRTR_TYPE_RESUME_TX) &&
- 	    size < sizeof(struct qrtr_ctrl_pkt))
- 		goto err;
-@@ -533,14 +597,36 @@ int qrtr_endpoint_post(struct qrtr_endpoint *ep, const void *data, size_t len)
- 
- 	skb_put_data(skb, data + hdrlen, size);
- 
--	qrtr_node_assign(node, cb->src_node);
-+	nid = cb->src_node;
-+
-+	spin_lock_irqsave(&qrtr_nodes_lock, flags);
-+
-+	if (node->ep_nid == QRTR_EP_NID_AUTO)
-+		WRITE_ONCE(node->ep_nid, nid);
-+
-+	/*
-+	 * Add the source id to the lookup table only if 'node->nid' is auto
-+	 * assigned or the packet came from a bridged node.
-+	 */
-+	if (node->nid == QRTR_EP_NID_AUTO || nid != node->ep_nid)
-+		rc = __qrtr_node_assign(node, nid);
-+
-+	spin_unlock_irqrestore(&qrtr_nodes_lock, flags);
-+
-+	if (rc)
-+		goto err_nid;
- 
- 	if (cb->type == QRTR_TYPE_NEW_SERVER) {
- 		/* Remote node endpoint can bridge other distant nodes */
--		const struct qrtr_ctrl_pkt *pkt;
-+		const struct qrtr_ctrl_pkt *pkt = data + hdrlen;
-+
-+		nid = le32_to_cpu(pkt->server.node);
- 
--		pkt = data + hdrlen;
--		qrtr_node_assign(node, le32_to_cpu(pkt->server.node));
-+		if (nid != READ_ONCE(node->ep_nid)) {
-+			rc = qrtr_node_assign(node, nid);
-+			if (rc)
-+				goto err_nid;
-+		}
- 	}
- 
- 	if (cb->type == QRTR_TYPE_HELLO) {
-@@ -548,6 +634,15 @@ int qrtr_endpoint_post(struct qrtr_endpoint *ep, const void *data, size_t len)
- 		smp_store_release(&node->hello_rcvd, true);
- 	}
- 
-+	if (cb->src_node == READ_ONCE(node->ep_nid))
-+		cb->src_node = READ_ONCE(node->nid);
-+
-+	if (cb->type == QRTR_TYPE_NEW_SERVER ||
-+	    cb->type == QRTR_TYPE_DEL_SERVER ||
-+	    cb->type == QRTR_TYPE_DEL_CLIENT ||
-+	    cb->type == QRTR_TYPE_RESUME_TX)
-+		qrtr_node_rewrite_ctrl(node, cb->type, skb);
-+
- 	if (cb->type == QRTR_TYPE_RESUME_TX) {
- 		qrtr_tx_resume(node, skb);
- 	} else {
-@@ -565,6 +660,8 @@ int qrtr_endpoint_post(struct qrtr_endpoint *ep, const void *data, size_t len)
- 
- 	return 0;
- 
-+err_nid:
-+	pr_err_ratelimited("qrtr: cannot route node id %u: %d\n", nid, rc);
- err:
- 	kfree_skb(skb);
- 	return -EINVAL;
-@@ -684,6 +781,7 @@ EXPORT_SYMBOL_GPL(qrtr_endpoint_hello);
- int qrtr_endpoint_register(struct qrtr_endpoint *ep, unsigned int nid)
- {
- 	struct qrtr_node *node;
-+	int rc;
- 
- 	if (!ep || !ep->xmit)
- 		return -EINVAL;
-@@ -696,6 +794,7 @@ int qrtr_endpoint_register(struct qrtr_endpoint *ep, unsigned int nid)
- 	mutex_init(&node->ep_lock);
- 	skb_queue_head_init(&node->rx_queue);
- 	node->nid = QRTR_EP_NID_AUTO;
-+	node->ep_nid = QRTR_EP_NID_AUTO;
- 	node->ep = ep;
- 
- 	node->hello_sent = false;
-@@ -704,7 +803,12 @@ int qrtr_endpoint_register(struct qrtr_endpoint *ep, unsigned int nid)
- 	xa_init(&node->qrtr_tx_flow);
- 	mutex_init(&node->qrtr_tx_lock);
- 
--	qrtr_node_assign(node, nid);
-+	rc = qrtr_node_assign(node, nid);
-+	if (rc) {
-+		pr_err("qrtr: cannot assign node id %u: %d\n", nid, rc);
-+		kfree(node);
-+		return rc;
-+	}
- 
- 	mutex_lock(&qrtr_node_lock);
- 	list_add(&node->item, &qrtr_all_nodes);
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
--- 
-2.43.0
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
