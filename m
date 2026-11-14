@@ -1,57 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794677321;
-	b=lN/cdv9SgvcEzHEXqWoX8W8w+bP8Mp/9svMqyXo0LBoc7dCbz6ITPBCTC5d8lJXb4XWZ
-	 3iWXLYyWmtgLbP0RHvtfxFHmHx+WJxAz8fwZDSaMMc4HKHQ1I2W7FyyGk2uZcbJv/JRIK
-	 w4eF3MJVjWIM3LWjmMYJ7f50R9Ki7fi7pfYuy2SbazJkb9XvXsiNTBh8dCBoiuxp0jDNm
-	 JL65zqJ27eCCZgYb/HsjOJy919sHETSu+c6+MCZFeX+sycAXu0SQY2AHFPkOXr/vIaYoB
-	 BJb/BxnRa/sW6XmQkc4e7WtGnl71ssTcEE0FjYByAoUCdD34jedyKf5OTaMwJxjibpg==
+	t=1794677327;
+	b=b/1Zt2mb7j7LIlERDiPfczBJhIBAxQlrIG870DuFM4gOKGKuSGI8i8OAAUgZ1K1TonyH
+	 G2Rc1c6HiKFbCJtnNcGnNOYNFJwIhBhYXJBopwl9zI/GMUfz2JiMbUg2JvVYAVNCOB9P+
+	 B1/DVOsptkwnju7mQm9joOWMgeKFak6GQrt6XiuTyGi1bi7CCIUItYvLOltS6Gz+X/WPI
+	 uKvA9BJj157l6/a0aS20089/qMGBQG2t8AHelD8ugrlYo5d9W4QeQAqqOvDvj04xPHcox
+	 bv5n086tcwhLCGy6KKlosECcQhkFmnXZhItsX5hlBlAHiBrNetY4FWP1NRRc9R9ev8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794677321;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794677327;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=IvazhbLjPs/GbfIjGW8+LFCBhSwb1LGY5YDPG8bfv0w=;
-	b=V6vxV0TtWRn1E6d41C3zIJCa+zG5jy4iTVT0k4tFTUFhhlpt/IrkKJkuO2KqABBbNrOm
-	 EKWcwYpfY1Uc8vFuO7R6GLUh/oERIFL45RevVHYYeXHn9qz617NU7rGBiLz+uajTpEAa3
-	 83JBVCJwxo0ohTANeTbwtZnHQQr0dMfUHis23jqKo1fSuwZCjZIfBouA6J0cVda/ZafNU
-	 A0maAm/gnCEDr5LHTL5OG1jAtJ6nKs6pACh7iD1Dytl0VTcMqWx3K7whmS53uSQkzn+ij
-	 7NBn7VwhQNl7pgq8qOkWrvtoWkZZrtCXVepXBRS+S+6tcdlfR7MVzw8gEbVCiAKZu2A==
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=p4J8Dv74HYruB0IAeayh97Xhw6bG1CdU94jvBoEPmgs=;
+	b=oY2Abn5KuO8uyceJwjywk4RceHsD4Yqnbi6/P9bEiQvTqHBLuolJ2/NOl3k+FPB58r1x
+	 vnn/XKEC8JjXi/JHcXy6mW9HVNmj4V0+sbaw6zKt7XhXW+V48hXXBouv6bNgBEN6t1Ff6
+	 5yvTV/ajnSfdu3BAHWC8CnBUaFf3L/H9ZmqSNXx+AQ8ehtJ5OBJsKXVAV16mNcX/yXhZz
+	 DHVFR4uT7Sb9NKsxcmT4rs9W+5O9/N42v8g6U7wHnL0vS118Xa4FO8U8h2ZNPaSiH0ih8
+	 eG3Q+LSdATVYEkseEMZ148eaowUe3F4YXDzZWkgsKFNAwRPKuliNVVGyVxLOYZgIEHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=becholey.ch;
 	spf=pass smtp.mailfrom=becholey.ch;
-	dkim=pass header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=rqRCVAXX;
-	arc=none smtp.remote-ip=79.135.106.25
-Received: from mail-10625.protonmail.ch (mail-10625.protonmail.ch [79.135.106.25])
+	dkim=pass header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=J7XBLz4X;
+	arc=none smtp.remote-ip=185.70.43.20
+Received: from mail-4320.protonmail.ch (mail-4320.protonmail.ch [185.70.43.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC39606A327;
-	Sat, 14 Nov 2026 17:28:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CC39606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54D24606A885
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:28:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54D24606A885
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=becholey.ch
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=becholey.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=rqRCVAXX
+	dkim=pass (2048-bit key, unprotected) header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=J7XBLz4X
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=becholey.ch;
-	s=protonmail; t=1794677316; x=1794936516;
-	bh=IvazhbLjPs/GbfIjGW8+LFCBhSwb1LGY5YDPG8bfv0w=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=rqRCVAXXtvvbzAvWbBv1wG6zaTQ+dlLOBJBOBg3tLm1rODFiL32fizlnSSqGc5QAQ
-	 8V4m9GK9rL4AoGnJnEGR1MJZsy4EY7nqrWpzWNYrXIasO1WU/C1yC71s/F4ySZ5xSE
-	 CGHFuZka9REIyDdCdAbSjvijfAEmEzCC+OGD0qiBSBBvEPGXvRbEZLm8cPwVRfgg3s
-	 uCvV0OffnTwwcGenk/XBoDz/Mz5lKjmI83XpftYWwKuZ2Dn4NCU+if0JW/65yGu5Hi
-	 IJmXskgpYriVik5CirDoCFwJ61arev7uVB5XvKchexWR/F5hn2n1YJa6wtR0Em9HeC
-	 shrdKt6V85OrA==
-Date: Sat, 14 Nov 2026 17:28:30 +0000
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+	s=protonmail; t=1794677324; x=1794936524;
+	bh=p4J8Dv74HYruB0IAeayh97Xhw6bG1CdU94jvBoEPmgs=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=J7XBLz4XS6NN74uEjNysT7LWPJEjUiwNYYhoIbRG/D/hvaql5YwEbl9WEj4LEe4dd
+	 OP1WZVeIHh/x5yAFXQBaQJGJ2sxdJ5o194XSVPDFFCa29Ytsdnz3hju6L13+FbNYv4
+	 ntpRJwok+WFTYCfGIrZk1ZNqVEyztsb06F1TSRAkC6bzHkOFrknESfE10NsZMGl3xW
+	 VQsseKs8kriC4XpwijBQI/xIT7uS4zpdljsZIB9vN8oGKvzOBiWs3VVA6PX7dbKUrp
+	 MQf/tCVtXoZEXaoHz7m4IqLVZZxmXFLeP1pZxEKt6Xvr97GT5XdyzbWZLKuedXKcui
+	 o0l234ysnN0/w==
+Date: Sat, 14 Nov 2026 17:28:39 +0000
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, =?utf-8?Q?=C5=A0erif_Rami?= <ramiserifpersia@gmail.com>
 From: Alexandre Becholey <alex@becholey.ch>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, Hanxiang Xu <xuhx@hust.edu.cn>, =?utf-8?Q?=C5=A0erif_Rami?= <ramiserifpersia@gmail.com>, Alexandre Becholey <alex@becholey.ch>
-Subject: [PATCH 0/5] ALSA: usx2y: us144mkii: fix PCM stream lifetime bugs
-Message-ID: <20261114172806.88710-1-alex@becholey.ch>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, Hanxiang Xu <xuhx@hust.edu.cn>, Alexandre Becholey <alex@becholey.ch>, stable@vger.kernel.org, Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH 1/5] ALSA: usx2y: us144mkii: fix stop_pcm_work race with PCM close
+Message-ID: <20261114172806.88710-2-alex@becholey.ch>
+In-Reply-To: <20261114172806.88710-1-alex@becholey.ch>
+References: <20261114172806.88710-1-alex@becholey.ch>
 Feedback-ID: 60743817:user:proton
-X-Pm-Message-ID: 1280f624f32e71b5dba707abf93d8c00631ceb77
+X-Pm-Message-ID: 7bd0f6a070258e079f77a9a608fe47d4cb5f5a49
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,65 +67,185 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+The feedback URB completion handler schedules stop_pcm_work when the
+device stops sending valid feedback. The work handler then calls
+snd_pcm_stop() on tascam->playback_substream and
+tascam->capture_substream without the stream lock, and nothing keeps
+these substreams open while it runs: the PCM .close callbacks only clear
+the pointers and do not wait for the work.
 
-Five bugs in the snd-usb-us144mkii PCM code, all reproduced with an
-emulated US-144MKII under KASAN on torvalds/master and v7.3.1:
+If the PCM is closed while the work is running, snd_pcm_detach_substream()
+frees the runtime under it, and the work then accesses the freed runtime
+in snd_pcm_post_stop(), or dereferences a NULL substream->runtime in
+snd_pcm_do_stop(), depending on how far the close has got. A USB device
+can fire the work whenever it wants by sending bad feedback packets, so
+a malicious device plus a process closing the PCM can trigger this.
+With KASAN, on torvalds/master 067c5c24cef2:
 
- 1/5 stop_pcm_work calls snd_pcm_stop() on a substream that is being
-     closed (use-after-free of the runtime); the device can schedule
-     the work at any time by sending bad feedback.
- 2/5 capture_work keeps using the capture runtime after the capture
-     PCM is closed while playback is running (use-after-free).
- 3/5 the capture work and the playback URB completion use the buffer
-     of a substream that was never started (NULL dma_area), because
-     the URBs of both directions always run together.
- 4/5 the playback and feedback URB completions use the substream
-     runtime and buffer without waiting for close (use-after-free).
- 5/5 a START retried while stop_work runs submits URBs that are still
-     in flight (URB submitted while active, anchor list corruption).
+  BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave+0xb0/0x104
+  Workqueue: events tascam_stop_pcm_work_handler
 
-The patches depend on each other and are meant to be applied in this
-order: 2/5 builds on the close callback of 1/5, the check added in 3/5
-is only safe once 2/5 guarantees that the capture work does not outlive
-the substream, and 4/5 and 5/5 apply on top of the first three. In
-testing, 3/5 without 2/5 crashed in the new check, and 1/5 + 2/5
-without 3/5 still crashed on the NULL dma_area. Each patch has its
-testing notes below its '---' line.
+Clear the substream pointers under tascam->lock in the .close callbacks
+and flush stop_pcm_work afterwards, so the work can no longer run on a
+closing substream. In the work, read the pointers under the same lock
+and stop the streams with snd_pcm_stop_xrun(), which takes the stream
+lock and checks that the stream is still running. The lock is dropped
+before snd_pcm_stop_xrun() because the trigger callback takes
+tascam->lock with the stream lock held.
 
-Hanxiang Xu reported the bugs fixed by 1/5, 2/5 and 4/5 on this list
-on 2026-11-13, from source inspection and without a patch; we found
-them independently with emulated devices. This series is sent as a
-reply to that report, and 1/5, 2/5 and 4/5 carry Closes: tags for the
-two messages. The reports also mention close racing with disconnect:
-that concerns a fix that kills URBs in .close, which this series does
-not do (the .close callbacks only touch the card private data), so
-nothing is changed for it.
+Found with an emulated US-144MKII device (USB/IP, vhci_hcd).
 
-How we found it: the bugs were found, and the reproducers and these
-patches were written, by AI agents (Claude Mythos and Claude Opus
-models), in QEMU with emulated USB devices (raw-gadget/dummy_hcd,
-emulated xHCI, USB/IP).
-A human reviewed the analysis and the patches. The reproducers are
-available on request.
+The bug was found, and the reproducer and this fix were written, by AI
+agents (Claude Mythos and Claude Opus models). The analysis and the
+patch were reviewed by a human.
+
+Reported-by: Hanxiang Xu <xuhx@hust.edu.cn>
+Closes: https://lore.kernel.org/all/6891aa7d.26365.1a1d4e2c4e4.Coremail.xuh=
+x@hust.edu.cn/
+Fixes: a2a2210f2c2e ("ALSA: usb-audio: us144mkii: Implement audio playback =
+and feedback")
+Cc: stable@vger.kernel.org
+Signed-off-by: Alexandre Becholey <alex@becholey.ch>
+---
+Notes for reviewers (not part of the commit message):
+
+Trigger: an emulated TASCAM US-144MKII served over USB/IP to vhci_hcd
+(an AF_UNIX socketpair inside the VM; dummy_hcd cannot do isochronous
+transfers) under QEMU, arm64, KASAN. The program opens a PCM and
+starts streaming; the device sends invalid feedback packets until the
+driver logs "Fatal: Feedback sync lost. Stopping stream." and schedules
+stop_pcm_work, while the program closes the PCM. The reproducer is availabl=
+e to maintainers on request.
+
+Decoded trace, torvalds/master 067c5c24cef2 (arm64, QEMU virt); the
+object is the kmalloc-2k snd_pcm_runtime, allocated by
+snd_pcm_attach_substream() on open and freed by
+snd_pcm_detach_substream() from snd_pcm_release() on close:
+
+  BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave (include/linux/=
+spinlock_api_smp.h:155 (discriminator 1) kernel/locking/spinlock.c:181 (dis=
+criminator 1))
+  Read of size 1 at addr ffff00001318a180 by task kworker/1:0/24
+  CPU: 1 UID: 0 PID: 24 Comm: kworker/1:0 Not tainted 7.4.0-rc2+ #1 PREEMPT=
+(full)
+  Hardware name: linux,dummy-virt (DT)
+  Workqueue: events tascam_stop_pcm_work_handler
+  Call trace:
+   show_stack (arch/arm64/kernel/stacktrace.c:498 arch/arm64/kernel/stacktr=
+ace.c:499) (C)
+   dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
+   print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
+   kasan_report (mm/kasan/report.c:595)
+   __kasan_check_byte (mm/kasan/common.c:585)
+   lock_acquire (include/linux/kasan.h:402 (discriminator 1) kernel/locking=
+/lockdep.c:5916 (discriminator 1) kernel/locking/lockdep.c:5899 (discrimina=
+tor 1))
+   _raw_spin_lock_irqsave (include/linux/spinlock_api_smp.h:155 (discrimina=
+tor 1) kernel/locking/spinlock.c:181 (discriminator 1))
+   __wake_up (kernel/sched/wait.c:124 (discriminator 3) kernel/sched/wait.c=
+:146 (discriminator 3))
+   snd_pcm_post_stop (sound/core/pcm_native.c:1622)
+   snd_pcm_action_single (sound/core/pcm_native.c:1386)
+   snd_pcm_action (sound/core/pcm_native.c:1467)
+   snd_pcm_stop (sound/core/pcm_native.c:1642)
+   tascam_stop_pcm_work_handler (sound/usb/usx2y/us144mkii_playback.c:453)
+   process_one_work (kernel/workqueue.c:3495)
+   worker_thread (kernel/workqueue.c:3578 kernel/workqueue.c:3659)
+   kthread (kernel/kthread.c:436)
+   ret_from_fork (arch/arm64/kernel/entry.S:870)
+
+On v7.3.1 the same reproducer also ends in
+"KASAN: null-ptr-deref in range [0x1c0-0x1c7]" in snd_pcm_do_stop()
+called from tascam_stop_pcm_work_handler() (us144mkii_playback.c:453),
+the snd_pcm_stop() call this patch replaces.
+
+sound/usb/usx2y/us144mkii*.c are identical in v7.3.1, 067c5c24cef2
+and 9d66f26fefac.
+
+Testing, KASAN: without the patch every run crashed in
+tascam_stop_pcm_work_handler (v7.3.1 3/3, 067c5c24cef2 1/1). With the
+patch no run showed this crash (v7.3.1 0/14 with three test programs,
+067c5c24cef2 0/5 with one).
+With patches 1/5..3/5 applied (v7.3.1, the same three test programs,
+8 runs), the stop work fired 10 to 1740 times per run and no run
+showed this crash; 4 of those 8 runs ended in the first two other
+problems listed below. These programs were not re-run with 4/5 and
+5/5 added; those patches were tested with their own reproducers.
+
+17 of the 19 runs with this patch alone still crashed elsewhere:
+- 12 runs: list_del corruption in __usb_unanchor_urb(), on v7.3.1
+  after a WARNING at drivers/usb/core/urb.c:379 in the stream start
+  path (that WARNING was also seen without the patch); fixed by
+  patch 5/5;
+- 4 runs: KASAN use-after-free in vhci_urb_dequeue() from
+  usb_kill_anchored_urbs() in tascam_stop_work_handler(), a race in
+  the vhci_hcd test harness, not in this driver;
+- 1 run: KASAN slab-use-after-free in feedback_urb_complete()
+  (us144mkii_playback.c:347, reading playback_rt->rate); fixed by
+  patch 4/5.
 
 Thanks,
 Alexandre Becholey
 
-Alexandre Becholey (5):
-  ALSA: usx2y: us144mkii: fix stop_pcm_work race with PCM close
-  ALSA: usx2y: us144mkii: wait for the capture work on capture close
-  ALSA: usx2y: us144mkii: only touch the buffer of a running PCM stream
-  ALSA: usx2y: us144mkii: wait for the URB completion handlers on stop and =
-close
-  ALSA: usx2y: us144mkii: do not restart the stream while stop_work runs
+ sound/usb/usx2y/us144mkii_capture.c  |  5 ++++-
+ sound/usb/usx2y/us144mkii_playback.c | 19 ++++++++++++++-----
+ 2 files changed, 18 insertions(+), 6 deletions(-)
 
- sound/usb/usx2y/us144mkii.c          |   5 +-
- sound/usb/usx2y/us144mkii.h          |   2 +
- sound/usb/usx2y/us144mkii_capture.c  |  22 ++++-
- sound/usb/usx2y/us144mkii_pcm.c      | 162 +++++++++++++++++++------------=
-----
- sound/usb/usx2y/us144mkii_pcm.h      |   8 ++
- sound/usb/usx2y/us144mkii_playback.c |  65 ++++++++++----
- 6 files changed, 170 insertions(+), 94 deletions(-)
+diff --git a/sound/usb/usx2y/us144mkii_capture.c b/sound/usb/usx2y/us144mki=
+i_capture.c
+index d7cdf9e0f685..30cdd73ca99c 100644
+--- a/sound/usb/usx2y/us144mkii_capture.c
++++ b/sound/usb/usx2y/us144mkii_capture.c
+@@ -36,7 +36,10 @@ static int tascam_capture_close(struct snd_pcm_substream=
+ *substream)
+ {
+ =09struct tascam_card *tascam =3D snd_pcm_substream_chip(substream);
+=20
+-=09tascam->capture_substream =3D NULL;
++=09scoped_guard(spinlock_irqsave, &tascam->lock)
++=09=09tascam->capture_substream =3D NULL;
++=09/* The stop work may still be using this substream; wait for it. */
++=09flush_work(&tascam->stop_pcm_work);
+=20
+ =09return 0;
+ }
+diff --git a/sound/usb/usx2y/us144mkii_playback.c b/sound/usb/usx2y/us144mk=
+ii_playback.c
+index 7efaca0a6489..0df95dbf585d 100644
+--- a/sound/usb/usx2y/us144mkii_playback.c
++++ b/sound/usb/usx2y/us144mkii_playback.c
+@@ -36,7 +36,10 @@ static int tascam_playback_close(struct snd_pcm_substrea=
+m *substream)
+ {
+ =09struct tascam_card *tascam =3D snd_pcm_substream_chip(substream);
+=20
+-=09tascam->playback_substream =3D NULL;
++=09scoped_guard(spinlock_irqsave, &tascam->lock)
++=09=09tascam->playback_substream =3D NULL;
++=09/* The stop work may still be using this substream; wait for it. */
++=09flush_work(&tascam->stop_pcm_work);
+=20
+ =09return 0;
+ }
+@@ -448,9 +451,15 @@ void tascam_stop_pcm_work_handler(struct work_struct *=
+work)
+ {
+ =09struct tascam_card *tascam =3D
+ =09=09container_of(work, struct tascam_card, stop_pcm_work);
++=09struct snd_pcm_substream *playback_ss, *capture_ss;
++
++=09scoped_guard(spinlock_irqsave, &tascam->lock) {
++=09=09playback_ss =3D tascam->playback_substream;
++=09=09capture_ss =3D tascam->capture_substream;
++=09}
+=20
+-=09if (tascam->playback_substream)
+-=09=09snd_pcm_stop(tascam->playback_substream, SNDRV_PCM_STATE_XRUN);
+-=09if (tascam->capture_substream)
+-=09=09snd_pcm_stop(tascam->capture_substream, SNDRV_PCM_STATE_XRUN);
++=09if (playback_ss)
++=09=09snd_pcm_stop_xrun(playback_ss);
++=09if (capture_ss)
++=09=09snd_pcm_stop_xrun(capture_ss);
+ }
 
