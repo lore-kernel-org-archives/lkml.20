@@ -1,107 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794637556;
-	b=D5VI9m/aYi9Y/zEE8fB4/GUWnlLLaAhM79FUvFKF8NyF3/gq6saLmAHpCwkNoP9Rdc97
-	 I+ZQ4BsVXIgPCMEndndXO4O90F817ibvyIXBE1JSFpq2C9cuzapM6lXtyCwbwUb+0Qzoh
-	 VpVUxOvBoR1wp+H7sQddTcCxp076LzTsJThGuXWhfx7//RzQkSJzsGDtDWcnuO920x015
-	 hq71lFPaUbXtQ/0NRzTscyw57t7PKGgOFLaDRRqBskNB1g031LiNiKHDR1SNkAAXKtJDD
-	 RdA2i/X0QDlnasGkC9xvvGlHgxgiZ4l0eEdaywr8s2NnfjT558VQYoNMFJYXSVNriBw==
+	t=1794637608;
+	b=iCbEsWUt+62LxL8RO40Vib3wZ3fJOHT9MdXXy2I57m9eCR1Ztnut2ZRHz1fbLWl/2wfu
+	 W4Eofip5u9+GRNDLSy8VQG0Z+rlmp+yR8ZZwnf0tc6+XUQlT9XCaKHKoJdGI6dBa+Fu1g
+	 dCuIruEsIujAdFFWwcda1KgU2buH95HegiT2tmb6EidXPmlG8bQz9n7mm+J/oATOZ5uv0
+	 FUg4k841V1dc+JTkO2ElJunt2G9BbKYKr+pKAsJDPlCwznAfBjxNUuFIftpQ7I/BPnyM5
+	 V9LCZHeAZ9aw4WRpBki1STBceAPdgYipWmBqV9jBs5ebPRh9nMhv/oJUDVDgUrsNCmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794637556;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794637608;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=2G/wlgst0b3QmNrVuRQ50SldBGJC/pdF4BObZ2EI5Ls=;
-	b=Du9uMoUJVe7q8Fo/z4yO++BHiH4/E93y8/2Y6ocuclHoI6TOCQTQW/m+StK+dzsDu1h0
-	 GKsMBxl7T5WHqfgFGPx+hvWE9q34dtczh6gxZja+jL5I5xMClK/W16cvYJzxw2IkoYY64
-	 g7mIl8b54/39XNRfmmDEm7cT4CVDorSyb6JqtS4x112CEasQWMJKCG3yjy3QIx4zLbiGw
-	 2FAcltQAs+eZeTG2ds0mhMVuqtGzP5SPh9YnXYf4nn4oBnfoc/K7nrTBtB6Qa9k61+f1b
-	 7hZCEhQ86xjZkA0Zbw1VqfGvroKTUYuzUYcjeaM+w3JaTC1EQ06F1b6mK/7PT5oIaKg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=/2KQ4epDEV2h9oQK2IfA2VbZzNQVtXN1l25yFvOTJmg=;
+	b=XDOyJDE4nIWTtH17ereiooci43Kd0c8j+Z9X2mkXNAx80+UxJPRrCOnFNP8PsiCisdMx
+	 kjWyjQNg4vkmJfYjqznp2gYWD9zrDi4AEBMUcO5Wzqo5rpVN/CjNwegJ2v8PKsKm5wMQg
+	 MuUbCaPU02kYe34k0S2e2dk6dVOkkgG8o3b+JD8PIcgWGIuojFtEUw7llmsMm/WjFgUF+
+	 vIRPr7Hkrlt6NJTXy2AJfI3Is5cZjiuBha1RDVdEHUKdIR15yh62/CfICvo4O3/j92d8H
+	 zH0cikIZFQ5FCtR22Css8zuOY5c6fhUe6anG7nqVF02vqJ9F/PuAcaV1tSEqwyY3tAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PJ6HP7tQ;
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lQBK2BiX;
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FBDC606A891
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:25:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FBDC606A891
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22FFA606A32D
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:26:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22FFA606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PJ6HP7tQ
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-372cba0ecf9so189977eec.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:25:55 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lQBK2BiX
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-372cba0ecf9so190032eec.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:26:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794637555; x=1795242355; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2G/wlgst0b3QmNrVuRQ50SldBGJC/pdF4BObZ2EI5Ls=;
-        b=PJ6HP7tQeeuDG4zzlhNDMmZ7tS0LVez9oRI3SvJOvGfzY2SI/mcYzl7mD81NFnCOFs
-         L0AZNWqY/+L3PXXnKBewPmcAWRCrXFHvXXi6gJydDne3MwTHhp2hO5F1ygjsbxOgNtey
-         ZGYI4TFAx9WjHOmrqEv18kPAXdgodpvqlB3wFVttrPawXvLwSvIUfC8r/oa2G9iue4LM
-         3oDqlxy8ixl2rpabpUzi9L3Iw5tNN4EmG8hYkLJt8H1wGA7TvKcpsp9OZxq6g1anlcLV
-         4Vrbh1rJEpAi/SGFsZqyRNt87/IAt/3j8ODaqCEnURDSxJq+w2qM0p7CSfCqF3IRhpeI
-         fmXw==
+        d=gmail.com; s=20260707; t=1794637607; x=1795242407; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/2KQ4epDEV2h9oQK2IfA2VbZzNQVtXN1l25yFvOTJmg=;
+        b=lQBK2BiXEUdAfkK6mwG0Xu/B4bQPBO7FS/DVFaxaz+4qFqHJNX3eOTur1M4Cp+6JKW
+         I5hIZHXgabOzrNCevgLs6PN7xZW+PwqX5zKlixdKQcYR5+gaUZUa8AWN+rmwwNHzZu7E
+         Xn4pV3oZmqnHpRjJGdUENznL5rNNAKNQxzTzPkbyNSAH26OBCIp56YHlEKpj8GRDmjMV
+         NuZGAbPPmG9QqUmdB5PgkRpFv30kvgN3oHI6uSi5MseyAKmVX/0NZcOtnmfSpXRWLvDY
+         6Mm66zCrGiQJmv7SEgdVJxqbqOLyqSjU6+kLlsoOVVz0HA5f0UKj3mXzLrg2IFutCJBw
+         oEVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794637555; x=1795242355;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2G/wlgst0b3QmNrVuRQ50SldBGJC/pdF4BObZ2EI5Ls=;
-        b=Lu2qqmTE3ut9vjsiUoiD4Lm5GONnKn6fyqmkXceHlmOZhpv2fiKvmu5bIciBXkzYgg
-         cjYbNEKt+70zxdDvLZijqf3HS3URZjZkneptuS0fDsJrqqiNG+b4ktxdRgjuaN3n8zwe
-         iYMJfm2yUQ39l8bIHkZcErEuTUeohi1hy2y9sOuMP0I36ZQqDZBsfI0voUpZwkvWfUaE
-         7iveBcssHDM7LYae2lUZ2ILvhmfYCaJ/jpEZRSHea/mP5lao9EO7aDNQzO0AcR+GpmCx
-         mFL2UC24CUxpiDXvrogsSt/kNXzBViQckCHIHxQuO4cllgvUC8Wv74s24IFXEDctGukt
-         py9w==
-X-Forwarded-Encrypted: i=1; AL+hErHZNNkXPvZVYdquzCJga6c9Jjm05BdU2T5pz4PUPPD9WoatPoklhqVqCVI5ljO70U7mo+dUhgcEQ4l89CY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8N16b5JzntasSli82FRQ0qS41iQI0QqhjKbDJOljvComTTG4PF
-	GtfspqUgha68UkBLsAJCimCazJC/Ncqgr8SwYWif3Pn9G2mh/A4Y5Mow
-X-Gm-Gg: AYBFou2rhugOzRZUet+C251AtjhfU35WRf0sGyaPWb4yacB1ESCu9BuBXwqmYhw+Etu
-	UHe7/KDs+qZt9iCx9kK5E5bD7C+Yq/llIswh9nRty91CmSKhPlJBrJgDagB0xtQwb8LhgtWlD60
-	JsazyXFW/oHz9w70q0BCjvFguVWY/eqghp4dbisQfGxASGpFJfThLLoxJrVR9lSK8PDevTJPF/G
-	fl0NaQmZWrcp4jCaMAruhvfdftefKHgupl9hzLGqAJOIc6jFEjxHWKJgJG9k9QPus4OMQ1mIdq6
-	QF8BCgOB1pL1jRCZh6VuDlrhR2P+I+AIdz3ELUfro9yx4Sghqd2lqs2PwqkAYBHxyx++p+DtmH9
-	9ZHoz/minoGFrpMO14/aB645CP3Yl4XCJqm5omh+aEGTWlwVvey25/DljAiIyD7S8Na+zjrcwrk
-	Ceyt19kQTwDT6gd/1wGqcm4ubLilbpHAmQ4rSgese/Kv/tZBHXIrFfpxQePxxyWNu2ZW5Cjmhe2
-	dMPRypfLpJzE9SsHsYJaFxEjN++pt7aBmeFFXgoMiPYPMIODB9iPjGsytdSW7dv8o28Z5LD/2jt
-	JAyFopsSNqZX067QAVCTPN348Ekl3/+yUE9DAs8b3dsMl+hJ4Z5bkDsaHPw+oJpROnPIgDzt0Hg
-	TUkY=
-X-Received: by 2002:a05:693c:881c:10b0:36d:5fbc:8c8d with SMTP id 5a478bee46e88-379655d503emr6618386eec.2.1794637555183;
-        Fri, 13 Nov 2026 22:25:55 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794637607; x=1795242407;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/2KQ4epDEV2h9oQK2IfA2VbZzNQVtXN1l25yFvOTJmg=;
+        b=W2xPh3jVSngb0ULMSqQZC3qA5tU18l9ibxagfXQnCXXxdc0d0dIY5Lw13F+dJ8djXM
+         O2o7nTrjpGDP2jWiwjx2oUrJ2JeiDTpPvGKVm+r8tfiJZWYQYRe4TlRubE06X6mHhaut
+         P2oVlOK0NxLSbKMYub7CuBpATNuWbLZO8SgRC5oD1iQlI4sWjUp1ZvOWRfAZQOZwNfbz
+         r1S+JW8cOX05PJs8jwpxUr+ZnhmYdZHiwaHNDMx5hOLAy0gsvObSTiAX78VyDJ3bDJF3
+         rJZhz8omtDfzzg+q7ecgpdK18HMTwopNDTmjd5Fj2q+AHL9TEU2cu6gJHbFcSOtbUqVG
+         u+7Q==
+X-Forwarded-Encrypted: i=1; AL+hErEbe5EYWWrrRJfcgb5JiBCouXavNsY5VHd2eEcJYbvEvZZ26jvlhL++nU+1MX8bxA9WLkV42nrirWqL6kc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8lXPm3BLvISNS7XuHC1ion707KareqtA0tCDvNufrzO6dPEtU2
+	b3JOnFSgFTqXGlydP2VU57oW8Xx/N+srYKADgWpQy/aOiO0SPoLpxeyl
+X-Gm-Gg: AYBFou2n9Gu0hmAK8wvBg2lIC0K9J+CZxhQmCcTio2sdG8uhkeTyQ6Hs+ztu+H5a97t
+	wzoFpbdwqpg5xWZfghf+b5Hcd4JWbswGVM4Ce8C8IZSbC/BhwEWsjEjWBCrfdystr5QaKn1RdeE
+	bJ0GX49L9W4QNalNeFzgzeu9HyG7N7CVu6jciqI7TXyQWZNTq/LGfqHtKmzQoD6DzJvZ3EiRJ5G
+	93VZrQfTcNybW6tRUam1bfqmUhmx7Tw9tQAbEjlBMfklNrnm0yv5PLkO2rM4xikTkUBtCqLsSa8
+	2ono4l0EMg4GN8hiS/Bf7EDCfD7giYJK1zYH1fwHPUmE96F7U/n9Fk9RDBwuZwRxFH8hJ5i/gl3
+	htP5go7H5GF7AULCCGH7k/rmy6lYhhEnY+6AIJdvJmyEMASN7xBl7KQ0qwP+LdCtyPt/cZgALf+
+	uXLD7YvpJC6Ys3DcFRw/s/RYgImSUgUXHgSPkKT8L5Hz6tPCEJccsQ712iBgx/g4vwH4OTwhS2s
+	N+20uKQ8jdG2ZMsd1c8FIg1PCvOpXsqoKKzYkJrIZwgzYRM/0f2ibGRJlGtHrFkrAHEYfZwZfWY
+	XXmPAD1JAWMEBYKZDprbjfrdutZnw82vyYk3lR/3tXqy3HRm7VmYQobDHApGjXsGQ0Ej8oKzw9d
+	/U9o=
+X-Received: by 2002:a05:693c:8204:b0:372:c0ee:875b with SMTP id 5a478bee46e88-3796057b529mr6474936eec.0.1794637607266;
+        Fri, 13 Nov 2026 22:26:47 -0800 (PST)
 Received: from DESKTOP-CJ1L666.localdomain ([211.198.99.62])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795591f4f8sm13537585eec.13.2026.11.13.22.25.51
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955ffcbc9sm19762863eec.18.2026.11.13.22.26.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 22:25:54 -0800 (PST)
+        Fri, 13 Nov 2026 22:26:45 -0800 (PST)
 From: Jiwoo Kim <arpe1618@gmail.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>
-Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Antonino Maniscalco <antomani103@gmail.com>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+	Rob Herring <robh@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	=?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>
+Cc: Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
 	David Airlie <airlied@gmail.com>,
 	Simona Vetter <simona@ffwll.ch>,
-	linux-arm-msm@vger.kernel.org,
 	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 2/2] drm/msm: Put the VM_BIND queue last in msm_vma_job_free()
-Date: Sat, 14 Nov 2026 15:25:41 +0900
-Message-ID: <20261114062541.2001-2-arpe1618@gmail.com>
+Subject: [PATCH 1/2] drm/panfrost: Hold a reference to the MMU context of a job
+Date: Sat, 14 Nov 2026 15:26:36 +0900
+Message-ID: <20261114062637.2447-1-arpe1618@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261114062541.2001-1-arpe1618@gmail.com>
-References: <20261114062541.2001-1-arpe1618@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,60 +107,64 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-msm_vma_job_free() puts the job's submitqueue and then wakes up
-vm->prealloc_throttle.wait. The job does not hold a reference to the
-VM of its own: the VM is kept alive by the context, which the queue
-holds a reference to. When the job holds the last reference to the
-queue, as it can once the file has been closed, for example when a
-cancelled job is freed, the put can drop the last reference to the VM,
-and the wakeup then uses a VM that msm_gem_vm_free() has released.
+A job stores the MMU context of its file in job->mmu without taking a
+reference to it. Once the file is closed, the context is only kept
+alive by the BO mappings that still reference it, and a job may be
+submitted with no BOs at all.
 
-Since commit 01c8d1f385f7 ("drm/msm: RCU-free the scheduler-containing
-ring and VM objects"), msm_gem_vm_free() frees the VM with kfree_rcu(),
-but msm_vma_job_free() is not in an RCU read-side critical section, so
-a grace period can still end before the wakeup, e.g. if the task is
-preempted in between. Before that commit, the VM was freed right away.
+When the file is closed while such a job is still running,
+panfrost_jm_close() only hard-stops the job without waiting for it, and
+panfrost_postclose() then drops the file's reference to the context,
+which frees it unless BO mappings of other jobs still hold it. The job
+interrupt handling that follows calls panfrost_mmu_as_put() on the
+freed job->mmu, and panfrost_core_dump() also reads job->mmu if the job
+times out.
 
-Put the queue only after the last use of the VM.
+Take a reference to the MMU context when the job is created and drop
+it when the job is cleaned up.
 
 This was found with an AI coding assistant, which also drafted this
 patch and its changelog. It has not been reproduced, and the change
 has only been compile-tested.
 
-Fixes: b74fae5492d1 ("drm/msm: Add VM_BIND throttling")
+Fixes: 6e516faf0431 ("drm/panfrost: Job should reference MMU not file_priv")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiwoo Kim <arpe1618@gmail.com>
 ---
-Independent of 1/2.
+1/2 and 2/2 fix separate lifetime problems and do not depend on each
+other.
 
- drivers/gpu/drm/msm/msm_gem_vma.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/panfrost/panfrost_drv.c | 2 +-
+ drivers/gpu/drm/panfrost/panfrost_job.c | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
-index 0cf518420656..b4b284ca5b38 100644
---- a/drivers/gpu/drm/msm/msm_gem_vma.c
-+++ b/drivers/gpu/drm/msm/msm_gem_vma.c
-@@ -775,7 +775,6 @@ msm_vma_job_free(struct drm_sched_job *_job)
- 	job_foreach_bo (obj, job)
- 		drm_gem_object_put(obj);
+diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+index 7c348a0bf1ee..afda794e2aeb 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_drv.c
++++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+@@ -331,7 +331,7 @@ static int panfrost_ioctl_submit(struct drm_device *dev, void *data,
+ 	job->jc = args->jc;
+ 	job->requirements = args->requirements;
+ 	job->flush_id = panfrost_gpu_get_latest_flush_id(pfdev);
+-	job->mmu = file_priv->mmu;
++	job->mmu = panfrost_mmu_ctx_get(file_priv->mmu);
+ 	job->ctx = panfrost_jm_ctx_get(jm_ctx);
+ 	job->engine_usage = &file_priv->engine_usage;
  
--	msm_submitqueue_put(job->queue);
- 	dma_fence_put(job->fence);
+diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
+index 4ddf4b722ddf..7022b1b2e020 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_job.c
++++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+@@ -377,6 +377,7 @@ static void panfrost_job_cleanup(struct kref *ref)
+ 		kvfree(job->bos);
+ 	}
  
- 	/* In error paths, we could have unexecuted ops: */
-@@ -788,6 +787,12 @@ msm_vma_job_free(struct drm_sched_job *_job)
- 
- 	wake_up(&vm->prealloc_throttle.wait);
- 
-+	/*
-+	 * The queue may hold the last reference to the context, and so to the
-+	 * VM, so put it only once we are done with the VM.
-+	 */
-+	msm_submitqueue_put(job->queue);
-+
++	panfrost_mmu_ctx_put(job->mmu);
+ 	panfrost_jm_ctx_put(job->ctx);
  	kfree(job);
  }
- 
+
+base-commit: d48ea86919434695da12d280dccab72b094397e1
 -- 
 2.43.0
 
