@@ -1,97 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794670940;
-	b=Tq3yZ4rPomW9cOq6MvWImR8fz2K2FXw1o8AtFv6U8PbZzre/3k7sA3zdaQCZHuhW/FYT
-	 HU2D08Xi8SErGhWMC7jIWYHyvb2yOrPxXmGE4g8Ec3i5PZYC4iS5hovu5sUC5+5oFF0R7
-	 3z+/CRk7XnlWavqlCULQJ4VPDneJtPkyYMgThxJsakjYI4Oq9qrhQMJsTwv4Un9ZVdXrm
-	 3dw99a1FDj0ZX/8q2GF7siJu4ZWC18GgGUBlOM/MWpZYKR+PevQw12xxxihiIND8k2kmo
-	 g/vBQWHgz9blDWJYfieyKUTv4KORJbh0T2/dytW9AHQl+eznVyr3ToYCCY3WkzOZbDg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794670940;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.45
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794671011;
+	b=gmCj8dtUrT+jcm0NJX0sf2iJATeR5X3D+JGgd0WMK9xiHFXYaPFvY4GNq+mIpEU5uhWz
+	 4LCHBrw51uHKC2aEbC6dTfq7cS6/cWbosRhpg36XczeSq31Gw4KbruwXygipQ/qjxKXP7
+	 i1FkcZ0DancjmG9jcy5Hw4yRAniGbrmkFSccWXBGKUBprW5WZ+aJlfyTzjEq3DGfXAcAA
+	 cHXz+YvbBUrzbKykcGuWBxvKzM6bV6se/G+7JWAv888ok1Vw5sa8XcjkkbOI5jK6gVgy7
+	 j8vgCIVGVW4/BFT7n1e18HA3FWGrN/Ov3PVnacgLSbglVLheeE5Yk4NuxnSEc5gywwA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794671011;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=D/QDiWJcNeIF083+fu+YVL4kUJSlCNjsA1ag+QXac8Y=;
-	b=kWyq05x5abaQGxyj9O4g30md+z3U/P1TlYou68PgyK+CNv4S0sH6eeAjGqbiByRTS7rP
-	 Lc/mtq7h1xAKYwhNVnFf0qsID2Mbh8hbssmI6mDuw5CCuCiXC7FJ2inkSlUy51psanCLJ
-	 VRJyXAtwuYojM9AXAr/O4WQw3vct/PWjVM2KT4Zw9vAQM65AMrFT4G+xGRa4/q5hJe7Dq
-	 xBf4ijnH1JfTgYkTrv/kz5GQ15iyLGGdRGsdNaFo23oXv9KeK/acaa/yX+SFyYo4BxZ0F
-	 6ihACKNTidy2YWPy7SYtXH/TrvjxWKW+l9tazAJtq176WzW9uAnZJtZBSyniHWkFKvw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=/8Am712/UKZMknyahwOgZ7GXCeTB3l6oZgw5VLnohk4=;
+	b=kR0LOZlI/R2YEbsQ03hzRxMsZqFgUcMdG0+YpZ6SD2tBxMMCJAhsrfntEvAszBU1hS4Y
+	 CKk7FRX+8+Mjx0EVvlJ8Wh7FQ0QQW6BF9b5QUkXpBP8XHhAB4jM5wc/KeLwU7jzq3gc0a
+	 Lz1kz8PPjcQs+uB5fpHUFxmOTwAwi1ty/3B2p/2k20JOIMaPPGPSs9NAFLMqjcrIw5jNk
+	 ClqU8rNcH2Geui/KhUhPloEk295EPulZzaKqKOcXburQT5aRHPIniHUNALeR+DULInfNX
+	 21bNqdiYCen9MhIUjt5F11aoRDA4V88NuXPdwYqHkWCGtOPJ2bGZ6ygc+d2Flh1RItg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IcSdNqlU;
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vEH9IuOf;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.45
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB25D606A32D
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 15:42:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB25D606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC65E606A32E
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 15:43:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC65E606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IcSdNqlU
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3712b6d9843so1732503eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 07:42:19 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vEH9IuOf
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-1b3acec6677so2666718c88.1
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 07:43:30 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794671010; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UbWM9USzn6G3CP8/6yyN6CmcX2IVtQ+XbMPeVDxUJaiqsQlQbgt9L1HWzfjG1afbkR
+         k3D93bM0GhgzteR8vIFZG06yRR74VGLKQStTVgDPLVZm4+NTLfxJQBlH2DYSBLRQ/c9N
+         CtQFwJAIuYNGH7T4r+ljSrznSU+fZOxkhAAPk/MZuLTefutIAkXIC6pZ66wrude4DI5r
+         Ggwi9PD7rnYxK5jBut+N0MuxoiMlWtICdORQXD2rJAcDWy5dVcz4VtJdhZjqGefJcbPr
+         fayBe81Pm7WCiF13/jxAlvplLh2oJiMM3CUKK/efHyZNlqx9/t266D/Oq1+oTqcCxhcm
+         X8qg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=/8Am712/UKZMknyahwOgZ7GXCeTB3l6oZgw5VLnohk4=;
+        fh=KT4R946jfo/2Z39+95ssrmEjC1J+ZkLxWdvZLxBDORI=;
+        b=ZK/apRXFrHrUON0Y+M+eqJHwX7MAKI0/8bjvPjoMo+IZzhMfg7AeYmGHqTYT5T4v8x
+         qwcv5cF0U4+FaBSkAbM5DqBklDVJWTUCx/NRLBHA6QcahbM3Yrq3CyXtbCESFhn/xDoM
+         17RmUKWWcrLbpVDaRtQi2cvs3/Mvqk4Gbf7z2AEcnFoyfFgN0EU2EM+7CcneE9SAJfGy
+         WA56hAFvK0yfrf3zm82JEuZ3Ls+OrcBYnyVjFQFDhEe2DjO68roBmhqmuJWXtx7l3TPi
+         pVOn10jQ7MxI8iec+ys9JgIG8c8FbLT7T0z5UBalrGnvRw3TjOOL4tvqeBqTZxHBUb8q
+         Mt+A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794670939; x=1795275739; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=D/QDiWJcNeIF083+fu+YVL4kUJSlCNjsA1ag+QXac8Y=;
-        b=IcSdNqlUjf0OorbJES0XjlyGT7niWbOtnCZUo8OtZ7MMNlC5PKahUlKpx9dfH+dbO1
-         bI5qcsNiDqPqjkf1jreC2o3fRnu9Ml4lfqsl151YLyTpUfS9BePZRolC+1blq1XWe/95
-         d52x+e3Nl5M4DmP1ooF4yCxAz7yyEeutCWvlwxqsvc25/f3a8veGdV6oh6o0cutNAA1Z
-         uOGw3xpYLHBzAWwrSLo2b9yNKrQcu/5oa7uYMTr+pK0YGMrj43e2SV5fcgsTHGr+cOqU
-         jjSdqrbT3cUGOTYxMAx0MjhDMkH49Axzg+xU4gxrgEcHr5P5P3xojYJ6MOCHn36QNvt/
-         yceg==
+        d=gmail.com; s=20260707; t=1794671010; x=1795275810; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/8Am712/UKZMknyahwOgZ7GXCeTB3l6oZgw5VLnohk4=;
+        b=vEH9IuOf8TqXlFP9jIwVqQe/KNAJtF5/1hpL6sn50wQwUogRkv51QaBIzUQxFvWX5K
+         SUEZKCImhTL+TVaiIplzcY379q3ZV7IMgWtzWwpZvYa/NjasxqQpWRyGurewcZHmkYn6
+         EXup1ph+mGCKntgLBQVhsjDuokWH5RVxh4qw6N/JXw5tgBc31TbCHlPlq2BONvt8zO3j
+         D3imt00RGdnhGifjEXXTqfk3jpbUcT25+U4fCE5CclL27JUUME/2HAf3ES3GyzH0Ram0
+         0M4G4oceJTxLgQP/wID8VAxBN2w0ir3lIM8mYXdlG3xU/zOoSl6Na41oe7HB/AaYTyNz
+         cohA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794670939; x=1795275739;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=D/QDiWJcNeIF083+fu+YVL4kUJSlCNjsA1ag+QXac8Y=;
-        b=ZFXZ8VVcDxZQ/F5DKITjRfYl54OROEsaI0bT4bp4EU2mjpUHPQsv8gej68O/LoOX3f
-         WrJLhh/2awJHT26dxm2crL2GM2H+Xg6yC/ee/ZB0kFeN3l1JKofXslm6morM22xB2cBV
-         hwuf7AIRX9gM6zcxiFCG++MhwG4Ay6Xi2KQ3M/9oycfWFo5AgS0G/9RVACzOYxpP49Jw
-         k48ngfztFvT6txzHPTaOuaWRnwmV9hwm/ryrleq0o6riSflPs4CorplEeQMk08Li6jGU
-         Q46MsyQE/aWr6fY3iBQYtTU3bqTXvORK8Y2WsNkjXsXZvxK9+PK+J0Hr/iZTzePIxH5n
-         0TYw==
-X-Forwarded-Encrypted: i=1; AL+hErEIPgVMiUDsb/uQimbn+u2o50Uj5S1c1jNgEkpxC1OYJSKVAVs2c428Bhn1SP1NWI+rn1Ntm4f0msgk+YI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+DYhnIIh+fK6vQdXE02Nywwpb82qOT06Qzp3h0a0zn/2ki8uSJ
-	KSwk5qauPy6pm9ZePrp8SsMArs52H0KdateGnkuQami75jwxyCeLUvZE
-X-Gm-Gg: AYBFou2AP+zB0cB5hYgDp4Rwc2+a2GD2XeixbKwQNPRPADs6cd/KB0k2HWxeP8x2TKI
-	6lGMvCCZSDBAEflj2NAeFmh8W1+kaUM+01IeVGX+AqkR3FnvccQxlTNjPSIO6xcbx9FMwn0HlxT
-	5Oj+kBqL4KCKBEZsG3+Nk9ztTnanbp1ujSU8KOXKPcgGWC8y7KXtdcUSbQXAXDMAuoKdfwlL5LC
-	M4zwe1ly0yN9PYwdVp3JogzjUmN2rIBFJy2o14i7ViTwHIQ6Nej6zD+Ga6+i4/QKE8BUeiavRxl
-	AlDfMpMoS2eyvpF/sodCIKW5yypX8XXbRRni3bqcFf9JkB9/o/UPGgu8b4kGQH9Rd6f3nBYcWVl
-	HKVuwjPs0Q0KwYoxhjbRfK/IDkL/6sFenMT/yRIb1Kzwo3kV7KkIA9IR6MKQV5tYnkoGeVTCjvY
-	5dgtYyTTeh0bljDwDUMDXNwE9gBDedo/Sg/4nrxR2nHCUzAuKWp59YOyGJymzYEb/FI7WBeb4sU
-	+CvMKX9nJmOO9rEKjUht5ardIJwX81KmiHlmhI7Ey5KVQoNpAXHjeod3yf9fDvStUNm2rZSm2Zz
-	pM8q0dRk43pAMVQLjKkETyEySLXiu23GQ6zx9arjWIc1zfJ4k/8iipAhww==
-X-Received: by 2002:a05:7301:fa3:b0:376:37a2:87f3 with SMTP id 5a478bee46e88-37967dd733dmr5109847eec.31.1794670938852;
-        Sat, 14 Nov 2026 07:42:18 -0800 (PST)
-Received: from user.. ([2405:201:c052:b00b:9eff:399:c292:54cc])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795591f4f8sm18037395eec.13.2026.11.14.07.42.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 07:42:18 -0800 (PST)
-From: pavankumaryalagada@gmail.com
-To: dsterba@suse.com
-Cc: mason@kernel.org,
-	fdmanana@suse.com,
-	josef@toxicpanda.com,
-	linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	skhan@linuxfoundation.org,
-	quwenruo.btrfs@gmx.com,
-	Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>,
-	syzbot+55d1814e49f1fc0ba542@syzkaller.appspotmail.com
-Subject: [PATCH v2] btrfs: Clean up delayed inode items on transaction abort
-Date: Sat, 14 Nov 2026 21:12:07 +0530
-Message-ID: <20261114154207.73644-1-pavankumaryalagada@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1794671010; x=1795275810;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/8Am712/UKZMknyahwOgZ7GXCeTB3l6oZgw5VLnohk4=;
+        b=K6/HX6Qr+SCYDayye2ROPmz64zUNurXvwI55rRqW4TKB6zfLHTr+lbQ5iDVcHgwN0Q
+         YVmChzuW2cBJiqjP2RROBUWTrjvt+No89SBrGYaU7AS7mFrHAjhzCYAUPy78FqBWQ8cH
+         FWUzy4b1A2EvmXl0kTa5lFG3Jj6YVoUfzQUabyYnbBkZog1ZpV4Gd52X0lLfxRzYKSKt
+         dMHoAPfyDLQWoeD59hdI6d6Tj00/UGLBH5W5NopQZuFb0jtRAmGf/1ONf0usEoV/7Y21
+         2UYwTcmOw2euqmJ44PZ/5AZILb8LyPgvFGOLDGqF2OqDqUlRAut5vwSGyxsKnHDTnqnO
+         4UrA==
+X-Forwarded-Encrypted: i=1; AL+hErGLotkqLk499YIe5W8LWDqO0CoxqJOJJW/NhrZQwWP5HEjx3geifdR4eHLgvAx1he0P0Hn95DJqlj4zDRQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8CK/qCPLInnfgLVt+PCCVE3p+0LQNErv/qotijJfI//cT0SiZh
+	wL3OPN86/QP8Iv87Lhtf4rbDoFM5d1FFc02ng+YWMcbUUB2zPPODDV77SJ/5wdgzgVwa76q1OLD
+	DzIuI437On/rRGnD9DKuqD8jMUVBWfmY=
+X-Gm-Gg: AYBFou3Bka4AmKe3yh/rhx/XYIspF3IuiGUhJK4PE0aVZ1a8TvWueCpzEozejIrCM6l
+	J3eWG+DBiN4Y0SgS3q4TbLTRQ0E6pUaabvHEYL9aTmjmO51JYvKdmUpq1dkTKFPWCxxc9Ow4SX6
+	bcOMd1EvR0n8i/T7W9MtnmkuXY2cQHGHLVxEYQJxBOXZkepI6zHv3lDTDp2snodRWGCFm/sRXn4
+	yltm6LTC63YjwnwFdTH01OShWGgqyBehTqI0NYzg3eaN+/Vo1YPHOlwvTE6pvsFB9d43+7eFhQu
+	VOlNtGaHnlIFOzmuzxCKY9ftMWmeUZ3+rWpoCI2INjuBuYJ0PjGfBvbySCg9V8gqgLT0glnQyae
+	JIp30xMnn0azAgDitfOEx1fopTBqq1rNA0iPhSAeZXTEG2jEPstCjOzwosKlkeIo4urkJ+58JhN
+	95umk9GbDLx0vJDp+hdYnKasN4hpy1Zy+zG12dKqmhjA==
+X-Received: by 2002:a05:7300:b284:b0:35e:2c6:d46c with SMTP id
+ 5a478bee46e88-37966e3abf5mr6101065eec.10.1794671010025; Sat, 14 Nov 2026
+ 07:43:30 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,61 +105,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CAJ6F8CFSfgdZqaKMndGZtbaww32Xr_KVL3gA_2Jemgv9i9vskg@mail.gmail.com>
+ <CAJ6F8CFgkgksyk6YM3NdMkQNhSFWV4depC4c-mHvpDHpnjhM-Q@mail.gmail.com> <6ab4a114-57b2-40c7-99d4-55a4ac4c9a9c@leemhuis.info>
+In-Reply-To: <6ab4a114-57b2-40c7-99d4-55a4ac4c9a9c@leemhuis.info>
+From: =?UTF-8?Q?Cl=C3=A9ment_Smagghe?= <cle.smagghe@gmail.com>
+Date: Sat, 14 Nov 2026 16:43:19 +0100
+X-Gm-Features: AclHuK9JZCuhMb1uoaKigZDdQKHU-3gJV6cHqPK13T6gU6gv_wW71frzsK9rTyg
+Message-ID: <CAJ6F8CHzm4=ryY+j3ao6doR=-67Lq=3-w-kbhk1wdvtYDhyNeA@mail.gmail.com>
+Subject: Re: [REGRESSION] ntfs3: existing files/dirs with ':' in their name
+ became inaccessible in 7.3 (ads on by default)
+To: Thorsten Leemhuis <regressions@leemhuis.info>
+Cc: almaz.alexandrovich@paragon-software.com, ntfs3@lists.linux.dev, 
+	regressions@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Hungyu Lin <dennylin0707@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
+On 11/14/26 14:11, Thorsten Leemhuis wrote:
+> Thx for the reports. This sounds a lot like a problem Hungyu Lin is
+> trying to fix with these patches:
+>
+> [PATCH] fs/ntfs3: preserve colons in symlink targets
+> https://lore.kernel.org/all/20261029203457.59990-1-dennylin0707@gmail.com=
+/
+>
+> [PATCH] fs/ntfs3: preserve colons in volume labels
+> https://lore.kernel.org/all/20261029225856.1173-1-dennylin0707@gmail.com/
+>
+> Please look into those -- and if your's is a different problem, please
+> report back.
+>
+> Ciao, Thorsten
 
-When a transaction is aborted, btrfs_commit_inode_delayed_inode()
-fails because btrfs_join_transaction() returns an error. This makes
-btrfs_evict_inode() skip btrfs_kill_delayed_inode_items(), leaving
-pending items in the delayed node.
+Thanks, Thorsten. I looked at both patches. They share the same root
+cause as my report (ntfs_nls_to_utf16() splitting names at ':' since
+be310476e886), but they fix different call sites and do not cover my
+case, so I believe this is a separate problem.
 
-Clean up delayed inode items when the transaction is aborted, even
-if btrfs_commit_inode_delayed_inode() returns an error.
+- "preserve colons in symlink targets" adds a parse_ads argument to
+  ntfs_nls_to_utf16() and passes false only from
+  ntfs_create_reparse_buffer(). All other callers explicitly keep
+  parse_ads =3D true, in particular ntfs_lookup(), fill_name_de(),
+  ntfs_d_hash() and ntfs_d_compare(). The commit message even says
+  "Keep parsing enabled for the other callers to preserve their
+  existing behavior."
 
-Reported-by: syzbot+55d1814e49f1fc0ba542@syzkaller.appspotmail.com
-Link: https://lore.kernel.org/all/6af131f2.44d55313.247daf.0001.GAE@google.com/T/
-Fixes: 2adc75d61203 ("btrfs: move btrfs_kill_delayed_inode_items into evict")
-Signed-off-by: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
----
-v2:
-- Add a condition to call btrfs_kill_delayed_inode_items() when the
-  transaction is aborted, even if the inode update fails.
+- "preserve colons in volume labels" only changes ntfs_set_label()
+  in fsntfs.c.
 
-v1: https://lore.kernel.org/linux-btrfs/avMkGGHSH2scfa0t@user/T/#t
----
- fs/btrfs/inode.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+My problem is in the lookup path: an existing directory entry whose
+name contains an interior ':' (e.g. "Reverse: 1999") is returned by
+readdir, but ntfs_lookup() converts the name with ADS parsing still
+enabled, looks up the stream " 1999" of a non-existent file
+"Reverse", and fails with ENOENT. With both patches applied this
+path is unchanged, so stat/open/rename/unlink on such entries would
+still fail. Only mounting with 'ads=3D0' restores access.
 
-diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
-index abaa33471456..b3a33541b8c8 100644
---- a/fs/btrfs/inode.c
-+++ b/fs/btrfs/inode.c
-@@ -5623,16 +5623,21 @@ void btrfs_evict_inode(struct inode *inode)
- 	 * the inode update is released.
- 	 */
- 	ret = btrfs_commit_inode_delayed_inode(BTRFS_I(inode));
--	if (ret)
--		goto out;
- 
- 	/*
- 	 * This drops any pending insert or delete operations we have for this
- 	 * inode.  We could have a delayed dir index deletion queued up, but
- 	 * we're removing the inode completely so that'll be taken care of in
- 	 * the truncate.
-+	 *
-+	 * We must also clean up delayed inode items when the transaction is
-+	 * aborted.
- 	 */
--	btrfs_kill_delayed_inode_items(BTRFS_I(inode));
-+	if (!ret || test_bit(BTRFS_FS_STATE_TRANS_ABORTED, &fs_info->fs_state))
-+		btrfs_kill_delayed_inode_items(BTRFS_I(inode));
-+
-+	if (ret)
-+		goto out;
- 
- 	btrfs_init_metadata_block_rsv(fs_info, &rsv, BTRFS_BLOCK_RSV_TEMP);
- 	rsv.size = btrfs_calc_metadata_size(fs_info, 1);
--- 
-2.43.0
+So I think the lookup case needs its own fix, e.g. one of:
+  - make 'ads' opt-in (default off), as before 7.3, or
+  - in ntfs_lookup() (and the dcache hash/compare helpers), first try
+    the full name as a regular directory entry and only fall back to
+    the file:stream interpretation if that fails;
+plus accepting 'noads' like the other options, since today only
+'ads=3D0' works.
 
+I'm happy to test patches.
+
+Thanks,
+Cl=C3=A9ment Smagghe
