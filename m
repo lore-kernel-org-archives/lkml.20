@@ -1,107 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794670598;
-	b=LwHYgY/72O6pZCD5XmEDAH30jABMvRh5SH+Adqv0Wzrnm+C2E1dbDd81xrCP36CfD6pw
-	 yjkswIIvaNW+yXBn8dvJ3+Q7EHMsJ4bgfGGI/SKtZ/jm6BUM0v4o20ua5p3y/oPGSVOma
-	 2qkcUeY+J6QAl80rbw1SVZvNRwLoUb5FLviauaDJI/QKIRXzs1nRWYvl/Rnq4BwLxddSh
-	 3+tFSo1pvGt8v6qog0LkAhdxURiFrhBxy0SvbceLhCyoX30dBVvhMjmAGIQWNA72J7ZLO
-	 oaWh9jBBci6WTOluEO42JCEh+chEFl0BhQrIkPBsslIJ3fxI2qt+AmHg9Z/aA6Ht0bQ==
+	t=1794670709;
+	b=vHKQ2D1lIBgkHhxysxknf6kCGm5xsV5qADa/zI/Zf/wSbkKosQQCv9Jda7u0yG2P5T0O
+	 E+I/DmhGPaU/PiZAYdf8OcT2VD8NmNRw3+HZKvwD2HY/0so1tHMSpbvGBKWmXffUNgIJd
+	 KrHGxZhYxmGagM2BQQZvibHKNZNC7ui3IYeM1Vir8cMHPvgEwuz466i6PzmEZB2hO+2tz
+	 6IHDPVuOKM7NfbbfD+xQFwTGVbccYmlNNnICQ6Dqedu0dsEpwFJpE3Z7/aZdReS736c3m
+	 +kvEcvqEMnUig7UvwdNORMpYaTmH0/Fo3SEgMckFrhOiDMvIs7KAttJpghmZfK2sxBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794670598;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794670709;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=dcf1VprQ5tReiauPDZRL2T+Bt75/dPprqyKIItbhiW4=;
-	b=wHwvGU8obVhDTlya55pzTMK3V222MliuKANMuShg87EhVIxevUzmxwl2ZnnEFz2Aza4f
-	 AlwEIK4CVeqEVVGIHwdrr6CuWWAuwFnIvkXgrEbTKGorcaCJF3RmO5M0UwqdBysRoXZ2F
-	 26CODwU0kE6UmbEUJlvOdi+ChmV7okBhtem75JJxzr9CNSCqTHRfPcfaSPrubxZW3y2+l
-	 8tuOuD8zJlKhY6WH7FzGUxB9C5Jf6+eFilN5AazZ6+H6SEs8yJeuQLOY89FxgjabMsa3e
-	 ODXBXcqdJ5LoXWK5ASwB9iLCG9ZXJLPIMhBr7jGoMFakIA6IT+fCz6/517HoyvGJrYg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=4xB13t/qikSGlf5PM+4NV5sg6iC2/DLGLtE12IAvGY4=;
+	b=k4Rdk1m8I1JBeWl27UDK95qkBYLBU7Y2cL1CGUAV1OqOM20CxrK6SJtGsyyeYR/iOx4H
+	 3Q6vV4kPRBp+uJI4vkzPF8G6Ag4Cq7/wAUFLI1LHVAY9l5HENRgaZ66ftqkpZ16zF+BrG
+	 9XHy6JgB3R0fe7Q7H+r4M16ZqCLoOXRX5iP9MQMSD+mOsPydMWrTGlxrslwyZV1IVPDDQ
+	 UvNllNidYNE1ZvCPa9Do2VMp/nNpmzLVIVPTd4st/XCb3LYlreFnH7UwV1Ic5diz5NZre
+	 V9whtzrLnXegjpNLuEnclXpFPgpDXssGKx5piRElGk7SwXM0RjJxmHD0UqhGr8LHeBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kLaBAw7w;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JMK0lNWQ;
+	arc=none smtp.remote-ip=74.125.82.51
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99A6A606A329
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 15:36:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99A6A606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85D28606A329
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 15:38:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85D28606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kLaBAw7w
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-36e2b1db9bfso224691eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 07:36:37 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JMK0lNWQ
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-1a3c08d6928so2720955c88.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 07:38:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794670597; x=1795275397; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dcf1VprQ5tReiauPDZRL2T+Bt75/dPprqyKIItbhiW4=;
-        b=kLaBAw7wyQvWZ1O6H9Z8EVRT4c99eFtSlk56PDSgX/V6PzrRUop9EQDiwhc82HP0Ro
-         vZjCaqh3rTP6wYrvWhgrfd1ai4cSFfSfR0e6sPGVmiS+4OMduJvG/HxiCXWz9Ynwxty4
-         eXB0yDpJR/j8cHEcV/ihE5tg2mMIDcso6aprXMWAhQGuS4FTxJvWCIeflnTdJ63ZhHNw
-         KUgN5CTvm54ELruJCnCxb89I3myrjv/UoP91i5EWajaojOjSS1X8aryBt0VcXgWfsdnj
-         yocOp9imlaUMah/UTOksDTx6uWjPD1ClSeF9qf4+8I8L3ALSaUM8Qwv2f5ulRnPcVybA
-         BqDw==
+        d=gmail.com; s=20260707; t=1794670708; x=1795275508; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4xB13t/qikSGlf5PM+4NV5sg6iC2/DLGLtE12IAvGY4=;
+        b=JMK0lNWQ4acWBiUS8eVeyG451iSPxaDJGQL+kQ1xkFo+XDmzc8+HXj2AqPLOoun/w2
+         W367K0mWM8/dG865GvIMPnFQIG3CtuUS6gp0iLJN7XfdKIOXByLk3rpKqSfTZs2Poi9C
+         l9h6apnrN6yd2aIyf6NsR9MjM+kbtaoi19uHHX3S5BZKTStD8gNnbBMMDPH65rF7FTH6
+         cUgftdWeVVQVTOw5XNVKBO5GArgg4SwSxl9/izRqsdxfedU679aNhUNNOfraCNzoKE4I
+         UwW2nE1bdRhSrqU9YyhMFx60zxcPb1PIlJHwFpXnqBx54OpT6CMUcgzEdlFvwP5SoWG7
+         5LnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794670597; x=1795275397;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dcf1VprQ5tReiauPDZRL2T+Bt75/dPprqyKIItbhiW4=;
-        b=w/y0s2zPtpPGB74TqMni3wsgi+9j0hbVulQW7YNSidW3ETO0KChJgqvQCTGytvkH5J
-         6taLBc+Xb9e/iF7nOUY6ivyiYSfLl9vIJGEHJhikudKrCHvMAy0BmXZzj0Y7ajr3yxLv
-         G8CFbKEz4MLUO/V1CCzNo5OnYBh2UpWTV2Wqn1MtnSkFLOJTIW0Eyzp3xTn4t0t7PU2E
-         60g3qQ4eGeZoKIbgoIAspefjw+E19eUxvjfzVgtUIhthsu40c67zP9AeZZe+oI2DyWrR
-         oh2zSre1Qu+nPvMirUT2RXC0JbSQiC13YUlo2JlmbXx7bZYHD9lhBxWEx+DfABwrVie+
-         TDnw==
-X-Forwarded-Encrypted: i=1; AL+hErGJt/ka4MOqtbiWyd6s7elKsXqDSmaRLkFCgOpLmJ4cEsbBCSd+Z5rMfGLHZRlqzR+LvCc5Lzt9ZTziHGw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/w0bkCJFLE7bByk9ckcDlYGDIoMgjaf+iai8yh7cM9mYUoFTPM
-	De/ibHBkMCqKm59Y5XWmihmpbm0Ts90YhlP0VnpePPNqMR6Yr8dQNy3L
-X-Gm-Gg: AYBFou1jTIub5HpkgOSrpx83tXnEH/OZjQAEURvO2B1DJYmF5YiPlz2F1cqPKnJmv/j
-	kmzy1S37X0+sgrOla9TmGizYehZo+smSnlcb9Myp6OaN5By1yPWgyuuRj5bYIAateyZ9nRTFAd/
-	RiH7r4kJU+MW22RKYBUg/RwfFyYQiT9hUdNpXUbq5YVPKiP9PHjQH1OZYLP8fP5sxPLT/g2+dZX
-	Tmux7pnp/LztxfNgpu3P/R+CopNKS/uanHKTr7Rv1byoE6c3sM1mB9rOnsBMUFP7yifghRLRuNW
-	mBPPKvc6N0IyZLpc/+J+y/TpJOlJBk+WCJLTMI3Pt3cDQNkuP0zkly2WHIjtLq+rUhMIB/4XNFo
-	DysUFEqowTFmGXGosK4PadmFFRyyZeZ9bmyVpiC+HFGELuYKqRYQsHWQCWM54kN7Sr9DCJynXvZ
-	bLrIiMXLFZT9b224thR3R48yYSRhRQsX5BHapuQd/2Na5YvqVBKxGsWg+OxDZNVGKsTF62YMhAB
-	CVan49DU7DvvGPxPjzJ2+t5fiE/DebnMD/AhZAESroepXDSV4CL2nmQfCa8PJZPlgbjn/H5t1MP
-	jKVpEVyWA42iqpp+4YaZ/vZnRFuQHvb90+BpqBleiF17rY0hCSBV45OHtbaf7MT/UV6EgfZT3Nn
-	gXJA=
-X-Received: by 2002:a05:693c:20cd:10b0:36a:13fd:b5c with SMTP id 5a478bee46e88-379652f16f8mr8568423eec.2.1794670596552;
-        Sat, 14 Nov 2026 07:36:36 -0800 (PST)
-Received: from DESKTOP-CJ1L666.localdomain ([211.198.99.62])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379508762a5sm17527126eec.0.2026.11.14.07.36.32
+        d=1e100.net; s=20260707; t=1794670708; x=1795275508;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4xB13t/qikSGlf5PM+4NV5sg6iC2/DLGLtE12IAvGY4=;
+        b=BNHVH9GMZiyqEvsqmpqsZDNHB3pUCQeSDvB1uUHpf1N0cWcbPvoswopq4wdOoYpgDX
+         nKCJ+BVmgPxgLQvwpp8+uyaEFB5tY36QML4P2U4dkfP1ES62JUVfP0WLX0LwmwPOeeB+
+         LJssVqw5S144jGgDZI1IEu12y8uscxoQS0O/BEqg8lDySAnA6BQB4D3UePXhf1vUXv4j
+         ymeJmde7DuFL0UTneEn1qYEr2+mIHWFFj8B7ZSO0U0lPUHS1rStgT/xviRNWjGOJRK50
+         mRo1dM+FUZO2p3UQ3x3JTdi9FEXHOu0vPRqYESPeB3ErIMPFm0bCERmaqQV/v0sGqcaz
+         kNGQ==
+X-Forwarded-Encrypted: i=1; AL+hErFnEcZTnGpsfuqgF3q+dJxdv4zTaVWgsAZog4DC/qhya7le+9maDPCLFHEoobUCl8OOmXZFtAplgA25lcs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+16AYmeDmVyU9pSDGUJQ+RkF5YO7fpVtXqz36hfVbgcO8ONa0N
+	JkZ3RHlchKr12qr3fE37q/ZuJk/NQbY+fsztLlJE0MBQgLerpWrax5gp
+X-Gm-Gg: AYBFou14IoBZVoq8aPD09/KhA4hswSBJkX1T4/Z3dlyZsZ3TWRVD//22j8v1P18XJmO
+	ruDgYFM53XqR6sizXRHsqNZZSxYET//p/OEomYojVIMTNBm+901AO3vbYKNksba4p2y0gppQVwU
+	zVy6jHVTbjH7fBFaftorwIH4YCF/cAEPl1dtCL1eqcxL5l+JxVbWmBuUGmQ1nOXXRIBCEI/mrjd
+	NArZwGGuAw+qNWHyLq0/lI6CEXZxRjc42efxc2+ID2SYpDuvWUkA/V1RVed5lrAzTKJscA6gWsE
+	/mR3R7W/9m5oryjEFVDbz+W0DLG7IIANvEiy4QvyxYlx+uO3ffxLdrvbj4tVzFvW9L/Mgu4iXUA
+	fvhrnUd3TXFi6AXEyaqL54YzETKbQqKjDOC56s454Ilq4lqqNNyAbGjVRiZAnBy3XbP35aNpPyO
+	cXef3n1vtAeMoE/wOhLeGnaIMma+E3NACyKJ0H5KQAv/SHyOofzTVb90etbQyTWzKt/jiHsmx0q
+	+spFnH6O+ERrXMJk9aJzT72iJbZfu7+HTaH/gRSHmQbCJaGo1vqrPAvgYjPkj9Lp2Oc+o7bFdSt
+	zh0HmCSKWYNfN6p+ZV/zQYpgJP1LX9eMkWKSQit4oqyvMw8exkMZdEtqt21+W5KcTY3q4fI/BA=
+	=
+X-Received: by 2002:a05:701b:2202:b0:16e:c820:b20d with SMTP id a92af1059eb24-1b50302b736mr5463987c88.5.1794670707564;
+        Sat, 14 Nov 2026 07:38:27 -0800 (PST)
+Received: from umang-Inspiron-3501 ([2401:4900:1c60:38c8:74f6:e2c1:4674:3e44])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50319e381sm16513014c88.12.2026.11.14.07.38.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 07:36:35 -0800 (PST)
-From: Jiwoo Kim <arpe1618@gmail.com>
-To: Rob Clark <rob.clark@oss.qualcomm.com>
-Cc: Dmitry Baryshkov <lumag@kernel.org>,
-	Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Anna Maniscalco <anna.maniscalco2000@gmail.com>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] drm/msm: Fix VM_BIND job, queue and entity lifetimes
-Date: Sun, 15 Nov 2026 00:36:22 +0900
-Message-ID: <20261114153622.148125-1-arpe1618@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CACSVV02fCwbFXVjE+XHCo68xMxYUHovJ9ZHRYd98L74N1T14Hw@mail.gmail.com>
-References: <CACSVV02fCwbFXVjE+XHCo68xMxYUHovJ9ZHRYd98L74N1T14Hw@mail.gmail.com>
+        Sat, 14 Nov 2026 07:38:27 -0800 (PST)
+From: Umang Pokhriyal <umangpokhriyall@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next] tun: don't steer a flow to a queue index that no longer exists
+Date: Sat, 14 Nov 2026 21:06:17 +0530
+Message-ID: <20261114153617.102288-1-umangpokhriyall@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,70 +103,58 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Sat, Nov 14, 2026 at 7:03 AM Rob Clark <rob.clark@oss.qualcomm.com> wrote:
-> msm_gem_vm_close() waits on vm->last_fence which will be signaled
-> after msm_vma_job_run() returns.
+A multi-queue tun device keeps a flow table that maps each flow to the
+index of the queue it last used, so that packets sent back to the flow
+go to the same queue. When a queue is removed, the last queue moves
+into its index. An entry that still holds the last queue's old index
+then holds an index that no longer exists. Packets of that flow are
+sent to queue 0 with a "selects TX queue" warning, until the flow sends
+again or its entry expires after a few seconds.
 
-vm->last_fence only collects the fences of GEM_SUBMIT jobs, in
-submit_attach_object_fences(). VM_BIND jobs don't add theirs, so
-msm_gem_vm_close() waits for a VM_BIND job only if a submit depends
-on it.
+Commit 4cc0a3f89707 ("tun: delete the flow entries of the moved queue
+on detach") deletes those entries when the queue is removed. As the
+Sashiko review linked below points out, a send running at the same
+moment can still write the old index back right after the delete.
 
-> My expectation is that if thread A is in midst of a VM_BIND ioctl,
-> perhaps not having created/updated last_fence yet, while thread B is
-> racing it closing the device fd, that file_operations::release will be
-> called after thread A's ioctl call returns.  Is this not the case?
+Rather than taking a lock on every send to close that window, check the
+index when an entry is used. If the entry holds an index that no longer
+exists, choose the queue by hash, as is done for a flow with no entry.
+The index is read only once, since a concurrent send can change it.
 
-It is the case. (The vm_bind_closed check in patch 2 is only for
-MSM_SUBMITQUEUE_CLOSE, which can race with a VM_BIND ioctl on the same
-queue in another thread.)
+The race has not been seen in practice. The fix was tested in a guest
+with stale entries left in place. Flows that all went to queue 0 with
+the warning are now spread over the remaining queues.
 
-The problem is a job that the ioctl has already pushed and that is
-still waiting for its in-fence, e.g. one from another device or
-drm_file, when the file is released:
+Link: https://lore.kernel.org/netdev/179415734502.994134.10139593761656069984@kernel.org/
+Signed-off-by: Umang Pokhriyal <umangpokhriyall@gmail.com>
+---
+ drivers/net/tun.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-- If the queue was closed with MSM_SUBMITQUEUE_CLOSE first,
-  msm_submitqueue_close() no longer sees it, and nothing waits for the
-  job. Otherwise drm_sched_entity_flush() waits at most
-  MAX_WAIT_SCHED_ENTITY_Q_EMPTY for an exiting task, and kills the
-  remaining jobs only on SIGKILL. Either way, the job's reference
-  keeps the queue, and so the entity in it, alive.
-- msm_gem_vm_close() then calls drm_sched_fini() on vm->sched, which
-  frees the run queue that the entity still points to.
-- When the in-fence signals, drm_sched_entity_wakeup(), which the
-  scheduler registered on it, uses entity->rq->sched;
-  drm_sched_entity_kill() leaves that callback in place. A killed job
-  is freed then too, and the final put of the queue calls
-  drm_sched_entity_destroy(), whose flush reads entity->rq->sched
-  again.
+diff --git a/drivers/net/tun.c b/drivers/net/tun.c
+index dcec7311e6..5367975ff8 100644
+--- a/drivers/net/tun.c
++++ b/drivers/net/tun.c
+@@ -471,13 +471,15 @@ static u16 tun_automq_select_queue(struct tun_struct *tun, struct sk_buff *skb)
+ 	txq = __skb_get_hash_symmetric(skb);
+ 	e = tun_flow_find(&tun->flows[tun_hashfn(txq)], txq);
+ 	if (e) {
++		u32 queue_index = READ_ONCE(e->queue_index);
++
+ 		tun_flow_save_rps_rxhash(e, txq);
+-		txq = e->queue_index;
+-	} else {
+-		txq = reciprocal_scale(txq, numqueues);
++		/* A racing update can leave the old index of a moved queue */
++		if (likely(queue_index < numqueues))
++			return queue_index;
+ 	}
+ 
+-	return txq;
++	return reciprocal_scale(txq, numqueues);
+ }
+ 
+ static u16 tun_ebpf_select_queue(struct tun_struct *tun, struct sk_buff *skb)
+-- 
+2.53.0
 
-Patch 2 destroys a VM_BIND queue's entity when the queue is closed,
-by MSM_SUBMITQUEUE_CLOSE or on file close, so always before
-msm_gem_vm_close() tears the scheduler down.
-
-This comes from code review (see the note in the patches), and I have
-not reproduced it.
-
-v3 is at
-https://lore.kernel.org/r/20261114141851.134290-1-arpe1618@gmail.com
-and its patch 2 is unchanged from v2.
-
-Separately, Sashiko's review of v3 found an ordering problem that
-predates this series: the VM_BIND queues of a VM update the VM's VMAs
-at ioctl time, but their pgtable updates are not ordered across
-queues, so an unmap can reach the pgtables before the map it undoes.
-That does not need a queue to be closed, but v3 patch 1 adds another
-way to get there: the unmaps it applies when freeing a killed job are
-not ordered against other queues either. (Its other point, that a
-killed job's fence signals before those unmaps are applied, I'll
-address in v4 as well.)
-
-For v4 I would make a job that unmaps a VMA wait for the job that maps
-it. The other way round, a map that overtakes an unmap of the same
-range fails or gets undone, which breaks that VM but doesn't leave
-freed pages mapped. Ordering all VM_BIND jobs of a VM would be
-simpler, but turnip uses one VM_BIND queue per device plus one per
-Vulkan queue. Would that be the right direction?
-
-Thanks,
-Jiwoo Kim
