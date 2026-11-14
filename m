@@ -1,65 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794657957;
-	b=3VEI+pIWch7F3o/iw4Wea3M186TqRrWoroJjiPnIy4h4CYs4JKV/fnY7TEGEnHJdNiFI
-	 yES8IE7yB00tTNTa/eZ8nkN1HnKM+los7PV0T4d0piHsO/Ga80yQQyC/OCtN6rHtHVNfD
-	 ULWPcHf6zNhX/EwKAbKE99HpUYBIFstRozREZTA3mlyL1Fv1pJx5gmfMY140EXgjEzdWT
-	 w7nnsFhjoo2powJGk3I0VMWE/8gCuJgPNXyY18lbFpNmnsYWWgE8LnsUdNHfH88nh0YrC
-	 IgHXhf+drpkG7LmNf3wcTqpAE1GtqfzHTIODRHv5yjAHiniEbs/QWYxKV1iEYCaQAxQ==
+	t=1794658169;
+	b=j5TViSOU19SKteRMWR+Hf926q31AbuULfpHQVAGxRcdqWdoyAH+b9Z5/hgNzsEV95DBm
+	 SXrVyuaUWlspRJPjO1dw35IdAuH3XOiQGV/UqdPHPNJnz/JuT89GKVDr6fDwFE7J4IU7P
+	 TUEaHrTOGmS/WHGIyg8rgTE45BQVTSk+K3q4wAViG3v0MQfK9itcKKN2bhf3xw3gzB0Vp
+	 oBtANeSlQhmLTnvk7Xi5RJY4qFxdyq5KvfvZdkUYtmqpQN77QJTOIf8flvRFgAnqWdVwX
+	 229igupVEFCjz5sAQ7TnImAVsfFvKFFAMEgx1jzot5lIJrDdEq14ZmeQTr07/FH725A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794657957;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=TTJBd8MeCtwetdr88TRDtX/XFHUMZNPbcncQK0sZCLQ=;
-	b=CSAX+BbmOrzg2z4ZjTP9JUxDh9zY8AC5GscdvFR0Vl+pmsMKQhLExmGNPt9rQEyMqmvT
-	 riCEBha9q9STm6yx61EFZAOmyziyl3TGSTyTDdPl9DtXH8XDmUrEVCzfTVMB+Z1gce/h9
-	 RTpKOO1gA+tqOES8S1s2YKUAQJIE78in2i+AfePoOdHtALfsXYO1IqTNjvpMlWlM34Xl/
-	 HYrCqATcebBQu0OxOBQS86boyV43pjusQjxjpNCFs197Zfw8WuOuusYbrUFvGwAFhGVh0
-	 +DVGzGSj55wCLIK58bQlKtfjYDY5Q90omrCxsY0sf/KGJLD093mu8osYHfiT5iqP1og==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794658169;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=UureYaaeVfHQ486k+R1nqPXa2SkWUzwY9akojhfzklY=;
+	b=uKBh3cerSogeVVqRfa/r8wXnJbm3ysJaTai1PQSP38oKDTOs6PLhw6Eqd+CXmryxna6M
+	 v0Bz5MF8Nju9s5pEtvC9mwaf7M50qu/6af8+hGTCuQOAhTfComNs20sg7qSJrfaEW/kv5
+	 gA6PoGz/fa8J76nlzVmewbTXlO0jY7iWpNwLkYFRYaic2wiSuSiAbwb0cl/GNnhefXY3F
+	 3o+ct1NyLXVU4evIbHUNGvT3efYqgN7pE1g/wMoQp+JEvoMcYhj4h0FyBlGnaO49uXuGp
+	 WRErYyGphHWv00lskzof984LEOnELDy0Sj7KsT9cK+pobF2EB/IbyzYzVm1OVQ4BIcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nNMmtico;
-	arc=none smtp.remote-ip=91.218.175.151
-Received: from mta0.migadu.com (out-151.mta0.migadu.com [91.218.175.151])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACAE7606A329
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 12:05:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACAE7606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nNMmtico
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=nbJX6d0wLsDxcIeKYKa6MMamnrI75sfXJCnw7NXxxyw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794657954; v=1; x=1795262754;
- b=nNMmticoobWIuInBp66zI7xEcyZHbzOrh6mVNES3GAdTFQoNgRh0eQAkh09y9WQP/aoo3IOu
- 5in+A+m8lPRBvaLrycZ5gQNHlg304jmcetoql5+EYCXviTubzD2Pcx55aMur78bYb3qVsjJz9c+
- XgT4xWgCJGlSgV5JlIkXrhdY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b36a65535f5b74d0;
-	Sat, 14 Nov 2026 12:05:54 +0000
-X-Mizu-Trace-ID: b36a65535f5b74d0
-X-Migadu-Flow: FLOW_OUT
-From: Ridong Chen <ridong.chen@linux.dev>
-To: Waiman Long <longman@redhat.com>,
-	Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>
-Cc: Ridong Chen <ridong.chen@linux.dev>,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>,
-	Ridong Chen <chenridong@xiaomi.com>
-Subject: [PATCH for-7.4-fixes] cgroup/cpuset: Don't revive invalid partition without active CPU on hotplug
-Date: Sat, 14 Nov 2026 20:05:32 +0800
-Message-Id: <20261114120532.1438512-1-ridong.chen@linux.dev>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 467FD606A330
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 12:09:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 467FD606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-568249fbf5eso2348995b6e.2
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 04:09:29 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794658168; x=1795262968;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UureYaaeVfHQ486k+R1nqPXa2SkWUzwY9akojhfzklY=;
+        b=gk4sjAnKkJSaZKT10iMrFlb0Byhqe9VJ9FOAV60hEB8ImoT1bFsN60iVn5QNnsJrkn
+         1DOmEpXhF94g11KmcAfrDV/VWGIfBytioNWia7RWmG2jO5XX1uz7iGg/e4iaZ1K+DT1n
+         toCTYy86zuz+YAPwPHidecpJs+xKqjxUPci1BpKNQ+UIZelEKCUSd3KBj9rL3G7j1kUm
+         yXF8sybxY35tHP5QRHbmdcKayrk4Ybf/OtRt4TBAXwlGgCE2RTy8S2ozol0D5bx4IqFQ
+         v7s/mlIXU+uG2tujUzA+6V9sAR1BcjKnmxRuYVyqrKVIXFL003oYkO/C9/NUffXSPjM1
+         aKFw==
+X-Forwarded-Encrypted: i=1; AL+hErFO8BRMpg3Vvf3zd9ud765pDSVlGt4tO5eWkTq3CSS8uQb/lnbDusgBkNjCHoYR6mcsRY2Mf2uoaClFjrw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+cIV+8uVxgo7gKrQT0b/OvrkkCxMNZ0rzRUaNfF5EJ8YCWQT+v
+	MvGmlK1Emg+LUlcM1sCQbucYl2AhJfIiUMNaCFQHq+ENgAML/CXJ82BRl7Pkey7zNqVehRsYxaD
+	2RB9DB2Ar5sBYONgGUFEzMP2sIvZ/ILjoIF2sFjs+Kk5Q5vp6UvlYKZLwyJ4=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,80 +58,147 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:1917:b0:4f0:a3f9:9f89 with SMTP id
+ 5614622812f47-56e62c69198mr4296410b6e.18.1794658168260; Sat, 14 Nov 2026
+ 04:09:28 -0800 (PST)
+Date: Sat, 14 Nov 2026 04:09:28 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af84f78.097d52ff.3d440.0004.GAE@google.com>
+Subject: [syzbot] [squashfs?] general protection fault in lookup_open
+From: syzbot <syzbot+0b7a8fb8279a59e8a188@syzkaller.appspotmail.com>
+To: brauner@kernel.org, jack@suse.cz, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, phillip@squashfs.org.uk, 
+	squashfs-devel@lists.sourceforge.net, syzkaller-bugs@googlegroups.com, 
+	viro@zeniv.linux.org.uk
+Content-Type: text/plain; charset="UTF-8"
 
-From: Ridong Chen <chenridong@xiaomi.com>
+Hello,
 
-When a CPU hotplug leaves no CPU outside of the partitions for the top
-cpuset, cpuset_handle_hotplug() clears subpartitions_cpus and gives all
-the active CPUs back to the top cpuset. cpuset_hotplug_update_tasks()
-then walks the hierarchy and invalidates the partitions, as
-subpartitions_cpus is empty.
+syzbot found the following issue on:
 
-However, an invalid partition visited in the same walk may be revived
-if its effective_xcpus is not empty. tasks_nocpu_error() doesn't catch
-it when its CPUs are all offline but it has no task. Its CPUs are put
-back into subpartitions_cpus, and the valid partitions visited after it
-are no longer invalidated, as subpartitions_cpus is not empty any more.
-The top cpuset is left with CPUs overlapping with these partitions.
+HEAD commit:    84abb955b101 Add linux-next specific files for 20261113
+git tree:       linux-next
+console+strace: https://syzkaller.appspot.com/x/log.txt?x=1082844d580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=d9d5eeb0ba036071
+dashboard link: https://syzkaller.appspot.com/bug?extid=0b7a8fb8279a59e8a188
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=148b45be580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=160f55a1580000
 
-It can be reproduced on a system with 8 CPUs:
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/ffae1d4a717e/disk-84abb955.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/fd2a35a63abf/vmlinux-84abb955.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/039ccf647778/bzImage-84abb955.xz
+mounted in repro: https://storage.googleapis.com/syzbot-assets/90d273be2ea1/mount_0.gz
 
-  # cd /sys/fs/cgroup
-  # echo +cpuset > cgroup.subtree_control
-  # mkdir A1 B1
-  # echo 1 > A1/cpuset.cpus
-  # echo 1 > A1/cpuset.cpus.exclusive
-  # echo 0,2-7 > B1/cpuset.cpus
-  # echo root > B1/cpuset.cpus.partition
-  # echo root > A1/cpuset.cpus.partition
-  # cat A1/cpuset.cpus.partition
-  root invalid (Parent unable to distribute cpu downstream)
-  # echo 0 > /sys/devices/system/cpu/cpu1/online
-  # cat A1/cpuset.cpus.partition B1/cpuset.cpus.partition
-  root
-  root
-  # cat cpuset.cpus.effective
-  0,2-7
+AI-generated root cause summary:
+In fs/squashfs/namei.c:squashfs_lookup(), sanity checks using
+squashfs_dir_space() jump directly to label read_failure instead of data_error
+upon detecting that a directory entry extends beyond inode size. Jumping to
+read_failure bypasses the assignment of err = -EIO, leaving err set to either an
+uninitialized value or a positive value returned by a prior successful call to
+squashfs_read_metadata() (such as sizeof(struct squashfs_dir_entry) == 8).
+Consequently, squashfs_lookup() returns ERR_PTR(8), which IS_ERR() does not
+recognize as an error pointer; VFS lookup_open() subsequently dereferences
+dentry->d_inode at address 0x8 + 0x68 = 0x70, triggering a near-NULL pointer
+dereference crash.
 
-A1 can't take CPU 1, the last CPU of the root cgroup which has tasks.
-When CPU 1 is offlined, A1 is revived without any active CPU, and B1
-stays valid while its CPUs are also in the effective CPUs of the root
-cgroup, which triggers
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=0b7a8fb8279a59e8a188
 
-  WARNING: kernel/cgroup/cpuset.c:919 at rebuild_sched_domains_locked
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+0b7a8fb8279a59e8a188@syzkaller.appspotmail.com
 
-Only revive an invalid partition in hotplug if its effective_xcpus has
-an active CPU, the same as what is required to create a partition with
-tasks. With that, A1 and B1 are both invalidated in the above case.
+loop0: detected capacity change from 0 to 8
+SQUASHFS error: Unable to read directory block [0:26]
+Oops: general protection fault, probably for non-canonical address 0xdffffc000000000d: 0000 [#1] SMP KASAN PTI
+KASAN: null-ptr-deref in range [0x0000000000000068-0x000000000000006f]
+CPU: 1 UID: 0 PID: 5645 Comm: syz-executor126 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
+RIP: 0010:lookup_open+0x890/0x16e0 fs/namei.c:4648
+Code: 09 00 00 e8 a2 60 68 ff 49 81 ff 01 f0 ff ff 0f 83 2a ff ff ff 4d 8d 77 68 4c 89 f0 48 c1 e8 03 48 b9 00 00 00 00 00 fc ff df <80> 3c 08 00 74 08 4c 89 f7 e8 92 54 e8 ff 49 83 3e 00 74 07 e8 67
+RSP: 0018:ffffc900039579c0 EFLAGS: 00010203
+RAX: 000000000000000d RBX: 0000000000000040 RCX: dffffc0000000000
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 00000000ffffffff
+RBP: 00000000ffffffe2 R08: ffff8880134403fb R09: 1ffff1100268807f
+R10: dffffc0000000000 R11: ffffed1002688080 R12: 1ffff110026f064c
+R13: ffffc90003957e00 R14: 000000000000006e R15: 0000000000000006
+FS:  0000555559c4d400(0000) GS:ffff8881234cd000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000020000000b400 CR3: 0000000071a58000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ open_last_lookups fs/namei.c:4880 [inline]
+ path_openat+0x7a5/0x20e0 fs/namei.c:5119
+ do_file_open+0x23e/0x4a0 fs/namei.c:5151
+ do_sys_openat2+0x115/0x200 fs/open.c:1492
+ do_sys_open fs/open.c:1498 [inline]
+ __do_sys_openat fs/open.c:1838 [inline]
+ __se_sys_openat fs/open.c:1833 [inline]
+ __x64_sys_openat+0x138/0x170 fs/open.c:1833
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x00007fc862573909
+Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fff58fa7d68 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
+RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007fc862573909
+RDX: 000000000000275a RSI: 000020000000b400 RDI: 00000000ffffff9c
+RBP: 0000000000000001 R08: 0000000000000000 R09: 0000555559c4e580
+R10: 0000000000000000 R11: 0000000000000246 R12: 00007fff58fa7d90
+R13: 0000000000000002 R14: 431bde82d7b634db R15: 00007fc8625d304b
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:lookup_open+0x890/0x16e0 fs/namei.c:4648
+Code: 09 00 00 e8 a2 60 68 ff 49 81 ff 01 f0 ff ff 0f 83 2a ff ff ff 4d 8d 77 68 4c 89 f0 48 c1 e8 03 48 b9 00 00 00 00 00 fc ff df <80> 3c 08 00 74 08 4c 89 f7 e8 92 54 e8 ff 49 83 3e 00 74 07 e8 67
+RSP: 0018:ffffc900039579c0 EFLAGS: 00010203
+RAX: 000000000000000d RBX: 0000000000000040 RCX: dffffc0000000000
+RDX: 0000000000000000 RSI: 0000000000000004 RDI: 00000000ffffffff
+RBP: 00000000ffffffe2 R08: ffff8880134403fb R09: 1ffff1100268807f
+R10: dffffc0000000000 R11: ffffed1002688080 R12: 1ffff110026f064c
+R13: ffffc90003957e00 R14: 000000000000006e R15: 0000000000000006
+FS:  0000555559c4d400(0000) GS:ffff8881233cd000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000557377da1760 CR3: 0000000071a58000 CR4: 00000000003526f0
+----------------
+Code disassembly (best guess), 1 bytes skipped:
+   0:	00 00                	add    %al,(%rax)
+   2:	e8 a2 60 68 ff       	call   0xff6860a9
+   7:	49 81 ff 01 f0 ff ff 	cmp    $0xfffffffffffff001,%r15
+   e:	0f 83 2a ff ff ff    	jae    0xffffff3e
+  14:	4d 8d 77 68          	lea    0x68(%r15),%r14
+  18:	4c 89 f0             	mov    %r14,%rax
+  1b:	48 c1 e8 03          	shr    $0x3,%rax
+  1f:	48 b9 00 00 00 00 00 	movabs $0xdffffc0000000000,%rcx
+  26:	fc ff df
+* 29:	80 3c 08 00          	cmpb   $0x0,(%rax,%rcx,1) <-- trapping instruction
+  2d:	74 08                	je     0x37
+  2f:	4c 89 f7             	mov    %r14,%rdi
+  32:	e8 92 54 e8 ff       	call   0xffe854c9
+  37:	49 83 3e 00          	cmpq   $0x0,(%r14)
+  3b:	74 07                	je     0x44
+  3d:	e8                   	.byte 0xe8
+  3e:	67                   	addr32
 
-Fixes: 0c7f293efc87 ("cgroup/cpuset: Add cpuset.cpus.exclusive.effective for v2")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20261114083124.1340140-1-ridong.chen%40linux.dev?part=11
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+
 ---
- kernel/cgroup/cpuset.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index 7e374210c123..bfc852090765 100644
---- a/kernel/cgroup/cpuset.c
-+++ b/kernel/cgroup/cpuset.c
-@@ -4016,10 +4016,10 @@ static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
- 		partcmd = partcmd_invalidate;
- 	/*
- 	 * On the other hand, an invalid partition root may be transitioned
--	 * back to a regular one with a non-empty effective xcpus.
-+	 * back to a regular one if its effective xcpus has an active CPU.
- 	 */
- 	else if (is_partition_valid(parent) && is_partition_invalid(cs) &&
--		 !cpumask_empty(cs->effective_xcpus))
-+		 cpumask_intersects(cs->effective_xcpus, cpu_active_mask))
- 		partcmd = partcmd_update;
- 
- 	if (partcmd >= 0) {
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-base-commit: e234ed1bb82c96a5643fd70784f16cf3d72eeed3
--- 
-2.34.1
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
