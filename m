@@ -1,108 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794678989;
-	b=h/05pmPmlnzfUfE+srFz0RQULKwU1t1yLAuKQANt9jLTJt8P76eWcmT7SAGMWUh5s8Cj
-	 TCrVgN6LLQ4K1tIvD1uirfk5/6c/tVViNPfIXI836lfFaot5trZAqBoc16HplDLs0rzj3
-	 fkKuY1QoBqwfKTCK5Vu+KehTHEBR+CxKcfkf0kts/rbpt66PDrTAPFT0MxrZ2Dzd1Jq6g
-	 sEA+r+L9ioKk1NJYKN3kwzPvHlEZdRrCIe+ffYMYDC0TayRJiEfpMyz8kVMsRKj2hbUWS
-	 jA46t73xCwNc/VqahO10FVqDY3OY5mELYktFcZIjwHZPS0/ymsBLzVxRqdHY+61hYGg==
+	t=1794678990;
+	b=JhU8MgwcHncC1j1qOdTrqL2F7rd3A2xSsN9wsCFg0ZwDZr+1RJCLr22qJs3f77HOG6jR
+	 gc/Ka4BtsgEa8lxnHYGg014/aE8zvTuOcBiwdbqHQUm4NKDj+iYsH6ytiEfkiMOKg9w9r
+	 qDGDTkm3GFuVDlIhCdQHWwN8JYuRbxsceIjNXDZISj7bkYgJLwnBWLXyRwKhit4IG/Acz
+	 gwUpx0YPnFxL3hHVtiM3cYfGCO1tA4P3o+adKMX3aPSFDmCcgXnbD22pvv9+OJLD0j+j6
+	 GYKwmLNYlhX2LXy5hEMODbVLw/01m9TF1Tdw5QPw4PcbZbjFSZCORvxfXda/MaRSVQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794678989;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=i710EDxhs1HHbZwQVt63v1uAh/hL+lpRmvt+Vbo8iM8=;
-	b=3wd0vjNVBzQAf+u63wIQJCQr52bqaNRiICX4y4eDoRd/eHhbqCDvE1PQuQKrbMXgmz/a
-	 Bqdv9b3ZzyBYg9o8exA1e6wI2QRNBgRW1EScrDf/u7cCBO4f2v9/mD/6zLnS26QSrKfdR
-	 7/+0zBBsw0fKx3R0f5fe3KVQJNqWDA8TsKf7pBhrro10rcKX/cQiY1Tpx+6bRwRimt2eA
-	 bC7TuoTfXaGrUcCiv0/BWBnFprARmih+57rUSAZFRSUKBXDFsl1EGaq8BHlU1+fr6nA8O
-	 2IQjRUL0FhjaB1r//B4gPHFmuMq8+T7BUc8qM2NwPvBcaIZaav0oLgbyB7y3hIAZkqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794678990;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=8nnbYITGa8aaldnPt7EKexDXGqEX6dsyutbdrhCQQ4w=;
+	b=dY6VxHyKD5TMNUlC0qVWTTj4GtPwlxdqYy8M47z8yQ6uuhdWTf54LJpOif4yBcmSRSSS
+	 mOpq7huWQLrcaFhRj1DKB6wegYux54lpzMGJJ7DswLER1RK6+Vm0Lup2Lq3uEBXzJZHR6
+	 9VeK521Ipg3WwOYemL0T6BM9nGqIVbqjr3bukgaKU6gNHnvKUU+AuRaC7NewoNoT8HQye
+	 zPev8Ti+ZFOycz0un+K8yZafGGJTWM7eG1MZScW1sBbPIWkbDkpHK7J7dy3yH1FhHb5eQ
+	 nUndSU2o0SBPJrhiCpF003zpqdoCs9uOlD2NjG0rdasf8SQyXs4rANTU45nZMHwUKew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HWETsPea;
-	arc=none smtp.remote-ip=74.125.227.137
-Received: from mail-pj2-f9.google.com (mail-pj2-f9.google.com [74.125.227.137])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gFA9zAEJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65E98606A323
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:56:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65E98606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BBBF606A336;
+	Sat, 14 Nov 2026 17:56:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HWETsPea
-Received: by mail-pj2-f9.google.com with SMTP id 98e67ed59e1d1-3b18c01238eso541653a91.1
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 09:56:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794678988; x=1795283788; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=i710EDxhs1HHbZwQVt63v1uAh/hL+lpRmvt+Vbo8iM8=;
-        b=HWETsPeag+bFtE+dRjzmPX4oXUDvXcr1yPp6iuiC2K9aRI90hNzOpKjddkBhlmGFU5
-         IfW3DrJ3cMFK+1y4ggpGyIyyk6xDe7id+7rgJ0YMcchbzOSL+GGQ2E653jcFq7oMLpTP
-         BPMZ/yTMr60Q1mY0x2oKj5i8cmpm8mFaSozBSsdr2BRosfeLuw+NqrvbJSu75HKngLyA
-         X4w2NbMkx63qiAteY+gaY0QwxJ1QAfQnzO79DPaSpJ948IOpAMjOv1M50AumrisJQuTN
-         MJGiQPy5t8ns7SuIIVyZC5ed2I9+b0aA2KkxnoyeSTEGNwmkp3esqZszJg+faGLFp5zs
-         Vq1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794678988; x=1795283788;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=i710EDxhs1HHbZwQVt63v1uAh/hL+lpRmvt+Vbo8iM8=;
-        b=s0q/xCNv7Vh41SoWYya5nZ0t4Z/xZgnoYPTbxlrdS8ovu1fQ/Hwpz6ZYpjb8mFSuKM
-         aotuONFAnPUiiCfDWKjnjT9dFHdEPkUe1yigPZWySfBtf7KPF09GmDy72wy4McVbYQ+C
-         KX2DWplVEbZYqKZk5R8B/IszdWF9DChRFFOJ4q/vUsswcJdSgqLgENqWynNBVSYyFbkr
-         zlqeD8XHla7cRPrTIq1r+8/4lrnfjfvEB17JLo6MmWmIQ6W7VBXda6NWESX17ZY8EAdQ
-         bvE/ju28UnT9HzTszmJaZHBcZscdhGiR86zLwuENvmmt9N7FmIZMrYu/m+y7+qbSXyJU
-         mW2w==
-X-Forwarded-Encrypted: i=1; AL+hErGebBUP9JaDTESDx0GfGLGXzCAdQhYTHX28e6A2iWWVnUcSzSdsyC3GvXxIi90G3ZAo0SUz+04NrQRHqMg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+S/eGqaqZR6XBlkRFQiLgGvCAjnvULANvQF9Pe6PoPY6fb51kV
-	Mal8pBnmoGgiFGio+nuEeU1bbcLsFAC2RNQFWTj9ajcefea3cXRv3HGE
-X-Gm-Gg: AYBFou3z2anjW1/ef4nHBGxDtXjtKGSmT6xG2hpahYqolw+5l3MaNLLtqVbktv0nTj5
-	4R/3EvZtkUrDs/4SSXtnh1qhnyQ0v++b42wo6t4zptdYDVN2QyCMB0hb4w//ZauGj0+tOtgpOop
-	Jtxs2jdE4OVYirywqvH1wucjxrQSiKma+QNX0a284NZzE/iKUg0g3qkHbEJ3eNlJU4P2Ab9/omV
-	kSIcT42NbGyuKCfSAtpN+TAUm7WYJJnR6O9KD8BQ9Zut1vdOzBdOYKHlTJUrSQGymCh8q0BYNd5
-	K1H0LMBuFcCKmw4bAY/pInynVcN7RBJGxtJsVjYaaAAyyr2E7Uyr5iYtjSeZ+E8SvfcpMyEwD9k
-	8cxjE3hu4hff+9kOXEjlz0GK/0300Ujzo9mSE4+WwRbCjzYQyprrQGYqu/GG2jymSxOUkRPeC4/
-	SavgkcpBzTPi4IZllSrdO3+5Hkbb0N029vNPNZ+pwX6W2j3pkwkFyJH/z9xM9GcRAyyjodSeVz3
-	1rZb1LXt7O3CI6TJM6B+RzzgYPMbAm7eDaoqTeN58g97/XaywuxiUo5fp5pg91tZ3rdlp7YqeZY
-	lFe4D3lrEf32ijj5qKaSwenhumsz
-X-Received: by 2002:a17:90b:5608:b0:3ac:adce:60a9 with SMTP id 98e67ed59e1d1-3b1b07ef0camr5928750a91.9.1794678987564;
-        Sat, 14 Nov 2026 09:56:27 -0800 (PST)
-Received: from ThinkPad ([192.220.23.71])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197c6c9c5sm14569383a91.1.2026.11.14.09.56.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 09:56:27 -0800 (PST)
-From: Qiling Zhu <kmatzkaczor244@gmail.com>
-To: Mark Pearson <mpearson-lenovo@squebb.ca>,
-	"Derek J. Clark" <derekjohn.clark@gmail.com>,
-	Rong Zhang <i@rong.moe>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Henrique de Moraes Holschuh <hmh@hmh.eng.br>
-Cc: Andrea Rabbaglietti <rabbagliettiandrea@gmail.com>,
-	Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Griffin Kroah-Hartman <griffin@kroah.com>,
-	vishnuocv@gmail.com,
-	vsankar@lenovo.com,
-	platform-driver-x86@vger.kernel.org,
-	ibm-acpi-devel@lists.sourceforge.net,
-	linux-leds@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Qiling Zhu <kmatzkaczor244@gmail.com>
-Subject: [PATCH v3 3/7] platform/x86: thinkpad_acpi: Sync LED core state on level writes
-Date: Sun, 15 Nov 2026 01:48:10 +0800
-Message-ID: <20261114174814.62153-4-kmatzkaczor244@gmail.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261114174814.62153-1-kmatzkaczor244@gmail.com>
-References: <20261102151211.40701-1-kmatzkaczor244@gmail.com>
- <20261114174814.62153-1-kmatzkaczor244@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gFA9zAEJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FF0C1F000C4;
+	Sat, 14 Nov 2026 17:56:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794678989;
+	bh=8nnbYITGa8aaldnPt7EKexDXGqEX6dsyutbdrhCQQ4w=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=gFA9zAEJgCZmf0CyRj7rPpRFSgas20aDgQhOLU9TSOT4/kE1DU9f9nccmgMxQOP17
+	 ZfhwcZvY7RKEsnvzqGfaHf4KvniaGCM6zP9f11XonxXjyYWUo/1Bjya3pqsAwCGxx8
+	 eETpoSakvkYu03xiANQnwkZpiezxwWel92eycLjWZpkrN5rjVbOCYdpDOX26WrOQ7r
+	 /173HFg48JUJtIxlMc0lg9wqayDwuDGhCq72oiBddAmxLTi4y8LarVezWXIA0qXs9b
+	 zLysu3QdlGVnwppFjMJBz/aD2HLqUSMQNNXxA4zq1mUo74KikcqZJOKsmCcOyCIDYJ
+	 KapyOuZ1LWCPA==
+Message-ID: <243ffea6-2d4e-40d0-b864-e1b8c0bc6440@kernel.org>
+Date: Sat, 14 Nov 2026 18:56:23 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,98 +51,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] dt-bindings: arm: qcom: Add ASUS Ascent QN10
+To: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261113-qn10-v1-0-e09b2aa7ccbe@oss.qualcomm.com>
+ <20261113-qn10-v1-1-e09b2aa7ccbe@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261113-qn10-v1-1-e09b2aa7ccbe@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-kbdlight_set_level_and_update() pokes the led_classdev brightness cache
-directly after writing the new EC level, without notifying userspace and
-without any locking.  Commit 06da5325d02e ("platform/x86: thinkpad_acpi:
-Stop setting led_classdev brightness directly") already removed this
-pattern from the sysfs path but had to keep it for the proc interface,
-which has no LED core path of its own.
+On 14/11/2026 05:28, Bjorn Andersson wrote:
+> The ASUS Ascent QN10 is a compact desktop computer based on the Qualcomm
+> Snapdragon X2 Elite (Glymur) platform, featuring an 18-core Oryon
+> CPU, Adreno X2-90 GPU, and Hexagon NPU. The system comes with 16 or 32GB
+> of LPDDR5x memory, two M.2 NVMe SSDs slots, Wi-Fi 7, Bluetooth 6.0, 2.5Gb
+> Ethernet, three USB Type-C ports, four USB Type-A port, and HDMI output.
+> 
+> Add a compatible for the device.
+> 
+> Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+> ---
 
-Move the LED core state update into kbdlight_notify_level(): stop
-updating the cached level in kbdlight_set_level() and have both the
-sysfs and the proc write paths go through kbdlight_set_level_and_update(),
-which writes the EC level and updates the cache under kbdlight_mutex,
-and reports the new level through the LED core, like commit
-07f48f668fac ("platform/x86: ideapad-laptop: add FnLock LED class
-device") did for the ideapad FnLock LED.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-As a result, writing a level through either interface now emits a
-brightness_hw_changed notification, so userspace listeners see level
-changes from both of them.
-
-Signed-off-by: Qiling Zhu <kmatzkaczor244@gmail.com>
----
- drivers/platform/x86/lenovo/thinkpad_acpi.c | 23 +++++++++++++--------
- 1 file changed, 14 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/platform/x86/lenovo/thinkpad_acpi.c b/drivers/platform/x86/lenovo/thinkpad_acpi.c
-index c8098f317..657a19d11 100644
---- a/drivers/platform/x86/lenovo/thinkpad_acpi.c
-+++ b/drivers/platform/x86/lenovo/thinkpad_acpi.c
-@@ -5108,17 +5108,17 @@ static struct ibm_struct video_driver_data = {
- static enum led_brightness kbdlight_brightness;
- static DEFINE_MUTEX(kbdlight_mutex);
- 
-+/*
-+ * Caller must hold kbdlight_mutex.
-+ */
- static int kbdlight_set_level(int level)
- {
- 	if (!hkey_handle)
- 		return -ENXIO;
- 
--	guard(mutex)(&kbdlight_mutex);
--
- 	if (!acpi_evalf(hkey_handle, NULL, "MLCS", "dd", level))
- 		return -EIO;
- 
--	kbdlight_brightness = level;
- 	return 0;
- }
- 
-@@ -5183,10 +5183,12 @@ static bool kbdlight_is_supported(void)
- 	return status & BIT(9);
- }
- 
-+static int kbdlight_set_level_and_update(int level);
-+
- static int kbdlight_sysfs_set(struct led_classdev *led_cdev,
- 			enum led_brightness brightness)
- {
--	return kbdlight_set_level(brightness);
-+	return kbdlight_set_level_and_update(brightness);
- }
- 
- static enum led_brightness kbdlight_sysfs_get(struct led_classdev *led_cdev)
-@@ -5245,18 +5247,21 @@ static void kbdlight_exit(void)
- 	led_classdev_unregister(&tpacpi_led_kbdlight.led_classdev);
- }
- 
-+static void kbdlight_notify_level(int level);
-+
- static int kbdlight_set_level_and_update(int level)
- {
- 	int ret;
--	struct led_classdev *led_cdev;
-+
-+	guard(mutex)(&kbdlight_mutex);
- 
- 	ret = kbdlight_set_level(level);
--	led_cdev = &tpacpi_led_kbdlight.led_classdev;
-+	if (ret)
-+		return ret;
- 
--	if (ret == 0 && !(led_cdev->flags & LED_SUSPENDED))
--		led_cdev->brightness = level;
-+	kbdlight_notify_level(level);
- 
--	return ret;
-+	return 0;
- }
- 
- static int kbdlight_read(struct seq_file *m)
--- 
-2.56.1
-
+Best regards,
+Krzysztof
