@@ -1,97 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794661259;
-	b=PX9ue7XEW1OVTWKOrYEOyxeep/+IE/8Lmav1r3dXuCT20S5ycvzEjxuMFLey4TqLxFX5
-	 NrVRqGA9UX0L+clFRU6IE9OBxwLSYq0in1q+NLFGzKoug/XUONmLqS4ER9w7Ss5s2EpAO
-	 U/Z95AoXCUSIiMt0vZ5iJjmrJpaYh7mQjW+dMRoyFiY8dsYOZRK758PhIT1fscujb2LZH
-	 f7/ddYf9lvOf9d6kAiMngXlqxa1jik/eTEyDpXwFIdXwSXJn+uH+jTknUVU0pGrVyDJ3x
-	 7vGFdPbpvwC5c66CrQBcFhjSxRUi35a8hYp66x/vrFZvPXs8mTBX8F+HLoOZJIoSRHg==
+	t=1794661333;
+	b=FF0QV7JVTp2uC9u36USPfqCjym0GQ409AvRQnPdInnDIa/E8WW1jOvyvKIvZwBYHj6du
+	 3FjNHVFrqeKHceDTDyJKCifxYh7uj2nplNDVw6vK7aoBBJ4O8uSugPea5Z+vmPRXPLty2
+	 AuySWToj3kQ+bzz/FyMRu9yOT9d1o1We+Ua6R6ayom2ooisfeXmJirBu84hJ1yQ7h4Yf5
+	 WX2dACEX3H6yXZOiiigMvSv9kQ15lK8fd4ReFYjIG+Mty4TPNnX0hKWKecrCKRJRoCLTa
+	 u6r+r7+MlEPZlzLmS8Y0EllBWqIyeNzJwh/SY4N9xdCBhnClGHJBBpIF25tW8b1K1Ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794661259;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=fdAJLD4zNLOzYjD/OIT0sBm7o7IlZcf0Q2ErKxsWEBk=;
-	b=yUwMD5YNDtgn8eTC+1QyEUBmylf6RNojBDPcDtiljELKG0Au52zNleLuo0cSduWw/Tcq
-	 DxQ3f/zj9THIv3M8UoOf8nLRAMhaaopmZPVycfoFUwe/OH24JtNY7Kf74LKHl4kF5fgis
-	 41ZhNZDCJUfCD1hvj4/bC9+epU4Nuij9YxlTuf3xtf4MS+d5C8wJYJk9PxOGtN7GpEe0a
-	 /F7Ufb6OboIQfIWS4Fko/AiZkQcNiZRwSoP0/rtztJcoWznbA86Efsr2RVhDS1E2QG3SC
-	 2gu+AXqUd7rxnlstZhCWvJaG7nfJNq7eoG9iN7sdmq8xuzwdBD4Hb4SlkIv2MVmmLQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794661333;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=a8liVn8UnmABTsZeVzknmD9S4lrmecQUdkrhMDrS/qc=;
+	b=Ku3cg26FfUBUMLGrPVkFKsmSrWSAk8szie1krcdQEQsErC+SdUg+0jamXt6sfpw38vbV
+	 kipL0cYKn5Sy4Hv9xMRDPSl8jDsQYv9m3ynH/gQhX93OgVhK4YDDk5dr66IXehgformjB
+	 rC18V0emgVRhW1OX76345GeJZ9FWA3k5R+51pvHFPnokokW+XfkdcPEoFrcNidYpAAeiO
+	 /iaH9ACCCh0c+tfIjqXJYmOtXPU6VCKAcHK0F5oEejmtJrLNCTaOhtp/89JXRIR43XVB3
+	 Fc3IUwdc/7Q6KrqIADkxcVJs/W6yWqp+P50RYS1pamsYoYBndXIPv0ZnR81rq6xvobw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T3jtUgYm;
-	arc=none smtp.remote-ip=209.85.218.48
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=G92UHqYQ;
+	arc=none smtp.remote-ip=95.215.58.7
+Received: from mta1.migadu.com (out-7.mta1.migadu.com [95.215.58.7])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4957F606A329
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 13:00:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4957F606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F13D7606A331
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 13:02:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F13D7606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T3jtUgYm
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c50a4a2132cso242513466b.3
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 05:00:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794661257; x=1795266057; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fdAJLD4zNLOzYjD/OIT0sBm7o7IlZcf0Q2ErKxsWEBk=;
-        b=T3jtUgYmzy9TE1gZDpvFRcansJmQ3vzKtwK60d8QPgQ5SWlX/aZeq27BC0DqI/TFfx
-         uFUDFSX3yTC+p8x6+pivJVKB+D+ZYxl4DMzMAWD47F4cdg2NAPbNmPKBRhaplPFMHrul
-         2ASkV7EMO6bMX9UWnF79ytpE6Bi6Qj+MBNuJ5pJbEK6COmFQ4wXRT50PU3azcWeBcMQy
-         FXCKnwj773SUT2JeulyTkJtKyhOwR5cQE9R4RyYU2E7A9bYRlzAxZzb1Xioap1FM+60N
-         kSWhEj38z1vs56jzff5a/4oyS58Jt9eU1mdXZxy+26vbcqFu0IPXbCrCfz8D6OP0ntbw
-         3f8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794661257; x=1795266057;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fdAJLD4zNLOzYjD/OIT0sBm7o7IlZcf0Q2ErKxsWEBk=;
-        b=HdnUB7O++I1PHXTIQR3NCOIdutZyzMZxXuA5bQWPhVSQPCw+xrdWDC51/SAx4qWegk
-         p3/m5KP+D7TGZKhgcgQmyS+/H3izJk3UVQ+Yd1xgV8Ff4Oex2cxehkAffo3ViQgAC+BH
-         mnDrRKiNsnGc4Ot+IlkONUWoLMmAqbbNkKHQdI89FdNxAk+aeZav1ZHn30+qZEA4tY1K
-         gpCAZjBYWXIlo/m+eUxqyDLB07UNoCX9xTJic2dCS3bodXYUGxpQRG6ogQe23KvyRdc2
-         jLi8U8xwrVpS0tqIBu1JpOzrB+GFacQjRRV0CqU15Mem1aWFu8Uk/7YcEOR1a6jR4T4r
-         Mabw==
-X-Forwarded-Encrypted: i=1; AL+hErFow28+sojpyFdygd0moTi7DCoDyfgwhRfHCltNFQdT9PvXwVVYmokBfkkzDV6CKWPXwLIdHg6rPYc7WyI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/PSUihQW2FB6ECkVeZuvpoNsjqdOl/g341lkAuuQ1Z9QMzgizy
-	vZO3Tw4W2xdgZE49xYC/D7/PYkOHuLZusbLHqlo49hVR6WY4ja/hm4dF
-X-Gm-Gg: AYBFou0A9BfFUdyjuNuCed7LERVL3L0H/Ie1RHRwppJ7/s+BujhOn32UZR1KD1PjtT/
-	uarwU5x2j3+yeS1Al0AiueDq87OypJcz0A4g7MDTfSyja8MNikJsPRLuiG5wjJTknPjo1xHri8z
-	jVhNgtrQm7IqPxlNNJVcF3v2QXiAVFXZQiP6vGDcGxSmnIGSnmyg2PM1RtOHP4I8QKkHUkI05NU
-	HO7zCCtm8c9HtR3j/IxSVhY34BdusozFt3Wgiyltvto40uSkYfMbtiM9Nb73xBu4Fe6NFIfiJcb
-	T20J88Yfo9bcLQrdritlDlmZ5sBEbs774r1i4dNKn1/wG/Q982GJQUhj9Lj09FTC3NW8dmAx2iK
-	h8sRcp4qH01Doo1+SIVGmBkgN6vCPRUHwhFKpdv8jjn2oRdKlHwihpO0IpsITR368ST+I3pR5iC
-	Hk3U0fLdmjS8c0wW0RC6HSBN5Iqh9kmNoI2JSusRGLDvR2RkLcKv6J12xXS7oZ3JLzW9UKCbcQi
-	mNTLwkiRK+sPjvS5pQCDgQ+CYnHARkLCT3C866znZuyy3J89rfy9Yo+NdRieGJkXkxmcbQmA4V4
-	yejy5KMqLJSYpFSJaQ3UG2+y6dKLxf887dWWQiCSKfLvGlW39FqvAYoggrEaV+XUIZvsCmieCGK
-	0qXHaEJcjs4ZCRV+SIoFw1w==
-X-Received: by 2002:a05:6402:1598:b0:6b6:f7cf:8088 with SMTP id 4fb4d7f45d1cf-6b7c0c6f6f1mr4621363a12.32.1794661257359;
-        Sat, 14 Nov 2026 05:00:57 -0800 (PST)
-Received: from nixos-macbook (20-144-89-188.ftth.glasoperator.nl. [188.89.144.20])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c23dde80sm2383864a12.25.2026.11.14.05.00.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 05:00:56 -0800 (PST)
-Date: Sat, 14 Nov 2026 14:00:53 +0100
-From: Jacob Procee <sn125164@gmail.com>
-To: Sven Peter <sven@kernel.org>
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, Janne Grunau <j@jannau.net>
-Subject: Re: [PATCH v2] usb: typec: tipd: cd321x: replay the plug on resume
-Message-ID: <20261114140053.0ad11276@nixos-macbook>
-In-Reply-To: <3a3f5721-dc37-41d1-8ef5-9a5fdbecc446@kernel.org>
-References: <20261112122825.7730-1-sn125164@gmail.com>
-	<3a3f5721-dc37-41d1-8ef5-9a5fdbecc446@kernel.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; aarch64-unknown-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=G92UHqYQ
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=aYTMwJcPZaY5jEHCZOnBOG5kZTkcaCeEJxo5vnx5Zkg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794661328; v=1; x=1795266128;
+ b=G92UHqYQd8vcWUACvf4Pq2/T7VcPxhT5jA+UW1tJSikhXG8bNZJTlL7YYZSp8FOjmhgp4fMi
+ LImH1w4yqahQJWxXZQ56IjirHi0Z/5WcY7uSMZp8XveuNE7btYS992trH3UJgi2RnP9hMpgQhy5
+ gf/yVP989+etmA+2esgnWCwk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6edc8f0930fb8514;
+	Sat, 14 Nov 2026 13:02:08 +0000
+X-Mizu-Trace-ID: 6edc8f0930fb8514
+X-Migadu-Flow: FLOW_OUT
+Date: Sat, 14 Nov 2026 21:01:57 +0800
+From: Peng Fan <peng.fan@linux.dev>
+To: Mark Brown <broonie@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
+	Lucas Tanure <tanureal@opensource.cirrus.com>
+Cc: linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+	Peng Fan <peng.fan@nxp.com>, Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v2 00/10] regmap: clean up and improve __regmap_init()
+Message-ID: <avhbxfOZqN048N-Y@fedora>
+References: <20261113-regmap-improve-v2-0-5dfd6a89078f@nxp.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,17 +67,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261113-regmap-improve-v2-0-5dfd6a89078f@nxp.com>
 
-On Sat, 14 Nov 2026 13:39:17 +0100
-Sven Peter <sven@kernel.org> wrote:
- 
-> Nah, making suspend/resume work isn't the job of the type-c
-> controller.
+Hi Mark,
 
-Thanks. Would you rather have this handled in dwc3-apple
-(dev_pm_ops doing exit/init on resume) with atcphy remembering the last
-mux state and restoring it in its own resume callback, or do you already
-have suspend/resume work for these drivers that I should wait for/test?
-Happy to test on j314s either way.
+On Fri, Nov 13, 2026 at 11:31:48PM +0800, Peng Fan wrote:
+>This series includes three fixes for pre-existing regmap issues noticed
+>during review, improves the __regmap_init() error handling and removes the
+>last user of regmap_bus::free_on_exit. Patches 1-3 are fixes suitable for stable;
+>patches 4-9 are cleanups with no functional change intended; patch 10 adds
+>KUnit coverage for the new bus callback.
+>
+>Patch 1 fixes the cache reinitialisation failure paths. regcache_exit()
+
+I am thinking to drop patch 1(which seems not a correct fix) from the series
+and use a separate patch to avoid sending a large patchset again, and the
+other nine patches are orthogonal with patch 1.
+
+If there are issues that I need to address for patch 2-9, I could
+continue picking up patch 1 in v3.
+
+Is this ok for you?
+
+Thanks,
+Peng
+
+
+>freed reg_defaults_raw without clearing cache_free, and a failed
+>regmap_reinit_cache() left map->cache_type set, so a later regmap_exit()
+>could free the raw defaults a second time. It also drops the old cache_ops
+>after tearing down the cache, so a successful reinitialisation to
+>REGCACHE_NONE cannot leave stale cache ops behind. Clear the ownership
+>state and leave the map without a cache if reinitialisation fails.
+>
+>Patch 2 fixes regmap_get_i2c_bus() so that applying an adapter read quirk
+>no longer drops the raw write limit advertised by the selected bus (and
+>vice versa). It currently starts from zero-initialised locals and
+>overwrites both limits of the bus copy.
+>
+>Patch 3 fixes the raw write limit calculation when the adapter's
+>max_write_len quirk is applied. It compares the bus limit against the
+>quirk payload size rather than the whole-message size, avoids the
+>underflow when the register address alone exceeds the quirk limit, and
+>keeps the existing limit when the quirk cannot fit a single value, which
+>would otherwise lead to a division by zero in the raw write chunking.
+>The same minimum-size guard is applied to the read quirk.
+>
+>Patches 4-7 are mechanical: evaluate fast_io once, and factor out
+>regmap_set_lock(), regmap_init_ranges() and the format selection into
+>helpers. The forward goto and the label-based unwinding are reduced to a
+>single error path.
+>
+>Patch 8 drops regmap_bus::free_on_exit. Instead of kmemdup()ing the
+>static I2C/SPI bus to store per-device raw I/O limits, add an optional
+>regmap_bus::init_limits() callback. __regmap_init() invokes it before
+>regcache_init(), which is required because regcache_hw_init() may read
+>raw register defaults from the device during initialization and must
+>already see the effective max_raw_read limit. The static bus structures
+>can then be used directly and the per-device allocations disappear.
+>
+>Patch 9 converts the error unwinding to the cleanup API and drops all
+>err_* labels. map->cache_type is now assigned just before
+>regcache_init() and reset to REGCACHE_NONE on failure, so the release
+>helper can safely call regcache_exit() on a partially initialised map.
+>
+>Patch 10 adds a KUnit test which verifies that init_limits() is invoked
+>before regcache_init() by checking that the raw default readback is split
+>according to the limit installed by the callback.
+>
+>Testing:
+>- Built drivers/base/regmap/ with W=1 on x86_64.
+>- checkpatch.pl clean for all patches.
+>- regmap KUnit suite pass.
+>
+>Signed-off-by: Peng Fan <peng.fan@nxp.com>
+>---
+>Changes in v2:
+>- Rebased onto next-20261112.
+>- New patch 1: regmap: fix reinit cache failure handling
+>- Patch 3: regmap-i2c: fix write limit clamping for adapter quirks
+>  Correct fixes tag
+>  Rename the patch subject.
+>  Fix write limit clamping.
+>- Patch 5: regmap: factor out regmap_set_lock():
+>  Move ret = -EINVAL below the successful regmap_set_lock() call so it
+>  cannot be clobbered with 0 on success.
+>
+>---
+>Peng Fan (10):
+>      regmap: fix reinit cache failure handling
+>      regmap-i2c: keep bus raw write limit when applying read quirk
+>      regmap-i2c: fix write limit clamping for adapter quirks
+>      regmap: deduplicate fast_io checks
+>      regmap: factor out regmap_set_lock()
+>      regmap: factor out regmap_init_ranges()
+>      regmap: factor out format initialisation into helpers
+>      regmap: drop regmap_bus::free_on_exit
+>      regmap: use cleanup API in __regmap_init()
+>      regmap: kunit: add test for regmap_bus::init_limits
+>
+> drivers/base/regmap/regcache.c     |   8 +-
+> drivers/base/regmap/regmap-i2c.c   |  68 ++--
+> drivers/base/regmap/regmap-kunit.c |  89 +++++
+> drivers/base/regmap/regmap-spi.c   |  64 ++--
+> drivers/base/regmap/regmap.c       | 714 +++++++++++++++++++------------------
+> include/linux/regmap.h             |   7 +-
+> 6 files changed, 541 insertions(+), 409 deletions(-)
+>---
+>base-commit: 6d582d78fad9d828e575ca0cdcff8ea47a77220b
+>change-id: 20261109-regmap-improve-915eee5a80ec
+>
+>Best regards,
+>-- 
+>Peng Fan <peng.fan@nxp.com>
+>
+>
