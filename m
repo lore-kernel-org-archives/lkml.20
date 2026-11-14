@@ -1,104 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794618597;
-	b=czyOKg5Z4u/4a3+XddRYpgCyEhmLfJzm+ANap+C7iMjvqFHbD9+LAQAfRvgrKj3YbymZ
-	 x2faKMbH79oQdlOrm8oa/KMBBSwQc2Za6HD2GAhwduIoSJLnFQ2tM6OTCgbCeX5UAxn8f
-	 MwDyyikwIWKC7vuICvK2gsSKMH0DbL0ZDqFRCIzxkJ8ZSrk7ToOxPiDrXnaBEhixtKt55
-	 0UId1ZXbU7SaYSe9fshtKG3PfTiybbKQz05UZbxlHM44KRq75MO28FGLnledsvPfdND30
-	 8At71Bt6ETZNzyo+lPAtF8wXGQ4RlRpr7HWsStDChRgabVk0QJCeZ+36qUIS6HlPCBA==
+	t=1794618625;
+	b=Iuq+cTnhfl9mHxdBrs5gMTnds1IHHHui00aovuQ0RKC3rcFYEXU0WDsIW6rTK4j8V2aM
+	 FcQLPW5OppypFaVnl+K2Xr7PSt1BNH9fuURb/F69oNLFGw7gtfJH7DLRNxRVnk+ow86Sk
+	 2I382xN929CIKllgizFgqBR8gtSN6PEIabHmtCAkD6U44GWPU2tAR8psfRTKslE+BqLAT
+	 mZeYHiA3Z42Y2y4ACjxXRtVtTr6x+N+6mHAVkPGHgarzC48bUaUZvVpXct5msBTZy2ARi
+	 MTghqW/lepJE318Gsw+3Wi7TXJZ9teo0A6chG3pfPG81P/pz1bAqczJDLkR8l82igwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794618597;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794618625;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=VDpGr0Ny1586UxfYRIA6pWm7qONogFd4lJKpBO64/Wg=;
-	b=mQ2QiwkOqRP3dQ9Fbd68VGg+vkp3nnDPHRnqglpJqAxJ8reUTg3RIAMG81+ahbhCmXaU
-	 KbL23OtZEv6B6V7XZUoC+bhlLta05Cn627N7hQmtopSIBc/gfp23KXC6tsmwqR1TlRVRA
-	 3m55mzdgTldRKHgRcQoYU+DVvk5Fse2bY4SfEs2syGZ/JM6riqJJx67el/n4TUvKRBTTu
-	 rPxwL+oFknekONvdmHNcT8b8NADJHt/+TxI+WjVrBLqtLnJ3SFSiLfK6a8RqXImvT6R9u
-	 U64inR48TwNUC5ac4Kd2pIdTbp2nROOSgWRMy/z6BAMOxZLJZ2q69JipnvAWBsxqa0g==
+	bh=HZBsu99DV8KPogbykaRPIYzC3+hqkstjia4yoW8N5EA=;
+	b=cRyOGy5yEV8FKc/Hu4n5JIavDs5VsqnRguly0IQteVBj8HuwRvqZeQUdNaaCCFDIi0nC
+	 h7yLOl82xTQzQbe30EGH+hrqjl7dDJ8ylKLaX9mYAtB7K+phH6apuCKikj2U1kVhnZdg7
+	 XOKwX5hbVo7PLMNIkVQ+e6KYQ7jVP8eNaQG/pj5Ze8TufHQ0HMdiK/JUyLpg2bjI/IkjU
+	 mqLI9wDSA7jMcbilHb4kBeq571Xx2b9UtwtRxUxXN4FUu0L1Lq+j82J4ordyk0cwbWlSp
+	 DPRU9E8jcJhgmIdkyqc5mVbSkoglkvIEGaJaKvYhai3w0VeiJtUIpgBtv+h4v4+BCyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ejUgblt0;
-	arc=none smtp.remote-ip=209.85.208.51
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yoe7Mb0n;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83463606A336
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 01:09:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83463606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15F92606A331;
+	Sat, 14 Nov 2026 01:10:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ejUgblt0
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b58cb69927so2926471a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:09:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794618595; x=1795223395; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VDpGr0Ny1586UxfYRIA6pWm7qONogFd4lJKpBO64/Wg=;
-        b=ejUgblt0QgSzqrA+wKI1dWhCdHE+iJYuNQl9dnTtG/CpI3/X06+XoTOkwjrsonmdog
-         e6i5gASNiAXOaGjpoSQIFK8CL2Df8sksLciFNTEH6434CqBAmaDf6ENxFK5RwcyXpmsJ
-         m4UvVSAAa4g47YV6G5LcjEAerLZIEzZvtTZMN45RkUHe2JjFQfjIZ8xC+gVf7udBnXXm
-         ks9Uwd49ojb10oOz2nci4zAvLW0b2M5pc0df7BXQrCRf8tRVNWpWjyT34ttnh2PkhfUW
-         PSAcWZKz3+xKzQhUckpT4srk0GNRa8qmpfThHnhxKJB7yBqU6yjVTGyarb3K7sYnbWKc
-         YUFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794618595; x=1795223395;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VDpGr0Ny1586UxfYRIA6pWm7qONogFd4lJKpBO64/Wg=;
-        b=Y4ecHouROfNCNoFA7YbwrLU7oTV+C3HCifoEq9wWRd8LDJot8VJbtiBCCkQSfgkRPv
-         yBfWxshdv5iC+rtM3eGUEAc09ohDpSKFlCHDvmc5mHUOJyTkvS63nbZfWrG/jRZQAbxc
-         bc6jcyFFiVVmAZWueIwH2K3oYsj7sJTPHPJ+Dvw5lROpNgMr+aDBKDwIrfHHX9sRdmmK
-         b5SQQ0FmdT07BWYaJmVyHhrGcyYYLKIOCtWSH+dScBi7G/YzgMS1SoVW2SDHJJDsSoJJ
-         IZfvvX9n4+buHIU+OqyjWfnbeSf4a01P0pOd+Z/3QVMZey40SosEW+dsS6hYcszEK7x/
-         /tHA==
-X-Forwarded-Encrypted: i=1; AL+hErHPoxAFzUqOtFu+VrCiDn771QMPlWf9CQJuKrRd/ZTIob4ZwxB1cUlEFQO++FAdXbCMIppj6zAxUy3Xwjw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9mPvW8TYNAa1exNFLCDHVyCYSJ3Xh/QgbZqJPjtfOz8xUmIQMh
-	EIGBwrABGdQWB7H+qjrzNDJyxVnSvHmKgkFtd7f7NzYKopK5c1iS7YHz
-X-Gm-Gg: AYBFou17zhNMla4j/hv3HjJ0bJ2swDermmo/qG2Q/ed3qEr7/qTXaTerjeCUdZGp7+f
-	dtpeJJL79d/HhfoV1K40thnesvNUenhrOFXr1pf5JVy5PRNQMt+KVCf9R28bzrObdfV9agxr22v
-	s0CbzlmDlRjFOgf3xk73Ko09WPiXqGojNUD5cU9XgH5VsZFxtk/ebl5KjorL272rk0xUrmMHv7d
-	K/EIeHVkwSCAUazLN9mzqPj6d8RQEpA94C8pjxU3BY5xURSGjfPBvoqncoNpd+wrsUrLzbF0hde
-	y4GHm1HWkIs7OTcep8gbYSccuY52jo9iG7FWqOMg/U67abEhBg1x6J7mb6UtnWSZigUVxnJtAGr
-	i+oYJHrVY/UHNHeWyAvi9uCTYCAVCjzgHhIESwth26TY+xgDLN0cTtG8X3p0097ArGw4CTqwe+L
-	YF7wXpGbCcip4lsQ12pp7mgDe9XhPqt1edk6LEXDreGSnwqPDuYqk3WBn2iK0ElxZc3jltX/nue
-	VjnDtBSq5b5MJU084KHkjAyYyhPulN6fb8q7rB8NQVqPUNDOgHVDgusaEl2quulGRlkD6JgsybA
-	SvFAMPXCh533Vjfs2XyWe0kvYOPyx+kPgc19G7wWLbkDbFmmFdhW962pe4Dv8vEbl9YvVSusLkE
-	p32H9pqrniEugv/Ks8310xMna
-X-Received: by 2002:a17:907:72cb:b0:c42:fc8b:6c6a with SMTP id a640c23a62f3a-c50963841e5mr330347366b.14.1794618594704;
-        Fri, 13 Nov 2026 17:09:54 -0800 (PST)
-Received: from SMOK.angora-ide.ts.net (mm-156-219-126-178.vitebsk.dynamic.pppoe.byfly.by. [178.126.219.156])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b71608sm156983166b.64.2026.11.13.17.09.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 17:09:54 -0800 (PST)
-From: ElXreno <elxreno@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	jani.nikula@linux.intel.com,
-	ville.syrjala@linux.intel.com,
-	j@metarealtyinc.ca,
-	litaliano00.contact@gmail.com,
-	amd-gfx@lists.freedesktop.org,
-	harry.wentland@amd.com,
-	sunpeng.li@amd.com,
-	alexander.deucher@amd.com,
-	linux-kernel@vger.kernel.org,
-	ElXreno <elxreno@gmail.com>
-Subject: [PATCH] drm/edid: Read the monitor range from the DisplayID Adaptive-Sync block
-Date: Sat, 14 Nov 2026 04:07:49 +0300
-Message-ID: <20261114010749.1949247-1-elxreno@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yoe7Mb0n
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F0FA1F000C4;
+	Sat, 14 Nov 2026 01:10:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794618624;
+	bh=HZBsu99DV8KPogbykaRPIYzC3+hqkstjia4yoW8N5EA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Yoe7Mb0nIQWUp73vu+o4m89xTcD/mMNd7NTivPJIOONg1g0JdqCX3cP/LyNufhe+T
+	 3kNaEk4WIfVAPvvFhqpqaz23HZ2ULQnbRbaRyCArIWJ9U8fKjmeEtJT3a4EMydypu/
+	 xfUcTigmbLqbmuTqMx0F2GXR0BXLQnJbt74P+ELyjsKLD/Vzz2F4Xaaa6F2Ki0MPny
+	 eoCppCKpezd2v2rk7k/mT5x+NtzUXLAUobffX3QXeXT7nHRfw1066U3PB9MXTE7VG9
+	 8Ma3fW75VHEg/oGSiDBvNga71Yy3Dzgt7hliGMtgHA7G610RP3GsLauu6d3cFB2Hm/
+	 Wgyu7AwRo4m9w==
+Date: Sat, 14 Nov 2026 01:10:15 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matti
+ Vaittinen <mazziesaccount@gmail.com>, Rodolfo Giometti
+ <giometti@enneenne.com>, Marcelo Schmitt <marcelo.schmitt@analog.com>,
+ Antoniu Miclaus <antoniu.miclaus@analog.com>, Angelo Dureghello
+ <adureghello@baylibre.com>, Tobias Sperling <tobias.sperling@softing.com>,
+ Eason Yang <j2anfernee@gmail.com>, Marilene Andrade Garcia
+ <marilene.agarcia@gmail.com>, Cosmin Tanislav
+ <cosmin-gabriel.tanislav.xa@renesas.com>, duje@dujemihanovic.xyz, Joshua
+ Crofts <crofts@kernel.org>, Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?=
+ <u.kleine-koenig@baylibre.com>, Victor Chernyakin
+ <chernyakin.victor.j@outlook.com>, herve.codina@bootlin.com,
+ thomas.petazzoni@bootlin.com, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] iio: adc: add driver for Texas Instruments
+ TLA2528 adc
+Message-ID: <20261114011015.44831cf1@jic23-hlaptop>
+In-Reply-To: <avcvfUcFwdJWjvs8@ashevche-desk.local>
+References: <20261113151543.2241604-1-maxime.chevallier@bootlin.com>
+	<20261113151543.2241604-3-maxime.chevallier@bootlin.com>
+	<avcvfUcFwdJWjvs8@ashevche-desk.local>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,252 +76,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-A DisplayID 2.x Adaptive-Sync data block (tag 0x2b) lists the refresh
-rate ranges a display supports with an adaptive vertical total. Some
-panels advertise their variable refresh range only there, and some
-keep a narrower one in the base block range limits. The BOE
-NE180QA1-MM1 is of the second kind: the range limits descriptor says
-48-120 Hz, the Adaptive-Sync block has three descriptors,
+On Fri, 13 Nov 2026 17:40:45 +0200
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
- 27 00 30 ef 00 00
- 27 00 30 77 00 00
- 27 00 30 3b 00 00
+> On Fri, Nov 13, 2026 at 04:15:42PM +0100, Maxime Chevallier wrote:
+> > Add a new driver for the TI TLA2528 ADC chip. It has 8 12-bit
+> > channels, that can also be configured as 16-bit averaging channels.  
+> 
+> I forgot to check if there is a justification of the brand new driver,
+> I assume there is.
+> 
+> > This is a very simple driver, allowing reading raw values for each
+> > channel. GPIO mode isn't supported for now, as well as buffered mode and
+> > the 16-bit averaging mode.  
+> 
+> Some nit-picks below, but they do not prevent from this patch being accepted,
+> so
+> 
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> 
+Applied, I did the second of these suggestions as a tweak.
 
-for 48-240, 48-120 and 48-60 Hz. A driver that checks a mode against
-monitor_range then refuses VRR for the 240 Hz timing of that panel.
+Thanks,
 
-Use the block in both cases. Without a range from the base block take
-the range from the descriptors. With one, keep its minimum and only
-raise the maximum, and only from descriptors that reach down into it,
-so that the result never goes below what the base block promises.
+Jonathan
 
-monitor_range stays one range per connector. Only descriptors for the
-native panel range that declare the adaptive vertical total operation
-mode count: a descriptor for fixed average vertical total alone does
-not describe a range to pick a vertical total from. Where several
-count, the highest minimum and the highest maximum are used. Without
-a base range every rate in the result is then within the descriptor
-that reaches highest. With one, every rate is within the base range
-or within that descriptor, which overlaps it.
+> ...
+> 
+> > +static int tla2528_read(struct tla2528 *tla2528, u8 channel, int *val)
+> > +{
+> > +	__be16 data;
+> > +	int ret;
+> > +
+> > +	guard(mutex)(&tla2528->lock);
+> > +
+> > +	ret = regmap_update_bits(tla2528->regmap, TLA2528_CHANNEL_SEL_ADR,
+> > +				 TLA2528_CHANNEL_SEL_MANUAL_CHID, channel);
+> > +	if (ret)
+> > +		return ret;  
+> 
+> Ideally this needs a comment explaining in short why regmap IO accessors may
+> not be used.
+I left this alone because there is a comment in probe. I'm not sure repeating
+a comment that basically says 'because weird' is worth it.
 
-The layout is taken from edid-decode (parse_displayid_adaptive_sync()
-in utils/edid-decode/parse-displayid-block.cpp of v4l-utils), not
-from the DisplayID text: a descriptor is 6 bytes plus the count in
-bits 6:4 of the block revision, byte 0 has the native panel range
-flag in bit 0 and the operation mode in bits 3:2 (1 for fixed average
-and adaptive vertical total), byte 2 is the minimum refresh rate,
-bytes 3-4 hold the maximum refresh rate minus one in ten bits. The
-block is read from any section of structure version 2.0 or later,
-which is what the panel above declares.
-
-This reaches every driver that reads monitor_range. A display with
-such a block and no base block range now has a range where it had
-none, which is the point for i915 and xe (their other VRR conditions
-still apply). amdgpu scans DisplayID tag 0x25 on its own when the
-minimum or the maximum is zero, and with a range from the
-Adaptive-Sync block that scan is no longer reached. When the display
-has no AMD VSDB, amdgpu takes monitor_range as its refresh rate
-range, so it follows the raised maximum, and a DP or eDP display that
-has only the Adaptive-Sync block can now pass its FreeSync test (a
-range wider than 10 Hz and a sink that ignores the MSA timing). With
-a VSDB that advertises FreeSync the range still comes from there.
-
-Signed-off-by: ElXreno <elxreno@gmail.com>
----
-
-Two parsers for this area were posted this spring, both as a fallback
-for panels with no range in the base block: Adriano Vero's for tag
-0x25, v1 in [1] and a v2 on April 1 after Jani's review, and Jake S's
-for tags 0x2b and 0x25 [2]. Asked by Ville why he had posted a
-different version, Jake offered to fold the 0x2b part into Adriano's
-series [3]. I found no later posting of either, and the DRM core in
-drm-tip parses neither tag. This one covers the case where the base
-block has a range that is narrower than the Adaptive-Sync one, looks
-at the native range flag and the operation mode of the descriptors,
-and leaves tag 0x25 alone. I am happy to rebase onto either of them
-instead.
-
-The i915 series that needs it for a 3840x2400@240 panel is "drm/i915:
-VRR with the pipe joiner" on intel-gfx.
-
-Tested on the BOE NE180QA1-MM1 only: monitor_range goes from 48-120
-to 48-240. No KUnit case comes with it.
-
-On tooling, per Documentation/process/generated-content.rst: written
-with an LLM coding assistant (Claude Code), which also decoded the
-panel's EDID against edid-decode. I have reviewed all of it and take
-responsibility for the result.
-
-[1] https://lore.kernel.org/r/20260328132027.22383-1-litaliano00.contact@gmail.com
-[2] https://lore.kernel.org/r/20260415130626.10523-2-j@metarealtyinc.ca
-[3] https://lore.kernel.org/r/69dfe22d.050a0220.60470.81b5@mx.google.com
-
- drivers/gpu/drm/drm_displayid_internal.h | 17 ++++++
- drivers/gpu/drm/drm_edid.c               | 68 ++++++++++++++++++++++++
- include/drm/drm_connector.h              | 10 ++--
- 3 files changed, 92 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_displayid_internal.h b/drivers/gpu/drm/drm_displayid_internal.h
-index ef7e6c9bd4db..6ea1c45c04b6 100644
---- a/drivers/gpu/drm/drm_displayid_internal.h
-+++ b/drivers/gpu/drm/drm_displayid_internal.h
-@@ -67,6 +67,7 @@ struct drm_edid;
- #define DATA_BLOCK_2_TILED_DISPLAY_TOPOLOGY	0x28
- #define DATA_BLOCK_2_CONTAINER_ID		0x29
- #define DATA_BLOCK_2_TYPE_10_FORMULA_TIMING	0x2a
-+#define DATA_BLOCK_2_ADAPTIVE_SYNC		0x2b
- #define DATA_BLOCK_2_VENDOR_SPECIFIC		0x7e
- #define DATA_BLOCK_2_CTA_DISPLAY_ID		0x81
+> 
+> > +	ret = i2c_master_recv(tla2528->client, (char *)&data, sizeof(data));
+> > +	if (ret < 0)
+> > +		return ret;
+> > +	if (ret != sizeof(data))
+> > +		return -EIO;
+> > +
+> > +	*val = be16_to_cpu(data) >> 4;
+> > +
+> > +	return 0;
+> > +}  
+> 
+> ...
+> 
+> > +	ret = regmap_write(tla2528->regmap, TLA2528_GENERAL_CFG_ADR,
+> > +			   TLA2528_GENERAL_CFG_RST);  
+> 
+> With locally defined
+> 
+> 	struct regmap *map;
+> 	...
+> 	map = devm_regmap_*init*(...);
+> 	...
+> 	tla2528->regmap = map;
+> 	...
+> 	ret = regmap_write(map, TLA2528_GENERAL_CFG_ADR, TLA2528_GENERAL_CFG_RST);
+> 
+> this can kill two birds with one stone:
+> - make this one line (yes, 82 characters is okay)
+> - keeping data structure free from error pointers
+> 
+diff --git a/drivers/iio/adc/ti-tla2528.c b/drivers/iio/adc/ti-tla2528.c
+index c02b04e19785..754b31d6725f 100644
+--- a/drivers/iio/adc/ti-tla2528.c
++++ b/drivers/iio/adc/ti-tla2528.c
+@@ -128,6 +128,7 @@ static int tla2528_probe(struct i2c_client *client)
+ 	struct iio_chan_spec *channels;
+ 	struct iio_dev *indio_dev;
+ 	struct tla2528 *tla2528;
++	struct regmap *map;
+ 	int ret;
  
-@@ -142,6 +143,22 @@ struct displayid_formula_timing_block {
- 	struct displayid_formula_timings_9 timings[];
- } __packed;
+ 	/*
+@@ -148,9 +149,11 @@ static int tla2528_probe(struct i2c_client *client)
+ 	tla2528 = iio_priv(indio_dev);
+ 	tla2528->client = client;
  
-+/* Bits 6:4 of the block revision: descriptor bytes beyond the base six */
-+#define DISPLAYID_ADAPTIVE_SYNC_DESC_EXTRA	GENMASK(6, 4)
+-	tla2528->regmap = devm_regmap_init_i2c(client, &tla2528_regmap_config);
+-	if (IS_ERR(tla2528->regmap))
+-		return PTR_ERR(tla2528->regmap);
++	map = devm_regmap_init_i2c(client, &tla2528_regmap_config);
++	if (IS_ERR(map))
++		return PTR_ERR(map);
 +
-+#define DISPLAYID_ADAPTIVE_SYNC_NATIVE_RANGE	BIT(0)
-+#define DISPLAYID_ADAPTIVE_SYNC_MODE		GENMASK(3, 2)
-+#define DISPLAYID_ADAPTIVE_SYNC_MODE_FAVT_AVT	1
-+#define DISPLAYID_ADAPTIVE_SYNC_MAX_REFRESH	GENMASK(9, 0)
-+
-+struct displayid_adaptive_sync_descriptor {
-+	u8 flags;
-+	u8 max_duration_increase;
-+	u8 min_refresh;
-+	__le16 max_refresh;	/* [9:0] refresh rate - 1 */
-+	u8 max_duration_decrease;
-+} __packed;
-+
- #define DISPLAYID_DEVICE_TECH_UNSPECIFIED	0
- #define DISPLAYID_DEVICE_TECH_LCD		1
- #define DISPLAYID_DEVICE_TECH_OLED		2
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index b8f882a17c8f..4307a4bc5899 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -6916,9 +6916,71 @@ drm_displayid_parse_display_params(struct drm_connector *connector,
- 	}
- }
++	tla2528->regmap = map;
  
-+/*
-+ * Collect the refresh rate range of the Adaptive-Sync descriptors that
-+ * are for the native panel range and allow an adaptive vertical total.
-+ */
-+static void drm_displayid_parse_adaptive_sync(struct drm_connector *connector,
-+					      const struct displayid_block *block,
-+					      struct drm_monitor_range_info *as_range)
-+{
-+	const struct drm_monitor_range_info *range = &connector->display_info.monitor_range;
-+	int size = sizeof(struct displayid_adaptive_sync_descriptor) +
-+		FIELD_GET(DISPLAYID_ADAPTIVE_SYNC_DESC_EXTRA, block->rev);
-+	const u8 *data = (const u8 *)(block + 1);
-+	int i;
-+
-+	for (i = 0; i + size <= block->num_bytes; i += size) {
-+		const struct displayid_adaptive_sync_descriptor *desc =
-+			(const struct displayid_adaptive_sync_descriptor *)&data[i];
-+		u16 min_vfreq = desc->min_refresh;
-+		u16 max_vfreq = FIELD_GET(DISPLAYID_ADAPTIVE_SYNC_MAX_REFRESH,
-+					  le16_to_cpu(desc->max_refresh)) + 1;
-+
-+		if (!(desc->flags & DISPLAYID_ADAPTIVE_SYNC_NATIVE_RANGE) ||
-+		    FIELD_GET(DISPLAYID_ADAPTIVE_SYNC_MODE, desc->flags) !=
-+		    DISPLAYID_ADAPTIVE_SYNC_MODE_FAVT_AVT)
-+			continue;
-+
-+		if (!min_vfreq || min_vfreq >= max_vfreq)
-+			continue;
-+
-+		/* Only extend a base block range the descriptor reaches down into */
-+		if (range->max_vfreq && min_vfreq > range->max_vfreq)
-+			continue;
-+
-+		as_range->min_vfreq = max(as_range->min_vfreq, min_vfreq);
-+		as_range->max_vfreq = max(as_range->max_vfreq, max_vfreq);
-+	}
-+}
-+
-+/*
-+ * Use the Adaptive-Sync range when the base block has no range limits,
-+ * and to raise their maximum when it has: a panel may keep the base block
-+ * range at what it does without Adaptive-Sync.
-+ */
-+static void drm_displayid_update_monitor_range(struct drm_connector *connector,
-+					       const struct drm_monitor_range_info *as_range)
-+{
-+	struct drm_monitor_range_info *range = &connector->display_info.monitor_range;
-+
-+	if (as_range->max_vfreq <= range->max_vfreq)
-+		return;
-+
-+	if (!range->min_vfreq)
-+		range->min_vfreq = as_range->min_vfreq;
-+	range->max_vfreq = as_range->max_vfreq;
-+
-+	drm_dbg_kms(connector->dev,
-+		    "[CONNECTOR:%d:%s] Adaptive-Sync refresh rate range is %d Hz - %d Hz\n",
-+		    connector->base.id, connector->name,
-+		    range->min_vfreq, range->max_vfreq);
-+}
-+
- static void update_displayid_info(struct drm_connector *connector,
- 				  const struct drm_edid *drm_edid)
- {
-+	struct drm_monitor_range_info as_range = {};
- 	const struct displayid_block *block;
- 	struct displayid_iter iter;
- 	bool base_section_header_processed = false;
-@@ -6933,8 +6995,14 @@ static void update_displayid_info(struct drm_connector *connector,
- 		if (displayid_version(&iter) == DISPLAY_ID_STRUCTURE_VER_20 &&
- 		    block->tag == DATA_BLOCK_2_DISPLAY_PARAMETERS)
- 			drm_displayid_parse_display_params(connector, block);
-+
-+		if (displayid_version(&iter) >= DISPLAY_ID_STRUCTURE_VER_20 &&
-+		    block->tag == DATA_BLOCK_2_ADAPTIVE_SYNC)
-+			drm_displayid_parse_adaptive_sync(connector, block, &as_range);
- 	}
- 	displayid_iter_end(&iter);
-+
-+	drm_displayid_update_monitor_range(connector, &as_range);
- }
+ 	ret = devm_mutex_init(dev, &tla2528->lock);
+ 	if (ret)
+@@ -179,8 +182,7 @@ static int tla2528_probe(struct i2c_client *client)
+ 	indio_dev->info = &tla2528_info;
+ 	indio_dev->modes = INDIO_DIRECT_MODE;
  
- static void update_display_info(struct drm_connector *connector,
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index f656ed8324d3..8fd484d36671 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -456,12 +456,15 @@ drm_hdmi_connector_get_broadcast_rgb_name(enum drm_hdmi_broadcast_rgb broadcast_
-  * &drm_display_info
-  *
-  * This struct is used to store a frequency range supported by panel
-- * as parsed from EDID's detailed monitor range descriptor block.
-+ * as parsed from EDID's detailed monitor range descriptor block and
-+ * from the DisplayID Adaptive-Sync data block.
-  *
-  * @min_vfreq: This is the min supported refresh rate in Hz from
-- *             EDID's detailed monitor range.
-+ *             EDID's detailed monitor range, or from the Adaptive-Sync
-+ *             data block when there is no such range.
-  * @max_vfreq: This is the max supported refresh rate in Hz from
-- *             EDID's detailed monitor range
-+ *             EDID's detailed monitor range or the Adaptive-Sync data
-+ *             block, whichever is higher.
-  */
- struct drm_monitor_range_info {
- 	u16 min_vfreq;
-@@ -1002,6 +1005,7 @@ struct drm_display_info {
+-	ret = regmap_write(tla2528->regmap, TLA2528_GENERAL_CFG_ADR,
+-			   TLA2528_GENERAL_CFG_RST);
++	ret = regmap_write(map, TLA2528_GENERAL_CFG_ADR, TLA2528_GENERAL_CFG_RST);
+ 	if (ret)
+ 		return ret;
  
- 	/**
- 	 * @monitor_range: Frequency range supported by monitor range descriptor
-+	 * and the DisplayID Adaptive-Sync data block
- 	 */
- 	struct drm_monitor_range_info monitor_range;
- 
-
-base-commit: f40cc5e715fe9e7a5e61f7cd44f63f68c1625f2c
--- 
-2.56.0
+                                                   
+                                 
+> > +	if (ret)
+> > +		return ret;  
+> 
 
