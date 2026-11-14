@@ -1,13 +1,13 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794671781;
-	b=TWPhqQGRnp5R01ELmELhrvtWddWk8JWTRTrcbf2oWzn01Q2IYoN8uSU1qc6oWNoHX8aO
-	 1vUeI2t8g1p6I1ZCiveoidin59AG7dBVVNTL36JlGt3+ZF1krgrOTpA8+UctJdmQdjzRC
-	 cojAQETgywkaaJk0r5Yc6fpuD4cRBhJD+9WABzCRBsEdPWdQdJZEjythRNOeq403WAnqi
-	 YAZQP73dlHT3zOOqa2cQDtk6RVs7NgTxnZy9hsly8L2ffGpQlZNZ1gKFmH2FUVNl7NsQn
-	 lfjaQ5qSQtWLhN5Zd7Xr/VrhgHwtcWJY4FKG4ILsb63Mtmn5XbdEcAfnOf1v2YtwuOA==
+	t=1794671870;
+	b=ZHM/nGYFzBFlfJkyHXgNcPMbdFcHTGiXPBFBCXnDWlJ3wTvfqYXT0IaunrAy63HujjME
+	 0dRAzx/4o1iyE08ngFRKYxCBY8TksOMwbg7GBIWWPmQJxKRlVVltlpeRdLFWpE4F9uZ0T
+	 +KZCFiLPfbJqEQwYm+6MUDox9bctW3CZLa3jknf3kbAayVBm6tkZuavjRTUvG0R1QDUF+
+	 UXfuqYLIIfNxEBBOQv9v4Psopfu9C3sUWeDDI5l0UoXLAlvsyovE6zILwfhaCrc58Bnqc
+	 i5wlv6bXDaql33J8r9J0W6Pokz+ekaCgGSWXL/qEfvAE+zTu2I8Ur0arJltHUDnw1bQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794671781;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794671870;
 	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
 	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
 	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
@@ -15,57 +15,58 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
 	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
 	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=p+Jyx/3SNbd8LRAUKMO+bqq+INYj8uTh6OWad9ZPL3k=;
-	b=IfQ1ofdxmzvlYSRCoTsitpmBZ5SHwyIYrU3PHbMiyTqomdiyYpmG0u0Zp4/3GHwUxv/Q
-	 NenOmAgURkrGLQ6D7zJOMPlBJy1rg4UKeLjYHFCFkjsKGsN5I9ffQgNGlfyx9ten/GX49
-	 9ovPp5ddtUIT5tuGnLBzJvIttNVpi/gau73VT7rEjKtuPip6PQWdWPO+WqWyx1Ay9VE4f
-	 OaceCx1uPy+OodTZezYLEb1oVDu8PGqXD5mH0ETW6rRpIcccTQNgS23DEv7F/vIclQ0hz
-	 IKeU4Mz1ElOvyzxyZUAd5WzOy9XQ8NBhTI8+jELYaUr6tv06xCPZ+Itmb98BtrSfULQ==
+	bh=G76gegUTRXj9v3YULSRRqAuY3OH6XHqMd1zXwyP9VSo=;
+	b=2Uxkyo79ugSa4vG+oNxnIhwCybDEcPM7sTpfi5mTUzCbCD5hzUGY+9bceKaWWtH25nNn
+	 CpbdL1HzcLQhUaMOKIjw4UR9DtrQOdsoAcp5cN97meoMFvjBj05aLRtLehUewMfQCE0Xv
+	 VdVgyo2/inRA/bMpetye6TXQlarRG/zthFGe+Z2uJr8oTHal4af9hzy4NWRFGzosLqSii
+	 +Q06lNirHKREmuqdBH19pajsLc4o7WZgT/fRWuCcg1+l4MOORE7F1/Nd8YCv7W7mShi00
+	 udj//Syia8oO8Y96rf5UQGZPNjp/zKwqct9w+UeeF2Nf2UyeVeOEsOn0MUSEKEGcwew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=roeck-us.net;
 	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=Hus3msys;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=oAEh0+qX;
 	arc=none smtp.remote-ip=44.202.169.39
 Received: from omta040.useast.a.cloudfilter.net (omta040.useast.a.cloudfilter.net [44.202.169.39])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3318606A327
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 15:56:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3318606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5125A606A323
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 15:57:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5125A606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=Hus3msys
-Received: from eig-obgw-6004b.ext.cloudfilter.net ([10.0.30.210])
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=oAEh0+qX
+Received: from eig-obgw-5004b.ext.cloudfilter.net ([10.0.29.208])
 	by cmsmtp with ESMTPS
-	id S6nzxZATOOOJnSG6wxuz0S; Sat, 14 Nov 2026 15:56:14 +0000
+	id SDbqxaRMUOOJnSG8TxuzM7; Sat, 14 Nov 2026 15:57:49 +0000
 Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
 	by cmsmtp with ESMTPS
-	id SG6vxZQfvlaNKSG6vxopm7; Sat, 14 Nov 2026 15:56:13 +0000
-X-Authority-Analysis: v=2.4 cv=UbpRSLSN c=1 sm=1 tr=0 ts=6af8849d
+	id SG8Sxzil7uJrPSG8TxkaAb; Sat, 14 Nov 2026 15:57:49 +0000
+X-Authority-Analysis: v=2.4 cv=WLZ/XmsR c=1 sm=1 tr=0 ts=6af884fd
  a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=pGLkceISAAAA:8
- a=hOo1w0eeKtI6XsFcmb0A:9 a=QEXdDO2ut3YA:10 a=KPbNTLLc3YvdawN95zVk:22
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=_jlGtV7tAAAA:8
+ a=AbD-82dBwaZj9dkVifkA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=nlm17XC03S6CtCLSeiRr:22 a=KPbNTLLc3YvdawN95zVk:22
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
 	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
 	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
 	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
 	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=p+Jyx/3SNbd8LRAUKMO+bqq+INYj8uTh6OWad9ZPL3k=; b=Hus3msysfDoo
-	/aM2EWOJkJULKWGqSvbNlwOmzR7Uy5Ke28dF00TRkypiyCGHzKdZ/msgYvIehf6tMZlzmzCn8QinM
-	Ila+JWKZIprpOeB40tBy86/fK+lWqWaM+VsonwqEEAZ5oJL7KHk7tPuMs+gxeHpb3IpHrzx0Gr+n0
-	vCbSYHtoy+YSRioWsm71Rys2ZdAvXMsACR0RPaYiSwzDSqSThcpiq2eU77xjv8/rZso6IacDXcjxk
-	f8UdZMZ1m4t2SLGkAJ8E2Je8fIocIzz6C2f7kKARy05eEQ0K9ftM9+FHzB9W++RXE1l1Vg/olVenZ
-	Bs89wDvUKrVupVmgaQBnZQ==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:47996)
+	List-Archive; bh=G76gegUTRXj9v3YULSRRqAuY3OH6XHqMd1zXwyP9VSo=; b=oAEh0+qX8MEn
+	24OS0pRq1rRhhZvSDjlP5hQ0KJJJcv2WeCHXv5ZN7HHY88TgbMXr/ObMED2SjOkuqKOXBnrMfd5EY
+	4+sRX9MslS/715fEkX5Xxr6Vpf97Rft28yikPrEInKW/q6hE3Twa64y+O5VRSA7rlJr7qsyTpJAQK
+	LSt5EpvHCr2hvLNySsfZP6ouZKEaVoQVuCP/ElXYDVnSaCl9LP/KgBH0evEtO/4q04rt/d6XnwZ02
+	XjrsKKGHtPnRPAcgE+UHHJQjvClgmE1xHn0boSHXttpugm0bx/663x9DvSDZyLIo2hiOO+DRBHcP5
+	6GiR4u4ctsIZCw//zKLGMA==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:36920)
 	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.100.1)
 	(envelope-from <linux@roeck-us.net>)
-	id 1xSG6v-00000004MEQ-12rL;
-	Sat, 14 Nov 2026 21:26:13 +0530
-Message-ID: <db3a09f6-a560-4522-9954-8aa63eb2d5fb@roeck-us.net>
-Date: Sat, 14 Nov 2026 07:56:12 -0800
+	id 1xSG8S-00000004NFq-0Z2f;
+	Sat, 14 Nov 2026 21:27:48 +0530
+Message-ID: <ed6fbe6f-bbdb-463d-9f20-0813c5df4aa5@roeck-us.net>
+Date: Sat, 14 Nov 2026 07:57:46 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,11 +77,20 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] watchdog: Add ARM TWD (MPCore private) watchdog driver
-To: filipp.dunsky@gmail.com, Wim Van Sebroeck <wim@linux-watchdog.org>
-Cc: linux-kernel@vger.kernel.org, linux-watchdog@vger.kernel.org,
- Russell King <linux@armlinux.org.uk>, linux-arm-kernel@lists.infradead.org
-References: <20261114-arm-twd-wdt-v4-1-5a3104b36331@gmail.com>
+Subject: Re: [PATCH 0/4] hwmon: (adt7475) Add thermal sensor and PWM provider
+ support
+To: =?UTF-8?Q?Dav=C3=AD=C3=B0_Steinn_Geirsson?= <david@dsg.is>
+Cc: Jean Delvare <jdelvare@suse.com>, linux-hwmon@vger.kernel.org,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ linux-pwm@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261114004110.328050-1-david@dsg.is>
+ <02d8986f-64ef-42ee-a440-7c66a48f5801@roeck-us.net>
+ <yjB6Fbqe1FNgQm0q2QmXD6fKwCPWhZ-lnOVMD-gupg3DWK46gsVdy1CRR5PtE5ZuTjKBNyO3001YfjLfO8HzDcKy2SMiwDT3RfX2oZa_t4E=@dsg.is>
 Content-Language: en-US
 From: Guenter Roeck <linux@roeck-us.net>
 Autocrypt: addr=linux@roeck-us.net; keydata=
@@ -126,9 +136,9 @@ Autocrypt: addr=linux@roeck-us.net; keydata=
  F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
  FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
  np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20261114-arm-twd-wdt-v4-1-5a3104b36331@gmail.com>
+In-Reply-To: <yjB6Fbqe1FNgQm0q2QmXD6fKwCPWhZ-lnOVMD-gupg3DWK46gsVdy1CRR5PtE5ZuTjKBNyO3001YfjLfO8HzDcKy2SMiwDT3RfX2oZa_t4E=@dsg.is>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
 X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
 X-AntiAbuse: Original Domain - vger.kernel.org
@@ -137,39 +147,45 @@ X-AntiAbuse: Sender Address Domain - roeck-us.net
 X-BWhitelist: no
 X-Source-IP: 108.223.40.66
 X-Source-L: No
-X-Exim-ID: 1xSG6v-00000004MEQ-12rL
+X-Exim-ID: 1xSG8S-00000004NFq-0Z2f
 X-Source: 
 X-Source-Args: 
 X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:47996
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:36920
 X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 4
+X-Email-Count: 8
 X-Org: HG=direseller_whb_net_legacy;ORG=directi;
 X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
 X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfLTfB5uxJXqeysv79DoyL0RkHfsv1Q9A4fMQ19M3Vczl4fEFJ2X2aReAq3zP0+fNFJOyX3XKH0RDqhHIiRDuFccEJetwyZPC7YOQrJ73Ycm0fHJVdV8K
- fSfAKxW+3HfjPOGOM0Gad+UYrM7y4FET6meiSgybm/r08fMHWmjFwLdx0lY9IqNH1LTUXuhwHKb5xCDtVkLkUyJJkdUB/3pvi+sOF9dR8m5KQINVVkLqQoqU
+X-CMAE-Envelope: MS4xfIqjFxktVeOCbDFqI69JaxIxMLyz7ZYBjuBdQ6t1Kth73+VTgl+NfMRx8Z+/9S7oT18RcKUw61S5dclZiiyFP1zFvVSat05zCEBsn957pqyEkyuRjXLA
+ Okme0z053xKR/DpzoVoqwNtCoc3dq8NH9OsVZN4ei1PGeTyvfzdR71jfg0CqP4FIQEBFetHSRBtpC68dFIB6Zm2eZ0BwVf+DM6of7ZfxWkzU5tWo2rYT7viJ
 
-On 11/14/26 06:11, Fil Dunsky via B4 Relay wrote:
-> From: Fil Dunsky <filipp.dunsky@gmail.com>
+On 11/14/26 02:23, Davíð Steinn Geirsson wrote:
+> On Saturday, November 14th, 2026 at 1:03 AM, Guenter Roeck <linux@roeck-us.net> wrote:
 > 
-> ARM11 MPCore, Cortex-A5 and Cortex-A9 MPCore systems have a watchdog
-> next to the local timer of every CPU, banked at the same address. The
-> binding "arm,cortex-a9-twd-wdt" exists, but there has been no driver
-> since mpcore_wdt was removed in v3.11, among other reasons because it
-> only ever programmed the CPU that ran the ioctl.
+>> On 11/13/26 16:41, Davíð Steinn Geirsson wrote:
+>>>
+>>> This series lets boards use the temperature channels of the ADT7473,
+>>> ADT7475, ADT7476 and ADT7490 as thermal zone sensors, and drive their
+>>> PWM outputs with a PWM consumer such as pwm-fan. The kernel thermal
+>>> framework can then control the fans. It follows the ADT7470 series [1],
+>>> merged for v7.3.
+>>>
+>>
+>> I am getting flooded with patches, and I have no time to review them all.
+>>
+>> Rule change: Functional changes for any hardware monitoring driver which
+>> does not already implement it will have to include conversion to the
+>> with_info hardware monitoring API.
 > 
-> Program, ping and stop the watchdogs of all online CPUs together with
-> on_each_cpu(), and use a CPU hotplug state to arm the watchdog of a CPU
-> coming online while the device is active and to stop it on a CPU going
-> offline, which could not ping it any more. The watchdog is used in reset
-> mode only, its interrupt is not needed.
+> Thank you for taking the time to review, I appreciate it. I will address the items raised in the patch threads and submit a v2 once I've had time to re-validate on hardware.
+> 
+> On the rule change, I'm not sure if this is meant for me? Patch 2/4 changes the adt7475 driver to the with_info API. I will address the locking issue you flagged in that thread, just wondering if there is a larger change being requested here.
 > 
 
-Watchdog drivers are supposed to watch the system as a whole, not on a
-per-CPU level. This patch goes way beyond the scope of a system watchdog
-driver. Per-CPU watchdogs are handled in kernel/watchdog.c. I do not think
-it is a good idea to overlay that with a second per-CPU watchdog mechanism.
+No, you are doing exactly what I want people to do. Sorry, I should
+have been more specific.
 
+Thanks,
 Guenter
 
