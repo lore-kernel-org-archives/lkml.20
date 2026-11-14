@@ -1,100 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794647201;
-	b=jFUk3TwBZAT2v71IVEBJeqkigmcTgoUkBTUDEIV3Hbpr5M44+PqO1QJqbika5BpYQ5u7
-	 kdNVeENv0SUNBDflKFxbsbzM5Gs8UtFxy7sGicSoRQGXda8LQGRlUBuJNOWLcMsZf9m40
-	 pnYK+zEwPZklTfV27W4XqFEb+mWvy/YM9MQ1eEtTlfrSNlPsJkp9oGsihzsXPPZXGhaXV
-	 jq8eAGFIZ7tnsFXh6+EFsfOp+e53asVh0wEcVc0weexF0epl+GKoKIokTozB33Z7KO/zw
-	 z/6XRf+eJ3SyaRhGNsSX4q/lZC5fHh/6nBOpmwAcQoRhdlO+BFK2f8bFFW3gFFEwzhA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794647201;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=KC/D7lIYHzmkgBpZ+9jVAdY9saV20tL5VSJJ2hWkrLU=;
-	b=lhW2VfnruBuf7d/Lf5dEoxGGuUQzdhbmZOQ/VSvJ025++N5Jxt6rmy8STS+h5nGcqION
-	 qwLgbBkY5zvNXZoHdQwyG2tPO9Z3lQHkUqIPFCdpa/oGHbiCLbNKw/VadvkBSEYeOty/s
-	 ElnCo76ijNt51PggHe9gpR1Wiuayl7D8MyEzY77+AaTHSV3E4lwO8Irrf8H0IgpxvlEMN
-	 5ISzvu/eryhRcVX52Tgt0PRxNBfI5dJWDqYptTGF50zerzcvgsvnSPbN17Kk3q3guMLUt
-	 CQ+x3tiCMCgscVXhCdCY+DTfqwf1j99mQ19zPkZj7naKX+1Gwekz+QSHTdvbbp+BFiQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=KAPee24q;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.42
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.236
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794647207;
+	b=BZjI5cYgl3s1GZOpcO5U62icnXNfiG++uTxZPQIGXR/wmZXLlNdzbmwTBEKRWkwDzGDp
+	 o2x3WfOo0w/LsdcLkNxm/5DhK7djKeJ088DgfPd1M570SQTicc1YpHrooyPw+rIRxoCH0
+	 GkvhoCtHARMKnZH2tv8NDXLrQOU3IbV+TUqpvWgRQLKyLpYLTmQImMlKdOxWb9XG0cDB+
+	 W3oEzFF94inCHonWh3LthB52fRNpyBAF/cZjt8763zr4A4APhm5tzNNrnmBKecpX6anSE
+	 7Uv8nTaMIR6ck55kTvI5bVfZf4P2s6r2TXtWtlNDTpffSmDJfl26i36GlQfh4IW5PrA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794647207;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
+	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
+	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:X-QQ-mid;
+	bh=89bJHpkich3hGtKxUwZbiKaMsUywzBBIlLysOT4zJ6Y=;
+	b=FOFfHOodH7pRvIlSQxRyARtyoTz+9OYgSatLALAdm7QjMmdXvFXtkaIqPnJqjr1V5J/G
+	 2B2EUSzn677GQ+cCKh+VpriPrF4438ZxohxeoVYSs8OgUzjWBonQ7YNhjexewgJx2VRPq
+	 K32RZCXHnV0+QbTKuffB6DX1pgZFV4geuNMkvHs0c+6CETYL8BzdKUuLDtdHpktaxKwIa
+	 aPWKI3pIR8Pa7J+qKbQNP7K7IQ2EtLHdofGTQHdiFl0EuAOErSUPMyjVxqLn3MVs12AoA
+	 +UWBJUIWsZFAJkgXRLjbl7i7vdory3g6lADv6vf9sIG53O2X7WjEWZPM1rVIP/PzMAQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=tYW+ijhV;
+	arc=none smtp.remote-ip=203.205.221.236
+Received: from out203-205-221-236.mail.qq.com (out203-205-221-236.mail.qq.com [203.205.221.236])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C926606A8A3
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 09:06:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C926606A8A3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EBF5606A882;
+	Sat, 14 Nov 2026 09:06:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EBF5606A882
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=KAPee24q
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b71b012e3cso2355285a12.1
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 01:06:39 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794647198; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qyOYb9aNNSR3fHD/eOsfnm+4C3U03CWvC+7Le2j7HoZZbwOx/HjXIn+SRc23typE5a
-         Sg4PYfj4WyEySyDTZUrSsji470geioJxaWH+ZuSl/BGi+O+ePueoVzGmINocqOv7OFhZ
-         n+hLBk6x9EAjDNT6xVH5/XWJLYSsejChVFI/SpwtcgiVnOmI+bIKLagU5PTqIOkrJAep
-         oPXgJD95WAEv8pAoRVvjhSrbjIUPuEy5Q+ofwesqfVD0ie2ALiSfvzxu1pF5aOnWjJna
-         2tZu6VGcIAbux2uA0Hq/SUL8pWR1FGl5v7SQJ7WqO+wlPo/OJAqdyjM/ZoFIcaBKLMzI
-         lbeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=KC/D7lIYHzmkgBpZ+9jVAdY9saV20tL5VSJJ2hWkrLU=;
-        fh=bNcHxkWoE7rHfQxAexbYOHsiKwHEdfgdHfYJsxxKYHU=;
-        b=hm+1eQ4g/yUKwyZ12glYaYnzEY7VPpWJ/6UN6Ed6QG/7RRjpFWgFSCDyFBYl5Um9lk
-         HVi5ldk4CvrzrFnX6ymxTLi+K+L0j0d1Cf8F2G7/SXmQTgYZFy1If2IZ1zIaoQhuGAiy
-         cVDsRG1f91aXeM5lDPB/cLVWGOiPDPd3/n7Hb8HK4OlZC3gvHVwyIqXUrL1zGKcYGKkQ
-         cmvpEFAVjj3HgrQykHE9L392A73tsKz84pkRGpPJujs8xKgICd2PXjwGaSjOKBQ1IdqM
-         TdPtnFU1bwAxLSmPpCWptdJkwYRrLy2rjBZ/ZDu9u1DMHL+zMgroC7MYNlLHHfcaOz0X
-         t7PQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794647198; x=1795251998; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KC/D7lIYHzmkgBpZ+9jVAdY9saV20tL5VSJJ2hWkrLU=;
-        b=KAPee24q6sgn4tuwSJPcT5mLv4nmEJVkDQTJnS3b+A4tCcKaMvDPOKxx1Aj0rGa2QG
-         leV18YbE0vVTDhU6LlzF8ZTir96MSfp1D2V5a222yjeNBxo5wagZiO/Hvlp4pN2zlZEv
-         zjPCTuFUfgk6vHc1CIzwSsiGn7lPWY1kINJj1S8C8gFjTkfHPDCH1bWLsj1S7GvjH1Uw
-         kkP2Dpe85Kp+wwGyRSZPVJrpSiifJHeFp9Yvp1P3aUVrF41YQ4YzFYP7QidbmC3DxWva
-         vhXpThWJ6cLfCK9UzT26tub/pSdMc5opTCc+FAnKvTp8qMyme2PvTxUQdpWKoB8soGua
-         csMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794647198; x=1795251998;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=KC/D7lIYHzmkgBpZ+9jVAdY9saV20tL5VSJJ2hWkrLU=;
-        b=QWzAqzU1/98JPOlwqR3CW3OtUH5oWj7x4z4DneX1MWhS1N7dEpSwu4aKA2oHAG8YJ2
-         xmJFlSCysnVsozaQ26TwRfsTj3aAcTBUt91Liuo6oI0v1yS5WIGRzSmuuU6gRrU/bqzb
-         g6BG/9KcIo3+Rr8GlwbhkrbrXQRuvw1puneJbE/4lqx8hnuKFt0t9HVT1tUNaZ8LnYWd
-         IGZsqh9HXPuOhkE9RcEztALnsL9vOTCl0rfPuBEd7GFSS3WiLTY966U0VwdRXGNBNhfR
-         gYBqWN0YUklel+bN1VJnoe13BQIQ8m97fIe0YN1W1kSipmIU8Qv2srt8QarQf6e+hFJs
-         f3BA==
-X-Forwarded-Encrypted: i=1; AL+hErHkAJ1KvMXnxG2Gzp6HK/ZQfn3g8WhMKbrt3hH2U+6Wu9/ja6s/XlEyAfh9EFg7x4Kl7fte2x+e2qNMpYQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8vqpvPHUD9E1L6W4T4LTFGvldA22UteVniXl9kZmD5luH20yOD
-	HiLITs4rCfTQYxeW7KL/nCVITqVzehO+yLLJne+UeEExNB7pYQrSdXsHH6DiKMQgvjgTsGfTHSf
-	feRQ+NUBLrMpIqSEK3A/5Tsxuj7UoBsvjWX+YYCWUDw==
-X-Gm-Gg: AYBFou1uUpUZiknv0ys4ZGnwIFwHDqHs7COUtVUrLWpI4u8hG/iC0M87IG1Tp2Nlkx0
-	4aSVwd1GotcCyv2FcGMCARnFlKlO6AiQTnNJUT6Y5s/4O7sXf4mBdS9UHgwhZyaPxRu+0BU4SoS
-	OgxaazqzoXthxz24eRwatrISeMuc2qwI3m6NyPhk67IGmubCvmWHu83k+z5h6sngDNB6IcyRsEG
-	plnF2G/4Ji2YiRhi3u6qOxCF7mf7qF8zjXI4xc6ysQOXsP9xB/Gjelob6EsVayVM6qtbBpHkvNO
-	a2uf5oaEgQ/JeVnuxP8uP7gs8Xtr1C7jr+Qu9yvd55IR20Qslo0YI3bopAqZrwFSglSWU1eFMmO
-	7nZ4rZvJQwfcQ/yb2yneNnxVg9bUrgNPy0GW164OkvUoGGiWLoIl9ItrRqoSyyKgMJFuu0ZsLl9
-	Os6+tpG8Ql9w6+fg0=
-X-Received: by 2002:a05:6402:4506:b0:6b7:defd:acf9 with SMTP id
- 4fb4d7f45d1cf-6b7defdb6bemr1404551a12.34.1794647198143; Sat, 14 Nov 2026
- 01:06:38 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=tYW+ijhV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794647198; bh=89bJHpkich3hGtKxUwZbiKaMsUywzBBIlLysOT4zJ6Y=;
+	h=From:To:Cc:Subject:Date;
+	b=tYW+ijhVllIWkJf92wpfhFXXtjnp9/ScJmNhdREQER1cjBzshoMur4Q8DoF/07zB2
+	 +ricHaWG9CZuDBtq2A/516loBu6HO56eT+QajTyjGLAuM8+0GwoRdVTSRnnwSbCQX1
+	 RvtwuvwBjbqay2UyzlQwqC5EH2NIBDE7vFepOcao=
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-XMAILINFO: MdmyWVu0InhA0PQlinfSwl6AErPBSNhGfVWHqROTKqnv9PLktoKeo0c2UtLXff
+	 zYworFL+OCG8moJr4XIxIm93hdv4hc3S+dOSoPdyC4ZDy1rcW99nEDTEz1Q2IQUXusfQAjMtr1NMA
+	 6onP1hcWTqNUvU1IvqE60D+94aEHzyWsMoBaiZtXFa9vKQvYuhSLLSW8f1lwBZqD2pc6U1Nr67x8a
+	 jfEsg9dd0TTvCIJNTpvlN/dKvXC+YEcf5lG4RhL6dnO/p/VNgoZJ7/nuHktvdYb8GJZYa0KhZkX5H
+	 TUTTNjcBMajs1KJV+B3tBNo+06KKqnvs19calcfBpClUVcPC5BT2RCv2at+0R5+8JutVoBGBq3bs9
+	 nCLGjbHYJ3Z/CC1pce9r8W327z9bDVtb3eXHcFBMrV8IVfT209hVUp8338If3R42YNatRs8YSKYiH
+	 5ncZJBmST7kC9CW5i/oX4iG27oCPZSVE6RaxMNAMsLpteBLs89dLp1wSvMs8nU/F0Bqu4ViOCWI30
+	 2C5EDGhHwx4Fle5TN9+fzzAavCrDZTSseFWLeIg2ZaEnHAq3MFc8nt4UvdkJrNlmFDjKs1d8VQNLT
+	 OmX+0BB5xhYF3BF8n+e7klE4UMAyVm7D/l19HuaqyDsfoT3798/Rw1GUrNENnhtuLABb2P+3/w5a1
+	 IDyt7fOU6ksEaAQqvNMFDJ6TImpZ3LTnAFIpR1YGDH8byo9Pms6zZfesALcKPGmxNab0VqtWcLTG0
+	 5QtuYj7RnTNUQTU3utyMJ7DWP/Rt7F9nUeTVAHF6w+wFXUR0ki1vRMAUfE3LJcVklALRv8V9cy8cb
+	 /NabJswiV8DAPfkLjdkY7smC/mxwlACoi/at6b2XzQiRO3bRX6OSM6j0ThMpCSinlR7jb5JbRSCMs
+	 0VIJtXW8+C7YfMvFt/m9YFUdBcRBOW430l7RSzoeEzr890Y1X/+tPi8VQF15arVTOHsQdk+pPruV9
+	 CKftZoue1rAmKSxkhliaMsWLxmNU+pFraN91+tUG1ZhDazckgEifxPtWMlR5GgJ5nkPUo9W9sqDsQ
+	 7XqgMW+Y34jmSjMMuyBg/A8ukLXHg1ks6odVGELornfLSpFJGjk9bH5OBZIAf8uFJap0721JpOtE9
+	 zI3IblZP2ylt8Q==
+From: "=?utf-8?B?6Zey6YCb?=" <2368492046@qq.com>
+To: "=?utf-8?B?Y29yYmV0?=" <corbet@lwn.net>, "=?utf-8?B?bWNoZWhhYg==?=" <mchehab@kernel.org>
+Cc: "=?utf-8?B?d3k=?=" <wy@wyuan.org>, "=?utf-8?B?bGludXgtZG9j?=" <linux-doc@vger.kernel.org>, "=?utf-8?B?c2toYW4=?=" <skhan@linuxfoundation.org>, "=?utf-8?B?cmR1bmxhcA==?=" <rdunlap@infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>
+Subject: [PATCH v2 4/4] docs: kernel-doc: import sys for YAML failure diagnostics
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,214 +67,69 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <avdIycF_mZV8CHKb@gpd4> <20261113182601.569981-1-usama.arif@linux.dev>
- <aveB5xbos9hRa3Nn@gpd4>
-In-Reply-To: <aveB5xbos9hRa3Nn@gpd4>
-From: Vincent Guittot <vincent.guittot@linaro.org>
-Date: Sat, 14 Nov 2026 10:06:25 +0100
-X-Gm-Features: AclHuK_wLmstZb0WHt9M0jEhM6A8d8lYmDBXOAyA5nS1_mXmCAMCKdveqZ2jn3M
-Message-ID: <CAKfTPtCgzJakXU1o7C2EMEVTnD_mVS_xrdOJkQ9d_70U4_yCPg@mail.gmail.com>
-Subject: Re: [PATCH] Revert "sched/fair: Add SIS_UTIL support to select_idle_capacity()"
-To: Andrea Righi <arighi@nvidia.com>
-Cc: Usama Arif <usama.arif@linux.dev>, peterz@infradead.org, mingo@redhat.com, 
-	kprateek.nayak@amd.com, juri.lelli@redhat.com, dietmar.eggemann@arm.com, 
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
-	samuelcrossley@gmail.com, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, kas@kernel.org, riel@surriel.com, 
-	Arnav Aghav <aghav@meta.com>
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Sat, 14 Nov 2026 17:06:36 +0800
+X-Priority: 3
+Message-ID: <tencent_50889D4FAD577261C37393C80A483FA47906@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+X-QQ-mid: xmsezc52-0t1794647196t7xvdd1xz
 
-On Fri, 13 Nov 2026 at 22:32, Andrea Righi <arighi@nvidia.com> wrote:
->
-> On Fri, Nov 13, 2026 at 10:26:00AM -0800, Usama Arif wrote:
-> > On Fri, 13 Nov 2026 18:28:41 +0100 Andrea Righi <arighi@nvidia.com> wrote:
-> >
-> > > Hi Usama,
-> > >
-> >
-> > Hello Andrea!
-> >
-> > > On Fri, Nov 13, 2026 at 07:31:57AM -0800, Usama Arif wrote:
-> > > > This reverts commit 61ea17a63719 ("sched/fair: Add SIS_UTIL support to
-> > > > select_idle_capacity()").
-> > > >
-> > > > That commit applied the SIS_UTIL scan budget to select_idle_capacity().
-> > > > The early checks in select_idle_sibling() consider a few specific
-> > > > candidates: the target, previous and recently used CPUs. If none is
-> > > > selected, the asymmetric path calls select_idle_capacity() to search
-> > > > the allowed domain. With SIS_UTIL enabled, a zero scan budget makes it
-> > > > return -1 before that search. The caller then returns the selected
-> > > > target, even if an unexamined CPU in the domain is idle and fits the
-> > > > task.
-> > >
-> > > Isn't this consistent with select_idle_cpu(), which also skips the scan
-> > > when the SIS_UTIL budget is zero? Missing an idle CPU is an intentional
-> > > tradeoff of that heuristic. Could you clarify why we should remove the
-> > > budget specifically from the asymmetric path?
-> > >
-> >
-> > It is consistent.
-> >
-> > Symmetric path also has this (I didnt check this before sending the patch).
-> > The service is running on Grace servers which report capacity differences
-> > and updating the kernel from 6.16 resulted in the problem I outlined below.
-> >
-> > Maybe the symmetric path needs to be audited as well?
-> >
-> > Or maybe this service should not have ever run with SIS_UTIL at all..
-> > (The only thing is that kernel upgrade caused a serious regression)
-> >
-> > (Should have made this patch RFC :))
-> >
-> > > >
-> > > > The budget is derived from aggregate CFS utilization. High aggregate
-> > > > utilization can coexist with idle CPUs when a task wakes.
-> > > >
-> > > > On a 72-CPU NVIDIA grace arm64 server, small reported capacity differences
-> > > > (1013-1024) within the single LLC activate asymmetric selection. Both
-> > > > the reference and affected kernels were observed with a zero scan
-> > > > hint. The reference kernel ignored it and still searched the domain.
-> > > > A latency-sensitive, wakeup-heavy production workload saw its reported
-> > > > minute p50 latencies average 129 ms on the reference kernel and 223 ms
-> > > > on the affected kernel.
-> > >
-> > > Have you tried forcing the symmetric idle-selection path through
-> > > select_idle_cpu(), with SIS_UTIL both enabled and disabled?
-> > >
-> >
-> > This cant be done from a running kernel, right? My understanding is
-> > that the cpu capacities come from firmware, so cant be changed at
-> > runtime to be constant across all CPUs in kernel?
-> >
-> > Changing kernel on a production service can be a bit of a process.
->
-> Yeah, this would require a patch and a reboot. Unfortunately there isn't
-> an existing runtime switch to force symmetric/asym idle selection.
->
-> >
-> > > It'd be useful to see whether disabling SIS_UTIL produces the same
-> > > improvement there and whether symmetric idle selection performs better
-> > > overall on this system.
-> > >
-> > > >
-> > > > Disabling SIS_UTIL reduced the aggregate involuntary context switch
-> > > > rate of worker main threads from 71.6k/s to 13.3k/s; re-enabling it
-> > > > raised the rate to 73.7k/s. A five-minute disabled run also reduced
-> > > > kernel CPU time per request by 10.9%. The available minute p50 samples
-> > > > averaged 149 ms, compared with 241 ms before the trial.
-> > > >
-> > > > These measurements come from disabling SIS_UTIL on the installed
-> > > > kernel. The feature toggle also disables the symmetric scan limit and
-> > > > shared scan-hint updates.
-> > > >
-> > > > Restore the search of the allowed domain, retaining the capacity,
-> > > > uclamp and SMT selection rules and their early returns. Domains with
-> > > > no suitable idle CPU can again require a full scan, potentially increasing
-> > > > scan CPU cost.
-> > >
-> > > Yeah, this is my main concern, full scans can become quite expensive on
-> > > large systems with lots of CPUs in the same LLC.
-> > >
-> >
-> > Yeah I imagine this was the reason for the initial patch.
-> >
-> > The same workload on 6.16 kernel placed 69% of wakeups on an idle CPU,
-> > the affected kernel with the patch that this is reverting only placed 7%.
->
-> That's a substantial difference, I agree the regression should be
-> addressed. Perhaps this points to a limitation of the SIS_UTIL
-> heuristic?
->
-> We could investigate incorporating observed idle CPU availability into
-> the SIS_UTIL budget calculation, rather than relying solely on aggregate
-> utilization. Periodic load balancing already collects idle CPU
-> statistics, which might help distinguish actual saturation from high
-> utilization with CPUs still available.
+RnJvbTogeXVlaHVhLW1lbmcgPDIzNjg0OTIwNDZAcXEuY29tPgoKTWlzc2luZyBQeVlBTUwg
+YW5kIG5vbmV4aXN0ZW50IG91dHB1dCBkaXJlY3RvcmllcyByZWFjaCBzeXMuZXhpdCgpCndp
+dGhvdXQgaW1wb3J0aW5nIHN5cy4gVGhpcyByYWlzZXMgTmFtZUVycm9yIGluc3RlYWQgb2Yg
+cmVwb3J0aW5nCnRoZSBpbnRlbmRlZCBkaWFnbm9zdGljLgoKSW1wb3J0IHN5cyBhbmQgYWRk
+IENMSSB0ZXN0cyBmb3IgYm90aCBmYWlsdXJlcyBhbmQgc3VjY2Vzc2Z1bCBZQU1MCmdlbmVy
+YXRpb24uIFRoZSBtaXNzaW5nLWRlcGVuZGVuY3kgdGVzdCBkaXNhYmxlcyBzaXRlIHBhY2th
+Z2VzLgoKRml4ZXM6IGIzN2IzY2JiYjFmMSAoImRvY3M6IGFkZCBhIG5ldyBmaWxlIHRvIHdy
+aXRlIGtlcm5lbC1kb2Mgb3V0cHV0IHRvIGEgWUFNTCBmaWxlIikKClNpZ25lZC1vZmYtYnk6
+IHl1ZWh1YS1tZW5nIDwyMzY4NDkyMDQ2QHFxLmNvbT4KLS0tCkNoYW5nZXMgaW4gdjI6ClJl
+YmFzZSBvbnRvIGRvY3MtbmV4dDsgbm8gZnVuY3Rpb25hbCBjaGFuZ2UgZnJvbSB0aGUgc2ln
+bmVkIHYxLgoKIHRvb2xzL2xpYi9weXRob24va2RvYy9rZG9jX3lhbWxfZmlsZS5weSB8ICAx
+ICsKIHRvb2xzL3VuaXR0ZXN0cy90ZXN0X2tkb2NfeWFtbC5weSAgICAgICB8IDM3ICsrKysr
+KysrKysrKysrKysrKysrKysrKysKIDIgZmlsZXMgY2hhbmdlZCwgMzggaW5zZXJ0aW9ucygr
+KQogY3JlYXRlIG1vZGUgMTAwNjQ0IHRvb2xzL3VuaXR0ZXN0cy90ZXN0X2tkb2NfeWFtbC5w
+eQoKZGlmZiAtLWdpdCBhL3Rvb2xzL2xpYi9weXRob24va2RvYy9rZG9jX3lhbWxfZmlsZS5w
+eSBiL3Rvb2xzL2xpYi9weXRob24va2RvYy9rZG9jX3lhbWxfZmlsZS5weQppbmRleCAwYmUw
+MjBkNTAuLmViNWU1MWMzNiAxMDA2NDQKLS0tIGEvdG9vbHMvbGliL3B5dGhvbi9rZG9jL2tk
+b2NfeWFtbF9maWxlLnB5CisrKyBiL3Rvb2xzL2xpYi9weXRob24va2RvYy9rZG9jX3lhbWxf
+ZmlsZS5weQpAQCAtMyw2ICszLDcgQEAKICMgQ29weXJpZ2h0KGMpIDIwMjY6IE1hdXJvIENh
+cnZhbGhvIENoZWhhYiA8bWNoZWhhYkBrZXJuZWwub3JnPi4KIAogaW1wb3J0IG9zCitpbXBv
+cnQgc3lzCiAKIGZyb20ga2RvYy5rZG9jX291dHB1dCBpbXBvcnQgTWFuRm9ybWF0LCBSZXN0
+Rm9ybWF0CiAKZGlmZiAtLWdpdCBhL3Rvb2xzL3VuaXR0ZXN0cy90ZXN0X2tkb2NfeWFtbC5w
+eSBiL3Rvb2xzL3VuaXR0ZXN0cy90ZXN0X2tkb2NfeWFtbC5weQpuZXcgZmlsZSBtb2RlIDEw
+MDY0NAppbmRleCAwMDAwMDAwMDAuLmUzOGRkZDEzMQotLS0gL2Rldi9udWxsCisrKyBiL3Rv
+b2xzL3VuaXR0ZXN0cy90ZXN0X2tkb2NfeWFtbC5weQpAQCAtMCwwICsxLDM3IEBACisjIFNQ
+RFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wCisiIiJSZWdyZXNzaW9uIHRlc3RzIGZv
+ciBrZXJuZWwtZG9jIFlBTUwgZ2VuZXJhdGlvbiBhbmQgZXJyb3IgaGFuZGxpbmcuIiIiCisK
+K2ltcG9ydCB5YW1sCisKK2Zyb20ga2RvY19jbGlfaGVscGVyIGltcG9ydCBLZXJuZWxEb2ND
+bGlUZXN0CisKKworY2xhc3MgVGVzdEtlcm5lbERvY1lhbWwoS2VybmVsRG9jQ2xpVGVzdCk6
+CisgICAgZGVmIHNldFVwKHNlbGYpOgorICAgICAgICBzdXBlcigpLnNldFVwKCkKKyAgICAg
+ICAgc2VsZi5pbnB1dCA9IHNlbGYuc291cmNlKCJleGFtcGxlLmMiLCAoCisgICAgICAgICAg
+ICAiLyoqXG4gKiBleGFtcGxlIC0gZG9jdW1lbnRlZCBmdW5jdGlvblxuICovXG4iCisgICAg
+ICAgICAgICAidm9pZCBleGFtcGxlKHZvaWQpIHt9XG4iCisgICAgICAgICkpCisKKyAgICBk
+ZWYgdGVzdF9taXNzaW5nX2RlcGVuZGVuY3koc2VsZik6CisgICAgICAgIHJlc3VsdCA9IHNl
+bGYucnVuX2tkb2MoIi0teWFtbCIsIHNlbGYuZGlyZWN0b3J5IC8gInRlc3QueWFtbCIsCisg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc2VsZi5pbnB1dCwgbm9fc2l0ZT1UcnVl
+KQorICAgICAgICBzZWxmLmFzc2VydEVxdWFsKHJlc3VsdC5yZXR1cm5jb2RlLCAxKQorICAg
+ICAgICBzZWxmLmFzc2VydEluKCJ5YW1sIHBhY2thZ2Ugbm90IGF2YWlsYWJsZSIsIHJlc3Vs
+dC5zdGRlcnIpCisgICAgICAgIHNlbGYuYXNzZXJ0Tm90SW4oIlRyYWNlYmFjayIsIHJlc3Vs
+dC5zdGRlcnIpCisKKyAgICBkZWYgdGVzdF9taXNzaW5nX2RpcmVjdG9yeShzZWxmKToKKyAg
+ICAgICAgcmVzdWx0ID0gc2VsZi5ydW5fa2RvYygiLS15YW1sIiwgc2VsZi5kaXJlY3Rvcnkg
+LyAibWlzc2luZy90ZXN0LnlhbWwiLAorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IHNlbGYuaW5wdXQpCisgICAgICAgIHNlbGYuYXNzZXJ0RXF1YWwocmVzdWx0LnJldHVybmNv
+ZGUsIDEpCisgICAgICAgIHNlbGYuYXNzZXJ0SW4oImRvZXNuJ3QgZXhpc3QiLCByZXN1bHQu
+c3RkZXJyKQorICAgICAgICBzZWxmLmFzc2VydE5vdEluKCJUcmFjZWJhY2siLCByZXN1bHQu
+c3RkZXJyKQorCisgICAgZGVmIHRlc3RfdmFsaWRfb3V0cHV0KHNlbGYpOgorICAgICAgICBv
+dXRwdXQgPSBzZWxmLmRpcmVjdG9yeSAvICJ0ZXN0LnlhbWwiCisgICAgICAgIHJlc3VsdCA9
+IHNlbGYucnVuX2tkb2MoIi0teWFtbCIsIG91dHB1dCwgc2VsZi5pbnB1dCkKKyAgICAgICAg
+c2VsZi5hc3NlcnRFcXVhbChyZXN1bHQucmV0dXJuY29kZSwgMCwgcmVzdWx0LnN0ZGVycikK
+KyAgICAgICAgZGF0YSA9IHlhbWwuc2FmZV9sb2FkKG91dHB1dC5yZWFkX3RleHQoZW5jb2Rp
+bmc9InV0Zi04IikpCisgICAgICAgIHNlbGYuYXNzZXJ0RXF1YWwobGVuKGRhdGFbInRlc3Rz
+Il0pLCAxKQorICAgICAgICBzZWxmLmFzc2VydEVxdWFsKGRhdGFbInRlc3RzIl1bMF1bIm5h
+bWUiXSwgImV4YW1wbGUiKQotLSAKMi41My4wLndpbmRvd3MuMgoK
 
-We want to keep same behavior for select_idle_cpu and
-select_idle_capacity with both using the same SIS_UTIL algorithm.
-
-That being said, the current algorithm is probably a bit too cautious,
-particularly for systems with a small number of CPUs
-
-And for a latency-sensitive workload, it would be good to consider
-setting a shorter slice to the latency sensistive task would run 1st
-even on a busy CPU
-
->
-> Prateek, do you have any thoughts on this? Do you see a way to improve
-> SIS_UTIL for this workload while keeping the symmetric and asymmetric
-> paths consistent?
->
-> >
-> > Do you know how much CPU usage can be attributed to the scan on these
-> > large systems if you do full scans?
->
-> I don't have a measured CPU-cost figure for this case. My concern is
-> the worst-case scan cost under frequent wakeups when few or no CPUs
-> are idle.
->
-> Thanks,
-> -Andrea
->
-> >
-> > > Thanks,
-> > > -Andrea
-> > >
-> > > >
-> > > > Reported-by: Arnav Aghav <aghav@meta.com>
-> > > > Fixes: 61ea17a63719 ("sched/fair: Add SIS_UTIL support to select_idle_capacity()")
-> > > > Cc: stable@vger.kernel.org
-> > > > Signed-off-by: Usama Arif <usama.arif@linux.dev>
-> > > > ---
-> > > >  kernel/sched/fair.c | 19 -------------------
-> > > >  1 file changed, 19 deletions(-)
-> > > >
-> > > > diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> > > > index d4cc0caee6265..def5cda2e6bad 100644
-> > > > --- a/kernel/sched/fair.c
-> > > > +++ b/kernel/sched/fair.c
-> > > > @@ -9091,7 +9091,6 @@ select_idle_capacity(struct task_struct *p, struct sched_domain *sd, int target)
-> > > >   int fits, best_fits = ASYM_IDLE_THREAD_MISFIT;
-> > > >   int cpu, best_cpu = -1;
-> > > >   struct cpumask *cpus;
-> > > > - int nr = INT_MAX;
-> > > >
-> > > >   cpus = this_cpu_cpumask_var_ptr(select_rq_mask);
-> > > >   cpumask_and(cpus, sched_domain_span(sd), p->cpus_ptr);
-> > > > @@ -9100,28 +9099,10 @@ select_idle_capacity(struct task_struct *p, struct sched_domain *sd, int target)
-> > > >   util_min = uclamp_eff_value(p, UCLAMP_MIN);
-> > > >   util_max = uclamp_eff_value(p, UCLAMP_MAX);
-> > > >
-> > > > - if (sched_feat(SIS_UTIL) && sd->shared) {
-> > > > -         /*
-> > > > -          * Same nr_idle_scan hint as select_idle_cpu(), nr only limits
-> > > > -          * the scan when not preferring an idle core.
-> > > > -          */
-> > > > -         nr = READ_ONCE(sd->shared->nr_idle_scan) + 1;
-> > > > -         /* overloaded domain is unlikely to have idle cpu/core */
-> > > > -         if (nr == 1)
-> > > > -                 return -1;
-> > > > - }
-> > > > -
-> > > >   for_each_cpu_wrap(cpu, cpus, target) {
-> > > >           bool preferred_core = !has_idle_core || is_core_idle(cpu);
-> > > >           unsigned long cpu_cap = capacity_of(cpu);
-> > > >
-> > > > -         /*
-> > > > -          * Stop when the nr_idle_scan is exhausted (mirrors
-> > > > -          * select_idle_cpu() logic).
-> > > > -          */
-> > > > -         if (!has_idle_core && --nr <= 0)
-> > > > -                 return best_cpu;
-> > > > -
-> > > >           if (!choose_idle_cpu(cpu, p))
-> > > >                   continue;
-> > > >
-> > > > --
-> > > > 2.53.1-Meta
-> > > >
-> > > >
-> > >
-> >
