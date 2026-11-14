@@ -1,62 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794632565;
-	b=H1K0T085/IX4HQn+X2PEep5qcDuaYiNOgx1JwVkczeyrtzJDX17F6ku9clLzX/2AG3Bd
-	 6sGGr4CzkqrKg2auuxoPJY8AfW1TtBu++YWz416P13d9Jq8jX3MppGl7r8xaP3awgwf9s
-	 N/JdL6R5OlCO6HEwRDzhibyUhck/yRsG/X+PUcQVg1CMKSE+wi8FKJ3CZryW5LwF3V+rd
-	 YGWHijUQ8489oGWHCG1ZJ+zcSW/Bs7KqjClcAN8+i+NmMBpMgjqilt7I7Xjnz70BfXkkI
-	 iw5/vSDZen/4htEmEiYyI3TBjzh0uZq5HGorNdoUJlx8i/IApxkwqjVFLiN3YQGE9Hg==
+	b=IlG6RLkKIJkUPklA8v8wCQmIWjX5SwU4WVqFDEzhZvngKmiJMfwfOfGs0vuK/fINbSN9
+	 ePukLc9GVOo+MhrEsmx5EsOFTwPRCwOygYmx8zk4Jh8jJTWZ8VK6UxcoztRHdjbNORxRJ
+	 oMU441twWrdWGGGW9TUnbGVmHzmkBrCAOxx3UBbvcqgUJ2yb9c9nqwJHnfept0g7PaWGi
+	 7nzHKbTeEP4tXN8ejewORIKKeatOYlXVFwt0iSXrYgi9Ee6xZfThManda2dEMkDa9pLu7
+	 nOIoB8oAxx/Z+G00Mkc3c/NZMLUobLZaG/c87hgYRxhYyX9FmsTBAXOkbkB+LKSbHvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794632565;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=RRboAnMHodl3XbcR5ba9SsX8/xJOVDLo4IDHvLIOpyw=;
-	b=Kzv9amQMJe9+R6gsa+WC/H1R/zKDKPxU7PSPZtVoA+/Aj+aIj4c0eN7yHebOXybOwfK/
-	 K+/nObgj4Mefjmq1tuh6KJOCL5SVlcRa/AvI98xhatJuYfh+dUFROda/kj5GKjZLIMbcr
-	 bD9t1zIlucoEGJDKlZIRUyAFr4M3oMzfDGIjsZjOEfaTpLeLE2Xp3H4JW1bNObUVK1BTl
-	 36iAegrTPRFNvDlRWveTfEIxreFevYkYew2mmj7zT4XvdkGMM59KatM8Dj4XsiiO46Ue7
-	 tKUl8rSCZMYoPv9GaXvwD9urAJGXcNcwq/MCn+s4KOsoNqdm4jgKfAW+oc1UkoCUrPA==
+	bh=oSIy3mwoB86V31y9A3fJn8m4J7xk9tHJ0D9xSFe3GrA=;
+	b=ho9kTqt8NM94UIuiV5WTKNr+GHe+qjVE/Ym/pGrpQnsVzWaUJksehufXRf4raIFx3dOM
+	 xugFu6DHguZyo0kidqRyHJCsZ7f6s4sgCiybmBCvHNJ558fVGjtixmAYVM/zsq1X/U3YZ
+	 MN8isfm6lN1OE2R1pYk1PtjSXV0cxceTpZkIbsceryfQD8S0/OwzZ5JKwUVwFolwIppsi
+	 kqIAq2J8OsjCjl1Hhtfki0hBU6a0H8+HU+C76Ef8tIBHQvPHSqzKtutoMrgVeCnKp0Y4Z
+	 iz4QiBAo5l+8x08Zd1mc/OixZcj7wVztvXD3uBJRJXVgS4qnVgsinWzpMsyT0n/mTVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=KoBbhMlG;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b="F/utlyaL";
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D194606A33E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F438606A330;
 	Sat, 14 Nov 2026 05:02:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D194606A33E
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F438606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=KoBbhMlG
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=F/utlyaL
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1794632562;
-	bh=WCH3joQTwHDZO9+k8imnq+hta8rBNGbqZDWXf+Ud0mI=;
+	bh=BdVId3R9uDagFwOXAz9RaIcqGg/6v8baZJ5M9pnhoeE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=KoBbhMlGolq3HqiyBhchsj0pGdExpqSIlAn9nox2KevJUew2+ZqubHLtSYSZB7Rfr
-	 mE2jyaB4gHbYtEM9OsEGXG4Fd6M9i4KldZwZh9Z+5my69DJxChCqGVb8P8V/lQUwNe
-	 UkxjCes8jChlXyKJLbLkTXI7GRGLs0lA1q2DBpvQz4NUGuzVZrIk7lz2lKSzrIbJNT
-	 mz3/2JByuKfkf6nbZeQqFJZVkZVsg1e9mbkStjO+rKkiW4eJxm+M49iMZlCw470YEs
-	 +cKPNiSOTKyZ3gyQMAiUZMKsr5OKuCTeSSBb8qirQ6HzCbsv/twDs9shPeobQ+6ks8
-	 M/F5GvrY27VkQ==
+	b=F/utlyaLUIgiT7UncxK5pEQ0f3k+ttXeGP5v6ZB5FFGI4DobjMTsUlJ0hMA8POn1d
+	 hOSTjmF0AlEONL7mrDvTmLjPjFg10bdvl6YUS5sAJIo/qDvEny/qpXHGkBVbFv6Dn0
+	 ZglnA1BHn+LpuLDQrePd4hf0oIFsPR12upyW7s6frSaRfR5nKpRzAf2Nzd9Q7wQKJb
+	 7uwFsWdgnHLLR8rFi1kdtJT6BVDeSb40dFdPv1WNDdl5TORWfVUsUB7EUcn/SrHL0B
+	 zr0iZ7XKVvxlHpRCkV/fjFO/dwm6A4IWH9khfNpsnaXK66QiCYHpORezLEtz35e17A
+	 R1DQgxM9O4Qmg==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 762ED17E0F7F;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7A06817E0FA5;
 	Sat, 14 Nov 2026 06:02:42 +0100 (CET)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 25569480064; Sat, 14 Nov 2026 06:00:56 +0100 (CET)
+	id 2EEE848006A; Sat, 14 Nov 2026 06:00:56 +0100 (CET)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Sat, 14 Nov 2026 06:00:50 +0100
-Subject: [PATCH v12 17/23] drm/bridge: synopsys: dw-dp: Protect
- sdp_reg_bank from concurrent access
+Date: Sat, 14 Nov 2026 06:00:56 +0100
+Subject: [PATCH v12 23/23] drm/bridge: synopsys: dw-dp: Retrain on hotplug
+ with pre-enabled link
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,7 +68,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261114-synopsys-dw-dp-improvements-v12-17-d42d3dc5bdd4@collabora.com>
+Message-Id: <20261114-synopsys-dw-dp-improvements-v12-23-d42d3dc5bdd4@collabora.com>
 References: <20261114-synopsys-dw-dp-improvements-v12-0-d42d3dc5bdd4@collabora.com>
 In-Reply-To: <20261114-synopsys-dw-dp-improvements-v12-0-d42d3dc5bdd4@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -93,101 +93,59 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  devicetree@vger.kernel.org, kernel@collabora.com, 
  linux-arm-kernel@lists.infradead.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Igor Paunovic <royalnet026@gmail.com>
+ Yury Smirnov <yurymonzon@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2443;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1169;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=WCH3joQTwHDZO9+k8imnq+hta8rBNGbqZDWXf+Ud0mI=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr36wfkDczpe3NpCoYHjrLJ+FZ95bPzQ+RDy
- tcDN2uLgt4jNYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq9+sHAAoJENju1/PI
- O/qaNjAQAKNvCQI48qH2yD+bOxyXjS9BfimRr1TtI5OaPhHLJ9X7SvcBnXTBaco4fdvtcKHloJN
- kcMDx8UNHeyVMrqzYAedyKxJ3PAZjxBexkmt4VzvrP2rg5jmmFom7uba3icThbD1Z7Xin2b4ayt
- D3k2bTwXdN/IdPtVj7Jj10Th//CQYTTipbJxQD8yc0KHQRTZFGoZWF6GJbW2Nq0kLO1htGz5dJK
- CmEhdeJmG8r1WUiqZGuIEFOVANBWqOZsFVESZF1zr47yuUdubfpfRSsnywGmf0Ob6H1W7dsu6aQ
- 6DZESj/pf/fa8HjCjNYJeynolABx9IXiDkwU5nllyN9mnf6VUJMD2bZHgoZfO3P26H/DudjOXxp
- tlApIUn+yIKEE6GNqtg6vxZtJ0N3CCIC5L+PS3K6tf+kQkYn+lo6K6T88Q+8UCfys37ppdziiWn
- 9SCrT7EvQZiDMbhuFlD28bXyjGBc7Jq7vDxb6zYPVBOsT81L1bLNdngNNsiY3coCuOC5eYvdWAQ
- 8QFBSCU/1xMB9JvijQq9oUwKS9f1IlK9ao/91TyIwjIfgEzTmRw1VJie+qNumUbX7tkqvI2B6SE
- 5lUiN8iiU+l8QioXIZKmZqgF3UhLgV5tCjxaYjZBKVZTuXPKDKM0vFtLdpBQAVudptZcBDzSjqU
- 8B8k5RRknk3dOrkUVyjcpRw==
+ bh=/a1Sx0xnxtIAy/rO9CtYIv6V8j3eVU/OvzbAEr8LJwU=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr36wdgwOCJLXRq1L9gbTDMJjwS8TSKnF03X
+ n2jVyTsbtiH3okCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq9+sHAAoJENju1/PI
+ O/qaml4P/R7wJImy2muDFD6H1V6vdsdRK4+QzwE/p+noQFBeApnsTkUwcoGXYOKbdbl2QKH//cd
+ WBeCdJhT8/1Zv49VejB/VuQ/UD9zTEOzoq1lZffar49mqxdpjyEwYhYzh6HUAmHYWugmcbk3uPR
+ UGkQFpd+qBZKsXgcHLzDwtZdP0UHdauPknnUuz3dG1WY5Eet4/81xVcMUAwZOFC0VFjCwPyLNXn
+ THAFXLw1i3kBW0NTUZFmWz0vMiB27bPGBRLDgeVVrfkrpvPU7WCJM1COIzf9dES5QKN/9IQIcCi
+ baakxV1pTEoKOawblWTyb5QiihOA6VPiE8YLrDHIOK6lu4pa+IHKQ2qAIJsiXkTWHIrrbQUDczg
+ DEkzg9Q+mLUnyv1sAzbplH5mSXgCHY0xeNaUb+k9vjaCt1Q6l0rx0tSIpPxrTM3GP+tNvSejA3U
+ ug3PG+ZG9Yks7JFcVfSN9LdYKLUypCYSTvBHkGDO2zKkZZivVAt1/LwWN+KINJ1Kf5cGRat0Xjh
+ cfwp1YtFJlJF5Z3SmYHTHkEAD457P7hpVW7azg8J1xZ1fMwpJJiW69cEziE46TRx8DnBckdepKJ
+ 6cAr8fODGSn0103Hopmq+JZpy9Z60omov7EycRbPd6ZghYl5JAI/7X0DIaDOPeVxZmbFtNYwJL/
+ M5jX8+gemWUzoJ+u+PV0xfg==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Right now sdp_reg_bank is only used during atomic enable/disable and
-thus there is no risk of two threads accidently claiming the same bit.
+From: Yury Smirnov <yurymonzon@gmail.com>
 
-This changes once more SDP users (like audio support) are added, so
-introduce a mutex to protect concurrent access to the bitmap.
+A long HPD pulse only sends a hotplug event. When the sink is replugged
+while the output stays enabled with an unchanged mode, the compositor
+might not do any modeset and the link is never trained again, so the
+sink shows no signal.
 
-Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5+
+On a long pulse with the link enabled and the sink present, retrain
+the link if its status shows it lost.
+
+Signed-off-by: Yury Smirnov <yurymonzon@gmail.com>
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 24 +++++++++++++++++-------
- 1 file changed, 17 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index 4d61ca8f0174..cd1499ae449e 100644
+index bf3a53463394..b245d6200913 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -322,6 +322,8 @@ struct dw_dp {
- 	struct dw_dp_hotplug hotplug;
- 	/* Serialize hpd status access */
- 	struct mutex irq_lock;
-+	/* Serialize sdp_reg_bank access */
-+	struct mutex sdp_lock;
- 
- 	struct drm_dp_aux aux;
- 
-@@ -1046,11 +1048,13 @@ static int dw_dp_send_sdp(struct dw_dp *dp, struct dw_dp_sdp *sdp)
- 	u32 reg;
- 	int i, nr;
- 
--	nr = find_first_zero_bit(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
--	if (nr < SDP_REG_BANK_SIZE)
--		set_bit(nr, dp->sdp_reg_bank);
--	else
--		return -EBUSY;
-+	scoped_guard(mutex, &dp->sdp_lock) {
-+		nr = find_first_zero_bit(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
-+		if (nr < SDP_REG_BANK_SIZE)
-+			set_bit(nr, dp->sdp_reg_bank);
-+		else
-+			return -EBUSY;
-+	}
- 
- 	reg = DW_DP_SDP_REGISTER_BANK + nr * 9 * 4;
- 
-@@ -1708,7 +1712,8 @@ static void dw_dp_bridge_atomic_enable(struct drm_bridge *bridge,
- 		return;
- 	}
- 
--	set_bit(0, dp->sdp_reg_bank);
-+	scoped_guard(mutex, &dp->sdp_lock)
-+		set_bit(0, dp->sdp_reg_bank);
- 
- 	ret = dw_dp_link_enable(dp);
- 	if (ret < 0) {
-@@ -1752,7 +1757,8 @@ static void dw_dp_bridge_atomic_disable(struct drm_bridge *bridge,
- 
- 	dw_dp_video_disable(dp);
- 	dw_dp_link_disable(dp);
--	bitmap_zero(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
-+	scoped_guard(mutex, &dp->sdp_lock)
-+		bitmap_zero(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
- 	dw_dp_reset(dp);
- 	pm_runtime_put_autosuspend(dp->dev);
- }
-@@ -2230,6 +2236,10 @@ int dw_dp_probe(struct dw_dp *dp)
- 	if (ret)
- 		return ret;
- 
-+	ret = devm_mutex_init(dev, &dp->sdp_lock);
-+	if (ret)
-+		return ret;
+@@ -2394,6 +2394,12 @@ static void dw_dp_hpd_work(struct work_struct *work)
+ 				dev_warn(dp->dev, "Retrain link failed\n");
+ 		}
+ 	} else {
++		if (dp->link.enabled && dw_dp_hpd_detect(dp)) {
++			ret = dw_dp_link_retrain(dp);
++			if (ret)
++				dev_warn(dp->dev, "Retrain link failed\n");
++		}
 +
- 	res = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(res))
- 		return PTR_ERR(res);
+ 		drm_helper_hpd_irq_event(dp->bridge.dev);
+ 	}
+ }
 
 -- 
 2.53.0
