@@ -1,98 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.182.66.162
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794650548;
-	b=zBMGrZyy6309FF97wcjfvGwRhVr32GRrwt2upptJJ1BKXb7ln+unf3e3tZx/nF7nCeQf
-	 OgdNpc3h/ikTmfU9ihMfcOIfQP1I+KnDiYxTo7b7iqywVS49+SkrDqZgLSnJQXqYoLuIg
-	 eX0pRB6rYPLD+Y8umPQ2Wpw8mO2Fl958ok+i9N8MxiiJsqKv68oFJhz2OChEY2/GhOEIL
-	 FrUPg8vGpvg7HcKbCCo8YL9wTX7/mBSfL/YVFCma9MoHoAosRegCYdWFrMLOuCqRFk4QU
-	 tPgmQDgukxRe8FBlPHs0IzG8jd23es+vLescXqk8oxkkZ2dmKHQ3FrCNk7xFS7irEHg==
+	t=1794650672;
+	b=FLo5LtoHTGZsI/ncZ1AzvQWUUhrqtHyOB+4Wk5OzWmdBoc5dq+EcQghBq4K4Ij1u6agP
+	 WDYP/37V5ia+d5wE26eUQb0bVuIbND0Qci1ULOHZAQKguAB4xeGxcJWoCKVO8JVM7HYsK
+	 7tqdgeQ1MSkALRHBvCXfhxf/9/aRfrXQvtOMzw6c5OZbXg5vJgCunhlKLozANghL03TEi
+	 HhtwEUd47bPjAwraShIAfWSTMbJa4vr6+y5upftETKeHkCkuyMMohLBIhz4dLYlhIBODw
+	 Qqn2cljY0h89wZHwjAeyI40HnMqGictBiUJvJrMRC1W04hDMszUZwn51WPqkwMtiDVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794650548;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=fcsL6m/fL6wR5N1Uy9uUPHQ01kHmtdk2koYY4a/ebJg=;
-	b=3voe+hZIuGZz8l9GFjHz7kkrIO1xRiy6xFHR3XO3fQ7Y57w2QdFiH0DnloPH8MiGjUxr
-	 EfShYd76feA9dGBsqgR4bHl45mwlDKujLyi0voGsA35Kwpg4vv6Q4disNEJSvk89J64t2
-	 5wD85YJrc21AUCCBtJojjuvqYX4kpTU8qdgU95KZFIPO7oXmbv4bsWsGYg7uEum+rJVCp
-	 HbH0wn+mxUfWcy82v7+phGzRTNXideVLemolV1IneES8sn9UjH3bozvL/yu+zKNteaAOV
-	 dq6EOyJv++UAWuBrWxMFYonT6l5IkKzA2nMnSycqh9sjAjiHap+u8cet18CsQE8lgmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794650672;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Content-Language:To:Cc:From:Subject:
+	 Content-Type:Content-Transfer-Encoding:X-Rspamd-Queue-Id:
+	 X-Spamd-Result:X-Rspamd-Action:X-Rspamd-Server;
+	bh=cg6fKvnH/uKWYe/esn2QO5i04Su5kqIyBMMBNXXe/EQ=;
+	b=fDd+NymSMIQ2NtlxnVQXm0c2nmBuCfWCHO4jxArrm/I6L3zlvikJzUU9L78FdS+xD5I5
+	 UStAjjBiN9CJqvHZyh7pIAe+PLO82ArCAUI8rSuLRwAJvr8Rr3PqYgu6jkE+YFAcdtT22
+	 JKjSTXt6KAgenBH5HBzRLqF2bZGa9sOVZOJ970q9LepEIUaVba4cBNsiLVsJ/YmjIT6v1
+	 +lSyg0vymvlfrYo8tdV0S/pGJr7trVnJ6Zc/7QE6aZDgcsWUPzE3gNiYRE5IFDshZOSQK
+	 giTTp3n8FXM7z7VLkxEZ5Bxh3tWyxX93bM7Tfy/bU13328IN1hlrAugWF4ptV81urjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="hcnM1uH/";
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=aosc.io;
+	spf=pass smtp.mailfrom=aosc.io;
+	dkim=pass header.d=aosc.io header.i=@aosc.io header.a=rsa-sha256 header.s=default header.b=uCJK5+6A;
+	arc=none smtp.remote-ip=217.182.66.162
+Received: from relay2.mymailcheap.com (relay2.mymailcheap.com [217.182.66.162])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0DB0606A894
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 10:02:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0DB0606A894
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C315E606A330;
+	Sat, 14 Nov 2026 10:04:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C315E606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aosc.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aosc.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hcnM1uH/
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48e47347279so701670f8f.1
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 02:02:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794650546; x=1795255346; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fcsL6m/fL6wR5N1Uy9uUPHQ01kHmtdk2koYY4a/ebJg=;
-        b=hcnM1uH/JOdRNdBD3zWRDS4dvhdMJbui9acV8z96oiZw+LB0SBPGf/JQg6wlVwTvQW
-         4WPmL1OqCHep94fEp4HD3VDowqvNn0x+D6KNbtJhkpf43gQ++KJGx213zxovxXSpUf+K
-         +c13zd8GE39FfrjEny5bGBbiYopQEpxh4+vfMFmrF/baOaPJDgZBuXNEq68KzNvutXzM
-         YLrlSbhubbFsWd4aPaUSI9iorB8vmnsEg97/Wi6SHZh+3OaQdDtodpNi9XH2dGZe/kPE
-         5GCC/oxTwUhQ5DEdFRmGe+uUvHXP98z7Gh7eaFk1zb8Ghw9drbXMY+QgQSLNtTrtuW77
-         NlYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794650546; x=1795255346;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fcsL6m/fL6wR5N1Uy9uUPHQ01kHmtdk2koYY4a/ebJg=;
-        b=TFi+yWRKlWq8j3gDaQGA9drTVxmsSxynPuVjbskqQpkmcUM3dGtpm+2vy4xRmkMJIz
-         pXTMVeu6VOJB4cFZkui7Qpl/Q6DZrYgAR53os9YBw3beOpojMA71GaGIwuDSlLzXjAdz
-         HTDtl0YfDxdqMiFCRM6EA8RUe7lLY2oC61enGAxAy09Ot6i5XQZBB4xrko2S2yx4syWh
-         SZ6TAPBOxghRHmQRDkfGgQYUSPcIVX0TZgS/dCkqHORk87vGbxuTAljSELVmbLHFHMzY
-         YunD5wWqxe1EssVrZo5tTh6WvVwDgFhNFAkiJVIiJ0vgk43yNzkq13MxonngD53or7ch
-         wlOQ==
-X-Forwarded-Encrypted: i=1; AL+hErH+W3wRCiIHUHO3vcs7LE6lzZ5mzt/rVIukcy/yyBUEEYYsxVYvwf+HduOpd+Avnw1uUXLpJDy0heex21U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8WKhR3/RTeG3w3OTD4B0xj6aVC+/I4zUPmWGsv0MD5jK789hQK
-	lPzGU8KZpQdMLU8HtW6f4uajsdcNb0XKbi0pEzqbiXBEDGAUbcDXqMTb
-X-Gm-Gg: AYBFou3n6UrHoXSIZ1XM81La2cpLgNbTKxAJyPHZmNpe+DmEKebRiaN9n0S8zOi5/Wj
-	PBk6M6UGOwrRseoCTrECpCfXa5AFGJuoWr7GUKfOtfndVRxWgvaO45jJAPPnnvJ5Kd3W4B+aKqy
-	R9Wl1la05cIfnFfOzfepqSIscxQ7JwBziIbdzXNU4iZ5hQx0slfju4e33szE47saQHaMRZJeBcU
-	B9U39HyP765wycZolPHBhTDreZfvTv6yniBLmkYkOjtFVUe/dZskUOT6rPM+Ob6b2rspms83EDP
-	DrLvaFs4qAm5rSJs4BOLnw6JLNqAE5WgfTwYsyIbXwBkST135jwdoaDxQVlsyShC4t1lUKaU6J7
-	1zXYUvGCyXC8a0pXFWL6DSUNNbWONwYghWBbKl23Mqy+9BGdWv44g9Wdvnw9ZV5Pgc5Z4MDK9Zj
-	j8LpVFerVZDTa8E0Cs68pN8/lHJK31B/dPRhfcBt9SLBrihEPaxSajwGGL4F3WwxglFaCvc3nAu
-	f1P3CpGCoOg5i9pWn4LmiSaT50LsQ6UwrkMybATXvoSWZVKQZtOCe5+TPl8VAeuMn9nKJ3vokh6
-	DO3DElNtr/rIGB6r2EIsQiWS3K/AClbjJg==
-X-Received: by 2002:a05:6000:250b:b0:48e:5e20:1371 with SMTP id ffacd0b85a97d-49c6dc01593mr9674006f8f.4.1794650546159;
-        Sat, 14 Nov 2026 02:02:26 -0800 (PST)
-Received: from DESKTOP-TMG47OE ([176.41.25.224])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c608cf46dsm10520184f8f.43.2026.11.14.02.02.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 02:02:25 -0800 (PST)
-From: =?UTF-8?q?Ali=20K=C3=B6se?= <shroot1337@gmail.com>
-To: sudipm.mukherjee@gmail.com,
-	teddy.wang@siliconmotion.com
-Cc: gregkh@linuxfoundation.org,
-	rppt@kernel.org,
-	linux-fbdev@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] staging: sm750fb: Remove empty software I2C acknowledgement helper
-Date: Sat, 14 Nov 2026 13:02:07 +0300
-Message-ID: <20261114100207.9124-4-shroot1337@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261114100207.9124-1-shroot1337@gmail.com>
-References: <20261114100207.9124-1-shroot1337@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=aosc.io header.i=@aosc.io header.a=rsa-sha256 header.s=default header.b=uCJK5+6A
+Received: from nf1.mymailcheap.com (nf1.mymailcheap.com [51.75.14.91])
+	by relay2.mymailcheap.com (Postfix) with ESMTPS id 2DF183E878;
+	Sat, 14 Nov 2026 10:04:24 +0000 (UTC)
+Received: from mail20.mymailcheap.com (mail20.mymailcheap.com [51.38.223.107])
+	by nf1.mymailcheap.com (Postfix) with ESMTPSA id B4E2240009;
+	Sat, 14 Nov 2026 10:04:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aosc.io; s=default;
+	t=1794650659; bh=cg6fKvnH/uKWYe/esn2QO5i04Su5kqIyBMMBNXXe/EQ=;
+	h=Date:To:Cc:From:Subject:From;
+	b=uCJK5+6Ab0kTMLGbS+64UC/mQzolXRiVdFL33RAKHEc7eo+8g/3vw3GcLTFjf561R
+	 Vh0h/dmmwZXlIG/Qm7VTIgE7iaYpCnkDH5GRR7hYcJBHCLBcqRJjUERtClLsgKqrm+
+	 9/JqNKG86sY3NAMwXt9w13EIpoEygiMZufWuRsIA=
+Received: from [198.18.0.1] (li1563-205.members.linode.com [139.162.83.205])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by mail20.mymailcheap.com (Postfix) with ESMTPSA id 5EE08E1F52;
+	Sat, 14 Nov 2026 10:04:13 +0000 (UTC)
+Message-ID: <4ab8d1e3-4e8d-4172-b36e-570eb1ef9e11@aosc.io>
+Date: Sat, 14 Nov 2026 18:04:08 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,75 +63,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Matt Turner <mattst88@gmail.com>
+Cc: Richard Henderson <richard.henderson@linaro.org>,
+ Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>,
+ Sasha Levin <sashal@kernel.org>, linux-alpha@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+From: Mingcong Bai <jeffbai@aosc.io>
+Subject: [7.3.y] Please backport e517a172b776 ("alpha: select
+ SYSCTL_EXCEPTION_TRACE")
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: B4E2240009
+X-Spamd-Result: default: False [-0.30 / 10.00];
+	R_SPF_ALLOW(-0.10)[+mx];
+	R_DKIM_ALLOW(-0.10)[aosc.io:s=default];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	ASN(0.00)[asn:16276, ipnet:51.38.0.0/16, country:FR];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_ONE(0.00)[1];
+	DMARC_POLICY_ALLOW(0.00)[aosc.io,quarantine];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	R_DKIM_ALIGNED(0.00)[strict];
+	RCVD_TLS_ALL(0.00)[];
+	LOCAL_OUTBOUND(0.00)[];
+	FREEMAIL_CC(0.00)[linaro.org,gmail.com,kernel.org,vger.kernel.org];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[aosc.io:+]
+X-Rspamd-Action: no action
+X-Rspamd-Server: nf1.mymailcheap.com
 
-sw_i2c_ack() contains only a return statement, so calling it has
-no effect. Remove the empty helper and the ack parameter from
-sw_i2c_read_byte(), along with the parameter documentation.
+Hi Matt,
 
-Update the only caller to use the parameterless helper. The GPIO
-operations and existing I2C bus behavior remain unchanged.
+On 7.3.y, commit 4bef20bbb9e0 ("alpha: handle VM_FAULT_HWPOISON in 
+do_page_fault()") was backported as it was marked Cc stable. However, it 
+introduces `show_signal_msg()', which was introduced with commit 
+e517a172b776 ("alpha: select SYSCTL_EXCEPTION_TRACE"). This commit was 
+not marked Cc stable and therefore never landed on 7.3.y.
 
-Signed-off-by: Ali Köse <shroot1337@gmail.com>
----
- drivers/staging/sm750fb/ddk750_swi2c.c | 19 ++-----------------
- 1 file changed, 2 insertions(+), 17 deletions(-)
+This resulted in a build failure on 7.3.4:
 
-diff --git a/drivers/staging/sm750fb/ddk750_swi2c.c b/drivers/staging/sm750fb/ddk750_swi2c.c
-index e63f3b00ec4c..54ce355e535f 100644
---- a/drivers/staging/sm750fb/ddk750_swi2c.c
-+++ b/drivers/staging/sm750fb/ddk750_swi2c.c
-@@ -201,14 +201,6 @@ static unsigned char sw_i2c_read_sda(void)
- 		return 0;
- }
- 
--/*
-- *  This function sends ACK signal
-- */
--static void sw_i2c_ack(void)
--{
--	return;  /* Single byte read is ok without it. */
--}
--
- /*
-  *  This function sends the start command to the slave device
-  */
-@@ -300,14 +292,10 @@ static long sw_i2c_write_byte(unsigned char data)
- /*
-  *  This function reads one byte from the slave device
-  *
-- *  Parameters:
-- *      ack    - Flag to indicate either to send the acknowledge
-- *            message to the slave device or not
-- *
-  *  Return Value:
-  *      One byte data read from the Slave device
-  */
--static unsigned char sw_i2c_read_byte(unsigned char ack)
-+static unsigned char sw_i2c_read_byte(void)
- {
- 	int i;
- 	unsigned char data = 0;
-@@ -326,9 +314,6 @@ static unsigned char sw_i2c_read_byte(unsigned char ack)
- 		data |= (sw_i2c_read_sda() << i);
- 	}
- 
--	if (ack)
--		sw_i2c_ack();
--
- 	/* Set the SCL Low and SDA High */
- 	sw_i2c_scl(0);
- 	sw_i2c_sda(1);
-@@ -458,7 +443,7 @@ unsigned char sm750_sw_i2c_read_reg(unsigned char addr, unsigned char reg)
- 	/* Get the bus again and get the data from the device read address */
- 	sw_i2c_start();
- 	sw_i2c_write_byte(addr + 1);
--	data = sw_i2c_read_byte(1);
-+	data = sw_i2c_read_byte();
- 
- 	/* Stop swI2C and release the bus */
- 	sw_i2c_stop();
--- 
-2.53.0
+arch/alpha/mm/fault.c: In function ‘do_page_fault’:
+arch/alpha/mm/fault.c:242:9: error: implicit declaration of function 
+‘show_signal_msg’ [-Wimplicit-function-declaration]
+   242 |         show_signal_msg(regs, address, SIGBUS, "hardware memory 
+error");
+       |         ^~~~~~~~~~~~~~~
 
+Please consider (partially) backporting this patch to fix build on Alpha.
+
+Best Regards,
+Mingcong Bai
