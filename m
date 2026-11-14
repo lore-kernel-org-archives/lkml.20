@@ -1,47 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794687430;
-	b=aVT7OOJXNnyzO2yH9z6uCqvITejzzY9RHMtjbN8jV1pHjHev7ZX+lwqkCulWw6BKvNJo
-	 vUfPd5Vzk14mDZLRP+cnIMhazxM09w+31v+rJ2fjTGRQeZOaTe91cv3rTWB6FNw8lBGz6
-	 2f5qNFTwOlEefKY1e6p2i0plLsi9d+wMWiahlFaEDL3C1Yff9UssA7CaNfwY2KBCfTD+f
-	 P4UEi9C+rrEwtHSol26VyXeADRF2dQg2SJ9bBFA3g8jkozcFHb8a1L7QLItPH5n/tirg3
-	 yjvbJ8RC+4OS4+axuG2W55j9DCvROcXKC8L+TfjiJ2/mO6TEsznJ0x1BMA+1Vd7xlHw==
+	t=1794687459;
+	b=njiWKvLU90e1WgBei0F0p9S/gdHz4aVcT5tBjsQVWRRBoQ8yzSFtU5Ch9g+DNYOmmUHm
+	 35LR8nVRyWIreAT8YTTHx4Lf2crrk/19e9eq4fZ7kFSpZjhEOYbQLqohIEmJ7UP1rDhHR
+	 YQ9kUjHh9Je4WCLF8oESCG13mA67pB56O25B0ZENG4SU7VUV5o0ry6Iw/IYiLguYRHfMP
+	 Wi5HcEPpb0FkZ19JTDSGyUFshr/V0mt6c+C6tSg3IzBo2MjwQ/kMfQh3O2JCDgIcBQcMX
+	 zjOvyN9xtatc5WBpg9V4nFWAnlcy/8rykJwKksTDi6Eg6z/Dc4ylLm/Gd2cOXRyp1Ww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794687430;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=OZxdnEWnSrxJbR1e8/SaG5gFDq6H5EE2W5CAZ6cJ4ww=;
-	b=QxVpFi7PGv5HCPMjG4O1v8IbKGj97P9emmkSUQnja1gX2FGNKUJNnDxlInrmWkov1HnZ
-	 XXotFGWpJ0QsawSRhbNhqPpdveX3P7LTIr88hqQ1rERwdDgKobsqfNEpHzakl2egUdKVE
-	 h2ROMehM1ltWr2/DPaBxjfIT8kGmYdEEZsacQvD4ms3Z6UKksR0S+JHXzylrQR2iYD5qz
-	 UQ8lFh8Zmig10/Rtxf42nqqY/0/Egtf3D0yDsNPu6trfamb2eOVu5h8++O2/Fb7euMZQd
-	 nS5xRaSgsbFbOZ0gEpnZV+QQETdW16LS34uDb99U8kHmOB+pFAck45z4iq5yCf4DaJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794687459;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=hxZtScjc23srK4XQG9qTJWS0pbU3WOLgEX045sllTfw=;
+	b=blddKwg9SpUATZlMYOc5qAts+xbHaBDuH5ekVcvxtAAjairS7cbOWpqhbIn2OP0stEDg
+	 El7hQ95xFEyMxXmYZndwT9GDUXq4OzHe09rZ6EdKpUwsV6jbeF+XNvs8xxL4JH8NmXvpf
+	 XtCZ2RG7ysoZSkVWnjTqbdsncclM+1LKgvIy6eF5U82rVoYlkxwdNA9R/Q1Afr3QZIOAa
+	 mw3vA2Oc225kDnYm3MkEwuzAXgKmf54tBHFsKgkyiVAwB5jS+HMbxeCtzfTy3893EWcWu
+	 FvE0RG69uYce8+ufAmMWskbXfDFzOwLGSaKaVSCr6l/L0D72BhRm4/4q/pLKQuz2uww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cWWbsaIx;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2FA3606A327;
-	Sat, 14 Nov 2026 20:17:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cWWbsaIx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 378E91F000C4;
-	Sat, 14 Nov 2026 20:17:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794687430;
-	bh=OZxdnEWnSrxJbR1e8/SaG5gFDq6H5EE2W5CAZ6cJ4ww=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=cWWbsaIxnBdWa/4AtdpygHFk0lD1RcnYrPAcN4DBz5Q5NkxBnHyFRqSAUZbMVVxCs
-	 cqqYmpw2kN7ZeQMC17g2X/lCT5KrKit12s2zkXOFzqTKueVoYFLqtTD9gnPuG10TZm
-	 4shc6Swp2kDscdFX4FDnBWHsRrahP/DBs+OKcmwany3vPUTj1Y7IoH6FPJznXYu9by
-	 D6CVZZc3q9Dq7+I0VU48mgU46PVXp45lJE+g572jZ+lxZy6zFY8CekPh1nWD/Vff5H
-	 xSV/SNu534+cyGIjo7P+OS8s7wbGDR/iKOGNBK7BmS1jlFvbkcSYxM7UUjuWIr2JAP
-	 4yMKFNQu4whAA==
-Message-ID: <70740a32-92f5-4425-8676-68863f3e44c3@kernel.org>
-Date: Sat, 14 Nov 2026 21:16:59 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6693606A327
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 20:17:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6693606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-5727b04b81eso233791b6e.3
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 12:17:38 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794687458; x=1795292258;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hxZtScjc23srK4XQG9qTJWS0pbU3WOLgEX045sllTfw=;
+        b=fe6uE0+Oyv8l9vo/6F9TUSIaYhLsUcHRbn35fGUc99s3chvAMuzURwLXMUpSEyS5AB
+         k7rn6gyDfgkyY2Y3E/NkFAK/zjehNNcditSAtYXKfeXh+89CUVlmT+Y+l/mVa+mGPx/c
+         6k1V+yYEhP1X3jlVVuRwUBjUGIME8V3M7bjs5R4DYFpic64yxG4Kh2rvw7O2O5a/+Xm9
+         KT6fCsZzL0alunH8J+67l5eoa6DSh9xIsGQbg8q7XOAr2rm5D5h9R1DWQz976nmj8LuZ
+         0k9SJklcmtaGf1gycSVILque+JvwyXdhBHP8Os6ch7mm6r9I71yuNFgusj3D6j9uT4Ay
+         Rh0w==
+X-Forwarded-Encrypted: i=1; AL+hErGoaxJ6fG2TCfvGG9KUiaIobhb9gdkOcIxtJ8daBdjOCUk+ancjBjV+fO3YKlAv2T6lPajQBt1LgwQ9Mpk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8f/HiIMDwrTig2ADOC869b8CJy+A8TMb3I1dxJjsW5SZl6lh8S
+	Rx5SV1W3refS/ji8hVEzUbz8yQbOhiJl1BndvRWBPnM3snD1IRBVBWKr5i2goPip7uFlZDkh/Zj
+	1lFktuTez/DqBMwRgYmRXsmL628csIGjlM4WwcR2nap4UmerRggtduVji5rw=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,130 +58,261 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] mm/mempolicy: limit shared policy ranges per inode
-To: "Gregory Price (Meta)" <gourry@gourry.net>
-Cc: Hugh Dickins <hughd@google.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, Zi Yan <ziy@nvidia.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org
-References: <20261113-mempolicy_limit-v1-0-16688b2644dc@kernel.org>
- <20261113-mempolicy_limit-v1-2-16688b2644dc@kernel.org>
- <179467808112.482102.13365594235443107281.b4-reply@b4>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <179467808112.482102.13365594235443107281.b4-reply@b4>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:1a0b:b0:4d6:90f3:74b4 with SMTP id
+ 5614622812f47-56e6500f37bmr5812399b6e.52.1794687457766; Sat, 14 Nov 2026
+ 12:17:37 -0800 (PST)
+Date: Sat, 14 Nov 2026 12:17:37 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af8c1e1.aa201734.33d248.0007.GAE@google.com>
+Subject: [syzbot] [v9fs?] possible deadlock in __cachefiles_write
+From: syzbot <syzbot+b8ae5f37f5baa84cb085@syzkaller.appspotmail.com>
+To: asmadeus@codewreck.org, ericvh@kernel.org, linux-kernel@vger.kernel.org, 
+	linux_oss@crudebyte.com, lucho@ionkov.net, syzkaller-bugs@googlegroups.com, 
+	v9fs@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-On 11/14/26 18:41, Gregory Price (Meta) wrote:
-> On 2026-11-13 22:36 +0100, David Hildenbrand (Arm) wrote:
->> Shared NUMA policy ranges can accumulate on an inode after its mappings
->> are removed. Currently, these nodes are effectively unbounded (even though
->> the allcoations are charged).
->>
->> An unbounded tree can cause long rwlock hold times when replacing or
->> freeing policies. Instead of trying to fix that, it sounds more like
->> having many nodes is actually only a scenario for processes trying to
->> cause trouble. Most use cases will probably only use a handful of them,
->> not millions.
->>
->> Add vm.max_shared_policy_count (inspired by vm.max_map_count), defaulting
->> to 1024 ranges per inode. Reject updates with -ENOMEM if they would
->> increase the count beyond the limit, taking merging, splitting etc.
->> into account.
->>
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> 
-> 
-> This arguably breaks userspace.
+Hello,
 
-Which is fine if there is no valid userspace that does something stupid.
+syzbot found the following issue on:
 
-> 
-> A single mapper that tries to set >1024 ranges would start getting
-> -ENOMEMs unexpectedly with this change.
+HEAD commit:    2800868f6322 Merge tag 'sound-7.4-rc3' of git://git.kernel..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=110f4b69580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=1cf189394a856f11
+dashboard link: https://syzkaller.appspot.com/bug?extid=b8ae5f37f5baa84cb085
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
 
-Sure, that's expected. The admin can raise the default for these odd cases.
+Unfortunately, I don't have any reproducer for this issue yet.
 
-I did some digging and was not able to come up with any valid use case.
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-2800868f.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/7a4b1a29003d/vmlinux-2800868f.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/02da498b013d/bzImage-2800868f.xz
 
-The only is that you have many VMAs for the same file mapping (mprotect etc) and
-then do a mind().
+AI-generated root cause summary:
+A false-positive circular locking dependency is reported by lockdep between the
+backing filesystem's freeze protection lock (`sb_writers`), the IMA integrity
+cache mutex (`&ima_iint_mutex_key[depth]`), and the upper network filesystem
+inode lock (`&sb->s_type->i_mutex_key`). In `do_open()` with `O_TRUNC`,
+`mnt_want_write()` is held across `security_file_post_open()`, establishing
+`sb_writers -> ima_iint_mutex`. During IMA file measurement on 9p,
+`integrity_kernel_read()` takes 9p's `i_rwsem`, establishing `ima_iint_mutex ->
+9p i_rwsem`. Finally, truncating a 9p file (`do_truncate()`) flushes dirty pages
+through `netfs_writepages()` to cachefiles, where `__cachefiles_write()`
+acquires `sb_writers` on the local backing filesystem. Because neither 9p nor
+the local backing filesystem increments `s_stack_depth`, their distinct
+per-inode `iint->mutex` instances share lockdep class `&ima_iint_mutex_key[0]`,
+producing a spurious circular dependency report even though the actual lock
+objects differ and cannot deadlock.
 
-But that's precisely what patch #1 does.
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=b8ae5f37f5baa84cb085
 
-> 
-> Multi-task mappers were previously unlimited, but that seems like more
-> of a nasty unintended corner case - not a real feature.
-> 
-> A single process is already limited on the number of vmas/policies based
-> on `max_map_count`, so it seems natural to just use max_map_count
-> directly, but I took a brief look at some distros and most seem to
-> ship a raised `max_map_count` (>1 million) by default).
-> 
-> I tested that and even 1 million can cause a soft lockup.
-> 
-> Not sure there's an easy solution here, we might have to rework the shm
-> policy locks.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+b8ae5f37f5baa84cb085@syzkaller.appspotmail.com
 
-Do you know a single valid use case that's not solved by patch #1 and would
-trigger that many policies?
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Tainted: G             L     
+------------------------------------------------------
+syz.7.1192/10055 is trying to acquire lock:
+ffff88802d3a6478 (sb_writers#5){.+.+}-{0:0}, at: __cachefiles_write+0x56f/0xd40 fs/cachefiles/io.c:355
 
-Ai was not able to come up with anything for me.
+but task is already holding lock:
+ffff88810b968140 (&sb->s_type->i_mutex_key#30){++++}-{4:4}, at: inode_lock_killable include/linux/fs.h:1032 [inline]
+ffff88810b968140 (&sb->s_type->i_mutex_key#30){++++}-{4:4}, at: do_truncate+0x14e/0x240 fs/open.c:63
 
--- 
-Cheers,
+which lock already depends on the new lock.
 
-David
+
+the existing dependency chain (in reverse order) is:
+
+-> #2 (&sb->s_type->i_mutex_key#30){++++}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       down_read_interruptible+0x97/0x520 kernel/locking/rwsem.c:1584
+       netfs_start_io_read+0x1f/0x100 fs/netfs/locking.c:67
+       netfs_buffered_read_iter+0xf3/0x190 fs/netfs/buffered_read.c:940
+       netfs_file_read_iter+0x10f/0x190 fs/netfs/buffered_read.c:978
+       v9fs_file_read_iter+0x9b/0x100 fs/9p/vfs_file.c:369
+       __kernel_read+0x397/0xac0 fs/read_write.c:512
+       integrity_kernel_read+0x7e/0xb0 security/integrity/iint.c:28
+       ima_calc_file_hash_tfm+0x25e/0x350 security/integrity/ima/ima_crypto.c:222
+       ima_calc_file_hash+0x1e3/0x380 security/integrity/ima/ima_crypto.c:280
+       ima_collect_measurement+0x952/0xb30 security/integrity/ima/ima_api.c:300
+       process_measurement+0xe04/0x2360 security/integrity/ima/ima_main.c:425
+       ima_file_check+0xbf/0x110 security/integrity/ima/ima_main.c:686
+       security_file_post_open+0xc4/0x210 security/security.c:2777
+       do_open fs/namei.c:4853 [inline]
+       path_openat+0x5d0/0x23f0 fs/namei.c:5016
+       do_file_open+0x20e/0x430 fs/namei.c:5045
+       do_sys_openat2+0x163/0x1d0 fs/open.c:1443
+       do_sys_open fs/open.c:1449 [inline]
+       __do_sys_open fs/open.c:1457 [inline]
+       __se_sys_open fs/open.c:1453 [inline]
+       __x64_sys_open+0xfe/0x1d0 fs/open.c:1453
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x7b0 arch/x86/entry/syscall_64.c:89
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #1 (&ima_iint_mutex_key[depth]){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x19f/0x1c10 kernel/locking/mutex.c:821
+       process_measurement+0x5ab/0x2360 security/integrity/ima/ima_main.c:319
+       ima_file_check+0xbf/0x110 security/integrity/ima/ima_main.c:686
+       security_file_post_open+0xc4/0x210 security/security.c:2777
+       do_open fs/namei.c:4853 [inline]
+       path_openat+0x5d0/0x23f0 fs/namei.c:5016
+       do_file_open+0x20e/0x430 fs/namei.c:5045
+       do_sys_openat2+0x163/0x1d0 fs/open.c:1443
+       do_sys_open fs/open.c:1449 [inline]
+       __do_sys_open fs/open.c:1457 [inline]
+       __se_sys_open fs/open.c:1453 [inline]
+       __x64_sys_open+0xfe/0x1d0 fs/open.c:1453
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x7b0 arch/x86/entry/syscall_64.c:89
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #0 (sb_writers#5){.+.+}-{0:0}:
+       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
+       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+       validate_chain kernel/locking/lockdep.c:3952 [inline]
+       __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       percpu_down_read_internal include/linux/percpu-rwsem.h:53 [inline]
+       percpu_down_read_freezable include/linux/percpu-rwsem.h:83 [inline]
+       __sb_start_write include/linux/fs/super.h:19 [inline]
+       sb_start_write include/linux/fs/super.h:125 [inline]
+       kiocb_start_write include/linux/fs.h:2799 [inline]
+       vfs_iocb_iter_write+0x1fe/0xa50 fs/read_write.c:929
+       __cachefiles_write+0x56f/0xd40 fs/cachefiles/io.c:355
+       cachefiles_write+0xc2/0x150 fs/cachefiles/io.c:395
+       cachefiles_issue_write+0x513/0x810 fs/cachefiles/io.c:607
+       netfs_do_issue_write+0xee/0x340 fs/netfs/write_issue.c:256
+       netfs_issue_write fs/netfs/write_issue.c:290 [inline]
+       netfs_advance_write fs/netfs/write_issue.c:331 [inline]
+       netfs_advance_write+0x37e/0x4c0 fs/netfs/write_issue.c:299
+       netfs_write_folio fs/netfs/write_issue.c:510 [inline]
+       netfs_writepages+0x10bb/0x2390 fs/netfs/write_issue.c:600
+       do_writepages+0x278/0x600 mm/page-writeback.c:2562
+       filemap_writeback+0x22d/0x2e0 mm/filemap.c:386
+       v9fs_vfs_setattr+0x9d6/0xb80 fs/9p/vfs_inode.c:1087
+       notify_change+0xb09/0x1350 fs/attr.c:556
+       do_truncate+0x1df/0x240 fs/open.c:68
+       handle_truncate fs/namei.c:4306 [inline]
+       do_open fs/namei.c:4855 [inline]
+       path_openat+0x1e93/0x23f0 fs/namei.c:5016
+       do_file_open+0x20e/0x430 fs/namei.c:5045
+       do_sys_openat2+0x163/0x1d0 fs/open.c:1443
+       do_sys_open fs/open.c:1449 [inline]
+       __do_sys_open fs/open.c:1457 [inline]
+       __se_sys_open fs/open.c:1453 [inline]
+       __x64_sys_open+0xfe/0x1d0 fs/open.c:1453
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x7b0 arch/x86/entry/syscall_64.c:89
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+other info that might help us debug this:
+
+Chain exists of:
+  sb_writers#5 --> &ima_iint_mutex_key[depth] --> &sb->s_type->i_mutex_key#30
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(&sb->s_type->i_mutex_key#30);
+                               lock(&ima_iint_mutex_key[depth]);
+                               lock(&sb->s_type->i_mutex_key#30);
+  rlock(sb_writers#5);
+
+ *** DEADLOCK ***
+
+locks held by syz.7.1192/10055: 2, on CPU#0:
+ #0: ffff88802ed0c478 (sb_writers#15){.+.+}-{0:0}, at: do_open fs/namei.c:4838 [inline]
+ #0: ffff88802ed0c478 (sb_writers#15){.+.+}-{0:0}, at: path_openat+0x1920/0x23f0 fs/namei.c:5016
+ #1: ffff88810b968140 (&sb->s_type->i_mutex_key#30){++++}-{4:4}, at: inode_lock_killable include/linux/fs.h:1032 [inline]
+ #1: ffff88810b968140 (&sb->s_type->i_mutex_key#30){++++}-{4:4}, at: do_truncate+0x14e/0x240 fs/open.c:63
+
+stack backtrace:
+CPU: 0 UID: 0 PID: 10055 Comm: syz.7.1192 Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2087
+ check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2219
+ check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
+ check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+ validate_chain kernel/locking/lockdep.c:3952 [inline]
+ __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
+ lock_acquire kernel/locking/lockdep.c:5942 [inline]
+ lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+ percpu_down_read_internal include/linux/percpu-rwsem.h:53 [inline]
+ percpu_down_read_freezable include/linux/percpu-rwsem.h:83 [inline]
+ __sb_start_write include/linux/fs/super.h:19 [inline]
+ sb_start_write include/linux/fs/super.h:125 [inline]
+ kiocb_start_write include/linux/fs.h:2799 [inline]
+ vfs_iocb_iter_write+0x1fe/0xa50 fs/read_write.c:929
+ __cachefiles_write+0x56f/0xd40 fs/cachefiles/io.c:355
+ cachefiles_write+0xc2/0x150 fs/cachefiles/io.c:395
+ cachefiles_issue_write+0x513/0x810 fs/cachefiles/io.c:607
+ netfs_do_issue_write+0xee/0x340 fs/netfs/write_issue.c:256
+ netfs_issue_write fs/netfs/write_issue.c:290 [inline]
+ netfs_advance_write fs/netfs/write_issue.c:331 [inline]
+ netfs_advance_write+0x37e/0x4c0 fs/netfs/write_issue.c:299
+ netfs_write_folio fs/netfs/write_issue.c:510 [inline]
+ netfs_writepages+0x10bb/0x2390 fs/netfs/write_issue.c:600
+ do_writepages+0x278/0x600 mm/page-writeback.c:2562
+ filemap_writeback+0x22d/0x2e0 mm/filemap.c:386
+ v9fs_vfs_setattr+0x9d6/0xb80 fs/9p/vfs_inode.c:1087
+ notify_change+0xb09/0x1350 fs/attr.c:556
+ do_truncate+0x1df/0x240 fs/open.c:68
+ handle_truncate fs/namei.c:4306 [inline]
+ do_open fs/namei.c:4855 [inline]
+ path_openat+0x1e93/0x23f0 fs/namei.c:5016
+ do_file_open+0x20e/0x430 fs/namei.c:5045
+ do_sys_openat2+0x163/0x1d0 fs/open.c:1443
+ do_sys_open fs/open.c:1449 [inline]
+ __do_sys_open fs/open.c:1457 [inline]
+ __se_sys_open fs/open.c:1453 [inline]
+ __x64_sys_open+0xfe/0x1d0 fs/open.c:1453
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x7b0 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f4b4eba94d9
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f4b4f9a7028 EFLAGS: 00000246 ORIG_RAX: 0000000000000002
+RAX: ffffffffffffffda RBX: 00007f4b4ee25fa0 RCX: 00007f4b4eba94d9
+RDX: 000000000000015b RSI: 00000000001e3342 RDI: 00002000000009c0
+RBP: 00007f4b4ec3804e R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f4b4ee26038 R14: 00007f4b4ee25fa0 R15: 00007ffd7b80c5f8
+ </TASK>
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
