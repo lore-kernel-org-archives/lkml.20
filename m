@@ -1,149 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.39
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794681620;
-	b=Af15deEYxWSw/BCZV27vYisGmw4BPo7cx21Df66WiJle1UP9eEvwVzLtp+qrAfbK1V/G
-	 3d809LDBlKVBA1wBwmy5TvBaIBLgV1V4ebPrNOHuNQEWzHvAdJ2ML3TdeZRfgVEYnQKzh
-	 Pktd7nb2lmAECA6UgAVLaoSGe97sf44J51Ty/uwbFb+G3sCQiQ+eSkVrh2aO+gLyLB1YB
-	 n2nFqBOu2ByErJ/bytc+1CqKmywsntD+TlXT0zSBBpWbiiI7PSBLDK4QfJ4NYE5pyLr0f
-	 ateHqQDfbgt6p3sEuQdpLZleLYuTWbCWF4aQhUiJv5wgLHgvS+JEdFtXbbEajZZr+Mg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794681620;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 msip_labels:x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ld-processed:
-	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
-	 x-microsoft-antispam:x-microsoft-antispam-message-info:
-	 x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Rgs10JO4E5WBMJdiO5CaCTuXqY2ghBF/h2jRTGKS5zw=;
-	b=cabnjxiYw2JNjOM6yPCE37f/LzdA2otjbaf62rVnfPSKMbB33gEuPfmwwkG5tXm/x9KE
-	 Dz/xeIZvg2B/goC5ISmAi30bLkcg/SnN/6crbBzM9KexntZ0+pP01Rty8fjMrxMA6R9ro
-	 460s5XeAwZrjL0sMqQtrSkcoOtXcLYkZUH7nnAMVicOTnoM5uW9m5IpF5H6sN4w5tyixF
-	 NfisgR/auETKHjVFZDCZYd28nPKojN+IO1G+c0sdIQOV7pqKwiUJno9fG96PYQA0/51IT
-	 DUEdA7P8//PpQdUmstWgr77RaQkZEQ1LoaeQoX2uT5jEYgc48IoyHu7qqoiGqNLl0iQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=leica-geosystems.com;
-	spf=fail smtp.mailfrom=leica-geosystems.com;
-	dkim=pass header.d=leica-geosystems.com header.i=@leica-geosystems.com header.a=rsa-sha256 header.s=selector1 header.b=Szke8n2d;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.39
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011039.outbound.protection.outlook.com [40.107.130.39])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.182
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794681624;
+	b=3IjCxS2KYm4NGheCtnrn5P3gf+R/ToLHjibckHROzE55rjCJHWSzVoetybT4ZW5tWDCw
+	 lVqJqE+x5YMnE9b4+hegIxrjyM5Ae8CRiN7yerAnE0ri00hWbF6bieElUjUKBTVw1DSf4
+	 2pzLx3CZMzb30u/p5bZSJ+iixHVehOdX2c/aJhDqxOT+mJIcSLtMF5Bv/EZswUwn7Iaxo
+	 J+0WiL5Oj0WboE8CKVUBoyPtDYh9uOVJbUUsAIdPpZ7UeF/12F9t80nMMq6uJPoIcUnKy
+	 AuVuucp/NankmrJyjV0AEkt/ZWMYDl2ImBNMfyW8PPvRu0qMMCqpeZ89NRu+8Hcbm9g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794681624;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
+	 References:Content-Transfer-Encoding:MIME-Version;
+	bh=RDeoDvuqMX5CXuZ8DatSTgljbUzCp6t2qFD5+t+XaFE=;
+	b=SY/Uv/KA+CtRyxdISJo31yCgOLs2j5mDKmut41vFtPjUSc46ChzClmg4HPZlzDcqTP0X
+	 lmAePFAaqxD2smDSwWDvFRLGJHZb86P2VX72VydwYXbX53eVRWFQ2IaLO3q3qIlH8kiSb
+	 quZyhyAvQV6qvpTwSl3aINJs6d3MKHT4Lz6ga3s7yHteDszdqYyhDehvEzFjpudUv3j8o
+	 BtxTsaaVY6AGGPqk03+IhrbiSxy6UX61+zp8s2AHxLdNrnw1lnbLMki4Jd0hz50AKl98n
+	 tXYsBnYQVpM7YvKkbeNdeIiFgM17NO+EK72zFn03CiBSYT0zu8etrKqNEeSilVZKqWQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OKQvH0XB;
+	arc=none smtp.remote-ip=209.85.210.182
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1EA5606A32D;
-	Sat, 14 Nov 2026 18:40:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1EA5606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=leica-geosystems.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=leica-geosystems.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 967E8606A335
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 18:40:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 967E8606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=leica-geosystems.com header.i=@leica-geosystems.com header.a=rsa-sha256 header.s=selector1 header.b=Szke8n2d
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GdJvSwZ2nh/4Xe+sJx4OiRErBCk9jubN4nRaMlce6014x2dsLcThFL0ejGcIAvygRY92ikJEXxd77K+mcopDbi7OXfbdElSwlPgM0kfC+oumV3V6YwniGLQ+SgdImF3UCNWngNHcxzz9Ey1igBTgPXLyxPpl5eNkLUJKJetmKx+5tGLarZIzH27KeOPBB41/1cayZ6tkD1yyRrNM9nv96uJdCthuNW+ICNOE+AbQX/rUa0ddxgJQsmqORG0xa3AQY27vIkGkYA8zhJeT025hhrWL9nwdFeD5au9plMH+HhMuMDtWOFU5B4bUVV8Q1ksqgQ+uaKVK/KTip89sKmRoEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Rgs10JO4E5WBMJdiO5CaCTuXqY2ghBF/h2jRTGKS5zw=;
- b=OpYmVIEhnvKKPAjtmvGqkROPIoeCpwzOc5B/r1soyp2AOuo7rW1G5qJY7MMZFi6rWLy4TpM2KxswW7m3I4hVdKc4voYdnIrN2+4hOJwlgtSJziz+wZJ+STxuC9QTe8iS3lvfpMgq/8rysGIw/M+Dys7Z4TOaL7wFYjDlaWj7GYBnoRGyTONVx6eNbF509hPqZvKyyfI7MUt9m22Ui27OqVmebhyP+i4BNM43YHhNu2Xl5cnJ1wCMDZxpP9MbV/0i1MfuN3ywNaSRIMCUoJDy6DG9hwTZ2B2FuITb6YJfU72v/JrTZShjOxBrRdqmUPuYYR9+xZmA+EKqGxaUMhrG2w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=leica-geosystems.com; dmarc=pass action=none
- header.from=leica-geosystems.com; dkim=pass header.d=leica-geosystems.com;
- arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=leica-geosystems.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Rgs10JO4E5WBMJdiO5CaCTuXqY2ghBF/h2jRTGKS5zw=;
- b=Szke8n2dKo6jFLPZZlUzYdUWEGk6DMYsF41U+vupJGzAqKL9IZPVaqnxb8cpMXdREsRABRAEyyr6j0isqBsvdO6My4abgXTB4IlOrH8DLg2sdH+MFo702u9x6RekSzn/1NxwBk9prpJ0kuDFDCR61DbgJPLUFGe8YmBgg/x/VoA=
-Received: from GV2PR06MB946935.eurprd06.prod.outlook.com
- (2603:10a6:150:385::6) by DB9PR06MB11223.eurprd06.prod.outlook.com
- (2603:10a6:10:609::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Sat, 14 Nov
- 2026 18:40:15 +0000
-Received: from GV2PR06MB946935.eurprd06.prod.outlook.com
- ([fe80::6c6:1b3e:8a37:ea25]) by GV2PR06MB946935.eurprd06.prod.outlook.com
- ([fe80::6c6:1b3e:8a37:ea25%7]) with mapi id 15.21.0615.009; Sat, 14 Nov 2026
- 18:40:15 +0000
-From: BRETSCHNEIDER Max <max.bretschneider@leica-geosystems.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-CC: Jimmy Su <jimmy.su@intel.com>, Matthias Fend <matthias.fend@emfend.at>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>, "linux-media@vger.kernel.org"
-	<linux-media@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] media: i2c: ov08d10: add get_selection support
-Thread-Topic: [PATCH] media: i2c: ov08d10: add get_selection support
-Thread-Index: AQHdWbp97kJFwSosak2iR6ujkOIPEbb5rewAgBH8Ve6AIm4oNA==
-Date: Sat, 14 Nov 2026 18:40:15 +0000
-Message-ID:
- <GV2PR06MB9469356C7B3523BDEAFE11E453D37E2@GV2PR06MB946935.eurprd06.prod.outlook.com>
-References:
- <20261011-ov08d10-get-selection-v1-1-5debe6436765@leica-geosystems.com>
- <asywCh3X0yJVcxRd@kekkonen.localdomain>
- <GV1PR06MB83698BCD22508BA5DF19A0A1D3642@GV1PR06MB8369.eurprd06.prod.outlook.com>
-In-Reply-To:
- <GV1PR06MB83698BCD22508BA5DF19A0A1D3642@GV1PR06MB8369.eurprd06.prod.outlook.com>
-Accept-Language: en-CH, en-US
-Content-Language: aa
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=leica-geosystems.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV2PR06MB946935:EE_|DB9PR06MB11223:EE_
-x-ms-office365-filtering-correlation-id: a75c81e6-e382-4521-ee76-08df427eb962
-x-ld-processed: 1b16ab3e-b8f6-4fe3-9f3e-2db7fe549f6a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|38070700021|10067099003|11063799006|4143699003|261021121427099003|261022105027099003|261026140227099003|56012099006|261102123227099003|261028144727099003|18002099003|22082099003|6133799003;
-x-microsoft-antispam-message-info:
- XqSg0J3N2FmnvS8AsqmeSQ7b8JIHWnnmFT7sAz8pVgIyCGF3whbrhi0QLQJOUQiwIZKKCXCISJyHkQ+8SuyhhhwoERX0ynmDAt/ZllYMnJe55keFNBEulEvql3IcUhxzFAJBpmcTWgVmKPUSEU5znrzASR9ytQjpE4tPA8lWxBANYPgJ+Bv3CD1jhhVtW2mL61MuHs3FCntxBs8I7wpgdVJtGYgwv7/AIPL32TvN/92S3sQQRq0I0qkX7xZl2fEfGczf01NhszLaZOtYJ7mraTYPkwUDXa3gFqky/LPDoDGBOw0Tv/2JlpQP8AmwTuZI7V/LkFvZi7ul1tk3HypkhYL7vL1dk9hDbtK11Yz4+7kYWgWNSA87mMzG2uFoBgUiKIlxH1bo1uCr+VZ2Szd2nuCx2gKkwA+SSvcegqPczcGjj0ynZZPTwKMhUmF5DfYO1ihrtDoruMS+honJhgleJtbCQBMkPB2d2dTY+zUnT3Xcw1C3J1QL2ym5iZxxm0c5uEC5ktvOKm+H6gOdOxWuKoxUWzABfHVMcOvE8E+Jr3ku2dWOxfDlPzNjAVSLRQVHbouvt95BgzGIiR3SFM7h7yGgGhGTX2hlNZs7DH3DMGo+vtTaeUTJp2NW6dtq9iD819dSeWlTjPabbeHy7HV6FCG3jn/LS//nCBrantjzjPeaHrutc5Y2GHserjyIRrADh42s6z2dyugyA/8+wSspIfz6tkKiVUA0wOJvhYRaGpo=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR06MB946935.eurprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(38070700021)(10067099003)(11063799006)(4143699003)(261021121427099003)(261022105027099003)(261026140227099003)(56012099006)(261102123227099003)(261028144727099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?f6Hk7MTurVHxEOe/PCsieZ3KjAXUOvb6bZoN9KA0mbAyeo5eGWRTym9f4Fth?=
- =?us-ascii?Q?miKz0kRhDSh9FIf50w/ZtSL1ZcbApauD8cCePzJ8mU6/tVYn5AlBpNgmXOnx?=
- =?us-ascii?Q?SvUu2SlxTy/j984In1fQgtkw+MOB4tNsqgy+HfV4dLonLfI61NZ8LeN6JQLi?=
- =?us-ascii?Q?g612QHkvvWAb5rXI1ADvUlhGxA9kkUV/dB7vpZbao2OVyVEHbvjo39eDZht6?=
- =?us-ascii?Q?DjCztEJzv6PL7or9xqH9n5T72TpB6ttDooGZcfy9sYngbnVxxb//PykfA0Hk?=
- =?us-ascii?Q?cvYvVjcMJsBSX7bVNa53x+3E5X0l77vwAFn8Buoed6DH4MvTLDQIjtH5N2qP?=
- =?us-ascii?Q?A0MS15cE0f/XkuGG0MSpsYoQtvWqMp6irICP1mj+wnuRUIVvNp10YRTunkNv?=
- =?us-ascii?Q?o9VjtLTqrbAEua519orxUmnw0UMHqSNjdv4C+omuerQUW4LWccYZJkULfsmL?=
- =?us-ascii?Q?XHd+0I8bYJEYfWNG6q30Ra8E7iy4XZjPX9B8R4HFzxX3u5Lf2xksScInBZEH?=
- =?us-ascii?Q?3s0bh/yjWPeZ+6bRSIyuxE/B/g+Uq2tBBXFv/X/+hq6mtBs+IcnXCQddeISJ?=
- =?us-ascii?Q?qehR8ZwuGB7iMqFlf2ni6ukn7XklaaOT2Hubt/zS80AIsa5mCSmZmCd7w58w?=
- =?us-ascii?Q?w69J6a4IMMH+1jwIY6V87/gu+rPb7J2Lvi0vFJXcDEOTEknCnY07fIcM+Dnx?=
- =?us-ascii?Q?8N/J4cMuzMlZae9uvRZQH7MSHRYnvGCgLOqjV2MrmIW0HPagrXOOi3+wjmwC?=
- =?us-ascii?Q?uMCPWeEpLZwBp9IoIhUi4DCImU+4G79t0rjyXHH3UOw4cM1JYPvLD7eUypYl?=
- =?us-ascii?Q?ua3xJbUomJxJ9lv5vZUQIVBeeeVNpQK23dTH7oRiqWT7YBCOjdd72peryHT4?=
- =?us-ascii?Q?QbVM1wNIcS/gfxpf30IANK3PbxdyCi8XKhDoH6pnDQj7RMjAp86Yb106jwQy?=
- =?us-ascii?Q?SetLz/SYnvMy2xDt76dyvVdPKzyPVT4Shu7WPxG8EvLo+BB6FR9sjCEdfUUV?=
- =?us-ascii?Q?vSCzGJ15Brc5/q+o1PX6wt/jsN1A+kx1oKYCktuTnytEjnvKSGM35Xh6L4N1?=
- =?us-ascii?Q?IrIP5PDDLf5PZmNeWkthFK5jV51CNHm+1hjDHvBvn0s034Hkl48/caqAqLhh?=
- =?us-ascii?Q?Vle7h0X23HubuXvDyEX1iQ0sUVKYBzlHd4Otv4w5kOMKxU/UDVse1MVl3E9u?=
- =?us-ascii?Q?u0QmqTAsinj7kCPp3gGF8ULq9HaCzdyOUJcqFRXXhda7gh+Dg2SwWvvx/XTP?=
- =?us-ascii?Q?L3vM60bvq1e+VuCyDh+rxg4NFZX2c2mJ07/MU/OueMmmWg2oHLZNQMO9WmeG?=
- =?us-ascii?Q?UkjJ/cCebUapAh9ffi8O+e6Gd2ZDS0KuZdzWXvcNDjRxtcuHyak3UxEQ75a/?=
- =?us-ascii?Q?56yIS9Ixw+hS3iQKjkxC8Mm3EuazbNCZqviH2v0isYattq+LjFkTUR+P4xzT?=
- =?us-ascii?Q?N3wryUrqjalwjSEMEBTUcYdq3dLi3u5wWkgEYXtdKsB2lT2UvQ+xgg3BhOsF?=
- =?us-ascii?Q?EKdFnEsrRer5H7TRSQvBg5Buk5NUX56dzPZB4bWUVpFrnxIJanxuHixNihgL?=
- =?us-ascii?Q?faB5XM7SZSGDf/gX590BQLQyXdsFk1AvI2MZHE8Bo0iepatZSArFep3Sr17y?=
- =?us-ascii?Q?T7oIBJZFfstcjaAB8AGV61TrjsUBSZSIK/Nw+o5/QL6J2TisZDPijdjsRwFS?=
- =?us-ascii?Q?UKiHPO+MIxmQFw8Z08RVozS3HMIPTOBVgMgVSJV/htoPCm3GATMSX8tpjH/t?=
- =?us-ascii?Q?qDQXNk9M/w1nD5rvhdjxCM1yLNZZQKo=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OKQvH0XB
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-886e61fa30fso884730b3a.1
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 10:40:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794681623; x=1795286423; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RDeoDvuqMX5CXuZ8DatSTgljbUzCp6t2qFD5+t+XaFE=;
+        b=OKQvH0XBu++VojD/u+INoAqGc3Ax0Cm7sYdvZeGr3L8gqCisEOw5EBV3aKep+umVWn
+         an/nnKbxKy6DYbjRYvgu/fZ2SPbcgI9KPEl1Trd1mckq3R53F/E6Eaq3wvQbeeuu9l0M
+         0r3nMj/ruEGEiipnr4mvv1s9NXN36nHgwxKsBDsYSprDn+XISlJ2s9UsbYlL1fZ36+YW
+         A/Qnm1iUNoYEqgY3KOs/GSb9tQtZyGLrV2AnfoR1Y7B/pv/QjEJyAnpnTilMgTc+fpPP
+         l+S5oKVA1wky3qlKOje4o9/IM6XIqLEcmeKmB1OmFo+lhyEmEARsV93Mfdv+LzfBQJk1
+         QToA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794681623; x=1795286423;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RDeoDvuqMX5CXuZ8DatSTgljbUzCp6t2qFD5+t+XaFE=;
+        b=Di1xUiVtNXl0NwaCimRT4ayXZvLWBzms23aObSEdUXTJrJAkA2ITRQcJ/5s/sx0TZV
+         4kfX+6ulqwtQGBlXflqHuHMOjf8Eu+U7Seg+kFvHRnFOfQ45KuUZOkLgIR6cg98vmKij
+         U33H9b5jsESHmNG4aaHWzjNlz9UDDSeArZ+nNP+6UScw6EZO05iKysyuZzb3RsbJLEJv
+         g7pTHs3VNNOnJzdVQLqRp/dd7lATHNJKF+2UqcCwjbZvdC8rvbsxiuPUxwaN6V8Ua1Uj
+         g8cqX7A5Y8JDw7ZPXWT4F8ehgKAOaMt8XhNem9nfUchJhUgU6HbJkwhars96FeE4vKsS
+         Jumg==
+X-Forwarded-Encrypted: i=1; AL+hErHbvIB+XKxstnGMAVY+WP3n7qCzFMCKrxMQFtyUPM7f5HToyCJX4AkV7hR5ft4TUvitPy42NBbwGZzez7A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8HTleToYvYoMYX+m22jG9xwP1Y/S1R+8LVxEPhYtgyvfINuhu+
+	H7kqFdDl0YItac220Oj1fWX+Hv+yBjWwFB/6khfE+PP0cxWKo+o5wV1K
+X-Gm-Gg: AYBFou2e13n6a2VXWug/XfCRpM5C/KMAlUVTfiedIRy6288bhm9uwDBjrL5Ij4YNaLF
+	zfo0eFQZdnrbwf/I9+Zfrip9fF1P0EChDAPZ1/y7BVEAXxBV/RQvQs2Phn4UeXR64BLTVPosWP8
+	PD4nX1nxvqw+sRL4FDhKYr43bd8TIt0Sw0Bea34YW6mQZ0g563gRnCNN/DbKP0nw9umnaPEqpb8
+	IUATtc7Kk283dtoerxxNzIiKklVIHpyxcuQteMbg6ATURZNnH2I2n5soVtcl8hb8bhsXI+3XoHC
+	1S5dMtG1ZZOHhFzWtuk8EteIJ3mtgbrixNywNqoDleGO05Odywgxq1I3R+Nn6wKaLpP5ntRahV0
+	4cTLijj8h+8qRhxf97Y2tdkxJnMZWDivKa3oIYvzWmEfCcwbAlofznxcoqCGP7QESPL+SM+LUvY
+	2mgArWKoGx7+9wOl4YoOKGYNm3u5QaXUcxdIRDtezydU50JR9OH6UjoO+nSlMBn+8dyIe45mIwP
+	5TPlC0VdlBE7IU5lrQZcsUt9K6WlmF1kDtpbLuUTlvWZDrQuqHSetg8qpCDMubIw9gu+/S3zdy4
+	u69RP8k7CU+fi/mCYTgiQMpt8pugLXYQR9Hw0mckktG39lk1D8VxyhDwLCSk16/5l12+CZfJaiQ
+	2XIOSksctlxWc17fZ00ID83Fjkt6gbbo9WlQ=
+X-Received: by 2002:a05:6a00:2346:b0:89f:ed3b:df97 with SMTP id d2e1a72fcca58-8beb7150117mr5498543b3a.51.1794681622656;
+        Sat, 14 Nov 2026 10:40:22 -0800 (PST)
+Received: from localhost ([153.61.198.245])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed263649esm2256214b3a.45.2026.11.14.10.40.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 14 Nov 2026 10:40:21 -0800 (PST)
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 14 Nov 2026 18:40:20 +0000
+Message-Id: <DMV5JEF4P0Z8.3K0HQK7SWX2S@gmail.com>
+Cc: <davem@davemloft.net>, <edumazet@kernel.org>, <kuba@kernel.org>,
+ <pabeni@redhat.com>, <horms@kernel.org>, <andrew+netdev@lunn.ch>,
+ <dsahern@kernel.org>, <idosch@nvidia.com>, <ncardwell@google.com>,
+ <kuniyu@google.com>, <richardbgobert@gmail.com>, <willemb@google.com>,
+ <ecree.xilinx@gmail.com>, <linux-net-drivers@amd.com>, <saeedm@nvidia.com>,
+ <tariqt@nvidia.com>, <mbloch@nvidia.com>, <leon@kernel.org>,
+ <linux-rdma@vger.kernel.org>, <daniel@iogearbox.net>,
+ <john.fastabend@gmail.com>, <sdf@fomichev.me>, <martin.lau@linux.dev>,
+ <andrii@kernel.org>, <eddyz87@gmail.com>, <memxor@gmail.com>,
+ <song@kernel.org>, <yonghong.song@linux.dev>, <jolsa@kernel.org>,
+ <emil@etsalapatis.com>, <ihor.solodrai@linux.dev>, <corbet@lwn.net>,
+ <rdunlap@infradead.org>, <skhan@linuxfoundation.org>, <shuah@kernel.org>,
+ <bpf@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+ <linux-kselftest@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net v2 0/2] net: keep the TCP fixed-ID flags on the
+ header they describe
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Julius Bairaktaris" <julius@bairaktaris.de>, <netdev@vger.kernel.org>
+In-Reply-To: <cover.1794139176.git.julius@bairaktaris.de>
+References: <cover.1794139176.git.julius@bairaktaris.de>
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -153,33 +113,10 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: leica-geosystems.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR06MB946935.eurprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a75c81e6-e382-4521-ee76-08df427eb962
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Nov 2026 18:40:15.2708
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 1b16ab3e-b8f6-4fe3-9f3e-2db7fe549f6a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: sTSA+rqIkq4bef8eaPwi9aK6AGthg1jmGdqzbV42VUhdciHSXAC81y4ZuGZhG4Jw8q5UIpKWToEsOA3FMqguFYMFuF6WS7ULuAyGUX3YrnRegl84fopgX5nk6zXnnGTO
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR06MB11223
 
-Hi Sakari,=0A=
-=0A=
-> Can you test on a newer kernel? That being said, there are unlikely to be=
-=0A=
-> issues without that, but it's better to be sure.=0A=
-=0A=
-I have now tested this on media/next (7.4.0-rc1, bf6c63ecc, from 13.11.2026=
-) =0A=
-on the same hardware. The series applies cleanly, and get_selection, the =
-=0A=
-per-mode crop, the flip-dependent media bus code and v4l2-compliance all =
-=0A=
-behave the same as on 6.16.12. v4l2-compliance reports 52/52 on the sensor =
-=0A=
-subdev with no failures, and dmesg is clean.=0A=
-=0A=
-Thanks,=0A=
-Max=
+On Sat, Nov 14, 2026 at 10:27 AM Julius Bairaktaris <julius@bairaktaris.de> wrote:
+> Patch 1 lets SKB_GSO_TCP_FIXEDID describe the innermost header again and
+> replaces the inner flag with SKB_GSO_TCP_FIXEDID_OUTER, as Alexei
+> suggested in review of v1. Patch 2 adds a selftest.
+
+Thx. lgtm.
