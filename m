@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794674623;
-	b=h5l57GdhWE3VoeXjPRWcFRwOBDrcq8aFe/h7HPJ2B4wFwNvVlkZ9PBYTJuD0OvolebU6
-	 tcX8E/W0j3rLuY/iqu8sL7JncGXPTnAtkufHkGt99whMHjlbJfU9KJog7GPtN9vWNgBZn
-	 hmHkOyI2cOMaLGx1xtqTL94xniGxVeiD/ob4aPGVikzO77AfZlPM9f1Klnxi/OoWhJZ3i
-	 jxjn8K8DHG0UIBPlZql5i7Bw3weigM9MqWaUQFbvYnSSpM3H+XGnyAkgyzeQ3gEctzZxE
-	 CRYiJKRPeTPyUCK3QJB/Zfi77UAfMh8GdXoj0AKyp1GydELYkqJXWwIGDQorhVaQnBQ==
+	t=1794674663;
+	b=5e35h8vf+1DPjGbCu9iBeZ6sSmJGRKpNfzH8p5Z1askj/wt759Qp71nrMBrdd9zaxvy1
+	 4iTzQU0C8KAZrtCNyHmekrBTx5GS78Swfm/yMq+FhNCmNX8gNbCLL3ccsMhyAIwMpilo1
+	 +hQb78vdgkSjVLh+i1IOQPlkYxjTo54yiuss9GGuyzT7KfDosMf9K4YUsBv+K1pFlIZTg
+	 lIRLsRiD8M1BKJzRxYUVvt4wagEFGyaiiRDIeqEc3PP0xVuHXKJkqKQmNPOigzHlmOQXq
+	 kSIF6JFMvcFGLPDd+q0uL5AkdZsZD7bUZ0+OYZA2hd8B7dj+/fRPvzmjG3QxNuChE5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794674623;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794674663;
 	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
 	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
@@ -15,57 +15,57 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
 	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
 	 X-Local-Domain:X-CMAE-Envelope;
-	bh=oxoLWz+FF4cPmOqHhBP22dzL/yz794wQWR3uP5yvWcs=;
-	b=FI+1V15oTySFxxtCdoPF6iYRTGdcIvnp6WcofqcfmdTondSz4E67SWklebL7Lmv6NKJP
-	 GDJn7UQicyRTM0NEchqZBhdkXz5ykfgqh8jo1TcJvgSexvMT2VXBrCpwddUkda1Gbyj7R
-	 HKuttrplX6bd5WP++8FtojEPffEFyTFs1BXiVBukXPGcMhI+c8JTo2pBOSCdZ3k081gUF
-	 nRF1NLR1kUzvHXNT1AK2EvUrxsy2FX42mjjK0yI4lcVsbXKik87IQI24BLi2nhEFYHniV
-	 mjiTAr/mrVxkARf3kKtNA4RibO9ZJPuGSnCt8MTuWiWwgYfvnhgG8WmVAWZUEYWqlyw==
+	bh=B0OC0ZuonTQMXGfSxyDCyL/1ZM45W9+oO4OKZDmsoH0=;
+	b=T4LklembWOab0gqCiUfrmJM4GnVzbdF/EDkPjgM6SKU7sjWFWa9jWhgO7oRqM7jIywDJ
+	 +790VzQj+gvvmHfW9owedkfzxW9BpWic4FZGYWC9A8EBAmo7NY3yDHmCfdBePgb4LqgW2
+	 QxS1w4dIp6wG2euGRA9+kcQuQWb7UcMi0DortTWAEawFdZIsuJtc7hawNoL1WAvYa9Onk
+	 uIXiExyY06TAe5TsjmUhfTLJbLCVNNfuPrGgeXG3XehgMO+SCxtL8sf1GCYhOyD77lFJ/
+	 0J9TECCCRBu5ubpvyLhpGWIOzfZnhpOq3JvZrIvuvG7PW3U1YUHL1X+1qz5+FBU1flQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=roeck-us.net;
 	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=SVxCG2kr;
-	arc=none smtp.remote-ip=35.89.44.33
-Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=Gj8hRzTn;
+	arc=none smtp.remote-ip=35.89.44.39
+Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0F28606A329
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:43:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0F28606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38C60606A32D
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:44:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38C60606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=SVxCG2kr
-Received: from eig-obgw-5005b.ext.cloudfilter.net ([10.0.29.189])
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=Gj8hRzTn
+Received: from eig-obgw-6001b.ext.cloudfilter.net ([10.0.30.143])
 	by cmsmtp with ESMTPS
-	id SBUJxqLBHAR1iSGqsxODxR; Sat, 14 Nov 2026 16:43:42 +0000
+	id SDgWxfHTXyb4YSGrXxgIoe; Sat, 14 Nov 2026 16:44:23 +0000
 Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
 	by cmsmtp with ESMTPS
-	id SGqsxwpeFYskhSGqsxZPso; Sat, 14 Nov 2026 16:43:42 +0000
-X-Authority-Analysis: v=2.4 cv=CKMqXQrD c=1 sm=1 tr=0 ts=6af88fbe
+	id SGrVxbOCDdRrRSGrWxlk0R; Sat, 14 Nov 2026 16:44:23 +0000
+X-Authority-Analysis: v=2.4 cv=LOhmQIW9 c=1 sm=1 tr=0 ts=6af88fe7
  a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=VwQbUJbxAAAA:8
- a=epKNRfmuhR7F8Vwm0QkA:9 a=CjuIK1q_8ugA:10 a=mshYcpSARKEtRsk-hzoo:22
- a=KPbNTLLc3YvdawN95zVk:22
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=XYAwZIGsAAAA:8
+ a=VwQbUJbxAAAA:8 a=kXeqfPWSxjI9BzV32rYA:9 a=CjuIK1q_8ugA:10
+ a=E8ToXWR_bxluHZ7gmE-Z:22 a=KPbNTLLc3YvdawN95zVk:22
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
 	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
 	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
 	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
 	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=oxoLWz+FF4cPmOqHhBP22dzL/yz794wQWR3uP5yvWcs=; b=SVxCG2kr7z5DKmWxqdACAVC8tT
-	TzjxGc6gS2U69moDMvRhuy6WnbXByk0ENPHIIbUQgYgQ6Er1IqMT9Qaam8hV/MmHhySBk/CLDoiJ6
-	r7L+w4voiV/7kzlIKAx0kTxHye5lNYscZ3wL6vug7TA+mtpM8+it9LTXzpfx+lyJgobvyXsswna8Y
-	11PTvsi4K8fV+F6d6Ug98pxwPQicoYTxIjI+Tjn1HiKvTR3uMqNWP/AJPl8nRQYO8n8aBRojvQlGy
-	eIvYQSdnMPPvXkxPKCQrPjuNXAfZkDk1Kc5ySLpoI8B0zKyVIiQJhZBC04qm8GskMGCdKO2pWaDwf
-	fBHA2VQg==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:34420 helo=server.roeck-us.net)
+	bh=B0OC0ZuonTQMXGfSxyDCyL/1ZM45W9+oO4OKZDmsoH0=; b=Gj8hRzTn1Qv0Tn1Cegteb7ykRg
+	3Hr2Vfh7fpwxl20G5C4GVXr8t+0XKtiV7ZqbCd2yHexKZzfWUZYM3R5hHl5XrOW5G9oak497GShdn
+	BBYXj/2UERRK5fN4T8CaUVeZ4++MBC+gttXXZyDqHbjQ7WEQqFhpz7d8NCI1VaYO843flyVufD+xS
+	4HjIoqy84YJX7r4sxJb2ShtqSgnPYLOpZiyaxjnJBuv5T/9/FWDxM46FWzVN0bxaiLjFPBIYPmfj+
+	gVh4BAT53kfZnql1hENZ3zYXsA5OHF/dcat9cJEeMKmLay68bzxmJfUAq9ThWq38wkXQ9e0VJxN3P
+	6ZTS4Rcg==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:48162 helo=server.roeck-us.net)
 	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.100.1)
 	(envelope-from <linux@roeck-us.net>)
-	id 1xSGqq-00000000JsV-3dMt;
-	Sat, 14 Nov 2026 22:13:40 +0530
-Date: Sat, 14 Nov 2026 08:43:40 -0800
+	id 1xSGrV-00000000Kmi-1jrj;
+	Sat, 14 Nov 2026 22:14:21 +0530
+Date: Sat, 14 Nov 2026 08:44:20 -0800
 From: Guenter Roeck <linux@roeck-us.net>
 To: Robert Marko <robert.marko@sartura.hr>
 Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
@@ -73,11 +73,13 @@ Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
 	nicolas.ferre@microchip.com, claudiu.beznea@tuxon.dev,
 	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, luka.perkov@sartura.hr
-Subject: Re: [PATCH v3 1/4] dt-bindings: hwmon: fan-common: reject zero
- pulses per revolution
-Message-ID: <ce3ad183-3940-40a3-b4bb-c92deb8a7ef8@roeck-us.net>
+	linux-arm-kernel@lists.infradead.org, luka.perkov@sartura.hr,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v3 2/4] dt-bindings: hwmon: add Microchip LAN969x fan
+ controller
+Message-ID: <db9e90e3-9d06-4b23-b373-9a78e2598ea5@roeck-us.net>
 References: <20261111161619.232141-1-robert.marko@sartura.hr>
+ <20261111161619.232141-2-robert.marko@sartura.hr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,7 +91,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261111161619.232141-1-robert.marko@sartura.hr>
+In-Reply-To: <20261111161619.232141-2-robert.marko@sartura.hr>
 X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
 X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
 X-AntiAbuse: Original Domain - vger.kernel.org
@@ -98,24 +100,28 @@ X-AntiAbuse: Sender Address Domain - roeck-us.net
 X-BWhitelist: no
 X-Source-IP: 108.223.40.66
 X-Source-L: No
-X-Exim-ID: 1xSGqq-00000000JsV-3dMt
+X-Exim-ID: 1xSGrV-00000000Kmi-1jrj
 X-Source: 
 X-Source-Args: 
 X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:34420
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:48162
 X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 87
+X-Email-Count: 103
 X-Org: HG=direseller_whb_net_legacy;ORG=directi;
 X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
 X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfCBzmDVXIS9qmHnL5UIBeUERo9EfZ8IrybVwyq9tt+sLS+KZCdZX2V7QUsg1rgv0RLLhPXJhcS7Gi2EqQfmnawf1TWQxQPJyIC/dAPRyC3rgdxhxE0W/
- AxatYc0nYY2O6fR8ArQPMrqig/Uz0SyRtNw5HsUiubAkSavkNbm01vIrLy9+yBg0xruKPtqafDI+hk0PZbR1wX/werr/ao5AUVIw4Ma8Juf5dXdgenrwNEJ2
+X-CMAE-Envelope: MS4xfJVVYHIOYvhs0gB5z67MQZ56UIyKGIo62qCBAkb1TUXgvNj/CJPPeMQmO5/wmGIkipOhx9JHoK7kI9eA4Bjh+I6SAC7HU3XIvyqJnzueATF+5GrC7YOJ
+ a+gycfzWVWLacwyMpGHUtV/OqHyrGD8XlBHSWVEzumoM49J/yISvpw092dRRER27NHFQBW1I07tM8dal++Nwc28ify2ETE3D7tckVZ5hIhNlpWXiwDqZfkZH
 
-On Wed, Nov 11, 2026 at 05:12:45PM +0100, Robert Marko wrote:
-> A fan sensor cannot produce zero tachometer pulses per revolution.
-> Add a minimum of one to the shared fan schema so every user rejects
-> this invalid value.
+On Wed, Nov 11, 2026 at 05:12:46PM +0100, Robert Marko wrote:
+> The LAN969x fan controller has a PWM output and tachometer input in a
+> register block separate from the Sparx5-compatible temperature sensor.
+> Describe it with its own compatible and binding.
 > 
+> The optional fan child specifies PWM period and polarity, tachometer
+> pulses per revolution, and thermal cooling levels.
+> 
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
 > Signed-off-by: Robert Marko <robert.marko@sartura.hr>
 > Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
