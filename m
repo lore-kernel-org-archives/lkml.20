@@ -1,99 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.226
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794627064;
-	b=SI782zNKb5d3Xeb+t+lBPyOh/1q9+jKZ0MoBA+GC4rNA7G7O8Loyp6EQxvlhtQ0iPM41
-	 jm97S0GNLVOQZ41VzG/npP0iYOE7ywuS3uti0ljek3MRIIjRGBFl09O8/kCNVV9TwoFF8
-	 kdLIR4sJPoEsKmf9bCiRBjUkj6W7biirxRyaEZcvSsQN3uEA4voVqakbqhwTJpgepp0CZ
-	 wArCQGA4kY7FsHmTV4GBNaBupJr3zT+EwET6iYELtoQY2WGSX5HgCoC84UwUbRZ6KIJ8G
-	 mpD4qlGiJjFJeAzqfD0VMSyo6w/aPD7r0zXyr1Mh76CUopAtQah34FGfZPNlScXV9fg==
+	t=1794627097;
+	b=dN24TDpI8xvK0vNkXGpGXMy900y4gczH32CgvQsSgEIVB6atS7HsWEoQAF8QsXR8MCbM
+	 FH0TY2xNGPnixZQiYraWEMG0n5E2tdDKjXEgNMkhaM57pF83izk0SoPSP0bsr4pcdWDOh
+	 GZW4EHStMarMRwNoExgZxFIu/MSZx1fxH2gNU4NTrLa46cx1vgPdYpuIKtr7HfnfasI9M
+	 sIN6z8m1/iTojgHipay0WPL6YsHbK+nt9JFHvSPOEMhl6u0z1PrbfGEpiiBMIffMkcEqM
+	 dSOuu3g1+J20ggzSO49XCBbSnLaVw/Jh4d+RGVUt+H/3in+95afn4Mu/LN++Nw/6GYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794627064;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=Sf2O7kkceInXjyxfN0wCfCoTnaw1EJRsKC8iLpu8ZEo=;
-	b=goB5xYQAB/E9/uL9qHWoRvQXG3zVqypW790tEF0EXa2TrFT+/r9PW7CwA6EaUElzVu0a
-	 ooFZFKaf84eUV55o/bLEXoyzUsuNFvqN4lbqD8SIbIBaw6g3Oo4Spw3Ne1OGNaCRYWl5i
-	 yKryK7S1gMyV7ZNjJv9RG71rjrUlRH72VKbjWz5M1lPeEF03blbNn55Es6OSEPvANFNNg
-	 NRtTK16ZP9L40hcv9ri0qBUFokjc4UZPabeS46/tQTxvAEAQN9WwmW1zDACtXx7H6X1Gl
-	 POse0mhooT6VuDp5gHAmEauevpuQik1alJFelczb1V3GDGIBaKYZhhg67K3rGrKGEew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794627097;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-DetectorID-Processed;
+	bh=nng5DLvgK/63+E7rI8IKFiq7cw48tw1TvpW9VBUURCA=;
+	b=WHrfmnwjJ6cOat/kXYJ910flQlpxUxWS80O3z28XpnEsHfNph6ZOE8VmKCWy5kqfgwNu
+	 mT7MUjaamT5R0At8rxCfR+POtEHbitU+nmUi00kU5FLWRloLCaQkzbq/qmq7HRbMecC6e
+	 q3G0sc6Ipk4zps99Kd9kDgvoNA2E7TLM/KV+lDtrCfXuE406Y3TRfqcKs3j4ycyEwB2BA
+	 PofilRXXu0B8xfo1G+18vt2SGYzv0BDx7vAMs2cRATDdos8+K6E02xxjMKzuWfku46q+o
+	 NRBHh67m0et6ccqXBB99FUjB1ePD5wvFZciLFxqFnY7H093uvYEpVDR7u9rihUl4/Mw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EuLy3oOe;
-	arc=none smtp.remote-ip=74.125.229.9
-Received: from mail-dy2-f9.google.com (mail-dy2-f9.google.com [74.125.229.9])
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=G1a8wPGn;
+	arc=none smtp.remote-ip=209.85.215.226
+Received: from mail-pg1-f226.google.com (mail-pg1-f226.google.com [209.85.215.226])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86BF3606A88A
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:31:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86BF3606A88A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F605606A88C
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:31:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F605606A88C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EuLy3oOe
-Received: by mail-dy2-f9.google.com with SMTP id 5a478bee46e88-375c861fe62so138043eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:31:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794627060; x=1795231860; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Sf2O7kkceInXjyxfN0wCfCoTnaw1EJRsKC8iLpu8ZEo=;
-        b=EuLy3oOe7SL5TM27qiH3eRuDTM4sSdUbbDclLxl09yqcGRd9LM7EpcLWvfpoeVV3Kr
-         H4NYoWdeHZTYducYu4coUmb1wcLsfSKVIFRFG7vBfPgVzflWQCGPSLYkRzK5aK9HkOWj
-         YyCR/wx3j6yeg8RNeORqS+NaDsx0usDPOU3HUrtOUxj+RhLe5X8Gg/wYxl9MDM8smiIr
-         TphlUJhg/+oi13tGwRdmTexN3cCAZrfgBULMpFIlKtHebG5uJSSq1AgPNxvUmjT4So+4
-         ctSyEgFLpka5nMvYKs8fZzC/D8AHMrNKgEBnX7eMBcJLtAmMlnziisoF1mXgPpDpEe4n
-         CACg==
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=G1a8wPGn
+Received: by mail-pg1-f226.google.com with SMTP id 41be03b00d2f7-cc4c02ddd62so800334a12.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:31:33 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794627060; x=1795231860;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1794627093; x=1795231893;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Sf2O7kkceInXjyxfN0wCfCoTnaw1EJRsKC8iLpu8ZEo=;
-        b=HQDGZqbUywODQMrIC+XMkK1FuaqBdq0jafkcW8XJVhfrHgYzzssBK3MGaXxUSljLVW
-         Nze+SJbJsR3RH79XFSxq3WUbT22QdfXVaWr5dOG4arpKL6W/ZyN3IdYO5+XzMqzpcVTx
-         4x8BldMYUBN7yG42CoI1WHaQyMyZEFNEkmtTu4n5DCBqH1Yv1qijkSFln7cLkuRQe4HY
-         5sf+ZzftuZhjRsl5vaB5fnymAdqzzKKOpE8e4O2yro5UQ01UwObF8MQKDrfS3ihaZ+UF
-         qBYTrt7mSnvedSS51zSPJDiJ/sw113WH6RGptwBplwr/mwyl7mp9R48m+24+TPLxvmo1
-         +PoQ==
-X-Forwarded-Encrypted: i=1; AL+hErGDOvoomt+uFRf0B8dMBjMcUu3vc3qsd6A1xl04byNBQgDW039SYszo1i55OnigtbBKBIDmvxWnrv4cX+g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z81PbyCrcOT5DVO9qpwET8AwvwxFoKdQhKaPNXXcF81akwQ0Gb7
-	AdMal4JDd6DSAJ+xDrpG0TgVg1Ne51AfklUEbMKpezw0VUjAYoreCu4r
-X-Gm-Gg: AYBFou1C11RRS60NCjjQssqBWt0shDZ1saHCR0OS/gr1/gpm+HvdIUZkLT/yyALAH6L
-	6U/YLm8qvKgLbXA83LNFfBj2Js7ee6aVnrSPtY3bxcvqKnoZ+43I2YX+ESYKVVoEdVyCU6AXfTe
-	YZ7uALxc7V4ygtp08KOcRD5wCqAGcNHwtK1IOxm+leY/G9T5hyFotpAGwQZowc2rqJOUI+oejKx
-	pVA6m+2nG4wJ9/pVMVN6sJYMxrY6kyu+/Jv18IJRhxwodT8znLGnjXs8mmkZnRrpco8xuV6f3Cd
-	RQpkBpreHute9hExhmBufw9ZoLQZ43DU16XvT4mPbBqgm/WadjKB6f8OjUc1AUtEXsLyFPK2XHw
-	SI/pDgI2vJBY9WwsSnNv+zIALNWbukOiuXMBv8HyxsJBJjZGYUt+xW7uflMYgfPVWj2kibWqIKL
-	ta15TAN8Qo2YD2HlUds26muBbba5ObnFR5GAf22JwK9tbXFmJQfjIfCO/OGwTrtDuuby3n3ZcP3
-	HEOR7wDeRNbX4x9ITcJjptqNHt9S3DXMI0XnWVDy2d2neNQoPBQ20GmhpAkEvegB6FqwQaX89fE
-	mpmm17bdA088Ox5TleJxhjXO+JOo/q+GtoA=
-X-Received: by 2002:a05:693c:4152:10b0:36a:4a68:84e5 with SMTP id 5a478bee46e88-379659c6839mr4321817eec.8.1794627059312;
-        Fri, 13 Nov 2026 19:30:59 -0800 (PST)
-Received: from [10.54.241.192] ([108.241.87.190])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955332a77sm10864283eec.4.2026.11.13.19.30.57
+        bh=nng5DLvgK/63+E7rI8IKFiq7cw48tw1TvpW9VBUURCA=;
+        b=RyK42WtiReA6+0otC4EWdUIASsM/VPUcRFCdZd5uOEhl/9QxYPMUIS0VvILX+ZFkRM
+         pgSzdxBCrHdsrrpIjvkZV3bwrxY+l8+awDOsNL0CjEPsXEwaquDtCS/dV6XKAk5Iy38b
+         zgk2hNG6R4VopUAYaiZcLAYJh+UjSSpL1f6xRfUPSqDZvgNSsw9rNW0iMQLK3+bFGoG+
+         +N0RFkrH19Crz/SPrVwy1bnNxebmHMBIxYm+ecLxoyJuhyZ8HirPUqKWKkQWaQ+oGDPd
+         ejpGIZBUa3h5XQ3o3RfuYoVQ8moMAJNGUu7uSc9qzQf0t7lPNCyYBRlbpA9rAfPpZNWi
+         Kykw==
+X-Forwarded-Encrypted: i=1; AL+hErEXcX/gmm/iSN4mrZGOAPJZRyCAAnH+bpEIDhtuUb6FW7SgBjOXXFy+TZYesm5UboOClm/IEO0zD9+xSMc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+H5YDhamV66UUIYRSwVMzqbQFB4KErGdRIZ4xd6tXojhX8t6Qm
+	LLTfvya/IsFg8f0TrTY85mVSlUOGyXkUh0NweDizfKjEga4vxLLI262Xtj9vQgeVOT/52JkcvBa
+	RbwOocp/8n00HI0hdghnnRME3hTbjIpoK//wvYCwRIIMRNeGcTjH8f6pJJw3YFjQxn0pHyRIxKv
+	W6wn3ImDqc/Fvs7J11k5TMStMrnyF1MWNJmvhGxCmohpD45b+KugExTbReLFsstOAZS9yj/SQyo
+	pzogrbvM7UREhRuQrIX0XTZ
+X-Gm-Gg: AYBFou1MAoJ2TFEbJ7YT6rgLobU3wxJSlI9IEvlhBr59jEhmSMxKS/yTlUj6PTU5LRe
+	dj7KUTuO1cw38zshy1AIdcmzQHBkWvbdGKex7w+rV4iOalURR7w0ycH5qL+DtsUmxJxftAp5zRe
+	nUvMfj46KLPEGrZB/Wn004Ub1GKDqjrCSaGVkF5nVdn3W61OvJ4SzQtcbj+0OMKUCmIZnHvoigS
+	pbr4HmDaYG6P2U40P04VmA2kNXnnkMXVy50CbWZKhBYEeE4fP6GHNdBWDLqXHJmfYnwVISBQZrM
+	QYHsPbqz7+DOGu+U8FBwKnkc38IYQ24Kc+FgrroFJ5tjUAO7W52FEeRXtBVUNTcIXeT/TQSEO2G
+	Ym2Tw3TtpUX8rVmEn0fCjB1fqNCVFvebmrTZ4ps+G1pTdW2MXNHUBPHc19Rd/SA2ZmuUOlrhJt9
+	b9mPXCvgXBSN4IaYDi+sCMrPZaGTJMLiKlcaW5dLjl
+X-Received: by 2002:a17:90b:4a48:b0:3b0:a970:caad with SMTP id 98e67ed59e1d1-3b1b0a44a42mr4079131a91.28.1794627092837;
+        Fri, 13 Nov 2026 19:31:32 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-26.dlp.protect.broadcom.com. [144.49.247.26])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b1ae96f125sm6354620a91.4.2026.11.13.19.31.32
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 13 Nov 2026 19:31:32 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cdb8b260bb4so816873a12.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:31:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1794627091; x=1795231891; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nng5DLvgK/63+E7rI8IKFiq7cw48tw1TvpW9VBUURCA=;
+        b=G1a8wPGnMSQ3Hv7smYwO0Ypht23EAhgjDOhNcH9AJul+V4vx8enR+NJKjGW0FtglD/
+         4WkzbmXRs3Vj82sF5OlWII3U65rOZNmDeLpzxPgRkumwC7d8PRy+MTtII4gw0PaUIh5i
+         oiS2oFNk5wHfiAagZ90rFOWzynYl58H84FST0=
+X-Forwarded-Encrypted: i=1; AL+hErEntfNXVInRvBDEAZRAI1oCCvD6sfTQYVeMKlk9/VlE7LkdFZrp5e8th10l0G8Lu8eA94+lN1yincdel9s=@vger.kernel.org
+X-Received: by 2002:a17:90b:48c3:b0:3b0:b36b:66fc with SMTP id 98e67ed59e1d1-3b1b0cac932mr4288825a91.63.1794627090739;
+        Fri, 13 Nov 2026 19:31:30 -0800 (PST)
+X-Received: by 2002:a17:90b:48c3:b0:3b0:b36b:66fc with SMTP id 98e67ed59e1d1-3b1b0cac932mr4288800a91.63.1794627090341;
+        Fri, 13 Nov 2026 19:31:30 -0800 (PST)
+Received: from fainelli-desktop.igp.broadcom.net ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1aed76745sm7343308a91.16.2026.11.13.19.31.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 19:30:59 -0800 (PST)
-From: Ziqiang Xia <xiazq123666@gmail.com>
-To: Armin Wolf <W_Armin@gmx.de>
-Cc: Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Guenter Roeck <linux@roeck-us.net>, platform-driver-x86@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org
-Subject: Re: [PATCH RFC 0/2] platform/x86: Add Emdoor Intel EWMI platform
- driver
-Date: Fri, 13 Nov 2026 19:30:54 -0800
-Message-Id: <20261113-emdoor-intel-wmi-rfc-reply1-5d510eff323f@gmail.com>
-In-Reply-To: <739e089d-fab1-4ade-9373-fe4c5b3924ad@gmx.de>
-References: <20261113-emdoor-intel-wmi-rfc-v1-0-d77ecf23693b@gmail.com>
- <739e089d-fab1-4ade-9373-fe4c5b3924ad@gmx.de>
-X-Mailer: b4 0.16.0
+        Fri, 13 Nov 2026 19:31:28 -0800 (PST)
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+To: bcm-kernel-feedback-list@broadcom.com,
+	Gregor Herburger <gregor.herburger@linutronix.de>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Ray Jui <rjui@broadcom.com>,
+	Scott Branden <sbranden@broadcom.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Eric Anholt <eric@anholt.net>,
+	Stefan Wahren <wahrenst@gmx.net>
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v6 4/5] arm64: dts: broadcom: bcm2712: Add reboot modes to firmware node
+Date: Fri, 13 Nov 2026 19:31:27 -0800
+Message-ID: <20261114033127.875742-1-florian.fainelli@broadcom.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261110-rpi-tryboot-v6-4-56f680ef4734@linutronix.de>
+References: <20261110-rpi-tryboot-v6-0-56f680ef4734@linutronix.de> <20261110-rpi-tryboot-v6-4-56f680ef4734@linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,106 +124,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794627056; l=4109;
- i=xiazq123666@gmail.com; s=20261113; h=from:subject:message-id;
- bh=Ep7apa0xtzYtZjgZiLOq+ddP8sE5laBmFrfwZawgZDk=;
- b=s6CyG4cIYK9pm1Ez44ffORRcwEZm4xv355+QGE44wN/Ik7bksui+l3UHnXKRkrs3+1sKNn9jE
- VLD2t4EVWujC0zXDRajTHOsN2DTrHEwoOwmnCFIAwaJQ2U7Rq9iUdtc
-X-Developer-Key: i=xiazq123666@gmail.com; a=ed25519;
- pk=mrJQOUoyemvqamFAwqXZF59Z8eZnI11ZI+BEtDNxq7Q=
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Hi Armin,
+From: Florian Fainelli <f.fainelli@gmail.com>
 
-Thank you for taking a look at this!
-
-On Fri, Nov 13, 2026 at 09:37:44PM +0100, Armin Wolf wrote:
-> Interesting.
+On Tue, 10 Nov 2026 14:00:14 +0100, Gregor Herburger <gregor.herburger@linutronix.de> wrote:
+> The Raspberry Pi firmware driver allows the tryboot reboot mode. Add
+> this mode and normal boot mode to the node.
 > 
-> IMHO using direct EC addresses will eventually turn into a
-> maintainability nightmare. I am aware of the issue with CreateField(),
-> AFAIK you can workaround this issue by simply submitting an oversized
-> buffer to wmidev_invoke_method().
-> 
-> Can you share the output of acpidump please?
-> 
-> Thanks,
-> Armin Wolf
+> Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
+> ---
 
-1. CreateField() bug in legacy WMAA-WMCB methods
-------------------------------------------------
-On this DSDT (all 13 legacy methods WMAA through WMCB under \_SB.EWMI),
-the out-of-bounds CreateField() is not applied to the input buffer
-(Arg2). Instead, the AML allocates a hardcoded 8-byte local return
-buffer (Local0) and defines fields past bit 63 on Local0 itself, e.g.
-in WMAA:
-
-    Local0 = Buffer (0x08){}
-    CreateWordField (Local0, Zero, RTNC)
-    CreateWordField (Local0, 0x02, ALID)
-    CreateField (Local0, 0x20, 0x3F, RES3)
-
-Because bit offset 0x20 (32) + length 0x3f (63) = 95 bits exceeds the
-64-bit Local0 buffer allocated inside the method, passing a larger
-input buffer to wmidev_invoke_method() does not enlarge Local0 and
-ACPICA still aborts with AE_AML_BUFFER_LIMIT before entering the switch.
-Fortunately WMCD, WMCC, and _WED(0xD0) do not have this bug.
-
-2. Eliminating direct EC addresses (ec_read()) in v2
-----------------------------------------------------
-I agree completely regarding maintainability. RFC v1 has zero ec_write()
-calls and uses ec_read() in three places:
-
-- Temperatures (temp_regs {0x70, 0x73, 0x72, 0x62}, i.e. TSR1..TSR4):
-  Checking SSDT5 (\_SB.IETM) and /sys/class/thermal on this machine,
-  TSR2 (0x73), TSR3 (0x72), and TSR4 (0x62) are already exposed via
-  standard ACPI DPTF thermal zones (SEN2, SEN3, and SEN4 under
-  int3403_thermal), and CPU temperature (TSR1 / 0x70) is already covered
-  by coretemp / x86_pkg_temp / DPTF TCPU. Meanwhile both fan tachometers
-  (fan1_input, fan2_input) come purely from WMCD GFNS (0x02/0x01) with
-  no direct EC access. I will drop temp_regs completely in v2 so hwmon
-  is 100% pure WMI for the two fans.
-
-- auto_power_on (0xf5 / H_EC.ATPU):
-  WMCC (C75665A3-4382-4646-ADC8-C81AE146E455) only implements the setter
-  (Arg1 == 1, Arg2 == 0/1 writing 0x00/0xA0 to ATPU) and has no WMI
-  getter.
-
-- win_lock / fn_lock (0x5d / H_EC.EC5D):
-  WMCD GWLS (0x03/0x01) and GFLS (0x03/0x03) write ZZTT=0xD0 and
-  TIZZ=0xD3/0xD2, wait only Sleep(0x14) (20 ms), and read EC5D before the
-  EC finishes populating the shared mailbox. Calling the same WMI method
-  twice under a mutex with 25-100 ms delays (550 reads per step) reduced
-  win_lock -EIO errors from 26/550 to 1/550, but fn_lock still returned
-  occasional stale values because the second WMI call immediately
-  rewrites ZZTT/TIZZ before the settled EC5D byte is read (and _QF6/_QF9
-  hotkeys also overwrite EC5D).
-
-Note that platform_profile (GPFM/SPFM), dual-fan hwmon (GFNS),
-touchpad_enabled (GTPS/STPS), and the 0xD0 WMI hotkeys all work 100%
-via pure WMI without any ec_read() or per-BIOS register offsets.
-
-For v2, would you prefer dropping all direct ec_read() calls completely
-so the driver is strictly pure WMI (dropping temp_regs, auto_power_on,
-and fn_lock/win_lock unless a reliable pure-WMI path works), or keeping
-DMI-gated EC5D readback only for fn_lock/win_lock?
-
-3. acpidump output
-------------------
-The sanitized ACPI tables (DSDT and SSDT1..SSDT28, Windows licensing
-table omitted) and decoded ewmi.mof are uploaded here:
-
-  https://gist.github.com/winddd666/8f739d1cab5beb503f606093ade10d65
-
-Direct raw URLs:
-  acpidump.txt:
-    https://gist.githubusercontent.com/winddd666/8f739d1cab5beb503f606093ade10d65/raw/15e1f0d4c98096674f9a958e431096b1b49d1a40/acpidump.txt
-  ewmi.mof:
-    https://gist.githubusercontent.com/winddd666/8f739d1cab5beb503f606093ade10d65/raw/8eff35b93fee7ed6e2d8aab47fd1ad4137bb13cd/ewmi.mof
-
-Individual tables can be extracted with "acpixtract -a acpidump.txt".
-
-Best regards,
-Ziqiang Xia
-
+Applied to https://github.com/Broadcom/stblinux/commits/devicetree-arm64/next, thanks!
+--
+Florian
