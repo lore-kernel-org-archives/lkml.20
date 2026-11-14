@@ -1,91 +1,89 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794675395;
-	b=g7g/3WZ2w5dzkClzbGpuD47q9M7Xzy/iUSobRBA2a0pyZGlPoapBfYPWTha6x3nLzece
-	 XY40nnYt3KEr9PIlgtC3+TFV2YjL7iIQRtia/pzy55tKlXxQf/0T89PC434mdyp6CAnmN
-	 3JDIzgehdSxzATkQvcJzbF8zwLQXOkUemxKgS0f+umpr1qpNQouHXvwb/ZANKTYbhgxaC
-	 rlEETacaKZ6AKJMsbBgofYQsrza9rrGLuei2vqxcnjoTvGqvKCglsc5zUrI+aq8SFb1Pb
-	 2XvXC0BXNtpUhDcGQGjKbBVoZUpazvMzVeVeBX1WtGB3H45Q0mGv/WZCweJJMD37fAA==
+	t=1794675396;
+	b=NSW/7jeXsqpS+gjff2+J5q69pWY6+iFBZHDj9Yg9SYtA1QUtTujBik8LTlLXVPWGXYzU
+	 qaRCPGRAFKQlouYzLfcb1UwatbBWwfXmkPlvAqshp08YeRa5YI0dKm0v41TWT+63DPmDJ
+	 ZSU2cFgHEMFar+QLGSejbe18IUZyDy7KDk65GtAUSa9vS30uIEFu9IFtK0sLoSVQTJmEA
+	 +ubjw5zh0s2Zl8JwVRPW16U/Vo61UIuFIroEr2mrK/MOU3Sz5gXAX14EBgJmtp8SmOxpW
+	 LEWAQbnoU0JSd/E82kbouOooomeJreXDE73Hy8vve1mVnzyrKWXPzLTTqUOEG4c7y4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794675395;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794675396;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=miuoSL/LBd8VdaEhsVpor+K2eCCoRMvUB9RQN3OlqTI=;
-	b=4vYDAzWhig9T1m1pXhzLNnTIJiXQizoDrxws0nVt4s6RqUrAXR5vd9XzOVTDn1ye4Geg
-	 KkaguM7DnCOQIvU1zsjRGdS27n5+c0XG6DSDRiiRwJFZP2taeM+ZSLDqA5zPiNZU+JPoO
-	 9fpbtFOUVRGRXB1xKFI4Za/Z1ml+PREGAjoNpl75IpCYfPlLdXp6CXUGXQDj4UZ9CPEAR
-	 inn+EEdkZqG3YlGzDDZLcoplqUZ6Xnx1IhZNK7mwNK5iScLwt4AAhDXmHXUt31GlYYerp
-	 DYTxcDkCevIMzrFSSvaxyahzItOqG6hwOmvOIGwZKQ36XjyR+Ku7aVM0TsqlCcoqKww==
+	bh=97Dupab0wAFfQ+vf4Tt4W8G2ZvI6VlydimL9fChgukQ=;
+	b=ziBy1LXTcdNY1jOQ7svxRD28V/4/DIQBil9ODe+a0qoquc6S0Ig/ID69lXV/6ccfbh2w
+	 VM1MklZQgpYF4xdWQgVbo6Ld5TFwVxIkBg6O2CE9vbWCEFFKmoHPt4R+TDrbx0AVLMG8A
+	 oOnaFkDJz9IV4oOIARvpWf+U1kw806FBEJsX5grCJSdfo/f9U+bC1BJCEESPHYKGdyXyw
+	 mAmeyHGQKSHb/ddJFy+Fp3p0ESgGeQLr25Nhvfx6cniDjZEYRQPcTgga3j3gCMFunYbFe
+	 px3d4dBKTwYXb51hBYHdZR0GqpvfWq6jF+wk+nu/62L2l4NiWfhNlJy+yDCa1MZRqHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zFN3yaFj;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FnSv0QoP;
 	arc=none smtp.remote-ip=209.85.167.53
 Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38BB3606A33D
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:56:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38BB3606A33D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 491F7606A896
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:56:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 491F7606A896
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zFN3yaFj
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5c1479a959aso1843719e87.2
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:56:33 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FnSv0QoP
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5bccecba199so2440301e87.1
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:56:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794675392; x=1795280192; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794675394; x=1795280194; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=miuoSL/LBd8VdaEhsVpor+K2eCCoRMvUB9RQN3OlqTI=;
-        b=zFN3yaFjoYZk43JsQHrwvNZTX+RFND4fYF4eTxe0XhSlDwvLGk9cOO8JYD+y6WX9Xp
-         cHoznCbpu+xDgTLsrA1qkOS7dJwKqGjSXkOAxb0pImnKs1Tt4DM+yxxP+vcrbB/BJjmO
-         NQK3PFgjZJFhoBj7rMIuMqFIt8M8ZAmMVmFU1Mdn1aHOOISdgqWEz5CSxMjIddwAME5I
-         Mwbf6WZ58yiq1pf6vQ2S1j2m8dTLCRr1tOZ5aBsAQESzdVicEJsinA3o88GxNxzz9U+J
-         KSyQRwgor3iCH73G2aPM07kEsk5ntSK0qQEL8k8Yo7FkaKMJGlkLwjSBXSr63YXmC+F5
-         Zz2g==
+        bh=97Dupab0wAFfQ+vf4Tt4W8G2ZvI6VlydimL9fChgukQ=;
+        b=FnSv0QoP0eorn4un+GhNYdTU8/h3vkzZ6EtUPhAd29FYYD0+AisjmHFDFAwMd3y/Hd
+         9c5kmyBrF2ODiRAyBb9HAQfrKt3Cs3cWDNGdhAimbAuUZs7k3aS/CNa4mZCrLoSOFDkU
+         dkZtvw3egkhOi4iWOe1FpDZQXHMp5InvNn/MeWBypDyY8ptS8BAbO6qRcw8mFeq7rlL/
+         lE8qvFIEvTpEiQ74eHYtix4nsyfAItwlL4WKOhNHIzx7SXUY/1ZmiTzX+HE+HwKBt2kV
+         XDWY9xSnGRTj2NHUgxN9MIAVIOo4MU+1pKZnyPP5jbb70+gaP5eFUs5y8SSmA57l1GFw
+         jKnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794675392; x=1795280192;
+        d=1e100.net; s=20260707; t=1794675394; x=1795280194;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=miuoSL/LBd8VdaEhsVpor+K2eCCoRMvUB9RQN3OlqTI=;
-        b=UeIbTQFBSZb0vam8nhQjIcbj5B+8XY+2ZCLLHYb46SIVg1Uc2K+sUxgWX2WRIrOfRm
-         sxrvicCSjMD8qLg/d6KNQMMKpf0oH68o/+8UZLGzkG28i/hnokcdsWznPqyyqAzEp+DT
-         GfGFH27lE98uu9Nn5sDlnBAWh/lEuzzCIk+bmS66b20kHRCUd41O8RD4D78CBxXtgROU
-         PHUeArpRNoiItbxRgkAokZMXjzgC0SJ9LdBaVn4akcQjU2Sd0FGD/7L2UDrLS3W1B0pW
-         +1oWFBrmoUyxr/J8um1iqrlNzcFC6TvKz1OIhxumU4Sk7hUYaAedUN0P07RSjXCjsgOp
-         0k0A==
-X-Gm-Message-State: APuU4Z/nWw9q1JwMKBUBR4AVOX43aVJxwwywbQ6Coj8k2OliBu7+lQJu
-	z2vee59YUUNcTVTKHtMmrgOG+y0QjhsG6LIWsw3g/MOY1W68QF27RI36ruu9WNAr3tLR+wYA
-X-Gm-Gg: AYBFou0x38H3gmGF2LfFBdn7LhXlmx6sYkEFAjxXGqLXiaiMcBQu+yVVFfGbYhVmLFj
-	JOFgD/pn1/BA/tOiE8CMZrHfVoIJF41EIFkvn+B95gERWr/OtSKwCeDyoa84N+kcjQzNbKZc7hS
-	W33X3cU4/54yHn1UWvr0b9xu1ezXVM7fxspKTduomJBXC774VI85HbwX8w89t97q9Sh918/65st
-	t2rFnm3iPZw0jIcKpVqc59z8XvDN2/Wed2KkDsL3GFVnFHawBfhGS25wdWvwXOsPVIs90R66mrg
-	pq//c6u+9RBqiCsPdUiboGxjq17kY9Fc8+sVu6r1/XLKdh1Z19Jl4QdnlZ6tYBkQkx8dXNgMPRk
-	jf7Cdu56medVqXv/VXoesV6AM55+HceHbLjZXq5UOW64gLq9nFTXKFQeoAtTeR1fRmVH1YwDNjo
-	YmjqsUXkVtCyDdktTztmn3kmwf6fFjEpXeABwsknIMtDA8J+qj6ZUV181/3651C6SAQSYDfmfuC
-	u3QOeRfEGu5UmQo9llTAiy3a6cBAfjOxq2k9FHdppjBGnXwwSPOIQsxtTAAk65GKV6cCsWjUVM6
-	4C3/8aa35LtMzbTfhHu1J/UTM/hkmkZr3fJ6ugxHB63jjdoelnGXddccEwKR+gAqjfPtzqa58Zu
-	l0RMpd+jH0A==
-X-Received: by 2002:ac2:51d5:0:b0:5bf:b93e:89f4 with SMTP id 2adb3069b0e04-5c1709fb9dbmr2101390e87.46.1794675391487;
-        Sat, 14 Nov 2026 08:56:31 -0800 (PST)
+        bh=97Dupab0wAFfQ+vf4Tt4W8G2ZvI6VlydimL9fChgukQ=;
+        b=jTMZm3ubIUHpBydiHfVcNQzk8amC7+L392WP42tiyFxt8OOvhoZhrXUMT7G6oOk0T1
+         nJKtIPhte0i7iC+oVCG74ouqiyNnVEr2f4GosBX7/TPJ8BakXatHaRDHXr611izeUZDi
+         xQR8/oyuE1cJph/jw3RYNQXscsFJWsX34s6ClwkUJqPku+iavHnBQXdfUGEafs8nXgJM
+         zsJrSZpgRgTfgYdVe1sMLusi0bD5R1wv9gwh8EimA6JQoVvE0peNH+fIhjS+17BdQz59
+         NAKk6oR60xCFpD21PfczrJ4oJfIMOepW1uP1yIilwWyv25vrXFzAS6lwF4SwAdWqZobN
+         Jbmg==
+X-Gm-Message-State: APuU4Z/q43pUQgWIRRqrPGZ0+vw00mD8G0SrWdCTyIWY8SB7TkxYbPGq
+	OjcaQlT3Hkn/nEgZTpokefFbbhJCBlu4hdLvgF+Rp4t0FBGMOXjfiJxY6oK1kOTfbJBld8AC
+X-Gm-Gg: AYBFou2SdKy4Ln2JiLVihLO8B8GtZHnjcE2c3tCUB3WOKH/qnK+qyoNSjPCFsEXeUNF
+	zuXixoRJZ9yWK0QjofN2cenEDKrEQsLx70vSC4Nu60IwBpvgVpbAHePF+2Yg8nLpiM+ertQWwjp
+	GYrp+AdxrWkmREy7eHiHz2Gf/p+47R4xlG2Yn/Cj043tgZyDHSWdTQBF7gzGTd1iGZmMHUODcHm
+	DYA/5PSvhkM2VPkXnYwVKL5g79Womqov8NUwck/HVIU+Do1wQDNtro5lQNEVhCrXyGR2L1nuCa0
+	X+Ix5QawKI/70lRTOnbfmQRlPRdXZesPUSEci0SO1EhbkW3Rr7gk/cCFCWe1OaleyOf5JTm7CDX
+	aUlnO/o/AdZ8sy0fs8fc+ATFupqkyM4EfxYU/JyfFfRthq3m3klDqcBYLxHZcziXU07ivUrpDEJ
+	KP9jfzUWyN/1I4aoAb+EqXX9EticKgKPysrD9mVuL7Ec7JgrnCsBNs3WPeVwb7hWE9G+1Kpa9gw
+	Lmn3uVEYC+Q84InvogLjmOHrvpd8CJPHy+KReog0jOEhfV+fVJX6S5JlIq+1TMdZy1g4EsxRaHs
+	kVZks/wdYIkBgTlKxFcjqO3R6h77DMgCh/SlPOJXhZgnFYIfvXPtYkpGCz6E2RJnpXeCC2FbvFR
+	InQ7ZzJ6URw==
+X-Received: by 2002:a05:6512:618a:b0:5be:414b:a848 with SMTP id 2adb3069b0e04-5c170a27851mr2450510e87.65.1794675394242;
+        Sat, 14 Nov 2026 08:56:34 -0800 (PST)
 Received: from SafoStation ([31.40.65.49])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1712dad26sm1792051e87.8.2026.11.14.08.56.30
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1712dad26sm1792051e87.8.2026.11.14.08.56.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 08:56:31 -0800 (PST)
+        Sat, 14 Nov 2026 08:56:33 -0800 (PST)
 From: Safocl Stollmannovic <safocl88@gmail.com>
-To: Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>
-Cc: linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev
-Subject: [PATCH v3 02/14] loongarch: fix duplicate extern declarations
-Date: Sat, 14 Nov 2026 20:55:42 +0400
-Message-ID: <20261114165612.368785-3-safocl88@gmail.com>
+To: Michal Simek <monstr@monstr.eu>
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH v3 03/14] microblaze: fix duplicate extern declarations
+Date: Sat, 14 Nov 2026 20:55:43 +0400
+Message-ID: <20261114165612.368785-4-safocl88@gmail.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261114165612.368785-1-safocl88@gmail.com>
 References: <20261114165612.368785-1-safocl88@gmail.com>
@@ -112,51 +110,35 @@ The `extern` specifier must be removed.
 Link: https://bugzilla.kernel.org/show_bug.cgi?id=222257
 Signed-off-by: Safocl Stollmannovic <safocl88@gmail.com>
 ---
- arch/loongarch/include/asm/idle.h      | 2 +-
- arch/loongarch/include/asm/smp.h       | 4 ++--
- arch/loongarch/include/asm/switch_to.h | 2 +-
- 3 files changed, 4 insertions(+), 4 deletions(-)
+ arch/microblaze/include/asm/entry.h       | 2 +-
+ arch/microblaze/kernel/microblaze_ksyms.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/loongarch/include/asm/idle.h b/arch/loongarch/include/asm/idle.h
-index f7f2b7dbf..9913191cb 100644
---- a/arch/loongarch/include/asm/idle.h
-+++ b/arch/loongarch/include/asm/idle.h
-@@ -4,6 +4,6 @@
+diff --git a/arch/microblaze/include/asm/entry.h b/arch/microblaze/include/asm/entry.h
+index 05acf4d7b..f3e4a6eaa 100644
+--- a/arch/microblaze/include/asm/entry.h
++++ b/arch/microblaze/include/asm/entry.h
+@@ -41,7 +41,7 @@ DECLARE_PER_CPU(unsigned int, ENTRY_SP); /* Saved SP on kernel entry */
+ DECLARE_PER_CPU(unsigned int, R11_SAVE); /* Temp variable for entry */
+ DECLARE_PER_CPU(unsigned int, CURRENT_SAVE); /* Saved current pointer */
  
- #include <linux/linkage.h>
+-extern asmlinkage void do_notify_resume(struct pt_regs *regs, int in_syscall);
++asmlinkage void do_notify_resume(struct pt_regs *regs, int in_syscall);
+ # endif /* __ASSEMBLER__ */
  
--extern asmlinkage void __arch_cpu_idle(void);
-+asmlinkage void __arch_cpu_idle(void);
- 
- #endif /* __ASM_IDLE_H  */
-diff --git a/arch/loongarch/include/asm/smp.h b/arch/loongarch/include/asm/smp.h
-index dd1457065..c21a5b60e 100644
---- a/arch/loongarch/include/asm/smp.h
-+++ b/arch/loongarch/include/asm/smp.h
-@@ -87,8 +87,8 @@ struct secondary_data {
- };
- extern struct secondary_data cpuboot_data;
- 
--extern asmlinkage void smpboot_entry(void);
--extern asmlinkage void start_secondary(void);
-+asmlinkage void smpboot_entry(void);
-+asmlinkage void start_secondary(void);
- 
- extern void calculate_cpu_foreign_map(void);
- 
-diff --git a/arch/loongarch/include/asm/switch_to.h b/arch/loongarch/include/asm/switch_to.h
-index ab9e0292c..aa5d3da68 100644
---- a/arch/loongarch/include/asm/switch_to.h
-+++ b/arch/loongarch/include/asm/switch_to.h
-@@ -21,7 +21,7 @@ struct task_struct;
-  * This function is used whilst scheduling to save the context of prev & load
-  * the context of next. Returns prev.
-  */
--extern asmlinkage struct task_struct *__switch_to(struct task_struct *prev,
-+asmlinkage struct task_struct *__switch_to(struct task_struct *prev,
- 			struct task_struct *next, void *sched_ra, void *sched_cfa);
- 
- /*
+ #endif /* _ASM_MICROBLAZE_ENTRY_H */
+diff --git a/arch/microblaze/kernel/microblaze_ksyms.c b/arch/microblaze/kernel/microblaze_ksyms.c
+index ad7596d7b..40915d400 100644
+--- a/arch/microblaze/kernel/microblaze_ksyms.c
++++ b/arch/microblaze/kernel/microblaze_ksyms.c
+@@ -51,6 +51,6 @@ extern void xmb_manager_register(uintptr_t phys_baseaddr, u32 cr_val,
+ 				 void (*callback)(void *data),
+ 				 void *priv, void (*reset_callback)(void *data));
+ EXPORT_SYMBOL(xmb_manager_register);
+-extern asmlinkage void xmb_inject_err(void);
++asmlinkage void xmb_inject_err(void);
+ EXPORT_SYMBOL(xmb_inject_err);
+ #endif
 -- 
 2.56.1
 
