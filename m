@@ -1,60 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794665346;
-	b=Dh/vSgf1POruhGwAbIzkEIyMb5kz+ZwOn4wA36l62ByyxUUGnXZYEIMNIWAQZ4wb7zyr
-	 fLoZ47uvWPkBxlk8C5ECNVcXVg9OuFLoypkVofhdLgAs2bS6dvzTTvI4Xlh//g9SCVuu2
-	 jg5hUA7t79XISl8g/J6WLlhfR4zx7MUK7fsFAKGwxSXhQ4s43e6ZSItF1t8/K9qPStDV7
-	 zbtcpsnx5d4XJAZJY0Q7/Bao2S2RqX8iwNat5ytpZUUECyKbJ5cF6oeSFmLKf1vByVibt
-	 I2HK/6z8xyAu+6g/FzM3ILGW60tX52A79jhCNBAWwg/YXJBfN98yacKR6izrXiUsSSA==
+	t=1794665368;
+	b=3+nRyA852+QkgxulsAOus9A5uBphUqSDhQVll8OKDkqje4yAmYaFLKDrWVaHKMQrx7oO
+	 RLhDUQCJ+qMC/l4228k8n9lXcbpgamcVBj9Q9xcOLBX4p3HZGgjzZ62mB93SgaWOimtNl
+	 4d49ZaEukiQaiPhhhTobE/DE+wmSLAF56t/flAqU7k3q8qmhYphSfFkLPrz+w0jOKoXZZ
+	 hP9x29u9ntzJmQYAEoVz8PyXV191Kwh5j3ClBVEHsAETB+/UKauN+K4FRFroe+6NzJnOh
+	 u5nOoCDGtEn5LEFYHTYF0di67urPqAmH6ewJi8oiBXtOtSx4GT7jSqZJE+j5hSlBvfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794665346;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=pxxacMxVePFTDz82jsHDl0aYmUO9B1dpY0NS6vSmFbs=;
-	b=1TDytY6fPvQNZkPqdKf8zNjTI9Ffr+8BVtDYhgDm3M6RbbASHvLQ3g9N3sbrmOvSbT5t
-	 v8K2qACTNvh7fO3S7IMRU0xWTa7moZlEaNOZ7kDIyGGP95+zwv792DdLdkLGofC7tgAPH
-	 U7OKO804jIV7//8MyG4n40zfZ0qvMJKRf7BrkTt/1DxLZ2x6J/Jfg6moscEPkuxeXID/4
-	 yEQtEqWEfR3OSPGcGFBavWYqLv9LvwgvqOKEJi/GoxQ5gp32R6L4rujOJMtJNmJ7wnq+b
-	 4pJCsuGIHp59I0DOskzs6R0TNHmtICdeqwfjkomajoEIDbHc4pOkL2WKFrHAZE+wXSQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794665368;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-MBO-RS-ID:X-MBO-RS-META;
+	bh=KnQiD6fX/r8PsqpObs5NkuGJ85feklMhNeGaXyI/6aU=;
+	b=WBRinwRQrIr77sX+YAmqgRoOZYGoq4A25G/cHvRaseUpn+2loN8YoxVCw5pwArFBML0g
+	 aSKzErMfOLa9JLNoJ5UnRYBSNwMYJ1vI9dJmdzDzeeggu2wRbp5AN0P1vVNWjdGCzDeij
+	 zWFJZZiZ/UCPLb1xSKLdy0LqMRAhY0/wIxWN4cvC6Uf5ASUMEs6RqkWKVcXSAEBDIOu11
+	 JpSUkbi9+Wa9l+aI1ygy9Utd+zuK6arkjPTp6K6bwhhcEiag4GeiY+50SalPcSJEcKXnU
+	 AP1nt3cGq57DpiXvaC07SZQdukiKWCundLqHnelCoSc2zsk785qVJmYSg1CZ3BGuiaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GNT2Nmfi;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=TC5FL2lT;
+	arc=none smtp.remote-ip=80.241.56.152
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 282A5606A327;
-	Sat, 14 Nov 2026 14:09:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB069606A327;
+	Sat, 14 Nov 2026 14:09:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB069606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GNT2Nmfi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1500E1F000C4;
-	Sat, 14 Nov 2026 14:09:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794665345;
-	bh=pxxacMxVePFTDz82jsHDl0aYmUO9B1dpY0NS6vSmFbs=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=GNT2Nmfi6jEnqJhxLaz4x1wAPeqHnv2My5LpcrnoJCbGBxGJjZ3Q/uiftkNGqA6x/
-	 VffIUjUGvLKKoWJgTsbeQuoY6dCmwVgJVPLeIxcVK0+PtAlmXakIT4hYUEzj8QP77j
-	 zV5oyd7vNWOXg+Hg0mfNd+5JBcFd6HRcY28zI50k42jZytOrJQNOiiYOaXXx3M267h
-	 pfqL1QtZrqs2S9CeZxQFnAhwjTralnWBXcRcZHWVaGIGk1LQ4nZsN4wmdeYAdHzvV8
-	 5mhJpyTjI0c3K67CIhNeSjMJmRTPLaTN864O5jKzaRfwKOOF0yAhlkWAbqz/f0eEz/
-	 ORdaMw52JjE9w==
-Subject:
- Re: [PATCH net v2] net: usb: cdc_ncm: don't underflow the NDP room check
-From: netdev-bot+sashiko@kernel.org
-To: xujiahao@cmss.chinamobile.com
-Cc: oliver@neukum.org, netdev@vger.kernel.org, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- syzbot+1994e2ecf323ed90f255@syzkaller.appspotmail.com
-Date: Sat, 14 Nov 2026 14:09:04 +0000
-Message-ID: <179466534452.2199510.12286844115122956221@kernel.org>
-In-Reply-To: <20261110151624.696101-1-xujiahao@cmss.chinamobile.com>
-References: <20261110151624.696101-1-xujiahao@cmss.chinamobile.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=TC5FL2lT
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jRbbL0P5RzKvsY;
+	Sat, 14 Nov 2026 15:09:18 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1794665358;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KnQiD6fX/r8PsqpObs5NkuGJ85feklMhNeGaXyI/6aU=;
+	b=TC5FL2lT2lS0S2qysNX9Bkq/CtcVfSLBCXp51OuofG0N4qs10oP46L9CPPniucJT6fgJWX
+	944MV4eXnzTN393hLcj4S+ZhOlh1fTzphFgXAtUHcUne4AKXej8S0kAt6r/HHtl2XFn1YP
+	3xxZ7Pj3Do6U1jdXqffJzzWbGg8KHMzECZcgBK+sVXO04LEQ/58OM7Q8k95/n36Z/Fnl3p
+	bN3ATPBDQzoGcsuVeB8JFDOJCpMc/RCWlTdPd9faNHpP5mRlgKoSIIoXpKpisvzMuLMCyU
+	EnhNTThhHtJb5VLNWVaPy3MEYa8OoSWZ4DrtLqkI5Abqd9bqkInMWvr/NS2Hwg==
+Date: Sat, 14 Nov 2026 15:09:10 +0100
+From: Lukas Beckmann <lbckmnn@mailbox.org>
+To: Shuah Khan <skhan@linuxfoundation.org>
+Cc: Thomas Renninger <trenn@suse.com>, Shuah Khan <shuah@kernel.org>,
+	"John B. Wyatt IV" <jwyatt@redhat.com>,
+	John Kacur <jkacur@redhat.com>,
+	Dominik Brodowski <linux@dominikbrodowski.net>,
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] cpupower: fix use-after-free and stale limits in
+ frequency-set
+Message-ID: <avhrhuLjzi9-V7ZY@lukas-arch>
+References: <20261112-cpupower-freq-set-use-after-free-v1-1-4e0034927b3f@mailbox.org>
+ <1bb7b407-0e69-421d-8ee3-81489abd1dda@linuxfoundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,98 +73,158 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1bb7b407-0e69-421d-8ee3-81489abd1dda@linuxfoundation.org>
+X-MBO-RS-ID: 7b4a42c4232717da541
+X-MBO-RS-META: 8p5mh6jypdesokf6ojzqinwjy49keb1n
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Fri, Nov 13, 2026 at 04:09:23PM -0700, Shuah Khan wrote:
+> On 11/12/26 12:49, Lukas Beckmann wrote:
+> > cmd_freq_set() currently has two issues:
+> > 
+> > 1. use-after-free
+> > 
+> > When cmd_freq_set() is invoked with --max and --min, it eventually calls
+> > do_new_policy() for every selected CPU with the same cpufreq_policy
+> > struct. do_new_policy() first retrieves the current policy and copies
+> > the governor pointer to new_pol.governor. After that the policy is
+> > applied and cur_pol (including the string to which new_pol.governor is
+> > pointing) is freed. For the next CPU, cpufreq_set_policy() reads that
+> > already freed memory leading to an error message (because verify_gov()
+> > fails).
+> > 
+> 
+> > 2. max/min is not retrieved for each individual CPU:
+> > 
+> > If cmd_freq_set() is invoked with e.g. --min and --governor, max is set
+> > by do_new_policy() on the first selected CPU by retrieving it from the
+> > current policy. Since the same struct is passed to the next selected
+> > CPU, it is not retrieved again, resulting in writing the first CPU's
+> > max to all selected CPUs.
+> > 
+> > Fix both issues by using a local copy in do_new_policy().
+> 
+> Good find. The change log is rather long and confusing to follow.
+>
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Thanks for the review,
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+I will try to come up with a better changelog for V2 (including your
+feedback below).
 
-- [Medium] The code change is correct, but the commit message explains
-  the bug wrongly, so maintainers and backporters get a false picture of…
+> > Issue 2:
+> > Minimal example without the patch:
+> > 
+> >      echo 2000000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+> >      echo 3000000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
+> >      cat /sys/devices/system/cpu/cpu[0,1]/cpufreq/scaling_max_freq
+> >      2000000
+> >      3000000
+> > 
+> >      ./cpupower -c 0,1 frequency-set --min 1GHz -g performance
+> >      Setting cpu: 0
+> >      Setting cpu: 1
+> > 
+> >      cat /sys/devices/system/cpu/cpu[0,1]/cpufreq/scaling_max_freq
+> >      2000000
+> >      2000000
+> > 
+> > The maximum of CPU1 is set to the one of CPU0.
+> > 
+> 
+> The real issue here is not that the maximum of CPU1 is set to
+> the one of CPU0.
+> 
+> The real problem is that stale new_pol is used for all cpus
+> from do_one_cpu() slow path when more than one policy value
+> changes.
+> 
+> Please re-write this in your own words in a simplifies way
+> describing what lead to the problem.
+> 
+> 
+> > Minimal example with the patch:
+> > 
+> >      echo 2000000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+> >      echo 3000000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
+> >      cat /sys/devices/system/cpu/cpu[0,1]/cpufreq/scaling_max_freq
+> >      2000000
+> >      3000000
+> > 
+> >      ./cpupower -c 0,1 frequency-set --min 1GHz -g performance
+> >      Setting cpu: 0
+> >      Setting cpu: 1
+> > 
+> >      cat /sys/devices/system/cpu/cpu[0,1]/cpufreq/scaling_max_freq
+> >      2000000
+> >      3000000
+> > 
+> > The maximum of CPU1 is no longer set to the maximum of CPU0.
+> > 
+> > [1] https://lore.kernel.org/all/20250827-power-memoryleak-v1-1-e4baf7b59a41@uniontech.com/
+> 
+> The above patch doesn't make sense. I need more information
+> to determine, if it is needed.
+>
+The memory-leak is of course not noticeable by "normal usage".
 
---
+However, tools like ASAN still report it, so the main benefit of fixing
+this would be, that someone who is using e.g. ASAN to find a different
+issue, is not side-tracked by this. I will drop this in V2.
 
-net: usb: cdc_ncm: don't underflow the NDP room check
+> > ---
+> >   tools/power/cpupower/utils/cpufreq-set.c | 17 +++++++++--------
+> >   1 file changed, 9 insertions(+), 8 deletions(-)
+> > 
+> > diff --git a/tools/power/cpupower/utils/cpufreq-set.c b/tools/power/cpupower/utils/cpufreq-set.c
+> > index 06cd4b280132..d9f6ca522fe5 100644
+> > --- a/tools/power/cpupower/utils/cpufreq-set.c
+> > +++ b/tools/power/cpupower/utils/cpufreq-set.c
+> > @@ -141,9 +141,10 @@ static unsigned long string_to_frequency(const char *str)
+> >   	}
+> >   }
+> > -static int do_new_policy(unsigned int cpu, struct cpufreq_policy *new_pol)
+> > +static int do_new_policy(unsigned int cpu, const struct cpufreq_policy *new_pol)
+> >   {
+> >   	struct cpufreq_policy *cur_pol = cpufreq_get_policy(cpu);
+> > +	struct cpufreq_policy pol = *new_pol;
+> 
+> Don't assign new_pol to pol.
+> 
+> 
+> >   	int ret;
+> >   	if (!cur_pol) {
+> > @@ -151,16 +152,16 @@ static int do_new_policy(unsigned int cpu, struct cpufreq_policy *new_pol)
+> >   		return -EINVAL;
+> >   	}
+> > -	if (!new_pol->min)
+> > -		new_pol->min = cur_pol->min;
+> 		pol->min = cur_pol->min;
+> 
+> Use new_pol in the if logic using pol as temp - changing
+> pol to temp_pol
+> 
 
-This patch rewrites the NDP room check in cdc_ncm_ndp16() and
-cdc_ncm_ndp32() as an addition instead of an unsigned subtraction. The
-old form could wrap when skb->len + reserve exceeded tx_curr_size, and
-then skb_put_zero() of max_ndp_size bytes could overrun the skb.
+Okay, I will do that in V2.
 
-Closes: https://syzkaller.appspot.com/bug?extid=1994e2ecf323ed90f255
+> > +	if (!pol.min)
+> > +		pol.min = cur_pol->min;
+> > -	if (!new_pol->max)
+> > -		new_pol->max = cur_pol->max;
+> > +	if (!pol.max)
+> > +		pol.max = cur_pol->max;
+> > -	if (!new_pol->governor)
+> > -		new_pol->governor = cur_pol->governor;
+> > +	if (!pol.governor)
+> > +		pol.governor = cur_pol->governor;
+> > -	ret = cpufreq_set_policy(cpu, new_pol);
+> > +	ret = cpufreq_set_policy(cpu, &pol);
+> >   	cpufreq_put_policy(cur_pol);
+> 
+> 
+> thanks,
+> -- Shuah
 
-> tx_max is only clamped to max_datagram_size + max_ndp_size + the NTH
-> header size, so tx_curr_size is just big enough for one datagram and
-> one NDP.
-
-[Severity: Medium]
-The code change looks correct. Is this description of the clamp accurate
-at bind time, though?
-
-cdc_ncm_setup() clamps tx_max before max_datagram_size is set:
-
-drivers/net/usb/cdc_ncm.c:cdc_ncm_setup() {
-    ...
-	/* clamp rx_max and tx_max and inform device */
-	cdc_ncm_update_rxtx_max(dev, def_rx, def_tx);
-    ...
-	/* set max datagram size */
-	cdc_ncm_set_dgram_size(dev, cdc_ncm_max_dgram_size(dev));
-    ...
-}
-
-ctx is zero-allocated. So when
-cdc_ncm_update_rxtx_max()->cdc_ncm_check_tx_max() computes:
-
-	min = ctx->max_datagram_size + ctx->max_ndp_size + sizeof(struct usb_cdc_ncm_nth16);
-
-max_datagram_size is still 0, and the lower bound is just max_ndp_size
-plus the NTH16 header.
-
-If a device advertises a small dwNtbOutMaxSize, can tx_max end up well
-below one datagram plus one NDP?
-
-> Here end is 0x140 = 320 = 140 + 172 + 8, i.e. the one-datagram minimum.
-
-Can max_datagram_size really be 140 here? cdc_ncm_set_dgram_size() clamps
-it to at least cdc_ncm_min_dgram_size(). That is CDC_NCM_MIN_DATAGRAM_SIZE
-(1514) or CDC_MBIM_MIN_DATAGRAM_SIZE (2048).
-
-Also, sizeof(struct usb_cdc_ncm_nth16) is 12 bytes, not 8.
-
-Could end = 0x140 instead come from alloc_skb() rounding a small
-tx_curr_size up to its allocation size, rather than from a tx_max minimum?
-
-> A second datagram in the same NTB is therefore exactly the
-> case this check has to reject
-
-Is this the right case? The room check only runs when there is no NDP
-with a matching dwSignature yet, because the chain walk in
-cdc_ncm_ndp16() returns early on a match:
-
-	/* follow the chain of NDPs, looking for a match */
-	while (ndpoffset) {
-		ndp16 = (struct usb_cdc_ncm_ndp16 *)(skb->data + ndpoffset);
-		if  (ndp16->dwSignature == sign)
-			return ndp16;
-		...
-	}
-
-cdc_ncm_tx_fixup() always passes the same NOCRC signature, so a second
-datagram with that signature never reaches the check.
-
-Wouldn't the triggering cases be the first datagram of an NTB, or a
-datagram with a different signature? One example is cdc_mbim_tx_fixup()
-with several MBIM sessions.
-
-Could the commit message be updated to describe how tx_curr_size ends up
-smaller than one datagram plus one NDP?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261110151624.696101-1-xujiahao%40cmss.chinamobile.com
+thanks,
+Lukas
