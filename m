@@ -1,79 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794647556;
-	b=5eZwYZzcgxaY/Zi2Wxot6GvITCq7QHrrYDl1mnWg7WQWFsow/ew2R8DA7c6bHK/skEOt
-	 nEOHl73aLPnq+d1J0D24ikwzSIWv3Ht/+VRNq++aHRu3DsVKpgIzO5SFfjSasJDyag0E1
-	 p+059xv0snU3DP6BybxemBi32I55+sDKyhYniQm8Zgs72rKUIGYWfhaQOhetc/RD4oKdR
-	 nxuvR+cCOuFz73/DYwDLTq5MvxSRsUvl0vkyGQl9NIxS1gHrkqtxpQvES9C6EYqdDhVMc
-	 fHkxKpbIXFgfO7CmZMTDE08PGnRIohzIr0h0uWb/okRCvqjp9iD+PYEtkXS+jQsxPBg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794647556;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1HmPxNcC5h5Z+poiYPyHoJvZUob7IYj5py5ybpq1DpY=;
-	b=hSZvg6FVM7FA8uiywo3OgfrV/OmBI4ORY8SR1eoZsR/r9pvAVyazi5PUfsInmT3RT5te
-	 OEe62ixwugoItmH7jjJtmpVS5Gw2F4Uy71xiLiELArLATY26xkowX2CbIFo+31YI8s3+H
-	 GWQTS5Ipor93bQxClFu2P159BrdCBJXZDuzFCauarxqnADETBoLwxmu629UADtfvIu4WG
-	 JAl+2Lzw/igrZkYZ01geXysjAsBsaWpbJEYpm6KT/z1sH86uNP/TLEOvd/mCV9/e6eG24
-	 5rPkQ3OR+aLAvhkomkPgYjz/r6JFFCIjC4kKb/rKDV8AhqJwsziUTlAj69LsJkLc3bw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T6sINKU0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49F6C606A8AC;
-	Sat, 14 Nov 2026 09:12:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T6sINKU0
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794647556;
-	b=rZCLe0HFq+7aykuvj+t3iTtWT36H7IebQ8BxagqCGd5kV1InW2LwNux42FxLr3cEEjR3
-	 XO5dpNRQyVJp4TRVnwcFnmZn+XthkPj7CFcYc5pvqPfT19syztK+keIc1ULI7xOjP9hXR
-	 fW79jNB0CQgoqjxsHyPBhdkXFNCjWA1IDRwb2AYOUKZgKb0xt71uwpnFL7N3zZWneOsUY
-	 djbJEp6t4H0jkKj3A69sDIeP4NVGwxJviAhhyhmV6zB6r5kAxMCTj0wrWfxP++em6GlQq
-	 YxGkv7jMbktv2cgpyahCSB9ByX9M7SCp6d+g5XKZ7+Y4OnZKAU5SV/V5VGRtV6jCBBw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794647556;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1HmPxNcC5h5Z+poiYPyHoJvZUob7IYj5py5ybpq1DpY=;
-	b=jc1MNirikhdl+He6U75GDpn/z9KSN7wp9W53LUxQILm/CgU4tLeC/4FODNx+bhFKbMAI
-	 HMvlan0ppKnbPZm4Hc2Ho+tufia2Sng00wWc0uefs9mUMzOfr6jhjC6QmdYgFr4Fz2NHH
-	 Z4KQpJT5ml09NR/KtYrd3svwZ+C9Gt7YJS2PDc5TYrcTPpMScGXLrrvbq2F+lE0/aXul7
-	 /50T3cJZgURqzdLNdSQ+n/XIJ3cRdiVBPCrss47KbzRpYKTnyDq87d41NYej3y2ZFGpLN
-	 tVewIoV+M/mrFeM8SN76otiTxiNl1cxZdCLbZfA8544FwP0ODupV/V77n/wxLMMgQgQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794647566;
+	b=YrpHn+R9IWpNmVz7BAnTkXDlj1GTOwEEziTvv3/Dauf/kkycndRZMInvWIXYg4FDUrMm
+	 nRH4Y8jNtQOgcA6QG5HDv07Ke7j6Nd/26t33pAldXa8B9go5aegTMuTdAevrkzhL6ET7T
+	 HFffIBl/wShhPxjgeQxT184heLKTOLdsGCnYFzlGwbejzHr6fH69Tp5CX6mAOJvd/6+eR
+	 8VmrYTLFX6jk3Cjb0tlZRAiXlXqOSa+u/EUcGouNPyHo+knPXBp8CxPeFeD2rtMiZogMD
+	 igOSTDDh6FS82avIHibfMnoRCAqFdJ3ed6J0qX3K7PWg/r7d/uy9KuXTc4un6pRq7aw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794647566;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=QTbQToynBqwf3n1SZSg1pf/eN+ziaT5I0ox1EckFMS8=;
+	b=OSaTdLae1xbDb4+uKN+auZzDVwR/jhx24YKWhkdgmNEx+QpBq2TdWYBgCmP9EP83Ht/9
+	 HmV8nxKNED9UHIIeEenUQatBx+SJnKy+EBEbdig0fFCDmUuJFtLj0u2F7cAGaATZAapgA
+	 XYbP3H9q21z8uC9PAqr4ddUWfrJvRQ+ksVtR4NCuHdQ5AXjliKY0CckFBcxMlxTlP9np4
+	 WNcMly9GMCDMeMDiBmx+KPpwxDeTiDmuoVKkuyC4e893nFZVHNpDEVT0v+XMRMUjIGSIM
+	 Q17KB3T3xdUKGpMp5Q2gkRkfimdgn2+RSB1At0ciqWA30yiQXhrQgvxJTZRrFRujihA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RV6mQUGj;
+	arc=none smtp.remote-ip=74.125.227.131
+Received: from mail-pj2-f3.google.com (mail-pj2-f3.google.com [74.125.227.131])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 52A5D1F000CA;
-	Sat, 14 Nov 2026 09:12:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794647556;
-	bh=1HmPxNcC5h5Z+poiYPyHoJvZUob7IYj5py5ybpq1DpY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=T6sINKU0T0eu9aq0FQg03io4hzFXO0s/OS4NRp4hV9DRRXum6U2fipsSoRPwdx5a8
-	 QA/4HepGNDpCcdLJcWYdWA3GMOdXHLE9vHk7ZzfDOjz3OjY+woNAMBMUX13f3cKKtX
-	 /aKpVP5tRr1pn3f0omiLI8muNNEBtMd9wgnx6ZnweodazBGPzJeoee6EydbU6S+cuE
-	 a2sZIVATacqll51pkJzb2lMKOg+rGQdbGWImy6A5Rfsh7I5jY/excbpYXBjy81Bxp4
-	 eMFomoOcRViadrmOu0I7zRY/sjYevjXIjzMnX04F+0UAdhRwITMoWRcz9iGcZ2ZKuj
-	 WKNweqBIzhvlg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C1CE349D0A;
-	Sat, 14 Nov 2026 09:12:33 +0000 (UTC)
-From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
-Date: Sat, 14 Nov 2026 10:12:28 +0100
-Subject: [PATCH v4 1/5] dt-bindings: pinctrl: add the NXP LX2160A RCW pad
- mux
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9BFC60A380C
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 09:12:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9BFC60A380C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RV6mQUGj
+Received: by mail-pj2-f3.google.com with SMTP id 98e67ed59e1d1-3ada6c66964so427222a91.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 01:12:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794647565; x=1795252365; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QTbQToynBqwf3n1SZSg1pf/eN+ziaT5I0ox1EckFMS8=;
+        b=RV6mQUGj7+F93NrSqCxxKeUED01cOhim5hASqZ3AYiS1YT0y21Kl3GdKHKu1t9l44t
+         GSQ37UxZasL+fHnTpBsopAbYWA903/H4/llyno2eMbaCzFwjioBAJ3jm5EseGU8Oud3r
+         OwE5LQPoW2sTjoOPLTS7t5z6j/aTatIHwVuOjyFblgKtjfE8HVpYYHYcljsWeUC0zB2z
+         38H8L4C31ZV5BOP2BiGXW58+M7b1OgIt0VnoSK2dzT4vepwOIeVumpezx1CXurFoWicV
+         0bApP5+CmlF1jpQmgBpMhJUlu0DqVwao0lCMUtf3vwZ1iSNCAXUlGQ7ugD/V0VNLSluF
+         HHdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794647565; x=1795252365;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QTbQToynBqwf3n1SZSg1pf/eN+ziaT5I0ox1EckFMS8=;
+        b=f3LPTUd2dWrTsVRSVWWK1ryBJZIs1Vh5WfNwoeLE044gwKkg5dyT9xTiysUlKpZEsG
+         /zxEYL1aHdQjFPYakNjQjkKUrhEnC4JD5v77Qi6tNgaxSRqUUWXbCuv+5Wrj84NopmU+
+         cz8K9NjZ1juRVqaxYHoRoOtGkbmYZXo+ye3XOki/uL8F2j1JPSoyn2V5gPL4zK8zjtRN
+         NQB3ZmZJ4RfJtqyMv0iGOIAq4ti5n/0SiOJ3oNzFVjiI+VeZ5fgXnxQspiM6XV4EQJuB
+         +U6vqUIGh+8TwBWAK3o3XjXJrPpv2exyeYMxxK/xUGZUv6DDp7W9XsIVqk+y5RnnP83l
+         /b0A==
+X-Forwarded-Encrypted: i=1; AL+hErGHjREhZ8EnKXb+VneqS1P+ms5viALKCtzvqc2ao+/zsin5gsphN3bZOy9fRhQo2vN77uXUqpsZyMbAsm0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8wxx40p+VBreC7DyoVnEIF8qs56OjMlbgjmwRDORXURoWYivXr
+	JC7fKrgX/9sXH+vg2kmKbpnYFUV2h/BzOgq6v1t21Bs0ye3B0RrhfUzS
+X-Gm-Gg: AYBFou2TA9pboFEZzkXYnFZ6UY1Chu5MmyAhOAl7OgjP2havduYZF68M/UlJRLXSLEk
+	euo2wHevJ5cXwg0e3D8NveOYQiFJ2S/ObrZucYPVXs1pmEIsjHHnX2a6WB50WZbpq9Eid+zfUUx
+	xypbCTZSAjmh/lzjrrV63swBcAfvrW2Hq6VfzRv3bShByKBrdes4oeMOAhhPP1Cfg6amD+HBItX
+	ziMdfNURZc1nYDznASwFuCWeRM/IHAoH4s9tGajwHtRUqA9iygZ+fUuZykcFwTSToorb3B6WT0S
+	Xm0huMyoDY6T2wzpjNBPYa8g8XOgJTwDsL/SumOjGvLUFvmOhoUHZPjTdV0n6DE26HbUkVSuFVY
+	p7AxGRoGlp6a461arrEJggWcOpkozRyHsTn2CrAqri5LTkyv9DkuXNYr26ggUFy9C1PI3pj8W6R
+	lO3c2Rjh0AhVxTQaMibVt0mI4jx2b9at5/PckYHwhY74UBjgdhlI5ECOE/8qhrAnswdBzTdLd5w
+	Niag3fefsebbPC0vt2ypTyJtNkiWhGXy0lB7EXSgkAlUo5jwXhOmhmCB/qNNCKTlrtISiXlaOKW
+	tpOkNw6Tg16S85kJJeaclK9/zweXM6xpHYMJROODBWSA/XHYKItp
+X-Received: by 2002:a17:90a:c88b:b0:3ae:6fda:78b1 with SMTP id 98e67ed59e1d1-3b1b0b6049emr4722150a91.43.1794647565057;
+        Sat, 14 Nov 2026 01:12:45 -0800 (PST)
+Received: from kernel-lab.tail5e91bb.ts.net ([2409:8950:57d:63:2b6e:fd48:7485:9720])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1aeb179fasm8311897a91.4.2026.11.14.01.12.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 01:12:44 -0800 (PST)
+From: Yingjie Wang <flashhhhha@gmail.com>
+To: steffen.klassert@secunet.com
+Cc: herbert@gondor.apana.org.au,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	jhs@mojatatu.com,
+	netdev@vger.kernel.org,
+	ipsec@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH ipsec] xfrm: avoid wrapping AEVENT timer thresholds
+Date: Sat, 14 Nov 2026 17:12:39 +0800
+Message-ID: <20261114091239.780633-1-flashhhhha@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,329 +103,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261114-for-upstream-lx2160a-rcw-pinmux-v1-v4-1-eefcea066a55@free.fr>
-References: <20261114-for-upstream-lx2160a-rcw-pinmux-v1-v4-0-eefcea066a55@free.fr>
-In-Reply-To: <20261114-for-upstream-lx2160a-rcw-pinmux-v1-v4-0-eefcea066a55@free.fr>
-To: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>, 
- Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- NXP S32 Linux Team <s32@nxp.com>, Linus Walleij <linusw@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
- linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, 
- Vladimir Oltean <vladimir.oltean@nxp.com>, 
- Ioana Ciornei <ioana.ciornei@nxp.com>, Vincent Jardin <vjardin@free.fr>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794647552; l=7949;
- i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
- bh=R4TmEm1LLxqWdwqJt3KI4iBHK65rYx8frtZO+ZBgiN8=;
- b=n8ILXGIQxnCBdXgROJU5zgFrMlpl8K2wBA1oelVuZxQpKEQF1oO5zgKgSf7XV42O2q8jFGrod
- c+NoU7rN8Y/BMtnizZjPKe/rYFc5CMIaRDy3YH0tpFaZqMArHLg1yGV
-X-Developer-Key: i=vjardin@free.fr; a=ed25519;
- pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
-X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
- auth_id=871
-X-Original-From: Vincent Jardin <vjardin@free.fr>
-Reply-To: vjardin@free.fr
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Vincent Jardin <vjardin@free.fr>
+net->xfrm.sysctl_aevent_etime is stored in 100ms units, but the
+conversion in xfrm_state_construct() multiplies it by HZ while it is
+still a u32. Large values can wrap before the division by
+XFRM_AE_ETH_M, disabling the replay timer or turning a long threshold
+into a short delay.
 
-The LX2160A muxes its IIC, XSPI, SDHC, UART, IRQ and EVT pads from
-fields of the RCW: read-only in RCWSR12..14 of DCFG, changed at runtime
-through the override registers of its DCSR view.
+Do the conversion in u64 and clamp the resulting jiffies value to the
+range representable by replay_maxage and safe for jiffies comparisons.
+Use div_u64() so 32-bit builds do not require compiler runtime helpers
+for the u64 division. Use widened arithmetic when reporting
+XFRMA_ETIMER_THRESH as well, so large stored values do not wrap during
+readback.
 
-Describe the pad mux as a child of DCFG at its RCWSR12 to RCWSR14
-window: the override registers are at the same offset of the DCSR view
-of the parent. One group per RCW field, one function per encoding.
+On x86-64 with HZ=1000, setting xfrm_aevent_etime to 536870912 made
+XFRMA_ETIMER_THRESH read back as 0 on the base kernel and 42949672 with
+this fix. A normal value of 8 read back as 8 on both kernels.
 
-Each function lists the groups that take it, so a pair the driver
-would refuse, such as can on iic1, is refused by the schema.
-
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Reviewed-by: Rob Herring <robh@kernel.org>
-Signed-off-by: Vincent Jardin <vjardin@free.fr>
+Fixes: d51d081d6504 ("[IPSEC]: Sync series - user")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yingjie Wang <flashhhhha@gmail.com>
 ---
- .../bindings/pinctrl/fsl,lx2160a-rcw-pinmux.yaml   | 264 +++++++++++++++++++++
- 1 file changed, 264 insertions(+)
+ net/xfrm/xfrm_user.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/pinctrl/fsl,lx2160a-rcw-pinmux.yaml b/Documentation/devicetree/bindings/pinctrl/fsl,lx2160a-rcw-pinmux.yaml
-new file mode 100644
-index 000000000000..6bd21c27a00c
---- /dev/null
-+++ b/Documentation/devicetree/bindings/pinctrl/fsl,lx2160a-rcw-pinmux.yaml
-@@ -0,0 +1,264 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/pinctrl/fsl,lx2160a-rcw-pinmux.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/net/xfrm/xfrm_user.c b/net/xfrm/xfrm_user.c
+index a5fbe38839c4..4a676a6aa53e 100644
+--- a/net/xfrm/xfrm_user.c
++++ b/net/xfrm/xfrm_user.c
+@@ -924,6 +924,14 @@ static void xfrm_smark_init(struct nlattr **attrs, struct xfrm_mark *m)
+ 	}
+ }
+ 
++static u32 xfrm_aevent_etime_to_jiffies(u32 etime)
++{
++	u64 maxage = min_t(u64, U32_MAX, MAX_JIFFY_OFFSET);
++	u64 j = div_u64((u64)etime * HZ, XFRM_AE_ETH_M);
 +
-+title: NXP LX2160A RCW pad muxes
++	return min_t(u64, j, maxage);
++}
 +
-+maintainers:
-+  - Vincent Jardin <vjardin@free.fr>
+ static struct xfrm_state *xfrm_state_construct(struct net *net,
+ 					       struct xfrm_usersa_info *p,
+ 					       struct nlattr **attrs,
+@@ -1022,7 +1030,8 @@ static struct xfrm_state *xfrm_state_construct(struct net *net,
+ 	x->km.seq = p->seq;
+ 	x->replay_maxdiff = net->xfrm.sysctl_aevent_rseqth;
+ 	/* sysctl_xfrm_aevent_etime is in 100ms units */
+-	x->replay_maxage = (net->xfrm.sysctl_aevent_etime*HZ)/XFRM_AE_ETH_M;
++	x->replay_maxage =
++		xfrm_aevent_etime_to_jiffies(net->xfrm.sysctl_aevent_etime);
+ 
+ 	if ((err = xfrm_init_replay(x, extack)))
+ 		goto error;
+@@ -2782,8 +2791,10 @@ static int build_aevent(struct sk_buff *skb, struct xfrm_state *x, const struct
+ 			goto out_cancel;
+ 	}
+ 	if (id->flags & XFRM_AE_ETHR) {
++		u64 etime = div_u64((u64)x->replay_maxage * XFRM_AE_ETH_M, HZ);
 +
-+description:
-+  The LX2160A muxes its IIC, XSPI, SDHC, UART, IRQ and EVT pads based on its
-+  RCW. The related fields are from the read-only RCWSR12 to RCWSR14 registers
-+  of DCFG, and can be changed at runtime by writing the RCW override registers
-+  in the DCSR view of DCFG. The node is a child of the DCFG node, which owns
-+  both views. Its reg is the RCWSR12 to RCWSR14 window of the CCSR view, and
-+  the override registers are at the same offset of the DCSR view.
-+
-+properties:
-+  compatible:
-+    const: fsl,lx2160a-rcw-pinmux
-+
-+  reg:
-+    maxItems: 1
-+
-+patternProperties:
-+  '-pins$':
-+    type: object
-+    $ref: pinmux-node.yaml#
-+    additionalProperties: false
-+
-+    properties:
-+      function:
-+        enum: [ asleep, can, evt, flexspi, flextimer, gpio, i2c, irq,
-+                reset-req, sdhc, sdhc-clk, sdhc-data, sdhc-data4, sdhc-spi,
-+                spi, uart, uart3, uart4 ]
-+
-+      groups:
-+        items:
-+          enum: [ iic1, iic2, iic3, iic4, iic5, iic6, xspi1-data74,
-+                  xspi1-data30, xspi1-base, sdhc1-base, sdhc1-dir,
-+                  sdhc2-data74, sdhc2-base, uart1-soutsin, uart1-rtscts,
-+                  uart2-soutsin, uart2-rtscts, irq11-8, irq7-4, irq3-0,
-+                  evt4-3, evt2-0, clk-out, asleep, reset-req ]
-+
-+    required:
-+      - function
-+      - groups
-+
-+    allOf:
-+      - if:
-+          properties:
-+            function:
-+              const: asleep
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ asleep ]
-+
-+      - if:
-+          properties:
-+            function:
-+              const: can
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ iic3, iic4 ]
-+
-+      - if:
-+          properties:
-+            function:
-+              const: evt
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ iic3, iic4, evt4-3, evt2-0, asleep ]
-+
-+      - if:
-+          properties:
-+            function:
-+              const: flexspi
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ xspi1-data74, xspi1-data30, xspi1-base,
-+                        sdhc2-data74, sdhc2-base ]
-+
-+      - if:
-+          properties:
-+            function:
-+              const: flextimer
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ iic2, irq7-4, irq3-0, evt4-3, evt2-0, clk-out ]
-+
-+      - if:
-+          properties:
-+            function:
-+              const: gpio
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ iic2, iic3, iic4, iic5, iic6, xspi1-data74,
-+                        xspi1-data30, xspi1-base, sdhc1-base, sdhc1-dir,
-+                        sdhc2-data74, sdhc2-base, uart1-soutsin,
-+                        uart1-rtscts, uart2-soutsin, uart2-rtscts,
-+                        irq11-8, irq7-4, irq3-0, evt4-3, evt2-0, clk-out,
-+                        asleep, reset-req, iic1 ]
-+
-+      - if:
-+          properties:
-+            function:
-+              const: i2c
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ iic2, iic3, iic4, iic5, iic6, sdhc2-data74, iic1 ]
-+
-+      - if:
-+          properties:
-+            function:
-+              const: irq
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ irq11-8, irq7-4, irq3-0 ]
-+
-+      - if:
-+          properties:
-+            function:
-+              const: reset-req
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ reset-req ]
-+
-+      - if:
-+          properties:
-+            function:
-+              const: sdhc
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ iic2, sdhc1-base, sdhc1-dir, sdhc2-data74,
-+                        sdhc2-base ]
-+
-+      - if:
-+          properties:
-+            function:
-+              const: sdhc-clk
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ iic5, iic6 ]
-+
-+      - if:
-+          properties:
-+            function:
-+              const: sdhc-data
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ sdhc1-dir ]
-+
-+      - if:
-+          properties:
-+            function:
-+              const: sdhc-data4
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ sdhc1-base ]
-+
-+      - if:
-+          properties:
-+            function:
-+              const: sdhc-spi
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ sdhc1-base ]
-+
-+      - if:
-+          properties:
-+            function:
-+              const: spi
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ iic5, sdhc1-base, sdhc1-dir, sdhc2-base ]
-+
-+      - if:
-+          properties:
-+            function:
-+              const: uart
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ uart1-soutsin, uart1-rtscts, uart2-soutsin,
-+                        uart2-rtscts ]
-+
-+      - if:
-+          properties:
-+            function:
-+              const: uart3
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ uart1-rtscts ]
-+
-+      - if:
-+          properties:
-+            function:
-+              const: uart4
-+        then:
-+          properties:
-+            groups:
-+              items:
-+                enum: [ uart2-rtscts ]
-+
-+required:
-+  - compatible
-+  - reg
-+
-+allOf:
-+  - $ref: pinctrl.yaml#
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    pinctrl@12c {
-+        compatible = "fsl,lx2160a-rcw-pinmux";
-+        reg = <0x12c 0xc>;
-+
-+        iic3-i2c-pins {
-+            function = "i2c";
-+            groups = "iic3";
-+        };
-+
-+        iic3-gpio-pins {
-+            function = "gpio";
-+            groups = "iic3";
-+        };
-+    };
-
+ 		err = nla_put_u32(skb, XFRMA_ETIMER_THRESH,
+-				  x->replay_maxage * 10 / HZ);
++				  min_t(u64, etime, U32_MAX));
+ 		if (err)
+ 			goto out_cancel;
+ 	}
 -- 
 2.43.0
-
 
