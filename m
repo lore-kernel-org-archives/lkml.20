@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794677589;
-	b=iYPiP04Qof1Lykm4osjOi4hvYkTngsWpq4t86bwSqmEzropSfvxq7RWcSyxVLFCp6V3j
-	 8sFVnjinowhfy0Eu/3zj9zwzQmmd2RehQ7YLRjTaHMEYytTvXVu2M5yfVtIzGeSjeUWE6
-	 xMtQ+lmcy/db4P1o5kazDWrLLSbEj726lgZlnFu0rSnD6HAYzhO0fYlydYbGrYYQXZQIx
-	 azqxdnxp5At+qgR8PE8Teexnw57kUzlXprDdnIP75Gl2rjnyqS9zm1F9IN+XUwSwLlqAA
-	 IrjuYNlYhUqCtWQQgFiS+7nxl2z51Jb5taC6CwzpntfFUs/lAi76MveDDQ1hmUuzrMQ==
+	t=1794677617;
+	b=ZakIzZOAGyBK6MaqubfOcQy9QVyREHpBxyEe7PWHhy8j/r+F4oCL9cXHQF3KeYHJXLU6
+	 EJLJegSYCH/VgyHhK677CY2kFf9gKlwKFRbBo2ZO4pOMDo0JfnN0NDUJvQEHalmJSv70c
+	 SkVdJYlcz3R8KyLIMo4dwMx2o4b6L+0QbaWBs3nrADKjuRS2YlhmY67iEKkpbVcvP7yqL
+	 t25+6JsDPXRpuru+8rKQ74YJRNBs8HM1jR2d+K/RZD16wwUmDUQS3/Y3CPMi5i+2ABFxi
+	 9j1474Zow4r7Vv/DOGQb53PKOolyCN0AJD+/X5RIJkPq1ttPZIGwcTyFAgf0ypjj/Vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794677589;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794677617;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=1aF6FG/8A8GNSEhifnB76peEauYvwhc3Lhh2bB6umMo=;
-	b=LL6vXkucgpGrEFuakiyr33fhpjGCTkcDaCPQvt3j1cbWtp/W0PMHR5ZoOuvOSskQY07e
-	 MzmBjTV4hC7G/8wqMOpvFLNlS/W9Em2HZo/15sn8ZazxfJt0tDFUczyFw6oPRRqwYkLIz
-	 R9jXfW9HcdmvhTS6uZztHqrvhodxTUabVrTNwQtECxYzX+wtqP477RaFp9g8gT71AIpPW
-	 U5jvkRRNKDf7qg65j8VbteFjIe81cfd1DJ/ctoytQhu+ZyOakGX0mfjj9fK8+xzh7P42X
-	 40eqXoecz6cHUcI4wOxqKFHNuPErEfrI6/10jNReDBXUlrl1S634priAfzBOUpD3U4Q==
+	bh=VMjHeqkDRZE8dhy1hqRxTcDbSg1/bFbdQHaCHWsCozw=;
+	b=0VklDvVTSy/LTbn37vmRZ31MbXaRRNItZCRLp9p7EKJfZcXzzauFrlWNWS66EpVq9QJS
+	 dFpCHfj+arCxzI9jBgIYcJk9ftr/m1fluQjsqYkpmTFzS5ioMZGg5R8e2sWkKGXJ0Adaq
+	 5MjxK114cKE42B9ctT38NAfLw54i5PCcwt4PG1vZMtoZJ+cdZS120J3l5ePeDaE3/YX2g
+	 9PrLcuOLxzESYCSkfi9VWdnmWzluztbkH/504FAQOxT8i9zdYDqndZUoUOUj/Hrcy8oAT
+	 ffBtZrdedGd2vAX0x0rKIIGi2frIe4HS2Tyy47Zgs0CMibFyxFvzzU/yzeaGG1S45Qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CC4g0DhR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O19UBMrA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 451AB606A329
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:33:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D52D606A327;
+	Sat, 14 Nov 2026 17:33:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CC4g0DhR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 541151F000C4;
-	Sat, 14 Nov 2026 17:33:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O19UBMrA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3003A1F000C4;
+	Sat, 14 Nov 2026 17:33:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794677588;
-	bh=1aF6FG/8A8GNSEhifnB76peEauYvwhc3Lhh2bB6umMo=;
+	s=k20260515; t=1794677617;
+	bh=VMjHeqkDRZE8dhy1hqRxTcDbSg1/bFbdQHaCHWsCozw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CC4g0DhRkW0DeJDtpn706QZWi/HUMQpuW3IfDjK3Nioulri574vN0BEOuOCzLEX0I
-	 hG8CHO8NhSwRLAftY6Yi/ENg6d/hbIwvjnnpPpwvOFX2J4oLQulgyLk2bHXV1QgWwc
-	 3cvYrwB/d4QSZWWOP/nC57raDQvh0wenbsXW2k0Ro9PY1Ww7kQDolFpvmgCVCok4rS
-	 3KyjVPCClhNm5+sFeKfLnxm5MhuiCX+MaRb6p3dZr9Pe8gHaisIFUgCTglyaY/jGqj
-	 04Lz4mnvNMNToXXnifofD5WoXXNk3tC7au3I7cIlVqlA0L0QSWFZHAf5GDvqtKNiVD
-	 3CRYU+nZajhhg==
-Date: Sat, 14 Nov 2026 17:33:04 +0000
+	b=O19UBMrAXkSoqPs2prqibtCjHeT2ADtnsEqYx5CwN2Oz2VgZ9KcZRHMdcNCOcdfgl
+	 ORgZffaPijVySmPmQ6Je7Leyt7vh8GDA4rqz4FakWw97AhfpzssLYjZupsgOQAZAAw
+	 rrsUb2D6bnRPbSgcp7Mrwd6/5MT3vLYsIs/m6OqPkVV7klRQMXXJtEbufp2JLV7xVv
+	 TH2lNKIi9KMJpq7YRLpHUuP6l7p+aka9NtHOoaViwLbdxP37X/QZV3kntbmTcqYy8e
+	 13Nj1AwEP17GmyWaTaNOEZA9ckwfLaHcaYngHulFXkulfjPwlvUstfQTsIBdPOscFI
+	 Lz6Ogx5In6jug==
+Date: Sat, 14 Nov 2026 17:33:32 +0000
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 To: shao.mingyin@zte.com.cn
-Cc: catalin.marinas@arm.com, akpm@linux-foundation.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/kmemleak: fix scan period truncation on 32-bit
- platforms
-Message-ID: <avibPHxuBtW-x-gG@gremlin>
-References: <20261115004702358r2RJLihSrqbK4dr026bcI@zte.com.cn>
+Cc: akpm@linux-foundation.org, rppt@kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/execmem: check execmem_restore_rox() failure in
+ execmem_cache_free()
+Message-ID: <avibYdE9NJKchXM-@gremlin>
+References: <20261115004704544fuMEkcx0F4A1sNBAzz46-@zte.com.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,27 +59,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261115004702358r2RJLihSrqbK4dr026bcI@zte.com.cn>
+In-Reply-To: <20261115004704544fuMEkcx0F4A1sNBAzz46-@zte.com.cn>
 
-On Sun, Nov 15, 2026 at 12:47:02AM +0800, shao.mingyin@zte.com.cn wrote:
+On Sun, Nov 15, 2026 at 12:47:04AM +0800, shao.mingyin@zte.com.cn wrote:
 > From: Shao Mingyin <shao.mingyin@zte.com.cn>
 >
-> mm/kmemleak: fix scan period truncation on 32-bit platforms
+> mm/execmem: check execmem_restore_rox() failure in execmem_cache_free()
 >
-> kmemleak_write() converts the scan period from seconds to milliseconds
-> before clamping it to UINT_MAX. On 32-bit kernels, unsigned secs and
-> MSEC_PER_SEC (1000L) are multiplied in a 32-bit unsigned type. The result
-> wraps before the clamp can detect overflow.
+> __execmem_cache_free() checks execmem_force_rw(), but ignores the
+> matching execmem_restore_rox() result before adding the block to the
+> free ROX cache. A failed restore can leave permissions only partially
+> updated, so a later cache allocation can return memory that is not ROX.
+> The cache allocation path does not reapply permissions.
 >
-> For example, scan=4294968 produces 704 milliseconds instead of the
-> UINT_MAX millisecond limit. Perform the multiplication and keep the
-> intermediate result in unsigned long long, preserving the existing
-> 64-bit behavior and the later msecs_to_jiffies() clamping.
+> Check the restore result and return the error. The existing callers keep
+> failed frees pending and retry them through delayed work. This prevents
+> a block whose ROX restoration failed from entering the free cache, and
+> matches the error handling in execmem_vmalloc_rox().
 >
-> Commit 54dd200c5a25 ("mm/kmemleak: fix possible wrong memory scanning
-> period") added this clamp, but it cannot work after a 32-bit multiply
-> has already overflowed.
->
+> Fixes: 187fd8521dd8 ("execmem: rework execmem_cache_free()")
+> Cc: stable@vger.kernel.org # 6.17
 > Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 
 NAK.
