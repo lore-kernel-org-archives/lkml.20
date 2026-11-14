@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794644425;
-	b=4IaHqdfSXGAYeqEhQ7Y86FTAd/GUf69AhTH/o722CM8tcbDRIEwr2b8t2kK2kMOj4vrU
-	 t5GW4nogylRuDQF4lYBX8OWTLPHtpNXlNpqGjXrbSX/M0JbhypEXJ6nEm1yKc8FelK4aV
-	 O+zqHv8QD8GbZ3f9cz5LRaR0iRwkDKtWXvldwv3CgXeeIPGSuDuXUd41poYcHHDbkeZgg
-	 xjoYggg8mofbOIJDprLHsm3zfthk//KiNsmqHI0QO+Qz4r5v0dw3DBzZ/4FdzSU0P/rG9
-	 GElNtczob/I4PP4jdaVWfkZa2cBsOq9R+btiWrjOI+LLfdxvjK5GgZhyfg7g6fxW5nQ==
+	t=1794644429;
+	b=Fy5GR3iFHqvrs5q+idsoR23H4gsLNkftD6g2zd/D/BgRmwsH+h+S03ckoA5TqsuNyxip
+	 mieoH53qbeOWWn8g0M/Z1pcbyahrMUvPst5VB1ata8cWm3Xn+9l9wLPoaBfTfceQeKiSE
+	 4fyDHrRu04J91Cv0wDMT4Vu0pPU5cP8skVsDtL8iNzpjV1sOouWkTvil/e9pW3NoY3TkN
+	 1tUj2+fE+XUs76F6h2RWVM8KR+rwnrQDdCYvSoGPWFl1y4pwLhVbxOLHfzzQc4w/KNIt0
+	 4h0njWIkMTj0kO3YIYOL+ozLcAh5rAJ3AYxUzA7Xv9jh0Lz2o6HI8gOvD1mF2y/gjqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794644425;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794644429;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=P7gyRMTycBiU+K9V2+iRGyig/k7M3DfU55SoQH+FP34=;
-	b=zsUFnWna61yxQ5LoeHeu/kbQyouV00XkM9X60vwLzXRQkhzdKTGwHF1ZeWlI+0MMzZpZ
-	 0cflfaOdVfYpDPAQ7T/9PAAfQEvYPXW75SbONzdh70KEGUBGY/bPRoYOze6cNWW9Czleh
-	 80QqjqZ/dBJqcBD4PHttLpB50R0eqP60kcMogZCyysfTYG0BIC2W/LCLdCYxj9kTE7avf
-	 4ENAsm2hvpqovseLLo2+xBECUAqvoLflEq4Q3Vg+vMwtB5XvZMnOzWIwUE/vadwJ1xSLP
-	 0//O84VntD/MVm+Vprk4N3gL1TnFGJQb/0Jo/29lyJJbmQLn40emiUIMHhjo/Brv+hg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=SqXDyJrLwFkhi21RssicBQAdX6l60Qls8EPKvWmfnzg=;
+	b=MRDa0zLjFKDhJF9w2HNisqRvhvSK7Fqbfh7YazrO0YpfdcM15TF4XPI2267VNaZqFb1M
+	 B+9FM64Up4SLRFWb1l9dTBm0N8Okqtd3UaxoMl6f6fMagZq4L8wvIvJ5cIzTKOwHrHcAD
+	 qVmqhU+JuwZcikM2kV70ARxPgoDlTcBT2tgSpJQScdJNjGJBPD2lzjIKWHN09sFakYDS+
+	 /R7gpFytO+TFrYnn/uvHY7/LlPJSizGeY90X9RyuYj6OYj2jRw98dxBflv0ob7QpOypTi
+	 eKr6mlmgybZhxuHwxnmFBOz42cz/1OEEYbV36c0yurvWltxxpyr2osR4B9oNl06AM5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YXwsV58F;
-	arc=none smtp.remote-ip=74.125.82.43
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OhsHwDct;
+	arc=none smtp.remote-ip=74.125.82.46
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 465FA606A330
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:20:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 465FA606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53F6F606A883
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:20:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53F6F606A883
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YXwsV58F
-Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1a607a2e2bcso37044c88.2
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 00:20:25 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OhsHwDct
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-168de2167deso22848c88.1
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 00:20:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794644424; x=1795249224; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=P7gyRMTycBiU+K9V2+iRGyig/k7M3DfU55SoQH+FP34=;
-        b=YXwsV58F5OCe5nykTsBpkgiAusI2SV1WeNZE59WQiM0ekPKwTITeqvXyO2oPM7bh/u
-         gxcPOvQ2pdMBWaUwbIp54Stp0jNOt5vtoaIcpmKh1XgYp4B/J0boCKwBUIcsBlRkrQjk
-         TS9G0TllG3CwG1z5H9n6kUG9wnfD7g0DCYQqPkEwS7iCWJ/+xz0gwDH8OjIFVq79azNU
-         8McCN7o0lbXj/wtQBArYdJyyzJcB+FBZz43vRPufVihMkJFQBDuzY2vPrFVPOgXKLsV6
-         ldvFm2PXAiulRlJKMlUDI5oRMD2n5uTweVpJzG1QGr5p7pG2fy6WTJqDRsgb8H5Gaq/P
-         ZtOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794644424; x=1795249224;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794644428; x=1795249228; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=P7gyRMTycBiU+K9V2+iRGyig/k7M3DfU55SoQH+FP34=;
-        b=v31G7+eB0OYVmHLkT6gUXQp6MwUCZdUZOLWWaRxru5P0fWiT1hLklED1nglePiXJZC
-         jSRw4OfIR49HcFv91NK7phTPebp+ioi/6WFB7Omgqk2KGTJND2nloGr2LpraBGTDJujb
-         Agt3wzAgWEYFXnh39iKc3SOc4lSikg27eWpfDhE94WifQhdhEQA2zRa/+1jsmtaYc5PJ
-         cZhFdyAe8HjoVYk2zjZZ+FijVKqoX8XBcqaitTM0OEvbbT4a9OhPh+2C3Txa1bpVnmsq
-         kiPibrMZiQkw3f2l4fDdJZ1SId4OUWootRrynfqNFx2XoMfmTS5HrjJFSmW8k5eNui73
-         J6Zg==
-X-Forwarded-Encrypted: i=1; AL+hErGvzwXW8Y0NQ/Ny4kvE82WYvHBH5LxV6cA/3sIC13JIgflzowKDiCVz6FPweYe9g916cHJjg3P8KeI+JMg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Ij7PLGhxc47rVtAJTYJy0gcULJNH1ohdCo1BP1Nav6XLQI/pH
-	PMGjK/1/ZK6688iA9Q6jLsh2QkKqza2Mqm/YlZi63SMPFMf5UmDZc5QM
-X-Gm-Gg: AYBFou3L9/dhjniE+R4DfuFGn0KcuUtOykutRzXMo78+UPBFhM/xnkNRhb7mvKw9yRx
-	62WbKLrEpbuZyXawdXs5cUukxhlWBF50CZEnEryUPlPy9KuM4glx3+Zvve2H8vugEQm7GekTtjM
-	I5ey7mIZ0br4zSWgHpcoHuw8M1Ixzykx7or/FQ5E5FuFfSh37hju8Ja0JgLFqtT+0Nq5BI1ddo3
-	MmrqmlawrVjVKnDVgKmHiAsf1Do2OqrX4xZ7qLkWYnIvhllJrHJWRLPtUsxpIpv+CfmH3OiSdhm
-	9DfzUyzx3FIjtgmwe9Np01fn8vSRr+L2eYlXTA252FTx1TMC8Ymp4HPZUMpDXlTGLpqxtSezzc/
-	+AHUWg+KWILOoV+f4okRfo/XQsau3IBJWBdG6IdD02jcMmLdwAOaxtBATILQuSAygGwz84ySypy
-	qudwljCHAORaWOQ2FHdwiM4eXUG6hHO9ov1HfJB6Ezy7SsXrLq5Yd/d8FBS1IjPPDPkzO4+qaid
-	ptMfOhez3NBDUyFvrBno5+LdFTuU+qLjbiTfhLTZbHc0Lovyo/Rby5HNh5/GDZCjX58u1eveFXy
-	eTcPYpiYdPlF6asOC9hYMT2zCOSjRJozOG5rgP6JMZf9rAD5mJaTqJpd5IJbMa9mdia5c+r1zQC
-	qRAOBjJ1c7O8bqTvRBzN4NU2HSw==
-X-Received: by 2002:a05:7023:88b:b0:16b:4f52:a08 with SMTP id a92af1059eb24-1b502fe08aemr8181038c88.0.1794644424293;
-        Sat, 14 Nov 2026 00:20:24 -0800 (PST)
+        bh=SqXDyJrLwFkhi21RssicBQAdX6l60Qls8EPKvWmfnzg=;
+        b=OhsHwDctsui8SfgxQeO7fC8WUblvjJqKKTFnTnFN/lOQGbrYHXiyeStOqGpcLAtVIp
+         JHrH8E4WSlE9gfn8QkSX4Zjxs96v+RW9duU6XIfVdwtK9wRv3r8bOGdBt4NkfQumncoA
+         rwhUaUKbnDCyf0PpcJDJTgLxEutY777peD1wee66IwOYXxeBZphnmr2BZA7kU6kyEwZs
+         2wLrxZIEuIEHNiyZG07gNALCAAG7hfHejeF4bc0o0FHEsKYMpA+G5XEZGNKySk7hjjFo
+         wMKXAZcHk+6TnjZLPg+sUeiJKMTa6Au+TQ88/ajwDXu0dVP64yyPPqeFSWoSUnJNIu7X
+         IkVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794644428; x=1795249228;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SqXDyJrLwFkhi21RssicBQAdX6l60Qls8EPKvWmfnzg=;
+        b=OoaFUDf0YRemb9KWsUuOjXNwHa9ngJc+zjZ4YigV3cnCBLlKsi+0lOpasYlkApEup5
+         7oWqLetiVkqSw4Kw+m76aNpk/Mgj/Aq1miiMSFU5/YZJTIH2E9YeKJZGNmdJ4xwPwTVr
+         kYOaqq8sd5b5HOjrf598p4O22Xm9rpbpc+AMHUxghzvn55wCLWVOnKYgnRNlfxoobqQF
+         tENUXwcii8vfyD4AlSlla9AC+Tpzw59ux9ce0QR9rxIH4YNL2baUmcsW2QFJEfUJIw7+
+         uAs88Zsv8yseQwX7D6DTIY77SSoA7p2X6Dhics9SJMKkWChNDWndJnlEV/gY1wIOkdaN
+         P4AQ==
+X-Forwarded-Encrypted: i=1; AL+hErFitFrtjLyMl7PFK+gemM60bv5Y3WqOC14uZ4a70bhpBPDaf2b9jXqRjtUGgaWKEjXauMU4vCPLCYhYKZE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ATeFHEku0/08Hxd7kXq3PSnz87JKW60bfkGXN+/ojOKxq8nYo
+	9IOv8Wx/48ykQgiOI/8ei+5Sz9gQ2WSo29TkwD2SOjh3VM7QF/a+wc5L
+X-Gm-Gg: AYBFou2Abez1SgICK//r5bZIqJ7r2v/eqOOCahkHesRvvht2EocaWJmgSKj3OYtjiuK
+	QbL61H7ppEkal4LPc9mqroNS4bFjCTBpaZPBmq2eb1NxM3lx6We2iL8jbL7SYyInWLQYTQGte6+
+	T0PCnecJ0AEViwJ5qhJESXLKJtGo62sFPwX7kGfKjwv2zk+Pjg09esUv+PCmKxR1rQu2B1pq4Bd
+	UMa5NP/Z5q1fmDV9/fZDeBTjEJ90+OYl86UG0Z7eHPHdOVY8Bvtp8Oqxs/3301uGLiUgmFl9CtN
+	Si4rWDXKIjIiGsMrAjQ0lMWOzvuIUH5Jg9nuf07SU2wVw7ps/9/kSse1GE+Bs9l6VxKshwsy2SC
+	aFSAM8ddLfoz3rw8csrEnBI9PDqWAhL0YDtalcE7ypyK1rP0Vk/jk14HZic/XL3I7qCvPM+zsaX
+	51yLJ4m39aQKu3x2eqArp8q7Rf+X9uzUj5qU2bXQH3yig6yRNNwPc5uMVrJFRtYBkCVNpfKOxgs
+	sbvZ8DjkSMfCcV2B1yJKaEVYJ2AD/irvm0zbkoD5+V4SG6XaHJl4GCONuRbCSb/MMV03PBUGJnO
+	GnFnIiIARFKu+Aoj7ypkxjJ5tvkSBr8zWBemLKS/Le/0df5LmWWe+tb6x6Q/yvAtOvMagpkX7FB
+	ATXI=
+X-Received: by 2002:a05:701b:290a:b0:127:def:dd72 with SMTP id a92af1059eb24-1b5030f8a7dmr6472366c88.2.1794644428430;
+        Sat, 14 Nov 2026 00:20:28 -0800 (PST)
 Received: from DESKTOP-CJ1L666.localdomain ([211.198.99.62])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031918c7sm19524043c88.9.2026.11.14.00.20.20
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031918c7sm19524043c88.9.2026.11.14.00.20.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 00:20:23 -0800 (PST)
+        Sat, 14 Nov 2026 00:20:27 -0800 (PST)
 From: Jiwoo Kim <arpe1618@gmail.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>,
 	Rob Herring <robh@kernel.org>,
@@ -92,10 +93,12 @@ Cc: Danilo Krummrich <dakr@kernel.org>,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v2 0/4] drm/panfrost: Fix jobs that outlive their JM context
-Date: Sat, 14 Nov 2026 17:20:12 +0900
-Message-ID: <20261114082016.2454-1-arpe1618@gmail.com>
+Subject: [PATCH v2 1/4] drm/panfrost: Hold a reference to the MMU context of a job
+Date: Sat, 14 Nov 2026 17:20:13 +0900
+Message-ID: <20261114082016.2454-2-arpe1618@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261114082016.2454-1-arpe1618@gmail.com>
+References: <20261114082016.2454-1-arpe1618@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,37 +110,58 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-These fix how jobs are handled when their JM context is destroyed,
-explicitly or because the file is closed, and the error path of JM
-context creation.
+A job stores the MMU context of its file in job->mmu without taking a
+reference to it. Once the file is closed, the context is only kept
+alive by the BO mappings that still reference it, and a job may be
+submitted with no BOs at all.
 
-Patch 1 makes a job hold a reference to its MMU context. Patch 2 makes
-panfrost_jm_ctx_destroy() find the jobs of the context again: it looks
-them up by job->base.entity, which the scheduler clears when it pops a
-job. Patch 3 stops a job that is queued after its context was
-destroyed. Patch 4 keeps panfrost_jm_ctx_create() from destroying
-entities that it never initialized when it fails.
+When the file is closed while such a job is still running,
+panfrost_jm_close() does not wait for the job, and panfrost_postclose()
+then drops the file's reference to the context, which frees it unless
+BO mappings of other jobs still hold it. The job interrupt handling
+that follows calls panfrost_mmu_as_put() on the freed job->mmu, and
+panfrost_core_dump() also reads job->mmu if the job times out.
 
-Changes in v2:
-- New patch 2, and new patch 4 for a related issue, both reported by
-  Sashiko on v1.
-- Patches 1 and 3: changelogs updated, as panfrost_jm_ctx_destroy() did
-  not actually stop any job before patch 2.
+Take a reference to the MMU context when the job is created and drop
+it when the job is cleaned up.
 
-v1: https://lore.kernel.org/r/20261114062637.2447-1-arpe1618@gmail.com
+This was found with an AI coding assistant, which also drafted this
+patch and its changelog. It has not been reproduced, and the change
+has only been compile-tested.
 
-Jiwoo Kim (4):
-  drm/panfrost: Hold a reference to the MMU context of a job
-  drm/panfrost: Find the jobs of a destroyed JM context by their context
-  drm/panfrost: Stop a job queued after its JM context was destroyed
-  drm/panfrost: Don't destroy uninitialized entities of a new JM context
+Fixes: 6e516faf0431 ("drm/panfrost: Job should reference MMU not file_priv")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiwoo Kim <arpe1618@gmail.com>
+---
+ drivers/gpu/drm/panfrost/panfrost_drv.c | 2 +-
+ drivers/gpu/drm/panfrost/panfrost_job.c | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
- drivers/gpu/drm/panfrost/panfrost_drv.c |  2 +-
- drivers/gpu/drm/panfrost/panfrost_job.c | 91 +++++++++++++++++--------
- 2 files changed, 62 insertions(+), 31 deletions(-)
-
-
-base-commit: d48ea86919434695da12d280dccab72b094397e1
+diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+index 7c348a0bf1ee..afda794e2aeb 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_drv.c
++++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+@@ -331,7 +331,7 @@ static int panfrost_ioctl_submit(struct drm_device *dev, void *data,
+ 	job->jc = args->jc;
+ 	job->requirements = args->requirements;
+ 	job->flush_id = panfrost_gpu_get_latest_flush_id(pfdev);
+-	job->mmu = file_priv->mmu;
++	job->mmu = panfrost_mmu_ctx_get(file_priv->mmu);
+ 	job->ctx = panfrost_jm_ctx_get(jm_ctx);
+ 	job->engine_usage = &file_priv->engine_usage;
+ 
+diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
+index 4ddf4b722ddf..7022b1b2e020 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_job.c
++++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+@@ -377,6 +377,7 @@ static void panfrost_job_cleanup(struct kref *ref)
+ 		kvfree(job->bos);
+ 	}
+ 
++	panfrost_mmu_ctx_put(job->mmu);
+ 	panfrost_jm_ctx_put(job->ctx);
+ 	kfree(job);
+ }
 -- 
 2.43.0
 
