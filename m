@@ -1,53 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794635224;
-	b=KUwj+KMZAD1FwW8d6q1Y0moK/dDbURF29xh7lK1FhyGyudpmwnzSFbP8Qud2yDjDQFrf
-	 Ik8zSYhP5bumGDS5zDBV6hjVUNyWRLOxnj/nEKOEWgPQc6yyq9ow9Gu91yAkzjCRkx7Kf
-	 YCEXaiInAgGlU1FaS05E2ofRpm2G/LXhnkLdilInfKQBBAuqdt40035MHQaz+xh4Li3Qq
-	 VpKPotMMmb3IFhi9sPjSFbfkX72ciF0gvHvhqzw4Dpjrr2kg2N4tDVYvLKedahKbqWCqj
-	 /Iucjw9Es+l6vqYKQYt7TWWpbk5a0OP0IuNktNonoXTOenunzsXPYlff5YNo3MoCSFg==
+	t=1794635302;
+	b=el2e86OVSVffwVl7r7ypesxbJVHwiv+SsxNO2pe5bTiRVz5a64HX35YCaq3LanTY1dNI
+	 PUGF9qX7zmXiXLe7sdAWCePzF3BEUUriipYLJgzQzF/xMTKHBARJddkDu+cg8iju6xoa+
+	 Un17HliAncIYga1BE3BNWWkusH1GtmocynzQvzgG+edJ1k6Q1QsT2y8NE9G3gXiX50NKb
+	 tGANOEmXydixv9AF29/j8y0Ji/zLFUAxQE843F+MJnDb6jvJhoL6mSjYJasMmb9KRtivH
+	 ke1aJpyb2ewfj2nydTqO11SykScgXNsMjYYgSt/1nrfiEwFIw52yZUyGZXcgyOq+Usg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794635224;
-	h=Received:DKIM-Signature:Received:X-Gm-Message-State:X-Received:
-	 MIME-Version:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=XFzvZgIEep3ESf+0yHAHjZPGOLvnbYltmbPqObm7Juo=;
-	b=wgFaxS5bMh0CbfFDX+Y8GHJu+9VkCIpvKWn1yftDupbbSQxkIQBQh+bliB8dOLHvf5ip
-	 NbnGchnJC+yp/6V+A04sNwhKvZSTQcKKSd+gFf/x+pvreFlgmznXz9GX43ExXNxSwq3r8
-	 k2jhw1fK3U+AuW0RotQq6s8+zKuEwTmQiwP3sSX3xfzQm2THY4rBIgc+F2YpOa7HSv84B
-	 DFQEQQpEi2fW7hdO6BzI7SjsxilmDLFtKkTWnTCl7JjzxgGcN8eTZvf2q/Coaeh7+AGiG
-	 1BwLCZWz9cmmjR+vF15MLMPaIBPtbRbrZj5oR28D3h648bfy1KwfLNuJ09z7q0VPvaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794635302;
+	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-INFO:X-CID-META:
+	 X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=g1JziK7ad7JakdJUGDOUwA3/eXHhGnc7ibWdPj1NA5o=;
+	b=w0D3WVHySIkou5z/FU7CfCu/iidV18QNdx1PVlUqatIAJuVUYOjdkSM5yaA+lvaCQPWU
+	 9qylTR5WdWHhkksUwZ5LEUb2tOrFBR1oRdQ3CxFxmFtLbJF6DtzUsS1a8FXg6PAXdedLT
+	 i2y8zI5bdRViT90JRLQyFv4OPIOxyvvmFN4/rJZpMCZ2Zhq1b7vI8ZJUsE48jpx7y2Rzx
+	 ZEhBCLqYigHLhdM8THILbaTZtiy/+GJ5rBFHLmFEUW4Pwir7/8DsCi5YT9Fn7GtcuQVRE
+	 dxTKAg05eCPeeUXXxrIFGmR6hkdAHuBlLc+ZZFpdVgxnlin6Rms9ZCiQ8KCzi5QcwbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="fCIa8S/x";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73AB5606A327
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 05:47:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fCIa8S/x
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 501DE1F000C6
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 05:47:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794635224;
-	bh=XFzvZgIEep3ESf+0yHAHjZPGOLvnbYltmbPqObm7Juo=;
-	h=From:Date:Subject:To:Cc;
-	b=fCIa8S/xBvq09qkPhnL7NZLUIDyWTfBuFjJrXbSMcWVYG/uU40q8V6VsiJDcciR9h
-	 uPilucZn4Yk+7VxCWomEl9Eaudp91fWj/K3FeVznqLEYqxQ3mam6Lt8RJWQw7q9thL
-	 DYT1N/rmrSQ6uEy5VLONNOxa0wREuqL2pLojj/6YSIhGZWir8ymASjCmFXbuQoxxzh
-	 WzP3i5o7XtxxkbCGehb3oT8Bw9NspXriQ/WxFCm+gZJW5mMrs7bnhU8ptiFx5vskhN
-	 pOCHQ+qZAN4/JWKM4CdPXHctk2RVN0XjowVs/z5mrvvdIvX7W7aZGLNVLJ3HXiBG/V
-	 AkFd7qFozAcig==
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c50aaad19fbso97102566b.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:47:04 -0800 (PST)
-X-Gm-Message-State: APuU4Z/7nyIx/9Jt0b6hmiek0Gi2b/U/ALApDE1Hquy2yBPxIV3viuSc
-	eVNuIKgJPMqr8a//P9/Rpxg6Bft9e69VdmJ23e15VhEc8nGv+CYXZjFFbt2Y0C/GdGQc2k80Iub
-	bs66u0eKvsmA9ciyZjHVjKHDq7CKvvFQ=
-X-Received: by 2002:a17:906:c151:b0:c42:102f:15d3 with SMTP id
- a640c23a62f3a-c5096541a80mr378746566b.34.1794635222842; Fri, 13 Nov 2026
- 21:47:02 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B1F9606A323;
+	Sat, 14 Nov 2026 05:48:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B1F9606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: f8d7ab08dfee11f19a56ed5b684f684d-20261114
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:099a3f3b-6a9c-44de-9035-2448c1010fe7,IP:10,
+	URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:10
+X-CID-INFO: VERSION:1.3.19,REQID:099a3f3b-6a9c-44de-9035-2448c1010fe7,IP:10,UR
+	L:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
+	elease,TS:10
+X-CID-META: VersionHash:7db8b62,CLOUDID:33db5c30de269d32af48f6cebb00f1d9,BulkI
+	D:261113175444ZD0JE9K2,BulkQuantity:4,SF:17|19|64|66|78|80|81|82|83|102|12
+	7|136|153|841|865|898,TC:nil,Content:0|15|50|99|100|101|118,EDM:-3|-100,IP
+	:-2,URL:0,File:nil,RT:nil,Bulk:40,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LE
+	S:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_FSD,TF_CID_SPAM_SNR,TF_CID_SPAM_FAS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: f8d7ab08dfee11f19a56ed5b684f684d-20261114
+X-User: lienze@kylinos.cn
+Received: from [192.168.3.106] [(111.193.136.161)] by mailgw.kylinos.cn
+	(envelope-from <lienze@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
+	with ESMTP id 196277102; Sat, 14 Nov 2026 13:48:09 +0800
+Message-ID: <223604f3-2938-49cf-b5a1-7403444e2f3e@kylinos.cn>
+Date: Sat, 14 Nov 2026 13:48:06 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,74 +66,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Sat, 14 Nov 2026 14:46:51 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd-4O90M9tdUv6LgoJc3CBmrLZnwhaLFvBkgbFpouJso0Q@mail.gmail.com>
-X-Gm-Features: AclHuK9dH6WUicWRknYhe9QWDOvMiFa1zWa3vFtoh-cGOAXFzoYVuA3C2sAJkYs
-Message-ID: <CAKYAXd-4O90M9tdUv6LgoJc3CBmrLZnwhaLFvBkgbFpouJso0Q@mail.gmail.com>
-Subject: [GIT PULL] ntfs fixes for 7.4-rc3
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Hyunchul Lee <hyc.lee@gmail.com>, 
-	"open list:NTFS FILESYSTEM" <ntfs@lists.linux.dev>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/4] Docs/mm/damon/design: update for
+ DAMON_FILTER_TYPE_ACTIVE
+To: SJ Park <sj@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>,
+ Shuah Khan <skhan@linuxfoundation.org>, damon@lists.linux.dev,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org
+References: <20261113144314.97829-1-sj@kernel.org>
+Content-Language: en-US
+From: Enze Li <lienze@kylinos.cn>
+In-Reply-To: <20261113144314.97829-1-sj@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Linus,
+On 2026/11/13 22:43, SJ Park wrote:
+> On Fri, 13 Nov 2026 17:54:37 +0800 Enze Li <lienze@kylinos.cn> wrote:
+> 
+>> Hi SJ,
+>>
+>> On 11/13/26 1:17 PM, SJ Park wrote:
+>>> Update DAMON design document for the newly added LRU-activeness DAMON
+>>> filter type.
+>>>
+>>> Signed-off-by: SJ Park <sj@kernel.org>
+>>> ---
+>>>  Documentation/mm/damon/design.rst | 1 +
+>>>  1 file changed, 1 insertion(+)
+>>>
+>>> diff --git a/Documentation/mm/damon/design.rst b/Documentation/mm/damon/design.rst
+>>> index 8440c4954090e..b676be6971589 100644
+>>> --- a/Documentation/mm/damon/design.rst
+>>> +++ b/Documentation/mm/damon/design.rst
+>>> @@ -302,6 +302,7 @@ filter types.  Currently below filter types are supported.
+>>>  - ``pgidle_set``: Matches if the page for the memory is marked as access-idle.
+>>>  - ``hugepage_size``: Matches if the page for the memory is a part of a hugepage
+>>>    of a given size range.
+>>> +- ``active``: Same to that for DAMOS filters.
+>>
+>> This reads a bit awkward to me.  How about:
+>>
+>>   "Same as that for DAMOS filters."
+>>
+>> The ``anon`` and ``memcg`` entries above use the same wording, so
+>> it would be nice to fix those at the same time.
+>>
+>> WDYT?
+> 
+> Makes sense to me, thank you for sharing the finding, Enze!  I also find more
+> "same to" usages in the doc.  Would you like to send a patch for fixing those
+> at once?
 
-This is ntfs fixes pull request for v7.4-rc3. I add the description of
-this pull request below. Please pull the following ntfs fixes.
+Sure, I'd be happy to.  I'll send a follow-up patch fixing all six
+"same to" usages in design.rst, on top of mm-new.
 
-Thanks!
+Best regards,
+Enze
 
-The following changes since commit fa4ad798f6f681031775266044ba1b0cf3c670bd:
+<...>
 
-  Merge tag 'for-7.4-rc1-tag' of
-git://git.kernel.org/pub/scm/linux/kernel/git/kdave/linux (2026-11-07
-13:52:02 -0800)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/linkinjeon/ntfs.git
-tags/ntfs-for-7.4-rc3
-
-for you to fetch changes up to bada7bbb11aaa6feba8904cf38ff833453f5b5d9:
-
-  ntfs: open the index allocation before reading or writing an index
-block (2026-11-08 12:43:07 +0900)
-
-----------------------------------------------------------------
-- Validate that $INDEX_ALLOCATION is open and non-resident before reading
-  or writing index blocks, preventing NULL pointer dereferences when an
-  earlier index operation has not opened it.
-
-- Check that index allocation inodes are non-resident and child VCNs are
-  non-negative and within bounds before directory lookup reads, preventing
-  a deadlock when $INDEX_ALLOCATION is missing or damaged.
-
-- Validate file names against the index entry's key length, preventing
-  out-of-bounds reads when directory enumeration resumes using a copied
-  key.
-
-- Return -ENOENT for NTFS_IOC_LIST_STREAMS on deleted base files and fix
-  unsigned underflow in its buffer bounds check, preventing out-of-bounds
-  writes when the sizing and filling passes disagree.
-
-- Use kfree() for the temporary runlist allocated with kmalloc() on merge
-  failure, resolving the Coccinelle allocation/free mismatch warning.
-
-----------------------------------------------------------------
-Namjae Jeon (1):
-      ntfs: silence kmalloc/kvfree mismatch warning
-
-Wahid Khan (3):
-      ntfs: check the file name against the key length of an index entry
-      ntfs: do not read an index block outside $INDEX_ALLOCATION
-      ntfs: open the index allocation before reading or writing an index block
-
-Xingyuan Mo (1):
-      ntfs: fix out-of-bounds write race in NTFS_IOC_LIST_STREAMS
-
- fs/ntfs/dir.c          | 14 ++++++++++++++
- fs/ntfs/index.c        | 30 +++++++++++++++++++++++++++---
- fs/ntfs/iomap.c        |  2 +-
- fs/ntfs/named_stream.c |  6 +++++-
- 4 files changed, 47 insertions(+), 5 deletions(-)
