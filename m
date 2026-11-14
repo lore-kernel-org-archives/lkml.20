@@ -1,65 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794667429;
-	b=jMxnFdPGOIQVgaAPbUDADeF8jFHrSJXxAD5x1cJ1aULT8UQlZtORumAfFCda1yyKqZmH
-	 y5ied44UDz0X2DsfWk3DVdJ6Fl7+lla/GStRcYX5zAn97NPqwfU86015LD2MtPMZKqhhi
-	 nXiSLoMaAGzPBPxGutg+tagbTjvKbs1m1dzqL7U1/ksGQt5Mf0KP15XelWmP0vqD9/Qm2
-	 onSemUhJbclFW4oXzZWB+sgZXHAwD4PAUdPXxcq/pJmkKqq184L/6+h/fsKQaHvwwGnZz
-	 xoxbEzCsNg1msot1m4pC6yFwIW0wcAeca2UckcJQjkLwnRwkujw8IKn9JRoz+JgF/vw==
+	t=1794667471;
+	b=oz9I16pd+4KNLFgTFILwxkHuJVaXUAj6FEno8t1DSyps47YDNCGHfvioqBIB7AK0kT/9
+	 nBJ9+Ue5CXnMNWvUGUUmkduURoqD/XpycwctZhaKX9sfSwfn9P19NNYOxhIhaF+o/shbp
+	 YPSJB3cgJpTh9uYMqndw8TP1/MQ5p/K2PXHvEwte1ehC/Ow+iFaBe80V0NYeIFulpquZT
+	 PvfVAXD2haQW4giqgtIPHrVa6kkbb30b1yX7+HRNGT3ry3eWH87n3NunzY57vJ0+9AGbp
+	 imv3c84VfED0FOrznaGOdoK79/HojSkgsmGTcBpIH97XztRIU0MXz67aBCcFuDlUmJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794667429;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794667471;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
+	 References:Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=cQfy721NNRPf+g5PYMlJDCkNFHuywBK8RJ9ovzc/M4g=;
-	b=CEKpFwwdQGQ8xoK+RXI8dukmoRc1c0dF27zRtGOhRCUDl/Q3iB87mm7Q7cN+/PNW0d5J
-	 OPegi8BNWPzLGzyDT8PEr+xtEXU3Blp6ApS0HxpmRASV/js6qN/7NSyGU+drjSI+n/m5b
-	 cv4UsoRyCPmJLFXtuFkwuZLIJ2NpziwvgmCb7oUtKxWwV8x60yxxLzH1k2FQfuVDonjN9
-	 Nxfe6PuYdP3zNRVI0qrTFWbuFcaESQuPODMOd87e32QdqAhVdMP0/XVpF/YmjuWT2auPM
-	 rKL2w3+/uU8MbvRjnb8cUlCyg+/Qthw9xgsmBqX6fGkUtyoaQ32IQqYHgYicJHHL3NA==
+	bh=OP0vgetmo06fw+6Ku1MloBTkuCbq87Y5ewowZhc30e0=;
+	b=uLUC6BgG0ohswUwDRSuT7SYKnVPiuLiXkHMx513A7D30w4h4QY5gqb19rKoX/b3MB/aA
+	 pVfplGPt16IJ6YIdb0tUNzKe3OwjZgLjjP6Da9w2ov/oItkGSB1wf+IgYk55y/Pl/MFKJ
+	 bY44sTXjNuZMs6FZ4R/knqYJDr1pwCuefelgpCXTfUf3/IM8/chdfnVd/s40A5BaAxLVd
+	 nE1bwMR89CJYFlQ0VxZha27Vd8GcLfQfbqYEHcqzMuaNCH3f3dwNKQWOlmM3SCw8QqaqD
+	 +r/6APpyP+GyeFMYGz4DIafzubJJUUEYxmNMV52awKL4B2thZHS7Rybg8EdpagM+z9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gh7SvrVi;
-	arc=none smtp.remote-ip=95.215.58.4
-Received: from mta1.migadu.com (out-4.mta1.migadu.com [95.215.58.4])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=U54Hy3eC;
+	arc=none smtp.remote-ip=91.218.175.89
+Received: from mta0.migadu.com (out-89.mta0.migadu.com [91.218.175.89])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2DE6606A330
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 14:43:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2DE6606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87BAB606A327
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 14:44:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87BAB606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gh7SvrVi
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=U54Hy3eC
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=nVJDnAuiRTm3tfpghP9IJ2QoHn4bNdNRote40uYVmok=;
+DKIM-Signature: a=rsa-sha256; bh=OP0vgetmo06fw+6Ku1MloBTkuCbq87Y5ewowZhc30e0=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794667425; v=1; x=1795272225;
- b=gh7SvrViVdvLo74BP+WLY44sj9oq8ojTkBek32BlanZAyuqbnr8Zro64mEKQTMyA3o2qcPkG
- 4NXHVu7hOnWH86hwLcrl9uK5IFGBPLpkSKDp1jHy3mLaqB3aQy8H08qme4eV7zdplwyWGvSkWke
- q+JSSzMe3SUkZX3pr4nOYNmQ=
+ t=1794667467; v=1; x=1795272267;
+ b=U54Hy3eC9ZstXijv4wLZYjyF/Zt7ElV4nKZ3LF7Z2r+KJyjo6lCS+AzzxrwLXt84HBl/hz2n
+ KJOqdnH4cUYNoo3EBCtgEc/WfODge0bs8X5AZe2hI0Az3o6Ko27ahYUZMdeNkVmzegXCx9LJtTH
+ +PQIj8s26VJ4fwyCM7aY1J8Q=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id d35b197d40729a00;
-	Sat, 14 Nov 2026 14:43:45 +0000
-X-Mizu-Trace-ID: d35b197d40729a00
+Received: by smtp.migadu.com with ESMTPS id c9a3662b80fe0a15;
+	Sat, 14 Nov 2026 14:44:27 +0000
+X-Mizu-Trace-ID: c9a3662b80fe0a15
 X-Migadu-Flow: FLOW_OUT
-From: "Xu Xin (vivo)" <xu.xin@linux.dev>
-To: david@kernel.org
-Cc: chengming.zhou@linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	ljs@kernel.org,
-	xu.xin@linux.dev
-Subject: Re: [PATCH 2/2] mm/ksm: add initialization helpers for scan_get_next_rmap_item()
-Date: Sat, 14 Nov 2026 22:43:38 +0800
-Message-Id: <20261114144338.644122-1-xu.xin@linux.dev>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <00521fb1-121d-4aef-9278-fb6b36755291@kernel.org>
-References: <00521fb1-121d-4aef-9278-fb6b36755291@kernel.org>
+Date: Sat, 14 Nov 2026 14:44:24 +0000
+From: Bradley Morgan <bradley.morgan@linux.dev>
+To: Serge Hallyn <serge@hallyn.com>
+CC: Christian Brauner <brauner@kernel.org>,
+ =?ISO-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ Josef Bacik <josef@toxicpanda.com>, linux-security-module@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_userns=3A_security=3A_Inform_LSMs_?=
+ =?US-ASCII?Q?of_capability_check_during_userns_creation?=
+In-Reply-To: <0c403a09-38cf-4953-a73a-ee57837b3799@hallyn.com>
+References: <20261111205814.3282968-1-bradley.morgan@linux.dev> <aveDlb6PlPSVoLD9@hallyn.com> <4A0D804A-1199-4402-91EE-E37E8D6EA9E7@linux.dev> <0c403a09-38cf-4953-a73a-ee57837b3799@hallyn.com>
+Message-ID: <5862E641-C0F8-45B2-B340-DF4506AC9FAF@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,54 +69,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-> > diff --git a/mm/ksm.c b/mm/ksm.c
-> > index 49977bcf04f7..e79e64372e49 100644
-> > --- a/mm/ksm.c
-> > +++ b/mm/ksm.c
-> > @@ -2640,6 +2640,49 @@ static void ksm_reset_unstable_trees(void)
-> >  		root_unstable_tree[nid] = RB_ROOT;
-> >  }
-> >  
-> > +static bool scan_begin_new_cycle(void)
-> > +{
-> > +	/* Check if the cursor points to the head. */
-> > +	if (ksm_scan.mm_slot != &ksm_mm_head)
-> > +		return false;
-> > +
-> > +	/*
-> > +	 * A number of pages can hang around indefinitely in per-cpu
-> > +	 * LRU cache, raised page count preventing write_protect_page
-> > +	 * from merging them.  Though it doesn't really matter much,
-> > +	 * it is puzzling to see some stuck in pages_volatile until
-> > +	 * other activity jostles them out, and they also prevented
-> > +	 * LTP's KSM test from succeeding deterministically; so drain
-> > +	 * them here (here rather than on entry to ksm_do_scan(),
-> > +	 * so we don't IPI too often when pages_to_scan is set low).
-> > +	 */
-> > +	lru_add_drain_all();
-> > +	return true;
-> > +}
-> > +
-> 
-> Can we just leave the lru_add_drain_all() where it is, or what's the reason for
-> that change?
+On 14 November 2026 14:34:07 GMT, Serge Hallyn <serge@hallyn.com> wrote:
+>Nov 13, 2026 15:54:37 Bradley Morgan <bradley.morgan@linux.dev>:
+>
+>> On 13 November 2026 21:39:33 GMT, "Serge E. Hallyn" <serge@hallyn.com>
+>> wrote:
+>>> On Wed, Nov 11, 2026 at 08:58:14PM +0000, Bradley Morgan wrote:
+>>>> Right now security_capable() gets called in create_user_ns() to
+>snapshot
+>>>> whether the parent could setfcap, but the LSM gets zero context on
+>where
+>>>> the check actually came from. It is the same story as setid: without a
+>>>> dedicated flag, security modules cannot tell this apart from regular
+>>>> capability checks.
+>>>>
+>>>> Add CAP_OPT_USERNS_CREATE and pass it along from create_user_ns().
+>>>
+>>> This should be patch 1/N in a set that introduces a user of it
+>>> in some lsm.
+>>
+>> hmm. Did you read Christians suggestion?
+>
+>I did, when he first sent it. Actually it seems to me that what the lsm
+>would really like to know is that this is not for an immediate use of
+>setfcap, but possible future use. But that doesn't really matter. I wasn't
+>judging the patch. I was just going by what i believe is general lsm
+>subsystem policy.
 
-Sure, There was no special reason for moving lru_add_drain_all()—I just wanted to
-keep low-level details out of the main scan function to make it look cleaner.
-Since it is going to be removed soon anyway, leaving it in place makes total
-sense.
+( my word wrapping client did not like that message :( )
 
-> 
-> Note that that might soon get removed either way, so I wouldn't worry about it.
-> 
-> Then, I would rename the function into something like
-> 
-> "scan_should_start_new_cycle"
-> 
-> And keep it simple.
+hmm, it's pre-reqed over the patch as on the lore link, so Christian may
+want to have a look at this obe
 
-I will rename the helper to scan_should_start_new_cycle(), keep it simple,
-and send out v2 shortly.
+>
+>> Let's see if Christian or anyone
+>> else could suggest a nice little lsm user for this.
+>>
+>> If nobody responds, in coming days, I'll go and find and do a user for
+>it.
+>>
+>>>
+>>>> Suggested-by: Christian Brauner <brauner@kernel.org>
+>>>> Link:
+>>>
+>https://lore.kernel.org/all/20261111-kommt-gischt-ohnedies-469998d2f219@brauner/
+>>>> Signed-off-by: Bradley Morgan <bradley.morgan@linux.dev>
+>>>> ---
+>>>> Thanks Christian for the suggestion :).
+>>>> ---
+>>>> include/linux/security.h | 2 ++
+>>>> kernel/user_namespace.c  | 3 ++-
+>>>> 2 files changed, 4 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/include/linux/security.h b/include/linux/security.h
+>>>> index 40831fab54709..d24666a0b4833 100644
+>>>> --- a/include/linux/security.h
+>>>> +++ b/include/linux/security.h
+>>>> @@ -75,6 +75,8 @@ struct nsset;
+>>>> #define CAP_OPT_NOAUDIT BIT(1)
+>>>> /* If capable is being called by a setid function */
+>>>> #define CAP_OPT_INSETID BIT(2)
+>>>> +/* Is capable being called from the user namespace creation path? */
+>>>> +#define CAP_OPT_USERNS_CREATE BIT(3)
+>>>>
+>>>> /* LSM Agnostic defines for security_sb_set_mnt_opts() flags */
+>>>> #define SECURITY_LSM_NATIVE_LABELS 1
+>>>> diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
+>>>> index 57b7f10be74e1..37480f6d8369f 100644
+>>>> --- a/kernel/user_namespace.c
+>>>> +++ b/kernel/user_namespace.c
+>>>> @@ -134,7 +134,8 @@ int create_user_ns(struct cred *new)
+>>>>      * audit: the creator may never map uid 0.
+>>>>      */
+>>>>     ns->parent_could_setfcap =
+>>>> -       !security_capable(new, parent_ns, CAP_SETFCAP,
+>CAP_OPT_NOAUDIT);
+>>>> +       !security_capable(new, parent_ns, CAP_SETFCAP,
+>>>> +                 CAP_OPT_NOAUDIT | CAP_OPT_USERNS_CREATE);
+>>>>
+>>>>     ret = ns_common_init(ns);
+>>>>     if (ret)
+>>>> --
+>>>> 2.53.0
+>>>
+>>
+>> --- Thanks!
+>
+>
+
+--- Thanks!
