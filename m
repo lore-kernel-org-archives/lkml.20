@@ -1,102 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794641405;
-	b=fidAEiNvY9Cxb84L/FR3x9zzQZFSYQE18F2V0t46Y31HCJzenpPuPBF0uwlk4ugDNia+
-	 GwESV04eUQrVWKjC2iVhUcCD7xFwyNeVx5YoqLOqDLGPaLggjhQUtAHr0r0UmnTFBZEu2
-	 jsWpJW2Xcv/aI9L16FBOVttWAF2w8gf77htpyUEhLtAmFiGA3POsljTQihnr+4vXuy6wQ
-	 YbgxNUnIhj8Xq3pLW34bkQiQJPwOviGzP0v+BBtvzihrviqeMzFEzlOK/ZTtdEBuswJUc
-	 X6Zz7HdB8WR8AC7SsQ3zt198PShR1yl1aHHP/b3HNGC0DrC9rCGZaHbKriz6twIWiOQ==
+	t=1794641428;
+	b=bKuprg9fsAbqmzGRNuv49B1HEVxKys+7Kp2tUsWHL8PXmwKHWqUTSYV78HJKGq+mMPbo
+	 rd8oPoZxgB1Tpzq7cei/lLY2PajWKC2NUb7xoA/NWQiXXEkkcFd5Wa7+bUNatbsKRplfk
+	 V12+E9D55qZuD6eIeXMoAytYve10WrdIYEOp/D9Va8aBsAqldh3pgFU9itDMtXs/BwDWq
+	 pXaSlR5Zu12ZdZwYzY13g4g1HtsGS1QfvBIOU2WQnHXZ2+MbY6USrdmWS8ZDkvFZL+Ba4
+	 dsrD9uwRSo6Seu5A2yqZg4wqSHw5JggGA2ah6Sgy+vRJA9cW+XFzFKPFG553A5CQw/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794641405;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=SOxV9gWxcelbH4hLfP0QpC3+Z3ja0CyXlMq5J4ZxgCw=;
-	b=pCrYSmh8A61j+z3q5bI5hlLCtTSTHuo7dI/zqepjDuNqVgIIt/EbgTUSg84XY/oZ7UfT
-	 CY9OXzuXcn4qK+B73odEVrE6HglqWpJXJFIGz7GNiSjn1v0zEJN3aNswDaKuDQqS4rZoN
-	 QwhIq0o0NzeE2FxEocGm+jfqNg+Fl8GjncnN5V5McXG7XbnlZacOD3FmHDwmeTOJx/PsN
-	 cNPVoTtL9S+NYn8dgqfdqzK6raYMGUxWcR0xRFIpRvQ4SiBX58Mk/JEhnxchlGkjwFJzN
-	 SQmkdPbZcKdHfYlqyUpDX1bEn0SSgX0jx7tJ0CUK9gRxyecJMasoMB/JwQ2TTLE5hFw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794641428;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=RtlrGzw8VmtDYwdiBvn4lTn2fL67N+5GJzUI4/4Jq2o=;
+	b=Wry0Nj1OFHmOCGF5hgj7M+uqCfbjlPeHJVuqJUmAOy4UIvXcxo94+E9f4OnS1RvJ2uPL
+	 tXjpbQJB5KtiuQCoFK7GLpu7K+VyulikqTv/GUfDliKRbs68Oz6cPWD+mVlb7WWIw78Qz
+	 bal/YZbRiHJeAton4+CpPR+o4ItNG9DnmfIDniCRsT/ghPqjbJpqcPmovkXuts69L3KPe
+	 52DjJRZz+0KFgfBKrPtA/kHr5bwze+6kHh6Co5pbdsMj+MHogQR3Fc0THFvEqVl9n1RdP
+	 wA+T5AlUHVbLIDJA6r9pOXDh5kJCdZSUlTlIde7utODSlALJJcalZJA+Jej7q74lbsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=G6wRsCdm;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Autf3p2T;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C020606A329;
-	Sat, 14 Nov 2026 07:30:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C020606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20795606A323;
+	Sat, 14 Nov 2026 07:30:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=G6wRsCdm
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794641405; x=1826177405;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=jtBq9+EiJWNmieGYq6I71zFt7YpP0HRvAchRg22hg6M=;
-  b=G6wRsCdm0KYYgzup0Su8GXgOCtUTQJj1a75LJ5+rbm3ylx3ks1RlBapC
-   xTJKtbPsBe8Z+A566XMplwBEuIlYcw4qZA3CQ5+oWiaSuDY5tlwsLt7MY
-   7GeMmhT7BS7t4X06S6IEg6ad2J1KTm4d9NZ7aqqZZYwMomSUH1YBMI78F
-   Yg0su+Ws+PlT5xwa0eX6BiQgmWrxHs1yCgHVJM7tNiXxwfs7woVzI/ML+
-   NLFM3VR0FOelCVSMlwAzhstrZVCa8X6/qbHiwUogwHoI6Kj3rsU50hpC6
-   fMPq1p3jG5rpt7Lmx9VtZl3k9rwweMYDyl03chY1SNRdGULpBlNwBbCkm
-   A==;
-X-CSE-ConnectionGUID: +ENSf6YCSnu7sco/ziEGCw==
-X-CSE-MsgGUID: b7CtPwN0Q7KMinJPDWtqng==
-X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3303345"
-X-IronPort-AV: E=Sophos;i="6.27,213,1787036400"; 
-   d="scan'208";a="3303345"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 23:30:04 -0800
-X-CSE-ConnectionGUID: TUfNe519Q/CkIvW4UvGnKQ==
-X-CSE-MsgGUID: SXjkN1z4Q2q+4o3j3GnYZQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,213,1787036400"; 
-   d="scan'208";a="11011097"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa013.fm.intel.com with ESMTP; 13 Nov 2026 23:29:56 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xS8Cv-0000000154q-0ykP;
-	Sat, 14 Nov 2026 07:29:53 +0000
-Date: Sat, 14 Nov 2026 15:29:13 +0800
-From: kernel test robot <lkp@intel.com>
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-	Sumit Garg <sumit.garg@oss.qualcomm.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Alex Elder <elder@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Jeff Johnson <jjohnson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	linux-media@vger.kernel.org, netdev@vger.kernel.org,
-	Abel Vesa <abelvesa@kernel.org>, Sean Paul <sean@poorly.run>,
-	Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v2 2/9] remoteproc: qcom_wcnss: migrate to
- qcom_mdt_pas_load() and qcom_pas_prepare_and_auth_reset()
-Message-ID: <202611141531.Yu2Xl6F2-lkp@intel.com>
-References: <20261113185009.157893-3-mukesh.ojha@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Autf3p2T
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E9FE1F000C4;
+	Sat, 14 Nov 2026 07:30:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794641427;
+	bh=RtlrGzw8VmtDYwdiBvn4lTn2fL67N+5GJzUI4/4Jq2o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Autf3p2TMGSLZAPTTzmL0aw0g86IZzBrFMJbM+IcPxPrd+SrNlN+5LX6Tx+RIWFea
+	 6JUHDTHsglYHSFmDwwVVw5b1/lY6MRD2tnVg7qfWJaqtjeeqkGUDeCf+FeoOIePEBT
+	 VK6H+a5/B0+ixtGJTs2prCqtlBLPN5EWTUXU/Os6Lo6dy0fzod674PpRNONBJp4u0S
+	 8rtvGHUjV9t4g6u+eCaTGdcW0jGNElRaSVkFM98iPcXDpk54Z7eZdxoh2sH728ssT4
+	 yxdN5tAWH72MEWT1HCU0IwPQAuXhixXc4iPwqkBWAVbDHAi+eBq3Cbzj8EpCxhac5S
+	 jgzzY4m6tYGxA==
+Date: Sat, 14 Nov 2026 07:30:25 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Sandie Cao <sandie.cao@deepcomputing.io>
+Cc: Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+	Conor Dooley <conor+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05:
+ add USB controller and USB phy support
+Message-ID: <20261114073025-GKA100523@kernel.org>
+References: <20261109033154.361399-1-sandie.cao@deepcomputing.io>
+ <20261109033310.361435-1-sandie.cao@deepcomputing.io>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,64 +63,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261113185009.157893-3-mukesh.ojha@oss.qualcomm.com>
+In-Reply-To: <20261109033310.361435-1-sandie.cao@deepcomputing.io>
 
-Hi Mukesh,
+Hi Sandie,
 
-kernel test robot noticed the following build errors:
+On 11:33 Mon 09 Nov     , Sandie Cao wrote:
+> Add USB device node (b, c, d) to DeepComputing FML13V05 board.
+..
+> USB A works on otg mode, it isn't configured currently.
+Drop it, not really useful to mention there, irrelevant to this patch.
 
-[auto build test ERROR on remoteproc/rproc-next]
-[also build test ERROR on drm-misc/drm-misc-next ath/ath-next linus/master v7.4-rc2 next-20261112]
-[cannot apply to linux-review/Mukesh-Ojha/remoteproc-qcom_wcnss-migrate-to-qcom_mdt_pas_load-and-qcom_pas_prepare_and_auth_reset/20260925-212730]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Mukesh-Ojha/firmware-qcom-pas-add-qcom_pas_context_init-for-pre-allocated-context/20261114-002001
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/remoteproc/linux.git rproc-next
-patch link:    https://lore.kernel.org/r/20261113185009.157893-3-mukesh.ojha%40oss.qualcomm.com
-patch subject: [PATCH v2 2/9] remoteproc: qcom_wcnss: migrate to qcom_mdt_pas_load() and qcom_pas_prepare_and_auth_reset()
-config: arm-defconfig (https://download.01.org/0day-ci/archive/20261114/202611141531.Yu2Xl6F2-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 1b1fed44d3dcca649a9877915d57c3357a98124e)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261114/202611141531.Yu2Xl6F2-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611141531.Yu2Xl6F2-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/remoteproc/qcom_wcnss.c:161:63: error: incompatible integer to pointer conversion passing 'phys_addr_t' (aka 'unsigned int') to parameter of type 'phys_addr_t *' (aka 'unsigned int *'); take the address with & [-Wint-conversion]
-     161 |         ret = qcom_mdt_pas_load(wcnss->pas_ctx, fw, rproc->firmware, wcnss->mem_reloc);
-         |                                                                      ^~~~~~~~~~~~~~~~
-         |                                                                      &
-   include/linux/soc/qcom/mdt_loader.h:24:44: note: passing argument to parameter 'reloc_base' here
-      24 |                       const char *firmware, phys_addr_t *reloc_base);
-         |                                                          ^
-   1 error generated.
+Currently, No USB A port support is merged in mainline code.
+FYI, Chunyan submitted a patch for adding peripheral support of USB A.
+https://lore.kernel.org/all/20261105103125.2727341-1-chunyan.zhang@linux.spacemit.com/
 
 
-vim +161 drivers/remoteproc/qcom_wcnss.c
+> - 4 USB-C Ports
+      ~~~~~ USB Type-C? less confusing
+>      - Port 1: PD 3.0 (65W Max), USB 3.2 Gen 1
+>      - Port 2: PD 3.0 (65W Max), USB 3.2 Gen 1, DP 1.4 (4K@60Hz)
+>      - Port 3 & 4: USB 3.2 Gen 1
 
-   155	
-   156	static int wcnss_load(struct rproc *rproc, const struct firmware *fw)
-   157	{
-   158		struct qcom_wcnss *wcnss = rproc->priv;
-   159		int ret;
-   160	
- > 161		ret = qcom_mdt_pas_load(wcnss->pas_ctx, fw, rproc->firmware, wcnss->mem_reloc);
-   162		if (ret)
-   163			return ret;
-   164	
-   165		qcom_pil_info_store("wcnss", wcnss->mem_phys, wcnss->mem_size);
-   166	
-   167		return 0;
-   168	}
-   169	
+For "Port X" here, is it a naming from FML13V05's schematic?
+would be great to mention which specific USB 3.0 controller (Port B, C, D)
+ of the SoC it connect to..
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> 
+> Signed-off-by: Sandie Cao <sandie.cao@deepcomputing.io>
+> ---
+>  .../spacemit/k3-deepcomputing-fml13v05.dts    | 50 +++++++++++++++++++
+>  1 file changed, 50 insertions(+)
+> 
+> diff --git a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
+> index e061233c15a3..bcd533484a73 100644
+> --- a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
+> +++ b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
+> @@ -172,8 +172,58 @@ dldo7: dldo7 {
+>  	};
+>  };
+>  
+> +&combophy {
+> +	spacemit,apmu = <&syscon_apmu 0x17>;
+> +	status = "okay";
+> +};
+> +
+>  &uart0 {
+>  	pinctrl-names = "default";
+>  	pinctrl-0 = <&uart0_0_cfg>;
+>  	status = "okay";
+>  };
+> +
+> +&usb2_host {
+> +	#address-cells = <1>;
+> +	#size-cells = <0>;
+> +	status = "okay";
+> +
+> +	hub@1 {
+> +		compatible = "usb5e3,608";
+> +		reg = <1>;
+> +	};
+> +};
+> +
+> +&usb2_phy {
+> +	status = "okay";
+> +};
+> +
+> +&usb3b_u2phy {
+> +	status = "okay";
+> +};
+> +
+> +&usb3b {
+> +	phys = <&usb3b_u2phy>, <&combophy 2 PHY_TYPE_USB3>;
+> +	phy-names = "usb2-phy", "usb3-phy";
+> +	status = "okay";
+> +};
+> +
+> +&usb3c_u2phy {
+> +	status = "okay";
+> +};
+> +
+> +&usb3c {
+> +	phys = <&usb3c_u2phy>, <&combophy 3 PHY_TYPE_USB3>;
+> +	phy-names = "usb2-phy", "usb3-phy";
+> +	status = "okay";
+> +};
+> +
+> +&usb3d_u2phy {
+> +	status = "okay";
+> +};
+> +
+> +&usb3d {
+> +	phys = <&usb3d_u2phy>, <&combophy 4 PHY_TYPE_USB3>;
+> +	phy-names = "usb2-phy", "usb3-phy";
+> +	status = "okay";
+> +};
+> -- 
+> 2.43.0
+
+-- 
+Yixun Lan (dlan)
