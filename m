@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794640208;
-	b=lIhhe/hojx5j+DBZOS+OUN7RAu80/DGBHO2Uwu7KJgGqw4j7zX1ES1cUPtK4p+BEbz+p
-	 YjNUT9M3LFTN3pmgAShmRkaTRfoyeSSZVhaKXX9TymGk4A+YEC+HGTRIs3PtUI64VogcT
-	 hHIJZgRQ+71A6QFnn2Ct1zr4Huo1pjbiQWHtVxgGgKgLbFpF9HYqJ30ut2kXmQSUfnSiX
-	 QPCKfgcpAb6Jw6m3xUBJX0MqVCJ86qMi80DAExLhERDNFAOu13URIG2gxziP6tq57F6u1
-	 uxj/9Gu6zyR72LbL/c/RH9sfxpYni6FaCH2NnNnJhN23EJqu8ge+WNYhDvouxV0GNLw==
+	t=1794640212;
+	b=CE2ByumDj1lykNPZltKbKVdih5KniKSTFvi4a+O33HzEfm/NJZvMCamcE61fSKzsYfe5
+	 +VNzNo2T12VF27TIWATUeM0Fe5DbT4/jYWSvQ88ld54nhJoyj4M+2A9p5qMdIiaIGoeBz
+	 Ka3OeUPAuJs9LnNKu04lmt7RF2r7kaI9BYxrIT6NdFBeS8VPnobmWcYrvuGc/DUsNf1LN
+	 ZaQvErFge/7ZjCBqFpEZW5PdFNA7z0XVbkFOdq/N5Uz9EUIiz2zDN3fd8dYL0jf8A7HOV
+	 XKFdGh0Q1hp+ghLh4tknR6FS5hd6OLm8tQjiaLRpMRQi+YSKAVot6Un3NQ4y9pZlyIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794640208;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794640212;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=8m1rh8YCtMa/eK/x1h9nBhdh93CAkPykNk2YYLlQM4w=;
-	b=ToCKjX31l6EXsw4rwJ/hOzaQkaIO81kbO5Cg8wfXdBU0Yqg6HhMxu0nAt7/fXOdwpm7F
-	 zOHZUFkOgprY08kB6Vc0XjIeWM17zvlkqr9pNnTXVX426UR6mgyrP3KCEUa5PLEsThcf+
-	 oNUkCK4M9+JZB0f7hT0eP9Ljcejz5Pow3sdUMeH1t0vwPvpGAIpS9j96n5F7ZnILh04o1
-	 HO7nNDj7zwGCrWVlZwntyocdzE5qrWBQifSfWFes/Ur3yT/Kqsn46d4vMXcRpEKalt3UA
-	 peON14+nfITgMD1b2IbsXOTXsjEJjF7G9o77LYOg6CXTu4nK8gKZP1mVW5B+c+Rrlvw==
+	bh=2lEa1LIQv4RtVFSRolNpT9VAJCtG2n7xXC0f3lXhF2k=;
+	b=eQ9Rq1TZzRVkoCJE2Qb1q1iAqa275WSBaB4X0xRUNEVQS4pf8yIQmOhlLZQbXf8etlYT
+	 5hFVsqLGM+oq4+OYHHzSXmR9YnP6V7GmgUiYgMeLTzUpoKKNMII4QOlGSl3N4TzdP+ZrA
+	 o80Qg6PWpsHxAqnm1IuGiMqh94nxJB8gGhHd9G1u4TkN1iq/iQNzrKi3mbQY27iESId1J
+	 2dFm0Z5oxmSePZlNf8IzdthjikbgCgpRQ0aFORNEp81KrKPpjVpd6nOj6ePzf3rZgibTg
+	 1LCrI9UTn/WKhIUG2dlXhh+nxlcl+f/hU8XM+5VRm4MJKRy85nzlAKbmNVKEA2P0MeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=gourry.net;
 	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=hoob40N4;
-	arc=none smtp.remote-ip=209.85.222.171
-Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com [209.85.222.171])
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=IWvgx5rW;
+	arc=none smtp.remote-ip=209.85.160.174
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5840606A882
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 07:10:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5840606A882
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A3C4606A8BB
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 07:10:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A3C4606A8BB
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=hoob40N4
-Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-93f1e5d7450so262327885a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 23:10:07 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=IWvgx5rW
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-53c4b82919fso37582441cf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 23:10:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1794640207; x=1795245007; darn=vger.kernel.org;
+        d=gourry.net; s=google; t=1794640211; x=1795245011; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8m1rh8YCtMa/eK/x1h9nBhdh93CAkPykNk2YYLlQM4w=;
-        b=hoob40N4CCfTxfMdgC6CFysWnaULLntOcf9b2zCWEP5AR7y1f+WYOGFQXrxSjlDRs9
-         0O09WPsD+TZAe73gRgp4+nuCoy0PbKNfeUT8XBA9E9E1//bFKkOCGLZhW/eUZqlkldgY
-         7h1QJvXNbbWn49jHkYVK+4J5BGlhPBOe3wbPpRu8/Smskm8AI7Cx7iHZRAizXaPe7Jpr
-         YqjyeIeN2YPCaR0ZM6LQFlUPvXj/ekdyJtG7ifkqZ+qqhwHzcjRNVxKF47izKtWdDiTe
-         DxeRBtRv1MhPuSC18fnedwpg1XVkUMVgladnz5HAiA0MSdz92SK/WdDOVEfMderwFx3X
-         d4Ag==
+        bh=2lEa1LIQv4RtVFSRolNpT9VAJCtG2n7xXC0f3lXhF2k=;
+        b=IWvgx5rWVunbET9uLh/WovNpGknlsYV5lIdg4Icagusqh+p85F7dtggmh6aP1UwmQV
+         O2/aAglFxD7dwePct6/pv31xoAaNYfRomEAuU401zt7IcjwAo8LQEvFPQxR9EMYMPQft
+         S4lad0K2TU7KomgQdHOLhS9/yKZFrbtv6COmm5NVaFEIVRVgYjAXW5wlISa8y7n5L8VE
+         MKMgh+cuNWCRaPYSddbegpBEH0OYR0deeb7IaaI2f4zY1FXiKRc3LxCvHdQ6Nl2c052K
+         R4yoz6h/CESEHnu8YdsCbVGOk2uA+AtMsc3EBfNRbjDG2X73OS8szxIRIT1U/IX4MYoJ
+         EjDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794640207; x=1795245007;
+        d=1e100.net; s=20260707; t=1794640211; x=1795245011;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8m1rh8YCtMa/eK/x1h9nBhdh93CAkPykNk2YYLlQM4w=;
-        b=VU5PF+wDKmoYa0L/pmfKMR0so1EvMU9MqPUzFvotEvu68CKtdkBufdmBiXlISXvWXJ
-         E/fqkGpX+NrXGWpbIJAwmQTJTkBfsGCTjtcvGcI+Ajy8pMHIq08EMvUNlcmmOarOPJOH
-         EMmtbIkpD6bMsPkphesxFyPdjFcoNs+4jBpZDfp3iJemy+5M817+20YPMZto7yfhPDAV
-         c8FDq4xWRqYiRJgj8+9gzWGlv4Uwl+STRH+PzaMTuDcBXqgK14QtHLY+e8gPvhx9Hi9b
-         67jB3Ra8Z3URqaig8npL/gjnqydT2AEpXrOF0FiZ5FwKy/sRpmnh01S94N/CtPYHIflK
-         vpYQ==
-X-Gm-Message-State: APuU4Z/wtxoRyhL3UvuLcHkOA4dGYryRh8tWL0e0coEVD+1ohqjZ5xmQ
-	70/ZHjgIVqka/i+noa3w/dmEZAQP539E1Ii5B8wwg8RnVrt3h7GhLPOo+PfMVWv6DXw=
-X-Gm-Gg: AYBFou3dWYnMQtSqHpYkPiOLQgMz6RkPnuGc6jDLDs1hx6FkZDhX3rqirestlih9Jic
-	DjN0J8RWHB/UeAoK33+Ua1eE24gxbUKrkdMPkGWOrIIdLioxoF2/T85rpqDEDn4oTlmqFNFUU1B
-	gecMsW2WGfxLbU3LN4OsGhYGNusTN/agxu+iEzp8THZdLBMIj3EahS+MYbbYwMTmHl/tCYP62hG
-	KkyhVEvuftr9DfhGIcC/HdVPmxArXGFT5XJBMx2yVBHdmqnorqSxGbS9vZ3xeyl2ia5MPOemQkq
-	Y11P7832rIwjzWcJ7J7IxXcx7MbJ95qFmwB9Z0Wb5KRn6znR0VTu5SnIBtZ5ZAT5/PVIFQoDR+y
-	SHLsTtNUPb8Ykk+W2EOwySWWarPttkIHqmGtv+YxQH2W3nNvZpCY3xyDA2vIaAIUIrRP9rtsERq
-	aX9+tR8QXXyUKuNKSIuEt3kecL8BRRo/tyOX2z50ah0vzhcgmVyYD2JdNmkAzrtc7bkWRYWAjW4
-	cbvEgPSEARBy9par7RcYkAM2S/Uujtw6ChOz4ro0afoq/vCvp/LDpgUJsXnSKkwc+pV68X1IHVi
-	Csq/9degrV6aazDorhaUFE5SJ0cVtTDYOGWq8rfApbP4cOZUqpjcU72E3zoFdi2KkzgG24ukwVe
-	6q1kUqpE7/QUXWeg=
-X-Received: by 2002:a05:620a:6606:b0:93a:2d07:142f with SMTP id af79cd13be357-9494b9aec7amr802433485a.7.1794640206954;
-        Fri, 13 Nov 2026 23:10:06 -0800 (PST)
+        bh=2lEa1LIQv4RtVFSRolNpT9VAJCtG2n7xXC0f3lXhF2k=;
+        b=TB86YKbxYoIZ5AH3Y4v8MXBNsGkhyqspCMInx3B/wS2zMHUEo/APXx5ofP7HYDki4l
+         uPlWOiU4+ubtX9msay9v8OKgqEcbH1adfyHrfC//2sdtbg7AbuVIe6n98wRCqq+O9xP3
+         awIKHCv7WFjZz3NrabK7KQeQ3D5vvHbGWbpPIPjosfJDAaFboEPMtETJlxTJdrekFjEX
+         8MFiCYWpyKoQ0OecD+w67cBds4nitKTdlYyRb3HBx0s1REjcN/k9mWAI1obpBrdtbH/Q
+         yozuqspma8+4l03OeHz1yzmqBrsr/fTPKgWNyIeDlefHhfrrqBzCZ80ituPDyZOPpfhp
+         DaFQ==
+X-Gm-Message-State: APuU4Z9r7EOFhjBb62JjHC6M2aMxLDdAcXqrAww5RX/okn/B2MQ7YYeh
+	ZkXhZdIpIEC8kWt3IbRK7lt9Gu0W4Wm5J12/BcsuvNjfi0lZ8Moi4syKobhPOa5R6TQ=
+X-Gm-Gg: AYBFou1sO9hjAVpA6GL8MJpufE9fct5ypCMVHLsLc08/FWKa655hFdvBrhl5SAbNQQs
+	p5Ewfzk0b9XS/H6OZszrk9YEkdyK94M3noxjl0+m93qF8HtRcltg1gtvVdh57vTzCsWx72I7iRD
+	rKBAHwayXluH56/NdJprgU7WR9CwqzrE65NoZPqHUDLhCdv6BZPQ4b34pAxEMkEAaqzPERHk4NJ
+	b68KWCXZDeGixwlGvNFQ+Vdph5VXQ+lqHQWU0IJjTUkL2dC8UelHurZfPbWnGivBfD5cXLmNsmT
+	ggzBuRhpStEeBkGckOMviInoeCTZIdu48d69dEmu9f52+lCLEO6DFoKgiAqxdHYoIXwY+kM5z68
+	+eoonDd0fEP7tgd5QddAP0wDNDTcHdnMNCcxGLOd08HYgQKKaHnvkg72JsTr16pthlipV/CczN1
+	Wr96a2NQGwV6o2Z/IbQmUGwxs6N/ifxZpn/w7SWiM/6fIQtQk5tYhB2CUWJd5YIzXlr1Q1oGuMq
+	458VLQA4z7AAkngfC0tHEKlkR1EsNWJLDiNcY+jpTyv25ucGvMceXjXMDm7HyiyTQ6aLtDbhRsf
+	Jttt73uDVZ46Fk3htpit2cyCTE5jDzMhE81jC2FeK5/qwfXpOpwYxZn4oGzBLQbA62CUKUh2IRB
+	ERreORc8fhwiw8LaP+gC79snh5rmCdpV+bL5c
+X-Received: by 2002:a05:622a:355:b0:535:f9dd:cb9b with SMTP id d75a77b69052e-55ac817ffbemr80325101cf.26.1794640211080;
+        Fri, 13 Nov 2026 23:10:11 -0800 (PST)
 Received: from gourry-fedora-PF4VCD3F (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23db3a99sm37730986d6.40.2026.11.13.23.10.05
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23db3a99sm37730986d6.40.2026.11.13.23.10.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 23:10:06 -0800 (PST)
+        Fri, 13 Nov 2026 23:10:10 -0800 (PST)
 From: "Gregory Price (Meta)" <gourry@gourry.net>
 To: linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org,
@@ -138,9 +138,9 @@ Cc: linux-kernel@vger.kernel.org,
 	byungchul@sk.com,
 	apopple@nvidia.com,
 	rientjes@google.com
-Subject: [PATCH 01/22] mm: add node-state-filtered zone and node iterators
-Date: Sat, 14 Nov 2026 02:09:38 -0500
-Message-ID: <20261114070959.3490008-2-gourry@gourry.net>
+Subject: [PATCH 03/22] mm: introduce the common-memory node state
+Date: Sat, 14 Nov 2026 02:09:40 -0500
+Message-ID: <20261114070959.3490008-4-gourry@gourry.net>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261114070959.3490008-1-gourry@gourry.net>
 References: <20261114070959.3490008-1-gourry@gourry.net>
@@ -155,147 +155,190 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add node-state-filter helper functions/macros so MM walkers can select
-their node eligibility explicitly.
+N_MEMORY is overloaded with two meanings:
+  1) a node has memory.
+  2) a node's memory is reachable via ordinary allocation or
+     an arbitrary MM service may use that memory.
 
-Add nodemask intersection and nodemask/state iterators using the bitmap
-intersection helpers, without allocating a temporary nodemask.
+Allow N_MEMORY to mean #1, and introduce N_MEMORY_COMMON to mean #2.
+
+N_MEMORY_COMMON nodes contain "common memory" capable of being managed
+arbitrarily by the kernel MM based solely on zone membership. Following
+commits convert relevant N_MEMORY users to N_MEMORY_COMMON.
+
+Add folio_is_common_memory() and page_is_common_memory() for MM services
+that walk folios. Following commits convert folio_is_zone_device() and
+page_is_zone_device() callers accordingly.
+
+Expose the state via `has_common_memory` so userspace can identify
+the memory available to ordinary allocations and common MM services.
+
+Add has_memory to the docs while we're here.
+
+Every node with memory is common, so N_MEMORY_COMMON equals N_MEMORY
+and there is no behavioral change.
 
 Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 ---
- include/linux/mmzone.h   | 46 ++++++++++++++++++++++++++++++++++++++++
- include/linux/nodemask.h | 28 ++++++++++++++++++++----
- 2 files changed, 70 insertions(+), 4 deletions(-)
+ Documentation/ABI/stable/sysfs-devices-node | 16 ++++++++++++++++
+ Documentation/mm/physical_memory.rst        |  8 +++++++-
+ drivers/base/node.c                         |  2 ++
+ include/linux/nodemask.h                    |  9 ++++++++-
+ mm/internal.h                               | 15 +++++++++++++++
+ mm/page_alloc.c                             |  3 +++
+ 6 files changed, 51 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
-index c161d563ce8fd..5ff190d870830 100644
---- a/include/linux/mmzone.h
-+++ b/include/linux/mmzone.h
-@@ -1845,6 +1845,13 @@ extern struct zone *next_zone(struct zone *zone);
- 			; /* do nothing */		\
- 		else
+diff --git a/Documentation/ABI/stable/sysfs-devices-node b/Documentation/ABI/stable/sysfs-devices-node
+index 2d0e023f22a71..a93de328f8fe8 100644
+--- a/Documentation/ABI/stable/sysfs-devices-node
++++ b/Documentation/ABI/stable/sysfs-devices-node
+@@ -10,6 +10,15 @@ Contact:	Linux Memory Management list <linux-mm@kvack.org>
+ Description:
+ 		Nodes that are online.
  
-+/* Populated zones on nodes in @state. */
-+#define for_each_populated_zone_state(zone, state)	\
-+	for_each_populated_zone(zone)			\
-+		if (!node_state(zone_to_nid(zone), state))	\
-+			; /* do nothing */		\
-+		else
++What:		/sys/devices/system/node/has_memory
++Date:		December 2012
++Contact:	Linux Memory Management list <linux-mm@kvack.org>
++Description:
++		Nodes that have memory.
 +
- static inline struct zone *zonelist_zone(struct zoneref *zoneref)
- {
- 	return zoneref->zone;
-@@ -1937,6 +1944,45 @@ static inline struct zoneref *first_zones_zonelist(struct zonelist *zonelist,
- 			zone = zonelist_zone(z))
++		This memory may or may not be reachable via standard
++		allocations, see has_common_memory for details.
++
+ What:		/sys/devices/system/node/has_normal_memory
+ Date:		October 2002
+ Contact:	Linux Memory Management list <linux-mm@kvack.org>
+@@ -29,6 +38,13 @@ Description:
+ 		Nodes that have regular or high memory.
+ 		Depends on CONFIG_HIGHMEM.
  
++What:		/sys/devices/system/node/has_common_memory
++Date:		November 2026
++Contact:	Linux Memory Management list <linux-mm@kvack.org>
++Description:
++		Nodes whose memory ordinary allocations may use without
++		requesting the node explicitly.
++
+ What:		/sys/devices/system/node/nodeX
+ Date:		October 2002
+ Contact:	Linux Memory Management list <linux-mm@kvack.org>
+diff --git a/Documentation/mm/physical_memory.rst b/Documentation/mm/physical_memory.rst
+index 2e67e8b23a994..fd5c5d136180f 100644
+--- a/Documentation/mm/physical_memory.rst
++++ b/Documentation/mm/physical_memory.rst
+@@ -168,7 +168,12 @@ nodes with particular properties as defined by ``enum node_states``:
+   The node has regular or high memory. When ``CONFIG_HIGHMEM`` is disabled
+   aliased to ``N_NORMAL_MEMORY``.
+ ``N_MEMORY``
+-  The node has memory(regular, high, movable)
++  The node has online memory (regular, high, movable).  This is a topology and
++  accounting state. Presence in this mask does not mean ordinary allocations
++  can use the node's memory; see ``N_MEMORY_COMMON``.
++``N_MEMORY_COMMON``
++  The node is on the page allocator's fallback zonelists, so an allocation
++  that named no node can be satisfied from it.
+ ``N_CPU``
+   The node has one or more CPUs
+ ``N_GENERIC_INITIATOR``
+@@ -184,6 +189,7 @@ For example, for node 2 with normal memory and CPUs, bit 2 will be set in ::
+   node_states[N_NORMAL_MEMORY]
+   node_states[N_HIGH_MEMORY]
+   node_states[N_MEMORY]
++  node_states[N_MEMORY_COMMON]
+   node_states[N_CPU]
  
-+static inline struct zoneref *
-+next_zones_zonelist_state(struct zoneref *z, enum zone_type highest_zoneidx,
-+			  const nodemask_t *nodes, enum node_states state)
-+{
-+	z = next_zones_zonelist(z, highest_zoneidx, nodes);
-+	while (zonelist_zone(z) && !node_state(zonelist_node_idx(z), state))
-+		z = next_zones_zonelist(++z, highest_zoneidx, nodes);
-+	return z;
-+}
-+
-+static inline struct zoneref *
-+first_zones_zonelist_state(struct zonelist *zonelist,
-+			   enum zone_type highest_zoneidx,
-+			   const nodemask_t *nodes, enum node_states state)
-+{
-+	return next_zones_zonelist_state(zonelist->_zonerefs, highest_zoneidx,
-+					 nodes, state);
-+}
-+
-+/**
-+ * for_each_zone_node_state - iterate zones in intersect(nodemask, node_state(state))
-+ * @zone: The current zone in the iterator
-+ * @z: The current pointer within zonelist->_zonerefs being iterated
-+ * @zlist: The zonelist being iterated
-+ * @highidx: The zone index of the highest zone to return
-+ * @nodemask: Nodemask allowed by the allocator
-+ * @state: The node state the zone's node must be in
-+ *
-+ * The state filter is part of the iteration rather than a trailing if, so that
-+ * this expands to a single for statement: a macro ending in an unbraced if
-+ * silently steals a following else from the caller.
-+ */
-+#define for_each_zone_node_state(zone, z, zlist, highidx, nodemask, state)	\
-+	for (z = first_zones_zonelist_state(zlist, highidx, nodemask, state),	\
-+		zone = zonelist_zone(z);					\
-+		zone;								\
-+		z = next_zones_zonelist_state(++z, highidx, nodemask, state),	\
-+		zone = zonelist_zone(z))
-+
- /**
-  * for_each_zone_zonelist - helper macro to iterate over valid zones in a zonelist at or below a given zone index
-  * @zone: The current zone in the iterator
+ For various operations possible with nodemasks please refer to
+diff --git a/drivers/base/node.c b/drivers/base/node.c
+index dcdc8626627a8..cc6696d1390f3 100644
+--- a/drivers/base/node.c
++++ b/drivers/base/node.c
+@@ -965,6 +965,7 @@ static struct node_attr node_state_attr[] = {
+ 	[N_HIGH_MEMORY] = _NODE_ATTR(has_high_memory, N_HIGH_MEMORY),
+ #endif
+ 	[N_MEMORY] = _NODE_ATTR(has_memory, N_MEMORY),
++	[N_MEMORY_COMMON] = _NODE_ATTR(has_common_memory, N_MEMORY_COMMON),
+ 	[N_CPU] = _NODE_ATTR(has_cpu, N_CPU),
+ 	[N_GENERIC_INITIATOR] = _NODE_ATTR(has_generic_initiator,
+ 					   N_GENERIC_INITIATOR),
+@@ -978,6 +979,7 @@ static struct attribute *node_state_attrs[] = {
+ 	&node_state_attr[N_HIGH_MEMORY].attr.attr,
+ #endif
+ 	&node_state_attr[N_MEMORY].attr.attr,
++	&node_state_attr[N_MEMORY_COMMON].attr.attr,
+ 	&node_state_attr[N_CPU].attr.attr,
+ 	&node_state_attr[N_GENERIC_INITIATOR].attr.attr,
+ 	NULL
 diff --git a/include/linux/nodemask.h b/include/linux/nodemask.h
-index 607373bd83ee6..28a456c3f5964 100644
+index 28a456c3f5964..7ace610bdd654 100644
 --- a/include/linux/nodemask.h
 +++ b/include/linux/nodemask.h
-@@ -386,6 +386,10 @@ static __always_inline void __nodes_fold(nodemask_t *dstp, const nodemask_t *ori
- 	for ((node) = 0; (node) < 1 && !nodes_empty(mask); (node)++)
- #endif /* MAX_NUMNODES */
+@@ -402,7 +402,14 @@ enum node_states {
+ #else
+ 	N_HIGH_MEMORY = N_NORMAL_MEMORY,
+ #endif
+-	N_MEMORY,		/* The node has memory(regular, high, movable) */
++	/*
++	 * N_MEMORY indicates online memory exists on the node - it is used
++	 * to manage per-node meta-data and topology decisions.
++	 * N_MEMORY_COMMON indicates whether the node can satisfy arbitrary
++	 * allocations and whether a service should manage that node's folios.
++	 */
++	N_MEMORY,		/* the node has memory */
++	N_MEMORY_COMMON,	/* common pool (fallback zonelist) */
+ 	N_CPU,		/* The node has one or more cpus */
+ 	N_GENERIC_INITIATOR,	/* The node has one or more Generic Initiators */
+ 	NR_NODE_STATES
+diff --git a/mm/internal.h b/mm/internal.h
+index 608a83c34c224..af6fc27a9fc98 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -65,6 +65,21 @@ void folio_mark_lazyfree(struct folio *folio);
+ void node_set_memory_state(int nid, bool high, bool normal);
+ void node_clear_memory_state(int nid);
  
-+/* Iterate the nodes present in both masks without a temporary nodemask. */
-+#define for_each_node_mask_and(node, mask1, mask2) \
-+	for_each_and_bit(node, nodes_addr(mask1), nodes_addr(mask2), MAX_NUMNODES)
-+
- /*
-  * Bitmasks that are kept for all the nodes.
-  */
-@@ -411,6 +415,10 @@ enum node_states {
- 
- extern nodemask_t node_states[NR_NODE_STATES];
- 
-+/* Iterate the nodes in a mask that also belong to the specified state. */
-+#define for_each_node_mask_state(node, mask, state) \
-+	for_each_node_mask_and(node, mask, node_states[state])
-+
- #if MAX_NUMNODES > 1
- static __always_inline int node_state(int node, enum node_states state)
- {
-@@ -435,15 +443,21 @@ static __always_inline int num_node_state(enum node_states state)
- #define for_each_node_state(__node, __state) \
- 	for_each_node_mask((__node), node_states[__state])
- 
--#define first_online_node	first_node(node_states[N_ONLINE])
--#define first_memory_node	first_node(node_states[N_MEMORY])
-+#define first_node_state(state)	first_node(node_states[state])
-+static __always_inline unsigned int next_node_state(int nid, enum node_states state)
++/*
++ * Common memory is available to generic MM services. ZONE_DEVICE folios do
++ * not qualify even when their NUMA node is common.
++ */
++static inline bool folio_is_common_memory(struct folio *folio)
 +{
-+	return next_node(nid, node_states[state]);
++	return !folio_is_zone_device(folio) &&
++	       node_state(folio_nid(folio), N_MEMORY_COMMON);
 +}
 +
-+#define first_online_node	first_node_state(N_ONLINE)
-+#define first_memory_node	first_node_state(N_MEMORY)
- static __always_inline unsigned int next_online_node(int nid)
- {
--	return next_node(nid, node_states[N_ONLINE]);
-+	return next_node_state(nid, N_ONLINE);
- }
- static __always_inline unsigned int next_memory_node(int nid)
- {
--	return next_node(nid, node_states[N_MEMORY]);
-+	return next_node_state(nid, N_MEMORY);
- }
- 
- static __always_inline void node_set_online(int nid)
-@@ -481,6 +495,12 @@ static __always_inline int num_node_state(enum node_states state)
- #define for_each_node_state(node, __state) \
- 	for ( (node) = 0; (node) == 0; (node) = 1)
- 
-+#define first_node_state(state)	0
-+static __always_inline unsigned int next_node_state(int nid, enum node_states state)
++static inline bool page_is_common_memory(struct page *page)
 +{
-+	return MAX_NUMNODES;
++	return folio_is_common_memory(page_folio(page));
 +}
 +
- #define first_online_node	0
- #define first_memory_node	0
- #define next_online_node(nid)	(MAX_NUMNODES)
+ /* mm/vmscan.c */
+ unsigned long zone_reclaimable_pages(struct zone *zone);
+ unsigned long try_to_free_pages(struct zonelist *zonelist, int order,
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index 834d199ff8429..6ffa972811462 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -203,6 +203,7 @@ nodemask_t node_states[NR_NODE_STATES] __read_mostly = {
+ 	[N_HIGH_MEMORY] = { { [0] = 1UL } },
+ #endif
+ 	[N_MEMORY] = { { [0] = 1UL } },
++	[N_MEMORY_COMMON] = { { [0] = 1UL } },
+ 	[N_CPU] = { { [0] = 1UL } },
+ #endif	/* NUMA */
+ };
+@@ -215,10 +216,12 @@ void __meminit node_set_memory_state(int nid, bool high, bool normal)
+ 		node_set_state(nid, N_HIGH_MEMORY);
+ 	if (normal)
+ 		node_set_state(nid, N_NORMAL_MEMORY);
++	node_set_state(nid, N_MEMORY_COMMON);
+ }
+ 
+ void __meminit node_clear_memory_state(int nid)
+ {
++	node_clear_state(nid, N_MEMORY_COMMON);
+ 	node_clear_state(nid, N_NORMAL_MEMORY);
+ 	node_clear_state(nid, N_MEMORY);
+ }
 -- 
 2.53.1-Meta
 
