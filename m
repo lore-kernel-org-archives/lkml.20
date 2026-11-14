@@ -1,100 +1,46 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794637778;
-	b=Hcf4zdG7F0A5QW0GT/V2RKc6GlWqsTwWVYjKr8U+PioLrLEMrAT0wG9uy34w0JLInK9M
-	 honFByh/ZwjBVL1rqcyxC5DRJzDbGBJMRZme0oe3yePM2BG38BkKoKIszumRTxukZmYpC
-	 tReK6AyabfL9IlVcBSgD77wlcqInE9ec+WX26nQ+qBtUxRJVLJoeUQcC+R0uzRjNlKBhX
-	 SVy9dblt0whxj95cKE6HQ0UEvvBTILsUlHh+VGbofolqt2R4KXiIuX7m8HdIaHMSO/xcg
-	 dK+ZHBxS+NZWPhSrBFjsZr+nYtlPAHz3RwTw1aAMpftGOPHpiqXufkRsF4pMGqXkLvA==
+	t=1794637838;
+	b=EyJY3xon7LJo08E7KS+VIW3EWDnAp2jCYYREf3zhebxsw+PAGBd2zOB7iw7iYhPQ1TsD
+	 OhxNfyaFjcm56SBPKnkTLivvbNakbnstJGfn+iAAVlAG5UQAKqn3rLxDJ5zezf/uR/2RO
+	 KvpdGGgBwnKp/Sp5aZ8JG77A1nWsmJEp7a75PxHl4ZI1tiJe/Vh+znAuJGRMzXKzeT4+f
+	 ewC6fDimk6w7fP4Hcy9dL2S4Dxmou1QOnDRfUIVngYGGijhpzEUit7N3HZ+48ci3YvsYE
+	 yonKXKsnMj5cxBjsa6btJLK6XSaRIL1GoJ07D3LCPAU+iyKnABPL4caR5c+1E/upUGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794637778;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=mlBezjdELFCtMxn9x7yttaCF4buMcCnnIvVu8VTskyY=;
-	b=XC7+ttl8OJZbXP7VQDlSyNVex0G1IXHRg9cYxS/iRF+oW7lWzi5QpCNEJLPg7mK8EroJ
-	 n+mVDTEsPKjtEjZNbGHc+gWI5vkzJT0ucOkFLcy7LmXI3lOBpeNGcKxkb5HaezdguCsYd
-	 o5UDttC9Ea/SX85vcdWlQ3fKQkmPRMu99ksRDl6L8o9jmQ0FIl+VSSq+LBiCIIvx2nV0h
-	 fn45UOGiqw5UthTtAfC8O0gqv2g6+5ovYmdqJS8O+bet76cZTXH+0aM3XfUEQNRYWXtAM
-	 sAHNOldFATVrn5EgM3Hb2mL1bXehLDZZ+NBqawUJJqbiQRL3rB/dGasntRjNm/87uNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794637838;
+	h=Received:DKIM-Signature:Date:To:Cc:From:Message-Id:Subject;
+	bh=JVznsVsPInUpSLMrJJOTjWFvzhy/T2qZG1CdKQlMgyk=;
+	b=hRtG/etZDnkh57KOjRewH4rcHjK+aw4zfh3L9zAFSd9S3r2KTXYzuxT2kkHeKPy2hTtl
+	 kO83rAq6CpQsdw/DT+aWHHcQlq7f4wmpNrt+Lrm0FLjDDL7dg7H4hzwyfpO3bJljgZaZP
+	 FQrq1XSJrLDBCUx7entVNdvReGOgXk/4oizSdl56DTmBw3BUVP8ECyeOs73hIObV3Qezf
+	 /gXmRMW4tkUDVf8mz+ajOWg+vlJ61xvlRTjqJ6pNihubFJ1hsBfoVKtWrAvE2WMWL58v2
+	 Fol8LThf91B89mEuxEJee52xdfrmLllS2VmSe5ECalLCiuUUtA3yUVgN9Dnwpi1rx7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=B8GM62o2;
-	arc=none smtp.remote-ip=209.85.214.177
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=FUDiKINR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22F0E606A883
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:29:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22F0E606A883
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32F0F606A32D
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:30:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=B8GM62o2
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e9eb579c0eso9562345ad.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:29:38 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=FUDiKINR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9981B1F000C4;
+	Sat, 14 Nov 2026 06:30:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794637777; x=1795242577; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mlBezjdELFCtMxn9x7yttaCF4buMcCnnIvVu8VTskyY=;
-        b=B8GM62o2l2x9KWesi/jbdGINqM1XgJ4O01CNaOQviynn3PJ9DLVUaFqwoVBZ80u58b
-         l6neX7qaQioVthR2Adzrmaqjh0vmHPOSm62XfOEivwYNFC8VrJ9oDyfJGCRv1C8nVHnp
-         NevFtg5U4E7S3XwvD+rrR4v5K7LTjdp1CAFct6wEFwPS063aMAigAasjS5L3pDJS2qfT
-         ZIijZhwQv4ryNrM9iXZSafDdJXqAQq+FUxYHg9rYQdlN+xO8w274nBKEyw4EHdSMgmVG
-         +7OmmN/0aKNpfzaTMC0Dm/u+EqLxXmgxivXcVSp1XqniREEQEykg5tI43+mwkGgXUY1+
-         3CYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794637777; x=1795242577;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mlBezjdELFCtMxn9x7yttaCF4buMcCnnIvVu8VTskyY=;
-        b=bsyCZNLm+Xs1cAU3tMxtOg0KqHdrUdQ5zQ33jeLnn+TJqJNQIN94w/KyJ5ZwP9qR7c
-         DwH4qoBRAkZcz3umPHoFDbfZOREY1Mn1i9AmUryIWroQBpGSSeLCe6yZ4RZC9urIIDyt
-         WPEuQanwN6jA5xFNEZRf0UmcgfFDtRJAjiTCDF6ddx5DMOfuCTvvwPfh89N5kyWqf8Hm
-         /chTygIq1r6WAEwwQvrtzcw1J7anREmrs6frJGuZnhrJjsE5rulrhMX03T9C4ONKoDVx
-         iQSAtS9oV19IUQEvLkkSPMIXxpSNT3BvexaEO3nto45NVkfIuEQcU3g2dpEN5JSWrMC8
-         8O6Q==
-X-Forwarded-Encrypted: i=1; AL+hErGsgLwgljj+Egx1krp2TK0G8OmQ866s4D9lSsa0aVlrKUrn06l5w/dSS3fQPm8C5Hwo7iaKcXCH+cVj34c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+y0xwzBij/0D373PltGRCT1XtLL9tknTw8PzlVI2tP+AK2fPkX
-	H6XvaRClIrO15Jc343J16U+hxA0+KJWeBqG3Qv9F84udcAF27eXBTZBf
-X-Gm-Gg: AYBFou1RevN2befhDMHqi+DwX4RbmKm8RcfBdn/8B69dMDM5UiwKGw2TGiQMAoCN3au
-	P8i1KtjbG7ONQeLVCBXe81MSTDEnt4ISsqRraQ70PXdKZttN8vvEFTqwCQGGkFJje+k2UjUpmTn
-	0t2Eg8H5+waA1wzZnfn8TrG34/FFr20gw6MCZMQtr1AUZAouOGa3DFqUJQlhIBminZZrB1t5Pkg
-	YC8iTdWSmsIHmOS0W2nbt5mi9pWuIqsrSD8kqHhqYxoqCDago1lGnNpMQPC7Cnq7KkXChZw+Bwl
-	fuo/TFA4X6bbSh+G8Kb6P9KEB0iQvH9JOCShzKFHUfPDXRF43cp90jd9XKniJt9cXRL+/Y/TgGU
-	OvkJxiES3A1MMOpO128J+HIRX3wmHN2tGHokfatHe47+Kkd3Yn5ZzR9lMqLU7NKE7h0JP39r/5a
-	wVBwCrPdNEL6izXWW0vWlQsDcpgTNIzyNEzHrMF3tem7LO9Unv0sbtty5AvTQwWRvUYVXvjM4r2
-	ZYvi5P93UE3l2gfP065H35UnrkHFWPK9dQM5qMNu7RO/rnKd+9z+dttc9MBo7J8+4vcnIBAH7tb
-	PVGnE5mP9W0YIDigyxxG874MJZgoK+3vgpgWYIV+J/zVuXdQzM5rxAir3gi7Ucc1j2hc8+uaIDK
-	Xj2sj85/AEkV+d86/hxiy42caGsCiSmV/VSrTNTawyCBVMga5IuzIPywFc+td9jzSM+W3uDRJDj
-	OqOt2SJ8/neq3YPfmmMdKtdlk3
-X-Received: by 2002:a17:902:ec8d:b0:2ed:1b26:2be7 with SMTP id d9443c01a7336-2ee0dc06bf0mr49299195ad.46.1794637777551;
-        Fri, 13 Nov 2026 22:29:37 -0800 (PST)
-Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f224370sm18382465ad.0.2026.11.13.22.29.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 22:29:37 -0800 (PST)
-From: Rosen Penev <rosenp@gmail.com>
-To: Matthew Garrett <mjg59@srcf.ucam.org>,
-	=?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Darren Hart <dvhart@linux.intel.com>,
-	Gabriele Mazzotta <gabriele.mzt@gmail.com>
-Cc: platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/3] platform/x86: dell-laptop: Don't use an unread keyboard state at init
-Date: Fri, 13 Nov 2026 22:29:26 -0800
-Message-ID: <7d253bc056c2d6f68992d0d046affef331c57830.1794633179.git.rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <cover.1794633179.git.rosenp@gmail.com>
-References: <cover.1794633179.git.rosenp@gmail.com>
+	d=linux-foundation.org; s=korg; t=1794637837;
+	bh=JVznsVsPInUpSLMrJJOTjWFvzhy/T2qZG1CdKQlMgyk=;
+	h=Date:To:Cc:From:Subject;
+	b=FUDiKINRRFXHBQqnUif4afMHYPS+aAFHexcfSZohrT21Gm11GsDV+swyO2bebEM5E
+	 tM6c42EzSMC65xaqx+BlB+IQ4mRvpNLNyCOsHEj9rEi1p5Q1aXMkdp7ANHcS0gQ3tb
+	 86FosMTK5Krt/4EKV0ix69HkJze5GpB4TlIvKrzU=
+Date: Fri, 13 Nov 2026 22:30:37 -0800
+To: Bradley Morgan <brads@mainlining.org>
+Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>
+From: Andrew Morton <akpm@linux-foundation.org>
+Message-Id: <41a747d4b3cd4bf3b266631a1f39ca69.1@linux-foundation.org>
+Subject: [PATCH 1/1] profile: account for partial /proc/profile reads
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,44 +49,73 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-kbd_init_info() ignores the return value of kbd_get_state(). If the
-call fails, the uninitialized state on the stack is used to set
-kbd_previous_level and kbd_previous_mode_bit, which are later sent to
-the BIOS when triggers are enabled or the backlight is turned back on.
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: profile: account for partial /proc/profile reads
+Date: Tue, 20 Oct 2026 15:28:00 -0700
 
-Return the error instead. kbd_get_info() has already filled in
-kbd_info at that point, so clear it as well: level control through
-kbd_get_state() cannot work, and kbd_init() then still registers the
-LED if at least two keyboard backlight tokens are available, which
-works without it.
+read_profile() returns -EFAULT without advancing the file position
+when a user copy faults, even if earlier header bytes or a prefix of
+the counters were successfully copied.  A retry can therefore copy
+the same bytes again despite the previous read having delivered data.
 
-Fixes: 02b2aaaa57ab ("platform: x86: dell-laptop: Add support for keyboard backlight")
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Return the number of successfully copied bytes and advance *ppos by
+that amount.  Return -EFAULT only if the fault occurs before any bytes
+are copied.  Preserve the four-byte sampling-step header, raw counter
+representation, and normal successful-read behavior.
+
+Avi Weiss's "profiling: fix sampling step on 64-bit big-endian
+systems" is unchanged.  This patch changes only short-read and fault
+reporting, not the output format.
+
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
- drivers/platform/x86/dell/dell-laptop.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+Tested the combined three-patch series on x86-64 and i686 QEMU/KVM
+guests with CONFIG_PROFILING=y and profile=12.
+profile-read-test.c: PASS (0 failures) on both architectures.
+Covered short and unaligned reads, header boundaries, EOF, partial
+user-copy faults, return values, file positions and retry behavior.
+The 64-bit big-endian sampling-step fix was not runtime tested.
+No separate per-patch or unpatched-versus-patched run was reported.
 
-diff --git a/drivers/platform/x86/dell/dell-laptop.c b/drivers/platform/x86/dell/dell-laptop.c
-index bee347e1d60c..171728d63c81 100644
---- a/drivers/platform/x86/dell/dell-laptop.c
-+++ b/drivers/platform/x86/dell/dell-laptop.c
-@@ -1455,7 +1455,12 @@ static inline int kbd_init_info(void)
- 	    dell_smbios_find_token(KBD_LED_AC_TOKEN))
- 		kbd_timeout_ac_supported = true;
+ kernel/profile.c |   17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
+
+--- a/kernel/profile.c~profile-account-for-partial-proc-profile-reads
++++ a/kernel/profile.c
+@@ -157,6 +157,7 @@ read_profile(struct file *file, char __u
+ 	ssize_t read;
+ 	char *pnt;
+ 	unsigned int sample_step = (unsigned int)(1UL << prof_shift);
++	size_t not_copied;
  
--	kbd_get_state(&state);
-+	ret = kbd_get_state(&state);
-+	if (ret) {
-+		/* Leave level control to the SMBIOS tokens, if there are any */
-+		memset(&kbd_info, 0, sizeof(kbd_info));
-+		return ret;
+ 	if (p >= (prof_len+1)*sizeof(unsigned int))
+ 		return 0;
+@@ -166,15 +167,21 @@ read_profile(struct file *file, char __u
+ 
+ 	while (p < sizeof(unsigned int) && count > 0) {
+ 		if (put_user(*((char *)(&sample_step)+p), buf))
+-			return -EFAULT;
++			goto out;
+ 		buf++; p++; count--; read++;
+ 	}
+-	pnt = (char *)prof_buffer + p - sizeof(atomic_t);
+-	if (copy_to_user(buf, (void *)pnt, count))
+-		return -EFAULT;
+-	read += count;
++	if (count) {
++		pnt = (char *)prof_buffer + p - sizeof(atomic_t);
++		not_copied = copy_to_user(buf, pnt, count);
++		read += count - not_copied;
++		if (not_copied)
++			goto out;
 +	}
+ 	*ppos += read;
+ 	return read;
++out:
++	*ppos += read;
++	return read ? read : -EFAULT;
+ }
  
- 	/* NOTE: timeout value is stored in 6 bits so max value is 63 */
- 	if (kbd_info.seconds > 63)
--- 
-2.56.0
-
+ /* default is to not implement this call */
+_
