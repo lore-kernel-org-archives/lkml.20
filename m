@@ -1,84 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794665930;
-	b=s1gpHQ10t3FP5vzcM8Vh4HnQDgZ5hiIjyO4GFxTzTfC9SlRq/sNXm/rpEWat3xN3FrSb
-	 gCAA58b73oLPDZcoAMAit2aKNhs+3oyNhpiwNvMeM/ugsshC2Hgtf0G8c9fduQE3wuBJU
-	 ktNKlJ3axdokY18hhhu4zpdWaDYOrqwBS5F6W11dVqNNswqbYJDewc+VUo9O+ibfHWM5e
-	 RvWimN3/8SDFtWtCs3oJVZMZprPe3iMgWzBLVXqq/Z57otp6kwkFlwBBJXC2cCSmpMfdP
-	 x9E+jhJcZp9wCvu4gNKbSIRdC+eM6e4WHiRCqLTJEEIk0otE9uP9/boenE8GGqJrhCg==
+	t=1794665948;
+	b=VmV4DNX2kOztMARNyRif6S3gYgJM7avGTAPugMDv3ZS5apHQTGNbh2C2TT9aKZvpVtKU
+	 jhsVbE3fdKtky3nna5Jm5p8y6OwvQFBLPKmIjm8sVCJibFO20qnDgwWBeX5scm7uyWTTU
+	 BPIblS35p2cDq/h6MsMbUteIOG0fcBaepCF5Hy7WYhHQbkUQFGOfENdAeGMNcktICPTiL
+	 piOD2WQHSCAaYPNMID8ZsEuYTX9NHiSsueAS6sq5gqbRn4JrskUEW6M+17XEGfvpTaQCA
+	 q0rEg18+b7uaQ4NYETB8e6bFxE+FoV/lvNsMb7yBr4DW0mMwUURANbzU+uDW0day5bQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794665930;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=u6ctXCDfJuK0m6zgWpeQsh0tuqCll1c0CjCah2CUMhQ=;
-	b=mFvnPFWQgxZKguA/EBw4+pqIj/YWExOO4XlenpJh/sNKyXT3DHe8OGcOeY0gquIiWgkc
-	 SAtwp/J4+rpoalEfywoKyA/g0jMrTD3x2hp4z4d/zAst45k77z29MZo7HVkWaINVrX7eQ
-	 4mDs2IyXe8EUu2/GDqA8CIZHCXlFWqAhMKcTkvo0TAaJBBbnSFRDLeTIbR0//2D5JNwpf
-	 ZKg3hwDZuywuBZrqQevbQwgf9+ZaRaPn+ADES1oETy2rKQ7153KjZdkbMEWLzh9E2VY0O
-	 lAuT0TxQRiJpvQOu6A1rNu/zGCxm9aNVWAtcWP+4E4x5VJKm0QkVj+RT174cFBusneA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794665948;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Mbi96igc2n0483c/SqG4t1PVFDZn4uBg/WQ+jK8IEKc=;
+	b=llGOyXYc5pe44QslFW7jp0+P8SYv/wwPaA3V5Wk+6W3S6GC0pkG1fY//a4hvMsbpJqDN
+	 9I8G3ob6I3dyKLtrTx2d5yELlpJeDjtXO9pGYq+vk0qwpMy6vL/Q0S6G73cPOYQNaf4fv
+	 +5MrdSdycjGAdbRu5tyGtuX6CEskhvR5wfHsc5HesFdz8qM9JviyztFod7iR0w5VUo4kC
+	 qdZmSOGCRPZv4UHBehJ0Je2+FGhU7qb082ReX9dMWzntqHAkryv16RRAajLqsLLuefQ40
+	 V2iSI2iyXO5aHyxykinNRhjZ2dgQzBxFjU4a/R4OPrkpmajCGw3Q60gLcz4biXIDilQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=I9Sy4lqL;
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Amtu/ZFl";
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27213606A32E;
-	Sat, 14 Nov 2026 14:18:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27213606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61D9A606A330
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 14:19:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61D9A606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=I9Sy4lqL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794665929; x=1826201929;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=5NzkEldU8PeiMd6TmpAcTQ5ct/QNtwfvPv8ekNmhzxw=;
-  b=I9Sy4lqLPNDzYAUtSxSFkvrnocnw4pKOyVdsPlVxrpNN1tOlnrdJsLZi
-   6T50S1zVh+72yyVgS0Ci+BSbEBoy7rdEXcdYEmmv2Ln17aW7xfR77VgLk
-   gvQbobsD2p6qHRpIoTggV0iON+CJzb7bd7dRf/qGsf6oargER6u8H01cw
-   h2hAXKga83t+gXX7dYByMqrDafAJMhoUdo4kJ64p3fVkTHSOWT40RLuLI
-   y/bbLfErMJUQoMhV5pmndrd6+ZhGLzOYT0/Apl8gu8NBg1p4ITAe1qxB5
-   POwBYDOKJ8uA3Y+K7/8AOMLOtr6/5SpTeeEVlKVgJM/QryJN/waGa/fE0
-   A==;
-X-CSE-ConnectionGUID: 8XZg42f8RgWkfdAztxbQEg==
-X-CSE-MsgGUID: F/xe5wafQQO1xoI2JoUg7w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11966"; a="3347463"
-X-IronPort-AV: E=Sophos;i="6.27,213,1787036400"; 
-   d="scan'208";a="3347463"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Nov 2026 06:18:48 -0800
-X-CSE-ConnectionGUID: H9+FIedKRBqOcRVs+N1cXg==
-X-CSE-MsgGUID: P6odMSy5Su2SgJSMSlP1tA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,213,1787036400"; 
-   d="scan'208";a="10874534"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa012.fm.intel.com with ESMTP; 14 Nov 2026 06:18:44 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xSEaX-000000015ZM-0L2T;
-	Sat, 14 Nov 2026 14:18:41 +0000
-Date: Sat, 14 Nov 2026 22:18:09 +0800
-From: kernel test robot <lkp@intel.com>
-To: Vikas Gupta <vikas.gupta@broadcom.com>, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	andrew+netdev@lunn.ch, horms@kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, bhargava.marreddy@broadcom.com,
-	rahul-rg.gupta@broadcom.com, vsrama-krishna.nemani@broadcom.com,
-	rajashekar.hudumula@broadcom.com, dharmender.garg@broadcom.com,
-	ajit.khaparde@broadcom.com, Vikas Gupta <vikas.gupta@broadcom.com>
-Subject: Re: [PATCH net-next v7 05/10] bnge: add ethtool support to manage
- RSS contexts
-Message-ID: <202611142235.fFLV6D4T-lkp@intel.com>
-References: <20261114074742.1484603-6-vikas.gupta@broadcom.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Amtu/ZFl
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36e2b1db9bfso219118eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:19:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794665948; x=1795270748; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Mbi96igc2n0483c/SqG4t1PVFDZn4uBg/WQ+jK8IEKc=;
+        b=Amtu/ZFllK4PUX+JONp25BBuOdYUDDn4gbON8ZJPC5Va9gZ+vSQSFg2wJEj0k4U35B
+         1E3rKMZm1r8HZqedQPc7/jeAlKOOE1cYf5eK7vNt89pq+gGG2eB/DEv6BqFv8fetEcmM
+         kWQZta66qQnYT9+/4reaSM/7eADczHthvUtex8Ay49garOlJ0mB5pRloZ/JLRL0X5yST
+         V68CDZMV9kAEWDwNsMrZgdT8eu6+KxnjjZIC9UGMdQQIfRCwYuCY1jw4lcalnb1PyJDq
+         jcXde1nbefobjTAv+EdCJpkC24NolRECIJyyFuzON2aUFoNyCNqhyNRepdM+J4N1Yhe7
+         hWHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794665948; x=1795270748;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Mbi96igc2n0483c/SqG4t1PVFDZn4uBg/WQ+jK8IEKc=;
+        b=jlZ3jTQLtbWrUbnH4jVajniRXx/TkWO77tR8c/WdDivfsyh9N3rFTcrzXpy6CQXq2R
+         F+gHstvZpYkccv47q4ZX+6srUNw3IvC1Elrx2TT6XFd3t5NmCuHirq66CfNZuqkqKpv4
+         qqCGw0uN5AxtetkF2sLv2/jBrdu7HAh3xX6y5nDGjE10/FuAqhKT3jQyDdquNY0zdpRg
+         UhAbJxmk5FypcMv/MwsJg9/IFTXw5rBpuPr6tsEiToA92dO3I6zlHLZ4mK/RBgJV7dvx
+         JsEMsnlni3HJVXF7mRHna4zcVoLhzlgbi0xfUgwbQHWZRxrwi81Ds4BdLyC61Jy74oAj
+         ZGKw==
+X-Forwarded-Encrypted: i=1; AL+hErEFan5JyGvFH8YErZbMRjt8aBLFBn+E09ALP2B/xJPK6x3X8janBqS5ZeMtZ0HNV9gIAVgDSG7KU4rbcBY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8SPPPB34xxgN8fNBCZzwYQMw6u3qfKGmXuzSk/QMvAuN2RcJH7
+	P9Fg3o90YVOPCzpk7nx3E5GxktfjwR5fzBA9hCRyKMx9zjtmPk8y8ukd
+X-Gm-Gg: AYBFou0jALZUQ/Og0AyrPNqFpRjNT/1eyPH7TDP/Dt9ASYwoNDAR2O46hJVZmqwebLZ
+	+rmtPGRSXobw7nfzx6r+utMCcJU4b825VPIYuSH1iF6n3cyqUE+rXZfJx7/vSM+Wy3PH9coktnA
+	VcYeJ75vX4/Na99d/wQ6La+MiTPysXjm04yvqR6Fs1Yako0UauyL02REpfzporSMgAU2OufLtE0
+	X/Al1GEOuOaeK2CCAzyEQAX2kqMv5vgbTtLyjg3647f0UN4+Jnt1CR91qBiOHNGrguWvYbukDsT
+	Y4Djx4BcWDXpZ2ilUtm1y256MvSdumqaEC9qKljwq4ESzmRAUXXgIBypw7CQ4Ukv2HHM0q31Zz1
+	ViCDxHYjqb3Naag6imrUOiYxpVdL+B2XRTuuRi75KwOY+gYA//46Y5rWIc/H95Re5A3qSmxwVlO
+	O+KU69s6r8V1odHsRgedYDRSuxCRTkw0RLFakNM9CZPVJHLQrxUKAhKwMLuRjIjp4hRhl2uRfFQ
+	kO4MxnjoEvjn4X57tlxx0caVtwM2c6qvv2OHUzO7AT60zClBxpM3cE+qFABWwWeizHs/YqGxO9s
+	KLTKwUSCoN+w2NtdpVB62wVh1OvqeyWtBgA4SlUsGsAXaq0vV3Ykoggpv1TnZRxO77jDeYSRJEw
+	XQZE=
+X-Received: by 2002:a05:7022:283:10b0:17f:641e:7f6b with SMTP id a92af1059eb24-1b503086f3emr8214426c88.1.1794665947348;
+        Sat, 14 Nov 2026 06:19:07 -0800 (PST)
+Received: from DESKTOP-CJ1L666.localdomain ([211.198.99.62])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031b2519sm14745032c88.13.2026.11.14.06.19.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 06:19:06 -0800 (PST)
+From: Jiwoo Kim <arpe1618@gmail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>
+Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Anna Maniscalco <anna.maniscalco2000@gmail.com>,
+	Julius Bairaktaris <julius@bairaktaris.de>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Sean Paul <sean@poorly.run>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	linux-arm-msm@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/3] drm/msm: Release the pins and ops of a killed VM_BIND job
+Date: Sat, 14 Nov 2026 23:18:49 +0900
+Message-ID: <20261114141851.134290-2-arpe1618@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261114141851.134290-1-arpe1618@gmail.com>
+References: <20261114141851.134290-1-arpe1618@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,181 +112,218 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261114074742.1484603-6-vikas.gupta@broadcom.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Vikas,
+msm_vma_job_run() applies the pgtable updates that vm_bind_job_prepare()
+queued for a VM_BIND job, drops the GEM object references that
+vm_op_enqueue() took for them, and unpins the BOs of the job. When the
+entity of a job is killed, e.g. on SIGKILL while the process exits, the
+scheduler frees the job without running it. msm_vma_job_free() then
+frees the queued ops without applying them and without dropping their
+references, and leaves the BOs pinned. Besides the leaks, the VM no
+longer matches its pgtables: for example, the pages of a VMA that was
+unmapped from the VM are still mapped.
 
-kernel test robot noticed the following build warnings:
+The scheduler only frees a killed job once its dependencies have
+signalled and the job queued before it on the same entity has run or
+been killed, so the updates of the jobs that ran before it have all been
+applied by then. In msm_vma_job_free(), apply the queued updates the way
+msm_vma_job_run() does on error: skip the maps, but apply the unmaps, so
+that their references can be dropped without freeing pages that are
+still mapped, and mark the VM unusable. Killed jobs can be freed
+concurrently, but as they only unmap, their order does not matter. Move
+that part of msm_vma_job_run() into a helper for this. Also clear
+bos_pinned once msm_vma_job_run() has unpinned the BOs, as msm_job_run()
+does for submits, and unpin the BOs of a job that still has them pinned,
+taking the object lock, as the job's fence does not keep them busy
+anymore.
 
-[auto build test WARNING on net-next/main]
+msm_ioctl_vm_bind() frees a job that fails right away, before its
+dependencies and the previous jobs of its queue have completed, so the
+queued updates of such a job must not be applied. Move the freeing
+itself into vm_bind_job_free(), and call that directly from there.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Vikas-Gupta/bnge-restructure-VNIC-and-filter-code/20261114-131733
-base:   net-next/main
-patch link:    https://lore.kernel.org/r/20261114074742.1484603-6-vikas.gupta%40broadcom.com
-patch subject: [PATCH net-next v7 05/10] bnge: add ethtool support to manage RSS contexts
-config: x86_64-buildonly-randconfig-1004-20261114 (https://download.01.org/0day-ci/archive/20261114/202611142235.fFLV6D4T-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261114/202611142235.fFLV6D4T-lkp@intel.com/reproduce)
+The patch and its changelog were drafted with an AI coding assistant.
+The issue has not been reproduced, and the change has only been
+compile-tested.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611142235.fFLV6D4T-lkp@intel.com/
+Fixes: 2e6a8a1fe2b2 ("drm/msm: Add VM_BIND ioctl")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/r/sashiko-outbox-214234@kernel.org
+Signed-off-by: Jiwoo Kim <arpe1618@gmail.com>
+---
+At commit 2e6a8a1fe2b2, msm_vma_job_run() still unpinned the BOs under
+the object lock, and msm_gem_vm_unusable() did not exist yet, so older
+stable trees need an adapted backport.
 
-All warnings (new ones prefixed by >>):
+Julius Bairaktaris' "drm/msm: Keep objects of queued VM_BIND unmaps
+busy" keeps the objects of queued unmaps busy with the job's fence:
+https://lore.kernel.org/r/20261111080619.244138-1-julius@bairaktaris.de
+For a killed job, the scheduler signals that fence before it calls
+free_job(), so with both patches, these objects are no longer busy for
+the short time until this patch applies the unmaps. Without this patch,
+the unmaps of a killed job are never applied. Closing that window would
+need the objects to stay pinned until their unmaps are applied. The two
+patches apply in either order.
 
-   drivers/net/ethernet/broadcom/bnge/bnge_resc.c: In function 'bnge_reserve_rings':
->> drivers/net/ethernet/broadcom/bnge/bnge_resc.c:314:37: warning: variable 'old_rx_nr_rings' set but not used [-Wunused-but-set-variable]
-     314 |         u16 rx_rings, old_rx_rings, old_rx_nr_rings;
-         |                                     ^~~~~~~~~~~~~~~
+Not addressed here, as before this patch:
+- The error path of msm_ioctl_vm_bind() still frees the queued ops of a
+  failed job without applying them or dropping their references. Their
+  unmaps could only be applied after the job's dependencies and the
+  previous jobs of its queue, i.e. by queuing the job anyway.
+- The issues in the error handling of vm_bind_job_prepare() that
+  Sashiko listed for v2: a VMA left in the VM when vm_op_enqueue()
+  fails, which a later remap of a MAP_NULL area turns into a NULL
+  dereference, and the vm_bo reference in msm_gem_vm_sm_step_remap().
 
+ drivers/gpu/drm/msm/msm_gem_vma.c | 87 ++++++++++++++++++++++++++-----
+ 1 file changed, 75 insertions(+), 12 deletions(-)
 
-vim +/old_rx_nr_rings +314 drivers/net/ethernet/broadcom/bnge/bnge_resc.c
+diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
+index 8b702422030a..0b9f2e8916b7 100644
+--- a/drivers/gpu/drm/msm/msm_gem_vma.c
++++ b/drivers/gpu/drm/msm/msm_gem_vma.c
+@@ -700,16 +700,16 @@ static const struct drm_gpuvm_ops msm_gpuvm_ops = {
+ 	.sm_step_unmap = msm_gem_vm_sm_step_unmap,
+ };
+ 
+-static struct dma_fence *
+-msm_vma_job_run(struct drm_sched_job *_job)
++/*
++ * Apply the pgtable updates queued for a job, and drop the references that
++ * the ops hold.  If ret is an error, or one occurs, the remaining maps are
++ * skipped, but the unmaps are still applied, as the pages they unmap must
++ * not be freed while they are still mapped.
++ */
++static int
++vm_bind_job_apply_ops(struct msm_vm_bind_job *job, int ret)
+ {
+-	struct msm_vm_bind_job *job = to_msm_vm_bind_job(_job);
+-	struct drm_device *dev = job->vm->drm;
+ 	struct msm_gem_vm *vm = to_msm_vm(job->vm);
+-	struct drm_gem_object *obj;
+-	int ret = vm->unusable ? -EINVAL : 0;
+-
+-	vm_dbg("");
+ 
+ 	mutex_lock(&vm->mmu_lock);
+ 	vm->mmu->prealloc = &job->prealloc;
+@@ -740,6 +740,22 @@ msm_vma_job_run(struct drm_sched_job *_job)
+ 	vm->mmu->prealloc = NULL;
+ 	mutex_unlock(&vm->mmu_lock);
+ 
++	return ret;
++}
++
++static struct dma_fence *
++msm_vma_job_run(struct drm_sched_job *_job)
++{
++	struct msm_vm_bind_job *job = to_msm_vm_bind_job(_job);
++	struct drm_device *dev = job->vm->drm;
++	struct msm_gem_vm *vm = to_msm_vm(job->vm);
++	struct drm_gem_object *obj;
++	int ret;
++
++	vm_dbg("");
++
++	ret = vm_bind_job_apply_ops(job, vm->unusable ? -EINVAL : 0);
++
+ 	/*
+ 	 * We failed to perform at least _some_ of the pgtable updates, so
+ 	 * now the VM is in an undefined state.  Game over!
+@@ -753,16 +769,22 @@ msm_vma_job_run(struct drm_sched_job *_job)
+ 		msm_gem_unpin_active(obj);
+ 	}
+ 
++	job->bos_pinned = false;
++
+ 	mutex_unlock(&dev->gem_lru_mutex);
+ 
+ 	/* VM_BIND ops are synchronous, so no fence to wait on: */
+ 	return NULL;
+ }
+ 
++/*
++ * Free a job, whether it ran or not.  Ops that are still queued are freed
++ * without being applied, and without dropping their object references, as
++ * the pages of their unmaps may still be mapped.
++ */
+ static void
+-msm_vma_job_free(struct drm_sched_job *_job)
++vm_bind_job_free(struct msm_vm_bind_job *job)
+ {
+-	struct msm_vm_bind_job *job = to_msm_vm_bind_job(_job);
+ 	struct msm_gem_vm *vm = to_msm_vm(job->vm);
+ 	struct drm_gem_object *obj;
+ 
+@@ -770,7 +792,20 @@ msm_vma_job_free(struct drm_sched_job *_job)
+ 
+ 	atomic_sub(job->prealloc.count, &vm->prealloc_throttle.in_flight);
+ 
+-	drm_sched_job_cleanup(_job);
++	drm_sched_job_cleanup(&job->base);
++
++	/*
++	 * A job that was killed before it ran still has its BOs pinned.  The
++	 * job's fence does not keep them busy anymore, so take the object lock
++	 * to unpin them.
++	 */
++	if (job->bos_pinned) {
++		job_foreach_bo(obj, job) {
++			msm_gem_lock(obj);
++			msm_gem_unpin_locked(obj);
++			msm_gem_unlock(obj);
++		}
++	}
+ 
+ 	job_foreach_bo (obj, job)
+ 		drm_gem_object_put(obj);
+@@ -791,6 +826,29 @@ msm_vma_job_free(struct drm_sched_job *_job)
+ 	kfree(job);
+ }
+ 
++static void
++msm_vma_job_free(struct drm_sched_job *_job)
++{
++	struct msm_vm_bind_job *job = to_msm_vm_bind_job(_job);
++
++	/*
++	 * A job that the scheduler frees without having run it was killed,
++	 * e.g. because its entity was destroyed.  Its queued updates were
++	 * already applied to the VM's address space, but not to its pgtables.
++	 * The scheduler has waited for the job's dependencies, and for the job
++	 * before it on the entity to run or be killed, so apply its unmaps now,
++	 * before the references to the unmapped objects are dropped, and give
++	 * up on the VM, as its maps are skipped.  Killed jobs only unmap, so
++	 * the order in which they are freed does not matter.
++	 */
++	if (!list_empty(&job->vm_ops)) {
++		vm_bind_job_apply_ops(job, -ECANCELED);
++		msm_gem_vm_unusable(job->vm);
++	}
++
++	vm_bind_job_free(job);
++}
++
+ static const struct drm_sched_backend_ops msm_vm_bind_ops = {
+ 	.run_job = msm_vma_job_run,
+ 	.free_job = msm_vma_job_free
+@@ -1607,8 +1665,13 @@ msm_ioctl_vm_bind(struct drm_device *dev, void *data, struct drm_file *file)
+ 	}
+ 
+ 	if (!IS_ERR_OR_NULL(job)) {
++		/*
++		 * Not msm_vma_job_free(): the job's dependencies and the
++		 * previous jobs of the queue may not have completed, so its
++		 * queued updates must not be applied here.
++		 */
+ 		if (ret)
+-			msm_vma_job_free(&job->base);
++			vm_bind_job_free(job);
+ 	} else {
+ 		/*
+ 		 * If the submit hasn't yet taken ownership of the queue
+-- 
+2.43.0
 
-627c67f038d2e9 Vikas Gupta  2025-07-01  310  
-627c67f038d2e9 Vikas Gupta  2025-07-01  311  int bnge_reserve_rings(struct bnge_dev *bd)
-627c67f038d2e9 Vikas Gupta  2025-07-01  312  {
-627c67f038d2e9 Vikas Gupta  2025-07-01  313  	u16 aux_dflt_msix = bnge_aux_get_dflt_msix(bd);
-d6031788285120 Sachin Holla 2026-08-27 @314  	u16 rx_rings, old_rx_rings, old_rx_nr_rings;
-627c67f038d2e9 Vikas Gupta  2025-07-01  315  	struct bnge_hw_rings hwr = {0};
-627c67f038d2e9 Vikas Gupta  2025-07-01  316  	u16 nq = bd->nq_nr_rings;
-627c67f038d2e9 Vikas Gupta  2025-07-01  317  	u16 aux_msix = 0;
-c7c6bcf2c57acc Vikas Gupta  2026-11-14  318  	bool indir_lost = false;
-c7c6bcf2c57acc Vikas Gupta  2026-11-14  319  	bool rx_changed;
-627c67f038d2e9 Vikas Gupta  2025-07-01  320  	bool sh = false;
-627c67f038d2e9 Vikas Gupta  2025-07-01  321  	u16 tx_cp;
-627c67f038d2e9 Vikas Gupta  2025-07-01  322  	int rc;
-627c67f038d2e9 Vikas Gupta  2025-07-01  323  
-627c67f038d2e9 Vikas Gupta  2025-07-01  324  	if (!bnge_need_reserve_rings(bd))
-627c67f038d2e9 Vikas Gupta  2025-07-01  325  		return 0;
-627c67f038d2e9 Vikas Gupta  2025-07-01  326  
-627c67f038d2e9 Vikas Gupta  2025-07-01  327  	if (!bnge_aux_registered(bd)) {
-627c67f038d2e9 Vikas Gupta  2025-07-01  328  		aux_msix = bnge_get_avail_msix(bd, aux_dflt_msix);
-627c67f038d2e9 Vikas Gupta  2025-07-01  329  		if (!aux_msix)
-627c67f038d2e9 Vikas Gupta  2025-07-01  330  			bnge_aux_set_stat_ctxs(bd, 0);
-627c67f038d2e9 Vikas Gupta  2025-07-01  331  
-627c67f038d2e9 Vikas Gupta  2025-07-01  332  		if (aux_msix > aux_dflt_msix)
-627c67f038d2e9 Vikas Gupta  2025-07-01  333  			aux_msix = aux_dflt_msix;
-627c67f038d2e9 Vikas Gupta  2025-07-01  334  		hwr.nq = nq + aux_msix;
-627c67f038d2e9 Vikas Gupta  2025-07-01  335  	} else {
-627c67f038d2e9 Vikas Gupta  2025-07-01  336  		hwr.nq = bnge_nqs_demand(bd);
-627c67f038d2e9 Vikas Gupta  2025-07-01  337  	}
-627c67f038d2e9 Vikas Gupta  2025-07-01  338  
-d6031788285120 Sachin Holla 2026-08-27  339  	hwr.tx = bnge_tx_rings_demand(bd);
-627c67f038d2e9 Vikas Gupta  2025-07-01  340  	hwr.rx = bd->rx_nr_rings;
-627c67f038d2e9 Vikas Gupta  2025-07-01  341  	if (bd->flags & BNGE_EN_SHARED_CHNL)
-627c67f038d2e9 Vikas Gupta  2025-07-01  342  		sh = true;
-d6031788285120 Sachin Holla 2026-08-27  343  	hwr.cmpl = bnge_cprs_demand(bd);
-627c67f038d2e9 Vikas Gupta  2025-07-01  344  
-bff7700def65f9 Vikas Gupta  2026-11-14  345  	hwr.vnic = bnge_get_total_vnics(bd);
-627c67f038d2e9 Vikas Gupta  2025-07-01  346  
-627c67f038d2e9 Vikas Gupta  2025-07-01  347  	if (bnge_is_agg_reqd(bd))
-627c67f038d2e9 Vikas Gupta  2025-07-01  348  		hwr.rx <<= 1;
-627c67f038d2e9 Vikas Gupta  2025-07-01  349  	hwr.grp = bd->rx_nr_rings;
-bff7700def65f9 Vikas Gupta  2026-11-14  350  	hwr.rss_ctx = bnge_get_total_rss_ctxs(bd, &hwr);
-627c67f038d2e9 Vikas Gupta  2025-07-01  351  	hwr.stat = bnge_func_stat_ctxs_demand(bd);
-627c67f038d2e9 Vikas Gupta  2025-07-01  352  	old_rx_rings = bd->hw_resc.resv_rx_rings;
-d6031788285120 Sachin Holla 2026-08-27  353  	old_rx_nr_rings = bd->rx_nr_rings;
-627c67f038d2e9 Vikas Gupta  2025-07-01  354  
-627c67f038d2e9 Vikas Gupta  2025-07-01  355  	rc = bnge_hwrm_reserve_rings(bd, &hwr);
-627c67f038d2e9 Vikas Gupta  2025-07-01  356  	if (rc)
-627c67f038d2e9 Vikas Gupta  2025-07-01  357  		return rc;
-627c67f038d2e9 Vikas Gupta  2025-07-01  358  
-627c67f038d2e9 Vikas Gupta  2025-07-01  359  	bnge_copy_reserved_rings(bd, &hwr);
-627c67f038d2e9 Vikas Gupta  2025-07-01  360  
-d6031788285120 Sachin Holla 2026-08-27  361  	/* Exclude the MPC reservation before adjusting the L2 rings. */
-d6031788285120 Sachin Holla 2026-08-27  362  	if (bnge_is_roce_en(bd)) {
-d6031788285120 Sachin Holla 2026-08-27  363  		if (hwr.tx <= 1 || hwr.cmpl <= 2)
-d6031788285120 Sachin Holla 2026-08-27  364  			return -ENOMEM;
-d6031788285120 Sachin Holla 2026-08-27  365  		hwr.tx--;
-d6031788285120 Sachin Holla 2026-08-27  366  		hwr.cmpl--;
-d6031788285120 Sachin Holla 2026-08-27  367  	}
-d6031788285120 Sachin Holla 2026-08-27  368  
-627c67f038d2e9 Vikas Gupta  2025-07-01  369  	rx_rings = hwr.rx;
-627c67f038d2e9 Vikas Gupta  2025-07-01  370  	if (bnge_is_agg_reqd(bd)) {
-627c67f038d2e9 Vikas Gupta  2025-07-01  371  		if (hwr.rx >= 2)
-627c67f038d2e9 Vikas Gupta  2025-07-01  372  			rx_rings = hwr.rx >> 1;
-627c67f038d2e9 Vikas Gupta  2025-07-01  373  		else
-627c67f038d2e9 Vikas Gupta  2025-07-01  374  			return -ENOMEM;
-627c67f038d2e9 Vikas Gupta  2025-07-01  375  	}
-627c67f038d2e9 Vikas Gupta  2025-07-01  376  
-627c67f038d2e9 Vikas Gupta  2025-07-01  377  	rx_rings = min_t(u16, rx_rings, hwr.grp);
-627c67f038d2e9 Vikas Gupta  2025-07-01  378  	hwr.nq = min_t(u16, hwr.nq, bd->nq_nr_rings);
-627c67f038d2e9 Vikas Gupta  2025-07-01  379  	if (hwr.stat > bnge_aux_get_stat_ctxs(bd))
-627c67f038d2e9 Vikas Gupta  2025-07-01  380  		hwr.stat -= bnge_aux_get_stat_ctxs(bd);
-627c67f038d2e9 Vikas Gupta  2025-07-01  381  	hwr.nq = min_t(u16, hwr.nq, hwr.stat);
-627c67f038d2e9 Vikas Gupta  2025-07-01  382  
-627c67f038d2e9 Vikas Gupta  2025-07-01  383  	/* Adjust the rings */
-d6031788285120 Sachin Holla 2026-08-27  384  	rc = bnge_fix_rings_count(&rx_rings, &hwr.tx, hwr.cmpl, false);
-d6031788285120 Sachin Holla 2026-08-27  385  	if (rc)
-d6031788285120 Sachin Holla 2026-08-27  386  		return rc;
-627c67f038d2e9 Vikas Gupta  2025-07-01  387  	rc = bnge_adjust_rings(bd, &rx_rings, &hwr.tx, hwr.nq, sh);
-d6031788285120 Sachin Holla 2026-08-27  388  	if (rc)
-d6031788285120 Sachin Holla 2026-08-27  389  		return rc;
-627c67f038d2e9 Vikas Gupta  2025-07-01  390  	if (bnge_is_agg_reqd(bd))
-627c67f038d2e9 Vikas Gupta  2025-07-01  391  		hwr.rx = rx_rings << 1;
-627c67f038d2e9 Vikas Gupta  2025-07-01  392  	tx_cp = hwr.tx;
-627c67f038d2e9 Vikas Gupta  2025-07-01  393  	hwr.nq = sh ? max_t(u16, tx_cp, rx_rings) : tx_cp + rx_rings;
-c7c6bcf2c57acc Vikas Gupta  2026-11-14  394  
-c7c6bcf2c57acc Vikas Gupta  2026-11-14  395  	/* One ring group per rx ring, so rss_ctx is checked against the final
-c7c6bcf2c57acc Vikas Gupta  2026-11-14  396  	 * rx ring count. Fail before any driver state is changed, so that a
-c7c6bcf2c57acc Vikas Gupta  2026-11-14  397  	 * retry reserves again instead of finding the failed values in place.
-c7c6bcf2c57acc Vikas Gupta  2026-11-14  398  	 */
-c7c6bcf2c57acc Vikas Gupta  2026-11-14  399  	hwr.grp = rx_rings;
-c7c6bcf2c57acc Vikas Gupta  2026-11-14  400  	if (!bnge_rings_ok(&hwr))
-c7c6bcf2c57acc Vikas Gupta  2026-11-14  401  		return -ENOMEM;
-c7c6bcf2c57acc Vikas Gupta  2026-11-14  402  
-627c67f038d2e9 Vikas Gupta  2025-07-01  403  	bd->tx_nr_rings = hwr.tx;
-d6031788285120 Sachin Holla 2026-08-27  404  	if (!bd->num_tc)
-d6031788285120 Sachin Holla 2026-08-27  405  		bd->tx_nr_rings_per_tc = bd->tx_nr_rings;
-627c67f038d2e9 Vikas Gupta  2025-07-01  406  
-c7c6bcf2c57acc Vikas Gupta  2026-11-14  407  	rx_changed = rx_rings != bd->rx_nr_rings;
-c7c6bcf2c57acc Vikas Gupta  2026-11-14  408  	if (rx_changed) {
-627c67f038d2e9 Vikas Gupta  2025-07-01  409  		dev_warn(bd->dev, "RX rings resv reduced to %d than earlier %d requested\n",
-627c67f038d2e9 Vikas Gupta  2025-07-01  410  			 rx_rings, bd->rx_nr_rings);
-c7c6bcf2c57acc Vikas Gupta  2026-11-14  411  		indir_lost = bd->netdev &&
-c7c6bcf2c57acc Vikas Gupta  2026-11-14  412  			     netif_is_rxfh_configured(bd->netdev) &&
-c7c6bcf2c57acc Vikas Gupta  2026-11-14  413  			     (bnge_cal_nr_rss_ctxs(bd->rx_nr_rings) !=
-c7c6bcf2c57acc Vikas Gupta  2026-11-14  414  			      bnge_cal_nr_rss_ctxs(rx_rings) ||
-c7c6bcf2c57acc Vikas Gupta  2026-11-14  415  			      bnge_get_max_rss_ring(bd) >= rx_rings);
-c7c6bcf2c57acc Vikas Gupta  2026-11-14  416  		bnge_check_rss_ctxs_lost(bd, rx_rings);
-c7c6bcf2c57acc Vikas Gupta  2026-11-14  417  	}
-627c67f038d2e9 Vikas Gupta  2025-07-01  418  
-627c67f038d2e9 Vikas Gupta  2025-07-01  419  	bd->rx_nr_rings = rx_rings;
-627c67f038d2e9 Vikas Gupta  2025-07-01  420  	bd->nq_nr_rings = hwr.nq;
-627c67f038d2e9 Vikas Gupta  2025-07-01  421  
-c7c6bcf2c57acc Vikas Gupta  2026-11-14  422  	if (old_rx_rings != bd->hw_resc.resv_rx_rings || rx_changed) {
-c7c6bcf2c57acc Vikas Gupta  2026-11-14  423  		if (!bd->netdev || indir_lost ||
-c7c6bcf2c57acc Vikas Gupta  2026-11-14  424  		    !netif_is_rxfh_configured(bd->netdev))
-c7c6bcf2c57acc Vikas Gupta  2026-11-14  425  			bnge_set_dflt_rss_indir_tbl(bd, NULL);
-c7c6bcf2c57acc Vikas Gupta  2026-11-14  426  		bnge_refill_dflt_rss_ctxs(bd);
-c7c6bcf2c57acc Vikas Gupta  2026-11-14  427  	}
-627c67f038d2e9 Vikas Gupta  2025-07-01  428  
-c7c6bcf2c57acc Vikas Gupta  2026-11-14  429  	/* Notify only now, so the notification reports the new ring count
-c7c6bcf2c57acc Vikas Gupta  2026-11-14  430  	 * and the reset indirection table.
-c7c6bcf2c57acc Vikas Gupta  2026-11-14  431  	 */
-c7c6bcf2c57acc Vikas Gupta  2026-11-14  432  	if (indir_lost)
-c7c6bcf2c57acc Vikas Gupta  2026-11-14  433  		ethtool_rxfh_indir_lost(bd->netdev);
-627c67f038d2e9 Vikas Gupta  2025-07-01  434  
-627c67f038d2e9 Vikas Gupta  2025-07-01  435  	if (!bnge_aux_registered(bd)) {
-627c67f038d2e9 Vikas Gupta  2025-07-01  436  		u16 resv_msix, resv_ctx, aux_ctxs;
-627c67f038d2e9 Vikas Gupta  2025-07-01  437  		struct bnge_hw_resc *hw_resc;
-627c67f038d2e9 Vikas Gupta  2025-07-01  438  
-627c67f038d2e9 Vikas Gupta  2025-07-01  439  		hw_resc = &bd->hw_resc;
-627c67f038d2e9 Vikas Gupta  2025-07-01  440  		resv_msix = hw_resc->resv_irqs - bd->nq_nr_rings;
-627c67f038d2e9 Vikas Gupta  2025-07-01  441  		aux_msix = min_t(u16, resv_msix, aux_msix);
-627c67f038d2e9 Vikas Gupta  2025-07-01  442  		bnge_aux_set_msix_num(bd, aux_msix);
-627c67f038d2e9 Vikas Gupta  2025-07-01  443  		resv_ctx = hw_resc->resv_stat_ctxs  - bd->nq_nr_rings;
-627c67f038d2e9 Vikas Gupta  2025-07-01  444  		aux_ctxs = min(resv_ctx, bnge_aux_get_stat_ctxs(bd));
-627c67f038d2e9 Vikas Gupta  2025-07-01  445  		bnge_aux_set_stat_ctxs(bd, aux_ctxs);
-627c67f038d2e9 Vikas Gupta  2025-07-01  446  	}
-627c67f038d2e9 Vikas Gupta  2025-07-01  447  
-627c67f038d2e9 Vikas Gupta  2025-07-01  448  	return rc;
-627c67f038d2e9 Vikas Gupta  2025-07-01  449  }
-18a975389fcc81 Vikas Gupta  2025-07-01  450  
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
