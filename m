@@ -1,74 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=134.95.86.59
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794671323;
-	b=Y1D5hvmk7PM4EEMIaxEgV0R0r0jQsqGRqUuwmJTg/0DtlzgZmVbu3CFb4WD3KZJJ3Ena
-	 RSbQcID4uL3lOyu0s9xeSZydJzxUlrK2iIolrSNxCSwSYDyx5kj++VOk2cXVTD8hV3Z6h
-	 H4mhAclNqAHSnM4gzXLOg22mDYboiyXWE87M5ucPRwoEhJY8XZns7kEanLz7/+XxxgeWV
-	 uiAiWKHas0rteoFR22npbXQC9j0yFcuLWtlvZ/bV6eHQEDkF1W/NW7xkwH2/TJr2T+s9F
-	 pO5n2qH38fXhnDTGYlcCh0eNYTq+NBtNBgMcd43tb78WNt1kMEz7nWXvlemYvdSIDbw==
+	t=1794671547;
+	b=N0WDc1fKsc10iaSpPZ52ulB0WkKglfZZ/6t+ZzJz3FwNNI9vBAeUeIvPddFaK+Uf0tH5
+	 9ofRYLdIBySjuNRLbJrKoAj3X43w9zmcIEAt/yHoJCPQwLtOTtKB4BqFl/E2Dwl2rq3ru
+	 AKCG1f7py6TycWfhtOrq6v+/DhrcXjtc2lfhcsbjK9DjqEEWNEzXrpz4oI8Gk7F+JC8wy
+	 OP60mjYzwhZR0SlUkOb711L931KiSVpQ8N1wJZ0RxlAsxH2M5aIBb6zoP+Cy2cvkK228i
+	 DVX7K6dLntjLiM6LFnwIU9od9OBpD+VGWYsazxPLb11+MxNPoxY6yIQxYbmQhhy5Lgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794671323;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=JmaPmls247RMxiNbh9yTGBP02WoOg6woXxKHoqe7rwM=;
-	b=qhQa+K6+LQAB2F7HQv/Kp62F0Xvhl0dUiso6t7HbpjH7T65FLOTjpAvLHQL4hwAasCng
-	 OvcYkIoj/x3tn4tkddbBRMxtB5HCAMfIYJVQIscIiqRASNlLKxcy0BHaNWNjtWx4BXJ/P
-	 hUfuxywd2SlPD94kr278HuKMjOY9QVcA+xkh8BDCEWyEvgKLtViGvjKwkNMZ5ta+S4IED
-	 5dbn4EYSkWkERYyRQuPd+C/Kj5TIoewKxA6zNFr4qhRDOB27Wf6+6UxysMAV9qNgy1f4g
-	 e9oGz7lM9DxDdi9YIvgEYAwp3s1MauS6WpLJHMioNfZtZ2KlUZVyv5iP9scIdfllSZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794671547;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IPAS-Result:IronPort-Data:IronPort-HdrOrdr:X-Talos-CUID:
+	 X-Talos-MUID:X-IronPort-Anti-Spam-Filtered:X-IronPort-AV:Received:
+	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
+	 Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Scanned-By;
+	bh=L4/gJCvYZu8b2gumACcxHfq6IilOehFxXpDFdZhpliA=;
+	b=ep4wi1+q1QOzlHZxwc6SiDloHlT1yMxN4esbfcAW+/krTFnljGeqe4IW2wvngM4+9ktG
+	 P18VTzGq7H3jZhmmkwpMzItc8bsl7gbmZ60e9jzWyj/7P766hi4PZJ18adxECtERffKL0
+	 XKRspIjQu/fZPlKu/vzK1HP0ho7NzvASC1J/Ath0ScPhIUzKp1pvswr+Dabwx2y0MqElJ
+	 fwyLwkBKvB3Vc7iyeP8CUTr9kpOdpSDeXevlfJgZ4g590oXlhdtmREbbcDLlTt+flDIp3
+	 Wju7UA3HsH6Gv1B2zHGqw+/hZu4q3K710OcR/mQZZLkzflzwQwcdBUobRpND+OeK16Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XUo6X5vk;
-	arc=none smtp.remote-ip=209.85.216.70
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=uni-koeln.de;
+	spf=pass smtp.mailfrom=uni-koeln.de;
+	dkim=pass header.d=uni-koeln.de header.i=@uni-koeln.de header.a=rsa-sha256 header.s=2023 header.b=R34zROys;
+	arc=none smtp.remote-ip=134.95.86.59
+Received: from mail-out-v2.uni-koeln.de (mail-out-v2.uni-koeln.de [134.95.86.59])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EAD7606A323
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 15:48:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EAD7606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40B38606A323;
+	Sat, 14 Nov 2026 15:52:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40B38606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uni-koeln.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uni-koeln.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XUo6X5vk
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3b07b06027eso2685916a91.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 07:48:42 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=uni-koeln.de header.i=@uni-koeln.de header.a=rsa-sha256 header.s=2023 header.b=R34zROys
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794671322; x=1795276122; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JmaPmls247RMxiNbh9yTGBP02WoOg6woXxKHoqe7rwM=;
-        b=XUo6X5vkTHU/VnViw7N34xp+R/Ho90DDumY7KsO9yxTqgCxS6Y4WK5+jj2o+8dWIQd
-         E1q5397Ddb3BvwM9BBnXi3WPpHgf9/fJTi0/CNxVeM6bEDwhdtjyrvIZzhYb0zD9PNdq
-         5HqKTgSsOzxjW37leKEiCRgYZqsHsNQlFrwD0BJjCEVU5mzLiZcXS9F3foNOasW+MsEs
-         0CJtmgWnWjy0swUk3Qhxhuebh3fvokQbdCHSWTkVzbhisk1LDnB/1pYs+5LPqYPo2Fh4
-         NVYkx9Klq4WkIG7f4hkzIC1OzyKbJrn+LefXapkpYH3Y1dwunmp+CYwZs2wnd1RMxCAT
-         nlBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794671322; x=1795276122;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JmaPmls247RMxiNbh9yTGBP02WoOg6woXxKHoqe7rwM=;
-        b=lzKRHP2t6xD3NB/8yEmJwCwVaXpHiJYqDkcR1P6h1U4N/Xcq3QiKyG6XTO+Knno0PU
-         ER9+EbVyFqRYjamzRv7rUNI5v2i2kLGiTo2w+2PgeQLZUEtDSJJBg3Tn/ZJRqVa5Sd3j
-         +pL7rrs4/Am3p60nt9NvFIfyU8RlJ9taFzKl3bl0v2oZATV3DNfzkkkzar60194JFhul
-         vBtNqlS+s+iJ0f4F1MyG6BSu90Ge9PutCFt9KyOLArO2Jxqd+TF3tPygEn5ZZ8i84+/G
-         9vTGsLT6+TDgSqwd35zjd+j1781xyqtUeCDu6Lns/7cDd/JwszbIFSl3vky1tTvU8Cd8
-         QblA==
-X-Forwarded-Encrypted: i=1; AL+hErEBLFy+5KdTOzMjxrTQSLogDKJUDgKg5uxpooEFw/LNk7d8tvdNoQ3tcmfLDi4HYwfDF5k7Og67jZE1bAk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z89mCh5lvQx9Cd642OSfqPJ+hZPbQtorhczpZ6lYIF2CM8dD03h
-	yPpZO56KCWuA59MeV0cMrSAWiXPNzBD8gk5K3gAgSNojijZKjeTk8ShyIGnhIVaQb/r1EWRhwZu
-	/baetXg==
-X-Received: from pjyd3.prod.google.com ([2002:a17:90a:dfc3:b0:3b1:29ae:3c64])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4acb:b0:3a4:f75d:d194
- with SMTP id 98e67ed59e1d1-3b1b0a20d40mr6307606a91.36.1794671321759; Sat, 14
- Nov 2026 07:48:41 -0800 (PST)
-Date: Sat, 14 Nov 2026 07:48:40 -0800
-In-Reply-To: <avdAIMDfgL_wy1rx@gremlin>
+  d=uni-koeln.de; i=@uni-koeln.de; q=dns/txt; s=2023;
+  t=1794671546; x=1826207546;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=L4/gJCvYZu8b2gumACcxHfq6IilOehFxXpDFdZhpliA=;
+  b=R34zROysljKpMRewf3RSVXkXIVrG3KEi9zL0JY1CslPosMPnyR8H8mvE
+   WTAhwwfghL86h1BD6WzYS8yleAkq0K1arr1is/GT8vbGn4ky7XhaSworq
+   tA+Eno/ovj5KpRJLUe9tLGfiLKx6jFo+/FL0FE+lIDH/armWfprhnuiWB
+   HvyN8c8hgBIFhHcInmWhA4HESW4fbxVX7yu+7WXh6aghM40uggmky9b1c
+   gcxTEnzxFXilJg+CVAQZF4Cy+lBeuhxD/9fZI+DnF/t/En6LGq1deKbYg
+   B/YNPC1lviYWDqkC9Z/0gXucFvI5PJg4M2J8Cqq1H+LFbQaY4kKy120dX
+   w==;
+X-CSE-ConnectionGUID: Iq6FXI9ARJW4fNhqlfUiOA==
+X-CSE-MsgGUID: wknFR3J5S5uCn37DZuAeYA==
+X-IPAS-Result: =?us-ascii?q?A+CBCQD2gfhq/wCiACoSAIIYWh4BAQsSDIIFCwKCFoMgh?=
+ =?us-ascii?q?FeQKgEDAQEGgREtA4t1ki2Bfg8BDwEBUQQBAYUFAo4fKDYHDgECBAMCAwEBA?=
+ =?us-ascii?q?QEBAQEBAQEBAQoBAQYBAQEBAQEGBYEhhglTSQGJSAGGAAEBAQMjFUEQCw4KA?=
+ =?us-ascii?q?gImAgJWBhMCAQGCfoJ1ulmBMoEB3kmBdBWBCi6IYgGFeAEbhGKBP4EQgRUng?=
+ =?us-ascii?q?gNRMT6IH4JqBIIigQyCXIU6iCyHUlJ4eCwBVRMXCwcFgSVDA4EGI0sFLR2BI?=
+ =?us-ascii?q?yEdFxEeWBsGBRIgKkBDW4ESgQVdgSsoXQECH0YtFYF1AoJRgSMCWwIBSUEOB?=
+ =?us-ascii?q?0VTCSVDEkckIggSCQETGiwKgRo1PAkmBDsVDFsMCxoFGkcIAgsCDHQoERATH?=
+ =?us-ascii?q?R4kLwUaJj4bCoEOKW09NwoLGQQ9lAODDmcbGxyBGUkoEQEeAQoLL1cBkguDN?=
+ =?us-ascii?q?Y4ogiCfXAaCOoFqoWMGQoQEjRSGPBCRaIEmmQikJIR1AgoHGYFvDoIAcYFtg?=
+ =?us-ascii?q?UlTGQ+OLhaBFAEI0H54PQEBBwIHDgMLgWiLM4RPLYFPAQE?=
+IronPort-Data: A9a23:HiXi+aP1c9gqyGfvrR2Gl8FynXyQoLVcMsEvi/4bfWQNrUp03mYGz
+ DYdUW+APvjbazP3edB/PoS19k1XupHUyoRqTXM5pCpnJ55oRWgpJvzCdxutYHnCRiHnZBg6h
+ ynLQoCYdKjYdleF+FHwdOCn/SMhvU2xbuKUIPbePSxsThNTRi4kiBZy88Y0mYcAbeKRWmthg
+ vus5ZeAULOZ82QsaDxNsvvf8EoHUMna4Vv0gHRuPZing3eG/5UlJMp3Db28KXL+Xr5VEoaSL
+ 87fzKu093/u5BwkDNWoiN7TKiXmlZaLYGBiIlIPM0STqkAqSh4ai87XB9JAAatjsAhlqvgqo
+ Dl7WT1cfi9yVkHEsLx1vxC1iEiSN4UekFPMCSDXXcB+UyQqflO0q8iCAn3aMqU547hZMUAf3
+ MY6F2wDSBCag+yLwZWSH7wEasQLdKEHPasEv214iDbEEbM8Qc+FWb/Yo8Je3XIzgc1KG7DSa
+ qL1axI1ZUyYMRQVYg9FUMBnxrX63yCvG9FbgAv9Sa4f5mXS1wF32eLFLdzUP9+NSMFT2EqVz
+ o7D1z+gW0BKaIfEodaD2m2vgMH1xgGmY98PP7vjqdJYnXSe90VGXXX6UnP++5FVkHWWR9lfI
+ lAd4CYGoq079UjtRd74NzWxpnKevw9aQNpdDeY65QeOzYLV5RqUAi4PSTspQNAkrtQ9TDgux
+ 3eGmtroAXpkt7j9YXKU8KybhTC/Iy4YKSkFfyBsZQoB+96loogpkBPJQ9BLFK+zk82zGDfsz
+ jTMpy87750RhMUMz6L9+FfBjzOEp5TERxUy4A/QV3ipqAh+YeaNY4GlwVvW9/BNKMCeVFbpl
+ HwFndWOqeMDF5eAkASTT+gXWrKk/fCINHvbm1EHN50g8Sm9vnuucYFZyC9xKV0vMcsefzLtJ
+ kjJtmt54ZRTMXujZ4d0bpi3BsBsyrLvffzjV/vUad5HebBrcxOH8SRnZErW2W3x+GA0lagjN
+ 5CBdIOgF3cEBL4i3Grob/kS3KVtxS0kw27XA5fhwHyPyrOdbWSUD74ENEaVRuQ46r6U5gTT7
+ 9tbccCNzn13TqvgYzXQ75I7IlUDLHx9Dpfzw/G7bcaYJxZ+XWY8F7rLwexnYZZ32blTl6LL+
+ Xy5XAlUxTITmEH6FOlDUVg7AJuHYHq1hStT0fAEVbpw50UeXA==
+IronPort-HdrOrdr: A9a23:ytMeA62Mjqj9BQcUwbYHnAqjBLEkLtp133Aq2lEZdPU1SL39qy
+ nKpp9w6faaskdyZJheo6HmBEDtexzhHOdOjLX5ZI3PYOCEghrMEGgB1/qA/9SIIUSXygc678
+ ZdmsNFaOEYY2IVsS/y2njfL+od
+X-Talos-CUID: 9a23:7+VIvmHby2jGd2+6qmJG7RA6KuF0W0f/8yveBU+hDWhUSZq8HAo=
+X-Talos-MUID: =?us-ascii?q?9a23=3Aa3kA2A9peYec2XN/TZpU5aOQf9hr5YqUU2JQqsg?=
+ =?us-ascii?q?bkM/fagBCJh6QvR3iFw=3D=3D?=
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-AV: E=Sophos;i="6.27,213,1787004000"; 
+   d="scan'208";a="31198433"
+Received: from smtp-out-rh7.rrz.uni-koeln.de ([IPv6:2a00:a200:0:12::118])
+  by mail-out-v2.uni-koeln.de with ESMTP/TLS/ECDHE-ECDSA-AES256-GCM-SHA384; 14 Nov 2026 16:52:16 +0100
+Received: from smtp-auth-rh8.rrz.uni-koeln.de (smtp-auth-rh8.rrz.uni-koeln.de [IPv6:2a00:a200:0:10::196])
+	by smtp-out.rrz.uni-koeln.de (8.14.7/8.14.7) with ESMTP id 6AEFqFIW003885;
+	Sat, 14 Nov 2026 16:52:15 +0100
+Received: from [IPV6:2a00:a200:0:e00::69] ([IPv6:2a00:a200:0:e00:0:0:0:69])
+	(authenticated as user meisena2 using CRAM-MD5 bits=0)
+	by smtp-auth.uni-koeln.de (8.15.2/8.15.2) with ESMTPSA id 6AEFqEVf1854920
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Sat, 14 Nov 2026 16:52:14 +0100
+Message-ID: <13d8e30b-79e1-40ab-9d06-03993004b814@uni-koeln.de>
+Date: Sat, 14 Nov 2026 16:52:14 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,133 +106,127 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261113164000.467175-1-seanjc@google.com> <avdAIMDfgL_wy1rx@gremlin>
-Message-ID: <aviC2OUjvNz_ubZr@google.com>
-Subject: Re: [PATCH v3] KVM: Skip gfn-based MMU notifier invalidations for
- guest_memfd-only memslots
-From: Sean Christopherson <seanjc@google.com>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Naveen N Rao <naveen@kernel.org>, Alexandru Elisei <alexandru.elisei@arm.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 0/6] Enable cameras on Dell Latitude 5285 2-in-1
+To: Thierry Chatard <tchatard@gmail.com>
+Cc: andriy.shevchenko@intel.com, djrscally@gmail.com, hansg@kernel.org,
+        ilpo.jarvinen@linux.intel.com, jacopo.mondi@ideasonboard.com,
+        lee@kernel.org, linux-kernel@vger.kernel.org,
+        linux-media@vger.kernel.org, mchehab@kernel.org,
+        nicholas@rothemail.net, platform-driver-x86@vger.kernel.org,
+        sakari.ailus@linux.intel.com, v.vitovt@gmail.com
+References: <20260827201611.99825-1-tchatard@gmail.com>
+ <be6f70a3-5792-4a4b-9f03-591869fb9786@uni-koeln.de>
+ <CAB9TEqztrZ5TqRd3-iJpYiHBzK2rCh-jC9=XkTut1OV+Jf4Qag@mail.gmail.com>
+Content-Language: de-DE
+From: Matthias Eisenacher <meisena2@uni-koeln.de>
+In-Reply-To: <CAB9TEqztrZ5TqRd3-iJpYiHBzK2rCh-jC9=XkTut1OV+Jf4Qag@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.3
 
-On Fri, Nov 13, 2026, Lorenzo Stoakes (ARM) wrote:
-> On Fri, Nov 13, 2026 at 08:40:00AM -0800, Sean Christopherson wrote:
-> > From: Alexandru Elisei <alexandru.elisei@arm.com>
-> >
-> > Don't invalidate gmem-only memslots when responding to MMU notifier
-> > invalidations, as the entire point of gmem-only memslots is so that KVM
-> > doesn't need a VMA to install mappings into KVM's MMU.  Specifically,
-> > page faults are resolved by going straight to guest_memfd, using the gfn
-> > and the associated memslot's gmem.file.  I.e. whether or not userspace
-> > happens to have valid mappings to the same gmem instance is irrelevant,
-> > as are any invalidations for those mappings.
-> >
-> > Note!  The exception is KVM's gfn_to_pfn_cache implementation which isn't
-> > yet wired up to pull pfns directly from guest_memfd, i.e. still relies on
-> > userspace mappings/VMAs and thus need to be invalidated, e.g. to ensure KVM
-> > doesn't retain a kernel mapping+pointer to PRIVATE memory.  However, as of
-> > commit da260bcb56fe ("KVM: pfncache: use a dedicated invalidation sequence
-> > for cache refresh"), GPC invalidation no longer relies on memslot lookups,
-> > because GPCs also support HVA-based mappings.  I.e. KVM *must* be able to
-> > detect and handle relevant MMU notifier invalidations even if there is *no*
-> > memslot whatsoever.
-> >
-> > In addition to the obvious performance benefits, avoiding unnecessary and
-> > spurious SPTE zaps and TLB flushes will allow KVM to support features like
-> > ARM's Statistical Profiling Extension (SPE)[1] and x86's Secure AVIC[2],
-> > both of which rely on the pages *never* being unmapped from the stage-2
-> > page tables.
-> >
-> > Link: https://lore.kernel.org/all/20260903160623.315525-1-alexandru.elisei@arm.com [1]
-> > Link: https://lore.kernel.org/all/cover.1783490022.git.naveen@kernel.org [2]
-> > Cc: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > Cc: Naveen N Rao (AMD) <naveen@kernel.org>
-> > Signed-off-by: Alexandru Elisei <alexandru.elisei@arm.com>
-> > [sean: rewrite changelog to capture the new gpc behavior]
-> > Signed-off-by: Sean Christopherson <seanjc@google.com>
-> 
-> Thanks a lot for this Sean + Alex! :)
-> 
-> Though, having local AI do a review pass on it flagged an issue (don't worry my
-> own analysis - not pasting some slop here :).
-> 
-> I think actually this might need an additional change for x86, since it doesn't
-> have a gmem-only check for the shadow MMU PTE prefetch:
-> 
-> direct_map()
->   -> direct_pte_prefetch()
->     -> __direct_pte_prefetch()
->       -> direct_pte_prefetch_many()
->         -> kvm_mmu_prefetch_sptes()
->           -> kvm_prefetch_pages()
->             -> get_user_pages_fast_only()
-> 
-> And a VMM that's doing something broken (i.e. trying to take advantage of this
-> as a vulnerability), could then intentionally set up a gmem-only slot to point
-> at ordinary anon memory, munmap(), and have a UAF on the underlying folio due to
-> no MMU notifier invalidation.
+Hi Thierry, Vitalii,
 
-Ya, Sashiko flagged this as well.  I was initially planning on adding the check
-in kvm_mmu_prefetch_sptes(), but adding the check in kvm_prefetch_pages() is
-better since the work-in-progress prefetching for x86's TDP MMU will share some
-of the prefetching checks, but will go through the normal fault-in path instead
-of using kvm_prefetch_pages().  The return should be -EINVAL or so though.
+Thanks for the quick and helpful reply, and congratulations on getting
+the 5285 series merged.
 
-I'll send a patch on Monday.  Thanks much!
+I should be upfront: I'm a user rather than a kernel developer, and my
+5290 is a daily-use machine on a distribution kernel (7.0), so I can't
+easily run and test a 7.4-rc mainline kernel on it at the moment. I
+also only use the front camera.
 
-https://lore.kernel.org/all/sashiko-outbox-213282@kernel.org
+Vitalii, since your tree already has 5290 board data covering both
+cameras, you are probably in a much better position to send the two
+follow-up patches Thierry suggested. My report above at least confirms
+that the 5290 shows the same INT3446 resource conflict and needs board
+data, and that the front camera works once both are addressed.
 
-> 
-> Fix would be something like:
-> 
-> diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-> index cf4cb586f140..76350dc55d8f 100644
-> --- a/virt/kvm/kvm_main.c
-> +++ b/virt/kvm/kvm_main.c
-> @@ -3172,6 +3172,9 @@ int kvm_prefetch_pages(struct kvm_memory_slot *slot, gfn_t gfn,
->  	unsigned long addr;
->  	gfn_t entry = 0;
-> 
-> +	if (kvm_memslot_is_gmem_only(slot))
-> +		return 0;
-> +
->  	addr = gfn_to_hva_many(slot, gfn, &entry);
->  	if (kvm_is_error_hva(addr))
->  		return -1;
-> 
-> > ---
-> >
-> > v3: v1, but with a different changelog.
-> >
-> > v2: https://lore.kernel.org/all/20260714160411.302386-1-alexandru.elisei@arm.com
-> >
-> > v1: https://lore.kernel.org/all/20260615155244.183044-1-alexandru.elisei@arm.com
-> >
-> >  virt/kvm/kvm_main.c | 4 ++++
-> >  1 file changed, 4 insertions(+)
-> >
-> > diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-> > index cf4cb586f140..599dea22afb8 100644
-> > --- a/virt/kvm/kvm_main.c
-> > +++ b/virt/kvm/kvm_main.c
-> > @@ -601,6 +601,10 @@ static __always_inline kvm_mn_ret_t kvm_handle_hva_range(struct kvm *kvm,
-> >  			unsigned long hva_start, hva_end;
-> >
-> >  			slot = container_of(node, struct kvm_memory_slot, hva_node[slots->node_idx]);
-> > +
-> > +			if (kvm_slot_has_gmem(slot) && kvm_memslot_is_gmem_only(slot))
-> > +				continue;
-> > +
-> >  			hva_start = max_t(unsigned long, range->start, slot->userspace_addr);
-> >  			hva_end = min_t(unsigned long, range->end,
-> >  					slot->userspace_addr + (slot->npages << PAGE_SHIFT));
-> >
-> > base-commit: d21eef2084a9af87ac2a783bc7c2b175ba114e4e
-> > --
-> > 2.56.1.703.gf848ed807c-goog
-> >
-> 
-> --
-> Cheers, Lorenzo
+If DMI data, an acpidump or other information from my machine would
+help, I'm happy to provide it.
+
+Thanks again,
+Matthias Eisenacher
+
+Am 14.11.26 um 04:03 schrieb Thierry Chatard:
+> Hi Matthias,
+>
+> Thanks a lot for testing on the 5290 and for the detailed report - great
+> that the front camera already comes up.
+>
+> One thing worth flagging: the 5285 series has since been merged upstream
+> (mainline as of 7.4-rc1 - the mfd quirks via Lee's tree, the int3472 board
+> data and the media bits via the media tree). So there's no open series to
+> extend anymore; 5290 support would be a small follow-up on top of mainline
+> rather than an addition to this thread.
+>
+>  From your report the 5290 needs the same two pieces the 5285 did, so I
+> suggest two short patches:
+>
+> 1) mfd: intel-lpss: add Dell Latitude 5290 to the resource conflict quirk
+> - just another DMI entry in intel_lpss_quirk_dmi[]. This replaces the
+> acpi_enforce_resources=lax stand-in you used, so please test with the
+> real quirk entry rather than the boot parameter. Goes via Lee's tree.
+> Template: the 7275 commit that did exactly this,
+> 495d5f41a6161dffafe61ac458459c62d440344a.
+>
+> 2) platform/x86: int3472: tps68470: add board data for Dell Latitude 5290
+> - a DMI entry in int3472_tps68470_board_data_table plus the board data.
+> Template: the 5285 board-data commit e605a094ff7a.
+>
+> Two suggestions before sending:
+>
+> - Please coordinate with Vitalii Tytskyi (CC'd) - his 5290 tree already
+> has 5290 board data and covers the rear camera (OV8858), so it is
+> better to reuse/validate that than to reuse the 7212 data. That also
+> gets the rear camera tested, which I think is still open on your side.
+>
+> - Since you have the hardware, it is best that the patches come from you
+> (and/or Vitalii) with a Tested-by on the actual 5290 - board-data and
+> quirk patches really want to be tested on the machine, and I cannot do
+> that for the 5290.
+>
+> I'm happy to review and give a Reviewed-by on the mfd quirk.
+>
+> Thanks again,
+> Thierry
+>
+> On Fri, Nov 13, 2026 04:04 PM, Matthias Eisenacher
+> <meisena2@uni-koeln.de> wrote:
+>> Hi Thierry,
+>>
+>> Thanks for this work. A short report from a Dell Latitude 5290 2-in-1
+>> (same platform as the 5285), in case it helps to extend this series
+>> to the 5290.
+>>
+>> I did not apply this series. Instead I tested the minimal changes
+>> needed for the front camera on the 5290:
+>>
+>> - Linux Mint 22 (Ubuntu 24.04 base), kernel 7.0.0-43-generic (HWE)
+>> - Added a DMI entry for "Latitude 5290 2-in-1" to
+>>     int3472_tps68470_board_data_table, reusing
+>>     dell_7212_tps68470_board_data
+>> - Booted with acpi_enforce_resources=lax as a stand-in for your
+>>     intel-lpss quirk. Without it I get the same I2C4 conflict as on
+>>     the 5285:
+>>
+>>     ACPI Warning: SystemMemory range 0x00000000FE028000-0x00000000FE0281FF
+>>     conflicts with OpRegion 0x00000000FE028000-0x00000000FE028207
+>>     (\_SB.PCI0.GEXP.BAR0)
+>>     intel-lpss INT3446:00: probe with driver intel-lpss failed with error -16
+>>
+>> With both changes the front camera (OV5670/INT3479) works: cam -l
+>> lists "Internal front camera (\_SB_.PCI0.LNK0)", and I get video via
+>> libcamerasrc/GStreamer and in Zoom (via libcamerify). The rear camera
+>> was not tested.
+>>
+>> DMI: sys_vendor "Dell Inc.", product_name "Latitude 5290 2-in-1",
+>> board 09WJPW.
+>>
+>> So the 5290 seems to need the same intel-lpss quirk plus board data.
+>> Vitalii's tree has 5290 board data; would it make sense to add the
+>> 5290 DMI matches to this series or to a follow-up? I'm happy to test
+>> patches on the 5290.
+>>
+>> Thanks,
+>> Matthias
