@@ -1,49 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.190
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794661795;
-	b=WomYWjSisuIlsXfmqI3WBcpNkNiA9eiJMUTrnXS1Qw9KtYrUG12yIdF62dz2KvYe3SLg
-	 uyDV8jmgIpD8BWcj0wise/rlHe/KqmhyZwP5DGM74sUNDxI9GNsPceT2Me0y8JBl/8t93
-	 KYqJeniGmjAdxHqmCu47VygvNfA1fhvTwfOfq/Ddl70EHmwNQPsHLmVUhTOXYic5TvgfF
-	 2J1ZZjpQn+pLNQJdx9DKkPAplEVTud+5uVo5XhmBJt8rQFHXRIHABFCJOoyJGfRxiZbRw
-	 SjsdL7YiQysR4+bBNavLff+OPVGePD4fYaFWu6aBjtE2v5fR7/zCBJIe4FIO/PkelwA==
+	t=1794661788;
+	b=H5iA0Pwv1IFxWGw3wHHfBmD5LHFYKB3aEAcWOg2xqfOJuH+E959nlEsvsOtv0NDzH05A
+	 mcxDMxICm1vcyAVmfU2XI+c5rtCrK76ki/xezFu/bK9K4cmVT1iaOu96zK/eHIUNss9Pl
+	 JgCsTcgFR0xh2oF20YsAiIvIoa14/tS/OGagSefQb/WmZZVNU8ingxZWQDBptygJzh68c
+	 ahPWyrQ5+4SJG3f3W4ordRXtfJSRoWwzeg6k15EPPs6YUuJF+wbrgLI8TT37QCp8YGTu6
+	 MsPsCBlTalFwAQ6GU2UwQbN+VZ8CE0bqKQVHjjQCzmFCnYclU8PmU+OT/H414jTfZSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794661795;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=fZyqvTAJYFugTtfLrdTGe2itrOrTKvVMIRQURP2gQHw=;
-	b=iWjubyIemNMnIssLCgPdhTW5M7VEazMm2VwcU1ZA78ijcnG6tERW6kBc6uNXdVA6lHZA
-	 FxKHDOe/Q9dWEoUFUS0BT8X7AIj8XeySKXCP8lLdFjuGFDMbYqx/PD1QkJFabpqBk7Oog
-	 EWRgL7Fi4WLv8rQ1naVOMOqT7KyhNTo0saLx5p7uzu38CKzdsKQ9l7GYD6R08q13cQFAa
-	 ++vAikODRJuZcFEVUGmUiHxB5m8DtOitI7hEUjJQoostXOUtrmQTiw6U0prWGLjtixecN
-	 BB5c0M1ZHtumNUO/MrGAFJvCVI1DCvds7H3bYYEC7VB0HIaWolvQ1npO0r2AaVqYAtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794661788;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=3VoQXyEijSo/xuq/fhROFbh3/2Km0UUjaAcWVlWjklI=;
+	b=Y8pnhbZCR5zr7Xw38zSevIc9qQjmYmfsuMlyUmLzp3Tkzu9TacXRLPPFgag+xMFtOllc
+	 cWgBj2o3UEvwCWVoSroyt2XY8/P+wI355uNjEQz++0Qa5zpGpkJGzDmjy8JPmsTUL+uUA
+	 5Zrty+iVrF0YgeCeWO0PzJtAt/YtBhnUy3r5OOJKcZCkFquCspF+zTf+VsdaTfiV9m4Fb
+	 90fLI2ZF4YVx6bmK+fg6XLHcoJXcG+Yt0YCyPVfxskwS1cGCZB1VrqorSye4gJlCQq65Y
+	 hsHB++AAKyNoE20q5zTb10Am8HHL46qqoBgpzBnQyVSwBJKaBa0M66YYuloXZaqA7Vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Ty8/r0So";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=faDmI32Q;
+	arc=none smtp.remote-ip=203.205.221.190
+Received: from out203-205-221-190.mail.qq.com (out203-205-221-190.mail.qq.com [203.205.221.190])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18ED3606E99A;
-	Sat, 14 Nov 2026 13:09:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DF796079E25;
+	Sat, 14 Nov 2026 13:09:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DF796079E25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ty8/r0So
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FE891F000C4;
-	Sat, 14 Nov 2026 13:09:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794661794;
-	bh=fZyqvTAJYFugTtfLrdTGe2itrOrTKvVMIRQURP2gQHw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Ty8/r0SoMUqxO4LrNlfBZ8jM+8/0m/Yce0IMqMBaJmgGc4ZGWPEqHBehqsfDPy+BR
-	 7ef+eIqu+WmvEMZfLPmETCepGidhu2UkGPQ0nTWhjjjuRnwcFNiN6JzDR1fRA1/ugZ
-	 Sn6LVjLv9jAcLEQBHwoyMpIdcNUEDbbRAZTR3aGQK3rufuCJq/cnndIhDlgUJy9O2f
-	 s8N4jEwp0PEH9JhOgls40BEgYiB1OOpcBsPu5jb0Z8jZteTY7OSFJ5bvMKLOtswjjD
-	 pCiBAvVrnmgUx9Fr/vgwDkzbuX+HpQAkfTAlSP6UjZymqEm2v8y36GJ4FGcks7sAfP
-	 jVvqXF2NJyHKA==
-From: Christian Brauner <brauner@kernel.org>
-Date: Sat, 14 Nov 2026 14:02:18 +0100
-Subject: [PATCH RFC v2 37/42] target: fileio: refuse files on pseudo
- filesystems as backing files
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=faDmI32Q
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794661780; bh=3VoQXyEijSo/xuq/fhROFbh3/2Km0UUjaAcWVlWjklI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=faDmI32QRcBwVGSdy+cTxOF97AFSNCjinoPMweml8LiQ2ap3yA+AkxePmjK4kWUWA
+	 UNz4tG6EJ/bXEVRsYeAF9u1OeclGM5LUyhoWKpG51DWMmA0o3LdWCnfmDpbeR+325L
+	 vu3dnqoHLfzleH5hIGbP2EuZP1TZFp1K44mp3UHA=
+Received: from localhost.localdomain ([2409:8d5c:8f0:65e5:7443:873c:1230:8af8])
+	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
+	id 25C3B2E4; Sat, 14 Nov 2026 21:09:28 +0800
+X-QQ-mid: xmsmtpt1794661776tbemqpb4v
+Message-ID: <tencent_280CEDB388319F3A9004BE64D245CA3C2F09@qq.com>
+X-QQ-XMAILINFO: N1yXN3LLlHerrKeu4kPi7XH9fWy3OE1gLAJ44HzdrrWiY8ns/+tD6LCNei7lPl
+	 fMb4P6i3UxvXxIfnzFuymfXp6VHCWmW7wHeiRnGLTSGIX+ofr/jbtJbluPGFGbQg7vJhECgIJpF4
+	 LYhA+zd+W41enCBmkvBeyjRAsApEnrAQt2UVyB1bZ4t4aCxX1qfAOBsoPLaPtL8vk8uoEO/jK5Yk
+	 SPLRRx/XBR+WMjPd3qUZ7A66gqum/CUTXTjtcB8euz8Yun+Ejj7o20c6SqQ9uNI/VeuioEmEz71r
+	 AH/8rZmBe//EoqzJHKIto2uljBCv8ajOWVTBR54uGFh+vcIBKqqF0dVFdCTpFEj6NpXgy8vU02mW
+	 onpJw13IR4xCVFvfnJEVJRxoFsIBCFijoR/AmO75hFb/iBFqfn87hWxee1740s24ycATqskPBlZm
+	 NW7MeDP7kxNWHLpoVyQQN5ZNapiw+Mu/gZyDqQV7IA0+Uwgc3ynpbXPaK1XFsCb4yY8q7yvd2IaM
+	 t163252iZK45pxh2L9rO2TmxuyX1duGXqlMiLBMQo8WjiArKciBdb8Gu9c2a9IlsBI3TYf/N9dhY
+	 H6qBPCr65gAmzeuDCOQ7kyTGLWlMHatYspfs4JKrCgWs1XELkspB4U6oSViQX7wc3s8fTsVUcOhM
+	 arH8dHYV+a2K5naK5GmYmwNLaE7Tny799I8hQiie4d7YZNeZFnHZBHj/iv+Ss7jZNTg9NUsgrmib
+	 PtQSKsaQE9IEokF4+rQiRY5cA/8rqPh1M4PnMD+Ixc1/sqOQXjNRRsi5B+Bp5STP+ToRO1t5Fb5J
+	 vR2BGT1+EeJRmHRIsqRQiuriNUivFWA3Ov8Uimidthzpa/96H2X9fSboSmjSMBxnAXnHdw+FFi3v
+	 9HORVJ8asat4aJucWm4iDb2laXUBXYiwzXOyfDIkA02QGi4qSnOg3yguhq2WmZ62+Gm4Ny43fLdK
+	 caqAujUjY/ozkYQIJ6WZtjdCY/J/OLfH3rXgVt2HMMhqw3UqoKxhqKqVODqGPDNsOd9Fh9Kyj2X7
+	 Rl1lPw1XLg7pVS1EZl0XvCGxuqU8piUaDbjq24pYU+A9vebpsOv/9YERGKcJD0nQCGlmqGKbcvCM
+	 6kJnsq2tUBag9YGrd6WZcTI7voyfn0yfVPN0tvPch2t5j7HKAYtj/+YAQbOCy5xES5e9f6
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+From: Hang Nan <2122295973@qq.com>
+To: netdev@vger.kernel.org
+Cc: mptcp@lists.linux.dev,
+	matttbe@kernel.org,
+	martineau@kernel.org,
+	geliang@kernel.org,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	kuniyu@google.com,
+	willemb@google.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	2122295973@qq.com
+Subject: [PATCH net v3 3/4] net: mptcp: reject token 0 in mptcp_token_get_sock()
+Date: Sat, 14 Nov 2026 21:09:26 +0800
+X-OQ-MSGID: <20261114130927.91839-4-2122295973@qq.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261114130927.91839-1-2122295973@qq.com>
+References: <20261114130927.91839-1-2122295973@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,91 +92,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261114-work-loop-pseudo-v2-37-98639a2286fb@kernel.org>
-References: <20261114-work-loop-pseudo-v2-0-98639a2286fb@kernel.org>
-In-Reply-To: <20261114-work-loop-pseudo-v2-0-98639a2286fb@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Jann Horn <jannh@google.com>, Chris Mason <mason@kernel.org>, 
- Josef Bacik <josef@toxicpanda.com>, Christoph Hellwig <hch@lst.de>, 
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-nvme@lists.infradead.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
- Jan Kara <jack@suse.cz>, linux-scsi@vger.kernel.org, 
- target-devel@vger.kernel.org, driver-core@lists.linux.dev, 
- linux-mm@kvack.org, bpf@vger.kernel.org, 
- linux-security-module@vger.kernel.org, selinux@vger.kernel.org, 
- apparmor@lists.ubuntu.com, linux-nfs@vger.kernel.org, 
- netdev@vger.kernel.org, fuse-devel@lists.linux.dev, 
- linux-efi@vger.kernel.org, xen-devel@lists.xenproject.org, 
- ocfs2-devel@lists.linux.dev, linux-s390@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, linux-usb@vger.kernel.org, 
- Amir Goldstein <amir73il@gmail.com>, linux-erofs@lists.ozlabs.org, 
- linux-kselftest@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, 
- Sashiko <sashiko-bot@kernel.org>
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2129; i=brauner@kernel.org;
- h=from:subject:message-id; bh=xgyzkhEOeMIb5OW3d10L8uW2mAkBVhLOiqNzKM5XfpI=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWT9iJlQ21ua5fP3d++vyX77z2zLm/wtYK6mnmdGnefJJ
- ZPudHDadJSyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAEykWJ3hn07xtqPzj9wUZ7vy
- edLyTyHJHLN7PitM3LpayFxXR3yVlz8jQ7//U8b9N/kvXLob3vlgj1P9psj3Uo6hOtH7Hi5Onjd
- 1NgsA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-fd_dev_name can name any file including files on procfs or sysfs. The
-initiator then gets to read and write kernel interfaces through the LUN
-with kernel credentials. Refuse files on pseudo filesystems just like
-loop does by switching to file_check_backing().
+Token 0 is never assigned to a connection: __token_bucket_busy() treats
+it as busy.  It is, however, the value mptcp_token_destroy() stores into a
+socket that is being torn down, and the value a freshly allocated msk
+holds until it is hashed.
 
-Do the same for the protection file. With DIF protection enabled the
-fileio backend keeps the protection information in a second file. It is
-named like the backing file with ".protection" appended and
-fd_init_prot() opens it by path. Whatever that path leads to was taken
-without any checks.
+Both validations in mptcp_token_get_sock() compare the socket's token
+with the requested one, so for a request for token 0 they cannot tell a
+match apart from a socket whose token has just been cleared.  With
+SLAB_TYPESAFE_BY_RCU the same is true for a socket whose memory has
+already been reused by a new msk that has not been hashed yet.
 
-Note that the helper only accepts regular files and block devices as
-backing file and only regular files as protection file. So far the
-backing file could be anything with ->read_iter() and ->write_iter()
-including character devices and FIFOs.
+The token comes from the wire: mptcp_parse_option() copies the MP_JOIN
+SYN token without validating it.  A lookup for token 0 can therefore
+return a dying or half-initialised msk, which subflow_token_join_request()
+then hands to mptcp_pm_get_local_id() and, when the subflow uses a
+different source port, to mptcp_pm_announced_has_ssk(), which walks
+msk->pm.anno_list.  That list is only initialised later, from
+mptcp_pm_data_init().
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/sashiko-outbox-206765@kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Reject token 0 before walking the chain.
+
+Fixes: 2c5ebd001d4f ("mptcp: refactor token container")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hang Nan <2122295973@qq.com>
 ---
- drivers/target/target_core_file.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ net/mptcp/token.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/target/target_core_file.c b/drivers/target/target_core_file.c
-index a5391e57e9aa5..c747cc4a647ff 100644
---- a/drivers/target/target_core_file.c
-+++ b/drivers/target/target_core_file.c
-@@ -145,8 +145,8 @@ static int fd_configure_device(struct se_device *dev)
- 	}
- 	fd_dev->fd_file = file;
+diff --git a/net/mptcp/token.c b/net/mptcp/token.c
+index 3429b43a9f7c..8a603fc8dc05 100644
+--- a/net/mptcp/token.c
++++ b/net/mptcp/token.c
+@@ -299,6 +299,10 @@ struct mptcp_sock *mptcp_token_get_sock(struct net *net, u32 token)
+ 	struct mptcp_sock *msk;
+ 	struct sock *sk;
  
--	if (!file->f_op->read_iter || !file->f_op->write_iter) {
--		pr_err("FILEIO: %s lacks ->read_iter or ->write_iter\n",
-+	if (file_check_backing(file, FMODE_READ | FMODE_WRITE, S_IFBLK)) {
-+		pr_err("FILEIO: %s can't be used as a backing file\n",
- 		       fd_dev->fd_dev_name);
- 		ret = -EINVAL;
- 		goto fail;
-@@ -861,6 +861,12 @@ static int fd_init_prot(struct se_device *dev)
- 		ret = PTR_ERR(prot_file);
- 		return ret;
- 	}
++	/* Token 0 is never assigned, but is what a torn down socket holds. */
++	if (!token)
++		return NULL;
 +
-+	if (file_check_backing(prot_file, FMODE_READ | FMODE_WRITE, 0)) {
-+		pr_err("FILEIO: %s can't be used as a protection file\n", buf);
-+		filp_close(prot_file, NULL);
-+		return -EINVAL;
-+	}
- 	fd_dev->fd_prot_file = prot_file;
+ 	rcu_read_lock();
+ 	bucket = token_bucket(token);
  
- 	return 0;
-
 -- 
-2.53.0
+2.47.3
 
