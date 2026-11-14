@@ -1,62 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794618865;
-	b=KOpeqcq6VCDxEqphQudV+9LYSEYK/gnlhbyTEJBi8ueDIy9iL4eqNu3kM9eLxB8P+6fq
-	 u88HZJIVxBW/bCvb5DJEF1PG8B4WTMe1ysgSpq48tuVtFuTkUIQbQHo1IupDm2rW1ocY/
-	 uEh7aZXveEPaVoFaO1tFxRXxJQITChCkL7vzH1aVJlbfn6yGyZ7JjT7Vx9Z9V2yq2+b7V
-	 /PQfvrojfAbxEgorb/3QwMru+PKTmrXJ4Y4ck3z/oFE8lJCRpIFWpL+0wETmXk2S/5K78
-	 xyUehp5NN2r5ZQoLg0zdE56Xdt01VW26Ahe/SYyAWQD4xSNdc759BCD1IXDEmbEoIGA==
+	t=1794619062;
+	b=cVUKkQyAVvGf/2bCB+zHFp2E3a692rZTHcJ7ch27YCzTrMKda0qw6yGylogFVs2wOib7
+	 cNXlIpny0nwdIU5b3gr5cur/JMUtzLZ7KzblL4/i3Ec8iX2HW89RZS2TS3tqUDY5J895J
+	 S/zys+/GG0RHhaGJGs3BKPTkeV9bBvfTYLlvhK/9NGT1555mCDvmxzcm/Q9T3xFHYyksn
+	 GBLvWq2odYY2kQNiuGxRQzkROWcAV1+ejWnn2PbACIVdkaVbvMCitD990wDz2rLAoFDbl
+	 0BLFCwq+YsLcbIAFUav9BNA86c8AC5Br2xny8fUJxPjCAzd83zPO4FF/QRaCvin5mJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794618865;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=UyYy92siVxlbkOAXrPBxCpNpLxro7gVqdyR2tGshRfw=;
-	b=VSb6Lkxmm2doDpy2fE8tod5J7SWhs3dgmgy9/8wyuIF+2LCjQD05YWMi8CGx5NrMrl1c
-	 vvt0yHYM/JuOhsV92WdL5yV+kiFCrThJks4qvu1R+NLVF5XuoxmW9hGqFqLnY6Sxz45fG
-	 40Bkn/ywCfd+NESGTgYy04r21MjSyix50ODzYGYRoOhAZHE8uAV5qWBdrSsx1q8cG489J
-	 hh8P41ztkXWjQNmUqdF6lFMpy6l4o5b6zNmy8dQ9eG+D9MAK2GqlpSdC61EFi/5XeKEwI
-	 bMiBobqGvkC0o3lVoRv5Jzz3ZsPdjztgsIR5xw7njEqYjH+4jMqB1Hp/pBhoo21X3Og==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794619062;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=6UTFVXkWgy98qyxzLDJCgKeEPxYMOKuPd/fVMWkBbdI=;
+	b=JtTYTJC3Zbv8743vukzEbJw3LEbsiJgZThwZanDnBhTaqyzRInaFo6gUR4VStdWIbCJE
+	 9bDZcwKxFRiu7cgmWY9M0MnO9aAfmey2wSBbf3SX3Z1xh7UnsM8zt6E1a8sSUNLW34v7j
+	 HP2o1Uq3sksaTxRuW+xBVCLWrqEXF3YY+1m2HJiYus7OuL0zNt4apo2QDPgpJFXyPQU7d
+	 ckV3lFDZuEx1yS/oRObJGfZn1ugfZ3MCfoKFmBijYKv1quBA40WMsRqjpimSq04hXms40
+	 VjDpS2aFpz4z21COYnwEo5eeRYZJxPcaRodcAiqelvU5YPElst30h75ns3xlUFlOYBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="RlH6/ki1";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kX9hKh36;
+	arc=none smtp.remote-ip=209.85.214.172
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E96A4606A327
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 01:14:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1E03606A327
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 01:17:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1E03606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RlH6/ki1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3620B1F000C4;
-	Sat, 14 Nov 2026 01:14:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794618864;
-	bh=UyYy92siVxlbkOAXrPBxCpNpLxro7gVqdyR2tGshRfw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RlH6/ki13MdccZ31W7ZNOHZHNU4dwl06XOwI2e3Zs1ynQ6VT8B2LvBFPuM4eKNb+q
-	 XtG2X2mKPQQflf5m/g4gwv8A6jrvYRbRz9V+3mWLpAYW8kWBw1GHcFpBBaHG+xcqDD
-	 tpbANPB6ufF7J7sNbeg8ps2RMyNK08Zx9kBKfZg/sAdyq/hFCi4PjFOWU6PmUmcvWQ
-	 cqSXj0BEyNspI5CBipxiw3UneGVz4VuhEIRCSxWsD03V+Is5hxLKAO1k+HE2Wo8/Ch
-	 p+HI5RtpQHx9q2+sTQVOxUB1GgprMBo6jc1y1Jem/KJdrPuoVxIGpM+nlgPdq4DKUa
-	 KUUfaDwuw3bBw==
-From: SJ Park <sj@kernel.org>
-To: "Gregory Price (Meta)" <gourry@gourry.net>
-Cc: SJ Park <sj@kernel.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	ziy@nvidia.com,
-	joshua.hahnjy@gmail.com,
-	rakie.kim@sk.com,
-	ying.huang@linux.alibaba.com
-Subject: Re: [PATCH] mm/mempolicy: ignore a bind policy whose nodes have no memory
-Date: Fri, 13 Nov 2026 17:14:16 -0800
-Message-ID: <20261114011417.85494-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261113192642.2618878-1-gourry@gourry.net>
-References: 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kX9hKh36
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e9995ce866so20816815ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:17:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794619061; x=1795223861; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6UTFVXkWgy98qyxzLDJCgKeEPxYMOKuPd/fVMWkBbdI=;
+        b=kX9hKh36pxemNcexnCX39UEzfziVFKCl3tM4J2dJKuclvgLVd1Df0FoXZM8ZtUT2J8
+         ROra1X3BWyd5gxl7YQRf8OXWveyre3U2ckVTSQ9PIqfbR2NDMXSEH4Q7GENO7izM93HX
+         RsMkAuBLqNL6kvtrGJrlFIAgDridFz+1ihRXVtZ3sQuTzEWrqbZ8FhIQnLnAHXTQqsH4
+         JCg22xA/YQbNv2T2HBv8JnlfHVw/ewZh0OsIUykflg1+2GtggnSalZHV1TuzfXAxihdm
+         CouVDWTJSbGclOfDKXHUitvZA/CitXxiPgyK8E3GVLCB6UsRXard7F0Lz5ZRjJo45DSB
+         GGHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794619061; x=1795223861;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6UTFVXkWgy98qyxzLDJCgKeEPxYMOKuPd/fVMWkBbdI=;
+        b=k5R10jjbBKpPtj6d8bQGtv5lrq/icSm42vXuR9FTgTW3sjDhqL+8rzOkGDEClmxllc
+         YB0GSgOBeeOITLFJ1Jczehd6FCChdLB/VDS98r6w8t8ls4hZd9Xalwebkmi8aGFaKHb3
+         0LTNWAHjL+vCfGIUnTIFRupxZrUeOsM2duNt5TFWHwdRMU85uDeHPL1I+ZyTSnESDjd/
+         pbkIVlbdw0uRTBj/kYZudN/IYFU0E4ygAEw2T8phW84BgW3c+bev+Vv/mcTCpitpxlVY
+         csD0REbSC40PTZfUD3/DN9xtlJa7ydkjGURgDT6u8mC1cXHkhvl+g0xvhfzA8QUx/v4e
+         yrDg==
+X-Gm-Message-State: APuU4Z9H/FP0FnShzulWkt9p9Rf29W5pqOaC7tYRG3c2p6N7jm70FC7U
+	wtjuQro7/np8TPVT8gvziJJDg+vuPfCi4bN+EaJryp4kXNunc87T5oA+jiD3Jw==
+X-Gm-Gg: AYBFou2QANxeLEEMSo5bonLJGfRCM3UDPOPDzd7LDaWEFQdobKTKbHiJ2xwz3PkR+Lp
+	97Pd8oQU72qFR1KF+c3X0I5MuAbO/9JFVWE9rTNpeKUmL83ByUTQJIDQeJhrqsvmuwrSVdigVY4
+	de1LQ3uWIxlaWxMEKU8CEmsPLPmD49MIRqY2STH/0104oFiyR/jEbTS3HXciwkmo28seQjvAkoO
+	BzDW/+xAMjUCORcD+JlkfXuEBevKYANtMWScSnKf6bNN6MZ0gVTYVKs3BCyJhzZ2ihugjiqKFtJ
+	P50pDcx0L/9mZpEC1lwWj0R4L4poJqpzy1A5K7moIJ3zRhGJ7OvI1p28m7kvkR6wcQpu31Zq3sH
+	d5ed/PPWVgQKxCMytqJmj53WtXPHD38vt9OxcuSlaz+SraqfM7AZhGb8K9rOZz2UOFAlPrk+kgG
+	zVpjC5SgDmxBBnowlq8CZijjbPzPW5/M8FoY0GAt44UaMnoqrUiLAVu3qjVQuVq85PRsRU+GlKD
+	VrQBzCsW0S5j6SBF/ueommsQmC3dnT4j3OfB8NknKiqUBsuDhcpDoPsb2tReh+d6w9cGovov/XL
+	opDzG7TCU3DF58kzswhaY/0loLbgz/2rw8OU4+zwkp5nP3TCImt1upORr8nf0m989aeiTK7/GEa
+	X7q0gydHsja96RlSVR3prWTV186exUjHXaDmkTn9ITSO1Kb8=
+X-Received: by 2002:a17:903:41c4:b0:2ed:cab:e977 with SMTP id d9443c01a7336-2ee0da966e7mr44417145ad.12.1794619060990;
+        Fri, 13 Nov 2026 17:17:40 -0800 (PST)
+Received: from f2fs-test.c.googlers.com.com (193.67.125.34.bc.googleusercontent.com. [34.125.67.193])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f4acd77sm16792445ad.3.2026.11.13.17.17.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 17:17:40 -0800 (PST)
+From: Daeho Jeong <daeho43@gmail.com>
+To: linux-kernel@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	kernel-team@android.com
+Cc: Daeho Jeong <daehojeong@google.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] f2fs: avoid underflow in get_available_block_count()
+Date: Fri, 13 Nov 2026 17:17:34 -0800
+Message-ID: <20261114011734.3806377-1-daeho43@gmail.com>
+X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,40 +97,86 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Fri, 13 Nov 2026 14:26:42 -0500 "Gregory Price (Meta)" <gourry@gourry.net> wrote:
+From: Daeho Jeong <daehojeong@google.com>
 
-> apply_policy_zone() assumes that policy->nodes intersects N_MEMORY, so
-> it reads a bind policy with no N_HIGH_MEMORY node as movable-only.
-> 
-> On systems with CONFIG_CPUSETS=n, nothing rebinds policies when memory
-> is removed, so offlining all memory on the nodes a bind policy names
-> leaves it with none. The policy is then treated as movable-only, and
-> movable allocations are restricted to nodes without memory.
-> 
-> This results in allocations failures, a VM_FAULT_OOM leak, and then
-> an infinitely retrying fault that hangs the process.
-> 
->   page allocation failure: order:0, mode:0x140dca ... nodemask=2
->   Huh VM_FAULT_OOM leaked out to the #PF handler. Retrying PF
-> 
-> Ignore a bind policy whose nodes have no memory. policy_nodemask()
-> already ignores a bind policy that does not intersect the cpuset.
-> This covers hugetlb's policy_mbind_nodemask() as well.
-> 
-> If the nodes regain memory, the policy applies again.
-> 
-> CPUSETS=n with HOTREMOVE=y is unlikely a common configuration, so this
-> isn't marked for stable.
+get_available_block_count() subtracts current_reserved_blocks,
+alias_reserved_blocks and root_reserved_blocks from user_block_count
+without checking the result. Only unusable_block_count is handled so
+that the result does not go below 0.
 
-Makes sense and looks good to me.
+f2fs_ioc_reserve_dev_alias() checks the free space with the root
+reserved blocks allowed when root calls it, so alias_reserved_blocks can
+overlap with the root reserved blocks until the reservation is turned
+into valid blocks. For example, with
 
-> 
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+  user_block_count = 1000, root_reserved_blocks = 100, valid blocks = 30
 
-Reviewed-by: SJ Park <sj@kernel.org>
+reserving an alias device of 950 blocks passes the check, since
+30 + 950 <= 1000, and sets alias_reserved_blocks to 950. Then, for a
+user who cannot use the root reserved blocks, the available block count
+is 1000 - 950 - 100, which wraps around to a huge value, so the check in
+inc_valid_block_count() does not stop such a user until the reservation
+is done.
 
+current_reserved_blocks can make it wrap in the same way, for root as
+well, when reserved_blocks is written through sysfs in the meantime,
+since it is set without considering alias_reserved_blocks.
 
-Thanks,
-SJ
+Sum up all the reservations and return 0 if they do not fit in
+user_block_count, as was done for unusable_block_count only.
 
-[...]
+Fixes: eae3faf210bd ("f2fs: support dynamic reserve/release for device aliasing")
+Cc: stable@vger.kernel.org
+Signed-off-by: Daeho Jeong <daehojeong@google.com>
+---
+This was discussed in the review of "[PATCH v2] f2fs: reserve space to be
+shrunk during resize_fs" [1]. v3 of that patch is sent separately on top
+of this one.
+
+[1] https://lore.kernel.org/linux-f2fs-devel/20261022165526.1539629-1-daeho43@gmail.com/
+
+ fs/f2fs/f2fs.h | 21 +++++++++------------
+ 1 file changed, 9 insertions(+), 12 deletions(-)
+
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index 50a5f845176d..59bc3c2fb70a 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -2710,23 +2710,20 @@ static inline bool __allow_reserved_root(struct f2fs_sb_info *sbi,
+ static inline unsigned int get_available_block_count(struct f2fs_sb_info *sbi,
+ 						struct inode *inode, bool cap)
+ {
+-	block_t avail_user_block_count;
+-
+-	avail_user_block_count = sbi->user_block_count -
+-					sbi->current_reserved_blocks -
++	u64 reserved = (u64)sbi->current_reserved_blocks +
+ 					sbi->alias_reserved_blocks;
+ 
+ 	if (test_opt(sbi, RESERVE_ROOT) && !__allow_reserved_root(sbi, inode, cap))
+-		avail_user_block_count -= F2FS_OPTION(sbi).root_reserved_blocks;
++		reserved += F2FS_OPTION(sbi).root_reserved_blocks;
+ 
+-	if (unlikely(is_sbi_flag_set(sbi, SBI_CP_DISABLED))) {
+-		if (avail_user_block_count > sbi->unusable_block_count)
+-			avail_user_block_count -= sbi->unusable_block_count;
+-		else
+-			avail_user_block_count = 0;
+-	}
++	if (unlikely(is_sbi_flag_set(sbi, SBI_CP_DISABLED)))
++		reserved += sbi->unusable_block_count;
++
++	/* the reservations can overlap each other, so do not wrap around */
++	if (unlikely(reserved >= sbi->user_block_count))
++		return 0;
+ 
+-	return avail_user_block_count;
++	return sbi->user_block_count - reserved;
+ }
+ 
+ static inline void f2fs_i_blocks_write(struct inode *, block_t, bool, bool);
+
+base-commit: b9d7379d10d43386b59082da8c9a0b111e054781
+-- 
+2.56.0.611.g1030f0b940-goog
+
