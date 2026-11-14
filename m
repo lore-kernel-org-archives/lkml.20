@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794679466;
-	b=wyLicj+XU/jDMLOAQ2b8Hq5je7XVO2U58aoqp3Nle2W0H03x34R0Xp8Ry7GAT0uxvvb0
-	 Kn6rygyM/5aYJ2sFftVvi8/BlzYdP+cd+Hy8uY/qE3+R/oSJhe5DeawfIIZvkQroVOUPV
-	 qN8wZGryQDB2IZ9MDr1QfaUlwP5WOy369Ny4elEO3L1GsYr5HYyTNcLAq1lXWI0CFuUBc
-	 N+LD78383KxKUU4IczQEOeZKfHO+Cas8z+HOHR4mVxw94HCJkYgicXQ5XkWXfMOY3jR6U
-	 vI4bXsoVyVcJAq5TPXGGleFZuI3g0NVllT/VEG3L1tOcCjUfBwAtBogn+5SeruNXvow==
+	t=1794679468;
+	b=1x+FsPx413PS49Ktb6tTvuyXVQWjILwvvhlbC6Uh2s/1QBtxCJFc4EFmFnHQ/00t1XRh
+	 1T7Jj4oI7g2J+UhFx6vKZdLf0t1hHsNG7/T6IOtWFc6hljct4aInHaEhA4HExMzTBEH96
+	 fUTBVm0F64n9vAq+fSq/gtRNWsbwhsHj8R8qaLigoviQTSJ9071baavcO1iTyucYte2oh
+	 B/ypxtduqiQAD9bLirE2GFKTUConJR5sP4a2OUWd4PwSg5Wt+sOObK7JponU6xCUyg+aU
+	 mBbzmqc3/gSVPJ1YbpnnutuhVt607rzIKHzrxb1M8anKA272VIRNjX1+Pl1OylLyYbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794679466;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794679468;
 	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer;
-	bh=jw+MrZsI04UhCut1Lcy9TfgOtgk6vMk75DWUITxs4CM=;
-	b=dP0pK0zh5SOKV1TYPr1ptcHhELlaaKIy1JczcRZD7RfpFDDnkQcTqu92ZIL8SHwNE7UD
-	 Um3tAsVWitSHsLDcMDUfmK2RgzseU9nW8cMwgHW6T028YsRNEZxoeHsbDiUyK+Ghzvefa
-	 PUWktyKxN4PgUVu5QTteoYqB5pkwyBWER63E1iJjFo+0foJTJ9YEjpRIdN8qFTq8dBJcp
-	 yDDf6tT8LPohKjRYWqMRMppd5vciYo5fmh83AbcEevKxSluR8En5kXrvRuf6kVrarFzkn
-	 kAdIHBz5XyZKrKnLzpJrChb9xLNpp62drZ2BMBnbXiynRK/KH8eaBEb1dYfqkD+YJhg==
+	bh=Fre7Izzm8DScrV+ScN23715ZzbAkvpLiKvmAtbu7sKY=;
+	b=sHVM2og3wiDKrU5YnFp+uEZJRwprp7coyvODzvm5nTpZX6stezyJgr8igi54EhI+5RYd
+	 Uk70ZofZfVeBER0iNb/jzGNvV2vA9FF3HSYqz0445Jd0wYP8EZLc+xbuFeZpV8y/Efcsl
+	 ueBDSgIeeMk/d30cFhOGFMPWf/b1wWPVafDn2NafDSDZyAsb1LQqWf07oJsBmHRHMO9Vm
+	 KdD2IjfX31pAh2RVHzzbBchDFg5R+f73++4qUahy8KpVMzj0ME8y9ApiTKcAszZExjpOz
+	 1/qsdSnVKxQbhb130Z0giHkCfmvWhWZjeMDHnBg+U5GWUNbmqF9GXB6wy4w0sQ8xNsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=AuAdV4hK;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b="E2/VSS73";
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49764606A883;
-	Sat, 14 Nov 2026 18:04:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49764606A883
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18A8B606A898;
+	Sat, 14 Nov 2026 18:04:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18A8B606A898
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=AuAdV4hK
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=E2/VSS73
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794679459;
-	bh=VA0rwkfjSh33P+agF41CZoRoNRegKroGX+B+IDlTDzs=;
+	s=mail; t=1794679460;
+	bh=CoXaP5SMjYToa04HiP4Cu6j1pXkYEZQduwHm/vPwKj4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=AuAdV4hK6N8r3Qcr9K6kq7g2E4LPupergUw2gcirBQiganMOJegrSohQwdyi3G9pg
-	 cPnngILkVuJtELdWIPCN4t7kjnJSWNpzGuZvEFufwjF61LN2VP810AegVFkXrNopHn
-	 JqLvCfXb8tEcds8WDMnodqcpawVVWHzQnsEsShvx6HsOzuRVdqRWU9JANENRaU7LXl
-	 RhAJyNQyzNK0Lrju7R4BkRgVX0z7RepdRJ30m8MEHv7TJKXtTPDI0umGnND0hH+0iI
-	 kE9eO3bii8xuHmxu4qF9c33X4VHGaEUstoG2vW6tvtt7bEHhJbvQXrkhgVF+Cub4pG
-	 Z/+HpwIh5eu6A==
+	b=E2/VSS73RKr0lwmAIWkHCjym7by0IIMiIoYjIXDlaMG1ek8OAypSOz7ArKri6FZha
+	 sYFCtQj7eyS36+QCK/5ttFwgNc8+y3fypYCufUaZmpVhaeQJr2OzQmBNzlPWZuSVKq
+	 25foSCof3c49gT0NtQm9fRmmYB9hWzVGu/paZfyMBiehojBGYnWNdEyHEnBuRmnDly
+	 1siDXCzYR/GdA0VTFWwWJTbNr+t6O5mg4sTCz0NC540f1nBkMso9igLFS/tr9aIkuO
+	 tsWB6OCS4QqwuI90P+G/SqjQPn4gmvddbaEh2aTTv9XSSaQUXMhM75yRrtSPqIOGam
+	 W7wnCbjhQuqxQ==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 67EAA17E0F3F;
-	Sat, 14 Nov 2026 19:04:19 +0100 (CET)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2D52317E101E;
+	Sat, 14 Nov 2026 19:04:20 +0100 (CET)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Sat, 14 Nov 2026 20:03:27 +0200
-Subject: [PATCH 03/25] drm/display: hdmi-state-helper: Drop
- drm_atomic_helper_connector_hdmi_force()
+Date: Sat, 14 Nov 2026 20:03:28 +0200
+Subject: [PATCH 04/25] drm/display: hdmi-state-helper: Reject connectors
+ lacking HDMI funcs
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,7 +65,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261114-drm-conn-hdmi-cleanup-v1-3-20e8a33a2286@collabora.com>
+Message-Id: <20261114-drm-conn-hdmi-cleanup-v1-4-20e8a33a2286@collabora.com>
 References: <20261114-drm-conn-hdmi-cleanup-v1-0-20e8a33a2286@collabora.com>
 In-Reply-To: <20261114-drm-conn-hdmi-cleanup-v1-0-20e8a33a2286@collabora.com>
 To: Helge Deller <deller@gmx.de>, Martin Bugge <marbugge@cisco.com>, 
@@ -78,54 +78,39 @@ Cc: kernel@collabora.com, linux-fbdev@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-With all callers converted to the .force_ctx() connector helper, this
-function has no users left.  Remove it.
+drm_atomic_helper_connector_hdmi_check() must only be used with
+connectors set up via drmm_connector_hdmi_init(), which guarantees
+connector->hdmi.funcs is set.
 
-Reviewed-by: Maxime Ripard <mripard@kernel.org>
+Other connectors used to fail gracefully: with max_bpc and
+supported_formats both zero, hdmi_compute_config() found no usable
+format/bpc combination and returned -EINVAL before
+hdmi_generate_infoframes() dereferenced hdmi.funcs.
+
+As those fields are being replaced by drm_connector_hdmi_funcs
+counterparts, hdmi_compute_config() would dereference hdmi.funcs right
+away.  To preserve the old behaviour, return an error early for such
+connectors, and use drm_WARN_ON_ONCE() to flag the driver bug.
+
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/display/drm_hdmi_state_helper.c | 15 ---------------
- include/drm/display/drm_hdmi_state_helper.h     |  1 -
- 2 files changed, 16 deletions(-)
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-index 66ae678fc078..c50cedc7fa65 100644
+index c50cedc7fa65..f533d5a7aab9 100644
 --- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
 +++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-@@ -1440,21 +1440,6 @@ int drm_atomic_helper_connector_hdmi_hotplug(struct drm_connector *connector,
- }
- EXPORT_SYMBOL(drm_atomic_helper_connector_hdmi_hotplug);
+@@ -912,6 +912,9 @@ int drm_atomic_helper_connector_hdmi_check(struct drm_connector *connector,
+ 	if (!new_conn_state->crtc || !new_conn_state->best_encoder)
+ 		return 0;
  
--/**
-- * drm_atomic_helper_connector_hdmi_force - HDMI Connector implementation of the force callback
-- * @connector: A pointer to the HDMI connector
-- *
-- * This function implements the .force() callback for the HDMI connectors. It
-- * can either be used directly as the callback or should be called from within
-- * the .force() callback implementation to maintain the HDMI-specific
-- * connector's data.
-- */
--void drm_atomic_helper_connector_hdmi_force(struct drm_connector *connector)
--{
--	drm_atomic_helper_connector_hdmi_update(connector, NULL, connector->status);
--}
--EXPORT_SYMBOL(drm_atomic_helper_connector_hdmi_force);
--
- /**
-  * drm_atomic_helper_connector_hdmi_force_ctx - HDMI Connector implementation
-  * of the force_ctx callback
-diff --git a/include/drm/display/drm_hdmi_state_helper.h b/include/drm/display/drm_hdmi_state_helper.h
-index 21e5a9215319..ddbfb5b80fa8 100644
---- a/include/drm/display/drm_hdmi_state_helper.h
-+++ b/include/drm/display/drm_hdmi_state_helper.h
-@@ -27,7 +27,6 @@ int drm_atomic_helper_connector_hdmi_update_infoframes(struct drm_connector *con
- int drm_atomic_helper_connector_hdmi_hotplug(struct drm_connector *connector,
- 					     struct drm_modeset_acquire_ctx *ctx,
- 					     enum drm_connector_status status);
--void drm_atomic_helper_connector_hdmi_force(struct drm_connector *connector);
- int drm_atomic_helper_connector_hdmi_force_ctx(struct drm_connector *connector,
- 					       struct drm_modeset_acquire_ctx *ctx);
- 
++	if (drm_WARN_ON_ONCE(connector->dev, !connector->hdmi.funcs))
++		return -EINVAL;
++
+ 	ret = hdmi_compute_config(connector, new_conn_state, mode);
+ 	if (ret)
+ 		return ret;
 
 -- 
 2.56.0
