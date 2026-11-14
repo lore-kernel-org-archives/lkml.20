@@ -1,66 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794674826;
-	b=gY4s3Wnd4hhVmaZvlEk2dOweAp6twKHNpw4CrjiHRa3aS6gx3WBBRrFqAG7uiCXgSdcR
-	 QMn5PgZaPlmChxZqm61E5xdcMEoFEsNY8YT6qOlnO0wh1ayl9ntogBWRWsHovJRCZclMG
-	 6scMNVgDFjVY3JyUUUpZW3CHnN36HHJ6SKEgBfm4TsoXwZMEBYdctD9bsOFlzMGfyBxJc
-	 W00KvQYXsLKYkB3YxjLETR/2Y5zrkuTWFHXj1Oy5zjX68xUYiVUXh7qiiTOGcpbraol+f
-	 0rPBNfS32FYhqJLC9v92TyaQdgT1i83s33ggmrk3w2q55XwyAkZjlCs0dRLpAQF83eg==
+	t=1794674827;
+	b=Cq24bM6/JLsSY2EOEY4aKIaQm3t5vsMfhyMF7dhnUno94zmcSU9oSgn8Yp0dQRMJbcEq
+	 DdhtOEZMe2GYBvj4G31ec0R1PgwD7rBgTdFAt6bmDFP28KjtYPCG5narrUCS54x3PFjrU
+	 kukplaw52BGzhSsqps98CnKXB4kcdVWasJupqcyYB5Awlt2jx8obiZ6OmE35OPcODuTli
+	 5I1cVZiu0TihBG177SiN2qU42d0MI2Ov1USbSzsyZpBpfEW087nbri8kK7DXrf2jqJgZo
+	 eSLiCfvHvQ1QNORZaecL7OGdsE2Ye3ip5rKfggngn5Fwgyn5oE7jl0NDEhc3ykuICkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794674826;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794674827;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 X-Zmail-TransId:X-Mailer:Message-ID:Date:Mime-Version:From:To:Cc:
 	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
 	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=3LuBfwrsNMEmaxatdcww0jyj29nzn1W/PMAS+hcYzQQ=;
-	b=VyOcVlB70C7P8dL/K6wCCSmf9YRDgrNAWIqO744CzKuW2EcJ/DGTMe8QoDX3LVFZNrHJ
-	 uvdJANayVSCYcWxjrAZcv96UfTjD25URilOjvLWFHgMJXNcdazT/4lwD4vjvhjsxbME6R
-	 5TrVCz/pspqR9CRjHh/nTQGviREb4wKw0qfxSCAzeiUalsWn9AOK+/GKhDP0LlcILy+YS
-	 AFxKso/yJXtmjNlFmYpX3TIU/F3S2egMWyY9exM3QkM0aEZ9/Yp/3EY5uhwyh1GC7dlUD
-	 oDt3JZmcxrav1ovjFlxsVMl9F3oxdI1Rk5q3YwRbGDZVCID7a/vxnpUNOdkZkmzXQNQ==
+	bh=XRgYV+Ks94EfuBXAohtceBa45x+x3HR336pqrCVLcA0=;
+	b=3t7Yznw92/mgwfmxgGdOJWCl16u/Qmt9XMbCfjNSGwx9u4LDpAZ9CSDm5DCkmcZfNNub
+	 hv6VtsVt4mxkCzg67xEFYEl/HjAoMSITVbo0J3XqfzAeO2o+n6Br0WEP10rTBGKPPb82E
+	 5XZbcAdf3rJUE0Y9vbb9IFnKs0hntjYMGa09Xo8bqJjkvCtdZUAtjsyXLWKv5yM7W5ql/
+	 PGOUzrDyLk7tnquBYTfYiNTEqiT/TRsyK5QX8BEJTSeHLtfnlRXd2PGaem74c+SzL6wWQ
+	 rylUqFlPaM3TMotEibedCbOzl/s8UBFiHIQay1PVU1b0Oj9EYMz0R7Unz9oSuQFXW1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=zte.com.cn;
 	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=Ib3WR+2g;
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b="jOWsaRw/";
 	arc=none smtp.remote-ip=160.30.148.35
 Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE780606A323
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:47:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE780606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EAC8606A334
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:47:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EAC8606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=Ib3WR+2g
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=jOWsaRw/
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jRg5M70DSz8XrrJ;
-	Sun, 15 Nov 2026 00:47:03 +0800 (CST)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jRg5P5TFgz8Xrrf;
+	Sun, 15 Nov 2026 00:47:05 +0800 (CST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794674824;
-	bh=V7A2yyFE7wnSjeZEJxHslp4jPPbaHPv0vPxXAMZMgLs=;
+	s=z202610; t=1794674825;
+	bh=gydiiSAYZ04Px2gvqNM114JBE2j0C3oik9IAucsOCfc=;
 	h=Date:From:To:Cc:Subject;
-	b=Ib3WR+2gr/7rSbP9L7eduEl1nvz2FLrNgu5CqNXBEQRords0YIIRQAZAd8t1c6pgl
-	 L14voEHkFAvIkctcG+5Ai/+txc8ZyxViXYFuZaJUa5OgXT8yK0mfKLGMkcZoRD3fe7
-	 ui/ftW7BJDvvksVW+8LUJkm1qqVu1M6D1Rz22siVQNvYFZZWN11oPe3p7kluBFxOrh
-	 /bJBnqjO6PYgj8L5QBs2sVH5Mp3OXeaXN7Kffq61nr9FUxyP1Z8vsYE41IVVyBni2l
-	 OWHwwf7r4AjzyqqG8yq4hkPa2L4WDBH2uw8Vmp/vnzbRb9Q5lTiK6A5ZF7kyfaUJIQ
-	 NMXPDpzccWfNw==
+	b=jOWsaRw/iXRCCp7hoEAuBB6fxkc+WS+s3FVqyRylTo3uFSoJMivmogwPUQF9ar8s9
+	 WzxNdSwg+w+Aqcr10L8E09zqHLqzH+kvNGBMJUJDkYKya4b3fI7ev91URvq1tB9HI1
+	 e6GcyIOvCMQ9a8STZi5K9DqMXOWQbPk2C2FZ93gqzbj49Ln//t7bf9WCpVgac6I/F6
+	 eCiTsqHKztuFPD4pCwmWikuoY52ZyV0KC/tJAbzI+OPwZGfN/OaBISPDDQd11ajqMq
+	 FXCWCBRFiQJpQekSLTupAd2Znl2IiZUEYuH03U+avxotces8jh1EHxDvZW/zLBOG4f
+	 MI+hD2sNL4+bQ==
 Received: from xaxapp04.zte.com.cn ([10.99.98.157])
-	by mse-fl1.zte.com.cn with SMTP id 6AEGkr7a089513;
-	Sun, 15 Nov 2026 00:46:53 +0800 (+08)
+	by mse-fl2.zte.com.cn with SMTP id 6AEGkuKx094406;
+	Sun, 15 Nov 2026 00:46:56 +0800 (+08)
 	(envelope-from shao.mingyin@zte.com.cn)
 Received: from mapi (xaxapp05[null])
 	by mapi (Zmail) with MAPI id mid32;
-	Sun, 15 Nov 2026 00:46:55 +0800 (CST)
-X-Zmail-TransId: 2afc6af8907f77b-3074b
+	Sun, 15 Nov 2026 00:47:00 +0800 (CST)
+X-Zmail-TransId: 2afc6af890848a8-30878
 X-Mailer: Zmail v1.0
-Message-ID: <20261115004655564ix3vefI54RZ3HhYOmxuKX@zte.com.cn>
-Date: Sun, 15 Nov 2026 00:46:55 +0800 (CST)
+Message-ID: <20261115004700194_SpQtdnE3JL6bzx51l-a5@zte.com.cn>
+Date: Sun, 15 Nov 2026 00:47:00 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,72 +74,87 @@ From: <shao.mingyin@zte.com.cn>
 To: <akpm@linux-foundation.org>, <liam@infradead.org>, <ljs@kernel.org>
 Cc: <linux-mm@kvack.org>, <vbabka@kernel.org>, <jannh@google.com>,
         <pfalcato@suse.de>, <linux-kernel@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIXSBtbS92bWE6IHJlc3RvcmUgVk1BIGl0ZXJhdG9yIG9uIGZ1bGwtcmFuZ2UgbWVyZ2UgZmFpbHVyZQ==?=
+Subject: =?UTF-8?B?W1BBVENIXSBtbS9tcmVtYXA6IGVuZm9yY2UgdGhlIGRyaXZlcidzIHBhZ2Ugc2l6ZSBvbiByZXNpemUgYW5kIG1vdmU=?=
 Content-Type: text/plain;
 	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6AEGkr7a089513
+X-MAIL:mse-fl2.zte.com.cn 6AEGkuKx094406
 X-TLS: YES
 X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Sun, 15 Nov 2026 00:47:04 +0800
+X-SOURCE-IP: 10.5.228.133 unknown Sun, 15 Nov 2026 00:47:05 +0800
 X-CLEAN: YES
 X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF89087.000/4jRg5M70DSz8XrrJ
+X-Fangmail-MID-QID: 6AF89089.001/4jRg5P5TFgz8Xrrf
 
 From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-mm/vma: restore VMA iterator on full-range merge failure
+mm/mremap: enforce the driver's page size on resize and move
 
-vma_merge_existing_range() moves the iterator to the previous VMA when
-merging to the left. If the range spans the whole middle VMA and a
-vm_ops->close() hook prevents removing it, the function returns without
-restoring the iterator.
+device-dax exposes its mapping granularity through vm_ops->pagesize()
+and requires both VMA boundaries to be aligned to it. mremap() checks
+may_split() when moving a subrange, but does not validate the new end of
+an in-place expansion or both boundaries of the destination VMA.
 
-An mprotect() walk can then visit the middle VMA again. Restore the
-iterator to the range start, as the abort path already does. Extend the
-existing close-hook merge test to check the iterator after this failure.
-No crash or data corruption has been observed in this case.
+An unaligned expansion or move can therefore succeed and leave a VMA
+that device-dax rejects at fault time with SIGBUS. Check the final
+new_addr and new_len before moving, and check vm_end + delta before
+expanding in place.
 
-Fixes: 01c373e9a5ce2 ("mm: rework vm_ops->close() handling on VMA merge")
+Checking the actual boundaries preserves an expansion starting inside a
+VMA when its resulting end remains aligned. The move check also covers
+equal-length MREMAP_FIXED moves. Existing PAGE_SIZE mappings pass both
+checks, and the existing hugetlb restrictions remain in effect.
+
 Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 ---
-Tested with tools/testing/vma using its default ASan/UBSan options.
-The added iterator assertion fails before the fix; all 29 tests pass
-with the fix. Also build-tested mm/vma.o with W=1 on x86_64.
-This verifies iterator position, not a crash or a production workload.
+Build-tested mm/mremap.o with W=1 on x86_64. Earlier QEMU testing used
+a synthetic VMA with 2 MiB pagesize and may_split callbacks to compare
+unaligned moves/expansions and valid aligned/interior expansions.
+No device-dax hardware was used. The synthetic tests do not establish
+a real device-dax workload report. No stable tag is included until the
+historical introduction and applicable backport baseline are established.
 
 
- mm/vma.c                        | 5 ++++-
- tools/testing/vma/tests/merge.c | 1 +
- 2 files changed, 5 insertions(+), 1 deletion(-)
+ mm/mremap.c | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-diff --git a/mm/vma.c b/mm/vma.c
-index c82e9306b11ac14f684f44b8d71a0026b7fc145c..c87b29f1beec4ceb02c23f6b37af0e5dff272436 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -983,8 +983,11 @@ static __must_check struct vm_area_struct *vma_merge_existing_range(
- 	 * If we need to remove middle in its entirety but are unable to do so,
- 	 * we have no sensible recourse but to abort the merge.
- 	 */
--	if (vmg->__remove_middle && !can_merge_remove_vma(middle))
-+	if (vmg->__remove_middle && !can_merge_remove_vma(middle)) {
-+		vma_iter_set(vmg->vmi, start);
-+		vma_iter_load(vmg->vmi);
- 		return NULL;
-+	}
+diff --git a/mm/mremap.c b/mm/mremap.c
+index fff0465f5e061ff44ae4fd42bc037ce178517bda..8a0a406bd78d41df96f7ef41aeb6eae36c77c1a6 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -1406,6 +1406,17 @@ static unsigned long move_vma(struct vma_remap_struct *vrm)
+ 	unsigned long hiwater_vm;
+ 	int err;
  
- 	/* If middle isn't removed then it's resized, i.e. splits. */
- 	if (!vmg->__remove_middle && check_split(middle, left_side ? end : start))
-diff --git a/tools/testing/vma/tests/merge.c b/tools/testing/vma/tests/merge.c
-index b26f1a66a17074775d751a907eb627445cc1dda3..91accb5dc9944724cd11d1bfa47484a3cf9df54c 100644
---- a/tools/testing/vma/tests/merge.c
-+++ b/tools/testing/vma/tests/merge.c
-@@ -680,6 +680,7 @@ static bool test_vma_merge_with_close(void)
- 	 */
- 	ASSERT_EQ(merge_existing(&vmg), NULL);
- 	ASSERT_EQ(vmg.state, VMA_MERGE_NOMERGE);
-+	ASSERT_EQ(vma_iter_addr(&vmi), 0x3000);
++	/*
++	 * A driver can impose a page size larger than PAGE_SIZE through
++	 * vm_ops->pagesize(); device-dax exposes dev_dax->align this way and
++	 * rejects any VMA whose start or end is not a multiple of it.  The
++	 * destination VMA spans [new_addr, new_addr + new_len), so do not
++	 * create it with a boundary the driver would reject.
++	 */
++	if ((vrm->new_addr | vrm->new_len) &
++	    (vma_kernel_pagesize(vrm->vma) - 1))
++		return -EINVAL;
++
+ 	err = prep_move_vma(vrm);
+ 	if (err)
+ 		return err;
+@@ -1577,6 +1588,16 @@ static bool vrm_can_expand_in_place(struct vma_remap_struct *vrm)
+ 	if (!vma_expandable(vrm->vma, vrm->delta))
+ 		return false;
  
- 	ASSERT_EQ(cleanup_mm(&mm, &vmi), 2);
++	/*
++	 * Growing in place only moves the end of the VMA.  A driver page
++	 * size larger than PAGE_SIZE requires the new end to stay aligned;
++	 * otherwise let the caller try a move, where move_vma() validates
++	 * the destination instead.
++	 */
++	if ((vrm->vma->vm_end + vrm->delta) &
++	    (vma_kernel_pagesize(vrm->vma) - 1))
++		return false;
++
+ 	return true;
+ }
  
 
 base-commit: 84abb955b1015477aa11a96e2f3ac1b938b77f48
