@@ -1,62 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794632459;
-	b=ZNQGYkjw4u4zB+4ylDGZPGNJkTTr/IJANVq1IiJX0TlQn2lWYNQ3Ota3PkUyfmwGjeAM
-	 sj1hl3G4MSOqkJJ4X3x6DwteQp6/NELHyMuVymbD+8MxWe8meCrRgkd/9b5rBa5uZGcGP
-	 D5i4Gjww6MKaXSAGQdsnaRSgLhITt2p0ax8Bpll1pm73gwCRKatOHxX95nJNFxazJP/te
-	 rdE8p75Igq1AfiUPNpTvWTEmFLcJie1fGBqNzKQcBUgbPL3t5XWU+qhaj2Mg482cS2dDE
-	 B6V/HXhpbPmBgQD/cKjKXCn+StbtVvVYHyVx8Rp97ne9v4PiD3yXz4AIkvDirEXDoEQ==
+	t=1794632461;
+	b=ELRu/ZGJnpalq5r/JpJI8NROEMGZuXTdvbc7xbPlM6H0ZRJ/CnAfUN5xKIf0+MbmkbRP
+	 XyZbNF/1PCNVLDJVhlowArTa74YEwmaSFeMEB6QfXdVoapoY5cwL9xJbiodeJWvuL3e4Y
+	 Funla+u1ZySPsA/9CtP8OLGztKWHmZ5D4EFhzegGKORAu8Zv8BLPr5ep4WwIzD4hrfhEu
+	 rY+mExD6GHCIzWnPKxYLxQ8qzjw1J+YUYNTKm+PzuqhPpEah9eH4GVec1NtWKeqqEfKui
+	 tpxYWSm15eEsS1TgqITUX3pgx/5T3QozcFLssvSs8i2eT2Ao7vZHBB5MUxw+fVpBTgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794632459;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794632461;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=LVLhWiEdWHFBJHnv0Cs5kHL4UQUBxd0+XsO4PKT1bxI=;
-	b=uSU+gmsTD/J7Td4ipSwSLurB5SyEhc9SCQKlhwLLkAyu9iiVgAu7z6FmpaNLtyVnEcTD
-	 HFRwhEvMbRhX3azPNtv/Jl+9/3eaeiFKFEk2qbLmKwshH2Gd0hd5OPWIyrzkB2kRGonzV
-	 FwXIhfBbgeBAFxvTp0Y3sCvQG75BaRznwkWke0yr2tYTB2WVifx1nwTCZ9yk2miQF9PIF
-	 9HC7gZGLzfsTy4HQhF7jCJGIchbEtK40tw7SWsDVxMEIiT09W3xP/d04U5TeEge2FCRgK
-	 PdsWE3QbBHtKHM5I83iZFL31aLBHH7Ple/lpFvCrkYvBWTgzn7ceJFo+RHhz/JWsr6w==
+	bh=tD1LfS8v3U8vciF3kw+7w2dzpXjbhOMsyertPA+CAGg=;
+	b=gBY73XXyp/ExpGy1UMmf1m/PPfo0Na0O+yrz3m4G3TfONnDWbCsrMA3uErAwCRxCk2y1
+	 oL23M4Npjczjna4iQf3NdTro4ZNntFBLw8MGKQf/RnHayLA0/OERDh5456gnbTiQq33zp
+	 Dvtnn8JDcGgT8uVQosCwoTg+FvE0C6DhkGlCqb9XWxFNsauE5bkcA7XLpvVshCogD0X/e
+	 WLBOcZbuivF2jEChjGBVQYPuBt0Lsn2UzToVhoRlJ7lYdphgqb426qQqVpZV+cjsoZXh5
+	 sLYhyoTv1kQavGzzbIXGrkXeCKsu1+8qSApNKdUVe11USCERPe3lW5VmbzY/l+0FdKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=b8kh5x41;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b="E8/dLNR0";
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C646B606A331;
-	Sat, 14 Nov 2026 05:00:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C646B606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B168F606A8AB;
+	Sat, 14 Nov 2026 05:01:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B168F606A8AB
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=b8kh5x41
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=E8/dLNR0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1794632456;
-	bh=+ipPs8iD7ik+cdrCA73kGnVQQYgDC9VIvxWxUzjPh04=;
+	bh=M0Q7DqrjXt8ICcxwp1gthEb6oCgbrcLyuXxfBJ7UAhc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=b8kh5x41JLpSguDJy4r8QnLUG0iiSO/rvbmTrAAdPiTUZrYY+cVB/8WveSfb2c3A9
-	 luG9bc/SLNBnVh+V5LBruwu9TNOkSiJElSMSYiyhJufWdc5FuLwtwd/PTYrP81Qdjp
-	 5+qNoIBxeZprSeVgkMKpffjMn6EHFCByZF9k6qJYsvANrST5zS2ZKAZiByBhzHFyR2
-	 uX6Kx5xOLfkZVVCf1Zyve5A0cYZIT+WF8jlixrvP7zeh5hpt3+H511FWmaWEzE+lvj
-	 vo9FzmfG0WtGie4hot9d5tw1HgWKvEARpXM7/Q8ryeRAZ6L8wOe6ySg1C4GJhAOSja
-	 npro4v7HOnscg==
+	b=E8/dLNR0AKGMazfJCueqCE8uwRw3hKFBkWbi543yOkTiKHpWJwyt8UPrYVMjGigsh
+	 43OJpuyHK1Qah31gOEuIa+Z/BXKCazJyUuGTLN3dnfSc4ZLpQfIs1P0iuocn9SYecS
+	 7tE/1uPGjMF3/Fqkrl5B9DfMLnE1wuZCxW2BcPB1HOw8tu4AallQWHuRAJFnbxiEHI
+	 GJpDgfQFiVYWbbAeyR/BRuRZdDRH1HhJYOMuIECi0Z3Ug30lyOH/Qq99MAM2mNQ/wb
+	 /a+W+ZABEBudH3EzoMbhKOHfzb5/ZiZVCz/ptuwZaVajT91sgiFW2E837VT/3cTGxO
+	 gZzLLVOdNj2NQ==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5635517E0FCC;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id A91AE17E36A3;
 	Sat, 14 Nov 2026 06:00:56 +0100 (CET)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 0F562480031; Sat, 14 Nov 2026 06:00:56 +0100 (CET)
+	id 13F2248003A; Sat, 14 Nov 2026 06:00:56 +0100 (CET)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Sat, 14 Nov 2026 06:00:36 +0100
-Subject: [PATCH v12 03/23] drm/bridge: synopsys: dw-dp: Fix error handling
- for DP link enablement
+Date: Sat, 14 Nov 2026 06:00:39 +0100
+Subject: [PATCH v12 06/23] drm/bridge: synopsys: dw-dp: Fix AUX transfer
+ timeout race condition
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,7 +68,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261114-synopsys-dw-dp-improvements-v12-3-d42d3dc5bdd4@collabora.com>
+Message-Id: <20261114-synopsys-dw-dp-improvements-v12-6-d42d3dc5bdd4@collabora.com>
 References: <20261114-synopsys-dw-dp-improvements-v12-0-d42d3dc5bdd4@collabora.com>
 In-Reply-To: <20261114-synopsys-dw-dp-improvements-v12-0-d42d3dc5bdd4@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -93,102 +93,77 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  devicetree@vger.kernel.org, kernel@collabora.com, 
  linux-arm-kernel@lists.infradead.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Sashiko <sashiko-bot@kernel.org>, Igor Paunovic <royalnet026@gmail.com>, 
- Andy Yan <andyshrk@163.com>
+ Sashiko <sashiko-bot@kernel.org>, Igor Paunovic <royalnet026@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2443;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2228;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=+ipPs8iD7ik+cdrCA73kGnVQQYgDC9VIvxWxUzjPh04=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr36wdd3JvJi7rqgp4TIhL8Rvs6fdfh68P70
- byH4rls6kajaYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq9+sHAAoJENju1/PI
- O/qaNl4P/jX9GCiNXGi1JymflyfKjzQexCMwNr1/NXkljmhRk+Z21RIdksrqb39NQ5fD3S3/d5M
- rAhnt2EKYJhcLqD8D4mzX0xJSK4xzMEBObmM0cOupbxISPehkeLttbgxvvcM9tm64o1LVG6lZjK
- gbPCvvhA6HLbnjkxt123wfd0Lp8OtA7lO9w/Ymw84jZHICzl1cythe8DIZGHxNnqprGqAwhCHmI
- DgXmlnS+DboHrEJla8397ZfayXZ+6XvoERJ9Ry0c70Rt23Fs1AZf6Z77PN5i8MNyt22gSMOPO5s
- KSIyHNm3IdDFBGKa1b5Xfn46RT5znhjg/IpfavXdV7X4IvWYeIO7R8pFwH0FU53Gy0h2lIDNu8p
- e2TI8QycyWekacDwG7ywDNT2F7vy/ONfj0tDkWx/VKmSlqHJj80uabvY7yeUs6g2sL0g69r4qEV
- QVjtILTm3NyqzY1kwlzyjrquit3qleKdjB47SDV24yxXuAJdGWldSrbEF5xQox6GdSsvA3akvtG
- fGxJrewU0cPwtTSl7rdvlkIsU1SAg8gZZXa4CpW37HpWV96d7nQtsJWFLoGrVSTyYXD4Ufh1uKE
- w7PhnN4CRDGwQ2kNll36TVWD37FnuBLKtH1ALv2k9j6G1bxo/CJUzmIWN6Is2Q4Nh141cl/L9yB
- 5ZikOVgX9/mo+vFgTyn8ykg==
+ bh=M0Q7DqrjXt8ICcxwp1gthEb6oCgbrcLyuXxfBJ7UAhc=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr36wexfJmXP3rQk8lZhyfgLEMJObk8/yuGO
+ xJWp+EPmHe64YkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq9+sHAAoJENju1/PI
+ O/qa1PkP/jNahyW/I1yhqEaivKB81Juihoshti2rA6PPK3/2DeZYxMlmweErLc6R6cLrDyOATmG
+ Xa1iZVgwmeqxL4CjOfT/bGxEsXge6BQe/YDsG7uQ0mSl5nrCZpZql9AFzsbSm7SFLc2jOgL78CD
+ +skAMPuW6/y2/pi1T7crr7HgGzgw8jDRPvS3h4XKKfQ/ynjM2fUgb7BqxAf6qvcBqYiOAIqgaqU
+ jHcm+ZsjWP8JyymnwbL+HXqaaA5XnLY/qi2W6vehWWY+OyCq4B9nn/e6isK/eIL014AG4NDQ2Ni
+ D0hrgICZ5BCPa3Lm6vGKaHD6hxIDyCjSb6CeI5vtr2mlJjkuZWJt2PcV2zyQA2CK/d3puIzMfJt
+ 8q9zjfElKG3p8g2gwfuny0wZ/mvmJ2OGrefKj7s2yZEDMgZpmGkQ1kXbsEIDQOgT9IespViqxp6
+ CwBfJ2cjtGd+bFkGxlRUnL1rgG9qdb+A94U+KjA5Wmd93wLwNprlH+TKdNc1PKstV298qpJuAjR
+ iz9tct+bC1+qbJ3Za176a/F6B79d2xJtogd7iPjzcHfctGOC3f0GH3iev7s1IvVc/SBkin+VkWw
+ xlRUH55HOluovg/XLjtjioo/3yl5yeMDTvj/KKFKgqJtiaRjz5f+qxZ0QyawdRBElFxFg5PztbV
+ 5QAbOYhFLqQgUbWClvoA4Cg==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-dw_dp_link_disable() may be called in atomic mode disable even when
-dw_dp_link_enable() (or an earlier step) failed during atomic mode
-enable as there is no error tracking. This would result in broken PHY
-power state.
+The DP AUX transfer method uses a completion triggered by an interrupt,
+which can timeout. If the function runs into the timeout and the
+interrupt fires afterwards, the following DP aux transfer completion
+would trigger immediately without waiting for the interrupt. This in
+turn means the next one would also be broken and so on.
 
-This is fixed by introducing a new enabled state in the link structure
-to ensure the link disabling only happens if it has been properly
-enabled in the first place.
+Fix this potential issue by re-initializing the completion directly
+before sending the AUX command.
 
-The patch also adds missing error handling in dw_dp_link_enable()
-itself to ensure the link enablement becomes an atomic operation.
+As this is racy (the interrupt might arrive between the completion
+re-init and the new command being programmed), also reset the AUX
+controller on timeouts and synchronize pending interrupts to guarantee
+that there are no pending AUX transfers when the dw_dp_aux_transfer()
+returns.
 
-Fixes: 86eecc3a9c2e ("drm/bridge: synopsys: Add DW DPTX Controller support library")
+Due to lack of a sink, which generates AUX timeouts, this change is
+effectively untested.
+
 Reported-by: Sashiko <sashiko-bot@kernel.org>
-Acked-by: Andy Yan <andy.yan@rock-chips.com>
+Fixes: 86eecc3a9c2e ("drm/bridge: synopsys: Add DW DPTX Controller support library")
 Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5+
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index ac16d290d49b..93d52a76044f 100644
+index 7351b70bdac9..df0b98cbbaab 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -279,6 +279,7 @@ struct dw_dp_link {
- 	unsigned char revision;
- 	unsigned int rate;
- 	unsigned int lanes;
-+	bool enabled;
- 	u8 sink_count;
- 	u8 vsc_sdp_supported;
- 	struct dw_dp_link_caps caps;
-@@ -1614,6 +1615,9 @@ static void dw_dp_link_disable(struct dw_dp *dp)
- {
- 	struct dw_dp_link *link = &dp->link;
+@@ -1465,6 +1465,8 @@ static ssize_t dw_dp_aux_transfer(struct drm_dp_aux *aux,
+ 	if (WARN_ON(msg->size > 16))
+ 		return -E2BIG;
  
-+	if (!link->enabled)
-+		return;
++	reinit_completion(&dp->complete);
 +
- 	if (dw_dp_hpd_detect(dp))
- 		drm_dp_link_power_down(&dp->aux, dp->link.revision);
- 
-@@ -1623,6 +1627,7 @@ static void dw_dp_link_disable(struct dw_dp *dp)
- 
- 	link->train.clock_recovered = false;
- 	link->train.channel_equalized = false;
-+	link->enabled = false;
- }
- 
- static int dw_dp_link_enable(struct dw_dp *dp)
-@@ -1635,10 +1640,23 @@ static int dw_dp_link_enable(struct dw_dp *dp)
- 
- 	ret = drm_dp_link_power_up(&dp->aux, dp->link.revision);
- 	if (ret < 0)
--		return ret;
-+		goto err_phy_power_off;
- 
- 	ret = dw_dp_link_train(dp);
-+	if (ret < 0)
-+		goto err_link_power_down;
-+
-+	dp->link.enabled = true;
-+
-+	return 0;
-+
-+err_link_power_down:
-+	if (dw_dp_hpd_detect(dp))
-+		drm_dp_link_power_down(&dp->aux, dp->link.revision);
-+	dw_dp_phy_xmit_enable(dp, 0);
- 
-+err_phy_power_off:
-+	phy_power_off(dp->phy);
- 	return ret;
- }
+ 	switch (msg->request & ~DP_AUX_I2C_MOT) {
+ 	case DP_AUX_NATIVE_WRITE:
+ 	case DP_AUX_I2C_WRITE:
+@@ -1491,6 +1493,12 @@ static ssize_t dw_dp_aux_transfer(struct drm_dp_aux *aux,
+ 	status = wait_for_completion_timeout(&dp->complete, timeout);
+ 	if (!status) {
+ 		dev_err(dp->dev, "timeout waiting for AUX reply\n");
++		regmap_update_bits(dp->regmap, DW_DP_SOFT_RESET_CTRL,
++				   AUX_RESET, FIELD_PREP(AUX_RESET, 1));
++		usleep_range(10, 20);
++		regmap_update_bits(dp->regmap, DW_DP_SOFT_RESET_CTRL,
++				   AUX_RESET, FIELD_PREP(AUX_RESET, 0));
++		synchronize_irq(dp->irq);
+ 		return -ETIMEDOUT;
+ 	}
  
 
 -- 
