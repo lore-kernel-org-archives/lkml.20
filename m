@@ -1,79 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794667468;
-	b=bFTz3nnj/31Qe4pteBZYv1eftkzW7nQz0ctlORY7ZulgodTfK1Y2ET7zLMaNq2GqQTBR
-	 u8/7LDp1Yth6Mf8CiCgBZkgPBtiUmodCi1R6xGOfZTzLisUyOYOX/eu+6s/grJFyeEkEA
-	 NjnEWmQ6pnPQ5gtG0qV2/j1nSWiaI0zfua3HOc6yNaUSW+aQ+G8+Bv5OdYP+hU/LOY5oV
-	 khXoeumYPbz0Ap0tN11CKEUn/B59W/19UfpppDgSyFSiFZLg/7NYsek9ItWQ88IipsPlz
-	 2muMmfnzd+Zh2djKQtetUisCpFsegy64PSZITNDNyVx2IEp8mMH5oTzDFWPzVgrEVUA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794667468;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=NMotlcjIWZDZJmHH9FhIZJX3P4Df1ycfmlTl1VZIX44=;
-	b=BNft8ePu7yRwXBjjB4zdBUgtOOBxyaWIdMyynCwgA4Sxc2mSEII8FchrXQ1U4fhjRTLW
-	 f2bJ3u4McC3f6+TGrx+APZv7Yz5OmY1FKbqUxto+8C/dyfR0utLypG4r5lIkgL6Nt3xp3
-	 z7qH4PUpZubMJknsfa6NU4JIVLw9feqHlYdsy/v8BRmMqR7fqErqgmGic/yjnu2R46YeT
-	 DZhNbiiJKwhAkW+De9wJ6Zzm7kNHQ3TJF/WcBQAxgIzkGiMRdmv88OxXq+aHgr+hJ4wll
-	 Vs/cKP+1tpohwW8Z6Z1C+gKFc8kfxAs6Kmaau3Xb0BMTu4V6aGEF9b3Dx8F0x/Z33qQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LKf8twuQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C195606A323;
-	Sat, 14 Nov 2026 14:44:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LKf8twuQ
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794667468;
-	b=YKrlTG1Hfvc4TTmHymkCDMptbiqJF7J+N6VzAFm25QWIyGh0OTr72jwao1gwoC8RbXSX
-	 12X4cen3dN7tRrIq1LloPErbqmj3mif7iRCS6PuYT3u03niAqF6vlAEQ3MLPD2Lq9ND3+
-	 6EUTSMW8qoQh7Oa11aMBRXpeP33FNvvmNds+y2bD3q6nGev/IetFOL9xO9MuhD19OH8Ic
-	 bLRhn+xmb1R6VyWRD1SiJx7gX9p1EwAXNIdS0CPJNBZcdecPXfBDuKDShlrkWAyFGC5aQ
-	 feBdfDczV+efLiwVGdJz9+rbGlDT34HmdTDn5yZdr739ubwntgAKmVsquNr1VZwtpYg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794667468;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=NMotlcjIWZDZJmHH9FhIZJX3P4Df1ycfmlTl1VZIX44=;
-	b=WOnlUnlNkYZSSh1CG5WWmrJ9iEoIwun1W2QlcOz+7ZwfnjTJauoTXeI81v0mcDE+wUpT
-	 iKLeUW7U2/Iogp9RLTCIT+wA4Ir9XFQM0uwghgHqgAvmZj2xVNM8I4UIhr5VxQ6cyD9bt
-	 5KQak037tABh4s4KO90pwc+oMEBxXRnCZRCtUwtk4LOFMV57oSEgeexxA8yiQTi56Z0kf
-	 rSxgcyJm/HPcIWfnDePZ4Sdixl74JXygnGOOGkTEMUzH/fNhyZr1N2nAptbeD8C7XlQ6/
-	 dPWcnx9I/XMcfX9bzxjwRytRyzn/QLsLAErMU87V+atPCB8cAKWjLDDwBlMnc++tXvQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.6
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794667492;
+	b=g8QO+PTZ9zB8ni49D6G8RFhYZ6TV0HmkVR7dhPpRu9w7aTuFIVm7xIZ/BaLu0wNWR59Z
+	 1pQmPn7T16L3YeB8uOde3KDcrQmU5JQXr4lUK0vHe5ujN3lmtyNk4y5IL8GWxG0DJLt0P
+	 QfmPm6sSiyAj1Cks90H7ggplBrjETGVXUX3pPqN0zASQsobTgKTI4jdUfJrI2F4qEu3S8
+	 M4Hf7K0jx8MESYwlkcgn6MNA/vaYt5jV37qyWlFHjV99xXDu2kQlwpTYePU4oaPcZ4Ey0
+	 8lV5z+IL3ZbC6KpDzvSxCNGtH+CmS8sostQWDWWw6dHsM+rGVLBw7xQN0jLuvk3Obww==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794667492;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=DQCyPXK5+7n3cfxJt02oeWru2Zd77WJVDbZTWiX0wFw=;
+	b=NsuYdIp0tw7xaYSjVg1xohAL5z1CiE3EzPLO5dyLQf9IO9e22AvKL6Dm7yCqOhsm2kPS
+	 aVTsak/QMGHHIWf5TgI0fQJJ5l01J/J5+LMW+ba1RUdhx7G2cnc1w9XuXfxduXIoYxGqu
+	 uyYcjrFs6pUnUVGLzhDC9IZxeVH2kNaQXDpqIJRQRunYpcUYqoP0uyu+7cJmK0cBKThSq
+	 Cr/xjwjZzGRoJyQubhT/zzYaHuh3hwICTmxvtQOA2hHBUF+yBO0mXtJh/nBrkbqiIeDDL
+	 Pr6F+mLJIaIIUx+C/QKr3E/YlR41l9xoj4g9qSWSnZz6NyZjTl6nW3uYd7PJ4PoxcGA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=126.com;
+	spf=pass smtp.mailfrom=126.com;
+	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=Z2z1rVT3;
+	arc=none smtp.remote-ip=220.197.31.6
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.6])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id AA1AA1F000C4;
-	Sat, 14 Nov 2026 14:44:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794667468;
-	bh=NMotlcjIWZDZJmHH9FhIZJX3P4Df1ycfmlTl1VZIX44=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=LKf8twuQ7Bk5YWfWUUyl02qlgoDN4QCcf72SsjTXTO0ue3GMXB4VBdDJex9rsSkE5
-	 tioryN649YpyhZajE9Gz14la9FnLEL7dTg/JPud/e8SnAqxaa1lzKOD6QtB0kBmgUm
-	 Me4cMreQGO0VWUhCGJkrrHgjnW1qGp8iZv51/ON+XQZGmhpNq5NwEZ8bNmTWCJxbLK
-	 Jr2cgonw64sRIOgLVk0IsWQvN9Kth5i0nWTPFAWgojfddZQ1leHWyou0LTqpOE69bO
-	 ws7mhDxst/t9XTozPaeRnNkjTNHyfNfl2n2wo/q+cyTHF/sE8/ARW7OBeiwVCC2gvb
-	 aB26gJSMEQJZA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 082B649DC2;
-	Sat, 14 Nov 2026 14:44:27 +0000 (UTC)
-From: Christopher Griffin via B4 Relay <devnull+christophergriffin05.gmail.com@kernel.org>
-Date: Sat, 14 Nov 2026 08:44:27 -0600
-Subject: [PATCH] wifi: ath12k: don't zero the 6 GHz TX power on a vdev
- restart
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57DBB606A333;
+	Sat, 14 Nov 2026 14:44:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57DBB606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=Z2z1rVT3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=DQ
+	CyPXK5+7n3cfxJt02oeWru2Zd77WJVDbZTWiX0wFw=; b=Z2z1rVT3r2jxkI3FEe
+	kVlXLHu+gkYU9HcDPKkLJbUV/th1pv8DenFTNFDqbAba/KNou8VW6Ddt2ol47lCW
+	ZkUoYMildip4y9ktp2P6zx5jf87bpVjdhAIJonw/qzzp59NK5gDaO7KkyEEk/a2I
+	Nlx5rcpAOt+rw35rjh8mwjdaI=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wDXjyGec_hqHP+kDA--.56701S4;
+	Sat, 14 Nov 2026 22:43:45 +0800 (CST)
+From: Jinvas <jinvas@126.com>
+To: saeedm@nvidia.com,
+	tariqt@nvidia.com,
+	mbloch@nvidia.com,
+	leonro@nvidia.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	jinvas@126.com
+Cc: netdev@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net 0/1] net/mlx5e: fix NULL pointer dereference in arfs_create_groups()
+Date: Sat, 14 Nov 2026 22:43:24 +0800
+Message-Id: <20261114144325.816-1-jinvas@126.com>
+X-Mailer: git-send-email 2.28.0.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,141 +69,156 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261114-ath12k-6ghz-tpc-vdev-restart-v1-1-5680ada87c37@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAMpz+GoC/yXMwQ7CIAwA0F9ZeraJZZODv2I8ACujmswFKjEu+
- 3dxO77LW6FwFi5w7VbIXKXIa26gUwchuXlilLEZzNlYIhrQaSLzRDulL+oSsI5cMXNRlxXjxZM
- dYk+9t9CKJXOUz97f7ofL2z846P+EbfsBGKJri4AAAAA=
-X-Change-ID: 20261114-ath12k-6ghz-tpc-vdev-restart-f5b164f313b6
-To: Jeff Johnson <jjohnson@kernel.org>
-Cc: Baochen Qiang <baochen.qiang@oss.qualcomm.com>, 
- Jeff Johnson <jeff.johnson@oss.qualcomm.com>, 
- linux-wireless@vger.kernel.org, ath12k@lists.infradead.org, 
- linux-kernel@vger.kernel.org, 
- Christopher Griffin <christophergriffin05@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794667466; l=4577;
- i=christophergriffin05@gmail.com; s=20261024; h=from:subject:message-id;
- bh=kke/DsAVwEMxb+LRgu7ak2aDlof084RcMGz+021hfbM=;
- b=J3GnQJVnp1P9yrNbKglpLQVBDaYwW8zTORBFGlB3CXSXLIG1jiY49ebcIGqsQ/7SZ6vLz7Hd8
- RkFMBNmGmN3AN2rjGEUZ4Qf1O/4YbCaZNUByhNG+XytHqSQFnRrme6p
-X-Developer-Key: i=christophergriffin05@gmail.com; a=ed25519;
- pk=oa9tkTNpiGoFWdGvpDHXLSobApmsh9BfrJRJrRJAvWA=
-X-Endpoint-Received: by B4 Relay for
- christophergriffin05@gmail.com/20261024 with auth_id=1309
-X-Original-From: Christopher Griffin <christophergriffin05@gmail.com>
-Reply-To: christophergriffin05@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDXjyGec_hqHP+kDA--.56701S4
+X-Coremail-Antispam: 1Uf129KBjvJXoW3Xr1xAw4kCw1xGr1kur48WFg_yoW7CF4Upr
+	43X3ZrKrs5JFW7JwsrA34Fq348AF4Syay5CF1fK3yFkrs8Cr18JF4Ig3yrZFy7CFZ5J347
+	trs8Jw1YyFyDAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEWlk7UUUUU=
+X-CM-SenderInfo: xmlq4tbv6rjloofrz/xtbBswHddGr4c6G5KwAA3J
 
-From: Christopher Griffin <christophergriffin05@gmail.com>
+The following patch fixes a NULL pointer dereference in the mlx5e aRFS
+code, which oopses the kernel during NIC bring-up.
 
-ath12k_mac_fill_reg_tpc_info() takes a non-zero
-reg_tpc_info.num_pwr_levels to mean that a TPE element was parsed, and
-then limits every power level by reg_tpc_info.tpe[]. But it also stores
-the number of levels it filled in that same field.
+The bug was introduced by commit 3c6d5189246f ("net/mlx5e: fix a
+double-free in arfs_create_groups", in v6.8) and is still present in
+v7.4-rc2.
 
-An AP vdev never parses a TPE element. Its first vdev start finds the
-field zero and fills the levels from the regulatory rules; every later
-start or restart of the vdev, such as a channel switch, finds the count
-of the last fill there, takes the "TPE received" branch with the level
-count of the old width, and limits every level by tpe[], which is all
-zeroes. WMI_VDEV_SET_TPC_POWER_CMDID then carries a limit of 0 dBm, and
-the AP transmits at that until the interface is removed and added
-again. A station whose AP sent no TPE element for its power type goes
-the same way on its next vdev start.
+1. What happens
 
-On a 6 GHz AP, after a channel switch from channel 149 to 165 at
-80 MHz, or one that only changes the width (80 to 320 MHz, or back),
-iw reports "txpower 0.00 dBm", tpc_stats shows "power limit-0" where it
-showed 48 before the switch, and a station next to the AP hears it
-15 dB lower.
+arfs_create_groups() creates up to two flow groups in ft->g[], and
+increments ft->num_groups for each group that was created successfully.
+If creating the second group fails, the error path frees ft->g and sets
+it to NULL, but leaves ft->num_groups at 1.
 
-Keep whether a TPE element was parsed in a flag of its own, set by
-ath12k_mac_parse_tx_pwr_env(), and test that instead. With the change
-the power is the same before and after seven channel switches, three of
-them width changes.
+The only caller, arfs_create_table(), calls mlx5e_destroy_flow_table() on
+the error path, which calls mlx5e_destroy_groups():
 
-The change and this message were written with Claude, an AI coding
-assistant.
+	for (i = ft->num_groups - 1; i >= 0; i--) {
+		if (!IS_ERR_OR_NULL(ft->g[i]))
+			mlx5_destroy_flow_group(ft->g[i]);
+		ft->g[i] = NULL;
+	}
 
-Tested-on: QCN9274 hw2.0 PCI WLAN.WBE.1.4.1-00199-QCAHKSWPL_SILICONZ-1
+ft->g is NULL at this point, so ft->g[0] is a NULL pointer dereference.
+Note that only a failure of the *second* group triggers this; if the
+first group fails, num_groups is still 0 and the loop body never runs.
 
-Fixes: aeda163bb0c7 ("wifi: ath12k: fill parameters for vdev set TPC power WMI command")
-Fixes: a44958c83e52 ("wifi: ath12k: Send WMI_VDEV_SET_TPC_POWER_CMD for AP vdev")
-Signed-off-by: Christopher Griffin <christophergriffin05@gmail.com>
----
-Found on an Arista C-460 (IPQ9574 with three QCN9274 hw2.0) running
-OpenWrt: its 6 GHz AP went to 0 dBm after every channel switch, and
-stayed there until the interface was taken down and brought up again.
-The cause was found by reading the code.
+The same error path also leaks the flow group that was created
+successfully before the failure, since ft->g is freed without the group
+being destroyed.
 
-Tested on that board with Linux 6.18 and ath12k from backports 7.2,
-carrying the same change: without it four of four channel switches
-left "txpower 0.00 dBm"; with it seven of seven kept the power. The
-code in ath-next is the same there. On ath-next the patch is
-compile-tested only.
----
- drivers/net/wireless/ath/ath12k/mac.c | 5 ++++-
- drivers/net/wireless/ath/ath12k/mac.h | 2 ++
- 2 files changed, 6 insertions(+), 1 deletion(-)
+2. How this was introduced
 
-diff --git a/drivers/net/wireless/ath/ath12k/mac.c b/drivers/net/wireless/ath/ath12k/mac.c
-index eee3f38375ae8..ff835a1a1e32e 100644
---- a/drivers/net/wireless/ath/ath12k/mac.c
-+++ b/drivers/net/wireless/ath/ath12k/mac.c
-@@ -12125,7 +12125,7 @@ void ath12k_mac_fill_reg_tpc_info(struct ath12k *ar,
- 	start_freq = ath12k_mac_get_6ghz_start_frequency(&ctx->def);
- 	pwr_reduction = bss_conf->pwr_reduction;
- 
--	if (arvif->reg_tpc_info.num_pwr_levels) {
-+	if (reg_tpc_info->tpe_present) {
- 		is_tpe_present = true;
- 		num_pwr_levels = arvif->reg_tpc_info.num_pwr_levels;
- 	} else {
-@@ -12314,6 +12314,7 @@ static void ath12k_mac_parse_tx_pwr_env(struct ath12k *ar,
- 		ath12k_warn(ab,
- 			    "no transmit power envelope match client power type %d\n",
- 			    client_type);
-+		tpc_info->tpe_present = false;
- 		return;
- 	}
- 
-@@ -12353,6 +12354,8 @@ static void ath12k_mac_parse_tx_pwr_env(struct ath12k *ar,
- 				   i, tpc_info->tpe[i]);
- 		}
- 	}
-+
-+	tpc_info->tpe_present = tpc_info->num_pwr_levels > 0;
- }
- 
- int
-diff --git a/drivers/net/wireless/ath/ath12k/mac.h b/drivers/net/wireless/ath/ath12k/mac.h
-index 61c2ec8865a39..1da758837c7b1 100644
---- a/drivers/net/wireless/ath/ath12k/mac.h
-+++ b/drivers/net/wireless/ath/ath12k/mac.h
-@@ -119,6 +119,7 @@ struct ath12k_chan_power_info {
- /**
-  * struct ath12k_reg_tpc_power_info - regulatory TPC power info
-  * @is_psd_power: is PSD power or not
-+ * @tpe_present: @num_pwr_levels and @tpe are from a parsed TPE element
-  * @eirp_power: Maximum EIRP power (dBm), valid only if power is PSD
-  * @ap_power_type: type of power (SP/LPI/VLP)
-  * @num_pwr_levels: number of power levels
-@@ -129,6 +130,7 @@ struct ath12k_chan_power_info {
-  */
- struct ath12k_reg_tpc_power_info {
- 	bool is_psd_power;
-+	bool tpe_present;
- 	u8 eirp_power;
- 	enum wmi_reg_6g_ap_type ap_power_type;
- 	u8 num_pwr_levels;
+Commit 3c6d5189246f fixed a double free of ft->g between
+arfs_create_groups() and its caller. Before that commit, the group
+failure path did not touch ft->g at all:
 
----
-base-commit: 1be6c8d3027d4a421dc46b93a89a196c61945614
-change-id: 20261114-ath12k-6ghz-tpc-vdev-restart-f5b164f313b6
+	err:
+		err = PTR_ERR(ft->g[ft->num_groups]);
+		ft->g[ft->num_groups] = NULL;
+	out:
+		kvfree(in);
+		return err;
 
-Best regards,
---  
-Christopher Griffin <christophergriffin05@gmail.com>
+so the caller destroyed the flow groups that had been created and then
+freed the array. That commit fixed the double free in the allocation
+failure path by freeing ft->g here as well, and in doing so changed the
+group failure path too:
 
+	err_clean_group:
+		err = PTR_ERR(ft->g[ft->num_groups]);
+		ft->g[ft->num_groups] = NULL;
+	err_free_in:
+		kvfree(in);
+	err_free_g:
+		kfree(ft->g);
+		ft->g = NULL;
+		return err;
+
+The reset of ft->num_groups that would have prevented this was
+suggested during review, but deferred ("it is a better idea to leave it
+to a refector patch one day"), and that patch never landed.
+
+3. The oops
+
+Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
+Oops [#1]
+epc : mlx5e_destroy_groups+0x38/0x6c
+ ra : mlx5e_destroy_flow_table+0x10/0x30
+status: 0000000200000120 badaddr: 0000000000000000 cause: 000000000000000d
+[<ffffffff80843604>] mlx5e_arfs_create_tables+0x44c/0x5d8
+[<ffffffff80815bd6>] mlx5e_create_flow_steering+0x42/0x6bc
+[<ffffffff808043e4>] mlx5e_init_nic_rx+0x84/0x14c
+[<ffffffff80808a4c>] mlx5e_attach_netdev+0xb8/0x2e8
+[<ffffffff8080f36e>] mlx5e_probe+0x48e/0x81c
+Code: 89b3 40f9 e052 098e 7a7d a011 84be 3783 0109 97a6 (6398) 853a
+Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b
+
+The register dump shows a5 = 0, i.e. ft->g was read as NULL. Offset 16
+of struct mlx5e_flow_table is ft->g, and the faulting instruction loads
+from the address in a5, so the faulting access is the ft->g[0] read.
+
+Note that the bug itself is not architecture specific. It is a plain
+error path in C, and it is reachable on any architecture; the register
+dump above is only from the machine on which it was hit.
+
+4. How this was hit
+
+This was found while testing a virtual mlx5 device whose firmware
+answers host mailbox commands. The device took longer than the
+firmware's own timeout to answer one CREATE_FLOW_GROUP command, so the
+firmware reported the command as failed even though the device had
+completed it. The host then took its error path, and the bug above
+turned a command failure into a kernel panic.
+
+That is only the trigger though, not the cause: the host oopses on any
+error returned by CREATE_FLOW_GROUP, no matter where the error comes
+from (a device that rejects the command, a resource shortage, a command
+timeout, ...). A firmware that returns an error for the second
+CREATE_FLOW_GROUP is enough to reproduce it.
+
+A minimal reproduction is therefore: enable aRFS, and make the second
+CREATE_FLOW_GROUP of one of the aRFS flow tables fail. The kernel
+then calls mlx5e_destroy_flow_table() with ft->num_groups == 1 and
+ft->g == NULL, and dereferences the NULL array.
+
+5. The fix
+
+The patch leaves the free of ft->g to the caller:
+mlx5e_destroy_flow_table() frees ft->g exactly once, and also destroys
+the flow groups that were created. This fixes the NULL pointer
+dereference and the leak, while keeping the double free fixed.
+
+For the three error paths of arfs_create_groups():
+
+  ft->g     num_groups  what the caller does
+  --------  ----------  ----------------------------------------
+  NULL      0           kfree(NULL), no group to destroy
+  non-NULL  0           kfree(ft->g), no group to destroy
+  non-NULL  1           destroy the created group, then kfree(ft->g)
+
+ft->g is therefore freed exactly once in all three cases, so the double
+free that 3c6d5189246f fixed stays fixed.
+
+The patch also makes the error handling of this function consistent
+with the rest of the driver, e.g. mlx5e_create_l2_table().
+
+6. Scope
+
+The patch was reviewed against v7.4-rc2 and applies cleanly. The crash
+itself was reproduced on a virtual mlx5 device; the patched kernel was
+not booted, so this patch is not marked as tested.
+
+--
+
+Jinvas (1):
+  net/mlx5e: fix NULL pointer dereference in arfs_create_groups()
+
+ drivers/net/ethernet/mellanox/mlx5/core/en_arfs.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
+
+base-commit: 97d73c8251226cf27cc6656b4c542869bb8c69fa
+-- 
+2.28.0.windows.1
 
