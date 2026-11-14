@@ -1,69 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794665368;
-	b=3+nRyA852+QkgxulsAOus9A5uBphUqSDhQVll8OKDkqje4yAmYaFLKDrWVaHKMQrx7oO
-	 RLhDUQCJ+qMC/l4228k8n9lXcbpgamcVBj9Q9xcOLBX4p3HZGgjzZ62mB93SgaWOimtNl
-	 4d49ZaEukiQaiPhhhTobE/DE+wmSLAF56t/flAqU7k3q8qmhYphSfFkLPrz+w0jOKoXZZ
-	 hP9x29u9ntzJmQYAEoVz8PyXV191Kwh5j3ClBVEHsAETB+/UKauN+K4FRFroe+6NzJnOh
-	 u5nOoCDGtEn5LEFYHTYF0di67urPqAmH6ewJi8oiBXtOtSx4GT7jSqZJE+j5hSlBvfg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794665368;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-MBO-RS-ID:X-MBO-RS-META;
-	bh=KnQiD6fX/r8PsqpObs5NkuGJ85feklMhNeGaXyI/6aU=;
-	b=WBRinwRQrIr77sX+YAmqgRoOZYGoq4A25G/cHvRaseUpn+2loN8YoxVCw5pwArFBML0g
-	 aSKzErMfOLa9JLNoJ5UnRYBSNwMYJ1vI9dJmdzDzeeggu2wRbp5AN0P1vVNWjdGCzDeij
-	 zWFJZZiZ/UCPLb1xSKLdy0LqMRAhY0/wIxWN4cvC6Uf5ASUMEs6RqkWKVcXSAEBDIOu11
-	 JpSUkbi9+Wa9l+aI1ygy9Utd+zuK6arkjPTp6K6bwhhcEiag4GeiY+50SalPcSJEcKXnU
-	 AP1nt3cGq57DpiXvaC07SZQdukiKWCundLqHnelCoSc2zsk785qVJmYSg1CZ3BGuiaQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=TC5FL2lT;
-	arc=none smtp.remote-ip=80.241.56.152
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794665401;
+	b=gePsNKWO0RC/vIaSkWRCtBPnaiTMt5e321fAqK1BbfHP385e0FpasozXRD1nvQR57Ea1
+	 fF9jC7LPo7lRTJFKHE+dI7bFMOwpr0ygLEPj4yr1EZUZzLYaMSjQDp9Sp+Vtb/w+D9Lhv
+	 8Unm3tyQ/T62u1+PdwsBIHUBdaGWgkJnCn3hOs8SEL6ShlyUzYs3dwc3zWrVCHJdK+u2R
+	 gOoeOmGfh7D5TtlIfGugBE7aOgG/hyzU1i58E0uJB/+tAXzWTszZEkJeKBTwR8S4+VEhn
+	 rfp++9f58wKbCIggnm2duj3Ldjt96j+f6xg8vpwS01STeKz7uY0nesf35X6HFG34rYw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794665401;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=CipV1t0eocxxwfanxEu8865oFbhvGc/cqHWI0m8LGZA=;
+	b=sl9fJ+uner8hotBqf7qgbu/tQfpKNgzndp1knszAQoeilgY4QTR0AJIGyTUu6WU+kuII
+	 Bca3ST4qd67kndM7opy6TbhD4Up+6vAE/hguKUJHRqHYPyG7l1LIrREyDJzCEC/hsg952
+	 +mtTg9Y6TLxfCMqnx1gNEP4hDTlevK1MkShqFTNNRaDSdb/ryYhJQpb0kNZpdp/Qt5AGY
+	 mZpBidjs4CPZyLNj0Mz7t86PrtzOhlqcCHuOwCmMG6Txxxt0ccDBd8020m5YdWLUWAf9y
+	 45IyaPMqqt8QnLxzju51isgPAUSbo+074Eg/2VGydMZnNKfdTwEy8hfniUgKMo2neHA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F97Y2bSV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA30A606A33E;
+	Sat, 14 Nov 2026 14:10:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F97Y2bSV
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794665401;
+	b=UyHZbzXtnmmwsnnPSNYpVm5/lu9jz1AY0Ll+7lfiKvZQWAbh9bDNmVeHBXg2jfx889Aw
+	 If4yHY3/qIbe+chL0O7RAbjg8Ek0zrgNY19S1ziqM4BqP6ytNICUELFW5cbKwXoPPXUwX
+	 aMeQqNHFHqyt9kJz0vNqmqnCfmRl/we+MMj/Vabql5fyl0fUZHjUWltzqpLJmDa2+TMLb
+	 p+dFiohkD7grlEljBT8IC4T+DF52KfIHykOoedxo2p6ncuNVDbKoo8OTgOMxfmlRAbK1s
+	 iewPH7+cMr7QKT37TF/RgADNBfU5ZDcW29SKrlpHZ72GXtI/jldHWWsKZUYvFnEQy8A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794665401;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=CipV1t0eocxxwfanxEu8865oFbhvGc/cqHWI0m8LGZA=;
+	b=UYpb/FE0RbahinoQHB7sFGH/ldWRZaQ1gEeRPWSD/oidPxjvlJZM6pDEibVB/hkX26LR
+	 dhS/Bd7ClnZlq5ZUcMCDLVqeSJ/MWlu3BEeKAUTjhq2GtYwqXqwncro9rHsYrP8opatcb
+	 MvwqgKC9UOmQQwHU+FdbEZM9YsdEhXxQbDMfRPX1a1yQZMwVveqHdxF2k1Lq/PpljefyI
+	 d3+l/16Pdwm1XhObuMo9yjiksTvxxsKWtuH2QUkFrz/a6XAsgdhR6e+jUOVNy9Py/5wjV
+	 E8zUj1hdeg2SsTWAlJSdNDrF8939dpIU/snEFkdGLA9G47EOgYNDIVGUKd4fARhStoA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB069606A327;
-	Sat, 14 Nov 2026 14:09:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB069606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=TC5FL2lT
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jRbbL0P5RzKvsY;
-	Sat, 14 Nov 2026 15:09:18 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1794665358;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KnQiD6fX/r8PsqpObs5NkuGJ85feklMhNeGaXyI/6aU=;
-	b=TC5FL2lT2lS0S2qysNX9Bkq/CtcVfSLBCXp51OuofG0N4qs10oP46L9CPPniucJT6fgJWX
-	944MV4eXnzTN393hLcj4S+ZhOlh1fTzphFgXAtUHcUne4AKXej8S0kAt6r/HHtl2XFn1YP
-	3xxZ7Pj3Do6U1jdXqffJzzWbGg8KHMzECZcgBK+sVXO04LEQ/58OM7Q8k95/n36Z/Fnl3p
-	bN3ATPBDQzoGcsuVeB8JFDOJCpMc/RCWlTdPd9faNHpP5mRlgKoSIIoXpKpisvzMuLMCyU
-	EnhNTThhHtJb5VLNWVaPy3MEYa8OoSWZ4DrtLqkI5Abqd9bqkInMWvr/NS2Hwg==
-Date: Sat, 14 Nov 2026 15:09:10 +0100
-From: Lukas Beckmann <lbckmnn@mailbox.org>
-To: Shuah Khan <skhan@linuxfoundation.org>
-Cc: Thomas Renninger <trenn@suse.com>, Shuah Khan <shuah@kernel.org>,
-	"John B. Wyatt IV" <jwyatt@redhat.com>,
-	John Kacur <jkacur@redhat.com>,
-	Dominik Brodowski <linux@dominikbrodowski.net>,
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] cpupower: fix use-after-free and stale limits in
- frequency-set
-Message-ID: <avhrhuLjzi9-V7ZY@lukas-arch>
-References: <20261112-cpupower-freq-set-use-after-free-v1-1-4e0034927b3f@mailbox.org>
- <1bb7b407-0e69-421d-8ee3-81489abd1dda@linuxfoundation.org>
+	by smtp.kernel.org (Postfix) with ESMTPS id 42BB71F000C8;
+	Sat, 14 Nov 2026 14:10:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794665401;
+	bh=CipV1t0eocxxwfanxEu8865oFbhvGc/cqHWI0m8LGZA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=F97Y2bSVI0alVEfmhw+vfmi7n3kkJMbTA3p0dDxnzjWKTPlADvwI//9AqORyEUs/w
+	 84/5ZDVnDV5eKja9LnHv2dbLqYnI1RWtppAuMHjE1IoKozty4xaJd4926uOrPihtzl
+	 EO7eEXhAZGP8CAjA3+93esx38tmS3Hor2AsB5VitObT9ClcKxNDGtlos1viDDqwxrt
+	 HStXrBqDogyddqDCGXz09zewOqj+/IL1LMyrBfIJhCZATSQXlc0HKLbtZdzZCdsHRa
+	 NZaOy5DDgHqTrg/E0D9MdNWqPKreTIl+KClLxyU67eQYy3W1eneUnYVEzXhKhbFpUj
+	 Z33EUjF89guXQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id BDC3C49DF4;
+	Sat, 14 Nov 2026 14:09:59 +0000 (UTC)
+From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
+Date: Sat, 14 Nov 2026 14:09:56 +0000
+Subject: [PATCH v6 4/7] lib: test-kstrtox: add E notation tests for
+ kstrto[u]dec64()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,158 +83,176 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1bb7b407-0e69-421d-8ee3-81489abd1dda@linuxfoundation.org>
-X-MBO-RS-ID: 7b4a42c4232717da541
-X-MBO-RS-META: 8p5mh6jypdesokf6ojzqinwjy49keb1n
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261114-e-notation-v6-4-205ca9a1438a@analog.com>
+References: <20261114-e-notation-v6-0-205ca9a1438a@analog.com>
+In-Reply-To: <20261114-e-notation-v6-0-205ca9a1438a@analog.com>
+To: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ Andy Shevchenko <andy@kernel.org>, 
+ Rodrigo Alencar <rodrigo.alencar@analog.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794665398; l=5466;
+ i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
+ bh=nIiIP9SD5omcIoOm+2iP0/q9S4xqAXZkU/Z/buM2wZ0=;
+ b=VkOTOuXz0nxKn5VpktoYwOINW1pIXzhI+kWLas5QlSpmVZ4OgMdFnHr4UYv1/4cOKT8ByueVh
+ haywaM/2GhwC/+YbNjM0eha9CZqRSVqKPyBJJ1WJv0byjvI38jO6FLj
+X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
+ pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
+X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
+ with auth_id=561
+X-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Reply-To: rodrigo.alencar@analog.com
+Content-Transfer-Encoding: 7bit
 
-On Fri, Nov 13, 2026 at 04:09:23PM -0700, Shuah Khan wrote:
-> On 11/12/26 12:49, Lukas Beckmann wrote:
-> > cmd_freq_set() currently has two issues:
-> > 
-> > 1. use-after-free
-> > 
-> > When cmd_freq_set() is invoked with --max and --min, it eventually calls
-> > do_new_policy() for every selected CPU with the same cpufreq_policy
-> > struct. do_new_policy() first retrieves the current policy and copies
-> > the governor pointer to new_pol.governor. After that the policy is
-> > applied and cur_pol (including the string to which new_pol.governor is
-> > pointing) is freed. For the next CPU, cpufreq_set_policy() reads that
-> > already freed memory leading to an error message (because verify_gov()
-> > fails).
-> > 
-> 
-> > 2. max/min is not retrieved for each individual CPU:
-> > 
-> > If cmd_freq_set() is invoked with e.g. --min and --governor, max is set
-> > by do_new_policy() on the first selected CPU by retrieving it from the
-> > current policy. Since the same struct is passed to the next selected
-> > CPU, it is not retrieved again, resulting in writing the first CPU's
-> > max to all selected CPUs.
-> > 
-> > Fix both issues by using a local copy in do_new_policy().
-> 
-> Good find. The change log is rather long and confusing to follow.
->
+From: Rodrigo Alencar <rodrigo.alencar@analog.com>
 
-Thanks for the review,
+Cover E notation parsing in kstrtoudec64() and kstrtodec64(): positive,
+zero and negative exponents, upper case 'E', an explicit '+' sign,
+rounding (ties to even) of integer digits dropped by negative exponents,
+large values, and failures for overflowing and invalid inputs.
 
-I will try to come up with a better changelog for V2 (including your
-feedback below).
+Also cover big exponents, up to the limits of int, either alone or
+offset by an opposite scale, and exponents that overflow when added to
+the scale.
 
-> > Issue 2:
-> > Minimal example without the patch:
-> > 
-> >      echo 2000000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-> >      echo 3000000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
-> >      cat /sys/devices/system/cpu/cpu[0,1]/cpufreq/scaling_max_freq
-> >      2000000
-> >      3000000
-> > 
-> >      ./cpupower -c 0,1 frequency-set --min 1GHz -g performance
-> >      Setting cpu: 0
-> >      Setting cpu: 1
-> > 
-> >      cat /sys/devices/system/cpu/cpu[0,1]/cpufreq/scaling_max_freq
-> >      2000000
-> >      2000000
-> > 
-> > The maximum of CPU1 is set to the one of CPU0.
-> > 
-> 
-> The real issue here is not that the maximum of CPU1 is set to
-> the one of CPU0.
-> 
-> The real problem is that stale new_pol is used for all cpus
-> from do_one_cpu() slow path when more than one policy value
-> changes.
-> 
-> Please re-write this in your own words in a simplifies way
-> describing what lead to the problem.
-> 
-> 
-> > Minimal example with the patch:
-> > 
-> >      echo 2000000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-> >      echo 3000000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
-> >      cat /sys/devices/system/cpu/cpu[0,1]/cpufreq/scaling_max_freq
-> >      2000000
-> >      3000000
-> > 
-> >      ./cpupower -c 0,1 frequency-set --min 1GHz -g performance
-> >      Setting cpu: 0
-> >      Setting cpu: 1
-> > 
-> >      cat /sys/devices/system/cpu/cpu[0,1]/cpufreq/scaling_max_freq
-> >      2000000
-> >      3000000
-> > 
-> > The maximum of CPU1 is no longer set to the maximum of CPU0.
-> > 
-> > [1] https://lore.kernel.org/all/20250827-power-memoryleak-v1-1-e4baf7b59a41@uniontech.com/
-> 
-> The above patch doesn't make sense. I need more information
-> to determine, if it is needed.
->
-The memory-leak is of course not noticeable by "normal usage".
+Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+---
+ lib/test-kstrtox.c | 97 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 97 insertions(+)
 
-However, tools like ASAN still report it, so the main benefit of fixing
-this would be, that someone who is using e.g. ASAN to find a different
-issue, is not side-tracked by this. I will drop this in V2.
+diff --git a/lib/test-kstrtox.c b/lib/test-kstrtox.c
+index 8ba0f23bb8ef..a5b3fdc6e9b9 100644
+--- a/lib/test-kstrtox.c
++++ b/lib/test-kstrtox.c
+@@ -838,6 +838,45 @@ static void __init test_kstrtoudec64_ok(void)
+ 		/* rounding with many excess digits */
+ 		{"0.00000000000000000000000000000000423",	34,	42},
+ 		{"1.99999999999999999999999999999999999",	3,	2000},
++		/* E notation: positive exponent, no fraction */
++		{"1e3",			3,	1000000ULL},
++		{"42e2",		3,	4200000ULL},
++		/* E notation: positive exponent with fraction */
++		{"2.718e3",		3,	2718000ULL},
++		{"1.5e2",		1,	1500ULL},
++		/* E notation: uppercase E */
++		{"1E3",			3,	1000000ULL},
++		/* E notation: explicit positive exponent sign */
++		{"1e+3",		3,	1000000ULL},
++		/* E notation: zero exponent */
++		{"1.5e0",		1,	15ULL},
++		/* E notation: negative exponent shifts decimal left */
++		{"271828e-5",		3,	2718ULL},
++		{"2.71828e-1",		3,	272ULL},
++		{"270e-2",		3,	2700ULL},
++		/* E notation: negative exponent that rounds integer digits */
++		{"27e-4",		3,	3ULL},
++		{"19e-1",		0,	2ULL},
++		/* E notation: ties to even on integer digits */
++		{"125e-1",		0,	12ULL},
++		{"135e-1",		0,	14ULL},
++		{"25.0001e-1",		0,	3ULL},
++		/* E notation: negative exponent below 1 ULP rounds to 0 */
++		{"1e-5",		3,	0ULL},
++		{"5e-1",		0,	0ULL},
++		{"5e-2",		0,	0ULL},
++		{"6e-1",		0,	1ULL},
++		/* E notation: large value (27 GHz in micro Hz) */
++		{"2.7e10",		6,	27000000000000000ULL},
++		/* E notation: big exponents */
++		{"1e19",		0,	10000000000000000000ULL},
++		{"1.8446744073709551615e19",	0,	ULLONG_MAX},
++		{"18446744073709551615e-20",	20,	ULLONG_MAX},
++		{"123456789012345678901234567890e-29",	0,	1ULL},
++		{"0e2147483647",	0,	0ULL},
++		{"1e-2147483648",	0,	0ULL},
++		{"1e2147483647",	-2147483647,	1ULL},
++		{"1e-2147483647",	2147483647,	1ULL},
+ 		/* negative scale: drops integer digits */
+ 		{"12345",		-2,	123ULL},
+ 		{"12355",		-2,	124ULL},
+@@ -883,6 +922,24 @@ static void __init test_kstrtoudec64_fail(void)
+ 		{"0.2",				20},
+ 		{"0.18446744073709551616",	20},
+ 		{"1",				20},
++		/* E notation: exponent causes overflow */
++		{"1e21",			1},
++		{"2e20",			1},
++		/* E notation: no digits after exponent marker */
++		{"1e",			3},
++		/* E notation: sign only after exponent marker */
++		{"1e+",			3},
++		{"1e-",			3},
++		/* E notation: misc */
++		{"1ee",			3}, /* double 'e' */
++		{"1e+0b",		3}, /* hex character after exponent */
++		/* E notation: big exponents */
++		{"1e20",			0},
++		{"1.8446744073709551616e19",	0},
++		{"1e2147483647",		0},
++		{"1e2147483647",		1}, /* exponent + scale overflow */
++		{"1e2147483648",		0}, /* exponent beyond int */
++		{"1e-2147483649",		0},
+ 		/* negative scale: rounds up past the limit */
+ 		{"18446744073709551615500",	-3},
+ 		/* negative scale: exponent overflows when added to it */
+@@ -946,6 +1003,32 @@ static void __init test_kstrtodec64_ok(void)
+ 		{"-0.00000000000000000001",	20,	-1},
+ 		{"0.009223372036854775807",	21,	LLONG_MAX},
+ 		{"-0.009223372036854775808",	21,	LLONG_MIN},
++		/* E notation: positive number */
++		{"1e3",			3,	1000000LL},
++		{"2.7e3",		3,	2700000LL},
++		{"1.5e0",		1,	15LL},
++		/* E notation: negative number with positive exponent */
++		{"-1e3",		3,	-1000000LL},
++		{"-2.7e3",		3,	-2700000LL},
++		/* E notation: negative exponent */
++		{"27e-1",		3,	2700LL},
++		{"-27e-1",		3,	-2700LL},
++		{"2.7e-1",		3,	270LL},
++		{"-2.7e-1",		3,	-270LL},
++		/* E notation: negative exponent rounds integer digits */
++		{"-27e-4",		3,	-3LL},
++		{"-125e-1",		0,	-12LL},
++		{"-135e-1",		0,	-14LL},
++		/* E notation: negative exponent below 1 ULP rounds to 0 */
++		{"1e-5",		3,	0LL},
++		{"-1e-5",		3,	0LL},
++		{"-5e-1",		0,	0LL},
++		{"-6e-1",		0,	-1LL},
++		/* E notation: big exponents */
++		{"9.223372036854775807e18",	0,	LLONG_MAX},
++		{"-9.223372036854775808e18",	0,	LLONG_MIN},
++		{"-1e-2147483648",	0,	0LL},
++		{"-1e2147483647",	-2147483647,	-1LL},
+ 		/* negative scale: drops integer digits */
+ 		{"-12345",		-2,	-123LL},
+ 		{"-12355",		-2,	-124LL},
+@@ -983,6 +1066,20 @@ static void __init test_kstrtodec64_fail(void)
+ 		{"-0.1",			20},
+ 		{"0.09223372036854775808",	20},
+ 		{"-0.09223372036854775809",	20},
++		/* E notation: exponent causes overflow */
++		{"1e21",		1},
++		{"-1e21",		1},
++		/* E notation: no digits after exponent marker */
++		{"1e",			3},
++		{"1e+",			3},
++		{"1e-",			3},
++		/* E notation: misc */
++		{"1Ee+3",		3}, /* double 'e' with mixed case */
++		{"1e+0xa",		3}, /* hex number exponent */
++		/* E notation: big exponents */
++		{"9.223372036854775808e18",	0},
++		{"-1e2147483647",		0},
++		{"1e2147483648",		0}, /* exponent beyond int */
+ 		/* negative scale: rounds up past the limit */
+ 		{"9223372036854775807500",	-3},
+ 		{"-9223372036854775808501",	-3},
 
-> > ---
-> >   tools/power/cpupower/utils/cpufreq-set.c | 17 +++++++++--------
-> >   1 file changed, 9 insertions(+), 8 deletions(-)
-> > 
-> > diff --git a/tools/power/cpupower/utils/cpufreq-set.c b/tools/power/cpupower/utils/cpufreq-set.c
-> > index 06cd4b280132..d9f6ca522fe5 100644
-> > --- a/tools/power/cpupower/utils/cpufreq-set.c
-> > +++ b/tools/power/cpupower/utils/cpufreq-set.c
-> > @@ -141,9 +141,10 @@ static unsigned long string_to_frequency(const char *str)
-> >   	}
-> >   }
-> > -static int do_new_policy(unsigned int cpu, struct cpufreq_policy *new_pol)
-> > +static int do_new_policy(unsigned int cpu, const struct cpufreq_policy *new_pol)
-> >   {
-> >   	struct cpufreq_policy *cur_pol = cpufreq_get_policy(cpu);
-> > +	struct cpufreq_policy pol = *new_pol;
-> 
-> Don't assign new_pol to pol.
-> 
-> 
-> >   	int ret;
-> >   	if (!cur_pol) {
-> > @@ -151,16 +152,16 @@ static int do_new_policy(unsigned int cpu, struct cpufreq_policy *new_pol)
-> >   		return -EINVAL;
-> >   	}
-> > -	if (!new_pol->min)
-> > -		new_pol->min = cur_pol->min;
-> 		pol->min = cur_pol->min;
-> 
-> Use new_pol in the if logic using pol as temp - changing
-> pol to temp_pol
-> 
+-- 
+2.43.0
 
-Okay, I will do that in V2.
 
-> > +	if (!pol.min)
-> > +		pol.min = cur_pol->min;
-> > -	if (!new_pol->max)
-> > -		new_pol->max = cur_pol->max;
-> > +	if (!pol.max)
-> > +		pol.max = cur_pol->max;
-> > -	if (!new_pol->governor)
-> > -		new_pol->governor = cur_pol->governor;
-> > +	if (!pol.governor)
-> > +		pol.governor = cur_pol->governor;
-> > -	ret = cpufreq_set_policy(cpu, new_pol);
-> > +	ret = cpufreq_set_policy(cpu, &pol);
-> >   	cpufreq_put_policy(cur_pol);
-> 
-> 
-> thanks,
-> -- Shuah
-
-thanks,
-Lukas
