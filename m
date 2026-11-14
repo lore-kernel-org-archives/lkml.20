@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794677522;
-	b=0zRtqv5+6ARyLIvKzS0Ha2NdeCjcJXrewOWwKiwGFDdN0fVgHVbChdkkPNa9Va+Q7DoJ
-	 J9/PtT65OX4EtXDGdu3kCg/Neqewft58+Fu1NvZU8UZpHutXWuSJbc7ItBarT2sPoYxDD
-	 qDq2sWwmqplZPAOd/m8o5DxEgttz7Mp+SWUNoow8fhG6hVe5qpqi6YsuBCEbxwF01uBG2
-	 s1S/xPjOrTSknWwkynVg0W2R6Nqis7G+7eI1cPUCdHoBCn4xv08yP/qRc59LwLJpdsnO4
-	 xq8D37xlERcKtKUi/rLQ+asij6anyQCyZig8A7YEr1mKqWcxrZqxZ4mGCCbRK4CS3tQ==
+	t=1794677556;
+	b=SMxWKmHDfoE7bLLXoAUnCQi2aucHGQpsfwdtftZvdJnmxRU39RYAB7C1CPd3ALzpaCzV
+	 VmdLT2p5JmbRw88a9jrsoVMFo8EUIZVBgvKCVLaJ+4+DLIyuO9ERNzqi7GM06RaOK5seN
+	 GYi/VVocKhHLogz2mHYzVliWG0QksposYVlbH7MmJ6OhVDnMwdmyCd6qgOE+xKQ3B8mOy
+	 MlpnINImCkp/ZpDMc8pSTJ5VmuWPWKQ51IwaQ9YbW2haYCVSPte27OV3ffjQpzs3NeaOv
+	 KEgUM+RGX6aWHVfY9FadgrkE/AqAcvY1aR1mMStdFSK3j85ompMQfa+UeGVVYaHCWBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794677522;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794677556;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=AljFBfIqcD1ZWecoMIIEjM2yrPFU4geEAa8J3J+RzSI=;
-	b=Tz+OKAkweab0lhCbgSR0kw0W6r/wA7Po6PBYSuz2LrpWzyZDPCKF1iO2Z60pOFAn1M7m
-	 MnSjMrcVra6ikzvKCfJQDzwreSzcVOn7TwJ2K3rKPO0/6q0Z/ubm8syas/aKVZz8NEsUz
-	 FL1HZEWzS81OKo3Pr1LgfANzhpuiF3BflwnzTyCjg6BBwkY++HHWzzKRD7Q/tAmbdOnTY
-	 7KyhLVpBryjSuAcOvqbTG1q4DSWYM+YxGQs4/8Z3F6/9eFSflXQXOl9ykDTTYSvqPkE+F
-	 ++a5rN4Slz0Ps9MTNBZUqe0oWuu9SgAPR1yGfsojTDGN7eHH3N6Fgfo0wUjO/UVsoMg==
+	bh=jd8/NeUBcvGVBl3/IVvk/GOuA5V+/Z06IONroCz7q6I=;
+	b=D9mD1IvXOjH5esYwjxuagSMlX9xa/YsOoLNsoUDwLbm04HgFIrOVGCs8taTIKtyTowez
+	 ZIwfo4fF+cLjUa3lxrcgU65CZsdX6T0jmZd489W0aWpniES5A7RpNQFkNeXlLFXPqSeB7
+	 27Allh1QlwIDeT4MaQEXIWcDTcEKlFqGo4/0D9ogOfmkqHUPB9+fGfi1EfNR0IJS6LnHn
+	 wZbc8x1oP2PYCY4mw0dcsFUQtjRXrBnDp+NatqWPzk53OrAd6t7xuEg+uAoI25/9Hpl9z
+	 rca7Q2+lkaRuncRgjd3V5mSq+vftM/gHpkqvAh++YxXQqrQgEcbkSvlZh4vxVTtTSIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ObqNUb3r;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VI99JbvX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 429D2606A327;
-	Sat, 14 Nov 2026 17:32:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4782606A329
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:32:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ObqNUb3r
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F9E01F000C4;
-	Sat, 14 Nov 2026 17:31:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VI99JbvX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDD491F000C4;
+	Sat, 14 Nov 2026 17:32:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794677521;
-	bh=AljFBfIqcD1ZWecoMIIEjM2yrPFU4geEAa8J3J+RzSI=;
+	s=k20260515; t=1794677556;
+	bh=jd8/NeUBcvGVBl3/IVvk/GOuA5V+/Z06IONroCz7q6I=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ObqNUb3rKiS4yM6Gx8oWG4UUqxI61uIvOXGmQ5kWt6uCoyS6klGsYFAfIFeZjQK7Z
-	 WmodSxBw2K8Gc7zgtTpEDad5gKA+SXjpbSL8F36t3CGb2c9u4LYPinBOj4tluVSh8g
-	 cZNAV50PT6+QvQFvppbopy9lIinxs1Sq3vyZ2U62s7bmDVYWa6bHKnsrOO/pBVabK/
-	 myCdflNoBM5deUNg0EcV2g+NndbsfDXCR/xJalleom0x3NppP8fBJXFETJ/msTOljp
-	 jV9gpvzRpQTmen093PZThK7Lmzd9W7rA1CFZAobft/EkWhvP1vxu2BOxJUvMb523HW
-	 3bH9Z8rz1R7PQ==
-Date: Sat, 14 Nov 2026 17:31:57 +0000
+	b=VI99JbvX5Z2NlNPLoYgkjL81q/Cig9LlU2aO3HtvyXsC7gP6GqLlha6fJSTcZdZSa
+	 H7BYkxGbDyxHvTyCVvOJ3dcNsV4DDUjCPyrDMDScdjdY8lS4U0xVeqcKTnr7Jv4HgL
+	 e7DzH++DgDtR7AVeINQoCXKgDM7pqg3CseeXbeV9OxIPM6AXWSjPVn734vZ4euskPp
+	 z77bcLD4xUjnfzzt72HaubOIgazybGQygT11OIuMCOFVFkz/jR9JYxq34Bp3+9y3lu
+	 5IAJcuMsXl+m0wiKjBlsZSig2aC6Oty8WGxu3TCdQNmHYNVrZ1nWpc5RD2zZlaD2+y
+	 krFlVWDaaUBdQ==
+Date: Sat, 14 Nov 2026 17:32:32 +0000
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 To: shao.mingyin@zte.com.cn
-Cc: akpm@linux-foundation.org, david@kernel.org, linux-mm@kvack.org, 
-	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/balloon: fix NR_BALLOON_PAGES accounting on migration
- failure
-Message-ID: <avia_XgVOuN_pZ72@gremlin>
-References: <20261115004708909xx05JgB9nXnOCG0zL7h_K@zte.com.cn>
+Cc: akpm@linux-foundation.org, rppt@kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/numa_emulation: use the real node id for leftover
+ nodes
+Message-ID: <avibII-ONCFXboWZ@gremlin>
+References: <20261115004706741mYrBkIRqmj_IWsv3oh1uZ@zte.com.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,26 +59,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261115004708909xx05JgB9nXnOCG0zL7h_K@zte.com.cn>
+In-Reply-To: <20261115004706741mYrBkIRqmj_IWsv3oh1uZ@zte.com.cn>
 
-On Sun, Nov 15, 2026 at 12:47:08AM +0800, shao.mingyin@zte.com.cn wrote:
+On Sun, Nov 15, 2026 at 12:47:06AM +0800, shao.mingyin@zte.com.cn wrote:
 > From: Shao Mingyin <shao.mingyin@zte.com.cn>
 >
-> mm/balloon: fix NR_BALLOON_PAGES accounting on migration failure
+> mm/numa_emulation: use the real node id for leftover nodes
 >
-> A balloon driver's -ENOENT migration result means that the old page was
-> deflated but the replacement was not inflated. vmw_balloon returns this
-> when its deflate operation succeeds and the subsequent inflate fails.
+> After assigning fake nodes, fix_pxm_node_maps() gives the remaining
+> physical nodes free slots in the emulated node space. The second
+> distance loop in numa_emulation() derives their physical node IDs by
+> subtracting max_emu_nid from those slots. The slot assignment does not
+> guarantee that this yields the original physical IDs.
 >
-> balloon_page_migrate() accounts the deflation and frees the old page,
-> but does not decrement NR_BALLOON_PAGES. Each such failure therefore
-> leaves one extra page in the per-node count, which also contributes to
-> the Balloon value in /proc/meminfo.
+> For example, with fake nodes 0 and 1 mapped to physical nodes 0 and 1,
+> a remaining physical node 2 assigned slot 2 is read as physical node 1.
+> The wrong row of the physical distance table is then installed.
 >
-> Decrement the counter on the old page's node, matching normal dequeue
-> accounting.
+> Record the physical ID when assigning each remaining node's slot and
+> use that mapping in the distance loop. Keep the first loop's fake-node
+> distances, and check the physical IDs before indexing the copied table.
 >
-> Fixes: 4d689474e1b2 ("balloon_compaction: update the NR_BALLOON_PAGES state")
+> Fixes: 63db8170bf34 ("mm/fake-numa: allow later numa node hotplug")
 > Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 
 NAK.
