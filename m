@@ -1,63 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794670405;
-	b=eY8dHew+ZEDMo1m6MCueRg6ZgxBQpOHoN3WBrKT1V3bKCDqfSI/uaTPxXlF2AUHMHyOo
-	 fWLJJWcxT3il9zhNDs0cN//YgoijGbXnDbQDImh076vdKhr3p06ka11tMpJnQqd9SCora
-	 olfmTuWG0upg+OsZzObB0GDyt2nBGTBCIFY8qnnQTsyZD1Ittdq2rgg+pnpAoYOilylXq
-	 /Fuu1iGZnJRIpKsz4Z7iiQPrp7pmKjcoQSovEWbQY7IWlSjiGo6gAGoidY070NLtTCk2T
-	 uOww8LHV/hv2IBWMLqTADyeeXWySUKk2qcVFp4rHJe+jw/rgTga1R1FFOMa75xCGAig==
+	t=1794670408;
+	b=f4BHy0unynXp/vcjrvGnQoer0GVmbJTrmOjQHaiQRFV5ua5k9lF0IgzIWn0ZbPXPj7Hf
+	 f17tEpAbbOzZiM1xVXPVTGnc8fCM8/ss8dJTyhYp76E3QB2dUPtz41+cZQrM73HEQrDis
+	 UW7jvTfue3I3NiR6yV5QeJlHmpKEjFrvrMmkNuhuT6QcMxloamWsFMBTuGTmMN6lC78hb
+	 AtNQ+sdH/u+glXMMJ25bSgG70v00LtSVpDzf7cdG/n5pyKCYFIzyG1INpv2k7Tdqk7nBa
+	 o7w1RgLjd4a6m451QJANN5OSTr84c+9Ln4YQiafbhdZB+jO73Mo1ZIbq2o1+oAoOlUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794670405;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794670408;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=4q3kUu9JIedyxJ4iVH9PzI9Cl+q0QeVcndIO9QpwHY0=;
-	b=vYLCXL8/Ct/tHbniXccLSnw0oRmUfnP55piDbmAHiI663HjtPVXqLBAh9r/9Ccm5Pg01
-	 4tSzac9y+sIK+E0xHkhUOYIWe4j5SdlxpTml41RLwddyxCL7q62S8RqW+60ZTKJvk+GDV
-	 B/NuQxiwi+4AY922765xD5YTMQnG2IdeODjQKCwwKNw/ehComIMHKz3k+ymH/Jc//u0B6
-	 4HlSj7F6Ub4IP2g7re9bkbLmrsyLGbwhwG477b64c01E1hDXs1g2GbeJXA2QvLAJnULf5
-	 maD2WycqDrC94YhX2GH3aWHBfyzoB9JekF07DK4e/bEuJ6PZNt4Z8+EAzgCQTnaBSuQ==
+	bh=Fob9kSng6mp4bXAAY5OeSYhjqvoUqSfN2M5U/41nx+4=;
+	b=41dPXhy2fSHbsIt6uIh5tUkLOjL1+RzdxJ6OQuCjn9HLOPBc/3bre+Che0DP2BlCIlp/
+	 SlrjhtPZOVF4qFt9DBKZi+b/Csv08BqBrssmoj1vdPkYg6qXOiMEAI1tqessGE7y0JBwu
+	 1GUyl4DynhJy5sRYPW2nXy1+FZYbMT9wu3eXGl7KeHWUCpyVo+SYN4HMoY1wgcYwaa/lO
+	 u1yJ/+Q6Hq/JBw5angVE3JWJXJNVeM/fOJeSMus8JACFbqUq4mznYaySoFCdPri5e6W4e
+	 aPXSaVsn1AJn7IScOsXLEDcSB5Cpodl0ykZue+pTT065oBunuwbJl870pvaE3EWGLOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=MwwbkSDC;
-	arc=none smtp.remote-ip=111.22.67.151
-Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 93A65606A327
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 15:33:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93A65606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YaD38Ba4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1051606A327;
+	Sat, 14 Nov 2026 15:33:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=MwwbkSDC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=MwwbkSDCAmjx4a1mauM2h6gz7ykse4J/DZ7Cjkv4Kcdj1bYuPoEJxkAWJOMBe9N/qeI5ABQyG6COZ
-	 tSG+WeKc8XDEs++GpbWOp6JaN/AY3GIzH0Yd9VytVSVZsSmiYiU1cbIrg2gxhoslK0XJjVMMWditJT
-	 hfk79h/6zP+Tt3sM=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66af87f3ece0-beb16;
-	Sat, 14 Nov 2026 23:33:21 +0800 (CST)
-X-RM-TRANSID:2ee66af87f3ece0-beb16
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from FHD-W7400297 (unknown[10.55.1.70])
-	by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96af87f3e6db-48513;
-	Sat, 14 Nov 2026 23:33:21 +0800 (CST)
-X-RM-TRANSID:2ee96af87f3e6db-48513
-From: Aibing Chen <chenaibing@cmss.chinamobile.com>
-To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-Cc: ntfs3@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ntfs3: avoid freeing the primary MFT record during attribute list removal
-Date: Sat, 14 Nov 2026 23:33:19 +0800
-Message-ID: <20261114153319.658-1-chenaibing@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YaD38Ba4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BF8F1F000C5;
+	Sat, 14 Nov 2026 15:33:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794670408;
+	bh=Fob9kSng6mp4bXAAY5OeSYhjqvoUqSfN2M5U/41nx+4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=YaD38Ba4m5FiQpx6VkdfLWBx4xs3Fb4e7nONc1FGZdG4OQeeunuLyZs0MDLNVx1HR
+	 sdhuLkwxNRlZHjz8PFdW1ZqDCOLQCzPCXVdvtR16TFja18OuSx5NHwy2rccKjDUpox
+	 4AicBxQFN3U3DSXmx41J6n7XUO6TH1J32Hbi3LNq8ZlhvmEc6yxwnbVs/3u9huecNr
+	 MvJMbuRd4wl8C2v+IbqSN5uf3jVa4jpXVLaQir4j5TTxxd1RE912JhVwYq8rZU4p15
+	 gcbOemy5ZtdYAXrGixy37mCRgfODCY3mjBpq4BaQIG1DW918sKkJoVUt9G/pDoP88d
+	 kioSyuJV77BLA==
+Date: Sat, 14 Nov 2026 16:33:20 +0100
+From: Joshua Crofts <crofts@kernel.org>
+To: Victor Chernyakin <chernyakin.victor.j@outlook.com>
+Cc: jic23@kernel.org, andriy.shevchenko@intel.com, andy@kernel.org,
+ dlechner@baylibre.com, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, nuno.sa@analog.com
+Subject: Re: [PATCH v9 0/4] iio: cdc: add Texas Instruments FDC1004 driver
+Message-ID: <20261114163320.4f92319e@systembl0wer>
+In-Reply-To: <SN1PR12MB2528B9901C2150B1B89ED4DFA57E2@SN1PR12MB2528.namprd12.prod.outlook.com>
+References: <20261113014849.06ab464d@jic23-hlaptop>
+	<SN1PR12MB2528B9901C2150B1B89ED4DFA57E2@SN1PR12MB2528.namprd12.prod.outlook.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,60 +61,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-ni_try_remove_attr_list() keeps a backup copy of the primary MFT record
-and, when moving an attribute out of a subrecord fails, restores it with
-swap(mrec, ni->mi.mrec) and frees the buffer that ni->mi.mrec used to
-point to.
+On Fri, 13 Nov 2026 20:33:21 -0600
+Victor Chernyakin <chernyakin.victor.j@outlook.com> wrote:
 
-ntfs_readdir() now drops ni_lock before walking the root index header
-(commit 7a5aa6c45072), assuming that the header lives in the main record
-whose lifetime is bound to the inode.  Background writeback does not
-take i_rwsem: ni_write_inode() only needs ni_trylock(), which succeeds as
-soon as ntfs_readdir() has released the lock.  If the attribute list is
-dirty, writeback calls ni_try_remove_attr_list(), and the error path
-above frees the record that the unlocked reader is walking:
+> > Applied to the testing branch of iio.git.
+> > 
+> > I'll let the bots poke at that for a few days at least before
+> > pushing out as togreg which linux-next picks up.  
+> 
+> Yay, first patch merged! (^_^)
+> Thank you and Andy for all the reviews!
 
-  BUG: KASAN: slab-use-after-free in ntfs_read_hdr
-  Read of size 2 at ...
-  Freed by task ...:
-   kfree
-   ni_try_remove_attr_list
-   ni_write_inode
-   write_inode
+Impressive for a first patch series :)
 
-Restore the primary record contents in place with memcpy() so that the
-allocation stays alive for concurrent readers, and free only the backup
-copy.
-
-Reported-by: syzbot+7f14bc1da1f4da6518e5@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=7f14bc1da1f4da6518e5
-Fixes: 7a5aa6c45072 ("ntfs3: release ni_lock before dir_emit in ntfs_readdir to fix deadlocks")
-Signed-off-by: Aibing Chen <chenaibing@cmss.chinamobile.com>
----
- fs/ntfs3/frecord.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/fs/ntfs3/frecord.c b/fs/ntfs3/frecord.c
-index 16ac847de..50c5d301b 100644
---- a/fs/ntfs3/frecord.c
-+++ b/fs/ntfs3/frecord.c
-@@ -755,8 +755,13 @@ static int ni_try_remove_attr_list(struct ntfs_inode *ni)
- 	kfree(mrec);
- 	return 0;
- out:
--	/* Restore primary record. */
--	swap(mrec, ni->mi.mrec);
-+	/*
-+	 * Restore the primary record contents in place.  ntfs_readdir() walks
-+	 * the root index header after releasing ni_lock (see commit 7a5aa6c45072),
-+	 * so a concurrent reader may still hold pointers into this buffer; swapping
-+	 * it out and freeing it would leave that reader with freed memory.
-+	 */
-+	memcpy(ni->mi.mrec, mrec, sbi->record_size);
- 	kfree(mrec);
- 	return 0;
- }
-
-
+-- 
+Kind regards,
+Joshua Crofts
