@@ -1,89 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794622801;
-	b=Wqgxb5xUkECcMnRq14QhmTViR/66boV2F9UUrvdJdDgii9b55MEoUeC3N70e0ILUVxiU
-	 yfnMrt853tel9IOzXkpMDUamV+3unS3pKxi/7n4SiVeJjzgHByITEjc5D/ghDRaqWEFq2
-	 vY3CVpxG8pYyE5ZSVbgWqUY/c0GU+Q1XcikcX8nY6X/sJZRydFgkVR2y/04H33NuTKhIs
-	 zSHlkKYJyccIxhHo+TJzjy6mfry+mYV4IShMFRgOj+7QqKQQaI6pOY43+9wtMrJLLIpLG
-	 1y1XhAWlxYl5Q1Tv7XjaQEkm/fHlRU74ly8EbEu6SjiZ5PRUrEE4XvasHNSAt6STtXw==
+	t=1794622811;
+	b=0Z2PRrXtHuvJkJhO6IKxhVAuhwDiY3O8VFp/n0RsX42CsB/tuDp33Ym5k82y9J1W9CJU
+	 kcR6lUSrIoppLeh/i0qTMWl7fkU5abc74fFypLhmT6AVG2W//hMfe7uwU7hv83s2oh/af
+	 y4Y1elwiRb/rnppifBDUvIWoY7cfQhwmlTPScx7DWZZ1JKAXWzKgZNMBQdgfbMhB9tYGz
+	 rCNRBY7Qu2Py/wAeO9iHY99ZZtzL1XvKwheR02ks+6nvwCOEwmyHKifgn6b0HhU+7Jr1I
+	 VQaJrotUj+NAV3WL+pCelpx//f/wDt66k8VZZYMO7rZsx/90WamsY36p1jsrdU4UKww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794622801;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=D5fZZPHoNA80HLJCIs04HdBTYoqvhRKLX7/FlR/nB3s=;
-	b=BFuRtA3Z6qjDMYfsCQHcTeGPxnJ2Y187r+5EKHh1MFCK8YYy3LgIOGEnoQTIpOfxVx2P
-	 +55fKwj2RA6bhKlr7O7TZOJqQ8kA43eDrseYWXrCq7f3wI0CLvhkSChP6r7KZp+0vpFc8
-	 ++yMcMSpH3BpiYuWNMrHPw8x0glCrg3s2ts+zy/FKrNScyyqb80AJ9oTQIz2wZ40q41Wy
-	 GHYR7MT5RLOHffW5G7VBnXDvReky/d5WtKn8s3xas67iDnQiMKXVFERTvegfoVyAEMDuP
-	 dVmBULiYtYpQJ9zAJ+tLMCCXRUuAiD8uSNTW8EgpM1lU+HVSJLPQfkjTLBAvM/BFm5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794622811;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=6bGsd12+MFPupXLn2HJlax53WlKnxsLm64VvDIFikGQ=;
+	b=1xDdesv56Q/9WdRd6XVJ/6kPkzTid58dLuc2V4nVxWbGXOdkJ2MwpX2GYXku2zMtnT8h
+	 oE8fP3t3H4OWL0H8OgVuvayibeLZSZkjAzM20rfn1EmtxBBXEwKpw5Y+miDdKGLhM1PYy
+	 kvP/ic/dBf+LBk1lKUPmJr47OPbNpORhbQIs1dRwp4xN/Gf+2gDGY015rqSSWggOg2Bri
+	 v85UMviOeHuwNTAHsj1veQIVAEPCGurMvShL7LeZ2P6AGIEWbnTndV7AZ5bNPm5Cf2qSv
+	 ZtD674GuExzvkblOb2ryejsTJ+D53AhHJ5XXnqkvUjUr6rmxW372+1mbvBXJdrdGRqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=io+OeirL;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AJOENWwj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78711606A332
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 02:20:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78711606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FFF9606A329;
+	Sat, 14 Nov 2026 02:20:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=io+OeirL
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48dee593f18so2086032f8f.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:20:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794622800; x=1795227600; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=D5fZZPHoNA80HLJCIs04HdBTYoqvhRKLX7/FlR/nB3s=;
-        b=io+OeirLD+kAFIPg9SukhVhErUBizrGQeAN0IkHjn1oJi4Q/U7ldUwIwtbLvvpyXU5
-         zIQR4+RC/dlR/jpjdgZGOabt0uQrNzf1kLzcZNEqyZwvFvxt3cpfGPI07pg/k1n9am8/
-         g7Sr3bhP5P8rkYt5IC3Xj2X7FXJNODw/SAiJXQgX0FraFLQpEvTsRSLGGJRiIg7pySpm
-         UfJppR7d9p/+Nlo8GMJDIJfWO5tpp4FfZcm8haf17ixmGyPCayCFBUzomFLvjGHi6S2f
-         xFvpiYuVxfQj39KQgsTi72on50g03JTk8Z+pxFj2Q5IvBMn4IsqeCT7bDiw43fJBDD8s
-         q+4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794622800; x=1795227600;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=D5fZZPHoNA80HLJCIs04HdBTYoqvhRKLX7/FlR/nB3s=;
-        b=bhEXNmOmE+V2mAGdYCbl93ipJdB3fX3DPzYLMOjCXMMBQ0rGsCcsYQi8ekBJXu0WqX
-         hZCeOVHzFHrvx7C8ncMAdO6M79yDLTmavz1smLPQF9PmGROjVawgdWAxnrnwdQ3a6CMY
-         HnZSEjCuG6/PHbHv4JFxprnuN8Bp7vvWBr3JCnMgB0hGgAHBFSO4QVWBj4UKPoKLiIti
-         O5cb2WtUkb3sbDgwiJ98Rleyp8yY7pim4liODRzhn2OwDwXIgs3RXFw/3TP8wpD9PwRl
-         Pm+0ni+MStYt0w1gY7oWOtykYlDT4E+2Io6XDDaV0+sVio+lfxFuckvPrjawQWw+8szf
-         Dqrg==
-X-Forwarded-Encrypted: i=1; AL+hErGrMiDyL6pefNK1bjpNoEHxlyjrp8ePCG2t6d3PY9j9SRa/VpxQOIKICpBNTVrYQLmfhr6BCjUvShNbJTA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+qC7lk7d1dAen/aejK3xNxSaMJi2BoBLb2HUhmem2/KfSz17rk
-	xPMAL2y8DmGxwSjZn+ORfC571pvGRwF9+9VIwjhHPazVxcrsa6KmvuYILzkjYLwsBCI=
-X-Gm-Gg: AYBFou1OEiKd/WPG4gzzqI/sawdNH9Y+5sPOBb8fs8A5Uj0h96agNLZlRi2Y7D104V6
-	9SZGlMFL0jaYuL6Hw4uU52eA0qaOlxd7QDlDrf//oFU3wexATvm8Bx0iHhFeBoPE58VlU/QfZCp
-	pKx1FE7HdLAprf3wMI2s/FGYWho3sLPNHLmyKIqyzGQYvfls+fW79r5qmDE+R7TsinLLse7o1Aw
-	2f5+IQx7vSz3yKISQ6k6KKMCqRHOYSjfY2mRrN2w9oljuGf2+6KkZOiHZDq52tFri4nPEas08Ax
-	/K4RsvONH5ADgscgy9pfMcBNplOOZq7pDLpWZt5SsTHRVpmpQxv7q3VTwg1P86fXeUruyvCa0x0
-	8t7iSX5+GZZVvPgwRUob8sbWbhqda9OkxrXCgkP6oWwkk3SM/6wwY7HSRZWxOmPN9z9PcZPq+m/
-	ubj3doNHdIFdY9THMUSXnGyze6NnuoD5Vrt8gr8ov3DXEeQge09uuDYDGO/4fVYTmusUah+XXlN
-	1BUU/K/gFxlsNaqStWCNxELNtP0vp3DxaNG7vqFCsSvkFf0vxp0U1vAklmCMN20r+V4lOcfl92A
-	zzIRkJn/TI3PHRaZcw2UzPOJqTZWW1hvNIvp8XczqGtb046Wm6IR+qU1h2gMyubKDLBx6W46EpA
-	KrQ==
-X-Received: by 2002:a05:6000:402c:b0:48f:cb37:3ec3 with SMTP id ffacd0b85a97d-49c714a442emr9810855f8f.41.1794622799727;
-        Fri, 13 Nov 2026 18:19:59 -0800 (PST)
-Received: from ?IPV6:2a02:908:e843:f280:6cae:291b:a1:8362? ([2a02:908:e843:f280:6cae:291b:a1:8362])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c8d286480sm13284412f8f.7.2026.11.13.18.19.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 18:19:59 -0800 (PST)
-Message-ID: <3c34d3e8-9dd2-4af3-abfe-16907f7c1287@gmail.com>
-Date: Sat, 14 Nov 2026 03:20:01 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AJOENWwj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1C451F000C4;
+	Sat, 14 Nov 2026 02:20:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794622811;
+	bh=6bGsd12+MFPupXLn2HJlax53WlKnxsLm64VvDIFikGQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=AJOENWwjAMpzrTNkqG3+m3Ig8inmXTzAD5uRAYyUl+LECaWsrGECMtNxx/luhMuFL
+	 m6IQtIL6qAO0wcEGSJhzoQN0cepbKlJcIWI0subP/xHH7WK4mAF915pvAq1YsPv7hk
+	 x5yERpWNMAu3akcd8VEiI8W4KkTPuAtJt1MeB+if3nv7d8exY/SC+dreyZVc4NE5hj
+	 4wEm38D8XbkFC9gHpx3fF0hok1BW4qnTpYxJpdFqdKQbQq9+4qlXy/e7Be0LoExMIG
+	 Is6mE382MiI6oIX1Sj+OfbiMcL6Irc4SswevnLCYw7zUpJ+RK/Bo5K6cdPcw1muliY
+	 6y/X4zzp8MQYg==
+From: SJ Park <sj@kernel.org>
+To: Jason Angelov <jasonangelov@ucla.edu>
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] mm/damon/tests/core-kunit: test DAMOS_FILTER_TYPE_AGE_MS interval changes
+Date: Fri, 13 Nov 2026 18:20:03 -0800
+Message-ID: <20261114022004.110044-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261113-test-age-ms-filter-v1-3-b99eab2f71bb@ucla.edu>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,66 +61,161 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/panel-edp: add BOE NE160QDM-NX4 (0x0d25)
-To: Doug Anderson <dianders@chromium.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20261113214526.231324-1-ingo.kubbilun@gmail.com>
- <CAD=FV=V7uw9s3BttHn8uLjxD8mt5=3iYXA8cRzLU=OYFtS65Xw@mail.gmail.com>
-Content-Language: en-US
-From: "Ingo A. Kubbilun" <ingo.kubbilun@gmail.com>
-In-Reply-To: <CAD=FV=V7uw9s3BttHn8uLjxD8mt5=3iYXA8cRzLU=OYFtS65Xw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi Doug,
+On Fri, 13 Nov 2026 07:58:57 -0800 Jason Angelov <jasonangelov@ucla.edu> wrote:
 
-On Fri, Nov 13, 2026 at 1:45 PM Doug Anderson wrote:
- > Please follow conventions from recent changes to this file and include
- > the EDID in the commit message.
+> DAMOS_FILTER_TYPE_AGE_MS defines an inclusive range for age in
+> milliseconds to filter for target regions.
+> Aggregation interval can be changed by users or intervals
+> auto-tuning features.
 
-Will do in v2. For your information, the raw EDID is:
+Let's put the second sentence in the line of the end of the first sentence.  In
+the way, we can save one line.
 
-00 ff ff ff ff ff ff 00 09 e5 25 0d 00 00 00 00
-17 22 01 04 a5 22 16 78 07 ed 85 a3 54 4c 9d 26
-0b 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 a7 6d 00 a0 a0 40 78 60 30 20
-36 00 58 d7 10 00 00 1a 00 00 00 fd 00 30 90 f8
-f8 43 01 0a 20 20 20 20 20 20 00 00 00 fe 00 3d
-4c 33 30 20 20 20 20 20 20 20 20 ff 00 00 00 fc
-00 4e 45 31 36 30 51 44 4d 2d 4e 58 34 0a 01 0c
+> 
+> Add a kunit test for each:
+> 
+> - convert region age to milliseconds, correct behavior at boundaries
+> for defined filter range
 
-70 20 79 02 00 21 00 1d 7a 0d 66 08 00 0a 40 06
-80 3d 7a 54 cc 24 9d 66 02 0b 02 35 54 40 5e 40
-5e 00 44 12 78 22 00 14 99 47 0a 85 ff 09 9f 00
-2f 00 1f 00 3f 06 77 00 02 00 05 00 2b 00 0c 27
-00 30 8f 00 00 27 00 30 3b 00 00 2e 00 06 00 44
-40 5e 40 5e 81 00 1e 72 1a 00 00 03 01 30 90 00
-00 60 ff 60 ff 90 00 00 00 00 e3 05 04 00 e6 06
-01 01 60 60 ff 00 00 00 00 00 00 00 00 00 2c 90
+Let's add two spaces indentation, to make the bullet point lists easier to
+read.
 
- > Please also provide more details about how your AI agent analyzed the
- > ACPI tables. Did it use the ACPI tables to determine the delays to use
- > here? […] or did the AI agent just look at the delays of similar panels?
+> - DAMOS_FILTER_TYPE_AGE_MS filter keeps correct behavior even when
+> aggregation interval changes
 
-The delays were not derived from the ACPI tables. I wrote this entry
-myself and picked delay_200_500_e80 because other BOE NE1xx panels in
-panel-edp use it; it has worked reliably across many cold boots.
-I'm working with this machine on a daily basis for two weeks now without
-any problems.
-Only afterwards did the AI check the ACPI tables: their panel 
-configuration is a generic one ("Panel_Generic_Amoled", backlight PWM 
-settings only) with no power-sequencing data. There is no datasheet 
-available to me.
+Ditto.
 
-The AI disclosure in the commit message was a generic text applied to
-the whole series and overstated its role for this patch. Sorry for
-that; v2 will describe it accurately.
+> 
+> Signed-off-by: Jason Angelov <jasonangelov@ucla.edu>
+> ---
+>  mm/damon/tests/core-kunit.h | 81 +++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 81 insertions(+)
+> 
+> diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
+> index fb84d30a712d..6de7c2531702 100644
+> --- a/mm/damon/tests/core-kunit.h
+> +++ b/mm/damon/tests/core-kunit.h
+> @@ -1837,6 +1837,86 @@ static void damos_test_age_ms_filter_is_core(struct kunit *test)
+>  	KUNIT_EXPECT_FALSE(test, damos_filter_for_ops(DAMOS_FILTER_TYPE_AGE_MS));
+>  }
+>  
+> +static void damos_test_age_ms_filter_interval_changes(struct kunit *test)
+> +{
+> +	/* Filter window: 200-400 ms.  Start: 100 ms interval, age 0. */
 
-Cheers,
-Ingo
+This looks like not a complete sentence for readers but a personal note.
+Please make the comment more human-readable or just drop.
+
+> +	struct damos_filter filter = {
+> +		.type = DAMOS_FILTER_TYPE_AGE_MS,
+> +		.matching = true,
+> +		.range_min = 200,
+> +		.range_max = 400,
+> +	};
+> +	struct damon_attrs attrs = {
+> +		.sample_interval = 5000,
+> +		.aggr_interval = 100000,
+> +		.min_nr_regions = 3,
+> +		.max_nr_regions = 3,
+> +	};
+> +	struct damon_ctx *ctx;
+> +	struct damon_target *t;
+> +	struct damon_region *r;
+> +	int err;
+> +
+> +	ctx = damon_new_ctx();
+> +	if (!ctx)
+> +		kunit_skip(test, "ctx alloc fail");
+> +	t = damon_new_target();
+> +	if (!t) {
+> +		damon_destroy_ctx(ctx);
+> +		kunit_skip(test, "target alloc fail");
+> +	}
+> +	damon_add_target(ctx, t);
+> +	r = damon_new_region(0, DAMON_MIN_REGION_SZ);
+> +	if (!r) {
+> +		damon_destroy_ctx(ctx);
+> +		kunit_skip(test, "region alloc fail");
+> +	}
+> +	damon_add_region(r, t);
+> +	KUNIT_EXPECT_EQ(test, damon_set_attrs(ctx, &attrs), 0);
+
+Why test damon_set_attrs() in this test?
+
+> +
+> +	/* below window: age 1 = 100 ms */
+
+What the "window" means?  Filter's range_{min,max}?  This again feels like a
+personal note rather than somewhat useful for other code readers.  Please make
+the comment more human readable or just drop.
+
+> +	r->age = 1;
+> +	KUNIT_EXPECT_FALSE(test, damos_filter_match(ctx, t, r, &filter,
+> +			ctx->min_region_sz, &err));
+> +
+> +	/* inside window: age 2 = 200 ms */
+
+Ditto.  Same for all comments in this function.
+
+> +	r->age = 2;
+> +	KUNIT_EXPECT_TRUE(test, damos_filter_match(ctx, t, r, &filter,
+> +			ctx->min_region_sz, &err));
+> +
+> +	/*
+> +	 * change aggregation interval 100 -> 200 ms:
+> +	 * inside window: age rescaled 2 -> 1, still 200 ms
+> +	 */
+> +	attrs.aggr_interval = 200000;
+> +	KUNIT_EXPECT_EQ(test, damon_set_attrs(ctx, &attrs), 0);
+
+Why test damon_set_attrs() in this test?
+
+> +	KUNIT_EXPECT_EQ(test, r->age, 1u);
+> +	KUNIT_EXPECT_TRUE(test, damos_filter_match(ctx, t, r, &filter,
+> +			ctx->min_region_sz, &err));
+> +
+> +	/* inside window: age 2 = 400 ms. */
+> +	r->age = 2;
+> +	KUNIT_EXPECT_TRUE(test, damos_filter_match(ctx, t, r, &filter,
+> +			ctx->min_region_sz, &err));
+> +
+> +	/*
+> +	 * change aggregation interval 200 -> 50 ms:
+> +	 * inside window: age rescaled 2 -> 8, still 400 ms.
+> +	 */
+> +	attrs.aggr_interval = 50000;
+> +	KUNIT_EXPECT_EQ(test, damon_set_attrs(ctx, &attrs), 0);
+> +	KUNIT_EXPECT_EQ(test, r->age, 8u);
+> +	KUNIT_EXPECT_TRUE(test, damos_filter_match(ctx, t, r, &filter,
+> +			ctx->min_region_sz, &err));
+> +
+> +	/* above window: age 9 = 450 ms. */
+> +	r->age = 9;
+> +	KUNIT_EXPECT_FALSE(test, damos_filter_match(ctx, t, r, &filter,
+> +			ctx->min_region_sz, &err));
+> +
+> +	damon_destroy_ctx(ctx);
+> +}
+> +
+>  static void damos_test_filter_out(struct kunit *test)
+>  {
+>  	struct damon_target *t;
+> @@ -2599,6 +2679,7 @@ static struct kunit_case damon_test_cases[] = {
+>  	KUNIT_CASE(damon_test_commit_ctx_keeps_quota),
+>  	KUNIT_CASE(damon_test_valid_probe_params),
+>  	KUNIT_CASE(damos_test_age_ms_filter_is_core),
+> +	KUNIT_CASE(damos_test_age_ms_filter_interval_changes),
+>  	KUNIT_CASE(damos_test_filter_out),
+>  	KUNIT_CASE(damos_test_apply_scheme_filtered_sz),
+>  	KUNIT_CASE(damos_test_apply_scheme_filter_sz_unchanged),
+> 
+> -- 
+> 2.53.0
+> 
+> 
+
+
+Thanks,
+SJ
