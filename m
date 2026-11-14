@@ -1,58 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.38.221.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794620588;
-	b=Th0mXLa3RD7Rm/xCY7UcUZYo21AKHISHeTYPj+8womImmPd++JmYwX90rpiSB7TWha2f
-	 VqICmjzxngcR8AgQWsFGw30nH/ZS8pt3hEk6j3lChw6JvKvXtqv9m3Z7MV0HSzTGrk7Wd
-	 pAURwEg7KeZbZtVQu8Tqv+fmUbcxDm8AscqOEGEt1QFxvNqYSJb1Inr+y43Z+WPPqs/cJ
-	 kV6yfFu9KcBTN7FLbKeDRvrPzAhY04w2SreqZheYdok+/udPxx3aHSnOGpYocszV/6qe6
-	 czVDQgl4QUNmVYI6KXmhjCgOTiTyyg9UOxpgvDllJWPxEitIY8BVaZ3sqnt9QRA4+Xw==
+	t=1794620639;
+	b=4oSBx9z2YCO5/YvCQoLOmQVt6/41GRvYkSy9pAxyF1Q5KGmcYBN65T7rBrtYbVz57lau
+	 B+C1pTPQR/cJXhzpD346sFzhO0qj3pzKTwgtlWwMx005QgyUbmReMyqfJ4/hSIkTiDKDO
+	 DbGiaA+Nw1eYeA9eC/AYyVAxGbdX3rGwmqpJ4+Rm9GC2luTmB9wrxRfJvndusp5kPIHLh
+	 KkwODFPV+bsMgBSPgos2NBiyKOns+Re8IglMWooA17gfngL9JmiVtvCCfrs+jaUQ9Iei/
+	 M8ezBg4e5gA2KFVkqsl7yqTNk2Pay0VXDOa1uu0sqBRMOliUt0m5/KMWf9BwHNLyOzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794620588;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=gSEb+snyfa1C/uq6HcvChYZZgnf95qnnJ9XhmYpvJKw=;
-	b=EOnPqcsLDuJuSbzv8LnaeRX0ZHWBdmXSm9m+LXnidHw5lrpsNZQ8WZb4Xe28YnDvQcM3
-	 XniNMX3X7lPaD5rCfut5oemVtuAp//h3NhUYh8YrPh7OyQiB1R4t23ELfY5+4jE0lMLBh
-	 lwyQSNWI4ZxnG/Z8d4cvfx6TDiMkbjONJjITVXI1QmSKGVk1138E0k6VxiHtazbdvcu4h
-	 Lw8EQHp2dinX10ujcN9ILILzh1ENVbpXrpnxPXvMolAUhikCJDUbv7D8WbWUKTit4nRBU
-	 Ll8EI4eVHYjiba0aPB9wyR+394PbuIFRKXXEJ9PLcEXnUENN5nuhEt+rej4jOaNMUgw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794620639;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ln/RngDaBKEnJFXqfKaXLiW2drDb5LIdcMJafwzjtfA=;
+	b=KbdVsRihlumCnlbxhvTQ9pK//N8ZkXpdfDa+0Dv25k72U5xWWkVbwVxtWraqEwovrofR
+	 9NzL1V269Dg19g4Sp6//q4/xBWhtH1fU2apNRS/1MJ6sQ9n1hILiXJxIYOA1uZ/D50Qzv
+	 aI2WAJptNaprLjwytub/5Z0nGveMCho8/gYNy311wYfADo2NccJr/htYen6fMrP/XJFgo
+	 DBNrz8pvoagVScHM2nzrrjeS4YiUtJHWP18EkkbuiLA0HF1gGCsr354yn4KHu4tefEvUm
+	 yve2jjm5hWwJHxl5dlofiKeA/Sf0bkB06wcvy8Jk8q4AQGIp5iOg1w4W7WXxM9gV3yQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=loljews.com;
-	spf=pass smtp.mailfrom=loljews.com;
-	dkim=pass header.d=loljews.com header.i=@loljews.com header.a=rsa-sha256 header.s=mail header.b=NYEG+OLN;
-	arc=none smtp.remote-ip=54.38.221.178
-Received: from mnc015mcc432.ss7-reroute.local (unknown [54.38.221.178])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YrcatVE4;
+	arc=none smtp.remote-ip=209.85.218.45
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12A59606A329;
-	Sat, 14 Nov 2026 01:43:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12A59606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=loljews.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loljews.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDE3B606A330
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 01:43:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDE3B606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=loljews.com header.i=@loljews.com header.a=rsa-sha256 header.s=mail header.b=NYEG+OLN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=loljews.com; s=mail;
-	t=1794620584; bh=gSEb+snyfa1C/uq6HcvChYZZgnf95qnnJ9XhmYpvJKw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NYEG+OLNirTlaEbmgMVDHePjD+O5Gcvr+aVUcCRGYNMx3syZ2G/LKMtPKlukakF08
-	 g6NPVH4ChgC/yvJycWb0iszBO3r/pvLxNZYY3r3dowrEJlZoKGUWGe2Yewnxn49oHr
-	 R8mkgNKAfVPCY3WTUnaLIGdGCtE5JfZDjoFMrt6YZLh7btifzyl+pQaKqQyMlG11Og
-	 bIBpWT6J0M5LuLdc8OM71qzv2JnGNmIWDlgUJMr055fcamtXACwlM4TAGyikGnVawl
-	 pc8eCRBMakXdGghrCy1RfukWF/BY/jYvueHvEFxbq+Gqz+5DTbZVqe8Co/HvauFivd
-	 kbYhwes7/OKOw==
-Received: from loljews.com (localhost [127.0.0.1])
-	by postfix (Postfix) with ESMTP id 1F71B27A688C;
-	Sat, 14 Nov 2026 03:43:04 +0200 (EET)
-From: Sandeep Haemoon <sandeeph@loljews.com>
-To: netdev@vger.kernel.org
-Cc: netdev-bot+sinfo@kernel.org, Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@kernel.org>, Daniel Golle <daniel@makrotopia.org>, linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v6 1/3] net: ethernet: mtk_eth_soc: fix the RX descriptor address on the release path
-Date: Sat, 14 Nov 2026 03:39:07 +0200
-Message-Id: <patch-18d5b24e95d7d6baf74f3486715cdb10@loljews.com>
-In-Reply-To: <179461633631.2168702.17586474086593763386@kernel.org>
-References: <patch-4b4c5003bcf028fafd094e719c5e910b@loljews.com> <179461633631.2168702.17586474086593763386@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YrcatVE4
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c169ae1cb26so352120466b.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:43:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794620637; x=1795225437; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ln/RngDaBKEnJFXqfKaXLiW2drDb5LIdcMJafwzjtfA=;
+        b=YrcatVE4GqmlN/HSOdaV6/olTGlvKTvmR4xHGiBfa18XOjhwtf8xBQdKir+l4WLGkE
+         541JaHlcr06++U+sdG9Py2USTNSIp1cNoRSIhQ0IGs23ERkIMuZtQg98oIbIHL49h4dB
+         E9AX9GTwHzcbB2CF6PNx2n88Va968Z53sHFYJsjdNOM3vdM0vEEWGrw25aG3ysD7Ci3+
+         3BDGimU0XT2ht6ukGK4TI+Y+xrlsIAMPcD5xzV8woCwmt/gPJ2HwSM4KeocDeD7TMY22
+         t4wiSVDUg597J09aP6LG2glBCAcuyF6KkRvZlR8ZRFP2KAmM8r5iU5Wf2DeukD5ylSp5
+         dOaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794620637; x=1795225437;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ln/RngDaBKEnJFXqfKaXLiW2drDb5LIdcMJafwzjtfA=;
+        b=SuTXQcKZi7WOEbr9T+aikwWwiZnsvalcOUayRCh0saIkrVrS8Wc+30PS0BDQwMEsLh
+         2nu9uqlv8LTvkvrjSDi5qHT83dINKqLr3ns2G7z26qOvaVCQDZLFFYlxeHAtWFySO53O
+         eHIfZPyGRnVixXANzH2mpPV0RN6ctV5yOsRGRkI8YZle6xK1XrFrgtS9XULrYzlWNMvE
+         7143snAf1BJAY9pP5dKN/cYBniFGGSn407+dz9kLtZv2lwuxhOSwzC/QI3xB6haWpBCP
+         laWjrpmMElm1bAPa0xY4YO7WpNYIej9JXNW8LcBepl0vF5Ata267DXAjMM/5dV6c2dZ8
+         DNfQ==
+X-Forwarded-Encrypted: i=1; AL+hErF8pvwjGM+VwwWWujavDVaQRCNPSeXyVXxiwyrC4Sve71HBc8ODCXdmQwHAy4mQ2SKLvB0iAXHDUtcynoE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Q7rn2g5Pf/5F+8FHukNtq1VFizXp4oK5wMxPGvHRm3pJkBMC6
+	Ib8TGF3db0a1D9MhEavtYPrYWpa/vebzsryG4KJAmVDwJ1uVFi8ZBgg+
+X-Gm-Gg: AYBFou3sSIkIhMT2yOIfKSeB7HVGOLqQayU8Q4f/sqeNcsO8U4u0J4yqEcRYurte9Xb
+	WslZ9VPWhIAxqVGhg10ThSvLMlp4Lt8XhpKtxCX3HOD1NwBCdPPXJbjdnghkL/8DzZOEb1x70I6
+	YG9FTNo+8dXfojmCtQ41100+NXhjOotwwl6cEz5+cja+6qwYJyraQQ/b1dJbSpF1Yr30XJmPjyh
+	m7FGNzov9xv4twp6QMTl46y3XTsc9VkiYFbfJZsyIBBXddX7NyoEoOwktFccjK40gtUp2OxCCPC
+	M+70F+Fp7pi1crEH6Kgsvnt4sae8/K2FIpil9gfR2hiu8ytQmubw5lSHRGiv6CwYkBVkvLVj2Xa
+	cozg0irFAmO2PIkYgx1ggijIqNDCbcBBvbIQSNLop740JP7YYPq2XXOvSwpw9Y98ezcYAxj3fUy
+	O+ai3Fus8PjpncibJEbrYgFl66lPs5v/AjNk0yw0Pd0srFGseFQx1QOv7hzTFoyoaGulz+xd0S1
+	ZkuLCnCQiwdf6DcNnn+Ds3HIsZHbqnIyutVkCb6ulqTYk8/DDVDV1dbrWm5T/p/Go1CvfgJEthM
+	Ytiu3rqMFrHHDWBziZxJ1qoDGKknOPA2NysY/Nn0+WsZzCCcnGmWgWy2UUS7/9mr0elQXiF42vg
+	g10HigzzrJ+AWzGY++c97Jlo=
+X-Received: by 2002:a17:907:849:b0:c2e:7fe7:2898 with SMTP id a640c23a62f3a-c509634b3fcmr384987366b.12.1794620637178;
+        Fri, 13 Nov 2026 17:43:57 -0800 (PST)
+Received: from SMOK.angora-ide.ts.net (mm-156-219-126-178.vitebsk.dynamic.pppoe.byfly.by. [178.126.219.156])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b5a4c1sm161402666b.48.2026.11.13.17.43.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 17:43:56 -0800 (PST)
+From: ElXreno <elxreno@gmail.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: jani.nikula@linux.intel.com,
+	rodrigo.vivi@intel.com,
+	joonas.lahtinen@linux.intel.com,
+	tursulin@ursulin.net,
+	ville.syrjala@linux.intel.com,
+	ankit.k.nautiyal@intel.com,
+	mitulkumar.ajitkumar.golani@intel.com,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	ElXreno <elxreno@gmail.com>
+Subject: [PATCH 1/7] drm/i915/panel: Fix the pixel clock overflow in the VRR vtotal
+Date: Sat, 14 Nov 2026 04:43:29 +0300
+Message-ID: <20261114014335.2132756-2-elxreno@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261114014335.2132756-1-elxreno@gmail.com>
+References: <20261114014335.2132756-1-elxreno@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,33 +109,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-On the automated "looks like a fix" inquiry for this series:
+intel_panel_compute_config_vrr() multiplies the pixel clock in kHz by
+1000 in a signed int. A 3840x2400@240 timing has a 2342.4 MHz pixel
+clock, the product overflows, and the vertical total computed for a
+refresh rate other than that of the fixed mode comes out negative.
 
-The change in 1/3 was found by an automated review, not in production. The
-reviewer read the release path of mtk_poll_rx() and noticed that the guard
-added by 6e0490fc36cd ("net: ethernet: mtk_eth_soc: fix SER panic with 4GB+
-RAM") relies on dma_addr being DMA_MAPPING_ERROR on every release, while
-e10a35abb3da ("net: ethernet: mtk_eth_soc: fix uninitialized variable") had
-moved that initialisation out of the loop and left it valid across
-iterations.
+Do the multiplication in 64 bits.
 
-It has not been triggered at runtime by us. It needs MTK_36BIT_DMA, DRAM
-above 4 GiB, and one of the early release paths (no netdev for the source
-port, MTK_RESETTING set, or a refill allocation failure) so that descriptor
-N+1 is handed back with the high address bits of the buffer that was mapped
-for descriptor N. The visible symptom would be the engine writing the next
-frame to an address that is neither buffer, and stale contents of the
-untouched buffer going up the stack; there is no stack trace to report.
+This needs a fixed mode above 2147 MHz, so one that uses the joiner,
+inside the VRR range of the panel, and a request for another refresh
+rate that ends up on that fixed mode, as the allow_modeset=false path
+does for a mode that is VRR compatible with the current one.
 
-Hardware: the series as a whole was tested on a BPI-R4 Pro 8X (MT7988, 10G
-port) on a 6.18.60 backport - 8K ICMP passes and iperf3 with MSS 8900 at
-MTU 9000 reaches about 9.87 Gbit/s - but the 36-bit path fix itself was not
-exercised there because the condition was never hit. The v7.3 series is
-compile-tested with CONFIG_NET_MEDIATEK_SOC=y and COMPILE_TEST=y.
+Fixes: a2da67028cd0 ("drm/i915: Allow arbitrary refresh rates with VRR eDP panels")
+Signed-off-by: ElXreno <elxreno@gmail.com>
+---
+ drivers/gpu/drm/i915/display/intel_panel.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-As suggested, this is a reply rather than a repost; please apply it to the
-series.
+diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
+index 81e638d0c7b3..157be3153c7e 100644
+--- a/drivers/gpu/drm/i915/display/intel_panel.c
++++ b/drivers/gpu/drm/i915/display/intel_panel.c
+@@ -277,8 +277,8 @@ static int intel_panel_compute_config_vrr(struct intel_atomic_state *state,
+ 		int vsync_end_offset = adjusted_mode->vtotal - adjusted_mode->vsync_end;
+ 
+ 		adjusted_mode->vtotal =
+-			DIV_ROUND_CLOSEST(adjusted_mode->clock * 1000,
+-					  adjusted_mode->htotal * vrefresh);
++			DIV_ROUND_CLOSEST_ULL(mul_u32_u32(adjusted_mode->clock, 1000),
++					      adjusted_mode->htotal * vrefresh);
+ 
+ 		adjusted_mode->vsync_start = adjusted_mode->vtotal - vsync_start_offset;
+ 		adjusted_mode->vsync_end = adjusted_mode->vtotal - vsync_end_offset;
+-- 
+2.56.0
 
