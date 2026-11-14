@@ -1,57 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.115
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794645012;
-	b=06Drpu5eF16nD2qM3Gl6DXHELUuhZOgv2GMFuFq9SasY5HtnPR+a4TFdJLthtPo7xLXP
-	 zNufSvYbsklf/eRT+kQST/3FD2C/yBOJJa1cjqhPy0NAUxxM/FHnpMzVmGDy8HG15Dgqj
-	 bTvGQ6310PrT4A3FUlGKdbh6ME4D/iJeUBfY829kDlN4QrRkC+Fh+xx0yX9oDx7rbC3kG
-	 1sIB7LPg1S+wI4x/5yjXW+Y2t49QYTiPZrM6+kEWIoIRlTwhz/p5oqD2boNqiq8lEWMDx
-	 0j6X4PwKZY+/AGGceCqpOE6p97cfPSS692GSAb5DKseHZjdJ3YvLMC2PiXHLIeoV8RQ==
+	t=1794645015;
+	b=aIoc/ciHuzC3tydM0mLJFf5txtD7o3sh9Gfgbop3Qeb9GgKzXK1BDUXRLaypEREmyfMo
+	 AqTJ7Uk6Fedv2jl4GjEEDrL/eBndZPEd7hqT8m0WpwTD0XPLxZPdeeGdZ80A7HI4nf/qV
+	 sHRUnilVx/FJUtKaeZ3ddJ1oRsPYrPdhpqF4Dixm0Z2MsXb4IJpnrZl1FAkZmEifhNTxB
+	 qPwqjB39ifG0cZsFnbxq9G3wSFZI9tqgtFXdNfmN/8uL0+u2hCV+rrkwRorKYq/zMt3P5
+	 I55IClRBR5L/lbe8LocNmJlgemn8JCv7yJU6RI2PNE84u8i70sK1vu9e9z4OA+thAiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794645012;
-	h=DMARC-Filter:DKIM-Signature:X-Original-From:To:Date:Message-Id:
-	 X-Lms-Return-Path:X-Mailer:Cc:Mime-Version:From:Subject:
-	 Content-Transfer-Encoding:Content-Type;
-	bh=X/E8rE53z/h6J1QRHBaStJJ7ym5OmsZ7MzTsgKR+Y+c=;
-	b=XjU0Qw4sgOJHYamPtBLIJQGxCKUWV1Ar9iSEGEB/+x12Mr11S2f8/KCbTxF0us6gh37x
-	 YJFv876Ptr3jylq0gcgGtBGFkFTzeW0QDL8R1Sn5oO9P+Yn6XV1FCwSlfN/Ei3oPS3Eaq
-	 cFIi+Pnj47SCmx4JtXESJ+Fg23yvv3N84eB39et+F2pUOvOK4GT9tA3Ur7L6KvVCaQeHQ
-	 Qgc2HEDPxRAO0NQmfC1MCi0YXyegCQhlj2eiOqvR5UFcxbs6jPwshW5ncnidh45He2j37
-	 uppFegYCo1rriKKYUH9g2bMS8N1lWsXL5t4k7DwGCym+xl0jSDUusVxq5qXimj7jbRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794645015;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:Content-Type:MIME-Version:Content-Transfer-Encoding:From:To:Cc:
+	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition;
+	bh=87OUlDLdiPl8LEjQWIrube4poxJsANmReia1ITL8LaE=;
+	b=cdvFb3jAYAHlw1jQmwevE1TvzgENDJ2jlAaqx7sa2TeJZ3LOPiN303dM35NMy1f9WBjd
+	 uKVcUV3Hrvk37T38H/PNtDShUKyACtrYZ2aTeZDHKrw/m5gYJDDdQumG2Ln6Kiux9gHFa
+	 NZVzf5jkd6CWipo0TfKyUELBzz+z44RfxCs0/iN3n8+91w+V40PJ9nXiHOT2dH6pBgO0X
+	 euwiVUfxCZ01yvH8f9UJKpe+KpDVnLOhu2HRF1m8tBh5kVf2QTlJpMIey2a921hhiqORH
+	 K45pXqeiPC/R3sR3R9w0Nqa76zrQzvrgOWlaMCWF7sFGAMtcCr1EJjKH1gmZayk++QA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=NsHziZzt;
-	arc=none smtp.remote-ip=209.127.230.115
-Received: from va-1-115.ptr.blmpb.com (va-1-115.ptr.blmpb.com [209.127.230.115])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l1cNDI6m;
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71119606A323
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:30:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71119606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DBC8606A332
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:30:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DBC8606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=NsHziZzt
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1794645005; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=X/E8rE53z/h6J1QRHBaStJJ7ym5OmsZ7MzTsgKR+Y+c=;
- b=NsHziZztJI5Sg250MxW4+6/9FYsnbDTcSPeD3zQKnCYStVNhDGwngUPlomuR6HKjiwASmc
- /PMBBHOAl1J1HQ9rnMTmCENM0x553tXlmpnD+0Ymq3nN/x4KFhJZaIrm4QvfYVqrV+PwYq
- h5A+flWzaS8dMCd9fc3IMSdIs4o6aNH4q+jl0aJkK80+SWBjA1t2c7QxuRemue4ZTpwqdJ
- PPN2ztrJdhEaIpKfA9ksCvzxkAJOBNSLSftpN9VrNoZluUkbADeIRCFwg/HWEJnLGIGSVU
- Tf1n8xTCzWmjk/S9D5PuL3f2hBMf8BG0sNyD2qeZf7h07DOD+KpxMqJEYjEMWQ==
-X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
-To: "Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
-	"Albert Ou" <aou@eecs.berkeley.edu>
-Date: Sat, 14 Nov 2026 16:29:40 +0800
-Message-Id: <20261114082940.66057-1-zhaogongyi@bytedance.com>
-X-Lms-Return-Path: <lba+26af81c0b+a310cc+vger.kernel.org+zhaogongyi@bytedance.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-Cc: "Alexandre Ghiti" <alex@ghiti.fr>, <linux-riscv@lists.infradead.org>, 
-	<linux-kernel@vger.kernel.org>, "Zhao Gongyi" <zhaogongyi@bytedance.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l1cNDI6m
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-491aaed7565so766402f8f.2
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 00:30:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794645013; x=1795249813; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:content-transfer-encoding:mime-version:content-type:date
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=87OUlDLdiPl8LEjQWIrube4poxJsANmReia1ITL8LaE=;
+        b=l1cNDI6maJQghXoN5Bi3lRgzuojcOPv/fbKoo6wB7B4ANNCwdsmC1uDJGvRWeh+8Or
+         RczhXvtEz7U2aEfXDHYHHb100veeL5CTuQgmKX1Ahgpy7/Iy+myvw5N8OG46JM7KQZq/
+         6yOBt95prApmoYTfLzMf0TpHbSdwEXR1SSUnEvVJBEUHvkhiezddLe0hYD48Q4w7a+a2
+         QlLp35R69SBgrBQd/m7x+VYQdUd3iEwhsiSN/8nMNuxExrvVmAJLutWH8lzjW16BN1YT
+         brJ3a0A2uD2PK5qVBbtyqFMYT0yheWw30f2Q9bto0taHAZoJ2qihB1W2jC+IeF9Kd15X
+         MtFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794645013; x=1795249813;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:content-transfer-encoding:mime-version:content-type:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=87OUlDLdiPl8LEjQWIrube4poxJsANmReia1ITL8LaE=;
+        b=J+kY49lHxeF4gYA3WkqBT3Xa0cIzHyAIhK2+c7NJIEFxqb59u8fLy/Jg2giHkhtV7L
+         GAMEcANahV3mtnUYV8/C7U30MWQ1XfMdCnho8NalpTQFkj5pysuwqVxlroVpyqzgoy4D
+         cpatfDhttBW3ewm0IU/fZ3iJB0UZjRnslSZ6zRTfQIOBXnjfLIdG0DNj02qqGHXwDz+I
+         oUKZt+ftcpYQFvhcwUKadPZddh8feGMp41et36TPSl5bmRmWjWPbrZx2avBoeur0s4Z+
+         gPK7Fl+dkl6+IEqRHbJo+8wgVIvHEVSePEuNS7x1FYxKj0IA9Q57RWcnvjL7DW0B3eMp
+         htJg==
+X-Forwarded-Encrypted: i=1; AL+hErGVuauWj9EvYlsqMICy8GYIq599Zjq0D8PvTB8ryGHPu9ViZsBthic9rZ3rhI69FitGcx/vzXFUahTzD0o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/SYCN1lQB6N360nnwMF5p/O1z0dOfRKppvLNX7aPwj0j1JhVqD
+	IJXMZ7PGD97IEj611DDS/pdEC20FM9nxzeTLQMZLYwN0XeOSx2c5roF1
+X-Gm-Gg: AYBFou3ijYAMDqzeipXSl7+1bDHXoO34GjZXQpa1Vc6+6zExzcTWGmflAxGf0NMn1CX
+	M7TSlaB0JtNNrONAeE7ue+bO9+/JMJQK0XVZ0CPJmDRYGdpw6Ejc4aB3bprhBohVOiFlovxHCho
+	4k41XdX+HT3i+Vh23OJxdiIMzLf3/Lu2Ofwt8hHCLgj1UfM3NMgPAwpkmpPfCeW82S0yhPSAu6R
+	GQ64TUvrqrwbUa+2OHWBu4JoKVtiIXixascprc4LvRvFYtfbR6T2zeBZ802PJ8IOFn0eSb51OVF
+	9HVqS8YXMRx9XHf5WP9UcEzV3vEN8mGcWlOf6y/+eXkujVEgdfpgbzoTIFeAEUho/tKNstsyExA
+	9gPz1Rrd9vYnpzX81LzSbtc3UGQ2T+KL3YwEnN5uQGt97VfFUsFU1l4E0sluTs7YwxW6L2D0LKJ
+	5sj6OqAwlbSaTaSmOrXAYYcORUq3l4s46EK1KLJ6OufYYzpyF5MFdCiAQQqdrRgtzQwFK22aK61
+	q6yt1grCdl/8paU8v/EZi5rGAecaJbB9A0MJpZc26724Fmtvsd/
+X-Received: by 2002:a5d:64c3:0:b0:490:1358:2265 with SMTP id ffacd0b85a97d-49c72ab09fdmr11144513f8f.34.1794645012869;
+        Sat, 14 Nov 2026 00:30:12 -0800 (PST)
+Received: from [127.0.1.1] ([165.50.16.69])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c609c8a77sm9834201f8f.49.2026.11.14.00.30.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 00:30:12 -0800 (PST)
+Date: Sat, 14 Nov 2026 00:30:12 -0800 (PST)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,165 +88,44 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
-Subject: [PATCH] riscv: mm: Fix /dev/mem read/write range validation
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+From: Daniel Carter <yass27106@gmail.com>
+To: krzk@kernel.org, andersson@kernel.org, broonie@kernel.org,
+ srini@kernel.org, konradybcio@kernel.org
+Cc: robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, tiwai@suse.com,
+ perex@perex.cz, lgirdwood@gmail.com, pierre-louis.bossart@linux.dev,
+ yung-chuan.liao@linux.intel.com, abelvesa@kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, yass27106@gmail.com
+Subject: [PATCH v4 0/3] arm64: dts: qcom: add device tree for Asus Vivobook 16
+ X1607QA
+Message-ID: <2dc9301fc1ec46cdb66dc49a85f721b1@gmail.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
+Content-Disposition: inline
 
-RISC-V uses the generic valid_phys_addr_range(), which checks only the
-upper limit. A pwrite() to physical address 0 on QEMU virt can therefore
-reach write_mem() -> xlate_dev_mem_ptr() -> __va(), triggering a
-hardened usercopy BUG ("vmalloc 'no area'"). UART MMIO with iomem=relaxed
-triggers the same fault.
-
-Limit read/write to ranges fully covered by System RAM with valid PFNs
-at or above the physical start of the linear map. This rejects holes
-and MMIO before the __va() access. Keep the mmap() range policy unchanged.
-
-MMIO read/write now returns -EFAULT even with iomem=relaxed. With
-CONFIG_STRICT_DEVMEM=y, the existing RAM policy blocks the remaining
-non-empty read/write ranges.
-
-Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
----
-RV64 and RV32 Image builds passed. RV64 QEMU covered the faulting
-physical-0 and UART-MMIO writes, RAM/hole boundaries, and MMIO mmap.
-
- arch/riscv/include/asm/io.h |  4 ++
- arch/riscv/mm/Makefile      |  2 +-
- arch/riscv/mm/mmap.c        | 93 +++++++++++++++++++++++++++++++++++++
- 3 files changed, 98 insertions(+), 1 deletion(-)
- create mode 100644 arch/riscv/mm/mmap.c
-
-diff --git a/arch/riscv/include/asm/io.h b/arch/riscv/include/asm/io.h
-index 92d5f831f..ef305ede2 100644
---- a/arch/riscv/include/asm/io.h
-+++ b/arch/riscv/include/asm/io.h
-@@ -32,6 +32,10 @@
- #define ioremap_wc(addr, size)	\
- 	ioremap_prot((addr), (size), __pgprot(_PAGE_KERNEL_NC))
- 
-+#define ARCH_HAS_VALID_PHYS_ADDR_RANGE
-+int valid_phys_addr_range(phys_addr_t addr, size_t size);
-+int valid_mmap_phys_addr_range(unsigned long pfn, size_t size);
-+
- #endif /* CONFIG_MMU */
- 
- /*
-diff --git a/arch/riscv/mm/Makefile b/arch/riscv/mm/Makefile
-index b916a68d3..e3461bec3 100644
---- a/arch/riscv/mm/Makefile
-+++ b/arch/riscv/mm/Makefile
-@@ -13,7 +13,7 @@ endif
- KCOV_INSTRUMENT_init.o := n
- 
- obj-y += init.o
--obj-$(CONFIG_MMU) += extable.o fault.o pageattr.o pgtable.o tlbflush.o
-+obj-$(CONFIG_MMU) += extable.o fault.o mmap.o pageattr.o pgtable.o tlbflush.o
- obj-y += cacheflush.o
- obj-y += context.o
- obj-y += pmem.o
-diff --git a/arch/riscv/mm/mmap.c b/arch/riscv/mm/mmap.c
-new file mode 100644
-index 000000000..45a0ac740
---- /dev/null
-+++ b/arch/riscv/mm/mmap.c
-@@ -0,0 +1,93 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+
-+#include <linux/ioport.h>
-+#include <linux/mm.h>
-+#include <linux/pfn.h>
-+#include <asm/io.h>
-+#include <asm/page.h>
-+
-+struct devmem_ram_range {
-+	unsigned long next_pfn;
-+	unsigned long end_pfn;
-+	bool complete;
-+};
-+
-+static int devmem_ram_range_check(unsigned long pfn, unsigned long nr_pages,
-+				  void *arg)
-+{
-+	struct devmem_ram_range *range = arg;
-+	unsigned long last_pfn;
-+
-+	if (pfn != range->next_pfn)
-+		return 1;
-+
-+	last_pfn = pfn + nr_pages - 1;
-+	if (last_pfn < pfn)
-+		return 1;
-+	if (last_pfn > range->end_pfn)
-+		last_pfn = range->end_pfn;
-+
-+	for (;;) {
-+		if (!pfn_valid(pfn))
-+			return 1;
-+		if (pfn == last_pfn)
-+			break;
-+		pfn++;
-+	}
-+
-+	if (last_pfn == range->end_pfn) {
-+		range->complete = true;
-+		return 0;
-+	}
-+
-+	range->next_pfn = last_pfn + 1;
-+	return 0;
-+}
-+
-+/*
-+ * You really should not be using read() or write() on /dev/mem. Restrict
-+ * these operations to ranges that are completely covered by System RAM with
-+ * valid struct page backing. Device access should use proper I/O accessors,
-+ * and /dev/mem mmap() keeps its separate policy below.
-+ */
-+int valid_phys_addr_range(phys_addr_t addr, size_t size)
-+{
-+	struct devmem_ram_range range;
-+	phys_addr_t end;
-+	phys_addr_t linear_start;
-+	unsigned long start_pfn;
-+	unsigned long nr_pages;
-+
-+	if (!size)
-+		return 1;
-+
-+	end = addr + size - 1;
-+	if (end < addr)
-+		return 0;
-+
-+	linear_start = __pa(PAGE_OFFSET);
-+	if (addr < linear_start)
-+		return 0;
-+
-+	start_pfn = PHYS_PFN(addr);
-+	range.end_pfn = PHYS_PFN(end);
-+	if (range.end_pfn < start_pfn)
-+		return 0;
-+
-+	nr_pages = range.end_pfn - start_pfn + 1;
-+	range.next_pfn = start_pfn;
-+	range.complete = false;
-+
-+	return !walk_system_ram_range(start_pfn, nr_pages, &range,
-+				      devmem_ram_range_check) &&
-+	       range.complete;
-+}
-+
-+/*
-+ * Preserve the existing /dev/mem mmap() range policy. Access filtering for
-+ * mmap() is still handled by range_is_allowed().
-+ */
-+int valid_mmap_phys_addr_range(unsigned long pfn, size_t size)
-+{
-+	return 1;
-+}
-
-base-commit: 79fc9d9467a113bb93f4539c11fa8c937982ff89
--- 
-2.39.5 (Apple Git-154)
+SGkgS3J6eXN6dG9mLCBoaSBhbGwsCgp2NCBvZiB0aGUgc2VyaWVzLCBub3cgc2VudCBhcyBhIGZy
+ZXNoIHRocmVhZCAodjMgd2FzIHNlbnQgYXMgcmVwbGllcwppbnNpZGUgdGhlIHYyIHRocmVhZCwg
+d2hpY2ggbWFkZSBpdCBlYXN5IHRvIG1pc3MgLSBhcG9sb2dpZXMgZm9yIHRoYXQsCmFuZCBmb3Ig
+djIgcmVhY2hpbmcgeW91IHdpdGggdGhlIGNvbW1pdCBkZXNjcmlwdGlvbnMgc3RyaXBwZWQgYnkg
+bXkKbWFpbCBzZXR1cDsgdGhlIGNvbW1pdHMgdGhlbXNlbHZlcyB3ZXJlIGFsd2F5cyBjb21wbGV0
+ZSkuCgpDaGFuZ2VzIHNpbmNlIHYzOgoKLSBEcm9wcGVkIHRoZSBMUEFTUyBtYWNybyAvIFNvdW5k
+V2lyZSBjbG9jay1yZXRyeSBwYXRjaCBmb2xsb3dpbmcKICBNYXJrIEJyb3duJ3MgcmV2aWV3LiBU
+aGUgZHJpdmVyIGNvcmUgYWxyZWFkeSByZXRyaWdnZXJzIGRlZmVycmVkCiAgcHJvYmUgd2hlbiBz
+dXBwbGllcnMgcmVnaXN0ZXIsIGFuZCBhIGJvdW5kZWQgcmV0cnkgbG9vcCBvcGVuLWNvZGVkCiAg
+aW4gZml2ZSBkcml2ZXJzIGlzIG5vdCB0aGUgcmlnaHQgZml4LgotIHNvdW5kd2lyZTogdGhlIGNs
+a19wcmVwYXJlX2VuYWJsZSgpIGNoZWNrIG5vdyByZXR1cm5zIElSUV9OT05FIGZyb20KICB0aGUg
+aW50ZXJydXB0IGhhbmRsZXIgKHRoZSBzdGF0dXMgaXMgbmVpdGhlciByZWFkIG5vciBjbGVhcmVk
+IG9uCiAgdGhhdCBwYXRoKSwgY2FycmllcyBGaXhlczogdGFncywgYW5kIHRoZSBydW50aW1lIHJl
+c3VtZSBlcnJvciBwYXRoCiAgcmV0dXJucyB0aGUgZXJyb3Igd2l0aG91dCB1bm1hc2tpbmcgdGhl
+IGxldmVsLWhpZ2ggd2FrZSBJUlEuCi0gYXJtNjQvZHRzOiBzdHlsZSBjbGVhbnVwcyAtIHN0YXR1
+cyBwcm9wZXJ0aWVzIHBsYWNlZCBsYXN0LAogIGFscGhhYmV0aWNhbCBvcmRlcmluZyBvZiBEQUkt
+bGluayBzdWJub2RlcywgY29udGludWF0aW9uIGxpbmVzCiAgYWxpZ25lZCB0byA4LWNvbHVtbiB0
+YWJzLCBjaGFzc2lzLXR5cGUgbm8gbG9uZ2VyIGR1cGxpY2F0ZWQgZnJvbQogIHRoZSBzaGFyZWQg
+ZHRzaS4KLSBUaGUgYmluZGluZ3MgcGF0Y2ggbm93IHVzZXMgdGhlICJkdC1iaW5kaW5nczogYXJt
+OiBxY29tOiIgc3ViamVjdAogIHByZWZpeC4KClNlcmllczoKWzEvM10gZHQtYmluZGluZ3M6IGFy
+bTogcWNvbTogZG9jdW1lbnQgQXN1cyBWaXZvYm9vayAxNiBYMTYwN1FBClsyLzNdIGFybTY0OiBk
+dHM6IHFjb206IGFkZCBkZXZpY2UgdHJlZSBmb3IgQXN1cyBWaXZvYm9vayAxNiBYMTYwN1FBClsz
+LzNdIHNvdW5kd2lyZTogcWNvbTogY2hlY2sgY2xrX3ByZXBhcmVfZW5hYmxlKCkgcmV0dXJuIHZh
+bHVlcwoKQmVzdCByZWdhcmRzLApEYW5pZWwgQ2FydGVyCg==
