@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.225
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794626905;
-	b=LJfQ/G+xPVPwnBdUr/Q8jfkjLvz0BTuWxbUnUbXODGh+Rs+Ui3AHqMKQj0YQjqAhyVay
-	 N/d872Oc1R5UmgO49z2CMjicfxoHbWVKH9PdBIGyPO9FOaomnK6Ka12AdiSP82OJbATKZ
-	 Kr9eU6vL048IX7gBKXrTm14fnRrYMKk/P6BSKSWhfmU5OUIEvlWI1a0I3lfjnPTa/6V8Y
-	 upVLY88fGKC7oY8r0LerAUWCYxZNiGqT4fAPQvoUKfB4xfQdHfKBjp817oQSp7A9kR3lw
-	 Fu84CW6hYKq1kSvvpnIaajiO+Mlg2NMUSWTjqslmKjXbP3x1hGwb9aBJY801Y9FCxmg==
+	t=1794626919;
+	b=cErR9vY8BHaxWw5xQ9cUd2FzIqzDz8iMbeKYXifj6xL7kRB5R+fhqwAX9ZPeoB91kOaH
+	 azN1Lga3O5UDg80eM//D5oLXi3Yq8DERMMCG1NuPqGkfnHFXn1yww7h/Y9Tm29XUE/55/
+	 nyERLBiOFmk6x/FA8jfuSsumwP4IBlVCipAWOtjbEs7F1owyfzzt8bjQ6Fk5R+iOwtKkT
+	 An3Il9Ou9FDC5Wj5VZ8oLer9k4TrZRZcPu3UpljTr5IvjCIEMM0LCV/armPDBzH2v6XGP
+	 iK7c59NdVW5ggaxE4720892vPRmWoTCZtn+J4qIhsSsAugrvLRuQKDohlM5vvgWFx9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794626905;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794626919;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
 	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
@@ -15,88 +15,88 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
 	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
 	 X-DetectorID-Processed;
-	bh=wIuWcCVlXcl7KuQsczCK+87CHD5CbGeZw8l+Axwbu1U=;
-	b=nyTK7UooBJDty3lMVAzs0UTkovCPVNX0W3umdgWlchVm4+44L8Xxa1V+bDHexfHoOT49
-	 2eGZZiznxbzPuFN3Kwgbw/7slAvL9fY7+q5NuPoaNrBQHVSCdpdOZscNzjuYXhrN9vTjQ
-	 X+TmlkL4DXo02R0sSObSktWCq2k1G8InEZ1/TnyUc36TB6NaXHy9oUu7r9IZiJu6tJJg/
-	 NoXod8Z1fiK3zl3Ylw0T7JR/7zGcsyxs7Yxsraq6Y/pt4vnFeHbPHQaorA14XWkFAhnBA
-	 H6j6MXZh5Y7q9Vasn2Bpvs6+ugPJ/RmH/tu6EYFMNq2pv8pNxW88oxqKex6YBjSVoOg==
+	bh=0aFiTUHaLTX8K/bOcttDkw3JirpRVRPGu7AleeYbx/A=;
+	b=LJkOV+MIDneYE4IsehIHLCfiNjnZ7ZZJ+Qx31KGb1mdf0mGij7mENeTFlwmAsbXaAoBL
+	 JKyjq0kUMGMRoksub7rG4vEh0XWnR2NXSG0WboHnRE3XdqLZgbg39tkoOUOfvPubzZFnQ
+	 ObWrgDW2uMQT4Y6BtFMspOGOF2ljmgzf+8q08nPHa1YJL+KkDqzAfyHEaRbQ3b5wkjqKt
+	 CVKVQug6s2GDY84LYH8xvq1X5izoVw870bh4J3LEJ15/NSN6VwJwK4KVpkAWFVwFYa8ao
+	 fcjJg8vfE73Gineb27yBMNBaAG9up9m+OhFB+4G8D4tHyxMs8p7RJYQVBYIMDsPYlcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=broadcom.com;
 	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b="A/uA7fzl";
-	arc=none smtp.remote-ip=209.85.210.225
-Received: from mail-pf1-f225.google.com (mail-pf1-f225.google.com [209.85.210.225])
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=HHTW2NCS;
+	arc=none smtp.remote-ip=209.85.216.97
+Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com [209.85.216.97])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57D52606A88B
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:28:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57D52606A88B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5B89606A330
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:28:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5B89606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=A/uA7fzl
-Received: by mail-pf1-f225.google.com with SMTP id d2e1a72fcca58-8a60f90a924so690988b3a.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:28:24 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=HHTW2NCS
+Received: by mail-pj1-f97.google.com with SMTP id 98e67ed59e1d1-3b0b3754f57so1281753a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:28:37 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794626904; x=1795231704;
+        d=1e100.net; s=20260707; t=1794626917; x=1795231717;
         h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=wIuWcCVlXcl7KuQsczCK+87CHD5CbGeZw8l+Axwbu1U=;
-        b=NWxpJuEgZ3APQXqcyuDlUwWx3Zjl5f4aY0o4JIF/+zx9Cncls8qNgqXGuAVKEtqRAI
-         BrWxRxkpdGbzoMrQuB/fTjI1rmGaor7z72FxZKvlXQ3QuhLfURWK8s1hMWQchedr0CYx
-         +aJV93K+OhSDiYiNmM8VjjquTHRPxjIwJ6vmuUlEof8jBpq7xdEkJ2InPss8hwsJfBar
-         WKDBE4PWRPo4wCV205e+4vGulg9HQmBHXgGAGlrmLX4+i2nNcsf6tRhytNWJEiaqUhOH
-         ER+mt6JLHmhxtYxKzJU3qEDL2p2iZPS+oQ75JzbSPWDvlWChtGLErMKltZbtr9TmxJZK
-         5RdQ==
-X-Forwarded-Encrypted: i=1; AL+hErEGCBmmAMUmFFfsDaUV+mPFtMkJqQI35WY6ARPs1SNuz1knTFBVBb3XwqMbRCS7g6lpwJvTsDC2oY9tlzc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8EkBw28rqvJScuZZ7DZDkyf3etr+3GUqD5lC6nqTpqCa/9V3Ek
-	oi8LEA36DFYWi7P+KxNkzC44nfgpTD6gsdprpjl0ogKKaBoN9H5qlwGYdMKJaFt0rBc7LwMfT1E
-	s58X1I7/kXbA34QLAuMtQIufE+NYxlTHp3oNTo65SpTaZTLGhh+rNrqdfE1jc0DFt9L3fa443Q4
-	Udt1cHikLhFptXT861JXuLTe3IhNB8dOv6pY5c9CfJYUrK+WTqsnKawaU+ReJGxMLq4+NjLBHpH
-	/w/TFs3PEmrFf/+vmDP2nu4
-X-Gm-Gg: AYBFou3DI8RS+Ys8clHDWrTqGJcLZDcGywWBrpu+8ejbiwedatvvN/EqXga5sY9i19D
-	RCEeXrL8XCZCtXH9wcQWUj9E+eFWqOtHyuuQTU1rwXfpjKiRhDAlE6y92GFmvBM6NZj9FO5SVio
-	etQnhpHmQUGgsaKSE6EZR2bRzfKNvR0Bsi/xFj/HSMsZvwBaV+mlFd2jsGU/h4OcDNXvhaetK6p
-	2aPsZPktlesWC84BYxPS8uNCVoG1TYuWR9VMPrbZ4inRY5s4WYL4u0XtfE6AfZX9xa0y+wiwmgg
-	GWfCCQazyry9aS2gbABuayXZ4zDtBjPVWL8uLT37IJQ5kZKxN+CKz4gsi2CPP0GhLlaW/pGiux4
-	j4ixAB9dF7x0qnrT7/GObxvGkuuWXaqX6uZYvinrIi6imrq/LkpdoiaOBFXrNzaBXMZBC/cNDBO
-	CAOei9z9H4UXO4cIhINBzABtPK61FmbIzYrBBjQlg1fK0=
-X-Received: by 2002:a17:90b:440b:b0:3ac:adce:60a8 with SMTP id 98e67ed59e1d1-3b1b07ef8bbmr4176722a91.5.1794626903657;
-        Fri, 13 Nov 2026 19:28:23 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-121.dlp.protect.broadcom.com. [144.49.247.121])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b1ae96f125sm6348423a91.4.2026.11.13.19.28.22
+        bh=0aFiTUHaLTX8K/bOcttDkw3JirpRVRPGu7AleeYbx/A=;
+        b=tkep9p07oUqlXkh416wFwNMlkxfuk8HUq6MV0QCJcjQwe5J1JFfYUKeUTIAUhUavO5
+         6orgTZLNNhbAK6jASMAXJDScDNHtxUC0bQ3RdcSeg0sIU5O0EMAY+b8VgT+tGGScvL/M
+         XYdeyxC6Go8JqaxEg+NwY0UsS7DOzLrKPWcolq0DgHN8w7a2qI/1/kRKhOAXrwi2LxIG
+         SkmVgeeZTAGrDziWROGtCrsOhwv/5Pg4nnGutYws8nv5lCQ5WICyyIyyj3CvWxoh6i5D
+         OAH8l3eDqqig8QAPQAbWLWEqEwC8pDMpanAY2ak6s0yL1iyseaxJg7f+EtEs4r1F8ZOg
+         hkYA==
+X-Forwarded-Encrypted: i=1; AL+hErEwyyKK29H0nfgQ2dtsLHsJwVfFKepOP1o0oDHbtuxRQ769IYWKCC32tv8vLde3U36/FyxbKb1rnURJWec=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9HZ/ksSJseBD2cY2d4X9D1bbTo4LnFSWxS9oybtUAeIXKA680p
+	fCoce0C7VnxEElV/InBLZDJfbyuh1/P0jsfH4JdbVHImnfj1feIrXYbRErmnB4m+xPiUS1xWfyW
+	n45FqraYYcU7HD7mq6b0N/Rb2m0YLNwAGLRcfhr8VSPAoXB8nGiUb37zh0lWewN763UrjI0YA5+
+	dLC3KIjE0jl/vWCrQUC+zhIZbTvhoAbX/ZH2PjAMNk6aspG+TzURQ1aY8jlHU0rt0+R+4sRGFnM
+	qBbanCnFvkZsQSCZn8qj0Qd
+X-Gm-Gg: AYBFou20vNI8aFU6SCC8Y/WJGRsNgdOnA0L/yAGQ2nB/33ztOZqy/ZvMGMrF5+ol9hp
+	985stLyk8H6c9Iy8Wv0aRvFQyJqpVP2MQ1hYQJ9w/5oGLj6W/b8MtXgnbYwVE1Pqq69D4p13zPr
+	GcmCgfCacVI74m2ogSZthPxvk0K1hWJ9aRw6DQl3JJ3rxRW4awr0e5i3XeLY/4Y8M09m4LIiAT1
+	i6yO/+xVPwsJ6QaawdWJVXx0ldKxKZYbNt6IRC/tjnmONOIzjpUGjCw3lgQ8L3rJnH21rpYzY9V
+	0nNr8gzvDMkpYUPsJIREwfjyFs0iwiQXL4p5gri1ny98+fYBA0qR2XRwAIoem1ekwfhNmCj8uCO
+	5pYEsO2BnJh1eha5C7Z9CqSP4Z/fNDAQv5vQ4U01InBnewDKx71s5gM0z8+oLXnrSJVUhOjoxAl
+	96YjXcYxHyc6HoxsqokEdVZd0tI1BkhwAMnixXVd/o
+X-Received: by 2002:a17:90b:8c6:b0:3b1:b66a:c05 with SMTP id 98e67ed59e1d1-3b1b66a0d23mr2332160a91.14.1794626917355;
+        Fri, 13 Nov 2026 19:28:37 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b197cca680sm9266309a91.6.2026.11.13.19.28.35
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 13 Nov 2026 19:28:23 -0800 (PST)
+        Fri, 13 Nov 2026 19:28:37 -0800 (PST)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-37549877380so2071371eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:28:21 -0800 (PST)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-36fa5673fccso3801928eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:28:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794626901; x=1795231701; darn=vger.kernel.org;
+        d=broadcom.com; s=google; t=1794626914; x=1795231714; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=wIuWcCVlXcl7KuQsczCK+87CHD5CbGeZw8l+Axwbu1U=;
-        b=A/uA7fzlk/A4Had23/sq+ol+TDZ5Q3hbe1ufB3nBWTSuNZdFFDZeySdsmUvRhexV9f
-         7kT7toh6w4Ux1WGrsfiB2ArNMYvleGcV2rko/pEPQpfxHsMxQ6xB/Wic89nGsjLwE8De
-         193HFQ6drxr6a3FOyhICv0F5sabpkevk8wfZU=
-X-Forwarded-Encrypted: i=1; AL+hErHeAbn+GywrRjPKhkG/Rqvwukx7S7lbNPtMhhAAUWN0i3ejijbwJkR25ke8XK7AaHzFI1K7QPsLUgymFnw=@vger.kernel.org
-X-Received: by 2002:a05:7300:cc82:b0:36c:9b35:5d46 with SMTP id 5a478bee46e88-379681c811dmr4392583eec.26.1794626900940;
-        Fri, 13 Nov 2026 19:28:20 -0800 (PST)
-X-Received: by 2002:a05:7300:cc82:b0:36c:9b35:5d46 with SMTP id 5a478bee46e88-379681c811dmr4392538eec.26.1794626900216;
-        Fri, 13 Nov 2026 19:28:20 -0800 (PST)
+        bh=0aFiTUHaLTX8K/bOcttDkw3JirpRVRPGu7AleeYbx/A=;
+        b=HHTW2NCSYd6mZpdRblwRPNGaZqpLzXept186dMoenx9TsxKrupMqDKUCKAYhWjRFbm
+         7T6esF2TJbfiDoX8k3ZsiRp6cWiL4rj7mcJ7x6TiPX2BjgGkr7TuRvyfUzhn1naYBBLV
+         5nQQP+WgTZPsK4j9G7eqEcrRTr+Y5OwjVFplU=
+X-Forwarded-Encrypted: i=1; AL+hErFO4I341vhcRqZinkdK9JyxOpgMwWzn3dA6jQYfgK3wLXTeHLy/Wp0PiE3mm/AP1mE5ku/+O3k9wtfKJnk=@vger.kernel.org
+X-Received: by 2002:a05:7301:4d16:b0:36a:1d6a:596b with SMTP id 5a478bee46e88-379675feb32mr4186736eec.29.1794626914330;
+        Fri, 13 Nov 2026 19:28:34 -0800 (PST)
+X-Received: by 2002:a05:7301:4d16:b0:36a:1d6a:596b with SMTP id 5a478bee46e88-379675feb32mr4186687eec.29.1794626913548;
+        Fri, 13 Nov 2026 19:28:33 -0800 (PST)
 Received: from [192.168.10.3] (ip70-187-214-22.oc.oc.cox.net. [70.187.214.22])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379558231eesm11415865eec.12.2026.11.13.19.28.18
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955332ae7sm19491820eec.8.2026.11.13.19.28.31
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 19:28:19 -0800 (PST)
-Message-ID: <fbf90cda-d622-4cb6-b576-9576800534fa@broadcom.com>
-Date: Fri, 13 Nov 2026 19:28:16 -0800
+        Fri, 13 Nov 2026 19:28:32 -0800 (PST)
+Message-ID: <ae30799e-e027-4664-863d-aa0ebeeb05ff@broadcom.com>
+Date: Fri, 13 Nov 2026 19:28:31 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,8 +107,8 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 01/11] platform/raspberrypi: vchiq-mmal: Reset
- buffers_with_vpu on port_enable
+Subject: Re: [PATCH v5 02/11] platform/raspberrypi: vchiq: Store audio device
+ in driver management struct
 To: Jai Luthra <jai.luthra@ideasonboard.com>, Stefan Wahren
  <wahrenst@gmx.net>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
  Phil Elwell <phil@raspberrypi.com>,
@@ -119,10 +119,9 @@ Cc: Martin Wetterwald <martin@wetterwald.eu>,
  Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  Kieran Bingham <kieran.bingham@ideasonboard.com>,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, linux-media@vger.kernel.org,
- stable@vger.kernel.org
+ linux-rpi-kernel@lists.infradead.org, linux-media@vger.kernel.org
 References: <20261112-b4-vc-sm-cma-v5-0-d25e3b687e71@ideasonboard.com>
- <20261112-b4-vc-sm-cma-v5-1-d25e3b687e71@ideasonboard.com>
+ <20261112-b4-vc-sm-cma-v5-2-d25e3b687e71@ideasonboard.com>
 Content-Language: en-US
 From: Florian Fainelli <florian.fainelli@broadcom.com>
 Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
@@ -157,28 +156,25 @@ Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
  MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
  7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
  95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20261112-b4-vc-sm-cma-v5-1-d25e3b687e71@ideasonboard.com>
+In-Reply-To: <20261112-b4-vc-sm-cma-v5-2-d25e3b687e71@ideasonboard.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
 
 
-On 11/12/2026 3:17 AM, Jai Luthra wrote:
-> From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+On 11/12/2026 3:18 AM, Jai Luthra wrote:
+> The VCHIQ firmware devices are not discoverable, so they must be tracked
+> manually by the driver. Previously, the bcm2835 audio device was stored
+> in a static global pointer.
 > 
-> Should we go through the timeout failure case with port_disable
-> not returning all buffers for whatever reason, the
-> buffers_with_vpu counter gets left at a non-zero value, which
-> will cause reference counting issues should the instance be
-> reused.
+> Move the audio device pointer into struct vchiq_drv_mgmt instead, so it
+> is properly associated with the driver instance and lifecycle. This
+> avoids global state and makes device registration and removal follow the
+> platform device more cleanly.
 > 
-> Reset the count when the port is enabled again, but before
-> any buffers have been sent to the VPU.
+> No functional change intended.
 > 
-> Fixes: 70ec64ccdaac ("staging: bcm2835-camera: Ensure all buffers are returned on disable")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 > Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
 > ---
 
