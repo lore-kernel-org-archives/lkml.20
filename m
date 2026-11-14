@@ -1,79 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794694384;
-	b=T1BOhwBA5vY2VRrP4B2ntd6FXwzXiFsxb2580ncSYMl6qtoxGRJ/O6iRqMs88NllmRq6
-	 AlK2StOKWY9EvbkrBgsFqSu8wJxOEpTALqopyVoXX12GExVy2VI3zRvdw0Xevd9EApp/6
-	 BUK9hXtew+ABIAx66sqM9ASKxoqYX7AGKIsDtwsigBFc/rjHjcQASOD97zY/dxp0lnTxk
-	 c0qe1z2VUMEtAX6GiQ29wdbm7m1tXo6Y5C96hmxKDigXKTzSIgEEfLgcIK/CqVPqtvucU
-	 6uzFwP4/lEjlfTIti4Lx681PX93mTmFHOXDXrjoD/EVBm8rXWsnzDkVl6QpdayFA7AA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794694384;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=D3i3JtW8zZwhx3O8fVAAShGYEZv1RrlrSS1d37HB+mg=;
-	b=jyLt/pCN2XZeHcFq0BEzPBQ8OAWl5g5EBEsfljAWDCKGpFLAtaa9ukGB9DnAMx97DHbn
-	 gMX6AOJQLAHDTfDTITiWj8bAbkx2dQLXW5QTSRx/1tZnkuG2Wj4ulHDTad5lNcQ33PSpO
-	 ypFcp7nRZu9Xh6AcjomhpGekNQ55HOkfDwJnTAZ3m6K3G9S4ltcpxcAY7zeD/YePvLDQx
-	 VqjYt7VgBV/w/pejy90hIOo0A02smD4fnSSLeR9n8HjzksOyF9E6+tkHOl8wss+VWXJep
-	 oZv9jYnwPQx12Mb7346jv6jGEmQVtg4Lb+Qph/h3aYhkRNAtrPwSc0ss52Qr0QH1DOQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YBZKwPBE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.142
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794694485;
+	b=QQ1i/i8XhDUdnhpGbheRdKcNLJPUII2ssTjoUy0KliT5Tx/7pJ2/C7pC8QaCpjdy9dOd
+	 ZDcjNs/jtxNV5RZsfSCA40ZjebbWrMkaeZyweviSkPWDfv4qvbmkwb1kmzDL0unlwNOPo
+	 ZgJL38l6ZauH3Wa1LTtzZR7LVjTe6k2UxrkwK1CO9YgCkcQYGTNtoNmmLKuN4zM974lga
+	 LHm9wDsAC7QQ9mPVvFAyYjN6pf7CqMEKk3M3Ut1Pi7achlJo+flvmolkgViUGsR1vIQcK
+	 gtFrhXiFFpvYjdkGIPl9Qzs3qMBs74itlz6t/x8RerF5Fn4fKDshWJ3aYEUzDzhA90g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794694485;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=PdGGGPKBVweXPJhBi2Cqz/r9zlr/MqHJdtvjLMnaXks=;
+	b=RbFEAgvbELxdzt9vFlEFb0h6SW5ZlsYbMi4yjOs4F5MaF9/mGebRvC2NLNa58ScgstUK
+	 k7YTZbv6oNGH5nnlY+KllqwFEMiAvTTRyP4c+yQ8odZktv2kc3ITrQArJ03ghdndpvXKM
+	 sVtqpK6PI2LDcj1h5K97rDVq6ld6PdZwDDIq8r7iaA2CaGloZrPnkHvx2WgufT257pEik
+	 MpZKzpmBy7278SAQo14SNQyvlOEIVrA4ILWhgARtG3hN0Oz6LgGr8xQR3/FgqOqWES+Ff
+	 Gi1MCeqpsyHobfQMZSkRTsNHtKCfhZiVOOgerarNtHcg9EpGsHbuuAgoA8C+6s47iEw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=fastmail.com;
+	spf=pass smtp.mailfrom=fastmail.com;
+	dkim=pass header.d=fastmail.com header.i=@fastmail.com header.a=rsa-sha256 header.s=fm3 header.b=YIN4wygU;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=KEVbe+9n;
+	arc=none smtp.remote-ip=103.168.172.142
+Received: from flow-a7-smtp.messagingengine.com (flow-a7-smtp.messagingengine.com [103.168.172.142])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6493A606A331;
-	Sat, 14 Nov 2026 22:13:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56815606A32D
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 22:14:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56815606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YBZKwPBE
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794694384;
-	b=c3hOBt+ljH3cz/zZwWhaYmG70opnZpX87bRFXCycxaWErCyhv70DYn4R8jGE5yfHnqTT
-	 BGwX9iSfZvwoCqttZqYBWuoPJK/NO/DZ8+YEArOReEPAJx2n5uXADOrZk1N7hwHGuLAk+
-	 eRYo5dJAg8P/Yy2qI/CCNe9cHLpCDlRSmKrHoIZG69hika/iyCYrB23DoD3gD8nPl0M36
-	 JoUrDiYqDtyOqJHj44NnjfDmnJfMfqRDnm3xY/XnUakfDWs8TFy9PdXSw5Y3uaf7NFzze
-	 aBzcVBw2rnt/LBhoHrGKwXLF7Fo2EFOBPK6zMoIeAaM68MzbavlYVl8kdtX32t/Mclw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794694384;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=D3i3JtW8zZwhx3O8fVAAShGYEZv1RrlrSS1d37HB+mg=;
-	b=WYrNAE+YbaOUKJQUdAVknx0c2JcgccA75llITLp+VGXT2p96CYPjfD8dRqLkVnjbZAcf
-	 ehODC0MlqJ/0FhZvjWLGijJWAy543s97l2VpgB5OcXkDJJSlO97LiBmEQaOeFPKm9gGU5
-	 Flo26bAj5/3E5rjywW6oa6FI4Uqv9nSEBsRxdeoNcwkk2ZwsOpEqa9X2XQio9cBZthOUq
-	 cGS2PGZdUDOOSPWlltMKTeor6kov2AJyTBIVRPmTrwo2Nti33nHJl7U4jnC3ROegTURjp
-	 i3sDjrUnxdbcu+Uya62EfXQ8FhVZtpU63lgvH6ryx+tzFObOx2eIVkONWtr+9v+OBpQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 4EDAB1F000C6;
-	Sat, 14 Nov 2026 22:13:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794694384;
-	bh=D3i3JtW8zZwhx3O8fVAAShGYEZv1RrlrSS1d37HB+mg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=YBZKwPBEwyI/DlElZSR0LeWMdp8fjZqKnrnkTGFyKB5BXKPoBTS9g34l99UgItIIC
-	 ey/2VoRLKubPTeWX2EESvc498Ub/YSjGAagJJQHJvf1rF/gnzjNaSAP/Ey0/2WF4gH
-	 07hpxiXUYcpndf9Bn8Nbb0TVRuPguo0KGDkOVd7DrrbP+NuV9oami4s3pjX753xVcm
-	 dYWkC8nxti8BgnVywmGRA5zY+j7gUeSy+kG/aKJzPRDpoOvnoZhIKxxVmgFvBnhoP+
-	 wTcJq6hwmQm6rlftSHwcZ+XDmrFpUaeM5Ql/tVYwplNMpPcowbcQ5E3hAH6D2/urW8
-	 4DUr5vkg+2OwQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id D039F49E7A;
-	Sat, 14 Nov 2026 22:13:02 +0000 (UTC)
-From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
-Date: Sat, 14 Nov 2026 22:12:58 +0000
-Subject: [PATCH 1/2] PCI: meson: Power the PHY on and reset the controller
- in host .init
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.com header.i=@fastmail.com header.a=rsa-sha256 header.s=fm3 header.b=YIN4wygU;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=KEVbe+9n
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailflow.phl.internal (Postfix) with ESMTP id 84CA71381C3D
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:14:44 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Sat, 14 Nov 2026 17:14:44 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.com; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm3; t=1794694484; x=1794701684; bh=PdGGGPKBVweXPJhBi2Cqz
+	/r9zlr/MqHJdtvjLMnaXks=; b=YIN4wygUJM7nYtanXxOhcNjF4lLS2/XohN0cx
+	nrruI+vb03JTReiNhB/rSihmAKilWuxaugnOD65a3PbbkJn2jMbXUMHqwkF+GEYI
+	6wDobQXCrBIOZvLqmv4O68fTNwlczg/VxWFoicm43oIgtZ35Ik4Z9XVWXfqBajv0
+	pG48JKMPJUb3ZzdRDilkoXd5kHNsfkS+t3u9RQ5DsBZWB4CaodfEoJkkn0d64p9h
+	lqVnJwBhEf7mRMgvnR1LuGrGLQUUPrK1hbJ1RmT+FQPJMabpNgYLmW6a6fGSrFAC
+	BSVa6oJROaKO/jLt889kRq+swqxFW/DAcXz3UaapooSSMN7Bg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1794694484; x=1794701684; bh=PdGGGPKBVweXPJhBi2Cqz/r9zlr/MqHJdtv
+	jLMnaXks=; b=KEVbe+9n/l4j8vF44wNBiwZH5RliRcHSGE1zfwP/MZ4Pbac1j+g
+	N2wqlxvnXQs4MQbnMIoKUghfExBcjuqTk2+sQ4/3bjRSfgCHEbgeOVyCEhl+fikW
+	QYRunDqf/17tIn60J86jA5DB9Ywtb2jDHiT+CtVom64L3gzYg8ljewTyeejVeRei
+	XiJFFJYHmZesigYE0hle+jUdQZbMu/Q8OAASNWqA/hhxpQ/5JdRF9Io6RyKFsRPX
+	WRZE+0R6iWwsAyzbdiJFqoRsZ7ZcT73LwIROjU+nItjQn6AIWciI2rVedq5Sig5G
+	1NVKWxQwfE3+GiAoojGht6N1AUUX54tzlwA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=fastmail.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794694484; d=fastmail.com;
+	mf=PGdyZWVuLmtvYWxhMjk3OUBmYXN0bWFpbC5jb20+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:k/d1FRYrRdPk7VFfriu0qMIFanoNhh8IrBOs5RiR7Ka1byV
+	A7HZZ9j7YuHvzHP1nQsU5VMt13tLFWSAJUwWE5jS3WrIUDfWWcUt6iGs2OZPOYCL
+	sphXA0oNf+/4xGH9q0AsuZrurMJJs/X0UucMrgDhEjha+W9BuzA4PRpe45lHszfM
+	WcD9uS1iDypukHbFgIPr26sZd8tiJH51mYaUviTKsbAQ0YoptPaKNxo/+CYV4yZG
+	QwsnTpVSn/UtJXuSH3hPPtaFkOdfxJyOb/xtZM6kyzbmgYodZHXHTzv33LtCbyMJ
+	EcgI4f7woH2BAba1h967o7/A0PpBWZ95tHIwNfQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:nTEjR303d0FjaSw3RqcrN8q1hZW2khSG37yJcwyQx1A=:S4zICbouSGjAz/ioHEzYOAXGYdEJdG6dE08OwUpLYsQ=;
+X-ME-Sender: <xms:VN34avzyqRZZr0sDPG2uqsca8JiY_rUdK6AJxIrR0a4mvpmV0SKoCg>
+    <xme:VN34aglN6MKoZ2LSvYJs4ksIqK2nTBol9Pq-OyfDaPhMkWVeeHfA8CaTZO4sK55uN
+    vp8Nj7nyuxYQbMfbm3MGTrv98CGBxC4L7owXoaVUAx-EHlR_z0zlOSl>
+X-ME-Received: <xmr:VN34agmy4OrAD-0yHEAJ5aALdCucaoA2k-bXbzf16CVN9bX5ILMhUjFVX_wbkxaCg5V0EH1sgoy9wjLMB9UwBGM_49Q2hBkzCSuJtc1b4MamhWc>
+X-ME-Proxy-Cause: dmFkZTGqlJFaF5zGcfLx5cvUG4JLHABA7Q+PiMXeNzxA+upxsZih52x2rypPlyXkSSVfuy
+    3ohvNRsQiJewUE7oTVHP4sYsFOjnfb9U+Zjs1zxN/LWpxnHP6jzHQyp/G4/ib0gcziYpug
+    R4KBokoZRpjltjzTgl6acBimji/dsjkLF+K+acvgnoGoxrpxxNf85Zblhdteiz6qrrzXlq
+    m5IJ15ZU/Nqhnx0JeJ/4LbwRq15mRlYxi/TR6xR3FV3MwHeTIVTwyyh3YJCLj4xn+7xgTQ
+    fWEyhzeToooNOcZLibnXzTSYFxOHYESK5r5xHqd6Bl/DD27UhkVqUjqBZ1oZWFApTceGFv
+    YO5Am6AM5EIG1r4GeTpk7+l7jEJbZDrNrU+quFrZwYqkrXTDiuHsvcqDbHhJXhXKJOET0I
+    EfOegRdP9WUlyMp/lwk9piWEuRyI0WcUn95p1NYCJXfiNx7a5oHCdqjUYdw0eA3mNpyOpM
+    9zUJ85P9Qoa8Bo2L1qtiqbVdoeGolBZGZFh4kTm0VPYwvv2OHa/xNoRi+62Z7EklY2a5QD
+    gNqhGBpXfPwJ06CnYjH2Spjo8Y2LIxW9BWGS+YNfY2fULHhDgxA+D48dZUIl7XeVIHLd7t
+    zWNyJnG7A3+KNxzBUFtfmUvukZepzqhvbr8QHGu9RigCX4kPv2yLV9RxSBew
+X-ME-Proxy: <xmx:VN34aqwCHF-4z3dqDrcBZ8TqNq2QDvcS2xZuqPCb1BV2ruptRusySg>
+    <xmx:VN34atoh7FWAcPJshVxDzsOCRCAm2U8Q_VjOX50q83s-7flSrKY2Vw>
+    <xmx:VN34ah5KuvumSgRWOliatTSku1xBob5LnCRDszXAJurBM4R-gt9DCg>
+    <xmx:VN34asde1M9VSLC8JlnF5RPG0R9SD21ZexhXxgj2U7Fvfm9y3Ff1HQ>
+    <xmx:VN34aglBMJGwLZ9XHDYojLheVUV7TXheG9zbn-cAeLipOo6crBITrSn->
+Feedback-ID: ib51446d9:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 14 Nov 2026 17:14:43 -0500 (EST)
+From: Ana Veto <green.koala2979@fastmail.com>
+To: derekjohn.clark@gmail.com,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: Ana Veto <green.koala2979@fastmail.com>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] HID: hid-msi: Send a uevent when the MCU changes the mode by itself
+Date: Sat, 14 Nov 2026 22:14:40 +0000
+Message-ID: <20261114221440.12580-1-green.koala2979@fastmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,173 +124,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261114-b4-pci-meson-suspend-v1-1-be3d04a13304@iav.lv>
-References: <20261114-b4-pci-meson-suspend-v1-0-be3d04a13304@iav.lv>
-In-Reply-To: <20261114-b4-pci-meson-suspend-v1-0-be3d04a13304@iav.lv>
-To: Yue Wang <yue.wang@Amlogic.com>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: linux-pci@vger.kernel.org, linux-amlogic@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Igor Velkov <iav@iav.lv>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3928; i=iav@iav.lv;
- h=from:subject:message-id;
- bh=sVRTJrvFuucyhaCx7JzxASlark4tRG0RVp/ihG4vEWE=;
- b=owGbwMvMwCVmNH1q96v4SmbG02pJDFk/7rx1crwUHcWQ9/LE2mO5cybv+yaw9b7a4n25FpN22
- BzqP7Ogr6OUhUGMi0FWTJFlwiGNWxlLrv719zB/ADOHlQlkCAMXpwBMRNaF4X/KFAHrSadWJzod
- ecf1sNm6h+uI4MXTs8/wbr0w5X7ElAUSDP+LK0P5kp+66V05aZh1dmL7PZvaifxNDU39tbofTsc
- snMwOAA==
-X-Developer-Key: i=iav@iav.lv; a=openpgp;
- fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
-X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
-X-Original-From: Igor Velkov <iav@iav.lv>
-Reply-To: iav@iav.lv
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Igor Velkov <iav@iav.lv>
+The MCU of the MSI Claw changes the M-key function by itself once a
+second while View+LB is held, and the controller can end up in desktop
+mode, where the sticks drive the mouse. The MCU reports the current
+mode and M-key function in a GAMEPAD_MODE_ACK report, unsolicited after
+such a change and in reply to a query, and the driver stores both, but
+userspace is not told. udev rules that keep the controller usable run
+only on add, change and bind (for example InputPlumber's rules that
+switch desktop mode back to xinput and set the M-keys to macro), so the
+controller stays in desktop mode or with M1/M2 disabled until it is
+probed again.
 
-Move the PHY power on and the PHY and controller reset from probe into
-the host .init callback, and add a .deinit that asserts PERST# and
-powers the PHY off, and a .stop_link that disables the LTSSM.
-dw_pcie_host_init() calls .deinit on a later probe error and
-dw_pcie_host_deinit() calls it at remove, so probe and remove do not
-power the PHY off themselves.
+Emit KOBJ_CHANGE from a work item whenever a report changes the stored
+mode or M-key function. Store the new values after a successful
+SWITCH_MODE write as well, so that the driver's own writes raise no
+event.
 
-This prepares for system suspend, where dw_pcie_suspend_noirq() and
-dw_pcie_resume_noirq() run the same callbacks.
+Tested on an MSI Claw 8 EX AI+ (0db0:1901) with a v7.3.3-based kernel and
+InputPlumber's rules. The controller was switched to desktop mode by a
+SWITCH_MODE report written to hidraw, bypassing the driver. A read of
+gamepad_mode then returned desktop and raised a change uevent, and the
+rule wrote xinput 66 ms later. After another such switch, View+LB made
+the MCU report mode 4 by itself, and the rule wrote xinput within
+0.3 s. While View+LB was held in xinput mode, the MCU reported the
+M-keys disabled once a second, and the M-key rule set macro again each
+time.
 
-It also changes the order in probe: the clocks are enabled before the
-PHY is powered on and the controller is reset.  Resume runs .init with
-the clocks still on, so both take the same order.
-
-Signed-off-by: Igor Velkov <iav@iav.lv>
+Fixes: a9517958e828 ("HID: hid-msi: Add MSI Claw configuration driver")
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Ana Veto <green.koala2979@fastmail.com>
 ---
- drivers/pci/controller/dwc/pci-meson.c | 55 ++++++++++++++++++++++------------
- 1 file changed, 36 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/pci/controller/dwc/pci-meson.c b/drivers/pci/controller/dwc/pci-meson.c
-index 03dd1282f3f3..627470c83bb5 100644
---- a/drivers/pci/controller/dwc/pci-meson.c
-+++ b/drivers/pci/controller/dwc/pci-meson.c
-@@ -315,6 +315,16 @@ static int meson_pcie_start_link(struct dw_pcie *pci)
+Notes:
+    Based on hid.git for-next. This changes lines near "HID: hid-msi: Drain orphan MCU ACKs by issuing a query" (v2, posted 2026-11-14); the two patches apply in either order.
+
+ drivers/hid/hid-msi.c | 42 ++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 40 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/hid/hid-msi.c b/drivers/hid/hid-msi.c
+index 3225d3b..e99f749 100644
+--- a/drivers/hid/hid-msi.c
++++ b/drivers/hid/hid-msi.c
+@@ -350,6 +350,7 @@ struct claw_drvdata {
+ 	/* Gamepad Variables */
+ 	enum claw_mkeys_function_index mkeys_function;
+ 	enum claw_gamepad_mode_index gamepad_mode;
++	struct work_struct mode_event; /* uevent when the MCU changes the mode */
+ 	u8 m1_codes[CLAW_KEYS_MAX];
+ 	u8 m2_codes[CLAW_KEYS_MAX];
+ 	u8 rumble_intensity_right;
+@@ -387,19 +388,41 @@ static int get_endpoint_address(struct hid_device *hdev)
+ 	return -ENODEV;
+ }
+ 
++static void claw_mode_event_fn(struct work_struct *work)
++{
++	struct claw_drvdata *drvdata = container_of(work, struct claw_drvdata, mode_event);
++
++	kobject_uevent(&drvdata->hdev->dev.kobj, KOBJ_CHANGE);
++}
++
+ static int claw_gamepad_mode_event(struct claw_drvdata *drvdata,
+ 				   struct claw_command_report *cmd_rep)
+ {
++	bool changed;
++
+ 	if (cmd_rep->data[0] >= ARRAY_SIZE(claw_gamepad_mode_text) ||
+ 	    !claw_gamepad_mode_text[cmd_rep->data[0]] ||
+ 	    cmd_rep->data[1] >= ARRAY_SIZE(claw_mkeys_function_text))
+ 		return -EINVAL;
+ 
+ 	scoped_guard(spinlock_irqsave, &drvdata->mode_lock) {
++		changed = drvdata->gamepad_mode != cmd_rep->data[0] ||
++			  drvdata->mkeys_function != cmd_rep->data[1];
+ 		drvdata->gamepad_mode = cmd_rep->data[0];
+ 		drvdata->mkeys_function = cmd_rep->data[1];
+ 	}
+ 
++	/*
++	 * The MCU changes the mode or M-key function by itself, e.g. while
++	 * View+LB is held. Userspace learns of changes only through uevents.
++	 */
++	if (changed) {
++		guard(spinlock_irqsave)(&drvdata->registration_lock);
++		/* Pairs with smp_store_release from cfg_setup_fn and claw_remove */
++		if (smp_load_acquire(&drvdata->gp_registered))
++			schedule_work(&drvdata->mode_event);
++	}
++
  	return 0;
  }
  
-+static void meson_pcie_stop_link(struct dw_pcie *pci)
-+{
-+	struct meson_pcie *mp = to_meson_pcie(pci);
-+	u32 val;
-+
-+	val = meson_cfg_readl(mp, PCIE_CFG0);
-+	val &= ~APP_LTSSM_ENABLE;
-+	meson_cfg_writel(mp, val, PCIE_CFG0);
-+}
-+
- static int meson_pcie_rd_own_conf(struct pci_bus *bus, u32 devfn,
- 				  int where, int size, u32 *val)
+@@ -657,6 +680,7 @@ static int claw_switch_mode(struct hid_device *hdev, enum claw_mode_field field,
  {
-@@ -360,6 +370,20 @@ static int meson_pcie_host_init(struct dw_pcie_rp *pp)
- {
- 	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
- 	struct meson_pcie *mp = to_meson_pcie(pci);
+ 	struct claw_drvdata *drvdata = hid_get_drvdata(hdev);
+ 	u8 data[2];
 +	int ret;
-+
-+	ret = meson_pcie_power_on(mp);
-+	if (ret) {
-+		dev_err(pci->dev, "phy power on failed, %d\n", ret);
+ 
+ 	guard(mutex)(&drvdata->cfg_mutex);
+ 
+@@ -673,8 +697,18 @@ static int claw_switch_mode(struct hid_device *hdev, enum claw_mode_field field,
+ 		}
+ 	}
+ 
+-	return __claw_hw_output_report(hdev, CLAW_COMMAND_TYPE_SWITCH_MODE, data,
+-				       ARRAY_SIZE(data), 0);
++	ret = __claw_hw_output_report(hdev, CLAW_COMMAND_TYPE_SWITCH_MODE, data,
++				      ARRAY_SIZE(data), 0);
++	if (ret)
 +		return ret;
++
++	/* The driver's own change is no change to report */
++	scoped_guard(spinlock_irqsave, &drvdata->mode_lock) {
++		drvdata->gamepad_mode = data[0];
++		drvdata->mkeys_function = data[1];
 +	}
 +
-+	ret = meson_pcie_reset(mp);
-+	if (ret) {
-+		dev_err(pci->dev, "reset failed, %d\n", ret);
-+		meson_pcie_power_off(mp);
-+		return ret;
-+	}
- 
- 	pp->bridge->ops = &meson_pci_ops;
- 
-@@ -369,13 +393,23 @@ static int meson_pcie_host_init(struct dw_pcie_rp *pp)
- 	return 0;
++	return 0;
  }
  
-+static void meson_pcie_host_deinit(struct dw_pcie_rp *pp)
-+{
-+	struct meson_pcie *mp = to_meson_pcie(to_dw_pcie_from_pp(pp));
+ static ssize_t gamepad_mode_store(struct device *dev, struct device_attribute *attr,
+@@ -1871,6 +1905,7 @@ static int claw_probe(struct hid_device *hdev, u8 ep)
+ 	INIT_DELAYED_WORK(&drvdata->cfg_resume, &cfg_resume_fn);
+ 	INIT_DELAYED_WORK(&drvdata->cfg_setup, &cfg_setup_fn);
+ 	INIT_DELAYED_WORK(&drvdata->rgb_queue, &claw_rgb_queue_fn);
++	INIT_WORK(&drvdata->mode_event, &claw_mode_event_fn);
+ 
+ 	/* For control interface: open the HID transport for sending commands. */
+ 	ret = hid_hw_open(hdev);
+@@ -1946,6 +1981,9 @@ static void claw_remove(struct hid_device *hdev)
+ 		smp_store_release(&drvdata->rgb_registered, false);
+ 	}
+ 
++	/* gp_registered is false now, so no new mode event can be queued */
++	cancel_work_sync(&drvdata->mode_event);
 +
-+	gpiod_set_value_cansleep(mp->reset_gpio, 1);
-+	meson_pcie_power_off(mp);
-+}
-+
- static const struct dw_pcie_host_ops meson_pcie_host_ops = {
- 	.init = meson_pcie_host_init,
-+	.deinit = meson_pcie_host_deinit,
- };
+ 	if (gp_registered)
+ 		device_remove_group(&hdev->dev, &claw_gamepad_attr_group);
  
- static const struct dw_pcie_ops dw_pcie_ops = {
- 	.link_up = meson_pcie_link_up,
- 	.start_link = meson_pcie_start_link,
-+	.stop_link = meson_pcie_stop_link,
- };
- 
- static int meson_pcie_probe(struct platform_device *pdev)
-@@ -419,22 +453,10 @@ static int meson_pcie_probe(struct platform_device *pdev)
- 		return ret;
- 	}
- 
--	ret = meson_pcie_power_on(mp);
--	if (ret) {
--		dev_err(dev, "phy power on failed, %d\n", ret);
--		return ret;
--	}
--
--	ret = meson_pcie_reset(mp);
--	if (ret) {
--		dev_err(dev, "reset failed, %d\n", ret);
--		goto err_phy;
--	}
--
- 	ret = meson_pcie_probe_clocks(mp);
- 	if (ret) {
- 		dev_err(dev, "init clock resources failed, %d\n", ret);
--		goto err_phy;
-+		return ret;
- 	}
- 
- 	platform_set_drvdata(pdev, mp);
-@@ -442,14 +464,10 @@ static int meson_pcie_probe(struct platform_device *pdev)
- 	ret = dw_pcie_host_init(&pci->pp);
- 	if (ret < 0) {
- 		dev_err(dev, "Add PCIe port failed, %d\n", ret);
--		goto err_phy;
-+		return ret;
- 	}
- 
- 	return 0;
--
--err_phy:
--	meson_pcie_power_off(mp);
--	return ret;
- }
- 
- static void meson_pcie_remove(struct platform_device *pdev)
-@@ -457,7 +475,6 @@ static void meson_pcie_remove(struct platform_device *pdev)
- 	struct meson_pcie *mp = platform_get_drvdata(pdev);
- 
- 	dw_pcie_host_deinit(&mp->pci.pp);
--	meson_pcie_power_off(mp);
- }
- 
- static const struct of_device_id meson_pcie_of_match[] = {
-
 -- 
-2.43.0
-
+2.56.0
 
