@@ -1,60 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794700406;
-	b=tNeedzhkciGnyL/+Y6QQ9iT7eEeQ1fZ86Ti0xwiyn349GQ7wAn5L9fykPp1PUH0DSUVB
-	 3F5pkYVPSGBJH8rIKPtEdioWoFsBKKkSYI1oaRy7LT6dTxeGspUtIDnMz3tRcP9nRJ4+c
-	 S8D6Df+d+ajvOdOQ6qjJb52owFK90DrYtJ5DdBBKIg+q1og/opqdEDIzUs3ad2UFlNfKw
-	 BiPOF0aHRo3rdhsC1++QkOeGBnkYWCA+SZtLbnCae2U2MIavLkYf4Kl+im7ai2Xoecvv0
-	 5TLtLBS43YK38eZxHM0XFjjC5FAVS5Gl82a/T7mywdRyy2Dq9xwtyQOv7e3r4DdOniw==
+	t=1794700462;
+	b=tZV4SfmfMs1c9uXQn+MTi3Uaias/UfqqXogMRaGQ9ssbsKc7/vtxUnSQtTmLIS2xS9LE
+	 OuE9R4oxJBzEzVVYaQfsPUQhUx0aV4fhZVW4/ySzMGSO50tJ59foITGRw6ODqFeb8KCrD
+	 dxCZBlILuu+bMXvPrnG0NZ7qCu8Pq647louIYJU85njaSzkP5W0C9u7ERqq4MzXMAAue/
+	 UPPSsYxydlY4crDQUeBHnnAAApbCiFaqtHR6hHSQHlZl6OQ1pBc8Z4A9MovN1Gbqu0E9+
+	 2+nnF/SD6bE7p7NsiZZSFPyWQyq01gTsEHSi+sg48qHvv6LTXzb8czScwF/BFxUhHTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794700406;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794700462;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Reply-To:Subject:
+	 Content-Language:To:References:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=BcS6lewsMsxh+yguDvKs5aIMaULOPSzvSJzYsHF8Bnc=;
-	b=hp0Fx8djsOUHrephVS6v0b+nf/v5aKN0zjHAQ36uH+5ffSKcpsjkOjJ0C8bL1f0vQre2
-	 rFt8ArChJkRPWcL6QI/R33GDVG2Ek21p4ZNkSnC8IkUsmS3qVcFDoH5p411BWBmXzknuY
-	 6i90b3P4Ep0lvrUTRmLkXnwKu4c7fYm2/RGT0vp0MnRbymIGsliU86hlqprCE/opj7R3l
-	 Dcc53Eqb1WPN9suh45t9RzQCdTnWPgQA+yvafHYaJowu8eOEL3Me7gFk0/MDbl100zWZI
-	 G+Al94IereaYkxP1+ehOQgGN8BPQzCb3nY8GUm93ANHiUYCT2vX4Ivtt+UbapGQVMnw==
+	bh=IufCbieA6Qd8N+6xo9KKOPiazDCkVPjgFR48LE6emEs=;
+	b=s5NaKC6WzTuhvRDJZvE+1Cm+3piH7h7oBG+dtDBehvz8N3KKy64OK7e/kkPiPR6OsTXF
+	 FNQvsC0cWbBuYxrKfS6fPxb7oxNXX9m4TMdf9Xoa30jQaRNzIKYGYI5oWNQGAFh0ZD9/C
+	 n/RyGY/0u/de9MT0fjtQ7KoPIrdnYTno4dN5or21auV54iRlcZQXatKn4rr8a2aKJdVXT
+	 LIM+R7sWF5qMxaPJ7K3DHURIQYhIyEffHfLxy7+ZAvvrdloMws2vopsVBzamTzUFnP7gi
+	 YXDqv/2v7fQqxAGKY1NFKGmXD3Ths26Y87W/J6iJmSjmFuup3j/yDOyphv7W8Fg8OZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dILB7IAA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AcwcReT+;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8058606A323;
-	Sat, 14 Nov 2026 23:53:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E3EC606A32C
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 23:54:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E3EC606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dILB7IAA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87C9E1F000C4;
-	Sat, 14 Nov 2026 23:53:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794700406;
-	bh=BcS6lewsMsxh+yguDvKs5aIMaULOPSzvSJzYsHF8Bnc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=dILB7IAA+jHokJuEtOTRXAu7Abug2vOjywOp31dAhe+jPVfO9JSkjfjni58mmxtX8
-	 bukLfkWRH8prGRkPQFuBgfwRfIZ2M/dbVu9tb44SUUXu8LfSTUmlJuKEi2aGsqAmV0
-	 xFc7Bdcpwq5g+B1LZiDjQaI2x/ZjoZNcAak/iKaFtmiWMKn6wduYngoxI10T73V0s4
-	 TzjeWhfsJZDHm+wdK3Kicsejl07VlrDBm2tmFlFpkcfavlYG9qe0sTnvY10DHCfgEG
-	 mI0aSk9PYv1RF7S/lXtvXX3nHBv0l5Yn9hA3I9bevFsSbm2O1h4CegCr6u156HARhv
-	 +zFksWVgh+5iw==
-Date: Sat, 14 Nov 2026 23:53:18 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Lorenzo Bianconi <lorenzo@kernel.org>
-Cc: linux-iio@vger.kernel.org, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- linux-kernel@vger.kernel.org, Lorenzo Bianconi
- <lorenzo.bianconi83@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] iio: light: st_uvis25: notify the current trigger when
- done
-Message-ID: <20261114235318.67c97636@jic23-hlaptop>
-In-Reply-To: <20261109085523.0000513e@oss.qualcomm.com>
-References: <20261109025454.1260519-1-jic23@kernel.org>
-	<avGKjh7GOtE2tPGt@lore-desk>
-	<20261109085523.0000513e@oss.qualcomm.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AcwcReT+
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-36dbde64409so3337845eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 15:54:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794700461; x=1795305261; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :to:content-language:subject:reply-to:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IufCbieA6Qd8N+6xo9KKOPiazDCkVPjgFR48LE6emEs=;
+        b=AcwcReT+QC044IPHT6exIOLUEgeeK49xIuqeNAggMyZFbImm4qBXyiu6GnzPTnzF0O
+         LyIgtMrKl1ZmN5XjVs6vL7C8ALbllys6YBCjcALl19AjHF8kZgB1gaDggpQyV9VrU9zD
+         Syo17s9Vq08yv2z9WuwKPD8uw8rACx16MuX7r7bj7/9DH99+LefTGqCCMB9A23z2HZzR
+         NWFuOGadUVdkAKILcwFUnEClxLZ/UQG5X4y1k43QRdgGsC8Sskrl/RDLXBMgJBxzkKIE
+         75LEOqBwq0+MFF9sGjLZOZiDzItFi9AM+cK2i747T2pMvMN6mbeU3OG5qAdFEuGCGk81
+         +vIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794700461; x=1795305261;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :to:content-language:subject:reply-to:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IufCbieA6Qd8N+6xo9KKOPiazDCkVPjgFR48LE6emEs=;
+        b=nP0eIf1KUMOwN+Jz/yk9yZ3rmu/NoIOCELrEF6lvdZxY3iLXkJXNXbvbWu3bQOb+YT
+         3yf2Ee+6bBAZXEjoJBi0CZTmxcxipxvvf7cmlDw69tpWL3JAoe3h8sqWegy+g32KZrrg
+         Ju2W45MQmCZtrM6wsH5IDJ9S0dih71fTjkyvcL4va23PGrkyqf6Jh2AIz4PjSSK3lyib
+         3HRKIBLXYujEmBI02bd1OdGU+Ts+9EwnPN09ir6bLuH5xpsT2Smk1Gr+uoCM0QYT9JuL
+         PWzrwsCVICbWAcAn4SZUa+KT571yg+/DCglvkehEdiaEgfACb7y+ToULcXPsBv3YXZy1
+         dHSg==
+X-Forwarded-Encrypted: i=1; AL+hErGawXki7WUyijeXzb3A7eYwafi/lBlkIzXoMNeQ052q1MiPy0qW7pyd9u6KYt/8j9idxJvzOPCeniE6umI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8qD3MPlRAtkuoA/LFEKX2+BKPS+B6m6mDwgpz9qCVbxh+BfNjG
+	++Yy83cXm1B0NyM+FsFaIizYhCCGdWMC4LlgEXGtkGiNrK45KkQAv1LT
+X-Gm-Gg: AYBFou0K1lZ6jMYBhINMrh+g9ZprviTEF2ZxFCvUaVaYblSJiYMSFx+A1Ub0y7k7axD
+	3WI4Jh/BUdKhEKr067duUt6N50U0In9oQAx/2VO+8z1jkfMauFeTusWi7pmdIG+LZVsWzTqNH3h
+	BsNxUQ6Q3MtTMOc3a7Kfgy5BDbXsm8KVkvjqqjPCh3tN9zgbJOdqsylYKdGL1v0xd9837miY/0X
+	ZaqZnHn99hmugt/a0mx6zVquAYmvZRfp7yndBiQ5aF6LBSlqriZyKbRjKLd0CkXFYc6PkG0Q24t
+	s1my01Tm2i+dSjNwdxgcwWfvFIucUfnmgws5KqztadrHOUz7M84H5dXKp2fSLVd8tjSE8nrjnzj
+	SBAUwHQLZRqkRI0hfS1g7w0QjZvo3TYCon4i8Ivastj3OrV05bKZEYb7z5dnemAlcM08r5OxiY2
+	iA7gnR0Uj8wnQfYjQ0WJnk9L6bZnfb/vUjOubTprMXcMFwV5L44pzraXcM5Yn1Mwj/zCQkiQJf6
+	1wQjIqlQSHEY/pcRI58B4+B4rrV8EpU8t3EI8SOSqGBZFqUTj/Qf4QKZy7BvLB/SzPF7jfw+Eu1
+	mt3xwLggiLd/g1qGteCMPB7jfu1e10inlsvMbgyXHjBt2E5mC1iyEZ/yTPIp+J4h5ko=
+X-Received: by 2002:a05:7022:f116:b0:1b3:af3a:e793 with SMTP id a92af1059eb24-1b502fe37c6mr6384471c88.0.1794700460496;
+        Sat, 14 Nov 2026 15:54:20 -0800 (PST)
+Received: from [192.168.35.43] ([218.50.238.131])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50313d8f5sm29226208c88.3.2026.11.14.15.54.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 14 Nov 2026 15:54:19 -0800 (PST)
+Message-ID: <4b8a7510-808b-40fc-a6c5-551e7d88d5e4@gmail.com>
+Date: Sun, 15 Nov 2026 08:54:17 +0900
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,70 +91,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Reply-To: chanwoo@kernel.org
+Subject: Re: [PATCH v2 0/2] PM / devfreq: add Airoha SoC Subsystem scale
+ support
+Content-Language: ko
+To: Christian Marangi <ansuelsmth@gmail.com>,
+ MyungJoo Ham <myungjoo.ham@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261009073330.18175-1-ansuelsmth@gmail.com>
+From: Choi Chanwoo <cwchoi00@gmail.com>
+In-Reply-To: <20261009073330.18175-1-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Mon, 9 Nov 2026 08:55:23 -0800
-Jonathan Cameron <jonathan.cameron@oss.qualcomm.com> wrote:
-
-> On Mon, 9 Nov 2026 09:55:42 +0100
-> Lorenzo Bianconi <lorenzo@kernel.org> wrote:
+On 10/9/2026 4:33 PM, Christian Marangi wrote:
+> Airoha SoC contains multiple subsystem that are scaled to a
+> specific OPP taking the CPU clock as reference. Such sybsystem
+> can enter idle or performance state based on the system load
+> and power consumption conditions.
 > 
-> > > From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-> > > 
-> > > The trigger handler calls iio_trigger_notify_done() on the driver's own
-> > > trigger rather than on the trigger that is currently in use by the
-> > > device. The driver does not restrict which trigger may be used, so if
-> > > another trigger, for example an hrtimer trigger, is selected then that
-> > > trigger's use_count is never decremented and it stops firing after the
-> > > first sample. The driver's own trigger use_count also underflows,
-> > > preventing it from firing later.
-> > > 
-> > > Use iio_dev->trig instead.
-> > > 
-> > > Fixes: 3025c8688c1e ("iio: light: add support for UVIS25 sensor")
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>    
-> > 
-> > Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>  
+> Example of such subsystem are GSW (Gigabit Switch), NPU (Custom
+> Risc Co-Processor for Network acceleration), SOE (Crypto Module) BUS...
 > 
-> Given content is all still here, rather than resend immediately to fix
-> the linux-iio mailing list address, I've just fixed it in this reply.
-I decided to be a tiny bit naughty.  So picked this up directly from
-lkml (Well I asked b4 to find it).
-
-Thanks,
-
-J
+> Changes v2:
+> - Rename to a more symbolic name
+> - Address some sashiko bot warning
+> - Better describe the use of this devfreq driver
 > 
-> Thanks Lorenzo.
+> Christian Marangi (2):
+>   dt-bindings: devfreq: Document support for Airoha Subsystem Scale
+>   PM / devfreq: add Airoha SoC Subsystem devfreq driver
 > 
-> >   
-> > > ---
-> > > Another LLM found one as part of refactoring how all the code around
-> > > triggers works.  Definitely the wrong trigger. There are lots
-> > > that access the right trigger via the wrong path (shortly to be
-> > > cleaned up), this one manages to get the wrong one in many cases!
-> > > ---
-> > >  drivers/iio/light/st_uvis25_core.c | 2 +-
-> > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > > 
-> > > diff --git a/drivers/iio/light/st_uvis25_core.c b/drivers/iio/light/st_uvis25_core.c
-> > > index 94d5261b2663..5c63a68948d6 100644
-> > > --- a/drivers/iio/light/st_uvis25_core.c
-> > > +++ b/drivers/iio/light/st_uvis25_core.c
-> > > @@ -248,7 +248,7 @@ static irqreturn_t st_uvis25_buffer_handler_thread(int irq, void *p)
-> > >  				    iio_get_time_ns(iio_dev));
-> > >  
-> > >  out:
-> > > -	iio_trigger_notify_done(hw->trig);
-> > > +	iio_trigger_notify_done(iio_dev->trig);
-> > >  
-> > >  	return IRQ_HANDLED;
-> > >  }
-> > > -- 
-> > > 2.56.0
-> > >     
-> >   
+>  .../devfreq/airoha,subsystem-scale.yaml       | 114 ++++++++++++++++++
+>  drivers/devfreq/Kconfig                       |  10 ++
+>  drivers/devfreq/Makefile                      |   1 +
+>  drivers/devfreq/airoha-subsystem-devfreq.c    | 100 +++++++++++++++
+>  4 files changed, 225 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/devfreq/airoha,subsystem-scale.yaml
+>  create mode 100644 drivers/devfreq/airoha-subsystem-devfreq.c
 > 
 
+Hi,
+
+The devicetree contains ths only clock information for scaling without any parent device
+information even if this drier has used the passive governor as default.
+I think that you better to use 'userspace' governor.
+
+Also, are there any connected device to provide the utilization?
+
+-- 
+Best Regards,
+Chanwoo Choi
+Principal Engineer, Samsung Electronics
