@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794677556;
-	b=SMxWKmHDfoE7bLLXoAUnCQi2aucHGQpsfwdtftZvdJnmxRU39RYAB7C1CPd3ALzpaCzV
-	 VmdLT2p5JmbRw88a9jrsoVMFo8EUIZVBgvKCVLaJ+4+DLIyuO9ERNzqi7GM06RaOK5seN
-	 GYi/VVocKhHLogz2mHYzVliWG0QksposYVlbH7MmJ6OhVDnMwdmyCd6qgOE+xKQ3B8mOy
-	 MlpnINImCkp/ZpDMc8pSTJ5VmuWPWKQ51IwaQ9YbW2haYCVSPte27OV3ffjQpzs3NeaOv
-	 KEgUM+RGX6aWHVfY9FadgrkE/AqAcvY1aR1mMStdFSK3j85ompMQfa+UeGVVYaHCWBA==
+	t=1794677589;
+	b=iYPiP04Qof1Lykm4osjOi4hvYkTngsWpq4t86bwSqmEzropSfvxq7RWcSyxVLFCp6V3j
+	 8sFVnjinowhfy0Eu/3zj9zwzQmmd2RehQ7YLRjTaHMEYytTvXVu2M5yfVtIzGeSjeUWE6
+	 xMtQ+lmcy/db4P1o5kazDWrLLSbEj726lgZlnFu0rSnD6HAYzhO0fYlydYbGrYYQXZQIx
+	 azqxdnxp5At+qgR8PE8Teexnw57kUzlXprDdnIP75Gl2rjnyqS9zm1F9IN+XUwSwLlqAA
+	 IrjuYNlYhUqCtWQQgFiS+7nxl2z51Jb5taC6CwzpntfFUs/lAi76MveDDQ1hmUuzrMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794677556;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794677589;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=jd8/NeUBcvGVBl3/IVvk/GOuA5V+/Z06IONroCz7q6I=;
-	b=D9mD1IvXOjH5esYwjxuagSMlX9xa/YsOoLNsoUDwLbm04HgFIrOVGCs8taTIKtyTowez
-	 ZIwfo4fF+cLjUa3lxrcgU65CZsdX6T0jmZd489W0aWpniES5A7RpNQFkNeXlLFXPqSeB7
-	 27Allh1QlwIDeT4MaQEXIWcDTcEKlFqGo4/0D9ogOfmkqHUPB9+fGfi1EfNR0IJS6LnHn
-	 wZbc8x1oP2PYCY4mw0dcsFUQtjRXrBnDp+NatqWPzk53OrAd6t7xuEg+uAoI25/9Hpl9z
-	 rca7Q2+lkaRuncRgjd3V5mSq+vftM/gHpkqvAh++YxXQqrQgEcbkSvlZh4vxVTtTSIA==
+	bh=1aF6FG/8A8GNSEhifnB76peEauYvwhc3Lhh2bB6umMo=;
+	b=LL6vXkucgpGrEFuakiyr33fhpjGCTkcDaCPQvt3j1cbWtp/W0PMHR5ZoOuvOSskQY07e
+	 MzmBjTV4hC7G/8wqMOpvFLNlS/W9Em2HZo/15sn8ZazxfJt0tDFUczyFw6oPRRqwYkLIz
+	 R9jXfW9HcdmvhTS6uZztHqrvhodxTUabVrTNwQtECxYzX+wtqP477RaFp9g8gT71AIpPW
+	 U5jvkRRNKDf7qg65j8VbteFjIe81cfd1DJ/ctoytQhu+ZyOakGX0mfjj9fK8+xzh7P42X
+	 40eqXoecz6cHUcI4wOxqKFHNuPErEfrI6/10jNReDBXUlrl1S634priAfzBOUpD3U4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VI99JbvX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CC4g0DhR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4782606A329
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:32:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 451AB606A329
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:33:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VI99JbvX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDD491F000C4;
-	Sat, 14 Nov 2026 17:32:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CC4g0DhR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 541151F000C4;
+	Sat, 14 Nov 2026 17:33:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794677556;
-	bh=jd8/NeUBcvGVBl3/IVvk/GOuA5V+/Z06IONroCz7q6I=;
+	s=k20260515; t=1794677588;
+	bh=1aF6FG/8A8GNSEhifnB76peEauYvwhc3Lhh2bB6umMo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VI99JbvX5Z2NlNPLoYgkjL81q/Cig9LlU2aO3HtvyXsC7gP6GqLlha6fJSTcZdZSa
-	 H7BYkxGbDyxHvTyCVvOJ3dcNsV4DDUjCPyrDMDScdjdY8lS4U0xVeqcKTnr7Jv4HgL
-	 e7DzH++DgDtR7AVeINQoCXKgDM7pqg3CseeXbeV9OxIPM6AXWSjPVn734vZ4euskPp
-	 z77bcLD4xUjnfzzt72HaubOIgazybGQygT11OIuMCOFVFkz/jR9JYxq34Bp3+9y3lu
-	 5IAJcuMsXl+m0wiKjBlsZSig2aC6Oty8WGxu3TCdQNmHYNVrZ1nWpc5RD2zZlaD2+y
-	 krFlVWDaaUBdQ==
-Date: Sat, 14 Nov 2026 17:32:32 +0000
+	b=CC4g0DhRkW0DeJDtpn706QZWi/HUMQpuW3IfDjK3Nioulri574vN0BEOuOCzLEX0I
+	 hG8CHO8NhSwRLAftY6Yi/ENg6d/hbIwvjnnpPpwvOFX2J4oLQulgyLk2bHXV1QgWwc
+	 3cvYrwB/d4QSZWWOP/nC57raDQvh0wenbsXW2k0Ro9PY1Ww7kQDolFpvmgCVCok4rS
+	 3KyjVPCClhNm5+sFeKfLnxm5MhuiCX+MaRb6p3dZr9Pe8gHaisIFUgCTglyaY/jGqj
+	 04Lz4mnvNMNToXXnifofD5WoXXNk3tC7au3I7cIlVqlA0L0QSWFZHAf5GDvqtKNiVD
+	 3CRYU+nZajhhg==
+Date: Sat, 14 Nov 2026 17:33:04 +0000
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 To: shao.mingyin@zte.com.cn
-Cc: akpm@linux-foundation.org, rppt@kernel.org, linux-mm@kvack.org, 
+Cc: catalin.marinas@arm.com, akpm@linux-foundation.org, linux-mm@kvack.org, 
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/numa_emulation: use the real node id for leftover
- nodes
-Message-ID: <avibII-ONCFXboWZ@gremlin>
-References: <20261115004706741mYrBkIRqmj_IWsv3oh1uZ@zte.com.cn>
+Subject: Re: [PATCH] mm/kmemleak: fix scan period truncation on 32-bit
+ platforms
+Message-ID: <avibPHxuBtW-x-gG@gremlin>
+References: <20261115004702358r2RJLihSrqbK4dr026bcI@zte.com.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,28 +59,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261115004706741mYrBkIRqmj_IWsv3oh1uZ@zte.com.cn>
+In-Reply-To: <20261115004702358r2RJLihSrqbK4dr026bcI@zte.com.cn>
 
-On Sun, Nov 15, 2026 at 12:47:06AM +0800, shao.mingyin@zte.com.cn wrote:
+On Sun, Nov 15, 2026 at 12:47:02AM +0800, shao.mingyin@zte.com.cn wrote:
 > From: Shao Mingyin <shao.mingyin@zte.com.cn>
 >
-> mm/numa_emulation: use the real node id for leftover nodes
+> mm/kmemleak: fix scan period truncation on 32-bit platforms
 >
-> After assigning fake nodes, fix_pxm_node_maps() gives the remaining
-> physical nodes free slots in the emulated node space. The second
-> distance loop in numa_emulation() derives their physical node IDs by
-> subtracting max_emu_nid from those slots. The slot assignment does not
-> guarantee that this yields the original physical IDs.
+> kmemleak_write() converts the scan period from seconds to milliseconds
+> before clamping it to UINT_MAX. On 32-bit kernels, unsigned secs and
+> MSEC_PER_SEC (1000L) are multiplied in a 32-bit unsigned type. The result
+> wraps before the clamp can detect overflow.
 >
-> For example, with fake nodes 0 and 1 mapped to physical nodes 0 and 1,
-> a remaining physical node 2 assigned slot 2 is read as physical node 1.
-> The wrong row of the physical distance table is then installed.
+> For example, scan=4294968 produces 704 milliseconds instead of the
+> UINT_MAX millisecond limit. Perform the multiplication and keep the
+> intermediate result in unsigned long long, preserving the existing
+> 64-bit behavior and the later msecs_to_jiffies() clamping.
 >
-> Record the physical ID when assigning each remaining node's slot and
-> use that mapping in the distance loop. Keep the first loop's fake-node
-> distances, and check the physical IDs before indexing the copied table.
+> Commit 54dd200c5a25 ("mm/kmemleak: fix possible wrong memory scanning
+> period") added this clamp, but it cannot work after a 32-bit multiply
+> has already overflowed.
 >
-> Fixes: 63db8170bf34 ("mm/fake-numa: allow later numa node hotplug")
 > Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 
 NAK.
