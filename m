@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794672544;
-	b=3S+UjjOe1kG985aOesu1kp9cbUpdpgZjoBn02BsrMaGYjgvxqHCR/yBebkTCYhj8swe0
-	 pInxUSxDjzDPvqVWfuiJINe0Krcpqsr+wnAroXIZVogBi765RJ/hxz41ZBWMYd0HJ4Sqv
-	 OMNsQv5ANb1oCIaG7orHEe1baIzCqBjQaM0i4YlxdpnvKcaPZ+8k9Lu/NTuDNQPFzUx67
-	 hcDrIQ4RT+26IPeIu8/S30kup/Bl6WReb56QMku3TvyxYZhIeTtg5Vo3DKv9DsXOp1eAP
-	 du3iml+rUBffZxVnc+5td25OBf8NTwQF5Z4vilTGmeyhm0W8FNoDnW+udj+tVUvJD+w==
+	t=1794672563;
+	b=dpsSX8FMVRQfzxbM4d6oYeOOAx2J/WqrEETOpTWXruhYykU0bOzRardeFG/DT6dv4nF6
+	 pQmDIc7lpdtITzCIwt23tWuVyLp/JaQhWpcGGR5vO9uskY5GYqQAXUh002/CYulEj3pXy
+	 sSibLy0xBCD6ThjRMfmyDkoRiInXjHyCbnApnzlltMWD97qjhsQdoM/5/Gwu/KIeF+DAn
+	 VKu8S/DZoKPhmRXv+JAnfjlnykf3Qc9FOxJyNItnWsB579mtpEge7P68m2S77SvA3pW4w
+	 05uDJauiu9a7clGTD/Bgkl4wJN13AQhW/cMyl3nKkaOwiMhwIl+2toozhif0qaSvUfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794672544;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794672563;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=+LcEkWrq+TcQgEw8Wv5fzNU6IOsV4OoefE8SBVTJLlU=;
-	b=LF00QVFMWI6a9vfHidw+FRnINpK6hZJQ4jjlhX0pQTDN1rucXuYewBZzx1XXKgFHhttV
-	 xtM572IpiXv+jRPi7gT6bChdeBzI81LuGHLnUB1pfOwno/7Rpd7tuCynfZenHRB5g4nYq
-	 563iPXElQFklUMvLSRUVd+A4XuOq00vmRmFVCttKw15ymw4G+k+4Z8vplGVFWyKv7gHgn
-	 /ctdzpN/r92GNJeTekJq6VrjcEr71yTaQrInWoHdCIsnemQVaBi1yc73kFAm1Be7tsIBJ
-	 2h55LytwVv75jqydJcmkkKZeaWlpr2/AOcHlN2jV1+uohHgsuPgW2RTP6SeSumva4fA==
+	bh=EfZAm8HK5M4blUNFdDl+epKKwi55wmzsTvrZgcxUZEg=;
+	b=cFDqjSwLToGALkdvpKCfyDRcNnVXvafzTmOp6uAEfqhLSdbCrKzwUfY5SJZ7DnMCO2sX
+	 eVGfigbHUVRLMBBJaIjvEDnDyX7v8fDo8EUfsZzVGWeoLCkCH/X9eyCAkl2S5qzcaAtCa
+	 1ONI7HU/4UvW0uexKmyeWt8pAzEPh+fKh3fSjsRTnglg7nRDt3RZaEU0XDurUY3kkU6ec
+	 EuHMQMciMuOH1KoUwo5lXsqSPzplCpR3V9XnZS7qd9792UKtSt7RQa5Y6fJRkx/W8+vca
+	 n82ITr0jCjtqEK1IGJcJGBUWeFtvbKJgAvrI05F9YcDteHr7IOutWETu/C4KPghpq2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QwmMlYc2;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fyiEkrQ7;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 228F4606A329
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:09:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 228F4606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C2B3606A336
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:09:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C2B3606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QwmMlYc2
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-36dbde64409so3074822eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:09:03 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fyiEkrQ7
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3791619605cso4134109eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:09:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794672542; x=1795277342; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794672563; x=1795277363; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+LcEkWrq+TcQgEw8Wv5fzNU6IOsV4OoefE8SBVTJLlU=;
-        b=QwmMlYc2sVgMn8E9hE3ob5Yq+vDS4hjwciqsN9LQdZ9WykVUJsFGwE3j1sdZy4XbZw
-         d8LMNc2qt4zv239xZsBIwmtMfYXS0j3JnrIbcYj83uoM4ZmveKlU5k05lsO3AGqba8JG
-         Kt3bk4bChLNWbS8vMEnc3Qqyvb3NnEsmfgy1WW7Mj+WZc+c252XIYv8msld7bxuWgGzW
-         BoWBrO90SpkYvgqkGe2xZCpQZ6YJz6zUK5Zm+ZflPlCSEfTWCw2m9lF6R8Y2kjtIamI9
-         VSUbuMbNB2mxGZ5718mlUiv7Bn3zYPU7XC00/PE1qqzrbBQugRP3ntm9tTyaLjdoz8Zk
-         FvuQ==
+        bh=EfZAm8HK5M4blUNFdDl+epKKwi55wmzsTvrZgcxUZEg=;
+        b=fyiEkrQ7Mr3ulVKXsUkU7aXda0e8efD4fC35q2/ZvGd0LwHuIdbauFljjdLSpCj4Ad
+         IOgeuwjaHlMYbzDDUFJyrfz/7/dSuKNwWd0U+YxbvXTjUdg4OCb4ys9BEUlzHZuBg/iP
+         MQLKaZswKcuJ0Z13SOsSaRgTiHqO470hlZ9K7hO6x6yNgk6iVRXGWtz0v5zaiAAXe0dX
+         E4IpUtxm9SS6fRMBctHOKFSj5WTtYDm1nSMQ2sJoDWq0lvnPPi15o+uTHcV52cZBch96
+         s7xXAuJFtYfF+qyVMnoQfl/8PrEtX/EZSqwN0jHDelmBV//UcGkyLmPmU244LPhFmzim
+         FHIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794672542; x=1795277342;
+        d=1e100.net; s=20260707; t=1794672563; x=1795277363;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+LcEkWrq+TcQgEw8Wv5fzNU6IOsV4OoefE8SBVTJLlU=;
-        b=wBi3FagfWVoQg5gRU8g+U4DCvvQMXWIIxdQetadt21tGhu9AZe+A1V3K5ikTtOWt+C
-         gSwHPYFH+wGH2WrwxBMMtqBWgbgJsk1Aayi456RIZSVgTHhrW2AUPi6cuKlyS5+HBVgi
-         xdCsT8QfbyxbtEg99AiPo+O62CWyy/S5FejYltIKSSFNrPvFU9xmJqPffmie576Edu1b
-         FvTls4r/3QwXyaj5y/q/uyLtYQP0hdNpTu+uu8j2bxwlMHAL3ym7WJmGTNaU2224Skn+
-         wA+ySaxXqqk4H9UkdEHcNC0bcK/4PIf9yadvEYv25FmKge8zLqC+JJEH/c67ouOmMwh9
-         qjug==
-X-Forwarded-Encrypted: i=1; AL+hErF2ey1yd9oLij99oYgC+xfGSPPqxNEroEL9qo0wVs8ZHZcRZiHMzV6eoFK5/9h1mv/0Cu8Y23TksPVenSc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9iwY3yMpeguki8JWuVvqWls3P82r6G/+v7OVMnNWcklPn7KDTA
-	useGCeG/BbIF1IYpomiuk9JeWbJDBNXMk9MGMQMpzioMHgSOBkPicOQ=
-X-Gm-Gg: AYBFou2s4c5pNEOgSCKEtyoWN5+7kZai/8l7bEthllK/FojCmlX8/qJgi4z5tJ9ONdG
-	v63Nqr1Z79uukqSdFUMHIvpTrPoV70whTF+RaK2EhnyS69mizW2akBpUp8hxgeJ2lIrFYDHnF0A
-	GkCbHA72ae9Gqe1FgMtaQrkGmzLB/a2AUZCtX7nD2bQyoqyMae1sXZfSlJ3Y4YJYrlj7PADT/BH
-	DV3dGhXlH6bUp8FrsgcPuW/IP4DBKW1RtxLsIbA5KU5DdFMglPQC++2aXZyCI/GZVrO0o48G0xX
-	wq4XAAeGQvifsoiJdgE9SWqxqFEl1ytP1baMznar83lyFe4OsxlzRHOmBzeh2hzZaKmjqZohDsN
-	FLnxCQ9aWASedZvmyAHshEfn4nx8A0pnUYrOhevcFVLL0KNDylqOFZXVs94IK4azR7cSD8AixgU
-	jTiZOoVeeUW5OuzFBD8e9Fm5PjwhgxZmgpVakDsIIYL2gQtmbI40R/kBeYQ6dHOVW3/Bek96ib+
-	ZblHZp691mDtAepg5mMhN0STzpAMQgI4ro20dIL1fLOrOX7C0cmquhLYOcZhxE7ZU6TvCRIx3pT
-	EwuKkP+7c5Ir/lFE9sinJdUNhpj/LoA3XOkpCSty9xncIOHfDmSo5qIRZGnLsXv+Ng==
-X-Received: by 2002:a05:693c:4019:b0:35f:2858:aa4b with SMTP id 5a478bee46e88-379675fc9ebmr5136627eec.30.1794672542162;
-        Sat, 14 Nov 2026 08:09:02 -0800 (PST)
+        bh=EfZAm8HK5M4blUNFdDl+epKKwi55wmzsTvrZgcxUZEg=;
+        b=A23d+3KlM7BkfAKqq4KjHeuzdAnYR6HBCwl/0L2+UgXnoZJepY19LjHR82HJdL+8Q8
+         rcPcF6xJrb3hgaSFG6bzTAeW/N/u937HbYMe4nbak4HbcixkT48nVx6NwlgU7bmxASBK
+         Y30SAtKMJdDZQFoEvWLYNglyEAxf8P6k8L/19bdPtznwWRGwsN28r2Zg8ARrJza/J6xD
+         9XSYvuS3Z3Lxoo3RaSoCdjKibMjwBox7Gf9JuS07Pi+YMpVJ6VYdM2hAviJR+LNNGto/
+         eJmZLoFSkvbzadmxLErsf4Q4gc7OgaNGVwdutARuFzt8QB3YsLG/roCO0nPfyiD/IveR
+         8CdA==
+X-Forwarded-Encrypted: i=1; AL+hErEEzN9xaW7RR2DiNSTrBTiezMVsM/5QH+Zls4DEvuh5MjeUWHDgflmu70yRO4ElcsHE+5P/MVT4H2pkBNU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/esKGAsYCC5R5NspTcE6WmPmiSPLDmv8nx8grmDYTolWkeTPfq
+	Tuxki0gr3agE7eFOuOLGH1pbRlwd62EMDZTkVgPB2pZGOE9wCcq/pVA=
+X-Gm-Gg: AYBFou23ll8CmSmrnd0lokcnsp4sGZDgsM28yZfDk6N0pVTwBv3FmoV5RNdHrOACSPC
+	XdB+yQaRYKBUUdRVRmHnX1Gd4zuPrA4sBRtQgHONEr2nc7T/YaaR0DggoSBW0qNcmhegsxeoYxn
+	xqPvlRqTPQ1fiMKOqQxSs10ATMXdPPyYazGBrNB3/IvhJxy3sRiVkicAX8v1NNLussoDAh7NxX8
+	bllyb1yFFVntXkiP7e8Zp9Bv7DCnms8xfXE972Qydoj/NYg6REFdEiF/oOWT1F6n81lZUqf3gO1
+	lo03oT5wo6Ux/0q9AiJgmuUHZo+6FjchFuReydDV7/7nYtP/xwgGobN8fFeszEWrJ41zU8sVcX7
+	oXSV+TX3xQYnfWVVZ52glWUFwwB6Xd6tNaPNqN27NVgG02S4lcbPwBDTEukY4rmC+0EBfRr86Am
+	wm+SKY+qAGXe9hn31FyevJ17Aksd7OjFlHhsyotuyc9IzTvBqu+wCnrnoxk/TMCwHzYDNw/5pB5
+	YYh8Dt4BGeNrmoHEDZQ4iUy71wxz11cd9EL5iYlGE/6RSPI7suNNlNtK9WkQs3NotZj3rspoYHJ
+	75w0rl44JZxwVZA/AYQJam/Eae/yNhR7ZPaaL73PG5xkkz9iM4bIgO0nKmVZ5sV84w==
+X-Received: by 2002:a05:693c:4152:10b0:36a:4a68:84e5 with SMTP id 5a478bee46e88-379659c6839mr6027249eec.8.1794672562295;
+        Sat, 14 Nov 2026 08:09:22 -0800 (PST)
 Received: from at-Standard-PC-Q35-ICH9-2009 ([106.202.127.108])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37956bb0919sm17567582eec.29.2026.11.14.08.08.46
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37956bb0919sm17567582eec.29.2026.11.14.08.09.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 08:09:01 -0800 (PST)
+        Sat, 14 Nov 2026 08:09:21 -0800 (PST)
 From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
 To: 
-Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
+Cc: Andre Eikmeyer <dev@deq.rocks>,
 	Sebastian Zygadlo <szgit@icloud.com>,
 	Yossef Osman <yossef.osman@proton.me>,
-	Andre Eikmeyer <dev@deq.rocks>,
+	Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
 	Bjorn Helgaas <bhelgaas@google.com>,
 	Thomas Gleixner <tglx@kernel.org>,
 	Ingo Molnar <mingo@redhat.com>,
@@ -106,9 +106,9 @@ Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
 	amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
 	dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
 	platform-driver-x86@vger.kernel.org (open list:X86 PLATFORM DRIVERS)
-Subject: [PATCH v2 04/12] platform/apple-gmux: Fix Interrupts for MMIO systems
-Date: Sat, 14 Nov 2026 11:06:28 -0500
-Message-ID: <20261114160731.3756-5-atharvatiwarilinuxdev@gmail.com>
+Subject: [PATCH v2 05/12] platform/apple-gmux: Write switch state to EFI on MMIO devices
+Date: Sat, 14 Nov 2026 11:06:29 -0500
+Message-ID: <20261114160731.3756-6-atharvatiwarilinuxdev@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261114160731.3756-1-atharvatiwarilinuxdev@gmail.com>
 References: <20261114160731.3756-1-atharvatiwarilinuxdev@gmail.com>
@@ -123,235 +123,117 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-on MMIO systems, we need check to for failure in interrupts,
-and we have implimented display hotplug to wake up the gpu.
+From: Andre Eikmeyer <dev@deq.rocks>
+
+On T2 devices (MMIO), the T2 coprocessor reads gpu-active efi
+variable, and macOS seems to write it, so to properly communciate
+to the T2 coprocessor, we write gpu-active.
 
 Tested-by: Sebastian Zygadlo <szgit@icloud.com>
 Tested-by: Yossef Osman <yossef.osman@proton.me>
-Co-developed-by: Andre Eikmeyer <dev@deq.rocks>
-Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
+Co-developed: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
 Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
 ---
- drivers/platform/x86/apple-gmux.c | 101 ++++++++++++++++++++++++++----
- 1 file changed, 88 insertions(+), 13 deletions(-)
+ drivers/platform/x86/Kconfig      |  1 +
+ drivers/platform/x86/apple-gmux.c | 40 +++++++++++++++++++++++++++++++
+ 2 files changed, 41 insertions(+)
 
+diff --git a/drivers/platform/x86/Kconfig b/drivers/platform/x86/Kconfig
+index c37e76066..01895d511 100644
+--- a/drivers/platform/x86/Kconfig
++++ b/drivers/platform/x86/Kconfig
+@@ -217,6 +217,7 @@ config APPLE_GMUX
+ 	depends on ACPI && PCI
+ 	depends on PNP
+ 	depends on BACKLIGHT_CLASS_DEVICE
++	depends on EFI
+ 	help
+ 	  This driver provides support for the gmux device found on many
+ 	  Apple laptops, which controls the display mux for the hybrid
 diff --git a/drivers/platform/x86/apple-gmux.c b/drivers/platform/x86/apple-gmux.c
-index 9625551e5..37ba20779 100644
+index 37ba20779..c4a953b5b 100644
 --- a/drivers/platform/x86/apple-gmux.c
 +++ b/drivers/platform/x86/apple-gmux.c
-@@ -6,6 +6,8 @@
-  *  Copyright (C) 2010-2012 Andreas Heider <andreas@meetr.de>
-  *  Copyright (C) 2015 Lukas Wunner <lukas@wunner.de>
-  *  Copyright (C) 2023 Orlando Chamberlain <orlandoch.dev@gmail.com>
-+ *  Copyright (C) 2026 Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-+ *  Copyright (C) 2026 Andre Eikmeyer <dev@deq.rocks>
-  */
- 
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
-@@ -22,6 +24,8 @@
- #include <linux/pci.h>
- #include <linux/vga_switcheroo.h>
+@@ -26,6 +26,7 @@
  #include <linux/debugfs.h>
-+#include <linux/workqueue.h>
-+#include <linux/pm_runtime.h>
+ #include <linux/workqueue.h>
+ #include <linux/pm_runtime.h>
++#include <linux/efi.h>
  #include <acpi/video.h>
  #include <asm/io.h>
  
-@@ -65,6 +69,10 @@ struct apple_gmux_data {
+@@ -489,6 +490,32 @@ static void gmux_write_switch_state(struct apple_gmux_data *gmux_data)
+ 		gmux_write8(gmux_data, GMUX_PORT_SWITCH_EXTERNAL, 3);
+ }
  
- 	struct backlight_device *bdev;
- 
-+	/* interrupt handling data */
-+	u8 external_state;
-+	struct work_struct interrupt_work;
++#define APPLE_GPU_VARS_GUID EFI_GUID(0xfa4ce28d, 0xb62f, 0x4c99, \
++				     0x9c, 0xc3, 0x68, 0x15, 0x68, 0x6e, 0x30, 0xf9)
 +
- 	/* power handling data */
- 	struct pci_dev *discrete_pdev;
- 	enum apple_gmux_type type;
-@@ -103,6 +111,7 @@ struct apple_gmux_config {
- 
- #define GMUX_INTERRUPT_STATUS_ACTIVE	0
- #define GMUX_INTERRUPT_STATUS_DISPLAY	(1 << 0)
-+#define GMUX_INTERRUPT_STATUS_FAILED	(1 << 1)
- #define GMUX_INTERRUPT_STATUS_POWER	(1 << 2)
- #define GMUX_INTERRUPT_STATUS_HOTPLUG	(1 << 3)
- 
-@@ -412,8 +421,8 @@ static const struct backlight_ops gmux_bl_ops = {
-  * the discrete GPU can then be woken to drive the newly connected display.
-  * The ability to switch AUX on these generations could be used to improve
-  * reliability of hotplug detection by having the integrated GPU poll the
-- * ports while the discrete GPU is asleep, but currently we do not make use
-- * of this feature.
-+ * ports while the discrete GPU is asleep, but currently we only make use of
-+ * this feature on MMIO/T2 Macs.
-  *
-  * Our switching policy for the external port is that on those generations
-  * which are able to switch it fully, the port is switched together with the
-@@ -777,9 +786,10 @@ static const struct apple_gmux_config apple_gmux_mmio = {
-  * value is read and then inverted.
-  *
-  * Because Linux masquerades as Darwin, it ends up in the notification-only code
-- * path. On MMIO gmux's, this seems to lead to us being unable to clear interrupts,
-- * unless we call GMSP(0). Without this, there is a flood of status=0 interrupts
-- * that can't be cleared. This issue seems to be unique to MMIO gmux's.
-+ * path. On MMIO gmux's, The Polarity is initally left in a undefined state leading
-+ * to lots of interrupts, that we can't clear, to fix this we set the polarity to 0
-+ * everytime we enable interrupts, On MMIO gmux's, GMLV reads the same GPIO pin as
-+ * GMSP, and setting the polarity to 1, stops the Interrupts completely.
-  */
- 
- static inline void gmux_disable_interrupts(struct apple_gmux_data *gmux_data)
-@@ -788,8 +798,11 @@ static inline void gmux_disable_interrupts(struct apple_gmux_data *gmux_data)
- 		    GMUX_INTERRUPT_DISABLE);
- }
- 
--static inline void gmux_enable_interrupts(struct apple_gmux_data *gmux_data)
-+static inline void gmux_enable_interrupts(struct apple_gmux_data *gmux_data, bool do_gmsp)
- {
-+	if (gmux_data->type == APPLE_GMUX_TYPE_MMIO && do_gmsp)
-+		acpi_execute_simple_method(gmux_data->dhandle, "GMSP", 0);
++static efi_char16_t gmux_gpu_active_name[] = L"gpu-active";
 +
- 	gmux_write8(gmux_data, GMUX_PORT_INTERRUPT_ENABLE,
- 		    GMUX_INTERRUPT_ENABLE);
- }
-@@ -806,23 +819,78 @@ static void gmux_clear_interrupts(struct apple_gmux_data *gmux_data)
- 	/* to clear interrupts write back current status */
- 	status = gmux_interrupt_get_status(gmux_data);
- 	gmux_write8(gmux_data, GMUX_PORT_INTERRUPT_STATUS, status);
--	/* Prevent flood of status=0 interrupts */
--	if (gmux_data->config == &apple_gmux_mmio)
--		acpi_execute_simple_method(gmux_data->dhandle, "GMSP", 0);
- }
- 
-+static void gmux_notify_work(struct work_struct *work)
++static void gmux_write_switch_state_efi(struct apple_gmux_data *gmux_data)
 +{
-+	struct apple_gmux_data *gmux_data =
-+		container_of(work, struct apple_gmux_data, interrupt_work);
-+	u8 status;
-+	bool turn_on_gpu = false;
++	efi_guid_t guid = APPLE_GPU_VARS_GUID;
++	u32 active = gmux_data->switch_state_display == VGA_SWITCHEROO_IGD;
++	efi_status_t status;
 +
-+	status = gmux_interrupt_get_status(gmux_data);
-+	if (!status)
++	if (!efivar_is_available() ||
++			!efi_rt_services_supported(EFI_RT_SUPPORTED_SET_VARIABLE))
 +		return;
 +
-+	gmux_disable_interrupts(gmux_data);
-+	pr_debug("Notify handler called: status %d\n", status);
-+	acpi_execute_simple_method(gmux_data->dhandle, "GMSP", 0);
-+
-+	status = gmux_interrupt_get_status(gmux_data);
-+	while (status) {
-+		gmux_write8(gmux_data, GMUX_PORT_INTERRUPT_STATUS, status);
-+		if (status & GMUX_INTERRUPT_STATUS_FAILED) {
-+			pr_warn_ratelimited("interrupt failed: status: 0x%x\n", status);
-+			status = gmux_interrupt_get_status(gmux_data);
-+			continue;
-+		}
-+		if (status & GMUX_INTERRUPT_STATUS_POWER)
-+			complete(&gmux_data->powerchange_done);
-+
-+		if (status & GMUX_INTERRUPT_STATUS_HOTPLUG) {
-+			/*
-+			 * We get an interrupt every time a display connects or disconnects, but
-+			 * the GET_DISPLAY port only tells us if a display is connected or not,
-+			 * so we resume every time a display is connected or disconnected.
-+			 */
-+			u8 external_state = gmux_read8(gmux_data,
-+						GMUX_PORT_SWITCH_GET_DISPLAY);
-+			if (external_state != gmux_data->external_state) {
-+				gmux_data->external_state = external_state;
-+				if (external_state)
-+					pr_debug("A display has been connected\n");
-+				else
-+					pr_debug("All displays has been disconnected\n");
-+			}
-+			turn_on_gpu = true;
-+		}
-+		status = gmux_interrupt_get_status(gmux_data);
-+	}
-+
-+	gmux_enable_interrupts(gmux_data, 0);
-+
-+	if (turn_on_gpu && !gmux_data->external_switchable && gmux_data->discrete_pdev &&
-+			    pm_runtime_enabled(&gmux_data->discrete_pdev->dev))
-+		pm_request_resume(&gmux_data->discrete_pdev->dev);
-+
++	status = efivar_set_variable(gmux_gpu_active_name, &guid,
++				     EFI_VARIABLE_NON_VOLATILE |
++				     EFI_VARIABLE_BOOTSERVICE_ACCESS |
++				     EFI_VARIABLE_RUNTIME_ACCESS,
++				     sizeof(active), &active);
++	if (status != EFI_SUCCESS)
++		pr_warn("writing gpu-active failed: 0x%lx\n", status);
++	else
++		pr_debug("gpu-active: %u\n", active);
 +}
- static void gmux_notify_handler(acpi_handle device, u32 value, void *context)
++
+ static int gmux_switchto(enum vga_switcheroo_client_id id)
  {
- 	u8 status;
- 	struct pnp_dev *pnp = (struct pnp_dev *)context;
- 	struct apple_gmux_data *gmux_data = pnp_get_drvdata(pnp);
+ 	apple_gmux_data->switch_state_ddc = id;
+@@ -497,6 +524,8 @@ static int gmux_switchto(enum vga_switcheroo_client_id id)
+ 		apple_gmux_data->switch_state_external = id;
  
-+	if (gmux_data->type == APPLE_GMUX_TYPE_MMIO) {
-+		schedule_work(&gmux_data->interrupt_work);
-+		return;
-+	}
+ 	gmux_write_switch_state(apple_gmux_data);
++	if (apple_gmux_data->type == APPLE_GMUX_TYPE_MMIO)
++		gmux_write_switch_state_efi(apple_gmux_data);
+ 
+ 	return 0;
+ }
+@@ -1240,6 +1269,15 @@ static void gmux_remove(struct pnp_dev *pnp)
+ 	kfree(gmux_data);
+ }
+ 
++static void gmux_shutdown(struct pnp_dev *pnp)
++{
++	struct apple_gmux_data *gmux_data = pnp_get_drvdata(pnp);
 +
- 	status = gmux_interrupt_get_status(gmux_data);
- 	gmux_disable_interrupts(gmux_data);
- 	pr_debug("Notify handler called: status %d\n", status);
- 
- 	gmux_clear_interrupts(gmux_data);
--	gmux_enable_interrupts(gmux_data);
-+	gmux_enable_interrupts(gmux_data, 0);
- 
- 	if (status & GMUX_INTERRUPT_STATUS_POWER)
- 		complete(&gmux_data->powerchange_done);
-@@ -916,7 +984,7 @@ static int gmux_resume(struct device *dev)
- 	struct pnp_dev *pnp = to_pnp_dev(dev);
- 	struct apple_gmux_data *gmux_data = pnp_get_drvdata(pnp);
- 
--	gmux_enable_interrupts(gmux_data);
-+	gmux_enable_interrupts(gmux_data, 1);
- 	gmux_write_switch_state(gmux_data);
- 	if (gmux_data->power_state == VGA_SWITCHEROO_OFF)
- 		gmux_set_discrete_state(gmux_data, gmux_data->power_state);
-@@ -1072,6 +1140,8 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
- 			goto err_notify;
- 		}
- 
-+		if (type == APPLE_GMUX_TYPE_MMIO)
-+			INIT_WORK(&gmux_data->interrupt_work, gmux_notify_work);
- 		status = acpi_enable_gpe(NULL, gmux_data->gpe);
- 		if (ACPI_FAILURE(status)) {
- 			pr_err("Cannot enable gpe: %s\n",
-@@ -1094,7 +1164,7 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
- 
- 	apple_gmux_data = gmux_data;
- 	init_completion(&gmux_data->powerchange_done);
--	gmux_enable_interrupts(gmux_data);
-+	gmux_enable_interrupts(gmux_data, 1);
- 	gmux_read_switch_state(gmux_data);
- 
- 	/*
-@@ -1124,6 +1194,9 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
- 		acpi_remove_notify_handler(gmux_data->dhandle,
- 					   ACPI_DEVICE_NOTIFY,
- 					   &gmux_notify_handler);
++	gmux_write_switch_state_efi(gmux_data);
 +
-+	if (gmux_data->type == APPLE_GMUX_TYPE_MMIO)
-+		cancel_work_sync(&gmux_data->interrupt_work);
- err_notify:
- 	backlight_device_unregister(bdev);
- err_unmap:
-@@ -1145,7 +1218,6 @@ static void gmux_remove(struct pnp_dev *pnp)
- 
- 	gmux_fini_debugfs(gmux_data);
- 	vga_switcheroo_unregister_handler();
--	pci_dev_put(gmux_data->discrete_pdev);
- 	gmux_disable_interrupts(gmux_data);
- 	if (gmux_data->gpe >= 0) {
- 		acpi_disable_gpe(NULL, gmux_data->gpe);
-@@ -1154,6 +1226,9 @@ static void gmux_remove(struct pnp_dev *pnp)
- 					   &gmux_notify_handler);
- 	}
- 
-+	if (gmux_data->type == APPLE_GMUX_TYPE_MMIO)
-+		cancel_work_sync(&gmux_data->interrupt_work);
-+	pci_dev_put(gmux_data->discrete_pdev);
- 	backlight_device_unregister(gmux_data->bdev);
- 
- 	if (gmux_data->iomem_base) {
++	gmux_remove(pnp);
++}
++
+ static const struct pnp_device_id gmux_device_ids[] = {
+ 	{ .id = GMUX_ACPI_HID },
+ 	{ }
+@@ -1254,6 +1292,7 @@ static struct pnp_driver gmux_pnp_driver = {
+ 	.name		= "apple-gmux",
+ 	.probe		= gmux_probe,
+ 	.remove		= gmux_remove,
++	.shutdown	= gmux_shutdown,
+ 	.id_table	= gmux_device_ids,
+ 	.driver		= {
+ 			.pm = &gmux_dev_pm_ops,
+@@ -1265,3 +1304,4 @@ MODULE_AUTHOR("Seth Forshee <seth.forshee@canonical.com>");
+ MODULE_DESCRIPTION("Apple Gmux Driver");
+ MODULE_LICENSE("GPL");
+ MODULE_DEVICE_TABLE(pnp, gmux_device_ids);
++MODULE_IMPORT_NS("EFIVAR");
 -- 
 2.55.0
 
