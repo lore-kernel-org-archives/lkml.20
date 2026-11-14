@@ -1,78 +1,128 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794625504;
-	b=4R3QXxfiz93ZsjoWijlDZfo9RGZmR7eDbzGtTGA08q/QlldHnwOeafwxBlpekwVS+CGb
-	 QvzwhFyi9IoAsk6lQLPmBq0s85ieez9BUR5blOHTA2j+TUWuweEYdiviBwaxh01lf2tg5
-	 qealtef0rBPgSGnmZ4ynNVC+EeHneUxJsVyFxb4IVcNWbvhFxqzUobiuxHbnBN7ctmWyw
-	 t8WSjZVgqb0le6N6Z/le6Jsgc3hK6KfXoUr8eOnbgREx6wMk+ukJSIp6YMex4fudirF1f
-	 unCGDMEhk0vqPXyxjPvb3kbmQPcGd+vcpOgMS0wLnn0arDsIpzavSiIKpP0bt1ubufA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794625504;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Y9ifVyX+xXeCkYDWja+mpKNcQbBFNeS0/TBPyjUGODI=;
-	b=Gnt3Zfw5w1U8D2UMbhNAYOORdqXi1UnZ36Q2Tt8nxLNDAFztOnBLTPkquQV8RaORb06E
-	 a8MBjGFVh7n3FC2tN8sPESsvOktmviy3yV4EBlboEYP6xTiOa0ypMzu6Hys7/UWsNUZdq
-	 ILd3Sahuxvwus9mjIztRSFyxk/Z77nWE23MhXt8Z1Vh6jM0EwS+PHFqc4X9bp70/gWCrZ
-	 6ABfpuLcByqUntBku8Z6UBmKVwvPmv5VqDQEETfwNTfm2ijJ4DwtQOq2wazXqZLMdw4UX
-	 ugKbXb5yc7wseHDT3dUCE4TOQjl3UqqmVNsYmCTRyTx13WiGaEzG+BuvLhZSmllw0Mw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dsQQAJCE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E53A5606A323
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:05:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dsQQAJCE
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794625503;
-	b=J8f0tNzAoeqA6bt6bZMX1Kz4qr7TR3mD3vZsT9fgK/NeyXEDiItBaHBFKtGwGExr86H4
-	 bpEwWpbtYD4LaJM4UT3FO9TVdB8Pmb8a7DJ+D4BWzfkkaugmgbxpfZww7XkDebAySx7nN
-	 hg89iKFKd/CgXe8gml5Rbja+jIyHZGUZD899nvsjeAhuXBuo7KF1ZK/HZnlbe04RmiBmP
-	 y3YOsSak6es828cQ4zygZ8bzIsmp0dJ8R7KYt2CzAjZWq5NBoBLg11kO5jB04teBcpBGf
-	 E9jn51IJnj7tJIA2aTyiAJBiROp+mVuhIkWF0Wq4f5JDw8rXrVWVQvKaB5CMqGoxZPQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794625503;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Y9ifVyX+xXeCkYDWja+mpKNcQbBFNeS0/TBPyjUGODI=;
-	b=TUKR5SiQn1sKa65JwZxWxqyXL+3B367DuvES/8qvFuw0S26wh4Sa/hCYe+bG+NggafRL
-	 UnnxIl+/JwnPqu4aH7Axy+FatMRtcCNlaut6H8NVZKgp+sj0vqPA5h7XABJXFlF8lcxrG
-	 yp1PJoUy/s3KlrKFKWCl3oyW2vVWqkEMRoU05jVW6VfpFWgieFShGM8pndKLT9m9ryvI7
-	 WadSTFOU1fl5CplTMeqXkP9WyQ54cVvr6ZNYdOjUWpBeWhUmcGZShLg0DJDefBTh1owYK
-	 cF8sysVeeiDgL3MSFZPcll7c7bWgmBURLy67Wcm+cYdIMSlOzolCl2dc47qc/qGKBPQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.139
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794625511;
+	b=tis4s/TF8tXr6pPiS3auosbLT7KAR0DerNDjSMogNkygCP1iBWG8Yr6cSRb4WEdFm1HQ
+	 +J1V94eMQVqqLnpPk00eC8UYz4pkZ4DKEFbrKe1a1QElf4fpK0qBUn20+JVUmRnRubXNL
+	 EHsqdAwwgJIvW8reeg8Yz/Gc/Ko7JzCIR2cNeVYErSrhs+RCPFnozA5EqIxaFHZ1xkY+o
+	 aRdGEyjqk9WskEfL8EhgZPIqzRYCtVYC2BfCx98241ZO4Wr45WhbOUdFv6Ju/uaj6wvm1
+	 90wRB2TjYHmLF9FJrCf4r/sJ6k60VyyxRk3zDfEJdWhFXshXNmODu4AXDgK3rfGsj7A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794625511;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ho+Xd5M3MLddX0wCUHHcPTNzdHoU5y2P2QioqmPkh7Q=;
+	b=GitCDhj5b57mTsoYUjk6t2+Fdo8rdB+BKfW1zO04vIfU5ndKa/EAseGff3gAmAQ4G3Ko
+	 iPObGtAmYSA/BQz/QL5rzIkxjy2/xqMKFK3K+zOLPFsekp6wDvfHYDT5jGIvWeukQnZql
+	 vC3kal0rlDpztYU8Zu4F5VPFCwUh9e3I6/ETOWwR87OYGfW4pwxitEUXtSt7lyBsqmQlL
+	 ethlPp2SDp21JfnF6V02BMNs1CEG+ut308J/RfH3FERoqFiF2albuL5iapZ1jGETO0+2Q
+	 fckfUH6YulFCbrFEwmi+0w/+pkML2hpBGdxrb1KwWeKaYYxb5gsXTUuN/nWUdHfUGAA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gahingwoo.com;
+	spf=pass smtp.mailfrom=gahingwoo.com;
+	dkim=pass header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=chmphiGd;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=0hsfnHAH;
+	arc=none smtp.remote-ip=103.168.172.139
+Received: from flow-a4-smtp.messagingengine.com (flow-a4-smtp.messagingengine.com [103.168.172.139])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 02AB91F000C4;
-	Sat, 14 Nov 2026 03:05:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794625503;
-	bh=Y9ifVyX+xXeCkYDWja+mpKNcQbBFNeS0/TBPyjUGODI=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=dsQQAJCEDLc3dyY5fgIHpNPnz1Tis7BhbX43TNiWeonpHk1IrfnHn1PSaSfePq9Ng
-	 fO78kk+I4hkHgbciHkBZ+N5HOxtawJyoj/YBBj+IImou/30OB/oNfkfjTcrV72Rfgz
-	 qnxyMZJ6Te2jW7JrmBGLUpa6ZYjT8o3/qFGA3T58ANr/aQjhV+FN1DiPBudOpMMrTs
-	 Y+wB4acohP7OTmkFfh879F43o/bmhKg2CKkqwWB5j5vIegp84VlnpPVm/8TZCdzRQJ
-	 Wj8KKsEFZvdzzmoeSGODFyIjIa79wN1RxHS3DJgMmwd8cu4vLhiZXRmbe0MqM8dS54
-	 euGQC2G9/VEbw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8107B49C4B;
-	Sat, 14 Nov 2026 03:05:02 +0000 (UTC)
-From: Haipeng Lin via B4 Relay <devnull+jimmie.lin.gmail.com@kernel.org>
-Date: Fri, 13 Nov 2026 22:04:55 -0500
-Subject: [PATCH] drm/panel-edp: Add LG LP129WT332166 panel
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E7E4606A323
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:05:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E7E4606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=chmphiGd;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=0hsfnHAH
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailflow.phl.internal (Postfix) with ESMTP id 5AEE01381A1F
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:05:09 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Fri, 13 Nov 2026 22:05:09 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm1; t=1794625509; x=1794632709; bh=ho+Xd5M3ML
+	ddX0wCUHHcPTNzdHoU5y2P2QioqmPkh7Q=; b=chmphiGd2w/jmFcAHc3fc6rk+F
+	bwxAvDx9TKZA7IT5uwQtXpttn7z7DVJBMS0dhvfNaMP3KQO3XuJtnoKRps3lk8cO
+	LmttOWiTUTLl2tjLOGixxu3bUb1mY8lPaum6dV9tZLzIzv24jZKcLVQIVNFwRfA/
+	a6jGs4VT6w9v3swt3DEgaydnFe5WklBqd7Yasm+8MMB1/ShtLOpX2NKh3PPkgg4t
+	rNsu8W39rKCjrwW/m/69sNYqtJwV4a61nt3L+wLQhTJGhadxCPsXZTuipbameLie
+	4AGlBn+dvCJ47fE72NeU2FXFhcYiXEIkDGEVbaZmYKA0C09oOLBs5xyjtPBw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1794625509; x=1794632709; bh=ho+Xd5M3MLddX0wCUHHcPTNzdHoU5y2P2Qi
+	oqmPkh7Q=; b=0hsfnHAHcLXU1QlNCUZUerfsdF5P+76hk1rbWFigAbYH0EKhR6X
+	Y/bFbjcLXrvKFlLlgqhB6/J1QLRTj1I8O7a2GuyhOLoRuwTx8PZYtzcEdhTnWS1d
+	k67qxBJEeWrQLnPd58QDQfTqanfA38F7dqG0jrEYNrwLHZG2Uh7jpQhW9DYJ1ArP
+	/037unhI2Grxsr66JWruWwEcH11kbvRdCVSC3zHBE16Ekc+Ps9EEQdw1wIyUHJfD
+	Ig27fmKDSvDsh6YUjHzHlfwkvyNPyB8KzJrNLSeBbtMePcH7avGLRItyzrhWr9yR
+	N/8wtxxWwQIIYCW8uni09+kFu7OIURzyT0Q==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=gahingwoo.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794625509; d=gahingwoo.com;
+	mf=PGdhaGluZ0BnYWhpbmd3b28uY29tPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:PP2HHQPNAZ+iDPaze4rOPIdHtl0x+Y1owOCG6jeqI8ChkWx
+	TMQXck5O3OSd+zdJcssWRA3xLRtH7VJOflnVhCuU8nQ2RGbFZUs4E29F1itUxnIK
+	Ul0CW6zUKLu+zSGvkOtGxG9COcdRz6iMvnOKs9jdOVX9NMTlrLA2jLwU8ivleWVa
+	7WvMcwhFfCEFUaG9NTztp01f56bCIR+nPRFyrZUyy8SJPCeKw/Osl3IRQhG3UZTr
+	0zQArQ4y7Ezs/ZmYdWCWHl1d8NpNTG/NhcF4vJFlueyCioSPGj01h444oYjGZmp8
+	I1aed4i2XuoViN8fivo81La8K4+u2SKCqikFXPA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:zMNj118Rl8rR+gwXIlnuBWnpyerlZLoztdEwTTKxavA=:zP8NGW8sziDBFTn5S18gCH5sO+fygkTvKfZ9mQamyRI=;
+X-ME-Sender: <xms:5M_3avvqnYai2NEbloT90WOolawWpyHWQTDj58JwE9cboZjz00qDAg>
+    <xme:5M_3amDucS_sQyOT57Pdr-qkCmL3U5QT766-WQf2fSEzOaOo3eyzLtitrQO8lmqlW
+    2At9G99M212KVBWDZ9BGlNf9PxJn2RFJI4ndl-qJPc7_CJaXBlv_uU3>
+X-ME-Received: <xmr:5M_3asVGfqQWo9zr3jAMIppuaTX0gKrNWrAa4ojY7WcmufUhWRe0wfo4Oai7_6Y5qUW9Yd73>
+X-ME-Proxy-Cause: dmFkZTFwQh0ELJpE6112s8MyRWshLM3h/+unzmFMo3mwTz5nZkBeMQm0HKaSVwMr5DQl8i
+    cnVbEPsE00HX2qkiRUfUrcn3ir9I7B2BH3l1asXz4XB5Ihe8Yi7+6HrFGUUbGaDao+m4Om
+    Tota3AHf1W4XjVrWufU7/BBsqAvi6QvWP4UBYXR8PYArHIS3AC4VgAfu3vXuyMfQxlKUuu
+    ItVtx8Fb+ewAAONKPHvpvNnEs1QRBpp4uESng/ED1OHfyWKT+dQTir24TDL64AGWxvfdqv
+    woA8nt3G/MJPF0+bhvrZpDATkQXockdH2DB44KlDPvz4/0semGzD7o04zs2S5L5hfHC1t2
+    5nBGNkvpDR1fqtlYRBdFMhHGHz1lattA5aQ3bdSnaapZF+PsxJjXj/EfUTYlEHpGALLzt/
+    t2XOR1rRJRabAEyDA9EZ23HxMrW924dc9mDsaBGCmkRR3ONFVelAVaybSiw2/2HdtWQMgs
+    0arDPtmXZJ+FPGUzlHVqGNaVjK+IIVRBQvQqfRzTOX7UrmTafFMFsbJGzoUwxoDxAhg3re
+    RQ+tiZD+QFxdLCrB9iQRxm7cxZCN6yz6Cnprk7hfu7qn54+mGKWRTl3YVaoPOC3NLrOLQb
+    piEYr+t5ekaInd9k4GYsIYzaAHEMyPnAM6/sNJULkMrZRdCG079nSytl7kZQ
+X-ME-Proxy: <xmx:5M_3avFde3C6VhA1XP7NTz9qTjwqS7DxwNDfe4xkbsNMuJTHSYs1Sw>
+    <xmx:5M_3anOhFckzaHS55yU0nrQn6Rbtl5VkRd-Uyd0qM2-Tj73vDs8cxw>
+    <xmx:5M_3arVbrW4HEVG44FqTSnOWhaulIJfiH3wOQe8ACQO_QoSINhsYdg>
+    <xmx:5M_3auznDzH6TLevsWLbHT7DR96qWybOm1FywEpGJcW7WiPm9l1PLA>
+    <xmx:5c_3at3XiXCcCoS_mIvN9ggNR638ejcC9jscmMkPis_i9ZlnwUL5cLc4>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 13 Nov 2026 22:05:04 -0500 (EST)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: ulf.hansson@oss.qualcomm.com,
+	ulfh@kernel.org,
+	heiko@sntech.de
+Cc: finley.xiao@rock-chips.com,
+	shawn.lin@rock-chips.com,
+	sebastian.reichel@collabora.com,
+	vlwwwwww@gmail.com,
+	leonard@lausen.nl,
+	abel.vesa@oss.qualcomm.com,
+	tomeu@tomeuvizoso.net,
+	linux-pm@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v17 0/3] pmdomain: rockchip: RK3576 NPU domain supply and settle delay
+Date: Sat, 14 Nov 2026 16:04:58 +1300
+Message-ID: <cover.1794615323.git.gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,105 +132,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-sp11-panel-lgd0779-v1-1-1020a0f2f83d@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqAIBAAvyJ7bsE1UOor0aFyq4UwUYhA/HvSc
- QZmCmROwhlGVSDxI1nu0IA6Bdu5hINRfGMw2lgi6jFHIoxL4Auvw2vnBlybJzLWGT1AC2PiXd5
- /Os21fq1DhhpkAAAA
-X-Change-ID: 20261113-sp11-panel-lgd0779-b11311267209
-To: Douglas Anderson <dianders@chromium.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Haipeng Lin <jimmie.lin@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794625502; l=2909;
- i=jimmie.lin@gmail.com; s=20261011; h=from:subject:message-id;
- bh=k1zdeOuZKmI346GK/WJs+LsEMnIwuG5UcbSu0sYIEIA=;
- b=uCgZPWh+NTVyBWtti2DSCdUFQRqqylx3b7GtGWNo+59m0mVMHyIJCudgKJMzTuzWzHB4otRsj
- zXiTBeA0L87DT8r6TKXUgiCs8lhP82U84fPepy8lJ+ET2nYdc3dVOEJ
-X-Developer-Key: i=jimmie.lin@gmail.com; a=ed25519;
- pk=3KDRF1RQ/9A7ZUVTdRVEZnVrGltdmq1bRocsOYeXezI=
-X-Endpoint-Received: by B4 Relay for jimmie.lin@gmail.com/20261011 with
- auth_id=1164
-X-Original-From: Haipeng Lin <jimmie.lin@gmail.com>
-Reply-To: jimmie.lin@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Haipeng Lin <jimmie.lin@gmail.com>
+This series fixes how the Rockchip power-domain driver initializes
+domains that need a regulator, adds proper regulator handling for the
+RK3576 NPU power domain, and adds a settle wait after power-on for some
+RK3576 power domains.
 
-Add an entry for the eDP LG LP129WT332166 panel used in the Microsoft
-Surface Pro 11 (LCD variant).
+These are the pmdomain patches of the RK3576 NPU series, split out and
+rebased on Ulf's next, as Ulf asked after dropping v15 7, 9 and 10:
+https://lore.kernel.org/all/CAPx+jO-KKvgRS0br-3QGh6Jt4efWJ+A6YoRZKFV_bcfB+8sm6w@mail.gmail.com/
 
-No datasheet available. Delays were not derived from ACPI or firmware
-tables. delay_200_500_e200_d200 was copied from the entry for the
-closely related LG LP129WT232166 (LGD 0x06b2, Surface Pro 9 5G) which
-most LGD entries also use.
+The accel/rocket and DT patches follow as their own v17:
+https://lore.kernel.org/all/cover.1794615324.git.gahing@gahingwoo.com/
 
-Tested on Surface Pro 11 with ftrace (function_graph on
-msm_dp_wait_hpd_asserted and gpio events for panel power).
-Tested 22 cycles DPMS off/on, suspend/resume successfully with no prep-
-are retries. HPD asserts 179-182 ms after panel power-on within the
-200 ms hpd_absent.
+Based on: Ulf's next (844a13010b0b)
 
-Cross-checked that the Windows display driver qcdxkmext8380_DENidp.bin
-waits 500 ms after power-off, which agrees with the 500 ms unprepare
-delay.
+Changes in v17:
 
-edid-decode (hex):
+- Reorganized the series as Ulf asked, and split the fix for regulator
+  domain initialization from the RK3576 NPU regulator handling.
+- Following Finley Xiao's (Rockchip) review of v16, the RK3576 delay is
+  now 15 us on NPUTOP and VOP only.
+- Fixed the subdomains of a regulator domain being left in the wrong
+  state at probe, reported by Vladimir Bely (1/3).
+- The RK3576 NPU power domain uses DOMAIN_RK3576_R, the same macro
+  Leonard Lausen's GPU patch added (2/3).
 
-00 ff ff ff ff ff ff 00 30 e4 79 07 a1 21 00 12
-00 21 01 04 b5 1b 12 78 03 f0 70 aa 50 4e a8 26
-0e 4f 53 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 fd 00 18 78 f0
-f0 48 01 0a 20 20 20 20 20 20 00 00 00 fe 00 4c
-47 44 5f 44 56 31 2e 30 5f 0a 20 20 00 00 00 fe
-00 4c 50 31 32 39 57 54 33 33 32 31 36 36 01 48
+Testing:
 
-70 20 79 02 00 20 00 19 3c e6 24 79 07 a1 21 00
-12 00 17 0d 4c 50 31 32 39 57 54 33 33 32 31 36
-36 21 00 1d b4 0a 26 07 40 0b 80 07 00 ac aa 50
-e1 f4 a7 62 e2 0e f2 f4 52 b0 60 b0 60 99 35 13
-78 26 00 09 06 00 00 00 00 00 40 00 00 22 00 28
-c0 e9 0a 84 3f 0b 63 00 07 80 1f 00 7f 07 4f 00
-41 00 07 00 c0 e9 0a 04 3f 0b 63 00 07 80 1f 00
-7f 07 1f 08 41 00 07 00 00 00 00 00 00 00 d1 90
+Tested on a Radxa ROCK 4D, with these patches and the rest of v17
+backported to Armbian's 7.3 kernel:
 
-Assisted-by: LLM
-Signed-off-by: Haipeng Lin <jimmie.lin@gmail.com>
----
-This adds LGD 0x0779 panel based on similar entries for the SP9 LCD
-panel (the datasheet is unavailable) and live testing based on a
-v7.2.11 downstream kernel for the Surface Pro 11 with this patch.
+- With the NPU disabled in the DT, NPUTOP, NPU0 and NPU1 are switched
+  off and idled at probe on every boot (16 boots). Without 1/3, all 14
+  boots left them on, and one of them hung.
+- With the NPU enabled, 30 NPU power-ups after a warm reboot and 30
+  after a cold power-on, with identical output and no SError.
 
-Thanks,
----
- drivers/gpu/drm/panel/panel-edp.c | 1 +
- 1 file changed, 1 insertion(+)
+Logs: https://github.com/gahingwoo/linux-rk3576-npu/tree/main/board-logs
 
-diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
-index 3e0bdae8e272..6b9cc771e88e 100644
---- a/drivers/gpu/drm/panel/panel-edp.c
-+++ b/drivers/gpu/drm/panel/panel-edp.c
-@@ -2200,6 +2200,7 @@ static const struct edp_panel_entry edp_panels[] = {
- 	EDP_PANEL_ENTRY('L', 'G', 'D', 0x05f1, &delay_200_500_e200_d200, "Unknown"),
- 	EDP_PANEL_ENTRY('L', 'G', 'D', 0x06b2, &delay_200_500_e200_d200, "LP129WT232166"),
- 	EDP_PANEL_ENTRY('L', 'G', 'D', 0x0778, &delay_200_500_e200_d200, "134WT1"),
-+	EDP_PANEL_ENTRY('L', 'G', 'D', 0x0779, &delay_200_500_e200_d200, "LP129WT332166"),
- 	EDP_PANEL_ENTRY('L', 'G', 'D', 0x07fe, &delay_200_500_e200_d200, "LP116WHA-SPB1"),
- 
- 	EDP_PANEL_ENTRY('S', 'H', 'P', 0x1511, &delay_200_500_e50, "LQ140M1JW48"),
+Tag changes:
 
----
-base-commit: fc72cd52fb284f3707fa36a68ea5a22543a51d71
-change-id: 20261113-sp11-panel-lgd0779-b11311267209
+- 3/3 changes the delay values of the v16 patch and is organized
+  differently, so I've dropped Abel's and Heiko's Reviewed-by. Abel,
+  Heiko, could you take another look?
 
-Best regards,
+Jiaxing Hu (3):
+  pmdomain: rockchip: switch off the subdomains of a regulator domain at
+    probe
+  pmdomain: rockchip: manage the RK3576 NPU domain supply
+  pmdomain: rockchip: settle RK3576 NPUTOP and VOP after power-on
+
+ drivers/pmdomain/rockchip/pm-domains.c | 115 ++++++++++++++++++++++++---------
+ 1 file changed, 85 insertions(+), 30 deletions(-)
+
+
+base-commit: 844a13010b0b93f8561ef2c088f843647d5e552d
 -- 
-Haipeng Lin <jimmie.lin@gmail.com>
-
+2.43.0
 
