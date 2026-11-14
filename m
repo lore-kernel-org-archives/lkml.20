@@ -1,63 +1,146 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794625536;
-	b=Mv4WcaEB3/qZJnJVSE4k4ElRLkHDF81OVZV8zBlTxeIbtwYR/fTyjYM2e6Whdl2U99v1
-	 WO/Hh5zOe/OQKJF97k5PolNCeTCw9xCltWu3gXo/11jnYQC9ihHZfNr09Vz5+gOwy/enP
-	 Fb9tAfqIORUcCL5EAq9/0qQ8EYFv/oyG/WM6seo4+PyNI+KtvJnqiqEgsu9S/mszQ7wcq
-	 cULyQaEHwNKhlTQ8mfDvETPM0KleFq4nLikrEFSnc2/ek1Eu+jkuB0oKlGupxxYWDfh2x
-	 DJzVntd8moQZFX0u+a/cGf1BsEdBVCw0+IFLKKslD96eS3xGRXex20n9hcENxcL2FmQ==
+	t=1794625542;
+	b=TrazzO1rIPXtXbXBfpEzWtqi0A6e/yXMByqafLf7aT2rAX9mw9Aw9QORQYrhErp2gfyc
+	 E4JwZ1LcOf49HNYZa5bTwtYnYZGH+FgA1gG6YIJskVCztDDyuQJkFisgCntQS9Hwur/cA
+	 VNqZmPN9+G/FJOqSfibFhiLFoLe6YEH8/riWOfq0E1VvGthdQRjmLSaW2aj+uT7JX6uqy
+	 gkR1GX1XAeyZ9LEY91b4dWyA8MgDmQqXqeqZNfDbq5obOsTQhEMA/T/WjM7PdEI3nYb+5
+	 QkgcsjICg7b4kjEocJCH6G07eROfGPtbF6MIBfYwNtV+a/FsCCbuhyVcCV5NDXVPHAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794625536;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794625542;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=1JkuRp3TNB1JHkU7DQf1wJVxEmAivZrbavKu8XaqjsQ=;
-	b=rqxLvww89b5AOJ0s9QmbVHtkuvaHrt+0z7ML7oVv+pnPxtqy+O+UK72QofdMRjNwjzmf
-	 2Qa2QbP1W4OwhvWc41txLNzaZW7ordXh/A26zGt99gOK4i4l0pUm9YaXkGE3U5u1SLf3k
-	 33c3oaH8DINxSR0hOEeNd0W1b2Ku1nAXP2PUB4+7LlU9KZVgeDqafX70Vr+ZZMFEIMF6U
-	 l+sCgLhaYEPHTWIDumBdvlcTUE1P3A73nYgbTwFRTgEuVwGI74ycL+qVQM+aLIcrdi0ox
-	 g1XqY85HD9GYBDmRXucaciAFfNpz+JqUbaNktdtny03Z8tW90vAYnt4Smi67iaySZyA==
+	bh=UAxf1tA4Cr+7QlSDXCBd5HF4p7OMrXfL6oGEmLb4cQA=;
+	b=QvPd5thWgeqzcy7dUoVekk/L2zFyND8eGx6uT0x96W3AG4PT4mjT3BiltGUeitFzPzvb
+	 5VgJ3ouLxNPdamz2/CqZzV8OAePp+M4Zh0J9nxdw/I/fyw/28eTM53DsCZYAlQ50hOtjL
+	 SG+kuSb4RvRfNNqhmFL8I17JysdulZGuWCVeaQjUtiOUK/vwvytM5Wf60TI5hsrlqa2OE
+	 +m7Qtb6/Q9QuFfYDbVYQP0uqOu+BGp4liEkinbnQ2Ze8hFDEqTpKhPJUYrce+xmypvPlA
+	 RAZT1hnEfS3WUE28HsSWb1YNYxNOPA6QGrdS33NNDHPbKUHwulGj0GnDZCNgKBGsFVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rbco+J7i;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=gahingwoo.com;
+	spf=pass smtp.mailfrom=gahingwoo.com;
+	dkim=pass header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=SLmf0B96;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=20ooXzuP;
+	arc=none smtp.remote-ip=103.168.172.139
+Received: from flow-a4-smtp.messagingengine.com (flow-a4-smtp.messagingengine.com [103.168.172.139])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D80DC606A323;
-	Sat, 14 Nov 2026 03:05:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4784606A880
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:05:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4784606A880
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rbco+J7i
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 127E01F000C4;
-	Sat, 14 Nov 2026 03:05:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794625536;
-	bh=1JkuRp3TNB1JHkU7DQf1wJVxEmAivZrbavKu8XaqjsQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Rbco+J7iAydez4dOA0yWH/aFRHm2IHdYBV//QJDafvGG6iIyO2uKNMvWGRmh2+k0A
-	 ol7EJ4D/4z7XxY2JKy5zOS95XAns8NF4Fr8SvAKJBlxdqQ2lxMj3TZVsr9MorfU2fh
-	 FRtJtcUhIIt2TI5oaPc6kh+yiGkKIBAurqJUFQLNHSGOJTXH3rHRQ6lcIQnuhU+Phl
-	 K15ZNJLcA+fVdGDnFGFcGRlXZ68ijn+mqN4nro+6l0yVqk9kfds2YfpjNr5u7G0o7k
-	 oBIvgr85P9ZocZOWVlsKYW4wlxEeFLbhxkAPXFUCVI+yMQkUwBhiEZzviQRVtHNv8h
-	 ufCqfU9qhsNJg==
-Date: Fri, 13 Nov 2026 19:05:35 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: Birger Koblitz <mail@birger-koblitz.de>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Paolo Abeni <pabeni@redhat.com>, Russell King
- <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit
- <hkallweit1@gmail.com>, Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui
- <kernel@xen0n.name>, Eric Dumazet <edumazet@kernel.org>,
- linux-usb@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, loongarch@lists.linux.dev, Jianhui Xu
- <neuromoments@gmail.com>, Emir Beganovic <beganovic.emir@gmail.com>,
- Nicolai Buchwitz <nb@tipi-net.de>
-Subject: Re: [PATCH net-next v20 11/13] ax88179_178a: Update driver name and
- information
-Message-ID: <20261113190535.0e74cbb7@kernel.org>
-In-Reply-To: <20261106-ax88179a-v20-11-37b5a1189983@birger-koblitz.de>
-References: <20261106-ax88179a-v20-0-37b5a1189983@birger-koblitz.de>
-	<20261106-ax88179a-v20-11-37b5a1189983@birger-koblitz.de>
+	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=SLmf0B96;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=20ooXzuP
+Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
+	by mailflow.phl.internal (Postfix) with ESMTP id DC2E31381A4D
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:05:40 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-12.internal (MEProxy); Fri, 13 Nov 2026 22:05:40 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm1; t=1794625540; x=1794632740; bh=UAxf1tA4Cr
+	+7QlSDXCBd5HF4p7OMrXfL6oGEmLb4cQA=; b=SLmf0B96lGh0WKTDAucPkMFgEN
+	Iq8h41jGljy4nBTL+FdQu0pDp/S9yXiE/lZVxmBMPPNrhZv8Cdxt7+nRwE+bg81R
+	Vvi/4wjUBn+0L9oiMi3ley0y94fswPkXteiR74fxutN3NQCE1ZODqZTKEn2YXJg4
+	a3IGa1zvp7qTXCbzXbd+AdZOqQgEsUCkKT6SbIMlXEF78wz8Q1aMHDQg7nbMOPhP
+	7KYBbmcSMaTMzQDJbg+prwXsifYaK5ibE5bGj1dl7bdSW/1e1cVrL2NK0ggi/E25
+	BpPHiN+NYZFKRB+A5BZ8pYCi2aDZYIuZn+CpQfKLSUux76gmTwE6UHdkfuew==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1794625540; x=1794632740; bh=UAxf1tA4Cr+7QlSDXCBd5HF4p7OMrXfL6oG
+	EmLb4cQA=; b=20ooXzuP5gZ71GZkBepmSqaoytsS2AYyGiBJQIcPHTKQDg28C/0
+	RLxMd7iVCoc6ucoidvzcn5gTwZoqgFwV36kpSVCYSsu/YCzQLqYCH5LEr/vBqab5
+	6Ny2hxzUhZ3nsksyftzSyqR79byQS7PI0YtVFnKQbAZPDuLa/ja9vt6W36w9+56s
+	qMbeOCL7IhWQDJ2TF2ZEqqS+7tfYKrx77eZCU3Sn2S74Iil4cQayrsWfwvC6SxIj
+	qhlyf5qbA0YfDBPGFo6Kms1g53kr9rNeWZ4yiIRPcwNuMlasALi5UFTFO5kUDRWD
+	6Vw1NJ/KcVQJtQ7jIRMzmqie4o539FrMuEQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=gahingwoo.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794625540; d=gahingwoo.com;
+	mf=PGdhaGluZ0BnYWhpbmd3b28uY29tPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:ASBKlvNjU2B1Ij9AcWynsDj5fjFvELsDclxgJqRyrBTMNLA
+	XtvVCjCExpaImswB4lklrZCtljPR0e3ZJ1BaHu6+vRBE/3ZhtL+wIve0C8OaqEFi
+	NV0Qy94wYEZWLM9XRVHbra1ClIXv3wtlWJR+cJJXOp8FtOPfCZ2IX2uxDLa7TCCH
+	THdd/qXqgyVJw1eL22HJPeOJBHd8yRmzaJ09IBgyAzO8ByZ5Rdz0KAxVE7hDyV2E
+	FnN3GwVD4HipUoSh7MYhZsDDaba6lNUQeYAayvtXybJAFJR46VBeu3viLWrjNZAP
+	3MjAcFgIeCU2DEk9iXby+Q51OddYw7VZgj9UlvQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:SDtmj8snwKhq8a3m/AlQ2VN8lyhDTfavIW9m3/Hv9uQ=:Dxp8t0XS9CDQsuZULCGW4bCR/gfLgWevAxnrBCEXvoI=;
+X-ME-Sender: <xms:A9D3angTc-jJQKx0ThFjBcTKyPvThemEnut9P74Wtw8oPCEbnZ_i2w>
+    <xme:A9D3agebrEJfkntbm-8goOK0-XsiRYoNCujfEhjbpjdM46Ec1X4_VQp1nr5W5ThBb
+    iPSvQy0cmnjfyUrd_jl_x3WKuzkSpPYNUSOGoftZ4QuXVmlHYc4p0s>
+X-ME-Received: <xmr:A9D3auWWGH7B96NWRO8yJ7BP67qoYSODrwmYZ2-7EYDqW5XxwCwp2GvwUszfNxwfBL0UooGS>
+X-ME-Proxy-Cause: dmFkZTEGsJpuk8b1nRIC2ZrNHABVA/y8lolim0B8NUFBfTO9HHBwOHtfr1x7E/bYF5Rt+N
+    +fjHwgF+/FNTCnlkrazUp18/rPOl/rB3MJ9LPbCMpWMDKR7xfhSwxoxPOfrVjehsZ7rThv
+    ObWwQdnjukeezJvsx5kDz3ycsHw9/RLsGLfuLEJD3Ydv7ya52aK6hdyT4N02jwdG3OB97/
+    uAkfIG1lPXQjQwUOSldTArF9y9eMLQtbvdy8MTZ+DPxll8mMqe7lwyYcoBWgL6tVFYilbk
+    MAUBYBkVsYjIUgH+DbbB8DukvKdVszTQM/MLV5Ry5ydTWvI5NAVGO8aCgn9iOHfgKVaAAm
+    up1kE8+dA0pOwmdQtr63+CYXBeGBtrTBqHX9W6buBbK/luOWcT5tcmsOBVSzIHy7AT0XIS
+    i1sZds4JFUx3zpbTCo5EdT8xqZ2oHuOdkmU2i8Up3xBOSTY3/POVhaxUfrF4KoC6Bs1mQp
+    H+cq7dq/GHrUDAFxAhITR8mcFkDaXX1dftqHTA2oFN199H8xk5w/iR25U7SUnRT5oE7tUm
+    pcynaSRKV1eOXdanBhPZF2mxX5XOeRgarTBfiAVIcBBTx2tZ8mQiLj5rAXFTT1mmKvw5iq
+    8HNLrq5o4H7zFP6FqTUCvrgwTZ+dsaGxBqnTJxCa4NrbCTA9tfIZKfrzSvOg
+X-ME-Proxy: <xmx:A9D3aqwZezan7IGAqtDx_WjYTbAkStq5wbiY39PeB8RObbHTrXRiNg>
+    <xmx:A9D3alDb7fE8RwLpRRJtmCEAn5ewxmdvh-Xvu7VKAd_VIEumDIrAAg>
+    <xmx:A9D3ag44kJmGA00JLhsf7K57Pk5D8wOY7VSwTMxvP8pnZ2RWIuvZIg>
+    <xmx:A9D3aslmjpoQ6q5gljMj7oMNu3ZuU5jyze5kWObhF71nHilj1z5oBQ>
+    <xmx:BND3aknGvxDzWrnVpXrprETPSNYjPF7oTQIq3S91xg89qomcRWza7CD9>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 13 Nov 2026 22:05:31 -0500 (EST)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: tomeu@tomeuvizoso.net,
+	heiko@sntech.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	p.zabel@pengutronix.de,
+	ogabbay@kernel.org,
+	zhangqing@rock-chips.com
+Cc: royalnet026@gmail.com,
+	ulf.hansson@oss.qualcomm.com,
+	abel.vesa@oss.qualcomm.com,
+	sebastian.reichel@collabora.com,
+	sidong.yang@furiosa.ai,
+	u.kleine-koenig@baylibre.com,
+	chaoyi.chen@rock-chips.com,
+	shawn.lin@rock-chips.com,
+	finley.xiao@rock-chips.com,
+	diederik@cknow-tech.com,
+	alchark@flipper.net,
+	leonard@lausen.nl,
+	vlwwwwww@gmail.com,
+	jeff.hugo@oss.qualcomm.com,
+	rfoss@kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	iommu@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v17 00/12] accel/rocket: RK3576 NPU (RKNN) enablement
+Date: Sat, 14 Nov 2026 16:05:17 +1300
+Message-ID: <cover.1794615324.git.gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,25 +150,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Fri, 06 Nov 2026 08:21:26 +0100 Birger Koblitz wrote:
-> -config USB_NET_AX88179_178A
-> -	tristate "ASIX AX88179/178A USB 3.0/2.0 to Gigabit Ethernet"
-> +config USB_NET_AX88179
-> +	tristate "ASIX AX88179/179A/178A USB 2.0/3.0 to 100M/1G/2.5GbE Adapters"
->  	depends on USB_USBNET
-> -	select CRC32
->  	select PHYLINK
-> +	select AX88796B_PHY
-> +	select CRC32
->  	default y
+This series adds RK3576 NPU (RKNN) support to the mainline DRM rocket
+driver.
 
-The rename of the symbol causes the question to pop back up and it will
-likely annoy Linus. There's no reason for this to 'default y', let's
-stay on the safe side and drop the 'default y'
+Based on: next-20261113
 
-You need to rebase the series, too. Someone mass-renamed a bunch of
-kmallocs to kmalloc_objs upstream, let's make sure we use the _obj
-form in the new places too.
+The pmdomain part of v16 9/16 is now a separate series on Ulf's next
+(v16 10/16 is dropped). 12/12 needs its 2/3 to make the NPU domain take
+its supply:
+https://lore.kernel.org/all/cover.1794615323.git.gahing@gahingwoo.com/
+
+Changes in v17:
+
+- Dropped v16 7/16, 10/16 and 14/16 (the power-domain reset and the
+  extra domain clocks), following Finley Xiao's (Rockchip) review.
+- Following Heiko, the clock indices are now ROCKET_CLK_* constants
+  (1/12 and 9/12).
+- The pmdomain changes are now a separate series, linked above.
+
+Testing:
+
+Tested on a Radxa ROCK 4D running Armbian edge 7.3, with the v17
+changes backported (this series and the pmdomain series):
+
+- charsiu (https://github.com/gahingwoo/charsiu), an open source LLM
+  runtime that drives the NPU through the rocket UAPI (/dev/accel)
+  without Mesa or the vendor runtime, ran Qwen3-0.6B (Q4_0) 30 times
+  after a warm reboot and 30 times after a cold power-on. Each run starts
+  with the NPU power domain off. All 60 outputs are identical, with no
+  job timeout, IOMMU error or SError.
+- Job timeouts forced with a 1 ms timeout, three times in one boot:
+  after each, the next run gives the same output as before, with no
+  error.
+
+The v15/v16 comparison of the reset order is in 4/12.
+
+Logs: https://github.com/gahingwoo/linux-rk3576-npu/tree/main/board-logs
+
+Known issue: in v16 I saw the IOMMU not recover after repeated resets
+with a 2 ms job timeout ("MMU_DTE_ADDR is not functioning"). With v17,
+after three rounds of forced timeouts in one boot, it recovered each
+time; I have not looked into what changed.
+
+Tool use:
+
+An LLM helped me read code and technical material and write part of the
+implementation. Some of the code in the series was first drafted by an
+LLM, and the commit messages and cover letters of earlier versions were
+mostly written by an LLM.
+
+I reviewed the generated code and tested the changes on real hardware.
+I also used an LLM to write test scripts and to compare register write
+traces.
+
+For v17 I wrote the cover letter, commit messages and code comments
+myself in Chinese first and translated them into English with an LLM.
+
+Tag changes:
+
+- 1/12 changed in v17. Heiko, does your Reviewed-by still apply? If the
+  change goes beyond what you reviewed, please take another look.
+- 7/12 keeps Conor's Acked-by. The clock count changed from five to four
+  in v16; Conor, please confirm it still applies.
+- Tomeu, the GET_PARAM enum in 10/12 is unchanged (RK3588 = 1,
+  RK3576 = 2). Is that fine?
+
+Igor Paunovic (1):
+  accel/rocket: request the core clocks by name
+
+Jiaxing Hu (11):
+  accel/rocket: take the completion register writes under job_lock
+  accel/rocket: wait for a running IRQ handler before resetting a core
+  accel/rocket: let the core suspend after a reset
+  accel/rocket: factor the completion tail out of the IRQ handler
+  dt-bindings: npu: rockchip: add rockchip,rk3576-rknn-core
+  dt-bindings: iommu: rockchip: describe the RK3576 NPU MMU
+  accel/rocket: select the per-core clock and reset counts from match
+    data
+  accel/rocket: add RK3576 NPU (RKNN) support
+  accel/rocket: add a GET_PARAM ioctl for the hardware version
+  arm64: dts: rockchip: add NPU (RKNN) nodes to rk3576
+  arm64: dts: rockchip: enable the NPU on rk3576-rock-4d
+
+ .../bindings/iommu/rockchip,iommu.yaml        | 26 ++++++
+ .../npu/rockchip,rk3588-rknn-core.yaml        | 40 ++++++++-
+ .../boot/dts/rockchip/rk3576-rock-4d.dts      | 22 +++++
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi      | 70 +++++++++++++++-
+ drivers/accel/rocket/rocket_core.c            | 14 +++-
+ drivers/accel/rocket/rocket_core.h            | 20 ++++-
+ drivers/accel/rocket/rocket_device.c          |  3 +-
+ drivers/accel/rocket/rocket_drv.c             | 61 ++++++++++++--
+ drivers/accel/rocket/rocket_drv.h             |  2 +
+ drivers/accel/rocket/rocket_job.c             | 84 ++++++++++++++-----
+ include/uapi/drm/rocket_accel.h               | 40 +++++++++
+ 11 files changed, 345 insertions(+), 37 deletions(-)
+
+
+base-commit: 84abb955b1015477aa11a96e2f3ac1b938b77f48
+-- 
+2.43.0
+
