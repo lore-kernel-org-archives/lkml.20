@@ -1,87 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794665480;
-	b=OKeAarUuZEHvwF0HOo30B3kSPHdGwksKIZDDAh1w0LRTdWxSJeUOqS8E5Gadh1sDduzo
-	 3bYZD1M9KXf6wTlmiSHgTznSREdsbFKkhDHxjn1qDf8xgUou1wIiYCFGZS8DvMstPWTal
-	 dXYju7Zen9OnJkxA49k4Jkfw27QizloZgsN782TQlDEriO8Qyf/3vrffNekCLGBTrRUO3
-	 sEPqQHAQeNKfXo195Xwh7ReWAMy0hikHNrSqShSZ1WdOsXE2+6VBKhe3y5VkZijBGFGYF
-	 YIqgXyTUXZdcY09Iz/3cz+NxqeyKS+aR43alihyg7xo4Zreo9ZtkCkb7gjPVo9WVtKA==
+	t=1794665491;
+	b=MUdFvVmlGlmkQbUdRQIvVE1Kjo9odPSr+3wfxSzB/iKQ+VAYSqHc7vhPwO4n6M6LQsVR
+	 ub4E969FjgEQv98tP0VM+FNKAC4km+ogHLqSynZ+oVPxOMngecxp1c47uhmM8xxYtx4O/
+	 OJ+IYWudkcTFaO1KQZA9pQiHv9SfgGlsSmGc/F065rQssSr1IFhEqn1M9f4dMU0I+WLGE
+	 ZaWXADHey2j8tH6DJpFMn2dIjeYDLRSStzOO2lpI9elxH06LBvrwboFMO/ppg04mxu2HN
+	 zF4WSEg5o5rik74RnqAyRTF9dvOsl4yvZzdoFGsrr2UxZyecIzhzMyiwbNps9V9EUxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794665480;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
-	 Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=X1aNKxDcC9Su/sKRcb+fwZwTfaJYdtOu8vWxOSG4H9Q=;
-	b=TuwoYBqAC1/an7RAYQW0k9QkvLBvc1eNMAYU2CneV1xwq0hg3xpJ/Y+xoT8ZEX+1WfY+
-	 b0Zc901KF7f/cy9x8v2/DVKldcXiI2mLTGPgEOeNhWzDsgLE1o41PTUMDIesgKzF/tbyA
-	 H7Tl7RUiq2a8RKvyFP1DWuIS/3ytAp+3OTSPn7AV/pQiWmq4VwkQYJha4oCl1HXjdYTsQ
-	 0WhnkUbDRkYPny6Oj/hcqAUTqKHNHmp7HKKJVqTTBopnEVMAGeieNKnnHGEuN7BmUb06+
-	 TVHE7pBLkL1080FyD30iptRf2eSlF8xxUXwgVtvOL8ZgWNO/FOx870l3eK+KFsE5mWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794665491;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=L/gzc6cM8spTMzuU/OusNDAYp5kZ9jRYawr5B+a9Xys=;
+	b=X7D8s03/E6f30ktG0I4QpNzP2pzc6o1WrH7LAhu0khMndIB1flrS3vgAF+aeT4wo9Ua6
+	 ckg4wVd7qLgf4+AsZBqOJ4p3fyq6xrZ2/NlCVpCjocf2/A/AflqMcaG17LYW9YGL38phs
+	 sr0vS1nZ3cdHI6sy0g7Kz8iioCirzuBEFqS2ILUj1ibP5VfA+GvYCm2+LrH5wJCskiigf
+	 3gB1XHu4i5GLoF5Ppf5UtBTD9rOk0mfAtBTUCwMb82ix4uWWlQEzbHX1gM9h/+/dTiYNv
+	 kBk1HH2v9uMSn45ozGGTYi3bwPKiRnQFkRFf0kKBtM1kq8cdChJgccRWB9pqonKtD2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VIuTSlCz;
-	arc=none smtp.remote-ip=209.85.210.174
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.210.72
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD759606A336
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 14:11:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD759606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VIuTSlCz
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8b5c3288e6cso817045b3a.3
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:11:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794665479; x=1795270279; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=X1aNKxDcC9Su/sKRcb+fwZwTfaJYdtOu8vWxOSG4H9Q=;
-        b=VIuTSlCzI5+jZy6lhUJ3NdFy8QfvKvOumfxqXf/KsHSm7q7qnrtm0TQKMxcAu58t9e
-         lgjYrX7X+fgOz0yW7XFscKcImqrdxA74UWS9CrBbqZFuQT5Xjd5qBFmUFrQGTROrNBmo
-         j3HbrMQ9X6q0EiaKeeaJowpKByG3xCk7OAAinrnWahFvw3jTJfK6+Arw7kgFbveE7bcn
-         cWEdrRwRmJsazex6ce+lvFzkV6lLEguXk6GoJ8/v93AWykNVZdy1xFS6PSwqBHVADnKn
-         cowtQuqrBknj2KZWxJU5/xk+xdXxpzhtDkAlhXlKc/iEhax4HpKwerl5PO0Bnrx0eFp0
-         sXeA==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35ECC606A32E
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 14:11:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35ECC606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-862ab20625eso113970a34.2
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:11:30 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794665479; x=1795270279;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=X1aNKxDcC9Su/sKRcb+fwZwTfaJYdtOu8vWxOSG4H9Q=;
-        b=QKblToLwLFSxVUWECAHOL/gSA5fJEzc0ZG0TgeU8Dj9XnyNVxZPaH7CHQyjjfUGcUy
-         T01unemUrnS6XsGvvfmEE0wWjemDVUrmbeZueA+/Yf6qN0tvDfgNwSNYnuYXPuvZCod1
-         rkIApTPVSFuV3sRrIHaoc+qGArqslDb0a8eMZ/Zsey/2h6A/opFTA44Pm5Y2nWf/6kbX
-         MacGi09PzXZ/GR8WzCP1o+e7O1R4tELiRiTJCLhkVs8d5Uy90wckXOub0tFGaA4b1GKj
-         P5UEi+2assmGPy/xuiEHDec95AyyRg9esBnSJlDIuwES6RAGm9IEwIaKZuiJmCTGG7L7
-         3ejA==
-X-Forwarded-Encrypted: i=1; AL+hErF0vvATtusV0GOHWR/nL/Mcgxo+xDrNMYdwLNvTuAtHaHUPO9QuPpxXMOmJhaxaNEvKPrC/BKEBEFCgJ50=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+rRFkCsXWAo68hUSod8YMHO+0eQERYSkPYpCSPhqr7KgjQ+PnV
-	ABtEFccd2NIPUwuNFQK7+Yh8dKR/PBe46l8EpK7m/7QJYhL0h9/+EsRE
-X-Gm-Gg: AYBFou2StgSKLeTrP7PBO3ivGlGL8yRsJ5WO+k5DgmmItkCPcyvDcMjJFpNbeGZfHW2
-	fK9v7pbQOeCPwEQJpHXEnzt0+wnHEBD6OydQc0yOuZIokopUIj4Hr0c8g7lkOeLCh4oQpRf6w4V
-	InZvq7tc4eEwbPqt5gkhCJugnaVaR1Ssm8/rfKt2Fz1QmG78eG6oN6tkLKVFLh/zUqVNnX0vaUZ
-	HC+wbFw5Tp8MT8qVXbVtQ7zkaabCRosypjiKc4B5K7bbrKYj5gb5nInK2I7fo2m7XFomtjvZqjw
-	QpYxFEulNboIZAOJON4l6v20xqGHwKvFag39EoqpWPUquM77VUZ3tLP4e+bGmAjIHaWI1huCVN2
-	jtI5DzWJKfC0nx1TwSo0guhRmb+7QenNH1zJ6f6lCsd5xP3ub4QiHErEhTWbfhLt2zGAhXr98MU
-	8j5q+nQ5+yLV/6RmUs1N3s/fMzYXGYH2hs7EED4tCrar3mycIxkwoYJKhETaFVGrwjqp3H5A+V9
-	CYjK7whhcOYQwBi9uLAsKakRPS5SOeEgwwPENGMzUmml30sswyg3d0AtqzbRCPHAHeY4bcj+KAg
-	Ejiigi4yjx5QC/KWCKag887SIjKDiJD7h25b+rUWytZscHzO7jl1KD0+siRP6AwTjnY=
-X-Received: by 2002:a05:6a21:118e:b0:3eb:b103:6ec0 with SMTP id adf61e73a8af0-3f7a72ba2e9mr5274932637.14.1794665479089;
-        Sat, 14 Nov 2026 06:11:19 -0800 (PST)
-Received: from [192.168.35.40] ([218.50.238.131])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cddc18b4e68sm2442814a12.25.2026.11.14.06.11.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 14 Nov 2026 06:11:17 -0800 (PST)
-Message-ID: <2d8dbfaf-46d3-4d05-b052-5e8a8670931e@gmail.com>
-Date: Sat, 14 Nov 2026 23:11:05 +0900
+        d=1e100.net; s=20260707; t=1794665490; x=1795270290;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=L/gzc6cM8spTMzuU/OusNDAYp5kZ9jRYawr5B+a9Xys=;
+        b=WsE1mrAFf7gqa7x0h0PG7gEx7LTuALexQBS6sUY8VW8Etq10rg+uDnERNkytqCK/xX
+         E3fKqDw153qTGg5mqnZPalp24FxZTZ6R3VUYzFtCX/Zj4KLXtMgfwURWa/2dH3QGUjNd
+         6bspagEqAv6WqBVm2lIZawfEZh3Cp1eb+r7DLN/1PA+cn/j95vkwbiq9myF300NXlnOZ
+         5qcU0tUoptlkTQQ1NLLx+CaRdty2flwVDkiz0gNlzVAzNTwa8WPnQG1VX64JMKUhg3M3
+         XHQdCXatt2+ERilqlM3nRWVadI5C1Rj30VjpUseLfpN28f+m63O/rgC7XsbQBHcVma/V
+         blFQ==
+X-Forwarded-Encrypted: i=1; AL+hErH0fSEs1metO+0f4V6xFKuy6XZENF+KatO6/blOOVee1dlRBmn9WK2/A4y8ODcnGpWOeNlBR73arzyBSDk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8/DNIubpTumqHS6dlHFztBX9H3RN8OWt5b/cPSPm+vSa8fuRgz
+	jZCzg9UpdCMDPVTRO54K6mYWM1YyEVZujj0hCeB4uURSXvYe9zrvzxRRZDXtHqnjKSdbCPJvxF+
+	T9Ykp2z04pJNB4UNjCmvfRCnlPD3aYZM+vQHBve3aw94zFMNw8fzgfbf/7IY=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,100 +58,154 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/9] devfreq: Use trace_call__##name() at guarded
- tracepoint call sites
-Content-Language: ko
-To: Steven Rostedt <rostedt@kernel.org>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Vineeth Pillai <vineeth@bitbyteword.org>,
- Peter Zijlstra <peterz@infradead.org>, Aaron Conole <aconole@redhat.com>,
- Alex Deucher <alexander.deucher@amd.com>, Alexei Starovoitov
- <ast@kernel.org>, Anna-Maria Behnsen <anna-maria@linutronix.de>,
- Borislav Petkov <bp@alien8.de>, Chanwoo Choi <cw00.choi@samsung.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Daniel Borkmann <daniel@iogearbox.net>, Danilo Krummrich <dakr@kernel.org>,
- Dave Hansen <dave.hansen@linux.intel.com>, David Airlie <airlied@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, Eelco Chaudron
- <echaudro@redhat.com>, Eric Dumazet <edumazet@kernel.org>,
- Frederic Weisbecker <frederic@kernel.org>, Ilya Maximets
- <i.maximets@ovn.org>, Ingo Molnar <mingo@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Jesper Dangaard Brouer <hawk@kernel.org>, Jiri Pirko <jiri@resnulli.us>,
- John Fastabend <john.fastabend@gmail.com>, Jon Maloy <jmaloy@redhat.com>,
- Koby Elbaz <koby.elbaz@intel.com>,
- Konstantin Sinyuk <konstantin.sinyuk@intel.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
- "Martin K. Petersen" <mkp@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, Maxime Ripard <mripard@kernel.org>,
- MyungJoo Ham <myungjoo.ham@samsung.com>, Oded Gabbay <ogabbay@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Philipp Stanner <phasta@kernel.org>,
- Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
- Thomas Gleixner <tglx@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- tipc-discussion@lists.sourceforge.net,
- Tung Quang Nguyen <tung.quang.nguyen@est.tech>,
- Xin Long <lucien.xin@gmail.com>, x86@kernel.org,
- amd-gfx@lists.freedesktop.org, bpf@vger.kernel.org, dev@openvswitch.org,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-sctp@vger.kernel.org, netdev@vger.kernel.org
-References: <20261027153658.703730257@kernel.org>
- <20261027154413.039021489@kernel.org>
-From: Choi Chanwoo <cwchoi00@gmail.com>
-In-Reply-To: <20261027154413.039021489@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:3186:b0:4b9:e5fa:8a17 with SMTP id
+ 5614622812f47-56e640ce1ffmr4462814b6e.28.1794665489930; Sat, 14 Nov 2026
+ 06:11:29 -0800 (PST)
+Date: Sat, 14 Nov 2026 06:11:29 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6af86c11.aa201734.33d248.0004.GAE@google.com>
+Subject: [syzbot] [lsm?] general protection fault in security_d_instantiate
+From: syzbot <syzbot+d8a69701a6e796ad5d3e@syzkaller.appspotmail.com>
+To: jmorris@namei.org, linux-kernel@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, paul@paul-moore.com, serge@hallyn.com, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+
+Hello,
+
+syzbot found the following issue on:
+
+HEAD commit:    84abb955b101 Add linux-next specific files for 20261113
+git tree:       linux-next
+console+strace: https://syzkaller.appspot.com/x/log.txt?x=139a103d580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=d9d5eeb0ba036071
+dashboard link: https://syzkaller.appspot.com/bug?extid=d8a69701a6e796ad5d3e
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=13f2644d580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1592844d580000
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/ffae1d4a717e/disk-84abb955.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/fd2a35a63abf/vmlinux-84abb955.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/039ccf647778/bzImage-84abb955.xz
+mounted in repro: https://storage.googleapis.com/syzbot-assets/3aade0852b27/mount_0.gz
+
+AI-generated root cause summary:
+In squashfs_read_inode(), validation checks for directory types
+SQUASHFS_DIR_TYPE and SQUASHFS_LDIR_TYPE jump to failed_read when inode->i_size
+< 3 without initializing err to a negative errno (-EINVAL). Consequently, err
+retains the positive byte count returned by the preceding
+squashfs_read_metadata() call (sizeof(struct squashfs_dir_inode) == 32 == 0x20,
+or 40 == 0x28 for LDIR). When squashfs_iget() receives this positive return
+value, it invokes ERR_PTR(err), yielding an invalid non-negative pointer (e.g.
+(void *)0x20) that bypasses IS_ERR() and NULL checks in d_splice_alias_ops().
+Passing this bogus inode pointer to security_d_instantiate() causes a
+NULL-pointer dereference when reading inode->i_flags at offset 0x24.
+
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=d8a69701a6e796ad5d3e
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+d8a69701a6e796ad5d3e@syzkaller.appspotmail.com
+
+loop0: detected capacity change from 0 to 8
+SQUASHFS error: Unable to read inode 0x87
+Oops: general protection fault, probably for non-canonical address 0xdffffc0000000004: 0000 [#1] SMP KASAN PTI
+KASAN: null-ptr-deref in range [0x0000000000000020-0x0000000000000027]
+CPU: 1 UID: 0 PID: 5647 Comm: syz-executor337 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
+RIP: 0010:security_d_instantiate+0x2f/0x1d0 security/security.c:3781
+Code: 41 57 41 56 53 48 89 f3 49 89 fe e8 bb 2c 20 fd 48 85 db 74 42 4c 8d 7b 04 4c 89 f8 48 c1 e8 03 48 b9 00 00 00 00 00 fc ff df <0f> b6 04 08 84 c0 0f 85 9d 00 00 00 41 8b 2f 89 ee 81 e6 00 02 00
+RSP: 0018:ffffc90003b1f758 EFLAGS: 00010203
+RAX: 0000000000000004 RBX: 0000000000000020 RCX: dffffc0000000000
+RDX: 0000000000000000 RSI: 0000000000000020 RDI: ffff888077497d40
+RBP: ffffc90003b1f9b0 R08: ffffffff91bec8bf R09: 1ffffffff237d917
+R10: dffffc0000000000 R11: fffffbfff237d918 R12: 0000000000000000
+R13: dffffc0000000000 R14: ffff888077497d40 R15: 0000000000000024
+FS:  0000555576a8a400(0000) GS:ffff8881234cd000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00002000000000c0 CR3: 0000000034bb2000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ d_splice_alias_ops+0x72/0x440 fs/dcache.c:3458
+ squashfs_lookup+0xc5e/0x14e0 fs/squashfs/namei.c:273
+ finish_lookup fs/namei.c:1934 [inline]
+ lookup_open+0x816/0x16e0 fs/namei.c:4644
+ open_last_lookups fs/namei.c:4880 [inline]
+ path_openat+0x7a5/0x20e0 fs/namei.c:5119
+ do_file_open+0x23e/0x4a0 fs/namei.c:5151
+ do_sys_openat2+0x115/0x200 fs/open.c:1492
+ do_sys_open fs/open.c:1498 [inline]
+ __do_sys_openat fs/open.c:1838 [inline]
+ __se_sys_openat fs/open.c:1833 [inline]
+ __x64_sys_openat+0x138/0x170 fs/open.c:1833
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x00007f101b51a909
+Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffd8afc50d8 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
+RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007f101b51a909
+RDX: 0000000000040042 RSI: 00002000000000c0 RDI: 00000000ffffff9c
+RBP: 0000000000000001 R08: 00000000ec776000 R09: 00000000ec776000
+R10: 0000000000000001 R11: 0000000000000246 R12: 00007ffd8afc5110
+R13: 0000000000000002 R14: 431bde82d7b634db R15: 00007f101b57a04b
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:security_d_instantiate+0x2f/0x1d0 security/security.c:3781
+Code: 41 57 41 56 53 48 89 f3 49 89 fe e8 bb 2c 20 fd 48 85 db 74 42 4c 8d 7b 04 4c 89 f8 48 c1 e8 03 48 b9 00 00 00 00 00 fc ff df <0f> b6 04 08 84 c0 0f 85 9d 00 00 00 41 8b 2f 89 ee 81 e6 00 02 00
+RSP: 0018:ffffc90003b1f758 EFLAGS: 00010203
+RAX: 0000000000000004 RBX: 0000000000000020 RCX: dffffc0000000000
+RDX: 0000000000000000 RSI: 0000000000000020 RDI: ffff888077497d40
+RBP: ffffc90003b1f9b0 R08: ffffffff91bec8bf R09: 1ffffffff237d917
+R10: dffffc0000000000 R11: fffffbfff237d918 R12: 0000000000000000
+R13: dffffc0000000000 R14: ffff888077497d40 R15: 0000000000000024
+FS:  0000555576a8a400(0000) GS:ffff8881234cd000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00002000000000c0 CR3: 0000000034bb2000 CR4: 00000000003526f0
+----------------
+Code disassembly (best guess):
+   0:	41 57                	push   %r15
+   2:	41 56                	push   %r14
+   4:	53                   	push   %rbx
+   5:	48 89 f3             	mov    %rsi,%rbx
+   8:	49 89 fe             	mov    %rdi,%r14
+   b:	e8 bb 2c 20 fd       	call   0xfd202ccb
+  10:	48 85 db             	test   %rbx,%rbx
+  13:	74 42                	je     0x57
+  15:	4c 8d 7b 04          	lea    0x4(%rbx),%r15
+  19:	4c 89 f8             	mov    %r15,%rax
+  1c:	48 c1 e8 03          	shr    $0x3,%rax
+  20:	48 b9 00 00 00 00 00 	movabs $0xdffffc0000000000,%rcx
+  27:	fc ff df
+* 2a:	0f b6 04 08          	movzbl (%rax,%rcx,1),%eax <-- trapping instruction
+  2e:	84 c0                	test   %al,%al
+  30:	0f 85 9d 00 00 00    	jne    0xd3
+  36:	41 8b 2f             	mov    (%r15),%ebp
+  39:	89 ee                	mov    %ebp,%esi
+  3b:	81                   	.byte 0x81
+  3c:	e6 00                	out    %al,$0x0
+  3e:	02 00                	add    (%rax),%al
 
 
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-On 10/28/2026 12:37 AM, Steven Rostedt wrote:
-> From: Vineeth Pillai <vineeth@bitbyteword.org>
-> 
-> Replace trace_foo() with the new trace_call__foo() at sites already
-> guarded by trace_foo_enabled(), avoiding a redundant
-> static_branch_unlikely() re-evaluation inside the tracepoint.
-> trace_call__foo() calls the tracepoint callbacks directly without
-> utilizing the static branch again.
-> 
-> Original v2 series:
-> https://lore.kernel.org/linux-trace-kernel/20260323160052.17528-1-vineeth@bitbyteword.org/
-> 
-> Parts of the original v2 series have already been merged in mainline.
-> This patch is being reposted as a follow-up cleanup for the remaining
-> unmerged pieces.
-> 
-> Link: https://patch.msgid.link/20260515135920.2238808-1-vineeth@bitbyteword.org
-> Suggested-by: Steven Rostedt <rostedt@goodmis.org>
-> Suggested-by: Peter Zijlstra <peterz@infradead.org>
-> Signed-off-by: Vineeth Pillai (Google) <vineeth@bitbyteword.org>
-> Assisted-by: Claude:claude-sonnet-4-6
-> Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
-> ---
->  drivers/devfreq/devfreq.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/devfreq/devfreq.c b/drivers/devfreq/devfreq.c
-> index 82dd9a43dc62..9f71d9dc4a70 100644
-> --- a/drivers/devfreq/devfreq.c
-> +++ b/drivers/devfreq/devfreq.c
-> @@ -370,7 +370,7 @@ static int devfreq_set_target(struct devfreq *devfreq, unsigned long new_freq,
->  	 * change order of between devfreq device and passive devfreq device.
->  	 */
->  	if (trace_devfreq_frequency_enabled() && new_freq != cur_freq)
-> -		trace_devfreq_frequency(devfreq, new_freq, cur_freq);
-> +		trace_call__devfreq_frequency(devfreq, new_freq, cur_freq);
->  
->  	freqs.new = new_freq;
->  	devfreq_notify_transition(devfreq, &freqs, DEVFREQ_POSTCHANGE);
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-Applied it.
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-Thanks,
-Chanwoo Choi
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
