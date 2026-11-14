@@ -1,96 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794632542;
-	b=XejQcUN3q6jQXkHedtHYfDk8UW/4FAD/yyDmtbJqr8hSG+iacivC0/z2cceO72J73hJx
-	 5njCCHjNNDRY+mc4+aE+KVDyFumFlk86jBRk9wUs8/bFAJYkFs00u/CrNaOUa11osXoO9
-	 J7SZgtweoGJ2CkSiq/CoqUqHVtVZYp9NQ6fkUyQT0e8QeZEgqaqtA5ZQXal8JZd+mS9hB
-	 rEe6fP276NxoMWaiZwlt7Ur6f9HAjS3p7hVuq+sNnr2gHt2qj+KU77/Mxn0j9dsynaqqk
-	 arHKMJf3VP/ywQrNlsMTIQLsQnI6Sb9fMcewbxDStKDW291jSdVfVq1hRVgmlZhPI4A==
+	t=1794632564;
+	b=R9dlCsr6mnVNh4fsNyLco91oDBvqEswW2W3Mh19ag9EHhxDNvIu0XzYT1Xin2kxgYWL4
+	 oyueWEmbzZEkSn/c0me9I5W8x+lE/XrXriswjt2EERnqrCkbkXYq/Q6jzdvoJF3/5C1ze
+	 A0n/eqovb2VhifPGwO/8NQR69K3DKnN8w2I3KdI+w8HTvx55zgT5g+79ku/BWmAiz7igY
+	 JmAVkz4F97/SUJgT2G9jQLDLHi8VVuleTrGPz3uhTTpimPw/RHkqhkFN17V9L22vzEEFI
+	 t509zoIpJsltkGZq1Mz3DxFHvD7Jx4bIjx7no0NI9RJwqI6cjTWd5qjYYg0hWXrJ6jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794632542;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=lwHO5y1yVOzdcwLx30M+MdDMtIY8PDavuYBpBXrs2UA=;
-	b=JtUzFwi9ViKbm+sv8xxfeGQIzlr1yWrmY49KwPY/cwq/6645MlLlbbGlYk5j7RPUS1hj
-	 u1JBFX/TCH1W+ITF0QSI7DC0Zfcy18N5xMfDTX6e5rCtZnK8vL8qw8weOIFgFBiMWlKdS
-	 uX5KJ+xturm5mj0uWd8dpmGoBYeppAyJyLz9c3vU5z8MFQidVGxwFqbzUoK8W6CgNwhhE
-	 FuWHUPmslTuEFePTq3F2uEVtnGrY5Kpa2BRxAgOtXck0Lknkm3myr3YhrD/Jv5NsKQJWw
-	 wQKnXtnfMWXVOaA+cnCo3B7cCBzZnsADHMDu0HAEeh6fYjVD/RVH6nffniZIjQp+9dQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794632564;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=k6aVM7ubP+FZEA269nwLXgM6JiG4zElE5w8pBOy3T60=;
+	b=B/IZHFkh9Xm8x0hEeZWUOo9eOdmbZ+VbNSAhyPBDT6YluHfyXMenlZEj0Qj5YGKCzqrp
+	 gKvS/W1mqMuGHGFVPtMRhWwPRqox9GTYGW/js8ZoL3pvYV3aPSs61wvSja1CtZbJ3SVdO
+	 7cynanSYuRYy7kA7GsssaGAANv2A68TBV176b4gbDEL0a3OXkAQhHigdvjzvffcIjBR11
+	 oFqKabFLrN/IjdGgf8A7xpwRToFK/+hmYb6fJ0uSl89RZG3eulvIwaN4wpuAjBf2hQ1Tb
+	 7VqU5pxWorOHz/JWBxT+KmpwCoFVPx0hzBnWoN38VW+gTB+7gbO14o9sxClGMUfPTbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SIL0kjed;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=iVwvGkil;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7BDC606A33E
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 05:02:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7BDC606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A386606A32D;
+	Sat, 14 Nov 2026 05:02:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A386606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SIL0kjed
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so17222105e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:02:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794632540; x=1795237340; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lwHO5y1yVOzdcwLx30M+MdDMtIY8PDavuYBpBXrs2UA=;
-        b=SIL0kjedRyOhwfPj0E1KHIlC4MOYA0Dsr51SB0032DPNZkwGA4uZ/IP6I3l2LJmI2j
-         vtQblBdFm6iFZVTvaMrtUcHdz1Ng4mCjg4DED7lwIgGaZyKEU0YbXt09SUlT+cjQVv8e
-         Yw686nkiCrHiyTJhB8FkkuOmI5hx3RJMvGZapzr8n6KRoDdI4IUKjz5AWxC6FotvzMyH
-         205vtJJ8Cl0Rm5FDr/DqH/NOyAL0Onhsy2zsGrQNXKOvRnFfZMIghXH32VPjgc6/yF1U
-         +Lgl5x6ZngdPxh7nij3AsBS40LXowLjQuN1XNf9SM0DGicoRDyEnjVMpfrUVklDkyJ5S
-         ibgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794632540; x=1795237340;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lwHO5y1yVOzdcwLx30M+MdDMtIY8PDavuYBpBXrs2UA=;
-        b=ntvXFXB4XmG7RdJ7vv2LWRuI2XKjkC7NiTvmYgCsN5F7FUUyOV5sWpeiWJ+LyIim+O
-         hRZvjhgYMxA0KoamWooyvEtDVG3gTt4M1g6Xf8k8qNfuLOj1kpTWSwqKV5915mkqjhls
-         JsTx6JZVKKhNWPGaaJSofBm0k5+xlWYEIYaqkdBnmy3CCb6bWYl2sL8ouhfa+rTeW4pU
-         vDYTD0dE8rFr/d6ePyxNaihb/OoOuaKeswEnbAN9/0AEMYhF31/QIM3BB6Y6lscpoZwB
-         teCENJObwY67ZY7HQvzrgoRPnEdwCwY4ZKe8jjd1b0Z8gfU+VdaDi/wMUx+SVMwjM+vs
-         ovAA==
-X-Forwarded-Encrypted: i=1; AL+hErFVkJIiq9thZv34LJfNG60R9Z6/WwX+zDEn3m7QnLYkG2SBKKQhBlq01pRFPuWEBHiiLv60SSrUlehX/Lg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+8zizLm3YGYY2PKzlJoZosb/xNEsmD4btwfTFJuUf0dXYznamS
-	wlMuQyit7jxzgVcdAWptsXMt32wr/q+MJpcpYm0ZHTc+CagtHKlewg8/
-X-Gm-Gg: AYBFou0l1vUagjS/G12DKh33gHyX4BfsNgmQ9rXuo49DfZNybJwdmrWsAXQ8dNby/oN
-	ZcaxCSAJQWK0IuE7nomwC72cMOqNk9YVXXtv+CTfC7xHrTV7OOP8GndIPzpqa0oye6tjJgvIp1Q
-	sRKrPMF7Y7vJ/d4qqYjGCeqLZ+p6euZwgBBTqo40S3SQ1fYLHL9O10r3g41IdugGv4EbPUgdBE0
-	fpxmPfEFJKP3DtuCHxgcSd/ASdrqXGu4L5BEyak/4FlxhEASCtdJqxjxNP6AmgeaYcg2o6rAqQf
-	28bkP6Dno96cST5uNqLNC1Ve4YaIXD+Waq4XZY/2J7b8Cmeubq4489PAY8stKtAwhjEpdfQIk1z
-	ckn2/W64/ddfS+6fJLHA6/NWtKFfltMYs71r/nCLAqjcqy0jAh0LV9C4FkPS+VJsLvjuAYeMhLa
-	qtSdby94F/NJhS5GjCfjtrEGNPQ+8T4xK+/TYa8ANQoALT6VPNDxKP4vgpEd04pCak1S6Q1RwMg
-	MPEHF1cIdSgYv9wj/EjCWFZUbk9LnOR2dpdufd4EoH62hcHNOjxirTID9orpWHXxBUjPj6HjROE
-	K0wegEOFL12sHfW0fL87qW5a2OTOarzlczOkpNUasqO16WGHC4tyvFE/BaNwn14G3M7vKCs0HPr
-	oseUkx0ob6HQvcA5lDbrbEZPB/SwtCArTfR6q9+xpJbYhmiiReDM0fr6d3BNDTqsDb+k=
-X-Received: by 2002:a05:600c:8903:b0:4a2:1104:7ca7 with SMTP id 5b1f17b1804b1-4bb4e2e9c80mr157513265e9.11.1794632540081;
-        Fri, 13 Nov 2026 21:02:20 -0800 (PST)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d22394esm9298512f8f.3.2026.11.13.21.02.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 21:02:19 -0800 (PST)
-Date: Sat, 14 Nov 2026 08:02:15 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Rishiraj Rajgor <rishirajrajgor@gmail.com>
-Cc: vaibhav.sr@gmail.com, mgreer@animalcreek.com, johan@kernel.org,
-	elder@kernel.org, gregkh@linuxfoundation.org,
-	greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: greybus: audio_manager: add newline to
- sysfs_emit formats
-Message-ID: <avfrV0bQO3nvDkbH@stanley.mountain>
-References: <20261113130324.34353-1-rishirajrajgor@gmail.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=iVwvGkil
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794632562;
+	bh=SwF3VHoRiI4Zsf33YHjX0UHR9rjLn/pkIELQ2nyar2c=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=iVwvGkilCHb2oDEjC8UZ/0SYeIKMbwzyTsVQNcRBo8Xx+tTcC+dNx8xz2qq50JHjE
+	 tVsHIKSWbahgdTicO/06Rm4UHZJrRbqFvgMZZeTUgzwPzS6Md6FcSkq6MwMJaY+mFL
+	 0DSR5VBdRW89TNal2iyInsNYTMHrwOy18lGlBWxLjxzqGQqgTibSQ9hM0JchefrOaF
+	 kBJeJHXyYHY6WMZGIhgVlhdtRfqM5oT5HPcmanqNN1q+wpWK03ItG52l/RUoD4hQuS
+	 w2+OoF/BSCAOyWw7WWPFzHHb5Yqz6NVzW+BbBeZ6TOyVfgw1JiLnC00pFA1tVZXiDE
+	 pG7Wh6OjCW7XQ==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7471917E05F1;
+	Sat, 14 Nov 2026 06:02:42 +0100 (CET)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id 2BD22480068; Sat, 14 Nov 2026 06:00:56 +0100 (CET)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Sat, 14 Nov 2026 06:00:54 +0100
+Subject: [PATCH v12 21/23] dt-bindings: display: rockchip: dw-dp: Fix sound
+ DAI cells
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,24 +66,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261113130324.34353-1-rishirajrajgor@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261114-synopsys-dw-dp-improvements-v12-21-d42d3dc5bdd4@collabora.com>
+References: <20261114-synopsys-dw-dp-improvements-v12-0-d42d3dc5bdd4@collabora.com>
+In-Reply-To: <20261114-synopsys-dw-dp-improvements-v12-0-d42d3dc5bdd4@collabora.com>
+To: Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andyshrk@163.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
+ Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Alexey Charkov <alchark@flipper.net>, dri-devel@lists.freedesktop.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, kernel@collabora.com, 
+ linux-arm-kernel@lists.infradead.org, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3153;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=SwF3VHoRiI4Zsf33YHjX0UHR9rjLn/pkIELQ2nyar2c=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr36wfHxM6ZN1U90kUf8oIaiwOxYyYp7NWeV
+ IISnE/BQ0yP14kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq9+sHAAoJENju1/PI
+ O/qaRFkQAKVI/mDiLK9eCn05S7cLLUwf1xnrwkTXPVl/BH73szqzAuC6Y/aTfJBUVJ15GO9C+da
+ JKT1TR6Pwqvzcw1asQQUFIKvPr3bK+rSTQv9ceoe/W7tc6OUmj+mQsSUuHEA/JPGoilmj7PT6cQ
+ RIQMDmfs7mOd33x88rCuseHC6wAfVRfK6ERW2hMFhaviBewP7nyDuEb0ZchIFPKtJT7TrGBEzNL
+ ZklFk7DLbWYDAizb0shVf4MrYbLMvHCYsnkl6sxUTDhZTDtIVGAHYZqV3s4sXRU+mGRhlTcqXSL
+ N7oJPh5OzhO2iWM8E7ivY/ZwgXIUfMaWMRLrN9oQbqInNhZ4uhdr8wbqtC0CmJYMu2Mzro3DjQ7
+ 2/oM9P+uZs/B9sJBnxdF+f2Qf5/S1l95ggry7U035w7a2YXdxKumG/5nahfUqij1rIGI/UE7tbK
+ U7SRyQYogFOfl9kbQHpaLbuXRALUo9O1pFrl8ScRfXiGAL76w5CTt4alYffb9kZJ+KNI4kApWwe
+ 1yqcBQlvfn7Y1pmyEONrZRYiK5CFeMTpHj8Q9YygWcpKBpEnO3sd6qso0tc9Hq5kZMIEWQyG6ck
+ eQhHsIz6FrNAKetrc2OvdkHDkVYr2W21HxeJJRXvX1UeBtfUeftsr4fH5S5YpXP+5ju5BysT4rn
+ 8lmZdclUfliuzMIWM7pYm8g==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-On Fri, Nov 13, 2026 at 06:33:24PM +0530, Rishiraj Rajgor wrote:
-> According to sysfs guidelines and checkpatch SYSFS_EMIT rule, sysfs
-> show functions should terminate outputs with a newline. The show
-> functions in audio_manager_module.c omit the newline character from
-> their sysfs_emit() format strings.
-> 
-> Add a terminating newline to all sysfs_emit() format strings in
-> gb_audio_module_*_show() functions.
-> 
-> Signed-off-by: Rishiraj Rajgor <rishirajrajgor@gmail.com>
-> ---
+The RK3588 and RK3576 DesignWare DisplayPort controllers both have two
+possible DAI interfaces: I2S and S/PDIF. Thus an argument is needed to
+to select the right interface.
 
-No, see the mail archives for why.
+In addition to that the RK3576 DisplayPort controller is configured
+with Multi Stream Transport (MST) enabled for up to 3 displays and
+thus has a total of 6 DAI interfaces (I2S and S/PDIF for each possible
+stream). Meanwhile the RK3588 does not support MST and thus has only 2
+DAI interfaces.
 
-regards,
-dan carpenter
+The binding update from this patch has only been tested with the simple
+single stream transport (SST) setup as the Linux driver does not yet
+support MST. Once MST support is added, the plan is to simply add more
+numbers to the argument, so that it looks like this for RK3576:
+
+0 = I2S on stream 0,
+1 = S/PDIF on stream 0
+2 = I2S on stream 1,
+3 = S/PDIF on stream 1
+4 = I2S on stream 2,
+5 = S/PDIF on stream 2
+
+As the arguments are not part of the binding itself the audio side
+is also ready for MST after this change.
+
+Switching '#sound-dai-cells' from 0 to 1 without keeping compatibility
+is an ABI break. The rationale for going that way is, that there is not
+a single known driver implementation for the current binding. It's also
+unclear how the current binding would be used (only support I2S or
+S/PDIF for stream 0?). The mainline rk3588 DTS include sets it to 0, but
+does not have any soundcard using the DAI. This will be fixed up
+separately. The RK3576 does not set it at all.
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ .../devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml     | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
+index 2b0d9e23e943..c4f8959dd65d 100644
+--- a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
++++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
+@@ -25,7 +25,7 @@ description: |
+   * Supports up to 8/10 bits per color component
+   * Supports RBG, YCbCr4:4:4, YCbCr4:2:2, YCbCr4:2:0
+   * Pixel clock up to 594MHz
+-  * I2S, SPDIF audio interface
++  * I2S, S/PDIF audio interface
+ 
+ properties:
+   compatible:
+@@ -46,7 +46,7 @@ properties:
+       - description: DisplayPort AUX clock
+       - description: HDCP clock
+       - description: I2S interface clock
+-      - description: SPDIF interfce clock
++      - description: S/PDIF interfce clock
+ 
+   clock-names:
+     minItems: 3
+@@ -83,7 +83,8 @@ properties:
+     maxItems: 1
+ 
+   "#sound-dai-cells":
+-    const: 0
++    const: 1
++    description: 0 for I2S, 1 for S/PDIF
+ 
+ required:
+   - compatible
+@@ -144,7 +145,7 @@ examples:
+         resets = <&cru SRST_DP0>;
+         phys = <&usbdp_phy0 PHY_TYPE_DP>;
+         power-domains = <&power RK3588_PD_VO0>;
+-        #sound-dai-cells = <0>;
++        #sound-dai-cells = <1>;
+ 
+         ports {
+           #address-cells = <1>;
+
+-- 
+2.53.0
 
