@@ -1,101 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794622126;
-	b=aQb4WbC8p+Z11lfJn4yYyojemWn0kYWERtck4h4oWBaWkhlUyFXjC4dyv79rWckqg4Kr
-	 oDBjRoQUSp7RTmfCt6+1qcHNIPls3ikcysRH92a8TD4AnMV6u28Zsf5r+sTDsYLUDClYX
-	 ofRa0rB/92TqUwOHgEF1XvwlhnbKn+wUO5eE5EkpoFpuzdXvv2Jmk7rbGyZigy0EdH8WZ
-	 Ruy7nz180t+anjcVr4hAIOZBhYbythKylI2EXPoO4/0rWcCyrnE+BKX2Lp7fp0F5ZWn61
-	 +0PoYnV8kPZ9meKpQmoEWsAFOduZ01nFYd+BhVljC0UumMeLw8gGNBUy79NdL6PDaGQ==
+	t=1794622227;
+	b=fvrGCZaLLU6vckyED+JcSN97/geUzz7BzuKtov3VLN/4FPxFe06/fdzJD7rNoUWptS3a
+	 NtxhEa4h8B+lPUnbvW/zjvG6Ham2L4tehDXYzQMlDXBQLaE8uz5TCx4X7vur2YzYTzy7q
+	 O/1Uduhu7grJFHAYme1CgFFKVBaS2cXf0nDFWjLKHDOYxYVhmKyyqvUirGFNGObGbMPzQ
+	 WbtgyKZ0QHLvMZQbZxpEVQVzmcjo4uOyFNvzMKwwzZChtMwPx9MzECX3RFRUgr2oqylJN
+	 ZRlm5L0JJttC6ANMNGbK2zR8wtOGqoX0FepZQezEJv2bTgQ2M0Xcr2Y/XW3p33Xy/Ew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794622126;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ZGkZpk0UhbWYdvmK6ljec05bEAFSMa8iCteL7C7cNpM=;
-	b=AsxDHBwzulfb431PmrdKc5Qj3m0JS923TwO71Op2P4HTBlmtRgISca3qutI7598dNdsf
-	 AWs/LxUENfzWySNS3/ossMGfNKjM1v8y5orZgxuZaTKPacwbw7DOFmndnylC8fo5HXzPf
-	 lbWiS7khYp+41TjB2qvC5IxGdmjzNhQNSu6QyOU7FKYoKaGJON3N+YXFPiX13QDm50f3R
-	 yziHh/B9wuVv2QYrf9LVygIlS027q+uDxt9+sDnWtRi1cmMP14sL6d/B1iTKYOjIuuu0f
-	 iufPxVrXT14E1GqoJpEOosKR5OoiqhMX4aIaTN5l5PCbNbZfi1siolA2DCCZaXPu5aA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794622227;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=HSXUmoTueZUEvp7VgPWfl7EqYA8mQIeXBc1RFV+0lh4=;
+	b=YdW92868kUGr0TsVviNqTnnkEwcYaH9KslRoT4SRvXaYJYLOYYcPLiPVGqEHAw95UQv7
+	 h25rXEuRCUmkuYr7MnRthCGPBxUdc/w7rvm7Ojw9S7LE2rQhy4ycP9hI6U2fdNf6hIao/
+	 KqSb1OBDvl+CXNB2rdW/fMi5/qpjfbB/VAWYGjHMm1DweNDb8JlYtL5oR5NGMbG8TpCrP
+	 fDDb6tR3CkdrrRi68GQDWCjFb4KERNX2yNsW+LITYrlTlj3LJFiOUKBqAGX30eqNlZfjo
+	 wOw0zouAWKhc1+kg1/Jak+3/AwzRqVyC8k+kWgWGHgfI61tWYcPykXWPAeRb1JPlHIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ox7iAW40;
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=FZOy+twc;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89367606A8A9
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 02:08:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89367606A8A9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02CA6606A32E;
+	Sat, 14 Nov 2026 02:10:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ox7iAW40
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3282db206d3so4681068eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:08:36 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=FZOy+twc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32C761F000C4;
+	Sat, 14 Nov 2026 02:10:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794622116; x=1795226916; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZGkZpk0UhbWYdvmK6ljec05bEAFSMa8iCteL7C7cNpM=;
-        b=ox7iAW40OCh1QgNR3VKgHnqFmya9hhTvBDrUeT84BeqdQwrxrr7YCwU1b2LIUNAaK7
-         T6tpapiB+nglo3h+Uo95DYBaZ97W3nvwk4y66PZpt0fi5r5QYqZBMerOq1j8RPM5ZwuR
-         c8mOoOvdImhsjXPdzltysHqU7yf1AYJgcaDZie2YQ4eRvAQZF1xW8LRpZQzM4hHPlwXq
-         LkrUFSYRQ/gV42fSZKw+WYdFtUYXVVsjS0qfNomoNbUzDix244Azp70lEPJSb+uu9Mlg
-         Ybtk3VZPH2WBsnt5xPiYTnm7ElDCrL1pldEurgBdU3s2Uexdslj2bInhC0lRhUufyL/S
-         yy/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794622116; x=1795226916;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZGkZpk0UhbWYdvmK6ljec05bEAFSMa8iCteL7C7cNpM=;
-        b=BaM4Y8xp8OcakaDgpNpvLjOpE9IFaAd7cyVDoqWn6fuCs2boxMteLXSMIxc0uzVdii
-         AOzrlytcbYm9g2GKYiIX6LBOy+JvPqb6vvh0Om6F11X7Gi6tkjw7m81RzIIWWPDVrBAl
-         PTQerrx0Er87mNR0QxGu/SKEKNNqcH3NO48u/tzFxhZhhLcXeC52G3jveDuJzgv25zhq
-         e5sZXfA0AhzRg74E7cXvpqlzg77sXS4emg8PKDfHNYG8fr8LbhgCiDnIPTc2kPQA7piH
-         7C6tPLnGaDm7hNq+OtIbkXk1PZh3W8/zn+FKjWjtMxBdFd6UAbPoLxcsuQhv8uiMid5Z
-         I+UA==
-X-Forwarded-Encrypted: i=1; AL+hErEs4iUkSTLvhcpA30W9cD88YziKQju3dKZnDxBciWBttAQt3gatQoDHifFnDA+FClW7nEPt6rZWm0L2NmA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+A+c7GXZK/9wGBfnUmhE7HIQwhMV0tkpOa/72UIPmyLTmTsM3c
-	g9EQ+7L4gXhXCpjpLqAGKVO9xK+M8Tdj/MbPNONSKa+Wn0/0J8ez0O0L
-X-Gm-Gg: AYBFou3MkH6ALTPHaV7ktHMiRuMVMe5FFIwh7iMAvWANzDoqPN/AWTvMaRrX4gQXoMC
-	SDiI7Bo0ai+z1SH5pRhwFupRIlkX8UHDl1ot/cmsih+GVpJ70G8NC8QMr1syiJXLxPw2warNV/L
-	CJHPIfmD6PwWR1IEdeSaFoaz2Y7M6VR2casDEmWP5XYCrh0Try5v+9AVlXjVG0hix4a7nEwc+5g
-	B0KyquAgf6bzCAHYlDrcEUMvHLbRzsA43jME4gbcK096GV1ZgV5+YphA/b/eLYYmXtCq2G+gTgR
-	MOBngKwE2XSBoLwr10fQT3HVRajYHke29vtGEpoO6zY059qgn+09BVqKR5dA55Ikr7NY4AOxAzJ
-	DcwZUv1YGOhXlNEanKAC4KnhfWkdlumkZa7fZ6KCK66D6vT8uE5K/9652cv1COX/geiCA1zPnjj
-	oHd1m1eefO7cEuSHM6fu/ioi31TgF43pI17AKlBogbLzl0SIBkrePCV78WnfPUi0nKELB3VmpRb
-	qu3LUxXUjQfhrlWva7mVGuXs8tMCA2+wAaSlWWiCws4iFzzyL5kmtl3p47ffQMSAsfnBM1cgntf
-	t9q+SjoQpn58pv74ZmHdLDzITmjQJOI8YvX8g3Nr7omN+shEDZvTjhYw45WwB4Qmf2u5QrFIGQB
-	Vm0k/KniWPJP6a55RjBPR/7pY3/76I18k+IB2VAKLd6+HIXzWVhLu7zhD2Jb+16xG7Ar56B3DAi
-	iQ4A==
-X-Received: by 2002:a05:7300:8812:b0:379:24d9:cb98 with SMTP id 5a478bee46e88-3796048149dmr4538505eec.0.1794622115562;
-        Fri, 13 Nov 2026 18:08:35 -0800 (PST)
-Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563e6b6dsm18875218eec.21.2026.11.13.18.08.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 18:08:34 -0800 (PST)
-From: Rosen Penev <rosenp@gmail.com>
-To: Jonathan Corbet <corbet@lwn.net>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Stuart Hayes <stuart.w.hayes@gmail.com>
-Cc: Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org
-Subject: [PATCH v2 1/2] platform/x86: dell_rbu: Use the firmware upload API
-Date: Fri, 13 Nov 2026 18:08:14 -0800
-Message-ID: <20261114020815.75539-2-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261114020815.75539-1-rosenp@gmail.com>
-References: <20261114020815.75539-1-rosenp@gmail.com>
+	d=linux-foundation.org; s=korg; t=1794622226;
+	bh=HSXUmoTueZUEvp7VgPWfl7EqYA8mQIeXBc1RFV+0lh4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=FZOy+twcnZdsp/2EYUVyITPvhBid7djzTEf6WgS5LYzQKEOteWGy4HePPqY1U7vKf
+	 5HZ3yUtdC8/0f+7WVBBTQ7muLcyCwFBlIhgCfyxNHz5nY402zWm/TJunHyONNDjanR
+	 KUed1YSuY1/MyfntRmJ5o+tzH0P3AZgDw89dT3dM=
+Date: Fri, 13 Nov 2026 18:10:25 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, kernel-team@meta.com, leon@kernel.org,
+ david@kernel.org, kas@kernel.org, dave.hansen@linux.intel.com,
+ bp@alien8.de, rppt@kernel.org, stable@vger.kernel.org,
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: Re: [PATCH] mm/hmm: reject shadow-stack mappings
+Message-Id: <20261113181025.6e8b9475b29c13d29f59e02e@linux-foundation.org>
+In-Reply-To: <20261114002027.GE3706007@nvidia.com>
+References: <20261113195536.2660763-1-gourry@gourry.net>
+	<20261113200303.GA395967@nvidia.com>
+	<179460249376.482102.14669935557901467762.b4-reply@b4>
+	<20261114002027.GE3706007@nvidia.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,297 +61,54 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-dell_rbu receives the BIOS image through the legacy firmware sysfs
-fallback: writing "init" to image_type calls request_firmware_nowait()
-with FW_ACTION_NOUEVENT, and userspace feeds the image through
-/sys/class/firmware/dell_rbu/{loading,data}. This is why DELL_RBU
-selects FW_LOADER_USER_HELPER, an option most distributions disable.
-On such kernels the driver cannot be enabled at all.
+On Fri, 13 Nov 2026 20:20:27 -0400 Jason Gunthorpe <jgg@nvidia.com> wrote:
 
-The firmware upload API (FW_UPLOAD) was added for this use case and
-provides the same /sys/class/firmware/<name>/{loading,data} interface
-without the user helper. Register a firmware upload device at module init
-and move the work done in callbackfn_rbu() into the prepare() op,
-which receives the whole image. The BIOS picks the image up from memory
-on the next reboot, so write(), poll_complete() and cancel() have
-nothing to do.
+> On Fri, Nov 13, 2026 at 03:41:33PM -0500, Gregory Price (Meta) wrote:
+> > On 2026-11-13 16:03 -0400, Jason Gunthorpe wrote:
+> > > On Fri, Nov 13, 2026 at 02:55:36PM -0500, Gregory Price (Meta) wrote:
+> > > > HMM can grant ordinary device write access to a userspace shadow stack.
+> > > > On x86, pte_write() is true for a shadow-stack PTE, so a populated page
+> > > > can be returned with HMM_PFN_WRITE without taking a CPU write fault.
+> > > 
+> > > I'm not sure I understand this? The pte is writable but you don't want
+> > > only DMA to write to it?
+> > >
+> > > Is there something special on x86 that makes the shadow stack pte
+> > > non-writable by the CPU?
+> > >
+> > 
+> > Some of the context is here:
+> > https://lore.kernel.org/all/20261111-mason-migrate-et-al-fixes-v1-10-3d2454362e8d@kernel.org/
+> > 
+> > We had a similar issue with migration, but this should handle the DMA
+> > case as well.
+> > 
+> > It's "technically writable" but the kernel is supposed to prevent that.
+> 
+> Bah, it's not writable at all. The CPU PTE has write disabled and
+> someone thought it was a good idea to make pte_write() return true
+> because the CPU allows writes through a special instruction on this
+> special PTE? So now all the places like this think its writable, when
+> it really isn't.
+> 
+> You could also fix this by having something like pte_real_write() or
+> whatever that doesn't lie about the write bit in the PTE :|
+> 
+> The patch is still fine, in that it matches what everything else does,
+> but I'd include these details someplace..
 
-The upload entries now persist for the lifetime of the module, so
-the "init" image_type workaround for recreating them and the
-entry_created tracking are no longer needed. "init" is still accepted
-and frees any downloaded image, as documented. Allocation or
-packetizing failures are now reported via the error attribute instead
-of being silently dropped.
+How does this look for an altered changelog?
 
-The upload device is registered from module init and unregistered from
-module exit, so pass a NULL module to firmware_upload_register():
-otherwise the reference it takes would pin dell_rbu and make it
-impossible to unload. firmware_upload_unregister() cancels and flushes
-any in-flight upload before returning.
-
-The userspace sequence documented in dell_rbu.rst (echo 1 > loading,
-cp image > data, echo 0 > loading) is unchanged.
-
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- Documentation/admin-guide/dell_rbu.rst |  25 +++---
- drivers/platform/x86/dell/Kconfig      |   2 +-
- drivers/platform/x86/dell/dell_rbu.c   | 107 ++++++++++++++++---------
- 3 files changed, 81 insertions(+), 53 deletions(-)
-
-diff --git a/Documentation/admin-guide/dell_rbu.rst b/Documentation/admin-guide/dell_rbu.rst
-index 2196caf1b939..d33927b0d52d 100644
---- a/Documentation/admin-guide/dell_rbu.rst
-+++ b/Documentation/admin-guide/dell_rbu.rst
-@@ -47,6 +47,10 @@ The driver load creates the following directories under the /sys file system::
- 
- 	/sys/class/firmware/dell_rbu/loading
- 	/sys/class/firmware/dell_rbu/data
-+	/sys/class/firmware/dell_rbu/status
-+	/sys/class/firmware/dell_rbu/error
-+	/sys/class/firmware/dell_rbu/remaining_size
-+	/sys/class/firmware/dell_rbu/cancel
- 	/sys/devices/platform/dell_rbu/image_type
- 	/sys/devices/platform/dell_rbu/data
- 	/sys/devices/platform/dell_rbu/packet_size
-@@ -95,26 +99,21 @@ Do the steps below to download the BIOS image.
- 2) cp bios_image.hdr /sys/class/firmware/dell_rbu/data
- 3) echo 0 > /sys/class/firmware/dell_rbu/loading
- 
--The /sys/class/firmware/dell_rbu/ entries will remain till the following is
--done.
--
--::
-+The /sys/class/firmware/dell_rbu/ entries are provided by the firmware upload
-+framework (see Documentation/driver-api/firmware/fw_upload.rst) and remain
-+for as long as the driver is loaded. Once step 3 is done,
-+/sys/class/firmware/dell_rbu/status returns to "idle" and
-+/sys/class/firmware/dell_rbu/error is empty if the image was accepted.
-+A download in progress can be aborted with::
- 
- 	echo -1 > /sys/class/firmware/dell_rbu/loading
- 
--Until this step is completed the driver cannot be unloaded.
--
- Also echoing either mono, packet or init in to image_type will free up the
- memory allocated by the driver.
- 
--If a user by accident executes steps 1 and 3 above without executing step 2;
--it will make the /sys/class/firmware/dell_rbu/ entries disappear.
--
--The entries can be recreated by doing the following::
--
--	echo init > /sys/devices/platform/dell_rbu/image_type
--
- .. note:: echoing init in image_type does not change its original value.
-+   It is kept for compatibility; the /sys/class/firmware/dell_rbu/ entries
-+   no longer need to be recreated.
- 
- Also the driver provides /sys/devices/platform/dell_rbu/data readonly file to
- read back the image downloaded.
-diff --git a/drivers/platform/x86/dell/Kconfig b/drivers/platform/x86/dell/Kconfig
-index f6acf1cc2a2f..1672ed04a36a 100644
---- a/drivers/platform/x86/dell/Kconfig
-+++ b/drivers/platform/x86/dell/Kconfig
-@@ -89,7 +89,7 @@ config DELL_RBU
- 	default m
- 	depends on X86
- 	select FW_LOADER
--	select FW_LOADER_USER_HELPER
-+	select FW_UPLOAD
- 	help
- 	 Say m if you want to have the option of updating the BIOS for your
- 	 DELL system. Note you need a Dell OpenManage or Dell Update package (DUP)
-diff --git a/drivers/platform/x86/dell/dell_rbu.c b/drivers/platform/x86/dell/dell_rbu.c
-index 768b15f406d3..a121f59a215d 100644
---- a/drivers/platform/x86/dell/dell_rbu.c
-+++ b/drivers/platform/x86/dell/dell_rbu.c
-@@ -60,12 +60,11 @@ static struct _rbu_data {
- 	unsigned long num_packets;
- 	unsigned long packetsize;
- 	unsigned long imagesize;
--	int entry_created;
- } rbu_data;
- 
- static char image_type[MAX_IMAGE_LENGTH + 1] = "mono";
- module_param_string(image_type, image_type, sizeof (image_type), 0);
--MODULE_PARM_DESC(image_type, "BIOS image type. choose- mono or packet or init");
-+MODULE_PARM_DESC(image_type, "BIOS image type. choose- mono or packet");
- 
- static unsigned long allocation_floor = 0x100000;
- module_param(allocation_floor, ulong, 0644);
-@@ -81,7 +80,7 @@ struct packet_data {
- static struct list_head packet_data_list;
- 
- static struct platform_device *rbu_device;
--static int context;
-+static struct fw_upload *rbu_fw_upload;
- 
- static void init_packet_head(void)
- {
-@@ -497,41 +496,72 @@ static ssize_t data_read(struct file *filp, struct kobject *kobj,
- }
- static const BIN_ATTR_RO(data, 0);
- 
--static void callbackfn_rbu(const struct firmware *fw, void *context)
-+/*
-+ * The whole image is handed to prepare() by the firmware upload core, so
-+ * all of the work happens here. The BIOS consumes the image from memory on
-+ * the next reboot; there is nothing to stream to hardware afterwards.
-+ */
-+static enum fw_upload_err rbu_fw_prepare(struct fw_upload *fw_upload,
-+					 const u8 *data, u32 size)
- {
--	rbu_data.entry_created = 0;
--
--	if (!fw)
--		return;
--
--	if (!fw->size)
--		goto out;
-+	enum fw_upload_err ret = FW_UPLOAD_ERR_NONE;
- 
- 	spin_lock(&rbu_data.lock);
- 	if (!strcmp(image_type, "mono")) {
--		if (!img_update_realloc(fw->size))
--			memcpy(rbu_data.image_update_buffer,
--				fw->data, fw->size);
-+		if (img_update_realloc(size))
-+			ret = FW_UPLOAD_ERR_RW_ERROR;
-+		else
-+			memcpy(rbu_data.image_update_buffer, data, size);
- 	} else if (!strcmp(image_type, "packet")) {
- 		/*
- 		 * we need to free previous packets if a
- 		 * new hunk of packets needs to be downloaded
- 		 */
- 		packet_empty_list();
--		if (packetize_data(fw->data, fw->size))
-+		if (packetize_data(data, size)) {
- 			/* Incase something goes wrong when we are
- 			 * in middle of packetizing the data, we
- 			 * need to free up whatever packets might
- 			 * have been created before we quit.
- 			 */
- 			packet_empty_list();
--	} else
-+			ret = FW_UPLOAD_ERR_RW_ERROR;
-+		}
-+	} else {
- 		pr_debug("invalid image type specified\n");
-+		ret = FW_UPLOAD_ERR_FW_INVALID;
-+	}
- 	spin_unlock(&rbu_data.lock);
-- out:
--	release_firmware(fw);
-+
-+	return ret;
-+}
-+
-+static enum fw_upload_err rbu_fw_write(struct fw_upload *fw_upload,
-+				       const u8 *data, u32 offset,
-+				       u32 size, u32 *written)
-+{
-+	/* Already consumed in rbu_fw_prepare() */
-+	*written = size;
-+	return FW_UPLOAD_ERR_NONE;
-+}
-+
-+static enum fw_upload_err rbu_fw_poll_complete(struct fw_upload *fw_upload)
-+{
-+	return FW_UPLOAD_ERR_NONE;
-+}
-+
-+static void rbu_fw_cancel(struct fw_upload *fw_upload)
-+{
-+	/* Nothing in flight to abort; the image only lives in memory. */
- }
- 
-+static const struct fw_upload_ops rbu_fw_ops = {
-+	.prepare = rbu_fw_prepare,
-+	.write = rbu_fw_write,
-+	.poll_complete = rbu_fw_poll_complete,
-+	.cancel = rbu_fw_cancel,
-+};
-+
- static ssize_t image_type_read(struct file *filp, struct kobject *kobj,
- 			       const struct bin_attribute *bin_attr,
- 			       char *buffer, loff_t pos, size_t count)
-@@ -547,7 +577,6 @@ static ssize_t image_type_write(struct file *filp, struct kobject *kobj,
- 				char *buffer, loff_t pos, size_t count)
- {
- 	int rc = count;
--	int req_firm_rc = 0;
- 	int i;
- 	spin_lock(&rbu_data.lock);
- 	/*
-@@ -567,26 +596,10 @@ static ssize_t image_type_write(struct file *filp, struct kobject *kobj,
- 		strscpy(image_type, "packet");
- 	else if (strstr(buffer, "init")) {
- 		/*
--		 * If due to the user error the driver gets in a bad
--		 * state where even though it is loaded , the
--		 * /sys/class/firmware/dell_rbu entries are missing.
--		 * to cover this situation the user can recreate entries
--		 * by writing init to image_type.
-+		 * Historically this recreated the /sys/class/firmware/dell_rbu
-+		 * entries. They are now persistent, so "init" only frees
-+		 * any previously downloaded image, as before.
- 		 */
--		if (!rbu_data.entry_created) {
--			spin_unlock(&rbu_data.lock);
--			req_firm_rc = request_firmware_nowait(THIS_MODULE,
--				FW_ACTION_NOUEVENT, "dell_rbu",
--				&rbu_device->dev, GFP_KERNEL, &context,
--				callbackfn_rbu);
--			if (req_firm_rc) {
--				pr_err("request_firmware_nowait failed %d\n", rc);
--				rc = -EIO;
--			} else
--				rbu_data.entry_created = 1;
--
--			spin_lock(&rbu_data.lock);
--		}
- 	} else {
- 		pr_warn("image_type is invalid\n");
- 		spin_unlock(&rbu_data.lock);
-@@ -661,9 +674,24 @@ static int __init dcdrbu_init(void)
- 	if (rc)
- 		goto out_devreg;
- 
--	rbu_data.entry_created = 0;
-+	/*
-+	 * Registered from module init and unregistered from module exit, so
-+	 * don't let the upload device pin this module: that would make it
-+	 * impossible to unload. firmware_upload_unregister() cancels and
-+	 * flushes any in-flight upload before returning.
-+	 */
-+	rbu_fw_upload = firmware_upload_register(NULL, &rbu_device->dev,
-+						 "dell_rbu", &rbu_fw_ops, NULL);
-+	if (IS_ERR(rbu_fw_upload)) {
-+		rc = PTR_ERR(rbu_fw_upload);
-+		pr_err("firmware_upload_register failed %d\n", rc);
-+		goto out_group;
-+	}
-+
- 	return 0;
- 
-+out_group:
-+	sysfs_remove_group(&rbu_device->dev.kobj, &rbu_group);
- out_devreg:
- 	platform_device_unregister(rbu_device);
- 	return rc;
-@@ -671,6 +699,7 @@ static int __init dcdrbu_init(void)
- 
- static __exit void dcdrbu_exit(void)
- {
-+	firmware_upload_unregister(rbu_fw_upload);
- 	spin_lock(&rbu_data.lock);
- 	packet_empty_list();
- 	img_update_free();
--- 
-2.56.1
-
+: On x86, a shadow-stack PTE has its ordinary write bit clear.  The CPU
+: rejects ordinary stores to it, but pte_write() reports it writable because
+: shadow-stack instructions can write it.  HMM consequently sets
+: HMM_PFN_WRITE, which Nouveau turns into ordinary GPU write permission.  A
+: process with GPU access can then overwrite its own shadow stack,
+: potentially corrupting return addresses or bypassing that protection.
+: 
+: Reject shadow-stack VMAs in hmm_vma_walk_test(), including read access.  A
+: requested fault returns -EFAULT; a snapshot records HMM_PFN_ERROR.
