@@ -1,66 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794681667;
-	b=RIEX4Ea0aA3dz7YFkLumUfBftlm/rVixbXKybVuTB3aqzPy4Jm41oNiNeFt9QaKA3fTE
-	 FFYh3vSTmyD94IuZNH+U8IP8Lsk1ZzJcqbXdpPtPaftiYnU//u7JlWzZdF6oUMbG39YKp
-	 7D+HyJMgb0h3cR5X5+9Ua3VyJPP8cq9TiXzO3ywtX3q4TcQXhgdwhbdwQXvNwZ5Nr7cPr
-	 7ZjYdy2Xnewi5e+RLMaHbHBtN8to9iElicOh1qoK3iG613bQ7mhxf/cWv40AHHHJyyENh
-	 3kirJ/u4P0SjrTg8nOUBzwpyzvEVUy630hfAoJwBdCNWe3NbZVi8jeqOD2zZJ7FAiWw==
+	t=1794681686;
+	b=rcImd7cB6YBlklE/9Tr4CxZ2jFSa89ABxfZK6NLfHgAYoHgO0TbUFNGVNtiIWZWO7q4U
+	 nyDX86Fnb1BOK43qAcwwAKTNRfcxasBqryhIDPmiC6Pt4mPeKGCmFx6lcaxR4Ejgu9Lhe
+	 +P3EXYm5uSnj7TccC/BF6lboCpXN3mnrXOnKQrTKdrKt9DgFWJLtHW4umMVI7y3rpVzja
+	 j+WfDf0UKzOBzAoNpowNxm4othWOIYDehfUexZ0q1ouJlPOCZlJi/m2ApF/LbMy46d+DG
+	 OFHV28+VPZciPxyFIcAU8ROrXY4ucoOjtWrN+KXeVXNYoCVLPlg1aTt00jkV8Xd8qjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794681667;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Date:
-	 Message-ID:Subject:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=3D0u6TnXn7cU9TzO0Oe/RHRjfSNFZVI4UOig4klv+f0=;
-	b=3BsNvzdHwLIkl9wLcuEhFrRMlM7/M4G5RNINbeI7A7NpzOSLySvIDi3dmOcg8oV/Za7f
-	 /pfdwWCLkSOa2cySUD76TMmBtaNjXaPLZ531IBGIfsEKCcdRm7ACDc2T1nnNTP7sKokCt
-	 +OWfyJ/NOBbpveoHw6V73BSgogga0m0Wo7BVImVRmeE7/ZTIqTUtlLtsq430S4n8VE3Ht
-	 EvuWNwh/if1Ltt3BxPf5BPAZ4Prf5vh+O5gpHGhombTC5ZCD+TZujRdvp88Y7kwmlLFXn
-	 6Nv19udQfvOEbFEOTiMs1SPNoqmTeYtCfsUBxs1mfYUZeczwmv3GuP3fwFuckrCcK/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794681686;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=hbmmDlDuo/Aafn1uwFBtlXGmOEUSg36qvHcz00UKSls=;
+	b=QZZ50/NyxcL9OeNUfXFiWsIaBlum2lPDK+K3mbHSlU4N2uyac09gxs5AVDkK/lNh7q4E
+	 a1y2TtrlzBhVTdFdS8yn+J6n7UPRI0+8mjB2oRnBfJ3hQFRSxIcaykUdRPIFVQHhpmBKq
+	 URGgSjQObJKi9Ul9a00Yu7gd2sOPcuOiYqL2E0W/UQIpVHSFGU0G4rNXKxfH4woMJwEc4
+	 kvh0G07Y7eP6xMues7xih9+Ry6z9D7hirmCPrx0KL3Ex+nPn3TCkiBFgm10Ry1l8f7NOe
+	 FO5yKl105CVvDBmKVoZGFAKx/fUYAVR0o5CMB4Nn8TkYpogqGBaWrWRsKxs+bsXlZMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=michaelmcallister.org;
-	spf=pass smtp.mailfrom=michaelmcallister.org;
-	dkim=pass header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=owvH1950;
-	arc=none smtp.remote-ip=185.70.43.170
-Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch [185.70.43.170])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yp4LV16z;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE38060A2624;
-	Sat, 14 Nov 2026 18:41:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE38060A2624
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=michaelmcallister.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=michaelmcallister.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F477606A323;
+	Sat, 14 Nov 2026 18:41:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=owvH1950
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=michaelmcallister.org; s=protonmail2; t=1794681664; x=1794940864;
-	bh=3D0u6TnXn7cU9TzO0Oe/RHRjfSNFZVI4UOig4klv+f0=;
-	h=From:To:Cc:Date:Message-ID:Subject:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=owvH1950Gqqr2UFMAo0Hjg/0UDn94Sg07TKdsNAvSoUTMf4uYxGZ0tCIRK1XaWKbN
-	 Z3fv3Yk8/5+D+G0lPhmjVPYTQNnGDK7P+/y57yqpBbko69HMJ7qYc44CUVU+JgOQFL
-	 llxiAOskad7t2ckuJo/0YYBKMvM1fw/4WShHrzlButnNEMY0fvG+GYO3JAVoTHi9op
-	 l30Wdn5S6pl9SBXaz9JSbhoG+/qIt3pTQqv/N/zxrZi5/bc4Aykna1MhgkRxNu9XXZ
-	 BhttytXMVt2C3Par2PaOTVhD8qaEU8s5QYvVS3bsD0LfcP+KwO8+KB8IS9eaYtBT0Z
-	 i6L1rHwkQzs/g==
-X-Pm-Submission-Id: 4jRjct4MJWz1DF4s
-From: Michael McAllister <me@michaelmcallister.org>
-To: Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: brgl@kernel.org, linux-bluetooth@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- quic_bgodavar@quicinc.com, lumag@kernel.org, mka@chromium.org,
- me@michaelmcallister.org, markus.probst@posteo.de,
- shuai.zhang@oss.qualcomm.com
-Date: Sat, 14 Nov 2026 18:39:54 -0000
-Message-ID: <179468159400.2456.1620455624350858393.wcn3950-poweroff-v2-4@michaelmcallister.org>
-Subject: [PATCH v2 4/4] Bluetooth: qca: Power off WCN3950
-In-Reply-To: <179468159400.2456.8302096233933976388.wcn3950-poweroff-v2-0@michaelmcallister.org>
-References: <179322687810.94538.4628148055419456389.wcn3950-poweroff-v1-0@michaelmcallister.org>
- <179468159400.2456.8302096233933976388.wcn3950-poweroff-v2-0@michaelmcallister.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yp4LV16z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2E651F000C4;
+	Sat, 14 Nov 2026 18:41:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794681685;
+	bh=hbmmDlDuo/Aafn1uwFBtlXGmOEUSg36qvHcz00UKSls=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Yp4LV16zuDcpZ3+Y/qLVygQckl2pM5SMQe/KLSlyF5e/QS8BXQvbS3cu/RBNl+TkX
+	 SCgfa1fj1U+D99vVto6E4de9vK8/tAxEblZGb4RbFH8WE4EJ4dd2D7TdQP3OotV14/
+	 CLeqDPBCzCbWXc9t9+bD9QiK98zHjhExPWGSmwwZKNjrKgp0pj5obm2DNwRbk9tCqe
+	 Eo8IEeCv46Og75PXtmxFGtsIy38fXY2n08lz91pZEq9z44B3x8iYiq54V2tUocyM/7
+	 /c6iAZ1hIo2bgggcM+WpSR2wy94N6zQSuVpKjFKeisk3GsyMys9ZnKxnqb02/Ik3pz
+	 Vt70aZ1irNAOQ==
+Date: Sat, 14 Nov 2026 18:41:18 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Jesper X Nilsson <jesperni@axis.com>
+Cc: Jesper X Nilsson <jesper.x.nilsson@axis.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Stefan
+ Windfeldt-Prytz <stefan.windfeldt-prytz@axis.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kernel@axis.com, Andy Shevchenko
+ <andriy.shevchenko@linux.intel.com>
+Subject: Re: [PATCH v2 0/4] This series adds support for Texas Instruments
+ OPT4041 Ambient light sensor
+Message-ID: <20261114184118.6b558a20@jic23-hlaptop>
+In-Reply-To: <389d5226-b147-4b8f-b3c3-b6bffc5ca78e@axis.com>
+References: <20261023-opt4041-v2-0-ee320812804c@axis.com>
+	<20261023215858.623ef46b@jic23-hlaptop>
+	<389d5226-b147-4b8f-b3c3-b6bffc5ca78e@axis.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,40 +68,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Turning Bluetooth off on the Moto G10 leaves the WCN3950 regulator
-votes enabled. qca_power_off() handles the other WCN39xx controllers
-but omits WCN3950 from both switches.
+On Tue, 10 Nov 2026 17:08:38 +0100
+Jesper X Nilsson <jesperni@axis.com> wrote:
 
-Add it to the existing power-off pulse and regulator-disable paths.
+> On 10/23/26 22:58, Jonathan Cameron wrote:
+> > On Fri, 23 Oct 2026 14:30:27 +0200
+> > Jesper X Nilsson <jesper.x.nilsson@axis.com> wrote:
+> >   
+> >> Extend the opt4001 driver to support OPT4041, since it is so similar to
+> >> OPT4001. The OPT4041 adds a second channel, a wide band channel ranging
+> >> from 380nm to 1000nm. The register map is almost the same for both
+> >> devices. OPT4001 has an internal fifo of size four, OPT4041 has two
+> >> fifos of size two, one for each channel.
+> >>
+> >> Since OPT4041 has two channels it has one bit in register 0Bh to select
+> >> which channel is compared to the threshold register. The driver does not
+> >> support setting the threshold registers, so no new support has been
+> >> added for this.
+> >>
+> >> The OPT4041 is pin compatible and has the same package as
+> >> opt4001-sot-5x3. Although the device id is different, I added a new
+> >> compatible string since the driver already had different compatible
+> >> strings to differentiate between the two OPT4001.
+> >>
+> >> Datasheet: https://www.ti.com/lit/gpn/opt4041
+> >> Signed-off-by: Jesper X Nilsson <jesper.x.nilsson@axis.com>  
+> > 
+> > 
+> > Normally I'd say slow down to give more time for review, but seems
+> > you got good reviews anyway and the code looks clean to me.
+> > 
+> > Ah well, sometimes you win - but generally wait a few days at lesat
+> > between versions.
+> >   
+> I will keep that in mind. Since I got good comments so fast, I was eager 
+> to fix them.
+> 
+> > Applied to the testing branch of iio.git. I'll be rebasing that
+> > on rc1 once available.
+> >   
+> Have the changes been applied? I can not see them on the testing branch 
+> of iio.git
+> 
+I clearly messed something up because indeed they aren't there.
 
-Fixes: d5712c511cb3 ("Bluetooth: qca: add WCN3950 support")
+Sorry about that.   Now actually applied and pushed out on the testing branch.
 
-Signed-off-by: Michael McAllister <me@michaelmcallister.org>
----
- drivers/bluetooth/hci_qca.c | 2 ++
- 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/bluetooth/hci_qca.c b/drivers/bluetooth/hci_qca.c
-index 6642af781..bd8cfe95c 100644
---- a/drivers/bluetooth/hci_qca.c
-+++ b/drivers/bluetooth/hci_qca.c
-@@ -2283,6 +2283,7 @@ static void qca_power_off(struct hci_uart *hu)
- 	power = qcadev->bt_power;
- 
- 	switch (soc_type) {
-+	case QCA_WCN3950:
- 	case QCA_WCN3988:
- 	case QCA_WCN3990:
- 	case QCA_WCN3991:
-@@ -2303,6 +2304,7 @@ static void qca_power_off(struct hci_uart *hu)
-         }
- 
- 	switch (soc_type) {
-+	case QCA_WCN3950:
- 	case QCA_WCN3988:
- 	case QCA_WCN3990:
- 	case QCA_WCN3991:
--- 
-2.39.5
+> Best regards,
+> Jesper
+> 
+> > thanks,
+> > 
+> > Jonathan  
+> 
 
