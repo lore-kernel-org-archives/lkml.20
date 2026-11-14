@@ -1,92 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.2
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794700713;
-	b=esu6QbD6q/GOzB/FOyb6eUIfO6ty2SNcHAzeurOHPWu0ZFsSIfHsr+iWm3H29wJWssQF
-	 EPG+ZmXTe10tSUJXlsgBYFe1jae2pgClgWhw4PsxilBjKjXPPgkBMmBKvQmBtEkkJjyar
-	 PWqGWhWtePxaaIbtMsdROpxqZZJ+y67VjjwovdmIGsPrXF8LXnvSpdgGDGQtJwJ86IvTd
-	 VJR+P3yyq3h6D7vawzVzV0wd1uL3X3D2LFhxLRrPaihAxgtSzQ7zIS5ZdTGowK3OzyeH1
-	 DWpJ9ayHH69Tf8dueJZx3ComNJ+WawJ/lEZWf7GDXcfZUvbVGUUGNBHZJHSR3aqDA3A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794700713;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=bpeeawqXAwXe8hvlJopUeaTMWg2WHuyiLKNJWkrx+f4=;
-	b=u/nEg07VXOOJQxLDw9XbbcTTaVMNoQB6DaCnEjvFCpSRY5n8dOA+SOzaJMG0b+bKT7S3
-	 D4VrDBlY0o1z1cbcYceL0y5brQ7vKomd0203/nEUr/h1tVlBe0V0RayT9/oN9IFzi1eee
-	 1MlQYOJ6GmY1GY+maXAJdF7V50Z3JaWlxxci1pBcCUiUv8969dqYFMl9vUc/pAQG5GyJi
-	 hyEksQG4oM+VECWwFhncMaczSJ/VQ6roZUB9njVBzO66fS29ypQAL/vAYuCg/q6D+xGj1
-	 SKSF4RLmkFIG7FgDv1T3KuXM3yUEo8FUcXEpk+P9o6LwUq/iWRFbwNLulhf37QxaI0Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=gnQX0JSf;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.2
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010002.outbound.protection.outlook.com [52.101.46.2])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794700761;
+	b=QKw6FlL/dCq3jK8fAGdxeGEAgj89Wp2z9KJjL/X+VDk76exFehAGNlU9EcLCuuiHm3KJ
+	 5T0z5uqjM7SNJQP0jabbUzRSkB3e5DDpPBrUAxuMeCEebe+baDVaumAbj/WUg8RpYA/qt
+	 pK9kcQ/BUIx75c/UG1NyIZTqfGx/ko5Jax/ceq7XcalcEEDxpMGOORnaHIHcIv9ZfZxyk
+	 bIxIpRaTqVz1SqKcgHq1BDO2DL6jrW3JIjBSBJjUMYE84H9C//+n1fGvU/+1wPcQEacMO
+	 36+NsieY5ZGvSDhuAqiFPms64n7wkXrM6B3NNdX/sV/Vqn2ybhvI4AyjkFg0QfKjW4w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794700761;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=1//nYzv/qOAjL6VO4zOzNwURg0Vr7a2QvDbvojCkm+8=;
+	b=BBn0N76SYcycuqhBvs4IzmbFgNJZhUlskuqAywp7B9nCeUh3Uy3+g0z875SP49esM6wd
+	 LJrhi9dBIX3PDstYo7xE8NGjMSPUroQAufRCoQoLz6BOxAjaQySKxNPrAzrbGyzI8+bMq
+	 B6VqNgt2y05HVpqW67V8nFEbQ3aAhjoKEw6g8yqZovSn9cUjIr1mj/7Y810auwFph+xg5
+	 9k8JA/G/XM1MSCvt3NrMXlt7QigtuDGbVer75h3M4qFwgHQ1ewxjeJaL9uOPL+U/KTWd5
+	 JBq5zNfN6dtRMZ7Exr49dYV1NJvaw0POsi2MJOsb433bQIk4Q4K8CqcjKSZwevvDYPA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="hzVjX/PD";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D311606A323;
-	Sat, 14 Nov 2026 23:58:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D311606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1CD2606A32C;
+	Sat, 14 Nov 2026 23:59:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=gnQX0JSf
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RPYuQiX7nVQF6jjTls2JJ3dWYsqMTYMXgj9VJT0rqq+yERB9PaV50OeZu4A9Qu3ZPnnbjnRsZTsgJdJJsvfoNHrQ8onpPuknUYCZSopTzHzkdipU0YFV8/WEUKFzlwtnYSNXbcK6i+HRt2TkgEFitVeVLgccGp4NJUpmOWfaIHKmzH9C+q32WaEYxjs0NyQLogOI3Blr/3GK9tTaeE0peWUfK90mhO4WM+bm0C1tPbCsb+o/V840fcURV80gueKGR4efK27/Qe7ELFkd6JgBe4y6qmvyNUWGki2WImIcKhFP6LWlVs5bMqroMzNM1Kj/DzgZxySzu/KyDtj/PPyg2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bpeeawqXAwXe8hvlJopUeaTMWg2WHuyiLKNJWkrx+f4=;
- b=phlFpl3CphybGUtGR42SzP2r3OansBies9l2kTtnZAlXWtUXBTMJySNkCIBExCNy6MNck91miINysetyW4jRJkBh3iqPdY4KsyKYsuzKcPR613Y61gY1C/yn9LKRpNLwPmZOctP3s5nAlyP91vr6uvTyuAFVxUhQKt5WuIB9PzQGFq4AxI6r8qtN/1VvFpvMDB6J6ups56LSa1L0Bm29VXkgQA/MYgaP5Qf4bTYO3g1xzLkr2ksH8QR9z7KI07zaUXshjZfyw/tl89A6s9BfwPgGabEc2/wSJ9P+ruw3Ebu4FxRXjYtPmgF8dju3pYRiipaX4YsfIqNlvBioqe9CJg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bpeeawqXAwXe8hvlJopUeaTMWg2WHuyiLKNJWkrx+f4=;
- b=gnQX0JSfaWIThT5puKLnGEzubVl7uJiV8PQo8McKIAkp/w6Hj12wRI74nOmPmByqufWPNCZY/xBj9kVZ4q3pO5WK9bPdbGmaXubxdY93ESwhMsfCORaBH6S/jZEy3EcJg9pjysGF4y0OyBJrsZfXCPK34R8yjV3nsKPTpzqraoHhq4C7fyzvhFgdUAeC3ljtInuA2qT437ZZaRA20LP4tdo4klSxgf5l7SiZWN5QwlfqlB/uo4RSWlgrEZ3Dkf/I9kyvE9xPJ1fb/4Haq+mWe6t86O0vRjQC4jyyIdudODa4GdkGx2723N1P5334SO3/9GkXw1bV71wvbJ3kzgZLdA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by LV2PR12MB966079.namprd12.prod.outlook.com
- (2603:10b6:408:3a9::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Sat, 14 Nov
- 2026 23:58:30 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0615.012; Sat, 14 Nov 2026
- 23:58:29 +0000
-Date: Sat, 14 Nov 2026 19:58:28 -0400
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: "Gustavo A." <gustavogyn@gmail.com>
-Cc: Alex Williamson <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	kvm@vger.kernel.org, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 0/1] vfio/pci: Wait for GB202 firmware after reset
-Message-ID: <20261114235828.GF3706007@nvidia.com>
-References: <CAPZV9qUk3-eKOGEjVc7f0QzZcjb3L5QwUceAEUV0nuCdo90eGw@mail.gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAPZV9qUk3-eKOGEjVc7f0QzZcjb3L5QwUceAEUV0nuCdo90eGw@mail.gmail.com>
-X-ClientProxiedBy: YT4PR01CA0258.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:10f::20) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hzVjX/PD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E601F1F000C4;
+	Sat, 14 Nov 2026 23:59:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794700760;
+	bh=1//nYzv/qOAjL6VO4zOzNwURg0Vr7a2QvDbvojCkm+8=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=hzVjX/PD+PH9i3d+t0cTR0nbyhLrEvDxT0pDsW0ER/XefIx1eVbWGDd5cNnjO3IzW
+	 XE+nZ4upsj1xtjmqvqbjquP4k4+LUgVAXVhhn9CVYFChFAMGiux1SL+PjkhYnPAc67
+	 e1M+57BdJh7HiLGscPG2yySPNL+WdCONOMCVSUWTtY6zzHLk2vej27HAOvl2dD014i
+	 E8b3eqa+QVIKyqGZJbcRCIwxMJ0ar0BiJs6CMdk8MaY5w+IGUWL4hORUG3rC+ckxpd
+	 YCqX/g0eZqFmLOdg0dW7uWAW4F8S6mB944SuEXzwFNtQ4uJpKQ+bKtGvl+HtTe9oPF
+	 gpzdnGS6Sgkmw==
+Subject: Re: [PATCH net v3 1/7] net: bcm4908_enet: fix the TX ring wrap
+From: netdev-bot+sashiko@kernel.org
+To: kudzo51@gmail.com
+Cc: netdev@vger.kernel.org, f.fainelli@gmail.com,
+ florian.fainelli@broadcom.com, rafal@milecki.pl,
+ bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ linux-kernel@vger.kernel.org
+Date: Sat, 14 Nov 2026 23:59:19 +0000
+Message-ID: <179470075948.2199510.6017536287961686127@kernel.org>
+In-Reply-To: <20261113235847.517308-2-kudzo51@gmail.com>
+References: <20261113235847.517308-2-kudzo51@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,74 +64,260 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|LV2PR12MB966079:EE_
-X-MS-Office365-Filtering-Correlation-Id: 89250432-0d3d-4650-c1eb-08df42ab2e74
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|10067099003|11063799006|56012099006|261026121527099003|261026140227099003|261028144727099003|261022105027099003|261021121427099003|261102123227099003|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	30TQXdawrUHQb0c/Dc4EDp9F8mkt9/XnyJjrSNA/m3A5NZMPdN5UijqN080uVwnIQ5k0vPn1cpnshopgbJs2A7ymaHkFAIREk1jD3WG3VC/SOpxVxmkT8pDzhjBOS+R3d1FCmYZZtYjvVFy8xEzPhT4wlH5vu2l80v/GJcUzcO3qghhE7NQ4u9A9umJWiksCO0E9DfHsvYjY3vKebmNPhJ7Z3KtaJhnbmABtJN8yxhbfx9yLgBv6EdeUaSN+4ujhUQ8Dw05YXQScMXVt+8CGQ/eLZp4eqj6bjJE8lIp4YhgqXQBE3NaAqT3RGJDEyh1hO6U2yf7exO9KvMXeTjrDJSG3Y8UF9Mvb2Le1H+v07DayOyJdXUbRX+48Fcys6XXh6kkLVNtxU72G1bM08skhGJJDtVJxXRfChhgvMMAMszMyOkLSn4ueWtQc47lDK5DvacV0hZMcvGua32MSeV8klAKdDyQQE/djyLyi1Jw1F5MZv90zTrkoMNneLEMBmkfndXdwo0fCen/moCOnBPdbQNACejur6IsVRFWTShxILAkSnfX/BgV/04Jzhtz2AA5O/Fhuh2jOCpmqJ6hTRh3iVeoOeqLZB77L+v5BrMISqXiryiIzxdL75mgDVEWh8u6SW1ITQ9VnAX95pK7XVDtnZrO+wQL5ndVJdgVQJYCdWI0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(10067099003)(11063799006)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261022105027099003)(261021121427099003)(261102123227099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?ZerEi3rYKFysHkeTB3ffQvD7eIpXPOB5DnWvWGKShGEDycO2bHpy5ccZAhIB?=
- =?us-ascii?Q?veDWjdhdZ0ujFnjvyzBI6GXhK983Xnkbeusd8oBKKTblKcN1SrC2Lcd7FoKF?=
- =?us-ascii?Q?Wy0ekRqoO7+SF067K04SurT8yko1Mm+3Xj6RP0wld2Ld0k+gNvdf+t/GP1Nt?=
- =?us-ascii?Q?hMbvGAU/yV43wtG8bYPnQGuJ0HfAvosYXehiHRc23u4qSLEZmCjan1ReaPRi?=
- =?us-ascii?Q?uA8Tp18EymkJHSuq9p91e5wYzN5Z9VUr5bYuYLgEW8VlUxvCXo5zDbYG1FgB?=
- =?us-ascii?Q?nIRLHMuwTqHkG7FI4s032KoCfnP1RHJETkijFx1hULK8LuQrH3iRlRq+Njgv?=
- =?us-ascii?Q?gtu1qne/+puZadoc5gsC1COaTIYC9MDe+Ek7xXNuzYjtl61geYv3d5O6qLac?=
- =?us-ascii?Q?BkWibYHE5CUqdp1OKZ0pYyO/zzxWBtOt0JX9pjYWRkvzaGCEx3UG4V2rkI+A?=
- =?us-ascii?Q?gmKBAtyHy0OKYitQXL4ZTiaRlrz2IehBa1z/WGfgOfKlNiQXdEhUsKqw2JWf?=
- =?us-ascii?Q?oV5j1pCdtFFsQ1PAsAwktMTM4QI2RbHU+jCh45yqtKRn7s7QDlqGR3JumAxD?=
- =?us-ascii?Q?cBlem5at2GFJcQeSMyA2G2gyC3xr0RlYwKmI8dZh3ofNl8TJEyH2aA0no2CI?=
- =?us-ascii?Q?HmAH7gsw7j2vFpWuAfiPGJ4YR2iYEW/3UIpD+P7nx70lf9L2AKm5BbHdD+kY?=
- =?us-ascii?Q?bokJM63MC4A0riZ3EcVusZMyHPYpf2BCmGzhl5eJg0E+fKRW1ouSeWPHN8Fy?=
- =?us-ascii?Q?6p4IE8oKD6dZFV4Mf5+A6qpUp1MjUrc0ojYnEwCPP45eM24Jj0jaraiRTaGf?=
- =?us-ascii?Q?ME2FWzTjqc+spWXq72yO3RKgN5XnBqmLfbHDNapdNVeGfP19wufkCYlDdt5X?=
- =?us-ascii?Q?hGIwnNlBWFs4TGHHcr/KCgAC6wjf9yeuZxPrakEsGIuOGaX3LTrWucKHKMgl?=
- =?us-ascii?Q?WXyp5ofnLGRxiTo/UPrRUr80HstzDRzWWKqyNDipvVI7QcrkCP2ca0VngH1F?=
- =?us-ascii?Q?ifw33hvfbmisHxDT8gvrSku+Lt8cbZZAGOH4AArIIY9cNg19XbqVA45/Uerx?=
- =?us-ascii?Q?Wa6CV7b9pgWC+V8dIjW+5HtvjEuSZ0a/I0yyCKE9a3rBjeb09fM1IidseNBB?=
- =?us-ascii?Q?QkzTVcSpVJ2F1bFlAgNqnSbUG9dlD0D/CMHB9IJ6VWw8kKzuRgZQf65P8Y5N?=
- =?us-ascii?Q?zuxSrGfLUFFf4TzB4dGxY+B0X8sx/tQfO0A9YiIF3jhFQk1PWS/jVEweQfey?=
- =?us-ascii?Q?/XTHbjrh7a+Xuhs2wxT5G8kEIAbgOdiBFz3vgY3NjzkbW28KwbdrI6V186ej?=
- =?us-ascii?Q?WsszYT5OulotIAYFtVwxvPkU/of8HHJ9gaYto2vFiTtfJQ2eGvGUqHz/alvx?=
- =?us-ascii?Q?qM58F208bp4kKAcA/QQT3v8x6gz0VCsInlhpE/Np+6eBmty3+os5Bt5L+I9s?=
- =?us-ascii?Q?g5pjJGoRRYmTH4n2gBmxpSoUcvW/mi6mh/4g6r/TtsgM3EofIC+Hh+oAX2Kc?=
- =?us-ascii?Q?5LfBS3krDE1jbmKfge9293CytdW0Y9MprBdBL93ISorRnR4IfBXTmvdryrOb?=
- =?us-ascii?Q?6y5sXnq5G3PqwOWTXFGMAL9ycpDYxiRaWXiC1m0pVAGW18OiJuZvf260H5BB?=
- =?us-ascii?Q?gIsMbFydf0b4lmrkdAOiW74D77O53NFTbtpDCOFZjRiR9AIypfqEf4rdfunn?=
- =?us-ascii?Q?jjiTnPzyuabwJ+INQqM/wC2TyTfuwSjQPr4SN7crLu1vsBMZ?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 89250432-0d3d-4650-c1eb-08df42ab2e74
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2026 23:58:29.7309
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KO2jAZofPRq7Y4vrWGCsNEXfFiU2olO5d2dpg69lFp4W/eyalNFsG2ZGwROzQVnw
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB966079
 
-On Sat, Nov 14, 2026 at 02:48:53AM +0000, Gustavo A. wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-> PCI reset returns successfully while the Firmware Security Processor (FSP)
-> is still initializing. Restricting BAR1 to 4 KiB mappings masks the problem.
-> Waiting for FSP completion after reset restores normal output with stock
-> KVM and verified 1 GiB BAR1 mappings.
+Critical: 0 · High: 0 (1) · Medium: 1 (3) · Low: 0
 
-That doesn't really make any sense, you are probably hitting a race
-condition somewhere since 1G/4k changes the timing. And possibly
-because your new kernel versions boot VFIO faster than older ones.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-IIRC there was some VBIOS bug in old versions that caused issues with
-vfio.
+- [Medium] bcm4908_enet_start_xmit()
+  (drivers/net/ethernet/broadcom/bcm4908_enet.c:553-555) still has a…
 
-VFIO should definately not be doing things like this.
+Pre-existing issues:
+- [High] The DT binding makes the 'tx' interrupt optional (interrupts
+  minItems: 1), and bcm4908_enet_probe() keeps a negative enet->irq_tx…
+- [Medium] At this commit, bcm4908_enet_stop() never reaps the TX ring.
+- [Medium] At this commit, the lockless TX ring protocol between
+  bcm4908_enet_start_xmit() and bcm4908_enet_poll_tx() publishes and…
+- [Medium] At this commit, bcm4908_enet_start_xmit() writes
+  buf_desc->addr and then buf_desc->ctl (with OWN) to…
 
-Jason
+--
+
+net: bcm4908_enet: fix the TX ring wrap
+
+The patch fixes the mismatch between how start_xmit() and poll_tx() wrap
+the TX ring indexes. Before the fix, a full ring could look empty, and
+the queue could stall for good. All descriptors are now used, with WRAP
+on the last one, both indexes wrap at length and one descriptor stays
+free. Stopping and waking the queue now goes through the netdev_queues.h
+helpers.
+
+> diff --git a/drivers/net/ethernet/broadcom/bcm4908_enet.c b/drivers/net/ethernet/broadcom/bcm4908_enet.c
+> index fd2715f84af97..60f711e8ce189 100644
+> --- a/drivers/net/ethernet/broadcom/bcm4908_enet.c
+> +++ b/drivers/net/ethernet/broadcom/bcm4908_enet.c
+
+[ ... ]
+
+> @@ -518,30 +519,34 @@ static int bcm4908_enet_stop(struct net_device *netdev)
+>  	return 0;
+>  }
+
+[Severity: Medium]
+This is a pre-existing issue, but bcm4908_enet_stop() never reaps the TX
+ring:
+
+bcm4908_enet_stop() {
+    ...
+	napi_disable(&tx_ring->napi);
+	netdev_reset_queue(netdev);
+
+	bcm4908_enet_dma_rx_ring_disable(enet, &enet->rx_ring);
+	bcm4908_enet_dma_tx_ring_disable(enet, &enet->tx_ring);
+
+	bcm4908_enet_dma_uninit(enet);
+    ...
+}
+
+bcm4908_enet_dma_uninit() only walks rx_ring->slots. Do the skbs between
+read_idx and write_idx stay DMA mapped and leak on ifdown?
+
+On the next open, bcm4908_enet_dma_ring_init() sets read_idx and
+write_idx back to 0 but does not clear the TX descriptors, so stale OWN
+bits can stay set.
+
+The later commit "net: bcm4908_enet: release the TX ring on stop" in this
+series fixes this. It adds bcm4908_enet_tx_ring_clean(), calls it from
+bcm4908_enet_stop() after the TX channel has stopped, and clears the TX
+descriptors in bcm4908_enet_dma_ring_init().
+
+>  
+> +/* One descriptor always stays unused, so read_idx == write_idx can only
+> + * mean an empty ring
+> + */
+> +static int bcm4908_enet_tx_free_descs(struct bcm4908_enet_dma_ring *ring)
+> +{
+> +	int free = READ_ONCE(ring->read_idx) - READ_ONCE(ring->write_idx) - 1;
+> +
+> +	return free < 0 ? free + ring->length : free;
+> +}
+> +
+>  static netdev_tx_t bcm4908_enet_start_xmit(struct sk_buff *skb, struct net_device *netdev)
+>  {
+
+[ ... ]
+
+>  	/* Free transmitted skbs */
+>  	if (enet->irq_tx < 0 &&
+> -	    !(le32_to_cpu(ring->buf_desc[ring->read_idx].ctl) & DMA_CTL_STATUS_OWN))
+> +	    !(le32_to_cpu(ring->buf_desc[READ_ONCE(ring->read_idx)].ctl) &
+> +	      DMA_CTL_STATUS_OWN))
+>  		napi_schedule(&enet->tx_ring.napi);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but what happens here when the
+DT leaves out the optional "tx" interrupt?
+
+The binding allows a single interrupt (interrupts: minItems: 1).
+bcm4908_enet_probe() keeps the negative enet->irq_tx and carries on, and
+bcm4908_enet_open() then skips enabling the TX NAPI:
+
+bcm4908_enet_open() {
+    ...
+	if (enet->irq_tx > 0) {
+		napi_enable(&tx_ring->napi);
+    ...
+}
+
+A NAPI added with netif_napi_add_tx() starts with NAPI_STATE_SCHED and
+NAPI_STATE_NPSVC set. So this napi_schedule() only sets MISSED, and
+bcm4908_enet_poll_tx() never runs.
+
+Does that mean no TX skb is ever reclaimed? After length - 1 frames,
+netif_txq_maybe_stop() would stop the queue with nothing to wake it.
+That is the "queue stops for good with nothing left to wake it" symptom
+from the commit message. The new "poll_tx() wakes the queue once there
+is room again" comment also doesn't hold in this mode.
+
+bcm4908_enet_stop() also calls napi_disable(&tx_ring->napi)
+unconditionally. SCHED and NPSVC never clear on a NAPI that was never
+enabled. Can napi_disable_locked() then loop forever while holding RTNL
+and the netdev lock?
+
+stop() then also calls free_irq() with the negative enet->irq_tx.
+
+This is still present at the end of the series. open() still enables the
+TX NAPI only when irq_tx > 0, and stop() still calls napi_disable() on it
+every time.
+
+>  
+> -	/* Don't use the last empty buf descriptor */
+> -	if (ring->read_idx <= ring->write_idx)
+> -		free_buf_descs = ring->read_idx - ring->write_idx + ring->length;
+> -	else
+> -		free_buf_descs = ring->read_idx - ring->write_idx;
+> -	if (free_buf_descs < 2) {
+> -		netif_stop_queue(netdev);
+> +	if (!netif_txq_maybe_stop(txq, bcm4908_enet_tx_free_descs(ring), 1, 1))
+>  		return NETDEV_TX_BUSY;
+> -	}
+>  
+>  	/* Hardware removes OWN bit after sending data */
+>  	buf_desc = &ring->buf_desc[ring->write_idx];
+
+[Severity: Medium]
+The OWN check just after this line still stops the queue directly,
+without the netdev_queues.h helpers:
+
+	if (unlikely(le32_to_cpu(buf_desc->ctl) & DMA_CTL_STATUS_OWN)) {
+		netif_stop_queue(netdev);
+		return NETDEV_TX_BUSY;
+	}
+
+This patch removes the unconditional netif_wake_queue() from
+bcm4908_enet_poll_tx(). The only waker left is
+netif_txq_completed_wake(), and it only wakes when packets were
+completed:
+
+__netif_txq_completed_wake() {
+    ...
+	if (pkts && likely(get_desc >= start_thrs)) {
+    ...
+}
+
+Suppose start_xmit() takes this path while the indexes say the ring is
+empty. One way is a stale OWN descriptor at index 0 after ifdown/ifup:
+bcm4908_enet_dma_ring_init() resets read_idx and write_idx to 0 but
+leaves the descriptors alone. poll_tx() then has handled == 0.
+
+Is the queue ever woken in that case?
+
+The old code had no way out of this case either, because poll_tx() is not
+scheduled when no DMA was kicked. Still, the new "wakes the queue if
+start_xmit() stopped it" comment in poll_tx() does not cover this stop.
+
+The later commit "net: bcm4908_enet: release the TX ring on stop" in this
+series removes this OWN check and clears the TX descriptors in
+bcm4908_enet_dma_ring_init().
+
+> @@ -562,7 +567,7 @@ static netdev_tx_t bcm4908_enet_start_xmit(struct sk_buff *skb, struct net_devic
+>  	tmp |= DMA_CTL_STATUS_SOP;
+>  	tmp |= DMA_CTL_STATUS_EOP;
+>  	tmp |= DMA_CTL_STATUS_APPEND_CRC;
+> -	if (ring->write_idx + 1 == ring->length - 1)
+> +	if (ring->write_idx == ring->length - 1)
+>  		tmp |= DMA_CTL_STATUS_WRAP;
+>  
+>  	netdev_sent_queue(enet->netdev, skb->len);
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but right after this the
+descriptor goes to the DMA with no barrier between the two stores:
+
+	buf_desc->addr = cpu_to_le32((uint32_t)slot->dma_addr);
+	buf_desc->ctl = cpu_to_le32(tmp);
+
+With no dma_wmb() between them, can a DMA engine that is already running
+see OWN before the new address? It would then transmit from a stale,
+unmapped buffer.
+
+bcm4908_enet_dma_alloc_rx_buf() uses the opposite order and writes ctl,
+with OWN, before addr:
+
+	buf_desc->ctl = cpu_to_le32(tmp);
+	buf_desc->addr = cpu_to_le32(slot->dma_addr);
+
+The later commit "net: bcm4908_enet: publish the buffer address before
+OWN" in this series adds dma_wmb() between the stores on both paths,
+writes addr first on RX, and adds dma_rmb() in poll_rx().
+
+[ ... ]
+
+> @@ -652,17 +662,19 @@ static int bcm4908_enet_poll_tx(struct napi_struct *napi, int weight)
+
+[ ... ]
+
+> -	while (handled < weight && tx_ring->read_idx != tx_ring->write_idx) {
+> -		buf_desc = &tx_ring->buf_desc[tx_ring->read_idx];
+> +	while (handled < weight && read_idx != READ_ONCE(tx_ring->write_idx)) {
+> +		buf_desc = &tx_ring->buf_desc[read_idx];
+>  		if (le32_to_cpu(buf_desc->ctl) & DMA_CTL_STATUS_OWN)
+>  			break;
+> -		slot = &tx_ring->slots[tx_ring->read_idx];
+> +		slot = &tx_ring->slots[read_idx];
+>  
+>  		dma_unmap_single(dev, slot->dma_addr, slot->len, DMA_TO_DEVICE);
+>  		dev_kfree_skb(slot->skb);
+
+[Severity: Medium]
+This is a pre-existing issue, since the old loop used plain loads here.
+Is READ_ONCE() enough for this lockless index protocol, though?
+
+start_xmit() publishes write_idx with WRITE_ONCE() after it writes the
+slot and the descriptor. This loop reads write_idx with READ_ONCE() and
+then loads buf_desc->ctl and slots[read_idx].
+
+On arm64, could those loads return the previous lap's values, with OWN
+clear and an skb that was already freed? That would call
+dma_unmap_single() and dev_kfree_skb() a second time on that skb, and the
+new frame would be lost.
+
+The other direction has the same gap. The slot loads here are not
+release-ordered before WRITE_ONCE(tx_ring->read_idx, read_idx). Also,
+bcm4908_enet_tx_free_descs() reads read_idx with READ_ONCE() before
+start_xmit() reuses the slot.
+
+The later commit "net: bcm4908_enet: order the TX ring index accesses" in
+this series switches all of these to smp_store_release() and
+smp_load_acquire(), for both write_idx and read_idx, including in
+bcm4908_enet_tx_free_descs().
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261113235847.517308-1-kudzo51%40gmail.com
