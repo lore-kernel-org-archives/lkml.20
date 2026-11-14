@@ -1,115 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.158
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794679079;
-	b=kdXorizFilXGQh/YN6EFfH+urEVolHlI6Wz2W44FEcVKtKjiZyCmXBJdaUM7BbGGU/vB
-	 Z/bFrEFAZmwdSlSuGjEUZQ/rKwtTsBOa+t1SvkEkX/IYZ/gyy/QGLpED6t22Al7JGvvdL
-	 sGfSw+vIBMKoyhQJEG0LexqHEOiG4+qtBJIo0/QVZGIGI7OQXrz5F3mB7u9uTypwNBDI1
-	 6ZsgUXgfeGX+Cod3gSTBaepn2k9gAcQ4DYleZFHv749LNx82A73ZzQByLw6b1mXeYdjUX
-	 +gInk8vyWLjLceRqJHdONV//O8gaec7+Dtm4dkPYh3V5jthkti4AoXRWEqeMqGC79rQ==
+	t=1794679130;
+	b=TIUH3sRAvLPVLmobeWmWgp83okrWzN8S2fUpBZXK6UJq4xgRI45a/mHMp8ktxb/6j0wI
+	 cCpEmatt4h0LzasCsGxGsvzWdwvkwANxAPHB53+22JUT8qfFMFdqtYA/Q52/m1QHAMXNz
+	 Ah/Zj9zGHYO2J5/1bY2b/IeXdCLUZoJMeEzjzA+bbs4RTcRUYo1mycj+EQ3R2tWx8V/3r
+	 iHChe7eM+XjbdUn5TD8SHIiuX9lP9eBqAqnmlNScVSWid6hGghYY/5J91Md9LrFqVSUI/
+	 H0YBuv0RgGZxEvZSGFmC5GAFpZyadpliUyFUQLvE660VLoDN7wGDGHMDVthkOj3UaYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794679079;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=CI3BCrrM6S0a2tk2nkE8USBufOr5oglVDVMGzlb/u8Y=;
-	b=rVpExbsl4RZzbY5KgHHzLD6KlDgQ+yCtoJE8fgchk1HGOc62BpETXBb5WqNXL6FvLK0l
-	 8wFQiXGsjRFzKqs9nmLaR6yL+RLemq4/JJzWSj3P795vKRClL62ZhUFApAl79RtiQOFpA
-	 TrbiW/l1J/DofiB6/oA0KtRtA/hxf419z6DdC3z+1cOgkOMRWmxsoDCVDmihjBBFp7PAr
-	 giN8vJPVouUhHPGFKj1PFsw0v4+UAjf/4fp+uoVUtvag8imsgm3bZJm6Rr/TOHnJUK3nv
-	 mIzaKkD4ePjKWAtmWMzcWHuwVfemxPF8VTU4uJsyyoiMhl3yE8b8HiCd/2kl8UgKdxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794679130;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=/HQvy3Bf+SmAOhrQqSVfFUq9G41+E/cdawcP+LkvJ7k=;
+	b=jzbbllll4W2yb3M96vRTAP58mRAqvfpz8E6HsH5V5OIkBoZcoY4TsESA2FtVK5XFINdy
+	 6VKq7jfiBJaah1avaIWwUFM+o7ZOTOLhM//YhCpoZNT9MIlWTQuuXW4cU3G+Cneva1sTV
+	 b//EQYHwaUgAPGFKc6QMYHhyVXYAuFT/ChZ4gJdlefkuuKHHU7jF3cZQNaasMBthvgpIF
+	 TS8Pv8CPTvXFmJkRPjJ+b+eThkuaI79E/Gg6sWREqP71q/+cg8w1epj8p34QtJ1p1osyw
+	 n2+BP5OYlK/agPdiBc9XnnrlPKKScDvb0z9GciNO0BiBW2sS4aD+Qwe0QX3B6V1x5Mg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=jaseg.de;
-	spf=pass smtp.mailfrom=jaseg.de;
-	dkim=pass header.d=jaseg.de header.i=@jaseg.de header.a=rsa-sha256 header.s=fm3 header.b=vfgK+1SH;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=H7H2Yym+;
-	arc=none smtp.remote-ip=103.168.172.158
-Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N8mR7pat;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBF0B606A336
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:57:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBF0B606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jaseg.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jaseg.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CF85606A323;
+	Sat, 14 Nov 2026 17:58:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jaseg.de header.i=@jaseg.de header.a=rsa-sha256 header.s=fm3 header.b=vfgK+1SH;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=H7H2Yym+
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id B6A63140003F
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 12:57:57 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Sat, 14 Nov 2026 12:57:57 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jaseg.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1794679077;
-	 x=1794765477; bh=CI3BCrrM6S0a2tk2nkE8USBufOr5oglVDVMGzlb/u8Y=; b=
-	vfgK+1SHr9oiV/4fkfj4w5rPn5LPF0RzZaCYEKTaRdFA+ASeCIWTT2xFGxKoj+8j
-	MR47G8foJ0qc8f5KfdAIeWf7wAAqdjDkrLFHfPW2ygSIp2kfj8D3U3z8mgGFpUOG
-	FvdDLYURXhAHTkGRZboY4gTLzffF3DlJTk9jNXJQe93+Ja+ayHOIOhEeXFZDmPfm
-	HZgRS/99rP22FKMdNpv5jCiK5kj7iNwC6ofJmK+it/kxojXlhaU+AWyWHSwGWol8
-	PBOyUUkK6WNyxBMQjIoHEOuCou+jUMutryNMCEr7KphI5mm7JYrCeS3hN3VFNEAV
-	SeRIZdfqYz9G5g2yvaHYQA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794679077; x=
-	1794765477; bh=CI3BCrrM6S0a2tk2nkE8USBufOr5oglVDVMGzlb/u8Y=; b=H
-	7H2Yym+xKk/bZedSTt+LxKY4x4H7agPWlt+FeKxnGBd8rIYNkHJKDMcvF3ZMCiHH
-	1jWor4fgrGyO5vqFtOQRAUKg3S+wa84bzr16wqbixTLqbZ5E74oAJc/imu+1JsEb
-	plpsJ0W2nOXmsPz9UV9zcSZ077cKSgIuPZZV6BcXWbRpRW+P8uRJH9Ie1jQ5XkvU
-	b/D6J+umSaK518NMBwj3daRV7sv5B+INBBLK2Z6LATkwFnPseTR4KUXUwMMyH640
-	gvumqO3ocbvEs9U7DdT/H5Lmv/UFDIgtAOLcaOe4+BGlexn1zEF67kZFHhbMTqlR
-	Aywvw+LB3eQgS2z/jxIWg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=jaseg.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794679077; d=jaseg.de;
-	mf=PGxpbnV4QGphc2VnLmRlPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:mg3To0YgMQ5j81I9N+VbyVtUMhKYk73/omZg2vj15+FpTB9
-	ImaNsOiQ1i0WzGs5UyjGnMtld/K5LKQmxuw37t3zjhfGuhyhPt8nN569e6mRHRFi
-	kmIC+oTJ3z5FJEm/9uze8k03hQfshEmWe3P8Q0iQV/cDCgCouDdFIuU1+wrJ3ZlB
-	FQsyYq4BxVBId1IjmTdRaiwDwe3YVhZTPCgETAlYFrZrksxrBYtLDQjjEZ8dqkMz
-	e0zTNsIP5b/v7ZvxnQ6pZ8CCG702+c6+7vPHCxHVbNsRyj6q6wjbBeDqtClMBfAk
-	jqmWc/6WR7/oTqKZko0JaMxvZGVKvoM2w+swRTg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:fY7X0z7LldTHt79gxHxiZCmzIZljlhzw73fCozI9lZ8=:nt/UwJpbWE72ZU0e93SnePpLVAMG8C5iQifbZ66MrbM=;
-X-ME-Sender: <xms:JaH4ak6YMCHRarwrthSeaLFa9bBUIbTJ-8DBLvgy1EfuZxt8Ylgb0g>
-    <xme:JaH4ahtYoJOflPYz5UW8TXXeGDmAG7PtmS2sb-96ZUGSUad9fryv28GtlWCmQFnvu
-    73QxFQz1vl2t15AVu7i7k5kSqwRRMA3ttNHSgB0Jq7rP3jQdvZ_uA>
-X-ME-Received: <xmr:JaH4au3-olXUsQpTUXRM4L2q9sRsP34ZTSwhi5FHT9iUGDrbZTVK0FNEOCT3sgX_5j8N24yHJ46In9Sj2ULe_GtU8BikwhmxyooH1Ns>
-X-ME-Proxy-Cause: dmFkZTEhm5E7Z6ZRBlBV9g4Ry/msUZzJ0LiKeTMEFVUrdxGjSFt2m64gXlT3aTVC6dPQTm
-    ZfSUA+D9IBMj2GWSt9GdG/VSDb9cxDNJjG3uSarSdzLqxo9hhySslKaEf5HIuKHgwP5wz9
-    Z9xboVdHmRusbbANNl8Dxx9TO5uv7nInEQ6u3rDubRcrReTC9VP9sQ19qx259xWy0kE6tG
-    UaAYUz8mH2LBvGQ5hyqMpcp4BSdYV1hJs1zwRgFFFWthGQKut5S6my2FAR0l0VubWlDYCq
-    88wxMwOrNat82x+QX4IeDz34FHRuQsC2DQDyteYdaPMpp/yNuikKlq0p8RZErYOB0ImrCv
-    fXg9Ly4QkZVbGdjiaEjkAhfXlLGh4jUuv6BZQu6KR/uEIc/uy5RpncCI71r7EC7YBJ99U6
-    ZSe3hrtkv8YiWdKfd9+zBlHourlhiZle4dMd7Qt6RN3FrWmCvio31l40vLKaAwsV4lSprs
-    JHFBW1CY+ZDwDiIGGAQCsW+SHeCXBpck3TkitzKCS8dXCGrIiS8bdbBHCmY3Y+yXTDcVIJ
-    lo+npnorKIuY3O8nzpjroIsN60ssIIJEfXGKcpJwEFe8/VTq3JeVjW9IKFgvEqKYUSGXNl
-    uV8Hxe6jME8GfR1BXyvKOIxktYNHVZLpsFWem31zwK9eQ07YSm6lyjW1Bjnw
-X-ME-Proxy: <xmx:JaH4aiq2maLzwQqOQHPE8Lz1IgLZ4oPbHP_NLfGfmBJc-6WrggbUkw>
-    <xmx:JaH4amLiXvaWUUNc1lrv0rEkBLt62kZsDeUs_YwigsG7eycjPLie9A>
-    <xmx:JaH4amRBIf_YBrcS_H40ZRm01RIaelC-wxTLQzCiD-VqLFGlB7kLXw>
-    <xmx:JaH4amO9sUtogLsb29weYAMkVW-Ar8j4WpcXo0OZfSkMIym2iSeZ3A>
-    <xmx:JaH4as3N9mg23iF1WTWgpPMNcHSLxWCtPL3sPsEU6swnyDMCYVB4h7cs>
-Feedback-ID: i60a14417:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 14 Nov 2026 12:57:55 -0500 (EST)
-Message-ID: <f6d30c90-05cd-48ad-a278-3277eaafd207@jaseg.de>
-Date: Sat, 14 Nov 2026 18:57:52 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N8mR7pat
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C3851F000C4;
+	Sat, 14 Nov 2026 17:58:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794679130;
+	bh=/HQvy3Bf+SmAOhrQqSVfFUq9G41+E/cdawcP+LkvJ7k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=N8mR7pat/AgWFEZudjyHd7qJBB0qQTOZWAzhwI7OKAco/3FMbPxpm7r6J9z2NrL5K
+	 zZXPUFSkOwIalYeVT18FocvsBKg96UZd5zOLhGAflrdGsckEbf+bMqkdTquefCO1wP
+	 eSUTsPFlNyU/yvae/e7nKC/z5iHwTytOrnpqjJW9Nrh3KEwZiH8M/G2j3RGSZILKyi
+	 x0TDM8U7JFia1yyzVyYUvzq1uCt2k3vFI8O/t0subTSzLfoKO0LUQjthEzGudkGUNP
+	 qQcj6uLH38Z0cXP+LUByAoxmrAp62uB/S9dh9+AR0xOn7VtX0Rgf5A+K3ipjRgzwK0
+	 svq8hq1b/3v4w==
+Date: Sat, 14 Nov 2026 17:58:40 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Peter Xu <peterx@redhat.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-mm@kvack.org, linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] mm/userfaultfd: prevent poison marker loss
+Message-ID: <avihSinN3BWkw2sS@gremlin>
+References: <20261107-b4-uffd_marker_loss-v1-0-82926b22704c@kernel.org>
+ <20261107-b4-uffd_marker_loss-v1-1-82926b22704c@kernel.org>
+ <822c1c7e-bfdf-4570-bf30-08f187e7253d@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,34 +70,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] pmdomain: core: Wait for device link removals before
- dropping genpd->dev
-To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- stable@vger.kernel.org, Saravana Kannan <saravanak@kernel.org>
-References: <ivkwuomer5vsajf2lq6otpgxwqljkwooh3p7e5ne23j37pv22t@iluamo6gxmq3>
- <20260731131002.142671-1-linux@jaseg.de>
- <CAPx+jO8DKyuNMEKCHyKzw5DS62U2Xu6mcL3BtitRwrYP0gad0A@mail.gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Jan_Sebastian_G=C3=B6tte?= <linux@jaseg.de>
-In-Reply-To: <CAPx+jO8DKyuNMEKCHyKzw5DS62U2Xu6mcL3BtitRwrYP0gad0A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <822c1c7e-bfdf-4570-bf30-08f187e7253d@kernel.org>
 
-On 11/13/26 18:47, Ulf Hansson wrote:
-> On Fri, Jul 31, 2026 at 3:10 PM Jan Sebastian Götte <linux@jaseg.de> wrote:
- >> [...]>> Fixes: 18a3a510ecfd ("pmdomain: core: Add the genpd->dev to 
-the genpd provider bus")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Jan Sebastian Götte <linux@jaseg.de>
-> 
-> I decided to apply this patch as is, for fixes! Apologize for the delay!
-> 
-> Let's try to come back to this and see if there is a better long term
-> solution, along the lines of what Saravana suggested.
-Please feel free to CC me when you find the time to write a more long 
-term fix, I'm happy to test over here.
+On Sat, Nov 14, 2026 at 04:39:44PM +0100, David Hildenbrand (Arm) wrote:
+> On 11/7/26 00:51, David Hildenbrand (Arm) wrote:
+> > Unregistering userfaultfd leaves poison markers in the page tables.
+> > However, once unregistered, hugetlb PMD tables can be shared again.
+> >
+> > Further, shmem page-table retraction can discard poison markers even
+> > while registered in missing mode, and fork() can skip copying page
+> > tables containing poison markers.
+> >
+> > To fix it, add VM_MAYBE_UFFD_POISON and set it before installing poison
+> > markers. Preserve it across unregistration, splits, merges and fork(),
+> > just like we do with guard markers.
+> >
+> > Use the new atomic VMA flag to disable PMD sharing and page-table
+> > retraction, and to force page-table copying during fork().
+> >
+> > Move VM_UFFD_WP to bit 44 and make HAVE_ARCH_USERFAULTFD_WP depend on
+> > 64BIT, freeing bit 12 for the new flag on both 32-bit and 64-bit systems.
+> > Expose the flag as "up" in smaps.
+> >
+> > Losing poison markers, while unpleasant, is not really fatal, and the
+> > use case is rather a niche thing. In addition, we rely on the atomic
+> > VMA flags infrastructure ... so let's not CC stable.
+> >
+> > Fixes: fc71884a5f59 ("mm: userfaultfd: add new UFFDIO_POISON ioctl")
+> > Fixes: 8a13897fb0da ("mm: userfaultfd: support UFFDIO_POISON for hugetlbfs")
+> > Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> > ---
+>
+> Ping on this one.
+
+Ack, will have a look.
+
+>
+> --
+> Cheers,
+>
+> David
+
+--
+Cheers, Lorenzo
