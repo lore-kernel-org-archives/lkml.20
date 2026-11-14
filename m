@@ -1,51 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794657519;
-	b=JzYu9h17jhYtSypD8ALes3azbKggL4HGtFK96zLpIcOnR5r6k7ue35v0ZaP4TjubFcNy
-	 5ztPQd0qJ1fX5NXTrhSiOpxcdoSs6QFEw9bGzUquhUvVkPAPd3pTwAjn1IpaGoD4Edta0
-	 o+Trq1Nmbh10KB9yOBinB97DNwE3AccyA+6A90d03R4l8EBihkpDSS3F0yq+6hb//UdQg
-	 rGWXrO49cvbqMMX7mWibztDUYlDpqRrVyPZNZEoAOSeOtXef2TjTDvexj81HRP9iAUWQl
-	 QSgEr47FHSqtekY4la0u+WQzjJerSHrMioUpsK9mHgj1P0XhG5HtM2lQO7lrjwSe1Eg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794657519;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=aw+1Wz0JP4ofF8gkClchV+X87uIHF+8HMsD+9rA1Woo=;
-	b=b4d7RZzCN0zvrYbaUcVwmTohuyKWCN1zsg3c2vQ6NCymiek4cl1XAtyYN5PX+M8BhpKv
-	 /mkTrcfwE+yfsj8n1wfYgck3EstPcQFpvK23r7jrJj5XkueAdmClacS/vanv0DrtEPWOw
-	 8ZqMLNwXpjttW1qtLK8/Hv3SYqJHNxA4DPo+sAfUZAeFFEC8H/tnLvkIvLAv/xxOVBW6Q
-	 sfbkxUZl1nU8Crz6Nx/LIEhnYPXiBv7vKY8SXU9waYj46AC3hi/lVIwGdRbyWaUEMsl2Y
-	 JTIR0oskCnX7RiogWikZRJlhBAai/3IcnfVN2J/iuDHXmeZ2vZJQhYC9y8aETIe5vMw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SaTa6Pod;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794657556;
+	b=09kOz4p6yijB+kXbBMPZsL9MjmRx9mkyo6KRjfWmGhjEa1PKOi4jfxzJsVw5iF+v+GMu
+	 6e4R+8W3C4lY+X40r8G2lF98x8aTGc7kypE+/wZ8M9gX8Tww5h0u5eH13EwAMVjc3UZ8S
+	 63UeLAoHmoNfX2JWT0OKULVQ0xpGOyP+Qql1tJcQqcLbcgK8F+lRkwS2Y3y8opOXy0Llv
+	 96D3Ied6IpAtoMc4tzLjRtGvS23p6HSpvCy+FkQDsLy8NtFJ3dNRO8DRJwVvS84I5FuRv
+	 7wMNzS09MU4ekfeg+pWD8WFHI7eAhjcdA+Www+T+eggqw5ckOT2S5dRRz1TGJ/2gqdA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794657556;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=QyifU7iv2k3L10P848nrkqXZFSblfaKGRCoDXH9oME4=;
+	b=V8h39fBLbRmn4FJkuDuw/taM9NeDSVTvtg2jIIVuNCcePQXqAy9KMZrdBhCeUWE+cQFq
+	 envXwU99c/R1Gn3+UCB45w9nlS/95eHlURW/UXCcghFG9xztZTmyM/Yin/9wub15/8Sil
+	 3ZwhCMFuMvAIO+KWbsACRB6ryT8CfvWav/jyeIX1Qgj9JbqUG8LfCPJUEjzDKJgZWNN/Z
+	 HcSU1rehlxr5o8TJydn3Otk/blbxcGIvxF+R7CtLwwJwnQSs3moXLJ6eVBJ3Il+tcWRcM
+	 r0JWXK6Q2ZClotLSybETuPF6P0zUZByvprQHCceu8/avYDv4AHNOchIxwBGkv8Cn1ng==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WOsi7r9X;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2BDB606A332
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 11:58:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C271606A329;
+	Sat, 14 Nov 2026 11:59:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SaTa6Pod
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEB4B1F000C5;
-	Sat, 14 Nov 2026 11:58:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WOsi7r9X
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794657556;
+	b=i13+MhTytVFHBFZOUEVy2CUHZAn1598qXkm2V/K6Z8eWsiRshy1+cPfSd+U1IudHlIcm
+	 RqjnHrqrVm8twYT5ly3+apIP9Vf++gsSlIhnj90xShwPYCC/VXLbRGRtLrQjiBMFGBKdg
+	 oj3YOXrOEO9gX3PjqL2Hz156c0KIDfJJbht9JIczw1gbkNV5Ls7xyyAd2PHsFJl/CXCiZ
+	 YkXfibngtOPUiYC76jcjGeVkYagRxBqf/Bvw+2fBHyspEqR9DVugllJKe8sc/rb5lkDZf
+	 nv2VW63Rlc68uFPM9SCgCPJkmfnPXnXWumIDjCxyaUIq33Uj7k5jfc2p3ftM/6HgUSQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794657556;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=QyifU7iv2k3L10P848nrkqXZFSblfaKGRCoDXH9oME4=;
+	b=2SboHpeVDWvMougaBb+Oikv4JXwplavx3NLEqkE7BtaGkerC0SjxkYATm00g7TQs0DCw
+	 BDTLZWByNfesoHVZ8zfrOjmDd0JaEYGEyu0n2/kwEd6RyDYVAM1ysaqQiNR2Tncnlb8g8
+	 nPVxDBb4oyj6Y3paTiFvEdIn6J55H9K7N1L0RpFvCJXdAvBJb58Ei6l6CmSXrYoljd2k9
+	 T8YZxTN2TbinI1/E55hjv9FtYtKBDGO9s/wxDa6CFAWHcaH7fol8CT145d6A42aXQzWSb
+	 VaqAZv1fVj4z/vaN2hl/vcPF2cUzFZ1/x1Au2JOsfVzjbddImMcPwgRxj9V9WIUg09A==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id BB81F1F000C6;
+	Sat, 14 Nov 2026 11:59:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794657519;
-	bh=aw+1Wz0JP4ofF8gkClchV+X87uIHF+8HMsD+9rA1Woo=;
-	h=From:To:Cc:Subject:Date;
-	b=SaTa6Podsj4SGzoyxS3CUbFpQWUHfYrmgzbbx6B4hwAJzq0QSIunRpS3eSKHTcHLw
-	 0g8rTcTgicPuZcskL90SL8vxrwn2pwPREyJAzNpRcai0vpryMnbibx2zypp7YH2N5R
-	 rwE+XLDjn75rqGjQQlLF+OhKdRcTqDww19DalkMKtVmxkDKpdhj59pcxeCd3Lw5bSI
-	 G1MZaCfzgofCTZFic3ZOb/xW7jkw9JXZAd3CCtcFpyyvUmdkGIocTEmB9O787jqFIK
-	 a5tpknvofY2+jzRcBn9PF10L5gWn/mZt073BNBtEIRNTNWyV4vINXWY6dVd/g6aaCB
-	 RFgvdSXo+Qx4Q==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>, Zhiqi Zhang <zhiqizhangg@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, linux-kernel@vger.kernel.org
-Subject: [GIT PULL] bootconfig: Fixes for v7.4-rc3
-Date: Sat, 14 Nov 2026 20:58:36 +0900
-Message-ID: <undine-1794657516055390723-80ad11d1aac80df5@undined.local>
-X-Mailer: UndineD 0.1
+	s=k20260515; t=1794657556;
+	bh=QyifU7iv2k3L10P848nrkqXZFSblfaKGRCoDXH9oME4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=WOsi7r9X5ZgmrZKHJFvKhe2S2r+2nFiCYVFp8O6/JnyWrmpdyU7AgGRhezbSiHPov
+	 uYb/KSeppPeVQKFMND5k93wcTSvT5HJKD24evR8YrPQkuJycrbPCqxs1VnUozAdIiY
+	 VrmnOzzV0GH9JbO7yX0F/R9Lf/ZoB9w6QKxjFnwa4KQavjcLd6T0oJomUzdkkT1TYk
+	 jsPszbGwJ3vwQnBpcqhTwvYAREOJ6AHwzpKI8qDtfhOb6Vb1DhjQA8qkHyqpT3Saux
+	 wuV6TDyZvwaKJCFAMFD6IWVrpZb1gFasrgU0B1AmrlkbP6TrZzOnGfRlXmYocDDICl
+	 mvi83LrYkOA1Q==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 4690949D73;
+	Sat, 14 Nov 2026 11:59:15 +0000 (UTC)
+From: Jerome Mohm via B4 Relay <devnull+jrmmhm.kernel.eldare.de@kernel.org>
+Date: Sat, 14 Nov 2026 12:59:15 +0100
+Subject: [PATCH net v6 2/2] vsock/bpf: release sock lock while waiting for
+ data in recvmsg
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,215 +83,137 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261114-kbh3-1-022-fix-v2-v6-2-96b6029bbffa@eldare.de>
+References: <20261114-kbh3-1-022-fix-v2-v6-0-96b6029bbffa@eldare.de>
+In-Reply-To: <20261114-kbh3-1-022-fix-v2-v6-0-96b6029bbffa@eldare.de>
+To: Stefano Garzarella <sgarzare@redhat.com>, 
+ Bobby Eshleman <bobbyeshleman@meta.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, "Michael S. Tsirkin" <mst@redhat.com>, 
+ Alexei Starovoitov <ast@kernel.org>
+Cc: Michal Luczaj <mhal@rbox.co>, virtualization@lists.linux.dev, 
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+ stable@vger.kernel.org, Jerome Mohm <jrmmhm.kernel@eldare.de>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794657554; l=3876;
+ i=jrmmhm.kernel@eldare.de; s=20260928; h=from:subject:message-id;
+ bh=zKh/7Uqq17NlML/ztrwLxN7imFwo8STVIyMfCtn51P8=;
+ b=ya6GopZ4hDKAtGvWAMvwpNAuKWBCDvuUjdlTBahAowEPw+GDQ4SNI7hi5ip0JOfTj+YGAEHBB
+ 8XJKYvXDWTtCn8mshSPblXKB0KPNxhgoBNRErigRPAZyJGhQWySzUWc
+X-Developer-Key: i=jrmmhm.kernel@eldare.de; a=ed25519;
+ pk=xRCxNXbnNottaHpmvPDAOC9NuMJxqKo24abkehKRVlo=
+X-Endpoint-Received: by B4 Relay for jrmmhm.kernel@eldare.de/20260928 with
+ auth_id=1075
+X-Original-From: Jerome Mohm <jrmmhm.kernel@eldare.de>
+Reply-To: jrmmhm.kernel@eldare.de
+Content-Transfer-Encoding: 7bit
 
-Linus,
+From: Jerome Mohm <jrmmhm.kernel@eldare.de>
 
-Bootconfig fixes for v7.4-rc3:
+vsock_bpf_recvmsg() sleeps in vsock_msg_wait_data() with the socket lock
+held, so the virtio delivery worker, which needs that lock, deadlocks
+with the reader and all vsock rx on that worker stops.
 
-- bootconfig: Allow keys with the maximum supported depth
-  Check the array capacity before storing the next key component in
-  xbc_node_compose_key_after() so keys at XBC_DEPTH_MAX (16) are composed
-  instead of failing with -ERANGE when listing keys or creating
-  /proc/bootconfig.
+Release the lock around the wait. The reader can then wake without
+data, so the wait also has to loop; the fix needs both halves. The loop
+ends on data, the timeout, a signal (the sleep returns at once while
+one is pending), a lost transport after a failed connect(), or a state
+in which __vsock_recvmsg() would not wait. Those states go to
+__vsock_recvmsg(), so a non-blocking read now sees them before -EAGAIN.
+A blocking read interrupted by a signal now gets -EINTR, or restarts,
+instead of -EAGAIN. One tested difference remains: a reader asleep at a
+virtio transport reset gets -ENOTCONN, where a native socket gets
+-ECONNRESET (0 on seqpacket).
 
-- bootconfig: Trim unquoted values at end of file
-  Trim trailing whitespace from unquoted values in __xbc_parse_value()
-  after scanning finishes so values at end of input without a trailing
-  newline do not retain extra whitespace.
+The deadlock was found with the help of Anthropic's Claude; the netdev
+Sashiko reviews and Alexei found the wakeup, reset, shutdown and
+lost-transport cases. Each was reproduced in a VM without kernel
+changes or error injection (the resets unbind the guest's virtio-vsock
+device), except the lost transport and a SHUT_RD with a pending socket
+error, which were checked only in the code. With this patch the
+reproduced cases behave as on a native socket, apart from the reset. I
+ran the vsock vmtest.sh single-VM tests and the BPF sockmap selftests
+with the series; they pass, though none of them sleeps in this wait.
 
-- tools/bootconfig: Close only opened braces in compact output
-  Check key children while skipping value nodes when backtracking in
-  xbc_show_compact_tree() so a brace is not closed when a single subkey
-  under a valued key was printed in dotted notation.
+Fixes: 634f1a7110b4 ("vsock: support sockmap")
+Suggested-by: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
+---
+ net/vmw_vsock/vsock_bpf.c | 42 +++++++++++++++++++++++++++---------------
+ 1 file changed, 27 insertions(+), 15 deletions(-)
 
-- tools/bootconfig: Test listing keys at the maximum depth
-  Add regression tests verifying that a 16-component key can be attached
-  and listed in full while a 17-component key is rejected.
-
-
-Please pull the latest bootconfig-fixes-v7.4-rc3 tree, which can be found at:
-
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git
-bootconfig-fixes-v7.4-rc3
-
-Tag SHA1: ef934e66dc2ea3b19bcad8722df6beaff4f5e34c
-Head SHA1: 381b391bfaa3f10d52da4740529804b0b6b8160d
-
-
-Eduardo Mucelli Rezende Oliveira (2):
-      tools/bootconfig: Close only opened braces in compact output
-      bootconfig: Trim unquoted values at end of file
-
-Zhiqi Zhang (2):
-      bootconfig: Allow keys with the maximum supported depth
-      tools/bootconfig: Test listing keys at the maximum depth
-
-----
- lib/bootconfig.c                                  |  7 +++---
- tools/bootconfig/main.c                           | 29 +++++++++++++++++------
- tools/bootconfig/samples/exp-good-mixed-kv1.bconf |  5 ++++
- tools/bootconfig/samples/good-mixed-kv1.bconf     |  5 ++++
- tools/bootconfig/test-bootconfig.sh               | 28 ++++++++++++++++++++++
- 5 files changed, 64 insertions(+), 10 deletions(-)
----------------------------
-diff --git a/lib/bootconfig.c b/lib/bootconfig.c
-index 819685d6c68d..948c8c10e4b9 100644
---- a/lib/bootconfig.c
-+++ b/lib/bootconfig.c
-@@ -428,9 +428,9 @@ int __init xbc_node_compose_key_after(struct xbc_node *root,
- 		node = xbc_node_get_parent(node);
- 
- 	while (node && node != root) {
--		keys[depth++] = xbc_node_index(node);
- 		if (depth == XBC_DEPTH_MAX)
- 			return -ERANGE;
-+		keys[depth++] = xbc_node_index(node);
- 		node = xbc_node_get_parent(node);
- 	}
- 	if (!node && root)
-@@ -793,16 +793,17 @@ static int __init __xbc_parse_value(char **__v, char **__n)
- 				return xbc_parse_error("No value delimiter", p);
- 			if (*p)
- 				p++;
--			break;
-+			goto skip_trim;
- 		}
- 		if (strchr(",;\n#}", c)) {
- 			*p++ = '\0';
--			v = strim(v);
- 			break;
- 		}
- 	}
- 	if (quotes)
- 		return xbc_parse_error("No closing quotes", p);
-+	v = strim(v);
-+skip_trim:
- 	if (c == '#') {
- 		p = skip_comment(p);
- 		c = '\n';	/* A comment must be treated as a newline */
-diff --git a/tools/bootconfig/main.c b/tools/bootconfig/main.c
-index 6f476e3c06b8..d3f840c5adce 100644
---- a/tools/bootconfig/main.c
-+++ b/tools/bootconfig/main.c
-@@ -68,6 +68,23 @@ static int xbc_show_value(struct xbc_node *node, bool semicolon)
- 	return i;
+diff --git a/net/vmw_vsock/vsock_bpf.c b/net/vmw_vsock/vsock_bpf.c
+index c9b399f37720..41307759da99 100644
+--- a/net/vmw_vsock/vsock_bpf.c
++++ b/net/vmw_vsock/vsock_bpf.c
+@@ -34,24 +34,37 @@ static bool vsock_has_data(struct sock *sk, struct sk_psock *psock)
+ 	return vsock_sk_has_data(sk, psock);
  }
  
-+/* Match the conditions under which the compact formatter opens braces. */
-+static bool xbc_node_needs_braces(struct xbc_node *node)
-+{
-+	struct xbc_node *child = xbc_node_get_child(node);
-+
-+	if (child && xbc_node_is_value(child))
-+		child = xbc_node_get_next(child);
-+	if (!child)
-+		return false;
-+	if (child->next)
-+		return true;
-+
-+	/* A single subkey with both a value and subkeys is not compacted. */
-+	child = xbc_node_get_child(child);
-+	return child && xbc_node_is_value(child) && child->next;
-+}
-+
- static void xbc_show_compact_tree(void)
+-static bool vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock, long timeo)
++/* __vsock_recvmsg() doesn't wait in these states. */
++static bool vsock_rx_done(struct sock *sk)
  {
- 	struct xbc_node *node, *cnode = NULL, *vnode;
-@@ -128,14 +145,12 @@ static void xbc_show_compact_tree(void)
- 			node = xbc_node_get_parent(node);
- 			if (!node)
- 				return;
--			if (!xbc_node_get_child(node)->next)
-+			if (!depth || !xbc_node_needs_braces(node))
- 				continue;
--			if (depth) {
--				depth--;
--				for (i = 0; i < depth; i++)
--					printf("\t");
--				printf("}\n");
--			}
-+			depth--;
-+			for (i = 0; i < depth; i++)
-+				printf("\t");
-+			printf("}\n");
- 		}
- 		node = xbc_node_get_next(node);
- 	}
-diff --git a/tools/bootconfig/samples/exp-good-mixed-kv1.bconf b/tools/bootconfig/samples/exp-good-mixed-kv1.bconf
-index 8346287d9251..0b8b2f59da31 100644
---- a/tools/bootconfig/samples/exp-good-mixed-kv1.bconf
-+++ b/tools/bootconfig/samples/exp-good-mixed-kv1.bconf
-@@ -1,2 +1,7 @@
- key = "value";
- key.subkey = "another-value";
-+a {
-+	b = "v";
-+	b.c = "w";
-+	z = "q";
+-	bool ret;
++	return sk->sk_err || sk->sk_state != TCP_ESTABLISHED ||
++	       (sk->sk_shutdown & RCV_SHUTDOWN) ||
++	       (vsock_sk(sk)->peer_shutdown & SEND_SHUTDOWN);
 +}
-diff --git a/tools/bootconfig/samples/good-mixed-kv1.bconf b/tools/bootconfig/samples/good-mixed-kv1.bconf
-index 1761547dd05c..35442ee62b75 100644
---- a/tools/bootconfig/samples/good-mixed-kv1.bconf
-+++ b/tools/bootconfig/samples/good-mixed-kv1.bconf
-@@ -1,3 +1,8 @@
- # value -> subkey pattern
- key = value
- key.subkey = another-value
 +
-+# A valued parent with one subkey must not close its enclosing brace.
-+a.b = v
-+a.b.c = w
-+a.z = q
-diff --git a/tools/bootconfig/test-bootconfig.sh b/tools/bootconfig/test-bootconfig.sh
-index 530ce7e28d63..f584f7637e12 100755
---- a/tools/bootconfig/test-bootconfig.sh
-+++ b/tools/bootconfig/test-bootconfig.sh
-@@ -100,6 +100,16 @@ xpass $BOOTCONF -a $TEMPCONF $INITRD
- printf "badnode\n" >> $TEMPCONF
- xfail $BOOTCONF -a $TEMPCONF $INITRD
++static int vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock,
++			       long timeo)
++{
++	struct vsock_sock *vsk = vsock_sk(sk);
++	int ret = 0;
  
-+echo "Max key depth check"
-+
-+printf 'a.b.c.d.e.f.g.h.i.j.k.l.m.n.o.p = "value"\n' > $TEMPCONF
-+xpass $BOOTCONF -a $TEMPCONF $INITRD
-+$BOOTCONF -l $INITRD > $OUTFILE
-+xpass cmp $TEMPCONF $OUTFILE
-+
-+printf 'a.b.c.d.e.f.g.h.i.j.k.l.m.n.o.p.q = "value"\n' > $TEMPCONF
-+xfail $BOOTCONF -a $TEMPCONF $INITRD
-+
- echo "Max filesize check"
+ 	DEFINE_WAIT_FUNC(wait, woken_wake_function);
  
- # Max size is 32767 (including terminal byte)
-@@ -171,6 +181,24 @@ $BOOTCONF $INITRD > $OUTFILE
- xfail grep -q 'val[[:space:]]' $OUTFILE
- xpass grep -q 'val2[[:space:]]' $OUTFILE
+-	if (sk->sk_shutdown & RCV_SHUTDOWN)
+-		return true;
+-
+-	if (!timeo)
+-		return false;
+-
+ 	add_wait_queue(sk_sleep(sk), &wait);
+ 	sk_set_bit(SOCKWQ_ASYNC_WAITDATA, sk);
+-	ret = vsock_has_data(sk, psock);
+-	if (!ret) {
+-		wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
+-		ret = vsock_has_data(sk, psock);
++	while (vsk->transport && !vsock_has_data(sk, psock) &&
++	       !vsock_rx_done(sk)) {
++		if (!timeo) {
++			ret = -EAGAIN;
++			break;
++		}
++		if (signal_pending(current)) {
++			ret = sock_intr_errno(timeo);
++			break;
++		}
++		release_sock(sk);
++		timeo = wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
++		lock_sock(sk);
+ 	}
+ 	sk_clear_bit(SOCKWQ_ASYNC_WAITDATA, sk);
+ 	remove_wait_queue(sk_sleep(sk), &wait);
+@@ -105,10 +118,9 @@ static int vsock_bpf_recvmsg(struct sock *sk, struct msghdr *msg,
+ 	while (copied == 0) {
+ 		long timeo = sock_rcvtimeo(sk, flags & MSG_DONTWAIT);
  
-+echo "Remove unquoted trailing whitespace at end of file"
-+printf 'foo = val \t' > $TEMPCONF
-+$BOOTCONF -l $TEMPCONF > $OUTFILE
-+printf 'foo = "val"\n' > $TEMPCONF
-+xpass cmp $TEMPCONF $OUTFILE
-+
-+echo "Remove trailing whitespace from the last array value at end of file"
-+printf 'foo = first, last \t' > $TEMPCONF
-+$BOOTCONF -l $TEMPCONF > $OUTFILE
-+printf 'foo = "first", "last"\n' > $TEMPCONF
-+xpass cmp $TEMPCONF $OUTFILE
-+
-+echo "Keep quoted trailing whitespace at end of file"
-+printf 'foo = "val "' > $TEMPCONF
-+$BOOTCONF -l $TEMPCONF > $OUTFILE
-+printf 'foo = "val "\n' > $TEMPCONF
-+xpass cmp $TEMPCONF $OUTFILE
-+
- echo "Showing correct line:column of no closing brace"
- cat > $TEMPCONF << EOF
- foo {
+-		if (!vsock_msg_wait_data(sk, psock, timeo)) {
+-			copied = -EAGAIN;
++		copied = vsock_msg_wait_data(sk, psock, timeo);
++		if (copied)
+ 			break;
+-		}
+ 
+ 		if (sk_psock_queue_empty(psock)) {
+ 			release_sock(sk);
 
 -- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+2.56.0
+
 
