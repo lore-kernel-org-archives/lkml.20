@@ -1,125 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794669924;
-	b=33xl/DYf+T7PgvonW1oB1LUEA/ee/bpCYQZeMTgNe1e1OEqmopOdV5yz5RMLGMG4sKAP
-	 gF9jgizm9MgFhGODdwJV/pER+uays31WDbPc0R8v/QDWeyQKzjWlEQUWec9pdt6m0Enk3
-	 i6zSNTA//n95OTND5i86s9nfFm0+QKXgmnRyKDlhadxUaETOsZ1PjjDhXt39wKceioZq9
-	 PJF9sj2TQ87ltJYsC7w/PpHFN8DV0UxXZ7s28GSqHwgW9TqrsXbtN2OzkiQTa6fWP0dLk
-	 98bLerL1Q2exI/8RZts8PLsTgweW7XpA2uM/YgbxkGK0v3FFTuRCALZQmF3/T1T+EXQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794669924;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=60mPl19dHnr/jmAhi0BlWORpSiHf3XJp3c27JzB/YkE=;
-	b=JDWlptfAHIcYdFplvibV7aJpPH7sWN1x2M02UJCEc9uTOkoVKr+RTsPhoLWdhyWHSh2E
-	 VMKmNU6fQTofSuq1hMqxTDlQ2yjTyixVVUrGZ5sJvu+AnUgE2BVulRnNiJEZbNOp+e3/7
-	 H7VHkvjEOZKG7UkXbC7X3S8h0JEGqxrpvcEAoBWQ2SrDXnaRPFyK1droOZVGE8IMvWXMy
-	 VgzxdFDw1BzaoSRHn3xjD1nU4cfbYxiLS4Mx9/+z+DIbT98spKP2HrxjXxhqRarXoCK6J
-	 9o7h/gPls6tT776+/ByFG4SvChWRR3sHiM9tMbIts1Xffen0RpZIYZ2RgxJEIJw0LdA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AV8GQ8aV;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QEQCGG4C;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794669995;
+	b=kL+dTrGUs/ZT7M+i9zVoENMuQW8zGgisNIDFB/d1OazjFf2oNLp9zHfa1KfPaB+K/ctI
+	 iYoPHAEeAkjdzDbGPWxnyuxFHjEk07aD5cWCF7YV4mcPvT2mQSqwua0AKV/PY4jyCboaz
+	 UO64WMPjI/TwaR/P9m1Hnpd6NRHhyt7YiZfIKzJjgc4EXU8R13VeeUS/1O2HyOZirRLfY
+	 MO/ZbHiRhTklD3xV/InGBQJonAmf73ftpm+EcLIqYAKgLa8JS8NZJ5eV78LW+Jd87itds
+	 gdDnpMXWhXpQXnYAatG1/jWnjtIcJqUSt+d5cuODC+NGUB9porulNaASTYArwPeHLDg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794669995;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received;
+	bh=z+F3r4FvLwc5yHlXhjz9+0ecaArNPGVGItpGlUK/EHI=;
+	b=hw/QrP5N5t9OVNHC9+2jWm9MsJuode3mPBRZL93FcXvovWnSocCuRBM6SEkbxr+/B1x3
+	 j1wbUL97TNwn+XLtL6nJBAOIy7Ux9xWK0ffix17XLqpqcc1GlnD51vqNQr9TKw05TwV1C
+	 xiGxP8Gz5grqpOkt0rWT/T06hqrtMEm3VGFFiANVF2bTvUWuWxJItjfA7K6T8ad/KKTOG
+	 qcVLr0WshSRVb4zlS1Nce9IwDfZGV067YLzebeFvLp2xyrjycYHUrGqMpK+VFmI1ny4gx
+	 /TAUef+ZjKaTbE11yqNd77/XKojWMTJJcjsKm0Ha/eaL+D+VhMXi2Nl+mh+aY5P06Pg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E0fUiet5;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D860C606A330;
+	Sat, 14 Nov 2026 15:26:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E0fUiet5
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794669995;
+	b=mrv6sMbnRGPcw+qUgE4HQpn7dhcQbTuRMDCZIOYNJ9riTDJiP9xbd5K0tmJeLYn1wa1f
+	 Bnu/7mbAZBlC860wIMFFpCmmz9y0Xo4sGkht+RdcTdQopCfhuu8Czy4duQParfXmSY1PO
+	 g1drFGseWo/hbU2ldFgUENPEHv7ZQ9BWBUeW8l2utEa1SCHZr3zScebpD068Zib4524Fw
+	 l57ju9gq9Xw4Vf0whDAN5CM6dCQFdZrMUbs0pjBVyU+bAKX1n08bS4mh0MI15DkDfb+IQ
+	 Pi0n6ORFft8Uo1LFcv8cb63iKaE4OM/U5ZYdQcAWzabq4PboJP1jfSMREaAQ7z75HzQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794669995;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received;
+	bh=z+F3r4FvLwc5yHlXhjz9+0ecaArNPGVGItpGlUK/EHI=;
+	b=lHmWH4yNyM49l2d3h3kKMPlWNJgv0W7W0xCdlPCjTJduoMMTvIk1GCnECyVwvBYt9/D0
+	 fN0okg3maOj34kIghF4l5/GQW/BlPFeG0akCsPHNqKDzk9HiXpL7QVT0f2s5HMKuCI80H
+	 GeNaUdbLPfPjMfKD/RQrhVuFoYajtoAJ4EmTPX+Bmef+SSiN7ywYUin2z7K0g6G3TNbhv
+	 qEHqkhVMvYwV60XWIZ6GF45GTgiNChknW/jssHlIQt4+A1g2xCxpCVIPe3xjS+Ylg6Lr8
+	 enEdMFydUAmUWBh0/yws9Tx/O0VP8jhh8E+gUoh8kBdSG1mRwTLeaNz9aWmj08hkt9g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC4CC606A331
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 15:25:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC4CC606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AV8GQ8aV;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QEQCGG4C
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AEDkUHT3630552
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 15:25:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=60mPl19dHnr/jmAhi0BlWORp
-	SiHf3XJp3c27JzB/YkE=; b=AV8GQ8aVqfxx0GExufS4HlM135bPFdElbfVU4+Nx
-	7YwlrdnBsee1PTmARgHJHorkewsb337JTwHHyDH1E2LyByimGXCIAigXLdJDLJdY
-	gWZm8D0YyY0PR3ULRpU5WuL3di3XtSia+65ZHhdd+FFci71a+Sf/V8H9A1vM3zoT
-	7C6ZRVaBNy4euXyqHvhgx1wHVVYfdze50cHN2aA1kqwH9fy33lsO2HbmW0cFF8OU
-	Hv7EZV67z984HsAXQpaaNdQBrIftwGKgY8lnXHIC72cOtWoF0n3sYjgGtfn5aIS4
-	q3tlkcpq5dPtC++Zw7eXWXbRcNDoE7b6/uVWeD0ub9qdgg==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hxhkw91ja-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 15:25:22 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-30c0d568830so2632984eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 07:25:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794669922; x=1795274722; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=60mPl19dHnr/jmAhi0BlWORpSiHf3XJp3c27JzB/YkE=;
-        b=QEQCGG4ChTiAUQWccWocipyJmwQKSS09VpljiFjXrEwtGUX4stvJlxJGS8xmXrE5Ky
-         OsXINlbWJFdmSFus441eKItycqrkO92SlAfez2jhtufs/RNtb7cK1SlpE8ATFeOk1p9e
-         OVmcjPl7/6FoKVA+nXG9e65g7Do77XoQr307+Bq+50ZDikeF2x+AuxIXylGabtTERj0B
-         RPUmDVy5ITFmM3iQvDn/RDe+MV4XfUC2dtSYXbyWZwvMbZPpEsVxfkXEVY44Jy9scQ5q
-         n6vngVPI8eqhs3reDK7zOnwiXoVzSVkCpWIPEkmTQcrTTxYd6QOAGLsml5QMjYCTgCvB
-         0hXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794669922; x=1795274722;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=60mPl19dHnr/jmAhi0BlWORpSiHf3XJp3c27JzB/YkE=;
-        b=VtiIrpBwDB3P4SGY14FyrKhVnzdD1chYv4ymoNNu7hYgQYTJiO+ZnF2IdzfVIe64tA
-         tTf2wMtKDhvozifraogFDSim5TRZJfOtuWWV2lLzGD8nO+zltqJNZNBeOkYJjvhuTJMm
-         j6QD+EZhG4jO40cM9vNfQ+yLrksB8/gVeGB+P04x8IU2wwItyAWv9CuTXz1aB2aoBmcA
-         a8veCPMHDUs2BTVPe89Ddb1Nzh7QpWeNMtATnl/H/socAH6l2zcMjCreIpHlH33ZvwbN
-         QL22sfvxwkFB4ukserd8mhwDqPZ0NcOm52P6lMen0nf52K/sXb08cNrgrftPJf0OcKB/
-         NhdA==
-X-Forwarded-Encrypted: i=1; AL+hErHJwQxAtXENp5YTyqm/+HV106MGHmF7jkftCrN3JX+oW8XE3GulvylwxDpZBAp3r9EvZAjuWuG1GwfU3mk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9r0K0MLsUFjoDo+Oo/mYl1s605iGQUK8Yj3QXAxjYznVgzNJq0
-	/hnZvBTgdHnsYe1oMAZLZVaPaCr9h19ESZROIo/mpZ0Lns5t/BQOxL1Jko+zeDZpr/ESo3fbYVr
-	juSsQy6d8+SqnSJoulsruMgU17R6br62CmSRzpbPuzHmsM2zhv3iXTOBB111szPqECzc=
-X-Gm-Gg: AYBFou0JsKuxZRchf5UrJ71pBbJp96+GqEey+kxi89vyprDOBMZo3IMdMgy4V4G9Xm3
-	HJMvj0wfNUymlDD74dwcttyt7RRl86hegmhJadbMk1uM8RSQUc+J65/yqDiUJPVSzaS8gMUnpJx
-	P1WGV95avPr2cKAHpaoQwoxLbPQnASAPLyt/6r/Kj8MWF4OkE7XQeHVDATd6OVAkceqSDM1p1Cq
-	ieu1dEgauiWrEFPraARmhhX4810taheT/MLvI8a6jVAdFDBTMAwWdz2wzJGAzk4LIpQYNzA9n6R
-	XdPWyAwg9FY75oorrQf1neqcodnbQcGeKVG8jnUgAj9E+rr9p53IB8WwboOZd5BSKmJ5NPF/Q8A
-	6rIM46viG1M5nLZ4agJYV+gGWvESicguLTZG7cMX1UUmrcnjFH92Jnk4nTVn0wKd5V5HlDh2ZiH
-	k0VVI8gqtc01pp36o=
-X-Received: by 2002:a05:7023:90b:b0:1b5:b04:139 with SMTP id a92af1059eb24-1b50b0419f8mr5360187c88.0.1794669922098;
-        Sat, 14 Nov 2026 07:25:22 -0800 (PST)
-X-Received: by 2002:a05:7023:90b:b0:1b5:b04:139 with SMTP id a92af1059eb24-1b50b0419f8mr5360164c88.0.1794669921363;
-        Sat, 14 Nov 2026 07:25:21 -0800 (PST)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955e0d966sm17889375eec.15.2026.11.14.07.25.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 07:25:20 -0800 (PST)
-Date: Sat, 14 Nov 2026 23:25:14 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Mohit Sharma <mohit.sharma@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Mark Brown <broonie@kernel.org>,
-        Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>,
-        Liam Girdwood <lgirdwood@gmail.com>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] soc: qcom: apr: Publish GPR callback before client
- probe
-Message-ID: <avh9WmMQPHWAwdob@QCOM-aGQu4IUr3Y>
-References: <20261022144130.2443667-1-mohit.sharma@oss.qualcomm.com>
- <20261022144130.2443667-3-mohit.sharma@oss.qualcomm.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 0E4B31F000C4;
+	Sat, 14 Nov 2026 15:26:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794669995;
+	bh=z+F3r4FvLwc5yHlXhjz9+0ecaArNPGVGItpGlUK/EHI=;
+	h=From:Date:Subject:To:Cc;
+	b=E0fUiet5pLXlqmeokd+J7R9tqEClHWcokVQTMsAqWOomAEj81H68So2l8HxURRfsB
+	 sZTd94bJ3Em2N7CDrDaeGD6PMeBKCDc1wU+oizLBhDdB/9Uzo5IbLTeJQEhqM6CLCa
+	 e6IBtAWiyEw00G0wH5tzICfFh9QNXCz/1Mxxgm0utk6OcoTGGRF17CZ0tyjqsMrsul
+	 oj5UB7JK2F9HaWt0Fe8wMamENMJPU2XhPBU4pG/IrNctYL3PB32nP9TKC1XS045q+Z
+	 7M5xHV0SRFM9nQHNdkQHIRfq8BYXPnGju/O4x0nYb9oSCZReYAzZIjw8KFPlXWTEtt
+	 nNRCWN19USqtA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 5F4EF49E32;
+	Sat, 14 Nov 2026 15:26:32 +0000 (UTC)
+From: Sven Peter <sven@kernel.org>
+Date: Sat, 14 Nov 2026 16:26:29 +0100
+Subject: [PATCH] arm64: dts: apple: Fix property-order dt-check-style
+ warnings for PMGR
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -129,140 +82,1588 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261022144130.2443667-3-mohit.sharma@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE0MDA2MSBTYWx0ZWRfX5Tu9zZSuVZSn
- aKe/W9PBW/BB5OM9gwYnHEwgSq/+KGy/Vjic37SGANs7nX/WNmfuPxKQ9DlbXUxqBUDkAhn07t5
- NK+Xxlkmn1///q+eJbi+qo+is3uvB3qBHyaAXxSxqU48gHdKeErp1gOQWNJUylBz8o2xNxLVcGo
- 3//0uiaX+rhUviDxhnDBQ7QeH4WqEpWpuBcWKBszTUBs2QpGtFOq9aNkAvucHkpaeJ5WAH1dpJu
- 0QfylvZBrHo5FoLZWHd54qyzjU+mI33NBAPJgyC+HiblANN/GwcNOOhn+L4nwYnAEZthUGmWLv/
- KHP+yFOZBlh3ISbcOKlKM+2H1DVjUmekL2vM0UdkAsBPJIF7aIliifDeCkTOHQslP9iBbS8xNXP
- H9mbg0C3nWPztWzX01nzJBMl6e043GBG3oX1CMTng1NxYqpcShmq2ycGVseHR3mZDCIBnmEokNf
- Tvzux0Qt6NfZaWkXuKg==
-X-Authority-Analysis: v=2.4 cv=YPYKWhGx c=1 sm=1 tr=0 ts=6af87d63 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=zZ4BmrX_lDwlYoQM88QA:9 a=CjuIK1q_8ugA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-GUID: 2pdTRJJjEYOKTvAlJ7MSTWwiUf0deC8C
-X-Proofpoint-ORIG-GUID: 2pdTRJJjEYOKTvAlJ7MSTWwiUf0deC8C
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE0MDA2MSBTYWx0ZWRfX3KiBjU9U287V
- uRhtRn17F6crZxdWkh0BlHYRKmpBPqgLHswdhp6fNPrOFfW9xLVw/ymeb5QEVmRw4LHyFMks8rw
- 0VSvBf33x4PbiWLk18hYYFPAqR425Zg=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-14_04,2026-11-11_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 clxscore=1015 spamscore=0 adultscore=0
- lowpriorityscore=0 impostorscore=0 phishscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611140061
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261114-pmgr-dt-fixes-v1-1-97043a460e59@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM3QpAQBCG4VvRHJuyWMqtyAG7g1F+2llScu8Wh
+ 09f73eBkGMSqKILHB0svC4BKo7AjO0yELINhjRJC6VUjts8OLQeez5JsLRa56XNjNYEodkcfUN
+ I6ua37N1Exr8ncN8P+5aq+HEAAAA=
+X-Change-ID: 20261114-pmgr-dt-fixes-7d5547d3c55e
+To: Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Sven Peter <sven@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=49977; i=sven@kernel.org;
+ h=from:subject:message-id;
+ bh=Nm1FchJVtDZeEGP7A7eV5EIAhYigng235CiguVfJ+WA=;
+ b=owGbwMvMwCXmIlirolUq95LxtFoSQ9aP2mUvXhycKZ96L/dw/vz50490ec/MXai3ziNYb30Vm
+ 4Pa09mTOkpZGMS4GGTFFFm277c3ffLwjeDSTZfew8xhZQIZwsDFKQATUbnFyPBUv1S1lMnp/6l7
+ 8bbTOTpmtez6zH6Gc8bXeDaBVa27uPwZGd6bVV36w5LztCD25zSnFRZv2C7nRJYtMmkU/7n0/pS
+ r97kA
+X-Developer-Key: i=sven@kernel.org; a=openpgp;
+ fpr=A1E3E34A2B3C820DBC4955E5993B08092F131F93
+X-Endpoint-Received: by B4 Relay for sven@kernel.org/default with
+ auth_id=407
 
-On Thu, Oct 22, 2026 at 08:11:30PM +0530, Mohit Sharma wrote:
-> A GPR service driver can issue synchronous commands from its probe path,
-> or populate child devices which issue commands before the parent probe
-> returns. The APR/GPR bus currently installs the GPR service callback only
-> after the service driver's probe has completed.
-> 
-> If a response arrives while the client probe is still running, GPR finds
-> the destination service but cannot dispatch the response because the
-> service callback is NULL. The client waiting for the response eventually
-> times out.
-> 
-> This was observed intermittently on Qualcomm Lemans and Monaco platforms
-> when q6apm child probing sent an APM shared-memory map command before the
-> parent probe returned. The failure has the following signature:
-> 
->   qcom-apm ... CMD timeout for [100100c] opcode
->   q6apm-dai ... Audio Start: Buffer Allocation failed rc = -110
->   snd-sc8280xp ... ASoC: can't create pcm MultiMedia1 Playback :-110
-> 
-> Install the GPR callback before invoking the client probe so responses to
-> probe-time commands can be dispatched. Clear the callback again if probe
-> fails, and preserve the existing callback ordering for APR clients.
-> 
-> Fixes: ec1471a898cc ("soc: qcom: apr: Add GPR support")
-> Cc: stable@vger.kernel.org
-> Co-developed-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
-> Signed-off-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
-> Signed-off-by: Mohit Sharma <mohit.sharma@oss.qualcomm.com>
+Fix the following dt-check-style warnings by moving apple,always-on
+to the end:
 
-Thanks for the patch, Mohit! It fixes a 5s timeout with audio card probe
-on Nord platform.
+  arch/arm64/boot/dts/apple/t600x-pmgr.dtsi:238: [property-order] property 'power-domains' out of canonical order (should sort before 'apple,always-on')
 
-Without the patch:
+Signed-off-by: Sven Peter <sven@kernel.org>
+---
+ arch/arm64/boot/dts/apple/t600x-pmgr.dtsi |  46 ++++-----
+ arch/arm64/boot/dts/apple/t602x-pmgr.dtsi |  74 +++++++-------
+ arch/arm64/boot/dts/apple/t6030-pmgr.dtsi |  20 ++--
+ arch/arm64/boot/dts/apple/t6031-pmgr.dtsi | 156 +++++++++++++++---------------
+ arch/arm64/boot/dts/apple/t8103-pmgr.dtsi |   4 +-
+ arch/arm64/boot/dts/apple/t8112-pmgr.dtsi |   2 +-
+ 6 files changed, 151 insertions(+), 151 deletions(-)
 
-[    4.483213] qcom,apr 4c00000.remoteproc:glink-edge.adsp_apps.-1.-1: Adding APR/GPR dev: gprsvc:service:2:1
-[    4.483249] qcom,apr 4c00000.remoteproc:glink-edge.adsp_apps.-1.-1: Adding APR/GPR dev: gprsvc:service:2:2
-[    4.491115] platform 4c00000.remoteproc:glink-edge:fastrpc:compute-cb@3: Adding to iommu group 5
-[    4.492141] platform 4c00000.remoteproc:glink-edge:fastrpc:compute-cb@4: Adding to iommu group 6
-[    4.492727] platform 4c00000.remoteproc:glink-edge:fastrpc:compute-cb@5: Adding to iommu group 7
-[    4.493313] platform 4c00000.remoteproc:glink-edge:fastrpc:compute-cb@6: Adding to iommu group 8
-[    9.623909] qcom-apm gprsvc:service:2:1: CMD timeout for [1001021] opcode
-[    9.624571] platform 4c00000.remoteproc:glink-edge:gpr:service@1:dais: Adding to iommu group 61
-[    9.675293] snd-sc8280xp sound: ASoC: Parent card not yet available, widget card binding deferred
-[    9.678425] ALSA: Control name 'stream0.vol_ctrl0 MultiMedia1 Playback Volume' truncated to 'stream0.vol_ctrl0 MultiMedia1 Playback Volu'
+diff --git a/arch/arm64/boot/dts/apple/t600x-pmgr.dtsi b/arch/arm64/boot/dts/apple/t600x-pmgr.dtsi
+index 0bd44753b76a..47a381449ac4 100644
+--- a/arch/arm64/boot/dts/apple/t600x-pmgr.dtsi
++++ b/arch/arm64/boot/dts/apple/t600x-pmgr.dtsi
+@@ -234,8 +234,8 @@ DIE_NODE(ps_afnc1_ioa): power-controller@1f0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc1_ioa);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afi)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_afnc0_ioa): power-controller@1f8 {
+@@ -244,8 +244,8 @@ DIE_NODE(ps_afnc0_ioa): power-controller@1f8 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc0_ioa);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afi)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_afnc1_ls): power-controller@200 {
+@@ -254,8 +254,8 @@ DIE_NODE(ps_afnc1_ls): power-controller@200 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc1_ls);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afnc1_ioa)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_afnc0_ls): power-controller@208 {
+@@ -264,8 +264,8 @@ DIE_NODE(ps_afnc0_ls): power-controller@208 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc0_ls);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afnc0_ioa)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_afnc1_lw0): power-controller@210 {
+@@ -274,8 +274,8 @@ DIE_NODE(ps_afnc1_lw0): power-controller@210 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc1_lw0);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afnc1_ls)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_afnc1_lw1): power-controller@218 {
+@@ -284,8 +284,8 @@ DIE_NODE(ps_afnc1_lw1): power-controller@218 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc1_lw1);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afnc1_ls)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_afnc1_lw2): power-controller@220 {
+@@ -294,8 +294,8 @@ DIE_NODE(ps_afnc1_lw2): power-controller@220 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc1_lw2);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afnc1_ls)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_afnc0_lw0): power-controller@228 {
+@@ -304,8 +304,8 @@ DIE_NODE(ps_afnc0_lw0): power-controller@228 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc0_lw0);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afnc0_ls)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_scodec): power-controller@230 {
+@@ -745,8 +745,8 @@ DIE_NODE(ps_afnc2_ioa): power-controller@148 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc2_ioa);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afi)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_afnc2_ls): power-controller@150 {
+@@ -755,8 +755,8 @@ DIE_NODE(ps_afnc2_ls): power-controller@150 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc2_ls);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afnc2_ioa)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_afnc2_lw0): power-controller@158 {
+@@ -765,8 +765,8 @@ DIE_NODE(ps_afnc2_lw0): power-controller@158 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc2_lw0);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afnc2_ls)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_afnc2_lw1): power-controller@160 {
+@@ -775,8 +775,8 @@ DIE_NODE(ps_afnc2_lw1): power-controller@160 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc2_lw1);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afnc2_ls)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_afnc3_ioa): power-controller@168 {
+@@ -785,8 +785,8 @@ DIE_NODE(ps_afnc3_ioa): power-controller@168 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc3_ioa);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afi)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_afnc3_ls): power-controller@170 {
+@@ -795,8 +795,8 @@ DIE_NODE(ps_afnc3_ls): power-controller@170 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc3_ls);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afnc3_ioa)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_afnc3_lw0): power-controller@178 {
+@@ -805,8 +805,8 @@ DIE_NODE(ps_afnc3_lw0): power-controller@178 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc3_lw0);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afnc3_ls)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_sio): power-controller@180 {
+@@ -1645,8 +1645,8 @@ DIE_NODE(ps_afnc4_ioa): power-controller@1a0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc4_ioa);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afi)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_afnc4_ls): power-controller@1a8 {
+@@ -1655,8 +1655,8 @@ DIE_NODE(ps_afnc4_ls): power-controller@1a8 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc4_ls);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afnc4_ioa)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_afnc4_lw0): power-controller@1b0 {
+@@ -1665,8 +1665,8 @@ DIE_NODE(ps_afnc4_lw0): power-controller@1b0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc4_lw0);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afnc4_ls)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_afnc5_ioa): power-controller@1b8 {
+@@ -1675,8 +1675,8 @@ DIE_NODE(ps_afnc5_ioa): power-controller@1b8 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc5_ioa);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afi)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_afnc5_ls): power-controller@1c0 {
+@@ -1685,8 +1685,8 @@ DIE_NODE(ps_afnc5_ls): power-controller@1c0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc5_ls);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afnc5_ioa)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_afnc5_lw0): power-controller@1c8 {
+@@ -1695,8 +1695,8 @@ DIE_NODE(ps_afnc5_lw0): power-controller@1c8 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc5_lw0);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afnc5_ls)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_dispext2_fe): power-controller@1d0 {
+@@ -1960,8 +1960,8 @@ DIE_NODE(ps_debug_usb): power-controller@c0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(debug_usb);
+-		apple,always-on; /* Core AON device */
+ 		power-domains = <&DIE_NODE(ps_debug)>;
++		apple,always-on; /* Core AON device */
+ 	};
+ 
+ 	DIE_NODE(ps_debug_auth): power-controller@c8 {
+@@ -1970,8 +1970,8 @@ DIE_NODE(ps_debug_auth): power-controller@c8 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(debug_auth);
+-		apple,always-on; /* Core AON device */
+ 		power-domains = <&DIE_NODE(ps_debug)>;
++		apple,always-on; /* Core AON device */
+ 	};
+ 
+ 	DIE_NODE(ps_atc0_usb): power-controller@d0 {
+diff --git a/arch/arm64/boot/dts/apple/t602x-pmgr.dtsi b/arch/arm64/boot/dts/apple/t602x-pmgr.dtsi
+index f5382a2faf0b..3e8233a99293 100644
+--- a/arch/arm64/boot/dts/apple/t602x-pmgr.dtsi
++++ b/arch/arm64/boot/dts/apple/t602x-pmgr.dtsi
+@@ -173,8 +173,8 @@ DIE_NODE(ps_afnc1_ioa): power-controller@1b8 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc1_ioa);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afi)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_afc): power-controller@1d0 {
+@@ -192,8 +192,8 @@ DIE_NODE(ps_afnc0_ioa): power-controller@1e8 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc0_ioa);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afi)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_afnc1_ls): power-controller@1f0 {
+@@ -202,8 +202,8 @@ DIE_NODE(ps_afnc1_ls): power-controller@1f0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc1_ls);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afnc1_ioa)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_afnc0_ls): power-controller@1f8 {
+@@ -212,8 +212,8 @@ DIE_NODE(ps_afnc0_ls): power-controller@1f8 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc0_ls);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afnc0_ioa)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_afnc1_lw0): power-controller@200 {
+@@ -222,8 +222,8 @@ DIE_NODE(ps_afnc1_lw0): power-controller@200 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc1_lw0);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afnc1_ls)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_afnc1_lw1): power-controller@208 {
+@@ -232,8 +232,8 @@ DIE_NODE(ps_afnc1_lw1): power-controller@208 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc1_lw1);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afnc1_ls)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_afnc1_lw2): power-controller@210 {
+@@ -242,8 +242,8 @@ DIE_NODE(ps_afnc1_lw2): power-controller@210 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc1_lw2);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afnc1_ls)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_afnc0_lw0): power-controller@218 {
+@@ -252,8 +252,8 @@ DIE_NODE(ps_afnc0_lw0): power-controller@218 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc0_lw0);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afnc0_ls)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_scodec): power-controller@220 {
+@@ -316,8 +316,8 @@ DIE_NODE(ps_pms_bridge): power-controller@250 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(pms_bridge);
+-		apple,always-on; /* Core device */
+ 		power-domains = <&DIE_NODE(ps_afnc0_lw0)>;
++		apple,always-on; /* Core device */
+ 	};
+ 
+ 	DIE_NODE(ps_dispext0_sys): power-controller@258 {
+@@ -813,8 +813,8 @@ DIE_NODE(ps_afnc4_ioa): power-controller@1a0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc4_ioa);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afi)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_afnc4_ls): power-controller@1a8 {
+@@ -823,8 +823,8 @@ DIE_NODE(ps_afnc4_ls): power-controller@1a8 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc4_ls);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afnc4_ioa)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_afnc4_lw0): power-controller@1b0 {
+@@ -833,8 +833,8 @@ DIE_NODE(ps_afnc4_lw0): power-controller@1b0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc4_lw0);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afnc4_ls)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_afnc5_ioa): power-controller@1b8 {
+@@ -843,8 +843,8 @@ DIE_NODE(ps_afnc5_ioa): power-controller@1b8 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc5_ioa);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afi)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_afnc5_ls): power-controller@1c0 {
+@@ -853,8 +853,8 @@ DIE_NODE(ps_afnc5_ls): power-controller@1c0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc5_ls);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afnc5_ioa)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_afnc5_lw0): power-controller@1c8 {
+@@ -863,8 +863,8 @@ DIE_NODE(ps_afnc5_lw0): power-controller@1c8 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc5_lw0);
+-		apple,always-on; /* Apple Fabric */
+ 		power-domains = <&DIE_NODE(ps_afnc5_ls)>;
++		apple,always-on; /* Apple Fabric */
+ 	};
+ 
+ 	DIE_NODE(ps_dispext2_sys): power-controller@1d0 {
+@@ -1076,8 +1076,8 @@ DIE_NODE(ps_afnc6_ioa): power-controller@148 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc6_ioa);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afi)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_afnc6_ls): power-controller@150 {
+@@ -1086,8 +1086,8 @@ DIE_NODE(ps_afnc6_ls): power-controller@150 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc6_ls);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afnc6_ioa)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_afnc6_lw0): power-controller@158 {
+@@ -1096,8 +1096,8 @@ DIE_NODE(ps_afnc6_lw0): power-controller@158 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc6_lw0);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afnc6_ls)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_afnc2_ioa): power-controller@160 {
+@@ -1106,8 +1106,8 @@ DIE_NODE(ps_afnc2_ioa): power-controller@160 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc2_ioa);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_dcs_10)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_afnc2_ls): power-controller@168 {
+@@ -1116,8 +1116,8 @@ DIE_NODE(ps_afnc2_ls): power-controller@168 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc2_ls);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afnc2_ioa)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_afnc2_lw0): power-controller@170 {
+@@ -1126,8 +1126,8 @@ DIE_NODE(ps_afnc2_lw0): power-controller@170 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc2_lw0);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afnc2_ls)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_afnc2_lw1): power-controller@178 {
+@@ -1136,8 +1136,8 @@ DIE_NODE(ps_afnc2_lw1): power-controller@178 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc2_lw1);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afnc2_ls)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_afnc3_ioa): power-controller@180 {
+@@ -1146,8 +1146,8 @@ DIE_NODE(ps_afnc3_ioa): power-controller@180 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc3_ioa);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afi)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_afnc3_ls): power-controller@188 {
+@@ -1156,8 +1156,8 @@ DIE_NODE(ps_afnc3_ls): power-controller@188 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc3_ls);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afnc3_ioa)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_afnc3_lw0): power-controller@190 {
+@@ -1166,8 +1166,8 @@ DIE_NODE(ps_afnc3_lw0): power-controller@190 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc3_lw0);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afnc3_ls)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_apcie_gp): power-controller@198 {
+@@ -1439,8 +1439,8 @@ DIE_NODE(ps_aes): power-controller@280 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(aes);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_sio)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_dptx_phy_ps): power-controller@288 {
+@@ -2070,8 +2070,8 @@ DIE_NODE(ps_mtp_fabric): power-controller@b0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(mtp_fabric);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_nub_fabric)>;
++		apple,always-on;
+ 		status = "disabled";
+ 	};
+ 
+@@ -2137,8 +2137,8 @@ DIE_NODE(ps_mtp_gpio): power-controller@e8 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(mtp_gpio);
+-		apple,always-on; /* MTP always stays on */
+ 		power-domains = <&DIE_NODE(ps_mtp_fabric)>;
++		apple,always-on; /* MTP always stays on */
+ 	};
+ 
+ 	DIE_NODE(ps_mtp_base): power-controller@f0 {
+@@ -2147,8 +2147,8 @@ DIE_NODE(ps_mtp_base): power-controller@f0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(mtp_base);
+-		apple,always-on; /* MTP always stays on */
+ 		power-domains = <&DIE_NODE(ps_mtp_fabric)>;
++		apple,always-on; /* MTP always stays on */
+ 	};
+ 
+ 	DIE_NODE(ps_mtp_periph): power-controller@f8 {
+@@ -2157,8 +2157,8 @@ DIE_NODE(ps_mtp_periph): power-controller@f8 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(mtp_periph);
+-		apple,always-on; /* MTP always stays on */
+ 		power-domains = <&DIE_NODE(ps_mtp_fabric)>;
++		apple,always-on; /* MTP always stays on */
+ 	};
+ 
+ 	DIE_NODE(ps_mtp_spi0): power-controller@100 {
+@@ -2167,8 +2167,8 @@ DIE_NODE(ps_mtp_spi0): power-controller@100 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(mtp_spi0);
+-		apple,always-on; /* MTP always stays on */
+ 		power-domains = <&DIE_NODE(ps_mtp_fabric)>;
++		apple,always-on; /* MTP always stays on */
+ 	};
+ 
+ 	DIE_NODE(ps_mtp_i2cm0): power-controller@108 {
+@@ -2177,8 +2177,8 @@ DIE_NODE(ps_mtp_i2cm0): power-controller@108 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(mtp_i2cm0);
+-		apple,always-on; /* MTP always stays on */
+ 		power-domains = <&DIE_NODE(ps_mtp_fabric)>;
++		apple,always-on; /* MTP always stays on */
+ 	};
+ 
+ 	DIE_NODE(ps_mtp_uart0): power-controller@110 {
+@@ -2187,8 +2187,8 @@ DIE_NODE(ps_mtp_uart0): power-controller@110 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(mtp_uart0);
+-		apple,always-on; /* MTP always stays on */
+ 		power-domains = <&DIE_NODE(ps_mtp_fabric)>;
++		apple,always-on; /* MTP always stays on */
+ 	};
+ 
+ 	DIE_NODE(ps_mtp_cpu): power-controller@118 {
+@@ -2197,8 +2197,8 @@ DIE_NODE(ps_mtp_cpu): power-controller@118 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(mtp_cpu);
+-		apple,always-on; /* MTP always stays on */
+ 		power-domains = <&DIE_NODE(ps_mtp_fabric)>;
++		apple,always-on; /* MTP always stays on */
+ 	};
+ 
+ 	DIE_NODE(ps_mtp_scm_fabric): power-controller@120 {
+@@ -2207,8 +2207,8 @@ DIE_NODE(ps_mtp_scm_fabric): power-controller@120 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(mtp_scm_fabric);
+-		apple,always-on; /* MTP always stays on */
+ 		power-domains = <&DIE_NODE(ps_mtp_periph)>;
++		apple,always-on; /* MTP always stays on */
+ 	};
+ 
+ 	DIE_NODE(ps_mtp_sram): power-controller@128 {
+@@ -2217,8 +2217,8 @@ DIE_NODE(ps_mtp_sram): power-controller@128 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(mtp_sram);
+-		apple,always-on; /* MTP always stays on */
+ 		power-domains = <&DIE_NODE(ps_mtp_scm_fabric)>, <&DIE_NODE(ps_mtp_cpu)>;
++		apple,always-on; /* MTP always stays on */
+ 	};
+ 
+ 	DIE_NODE(ps_mtp_dma): power-controller@130 {
+@@ -2227,8 +2227,8 @@ DIE_NODE(ps_mtp_dma): power-controller@130 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(mtp_dma);
+-		apple,always-on; /* MTP always stays on */
+ 		power-domains = <&DIE_NODE(ps_mtp_sram)>;
++		apple,always-on; /* MTP always stays on */
+ 	};
+ #endif
+ };
+diff --git a/arch/arm64/boot/dts/apple/t6030-pmgr.dtsi b/arch/arm64/boot/dts/apple/t6030-pmgr.dtsi
+index b890d622566e..cc281943aa73 100644
+--- a/arch/arm64/boot/dts/apple/t6030-pmgr.dtsi
++++ b/arch/arm64/boot/dts/apple/t6030-pmgr.dtsi
+@@ -501,8 +501,8 @@ ps_dpa0: power-controller@2e0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = "dpa0";
+-		apple,always-on;
+ 		power-domains = <&ps_audio_p>;
++		apple,always-on;
+ 	};
+ 
+ 	ps_dpa1: power-controller@2e8 {
+@@ -511,8 +511,8 @@ ps_dpa1: power-controller@2e8 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = "dpa1";
+-		apple,always-on;
+ 		power-domains = <&ps_audio_p>;
++		apple,always-on;
+ 	};
+ 
+ 	ps_dpa2: power-controller@2f0 {
+@@ -521,8 +521,8 @@ ps_dpa2: power-controller@2f0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = "dpa2";
+-		apple,always-on;
+ 		power-domains = <&ps_audio_p>;
++		apple,always-on;
+ 	};
+ 
+ 	ps_dpa3: power-controller@2f8 {
+@@ -531,8 +531,8 @@ ps_dpa3: power-controller@2f8 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = "dpa3";
+-		apple,always-on;
+ 		power-domains = <&ps_audio_p>;
++		apple,always-on;
+ 	};
+ 
+ 	ps_dpa4: power-controller@300 {
+@@ -541,8 +541,8 @@ ps_dpa4: power-controller@300 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = "dpa4";
+-		apple,always-on;
+ 		power-domains = <&ps_audio_p>;
++		apple,always-on;
+ 	};
+ 
+ 	ps_mca0: power-controller@308 {
+@@ -704,8 +704,8 @@ ps_ls1: power-controller@3a8 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = "ls1";
+-		apple,always-on;
+ 		power-domains = <&ps_ioa1>;
++		apple,always-on;
+ 	};
+ 
+ 	ps_lw10: power-controller@3b0 {
+@@ -714,8 +714,8 @@ ps_lw10: power-controller@3b0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = "lw10";
+-		apple,always-on;
+ 		power-domains = <&ps_ls1>;
++		apple,always-on;
+ 	};
+ 
+ 	ps_dispext0_sys: power-controller@3b8 {
+@@ -855,8 +855,8 @@ ps_ls3: power-controller@4b8 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = "ls3";
+-		apple,always-on;
+ 		power-domains = <&ps_ioa3>;
++		apple,always-on;
+ 	};
+ 
+ 	ps_lw30: power-controller@4c0 {
+@@ -865,8 +865,8 @@ ps_lw30: power-controller@4c0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = "lw30";
+-		apple,always-on;
+ 		power-domains = <&ps_ls3>;
++		apple,always-on;
+ 	};
+ 
+ 	ps_pmp: power-controller@4c8 {
+@@ -891,8 +891,8 @@ ps_lw31: power-controller@4d8 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = "lw31";
+-		apple,always-on;
+ 		power-domains = <&ps_ls3>;
++		apple,always-on;
+ 	};
+ 
+ 	ps_atc0_common: power-controller@4e0 {
+diff --git a/arch/arm64/boot/dts/apple/t6031-pmgr.dtsi b/arch/arm64/boot/dts/apple/t6031-pmgr.dtsi
+index 721ab2e9fd4b..578d267888b0 100644
+--- a/arch/arm64/boot/dts/apple/t6031-pmgr.dtsi
++++ b/arch/arm64/boot/dts/apple/t6031-pmgr.dtsi
+@@ -53,8 +53,8 @@ DIE_NODE(ps_afnc3_ls): power-controller@128 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc3_ls);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afnc3_ioa)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_afnc3_lw0): power-controller@138 {
+@@ -63,8 +63,8 @@ DIE_NODE(ps_afnc3_lw0): power-controller@138 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc3_lw0);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afnc3_ls)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_afnc3_lw1): power-controller@148 {
+@@ -73,8 +73,8 @@ DIE_NODE(ps_afnc3_lw1): power-controller@148 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc3_lw1);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afnc3_ls)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_apcie_sys_gp): power-controller@158 {
+@@ -101,8 +101,8 @@ DIE_NODE(ps_afnc4_ls): power-controller@178 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc4_ls);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afnc4_ioa)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_afnc4_lw0): power-controller@188 {
+@@ -111,8 +111,8 @@ DIE_NODE(ps_afnc4_lw0): power-controller@188 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc4_lw0);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afnc4_ls)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_afnc5_ioa): power-controller@198 {
+@@ -130,8 +130,8 @@ DIE_NODE(ps_afnc5_ls): power-controller@1a8 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc5_ls);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afnc5_ioa)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_afnc5_lw0): power-controller@1b8 {
+@@ -140,8 +140,8 @@ DIE_NODE(ps_afnc5_lw0): power-controller@1b8 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc5_lw0);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afnc5_ls)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_afnc6_ioa): power-controller@1c8 {
+@@ -159,8 +159,8 @@ DIE_NODE(ps_afnc6_ls): power-controller@1d8 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc6_ls);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afnc6_ioa)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_afnc6_lw0): power-controller@1e8 {
+@@ -169,8 +169,8 @@ DIE_NODE(ps_afnc6_lw0): power-controller@1e8 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc6_lw0);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afnc6_ls)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_sio): power-controller@1f8 {
+@@ -350,8 +350,8 @@ DIE_NODE(ps_aes): power-controller@290 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(aes);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_sio)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_disp_fe): power-controller@298 {
+@@ -604,8 +604,8 @@ DIE_NODE(ps_dcs_04): power-controller@390 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(dcs_04);
+-		apple,always-on; /* LPDDR5 interface */
+ 		power-domains = <&DIE_NODE(ps_amcc1)>;
++		apple,always-on; /* LPDDR5 interface */
+ 	};
+ 
+ 	DIE_NODE(ps_dcs_05): power-controller@3a0 {
+@@ -614,8 +614,8 @@ DIE_NODE(ps_dcs_05): power-controller@3a0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(dcs_05);
+-		apple,always-on; /* LPDDR5 interface */
+ 		power-domains = <&DIE_NODE(ps_amcc1)>;
++		apple,always-on; /* LPDDR5 interface */
+ 	};
+ 
+ 	DIE_NODE(ps_dcs_06): power-controller@3b0 {
+@@ -624,8 +624,8 @@ DIE_NODE(ps_dcs_06): power-controller@3b0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(dcs_06);
+-		apple,always-on; /* LPDDR5 interface */
+ 		power-domains = <&DIE_NODE(ps_amcc1)>;
++		apple,always-on; /* LPDDR5 interface */
+ 	};
+ 
+ 	DIE_NODE(ps_dcs_07): power-controller@3c0 {
+@@ -634,8 +634,8 @@ DIE_NODE(ps_dcs_07): power-controller@3c0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(dcs_07);
+-		apple,always-on; /* LPDDR5 interface */
+ 		power-domains = <&DIE_NODE(ps_amcc1)>;
++		apple,always-on; /* LPDDR5 interface */
+ 	};
+ 
+ 	DIE_NODE(ps_dcs_12): power-controller@3d0 {
+@@ -644,8 +644,8 @@ DIE_NODE(ps_dcs_12): power-controller@3d0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(dcs_12);
+-		apple,always-on; /* LPDDR5 interface */
+ 		power-domains = <&DIE_NODE(ps_amcc3)>;
++		apple,always-on; /* LPDDR5 interface */
+ 	};
+ 
+ 	DIE_NODE(ps_dcs_13): power-controller@3e0 {
+@@ -654,8 +654,8 @@ DIE_NODE(ps_dcs_13): power-controller@3e0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(dcs_13);
+-		apple,always-on; /* LPDDR5 interface */
+ 		power-domains = <&DIE_NODE(ps_amcc3)>;
++		apple,always-on; /* LPDDR5 interface */
+ 	};
+ 
+ 	DIE_NODE(ps_dcs_14): power-controller@3f0 {
+@@ -664,8 +664,8 @@ DIE_NODE(ps_dcs_14): power-controller@3f0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(dcs_14);
+-		apple,always-on; /* LPDDR5 interface */
+ 		power-domains = <&DIE_NODE(ps_amcc3)>;
++		apple,always-on; /* LPDDR5 interface */
+ 	};
+ 
+ 	DIE_NODE(ps_dcs_15): power-controller@400 {
+@@ -674,8 +674,8 @@ DIE_NODE(ps_dcs_15): power-controller@400 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(dcs_15);
+-		apple,always-on; /* LPDDR5 interface */
+ 		power-domains = <&DIE_NODE(ps_amcc3)>;
++		apple,always-on; /* LPDDR5 interface */
+ 	};
+ 
+ 	DIE_NODE(ps_dcs_20): power-controller@410 {
+@@ -684,8 +684,8 @@ DIE_NODE(ps_dcs_20): power-controller@410 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(dcs_20);
+-		apple,always-on; /* LPDDR5 interface */
+ 		power-domains = <&DIE_NODE(ps_amcc5)>;
++		apple,always-on; /* LPDDR5 interface */
+ 	};
+ 
+ 	DIE_NODE(ps_dcs_21): power-controller@420 {
+@@ -694,8 +694,8 @@ DIE_NODE(ps_dcs_21): power-controller@420 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(dcs_21);
+-		apple,always-on; /* LPDDR5 interface */
+ 		power-domains = <&DIE_NODE(ps_amcc5)>;
++		apple,always-on; /* LPDDR5 interface */
+ 	};
+ 
+ 	DIE_NODE(ps_dcs_22): power-controller@430 {
+@@ -704,8 +704,8 @@ DIE_NODE(ps_dcs_22): power-controller@430 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(dcs_22);
+-		apple,always-on; /* LPDDR5 interface */
+ 		power-domains = <&DIE_NODE(ps_amcc5)>;
++		apple,always-on; /* LPDDR5 interface */
+ 	};
+ 
+ 	DIE_NODE(ps_dcs_23): power-controller@440 {
+@@ -714,8 +714,8 @@ DIE_NODE(ps_dcs_23): power-controller@440 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(dcs_23);
+-		apple,always-on; /* LPDDR5 interface */
+ 		power-domains = <&DIE_NODE(ps_amcc5)>;
++		apple,always-on; /* LPDDR5 interface */
+ 	};
+ 
+ 	DIE_NODE(ps_dcs_28): power-controller@450 {
+@@ -724,8 +724,8 @@ DIE_NODE(ps_dcs_28): power-controller@450 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(dcs_28);
+-		apple,always-on; /* LPDDR5 interface */
+ 		power-domains = <&DIE_NODE(ps_amcc7)>;
++		apple,always-on; /* LPDDR5 interface */
+ 	};
+ 
+ 	DIE_NODE(ps_dcs_29): power-controller@460 {
+@@ -734,8 +734,8 @@ DIE_NODE(ps_dcs_29): power-controller@460 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(dcs_29);
+-		apple,always-on; /* LPDDR5 interface */
+ 		power-domains = <&DIE_NODE(ps_amcc7)>;
++		apple,always-on; /* LPDDR5 interface */
+ 	};
+ 
+ 	DIE_NODE(ps_dcs_30): power-controller@470 {
+@@ -744,8 +744,8 @@ DIE_NODE(ps_dcs_30): power-controller@470 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(dcs_30);
+-		apple,always-on; /* LPDDR5 interface */
+ 		power-domains = <&DIE_NODE(ps_amcc7)>;
++		apple,always-on; /* LPDDR5 interface */
+ 	};
+ 
+ 	DIE_NODE(ps_dcs_31): power-controller@480 {
+@@ -754,8 +754,8 @@ DIE_NODE(ps_dcs_31): power-controller@480 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(dcs_31);
+-		apple,always-on; /* LPDDR5 interface */
+ 		power-domains = <&DIE_NODE(ps_amcc7)>;
++		apple,always-on; /* LPDDR5 interface */
+ 	};
+ 
+ 	DIE_NODE(ps_mca0): power-controller@4e8 {
+@@ -935,8 +935,8 @@ DIE_NODE(ps_sep): power-controller@c00 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(sep);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afnc4_lw0)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_isp_cpu): power-controller@4008 {
+@@ -1089,8 +1089,8 @@ DIE_NODE(ps_pms_c1ppt): power-controller@128 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(pms_c1ppt);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_soc_dpe)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_pmgr_soc_ocla): power-controller@130 {
+@@ -1173,8 +1173,8 @@ DIE_NODE(ps_amcc0): power-controller@180 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(amcc0);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afc)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_amcc2): power-controller@190 {
+@@ -1183,8 +1183,8 @@ DIE_NODE(ps_amcc2): power-controller@190 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(amcc2);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afc)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_amcc4): power-controller@1a0 {
+@@ -1193,8 +1193,8 @@ DIE_NODE(ps_amcc4): power-controller@1a0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(amcc4);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afc)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_amcc6): power-controller@1b0 {
+@@ -1203,8 +1203,8 @@ DIE_NODE(ps_amcc6): power-controller@1b0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(amcc6);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afc)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_dcs_00): power-controller@1c0 {
+@@ -1213,8 +1213,8 @@ DIE_NODE(ps_dcs_00): power-controller@1c0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(dcs_00);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_amcc0)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_dcs_01): power-controller@1d0 {
+@@ -1223,8 +1223,8 @@ DIE_NODE(ps_dcs_01): power-controller@1d0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(dcs_01);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_amcc0)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_dcs_02): power-controller@1e0 {
+@@ -1233,8 +1233,8 @@ DIE_NODE(ps_dcs_02): power-controller@1e0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(dcs_02);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_amcc0)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_dcs_03): power-controller@1f0 {
+@@ -1243,8 +1243,8 @@ DIE_NODE(ps_dcs_03): power-controller@1f0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(dcs_03);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_amcc0)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_dcs_08): power-controller@200 {
+@@ -1253,8 +1253,8 @@ DIE_NODE(ps_dcs_08): power-controller@200 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(dcs_08);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_amcc2)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_dcs_09): power-controller@210 {
+@@ -1263,8 +1263,8 @@ DIE_NODE(ps_dcs_09): power-controller@210 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(dcs_09);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_amcc2)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_dcs_10): power-controller@220 {
+@@ -1273,8 +1273,8 @@ DIE_NODE(ps_dcs_10): power-controller@220 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(dcs_10);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_amcc2)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_dcs_11): power-controller@230 {
+@@ -1283,8 +1283,8 @@ DIE_NODE(ps_dcs_11): power-controller@230 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(dcs_11);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_amcc2)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_dcs_16): power-controller@240 {
+@@ -1293,8 +1293,8 @@ DIE_NODE(ps_dcs_16): power-controller@240 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(dcs_16);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_amcc4)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_dcs_17): power-controller@250 {
+@@ -1303,8 +1303,8 @@ DIE_NODE(ps_dcs_17): power-controller@250 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(dcs_17);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_amcc4)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_dcs_18): power-controller@260 {
+@@ -1313,8 +1313,8 @@ DIE_NODE(ps_dcs_18): power-controller@260 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(dcs_18);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_amcc4)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_dcs_19): power-controller@270 {
+@@ -1323,8 +1323,8 @@ DIE_NODE(ps_dcs_19): power-controller@270 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(dcs_19);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_amcc4)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_dcs_24): power-controller@280 {
+@@ -1333,8 +1333,8 @@ DIE_NODE(ps_dcs_24): power-controller@280 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(dcs_24);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_amcc6)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_dcs_25): power-controller@290 {
+@@ -1343,8 +1343,8 @@ DIE_NODE(ps_dcs_25): power-controller@290 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(dcs_25);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_amcc6)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_dcs_26): power-controller@2a0 {
+@@ -1353,8 +1353,8 @@ DIE_NODE(ps_dcs_26): power-controller@2a0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(dcs_26);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_amcc6)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_afi): power-controller@2b0 {
+@@ -1372,8 +1372,8 @@ DIE_NODE(ps_dcs_27): power-controller@2c0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(dcs_27);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_amcc6)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_afi_d2d_0): power-controller@2d0 {
+@@ -1448,8 +1448,8 @@ DIE_NODE(ps_afnc1_ioa): power-controller@330 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc1_ioa);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afi)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_afnc0_ioa): power-controller@340 {
+@@ -1458,8 +1458,8 @@ DIE_NODE(ps_afnc0_ioa): power-controller@340 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc0_ioa);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afi)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_afnc2_ioa): power-controller@350 {
+@@ -1468,8 +1468,8 @@ DIE_NODE(ps_afnc2_ioa): power-controller@350 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc2_ioa);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afi)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_afnc7_ioa): power-controller@360 {
+@@ -1478,8 +1478,8 @@ DIE_NODE(ps_afnc7_ioa): power-controller@360 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc7_ioa);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afi)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_afnc1_ls): power-controller@370 {
+@@ -1488,8 +1488,8 @@ DIE_NODE(ps_afnc1_ls): power-controller@370 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc1_ls);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afnc1_ioa)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_afnc0_ls): power-controller@380 {
+@@ -1498,8 +1498,8 @@ DIE_NODE(ps_afnc0_ls): power-controller@380 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc0_ls);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afnc0_ioa)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_afnc2_ls): power-controller@390 {
+@@ -1508,8 +1508,8 @@ DIE_NODE(ps_afnc2_ls): power-controller@390 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc2_ls);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afnc2_ioa)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_afnc7_ls): power-controller@3a0 {
+@@ -1518,8 +1518,8 @@ DIE_NODE(ps_afnc7_ls): power-controller@3a0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc7_ls);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afnc7_ioa)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_afnc1_lw0): power-controller@3b0 {
+@@ -1528,8 +1528,8 @@ DIE_NODE(ps_afnc1_lw0): power-controller@3b0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc1_lw0);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afnc1_ls)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_afnc1_lw1): power-controller@3c0 {
+@@ -1538,8 +1538,8 @@ DIE_NODE(ps_afnc1_lw1): power-controller@3c0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc1_lw1);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afnc1_ls)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_afnc0_lw0): power-controller@3d0 {
+@@ -1548,8 +1548,8 @@ DIE_NODE(ps_afnc0_lw0): power-controller@3d0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc0_lw0);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afnc0_ls)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_afnc2_lw0): power-controller@3e0 {
+@@ -1558,8 +1558,8 @@ DIE_NODE(ps_afnc2_lw0): power-controller@3e0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc2_lw0);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afnc2_ls)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_afnc2_lw1): power-controller@3f0 {
+@@ -1568,8 +1568,8 @@ DIE_NODE(ps_afnc2_lw1): power-controller@3f0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(afnc2_lw1);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_afnc2_ls)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_afnc7_lw0): power-controller@400 {
+@@ -2027,8 +2027,8 @@ DIE_NODE(ps_nub_spmi0): power-controller@68 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(nub_spmi0);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_nub_spmi_ahb_fab)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_nub_spmi_a0): power-controller@70 {
+@@ -2123,8 +2123,8 @@ DIE_NODE(ps_nub_spmi1): power-controller@c8 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(nub_spmi1);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_nub_spmi_ahb_fab)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_atc0_usb_aon): power-controller@d0 {
+@@ -2165,8 +2165,8 @@ DIE_NODE(ps_nub_spmi2): power-controller@f0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(nub_spmi2);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_nub_spmi_ahb_fab)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_nub_spmi3): power-controller@f8 {
+@@ -2175,8 +2175,8 @@ DIE_NODE(ps_nub_spmi3): power-controller@f8 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(nub_spmi3);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_nub_spmi_ahb_fab)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_nub_spmi4): power-controller@100 {
+@@ -2185,8 +2185,8 @@ DIE_NODE(ps_nub_spmi4): power-controller@100 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(nub_spmi4);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_nub_spmi_ahb_fab)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_nub_spmi5): power-controller@108 {
+@@ -2195,8 +2195,8 @@ DIE_NODE(ps_nub_spmi5): power-controller@108 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(nub_spmi5);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_nub_spmi_ahb_fab)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_nub_fabric): power-controller@110 {
+@@ -2270,8 +2270,8 @@ DIE_NODE(ps_mtp_fabric): power-controller@2000 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(mtp_fabric);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_nub_fabric)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_mtp_gpio): power-controller@2008 {
+@@ -2280,8 +2280,8 @@ DIE_NODE(ps_mtp_gpio): power-controller@2008 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(mtp_gpio);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_mtp_fabric)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_mtp_base): power-controller@2010 {
+@@ -2290,8 +2290,8 @@ DIE_NODE(ps_mtp_base): power-controller@2010 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(mtp_base);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_mtp_fabric)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_mtp_periph): power-controller@2018 {
+@@ -2300,8 +2300,8 @@ DIE_NODE(ps_mtp_periph): power-controller@2018 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(mtp_periph);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_mtp_fabric)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_mtp_uart0): power-controller@2020 {
+@@ -2310,8 +2310,8 @@ DIE_NODE(ps_mtp_uart0): power-controller@2020 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(mtp_uart0);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_mtp_fabric)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_mtp_cpu): power-controller@2028 {
+@@ -2320,8 +2320,8 @@ DIE_NODE(ps_mtp_cpu): power-controller@2028 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(mtp_cpu);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_mtp_fabric)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_mtp_scm_fabric): power-controller@2030 {
+@@ -2330,8 +2330,8 @@ DIE_NODE(ps_mtp_scm_fabric): power-controller@2030 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(mtp_scm_fabric);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_mtp_periph)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_mtp_spi0): power-controller@2038 {
+@@ -2340,8 +2340,8 @@ DIE_NODE(ps_mtp_spi0): power-controller@2038 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(mtp_spi0);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_mtp_fabric)>, <&DIE_NODE(ps_mtp_periph)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_mtp_i2cm0): power-controller@2040 {
+@@ -2350,8 +2350,8 @@ DIE_NODE(ps_mtp_i2cm0): power-controller@2040 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(mtp_i2cm0);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_mtp_fabric)>, <&DIE_NODE(ps_mtp_periph)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_mtp_sram): power-controller@2048 {
+@@ -2360,8 +2360,8 @@ DIE_NODE(ps_mtp_sram): power-controller@2048 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(mtp_sram);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_mtp_cpu)>, <&DIE_NODE(ps_mtp_scm_fabric)>;
++		apple,always-on;
+ 	};
+ 
+ 	DIE_NODE(ps_mtp_dma): power-controller@2050 {
+@@ -2370,8 +2370,8 @@ DIE_NODE(ps_mtp_dma): power-controller@2050 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = DIE_LABEL(mtp_dma);
+-		apple,always-on;
+ 		power-domains = <&DIE_NODE(ps_mtp_fabric)>, <&DIE_NODE(ps_mtp_sram)>;
++		apple,always-on;
+ 	};
+ #endif
+ };
+diff --git a/arch/arm64/boot/dts/apple/t8103-pmgr.dtsi b/arch/arm64/boot/dts/apple/t8103-pmgr.dtsi
+index fef8a4058f14..57f3e5a4ef89 100644
+--- a/arch/arm64/boot/dts/apple/t8103-pmgr.dtsi
++++ b/arch/arm64/boot/dts/apple/t8103-pmgr.dtsi
+@@ -1067,8 +1067,8 @@ ps_debug_usb: power-controller@b8 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = "debug_usb";
+-		apple,always-on; /* Core AON device */
+ 		power-domains = <&ps_debug>;
++		apple,always-on; /* Core AON device */
+ 	};
+ 
+ 	ps_debug_auth: power-controller@c0 {
+@@ -1077,8 +1077,8 @@ ps_debug_auth: power-controller@c0 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = "debug_auth";
+-		apple,always-on; /* Core AON device */
+ 		power-domains = <&ps_debug>;
++		apple,always-on; /* Core AON device */
+ 	};
+ 
+ 	ps_nub_spmi1: power-controller@68 {
+diff --git a/arch/arm64/boot/dts/apple/t8112-pmgr.dtsi b/arch/arm64/boot/dts/apple/t8112-pmgr.dtsi
+index 7c050c6f2707..d3f6855789d1 100644
+--- a/arch/arm64/boot/dts/apple/t8112-pmgr.dtsi
++++ b/arch/arm64/boot/dts/apple/t8112-pmgr.dtsi
+@@ -166,8 +166,8 @@ ps_sio: power-controller@1b8 {
+ 		#power-domain-cells = <0>;
+ 		#reset-cells = <0>;
+ 		label = "sio";
+-		apple,always-on;
+ 		power-domains = <&ps_sio_busif>;
++		apple,always-on;
+ 	};
+ 
+ 	ps_sio_cpu: power-controller@1c0 {
 
-With the patch:
+---
+base-commit: 7809dfc2040bd6b8808da2cb7b8ce429ce3df946
+change-id: 20261114-pmgr-dt-fixes-7d5547d3c55e
 
-[    5.243457] qcom,apr 4c00000.remoteproc:glink-edge.adsp_apps.-1.-1: Adding APR/GPR dev: gprsvc:service:2:1
-[    5.243487] qcom,apr 4c00000.remoteproc:glink-edge.adsp_apps.-1.-1: Adding APR/GPR dev: gprsvc:service:2:2
-[    5.259454] platform 4c00000.remoteproc:glink-edge:fastrpc:compute-cb@3: Adding to iommu group 5
-[    5.260433] platform 4c00000.remoteproc:glink-edge:fastrpc:compute-cb@4: Adding to iommu group 6
-[    5.261131] platform 4c00000.remoteproc:glink-edge:fastrpc:compute-cb@5: Adding to iommu group 7
-[    5.261770] platform 4c00000.remoteproc:glink-edge:fastrpc:compute-cb@6: Adding to iommu group 8
-[    5.393166] snd-sc8280xp sound: ASoC: Parent card not yet available, widget card binding deferred
-[    5.395934] ALSA: Control name 'stream0.vol_ctrl0 MultiMedia1 Playback Volume' truncated to 'stream0.vol_ctrl0 MultiMedia1 Playback Volu'
+Best regards,
+--  
+Sven Peter <sven@kernel.org>
 
-So on Nord platform:
 
-Tested-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-
-> ---
->  drivers/soc/qcom/apr.c | 15 +++++++++++++--
->  1 file changed, 13 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/soc/qcom/apr.c b/drivers/soc/qcom/apr.c
-> index ea7f83916d8d..829e5c8fdf98 100644
-> --- a/drivers/soc/qcom/apr.c
-> +++ b/drivers/soc/qcom/apr.c
-> @@ -365,13 +365,24 @@ static int apr_device_probe(struct device *dev)
->  {
->  	struct apr_device *adev = to_apr_device(dev);
->  	struct apr_driver *adrv = to_apr_driver(dev->driver);
-> +	struct packet_router *apr = dev_get_drvdata(dev->parent);
->  	int ret;
->  
-> +	if (apr->type == PR_TYPE_GPR)
-
-I wonder whether it's really necessary to have this GPR condition guard.
-How would it possibly cause problem for APR?
-
-The code will be much cleaner without the GPR guard.
-
-Shawn
-
-> +		adev->svc.callback = adrv->gpr_callback;
-> +
->  	ret = adrv->probe(adev);
-> -	if (!ret)
-> +	if (ret) {
-> +		if (apr->type == PR_TYPE_GPR)
-> +			adev->svc.callback = NULL;
-> +
-> +		return ret;
-> +	}
-> +
-> +	if (apr->type != PR_TYPE_GPR)
->  		adev->svc.callback = adrv->gpr_callback;
->  
-> -	return ret;
-> +	return 0;
->  }
->  
->  static void apr_device_remove(struct device *dev)
-> -- 
-> 2.34.1
-> 
