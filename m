@@ -1,61 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794660127;
-	b=WDf00iloij0igI57t+ngvF5rb52WJKpkfWilEl2qwwm3MlBCEge0OFgZxgGSFf0Ywqep
-	 AtVsQTRlf3zrOB9P2oiw5ufOYKSYsGE6Mg0CCISKjJhfojiOKK8n6t7jYH/1qfJ9Z3SVX
-	 sP5m/P330sFi1f6RyaKircv8IJx/mVtT8eYkvMDQL/syxicCh/ZpSpxnZyXLYd0EsXV6f
-	 Sqwuoj+bef/rExlpXYnx6L67eyWCiW69y66EV2JrR18wCpdRowqPOy8ykmxqOS1UFdHwk
-	 mZhtPqDn4beP8LTBets+FYUv4zmM3Rbee6SWQ6z4Ur+XJb0hx/w04pxLSWcg9RBPXRg==
+	t=1794660132;
+	b=BYuShTT2Qb91314aXdHBU9+1LvX/rd53c6+wCl6ZuIe3FPcblfBhYMmXZDflgaZi5e7w
+	 x+GKwphphL57QBLCdNQ+kK69Chy6wpWQzBpvZX+HVn/S59Tge6Hh8pglxImOrwx4TAly0
+	 tbNRGE1HwjxL6bMb9iI7Ngsgiph7sjq8J4qjuEpSL3BUWlBP3Z2HykbsobjdSTSWmBQmc
+	 P1BV2v4Ct9n7t+2IKkTp8BR8dYVBOHOKRQc+FvXFQMxTbLfZcso5X3cLQoLsFfaGc0Wwx
+	 SubtOkdJbMDwOZCGEqR0rmU1YkNUJ26/Q+iGhzg+Cg9hVXLGa5pbMjrX1APoV6Qf9Eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794660127;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=OLGP0ChfuX8yScgxhPPrkadHoSBbKqMfDAL47LIarJY=;
-	b=mGLll/hfo2JvaZrhsG7e7UythEGCbG1Eh2OoVQuEkFkETVwldNKK7lFD8lX9gzGczbo1
-	 X9hzfzcKqR+t93xXUP/hZ+UWMfwRCzy3SxVWzkm02CnsnWXPu4kTJofNpwoR3c/jsh157
-	 5Kf629129VPX8wKNnspbe5XZWDVyWFZBW3ysGXK2FRfovfbSft0g9HfafuFKS43ONcE9t
-	 Oo4s60Cq9clIHNe+Fz6qMRFcVKyfz7D5vDvaIEYZLUdZZts+wfQOrpH1m3AUMHBKEDkD3
-	 wG9E8+wnnzhMi3XMIKFWqyO9glwhMHRIrs5Dn2fRHS03tOOB96Qu1js7ntAto94dxEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794660132;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
+	 References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=uJfNtNVmnfNND8tuhpLlIQhfsKyvuLzHczRnhNnq3AM=;
+	b=B710QrW2rakC9xPkJypQmcS/Wu5U3ne8xEwCspWtZ0FOUeHN8VoxiwfQt7sz/qX0MN98
+	 1cK0xJ3oHHWcGNsDZks2XsmJifrptv3T7vsZPKeLRJpT38MWiVtP7CQm5eTQUHts4iNhI
+	 /6c72GgA8T375oK4+mvroPsnXvPty6hP/pvEQ8w6+CuOKKVSnluLAU5VOmqGbsTrJZkvK
+	 /GHj3XaKL5rTnArzaJjO3An57A4/wGzL16s7CHGT1AeR3lIYI2h1Mk2Ee15hIjjCK3AjZ
+	 XkB7l2ZECuiz94h5ObQQXnwAHais9JX1UZ75/tGfi/pBAnW1bwcN2/eMHwjNoR5pOSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=CWqfabZr;
-	arc=none smtp.remote-ip=117.135.210.5
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XDAGrZs8;
+	arc=none smtp.remote-ip=91.218.175.163
+Received: from mta0.migadu.com (out-163.mta0.migadu.com [91.218.175.163])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCD92606A329
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 12:42:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCD92606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46E77606A329
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 12:42:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46E77606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=CWqfabZr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=OL
-	GP0ChfuX8yScgxhPPrkadHoSBbKqMfDAL47LIarJY=; b=CWqfabZrfom59vS2zV
-	20EWZL36lxB/9Iwl3gXvf/iwudvLVvgCe70v3RzfGEiqvnVphLu2nPFfWXvYqzDn
-	zn9ELRPCAVApBjCcF0WzkqPC8H435l+94rd8B365hrjHDaeIrMICWMm0abbjKbnB
-	9fx4ALL//vnm32mcgFMNygQSk=
-Received: from Virtual-Platform.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD31SLuVvhqAxhDHg--.250S2;
-	Sat, 14 Nov 2026 20:41:19 +0800 (CST)
-From: Chao Xu <xuchao066@163.com>
-To: suzuki.poulose@arm.com,
-	mike.leach@arm.com,
-	james.clark@linaro.org,
-	leo.yan@arm.com,
-	alexander.shishkin@linux.intel.com
-Cc: coresight@lists.linaro.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Chao Xu <xuchao066@163.com>
-Subject: [PATCH v1] coresight: etm4x: Fix instruction event 0 enablement
-Date: Sat, 14 Nov 2026 20:41:13 +0800
-Message-ID: <20261114124114.5499-1-xuchao066@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=XDAGrZs8
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=UE4RiX8U8HduN+nFaT8/pzBhYlXGFBfcU1QbZdGbl2U=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794660128; v=1; x=1795264928;
+ b=XDAGrZs8t6rr5NhLViqGmFucNcNqkG6I7iDlFazzi89jG0n4wP7gX+vI+LOj4TvznuSSgE+3
+ tF4SvfZvznnY7vInAzBqNurt4c03aXY/8rayTMPYoVKOgeW/LLD9NdJFuXDroQbdX0c2mtUy9XN
+ QM0hkeiqTjnLQOic0GfxSwM8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5aa57e8ac6425923;
+	Sat, 14 Nov 2026 12:42:07 +0000
+X-Mizu-Trace-ID: 5aa57e8ac6425923
+X-Migadu-Flow: FLOW_OUT
+Date: Sat, 14 Nov 2026 12:42:07 +0000
+From: Bradley Morgan <bradley.morgan@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>
+CC: linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/1] profile: account for partial /proc/profile reads
+In-Reply-To: <41a747d4b3cd4bf3b266631a1f39ca69.1@linux-foundation.org>
+References: <41a747d4b3cd4bf3b266631a1f39ca69.1@linux-foundation.org>
+Message-ID: <C672A545-DFD4-4F4D-81A1-606FA6704C0D@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,54 +64,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD31SLuVvhqAxhDHg--.250S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tF1ktr47CF48Ww4rGr4Durg_yoW8AFWkpr
-	4Fkw1Yyws5Gw4fZ3y2kr1UW3y8Gws2kayDWrn5Jw47WF17ZrWYgF1rKr4UtFs7XFW7CFyf
-	Jw4xtrn0qFy0kaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRJxh9UUUUU=
-X-CM-SenderInfo: x0xfxtbrqwlqqrwthudrp/xtbC5xCq8Gr4VvBVcQAA39
 
-According to section 7.3.30 of the Arm ETMv4 architecture specification,
-TRCEVENTCTL1R.INSTEN[n] controls event n.
+On 14 November 2026 06:30:37 GMT, Andrew Morton <akpm@linux-foundation.org>
+wrote:
+>From: Andrew Morton <akpm@linux-foundation.org>
+>Subject: profile: account for partial /proc/profile reads
+>Date: Tue, 20 Oct 2026 15:28:00 -0700
+>
+>read_profile() returns -EFAULT without advancing the file position
+>when a user copy faults, even if earlier header bytes or a prefix of
+>the counters were successfully copied.  A retry can therefore copy
+>the same bytes again despite the previous read having delivered data.
+>
+>Return the number of successfully copied bytes and advance *ppos by
+>that amount.  Return -EFAULT only if the fault occurs before any bytes
+>are copied.  Preserve the four-byte sampling-step header, raw counter
+>representation, and normal successful-read behavior.
+>
+>Avi Weiss's "profiling: fix sampling step on 64-bit big-endian
+>systems" is unchanged.  This patch changes only short-read and fault
+>reporting, not the output format.
 
-event_instren_store() uses TRCEVENTCTL1R_INSTEN_1 when TRCIDR0.NUMEVENT
-is zero. For an ETM implementing only event 0, INSTEN[1] is RES0, so
-writing event_instren cannot enable event 0 and no instruction Event
-element is generated for it.
+Oh why not a series, please..
 
-Use INSTEN[0] for the single-event case and update the comment accordingly.
+>
+>Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+>---
+>Tested the combined three-patch series on x86-64 and i686 QEMU/KVM
+>guests with CONFIG_PROFILING=y and profile=12.
+>profile-read-test.c: PASS (0 failures) on both architectures.
+>Covered short and unaligned reads, header boundaries, EOF, partial
+>user-copy faults, return values, file positions and retry behavior.
+>The 64-bit big-endian sampling-step fix was not runtime tested.
+>No separate per-patch or unpatched-versus-patched run was reported.
+>
+> kernel/profile.c |   17 ++++++++++++-----
+> 1 file changed, 12 insertions(+), 5 deletions(-)
+>
+>--- a/kernel/profile.c~profile-account-for-partial-proc-profile-reads
+>+++ a/kernel/profile.c
+>@@ -157,6 +157,7 @@ read_profile(struct file *file, char __u
+> 	ssize_t read;
+> 	char *pnt;
+> 	unsigned int sample_step = (unsigned int)(1UL << prof_shift);
+>+	size_t not_copied;
+> 
+> 	if (p >= (prof_len+1)*sizeof(unsigned int))
+> 		return 0;
+>@@ -166,15 +167,21 @@ read_profile(struct file *file, char __u
+> 
+> 	while (p < sizeof(unsigned int) && count > 0) {
+> 		if (put_user(*((char *)(&sample_step)+p), buf))
+>-			return -EFAULT;
+>+			goto out;
+> 		buf++; p++; count--; read++;
+> 	}
+>-	pnt = (char *)prof_buffer + p - sizeof(atomic_t);
+>-	if (copy_to_user(buf, (void *)pnt, count))
+>-		return -EFAULT;
+>-	read += count;
+>+	if (count) {
+>+		pnt = (char *)prof_buffer + p - sizeof(atomic_t);
+>+		not_copied = copy_to_user(buf, pnt, count);
+>+		read += count - not_copied;
+>+		if (not_copied)
+>+			goto out;
+>+	}
+> 	*ppos += read;
+> 	return read;
+>+out:
+>+	*ppos += read;
+>+	return read ? read : -EFAULT;
+> }
+> 
+> /* default is to not implement this call */
+>_
 
-Signed-off-by: Chao Xu <xuchao066@163.com>
----
- drivers/hwtracing/coresight/coresight-etm4x-sysfs.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
-index db9e603f97ba..420403dc711d 100644
---- a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
-+++ b/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
-@@ -566,16 +566,16 @@ static ssize_t event_instren_store(struct device *dev,
- 	sysfs_config->eventctrl1 &= ~TRCEVENTCTL1R_INSTEN_MASK;
- 	switch (caps->nr_event) {
- 	case 0x0:
--		/* generate Event element for event 1 */
--		sysfs_config->eventctrl1 |= val & TRCEVENTCTL1R_INSTEN_1;
-+		/* generate Event element for event 0 */
-+		sysfs_config->eventctrl1 |= val & TRCEVENTCTL1R_INSTEN_0;
- 		break;
- 	case 0x1:
--		/* generate Event element for event 1 and 2 */
-+		/* generate Event element for event 0 and 1 */
- 		sysfs_config->eventctrl1 |= val & (TRCEVENTCTL1R_INSTEN_0 |
- 						   TRCEVENTCTL1R_INSTEN_1);
- 		break;
- 	case 0x2:
--		/* generate Event element for event 1, 2 and 3 */
-+		/* generate Event element for event 0, 1 and 2 */
- 		sysfs_config->eventctrl1 |= val & (TRCEVENTCTL1R_INSTEN_0 |
- 					     TRCEVENTCTL1R_INSTEN_1 |
- 					     TRCEVENTCTL1R_INSTEN_2);
--- 
-2.43.0
-
+--- Thanks!
