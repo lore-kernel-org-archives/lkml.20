@@ -1,92 +1,93 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794675405;
-	b=GA0LuRKxxwHFkBIg6OwT8TFUNv2Zgn9txXlpNdTLuE7mh9CzcpK3ROhiQhjKMQSqOC3U
-	 H8xjka551T3IHFGh/c8IFdQPXe1VIC5i/mDY0s7yn8HdjAipv5oP2RJ1Yml1yb6nQgdTa
-	 DfVNk/O2ea7A0pNOmOzWUfktDTsAkq42KlqBOeuA3GK8iT03T5T8LGjoJXGMH4tJgCuL6
-	 /FxMWx6CK4NoNIxdrK7ODQm4AiYGhbm6y9IBbp7h5SWKB8hVdxFfhNgjqHR/q0qu6HG9D
-	 /hks9BNA5LGxv+HKs070hUP3QhMBKXIaYyV0C4WMRG0K61lwfnwEys0JyBap5+HXLeA==
+	t=1794675412;
+	b=tCdy71k7Y00Gydv7yAWZQ21rcAQm75A1DAhkLvJJBckdeEsNxZ5G7quBpseee98Dcdc9
+	 Lby6YZZqcvMHgIzDirYBSDeii78jITeW55gzMYKLFubigyVYgD+Ra0rRNFGMVQl8dKkH7
+	 RK1e4dyc5lLvTyowN+5zT+WCP79/kBNJ26rkl24A8fme81RB+OOIRytLtANwgy7S4OqIq
+	 QqKGBSwg7JnI+nV7sqeZwMtLTe85laBP7xrYdRftNeV0iic1G3RwD0z1OsCTzJN1buUdF
+	 2Y5bWfvPfTsdODktGSqN3AWiH8CiWROtxt4v36ewjgyGgUExo0McRuPshDAShiqZo1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794675405;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794675412;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=M+6ivWBMmxezy4v/LQH71faPp84I+G626mB69PT8i1U=;
-	b=LuLVdsG32Z0QiGPGXlIS+QA6DIJV04vl3DJfhKDz9/yNgxHZnxCyuvtnQIi3nBpays05
-	 rDGHcWsee2jcvPYnxGK8KpyELC8dUUV6zZ0LasS/ohZx3K4hX3KHTZHEEz9rUJJimcXjM
-	 rIrcs4CJ92W53olLQ8J2GlxcemWwAj+GGQuLyjxqJPE6rxtLWJ/a3GJFCeRJav5O8FSzs
-	 +BjIap2Y2U0u8p0zcquJppl5gnkKjeF99jpUG9+cR+QrwqDikUXG6U6BjCmXTlxk5nMFi
-	 ctcIlY7Moy8Ud+bjsfJjyIKW5ZBF96JrSTkgqDrBfLQQNyoHtybj+zC2NWoDRBTsRIA==
+	bh=EFaQhSzmT3PK8VQiQr7HruQbkLNN3qjfxSYlosLuFSg=;
+	b=UOtKo7amYsjHc1RXfG8X87YoUhgZr8S3WCZkUHUY/Qjhdr2m59DjnEWzpk//FIRoW5Qy
+	 +eyCJlQsmJleZiPym/reE2DlH4wS2vkcJgGhilyA7FJO5rcXiOpSUfgKTo0yQNrMEnDCG
+	 /jmU1Fc3Ji7w6nrmZtV36kSQ9dG4IX3P4gilBqeG8aDI/yBHl04LKbHn+crXahZvYDS+V
+	 RuGqRYRamGc/jcD21jcqAHmhTouziuYham7yI5QpiQyR6+DPRPkNlViRjHSFXL9bsvbTb
+	 pZmTWe96LL+cIjb1WH03Xc6aooadCF3unESuppmSyC2AXuWBYwoxWLaGyB79Hg1U/EQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BELsfkBE;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sWaVVps1;
 	arc=none smtp.remote-ip=209.85.167.53
 Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA51A606A8B0
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:56:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA51A606A8B0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF286606A338
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:56:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF286606A338
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BELsfkBE
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5c148d4dbfbso2458812e87.3
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:56:44 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sWaVVps1
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5bfbc67991cso1626537e87.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:56:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794675403; x=1795280203; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794675410; x=1795280210; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=M+6ivWBMmxezy4v/LQH71faPp84I+G626mB69PT8i1U=;
-        b=BELsfkBE6hXeMWsLkbtlRF/tk79rWRN0B+r0VOYnqnZxmf+ReMlC7y/1xg9k2iE9zm
-         mp0pGARAKsPcoqvjSHcrl5j1aS/xhzouTXwPnB+zYBrPKWHTbhQM00f3W70Os0cISdTG
-         ithC0iFPEGmYVjoV8oPhVnVrmMUXqmoewJqiaelaQnpcmmtQum7Vycpp/swNxSopJu3H
-         F6/qvwns7T6lXaPf+cz5DBIFmcEz0dMbJ9EUxrZQ/D1sHDaC5Jo60Zi51wpA8eG53lnI
-         fc4rNRL0Tu/v3C28aRz2yOlL+wVUaSj7uXW03rosmQtwm/Oc43Hq7pPPFP+/gMuhMjHs
-         vVqw==
+        bh=EFaQhSzmT3PK8VQiQr7HruQbkLNN3qjfxSYlosLuFSg=;
+        b=sWaVVps1+ysH/6QaDDmIa3WTyj4xEDtjjApVfpsBrbL38jPWdx/uwdhikoyIa7dO3W
+         R6mOTdIG1tOOyMI2iDPAhEQQMMWLm41ECQBhKWA5g8LalyaVoGCEm+Qg525wbItI25vC
+         GTiNFWCJpFSyK3FtkC73kcN6A4DwDtVfskqMdaPWoHzgnOKY6dX5++/XWw8bsFvbrxdV
+         RdhO6Z2fWJ3IWIL2dNIVl0hJnodH+bqsrywEL5xaGAUpHTKN7JQkhr34kTaUi1YqvrLs
+         dF4NeYrglEKQMoJzkpmv0gN7JB4dU6GsPnhaKaGw+uw2YefoKgi0FmCMuNRlLKL7ODv9
+         nYkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794675403; x=1795280203;
+        d=1e100.net; s=20260707; t=1794675410; x=1795280210;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=M+6ivWBMmxezy4v/LQH71faPp84I+G626mB69PT8i1U=;
-        b=T2ZvpwHfFp9iUWv3SOrEj4QpwvuMOdzK9M8kYcN5kNQ8VFjTddlIgzMPxCaMS47MDw
-         pgn0C1mW/XsLlhEKBemLzbFJkvTVeRUZlzjKoyj2MoQ6rW4iBZsost//3jKoXr7lsfiT
-         G8fLuwQaeP8QOM2H7ymdGyQDG/f2yxKSoaR3k+l0bjOK3q+JHGh7eH5k4AcReTU9Sre4
-         Kb9QeW7S3XfVkWjtnXQjr5B1ItVWIbRlbRwep6Ph7ad1XoCeuT6q3LwR1I4HFU7RIkM6
-         tJSf9P1+UdTYo2s4HP81Wz+kmUh3O9jEanfkk5pKxMhFNdVqjNnuHsT0OGcCuKAmhGlD
-         exJQ==
-X-Gm-Message-State: APuU4Z8dzfNhZxUEffK1McTXdi4KQXloXzO5VgeU3uQDvATDj1QtKd0+
-	adOtpemgEwnd0+q9/Hv6UWsu89gDCy0ge/MGzwn/oMMoqcUfDvT/jRhgVrrG0vjA2Y2dwkhn
-X-Gm-Gg: AYBFou1yqv/n+/MKrCo7G3IvECOJyjmqTb9qc+97mAW1ELR52asexd48Yni2BAXjZt3
-	yO9WBZOQIKm727odNNAUqZ1k7TfuA3M5jMUmDV2oLwWeCuk0eVmOiWkV/0J2Wv5LqZDPSARqdCr
-	uAjSCwL17/iuXmruLY+VVUjBhAek8Ooery+pm46sOtg4F31zEtRm2Fc9u+2sIy+uRcmuFeL4j8h
-	OPCrtUvOoy0XOo7jP/CpTfAygAZBcsFh/WWdzM8MbCwXY5b22cSN4pe95hL4OSJCtcrhTMPlKFg
-	SGOh7QfaRZmaTQXKUFnZHaWehTJh8s4VHrVL2/wZuWiEuaupBhQBBVhJ1Wwx/TAARUwTVJmPtch
-	MklzCWcTfqPNhpSmhXKqlRCjsCpDQ8IpGpazlHX3LwxlZzm/eMEy2xC2bd6xpAAUte1kVVMN3t3
-	tflnVR7Vmm1cpLzUUsXovypKw0PrZUjjv2O3FBvwS0o38lwcqIwvdpRoxdvr0I3jY1iEyZ0QGEO
-	+2k1Z0ZXqy1TfPUkQbtA2eS7exAqOqKyoAvWMxNt0Qk4DSQM8tkdIkGwCIU60PyMSXW088+X6OG
-	2pOBw6lWeTLXnWr/YE4J+EJFDM764HzIRUDTYjan8Q7ozmcOn0+jRD+l4XsvZJb1gDgZgx67+9B
-	6kKoX820NZw==
-X-Received: by 2002:a05:6512:31c3:b0:5bf:e241:cd4f with SMTP id 2adb3069b0e04-5c1709ca463mr2480341e87.32.1794675402862;
-        Sat, 14 Nov 2026 08:56:42 -0800 (PST)
+        bh=EFaQhSzmT3PK8VQiQr7HruQbkLNN3qjfxSYlosLuFSg=;
+        b=hJCUQ8/vXv+6U237z2w349fhKw9ROGAObHhjvaCq6btYrSmo2B9+SCYrX256z2H8yX
+         wotjfsFJWwv1pb2XkyUlRXLcW5fICWJ9Mk0T2r2az3NCrhxUqpnEVTEZLYxlKuYJinJx
+         JSsxSJAi91+diKYRFulMaGQhso10u7fJXmhuV9U+IF51/5seDfQ0F5MXA86Fq6S9Coz4
+         1q0ev9yIB5J6wWwZ3lc7MY6v33nejyka6NgfPbk1iyb4yNhyU2Qdc8U7OspRs45RaujH
+         lU73OJdeUqI32LULr7Iu0Uqsik+pz/F2pFQ3KOrUwqh8u677GzsyO8in9rkmvlpazCrj
+         ESeQ==
+X-Gm-Message-State: APuU4Z+zQSOyKkxBSl7ka/8XiTm0kfP/B1U+JV4xxVwTXhhpIf2e+KpH
+	j6UNWmzSxM1f0rcVAxAPOUHBN0DwksDMJBtssqMcxnktC2fzojK9n/h0
+X-Gm-Gg: AYBFou2ceGEJOFexWhVaIyZRoL1xzLjSBn/3vSfOSuQkJ8gm/6Tbnao12QG49hVyHUt
+	BlaEoF8qmA9zPWMll+mUCtzbTNBqR1jwoImJ1J0hvLRNLGiD5smQEbYatk0alc+w7ULM1WSjr5J
+	JZS8ZDVaouVxYHIxP9aOZyIpppKRlpuIwelwUCKxjcA7OO+xujgtanHklpSMDRu0DUwILGvN9U5
+	mUZmSkFUSNWMk0b1Q7RN0Izh5yr2eJi6HgUBR65ceal6EczW0h871wJPctTq0Q6J9CtRbPgbe8k
+	0y11bK46byvNTXDAqCRA2IaAKS0y+MFBzRHkcFtol1WyMLx1SZO4MgWZv+IbeM7z1m6vJVH0UOe
+	+GCl7f0mZMPYkh855dB8yl8VKXn4HYBd3vOrjRCj+H83B3ASyui+wyCg0QfCdXxXEBt1CCw+oLM
+	vwoJ9CuR/LyuGc9aR726LLe96L1wmFMJB7vilqVvKtugM/1Y4Up0+aU2Kc+kSsiJWAL9WWxbuca
+	jEs2yIN1e6q0xdAgTguGhQXpb+rnNfpwSQp39H3mvIXQ2ujkM12jAl/UmYKoB+bA2Sg3cY6Kz6q
+	ph6k6GxdWNFbRseRZQmkLutAd74H3YXslwfm6+LSPm0PSQhwAgA/YLuMTQG+Y+p741Pt+vG3L6w
+	QDLuvMWRKkw==
+X-Received: by 2002:a05:6512:31d0:b0:5bf:d9b8:15f9 with SMTP id 2adb3069b0e04-5c170b1ecf6mr2496505e87.34.1794675409725;
+        Sat, 14 Nov 2026 08:56:49 -0800 (PST)
 Received: from SafoStation ([31.40.65.49])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1712dad26sm1792051e87.8.2026.11.14.08.56.40
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1712dad26sm1792051e87.8.2026.11.14.08.56.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 08:56:42 -0800 (PST)
+        Sat, 14 Nov 2026 08:56:49 -0800 (PST)
 From: Safocl Stollmannovic <safocl88@gmail.com>
-To: Jonas Bonn <jonas@southpole.se>,
-	Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
-	Stafford Horne <shorne@gmail.com>
+To: Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>
 Cc: linux-kernel@vger.kernel.org,
-	linux-openrisc@vger.kernel.org
-Subject: [PATCH v3 05/14] openrisc: fix duplicate extern declarations
-Date: Sat, 14 Nov 2026 20:55:45 +0400
-Message-ID: <20261114165612.368785-6-safocl88@gmail.com>
+	linux-riscv@lists.infradead.org
+Subject: [PATCH v3 06/14] riscv: fix duplicate extern declarations
+Date: Sat, 14 Nov 2026 20:55:46 +0400
+Message-ID: <20261114165612.368785-7-safocl88@gmail.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261114165612.368785-1-safocl88@gmail.com>
 References: <20261114165612.368785-1-safocl88@gmail.com>
@@ -113,22 +114,89 @@ The `extern` specifier must be removed.
 Link: https://bugzilla.kernel.org/show_bug.cgi?id=222257
 Signed-off-by: Safocl Stollmannovic <safocl88@gmail.com>
 ---
- arch/openrisc/kernel/process.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/riscv/include/asm/string.h | 24 ++++++++++++------------
+ arch/riscv/kernel/process.c     |  4 ++--
+ arch/riscv/kernel/stacktrace.c  |  2 +-
+ 3 files changed, 15 insertions(+), 15 deletions(-)
 
-diff --git a/arch/openrisc/kernel/process.c b/arch/openrisc/kernel/process.c
-index 73ffb9fa3..c46899806 100644
---- a/arch/openrisc/kernel/process.c
-+++ b/arch/openrisc/kernel/process.c
-@@ -129,7 +129,7 @@ void show_regs(struct pt_regs *regs)
-  * Copy the thread-specific (arch specific) info from the current
-  * process to the new one p
-  */
--extern asmlinkage void ret_from_fork(void);
-+asmlinkage void ret_from_fork(void);
+diff --git a/arch/riscv/include/asm/string.h b/arch/riscv/include/asm/string.h
+index 764ffe8f6..ac895358c 100644
+--- a/arch/riscv/include/asm/string.h
++++ b/arch/riscv/include/asm/string.h
+@@ -10,33 +10,33 @@
+ #include <linux/linkage.h>
  
- /*
-  * copy_thread
+ #define __HAVE_ARCH_MEMSET
+-extern asmlinkage void *memset(void *, int, size_t);
+-extern asmlinkage void *__memset(void *, int, size_t);
++asmlinkage void *memset(void *, int, size_t);
++asmlinkage void *__memset(void *, int, size_t);
+ #define __HAVE_ARCH_MEMCPY
+-extern asmlinkage void *memcpy(void *, const void *, size_t);
+-extern asmlinkage void *__memcpy(void *, const void *, size_t);
++asmlinkage void *memcpy(void *, const void *, size_t);
++asmlinkage void *__memcpy(void *, const void *, size_t);
+ #define __HAVE_ARCH_MEMMOVE
+-extern asmlinkage void *memmove(void *, const void *, size_t);
+-extern asmlinkage void *__memmove(void *, const void *, size_t);
++asmlinkage void *memmove(void *, const void *, size_t);
++asmlinkage void *__memmove(void *, const void *, size_t);
+ 
+ #if !(defined(CONFIG_KASAN_GENERIC) || defined(CONFIG_KASAN_SW_TAGS))
+ #define __HAVE_ARCH_STRCMP
+-extern asmlinkage int strcmp(const char *cs, const char *ct);
++asmlinkage int strcmp(const char *cs, const char *ct);
+ 
+ #define __HAVE_ARCH_STRLEN
+-extern asmlinkage __kernel_size_t strlen(const char *);
++asmlinkage __kernel_size_t strlen(const char *);
+ 
+ #define __HAVE_ARCH_STRNCMP
+-extern asmlinkage int strncmp(const char *cs, const char *ct, size_t count);
++asmlinkage int strncmp(const char *cs, const char *ct, size_t count);
+ 
+ #define __HAVE_ARCH_STRNLEN
+-extern asmlinkage __kernel_size_t strnlen(const char *, size_t);
++asmlinkage __kernel_size_t strnlen(const char *, size_t);
+ 
+ #define __HAVE_ARCH_STRCHR
+-extern asmlinkage char *strchr(const char *, int);
++asmlinkage char *strchr(const char *, int);
+ 
+ #define __HAVE_ARCH_STRRCHR
+-extern asmlinkage char *strrchr(const char *, int);
++asmlinkage char *strrchr(const char *, int);
+ #endif
+ 
+ /* For those files which don't want to check by kasan. */
+diff --git a/arch/riscv/kernel/process.c b/arch/riscv/kernel/process.c
+index 34c1d498d..3e531b6d0 100644
+--- a/arch/riscv/kernel/process.c
++++ b/arch/riscv/kernel/process.c
+@@ -39,8 +39,8 @@ unsigned long __stack_chk_guard __read_mostly;
+ EXPORT_SYMBOL(__stack_chk_guard);
+ #endif
+ 
+-extern asmlinkage void ret_from_fork_kernel_asm(void);
+-extern asmlinkage void ret_from_fork_user_asm(void);
++asmlinkage void ret_from_fork_kernel_asm(void);
++asmlinkage void ret_from_fork_user_asm(void);
+ 
+ void noinstr arch_cpu_idle(void)
+ {
+diff --git a/arch/riscv/kernel/stacktrace.c b/arch/riscv/kernel/stacktrace.c
+index c75554471..6ca60cd3d 100644
+--- a/arch/riscv/kernel/stacktrace.c
++++ b/arch/riscv/kernel/stacktrace.c
+@@ -32,7 +32,7 @@
+ 	val;						\
+ })
+ 
+-extern asmlinkage void handle_exception(void);
++asmlinkage void handle_exception(void);
+ extern unsigned long ret_from_exception_end;
+ 
+ static inline int fp_is_valid(unsigned long fp, unsigned long sp)
 -- 
 2.56.1
 
