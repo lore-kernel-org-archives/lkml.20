@@ -1,61 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.115
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794644886;
-	b=ubfaL/XNAwpc4NQdBmuBIElK/4B2hgRdHHRUCPWE4uEcF3svwmqszA1cTpZZ+PDlb/2b
-	 7lJ+N2VWfbYsXmQevMUw3a/tnU256+xe0um9/AsVaYRCRaRkjFpy1VVf2eBvLrN6e9HgL
-	 TOTkUgkNKhanJ+/5PPjQg5B936qba+OYCeIxdDxDHwc/5P6Jj9gMmFDh43GfvLYrrM7Jq
-	 kK+//OZWYZT4YvAoThktkbVUfLDGgUYDbeGnPGnCMIZXPdiE5B4oKPbrEoULwtwaWiAM/
-	 F9R9JjMh2+TaKo9oDAasiE0n0ScWS1L2IXLDS+jdoKjgCQQe6mzAtcwtqK3YSgZaPlw==
+	t=1794645012;
+	b=06Drpu5eF16nD2qM3Gl6DXHELUuhZOgv2GMFuFq9SasY5HtnPR+a4TFdJLthtPo7xLXP
+	 zNufSvYbsklf/eRT+kQST/3FD2C/yBOJJa1cjqhPy0NAUxxM/FHnpMzVmGDy8HG15Dgqj
+	 bTvGQ6310PrT4A3FUlGKdbh6ME4D/iJeUBfY829kDlN4QrRkC+Fh+xx0yX9oDx7rbC3kG
+	 1sIB7LPg1S+wI4x/5yjXW+Y2t49QYTiPZrM6+kEWIoIRlTwhz/p5oqD2boNqiq8lEWMDx
+	 0j6X4PwKZY+/AGGceCqpOE6p97cfPSS692GSAb5DKseHZjdJ3YvLMC2PiXHLIeoV8RQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794644886;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Z8lG6RIILKdVtCLqTJnL4db2Nr11A+SPOEk6bNLst48=;
-	b=x7JT544qzrL9ZcYqs9Ueo+N/FF75puzO3Uz0jeSFGptDDnk2D37GkbaQfKoeVDiH0yF9
-	 A63vShVOuId+2NSBBn7d017bQnQKM328L7YtbuxRBwOz2TH0bW8l5s2Qd+fc4G2ABvo66
-	 KL6wEsrIh++pMaWZVrobmIjbhdyg/yDuqRFjKWMrj24vKlx7l2kpLM9BFD6Z0kA3Uaykf
-	 tfpxPosht/u7TK3P8KnepE8o+eNIrzSndzjKZmJOiuwMEaYqAF0KpXywWXdqcKR79ko2X
-	 rwlHG1DHoIU/fe2xHzeHAbPxEBVsXmO5oRjPX3XQlP8RB7Xw9yi6yHbZcDe/pefrXIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794645012;
+	h=DMARC-Filter:DKIM-Signature:X-Original-From:To:Date:Message-Id:
+	 X-Lms-Return-Path:X-Mailer:Cc:Mime-Version:From:Subject:
+	 Content-Transfer-Encoding:Content-Type;
+	bh=X/E8rE53z/h6J1QRHBaStJJ7ym5OmsZ7MzTsgKR+Y+c=;
+	b=XjU0Qw4sgOJHYamPtBLIJQGxCKUWV1Ar9iSEGEB/+x12Mr11S2f8/KCbTxF0us6gh37x
+	 YJFv876Ptr3jylq0gcgGtBGFkFTzeW0QDL8R1Sn5oO9P+Yn6XV1FCwSlfN/Ei3oPS3Eaq
+	 cFIi+Pnj47SCmx4JtXESJ+Fg23yvv3N84eB39et+F2pUOvOK4GT9tA3Ur7L6KvVCaQeHQ
+	 Qgc2HEDPxRAO0NQmfC1MCi0YXyegCQhlj2eiOqvR5UFcxbs6jPwshW5ncnidh45He2j37
+	 uppFegYCo1rriKKYUH9g2bMS8N1lWsXL5t4k7DwGCym+xl0jSDUusVxq5qXimj7jbRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aONj7GCZ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=NsHziZzt;
+	arc=none smtp.remote-ip=209.127.230.115
+Received: from va-1-115.ptr.blmpb.com (va-1-115.ptr.blmpb.com [209.127.230.115])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFC07606A32D;
-	Sat, 14 Nov 2026 08:28:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71119606A323
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:30:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71119606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aONj7GCZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13B121F000C4;
-	Sat, 14 Nov 2026 08:28:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794644886;
-	bh=Z8lG6RIILKdVtCLqTJnL4db2Nr11A+SPOEk6bNLst48=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aONj7GCZBFFfnZ8Ubfmqq1wA/ptT6y4aS02AvlojcCkonlAxX2BcAToLyO51K9O6D
-	 hYhVXTRLTiNcpr8p9Ud0Sz0nujRAbq1n9QL39vSKM24atcGMUZYWerjuQL3gzTCdko
-	 3kZWR3j7wm8FgnHshN9zRb4aMXLCyM+cgLCDrfFUsmumAfUph5qUF4ZZL+6Yw0jAoX
-	 YdihrZBWIiv8eWvIP0T2hF/EFCUZslaid3TO2SYhHGwniX9SdrblHXeUEklMG32gTB
-	 PzGs2GCsULKUfwGptcLGuNk8G/2YWwFgGDnJCokFSrZ//UB00S2roMKwvnziZc/9OZ
-	 Arhu/U28jG/Yg==
-Date: Sat, 14 Nov 2026 08:28:02 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Cc: Sarah Emery <sarah.emery@canonical.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Guodong Xu <docular.xu@gmail.com>, Yangyu Chen <cyy@cyyself.name>,
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] riscv: dts: spacemit: Add K3 CoM260 IFX TQ support
-Message-ID: <20261114082802-GKC100523@kernel.org>
-References: <20261105-k3-tq-dts-based-on-com260-v1-0-aa0b7714aed0@linux.spacemit.com>
- <20261105-k3-tq-dts-based-on-com260-v1-2-aa0b7714aed0@linux.spacemit.com>
- <fcd2fc41-5af8-4256-8296-a5435fdf41db@canonical.com>
- <DMTY56PU7CP2.JGIZ9XDXII9E@linux.spacemit.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=NsHziZzt
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1794645005; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=X/E8rE53z/h6J1QRHBaStJJ7ym5OmsZ7MzTsgKR+Y+c=;
+ b=NsHziZztJI5Sg250MxW4+6/9FYsnbDTcSPeD3zQKnCYStVNhDGwngUPlomuR6HKjiwASmc
+ /PMBBHOAl1J1HQ9rnMTmCENM0x553tXlmpnD+0Ymq3nN/x4KFhJZaIrm4QvfYVqrV+PwYq
+ h5A+flWzaS8dMCd9fc3IMSdIs4o6aNH4q+jl0aJkK80+SWBjA1t2c7QxuRemue4ZTpwqdJ
+ PPN2ztrJdhEaIpKfA9ksCvzxkAJOBNSLSftpN9VrNoZluUkbADeIRCFwg/HWEJnLGIGSVU
+ Tf1n8xTCzWmjk/S9D5PuL3f2hBMf8BG0sNyD2qeZf7h07DOD+KpxMqJEYjEMWQ==
+X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
+To: "Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
+	"Albert Ou" <aou@eecs.berkeley.edu>
+Date: Sat, 14 Nov 2026 16:29:40 +0800
+Message-Id: <20261114082940.66057-1-zhaogongyi@bytedance.com>
+X-Lms-Return-Path: <lba+26af81c0b+a310cc+vger.kernel.org+zhaogongyi@bytedance.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+Cc: "Alexandre Ghiti" <alex@ghiti.fr>, <linux-riscv@lists.infradead.org>, 
+	<linux-kernel@vger.kernel.org>, "Zhao Gongyi" <zhaogongyi@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,54 +60,165 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <DMTY56PU7CP2.JGIZ9XDXII9E@linux.spacemit.com>
+Mime-Version: 1.0
+From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
+Subject: [PATCH] riscv: mm: Fix /dev/mem read/write range validation
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
 
-Hi Troy,
+RISC-V uses the generic valid_phys_addr_range(), which checks only the
+upper limit. A pwrite() to physical address 0 on QEMU virt can therefore
+reach write_mem() -> xlate_dev_mem_ptr() -> __va(), triggering a
+hardened usercopy BUG ("vmalloc 'no area'"). UART MMIO with iomem=relaxed
+triggers the same fault.
 
-On 08:39 Fri 13 Nov     , Troy Mitchell wrote:
-> On Tue, Nov 10, 2026 at 01:46:28PM +0100, Sarah Emery wrote:
-> > My understanding is that the nodes from CSB1-N10SPK3, the "K3 CoM260 TQ"
-> > and the "K3 CoM260 IFX TQ" are all the same: a "K3 CoM260" module on a
-> > "TQ" or "IFX TQ" carrier board.
-> >
-> > Is there two different carrier boards name "TQ" and "IFX TQ"? Or is it
-> > just the same thing, called differently in this patch and in the EEPROM?
-> 
-> They are the same carrier board. The only difference is the power scheme
-> of the CPU clusters. The bootloader programs those regulators at boot,
+Limit read/write to ranges fully covered by System RAM with valid PFNs
+at or above the physical start of the linear map. This rejects holes
+and MMIO before the __va() access. Keep the mmap() range policy unchanged.
 
-If they are physically same carrier board with same CoM260 module, but only
-the power setup configuration is different? then no reason to introduce two
-different compatible strings, if still need to differentiant, please find
-other way out?
+MMIO read/write now returns -EFAULT even with iomem=relaxed. With
+CONFIG_STRICT_DEVMEM=y, the existing RAM policy blocks the remaining
+non-empty read/write ranges.
 
-> and upstream Linux currently keeps the voltages it leaves. Support for
-> the regulators is not upstream yet, so the two boards cannot be told
-> apart in the device tree for now.
-> 
-> > I'm not sure how devices out there are referencing themselves. But if it
-> > is in fact one device and the EEPROM calls it "k3-com260-tq", this patch
-> > will not work for device-tree matching.
-> >
-> > What do you think? Can you clarify the situation?
-> 
-> You are right, thanks for pointing this out. I only had an IFX TQ board
-> when I sent the series, so I did not notice that the TQ nodes identify
-> themselves as k3_com260_tq in the EEPROM.
-> 
-> I will restructure the series as k3-com260-tq.dtsi holding the shared
-> carrier description, with k3-com260-tq.dts and k3-com260-ifx-tq.dts on
-> top of it that only set model and compatible. I will add
-> k3-com260-tq-power.dtsi and k3-com260-ifx-tq-power.dtsi for the two
-> power schemes later.
-> 
-> Yixun, what do you think?
-> 
-Please send out a version for review, I'd be generally fine within introducing
-two dts files, but be careful about new model and compatible string..
+Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
+---
+RV64 and RV32 Image builds passed. RV64 QEMU covered the faulting
+physical-0 and UART-MMIO writes, RAM/hole boundaries, and MMIO mmap.
 
+ arch/riscv/include/asm/io.h |  4 ++
+ arch/riscv/mm/Makefile      |  2 +-
+ arch/riscv/mm/mmap.c        | 93 +++++++++++++++++++++++++++++++++++++
+ 3 files changed, 98 insertions(+), 1 deletion(-)
+ create mode 100644 arch/riscv/mm/mmap.c
+
+diff --git a/arch/riscv/include/asm/io.h b/arch/riscv/include/asm/io.h
+index 92d5f831f..ef305ede2 100644
+--- a/arch/riscv/include/asm/io.h
++++ b/arch/riscv/include/asm/io.h
+@@ -32,6 +32,10 @@
+ #define ioremap_wc(addr, size)	\
+ 	ioremap_prot((addr), (size), __pgprot(_PAGE_KERNEL_NC))
+ 
++#define ARCH_HAS_VALID_PHYS_ADDR_RANGE
++int valid_phys_addr_range(phys_addr_t addr, size_t size);
++int valid_mmap_phys_addr_range(unsigned long pfn, size_t size);
++
+ #endif /* CONFIG_MMU */
+ 
+ /*
+diff --git a/arch/riscv/mm/Makefile b/arch/riscv/mm/Makefile
+index b916a68d3..e3461bec3 100644
+--- a/arch/riscv/mm/Makefile
++++ b/arch/riscv/mm/Makefile
+@@ -13,7 +13,7 @@ endif
+ KCOV_INSTRUMENT_init.o := n
+ 
+ obj-y += init.o
+-obj-$(CONFIG_MMU) += extable.o fault.o pageattr.o pgtable.o tlbflush.o
++obj-$(CONFIG_MMU) += extable.o fault.o mmap.o pageattr.o pgtable.o tlbflush.o
+ obj-y += cacheflush.o
+ obj-y += context.o
+ obj-y += pmem.o
+diff --git a/arch/riscv/mm/mmap.c b/arch/riscv/mm/mmap.c
+new file mode 100644
+index 000000000..45a0ac740
+--- /dev/null
++++ b/arch/riscv/mm/mmap.c
+@@ -0,0 +1,93 @@
++// SPDX-License-Identifier: GPL-2.0-only
++
++#include <linux/ioport.h>
++#include <linux/mm.h>
++#include <linux/pfn.h>
++#include <asm/io.h>
++#include <asm/page.h>
++
++struct devmem_ram_range {
++	unsigned long next_pfn;
++	unsigned long end_pfn;
++	bool complete;
++};
++
++static int devmem_ram_range_check(unsigned long pfn, unsigned long nr_pages,
++				  void *arg)
++{
++	struct devmem_ram_range *range = arg;
++	unsigned long last_pfn;
++
++	if (pfn != range->next_pfn)
++		return 1;
++
++	last_pfn = pfn + nr_pages - 1;
++	if (last_pfn < pfn)
++		return 1;
++	if (last_pfn > range->end_pfn)
++		last_pfn = range->end_pfn;
++
++	for (;;) {
++		if (!pfn_valid(pfn))
++			return 1;
++		if (pfn == last_pfn)
++			break;
++		pfn++;
++	}
++
++	if (last_pfn == range->end_pfn) {
++		range->complete = true;
++		return 0;
++	}
++
++	range->next_pfn = last_pfn + 1;
++	return 0;
++}
++
++/*
++ * You really should not be using read() or write() on /dev/mem. Restrict
++ * these operations to ranges that are completely covered by System RAM with
++ * valid struct page backing. Device access should use proper I/O accessors,
++ * and /dev/mem mmap() keeps its separate policy below.
++ */
++int valid_phys_addr_range(phys_addr_t addr, size_t size)
++{
++	struct devmem_ram_range range;
++	phys_addr_t end;
++	phys_addr_t linear_start;
++	unsigned long start_pfn;
++	unsigned long nr_pages;
++
++	if (!size)
++		return 1;
++
++	end = addr + size - 1;
++	if (end < addr)
++		return 0;
++
++	linear_start = __pa(PAGE_OFFSET);
++	if (addr < linear_start)
++		return 0;
++
++	start_pfn = PHYS_PFN(addr);
++	range.end_pfn = PHYS_PFN(end);
++	if (range.end_pfn < start_pfn)
++		return 0;
++
++	nr_pages = range.end_pfn - start_pfn + 1;
++	range.next_pfn = start_pfn;
++	range.complete = false;
++
++	return !walk_system_ram_range(start_pfn, nr_pages, &range,
++				      devmem_ram_range_check) &&
++	       range.complete;
++}
++
++/*
++ * Preserve the existing /dev/mem mmap() range policy. Access filtering for
++ * mmap() is still handled by range_is_allowed().
++ */
++int valid_mmap_phys_addr_range(unsigned long pfn, size_t size)
++{
++	return 1;
++}
+
+base-commit: 79fc9d9467a113bb93f4539c11fa8c937982ff89
 -- 
-Yixun Lan (dlan)
+2.39.5 (Apple Git-154)
