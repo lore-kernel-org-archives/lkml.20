@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794657375;
-	b=SAzXPnZIs+wcNO4F/1jTcn/8fqtGReKq2rZ1HZGbrvFSYjWVzFfPPzdQz37cNFy61Aau
-	 Kzlwd1rb+KPaAMvj/FDag628mox7sR0IMuiY+vSQgKfUJWbers0GEmtL4hBQJ2QC2yw8O
-	 nfz/FTpytWCbwVzl0M6/f2hfHKJLyaOaKu0ORrxRHWGYlOO1jLlr/sY6iuwijcj/cdJlz
-	 CeK3+Yf+gw0NCl+QSbNoRj43hRQ2uf5oO4onmaJ7Ub281UMbcIoaUX5WO6+ymH0gbiO6T
-	 nxs5qFAxHx8CLh9dceFfjJL0aHVV48pmhnNUdkwuhLlHPod31CTtc+8XpOaOXSx3wjQ==
+	t=1794657377;
+	b=UP/t1/R1Mtq8I5NCsbzOb8Gj7agmo6E5bKqeVRmvILcJI7IE+KK7G8BwKPJXyzVmgGIp
+	 rvIE+KpU+C3v0+VV0Z+XFv+jQ0fWugqmFPvIluI0zGfBj8EVs8mDa5wfEHvixLySbCQ95
+	 oPM+LGCtHHt53rR9vOch/O7fOi5zk/GXOWUIgv/JRbHmCaOs1kD5s+3Iu97C3K1GgpdiP
+	 Kv4Icgw5uKQR+kLObhFD0NY/woT1/qdECi3VzB2RC9zTZPEkN+snF5nnZ9mqJjRV39vJa
+	 N+Kji1m7NxjAYf3h3gFTbOujOqGIaCVTU7Jb6sMHlnQ9CH80jG6eS3b3kTt2F9oNsLg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794657375;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794657377;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=i/qff6vV9GpqqckqMDaVakLKsz4Q1suNmsJ/DaXLKtw=;
-	b=IfhbsuHOKCkCVcADDggFce+cP+A8+e/EdaJBBSH42aoovZaRSWzka2gHRnN2Nrjc2pWo
-	 ZkMTeU8CJRxikYS2LWojZs0xkZohl8vBYHmu7UxOhx6vkG4X3TPyjyPLr9GTMrV5NQHIj
-	 utlqDsv9+Ng8pBkohXK8CKeILvCmkwqOirZof4jUPWzCeE5SYLGBFg6kSUnhdkssNCKdr
-	 wQ+rS+UENQHfRVFng0KkfrNKe18jrNVeByBB2IGQH2UxqcFC8TFx00Obwcf70GS/TS8PF
-	 DfNQa4tG+jsFlqhrgQoiIzFmbY8N987D8o18lcEwyzrxaXdol2SjzdedeyH4rlgyAmA==
+	bh=lMB4U1Fc6lZ7bxz5XgmRjw9LJaNctrQheQ8n76hHvRI=;
+	b=gB2GpYmlZy2JdGytXfB3xunxbYm/Y+VmtctEAgUXcTWRqISBO/PrSPYmFne5Mqa9M2Li
+	 xCL2XahxRSd9VJ1ADWS6ygkPxVUw2KDnAanaiLAVBwH4ir7PBtL3VcmY6qZeBDWIRJJ7g
+	 YTEI3wOP0l+Xc3qMLmUXPS7NXrex7ZgpebDiBetIKlBy8G2dihn8bg+eElO2D9BoH66Rc
+	 zI4MKU5plc4zem9RsBCljUnCeLaTNQbD8nLeTLjSZYriRuetb5O8LcKJ/dLvduzBc2f2J
+	 5k+mqXXspABirA/1YUG0RpY/OrxcR5vN00Noxw8WbcHuVB4JlD3TfgkYWthGcJqhaiw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aiSf3J1J;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hySb2yxM;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7502E606A883;
-	Sat, 14 Nov 2026 11:56:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0B0560A2613;
+	Sat, 14 Nov 2026 11:56:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aiSf3J1J
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hySb2yxM
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794657375;
-	b=s7/1nKsjQFaZfxQnxas+0LDkE292A5MOP4IAYzta5Pa8xUsujvSScYoZBXYuUJBj1fzd
-	 Kyolg6V9mLWE4YZg8jWxaNTaWhSSX/9onsswu7enNjQqxbS/rHXH7U/TM6a7V/ET/vVOV
-	 rBKHM5P2R9KYsbmqBEu5VO4DF2bm9672Qkz+ePHbVWkZnuvarNUtD6a3pcnzHFVdT/oP/
-	 IBxUG4o7ITtC8t4sHmtUUd+/59K3Qy7RxdlMfgOQ2MCGluZHsDZ83DXSA/UHa6eWWC3Zs
-	 oqxoMc1qKOK1sCLL0V0EYekhSM34ksaJBOlfjr+gcFeUgAsDfmIAiC2cSvjsunx7fxA==
+	t=1794657377;
+	b=GXX0Ov8bGWQtK2DYru7jVTjkl63rANRCMv4grRbN4heZZhsdLOYxycn8runnhsIw/IEU
+	 btBJjPHKq3pMUnGIpJsKKLu2Zejz/3iJPyd2RxJHM6l4PZXjZAvtabG1psavQZ1Ly+R3r
+	 fJRAkV1JN03aLTRzK7HMkWyaDBn9yS16zcldHoivuCzJBkOkzWgfEt46oVF+OtbgTxLe7
+	 rvUvZkmV7tvoBTAsUCPStb3pu/7n2DJ3y9GCSOxM3zpgMcU1TfYX0Y89ibVWrcLUa/r4R
+	 RvHu2k3sZF/cjOjuFyCtEA9fduYU1AjKm3iizHaOpO87Uq890p7qZ+QZK1X6wRvRS2Q==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794657375;
+	c=relaxed/relaxed; t=1794657377;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=i/qff6vV9GpqqckqMDaVakLKsz4Q1suNmsJ/DaXLKtw=;
-	b=m308EkOrJErWLZF4j17R0Nrv7FTIU1lDZ2CbrGonn88Nb0yLVyqyJIXyusaPLUujfhH0
-	 M/mJGphoPa0fSmPbGUtZTLqIYDGDrpiDxZUvTRQbWHASd9hZ2tn0bgLsMCw0ZVJejYN6B
-	 6nqi7medZwROOba2IgsY5WqrU71vD4VsRh5hYhua+ryvdGb/KJQ9uDdwe/jrXERPaHI3Y
-	 NR/KC95R2GmPOjt91n8rc8+FEqkrRrN7XqjjPC1G4VuO0kUHv+pBOWHcsVKbbldJojOtG
-	 QNQyCPoz8nfwAaZojC9kLzVDaQunWw2xNzGtuErwu6WR0yS1to+wjCeQvy2JwfKffyw==
+	bh=lMB4U1Fc6lZ7bxz5XgmRjw9LJaNctrQheQ8n76hHvRI=;
+	b=TISMcg7lwC7Tha//zPw/tHPZXcwg8I1+YaR+ulQJVZQ1uRty6ZNrN4s0drH+ztQ0BL/Q
+	 +xlMUEMhT1ke2oeohOGYKOXp6MWgDsrsuisVhJ1jXKcvlXG8IRyLwnWsEQ3du+AbuWGjK
+	 fJQ6kAwwkmTFplaSKQHpmbQ5fB2XFFXnJ+WLpNEzmm5Ti4ZCq15mgC0JXelCnh8JmO+Aq
+	 fplFLV2oFd0m+rfVn/9DI0kxgH5Y2oz5DrgEfb81NE7/J56AqkrVLSGyfJ5nIWBmlAwJq
+	 peP/bICwfTTiMJwjVhJ76A8A29kwLPjARvXlC0KFJT2xiwcwiOZqpiYfmI0bBNvLWSQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B41261F000C7;
-	Sat, 14 Nov 2026 11:56:13 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id DE2291F000CF;
+	Sat, 14 Nov 2026 11:56:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794657375;
-	bh=i/qff6vV9GpqqckqMDaVakLKsz4Q1suNmsJ/DaXLKtw=;
+	s=k20260515; t=1794657377;
+	bh=lMB4U1Fc6lZ7bxz5XgmRjw9LJaNctrQheQ8n76hHvRI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=aiSf3J1Ji+dYRGlzBmnX3u8wr4zpA20dGlqgq7VzJ+dIZoYG1QLBptK8x7Yvr+UUS
-	 OMBzukvLIVfB+8wmZChbeMdrGBeCdR+/K65L8PxX320HvicKlM40Wa9N7ryrVM/XRZ
-	 F+3aSI6C0TBgEG1i4XRZ6TobZpehrfCRYBHotCgJpp3DkZLrDte24otshmPJ9CCY5B
-	 QbeAO5X9u2hDLD/BcasFHspDApC8Rl9bIO05ZZ0+2E5ramoyLbxNoWcp5Wa6xHhnJ4
-	 XhGetlwdEK15iwRQfOCQ2IDNM9XryYr7saN2uchthNpAV5bF449NvbQ1gcAKyxlA0p
-	 dS4OBduN+peHQ==
+	b=hySb2yxMsIBlX6a+DlRFywRajbNBiR03N9EC6AhPD53BmaYiAqyMQcRWnzSSAxPSW
+	 5qjnFQdaGfWcpztcZvwt6HL388ENZIrtzLE8bcFlu647CRRVtdImjBIA82D7YyKlu6
+	 tFAQc9eU6pDVi61KHuRVAi+13hW2aoSbyV6+dQgBjd8jNhTlX8EJQCqjwcPljC3Hus
+	 VJ2jrT02HUD9oXFIUFf3PB6k03j/wo6uZ/L0q7zLiO6Y+MYA/TpE0GMBOfma2P2Olw
+	 8PKnBg0KIhcZyqrGF6dIDzrqvUW3+3NRQac5rHyQly5qWogXMRVNw8UNm5Ba6DypXb
+	 0mwVryMZ7Mebg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 39D1649D6F;
+	by lkml.kernel.org (Postfix) with ESMTP id BF48249D85;
 	Sat, 14 Nov 2026 11:56:13 +0000 (UTC)
 From: Larisa Grigore via B4 Relay <devnull+larisa.grigore.oss.nxp.com@kernel.org>
-Date: Sat, 14 Nov 2026 12:55:35 +0100
-Subject: [PATCH v11 03/14] ufs: unipro: Move Tx/Rx FSM state definitions to
- unipro.h
+Date: Sat, 14 Nov 2026 12:55:41 +0100
+Subject: [PATCH v11 09/14] ufs: dwc: Move shared M-PHY CR bitfield macros
+ to ufshcd-dwc.h
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261114-b4-ufs-s32n7-v11-3-dc36e11919d5@oss.nxp.com>
+Message-Id: <20261114-b4-ufs-s32n7-v11-9-dc36e11919d5@oss.nxp.com>
 References: <20261114-b4-ufs-s32n7-v11-0-dc36e11919d5@oss.nxp.com>
 In-Reply-To: <20261114-b4-ufs-s32n7-v11-0-dc36e11919d5@oss.nxp.com>
 To: "Martin K. Petersen" <mkp@kernel.org>, 
@@ -114,11 +114,11 @@ Cc: devicetree@vger.kernel.org, Ajay Neeli <ajay.neeli@amd.com>,
  Orson Zhai <orsonzhai@gmail.com>, aruizrui@redhat.com, 
  linux-renesas-soc@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794657369; l=6648;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794657370; l=1821;
  i=larisa.grigore@oss.nxp.com; s=20261114; h=from:subject:message-id;
- bh=trkoKEdgDJvEOwdUNPcivOaHNBCVHWr9HRiB/HK5M28=;
- b=7xexXiN/+K95N4rP6JaB2Vjpy/SOGGA3L9L2eLybPOHkrxWTLlw3BnEHhkxLByvRpXhe2rnF5
- j4JlbwxZEaxDciA9YRwS80mh4JXoJUNIbBIMINQZP36DLEn4Lt6Dl4B
+ bh=JX2nsOabUy/TBGxhVK8w2TevyQp3cyFlyb2qe5sxI0A=;
+ b=Fu0qGYjnE491KcaphLwzl6jBvpI8aINDS+ArWpneGGfhkK5KZuFvjmnMAB9ntT3OqYJIyWG7W
+ tKG48vuTXGAADdc/rukgP8Jhq8bCxTikVSGDwCsvCJtMm3N+AHde+bm
 X-Developer-Key: i=larisa.grigore@oss.nxp.com; a=ed25519;
  pk=Jpt52sb6ETKTtvWjUzhz5Sv5FjB9AEg9QKCcbpWFx3w=
 X-Endpoint-Received: by B4 Relay for larisa.grigore@oss.nxp.com/20261114
@@ -129,194 +129,63 @@ Content-Transfer-Encoding: 7bit
 
 From: Larisa Grigore <larisa.grigore@oss.nxp.com>
 
-Move the Tx/Rx FSM state definitions from ufshcd-dwc.h to
-include/ufs/unipro.h.
+The bitfields of the FAST_FLAGS, FW_CALIB_CCFG, RX_OVRD_IN_1 and
+RX_PCS_OUT M-PHY registers are defined in the AMD Versal2 driver, while
+the register offsets themselves are already in ufshcd-dwc.h.
 
-These state values are UniPro/M-PHY related and are not specific to
-the DesignWare UFS host controller implementation, so unipro.h is a
-more appropriate location for sharing them.
+Move the bitfield macros next to the register offsets so other DWC based
+drivers can program these registers without using raw values.
 
-As part of this move, drop the driver-private TX_FSM_HIBERN8 define in
-ufs-hisi and ufs-qcom and repoint their Hibern8 checks at the shared
-UFS_TX_STATE_HIBERN8 enum constant. This is a no-op change.
+No functional change.
 
-Since the definitions become visible to every user of the shared
-header, prefix the enum constants with UFS_ (e.g. RX_STATE_HIBERN8
-becomes UFS_RX_STATE_HIBERN8) to avoid polluting the global namespace,
-and update the existing AMD Versal2 users accordingly.
-
-This also prepares for using these definitions in a subsequent commit.
-
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
 Signed-off-by: Larisa Grigore <larisa.grigore@oss.nxp.com>
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
 ---
- drivers/ufs/host/ufs-amd-versal2.c |  8 ++++----
- drivers/ufs/host/ufs-hisi.c        |  8 ++++----
- drivers/ufs/host/ufs-hisi.h        |  1 -
- drivers/ufs/host/ufs-qcom.c        |  4 ++--
- drivers/ufs/host/ufs-qcom.h        |  1 -
- drivers/ufs/host/ufshcd-dwc.h      | 19 -------------------
- include/ufs/unipro.h               | 20 ++++++++++++++++++++
- 7 files changed, 30 insertions(+), 31 deletions(-)
+ drivers/ufs/host/ufs-amd-versal2.c |  7 -------
+ drivers/ufs/host/ufshcd-dwc.h      | 13 +++++++++++++
+ 2 files changed, 13 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/ufs/host/ufs-amd-versal2.c b/drivers/ufs/host/ufs-amd-versal2.c
-index 65cb0b5028b9..3469e49df133 100644
+index 4d6e08ac6ced..dcca6be5dad0 100644
 --- a/drivers/ufs/host/ufs-amd-versal2.c
 +++ b/drivers/ufs/host/ufs-amd-versal2.c
-@@ -118,8 +118,8 @@ static int ufs_versal2_enable_phy(struct ufs_hba *hba)
- 			if (ret)
- 				return ret;
+@@ -22,13 +22,6 @@
+ /* PHY modes */
+ #define UFSHCD_DWC_PHY_MODE_ROM         0
  
--			if (reg == TX_STATE_HIBERN8 || reg == TX_STATE_SLEEP ||
--			    reg == TX_STATE_LSBURST)
-+			if (reg == UFS_TX_STATE_HIBERN8 || reg == UFS_TX_STATE_SLEEP ||
-+			    reg == UFS_TX_STATE_LSBURST)
- 				break;
+-#define MPHY_FAST_RX_AFE_CAL		BIT(2)
+-#define MPHY_FW_CALIB_CFG_VAL		BIT(8)
+-
+-#define MPHY_RX_OVRD_EN			BIT(3)
+-#define MPHY_RX_OVRD_VAL		BIT(2)
+-#define MPHY_RX_ACK_MASK		BIT(0)
+-
+ #define TIMEOUT_MICROSEC	1000000
  
- 			time_left--;
-@@ -138,8 +138,8 @@ static int ufs_versal2_enable_phy(struct ufs_hba *hba)
- 			if (ret)
- 				return ret;
- 
--			if (reg == RX_STATE_HIBERN8 || reg == RX_STATE_SLEEP ||
--			    reg == RX_STATE_LSBURST)
-+			if (reg == UFS_RX_STATE_HIBERN8 || reg == UFS_RX_STATE_SLEEP ||
-+			    reg == UFS_RX_STATE_LSBURST)
- 				break;
- 
- 			time_left--;
-diff --git a/drivers/ufs/host/ufs-hisi.c b/drivers/ufs/host/ufs-hisi.c
-index 73eef0e0d278..d3fd340f2dd1 100644
---- a/drivers/ufs/host/ufs-hisi.c
-+++ b/drivers/ufs/host/ufs-hisi.c
-@@ -34,8 +34,8 @@ static int ufs_hisi_check_hibern8(struct ufs_hba *hba)
- 				      &tx_fsm_val_0);
- 		err |= ufshcd_dme_get(hba,
- 		    UIC_ARG_MIB_SEL(MPHY_TX_FSM_STATE, 1), &tx_fsm_val_1);
--		if (err || (tx_fsm_val_0 == TX_FSM_HIBERN8 &&
--			tx_fsm_val_1 == TX_FSM_HIBERN8))
-+		if (err || (tx_fsm_val_0 == UFS_TX_STATE_HIBERN8 &&
-+			tx_fsm_val_1 == UFS_TX_STATE_HIBERN8))
- 			break;
- 
- 		/* sleep for max. 200us */
-@@ -56,8 +56,8 @@ static int ufs_hisi_check_hibern8(struct ufs_hba *hba)
- 	if (err) {
- 		dev_err(hba->dev, "%s: unable to get TX_FSM_STATE, err %d\n",
- 			__func__, err);
--	} else if (tx_fsm_val_0 != TX_FSM_HIBERN8 ||
--			 tx_fsm_val_1 != TX_FSM_HIBERN8) {
-+	} else if (tx_fsm_val_0 != UFS_TX_STATE_HIBERN8 ||
-+			 tx_fsm_val_1 != UFS_TX_STATE_HIBERN8) {
- 		err = -1;
- 		dev_err(hba->dev, "%s: invalid TX_FSM_STATE, lane0 = %d, lane1 = %d\n",
- 			__func__, tx_fsm_val_0, tx_fsm_val_1);
-diff --git a/drivers/ufs/host/ufs-hisi.h b/drivers/ufs/host/ufs-hisi.h
-index 5a90c0f4e90c..6af6a268458d 100644
---- a/drivers/ufs/host/ufs-hisi.h
-+++ b/drivers/ufs/host/ufs-hisi.h
-@@ -43,7 +43,6 @@
-  * M-TX Configuration Attributes for Hixxxx
-  */
- #define MPHY_TX_FSM_STATE	0x41
--#define TX_FSM_HIBERN8	0x1
- 
- /*
-  * Hixxxx UFS HC specific Registers
-diff --git a/drivers/ufs/host/ufs-qcom.c b/drivers/ufs/host/ufs-qcom.c
-index 67c2a3b95e58..31ea7b294a42 100644
---- a/drivers/ufs/host/ufs-qcom.c
-+++ b/drivers/ufs/host/ufs-qcom.c
-@@ -424,7 +424,7 @@ static int ufs_qcom_check_hibern8(struct ufs_hba *hba)
- 				UIC_ARG_MIB_SEL(MPHY_TX_FSM_STATE,
- 					UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)),
- 				&tx_fsm_val);
--		if (err || tx_fsm_val == TX_FSM_HIBERN8)
-+		if (err || tx_fsm_val == UFS_TX_STATE_HIBERN8)
- 			break;
- 
- 		/* sleep for max. 200us */
-@@ -444,7 +444,7 @@ static int ufs_qcom_check_hibern8(struct ufs_hba *hba)
- 	if (err) {
- 		dev_err(hba->dev, "%s: unable to get TX_FSM_STATE, err %d\n",
- 				__func__, err);
--	} else if (tx_fsm_val != TX_FSM_HIBERN8) {
-+	} else if (tx_fsm_val != UFS_TX_STATE_HIBERN8) {
- 		err = tx_fsm_val;
- 		dev_err(hba->dev, "%s: invalid TX_FSM_STATE = %d\n",
- 				__func__, err);
-diff --git a/drivers/ufs/host/ufs-qcom.h b/drivers/ufs/host/ufs-qcom.h
-index 944b2e532a09..1bda960c1d87 100644
---- a/drivers/ufs/host/ufs-qcom.h
-+++ b/drivers/ufs/host/ufs-qcom.h
-@@ -11,7 +11,6 @@
- #include <ufs/ufshcd.h>
- 
- #define MPHY_TX_FSM_STATE       0x41
--#define TX_FSM_HIBERN8          0x1
- #define HBRN8_POLL_TOUT_MS      100
- #define DEFAULT_CLK_RATE_HZ     1000000
- #define MAX_SUPP_MAC		64
+ struct ufs_versal2_host {
 diff --git a/drivers/ufs/host/ufshcd-dwc.h b/drivers/ufs/host/ufshcd-dwc.h
-index c618bb914904..a5e40e7604a1 100644
+index 1abf2b1deac4..a76009b42088 100644
 --- a/drivers/ufs/host/ufshcd-dwc.h
 +++ b/drivers/ufs/host/ufshcd-dwc.h
-@@ -39,25 +39,6 @@
+@@ -35,6 +35,19 @@
  #define RX_AFE_CTLE_IDAC(n)	(0x4001 + ((n) * 0x100))
  #define FW_CALIB_CCFG(n)	(0x404D + ((n) * 0x100))
  
--/* Tx/Rx FSM state */
--enum rx_fsm_state {
--	RX_STATE_DISABLED = 0,
--	RX_STATE_HIBERN8 = 1,
--	RX_STATE_SLEEP = 2,
--	RX_STATE_STALL = 3,
--	RX_STATE_LSBURST = 4,
--	RX_STATE_HSBURST = 5,
--};
--
--enum tx_fsm_state {
--	TX_STATE_DISABLED = 0,
--	TX_STATE_HIBERN8 = 1,
--	TX_STATE_SLEEP = 2,
--	TX_STATE_STALL = 3,
--	TX_STATE_LSBURST = 4,
--	TX_STATE_HSBURST = 5,
--};
--
++/* RX_OVRD_IN_1 */
++#define MPHY_RX_OVRD_EN			BIT(3)
++#define MPHY_RX_OVRD_VAL		BIT(2)
++
++/* RX_PCS_OUT */
++#define MPHY_RX_ACK_MASK		BIT(0)
++
++/* FAST_FLAGS */
++#define MPHY_FAST_RX_AFE_CAL		BIT(2)
++
++/* FW_CALIB_CCFG */
++#define MPHY_FW_CALIB_CFG_VAL		BIT(8)
++
  struct ufshcd_dme_attr_val {
  	u32 attr_sel;
  	u32 mib_val;
-diff --git a/include/ufs/unipro.h b/include/ufs/unipro.h
-index 9c168703b104..16b2051f7241 100644
---- a/include/ufs/unipro.h
-+++ b/include/ufs/unipro.h
-@@ -466,4 +466,24 @@ enum {
- 	CPORT_CONNECTED,
- };
- 
-+/* RX_FSM_State encoding, MIPI M-PHY v6.0 Table 50 (M-RX Status Attributes) */
-+enum ufs_rx_fsm_state {
-+	UFS_RX_STATE_DISABLED = 0,
-+	UFS_RX_STATE_HIBERN8 = 1,
-+	UFS_RX_STATE_SLEEP = 2,
-+	UFS_RX_STATE_STALL = 3,
-+	UFS_RX_STATE_LSBURST = 4,
-+	UFS_RX_STATE_HSBURST = 5,
-+};
-+
-+/* TX_FSM_State encoding, MIPI M-PHY v6.0 Table 47 (M-TX Status Attributes) */
-+enum ufs_tx_fsm_state {
-+	UFS_TX_STATE_DISABLED = 0,
-+	UFS_TX_STATE_HIBERN8 = 1,
-+	UFS_TX_STATE_SLEEP = 2,
-+	UFS_TX_STATE_STALL = 3,
-+	UFS_TX_STATE_LSBURST = 4,
-+	UFS_TX_STATE_HSBURST = 5,
-+};
-+
- #endif /* _UNIPRO_H_ */
 
 -- 
 2.43.0
