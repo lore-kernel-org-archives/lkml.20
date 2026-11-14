@@ -1,92 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794620683;
-	b=n8qd70ItoDGDqmuGNrqKExhxgjzKCVoBbIRnB59vtI25tI08juca6h80V+5lTsZQjRYJ
-	 tK2XjFZ3Yd+5pTLrpXK+If/bQ6x94SmJUR8joWqanPPgWKcgzFhwqRpC1PQPt6fi+Ey6M
-	 7jkBIVHDyWFuDKtcqUKd7D5EguYH6AKW9+RMeK7o6cvehLgcNgI1iDZs/7iTeQDGGgI/Q
-	 kqW8CI7X0S6L1zYTE8q4Qi8Nw4kxt/lVE5JrdHNnRfGrW3M1bOj/AWi/HLmPtsBEAOAVc
-	 ReNYcXEPS5C246Qdyd9rzz6fZJVkpDKNGnhYS/Xxc3BHP4bZUXfZ/lx4lj0XNoQSXNA==
+	t=1794620685;
+	b=Q+/eRE/Gb8Z8TL/6C2cK4bGRUGDuWvDaUomJsSnGhVmD/0BtLFHQwtZD7U1vOARoZ9vc
+	 IxaCJzI1S9sJX9RRDo/nS7hI4Rs0DCXdsIZQvDSAL/iqFeNoGl+h6lwXqhT+Zon+aElaa
+	 7H1Fq/LKn9WgMGq0eiFQI9pDvfzeHdBNtwrDwk0Pd9QLLOjD5VAAP8KcrQP64PzuUk1it
+	 nm0H9F2p08Au+byeSluqllSm3uIRdosZ4e9tyCWPVmu2Q2G+bvMyh8hHAa9pTDNvxjyUP
+	 ws1ZWGDsc9ZsPtNfBH9bC7f53XAUiID9Pt+QJiHUpZp/ugmn+vtPOGimjNjFCAlcAXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794620683;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794620685;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=OUIhV01zym7F3dnaq+SSRF5JFvrIUpSj3DyEg3o3VF8=;
-	b=q+qWe53wFWir73Q5+T1g7Gx93yjqzBOY8SxWVX6xnJapAEbbd7dQ0KrjyNh9oTGrb52Q
-	 Ct47UTkYAoK7WcHRggzys9s4Sxn/SGy/Uof+7EPzlQWfbFe1YInz388zjPWIzPMgzH45H
-	 Wxq72UUG7FAPf3We9yqmQ8+49R4BsLsSASq2lttVxtHsg/JGdJR8hDSIOpdZmukI7BVaQ
-	 E/bxOrmDmQvWRIckfNJ99Fg6Q1YcfI/bsDdnwdBiHH94khPYTiEMeQwVZeDVEu4FJ4zMG
-	 MWOYUQwnw51ssQ3VMxumz9syCcmazLzAyziGXqrdntGfpe113FHekzn9aXFsqnaEorg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=6bf6t3Q79m4DHDjPwrZwc68kd6cEw+Bo8zLmu5APiVM=;
+	b=3Erx83EB1JpZhJR24t2SL9r2iEvoeCh6G7M1o/WdG5vu/GVYm/SNPjCX0xeYrLzHPrvD
+	 rzm3RAXxj4D0uqYUtpl+0IS3SUOEhiSkbz20M/fPY8Ei9edjDukzsqDvw8Lpwact58AO1
+	 QhaDjds37sT0HX2sG22Jl0sVHV3PVgKPgiRPzz2IC2+xhBRbV6pB6ZwY3JWWSOZ8+ARa2
+	 WStP0YIei0uFsoBIUw33FtCekJt/ExO/T0L+0G7uphLWLxR5ljnQYNY+bsE8ZeLRMFxAF
+	 rspqdVQAYToCnFPG3XM2zc42DDQf6e1DSl/TDyUPRNTopktfdtfVfDyAq446117l66A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=fail header.from=isslab.korea.ac.kr;
 	spf=none smtp.mailfrom=isslab.korea.ac.kr;
-	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=dpxisuUi;
-	arc=none smtp.remote-ip=209.85.216.48
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=ef2GEjks;
+	arc=none smtp.remote-ip=209.85.216.44
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DEDA606A338
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 01:44:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DEDA606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E48AC606A33E
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 01:44:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E48AC606A33E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=dpxisuUi
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3b0ae87069dso1179719a91.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:44:41 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=ef2GEjks
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3b0d0b80fb9so1360146a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:44:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1794620681; x=1795225481; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OUIhV01zym7F3dnaq+SSRF5JFvrIUpSj3DyEg3o3VF8=;
-        b=dpxisuUi9wEtB98CoBktt1y+AO+7yYlw5tQxa7E8uRVwh6KCwhmJtxdJdHmMDTggc8
-         2SAj12OWFEsQ1jEJ4PDMh4w+vbAb7bjNnlQ6MvuanitTRl2g80ckQOOpBSjFrFUkr9j7
-         G9i66NzkiSUNEHEJTQLd3vPeutfVEU8fs3Wj/amyJGSoizDlJaUfFFsGk5OeZqkac1kl
-         x++lQuy+QXhcHPmVt3Hn00YunjNHVpva7tfGgeFoJDq7x+E3cDqR+OdaiFDJ7NmzZEyl
-         GW4oxPJfEX4glxahyq4JPgEi1noP63GVQ+m2jh/zitUXp7MRwA0SZptrWrKvUuXmIsms
-         7h3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794620681; x=1795225481;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1794620684; x=1795225484; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=OUIhV01zym7F3dnaq+SSRF5JFvrIUpSj3DyEg3o3VF8=;
-        b=LJ19nsE0dLx6U0VK1bEq5bKTCfdOfNvOrYMCLPAsaNTa2Wwp1St6VB72abPX9QblXv
-         6Lpofu0wRmz0/kTsLl/Fjumd7NJkjbkiy+V0zxx5gbb6YornXJ67jhWlNFbXcZcfT/Wd
-         lq4zZKVVn/+4xA7ZUblaIF/W8QokrJBjn7waQKSoscDhZEA++mw4Qtig7kAFX07uwuNJ
-         htCkSpXpRRJq0qgkskkgtXFV+vzELwab549eVv7S1BnYqt+SqfLJF8Z1TNcEdFIfacNl
-         6jv790VIASYKsPYKI8fhuvXAd6eMwB5Jk4LamsyRmp5PmmjwgGWw+6FTVXcnCV+mpGba
-         nWDw==
-X-Forwarded-Encrypted: i=1; AL+hErE2wjXkkGqc4rgV8YXetPKTGHT4ChDAaViVCzcoII4O5MBSftWnUxA60eNdrs5WhF4zo4KCBGSk8aYyOVg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/goz14QccZ8bUGQ31mzUL9fgvfTw6bkix+u1lC/t/3a9at3Von
-	IQkbHnuZucpHZ3sHp13X6tCZK+re+qdOFfrVYgTDlxFg3LPrX3mtvcWj8cJjODUeq7Q=
-X-Gm-Gg: AYBFou2Sa19tm+nf1va+w2E4O8NsKIwxlfiUM+ujV7Ck/P1Q1L6dLXi4h6akq7bXdEr
-	S3mSHSz2d93dqars2fN8pmcPRv6nxqn4cWiaWUKrgFlreg0tJrTESKW0lX2uE3hAKs1MTcYQBB2
-	6c/RbogaclMu7Lk0tjti9oTcTZiNiTTaEZHBv501GRoXHskLvoFIdvPACSUxrfeT2HJgpEGyTVB
-	QWlDFRJw5PHaisOyAD0+v/bnySlQErlwKW3HQxt2OX6+Bg9s5NN9UG0jLwrLjCp9r1JoOnflnKD
-	QSiDQiVeAxmu5FzcG+WBy+pyDLFHihZEd3CBb3ayn2QdGUBMXxnVi2STdInisLfLi77MeSV89rL
-	RBgz5y9v4o4QMjWyeJMmiJWIHiLeHvW5S+svvYKtFL3B6BPLnLkaRh3jOuZcunonfjlkzjnG8gz
-	CiJWnxflSGWuHeVWdAOWz+4rrOB+KYkA8VPAXeEivU9nbASZIoZlkGCzaeUl3BlXOfKS1MK+8Zn
-	qm/A102z3/0ksHIZN7kk5Ef/9ssmwrjr6JFv7rN8cRsQCTL1wTuvTvHiDC1ZvDROyjlGXcV5NSK
-	MYLiuaXic8ApQIf0rsAiyNHINnrSVdy+miK3Yx2w5HxqIoiOCmwvRsSq86KQKoEpWy1RWwt3aNq
-	AJ+JCI0N0pDDM9P8y4fYt3ssyGFNBgSDjkU6IKu8odcJ2yXAsT/29qTJ4x50=
-X-Received: by 2002:a17:90a:e710:b0:3b0:9941:8d42 with SMTP id 98e67ed59e1d1-3b1b0a0e108mr4042515a91.33.1794620681401;
-        Fri, 13 Nov 2026 17:44:41 -0800 (PST)
+        bh=6bf6t3Q79m4DHDjPwrZwc68kd6cEw+Bo8zLmu5APiVM=;
+        b=ef2GEjksHjsOhvCWnT6KiI0YSJxZ1o9YELJwqkdxHnHVtGUAbEFwpPPReRp5n05527
+         CoUEXdf8E4bDDRpVYeFGT/RkrtNLjr4hk6JE5bOoNtukx/EWkIbRX0AHoAQYVv3oW/9F
+         Zj5lgB/28cTF5VwpY73q6Csl3u7Q3AEOmwvyuyrBtZUbEcoFb36NKfEI1HR3AY9VK6Tt
+         fmOZSrck1dHpzgSxGtwfQnth8ygdUxJa7C4JVyhRuC8cQLu74V+SGFZG+QI8Wv31n333
+         2fZElH9yXVvhR7edwVe1NdzZqiVn+NOJHFphlRoRXsEybFpawF5uBYfjjckL6klDMWNx
+         1rUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794620684; x=1795225484;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6bf6t3Q79m4DHDjPwrZwc68kd6cEw+Bo8zLmu5APiVM=;
+        b=n1mNpUa7CoePUVPIu6JpJTM/DvHBh3oULgcmSEjFnC9dFGnU0KcYBsdzEhTk8AETTk
+         ji7j1oV3p6bI2vOiryKFE2bAlbVThHWCi2fp6dB5q/9ZR6MV4vLc1ceuh6gIBSSZ/tnD
+         pqdSuAS6A9KIyGyHuO8J8u/bQrwSw5iOJMtO+7ZjtdcemigCktJ6wW8xp+npU+HEdQfQ
+         wVD0rG+buYI6oH42en/kadwH2pdEUK98wvq4isbuGR2tVyH5YMf1gBznw/jheY8JSVp1
+         aRMFYlDm7X13ivHbeJdTl4OEr+gbtIiqWZtL4Cik9uNWGHk53ONnEtk7CAvr0ithvpNZ
+         22VA==
+X-Forwarded-Encrypted: i=1; AL+hErGxYo0UIE/1cwSyBFLf8wvlmsfI0IWdXkKRBym439Phsp4L8kLcafqbYQE+JSqBMybfWJaKd47sQ0GXzlk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Ns+p9D9jJiJghv4W5eE60wArmoldWx0FuEJjDt6257g5l5zmP
+	a6itnfQw31CiqZ5bhNy6lbxTB0xyZbU6ykUvkWDMwE6GC429U2g5ogoIOG8bhICMIxRoEbLF3kn
+	jfisw
+X-Gm-Gg: AYBFou0GazVUp2axqdrjny9dvdpGaSWjEmWCLzIZndx9oKiaZ9GY94VClD2qEzkNxfa
+	V6NaX9dugIZQfRWL0qz92YaIRGrFUAPxMcWY6IGXRsHQsPnTCf2X8kU+wZyBOIl/bShhVS2XEYN
+	Kf1nL2UrMHP8Ny/zBcIruei6HYHl4X+tP6yAvGj7AzC9wiKuE5y3gQTLHaupz5ZurlUEbv+MK2d
+	36FR1AWYSEbIg6M90jbOZv+gTZOKS4DIp4xatWUjuW4RORuW43/0hvrVs/193q3zjKIIi1IKX2u
+	mu7QC0YM+qtT2urImftF26y0OWzBOJY1cFOpiH6l1t8XFRHI7U8kSF8lEfLO8YQtQVvrBprB6ad
+	1Wv2di7wajGmrQX1MO2wVstOtxGMPOJbz9mzveE4CbjpG94RAkmaKF4C7QtSQrrlpL28SPdsMmn
+	pR/oTaOXD7ke33+BwRQFvfdvaO10rlfMFYlHJTj5fjmKSkWHbVsoS2/BhaDHcsHSZzu7I4plHhJ
+	Pyv/jAhkOhXiUnXs4wW9wNwBZL7wbIbXIAXNBeVDyTfxSOJE/v6BcIJaDCQVpCJ7d29UwzaEJYo
+	fH+gHvUM3ag4cmg38tlvj5Gw3oDxwYIUdcFx4qOT3HoRUMgjMsqcQCKHEecfLFP7LJEe3wMSwXj
+	iqrf6cF9doSfi0B0lsvo0TEdZws0gXcwsyujeh70FMIAJ2gWpECSgTTDUJ6c=
+X-Received: by 2002:a17:90b:554d:b0:3ac:9a5e:9ce7 with SMTP id 98e67ed59e1d1-3b1b0a4c61bmr4603149a91.49.1794620684252;
+        Fri, 13 Nov 2026 17:44:44 -0800 (PST)
 Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:f861:b117:6318:c068])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b1e9ef15sm3437082a91.0.2026.11.13.17.44.38
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b1e9ef15sm3437082a91.0.2026.11.13.17.44.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 17:44:40 -0800 (PST)
+        Fri, 13 Nov 2026 17:44:43 -0800 (PST)
 From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 To: mkp@kernel.org,
 	James.Bottomley@HansenPartnership.com
 Cc: linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] scsi: mvumi: do not free buffers a timed-out command left with the device
-Date: Sat, 14 Nov 2026 10:44:28 +0900
-Message-ID: <20261114014430.489668-1-yhlee@isslab.korea.ac.kr>
+Subject: [PATCH 1/2] scsi: mvumi: stop the controller bus-mastering before freeing its buffers
+Date: Sat, 14 Nov 2026 10:44:29 +0900
+Message-ID: <20261114014430.489668-2-yhlee@isslab.korea.ac.kr>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261114014430.489668-1-yhlee@isslab.korea.ac.kr>
+References: <20261114014430.489668-1-yhlee@isslab.korea.ac.kr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,33 +102,55 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This is the follow-up I promised when answering the review of v9 7/9,
-https://lore.kernel.org/all/20261015055719.3992456-1-yhlee@isslab.korea.ac.kr/
-and https://lore.kernel.org/all/sashiko-outbox-172292@kernel.org/
+mvumi_detach_one() frees the controller's buffers before stopping its DMA:
 
-1/2 stops the controller bus-mastering before mvumi_detach_one() frees
-the buffers it was given.  2/2 keeps a timed-out internal command's
-buffers until then, rather than while the controller still has them.
+	mvumi_release_fw(mhba);		/* frees them */
+	scsi_host_put(host);
+	pci_disable_device(pdev);	/* stops the DMA */
 
-Based on mainline; it conflicts textually with v9 7/9 of
-https://lore.kernel.org/all/20261015045213.3975845-1-yhlee@isslab.korea.ac.kr/
-in mvumi_delete_internal_cmd(), and I will rebase whichever goes in second.
-I have no mvumi hardware; this was checked with a KUnit model.
+mvumi_release_fw() frees everything on mhba->res_list and the handshake
+page.  The controller is given those addresses during the handshake and
+may read or write them for as long as it is bus-mastering, and only
+pci_disable_device() stops that.
 
-Best regards,
-Yehyeong Lee
+Disable the device first.  Nothing in mvumi_release_fw() needs it
+enabled: it contains no ioread32() or iowrite32() at all.
 
-Yehyeong Lee (2):
-  scsi: mvumi: stop the controller bus-mastering before freeing its
-    buffers
-  scsi: mvumi: quarantine a timed-out internal command's buffers
+I have no mvumi hardware.
 
- drivers/scsi/mvumi.c | 42 +++++++++++++++++++++++++++++++++++++-----
- drivers/scsi/mvumi.h |  1 +
- 2 files changed, 38 insertions(+), 5 deletions(-)
+Fixes: f0c568a478f0 ("[SCSI] mvumi: Add Marvell UMI driver")
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+Disabling the device before scsi_host_put() is the order myrb, myrs,
+hptiop, wd719x, qla1280, dc395x, fnic, snic, atp870u and am53c974
+already use.  Freeing first and disabling
+afterwards is the more common order in drivers/scsi, because a driver with
+nothing outstanding at teardown does not need the device stopped in order
+to free safely.  mvumi cannot assume that, which is what 2/2 is about.
 
+mvumi_probe_one()'s failure paths are left alone: they reach
+pci_disable_device() from labels that have no Scsi_Host to put.
+mvumi_shutdown(), mvumi_suspend() and mvumi_resume() call neither
+pci_disable_device() nor scsi_host_put(), so nothing else moves.
 
-base-commit: 97d73c8251226cf27cc6656b4c542869bb8c69fa
+ drivers/scsi/mvumi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/scsi/mvumi.c b/drivers/scsi/mvumi.c
+index 91c2db697c6913..8d22d370d8608f 100644
+--- a/drivers/scsi/mvumi.c
++++ b/drivers/scsi/mvumi.c
+@@ -2548,9 +2548,9 @@ static void mvumi_detach_one(struct pci_dev *pdev)
+ 
+ 	mhba->instancet->disable_intr(mhba);
+ 	free_irq(mhba->pdev->irq, mhba);
++	pci_disable_device(pdev);
+ 	mvumi_release_fw(mhba);
+ 	scsi_host_put(host);
+-	pci_disable_device(pdev);
+ 	dev_dbg(&pdev->dev, "driver is removed!\n");
+ }
+ 
 -- 
 2.43.0
 
