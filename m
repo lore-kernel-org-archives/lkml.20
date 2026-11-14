@@ -1,61 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.134
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794696901;
-	b=V1E9bSqS59YOGkh7BGKdnUnx6hVbsTkHIhvVFQCTxbd2lsS556J5Dj5AHGIMDCSm6TbK
-	 AAkBbuENxu24nSN3zI8RnnqXmfSHVbAPW8Qs8iViZsAZNeSfuN3lOpYUi3kP/ZPdoffUM
-	 hmu2JRf/W7bQfl52Tq6Y1KqeFpv1h2N8YBn7bhuVCB+q4wL4El5sh3bWQtW/nCte7D7AH
-	 RuCUhHWGOK2xwAnFkNxcAnTxpobvG6Eok5qVWNnfFhSk/x/IrqkMP3DOEPjzPV/oW0Uqg
-	 Bu1J7dLORu0Q/nGNRh+I4Hza/LyYpgqVtKt+Inzp4yxWfKmKr0rK7xPjW5Aa2bjBb1A==
+	t=1794696941;
+	b=2dE2YNnTlSSsr+OmnX2+cxJ0yEhuInxFhsgEHhJwF4vacsNxwREOdlu1P5vNyQA8MZXh
+	 xw+Gcj7TQMs8MLr50foXz0r4ru5E+HIuvhPjDKaEl6nvGOM3G5OHVYHyoi4dNexaJqdOy
+	 3dIhi0+j5t0C2CGyIfB5vk35OHqtCELcMVNhpy9yeeOjwnUXEmVg677li/dGLz3v/kRbW
+	 6QEd+Bg7Fv/1ZLINhlMgg5n/4amHVSEErKCfemWa6GdTkRzFOcp9vghST/HX+VhdeC7Gv
+	 EfxsAuKIJ3IZDfaa92mr13ibdv5FlbdfAmsBjbQ38uyRPdFoH40uIULD4hcXZc+Pj0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794696901;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=vBn5GRO1f/3jEjWYYhhLct/b2kRb+lUMrgvM2hcJkSM=;
-	b=iy7wUxIBiXREC5GVvh8lteNZNPUyj+HrvcoeKdeXI5+Z5YBzSsDEIb9n9v4UphFscJm1
-	 JSrdS854DGnLlDC+TfsMOj9cGzoljZr2cqwZfrfxAiMBRhA8Ot2dczwbw8r/kBxC5LaJj
-	 /sr9490v/G5XTEfmhbDTC1RwnISfFXo0EjhsxWbjsYGT9BIQQK/si2oKHxwCRVz4KGuQF
-	 LUKGHIuknd6Ov/fX+pXk2yWLcVAOXdw/sYu7kGwsmbwMpAfp1PyEq57999YP2uRY1E9H6
-	 V9QZyjF17tcuYmkByMYMCeUqTvd78xbsxh9YpHZVFElQqwjkkfwK02u6A/O7OS2N6dQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794696941;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=LiygG2iGiuebZIwuKX8EIYmY8QCLCyZHFTVPiI3pRFA=;
+	b=2HaO7bJlknl3JQvGIemCtlaaXIqsfFepjtFk2yg0WNPls39lSnvAa/8Ent9tYL7Pn+Ue
+	 Ci/kr0dh61gAsVi/BmcanL5FuB9ktcLNON0xm0qlxC0d/TM3WEiMCPrI025M72GsNM87/
+	 hh4+1F1IQwaR+b6vE7Me0tjy565xK/EzDuQSJ1wEtXKND7VapKjK1tV2BzPGuki/uNjT+
+	 ybKAoVizFTZhZkMYMlWBkO9cv7eNfz7QYgSug0OsvIEcpyproWcWPPGvW/C4Nx7KCcR60
+	 KykMudWRJyGenz6TC3v6TN9jNhzPENWrjkTD1uluGKPm4Okg/E5J4VQ9TVLQ2ZwJ3AA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=klc4f5dD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=postmarketos.org;
+	spf=pass smtp.mailfrom=postmarketos.org;
+	dkim=pass header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=X16kPrQY;
+	arc=none smtp.remote-ip=91.218.175.134
+Received: from mta0.migadu.com (out-134.mta0.migadu.com [91.218.175.134])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABE5B606A323;
-	Sat, 14 Nov 2026 22:55:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 205FA606A329
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 22:55:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 205FA606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=klc4f5dD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5256D1F000C4;
-	Sat, 14 Nov 2026 22:55:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794696901;
-	bh=vBn5GRO1f/3jEjWYYhhLct/b2kRb+lUMrgvM2hcJkSM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=klc4f5dD6RqurZdHnFUBa4fUvfA7paDow5pDwrYFT+Sjs44/CPVPQ46o5Fs9z+KZu
-	 BbnKBJgOb6KQwB+eSv3QNf/J3ZcpOfMKJ58Q8VwKFhK+tTlTvnrVL4hO0k3+9ojrm0
-	 b9EhbmP4sPco1yBk3ib0EqeScT2b3miRawqPF1TtbVDFbQmJDMEqGMa58wvALTEuyy
-	 lCgeQwN/57zhQn0mloAzbbRnUq0x1P4F5cil1pZ/7868nQdCl6VAAepFxgsDrQHHIK
-	 gPoQ4eFlx9KDh1qg0pKRllVzkodNN+RaOojpQRVGD0Aqz4QzW2PPFsThXvf+q5ctt5
-	 Bp2TV8aokEsIg==
-Subject: Re: [PATCH net 1/2] ipv6: honor rule suppression in raw FIB lookups
-From: netdev-bot+sashiko@kernel.org
-To: leonard@lausen.nl
-Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, pablo@netfilter.org, fw@strlen.de, phil@nwl.cc,
- shuah@kernel.org, daniel@iogearbox.net, netfilter-devel@vger.kernel.org,
- coreteam@netfilter.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Sat, 14 Nov 2026 22:54:59 +0000
-Message-ID: <179469689962.2199510.1299009420613186748@kernel.org>
-In-Reply-To: <20261110131638.15004-5-leonard@lausen.nl>
-References: <20261110131638.15004-5-leonard@lausen.nl>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=X16kPrQY
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=RlekjlGNec4ex5TfjWTalwwAb7hHUJ4s1zUc8nIQObA=;
+ c=simple/simple; d=postmarketos.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794696937; v=1; x=1795301737;
+ b=X16kPrQY+qbXhd4P/AgXjg5e6qQiF805efMnV+sFxjYh2f2m5sIpMWFikPsc/EydvT7vSlbw
+ JQryz1Z6rk2zJ4isyx6b5OecPh5hQQI7PqHoLhP02nqDwwEdFFeXIc/xL2+lBH10E7gWa/3vr6/
+ XKVr60BceHPHDPQtEFG+YstKH/+28gWZJ84YdbnqjqMEAuHRB9SuOVGRVAA2mWwbxWtPBeWc+cE
+ 3I4NlQSvCP+pFRlCbuI3VX1iu19YwcL2W/eCON0kKwbj7zBqgOSwH96DOdMEVlQXk5zeLHG1//I
+ wAxC2rebCjNlO68jYDP/V/cFkq/EAncjqP/re4DPXdejQ==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id bf42613200098871;
+	Sat, 14 Nov 2026 22:55:37 +0000
+X-Mizu-Trace-ID: bf42613200098871
+X-Migadu-Flow: FLOW_OUT
+From: Paul Sajna <sajattack@postmarketos.org>
+Subject: [PATCH v7 0/4] leds: aw2013: Add AW2027 support
+Date: Sat, 14 Nov 2026 15:55:13 -0700
+Message-Id: <20261114-aw2013-aw20xx-rename-v7-0-ea5a3113a479@postmarketos.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,128 +62,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/43RTU7DMBAF4KtEXmfQzDjOT1fcA7GwnUlroTatH
+ UJRlbujBARdYMFqpFl870nvppLEIEntipuKMocUxpPaFU1ZKH+wp71A6NWuUIxcY4cN2DdG0tu
+ 5XiHKyR4F+oG19qZj8rUqC3WOMoTrxj49l4U6hDSN8X1LmWn9/gHOBAi+s00/ENsG6fE8pulo4
+ 4tMY3oY416t7szfFiGajMWAQNiKd/3ATWMylr6ziDOWXntZR0Pfo0FXZ6zqxyJsM1YFBC3Xhjs
+ n4gxnLHNnZXsZQHDsjWjWtkObser/WDUgsCHxVldonf/FWj5HjnJ5DSlMX0svywfWzblLUAIAA
+ A==
+X-Change-ID: 20260907-aw2013-aw20xx-rename-df233c5921c6
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Nikita Travkin <nikitos.tr@gmail.com>, 
+ Alexey Min <alexeymin@minlexx.ru>, David Heidelberg <david@ixit.cz>, 
+ Griffin Kroah-Hartman <griffin@kroah.com>
+Cc: Nikita Travkin <nikita@trvn.ru>, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
+ Paul Sajna <sajattack@postmarketos.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794696929; l=3953;
+ i=sajattack@postmarketos.org; s=20250422; h=from:subject:message-id;
+ bh=RlekjlGNec4ex5TfjWTalwwAb7hHUJ4s1zUc8nIQObA=;
+ b=1kZVx1fxp3Ybrg4Y6MEb4jvx48u59wsno7wfj2zGt1Ffs4u6YwjEsnC8h6p4DA1d+LoJUdFs2
+ dWmJHCuRGMDB2f1JqjZ6QWpOPYMts8c4EFqRRd3+JxxPpBBpCvpcG/c
+X-Developer-Key: i=sajattack@postmarketos.org; a=ed25519;
+ pk=TwacvEOiRJ2P2oAdEqIDrtQTL18QS4FfcHfP/zNsxkQ=
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Refer to PATCH 4 for a full description of the similarities and
+differences between AW2013 and AW2027.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+I'm hoping the sashiko reviews about unbalanced regulators that I was
+struggling to fix are covered by
+https://lore.kernel.org/linux-leds/20261021123406.3163547-1-lee@kernel.org/
+and I can drop my failed attempts to fix them.
+Let me know if I misunderstood.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+I'll do my best to address all of Sashiko's comments, but it might take
+me some time to circle back, don't bother reviewing until I've done
+this.
 
-- [Medium] For raw lookups, fib6_rule_suppress() (net/ipv6/fib6_rules.c)
-  evaluates suppress_ifgroup against a different nexthop than the dst-…
+This PATCH resulted out of discussions pertaining to
+sdm660-mainline/linux, a close-to-mainline fork for Qualcomm Snapdragon 660
+devices, specifically for the BlackBerry KEY2 Keyboard Backlight,
+in the following GitHub PR: https://github.com/sdm660-mainline/linux/pull/218
 
---
+Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
+---
+Changes in v7:
+- Fix multiple imax setting/regulators per Sashiko
+- Small description updates to AW20XX per Heidelberg
+- Reorder dev_err_probe commit so that introducing new code using
+  dev_err_probe is cleaner
+- Simplify dev_err_probe, prevent unneccessary assignment
+- Revert early return / else suggested by Heidelberg, Travkin and I both
+  prefer else
+- Lower Hex
+- split c99 for-loops to separate commit
+- simplify aw2027_set_local_imax and aw2027_set_global_imax
+- Link to v6: https://patch.msgid.link/20261112-aw2013-aw20xx-rename-v6-0-251eca340abc@postmarketos.org
 
-ipv6: honor rule suppression in raw FIB lookups
+Changes in v6:
+- Fix the compile error introduced by my unchecked hasty rebase
+- Some adjustments per David Heidelberg's comments
+- Link to v5: https://patch.msgid.link/20261112-aw2013-aw20xx-rename-v5-0-b2c5e323a90a@postmarketos.org
 
-This patch makes fib6_rule_suppress() apply suppress_prefixlength and
-suppress_ifgroup to raw fib6_table_lookup() results. For those results it
-takes the prefix length from res->f6i and the device from res->nh. Raw
-results marked RTF_REJECT are never suppressed, so a later rule cannot
-bypass the rejection.
+Changes in v5:
+- Drop move of chip->num_leds
+- Make aw2013_microamp_to_imax more readable
+- rebase to next-20261112 for Lee's changes
+- Link to v4: https://lore.kernel.org/linux-leds/20261108-aw2013-aw20xx-rename-v4-0-826529beeb52@postmarketos.org/
 
-Link: https://github.com/firewalld/firewalld/issues/1600
+Changes in v4:
+- Drop sashiko fixes covered by https://lore.kernel.org/linux-leds/20261021123406.3163547-1-lee@kernel.org/
+- Rename the chip id register value to reflect that it covers more chips
+  (https://www.awinic.com/en/driver/AW2027DNR/640)
+- Address preliminary review comments from Lee Jones
+- Link to v3: https://lore.kernel.org/r/20261012-aw2013-aw20xx-rename-v3-0-cab1fdd050b6@postmarketos.org
 
-> diff --git a/net/ipv6/fib6_rules.c b/net/ipv6/fib6_rules.c
-> index 0ffd7b47a0460..e8a44b540291d 100644
-> --- a/net/ipv6/fib6_rules.c
-> +++ b/net/ipv6/fib6_rules.c
-> @@ -283,19 +283,29 @@ INDIRECT_CALLABLE_SCOPE bool fib6_rule_suppress(struct fib_rule *rule,
->  						struct fib_lookup_arg *arg)
->  {
->  	struct fib6_result *res = arg->result;
-> -	struct rt6_info *rt = res->rt6;
-> +	struct rt6_info *rt = NULL;
->  	struct net_device *dev = NULL;
-> -
-> -	if (!rt)
-> -		return false;
-> -
-> -	if (rt->rt6i_idev)
-> -		dev = rt->rt6i_idev->dev;
-> +	int plen;
-> +
-> +	if (arg->lookup_ptr == fib6_table_lookup) {
-> +		/* Raw lookups report reject routes without an error. */
-> +		if (res->fib6_flags & RTF_REJECT)
-> +			return false;
-> +		plen = res->f6i->fib6_dst.plen;
-> +		dev = res->nh->fib_nh_dev;
+Changes in v3:
+- Drop rename
+- Capitalize commit subject
+- Extra tweaks to cleanup patches (preventing more unbalanced regulator
+  stuff)
+- Whitespace fiddling
+- Link to v2: https://lore.kernel.org/r/20261005-aw2013-aw20xx-rename-v2-0-108ecbdf2775@postmarketos.org
 
-[Severity: Medium]
-For multipath routes, is this the same nexthop that the dst-based path
-checks?
+Changes in v2:
+- Reduce renames to internal driver scope, to prevent breaking compat
+- Address Sashiko Review Comments
+- Split renames into a separate commit to make the actual changes easier
+to identify
+- Change from RFC to PATCH
+- Link to v1: https://lore.kernel.org/r/20260907-aw2013-aw20xx-rename-v1-0-c9a7df12a701@postmarketos.org
 
-On the raw path, res->nh is whatever fib6_table_lookup() picked. For
-multipath that is usually the first sibling or the first usable member of
-the nexthop group. fib6_rule_action_alt() never calls fib6_select_path().
+To: Lee Jones <lee@kernel.org>
+To: Pavel Machek <pavel@kernel.org>
+To: Griffin Kroah-Hartman <griffin@kroah.com>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Nikita Travkin <nikitos.tr@gmail.com>
+Cc: linux-leds@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
 
-The dst-based path selects the path before it builds the rt6_info whose
-rt6i_idev the old code looked at:
+---
+Paul Sajna (4):
+      dt-bindings: leds: aw2013: Add awinic,aw2027 compatible
+      leds: aw2013: Use dev_err_probe
+      drivers: leds: aw2013: Leverage C99 for-loops
+      leds: aw2013: Add AW2027 support
 
-net/ipv6/route.c:ip6_pol_route() {
-    ...
-	fib6_select_path(net, &res, fl6, oif, have_oif_match, skb, strict);
-    ...
-}
+ .../devicetree/bindings/leds/leds-aw2013.yaml      |   6 +-
+ drivers/leds/leds-aw2013.c                         | 240 ++++++++++++++++-----
+ 2 files changed, 194 insertions(+), 52 deletions(-)
+---
+base-commit: 6d582d78fad9d828e575ca0cdcff8ea47a77220b
+change-id: 20260907-aw2013-aw20xx-rename-df233c5921c6
 
-fib6_select_path() then replaces res->nh (and res->f6i for siblings) with
-the hash-selected path, which may be on a different device:
-
-net/ipv6/route.c:fib6_select_path() {
-    ...
-	if (unlikely(match->nh)) {
-		nexthop_path_fib6_result(res, fl6->mp_hash);
-		return;
-	}
-    ...
-out:
-	res->f6i = match;
-	res->nh = match->fib6_nh;
-}
-
-bpf_ipv6_fib_lookup() runs path selection only after fib6_lookup() has
-already made the suppression decision:
-
-net/core/filter.c:bpf_ipv6_fib_lookup() {
-    ...
-	err = fib6_lookup(net, oif, &fl6, &res, strict);
-    ...
-	fib6_select_path(net, &res, &fl6, fl6.flowi6_oif,
-			 fl6.flowi6_oif != 0, NULL, strict);
-    ...
-	dev = res.nh->fib_nh_dev;
-	params->ifindex = dev->ifindex;
-    ...
-}
-
-Consider a multipath route whose nexthops are on devices in different
-interface groups, plus a rule like "ip -6 rule ... lookup <tbl>
-suppress_ifgroup N". Could a flow be suppressed by the ordinary route
-lookup but not by the nft fib or BPF raw lookup, or the other way round?
-
-Can bpf_fib_lookup also return a device in the suppressed group that
-suppression never evaluated?
-
-That would leave the same raw versus ordinary disagreement the commit
-message says this patch removes. suppress_prefixlength does not appear to
-be affected, since siblings share one prefix.
-
-> +	} else {
-> +		rt = res->rt6;
-> +		if (!rt)
-> +			return false;
-> +		plen = rt->rt6i_dst.plen;
-> +		if (rt->rt6i_idev)
-> +			dev = rt->rt6i_idev->dev;
-> +	}
-
-[ ... ]
-
+Best regards,
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261110131638.15004-3-leonard%40lausen.nl
+Paul Sajna <sajattack@postmarketos.org>
+
