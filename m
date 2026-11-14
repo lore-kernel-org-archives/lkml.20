@@ -1,72 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794636478;
-	b=kQJNxezU1lQHeQGIXvwCU9JygycEB71oy+xJfgRIvcW7kgycciA2uWLWDoWuZw5hbkFE
-	 wplKPrtGFHJA40D4zzIo9Bp2M2D5uLSiI/YTc1oLosTVZ+9Gfg/Fw4iLHKzftRdzzv2Xr
-	 assnkpMylBaFGcfmruP8aiYxjaaRdLncTKoXIZTRNyVL4GVq2UGGsdnjj3f6OVKoFqrCl
-	 ol5ORBvB0fgP0tQTyU0wClIxiXoMJ05ezGQEbs7NrMWm8fQnRNNhPzO9Derrlo6/1csV1
-	 emiNgDzHH30DPRSMliqZbZDUcA9iH/Bd7pm5pbvgO9cLjz+vaqgKNRUucmcOyEC1UJg==
+	t=1794636486;
+	b=xHCveYYcjVZbBS88tQZlBPzAANKoRSxXXFhRbkYIYQAWrfsj9n9AAI4XENi3hR99uXtm
+	 O13HQPTZ/3Ar6K6qKHXpb03AvMlP65oCmHgaLY78pswrHA+AxaPwT9eBi+7zeH1oVRVr0
+	 s5tZMgTqMK3cGHJD1D5rmBL0F5GtQYOEzAKzFtszu1vsLwFr0aoKOm5RBxC5mRghMm6Kc
+	 Ks3Kn9vxD5iO1W2CmEkw/IAhUG6v7GpYA35kyUMR+MGSLeFrHObLqyafdV4sQJYTbcbYP
+	 GSaKRw7KyMVDiTDaVngEttCChAUmN1DBikosezaDXlqMhlK0b+IW0ZPgJ/QJ9n9IDZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794636478;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=k3ZCL0yCo4qHj48CZf0oSTVriUNmB/9T1OWuLfWgT+A=;
-	b=0HImo5m0DEoRlMMTNGOP9TrbfwSb7an9ycth1OBeb7YuYe823zeicl9VucZdvY7pQEpy
-	 4+1bbHU5CQKLHBMsOVmsVXLGyqOHn0XKS0dwlAEcp8AErI6IO1MuhKaEbBhAgeH+JBm55
-	 FfSNQ2eqOuxEEvg9YS4xkbKAa162nGa7kpGOsyYKBnYScDGwYaZXyQE4fM4LLCViruA1J
-	 40b/hFk8T5IMqmQNJ4lYJrxYajEGQIaCQXny4Toq0AnjhYTjfk9xbYKp3+2QUxH3KlKOY
-	 VRJOU5t3KZQ2REjwVtYtM8HFhIHIApiFgPtscBfU6MDIdlB1r246Hvj50iHCftAbFdw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794636486;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
+	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
+	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
+	 X-Fangmail-MID-QID;
+	bh=TV7/rNuPIcAPimQoiERTrRHJ9hzdQoce/kobpTJs1XU=;
+	b=rzgJGb9rItK+/QOZTqnQkF6x+0aWhUX6a4JcP8hbgvuvj3PtH4qUlg+qy1feEzkTWKmr
+	 Fvui1HiDa6T9TKVxwOrKDMP3E2MDLJFybnfufWFgnBlEH8GtXlNydei5xtsaEYiIYbM8L
+	 6JuxgJYo1KmLkmUYDZpRRrM/+5y81BE18b8UVMi0B1NwfiQxxfqNXpJnEh0FjuMy0ONq9
+	 L5B7zgVgWhsiZcsGZM4+aKQSC4MT2bALnZrX1885Fd8iECx64qx3WgxcLjSaON64rT5hV
+	 w/ydzLnIfExi9BNfBGpYvfdEdQLMDPaDI57MP7/Zjh7SJ5a56jzF0zb+wvdKfmCUGQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=GgKRxHaR;
-	arc=none smtp.remote-ip=35.89.44.39
-Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=eHJLNOWZ;
+	arc=none smtp.remote-ip=160.30.148.34
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A72B5606A330
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:07:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A72B5606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E22A606A327;
+	Sat, 14 Nov 2026 06:08:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E22A606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=GgKRxHaR
-Received: from eig-obgw-5001b.ext.cloudfilter.net ([10.0.29.181])
-	by cmsmtp with ESMTPS
-	id RbtrxVhZQyb4YS6vdxdsJc; Sat, 14 Nov 2026 06:07:57 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id S6vcxdJ9Hxmi7S6vcxselp; Sat, 14 Nov 2026 06:07:57 +0000
-X-Authority-Analysis: v=2.4 cv=KuFN2XWN c=1 sm=1 tr=0 ts=6af7fabd
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10
- a=es2n6eTOkizK-jv9RXAA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=k3ZCL0yCo4qHj48CZf0oSTVriUNmB/9T1OWuLfWgT+A=; b=GgKRxHaRUvpE
-	t/K0+v/IzLzOOUM96+WP3ldu1tItVw2qvgHmNQK3b5o9Gms+UO5B8ZeIl34cTLtqKonzeTCyaNN7Z
-	rO/Q9Dk7jOL1yEl/4j0Rq7II69GZupndSzh+IVTYg8rNO99lUJvSzjS6jMPqajiaZMwiacvqcjf7z
-	yWFoioAeMM1U++vE4TzjVle5zP5JksqTcpRuDQFLEgpzVdSEvxGw8M9hbqBKYFj/6CWClRWbAnc1V
-	+ACwAd8t/UhW5sa838BURlJ5J/cKGGyQFUvPXQ443iUi1ypeYlJ42GuhWWNzcIItW3tL3r7y90ymt
-	2UjWFVsC6ykeNEROFZoR0w==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:37708)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xS6va-000000048T3-2uJj;
-	Sat, 14 Nov 2026 11:37:54 +0530
-Message-ID: <d28f392e-82ea-44d6-83e5-9593b341a722@roeck-us.net>
-Date: Fri, 13 Nov 2026 22:07:53 -0800
+	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=eHJLNOWZ
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jRNw1329yz5B13X;
+	Sat, 14 Nov 2026 14:08:01 +0800 (CST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
+	s=z202610; t=1794636481;
+	bh=5lzsOGRbljK3UBGsxRWnpa6SowpbvPCeY1W5tc58u7M=;
+	h=In-Reply-To:References:Date:From:To:Cc:Subject;
+	b=eHJLNOWZSaYUZo7rxalDo358pfeRaghstONJbcKc8oKd9rFsOGWCdd8uNhLZdpwSi
+	 iy3n+D0o7Oq3PDOAhqtc9T9xgYkKcamZYFAXT37IoW1isB9qW2Ab0+LDAb+ntAuJQP
+	 aennq31FDHtuaoWxD1zUp+eB2VF69uEJVqBM8DoLsOJrgz+2xBSN3ptGdGqESHsBH6
+	 GCbUqKkiAsbEdSvgMs7UWxVgNULg3vAuNLsILJAwWFiLyhbHafx/xPv1BjW2AREWLg
+	 IIK1tJzm3lDkJM+Y7lCa+H9RStE6NUYoUMMkieBlBnD5agjfQrgOV62aorJjvQe1AG
+	 OF+qCKJ5ZEHgg==
+Received: from xaxapp02.zte.com.cn ([10.88.97.241])
+	by mse-fl2.zte.com.cn with SMTP id 6AE67ttf060421;
+	Sat, 14 Nov 2026 14:07:55 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp05[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Sat, 14 Nov 2026 14:07:57 +0800 (CST)
+X-Zmail-TransId: 2afc6af7fabd8be-0c510
+X-Mailer: Zmail v1.0
+Message-ID: <20261114140757347tqYOa2IkTGVulSwLrw2Mf@zte.com.cn>
+In-Reply-To: <CAHi4H7FCOxcXnYkNfXNa_iO9KFZRSC96urJthPkgoem7C52ppg@mail.gmail.com>
+References: CAHi4H7GHGO27Q=O8Upfds8jk-ujSHU5h91hCZw6qjftNX7a2Ng@mail.gmail.com,20261111173637687ugnRPRBKJkF0zihl662i2@zte.com.cn,1d8b7784-f217-45ef-8f09-658044e441ea@sirena.org.uk,CAHi4H7FCOxcXnYkNfXNa_iO9KFZRSC96urJthPkgoem7C52ppg@mail.gmail.com
+Date: Sat, 14 Nov 2026 14:07:57 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,109 +72,63 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] hwmon: (adt7475) Convert to
- hwmon_device_register_with_info()
-To: =?UTF-8?Q?Dav=C3=AD=C3=B0_Steinn_Geirsson?= <david@dsg.is>,
- Jean Delvare <jdelvare@suse.com>, linux-hwmon@vger.kernel.org
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- linux-pwm@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261114004110.328050-1-david@dsg.is>
- <20261114004110.328050-3-david@dsg.is>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20261114004110.328050-3-david@dsg.is>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xS6va-000000048T3-2uJj
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:37708
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 1
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfOV2/b5WsaG/cu0pUBtd9MKo3NVdn2A71dAyXmU2u0U8v9y7ZXkS8DMq8059r+KFJDqsfY/Kf00A1o/Ibd/N48jhSzV8IGWLPhlEd/C5i6DCtbJqYQtB
- WNdDQ2kIiInAfht6Sc0xKdJrRGuO+xiualAJOKNQYgcD+bkZLzbbxvVB55U0BwI21aybFJ0fOODMxAdsp1pmR8r9cPB8kSODZz7ZHkTpOgfqTav6V6P0lSjk
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <william.zhang@broadcom.com>
+Cc: <broonie@kernel.org>, <shao.mingyin@zte.com.cn>,
+        <linux-spi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <linux-riscv@lists.infradead.org>, <pjw@kernel.org>,
+        <samuel.holland@sifive.com>, <kursad.oney@broadcom.com>,
+        <jonas.gorski@gmail.com>, <bcm-kernel-feedback-list@broadcom.com>,
+        <anand.gore@broadcom.com>, <florian.fainelli@broadcom.com>,
+        <rafal@milecki.pl>, <linux-arm-kernel@lists.infradead.org>,
+        <sven@kernel.org>, <j@jannau.net>, <neal@gompa.dev>,
+        <asahi@lists.linux.dev>, <ryan.wanner@microchip.com>,
+        <nicolas.ferre@microchip.com>, <alexandre.belloni@bootlin.com>,
+        <claudiu.beznea@tuxon.dev>
+Subject: =?UTF-8?B?UmU6IFtQQVRDSCB2MiAzLzVdIHNwaTogYmNtYmNhLWhzc3BpOiBmaXggZGl2aXNpb24gYnkgemVybyBmb3IgZGV2aWNlcyB3aXRob3V0IGEgbWF4IHNwZWVk?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 6AE67ttf060421
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Sat, 14 Nov 2026 14:08:01 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AF7FAC1.000/4jRNw1329yz5B13X
 
-On 11/13/26 16:41, Davíð Steinn Geirsson wrote:
-> Convert the driver from hwmon_device_register_with_groups() to
-> hwmon_device_register_with_info(). The standard voltage, temperature,
-> fan and PWM attributes move to hwmon_ops. The chip-specific attributes
-> stay driver-defined and are passed as extra groups: the automatic fan
-> control points, temperature smoothing, PWM stall disable,
-> pwm_use_point2_pwm_at_crit and the VID attributes.
-> 
-> The driver keeps data->lock, although the hwmon core serialises the
-> hwmon_ops callbacks. The attributes in the extra groups run outside that
-> serialisation, and they share the register cache and its periodic update
-> with the hwmon_ops callbacks. They do not take hwmon_lock() instead, to
-> keep this conversion free of locking changes.
-> 
+On Sat, Nov 14, 2026 at 09:13:59AM +0800, William Zhang wrote:
+> In that case,   Mingyin, please update the patch to ensure FCW >=1
 
-I disagree here. If you don't want to change the locks to use the hwmon
-subsystem lock in this patch, add another patch to change the code to
-use it. The subsystem lock was not introduced to be ignored.
+I need to correct my previous reply: I incorrectly agreed that the clamp
+gives FCW = 0 with a 200 MHz base clock.  Sorry for the confusion.
+
+The applied code in both drivers is
+
+	hz = max_t(int, hz, 1);
+
+	reg = DIV_ROUND_UP(2048, DIV_ROUND_UP(bs->speed_hz, hz));
+
+For a zero-speed request, the clamp sets hz to 1.  With the 200 MHz base
+clock, the calculation is
+
+	DIV_ROUND_UP(200000000, 1) = 200000000
+	FCW = DIV_ROUND_UP(2048, 200000000) = 1
+
+The outer division rounds up, which I missed in my previous reply.
+The same calculation gives FCW = 1 for 24 MHz and 400 MHz base clocks.
+
+With the 200 MHz base, FCW = 1 corresponds to about 97.7 kHz
+(base / 2048), the minimum rate.  The 1 Hz value is an input to the
+divider calculation; it does not mean the SPI bus runs at 1 Hz.
+For this case, the applied code already selects the minimum FCW.
+
+Mark, understood about the difficulty of handling zero speeds in the
+core.  For the 200 MHz case above, the applied driver code already
+selects the minimum FCW; any further adjustment would be incremental.
+
+If you would still like an explicit FCW lower bound in both drivers,
+I can prepare an incremental patch on top of the applied commits.
 
 Thanks,
-Guenter
-
+Shao
