@@ -1,107 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794676757;
-	b=bU+TpZa/RpjON1xrh070+4VTcH6sisjlo3Mx2hHq1nDtjQsE6gUXZh6TwTDbSqy0DRJ3
-	 vWmuYDJASrvK747jbgv/Xe6PJgwTDO43e+X5o/g0FdkmQgeDX8eQ4D/9vZTBLKxVGecZQ
-	 onwE9hoBHggNzM5ZYpBCryrH5vHlNi/trqmvWLUvI4Gd7omQV8DdMc1i567DyklJTE1rE
-	 ZILfoyVAkJGULTbVGb/KIL8tcon5k5Ypnf4/va8bdmFhrTIJ0pNNMI/Tc5U4pbAnYYcdZ
-	 ta+GpNgcTGpKon/NLsXFaOFTruk5NFVwguXUMobaBmuK8ZkCekIlDPubTsBzMiW2Fog==
+	t=1794676861;
+	b=ZAzh9RLsUoIuLebG5VE8nrTAc51TweYqvZ+NHwFBfVDVChbf+itsaf4Z/Ew5zbtKDP92
+	 bBbBSb88eYTw8OTOiWh23dHxnHyTEVRrWOD1jNSuRGZMpEZUNlowZnfMO3Ms6fjl0d3Bq
+	 n7ATXpb/52sZijMnwt+xAlO6xlARj+LfDcx+sjm2ar+WV066MHm1j52qls+yf70YNesYr
+	 Km+zh/PhzRizBZQxm6RbbqSxKFoKFEyb/q4CFwc+/xbEYYD/fAD/ke8S1szaiC/Km06xS
+	 1krwnsxRexAn3EwHj7wpTM3EeA+6yrDrv5BQD2+oqzZV2YeVC6MIM0JsdaP0o4EfT0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794676757;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794676861;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type;
-	bh=YTwcRMSWQ/WwFbflIYFwTeimqUcsUNTJOHfLHF8Dqo0=;
-	b=EaE4LXm0Re+YWoUKuP6LqyMNyiuIGkhgY55CZsl1jtc159RxQZwC59paFYhGSGKZto5c
-	 CCa4tHVWPRedRqvSwLidEs/qWnMZB9UWN0JuJy/Hj/IhgK8rIiC/LuLb71+wliOgTSdYs
-	 ZIGXkB23EQXRgEZzCk/kGaa6OT0vooWGdKw0MGb2/rTEjhjwWYRm9Qcwe3LGg6LHaDsp7
-	 vwUNvuJDyMaUBQngLQHc/AosZqgm1In2JRVJ5ezXsRzjcz4jZaTkIIj3sDQJTlPaIBuK5
-	 mYLopOvhNlzHathRRtpKPN+tFPabK8mweW7Wpi5NobVOiEsElhQwlw+SLvM6zOyKVCw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=OE0WjxLLrE3A9lY9DuO2yvYGktTA/H5dP7T78Fl8WrQ=;
+	b=5qu/aU1Tb4vK7pELOQI2dMqbofqSAF6LQLMQtTy4Tk/ZaP7S/eJd4SzE5fbUC8O/4fSL
+	 sRwXTiOlGFaSTlBST6Q7d1mAQlEx9bgrpYNUirY+fhLgot+zBghAGun26iwTKKAaiqSVu
+	 cByxSGc/vOImAmstZ03D0TVrecYPMze1h13apTarIrEYGU0P97qBAq96bvqnv9NpUNq25
+	 Iu8lLS3X6bx1vz/h2l7cuKTWPioqdFIGkwm7WmhKHTgmCg41PJNlj+/Hpsghcd7eLnD6I
+	 rManui3nEHKKHR0Q1oX7iJ6z6iu9FuzCHCek+pYYAxNgZxYmzPhebme9vIpjnZ1RPug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vHw3eyv7;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	dmarc=pass header.from=bairaktaris.de;
+	spf=pass smtp.mailfrom=bairaktaris.de;
+	dkim=pass header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=L9Y7t1b2;
+	arc=none smtp.remote-ip=209.85.208.47
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22952606A32E
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:19:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22952606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FE35606A323
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:21:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FE35606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vHw3eyv7
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso12084175e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 09:19:15 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=L9Y7t1b2
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b596afb4c5so2579979a12.1
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 09:21:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794676754; x=1795281554; darn=vger.kernel.org;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YTwcRMSWQ/WwFbflIYFwTeimqUcsUNTJOHfLHF8Dqo0=;
-        b=vHw3eyv7tVnu7ujo/f014gkgAnXfEOQX+ah3pcWkkUpbq6/tPFuCYxNQdUyvHdFjHq
-         2anngKr5UUeaxV7xvlr5ZsZMq6lwaam/S4Bwe7WVITK02XSKNI9U1r14CG3Iojp3n3fL
-         1DQY2rBZzTay3cOVSvPXlmNOlufTR6Mc7AuAw8vJEgmJU01qccyWgckLhFY9He1MQxRM
-         zdcnv7adqnSQQYqNCWVXdfQPYYCVW1rLdOp61m7NbeiOZPBpyAFu+jRBRNk2Gjx//FB0
-         u8hsxePhaRe8UACcS0A6UkPbM/uCRbu8JTOBFmSca6ZflsfRhZTUAblYhES7tIEww7zi
-         iuqw==
+        d=bairaktaris.de; s=google; t=1794676859; x=1795281659; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OE0WjxLLrE3A9lY9DuO2yvYGktTA/H5dP7T78Fl8WrQ=;
+        b=L9Y7t1b26tvL/YAVend1GF3/zvElMG3l8cU7K95rtjReKXX8XhEjtZn9omgTomTz0E
+         yq0/43JC18sP43LqxQ/xT4GbuGuKhNDlXeWgRAFFxuZva4+XzYKhyb949ZDKsmwsUc2H
+         60lW7s3apY+R5aT1BhUIHvwlZXrGeoVpGjstCmVsNVKg9BPpFgjs0cLHemRRqwejXLdR
+         q1zNeVpxwBX6NovdXkTfrGl/os0AuIgrpLXSnf5ipKgkmLNUOKOfR/wWAkMlBFrRRFui
+         uAh8HdWV89urxxb9ZKZ1b7vGPBn0wQVIT3GQjrqQoPigPvqW4O2X7ZzoCoolNT05iRVZ
+         aO6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794676754; x=1795281554;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YTwcRMSWQ/WwFbflIYFwTeimqUcsUNTJOHfLHF8Dqo0=;
-        b=jOjXsGCwtwxEfIkMXNVMjusUGz1Ztjwa88OAjXscrnCNkhA6WtAJnhX2VODHYvbT1a
-         nuf8FTI2fwOSpwDgNUiljDTXREnyMpuH33qXuSZZXbBpFsU7ddx5vRypvS69PKLZ8vWn
-         KmOIIZOtbCKHX5J0e8xzzY1/oM/zga+R3je85j/nLLudIiWjPrF981zJJJBUSqTiff/t
-         MQFQu6mzOc3ipBQv5Jw3p8r2FiEsaXXgTb2MAAVvOJzMETy3EkpjDqkk/Uf+4JfegcJn
-         x1mupujME1XpC2eBPF4NFJG4EYGODlpbnUm6dPHe3XmCVfdxm941Q6zWFyETWT8RfWgh
-         R9XQ==
-X-Gm-Message-State: APuU4Z8KbwlGl2O0SHSiDHuGv+TKkKabsp3R9eC32b3wiV01/XBVUpbO
-	oU07m0/r9DBj32jhZPkx+F2s3O7DFW7teCHvFDpnYpwZ5gRz4Ud/p6gC
-X-Gm-Gg: AYBFou1zvcwGmJWdOy7j3TIXWccG//f//+3kyu4wIGMMYkKt264k1oYmMFLrsj3dXn6
-	uirntmiKqjE8e+Xc6ZkCp32Z4a4r+ljsn8lkBodlSad5I/N/bCXsXBAmknqu8tBGUVKCf1bxSar
-	t6kC06ZdwLoTeecEZzRJ2pY+/9cMoME0K9DFg803N+4pLfFXPdBvdKEDujyveAKfZ+VokwtWmyx
-	NpsdNAHB6/4w6sNXzHz+WxGOyAV/Hf9B1vkbeMil5UYxfcMXcFUGQYhkt5U6ExFT0KljpvOEqeQ
-	NF99nP1HmvSEdTmeNMMkrXS+c5B7DiSH3EgRv5qsc0gHxWXP+d6lz4ypRkEW25DCEPiDLmYCYMT
-	aJgmPz0ZPO4WuE9PyR3QTNmiyv7fw9w1iU80x5ARPVgAZ6ql0gjuPsF8bUUAEjpn8lDulX7PzoP
-	1ft4V5AoGUx53Q+SNik1wSDPm6440SCIFPdamO54x36Re1bWIpwbPbZk4SVS+v1wLvYaiR7cu8k
-	AehYdzI5UnuEd3t0RJTx/DLL/sQf4wY3V2Df0hl/TlL4ygq8H6radx6dHTyFriJaddCjSR9Rzfp
-	15+xu0XK3vCmlGdQO+8wOpWmgoGdMrA3wFYiTFEgyZ3Q/i1h2nDeE9kLiAeO9IRPW3KJYEHavUU
-	8DtkdpFn4ieBVYDJmogwmrIcey8KeOLSFxDsgjgPm3LEqYpnSM7Jx0KUcPccMUevj8JhaeSH0MM
-	MOhJrFC8YGaBH947tlBhP1wvDRdSpocbiO/BuY+t5ggbNu2JwnNJeBE6wO3XtgfL8Ey8AOYWDlx
-	sDsIVHZKAULpAnJU+R+kvAhnA==
-X-Received: by 2002:a05:600c:5395:b0:49f:ce78:356d with SMTP id 5b1f17b1804b1-4bb55abba24mr132258135e9.30.1794676754290;
-        Sat, 14 Nov 2026 09:19:14 -0800 (PST)
-Received: from jernej-laptop.localnet ([2a00:ee2:6a02:9300:bb69:6bcf:1b11:e85b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c8d286480sm20031827f8f.7.2026.11.14.09.19.12
+        d=1e100.net; s=20260707; t=1794676859; x=1795281659;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OE0WjxLLrE3A9lY9DuO2yvYGktTA/H5dP7T78Fl8WrQ=;
+        b=Clb6QBjO91QDYeuJYY/IEWf6n/soPueP3HDOSoRY5YK/brhMXmikUbxCCCXSIbK3pR
+         2Vo4dux6C7GKOZIJ+zOt/tiu7APhkgwENK5Pm19ijkgBm5OGvUWXTilxdrg/l7sbxVfm
+         XxCiUXdZeqEBQonE3v+K3OGaPvPLy6tm3lvaPagYE2TJaN7sMi5Yiex4rEtOOE8mNWeP
+         s4afu6UXPWoPfYI2WHoXaQI6LAInyhV3MuPcTsGgr0b8qG4qNE2CDMZ5MFTZFVUw6iRa
+         4Lpyw5h+IK6YBEHGUhTTpIQzM9B/t3vBqP0+m7vUNFIHuDMRIG0KOFWnxEJvkR4Eo7lg
+         HTmQ==
+X-Forwarded-Encrypted: i=1; AL+hErFZwBQc93K3rmHC7YPbB4gAr+6/JSH2d2rwDGvMTf8xcM/XwAFXB74ejxFMSsicJpj3UDfsAOKKbIws/qw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9WNy3Wg4T8pjKBa1Zp66TuPKH8kihOkz7Y65lRtjXr72wKWPOF
+	7IK2XDB/i0xtIr1/cUIKMrjsXTb90bYduJooWE8vhe8b1yKnqWGrSQeYJXCXn7q1ig==
+X-Gm-Gg: AYBFou1txJ14GX9DLUk/2GLdp8E0wsJgnmUg2W1PB/ozgVdojTWOBdv1O7h0g9oiAxQ
+	FNfTd5a61bW++pkdTHlTQNon+zqkV2gKYeXKUvT9vzM2+1sR/QZEG/BSPNY35EJwY2J7hj1wV/Y
+	yCBfpNqakH/YxwHJMKJFF4AEmYeH7+lOwftIW5DRJZ8UrKlDNNElQxEGeI8GPKSthjpHKWr72qz
+	XXz0athVQktRjZeZjTCPpQ0eYCur29MfSRDSnRkXDO0NLmcKZJuDbNqBsZLdrA5zL5H/tUd+87e
+	Q/eQZo837llQVByL75qARQeSvLE3z5cqCmvrxt6JNOhhmiHp+a7jLEKgyMqlti4i4EN7Q03LIv4
+	irkvNcES3MTlllLqm7/DbM/RpYX2fU8OJju9pBNOn+smyphn9wvrAnAcyH8zL4PtFwjs18tRP7F
+	b396iMpMBRTXtl4bK96ZBoOxdubB/22QjzZ4xqwk6y3DeR5y5mN9SwMUKsH3VrcleWYHagLdWJa
+	ydyrk/hkKZpr7559tA2CY2sTowI2CMqF6kXK1Nv4XVYFkTM5YI3n59qIiCNytwEaoRKoDdmXGsy
+	69wziaFrF4ZY0f+QTljI9ne6x5JylZoJ5iCnCSl80ZzSkTrdktZRprgIWbK8D+dJYhMpnQ+VteG
+	+KJ9c87z3CTMp9pw1PiGNQFN7KTZz2qorzR6RMy53UfoWcMpRH4sR5RP8ity5k/QuaqSGKKXa+S
+	9qnE13pWNL2xcJIcZLiqUmBkscO19QaON0+XVLUNCmS5D3Z5+bh92XlcmKk9IOOay7Bsw6sk/Jj
+	YqhamXmp1U4d759UAZPwbrk1pIx9aSJwWq5NAQ2oFtLPXZg7RbhVGL6AtReDyGgNnnHkfy9bwOz
+	EGTL
+X-Received: by 2002:a05:6402:320a:b0:6b5:6546:f7f2 with SMTP id 4fb4d7f45d1cf-6b7c0d144demr4458124a12.37.1794676859188;
+        Sat, 14 Nov 2026 09:20:59 -0800 (PST)
+Received: from Desktop.fritz.box ([185.181.130.189])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c21b1a08sm2462848a12.5.2026.11.14.09.20.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 09:19:13 -0800 (PST)
-From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: linux-sunxi@lists.linux.dev, linux-iio@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, Andy Shevchenko <andy@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Chen-Yu Tsai <wens@kernel.org>,
- David Lechner <dlechner@baylibre.com>,
- Giorgi Tchankvetadze <giorgitchankvetadze1997@gmail.com>,
- Jonathan Cameron <jic23@kernel.org>,
- Michal Piekos <michal.piekos@mmpsystems.pl>,
- Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Samuel Holland <samuel@sholland.org>,
- Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <u.kleine-koenig@baylibre.com>,
- Markus Elfring <Markus.Elfring@web.de>
-Cc: LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org,
- Felix Gu <ustc.gu@gmail.com>
-Subject:
- Re: [PATCH] iio: adc: sun20i-gpadc: Use
- devm_reset_control_get_exclusive_deasserted() in sun20i_gpadc_probe()
-Date: Sat, 14 Nov 2026 18:19:12 +0100
-Message-ID: <lGotwwBTRaeZcOCAphaQBQ@gmail.com>
-In-Reply-To: <368d548f-2b86-4da5-857a-6ee9473a8d0e@web.de>
-References: <368d548f-2b86-4da5-857a-6ee9473a8d0e@web.de>
+        Sat, 14 Nov 2026 09:20:58 -0800 (PST)
+From: Julius Bairaktaris <julius@bairaktaris.de>
+To: jeff.johnson@oss.qualcomm.com
+Cc: jjohnson@kernel.org,
+	baochen.qiang@oss.qualcomm.com,
+	vasanthakumar.thiagarajan@oss.qualcomm.com,
+	manikanta.pubbisetty@oss.qualcomm.com,
+	kvalo@kernel.org,
+	sriram.ramachandran@oss.qualcomm.com,
+	linux-wireless@vger.kernel.org,
+	ath11k@lists.infradead.org,
+	ath12k@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH ath-next 0/2] wifi: ath11k/ath12k: drop TKIP frames too short for the Michael MIC
+Date: Sat, 14 Nov 2026 18:20:56 +0100
+Message-ID: <20261114172056.678298-1-julius@bairaktaris.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <002f7e3f-e4e5-4c7b-b683-c2add5b6377c@oss.qualcomm.com>
+References: <20261111080620.244164-1-julius@bairaktaris.de> <002f7e3f-e4e5-4c7b-b683-c2add5b6377c@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,78 +109,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Dne sobota, 14. november 2026 ob 18:08:10 Srednjeevropski standardni =C4=8D=
-as je Markus Elfring napisal(a):
-> From: Markus Elfring <elfring@users.sourceforge.net>
-> Date: Sat, 14 Nov 2026 17:55:16 +0100
->=20
-> Use devm_reset_control_get_exclusive_deasserted() to replace the
-> explicit reset acquisition, deassertion, and cleanup action registered
-> with devm_add_action_or_reset().
-> Simplify reset handling and remove the custom reset assertion callback
-> while preserving reset assertion during cleanup.
->=20
-> The source code was transformed by using the Coccinelle software.
->=20
-> Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
+On Thu, 12 Nov 2026 10:40:50 -0800, Jeff Johnson wrote:
+> Is this a theoretical change or are you able to have firmware pass too short
+> frames to the host?
 
-Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+Not shown on hardware yet. The overflow is in the host code and a
+harness that runs the driver's MIC path under ASan hits it, but whether
+the firmware hands such a fragment pair to the host is the open part.
 
-Best regards,
-Jernej
+I'll measure it on an IPQ8074 with ath11k. That needs a USB adapter
+that can inject raw TKIP fragments, which I'm buying now. I'll reply
+with the capture and dmesg either way; if the firmware drops the frame
+before the host sees it, I'll withdraw the series.
 
-> ---
->  drivers/iio/adc/sun20i-gpadc-iio.c | 20 +++-----------------
->  1 file changed, 3 insertions(+), 17 deletions(-)
->=20
-> diff --git a/drivers/iio/adc/sun20i-gpadc-iio.c b/drivers/iio/adc/sun20i-=
-gpadc-iio.c
-> index baa7661db13b..070d061572c6 100644
-> --- a/drivers/iio/adc/sun20i-gpadc-iio.c
-> +++ b/drivers/iio/adc/sun20i-gpadc-iio.c
-> @@ -157,13 +157,6 @@ static const struct iio_info sun20i_gpadc_iio_info =
-=3D {
->  	.fwnode_xlate =3D sun20i_gpadc_fwnode_xlate,
->  };
-> =20
-> -static void sun20i_gpadc_reset_assert(void *data)
-> -{
-> -	struct reset_control *rst =3D data;
-> -
-> -	reset_control_assert(rst);
-> -}
-> -
->  static const struct iio_chan_spec sun20i_gpadc_chan_template =3D {
->  	.type =3D IIO_VOLTAGE,
->  	.indexed =3D 1,
-> @@ -225,17 +218,10 @@ static int sun20i_gpadc_probe(struct platform_devic=
-e *pdev)
->  	if (ret =3D=3D 0)
->  		return dev_err_probe(dev, -ENODEV, "needs at least one clocks\n");
-> =20
-> -	rst =3D devm_reset_control_get_exclusive(dev, NULL);
-> +	rst =3D devm_reset_control_get_exclusive_deasserted(dev, NULL);
->  	if (IS_ERR(rst))
-> -		return dev_err_probe(dev, PTR_ERR(rst), "failed to get reset control\n=
-");
-> -
-> -	ret =3D reset_control_deassert(rst);
-> -	if (ret)
-> -		return dev_err_probe(dev, ret, "failed to deassert reset\n");
-> -
-> -	ret =3D devm_add_action_or_reset(dev, sun20i_gpadc_reset_assert, rst);
-> -	if (ret)
-> -		return ret;
-> +		return dev_err_probe(dev, PTR_ERR(rst),
-> +				     "failed to get and deassert reset\n");
-> =20
->  	irq =3D platform_get_irq(pdev, 0);
->  	if (irq < 0)
->=20
-
-
-
-
+Julius
