@@ -1,72 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.121
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794638423;
-	b=unOy2ZMUwuqkjcFq7ieHaculadyUyBcpGI4pKffibWQx8ZYey6DQs88LIZcVJ5JlQjt4
-	 gkraXy+AsmNsiiU9yxr+vLt/77j3rOgrTowFlPGn6ytQDaYTTAZtJmmgPZPh7KNwJL9Yv
-	 lXi7qGf6MenqAnqIbXFONvHZgubnOGTmg6qRVkuDBhRvyPQt2dotAX+h+YVErB0GseD97
-	 Z36pkehUdmh/A+mSu9KbuRf6LIdeOEiQ9ScNkAr9ZvyFq9JQAlKmZnwcApovFdWBTZZxG
-	 pYiqIQcgZF1a146XEUMMw0ioG5wTyTtyzshUgzCIhjsVW7VzC/rSCKIQUrJI/MX3jsw==
+	t=1794638662;
+	b=ODG8nXToOQdjlHfqgTLxrY7l5YJqY9Vffm5CmZ39RnkKo5sDRmyhXdYfonzjKSHmLB2K
+	 3qC1yHkIjHDzivb+as2xrxgemBUQO+p2t82beXkWadYh03Bju9AT+z0NPlPniSsESDknQ
+	 OSs4kdI0+0VkLhSRD1yK3M+53FemdrT/HebJp5U6Y+x8JiyF26Vy58Jt98dox2Yvsj91e
+	 1j/KfbXcbUCr08cAlsqRAlmun1rqleT2Ddytd3JX8vGXitJ234+XohOUqJzth/fJ3xeTb
+	 nSOwLUnrx/QMDwhYK7wzMI/xthdP9lnBcPAEj9P6JbFNy0Vfs63pIZLuNJWKC9qzfGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794638423;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=munElVZBrcu+Jft3HRVna7FRlAjoYAC5AW/VbIuGOFY=;
-	b=SuLPE7IcQzlPMuuR/vnZL0KBh6i4Iz5p252+nRSkxERr+O2ei1PJ8tw8xZ4CKQJnJpNx
-	 pSedbBRU5Ynf1voMvFJhpDsgGBw3dlZwNuTyM7sk5ZM003rkh+toQ7EmbtQRRYt0AQcvK
-	 6zU8KiVZgRh7C2eC7wbq3YvpaZAl0XXrxqV5pIvW2XrTGPymZfDLOSvUd/jhA7aZOfs1m
-	 udLBNi3B/VgdkoIjyOvWqCUmazf75NtYAm8RhDeTPwzQvidcwdnSo3CBzaEJriz97tk3b
-	 lWrH+knW6tG6O8iO+Ja4CHbyhrlJOxRtC1lwc6ifU4ekKRI5YFWAtISejkuzNNubU8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794638662;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=9lockZfiZPq35Rqgx+UZNXxzny62IZytp1+NEi8Zxc8=;
+	b=FpLtr1lFzziJJO/U0hOwlVzwPGbwraBzbzSU6bx28JnXcLLJRQk9KfeQtTM04i20B4oj
+	 9XPVx81176xlJyk8cQA1vR8J/e6Wg0dOUyLk9/fmPnyxeacuFnc9SdgLzY+giKmUDXWiI
+	 GnbBYTwSquGR6zycZKFzU9iciwSlaPdBneKckVlb3j9r3ScoLSSAoLCsumttMErDytHnF
+	 bOCwtpo+m38UcsF28mIqVObafOjRlupVr+9x/aSBDwcJsSvg7wY/FVf1flRro+2Xk68C7
+	 gXP4XJzq4SrmpfZ5y27YiNJJadoGFU3pFXLH+JOZZYb13ZU0VWnvyDQtcQVt4UvFJzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b="Mn/utNdo";
-	arc=none smtp.remote-ip=35.89.44.39
-Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=proton.me;
+	spf=pass smtp.mailfrom=proton.me;
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=w4s3brv45bb4vpv2oglioynaxe.protonmail2 header.b=LOMHU3ID;
+	arc=none smtp.remote-ip=109.224.244.121
+Received: from mail-244121.protonmail.ch (mail-244121.protonmail.ch [109.224.244.121])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13ADB606A329
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:40:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13ADB606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54B91606A32D;
+	Sat, 14 Nov 2026 06:44:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54B91606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=Mn/utNdo
-Received: from eig-obgw-5002b.ext.cloudfilter.net ([10.0.29.226])
-	by cmsmtp with ESMTPS
-	id RdnTxWRD3yb4YS7R0xdycz; Sat, 14 Nov 2026 06:40:22 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id S7Qzxaxceb2qJS7R0xXyBv; Sat, 14 Nov 2026 06:40:22 +0000
-X-Authority-Analysis: v=2.4 cv=A7tsP7WG c=1 sm=1 tr=0 ts=6af80256
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=p-LfKV-GAAAA:8
- a=y4plAFqO-4hS0y8kEXsA:9 a=QEXdDO2ut3YA:10 a=97BuGM4RKn6GwmfqMd6i:22
- a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=munElVZBrcu+Jft3HRVna7FRlAjoYAC5AW/VbIuGOFY=; b=Mn/utNdoviNi
-	MVvrUK3SjGTX7kARH94HXjA9NgnjWWEPAg+OBKTtnc2R2A0fSO54OAwMbDnqm6vldUafoVPS3cKhL
-	h/v2NBIf/DfJEybNlUrWaCqeZnNMlnh9T6E5SQmQ4ac/mOJVvnWWIoo0HcE09fmsWeyKVw8NreWWm
-	rMvxVwIiUzdvZ1v2Kj9zufDqh7NPySkIMfxm5jOWVQbg3h1+j6JIdGWz22Kf83tqni/xfoiVlFL2F
-	SLddaC4CAfvuNVbyAscPQV8lTUbhJeppqNLpVmJfL2B/BF4Dl759unx6BWOwLddx4sS+N5Kmql5dZ
-	UVH4xVuNPT2yu+19x4oC/A==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:48178)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xS7Qz-00000004Nzw-2muf;
-	Sat, 14 Nov 2026 12:10:21 +0530
-Message-ID: <c26e6dfa-c93d-4995-8d9b-69017c116e96@roeck-us.net>
-Date: Fri, 13 Nov 2026 22:40:20 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=w4s3brv45bb4vpv2oglioynaxe.protonmail2 header.b=LOMHU3ID
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=w4s3brv45bb4vpv2oglioynaxe.protonmail2; t=1794638659;
+	x=1794897859; bh=9lockZfiZPq35Rqgx+UZNXxzny62IZytp1+NEi8Zxc8=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=LOMHU3ID8CgrIuaL3663yRwaNLjXWrQYpeoryiXWfQh2ZVAsL1nWT7pSoIa9CTWBM
+	 fKqPlKPztZFTCJENrmViYsAYp9J/8iI26r5LWDP6akb8OlukY+wHIpuMwA6q8d8yUc
+	 D/ueb540JUpgEjAZEiH85/IueldzC+h95SyfOECG9XuDaKM230L3e5aK6NiHOSryjM
+	 /UGTwaLpjUz6WuDhsP2sDxWsbnLRpE2m/WQyHCgo64n+yAN+tkZkXkvbeZWOjlDmzw
+	 wpTyD4gc5BBItlWLyXjRDXCEyPrBlyaB84K3xcSChQ1OxecdXGSuLDSwzWxn9ypzac
+	 UdBUzESzDdtLg==
+Date: Sat, 14 Nov 2026 06:44:15 +0000
+To: Vinod Koul <vkoul@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>
+From: Soheyb Boulaa <soheyb_boulaa@proton.me>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>, linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, Soheyb Boulaa <soheyb_boulaa@proton.me>
+Subject: [PATCH v3 0/3] phy: exynos5-usbdrd: fix HS phy init count on Exynos2200
+Message-ID: <20261114064400.45572-1-soheyb_boulaa@proton.me>
+Feedback-ID: 140697376:user:proton
+X-Pm-Message-ID: 1c2bb9a36e534ba52fb78d90e0df16364b079c84
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,123 +61,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] hwmon: (lm77) Provide of_match_table to allow module auto
- loading
-To: Lukasz Majewski <lukma@nabladev.com>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261113130133.4094280-1-lukma@nabladev.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20261113130133.4094280-1-lukma@nabladev.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xS7Qz-00000004Nzw-2muf
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:48178
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 29
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfBaaAC6nt3kfTcn/wPLFEdVk+GM61sUPEApzYQkCwTrRC06blBP3+6hnW5MqZMCO9BLYOUsHLYXbDWh373+/3Q1CiY9CVU7IdNyLvZVwP3rslYTdiCKG
- t9ALquRR0ot9rpwssDwMdf6bTQnYnpVF+givv4SBJxr0r+9heD73qe2Jpxww8110wBRt1zD9UEAaVC3X1/9IIUZ8kLse0fzajUOFZ6i451Wwv3fJmtaLH5HJ
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 11/13/26 05:01, Lukasz Majewski wrote:
-> When lm77 is built as a module and it is properly described in the
-> board's DTS file (i.e. with proper compatible) it is required to have
-> the in-driver compatible definition as well to allow automatic loading
-> of it.
-> 
-> Up till now the lm77 used I2C discovery fallback routine to bind it with
-> its name.
-> 
-> Signed-off-by: Lukasz Majewski <lukma@nabladev.com>
-> ---
->   drivers/hwmon/lm77.c | 7 +++++++
->   1 file changed, 7 insertions(+)
-> 
-> diff --git a/drivers/hwmon/lm77.c b/drivers/hwmon/lm77.c
-> index 1f8402be599c..440dd91de39d 100644
-> --- a/drivers/hwmon/lm77.c
-> +++ b/drivers/hwmon/lm77.c
-> @@ -336,6 +336,12 @@ static int lm77_probe(struct i2c_client *client)
->   	return PTR_ERR_OR_ZERO(hwmon_dev);
->   }
->   
-> +static const struct of_device_id lm77_of_match[] = {
+The UTMI phy of Exynos2200 initializes the high-speed (eUSB2) phy but
+never exits it, so the high-speed phy is not set up again after it lost
+power in system sleep (patch 3, v1 [1]).
 
-Requires "#include linux/mod_devicetable.h"
+Sashiko's review of v1 [2] found two error paths that v1 leaves wrong: a
+failed init of the high-speed phy is ignored, so the exit that follows
+takes its init count below zero; and the high-speed phy exits before
+the steps of the UTMI exit that can fail, so a failed exit leaves the
+UTMI phy initialized and the high-speed phy not. Patch 2 returns the
+init error, and patch 3 exits the high-speed phy last. Patch 1 undoes
+the UTMI init when it fails, which its clocks path already lacks and
+which patch 2 makes reachable from the high-speed phy.
 
-Guenter
+Changes in v3:
+- full name in From and Signed-off-by, as Vinod asked [3]; no code
+  change
+- Link to v2: https://lore.kernel.org/all/20261111032309.3365794-1-soheyb_b=
+oulaa@proton.me/
 
-> +	{ .compatible = "national,lm77" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, lm77_of_match);
-> +
->   static const struct i2c_device_id lm77_id[] = {
->   	{ .name = "lm77" },
->   	{ }
-> @@ -347,6 +353,7 @@ static struct i2c_driver lm77_driver = {
->   	.class		= I2C_CLASS_HWMON,
->   	.driver = {
->   		.name	= "lm77",
-> +		.of_match_table = lm77_of_match,
->   	},
->   	.probe		= lm77_probe,
->   	.id_table	= lm77_id,
+Changes in v2:
+- patch 1, new: undo the init on failure
+- patch 2, new: return the init error of the high-speed phy
+- patch 3: exit the high-speed phy last, once the rest of the exit has
+  succeeded; drop the comment (Ivaylo); his Acked-by of v1 is left
+  out, since the exit has moved
+
+Tested on a Google Pixel 9 (Tensor G4), an out-of-tree port on 7.3-rc7
+that uses the Exynos2200 phy ops and powers USB off in system sleep:
+USB comes back after each sleep, and with each error path forced by a
+test-only switch, both init counts stay balanced. Not tested on
+Exynos2200 hardware, nor built in linux-phy next as a whole.
+
+[1] https://lore.kernel.org/all/20261109221522.2796426-1-soheyb_boulaa@prot=
+on.me/
+[2] https://lore.kernel.org/linux-phy/sashiko-outbox-205724@kernel.org/
+[3] https://lore.kernel.org/linux-phy/avcPwEEAfCstmORh@parshuram/
+
+Soheyb Boulaa (3):
+  phy: exynos5-usbdrd: power the Exynos2200 phy down when its init fails
+  phy: exynos5-usbdrd: return the Exynos2200 high-speed phy init error
+  phy: exynos5-usbdrd: fix HS phy init count imbalance on Exynos2200
+
+ drivers/phy/samsung/phy-exynos5-usbdrd.c | 28 +++++++++++++++++++-----
+ 1 file changed, 22 insertions(+), 6 deletions(-)
+
+base-commit: 6bdfbe223ed4735073c299a6645ebd3faac3f51f
+
+--=20
+2.56.0
 
