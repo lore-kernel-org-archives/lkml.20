@@ -1,46 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794637851;
-	b=AOtt2IEoMViIericQ89oaSsglDZ6IHIAui79kw3aRMK/tDFHbz20R8jrIyMnWpyiSf9j
-	 WfjZhM9ih08/w/hAyWq51dffPvtV6TBa5pF9lpEzD6X/n2MbpfHCBBMWmHNRjOcZquMDb
-	 qpU/6g217UOehG3F0XDJR6bJfVWgAJ6ZGSIx8CTvS4qnKsk1fPlPHE0NeISAzt/s2cv/J
-	 XcUlp3/p2KIj7OMkNcZOEQNhQK52qdbJ+ii18i6ZsVZ8c/+akGU/gyTcBFcBYYqWnuyWI
-	 p80NGBaiUnepCHZIC4hSZ84AqohvO9976NmNHUTm2XxL03jjb0eF4BFDuWb4Qdsrp0w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794637851;
-	h=Received:DKIM-Signature:Date:To:Cc:From:Message-Id:Subject;
-	bh=oS9QFk6qCTqZmDiyydPycgUePjHsd6zHH42FyfHt1JU=;
-	b=D0nYPxWYoEaEl6cMiRH2NNT6af6ihbMAB8PMQOsJmTckUxOaW0wC0ZKM0ZmqPbYgyfkA
-	 X8iprFyUB8jSTnezua2u7D9e3ASPwJt7fYD/JDLnrcTjlG3G6rzEQLUbOoRqJFGpIX9Pl
-	 WexUhotQUinHuiC+wnl07Vt448Bksduyyl5qepXq+u3wr0kZHsoFnlTsxXSlUfcvQcAIO
-	 yTgO7TpOEyZ+Mdk7WpIdL0QVq9EyER8UHq8DgNqq5y9TovlOVLLG3lFQqqh5Q9i+jklqv
-	 VrcaDqolvHL4wdu8BgoKNXkzKUogBkag7goXGvYxkZI1yk6J78HK7ZTHYVdNGZ9I6zg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=URQzAA9G;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.31
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794637850;
+	b=bAeZIFfQFHGlpPpliHgJ8nOdsGwlGyk0A46SM4QZnuYTEoYNBZ+EbqDFbJAM0bM5gTuy
+	 Vn05TCeYPE8wc3Grd5OgFasyhXjiOfyI1SSUbd8m6QUwfEJIRgdUyM5fNbn3MU3xDXsn8
+	 1QFCAqBpTeaPkItZ+5aTkaEqy8MUSRCGW3XyrEGYi9iX4TN1wKjl212Lf/gvjE9vrCG4v
+	 Nio7Cu9D4eDxyfc1xTUAcIXvyPqIH+eQronGo4IzLdLFWaGqHXsQ+GxfXZgmPG9LeCSRa
+	 kbtn7pAFBBGi51O2aaPyyMVghMnAJf+NqdRollWjtRkoJLbyk2BeWpjKClAKotfcEjQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794637850;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
+	 From:To:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=XbImGnokoq6o7JoIiZ+apR3fDoO5DT9pbiENdElzWQ4=;
+	b=nMBLlict9Od1Rr80uDLLWcY7GexzKfhf6xUvF8lfZPNTKMZbw2xTNRYXG5/0z6ePODjR
+	 5mIZh4ySg5JVKnfGdyn58809+Rb/V3eu0k787cQeNt43E5Sm8ZMe1WzNh241y6yMG/Np9
+	 hjyNJFsZzgmlN/AVxbhmx2qWRVOqi2muh9ZjYAMpQKFB+fijbOFFh/ecw0RnYZbSJu78y
+	 9TTg67lgU3kKRWLfZhUB0D/KQXVNgeU1oyVvXHbR9vk8FYC2FRsrte6FdzBDnmJUHWYMC
+	 kNZeGOFx5kTz4uPrVOVyAan6AhFTpU0s0Y8y25uEz9F3guCMDzEz3zx988oqT+XSDag==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=kdU2Zd9v;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.31
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013031.outbound.protection.outlook.com [40.107.201.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8316A606A323
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:30:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAE61606A327;
+	Sat, 14 Nov 2026 06:30:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAE61606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=URQzAA9G
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FE531F000C5;
-	Sat, 14 Nov 2026 06:30:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794637851;
-	bh=oS9QFk6qCTqZmDiyydPycgUePjHsd6zHH42FyfHt1JU=;
-	h=Date:To:Cc:From:Subject;
-	b=URQzAA9GjFxBqcn+/SlJFAhBxIaJ5CrNwMr1u9uytsVbWCALxyV606nyJMgyQALVv
-	 SUH/68qGVpZClndEtUKhj/6oj2YJsYHxOaghbNWnpP0YEl6HanyD5MVN2Dwe/m9L1Y
-	 U2hK6QVjbgC9UIN2ypagHQZ+7B8BdtfXr/5qbhQg=
-Date: Fri, 13 Nov 2026 22:30:50 -0800
-To: Bradley Morgan <brads@mainlining.org>
-Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>
-From: Andrew Morton <akpm@linux-foundation.org>
-Message-Id: <b271a138ea114d2d8436445cad2a1aab.1@linux-foundation.org>
-Subject: [PATCH 1/1] profile: simplify /proc/profile read layout
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=kdU2Zd9v
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=t1vnz47wCA9ohGwXS+M96Q6NytOboKmGgGsem2jxvzzRHQAR0UqN1qu83r1VOGMZb1uw9WUQFdt4j8sdk6auhcn4cNOTVNks/GcDmYvGBAxmEozYTcHUMJ29BEb49DRBfYUpMaohzEbPjPYiJsfaPoL5eu+AGQoGTjzDKHaFZvwlbSdlCCDTrnZWP2wwNBoVtERo0ZSRsmnqP+a3pH52434ZUqmPfL9IrmZEYD3UQovfcYZ4Nkmzdb/k0YKeyEAQtDO8vwb19417ICWZJ5CBlc+7CuAIQGzUXF04Li2HxpEsRD4xF7ES772G0Nnl9e3SWqybUEMqvencXGRlNlL19Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XbImGnokoq6o7JoIiZ+apR3fDoO5DT9pbiENdElzWQ4=;
+ b=h4ukX3vFxDaf0KBVeU8oGgHXTq3ESc4yGvh3P1+T4d+CBytLbnovU3Y8Rfdwm55tJyfRgt42FL+XcTJlhUbhth4Hnl9tpJOJeLA6qS6QJQE6L75trjK04QkP/LsBfEk7vlIxOY6CJCeTr4hyhhvigbaYpmjF3cD+R02+QSocZrLzogydwRboivRuE9ncIH0Ng56Df2IO4x48tXb8Se40+qJKoyFfeezKv7P7mYJ5HAVC8ZGJu+He9dMiKlgGMBVV8Ve0vbAfbQZffyPPrggSyPNu9udciE0GXQLZW+f0UdMPpn8uhFQEJu9KltZ56CxPL2xkv5gIMc7vJ4Ann7LDHg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XbImGnokoq6o7JoIiZ+apR3fDoO5DT9pbiENdElzWQ4=;
+ b=kdU2Zd9vOk9Oj5nn1sjo94VbK12nXw3rIF+D2gLCVnRnBkBOXWG2MEf7/xBGhSckLuUOtwlxSgNJwyGW7rJqKTFrfd+gbO16CQoVfjzmLD1/Hwgc/6vkAKjqYJItumZPcydqghBvpPhrukOpRH2KOmTj9A7lsPcUIfnEdxCYpEiKU/2RugHBCL0GG8ZtZNQaq8vXZzDwq7Y6GkjCcxgEHT7o5nERGI8kJpvBdTJR9+tB+I29dOl1Tq2RNUdtc5jNohD8EyRrHwIFsR2tRXKVpfiR4Hphiuhr3UGFgi+yI3JzoVlfakZspQZs4w9VRkV/PEW2s9Nb8QTjQWWbfFwOGw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by PH7PR12MB6585.namprd12.prod.outlook.com (2603:10b6:510:213::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Sat, 14 Nov
+ 2026 06:30:46 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.010; Sat, 14 Nov 2026
+ 06:30:45 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 14 Nov 2026 15:30:42 +0900
+Message-Id: <DMUQ0R92HOFF.RHMRR3F1JDES@nvidia.com>
+Cc: <ojeda@kernel.org>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <boqun@kernel.org>, <gary@garyguo.net>,
+ <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
+ <aliceryhl@google.com>, <tmgross@umich.edu>, <dakr@kernel.org>,
+ <daniel.almeida@collabora.com>, <tamir@kernel.org>, <work@onurozkan.dev>,
+ "spidermana" <xuyiwen14@gmail.com>
+Subject: Re: [PATCH] rust: kernel: fix lifetime of copy_from_iter_raw
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Marwan Mohamed Zein" <marawanzein222@gmail.com>
+References: <20261114024515.1000882-1-marawanzein222@gmail.com>
+In-Reply-To: <20261114024515.1000882-1-marawanzein222@gmail.com>
+X-ClientProxiedBy: TY6P286CA0007.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:3b8::6) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,124 +99,86 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|PH7PR12MB6585:EE_
+X-MS-Office365-Filtering-Correlation-Id: 201ece68-5da0-484a-f2f7-08df4218d07f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|10070799003|7416014|1800799024|366016|261009223027099003|261026140227099003|261028144727099003|261022105027099003|56012099006|11063799006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	ZZGAGIQTjSzDd5yv0crV7N8Umz1fzsnt/B/rUPiBvYJzlg38InEbPwetrnItO/JElLHa6JWbGyaLGODbnFvr6k83DW7aiMgFyeJqVZqCUDADO7lNq+6N0ul/nfN/qa8WHxCLrVOx7HkXgHhmD0AYBiGjxRB6fyGXFHTjRUipvfNx8dHVBumzUvzqIKHNXpIU13ANT+B7RSfOHRb9bspq5ve6cy+7L3jR3vEysl04o34E4HT98mWtH9ySLlaqRMX70PQ9Fi9jVhSv4gsxLsGBjFBlMKUtRXAib8ZRRrm7XaruZjrCH4VEb8GBCxkT4wOnJbR6fvnhGHy5Duo4vaEBJmC2ECFqAqhX7z8X/7/vqzmqCsEc4heVzJsfv92csY93IE24xQmKjZ0U2/FipSN/Hq6k1muI9n0fm8bK60UgozaJP10s4QOg7N4jqr+Byv/NEECfT89XyjD+g57vPMIrGxA/E9KNjq6uAujkkjZKUB7jrq9l0Sp0CjNW0aVh954a+MmI/jnlTN+CJkfSHFTxLLCzVGsZORQIdLkt7Ccp4xacdcQ04xOpOBRN0Zm0TY0JjW2GnJm0todA9Wb2CEdsQ7w4XvfRcV80ieV8QIuy5A+bWvtS1HAja6MNNYDP/XS7UztcNzksc63PReLjlFQnFTOFL/nkXnkT1VX21zulKDE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(10070799003)(7416014)(1800799024)(366016)(261009223027099003)(261026140227099003)(261028144727099003)(261022105027099003)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?N0xiQnB5NHZTMzJxbXVWZUExY0dTY0NBdkpsMDZoSzNiVC9vV09mUHpva0ov?=
+ =?utf-8?B?djA2ejZRZjNldnRHUlUwcUtPcnVtVU04THNhN3VVT2JTdEQyL0tDUW5ISm5h?=
+ =?utf-8?B?WHB3QVRVMHQwVTVQUGZGRFVQTkFJUmdISk1XYW1aZk5MdWtyWWllNWsvd3Ix?=
+ =?utf-8?B?dTE5blhILzZ6RHVJWVVUcjltemlBOFJnZXVXOHEzOEhWckVGell3c1FjSkZ5?=
+ =?utf-8?B?NHIwVHR6a1drV1dEMUxEYlBReHpuTjQzWmdwMHBEeGVXWHgzUGkvVy9CUHB3?=
+ =?utf-8?B?Q3gva2J2OEFrbytCRUpYbWhSMUUxbHNBdzdkUDdGakdTTzRWRkp4RG03akN2?=
+ =?utf-8?B?d1lnMjVSTEZqaER2b2Vzek5XNjVJOEUyWEVHcEQ4bnZIWWpFQ1BGY1A3OWR5?=
+ =?utf-8?B?bnFpNWlFRDdscmoxNnJHYUtqTFlUN0dTc1dXS3JVSFhFcG9wU0tTdlNna3FH?=
+ =?utf-8?B?a29Fb2l3LzR3clFwcDA5K2o3aGVhZ1dkdW9ydFdmNGZxc2pFU3BSeGo5R29T?=
+ =?utf-8?B?elVvYkV4YTRIS1BUYjFGdVBNNGpDUjJUN1FnS0puUzZFR0hJQUFEN2UrM0xY?=
+ =?utf-8?B?RXpyeE9Gc2svbHBxQkRTVDU4bHRqTmw0aW5aQWdtU21XcnZjVnpRSFhNTXM5?=
+ =?utf-8?B?b3FRdzJWZmtUZVVpOU9RWldGT3RGTUQxVEJyc0xWek93Tk1vV1BvVUdqRUoy?=
+ =?utf-8?B?ODNyYXFIN1VmOUs4UEZWWml6elpQOHV3cjgyZTZUbVNiSytxeUhncVdpQmVu?=
+ =?utf-8?B?V1MzenRteTFxSGJBMnA1ZC9BTEpsamNRaEhBU1F5UGFMdGZ1VEZzSTlDR3dV?=
+ =?utf-8?B?OS9OMGJXbEVWVU1uMDV4RjdrQkU1Yng1VHczajNPU09CWkJIbVJRQURGYTRS?=
+ =?utf-8?B?UXk0aGhhOGVjYjl3aTNiSmorNTUzWWx5VmN5dTh0amE0QjZWZkdBQ1Y0L3ZM?=
+ =?utf-8?B?c2pVbFpOdFUweERlVWdaeDVJUWVMRFNsSjNTdlo2TVhvUk9ZMDhZcnpKSTVH?=
+ =?utf-8?B?M2FRcS93MTlnZTJtSnFnTlhBdkRpRk0zdWhlY2pXb0pieG5iNmZyczBzYVhP?=
+ =?utf-8?B?Z0VaSGxIT0NoOTV4cndHK09qMmJtUTI3cTh6SzBWS1U5SGNBbTluQkNyQjly?=
+ =?utf-8?B?Mm1DZzF5L2d0TGorREsrYUJsdW5wMG02RUtUR0xYWFFZSVdoM0kyUGNEVGJh?=
+ =?utf-8?B?dDA5cmxPWVZXbjJGTjUrT2xCaXJUeXZoQVJ0aVltN0NldzR1RWNYcjBIaGhi?=
+ =?utf-8?B?RG1uTjVjMVNacGlRcTVmS2t1VVJXc2p0Q3JHQjNpQkxMYnFSZ0oyRFhQeW5K?=
+ =?utf-8?B?UmplUmRiZ3d3S3BhSk9USlg4V09GSUo4M1g0TEhnK0hJaDFIdnFJM0E5RXZD?=
+ =?utf-8?B?TFByL2t1Q2tBckdQNTRDaXIwSGkzRUF1Z2RhdU5VVTEwbm9kaTNMQW5pOFFz?=
+ =?utf-8?B?d1ZmWE4rR2s4N0s0dktuRUdwZDdGL0ZXaDV4TE5md1NnZlUvdk1FWCtFQ3RH?=
+ =?utf-8?B?a0t0eU5qcjFSbnlrbDdnRnlVZko3NDE4ekUyZDB4V0NGWDNxQy9Gc2tPdTBM?=
+ =?utf-8?B?d1BLdTdCOFpIN2xWK0I3bENjdVJhTEh1SjZFOEZONjRUb0tVd3Y5VE1OMjJ3?=
+ =?utf-8?B?eTdseG5iWmk0T0hLUnpkc3J5R3hLK2hoZllDQ1k1dG92NEYvdWtWK25UOFph?=
+ =?utf-8?B?U0t5QWcrVC9EU2h1ZGlQd0hQWnNRdFNwNWtpSTU0TzlibzAxdnluZzY5ak80?=
+ =?utf-8?B?aXJ3cVVMa2xaWml5WmNVM0NXYzNrNFQvTHRQYWU2Nlg0RCsrdlhlWlYzSWI3?=
+ =?utf-8?B?TStmS1ZFR0N5cDBCQXFJKytZVDVpZlV6V1BtNEloRlN6L3hvRTBzdzMxS0VB?=
+ =?utf-8?B?K2pVRzJ2R1pXRXpCYnYrK1Z5UWJYQ0x6UVhZbHFaV1RTelUxS245YU9BK1M5?=
+ =?utf-8?B?YXdUWTVLeHNpRlIzb3FaVnB2N3cxTXEzdWViUTljMjd2RXFRdmZWR0lvTzl1?=
+ =?utf-8?B?UCt2MGhYaFlUYXFMTTBCbXpHWTJPZEk5M29NY1hVdW1BWG5xb2lyQXU5VWRp?=
+ =?utf-8?B?a1ZyL0NkNnk5elR3ekQ0SUVXVlkzTW5xSktjcjFvRUszWHJ0S05lZWFlNGdB?=
+ =?utf-8?B?cTQyclpKVEtYbzkxUGR6b1JMbXVwdmtmR2d1aUpsc3lyczR3UGJicFFGb3dW?=
+ =?utf-8?B?M0dsUVNieGxCNHo0bzA2eTlkWHRTUDRibmczY2NzMUNWbURqMDk3dCtrQkFi?=
+ =?utf-8?B?UHUvNlAvMWpFaWdnQ1o0ZEM2c2ZyOVJjZ1ZZaCtiV0x3RVdnc08xcm1tRllw?=
+ =?utf-8?B?alB2RmxxU0dSb1QyOWYxTGQrWVZDUHdsL3ZzejBINVFHWFdkR1FyZWYrUjVj?=
+ =?utf-8?Q?BMMn8+Gj3/pf13Wp1vuSUjudHpqQ+NxS/XXyXK28hrxpo?=
+X-MS-Exchange-AntiSpam-MessageData-1: 1B0LTEnubuUeaA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 201ece68-5da0-484a-f2f7-08df4218d07f
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2026 06:30:45.7135
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TBwk/0Sv6sMVPRiykxMsEiYy7TYHpy+zvh9J7g9tGXRVV7CWKtVaJ7zCJhM++yhiEX54KhMGH6YrARtvqk/2BQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6585
 
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: profile: simplify /proc/profile read layout
-Date: Tue, 20 Oct 2026 23:58:33 +0000
+On Sat Nov 14, 2026 at 11:45 AM JST, Marwan Mohamed Zein wrote:
+> From: martell0x1 <marawanzein222@gmail.com>
 
-read_profile() is needlessly difficult to understand.  It copies the
-four-byte sampling-step header one byte at a time, then manufactures
-a pointer before prof_buffer so a file offset can be used as a
-counter-array offset.  Its signed byte counter, unsigned long file
-offset and repeated size calculations further obscure where each
-read starts and how many bytes it transfers.
+Please sign with a full name.
 
-Treat the file as two consecutive regions: a four-byte header and
-the profiling counters.  Use size_t for byte positions and lengths,
-copy the bounded header in one operation, and address the counters
-relative to the start of prof_buffer.  Retain the full loff_t value
-for EOF and negative-offset checks before narrowing it to size_t.
-Brief comments explain each region.
+>
+> The returned slice is derived from `out`, but lifetime elision
+> ties it to `self` because this is a method. Explicitly bind the
+> return lifetime to `out` so the returned slice cannot outlive
+> its backing buffer.
+>
+> Reported-by: spidermana <xuyiwen14@gmail.com>
+> Closes: https://github.com/Rust-for-Linux/linux/issues/1265
+> Signed-off-by: martell0x1 <marawanzein222@gmail.com>
 
-Keep the word-sized shift and explicit narrowing required by Avi
-Weiss's "profiling: fix sampling step on 64-bit big-endian systems".
-Assign the header value separately and explain why the 32-bit ABI
-requires a narrowing conversion.
-
-Preserve the partial-read and fault semantics established by [1/2],
-including short copies within either region.  The full-width offset
-check also prevents 32-bit pread64() offsets from wrapping into earlier
-profile data.  No other userspace-visible
-behavior change is intended.
-
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-Tested the combined three-patch series on x86-64 and i686 QEMU/KVM
-guests with CONFIG_PROFILING=y and profile=12.
-profile-read-test.c: PASS (0 failures) on both architectures.
-Covered short and unaligned reads, header boundaries, EOF, partial
-user-copy faults, return values, file positions and retry behavior.
-The 64-bit big-endian sampling-step fix was not runtime tested.
-No separate per-patch or unpatched-versus-patched run was reported.
-
- kernel/profile.c |   61 ++++++++++++++++++++++++++++-----------------
- 1 file changed, 39 insertions(+), 22 deletions(-)
-
---- a/kernel/profile.c~profile-simplify-proc-profile-read-layout
-+++ a/kernel/profile.c
-@@ -153,35 +153,52 @@ void profile_tick(int type)
- static ssize_t
- read_profile(struct file *file, char __user *buf, size_t count, loff_t *ppos)
- {
--	unsigned long p = *ppos;
--	ssize_t read;
--	char *pnt;
--	unsigned int sample_step = (unsigned int)(1UL << prof_shift);
--	size_t not_copied;
-+	const size_t header_size = sizeof(unsigned int);
-+	const size_t file_size = (prof_len + 1) * sizeof(unsigned int);
-+	unsigned int sample_step;
-+	loff_t offset = *ppos;
-+	size_t pos;
-+	size_t done = 0;
-+	size_t n, not_copied;
- 
--	if (p >= (prof_len+1)*sizeof(unsigned int))
-+	/* Keep the shift word-sized before narrowing to the 32-bit ABI. */
-+	sample_step = (unsigned int)(1UL << prof_shift);
-+
-+	if (offset < 0)
-+		return -EINVAL;
-+	if (offset >= file_size)
- 		return 0;
--	if (count > (prof_len+1)*sizeof(unsigned int) - p)
--		count = (prof_len+1)*sizeof(unsigned int) - p;
--	read = 0;
-+	pos = offset;
-+	count = min(count, file_size - pos);
- 
--	while (p < sizeof(unsigned int) && count > 0) {
--		if (put_user(*((char *)(&sample_step)+p), buf))
--			goto out;
--		buf++; p++; count--; read++;
-+	/* Copy the four-byte sampling resolution. */
-+	if (pos < header_size) {
-+		n = min(count, header_size - pos);
-+		not_copied = copy_to_user(buf, (u8 *)&sample_step + pos, n);
-+		done += n - not_copied;
-+		if (not_copied)
-+			goto fault;
-+		buf += n;
-+		pos += n;
-+		count -= n;
- 	}
-+
-+	/* Copy raw counters using offsets relative to the counter array. */
- 	if (count) {
--		pnt = (char *)prof_buffer + p - sizeof(atomic_t);
--		not_copied = copy_to_user(buf, pnt, count);
--		read += count - not_copied;
-+		not_copied = copy_to_user(buf,
-+					(u8 *)prof_buffer + pos - header_size,
-+					count);
-+		done += count - not_copied;
- 		if (not_copied)
--			goto out;
-+			goto fault;
- 	}
--	*ppos += read;
--	return read;
--out:
--	*ppos += read;
--	return read ? read : -EFAULT;
-+	*ppos += done;
-+	return done;
-+fault:
-+	*ppos += done;
-+	if (!done)
-+		return -EFAULT;
-+	return done;
- }
- 
- /* default is to not implement this call */
-_
+On these tags as well.
