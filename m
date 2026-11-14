@@ -1,89 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.37
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794676561;
-	b=pmN7aN58vqHvNjvkr99O3i7dasn9BQKdTCnlx1roNfQhz/+Hmhh3cdSGFRebPXzVftXF
-	 Fo7g24l0u7qFKXUC71LhyKRYf+SGSThXZ0OmCsUazbIrRzzEIi6KSDDP0HlaTrLPRK6IX
-	 Viq6r8moZ6SBor6jrfjyVya+bD+PPloiGCNM8lheJ9723rdfzW2AhSInaLX9u4Q7DVTTN
-	 wyQY8CqPH6fpuySuZeihsy0Qh4Yt81/yYzB/942c/5MgkjmwKgrvc0aLXaldvZU0/2eqB
-	 J4UD+dLP/t4RGWXv8bSPqA7yTfcGFg1vAupIYjwirQR3x/KrQ/oMCtCKiKckhRfa4NQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794676561;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=Hs/PkOTJBUnLc2WxQnpdLATsC3XXPb/XE2GbbAtWhEw=;
-	b=suEI1HyZIFs5TtWkbNJ3OAfj50gMxOIiCyVjLgDyhzju5oBPcyjYyB/CGe52tZImMmPq
-	 AZgg+MDgLnPUGNKy/63iafFYCRgd+1SDhms9F8izevmjOfcizkuLmBFXZBOMgbOLZXDOO
-	 teyCyPtCY9xg/GzpNTrY+jigjLwY/UH6tlFz9wRtOo5mdzM7I6v2ggXs5CgmhunuWMr6B
-	 +G/q5ybs3n0ZDtZt3IIUg0hlrNx5wLyZn4vup1KKEuGYHzL8ttqb8INpv+1wi9UR+BFoQ
-	 WBIl6vhwE+V+v8Mv3sTzPrwjoEENEfTwcddC1MfghtEbZnzp0Ep7I+qdvNy4pIDtPpQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=IQXunpTp;
-	arc=none smtp.remote-ip=35.89.44.37
-Received: from omta38.uswest2.a.cloudfilter.net (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.172
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794676574;
+	b=3jfFMCnxH6RC2agpOlfUF8kZK/Ls1D4lFKiCa5SAxgZ7pPKHlMeiCreta/+IUv84GOdI
+	 e4WLGqx/iv3b/2YUr5G93WehM/FJ0sK63V7NRI/+WGHhwxX3/dBZOazlbVFTXcuIFlqfx
+	 FDbcwa7/wR3FzQ2Fen9eDkz33FrRa9ScfRBTphsPgH1RNrOs32qhy2NwmAHb/9OcsuSOB
+	 QgknN8AWlu2cKRD3vOOAjg5cOBs5qfcMgm3J6m2TOBu2jtM3UImOBamqEHzyfVbdcbSc0
+	 PcqK7798csO/VfWtLRrRBrKBgb9Gmzh7nWnwCONGCiOIyaeHK+RjXIF6HBbB/+8PplQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794676574;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=31xlbb6hx1eX0rC5HvEAM3/FqjUjtY0Jax6WCFj+W3o=;
+	b=4oVwupVHGCoJoMQiwde4il52FcUYdXsQqrFRpKZBY7XI7a+Q95ePoSeUVkVpekjpNPpa
+	 1E7h5zFA2MTCQDywR3pjFkQYLDDECJ4Cm3h3u0uUHinwAMMhfpKdJ3XORFSMNAjq8tTO7
+	 //0LX+Ghj7+iFN/SoK5osQy2ZDYMq5JS3UE3DaUeGEWDbzVQwXyhEqKsbmQi09ErMawfd
+	 E73D5z+mhENCa6G1GaqFTJOcsbZHYgTxbKIZQ3wCO+CCJxxtuXtGg3Koywkz1iCw7SQu4
+	 iF1r+joNAzjgWwG2e7y5Ei+6kLfGomHdGdsvEBrzpDyoOHtadS8gFHVj4g2hTHditEg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Uu995ZBS;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.172
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BC88606A327
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:16:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BC88606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7652E606A882
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:16:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7652E606A882
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=IQXunpTp
-Received: from eig-obgw-6005b.ext.cloudfilter.net ([10.0.30.162])
-	by cmsmtp with ESMTPS
-	id SArexJsumVK9USHM9xmVC8; Sat, 14 Nov 2026 17:16:01 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id SHM8xfnDI0288SHM8xbMn3; Sat, 14 Nov 2026 17:16:00 +0000
-X-Authority-Analysis: v=2.4 cv=a5Iw9VSF c=1 sm=1 tr=0 ts=6af89750
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=rxihhvIKAAAA:8
- a=XYAwZIGsAAAA:8 a=DtZlJFn97RoajThK6kYA:9 a=CjuIK1q_8ugA:10
- a=vyXZNj8PikhivSrfMdal:22 a=E8ToXWR_bxluHZ7gmE-Z:22 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=Hs/PkOTJBUnLc2WxQnpdLATsC3XXPb/XE2GbbAtWhEw=; b=IQXunpTp3P2M6XyKFh39c7GJ7T
-	wZ61qrjKhD8BiNlKLaUwzvDV5mX/iRsySGUY+CsvsR8XtG3YuL9qpsKnTzYJh3j8UXodUzJ5MzAB+
-	3oDKtNuLlkKbeOcWDxTtwUX7rdd3X4YEX+CCrM7vzCTHOXiBe921ol/3c4cQwkg1hTjjVle5xORjO
-	DYc8x3rSYiR9CgM0FNAzVEwmsiVa0p6IAQOco0SjNCwMjREmz4vCdTT2YWQ1rwNqe/Ld8PQMcYqL2
-	CsA1JFP/TUmGl8RKYCMIa7Zr6lIM43mxrG3VKnt7gtZ6kwewzkpaqgGoHwdosHZn+uvWX5aQ0F4ys
-	bawXKeoQ==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:34542 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xSHM6-00000000ZoN-11s0;
-	Sat, 14 Nov 2026 22:45:58 +0530
-Date: Sat, 14 Nov 2026 09:15:57 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Rong Zhang <rongrong@oss.cipunited.com>
-Cc: Keguang Zhang <keguang.zhang@gmail.com>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Rong Zhang <i@rong.moe>, Yao Zi <me@ziyao.cc>,
-	Icenowy Zheng <uwu@icenowy.me>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>, linux-mips@vger.kernel.org,
-	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/8] dt-bindings: watchdog: loongson,ls1x-wdt: Add
- compatible for Loongson-7A
-Message-ID: <6179a943-b12b-46dd-bb64-c187ff779bb1@roeck-us.net>
-References: <20261113-mips-ls7a-wdt-v2-0-e8abd6b2f77c@oss.cipunited.com>
- <20261113-mips-ls7a-wdt-v2-1-e8abd6b2f77c@oss.cipunited.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Uu995ZBS
+Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3ae1fd4252fso22536271fa.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 09:16:13 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794676572; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Zypn/E4hSl+HsMEgi4RwGxkRTPBxS0tuxYgnkSbTwK/9wic1YwsAqFPqTqSnIn93pH
+         BvIxuZUyvTUrJp//pC4HzhuBZis4YJmfBhzlnXUTN8DO6nH3xvJqn79WWAxT4hMGRfZo
+         qQ6j0VEMn4rmdbXmyCYpEYlkq8W8WPRVm/T7ppS5qTfaE13YuujAylphfZgog0qf7vWj
+         1e1Hld1ikDRiqKInAyKpvhuK2JJNrZDJg8PcEmrFKlsNom9+saCLBTsLeUG6APp+vuwL
+         /8xDGIBe3yZKbJ4lDKc3O57fwehZZcdzSJEJ0GQbF8KIS5q8nLcytdxWsumsVu3KFsYm
+         a26w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=31xlbb6hx1eX0rC5HvEAM3/FqjUjtY0Jax6WCFj+W3o=;
+        fh=vOCSBQhv1Evn7K4j+tniziHYyZ9J6ZaJPRJimOTJzGI=;
+        b=s0uMbeKNAcDiQveI3m7kZ7oh+04xa9OCDMFg6NrDqtx7SkmjqqQ6scPWrMRK9vB7fm
+         UcgMDcOuiZFc5dUl6eJcxIMAFigwsQLN4/teK4f2LrAEFc5ra8ZJqFqxq5b3eZWbYtTc
+         BoiqHngGUUMm3IozARQJEJMvSiYztCYalclBTXGCcIGKAP4aKCPfFoUlzM8OqYcYvlIj
+         PZAX2DlB3RvkP29nl+CMBzYo2zsWdLKJNYSbTfV1be9mRn5BzRiY/lAoTtmTu5RzK1pb
+         QAz/xjOlWA5mPlr3ILqv3x7f+eUNDXt0fzRtmP5IUWGQZiOV/tkSHlHD3NRnn+LabQxC
+         wA0Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794676572; x=1795281372; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=31xlbb6hx1eX0rC5HvEAM3/FqjUjtY0Jax6WCFj+W3o=;
+        b=Uu995ZBSYhVk/ut3/p1P+Cl0wRRbF8bK59Cz7xgSi5+2v6nWcu2ZhiE3nyXDOvQ1Qy
+         dNrB221bQZ5ANxofHUgDBI7tcl36ZS4Ycj1ds6hMib8DlL6G2xJZ1+5e0C0mK4oDhr0y
+         SDAGKDs1KLAntHl25lmgVL2N+UowpjXw6x4Tu95iRo0EIhfzZGgQgDgOam6qdXIitoXn
+         HUzbEEdNlfeN+JlcUhajAIuEpmKFyw6viWoXYWk+q4VUWtur7u1uQH64iix5MP9vjIy4
+         LkrSrNqAoT8yJXXhbxsnC4uYKSabcLnzuinvhK59LWcNOsyLEPFJFFhkVtg2SIh6DgUT
+         wtWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794676572; x=1795281372;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=31xlbb6hx1eX0rC5HvEAM3/FqjUjtY0Jax6WCFj+W3o=;
+        b=03YiCZfB2eZkHFI5Yqo3wiaLfe77BUqCXavRWBrtsvpkzybk37nO+BuWx+yNatdwIi
+         akXCZR5mV7m0mwkfk0ZR2ZPZTU2+5tBGyTiG+End4kq38R3oArZ293xEgMM5T+C2mfZg
+         5c1QKpzS/78FPWD0L52INCgJF2zW+7YrUzPsrU0U/YMcDPC1q4bjqITDo67MrfIi1xfE
+         kq1PimmM4dze4JR+zS1VKOo4KHL8eSYGJpVqbBYTUiBep5xt5ig7JFbLKzK21tduYxC+
+         uq8QwgR7+i/eX0ai/XQEktCqV9ZxcwcwN84DjleXxOlZF/LnjR+ZlvaLl2OTdERJ4wBa
+         P5qQ==
+X-Forwarded-Encrypted: i=1; AL+hErHGpFJRngAZdQ0lRW2kqItCBQZgeWZsIwx6knvzdL1Dg0McWOGhOv8P+asr/xIAXnPWm8xqbSH+YUSGGM8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z83L8AbGky0ySIqr4YYV74EfwIlhjSE6wS4nX+ZdwMm8BpfRu5b
+	LSunsJ1GNNxDq+cUM3yNLvI8BldlgJjcjwEzyHC1WsHGxcPKkbStUmlhKzsC6wjU3/hFsiOmAfQ
+	vPqRwbX/BVgijM3MjVqSG1JMWb9ofhUc=
+X-Gm-Gg: AYBFou2YTzEDBGjtMkfCChSrsgKNrG9ldh1zvtamy5CvhoTx+b3yYiSBvwyCM4wfIKq
+	K7KsbmNKrOEj7Sd8HOEs3xUniPusPfQ5Hm3GCXVm5CpxdmDAo7OdI5LaxdN1u9GiEz1qfBy7tdv
+	FJ7oONw2KWRfuL7t494SQlq8tYs38zop3imeWnOIzqsOO9Cno+zRsZDaHGvAHmE7p/huTFw1ou5
+	XR9jY20QS6i7jVuwH5JjlgIPxNEXzkZte96Tzx+ovxnWIFmG29AxJm7lS/9uFNi6p0yqBqA2wmi
+	S9IghnoI/YMA5LaWoSNhJ1QQVE2PBfn+63y5b/mwF/+qopcqehFhx7r4arCoDLfh00h9uFN7dQp
+	KnwKpObYQvP0RA15nRqN0xtHXvXgiydd8gP7eq3jOKlIpB0YGBqH/Uvd/ILLuXtzKyeTSAyq3a8
+	vmbNExfdAIcRPJiDFyeESxOakcPg7BTpqx0Ailiw==
+X-Received: by 2002:a2e:bea8:0:b0:3ac:fe79:5a6f with SMTP id
+ 38308e7fff4ca-3ae2b42eeadmr21400341fa.3.1794676571309; Sat, 14 Nov 2026
+ 09:16:11 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,40 +105,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261113-mips-ls7a-wdt-v2-1-e8abd6b2f77c@oss.cipunited.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xSHM6-00000000ZoN-11s0
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:34542
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 11
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfHgWWywRb4VblmvQ2Dy1sJAr79UhAVsCBjAnf10xQFNsWU8WJvDbHjsS98bOuXKvz/aNd4lumelvI6hjY3MuqugrY0WR3sD/HBHeZYQM6BAn4lX7MLYH
- LPZdVtaIJdUqB5NNIDPIRewzvj8DPLnYMSQ3A23tGLYn7gO9pXfhKENpWRSIpGOAAeyIkXCqU7Rgl84A77FLguc3V4btfKO7dSIgDhwhoHPE6SPX3n58cOMe
+References: <20261114095335.1283016-1-linmag7@gmail.com> <20261114095335.1283016-2-linmag7@gmail.com>
+In-Reply-To: <20261114095335.1283016-2-linmag7@gmail.com>
+From: Matt Turner <mattst88@gmail.com>
+Date: Sat, 14 Nov 2026 12:15:57 -0500
+X-Gm-Features: AclHuK8pfoOdDB1dTXpJvk9VU3VN7aUD2aIn22xx6EnrehJ7wih6FztmrukmuUg
+Message-ID: <CAEdQ38HoFs7Mf65EcOSwLOYsXcD1KrTFkq05gnU_GmXGpYVZ+A@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] alpha: parse early parameters before reserving
+ contiguous memory
+To: Magnus Lindholm <linmag7@gmail.com>
+Cc: richard.henderson@linaro.org, linux-kernel@vger.kernel.org, 
+	linux-alpha@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 13, 2026 at 06:51:08PM +0800, Rong Zhang wrote:
-> The Loongson-7A has a watchdog compatible with the one on Loongson
-> 2K0300.
-> 
-> Add "loongson,ls7a-wdt" compatible.
-> 
-> Signed-off-by: Rong Zhang <rongrong@oss.cipunited.com>
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+On Sat, Nov 14, 2026 at 4:53=E2=80=AFAM Magnus Lindholm <linmag7@gmail.com>=
+ wrote:
+> diff --git a/arch/alpha/kernel/setup.c b/arch/alpha/kernel/setup.c
+> index 9fda01b73b18..c7b7ebcc47b6 100644
+> --- a/arch/alpha/kernel/setup.c
+> +++ b/arch/alpha/kernel/setup.c
+> @@ -579,6 +579,9 @@ setup_arch(char **cmdline_p)
+>       if (alpha_mv.init_arch)
+>               alpha_mv.init_arch();
+>
+> +     /* Parse early options before reserving memory for DMA CMA. */
+> +     parse_early_param();
+> +
 
-Applied.
+Once your jump label series lands, this will run before start_kernel()
+calls jump_label_init(), and any early_param handler that flips a static
+key will trip the "used before call to jump_label_init" warning.
+threadirqs and randomize_kstack_offset=3D both do that. We don't select
+IRQ_FORCED_THREADING or HAVE_ARCH_RANDOMIZE_KSTACK_OFFSET today, so
+nothing breaks yet, but arm64 and riscv both call jump_label_init()
+right before parse_early_param() in setup_arch() for this reason. It
+returns early if called again, so it's safe to add here. Whichever of
+the two series goes in second should probably do that.
 
-Thanks,
-Guenter
+Reviewed-by: Matt Turner <mattst88@gmail.com>
