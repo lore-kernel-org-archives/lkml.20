@@ -1,62 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794618170;
-	b=A4gBRq9ye9DcWGwVftTaokz6vKivcUleXdjLJGD+56gRb6Pu+0M04V98AIAPwY1XcxGk
-	 kU2WxQoB38v7oB9Fqk8MV+F39e9nus0Fp/aaWaxH5Utn1/EmA2GkUoG8YxYdrROnMYPt9
-	 CE9HFMWvGPiOXg6Ow59Zzs7nmAyz2Ilwh9+84ZcIvQAArkBhooJBKiVfchPtA+09oJlyR
-	 JLetsUzmK1Wbpgs0sd8lWKRwkPxoDR+1yw60N2lxTzNVOiL/QVTsi1QR6FLJ3D2o5lzxS
-	 1/8hletqe01wQHzrJM312ph8PMoxSTRZu4bhNop9m3ODXjgEJwfaHKAO7RUjMVfRhoQ==
+	t=1794618171;
+	b=ovgJFFRN75Ld5eOvfw0+9iqzCwJSfFRGCxS8SlyXQ1vQG1OpuAACPIrLsMUm+jTpLSOc
+	 8PkzH5UL8VddqVXhvMxZgOZ2N4MIMbhUGbqNWXvTvNI0GkJ2EwrFU5RE/WIH5Qn0DlLs+
+	 UbqCaD80qn/ov5Y8Mv9RJASGgBCtNDkJFD40qd0gmoYWUJ+4ucRkUlyElbfXdUUKH6Jk1
+	 4ouSCRnxDVaj5qew5WnLso6g/nTTc3EtplUboXa7Y+mNfw3ZobNHvO5u/NPFYFDp5f28a
+	 uVZJPOGv6VagaalMUn5WwZETajiJNrVVIo0febntPfhzN27m5Uy3tynTtLdNVUSKvjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794618170;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794618171;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=wP0EsqHQjgsrQXbVB1hh1kUixP0fbbetL/gjkhCcYPE=;
-	b=RRcq3dpdmlr+1LKxOMOVZ3fHZWAX57WeQsP1i2e8uhqlosK0qMhU5DsqElSMHK+j8Zj2
-	 AviACo2m4Wb5nSlnY2wiFPUM+9uFyBYwkZCPSCoqnOm8xdApOOMb9TUajYRSSOtfMSCjd
-	 HkdLgersNLq46x0iTjW70/E6tJ0c2i8WoRnrjW0Wl7ukIkDzuPTytKHzZ2WehJjiGZtSb
-	 RXABiGVRIIC8Xyl8xpsE3PPRDR46Zd2gaH8+94TQwipLBvOnzk/GF3kg9l4k9W9ise8No
-	 494nflPMLhe1arIvfl4hMNdutg7gVLpM17Lz1FqGo3AgIG6uOFKHowSck8u2FX+I16Q==
+	bh=Cv8P5miVZuYEKgmArl1OJs1HmGv8dXHrbdg23EvDXYA=;
+	b=pRGiiPgz7a+1J6Cv3L0gi3RWDkX82ZfkOUGFjSaw1ExgUBX1ZtN2ZBRrz8VncgMDIT4v
+	 sdb9qScIkRchEu2hKrMhNQ3GU9caA7dq+F2rmlOdVb/PWlJFVPn3gLIZ3l1Wo41bJKooh
+	 fCRQxqvHrJKI/PRL3goc3Wq0dSiJYhs12IoBSlfubUnGMrbwPh18IBNLHCiyf53QJuSmb
+	 QioS3MlemeYJ7zi+ETixR63ppJZjJY6zG6M3GVYmhyu9V9OLdXQ85Y3lmDx7Zrr6Hwbow
+	 pr2czI0WlHVRvpQZUcYv15J8edrvMlP8V2oNGS6oAwl2WKBM2UeQcUIBrcYDFg1utDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=AlplqCvC;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=qMANL379;
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5783F606A8A9;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C03F606A331;
 	Sat, 14 Nov 2026 01:02:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5783F606A8A9
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C03F606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=AlplqCvC
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=qMANL379
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1794618166;
-	bh=+715V88lFL2xyfiIvg+gLJGYekEgJMm4EkTZJ8soaGg=;
+	bh=g0X6JocB2VyTivc72aE0Omr9YagRRa/kK2iKOuWwk04=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=AlplqCvCVYZ+wKgkHcaKLekzMfWssBsPzzB+J6czVg36oGtc/fvBAmMs+RNiXqIAY
-	 iBi1SdwZZ/tQTzaTkKfbl7FGzOsa1wHaBaUuSN69Gf0gEfLknjNIpBkmYDU9Z0tthp
-	 PT/2IdbuhWy+pzpNR05wMa4k22yx/bDNE5X4rpYmu/Lo/Fc/BxMjtMrM1iBz5RtGFw
-	 GRZtMOLCLTfYo0ZxY84P/21rNA+rQ7TyaR/QezsnBix7YIF3g9BW/HFOonMpxiPZGd
-	 eGsdEQB6WktdqQkyIalp/0dea2hssS1PqYknA5sB4K4inQuVLY6Ang2+56hEjiO7ZG
-	 zKCI6sCd/XhJw==
+	b=qMANL379jhUDGWFPor10CFnutR7LqDDBUfzMGf6lkUyVufvtrOcdaDRFUeB+htiJd
+	 1Cr3Ub8Odk2zGGrf8nOC9q31N4Kc2F2QJfy6gklHbBsboEaMinsAUpvEnFHZ6nHRwp
+	 g0iM/iD3K1AFU+hecnuEX1V6v2h6WC4qaHN/K4/LfWUdO8lF6ayYJirlHHQ0tb82ju
+	 XuKsEEGzHjTI9klGcwxeD+KNXcoL7bXwKDTKR4FSSECCJdgPOfCtSVLy45KStD1Q4t
+	 fWunbim4z2Uv9AyyFZLUzLBkcPGJLg7T1Z2EoFUy37jAvWSLltIXsS8ZrylhkCsRcr
+	 YTrg2HzDdlY4A==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5C40317E12E0;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5E58017E14AA;
 	Sat, 14 Nov 2026 02:02:46 +0100 (CET)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id C80BA480038; Sat, 14 Nov 2026 02:02:45 +0100 (CET)
+	id C9CAF48003A; Sat, 14 Nov 2026 02:02:45 +0100 (CET)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Sat, 14 Nov 2026 02:02:04 +0100
-Subject: [PATCH v19 5/6] usb: dwc3: core: only access GUSB3PIPECTL under
- lock
+Date: Sat, 14 Nov 2026 02:02:05 +0100
+Subject: [PATCH v19 6/6] usb: dwc3: rockchip: add USBDP PHY reset quirk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,7 +67,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261114-b4-rockchip-dwc3-rockchip-glue-v19-5-b79fb5f4b42a@collabora.com>
+Message-Id: <20261114-b4-rockchip-dwc3-rockchip-glue-v19-6-b79fb5f4b42a@collabora.com>
 References: <20261114-b4-rockchip-dwc3-rockchip-glue-v19-0-b79fb5f4b42a@collabora.com>
 In-Reply-To: <20261114-b4-rockchip-dwc3-rockchip-glue-v19-0-b79fb5f4b42a@collabora.com>
 To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
@@ -85,113 +84,277 @@ Cc: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
  linux-phy@lists.infradead.org, kernel@collabora.com, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3324;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7897;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=+715V88lFL2xyfiIvg+gLJGYekEgJMm4EkTZJ8soaGg=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr3szU8b8wImR7sGB0lNz/TIcOHZLsFi48Bu
- vFbb7/2iq4uI4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq97M1AAoJENju1/PI
- O/qa1OYP/jRTmHZFSym5VDKOx8YKpWAhMLcRWb9DiUQcLE12MX7yuy8IOP5s2/01QT+eLZ5fs+8
- p4Raimdcn7+P293+SIBn/27k56TTUB0MlNzwxAvrqFOjR0h4wuDFbFDcGW+q433waAHSYomGoy6
- xHt7WH5HFRpTW7g/xkwYk6ONWps31E5mD8OA0T7ICPh1XsN6bR0XW1h9Amd5sKZ1lLk2zebtJ33
- 3Tps1etGlBNZeV2TPqylSZFJkg60Pk5KthcJXppmhskfJXZRkNqKAhXwrLtwVRrJ+kvQuGxDxGh
- bHg5a5/DrkG6F6W95XqgauDywGE2BZY6nclFrsZ8cnx0F9uI0nY8haNpcWZ7TSGyYSZJHu6/NVj
- IxK72JHjoyX6G5iuaBEvgeA39rjoO7aoNpIywsHtO2Ycp8TlnK1tln53/5tUuqEogtx1XO460ae
- NB8/C/jNLeoKOC9YDuw4ZUVYR1gtquzUUBlDemi6BnY5pQB/9iQc5qaL6XgFONRVYcwu25DJIcN
- tbP8Wk8lOdhdUrrM6pDBpvoMJDaUtHuswrSYL9np2tk48Vg8HSzITs3Amfs8DUkfWfPtKGVD/Hs
- wNWP4GsVuiv2hynIysUTq4H0xONT7pHZBDcT+5JCen44seE+UY46y5Qc842/lRAe2M7slScqC9k
- WBRnzlpDVySUWg1SKUCsx0g==
+ bh=g0X6JocB2VyTivc72aE0Omr9YagRRa/kK2iKOuWwk04=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr3szVhtZpqns5w2s0Zg7SSkBkwC+W2H7yMF
+ 23mFsaqd87kaokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq97M1AAoJENju1/PI
+ O/qaNhAP/1X0jU5hid9o2gP4+cwGm5zAJ0PHCOTPJyPu3c8tNkyhZ9+xKQ2pgbvvoHL3YuhvrcY
+ e7uK682v5ofZaQV2hKOdL3hf79IL2mudZioN7zgS9zRj44vSbOO3xlqHQcHBOfcC2/hmppyCerl
+ RCXW2hl1cFT7L4o7w08CnSSBY9C+HAXvp63QT42F9j6D4nsnF5rP/N1chJxqovN/9XYXimaz16F
+ oN7MMXTUrbcJCZTe8iPO55sxEHGmZYrjhA5P02mnTgJhKn0Ylmyg8p09yfaYhq740M9ZRZ0Z7wy
+ I1PwrJcbYhZzxTNcgmUiAcuiEPNadakNm9KRh00zQJTKdF0HhhubYqSRsI41r52JlMOCPSKOt5S
+ GY9tTVuGuvhEWngvf2YFhqffbn/AE12lkw6pzTqY5z1ZLdpeQxl66M/3rzElNoCxVUuKooDg6LV
+ ahqGIrTEvNEdNf3OP+06uwKd9eL67LZg6CodpYyacW6tadu00D0kYoWK9L60S/o5aTPNtpvyQRm
+ e0sstC+nIXopKbDOh5SEUaCT5hek0ksWt/5QKTE+ptpcuw5c9tXphxTHiLtN2BLnhh+obH+xlNJ
+ 7MpAigCnAy048QW1PDyBqD/1Qu5Fd88ueHEARkffHCD5SF2PlTbBDADWhOANhLB/GWD2++RPZi5
+ NnHTauir7xqGPU191CFM4Eg==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Update dwc3_enable_susphy() to take dwc->lock while updating
-GUSB3PIPECTL to protect the read-modify-write cycle from other users
-accessing the same register, which is soon introduced.
+On recent Rockchip platforms (at least RK3588 & RK3576), DWC3 IP is used
+with a USBDP PHY providing USB3 and DP. This PHY needs to be reset when
+the mode changes, which may happen when plugging in different USB-C
+devices.
 
-Note: technically there is already dwc3_ss_phy_setup() as a second user,
-but it runs and finishes before any call to dwc3_enable_susphy() should
-happen.
+If the USBDP PHY resets with the DWC3 IP running, its internal state
+corrupts resulting in the USBDP PHY not being able to lock some PLL
+clocks, which effectively renders USB3 unusable.
+
+To fix the issue this adds a Rockchip USBDP specific quirk, which will
+assert PHYSOFTRST before the actual PHY is disabled and will deassert it
+once the PHY returns.
+
+The quirk is skipped while DWC3 is suspended, as its registers may be
+inaccessible and the device being suspended is a quirk in itself (the
+vendor BSP enables runtime PM with very short autosuspend as a
+workaround for this issue). Thus the code just ensures the PM state
+does not change while the PHY reset is going on.
+
+Note, that the same platforms also use DWC3 with a different PHY
+(rockchip-naneng-combphy), so the PHY calls are protected by a
+driver name check.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/usb/dwc3/core.c | 19 +++++++++++++++----
- drivers/usb/dwc3/glue.h |  2 +-
- 2 files changed, 16 insertions(+), 5 deletions(-)
+ drivers/usb/dwc3/Kconfig         |   1 +
+ drivers/usb/dwc3/dwc3-rockchip.c | 154 +++++++++++++++++++++++++++++++++++++--
+ drivers/usb/dwc3/trace.c         |   3 +
+ 3 files changed, 153 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
-index daf5aec07fbf..0cb1b33a7c98 100644
---- a/drivers/usb/dwc3/core.c
-+++ b/drivers/usb/dwc3/core.c
-@@ -108,11 +108,13 @@ static int dwc3_get_dr_mode(struct dwc3 *dwc)
- 	return 0;
- }
+diff --git a/drivers/usb/dwc3/Kconfig b/drivers/usb/dwc3/Kconfig
+index 3c120ea9746d..c86c1ac293bf 100644
+--- a/drivers/usb/dwc3/Kconfig
++++ b/drivers/usb/dwc3/Kconfig
+@@ -193,6 +193,7 @@ config USB_DWC3_OCTEON
+ config USB_DWC3_ROCKCHIP
+ 	tristate "Rockchip DWC3 Platform Driver"
+ 	depends on ARCH_ROCKCHIP || COMPILE_TEST
++	depends on PHY_ROCKCHIP_USBDP || !PHY_ROCKCHIP_USBDP
+ 	depends on OF
+ 	default USB_DWC3
+ 	help
+diff --git a/drivers/usb/dwc3/dwc3-rockchip.c b/drivers/usb/dwc3/dwc3-rockchip.c
+index 4129aefd6a8b..25bf2794c1fc 100644
+--- a/drivers/usb/dwc3/dwc3-rockchip.c
++++ b/drivers/usb/dwc3/dwc3-rockchip.c
+@@ -2,11 +2,120 @@
+ /* Copyright (c) 2026, Collabora Ltd. */
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
++#include <linux/phy/rockchip-usbdp.h>
+ #include <linux/pm_runtime.h>
++#include <linux/wait.h>
+ #include "glue.h"
++#include "io.h"
  
--void dwc3_enable_susphy(struct dwc3 *dwc, bool enable)
-+static void __dwc3_enable_susphy(struct dwc3 *dwc, bool enable)
- {
- 	u32 reg;
- 	int i;
- 
-+	lockdep_assert_held(&dwc->lock);
+ struct dwc3_rockchip {
+ 	struct dwc3		dwc;
++	wait_queue_head_t	phy_reset_wq;
++	u8			phy_reset_active;
++	bool			pm_suspended;
++};
 +
- 	for (i = 0; i < dwc->num_usb3_ports; i++) {
- 		reg = dwc3_readl(dwc, DWC3_GUSB3PIPECTL(i));
- 		if (enable && !dwc->dis_u3_susphy_quirk)
-@@ -133,6 +135,13 @@ void dwc3_enable_susphy(struct dwc3 *dwc, bool enable)
- 		dwc3_writel(dwc, DWC3_GUSB2PHYCFG(i), reg);
- 	}
- }
-+
-+void dwc3_enable_susphy(struct dwc3 *dwc, bool enable)
++static inline struct dwc3_rockchip *to_dwc3_rockchip(struct dwc3 *dwc)
 +{
++	return container_of(dwc, struct dwc3_rockchip, dwc);
++}
++
++static void dwc3_rockchip_set_suspended(struct dwc3_rockchip *dwc_rk, bool suspended)
++{
++	struct dwc3 *dwc = &dwc_rk->dwc;
++
++	guard(spinlock_irq)(&dwc->lock);
++
++	wait_event_lock_irq(dwc_rk->phy_reset_wq, !dwc_rk->phy_reset_active, dwc->lock);
++	dwc_rk->pm_suspended = suspended;
++}
++
++static void dwc3_rockchip_phy_pre_reset(struct dwc3_rockchip *dwc_rk, int port)
++{
++	struct dwc3 *dwc = &dwc_rk->dwc;
++	u32 reg;
++
 +	guard(spinlock_irqsave)(&dwc->lock);
 +
-+	__dwc3_enable_susphy(dwc, enable);
++	dwc_rk->phy_reset_active |= BIT(port);
++
++	/* DWC3 being suspended also works as a quirk */
++	if (dwc_rk->pm_suspended)
++		return;
++
++	/*
++	 * Assert USB3 PHY soft reset within DWC3 before the external
++	 * PHY resets. This disconnects the PIPE interface, preventing
++	 * the DWC3 from interfering with PHY reinitialization and
++	 * avoiding LCPLL lock failures.
++	 */
++	reg = dwc3_readl(dwc, DWC3_GUSB3PIPECTL(port));
++	reg |= DWC3_GUSB3PIPECTL_PHYSOFTRST;
++	dwc3_writel(dwc, DWC3_GUSB3PIPECTL(port), reg);
 +}
- EXPORT_SYMBOL_GPL(dwc3_enable_susphy);
++
++static void dwc3_rockchip_phy_post_reset(struct dwc3_rockchip *dwc_rk, int port)
++{
++	struct dwc3 *dwc = &dwc_rk->dwc;
++	u32 reg;
++
++	scoped_guard(spinlock_irqsave, &dwc->lock) {
++		dwc_rk->phy_reset_active &= ~BIT(port);
++
++		if (!dwc_rk->pm_suspended) {
++			reg = dwc3_readl(dwc, DWC3_GUSB3PIPECTL(port));
++			reg &= ~DWC3_GUSB3PIPECTL_PHYSOFTRST;
++			dwc3_writel(dwc, DWC3_GUSB3PIPECTL(port), reg);
++		}
++	}
++
++	wake_up(&dwc_rk->phy_reset_wq);
++}
++
++static void dwc3_rockchip_phy_reset(void *data, int port, bool pre)
++{
++	struct dwc3_rockchip *dwc_rk = data;
++
++	if (pre)
++		dwc3_rockchip_phy_pre_reset(dwc_rk, port);
++	else
++		dwc3_rockchip_phy_post_reset(dwc_rk, port);
++}
++
++static void dwc3_rockchip_phy_unregister_reset_handler(void *data)
++{
++	struct dwc3_rockchip *dwc_rk = data;
++	struct dwc3 *dwc = &dwc_rk->dwc;
++	int i;
++
++	for (i = 0; i < dwc->num_usb3_ports; i++) {
++		struct phy *phy = dwc->usb3_generic_phy[i];
++
++		if (phy && !strcmp(dev_driver_string(phy->dev.parent), "rockchip-usbdp-phy"))
++			rk_udphy_unregister_reset_handler(phy);
++	}
++
++	WARN_ON(dwc_rk->phy_reset_active);
++}
++
++static int dwc3_rockchip_phy_register_reset_handler(struct dwc3 *dwc)
++{
++	struct dwc3_rockchip *dwc_rk = to_dwc3_rockchip(dwc);
++	int i;
++
++	for (i = 0; i < dwc->num_usb3_ports; i++) {
++		struct phy *phy = dwc->usb3_generic_phy[i];
++
++		if (phy && !strcmp(dev_driver_string(phy->dev.parent), "rockchip-usbdp-phy"))
++			rk_udphy_register_reset_handler(phy, dwc3_rockchip_phy_reset, dwc_rk, i);
++	}
++
++	return devm_add_action_or_reset(dwc->dev,
++					dwc3_rockchip_phy_unregister_reset_handler, dwc_rk);
++}
++
++static const struct dwc3_glue_ops dwc3_rockchip_glue_ops = {
++	.post_phy_registration = dwc3_rockchip_phy_register_reset_handler,
+ };
  
- void dwc3_set_prtcap(struct dwc3 *dwc, u32 mode, bool ignore_susphy)
-@@ -150,7 +159,7 @@ void dwc3_set_prtcap(struct dwc3 *dwc, u32 mode, bool ignore_susphy)
- 	hw_mode = DWC3_GHWPARAMS0_MODE(dwc->hwparams.hwparams0);
- 	if (hw_mode == DWC3_GHWPARAMS0_MODE_DRD && !ignore_susphy) {
- 		if (DWC3_GCTL_PRTCAP(reg) != mode)
--			dwc3_enable_susphy(dwc, false);
-+			__dwc3_enable_susphy(dwc, false);
- 	}
+ static int dwc3_rockchip_probe(struct platform_device *pdev)
+@@ -25,8 +134,9 @@ static int dwc3_rockchip_probe(struct platform_device *pdev)
+ 	if (!dwc_rk)
+ 		return -ENOMEM;
  
- 	reg &= ~(DWC3_GCTL_PRTCAPDIR(DWC3_GCTL_PRTCAP_OTG));
-@@ -1624,7 +1633,8 @@ static int dwc3_core_init_mode(struct dwc3 *dwc)
++	init_waitqueue_head(&dwc_rk->phy_reset_wq);
+ 	dwc_rk->dwc.dev = &pdev->dev;
+-	dwc_rk->dwc.glue_ops = NULL;
++	dwc_rk->dwc.glue_ops = &dwc3_rockchip_glue_ops;
  
- 	switch (dwc->dr_mode) {
- 	case USB_DR_MODE_PERIPHERAL:
--		dwc3_set_prtcap(dwc, DWC3_GCTL_PRTCAP_DEVICE, false);
-+		scoped_guard(spinlock_irqsave, &dwc->lock)
-+			dwc3_set_prtcap(dwc, DWC3_GCTL_PRTCAP_DEVICE, false);
+ 	probe_data.dwc = &dwc_rk->dwc;
+ 	probe_data.res = res;
+@@ -42,12 +152,29 @@ static void dwc3_rockchip_remove(struct platform_device *pdev)
  
- 		if (dwc->usb2_phy)
- 			otg_set_vbus(dwc->usb2_phy->otg, false);
-@@ -1636,7 +1646,8 @@ static int dwc3_core_init_mode(struct dwc3 *dwc)
- 			return dev_err_probe(dev, ret, "failed to initialize gadget\n");
- 		break;
- 	case USB_DR_MODE_HOST:
--		dwc3_set_prtcap(dwc, DWC3_GCTL_PRTCAP_HOST, false);
-+		scoped_guard(spinlock_irqsave, &dwc->lock)
-+			dwc3_set_prtcap(dwc, DWC3_GCTL_PRTCAP_HOST, false);
+ static int dwc3_rockchip_runtime_suspend(struct device *dev)
+ {
+-	return dwc3_runtime_suspend(dev_get_drvdata(dev));
++	struct dwc3 *dwc = dev_get_drvdata(dev);
++	struct dwc3_rockchip *dwc_rk = to_dwc3_rockchip(dwc);
++	int ret;
++
++	ret = dwc3_runtime_suspend(dwc);
++	if (!ret)
++		dwc3_rockchip_set_suspended(dwc_rk, true);
++
++	return ret;
+ }
  
- 		if (dwc->usb2_phy)
- 			otg_set_vbus(dwc->usb2_phy->otg, true);
-diff --git a/drivers/usb/dwc3/glue.h b/drivers/usb/dwc3/glue.h
-index d738e1739ae0..3287ec44f634 100644
---- a/drivers/usb/dwc3/glue.h
-+++ b/drivers/usb/dwc3/glue.h
-@@ -172,7 +172,7 @@ void dwc3_gadget_exit(struct dwc3 *dwc);
-  * This is usually handled by the dwc3 core code and should only be used
-  * when skip_core_init_mode is used and the glue layer needs to manage SUSPHY
-  * settings itself, e.g., due to platform-specific requirements during mode
-- * switches.
-+ * switches. It takes dwc->lock internally.
-  */
- void dwc3_enable_susphy(struct dwc3 *dwc, bool enable);
+ static int dwc3_rockchip_runtime_resume(struct device *dev)
+ {
+-	return dwc3_runtime_resume(dev_get_drvdata(dev));
++	struct dwc3 *dwc = dev_get_drvdata(dev);
++	struct dwc3_rockchip *dwc_rk = to_dwc3_rockchip(dwc);
++	int ret;
++
++	dwc3_rockchip_set_suspended(dwc_rk, false);
++	ret = dwc3_runtime_resume(dwc);
++	if (ret)
++		dwc3_rockchip_set_suspended(dwc_rk, true);
++
++	return ret;
+ }
  
+ static int dwc3_rockchip_runtime_idle(struct device *dev)
+@@ -57,12 +184,29 @@ static int dwc3_rockchip_runtime_idle(struct device *dev)
+ 
+ static int dwc3_rockchip_suspend(struct device *dev)
+ {
+-	return dwc3_pm_suspend(dev_get_drvdata(dev));
++	struct dwc3 *dwc = dev_get_drvdata(dev);
++	struct dwc3_rockchip *dwc_rk = to_dwc3_rockchip(dwc);
++	int ret;
++
++	ret = dwc3_pm_suspend(dwc);
++	if (!ret)
++		dwc3_rockchip_set_suspended(dwc_rk, true);
++
++	return ret;
+ }
+ 
+ static int dwc3_rockchip_resume(struct device *dev)
+ {
+-	return dwc3_pm_resume(dev_get_drvdata(dev));
++	struct dwc3 *dwc = dev_get_drvdata(dev);
++	struct dwc3_rockchip *dwc_rk = to_dwc3_rockchip(dwc);
++	int ret;
++
++	dwc3_rockchip_set_suspended(dwc_rk, false);
++	ret = dwc3_pm_resume(dwc);
++	if (ret)
++		dwc3_rockchip_set_suspended(dwc_rk, true);
++
++	return ret;
+ }
+ 
+ static void dwc3_rockchip_complete(struct device *dev)
+diff --git a/drivers/usb/dwc3/trace.c b/drivers/usb/dwc3/trace.c
+index 088995885678..8c4e2a7b142e 100644
+--- a/drivers/usb/dwc3/trace.c
++++ b/drivers/usb/dwc3/trace.c
+@@ -9,3 +9,6 @@
+ 
+ #define CREATE_TRACE_POINTS
+ #include "trace.h"
++
++EXPORT_TRACEPOINT_SYMBOL_GPL(dwc3_readl);
++EXPORT_TRACEPOINT_SYMBOL_GPL(dwc3_writel);
 
 -- 
 2.53.0
