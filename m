@@ -1,105 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794684882;
-	b=Va0hVvlnqSPKbujU0326mCWIoBdK0p4/VNwKwCv+0f8NRD7hhYa7lzlZY8yy0bTVn7Wg
-	 MdZphNzvdsLdS2zoDO5BxdtXRRn+N7BmzAtzomJRSKvCY4I1WONP4jny8e4rOfvv4tImJ
-	 SmhmMdBvO+3OcGWCpFLjr0dUC+v9cj8Yj3esqNhXsEQaXoamvTjA/z0OjNPTjT3mv3rt0
-	 FAW0xPF/e25jzd+yy0n0MMdT28yS4NlNQfI+Z3ipycS15wXYCUd8cfImlMC0wjOEYmN7x
-	 r/RanmVFJ7sAFa+Gl1EzGrTgJFzgpxaxRFodxEEe8Bn9jh5F3JG7VOeUekWeYzi/6DQ==
+	t=1794684979;
+	b=jffXI9QmqSqwqZhYzM5Y1qsQ+G+7bR48MHo+nhHqHeObdSWPpYLYHzz1w2RYw77aWyDn
+	 b9dW/6zw3GUSMcb3rbgx9wcGNHNewRBr88pe1y3ZAlvnoYgUP6phFIqImjTJ3K1oZU4TO
+	 4Y2ZqdiEZEKTZlGQSOo6495lFI+6TPvhmJ7Urzs1JEOyGbBm5zEXXnf7w7XRrjyQiN0dK
+	 QHsLlNumM/MsoOqjYuHkgO3+uup5J5BNavYzRbscuFEk93qWazu0HIhDBOTaOkoGtC6Gi
+	 MBgHW5m1w8g8nqL0CqP1ZMjaLoA1McE9HkPZKgQWOrTZTnNUMsS6/5RYEvq3XzgctVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794684882;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794684979;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=4XRaUjntmnwgXMBa6bG6H6t68ZP5x01BzH1Lhm94CSs=;
-	b=BTuAnGGRhhgfnO/Z+LHU1XwlJoDhN+aL/lAVZodCZKCAO39Eises3Xy8rezJ9BOEN8JR
-	 9L/TXpqgdSuPeLq9LxUuRhB3oxxYm1PmJTzm9J51a4kGFmqeTMAHPQzC9I//IqDy1a+DA
-	 Ws22lHcxQrjgaEpHasnu0Yg/TdmOC3K0EEpLAWMJBD7B4T+3ifZXw0bZR+eyfBeaZOaHt
-	 th5HT/CmgeQTs5uEduYbocF1snUmovVv3wUTdn4YyM6XzNQYKBTgcctaUCJpv6VqOfh6D
-	 UBsUAtKT2d9C8MmRwKnffPimKIg5+oHpymoEN2e3fFm/MXTTaZAHtxRgvZYZhBai7xg==
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
+	bh=8zVUItnPHFNIUP4Z+vabblcyhI1ThNWFGye2ryxOmnY=;
+	b=jYTwXmXw057oR1t4a/SQZ7kS6GNAnfn1NjZL9HJbK931/knT8Jp5YVTWJugurwPJ6UAz
+	 ghRqGhG+IMYfX6E86wwzAej0G1IHOBdUZEmPwY7yKtPCT689OpaTBAFpKAdy7HxTa5xb8
+	 cjiDMfufqWb7cIvdsx9+8U5GcL0d8Dq2GeAPBpqXD2qzj9s2V2gVCVxhejDvpxHDaFd0Z
+	 DFsGqEhI7BWXiGy56Q+snyip2fEOzTHnk8DHWRwXgCB0GCr4ks9TCGRyT9vjbg3v70epc
+	 mRFSQOZpJy2LPPBtR92r4IQX2UuFEg8JUAGo7ko7XhqSh+2HvAgodgNyy5I65n41oGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nMkesfph;
-	arc=none smtp.remote-ip=209.85.215.177
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FZLxnZCh;
+	arc=none smtp.remote-ip=209.85.216.47
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB451606A880
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 19:34:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB451606A880
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25B3B606A32E
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 19:36:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25B3B606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nMkesfph
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cdb684859cbso1821848a12.1
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 11:34:41 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FZLxnZCh
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3b0e61a4decso2793080a91.2
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 11:36:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794684881; x=1795289681; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4XRaUjntmnwgXMBa6bG6H6t68ZP5x01BzH1Lhm94CSs=;
-        b=nMkesfpha3IiAu8eFTJotinhZcu2J28OQMJipRI6kXIr8GsJYdbTCe1FwN6G3tz4CU
-         8lYRS/q/LMN94I1Qmk7Y80BMjTG/WmRZtrj9qtlNXXcCZVtOqEe4oljdF1DnnRCThoYs
-         lcDSo/JDgmpmi6fvDRGh8NRfOBfO//vt9VTlkrp9SAIdPEX5UrLNmaWxAblfM5oXdtE/
-         aylciJhX8Y9ifhod7bittejOWiMFZpeOPvaZKsBxlMMJyz31LyEssDRIRy8sKHp+3bfC
-         fSqgoIamXjgl+0liu5GkPsMxaPtRRkye/lFB8P1lREjPBjVLEtVi8gE8su4bz+3uyQLO
-         P7uA==
+        d=gmail.com; s=20260707; t=1794684978; x=1795289778; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=8zVUItnPHFNIUP4Z+vabblcyhI1ThNWFGye2ryxOmnY=;
+        b=FZLxnZChQdyk+y/moM6mcBlLd9ZNuBhzt+gBd6Ols7VyBVMrSNtdAkaKCydZLm4B22
+         ICuUw3eK91GGD4OKs5+ktA4ssURexzME56B4NihRNiC1LOxfvZoAYle1rhZIbFivaJu7
+         Czn8mFXFNCxYt1mzJWwixcgMfWdYAynr0PqRdRwswhq9LYt4zcgfR8rWJqBBvYL8tK6N
+         CxkwQl+3hLLGYadKwqsKLA6/xFDoBWwRD/TPGiSTGPTOQ+dR/UweDP0Nhp+uRTR6gs8K
+         prGyDJbJkDZe8EJIFSo/glcotCm4LOHr+cuCkyz3RFMrcBIqVCR/ij8hj3Y8eyH7jOHh
+         jETA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794684881; x=1795289681;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4XRaUjntmnwgXMBa6bG6H6t68ZP5x01BzH1Lhm94CSs=;
-        b=zGHbewienhVgwuqg4MlEJRr+ABTCw48U5mpPOTYukBrpO7E2I+Sa1rBNZvAI4cb9ZE
-         nFevYjfsIUKXksUJUJ9xZtg5OShWptAKOwc7bAzJA1vycfnGjzAh0t1oA+IH52HBQC2X
-         vqKDx3gftaJQGQewZ1zubGSnrOF4+cJN+lzyW1nyaKgsqa4lNCkje85Q5KbJS6Q51hRB
-         VelsQGFN7yihVEL3eR455lB1HdzLCIZbZtqiM31G6tchFVL5IxvBd9BsfwP0nZfgf2+Y
-         GT0ohdBRj3aHiX9Jmctp6uajY8GczuGMGz6adKIrs2LDcnxD1tBAyDIr3UDerQezKGpe
-         CXEA==
-X-Forwarded-Encrypted: i=1; AL+hErHA1DqRb19weiB5FIda5VPDsanFBWXQastrceW9Ep4VlPhHgaUO2ltp6isgm0kLZe+4hHhQ9W5l4zMOhLc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/prGnYegsV2I8yxKNDHoOnTzPojMI8pLR7XG+QOnoXZwCIRgMM
-	yMYO+Sw3GQpMG8uD36KczJnMVU1xJAUJJ/MmCOeo5oGJBip4ZBcMT7+n
-X-Gm-Gg: AYBFou3y0lwDDqr52DFQDc5k77y19FVmyHzJ+WKLxv2O90Q7dkAoXma5FsEedQvkabD
-	TmU54fuZdnMdDxXBtvWo0vFnPp8tifYzKlfqnqNedVPKAMNZKy5Vl61UAEHeWhk2y9IDLMzO4Or
-	ZHMSXH/6E7cscnOvpr2dU5bzG60oBj3g8w2FRQNsS6dIhPKbz5wLPxqCyfZzzIDzMaFGCBn/00l
-	9wJjS+PPx/vyQy7HWWDqLWxGxw2LhFJSkgW2NyVGqepka3RSdz31ni/mw0joPvY/4Ff69JZmYXp
-	EPbNDkXLJsPgA4tHCq5Xbh31lHPufIlbmGDjqmsrfQATYue4e55lk36ZwHaYAniF/HlGYRp/9N0
-	BGCjHmXR+fFo4l+nn3SUb4FmrezxLDez9gBz5xR1YTbBBaD2JprP9b1+KbK4eAxiNDieHIXk2So
-	xUhXQhTbwcaanC9XQqpr3zOKxEZZN4wR8IB9TK6As9MolbMddMfiaaD7HTDp5hNSgjdGtIXlqUZ
-	lyTI0lAx62LYcyRTklL2Hq016p58buvF4d8zBQ8zQpIuuS7qGDVsYBtg1HagmRNOl4+22MZN1ko
-	V+o5AGURo5PwYIdqnJHVgkFypo2zzt5Mb7PKE4iuRaNWEROXFs6kQVEplWdshd5q7TXxK/oflVK
-	DBI5RsftOPFj60dHrzZMAqzI0DkVS3F56Cd6A7xVLVuvLXRmpJK9apHnBC2AkLrMXCCAhABjJDH
-	/LuA9dKVIYoSqliD0TqUC0FC1e0hJf4MSxsTE5khzg
-X-Received: by 2002:a17:90b:1f8d:b0:3a8:6045:5a19 with SMTP id 98e67ed59e1d1-3b1b0a20e04mr6004859a91.37.1794684881101;
-        Sat, 14 Nov 2026 11:34:41 -0800 (PST)
-Received: from sid-dev-env.cgrhrlrrq2nuffriizdlnb1x4b.xx.internal.cloudapp.net ([4.155.54.158])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b24938bdsm5093969a91.1.2026.11.14.11.34.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 11:34:40 -0800 (PST)
-From: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-To: Peter Huewe <peterhuewe@gmx.de>,
-	Jarkko Sakkinen <jarkko@kernel.org>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Yeoreum Yun <yeoreum.yun@arm.com>,
-	Stuart Yoder <stuart.yoder@arm.com>,
-	apais@microsoft.com,
-	rlmenge@gmail.com,
-	hargar@linux.microsoft.com,
-	linux-integrity@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-Subject: [PATCH v2 2/4] tpm: tpm_crb_ffa: Only probe when ACPI TPM2 uses FF-A
-Date: Sat, 14 Nov 2026 19:34:32 +0000
-Message-ID: <20261114193434.117714-3-sidchintamaneni@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261114193434.117714-1-sidchintamaneni@gmail.com>
-References: <20261114193434.117714-1-sidchintamaneni@gmail.com>
+        d=1e100.net; s=20260707; t=1794684978; x=1795289778;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8zVUItnPHFNIUP4Z+vabblcyhI1ThNWFGye2ryxOmnY=;
+        b=XjLYKRS5euXwy3zGGK6QMb7XsucqSadohaK83IpGrSfocypmqd8TSXI10yXcm/gqVp
+         /77bLEYBPfw3SOc6nxnPmWuiOJBNmzjm18WC2PLIUFXpjc4F7yVgrfnHG8KGfZDtr0Q6
+         7k5ITS3/8oBE+3E28R5SjWE3aN0W3EiMW8vOKzktGN+S9XwHhg8ZVvh32Al3R2PW7JsI
+         Zt0I9ow8k4BIYM1nTnW1dFJUb0cxQIRRTtKbEzMXyIjv39vuKscsI8h+BcCzoQE+9cTa
+         4dpDgv5gSDqTE9FOOMqGNxusPmAsZzhvGO6OYSLopIDf1pk5pJLi9Pluib8JxE7Cn3U0
+         gCIQ==
+X-Forwarded-Encrypted: i=1; AL+hErEIE/ooFiwt1Y0Ow+4zRd2HIW+fSM3FvvdX3HJCj8X8uaXxMjyaJRKrZNYvbdodThYJZc5yQsU1fi91OSo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z95GRHfw/eUqAaxWiBoeFVDq+oyNjXEG6MKk/Kuq5UAtAdSB67R
+	ndjlgOxpojogAdnNenuvTvvTLykzkb9AzybHRjdhdTSRYjhwc/VTjM35
+X-Gm-Gg: AYBFou1F7ecYxmHWMzfXetNiU9uEgubn+lJeZAIAIFppS4keJ5YaFhMTRvdCgsVnuzC
+	FQXTa3ganyLk8SXSFSHMRzau90ZwaUhwpS9XTdnM67YZrJiCNZCkW8rgtsyRI+d+iwXIpWZtDsX
+	FOevxe5dcaBSbUi4htDeQfYXyorQj6gtkbmmFIfeYEg6mezRNOUKYH8zaD0q9sp9loRiu3wzs33
+	b3Ccc4YZS5m5B4fSA/JpUZg0HhJ0RVFpHGHOtqJy0eiV7epQ21elJn2U4EURlMPrW589Vr3D01F
+	qVZq7nErcWa5XFs36bqhahJU10k3Fb8xyrnUQWao4Pd0CNP9axJpR3vBomzZBasfe+9mTmAO/iR
+	NQ1fO/9x72OGxqJjZuNQQfWArqkcx37VG/nQ6DVnqDnwtWgSJdKdXSdp2TmgYZMu8swvUvP8zpQ
+	efbax3EO7xPIDYIvm+hsShP4d68VyhOZ6pnB5KDUV8xhorApsk3ppQx0hQDeekeUbndT6cZCUPi
+	U2Ugo61cfAepGvovDQ8R1XHQL9UlLI+fCkjqYeTSvr6+sW1VV5ds0XsYQ3ve8GGap6bEzKpRMUq
+	IZRzIxEeMc0E+y4STNOf24oo8Nu1B6/tD5fw9AIKK0k8ybnNn8ZASNJszC/5FKyb9NGi0DqyBfN
+	zEQ15vArbo5kTqJtw3/4skxjdQ6zkWTFgiKAfBogURlN3D+vGf1Tqk+A=
+X-Received: by 2002:a17:90b:4ccc:b0:3ac:a203:e0a5 with SMTP id 98e67ed59e1d1-3b1b0b6676fmr5703275a91.11.1794684978409;
+        Sat, 14 Nov 2026 11:36:18 -0800 (PST)
+Received: from localhost ([153.61.198.245])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1aeb179fasm9924002a91.4.2026.11.14.11.36.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 14 Nov 2026 11:36:17 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,83 +88,43 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 14 Nov 2026 19:36:17 +0000
+Message-Id: <DMV6Q8SFLQ72.2AIN7VRB1JJOW@gmail.com>
+Cc: "Kees Cook" <kees@kernel.org>, "Kees Cook" <kees+treewide@kernel.org>,
+ "Linux Kernel Mailing List" <linux-kernel@vger.kernel.org>, "Linux Next
+ Mailing List" <linux-next@vger.kernel.org>
+Subject: Re: linux-next: manual merge of the bpf-next tree with the origin
+ tree
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Mark Brown" <broonie@kernel.org>, "Kumar Kartikeya Dwivedi"
+ <memxor@gmail.com>, "Eduard Zingerman" <eddyz87@gmail.com>, "Daniel
+ Borkmann" <daniel@iogearbox.net>, "Alexei Starovoitov" <ast@kernel.org>,
+ "Andrii Nakryiko" <andrii@kernel.org>, "bpf" <bpf@vger.kernel.org>,
+ "Networking" <netdev@vger.kernel.org>
+X-Mailer: aerc 0.20.1-355-gf870624f6c37
+References: <avNO8cuAdnwv9D_5@sirena.org.uk>
+In-Reply-To: <avNO8cuAdnwv9D_5@sirena.org.uk>
 
-Prior to commit 677042afb97a ("tpm: tpm_crb_ffa: revert defered_probed
-when tpm_crb_ffa is built-in"), built-in tpm_crb_ffa only registered
-tpm_crb_ffa_driver from tpm_crb_ffa_init() after crb_acpi_probe()
-confirmed start_method == ACPI_TPM2_CRB_WITH_ARM_FFA. After that
-commit, tpm_crb_ffa unconditionally registers on the FF-A bus at
-device_initcall time (and when loaded as a module) without checking
-the platform's ACPI TPM2 start method.
+On Tue Nov 10, 2026 at 5:05 PM UTC, Mark Brown wrote:
+> Hi all,
+>
+> Today's linux-next merge of the bpf-next tree got a conflict in:
+>
+>   kernel/bpf/cfg.c
+>
+> between commit:
+>
+>   0af298e62e5cf ("treewide: refresh kmalloc_obj() conversions")
+>
+> from the origin tree and commit:
+>
+>   6771f70a47332 ("bpf: Remove is_state_visited(), bpf_compute_scc() and i=
+ter.depth")
+>
+> from the bpf-next tree.
 
-A platform's firmware may expose a TPM CRB over FF-A Secure Partition
-for UEFI boot services while advertising a non-FF-A start method to
-the OS in the ACPI TPM2 table. When the ACPI TPM2 table designates a
-non-FF-A start method, Linux has no consumer for tpm_crb_ffa and
-should not probe the FF-A TPM service.
-
-On Microsoft Cobalt 200 systems, the ACPI TPM2 table does not use
-ACPI_TPM2_CRB_WITH_ARM_FFA, yet ffa_init() discovers the FF-A TPM
-partition and tpm_crb_ffa_probe() unconditionally sends
-CRB_FFA_GET_INTERFACE_VERSION via FFA_MSG_SEND_DIRECT_REQ2/REQ SMC.
-That request wedges the calling CPU in Secure World (with Non-Secure
-interrupts and GICv3 pseudo-NMIs masked), hanging boot with an RCU CPU
-stall:
-
-  [    5.507519] ARM FF-A: Driver version 1.2
-  [    5.507519] ARM FF-A: Firmware version 1.2 found
-  [    5.507551] ARM FF-A: Notification setup failed -61, not enabled
-  [    7.150580] Freeing initrd memory: 293640K
-  [   65.515248] rcu: INFO: rcu_preempt detected stalls on CPUs/tasks:
-  [   65.521346] rcu:     10-...0: (3 GPs behind) idle=dd9c/1/0x4000000000000000 softirq=37/37 fqs=5262
-  [   65.530031] rcu:              hardirqs   softirqs   csw/system
-  [   65.535589] rcu:      number:        0          0            0
-  [   65.541146] rcu:     cputime:        0          0            0   ==> 30028(ms)
-  [   65.548102] rcu:     (detected by 66, t=15010 jiffies, g=-951, q=1384 ncpus=132)
-  [   65.555228] Sending NMI from CPU 66 to CPUs 10:
-  [   75.560686] After 10 seconds, these CPUS still haven't responded to the NMI: 10
-
-Check tpm2_acpi_start_method in tpm_crb_ffa_probe() and return -ENODEV
-unless it equals ACPI_TPM2_CRB_WITH_ARM_FFA. Checking in probe() rather
-than module_init allows tpm_crb_ffa.ko to load as a symbol dependency
-of tpm_crb.ko on non-FF-A platforms when built as modules, while
-skipping FF-A TPM requests unless ACPI advertises the FF-A start
-method.
-
-Fixes: eb93f0734ef1 ("tpm_crb: ffa_tpm: Implement driver compliant to CRB over FF-A")
-Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
----
- drivers/char/tpm/tpm_crb_ffa.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/char/tpm/tpm_crb_ffa.c b/drivers/char/tpm/tpm_crb_ffa.c
-index 025c4d4b17ca..da676da6f3f0 100644
---- a/drivers/char/tpm/tpm_crb_ffa.c
-+++ b/drivers/char/tpm/tpm_crb_ffa.c
-@@ -9,9 +9,11 @@
- 
- #define pr_fmt(fmt) "CRB_FFA: " fmt
- 
-+#include <linux/acpi.h>
- #include <linux/arm_ffa.h>
- #include <linux/delay.h>
- #include <linux/moduleparam.h>
-+#include "tpm.h"
- #include "tpm_crb_ffa.h"
- 
- static unsigned int busy_timeout_ms = 2000;
-@@ -324,6 +326,9 @@ static int tpm_crb_ffa_probe(struct ffa_device *ffa_dev)
- 	struct tpm_crb_ffa *p;
- 	int rc;
- 
-+	if (tpm2_acpi_start_method != ACPI_TPM2_CRB_WITH_ARM_FFA)
-+		return -ENODEV;
-+
- 	/* only one instance of a TPM partition is supported */
- 	if (tpm_crb_ffa && !IS_ERR_VALUE(tpm_crb_ffa))
- 		return -EEXIST;
--- 
-2.45.4
+Thanks. It's resolved now.
 
