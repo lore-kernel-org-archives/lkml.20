@@ -1,69 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.88.97.239
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794653280;
-	b=zPw2v0Do2Gb2piZxrMen5R2smwJdA19mNqWNiQTXSLPu4Q8eWy2hSuT2pOM3U9l2zWbk
-	 UmShUfiakT/QbV0gudzvlXgA68cRsaCnHLbZ8XE3Osyx7VTwFLDo0KKXCYnV2xykgH8e2
-	 NKqbRgFQ3KA+29hEkaPufd9JYBEBuBDfFrSiBti+r4RiLLrOfll581Oee20V38bTxpqbQ
-	 opVf3jBYn4/oPuM8pa+elDg9XlU5QMgcALwRvYLVcDaWea7UMt5/kYxKFA1SjVFu0bQoO
-	 HQb9e1j5ki1K/e0CJlzMoVT/4N39Ghavi1PWoS4q9Ff/zNyyZjbdmjFxcE0EnlxP6sA==
+	t=1794653282;
+	b=vj75NtTokj757EMtKH1hhlqjr50ofBOBAGwvzZIizwENxqgM2K1WH8TbiisFJzrtXP2l
+	 AirO76MwmKew+a5TFkKAGpzH1266w8y07/X0DifTJYzw04B2sdbS98VJLL/xIHsXTQWnJ
+	 krtq35oUtSA41vLzgDTaNWlF+avOPZx0VIsK3kfPu+S3JZfM0hh+MSHnY5X0BqRJsad3u
+	 X3IwjXD+MLMBp5mxkYs2pTnsOgOLcgz0ufbimqmp48erAvU6zeKugvoHyQn2NtlcRvvXP
+	 serYlyMsq88uw+wNXE8U4y4t85xw5xF+6+KTYdCdczAMaPl/S9hZJdck6elegnvbdkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794653280;
-	h=DMARC-Filter:DKIM-Signature:Received:X-Spam-Checker-Version:
-	 X-Spam-Level:X-Spam-Status:DKIM-Signature:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=CJh0rQjybtbAzplTNGEHCAHXCfQuBs4/UVdR5kq7ds0=;
-	b=RihR2Z2DSNckR+k3EwixSVqDUUbYF7WQyFvKp63FWZgA3F9aX6Ah+6z3emEpWlxItmyd
-	 nhUj6L/i4a6cy8cOzpLRX3MNEBWYA7eIVDj67jq9LlHh2lVzrIpUw/9t16x7QMKJiVkP7
-	 Nb+wSinjw1IMJE1UcnoByxaEJGu4x6pf+dTDBELwlAcIZnqqGelTBJMghO0ADW11zsMrN
-	 TcPEGhu5kivPZ3fV0i06QXK6innzCQL4eeOBtRF6YjkSwnxJrNiTbvS6g4zig9f4Q7/wY
-	 x6SubmxOyY/MagBt+0giXD0U/q9u93GnIJ3bjEnvfK9yXbKwTylv/Z4KeeWeA2f6cGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794653282;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=z7+ZOGPY2zekwXP8WfcsjECVMTd7aBpsMauFGn8HuGk=;
+	b=gsBeR33nGLdy6rKeVsrtvwaR/T8uNMjlLF+M8dK/Lrn2ArrPcjpUR1Vb2pUyTUARNc33
+	 UWYeRLq0QIjECL0f3o/x4caePdfDwoshxOxdGroFA0ESOTq6fy5CydxoUBNeT4EYNmSA6
+	 nIoB6BaacaTuR8VAGa3VDJWbAqh8SQ5fxcp8KewhCd7dZ6vtp2dP4ifBTszEIoPUh2/10
+	 a88cp6N9GOCyKJPjRRpzFz1GHFeRdhdoQgnkBYJ5txm9oVIeXukfFy/8LtpbTSjdGmn53
+	 Qorrm5KevP0DEFzqdopGDaXwa2qzoIJs+/0xtv0B3usyyhK94272ywdfsyjsinKoaTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=birger-koblitz.de;
-	spf=pass smtp.mailfrom=birger-koblitz.de;
-	dkim=pass header.d=birger-koblitz.de header.i=@birger-koblitz.de header.a=rsa-sha256 header.s=default header.b=VroJM849;
-	dkim=pass header.d=birger-koblitz.de header.i=@birger-koblitz.de header.a=rsa-sha256 header.s=default header.b=BGRfHca2;
-	arc=none smtp.remote-ip=23.88.97.239
-Received: from bkemail.birger-koblitz.de (bkemail.birger-koblitz.de [23.88.97.239])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WP9avIbJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA40C606A894;
-	Sat, 14 Nov 2026 10:47:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA40C606A894
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birger-koblitz.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26DB3606CE2A;
+	Sat, 14 Nov 2026 10:48:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.a=rsa-sha256 header.s=default header.b=VroJM849;
-	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.a=rsa-sha256 header.s=default header.b=BGRfHca2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
-	s=default; t=1794653271;
-	bh=VioXCKKaai/212jHFYdg0u5SsfRdIHmnqLj7K8cc+Bg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=VroJM8496zM5m3DklAtZXegP/o6kxv6xl4Q67PpX+EDYdAcN5YCvRigMa770VFw5w
-	 v33A7r0+i87RnsBgmhgxZ1jeZMA/s3OW5rv4Iqu71KY5YuIJRI5o2SGdE0JEYVgmZA
-	 WKnnehsh4eCs5IvU9WzlBmSbzvboZCwyJieXAIcjA5Sd5jYTDjSQ75hfnIO2oLOjEw
-	 YPS/tWPhS4gFV5T/Sdtk1ebI1LPv1/2eaBfnYW+a+VHbhJ7VNm6bE+6zbQW/ZMKJe/
-	 KBqfFgfyE2TdOnDcxqaCWs5Izl4Pqvv5xg9w41UKGx9w5qOxUFv9InHzJsGq4wvM2a
-	 1LaIqqFVqBTFw==
-Received: by bkemail.birger-koblitz.de (Postfix, from userid 109)
-	id E8EAF489BF; Sat, 14 Nov 2026 10:47:51 +0000 (UTC)
-X-Spam-Level: 
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
-	s=default; t=1794653269;
-	bh=VioXCKKaai/212jHFYdg0u5SsfRdIHmnqLj7K8cc+Bg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=BGRfHca2V3wLOB3sZYGm8qgzfbRok0ZSjkjZQWo0bZksICKyxo5wUC8gh+R3ke8pf
-	 oWGK+xidlDbpzkAGVxY2NN6nOexi0XuDjsQY6zNKlaGRRF24Q/zPxDRoeyR023IfTs
-	 ZFu+Bn2N61djsIXRVvK2DRH9qbZqAFd3piEgbbugTWcHIsTIjwpPHBN+KRBzM5Quuw
-	 5JyYbNYz8dmua3B+ZkqYkG+JwtXRVTOURdvOUooCYwxsiqJ6EzeF34vJw83Eb183Ax
-	 FZtAffLQRmcq56xp3h7ZwbD9sH0QBUy7RUEBTlbUvzASn1RZMoVc7jWNWfOQAMf7sp
-	 nwV+o/Dl/s+kA==
-Received: from [IPV6:2a00:6020:47a3:e800:271c:c6c5:9fde:77cb] (unknown [IPv6:2a00:6020:47a3:e800:271c:c6c5:9fde:77cb])
-	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id 43415489A6;
-	Sat, 14 Nov 2026 10:47:49 +0000 (UTC)
-Message-ID: <b855f0d7-a7ff-4de8-b71f-3822e7b55554@birger-koblitz.de>
-Date: Sat, 14 Nov 2026 11:47:43 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WP9avIbJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57E8B1F000C5;
+	Sat, 14 Nov 2026 10:47:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794653281;
+	bh=z7+ZOGPY2zekwXP8WfcsjECVMTd7aBpsMauFGn8HuGk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=WP9avIbJq6H00r3u1hGxtWvWcrCysrUF3w5YsZlV0n0dOSJC726WmO+7NZ00MaXGG
+	 dioJP7Mcm2oVvoFujECZbIxYLpUk4nBnXAZrBGIQKQQt/eE/YAQoSCzLbmaS4oxkG4
+	 djFAiqikxPEhZQ1eWvGalXgnaff08xJNGik/kotmPZ2EoDiWgHIZbQwoRT3XqbiuMG
+	 fXXu91+tBvXL4ruWm3VqCc1OMwv3QRp/iq7O+QnMyJtWo/LAZTOaBYcFtkARsZrBBq
+	 sDc5T4A45SbummM5eglFpNziF7hHg1DH9AYmxnlAK1OoN9MaS31w9/B5WnrZqg7+Ec
+	 /NpKVOGl3wnfA==
+From: Christian Brauner <brauner@kernel.org>
+Date: Sat, 14 Nov 2026 11:47:11 +0100
+Subject: [PATCH 04/12] target: fileio: don't free the aio command under the
+ filesystem
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,52 +53,143 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v20 11/13] ax88179_178a: Update driver name and
- information
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Paolo Abeni <pabeni@redhat.com>,
- Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>,
- Heiner Kallweit <hkallweit1@gmail.com>, Huacai Chen <chenhuacai@kernel.org>,
- WANG Xuerui <kernel@xen0n.name>, Eric Dumazet <edumazet@kernel.org>,
- linux-usb@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
- Jianhui Xu <neuromoments@gmail.com>,
- Emir Beganovic <beganovic.emir@gmail.com>, Nicolai Buchwitz <nb@tipi-net.de>
-References: <20261106-ax88179a-v20-0-37b5a1189983@birger-koblitz.de>
- <20261106-ax88179a-v20-11-37b5a1189983@birger-koblitz.de>
- <20261113190535.0e74cbb7@kernel.org>
-From: Birger Koblitz <mail@birger-koblitz.de>
-Content-Language: en-US
-In-Reply-To: <20261113190535.0e74cbb7@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261114-work-fs-frozen_writes-v1-4-f5ae61c898b1@kernel.org>
+References: <20261114-work-fs-frozen_writes-v1-0-f5ae61c898b1@kernel.org>
+In-Reply-To: <20261114-work-fs-frozen_writes-v1-0-f5ae61c898b1@kernel.org>
+To: Jan Kara <jack@suse.cz>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, Jens Axboe <axboe@kernel.dk>, 
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ io-uring@vger.kernel.org, Christoph Hellwig <hch@lst.de>, 
+ linux-block@vger.kernel.org, linux-nvme@lists.infradead.org, 
+ linux-scsi@vger.kernel.org, target-devel@vger.kernel.org, 
+ linux-unionfs@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-nfs@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3653; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=4XIxTnp3VDptPpFeG4yBe+IjV6xeM/LkgZ2az3nmBSU=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWT9sHFc7ifdfTxpyYqlSknMZn7T2TatfLVtZ0j8jdzJs
+ tkbxbaIdpSyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAEyEIYiRYeLZdZUzzdUFljMk
+ MF+4uLhwZ1btDrUvk0OsKn4bnd/6YDPDf2ftood7m+WF3/375bk86dXsnhP3C4Xnq8zbGz6N3eG
+ MFQMA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-On 14/11/2026 4:05 am, Jakub Kicinski wrote:
-> On Fri, 06 Nov 2026 08:21:26 +0100 Birger Koblitz wrote:
->> -config USB_NET_AX88179_178A
->> -	tristate "ASIX AX88179/178A USB 3.0/2.0 to Gigabit Ethernet"
->> +config USB_NET_AX88179
->> +	tristate "ASIX AX88179/179A/178A USB 2.0/3.0 to 100M/1G/2.5GbE Adapters"
->>   	depends on USB_USBNET
->> -	select CRC32
->>   	select PHYLINK
->> +	select AX88796B_PHY
->> +	select CRC32
->>   	default y
-> 
-> The rename of the symbol causes the question to pop back up and it will
-> likely annoy Linus. There's no reason for this to 'default y', let's
-> stay on the safe side and drop the 'default y'
-I will drop the "default y"
+With fd_async_io=1 the fileio backend allocates a command that holds the
+kiocb for every read and write and frees it in the completion callback.
+Nothing keeps the command alive until ->read_iter() or ->write_iter()
+return. But a filesystem may use the kiocb after it queued the I/O. ext4
+does that for direct reads:
 
-> 
-> You need to rebase the series, too. Someone mass-renamed a bunch of
-> kmallocs to kmalloc_objs upstream, let's make sure we use the _obj
-> form in the new places too.
-Will fix and re-send shortly.
+  BUG: KASAN: slab-use-after-free in ext4_dio_read_iter+0x5e1/0x690
+  Workqueue: target_submission target_queued_submit_work
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x5d/0x80
+   print_report+0x14b/0x4b0
+   kasan_report+0x108/0x130
+   ext4_dio_read_iter+0x5e1/0x690
+   fd_execute_rw+0xd30/0x1700
+   __target_execute_cmd+0x53/0x190
+   transport_generic_new_cmd+0x65a/0xdb0
+   __target_submit+0x12c/0x380
+   target_queued_submit_work+0x73/0x270
+   process_one_work+0x946/0x1820
+   worker_thread+0x4f1/0xd60
+   kthread+0x364/0x460
+   ret_from_fork+0x525/0x770
+   ret_from_fork_asm+0x1a/0x30
+   </TASK>
 
-Thanks for taking the time to look at this!
-   birger
+  Allocated by task 59:
+   __kmalloc_noprof+0x223/0x830
+   fd_execute_rw+0x766/0x1700
+   __target_execute_cmd+0x53/0x190
+   transport_generic_new_cmd+0x65a/0xdb0
+   __target_submit+0x12c/0x380
+   target_queued_submit_work+0x73/0x270
+
+  Freed by task 14:
+   kfree+0x267/0x6a0
+   blk_update_request+0x3f5/0x1260
+   blk_mq_end_request+0x59/0x450
+   blk_complete_reqs+0xb0/0x130
+   handle_softirqs+0x20c/0x860
+   run_ksoftirqd+0x31/0x60
+
+The read completed and freed the command before ext4_dio_read_iter() got
+to file_accessed(iocb->ki_filp).
+
+Do what loop, zloop and fs/backing-file.c do and hold a reference to the
+command until the I/O is submitted.
+
+Fixes: 769031c92c8b ("scsi: target: target/file: Add support of direct and async I/O")
+Cc: stable@vger.kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+ drivers/target/target_core_file.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/target/target_core_file.c b/drivers/target/target_core_file.c
+index ab9824a4852f1..4dace29b6d662 100644
+--- a/drivers/target/target_core_file.c
++++ b/drivers/target/target_core_file.c
+@@ -15,6 +15,7 @@
+ #include <linux/timer.h>
+ #include <linux/blkdev.h>
+ #include <linux/slab.h>
++#include <linux/refcount.h>
+ #include <linux/spinlock.h>
+ #include <linux/module.h>
+ #include <linux/vmalloc.h>
+@@ -244,10 +245,17 @@ static void fd_destroy_device(struct se_device *dev)
+ struct target_core_file_cmd {
+ 	unsigned long	len;
+ 	struct se_cmd	*cmd;
++	refcount_t	ref;
+ 	struct kiocb	iocb;
+ 	struct bio_vec	bvecs[];
+ };
+ 
++static void cmd_rw_aio_put(struct target_core_file_cmd *cmd)
++{
++	if (refcount_dec_and_test(&cmd->ref))
++		kfree(cmd);
++}
++
+ static void cmd_rw_aio_complete(struct kiocb *iocb, long ret)
+ {
+ 	struct target_core_file_cmd *cmd;
+@@ -259,7 +267,7 @@ static void cmd_rw_aio_complete(struct kiocb *iocb, long ret)
+ 	else
+ 		target_complete_cmd(cmd->cmd, SAM_STAT_GOOD);
+ 
+-	kfree(cmd);
++	cmd_rw_aio_put(cmd);
+ }
+ 
+ static sense_reason_t
+@@ -288,6 +296,8 @@ fd_execute_rw_aio(struct se_cmd *cmd, struct scatterlist *sgl, u32 sgl_nents,
+ 
+ 	iov_iter_bvec(&iter, is_write, aio_cmd->bvecs, sgl_nents, len);
+ 
++	/* The filesystem may still use the kiocb after it queued the I/O. */
++	refcount_set(&aio_cmd->ref, 2);
+ 	aio_cmd->cmd = cmd;
+ 	aio_cmd->len = len;
+ 	aio_cmd->iocb.ki_pos = cmd->t_task_lba * dev->dev_attrib.block_size;
+@@ -305,6 +315,7 @@ fd_execute_rw_aio(struct se_cmd *cmd, struct scatterlist *sgl, u32 sgl_nents,
+ 
+ 	if (ret != -EIOCBQUEUED)
+ 		cmd_rw_aio_complete(&aio_cmd->iocb, ret);
++	cmd_rw_aio_put(aio_cmd);
+ 
+ 	return 0;
+ }
+
+-- 
+2.53.0
 
