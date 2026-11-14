@@ -1,75 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794672791;
-	b=C2vPYaTU2OEBFaS5CDxZLw2rshIOF6x9p1X2bmsH9EYonvmgtKKJq0R9AelLy7dVFjdQ
-	 RRni0WMZ7hxIkExNO406vqUEu9AUvfhU25jXaZaosKp+B+YeclcRJ+DehuuDVP/iF+mUz
-	 rajlv4ydekxFd728I6tdeTvotf04J7DeloaYw1L/GZm3yWQEiCBBbFl197MTqPTj2SbHB
-	 8W3SIds6YyT4cCFyRKoTRpjFL2XjGqBdQISlqurh2EF+3nxT6BZWq8QQ91XRzYzBXMrYK
-	 FKYTArb0ifvrzYDBbyCVXGXDNCA4CgM9xOTreADDJHwof9oxnA2/s8+WQY+Ni6tX61g==
+	t=1794672815;
+	b=FPHgq3E2SWswEMsJxlTayxZ8AcMq07wdRIFHD+cWOar1I0QFDbcTv0GKHEqn1RLkUDtp
+	 py4Lu6egt/vJUqYqFCPgLQtjKZWjzpj+v9XVOg0dafgMG6TTMD5gxE3jZ4e1IlY9KkKWd
+	 /kkhvMnCN2EaT6r+VPJTfCS8eA93aHiQrhAI6P4v0UhB6PWLz0HOwNdmPEZn0+Qmcou3H
+	 rjIW9IeSZmMfuQaah7dBqehgJH5gvaWA3EaK+BulwaT6FNbF6CxpyFroewsdyi/QIv4tE
+	 4G6skuo4HJzD7UfUZVEbyR6QzQnmvsIk9Ua5EUBxBuQRDcYiYRFHxTI8quAg8VIR4xQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794672791;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=O5FcYAxpzNrueyZ+u2nvAHJTc1htMLsknfa/hCd72sU=;
-	b=oVU4uwKfEWhf2A5R52OlrGxRPnU1IAgxbcVFIobjKLZBSzOFHxOzPtsL3L1UuxbXYgxT
-	 jDIrjSMK/hA8qnhDq7WX9vhilytSvqSDaeh4it3hBl/CdY3IE8zyvLsJUWNZC6ySjktA/
-	 7lZZqVCzjJhH0Yp8ch3SK6vjxuuVQEiqYhldBfoJbMc4HvohlbTQAIdoPaVMkXWiHXHxp
-	 UduA2OAIJ5h6/flzr+0mHV2Ls38xoUrZMSEdg1sq/CNQ2oH3PZtIRNnp0ughLyYZinIb5
-	 +JePKKz6tCJwYRNqPidVFKrAEMbYbaj6dEtDZEMbr+N//4IxueksvZ48BZ6qtzYY3Gw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794672815;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=mbytoUa3tRKFqWhM1UcVL4cxUggurP+uHf5s9LyN1+8=;
+	b=Ivb30PLrnhTUjQXrhHSjwxFPaAycNsO/e1yU2n0b4XcSbu0C43F7PzY6S5KRjcVpkPLj
+	 L4Erm819dUK82QdxA89nUynkuz+ibYZ9XfDjXJ4XoJDiDCVrXdcdZJw1VaKPeid/JGhhj
+	 q7Tju4ir/B334+O1H9CQ2uo9bITtfNyOGnhTNdkWuYuLaXGn5dNa+hwZvYHDzz0tW48+r
+	 4VL5tMEgeHeNzIcCr9YJoC4UzkDYqUnheyQYmkEJue8+WQRaSTVylIetuN8CLcnUExnAF
+	 V3lF041Yp0PPiY7ASH3LQMQiyTkJ6EPpJhTgBufyWsKqAbIFp0dEnKqST+DwYlZVOxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--thaisonphan.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=LoYyA0uf;
-	arc=none smtp.remote-ip=209.85.222.70
-Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b="idl/s72I";
+	arc=none smtp.remote-ip=35.89.44.39
+Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 294A860A2605
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:13:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 294A860A2605
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--thaisonphan.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60BD8606A323
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:13:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60BD8606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=LoYyA0uf
-Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-99e0e6de971so5401241.3
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:13:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794672790; x=1795277590; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=O5FcYAxpzNrueyZ+u2nvAHJTc1htMLsknfa/hCd72sU=;
-        b=LoYyA0ufL//mcIv4hXzAoVD9Ohz+mnOGJW44mmawOC0k7Y5xlzjc/jhcbQr91j74D3
-         cgU+bxdSYKXEhoWZy7rB2sKd9y2sD0s8vEgeR6bFx0z/QBlwV3tW7bf3AVKe4sNEpcqZ
-         wWlmCVxmBvvLo4JDXo2rQev0fPDb0Lr9gaADdWYLLbqBBgYuScMQ86G4qMdNuM47BQq5
-         AFc76I5kspPtmZAwWB6vp9Bc18iWAUby04jZb5iBGU4MXdePUFckQUYu0DRng1urId2g
-         LM+WaVVX5VCO8AWYD9G7louf/slpEgEQdj0aJ2ZXhK59coD9wsO91tnk94l3X6cRjvPI
-         wdzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794672790; x=1795277590;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=O5FcYAxpzNrueyZ+u2nvAHJTc1htMLsknfa/hCd72sU=;
-        b=T5okLwefV5DN9xYn6DEObdwDYGTWrLuVMs02pTeRSfAEdUJ9QCg4xRn1PBqF0h3r95
-         lkqY1FoEWvzuODOi42sdehTd2xYczDtwVBp4bu5d0T9CCus9VH4ZrE/GGL2Z5q4Ktrym
-         VUqVU/yGRZKrap0ZHOp0PBUR4R7vMdQZyP6W8aSzV6b8OgHgcB6/Vf7arcdjccP4zX2a
-         ODH+nS8/Rj73LPrsiYiXInjUG0VSjop5JLAEGEcInagkGIKQ1XLXO8/ajiF8DT88Bl03
-         YNaXSiYlm+TESS/VnwpFk5825v5XSSUMK4W7N5vO16mjNpQzh3Jj7/mMuX1Nhx0bPv7z
-         kAmA==
-X-Forwarded-Encrypted: i=1; AL+hErEFQyOUxVTjBj6BMJmB8By6WQFn3AKgys2r8ryy6hkQcEPw2R7gZ8HcieVSxGZ3VnfjAUcOS7nkLNWuRuE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z89YOvvSpBWSJsDWCOHgwvPI8Y94V6dTgH8Lrm1v5/f2makNMOH
-	/DyjWcd56uFevs4cNia6mi2ujYzvXKWcCmEcUJW6skRldZ1FwJVJhcZehz2K8K/m4yM9eQop24n
-	GHlJwJEkv7H0iOZY+J9E5IP2Tgw==
-X-Received: from vsbjo28.prod.google.com ([2002:a05:6102:641c:b0:7cc:c8dd:8e1d])
- (user=thaisonphan job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6102:3ec5:b0:7ce:645a:13a4 with SMTP id ada2fe7eead31-7d64d6f7957mr1626036137.20.1794672789794;
- Sat, 14 Nov 2026 08:13:09 -0800 (PST)
-Date: Sat, 14 Nov 2026 16:12:48 +0000
-In-Reply-To: <20261114161248.3428695-1-thaisonphan@google.com>
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=idl/s72I
+Received: from eig-obgw-6003b.ext.cloudfilter.net ([10.0.30.175])
+	by cmsmtp with ESMTPS
+	id SEIVxfN7lyb4YSGNjxgAzS; Sat, 14 Nov 2026 16:13:35 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id SGNixk0GWGh2BSGNixpCAa; Sat, 14 Nov 2026 16:13:34 +0000
+X-Authority-Analysis: v=2.4 cv=Aszu3P9P c=1 sm=1 tr=0 ts=6af888ae
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=pGLkceISAAAA:8
+ a=0nlnqQntNI7bdpd6a1oA:9 a=CjuIK1q_8ugA:10 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=mbytoUa3tRKFqWhM1UcVL4cxUggurP+uHf5s9LyN1+8=; b=idl/s72Ih7T5blQkDjxSONfflW
+	V7NAGQOQ8VFhC36M+LC1EkC+GYOF6JK3WVp7gJl83Jry/XsnFZY0tGeBK48s54xM5K2DbEmzA/SBv
+	d4o9KE1EPiumNOi0kNdw7FxraKIoznfm2/BY7Flko6HZzDF5acymV8tElLqPdHj+QYq/WEZ4AsaW7
+	Sdc5UV2Ba0aMMAngewRn9HK+GZjXWW9PMDGklyaMH+RnyevJGd9i0oMFr03ArmbZzgaxdjlPPfz8O
+	NLDlKOiQ/oDH8uFyp8yUYeC2uDDznN/5GvxUray86HM2vGY/Fct2BdR9ivu2lYynwj3SDrzSQzNdl
+	MmjlsRrw==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:35394 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xSGNi-000000006CK-0Ui3;
+	Sat, 14 Nov 2026 21:43:34 +0530
+Date: Sat, 14 Nov 2026 08:13:33 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Johan Dahlin <jdahlin@gmail.com>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Alwyn Kik <alwyn@kik.pw>, Fabio Baltieri <fabio.baltieri@gmail.com>,
+	Hamza Mahfooz <someguy@effective-light.com>
+Subject: Re: [PATCH v2 4/7] hwmon: (nct6683) Enable fan control on ASRock
+ BC-250
+Message-ID: <9e51a722-b1eb-43f3-8fcc-358811ec7fd2@roeck-us.net>
+References: <20261111082838.1418051-1-jdahlin@gmail.com>
+ <20261111082838.1418051-5-jdahlin@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,86 +83,42 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261114161248.3428695-1-thaisonphan@google.com>
-X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
-Message-ID: <20261114161248.3428695-3-thaisonphan@google.com>
-Subject: [PATCH net 2/2] tcp: accecn: initialize AccECN fields in syncookie path
-From: Thaison Phan <thaisonphan@google.com>
-To: Eric Dumazet <edumazet@kernel.org>, Neal Cardwell <ncardwell@google.com>, 
-	Kuniyuki Iwashima <kuniyu@google.com>, "David S . Miller" <davem@davemloft.net>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	"=?UTF-8?q?Ilpo=20J=C3=A4rvinen?=" <ij@kernel.org>, Olivier Tilmans <olivier.tilmans@nokia.com>, 
-	Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>
-Cc: Simon Horman <horms@kernel.org>, Stan Iliev <stani@google.com>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Thaison Phan <thaisonphan@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111082838.1418051-5-jdahlin@gmail.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xSGNi-000000006CK-0Ui3
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:35394
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 44
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfNgJVYOsK1Yvd8D/BWn2hM5AcW7eyufJFILqteOU+G2JiAH+6NbVFv8htlvXfWIeYkuMJOej4lfr3HDwCVJHGpF384HFDUZD8hIGLWq/mOMVxbYoIDjS
+ tUN47RWHJ8/9SjDanNLCuMwBITZuv+KnvmWJmUmIDOHi7o3qeqXjoa+MOVOyChGIRXIzg/bp4KMdDdYGtQ95G6ePtTZet8uBTZujQZK0S/HemzESHy6goXJW
 
-cookie_tcp_reqsk_alloc() and bpf_sk_assign_tcp_reqsk() allocate struct
-request_sock without __GFP_ZERO, leaving saw_accecn_opt,
-accecn_fail_mode, syn_ect_rcv, and syn_ect_snt uninitialized. When
-accecn_ok is negotiated in cookie_{v4,v6}_check(),
-tcp_ecn_openreq_child() reads all four fields to initialize the child
-socket's AccECN state.
+On Wed, Nov 11, 2026 at 09:28:35AM +0100, Johan Dahlin wrote:
+> The ASRock BC-250 (customer ID 0x162b) has an NCT6686D with the same fan
+> control registers as the B850 Steel Legend WiFi, and manual fan control
+> was reported to work there.
+> 
+> Enable fan control for channels 0 to 7 on this board as well.
+> 
+> Suggested-by: Fabio Baltieri <fabio.baltieri@gmail.com>
+> Signed-off-by: Johan Dahlin <jdahlin@gmail.com>
 
-In addition, because the temporary request_sock used to send a cookie
-SYN-ACK is immediately freed, treq->syn_ect_snt is lost. If the listener
-marks ECT (e.g. DCTCP), leaving syn_ect_snt at 0 causes
-tcp_accecn_third_ack() to flag TCP_ACCECN_ACE_FAIL_RECV when the peer
-reflects ECT, disabling ECT for the rest of the connection.
+Applied.
 
-Initialize the AccECN fields in cookie_tcp_reqsk_init() to match
-tcp_openreq_init(), and set syn_ect_snt from the listener's TOS/tclass
-in cookie_{v4,v6}_check() to match tcp_{v4,v6}_send_synack().
-
-Found by code inspection while auditing request_sock initialization in
-the syncookie path; reproduced without kernel modifications in a KASAN
-VM (tcp_syncookies=2, tcp_ecn=3) and tested against the reproducer and
-packetdrill AccECN/syncookie selftests.
-
-Fixes: 3cae34274c79 ("tcp: accecn: AccECN negotiation")
-Fixes: b40671b5ee58 ("tcp: accecn: AccECN option failure handling")
-Signed-off-by: Thaison Phan <thaisonphan@google.com>
----
- net/ipv4/syncookies.c | 5 +++++
- net/ipv6/syncookies.c | 1 +
- 2 files changed, 6 insertions(+)
-
-diff --git a/net/ipv4/syncookies.c b/net/ipv4/syncookies.c
-index 4e0ff3b82062..5747f9a5a6d1 100644
---- a/net/ipv4/syncookies.c
-+++ b/net/ipv4/syncookies.c
-@@ -290,6 +290,10 @@ static int cookie_tcp_reqsk_init(struct sock *sk, struct sk_buff *skb,
- 	 */
- 	treq->txhash = treq->snt_isn;
- 	treq->syn_tos = TCP_SKB_CB(skb)->ip_dsfield;
-+	treq->saw_accecn_opt = TCP_ACCECN_OPT_NOT_SEEN;
-+	treq->accecn_fail_mode = 0;
-+	treq->syn_ect_rcv = 0;
-+	treq->syn_ect_snt = 0;
- 
- #if IS_ENABLED(CONFIG_MPTCP)
- 	treq->is_mptcp = sk_is_mptcp(sk);
-@@ -502,6 +506,7 @@ struct sock *cookie_v4_check(struct sock *sk, struct sk_buff *skb)
- 		ireq->rcv_wscale = rcv_wscale;
- 	ireq->ecn_ok &= cookie_ecn_ok(net, &rt->dst);
- 	treq->accecn_ok = ireq->ecn_ok && cookie_accecn_ok(th);
-+	treq->syn_ect_snt = READ_ONCE(inet_sk(sk)->tos) & INET_ECN_MASK;
- 
- 	ret = tcp_get_cookie_sock(sk, skb, req, &rt->dst);
- 	/* ip_queue_xmit() depends on our flow being setup
-diff --git a/net/ipv6/syncookies.c b/net/ipv6/syncookies.c
-index b33011b71fff..7435ebcc366c 100644
---- a/net/ipv6/syncookies.c
-+++ b/net/ipv6/syncookies.c
-@@ -276,6 +276,7 @@ struct sock *cookie_v6_check(struct sock *sk, struct sk_buff *skb)
- 		ireq->rcv_wscale = rcv_wscale;
- 	ireq->ecn_ok &= cookie_ecn_ok(net, dst);
- 	tcp_rsk(req)->accecn_ok = ireq->ecn_ok && cookie_accecn_ok(th);
-+	tcp_rsk(req)->syn_ect_snt = READ_ONCE(np->tclass) & INET_ECN_MASK;
- 
- 	ret = tcp_get_cookie_sock(sk, skb, req, dst);
- 	if (!ret) {
--- 
-2.56.0.611.g1030f0b940-goog
-
+Thanks,
+Guenter
