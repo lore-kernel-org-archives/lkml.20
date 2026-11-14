@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794667937;
-	b=o7nJnfDDNll8RLSRF1eUdVAk3OxkTw2oLDr/DNXoxW6K48lW6HYOnWJ1gWCI67QQWpNh
-	 Dxu/WWvJ3AL2zOuBPV4dAabJm2pcKMNxZNnE406DGC85oBpflEavNKEF6VQMdoLj3xASW
-	 Qb6szwTDVu6rJR7/ZFsa+61oL/Ngysta4wehdraXYAqIHMeKekhYv+L+YFx1rb2Gm8nb1
-	 O6ssyjpf3eBLrOrgE2ugXqLeJwqX8TxGLAMJL7FhgtBvYMLiO+k8u9gWxgUxNgEWRv4gX
-	 Q5YJoXemRqza65tqjAFEEvgJDQhPcBd4yEFRII6oyDoA5F30Xu5l4Ae7wZbM1Azkicg==
+	t=1794667933;
+	b=QBCl5nuz43cst9iLdvv8RBqNQQVW8b97BNdzdoUVUoqnA3Hk8MdVyzZ9/l6oGTtRPcuw
+	 SWR97ErEGilrv5X/305zIGefIuFoEjnQNq5u7vJKOgUs55EBgD2jrToMIftV7GimlhFmo
+	 ahSz9wBWJul05u78SaXqrOhSdURLgPAwpQgbcH9j18rA0QBtUmTQaQ0j6+JL8cjWnuAVP
+	 6cOOFhY/TZXKBfVZyHTd12Dbg5rgT92mqjzR6vPDr6xT4VuZDpr7dJO0cbqBEJ8WBVA42
+	 sy3dTr6+44DRlUr5XFC4M6micwyJ6yrZ4BrUJ9FgQ+7b8bEWbsZxH3xIJokug7yxFAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794667937;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794667933;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=MKGSFzhqcqIRvndmIYREC4xj4lwtCE7g0b2WesSSlo0=;
-	b=1D4EWKrKBbxuS239/nKRPSe3fjDqKs49uIdngY95md05CA3JtOvXaJLuzJ4da8wvH1ku
-	 /XxrqmJgvvV58CW1Ng7WJbtPVUQKiCmYdcGP+aqfKE/jZIEZCdtQavw/YR7eNDVjuM2FC
-	 7yHKyW47lHAXqx3jm1HjYq+lM315Xm65aAO/5rm2XGWS89YpMBM6VvpTJFVleEm90yijw
-	 LVWPivOoeA7ARv2bJbidGVJCTBH+NzkT5PrNi21JJMdj7ua5QjeOm+w6HeqPP5qw2Td8d
-	 qmnSDljB/A0qAeWGrrfUlMYKrawcwsbXRHdJ4xwq4Nx0poPmgAnZ3s9VuO1UEUcwT/A==
+	bh=xVGo4n8kANG+d9df7pyjbNiLNk7bdG6h6VAwEv6uVzM=;
+	b=BIIiLNbmXFH0fU5S+qwAlvO7qaeZ/XUrWRml85AZYaHv9EL9wOWBNNBJ3NSF/hcEE92M
+	 FY3Bs2YtFth66lRqlya4lEqIX+Yil+E/qTzDFafcQ/WS06dHvUWu7Izvg6p3U3lHHscAQ
+	 0iw+BBmVFY3vQ3nEyk7bhF4lQy0x4VbVAD23niB6z9JhL0wHwkn2RXgVf/SsY5SBThy0r
+	 rPW8eBS7blvtCeJII4C9VUHFfOx7Iig3MGcffU8oA5B/gLIgchXmYFPMkKJanw4pKYZVd
+	 FxYXTeUh+1VnFFYknbxAQ+62lXYzBOki+xsPPLmEu22LXqpfv0kavcnuFSucnWEBMAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HfVU3oiL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PpD4pmK5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69DE3606A887;
-	Sat, 14 Nov 2026 14:52:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9DEF606A889;
+	Sat, 14 Nov 2026 14:52:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HfVU3oiL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D13431F000CA;
-	Sat, 14 Nov 2026 14:52:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PpD4pmK5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67A7D1F000C5;
+	Sat, 14 Nov 2026 14:52:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794667937;
-	bh=MKGSFzhqcqIRvndmIYREC4xj4lwtCE7g0b2WesSSlo0=;
+	s=k20260515; t=1794667933;
+	bh=xVGo4n8kANG+d9df7pyjbNiLNk7bdG6h6VAwEv6uVzM=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=HfVU3oiLY1dTmstvNjuo6NuR0qVDoBtw5TGch9e21l/FiVnm5XWHHeVUCTylzNmSj
-	 dyXTjk0YYAV3C8/+WhmaCdCWYsY4XlXaZE1dGjG48FEzURlvZyP4P4i5BPXm5SgZr8
-	 c844AUQ+4i2UokgoTnXfq32n9Wj/p/UGLS9pjhiWJdW2lNwQnlzgxAUDIZKCF4CeWh
-	 jFU070hSZ+fcsL/d2qQsDpeE4dfJgIXW2niSMWyx7EErv8LC0zrkwWX5Vjh8d7n9nr
-	 c3IViGiLvZ+xWejpLZ6zpS+qa2b+vc+lxg/XD9k8W6v//x+B+7SZD4l8FmHVOm3j3e
-	 tV/Cgx39hdTPA==
-Subject: Re: [PATCH net-next v5 09/10] net: stmmac: mediatek: add support for
- TX clock output enable feature
+	b=PpD4pmK57h1+iemKNBgqZYbMnTEPuJZ8EZThjqZ+TMf/YrSPbQ4d5wGd8XoZ6kGjR
+	 /69pmAhVH6MfKK1f4UqHVDgy0dfGgcDTYcpQ7DvyYntWkqBvlVdR+BjOQdTXgnquz1
+	 R30shb3G28o41pkxNOmU0VNZKbz0MN+vhDjghJwS/Yf0xyJ1RRowtdswLQSFpKpF9B
+	 5WoovcgdmTtioxkmFauu+yY9hmJqfpLcVQawslJv5hVqbJ0WL+hbxnxkB3CNKyGKW/
+	 tZmeP7MtJe0vA88WA0XYJz6o0HKeZs5j22dFwesuigwu3rntt+wNMeWBaoKkVtJr0F
+	 geFBG+P6HcMVg==
+Subject: Re: [PATCH net-next v5 03/10] dt-bindings: net: mediatek-dwmac: add
+ support for MT8189 SoC
 From: netdev-bot+sashiko@kernel.org
 To: louisalexis.eyraud@collabora.com
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
@@ -53,11 +53,11 @@ Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
  netdev@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-mediatek@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Date: Sat, 14 Nov 2026 14:52:15 +0000
-Message-ID: <179466793541.2199510.14225975364666918696@kernel.org>
-In-Reply-To: <20261110-dwmac-mediatek-mt8189-v5-9-7d99d6292962@collabora.com>
-References: <20261110-dwmac-mediatek-mt8189-v5-9-7d99d6292962@collabora.com>
-X-sashiko-severity: Medium
+Date: Sat, 14 Nov 2026 14:52:12 +0000
+Message-ID: <179466793200.2199510.8648958877429402751@kernel.org>
+In-Reply-To: <20261110-dwmac-mediatek-mt8189-v5-3-7d99d6292962@collabora.com>
+References: <20261110-dwmac-mediatek-mt8189-v5-3-7d99d6292962@collabora.com>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -70,79 +70,94 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] mt8195_set_interface()
-  (drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c) now sets…
+- [Low] The new compatible `mediatek,mt8189-gmac` is added to the
+  binding, but the descriptions of `mediatek,tx-delay-ps` and…
 
 --
 
-net: stmmac: mediatek: add support for TX clock output enable feature
+dt-bindings: net: mediatek-dwmac: add support for MT8189 SoC
 
-This commit adds a definition for the MT8189 TX clock output enable bit in
-the pericfg Ethernet control 0 register. It also adds a mac_txclk_out_en
-flag to the variant data and sets the bit in mt8195_set_interface() when
-the flag is true.
+This patch adds the mediatek,mt8189-gmac compatible to the MediaTek DWMAC
+binding and lowers the clocks/clock-names minItems to 4. It also adds
+allOf conditionals that keep 5 clocks for MT2712/MT8188/MT8195, allow at
+most 4 for MT8189, and disallow mediatek,rmii-clk-from-mac on MT8189.
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> index 3f024d455cbd5..1a0ab95dfbf0e 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> diff --git a/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml b/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
+> index 9562406166387..0fc2eed066464 100644
+> --- a/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
+> +++ b/Documentation/devicetree/bindings/net/mediatek-dwmac.yaml
 
 [ ... ]
 
-> @@ -307,6 +311,9 @@ static int mt8195_set_interface(struct mediatek_dwmac_plat_data *plat,
->  	/* MT8195 only support external PHY */
->  	intf_val |= MT8195_EXT_PHY_MODE;
+> @@ -153,6 +152,39 @@ required:
+>    - phy-mode
+>    - mediatek,pericfg
 >  
-> +	if (plat->variant->mac_txclk_out_en)
-> +		intf_val |= MT8189_CTRL0_TXC_OUT_OP_EN;
+> +allOf:
+> +  - $ref: snps,dwmac.yaml#
+
+[ ... ]
+
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - mediatek,mt8189-gmac
+> +    then:
+> +      properties:
+> +        clocks:
+> +          maxItems: 4
+> +        clock-names:
+> +          maxItems: 4
 > +
+> +        mediatek,rmii-clk-from-mac: false
 
-[Severity: Medium]
-Should this bit depend on the interface mode? As written,
-MT8189_CTRL0_TXC_OUT_OP_EN is set no matter what phy_intf_sel,
-plat->rmii_clk_from_mac or plat->rmii_rxc are.
+[Severity: Low]
 
-Later in the series, "net: stmmac: mediatek: add support for MT8189 SoC"
-sets .mac_txclk_out_en = true for mt8189_gmac_variant. That means the TX
-clock output gets enabled in every mode.
+This block only disallows mediatek,rmii-clk-from-mac for MT8189, so
+mediatek,tx-delay-ps and mediatek,rx-delay-ps are still allowed there.
+Should their descriptions also cover the new compatible?
 
-The MT8189 binding forbids the MAC from sourcing the RMII reference clock:
+At the moment they only describe MT2712 and MT8188/MT8195:
 
-  mediatek,rmii-clk-from-mac: false
+  mediatek,tx-delay-ps:
+    ...
+      For MT8188/MT8195 RGMII/RMII/MII interface, Allowed value need to be a multiple of 290,
+      or will round down. Range 0~31*290.
 
-It still allows mediatek,rmii-rxc, and it does not limit phy-mode. So with
-phy-mode = "rmii" and no mediatek,rmii-rxc, the external reference clock
-comes in on the TXC pin, as mt8195_set_delay() describes:
+The mediatek,rx-delay-ps description has the same text.
 
-    /* the rmii reference clock from outside is connected
-     * to TXC pin, the reference clock will be adjusted
-     * by TXC delay macro circuit.
-     */
+The later patch in this series, "net: stmmac: mediatek: add support for
+MT8189 SoC", uses a different step size and maximum for MT8189:
 
-mt8195_set_delay() also accepts PHY_INTERFACE_MODE_MII. In MII mode the
-PHY drives TX_CLK.
+  #define MT8189_MII_DLY_STAGE_DIV	180  /* 180ps per stage */
+  #define MT8189_MII_DELAY_MAX		5760 /* 32 x 180ps */
 
-In either of those setups, would the MAC's TXC output driver be turned on
-while the PHY or an oscillator is already driving that pin?
+For MII/RMII, these vendor properties are the only way to set the internal
+delays. mediatek_dwmac_config_dt() reads the standard *-internal-delay-ps
+properties only for RGMII.
 
-If the hardware ignores bit 20 when TXC is used as an input, could the
-commit message say so? If it doesn't, would it be safer to set the bit only
-for the modes where the MAC drives TXC, such as RGMII?
+Suppose a value is picked using the documented 290 ps step. The driver will
+then program value / 180 stages instead of value / 290. Any value of 5760 ps
+or more (for example 20 * 290 = 5800) is rejected with -EINVAL:
 
->  	regmap_write(plat->peri_regmap,
->  		     reg_offset + MT8195_PERI_ETH_CTRL0,
->  		     intf_val);
+  of_property_read_u32(plat->np, "mediatek,tx-delay-ps", &tx_delay_ps);
+  if (tx_delay_ps >= plat->variant->mii_delay_max) {
+
+and probe fails.
+
+Setting mediatek,tx-delay-ps: false for MT8189 would not be the right fix,
+because it would remove the only way to configure MII/RMII delays on MT8189.
+
+Could both descriptions get an MT8189 line with the 180 ps step and the
+0~31*180 range instead?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261110-dwmac-mediatek-mt8189-v5-0-7d99d6292962%40collabora.com
