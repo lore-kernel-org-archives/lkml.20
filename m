@@ -1,85 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794672341;
-	b=PIX9WsXxWmJQF45d5Ec45ToKTQY96LN+DX+8/m2pcQfwuCULksZ08b6QFfhzechTwnJE
-	 1CaBgSAj8FEl3diybXv/zMFGz5/RzpIdnPtE28UlImUsDt/Uor9VyjYRRKj0sYCA2luN9
-	 vdqBUX0C4PF45Kca5QV99wx8oj7gq0RBrn5xuZ/anChr1LO4cr9XxZGGoOXpaGmIWEcDY
-	 6D+ddolaFMFQFmnKp1jytUoVfFIIVEQfr2suFxvGF5VO1Z+H0j328hhEGDaI+PGdeiPOd
-	 2gtpn+99ZSrTV+h2y4osZDTOkyonO7RSA4eraV+qJJV2E/gD9EgoOXNha0sJ0PzHXxg==
+	t=1794672354;
+	b=RBRYiQCCnJ6HDMUvnMJpkhlAHjP2OuxYWzqlJ5biWtdk22CoxUI9KYkeyuAkUCVH2y7G
+	 uT3T4DSFPxVNoRViTPd/CajNSFhzNaa+zzs9BEXQOm2uVfqFFd1ZguIJhA3bU76ygJWhN
+	 8EsgxbY7LTPt+psVHNgxtMv4zFqK0LrT4DKE3AANvrmCH2UzklAAtpl7ByX36cZSWPJEg
+	 sQ3wuzQHondIOQSrhEumA9sV/z/3qlw98qW/kEnd9f8BaveW1gD5oDtlJjBGk2J9j7BZx
+	 DHwHnEhFGpmNXGnrZmn3o0jiPJeBNGLlh+RZJDppxsgnTQ4RcZEyjdlOAsAHbslbv6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794672341;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794672354;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=547AYHesvWuVRdGCIewRd+N2Li/XBFq8XpI3l0Qzhfk=;
-	b=kzgqeVMAZpxtoyayBll0v58UYFceyODgOUYfmUtmPE0eMXJ9WqmYmYie35TPzS+RyE4+
-	 udGx5HjWUUf/kSMqaeugHvWEtyBP6wPJEMYPOCuXO+MF7nJ2ZkaloYqu9+GXobtzid6EQ
-	 nY30xNcexzX/waL9E2/lRt3P3Ah9bNA6qPOeeF72CXwefECTc06gMW0NAYVz9o4HAev3m
-	 4onzuenjE7GpezHGQ+pZD8QRObUMJ1+URSVmi2qhnVWl+FcStc99zNJEiu6MCscGsUIJm
-	 3qD32tHL8TzS+7nOu8AePpx//U96YPquqUkY+XCk6Ee6c34TMfnCRhcVCUPNaVoXZwg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=rwXxXGuI8odA6JxbQFYflPGUh67I5rWeLK+lGKx8MRg=;
+	b=KnoQ2MVGo8nNxVgN7J5EAr7c9CkfxhOPKCSJ/MgNDHN2YurLqwqF+NUhmwmQCXm+VXDa
+	 R56q+lFatPxZVUyTeUzrPAiyTLK040Iw3h6DesOuCL/tQzvVvCwHAfYtarFBluVP+FlwZ
+	 ZVNL2rslrU5IaPpVqIa2v+xBc3zVtTqRLMvh3zOwaiVlMqYhBa80a9o/zDGXAlW2TIbou
+	 vbEcs6wHHXaHf95CzmzAousRe0a5TY81y5JBauX9Umcn+PLkvP036jkMZOpuY0ZrXNRnr
+	 bYsHfcXHrXlLCHE68vL/vjyvzfDiv3uNeZ9+P+NoN/TXT54Ab4IELvCW5P/bnk/ZLGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mv4eQuaf;
-	arc=none smtp.remote-ip=74.125.82.44
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ylt25xxI;
+	arc=none smtp.remote-ip=74.125.82.51
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B107606A334
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:05:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B107606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8414F606A323
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:05:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8414F606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mv4eQuaf
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1b3ada81853so1897208c88.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:05:41 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ylt25xxI
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-1a3c08d6928so2740350c88.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:05:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794672340; x=1795277140; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=547AYHesvWuVRdGCIewRd+N2Li/XBFq8XpI3l0Qzhfk=;
-        b=mv4eQuafDY4Pf4G/39Ez/dibbEL1tp/mEeUZkKSHNyqMaRYSbKVqWFkCkTUAiki7H3
-         XvdTX9Mw57DvIoc8qwpGSCkkSAXAseI6Ervx96D73cYNWLTuGUs60H5xbF0hUduiN15q
-         McYBeUVUeHXm+mMgq0MOMpCMuWtcTNbk7yCEIU0xh7g3hsGQB8kTTY77LY/HAeiqbWX4
-         UgBZUIuam46igrFahSuNUALs5hbgRdSDYtQe4vIXfAoxJURgVBrWDew80EPg0aBIwTWd
-         p8GNHCjqZEijGZNH39/tYW6ME1MQcPNbL2P3uvNPGgfHcPFSoF3E9OIJTfuInY8X+Sfh
-         YIMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794672340; x=1795277140;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794672354; x=1795277154; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=547AYHesvWuVRdGCIewRd+N2Li/XBFq8XpI3l0Qzhfk=;
-        b=P3kQEHRth10DGvB8WzWhU6pwc5oyOoxUztzlORWlN2yTPE8yiKYXaNrG4RnMx2n3l+
-         p0hVb7HiUXdCfyzRMI6SeznN+oXbQ2ygsNp3WVthBHu2MTSLxPXPfSO8i4aTGknWVhHp
-         iaEnOVwM5DyX2n0eyrvE+xCJtUxIpVRXP+fwKk7AXPt7Zd76f9JbBGq7lKv4VtWnrk8A
-         cfJAY9Npcf5MaD5Ftvc9VRsI4mmgVvJsQtFNLdJD9pN+0ucYxI8V8sNaugYR5ONpoRL4
-         drNViqtYX6hUKSKKQ/GFC3YHYVTokP1S9XVi+FM1OuEfJ8MoPX+s0TDVP3ug9qnCMnKS
-         CqiA==
-X-Forwarded-Encrypted: i=1; AL+hErGSVvbbYiOB+VJFByR38oMDobR2rJTTJQBYTD2AbimqUPZTR2dZ3XVDBk8Znkoqa8MqzOpPuqK6yExehPQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+F7dWB74k+sYClqFprJNA6q00gu3clzNynnwZZfGI6+b1HXyjo
-	VOj/O1PGZkp5PVHKE5qfC5dbn2Al0KEkbnPei2/IrPrN6gdhRHTFzCA=
-X-Gm-Gg: AYBFou332J+pQyVkMRF8UWQMtQTeEiQi9Wm+RSM5wGDEwLIxXbSPG3XaXXYHlm4j+MA
-	43+qj/TAyOrVyxQXeyzXWRDwZp3aRTD77YGcRG9X+FPRrKisxCvwA7acTvu8nHBaQToT+OxFiu9
-	5rVNLw1bWFDCLvh1OTlXEZtaMDsho8dOY4au0B1WMw3JW1jY65I1b38uZsCp0rosh6AhElDXcoI
-	RkazJgDwksa7T69kiZ/I6IvqCVSBiBqDs+Wbd9I8+odL2p2pK7yxlFMOMPBmXz41ERaQZ6A7YY9
-	NjbxO5puO8zzzvu/BcAaRJocpqYPyHCdbv8hi/1AtxqVmS3eHuU5EN/y130bJO8z8MknKTZuWQL
-	sJ9LZ1/0C7KFadtHDgzcYu85KYVhgfqC7yqvcFt3hdpu4Q653+9TCYckqi47yKqD7b9iZl83II5
-	+8jmPvQmnr5gvaZ3MF7IxqiVz+saPM3XotePJG0MHZWtmss9u3YI4BX+cryq8aYQJYleayDgyH3
-	X9N1zs73HWNlLp/wlH0Gs2o4QPFTqujyLkwj2xlKqLtwgIeccN6cXBpZgRXtpx3WLHcGHW4N6A+
-	XrldV3iql/tQTmD9vNfbGiUyfMU25BKCpIAMQZKWYG9HjIVjHJL4zemJEJf37ZIWXw==
-X-Received: by 2002:a05:7022:3b86:b0:1ae:59d6:91cd with SMTP id a92af1059eb24-1b5239e163dmr123330c88.38.1794672340199;
-        Sat, 14 Nov 2026 08:05:40 -0800 (PST)
+        bh=rwXxXGuI8odA6JxbQFYflPGUh67I5rWeLK+lGKx8MRg=;
+        b=ylt25xxIBag8hj1X6iBLXaTpMY5Pb0x9gWZ9v811l2u2hHhfwwFVcmDKQXepxHIRwX
+         c7PyaEK9KIy3GU77RlSxBsezWsRbkN21rabe7XYhjAETrN7wW9KP4nWH3/TPVufNzUfd
+         35t1OD8UXG5J15P4SqlR6T6XOvhd49FQe0PRVY8EzlvKtUTbN9WIJRn8mrvRjBHRmrBZ
+         GCP3W2aJfwPBRm8m1Tfd6LSkSbx/N6DqActZwrJccRYgaVjo0GKTAdjnQyZoFucqoIdr
+         /G/Pb8WOS+3R2GE8c/PCNJn2mJt6Q9B5bAp718IUyI1kGJ5L8LCuBrkT1di1k/pcvR+i
+         Bniw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794672354; x=1795277154;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rwXxXGuI8odA6JxbQFYflPGUh67I5rWeLK+lGKx8MRg=;
+        b=ZoG9o9XvpbS79jw0caTYRnXsRWrCAFsMgQN00AUjQjAFE+cAVQzDUIuVtlAiHGRQX5
+         shevthVtLnw2AsQLazHgjig1srHcQWAq/gr6K488lA7mzAdZO+B2y1p3PcqkDDPem6zI
+         f84AayZuKopMFX1OzPHroRLpm2cCLzMIQxf8i/H6oxemgrTfXfyU77o7DdW2lhqFn/z1
+         QWNIpHbpIkhVPiV8iNQRbAXz0YpXFTkFpedxkuWsJgpQ3LMzOvHm5V5Fq1GebLKZBxKR
+         ut96738N7GvJFf83NgBWkQnmHAg1BnQ6dUIoEVUlRgIbyc4VgF25cEt+9WaLGvzwrtpF
+         hidw==
+X-Forwarded-Encrypted: i=1; AL+hErH827e4ArrBsw3WMeNgXBcmR9dz+5ZRDNy2jta+/BBcXQR8zLKtE0PDiLGXaqHzcv5sH3KYhOlgBuzBgVs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8+P76sCJRGNdTfsnOtMsaBZpFvOYW1T4pp974aNpyqdMR5E6lL
+	UhNAzYPpst73jbTb2mQEvxCpV3QNqnGb/A7VcJ7gO+VmodbhwSB6hL8=
+X-Gm-Gg: AYBFou2ubqmL7AKJGvDO3UZC4ftrou8VDfLySyEC1eRG22x/U2JZt000hQprxyMQEtl
+	dGnYY0PxbaEE3KVs/oDM7P6XcLMngoq3qxmCN+F7RHcbYiBJ+jW4XHq7XvUG6pB13j5oN+IhXFj
+	j7Xd9eBYIiHw/lpa42KpBwWIXPsJ1HNBbUiDO+BY8bRav7lZC154/c8mbNtoGW400tIP01wA9HQ
+	q+WZwojeqTAefnlv2tz4ISM/PPkbC/csXn8eHa9Z1aL2cMzu3XsVG5rovfb57lnt4M4Wyiq5lab
+	GKvqfygWQ5sXh31lG5VOCMHmvsNzCBbpsAzuewWZ+CMmYrM7tRVTSMrTq77207EmalbdVc+p+kT
+	ZI081bRa4M5QdhZQfCTeIWsPjbK++/Foim+2/e2EjEQ1isvJFHPn5UNiYHTBheq8tWv24aSdfKl
+	lErNOt1J5ukZ/eR0ajVeJRS4gd4ISrIMSHZXoD/fzzxeq31aO+L+pAfdI0vdl9Cp6y6JvNqwMC0
+	+7+lntO33v/ENGXjkgX2dbq4+Ed8SuK7SZz/coBRGWt/0+nOenL1RjGQhxdI7LEFA90S5Hg3ks3
+	jaMuSe9z/MhgUwcnBDLo2AcRtQkSxxZiOYO+hUH9mbvLYO5+wuFrX4HcnA2uf24hxQ==
+X-Received: by 2002:a05:7023:d0a:b0:1a4:fac9:aeee with SMTP id a92af1059eb24-1b50302aba6mr5983738c88.4.1794672353408;
+        Sat, 14 Nov 2026 08:05:53 -0800 (PST)
 Received: from at-Standard-PC-Q35-ICH9-2009 ([106.202.114.179])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b505b5bf76sm13378548c88.10.2026.11.14.08.05.32
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b505b5bf76sm13378548c88.10.2026.11.14.08.05.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 08:05:39 -0800 (PST)
+        Sat, 14 Nov 2026 08:05:53 -0800 (PST)
 From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
 To: 
 Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
+	Sebastian Zygadlo <szgit@icloud.com>,
+	Yossef Osman <yossef.osman@proton.me>,
+	Andre Eikmeyer <dev@deq.rocks>,
 	Bjorn Helgaas <bhelgaas@google.com>,
 	Thomas Gleixner <tglx@kernel.org>,
 	Ingo Molnar <mingo@redhat.com>,
@@ -97,16 +101,17 @@ Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
 	Kenneth Feng <kenneth.feng@amd.com>,
 	Hans de Goede <hansg@kernel.org>,
 	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Andre Eikmeyer <dev@deq.rocks>,
 	linux-pci@vger.kernel.org (open list:PCI SUBSYSTEM),
 	linux-kernel@vger.kernel.org (open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)),
 	amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
 	dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
 	platform-driver-x86@vger.kernel.org (open list:X86 PLATFORM DRIVERS)
-Subject: [PATCH v2 00/12] Fixes for apple-gmux and runtime support
-Date: Sat, 14 Nov 2026 11:03:47 -0500
-Message-ID: <20261114160457.3034-1-atharvatiwarilinuxdev@gmail.com>
+Subject: [PATCH v2 01/12] platform/apple-gmux: Fix power for MMIO systems
+Date: Sat, 14 Nov 2026 11:03:48 -0500
+Message-ID: <20261114160457.3034-2-atharvatiwarilinuxdev@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261114160457.3034-1-atharvatiwarilinuxdev@gmail.com>
+References: <20261114160457.3034-1-atharvatiwarilinuxdev@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,83 +123,238 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series fixes apple-gmux on T2 Macs (2018-2020):
+Currently The dGPU on MMIO Systems, dies when we write the gmux values
+to turn off the gpu.
 
-  - Fix interrupt handling
-  - Automatically turn on dGPU when a external monitor connects.
-  - Fix base register read/write
-  - Fix power handling
-  - Improve documentation
-  - New module parameter to toggle boot GPU.
+On MMIO macs Using only gmux dosent work, instead we have to use PWRD
+method + GMUX, which turns off the entire bridge, and completely messes the
+pci config, so we can't use pci to traverse through it. we save the
+entire bridge using ACPI addresses then we run PWRD(1) to turn off
+the bridge, then we write gmux states, and resume we do the vice
+versa, but here we dont need to retrain the link and write the
+MMIO variable.
 
-It also adds vga_switcheroo runtime power management for T2 Macs, built
-on gmux power control, so the dGPU is powered off automatically when
-idle and users no longer need to toggle it manually.
+Tested-by: Sebastian Zygadlo <szgit@icloud.com>
+Tested-by: Yossef Osman <yossef.osman@proton.me>
+Co-developed-by: Andre Eikmeyer <dev@deq.rocks>
+Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
+Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+---
+ drivers/platform/x86/apple-gmux.c | 159 ++++++++++++++++++++++++++++--
+ 1 file changed, 152 insertions(+), 7 deletions(-)
 
-Changes in v2:
-- Check the discrete pdev config before GFX0 restore (01/13)
-- Don't save bridges state when state is VGA_SWITCHEROO_OFF (01/13)
-- Fixes discrete_pdev initialization (01/13)
-- Used PWRD on 15,1 and 15,3 aswell
-- Add quirk to 0x7360 PCI id aswell (02/13)
-- Add 15,1 and 15,3 and its gpu's aswell
-- Removed ignore_access code (02/13)
-- Initialized val in read functions (03/13)
-- Fixed permanent mutex block on failure (03/13)
-- Only resumed when pm_runtime is available (skipping on iMacs) (04/13)
-- Corrected ordering of interrupt_work (04/13)
-- Notified drm about hotplug change (04/13)
-- Checked if EFI_RT_SUPPORTED_SET_VARIABLE is available before writing
-  gpu-active (05/13)
-- Wrote gpu-active on shutdown aswell (05/13)
-- Dropped boot-gpu parameter (06/13)
-- Checked if vga_switcheroo has been initialized (09/13)
-- Added additional pci_is_thunderbolt_attached check to
-  amdgpu_device_supports_gmux (09/13)
-- Removed duplicate check (10/13)
-- Renamed gmux_off to runpm_active
-- Checked if adev->dev exists in dm_dp_aux_transfer to fix null ptr
-  deref (11/13)
-- Removed GMUX specific code (12/13)
-- Initialized edp_sink_present in testing code (13/13)
-
-Link to v1:
-https://lore.kernel.org/all/20261025040046.1602-1-atharvatiwarilinuxdev@gmail.com/
-
-Andre Eikmeyer (6):
-  platform/apple-gmux: Write switch state to EFI on MMIO devices
-  drm/amdgpu: Add Apple GMUX runtime PM support
-  drm/amdgpu: Catch register access while GMUX keeps the GPU off
-  drm/amd/display: Refuse DP AUX while GMUX keeps the GPU off
-  drm/amdgpu: Skip AC/DC notification while the GPU is runtime suspended
-  drm/amd/display: Skip panel power savings on eDP links without a panel
-
-Atharva Tiwari (6):
-  platform/apple-gmux: Fix power for MMIO systems
-  PCI: Disable pcie port on specific amd devices
-  platform/apple-gmux: Fix MMIO interface
-  platform/apple-gmux: Fix Interrupts for MMIO systems
-  platform/apple-gmux: Add check to detect FSS
-  platform/apple-gmux: Add documentation about iMacs
-
- arch/x86/pci/fixup.c                          |  43 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   3 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  61 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  48 ++-
- .../gpu/drm/amd/amdgpu/amdgpu_reg_access.c    |  24 ++
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  14 +
- .../display/amdgpu_dm/amdgpu_dm_backlight.c   |   3 +
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  19 +-
- .../tests/amdgpu_dm_backlight_test.c          |   1 +
- drivers/gpu/drm/amd/pm/amdgpu_dpm.c           |  19 +-
- drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |   1 +
- drivers/pci/pcie/portdrv.c                    |   2 +-
- drivers/platform/x86/Kconfig                  |   1 +
- drivers/platform/x86/apple-gmux.c             | 365 +++++++++++++++---
- include/linux/apple-gmux.h                    |   1 +
- include/linux/pci.h                           |   1 +
- 16 files changed, 534 insertions(+), 72 deletions(-)
-
+diff --git a/drivers/platform/x86/apple-gmux.c b/drivers/platform/x86/apple-gmux.c
+index 9c728ac4e..34e94f2b2 100644
+--- a/drivers/platform/x86/apple-gmux.c
++++ b/drivers/platform/x86/apple-gmux.c
+@@ -65,6 +65,10 @@ struct apple_gmux_data {
+ 
+ 	struct backlight_device *bdev;
+ 
++	/* power handling data */
++	struct pci_dev *discrete_pdev;
++	enum apple_gmux_type type;
++
+ 	/* switcheroo data */
+ 	acpi_handle dhandle;
+ 	int gpe;
+@@ -502,23 +506,158 @@ static int gmux_switch_ddc(enum vga_switcheroo_client_id id)
+ /**
+  * DOC: Power control
+  *
+- * gmux is able to cut power to the discrete GPU. It automatically takes care
++ * gmux is able to cut power to the discrete GPU. On most
++ * Systems the gmux automatically takes care
+  * of the correct sequence to tear down and bring up the power rails for
+  * core voltage, VRAM and PCIe.
++ *
++ * But on MMIO systems, the standard gmux writes does not work instead we
++ * have to use a combination of ACPI and GMUX,
++ * and Using PWRD (the method that used in macOS to turn on/off the dGPU and its bridges),
++ * which turns off the entire bridge and messes up the PCI config,
++ * so we can't use pci_upstream_bridge to traverse
++ * through the bridge, so we use ACPI addresses to save/restore bridges.
++ *
++ * NOTE: Communication to these bridges (not the dGPU/HDA) in any form
++ * when the bridge is off, will result in CPU CATERR.
+  */
+ 
++static int gmux_save_restore_pci(acpi_handle parent_handle, const char *name,
++				bool save, acpi_handle *out_handle)
++{
++	acpi_status status;
++	acpi_handle handle;
++	struct acpi_device *adev;
++	struct device *dev;
++	struct pci_dev *pdev;
++
++	if (name) {
++		status = acpi_get_handle(parent_handle, name, &handle);
++		if (ACPI_FAILURE(status))
++			return -EIO;
++
++		if (out_handle)
++			*out_handle = handle;
++	} else
++		handle = parent_handle;
++
++	adev = acpi_fetch_acpi_dev(handle);
++	if (!adev)
++		return -EIO;
++
++	dev = acpi_get_first_physical_node(adev);
++	if (!dev || !dev_is_pci(dev))
++		return -EIO;
++
++	pdev = to_pci_dev(dev);
++
++	if (save) {
++		pci_save_state(pdev);
++		pdev->current_state = PCI_D3cold;
++	} else {
++		pdev->current_state = PCI_D0;
++		pci_restore_state(pdev);
++	}
++	return 0;
++}
++
+ static int gmux_set_discrete_state(struct apple_gmux_data *gmux_data,
+ 				   enum vga_switcheroo_state state)
+ {
+ 	reinit_completion(&gmux_data->powerchange_done);
++	acpi_handle discrete_handle;
++	acpi_status status;
++	unsigned long long result;
++
++	if (!gmux_data->discrete_pdev)
++		return -ENODEV;
++
++	discrete_handle = ACPI_HANDLE(&gmux_data->discrete_pdev->dev);
++	if (!discrete_handle)
++		return -ENODEV;
+ 
+ 	if (state == VGA_SWITCHEROO_ON) {
+-		gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 1);
+-		gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 3);
++		if (gmux_data->type == APPLE_GMUX_TYPE_MMIO) {
++			acpi_handle handle;
++			u16 vendor;
++			int i;
++
++			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 2);
++			msleep(100);
++			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 3);
++
++			status = acpi_execute_simple_method(discrete_handle, "PWRD", 0);
++			if (ACPI_FAILURE(status))
++				return -EIO;
++			msleep(20);
++
++			if (gmux_save_restore_pci(NULL, "\\_SB_.PCI0.PEG0", 0, &handle))
++				return -EIO;
++
++			if (gmux_save_restore_pci(handle, "EGP0", 0, &handle))
++				return -EIO;
++
++			if (gmux_save_restore_pci(handle, "EGP1", 0, &handle))
++				return -EIO;
++
++			for (i = 0; i < 1000; i++) {
++				pci_read_config_word(gmux_data->discrete_pdev,
++							PCI_VENDOR_ID, &vendor);
++				if (vendor != 0xffff)
++					break;
++				msleep(1);
++			}
++			if (vendor == 0xffff)
++				return -ETIMEDOUT;
++
++			if (gmux_save_restore_pci(handle, "GFX0", 0, NULL))
++				return -EIO;
++
++			if (gmux_save_restore_pci(handle, "HDAU", 0, NULL))
++				return -EIO;
++		} else {
++			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 1);
++			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 3);
++		}
+ 		pr_debug("Discrete card powered up\n");
+ 	} else {
+-		gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 1);
+-		gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 0);
++		if (gmux_data->type == APPLE_GMUX_TYPE_MMIO) {
++			acpi_handle parent_handle = discrete_handle;
++			bool saved_hda = false;
++
++			/* If the power state was OFF, then we only do
++			 * PWRD and we do not save registers, as the
++			 * registers are already saved
++			 */
++			if (gmux_data->power_state == VGA_SWITCHEROO_OFF)
++				goto do_pwrd;
++
++			while (ACPI_SUCCESS(acpi_get_parent(parent_handle,
++							&parent_handle))) {
++				if (!saved_hda) {
++					if (!gmux_save_restore_pci(parent_handle,
++								"HDAU", true, NULL)) {
++						saved_hda = true;
++						pci_save_state(gmux_data->discrete_pdev);
++						gmux_data->discrete_pdev->current_state =
++								PCI_D3cold;
++					}
++				}
++				if (gmux_save_restore_pci(parent_handle, NULL, true, NULL))
++					break;
++			}
++do_pwrd:
++			status = acpi_execute_simple_method(discrete_handle, "PWRD", 1);
++			if (ACPI_FAILURE(status))
++				return -EIO;
++			msleep(20);
++			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 1);
++			mdelay(10);
++			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 0);
++		} else {
++			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 1);
++			gmux_write8(gmux_data, GMUX_PORT_DISCRETE_POWER, 0);
++		}
+ 		pr_debug("Discrete card powered down\n");
+ 	}
+ 
+@@ -552,10 +691,14 @@ static enum vga_switcheroo_client_id gmux_get_client_id(struct pci_dev *pdev)
+ 	else if (pdev->vendor == PCI_VENDOR_ID_NVIDIA &&
+ 		 pdev->device == 0x0863)
+ 		return VGA_SWITCHEROO_IGD;
+-	else
++	else {
++		if (!apple_gmux_data->discrete_pdev)
++			apple_gmux_data->discrete_pdev = pci_dev_get(pdev);
++
+ 		return VGA_SWITCHEROO_DIS;
+-}
+ 
++	}
++}
+ static const struct vga_switcheroo_handler gmux_handler_no_ddc = {
+ 	.switchto = gmux_switchto,
+ 	.power_state = gmux_set_power_state,
+@@ -803,6 +946,7 @@ static int gmux_probe(struct pnp_dev *pnp, const struct pnp_device_id *id)
+ 	if (!gmux_data)
+ 		return -ENOMEM;
+ 	pnp_set_drvdata(pnp, gmux_data);
++	gmux_data->type = type;
+ 
+ 	switch (type) {
+ 	case APPLE_GMUX_TYPE_MMIO:
+@@ -993,6 +1137,7 @@ static void gmux_remove(struct pnp_dev *pnp)
+ 
+ 	gmux_fini_debugfs(gmux_data);
+ 	vga_switcheroo_unregister_handler();
++	pci_dev_put(gmux_data->discrete_pdev);
+ 	gmux_disable_interrupts(gmux_data);
+ 	if (gmux_data->gpe >= 0) {
+ 		acpi_disable_gpe(NULL, gmux_data->gpe);
 -- 
 2.55.0
 
