@@ -1,85 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794674663;
-	b=5e35h8vf+1DPjGbCu9iBeZ6sSmJGRKpNfzH8p5Z1askj/wt759Qp71nrMBrdd9zaxvy1
-	 4iTzQU0C8KAZrtCNyHmekrBTx5GS78Swfm/yMq+FhNCmNX8gNbCLL3ccsMhyAIwMpilo1
-	 +hQb78vdgkSjVLh+i1IOQPlkYxjTo54yiuss9GGuyzT7KfDosMf9K4YUsBv+K1pFlIZTg
-	 lIRLsRiD8M1BKJzRxYUVvt4wagEFGyaiiRDIeqEc3PP0xVuHXKJkqKQmNPOigzHlmOQXq
-	 kSIF6JFMvcFGLPDd+q0uL5AkdZsZD7bUZ0+OYZA2hd8B7dj+/fRPvzmjG3QxNuChE5Q==
+	t=1794674688;
+	b=Vzo5BPnWPtsQRUUDbvjqK1mSUUaDbS4P/0OTfuz/0XMrXpXcroK5HErrzWHEi/U9fkwq
+	 rUdzl3MMMW6IZbRFnPj7RWh6qEK2xmB6My80m1Z5Fle7wnA4NDkoIMsvgo5uo6DiXIMjn
+	 s+NpCJwd8s3yDRKRKqh1tMbGsNmZYLOIa4oMJaYUAA/xJSti2ru1uwZLR+XbGDmIKsGgL
+	 hN6GjFYtqN+glTMp6sWsA3d8BE71zlEVmoDi1dTKbc9B/e8Hu4TJkqre3xDOdXjEJ2io4
+	 BXhBKwgFZ0MkEDs+iUFMh0rUBrLnhVldJttao85dxe/Vexnp9WGwKO7nm7c1rJt7aIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794674663;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=B0OC0ZuonTQMXGfSxyDCyL/1ZM45W9+oO4OKZDmsoH0=;
-	b=T4LklembWOab0gqCiUfrmJM4GnVzbdF/EDkPjgM6SKU7sjWFWa9jWhgO7oRqM7jIywDJ
-	 +790VzQj+gvvmHfW9owedkfzxW9BpWic4FZGYWC9A8EBAmo7NY3yDHmCfdBePgb4LqgW2
-	 QxS1w4dIp6wG2euGRA9+kcQuQWb7UcMi0DortTWAEawFdZIsuJtc7hawNoL1WAvYa9Onk
-	 uIXiExyY06TAe5TsjmUhfTLJbLCVNNfuPrGgeXG3XehgMO+SCxtL8sf1GCYhOyD77lFJ/
-	 0J9TECCCRBu5ubpvyLhpGWIOzfZnhpOq3JvZrIvuvG7PW3U1YUHL1X+1qz5+FBU1flQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794674688;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=h4axWdmxX9gtDkNwklTEbzWCcmvgV4kr9k9kh9hjp2s=;
+	b=ypjUEugEfIzKaefSbwRcH6YMgtLDbwDPn4dsFediSSW8heev2TndVIGuY51SfZiln3w0
+	 /czGK8JBHYIxinq+r1XyylIGWHM3YXPt3KnVCihguqQVGgDenxHN3M9tQnrC+HVjoID1m
+	 iioUXxmo8yq+HkLz63Uqs4/OUL9Moi1kvvbfr/LMt4d2jPeeUmz+GJOTUOccc2eLom877
+	 nJZ0KwYY/gI/DZIN1PIzyR/3frruKuvTni7/aTMND9tV+smUWEIWBrsH834d8MFXG/7Ki
+	 BC/IOeyN+8ftInrC+whyLVIGZg/c3FYMtfdyAmrgCMN8k3o9R6sILzugS/dQUqNv1FQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=Gj8hRzTn;
-	arc=none smtp.remote-ip=35.89.44.39
-Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=googlemail.com;
+	spf=pass smtp.mailfrom=googlemail.com;
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=WapXwFRy;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38C60606A32D
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:44:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38C60606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 823C2606A327
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:44:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 823C2606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=Gj8hRzTn
-Received: from eig-obgw-6001b.ext.cloudfilter.net ([10.0.30.143])
-	by cmsmtp with ESMTPS
-	id SDgWxfHTXyb4YSGrXxgIoe; Sat, 14 Nov 2026 16:44:23 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id SGrVxbOCDdRrRSGrWxlk0R; Sat, 14 Nov 2026 16:44:23 +0000
-X-Authority-Analysis: v=2.4 cv=LOhmQIW9 c=1 sm=1 tr=0 ts=6af88fe7
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=XYAwZIGsAAAA:8
- a=VwQbUJbxAAAA:8 a=kXeqfPWSxjI9BzV32rYA:9 a=CjuIK1q_8ugA:10
- a=E8ToXWR_bxluHZ7gmE-Z:22 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=B0OC0ZuonTQMXGfSxyDCyL/1ZM45W9+oO4OKZDmsoH0=; b=Gj8hRzTn1Qv0Tn1Cegteb7ykRg
-	3Hr2Vfh7fpwxl20G5C4GVXr8t+0XKtiV7ZqbCd2yHexKZzfWUZYM3R5hHl5XrOW5G9oak497GShdn
-	BBYXj/2UERRK5fN4T8CaUVeZ4++MBC+gttXXZyDqHbjQ7WEQqFhpz7d8NCI1VaYO843flyVufD+xS
-	4HjIoqy84YJX7r4sxJb2ShtqSgnPYLOpZiyaxjnJBuv5T/9/FWDxM46FWzVN0bxaiLjFPBIYPmfj+
-	gVh4BAT53kfZnql1hENZ3zYXsA5OHF/dcat9cJEeMKmLay68bzxmJfUAq9ThWq38wkXQ9e0VJxN3P
-	6ZTS4Rcg==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:48162 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xSGrV-00000000Kmi-1jrj;
-	Sat, 14 Nov 2026 22:14:21 +0530
-Date: Sat, 14 Nov 2026 08:44:20 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Robert Marko <robert.marko@sartura.hr>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
-	nicolas.ferre@microchip.com, claudiu.beznea@tuxon.dev,
-	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, luka.perkov@sartura.hr,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v3 2/4] dt-bindings: hwmon: add Microchip LAN969x fan
- controller
-Message-ID: <db9e90e3-9d06-4b23-b373-9a78e2598ea5@roeck-us.net>
-References: <20261111161619.232141-1-robert.marko@sartura.hr>
- <20261111161619.232141-2-robert.marko@sartura.hr>
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=WapXwFRy
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-490a0e72588so864562f8f.3
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:44:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20260707; t=1794674687; x=1795279487; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=h4axWdmxX9gtDkNwklTEbzWCcmvgV4kr9k9kh9hjp2s=;
+        b=WapXwFRyLE4UMSQQp6q74hJxJZKhvMEzr8td3rBwUpnZtlQt82GSLJ09wU1d/BwnqN
+         ckJXxMSsygktQmcmqJXu42j0g7IlbU2xj4zPInT14vpP7NFmnNqKyteWm9kZ7eiZVSD/
+         INaA6H3c6NYOM9/fZeotBlWUHZ4mFZr7BgLQrWCkcVEyISboFdYV5e+9umRO85qajUn/
+         3p8VxS1xieGaSvdrnt+y/cNNUTWC8ufdx7TCgdbR4MYdFPHfRmUHm2PKDmCK6zcnEeTK
+         XmkUHcij75iAp1eEqMoHLj/XCDD6sF+s1GX3viZcxmbx5ZXh1SXpC2CdL2Mtgt0rab14
+         +HrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794674687; x=1795279487;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=h4axWdmxX9gtDkNwklTEbzWCcmvgV4kr9k9kh9hjp2s=;
+        b=Z4vj0OZBPhhgGsykXa/85PWM0LUxv6l5vAcVToLVe86lmQEqVOe4gevEBm7ekKFsMq
+         8cinUlzPhYTk5wtf6kIfxbXeIqV28tOfY4qpjiMreLsvy4PFAnuD0aHa50+d3IFHGcfl
+         RReqF+gBlLubLYm97SU3+yle0rfFobQCOFD/NqxIFH4eiUjECQ1AyD3tX5e5xWRpgdPH
+         fjyVQsemEoJENZ4aF258ZyP/wgdwnvOzHoXcN0CNUNm4FkiWVlSzoqgoqRkgKQxWDK66
+         nJcRfmKHaiLjJ9uwC1FQE09gAt0jevTnVlbBSjtXazKbuINIqSZupwYUA5q0+0ok+pUt
+         WPNw==
+X-Forwarded-Encrypted: i=1; AL+hErGb61e/f3aG7FGChFYojvDz4nLmB4DQFBoaUasxZlKJZmc0wmfBLjLw5WVCGtx7FBHiczuqhI37MdxyAGc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9a0gDUktzLo+pCF6EALDwO78nKYXtL1pL63dE1KW7/vvwP/qKB
+	Wnqz7nJ7K6Cj1vPOBpD0bkGcAoeijcn+WMVJqwjQP8i8UVoQCSAnj+I=
+X-Gm-Gg: AYBFou1ywJk1DmxKI8bIf2Ol+2tdp5YvhrFTX3LggXTm9rzKR6xmdrkNvZwX3uZCPl/
+	RsSe03Y9ePpyQ/BXy/6y+8za/8hnCjXZPDpvaIrkOU78dDtXo+6y2UiJvH2C1bVgQcab9VsQtYx
+	N6TUyBCnbJIVYakZVy4BPG/CvS01omCTSy7zTF/NV3DHdWgvH/NHDTpcUcOUfkTT5xSHSFfHRh3
+	GAAEgsWhnJrCsfxS6BgtzLAYHNx/jDIBJthd1OB4WMQICkvS2pEKX7RZDBIfiG4bHlHuYuvmW8h
+	RnX/j2rruERZC4ZJfKI+kEd0GM0fJ/FNXrOi7V4VxanN41P8J8qPbu0mJdIzStZgK/Rfu8TOaxC
+	kkG+6uIbmhSfMvYifnN1bCJK5uqc+MW69J05z+T4j+dkH4iTTOOzt4i+NsT0HbQrobmg6p+vMYM
+	R1rRkjXnG6b7+SriohaXEiVG7HdBfbkrolC4lFvscWToNXht+eJeGyWZuNiZciUlGwqQTTSPkRo
+	eWU+o9eSXncX+Ygtll4SehHAE8O4Ti+HQeNFhA4+MHTVtDHUtatktjKrg87Y1Wrg1aGf9Z0W18F
+	RZchXwQDkNj5jSRy/XLnjgAn0agEAsPYbjSw+D7JH1ORiXMQaDk69v+FJZmQS9jHUlvWGwU1tVP
+	ksqy3kw==
+X-Received: by 2002:a05:6000:2007:b0:491:7ab7:81a1 with SMTP id ffacd0b85a97d-49c72c9be63mr11913231f8f.46.1794674686748;
+        Sat, 14 Nov 2026 08:44:46 -0800 (PST)
+Received: from [192.168.1.3] (p5b2ac4c4.dip0.t-ipconnect.de. [91.42.196.196])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c60f8e794sm11806540f8f.59.2026.11.14.08.44.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 14 Nov 2026 08:44:46 -0800 (PST)
+Message-ID: <6bd63228-03f5-42e8-a7b1-367007d8dcc0@googlemail.com>
+Date: Sat, 14 Nov 2026 17:44:44 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,43 +93,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111161619.232141-2-robert.marko@sartura.hr>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xSGrV-00000000Kmi-1jrj
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:48162
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 103
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfJVVYHIOYvhs0gB5z67MQZ56UIyKGIo62qCBAkb1TUXgvNj/CJPPeMQmO5/wmGIkipOhx9JHoK7kI9eA4Bjh+I6SAC7HU3XIvyqJnzueATF+5GrC7YOJ
- a+gycfzWVWLacwyMpGHUtV/OqHyrGD8XlBHSWVEzumoM49J/yISvpw092dRRER27NHFQBW1I07tM8dal++Nwc28ify2ETE3D7tckVZ5hIhNlpWXiwDqZfkZH
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 6.18 000/686] 6.18.64-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261113153820.902362109@linuxfoundation.org>
+Content-Language: de-DE
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20261113153820.902362109@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 11, 2026 at 05:12:46PM +0100, Robert Marko wrote:
-> The LAN969x fan controller has a PWM output and tachometer input in a
-> register block separate from the Sparx5-compatible temperature sensor.
-> Describe it with its own compatible and binding.
-> 
-> The optional fan child specifies PWM period and polarity, tachometer
-> pulses per revolution, and thermal cooling levels.
-> 
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> Signed-off-by: Robert Marko <robert.marko@sartura.hr>
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Am 13.11.2026 um 16:42 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 6.18.64 release.
+> There are 686 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-Applied.
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or regressions found.
 
-Thanks,
-Guenter
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+
+
+Beste Grüße,
+Peter Schneider
+
+-- 
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
+
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
