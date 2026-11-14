@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794636005;
-	b=nV+5LgN+cXBBX0194zBGLtdp2OTOUv+USpZLMnd0e6uhi7hitsOTkAUHrWiUCpnofOpx
-	 XHGms99xNjmlebqIazmlPMZ+3N95pFswRnb6OEs9n7W4sGG2RDBrtPUVbhCmWMRKQNylr
-	 cFzLNLgjZXbeRbWL4ONsTqaF7lrLS7S2f2SciI2BegYUlafX6XePCArsqnFm/AsDKk6hD
-	 Qd9VpmJAEuOu4tCWWyie/0GGpfL0x5ewAsW7qSaLXv78rAEp3/8PrkY5Opf842Bln6fIL
-	 g3dn9ZQ3xkPsagNWXfsF8sb/BcFsKAIBctsGLVha4pggj27Avvl3QWEXlOGkJ1Ertig==
+	t=1794636006;
+	b=iN5w1xGBI6D17QTz0NvpC50rWCb0TMFNaiUNEPLvKZNHtplp8q/wEeb4mlwj5tpPpKi2
+	 gYZ3BC8jD27sUxEggs9D8FHc6Ksrg5vFxcI6jd6EwYgP/4TQSSFjgNpzGkuLfGzLyz9j8
+	 5ftMBDegNdaNmNlAleBCt/uYZTroxQgNJsWsY25uziHEGcsWKVrGoC836zS0Je72jsYur
+	 p5gCEVFWZWKNZsOBDjYHbP+BGUOFXvgPHzEeWcWcPmz1kj4wpx/d4L+V8msTRh060NRSW
+	 7e+IYIuKx9PLB9pvj9OfQ71Dn4GU5MHzXdCUWI1a5uhn/q65/a/r3Vs7FebDwglfiDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794636005;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794636006;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=6dI/LFf00D9l6Dp0VtU5TfEwn+pBwd3ZDZTRVLjXg5I=;
-	b=Gp0kSRS/1AhM4xFVsZvx/vR8rTbZx6ztGCzFyVvLSpldNEFV3xwXGiQpCRRmR4BfFDou
-	 hveYSrJHu8XZd8MdSpE5BAWrQ2pZiy5Tkyee/j2KH9HjW26lgAqcFjSXST1GhOq9y65Aq
-	 joUYs12kCvH6oBJ8D9imRE2Tbbpmip162M5eXdjFfZfXo5lJTwZQ2vbP7fdHbo4TIy0D0
-	 cSnM++xPM9icJlfzG6W2sZwI4M6D0wGnoz+7p//Sct2NPuKGK1VC3jy99nhwoRnakNNyf
-	 O39VsUX5S8xT2EMdvuUcJdAu9rgW74bA9wQdzwOLAU5Salacn3wS2o/YZf11iRemcNQ==
+	bh=9t8zd5u+23Czp1q8gEHFNS23HaZ00gcM6f8XnrndKQI=;
+	b=WJ+D8MFv7M6GASPNuCY6G6UUtMPTxR/8xP3DTeWVmigJRhkSfM/QMb7Du2utaliEOHR8
+	 TI011dbbOGI2cuCPg9KCxECmx5PKVHrtpE96vIzAbFA6VKuUajUl5IUMDAu5ML7iNM0L7
+	 hShugPeq2aX6v9/VVU4mnj1ZXGIMLcNdQ3wZEontVMsjVLb6rcbrlBTLUMtTk/5ZSWtI2
+	 Ri516hOycu1CyIv0bbW8Ritqsm9NSATJW/7T5Ra7ogE1yofQTxo+bMWI1mZCV2A1TYRnZ
+	 UNTnAm8DHvGR9LeWVSY1XS1WgK5UgG3b3FqhhmX3GBezqZ0X7X8b0tRCLlXd25keDUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sMRQfv2B;
-	arc=none smtp.remote-ip=74.125.82.52
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OpznC0yu;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D45E2606A880
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:00:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D45E2606A880
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A704606A89B
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:00:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A704606A89B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sMRQfv2B
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-14394530ec6so2189295c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:00:04 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OpznC0yu
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3282db206d3so5024245eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:00:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794636004; x=1795240804; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794636005; x=1795240805; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6dI/LFf00D9l6Dp0VtU5TfEwn+pBwd3ZDZTRVLjXg5I=;
-        b=sMRQfv2BlgTf8PuNd1+mWdpOAge3QsYlqCEvm1dP627o8z9yBr/frCHPVpf+kaxG5/
-         WUbtsn5FG56n2IN98tJ8wUI3ZVmHzJLkjX1lUFUSflSdDWodrhzW/FpuTq71eLTSCRni
-         b/4NYVlgrjSBX0zckAevN/mt4RqiBRaK0kAh/QrNm44xIpkKbKmVqBl6l2jhu3BTrTBe
-         bdLcIP/jTFDS+F2Qy6E+uplGHN8Vq8DUzK2Iwro2/TAYc+RDgp3n9AdNImEMUhfRjlE5
-         IJJnVKA5kSNjuxBKWNo2S25f5WY2mtL5nLalMhtCpGI3qJwPrKGlna7xVgmLMJlCnmY+
-         qeQQ==
+        bh=9t8zd5u+23Czp1q8gEHFNS23HaZ00gcM6f8XnrndKQI=;
+        b=OpznC0yuMLkIIxM7Et1GcC/V9j+9B76vebUmfOjYRSX/DkeoHoGfvW2yTJ0LkxY3Zo
+         ODBOJBnSo4KLmTwf5rBfqMCUx9TnUqqvHsCl6tY6YIb57ZR3EzQm3JkLytUsyo4Qdbw6
+         HWoTvTksSWubQZcnUUlQNp7MlLpAhMajS4okSGsnBY3fO+VA+7U0M9Nvl7096J85ZhbM
+         WpKmhmwbBYJoT2HUfxgaXUar4corIWgOyOF7tojotj7C1tLXu8X1mMiylwnn43UdB0oB
+         QirKqy4FvSd6kx8SL4iTKLS1RtN8Qo0jiGc71TOKl94rIyG8j4H8QAGReFoW/5OSEnUH
+         iLIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794636004; x=1795240804;
+        d=1e100.net; s=20260707; t=1794636006; x=1795240806;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6dI/LFf00D9l6Dp0VtU5TfEwn+pBwd3ZDZTRVLjXg5I=;
-        b=pdjW+XS1y5oJc6Vdp2KV48JhF9tIUZvoH7e7efnh0pGjRNsMKPnm7IJ7g5Dl3V6auF
-         H5YvdgZoa4tth+xhT6L/lTZS18hsOCImVCUfXgprKtf4FOBRq2a4PeZCSF2kgAOzKv/l
-         Bh+clDx+v59AxWKvTuMAAtnikt8g+a7uaV2lFdS9SSqCq8yjlJhoPZSoaHSTtqjbDRI6
-         fMukasdfDxkeLKj0+pan4X+0cIL04715R9mVRDSrgYeZUt1wc2RxriO7xp+mUfldr7vw
-         pmvkir6l0x+Qt/ZNpFk16pAjZwXDh2QtoOeb1ZX5cA/psCeKIyNV+S/u8oJTeuQYWW4a
-         ZHog==
-X-Forwarded-Encrypted: i=1; AL+hErHPg4gsakU4fiAHZjMBlR0+V5bU3+tugr1Xws0ZpDfZ3Aqulc1yuBFT5p5+XNQp3iW7AT0goyePNpMbDO8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8SOVA/vxbpMuYP58pjqgAPA+3+qd3xlWOTwFRwM41N+lf6pf4c
-	/fPDIlFKp7N+x7zsAMgyW4ijT0ilPgvxGW48GPWpFumu16iKveRhel3gnf5A1Q==
-X-Gm-Gg: AYBFou1TRr2KM1i1rCri4CvDEvDwrw+0hRBedUK3sPpoEibphvblsPUBDRxTURfHHtU
-	Y6YsWUxgcMGV9SHreIOqYiRssaA2pjsjTf/sBmsqS2sV4vhPtqjC+4Zhvy33mltRQ1N5f6ifaP+
-	wxtkf+1ZVY51nJEvOrd8m1Is2s+AnBw0ySx8fZPV+pQZRnVNn5Gjjkha6J+C1PH/+j0BcWgA+Tu
-	eiJ5hwdS5WHe2KR7wLo3gSrM2Y3H9jW5GCphs83rIO1OlAWLBvY8do4eqVCr0kMKDv7EN/XHojv
-	f8BZ4Qh8nhRIL8LcAf0a3aQ7RUQMFLBXgUEIFzYIoosswijEYhZClqNPry9uAYCG5oRcrSB1/V2
-	y8q8PollGvtcJSdz386CEzjOi7eKN/DLu7IPlhpo8WG+mkTTKYa2vAOPKbsUnp1EKniylSpTx67
-	3eoer7QtxwQr1udKwF12WgTGyOlcP59TVN958RjNHXLoNO22FzjlP6en0BJlpTx8C/VKY7gUEyE
-	OgVrLVe8iynuKdFtu6MkCzVxxmOKsXFsn+rR2UG5MdUa6BqGisTXqtW1bV3GlrzvezMVsJhpjE9
-	lHj73QlrDtuZME9zSdBoh3TW0DLPFWWhCh+80t1IBLkFN2eWEIak72WCssIDl6BPpND8banFIam
-	nfAQLS043oYAuKZ/amThWsDEiAS8KsQz9XtveAg==
-X-Received: by 2002:a05:701b:2810:b0:185:8c9f:de82 with SMTP id a92af1059eb24-1b503124f1amr3878829c88.33.1794636003896;
-        Fri, 13 Nov 2026 22:00:03 -0800 (PST)
+        bh=9t8zd5u+23Czp1q8gEHFNS23HaZ00gcM6f8XnrndKQI=;
+        b=RBbaajVTX0poOHa2+iVV9p8tYkJMGmLCaeRseBA7djbeNq5Pf8RJibMrZ3N6tS0Oq7
+         E55j46mEcReiDW7/Awvu8Hba1pOoxXErP3mxtWXhFDi0qCx5SaBZsFftpRUKWjRwxm2c
+         saa2xjWiQpCm8RJzGOQoQyA4pFKOHKTbkym8a8QDu/CVEBUmFIuEc+JjULu68kywag9W
+         ordMK28lteDjKgtZizdMWkm/AsKyhrGee20lHczWbJsqhUL9v5OJADMzGqAlCamTfgX2
+         DV+4Vfl5LSGJdQaIAT/oSgqu+Y03y3hDhSk5lF+5TDj54so6JP0JyTZZPao3TGDuqM+P
+         mDKg==
+X-Forwarded-Encrypted: i=1; AL+hErG5Bxs68Y90xjWBScfQfN3p5uh04KD5hRG8+9OBqrQ0JjX1Tvsesm0mwQiuIxeM8UMTjrGo3SWyDHpLBi4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8RK5SP9Ok7Meoh6NyguR+g+PO4ycBAM7FxQhzNumMFpkOO3a8U
+	K06J2tLv+dvkXIwX5OatEGzq1v7Fz9/mlJC1+bPKQ+XoURAwPEdBjjNA
+X-Gm-Gg: AYBFou3KmF83y5aYGq0PEVkCeCQ3BMo+0co3njijti9rwKKx0SqM/5Cn7Xzbv19/7lZ
+	UuN7HgS18v6mJPULnP1iemwD1FQZmk4/WMkeGrG4+qFFrXfUKk+oGzbcbg5RfdMY+Zu0v6PhVrm
+	rZ9qCWJkkK+wjKo+8U6EvI1rwTfChcxI6ru+dpNuVNzfY/DYrDJzMdHhIkE734QKKhREVo5AxhU
+	qLx8YlfvwUTeQLVHuswTVfNgz7JMeWYe2Dk4+hUmPPpgM//H59hnCeC/NLScHbSzuITWOs1X68W
+	0Jiati5DDbsay0DyKMkvXnyBovqVEA1M7Q+/QurfnyLJ9hf8UBfpWP4BvnPpZlE6EdHiuUBQJbC
+	WF3s3/W7+cyH8OM6+KERQY2vwUG16HiJpiMG4iQ+tV4UcC51a5gBln30i3a+LZ/Nwc/rZIa4qpo
+	tM5ZQAWVEw8S2QuGUQk5B1lxGXWYYRhyTF5cnTv9xEbt4IH1e70gYvFhKETDOcli9DLmgw8Nx45
+	iOAQTkeVHJRpT6T7m8UyfrdTbg4pEBPDTIcgaUOBlDwW0+OTuu8wagM2f1RqpXM/1+0HaO9suv6
+	rLLPrBToFX3f0VFPALis1RtEqZrscncJxJfa8rkmSXCS6TxMA1CCKOE0glV5ZxXan1WkWd8Y6Xh
+	0M7pe1Z5ifszGMTct
+X-Received: by 2002:a05:701b:4194:20b0:1b3:aee5:20c5 with SMTP id a92af1059eb24-1b5030fbe7emr5225013c88.22.1794636005390;
+        Fri, 13 Nov 2026 22:00:05 -0800 (PST)
 Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:560:7267:5908:e9a5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031b2519sm11323590c88.13.2026.11.13.22.00.02
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031b2519sm11323590c88.13.2026.11.13.22.00.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 22:00:02 -0800 (PST)
+        Fri, 13 Nov 2026 22:00:04 -0800 (PST)
 From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Date: Fri, 13 Nov 2026 21:59:52 -0800
-Subject: [PATCH 02/12] HID: rmi: only strip trailing 0xff bytes from
- attention reports
+Date: Fri, 13 Nov 2026 21:59:53 -0800
+Subject: [PATCH 03/12] HID: rmi: validate read data report and protocol
+ transfer bounds
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261113-hid-rmi-v1-2-afc43d97d766@gmail.com>
+Message-Id: <20261113-hid-rmi-v1-3-afc43d97d766@gmail.com>
 References: <20261113-hid-rmi-v1-0-afc43d97d766@gmail.com>
 In-Reply-To: <20261113-hid-rmi-v1-0-afc43d97d766@gmail.com>
 To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
@@ -103,90 +103,161 @@ To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
 Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.17-dev-6b8b8
 
-rmi_check_sanity() strips trailing 0xff bytes from incoming HID reports
-to work around bus corruption where attention reports are occasionally
-filled with 0xff sentinel values. Running this filter on all raw
-reports also truncates register read responses that legitimately end
-with 0xff bytes, leaving stale data at the end of the read buffer.
+During probe the input report buffer is sized from the attention report
+rather than the read data report that uses it, block read and write
+requests do not check that lengths fit within the 16-bit and 8-bit
+protocol length fields, write length validation occurs only after
+switching pages, and incoming read data events do not verify that the
+received report is large enough to hold the advertised payload count.
 
-Move the sanity check into rmi_input_event() so that only attention
-reports are filtered.
+Size the input report buffer from the read data report during probe,
+validate protocol and buffer length bounds upfront in block read and
+write transfers, and reject malformed or truncated read data reports
+with -EPROTO instead of clamping their length.
 
-Fixes: 5b65c2a02966 ("HID: rmi: check sanity of the incoming report")
+Fixes: 9fb6bf02e3ad ("HID: rmi: introduce RMI driver for Synaptics touchpads")
+Fixes: dd8df28459dc ("HID: rmi: Add functions for writing to registers")
+Fixes: 4956993bb3be ("HID: rmi: fix OOB access with undersized RMI reports")
 Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
- drivers/hid/hid-rmi.c | 37 ++++++++++++++++++++-----------------
- 1 file changed, 20 insertions(+), 17 deletions(-)
+ drivers/hid/hid-rmi.c | 65 +++++++++++++++++++++++++--------------------------
+ 1 file changed, 32 insertions(+), 33 deletions(-)
 
 diff --git a/drivers/hid/hid-rmi.c b/drivers/hid/hid-rmi.c
-index cacf81ed56a7..41676685ce28 100644
+index 41676685ce28..d9181fd66c5c 100644
 --- a/drivers/hid/hid-rmi.c
 +++ b/drivers/hid/hid-rmi.c
-@@ -343,6 +343,22 @@ static void rmi_reset_work(struct work_struct *work)
- 	rmi_reset_attn_mode(hdata->hdev);
- }
+@@ -197,10 +197,13 @@ static int rmi_hid_read_block(struct rmi_transport_dev *xport, u16 addr,
+ 	struct rmi_data *data = container_of(xport, struct rmi_data, xport);
+ 	struct hid_device *hdev = data->hdev;
+ 	int ret;
+-	int bytes_read;
+-	int bytes_needed;
+ 	int retries;
+-	int read_input_count;
++	size_t bytes_read;
++	size_t bytes_needed;
++	size_t read_input_count;
++
++	if (len > U16_MAX)
++		return -EINVAL;
  
-+static int rmi_check_sanity(struct hid_device *hdev, u8 *data, int size)
-+{
-+	int valid_size = size;
-+	/*
-+	 * On the Dell XPS 13 9333, the bus sometimes get confused and fills
-+	 * the report with a sentinel value "ff". Synaptics told us that such
-+	 * behavior does not comes from the touchpad itself, so we filter out
-+	 * such reports here.
-+	 */
+ 	mutex_lock(&data->page_mutex);
+ 
+@@ -241,23 +244,14 @@ static int rmi_hid_read_block(struct rmi_transport_dev *xport, u16 addr,
+ 				break;
+ 			}
+ 
+-			read_input_count = min_t(int, data->readReport[1],
+-						 data->input_report_size - 2);
+-			if (!read_input_count) {
+-				/*
+-				 * A zero length reply advances neither
+-				 * bytes_read nor bytes_needed, and because a
+-				 * reply did arrive the wait above does not
+-				 * time out either, so a device answering 0
+-				 * forever would spin here indefinitely with
+-				 * page_mutex held.
+-				 */
+-				hid_warn(hdev, "%s: zero-length read reply\n",
+-					 __func__);
++			read_input_count = data->readReport[1];
++			if (read_input_count == 0 ||
++			    read_input_count > data->input_report_size - 2) {
+ 				clear_bit(RMI_READ_DATA_PENDING, &data->flags);
+-				ret = -EIO;
++				ret = -EPROTO;
+ 				break;
+ 			}
 +
-+	while (valid_size > 0 && data[valid_size - 1] == 0xff)
-+		valid_size--;
+ 			memcpy(buf + bytes_read, &data->readReport[2],
+ 				min(read_input_count, bytes_needed));
+ 
+@@ -285,6 +279,9 @@ static int rmi_hid_write_block(struct rmi_transport_dev *xport, u16 addr,
+ 	struct hid_device *hdev = data->hdev;
+ 	int ret;
+ 
++	if (len > data->output_report_size - 4 || len > U8_MAX)
++		return -EINVAL;
 +
-+	return valid_size;
-+}
-+
- static int rmi_input_event(struct hid_device *hdev, u8 *data, int size)
+ 	mutex_lock(&data->page_mutex);
+ 
+ 	if (RMI_PAGE(addr) != data->page) {
+@@ -293,11 +290,6 @@ static int rmi_hid_write_block(struct rmi_transport_dev *xport, u16 addr,
+ 			goto exit;
+ 	}
+ 
+-	if (len + 4 > data->output_report_size) {
+-		ret = -EINVAL;
+-		goto exit;
+-	}
+-
+ 	data->writeReport[0] = RMI_WRITE_REPORT_ID;
+ 	data->writeReport[1] = len;
+ 	data->writeReport[2] = addr & 0xFF;
+@@ -305,7 +297,7 @@ static int rmi_hid_write_block(struct rmi_transport_dev *xport, u16 addr,
+ 	memcpy(&data->writeReport[4], buf, len);
+ 
+ 	ret = rmi_write_report(hdev, data->writeReport,
+-					data->output_report_size);
++			       data->output_report_size);
+ 	if (ret) {
+ 		dev_err(&hdev->dev,
+ 			"failed to write request output report (%d)\n",
+@@ -388,13 +380,19 @@ static int rmi_input_event(struct hid_device *hdev, u8 *data, int size)
+ static int rmi_read_data_event(struct hid_device *hdev, u8 *data, int size)
  {
  	struct rmi_data *hdata = hid_get_drvdata(hdev);
-@@ -352,6 +368,10 @@ static int rmi_input_event(struct hid_device *hdev, u8 *data, int size)
- 	if (!(test_bit(RMI_STARTED, &hdata->flags)))
- 		return 0;
++	size_t copy_size;
  
-+	size = rmi_check_sanity(hdev, data, size);
-+	if (size < 2)
-+		return 0;
+ 	if (!test_bit(RMI_READ_REQUEST_PENDING, &hdata->flags)) {
+ 		hid_dbg(hdev, "no read request pending\n");
+ 		return 0;
+ 	}
+ 
+-	memcpy(hdata->readReport, data, min((u32)size, hdata->input_report_size));
++	copy_size = min_t(size_t, size, hdata->input_report_size);
++	if (copy_size < 3 || data[1] == 0 || data[1] > copy_size - 2)
++		hdata->readReport[1] = 0;
++	else
++		memcpy(hdata->readReport, data, copy_size);
 +
- 	pm_wakeup_event(hdev->dev.parent, 0);
+ 	set_bit(RMI_READ_DATA_PENDING, &hdata->flags);
+ 	wake_up(&hdata->wait);
  
- 	local_irq_save(flags);
-@@ -381,22 +401,6 @@ static int rmi_read_data_event(struct hid_device *hdev, u8 *data, int size)
- 	return 1;
- }
+@@ -722,6 +720,12 @@ static int rmi_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		goto start;
+ 	}
  
--static int rmi_check_sanity(struct hid_device *hdev, u8 *data, int size)
--{
--	int valid_size = size;
++	if (!rmi_check_valid_report_id(hdev, HID_INPUT_REPORT,
++				       RMI_READ_DATA_REPORT_ID, &input_report)) {
++		hid_dbg(hdev, "device does not have read data input report\n");
++		goto start;
++	}
++
+ 	data->input_report_size = hid_report_len(input_report);
+ 
+ 	if (!rmi_check_valid_report_id(hdev, HID_OUTPUT_REPORT,
+@@ -733,15 +737,10 @@ static int rmi_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 
+ 	data->output_report_size = hid_report_len(output_report);
+ 
 -	/*
--	 * On the Dell XPS 13 9333, the bus sometimes get confused and fills
--	 * the report with a sentinel value "ff". Synaptics told us that such
--	 * behavior does not comes from the touchpad itself, so we filter out
--	 * such reports here.
+-	 * The write reports built by this driver occupy 6 bytes and the read
+-	 * handshake looks at the first 3 bytes of an input report, so refuse
+-	 * to drive a device whose reports cannot hold them.
 -	 */
--
--	while (valid_size > 0 && data[valid_size - 1] == 0xff)
--		valid_size--;
--
--	return valid_size;
--}
--
- static int rmi_raw_event(struct hid_device *hdev,
- 		struct hid_report *report, u8 *data, int size)
- {
-@@ -405,7 +409,6 @@ static int rmi_raw_event(struct hid_device *hdev,
- 	if (!(hdata->device_flags & RMI_DEVICE))
- 		return 0;
+-	if (data->output_report_size < 6 || data->input_report_size < 3) {
+-		hid_err(hdev, "rmi reports too small (out=%u in=%u)\n",
+-			data->output_report_size, data->input_report_size);
+-		goto start;
++	if (data->input_report_size < 3 || data->output_report_size < 6) {
++		hid_err(hdev, "invalid report sizes (in %u, out %u)\n",
++			data->input_report_size, data->output_report_size);
++		return -EINVAL;
+ 	}
  
--	size = rmi_check_sanity(hdev, data, size);
- 	if (size < 2)
- 		return 0;
- 
+ 	data->device_flags |= RMI_DEVICE;
 
 -- 
 2.56.0.679.gc527c65306-goog
