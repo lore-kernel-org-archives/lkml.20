@@ -1,65 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.220
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794668186;
-	b=K2Y2d0RicO2aVZIcR3twz4BOywhnsVdwOpCR8gp5VZm8GPdTZDVwjGwZfT/vCCNoaAoj
-	 Kne2c3g3Z6TN9VZLI/7uP8qUrfxJCwKu+vHoz/CLyFh/6msNiPQ5fzZKs5ljPbWf2MLl6
-	 nUGrAVG2YkMYYeCvnN3FY4vfemXnj2dWKpUvhKWpC1J6xwoxwHWb6UzJdNZnt4pU2JDvP
-	 9xajhLgwcX9V9wlu1cF5gtZKZKNEJCy8qGzt//VuhsNijTlUFrYMOC1plx0MPUMmoBB5v
-	 /6YVxiQqRN3OsgbzkJBpop3b+RPCm/FXh6SmnEWWF9uSZfSDwoJ1Uw26Bi7UHPkAztg==
+	t=1794668270;
+	b=WROTIj3haSb100NEv0uJkCo791xbx/yuP7tPW8S7Flf5fGrhZLsJiJ4KEDODUt8G872G
+	 oRNyKjjzudnDPIa5PGFUhRrRMLWvqSzdrrIxTXg9IcuV2O2exuwyfahCCp2dAGywBRU/4
+	 dDt4dj79gW85MSdQjMjWP4GicWmXXMztt/lUvqaoho9C0ZJUUIBDprjognhwW7GVMXoaF
+	 kAGXEjin68j36IxfM3WBkWrjumJeVqasJ6TLfk71SRucGpgYHsIyAnYtSaKvP7R5QBNJq
+	 uI+/2eFbf1RMEpn9avpn8KcyY7WzSABgjA12Qxl2TqyHx6bBR/jYG/ce4KitnEzaDwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794668186;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=wMJMVWej1L6FCi5Hz4CBSwtruLOk1VwtvbQEDP6Nv7Q=;
-	b=gx/YqsxIDBJw5xjEs70yCVrT8Xv69muuqEzoN+Q7pnUc4dmg7YpNM8tPV+qtuvJ6VFl8
-	 FBN6mLT3cYqIaveNS2Fc173oEtL5p4+V7vBejPJaKGjLMgKW0q1P56znWkPHmi2HtfqSa
-	 nnSnYm9KAzWW7zc74gFKnQuT3t7PmrmEsCztPyt/XXxXyk2NARO2YjtMeLNWO3mZqO4YX
-	 RfJESdXpu6wb8w/EiJtBZnpRImOSmjhIVIamypZYP8Re9XbfTK8G9F/q/cx9T6uJ3zfWH
-	 jf/xaQOxl++v1YmmdMf/ytMil+ZYcwPjmR6icXhhI8kZR5RS+nFKKWajo+Uwp284o2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794668270;
+	h=DMARC-Filter:Received:Received:Message-ID:Subject:From:To:Cc:Date:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version:X-Stat-Signature:X-Spam-Status:
+	 X-Rspamd-Server:X-Rspamd-Queue-Id:X-Session-Marker:X-Session-ID:
+	 X-HE-Tag:X-HE-Meta;
+	bh=G7tzCx3EZYQYCtzaHM9xsytSQ1P37FQXPg3wdor+al8=;
+	b=L9DLrN3C28Z5yWsens+qgXU5AVzzivVLBkM9GlBZQGrjU+t7Bad+FDyHRL04XajEazYv
+	 MwYQIrcmB3SOiECXdAA/LeKNLvu3+ImE43hh47UteXS5G+5UtdeqY9Ixtb+LRgbMfCxYz
+	 gd1E2mRK+W1obsFA/GeLpogXuTpZNJVHmpi6YZb2CaIWbBhkYdnT2rEKeZkZrmTqfcCka
+	 XeQ3Rd6Le40y4rk4AdR3kgUS6Xsi208stMBGpvmaKlX2GtFeWNtHyRsn01yKDQlqlTP5x
+	 CJ4T8XUfKuauR0dkTF0Z8VIR0rBlbgu0QCgCP+G9ts65SY5e+aTVFNjOzI9Ekea1cKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=OdH3nXq0;
-	arc=none smtp.remote-ip=95.215.58.220
-Received: from mta1.migadu.com (out-220.mta1.migadu.com [95.215.58.220])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=perches.com;
+	spf=pass smtp.mailfrom=perches.com;
+	arc=none smtp.remote-ip=216.40.44.17
+Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 371FC606A323
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 14:56:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 371FC606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=OdH3nXq0
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=JebJ2KYviHzA7GxQlWkyQuYehYQ7NUFLaQJh1nE/Hmg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794668183; v=1; x=1795272983;
- b=OdH3nXq0emCtGNNnPX/+VFIGdil7rs+/GTA1OQqIsWnEq01L5OMKQjsa+S0dHUKh4nEb9S6y
- ZjoB4EtzZmwINmpT6QRMOKLRu8GEpVW0Y974yYn9JYegQf6ea1Wpvk+cR6RlwElXKTnY9iHw5ki
- W897c6kRKipLs02ORDTx4ynw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 12765da31f07e8bd;
-	Sat, 14 Nov 2026 14:56:22 +0000
-X-Mizu-Trace-ID: 12765da31f07e8bd
-X-Migadu-Flow: FLOW_OUT
-From: "Xu Xin (vivo)" <xu.xin@linux.dev>
-To: ljs@kernel.org
-Cc: chengming.zhou@linux.dev,
-	david@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	xu.xin@linux.dev
-Subject: Re: [PATCH 2/2] mm/ksm: add initialization helpers for scan_get_next_rmap_item()
-Date: Sat, 14 Nov 2026 22:56:16 +0800
-Message-Id: <20261114145616.646190-1-xu.xin@linux.dev>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <avcZQNlZ7cisQAeG@gremlin>
-References: <avcZQNlZ7cisQAeG@gremlin>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB843606A329
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 14:57:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB843606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perches.com
+Received: from omf15.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay06.hostedemail.com (Postfix) with ESMTP id 014CEA6957;
+	Sat, 14 Nov 2026 14:57:42 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf15.hostedemail.com (Postfix) with ESMTPA id DEB9B17;
+	Sat, 14 Nov 2026 14:57:40 +0000 (UTC)
+Message-ID: <03c1afd39a3f167b960a982d1a933619855a975c.camel@perches.com>
+Subject: Re: [PATCH v1] checkpatch: Add context-analysis attributes
+From: Joe Perches <joe@perches.com>
+To: Vincent Donnefort <vdonnefort@google.com>
+Cc: apw@canonical.com, akpm@linux-foundation.org, elver@google.com, 
+	linux-kernel@vger.kernel.org, kernel-team@android.com
+Date: Sat, 14 Nov 2026 06:57:39 -0800
+In-Reply-To: <61e4f8997861a1188935435e78682c575552d2a3.camel@perches.com>
+References: <20261112151203.3129005-1-vdonnefort@google.com>
+		 <6dfeacb309d58f153c1cd701cd31a587151e9070.camel@perches.com>
+		 <avhgY9t0KVkDfEZw@google.com>
+	 <61e4f8997861a1188935435e78682c575552d2a3.camel@perches.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,50 +61,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Stat-Signature: hzjtjwmc67ap4j9k8g3wbkpajwber7fi
+X-Rspamd-Server: rspamout01
+X-Rspamd-Queue-Id: DEB9B17
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-Session-ID: U2FsdGVkX18M9lT94umtbQXmDCNbMKFxPeDMhBV62II=
+X-HE-Tag: 1794668260-491042
+X-HE-Meta: U2FsdGVkX1+JJ4OhHpgh5g8ageGP0dT44cfoM0nhkbAZIlr6J9vgFjV2OORuIrO62uO/JpyKSNvbyuQVelwDZddsLPVcnFIpYibHKEWghCw40CDMxmT1VNnCdQEAmSDnGnmSPoM1imDf9Jh7ivL/TDgaYsyM/R1U9GGewwNzz/ErSvJ6FQ/FN3eehAT9JBUham5ULynpi5hG1Pg/C++dn6vi0Ha0DUb/21KJDlD8L8BF4IUXeQM1UxNy2BIIDWTzuCGPX2hNqzHe+QYOHzGBuTkf/vnux9iGvYNn2Y2uLFa9WSG63CdeWXcma6zvy+ZMr/LT9lEoQzoD622cirMh5hVJbf5Tc+NB
 
-> On Thu, Nov 12, 2026 at 08:59:59PM +0800, Xu Xin (vivo) wrote:
-> > Extract the new scan cycle detection (including draining per-CPU LRU
-> > caches) and advancing the scan cursor to the first mm_slot into
-> > scan_begin_new_cycle() and scan_get_first_mm().
-> >
-> > This keeps the exact execution order intact while making
-> > scan_get_next_rmap_item() cleaner and easier to follow.
-> >
-> > No functional change intended.
-> >
-> > Signed-off-by: Xu Xin (vivo) <xu.xin@linux.dev>
-> 
-> Again, thanks for doing this! LGTM and:
-> 
-> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+On Sat, 2026-11-14 at 06:26 -0800, Joe Perches wrote:
+> > How about matching one internal () pair?
+> >=20
+> > __guarded_by\s*\(
+> > 	(?:
+> > 		[^()]++ |
+> > 		\([^()]*+\)
+> > 	)*+
+> > \)
+>=20
+> Sure.
+> Please add and use another variable so it's not repeated everywhere.
 
-Thanks.
+Reading a bit about balanced parentheses in perl '(?R)'
+non capturing recursion works since 5.10.0
 
->
-> > +static struct ksm_mm_slot *scan_get_first_mm(void)
-> > +{
-> > +	struct ksm_mm_slot *mm_slot = ksm_scan.mm_slot;
-> > +	struct mm_slot *slot;
-> > +
-> > +	spin_lock(&ksm_mmlist_lock);
-> > +
-> > +	slot = list_entry(mm_slot->slot.mm_node.next, struct mm_slot, mm_node);
-> > +	mm_slot = mm_slot_entry(slot, struct ksm_mm_slot, slot);
-> > +	ksm_scan.mm_slot = mm_slot;
-> > +
-> > +	spin_unlock(&ksm_mmlist_lock);
-> 
-> NIT: optional, but this could be:
-> 
-> 	scoped_guard(mutex, &ksm_mmlist_lock) {
-> 		slot = list_entry(mm_slot->slot.mm_node.next, struct mm_slot, mm_node);
-> 		mm_slot = mm_slot_entry(slot, struct ksm_mm_slot, slot);
-> 		ksm_scan.mm_slot = mm_slot;
-> 	}
-> 
-> 
+Maybe instead use
 
-Good idea, I will switch to scoped_guard.
+/\((?:[^()]++|(?R))*\)/
 
-
+and I should probably rework all of checkpatch's uses of
+$balanced_parens to avoid all those weird capture group uses
+as it was originally written for perl 5.8 (thanks akpm)
