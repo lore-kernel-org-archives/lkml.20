@@ -1,110 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.34
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794697645;
-	b=HifyUWmn6TP7lGRK87sJ5iAcVfaZqLMfq+AjzHLlWB+1raCrVzhcAsf3S2z42tjGuLMR
-	 wH+gecQLkzLGSQCtTBEVYbF/tU4SSy9wCfEvZl7zUvxOHV0Oev7LUBMaRkp69i6dbafZ5
-	 EOhO2TAFQpkx4TcspfNEOj2skI5K8roEsVG5XpcXkRBPiMz7XVImlwva27ZcFa4b9PFJi
-	 G8sX0FnxQf+F6+Bihwnbk8KknQt738wWX8hqm1YKjHobWK0QkfM/EVXgcQS7N2bzxNwq5
-	 7K5LXKG73TxtZKtDKPM0LHx2DmkNIZz90t/3jwXqlm62lOAhk8/qksEioO2eQaMnnSA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794697645;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=FaJIor44vArmHaBOyjE7uNl90Va+Q0d0xwZX2SoxbHE=;
-	b=e0c0sP/QXiwH/EN/644bKpZ/12Xst8ZmZtT+FIxgwGx0S/0LEpJy173EZzn0Fkow0fcm
-	 9Vz1D210QC4od6kNa7kanTxGqsuYjNXBQ9HOHpQ5epSxfxMO5MCJlaxHq9ueVCi+8rPuL
-	 JJP3mvSquTpWwcpmjlPue4/GpcIUalCaKdhNYnR819bTVqsnsEWBD7eCLLsE52IRZSaVU
-	 viN5dx50gOXcKaWJK0K9wjItTcLZg/ke2bt2zp9zWyJkQ+lLSpXJ21sF3tCrT59Srbxn2
-	 W1+zh3hSy7f6NSdK9FlrAEdCefQq6VpVPBMSYcX6nyiiu9b52Osv3kv9ctMQtNadLKA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=iUwMszJS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.34
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011034.outbound.protection.outlook.com [40.93.194.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794697708;
+	b=L9C3OlYWfZpQhfiI6nA1O9T/nb2OT7ryJB8Y80EH1rY3l9afqRI70Bne8tBjFHVA9Ez2
+	 I6gv31VQ2YYe2SH0JTeS0VvRQxF1ykT91OPS3/dZgXZZganI3Py3qd0I72oOBEF82f6cX
+	 9pBZb7OFwJyoyiR9AtuQ2IaUtiVl2wBGBKGY1gwrVKeQTSYP907WnwXTUL+QhmN4Weyoh
+	 W/dtynjnqpgDPI8gCe7Zw8SXOn07l3ZYfnXmF5K+xeHI0lI8ypWXS4To1YjqBl37BcGNt
+	 PSvmidHnwK6fIN6/5SPihECLJJF6U4kuAPowOETtNnEA4V4MNkQbAqpxKBstCD+7VsQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794697708;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=g3d2XlFtP2LnL1uN6DkbrX1buq38k9DXChMowTMr+K0=;
+	b=DUyug0ZqZzNYFZzKljUNT1/bxW+6Qnnu6+eTYsUpKidcwWn4T8EXnEFQW0vir4KCX2YP
+	 evgCv/PYfZKHlYvcjET98JevRYPfMwAyUqGgVWKI80yqoZFW8Gtbymy8qEjXQYYqbIEdn
+	 c0WykQ6/o5zY9BzSEa3/hQ3zeJFD1hpUrsU4gQnG/Kzf7AhUG9HYnrGoehc4eKCQKWJFB
+	 C2fewVuK75N6HSblXZgbyHfNxTxO8FC4dIHD5HWvpfUet/kKLjpSIX1MwkxCaNaukft1O
+	 lzlfpBlHvK1Suq+6a8jpP+qS1biyqL7sDSOaOH4FAtnfHKTirGk7kgIsLgkt3vc5PLA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cqdym47L;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 034D4606A32E;
-	Sat, 14 Nov 2026 23:07:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 034D4606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93D8F606A331
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 23:08:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93D8F606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=iUwMszJS
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WEBsTWpJN84Whl6t48ifS2xecyoZ1tBeDIUYVdk71XEEKmnVWBhR0LX8XNQhd/njmjl2SEeEiGprlxz8VigaYhpMzVES/wQNuZqoSyQPaw5gi/HUDs6bcFCEmQ7LPoyiiY+EDvm6G2rTaQJEV1dikTwDyN/kRPDi1r29IjmrxA0FDEuK3KDyoL+9Vb69dLvnJLFseXrwiWk1ZDcfb4rOU4e7IuLNT8d+OsMOyiIliXcl5ar/1gkP/jz2PaFYvFuUP7lkxSzDLejYOJU03pMktDTr8GJPmwoCTvUsvHYZiXvxYwQridT5xSFkKUiHAXDCxh0IovXDUylDqV9yn+C4mg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FaJIor44vArmHaBOyjE7uNl90Va+Q0d0xwZX2SoxbHE=;
- b=pya4C1m42lUbooliLKYLdY0w1t5Pa8NJ5x8PKm1ZMsLQv6siO7QpYM22iKffXsnb5m0+jfyZIzopPb/0bDShg2diBOZwSMw+Ma+0Vk59+EFzy1iHTWwjJRRak3Rp+q6vAwGXLzZ7Ad0EByOr3YkLNnIl+r4LWM4PZ7iZD9oRTX38ZSCb78m1Z4b1QcJFOZzD65ivkItSsQVFvIvgpgF3F4E5oMN4S/dblZ+T0IxMHGZZy5kM7vpFUfxUEJDwEPUyusipW7J390zeXSckUzfTsPbVhGL2TSQK1QnK1aOhUYt0YsEfVypR1QmfCXTaVXBBXS7VxosRHlQBjHHa29Gz5w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FaJIor44vArmHaBOyjE7uNl90Va+Q0d0xwZX2SoxbHE=;
- b=iUwMszJSQvxx8JRru+qBh2TCeEcw8zQ5ha8gIlz/0D7s+ff99r//6XCd7FhNOG257ubeQTBgZSQsFbQvGqYFeebYXTSpehZlDqWGPf2C7/lQpWTYw/47BRzQyN4f4VocJ+fjJy+kIPvMEvdHKg29F/dR4WdWBJJEfz3qySTGXStKsh5rQ4oAjTG72GlDWjll3sALDQnarpAv/9nSr3BuxBDX6P+1Nt1j9a4SlAmSfU2mhNtYDvhgUabxquX43P4SMOSwIpBE6DlfoG9ORg6Y33zua69VHTmJ+//daKTqKpssPnw0beoV8NTHUO+o6JnLqvmDdgSfd0utiWM+tqsz7Q==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH3PR12MB9730.namprd12.prod.outlook.com (2603:10b6:610:253::9)
- by CY0PR12MB825472.namprd12.prod.outlook.com (2603:10b6:930:130::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Sat, 14 Nov
- 2026 23:07:20 +0000
-Received: from CH3PR12MB9730.namprd12.prod.outlook.com
- ([fe80::843d:c1f0:b2ed:4128]) by CH3PR12MB9730.namprd12.prod.outlook.com
- ([fe80::843d:c1f0:b2ed:4128%4]) with mapi id 15.21.0615.012; Sat, 14 Nov 2026
- 23:07:20 +0000
-Date: Sun, 15 Nov 2026 10:07:15 +1100
-From: Balbir Singh <balbirs@nvidia.com>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Nhat Pham <nphamcs@gmail.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
-	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
-	Kairui Song <kasong@tencent.com>, =?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>, 
-	Kiryl Shutsemau <kas@kernel.org>, Yu-cheng Yu <yu-cheng.yu@intel.com>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, 
-	Christoph Lameter <cl@gentwo.org>, Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, 
-	Chris Mason <mason@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, "Borislav Petkov (AMD)" <bp@alien8.de>, 
-	Mark Brown <broonie@kernel.org>, "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>
-Subject: Re: [PATCH v2 13/13] percpu: queue the balance work on an unbound
- workqueue
-Message-ID: <avjn4xuxUmtTfMWu@parvat>
-References: <20261113-mason-migrate-et-al-fixes-v2-0-50a2ed382b61@kernel.org>
- <20261113-mason-migrate-et-al-fixes-v2-13-50a2ed382b61@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261113-mason-migrate-et-al-fixes-v2-13-50a2ed382b61@kernel.org>
-X-ClientProxiedBy: ME3PR01CA0031.ausprd01.prod.outlook.com
- (2603:10c6:220:19f::12) To CH3PR12MB9730.namprd12.prod.outlook.com
- (2603:10b6:610:253::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cqdym47L
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48dee593f18so2566254f8f.3
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 15:08:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794697706; x=1795302506; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=g3d2XlFtP2LnL1uN6DkbrX1buq38k9DXChMowTMr+K0=;
+        b=cqdym47LSl2BS1Elr7bC87OSujH+RMhsg/HcT7LTTOagTTFJzhr+DRzG/SGSHg7o1L
+         hkm706DEpLPOz8zXSIJQmSjAI+HoM/bxJoUugeo8Wmnakwv500qGCxrEHYlI3E/Ocl78
+         nswZRZHgll/5v1e6hpPzTaav15Gecy71Uf2IXfc0aYkLR0Fvev2cTa7ZeacZBXrITm7G
+         Sq7Y5pSLA0NCjQvv56YGMGFt/ZN1rHKEzKqtFmN4r71/Oh1aSYoGyVQeF2F4xDUKcLx8
+         282Xkr+QQ5tReuLuTe/ruU/T+4CrmW536BAF0BRkoEMG6mGXzeU1D8JUveJxXxyRiFOC
+         yZAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794697706; x=1795302506;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=g3d2XlFtP2LnL1uN6DkbrX1buq38k9DXChMowTMr+K0=;
+        b=K4TXeXu1wEM+rawzKYG7AVRdWhQiZL3U5Wad63HpNjWT6n5U/NnXjbAm8O6LD3svT1
+         iE3ikZVsc0me2YUIeihF/j2KqZacAC33VaR+GsFc2Rv1fvLEGGJxtZPhidDGqi0k6ONe
+         bFP/UIYERI4UgXlKVX9kZhzK5DdhtGcifSyEilK9K+Wig0Eq54MlcO/lFCRJEVj12hei
+         sHQKjy/jOBEfws2HLcwKDQwZOAe4IcA7HqNILo85fHa2NsZspQUtdLjkkW/m++dTffHt
+         63xO3r9NbubA5tni6U4el/2m0vnOMhjjljgNrez2Lt7v8s87SJwJnLg8bsKaWoH9ZAmh
+         RvWg==
+X-Forwarded-Encrypted: i=1; AL+hErH2MZTysb3XvZtDmbMrhAfFklSavhlSRT1sMLCYxUQ24dYaX5pjqDXIoW/G6HzfgLmTEd2GvFa+D05bLaY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8sjKWXUoyA9avskotmQ2XXlP0Q27yq0bW7XId3GVjKxmGpg4EF
+	DKClnKO8xwH947DQ0DzidJoCRreVFSIgXLoYpyq0fNmOj3hOOegsskoG
+X-Gm-Gg: AYBFou3jNe1tK7P2vve1xmq2g3wXpwrFF3b9z+cX7ABxYWGQKdSaDUOqq4vjjXOyzt1
+	jZcJzatXQR9FviwdeQrMY8NWOXK7zAidU5pO50sNQvo5Uuza3wqOa1DZTpW8Fy4sFnOSGn/9lHK
+	6or0ZDhxd4BcFOJZiPJIOhlKER4b6gpEFyK+HSa/Xo2f7vBgwmmksZLXrUQCYNlxcgVTjZ0pxDj
+	SGuVO7HLYFATOcXt1vz/inwTygG07kLS4iaG2U/P1tugR35RPZoyJXm4ikzSAI2kj5M5H0Od9bv
+	IyR9ZfcuuLOY+wkCeS2FjeQFLluhqBS5ViBz7mDOpwW83+JJTOap2DLNoG+bSTOLGwY4cYpFf+u
+	FCNnKJ8gTlTKiSUpne9CQ9YOuJJCeiFlroq08fr8oCyxJ/a59mHa03U7gppVZSsHEQ0rpuDqyc/
+	cOLQ5sQmPC26rc8x6ZTlISYGMaEgq7TMeAN9OI67TxtyyZ9XspeU0GpNKKjkB9JIsAPo4u9YlNp
+	SKTQZMQSUDPUrsqM/Zktlf5NIgQ04bzfrDhQcuzmJQkBqnfkFEKCyebj2Jtp2uTzpnUj4GD8ye1
+	0O8U+sugz8S4gp3NAvCmniCPzA+I
+X-Received: by 2002:adf:e013:0:20b0:49b:b93d:9631 with SMTP id ffacd0b85a97d-49c71970581mr9775551f8f.48.1794697705616;
+        Sat, 14 Nov 2026 15:08:25 -0800 (PST)
+Received: from m2.. ([37.142.149.161])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-49c5d03b10fsm14910018f8f.1.2026.11.14.15.08.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 15:08:25 -0800 (PST)
+From: Michael Zaidman <michael.zaidman@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Raman Varabets <kernel-linux-20260610-80b7ab08@raman.v1.sg>,
+	Germain Hebert <germain.hebert@ca.abb.com>,
+	Christina Quast <contact@christina-quast.de>,
+	Rio Liu <rio@r26.me>,
+	Bruno Giacomazzi <brunoceg1@gmail.com>,
+	linux-input@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Michael Zaidman <michael.zaidman@gmail.com>
+Subject: [PATCH v3 00/16] HID: ft260: add UART and GPIO support, plus I2C fixes
+Date: Sun, 15 Nov 2026 01:07:44 +0200
+Message-ID: <20261114230800.1344401-1-michael.zaidman@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,132 +108,161 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PR12MB9730:EE_|CY0PR12MB825472:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9d16f394-9036-4877-1a0b-08df42a40929
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|7416014|261028144727099003|261102123227099003|261022075727099003|261022105027099003|261021123027099003|261021121427099003|261026140227099003|11063799006|4143699003|56012099006|10067099003|18002099003|22082099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	dEYNAQLtpHrxw9OTC62UNqWF12tHUv7w3jUAdVIJV5+P4ZroOVm6PAQYgRXYPzEq44/gPpMrXQmCD40nR5Hh0pSM8BEIPRjBrFpQ1evdV/b3NVWlHGYGO0xZ5K28bAxRbxc4jIJ0vm2xBD3hjZ7phjshW8xO3KegMGpJ0hbAKd3B3/kFGKt7VGanoGHGy0fVk01JToxKgUai2O/bXeAqza2Omk8OuNlBnsLIFq4ALieDnspnv9Gs3ZkFZ/E6+dmnGWmnD/2wrfrCZfYArS1OP2Hd1J8wyFH8arvHc7Bmn1Yeb1GLeXxN7LKjDkrBKAsUxu+2YjZ6JK8MJ5+0ozeMpKvzKCn/jO98cCiyIhmVuwPOerFqpOPjI0lo6QMS+TILk3oz/+fNQ6h0uZkKX/ZMdMH+z/iuvViBRqNiWFhGNwFGIVK+2FDILOeTIAqGqgUUjKnVKYlI2hsMnfeRBhXeRs4m9BQNcIvh52YEe1bcFFyz07kEwkvBoF4Cu6rrZ1/PyxGhU7NmaKmjuJo79PR6pIdBCEjikfgik9juXD0fUNN9mrpqx7rM2szakWFtdffo0X3eswZD+sKLcoXpXw4vGN9uZQDWDqTJkp7v9QZWB+YURepydaMouoa6TLBcu5+TfIxCR6EtqnVLRA+EBZv2L6i6AF0DeCmozZU0HBZgsvs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR12MB9730.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(261028144727099003)(261102123227099003)(261022075727099003)(261022105027099003)(261021123027099003)(261021121427099003)(261026140227099003)(11063799006)(4143699003)(56012099006)(10067099003)(18002099003)(22082099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?SST3E/QV9k/3T28hUg2JU/RK/HbphONz2P61Tjpfsuvze4iWjyVb/S+3t2x2?=
- =?us-ascii?Q?POZnDCdN6hAS8BdxqJMWFpNMk3Um/YzPjYvPY73BU1MEWzgTcWzvs72gneqq?=
- =?us-ascii?Q?z1VMRmjCilwzCZXMM+oHxLm4FHB03Dvi/Ri/dwpgimEV+REhfnIOEmaurn6Z?=
- =?us-ascii?Q?pgWoVJceR9kdT7uKh3KBg4+QnFuLMYKWKH1NlPNNarbidh09P7KWnFsdOiML?=
- =?us-ascii?Q?IZYeSi7kTDQ8Q9M+0wpcNj0gw6TvSNSHTD+TGwt2KBMVpdIQuIZvoiC/n1eA?=
- =?us-ascii?Q?EhPuQXAP6274nMwBQq8p2w5gd292FYbGtQ3TeiogQFElKSVnNcr9IAwfZKDk?=
- =?us-ascii?Q?J4yrNc28VyR7n7lr14NO/3dgAIG6w8xqhOeoZ8JV/DV6aqyVNmllkydMqtvA?=
- =?us-ascii?Q?M0Ox001BarA1fUWBAd3DTWXdC0UdutJ6UtJ6AF1YXIHpvQu0b1fmhseO1DP7?=
- =?us-ascii?Q?Nx7G8cXjHiH449PF9QVhjNCuSj73CauRFtOr+K6NPSwU6IR5o6BlZItlAPmd?=
- =?us-ascii?Q?8HtWvLU0Kd6mfrA7nsuOOfXs+tNBPaEWf6sfumQww3m2punv/FwsF/zkzj3q?=
- =?us-ascii?Q?zVopsDxwn3exsIPFNzBKtO0vwPToRGmjBgx2ZePNTe2A4t+dD2JD0ErTLdGL?=
- =?us-ascii?Q?XU+38PXy1k7EWXKrZOpE5oGZap3WXbGoYmRg9nE9hxPAh3PG3imcMUOqXCxE?=
- =?us-ascii?Q?PI6BKjfi4+OjM7f1p6rMj6N6ZCxXWjCHdWIUKGdpvvQ1Aww75AKLePylPBiL?=
- =?us-ascii?Q?uar4izIeUM0TTpqHewmElK5vuMRY/HNt/9B2JzeUcVTpxsyZv4t5iOdJf9EV?=
- =?us-ascii?Q?sayoMbiMp9UBAbdggmhyaNJaxBUpbz5HUzQw3iWvWfU7t3jrbrPFElyite9i?=
- =?us-ascii?Q?uRqDCubA6dpc22nCl+SpSFjvX9cn6q5T8ze67sFrItYNTKQM3gUigXo9Txb+?=
- =?us-ascii?Q?ojNvgYlU2RLvFgIRii8uX/0vZBQsDPFnyfQ7NMFxbrNpwqcuaGt/mhGkprNc?=
- =?us-ascii?Q?A6FVH/tRfOoUnbmsIs9odkPCIBlwuNA8BwNmKdJaqgMaItFrR16TmSs6KbNV?=
- =?us-ascii?Q?atEa0A1PQGR6ye7w40axoss2Z9n0TV8OB7yf8LKqboDQGQadjBbyDFdXFRqW?=
- =?us-ascii?Q?u8U7ZexKhLGMtV+EGMQYdtogXAJUELNuuRnWSjmmd7DHnXUGFAcNjrHRY0sj?=
- =?us-ascii?Q?vQTrqLhOtCau94d6lr7BEzW/t8V16sPbIdnLw3wizBIOhRmj9bmNCvfHLXs8?=
- =?us-ascii?Q?B+QiTyyjRQdN/FXqcLqGYV78mqK+9UZdLoewlWrVD8sl8mjxxlkOrot79RQg?=
- =?us-ascii?Q?Il9i8KG8lgUkBmqohWXFzya1hfSHNekhsZoxAqDfLbZCSSUS55NPquVX5uhT?=
- =?us-ascii?Q?lOiMQ6cAYO5TB1MCJfwc8m2hyAsVnfAaIVhaLm8JkMrG3u0CKeBNpez6QZrG?=
- =?us-ascii?Q?HhwygP9iu3gkbcAyjJEWaPeg8EFkk4ypMb3Zt7SAzeqOITOJB6xlKSZsk4Q/?=
- =?us-ascii?Q?oIZ4t66jNlKJDoLxd4oRTswKuN+IS6kLSpa7OWsXSfQs6y06ywljXcDVZPqQ?=
- =?us-ascii?Q?sOiGRjs0Ef6D3MsZbL9JVDNxVFQSwmVaMKFokEcWHZcEU9tfnEeG2M4zCsXZ?=
- =?us-ascii?Q?ZVYYkWHwUAeB7UNFbe94oG3A7zE5uCqMZb5ECGb02/IFZFQxktxmwLzbPWPT?=
- =?us-ascii?Q?PMIDa1S/feb9aXl0hN7bvSXTby6P9aGi4EFFpIMgoT0VzQnB3EWw4xpR0pj4?=
- =?us-ascii?Q?CmC+eet1nQ=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d16f394-9036-4877-1a0b-08df42a40929
-X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB9730.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2026 23:07:20.6849
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lA3FdzqOm0pMj5AnetTj2SXuPbR2JCFsdDJt7U91WG6/v0YG0GJ+hdjWMGysB7GxeNAESfh3DB9MTpg7q9ykLQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY0PR12MB825472
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 13, 2026 at 09:45:31PM +0000, Lorenzo Stoakes (ARM) wrote:
-> From: Chris Mason <mason@kernel.org>
-> 
-> A burst of small atomic per-CPU allocations can fail with -ENOMEM while the
-> machine has free memory and idle CPUs, as atomic per-CPU allocations are
-> only served from pages that are already populated, and those can be used up
-> before a worker gets to populate more.
-> 
-> Consider:
-> 
->     caller on CPU 1                     kworker bound to CPU 1
->     ===============                     ======================
->     allocates 8 bytes, which leaves
->     one empty page and 4088 bytes
->       schedule_work()                   woken, waits for CPU 1
->     allocates 8 bytes, 1023 times
->     next allocation: "no space left"
->     gives up CPU 1                      populates pages
-> 
-> The allocator keeps a few empty populated pages in reserve, and the work
-> item pcpu_balance_work refills them.
-> 
-> pcpu_alloc_noprof() queues the work item using schedule_work(), so only a
-> worker bound to the CPU of the caller can run the work item.
-> 
-> The issue is that the caller keeps that CPU - a task keeps it for the rest
-> of its time slice, and a softirq keeps it until the softirq ends.
-> 
-> In that time the caller can use up the reserve, resulting in an atomic
-> per-CPU allocation failing.
-> 
-> Fix the issue by queueing the work item on an unbound workqueue so that
-> another CPU can populate pages while the caller keeps allocating.
-> 
-> Gregory Price hammered atomic per-CPU allocations from one CPU with
-> preemption disabled for about a second, with and without this series:
-> 
->                            Before     After
->     Successful allocs       1,188   131,072
->     Failed allocs           4,097         0
->     Balance worker runs         0       169
->     Successful retries          0     4,096
-> 
-> Fixes: 1a4d76076cda ("percpu: implement asynchronous chunk population")
-> Signed-off-by: Chris Mason <mason@kernel.org>
-> [ ljs: tweaked commit message, comment ]
-> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
->  mm/percpu.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/mm/percpu.c b/mm/percpu.c
-> index f87813e6ad73..39cba1710383 100644
-> --- a/mm/percpu.c
-> +++ b/mm/percpu.c
-> @@ -200,8 +200,9 @@ static bool pcpu_atomic_alloc_failed;
->  
->  static void pcpu_schedule_balance_work(void)
->  {
-> +	/* Unbound, so another CPU can populate pgs if caller keeps this one. */
->  	if (pcpu_async_enabled)
-> -		schedule_work(&pcpu_balance_work);
-> +		queue_work(system_dfl_wq, &pcpu_balance_work);
->  }
->
+Mainline supports only the FT260's I2C bridge. This series adds the
+UART/TTY interface and GPIO on top of it, and carries the I2C fixes
+made alongside them [1].
 
-Can this run havoc on otherwise idle systems? Why not choose a workqueue
-with WQ_POWER_EFFICIENT, which becomes unbound when nohz_full is
-enabled? I guess it still leaves open the case when nohz_full is not
-enabled and we get a burst of atomic allocations?
+Patch 1 is Christina Quast's v4 serial driver, ported to the current
+I2C code. Patch 2 holds the fixes it needed on hardware and the fixes
+for the review findings in the patch 1 code. As agreed with Jiri, the
+series keeps the order in which the code was developed, and each patch
+keeps its own author. So the UART work is split: patches 7 and 8 add
+flow control and the modem pins after the GPIO and I2C patches.
 
-Balbir
+The v1 and v2 threads:
+https://lore.kernel.org/linux-input/20260822213941.98882-1-michael.zaidman@gmail.com/T/#t
+https://lore.kernel.org/linux-input/20261030223637.86907-1-michael.zaidman@gmail.com/T/#t
+
+Changes in v3:
+
+All 21 issues Sashiko reported on v2 are fixed. The v3 note of each
+patch lists its changes, with the same words as below. A patch with
+no v3 note is unchanged from v2.
+
+Patch 1:
+Unchanged. From v3 on, review fixes for the serial driver go into
+patch 2 (the v3 note of patch 1 says why).
+
+Patch 2:
+Fixes for the issues reported by Sashiko:
+- Wakeup timer shut down and its work cancelled in
+  ft260_uart_port_remove(), so a tty call during removal cannot
+  re-arm it; the probe error path also cancels the work.
+- -ENODEV for an unknown chip mode, so probe does not return 0 after
+  it frees dev.
+- Port list sorted by index, so a re-added port does not get an index
+  that is in use.
+- TX from a work item, because write() may not sleep; no shared
+  buffer, no endless loop on a FIFO reset; disabled before the FIFO is
+  freed.
+- TTY registered last, so userspace cannot open it before the UART is
+  configured.
+- UART reports passed to the tty code only on the UART interface; the
+  I2C interface has no tty port.
+- TX report limited to 60 bytes, so 61 or 62 bytes do not give the
+  undefined report ID 0xFF.
+- Unneeded ft260_uart_wakeup() prototype removed, changelog text
+  corrected.
+- port_activate() sets the wakeup workaround from the baud rate and
+  arms the timer only when it is on, as ft260_uart_change_speed() does.
+
+Patch 3:
+Fixes for the issues reported by Sashiko:
+- The gpiochip is registered without devm and removed in
+  ft260_remove(), so a GPIO write that races an unbind does not use
+  the freed dev.
+- The uart_dcd_ri setting is kept across UART mode changes, so a mode
+  change does not give GPIO4 and GPIO5 back to the GPIO function while
+  they are DCD and RI.
+
+Struct gpio_chip embedded in ft260_device, label from
+devm_kasprintf(), the "initialize gpio chip" messages dropped and
+"enabled GPIOs" moved to debug output (Bartosz Golaszewski).
+
+Patch 5:
+Subject reworded after the original out-of-tree commit, "Get rid of
+sysfs store big numbers failure notice". The v2 subject read as if the
+patch hid big values. No i2c: prefix, because FT260_ATTR_STORE serves
+all store attributes, not only the I2C ones.
+
+Patch 8:
+Fixes for the issues reported by Sashiko:
+- gpio_en checked under port->lock in tiocmget() and tiocmset(), so a
+  termios or sysfs change cannot switch the pins between the check and
+  the GPIO report.
+- tiocmget() and tiocmset() return -ENODEV after ft260_remove(), so
+  they do not use hdev after hid_hw_stop().
+- tiocmget() cannot run before dev->gc is set, because
+  ft260_uart_probe() registers the TTY last since patch 2.
+
+Patch 9:
+The err_register_tty path, which patch 3 adds to ft260_uart_probe(),
+removes the UART attribute group of patch 9.
+
+Patch 11:
+Fixes for the issues reported by Sashiko:
+- One reset per chip: struct ft260_chip, shared by the two interfaces,
+  is added here, so a reset queued by the second interface does not
+  tear down the chip that the first reset has recovered.
+- Interfaces unbound before the USB reset, not after, so the reset
+  does not run while a failing probe stops usbhid and frees its URBs.
+- -ENOMEM from usb_control_msg() returned as it is, not turned into
+  -ENODEV and a reset.
+
+Patch 15:
+Recovery info per adapter in struct ft260_device, not one static
+copy, because i2c_init_recovery() writes into it for each adapter.
+
+Fix for the issue reported by Sashiko:
+- GPIO report lock in the ft260_chip, shared by the I2C and UART
+  interfaces of one chip, so a GPIO write from one interface is not
+  lost by a write from the other; tiocmset() reads the report.
+
+Patch 16:
+New patch (suggested by Bartosz Golaszewski). It is the last patch,
+so the out-of-tree driver for kernels older than 6.5, which do not
+have linux/cleanup.h, can leave it out.
+
+Testing:
+
+The kernel is built from hid/for-next 720806515cb6 with KASAN,
+PROVE_LOCKING and DEBUG_ATOMIC_SLEEP, and booted with
+kasan_multi_shot. The driver is built as a module from the last patch.
+
+The pytest suite [2] of 206 tests passed, with no KASAN or lockdep
+report. The v2 driver on the same kernel fails the new gpiochip unbind
+test with the KASAN report that patch 3 fixes.
+
+For the TN_189 workaround, a HW setup that resets the FT260 chip by
+its RESETN pin ran 7,781 cycles. 101 of them hit the endpoint STALL,
+and each of these recovered with one USB reset (details in patch 11).
+
+Every patch builds with W=1 without warnings. checkpatch --strict
+reports no errors. It warns once, in patch 15, for a quoted kernel log
+line.
+
+[1] https://github.com/MichaelZaidman/hid-ft260
+[2] https://github.com/MichaelZaidman/hid-ft260/tree/main/tests
+
+Christina Quast (1):
+  HID: ft260: add serial driver
+
+Michael Zaidman (15):
+  HID: ft260: uart: fix the serial driver
+  HID: ft260: add GPIO support
+  HID: ft260: i2c: reduce driver module loading time
+  HID: ft260: fix sysfs store failure notice for big numbers
+  HID: ft260: i2c: reduce bus-error message severity
+  HID: ft260: uart: enable flow control
+  HID: ft260: uart: add modem pins control via ioctl
+  HID: ft260: group sysfs attrs per HID interface
+  HID: ft260: i2c: fix large write transaction failure
+  HID: ft260: workaround for TN_189 errata endpoint STALL after
+    enumeration
+  HID: ft260: i2c: abort in-flight transfers with STOP before reset
+  HID: ft260: i2c: reject an I2C clock outside the supported range
+  HID: ft260: i2c: fix i2c_reset sysfs store return value
+  HID: ft260: i2c: recover a bus held by a slave
+  HID: ft260: use lock guards
+
+ drivers/hid/Kconfig     |   10 +-
+ drivers/hid/hid-ft260.c | 2579 +++++++++++++++++++++++++++++++++++----
+ 2 files changed, 2319 insertions(+), 270 deletions(-)
+
+
+base-commit: 720806515cb6921ab05caaa6f470f7054b56385e
+-- 
+2.43.0
+
