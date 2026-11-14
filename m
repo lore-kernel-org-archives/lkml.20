@@ -1,65 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794681660;
-	b=SHd0eFlsYLUtYpTAy4PLUNXOO2aR0glVdifO97w1XropLsnSoDbVV8eVVgZovKjWHLE+
-	 eZJeqAOFO9TBLKvEPFVjZzmu3SUpywBL0FOl9GOG4thQr3lcySOJibGC+AMvSdfz8QqmD
-	 IYQH69HjKUk5DXQTl97G9L/ciInvZysq7sgSdfZ964Rxle9y736XETOkXG+YEDnESEt72
-	 FvZUzw4FN6TK94msORWEfa0Lti++5j23X7UBjAiPLpX+U3Ldm+qcwah1ivSkcpYMNyk4F
-	 pBOoP13DAozSnYLyAPCAtlz8cvhH6+JRAiHG4qf7G8wmXYbZb3mxRujIp6QxkE3UcTA==
+	t=1794681664;
+	b=tk/r9rvlLkOT5Dh26WBd8Cv51DR0cB+eDBmBsU/KOgyLEpdVNNqL0WRn5BB2jQk7jtFY
+	 ffaTHX9Cwp/bP2fRmcqtGiL67m9zNX5Vxxt6A6axdZUALle890kfnlgEvDux3f5rgZSjC
+	 KqcJlaUP1OJaKj9hzhXhf7Cwy9T8R6GtumOND9E20JJlYGj2CBwn6RS38AHvNi3e/SSSY
+	 gCp6aC9faYp8UtIXNMVlsYZ+8X+urFT6lo4YqgRxCAanKH2hnvMIC42wFk5fIf9IiLeVG
+	 j1j9z9pmMkABjFIsrBL4vfkqtjB2FSz/iH91/unfCFxeG0q+9XR4VWRXzraEJdf2+lA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794681660;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ZN1QbUvJ0Ta5b7Wx5sTaVkN8e7aeGbh4u4InECA0Qvs=;
-	b=wnwwVMYz8hkBg9+LeHz/vfyzv2sVo49aBr2FtC1TqZgRo4uWlmsHWTQ2q+NutgHIa62F
-	 60Q6Ek0M37egFvbTCK0mj74CrYtUb9u9AtQng6unu6gsEYZKSEXy1LXYqaGSv5LFY0nFg
-	 kwG4DZnF4B1CWNEV744O7dzZIJcnlVqbBxbaijn0aSsQ41bIpB4AchaSF4PP7xR4fhMBQ
-	 +Hw2RbDgURB7ih+pKejqhPyZ817tdVk66U7qjEOvMrC0Q7fE34S1pq0uJlJhfsnqb+vEQ
-	 G6Ttvgqa+tcaEB0A95EEqRLY2wG8A1vr3mBHwxyL9mNmzSb9nBvOUBtjXD57IqNWJ+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794681664;
+	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Date:
+	 Message-ID:Subject:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=dBssvc2k5xvOVZhwu2hvYvi1LDAvGX5GMKooO6dq4k8=;
+	b=eWeHNJAMq3NyOYgv1jgmKKPDK0lrUdz2xBRLWQxUo4Hmno6WcwKgjsJZghEOWN0iP6PP
+	 CvtSMZrYsVx8QbFDV6Cskf4iVcgn7FcbYr1uL0y2TRe24tUcTlL59XY2mJygSIOh1YUbH
+	 mAPLrD32UlzfGLenYeBJTQlZuRKIWtSYuS8/8Kk7qIfziBrzAD3qRUsumVDI92bdzDWRt
+	 IUSwwOW9IKg2vpDPHaSrH8VQZxo9m+vios5Hq+MeM2J7HGbTFya2bPl8gw4RzXFFShLnE
+	 yiSCNzjTQkhG9jq0Nq0oFBPzsHVbAc3XTt0ilIfOuRfVX0C8eeHnItbJvnzts22fMJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iF7IiWjs;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=michaelmcallister.org;
+	spf=pass smtp.mailfrom=michaelmcallister.org;
+	dkim=pass header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=z7sEzNEX;
+	arc=none smtp.remote-ip=185.70.43.171
+Received: from mail-43171.protonmail.ch (mail-43171.protonmail.ch [185.70.43.171])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 822E5606A330;
-	Sat, 14 Nov 2026 18:41:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22774606A8B0;
+	Sat, 14 Nov 2026 18:41:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22774606A8B0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=michaelmcallister.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=michaelmcallister.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iF7IiWjs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6774A1F000C5;
-	Sat, 14 Nov 2026 18:40:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794681660;
-	bh=ZN1QbUvJ0Ta5b7Wx5sTaVkN8e7aeGbh4u4InECA0Qvs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iF7IiWjso/zci79u9JHVp7i7xRhgz8V16nydDp7bMbf9Kq3OpcWlK6+UBGfSH0DGf
-	 OXTWi276kBIYaBiq5gLEHxqbMVUjAdWb8fC4FNonpZAiz5iMzgwpQOAGgbjM2IiAq/
-	 DdUmYiZBM3Ed513pnuKOJDroWL5gA0iN8SdtzggF2gFVK9DhZ4V6ijmQKyce6BY5DX
-	 NBJ5UvgnE3YdespSGDd85PM91HhhxWVZ+a3vvaJgfYd5AKiVSIC7jTWe2z4rkHopLH
-	 5dYYDycmtEaBAZIO/0hMLzfpXbOEBuwY7Xi6Ea+2T+jKn1OWLiZIsuyDuXq5vmg8OP
-	 pG3DGeUi21nDQ==
-Date: Sat, 14 Nov 2026 18:40:50 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Peter Xu <peterx@redhat.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-mm@kvack.org, linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] mm/userfaultfd: prevent poison marker loss
-Message-ID: <avij463DZ_tSwgKy@gremlin>
-References: <20261107-b4-uffd_marker_loss-v1-0-82926b22704c@kernel.org>
- <20261107-b4-uffd_marker_loss-v1-1-82926b22704c@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=z7sEzNEX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=michaelmcallister.org; s=protonmail2; t=1794681661; x=1794940861;
+	bh=dBssvc2k5xvOVZhwu2hvYvi1LDAvGX5GMKooO6dq4k8=;
+	h=From:To:Cc:Date:Message-ID:Subject:In-Reply-To:References:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=z7sEzNEXt9BEqnZq787BqqlphVlmUkjHdEy6CpsGYLztCH2NpmQPN0bNGAZKmCeRl
+	 6iKsLymznhDgxG3KA5q1duOQx7giP7NAZ7H91JW38Og7QZjemkCxH6pAkm8XguZh/C
+	 hfLx3MXypXUIr28qNNch2/ye7d9EdyR3ccFY0hPkbJr+aMrlwgvc9s0eHzKEbw93G1
+	 UdIrw1EAm+Jr1lmombTX5YqyXnWMC/h+T90lPZ0nSSTzpFvBLGb/pE3N+d1ZPkCtBy
+	 9+qyevZ3Ufib8mctF9wqAv7WPDn0tHYxdBgFTwqskh/BS5s9q4N8kL4fOK6sKL+PEW
+	 JlC55ns9mWHsg==
+X-Pm-Submission-Id: 4jRjcp3nwMz1DF4s
+From: Michael McAllister <me@michaelmcallister.org>
+To: Marcel Holtmann <marcel@holtmann.org>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: brgl@kernel.org, linux-bluetooth@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ quic_bgodavar@quicinc.com, lumag@kernel.org, mka@chromium.org,
+ me@michaelmcallister.org, markus.probst@posteo.de,
+ shuai.zhang@oss.qualcomm.com
+Date: Sat, 14 Nov 2026 18:39:54 -0000
+Message-ID: <179468159400.2456.12381703314197227930.wcn3950-poweroff-v2-2@michaelmcallister.org>
+Subject:
+ [PATCH v2 2/4] Bluetooth: qca: Power off after unregistering the HCI device
+In-Reply-To: <179468159400.2456.8302096233933976388.wcn3950-poweroff-v2-0@michaelmcallister.org>
+References: <179322687810.94538.4628148055419456389.wcn3950-poweroff-v1-0@michaelmcallister.org>
+ <179468159400.2456.8302096233933976388.wcn3950-poweroff-v2-0@michaelmcallister.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,390 +71,135 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261107-b4-uffd_marker_loss-v1-1-82926b22704c@kernel.org>
 
-On Sat, Nov 07, 2026 at 12:51:05AM +0100, David Hildenbrand (Arm) wrote:
-> Unregistering userfaultfd leaves poison markers in the page tables.
-> However, once unregistered, hugetlb PMD tables can be shared again.
->
-> Further, shmem page-table retraction can discard poison markers even
-> while registered in missing mode, and fork() can skip copying page
-> tables containing poison markers.
->
-> To fix it, add VM_MAYBE_UFFD_POISON and set it before installing poison
-> markers. Preserve it across unregistration, splits, merges and fork(),
-> just like we do with guard markers.
->
-> Use the new atomic VMA flag to disable PMD sharing and page-table
-> retraction, and to force page-table copying during fork().
->
-> Move VM_UFFD_WP to bit 44 and make HAVE_ARCH_USERFAULTFD_WP depend on
-> 64BIT, freeing bit 12 for the new flag on both 32-bit and 64-bit systems.
-> Expose the flag as "up" in smaps.
->
-> Losing poison markers, while unpleasant, is not really fatal, and the
-> use case is rather a niche thing. In addition, we rely on the atomic
-> VMA flags infrastructure ... so let's not CC stable.
->
-> Fixes: fc71884a5f59 ("mm: userfaultfd: add new UFFDIO_POISON ioctl")
-> Fixes: 8a13897fb0da ("mm: userfaultfd: support UFFDIO_POISON for hugetlbfs")
+qca_serdev_remove() powers off while HCI setup and UART writes can still
+be running. Leave power-off to qca_close(), after HCI unregistration and
+write-work cancellation, while the serial transport is still available.
 
-Are we looking to cc: stable or this something for newer kernels only?
+Check the actual port state before sending the power-off pulse, since
+PROTO_READY is already clear during protocol cleanup. Start serdev
+controllers in QCA_BT_OFF so registration failure does not send a pulse
+before HCI allocation or power-on.
 
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Drain HCI setup before clearing protocol readiness, so a setup reopen
+cannot re-enable UART write work after cancellation. Leave HCI flush
+and close callbacks to the transport teardown during unregister; the
+port stays open until protocol close has sent the power-off pulse.
 
-Logic LGTM, some small nits below. Overall:
+Flush controller TX after stopping UART work, before protocol and port
+close, so previously accepted bytes are discarded rather than drained.
 
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Michael McAllister <me@michaelmcallister.org>
+---
+ drivers/bluetooth/hci_qca.c    | 24 ++----------------------
+ drivers/bluetooth/hci_serdev.c | 18 ++++++++++++++----
+ 2 files changed, 16 insertions(+), 26 deletions(-)
 
-> ---
->  Documentation/filesystems/proc.rst |  1 +
->  fs/proc/task_mmu.c                 |  3 +++
->  include/linux/mm.h                 | 45 ++++++++++++++++++++++++--------------
->  include/linux/userfaultfd_k.h      |  7 ++++--
->  include/trace/events/mmflags.h     |  9 +++++++-
->  mm/Kconfig                         |  1 +
->  mm/khugepaged.c                    |  9 ++++----
->  mm/userfaultfd.c                   |  3 +++
->  tools/testing/vma/include/dup.h    | 20 ++++++++++++-----
->  9 files changed, 70 insertions(+), 28 deletions(-)
->
-> diff --git a/Documentation/filesystems/proc.rst b/Documentation/filesystems/proc.rst
-> index fa7a468e8edf2..bcbcb41814d96 100644
-> --- a/Documentation/filesystems/proc.rst
-> +++ b/Documentation/filesystems/proc.rst
-> @@ -614,6 +614,7 @@ encoded manner. The codes are the following:
->      lf    lock on fault pages
->      dp    always lazily freeable mapping
->      gu    maybe contains guard regions (if not set, definitely doesn't)
-> +    up    maybe contains poison markers installed by userfaultfd
->      ==    =============================================================
->
->  Note that there is no guarantee that every flag and associated mnemonic will
-> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-> index e3d894ed2b913..d7f9934d0e499 100644
-> --- a/fs/proc/task_mmu.c
-> +++ b/fs/proc/task_mmu.c
-> @@ -1106,6 +1106,7 @@ static void show_smap_vma_flags(struct seq_file *m, struct vm_area_struct *vma)
->  		[ilog2(VM_GROWSDOWN)]	= "gd",
->  		[ilog2(VM_PFNMAP)]	= "pf",
->  		[ilog2(VM_MAYBE_GUARD)]	= "gu",
-> +		[ilog2(VM_MAYBE_UFFD_POISON)]	= "up",
->  		[ilog2(VM_LOCKED)]	= "lo",
->  		[ilog2(VM_IO)]		= "io",
->  		[ilog2(VM_SEQ_READ)]	= "sr",
-> @@ -1131,7 +1132,9 @@ static void show_smap_vma_flags(struct seq_file *m, struct vm_area_struct *vma)
->  		[ilog2(VM_NOHUGEPAGE)]	= "nh",
->  		[ilog2(VM_MERGEABLE)]	= "mg",
->  		[ilog2(VM_UFFD_MISSING)]= "um",
-> +#ifdef CONFIG_HAVE_ARCH_USERFAULTFD_WP
->  		[ilog2(VM_UFFD_WP)]	= "uw",
-> +#endif
->  #ifdef CONFIG_ARM64_MTE
->  		[ilog2(VM_MTE)]		= "mt",
->  		[ilog2(VM_MTE_ALLOWED)]	= "",
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index 6a34dd3800f56..6cd9d86f7adac 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -302,7 +302,7 @@ enum {
->  	/* Page-ranges managed without "struct page", just pure PFN */
->  	DECLARE_VMA_BIT(PFNMAP, 10),
->  	DECLARE_VMA_BIT(MAYBE_GUARD, 11),
-> -	DECLARE_VMA_BIT(UFFD_WP, 12),	/* wrprotect pages tracking */
-> +	DECLARE_VMA_BIT(MAYBE_UFFD_POISON, 12),
->  	DECLARE_VMA_BIT(LOCKED, 13),
->  	DECLARE_VMA_BIT(IO, 14),	/* Memory mapped I/O or similar */
->  	DECLARE_VMA_BIT(SEQ_READ, 15),	/* App will access data sequentially */
-> @@ -346,6 +346,7 @@ enum {
->  	DECLARE_VMA_BIT(UFFD_MINOR, 41),
->  	DECLARE_VMA_BIT(SEALED, 42),
->  	DECLARE_VMA_BIT(UFFD_RWP, 43),
-> +	DECLARE_VMA_BIT(UFFD_WP, 44),	/* wrprotect pages tracking */
->  	/* Flags that reuse flags above. */
->  	DECLARE_VMA_BIT_ALIAS(PKEY_BIT0, HIGH_ARCH_0),
->  	DECLARE_VMA_BIT_ALIAS(PKEY_BIT1, HIGH_ARCH_1),
-> @@ -406,7 +407,12 @@ enum {
->  #endif
->  #define VM_PFNMAP	INIT_VM_FLAG(PFNMAP)
->  #define VM_MAYBE_GUARD	INIT_VM_FLAG(MAYBE_GUARD)
-> +#define VM_MAYBE_UFFD_POISON	INIT_VM_FLAG(MAYBE_UFFD_POISON)
-> +#ifdef CONFIG_HAVE_ARCH_USERFAULTFD_WP
->  #define VM_UFFD_WP	INIT_VM_FLAG(UFFD_WP)
-> +#else
-> +#define VM_UFFD_WP	VM_NONE
-> +#endif
+diff --git a/drivers/bluetooth/hci_qca.c b/drivers/bluetooth/hci_qca.c
+index 28e84fc24..ddbeb0787 100644
+--- a/drivers/bluetooth/hci_qca.c
++++ b/drivers/bluetooth/hci_qca.c
+@@ -620,6 +620,7 @@ static int qca_open(struct hci_uart *hu)
+ 	hu->priv = qca;
+ 
+ 	if (hu->serdev) {
++		set_bit(QCA_BT_OFF, &qca->flags);
+ 		qcadev = serdev_device_get_drvdata(hu->serdev);
+ 
+ 		switch (qcadev->btsoc_type) {
+@@ -2285,11 +2286,7 @@ static void qca_power_off(struct hci_uart *hu)
+ 	case QCA_WCN3990:
+ 	case QCA_WCN3991:
+ 	case QCA_WCN3998:
+-		/* Both of these write to the serial port which may have
+-		 * already been closed by hci_uart_close(), which closes
+-		 * the port if HCI_QUIRK_NON_PERSISTENT_SETUP is set.
+-		 */
+-		if (test_bit(HCI_UART_PROTO_READY, &hu->flags)) {
++		if (hu->serdev_open) {
+ 			host_set_baudrate(hu, 2400);
+ 			qca_send_power_pulse(hu, false);
+ 		}
+@@ -2618,23 +2615,6 @@ static int qca_serdev_probe(struct serdev_device *serdev)
+ static void qca_serdev_remove(struct serdev_device *serdev)
+ {
+ 	struct qca_serdev *qcadev = serdev_device_get_drvdata(serdev);
+-	struct qca_power *power = qcadev->bt_power;
+-
+-	switch (qcadev->btsoc_type) {
+-	case QCA_WCN3988:
+-	case QCA_WCN3990:
+-	case QCA_WCN3991:
+-	case QCA_WCN3998:
+-	case QCA_WCN6750:
+-	case QCA_QCA2066:
+-	case QCA_WCN6855:
+-	case QCA_WCN7850:
+-		if (power->vregs_on)
+-			qca_power_off(&qcadev->serdev_hu);
+-		break;
+-	default:
+-		break;
+-	}
+ 
+ 	hci_uart_unregister_device(&qcadev->serdev_hu);
+ }
+diff --git a/drivers/bluetooth/hci_serdev.c b/drivers/bluetooth/hci_serdev.c
+index 3d10d8d75..e279a7d61 100644
+--- a/drivers/bluetooth/hci_serdev.c
++++ b/drivers/bluetooth/hci_serdev.c
+@@ -120,6 +120,9 @@ static int hci_uart_flush(struct hci_dev *hdev)
+ 
+ 	BT_DBG("hdev %p serdev %p", hdev, hu->serdev);
+ 
++	if (hci_dev_test_flag(hdev, HCI_UNREGISTER))
++		return 0;
++
+ 	if (hu->tx_skb) {
+ 		kfree_skb(hu->tx_skb); hu->tx_skb = NULL;
+ 	}
+@@ -167,6 +170,9 @@ static int hci_uart_close(struct hci_dev *hdev)
+ 
+ 	BT_DBG("hdev %p", hdev);
+ 
++	if (hci_dev_test_flag(hdev, HCI_UNREGISTER))
++		return 0;
++
+ 	if (!test_bit(HCI_UART_PROTO_READY, &hu->flags))
+ 		return 0;
+ 
+@@ -425,6 +431,10 @@ void hci_uart_unregister_device(struct hci_uart *hu)
+ 	/* Wait for init_ready to finish to prevent registration races */
+ 	cancel_work_sync(&hu->init_ready);
+ 
++	/* Drain HCI setup before clearing protocol readiness. */
++	if (test_bit(HCI_UART_REGISTERED, &hu->flags))
++		hci_unregister_dev(hdev);
++
+ 	proto_ready = test_bit(HCI_UART_PROTO_READY, &hu->flags);
+ 	if (proto_ready) {
+ 		/* Clear HCI_UART_PROTO_READY under the write lock so a
+@@ -446,16 +456,16 @@ void hci_uart_unregister_device(struct hci_uart *hu)
+ 	cancel_work_sync(&hu->write_work);
+ 
+ 	/* Free any partially transmitted frame left over by write_work now
+-	 * that the transmit path is fully quiesced. hci_uart_close() would
+-	 * skip hci_uart_flush() because HCI_UART_PROTO_READY is cleared.
++	 * that the transmit path is fully quiesced. The HCI close and flush
++	 * callbacks leave transport teardown to us during unregister.
+ 	 */
+ 	if (hu->tx_skb) {
+ 		kfree_skb(hu->tx_skb);
+ 		hu->tx_skb = NULL;
+ 	}
+ 
+-	if (test_bit(HCI_UART_REGISTERED, &hu->flags))
+-		hci_unregister_dev(hdev);
++	if (hu->serdev_open)
++		serdev_device_write_flush(hu->serdev);
+ 
+ 	/* Close the protocol before freeing hdev (intrinsically purges queues).
+ 	 * Some protocol close handlers (e.g. qca_close) may still access the
+-- 
+2.39.5
 
-As per below, please move the VMA_UFFD_WP decls here.
-
-Also, could you also do:
-
-static inline bool userfaultfd_wp(struct vm_area_struct *vma)
-{
--	return vma_test_any_mask(vma, VMA_UFFD_WP);
-+	return vma_test_single_mask(vma, VMA_UFFD_WP);
-}
-
-To match convention for using vma_test_single_mask() for flags that aren't
-always defined. Thanks! :)
-
-
->  #define VM_LOCKED	INIT_VM_FLAG(LOCKED)
->  #define VM_IO		INIT_VM_FLAG(IO)
->  #define VM_SEQ_READ	INIT_VM_FLAG(SEQ_READ)
-> @@ -502,13 +508,17 @@ enum {
->  #endif
->
->  /*
-> - * vma_flags_t masks for the userfaultfd VMA flags. The two high-bit modes are
-> - * gated on the same configs as their VM_* flags above -- both of which imply
-> + * vma_flags_t masks for the userfaultfd VMA flags. The three high-bit modes are
-> + * gated on the same configs as their VM_* flags above -- all of which imply
->   * 64BIT -- so an out-of-range bit is never fed to mk_vma_flags() on a build
->   * whose bitmap cannot hold it.
->   */
->  #define VMA_UFFD_MISSING	mk_vma_flags(VMA_UFFD_MISSING_BIT)
-> +#ifdef CONFIG_HAVE_ARCH_USERFAULTFD_WP
->  #define VMA_UFFD_WP		mk_vma_flags(VMA_UFFD_WP_BIT)
-> +#else
-> +#define VMA_UFFD_WP		EMPTY_VMA_FLAGS
-> +#endif
-
-Could you just move these up to the block above to match the convention here?
-
->  #ifdef CONFIG_HAVE_ARCH_USERFAULTFD_MINOR
->  #define VMA_UFFD_MINOR		mk_vma_flags(VMA_UFFD_MINOR_BIT)
->  #else
-> @@ -602,7 +612,8 @@ enum {
->  #define VMA_LOCKED_MASK	mk_vma_flags(VMA_LOCKED_BIT, VMA_LOCKONFAULT_BIT)
->
->  /* These flags can be updated atomically via VMA/mmap read lock. */
-> -#define VMA_ATOMIC_SET_ALLOWED mk_vma_flags(VMA_MAYBE_GUARD_BIT)
-> +#define VMA_ATOMIC_SET_ALLOWED mk_vma_flags(VMA_MAYBE_GUARD_BIT, \
-> +					    VMA_MAYBE_UFFD_POISON_BIT)
->
->  /* Arch-specific flags to clear when updating VM flags on protection change */
->  #ifndef VM_ARCH_CLEAR
-> @@ -620,16 +631,16 @@ enum {
->   *                       merged VMA should be considered soft-dirty also as it
->   *                       operates at a VMA granularity.
->   *
-> - * VMA_MAYBE_GUARD_BIT - If a VMA may have guard regions in place it implies
-> - *                       that mapped page tables may contain metadata not
-> - *                       described by the VMA and thus any merged VMA may also
-> - *                       contain this metadata, and thus we must make this flag
-> - *                       sticky.
-> + * VMA_MAYBE_GUARD_BIT / VMA_MAYBE_UFFD_POISON_BIT - Page tables may contain guard
-> + *                       or poison markers not described by the VMA. Any
-> + *                       merged VMA may also contain this metadata, so these
-> + *                       flags must be sticky.
->   */
->  #ifdef CONFIG_MEM_SOFT_DIRTY
-> -#define VMA_STICKY_FLAGS mk_vma_flags(VMA_SOFTDIRTY_BIT, VMA_MAYBE_GUARD_BIT)
-> +#define VMA_STICKY_FLAGS mk_vma_flags(VMA_SOFTDIRTY_BIT, VMA_MAYBE_GUARD_BIT, \
-> +				     VMA_MAYBE_UFFD_POISON_BIT)
->  #else
-> -#define VMA_STICKY_FLAGS mk_vma_flags(VMA_MAYBE_GUARD_BIT)
-> +#define VMA_STICKY_FLAGS mk_vma_flags(VMA_MAYBE_GUARD_BIT, VMA_MAYBE_UFFD_POISON_BIT)
->  #endif
->
->  /*
-> @@ -667,13 +678,15 @@ enum {
->   *                           retrieve from page cache, and skip copying
->   *                           will lose those info.
->   *
-> - *          VM_MAYBE_GUARD - Could contain page guard region markers which
-> - *                           by design are a property of the page tables
-> - *                           only and thus cannot be reconstructed on page
-> - *                           fault.
-> + *          VM_MAYBE_GUARD - Could contain guard markers which cannot be
-> + *                           reconstructed on page fault.
-> + *
-> + *   VM_MAYBE_UFFD_POISON - Could contain poison markers which cannot be
-> + *                           reconstructed on page fault, including after
-> + *                           userfaultfd unregister.
->   */
->  #define VM_COPY_ON_FORK (VM_PFNMAP | VM_MIXEDMAP | VM_UFFD_WP | VM_UFFD_RWP | \
-> -			 VM_MAYBE_GUARD)
-> +			 VM_MAYBE_GUARD | VM_MAYBE_UFFD_POISON)
->
->  /*
->   * mapping from the currently active vm_flags protection bits (the
-> diff --git a/include/linux/userfaultfd_k.h b/include/linux/userfaultfd_k.h
-> index dff9a5c9a0dfa..b8b7cc2f00388 100644
-> --- a/include/linux/userfaultfd_k.h
-> +++ b/include/linux/userfaultfd_k.h
-> @@ -167,11 +167,14 @@ static inline bool is_mergeable_vm_userfaultfd_ctx(struct vm_area_struct *vma,
->
->  /*
->   * Never enable huge pmd sharing on userfaultfd registered VMAs, because
-> - * userfaultfd state can be tracked per VMA or per page table entry.
-> + * userfaultfd state can be tracked per VMA or per page table entry. Similarly,
-> + * handle poison markers that stick around even after userfaultfd was
-> + * unregistered.
->   */
->  static inline bool uffd_disable_huge_pmd_share(struct vm_area_struct *vma)
->  {
-> -	return vma->vm_userfaultfd_ctx.ctx;
-> +	return vma->vm_userfaultfd_ctx.ctx ||
-> +	       vma_test_atomic_flag(vma, VMA_MAYBE_UFFD_POISON_BIT);
->  }
->
->  /*
-> diff --git a/include/trace/events/mmflags.h b/include/trace/events/mmflags.h
-> index 3c153b3ad8450..942746e4de15b 100644
-> --- a/include/trace/events/mmflags.h
-> +++ b/include/trace/events/mmflags.h
-> @@ -184,6 +184,12 @@ IF_HAVE_PG_ARCH_3(arch_3)
->  #define IF_HAVE_VM_SOFTDIRTY(flag,name)
->  #endif
->
-> +#ifdef CONFIG_HAVE_ARCH_USERFAULTFD_WP
-> +# define IF_HAVE_UFFD_WP(flag, name) {flag, name},
-> +#else
-> +# define IF_HAVE_UFFD_WP(flag, name)
-> +#endif
-> +
->  #ifdef CONFIG_HAVE_ARCH_USERFAULTFD_MINOR
->  # define IF_HAVE_UFFD_MINOR(flag, name) {flag, name},
->  #else
-> @@ -247,7 +253,8 @@ IF_HAVE_PG_ARCH_3(arch_3)
->  IF_HAVE_UFFD_MINOR(VM_UFFD_MINOR,	"uffd_minor"	)		\
->  	{VM_PFNMAP,			"pfnmap"	},		\
->  	{VM_MAYBE_GUARD,		"maybe_guard"	},		\
-> -	{VM_UFFD_WP,			"uffd_wp"	},		\
-> +	{VM_MAYBE_UFFD_POISON,		"maybe_uffd_poison"	},		\
-> +IF_HAVE_UFFD_WP(VM_UFFD_WP,		"uffd_wp")			\
->  IF_HAVE_UFFD_RWP(VM_UFFD_RWP,		"uffd_rwp"	)		\
->  	{VM_LOCKED,			"locked"	},		\
->  	{VM_IO,				"io"		},		\
-> diff --git a/mm/Kconfig b/mm/Kconfig
-> index afff1b25b5438..ad9236933aab3 100644
-> --- a/mm/Kconfig
-> +++ b/mm/Kconfig
-> @@ -1357,6 +1357,7 @@ config ANON_VMA_NAME
->
->  config HAVE_ARCH_USERFAULTFD_WP
->  	bool
-> +	depends on 64BIT
-
-This is just saying out loud what was already the case effectively, which is
-nice to do as a side-effect! :)
-
->  	help
->  	  Arch has userfaultfd write protection support
->
-> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-> index 42d9eb26d5fab..2a5ee8fc42335 100644
-> --- a/mm/khugepaged.c
-> +++ b/mm/khugepaged.c
-> @@ -2107,16 +2107,17 @@ static bool file_backed_vma_is_retractable(struct vm_area_struct *vma)
->  		return false;
->
->  	/*
-> -	 * If the VMA contains guard regions then we can't collapse it.
-> +	 * Preserve guard and poison markers when retracting page tables.
->  	 *
-> -	 * This is set atomically on guard marker installation under mmap/VMA
-> +	 * These flags are set atomically on marker installation under mmap/VMA
->  	 * read lock, and here we may not hold any VMA or mmap lock at all.
->  	 *
->  	 * This is therefore serialised on the PTE page table lock, which is
-> -	 * obtained on guard region installation after the flag is set, so this
-> +	 * obtained on marker installation after the flag is set, so this
->  	 * check being performed under this lock excludes races.
->  	 */
-> -	if (vma_test_atomic_flag(vma, VMA_MAYBE_GUARD_BIT))
-> +	if (vma_test_atomic_flag(vma, VMA_MAYBE_GUARD_BIT) ||
-> +	    vma_test_atomic_flag(vma, VMA_MAYBE_UFFD_POISON_BIT))
->  		return false;
->
->  	return true;
-> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-> index 169f681f9849b..bb6069320b347 100644
-> --- a/mm/userfaultfd.c
-> +++ b/mm/userfaultfd.c
-> @@ -963,6 +963,9 @@ static __always_inline ssize_t mfill_atomic(struct userfaultfd_ctx *ctx,
->  	if (err)
->  		goto out;
->
-> +	if (uffd_flags_mode_is(flags, MFILL_ATOMIC_POISON))
-> +		vma_set_atomic_flag(state.vma, VMA_MAYBE_UFFD_POISON_BIT);
-> +
->  	/*
->  	 * If this is a HUGETLB vma, pass off to appropriate routine
->  	 */
-> diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
-> index dc4927d26296c..f9bafe4e20158 100644
-> --- a/tools/testing/vma/include/dup.h
-> +++ b/tools/testing/vma/include/dup.h
-> @@ -117,7 +117,7 @@ enum {
->  	/* Page-ranges managed without "struct page", just pure PFN */
->  	DECLARE_VMA_BIT(PFNMAP, 10),
->  	DECLARE_VMA_BIT(MAYBE_GUARD, 11),
-> -	DECLARE_VMA_BIT(UFFD_WP, 12),	/* wrprotect pages tracking */
-> +	DECLARE_VMA_BIT(MAYBE_UFFD_POISON, 12),
->  	DECLARE_VMA_BIT(LOCKED, 13),
->  	DECLARE_VMA_BIT(IO, 14),	/* Memory mapped I/O or similar */
->  	DECLARE_VMA_BIT(SEQ_READ, 15),	/* App will access data sequentially */
-> @@ -160,6 +160,7 @@ enum {
->  #endif
->  	DECLARE_VMA_BIT(UFFD_MINOR, 41),
->  	DECLARE_VMA_BIT(SEALED, 42),
-> +	DECLARE_VMA_BIT(UFFD_WP, 44),	/* wrprotect pages tracking */
->  	/* Flags that reuse flags above. */
->  	DECLARE_VMA_BIT_ALIAS(PKEY_BIT0, HIGH_ARCH_0),
->  	DECLARE_VMA_BIT_ALIAS(PKEY_BIT1, HIGH_ARCH_1),
-> @@ -218,7 +219,12 @@ enum {
->  #endif
->  #define VM_PFNMAP	INIT_VM_FLAG(PFNMAP)
->  #define VM_MAYBE_GUARD	INIT_VM_FLAG(MAYBE_GUARD)
-> +#define VM_MAYBE_UFFD_POISON	INIT_VM_FLAG(MAYBE_UFFD_POISON)
-> +#ifdef CONFIG_HAVE_ARCH_USERFAULTFD_WP
->  #define VM_UFFD_WP	INIT_VM_FLAG(UFFD_WP)
-> +#else
-> +#define VM_UFFD_WP	VM_NONE
-> +#endif
->  #define VM_LOCKED	INIT_VM_FLAG(LOCKED)
->  #define VM_IO		INIT_VM_FLAG(IO)
->  #define VM_SEQ_READ	INIT_VM_FLAG(SEQ_READ)
-> @@ -367,7 +373,8 @@ enum {
->  #define VMA_LOCKED_MASK	mk_vma_flags(VMA_LOCKED_BIT, VMA_LOCKONFAULT_BIT)
->
->  /* These flags can be updated atomically via VMA/mmap read lock. */
-> -#define VMA_ATOMIC_SET_ALLOWED mk_vma_flags(VMA_MAYBE_GUARD_BIT)
-> +#define VMA_ATOMIC_SET_ALLOWED mk_vma_flags(VMA_MAYBE_GUARD_BIT, \
-> +					    VMA_MAYBE_UFFD_POISON_BIT)
->
->  #define RLIMIT_STACK		3	/* max stack size */
->  #define RLIMIT_MEMLOCK		8	/* max locked-in-memory address space */
-> @@ -375,14 +382,17 @@ enum {
->  #define CAP_IPC_LOCK         14
->
->  #ifdef CONFIG_MEM_SOFT_DIRTY
-> -#define VMA_STICKY_FLAGS mk_vma_flags(VMA_SOFTDIRTY_BIT, VMA_MAYBE_GUARD_BIT)
-> +#define VMA_STICKY_FLAGS mk_vma_flags(VMA_SOFTDIRTY_BIT, VMA_MAYBE_GUARD_BIT, \
-> +				      VMA_MAYBE_UFFD_POISON_BIT)
->  #else
-> -#define VMA_STICKY_FLAGS mk_vma_flags(VMA_MAYBE_GUARD_BIT)
-> +#define VMA_STICKY_FLAGS mk_vma_flags(VMA_MAYBE_GUARD_BIT, \
-> +				      VMA_MAYBE_UFFD_POISON_BIT)
->  #endif
->
->  #define VMA_IGNORE_MERGE_FLAGS VMA_STICKY_FLAGS
->
-> -#define VM_COPY_ON_FORK (VM_PFNMAP | VM_MIXEDMAP | VM_UFFD_WP | VM_MAYBE_GUARD)
-> +#define VM_COPY_ON_FORK (VM_PFNMAP | VM_MIXEDMAP | VM_UFFD_WP | \
-> +			 VM_MAYBE_GUARD | VM_MAYBE_UFFD_POISON)
->
->  #define pgprot_val(x)		((x).pgprot)
->  #define __pgprot(x)		((pgprot_t) { (x) } )
->
-> --
-> 2.43.0
->
-
---
-Cheers, Lorenzo
