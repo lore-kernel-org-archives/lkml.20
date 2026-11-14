@@ -1,62 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794637303;
-	b=VItC6vPSW3mPr1PkcUt0L7xJqLyjh5A4FP+gNumtQ5ZT1UHaAWTBBRZguvA4+clM0Aq1
-	 FBaW5WPsRyiQk2AA3wjCc4kzwlkHHceASnzVCuWNsfPIjKQpolaH6GRU0u7hALXdqY6ou
-	 EuI3k6aGvXW1USDJ8QSap6R6TnLLqdwZMDTS76Owo8McFAfBJ2909QL691/3SBxk+Bl08
-	 NAeZqLJdBoSv05Okc0Zzfqlt+kkDpxUP8192gZp9iAEtSlHkDh/u0cBYfT3xxaOksI5vd
-	 ZbucO5U7DwIi4PfIinZfS3fNV5od1nxLPl6Zc+LBht0vtnZcNMjUNqu3d7QJGY3MTSQ==
+	t=1794637353;
+	b=Lhwvm3IxRAG7Nd0719bzJ9ZAiLuCTUQn4OinEzez46gMBq5ppRoPG76zX91ca7r8KGXH
+	 7E9EQtZwdgR4U/v37E1YjYfOjAeMEWSEPxuwvy4N9cjgYOIWvGTXciX6yNrpCFg7Z0IAT
+	 so5xJYXuEx2iWzZ0ql4IuUvnbRTA1fTpnIt8nC/s7w+qLol/a++dn61GkGUwE+YKecvX7
+	 zX+SvJb6kjzPzwixHfBdRNtx/ZduTcY3s8yR3JiOIYv7pJfmCkpDmYOQ/kgU7m01pXjnS
+	 1Ef6MvbYz2lT2q/sXACxjuSVnixVnryRAlj3h7PLtnSKEb9HmsLGLQ6jaMjBgyjmeoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794637303;
-	h=Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=5viyWZGS4n9c+qBE/aLwmO7/aPYsv3JV1TvkOfw09wU=;
-	b=zqMDuN8WUyi94W1T5GtQYa8J5Vxt0Xe54w1WDCuejx83X7/u3x/WBH/zFjNbD/cEJRrN
-	 EgloWN1HmlRi8uVLLa8lHNEwZpTfAg9BA568j7ADCAX4Ovt++TbEmNYkPSekxAuQPGFFs
-	 MrhWnFsVRWeUPqw+NqDxmdl3kLX406OmU+5NpbN5/XMst6yAqPdExfGIZ84M/nXvyrPh5
-	 u8fDCZpj68Q0mMepd01JNIwIkYbjSWAGpXtKS4Km0bSVYedFrkFJWL6sr99li8qAqj1Sv
-	 moQzArFWcdw4NAhyKdruOFHO2bIzT16QwGARUP8o8XxbocEtJyCbBet0AUOs1TFqOrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794637353;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=a54BQTIFjPW8P0xkuWanHjV3ZdgHWnaMz+Ldxn8PqvM=;
+	b=Bu+O9AgrjhiViiTeWtkDrX6ICmDsdonmy7d3WRR0lLMdyfLvXXLahMV2YIZcPJehXuwW
+	 /9IzDKn7wJzwEOqS5y0YzsqD/cBxq/mWwPe8aYlHy/qtebuKqFJlNtrjEym++3TZeF9SY
+	 YWe8akl7FaPTrlUii1HE/fnXiWHSQUnkabXoOOHCVdurCjyJfSLw8Jd1dBGit3KOeCewb
+	 603l/m6UUWOAlC6GGXSMQFbEpODjs/Jcs5wEoMbDwI+VWhn8yVPPqEKvVE8e0chJad2Jw
+	 X6pD4+sGJpzTz+qCp6JKe0yJF0ESDGj8uhvBZ4brqJ0nsE04HQADQ4ftDl3gt8EfTog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XC+gEUcA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=k3ze6GhO;
+	arc=none smtp.remote-ip=209.85.215.180
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB996606A323;
-	Sat, 14 Nov 2026 06:21:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0684606A331
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:22:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0684606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XC+gEUcA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C70BB1F000C6;
-	Sat, 14 Nov 2026 06:21:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794637303;
-	bh=5viyWZGS4n9c+qBE/aLwmO7/aPYsv3JV1TvkOfw09wU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=XC+gEUcAgljdNI9CNr8OtTIIYyToLb8c8i5IyPkEDFiavefdyg34PlOH+1wjjojvv
-	 pimJRi4fB56RNROND/9Jf/LHpWVAuSuCMF3SQ3CJuypchnc65mPCxhtJhHVWkGxGnY
-	 fYwzcvLt20eqdJIs1oBdQeGGur9aUundQ0BrADhe/9ZRBzseTZAj5AtuPvSfb4CPXG
-	 DohCPtZD/jgQu9X5Z7/eMofYsJ+yeQtNkcz4RSzAsP9e7S9eknpX+kn240Tdx06a45
-	 1WJi7gDjgJCvtQqsVyvaw2x5fD4ZCUCyEnoYcNn9sNa0FjANoxlocXPGLMsK+8QcKE
-	 lf94vcPVQ3L9A==
-Message-ID: <7874eba61c2ec79221496cbc43c253f9e023fa4b.camel@kernel.org>
-Subject: Re: [PATCH net] net/rds: tcp: bound the message length announced by
- the peer
-From: Allison Henderson <achender@kernel.org>
-To: weidongw@illinois.edu
-Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@kernel.org>,  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- netdev@vger.kernel.org, linux-rdma@vger.kernel.org, 
- rds-devel@oss.oracle.com, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org,  Zijie Zhao <zijie4@illinois.edu>
-Date: Fri, 13 Nov 2026 23:21:42 -0700
-In-Reply-To: <20261111-h047-send-v1-1-2727a38dbfcd@illinois.edu>
-References: <20261111-h047-send-v1-1-2727a38dbfcd@illinois.edu>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=k3ze6GhO
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cdb684859cbso1590378a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:22:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794637352; x=1795242152; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=a54BQTIFjPW8P0xkuWanHjV3ZdgHWnaMz+Ldxn8PqvM=;
+        b=k3ze6GhOGxdLUFgZdt5Z9OexSj/i0OwBosPzmqlA8R7gXojUX8g2ifJvekL56/ipEC
+         1slzLFYh8mjaHI8hiiQhezREESOCUb08P6TrheUqWCmdCjs+ajpNDhnwPhvoD7C/7RDT
+         IH899UI2TPF4ztJugZDmVoaY0oWd8UEYNAMx0ujAkp8SkNOLmufPiGidpxV5jZfSLPgs
+         xuzLgizr2dsBLu8pL0SuEdbebpXDJytvipoV0aZ5F8uo2Pw47VHpL/co0jqvAdGBtXB4
+         TT2poLH6FIZkotwJqXaWxK+wUf/JaXlHJe3SfXpyIrDRuASGGdm4bm5HyMHftF6lPfdC
+         ALUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794637352; x=1795242152;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=a54BQTIFjPW8P0xkuWanHjV3ZdgHWnaMz+Ldxn8PqvM=;
+        b=eKyB7e8lqgfPilxRu24O3R5u8lTKtIi7B110QwJceJ2bPHl88clugZ39dgNWRruwdA
+         yCunzs3ePvO9XxQTvvYe+Y5Zu4js681pfsAX5v3K4LR4dhcmUTu99S22mOWmN6CgDd7G
+         jvkLPEHd2Jrasd9dENMHEZ6P56yq+FUwwCSWWz5YMklCnYHN/297duvC7KzcQIkFLEwJ
+         kOagza7GUgRHR7otggw1cpyfEMy1yDSYuZUAiW0Sxqf0ud6RE2zuV55Jf4KnLqp2Dkvn
+         t/x9I9g6EIh19IrSpDO6ozsHORJ+9GHO6g+Gci73B9R6xb9gkfzhJ9NlyNDH2/3SS56N
+         h2Tw==
+X-Forwarded-Encrypted: i=1; AL+hErEFDptmO7vCB1rgonhi3CrKOG7a3YMhrNejHY91COBZ0rpl0Pz+MJwk40fG/jsWGXzCEKBYXqNsPYZS5l8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8SimHNj4eODrG0gZwoJY3Ejy+7NkESZGj4Tc4bzvHYhmhW2RfH
+	yP64OKNTAeTyS9UFLuyH1E6FURngykZ+i9BMsqC6Sh5LFjud34JlW6zF
+X-Gm-Gg: AYBFou3fa7zSIoz/iy4YZRxpEB/reqhptBbocgxFk3tNKHhFbhjR4mO6bheCjVrcmXZ
+	bxRJ8cdjmwCOnjBfEWiy117C8PQJiLnV+gkJl0p07VgY0jU+v3h3skKIspZ2SPg6NszReVYjRmD
+	lV/4gGt1oNOiWOyKwNhEsRaApfRb/Gj9tgysIIbolFsPn4pa3kjuD8pcg5AUtTsKUUVVGeaJRm3
+	yHgUsPnP2ByJc+djlbxPByiFPO8Lo+J4Eu1pvOrHm/vkrFmESAj5XKlKLGuGLWypZqtnJPWbyRD
+	E36s67+3WrScwwkt6piWbKWFs+vLIVaeFS92K6qQM0x7yBItdCeupmPGpblQp9QUUFaOeQ8sJx3
+	VijivMbvry+vngppWf8vfJaSCtgWkr4ILHN5f9eAWEMJx8AoH84SPPoPOXhyEyXpUFNXRtfRL45
+	nAVq7z+SIgsm2DarpvCtNgtOtP4wfdhRfHMIuLJCbEYMcBHYKHF6xkd5gDkgC/SNSqVk55KdH9m
+	T9R1lGAR1AWdAIA8z46X+jyLKIYGmzHXljBeHXx2XPcTb194+ssaPIBnAAoAsuHsl4dMXX59vml
+	zs/R1XfrUQId4fHzIC0X9u+2ZqBQjk/HYQC+yClfETBPJMDCrk0tFTJ8V5eGnUyKv5EtNMPNRnq
+	IKCKxOhdybpQ0WX00jhgAldpjg19mdq2KjYAPN8rZVGWt/kXrQRznudoAnoBZ5GPXXaQAy7xDxG
+	2viA==
+X-Received: by 2002:a17:90b:4cc9:b0:3b1:82fb:7e03 with SMTP id 98e67ed59e1d1-3b1b09e665emr4584940a91.11.1794637351981;
+        Fri, 13 Nov 2026 22:22:31 -0800 (PST)
+Received: from ryzen.lan ([2601:644:8000:37f::e34])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1b266d873sm3457653a91.1.2026.11.13.22.22.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 22:22:31 -0800 (PST)
+From: Rosen Penev <rosenp@gmail.com>
+To: Matthew Garrett <mjg59@srcf.ucam.org>,
+	=?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Troy Rollo <linux2021@troy.rollo.name>
+Cc: platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] platform/x86: dell-wmi-base: Fix the data pointer for event sequences
+Date: Fri, 13 Nov 2026 22:22:19 -0800
+Message-ID: <5fa10b9dbe351074e61493c0ba3344ba6106137a.1794633180.git.rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,112 +100,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Wed, 2026-11-11 at 14:27 -0600, Weidong Wang via B4 Relay wrote:
-> From: Weidong Wang <weidongw@illinois.edu>
->=20
-> rds_tcp_data_recv() takes the payload length of an incoming message from
-> the peer's header and queues pskb_extract() clones of the received data
-> on the incoming message until that many bytes have arrived. Nothing
-> checks the length, so a peer that announces h_len =3D 0xffffffff and keep=
-s
-> sending makes the receiver hold up to 4 GiB per connection. The clones
-> are no longer on the socket's receive queue, so they are not charged to
-> the socket and TCP keeps the receive window open.
->=20
-> Senders are limited to RDS_MAX_MSG_SIZE in rds_sendmsg(). Apply the same
-> limit on receive and drop the connection when a header exceeds it. That
-> limit has been enforced on send since v4.11; a peer running an older
-> kernel could still send larger messages over TCP, and such connections
-> are now dropped.
->=20
-> The issue was discovered by an AI code review agent (an LLM-based
-> bug-finding tool developed by Zijie Zhao and the submitter) and
-> confirmed by triggering it on an unmodified kernel, without error
-> injection, on x86_64 under QEMU: a plain TCP client in a second network
-> namespace connects to the rds_tcp listener (port 16385), sends one RDS
-> header with h_len =3D 0xffffffff and then 1 GiB of payload. The receiver
-> held about 1.1 GiB until the connection was closed; the same 1 GiB sent
-> as 1 MiB messages held about 60 MiB.
->=20
-> With this patch the connection is dropped right after the header and
-> nothing is held, while the 1 MiB messages are processed as before. The
-> RDS selftest (tools/testing/selftests/net/rds, rds_run.sh -T tcp, also
-> with -l 10 -c 10 -u 10) passes with the patch applied.
->=20
-> The reproducer, fix and changelog were drafted with AI assistance
-> (Claude), then reviewed and tested by the submitter.
->=20
-> Fixes: 70041088e3b9 ("RDS: Add TCP transport to RDS")
-> Cc: stable@vger.kernel.org
-> Cc: Zijie Zhao <zijie4@illinois.edu>
-> Signed-off-by: Weidong Wang <weidongw@illinois.edu>
+dell_wmi_process_key() expects its buffer argument to point at the
+data that follows the event code. The 0x0000 and 0x0012 callers pass
+buffer_entry + 3 for a code at buffer_entry[2], and commit
+392c19faec6b ("platform/x86: dell-wmi-base: Fix handling of ultra performance key")
+relies on this. The remaining count passed for event sequences
+(len - i - 1) also counts from the word after the code.
 
-Hi Weidong,
+For sequences of type 0x0010 and 0x0011, however, buffer_entry + i is
+passed, which points at the code itself. The tablet mode switch event
+(type 0x0011, code 0xe070) then reports !0xe070, so SW_TABLET_MODE is
+always 0 and tablet mode is never reported.
 
-Thanks for the catch.  This patch looks fine to me.
-Reviewed-by: Allison Henderson <achender@kernel.org>
+Pass the word after the code.
 
-Thanks!
-Allison
+Fixes: 5fbd827eb9c2 ("platform/x86: dell-wmi: Recognise or support new switches")
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+Developed with the help of an AI coding assistant (Claude Opus 5.5),
+which found the issue and drafted the fix; I reviewed it and am
+responsible for it. Builds cleanly with W=1.
+Not runtime tested: the M4800 does not send the tablet mode event.
 
-> ---
-> Tested on v7.4-rc1 (05441d697f7f) and on net (ae89f2724e), x86_64,
-> KASAN, QEMU/KVM, 3 GiB guest. Setup: rds_tcp listener in the initial
-> netns (10.0.0.2); a plain TCP client (no AF_RDS) in a second netns
-> (10.0.0.1) over a veth pair.
->=20
->                    1 GiB after one header     1 GiB as 1 MiB
->                    with h_len =3D 0xffffffff    messages (control)
->   unpatched        ~1.1 GiB held until close  ~60 MiB
->   patched          connection reset after     ~60 MiB, processed
->                    the header, nothing held   as before
->=20
-> selftests/net/rds: rds_run.sh -T tcp and rds_run.sh -T tcp -l 10 -c 10
-> -u 10 pass on both trees with the patch. No KASAN/UBSAN reports;
-> checkpatch clean.
->=20
-> The limit is per connection; a peer with several source addresses gets
-> one connection per address. The reproducer is not attached (AI-found
-> issue, see security-bugs.rst) and can be shared on request.
-> ---
->  net/rds/tcp_recv.c | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
->=20
-> diff --git a/net/rds/tcp_recv.c b/net/rds/tcp_recv.c
-> index ffe843ca2..29db73df8 100644
-> --- a/net/rds/tcp_recv.c
-> +++ b/net/rds/tcp_recv.c
-> @@ -213,6 +213,20 @@ static int rds_tcp_data_recv(read_descriptor_t *desc=
-, struct sk_buff *skb,
->  			}
->  		}
-> =20
-> +		/*
-> +		 * The payload is queued on tinc until the whole message has
-> +		 * arrived, so a peer must not announce more than a sender is
-> +		 * allowed to send. Check on every pass, not only when the
-> +		 * header completes: the drop is asynchronous and more data
-> +		 * can arrive before the connection is shut down.
-> +		 */
-> +		if (!tc->t_tinc_hdr_rem &&
-> +		    tc->t_tinc_data_rem > RDS_MAX_MSG_SIZE) {
-> +			rds_conn_path_drop(cp, false);
-> +			desc->error =3D -EPROTO;
-> +			goto out;
-> +		}
-> +
->  		if (left && tc->t_tinc_data_rem) {
->  			to_copy =3D min(tc->t_tinc_data_rem, left);
-> =20
->=20
-> ---
-> base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
-> change-id: 20261110-h047-send-52025d442823
->=20
-> Best regards,
-> -- =20
-> Weidong Wang <weidongw@illinois.edu>
->=20
->=20
+ drivers/platform/x86/dell/dell-wmi-base.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/platform/x86/dell/dell-wmi-base.c b/drivers/platform/x86/dell/dell-wmi-base.c
+index 44857e99fdfe..c778409ca099 100644
+--- a/drivers/platform/x86/dell/dell-wmi-base.c
++++ b/drivers/platform/x86/dell/dell-wmi-base.c
+@@ -523,7 +523,7 @@ static void dell_wmi_notify(struct wmi_device *wdev, const struct wmi_buffer *bu
+ 			for (i = 2; i < len; ++i)
+ 				i += dell_wmi_process_key(wdev, le16_to_cpu(buffer_entry[1]),
+ 							  le16_to_cpu(buffer_entry[i]),
+-							  buffer_entry + i,
++							  buffer_entry + i + 1,
+ 							  len - i - 1);
+ 			break;
+ 		case 0x0012:
+
+base-commit: 2800868f63227c8237d70c41e70d441c919620d6
+-- 
+2.56.0
 
