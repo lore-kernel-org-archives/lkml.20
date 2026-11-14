@@ -1,120 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.142
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794694485;
-	b=QQ1i/i8XhDUdnhpGbheRdKcNLJPUII2ssTjoUy0KliT5Tx/7pJ2/C7pC8QaCpjdy9dOd
-	 ZDcjNs/jtxNV5RZsfSCA40ZjebbWrMkaeZyweviSkPWDfv4qvbmkwb1kmzDL0unlwNOPo
-	 ZgJL38l6ZauH3Wa1LTtzZR7LVjTe6k2UxrkwK1CO9YgCkcQYGTNtoNmmLKuN4zM974lga
-	 LHm9wDsAC7QQ9mPVvFAyYjN6pf7CqMEKk3M3Ut1Pi7achlJo+flvmolkgViUGsR1vIQcK
-	 gtFrhXiFFpvYjdkGIPl9Qzs3qMBs74itlz6t/x8RerF5Fn4fKDshWJ3aYEUzDzhA90g==
+	t=1794694533;
+	b=YluI31Vd3YXuJ0MXxfywCz6mq4fB5rYZgNy8U9wuJ09SZwtC7P8qz+qz/4kPLCt8a1H8
+	 arS6AGU+WkNy4hEMjNYNjiIqLwekC+UikkIkqjZadwfZsnw3jhvTzAwttBCi0dIFwcGJ9
+	 ZFXiBTMiNDzY3/xecrFInU4/tr32wnkBuKWn8on0KGTKBim8pUgQELg48aGX13lAkyGnU
+	 10TS8cXGQ6NjGs9OaC7wxGpGkeA8QpSM4lKfQtkKmlnwQe7n1adU+sN1yRAQZ+b2j+CuK
+	 ZXtSm5o+3NjgALZH/irB5EUi8B3vT4cAIhVNh0LVCOGmoXPl8Gw6/nr4AS3yLjNKZaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794694485;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794694533;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=PdGGGPKBVweXPJhBi2Cqz/r9zlr/MqHJdtvjLMnaXks=;
-	b=RbFEAgvbELxdzt9vFlEFb0h6SW5ZlsYbMi4yjOs4F5MaF9/mGebRvC2NLNa58ScgstUK
-	 k7YTZbv6oNGH5nnlY+KllqwFEMiAvTTRyP4c+yQ8odZktv2kc3ITrQArJ03ghdndpvXKM
-	 sVtqpK6PI2LDcj1h5K97rDVq6ld6PdZwDDIq8r7iaA2CaGloZrPnkHvx2WgufT257pEik
-	 MpZKzpmBy7278SAQo14SNQyvlOEIVrA4ILWhgARtG3hN0Oz6LgGr8xQR3/FgqOqWES+Ff
-	 Gi1MCeqpsyHobfQMZSkRTsNHtKCfhZiVOOgerarNtHcg9EpGsHbuuAgoA8C+6s47iEw==
+	bh=LY7eD84jpNGnFeoeMGuVlBCAW3DX6pueb3GVbU+lSFc=;
+	b=ero6L856PQ8FkX4q5/TUa4Z9xxf4VP1jbOtfPFzhRrjDHXu42fPsb+XOI38f71X8eHJL
+	 8LaF+usmDUsvQIHkIkjjefQRVRUCHBj90f5P4hPxJs5Aud5dA32J+/TUMRcvUe8LSV/u6
+	 sgs7XdSabyJZAIcS+zVlxLbuCE6l/ccaXc3xUsUF+llcwu047WeKcTwDrJVMEY7xVOFjJ
+	 dN8t+w1mXU7ekRcu9Xtn/D3Kpz09xi0uYESqNL+MknTbqFG+TdW0rEsnzp0Nzg0K6BOM3
+	 X2nTcyK1tid/XtKo/xhSx/vf5DDw1Rpw8xKZgcV5BaFVbGPT7DDNBaKwcvWegZYPJow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.com;
-	spf=pass smtp.mailfrom=fastmail.com;
-	dkim=pass header.d=fastmail.com header.i=@fastmail.com header.a=rsa-sha256 header.s=fm3 header.b=YIN4wygU;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=KEVbe+9n;
-	arc=none smtp.remote-ip=103.168.172.142
-Received: from flow-a7-smtp.messagingengine.com (flow-a7-smtp.messagingengine.com [103.168.172.142])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bIUgpIcB;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56815606A32D
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 22:14:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56815606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9F02606A330
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 22:15:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9F02606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.com header.i=@fastmail.com header.a=rsa-sha256 header.s=fm3 header.b=YIN4wygU;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=KEVbe+9n
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailflow.phl.internal (Postfix) with ESMTP id 84CA71381C3D
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:14:44 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Sat, 14 Nov 2026 17:14:44 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.com; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to; s=fm3; t=1794694484; x=1794701684; bh=PdGGGPKBVweXPJhBi2Cqz
-	/r9zlr/MqHJdtvjLMnaXks=; b=YIN4wygUJM7nYtanXxOhcNjF4lLS2/XohN0cx
-	nrruI+vb03JTReiNhB/rSihmAKilWuxaugnOD65a3PbbkJn2jMbXUMHqwkF+GEYI
-	6wDobQXCrBIOZvLqmv4O68fTNwlczg/VxWFoicm43oIgtZ35Ik4Z9XVWXfqBajv0
-	pG48JKMPJUb3ZzdRDilkoXd5kHNsfkS+t3u9RQ5DsBZWB4CaodfEoJkkn0d64p9h
-	lqVnJwBhEf7mRMgvnR1LuGrGLQUUPrK1hbJ1RmT+FQPJMabpNgYLmW6a6fGSrFAC
-	BSVa6oJROaKO/jLt889kRq+swqxFW/DAcXz3UaapooSSMN7Bg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1794694484; x=1794701684; bh=PdGGGPKBVweXPJhBi2Cqz/r9zlr/MqHJdtv
-	jLMnaXks=; b=KEVbe+9n/l4j8vF44wNBiwZH5RliRcHSGE1zfwP/MZ4Pbac1j+g
-	N2wqlxvnXQs4MQbnMIoKUghfExBcjuqTk2+sQ4/3bjRSfgCHEbgeOVyCEhl+fikW
-	QYRunDqf/17tIn60J86jA5DB9Ywtb2jDHiT+CtVom64L3gzYg8ljewTyeejVeRei
-	XiJFFJYHmZesigYE0hle+jUdQZbMu/Q8OAASNWqA/hhxpQ/5JdRF9Io6RyKFsRPX
-	WRZE+0R6iWwsAyzbdiJFqoRsZ7ZcT73LwIROjU+nItjQn6AIWciI2rVedq5Sig5G
-	1NVKWxQwfE3+GiAoojGht6N1AUUX54tzlwA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=fastmail.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794694484; d=fastmail.com;
-	mf=PGdyZWVuLmtvYWxhMjk3OUBmYXN0bWFpbC5jb20+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:k/d1FRYrRdPk7VFfriu0qMIFanoNhh8IrBOs5RiR7Ka1byV
-	A7HZZ9j7YuHvzHP1nQsU5VMt13tLFWSAJUwWE5jS3WrIUDfWWcUt6iGs2OZPOYCL
-	sphXA0oNf+/4xGH9q0AsuZrurMJJs/X0UucMrgDhEjha+W9BuzA4PRpe45lHszfM
-	WcD9uS1iDypukHbFgIPr26sZd8tiJH51mYaUviTKsbAQ0YoptPaKNxo/+CYV4yZG
-	QwsnTpVSn/UtJXuSH3hPPtaFkOdfxJyOb/xtZM6kyzbmgYodZHXHTzv33LtCbyMJ
-	EcgI4f7woH2BAba1h967o7/A0PpBWZ95tHIwNfQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:nTEjR303d0FjaSw3RqcrN8q1hZW2khSG37yJcwyQx1A=:S4zICbouSGjAz/ioHEzYOAXGYdEJdG6dE08OwUpLYsQ=;
-X-ME-Sender: <xms:VN34avzyqRZZr0sDPG2uqsca8JiY_rUdK6AJxIrR0a4mvpmV0SKoCg>
-    <xme:VN34aglN6MKoZ2LSvYJs4ksIqK2nTBol9Pq-OyfDaPhMkWVeeHfA8CaTZO4sK55uN
-    vp8Nj7nyuxYQbMfbm3MGTrv98CGBxC4L7owXoaVUAx-EHlR_z0zlOSl>
-X-ME-Received: <xmr:VN34agmy4OrAD-0yHEAJ5aALdCucaoA2k-bXbzf16CVN9bX5ILMhUjFVX_wbkxaCg5V0EH1sgoy9wjLMB9UwBGM_49Q2hBkzCSuJtc1b4MamhWc>
-X-ME-Proxy-Cause: dmFkZTGqlJFaF5zGcfLx5cvUG4JLHABA7Q+PiMXeNzxA+upxsZih52x2rypPlyXkSSVfuy
-    3ohvNRsQiJewUE7oTVHP4sYsFOjnfb9U+Zjs1zxN/LWpxnHP6jzHQyp/G4/ib0gcziYpug
-    R4KBokoZRpjltjzTgl6acBimji/dsjkLF+K+acvgnoGoxrpxxNf85Zblhdteiz6qrrzXlq
-    m5IJ15ZU/Nqhnx0JeJ/4LbwRq15mRlYxi/TR6xR3FV3MwHeTIVTwyyh3YJCLj4xn+7xgTQ
-    fWEyhzeToooNOcZLibnXzTSYFxOHYESK5r5xHqd6Bl/DD27UhkVqUjqBZ1oZWFApTceGFv
-    YO5Am6AM5EIG1r4GeTpk7+l7jEJbZDrNrU+quFrZwYqkrXTDiuHsvcqDbHhJXhXKJOET0I
-    EfOegRdP9WUlyMp/lwk9piWEuRyI0WcUn95p1NYCJXfiNx7a5oHCdqjUYdw0eA3mNpyOpM
-    9zUJ85P9Qoa8Bo2L1qtiqbVdoeGolBZGZFh4kTm0VPYwvv2OHa/xNoRi+62Z7EklY2a5QD
-    gNqhGBpXfPwJ06CnYjH2Spjo8Y2LIxW9BWGS+YNfY2fULHhDgxA+D48dZUIl7XeVIHLd7t
-    zWNyJnG7A3+KNxzBUFtfmUvukZepzqhvbr8QHGu9RigCX4kPv2yLV9RxSBew
-X-ME-Proxy: <xmx:VN34aqwCHF-4z3dqDrcBZ8TqNq2QDvcS2xZuqPCb1BV2ruptRusySg>
-    <xmx:VN34atoh7FWAcPJshVxDzsOCRCAm2U8Q_VjOX50q83s-7flSrKY2Vw>
-    <xmx:VN34ah5KuvumSgRWOliatTSku1xBob5LnCRDszXAJurBM4R-gt9DCg>
-    <xmx:VN34asde1M9VSLC8JlnF5RPG0R9SD21ZexhXxgj2U7Fvfm9y3Ff1HQ>
-    <xmx:VN34aglBMJGwLZ9XHDYojLheVUV7TXheG9zbn-cAeLipOo6crBITrSn->
-Feedback-ID: ib51446d9:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 14 Nov 2026 17:14:43 -0500 (EST)
-From: Ana Veto <green.koala2979@fastmail.com>
-To: derekjohn.clark@gmail.com,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: Ana Veto <green.koala2979@fastmail.com>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] HID: hid-msi: Send a uevent when the MCU changes the mode by itself
-Date: Sat, 14 Nov 2026 22:14:40 +0000
-Message-ID: <20261114221440.12580-1-green.koala2979@fastmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bIUgpIcB
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-490f38e9688so1460223f8f.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 14:15:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794694531; x=1795299331; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LY7eD84jpNGnFeoeMGuVlBCAW3DX6pueb3GVbU+lSFc=;
+        b=bIUgpIcBjIUBAC3uRiK9ymS3TlnITIof7oCzsH9wDiUZdq3RIbgjQe8L+pJu0Qq9PN
+         1FW2rWyEuatqc0Pr9g8ezsjyXEeTK61iL9QPG2ia96kYG+z0dQIk7J0PZkZaeGqYNq1c
+         iaIuLsr8Eq3NiXkiEhbbPk5rMg5In8xQypAaK/EWxPLSKsqFDdV/loQvPArd5PgxfacB
+         G6dtMYAILXeIxB0fO0VOGU2JSifcbvnKgx/lQk29IMOuvFN8+FOWFeSBQaf6iH8kWtOG
+         mU2Xi9b7h/xakcGjREiWlFwfTPObvLY0InDfWvYpWo9K7YcLG333qY306+3o203CMXmx
+         AQIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794694531; x=1795299331;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LY7eD84jpNGnFeoeMGuVlBCAW3DX6pueb3GVbU+lSFc=;
+        b=FIiqhpiApjXTSEZDa6+fDJu0dsGQ/TyT6eUEOnEtMkXTRNDldIBy0JzM9OZ4todZ1y
+         snR9CMpTB8SgEIoMN1F86fbsVfFUuHVe4H0zypVJHYTT6H/VRu6ravDJMS5TB758VxNV
+         EMJJ8nuspyBtsm6184obP0x/ig6X/o1pFSwVsdfaNPpXmfqKlm5//WKq6BQbkNF1wZWv
+         52Wj8PeJ9shrs2KHLFc+iSdvpOWB5kwqJD9m0s7jyUiylnbsBGs/8nZXYPXfetDlyGHZ
+         hczsgm2HjG4QDflcO+AnE/kZzZOECEL0gDlCkwMtCLm5yCQrRy8tEOQNee62aAdN+RRG
+         1X0A==
+X-Forwarded-Encrypted: i=1; AL+hErHF3UU53pA0uCSTeITP/x6V880fqdAPrG3Sxpe0oYJM4MGLLaffZ5HbE3KFVZxBm0kXQYA/VA3xI8T10FE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+qng8iooXighfKlawNnAGao9BSOU3ShRE7OxISN746IELgPuyi
+	F85FKnMb/ZS06VKkGxRn61NnSt1qiJN1OTEzthLk8JOZWFMhvsnyrIkV
+X-Gm-Gg: AYBFou3Wd0982LF2tDT0F+Bqcmoe0PlmbqJngphyrBD9tAcIBcyD7Rp+cLAQgcNtTEu
+	Ej5krhnSYPwxp8/4ACiMuBrF8hoMydYOD7g4r2WBmwshzKJEoiNcN6legE3pTSvtXtpAz/Ro4V8
+	wCn+mgpNOtvRuE2C0EtVAFAVPr/S/fWY0yM6EFV/35VVKD5B8IZYOpa27odLaXk9BCwR0+LkXPQ
+	csgW7qwCrRzh59qf51MLP3L/06ktk+Uhskgx0xTdYj9IFTWLsP+Cq0zQCYKwQp7qHP+5NN7ThMM
+	QujfWLpg7UBglZGunsYxTZJR4aFWxjgYDx7ZPLeqofd9rEvaWxxp/+AVqvA7lbn2LEZriFggm8Z
+	7rfGGlx+ujhJL31N7EJAKedktenQMShAwm1kAc2ksSVbZ5z9zDpt9bs6YD03TSBY28B5RppgMwM
+	sbUJB+8uYuwmmRjJA8ZeJdZU1blq5pE1EQ8aZAITjjPOZdFxetqr2B46f8W9/tv0EeREiBiCC6C
+	eHxHYlZ+SE+8QmkSjt5Iaj4ru3EuEfflkcH19iu590/mzRDWzyhLaL/4E99E6a6VkgGpASCdiL+
+	JzEihpRjkeXeCwtI29FD4e0=
+X-Received: by 2002:a05:6000:383:b0:48e:d40:a87c with SMTP id ffacd0b85a97d-49b023a7e61mr22572636f8f.16.1794694530775;
+        Sat, 14 Nov 2026 14:15:30 -0800 (PST)
+Received: from kali ([169.224.126.250])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d223a29sm13514941f8f.8.2026.11.14.14.15.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 14:15:30 -0800 (PST)
+From: Ali Firas <alishmery18@gmail.com>
+To: netdev@vger.kernel.org,
+	idosch@nvidia.com
+Cc: kuba@kernel.org,
+	pabeni@redhat.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	andrew+netdev@lunn.ch,
+	horms@kernel.org,
+	razor@blackwall.org,
+	roopa@nvidia.com,
+	kuniyu@google.com,
+	petrm@nvidia.com,
+	aroulin@nvidia.com,
+	shuah@kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ali Firas <alishmery18@gmail.com>
+Subject: [PATCH net-next v5 0/8] vxlan: vnifilter: bound a single request and account per-VNI memory
+Date: Sun, 15 Nov 2026 01:14:04 +0300
+Message-ID: <20261114221412.255825-1-alishmery18@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -126,144 +110,142 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The MCU of the MSI Claw changes the M-key function by itself once a
-second while View+LB is held, and the controller can end up in desktop
-mode, where the sticks drive the mouse. The MCU reports the current
-mode and M-key function in a GAMEPAD_MODE_ACK report, unsolicited after
-such a change and in reply to a query, and the driver stores both, but
-userspace is not told. udev rules that keep the controller usable run
-only on add, change and bind (for example InputPlumber's rules that
-switch desktop mode back to xinput and set the M-keys to macro), so the
-controller stays in desktop mode or with M1/M2 disabled until it is
-probed again.
+The VNI filter interface accepts a VNI range with no bound on either
+endpoint or on how many VNIs one message may ask for, and the memory it
+allocates per VNI is not charged to the caller's cgroup. Charging it
+makes adding a VNI, or changing its remote, fail routinely at a cgroup
+limit, which exposes two error paths that leave configuration state
+inconsistent; patches 5 and 6 fix those first.
 
-Emit KOBJ_CHANGE from a work item whenever a report changes the stored
-mode or M-key function. Store the new values after a successful
-SWITCH_MODE write as well, so that the driver's own writes raise no
-event.
+  1: range-validate both endpoints to the 24-bit VNI space.
+  2: end a dumped run, and a dumped message, at the request limit.
+  3: cap one request at 4096 VNIs, summed over its entries.
+  4: charge the per-VNI node and its stats to the caller's cgroup.
+  5: leave an FDB entry's state and flags unchanged when an update fails.
+  6: roll back a VNI add that fails.
+  7: charge the VNI's default FDB entry to the caller's cgroup.
+  8: selftests.
 
-Tested on an MSI Claw 8 EX AI+ (0db0:1901) with a v7.3.3-based kernel and
-InputPlumber's rules. The controller was switched to desktop mode by a
-SWITCH_MODE report written to hidraw, bypassing the driver. A read of
-gamepad_mode then returned desktop and raised a change uevent, and the
-rule wrote xinput 66 ms later. After another such switch, View+LB made
-the MCU report mode 4 by itself, and the rule wrote xinput within
-0.3 s. While View+LB was held in xinput mode, the MCU reported the
-M-keys disabled once a second, and the M-key rule set macro again each
-time.
+uAPI changes:
 
-Fixes: a9517958e828 ("HID: hid-msi: Add MSI Claw configuration driver")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Ana Veto <green.koala2979@fastmail.com>
----
+  - a VNI at or above 2^24, previously accepted and stored (and
+    truncated on the wire), is rejected with -ERANGE;
+  - a request asking to add or delete more than 4096 VNIs, summed over
+    its entries, is rejected with -EINVAL; "bridge vni add dev X vni
+    1-10000" used to be accepted;
+  - "bridge vni show" splits a contiguous run longer than 4096 into
+    several entries, and across several messages; the set of VNIs it
+    reports is unchanged;
+  - a VNI add that fails no longer leaves the VNI installed or sends
+    RTM_NEWTUNNEL for it;
+  - an FDB update that fails, including an RTM_NEWNEIGH, no longer
+    leaves the entry's state and flags changed;
+  - in a cgroup at its memory limit, adding a VNI, or adding or
+    changing a VNI's remote (RTM_NEWTUNNEL), fails with -ENOMEM instead
+    of charging past the limit; like any GFP_KERNEL_ACCOUNT allocation,
+    the per-VNI node can first invoke the cgroup's OOM killer. A new
+    remote may instead be installed without its per-CPU dst cache, whose
+    allocation failing is not fatal, as before.
 
-Notes:
-    Based on hid.git for-next. This changes lines near "HID: hid-msi: Drain orphan MCU ACKs by issuing a query" (v2, posted 2026-11-14); the two patches apply in either order.
+Patches 5 and 6 fix error paths that predate the series, and carry Fixes
+tags. Neither is a memory-safety issue; both leave configuration state
+inconsistent. They ride here because patch 7 makes those failures
+routine at a cgroup limit, and for the earlier rollback posting Jakub
+suggested net-next [1]; either can be split out to net if a maintainer
+prefers. The group-join failure that patch 6 fixes is deterministic at
+the default net.ipv4.igmp_max_memberships (20): the VNI stays published
+and notified although it never joined its group, and a retry returns 0
+without joining it. The rest of the series carries no Fixes tags. The
+request cap is hardening, and Jakub asked for it to target net-next
+without one [2]; of the earlier range-only patch he said it was either a
+security fix needing a stronger check or something making things
+slightly better that did not deserve Fixes or stable [3].
 
- drivers/hid/hid-msi.c | 42 ++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 40 insertions(+), 2 deletions(-)
+[1] https://lore.kernel.org/netdev/20260915174836.464fae55@kernel.org/
+[2] https://lore.kernel.org/netdev/20260914173103.539d8838@kernel.org/
+[3] https://lore.kernel.org/netdev/20260905123900.23984eda@kernel.org/
 
-diff --git a/drivers/hid/hid-msi.c b/drivers/hid/hid-msi.c
-index 3225d3b..e99f749 100644
---- a/drivers/hid/hid-msi.c
-+++ b/drivers/hid/hid-msi.c
-@@ -350,6 +350,7 @@ struct claw_drvdata {
- 	/* Gamepad Variables */
- 	enum claw_mkeys_function_index mkeys_function;
- 	enum claw_gamepad_mode_index gamepad_mode;
-+	struct work_struct mode_event; /* uevent when the MCU changes the mode */
- 	u8 m1_codes[CLAW_KEYS_MAX];
- 	u8 m2_codes[CLAW_KEYS_MAX];
- 	u8 rumble_intensity_right;
-@@ -387,19 +388,41 @@ static int get_endpoint_address(struct hid_device *hdev)
- 	return -ENODEV;
- }
- 
-+static void claw_mode_event_fn(struct work_struct *work)
-+{
-+	struct claw_drvdata *drvdata = container_of(work, struct claw_drvdata, mode_event);
-+
-+	kobject_uevent(&drvdata->hdev->dev.kobj, KOBJ_CHANGE);
-+}
-+
- static int claw_gamepad_mode_event(struct claw_drvdata *drvdata,
- 				   struct claw_command_report *cmd_rep)
- {
-+	bool changed;
-+
- 	if (cmd_rep->data[0] >= ARRAY_SIZE(claw_gamepad_mode_text) ||
- 	    !claw_gamepad_mode_text[cmd_rep->data[0]] ||
- 	    cmd_rep->data[1] >= ARRAY_SIZE(claw_mkeys_function_text))
- 		return -EINVAL;
- 
- 	scoped_guard(spinlock_irqsave, &drvdata->mode_lock) {
-+		changed = drvdata->gamepad_mode != cmd_rep->data[0] ||
-+			  drvdata->mkeys_function != cmd_rep->data[1];
- 		drvdata->gamepad_mode = cmd_rep->data[0];
- 		drvdata->mkeys_function = cmd_rep->data[1];
- 	}
- 
-+	/*
-+	 * The MCU changes the mode or M-key function by itself, e.g. while
-+	 * View+LB is held. Userspace learns of changes only through uevents.
-+	 */
-+	if (changed) {
-+		guard(spinlock_irqsave)(&drvdata->registration_lock);
-+		/* Pairs with smp_store_release from cfg_setup_fn and claw_remove */
-+		if (smp_load_acquire(&drvdata->gp_registered))
-+			schedule_work(&drvdata->mode_event);
-+	}
-+
- 	return 0;
- }
- 
-@@ -657,6 +680,7 @@ static int claw_switch_mode(struct hid_device *hdev, enum claw_mode_field field,
- {
- 	struct claw_drvdata *drvdata = hid_get_drvdata(hdev);
- 	u8 data[2];
-+	int ret;
- 
- 	guard(mutex)(&drvdata->cfg_mutex);
- 
-@@ -673,8 +697,18 @@ static int claw_switch_mode(struct hid_device *hdev, enum claw_mode_field field,
- 		}
- 	}
- 
--	return __claw_hw_output_report(hdev, CLAW_COMMAND_TYPE_SWITCH_MODE, data,
--				       ARRAY_SIZE(data), 0);
-+	ret = __claw_hw_output_report(hdev, CLAW_COMMAND_TYPE_SWITCH_MODE, data,
-+				      ARRAY_SIZE(data), 0);
-+	if (ret)
-+		return ret;
-+
-+	/* The driver's own change is no change to report */
-+	scoped_guard(spinlock_irqsave, &drvdata->mode_lock) {
-+		drvdata->gamepad_mode = data[0];
-+		drvdata->mkeys_function = data[1];
-+	}
-+
-+	return 0;
- }
- 
- static ssize_t gamepad_mode_store(struct device *dev, struct device_attribute *attr,
-@@ -1871,6 +1905,7 @@ static int claw_probe(struct hid_device *hdev, u8 ep)
- 	INIT_DELAYED_WORK(&drvdata->cfg_resume, &cfg_resume_fn);
- 	INIT_DELAYED_WORK(&drvdata->cfg_setup, &cfg_setup_fn);
- 	INIT_DELAYED_WORK(&drvdata->rgb_queue, &claw_rgb_queue_fn);
-+	INIT_WORK(&drvdata->mode_event, &claw_mode_event_fn);
- 
- 	/* For control interface: open the HID transport for sending commands. */
- 	ret = hid_hw_open(hdev);
-@@ -1946,6 +1981,9 @@ static void claw_remove(struct hid_device *hdev)
- 		smp_store_release(&drvdata->rgb_registered, false);
- 	}
- 
-+	/* gp_registered is false now, so no new mode event can be queued */
-+	cancel_work_sync(&drvdata->mode_event);
-+
- 	if (gp_registered)
- 		device_remove_group(&hdev->dev, &claw_gamepad_attr_group);
- 
+Not addressed here:
+
+  - the device-wide default-remote change (RTM_NEWLINK) reaches the
+    same per-VNI FDB entries outside the request cap, and patch 7
+    force-charges them rather than hard-bounding them. Its error unwind
+    re-adds old entries without checking the result, so bounding the
+    walk first needs that unwind fixed;
+  - vxlan_vni_add_del() still leaves the earlier VNIs of a range
+    installed if a later one fails; the cap bounds that to fewer than
+    4096 VNIs;
+  - changing the group of an existing VNI records the new group before
+    joining it, so a join that fails there leaves the VNI with no
+    membership, and a retry returns 0;
+  - RTM_NEWNEIGH with NLM_F_APPEND on the all-zeros or a multicast MAC
+    adds a remote per request with plain GFP_ATOMIC, uncharged and not
+    counted against maxaddress; accounting it is planned as a follow-up,
+    building on the gfp plumbing of patch 7;
+  - in QEMU (production builds, 2 and 8 vCPU), adding VNIs with remotes
+    up to a 32 or 128 MiB limit left 73 to 100 bytes per VNI uncharged,
+    5 to 11% of what was charged: the rhashtable bucket arrays behind
+    the VNI and FDB hashes, and the per-object metadata memcg keeps for
+    every accounted slab object;
+  - an entry carrying END without START is read as [0, END]; whether it
+    should be is left open.
+
+Tool use: AI coding and review tools were used for code analysis, patch
+preparation, review and test development. The changes were validated
+with QEMU reproductions, fault injection, the kernel selftests, KASAN,
+KCSAN and lockdep builds, and per-commit builds.
+
+Changes since v4:
+
+  - v4 patch 1 was applied as commit 599d0e97610f; these are the rest.
+  - new patches 5 and 6, with Fixes tags, ordered before patch 7, which
+    makes their failures routine at a cgroup limit (review of v4). Patch
+    6 supersedes the separately posted rollback series.
+  - patch 1 states its dependency on commit 599d0e97610f (Paolo).
+  - patch 7: the vxlan_changelink() rollback keeps plain GFP_ATOMIC,
+    like the call it reverses; the changelog no longer claims a clean
+    failure on its own (review of v4), and says a remote can be
+    installed without its dst cache at the limit.
+  - patches 2 and 3: the VXLAN_VNI_FILTER_MSG_MAX comment says what the
+    dump does and names vxlan_vnifilter_check_msg(); patches name each
+    other by subject (review of v4).
+  - patches 1, 3 and 7 say how each gap was found and what it did in
+    QEMU (sinfo bot).
+  - patch 8: absence probes fail when "bridge vni show" fails; the dump
+    is checked against the literal split; START-only and END-only
+    out-of-range cases; rollback cases driven by maxaddress and the IGMP
+    membership limit (review of v4).
+  - patch 8: a refused replace of a VNI's permanent default entry must
+    leave it permanent through an ageing pass.
+  - lines wrapped to 80 columns; rebased onto net-next, which now has
+    commit 7308ef8b4a67 ("vxlan: Stop rejecting dynamic FDB entries with
+    a nexthop ID"); it removed a check next to patch 5's change.
+  - the Assisted-by trailers are dropped; tool use is described above
+    instead, following commit 1e035297ffda ("docs: remove Assisted-by
+    references").
+
+v4: https://lore.kernel.org/netdev/20261014123814.388557-1-alishmery18@gmail.com/
+Superseded rollback posting:
+https://lore.kernel.org/netdev/20260911215203.3054653-1-alishmery18@gmail.com/
+
+Ali Firas (8):
+  vxlan: vnifilter: reject VNIs outside the 24-bit space
+  vxlan: vnifilter: clamp the dumped VNI range to the request limit
+  vxlan: vnifilter: bound the number of VNIs one request may touch
+  vxlan: vnifilter: account per-VNI memory to memcg
+  vxlan: leave FDB state and flags unchanged when an update fails
+  vxlan: vnifilter: roll back a VNI add that fails
+  vxlan: vnifilter: account the default FDB entry to memcg
+  selftests: net: test the vxlan vnifilter request limit and dump replay
+
+ drivers/net/vxlan/vxlan_core.c                |  87 ++++---
+ drivers/net/vxlan/vxlan_private.h             |   7 +-
+ drivers/net/vxlan/vxlan_vnifilter.c           | 192 +++++++++++---
+ .../selftests/net/test_vxlan_vnifiltering.sh  | 246 +++++++++++++++++-
+ 4 files changed, 461 insertions(+), 71 deletions(-)
+
+
+base-commit: fa5196392691051963726787944db872420dfa75
 -- 
-2.56.0
+2.53.0
 
