@@ -1,58 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794699887;
-	b=gaIuo+wr9oi3a9HN/10RC+a2IPvlwdlE+y/SClG9OaAs0hfiNC4ag6OOzEakZWhxiPtJ
-	 eJDS61sF3wGjJ7ph4yutMeEDL6QHc7goMr+xLQjV6f0W+XdFppVomky7m2CtkgMnFSIWn
-	 paO4cEjVgTeS/YLcv33Nn1qchGF/cjQY+RlV5b9aR/5RApsiH279ZN+/6iH05YWqvRaYd
-	 4Ib/nC2AcNn47ehnUOygoCV9aMpySmAs0uAj0CkJH3MCu57ivTYf19C8aBOQy903PnnzS
-	 qYWx0inaUb6rWbwxqJ9TeFFAoou3evTPDrug7qpMYznPntMu1IKhVnwpquIXt9S/tsA==
+	t=1794699894;
+	b=wr8X900ZE3u0a7Tg4eHnEfPKo4BIPuhstjx/a1c6AToMdOvbRkFoS9n+sqO4H51yxmQF
+	 RvG5hUsRwv8aHf04ZBCPk9CUkR1mfPleJQRZXUObzSm0wnPRlDJdrXIbEqkjKwGqb71Xc
+	 gZO4ffd5qFwzFQdd2xGGqjZfDA8gnQpFpgxStn+K9hI7pM18awsuDfqCX1kdn7pQnZK/b
+	 p1burhuR32T6wdmAmTho7wGBLnTYY8LmGTtRRHbTcc15x7FaEMoh6w1rhz93UISlhHQ46
+	 eyaAXsMMci4k0+XkOa4rT+QEhT8nIB4LF1H4h+feOs+rNAyw97WkqL53IgRSEgmui1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794699887;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=2KmlMcUCn1VuTpuR2dzvTUv5vVaG8QkaQ53na1ScPCo=;
-	b=EePk/1tePi+ZwFCPk5C0UESY7jauD5+66dpbguuTQZTy9YB5F4H6GyPMXA5VDrd05Zsj
-	 6oRVOpGmspat2RNpCp0/Phs4aFCiOVv0VWa3TzX556kmZOv0saL/xWz9soonuhHSK6IKK
-	 FEFHIdjm3JhbLftaz2Vv1xwGqBpOCZcVqil+VRXh0Yy9HoixqbIgJKUsj+jyhDfPs3tTW
-	 CwNsGWb0TXrpabc4PNysWW09AJUXxLMOqcaHGdVv92onA+Prh+Khq3k4ZgRXWawuCD9vy
-	 tJNKRahYwUg8J+Rqm57SOIT5Db65JnuLx5DFYDUnEiZ58FN8rQJ52ZAl0SE3e8fizFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794699894;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=4eCp60z5R0fNOYWynSdAxYnkiCnb4H13EtT/Lg4xVQM=;
+	b=C3j48SR606K2BgzGyhi/maOo0WcC/PDINxoYhDqbxUH8mVXjh0IuRgFQRLIrsBhoTuWB
+	 1+twFqRzMAMufsgiMdmK/uOU4eeu7PFln4Q4hG4bz/QVPxpladgVa2hPC9DmEtmk4+4iE
+	 EB7v5sYCH1GU39dD8nf+9RDnr9LSQwIOqqbr9wjC+XHtySBvX9KkzgJ80CtN3fOASQVAo
+	 7ei3qTie3Lj5tcylUuVZoChsnjE4o3ParmylPLDHFF98EEyPQxsAT+cZd5CPe2jsUIeQo
+	 QX1SEAXXUGgjezMXjN3loFx+TZ8f7rVrUqqP6l8ErTL3Zm+Fcv4x7sRoN3My2DHgb3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jhN6hYFd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bD5czttO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D181606A329;
-	Sat, 14 Nov 2026 23:44:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD5E1606A32E;
+	Sat, 14 Nov 2026 23:44:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jhN6hYFd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85A871F000C5;
-	Sat, 14 Nov 2026 23:44:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bD5czttO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 053B81F000C4;
+	Sat, 14 Nov 2026 23:44:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794699887;
-	bh=2KmlMcUCn1VuTpuR2dzvTUv5vVaG8QkaQ53na1ScPCo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=jhN6hYFdT8VglO1MPzWZNHQs3OzGZ9a3EF58LkQ9HX4qCvBbE4K+bKTqeI+brW/xX
-	 zR+CQGno9U/UcqhBXTccm6yVLAGFoKXsSSikBVJpboQkf2oIJFM93Yz4XmmRkTtlYI
-	 VXjRPG5M07+044ZjUvRdfHuwQK8LqYTCZedweAw1w2DYB1Ys8lvlFFeBU00bUGUAOp
-	 uEEVdg/C7Rz58EZza/8UbujvJ5Gzs3MmWaYbgDg1vCzDVvpGBUwAC0VNxu9LNYu8ev
-	 N3aQlPkcVbRyrMqJIplPqBsQ/pToG34Sn+fCYiGBChXfvPONqdLg0Jk8pIdGKZHnQ3
-	 cpq99D6Jg075g==
-Date: Sat, 14 Nov 2026 23:44:40 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Arka Mondal <arka@arkamondal.net>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Robert Eshleman
- <bobbyeshleman@gmail.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] iio: light: Report the available lists via
- read_avail()
-Message-ID: <20261114234440.60d61186@jic23-hlaptop>
-In-Reply-To: <20261109050738.93424-1-arka@arkamondal.net>
-References: <20261109050738.93424-1-arka@arkamondal.net>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1794699894;
+	bh=4eCp60z5R0fNOYWynSdAxYnkiCnb4H13EtT/Lg4xVQM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=bD5czttOKv7xufAmli+kVyRrk44dO6qcVuOuTBPN8Ck3zImdZs2b6pGJsq5ifxn5n
+	 y8fSQi25WLjgif91A09TI6Q7kUsdlwSa1yEQcouKGh3qdS5pwZnTedNMzbGUpreJLJ
+	 lJfWjTJ0Up8xQ/DvXcKMJ43CzBNM3hktAWvbcd1Tb5Y46gNNjo4jXqfbW1Gj6irTAJ
+	 d+hAGXj4LS5GzdeOCSMVxdY4kBTUE4Vc/lblxJ0CMBL5OtUh2yTP4a3zpGicdfDT5u
+	 65+HfUrpMLi4aZ6exXrYbMn4+2tujo8tkc+eXPAOHcR2Yerd2xvv2mFdT55oZQjIPW
+	 jXFfMfo0Yw4zA==
+Subject: Re: [PATCH can-next v6 2/6] can: gs_usb: gs_can_start_xmit(): don't
+ leak uninitialized memory over USB
+From: netdev-bot+sashiko@kernel.org
+To: mkl@pengutronix.de
+Cc: mailhol@kernel.org, pfink@christ-es.de, eric@evenchick.com,
+ max@schneidersoft.net, wg@grandegger.com, kernel@pengutronix.de,
+ linux-can@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, kuba@kernel.org
+Date: Sat, 14 Nov 2026 23:44:53 +0000
+Message-ID: <179469989360.488853.2267495586582678566@kernel.org>
+In-Reply-To: <20261113-gs_usb-fixes-v6-2-0c039e1bfd74@pengutronix.de>
+References: <20261113-gs_usb-fixes-v6-2-0c039e1bfd74@pengutronix.de>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,53 +64,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Mon,  9 Nov 2026 14:07:36 +0900
-Arka Mondal <arka@arkamondal.net> wrote:
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-> These are patches 1 and 3 of the v1 series. Patches 2, 4, 5 and 6 are
-> applied and are not resent.
-> 
-> Changes since v1:
-> 
-> - isl29125: the available bit goes in info_mask_shared_by_all_available
->   instead of info_mask_shared_by_type_available, which is the sharing
->   level that names the file scale_available, so the attribute keeps the
->   name it has and no ABI changes. The Fixes: tag is gone with it, and
->   the patch is a cleanup rather than a fix.
-> 
-> - max44009: the list is IIO_VAL_INT_PLUS_MICRO instead of
->   IIO_VAL_INT_PLUS_NANO. All eight values are a whole number of
->   microseconds, so three zeros go and nothing is rounded.
-> 
-> I loaded both drivers against CONFIG_I2C_STUB under qemu and read the
-> attributes. isl29125 shows in_intensity_scale and scale_available, no
-> in_intensity_scale_available, and scale_available still reads
-> 0.005722 0.152590. max44009 shows in_illuminance_integration_time_available
-> reading 0.800000 0.400000 0.200000 0.100000 0.050000 0.025000 0.012500 0.006250,
-> and no unprefixed name.
-> 
-> Link: https://lore.kernel.org/r/20261102074700.63075-1-arka@arkamondal.net
+Low priority / nit picks for your consideration:
 
-Applied both to the testing branch of iio.git.
-I added a note on the ABI break in patch 2 being a fix of buggy ABI and
-cross our fingers case
+- [Low] can: gs_usb: inaccurate Fixes: trailer in commit message
 
-Thanks
+--
 
-Jonathan
+> diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
+> --- a/drivers/net/can/usb/gs_usb.c
+> +++ b/drivers/net/can/usb/gs_usb.c
+> @@ -861,7 +861,7 @@ static netdev_tx_t gs_can_start_xmit(struct sk_buff *skb,
+>  	if (!urb)
+>  		goto nomem_urb;
+>  
+> -	hf = kmalloc(dev->hf_size_tx, GFP_ATOMIC);
+> +	hf = kzalloc(dev->hf_size_tx, GFP_ATOMIC);
+>  	if (!hf)
+>  		goto nomem_hf;
+>  
+>
 
-> 
-> Arka Mondal (2):
->   iio: light: isl29125: Report the scale list via read_avail()
->   iio: light: max44009: Report the integration time via read_avail()
-> 
->  drivers/iio/light/isl29125.c | 29 +++++++++++++++-------
->  drivers/iio/light/max44009.c | 48 ++++++++++++++++++++----------------
->  2 files changed, 47 insertions(+), 30 deletions(-)
-> 
-> 
-> base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+[Severity: Low]
+The Fixes: tag points at 26949ac935e3 ("can: gs_usb: add CAN-FD
+support"). As far as I can tell, the leak in gs_can_start_xmit() is
+older than the CAN-FD support.
 
+The original driver, d08e973a77d1 ("can: gs_usb: Added support for the
+GS_USB CAN devices"), already allocated hf with usb_alloc_coherent()
+without __GFP_ZERO. It copied only cf->can_dlc bytes into the 8 byte
+hf->data array and then submitted the full sizeof(*hf) buffer. So
+whenever the DLC was below 8, the tail of hf->data went out over USB
+uninitialized.
+
+The kmalloc() call changed here was added later by 62f102c0d156
+("can: gs_usb: remove dma allocations"). That commit kept the same
+behaviour.
+
+This patch is tagged for stable. With the tag pointing at the CAN-FD
+commit, stable trees that have the classic CAN variant of the leak but
+not 26949ac935e3 may never pick up a fix.
+
+Should this be Fixes: d08e973a77d1 instead? The one-liner will not
+apply before 62f102c0d156, so older trees would need a separate
+backport against usb_alloc_coherent(). Would you rather list both
+commits, or add a note for the stable maintainers?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261113-gs_usb-fixes-v6-0-0c039e1bfd74%40pengutronix.de
