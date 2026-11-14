@@ -1,54 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794687483;
-	b=pUp8hZB1lr3+3kKgJ4kamMcTEj8/6aojRkF8WkUakLE8ryhXNj9HawqCsSUWa4VL/8eE
-	 qmFaugEMYB/xNhChTUpKxzqEAIG9fp1+qjhc1JAu2KKdO0RVlW8BBGlBhFxLs7ZUAbDVA
-	 MbMzNCSTrwJWnajThTi44XRT1tXX9PVKs6Whfvi9INrsGmnMPQDhTsFxHWRoTOBVYkdJo
-	 84LpFqPWq3ZzWvioT//g3mjKbDCT1uhNNq2mxT29+7lNibMlSVzMTPQ3FvCpe4FMayfYP
-	 PaTmfZ8UvksdQPElOcd4zt8dbUlvwcwc4fiVClCebcVGmyaLagQ7khQrEs/WrRJZHjQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794687483;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=LTurdTtk71EBG1bu2lzxcr6Y/jVSqjWyhTmHIUXsaMk=;
-	b=Cow8Oasgeyn+VZnPZlm9rggboYAS7JcT/0LY4/cN9VdFl7Kch1f1AFGqLFsahAoJ/non
-	 Ol8wZFlZPiWLyuK8cSIhwazVCT45Zv0/mxsZ4AKQiB4YdcNfjHTk2cUtGAaHdl2WxRDxk
-	 K03BVE65tnlhAvXf0Z7NQ+/k4nfbDzIrlITBZxb4qRuDBb6pxboeoBYZf0+SR/jTxRQXo
-	 doFcx9Niyt4iogxcXOJxcmm9u36OvQEXxPEA61X4Ihs4USoAEv0Bv/dhFm8ni4B2uw4pg
-	 Q6HRVZRvBpH9rFzhqTISfrPJrBT8Ykv7kFlO53Z8s5cMBeRGnVpiPRPEAiw0b24MKIQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=Ry1xYHw2;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794687502;
+	b=aH3Xnue1qcpBWrY0FDsgCAL8ICTuRbLw+RykcCKbF60o7nf2VLr89CUlqNqVybKSL/56
+	 Z+y9VRqZxfFJ8HMTTn4KvFZKllm3con8zW0RsZ9Um+n7dw42yV3sCfpyjeU2aKBA48jPU
+	 P52dtsH/Ue0w7BVCGaXZpVw5tY6N97MHvq5kHQg7PDZcqu6Y2oLN1d1Nvab1bxGlFjq0q
+	 C5d0KbykvhXZ4aAl98uq/oMPPd9DNnl+0eCzrysPFgbax6X23YvwcFGGVwMtENK3NYCd/
+	 gHqLe2E5qhIT7lywQe4xJohSTbflPBJ0g+YXL+6UkheGg3Hg52cJ4oeEfKd137dZXTg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794687502;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=GaypDnBDTKD95UXTeMPBFIQBqq5jbEVqGZw6bocPJEE=;
+	b=RC4pv70O/57e2t7mw5auMMP4rOgyN/y6bVFMBGViysWxGLu5dA/T8nrVpg4oYjAbeRLp
+	 TmZthUAVgy1xAcVbRf8njsnRnSsQjxPZ2w1VsufhVuals2Af5UXoxz4FOT1TUeLWEIKRL
+	 wLG8t/ZMobYG+ORbE8wsuClTXh7VXW/hmAAMJYjpNFoFN1KJOl3Id9xCo6htBvBuNIb2Z
+	 yaK61ipe1J8P21QZaSfGqePWq51qKst+Xf0IYBoNnZtFaJipFo1V5LeBKX2Mrr7XAoFky
+	 rdiZ2++plzJ80y1ucK0Sxb/lpTm0bXzUrrWMCHE7Sh44vKCpSxa5nvorpjStGmCrtmA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cnGtOWCL;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF9D3606A323;
-	Sat, 14 Nov 2026 20:18:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF9D3606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AF11606A327
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 20:18:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AF11606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=Ry1xYHw2
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=LTurdTtk71EBG1bu2lzxcr6Y/jVSqjWyhTmHIUXsaMk=; b=Ry1xYHw27ee+K6wDenvXwCCEyR
-	Mt424vj2WtQ3IOLnP7iz63coaelGGDN0EPGmYPML1+odrYJ7IHgNpdojBCL1ILD+vJjEZ5bDwAwOw
-	M1o0wweKJdxmp3jp5g6TfQu3NFbxaCwbuYTYz1ZDklRRpgbPx6r/uZF8rHYlvuSsx/nNxV2WbD6jf
-	h+IjeWl1JI/twpJsLDe3qjic6ubDycd6tQbShhFkjgX026IJI6vv1LDi78mjsQ6sz4YWI1TnK1lLq
-	rObn6a7YYHG827e9gyO7MaclFJwuFwEG7xkp0eMCXBqAdFgqxjIwWgbozDYvzK8ok/9Nb5yqP4PZC
-	MgedHuvQ==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xSKCH-0000000GiPK-0qHg;
-	Sat, 14 Nov 2026 20:18:01 +0000
-Message-ID: <2f7b7068-caf7-4e85-902e-9307be815ecb@infradead.org>
-Date: Sat, 14 Nov 2026 12:18:00 -0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cnGtOWCL
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c4cb6834eaaso420777166b.2
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 12:18:21 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794687500; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nxRaAvys+TFluO9QaDaHBga2DbP1K53tCSNzq1C0Jt02DpHtgQ4fNmEOlw7XCK4RZW
+         T45qo6/iRkxkjMbbhWU55uakl8d/8XThZTz2FWZAAHdMUfVsdg/vWCglsFIDtbvMH+vR
+         YzLuamknm3Lyf/jptNSekvbYB3DTP+VZIo2LM87L7wBmmMzah+pJXwM1uYGXkW8QP+4W
+         V9GWmCFTFj9G9UJa3Yg1ZgFBCLmO/Wzht4Q3BikHqm9FGZqC3y/5MRAFm5/Ty6a/j+PW
+         gYdj0Wo55CnHXkMWGX7EeBMx0y/tV207v/mMHqYKNhw/Yt7+1z6Tapj2WggTl2epcRDi
+         m/9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=GaypDnBDTKD95UXTeMPBFIQBqq5jbEVqGZw6bocPJEE=;
+        fh=brptgxACEP8NtP/1K8lBDS7+1Zv7p2vESFNMD9esMso=;
+        b=jtzCB8aaQoaM20doY41atVzRigbn/vw6VD5+n7FHtsuuK7C9orMWmfENekDVImK76B
+         vMIzvtG4/Y+KPwFfQ9Fw7utGnSerHkYyzWefGxpQyK6t8byHOiWRbVJv++3diliKajjg
+         zPI2lXLfuGy9mfcxf3L6QalFX0OeSbpB2P+fH4Kv0OrhUPz5TFSBW2ijDjX/I+CU1VCF
+         tGy1F5IP1nFFuYFzCd4IFqiHleYt4mVgzxK2nV9DVDqh/oEJAu+YVmOTmTdNSYST9F+z
+         AdqY1S0u8D8UM/zzBubcBrGW1Vw2DIYT7ak2YPV4/mIv93tgDONONk/Sptnl9lLF8jtH
+         oC1g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794687500; x=1795292300; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GaypDnBDTKD95UXTeMPBFIQBqq5jbEVqGZw6bocPJEE=;
+        b=cnGtOWCLKkGNGDDLOokyNEL7hqSd9LGaqN3O4n0KqG/iwnvTXNoFg2Y30Hp0/r381K
+         /dp8upiC9sSzj5PLtDq+7VKYFvUaAlYsnLw041g7oDNhSoNabCZIEcpY0lKVf/5lL0la
+         5uHk5+GVu4ui5ZqAmPsltoVShG8ORUWR9GsUkx9VdL0vwJ2V34X9Xhe6JmJCwaXxBVi4
+         d+NQOHNt5YOrcElf8IzqlK96RhPxyetufwTzX2/NEY+0qgBcHjxvxdvcfNv+7XLmg97s
+         g0Nu58rHUf3EBJ6mwRGfLSzsjsq6RlVYHaK3JRwQzx8y0qyzqeXvDTusEssVKsJTBnfl
+         INXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794687500; x=1795292300;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=GaypDnBDTKD95UXTeMPBFIQBqq5jbEVqGZw6bocPJEE=;
+        b=PZBRgQrm7GiA3B1p/RDZEFqIY3PlcO/DPqBLExy5LzSF+5ArerR5jz7nOqocmEYBcG
+         Hmlgs8LBZXU+iuqqUv7cK8BlgTPvhbWeyhII99gOp9kywUl7OAHA2NPkrxifScKv6SNj
+         tOI9KUhz1Xg0wE/dR3FETuH4BxRtAYghOseuCogIAN4u/o2vVXL1okJ6H6Toc7KzPEzi
+         kS9/0eFycvy1vsDjn2BCWQrC1oCaKT3lpWO7R2az3gIgeFoLQ7RH81JKaCKv50VQJEJl
+         AlYIRglkfGzlceEax4rV6vcgILanJ1VtthH+MAh5A10ScIgYXfZUh+UsUaxuAmb9YZed
+         gMTA==
+X-Forwarded-Encrypted: i=1; AL+hErGmX+rxa76mwVZTXKDoaW70VPgqCn33iZYuSkVubmTT/4SuNYPGrSovAyv1iTuXFE2fy86YR5wbxlQfjL8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/HDNDRVHdnqA0JohfAhCD5gMHZpUMOCyuzKcD2EpM1SNYQ5OYh
+	wYtE5XgzbIRSSc6wU0cAHc+z1L0Yb+CyT+IXRCfPH2cocgOcj3oUvtsb555jgIBFyxsadFKCBWG
+	9H48fMd7R4Ss62rWnGwp6vJhgwZp4xDM=
+X-Gm-Gg: AYBFou1t4Q9PcNVKNYwce2f91Kx2P3snAm5nAhSjM9JbPmANQkkQDgpBR2g5oJiz7b1
+	jeYeBUK+n3gHaNhQLwFbYbgrChr5Ag0vE4Wk4ujHRWLgLRTWbxaVHHJiT80CSlP3fKhaHcbfW7t
+	Es6xjABzBfiIaarpeXAEREEdfMu+5Oy3CvtA2PRE+faN3OLj+A7++ehBCQGzAc5YVoGHt9G8ISv
+	l1nNwWOZTsv8NfiuN80qRVGS40sLEMKVD9gSU87o2lBYb+aGhqe8h4jgEUKJFl4nBLTik1YvGFr
+	RqQuDd9aSrt8Eemg+JmEK8VPn8cjVVvMoZxBHKJKieG1h5H3nomxGvof25Brsk6htRzNwiJ9Ax+
+	LQTr9ldaYh3BLkXIUoot4ZAXxga/Jpld1oep77aaZQqFbdJm35geZb/IpAg==
+X-Received: by 2002:a17:906:ee85:b0:c33:923b:ad66 with SMTP id
+ a640c23a62f3a-c50963ce0c7mr470070966b.43.1794687500370; Sat, 14 Nov 2026
+ 12:18:20 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,78 +103,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] docs: kdoc: don't print warnings of stored entries
- twice
-To: prateekshitjaiswal73@gmail.com, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261114-kdoc-dup-warnings-v1-0-265f89bc3f9c@gmail.com>
- <20261114-kdoc-dup-warnings-v1-2-265f89bc3f9c@gmail.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20261114-kdoc-dup-warnings-v1-2-265f89bc3f9c@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261112-rtl8365mb-dcb-ingress-v2-0-f8e6fbdf8c99@pengutronix.de> <20261112-rtl8365mb-dcb-ingress-v2-8-f8e6fbdf8c99@pengutronix.de>
+In-Reply-To: <20261112-rtl8365mb-dcb-ingress-v2-8-f8e6fbdf8c99@pengutronix.de>
+From: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+Date: Sat, 14 Nov 2026 17:18:07 -0300
+X-Gm-Features: AclHuK-OTaqwEXcyA-XPyp_4QonK-mUIP3PxcDYzpGXw4dF560qt63lIc3quSMY
+Message-ID: <CAJq09z4Mvd5ZPHVFYkqPLuvv+XJyoPQ7Qnv09oEFU3j1JSrrCw@mail.gmail.com>
+Subject: Re: [PATCH net-next v2 08/10] net: dsa: realtek: rtl8365mb: program
+ the PCP of untagged frames
+To: Oleksij Rempel <o.rempel@pengutronix.de>
+Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, =?UTF-8?Q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>, 
+	Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, kernel@pengutronix.de
+Content-Type: text/plain; charset="UTF-8"
 
+> Program the PCP that the switch gives to untagged frames whenever the
+> port default priority is set.
+>
+> With PCP trust, the switch classifies an untagged frame by this value.
+> The value is 0 after reset, so untagged frames would be Best Effort
+> whatever the port default priority is. PCP trust is added by "net: dsa:
+> realtek: rtl8365mb: offload DCB apptrust".
+>
+> The switch also puts this value into the tag it adds on egress. So far,
+> an untagged frame that left a VLAN-tagged port carried PCP 0. With a
+> default priority set, it now carries that priority as its PCP. The
+> standards require this:
+>
+> IEEE 802.1AC-2016, 13.1: "The priority parameter of the
+> M_UNITDATA.indication shall take the value of the Default Priority
+> parameter for the SAP on which the MA_DATA.indication was received."
+>
+> IEEE 802.1Q-2022, 6.9.4: "For untagged frames, the priority parameter
+> signaled in the corresponding M_UNITDATA.indication is taken to be the
+> received priority."
+>
+> IEEE 802.1Q-2022, 6.9.3: "The priority and drop_eligible parameters
+> are encoded in the PCP field of the VLAN tag using the Priority Code
+> Point Encoding Table for the Port". With the default priority
+> regeneration (Table 6-4) and the 8P0D encoding (Table 6-2), the PCP
+> equals the Default Priority.
+>
+> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
 
-
-On 11/13/26 10:14 PM, Prateekshit Jaiswal via B4 Relay wrote:
-> From: Prateekshit Jaiswal <prateekshitjaiswal73@gmail.com>
-> 
-> Commit 469c1c9eb6c9 ("kernel-doc: Issue warnings that were silently
-> discarded") was meant to print warnings of entries that never reach
-> the output step. With no symbol filter, kernel-doc now prints the
-> warnings of every documented symbol twice:
-> 
->   $ ./scripts/kernel-doc -none -Wall drivers/gpu/drm/i915/display/intel_dkl_phy.c
->   Warning: drivers/gpu/drm/i915/display/intel_dkl_phy.c:47 No description found for return value of 'intel_dkl_phy_read'
->   Warning: drivers/gpu/drm/i915/display/intel_dkl_phy.c:47 No description found for return value of 'intel_dkl_phy_read'
-> 
-> The flush uses "self.entry not in self.entries" to tell stored entries
-> from discarded ones. output_declaration() stores a new KdocItem built
-> from the entry, never the KernelEntry itself, so that test is always
-> true. Every stored entry then warns once in the parser and once in the
-> output plugin.
-> 
-> Those parser-side prints also ignore the later symbol filter, so
-> "-function intel_dkl_phy_write" still warns about intel_dkl_phy_read().
-> Commit 292eca316321 ("docs: kdoc: fix logic to handle unissued
-> warnings") routes the flush through config.warning(), which increments
-> the warning count. -Werror then reports "2 warnings as errors" for a
-> single warning, and a -function run fails because of a different
-> symbol.
-> 
-> Mark the entry as stored in output_declaration(), flush warnings only
-> for entries that were not stored, and add tests for both cases. This
-> needs the previous patch. Without it, symbols selected with -function
-> or -export would lose their warnings.
-> 
-> Running "kernel-doc -none -Wall" over the 10320 .c and .h files with
-> kernel-doc comments, the output shrinks from 87900 to 49625 lines,
-> while the set of distinct lines stays the same.
-> 
-> The problem was found, and the fix and tests drafted, with the help of
-> an AI coding assistant (Claude Code); I have reviewed and tested the
-> result.
-> 
-> Fixes: 469c1c9eb6c9 ("kernel-doc: Issue warnings that were silently discarded")
-> Signed-off-by: Prateekshit Jaiswal <prateekshitjaiswal73@gmail.com>
-
-Thank you very much. I had complained about this issue.
-
-Tested-by: Randy Dunlap <rdunlap@infradead.org>
-
-This reduces a full "make W=1 mandocs" from 31341 lines down to
-21373 lines. That eliminates a LOT of noise/duplication when
-reviewing/looking at warnings.
-
-> ---
->  tools/lib/python/kdoc/kdoc_parser.py |  4 ++-
->  tools/unittests/test_kdoc_parser.py  | 55 ++++++++++++++++++++++++++++++++++++
->  2 files changed, 58 insertions(+), 1 deletion(-)
-
--- 
-~Randy
+Reviewed-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
