@@ -1,107 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794697741;
-	b=5Ddkmyp13U8fgZ3/e2gLdvOESqNV6vHSNaGprffqpRcYsKUrHWRfJx1W9E7NoYqfe7hc
-	 98sNCivssXnzK+dmHQfc2eI8lUKseS4y1cNrbwr5NKTu7m+rZ9x3uzIZmrXnvGU1C5iJY
-	 mweEUHlVQDmqxienDrxbokvrij1hlFkd8iA/AeWzJni1+kKBh3FBA0sxPkDur9W7UmUJy
-	 jaBfLq3WAuDIA36gXZgw1lEv9bA4jcpZnFYisBrxdlQZZnLPKpk4xhKUzzqToWqBr1EO8
-	 ikV/sZQ4jEwMJ62TLKkDgyVeaxNn/u4T5IR13L7DOByPy2FrUlxr7fltcY4qvyIU8Zg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794697741;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=7KNLoigtoy0jfCladEDEWIuBv0zL9CIOAkihifWiusU=;
-	b=XnkRY4HJ1tSHS/oYY9f9m4/GG23XGqmPxlRKEq834NRIY/ehWt2lfvULbvEVT+lmmjJn
-	 b+swLWCXlS//If0Nw94es9N1s4DUVDLnkio9iSzZ68A2s/9pyrsQZZ4J/xwi2fXJOuccl
-	 vk2oPmMOZxst4oo53N+nfX4+PAF7HwOSfDMaqGV2jjLOzOfXhW7jECgIIowmc0ytLCnl6
-	 hPqaovcYQQdOv0MRiFygu7mc34uiZZJahJu+2DTcymfuupnCNyUoNFwyt860Bcpg9frZ6
-	 WeoA3LPWbAyfVtUFaHNxjIWXq6jOsLWvZAbi5y9/qoO+/8OJJjZ7OjEGGepO4l9Xj7A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kyNQ2rF4;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794697755;
+	b=KsIe9W8+Pc/VaIh2hr+82BuMJ3zpTstb643AxeJknLio/4x93ZhSh1XjUXCMQ5lF8O6J
+	 eptm9+2tC3LhbpwKulLwDalyqILjDN5xaXErTzsjyKQwIBD1JVV7tgfNz9G0wVPycrIFj
+	 qEa81k2JygYlVarihdDZVlVB6OI0qhD94WtYGyCWPYnrNK6yBVM5L+EnXBmWt92Lm2/uU
+	 oPJ4XA1+tNPBOJ/JwbmOMaz8DM17gayA4dq24CrEOwpKdJxhlA0rvQXXs/x8CmziZHkDR
+	 oy5zIKZST165itqg36xZVnhaJ7KjvdIoSMaHxvEQbZpAQwFa1nPRvSPTKo6M7P9d3tQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794697755;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=9owcnqrLh9HLkft/is54769ptdoYN16x/JjdXggMJiU=;
+	b=lPGVrbhYPaj3yIvEssTekrteEHFa8kKDBW0IuZGpiSm5mc3T7XqyYMCh69uZu5sSjZD9
+	 oEXNH5JylcrvtZUvsHj/+X1Yv8o1aaPk0Y6FOFBcGKSTCyK4xPpbbBJWg5TgGDC1yb+af
+	 TsDzrnLL2lvShW3M4RKFF3ZbDoWEWUBs9glzORCmQu9iKTGLQNYNWUdJ498BiQICKFStc
+	 FXEfp158i1kb2+Hne7tMbFTwh7oPo6pi4qsjqv0bwkiCz9Afg6afoUsrDWnxV78tLm8mV
+	 7O1SAWHJS6RJhAHH6X+D1qCzyeHcmHkqEUkduJ4BYycsKk4LSwgfQwcQf6Ya7jOEvxQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="KOEJ5o/+";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FF68606A332
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 23:09:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KOEJ5o/+
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794697755;
+	b=3oRDZUBCGNBzDOF2o7RvyTB1TuKnelipG4+DiV1VNWOo2Gb+G7IvIeW4HKi3zAMA6ScU
+	 y4zTmlxvE1gEuq+N8st8/9M5f7hBwUlbIzt7+VFJNcqhKtjoKnspCBgJpWBTG6xXVuXWq
+	 l+jcttyT/+OO+7ZPr+c5oWWRiNcn7+JnEzH6tFJjB3EANumD9+B+hK6fqsn93exroDz1v
+	 ezvoG+j6pLqZwxkVdNNUMiWj2rsaoAOIoiCHMAORZWWvs1A21XCqzlOECWTxP2O3E4O8M
+	 DPyBDPx/iXRZamUjwntn5vgRg5I7n/OQFnRxr6wo/0ExKS8GG043FHYZZtJNx/CoOPw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794697755;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=9owcnqrLh9HLkft/is54769ptdoYN16x/JjdXggMJiU=;
+	b=WZeH1zBuCoPjXX+enMqeaGzMMetpCETp9o/fzAS6rT/Taa1w68prw0Lb9LFDWdKA17wh
+	 v0jZjciWleP4RwkwcjzhAWgCKhxeg1K3O6oqJ2J5VZqyXgmirV0UB0rUoLFO/Ft++e+39
+	 HqpoQKTdoBuUva6fa+74cI5ctr9jBvJ8weaKb5GrO0RSvAJyp+lsh0NZoFbwcW2YsLq8W
+	 AI5Lf/WCFD/c44kXu+vYjyVc0zM5iX26C/QTQy/KYR/TI1Gtnlma+Wzsuoj42ekwpYm93
+	 7faMg2HTnt13zvd4QcdJ4FuSFDFqkaGxw+HAMkmWL7PqN4EnuR4Nn2jrUuQE6/fOOPQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4470760735EF
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 23:09:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4470760735EF
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kyNQ2rF4
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so26131105e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 15:09:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794697740; x=1795302540; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7KNLoigtoy0jfCladEDEWIuBv0zL9CIOAkihifWiusU=;
-        b=kyNQ2rF4lJx/Ubp5k5Q/wpqc7NV0R5F+OuJaxcTguVFzatNBI0XJKa2ESUv+AmGmIw
-         dcz2oJoBgziLIXal2jv3nBj1ntIzXB1Wfqwn4VR+TNyCrUN7EkPbV9EmfTzB+NexJmJ5
-         iV/RBlYiuN1MRJ1gN0ig+euLqQSWHCWdKx4J4bIbm1346axGIJGfa+Q3e6zRSUCuRamB
-         MmaNicsYr/12Aq0IJovaJKNC34LpPjOwNyBjrakp7OGBaf7RE3FyDstC+Eh0IxZ2ONnr
-         tCe0kt/3z5ApAGHKzSstA/sMGK5AYRH2ZXQi/runCek1JR5t+583Sv6S5evujxULtj0Y
-         N6PA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794697740; x=1795302540;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7KNLoigtoy0jfCladEDEWIuBv0zL9CIOAkihifWiusU=;
-        b=LERZof8WFt9oRdhWJguR6a96qmLF1ewlW/K6wN+4kAqO1117LTmFIL61ioatd2N6e1
-         N9nleGK5dsFGZXNuMafctVQZGLAxmZj+hdfDD30h+6V4VMlb4MCJstBvmN00wT8+aK59
-         Bf3o8Sa2OnLB3C8GDr/KS12zR19Hz0iq94/wXhXorDAwIpOppgmpHdy6X5LC+b9yVOSy
-         /PhvhrZ8r9hvHKMmy+hauPkp6iTh9ins+B+Smo6NLNkCdP+jCMU/Qi/pLA4ZiK7l+iUa
-         xmjYRIwZDFagTq7/+0T4tWfowhftir3gC/03Oi8U9Qp7uOWbOeSerlDyNqAY9hpIG1CN
-         3jqQ==
-X-Forwarded-Encrypted: i=1; AL+hErE1Z5lj5fdx9PoR5c5jcb3pC+v2ljSVf5bRVBoMzUSfLZL88K+MoNqQT6z9BP3Fn4fzHmilnuff1rFIogg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9E8L3Uan92m6fnpFfnbhv9bvQOOU7SUkkvsiZOg0LVAG1JX0FK
-	lWBavIBo+/SqaRm25NgsawiTPRwH9fKwWWxHPolaOYnY23FXRfu1BdQ6
-X-Gm-Gg: AYBFou0Xm7UXUuiSkoUEaN7UWt/+n3LZV2HIOFqNoBNnvCFjrIvnrpvnPtwmWFJtSwR
-	X8kBnHdDpmYSEY2zxoJ7UD52CtADCIK7cLGrvB1I5B7R47xTt7W2XJ7t2AngwdVJCP8P1xXlbqQ
-	GD0sBcNUMKjXIe6wEPa2WcShULB7VFDhhQB+I3QJcrPuZLfibBU/wt27RYpks7qPhh5j5ljEOUJ
-	Sx9zwL3TLt8V0Q+S0/NhnQjztD2p0bOzT1srNXsM6bc9p0io5LZqohSyk7OhIGDp2zhYVTe1xRA
-	jScPIZERe5MxguK4cSVtSOAgoePM63MXt6PZMS+kmIY650qswPXN3J2ijODQbYimBroHyw6ZpE5
-	0OtmNMO+pIVYiyTeXjk/IXv/Vtx/wLMr5aVIWEQoEZP7uTR9oYav9b2tkw5fJvmBN0ij49Eusk3
-	vSZgR+rLhXh994LdnPxVgfmKuPnGVM0p3PUeeTRcdHCizevhXfqyIA4JfKQ1RMqSLeXJ2WKT3SG
-	tp2iBYTj+AS4dmvtEDgu08/aIq5u2zcoTDYPqfNHlljgySB0O9icZ7sRbatzpO+x9dJbtSCQYIE
-	Y/Gy9Ku+g2PUxH7evWFcH+vqyO2QVI+yp2o1DpY11P1ivKXqhw==
-X-Received: by 2002:a05:6000:1841:b0:48e:2108:4d28 with SMTP id ffacd0b85a97d-49c70de3881mr15657253f8f.13.1794697739565;
-        Sat, 14 Nov 2026 15:08:59 -0800 (PST)
-Received: from m2.. ([37.142.149.161])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-49c5d03b10fsm14910018f8f.1.2026.11.14.15.08.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 15:08:59 -0800 (PST)
-From: Michael Zaidman <michael.zaidman@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Raman Varabets <kernel-linux-20260610-80b7ab08@raman.v1.sg>,
-	Germain Hebert <germain.hebert@ca.abb.com>,
-	Christina Quast <contact@christina-quast.de>,
-	Rio Liu <rio@r26.me>,
-	Bruno Giacomazzi <brunoceg1@gmail.com>,
-	linux-input@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Michael Zaidman <michael.zaidman@gmail.com>
-Subject: [PATCH v3 16/16] HID: ft260: use lock guards
-Date: Sun, 15 Nov 2026 01:08:00 +0200
-Message-ID: <20261114230800.1344401-17-michael.zaidman@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261114230800.1344401-1-michael.zaidman@gmail.com>
-References: <20261114230800.1344401-1-michael.zaidman@gmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 75DF51F000C4;
+	Sat, 14 Nov 2026 23:09:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794697755;
+	bh=9owcnqrLh9HLkft/is54769ptdoYN16x/JjdXggMJiU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=KOEJ5o/+tYAqpyNXfuHd9WWTQzoghHISu6hbQgfPdBIehNM2Tv4ZIyNJbkGjCrq5t
+	 okkRpDkPO2OgurThb67jzvj4A40OxItFUrhfjQFJSP+fibDrT0dSpyk6ZLRh42mCX5
+	 O6+E47144KM6FN0mtRffiggW9un36CcKcm20pacYl4c3aUfAlk3ZR6Pf7kZNYsfHD/
+	 EwwBTwPwiWNzR5YzH9DCCAmVclO9Xff5qcMqXZvGmenj0UO1leduKbShBEc1pXCgL7
+	 g+ph2PY2sok2r1hFggXJ6dXgNyn7l1FRPSAWEXBqKPW61jauM9nIFiyeALgWMMnqH2
+	 vi/HiDLc7XmIQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id E6CE249EB4;
+	Sat, 14 Nov 2026 23:09:13 +0000 (UTC)
+From: Hugo Sales via B4 Relay <devnull+hugo.hsal.es@kernel.org>
+Date: Sat, 14 Nov 2026 23:09:12 +0000
+Subject: [PATCH 1/8] drm/amd/display: Drop the unadvertised mode check
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,410 +82,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261114-amdgpu-modes-four-v1-1-f11e2a6cd407@hsal.es>
+References: <20261114-amdgpu-modes-four-v1-0-f11e2a6cd407@hsal.es>
+In-Reply-To: <20261114-amdgpu-modes-four-v1-0-f11e2a6cd407@hsal.es>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Ray Wu <ray.wu@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>, 
+ Roman Li <roman.li@amd.com>, Alex Hung <alex.hung@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>, 
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Hugo Sales <hugo@hsal.es>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2729; i=hugo@hsal.es;
+ h=from:subject:message-id;
+ bh=lnT9nVoFlXidbyLYsCe0y4wiJYQVxKPy6EIUZH0LbBw=;
+ b=owJ4nJvAy8zAJVbLU7f+5A3TBYyn1ZIYsn68kph8fspS4XBNK2Mrfn4Wv9g9Lq9ucfqa7KtmS
+ bMV0iniKOgoZWEQ42KQFVNk0b3hycAycfLMnKLnS2DmsDKBDGHg4hSAicTFMTJsLn0svbRX0ulB
+ xrzqTR9PVJnM/Trl1dTqWXoXf00pbTW+w8jQGyN5c/vy9NY3N9+Kf1T+IHxqtoCYfOieb69k1E1
+ Fr9fyAgCaXEg9
+X-Developer-Key: i=hugo@hsal.es; a=openpgp;
+ fpr=193D095149CF7E8737B39064D912B0DB205A91C1
+X-Endpoint-Received: by B4 Relay for hugo@hsal.es/default with auth_id=1417
+X-Original-From: Hugo Sales <hugo@hsal.es>
+Reply-To: hugo@hsal.es
+Content-Transfer-Encoding: 7bit
 
-Convert the mutex_lock() and mutex_unlock() pairs to guard(mutex) from
-linux/cleanup.h. The lock is released on each return, so the goto
-labels that only unlock a mutex are removed, and the error paths
-return directly.
+From: Hugo Sales <hugo@hsal.es>
 
-ft260_uart_port_remove(), ft260_remove() and ft260_schedule_reset()
-take a lock for one or two statements in the middle of the function.
-They use scoped_guard(), which releases the lock at the end of the
-block. The two remove functions do not hold the lock over the tty
-hangup and the rest of the removal. ft260_schedule_reset() must not
-hold it when it calls ft260_chip_put(), which takes the same lock.
+Commit fa129ff3b6a7 ("drm/amd/display: warn on unadvertised modes
+without scaling") made create_stream_for_sink() log "Unadvertised mode
+... with RMX_OFF" when the requested mode isn't one the connector
+advertises. Commit 828cfa384e23 ("drm/amd/display: Fix unadvertised mode
+detection") made is_duplicate_mode() search connector->modes as well as
+probed_modes
 
-The i2c_exit and smbus_exit labels stay, because they also set the
-normal power mode with hid_hw_power().
+mode_config.mutex protects both lists, and atomic_check, where
+create_stream_for_sink() runs, holds only the modeset locks. A probe on
+another thread can free modes in connector->modes during the walk.
+atomic_check can't take mode_config.mutex, since the probe takes it
+before connection_mutex
 
-No functional change.
+The check's only effect is the debug message, so drop it.
+is_duplicate_mode() stays for add_fs_modes()
 
-Suggested-by: Bartosz Golaszewski <brgl@kernel.org>
-Signed-off-by: Michael Zaidman <michael.zaidman@gmail.com>
+Fixes: fa129ff3b6a7 ("drm/amd/display: warn on unadvertised modes without scaling")
+Fixes: 828cfa384e23 ("drm/amd/display: Fix unadvertised mode detection")
+Signed-off-by: Hugo Sales <hugo@hsal.es>
 ---
-v3:
-New patch (suggested by Bartosz Golaszewski). It is the last patch,
-so the out-of-tree driver for kernels older than 6.5, which do not
-have linux/cleanup.h, can leave it out.
+Fangzhi, fa129ff3b6a7 says the message is there to advise users to pick
+an advertised mode when they see a visual defect. Do you plan to build
+more on it, like rejecting such modes or a warning userspace can see? If
+you'd rather keep the message, I can do that instead. atomic_check would
+take mode_config.mutex with mutex_trylock() and skip the check while a
+probe holds it. The walk is then safe, and the message only goes missing
+while a probe runs
 ---
- drivers/hid/hid-ft260.c | 119 +++++++++++++---------------------------
- 1 file changed, 39 insertions(+), 80 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 8 --------
+ 1 file changed, 8 deletions(-)
 
-diff --git a/drivers/hid/hid-ft260.c b/drivers/hid/hid-ft260.c
-index 53321c8d70fd..716b37cead7d 100644
---- a/drivers/hid/hid-ft260.c
-+++ b/drivers/hid/hid-ft260.c
-@@ -532,11 +532,11 @@ static struct ft260_chip *ft260_chip_get(struct usb_device *udev)
- {
- 	struct ft260_chip *chip;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index e8f050feb6e39..89f8427433af0 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -1495,7 +1495,6 @@ create_stream_for_sink(struct drm_connector *connector,
+ 	struct drm_display_mode saved_mode;
+ 	struct drm_display_mode *freesync_mode = NULL;
+ 	bool recalculate_timing = false;
+-	bool unadvertised_mode = false;
+ 	bool scale = dm_state->scaling != RMX_OFF;
+ 	int mode_refresh;
+ 	int preferred_refresh = 0;
+@@ -1627,13 +1626,6 @@ create_stream_for_sink(struct drm_connector *connector,
+ 					&mode, preferred_mode, scale);
  
--	mutex_lock(&ft260_chip_list_lock);
-+	guard(mutex)(&ft260_chip_list_lock);
- 	list_for_each_entry(chip, &ft260_chip_list, list) {
- 		if (chip->udev == udev) {
- 			kref_get(&chip->kref);
--			goto out;
-+			return chip;
+ 			preferred_refresh = drm_mode_vrefresh(preferred_mode);
+-			unadvertised_mode = !is_duplicate_mode(aconnector, drm_mode);
+-
+-			if (unadvertised_mode && dm_state->scaling == RMX_OFF)
+-				drm_dbg_driver(dev,
+-					       "Unadvertised mode %dx%d@%d with RMX_OFF\n",
+-					       drm_mode->hdisplay, drm_mode->vdisplay,
+-					       drm_mode_vrefresh(drm_mode));
  		}
  	}
  
-@@ -547,8 +547,6 @@ static struct ft260_chip *ft260_chip_get(struct usb_device *udev)
- 		mutex_init(&chip->gpio_lock);
- 		list_add_tail(&chip->list, &ft260_chip_list);
- 	}
--out:
--	mutex_unlock(&ft260_chip_list_lock);
- 	return chip;
- }
- 
-@@ -567,9 +565,8 @@ static void ft260_chip_put(struct ft260_chip *chip)
- 	if (!chip)
- 		return;
- 
--	mutex_lock(&ft260_chip_list_lock);
-+	guard(mutex)(&ft260_chip_list_lock);
- 	kref_put(&chip->kref, ft260_chip_release);
--	mutex_unlock(&ft260_chip_list_lock);
- }
- 
- static int ft260_hid_feature_report_get(struct hid_device *hdev,
-@@ -1034,12 +1031,11 @@ static int ft260_i2c_xfer(struct i2c_adapter *adapter, struct i2c_msg *msgs,
- 	struct ft260_device *dev = i2c_get_adapdata(adapter);
- 	struct hid_device *hdev = dev->hdev;
- 
--	mutex_lock(&dev->lock);
-+	guard(mutex)(&dev->lock);
- 
- 	ret = hid_hw_power(hdev, PM_HINT_FULLON);
- 	if (ret < 0) {
- 		hid_err(hdev, "failed to enter FULLON power mode: %d\n", ret);
--		mutex_unlock(&dev->lock);
- 		return ret;
- 	}
- 
-@@ -1063,7 +1059,6 @@ static int ft260_i2c_xfer(struct i2c_adapter *adapter, struct i2c_msg *msgs,
- 	ret = num;
- i2c_exit:
- 	hid_hw_power(hdev, PM_HINT_NORMAL);
--	mutex_unlock(&dev->lock);
- 	return ret;
- }
- 
-@@ -1077,12 +1072,11 @@ static int ft260_smbus_xfer(struct i2c_adapter *adapter, u16 addr, u16 flags,
- 
- 	ft260_dbg("smbus size %d\n", size);
- 
--	mutex_lock(&dev->lock);
-+	guard(mutex)(&dev->lock);
- 
- 	ret = hid_hw_power(hdev, PM_HINT_FULLON);
- 	if (ret < 0) {
- 		hid_err(hdev, "power management error: %d\n", ret);
--		mutex_unlock(&dev->lock);
- 		return ret;
- 	}
- 
-@@ -1190,7 +1184,6 @@ static int ft260_smbus_xfer(struct i2c_adapter *adapter, u16 addr, u16 flags,
- 
- smbus_exit:
- 	hid_hw_power(hdev, PM_HINT_NORMAL);
--	mutex_unlock(&dev->lock);
- 	return ret;
- }
- 
-@@ -1317,21 +1310,20 @@ static int ft260_gpio_set(struct gpio_chip *gc, u32 offset, int value)
- 
- 	ft260_dbg("offset %d val %d\n", offset, value);
- 
--	mutex_lock(&dev->lock);
-+	guard(mutex)(&dev->lock);
- 
- 	if (!(dev->gpio_en & BIT(offset))) {
- 		hid_err(hdev, "%s: wrong pin function %d\n", __func__, offset);
--		ret = -EINVAL;
--		goto exit;
-+		return -EINVAL;
- 	}
- 
--	mutex_lock(&dev->chip->gpio_lock);
-+	guard(mutex)(&dev->chip->gpio_lock);
- 
- 	ret = ft260_hid_feature_report_get(hdev, FT260_GPIO, (u8 *)&buf,
- 					   sizeof(buf));
- 	if (unlikely(ret < 0)) {
- 		hid_err(hdev, "%s: cannot get GPIO: %d\n", __func__, ret);
--		goto unlock;
-+		return ret;
- 	}
- 
- 	rep.report = FT260_GPIO;
-@@ -1357,16 +1349,11 @@ static int ft260_gpio_set(struct gpio_chip *gc, u32 offset, int value)
- 	ret = ft260_hid_feature_report_set(hdev, (u8 *)&rep, sizeof(rep));
- 	if (unlikely(ret < 0)) {
- 		hid_err(hdev, "%s: cannot set GPIO: %d\n", __func__, ret);
--		goto unlock;
-+		return ret;
- 	}
- 
- 	dev->gpio = rep.gpio;
--	ret = 0;
--unlock:
--	mutex_unlock(&dev->chip->gpio_lock);
--exit:
--	mutex_unlock(&dev->lock);
--	return ret;
-+	return 0;
- }
- 
- /*
-@@ -1383,12 +1370,12 @@ static int ft260_gpio_pin_set(struct ft260_device *dev, u32 offset,
- 	struct ft260_gpio_write_request_report *rep;
- 	struct hid_device *hdev = dev->hdev;
- 
--	mutex_lock(&dev->chip->gpio_lock);
-+	guard(mutex)(&dev->chip->gpio_lock);
- 
- 	ret = ft260_hid_feature_report_get(hdev, FT260_GPIO, (u8 *)&buf, sizeof(buf));
- 	if (unlikely(ret < 0)) {
- 		hid_err(hdev, "%s: cannot get GPIO: %d\n", __func__, ret);
--		goto unlock;
-+		return ret;
- 	}
- 
- 	rep = (struct ft260_gpio_write_request_report *)&buf;
-@@ -1422,20 +1409,16 @@ static int ft260_gpio_pin_set(struct ft260_device *dev, u32 offset,
- 	ret = ft260_hid_feature_report_set(hdev, (u8 *)rep, sizeof(*rep));
- 	if (unlikely(ret < 0)) {
- 		hid_err(hdev, "%s: cannot set GPIO: %d\n", __func__, ret);
--		goto unlock;
-+		return ret;
- 	}
- 
- 	dev->gpio = rep->gpio;
--	ret = 0;
--unlock:
--	mutex_unlock(&dev->chip->gpio_lock);
--	return ret;
-+	return 0;
- }
- 
- static int ft260_gpio_direction_set(struct gpio_chip *gc, u32 offset,
- 				    int value, int direction)
- {
--	int ret;
- 	struct ft260_device *dev = gpiochip_get_data(gc);
- 	struct hid_device *hdev = dev->hdev;
- 
-@@ -1446,17 +1429,14 @@ static int ft260_gpio_direction_set(struct gpio_chip *gc, u32 offset,
- 
- 	ft260_dbg("offset %d val %d direction %d\n", offset, value, direction);
- 
--	mutex_lock(&dev->lock);
-+	guard(mutex)(&dev->lock);
- 
- 	if (!(dev->gpio_en & BIT(offset))) {
- 		hid_err(hdev, "%s: wrong pin function %d\n", __func__, offset);
--		ret = -EIO;
--	} else {
--		ret = ft260_gpio_pin_set(dev, offset, value, direction);
-+		return -EIO;
- 	}
- 
--	mutex_unlock(&dev->lock);
--	return ret;
-+	return ft260_gpio_pin_set(dev, offset, value, direction);
- }
- 
- static int ft260_gpio_direction_output(struct gpio_chip *gc,
-@@ -1791,7 +1771,7 @@ static int ft260_i2c_clock_parse(const char *buf, unsigned int base, u16 *clock)
- 			rep.name = conv(name);				       \
- 			rep.report = id;				       \
- 			rep.request = req;				       \
--			mutex_lock(&dev->lock);				       \
-+			guard(mutex)(&dev->lock);			       \
- 			ret = ft260_hid_feature_report_set(hdev, (u8 *)&rep,   \
- 							   sizeof(rep));       \
- 			if (ret < 0)					       \
-@@ -1800,7 +1780,6 @@ static int ft260_i2c_clock_parse(const char *buf, unsigned int base, u16 *clock)
- 				func(hdev, req, name);			       \
- 				ret = count;				       \
- 			}						       \
--			mutex_unlock(&dev->lock);			       \
- 		} else {						       \
- 			ret = -EINVAL;					       \
- 		}							       \
-@@ -1975,7 +1954,7 @@ static int ft260_uart_add_port(struct ft260_device *port)
- 	if (kfifo_alloc(&port->xmit_fifo, XMIT_FIFO_SIZE, GFP_KERNEL))
- 		return -ENOMEM;
- 
--	mutex_lock(&ft260_uart_list_lock);
-+	guard(mutex)(&ft260_uart_list_lock);
- 	list_for_each_entry(dev, &ft260_uart_device_list, device_list) {
- 		if (dev->index != index)
- 			break;
-@@ -1985,7 +1964,6 @@ static int ft260_uart_add_port(struct ft260_device *port)
- 	port->index = index;
- 	/* Before the first gap, or at the end: the list stays sorted */
- 	list_add_tail(&port->device_list, &dev->device_list);
--	mutex_unlock(&ft260_uart_list_lock);
- 
- 	return ret;
- }
-@@ -2004,9 +1982,8 @@ static void ft260_uart_port_remove(struct ft260_device *port)
- 	timer_shutdown_sync(&port->wakeup_timer);
- 	cancel_work_sync(&port->wakeup_work);
- 
--	mutex_lock(&ft260_uart_list_lock);
--	list_del(&port->device_list);
--	mutex_unlock(&ft260_uart_list_lock);
-+	scoped_guard(mutex, &ft260_uart_list_lock)
-+		list_del(&port->device_list);
- 
- 	tty_port_tty_vhangup(&port->port);
- 
-@@ -2025,11 +2002,10 @@ static struct ft260_device *ft260_uart_port_get(int index)
- 	if (index >= UART_COUNT_MAX)
- 		return NULL;
- 
--	mutex_lock(&ft260_uart_list_lock);
-+	guard(mutex)(&ft260_uart_list_lock);
- 	port = ft260_dev_by_index(index);
- 	if (port)
- 		tty_port_get(&port->port);
--	mutex_unlock(&ft260_uart_list_lock);
- 
- 	return port;
- }
-@@ -2224,7 +2200,7 @@ static int ft260_uart_change_speed(struct ft260_device *port,
- 		  req.data_bit, req.parity,
- 		  req.stop_bit, req.breaking);
- 
--	mutex_lock(&port->lock);
-+	guard(mutex)(&port->lock);
- 
- 	ret = ft260_hid_feature_report_set(hdev, (u8 *)&req, sizeof(req));
- 	if (ret < 0)
-@@ -2232,8 +2208,6 @@ static int ft260_uart_change_speed(struct ft260_device *port,
- 	else
- 		ft260_gpio_en_update(hdev, FT260_SET_UART_MODE, req.flow_ctrl);
- 
--	mutex_unlock(&port->lock);
--
- 	return ret;
- }
- 
-@@ -2266,20 +2240,16 @@ static int ft260_uart_tiocmget(struct tty_struct *tty)
- 	 */
- 	int mask = FT260_GPIO_UART_MODE_4_SET;
- 
--	mutex_lock(&port->lock);
--	if (port->removed) {
--		mutex_unlock(&port->lock);
-+	guard(mutex)(&port->lock);
-+	if (port->removed)
- 		return -ENODEV;
--	}
- 	if ((port->gpio_en & mask) != mask) {
- 		ft260_dbg("Illegal gpio config %#02x != mask %#04x\n",
- 			  port->gpio_en, mask);
--		mutex_unlock(&port->lock);
- 		return -EINVAL;
- 	}
- 
- 	gpios = ft260_gpio_get_all(&port->gc, FT260_GPIO_VALUE);
--	mutex_unlock(&port->lock);
- 	if (gpios < 0)
- 		return gpios;
- 
-@@ -2301,26 +2271,22 @@ static int ft260_uart_tiocmset(struct tty_struct *tty,
- 	struct hid_device *hdev = port->hdev;
- 	int mask = FT260_GPIO_UART_MODE_4_SET;
- 
--	mutex_lock(&port->lock);
--	if (port->removed) {
--		mutex_unlock(&port->lock);
-+	guard(mutex)(&port->lock);
-+	if (port->removed)
- 		return -ENODEV;
--	}
- 	if ((port->gpio_en & mask) != mask) {
- 		ft260_dbg("Illegal gpio config %#02x != mask %#04x\n",
- 			  port->gpio_en, mask);
--		mutex_unlock(&port->lock);
- 		return -EINVAL;
- 	}
- 
--	mutex_lock(&port->chip->gpio_lock);
-+	guard(mutex)(&port->chip->gpio_lock);
- 
- 	ret = ft260_hid_feature_report_get(hdev, FT260_GPIO, (u8 *)&buf,
- 					   sizeof(buf));
- 	if (unlikely(ret < 0)) {
- 		hid_err(hdev, "%s: cannot get GPIO: %d\n", __func__, ret);
--		ret = -EIO;
--		goto unlock;
-+		return -EIO;
- 	}
- 
- 	rep.report = FT260_GPIO;
-@@ -2342,16 +2308,11 @@ static int ft260_uart_tiocmset(struct tty_struct *tty,
- 	ret = ft260_hid_feature_report_set(hdev, (u8 *)&rep, sizeof(rep));
- 	if (unlikely(ret < 0)) {
- 		hid_err(hdev, "%s: cannot set GPIO: %d\n", __func__, ret);
--		ret = -EIO;
--		goto unlock;
-+		return -EIO;
- 	}
- 
- 	port->gpio = rep.gpio;
--	ret = 0;
--unlock:
--	mutex_unlock(&port->chip->gpio_lock);
--	mutex_unlock(&port->lock);
--	return ret;
-+	return 0;
- }
- 
- static int ft260_uart_install(struct tty_driver *driver, struct tty_struct *tty)
-@@ -2733,9 +2694,8 @@ static struct workqueue_struct *ft260_reset_wq;
- 
- static void ft260_chip_reset_done(struct ft260_chip *chip)
- {
--	mutex_lock(&ft260_chip_list_lock);
-+	guard(mutex)(&ft260_chip_list_lock);
- 	chip->reset_pending = false;
--	mutex_unlock(&ft260_chip_list_lock);
- }
- 
- static void ft260_reset_and_rebind(struct work_struct *ws)
-@@ -2845,10 +2805,10 @@ static int ft260_schedule_reset(struct usb_interface *usbif)
- 		return -ENOMEM;
- 	}
- 
--	mutex_lock(&ft260_chip_list_lock);
--	pending = chip->reset_pending;
--	chip->reset_pending = true;
--	mutex_unlock(&ft260_chip_list_lock);
-+	scoped_guard(mutex, &ft260_chip_list_lock) {
-+		pending = chip->reset_pending;
-+		chip->reset_pending = true;
-+	}
- 	if (pending) {
- 		ft260_chip_put(chip);
- 		kfree(rw);
-@@ -3092,9 +3052,8 @@ static void ft260_remove(struct hid_device *hdev)
- 		 * The hangup does not wait for a TIOCMGET or TIOCMSET
- 		 * that is running; they hold the lock while they use hdev.
- 		 */
--		mutex_lock(&dev->lock);
--		dev->removed = true;
--		mutex_unlock(&dev->lock);
-+		scoped_guard(mutex, &dev->lock)
-+			dev->removed = true;
- 		if (dev->chip_mode & FT260_MODE_UART ||
- 		    dev->chip_mode == FT260_MODE_ALL ||
- 		    dev->chip_mode == FT260_MODE_BOTH)
+
 -- 
-2.43.0
+2.56.0
+
 
