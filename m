@@ -1,129 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.155
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794663511;
-	b=V7D2okcNlE9GLoNda8BByPGPgi8QNA56L23w6sPjPZ72MdiFoILeRBWp3TIeGlCJ+vQk
-	 G1soYBDiMdjBt0660F+TP3Y9kLlk2mTNrDqSq1KdIELfi8n99VT7gCkwfE0h7MV/Dzx4a
-	 5fRaDUVTTJG7GHuylr+phKJ6rbsBdbOMVy13JFufu2rscoDes/M2WCGn/tujRIasLCgba
-	 ac4hwwdFyTELZDincyrLABPIZe0m5vHif1LRqBn/7r6Aob4yURYcWQtfXtAMgacDMO3PB
-	 +qHzgoB8ZucRi+O4fs1rAvV2ua1Bt5ZwMLc25okaLobqeHTW3Tb20mNQt6hxbB5dsIQ==
+	t=1794663652;
+	b=sco7PtlH/xMQasSvyfNdxGXCbBO+JC+S89iFwNmT7pQ4RNtnr9cmf8X+kGojUKpQrTtJ
+	 eSVYTpq7pGIYimCtZwC8cj4N65RaZUXFDS9lmP8H7i0Ne+fp3Y6wrCLegcg3VorTGfbYd
+	 nNqfWpie/EJb05vq5R0b5hEPx+eB0zoAArWTHA1YWXbPq9JKyOD0Xis/ZcBljZqctAj9d
+	 +nXRIztkcM2sdW0kZnW5nybXursMMacR1nkOBiKxwpmeygx06fKxUo+T8GHZosB8sFu0l
+	 6rwZwTav+dTEYqnEnwuOE7r8BAfEQdQBNDoTDFVUbXh3ZK/CUyQ/XmEuRg2+OqvAyTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794663511;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:Message-Id:To:Cc:Subject:From:In-Reply-To:References:
-	 Mime-Version:Content-Type:Content-Transfer-Encoding;
-	bh=SNG1HRb8nHFIie74LXwMhLAKLST7T7jquSoOJxOlEK0=;
-	b=VL1+uu019UR/5uBvcgR8/vH8Lo/0JeyrfYmv4T7V4NHa4MkINBfn5++D89O+kEMRCb9p
-	 iNCNmOfOK1UhiKHQ39UfyA87wdcGr/WwN5r0Yhq7FudEkXtZz5HUgjx7Jrb2I4ZlcTDB8
-	 O6Ha5XumBap1NjdCiZ1SwUGGCxPOZlSJItcarUXeZ7VLGl5SumOwLKXnBTRq7eF8IP+Qw
-	 3Y0dTg1q8K+zFu8+b7XTp29NbuhocN/CQ371rgDTVUVY58h4V7vYMqGnt0mjm+7h7AGAD
-	 gxtVURXiOl8MyW8CZclHPGXtTPMsrOIVmf2Op3e3zJ7VDmcnThqMV2VGIys8i2MxwPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794663652;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
+	 References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=2sFWVrN02se1GOVqXfsWJswTq/geOkfN2nj2Xp5zpwQ=;
+	b=3XU3/IuemU4+RxrEseFcVhGbHB8vBdIHatpJDdRix9jcx5/0vl1ydgCjhS8cwBwfotBX
+	 3+pmZwBojjxgFe4PFWu0eXJfDbJl2SjQcDdeCOQCfk/RI/rx9puc0f4qN2dU5tFlyfkJa
+	 Zt86gFLCLqzJcaAidj5y79WPyIQfjBNjs2R3IBxkv3om663XxI2aW6q+bHpPW7O3yz7yM
+	 ZnXqGWWiR4BY4V+vi7XHl5rLbFTWILttLCT12bzE3fQR7LeWwkPK/BScLtqdEn+sSpoO/
+	 QOFIPJu63BN9C+77IsU4kvS3LLP5TwO/lmt0oa/1DE5BvA1gwO4rU9e3pI0VoUw4rCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=flapping.org;
-	spf=pass smtp.mailfrom=flapping.org;
-	dkim=pass header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm2 header.b=kjDDMOtI;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=ZXkXzX04;
-	arc=none smtp.remote-ip=103.168.172.155
-Received: from fhigh-a4-smtp.messagingengine.com (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Bi9HDz3n;
+	arc=none smtp.remote-ip=95.215.58.10
+Received: from mta1.migadu.com (out-10.mta1.migadu.com [95.215.58.10])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B5D7606A327
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 13:38:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B5D7606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flapping.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FBFC606A334
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 13:40:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FBFC606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm2 header.b=kjDDMOtI;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=ZXkXzX04
-Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 6A75914000A7
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:38:25 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-07.internal (MEProxy); Sat, 14 Nov 2026 08:38:25 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flapping.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794663505;
-	 x=1794749905; bh=SNG1HRb8nHFIie74LXwMhLAKLST7T7jquSoOJxOlEK0=; b=
-	kjDDMOtIsUw7bSdWWMIMxExjuwJMfM6fUrRhZ/kFv1JsJBLXywr9mHhX+SQDzzKL
-	rKTLGR37Le4FAOmgLPO0KiDyAVR3YCYNb0KVZG5JNRvkJIO4s6Kdh5y5z4gvHxuD
-	YoBd6lFVs/24bKmI9bnee/fjcTf4jdUZ+ubQCVjr9Lk3RlKwIswN7V5hHEdKM3Ws
-	KUZXeEUA5otuYK85n6SwzwHm9Z+/QFhWWw5YLxnlJRvuW+b680eNQbJhAtk/X0ru
-	K/d/r1qWZ7kseS+YbngpiXfIL7iYYXQccr7Cq6Cs+vYUOXmgSmNDVZtljBk7/6WN
-	t0VXWL1hN7FszJUBrep20Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794663505; x=
-	1794749905; bh=SNG1HRb8nHFIie74LXwMhLAKLST7T7jquSoOJxOlEK0=; b=Z
-	XkXzX04q4UyVz+lf8NtnAgfAHirWryfPU5tFvaA69SsZe0EW7fjK87bBsFggvRpW
-	J2f+3lARbnoLTkqwtl35LjIb0iUpLtmCwrnrBYEikvU0Jwcgavp8aFLkSnylEuam
-	lV5ex/fR1r5uzupd6qCJaJOQKGlfAXcZQXmQ5YSydfcL2DTX5HHcIHvHF76i+7aQ
-	fhxuq5ksXHxYucjDpTQRgYVe6LfDuMiBo8HKNPI8zj7pJ6XxBOd/QJSq9udXruZs
-	KTXMSrxV3OuCOJs0AyyWvDGaSvumSOXPhBONC3zy39O6Eg2ZZR6AcwKFGeD9EMuO
-	BhlEvcRK48YyymFm4jqjw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=flapping.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794663505; d=flapping.org;
-	mf=PHRvbW9AZmxhcHBpbmcub3JnPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:aIVU6BRpEb2R8GY654+bbUZBP5PkgtGV7YU3tM8ZhhYQwcW
-	dmYIseLJeuvaP128K1pqiyNivNeRocdLs/k2mWbiQC8nKTbdDMsYT37Vm70QeTLA
-	VP+2Uskzp+GEDkh898ysjghuhH3Cx8gr9VG6t5SnxA3A85SJ9Q7qdM3GKyIvipsw
-	PMRRm7EE2AjekrWJyxuPJZfs/0SZnudFSwsmUzSN3AGbO0bjJeXtRR4ehyXBQXy9
-	fcVW0tR2O0iKj7/CqmOelVnMY1sVdZ0ZO4JUL9XPdMTA0E9ebZhKzD/+EatEGoP5
-	/5DA/B317azSCXTT0s9EglxL8ldYRvGmHtBMinQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:f9opZpIyqagmduFeeGp+xKUJT++WTJdd2E/jjBkBYfo=:lU5PHoFLOrW5W3SGXZtCpCZosecH1DWsdh966u97RCw=;
-X-ME-Sender: <xms:UGT4agKAWa5ySOtc97TQISMy-97FHL2OfzX4uSuKWCjKjS1-qIU2BA>
-    <xme:UGT4atWjLXkvN2rwfSSzfQ5RsUvoMnhL0nkz4wTXfoBK8IEIg-YzKxB-urofSq_81
-    S88oAytwY2-srH-PjH8_0i8fJiTU9mwDAzM1QBjnqod2DOyW2T4I9s>
-X-ME-Received: <xmr:UGT4alOYs099Ivx7PoBIhrdjgUoi_H9LMpqmJbh-FSMQUlJgnlxCm9ae7k9o2eSPuQlj7aLuo8OpjI8Vinlrs76B>
-X-ME-Proxy-Cause: dmFkZTGP3BUWlQUihCukVcPKcTSgRT44A4NtkjyCSrpXOA/rwXWHPdz16CsJwJJyEfGatL
-    lN7ru0/bjWuVwus+qg8IqcETdlNBpF48fef4z6tyHamWyDNIIzYe03ACQowYrwSJHAZ8Vo
-    lvfypnf3SveEnc3NnZR4xRbeVLvsA/FkY75IBy+dYZd6B7umcwKRfgMYFd/WK5QM57Vnj9
-    BmeVgMpoO/QOvVLovaVWsh8nVgQuZu4003ZqUiazRIRGRLF3S70i9QhkTtXD9RzX7Czkmn
-    MgWG+ZxTViB8Xw02wyuvpZ45gFna4jOQNaOt1JFnvKw+0f8ie4mpP7NZIWqxFpdmlz1kKe
-    y6mh+4B83bYFIJ0yFcWsfd1rFn5SmSEnudjOYZK7gYqCCwbMuhnMpexVFxv9ob9ECe4I67
-    by5e77wcZfvni8QYKNOaKXwrl2jxeEbJOIR1pNN3PB3KVKRXCoOmlm6V6Me+St6KWuc06J
-    xPt1KCwstHXAvPslZk0UMcWTc9ubQcq8uJAYSywQHe0VwHvctj4Vdl7z4KQdJ9uM/25bhJ
-    XXQCdN1KprZ+6AE5H2qB0zIpkeCXi829c66eEWFkab/pH680qxI+BuVSZxBUl6vkFZ10Fy
-    llHgiwxI+0uxLOI67X1HIa+ljQs19jVFyJOuUYlCGKfjNDFicbB4MA7kV9vg
-X-ME-Proxy: <xmx:UGT4apl0n8bbnI0VZnG8vgM23u56GC-tSbvAkf2oazmZhu2zYMcnfA>
-    <xmx:UGT4aoUAdGYNJXWIuqt-sf5wY7IDdoZCFKyAeGoI7PrqT2BcodgtVQ>
-    <xmx:UGT4aoJdiW5JK61Ond5x6dJoQpUc0dJ6LS9xEMJ8OqI6qsuvUOZk8w>
-    <xmx:UGT4asY4Ujiow9_baoCz-AyZMP2tdtO_uR2T4Vlt3pOFv0T67ss44g>
-    <xmx:UWT4auPybT4Cfr1pYKtDssyRL9DWsNAIDtacQe3SZir_YQbu25i7Xauv>
-Feedback-ID: i51fe4b43:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 14 Nov 2026 08:38:19 -0500 (EST)
-Date: Sat, 14 Nov 2026 22:38:16 +0900 (JST)
-Message-Id: <20261114.223816.1091200428221776094.tomo@flapping.org>
-To: a.hindborg@kernel.org
-Cc: tomo@flapping.org, boqun@kernel.org, fujita.tomonori@gmail.com,
- frederic@kernel.org, lyude@redhat.com, tglx@kernel.org,
- anna-maria@linutronix.de, jstultz@google.com, sboyd@kernel.org,
- ojeda@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com,
- lossin@kernel.org, aliceryhl@google.com, tmgross@umich.edu,
- dakr@kernel.org, daniel.almeida@collabora.com, tamird@kernel.org,
- acourbot@nvidia.com, work@onurozkan.dev, rust-for-linux@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Bi9HDz3n
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=PBhTNR6hPM9HSFYa5+yBZcEPQicg6SZ+iadVGupiVcY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794663650; v=1; x=1795268450;
+ b=Bi9HDz3nv2cRoTDNdgdUaSubWURPn6VAq6chj+Ea/lo/6/k2BfqvuabdHR1JoJ8gRgzwOGja
+ dEHMr46fzZhrJnXxqYkmfxvUjPwSu1x+SrDxEZYWLK3RXvTAl9E0fX5r78697IHImIgEJuTik7E
+ yKG7M8s8x9uf5tvnkugAGnwg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5ede4a74e9d03b07;
+	Sat, 14 Nov 2026 13:40:30 +0000
+X-Mizu-Trace-ID: 5ede4a74e9d03b07
+X-Migadu-Flow: FLOW_OUT
+Date: Sat, 14 Nov 2026 14:40:24 +0100
+From: Luka Gejak <luka.gejak@linux.dev>
+To: linux-wireless@vger.kernel.org, Mauricio Faria de Oliveira <mfo@igalia.com>
+CC: Ping-Ke Shih <pkshih@realtek.com>, Po-Hao Huang <phhuang@realtek.com>,
+ Kalle Valo <kvalo@kernel.org>, kernel-dev@igalia.com,
  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] rust: hrtimer: add active() method to query timer
- state
-From: FUJITA Tomonori <tomo@flapping.org>
-In-Reply-To: <87wlqiv386.fsf@t14s.mail-host-address-is-not-set>
-References: <20261105-hrtimer-active-v3-1-52636808ccda@kernel.org>
-	<20261105.201145.828445900027892304.tomo@flapping.org>
-	<87wlqiv386.fsf@t14s.mail-host-address-is-not-set>
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_wifi=3A_rtw88=3A_fix_skb_leak?=
+ =?US-ASCII?Q?_in_hw=5Fscan_probe_request_length_check?=
+In-Reply-To: <20261113-rtw88-hw-scan-skb-leak-v1-1-3bd47562abf6@igalia.com>
+References: <20261113-rtw88-hw-scan-skb-leak-v1-1-3bd47562abf6@igalia.com>
+Message-ID: <9AF24DB9-D92E-479C-A678-0571B1557198@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -132,46 +66,64 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: Text/Plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, 12 Nov 2026 09:55:05 +0100
-Andreas Hindborg <a.hindborg@kernel.org> wrote:
-
-> FUJITA Tomonori <tomo@flapping.org> writes:
+On November 13, 2026 4:17:33 PM GMT+01:00, Mauricio Faria de Oliveira
+<mfo@igalia.com> wrote:
+>In _rtw_hw_scan_update_probe_req(), if the first loop fails (goto out;)
+>the
+>skb is leaked. It does not reach kfree_skb() at the end of the loop body
+>or
+>in the second loop (out:) since it is unlinked from probe_req_list.
 >
->>> +    /// Query the state of the timer.
->>> +    ///
->>> +    /// Returns [`true`] if the timer is in the started or running states.
->>> +    ///
->>> +    /// This method synchronizes internally and does not require exclusive access to the timer.
->>> +    ///
->>> +    /// The returned value is a snapshot. A concurrent start or expiry can change the state of the
->>> +    /// timer right after this method returns, so callers that need the state to be stable must
->>> +    /// serialize against those operations by other means.
->>
->> Does "expiry" here mean that the callback returns HrTimerRestart::NoRestart
->> on another CPU? An expiry alone moves the timer from started to running, so
->> active() still returns true. If so, I think it is clearer to write this case
->> directly, and to add the case where the timer is canceled on another CPU.
->>
->> The same sentence is in the commit message, so please update it too.
-> 
-> Right. How about this:
-> 
->   The returned value is a snapshot. A concurrent evnet can change the state of the
->   timer right after this method returns, so callers that need the state to be stable must
->   serialize against those operations by other means.
-> 
-> The intention is not to reiterate the state machine, but to indicate
-> that things might changes.
+>Fix the leak by calling kfree_skb() if the first loop fails.
+>
+>In /sys/kernel/debug/kmemleak, after simulating the failure:
+>
+>  unreferenced object 0xffff88810965a000 (size 232):
+>    comm "iw", pid 4729, jiffies 4345008185
+>    hex dump (first 32 bytes):
+>      00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+>      00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+>    backtrace (crc 20f7de11):
+>      kmem_cache_alloc_node_noprof+0x302/0x380
+>      __alloc_skb+0x74/0x2f0
+>      skb_copy+0x57/0xe0
+>      rtw_hw_scan_update_probe_req+0xff/0x230
+>      rtw_hw_scan_prehandle+0x4e/0x180
+>      rtw_hw_scan_offload+0x186/0x1d0
+>      rtw_ops_hw_scan+0x61/0xb0
+>      drv_hw_scan+0x81/0x130
+>      __ieee80211_start_scan+0x2e0/0x760
+>      rdev_scan+0x42/0x100
+>      nl80211_trigger_scan+0x53b/0x730
+>      genl_family_rcv_msg_doit+0x103/0x160
+>      genl_rcv_msg+0x1b5/0x2c0
+>      netlink_rcv_skb+0x52/0x100
+>      genl_rcv+0x28/0x40
+>      netlink_unicast+0x26d/0x3b0
+>
 
-Looks good to me, except for one small point. Since "start or expiry"
-was removed, it's not clear what "those operations" refers to. How
-about something like:
+Should this dump go under --- so it doesn't end up in commit message?
 
-  must serialize against such events by other means.
+>This leak exists in the first loop since the function was introduced, and
+>still happened with the addition of the second loop, in these two commits:
+>
+>Fixes: 10d162b2ed39 ("rtw88: 8822c: add ieee80211_ops::hw_scan")
+>Fixes: d95984b5580d ("rtw88: fix memory overrun and memory leak during hw_scan")
 
-Also typo: evnet -> event
+Should this perhaps cc stable?
 
+>Signed-off-by: Mauricio Faria de Oliveira <mfo@igalia.com>
+>---
+
+Either way I'm fine with the code, so just fix the commit message. Feel
+free to carry the tag for v2.
+
+Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
+
+Best regards,
+Luka Gejak
