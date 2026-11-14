@@ -1,63 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.110
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794673264;
-	b=vB5Tyux1oQniWabLS7syowEX+yUOVGRsR7bOSJh7Hm0h8Nm+Qu6Wkop7I5h999sp1D+a
-	 hnIWA0UivDpq+Ok3tycCltHu8M9nkOUUeDxEdzfpu/TfeXkGVyMtSD8418IXNTwLZqG67
-	 8haaScJemZll5HfOdp254FJBVm/HNLuOAiG7/fdQ6yiPLuhr9MNji5+4f+dH4NG0YJjtC
-	 mZas3jgNwMLLZWRIy0rLtTi+A4M09jrKx4QXyfuqFoU/lr1d0C5RpgYmAilh3RNGGwnzY
-	 3H+xG6y4F2oIhV4ipWvJjpMYFc/d27w0nG2BVayEmIQSqx/v5h1szUpYHwTyIcFhSrA==
+	t=1794673291;
+	b=RgFb6wvNp4hOT+m97l/Oql0McbCtI6gyNVt/c0KrSIo9O0i9WknUmt2326dE/X99J2KG
+	 5Hh2EGKLKeMpT7aetSEts8+zS7ytorOE9bcaSnLplg9knIUK1fFVy/LkDW1CLk8mJWc72
+	 ophBJWUF5CECUiX7kweScxw25C+y5VDTIalybLP68Q59vEMvdo4ng2c0ihM+AcdKpYZcR
+	 vmE/mJIKxlkObL/SFAYUPp0lfIB+OaF2pxExaQiXECPNe0P8YO9Ski15jW85p5kt/tisJ
+	 +Zn4NnrrUw2wBGuCjs8YHmcF4hVmK+6WgSmhHbgkMiREJEJbW0hQa5u8hL2OHN5N+Uw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794673264;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=vc8EBtQgu2BWn5PQ5GP1/SsZSGSHdYgDv62oR4Cy3is=;
-	b=gMx4NIDOSKm0kgbb2blh/6qoxfu2n0A4cK6HJjqiR0Me57DLHx37bsAearGfKSlX2BeD
-	 FeoYR/iQGRx8zvh2I7U2G1NgXbEJDQLbPA/WQBnp6FHjXUxTD/MhEsfCK95GbbRXNg3LV
-	 uQ7CjfI5e1NCNknNTCNeDjqKCaHKyYjgbe3wH1Y/USoDFpuEBex9JlUsZafEvtjfcWgwI
-	 HDzJ59Hk2Zv/XCoMtX+DjLk5515jGAjfbHNbcwxGH0eGGg88dbKLVBjOtctpoaC6XwugT
-	 7d8Lj6rG+Iu4PgvtdpRRGDh51RfEUVHSjMRjttfHnsqM75z9XIN12CUDaV1GxEAIuTQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794673291;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=SAXE+Cbl9G5IRb7happTo9S2j4c3HyT4UpqiPP6R4YQ=;
+	b=Hd61pIodLS6j2xwYrEOAwNmGS8apmG2otJqYM4YZn2gjh4SEg5DdgDiUjobeXXEjmMZE
+	 RI56G8SAH798Pnuv43nO5QNYf9ULGSlTgOfo5qtKmJsIcZlGEUIQ9D2q2CcUfQwdDJWXV
+	 DB+koVkLTxN5+gPkpxTRI9CtJIh6OrFJHqACDH4IWI4p3V5nMI/Sig3clMOz5fkLgwvEV
+	 Sq4be284yA9Du4+v/dIGcjzYjUAMNrMKT1JjQRigpBhAgF9pWdldC0FmtLU8WTKmQtT/h
+	 Hl2HD8ooQ/sYilSqtp8PkeR/cY5MCUPN/3/9MPHbrGXIE4h72g0Hh8UJ8ci0k25fndw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=none smtp.mailfrom=master.debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.master header.b=DuReHRmQ;
-	arc=none smtp.remote-ip=82.195.75.110
-Received: from master.debian.org (master.debian.org [82.195.75.110])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HLoOsEvN;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E047D606A327
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:21:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E047D606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=master.debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F314A606A330
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:21:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F314A606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.master header.b=DuReHRmQ
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.master; h=In-Reply-To:Content-Type:MIME-Version:References:
-	Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
-	Content-ID:Content-Description;
-	bh=vc8EBtQgu2BWn5PQ5GP1/SsZSGSHdYgDv62oR4Cy3is=; b=DuReHRmQgNiGPm9txLeEMmXY/E
-	CrBN08i9wK+Tt45LdgZIqk0wvsyVY4g5XENtccYhHUVFHFwMVgi8Eie53TL9GU2MA+zHAB6p1xQmm
-	SMXO4AW4aDJbxEVuS2pCdK9+Dmou3arUW3kqWIgbYQFqZCCNp8ecN5N+Zd4sUrrVtQA8cZ0GjXZys
-	DSqOQNPIjwJELfYC+ar1CP0wElJIfvUx77pWODzt2LAHvkaIo0A59zkG+K+nefu0tmGc+aPx4F71+
-	rjYT/8l8yEyAe2D9d89qRsqymHaVghV5XamBl/rBlbpzydnla0+OBqoRUyyJKxuwGrd5lcO8q67jK
-	R28gw+xA==;
-Received: from ukleinek by master.debian.org with local (Exim 4.96)
-	(envelope-from <ukleinek@master.debian.org>)
-	id 1xSGUR-009uyU-1y;
-	Sat, 14 Nov 2026 16:20:31 +0000
-Date: Sat, 14 Nov 2026 17:20:30 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@debian.org>
-To: Marek Vasut <marex@nabladev.com>, dri-devel@lists.freedesktop.org
-Cc: Danilo Krummrich <dakr@kernel.org>, David Airlie <airlied@gmail.com>, 
-	Li Chen <me@linux.beauty>, Lyude Paul <lyude@redhat.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Ole Carlsen <ole.carlsen@tutamail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] Revert "nouveau: pci: quiesce GPU on shutdown"
-Message-ID: <aviIPk4xbKhgqcTy@monoceros>
-References: <20261025213027.842978-1-marex@nabladev.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HLoOsEvN
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so23382695e9.3
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:21:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794673289; x=1795278089; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SAXE+Cbl9G5IRb7happTo9S2j4c3HyT4UpqiPP6R4YQ=;
+        b=HLoOsEvNbLLkbRRIYZsJtLww7CbQcnin1oQuSxP54eY4wkWFnWCPiDyqur1mMaOY/l
+         BAYYzwyU3dnEvSYF4WG9SC8fjp03w2JTYF8XP+egEYQGU2HG0Zml5mgHgrfElNL3nR/V
+         xFQQug8gOPBmz4u4F2d0xwnwVyqSdUlOueJIqBg94uBNbtzShZnRpVTTXOxERD4nbxKA
+         s9G7sYj2+NexFH5/CM8BqXIkmxSPnb3fOTVNZicYk080/8+Td3Vh+3unzVoc3NQ1uM0c
+         D0jQjRaGs5/kXf9PRVuUiYG7OCl4UR8VCa8EdINSehubJnbmYGsDhURGjOseZuiOZ+mi
+         qYIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794673289; x=1795278089;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SAXE+Cbl9G5IRb7happTo9S2j4c3HyT4UpqiPP6R4YQ=;
+        b=l89OvY881LzUUNXK79C6mpoYb9dtnC1cJZSKgqTXOKwcmR7mTKMIkYTviD2eOpnbkb
+         BQ7ypQ+AGThna0UDI4vYGFvFnwF768hnYL70RcRDh0nMlY2JZiU2dEBh13g5ybFoBZSn
+         wdevnqjQxGxBoSPqSyOFKBwicIcD/bQFh8D8/LY+xSQ4bqrWfR2RwcY44y9SlDx/Hw6L
+         hFhKKBXTLYflhbAdUWrDVw/g7khOcjxVvSKab231oyy2XDtJ3AFDzs4jJWW1jtBRBNJv
+         oC0CwY+PgQBjdUhzS21uuUMxH+ywUOw8Ssi03QvpTid8+cLafBFteLdzZG6kmyze92k4
+         32zw==
+X-Forwarded-Encrypted: i=1; AL+hErEulh3N87YlseXHXFQRU+3AL98eK5Dy0XuylO2kuqRbwLyIgvmxHl5r93+G+Yq8DPVHeHJIJZ+wrr9tJI8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9y2afoWp/EF+9Io9kGtlou0dw84xG0bCxr0Crvr1C0l0ArAvOG
+	nhQ5bIMLT25A37g849l+KL92VhhceX9MgZI7I/bXIy0fp+6bGU5SZaGt
+X-Gm-Gg: AYBFou38gw1F8ghGyPu5Tp4mM6kPNmZZnS0wOfWzKfe/ID9G1vOYbKwiRhMU3NJo0If
+	RWtGRo6Xy/jo8kh2TUxmr/IgZQTnPhXRZuKvcr16kuJc4bdGZu0pvL14vvKRGM2pVd3G3ZEt1t8
+	WIfbww25YZNeOSdMNJAPlqC8MjNkcCNKLwvZ6wDf4UkXFcrrqTCBXunTsfZAH51iSSB9A3WMNf4
+	FUkN1k33MsK34Cz2N5xmeaVgpr4bngEwl4290qx4Q/i6LH6rjuPWoU0dLdM5zV18vt/EBCiOA4B
+	rzAy4Xxg2qEIECypB4Gl6YFen+KgXKErU3/DUEwQUxH1SvO485o8ojBH/YIrT3qo9AYRmR+JQ+f
+	e+r6EAfQ9aAvdQzUSPM5ZX9OEz4z+KDQ06BGotme+fNR/jSYvp1+lUTOMSZ4+d0h29o2sSA9jSM
+	raYq6DY2Xkf7LzA38pt0jWvWbWH5H8vBmx7L0Zhi6k4vEZq1VYA6PgkiDKqC+4uFoA5dVmudNsP
+	FueM6pFsBa3HBbUO27k/52/a1knaFYr3zadoMosI5ShEqHMLioGF2ZVZk1QT6dgQQfk90g5gl5G
+	aU+vWya3Gp1dVuRl0jvwADjG10Tfo6+7mm94zQhd3j13PzWIqk0dovvAZk/FTgCcaaPJfwdze9b
+	RuUUXTYmiSnr62Q+ggdEmV5dPpLVo/SvXTh2O
+X-Received: by 2002:a05:600c:81c9:b0:4a1:83f0:7c91 with SMTP id 5b1f17b1804b1-4bb55a65b31mr117276745e9.18.1794673289246;
+        Sat, 14 Nov 2026 08:21:29 -0800 (PST)
+Received: from DESKTOP-0KSTGNI.localdomain ([197.45.81.39])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb55ae5299sm162652275e9.11.2026.11.14.08.21.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 08:21:28 -0800 (PST)
+From: Temitope obabi <obabitemitope765@gmail.com>
+To: thierry.reding@kernel.org,
+	mperttunen@nvidia.com
+Cc: airlied@gmail.com,
+	simona@ffwll.ch,
+	dri-devel@lists.freedesktop.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	rostedt@goodmis.org,
+	obabitemitope765@gmail.com
+Subject: [PATCH] gpu: host1x: Remove unused host1x_channel_release tracepoint
+Date: Sat, 14 Nov 2026 18:20:06 +0200
+Message-ID: <20261114162006.3673-1-obabitemitope765@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,135 +101,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xowislqauromtdk7"
-Content-Disposition: inline
-In-Reply-To: <20261025213027.842978-1-marex@nabladev.com>
+Content-Transfer-Encoding: 8bit
 
+Nothing calls trace_host1x_channel_release(), so the tracepoint is
+unused. Remove this unused tracepoint.
 
---xowislqauromtdk7
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] Revert "nouveau: pci: quiesce GPU on shutdown"
-MIME-Version: 1.0
+Fixes: 6579324a41cc ("gpu: host1x: Add channel support")
+Signed-off-by: Temitope obabi <obabitemitope765@gmail.com>
+---
+ include/trace/events/host1x.h | 5 -----
+ 1 file changed, 5 deletions(-)
 
-Control: forwarded -1 https://lore.kernel.org/nouveau/aviIPk4xbKhgqcTy@mono=
-ceros
+diff --git a/include/trace/events/host1x.h b/include/trace/events/host1x.h
+index 1b6aeb7b177b..6e9010ec5a3e 100644
+--- a/include/trace/events/host1x.h
++++ b/include/trace/events/host1x.h
+@@ -33,11 +33,6 @@ DEFINE_EVENT(host1x, host1x_channel_open,
+ 	TP_ARGS(name)
+ );
+ 
+-DEFINE_EVENT(host1x, host1x_channel_release,
+-	TP_PROTO(const char *name),
+-	TP_ARGS(name)
+-);
+-
+ DEFINE_EVENT(host1x, host1x_cdma_begin,
+ 	TP_PROTO(const char *name),
+ 	TP_ARGS(name)
+-- 
+2.53.0
 
-Hello,
-
-On Sun, Oct 25, 2026 at 10:30:06PM +0100, Marek Vasut wrote:
-> This reverts commit 310326bb7df4bba094a3fc60364c641c547fd923.
->=20
-> This breaks shutdown on ThinkPad W510, without the offending commit
-> the system normally powers off, with the offending commit the system
-> ends up spinning indefinitely and the CPU fan goes full throttle on
-> shutdown.
->=20
-> The behavior was already reported in debian bugtracker multiple times
-> for various other computers too, and git bisect lands as this commit.
-> https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=3D1141969
-
-I think the original bug #1141969 is a different issue.
-
-> https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=3D1146033
-
-Here it affects a Lenovo ThinkPad T510 and I think that's the same issue
-that Marek has.
-
-
-> I tested the revert with Linux 7.2.12 from debian unstable, not next
-> or drm trees, mainly because it was easier with debian test-patches
-> script on that machine.
->=20
-> Signed-off-by: Marek Vasut <marex@nabladev.com>
-> ---
-> Cc: Danilo Krummrich <dakr@kernel.org>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Li Chen <me@linux.beauty>
-> Cc: Lyude Paul <lyude@redhat.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Ole Carlsen <ole.carlsen@tutamail.com>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Uwe Kleine-K=C3=B6nig <ukleinek@debian.org>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: nouveau@lists.freedesktop.org
-> ---
-> NOTE: Maybe the revert is not the ideal solution, but it does fix my
->       problem, and I think being able to shut computer down is a good
->       functionality to have.
-> ---
->  drivers/gpu/drm/nouveau/nouveau_drm.c | 32 ---------------------------
->  1 file changed, 32 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouv=
-eau/nouveau_drm.c
-> index 5e1336615cf6d..36c74f9edaa83 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-> @@ -1090,37 +1090,6 @@ nouveau_pmops_resume(struct device *dev)
->  	return ret;
->  }
-> =20
-> -static void
-> -nouveau_drm_shutdown(struct pci_dev *pdev)
-> -{
-> -	struct nouveau_drm *drm =3D pci_get_drvdata(pdev);
-> -	int ret;
-> -
-> -	if (!drm)
-> -		return;
-> -
-> -	if (drm->dev->switch_power_state =3D=3D DRM_SWITCH_POWER_OFF ||
-> -	    drm->dev->switch_power_state =3D=3D DRM_SWITCH_POWER_DYNAMIC_OFF)
-> -		return;
-> -
-> -	ret =3D nouveau_do_suspend(drm, false);
-> -	if (ret)
-> -		NV_ERROR(drm, "shutdown suspend failed with: %d\n", ret);
-> -
-> -	pci_save_state(pdev);
-> -	pci_disable_device(pdev);
-> -	pci_set_power_state(pdev, PCI_D3hot);
-> -	/*
-> -	 *  This is just to give the pci power transition time to settle
-> -	 *  before an immediate kexec jump. it=E2=80=99s mirroring the existing
-> -	 *  nouveau_pmops_suspend() behavior, which already does
-> -	 *  udelay(200) right after pci_set_power_state(..., pci_d3hot). In
-> -	 *  ->shutdown() we=E2=80=99re allowed to sleep, so I used usleep_range=
-()
-> -	 *  instead of a busy-wait udelay().
-> -	 */
-> -	usleep_range(200, 400);
-> -}
-> -
-
-I cannot reproduce it, but maybe it's helpful to find out where/how the
-driver hangs. Adding printks might be enough, and if not, remove stuff
-=66rom nouveau_drm_shutdown() until it works. I'd guess this gives the
-needed insights to determine a fix without reverting the identified
-commit.
-
-Best regards
-Uwe
-
---xowislqauromtdk7
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr4iksACgkQj4D7WH0S
-/k5Ddwf/ZQhRWfT25ajkrlMZB7Yy22dbIY9AYVPqks3pLi+iRApmlVlicq/ISs9P
-FZ9vhyC03ZBC36UV0syL4ayAAHBgWL4c7TM1pgLEUlIkVGgCp79svNqrlCXS1FqA
-SVIGEptvevPbe9FfsGoyXhfGPPyxdZ8hEUrijzGJ5GA2MwUfQsYO9+gQP7sw8wOq
-mNvf/HaxcQtH6LZ5i59I1f9ttRmD66s2jCIclrabbn1jiHFjhut/VCwHGvTvsjZf
-wLS5IIxlKJldiaXOLWiFNjS5kpw2vHbNcFsVU+CAk5vJkMdD1r5EZIyIH/jK5RuK
-6RDKqiy/Lgs1+cUfnTFxjKuZwBTHDA==
-=97RD
------END PGP SIGNATURE-----
-
---xowislqauromtdk7--
