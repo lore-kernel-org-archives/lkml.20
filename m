@@ -1,69 +1,69 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794677282;
-	b=UKHASNyB+96s3HogSV2SE5l61w2cX835qrkDNT6LDn/wUe18u3ZPZvy+I+oTYIb5mCc+
-	 4z+e/oXrG0kh/d/jQ5/9ipx7RJPpHoOyzaYqwlkV5x4hBXdPE2Ewzi0CacgzeODFIkSCl
-	 UJGU6/5y/fBykV0auh19pNG3e4uZhewEe2Laka5y78nesET9bUzu+vZFi8Lp8DonrL+Zw
-	 wUtMCIdleMqlSOi0rqYYJaSmqCEViWQiclyQ4/ZaEuGGCiPHy7ZFcC63loGcHEmW8/+kw
-	 Z5i7rImPwmVxf/C8TWw0lYIgY455OwXJ7WrLpI9hRcSsBfnJGZF+SPfhIq7lejJ5kkA==
+	t=1794677286;
+	b=0dZKzCmoQqPqB9DzqA/13o349pk98BxTGU6tVH8KRor4/peWKs+X3gNA91xdCW/98wyC
+	 cOK+ixKYQeSgg1XBuSEwb9skWf9VhwtNfSWftcpvfFzVbbNPcsaCFcYumYoXwPEc8KUc4
+	 u3bwRCgnUwmC3nQalyF9ZtuSakd7yczfnxNZ3i0K8Hxmh3QnRKse+eKawTNdg+zjlXWID
+	 HrOv4k5a1riy/h5/u6ZQvmnPXcCrH9gZEw7t2RyhBGjZEzpkSMpN5kA3mIiuHFUKwuUmg
+	 6NiArsidGrzm2dufFb1Pn0jkJ6SpJ8NdA6XFayK+hUA7kfCz1vkQpbVbR0y2MevAPZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794677282;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794677286;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
 	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
 	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
 	 X-Fangmail-MID-QID;
-	bh=qt+PZYhf7moATmrnYKqOmwNJHY0piXh7VUHf25O4hOA=;
-	b=aOuqCLGUubq95ObL3OeoUWql7OOcvbFBHgcSyLrZmwyu0VcdPNjzXut6mGi7E51Rj80l
-	 lVQzOjlVEI9WMVeQ6X2xwl3Lv+q0zTQpSaLHveHGjQNo/hYrWu24ntXRvwJJZjDsqIkiS
-	 MSQ1oMSTytJY0oRfeMwaxekAS8ceat8IcN1seIfOGtQV84CPIOnZpo4uqUHl2q8ZvS46I
-	 Io5IeT23Vrc1sbbNM606CsCTIHhV353y65w3O6qFuluUEmKGnfJLY/jnj0TMUdMRWUNgU
-	 qkEi+IteP87fhjMUVRACzGJXxer6g+XfuIo4EILUBIq9dVxXm0Hr/53eb3nQELwQNng==
+	bh=LFJIrTHoNKoLywvkyABL7mHp+gK4u9o5oPm8cmfaloA=;
+	b=WB9h8ciEaCXFwk03q8Hrewb0cIMHyQSHkYuf23f+b6o3yB7jS2iDS7nFClURRj+6nrH7
+	 DaSR1wcwhQWN4YE9fNE8Iol7dQQNQnxuYTKOjN1HHfNXQA+A6DZNY2cyAwbviCLZeQ8ab
+	 2EdzX+JauH8FOHAldRXcHkNeFFWiwG2PubGUFtaVzqT0HmbN2fSOfGQu4gLy+lnNW1Q+v
+	 hfM/YHechkDQ83ngsSWha1dOXsToh1OPh83MCApHPnFLLNGdGRIPakli29SCcIP3Z0UO8
+	 HKkkANFWkWOWWUO4Sru/st2/FIwUROSYt3a92tUmltU666CIyQKn1d29x49JUB3t1cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=zte.com.cn;
 	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b="uVRGv/HS";
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b="wh/1xGIe";
 	arc=none smtp.remote-ip=183.62.165.209
 Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7D6A606A337;
-	Sat, 14 Nov 2026 17:28:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7D6A606A337
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9623606A329;
+	Sat, 14 Nov 2026 17:28:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9623606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=uVRGv/HS
+	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=wh/1xGIe
 Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jRh0b3hp4z4xPS1;
-	Sun, 15 Nov 2026 01:27:59 +0800 (CST)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jRh0g6sf3z4xPS3;
+	Sun, 15 Nov 2026 01:28:03 +0800 (CST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794677279;
-	bh=sB1aNW+0iZJGGQWzuqfYmutpRzCDePbP1duuwkfP40U=;
+	s=z202610; t=1794677284;
+	bh=1Mb+x+aS+924O00shC+z1whh+aojOH6IJCSnYH2Yy9Q=;
 	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=uVRGv/HSU3xSduRb81XbodjAeDn7FyXBM7Kj97WR1L1tiwfCGWxm9WJ9tcYxYg8fT
-	 SFEAXgZijZVhSD2uCcEow/r53FYOfRKio6q/aMcqjtZ6VcKA0D2UaTZfxm249HWr/I
-	 hMdJGsE7wlL3EU//HVEFa5EvUHOhnxAYJjcpcIzCQJy2UfDc3eApnCJVSdny1PXf+t
-	 FHaGtQTvIVvUk7zaNv/F/PtgsiNJX6TpDLE9mySQ0ea2A573/xKr7rrhaL1Pz6h620
-	 CNezuHvHoDyEGpk3i2Tn2PEF7px8/Oe3rFC6U//a5mTNPz18fbwuGyAaU9GXuAxNqn
-	 /Ks2K8TfCrYVQ==
-Received: from xaxapp05.zte.com.cn ([10.99.98.109])
-	by mse-fl2.zte.com.cn with SMTP id 6AEHRrRE016766;
-	Sun, 15 Nov 2026 01:27:53 +0800 (+08)
+	b=wh/1xGIeLHq7nomVKFii5/MBr50ubdLBMglX3cf89/OLZAQD4AvUDxTdaHlHnqFG7
+	 znx28WqUBs/2W8tMtWAUpq2/xkNOrjyqIxroNPpSmh0Fy7RKbmCKx7V9iCVKIyot6b
+	 Tx2WxIVV4bnVbqOp2xiLUdzS5TIco8gGU6TowSvUCrVPfEP+uBd3qzoY85sthBsKb2
+	 y7HPKbZNquMk5JY1cDKzsRFAy4vkqcWkIo+nLrBlhG8+PL3Jk4IwgjiHhOa1BY/Gqe
+	 2gEmrHQ0THPd913MxEoSqIFkdrtnB+N56Z2WF4Slo5jaSilDefMyWXjvmck0tDESxE
+	 oaLVdDY+0F/Iw==
+Received: from xaxapp02.zte.com.cn ([10.88.97.241])
+	by mse-fl2.zte.com.cn with SMTP id 6AEHRsme016779;
+	Sun, 15 Nov 2026 01:27:55 +0800 (+08)
 	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp04[null])
+Received: from mapi (xaxapp05[null])
 	by mapi (Zmail) with MAPI id mid32;
-	Sun, 15 Nov 2026 01:27:57 +0800 (CST)
-X-Zmail-TransId: 2afb6af89a1d225-561cf
+	Sun, 15 Nov 2026 01:27:58 +0800 (CST)
+X-Zmail-TransId: 2afc6af89a1e011-53fbd
 X-Mailer: Zmail v1.0
-Message-ID: <202611150127572887TC7vHzVUFLZ6nyW1NuhU@zte.com.cn>
+Message-ID: <202611150127588115YPbE0vZGI-FTHIHXJTI5@zte.com.cn>
 In-Reply-To: <202611150127512368BGQ07ZNIRAIwClkam-8u@zte.com.cn>
 References: 202611150127512368BGQ07ZNIRAIwClkam-8u@zte.com.cn
-Date: Sun, 15 Nov 2026 01:27:57 +0800 (CST)
+Date: Sun, 15 Nov 2026 01:27:58 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,89 +77,81 @@ From: <shao.mingyin@zte.com.cn>
 To: <kbusch@kernel.org>, <axboe@kernel.dk>, <hch@lst.de>, <sagi@grimberg.me>,
         <linux-nvme@lists.infradead.org>
 Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIDQvNV0gbnZtZTogZGVjb2RlIHRoZSBGRFAgR2V0IEZlYXR1cmVzIHJlc3VsdCBhcyBhIGR3b3Jk?=
+Subject: =?UTF-8?B?W1BBVENIIDUvNV0gbnZtZTogYm91bmQgdGhlIHJlc2VydmF0aW9uIHJlcG9ydCByZXRyeSBsb29w?=
 Content-Type: text/plain;
 	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6AEHRrRE016766
+X-MAIL:mse-fl2.zte.com.cn 6AEHRsme016779
 X-TLS: YES
 X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Sun, 15 Nov 2026 01:27:59 +0800
+X-SOURCE-IP: 10.5.228.133 unknown Sun, 15 Nov 2026 01:28:04 +0800
 X-CLEAN: YES
 X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF89A1F.000/4jRh0b3hp4z4xPS1
+X-Fangmail-MID-QID: 6AF89A23.000/4jRh0g6sf3z4xPS3
 
 From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-nvme_query_fdp_info() passes a struct nvme_fdp_config, which is exactly
-four bytes, as the result buffer of nvme_get_features():
+nvme_pr_read_reservation() first reads the reservation status header to
+learn the number of registrants, allocates a buffer of that size, and
+then reads the full status.  If the registrant count changed in between,
+it frees the buffer and jumps back to get_num_regs.  There is no limit on
+the number of retries:
 
-	struct nvme_fdp_config fdp;
+	if (num_regs != get_unaligned_le16(&rse->regctl)) {
+		kfree(rse);
+		goto get_num_regs;
+	}
 
-	ret = nvme_get_features(ctrl, NVME_FEAT_FDP, info->endgid, NULL, 0,
-				&fdp);
-	if (!(fdp.flags & FDPCFG_FDPE))
-		return 0;
-	ret = nvme_query_fdp_granularity(ctrl, info, fdp.fdpcidx);
+The count comes from the controller and a target that keeps flipping it
+(possible for a malicious NVMe-oF target) makes the ioctl loop forever.
+Each iteration issues two Reservation Report commands and allocates up
+to struct_size(..., 65535) bytes, and the calling process ends up in an
+uninterruptible loop that cannot be killed.  Daemons that issue this
+ioctl, such as cluster lock managers, get stuck with it.
 
-nvme_features() stores the result with
+Allow the retry only a few times and report -EAGAIN when the controller
+still does not provide a consistent report.
 
-	*result = le32_to_cpu(res.u32);
-
-i.e. it writes a CPU-endian dword through the pointer.  On a big-endian
-host this puts the flags byte in the fourth byte of the structure, so
-fdp.flags is always zero and FDP support is silently disabled, while
-fdpcidx would be read from the wrong byte.
-
-Read the result as a u32 and decode the flags and the FDP config index
-explicitly, which works on both endiannesses.
-
-Fixes: 30b5f20bb2dd ("nvme: register fdp parameters with the block layer")
+Fixes: 28c97ba38ff9 ("nvme: Add pr_ops read_reservation support")
 Cc: stable@vger.kernel.org
 Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 ---
-Tested on 7.3.0-next-20261030 under QEMU/TCG (guest s390x, big-endian),
-loop transport + file-backed namespace.  The nvmet target needs no FDP
-hardware: a TEST-ONLY stub (applied to both kernels) advertises FDPS and
-answers the FDP Get Features / configs log / RUHS commands; the only
-difference between the two kernels is this patch.  The FDP probe runs
-during namespace scan; the verdict is
-/sys/block/nvme0n1/queue/max_write_streams (= nr_plids):
+Tested on 7.3.0-next-20261030 (QEMU/TCG guest) with the loop transport and
+a TEST-ONLY nvmet hook that alternates the registrant count between the
+header-only and the full Reservation Report.  The hook is compiled into
+both kernels and only the host fix differs; no extra hardware is needed.
 
-  unpatched (big-endian): max_write_streams=0  FDP silently disabled
-  patched   (big-endian): max_write_streams=1  FDP registered
+One PR key is registered, then the guest issues
+IOC_PR_READ_RESERVATION.  The header report always says one registrant
+and the full report says two, so the retry loop never converges:
 
-On x86 (little-endian) both kernels report max_write_streams=1, i.e. no
-regression.
+  unpatched                            patched
+  ioctl never returns (the runner      ioctl returns -EAGAIN after
+  hits its timeout)                    three inconsistent report attempts
 
- drivers/nvme/host/core.c |    6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/nvme/host/pr.c |    4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-index a7a4d09644c1..45feafa00325 100644
---- a/drivers/nvme/host/core.c
-+++ b/drivers/nvme/host/core.c
-@@ -2339,8 +2339,8 @@ static int nvme_query_fdp_info(struct nvme_ns *ns, struct nvme_ns_info *info)
- 	struct nvme_ns_head *head = ns->head;
- 	struct nvme_ctrl *ctrl = ns->ctrl;
- 	struct nvme_fdp_ruh_status *ruhs;
--	struct nvme_fdp_config fdp;
- 	struct nvme_command c = {};
-+	u32 fdp;
- 	size_t size;
- 	int i, ret;
+diff --git a/drivers/nvme/host/pr.c b/drivers/nvme/host/pr.c
+index fe7dbe264815..fab3bad2e2e0 100644
+--- a/drivers/nvme/host/pr.c
++++ b/drivers/nvme/host/pr.c
+@@ -275,7 +275,7 @@ static int nvme_pr_read_reservation(struct block_device *bdev,
+ 		struct pr_held_reservation *resv)
+ {
+ 	struct nvme_reservation_status_ext tmp_rse, *rse;
+-	int ret, i, num_regs;
++	int ret, i, num_regs, retries = 0;
+ 	u32 rse_len;
+ 	bool eds;
  
-@@ -2351,10 +2351,10 @@ static int nvme_query_fdp_info(struct nvme_ns *ns, struct nvme_ns_info *info)
- 		return ret;
+@@ -305,6 +305,8 @@ static int nvme_pr_read_reservation(struct block_device *bdev,
+ 
+ 	if (num_regs != get_unaligned_le16(&rse->regctl)) {
+ 		kfree(rse);
++		if (++retries >= 3)
++			return -EAGAIN;
+ 		goto get_num_regs;
  	}
- 
--	if (!(fdp.flags & FDPCFG_FDPE))
-+	if (!(fdp & FDPCFG_FDPE))
- 		return 0;
- 
--	ret = nvme_query_fdp_granularity(ctrl, info, fdp.fdpcidx);
-+	ret = nvme_query_fdp_granularity(ctrl, info, (fdp >> 8) & 0xff);
- 	if (!info->runs)
- 		return ret;
  
 -- 
 2.43.0
