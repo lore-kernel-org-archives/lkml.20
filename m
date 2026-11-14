@@ -1,94 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794651016;
-	b=fBHbEkepuVqI/7hcmr3kKLbv3gofMMW+pOdeFmojIRbZDSs2WBLL/beQMlFPK/4JiQIe
-	 6SOc2VjVDBU/wtWMUu2DSxIocvrSwvHo+QQ50mXGw11boLc/XywRq1hH24fC+o87tlpJp
-	 +Ukn7JV1Jrq6gFJ75KsYQI7beOEbuMkSlZaeY92wcGPpxVyhgH6lsIxFGE3Eqq5M3tWa0
-	 HzjC/KRKujVQFhn4pS24FjDXycnwLIAvbBof0NnpxdYCPATQNClB0alNgq3q5uQXlAfhj
-	 LTUniQAj7BG2abtxSJ7Au88BraPQHoFvZEb6YqKN1oxMzBqbP8naJckImlxj7InP8zg==
+	t=1794651134;
+	b=uMOcfIUAvnIUpkeDDqyag8V8FF2dgZNXb+Nv9V5a4LGL9+rskGBhT1G4eWoP4wp3UhCK
+	 h2z6oS+CuvdXbM2r+Xv19rNxmS95FP3q2/FIuQZ6EwS1k7i1KwC05CE8j07+nGoQssy5G
+	 vWkrnPKV2JSDEx4izOSNFOZXXy9TeEVLv/yXVtZO+8GduNYWM9nzJyvrIteNAL+saR4z3
+	 dCXCJunvRzuYCN7vWLGGp2aB5j2gfvMNb+YSQpnock5wyfgHTCQ1GqxYgNuuU2kOTDgmc
+	 qpVz+4YMKMfDYy28Hg/Oni5AeanJjr/cR5g+oZ8WMV681TfCSTP5BVRfUJ4w7CTIJ1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794651016;
-	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
-	 X-UI-Sender-Class:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
-	bh=BFBaVnuXXjZ851rUgHHwu+q1SxO/ZY1qzZBaupExlXQ=;
-	b=TWG9KAGxZ3XVBE20EZxKNKuMQi861GDQHk+je0wOKTyDO+hum+yLunv4IgvWJDTkzPGI
-	 +amAooEYhASY/4sgwRAbWEoRO9FL73e6W9oa77G+rrUT3uCFqGJ9+G1JxI84fYt89rvea
-	 kle5nSRBicr/JoVScUzzk0eZ3jid4gWwJPzf9H7Sp3nK6pYQ2sKCvTOXKIdypEcfhtyWD
-	 K17oyht6hTDeg3/txIzTc1Te2S7nlAcSIiHOkFHBj+i7OEnUz6ICcAmX+LvBoqZC8sMJv
-	 9HqtpdrSI+ZKoB17UVkL2M05sGNzpc7i8ys1/MdAo3b71Q5wbzPdnc1mfSZ2IiCuSIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794651134;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=lQt1j0RzsOrMUs+ezkU5e16z6y2hdKRE1AH6Wd6E6Fs=;
+	b=F+/HDEnXBI1VNm1h1V4jG+Q+CdPv1zQG8mFRRR301bOitz7OywvNyD3jFmcC8J2UZnou
+	 rkA6nsUUjh8RSQeIflaQaxEKILh4NZ7nazCTpNWo4V+z3ZAUAsr0/7AgOKW8Afkl5KkW5
+	 r4KDSO3ZDXJlTcaYTrKvlCNpmdDdiAMIzfRvBmUukDI0z8IcFaYPh3giCGKdzCNXaZJLS
+	 Uyn+J83IF/dbf4ak7ccDTWz86zqnLRAebpCG0Y9+Z4jLS0wBeD2LOvPNGdC6R1i84nwag
+	 YVExV3RieEQf0K/viFuGgXi6TiDS6DH/f+7vvcEZmVAz53m/xp4nBDT0c+VLmht5I2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmx.de;
-	spf=pass smtp.mailfrom=gmx.de;
-	dkim=pass header.d=gmx.de header.i=f3lix.dev@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=YypRp1xo;
-	arc=none smtp.remote-ip=212.227.17.20
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=kenhou.net;
+	spf=none smtp.mailfrom=kenhou.net;
+	dkim=pass header.d=kenhou-net.20260707.gappssmtp.com header.i=@kenhou-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=pHo5s6it;
+	arc=none smtp.remote-ip=209.85.216.42
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50172606A32E
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 10:10:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50172606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24225606A32D
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 10:12:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24225606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kenhou.net
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=kenhou.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=f3lix.dev@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=YypRp1xo
-DKIM2-Signature:  i=1; m=1; t=1794651013;
- mf=PGYzbGl4LmRldkBnbXguZGU+;
- rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
- d=gmx.de;
- s=s31663417:rsa-sha256:W1rfaaevLOBCwj1bGkWP+LXrWupc
-   j8p2LJ2f2hsm38VIpTAxG88MNflPnbesqpvB+kOkyn03fXN0HC/MAAgwXpHVD/n7rIBG+iQJ2wT
-   ZcKOKMixnyCUb7tz1nq0LTXuRZTNDIz/iarkKQ7YQPa5ohQEjk/2yyN5wUeXUqMKWwQM8+5cOOK
-   YuX2Syv92T8M1NGiKytBINRqsFZEK4fo7DQ2vWwSw/NANZe0hfnO3aTWMLH/ocD5tKVU2n17vkY
-   J9zd6ChLpn6WL6NeutkMTy5+7tyFVm4CAih7i2YiduYq+Pr4R6TzdixjAeWP4XqPreylSZeXcL2
-   hPuc0ynkUDz+NQ==;
-Message-Instance:  m=1;
- h=sha256:
-   alSbCpZ91EYHNQXcny9APJalaZrWF8ldj3J7ofgoWHk=:
-   BFBaVnuXXjZ851rUgHHwu+q1SxO/ZY1qzZBaupExlXQ=,
-  sha512:
-   d09dKlAkvRdpsn52HsYzofq12yvWPncVL0ADgRSQ1400HUVgnukTfwFVnuJM6HdgEVW6X2BjKKjyClvkXycdSA==:
-   jwtpE5vit8F0Jwz9sXdY9O8VxNpqfgSYNL1Z4KEf+JLFPFME5p9jCja5c+/iU2TSnyLpffj48xdaaz9HLpFKgQ==;
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1794651004; x=1795255804; i=f3lix.dev@gmx.de;
-	bh=BFBaVnuXXjZ851rUgHHwu+q1SxO/ZY1qzZBaupExlXQ=;
-	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=YypRp1xoEwiOxT/dfPQdV0Dbp8rQaETojk++hkfmQNuSHLSbXP/WYUWIfmKyPgUS
-	 n1yxjk7DE0VjCXyilB6R/a2itLpAdoy2PQ4+K3cLl4bCV3xlc8UpTnMWdT90UWjr6
-	 7pZTAXdnEETyW72j2qBdu3bgqzqHtXniknDSw+O5pcQLiXdZ9IbV4eqyYV9GtdZ22
-	 HfluKnwn/R9waX/3GUH3zje/DHsU/PsF4SlcRfLuZsfZ+1aS1WpI+1X1Y26TrwQiz
-	 ibeVsnNn5a2uDg+NrT4WOodGlaIXo7KKZI6MhwmIedR+PnOByFX09T3Sxr8ZoXKzD
-	 0fiz3wxUIMNPXX0EkA==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MZCfJ-1wxfFS3niT-00Kx9c; Sat, 14
- Nov 2026 11:10:04 +0100
-From: Felix Hoffmann <f3lix.dev@gmx.de>
-To: Harry Yoo <harry@kernel.org>
-Cc: Jann Horn <jannh@google.com>,
-	Matteo Rizzo <matteorizzo@google.com>,
-	Tamas Koczka <poprdi@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	linux-mm@kvack.org,
-	Kees Cook <kees@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Hao Li <hao.li@linux.dev>,
-	Christoph Lameter <cl@gentwo.org>,
-	David Rientjes <rientjes@google.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	linux-hardening@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/slub: Flush virtual-slab work before cache destruction
-Date: Sat, 14 Nov 2026 11:09:54 +0100
-Message-ID: <20261114100954.8262-1-f3lix.dev@gmx.de>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179462737686.1463521.17920259642574913474@kernel.org>
-References: <20261113221330.162567-1-f3lix.dev@gmx.de> <179462737686.1463521.17920259642574913474@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kenhou-net.20260707.gappssmtp.com header.i=@kenhou-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=pHo5s6it
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3b083afebe4so351706a91.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 02:12:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kenhou-net.20260707.gappssmtp.com; s=20260707; t=1794651133; x=1795255933; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lQt1j0RzsOrMUs+ezkU5e16z6y2hdKRE1AH6Wd6E6Fs=;
+        b=pHo5s6itd3olfR7NaG4QNASWSQSctFgaaTOX6BuF2JvOsb5+P/6IXPo0qMuZVNsXfc
+         q3paQHeIPgHyHpBKKabaNQh7BLWS5b1PSzl/DssUbQGvujKy+pAsUc7bcpU1Ot/k1LrC
+         bOLbKkmtlQ2a5ciS/+KgY8R5C2exS45WVlmYmOgq+KhCuOOeDHdIpAQ9Djw85AV/xRSO
+         ugBuGWO9V2wDV1qsiWYWvcs+4tx6wDUehVYKGwYSTX3q3BzrzeCZbuveBAXDpoAP7wUv
+         XL/xOdP/58W04HkTHJBwAuxQ8lnHpTp4oouZ3wFBJNJovqfWR+B/1Jn99uEEBKnkHTGc
+         mpsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794651133; x=1795255933;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lQt1j0RzsOrMUs+ezkU5e16z6y2hdKRE1AH6Wd6E6Fs=;
+        b=1w/0ti8ElbXGQj+i5tqb3eLluFQSryaGPD4amoXT1VBqg02wNSl/ruGX2BIB+71Lcy
+         EOQQLkX/UraP4jB930kjXe78Qlg0Bv1YpqHQJm6Fb3SU6Cywf2y4aqFbkSIpXK0JZz7D
+         CFz7XVCF8qUnYkgKeOnm9WAMjHdgVrOHJkkkU3OqSgkGsfcjERM+RKgggOZsgUZMJCGe
+         FW4nxOzwbR1hUIjrfxGDGw9DtCh/zJEjgT0jgsHGP0Q2ESgw4Bv1IlJl4kbrkydNBFnO
+         GmF/iu+fry3Kr1VHQSlKDTXYaGl6jtxws0i+4FDxODKUR0xPKLQ5ezoFY08P1m13vGzk
+         p7Dg==
+X-Forwarded-Encrypted: i=1; AL+hErHfLNmH1OdRHPFoIjHW1OuvhYm10HP76+HKOoyz4EmPV46KWqqy1+0029OwS/3SbPUY6bY7CD3KLNKyRbQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/PFji4utiVfXXnEdsAoPvmzR6p46rmZAL3JsEP7NO9LE2erHSP
+	Roz1O2QCx0SXXFkd8FCPeIQr+PwjdrhalWHXc1gfuzQtH+Y+raIPS9gGwMCbIBBPgrQ=
+X-Gm-Gg: AYBFou0RMoYRpyrOuUyfJWJmzFTZqVDnKxL5tDBO6crFa6QgGww/M+1HkpNfpjn5CSb
+	ITB+6qMRIL1rVuBYUGBy8RyGdv+QzkhrUIxxZ0AKtQoREI10+XLIXp3tvKrfioNfHKM1ijMcAWH
+	m66IoGfU9sgXLl2UPOUWyFV1m/a3HbP6IR71jWQa0nZV3W25PiZSal9IfpXz+Yc0ffJdlBR/2VB
+	8rHey393moz+p0LSM33DZ69s0ck2Fuw8xWn5PQZ1YmFtHBQGKmk2xmNEMYHMuyyMn+d3iE1Hr+H
+	+69OOCuejkzfpctNXVhB3WKL8gdlZc8h167cTwwiPggCNdZUX+NDoJ/NpId5rSi4xK0f0VNh3BX
+	ncyOtSp3W02PDm0Avc2bmh95d5Omd1VR5ufx1wILnpXuc3M3BmevNcIDAJJbnwaHF++o1kXq0ZJ
+	wrQ6WFJY820ld06tEjmdM/1QIY1Xoi3ZtB+hbDJA1MR/euQJzOQ613FQbaCWNJwV6gspg+Skcle
+	UWA2PiEHbginpGirZs9Bwa9xyg21ogkKUiT6njvfk1+bhGg6P6Zb5GYavLOnzmhcSVB0VSOaMrH
+	eKP8ReNXbcP9mj40mwUHhp8HvxpEyNh0U2zRx611dufu4S9P9ZZFqW0KlLDQCphpIqUp6MXZdy4
+	1zQW0mYFDtp0/cStjkwDi9Q==
+X-Received: by 2002:a17:90b:2f46:b0:3ab:a188:b898 with SMTP id 98e67ed59e1d1-3b1b0853790mr7855496a91.2.1794651133412;
+        Sat, 14 Nov 2026 02:12:13 -0800 (PST)
+Received: from kenhou-claw.tailf09bb7.ts.net (p1571063-ipxg05601hiraide.tochigi.ocn.ne.jp. [153.185.50.63])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197d282fdsm13654845a91.14.2026.11.14.02.12.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 02:12:12 -0800 (PST)
+From: Kenhou Iijima <kenhou@kenhou.net>
+To: "Derek J . Clark" <derekjohn.clark@gmail.com>
+Cc: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	Denis Benato <denis.benato@linux.dev>,
+	Zhouwang Huang <honjow311@gmail.com>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Kenhou Iijima <kenhou@kenhou.net>
+Subject: [PATCH] HID: hid-msi: Drain orphan MCU ACKs by issuing a query
+Date: Sat, 14 Nov 2026 19:10:45 +0900
+Message-ID: <20261114101045.21986-1-kenhou@kenhou.net>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,129 +101,99 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Provags-ID: V03:K1:/7XGH/JyQuF1z5DlFnc1FHyZ9hJzJWiJ5xBd1e14Z0+/63cXasQ
- wekWSuQ9jG7/jifJ3I9rsGL3iIDbY/cEer65sTWgh2ZQJaGrIj77cBNo0D3UD2EvPg2uKkA
- XsORYQ9fdrtjsoeKa8ilQpayd5bCEEfpAmssiZQHz9x89M4vBiaHdyMsA4pv6HDt9rgEbES
- Y0kQGOZFmmcLUZWAD/zDQ==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:k/aWCZLHD2Y=;zX4xJVdq5xvoUkVohchbVQPtZl/
- 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
 
-Hi Harry,
+The Claw MCU re-sends an unhandled ACK roughly every 2 seconds until it
+receives another command. When an ACK arrives with waiting_cmd set to
+CLAW_COMMAND_TYPE_NONE, such as after a command is written through
+hidraw or once orphan_ack_pending has been cleared without a subsequent
+command, the driver currently logs "Got unexpected ACK from MCU,
+ignoring" on every re-transmission and never clears the MCU's pending
+ACK state.
 
-Thank you for catching this. You're right: CONFIG_SLAB_VIRTUAL is not in
-mainline.
+Schedule a work item that issues a harmless READ_GAMEPAD_MODE query when
+an unexpected ACK arrives. Receiving any command causes the MCU to stop
+re-sending the pending ACK, eliminating the repeated events and log
+spam.
 
-This patch is against the public, out-of-tree SLAB_VIRTUAL feature branch:
+Fixes: a9517958e828 ("HID: hid-msi: Add MSI Claw configuration driver")
+Signed-off-by: Kenhou Iijima <kenhou@kenhou.net>
+---
+Tested on an MSI Claw 8 AI+ A2VM (0db0:1901, bcdDevice 2.30).
 
-https://github.com/thejh/linux/tree/slub-virtual-v7.2
+ drivers/hid/hid-msi.c | 25 ++++++++++++++++++++++++-
+ 1 file changed, 24 insertions(+), 1 deletion(-)
 
-I tested it on commit 699594e8888d (slub-virtual-v7.2-rc5), and confirmed
-that the same issue is present in slub-virtual-v7.2. I intended the fix
-for the feature authors to fold into a future revision of their series.
+diff --git a/drivers/hid/hid-msi.c b/drivers/hid/hid-msi.c
+index 23d731f700..e52923fcc8 100644
+--- a/drivers/hid/hid-msi.c
++++ b/drivers/hid/hid-msi.c
+@@ -332,6 +332,7 @@ struct claw_drvdata {
+ 	enum claw_profile_ack_pending profile_pending;
+ 	struct completion orphan_ack_complete;
+ 	struct completion send_cmd_complete;
++	struct work_struct orphan_ack_work;
+ 	struct delayed_work cfg_resume;
+ 	struct delayed_work cfg_setup;
+ 	spinlock_t registration_lock; /* Lock for registration read/write */
+@@ -532,7 +533,12 @@ static int claw_raw_event(struct claw_drvdata *drvdata, struct hid_report *repor
+ 		}
+ 
+ 		if (drvdata->waiting_cmd == CLAW_COMMAND_TYPE_NONE) {
+-			dev_warn(&drvdata->hdev->dev, "Got unexpected ACK from MCU, ignoring\n");
++			/*
++			 * The MCU re-sends an unhandled ACK roughly every 2 s
++			 * until it receives another command. Drain it by
++			 * scheduling a harmless query so the ACK storm stops.
++			 */
++			schedule_work(&drvdata->orphan_ack_work);
+ 			break;
+ 		}
+ 
+@@ -653,6 +659,20 @@ static int claw_hw_output_report(struct hid_device *hdev, u8 index, u8 *data,
+ 	return __claw_hw_output_report(hdev, index, data, len, timeout);
+ }
+ 
++static void claw_orphan_ack_drain(struct work_struct *work)
++{
++	struct claw_drvdata *drvdata = container_of(work, struct claw_drvdata,
++						    orphan_ack_work);
++
++	/*
++	 * A query is enough to make the MCU stop re-sending the pending ACK.
++	 * claw_hw_output_report() also waits for any orphan ACK before
++	 * sending, so this cannot interleave with a real command sequence.
++	 */
++	claw_hw_output_report(drvdata->hdev, CLAW_COMMAND_TYPE_READ_GAMEPAD_MODE,
++			      NULL, 0, 25);
++}
++
+ static int claw_switch_mode(struct hid_device *hdev, enum claw_mode_field field, u8 val)
+ {
+ 	struct claw_drvdata *drvdata = hid_get_drvdata(hdev);
+@@ -1868,6 +1888,7 @@ static int claw_probe(struct hid_device *hdev, u8 ep)
+ 	spin_lock_init(&drvdata->rumble_lock);
+ 	init_completion(&drvdata->orphan_ack_complete);
+ 	init_completion(&drvdata->send_cmd_complete);
++	INIT_WORK(&drvdata->orphan_ack_work, &claw_orphan_ack_drain);
+ 	INIT_DELAYED_WORK(&drvdata->cfg_resume, &cfg_resume_fn);
+ 	INIT_DELAYED_WORK(&drvdata->cfg_setup, &cfg_setup_fn);
+ 	INIT_DELAYED_WORK(&drvdata->rgb_queue, &claw_rgb_queue_fn);
+@@ -1934,6 +1955,7 @@ static void claw_remove(struct hid_device *hdev)
+ 
+ 	cancel_delayed_work_sync(&drvdata->cfg_resume);
+ 	cancel_delayed_work_sync(&drvdata->cfg_setup);
++	cancel_work_sync(&drvdata->orphan_ack_work);
+ 
+ 	scoped_guard(spinlock_irqsave, &drvdata->registration_lock) {
+ 		/* Pairs with smp_store_release from cfg_setup_fn in system_wq context */
+@@ -2014,6 +2036,7 @@ static int claw_suspend(struct hid_device *hdev)
+ 
+ 	cancel_delayed_work_sync(&drvdata->cfg_resume);
+ 	cancel_delayed_work_sync(&drvdata->cfg_setup);
++	cancel_work_sync(&drvdata->orphan_ack_work);
+ 	cancel_delayed_work_sync(&drvdata->rgb_queue);
+ 
+ 	return 0;
+-- 
+2.56.0
 
-I failed to state that dependency in the subject and body, so the
-standalone email misleadingly looked like a patch against upstream. That
-was my mistake, sorry for the confusion.
-
-Jann, Matteo, and Tamas, please let me know if you would prefer the fix
-in a differently labeled or rebased form.
-
-Thanks,
-Felix
