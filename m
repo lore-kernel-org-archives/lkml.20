@@ -1,104 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794657492;
-	b=N1c40mXTrwAveAvYAo7gWis6AUcvCL7ATYQ/1jeEoPojYvF7pAhyLxZvGXL6DNQW+IEJ
-	 2CxAV4Ok2hMyf0CihyVptj6Q//CEppNrv1uhcJg7v4u55+0m7L+k67zHT4bzcEpEfB+VI
-	 DAQHMI2B7K33h+TfFMDJ9jENMaEG9U5A4tP/0m8FYwizW+lsGgyHq1niOFja9IRO952D3
-	 vJWhwemlBs7IpZ9SpUEL3GwUCnHDUNqW4nNq8aN73auUFX+Hud7sRsQnFpMmjK72FybGq
-	 U20rF6caia8ZsOR24Nv9uZljlyMcIpXwDjBTtdyxyT6vmTIyJAu41B7hF5LG6RvOhpg==
+	t=1794657519;
+	b=JzYu9h17jhYtSypD8ALes3azbKggL4HGtFK96zLpIcOnR5r6k7ue35v0ZaP4TjubFcNy
+	 5ztPQd0qJ1fX5NXTrhSiOpxcdoSs6QFEw9bGzUquhUvVkPAPd3pTwAjn1IpaGoD4Edta0
+	 o+Trq1Nmbh10KB9yOBinB97DNwE3AccyA+6A90d03R4l8EBihkpDSS3F0yq+6hb//UdQg
+	 rGWXrO49cvbqMMX7mWibztDUYlDpqRrVyPZNZEoAOSeOtXef2TjTDvexj81HRP9iAUWQl
+	 QSgEr47FHSqtekY4la0u+WQzjJerSHrMioUpsK9mHgj1P0XhG5HtM2lQO7lrjwSe1Eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794657492;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=biJ9EAFLEA1rR//T+aJGjeK6yGVa5a+nAsg2mX8Jh6g=;
-	b=FqQFzev0+aFANOY4lmrMNlL936TriIESpESfhZC8/nzB7bzRONOXDMcugKmJIB1fHFav
-	 AQ2wzcQiZquRLofx4lpP5ImkSxEM4pgs7G5jmCwveG8UoqecmtCLtQrH6KCeKsbFlbm30
-	 h/wtT5c9siFdGOv0uH8gFvtmyBevf8/KpfLfT1emyyYPDthuEoWzUW7D6N4hxFhmFUAD7
-	 V+UZRjjjf7zELZcwvMBlBCUrFuWbFk/eLeUpbZcl/RO8KYF/v0choSwwXodKrcIOKf4Rb
-	 gw6PY/bG/3v0LYjvzTPme7qiTS9vTL2eznEGpIdmeml2htD6EP9zwVvVPlzcGZs41PQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794657519;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=aw+1Wz0JP4ofF8gkClchV+X87uIHF+8HMsD+9rA1Woo=;
+	b=b4d7RZzCN0zvrYbaUcVwmTohuyKWCN1zsg3c2vQ6NCymiek4cl1XAtyYN5PX+M8BhpKv
+	 /mkTrcfwE+yfsj8n1wfYgck3EstPcQFpvK23r7jrJj5XkueAdmClacS/vanv0DrtEPWOw
+	 8ZqMLNwXpjttW1qtLK8/Hv3SYqJHNxA4DPo+sAfUZAeFFEC8H/tnLvkIvLAv/xxOVBW6Q
+	 sfbkxUZl1nU8Crz6Nx/LIEhnYPXiBv7vKY8SXU9waYj46AC3hi/lVIwGdRbyWaUEMsl2Y
+	 JTIR0oskCnX7RiogWikZRJlhBAai/3IcnfVN2J/iuDHXmeZ2vZJQhYC9y8aETIe5vMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jKHVAcOC;
-	arc=none smtp.remote-ip=209.85.167.43
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SaTa6Pod;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99A93606A329
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 11:58:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99A93606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2BDB606A332
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 11:58:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jKHVAcOC
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5be3d5927ceso2738064e87.3
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:58:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794657490; x=1795262290; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=biJ9EAFLEA1rR//T+aJGjeK6yGVa5a+nAsg2mX8Jh6g=;
-        b=jKHVAcOCtl0g3TbME2TVA8rBXQlEpflGEVNVnIu8kkRI5VOx8kaxiHhfwPDIO6LDSN
-         8PliQDEjRwUhhPY9pLFLX1VJCV+dZra1+K56u+DxkRa+PG4pvRAIcQMeR4mL7K2TF8/r
-         d2dHkwnRQEfHTw2mD/w8VsBULvHZ0MP1M/2IzPLfj3Z5SyIlVvLW4xz6ilftQu8yVdBZ
-         JLc6cTJsOHmku+brJT0yxgp2PJJ4bKk6NT2MCQgZmYBIf6XbxGOXIDERe6V8nkIhKOO9
-         VgmyAZd4C1NTszBkb6wphO5xC/8wPMS8WjD3NKLHj8nTim2zvxbOnjJKBjei2qxK8wHs
-         leew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794657490; x=1795262290;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=biJ9EAFLEA1rR//T+aJGjeK6yGVa5a+nAsg2mX8Jh6g=;
-        b=tJtuBawmkWDnN/Hccf+iGJWSwQmd8rauZWPL894aaIMaCfau0sTk8yjYDU+A9SDBAC
-         /d7FK06XTiLd8ky9RMa/wx8YEIMI1xjvxvB2kNFwHH/WTkezG0zMCoNw9hqQ/uvlmLV7
-         Q0E8XZans4za4HU8uNg0wG8yK1pKF/wDcZTrg8p3+qmc8ie3DkXjogKiHXBuBO11NAsh
-         1RXJ1Bk6wgXy0qXAXDl2kNx4bDJVKlUIlv2yHcv+3xKkZBvP/MMBTMzJQk+qOzFUUltX
-         YEr/rpP4c1E+skFcFy1xewFAEuj9fm1notrREgWDapwN9CP69hS8yP6bNWbkyIBijjBR
-         kCEA==
-X-Forwarded-Encrypted: i=1; AL+hErGkh4MZqw5Gjj/HZrRE7qzAeIQAi+UrKLoVeG9pq8heeg7gVnujy/Dn2iPTBb/FsCuTHVPUmnO7YumcXzs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9/isY6jzH6Id8+85FHOBbV2Bn1rLaK/owr6nInF5/sjdEEnO9M
-	CZr5HeirlHhq1N+aKt+C6EzXOs7btNGFZNB8h4O2P5MOin0AaLnwxc1R
-X-Gm-Gg: AYBFou09fuNi0qcUTDSAEsFv0lezgSviwAntPgqZHfshBpkKh7YRJCSX0ouBCwOiy1z
-	+mnToI/4tQAjgjQH/c+/uYwUpZMa9+KmeIPHEHpTeGhaI9ymjuS58JjsrgiiwHgAqDHdSz/noch
-	Z/Zvcp1oJQxSHd9YMi1d0fP4AsaV9y/8zklvE7fXGnSJdvKifFCFZB6YxnFBwQ5EZPumXIwW5g5
-	tK3myODm3cX6vFH+8ETWUv1pXjsR/btWw5uVuT8iLbE/+oRUFb3UI1FGL4cPVfXStYXnV81VKjz
-	iDAAgMN5nH+DGU+ZQ2WcFF8kYABVCoiyeBNR2E4DQd5Chc7tE5GPGqwMbHfOxUYiURVZL1R9wNo
-	d4KLo537ZcolviPh8mODA4+BTnlubDJ8hp+2SpzO664mBy4P2VXJAK9mx15t7hVuLzNAilqF2S4
-	BRIFzK4okkZDkd1oOR6iiXvnSyrtL/jHPVZeHNOpj5OH2pUd5TYK8S/GRjjD2hrc2iGx/E5Kp21
-	FeLejG5EDAOuE8F7HFXTnuyZul/lj8qO8GHgW9L0YGlR6myvuCIqpp/BuMFOj0TUMSfySZx6A2X
-	whBtC/TNe6myktT3Pc24Usxn3K+08yAIVgtIoHwEKf2x9+og8KVFHStXeG4cGzG5jsLXM6uXI6c
-	/s0Rr8IwZFE6pKleJtf+pd8TDs5OrEDtNOVhmL+c=
-X-Received: by 2002:a05:6512:1048:b0:5c1:5958:a7e4 with SMTP id 2adb3069b0e04-5c17077eaaemr1886702e87.15.1794657489552;
-        Sat, 14 Nov 2026 03:58:09 -0800 (PST)
-Received: from yantra.. (nekmmqusxj170dz200l-1.v6.elisa-laajakaista.fi. [2001:99a:d7d:c300:b551:8edb:536d:8395])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c17133c9d3sm1606436e87.38.2026.11.14.03.58.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 03:58:09 -0800 (PST)
-From: Rupesh Majhi <zoone.rupert@gmail.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Andy Shevchenko <andy@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Eddie James <eajames@linux.ibm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Paulius Zaleckas <paulius.zaleckas@gmail.com>
-Subject: Re: [PATCH v2 2/2] iio: pressure: dps310: add a data-ready trigger
-Date: Sat, 14 Nov 2026 13:58:01 +0200
-Message-ID: <20261114115801.57701-1-zoone.rupert@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <sashiko-outbox-214316@kernel.org>
-References: <20261114083828.18059-1-zoone.rupert@gmail.com> <20261114083828.18059-3-zoone.rupert@gmail.com> <sashiko-outbox-214316@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SaTa6Pod
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEB4B1F000C5;
+	Sat, 14 Nov 2026 11:58:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794657519;
+	bh=aw+1Wz0JP4ofF8gkClchV+X87uIHF+8HMsD+9rA1Woo=;
+	h=From:To:Cc:Subject:Date;
+	b=SaTa6Podsj4SGzoyxS3CUbFpQWUHfYrmgzbbx6B4hwAJzq0QSIunRpS3eSKHTcHLw
+	 0g8rTcTgicPuZcskL90SL8vxrwn2pwPREyJAzNpRcai0vpryMnbibx2zypp7YH2N5R
+	 rwE+XLDjn75rqGjQQlLF+OhKdRcTqDww19DalkMKtVmxkDKpdhj59pcxeCd3Lw5bSI
+	 G1MZaCfzgofCTZFic3ZOb/xW7jkw9JXZAd3CCtcFpyyvUmdkGIocTEmB9O787jqFIK
+	 a5tpknvofY2+jzRcBn9PF10L5gWn/mZt073BNBtEIRNTNWyV4vINXWY6dVd/g6aaCB
+	 RFgvdSXo+Qx4Q==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>, Zhiqi Zhang <zhiqizhangg@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, linux-kernel@vger.kernel.org
+Subject: [GIT PULL] bootconfig: Fixes for v7.4-rc3
+Date: Sat, 14 Nov 2026 20:58:36 +0900
+Message-ID: <undine-1794657516055390723-80ad11d1aac80df5@undined.local>
+X-Mailer: UndineD 0.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,20 +55,215 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-On Sat, 14 Nov 2026 08:59:52 +0000
-sashiko-bot@kernel.org wrote:
+Linus,
 
-> Does triggering on DPS310_INT_PRS block in dps310_fill_channels() waiting
-> for DPS310_TMP_RDY whenever the pressure rate exceeds the temperature rate?
+Bootconfig fixes for v7.4-rc3:
 
-Yes, without the trigger handler fix the cover letter points to:
+- bootconfig: Allow keys with the maximum supported depth
+  Check the array capacity before storing the next key component in
+  xbc_node_compose_key_after() so keys at XBC_DEPTH_MAX (16) are composed
+  instead of failing with -ERANGE when listing keys or creating
+  /proc/bootconfig.
 
-https://lore.kernel.org/linux-iio/20261113230241.82046-1-zoone.rupert@gmail.com/
+- bootconfig: Trim unquoted values at end of file
+  Trim trailing whitespace from unquoted values in __xbc_parse_value()
+  after scanning finishes so values at end of input without a trailing
+  newline do not retain extra whitespace.
 
-It is against the fixes branch, so this base does not have it. With it
-applied the handler does not wait: 32 scans in 4 s with pressure at
-8 Hz and temperature at 1 Hz, 5 without.
+- tools/bootconfig: Close only opened braces in compact output
+  Check key children while skipping value nodes when backtracking in
+  xbc_show_compact_tree() so a brace is not closed when a single subkey
+  under a valued key was printed in dotted notation.
 
-Rupesh
+- tools/bootconfig: Test listing keys at the maximum depth
+  Add regression tests verifying that a 16-component key can be attached
+  and listed in full while a 17-component key is rejected.
+
+
+Please pull the latest bootconfig-fixes-v7.4-rc3 tree, which can be found at:
+
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git
+bootconfig-fixes-v7.4-rc3
+
+Tag SHA1: ef934e66dc2ea3b19bcad8722df6beaff4f5e34c
+Head SHA1: 381b391bfaa3f10d52da4740529804b0b6b8160d
+
+
+Eduardo Mucelli Rezende Oliveira (2):
+      tools/bootconfig: Close only opened braces in compact output
+      bootconfig: Trim unquoted values at end of file
+
+Zhiqi Zhang (2):
+      bootconfig: Allow keys with the maximum supported depth
+      tools/bootconfig: Test listing keys at the maximum depth
+
+----
+ lib/bootconfig.c                                  |  7 +++---
+ tools/bootconfig/main.c                           | 29 +++++++++++++++++------
+ tools/bootconfig/samples/exp-good-mixed-kv1.bconf |  5 ++++
+ tools/bootconfig/samples/good-mixed-kv1.bconf     |  5 ++++
+ tools/bootconfig/test-bootconfig.sh               | 28 ++++++++++++++++++++++
+ 5 files changed, 64 insertions(+), 10 deletions(-)
+---------------------------
+diff --git a/lib/bootconfig.c b/lib/bootconfig.c
+index 819685d6c68d..948c8c10e4b9 100644
+--- a/lib/bootconfig.c
++++ b/lib/bootconfig.c
+@@ -428,9 +428,9 @@ int __init xbc_node_compose_key_after(struct xbc_node *root,
+ 		node = xbc_node_get_parent(node);
+ 
+ 	while (node && node != root) {
+-		keys[depth++] = xbc_node_index(node);
+ 		if (depth == XBC_DEPTH_MAX)
+ 			return -ERANGE;
++		keys[depth++] = xbc_node_index(node);
+ 		node = xbc_node_get_parent(node);
+ 	}
+ 	if (!node && root)
+@@ -793,16 +793,17 @@ static int __init __xbc_parse_value(char **__v, char **__n)
+ 				return xbc_parse_error("No value delimiter", p);
+ 			if (*p)
+ 				p++;
+-			break;
++			goto skip_trim;
+ 		}
+ 		if (strchr(",;\n#}", c)) {
+ 			*p++ = '\0';
+-			v = strim(v);
+ 			break;
+ 		}
+ 	}
+ 	if (quotes)
+ 		return xbc_parse_error("No closing quotes", p);
++	v = strim(v);
++skip_trim:
+ 	if (c == '#') {
+ 		p = skip_comment(p);
+ 		c = '\n';	/* A comment must be treated as a newline */
+diff --git a/tools/bootconfig/main.c b/tools/bootconfig/main.c
+index 6f476e3c06b8..d3f840c5adce 100644
+--- a/tools/bootconfig/main.c
++++ b/tools/bootconfig/main.c
+@@ -68,6 +68,23 @@ static int xbc_show_value(struct xbc_node *node, bool semicolon)
+ 	return i;
+ }
+ 
++/* Match the conditions under which the compact formatter opens braces. */
++static bool xbc_node_needs_braces(struct xbc_node *node)
++{
++	struct xbc_node *child = xbc_node_get_child(node);
++
++	if (child && xbc_node_is_value(child))
++		child = xbc_node_get_next(child);
++	if (!child)
++		return false;
++	if (child->next)
++		return true;
++
++	/* A single subkey with both a value and subkeys is not compacted. */
++	child = xbc_node_get_child(child);
++	return child && xbc_node_is_value(child) && child->next;
++}
++
+ static void xbc_show_compact_tree(void)
+ {
+ 	struct xbc_node *node, *cnode = NULL, *vnode;
+@@ -128,14 +145,12 @@ static void xbc_show_compact_tree(void)
+ 			node = xbc_node_get_parent(node);
+ 			if (!node)
+ 				return;
+-			if (!xbc_node_get_child(node)->next)
++			if (!depth || !xbc_node_needs_braces(node))
+ 				continue;
+-			if (depth) {
+-				depth--;
+-				for (i = 0; i < depth; i++)
+-					printf("\t");
+-				printf("}\n");
+-			}
++			depth--;
++			for (i = 0; i < depth; i++)
++				printf("\t");
++			printf("}\n");
+ 		}
+ 		node = xbc_node_get_next(node);
+ 	}
+diff --git a/tools/bootconfig/samples/exp-good-mixed-kv1.bconf b/tools/bootconfig/samples/exp-good-mixed-kv1.bconf
+index 8346287d9251..0b8b2f59da31 100644
+--- a/tools/bootconfig/samples/exp-good-mixed-kv1.bconf
++++ b/tools/bootconfig/samples/exp-good-mixed-kv1.bconf
+@@ -1,2 +1,7 @@
+ key = "value";
+ key.subkey = "another-value";
++a {
++	b = "v";
++	b.c = "w";
++	z = "q";
++}
+diff --git a/tools/bootconfig/samples/good-mixed-kv1.bconf b/tools/bootconfig/samples/good-mixed-kv1.bconf
+index 1761547dd05c..35442ee62b75 100644
+--- a/tools/bootconfig/samples/good-mixed-kv1.bconf
++++ b/tools/bootconfig/samples/good-mixed-kv1.bconf
+@@ -1,3 +1,8 @@
+ # value -> subkey pattern
+ key = value
+ key.subkey = another-value
++
++# A valued parent with one subkey must not close its enclosing brace.
++a.b = v
++a.b.c = w
++a.z = q
+diff --git a/tools/bootconfig/test-bootconfig.sh b/tools/bootconfig/test-bootconfig.sh
+index 530ce7e28d63..f584f7637e12 100755
+--- a/tools/bootconfig/test-bootconfig.sh
++++ b/tools/bootconfig/test-bootconfig.sh
+@@ -100,6 +100,16 @@ xpass $BOOTCONF -a $TEMPCONF $INITRD
+ printf "badnode\n" >> $TEMPCONF
+ xfail $BOOTCONF -a $TEMPCONF $INITRD
+ 
++echo "Max key depth check"
++
++printf 'a.b.c.d.e.f.g.h.i.j.k.l.m.n.o.p = "value"\n' > $TEMPCONF
++xpass $BOOTCONF -a $TEMPCONF $INITRD
++$BOOTCONF -l $INITRD > $OUTFILE
++xpass cmp $TEMPCONF $OUTFILE
++
++printf 'a.b.c.d.e.f.g.h.i.j.k.l.m.n.o.p.q = "value"\n' > $TEMPCONF
++xfail $BOOTCONF -a $TEMPCONF $INITRD
++
+ echo "Max filesize check"
+ 
+ # Max size is 32767 (including terminal byte)
+@@ -171,6 +181,24 @@ $BOOTCONF $INITRD > $OUTFILE
+ xfail grep -q 'val[[:space:]]' $OUTFILE
+ xpass grep -q 'val2[[:space:]]' $OUTFILE
+ 
++echo "Remove unquoted trailing whitespace at end of file"
++printf 'foo = val \t' > $TEMPCONF
++$BOOTCONF -l $TEMPCONF > $OUTFILE
++printf 'foo = "val"\n' > $TEMPCONF
++xpass cmp $TEMPCONF $OUTFILE
++
++echo "Remove trailing whitespace from the last array value at end of file"
++printf 'foo = first, last \t' > $TEMPCONF
++$BOOTCONF -l $TEMPCONF > $OUTFILE
++printf 'foo = "first", "last"\n' > $TEMPCONF
++xpass cmp $TEMPCONF $OUTFILE
++
++echo "Keep quoted trailing whitespace at end of file"
++printf 'foo = "val "' > $TEMPCONF
++$BOOTCONF -l $TEMPCONF > $OUTFILE
++printf 'foo = "val "\n' > $TEMPCONF
++xpass cmp $TEMPCONF $OUTFILE
++
+ echo "Showing correct line:column of no closing brace"
+ cat > $TEMPCONF << EOF
+ foo {
+
+-- 
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
+
