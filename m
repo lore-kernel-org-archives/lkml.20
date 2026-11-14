@@ -1,58 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794682151;
-	b=ZcyHaky4nd8/TZu5lleFuSP2ElKJJ767uTB42TfLXOtdluDYqukYFss/jTx0qnWv51AI
-	 yBg7EPyeEMbG8I2QcnF+LBfTzn9SXo+hZ90VI/V2RkBv1EpcTMu7EfiZ6qczLZBhUFrhu
-	 gXGc5/aVbKlCWzYMGf2eYDqwCbbWKzZFtnx2sMeDQmhu8731Nuo25wCmULemAeR6b9Qxq
-	 7ZgQsqAMYyMCqFqNzRp1dWsnXd8jc1GWALbw0JRKNiEnmkA3YGljY5LFhEHN2o3oOYWDL
-	 Ii8zDADvCNB+IFMt40V89GKbjyuM6Ek1c9MgyfGsp9Xu1TJonYRcP3B4xwnxCBl2kBg==
+	t=1794682213;
+	b=cryMNy+eJte5NlMDafnRjOonFbTEWRyC6rHrW/UtFHP94hROPuFYs0yUoVwCQ2QZClM7
+	 ghbAZ9laZh1zUJFWG0FH9ca1Obp5p1BtUKgxB25MedmSqCX0xBJWNU+xNZJKRFjrVK+oE
+	 b6X8OKfVRU3pmV76fxDZVLlMn3czddgWcFuwJ+Hx0mtw/sGQNQ7vZ/DVrEh/5mIHrOnqx
+	 pn5sZ2VBDNWJIMbj8pIH68yzsQR8Q+vREaFjTl4Amxc1fmEtiUi+MhZ+sVfSMSQZ5HtF3
+	 6o0herEC5hTtkiREa4VmHDuCMThPfD48HsfRw0oArYE/ukm2+jhb1n8cFeXRGIPC5/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794682151;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=4j5FMF5C4EhW1bxk07JPFMLAnl1AANpWbiGuP7NZOZQ=;
-	b=ESC1K4cXOQZ9Gr+5SEowhsVuOVJHXiLHTXts5yD0iqax+fA2wtQ+4UGlu2w120GBur2x
-	 Hth2Xy+5HOKrWqHsLQk/ysKSxs9H5tGMLy8jFOj0lw/Nu1QLjDP5sW0+VXy/tcFBmNkqg
-	 By65meAFhWtkMPKr8bVdPphhotreG7uZv8B1B/H6isD27GreVtuuv9CoMg+ntOPYrp2Mk
-	 2DbLSNGupNBQhzWSwztauc7kmmYOzc3MCSknAVdirCEXh2m3QA9O842eKdvyZO7Hhv7SU
-	 1bLk9AqgZuxSNeYMB+Ly1huJPFyk87jectWvZ2YUJK0l1peXo+m5H7ghNhcFSs1OGjg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794682213;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=6xQJHpQerxueZgSogacTE7b0iwConrmYrNibhXyywJM=;
+	b=lk3Se8t/z8HbnACbSJsoXrWexdjm/r0aRlQzD+OFsAm3hF60IzHmnAkoJ+L3fj81OpyF
+	 biDQ1DSfBMIWskAXojWqaZN6RajP1WLbwTXFkQwicc60EAABhKfQTUvX7X4WLvhjv3q9E
+	 17H1OraNlJdkrgyptqqDYOTACAmNcODaPZFK095iIF/GwALf1/FcRJlAz6b06mX5Ec8m4
+	 7/FT1ZSgBjfJXChgx0whp8JJi+0coQfh09NyaSkxPDkMj1E8brVXbpNv7fJZoO1WE3yoe
+	 DJ+av7kddWX8WTC99NQoJbv4nS5YraGWusEe6s9QsO+ASzsFh8lSy18kTyKSSs3G6ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nrWLf64z;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e1dFKZqc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EBA3606A323;
-	Sat, 14 Nov 2026 18:49:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B537D606A33D;
+	Sat, 14 Nov 2026 18:50:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nrWLf64z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65D791F000C4;
-	Sat, 14 Nov 2026 18:49:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e1dFKZqc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44DCA1F000C4;
+	Sat, 14 Nov 2026 18:50:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794682150;
-	bh=4j5FMF5C4EhW1bxk07JPFMLAnl1AANpWbiGuP7NZOZQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nrWLf64z26dKbtwiJU0scBzerlSr8X31TWZdpQoEwyFJr/4jeE69GwTRmA2VlrDVq
-	 lgp9/zZLgztThA+eu+X4aJECDZoQN04otHbP6AvTrh997qBxKgJBRRY3URgbnnzQ6Y
-	 7t964v8ZiuOKqNwvrN7xr0msSLz+8DgbaRYni6Cag1GBNFm2XTO3WeVMsEA+TgcQ1U
-	 3q397dwRUmLSkjToYXIjtQ+RyerKfGkuOYaPLSIVIc2eZ2tHTwCWP6Wqwv+ZY3jvXY
-	 y7tntkc3SVFmgzeAy1GDKdXTmXdfQoOFPO3gwrI3nsvfVGuMKT/vvulf2AVHDvJlDf
-	 J9XdlZPOz159g==
-Date: Sat, 14 Nov 2026 18:49:09 +0000
-From: Yosry Ahmed <yosry@kernel.org>
-To: Zide Chen <zide.chen@intel.com>
-Cc: Sean Christopherson <seanjc@google.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, 
-	Jim Mattson <jmattson@google.com>, Andi Kleen <ak@linux.intel.com>, 
-	Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>, 
-	Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>, 
-	Dapeng Mi <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
-Subject: Re: [PATCH v4 01/21] KVM: SVM: Drop counter MSR checks in
- amd_is_valid_msr()
-Message-ID: <avis5Ose25IiYM2S@google.com>
-References: <20261112203227.289379-1-zide.chen@intel.com>
- <20261112203227.289379-2-zide.chen@intel.com>
+	s=k20260515; t=1794682213;
+	bh=6xQJHpQerxueZgSogacTE7b0iwConrmYrNibhXyywJM=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=e1dFKZqc6ctn8XmWc09XtrE5CdY6nmzuEi0RowNAYezXqQEv7SCtMeDhNaz1B6jze
+	 GNS5PaOFyZ7VvTp7njEuRje7wKqwZHD4zQZtIyLiPwwqz9inZs8Ogf8c3ME5OGkYo6
+	 swIOF/4YKrQ5hKlCbcijA4ZEJY0qk+nxqmM6wy0A3yhsce+mOSj2XbPPVyl0LwwPnV
+	 z3E36fn1+KdXtymESnzlTXyWkcuNhhIzx79G5yX4mp2wM50AhGXcc3wfjcproqp6AR
+	 +6fFS0e+M7TzA7I4lohPGnxVqTDlByTXL75CuW6sxp8s2xxFJV9zda1CfZk4q7ALC4
+	 g17rOBs1N1g0g==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A37E380821F;
+	Sat, 14 Nov 2026 18:50:13 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,76 +53,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261112203227.289379-2-zide.chen@intel.com>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH bpf-next] bpf,
+ cgroup: Don't lose errors in effective BPF_LSM_CGROUP queries
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179468221178.2337414.12793151681977264587.git-patchwork-notify@kernel.org>
+Date: Sat, 14 Nov 2026 18:50:11 +0000
+References: <20261112183804.1171535-1-shakeel.butt@linux.dev>
+In-Reply-To: <20261112183804.1171535-1-shakeel.butt@linux.dev>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: bpf@vger.kernel.org, ast@kernel.org, daniel@iogearbox.net,
+ andrii@kernel.org, martin.lau@linux.dev, eddyz87@gmail.com, memxor@gmail.com,
+ song@kernel.org, yonghong.song@linux.dev, jolsa@kernel.org,
+ emil@etsalapatis.com, ihor.solodrai@linux.dev, sdf@fomichev.me,
+ sashiko-bot@kernel.org, kernel-team@meta.com, linux-kernel@vger.kernel.org
 
-On Thu, Nov 12, 2026 at 01:32:07PM -0700, Zide Chen wrote:
-> amd_msr_idx_to_pmc() accurately validates individual counter MSRs by
-> checking whether the corresponding counter is supported for the vCPU.
-> Validating counter MSRs again in amd_is_valid_msr() is redundant.
-> 
-> Furthermore, validating counter MSRs using broad checks like
-> "pmu->version > 0" or "PERFCTR_CORE" is inaccurate and misleading. It
-> falsely validates unexposed counters, which then fail in
-> amd_pmu_{get,set}_msr(), injecting an errant #GP instead of taking
-> KVM's fallback (read 0, write ignored) and breaking migration for
-> unadvertised counters.
-> 
-> Finally, the range check in the default case is dead code because AMD
-> CPUs currently support at most 6 Core Perf counters. Even if future AMD
-> CPUs support more than 6, counter MSRs would still be sufficiently
-> validated by amd_msr_idx_to_pmc().
-> 
-> Drop the counter cases and dead range check from amd_is_valid_msr(),
-> leaving counter validation solely to amd_msr_idx_to_pmc().
-> 
-> Fixes: 4a2771895ca6 ("KVM: x86/svm/pmu: Add AMD PerfMonV2 support")
-> Reported-by: Jim Mattson <jmattson@google.com>
-> Signed-off-by: Zide Chen <zide.chen@intel.com>
+Hello:
 
-Should we also drop the get_gp_pmc(.., MSR_IA32_PERFCTR0),
-get_gp_pmc(.., MSR_P6_EVNTSEL0), and get_fixed_pmc() calls from the
-default case in intel_is_valid_msr()?
+This patch was applied to bpf/bpf.git (master)
+by Alexei Starovoitov <ast@kernel.org>:
 
-They are also covered by intel_msr_idx_to_pmc() IIUC.
+On Thu, 12 Nov 2026 10:38:03 -0800 you wrote:
+> An effective BPF_LSM_CGROUP query walks one attach type per LSM hook.
+> __cgroup_bpf_query() sets ret to -ENOSPC before the loop when prog_cnt
+> is too small, but the effective branch then overwrites ret with each
+> type's copy result:
+> 
+> - If the buffer runs out exactly at the end of a type, the last copy
+>   returns 0 and the query returns 0 instead of -ENOSPC.
+> - If one type's copy faults and a later one succeeds, the query returns
+>   0 instead of -EFAULT.
+> 
+> [...]
 
-> ---
-> v4:
-> - New patch. (Jim)
-> ---
->  arch/x86/kvm/svm/pmu.c | 9 +--------
->  1 file changed, 1 insertion(+), 8 deletions(-)
-> 
-> diff --git a/arch/x86/kvm/svm/pmu.c b/arch/x86/kvm/svm/pmu.c
-> index c18286545a7a..bf2f23c30afc 100644
-> --- a/arch/x86/kvm/svm/pmu.c
-> +++ b/arch/x86/kvm/svm/pmu.c
-> @@ -106,23 +106,16 @@ static bool amd_is_valid_msr(struct kvm_vcpu *vcpu, u32 msr)
->  	struct kvm_pmu *pmu = vcpu_to_pmu(vcpu);
->  
->  	switch (msr) {
-> -	case MSR_K7_EVNTSEL0 ... MSR_K7_PERFCTR3:
-> -		return pmu->version > 0;
-> -	case MSR_F15H_PERF_CTL0 ... MSR_F15H_PERF_CTR5:
-> -		return guest_cpu_cap_has(vcpu, X86_FEATURE_PERFCTR_CORE);
->  	case MSR_AMD64_PERF_CNTR_GLOBAL_STATUS:
->  	case MSR_AMD64_PERF_CNTR_GLOBAL_CTL:
->  	case MSR_AMD64_PERF_CNTR_GLOBAL_STATUS_CLR:
->  	case MSR_AMD64_PERF_CNTR_GLOBAL_STATUS_SET:
->  		return pmu->version > 1;
->  	default:
-> -		if (msr > MSR_F15H_PERF_CTR5 &&
-> -		    msr < MSR_F15H_PERF_CTL0 + 2 * pmu->nr_arch_gp_counters)
-> -			return pmu->version > 1;
->  		break;
->  	}
->  
-> -	return amd_msr_idx_to_pmc(vcpu, msr);
-> +	return false;
->  }
->  
->  static int amd_pmu_get_msr(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
-> -- 
-> 2.56.1
-> 
+Here is the summary with links:
+  - [bpf-next] bpf, cgroup: Don't lose errors in effective BPF_LSM_CGROUP queries
+    https://git.kernel.org/bpf/bpf/c/e6cd32b8dbea
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
