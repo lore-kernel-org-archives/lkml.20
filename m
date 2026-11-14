@@ -1,61 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794614516;
-	b=i24EddeFI0509m55/ymif8RYgVKco+9cXSvJcXDzzaIN43aBzCR3/tVkVSqETqgkR4Iz
-	 YhGwgcc+ghCXHii+WtrI3H+R2ztrLTzx4AQxGpEphmyYGvM1O9si0Vv0u01BkmoDy/l8/
-	 rTRHwHxP9JJnwM/+NF/JlHiInLKnCXkddcDIMH+YvWIVbXSSOD8UTpDyN/cORzgE6xpQd
-	 FeKeFmR3EhrbZz9LfmVevV7cbmHGNhA7uE/nNSbM+H/QlclM3Cl6YW4mPlycDNBLouVUj
-	 up+ApJmT6PT0B+8Mwouv3hAvDhaLCmIpuIVgSfhNd9WzVu1C2NArB8eVkm0dsVj8qNw==
+	t=1794614547;
+	b=VF48VmgKljaewVER5T0tzC5qZXA2gjJZCpBgTY05pBjdhKkqtHfNpDOb6Sx6P5minbNN
+	 GNFKgnTBJ9MclnQoD99ZQoID89vSTB3tZ4VFn+WnW5PMA03HndCd+T9trP8OWbYHxdrgt
+	 MUn3B22okWzNotilMjh2anHZelH/6YfyGrWPRy24rSsaUfzr2PtRtEt7UUotx6zS5At8v
+	 9rbic8TMLaa5THfp/rGsnPsXT9BDZgqLAf9Jto9cIFAhcpxpVlsEa4+BXOhYmuOTX18VG
+	 TtFhSEsbu8+aO7i2gD2np097G3ifvpYKAKdhVGki8Sr3qTWMY136kv5v5yFMyABPSNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794614516;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794614547;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=TcE1lzRstwloJsqmEE00Egrk9Ryl3qjzIWZnUVNIPmg=;
-	b=ZRw0qJ6+FTpJ02HqmHOwXIbzJWCNhn+PtuRg/mX5WIHa4vuQyLBNcjSRnCpfdLNB2H4G
-	 dT+Bn4dAGbbLQnjgwJI6o+AlrXYx2yhN1gC+b8rwxqYLGaL29tFxHbcGtmvlVhnPfY60+
-	 fMppxObq3kaZTZJ6T31x31V6oPwWfEAskhsgNVCAD6qTEZGzg2wM4hPxopbXeFCupbJc6
-	 LcpZJ/lJ38OX8Vt7jEtT2k/9AM2eKm+e8l6bbVqgcy7uLBz0JRYlWB9MpqiM4sDtcxnyP
-	 Fy1LoKKRo3Bz1ZuqRVjxq4+8TgVys5d53tnUDO/jJTqT2fl2DnYBmuNsCgUGgOGLl+g==
+	bh=kxRETnsBm6VnWvhVvC7Nguz7Rrl10P8nelMFGOXi2xg=;
+	b=0V89gJ3YWTEvimw8NYR5jQT4uvTemG1c442BSmGpAFrWnmFB4PahR2bvfrvmcSWyVXbY
+	 LIkIcZzHB75U/SIK1BxngM+lc1wA28qkc2cfA391DFwnKH1ej76f8XychwH2ASqzrTHPI
+	 PQPFfoUiBsFREpNa+FAyau0oETJfQd1AdtMCMka0wwCJ42vSt5UD2uaiQKCONv/tk8OES
+	 DR1CATTryrdmNRcOgcUYJytErRiCSKpe+QeMj83thBTOFean10wZlX6j+Oh9aWUJtvIrH
+	 1rBESqJS0D4Ll0P/z2o8DukdHFG52FIgE+62GFZfd1XNOgJtdnXNTjagc8JYXGaq41w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mke91yiG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=N9buWkxV;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEE48606A329;
-	Sat, 14 Nov 2026 00:01:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF3DA606A336
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 00:02:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF3DA606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mke91yiG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 211711F000C4;
-	Sat, 14 Nov 2026 00:01:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794614516;
-	bh=TcE1lzRstwloJsqmEE00Egrk9Ryl3qjzIWZnUVNIPmg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=mke91yiGfT3RLRiwlm56Xuq4Ya8wX+nP7tnk796KpJGSy+ncrTgGKr2udXQv4gJdv
-	 cXhvnbQD4eqPnYYh859sfCZ8+06F6TeAbpLK96f3lTcLO0TH4P9hdfmhgL6g4NrEWn
-	 cDymXnrhxtItOUQbDvTDfA2Opc7vj8C91Tq4OE3aoVNRI+4K6/QV2ZGTkXAGIiB62r
-	 dQp9030CQ/yxNzBhLRVJGpSrv1ebryvlyNyMZo8k4DqtitLg9DBAqQawZbGvAHQvif
-	 IpnE85lTm0d8TKjZ0fm6cxtT/k0pDfLYg8/1aPOX803hbLsy6yvE6kf8eNT0rdwlQf
-	 3FBZykMz/KdRw==
-Date: Sat, 14 Nov 2026 00:01:50 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: Akhilesh Patil <akhilesh.patil@linux.dev>, andy@kernel.org,
- krzk+dt@kernel.org, dlechner@baylibre.com, robh@kernel.org,
- crofts@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-rtc@vger.kernel.org, akhileshpatilvnit@gmail.com,
- akhilesh@ee.iitb.ac.in
-Subject: Re: [PATCH v4] MAINTAINERS: Update Akhilesh Patil Email address
-Message-ID: <20261114000150.10237279@jic23-hlaptop>
-In-Reply-To: <202611130735579e063959@mail.local>
-References: <20261112091641.GA3643677@u5ce4748bae3b54.ant.amazon.com>
-	<20261113011957.5d8836ff@jic23-hlaptop>
-	<202611130735579e063959@mail.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=N9buWkxV
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso2700337eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:02:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794614545; x=1795219345; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kxRETnsBm6VnWvhVvC7Nguz7Rrl10P8nelMFGOXi2xg=;
+        b=N9buWkxVsPWUF7Wm8IEY+qKOjay49Vms7+Ng+fde0FZj17F8b1nXN9efqNsI16Ee97
+         DkLj1XN+FvhumFynxFuMeMTHQLp9jIxc1FgsbO5GWu/m+yq1V0gsfr1A9S5bvywswmco
+         7tArPcpFu+TwZelBZ1Yq9/qZIEawBJvanUdNTSSaAT+Mlv7W5vSf9WztzClX+NsdEo5+
+         p2gBNuB1twVFSw0Tcd9/QsCevKIJOJkkf48/6PV76ObeCKS6lohNqb9EOag63uiTd/Vn
+         jFvVsuOGUm7PZmxStFBjVfbysYfyErbWXYwnwU6RUed+dluW0Tc0VVyCtUoL2kL04mNo
+         DSBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794614545; x=1795219345;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kxRETnsBm6VnWvhVvC7Nguz7Rrl10P8nelMFGOXi2xg=;
+        b=t7ixT0vyz8w7ipBx9pWUtVhR66+C/B1plTBvFLfaTMXTLkKgo6E9U2HGFiXdLp/+mW
+         dQoQBPOJr04q3lXpPjEZAlLNp0HUpQsefqVJZt+aQhxTy65WJ/TCUTI/RnO/PPsQS7tU
+         p/yUFOQzLR90yy11Peviq8y2bR7O0bO42h/uIroF2rdd3/Tce+aWqZTu9BVl3zl7sj67
+         rrraUPKcP4B9XbqYeqMQDGjatvZtGdG6cibgnjTQIZNR4yNls8DVFspY9LLKG9MbjFL5
+         KxPLc8XCNX/AKUivPtPHcWHZwDdPgu20PZslIrgGbW3JSPGpBPQthLZdjpfLSYTJaHMC
+         eliQ==
+X-Forwarded-Encrypted: i=1; AL+hErEa2aOUHjIGBLR9lXcBdIOy02jf+Zr5+/YlND+0gSkowWtnTOqDnuYauqFjiifzibDn+BV+4vuILvwBsO0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+1iuRFaqz9Mp3OmiVSPOLyx47cQT7vIYtzk54yqbOUQmv2ccHM
+	yXxoBtvxZUHh55mSQ1YadQ8C68S3864cI5k3VeXhehs2zlw0h3PyQD6g
+X-Gm-Gg: AYBFou3CNTlX/cJAbjqIgnwAyRAo2DV0kOdbmueZ+MGCjF/+Zou1+xw7EbEncnZRDwM
+	WouFG4rdO0w40UCLauflv3LUGAAhU6J+jj2qBtxB989k2ne1QOdvXMp1wLsSjzdY8N393Bwyzov
+	CTv9uV5J6r+N/CZod7c6KA7jmMj+RkJrwL7QAUvzo2ZhasMkv+MVBBQqJx/+B+LuwfB4kvgZYls
+	QHhTPbKXBuot6rrCyahik7a8dU0DfdV6q/fXfIF9E1N/soW0kuygcErWB1dyjoC/I8kCtR3hG88
+	chN917O2iwrLijF/FiWa5t/dbotyh+NXZry1PWK8tRBk++3j/5QJuDu8Z2ggwQQ8ub2fkG1z+22
+	UtLwaoedUierWvF/mH3g42gmnKIOc+wLPKbKhDQbEbxTcY9MxI4eQWwCROC7Hm4p7eTKayIKYTJ
+	WNMzKzcSgW+hEh33hh+D4j6cr8QVCj0Lg5jpet3ITSq5VV17s3sc+zcEeMPkH9dGbVhsgtyVljC
+	NdRz4JMPCMfkHKeFZiphYlgi+nzwAUpo8/wCkwVsknGocgqToSgMlMKiXfO1hDwnW5QvtfCzhIP
+	dKEjGTuWJ9y76QHySdbsQx5+7QMAOrs20XWNBQ+axga0/QY7s7F6+Ztqqm5/qAS/2F7D8JXLruN
+	0eU6YnRNZRlxQ1or//w==
+X-Received: by 2002:a05:7300:bf9c:b0:375:370e:f1ff with SMTP id 5a478bee46e88-379671238f1mr3369208eec.35.1794614544915;
+        Fri, 13 Nov 2026 16:02:24 -0800 (PST)
+Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:560:7267:5908:e9a5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d269asm11309849eec.23.2026.11.13.16.02.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 16:02:24 -0800 (PST)
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Andy Shevchenko <andy@kernel.org>,
+	Svyatoslav Ryhel <clamor95@gmail.com>,
+	"H . Nikolaus Schaller" <hns@goldelico.com>
+Cc: Andy Shevchenko <andy.shevchenko@gmail.com>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Johannes Kirchmair <johannes.kirchmair@skidata.com>,
+	Yuki Horii <yuuki198708@gmail.com>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/3] Input: tsc2007 - drop unnecessary cast in tsc2007_calculate_resistance()
+Date: Fri, 13 Nov 2026 16:02:18 -0800
+Message-ID: <20261114000220.1280581-1-dmitry.torokhov@gmail.com>
+X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,140 +101,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Fri, 13 Nov 2026 08:35:57 +0100
-Alexandre Belloni <alexandre.belloni@bootlin.com> wrote:
+The resistance value is already bounds-checked against U32_MAX before
+returning from a function returning u32, so the explicit cast is
+unnecessary. Drop it.
 
-> Hi,
-> 
-> 
-> On 13/11/2026 01:19:57+0000, Jonathan Cameron wrote:
-> > On Thu, 12 Nov 2026 09:16:41 +0000
-> > Akhilesh Patil <akhilesh.patil@linux.dev> wrote:
-> >   
-> > > Move to my new linux.dev email address akhilesh.patil@linux.dev
-> > > I plan to use this email for kernel development going forward.
-> > > Also update email address in few yaml and driver source files.
-> > > 
-> > > Signed-off-by: Akhilesh Patil <akhilesh.patil@linux.dev>  
-> > 
-> > I can pick this one up with an rtc ack, or it can go through that
-> > tree. I don't mind which.
-> >   
-> 
-> It makes more sense that you take it.
-> 
-> Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Applied to the testing branch of iio.git (not because this needs
-much testing obviously - but other stuff I've queued up does!)
+Suggested-by: Andy Shevchenko <andy@kernel.org>
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+---
+ drivers/input/touchscreen/tsc2007_core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Jonathan
-
-> 
-> > Acked-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-> > 
-> > Thanks,
-> > 
-> > Jonathan
-> >   
-> > > ---
-> > > 
-> > > Changes in v4: 
-> > > - No source change.
-> > > - Added entire change log for all versions.
-> > > - Link to v3: 
-> > > https://lore.kernel.org/linux-iio/20261110052942.GA2505113@u5ce4748bae3b54.ant.amazon.com/
-> > > 
-> > > Changes in v3: 
-> > > - Fixed order of entry in .mailmap
-> > > - Link to v2: 
-> > > https://lore.kernel.org/all/20261109104443.GA531570@u5ce4748bae3b54.ant.amazon.com/ 
-> > > 
-> > > Changes in v2:
-> > > - Updated email ID in relevant device tree source files and driver source files.
-> > > - Link to v1: 
-> > > https://lore.kernel.org/linux-iio/20261109063924.GA118887@u5ce4748bae3b54.ant.amazon.com/
-> > > 
-> > >  .mailmap                                                      | 1 +
-> > >  .../devicetree/bindings/iio/pressure/aosong,adp810.yaml       | 2 +-
-> > >  Documentation/devicetree/bindings/rtc/st,m41t93.yaml          | 2 +-
-> > >  MAINTAINERS                                                   | 2 +-
-> > >  drivers/iio/pressure/adp810.c                                 | 4 ++--
-> > >  5 files changed, 6 insertions(+), 5 deletions(-)
-> > > 
-> > > diff --git a/.mailmap b/.mailmap
-> > > index 7fb33babc931..d09fd3708023 100644
-> > > --- a/.mailmap
-> > > +++ b/.mailmap
-> > > @@ -27,6 +27,7 @@ Adrian Bunk <bunk@stusta.de>
-> > >  Ajay Kaher <ajay.kaher@broadcom.com> <akaher@vmware.com>
-> > >  Akhil P Oommen <akhilpo@oss.qualcomm.com> <akhilpo@codeaurora.org>
-> > >  Akhil P Oommen <akhilpo@oss.qualcomm.com> <quic_akhilpo@quicinc.com>
-> > > +Akhilesh Patil <akhilesh.patil@linux.dev> <akhilesh@ee.iitb.ac.in>
-> > >  Alan Cox <alan@lxorguk.ukuu.org.uk>
-> > >  Alan Cox <root@hraefn.swansea.linux.org.uk>
-> > >  Aleksandar Markovic <aleksandar.markovic@mips.com> <aleksandar.markovic@imgtec.com>
-> > > diff --git a/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml b/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
-> > > index ad5f26ce5043..ca4d4210f609 100644
-> > > --- a/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
-> > > +++ b/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
-> > > @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
-> > >  title: aosong adp810 differential pressure sensor
-> > >  
-> > >  maintainers:
-> > > -  - Akhilesh Patil <akhilesh@ee.iitb.ac.in>
-> > > +  - Akhilesh Patil <akhilesh.patil@linux.dev>
-> > >  
-> > >  description:
-> > >    ADP810 is differential pressure and temperature sensor. It has I2C bus
-> > > diff --git a/Documentation/devicetree/bindings/rtc/st,m41t93.yaml b/Documentation/devicetree/bindings/rtc/st,m41t93.yaml
-> > > index bdd995c5c1f4..837679dc01ac 100644
-> > > --- a/Documentation/devicetree/bindings/rtc/st,m41t93.yaml
-> > > +++ b/Documentation/devicetree/bindings/rtc/st,m41t93.yaml
-> > > @@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
-> > >  title: ST M41T93 RTC and compatible
-> > >  
-> > >  maintainers:
-> > > -  - Akhilesh Patil <akhilesh@ee.iitb.ac.in>
-> > > +  - Akhilesh Patil <akhilesh.patil@linux.dev>
-> > >  
-> > >  description:
-> > >    ST M41T93 is spi based Real Time Clock (RTC) with time, date,
-> > > diff --git a/MAINTAINERS b/MAINTAINERS
-> > > index 222b7fc2c3aa..3aa8fa3c068f 100644
-> > > --- a/MAINTAINERS
-> > > +++ b/MAINTAINERS
-> > > @@ -4095,7 +4095,7 @@ F:	Documentation/devicetree/bindings/iio/chemical/aosong,ags02ma.yaml
-> > >  F:	drivers/iio/chemical/ags02ma.c
-> > >  
-> > >  AOSONG ADP810 DIFFERENTIAL PRESSURE SENSOR DRIVER
-> > > -M:	Akhilesh Patil <akhilesh@ee.iitb.ac.in>
-> > > +M:	Akhilesh Patil <akhilesh.patil@linux.dev>
-> > >  L:	linux-iio@vger.kernel.org
-> > >  S:	Maintained
-> > >  F:	Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
-> > > diff --git a/drivers/iio/pressure/adp810.c b/drivers/iio/pressure/adp810.c
-> > > index 82aa433548d2..832df6ba0ee3 100644
-> > > --- a/drivers/iio/pressure/adp810.c
-> > > +++ b/drivers/iio/pressure/adp810.c
-> > > @@ -1,6 +1,6 @@
-> > >  // SPDX-License-Identifier: GPL-2.0-only
-> > >  /*
-> > > - * Copyright (c) 2025 Akhilesh Patil <akhilesh@ee.iitb.ac.in>
-> > > + * Copyright (c) 2025 Akhilesh Patil <akhilesh.patil@linux.dev>
-> > >   *
-> > >   * Driver for adp810 pressure and temperature sensor
-> > >   * Datasheet:
-> > > @@ -219,6 +219,6 @@ static struct i2c_driver adp810_driver = {
-> > >  };
-> > >  module_i2c_driver(adp810_driver);
-> > >  
-> > > -MODULE_AUTHOR("Akhilesh Patil <akhilesh@ee.iitb.ac.in>");
-> > > +MODULE_AUTHOR("Akhilesh Patil <akhilesh.patil@linux.dev>");
-> > >  MODULE_DESCRIPTION("Driver for Aosong ADP810 sensor");
-> > >  MODULE_LICENSE("GPL");  
-> >   
-> 
+diff --git a/drivers/input/touchscreen/tsc2007_core.c b/drivers/input/touchscreen/tsc2007_core.c
+index 7660504f58ff..fc707e672424 100644
+--- a/drivers/input/touchscreen/tsc2007_core.c
++++ b/drivers/input/touchscreen/tsc2007_core.c
+@@ -82,7 +82,7 @@ u32 tsc2007_calculate_resistance(struct tsc2007 *tsc, struct ts_event *tc)
+ 
+ 	if (rt > U32_MAX)
+ 		return U32_MAX;
+-	return (u32)rt;
++	return rt;
+ }
+ 
+ bool tsc2007_is_pen_down(struct tsc2007 *ts)
+-- 
+2.56.0.679.gc527c65306-goog
 
