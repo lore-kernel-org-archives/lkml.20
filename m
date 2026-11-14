@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794667558;
-	b=0u7VBpA4LeL+LjJsrxLyuixLV2LD28AwmbjxnYICWFnma9Fb90rZwyT04LX7S6gqsND1
-	 pIGEElj2cK48K1FIqh02PmikWemlDFCl9VEvWz9JKUQE3TlKfN+Qv+wcLokqgAQTPgoHf
-	 ltxVaVS9y5tRhnlZpcZsEmEOeECU+H1r9rnpdjQvMrJIRq4iYBI4Q4jzf8M1uQcygLtBh
-	 BXVZLV2RcSQBGqyszx5AOvnUMF7hFcQctCPYQL0+PB789ZHKuFU4EneuwAcRZ94AcDcow
-	 rNYPClY+e76zfXvAPNv1wBHIjjNwY55jWx7w+KXTF8sFXdFMw/I+8T9wfOlY4UopIQg==
+	t=1794667559;
+	b=Mcv0oiQWnMyEjZY2CEDFEPdHiUvgDMlIxtWlcgzHLlrcaIVo0NUZTYLpTv819Rkr6QJS
+	 9fBGET23+oaZfNcWroGXeHEDc+iIrUTFO4DHyjJGenk7hPdTyg+QuTdThfDjWyBsMk96Q
+	 qNB2WDWqq37NFLUXXGOMnStGsmLDpKAxCUAzNrvOR+B/lYOX2lq0Bul04Om8++Jc/VkLc
+	 E+cqnf/9had9BN3r4/kfCqTq9YuWLm1ojh0NcMyGE5Jd3bkm3gMdNcRAm7jz5Mu/DRJna
+	 GzdSOzBypxEXoQ12iismYTqlfTTCIPEU0yGl1WhmG1WMf8PrnCTibrNLs8lfNiMt8Zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794667558;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794667559;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=HTi6KiMLe/91F0sP8kELjed74P02vvwuZ82h3xlxCL0=;
-	b=JEvVvNYuf8ak1hFG9o/C33qQQy3ph0zrSfBGX88MsTQdWVedLVA52tufogDGTmFuOOJY
-	 tThJ9wMSt0P0Blnqyzmm53wI2zIWy7txyGgaaa8+bUBLLOK87vOeota5dlpCDifFxcEpJ
-	 UTGEthR6JrbNlEEuqNxwLiJ6IDkena7X07Q8bueQZbcpp7BE5dFJsoNXPBuXtM12N2Yco
-	 QsExJuy5hdSIZZDpAiCi9DEV8DwB3+IMIEDJPwdH507veBUqMhqqLOiPkWOJZVMFE76L/
-	 7L27QWiLme0fjPVZVtkKzKzAtzTrKkdeDJ+eSB7iIyetXdKwaPxB+LZm7gy7A8ufKqA==
+	bh=dQKkTV59PA9gDrnFZqTN77W5XNr80hjLVJl64KfD5Hc=;
+	b=FSHXEGwCGH+KrXWRgJLqA1ugEUkByRF26moFO4MoCmGYikyCMITRiyEWxoXybal5hAA6
+	 P+uQCgO38SvTqLy/Q003ahaPaeHwPEq3BSnrZLbZ0zMhswKq7TG1GmtUdapeBWv0nzk8s
+	 eO8QZFMkqs5hl3XSUomAiYWupP8TmiY9k+TRoYsuG0oKrGoIjpdmTXM4PbB5CNcQ4y/8p
+	 7utdawJL+gvVXTyCWGSiXv4VOe+kLARRIOS5tacTVLGrhiv+QAnPyVV0W2vF86rdi2t3M
+	 c9FLr2mvsE0Lxcrv2Vc+BNHPraXKNI8IuiU2WF0w+xZnerV/MYPpPjqUYIYriiYTGfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fuyoSMAm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="kabNH/F3";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B780606A32D;
-	Sat, 14 Nov 2026 14:45:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B50D606A33D;
+	Sat, 14 Nov 2026 14:45:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fuyoSMAm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 161F61F000C4;
-	Sat, 14 Nov 2026 14:45:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kabNH/F3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A9491F000C4;
+	Sat, 14 Nov 2026 14:45:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794667557;
-	bh=HTi6KiMLe/91F0sP8kELjed74P02vvwuZ82h3xlxCL0=;
+	s=k20260515; t=1794667559;
+	bh=dQKkTV59PA9gDrnFZqTN77W5XNr80hjLVJl64KfD5Hc=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=fuyoSMAmN3PdDRlkzEMrgqpxVRKNnbZKic7xLFDRXugpSfDxjWOx8u9kKBMT8ui7t
-	 HbVj/HwCzjPZ76UL6/z+F+ht5nN2y1g+uyG2/zIzVwHUdMtCOuzyQ5VZyYjOcfZWQg
-	 aL+9HoEVeWv0OSbg3+7XoW+oiIzm+t8uQhwpZkjoxb9OwpBOHJo+OraweFUHvY4mjW
-	 kvM3Lg4eBoFWXJAO5VfDJKYADuGVNEx+1KCcswPfYNxNrusCqeR7uIERc8vLb2eLsH
-	 upJrsWpmf+zsFTf+rgHRtaBZk01gjl35wANJ9O1HXJNoTogL6FHTZDmRPjzwAtJ+Kz
-	 yoDgp+9ug1ppw==
-Subject:
- Re: [PATCH net v2 1/2] net: do not run out of frags in alloc_skb_with_frags()
+	b=kabNH/F3S+UrrEuuedgxRELY4hGwCq7FxgQvEhMoV4jRhY7vkx6F92lrJq4frCiFd
+	 tXrj8jUX5WG0tI6YZgKKjfOgjsBJWnv1PrpreIVwMmB7UeG+GMKwAvso2kAHnff7Ak
+	 EBWG3VYa776D8wSvmgWTHJ3lBgrLY+ckOqxffc9CawGLaCAwry6x6H+ZngBmHhydef
+	 SHOml4ylCYxBQJgIdzYAWFXOIBMpghoj+d48h5ACUZH/usWPPfKxTcqAcQNxO9SW4q
+	 KF8MiHpo+pul+NID+RkmqAISGpmt8p9yMlk7Y5BuyisPU8igSBWKsvHRoZ7wH8mtkO
+	 yUpdCgjtR/oBQ==
+Subject: Re: [PATCH net v2 2/2] net: add a KUnit test for the
+ alloc_skb_with_frags() tail split
 From: netdev-bot+sashiko@kernel.org
 To: yanhaishuang@cmss.chinamobile.com
 Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
@@ -49,10 +49,10 @@ Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
  daniel@iogearbox.net, willemb@google.com, willemdebruijn.kernel@gmail.com,
  mst@redhat.com, jasowangio@gmail.com, eperezma@redhat.com,
  narcisav.kernel@gmail.com, linux-kernel@vger.kernel.org
-Date: Sat, 14 Nov 2026 14:45:56 +0000
-Message-ID: <179466755661.2199510.13284928932985381147@kernel.org>
-In-Reply-To: <20261110162418.28322-2-yanhaishuang@cmss.chinamobile.com>
-References: <20261110162418.28322-2-yanhaishuang@cmss.chinamobile.com>
+Date: Sat, 14 Nov 2026 14:45:58 +0000
+Message-ID: <179466755804.2199510.1095568480643973664@kernel.org>
+In-Reply-To: <20261110162418.28322-3-yanhaishuang@cmss.chinamobile.com>
+References: <20261110162418.28322-3-yanhaishuang@cmss.chinamobile.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -77,114 +77,95 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] alloc_skb_with_frags() (net/core/skbuff.c) can still fail with
-  -ENOBUFS for a data_len that passed its up-front check, and the vhost-…
+- [Medium] The skip probe in alloc_skb_with_frags_test_tail()
+  (net/core/net_test.c) cannot do what its comment says ("Don't report a…
 
 --
 
-net: do not run out of frags in alloc_skb_with_frags()
+net: add a KUnit test for the alloc_skb_with_frags() tail split
 
-This patch changes alloc_skb_with_frags() so that it no longer runs out
-of frags when it rounds down the tail or falls back to a lower order.
-When lowering the order would need more frags than are left, it retries
-the same order once with the caller's direct reclaim and __GFP_NORETRY,
-and fails if that retry also fails.
+This adds a KUnit case that asks alloc_skb_with_frags() for
+MAX_SKB_FRAGS - 2 order-3 chunks plus a 7 page tail. Before the fix it
+references, splitting that tail ran out of frags. If the allocation fails
+and a single order-3 page can't be allocated either, the test is meant to
+skip rather than fail.
 
-> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-> index a7d555b3d2f28..da9025e6f0c3c 100644
-> --- a/net/core/skbuff.c
-> +++ b/net/core/skbuff.c
-> @@ -6906,15 +6906,41 @@ struct sk_buff *alloc_skb_with_frags(unsigned long header_len,
+> diff --git a/net/core/net_test.c b/net/core/net_test.c
+> index 2b5080c226636..de4d246f2f7ab 100644
+> --- a/net/core/net_test.c
+> +++ b/net/core/net_test.c
+> @@ -1721,7 +1721,42 @@ static void netmem_ref_test_tcp_devmem_recv(struct kunit *test)
 
 [ ... ]
 
->  		if (order) {
-> +			unsigned long smaller = PAGE_SIZE << (order - 1);
-> +			bool can_shrink;
+> +	skb = alloc_skb_with_frags(0, len, PAGE_ALLOC_COSTLY_ORDER, &err,
+> +				   GFP_KERNEL);
+> +	if (!skb) {
+> +		struct page *page;
 > +
-> +			/* Only fall back to smaller pages if the frags left
-> +			 * can still hold the rest. If not, try this order
-> +			 * once more with the caller's direct reclaim.
-> +			 */
-> +			can_shrink = DIV_ROUND_UP(data_len, smaller) <=
-> +				     MAX_SKB_FRAGS - nr_frags;
-> +
->  			page = alloc_pages((gfp_mask & ~__GFP_DIRECT_RECLAIM) |
->  					   __GFP_COMP |
->  					   __GFP_NOWARN,
->  					   order);
-> +			if (!page && !can_shrink &&
-> +			    gfpflags_allow_blocking(gfp_mask))
-> +				page = alloc_pages(gfp_mask | __GFP_COMP |
-> +						   __GFP_NOWARN | __GFP_NORETRY,
-> +						   order);
->  			if (!page) {
-> +				if (!can_shrink)
-> +					goto failure;
+> +		/* Don't report a lack of high-order pages as a failure. */
+> +		page = alloc_pages(GFP_KERNEL | __GFP_NOWARN | __GFP_NORETRY,
+> +				   PAGE_ALLOC_COSTLY_ORDER);
+> +		if (!page)
+> +			kunit_skip(test, "no order-%d pages",
+> +				   PAGE_ALLOC_COSTLY_ORDER);
+> +		__free_pages(page, PAGE_ALLOC_COSTLY_ORDER);
+> +	}
+> +	KUNIT_ASSERT_NOT_NULL_MSG(test, skb, "err %d", err);
 
 [Severity: Medium]
-Can a guest still livelock the vhost worker through this path?
+Does probing for a single order-3 page catch the case the comment
+describes?
 
-can_shrink is false for any data_len above
-(MAX_SKB_FRAGS - nr_frags) * (PAGE_SIZE << (order - 1)). For the first
-chunk with order 3 and 4K pages, that is anything above 278528 bytes.
-If the attempt without direct reclaim and the __GFP_NORETRY retry both
-fail, alloc_skb_with_frags() still returns -ENOBUFS. The data_len passed
-the up-front check, and order-0 pages may be plentiful.
+For this len, alloc_skb_with_frags() never lets a leading chunk drop
+below order 3. At nr_frags = k, the check is:
 
-A guest can reach this size. tun_alloc_skb() clamps the paged part to
-exactly the limit:
-
-drivers/net/tun.c:tun_alloc_skb() {
+net/core/skbuff.c:alloc_skb_with_frags() {
     ...
-	if (len - linear > MAX_SKB_FRAGS * (PAGE_SIZE << PAGE_ALLOC_COSTLY_ORDER))
-		linear = len - MAX_SKB_FRAGS * (PAGE_SIZE << PAGE_ALLOC_COSTLY_ORDER);
+			can_shrink = DIV_ROUND_UP(data_len, smaller) <=
+				     MAX_SKB_FRAGS - nr_frags;
     ...
 }
 
-So the guest can choose a paged length of up to 557056 bytes through the
-descriptor chain. Tap and af_packet clamp to the same value.
+This works out to 2*MAX_SKB_FRAGS - 2 - 2k <= MAX_SKB_FRAGS - k. That
+holds only once k >= MAX_SKB_FRAGS - 2. So each of the first
+MAX_SKB_FRAGS - 2 chunks has to get an order-3 page, or the function
+does goto failure. In total the call needs roughly MAX_SKB_FRAGS - 1
+order-3 pages, not one.
 
-vhost-net still treats -ENOBUFS as transient:
+When the call fails partway through, the failure path does:
 
-drivers/vhost/net.c:handle_tx_copy() {
-    ...
-			if (err == -EAGAIN || err == -ENOMEM || err == -ENOBUFS) {
-				vhost_discard_vq_desc(vq, 1, ndesc);
-				vhost_net_enable_vq(net, vq);
-				break;
-			}
-    ...
-}
+failure:
+	kfree_skb(skb);
+	return NULL;
 
-handle_tx_zerocopy() also retries on -ENOBUFS.
+This frees every order-3 page already placed in the frags. Since
+pcp_allowed_order(3) is true, those pages land on this CPU's per-CPU
+free lists right before the probe runs. The single
+alloc_pages(..., PAGE_ALLOC_COSTLY_ORDER) probe will then almost always
+succeed, the skip is not taken, and KUNIT_ASSERT_NOT_NULL_MSG() reports
+a failure.
 
-On a host with fragmented memory, wouldn't this give the same 100% CPU
-vhost spin with no traffic that the commit message describes?
+So the test seems to skip only when the very first order-3 allocation
+fails. A host with some order-3 pages, but fewer than MAX_SKB_FRAGS - 1,
+would still report a failure. That doesn't match "so that a host with
+fragmented memory does not report this as a regression" in the commit
+message.
 
-Previously the order-3 attempt failed fast. Now every pass also does the
-order-3 GFP_KERNEL | __GFP_NORETRY allocation. For this request,
-__alloc_pages_slowpath() runs async compaction, one direct reclaim pass
-and direct compaction before it gives up. Each pass can evict host page
-cache and slab, and the guest controls how often this happens.
+Could the probe check the real requirement instead? For example, it
+could try to hold MAX_SKB_FRAGS - 1 order-3 pages at once, or treat
+-ENOBUFS as a skip unless a stronger check shows enough pages were
+available.
 
-This seems to partly undo fb05e7a89f50 ("net: don't wait for order-3
-page allocation").
+> +
+> +	for (i = 0; i < skb_shinfo(skb)->nr_frags; i++)
+> +		frags_len += skb_frag_size(&skb_shinfo(skb)->frags[i]);
+> +	KUNIT_EXPECT_EQ(test, frags_len, len);
+> +
+> +	kfree_skb(skb);
+> +}
 
-The commit message only says "fail only if that fails too". It does not
-say that this failure still livelocks vhost-net, or that the vhost retry
-loop now runs direct reclaim. The note that the retry-failure case was
-not tested appears only below the --- line, so it will not be in the
-commit.
-
-The KUnit test in the next patch does not change net/core/skbuff.c, so
-this case is still there at the end of the series.
-
-Could the commit message describe this remaining failure case?
-
->  				order--;
->  				continue;
->  			}
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261110162418.28322-1-yanhaishuang%40cmss.chinamobile.com
