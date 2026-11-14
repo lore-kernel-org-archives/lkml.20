@@ -1,83 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.77
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794668888;
-	b=yNN3t4EGAPBTIQPBBJo6VC9mVAg6sI1LNqxtAQdaLmjhwggpjhqhJ8UMzmIYhmalHRLh
-	 idvM9qUBl+TcUCYkhoy1RVQsveDmsLrwJuJKg2t6pCbjQvdxLtqGRNcTBhlWYNQxpDCCM
-	 Ppyf6DrPkenGh14VpMYQ1Sl2wEGsYIyjDikHoMQKBDZIQuwi3n4Nu2uQldyQhQB0/TLdq
-	 Jcp7NLl4Ewhvv0ZsIFq14IoZXuQVRCpwApAG2XsroTzla2TSJtx2j6lz3e0mvdXuBJsyZ
-	 RnmLnqG2pqY1joWjIZRhcH4jhhfJaKRSEH8gPabiw3fzyu9yJ8Z/ltarlacRsLtD8tA==
+	t=1794668957;
+	b=Bjd084ovnq4c6QO6kA/j3KdIUjypAjVqqoe8+nZtotIqGR/jqZ7K5FqyJEvkwDGkCMLC
+	 CGImgxlh0x7RkrnvLFuzqBlI/jnQ+3GL3h42Bdsz5/GHKlib1GNoKldpNl0VRXif4vHtj
+	 G/iM5FeprbcoblO9HTr6Jwre9f7CvOgnfeKJcM1EirsmZQlBqMd8NV09dhKHFsbf23K1p
+	 TDwsEZziHpV0ixOxKmSq04pkGiQLJ0Ca54pEQJzVsnufk7zHqfrB2JRp99gk7cuw95HwC
+	 V2k7D+kHNzR7tRCssq83XpKhKn7hkCZ540Orb9eeEgsE9ZLdFTJgqVQGALGi3cuzI1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794668888;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ci9vDSWyHxSq9FnZq3Zk79d2N7kH1vKnpPKWHcUFCWk=;
-	b=rbYHMcPE7uKQOu0LGKa0rbKShM0X3S8Wvz3ekjmM6+XmvrkZbTG7YR5Jp/f+00mQsa8y
-	 OPS6B8hhM4G0TxG2BYJPVk889BrIkEcA7N0sJE9ePLHu60P23hERlsnPsQzWtZPUfMFtk
-	 aS4fzXP1aItMVKqSfX+DeMzupHsk3/NTvVZL0NMSZJngZX5Telo1rcUi6tyKAqwEFG1QG
-	 zV46c8P1YeOtqmrWYapJLUaHB/FCB09DbFX52ldRSZZ868G7/r9pZMFSU/3HXF7vS1CeN
-	 Px31B+WZ9HbuYVViTrWZOwsH9CaHp8xBwL8X428HqJstsv6a3MtmIJonadzv5miq4rg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794668957;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=LIozortPxX9/yGgYF5RVAdU5h+CP6K/5KZOyPsSClnQ=;
+	b=xGkavMd36MQmA99yTam5Sa7MagtUdrce0/yi1uurtUvl7Vyrffzg8Z+3PWaOZLjnR6C8
+	 dXh2al/r72kX0cgUWF5+zk+oTPLScDs3IN0hFpoEgTT54LFjJ1ZkVQ3jHP78+JnwSxP0j
+	 XFJqBFj5rLlq6jNyg9lWVYrCNGmCFximS5XGUXdH3UpMbVHqFPJSNpDKqEwwuFhAtbkAr
+	 5xlY6MAV/w5fCXjG/K+t6o2+6Na5jdbGxi4mMf9q2Gt9fj2tgSJ8CFbiI+0jAJn9fntB1
+	 6Rj0uztr5mLwPJ/v7D5rXO2F0r5f/pSLvrDiZfDLq3jbhx/+2bz7l1uHbNCrV+CRZIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=uEb5sEUq;
-	arc=none smtp.remote-ip=91.218.175.77
-Received: from mta0.migadu.com (out-77.mta0.migadu.com [91.218.175.77])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="VQhn7uk/";
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC5D9606A330
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 15:08:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC5D9606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3456606A32E
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 15:09:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3456606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=uEb5sEUq
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=uLmLi4eG+xNd/B9EvuWggXquRDTQtxE2MGsM+EpVXzc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794668886; v=1; x=1795273686;
- b=uEb5sEUqEWnO9e/zwEGolvdfNdaxKrawCxA4ovVZFX9yjOtnP73NE8L8089CodO9DZREaZqm
- wtqcGyWqJ6cJ4C4iDsjh+AZGi7VAiDxuwYjhN57/RoRG34maURsqCHor0ZfbTCnelAJSOl7uDjS
- zshK7NivgFBcX5LopfjJiMc8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ee575a0b9f653efa;
-	Sat, 14 Nov 2026 15:08:05 +0000
-X-Mizu-Trace-ID: ee575a0b9f653efa
-X-Migadu-Flow: FLOW_OUT
-From: Leon Hwang <leon.hwang@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	KP Singh <kpsingh@kernel.org>,
-	Matt Bobrowski <matt@bobrowski.net>,
-	Shuah Khan <shuah@kernel.org>,
-	Leon Hwang <leon.hwang@linux.dev>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VQhn7uk/
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-36e99cf7bb3so2587680eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 07:09:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794668956; x=1795273756; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LIozortPxX9/yGgYF5RVAdU5h+CP6K/5KZOyPsSClnQ=;
+        b=VQhn7uk/CZ18gungPBF6zgrENs8w+eInmNfy1h5e2/gP55wgavZv4Zz524RVkP3Ij/
+         LnTFtzfo/CoTZU4ipLc5Yw1KF7Tckp4Xw8j02QuCNi29qDcfpb0JbWGzUJ2ZPfz0K7NX
+         tpw3Z4Ckx3dwLn0mANuZYTpgpgW+MOP9hnVUiUjTqrXEZciVAGAG8pSwnb3ks7lSHkE/
+         7Ug3i7cJiO3h9jZVh0JutN4n1jvSWxfH5jlpb2N2OTrLSwtapS3tbI8MEJw0+B0J3rro
+         /5A/loG75CBkRNO/QoL3bWNSNERw9wXJHeU6NOSA/OpeTksc219UnccPLeM96NzRHOJP
+         31pA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794668956; x=1795273756;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LIozortPxX9/yGgYF5RVAdU5h+CP6K/5KZOyPsSClnQ=;
+        b=MTxAbvpnIYPmEZ4Mdulshbsm+QIXTXVodvW64DlEQBd1JjmYzHVwMK0v8KA981yYQy
+         hY5Z2J8ukiuvWIoHY4R5xoLqH1kW7hHxthuF8irk6e/Y5aI0YEAZiFRKRc9+pkkU/YsK
+         pOhgxqiOcNtBeJdbNXnMS/R8ApeQg7z/nIaC3uWAR0c7y0gzMzI3fiCSnJFTOK7oeGSO
+         0z/rrjlHs6OhYPAF9n76a5BY4EkPUZVkH1Ni6XIaPh4hI7mSxFuJD5I8xI2x9d2Mukxv
+         0JisZlDnD2VJiytpSWe6UN1NjqJW3OzFOAe/ROL8h+hmr2g8xXO+4WpkgBtbRQ5Wm2dm
+         AcoQ==
+X-Forwarded-Encrypted: i=1; AL+hErF+fLhFteXxbfUcnwIuK/5K+Jlx0r2Z+WF9RrGpj9k08AtQzMETctZYR3DzHbmPXUewI3G2wgLxJPrCQgw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9mYcBHIQlZdKiG2dSlsUfPQaED7D2ZPXXFnsZwGGtO98NIjK5W
+	njnLjTg6QonL0qHeDLcLGqcSAEvsbUxRTmxtUrqLmH6akDTlUnvCEyeI
+X-Gm-Gg: AYBFou363rQFTW17sC0xmMwr3ywnE7MmmjI9iiLoCJ4FiZ7b9SseUa9/zGa2IHzDQf7
+	NKUGVXJ/EznODho6qTW4BWEwb4IkxmlJvM4utY7NxKEeGb4LwVVm2tkqpJZQK9R2JN6EALVF18t
+	DTVjxfwW0aCJfLK5hisLSclhtfA/cJslYTNDbY2UejwXnNysOqqVjwxBOiUPpUPWCr3VYTgV8GM
+	f51psXBCGg3nyl1mTm+Uv4/5U1NAy0Mfo8Zo9MarKLqs0WwnhQMQ/0ufWkKA+S6sxFQP97V2po/
+	wf0JyGHaJqxjbX1J2wEj5qNig3hf7SIz7mDiZ/S1YrnS64XtTkkdWuZF3Jv+w4HQhWdJxNJNf+D
+	/ujKPAOIg25B2ycr+SqscYKYpdF6AopqDF9jKQu32J32r/JgnF52EHBnhUTs5xOGm/dQ8wzgqSS
+	W6n0eE4Hf6txLjdHc+V0/5NVkbHmC9BGTsicKSwbioiVDS+QyIozEofhRY7j2pRi7OC6AGNxAeC
+	nf6RsYfzUDG8JNyYHOWfPbbsvTpq37TDZ5uiw8KdIe5IuvIXmP89zWlSgU3HEKe0XYCeDxnFxpm
+	uzRQmDykLVGqhL/7W7AmeEiDwA==
+X-Received: by 2002:a05:7300:cc9c:b0:371:5cb0:4929 with SMTP id 5a478bee46e88-37967dd4c20mr5561636eec.25.1794668955716;
+        Sat, 14 Nov 2026 07:09:15 -0800 (PST)
+Received: from arch.localdomain ([2409:8a2b:a08:f11::1003])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563e6b6dsm30427886eec.21.2026.11.14.07.09.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 07:09:15 -0800 (PST)
+From: Jun Yan <jerrysteve1101@gmail.com>
+To: luca.ceresoli@bootlin.com
+Cc: Laurent.pinchart@ideasonboard.com,
+	airlied@gmail.com,
+	andrzej.hajda@intel.com,
+	damon.ding@rock-chips.com,
+	dri-devel@lists.freedesktop.org,
+	heiko@sntech.de,
+	jernej.skrabec@gmail.com,
+	jerrysteve1101@gmail.com,
+	jonas@kwiboo.se,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: [PATCH bpf-next v2 9/9] selftests/bpf: Verify cgroup prog link_create logs
-Date: Sat, 14 Nov 2026 23:06:10 +0800
-Message-ID: <20261114150610.84507-10-leon.hwang@linux.dev>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261114150610.84507-1-leon.hwang@linux.dev>
-References: <20261114150610.84507-1-leon.hwang@linux.dev>
+	linux-rockchip@lists.infradead.org,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	neil.armstrong@linaro.org,
+	rfoss@kernel.org,
+	simona@ffwll.ch,
+	tzimmermann@suse.de
+Subject: Re: [PATCH v3] drm/bridge: analogix_dp: use devm_phy_optional_get() for the DP PHY
+Date: Sat, 14 Nov 2026 23:09:07 +0800
+Message-ID: <20261114150907.305160-1-jerrysteve1101@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <DMU749TMB523.3OCGPYVI4NZDU@bootlin.com>
+References: <DMU749TMB523.3OCGPYVI4NZDU@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,351 +115,57 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Check the error code, log message, and reported log size for unsupported
-flags, invalid target FDs, and relative attachment errors. Cover missing
-or conflicting ordering flags, a missing BPF_F_LINK flag, invalid link FDs
-and IDs, preorder mismatches, and anchors outside the target cgroup.
+Hi Luca,
 
-Also cover revision mismatches, conflicting attachment flags, cgroup
-hierarchy restrictions, and the per-cgroup program limit.
+> Hello,
+> 
+> On Fri Nov 13, 2026 at 2:12 PM CET, Jun Yan wrote:
+> > Hi Damon,
+> >
+> >> You are right, this is really a valid concern.
+> >>
+> >> If CONFIG_GENERIC_PHY is disabled, the old code could still proceed and
+> >> keep the driver probing, while the new version would return an error
+> >> directly.
+> >
+> > -ENOSYS can only come from the !CONFIG_GENERIC_PHY stubs in
+> > include/linux/phy/phy.h; the real implementation in drivers/phy/phy-core.=
+> c
+> > never returns it. And the stub for the optional variant returns NULL, not
+> > -ENOSYS:
+> >
+> >     static inline struct phy *devm_phy_optional_get(struct device *dev,
+> >                                                     const char *string)
+> >     {
+> >             return NULL;
+> >     }
+> >
+> > So with CONFIG_GENERIC_PHY disabled the PHY is still treated as absent
+> > (NULL), exactly as the old -ENOSYS branch did. With CONFIG_GENERIC_PHY
+> > enabled, -ENOSYS cannot occur, devm_phy_optional_get() turns -ENODEV into
+> > NULL, and any other error is still propagated - same as the open-coded
+> > check.
+> >
+> >> It should be better to keep the -ENOSYS handling to preserve the
+> >> original behavior.
+> >
+> > Overall the behaviour is unchanged in both configurations, so no separate
+> > handling is needed.
+> 
+> Thanks for the analysis! Cna you send a v4 with that explained in the
+> commit message, possibly in a more concise way, maybe with bullets for the
+> various CONFIG_GENERIC_PHY on/off cases or so, for readability?
+> 
 
-Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
----
- .../selftests/bpf/prog_tests/cgroup_link.c    | 324 ++++++++++++++++++
- 1 file changed, 324 insertions(+)
+Yes, I'll send a v4.
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/cgroup_link.c b/tools/testing/selftests/bpf/prog_tests/cgroup_link.c
-index 15093a69510e..5a27d3a6a26c 100644
---- a/tools/testing/selftests/bpf/prog_tests/cgroup_link.c
-+++ b/tools/testing/selftests/bpf/prog_tests/cgroup_link.c
-@@ -253,3 +253,327 @@ void serial_test_cgroup_link(void)
- 	}
- 	cleanup_cgroup_environment();
- }
-+
-+static void check_cgroup_link_create_log(int prog_fd, int target_fd,
-+					 struct bpf_link_create_opts *opts,
-+					 int err_exp, const char *msg)
-+{
-+	char log_buf[128] = {};
-+	LIBBPF_OPTS(bpf_log_opts, log_opts,
-+		    .buf = log_buf,
-+		    .size = sizeof(log_buf),
-+		    .level = 1,
-+	);
-+	int fd;
-+
-+	opts->log_opts = &log_opts;
-+	fd = bpf_link_create(prog_fd, target_fd, BPF_CGROUP_INET_EGRESS, opts);
-+	if (!ASSERT_LT(fd, 0, "bpf_link_create")) {
-+		close(fd);
-+		return;
-+	}
-+
-+	ASSERT_EQ(fd, err_exp, "err");
-+	ASSERT_STREQ(log_buf, msg, "log_buf");
-+	ASSERT_EQ(log_opts.true_size, strlen(msg) + 1, "log_size");
-+}
-+
-+static void test_cgroup_link_create_log(int target_fd, __u32 flags, int err_exp, const char *msg)
-+{
-+	LIBBPF_OPTS(bpf_link_create_opts, opts,
-+		    .flags = flags,
-+	);
-+	struct test_cgroup_link *skel;
-+
-+	skel = test_cgroup_link__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "test_cgroup_link__open_and_load"))
-+		return;
-+
-+	check_cgroup_link_create_log(bpf_program__fd(skel->progs.egress), target_fd, &opts,
-+				     err_exp, msg);
-+
-+	test_cgroup_link__destroy(skel);
-+}
-+
-+static void test_log_invalid_flags(void)
-+{
-+	const char *msg = "Invalid flags.\n";
-+
-+	test_cgroup_link_create_log(-1, BPF_F_ALLOW_OVERRIDE, -EINVAL, msg);
-+}
-+
-+static void test_log_invalid_target_fd(void)
-+{
-+	const char *msg = "Invalid target_fd.\n";
-+
-+	test_cgroup_link_create_log(-1, 0, -EBADF, msg);
-+}
-+
-+static void test_log_cgroup_attach(struct bpf_link_create_opts *opts,
-+				   int err_exp, const char *msg)
-+{
-+	struct test_cgroup_link *skel;
-+	int cg;
-+
-+	cg = test__join_cgroup("/cgroup_link_log_attach");
-+	if (!ASSERT_GE(cg, 0, "join_cgroup"))
-+		return;
-+
-+	skel = test_cgroup_link__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "test_cgroup_link__open_and_load"))
-+		goto out;
-+
-+	check_cgroup_link_create_log(bpf_program__fd(skel->progs.egress), cg, opts, err_exp, msg);
-+	test_cgroup_link__destroy(skel);
-+
-+out:
-+	close(cg);
-+}
-+
-+static void test_log_relative_without_order(void)
-+{
-+	const char *msg = "Specify exactly one of BPF_F_BEFORE or BPF_F_AFTER.\n";
-+	LIBBPF_OPTS(bpf_link_create_opts, opts,
-+		    .flags = BPF_F_LINK,
-+	);
-+
-+	test_log_cgroup_attach(&opts, -EINVAL, msg);
-+}
-+
-+static void test_log_relative_both_orders(void)
-+{
-+	const char *msg = "Specify exactly one of BPF_F_BEFORE or BPF_F_AFTER.\n";
-+	LIBBPF_OPTS(bpf_link_create_opts, opts,
-+		    .flags = BPF_F_LINK | BPF_F_BEFORE | BPF_F_AFTER,
-+	);
-+
-+	test_log_cgroup_attach(&opts, -EINVAL, msg);
-+}
-+
-+static void test_log_relative_type_mismatch(void)
-+{
-+	const char *msg = "BPF_F_LINK is required for relative link attachment.\n";
-+	LIBBPF_OPTS(bpf_link_create_opts, opts,
-+		    .flags = BPF_F_BEFORE,
-+		    .cgroup.relative_fd = -1,
-+	);
-+
-+	test_log_cgroup_attach(&opts, -EINVAL, msg);
-+}
-+
-+static void test_log_invalid_relative_link_fd(void)
-+{
-+	const char *msg = "Invalid relative link FD.\n";
-+	LIBBPF_OPTS(bpf_link_create_opts, opts,
-+		    .flags = BPF_F_LINK | BPF_F_BEFORE,
-+		    .cgroup.relative_fd = -1,
-+	);
-+
-+	test_log_cgroup_attach(&opts, -EBADF, msg);
-+}
-+
-+static void test_log_invalid_relative_link_id(void)
-+{
-+	const char *msg = "Invalid relative link ID.\n";
-+	/* Link ID zero cannot identify a link. */
-+	LIBBPF_OPTS(bpf_link_create_opts, opts,
-+		    .flags = BPF_F_LINK | BPF_F_ID | BPF_F_BEFORE,
-+	);
-+
-+	test_log_cgroup_attach(&opts, -ENOENT, msg);
-+}
-+
-+static void test_log_relative_anchor(__u32 flags, bool other_cgroup, int err_exp, const char *msg)
-+{
-+	int cg, other_cg = -1, anchor_fd = -1, prog_fd;
-+	LIBBPF_OPTS(bpf_link_create_opts, opts,
-+		    .flags = flags,
-+	);
-+	struct test_cgroup_link *skel;
-+
-+	cg = test__join_cgroup("/cgroup_link_log_relative");
-+	if (!ASSERT_GE(cg, 0, "join_cgroup"))
-+		return;
-+
-+	if (other_cgroup) {
-+		other_cg = test__join_cgroup("/cgroup_link_log_other");
-+		if (!ASSERT_GE(other_cg, 0, "join_cgroup other"))
-+			goto cleanup;
-+	}
-+
-+	skel = test_cgroup_link__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "test_cgroup_link__open_and_load"))
-+		goto cleanup;
-+
-+	prog_fd = bpf_program__fd(skel->progs.egress);
-+	anchor_fd = bpf_link_create(prog_fd, cg, BPF_CGROUP_INET_EGRESS, NULL);
-+	if (!ASSERT_GE(anchor_fd, 0, "bpf_link_create"))
-+		goto destroy;
-+
-+	if (flags & BPF_F_LINK)
-+		opts.cgroup.relative_fd = anchor_fd;
-+	check_cgroup_link_create_log(prog_fd, other_cgroup ? other_cg : cg, &opts, err_exp, msg);
-+
-+	close(anchor_fd);
-+
-+destroy:
-+	test_cgroup_link__destroy(skel);
-+cleanup:
-+	if (other_cg >= 0)
-+		close(other_cg);
-+	close(cg);
-+}
-+
-+static void test_log_both_orders(void)
-+{
-+	const char *msg = "BPF_F_BEFORE and BPF_F_AFTER are mutually exclusive.\n";
-+
-+	test_log_relative_anchor(BPF_F_BEFORE | BPF_F_AFTER, false, -EINVAL, msg);
-+}
-+
-+static void test_log_relative_preorder_mismatch(void)
-+{
-+	const char *msg = "Relative attachment BPF_F_PREORDER mismatch.\n";
-+
-+	test_log_relative_anchor(BPF_F_LINK | BPF_F_BEFORE | BPF_F_PREORDER, false, -EINVAL, msg);
-+}
-+
-+static void test_log_relative_not_in_cgroup(void)
-+{
-+	const char *msg = "Relative attachment not found in target cgroup.\n";
-+
-+	test_log_relative_anchor(BPF_F_LINK | BPF_F_BEFORE, true, -ENOENT, msg);
-+}
-+
-+static void test_log_revision_mismatch(void)
-+{
-+	const char *msg = "Cgroup revision mismatch: expected 2, actual 1.\n";
-+	LIBBPF_OPTS(bpf_link_create_opts, opts,
-+		    .cgroup.expected_revision = 2,
-+	);
-+
-+	test_log_cgroup_attach(&opts, -ESTALE, msg);
-+}
-+
-+static void test_log_exclusive_attach(bool child, const char *msg)
-+{
-+	LIBBPF_OPTS(bpf_link_create_opts, opts);
-+	int cg, child_cg = -1, prog_fd, err;
-+	struct test_cgroup_link *skel;
-+
-+	cg = test__join_cgroup("/cgroup_link_log_exclusive");
-+	if (!ASSERT_GE(cg, 0, "join_cgroup"))
-+		return;
-+
-+	if (child) {
-+		child_cg = test__join_cgroup("/cgroup_link_log_exclusive/child");
-+		if (!ASSERT_GE(child_cg, 0, "join_child_cgroup"))
-+			goto cleanup;
-+	}
-+
-+	skel = test_cgroup_link__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "test_cgroup_link__open_and_load"))
-+		goto cleanup;
-+
-+	prog_fd = bpf_program__fd(skel->progs.egress);
-+
-+	err = bpf_prog_attach(prog_fd, cg, BPF_CGROUP_INET_EGRESS, 0);
-+	if (!ASSERT_OK(err, "bpf_prog_attach"))
-+		goto destroy;
-+
-+	check_cgroup_link_create_log(prog_fd, child ? child_cg : cg, &opts, -EPERM, msg);
-+
-+	err = bpf_prog_detach2(prog_fd, cg, BPF_CGROUP_INET_EGRESS);
-+	ASSERT_OK(err, "bpf_prog_detach2");
-+
-+destroy:
-+	test_cgroup_link__destroy(skel);
-+cleanup:
-+	if (child_cg >= 0)
-+		close(child_cg);
-+	close(cg);
-+}
-+
-+static void test_log_attachment_flags_conflict(void)
-+{
-+	const char *msg = "Attachment flags conflict with existing flags.\n";
-+
-+	test_log_exclusive_attach(false, msg);
-+}
-+
-+static void test_log_hierarchy_disallows_attach(void)
-+{
-+	const char *msg = "Cgroup hierarchy does not allow attachment.\n";
-+
-+	test_log_exclusive_attach(true, msg);
-+}
-+
-+#define BPF_CGROUP_MAX_PROGS 64
-+
-+static void test_log_too_many_programs(void)
-+{
-+	const char *msg = "Too many programs attached to cgroup (limit 64).\n";
-+	LIBBPF_OPTS(bpf_link_create_opts, opts);
-+	int cg, prog_fd, err, i, nr_links = 0;
-+	int link_fds[BPF_CGROUP_MAX_PROGS];
-+	struct test_cgroup_link *skel;
-+
-+	cg = test__join_cgroup("/cgroup_link_log_limit");
-+	if (!ASSERT_GE(cg, 0, "join_cgroup"))
-+		return;
-+
-+	skel = test_cgroup_link__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "test_cgroup_link__open_and_load"))
-+		goto cleanup;
-+
-+	prog_fd = bpf_program__fd(skel->progs.egress);
-+
-+	for (i = 0; i < ARRAY_SIZE(link_fds); i++) {
-+		err = bpf_link_create(prog_fd, cg, BPF_CGROUP_INET_EGRESS, NULL);
-+		if (!ASSERT_GE(err, 0, "bpf_link_create"))
-+			goto destroy;
-+
-+		link_fds[nr_links++] = err;
-+	}
-+
-+	check_cgroup_link_create_log(prog_fd, cg, &opts, -E2BIG, msg);
-+
-+destroy:
-+	for (i = 0; i < nr_links; i++)
-+		close(link_fds[i]);
-+	test_cgroup_link__destroy(skel);
-+cleanup:
-+	close(cg);
-+}
-+
-+void test_cgroup_link_log(void)
-+{
-+	if (test__start_subtest("invalid_flags"))
-+		test_log_invalid_flags();
-+	if (test__start_subtest("invalid_target_fd"))
-+		test_log_invalid_target_fd();
-+	if (test__start_subtest("relative_without_order"))
-+		test_log_relative_without_order();
-+	if (test__start_subtest("relative_both_orders"))
-+		test_log_relative_both_orders();
-+	if (test__start_subtest("relative_type_mismatch"))
-+		test_log_relative_type_mismatch();
-+	if (test__start_subtest("invalid_relative_link_fd"))
-+		test_log_invalid_relative_link_fd();
-+	if (test__start_subtest("invalid_relative_link_id"))
-+		test_log_invalid_relative_link_id();
-+	if (test__start_subtest("both_orders"))
-+		test_log_both_orders();
-+	if (test__start_subtest("relative_preorder_mismatch"))
-+		test_log_relative_preorder_mismatch();
-+	if (test__start_subtest("relative_not_in_cgroup"))
-+		test_log_relative_not_in_cgroup();
-+	if (test__start_subtest("revision_mismatch"))
-+		test_log_revision_mismatch();
-+	if (test__start_subtest("attachment_flags_conflict"))
-+		test_log_attachment_flags_conflict();
-+	if (test__start_subtest("hierarchy_disallows_attach"))
-+		test_log_hierarchy_disallows_attach();
-+	if (test__start_subtest("too_many_programs"))
-+		test_log_too_many_programs();
-+}
--- 
-2.55.0
+> Reading it now, this v3 commit message kind of said the same things. but it
+> misled both me and Damon, so it's worth a clear explanation.
+> 
+> Thanks!
+> 
+> Luca
+
+Thanks,
+Jun
 
