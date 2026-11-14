@@ -1,93 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794617970;
-	b=l7MbUtn9hlWHZm1h52VBopokT8MqtKhOmB3jKQH+NJeN0h2MfDpXDvOw1kDth71iA05o
-	 WoTut9AgbZ9+ADeHxU96Ox5KQbBDFR83ZbJeRhCQWyOZEEtPTYmfk1uWTkqJPhp/4yAtz
-	 th8qsl7x2bw4JxkcEWyxcBs541e8lDvOTZJUsLh7Mr0y2ff8I5jQoI2s+zmk8n5+sT3VY
-	 jEa27wzwuOf26MEcp4JUtc/15IBKskZL9N5zAE+sc5doThnZoTKTlZBs9x5fH/sIg1B3N
-	 BxyvOOLhRgwVc0tFWpE7vraTNIAyEp28kY2G0Tyo/dyMit4wx3tbLC+72C8Ycea8nwg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794617970;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794618131;
+	b=3pix7xbxZ9DY5HdkxdmmkPgQmvpIicmwQuPY7mHAF/ooyqgORdQETAhNJDCncXEu62Ia
+	 7AbmWgUCToiohieKgTBEvz1IL/aF7LZSmvMuHF4idqDoZLR8l4maixw5q7VA9ptcYiyIi
+	 B1uRmjfJ3nksVf2kobGNneO2fyi01aAhsEZas5I6YSfb0KUcJhSzqlnHQm7ka2yJpF7kZ
+	 F/LS8Ai0XfrfNq7k2ESlfs+pJLqOuQxAxRHUhhmlfEg1FPiTg7+mO311F56pXw4crk8oR
+	 Qaf353gHQASbXyxiArp3+uYu7Gj1xzw3sLIgc540HJLCzDZLDMqYF98tFzbiC3JGndQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794618131;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=QMsZLVog74iOpWaQpOPOS8T9N6kbs3KpXXjJz5qYWLA=;
-	b=Tg3KK1UXjO8bSCnc9zRbs344sG5ODoQwiLxKEMlc5C4W1HEho35ONd8ast2pwEudDzHa
-	 BtT15V2uSXd8e5O1mr8xIzrXUia8B2yjX4G8r4Ks4NWiy4Ib5dNFRi/IAQk2nvVNKeGql
-	 fsKbJA61qTnt8lHCCxRof5sBS6h1f5Xl5I9BXLWrpP1NlF9AR6Zwkok+0mv9JpR0d7J3y
-	 vMS6cb8L0t/e1lcm3ioZU4JR2TsZfG1BMFX7cm5EKp6cJoLmQvJRmhlDfrVBk7AQMuU/A
-	 ABxWyx2/VRHzcu2Ud2cgX2WVjFx4bSFjJXjcUe7RG7D5fMqJRNDYqtpF7lVxo/QNauQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=W8nsx5AV;
-	arc=none smtp.remote-ip=74.125.82.51
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=/m5d7czP0+mAkTXvCBEQeqM+jQc19scZ/VuN8vwz6lk=;
+	b=v8f1q5um75DudvNAxkUOinVALr7qUDR0XSB27NNLbU0hY+e5UGfZ0ftNVAgOp57y5xYj
+	 1HrNyFiS1LoBiv81T/Bv3KdZYIkN9Av5lrN7nXlITqKJRAlI8TG2SfjrJklZ10kq/RAGs
+	 k9W3UmEUcQNJt8SsKtHwo2w0OmGCwdGI6CPbhvcRAKNgPOPQsXoZFNdEvUHSarNv+KKZ1
+	 lJEfy0MzR6lcyZwmc/IvWtNKyhuCcQ/zEzpClpIF214lPT0zHHh6unpDdx9FLAZCbqhLM
+	 tuZjDGmH7YGTm3xopW0unn64lJxWfT4o/ol11rcJB6iU5pI49EBerK0xEgNY3N5v/Mg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BU9q51b+;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F0A8606A329
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 00:59:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F0A8606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92D26606A339
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 01:02:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92D26606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=W8nsx5AV
-Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-15ea896ddc8so2198712c88.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 16:59:29 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BU9q51b+
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c4682977f9aso300225166b.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:02:10 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794618129; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WiD/O+S1W30n9z2aEU613Zv610XlQiq2BmMfKeC6wgkG81TrCFclvB7B9UIa/l4uOk
+         B24bXRY6+FGLsGw5ug6nAbo26p6Tpbp0S+p1vcZGAoNnc+gVfeT90NGpl/x90Yp1r82z
+         atGIz6Ti6x0mQ3ld+c/hMuK4QKmivFIqDzacqKxGUlGmNNygdvJ70WRF7lAh7y1E3GyL
+         VGta1kAPwe7Hp9LgPwmrjK5i7x0yjHZDzJRO3E6SZTBbR7MxkUv4zNNDXxYLMt3Oz1I8
+         svF2sZeX4chItD+hVXdrUQHdQSup0VikUDk3t0Yizc2xZ6m7cfzWidsRnYgQjQ1f1FEi
+         5MqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=/m5d7czP0+mAkTXvCBEQeqM+jQc19scZ/VuN8vwz6lk=;
+        fh=s8I296FVl/6SbOL2Z4v/r7r+WqOQtWyaYYUk2zGcw6Y=;
+        b=edpB2TQv8eMaPcsT1sfXfSDhox6WIVZYQAs91asyidzlQbtav0W+nYt5NeKvW/UxoB
+         SW09S5cv+CHkZeg0btw3Ei0kw1UIYTQIZSwS+dLXi+RWy3WRAt8JVd1hKJYjcGHvmkF0
+         b4mCJWxEaEc96mNoN7cPRoHiO4VCq25QhfyEjfx4cyqmAzF5KyDVs61RPH9QpAshMmkY
+         iHxRrejFB3tsXOk0KIw+WzvcRJvLVH67xVfRN/mluBxpPYWMc8y1g/jRMo+PcDbWWHXM
+         eG/DfIPajQkwV++bzVz+b0nv06IhQYuAstISIil2icwXT+EQUmpuzhEYCVbJQ060Hdc1
+         apGQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794617968; x=1795222768; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=google.com; s=20260707; t=1794618129; x=1795222929; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=QMsZLVog74iOpWaQpOPOS8T9N6kbs3KpXXjJz5qYWLA=;
-        b=W8nsx5AVQBffPoy+k16BhVjMEDDodl8fDpI8OkPIzbFye9cL6ccgCyI3Nx41dY28Hi
-         kK6cQbOcB/AGp8zSyFVENsFpbDkOWK/tC89mGKH+SNXgXoPuvmZPphX58rhOXgdU++H1
-         pGQRbCPlPjp/bh3su4U7G57oiVVBzrvGBd0T8=
+        bh=/m5d7czP0+mAkTXvCBEQeqM+jQc19scZ/VuN8vwz6lk=;
+        b=BU9q51b+qIJpzYDPk22/yVpWZX81by8BeuEdqZRj3hJsh1Uf/rZxAT1JLa3NOnUvZJ
+         B0B8kgEH5e/8oYq9DXLRNPRbdUqR5nb5RBJa9XPJvkMYd/iUttJpM+hChgj7Rb3nJJm0
+         LroCX4V5KWRDi0i9ulgdRMnGoaIMIyWTCb/21zBqu7amw6T3lcIPV6a8ATgEI6ekuSW7
+         AeB0haBR2KP1f55/asA5+4kVtwjNfrez12ghsELF+Maq4RytNFl14DC3rdyj8ZmbmFZC
+         y5VlNo58HqUjZjqTnPApbbowg90CpsZEG8fQ+MC7XEAlujK94GCAt5WbKlYlsQ3IadmU
+         GgPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794617968; x=1795222768;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1794618129; x=1795222929;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=QMsZLVog74iOpWaQpOPOS8T9N6kbs3KpXXjJz5qYWLA=;
-        b=aS+3Ys0TAto2B5zYRpc3t3xA8trZcIrKJ7D2aOmh95OuiIiIU/yBcxZbbbyA3Q3sG0
-         BNLaAdkaUVRl+aycXnXNUN5IRBxPLTCmUySZbA16Eys5udiN0W40IUMx7Bfw+Hmkimju
-         Uyl9uhQPqBrK8NP8Mbtk/DrTv+pw0PC1v+FTttjFuy58ae9uEOUP+rdFuyQ7z+V7xkRQ
-         xoa37593Ovk0mfSc25mkJJ8dYakNvfwKnR2OoOUIcQFU03p/6uIj4x5BlYlwiH8I5Cgw
-         6CumZu39//ZLctVTvNyyavcHPGe2v0vDUGlHRoaplby9n3SFdQ32SgPQOWWqi9Ou0Gmf
-         Fisg==
-X-Forwarded-Encrypted: i=1; AL+hErFJ8/IhFvbOKN/wdm6H0L16Ju6QWJfVR/lQ0jvRdC0w5LibJeflhBOgjQw1SQziPmeMYHJvO8o2H0lkC6Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z93piaywM6pJJf02Rq/IRbBjYDczojcsCBpg4VA/wzF3r88198U
-	AjS3Rj9VlD81hJO2mF4ynCuyceJBuArnRK+fl6R6RULAQAYyWidUovel3t8WkUAX2w==
-X-Gm-Gg: AYBFou0X7IzSvs7GJxAbU6XLtVkN5Dso4P7/Yzh0jOIR2Nr15VWjTjjUGcRLPBt5059
-	zsSXsR8mIfTBBaDjauRAuupEdvhO8TCO1+8BlGwmoGlaz/oqZvYglOKLvwK6I9NYSgj0E2sybqP
-	xyQAdsCgorvHTE5u8+rpmvQ4Oi2p4KfG4C+0K6uxS+kPL3hM9NXasHryC6xzVS/B9dmygrkjjty
-	nd03iONlchEV1r8PWfh5+Csmf7ySwrH4CHbxBkRFex5Yyjmsg60NuJwVZBJl9jegqcpdH8KtPg6
-	wi5dssdqhfL4xIHTqozG6chISEgBMzxdZZzZjF52QSQEvZ/O/X+bY4Z6W8TB5B0JbiBNR2VR5Ks
-	YZjT2F3+dUakXKYwuxhiYSDRKJ5pVTvcuYLHWrQZzS0KvSq75sgnpAbSrO95zeTMNxXYYYz3Wnx
-	0FdVfxblnk4ALtu6c3sFBOxHbkI1G2gxP09FiJMlg7UVh5+L2XG+HzPKL6t+jzlzsBQ5DWccHxN
-	S33Bm+k+1+Cx0D7P2EZ7V4ZaQrN7+LItGzbpCKjd+eZU4VaPcC9xtqCvqahvpZuHuog2BAe8Nzx
-	oQzotaPGP7KAYrtNpjc7KUjwYHNTlFrvsgFaJT78SIHRuIEkjvlS9VNPByn5hgcXGGvQ
-X-Received: by 2002:a05:7022:7f0f:b0:1b3:b3de:9231 with SMTP id a92af1059eb24-1b50309823dmr3952411c88.14.1794617968357;
-        Fri, 13 Nov 2026 16:59:28 -0800 (PST)
-Received: from localhost ([2a00:79e0:2e7c:8:c0e6:2ee8:7d51:ad79])
-        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-1b505b5bf76sm7931235c88.10.2026.11.13.16.59.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 16:59:26 -0800 (PST)
-Date: Fri, 13 Nov 2026 16:59:25 -0800
-From: Brian Norris <briannorris@chromium.org>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Linux PM <linux-pm@vger.kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Subject: Re: [PATCH v1] PM: runtime: Update last_busy before calling
- rpm_suspend() in rpm_idle()
-Message-ID: <aveybY5Z9OWQYkRS@google.com>
-References: <4789427.LvFx2qVVIh@rafael.j.wysocki>
+        bh=/m5d7czP0+mAkTXvCBEQeqM+jQc19scZ/VuN8vwz6lk=;
+        b=nosDkjPxgvaQUA/hueX/EmVn8ndDDVvBkKM/qZPtK7v+IzHOuImPvIcrpu36kfvbH8
+         v4Q5pN3DIiRmNwQJLjsgF3EaeXKt7Pbv+et0XjuS4cCK67TbhXAkPGx/WG44N5ORQ940
+         9ORIAAiL+XRGGhiRwvXx+hVbyKbQGAvC5l3JhWogdVKdOuqwSlwt3db7c4psawJ+5tNc
+         6eDcP2obHyJxod12iBfOWAxg2Ln+IsjME0zx7+gDNDkBI91gRBK852uSz4i1AM1ffs+m
+         +kgQKfcd5PG4OR75EzHL7VmzAPXrqMu3uqzbCXbdDWCD7HuixurzGQeNaUB/ZkCZJqnH
+         u6SA==
+X-Forwarded-Encrypted: i=1; AL+hErHrzDqlHlj5fWaVvgrmmdGIS315rDo5RzcCs67CP6dyh8VB/D/zb3VbQUzTM2HEUlcMwHZPIleVgXCGZr0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+O5TtggWiz8kcG3YroE09IiDGodXhBMUJill12ah82bsVbI0Yn
+	e4g/rimmOYA2WJoXmJ0XMk1wE8V3yZ/nWU2wKZtqkjviPsHXxkXGsIyQPGSbvTqB08WvIj/U5f+
+	uTRy0SwsvhVRPm2evv1337hB5fMjr2N5y6PLqYbtT
+X-Gm-Gg: AYBFou0I5M4T6E+y8ZdU1iDxvQqHXrB6pWubvuRkq0qvNRBHdCnNjckkMj5FMdib1Vu
+	CmxYVh/tSF4xFl4DSOCQnhDaaWlERibApQRu9Xqe9nmsg101Pi9X4s1l5xZ8vVXlEEBwCHYc0UQ
+	WX++SioHehGhkgyltMcxkp5J2P8H1Ym47BPNs3UQF4/WfGT7q2C6L8oi2kWHIDzrec2I94dOrjG
+	DgNp6Z0CRTteCBP4wik9xBdAsDzUkS2H/UuTztQbzLrKi935Xtzg6VwVuHIeubRUthrZ7lvICWC
+	NrmAZOEg5yYgm+ENpipcEQwoPnASwfhOrumz49zqOb9PtFNj/Pd9A4mBatCI9b/vX9fYcz3lOeP
+	h6sgdLdoxAX+CpR9Z+sv9OwmKWU7FaACVXy7Q+j/tnhyZ5oN+ne3q146+UXBCjUUvpR/a8Q==
+X-Received: by 2002:a17:907:72c8:b0:c2d:c98f:4824 with SMTP id
+ a640c23a62f3a-c509640e213mr344745266b.30.1794618128439; Fri, 13 Nov 2026
+ 17:02:08 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,94 +104,308 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4789427.LvFx2qVVIh@rafael.j.wysocki>
+References: <20261111115911.1142000-1-david.laight.linux@gmail.com> <20261111115911.1142000-10-david.laight.linux@gmail.com>
+In-Reply-To: <20261111115911.1142000-10-david.laight.linux@gmail.com>
+From: Samuel Wu <wusamuel@google.com>
+Date: Fri, 13 Nov 2026 17:01:56 -0800
+X-Gm-Features: AclHuK92ZDtDkLGXySEyJcsPwdTi7Im-tlh3FuOteUS-nzQ2KxAv8LMSfv9gpak
+Message-ID: <CAG2KctruqvRDU46Q58Sk3Bkr=i1yuhs8znqgWWP65ZydBnT+Hw@mail.gmail.com>
+Subject: Re: [PATCH v3 next 09/13] kallsyms: Add a kernel parameter to change
+ the kallsyms_markers[] density
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Petr Mladek <pmladek@suse.com>, Kees Cook <kees@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-kbuild@vger.kernel.org, bpf@vger.kernel.org, 
+	Jim Cromie <jim.cromie@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Luis Chamberlain <mcgrof@kernel.org>, Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Andrii Nakryiko <andrii@kernel.org>, linux-kselftest@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 13, 2026 at 02:27:23PM +0100, Rafael J. Wysocki wrote:
-> From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
-> 
-> When rpm_idle() is about to call rpm_suspend(), there are no reasons
-> preventing the device from being suspended, but if the device uses an
-> autosuspend delay, it needs to be taken into account.
-> 
-> For this purpose, rpm_idle() adds RPM_AUTO to the flags passed to
-> rpm_suspend(), but doing that alone is insufficient because the point
-> in time from which the autosuspend delay is counted may be too early.
-> 
-> For example, if the device has children (or consumers) and the last
-> of them goes into runtime suspend, the parent may now become eligible
-> for suspending, but it may not be worthwhile for it to suspend until
-> a certain time later.
-> 
-> Quoting Alan Stern [1]:
-> 
->  Let's say the last remaining active child goes into runtime suspend at
->  time T.  Let's also say that the parent expects none of the children
->  will need to resume until time T + D.  Is D sufficiently large to make
->  it worthwhile for the parent to suspend and then resume?  If not, the
->  parent should remain active.  If yes, the parent should autosuspend --
->  and the length of time the parent should wait before autosuspending is
->  on the order of the value of D (let's call it D*) that corresponds to
->  this crossover point.  Thus the parent's autosuspend delay should be
->  set to D*, or something close to it, in order to achieve both
->  objectives.
-> 
-> Moreover, if the parent's autosuspend delay is set to D*, it should be
-> counted from time T at which the last child has suspended, but that does
-> not happen because the parent's last_busy timestamp is not updated at
-> time T.  That leads to undesirable parent suspends occurring between
-> child suspend and resume [2].
-> 
-> To address this issue, make rpm_idle() update the last_busy timestamp
-> of the device when it is about to call rpm_suspend() which most often
-> is right after the device's last child (or consumer) has gone into
-> runtime suspend.
-
-Is it worthwhile to note (or at least hint at) how many other things
-change along with this? e.g., how pm_runtime_allow() (and therefore
-auto > control/power), all non-autosuspend pm_runtime_put() variants,
-etc, also extend the autosuspend timer? I think we agreed these are
-acceptable effects, and likely even desireable, but I'd say these are
-fairly major changes.
-
-In any case, the change looks good to me:
-
-Reviewed-by: Brian Norris <briannorris@chromium.org>
-
-I meant to make time to test this out a bit more, but ran out; maybe
-next week.
-
-Thanks,
-Brian
-
-> Updating the last_busy timestamp when rpm_idle() returns an error
-> without calling rpm_suspend() is not useful because the device is then
-> going to remain active for an unknown amount of time and its autosuspend
-> delay needs to take effect later.
-> 
-> Link: https://lore.kernel.org/linux-pm/fc43eb13-816b-4cd0-9711-848fdab605ef@rowland.harvard.edu/ [1]
-> Link: https://lore.kernel.org/linux-pm/CAJZ5v0hKpjMsGQm8Cpa89x5wkNxqkggDNbp+eQ0S-E52DETWjQ@mail.gmail.com/ [2]
-> Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+On Wed, Nov 11, 2026 at 3:59=E2=80=AFAM David Laight
+<david.laight.linux@gmail.com> wrote:
+>
+> The density is a tradeoff between data size and execution speed.
+> Reducing it from 256 to 64 gives a 35% improvement for name lookups.
+>
+> Change scripts/kallsyms to take the density from a --marker-shift command
+> line parameter so that it can be build specific.
+> Write the value used to the output file to ensure the kernel uses the
+> correct value.
+>
+> The program's default is unchanged at 1 marker per 256 symbols,
+> The kernel config defaults to 1 marker per 64 symbols.
+> This increases the static data by a little less than 1 bit for every
+> two symbols.
+>
+> Signed-off-by: David Laight <david.laight.linux@gmail.com>
 > ---
->  drivers/base/power/runtime.c |    6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> --- a/drivers/base/power/runtime.c
-> +++ b/drivers/base/power/runtime.c
-> @@ -560,7 +560,11 @@ static int rpm_idle(struct device *dev,
->  
->   out:
->  	trace_rpm_return_int(dev, _THIS_IP_, retval);
-> -	return retval ? retval : rpm_suspend(dev, rpmflags | RPM_AUTO);
-> +	if (retval)
-> +		return retval;
+>
+> v3: Previously patches 8 and 9
+>
+>  init/Kconfig               | 19 +++++++++++++++
+>  kernel/kallsyms.c          | 16 ++++++-------
+>  kernel/kallsyms_internal.h |  1 +
+>  scripts/kallsyms.c         | 49 ++++++++++++++++++++++++++------------
+>  scripts/link-vmlinux.sh    |  6 +++++
+>  5 files changed, 67 insertions(+), 24 deletions(-)
+>
+> diff --git a/init/Kconfig b/init/Kconfig
+> index 4013781e0a02..b2db123a51d7 100644
+> --- a/init/Kconfig
+> +++ b/init/Kconfig
+> @@ -1908,6 +1908,25 @@ config KALLSYMS
+>           symbolic stack backtraces. This increases the size of the kerne=
+l
+>           somewhat, as all symbols have to be loaded into the kernel imag=
+e.
+>
+> +config KALLSYMS_MARKER_SHIFT
+> +       int "Interval between kallsyms markers (6 =3D> 64, 8 =3D> 256)"
+> +       depends on KALLSYMS
+> +       default 6
+> +       range 0 24
+> +       help
+> +         Set the interval between the kallsyms marker entries as a power=
+ of 2.
 > +
-> +	pm_runtime_mark_last_busy(dev);
-> +	return rpm_suspend(dev, rpmflags | RPM_AUTO);
+> +         This bounds the linear search when locating the name of a symbo=
+l
+> +         from its index in the array of values (and v.v.).
+> +
+> +         Smaller values speed up the search but increase the memory foot=
+print.
+> +         Values below 5 (one 32 bit marker every 32 symbols) are unlikel=
+y to
+> +         make a significant difference because other parts of the code
+> +         dominate.
+> +
+> +         The default of 6 is a reasonable compromise. It makes looking u=
+p a
+> +         symbol by name around 35% faster than setting it to 8.
+> +
+>  config KALLSYMS_SELFTEST
+>         bool "Test the basic functions and performance of kallsyms"
+>         depends on KALLSYMS
+> diff --git a/kernel/kallsyms.c b/kernel/kallsyms.c
+> index fd42a1a8ed3e..2c4264a3e0c5 100644
+> --- a/kernel/kallsyms.c
+> +++ b/kernel/kallsyms.c
+> @@ -147,13 +147,11 @@ static int kallsyms_strcmp_symbol(unsigned int off,=
+ const char *name)
+>  static unsigned int get_symbol_offset(unsigned long pos)
+>  {
+>         const u8 *name;
+> -       int i, len;
+> +       int len;
+>
+> -       /*
+> -        * Use the closest marker we have. We have markers every 256 posi=
+tions,
+> -        * so that should be close enough.
+> -        */
+> -       name =3D &kallsyms_names[kallsyms_markers[pos >> 8]];
+> +       /* Scan from the marker before the requested symbol number */
+> +       name =3D &kallsyms_names[kallsyms_markers[pos >> kallsyms_marker_=
+shift]];
+> +       pos &=3D (1 << kallsyms_marker_shift) - 1;
+>
+>         /*
+>          * Sequentially scan all the symbols up to the point we're search=
+ing
+> @@ -161,7 +159,7 @@ static unsigned int get_symbol_offset(unsigned long p=
+os)
+>          * so we just need to add the len to the current pointer for ever=
+y
+>          * symbol we wish to skip.
+>          */
+> -       for (i =3D 0; i < (pos & 0xFF); i++) {
+> +       while (pos--) {
+>                 len =3D *name;
+>
+>                 /*
+> @@ -185,7 +183,7 @@ static unsigned long get_name_address(unsigned int na=
+me_offset)
+>         unsigned int low, pos, high;
+>
+>         low =3D 0;
+> -       high =3D ((kallsyms_num_syms - 1) >> 8) + 1;
+> +       high =3D ((kallsyms_num_syms - 1) >> kallsyms_marker_shift) + 1;
+>
+>         while (high - low > 1) {
+>                 pos =3D low + (high - low) / 2;
+> @@ -196,7 +194,7 @@ static unsigned long get_name_address(unsigned int na=
+me_offset)
+>         }
+>
+>         pos =3D kallsyms_markers[low];
+> -       for (low <<=3D 8; pos < name_offset; low++) {
+> +       for (low <<=3D kallsyms_marker_shift; pos < name_offset; low++) {
+>                 unsigned int len =3D kallsyms_names[pos];
+>                 if (len & 0x80)
+>                         len +=3D (kallsyms_names[pos + 1] << 7) - 0x7f;
+> diff --git a/kernel/kallsyms_internal.h b/kernel/kallsyms_internal.h
+> index 11fb0de92ede..9137870ad00f 100644
+> --- a/kernel/kallsyms_internal.h
+> +++ b/kernel/kallsyms_internal.h
+> @@ -12,6 +12,7 @@ extern const unsigned int kallsyms_num_syms;
+>  extern const char kallsyms_token_table[];
+>  extern const u16 kallsyms_token_index[];
+>
+> +extern const unsigned int kallsyms_marker_shift;
+>  extern const unsigned int kallsyms_markers[];
+>
+>  /* Although constant, size is volatile for better code generation. */
+> diff --git a/scripts/kallsyms.c b/scripts/kallsyms.c
+> index 930ec27a53c0..c27aaabccd1b 100644
+> --- a/scripts/kallsyms.c
+> +++ b/scripts/kallsyms.c
+> @@ -59,6 +59,8 @@ static unsigned int table_size, table_cnt;
+>  static int all_symbols;
+>  static int pc_relative;
+>  static int verbose;
+> +/* Default to one kallsyms_markers[] entry for each 256 symbols */
+> +static unsigned long marker_shift =3D 8;
+>
+>  static int big_endian; /* Extracted from the elf file */
+>
+> @@ -441,8 +443,8 @@ static void write_src(void)
+>         stamp("write token table");
+>
+>         /* table of offset markers, that give the offset in the compresse=
+d stream
+> -        * every 256 symbols */
+> -       markers_cnt =3D (table_cnt + 255) / 256;
+> +        * every (1 << marker_shift) (typically 64 or 256) symbols */
+> +       markers_cnt =3D (table_cnt + 255) >> marker_shift;
+
+Should be (table_cnt + (1 << marker_shift) - 1) >> marker_shift.
+
+Otherwise, looks good to me!
+
+>         markers =3D xmalloc(sizeof(*markers) * markers_cnt);
+>
+>         output_label("kallsyms_names");
+> @@ -476,14 +478,14 @@ static void write_src(void)
+>                 }
+>
+>                 if (out_bin_file) {
+> -                       if ((i & 0xFF) =3D=3D 0)
+> -                               markers[i >> 8] =3D big_endian ? htobe32(=
+off) : htole32(off);
+> +                       if ((i & ((1u << marker_shift) - 1)) =3D=3D 0)
+> +                               markers[i >> marker_shift] =3D big_endian=
+ ? htobe32(off) : htole32(off);
+>
+>                         fwrite(len, 1, len_len, out_bin_file);
+>                         fwrite(se->sym, 1, se->len, out_bin_file);
+>                 } else {
+> -                       if ((i & 0xFF) =3D=3D 0)
+> -                               markers[i >> 8] =3D off;
+> +                       if ((i & ((1u << marker_shift) - 1)) =3D=3D 0)
+> +                               markers[i >> marker_shift] =3D off;
+>
+>                         printf("\t/* n:%u */\t.byte\t%u", off, len[0]);
+>                         if (len_len =3D=3D 2)
+> @@ -504,6 +506,10 @@ static void write_src(void)
+>         printf(".size kallsyms_names, . - kallsyms_names\n");
+>         printf("\n");
+>
+> +       output_label("kallsyms_marker_shift");
+> +       printf("\t.long\t%lu\n" , marker_shift);
+> +       printf("\n");
+> +
+>         output_label("kallsyms_markers");
+>         if (out_bin_file) {
+>                 write_incbin_header("markers", &bin_offset);
+> @@ -926,6 +932,7 @@ static void usage(void)
+>                 "Usage: kallsyms [options] [vmlinux [out.bin]] > out.S\n"
+>                 "       kallsyms --sysmap vmlinux > out.map\n"
+>                 "           --all-symbols     Include all local symbols\n=
+"
+> +               "           --marker-shift=3Dn  Interval between makers (=
+6 =3D> 64, 8 =3D> 256)\n"
+>                 "           --pc-relative     Output symbol offsets\n"
+>                 "           --sysmap=3Dout.map  Text map file\n"
+>                 "           --verbose         Extra diagnostic output\n"
+> @@ -946,21 +953,33 @@ int main(int argc, char **argv)
+>
+>         while (1) {
+>                 static const struct option long_options[] =3D {
+> -                       {"all-symbols",     no_argument, &all_symbols,   =
+  1},
+> -                       {"pc-relative",     no_argument, &pc_relative,   =
+  1},
+> -                       {"sysmap",    optional_argument, NULL,           =
+'s'},
+> -                       {"verbose",         no_argument, &verbose,       =
+  1},
+> +                       {"all-symbols",        no_argument, &all_symbols,=
+     1},
+> +                       {"marker-shift", required_argument, NULL,        =
+   'm'},
+> +                       {"pc-relative",        no_argument, &pc_relative,=
+     1},
+> +                       {"sysmap",       optional_argument, NULL,        =
+   's'},
+> +                       {"verbose",            no_argument, &verbose,    =
+     1},
+>                         {},
+>                 };
+>
+> -               int c =3D getopt_long(argc, argv, "", long_options, NULL)=
+;
+> -
+> -               if (c =3D=3D -1)
+> +               switch (getopt_long(argc, argv, "", long_options, NULL)) =
+{
+> +               case -1:
+>                         break;
+> -               if (c =3D=3D 's')
+> +               case 0:
+> +                       continue;
+> +               case 'm':
+> +                       if (!optarg[0])
+> +                               continue;
+> +                       marker_shift =3D strtoul(optarg, NULL, 10);
+> +                       if (marker_shift > 24)
+> +                               usage();
+> +                       continue;
+> +               case 's':
+>                         sysmap =3D optarg ?: "";
+> -               else if (c !=3D 0)
+> +                       continue;
+> +               default:
+>                         usage();
+> +               }
+> +               break;
+>         }
+>
+>         stamp(NULL);
+> diff --git a/scripts/link-vmlinux.sh b/scripts/link-vmlinux.sh
+> index 44b5a6d78ce5..61cf8f287ebe 100755
+> --- a/scripts/link-vmlinux.sh
+> +++ b/scripts/link-vmlinux.sh
+> @@ -37,6 +37,10 @@ is_enabled() {
+>         grep -q "^$1=3Dy" include/config/auto.conf
 >  }
->  
->  /**
-> 
-> 
-> 
+>
+> +value() {
+> +       sed -n "/^$1=3D/{s///;p;q}" include/config/auto.conf
+> +}
+> +
+>  # Nice output in kbuild format
+>  # Will be suppressed by "make -s"
+>  info()
+> @@ -140,6 +144,8 @@ kallsyms()
+>                 kallsymopt=3D"${kallsymopt} --pc-relative"
+>         fi
+>
+> +       kallsymopt=3D"${kallsymopt} --marker-shift=3D$(value CONFIG_KALLS=
+YMS_MARKER_SHIFT)"
+> +
+>         info KSYMS "${2}.S"
+>         scripts/kallsyms ${kallsymopt} ${1:+"${1}" "${2}.bin"} > "${2}.S"
+>
+> --
+> 2.39.5
+>
