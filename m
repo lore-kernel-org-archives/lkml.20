@@ -1,21 +1,21 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.142.180.65
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794651787;
-	b=dgKk+Zxu8lnfPdKClsFmWcVQgLYBReGfqbzSRszwugZdihL7MAdFJiRO917+Yv+a/Y54
-	 es2lLZKhU2qBZdGagOyaebvBGdZcO2W5wS+g4XLMN9/7/ZYCFUKZPqfWf2F7VZiddZpRc
-	 f07GwM9DMHzayVQQjxDv++2VXpIbRsoHVwZFOGq5+cUtDiuT7mD+tAquRAxQPdiTO8T+l
-	 XZKK/Kn+ZtoUcQbp1Z9ICu0AqCllFBIhvx2rXjPQ+QcFe1xeFl8cdTrc5iiJ7u8/glgq+
-	 3Xsi+CURSeaxxR5H+gOQKioJeDbKJ3KndzzNa42sbWa/ngKcOmw7WjUUnkGV4lCCQVQ==
+	t=1794651796;
+	b=bbI8wHAXWIOJk/vChpK1c2ELVCb2JMwdGbd/ooeURe0TrvfZJkqsVcZzKndiED5hvB02
+	 //exqRsa2/NPp0H2tQdQK6cJ4JtYdLvQvxDiSI7A6z0FjzMtAa98l0yLk6efdpW8s+GYK
+	 SqXi4It6nDKtec3e8p9Qu9hp5ZSNnpx8b6J899KstmeTNEOe3xgn2egLHg+0GJ70hbpQK
+	 XJmMfujg9DhgirPmhGMCv4yTC2ggcK+xXA59IYQIgcIRXCZeurGRKNmQTgT+1h2OE7ZSJ
+	 To0tE6urwAwlRdS0h4oRN4n009KreVp04oQiX3DTdC/KdUFXkeMQMQJFNdDOB42lfKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794651787;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794651796;
 	h=DMARC-Filter:Received:Date:From:To:Subject:Message-ID:References:
 	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=hQdAK6nXJHg9IiRiM6Gy5G99h7yBYkgKonnA+V+wGAU=;
-	b=jns7wSz5PwfhS6ooabG5X/qLw4LKF+yLcyJNUT5kU6lu8WwfZy3Z+gnmPbVfkCqeCT5L
-	 KeFVnkwKCvRyHF5Ro/lh8uXNc6Nw5XCa0eZGN1Bv6ij7/9uhKAgRXayYN4eiMK/MqIvX/
-	 3qu9JNCTVkIiVtVWAaOzlu0T6dl50XX8Kk9b1xQ18CnG5DdA3OkQbpgJC+pk+lFjQQAig
-	 bkV4vIdB1ciscpGh4wc+VUalOzZndAT6sjtz6BXIki6666EJtBqPJruYIUokCQvR7VZan
-	 MrPaCTRw/6lU5B9T0+1gD+SWxBJXamGDhU1XbpaT/dmfYSrfpollrJ0aSbMJXmhxkUg==
+	bh=jrBobRkGyr/IcjYrx7kD98jCz8paoRMgebEiflmNI3I=;
+	b=OYy0KQMmTFMqEMuEYB4OS9EOv9L4D0Tgb1MjVoCWI4olT7wrJs7vlJiYauJTSp9/f0hr
+	 oG6VNAUErA2hQVffb4gJCBXwadaDVwYBnW12bvWeajS9pHUvIQyramAi04+dUejNyYcRq
+	 qoU7xricBA5sHLO5cgz5UyTIXx0xUrp54LgmFm5PIC8DdTZfcaXEQZB+zt30tRxwxhi36
+	 3KNFCGmnU+AYsxOno62hjZ/LkJzWq0Kg0ZELcr67Wzeznl6oWTsOW5o0cLx9MBzU/vjf1
+	 K+MF6SyjM06onTD+tYuiYpFCjckHQXNuN0MzG7isduRnTziKWxL4gopYTJcK4dWgWYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=makrotopia.org;
 	spf=pass smtp.mailfrom=makrotopia.org;
@@ -24,18 +24,18 @@ Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3D92606A33B;
-	Sat, 14 Nov 2026 10:23:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3D92606A33B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44BE8606A898;
+	Sat, 14 Nov 2026 10:23:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44BE8606A898
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
 Received: from local
 	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
 	 (Exim 4.100.1)
 	(envelope-from <daniel@makrotopia.org>)
-	id 1xSAuS-000000003bG-0Ffl;
-	Sat, 14 Nov 2026 10:23:00 +0000
-Date: Sat, 14 Nov 2026 10:22:57 +0000
+	id 1xSAub-000000003bk-25J2;
+	Sat, 14 Nov 2026 10:23:09 +0000
+Date: Sat, 14 Nov 2026 10:23:06 +0000
 From: Daniel Golle <daniel@makrotopia.org>
 To: Detlev Casanova <detlev.casanova@collabora.com>,
 	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
@@ -48,9 +48,8 @@ To: Detlev Casanova <detlev.casanova@collabora.com>,
 	Sebastian Fricke <sebastian.fricke@collabora.com>,
 	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
 	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 3/7] media: rkvdec: hevc: bound the RPS reads by the control
- size
-Message-ID: <bb9c44d0f56221874b105394169e5c377ef21b42.1794645268.git.daniel@makrotopia.org>
+Subject: [PATCH 5/7] media: rkvdec: vdpu381: refuse HEVC jobs without RPS sets
+Message-ID: <b7a2619578693a708dbd187e2f659dc0886ae23a.1794645268.git.daniel@makrotopia.org>
 References: <cover.1794645268.git.daniel@makrotopia.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,91 +64,61 @@ Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <cover.1794645268.git.daniel@makrotopia.org>
 
-The RPS helpers read num_short_term_ref_pic_sets elements of the
-EXT_SPS_ST_RPS control and num_long_term_ref_pics_sps elements of the
-EXT_SPS_LT_RPS control, however many elements userspace passed. Beyond
-the passed elements they read stale entries of the control's array,
-and past its allocation once the SPS counts more sets than the control
-has ever held, as the control framework sizes a dynamic array for the
-largest element count it has seen. The short-term sets read from there
-are unchecked, and a num_negative_pics or num_positive_pics above 16
-overflows the calculated sets, the stack arrays of
-st_ref_pic_set_prediction() and the hardware RPS table.
+When the SPS uses short-term or long-term reference picture sets and
+the matching EXT_SPS_ST_RPS or EXT_SPS_LT_RPS control was never set or
+holds fewer sets than the SPS counts, rkvdec_hevc_run() logs a warning
+and starts the decoder with an RPS table that does not belong to the
+stream, which at best gives wrong pictures. On the VDPU346 of the
+RK3568, which uses this back end, such decodes also raise error
+interrupts and time out, the IOMMU force reset fails, and the system
+stops responding until the hardware watchdog resets it.
 
-A userspace V4L2 client that can open the RKVDEC m2m decoder can set an
-SPS whose counts exceed the number of elements it passed in these
-controls, so the reads run past the allocation.
-
-Use the controls only when they hold at least as many elements as the
-SPS counts, and treat them as not set otherwise in both back ends.
+Refuse the job as the VDPU383 back end does: log an error and return
+-EINVAL before any table is assembled, so that rkvdec_device_run()
+returns the buffers with VB2_BUF_STATE_ERROR and the hardware is not
+started. The request's controls are completed first, as
+rkvdec_vp9_run() does, so that the request is signalled as complete.
 
 Fixes: c9a59dc2acc7 ("media: rkvdec: Add HEVC support for the VDPU381 variant")
 Cc: stable@vger.kernel.org
 Signed-off-by: Daniel Golle <daniel@makrotopia.org>
 ---
- .../platform/rockchip/rkvdec/rkvdec-hevc-common.c    | 12 ++++++------
- .../platform/rockchip/rkvdec/rkvdec-vdpu381-hevc.c   |  4 ++--
- .../platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c   |  4 ++--
- 3 files changed, 10 insertions(+), 10 deletions(-)
+ .../rockchip/rkvdec/rkvdec-vdpu381-hevc.c     | 19 ++++++++-----------
+ 1 file changed, 8 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-hevc-common.c b/drivers/media/platform/rockchip/rkvdec/rkvdec-hevc-common.c
-index c249e3f16f42c..797a16517ed59 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec-hevc-common.c
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-hevc-common.c
-@@ -448,18 +448,18 @@ void rkvdec_hevc_run_preamble(struct rkvdec_ctx *ctx,
- 			      V4L2_CID_STATELESS_HEVC_SCALING_MATRIX);
- 	run->scaling_matrix = ctrl ? ctrl->p_cur.p : NULL;
- 
-+	run->ext_sps_st_rps = NULL;
- 	if (ctx->has_sps_st_rps) {
- 		ctrl = v4l2_ctrl_find(&ctx->ctrl_hdl,
- 				      V4L2_CID_STATELESS_HEVC_EXT_SPS_ST_RPS);
--		run->ext_sps_st_rps = ctrl ? ctrl->p_cur.p : NULL;
--	} else {
--		run->ext_sps_st_rps = NULL;
-+		if (ctrl && ctrl->elems >= run->sps->num_short_term_ref_pic_sets)
-+			run->ext_sps_st_rps = ctrl->p_cur.p;
- 	}
-+	run->ext_sps_lt_rps = NULL;
- 	if (ctx->has_sps_lt_rps) {
- 		ctrl = v4l2_ctrl_find(&ctx->ctrl_hdl,
- 				      V4L2_CID_STATELESS_HEVC_EXT_SPS_LT_RPS);
--		run->ext_sps_lt_rps = ctrl ? ctrl->p_cur.p : NULL;
--	} else {
--		run->ext_sps_lt_rps = NULL;
-+		if (ctrl && ctrl->elems >= run->sps->num_long_term_ref_pics_sps)
-+			run->ext_sps_lt_rps = ctrl->p_cur.p;
- 	}
- }
 diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu381-hevc.c b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu381-hevc.c
-index e1936e87f45be..fea7ff48c0dce 100644
+index fea7ff48c0dce..db836536e601b 100644
 --- a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu381-hevc.c
 +++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu381-hevc.c
-@@ -604,8 +604,8 @@ static int rkvdec_hevc_run(struct rkvdec_ctx *ctx)
- 	 * On vdpu381, not setting the long and short term ref sets will just output wrong frames.
- 	 * Let's just warn about it and let the decoder run anyway.
- 	 */
--	if ((!ctx->has_sps_lt_rps && run.sps->num_long_term_ref_pics_sps) ||
--	    (!ctx->has_sps_st_rps && run.sps->num_short_term_ref_pic_sets)) {
-+	if ((!run.ext_sps_lt_rps && run.sps->num_long_term_ref_pics_sps) ||
-+	    (!run.ext_sps_st_rps && run.sps->num_short_term_ref_pic_sets)) {
- 		dev_warn_ratelimited(rkvdec->dev, "Long and short term RPS not set\n");
- 	} else {
- 		rkvdec_hevc_assemble_hw_rps(&run, &tbl->rps, &hevc_ctx->st_cache);
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c
-index e9d8b590f0d58..c409d21c08598 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c
-@@ -550,8 +550,8 @@ static int rkvdec_hevc_run(struct rkvdec_ctx *ctx)
- 	 * To be on the safe side for this new v4l2 control, write an error in the log and mark
- 	 * the buffer as failed by returning an error here.
- 	 */
--	if ((!ctx->has_sps_lt_rps && run.sps->num_long_term_ref_pics_sps) ||
--	    (!ctx->has_sps_st_rps && run.sps->num_short_term_ref_pic_sets)) {
-+	if ((!run.ext_sps_lt_rps && run.sps->num_long_term_ref_pics_sps) ||
-+	    (!run.ext_sps_st_rps && run.sps->num_short_term_ref_pic_sets)) {
- 		dev_err_ratelimited(rkvdec->dev, "Long and short term RPS not set\n");
- 		rkvdec_run_postamble(ctx, &run.base);
- 		return -EINVAL;
+@@ -596,21 +596,18 @@ static int rkvdec_hevc_run(struct rkvdec_ctx *ctx)
+ 
+ 	rkvdec_hevc_run_preamble(ctx, &run);
+ 
+-	rkvdec_hevc_assemble_hw_scaling_list(ctx, &run, &tbl->scaling_list,
+-					     &hevc_ctx->scaling_matrix_cache);
+-	assemble_hw_pps(ctx, &run);
+-
+-	/*
+-	 * On vdpu381, not setting the long and short term ref sets will just output wrong frames.
+-	 * Let's just warn about it and let the decoder run anyway.
+-	 */
+ 	if ((!run.ext_sps_lt_rps && run.sps->num_long_term_ref_pics_sps) ||
+ 	    (!run.ext_sps_st_rps && run.sps->num_short_term_ref_pic_sets)) {
+-		dev_warn_ratelimited(rkvdec->dev, "Long and short term RPS not set\n");
+-	} else {
+-		rkvdec_hevc_assemble_hw_rps(&run, &tbl->rps, &hevc_ctx->st_cache);
++		dev_err_ratelimited(rkvdec->dev, "Long and short term RPS not set\n");
++		rkvdec_run_postamble(ctx, &run.base);
++		return -EINVAL;
+ 	}
+ 
++	rkvdec_hevc_assemble_hw_scaling_list(ctx, &run, &tbl->scaling_list,
++					     &hevc_ctx->scaling_matrix_cache);
++	assemble_hw_pps(ctx, &run);
++	rkvdec_hevc_assemble_hw_rps(&run, &tbl->rps, &hevc_ctx->st_cache);
++
+ 	config_registers(ctx, &run);
+ 
+ 	rkvdec_run_postamble(ctx, &run.base);
 -- 
 2.56.0
