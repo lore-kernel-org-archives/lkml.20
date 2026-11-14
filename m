@@ -1,59 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794624123;
-	b=LPb49Q+wqwf2jocgCRxbjHdtiYspj7yEW1FFXOQ9PuB43MFMpw4HlU25nXuHJYuTi7x0
-	 1yjchNhqiasmrCZ1gloMxKGGPdVuUPZ24SwThFi1r/SIJSnEb2+xpjiuz9Ev820SVIwbI
-	 M8BMKf6nAgBGSR+Cp9rKNX/IcHGnWD737F7R4cHknztB36D7mt4iBG/KvTnY4l5VeOp0u
-	 doJga96MJjUgpls6frnCz6ppWXq+VdOP76iS/dPD/pKuUss4mtfVy7M/MlPlh05NGQzfi
-	 HLCPIHoSkfBBmVWR/S+8rzeCFt85UT7gVx0f/sx6EbX7D9OZ+mjxiRfuiUOm8ovwzeA==
+	t=1794624323;
+	b=z2+rjT6XgmUg8p8PaxulZ/PKnsXbuhhmztGZk/JhuBenGSyny0HMRCyujjxehAI/PbgK
+	 D5iIsvfnUCZLx2I99MbnbNn5OyTLT4+YkD2pbDxNYNgweQI4ix/Gzm2bPYYKFUJ+HTQX1
+	 1/bmHbqILuGg1hlCD2zfpY5V0p4z78Nd06xNJzBm0OwjpGlVqrtmjm5qLVyjl3hIi0CY6
+	 GwR819ihq8oV0Xrz2ExldMXfKCt5Bl4g9tlRhGtUhCNTYqKWtBnDHZB9OrqaI4GUW7kal
+	 tPxIn94r7kdJG7ybX75u4XdrHb293rHLCud6V5PTE7VHN4XgG5aeb2JG78Y/ZO+VcBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794624123;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794624323;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=wAC+JdlNSh6ZSzeM4G6YrlNMLlUw7L1HmDhHG3TaP6A=;
-	b=GFfY1Ht/4H1BUOcW7rBbhthU4B/f73MFOq9JbJA0NWmBvYuUHMrzDrxGYwrnKZtXveVy
-	 AFaCn3ucYVBdIh7pv7dbFoHUQedIeB0HuRjQOjzouLsT/fYlK4CoEPCe/vTDjcDEYtFO2
-	 kKTXY1B9vxiHzAS0wJ2Uw9SR/8usi1Oks5xPqGE4Hh/JY9QaCGWmvAbPdY3ZNccsbkn4X
-	 Rp1a4vkU2HUPYa0CA0c2G5gbqeMB6uq17ZgnVGNwLiDz7SjdrvDCuFB2Zrc3mzK2BKA+8
-	 PgKwZL+eewOOC/ethrV5NCYdy+ZULb4w1P+1P0G/E4g6s8SNcoByftJwPfm5DuJDG7g==
+	bh=h48qZYbCl3W7+4kKVvK+3RKM1GhCKZGVnH2TB53H7Ok=;
+	b=N4TMt/BLxHYLtzWjCam/9N/Ejj+oW+TSEm1kug1x1N1kZyWC6mz6wsH8Tc+engqz6Fu8
+	 qfWjZzVueOQgXDbLQH8jDaFG6FoSjZUETfqW9ZwE83KE09Xzf3i13GXFK6/UeAAE3kbUx
+	 S0J1Q8Iyh+VA6xTuYeUKLEbnsNlM2vZAob/n97d8E8WkaBjsxv8GtBvSeWe7kVZdyLCDw
+	 S5JsM2YdrpWvBrSDUWevZsd2ZaaCcMjg/ja0+0fs4ty/TpFgxPP+vUjyy6FAfhtrftDBS
+	 1ZxlEaxzlAQy2E8bFu2I/J+qnhIY+o6hZULt8EnhbtDgr9yUFsK4LvFo6lWexxbR+GQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mu/Q+Gy+";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gPwQl0P4;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC235606A330;
-	Sat, 14 Nov 2026 02:42:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C971E606A331
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 02:45:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C971E606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mu/Q+Gy+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C30BE1F000C4;
-	Sat, 14 Nov 2026 02:42:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794624123;
-	bh=wAC+JdlNSh6ZSzeM4G6YrlNMLlUw7L1HmDhHG3TaP6A=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=mu/Q+Gy+KUxU7r2a0mdyC0L6ZKirxmajY0ZhtMxXdzcz9jcKBEYfrG2yOK0+2IzSr
-	 a38P9tXzyF+mBryWgUMudnMjSfF9DC548DQCzmZY+dOsWUKOXz/WIESpb/pDqdn25H
-	 a+FqTEA/wWtKU55L2Gwy9+7qQWyeqgAhq76iOX2vQLjjfM+pdMySoBwCCFOt5Dr//f
-	 X7HMpaEQU6IEtw0azdyqutAZiZF+t1EoVjZMCC01xkchVh0mutsOnw3hjBI4Q0nQcW
-	 EpWVodcgQ+Bxt4qXraRX4vld6duQL7bwYde94bj+ei3GgoEdOMefUy79kAmK5b9n22
-	 1lTe/Sm2m7K2g==
-Date: Fri, 13 Nov 2026 18:42:02 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: Ratheesh Kannoth <rkannoth@marvell.com>
-Cc: <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <netdev@vger.kernel.org>, <andrew+netdev@lunn.ch>, <ast@kernel.org>,
- <daniel@iogearbox.net>, <davem@davemloft.net>, <edumazet@kernel.org>,
- <hawk@kernel.org>, <john.fastabend@gmail.com>, <pabeni@redhat.com>,
- <sdf@fomichev.me>, <sgoutham@marvell.com>, Simon Horman <horms@kernel.org>
-Subject: Re: [PATCH v21 net-next 2/2] octeontx2: add mqprio bandwidth
- offload for NIX TX schedulers
-Message-ID: <20261113184202.678ed2f7@kernel.org>
-In-Reply-To: <20261109033154.2161803-3-rkannoth@marvell.com>
-References: <20261109033154.2161803-1-rkannoth@marvell.com>
-	<20261109033154.2161803-3-rkannoth@marvell.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gPwQl0P4
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4b79502c27aso12123835e9.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:45:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794624321; x=1795229121; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=h48qZYbCl3W7+4kKVvK+3RKM1GhCKZGVnH2TB53H7Ok=;
+        b=gPwQl0P4iPKFNkXXe9HUrsnBEx7x40xFM51ar4QB4iFjpTfG5DVZDXByaVcWSCxZUr
+         YaxWnMjxP1mOdIZ1vYrZ6QZQmXOQtGljigPQTM5d1Yl2k7T2Ytu3spr7tCb9Gl8FO3UC
+         wJnjq3WCBSjIu3OxUsUs0+gzOuys91c7nV6+vyM2ygwWKeX0CCLepCUyD7NsG8e/c2HM
+         U/W7yIqmIav/+HpO9cFl5/79NqJ6P32a/vGekM9M2UGaYZS17AnJtr7hmmqi9NHl+wg4
+         85S4yVZ+3EGMAy+/5R8jvYMap3YAyK135atQRnyXfsK2H9WhLJAXdLB6XE3/PmpBaAVb
+         lqoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794624321; x=1795229121;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=h48qZYbCl3W7+4kKVvK+3RKM1GhCKZGVnH2TB53H7Ok=;
+        b=OPRWeryB/URdWuFQLp+4eAK/vxDmaQLjepuXc9Wfek7ci0wcNzksP42MALaz5eUwW2
+         yVdA0RFbU3KC2AJQTNFIewxNED5TDimVGy5oKVauxTuYFL0Ta50WUXWCp7QZGNNJfCmS
+         1t0ULrbpF3MXdmrwArbwzQSa0cMj+uCeHXzO6pim9j1IsuCAPqU3j3e1C3nsQrSnb/r2
+         NZUpVBviwMyXdTG0hG4QX3qMJPmwqKgPcOaGObetKYi+AVe4RZ/RZHwDyzgXnwSvUnuZ
+         dB90oVU5rcH7U9xKTI3YixKhkm+ucbqjhHM9GwzyxcQUalm3oTS5i7C0sN/YzzY3+8qQ
+         XvQQ==
+X-Forwarded-Encrypted: i=1; AL+hErEWgovh1nrNRzLe2/B4Zy3vrCwe3SUmmTqwKXxifesC/PO3HUBSBhAIO93Cm5SVv8qAAQ1Y5wUn+iOTIRg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9YkUlnhg/IYyS67GIddCPa5NhgK+2um9/tLsF+kDR1xUxmIQmF
+	2Wxeu6fOsitLadEisPI6XVOjudAaoAgHkdiox5rNi+MNV4k3Ap8xDHuF
+X-Gm-Gg: AYBFou2mUOznux9c9hlPSLpHNWFXjf4b7hyBXABBNzsQ3fbySTHwAtMoEaVu7B+/p7G
+	kdBQZpOK7J/DF2UQEziB3BJ+ZePOudyj+wHTIP+V2a7+06wonAKeQvoeVaUVzEDbFQTOqp+4AmA
+	PrmhUnX6VpFrHbul2hKFTghsitmQ2jnbHMjudPMHSFIyBHLi+Ci3JIlTIxFFNaPflHjwwUID1mV
+	DtTYIthdu6HqW0gV0JzABlSmG2tkhcJE/RBX7g0I1pQvnu5gFbUF5fnVAj/S3gL6YmreonPgKwQ
+	U1owMhR0AoyvTmO06Ay1KpsH+1Kmc+Lvk2m/4iXICcoO2KzXqZSNM0BuMQhinFM4rmo9fir2uXR
+	N8b/ulu8Qqmt5lWi390nPF3hyegh+/Z2SvjgWju+9qjjQLTF+ucF/OIRb2dBrz3b+wx7u24wgEw
+	+dZe4+4AqkyLiir+onFU+qEf6Dp+29gWk8ZnrZJjjdBnODpRcllLQvW1h5Wv4GGYLBHkMvRsZpJ
+	UINfrlp0UVoLr2y3a+hkg+4Yc8KEEjjcXW7uGV0C/vEkUTdxttb3K3FpPjgfjNcheyOAGq2D4lF
+	ZUnjJCydL+LWi26ZfCIpxF4h6TOjZozViCEceI2NBRJrnjPQYpyh002QDUzc0bfC6yYJDJC8FsO
+	fn2z4k1iGGy8LhotPiBCGz4dnZpK7JPojWdqnC73NRR7kPvs5bD3BhNzFe7wOnwiC0PcFfiKvKL
+	EqXHXS0r+CBFGUY9DbO8ibsZL97agUOhPQTic0Ewpssym/T1FG/vLyWfPgVMBU1CFB0n8Ktr61J
+	OAs
+X-Received: by 2002:a05:600c:512:b0:4a2:1a:a120 with SMTP id 5b1f17b1804b1-4bb55a5d7bamr69903025e9.6.1794624320958;
+        Fri, 13 Nov 2026 18:45:20 -0800 (PST)
+Received: from martell.martell0x1 ([41.239.125.42])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c69406640sm8198455f8f.12.2026.11.13.18.45.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 18:45:20 -0800 (PST)
+From: Marwan Mohamed Zein <marawanzein222@gmail.com>
+To: ojeda@kernel.org
+Cc: rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	boqun@kernel.org,
+	gary@garyguo.net,
+	bjorn3_gh@protonmail.com,
+	lossin@kernel.org,
+	a.hindborg@kernel.org,
+	aliceryhl@google.com,
+	tmgross@umich.edu,
+	dakr@kernel.org,
+	daniel.almeida@collabora.com,
+	tamir@kernel.org,
+	acourbot@nvidia.com,
+	work@onurozkan.dev,
+	martell0x1 <marawanzein222@gmail.com>,
+	spidermana <xuyiwen14@gmail.com>
+Subject: [PATCH] rust: kernel: fix lifetime of copy_from_iter_raw
+Date: Sat, 14 Nov 2026 04:45:15 +0200
+Message-ID: <20261114024515.1000882-1-marawanzein222@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,208 +111,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Mon, 9 Nov 2026 09:01:53 +0530 Ratheesh Kannoth wrote:
-> Add TC_SETUP_QDISC_MQPRIO offload with TC_MQPRIO_SHAPER_BW_RATE on PF and
-> VF netdevs. Program per-queue MDQ CIR/PIR via the NIX TX scheduler mailbox;
-> when active, allocate one SMQ per non-QoS queue under TL4[0].
-> 
-> The TX scheduler cannot be reprogrammed live, so add/replace/delete and
-> failed setup bounce the netdev through ndo_stop()/ndo_open(). Cache rates
-> in software and restore them from otx2_mqprio_up() on open, failing closed
-> on error.
-> 
-> Stage tc replace in mq_offload_snap snapshots committed on TC_ROOT_GRAFT or
-> replaced-qdisc teardown.
-> 
-> Require a running interface with CIR+PIR support. Reject offload with PFC,
-> XDP, HTB, SDP representors, per-TC rates on multi-queue classes, and
-> ethtool channel changes while active.
-> 
-> Reviewed-by: Simon Horman <horms@kernel.org>
-> Signed-off-by: Ratheesh Kannoth <rkannoth@marvell.com>
-> ---
->  .../marvell/octeontx2/nic/otx2_common.c       | 143 ++-
->  .../marvell/octeontx2/nic/otx2_common.h       |  34 +
->  .../marvell/octeontx2/nic/otx2_dcbnl.c        |   6 +
->  .../marvell/octeontx2/nic/otx2_ethtool.c      |   8 +
->  .../ethernet/marvell/octeontx2/nic/otx2_pf.c  |  34 +-
->  .../ethernet/marvell/octeontx2/nic/otx2_tc.c  | 936 ++++++++++++++++++
->  .../ethernet/marvell/octeontx2/nic/otx2_vf.c  |  28 +-
->  .../net/ethernet/marvell/octeontx2/nic/qos.c  |  11 +
->  8 files changed, 1179 insertions(+), 21 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c
-> index f4047b0d5d96..b4a738cf9a8b 100644
-> --- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c
-> +++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_common.c
-> @@ -615,6 +615,139 @@ void otx2_get_mac_from_af(struct net_device *netdev)
->  }
->  EXPORT_SYMBOL(otx2_get_mac_from_af);
->  
-> +static int
-> +otx2_nix_tmq_reg_write(struct otx2_nic *pfvf, int cnt,
-> +		       u64 reg_addr[MAX_REGS_PER_MBOX_MSG],
-> +		       u64 reg_val[MAX_REGS_PER_MBOX_MSG])
-> +{
-> +	struct mbox *mbox = &pfvf->mbox;
-> +	struct nix_txschq_config *req;
-> +	int i, err;
-> +
-> +	mutex_lock(&mbox->lock);
-> +	req = otx2_mbox_alloc_msg_nix_txschq_cfg(mbox);
-> +	if (!req) {
-> +		mutex_unlock(&mbox->lock);
-> +		return -ENOMEM;
-> +	}
-> +
-> +	req->lvl = NIX_TXSCH_LVL_MDQ;
-> +	req->num_regs = cnt;
-> +
-> +	for (i = 0; i < cnt; i++) {
-> +		req->reg[i] = reg_addr[i];
-> +		req->regval[i] = reg_val[i];
-> +	}
-> +
-> +	err = otx2_sync_mbox_msg(mbox);
-> +	mutex_unlock(&mbox->lock);
-> +
-> +	return err;
-> +}
-> +
-> +int otx2_nix_tm_clear_queue_shaper(struct otx2_nic *pfvf)
-> +{
-> +	u64 reg_addr[MAX_REGS_PER_MBOX_MSG];
-> +	u64 reg_val[MAX_REGS_PER_MBOX_MSG];
-> +	int err, smq, i, cnt = 0;
-> +
-> +	for (i = 0; i < pfvf->hw.txschq_cnt[NIX_TXSCH_LVL_SMQ]; i++) {
-> +		smq = pfvf->hw.txschq_list[NIX_TXSCH_LVL_SMQ][i];
-> +
-> +		reg_addr[cnt] = NIX_AF_MDQX_PIR(smq);
-> +		reg_val[cnt] = 0;
-> +		cnt++;
-> +
-> +		reg_addr[cnt] = NIX_AF_MDQX_CIR(smq);
-> +		reg_val[cnt] = 0;
-> +		cnt++;
-> +
-> +		if (cnt < MAX_REGS_PER_MBOX_MSG - 1)
-> +			continue;
-> +
-> +		err = otx2_nix_tmq_reg_write(pfvf, cnt,
-> +					     reg_addr, reg_val);
-> +		if (err)
-> +			goto fail;
-> +		cnt = 0;
-> +	}
-> +
-> +	if (cnt) {
-> +		err = otx2_nix_tmq_reg_write(pfvf, cnt,
-> +					     reg_addr, reg_val);
-> +		if (err)
-> +			goto fail;
-> +	}
-> +
-> +	return 0;
-> +fail:
-> +	return err;
+From: martell0x1 <marawanzein222@gmail.com>
 
-just return err; why the label ?
+The returned slice is derived from `out`, but lifetime elision
+ties it to `self` because this is a method. Explicitly bind the
+return lifetime to `out` so the returned slice cannot outlive
+its backing buffer.
 
+Reported-by: spidermana <xuyiwen14@gmail.com>
+Closes: https://github.com/Rust-for-Linux/linux/issues/1265
+Signed-off-by: martell0x1 <marawanzein222@gmail.com>
+---
+ rust/kernel/iov.rs | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> +struct mq_offload_snap {
-> +	u64 min_rate[TC_QOPT_MAX_QUEUE];
-> +	u64 max_rate[TC_QOPT_MAX_QUEUE];
-> +	u32 flags;
-> +	__u8 num_tc;
-> +	__u16 count[TC_QOPT_MAX_QUEUE];
-> +	__u16 offset[TC_QOPT_MAX_QUEUE];
-> +	__u8 prio_tc_map[TC_QOPT_BITMASK + 1];
+diff --git a/rust/kernel/iov.rs b/rust/kernel/iov.rs
+index 43bae8923..8caf04518 100644
+--- a/rust/kernel/iov.rs
++++ b/rust/kernel/iov.rs
+@@ -161,7 +161,7 @@ pub fn copy_from_iter_vec<A: Allocator>(
+     ///
+     /// This will never write uninitialized bytes to the provided buffer.
+     #[inline]
+-    pub fn copy_from_iter_raw(&mut self, out: &mut [MaybeUninit<u8>]) -> &mut [u8] {
++    pub fn copy_from_iter_raw<'a>(&mut self, out: &'a mut [MaybeUninit<u8>]) -> &'a mut [u8] {
+         let capacity = out.len();
+         let out = out.as_mut_ptr().cast::<u8>();
+ 
 
-Why is this using __u types?
+base-commit: ee83899302a0457a3ba47464a13e8682bd7ba27d
+-- 
+2.47.3
 
-> diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_ethtool.c b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_ethtool.c
-> index 4fe473d9ea0d..5428b3d1b332 100644
-> --- a/drivers/net/ethernet/marvell/octeontx2/nic/otx2_ethtool.c
-> +++ b/drivers/net/ethernet/marvell/octeontx2/nic/otx2_ethtool.c
-> @@ -287,6 +287,14 @@ static int otx2_set_channels(struct net_device *dev,
->  		return -EINVAL;
->  	}
->  
-> +	if (pfvf->mqprio.rate_limit &&
-> +	    (channel->tx_count != pfvf->hw.tx_queues ||
-> +	     channel->rx_count != pfvf->hw.rx_queues)) {
-> +		netdev_info(dev,
-> +			    "Not permitted to change channel count while MQ prio is active\n");
-
-Why? This seems quite limiting.
-User has to remove the root qdisc to change the queue count?
-
-> +		return -EINVAL;
-> +	}
-> +
->  	if (if_up)
->  		dev->netdev_ops->ndo_stop(dev);
-
-> +	if (prog && pf->mqprio.rate_limit) {
-> +		netdev_err(dev,
-> +			   "XDP: cannot attach while mqprio bandwidth offload is active\n");
-
-Again - why?
-
-> +		return -EOPNOTSUPP;
-> +	}
-> +
->  	if (prog && dev->mtu > MAX_XDP_MTU) {
->  		netdev_warn(dev, "Jumbo frames not yet supported with XDP\n");
->  		return -EOPNOTSUPP;
-
-> +static void otx2_mqprio_free_cache(struct otx2_nic *pfvf)
-> +{
-> +	devm_kfree(pfvf->dev, pfvf->mqprio.min_rate);
-> +	devm_kfree(pfvf->dev, pfvf->mqprio.max_rate);
-
-devm_kfree() is a red flag, either this is something tied to the
-lifetime of the driver, or you need to clean this up. Saying that
-something "doesn't leak because it was devm_kmalloc()ed" is invalid.
-Drivers don't get re-probed in real life, memory parked in devm_ is 
-as bad as leaked.
-
-> +static int otx2_mqprio_restart_netdev(struct net_device *netdev, bool rate_limit)
-> +{
-> +	struct otx2_nic *pfvf = netdev_priv(netdev);
-> +	const struct net_device_ops *ops = netdev->netdev_ops;
-> +	bool running = netif_running(netdev);
-> +	int err;
-> +
-> +	/* TODO: Explore live TX scheduler reprogramming to avoid a full
-> +	 * ndo_stop()/ndo_open() bounce on every mqprio change.
-> +	 */
-> +	netdev_dbg(netdev,
-> +		   "mqprio: restarting interface to reprogram TX scheduler\n");
-> +
-> +	if (running) {
-> +		clear_bit(__LINK_STATE_START, &netdev->state);
-
-Messing with internal netdev state like this from the driver is
-obviously unacceptable.
-
-> +		smp_mb__after_atomic(); /* Commit netif_running(). */
-> +	}
-
-> +	/* TODO: per-TC TL4 shapers or equal per-queue MDQ split for multi-queue TC rates. */
-> +	netdev_err(netdev,
-> +		   "mqprio: %s rate for tc %d not supported with %u queues\n",
-> +		   name, tc, qcount);
-> +	NL_SET_ERR_MSG_FMT_MOD(extack,
-> +			       "mqprio: tc %d rate needs 1 queue (has %u)",
-> +			       tc, qcount);
-
-Doubling out output to extack and dmesg is not okay, user space should
-look at the extack. And a decade after it was added it mostly does.
-
-You are at v21 this is nowhere near the acceptable quality. You should
-probably give up.
