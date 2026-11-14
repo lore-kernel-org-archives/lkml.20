@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794625561;
-	b=WRvOB8Q4KALHaSytGQBeL3dxOccXzunEjigtRED16ggDNiNI0pKzRteGuqdkNybiV150
-	 j+qEvOSJffdJgxEqv0LtG91ZjIPjaioXxRd6GPZnmRNH4wlO0IcdSE41/l/whSbjbUCu2
-	 tTvamyDrkYlyC0WaYqO7JznOBu9sLbuCBzflLxruN3Tmzcp3M1cwiQu8N43wtX/eA2Wow
-	 jDl+JQswQ7HBv8e54/ngTmxcU3G/L6BjStQvP89SHRZ/tb2DvwoYjt5aF1TrmR5Lh3MDV
-	 u86z3a1ymOZAQAt5JyPEZXHRKcEKDU0xp2McYQ6UYboWcFr01CCYBVWxiXVNB5RiqAg==
+	t=1794625562;
+	b=Yp8ZDegCz7nyfTSVuIpWTDlseFTJwiJb8jxvx3mfFRn7twQADhLOVcYEMbviuRi/Bs4o
+	 wzJGf2t1jnC30sg7irfACX7wGNuVeT3MJGAQh4IChilgUPM9z49XB9rjJUvfQ6U11M9va
+	 dyc3i5AIUDWSQLeD5zEDVwQV3WazI7PGk+MpX4SXEYK/Boa4dhl8nSLqsxezN0j7N9wVC
+	 actirJ15aIyymOdjDfTiT4OWGlzujV6PA4DA5Z83Zjq05uMklaBQlKzHUCQB75b91xmm+
+	 jTaXLVHle1/hmfjKJhucaY7egvBXYPpaTPydoVxN3Z1oEc3FIZ+z1RPZSH0uh1e2F4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794625561;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794625562;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=KsxqtEqa+j7cIEzVTIS7e2jle9WDM5wz/EJVL2IR09M=;
-	b=13kHG+MKVlRvLNEyR5Jkqiwvg4kxUnLu1iOKacg51px/Ieh++meRejcccDUjv3nX0hOd
-	 bKrhg6XOnQiVPgnOvWcrXnaPZNKq3O9KzOw1877gXFSqaG9GYOihezQBnzyqkHOMAPY+l
-	 /BNasQcim4nl1sk/t0yv5HandNB++gHAMa81WAec0VGVcKuLThZ0C7iF2ce0sdTKm52uG
-	 eG0q2uC+scvw2WIYFq16Q+shdqSLUbne5DRieAjpjVAeM2AiAkS5RvquN7fh7QlP6CHA4
-	 0xP6N4eq5sI/Rl1hD6/jllmGfCu+CpMs9JaRdes7xhDns3gaRw3aeGtLNNsT4fij4wQ==
+	bh=Qu0QicR3v2Y9fiT7BuqjEd+nN52bTpIsNe3RHBYUUYQ=;
+	b=SDM/IAeB2d4+dhuiCkZQteyEN9obtb4VCS+XGtx6s1xQ1Vg7vwTtIXUM3E9AxvmHDBST
+	 mX6rYEphHAOX1p0ZqLfM1pEqmbszxRoNrrXNhM7yoWOTDmkh1pbUX50/u0eG/QigkJ7aa
+	 7+FP06V2ptg1NWDuEQ/g902CeWAcjC/ooklV3N4n95d92UNcw8YTFngEdNn7u9ZzMjbfm
+	 hBR1BIGOLHdqGFsLXlvoTNsgUvQ3CK69y0i94DdvyQf5hyYTuBhHdhsxtNbOJAnxPCqYJ
+	 IY724YMZGLfZD+govqUbteKbMcKKnx/kf8AZmCJT78M8UabFFgdycm64WBQt+13j99w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=purestorage.com;
 	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=H0oDUQOz;
-	arc=none smtp.remote-ip=74.125.82.44
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=Y1fVUFLm;
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB2FF60A3825
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:06:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB2FF60A3825
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47D1960A383D
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:06:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47D1960A383D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=H0oDUQOz
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-15dd124bbe7so979464c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:06:00 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=Y1fVUFLm
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1b244fb7fffso1860766c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:06:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1794625560; x=1795230360; darn=vger.kernel.org;
+        d=purestorage.com; s=google2022; t=1794625561; x=1795230361; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=KsxqtEqa+j7cIEzVTIS7e2jle9WDM5wz/EJVL2IR09M=;
-        b=H0oDUQOzchJlQD2UPYXvJOOoHgZOWufDl2AJSnwE4Bg2DEkXtBF67aSeiy7hQgncpo
-         4+HAlRNBDIkaPzB3nzmNJ8rO2jmRyI3RG126NsLkLTR9/4nvlAZ/39k48JhuHG8vUD4u
-         MG6MgnACZJP3PbgPCx9h6uXGjqU93Djk63qB3yrVGSUZHTZWNSE3T17osLh7Cpz/KiAp
-         xg52VPsPeP13uSezTd+cHMfLAcX0ZYgG78f5DEHzI+95agpp1AFkeyWcB+wApBKpRwvs
-         cc6+XSmYs51wRbOx/hMmKbYPvafI1yUpEesIghkbXhrNCOPj/zHjCkIRL6a5j2L9L1cD
-         fW/Q==
+        bh=Qu0QicR3v2Y9fiT7BuqjEd+nN52bTpIsNe3RHBYUUYQ=;
+        b=Y1fVUFLmfQdX9ujj7+cmqz09zOwbaKhQqquol8CL/m8YoS88MtNufIIkV6k5RVDy43
+         l+eSWLcz1p2+vQRBr22adaqMdGIDwx1P9f06Wi/ORCR9OTlnkKTjRd5Vp3iC0OG5F/9e
+         DWmxPGud/tswNv9J89O1GDw3y2KcePhe+wK8XJbZqmVdqKPhes3L8qNc2toBLG0Z/utw
+         dckNzj1H40QN9izIB7uD2VSJrDFhz4PaSdLnZBOUFik+M8WpBP5d5mfqnKm8xVzWJXa+
+         9Cq+kCxxRL/QE/z1o0WsG2RQrB0p9vJuakcN5GmXyQvZKOvpCd7dbSJ43CvJ97cRHDXU
+         f3+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794625560; x=1795230360;
+        d=1e100.net; s=20260707; t=1794625561; x=1795230361;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KsxqtEqa+j7cIEzVTIS7e2jle9WDM5wz/EJVL2IR09M=;
-        b=WoB9jLxkAnh21zzIa0cEu9Oj96jXXE3JaoM85MYoAKKpOFqz2yppKd6rXEbbeoCYPW
-         sLe2zbZEVRkilh3PqdsBoVttpwVuiTnEkEPhWW9HXNxVa3EiJsHcgA+HePJMISEhy7TC
-         U+OZJVBAxF22jFLHvmmMAaLaps4ys/pLvpvL5A3YIrSELTEztTuOJJFDA6L/uPajxmTF
-         n3xbF4jXGfrHVSqFQy4Xy9ZX2UoZHX6MVC1mJ116zetmTVeH4o2b2WMaw6tAvnMEYVXg
-         hYeidmnMh0awUvvd0thz09Pk+71HAP4XKVjezNAtUEu6XB30m1do12Pp7nmDR/c1pYFL
-         4XiA==
-X-Forwarded-Encrypted: i=1; AL+hErE/GLndq470dG8lheoNhZ67cZUqtbKJGrhhVrMLKKd73yy095resQnsXj41Swe+39rD82z0ScrVvK9ib6U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ue/Eu1XyXmlsgRWMsPATWnFTiLQC5NmGqMXGNqVydK3qugKRA
-	kIjb+MMBnuiLDZAh6BN1eT92qqyiQZ5+bQbJGKGsGnBQBEC17vsQkg+KRqJAJXsPl30=
-X-Gm-Gg: AYBFou0h7p1raASBCGgBA+IIhNXVymhNGicIRv2+8UmPg2gt9XCW1st3a69yYNXQUVC
-	6HE4dfqKNVByoabvUnv8Aedwd7LcGR2W079kBytvEBs3ML9y5hMQA6vqPm0y6pM5ELuLlaje4hJ
-	ADZ7g9TC2J31YUkG4jFxnswrDCL/E2JSHxD9JnLKuEwQ2l13PqOBf+CDUd+5/fAXc2dxrAA8RPs
-	hWCpHBIV8xWNQUAFGe5GCJONJfPIQj6l9WJtBAL/lTt4JTAsfVssoeORHDmkCAOpnNdmyhZ3sWH
-	Kbk+04P0wCpIcql21DTvvomhiKYmlpYM+wNc7ehS07sY6CSVlpBrwBZ+QyWy8NmqdxyK40qICNS
-	IyCwq2S9by5wecTeGOz+SXnGCbFDDjHy8CFhA7/1CkV+VR/Yh/i1K3pth3gRh8+RY2Ul7CMwLjW
-	uwUTUmGNHwsXKh4OqbPrPJR3a2SeuRc+FUVg+9rJJKQ1tNWMSbDLJElgDyJXDN5tjgUdcqhVlf1
-	tpDEMYDaDi2CiTfyJY2SUHdLcowCngP4AbcvuUxb0vMaxtcYdojiwzwxb9+o+lVbEia7kMr5kDe
-	tEyScdq7PyLYaSDiiM6Zh5mG7VAw85caPBQoXn6lAqLN4Jv/YS2l
-X-Received: by 2002:a05:7022:ed02:b0:1b2:4378:3545 with SMTP id a92af1059eb24-1b5031753eamr3862160c88.21.1794625559780;
-        Fri, 13 Nov 2026 19:05:59 -0800 (PST)
+        bh=Qu0QicR3v2Y9fiT7BuqjEd+nN52bTpIsNe3RHBYUUYQ=;
+        b=uq/yk+BMG/sXhsW6nhtCVTLmUUirBJ2TLFuA7nJY74jbCDwP8cibkdXZvzs6uRSWXu
+         k0aJs4Pi5TuHH89sFgLrR1m7RuajQpG67sGLwD1/9U48J4/qlTPY6folhUB1Zyu1PxMB
+         lkXlRD9o+IwFfJfIGu024rkNZNyIDFU8n16T6tUIWxyTa371jT+b2+egK4OiWyyPuACx
+         /5RutMZY23059hA34roJNL7myZAtgKa81pMJ9svQegCkuDFLlTaHltAETmN9lTIPC7sK
+         T9AfN6W23zZtYKZQxSIGm9sxgGKxX1HL1l+dD53wWNcNlC9ErxJ4rEGgST1ljmqkQ8ch
+         0e6w==
+X-Forwarded-Encrypted: i=1; AL+hErE6vYXhLf0utHRs6PgisLxUYg/LtMKxhM42VJfEG+EbdNPjuhAEhAaaJQ0fa7+WfrMPIQvpxN/tYoN/nJo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+u7hVTTZPNufBNNI+F4zXnyKBXChqYAVln2kknkciWLx9+gppx
+	AvRYDq6zXOGyIjEvdbh8ksKN4WZBIUUuHuy4XAES9cjhlikITeQZ9tc+KkF5TQjqJrc=
+X-Gm-Gg: AYBFou1tJWsGqprBZVE9FTfGWDxZt3pQmUX5/TURPkGCjMtkgD2Nbx4BrQs+LhyyejW
+	x44762iVIuW5mhC9nx0dJ5+fwWKarzYUxqvbps/QGZWz7/yZJzxS/Axp6ko0ZhGvUVFMjmOf6VI
+	gbL8xvWbEeUrwEBKAhzni3nEalYolUa8WenZvBlhcIzVfTi5cHdQ7sy7JsKYkNFB4iCNkOJToFK
+	RCAFoZwgZjqxTG4DVhE4lElV2kJ4I6gDJRoEgsJ3djLEE1melLTLaOQfStSjqZ+WjSXOTijuPtA
+	gfjMv7wxMVXJgqelVzUZru5Tmayw4scp2axy7glL4wvz7Ib892wFSdMACO8qSCoHU6SGUa7i2+D
+	TP/E/n/fVP4/SIvjiFkD5OijAo5bKUNyMzOtLhXiD7IkhTrCoslcBegCe8n/40AzAqDwbb5OwzJ
+	mSgAQ7R7uvdGR3vQqCOmU5oTQoDNPjj/t+OwXqK7Eqn/+vEsuC1spFOWKGGgmQeB/7wfTfVvCsu
+	aqC822sn60/0BcGdVyI+lP4XnBJIpQ513Dwy6bJTJEZ+QUwXlKPBGx0pNblgoW2oA7xXprH1WiS
+	sYoyNKxvYG5MDI/TUBUsGzWAqhEFCRxdVTbqx0pZs/9/zzu/EtWgPQMScLkYjn+D93QRNmEKmw=
+	=
+X-Received: by 2002:a05:701b:290a:b0:16c:3408:760b with SMTP id a92af1059eb24-1b503121292mr3585620c88.32.1794625560977;
+        Fri, 13 Nov 2026 19:06:00 -0800 (PST)
 Received: from apollo.purestorage.com ([208.88.152.253])
-        by smtp.googlemail.com with ESMTPSA id a92af1059eb24-1b50316e008sm10829382c88.6.2026.11.13.19.05.58
+        by smtp.googlemail.com with ESMTPSA id a92af1059eb24-1b50316e008sm10829382c88.6.2026.11.13.19.06.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 19:05:59 -0800 (PST)
+        Fri, 13 Nov 2026 19:06:00 -0800 (PST)
 From: Mohamed Khalfella <mkhalfella@purestorage.com>
 To: Keith Busch <kbusch@kernel.org>,
 	Jens Axboe <axboe@kernel.dk>,
@@ -94,9 +95,9 @@ Cc: Justin Tee <justin.tee@broadcom.com>,
 	Daniel Wagner <dwagner@suse.de>,
 	linux-nvme@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v7 10/17] nvme-tcp: Use CCR to recover controller that hits an error
-Date: Fri, 13 Nov 2026 19:04:24 -0800
-Message-ID: <20261114030454.2836543-11-mkhalfella@purestorage.com>
+Subject: [PATCH v7 11/17] nvme-rdma: Use CCR to recover controller that hits an error
+Date: Fri, 13 Nov 2026 19:04:25 -0800
+Message-ID: <20261114030454.2836543-12-mkhalfella@purestorage.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261114030454.2836543-1-mkhalfella@purestorage.com>
 References: <20261114030454.2836543-1-mkhalfella@purestorage.com>
@@ -118,50 +119,44 @@ controller then moves to RESETTING to continue error recovery.
 
 A request that times out while the controller is FENCING is not
 completed. Its timer is rearmed, since inflight requests must not be
-retried before the fence is over. nvme_tcp_stop_ctrl() flushes
+retried before the fence is over. nvme_rdma_stop_ctrl() flushes
 fencing_work, so deleting a controller that is fencing waits for the
 fence to finish.
 
 Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
 ---
- drivers/nvme/host/tcp.c | 39 ++++++++++++++++++++++++++++++++++-----
+ drivers/nvme/host/rdma.c | 39 ++++++++++++++++++++++++++++++++++-----
  1 file changed, 34 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
-index 7ecc6c007f8d..244c6c50cf99 100644
---- a/drivers/nvme/host/tcp.c
-+++ b/drivers/nvme/host/tcp.c
-@@ -195,6 +195,7 @@ struct nvme_tcp_ctrl {
- 	struct sockaddr_storage src_addr;
- 	struct nvme_ctrl	ctrl;
+diff --git a/drivers/nvme/host/rdma.c b/drivers/nvme/host/rdma.c
+index 32189fdfc0f5..da1ec2dd6205 100644
+--- a/drivers/nvme/host/rdma.c
++++ b/drivers/nvme/host/rdma.c
+@@ -119,6 +119,7 @@ struct nvme_rdma_ctrl {
  
+ 	/* other member variables */
+ 	struct blk_mq_tag_set	tag_set;
 +	struct work_struct	fencing_work;
  	struct work_struct	err_work;
- 	struct delayed_work	connect_work;
- 	struct nvme_tcp_request async_req;
-@@ -651,6 +652,12 @@ static void nvme_tcp_init_recv_ctx(struct nvme_tcp_queue *queue)
  
- static void nvme_tcp_error_recovery(struct nvme_ctrl *ctrl)
+ 	struct nvme_rdma_qe	async_event_sqe;
+@@ -992,6 +993,7 @@ static void nvme_rdma_stop_ctrl(struct nvme_ctrl *nctrl)
  {
-+	if (nvme_change_ctrl_state(ctrl, NVME_CTRL_FENCING)) {
-+		dev_warn(ctrl->device, "starting controller fencing\n");
-+		queue_work(nvme_wq, &to_tcp_ctrl(ctrl)->fencing_work);
-+		return;
-+	}
-+
- 	if (!nvme_change_ctrl_state(ctrl, NVME_CTRL_RESETTING))
- 		return;
+ 	struct nvme_rdma_ctrl *ctrl = to_rdma_ctrl(nctrl);
  
-@@ -2767,6 +2774,22 @@ static void nvme_tcp_reconnect_ctrl_work(struct work_struct *work)
- 	nvme_tcp_reconnect_or_remove(ctrl, ret);
++	flush_work(&ctrl->fencing_work);
+ 	flush_work(&ctrl->err_work);
+ 	cancel_delayed_work_sync(&ctrl->reconnect_work);
+ }
+@@ -1153,6 +1155,22 @@ static void nvme_rdma_reconnect_ctrl_work(struct work_struct *work)
+ 	nvme_rdma_reconnect_or_remove(ctrl, ret);
  }
  
-+static void nvme_tcp_fencing_work(struct work_struct *work)
++static void nvme_rdma_fencing_work(struct work_struct *work)
 +{
-+	struct nvme_tcp_ctrl *tcp_ctrl = container_of(work,
-+			struct nvme_tcp_ctrl, fencing_work);
-+	struct nvme_ctrl *ctrl = &tcp_ctrl->ctrl;
++	struct nvme_rdma_ctrl *rdma_ctrl = container_of(work,
++			struct nvme_rdma_ctrl, fencing_work);
++	struct nvme_ctrl *ctrl = &rdma_ctrl->ctrl;
 +	unsigned long rem;
 +
 +	rem = nvme_fence_ctrl(ctrl);
@@ -170,33 +165,38 @@ index 7ecc6c007f8d..244c6c50cf99 100644
 +
 +	nvme_change_ctrl_state(ctrl, NVME_CTRL_FENCED);
 +	if (nvme_change_ctrl_state(ctrl, NVME_CTRL_RESETTING))
-+		queue_work(nvme_reset_wq, &tcp_ctrl->err_work);
++		queue_work(nvme_reset_wq, &rdma_ctrl->err_work);
 +}
 +
- static void nvme_tcp_error_recovery_work(struct work_struct *work)
+ static void nvme_rdma_error_recovery_work(struct work_struct *work)
  {
- 	struct nvme_tcp_ctrl *tcp_ctrl = container_of(work,
-@@ -2842,6 +2865,7 @@ static void nvme_reset_ctrl_work(struct work_struct *work)
+ 	struct nvme_rdma_ctrl *ctrl = container_of(work,
+@@ -1180,6 +1198,12 @@ static void nvme_rdma_error_recovery_work(struct work_struct *work)
  
- static void nvme_tcp_stop_ctrl(struct nvme_ctrl *ctrl)
+ static void nvme_rdma_error_recovery(struct nvme_rdma_ctrl *ctrl)
  {
-+	flush_work(&to_tcp_ctrl(ctrl)->fencing_work);
- 	flush_work(&to_tcp_ctrl(ctrl)->err_work);
- 	cancel_delayed_work_sync(&to_tcp_ctrl(ctrl)->connect_work);
- }
-@@ -2944,17 +2968,19 @@ static enum blk_eh_timer_return nvme_tcp_timeout(struct request *rq)
- 	struct nvme_tcp_cmd_pdu *pdu = nvme_tcp_req_cmd_pdu(req);
- 	struct nvme_command *cmd = &pdu->cmd;
- 	int qid = nvme_tcp_queue_id(req->queue);
++	if (nvme_change_ctrl_state(&ctrl->ctrl, NVME_CTRL_FENCING)) {
++		dev_warn(ctrl->ctrl.device, "starting controller fencing\n");
++		queue_work(nvme_wq, &ctrl->fencing_work);
++		return;
++	}
++
+ 	if (!nvme_change_ctrl_state(&ctrl->ctrl, NVME_CTRL_RESETTING))
+ 		return;
+ 
+@@ -1991,17 +2015,19 @@ static enum blk_eh_timer_return nvme_rdma_timeout(struct request *rq)
+ 	struct nvme_rdma_ctrl *ctrl = queue->ctrl;
+ 	struct nvme_command *cmd = req->req.cmd;
+ 	int qid = nvme_rdma_queue_idx(queue);
 +	enum nvme_ctrl_state state;
  
- 	dev_warn(ctrl->device,
- 		 "I/O tag %d (%04x) type %d opcode %#x (%s) QID %d timeout\n",
- 		 rq->tag, nvme_cid(rq), pdu->hdr.type, cmd->common.opcode,
+ 	dev_warn(ctrl->ctrl.device,
+ 		 "I/O tag %d (%04x) opcode %#x (%s) QID %d timeout\n",
+ 		 rq->tag, nvme_cid(rq), cmd->common.opcode,
  		 nvme_fabrics_opcode_str(qid, cmd), qid);
  
--	if (nvme_ctrl_state(ctrl) != NVME_CTRL_LIVE) {
-+	state = nvme_ctrl_state(ctrl);
+-	if (nvme_ctrl_state(&ctrl->ctrl) != NVME_CTRL_LIVE) {
++	state = nvme_ctrl_state(&ctrl->ctrl);
 +	if (state != NVME_CTRL_LIVE && state != NVME_CTRL_FENCING) {
  		/*
 -		 * If we are resetting, connecting or deleting we should
@@ -208,7 +208,7 @@ index 7ecc6c007f8d..244c6c50cf99 100644
  		 * - ctrl disable/shutdown fabrics requests
  		 * - connect requests
  		 * - initialization admin requests
-@@ -2970,7 +2996,9 @@ static enum blk_eh_timer_return nvme_tcp_timeout(struct request *rq)
+@@ -2017,7 +2043,9 @@ static enum blk_eh_timer_return nvme_rdma_timeout(struct request *rq)
  
  	/*
  	 * LIVE state should trigger the normal error recovery which will
@@ -217,15 +217,15 @@ index 7ecc6c007f8d..244c6c50cf99 100644
 +	 * not be completed before fencing has finished, so just rearm the
 +	 * timer and let the error recovery pick it up.
  	 */
- 	nvme_tcp_error_recovery(ctrl);
+ 	nvme_rdma_error_recovery(ctrl);
  	return BLK_EH_RESET_TIMER;
-@@ -3209,6 +3237,7 @@ static struct nvme_tcp_ctrl *nvme_tcp_alloc_ctrl(struct device *dev,
+@@ -2328,6 +2356,7 @@ static struct nvme_rdma_ctrl *nvme_rdma_alloc_ctrl(struct device *dev,
  
- 	INIT_DELAYED_WORK(&ctrl->connect_work,
- 			nvme_tcp_reconnect_ctrl_work);
-+	INIT_WORK(&ctrl->fencing_work, nvme_tcp_fencing_work);
- 	INIT_WORK(&ctrl->err_work, nvme_tcp_error_recovery_work);
- 	INIT_WORK(&ctrl->ctrl.reset_work, nvme_reset_ctrl_work);
+ 	INIT_DELAYED_WORK(&ctrl->reconnect_work,
+ 			nvme_rdma_reconnect_ctrl_work);
++	INIT_WORK(&ctrl->fencing_work, nvme_rdma_fencing_work);
+ 	INIT_WORK(&ctrl->err_work, nvme_rdma_error_recovery_work);
+ 	INIT_WORK(&ctrl->ctrl.reset_work, nvme_rdma_reset_ctrl_work);
  
 -- 
 2.56.0
