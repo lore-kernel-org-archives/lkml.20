@@ -1,65 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794682137;
-	b=lByVpWmXM44qyk6d+8TaJEyL06xSMfmYQ+C+QM3EHPcX6fljoScMjBUPJFhmuYUSnVqf
-	 YeTcWef2wucve5QnxvDNLftl9rBBzOHgEpNtZHWv51HTyWVjVQML5AsPUcdLg9B0gR5RQ
-	 csnGPhov9A/rcfxNfVNQRVrPosfBtgG9bcSnYEAVBQnWMUbQTzOFo9HPwhcHyICg+ElxJ
-	 nxrvupFiZtkjPfU4FCk4L0Cmhzcw5WUEC1xXztxU82I6GztTVORAm3u8q9vD2PKIvbF+P
-	 JKKZqDQQ8iKNcD/VgFqVwJohnm/KxCr/1DB++svOoKspmcCSHDv4By5ragAPPwLEjBw==
+	t=1794682151;
+	b=ZcyHaky4nd8/TZu5lleFuSP2ElKJJ767uTB42TfLXOtdluDYqukYFss/jTx0qnWv51AI
+	 yBg7EPyeEMbG8I2QcnF+LBfTzn9SXo+hZ90VI/V2RkBv1EpcTMu7EfiZ6qczLZBhUFrhu
+	 gXGc5/aVbKlCWzYMGf2eYDqwCbbWKzZFtnx2sMeDQmhu8731Nuo25wCmULemAeR6b9Qxq
+	 7ZgQsqAMYyMCqFqNzRp1dWsnXd8jc1GWALbw0JRKNiEnmkA3YGljY5LFhEHN2o3oOYWDL
+	 Ii8zDADvCNB+IFMt40V89GKbjyuM6Ek1c9MgyfGsp9Xu1TJonYRcP3B4xwnxCBl2kBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794682137;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794682151;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=LPmuSB4GQqVZUVPJgtjDEsgFvIRG4UWskQFfExXoCUc=;
-	b=5jWaiAsCrOc2gNzQIPpQ/YD/AwW/CfWjX5g4S3TgkjlEt2T4Wjpx5CRAHUWOQyYhfKCi
-	 bk0peCK3YDKCcWvXAPmMsdTFvLoQcYEUqam4ry77jSMxrakrvqotTtIo/6wK8R88TlkuL
-	 BWkCYo3rNG1PcFx0zaqaRpUCuAWT9jj/xu1xRiCBA6t0xvn1NbB9J200MpcjVd5Vpkw4N
-	 efhtGWg0SQp095WbAZOQGdAAcJ78Eeohnqc7g1ph9d0axuHV7hLKKnKoJ56XF5fgKjWKT
-	 NiOs+IBTd2qEE2HFpM8MDhq+3tZb5hGr7R4F/SSSmjnmERcX2vCaFqC+zp4Qwp3SO2w==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=4j5FMF5C4EhW1bxk07JPFMLAnl1AANpWbiGuP7NZOZQ=;
+	b=ESC1K4cXOQZ9Gr+5SEowhsVuOVJHXiLHTXts5yD0iqax+fA2wtQ+4UGlu2w120GBur2x
+	 Hth2Xy+5HOKrWqHsLQk/ysKSxs9H5tGMLy8jFOj0lw/Nu1QLjDP5sW0+VXy/tcFBmNkqg
+	 By65meAFhWtkMPKr8bVdPphhotreG7uZv8B1B/H6isD27GreVtuuv9CoMg+ntOPYrp2Mk
+	 2DbLSNGupNBQhzWSwztauc7kmmYOzc3MCSknAVdirCEXh2m3QA9O842eKdvyZO7Hhv7SU
+	 1bLk9AqgZuxSNeYMB+Ly1huJPFyk87jectWvZ2YUJK0l1peXo+m5H7ghNhcFSs1OGjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qf3TA9Z9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nrWLf64z;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C09C6606A333;
-	Sat, 14 Nov 2026 18:48:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EBA3606A323;
+	Sat, 14 Nov 2026 18:49:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qf3TA9Z9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 784E71F000C4;
-	Sat, 14 Nov 2026 18:48:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nrWLf64z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65D791F000C4;
+	Sat, 14 Nov 2026 18:49:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794682137;
-	bh=LPmuSB4GQqVZUVPJgtjDEsgFvIRG4UWskQFfExXoCUc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Qf3TA9Z9IUpGXCTCgXO8VGJ+5zD41Nhg53sssKh9r+3WC0nHHXYXHTG/AsEvRLrid
-	 1wDu48Z7mhY/Sku+jBg7GS7COL5lzOOW14Ycr8uIUEh/qyQRhchbH0LTq1LaCsrVI3
-	 SiEE11KJZ7HOwWEsiONpjUcJPfLxPl0FFv8weHhscfI6lBFAQ7Ma6kRZBF6coW/fBk
-	 vG/HwO3oyE+rT4xONb63unA+WU/WZD/sevxJNXGYvcNuUmH3N4b1M1wz/XOf7lKTCz
-	 keLngttJk5aFQ8SRZAO0wzl9F4/DC8pCrvxmDwU0Yb8v4SpM8JMeWTnw5dqLb4E8xI
-	 g4KcVDb/lJJIg==
-Date: Sat, 14 Nov 2026 18:48:47 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Roman Vivchar <rva333@protonmail.com>
-Cc: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>,
- David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>, "=?UTF-8?B?TsOtY29sYXM=?= F. R.
- A. Prado" <nfraprado@collabora.com>, Chen-Yu Tsai <wenst@chromium.org>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH 1/3] iio: adc: mt6359-auxadc: correct channel types to
- IIO_VOLTAGE
-Message-ID: <20261114184847.70ae590e@jic23-hlaptop>
-In-Reply-To: <LVXIwHr3ekY5Ao7bcfza5XGvBZor-SdLtC_MF1qWu5S0zG2vylGpgamn2xVPcw5hQ5Vedb4ALvs1oyzs7Td3ssP1pF6OjogIICu97Suo1bI=@protonmail.com>
-References: <20261103-6768-6358-fixes-v1-0-2a868a33152b@protonmail.com>
-	<20261103-6768-6358-fixes-v1-1-2a868a33152b@protonmail.com>
-	<20261103234237.0dbbe924@jic23-hlaptop>
-	<LVXIwHr3ekY5Ao7bcfza5XGvBZor-SdLtC_MF1qWu5S0zG2vylGpgamn2xVPcw5hQ5Vedb4ALvs1oyzs7Td3ssP1pF6OjogIICu97Suo1bI=@protonmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1794682150;
+	bh=4j5FMF5C4EhW1bxk07JPFMLAnl1AANpWbiGuP7NZOZQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nrWLf64z26dKbtwiJU0scBzerlSr8X31TWZdpQoEwyFJr/4jeE69GwTRmA2VlrDVq
+	 lgp9/zZLgztThA+eu+X4aJECDZoQN04otHbP6AvTrh997qBxKgJBRRY3URgbnnzQ6Y
+	 7t964v8ZiuOKqNwvrN7xr0msSLz+8DgbaRYni6Cag1GBNFm2XTO3WeVMsEA+TgcQ1U
+	 3q397dwRUmLSkjToYXIjtQ+RyerKfGkuOYaPLSIVIc2eZ2tHTwCWP6Wqwv+ZY3jvXY
+	 y7tntkc3SVFmgzeAy1GDKdXTmXdfQoOFPO3gwrI3nsvfVGuMKT/vvulf2AVHDvJlDf
+	 J9XdlZPOz159g==
+Date: Sat, 14 Nov 2026 18:49:09 +0000
+From: Yosry Ahmed <yosry@kernel.org>
+To: Zide Chen <zide.chen@intel.com>
+Cc: Sean Christopherson <seanjc@google.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, 
+	Jim Mattson <jmattson@google.com>, Andi Kleen <ak@linux.intel.com>, 
+	Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>, 
+	Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>, 
+	Dapeng Mi <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
+Subject: Re: [PATCH v4 01/21] KVM: SVM: Drop counter MSR checks in
+ amd_is_valid_msr()
+Message-ID: <avis5Ose25IiYM2S@google.com>
+References: <20261112203227.289379-1-zide.chen@intel.com>
+ <20261112203227.289379-2-zide.chen@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,66 +62,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112203227.289379-2-zide.chen@intel.com>
 
-On Tue, 10 Nov 2026 20:39:47 +0000
-Roman Vivchar <rva333@protonmail.com> wrote:
+On Thu, Nov 12, 2026 at 01:32:07PM -0700, Zide Chen wrote:
+> amd_msr_idx_to_pmc() accurately validates individual counter MSRs by
+> checking whether the corresponding counter is supported for the vCPU.
+> Validating counter MSRs again in amd_is_valid_msr() is redundant.
+> 
+> Furthermore, validating counter MSRs using broad checks like
+> "pmu->version > 0" or "PERFCTR_CORE" is inaccurate and misleading. It
+> falsely validates unexposed counters, which then fail in
+> amd_pmu_{get,set}_msr(), injecting an errant #GP instead of taking
+> KVM's fallback (read 0, write ignored) and breaking migration for
+> unadvertised counters.
+> 
+> Finally, the range check in the default case is dead code because AMD
+> CPUs currently support at most 6 Core Perf counters. Even if future AMD
+> CPUs support more than 6, counter MSRs would still be sufficiently
+> validated by amd_msr_idx_to_pmc().
+> 
+> Drop the counter cases and dead range check from amd_is_valid_msr(),
+> leaving counter validation solely to amd_msr_idx_to_pmc().
+> 
+> Fixes: 4a2771895ca6 ("KVM: x86/svm/pmu: Add AMD PerfMonV2 support")
+> Reported-by: Jim Mattson <jmattson@google.com>
+> Signed-off-by: Zide Chen <zide.chen@intel.com>
 
-> Hi Jonathan,
-> 
-> On Wednesday, November 4th, 2026 at 1:42 AM, Jonathan Cameron <jic23@kernel.org> wrote:
-> 
-> > On Tue, 03 Nov 2026 18:32:07 +0200
-> > Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org> wrote:  
-> 
-> ...
-> 
-> > >
-> > > Correct all channel types to IIO_VOLTAGE.
-> > >
-> > > Fixes: 3587914bf61d ("iio: adc: Add support for MediaTek MT6357/8/9 Auxiliary ADC")
-> > > Fixes: d6f49313272b ("iio: adc: mt6359: Add support for MediaTek MT6363 PMIC AUXADC")
-> > > Signed-off-by: Roman Vivchar <rva333@protonmail.com>  
-> > 
-> > This one makes me very nervous, not because it is wrong but rather
-> > because there may be a bunch of userspace relying on these wrong
-> > channel types.
-> > 
-> > It is horrible but I think we can't touch that :(  What we can do is
-> > put the right interface in place as well. Thankfully it looks like
-> > the channel index is independent of the channel type so we can duplicate
-> > the wrong channels with voltage ones + some comments to make sure this
-> > doesn't propagate to any new supported devices.  
-> 
-> Sorry I forgot to include this in my previous reply, but do you suggest
-> duplicating the old channels and adding the fixed ones as separate entries?
+Should we also drop the get_gp_pmc(.., MSR_IA32_PERFCTR0),
+get_gp_pmc(.., MSR_P6_EVNTSEL0), and get_fixed_pmc() calls from the
+default case in intel_is_valid_msr()?
 
-Yes.
+They are also covered by intel_msr_idx_to_pmc() IIUC.
 
+> ---
+> v4:
+> - New patch. (Jim)
+> ---
+>  arch/x86/kvm/svm/pmu.c | 9 +--------
+>  1 file changed, 1 insertion(+), 8 deletions(-)
 > 
-> That would cause issues for in-kernel consumers. In my tree I have a
-> battery thermal zone driven by ntc_thermistor (which is actually how I
-> found this bug, as it refused to probe due to the wrong channel type),
-> and I will soon send a new revision of the PMIC thermal driver. They all
-> require IIO_VOLTAGE channels to operate properly. If we duplicate the
-> channels, consumers will get the wrong type unless we reorder the array
-> or add a custom xlate callback.
-
-Indeed, one of those two solutions should deal with this.
+> diff --git a/arch/x86/kvm/svm/pmu.c b/arch/x86/kvm/svm/pmu.c
+> index c18286545a7a..bf2f23c30afc 100644
+> --- a/arch/x86/kvm/svm/pmu.c
+> +++ b/arch/x86/kvm/svm/pmu.c
+> @@ -106,23 +106,16 @@ static bool amd_is_valid_msr(struct kvm_vcpu *vcpu, u32 msr)
+>  	struct kvm_pmu *pmu = vcpu_to_pmu(vcpu);
+>  
+>  	switch (msr) {
+> -	case MSR_K7_EVNTSEL0 ... MSR_K7_PERFCTR3:
+> -		return pmu->version > 0;
+> -	case MSR_F15H_PERF_CTL0 ... MSR_F15H_PERF_CTR5:
+> -		return guest_cpu_cap_has(vcpu, X86_FEATURE_PERFCTR_CORE);
+>  	case MSR_AMD64_PERF_CNTR_GLOBAL_STATUS:
+>  	case MSR_AMD64_PERF_CNTR_GLOBAL_CTL:
+>  	case MSR_AMD64_PERF_CNTR_GLOBAL_STATUS_CLR:
+>  	case MSR_AMD64_PERF_CNTR_GLOBAL_STATUS_SET:
+>  		return pmu->version > 1;
+>  	default:
+> -		if (msr > MSR_F15H_PERF_CTR5 &&
+> -		    msr < MSR_F15H_PERF_CTL0 + 2 * pmu->nr_arch_gp_counters)
+> -			return pmu->version > 1;
+>  		break;
+>  	}
+>  
+> -	return amd_msr_idx_to_pmc(vcpu, msr);
+> +	return false;
+>  }
+>  
+>  static int amd_pmu_get_msr(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
+> -- 
+> 2.56.1
 > 
-> Existing userspace tools would get bogus values from the current ABI
-> anyway. The driver applies a raw mV scale to all channels, while thermal
-> needs efuse calibration with a special formula applied, and even plain
-> voltage channels like bat_adc and cdt_v were mislabeled as resistance and
-> temperature.
-
-Ah.  If the values are effectively useless we can hopefully assume no
-one is actually using them and hence the risk is low.
-> 
-> Given all this, I think it's better to simply fix channel types.
-> 
-> Best regards,
-> Roman
-> 
-
