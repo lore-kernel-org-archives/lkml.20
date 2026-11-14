@@ -1,67 +1,149 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794681604;
-	b=WGLFYp+WxYEpv4EL5Wta1vx/vTGnOXzVMvkNVPUpuD248mc/MVHZZqPtjTS6dmyYWeQN
-	 WIM/R7HzlrNAgVdF0HQwrD/gJRt2R1Km00MFwpVyKYcxOmiFnEiiMSJ/ua/fkABOFglCM
-	 J7Mj8HDeSoD/m7TGxbvECDlGqZakKdetFwKaOt6y9Vvh6OQlNLDqP1uMepZiwR8Exjpj0
-	 L/tWZJbEKg4pAShU0e0WktwuFlA+P58iwUGU2i1vFEqxTQZOCSeTJdj4AtrdqLm1OV2Hh
-	 EMxczLYziBD722OoMH19y4We/G/MWKeFJJKS5bJLWSDrfKPWG8A6oesPtOtDvOoaYsA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794681604;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Debian-User;
-	bh=XMeVd5/pAdE0Kjcm942lSzEXtE5bxTrDwAM5Xj/26mY=;
-	b=LonWpz4yqTKkh2QnLC4tRPMNA6DkrN2RXA6FPM4xZwQ8jGYmSYZFivC8CQ9sxpCRDNSG
-	 /FbsTbp0WRC8mf1Quq5pPSccGeRTHvrkhv9R+gNynSCJWdDn7SdwVQkaTdNKg9LCO14ys
-	 OvevHFm5NhTvBgO3EtiyeFNH5BXVU97KaU9O37Hn+HZ3dRSRnjDWHGj9Da7Ic+YA63Epo
-	 W5nj8dh+xs29WntybefnUbqV/SM80oV6ez7YbxZm5kNVZzhBiBuaZCUff6sMuUsWSITYR
-	 NG+L+dZ+5GUVroBkNjXrHqHtdEAcWmnPU5X2UGmFXmEjwzP8Z8hr8DGpjRKP3N+WdVQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=MoibXq03;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.39
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794681620;
+	b=Af15deEYxWSw/BCZV27vYisGmw4BPo7cx21Df66WiJle1UP9eEvwVzLtp+qrAfbK1V/G
+	 3d809LDBlKVBA1wBwmy5TvBaIBLgV1V4ebPrNOHuNQEWzHvAdJ2ML3TdeZRfgVEYnQKzh
+	 Pktd7nb2lmAECA6UgAVLaoSGe97sf44J51Ty/uwbFb+G3sCQiQ+eSkVrh2aO+gLyLB1YB
+	 n2nFqBOu2ByErJ/bytc+1CqKmywsntD+TlXT0zSBBpWbiiI7PSBLDK4QfJ4NYE5pyLr0f
+	 ateHqQDfbgt6p3sEuQdpLZleLYuTWbCWF4aQhUiJv5wgLHgvS+JEdFtXbbEajZZr+Mg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794681620;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 msip_labels:x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ld-processed:
+	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
+	 x-microsoft-antispam:x-microsoft-antispam-message-info:
+	 x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Rgs10JO4E5WBMJdiO5CaCTuXqY2ghBF/h2jRTGKS5zw=;
+	b=cabnjxiYw2JNjOM6yPCE37f/LzdA2otjbaf62rVnfPSKMbB33gEuPfmwwkG5tXm/x9KE
+	 Dz/xeIZvg2B/goC5ISmAi30bLkcg/SnN/6crbBzM9KexntZ0+pP01Rty8fjMrxMA6R9ro
+	 460s5XeAwZrjL0sMqQtrSkcoOtXcLYkZUH7nnAMVicOTnoM5uW9m5IpF5H6sN4w5tyixF
+	 NfisgR/auETKHjVFZDCZYd28nPKojN+IO1G+c0sdIQOV7pqKwiUJno9fG96PYQA0/51IT
+	 DUEdA7P8//PpQdUmstWgr77RaQkZEQ1LoaeQoX2uT5jEYgc48IoyHu7qqoiGqNLl0iQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=leica-geosystems.com;
+	spf=fail smtp.mailfrom=leica-geosystems.com;
+	dkim=pass header.d=leica-geosystems.com header.i=@leica-geosystems.com header.a=rsa-sha256 header.s=selector1 header.b=Szke8n2d;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.39
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011039.outbound.protection.outlook.com [40.107.130.39])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69CDF606A327;
-	Sat, 14 Nov 2026 18:40:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69CDF606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1EA5606A32D;
+	Sat, 14 Nov 2026 18:40:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1EA5606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=leica-geosystems.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=leica-geosystems.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=MoibXq03
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Content-Transfer-Encoding:MIME-Version
-	:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To:
-	Content-Type:Content-ID:Content-Description;
-	bh=XMeVd5/pAdE0Kjcm942lSzEXtE5bxTrDwAM5Xj/26mY=; b=MoibXq03y/nuy/q3t5iqCNWUPe
-	dn5BBdFlQ0NxhqIJ6gdDR7+SCj5xae948GRW44V5yY7FFdDqFmfh3sXN3OCXr8rgJzrK3IjES4SXS
-	xo6HpD7Vtq6/cEs+BCACCV+5FGzGvtqP2dgzQ9hilVaDlDt+KYM8zWzKj+qtGVlTPVsrvp58jZSai
-	kqQsE3aciEsUhFNzjTh4m/lA6NHEtsiifWsM3lwUM9f+214/YYe3CRGPNLMiJRYtjhR3sBdIKREto
-	qW7MHmhhMvTVxZjpMY2iMMShMblWb9T9fE5Io+2Xp9miGMYZyrRuLIOg0CKJ1Wi1J/7se2iLjmheT
-	GZ3bFOig==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <emfox@debian.org>)
-	id 1xSIfP-00FkAl-0N;
-	Sat, 14 Nov 2026 18:39:59 +0000
-From: Emfox Zhou <emfox@debian.org>
-To: Even Xu <even.xu@intel.com>,
-	Xinpeng Sun <xinpeng.sun@intel.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 5/5] HID: intel-thc-hid: intel-ipts: document the IPTS mode
-Date: Sun, 15 Nov 2026 02:36:24 +0800
-Message-ID: <20261114183624.2379573-6-emfox@debian.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261114183624.2379573-1-emfox@debian.org>
-References: <20261114183624.2379573-1-emfox@debian.org>
+	dkim=pass (1024-bit key, unprotected) header.d=leica-geosystems.com header.i=@leica-geosystems.com header.a=rsa-sha256 header.s=selector1 header.b=Szke8n2d
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GdJvSwZ2nh/4Xe+sJx4OiRErBCk9jubN4nRaMlce6014x2dsLcThFL0ejGcIAvygRY92ikJEXxd77K+mcopDbi7OXfbdElSwlPgM0kfC+oumV3V6YwniGLQ+SgdImF3UCNWngNHcxzz9Ey1igBTgPXLyxPpl5eNkLUJKJetmKx+5tGLarZIzH27KeOPBB41/1cayZ6tkD1yyRrNM9nv96uJdCthuNW+ICNOE+AbQX/rUa0ddxgJQsmqORG0xa3AQY27vIkGkYA8zhJeT025hhrWL9nwdFeD5au9plMH+HhMuMDtWOFU5B4bUVV8Q1ksqgQ+uaKVK/KTip89sKmRoEg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Rgs10JO4E5WBMJdiO5CaCTuXqY2ghBF/h2jRTGKS5zw=;
+ b=OpYmVIEhnvKKPAjtmvGqkROPIoeCpwzOc5B/r1soyp2AOuo7rW1G5qJY7MMZFi6rWLy4TpM2KxswW7m3I4hVdKc4voYdnIrN2+4hOJwlgtSJziz+wZJ+STxuC9QTe8iS3lvfpMgq/8rysGIw/M+Dys7Z4TOaL7wFYjDlaWj7GYBnoRGyTONVx6eNbF509hPqZvKyyfI7MUt9m22Ui27OqVmebhyP+i4BNM43YHhNu2Xl5cnJ1wCMDZxpP9MbV/0i1MfuN3ywNaSRIMCUoJDy6DG9hwTZ2B2FuITb6YJfU72v/JrTZShjOxBrRdqmUPuYYR9+xZmA+EKqGxaUMhrG2w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=leica-geosystems.com; dmarc=pass action=none
+ header.from=leica-geosystems.com; dkim=pass header.d=leica-geosystems.com;
+ arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=leica-geosystems.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Rgs10JO4E5WBMJdiO5CaCTuXqY2ghBF/h2jRTGKS5zw=;
+ b=Szke8n2dKo6jFLPZZlUzYdUWEGk6DMYsF41U+vupJGzAqKL9IZPVaqnxb8cpMXdREsRABRAEyyr6j0isqBsvdO6My4abgXTB4IlOrH8DLg2sdH+MFo702u9x6RekSzn/1NxwBk9prpJ0kuDFDCR61DbgJPLUFGe8YmBgg/x/VoA=
+Received: from GV2PR06MB946935.eurprd06.prod.outlook.com
+ (2603:10a6:150:385::6) by DB9PR06MB11223.eurprd06.prod.outlook.com
+ (2603:10a6:10:609::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Sat, 14 Nov
+ 2026 18:40:15 +0000
+Received: from GV2PR06MB946935.eurprd06.prod.outlook.com
+ ([fe80::6c6:1b3e:8a37:ea25]) by GV2PR06MB946935.eurprd06.prod.outlook.com
+ ([fe80::6c6:1b3e:8a37:ea25%7]) with mapi id 15.21.0615.009; Sat, 14 Nov 2026
+ 18:40:15 +0000
+From: BRETSCHNEIDER Max <max.bretschneider@leica-geosystems.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+CC: Jimmy Su <jimmy.su@intel.com>, Matthias Fend <matthias.fend@emfend.at>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>, "linux-media@vger.kernel.org"
+	<linux-media@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] media: i2c: ov08d10: add get_selection support
+Thread-Topic: [PATCH] media: i2c: ov08d10: add get_selection support
+Thread-Index: AQHdWbp97kJFwSosak2iR6ujkOIPEbb5rewAgBH8Ve6AIm4oNA==
+Date: Sat, 14 Nov 2026 18:40:15 +0000
+Message-ID:
+ <GV2PR06MB9469356C7B3523BDEAFE11E453D37E2@GV2PR06MB946935.eurprd06.prod.outlook.com>
+References:
+ <20261011-ov08d10-get-selection-v1-1-5debe6436765@leica-geosystems.com>
+ <asywCh3X0yJVcxRd@kekkonen.localdomain>
+ <GV1PR06MB83698BCD22508BA5DF19A0A1D3642@GV1PR06MB8369.eurprd06.prod.outlook.com>
+In-Reply-To:
+ <GV1PR06MB83698BCD22508BA5DF19A0A1D3642@GV1PR06MB8369.eurprd06.prod.outlook.com>
+Accept-Language: en-CH, en-US
+Content-Language: aa
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=leica-geosystems.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: GV2PR06MB946935:EE_|DB9PR06MB11223:EE_
+x-ms-office365-filtering-correlation-id: a75c81e6-e382-4521-ee76-08df427eb962
+x-ld-processed: 1b16ab3e-b8f6-4fe3-9f3e-2db7fe549f6a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|38070700021|10067099003|11063799006|4143699003|261021121427099003|261022105027099003|261026140227099003|56012099006|261102123227099003|261028144727099003|18002099003|22082099003|6133799003;
+x-microsoft-antispam-message-info:
+ XqSg0J3N2FmnvS8AsqmeSQ7b8JIHWnnmFT7sAz8pVgIyCGF3whbrhi0QLQJOUQiwIZKKCXCISJyHkQ+8SuyhhhwoERX0ynmDAt/ZllYMnJe55keFNBEulEvql3IcUhxzFAJBpmcTWgVmKPUSEU5znrzASR9ytQjpE4tPA8lWxBANYPgJ+Bv3CD1jhhVtW2mL61MuHs3FCntxBs8I7wpgdVJtGYgwv7/AIPL32TvN/92S3sQQRq0I0qkX7xZl2fEfGczf01NhszLaZOtYJ7mraTYPkwUDXa3gFqky/LPDoDGBOw0Tv/2JlpQP8AmwTuZI7V/LkFvZi7ul1tk3HypkhYL7vL1dk9hDbtK11Yz4+7kYWgWNSA87mMzG2uFoBgUiKIlxH1bo1uCr+VZ2Szd2nuCx2gKkwA+SSvcegqPczcGjj0ynZZPTwKMhUmF5DfYO1ihrtDoruMS+honJhgleJtbCQBMkPB2d2dTY+zUnT3Xcw1C3J1QL2ym5iZxxm0c5uEC5ktvOKm+H6gOdOxWuKoxUWzABfHVMcOvE8E+Jr3ku2dWOxfDlPzNjAVSLRQVHbouvt95BgzGIiR3SFM7h7yGgGhGTX2hlNZs7DH3DMGo+vtTaeUTJp2NW6dtq9iD819dSeWlTjPabbeHy7HV6FCG3jn/LS//nCBrantjzjPeaHrutc5Y2GHserjyIRrADh42s6z2dyugyA/8+wSspIfz6tkKiVUA0wOJvhYRaGpo=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR06MB946935.eurprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(38070700021)(10067099003)(11063799006)(4143699003)(261021121427099003)(261022105027099003)(261026140227099003)(56012099006)(261102123227099003)(261028144727099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?f6Hk7MTurVHxEOe/PCsieZ3KjAXUOvb6bZoN9KA0mbAyeo5eGWRTym9f4Fth?=
+ =?us-ascii?Q?miKz0kRhDSh9FIf50w/ZtSL1ZcbApauD8cCePzJ8mU6/tVYn5AlBpNgmXOnx?=
+ =?us-ascii?Q?SvUu2SlxTy/j984In1fQgtkw+MOB4tNsqgy+HfV4dLonLfI61NZ8LeN6JQLi?=
+ =?us-ascii?Q?g612QHkvvWAb5rXI1ADvUlhGxA9kkUV/dB7vpZbao2OVyVEHbvjo39eDZht6?=
+ =?us-ascii?Q?DjCztEJzv6PL7or9xqH9n5T72TpB6ttDooGZcfy9sYngbnVxxb//PykfA0Hk?=
+ =?us-ascii?Q?cvYvVjcMJsBSX7bVNa53x+3E5X0l77vwAFn8Buoed6DH4MvTLDQIjtH5N2qP?=
+ =?us-ascii?Q?A0MS15cE0f/XkuGG0MSpsYoQtvWqMp6irICP1mj+wnuRUIVvNp10YRTunkNv?=
+ =?us-ascii?Q?o9VjtLTqrbAEua519orxUmnw0UMHqSNjdv4C+omuerQUW4LWccYZJkULfsmL?=
+ =?us-ascii?Q?XHd+0I8bYJEYfWNG6q30Ra8E7iy4XZjPX9B8R4HFzxX3u5Lf2xksScInBZEH?=
+ =?us-ascii?Q?3s0bh/yjWPeZ+6bRSIyuxE/B/g+Uq2tBBXFv/X/+hq6mtBs+IcnXCQddeISJ?=
+ =?us-ascii?Q?qehR8ZwuGB7iMqFlf2ni6ukn7XklaaOT2Hubt/zS80AIsa5mCSmZmCd7w58w?=
+ =?us-ascii?Q?w69J6a4IMMH+1jwIY6V87/gu+rPb7J2Lvi0vFJXcDEOTEknCnY07fIcM+Dnx?=
+ =?us-ascii?Q?8N/J4cMuzMlZae9uvRZQH7MSHRYnvGCgLOqjV2MrmIW0HPagrXOOi3+wjmwC?=
+ =?us-ascii?Q?uMCPWeEpLZwBp9IoIhUi4DCImU+4G79t0rjyXHH3UOw4cM1JYPvLD7eUypYl?=
+ =?us-ascii?Q?ua3xJbUomJxJ9lv5vZUQIVBeeeVNpQK23dTH7oRiqWT7YBCOjdd72peryHT4?=
+ =?us-ascii?Q?QbVM1wNIcS/gfxpf30IANK3PbxdyCi8XKhDoH6pnDQj7RMjAp86Yb106jwQy?=
+ =?us-ascii?Q?SetLz/SYnvMy2xDt76dyvVdPKzyPVT4Shu7WPxG8EvLo+BB6FR9sjCEdfUUV?=
+ =?us-ascii?Q?vSCzGJ15Brc5/q+o1PX6wt/jsN1A+kx1oKYCktuTnytEjnvKSGM35Xh6L4N1?=
+ =?us-ascii?Q?IrIP5PDDLf5PZmNeWkthFK5jV51CNHm+1hjDHvBvn0s034Hkl48/caqAqLhh?=
+ =?us-ascii?Q?Vle7h0X23HubuXvDyEX1iQ0sUVKYBzlHd4Otv4w5kOMKxU/UDVse1MVl3E9u?=
+ =?us-ascii?Q?u0QmqTAsinj7kCPp3gGF8ULq9HaCzdyOUJcqFRXXhda7gh+Dg2SwWvvx/XTP?=
+ =?us-ascii?Q?L3vM60bvq1e+VuCyDh+rxg4NFZX2c2mJ07/MU/OueMmmWg2oHLZNQMO9WmeG?=
+ =?us-ascii?Q?UkjJ/cCebUapAh9ffi8O+e6Gd2ZDS0KuZdzWXvcNDjRxtcuHyak3UxEQ75a/?=
+ =?us-ascii?Q?56yIS9Ixw+hS3iQKjkxC8Mm3EuazbNCZqviH2v0isYattq+LjFkTUR+P4xzT?=
+ =?us-ascii?Q?N3wryUrqjalwjSEMEBTUcYdq3dLi3u5wWkgEYXtdKsB2lT2UvQ+xgg3BhOsF?=
+ =?us-ascii?Q?EKdFnEsrRer5H7TRSQvBg5Buk5NUX56dzPZB4bWUVpFrnxIJanxuHixNihgL?=
+ =?us-ascii?Q?faB5XM7SZSGDf/gX590BQLQyXdsFk1AvI2MZHE8Bo0iepatZSArFep3Sr17y?=
+ =?us-ascii?Q?T7oIBJZFfstcjaAB8AGV61TrjsUBSZSIK/Nw+o5/QL6J2TisZDPijdjsRwFS?=
+ =?us-ascii?Q?UKiHPO+MIxmQFw8Z08RVozS3HMIPTOBVgMgVSJV/htoPCm3GATMSX8tpjH/t?=
+ =?us-ascii?Q?qDQXNk9M/w1nD5rvhdjxCM1yLNZZQKo=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,126 +153,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Debian-User: emfox
+X-OriginatorOrg: leica-geosystems.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR06MB946935.eurprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a75c81e6-e382-4521-ee76-08df427eb962
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Nov 2026 18:40:15.2708
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 1b16ab3e-b8f6-4fe3-9f3e-2db7fe549f6a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: sTSA+rqIkq4bef8eaPwi9aK6AGthg1jmGdqzbV42VUhdciHSXAC81y4ZuGZhG4Jw8q5UIpKWToEsOA3FMqguFYMFuF6WS7ULuAyGUX3YrnRegl84fopgX5nk6zXnnGTO
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR06MB11223
 
-The THC documentation only covers HIDSPI and HIDI2C. Ports from before
-Meteor Lake run in a third mode, and the intel-ipts driver is
-written against behaviour that is not described anywhere in tree.
-
-Record what the driver depends on: the layout of the configuration
-block, the frame codes and header sizes, the bulk data window, and the
-order in which quiesce, interrupt configuration and the DMA engines
-have to be set up.
-
-Signed-off-by: Emfox Zhou <emfox@debian.org>
----
- Documentation/hid/intel-thc-hid.rst | 95 ++++++++++++++++++++++++++++-
- 1 file changed, 94 insertions(+), 1 deletion(-)
-
-diff --git a/Documentation/hid/intel-thc-hid.rst b/Documentation/hid/intel-thc-hid.rst
-index 8b378c5..0f6328a 100644
---- a/Documentation/hid/intel-thc-hid.rst
-+++ b/Documentation/hid/intel-thc-hid.rst
-@@ -590,7 +590,100 @@ To debug THC, event tracing mechanism is used. To enable debug logs::
-   echo 1 > /sys/kernel/debug/tracing/events/intel_thc/enable
-   cat /sys/kernel/debug/tracing/trace
- 
--7. Reference
-+7. IPTS Mode
-+============
-+
-+THC also supports IPTS mode, the private Intel Precise Touch and Stylus
-+protocol. The port drives the touch controller over plain SPI and moves the
-+data through the same DMA engines, but the framing is private and the
-+parameters come from the controller itself instead of ACPI. The
-+``intel-ipts`` module handles ports in that mode, which is what Tiger Lake,
-+Lakefield, Alder Lake and Raptor Lake hardware use.
-+
-+This section describes how the driver uses those ports. It is not a
-+specification: everything below comes from observing the controller and is
-+limited to what this driver relies on.
-+
-+7.1 Configuration Block
-+-----------------------
-+
-+At SPI address 0 the controller exposes a 64 byte block. The driver reads it
-+over the PIO path after releasing the controller from reset, and retries
-+until the tag ``$TIC`` (``0x43495424``) appears, because the block is only
-+partially filled while the controller is still starting.
-+
-+Fields the driver uses:
-+
-+======  ==========================================================
-+Offset  Meaning
-+======  ==========================================================
-+0x00    pending interrupt causes
-+0x08    buffer sizes, ``(size / 64) - 1``; Rx bits 13:0, Tx 23:14
-+0x0c    touch engine control, writable
-+0x14    controller tag, ``$TIC``
-+0x18    SPI timing the controller asks for
-+0x1c    vendor and product ID reported to HID
-+0x20    product revision
-+0x24    firmware version word
-+======  ==========================================================
-+
-+The touch engine control word carries an enable bit, a bit asking for HID
-+reports instead of raw data, and a three bit power state. The driver enables
-+it with reports and full power, and clears it again when the port is shut
-+down.
-+
-+7.2 Frames
-+----------
-+
-+Both directions carry a code and a length in front of the payload. Frames
-+from the controller use a 64 byte header, frames to it an 8 byte header, and
-+only the latter has the payload padded to a four byte boundary.
-+
-+==== ========================== =======================
-+Code Received from controller   Sent to controller
-+==== ========================== =======================
-+3    input report               set feature
-+4    feature report             get feature
-+5    report descriptor          output report
-+7    reset request              get report descriptor
-+==== ========================== =======================
-+
-+A report descriptor comes back with eight bytes of preamble that the driver
-+skips.
-+
-+7.3 Data Window
-+---------------
-+
-+Bulk transfers go through address ``0x1000`` of the controller, not through
-+address 0. The DMA engines have to be pointed there explicitly, otherwise
-+they write into the configuration block and the controller drops the frames
-+without reporting an error. The input header address is zero: that is where
-+the controller writes the interrupt cause word, at the start of the
-+configuration block.
-+
-+7.4 Enabling and Flow Control
-+-----------------------------
-+
-+The port has to be released from quiesce before the controller will send
-+anything: quiescing gates the whole data path, not just the interrupt. The
-+interrupt configuration programs the interrupt type field in the device to
-+the invalid value, and starting the receive engine then replaces that field
-+with the type it expects, so the two have to happen in that order.
-+
-+The controller starts streaming once user space asks for it, through a set
-+feature request on report 5. The driver does not do that on its own; the
-+daemon that opens hidraw sends it.
-+
-+7.5 What Is Left to User Space
-+------------------------------
-+
-+The reports carry heatmap data, and turning that into contacts is a
-+substantial image-processing job that already exists in user space. The
-+driver therefore stops at the HID layer: the report descriptor comes from
-+the controller and is not written by the driver, the report stream is
-+available through hidraw, and ``iptsd`` decodes it into input events.
-+
-+8. Reference
- ============
- - HIDSPI: https://download.microsoft.com/download/c/a/0/ca07aef3-3e10-4022-b1e9-c98cea99465d/HidSpiProtocolSpec.pdf
- - HIDI2C: https://download.microsoft.com/download/7/d/d/7dd44bb7-2a7a-4505-ac1c-7227d3d96d5b/hid-over-i2c-protocol-spec-v1-0.docx
+Hi Sakari,=0A=
+=0A=
+> Can you test on a newer kernel? That being said, there are unlikely to be=
+=0A=
+> issues without that, but it's better to be sure.=0A=
+=0A=
+I have now tested this on media/next (7.4.0-rc1, bf6c63ecc, from 13.11.2026=
+) =0A=
+on the same hardware. The series applies cleanly, and get_selection, the =
+=0A=
+per-mode crop, the flip-dependent media bus code and v4l2-compliance all =
+=0A=
+behave the same as on 6.16.12. v4l2-compliance reports 52/52 on the sensor =
+=0A=
+subdev with no failures, and dmesg is clean.=0A=
+=0A=
+Thanks,=0A=
+Max=
