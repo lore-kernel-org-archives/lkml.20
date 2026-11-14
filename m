@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794672629;
-	b=cOjLHJY5f06BAXkEnFfxSDHy/tnVJE7/HfaePLa2D7ZTrGajcP5GZ7fsyjuaFA0Iu6m4
-	 RvNhlgBg4hFURs1qCD03FlluXI/xZNi+yFhMro21QbGkCGJVBGn13g2xBFY+vkSGP3IlK
-	 NhEAI51621zLOnpLN2PO1QNm0IirrVGVzgXocfZr+/w5QRGU7AZuuoNA4/X54fZYbl/aK
-	 fqhU8HoWvKxqFzkbQ4JifNNHE2sOzyNTYPq/lpNzVzdbdxn7lpu40qv1LZ0Bxn6WYkI+z
-	 M+jttGa5FZNABYk0RiEgO2ZTlfPGzDKTkNM325dLc0SGqSTy+1wqXKjeZFL39tCNXEw==
+	t=1794672649;
+	b=BeZCHgN0cF3OQ2KhKUMwPv22rHgmNnaAWK8Zv/mErqjpaom8AEQLwUayqrVH/er5Z0ny
+	 SBzMGRJHzCkGip065mj3EjdCozcDi83iDhBBtnk3TNfiuXw9o6Hy4wzVG6m7p2aFjCVKw
+	 5eJwInV8Z5ZdOnb/LoH6zXJLcAk/NcrtnbjAV8KimJS8vvQpSkw5p6DdrWo/S2RlDqXUH
+	 J8Uj0U3DUz4wBMds104pl0Kr3DIG6o1aQkim9+IKnfKJtO6AYAI2UqGo0X8PjSRBvBAGW
+	 wqyHgPgMt/xUikUvidwaN9+8YGPTr53DxlXcSSlHg8iszSW2aSOw9wksxnIl/QUDgLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794672629;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794672649;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=sS1w6ypVXjVKbAJDNdl2VMNTbmFYN5LqfnAkQkSsnPU=;
-	b=tAWU7lN42uR8bP133d7WVScUMQEH0KT/Fdkuy9EhjXtx3xqcvR4cVTwQ2Yu7DE0tztXR
-	 RU5xXqb2ZyUWPkiRCJepdlpoHHmFQ5wVYP4T+3qnfkidk+dvqW5Pw8UJeH0gw4BzDE9sr
-	 dhNseqZDDcr73UvDs/hMxVlQKX93Wn5R0S/B0QObMrWRvWwjHFUIIVZcK2F8DFXRYhYNZ
-	 yAy50o1Uzl+i5LlJY4MH7Fsi1rDbulGSFCvYbvqKrIDQAg2FnZRROs1CvU7zeLAtcqLrc
-	 cB/Gdw86FiR3xz9D7nIqmZIM8pZi+qGbCOVmUmRidQjjxQl/vOamZsYwMOz0OKH8RWQ==
+	bh=KPSDYqCooXPcCbLVRB9OOYzMNaTmNZPbW1+34+f9KRM=;
+	b=ZrzQFovPi8TB/CUBoaihEtPT3mQT6abPI3p1AFRIx9VUVGFZ3UZrMHIXmJ6fyjYnMcEg
+	 RYiUM6jbEtdY8hQWJDSVIhYVGoNZuXrQm7BCGh2Duvv8pazB/hZAa/sPt5+BsIyc6nXP8
+	 XlRHGiUjWJAMmFr3UEY9ztNmKs6ROhn8sWZtW6k4ayiQt/vqhVVp49qsCJhGzTiUcH37c
+	 FskLJyuxhigvOu9XlFJp/McwiKOlYLzhqyQKjbFKuzYMEqL+Dl1tgr9ymrcImv1j3fiSU
+	 L4zMkDlZM+Szslxrl+xvngy5a34ruywAcC67bkiHjTv0l6b2dzCvHuS4tVRIbxOQq8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o4LiLLZC;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UI+8X9u1;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13590606A331
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:10:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13590606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFD7F606A327
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:10:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFD7F606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o4LiLLZC
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-37071c0f42aso2960399eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:10:28 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UI+8X9u1
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-3712b6d9843so1744194eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:10:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794672628; x=1795277428; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794672648; x=1795277448; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sS1w6ypVXjVKbAJDNdl2VMNTbmFYN5LqfnAkQkSsnPU=;
-        b=o4LiLLZCBh1ZHZESPp0KqiHXgbJvc1KMHOxDu3JT4SWVWuXGwcIt99NLQ77HqJNMZ7
-         DJfFip7zX3tloMNQQbiyBp5AplUydIZSCwdW5QYp0qBdLHUIxREnB0/NFAwbpym+bRnV
-         TqyZNmhNiY5Rvdo75LN8lAUfsL9F+jqu11cLo4vxbJyCbn2C09Im2WacuhFCrBllxQj3
-         0Os74uf8sLbSO9agpnUSlxDjd8w0MaPIu7sQadEqEgJNPpJstAdIzTq8F2KP5lKqTOoJ
-         zN0pkMt6Mu0cbOrTC5Ei2RxClprh+d6QnWf4YrPq70HOV6bKSamNHFynmsb74AM0PDlW
-         BjQA==
+        bh=KPSDYqCooXPcCbLVRB9OOYzMNaTmNZPbW1+34+f9KRM=;
+        b=UI+8X9u1K6VpjHdMnY8BtVFWuMOw2NqNYUAUYXDVrOZUKQ/I2nEt+VAnyc5dX+W5d1
+         Mddl/IIWkuZh9WdnaqzgenfUuwuCVp/CE1Mef5Pc1hSXmHS9hzNnikBReI0hM8WiKEzM
+         Oe5mC78RbP/wKBnN2j+dUxHEvzG9wI/NPe2fh56u22u9KazAlkYyNcE6kEWROzlFv2P1
+         P8JNWjX58l8eFhjHw/VwzrliLLCXZwm8KmXeo+KhRMBfTgdcsbLauCnnVypp5FzpRjT8
+         gBg99LDPl8pMsgK6CW6AVxP2aDI3T7PjJLaqtYuVD75JLwCRLwWIRYnOc+7S2iJ4FzpC
+         dL7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794672628; x=1795277428;
+        d=1e100.net; s=20260707; t=1794672648; x=1795277448;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sS1w6ypVXjVKbAJDNdl2VMNTbmFYN5LqfnAkQkSsnPU=;
-        b=qVB3dMW/lzpXXulaHqhG9Rhe/VnreNk971O59O5TiUqN5t0OwH0PgJpvhXcSFphcXy
-         eBhG9HKqw2B2RMDxV0ifDOKDh1WKnqwyU7+C2kdpZnSNYIUkVz6yOT2Jr8jTdRwQhr/t
-         aPfao2Pu9Jj3Mdhsd18gRI2ClzxoDuCJ92Z+2HKex03V07w+mBBGhR5DrSTHrV/4E/w+
-         l1sC66Qb6DmwSnNpoSq8jMOpROLGeDNBxzEVeBZXRmbXjaPXMzkGzkSf4QGfctwk7+hq
-         8wrYOXUEIsb/S6Mky+6Y+uZ+yZvSedp9u6MOV4/b1l14hyPoR6J26BxaLzG/QBeNcxJz
-         FLcQ==
-X-Forwarded-Encrypted: i=1; AL+hErELWmoo5x6w5YaE3G7ZUP3s0e6qny1u7twfzAobYQoeo53/IMUaWW9vH87PeGWGqFhKgaZeY1D4ou48YTg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z93b5v1y2dNGbRdUAzrHm3WSuvyn/ACuiKibMiy6WNgbEa7rbXb
-	gO2RuxgxqJ1+SehC8N989ECvK9Cdj5bsyDlConoWe0dcXPDkHcXENCU=
-X-Gm-Gg: AYBFou2qpjyp6bwVfZTSO23yzc7lQCeiZlKYY5A07JDYgtChhxPD/X7CsnvNPylcNru
-	GLANuO7owPO12N96gRZ5COUWy4GbZj2oOVh1zCOyWajEHCCgHDCBq3YgEdplvSsqsXEeai8a6Ke
-	LLVgoPml1C8EUpRnUQu77alSk1CwwByOxfkPQ9bOBNW2qr+rHICcqSFAZlJZMPA6iLPEZIqQG26
-	RdC0+15RUdcMbw0kmJtszJ78WgYy9ALX5zi0atUaV2h29ip/OfRYLpbjdxq8emIetnG0sGyoLeq
-	6FPIvUblKy7TC56gip3o9TmlkxSkHyoB95morYB097QiyNGxmLroE5jbJI0FBpF1N+n7UmCWqng
-	6GRptet95nlc+VNdwGvxHx8O7jOFsoQyWN1GVdsMcHrh4kgLMoR81SZwtS/xzMfagMdN0xERD7u
-	bm2Ez7gN2gFVF8Mr9rNDVws1VUBEHFXeqZQaacMDdPaMhxdIfTSLC/Hs6we6n2jAvfcNbTlqdMw
-	lj0RhAgRIr0AhihqbhJBMQ0vAs8LYSztHMtIWM5dtAR3CdRa43+sVzJ0fHaVToLzF/5fUikaMoc
-	KWJ9igk+WqosAVIkkAdkZm1kJJEyxfT2Y+3RFltycw2DA85RSUI=
-X-Received: by 2002:a05:7301:d812:b0:373:d25b:8cf0 with SMTP id 5a478bee46e88-379681cc558mr5747473eec.29.1794672627992;
-        Sat, 14 Nov 2026 08:10:27 -0800 (PST)
+        bh=KPSDYqCooXPcCbLVRB9OOYzMNaTmNZPbW1+34+f9KRM=;
+        b=Wyvetbo/RUIqfLelSMp5Dit/Fkb7QYQvc1MqrNI9vMuU6eFdL2xJRRSvLm8yJnt9vY
+         ENI5EOSYzidmTIZ73xTzjz/SyjRZ+EXIsXIRk7sGZJsMIwSdIveUHScS9/gOQRxIxCq6
+         1TFxX//1PsPXNv6FgBc3VfMzvWRoKW+2MvO3yn13brGNdJ2O3FBOs76ZSzV/a3eQwfXq
+         LpcZaP0iGcu84aM5W5sIZSIEYePikekR1+Dgwe+B22WqnEe5pUFnp/hynxtykOnB+z8J
+         hGLvxNlR/LEPVlij6LMkfbfneh/Jle1Yzn0koWmJCk98kkfHl+yMbEPQpWK03YUSSN32
+         xhpg==
+X-Forwarded-Encrypted: i=1; AL+hErFgkpFjfuOFQ18grrPH3pT/okWVjtUytaMDoKoE0PheFNFG46ccx3aRSrPEiqlFbEyVwWoJqn2C9YryayU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9cz8Gp9G610tzJqdezvkn+if7f6rqkO7QJHxeT2997BhPPDuqg
+	ssLhdAzL4uBy8PFrfmC2uto8DsRjcolv+0dj8jlEdoxiyQKZ6nJqcBM=
+X-Gm-Gg: AYBFou0K7i1VhowOyxmb2uVfOT8iB2VomxHWT5pk0F4a2dag6up59u2cyVu2W65bLkm
+	uYvRI/8xOaGIGn1yS092hJz7EOqMEm++qEgQwI2VolamNpKe3/cMjjy6ML+oHW6FW2W62CPytcs
+	kU8MXwDLgae66L42ZJ/3jIvpBU7yP3CAOcSPdC8ROytVcY8ntkKF6BpD46t/C+V8ZwjOxSG1ueZ
+	1Tb9JfXXJScHUziMDpz1JH/upmGvXwrg1i6zAVaBHHqAz9pNQUmw/SkXNViqvuewrlpucRUVpJI
+	9sOApT5dsBJyoBIjLVvKpmom4a5QGEKNTAM2YOGAxnoEf+8qbsNGNoYDiBkTTVE+lj+oi72Qp5R
+	GcHmvUzmw71kegwqg0wbwDSiWfwI1tkCoimag2n7hN5uTrTZqVDKtUEj3ZDzXjfWJ+/xKKopvAT
+	1C05G92mSh+Pn7/5q5XP5w1dSfML/5r5In+m23L+QDCf3l5w5yJyrzq5gHu8bWPWQ/EksKXCR1i
+	LbFHN298ryA5d5syZWBd9H9JYfyNxIh1VZtu7injXj2gNLOfSE12ZWn5LrDMxYvjupfaXueHzbm
+	RatBbTgZ9LRnUNSprN12qMm+2t5M/NhjO0rz+71/awj90MAeXP45yyt43bTYeTIbog==
+X-Received: by 2002:a05:7301:5401:b0:35c:8b96:94d9 with SMTP id 5a478bee46e88-37966f31fddmr5041718eec.19.1794672647666;
+        Sat, 14 Nov 2026 08:10:47 -0800 (PST)
 Received: from at-Standard-PC-Q35-ICH9-2009 ([106.202.127.108])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37956bb0919sm17567582eec.29.2026.11.14.08.10.14
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37956bb0919sm17567582eec.29.2026.11.14.08.10.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 08:10:27 -0800 (PST)
+        Sat, 14 Nov 2026 08:10:47 -0800 (PST)
 From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
 To: 
 Cc: Andre Eikmeyer <dev@deq.rocks>,
@@ -106,9 +106,9 @@ Cc: Andre Eikmeyer <dev@deq.rocks>,
 	amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
 	dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
 	platform-driver-x86@vger.kernel.org (open list:X86 PLATFORM DRIVERS)
-Subject: [PATCH v2 09/12] drm/amdgpu: Catch register access while GMUX keeps the GPU off
-Date: Sat, 14 Nov 2026 11:06:33 -0500
-Message-ID: <20261114160731.3756-10-atharvatiwarilinuxdev@gmail.com>
+Subject: [PATCH v2 10/12] drm/amd/display: Refuse DP AUX while GMUX keeps the GPU off
+Date: Sat, 14 Nov 2026 11:06:34 -0500
+Message-ID: <20261114160731.3756-11-atharvatiwarilinuxdev@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261114160731.3756-1-atharvatiwarilinuxdev@gmail.com>
 References: <20261114160731.3756-1-atharvatiwarilinuxdev@gmail.com>
@@ -125,163 +125,67 @@ Content-Transfer-Encoding: 8bit
 
 From: Andre Eikmeyer <dev@deq.rocks>
 
-As mentioned previous any access to the GPU when the GMUX has
-shut off the rails results in a CPU CATTER, skip and report
-any register access after the GPU was runtime suspended for GMUX power-off.
+fwupd reads /dev/drm_dp_aux* while the GPU is runtime suspended. The AUX
+device holds no runtime PM reference, so the transfer touched registers of
+the powered off GPU and caused a CPU CATTER.
 
 Tested-by: Sebastian Zygadlo <szgit@icloud.com>
 Tested-by: Yossef Osman <yossef.osman@proton.me>
 Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
 Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  5 ++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  5 ++++
- .../gpu/drm/amd/amdgpu/amdgpu_reg_access.c    | 24 +++++++++++++++++++
- 4 files changed, 35 insertions(+)
+ .../display/amdgpu_dm/amdgpu_dm_mst_types.c   | 19 +++++++++++++++++--
+ 1 file changed, 17 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 6fd607587..9938ae48f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -881,6 +881,7 @@ struct amdgpu_device {
- 	/* enable runtime pm on the device */
- 	bool                            in_runpm;
- 	bool                            has_pr3;
-+	bool                            runpm_active;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index 7261317d4..0d11a9443 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -24,6 +24,7 @@
+  *
+  */
  
- 	bool                            ucode_sysfs_en;
++#include <linux/pm_runtime.h>
+ #include <linux/vmalloc.h>
+ #include <drm/display/drm_dp_helper.h>
+ #include <drm/display/drm_dp_mst_helper.h>
+@@ -111,6 +112,20 @@ STATIC_IFN_KUNIT ssize_t dm_dp_aux_transfer(struct drm_dp_aux *aux,
+ 	if (WARN_ON(msg->size > 16))
+ 		return -E2BIG;
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index ac336594b..ed205352f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -947,6 +947,10 @@ bool amdgpu_device_skip_hw_access(struct amdgpu_device *adev)
- 	if (adev->no_hw_access)
- 		return true;
- 
-+	if (unlikely(!READ_ONCE(adev->runpm_active))) {
-+		WARN_RATELIMIT(1, "%s: register access while powered off\n", dev_name(adev->dev));
-+		return true;
++	ddc = TO_DM_AUX(aux)->ddc_service;
++	adev = ddc->ctx->driver_context;
++
++	/*
++	 * User space reaches this through the drm_dp_aux_dev character device
++	 * check if the gpu is active or not.
++	 */
++	if (adev->dev) {
++		pm_runtime_get_noresume(adev->dev);
++		if (!READ_ONCE(adev->runpm_active)) {
++			pm_runtime_put_noidle(adev->dev);
++			return -EBUSY;
++		}
 +	}
- #ifdef CONFIG_LOCKDEP
+ 	payload.address = msg->address;
+ 	payload.data = msg->buffer;
+ 	payload.length = msg->size;
+@@ -126,13 +141,13 @@ STATIC_IFN_KUNIT ssize_t dm_dp_aux_transfer(struct drm_dp_aux *aux,
+ 	result = dc_link_aux_transfer_raw(TO_DM_AUX(aux)->ddc_service, &payload,
+ 				      &operation_result);
+ 
++	if (adev->dev)
++		pm_runtime_put_autosuspend(adev->dev);
  	/*
- 	 * This is a bit complicated to understand, so worth a comment. What we assert
-@@ -2029,6 +2033,7 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
- 	int i, r;
- 
- 	amdgpu_device_enable_virtual_display(adev);
-+	adev->runpm_active = true;
- 
- 	if (amdgpu_sriov_vf(adev)) {
- 		/*
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 3978ed284..d1b0c6c73 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2935,6 +2935,9 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
- 		amdgpu_device_baco_enter(adev);
- 	}
- 
-+	if (adev->pm.rpm_mode == AMDGPU_RUNPM_GMUX)
-+		WRITE_ONCE(adev->runpm_active, false);
-+
- 	dev_dbg(&pdev->dev, "asic/device is runtime suspended\n");
- 
- 	return 0;
-@@ -2963,6 +2966,8 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
- 	if (adev->pm.rpm_mode == AMDGPU_RUNPM_NONE)
- 		return -EINVAL;
- 
-+	WRITE_ONCE(adev->runpm_active, true);
-+
- 	/* Avoids registers access if device is physically gone */
- 	if (!pci_device_is_present(adev->pdev))
- 		adev->no_hw_access = true;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.c
-index 7468855c1..64eba8a97 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reg_access.c
-@@ -594,6 +594,9 @@ u32 amdgpu_device_indirect_rreg(struct amdgpu_device *adev, u32 reg_addr)
- 	void __iomem *pcie_data_offset;
- 	u32 r;
- 
-+	if (amdgpu_device_skip_hw_access(adev))
-+		return 0;
-+
- 	pcie_index = adev->nbio.funcs->get_pcie_index_offset(adev);
- 	pcie_data = adev->nbio.funcs->get_pcie_data_offset(adev);
- 
-@@ -617,6 +620,9 @@ u32 amdgpu_device_indirect_rreg_ext(struct amdgpu_device *adev, u64 reg_addr)
- 	void __iomem *pcie_index_hi_offset;
- 	void __iomem *pcie_data_offset;
- 
-+	if (amdgpu_device_skip_hw_access(adev))
-+		return 0;
-+
- 	if (unlikely(!adev->nbio.funcs)) {
- 		pcie_index = AMDGPU_PCIE_INDEX_FALLBACK;
- 		pcie_data = AMDGPU_PCIE_DATA_FALLBACK;
-@@ -677,6 +683,9 @@ u64 amdgpu_device_indirect_rreg64(struct amdgpu_device *adev, u32 reg_addr)
- 	void __iomem *pcie_data_offset;
- 	u64 r;
- 
-+	if (amdgpu_device_skip_hw_access(adev))
-+		return 0;
-+
- 	pcie_index = adev->nbio.funcs->get_pcie_index_offset(adev);
- 	pcie_data = adev->nbio.funcs->get_pcie_data_offset(adev);
- 
-@@ -706,6 +715,9 @@ u64 amdgpu_device_indirect_rreg64_ext(struct amdgpu_device *adev, u64 reg_addr)
- 	void __iomem *pcie_data_offset;
- 	u64 r;
- 
-+	if (amdgpu_device_skip_hw_access(adev))
-+		return 0;
-+
- 	pcie_index = adev->nbio.funcs->get_pcie_index_offset(adev);
- 	pcie_data = adev->nbio.funcs->get_pcie_data_offset(adev);
- 	if ((reg_addr >> 32) && (adev->nbio.funcs->get_pcie_index_hi_offset))
-@@ -762,6 +774,9 @@ void amdgpu_device_indirect_wreg(struct amdgpu_device *adev, u32 reg_addr,
- 	void __iomem *pcie_index_offset;
- 	void __iomem *pcie_data_offset;
- 
-+	if (amdgpu_device_skip_hw_access(adev))
-+		return;
-+
- 	pcie_index = adev->nbio.funcs->get_pcie_index_offset(adev);
- 	pcie_data = adev->nbio.funcs->get_pcie_data_offset(adev);
- 
-@@ -784,6 +799,9 @@ void amdgpu_device_indirect_wreg_ext(struct amdgpu_device *adev, u64 reg_addr,
- 	void __iomem *pcie_index_hi_offset;
- 	void __iomem *pcie_data_offset;
- 
-+	if (amdgpu_device_skip_hw_access(adev))
-+		return;
-+
- 	pcie_index = adev->nbio.funcs->get_pcie_index_offset(adev);
- 	pcie_data = adev->nbio.funcs->get_pcie_data_offset(adev);
- 	if ((reg_addr >> 32) && (adev->nbio.funcs->get_pcie_index_hi_offset))
-@@ -832,6 +850,9 @@ void amdgpu_device_indirect_wreg64(struct amdgpu_device *adev, u32 reg_addr,
- 	void __iomem *pcie_index_offset;
- 	void __iomem *pcie_data_offset;
- 
-+	if (amdgpu_device_skip_hw_access(adev))
-+		return;
-+
- 	pcie_index = adev->nbio.funcs->get_pcie_index_offset(adev);
- 	pcie_data = adev->nbio.funcs->get_pcie_data_offset(adev);
- 
-@@ -861,6 +882,9 @@ void amdgpu_device_indirect_wreg64_ext(struct amdgpu_device *adev, u64 reg_addr,
- 	void __iomem *pcie_index_hi_offset;
- 	void __iomem *pcie_data_offset;
- 
-+	if (amdgpu_device_skip_hw_access(adev))
-+		return;
-+
- 	pcie_index = adev->nbio.funcs->get_pcie_index_offset(adev);
- 	pcie_data = adev->nbio.funcs->get_pcie_data_offset(adev);
- 	if ((reg_addr >> 32) && (adev->nbio.funcs->get_pcie_index_hi_offset))
+ 	 * w/a on certain intel platform where hpd is unexpected to pull low during
+ 	 * 1st sideband message transaction by return AUX_RET_ERROR_HPD_DISCON
+ 	 * aux transaction is succuess in such case, therefore bypass the error
+ 	 */
+-	ddc = TO_DM_AUX(aux)->ddc_service;
+-	adev = ddc->ctx->driver_context;
+ 	if (adev->dm.aux_hpd_discon_quirk) {
+ 		if (msg->address == DP_SIDEBAND_MSG_DOWN_REQ_BASE &&
+ 			operation_result == AUX_RET_ERROR_HPD_DISCON) {
 -- 
 2.55.0
 
