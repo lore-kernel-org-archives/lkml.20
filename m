@@ -1,64 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794674974;
-	b=lAkCurQ4uzCUfDm03WBuQ44Wn00XRiebNf1whgnoUSng088cxqZSly9yoexIGrvNYop1
-	 uLSfji6fvqDKZNc7FBAo80eVWMnxTRKzXIW7P8os+Q/WIGCeygd9S80jgPzjGTCo7Pp1v
-	 WUFZ3GHgL2TH9wj7IHtJVOXq3SsZ4qU8zMAr/vJAy9NHwz7fFGKjtMN1j5DfrFMSPy2uB
-	 xAW/VYlTYtW1JTJ1SH8FSF8Gl/p35dX9OaKRhrgGPfzb4AbtU5LDMygbsAPUntu+SyOEW
-	 5aWVLG1R3Bisyg4gdzvWwTv2FFaC00FV5yP7ZPfmjYH7KNusIwT8dqZ2DAREeEIyYpQ==
+	t=1794674976;
+	b=Pxk0lDEhfWSi9tSKS3bL5ahx3zfT2kMbGz5YcDFtKfs/wnLWvoSxC54UnCdDXnAyfNSM
+	 ZB6cNQFUn5FSUfNiaGfSGMKcW47XGtjTMvsTf8gHU0JNAQneh/aROZnz9AyBo3t8oaQqm
+	 ng1zp0VrNiwF+QkiOiZU/Oz/RubeA4b/803Du/fu3EqIo8rpP1SNwhb4hSfXb3YuaDJN5
+	 P/8A522us4TfNeoaSdbikawhPa1I6OJ9OhbU9d5ERvH+KE1grCb84xG3zTujznjnUZM5t
+	 RdLYoyqCUR/pC60x7i4i16F40WGSHe1gG+0BAs9Ze9wm+xuvXN46xvkdIhPBzyXaMzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794674974;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794674976;
 	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
 	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
 	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
 	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=R5PD87DXQGe5z4GXxFpUkZC/qGaFBbI9+9pX0FnLtN0=;
-	b=4ckSc6F3RCK7C51F/dlOegxM+FxR+Too9l/WhwnVWIqFnz4TDasHTudvzTgCvI6MkGlq
-	 wkbQSt09R8HZQgfEJbgQYaBvkEyiPH/c1revbcsiRSIJUwHhz5i0KJsOR8yqpd8jDq1FL
-	 wUMYcYkH4inNhI2x0IosJhwdWCXCbnL5S3/iVjdfawOOLf3sn2KmoG9KE59TVNShFoy5x
-	 rfhk33NBjwNigca7J4Vov2BTFNagMipRMXtWuPi0wsWObio9bdzvdo0WvxHcfm6axs/OV
-	 89cuEH/BxGh1IBnU9frZHnLD3T1ijVAut5Sd2RK8fv43WxY2XdL1nL1sXQVHEHepwXA==
+	bh=pfm+ntGBhWHvVfg7YQlfmHjpmvF8BBY184iuUZlnt0E=;
+	b=x138hemZ44qKq+lISB4u5Dx2u5L/g1bHpzTi72x8roIGCXPhxZ23ULTFmk2K0MIyJHpp
+	 zCUJ/ficti4lYJJfmoX6S5664VibEmwrg5nA16USBiifaklhVermes3hRvQEELtcUJa5I
+	 /5oF4Cpzk3n2TCyfiVAGQFPFp6NoKy2oLzDYaJMqUmeKGTNB6lPQnMyxTJUaDSmS50hJX
+	 ZoKs+mtk6ZbhyyK+Zzf8JbuwFvpyQn7SacMyTKjlbFOuvo43bIcZt9BpQWoxCMfVi03oi
+	 rkP/vKtnRLBkRzctlnvMbRYSqBgDBQG0VzLGnHe080kskZZ7/bcODgbe7iCvpIrBfeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E2YrsNPc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pc+kCrXk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F8CA606A33E;
-	Sat, 14 Nov 2026 16:49:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E008B606A88E;
+	Sat, 14 Nov 2026 16:49:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E2YrsNPc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCE091F000CA;
-	Sat, 14 Nov 2026 16:49:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pc+kCrXk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD6571F000CA;
+	Sat, 14 Nov 2026 16:49:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794674973;
-	bh=R5PD87DXQGe5z4GXxFpUkZC/qGaFBbI9+9pX0FnLtN0=;
+	s=k20260515; t=1794674975;
+	bh=pfm+ntGBhWHvVfg7YQlfmHjpmvF8BBY184iuUZlnt0E=;
 	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=E2YrsNPcVSo1f3iz0IMlCHAK1Y39CshGCKYPMGEYAuDIljUJEHFNE1qUVwGwjeEl0
-	 Jwucxzblqy6p9ObBvvLZ08a/OtxR/JlR7HDCqktoivS8+bf378iUjL0lnaga8qlc+E
-	 9E095TgC2mfP7WKB0JT5kOVIUpYalmspYVIjBKhhrq1q2C6rbpl+zIGW1Ev31rARcy
-	 Lnt5UX3cUGFCgV9ugsRTbcUApLjcQYX22goUu9tA5YgAsO/oDQtnZKeJ8JzgLu7Nvd
-	 QQdZEOTSldRP56q1Em8laPl7bQBIxXT340icuNnnSOaAU10gn0qbzr7SHKi3Hy3Hu3
-	 8tiX3Kdx5kKwA==
+	b=Pc+kCrXkTgjUwjeRg21Zqz+6hnWPTHmMeOd9/dJh/8AzJSKVRalPMvgRx4pFl/J4D
+	 q5pSROvjvcHt/bvfMqV2fKnzs4WGXi11P4ApiaGmdTMYSYTMeleT10pfdwNpxy4290
+	 MhTWuBU55fO72Cwd6pMNU8l+av0cSBWH+FyHo7khh3SeEe1WFDW1KIKQQ9Ze3mfMdU
+	 EB+rHM1I5DUvfG6u/256p6Yoc/qFWJmU61LCNnQ/uKYrGTe4z6isjEXTH6pYR3EGDW
+	 /SIlN6Xmri31pe5TnERq429Au0NjRNTvzzo7Yu0CxJmlyfkzbUKE8XZ4NJR9ENvE5B
+	 AydkW4qNdNOUg==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B4519380821F;
-	Sat, 14 Nov 2026 16:49:33 +0000 (UTC)
-Subject: Re: [GIT PULL] ksmbd server fixes for 7.4-rc3
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B44C3380821F;
+	Sat, 14 Nov 2026 16:49:35 +0000 (UTC)
+Subject: Re: [GIT PULL] ntfs fixes for 7.4-rc3
 From: pr-tracker-bot@kernel.org
-In-Reply-To: <CAKYAXd8oLzyQkLpZ9AFxVc=GvdN1GTYN3yGOcV-n0U7uPGrPQQ@mail.gmail.com>
-References: <CAKYAXd8oLzyQkLpZ9AFxVc=GvdN1GTYN3yGOcV-n0U7uPGrPQQ@mail.gmail.com>
+In-Reply-To: <CAKYAXd-4O90M9tdUv6LgoJc3CBmrLZnwhaLFvBkgbFpouJso0Q@mail.gmail.com>
+References: <CAKYAXd-4O90M9tdUv6LgoJc3CBmrLZnwhaLFvBkgbFpouJso0Q@mail.gmail.com>
 X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <CAKYAXd8oLzyQkLpZ9AFxVc=GvdN1GTYN3yGOcV-n0U7uPGrPQQ@mail.gmail.com>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/linkinjeon/smb.git tags/ksmbd-for-7.4-rc3
-X-PR-Tracked-Commit-Id: b0af9a3e6b1534d353ca6ac23caaf46127f62e4a
+X-PR-Tracked-Message-Id: <CAKYAXd-4O90M9tdUv6LgoJc3CBmrLZnwhaLFvBkgbFpouJso0Q@mail.gmail.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/linkinjeon/ntfs.git tags/ntfs-for-7.4-rc3
+X-PR-Tracked-Commit-Id: bada7bbb11aaa6feba8904cf38ff833453f5b5d9
 X-PR-Merge-Tree: torvalds/linux.git
 X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: cba88960471ac67635080708b67ed5c2a2e4e9fd
-Message-Id: <179467497224.2233204.15080018499468700811.pr-tracker-bot@kernel.org>
-Date: Sat, 14 Nov 2026 16:49:32 +0000
+X-PR-Merge-Commit-Id: 68271fbe7d14b6397e90df730c3967d3a481902b
+Message-Id: <179467497424.2233204.2509266200367626347.pr-tracker-bot@kernel.org>
+Date: Sat, 14 Nov 2026 16:49:34 +0000
 To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, CIFS <linux-cifs@vger.kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Hyunchul Lee <hyc.lee@gmail.com>, "open list:NTFS FILESYSTEM" <ntfs@lists.linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,12 +68,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 
-The pull request you sent on Sat, 14 Nov 2026 14:29:14 +0900:
+The pull request you sent on Sat, 14 Nov 2026 14:46:51 +0900:
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/linkinjeon/smb.git tags/ksmbd-for-7.4-rc3
+> git://git.kernel.org/pub/scm/linux/kernel/git/linkinjeon/ntfs.git tags/ntfs-for-7.4-rc3
 
 has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/cba88960471ac67635080708b67ed5c2a2e4e9fd
+https://git.kernel.org/torvalds/c/68271fbe7d14b6397e90df730c3967d3a481902b
 
 Thank you!
 
