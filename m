@@ -1,80 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794636852;
-	b=XrOKWa+hrWavMd2H6XlCppnRNQsecaLmLLuVS5CQZtTB8FKGa1PgxD5fFaoAXCx4S/aO
-	 hVDubDKrASee1CPx39iWz100NZF/5ZLFx3bGwiSCUUrp0Qts4EVP04z2lAZDExdaIufkL
-	 zLAX1AqVFwT425pmZZeIIC/B4DGF0dOorTrIa0Pg08fbWWwqRkCR19+SWASLQBDd3wHK5
-	 Pkwvvk/eWcTyS7GCJnmKKcU8XjHI9zUvzR63Tw779286BocmhKGEhoowQtmtHVw9yVa7c
-	 1Mh5AzPHMddCuEyvbGB74qTyOy6fKpO4Nd2vC5fAR4/v76ijqNp53pAdXdaNbq9lUNA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794636852;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=a32t0mX2kC2v2uk20RCPBHvYfdu/VxDInh2ddlw2N68=;
-	b=Urpvpn87XdvW5dWKR9XjMApUIWZJwvRf0lZ3PSKJFgxoPSm4XO4HWvyVRu5+hcEFFY/g
-	 faw5hLMVPDqra71ZUa2Ex3xRJmVkQmMsP7nPAJFbCMr91U3fcL26PuvWxiPfybbiOwBef
-	 UwvrUupa472xvE2ry9C7n2FfIt43s5865tDfH+4Yf1MHQrV6vcClmUB7tgDfEhMw4OTab
-	 1IZCzwGBVgtoDwsP77TmG5v1s+oo/yuw7wu+oeRfwkfJ8G/tuJid7Eh0UmUbjOJZXC/h0
-	 4sBi0xGd+gvOPf95+z6xjZ2FBGGtL2nkSAOx11Rv7PZtL8EgStISfQZic+KD4GDQeMA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QXfkPs5G;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E9F7606A323;
-	Sat, 14 Nov 2026 06:14:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QXfkPs5G
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794636852;
-	b=0W7HyEIqgJ4GIdX+H3TALIVhfxerRUogUMq4LShtpHaz+rr4ECRw5BAKSaFDGYeDv6+M
-	 mENj5lCArWsAyOvKc8+9JFmfA1O9QfAMDGFIN1n4RzJb881fRoDh/e4kz3jCZxtoPCGeC
-	 QRbAFZx/Tgm9atgMavYyBCDI68yo+mQQEFb03xBqoNj+yJf6QJGfhdQpXHxm/HQWAJMfT
-	 VJ4VzE8/cqmOp6/vADQmqm6QlJN3FfsHAL9lUNxPEcDcpe4Z9S1pCFDqsqFnsfOllyTLq
-	 Zd8dmJsMuUIs/V+i1p43/OpKFEKMnKrgv2nKMaoStw6SyIkkDiKsuDPqaUFCI2PTD5g==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794636852;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=a32t0mX2kC2v2uk20RCPBHvYfdu/VxDInh2ddlw2N68=;
-	b=trqX/JziN4GeMWBRDEh7kIxOzxSsKtalgdbRJF8CTPqYXa+tKBP6F+H22tCQE9aZrpON
-	 kMuERdY2wIb8FVx+EqDTSp4YzXCGoAOakCO7sMA0j7Ec1dH3FHzB+0dlovLrxJrxXpcQn
-	 G2pNDtovug/jk8Dy2jRD4t2ewYipDhZxL5WK65C/Cxxi3HzglsN8ABK1LreP0WtfliUVY
-	 g0OUU4viICQY37W3hf/p7KZs/5AN6Sl77kFupqtjQvrQNg0h6JCtu95rOlAuQjPtZp7So
-	 +xvklB6cSXYdG0cWLRgCpdGHb0hMk+PP3vEzrC+XaG1Tek77r8+GjI/OYLzYEqnqgTw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.197
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794636892;
+	b=s9gBaMSAqFFwgnVMAptUQn+SqSLEkTXxzyfUa9susHPLRlUX4wWzvAm4b/VBkcx8wwtg
+	 sr+nBkT50sfT3JWaed1PTrRmFJ/VhgzAXl+Wb6V9niWBj/3Pc3zAwE5O50kcO2yf6KZtw
+	 cMQ82cmGvnQzXv40C0EfkvnveBU49k9QRL8nGEfcg1KlB0bDGRODzXnPb/65e7UjbFC+w
+	 cPVX9vR6bDLZKDtov+IwkhRI4UjN2mxfekpuAkoZbmxe7WxzQ0SYgZU2WLsOKDC6KV1hK
+	 s7zQFZ9se0Rr48Qyo2yE5xXvCRuSP8pO4qKhD5F7YCNlarHGe0aXSJdNxd/mY07HM1w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794636892;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=rcRT1KXRxMVMkbqC0U3OtsyJos+rmMAQkFnzvfRCjWY=;
+	b=E3ucu3nulLAw5i74am7ASpC1OEO7QBhUQ4TsDD5XNN5kj71GnnpQj82wP9WTiLbkKRXO
+	 JUGuJq1dRPccUy+AZdLZJ6TWn+yqka0ZwN441YxBh+yGaXJ7kx8x0LI+sXbfyO9Mru3pc
+	 SyhIJ2KAaS+sGmhvORwfe3VjPqYWA7bfnjdCZovfpomEFhxRgqLkRoTSkzOPOZ03RG7Ja
+	 TF2Hpjk1m+sZO2qkSz+97pS2GidjJIkB1fG49Cng4Ns+GnhL5CKbuUKm9xIgfA2Mlrvve
+	 eHVQdImLoNddlpEQ1rMC8TzyTxUiriGpUqJHU1VM1Q9546oIfyF5q8CTEFEVuzxgP4A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AAXItUB6;
+	arc=none smtp.remote-ip=209.85.210.197
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id BB8F61F000C5;
-	Sat, 14 Nov 2026 06:14:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794636852;
-	bh=a32t0mX2kC2v2uk20RCPBHvYfdu/VxDInh2ddlw2N68=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=QXfkPs5GKtce6TEq97tOduVeMkwNHVDmrtXxL0OosJV9PUpPKWBda0TSt5HrCzjn5
-	 QWRBxoF8YtVTxfyscjlLwYgLml1yFuz5+bufZOEnJHI0pEynvezUqvrFm2yybdcbjT
-	 TdjECDaFvhvSug0SQmlQX7zhvAPC99HQGwRzXZ7cEQ/Erm5khFyhKL3dhbE9MdmNIG
-	 +TUKnn3nJ1mrXxnhpaFRlFEPQyfDPV7h/MTLQ8dt39L4AdlDIqS3upWDHMZjO3Ogp5
-	 Hsi2k6uxl6+FdBuAVvBueMfC1V59bkZD0ZIfTo+gHZCJNMHNQTnlpzpMc5OUd1yRTb
-	 JKneIDwTCxeRg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 1F7C349CBD;
-	Sat, 14 Nov 2026 06:14:11 +0000 (UTC)
-From: Prateekshit Jaiswal via B4 Relay <devnull+prateekshitjaiswal73.gmail.com@kernel.org>
-Subject: [PATCH 0/2] docs: kdoc: print each warning once, and only for
- selected symbols
-Date: Sat, 14 Nov 2026 11:44:07 +0530
-Message-Id: <20261114-kdoc-dup-warnings-v1-0-265f89bc3f9c@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CFC1606A32E
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:14:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CFC1606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AAXItUB6
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8b647bbf8a9so2047184b3a.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:14:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794636891; x=1795241691; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rcRT1KXRxMVMkbqC0U3OtsyJos+rmMAQkFnzvfRCjWY=;
+        b=AAXItUB6nLo8Ld8relHkMakJMmcuRNIsknoR4+BEM4pSV8B6NMLHbLLbDWU9hi9tNb
+         jgdzHxKTj5/DbNttUCWS/1H0D+IQKlezeFugNBvN4aDY/BrH5cd7Frj3L9D7yB0ULnfJ
+         OR9HjF4GH6UYfG8ZUTCfjJwfE0Cql/Wisd9i4Ndx1F/bQqjp5kwVkKvYFV6WZ++sB7LR
+         NTbv6uW33BsKh6oOwCVC9D2uSV3X851/fTC7Q0G0wly/pQF/ZlmUp+qZy9Q0qh/OpQ7C
+         28IB8ztcs5lZfX3WXcO/lhJIl1bE3fnuMYrEiVXQDSWtzek+YrI2BeCzD44YzcKvERsG
+         ++nw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794636891; x=1795241691;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rcRT1KXRxMVMkbqC0U3OtsyJos+rmMAQkFnzvfRCjWY=;
+        b=eAeECugdSJGSVyDl/USrAn2gGj2MXUorzboxsP3LC9PNK3X6yvt+YIpzhhGAYfv3NJ
+         2VFP6f5hfqasEnp0ux3qnSZ+/nmjpdr1jxgnLfJ+rxJx8UtH3QSI0IFkPqsqtjX69Zgr
+         Knsd3o4vjP2JGGJCakek+x/cl8pc+o3v34s7gwc7gF3rvX0mcxa3wQkSiQBaToqDmggN
+         LKxpi810mRYh0gG0YOpEsXy4ecd/d2E0jzs8x8g9juLhLqhhInshgnkp8fy4jxo96mSW
+         g8uKE8FWNyrcKqCg8ADNCuBtZsNBV4rE6XnF9/qBTxibPUlWDLzw7ZQbbwH0Y007GQnr
+         5KvQ==
+X-Forwarded-Encrypted: i=1; AL+hErGe+7IRgWerXlPwD3LypLHmTJ6XwlgF9id19l8KMFSRsKpeDq6JTDiHE0QVZedFIFEMndvFbtK3RnFBuSk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+sXHckUacsWyPdwzQ1TS1RVzDI1rzvdb1NUvSjkTOlrfugKeNT
+	U76OUjSWS88a+RvsuvlurmiV91Q2mRi4F+G4IHa6UfDFZ7Lxl/4SXqF/X8uveGGgfTG3gCXDrUt
+	Sai/OeQ==
+X-Received: from pgij8.prod.google.com ([2002:a05:6a02:8408:b0:cd3:da0f:7741])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:888e:b0:3e2:7bc3:9bde
+ with SMTP id adf61e73a8af0-3f7a83b8ec2mr4021901637.59.1794636890522; Fri, 13
+ Nov 2026 22:14:50 -0800 (PST)
+Date: Sat, 14 Nov 2026 06:14:50 +0000
+In-Reply-To: <20261111-mtu-probing-series-v4-2-6f2e484ca8ea@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,83 +77,25 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MTQqAIBBA4avErBtQqZSuEi0sJxsCC6UfkO6et
- PwW72VIFJkS9FWGSBcn3kOBrCuYVxs8IbtiUEJ1UsoGN7fP6M4DbxsDB59Qm3ZprFaTER2U7oi
- 08PM/h/F9P+AheKtjAAAA
-X-Change-ID: 20261114-kdoc-dup-warnings-785f4a72b806
-To: Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Prateekshit Jaiswal <prateekshitjaiswal73@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794636849; l=2326;
- i=prateekshitjaiswal73@gmail.com; s=20261107; h=from:subject:message-id;
- bh=C0QJf4U5Htgu11IVU42m2nZfMKlhIuaCFFa1KyLlrkk=;
- b=IawUYJmxMUmFL3JoQP20+VPu0XF5cLr4LaidJlb4FNZAigCaq9QPv4XYldITNpYc2fVzFh2ii
- oBkzQ8YlqqlDp1cZM2DendDpjBwigGFpn8l/+2G3WzMkxbvawPCMa+W
-X-Developer-Key: i=prateekshitjaiswal73@gmail.com; a=ed25519;
- pk=Z9QqjsqOUk3AvD5zQ8B+Kufufuvk9wEO7eT9m1nMJdo=
-X-Endpoint-Received: by B4 Relay for
- prateekshitjaiswal73@gmail.com/20261107 with auth_id=1445
-X-Original-From: Prateekshit Jaiswal <prateekshitjaiswal73@gmail.com>
-Reply-To: prateekshitjaiswal73@gmail.com
+Mime-Version: 1.0
+References: <20261111-mtu-probing-series-v4-0-6f2e484ca8ea@gmail.com> <20261111-mtu-probing-series-v4-2-6f2e484ca8ea@gmail.com>
+Message-ID: <avf70FWg6nSW1zhX@google.com>
+Subject: Re: [PATCH net-next v4 2/4] selftests/net: packetdrill: test
+ tcp_base_mss on passive connections
+From: Kuniyuki Iwashima <kuniyu@google.com>
+To: Yongjian Wang <echoowall@gmail.com>
+Cc: pabeni@redhat.com, kuba@kernel.org, shuah@kernel.org, edumazet@kernel.org, 
+	horms@kernel.org, ncardwell@google.com, davem@davemloft.net, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	netdev@vger.kernel.org, panweiping3@gmail.com
+Content-Type: text/plain; charset="us-ascii"
 
-kernel-doc currently prints every documented symbol's warnings twice.
-With -function or -export it also warns about symbols that were not
-asked for. Both come from the parser flushing warnings of entries it
-mistakenly treats as discarded; patch 2 stops that.
+On Wed, 11 Nov 2026 00:45:56 +0800, Yongjian Wang wrote:
+> Check that a passive connection starts at tcp_base_mss with
+> net.ipv4.tcp_mtu_probing=2, as an active connection does.
+> 
+> Signed-off-by: Yongjian Wang <echoowall@gmail.com>
 
-Doing only that would uncover an older bug: the output step never
-prints warnings for symbols selected with -function or -export.
-Patch 1 restores those first, so nothing is lost at any point in the
-series.
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
 
-Testing:
-- tools/unittests/run.py passes after each patch. Without patch 1,
-  the new OutputFilterWarnings tests for selected and exported symbols
-  fail; without patch 2, test_stored_entry fails.
-- Warnings printed for intel_dkl_phy.c, before and after the series:
-  -Wall: 2 and 1; -function intel_dkl_phy_read: 1 and 1;
-  -function intel_dkl_phy_write: 1 and 0;
-  -nosymbol intel_dkl_phy_read: 1 and 0.
-- kernel-doc -none -Wall over the 10320 .c and .h files with kernel-doc
-  comments: 87900 and 49625 output lines, with the same 48026 distinct
-  lines.
-- The two "Excess struct member" warnings for page_pool_params, which
-  Documentation/networking/page_pool.rst pulls in with :identifiers:,
-  are still printed, once each.
-
-Notes:
-- The new tests patch config.warning directly. MockKdocConfig.warning()
-  is never called, because KdocConfig.__init__() sets self.warning as
-  an instance attribute that shadows it, so the MockLogging handler
-  does not see config.warning() messages. I can send a separate fix for
-  that.
-- Plain --yaml output never printed warnings itself, so with patch 2
-  it no longer shows the warnings of stored entries. With -rst or -man
-  they are still printed, once, by the embedded output formats.
-
----
-Prateekshit Jaiswal (2):
-      docs: kdoc: emit warnings for symbols selected with -function/-export
-      docs: kdoc: don't print warnings of stored entries twice
-
- tools/lib/python/kdoc/kdoc_output.py |   1 +
- tools/lib/python/kdoc/kdoc_parser.py |   4 +-
- tools/unittests/test_kdoc_parser.py  | 126 +++++++++++++++++++++++++++++++++++
- 3 files changed, 130 insertions(+), 1 deletion(-)
----
-base-commit: 2138148bf44fd84d3e0a863f0e8cb3627cdcc606
-change-id: 20261114-kdoc-dup-warnings-785f4a72b806
-
-Best regards,
--- 
-Prateekshit Jaiswal <prateekshitjaiswal73@gmail.com>
-
-
+Somehow this series didn't reach my gmail inbox.
