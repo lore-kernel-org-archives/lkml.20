@@ -1,79 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794617543;
-	b=mpg0w79XZawjklZ9U4LUbAbm4XRO/fp33dF7KCOPbEU30cNhccEzNyCjeVLxT3l578Ml
-	 g2/0sEIz16AFqztI6bhURZYvY1zpAV+eDUIlm1uuSANRreWUOvndruJ8wnZELWweIyRJg
-	 wxxxPBaV18drs8rUvDWhul1340+VXB5x2/VomPaBqkhaQWLIjLIm6JDVgUWML1BI3GV9U
-	 P9Ojwc8niDQeWAuV5HsSPj0D+x51EyBIJ4vmOV19jKR+tRoEt9NBtvaWSl4sJM5xefUQ6
-	 DedxqfCK0/Oyd8dV76pWk4LG5/YUaJxrVyZVQrVNk5ZeDBXiTzRkhmBCN72aQseEvCA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794617543;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=6Zh+XulnPd/nR+IMT1WxzCnxZlOn4xssX41WPzE9FKU=;
-	b=TLNKpc1RH+i/Tvtt/e3yJTqIkJda0BuKIK29HPqpJb6FuJESFCkzUpwiQkTc7RM5J/MI
-	 J153t+ldtzF+9HRZQi8GfNZvvhu70q0P5zS4IyG2kO63nz0FItiKt6ahuW/L9GAYSNl5z
-	 qSgTXRzxqA6xYSzlb2FOX3nH5UEwBE+iYooR5u0yFmgLNJZwEgB1ax/oxNLu4OF4r0VOf
-	 qZ4qE8iJvQPRLsHRqL8sADBo8XfUtL56yA973tYcFky2P732kLDNxY8Ewablxo2vxhw9n
-	 PHo4GK2h0EvKLRokY7/cyIOLN9TxUYDQ6r/IVbAXQiIooatbsSJt4bAdEUoI/+gDZ2w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="TXoJK0O/";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794617585;
+	b=v1mPkiVDhUFpdrH92KThIGjITeB4zcy4mEOImvqzvB5JGnT8fHL+elNipQjRFqpzKc+2
+	 qHmygmUvQo/lPtVcTMoCjwmiDmUbQliL3Lrp5nL/vVO2uMedy/oFpV5oTRTI0nifhuFV1
+	 UtoYALl/P6a2KOCWsLdxb+nOs9LLTROBcJ9jZ96C6qgc/TpaW07p74PlTihFdOVRMwS96
+	 0LMZI7rKYMgnB/x99QMvsGviWhs7X6QvsRQ56Qrfjo1QpyTyCrehE+30wHUtz5AOVxvFn
+	 bc+aezbhne2xAfA8O7FOw0VlH+xA0h6ouxeSZW5IaALvx3PbyLFXCimR319ej2duEyA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794617585;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=sc5OyOgUTeP2eca1hIGhKPy5SDeMPfcieojL3vpE9W8=;
+	b=BEXs9B8v1xneLc8ue7M+rjrAWJ9meGRhMuaBZTkC0Xg0DozXS4jvsGZ6hNhe9LIZfWtE
+	 i0C2d/HDCCNl5oIKKLxKcrh+Ef/LZA1Kbhy+3eGOhLMVXaYGrQOTLqE18/ERlhnhmwSeT
+	 /B1Bxu6igs0r1i2W8cYnBDBUK0v4LmQTJQqLl6Mjh3/mKSfuNxdmlB90K2gjtqkQeTAmM
+	 x2Ro0D6LFnWtU7yMvvoUWT5HVj/WR/b9G3nsqlsl/hcGhQEFwdGAtX9Sk23vfkzaq1b3Z
+	 UtLBBzn0T+k+TFs3pOwiDPUavJIZVJF06MbX8tpy1BKjnZHoNtxQTYGS2GhD67j+s9g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="hRIY1M3/";
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36594606A880;
-	Sat, 14 Nov 2026 00:52:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 416C3606A332;
+	Sat, 14 Nov 2026 00:53:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TXoJK0O/
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794617543;
-	b=ywO6FHeUp1rTgAhqu8h5Fy8RmWveqQfmzsiEucVBZPNlj8bPOr6FNB0bxGlx0Gg/ni7+
-	 aTIz4CnvX374CV44i6kx3XbT9+RF9pKvcUPQM+0nVVi0BTrUtgFxp36UK+i/r+S3CZv5+
-	 xwf+gQuz52BwOBjiPCPHb4+13ZehrIsb6zLaOK74lg8sHlJEYTv6hwv4Jmd/R+7JcskPc
-	 WOFM9sxhAXumKDr3DZRwXMs+oNDWjO50dgSk9PuwKz7ky9z3KIZr/PVO4bgzHFtSDWxva
-	 MiDahOZ6X0MkJy5+NnNLNj6glXsltt3Gm35MAPooOh9IPP1QxJg1xeQ2R/4JGaopGpA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794617543;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=6Zh+XulnPd/nR+IMT1WxzCnxZlOn4xssX41WPzE9FKU=;
-	b=ZfLpBVBasb+AcmuRegOSyDwurgd6GvJWQcs84MZN8sn2lnp/qJ576ImQeFY6kzgWS0ST
-	 tPGruzlMswQib4zd/zwVvY0hBS4QcS5aUDIGRkXU5Xn80aY+ZrScfIdRUWRdepYGEi85I
-	 Sf60QQuOIK9NrIJcdZ66ZLMjZujWtoj270r8DGqdyOydmUXde49mSfCdlaQBEQpS+wNSL
-	 BMAvOD0rT+P0kDOaiSMBS0TK4J8sBTSTBY3JjSGi8HnSrjEtR+tv61TILTncZATv/SKpf
-	 DvOnqrU2Sbltx0nMYY0O8cPoMhmJ0juymu9qnluSoetItLdFlMjnsOOVj4gbys9Apbg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id C38E91F000C5;
-	Sat, 14 Nov 2026 00:52:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hRIY1M3/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D1A51F000C5;
+	Sat, 14 Nov 2026 00:53:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794617542;
-	bh=6Zh+XulnPd/nR+IMT1WxzCnxZlOn4xssX41WPzE9FKU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=TXoJK0O/XtZ3uD8YfECaDYkHpvDXBw4EqGXAjJDVFCNAyTeHo2yzNYDD4iuhQ7Doc
-	 bFKuxR9hkQdz44wp5N34SiwfTJctsexOqSnItN4zjtrc67WC2nmMrsoonvIMPbkMTe
-	 lx3eSsNpRI0BHqQHuAzWO5nS/NKJSjDL10QCjejFRMpwmfupXAYPk59AgNC/phPyQR
-	 sLyyPVDCBvyGoLIMX2EWdg/rWeP1hOcRBLcGgvmELINGmJ0JX3EicXvh7QeXTYhSna
-	 R5iii///9TF0tMN7hlRVKKY8JieqmXwkuq+/q/WQ0pOa3n/CmKKlTjW1bafwNG9noK
-	 IMt9Nja7ZFk9g==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 0160849BF8;
-	Sat, 14 Nov 2026 00:52:21 +0000 (UTC)
-From: Matt Thompson via B4 Relay <devnull+matt.boondocker.io@kernel.org>
-Date: Fri, 13 Nov 2026 17:52:20 -0700
-Subject: [PATCH RFC v2 2/3] arm64: Allow synchronous abort fixups for
- guarded MMIO reads
+	s=k20260515; t=1794617585;
+	bh=sc5OyOgUTeP2eca1hIGhKPy5SDeMPfcieojL3vpE9W8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=hRIY1M3/VHihVtm+gqiqOqOuL1K+ANFTdl4c4RthZ/iL/r8704z7RoJxGPRL9Qgle
+	 HeqcK0lSmB203gKzNe8Nxc8Dl90vSxt6wjfFPXb56MMewc4pT0eKgQydyGVgMhRV/U
+	 HIhz957P3B9kGG1WSUoSTx9CrWL0PEJEc6kVaLLgFCWzy6YPJQqEM8D6HbcHyTp6RD
+	 lA+kyK06Fsx9cVWVOYdbbSbsJ3JFhB/6JkxzFB86zNZy3A7lC/vAQwmV1BjjtWs73b
+	 oP8xS93/0bQD4js2RxcWtboVN5A9fhrD5ULz/N5TpSAQhOJcafeQs4EAe4NHpEhL31
+	 ozkGAmiT6vVBA==
+Date: Sat, 14 Nov 2026 00:52:55 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
+Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
+ Hennerich <Michael.Hennerich@analog.com>, Nuno Sa <nuno.sa@analog.com>,
+ David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ Alexandru Ardelean <alexandru.ardelean@analog.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Antoniu Miclaus <antoniu.miclaus@analog.com>, Robert
+ Budai <robert.budai@analog.com>, Ramona Gradinariu
+ <ramona.gradinariu@analog.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux@analog.com
+Subject: Re: [PATCH v6 5/8] iio: imu: Add driver for the ADI ADIS16607
+Message-ID: <20261114005255.0b64ec92@jic23-hlaptop>
+In-Reply-To: <20261113-adis16607-v6-5-3f678719942a@analog.com>
+References: <20261113-adis16607-v6-0-3f678719942a@analog.com>
+	<20261113-adis16607-v6-5-3f678719942a@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,156 +67,138 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-rfc-b4-v2-2-d6b14f95c1d6@boondocker.io>
-References: <20261113-rfc-b4-v2-0-d6b14f95c1d6@boondocker.io>
-In-Reply-To: <20261113-rfc-b4-v2-0-d6b14f95c1d6@boondocker.io>
-To: Shawn Lin <shawn.lin@rock-chips.com>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- linux-pci@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794617540; l=3957;
- i=matt@boondocker.io; s=rk3399-rfc-20261113; h=from:subject:message-id;
- bh=O2LbMV/iAQG9voycLpkvTk5xx5a7660O6hR4aIZ4gWk=;
- b=AOyjADqb2c9zoTvOxoesEqPq2yFWtk+fGp4f0dFjGUBjgacjGBHN2o1QsuuE7wEmK2y/dvjeQ
- 0Bj55wz2NCVAGOBG3u4H5pEBc9Gt7IU9E3dA1lwhdo+WnxAxk+nSbxI
-X-Developer-Key: i=matt@boondocker.io; a=ed25519;
- pk=WMnh3kwFFRkrqamL/FbDcdl1/9rBF2uT03VdvGGP40k=
-X-Endpoint-Received: by B4 Relay for matt@boondocker.io/rk3399-rfc-20261113
- with auth_id=1517
-X-Original-From: Matt Thompson <matt@boondocker.io>
-Reply-To: matt@boondocker.io
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Matt Thompson <matt@boondocker.io>
+On Fri, 13 Nov 2026 14:33:35 +0200
+Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org> wrote:
 
-An RK3399 PCI configuration read can raise a synchronous external data
-abort if it does not get a usable response. Allow an explicitly annotated
-MMIO load to return an error in this case.
-
-Match only a current-EL synchronous external abort on a read instruction
-with the new exception table type. Keep existing handling for other
-faults, including asynchronous SError and translation table walk aborts.
-
-Signed-off-by: Matt Thompson <matt@boondocker.io>
----
- arch/arm64/include/asm/asm-extable.h | 15 +++++++++++++++
- arch/arm64/mm/extable.c              | 20 ++++++++++++++++++++
- arch/arm64/mm/fault.c                |  4 ++++
- 3 files changed, 39 insertions(+)
-
-diff --git a/arch/arm64/include/asm/asm-extable.h b/arch/arm64/include/asm/asm-extable.h
-index d67e2fd..ac78167 100644
---- a/arch/arm64/include/asm/asm-extable.h
-+++ b/arch/arm64/include/asm/asm-extable.h
-@@ -11,6 +11,7 @@
- #define EX_TYPE_KACCESS_ERR_ZERO	3
- #define EX_TYPE_UACCESS_CPY		4
- #define EX_TYPE_LOAD_UNALIGNED_ZEROPAD	5
-+#define EX_TYPE_MMIO_READ_ERR_ZERO	6
- 
- /* Data fields for EX_TYPE_UACCESS_ERR_ZERO */
- #define EX_DATA_REG_ERR_SHIFT	0
-@@ -80,6 +81,11 @@
- #else /* __ASSEMBLER__ */
- 
- #include <linux/stringify.h>
-+#include <linux/types.h>
-+
-+struct pt_regs;
-+
-+bool fixup_sea_exception(struct pt_regs *regs, unsigned long esr);
- 
- #define __ASM_EXTABLE_RAW(insn, fixup, type, data)	\
- 	".pushsection	__ex_table, \"a\"\n"		\
-@@ -111,6 +117,15 @@
- 			    EX_DATA_REG(ZERO, zero)			\
- 			  ")")
- 
-+#define _ASM_EXTABLE_MMIO_READ_ERR_ZERO(insn, fixup, err, zero)		\
-+	__DEFINE_ASM_GPR_NUMS						\
-+	__ASM_EXTABLE_RAW(#insn, #fixup,				\
-+			  __stringify(EX_TYPE_MMIO_READ_ERR_ZERO),	\
-+			  "("						\
-+			    EX_DATA_REG(ERR, err) " | "			\
-+			    EX_DATA_REG(ZERO, zero)			\
-+			  ")")
-+
- #define _ASM_EXTABLE_UACCESS_ERR(insn, fixup, err)			\
- 	_ASM_EXTABLE_UACCESS_ERR_ZERO(insn, fixup, err, wzr)
- 
-diff --git a/arch/arm64/mm/extable.c b/arch/arm64/mm/extable.c
-index 299a244..dcb84d8 100644
---- a/arch/arm64/mm/extable.c
-+++ b/arch/arm64/mm/extable.c
-@@ -28,6 +28,8 @@ bool insn_may_access_user(unsigned long addr, unsigned long esr)
- 		return false;
- 
- 	switch (ex->type) {
-+	case EX_TYPE_MMIO_READ_ERR_ZERO:
-+		return false;
- 	case EX_TYPE_UACCESS_CPY:
- 		return cpy_faulted_on_uaccess(ex, esr);
- 	default:
-@@ -101,6 +103,8 @@ bool fixup_exception(struct pt_regs *regs, unsigned long esr)
- 	case EX_TYPE_UACCESS_ERR_ZERO:
- 	case EX_TYPE_KACCESS_ERR_ZERO:
- 		return ex_handler_uaccess_err_zero(ex, regs);
-+	case EX_TYPE_MMIO_READ_ERR_ZERO:
-+		return false;
- 	case EX_TYPE_UACCESS_CPY:
- 		return ex_handler_uaccess_cpy(ex, regs, esr);
- 	case EX_TYPE_LOAD_UNALIGNED_ZEROPAD:
-@@ -109,3 +113,19 @@ bool fixup_exception(struct pt_regs *regs, unsigned long esr)
- 
- 	BUG();
- }
-+
-+bool fixup_sea_exception(struct pt_regs *regs, unsigned long esr)
-+{
-+	const struct exception_table_entry *ex;
-+
-+	if (ESR_ELx_EC(esr) != ESR_ELx_EC_DABT_CUR ||
-+	    (esr & ESR_ELx_FSC) != ESR_ELx_FSC_EXTABT ||
-+	    (esr & ESR_ELx_WNR))
-+		return false;
-+
-+	ex = search_exception_tables(instruction_pointer(regs));
-+	if (!ex || ex->type != EX_TYPE_MMIO_READ_ERR_ZERO)
-+		return false;
-+
-+	return ex_handler_uaccess_err_zero(ex, regs);
-+}
-diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
-index b227368..ebe8054 100644
---- a/arch/arm64/mm/fault.c
-+++ b/arch/arm64/mm/fault.c
-@@ -30,6 +30,7 @@
- #include <linux/hugetlb.h>
- 
- #include <asm/acpi.h>
-+#include <asm/asm-extable.h>
- #include <asm/bug.h>
- #include <asm/cmpxchg.h>
- #include <asm/cpufeature.h>
-@@ -879,6 +880,9 @@ static int do_sea(unsigned long far, unsigned long esr, struct pt_regs *regs)
- 	const struct fault_info *inf;
- 	unsigned long siaddr;
- 
-+	if (fixup_sea_exception(regs, esr))
-+		return 0;
-+
- 	inf = esr_to_fault_info(esr);
- 
- 	if (user_mode(regs) && apei_claim_sea(regs) == 0) {
-
--- 
-Git-155)
+> From: Radu Sabau <radu.sabau@analog.com>
+>=20
+> The ADIS16607 is a Precision MEMS IMU from Analog Devices with
+> triaxial gyroscope and accelerometer, delta angle/velocity, and
+> temperature channels, communicating over a custom SPI Half-Duplex
+> protocol. ADIS16607-2 has a =C2=B1450=C2=B0/s gyroscope range, ADIS16607-3
+> =C2=B12000=C2=B0/s; both share a =C2=B140g accelerometer range and an 8 k=
+Hz internal
+> clock.
+>=20
+> This is the base driver: probe, raw channel reads, sampling-frequency
+> control, startup/self-test via adislib, and debugfs identity entries.
+> No buffered capture, external clock sync, or calibration bias yet -
+> those follow in later patches.
+>=20
+> Self-test leaves the device's SELF_TEST register cleared on every exit
+> path, not just on success, so a read failure or a failed delta check
+> doesn't leave the sensor stuck in its self-test/force state until the
+> next reset.
+>=20
+> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
 
 
+The chan_spec in here includes buffer related stuff (scan index and
+the channel type bit) + the timestamp channel in general. That should
+all have been introduced in the next patch.  Thus feedback on that
+patch isn't contained and I've dropped this one for now.
+
+
+> diff --git a/drivers/iio/imu/adis16607.c b/drivers/iio/imu/adis16607.c
+> new file mode 100644
+> index 000000000000..f5dc37c54191
+> --- /dev/null
+> +++ b/drivers/iio/imu/adis16607.c
+
+> +/*
+> + * .address indexes adis16607_chan_regs[], .scan_index is the buffer pos=
+ition;
+> + * both come from the same enum today but are separate fields on purpose.
+> + */
+> +#define ADIS16607_MOD_CHAN(_type, _mod, _idx)				       \
+> +	{								       \
+> +		.type =3D (_type),					       \
+> +		.modified =3D 1,						       \
+> +		.channel2 =3D (_mod),					       \
+> +		.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW),		       \
+> +		.info_mask_shared_by_type =3D BIT(IIO_CHAN_INFO_SCALE),	       \
+> +		.info_mask_shared_by_all =3D BIT(IIO_CHAN_INFO_SAMP_FREQ),       \
+> +		.address =3D (_idx),					       \
+> +		.scan_index =3D (_idx),					       \
+> +		.scan_type =3D {						       \
+> +			.sign =3D 's',					       \
+> +			.realbits =3D 24,					       \
+> +			.storagebits =3D 32,				       \
+> +			.endianness =3D IIO_BE,				       \
+> +		},							       \
+> +	}
+> +
+> +#define ADIS16607_ACCEL_CHANNEL(_mod)					       \
+> +	ADIS16607_MOD_CHAN(IIO_ACCEL, IIO_MOD_ ## _mod,			       \
+> +			   ADIS16607_SCAN_ACCEL_ ## _mod)
+> +
+> +#define ADIS16607_GYRO_CHANNEL(_mod)					       \
+> +	ADIS16607_MOD_CHAN(IIO_ANGL_VEL, IIO_MOD_ ## _mod,		       \
+> +			   ADIS16607_SCAN_GYRO_ ## _mod)
+> +
+> +#define ADIS16607_MOD_CHAN_DELTA(_type, _mod, _idx)			       \
+> +	{								       \
+> +		.type =3D (_type),					       \
+> +		.modified =3D 1,						       \
+> +		.channel2 =3D (_mod),					       \
+> +		.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW),		       \
+> +		.info_mask_shared_by_type =3D BIT(IIO_CHAN_INFO_SCALE),	       \
+> +		.info_mask_shared_by_all =3D BIT(IIO_CHAN_INFO_SAMP_FREQ),       \
+> +		.address =3D (_idx),					       \
+> +		.scan_index =3D (_idx),					       \
+> +		.scan_type =3D {						       \
+> +			.sign =3D 's',					       \
+> +			.realbits =3D 24,					       \
+> +			.storagebits =3D 32,				       \
+> +			.endianness =3D IIO_BE,				       \
+> +		},							       \
+> +	}
+> +
+> +#define ADIS16607_DELTANG_CHAN(_mod)					       \
+> +	ADIS16607_MOD_CHAN_DELTA(IIO_DELTA_ANGL, IIO_MOD_ ## _mod,	       \
+> +				 ADIS16607_SCAN_DELTANG_ ## _mod)
+> +
+> +#define ADIS16607_DELTVEL_CHAN(_mod)					       \
+> +	ADIS16607_MOD_CHAN_DELTA(IIO_DELTA_VELOCITY, IIO_MOD_ ## _mod,	       \
+> +				 ADIS16607_SCAN_DELTVEL_ ## _mod)
+> +
+> +static const struct iio_chan_spec adis16607_channels[] =3D {
+> +	ADIS16607_ACCEL_CHANNEL(X),
+> +	ADIS16607_ACCEL_CHANNEL(Y),
+> +	ADIS16607_ACCEL_CHANNEL(Z),
+> +	ADIS16607_GYRO_CHANNEL(X),
+> +	ADIS16607_GYRO_CHANNEL(Y),
+> +	ADIS16607_GYRO_CHANNEL(Z),
+> +	ADIS16607_DELTVEL_CHAN(X),
+> +	ADIS16607_DELTVEL_CHAN(Y),
+> +	ADIS16607_DELTVEL_CHAN(Z),
+> +	ADIS16607_DELTANG_CHAN(X),
+> +	ADIS16607_DELTANG_CHAN(Y),
+> +	ADIS16607_DELTANG_CHAN(Z),
+> +	{
+> +		.type =3D IIO_TEMP,
+> +		.indexed =3D 1,
+> +		.channel =3D 0,
+> +		.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) |
+> +				      BIT(IIO_CHAN_INFO_SCALE) |
+> +				      BIT(IIO_CHAN_INFO_OFFSET),
+> +		.info_mask_shared_by_all =3D BIT(IIO_CHAN_INFO_SAMP_FREQ),
+> +		.address =3D ADIS16607_SCAN_TEMP,
+> +		.scan_index =3D ADIS16607_SCAN_TEMP,
+> +		.scan_type =3D {
+> +			.sign =3D 's',
+> +			.realbits =3D 16,
+> +			.storagebits =3D 16,
+> +			.endianness =3D IIO_BE,
+> +		},
+> +	},
+> +	IIO_CHAN_SOFT_TIMESTAMP(ADIS16607_SCAN_MAX),
+
+Should not be here and the channels above should not 'yet' hvae
+scan_type or scan_index.  Those belong in the patch adding buffered support.
+
+
+> +};
