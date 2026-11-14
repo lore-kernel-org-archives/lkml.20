@@ -1,95 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794634145;
-	b=Wf+lluny5P++vTf/UtGK5oj11+X+VRfTFITd5KKb5b24cW7kBqyy4+yBp24AQtlZ+7pC
-	 b/8UToComIvWAcgWW8/+q2kOidxT3n61z2mGuGBX0Kl9uinvv3O2rZc6FwszxnHvckxC+
-	 r7uH4gTIiRhMo+CmYJQnG42eKW930lxbbExjr3COpPu+Vg5kpU2+f/giGOxhJliTtfUTH
-	 mJkl1jEVAoKgeheeafnGBlneIQS2lNq7kuYKaLQmgIgeD5eKza54VLydWLppItAQ3tEzg
-	 ZioT7O7JQcp9gIOk7D+hLUbQpSBVavtfecHM9ijI3+FvZKBs4SC4Sv8Rw4bElTPfLAA==
+	t=1794634169;
+	b=pNVv5h8fRyTHrS5ziYU7clkFNjCMWxc3jPyBxO5JqmJHsmRnjFB+IyF7FLWJ4HBH6QNO
+	 hzAkZpAKStsXQN68po8oCiQLcsl00k52VHL3emoY3pcw3L3NBUJCD/Vifnc2o7TT2EASb
+	 D1zZXpdb4Vq5aMHqtXyDjAx+DF41F5mU9Afjf4NCmrOXgV6tS2lpTEvmefxp5lGQt0bDu
+	 6R6+yE4oPw4zbeG2itkraCp/JMLGPviJ907ci0BikdHihTGTjnHIGmqdpUjLVOF43g1Dh
+	 ZH/M94p3lUge53Gd5uGj/U7Eoebe4UhGh1DXfBLfrjRETGtUhtXmS3979joHHFLJo7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794634145;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ve8LQXErwjekEnlC8HaEebRUb/hYJ6j4geIEUpqGkS8=;
-	b=uN5qXUEUt8bFXypUWzRVOAgqjO1K+SwZUVUDmgWsD8iOaanmJvH7WupMtpoWpjEg9gzx
-	 /7u1YtYwUyhRNcKD0rrUmCTolYg3Hnb5bfkIEbmKuNgIFD0uW2JRd4Dk62N6h31qDCFbX
-	 HV10JeixDy8KbUUaw5CoAVcP44+cTyop7h27dcGugLOnLNKnWqrEe/YVfsKEUHLc86T6f
-	 PmhK9DV6RMPtCYBLgQCchOAKsGbzBNIS2LupbHm9oJwsklT5+KTD5GBe1ogJqwsUCshVc
-	 fY65P22F63zTTZeeU6uB8e7PxVNsaviHvK+zFFDCFwmVl77XpYsJxuGbYX1PPBpHpqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794634169;
+	h=Received:DKIM-Signature:Received:X-Gm-Message-State:X-Received:
+	 MIME-Version:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=uM796BQB6ycmrFIWzMEeX2i4plvDgCgY8fOJiwq52UE=;
+	b=AScZicfVOPAgQtKhjI4ZmzTLcjxQMRH+cUr7q6qa0a1qBOk+sU/8B57BlKkF7S+XJVPL
+	 v8+TnoZpS42ybcyYsJXHuMfYN8TQOVzNYqrb3BymMoT3WuR82RaUSXAcwu9vpybphetGO
+	 C++jT7bdRvAmGJeJXmvPQDLBv2gkbZbN/6BQFUjjMrYAhI+R4BwUPthB+LMCOo7b52Kkl
+	 Zn/wHQXrxiGHV93/s+wdsbSB9Wm7ki/ijgE9zZJ/+8n9qF/zdPCA5/LN9OT9vxXuinH0e
+	 WJ1r93LjXMphLpvPM01LGyMgF8eU/4usp2AxY1N9J4DCk2B5JkPNm4fcYEBe4S7uWKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Orn/JN7t";
-	arc=none smtp.remote-ip=209.85.216.49
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kenupOW4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0643C606A327
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 05:29:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0643C606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 258CE606A32E
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 05:29:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Orn/JN7t
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3b08a162d4bso880397a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:29:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794634144; x=1795238944; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ve8LQXErwjekEnlC8HaEebRUb/hYJ6j4geIEUpqGkS8=;
-        b=Orn/JN7t9fOucPl7ceF3yd0u3iQTyWwHzGp8O+tD42xrqqhk4cObgjFazLsmjELN5Y
-         ClCJ3ySaZeW758xChrCK9jipAJIpoNncFYu1MlL6YU1skCWDKKKRFWDKvgB/6sLm+HLv
-         thnevQF3HvvKv9r9AicS54L446SdRWiD3o3ifL85pG/cKBZeCnItidCpFOHE3/6qTLnx
-         CVrV5NJYLFnyOx84bstkwcrQO2toRAUnHtquL1PsGJBVX7NOUmWRUFUH8UYBRQmslFBr
-         AJO10oOglbHsrVld0nQS8k4aqqazwhUN7Pv2gncZcTO4vYpoWltPBi7R1j29zxEDHosR
-         vjkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794634144; x=1795238944;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ve8LQXErwjekEnlC8HaEebRUb/hYJ6j4geIEUpqGkS8=;
-        b=ya9ddq/HPKTBrGh3WU4BzW6Sh0+pvYk+pmciHpwxXB50jpWWFc96gPguX8HlPd2Yiy
-         MloMEzrwJCYzEAKFUpSqGA5AQgtgQUZ6rYSSyzQP3Hu4f4UZJtkJ3Royzy3zbufTxF44
-         A8c+lZFw4xmiBjyPCnEnKE0PpZ8LLG+DS3QoFHKyWfaxV8bF1cjFMHtPUVhHFNtkqCAo
-         qnIkZFZcUYTehoUDNCffSbPC3h775GBanh6kcNz9+vTK2eGhwws3q9nlqqPgDNtz7gSv
-         dWQMwD0UFunjUeb/+FtNu/VLZJmmE45P6ubk/taxl46d+TJ9aml7ktUPh9YKPekkDEeF
-         yB4A==
-X-Forwarded-Encrypted: i=1; AL+hErE3oBgp8bm6z/UToHVlnKgij9STgnAN9+yN7dqqfDXpXkgKI2Olb1/J3ul6ats27Gmzb8voFFUXKFHcHOQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9fhI9MiW5axMWdlfY/M8Y1V80kVMcxbc7xmecjMVD4iCNOiJd+
-	573tIO/bUgYrE3mVAPesZgqPTiyQEti+c8XrkxwYZ6scuwOcgdJFvMnP
-X-Gm-Gg: AYBFou2eZbX9N4AN2dnC2PahlahAzQUYUnTpG59GdXxTBF08QZ/ppkPGUlGhdQhtye+
-	fqYqnuQUf4+CZ66USPNTukNoHBKaskkf4viaTa9E9JGXdiSU9yta6x6YJ9sU1/4CX5PJNbSy/ml
-	RP78QYob9XZ6oW+0bKv1xsesK0OQGgq5UUHmZcqIeWm0TCV/iozQF9VYorhWkX+h3rlKKpm9SMU
-	k8+qw53pMeG/gQZ7oV3Xbxj+XiL5IiTVGNc/HOUQMxOkyVKGClqGEyS8Ha+Mlk2g25XlZ8UvT7e
-	JhRJKvHuZtsw11UaEyyJBIOktT6Pn2so4zBOV1OEpaXWZ9IQtcjtByGtB0Vlh2HHdHifpqJDJ8/
-	EOwYX4b7X1l+ja8ljJrK7RPAkdqvt2AaWZkOGKJQTtHoruUitvg8QukAlkGnP/cmgzUFCqSxBQ5
-	O8bwlNNhppfNuku4OIm3okhfmJlHZX7HAgbtV3Q5bZoUhWG7GO9ofAfPseph/dheUQcxBEL4Spf
-	mLrNjO26wSy1xnM42yXrOBe0HJMhZKHTNZqtpIAFWaeA+2N8xof+4Zko24zyY1x4e1vsNinl5C9
-	eqqhrVL60xN9s+lPVMKRa62WILLqi7xr/rTLgIHuY3MoRNF4ZkE1oyvpOZeKQHA=
-X-Received: by 2002:a17:90b:57c7:b0:3ac:9d26:5532 with SMTP id 98e67ed59e1d1-3b1b07fec19mr4789871a91.3.1794634144313;
-        Fri, 13 Nov 2026 21:29:04 -0800 (PST)
-Received: from localhost.localdomain ([108.180.159.198])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1aed76f95sm7157339a91.17.2026.11.13.21.29.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 21:29:03 -0800 (PST)
-From: Babanpreet Singh <bbnpreetsingh@gmail.com>
-To: Paul Moore <paul@paul-moore.com>
-Cc: Serge Hallyn <sergeh@kernel.org>,
-	Bradley Morgan <brads@mainlining.org>,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Babanpreet Singh <bbnpreetsingh@gmail.com>,
-	syzbot+ee58b040032d8bed63d9@syzkaller.appspotmail.com,
-	syzbot+557fdc985d6ac3831e14@syzkaller.appspotmail.com
-Subject: [PATCH v2] cred: annotate data race on non_rcu when copying a cred
-Date: Sat, 14 Nov 2026 05:29:00 +0000
-Message-ID: <20261114052900.7-1-bbnpreetsingh@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kenupOW4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C6D71F000C4
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 05:29:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794634168;
+	bh=uM796BQB6ycmrFIWzMEeX2i4plvDgCgY8fOJiwq52UE=;
+	h=From:Date:Subject:To:Cc;
+	b=kenupOW4lfaOdYPTzgGL118op9FCVAxavx52Flyr7l1ppaX3LqqNQFnmGnojjBA5z
+	 whSP+2ox3yAapZRamWQ8VanG+/XTgvnj88iIqvw4yEsbD1w12u9rVjx+Hknd4DLQMD
+	 p+WrMzBifrxB1c/elVR2vRp2Zc5ofyeEecULlUr1i7dcfSUxkEnNxSh7keIBhNhJWi
+	 myTNG9rzuygSVg7qwE1nBMXFXa6Fo94hAIiNYqldPfxcy/Wi++6Dm3GomfpnRiKeJ0
+	 8SpCnYMkVsU02+oIRnMEVaFojb0J/PWl3ZA99WXoNIQoeV4W9F0yzVa3ZNzcWXdauB
+	 csQKB5Kr2Jdsw==
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c4395d31228so333199966b.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:29:28 -0800 (PST)
+X-Gm-Message-State: APuU4Z+PlMI35kQqXCGFDmwEIUGmHFyp6XNDPxlv7yRurHMPPCiiHgnI
+	0OlAEh1lLRORIIVuIZZvpFR4De2cZ1iq/U3ayb2/76WEDfEomTpMCF45U+BkEyN27IZAAS+ylcC
+	RmYbRN017K/vF7nASxhMFguIh7/Bl1NU=
+X-Received: by 2002:a17:906:12d7:b0:c50:ac4e:3770 with SMTP id
+ a640c23a62f3a-c50ac4e5041mr133330466b.34.1794634166974; Fri, 13 Nov 2026
+ 21:29:26 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,69 +57,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Sat, 14 Nov 2026 14:29:14 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd8oLzyQkLpZ9AFxVc=GvdN1GTYN3yGOcV-n0U7uPGrPQQ@mail.gmail.com>
+X-Gm-Features: AclHuK8tCaw3EDMrmZHa0qZVz4dqKOIao8TDfIpYGT4hD_V7e3XYydoY-qkkWoY
+Message-ID: <CAKYAXd8oLzyQkLpZ9AFxVc=GvdN1GTYN3yGOcV-n0U7uPGrPQQ@mail.gmail.com>
+Subject: [GIT PULL] ksmbd server fixes for 7.4-rc3
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, CIFS <linux-cifs@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-prepare_creds() copies the current cred while another task can be in
-get_cred() on it, clearing non_rcu. KCSAN reports:
+Hi Linus,
 
-  BUG: KCSAN: data-race in io_prep_async_work / prepare_creds
+This is ksmbd server fixes pull request for v7.4-rc3. I add a description o=
+f
+this pull request below. Please pull ksmbd with following ones.
 
-  write to 0xffff8881046cea68 of 4 bytes by task 3646 on cpu 1:
-   get_cred_many include/linux/cred.h:222 [inline]
-   get_cred include/linux/cred.h:238 [inline]
-   io_prep_async_work+0x9b/0x3c0 io_uring/io_uring.c:367
+Thanks!
 
-  read to 0xffff8881046ce9c0 of 184 bytes by task 3645 on cpu 0:
-   prepare_creds+0x71/0x550 kernel/cred.c:192
+The following changes since commit fa4ad798f6f681031775266044ba1b0cf3c670bd=
+:
 
-The race is harmless. non_rcu and usage are the only fields that change
-on a published cred, and both are reset on the new cred right after the
-copy.
+  Merge tag 'for-7.4-rc1-tag' of
+git://git.kernel.org/pub/scm/linux/kernel/git/kdave/linux (2026-11-07
+13:52:02 -0800)
 
-Annotate the copy with data_race(). prepare_kernel_cred() makes the
-same copy, so annotate it too and switch it to memcpy() to match.
+are available in the Git repository at:
 
-Reported-by: syzbot+ee58b040032d8bed63d9@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=ee58b040032d8bed63d9
-Reported-by: syzbot+557fdc985d6ac3831e14@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=557fdc985d6ac3831e14
-Signed-off-by: Babanpreet Singh <bbnpreetsingh@gmail.com>
----
-Drafted with Claude, an LLM coding assistant, from the syzbot reports.
+  git://git.kernel.org/pub/scm/linux/kernel/git/linkinjeon/smb.git
+tags/ksmbd-for-7.4-rc3
 
- kernel/cred.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+for you to fetch changes up to b0af9a3e6b1534d353ca6ac23caaf46127f62e4a:
 
-diff --git a/kernel/cred.c b/kernel/cred.c
-index d01df40a9a386..d9ab1cb4230a8 100644
---- a/kernel/cred.c
-+++ b/kernel/cred.c
-@@ -189,7 +189,12 @@ struct cred *prepare_creds(void)
- 	kdebug("prepare_creds() alloc %p", new);
- 
- 	old = task->cred;
--	memcpy(new, old, sizeof(struct cred));
-+	/*
-+	 * Another task can be in get_cred() on the old cred, clearing
-+	 * non_rcu. That and usage are the only fields that change on a
-+	 * published cred, and both are set fresh below.
-+	 */
-+	data_race(memcpy(new, old, sizeof(struct cred)));
- 
- 	new->non_rcu = 0;
- 	atomic_long_set(&new->usage, 1);
-@@ -573,7 +578,8 @@ struct cred *prepare_kernel_cred(struct task_struct *daemon)
- 
- 	old = get_task_cred(daemon);
- 
--	*new = *old;
-+	/* Same race as in prepare_creds(). */
-+	data_race(memcpy(new, old, sizeof(struct cred)));
- 	new->non_rcu = 0;
- 	atomic_long_set(&new->usage, 1);
- 	get_uid(new->user);
+  ksmbd: keep group denials when a POSIX ACL entry decides access
+(2026-11-10 23:56:21 +0900)
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.54.0 (Apple Git-157)
+----------------------------------------------------------------
+- Evaluate explicit-access requests in DACL order with exact SID matching,
+  and prevent guest and anonymous sessions from matching Authenticated
+  Users.
 
+- Apply Unix group and OWNER RIGHTS ACEs, and keep their denials
+  when POSIX ACL fallback determines access.
+
+- Allow the parent directory=E2=80=99s DACL to grant explicitly requested D=
+ELETE
+  and FILE_READ_ATTRIBUTES through FILE_DELETE_CHILD and FILE_LIST_DIRECTOR=
+Y.
+
+- Exclude metadata-only file and stream opens from sharing conflicts and
+  stream delete-sharing checks, while accounting for writes implied by
+  overwrites and named-stream creation.
+
+- Return STATUS_ACCESS_DENIED for reads on files lacking FMODE_READ,
+  preventing warnings in __kernel_read() and potential panics.
+
+- Pin parent dentries during SMB2 CREATE permission, status, and ACL
+  inheritance operations to prevent use-after-free races with concurrent
+  rename and removal.
+
+- Keep expired sessions bound to their original user during NTLM
+  reauthentication, preventing identity changes and a user-object leak.
+
+----------------------------------------------------------------
+Ian Bridges (6):
+      ksmbd: grant a caller what its groups and OWNER RIGHTS ACEs allow
+      ksmbd: skip metadata-only opens in sharing checks
+      ksmbd: skip metadata-only stream opens in the delete check
+      ksmbd: evaluate the DACL in order for explicit access requests
+      ksmbd: let the parent's DACL grant DELETE and FILE_READ_ATTRIBUTES
+      ksmbd: keep group denials when a POSIX ACL entry decides access
+
+Jiwoo Kim (1):
+      ksmbd: pin parent dentries in SMB2 CREATE ACL path
+
+Michail Andreas Michalopoulos (1):
+      ksmbd: refuse reauthentication of an expired session as another user
+
+Wahid Khan (1):
+      ksmbd: refuse to read a handle that is not open for reading
+
+ fs/smb/server/mgmt/user_config.h   |   5 +
+ fs/smb/server/smb2pdu.c            |  91 +++++++++---
+ fs/smb/server/smb_common.c         |  34 ++++-
+ fs/smb/server/smb_common.h         |   5 +
+ fs/smb/server/smbacl.c             | 291 ++++++++++++++++++++++++++++++---=
+----
+ fs/smb/server/smbacl.h             |   2 +-
+ fs/smb/server/tests/smbacl_kunit.c |   4 +-
+ fs/smb/server/vfs.c                |   4 +
+ fs/smb/server/vfs_cache.c          |   7 +-
+ fs/smb/server/vfs_cache.h          |   2 +
+ 10 files changed, 368 insertions(+), 77 deletions(-)
