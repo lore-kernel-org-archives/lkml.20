@@ -1,90 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794622766;
-	b=ZEg72sm/mI91Hc+kc9CfEIO9vE10sJDb5FYfw/RsnSKwfPlN0T3UpjKvx+OCzxOxWWyB
-	 ITuq3XGAsdlw4YKcOWA8J7VoUMc9QDoTnZIEOZuMvxoWTWyYn617PO5snFE7VTv69O3LX
-	 A8e4hTClZQSlO10mMMLkEJojoLW3blGmrjgVtDSy2JwbDHBGiSwpthhwNTUimNNOUBckA
-	 YEZeU53gSAW8E6ICt4v9n6FBVG11eChfH0Kqj9st14gpNDrmFu0oTLCm7GVufdg3B4vaE
-	 pYZ3a+TQL+Pc/9kdkjUYeKDvwKaRLvANLu4O/OcKj3cSEFY1huyQPZJUnfZ0cAYe/+Q==
+	t=1794622801;
+	b=Wqgxb5xUkECcMnRq14QhmTViR/66boV2F9UUrvdJdDgii9b55MEoUeC3N70e0ILUVxiU
+	 yfnMrt853tel9IOzXkpMDUamV+3unS3pKxi/7n4SiVeJjzgHByITEjc5D/ghDRaqWEFq2
+	 vY3CVpxG8pYyE5ZSVbgWqUY/c0GU+Q1XcikcX8nY6X/sJZRydFgkVR2y/04H33NuTKhIs
+	 zSHlkKYJyccIxhHo+TJzjy6mfry+mYV4IShMFRgOj+7QqKQQaI6pOY43+9wtMrJLLIpLG
+	 1y1XhAWlxYl5Q1Tv7XjaQEkm/fHlRU74ly8EbEu6SjiZ5PRUrEE4XvasHNSAt6STtXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794622766;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794622801;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=xFEobrAf6WirewKCvSBOHq5k7Hbpzktec7ALKOJWs3s=;
-	b=RXDttsRjba4INGaxeBPMlIHJLNCv9UY4eIe8+TL7vu8zysm7KI/ds42t6YJlQeSnC5uS
-	 Us3xqCypOVFcI+jwZmc4D63q+Ee1ZMqSvzzUr34JaM5a34xq43+55HJsR9KLtnpZ8sEkq
-	 GpYWtqOFn+1qk8BCQ/VZ3kCg9OrRYZ1oGWsmfVM+Mkb7ZohH2F21dlEKv2J2UXZUIqSqa
-	 ySUSZxdRqM8XPpYp2w46QTMe+cIuO95Fqrop1FdSmlptRc4t/Dlny2MDHlbiNpVH0QR/n
-	 Zy2QJWbiCuvid3IDLTyopiwwq6NdOKmSpIZbZbWjVhAgZtkX8eTXKx9TnBYvWJcRPHQ==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=D5fZZPHoNA80HLJCIs04HdBTYoqvhRKLX7/FlR/nB3s=;
+	b=BFuRtA3Z6qjDMYfsCQHcTeGPxnJ2Y187r+5EKHh1MFCK8YYy3LgIOGEnoQTIpOfxVx2P
+	 +55fKwj2RA6bhKlr7O7TZOJqQ8kA43eDrseYWXrCq7f3wI0CLvhkSChP6r7KZp+0vpFc8
+	 ++yMcMSpH3BpiYuWNMrHPw8x0glCrg3s2ts+zy/FKrNScyyqb80AJ9oTQIz2wZ40q41Wy
+	 GHYR7MT5RLOHffW5G7VBnXDvReky/d5WtKn8s3xas67iDnQiMKXVFERTvegfoVyAEMDuP
+	 dVmBULiYtYpQJ9zAJ+tLMCCXRUuAiD8uSNTW8EgpM1lU+HVSJLPQfkjTLBAvM/BFm5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-foundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b="cWPtPf/I";
-	arc=none smtp.remote-ip=209.85.208.48
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=io+OeirL;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D08F2606A32D
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 02:19:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D08F2606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78711606A332
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 02:20:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78711606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=cWPtPf/I
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b408f2d936so2831632a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:19:24 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=io+OeirL
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48dee593f18so2086032f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:20:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1794622763; x=1795227563; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1794622800; x=1795227600; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xFEobrAf6WirewKCvSBOHq5k7Hbpzktec7ALKOJWs3s=;
-        b=cWPtPf/IODKmFPRI2t9QaVMTi/lF1zEM1BXVjQdNGEUECeW/7ZbU2dCRlzqw/yQfIm
-         tA5OCKXWOV06DZWiL6CpXThiUk63HoPwKqnhUeZTB2N3rU9/TcXhW2pfJBze01zFeaFE
-         ZYOadCsKXaMk621tpcg22e2Mh4h8tnJ9MmX7k=
+        bh=D5fZZPHoNA80HLJCIs04HdBTYoqvhRKLX7/FlR/nB3s=;
+        b=io+OeirLD+kAFIPg9SukhVhErUBizrGQeAN0IkHjn1oJi4Q/U7ldUwIwtbLvvpyXU5
+         zIQR4+RC/dlR/jpjdgZGOabt0uQrNzf1kLzcZNEqyZwvFvxt3cpfGPI07pg/k1n9am8/
+         g7Sr3bhP5P8rkYt5IC3Xj2X7FXJNODw/SAiJXQgX0FraFLQpEvTsRSLGGJRiIg7pySpm
+         UfJppR7d9p/+Nlo8GMJDIJfWO5tpp4FfZcm8haf17ixmGyPCayCFBUzomFLvjGHi6S2f
+         xFvpiYuVxfQj39KQgsTi72on50g03JTk8Z+pxFj2Q5IvBMn4IsqeCT7bDiw43fJBDD8s
+         q+4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794622763; x=1795227563;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=xFEobrAf6WirewKCvSBOHq5k7Hbpzktec7ALKOJWs3s=;
-        b=sWb9BK9zenXlL8646iqAfY+kKOd1iyQhMIVdvv2yKnfSDVjq4ve8bHZrPn5jjUxVC1
-         8Tqlyct+iArb1DgG/vvkk147rf5bmOf4ZRTYQRDyy9bzposi9c9oL1YdB0Vvkx971WW9
-         7/XAHVInFNCfA0q8HJ7+o/3eY8aepvZJLeLFstPgg6UF2a2itlJFWlN17ipbRZ4OEQGX
-         eKuJYcagWPEEcmfgVfZXW3LnXwp2qkTQBrfVWHFXvNKmDK0cR/nE3fMt+mA8d9/G4bX1
-         Xm3YIcJxE2sFYwtvFdxsloQ9J7K7Xq9QkDQpv9yBtXWaiVGjaYGli1JYLkem3f6JuLXQ
-         yBPQ==
-X-Forwarded-Encrypted: i=1; AL+hErFgZ8arrhdNki0wxL1VJG8D/8wlo10n+jJalAMjBI4OSFswxUIULhFEuLmrsm36OLW9GTzpqO/CfUU+T9o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8FK+xGJb3pFX0gpyz6eCkcDjGF349wxuGra1z03mIA6mc/WXxw
-	RC8b8v8/BWnl/fzW4++qwgnL97cAFd0h8uNaypxsmjlOxSA41juTDiEwEl/AUAUE+sLZCUPGwfw
-	gh3PSPCFGDg==
-X-Gm-Gg: AYBFou0Q5WXq4A9GeKOzD0R/80D9510tvJEfaqFoYKQzhfyyb5HD8sKx35A9bX16VUu
-	EK4PNTGG4g774cFzIq72TCezPY80fbQX7NCxuVcRy36sKYSHwmuWAZjBuWNL2waki8WCmeuVso/
-	cSjvYaBrPyP99JNev8H17xIgSDGUIRYDROelerWElME9BJWvmupZrMpWoszSK03DXMvCYpLi2wx
-	5qXypFkhQXhkaCwXt7c3sMkvbXeaZ7yKcN9GpbG1Lg50O/VnQJcnfvNHDNdKZx3dpF9tgVF83HH
-	uEpStmKZ7cTwjUzpPmSwXUyg7SV4rEySjyWn9GHh0qeY1zmZgasgMl2R+75voFhgEENcrQDbavc
-	LFzWbgAuO2fgqSL2OxIcDNJcaqtlFbG9RF04MQSrvSKGkjRWLoVd7wBU20HZgt28XVJabSscy6J
-	g/wyzu0ta1M9BRrML+9oiEYKMmNdw2J25C3EZHU3/J+8zrNDMnm7kkTrK8+b40qeVj9MS6a1DFk
-	l40I1tR9NuMyf4oiLsWkjObCcNiTBODbnU3zZCvMnAk8EQUX3iIM2P7PilarWjla9EoZgHXcQs8
-	PgN+03qiVcokDv4X8uxOWumAqwQI29rA6IwG/h7kWvkW7VEfnYp2+r0IK6SvvaTI2hOD7G2sFhk
-	ZJ/4=
-X-Received: by 2002:a05:6402:280a:b0:6b7:c8fa:cc31 with SMTP id 4fb4d7f45d1cf-6b7c8facd7cmr2982525a12.27.1794622763086;
-        Fri, 13 Nov 2026 18:19:23 -0800 (PST)
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com. [209.85.208.45])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c25df671sm1795369a12.32.2026.11.13.18.19.23
-        for <linux-kernel@vger.kernel.org>
+        d=1e100.net; s=20260707; t=1794622800; x=1795227600;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=D5fZZPHoNA80HLJCIs04HdBTYoqvhRKLX7/FlR/nB3s=;
+        b=bhEXNmOmE+V2mAGdYCbl93ipJdB3fX3DPzYLMOjCXMMBQ0rGsCcsYQi8ekBJXu0WqX
+         hZCeOVHzFHrvx7C8ncMAdO6M79yDLTmavz1smLPQF9PmGROjVawgdWAxnrnwdQ3a6CMY
+         HnZSEjCuG6/PHbHv4JFxprnuN8Bp7vvWBr3JCnMgB0hGgAHBFSO4QVWBj4UKPoKLiIti
+         O5cb2WtUkb3sbDgwiJ98Rleyp8yY7pim4liODRzhn2OwDwXIgs3RXFw/3TP8wpD9PwRl
+         Pm+0ni+MStYt0w1gY7oWOtykYlDT4E+2Io6XDDaV0+sVio+lfxFuckvPrjawQWw+8szf
+         Dqrg==
+X-Forwarded-Encrypted: i=1; AL+hErGrMiDyL6pefNK1bjpNoEHxlyjrp8ePCG2t6d3PY9j9SRa/VpxQOIKICpBNTVrYQLmfhr6BCjUvShNbJTA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+qC7lk7d1dAen/aejK3xNxSaMJi2BoBLb2HUhmem2/KfSz17rk
+	xPMAL2y8DmGxwSjZn+ORfC571pvGRwF9+9VIwjhHPazVxcrsa6KmvuYILzkjYLwsBCI=
+X-Gm-Gg: AYBFou1OEiKd/WPG4gzzqI/sawdNH9Y+5sPOBb8fs8A5Uj0h96agNLZlRi2Y7D104V6
+	9SZGlMFL0jaYuL6Hw4uU52eA0qaOlxd7QDlDrf//oFU3wexATvm8Bx0iHhFeBoPE58VlU/QfZCp
+	pKx1FE7HdLAprf3wMI2s/FGYWho3sLPNHLmyKIqyzGQYvfls+fW79r5qmDE+R7TsinLLse7o1Aw
+	2f5+IQx7vSz3yKISQ6k6KKMCqRHOYSjfY2mRrN2w9oljuGf2+6KkZOiHZDq52tFri4nPEas08Ax
+	/K4RsvONH5ADgscgy9pfMcBNplOOZq7pDLpWZt5SsTHRVpmpQxv7q3VTwg1P86fXeUruyvCa0x0
+	8t7iSX5+GZZVvPgwRUob8sbWbhqda9OkxrXCgkP6oWwkk3SM/6wwY7HSRZWxOmPN9z9PcZPq+m/
+	ubj3doNHdIFdY9THMUSXnGyze6NnuoD5Vrt8gr8ov3DXEeQge09uuDYDGO/4fVYTmusUah+XXlN
+	1BUU/K/gFxlsNaqStWCNxELNtP0vp3DxaNG7vqFCsSvkFf0vxp0U1vAklmCMN20r+V4lOcfl92A
+	zzIRkJn/TI3PHRaZcw2UzPOJqTZWW1hvNIvp8XczqGtb046Wm6IR+qU1h2gMyubKDLBx6W46EpA
+	KrQ==
+X-Received: by 2002:a05:6000:402c:b0:48f:cb37:3ec3 with SMTP id ffacd0b85a97d-49c714a442emr9810855f8f.41.1794622799727;
+        Fri, 13 Nov 2026 18:19:59 -0800 (PST)
+Received: from ?IPV6:2a02:908:e843:f280:6cae:291b:a1:8362? ([2a02:908:e843:f280:6cae:291b:a1:8362])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c8d286480sm13284412f8f.7.2026.11.13.18.19.58
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 18:19:23 -0800 (PST)
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b408f2d936so2831626a12.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:19:23 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErE3GZT2FzK6VRqbs5S5fnOW5v2GGCdZZSxVZGdrTzMkWKuk2PwMDuFvSNV26V5rKnTe2gzZ1GeDtrzA0oE=@vger.kernel.org
-X-Received: by 2002:a05:6402:2b87:b0:6b5:8695:f839 with SMTP id
- 4fb4d7f45d1cf-6b7c0d24fdfmr3606529a12.45.1794622762852; Fri, 13 Nov 2026
- 18:19:22 -0800 (PST)
+        Fri, 13 Nov 2026 18:19:59 -0800 (PST)
+Message-ID: <3c34d3e8-9dd2-4af3-abfe-16907f7c1287@gmail.com>
+Date: Sat, 14 Nov 2026 03:20:01 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,42 +93,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CAHk-=wiE0KG+jkhmJWifXuAVivtB63WCWtdEpGAex7-T0SHd2g@mail.gmail.com>
- <aurAxRpCwzeyXeVj@gondor.apana.org.au> <CAHk-=wgPvbYRcKpQ8WTH-EYZRgMG0KSH+cZxY5-Hyf+X7JjWsw@mail.gmail.com>
- <aurJZ81qnbiHH_P1@gondor.apana.org.au> <ausS3LQNkdc6lBy3@milan>
- <auxDm_YO4oACA_d2@gondor.apana.org.au> <CAHk-=whXvVO6a5AreZu3LPBj_wjpzUanwhvu8WqWP2q7g5S7Vw@mail.gmail.com>
- <auy-7TvVzJ-VCrG4@milan> <avcKfEvln8_2a7fJ@gondor.apana.org.au>
- <CAHk-=wg9baZ9EDhZr7ONxjuO65+vvWFo5E2hgxt+3rYo1vnhyA@mail.gmail.com> <aves3p5vrqqAuHma@gondor.apana.org.au>
-In-Reply-To: <aves3p5vrqqAuHma@gondor.apana.org.au>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Fri, 13 Nov 2026 18:19:06 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wjhtBnAz6YniHqcVJDCDvVVNp_UUL3QbiYyS6u+yKcNgQ@mail.gmail.com>
-X-Gm-Features: AclHuK9T8qB_5bmjhcK4UnFzb5yfP0GrEfjJOo4l7azLABG4Kermbip3IVeKi4Q
-Message-ID: <CAHk-=wjhtBnAz6YniHqcVJDCDvVVNp_UUL3QbiYyS6u+yKcNgQ@mail.gmail.com>
-Subject: Re: [PATCH] mm: kvmalloc: Bail if called with soft or hard IRQs disabled
-To: Herbert Xu <herbert@gondor.apana.org.au>
-Cc: Uladzislau Rezki <urezki@gmail.com>, "Liam R. Howlett (Google)" <liam@infradead.org>, 
-	Davidlohr Bueso <dave@stgolabs.net>, Michal Hocko <mhocko@suse.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Alexander Potapenko <glider@google.com>, Andrey Ryabinin <ryabinin.a.a@gmail.com>, 
-	Marco Elver <elver@google.com>, Michal Hocko <mhocko@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Thomas Graf <tgraf@suug.ch>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, maple-tree@lists.infradead.org, 
-	Lorenzo Stoakes <ljs@kernel.org>, Chris Mason <mason@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
-	Andrew Ballance <andrewjballance@gmail.com>, stable@vger.kernel.org, 
-	"David Hildenbrand (Arm)" <david@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/panel-edp: add BOE NE160QDM-NX4 (0x0d25)
+To: Doug Anderson <dianders@chromium.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20261113214526.231324-1-ingo.kubbilun@gmail.com>
+ <CAD=FV=V7uw9s3BttHn8uLjxD8mt5=3iYXA8cRzLU=OYFtS65Xw@mail.gmail.com>
+Content-Language: en-US
+From: "Ingo A. Kubbilun" <ingo.kubbilun@gmail.com>
+In-Reply-To: <CAD=FV=V7uw9s3BttHn8uLjxD8mt5=3iYXA8cRzLU=OYFtS65Xw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fri, 13 Nov 2026 at 16:35, Herbert Xu <herbert@gondor.apana.org.au> wrote:
->
-> That would make sense for direct vmalloc calls.  But this is
-> kvmalloc, which is supposed to choose automatically between
-> kmalloc and vmalloc.
+Hi Doug,
 
-Yes. But that cl;early caused problems, and then people seemed to
-start thinking that it meant that the vmalloc side should also work
-with GFP_ATOMIC.
+On Fri, Nov 13, 2026 at 1:45 PM Doug Anderson wrote:
+ > Please follow conventions from recent changes to this file and include
+ > the EDID in the commit message.
 
-If you are in atomic context, then kvmalloc() makes no sense, since
-the vmalloc makes no sense. You should use kmalloc.
+Will do in v2. For your information, the raw EDID is:
 
-          Linus
+00 ff ff ff ff ff ff 00 09 e5 25 0d 00 00 00 00
+17 22 01 04 a5 22 16 78 07 ed 85 a3 54 4c 9d 26
+0b 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+01 01 01 01 01 01 a7 6d 00 a0 a0 40 78 60 30 20
+36 00 58 d7 10 00 00 1a 00 00 00 fd 00 30 90 f8
+f8 43 01 0a 20 20 20 20 20 20 00 00 00 fe 00 3d
+4c 33 30 20 20 20 20 20 20 20 20 ff 00 00 00 fc
+00 4e 45 31 36 30 51 44 4d 2d 4e 58 34 0a 01 0c
+
+70 20 79 02 00 21 00 1d 7a 0d 66 08 00 0a 40 06
+80 3d 7a 54 cc 24 9d 66 02 0b 02 35 54 40 5e 40
+5e 00 44 12 78 22 00 14 99 47 0a 85 ff 09 9f 00
+2f 00 1f 00 3f 06 77 00 02 00 05 00 2b 00 0c 27
+00 30 8f 00 00 27 00 30 3b 00 00 2e 00 06 00 44
+40 5e 40 5e 81 00 1e 72 1a 00 00 03 01 30 90 00
+00 60 ff 60 ff 90 00 00 00 00 e3 05 04 00 e6 06
+01 01 60 60 ff 00 00 00 00 00 00 00 00 00 2c 90
+
+ > Please also provide more details about how your AI agent analyzed the
+ > ACPI tables. Did it use the ACPI tables to determine the delays to use
+ > here? […] or did the AI agent just look at the delays of similar panels?
+
+The delays were not derived from the ACPI tables. I wrote this entry
+myself and picked delay_200_500_e80 because other BOE NE1xx panels in
+panel-edp use it; it has worked reliably across many cold boots.
+I'm working with this machine on a daily basis for two weeks now without
+any problems.
+Only afterwards did the AI check the ACPI tables: their panel 
+configuration is a generic one ("Panel_Generic_Amoled", backlight PWM 
+settings only) with no power-sequencing data. There is no datasheet 
+available to me.
+
+The AI disclosure in the commit message was a generic text applied to
+the whole series and overstated its role for this patch. Sorry for
+that; v2 will describe it accurately.
+
+Cheers,
+Ingo
