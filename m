@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794652154;
-	b=hBLLkCrTfZzK3RWcagzn34HtynEIdirXAnu8StxqBw6aRJvPHtytElAaoIZ3EQDbpWJK
-	 HCrN4QCJMLDQqVy7XSdxxbP2B6iqECE2v5WqGwFw6hcH6NzLx8vOGwo9q5OJTLq/v9uJq
-	 bMT+FRzjqtSC8WhbORcCp+DHxPjLtwrq4WwyHOYGzwz2urS1dPQPM29WE7IvzvlkFV9i+
-	 Y0GCjQhkwiHotyxMQuSXG9AvSSf8OUSab3HUkRfGLuudQw681gTuC0/abQQqIBhp+uU56
-	 ahSb3XpGM/Wz3gQ8iIwLgnbnb8mHXptxkOiXkio4qRqhMFwUE0DKGI5jDokzohd3Kog==
+	t=1794652177;
+	b=JXQBYQAQzel0O8vRPxWytwpAN+9P+NWU8Vs0UDkxHHrZ3ld8FL/icDAqKH3JCHoRVp++
+	 UvP5KA+4Q56yKo4Db1e2DXRxXn2EQIdnBYbkBvmQR1DSTnb+BkaLN2w2sVzzpUpKHHXlt
+	 qYQnOL91f4ojl2vthFwpIb6JLt22paqNSGvODf1MojQYxnuT/mD9IckMrj03e+vdPRvkO
+	 /OVQafArRzPJjOJlxfMPPYZQwPhxUGaU5+MDarBUQWv8+HdVTi5wUAHhhPW+5QdtReeWj
+	 YMRPV1DaeTgegqIsWsK2rFXjDdfWF9QmLsV9PKQJjZyDZTp1mPwP71Z2fCj/664BXzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794652154;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794652177;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=dcmfpT9IKALT3AMaYE02cIzt82rWcSY8cPriyi8AD/Y=;
-	b=PYsP9qhEIvwlMsiILtvosQGpsWfBS1yvNq44ln58M73O26VU4QjKzeqSBAVc81ARjMU4
-	 wols4sdDNaGO22mEaayzvf0FBwR28H2PeQFQPH6hMBa049v/bxxwmjYEnDuNeXrLNFwq4
-	 g53DA64e4XD4+RkjMVxRNW0/QJpV+IEz48zggGY0DLqh5iRjnRRSDLsCtqQa7KJVlv6EZ
-	 PZEpAKWDMlHfY7S/TpbpkPB7LG5ogdxTNBIXWKpjj4b2ZON3WLoWrz4guQ7jl7chbMbQf
-	 gFt+ImhY9gIJywrZhceviXonOXEmfCvKwfQrwXb9L9Mws5yBr06iktixrD6wdf8qNmA==
+	bh=uErNLi/2OCf74YqDJoADHzHPm15XqcJZ+OFir4+WK/E=;
+	b=f11+CJvHjYx5RQMxdJmjvQwaPqISJqccKAdZpZqSPWkjC57QVJZR7XzA5Ev9OYVk041m
+	 fyoP4eYpBGx2/r2bO2UNoMFmi8XGgwwe8Jk1+U4qIbPiMls5CK22htuBsiIdoH0llBxZi
+	 YwwmkXj+/PjH90AjxK75+xTF+ilV7Y5WaOz2+nxsiNeT0hpS1GRp35Dl64CIVAO2Bo+lS
+	 i8J0H8VwOv9N7Gzf1PvjVgvG2wJIRsifYZzP5mig8zdJxwK58WAr+X3dh9hx3FhAice/o
+	 HflK1IoDzZi4mjk4ESwKGKlXX4OX+SSsjmDZaIhH/1IU7iFaYBspVt+LPs8LW1hx9iw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oP+CwZcV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d7vsuyjR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE554606A889;
-	Sat, 14 Nov 2026 10:29:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BB3D606A32D;
+	Sat, 14 Nov 2026 10:29:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oP+CwZcV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B18271F000C4;
-	Sat, 14 Nov 2026 10:29:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d7vsuyjR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 088281F000C5;
+	Sat, 14 Nov 2026 10:29:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794652154;
-	bh=dcmfpT9IKALT3AMaYE02cIzt82rWcSY8cPriyi8AD/Y=;
+	s=k20260515; t=1794652176;
+	bh=uErNLi/2OCf74YqDJoADHzHPm15XqcJZ+OFir4+WK/E=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=oP+CwZcVcFSC3QvevnrIzew+WDs8zC9DmXsnq2G/7H2yeFPN+RyqU+HU4xj5HwjQj
-	 vHdMlcxd4eI4x7z75kVK2ljbcLX5dRP+Zo6M3RaTut3u/mSirmLQSvVTq172Nn7bJb
-	 9eyl2HFHcPGjBIryaGA2CR++sko1J3Tibq7YUBL6wtT8my3PJ12O4clWPxPHXm54TY
-	 61O0Jh2IOAVsjHTJE6DNkMelf4Tg/LTPHJSBlWTmN9ctIQM+muyrA7qMEg8RbcISLw
-	 3DoKrxM7nVqnTprQqH5INM54aesKZ5kp8+VXvVyix1hqsAxyiDakU4b7I2z4bbjEZR
-	 yLVeoQgcZXtdA==
-Message-ID: <39b3b80c-54ca-4fee-9a56-bb2999705e2b@kernel.org>
-Date: Sat, 14 Nov 2026 11:29:04 +0100
+	b=d7vsuyjR1VDuLpCZaVnAcs97CnN378lybAxntYArVAIWpBO/G0QY4MowNay3RH1sJ
+	 I/+m4hpMxB6GpMKWDbzb8qtrLlBu3YtDeZvzwuhnMB/yA78hJusU853lj73XvqfQKc
+	 EvGzykvrbS4lq/1O6DTLRc08TU7xDNFp/dLuKD+MFITdLvet4hGZDl9JAlBCEPF0xx
+	 ij3wqSqFhhR6i0TtGjKrrnP3Z3PpGxrdb9mdx3i2B+5EYxPu0H1yqZC4/aKDGWNr5j
+	 ij+bUDu6z74RwEA9jfNDdUvkLcIIa5ya1qlqC26lt0K0Us0aKw8Yg+9nBBNq8D2ZIO
+	 OPqicXdnFAsTg==
+Message-ID: <ea4068bc-be71-4487-b286-68f0ba9f4334@kernel.org>
+Date: Sat, 14 Nov 2026 11:29:29 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,55 +52,53 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] powerpc/configs: drop CONFIG_INPUT_YEALINK from
+Subject: Re: [PATCH 1/2] powerpc/configs: drop CONFIG_INPUT_CM109 from
  ppc6xx_defconfig
 To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Henk Vergonet <Henk.Vergonet@gmail.com>, Jiri Kosina <jikos@kernel.org>,
- Benjamin Tissoires <bentiss@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ "Alfred E . Heggestad" <aeh@db.org>, Jiri Kosina <jikos@kernel.org>,
+ Benjamin Tissoires <bentiss@kernel.org>,
  Madhavan Srinivasan <maddy@linux.ibm.com>,
  Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>
-Cc: Oliver Neukum <oneukum@suse.com>, Martin Diehl <m-diehl@gmx.de>,
- "Alfred E . Heggestad" <aeh@db.org>, Thomas Reitmayr <treitmayr@devbase.at>,
- Slawomir Stepien <sst@poczta.fm>, Jie Wang <jie.wang@intel.com>,
- Manuel Ebner <manuelebnerli@mailbox.org>,
- Randy Dunlap <rdunlap@infradead.org>, usbb2k-api-dev@nongnu.org,
- linux-input@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-doc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+Cc: Oliver Neukum <oneukum@suse.com>, Thomas Reitmayr <treitmayr@devbase.at>,
+ Shaun Jackman <sjackman@gmail.com>,
+ Daniel Gimpelevich <daniel@gimpelevich.san-francisco.ca.us>,
+ Florian Euchner <florian.euchner@gmail.com>, Johan Hovold
+ <johan@kernel.org>, Javier Carrasco <javier.carrasco.cruz@gmail.com>,
+ Xue Lei <Xue.Lei@windriver.com>, linux-input@vger.kernel.org,
+ linux-usb@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
  linux-kernel@vger.kernel.org
-References: <20261111215723.3802209-1-dmitry.torokhov@gmail.com>
- <20261111215723.3802209-2-dmitry.torokhov@gmail.com>
+References: <20261112001642.243554-1-dmitry.torokhov@gmail.com>
+ <20261112001642.243554-2-dmitry.torokhov@gmail.com>
 Content-Language: fr-FR
 From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-In-Reply-To: <20261111215723.3802209-2-dmitry.torokhov@gmail.com>
+In-Reply-To: <20261112001642.243554-2-dmitry.torokhov@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
 
 
-Le 11/11/2026 à 22:57, Dmitry Torokhov a écrit :
-> The yealink driver is obsolete and being removed. Drop its module
+Le 12/11/2026 à 01:16, Dmitry Torokhov a écrit :
+> The cm109 driver is obsolete and being removed. Drop its module
 > selection from ppc6xx_defconfig.
 > 
 > Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 
 Acked-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
 
-
-
 > ---
 >   arch/powerpc/configs/ppc6xx_defconfig | 1 -
 >   1 file changed, 1 deletion(-)
 > 
 > diff --git a/arch/powerpc/configs/ppc6xx_defconfig b/arch/powerpc/configs/ppc6xx_defconfig
-> index 8aab229fb909..29acc77573d6 100644
+> index 29acc77573d6..4ba35b9377d7 100644
 > --- a/arch/powerpc/configs/ppc6xx_defconfig
 > +++ b/arch/powerpc/configs/ppc6xx_defconfig
 > @@ -537,7 +537,6 @@ CONFIG_INPUT_PCSPKR=m
 >   CONFIG_INPUT_ATI_REMOTE2=m
 >   CONFIG_INPUT_KEYSPAN_REMOTE=m
 >   CONFIG_INPUT_POWERMATE=m
-> -CONFIG_INPUT_YEALINK=m
->   CONFIG_INPUT_CM109=m
+> -CONFIG_INPUT_CM109=m
 >   CONFIG_INPUT_UINPUT=m
 >   CONFIG_SERIO_RAW=m
+>   CONFIG_GAMEPORT_NS558=m
 
