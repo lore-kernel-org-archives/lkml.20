@@ -1,45 +1,127 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.98
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794627149;
-	b=ikjof5ip8ODU3L2hGolAqjpOhn3JQ9MlG+HiIOHvRjf71Ddmv45F1PbaQVHcgrpmhE+C
-	 fb0zNnNTt3XJv6LyG9KephGOV7ZYtaKAQILrm7embcfrl9iPRpoX7/0TPiWbiWW4EJhQS
-	 WLnRTWX1TNa/dSRd8jdKY5WJeK/hCBoP0e8bFxmsUJs+bWfjMGFXYSluLlBXiYAxNcoYI
-	 Vq8d/RwUY5DzRcWt8vkJOledQyoNX88qSfJDi2ZXTtIIIuCRgakwDo8QmU9Z8nkFld5Yb
-	 PyauHJhbP2pUcVowZllcBNnl0VP1GK5BdDQBCuqOZimXykVChK1mH0JVjsfDbWY3clQ==
+	t=1794627270;
+	b=zrEtMSDsbJl5wu8cKsnmhhV1MQtTSNahdPpnBHyNCYFMn8Ym3CW51nCn1Jx9oG97cfZT
+	 1AW9mjeheFTIdpInB6GVaEbD6CZiy+xibnpubdH9y+CNhnlN+//Qm2Vj7JI+jfXiFK7G9
+	 5u2LEYBoXE4NredA5Ppzayd3CCJdgwWEZjVtfbRvgRb5zeB+Ylv/MnNXKd5s3yfy0TbVm
+	 f5C6bwr5q19CmdA/iOtV0brjZ5KmThGALCDfQpwmetQofoXijqFVljxhtZYhRe/x4Nz8F
+	 VLMmgO2sj+SB6G55cIV87PMMquU9gOW+WLh3B1NRia977ObZlmKKomvmf4w5tiyFUuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794627149;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=hZ/+DLpUIlcbirEPmqeVlKHp9sAsvUE1CUbfS01vK7I=;
-	b=2FSf8QcY6erjWA9bYYaDd2UmRYsglAP4eouYhd+bxmSVYRp99H9zW5GQLShV4yWoqbh2
-	 w+BM+OmU4EJFchMR6451Vf4+QxPNgF5ODWGLbF1o/gUgI09ztdYJQTpwMqBjLKxviqnNU
-	 0HGfHP+ivsR2dSWSztRmK/LvyD5oPnQHsYQCzrt6sVCqC4Fv1JWfyaYXYoBe8aCeNr/l3
-	 5kiEQGOGHphOfy9cOP1N5I2XDLfxMQ0ZfHnaQgbU7NUAW9ZLZSBBRKy2uNCavGHpqdeAC
-	 IVUKrAdSQG6sgtujkM/bJQEneNEzq7AUNvOYLkft/5Jc4mxb6S7cAQDI1KzyPJPJe2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794627270;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-DetectorID-Processed;
+	bh=ddgPaijUvIbheBZatU1W8+gATV3/IFQSBsN9yaAotzY=;
+	b=FPCvp3MgJBlWmuZdh6rtYnHVxfq18jUNGaQK8M4Ltlvhk9w7bCfIPLsnQHWRckxnNRmt
+	 8tKuWo3HYOP7fgZ26B8klak7Cv2rFatMrImYOkjS9RaU0jT/dty7ZV0CS79ADbpTHtKFA
+	 RY++NXJwymiqHlUNLhJmAXvC2Ay0pWJfj6X5le9ytGgVnN2DimNMqTJeQqiw/TRCRpm2m
+	 amc0lTAcLqZHlaG7mexNrvXZLrJD6NwZkUfhMb1kIldMMv67fSUwtwQs0OBnIB54GnCbF
+	 AvrC5nX8AQdirOsyQbGBm+PyWMhgFCsio4sbCuknpWReVAresb8WTMZwFVks8bPdE4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="fSpHT/5Y";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=FsqjNyMf;
+	arc=none smtp.remote-ip=209.85.216.98
+Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8D07606A898;
-	Sat, 14 Nov 2026 03:32:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81497606A332
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:34:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81497606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fSpHT/5Y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82EC11F000C4;
-	Sat, 14 Nov 2026 03:32:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794627149;
-	bh=hZ/+DLpUIlcbirEPmqeVlKHp9sAsvUE1CUbfS01vK7I=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=fSpHT/5YlKnVLQuflwMsI4ithJsCcCowAQeNfKXQn68pyvBjpKOneHjq/7tzigdU/
-	 fBYUSuvX8vs6XD0Sn0kOKRcLcTwIu0Vg+RMZHWWD3GcLzqxkS3cfmNIIqSZYc26qY+
-	 e+zaW8YGi4y83EuS58EkSpi3pyOfNOq8dmKJmiH2jWdqIZtcpzuEOpufh+oDPw55vW
-	 NlHXaKHb0KHbJFsWf1drlXvwoCAnfiwAPpnZUcdaNCSrw/PXdN5K49A1P6Ts/eABr4
-	 bzbs8Ld8g0AH+bTkbgSH6KnYPbPzcnPA9mJWzrtCxdw0ooLNs+ziSbnxkD9zD2M0t9
-	 jQAMzdYVhW1tg==
-Content-Type: multipart/mixed; boundary="===============0128583470197541293=="
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=FsqjNyMf
+Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3b1d1d74384so44530a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:34:30 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794627270; x=1795232070;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ddgPaijUvIbheBZatU1W8+gATV3/IFQSBsN9yaAotzY=;
+        b=2bHjN5CdmnFga1lirLq1gbcldlTVIsQS1dqI6Zkn4r7HGDbDGtiu3J1uREe4F/XHBG
+         69ouqXe/SJh1F6Ui9jlP/4TVBdJdMfYKpj3IfYdxJRfbAiV6UiSxMijbw1+Iem2Fy0nI
+         Cvu792FnkCcXobjBC1MA3uDmXpIygagTiIRWjpW/B0TucQTfKM0phgKCuWPYD6OKAi1/
+         l4AE7XtuIoGjwKjw+r4+JT1WCFp1NqXOS50d9GIHDxOeSVROof2853a24A6b3ZdTAE51
+         hYJw8LqxvPtOjTDES4SvrnPlUdit09QSWYUzDa5E9WzAk3eC2oWzCjaQ4KYTeznC7lt9
+         Lfrw==
+X-Forwarded-Encrypted: i=1; AL+hErE+r2Ww3gdWfdl7GXiuKRyhEv1PkorOB1vegpOkHBiBShW3xiN5hXflGceiyB1mvRaqt/GBaxY7fPyDOSs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/sjI/adSlM4Kg0GyI09PeaaX8C9BiHTgEaJDf8Bf2m9aswDWTO
+	EGyANMEZkIGMrLS5C0W8Ig/0hdglkBq9d5bFhiHFSo+7a6anrrxDZHjgDZdq4oLNOpJaYfc1IEJ
+	3gIc/V21CfM19BcvfYhpu2UdZu4UrfQITiI2oj9+K9pNXs7GawAq0sH4xsU2OeMnHDIoxyC/4cc
+	Crgdvn8ft9D20kS3PPu8AyrDShFQm+/TJYBithO/rmtdX7n+zzatLhVvMcU6k8s9k5hUaY3pgMN
+	eljcFNTGwD8vOht+ppakjFl
+X-Gm-Gg: AYBFou2otzWXGQ1Xp53fNfqqOIAjtoQieEsRFi3WfW+8zJdNOz6KEZ8cgIhMLNuyjKj
+	+GvLCETbI9dnV3y6tXrsG2va88ZGzA9nIOe2JmugkyAJjVwN7loLs3PsLC/dxsueBSimXw6u31K
+	pXARUeEPy9zu7yUVjp0vsBZkLyh4epDx2J73BU3WTC0E/YCdO5TbU7ih2KoflowuDN2LZh7uSJd
+	yH1VNXbqawinoS51gTcwzrvCEZJy1qRiSSUCK2xo4gdQKv2mv/GRzzUiHcpDyKv10/rU8itliOu
+	MJlpc5+BG3mFmtCWtiLc82BoelDXWEP5c68tdYWY18ukBQSqJrwhmtJQGvsQ6oGSIhI+iARhbVs
+	QNOFPzMww7Bp7si13sKJP8/7eTmVX+wWriDXCandoR6RpVeCi3UHbSeCj59Gnv5vqYXf9DvHjf4
+	Y/bHj/Qy6GsQxfePSDhTJ7M1qgGLH857G8ODUhf1yF
+X-Received: by 2002:a17:90b:2d85:b0:3a8:bd51:205b with SMTP id 98e67ed59e1d1-3b1b0ca53bdmr4356007a91.37.1794627269819;
+        Fri, 13 Nov 2026 19:34:29 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-26.dlp.protect.broadcom.com. [144.49.247.26])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b1ae9bbffcsm6369906a91.8.2026.11.13.19.34.29
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 13 Nov 2026 19:34:29 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-370230d93efso7071819eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:34:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1794627268; x=1795232068; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ddgPaijUvIbheBZatU1W8+gATV3/IFQSBsN9yaAotzY=;
+        b=FsqjNyMfYgeS4j2kNrm/zfVVwKD8gp6v3yQOf5DVh7CEU0zFvg6tiYf8uA+setgmAo
+         J7xTH3iu1L9zPuzHHGjVEHcV20AoHjk/tS0Kcpmel0PAmHFTmFlVzj2B2J6+1m5LVU9w
+         EbEkdeU+675PubUrj3KbEAmaTvpfBvl6GU3S8=
+X-Forwarded-Encrypted: i=1; AL+hErHp1Wg2audNAYC19XYxJgGB8mxtwffvXMbepue4E9Ipck5E6+4D5Lo67C3GmKqIW33i3ejZ6pbf4tc6ujI=@vger.kernel.org
+X-Received: by 2002:a05:7300:269b:b0:37a:cafa:6d78 with SMTP id 5a478bee46e88-37acafac54amr1253754eec.33.1794627268056;
+        Fri, 13 Nov 2026 19:34:28 -0800 (PST)
+X-Received: by 2002:a05:7300:269b:b0:37a:cafa:6d78 with SMTP id 5a478bee46e88-37acafac54amr1253710eec.33.1794627267158;
+        Fri, 13 Nov 2026 19:34:27 -0800 (PST)
+Received: from fainelli-desktop.igp.broadcom.net ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37956bb0c40sm12865283eec.28.2026.11.13.19.34.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 19:34:26 -0800 (PST)
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+To: bcm-kernel-feedback-list@broadcom.com,
+	Nicolai Buchwitz <nb@tipi-net.de>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Ray Jui <rjui@broadcom.com>,
+	Scott Branden <sbranden@broadcom.com>
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Andrew Lunn <andrew@lunn.ch>,
+	Stefan Wahren <wahrenst@gmx.net>,
+	Phil Elwell <phil@raspberrypi.com>,
+	netdev@vger.kernel.org,
+	James Clark <jjc@jclark.com>
+Subject: Re: [PATCH 3/3] ARM: dts: bcm2711: give the GENET MDIO controller its clock
+Date: Fri, 13 Nov 2026 19:34:25 -0800
+Message-ID: <20261114033425.876398-1-florian.fainelli@broadcom.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261020-devel-bcm2711-gisb-clk-v1-3-a1728724d0f8@tipi-net.de>
+References: <20261020-devel-bcm2711-gisb-clk-v1-0-a1728724d0f8@tipi-net.de> <20261020-devel-bcm2711-gisb-clk-v1-3-a1728724d0f8@tipi-net.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,95 +131,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <2bd464dd12d81f4d712f7d89f65e0e572c66c9e84acce225d144eef3badc0251@mail.kernel.org>
-In-Reply-To: <20261113161836.3587552-3-jarkko@kernel.org>
-References: <20261113161836.3587552-3-jarkko@kernel.org>
-Subject: Re: [PATCH v10 2/3] KEYS: Replace assoc_array with rhashtable
-From: bot+bpf-ci@kernel.org
-To: jarkko@kernel.org,dhowells@redhat.com
-Cc: jarkko@kernel.org,bpf@vger.kernel.org,dm-devel@lists.linux.dev,fsverity@lists.linux.dev,keyrings@vger.kernel.org,linux-doc@vger.kernel.org,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,linux-security-module@vger.kernel.org,agk@redhat.com,ast@kernel.org,alexs@kernel.org,akpm@linux-foundation.org,andrii@kernel.org,bmarzins@redhat.com,daniel@iogearbox.net,dzm91@hust.edu.cn,eddyz87@gmail.com,emil@etsalapatis.com,ebiggers@kernel.org,ignat@linux.win,ihor.solodrai@linux.dev,jmorris@namei.org,jolsa@kernel.org,corbet@lwn.net,memxor@gmail.com,torvalds@linux-foundation.org,martin.lau@linux.dev,snitzer@kernel.org,mpatocka@redhat.com,paul@paul-moore.com,rdunlap@infradead.org,serge@hallyn.com,skhan@linuxfoundation.org,song@kernel.org,tytso@mit.edu,si.yanteng@linux.dev,yonghong.song@linux.dev,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Sat, 14 Nov 2026 03:32:25 +0000 (UTC)
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
---===============0128583470197541293==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+From: Florian Fainelli <f.fainelli@gmail.com>
 
-> KEYS: Replace assoc_array with rhashtable
+On Tue, 20 Oct 2026 16:58:11 +0200, Nicolai Buchwitz <nb@tipi-net.de> wrote:
+> The MDC of the GENET MDIO controller comes from the GISB clock.
+> Describe it, so mdio-bcm-unimac can get the real 200 MHz from
+> clk_get_rate() instead of assuming the 250 MHz of the STB chips, and
+> can put bounds on when an MDIO write completes for PTP.
+> 
+> Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+> ---
 
-TL;DR: keyring_read() now needs keyring->sem, but s390 cert_store calls it
-unlocked; this may trigger a lockdep splat and possibly a use-after-free if a
-link or index is freed during the walk.
-
-> diff --git a/security/keys/keyring.c b/security/keys/keyring.c
-> --- a/security/keys/keyring.c
-> +++ b/security/keys/keyring.c
-
-[ ... ]
-
->  static long keyring_read(const struct key *keyring,
->  			 char *buffer, size_t buflen)
->  {
-> -	struct keyring_read_iterator_context ctx;
-> +	struct keyring_index *links = keyring_index_locked(keyring);
-> +	key_serial_t *serials = (key_serial_t *)buffer;
-> +	struct keyring_link *link;
-> +	size_t count = 0;
->  	long ret;
->  
->  	kenter("{%d},,%zu", key_serial(keyring), buflen);
-
-[ ... ]
-
-> +	if (buffer && buflen && links) {
-> +		list_for_each_entry(link, &links->list, list) {
-> +			if (count == buflen / sizeof(*serials))
-> +				break;
-> +
-> +			serials[count++] = keyring_link_key(link)->serial;
-> +			cond_resched();
-> +		}
->  	}
-
-keyring_index_locked() is rcu_dereference_protected() on
-lockdep_is_held(&keyring->sem), and the list is then walked with plain
-list_for_each_entry() and a cond_resched() per entry.  That is fine when
-the caller holds keyring->sem, as __keyctl_read_key() does.
-
-Is that also true for all callers of the read method?  The s390 certificate
-store calls it with no lock held:
-
-arch/s390/kernel/cert_store.c:invalidate_keyring_keys() {
-    keyring_payload_len = key_type_keyring.read(keyring, NULL, 0);
-    ...
-    rc = key_type_keyring.read(keyring, (char *)key_array,
-                               keyring_payload_len);
-}
-
-The path is refresh_store() -> fill_cs_keyring() -> create_cs_keyring() ->
-cleanup_cs_keys() -> find_cs_keyring() -> invalidate_keyring_keys(), and it
-holds only cs_refresh_lock.
-
-Before this patch the (keyring, NULL, 0) size query only read
-nr_leaves_on_tree, and the real read used assoc_array_iterate(), which has
-no lockdep check and never scheduled.  Now keyring_index_locked() runs at
-function entry, so with CONFIG_PROVE_RCU=y a second cert_store refresh
-looks like it would report a suspicious rcu_dereference_protected() usage.
-
-The walk also runs with neither keyring->sem nor rcu_read_lock(), and
-cond_resched() lets a grace period complete while the walker is sitting on
-a link.  Can a concurrent key_unlink() or keyring_gc() (list_del_rcu() plus
-call_rcu(keyring_link_free_rcu)), or keyring_clear() or keyring_revoke()
-(keyring_index_free() -> queue_rcu_work()), free the link or the whole
-index under the walker?
-
-Should invalidate_keyring_keys() take down_read(&keyring->sem) around its
-two read calls as part of this conversion?
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/43549115625
---===============0128583470197541293==--
+Applied to https://github.com/Broadcom/stblinux/commits/devicetree/next, thanks!
+--
+Florian
