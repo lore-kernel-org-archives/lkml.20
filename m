@@ -1,60 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794672192;
-	b=oE/4+fG5QuwKVy2Jo8aOaXPElQ9pWXuWFynCOcqJbitMEfV5h+gB07Hie2SNUwocPGu9
-	 b17hTtzKLiebbUej7RlhFJXZ37VDJqUPt6qagac7EYRrLAVENAethC0GMHqiFEo2OecZs
-	 RMg7cauVayrMcCFhOSt9NvbJ9ejrLnipvtGFeAhJHiutBIj8AQQS9Xwo6oY2sjrVBeuSo
-	 u/iyerPJog3rT0KPy1BfkEaf18DOOB+uHiaGpEewsVfDNkoekiC1t+5tpyfGJ8e6GeT66
-	 pjz/GeNQX2A8EhIASwlWbDucLzBgNwig20cU42w7j0/5hryfYkQqhTgf5WeiAegfT0A==
+	t=1794672210;
+	b=JWr05QtGZj8JSccc6San5fJ9i3UPGHZiXNW6hCyQaZ2Kp6FF0Z9mEB9PLiE8QpJmNv+J
+	 0h4sZx5WhTRY5N3TNW51mmFePJfL3801PY97dDCUZs/42+KcqnchswBkHXY4q7HIYptCR
+	 6dF8WxaiQN3lHA2zGhTHbZh8DOwFZ0adphxzOQ1p+fiP9i80SFxY8mEO+qLKdPOyeN4hv
+	 paaT4SLVPqq8eykRj8GhmsqQQOsJadt4p9TZIUUuE3OUYcM7s+9FGg9lGIz5yQVXEi4Cz
+	 qfk9PMTlK8NBlRWSgoQ+/E1zh9lSIPeWAsWOT8gBr7Y0rK5u+ZKU+ZgPqwXCXE9x5Vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794672192;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=sfsMVLLnQIl2c/TSBakPGy/YmZ5fohM4IYX3/lhT36M=;
-	b=VG1MMqckJGl86v6eGfgi892ThSNeqfguQdeWiCnIsoTxEFGN/E3VnqWbUNUADNpawx4y
-	 7B0p0xVSP/WJ886tP36BDhStBuuq4oH8DaNU48KZMc247lVrC3rTLeE4gwZivqsN7xPVu
-	 vpfITReEQ9n9J95c17Ao0/IO46GuQe2nNfx6xpONToq7RtmMdM1153EUGEW+b8WaUa6JF
-	 5Ai1smpNXCMdyUnfHPiGLEk0lqCUrW0RJKh+42+zFcLwwZmOcWCrgYtKEuncNd4/KcRt+
-	 ZdtOXdfPwF/+bWr1VQzNAUhlQPifKwEDv34P0asTSnMWaAkezLrONJzUe5hrfKhbGAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794672210;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=HLZcm2kGGNPkHrolsS7QSodgMr1auiEM7m7otpV8Qpc=;
+	b=ir56BWODQM2uoTAXcXl1smGHFXE7fRtm8XfCfDJpWdiVCFj1Ot0LMo/rfllJAdFaoIHd
+	 9gNlY79L35VWYkhn45YV9Ad/cfDc8tG80vfKWngZhApAz+w7QtYVP53A0U/S29Uh3ur5x
+	 PJs7CGyKiJ6lSHG9gMadnqZewShEXExUXiYxPXaXIRdO5gvv2xFepOka9F4NtyQo1Axdt
+	 A6S64jO9njNc4lq/9dI2o77O4lDERwrUA5R+YNZRHEYdXVD5H51GQZ2TOMIq6hFBFWzX4
+	 QiSy0Qabl62tvoBi297h+UIP/VsJUkHGKSpHx2eKd/a6rShru+IqD8nL1JUpf4VXbVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b="Un//uSdC";
-	arc=none smtp.remote-ip=109.224.244.17
-Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=vuGp4CDe;
+	arc=none smtp.remote-ip=35.89.44.39
+Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F80F606A329
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:03:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F80F606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99717606A331
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:03:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99717606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=Un//uSdC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1794672189; x=1794931389;
-	bh=sfsMVLLnQIl2c/TSBakPGy/YmZ5fohM4IYX3/lhT36M=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=Un//uSdCLl1gy8Pp24cfvsJS/o7ZeQBA09MtBfLEx5CX01tvZRM56yep4Ok07abHX
-	 1IBd+Ay/ZH3inqH8s2VBoERiZ20XZfGPbBwSTY8ASJv1ooNerzhEVcKnbmLlLpKrbB
-	 fwOSV1gRZq8nq9gqZ1OideisgijWtOKjkqdds8UBgdwGd3ys+ui6w1PkHnbZXChY6Z
-	 rYGHkJ1u8tqZkJmcKT65KCrsk+61PgMh4paivKyUIU6NQEHVWIrZk0VdUSX/Xk0R/r
-	 fElvix99hEp3SVNOzcG0weMtSHaiU2XJfIwFJiTMxXWYm39/z5OcwZDLrXkczxNeX4
-	 b1yMeYq5Q8UGQ==
-Date: Sat, 14 Nov 2026 16:03:03 +0000
-To: Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-From: =?utf-8?Q?Eren_=C3=96zen?= <erenozen@protonmail.com>
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, Fuwei Xie <12313607@mail.sustech.edu.cn>
-Subject: Re: [RFC PATCH 2/2] platform/x86: huawei-wmi: expose native Turbo mode as platform_profile
-Message-ID: <EjBEfObhfJDnZ55NQlG2QsrN1vIwNF5koBTvhI10lceDUSg-ehU_zaxIzKjNHc7zQ4vhn2s20Lx-so3LhGaeyGYXw1goKsT7hfPmrQKq-6M=@protonmail.com>
-In-Reply-To: <583B99876AEC4CF2+20261108041714.328986-3-12313607@mail.sustech.edu.cn>
-References: <20261108041714.328986-1-12313607@mail.sustech.edu.cn> <583B99876AEC4CF2+20261108041714.328986-3-12313607@mail.sustech.edu.cn>
-Feedback-ID: 19860221:user:proton
-X-Pm-Message-ID: 03e481a96952fc2c7a30f4371100a96f6f01b115
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=vuGp4CDe
+Received: from eig-obgw-5005b.ext.cloudfilter.net ([10.0.29.189])
+	by cmsmtp with ESMTPS
+	id S7k2xeMpwyb4YSGDyxg7uj; Sat, 14 Nov 2026 16:03:30 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id SGDxxvhT0YskhSGDxxYOO1; Sat, 14 Nov 2026 16:03:30 +0000
+X-Authority-Analysis: v=2.4 cv=CKMqXQrD c=1 sm=1 tr=0 ts=6af88652
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10
+ a=PJTSTX75uoluVfBDKb4A:9 a=CjuIK1q_8ugA:10 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=HLZcm2kGGNPkHrolsS7QSodgMr1auiEM7m7otpV8Qpc=; b=vuGp4CDeVz+rwR3TUp3oAyehS4
+	0L/a548VOLey5fO3Nc90aSLAgqL2+/53GCRGby1g4J/mvtI8p67am2BwPIVktAx6EkTjmBeYUH3t8
+	mBUiG/scRNANP+hSFM7B/teGf2me17VWOAY+oQtwdjIgsJyKLJfv9YVNKOgAXQoKZgladbrZ7qYB4
+	uM2D01e2GPTdCtwUSOYuTboUG9P0U7fW7IcskXBZQdTx4zQZpEI5m8/ISGk4T92WD0irIakKlZ+SA
+	rY6I8uu31+CocRiLGtIJ1iXnSWE4feU/cmLbT5tdZ+cfqbkMWwXEbn+OIzz4U80NwQRCjQ9rHlJFg
+	YoSaxn4g==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:33236 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xSGDx-000000001VK-0hDI;
+	Sat, 14 Nov 2026 21:33:29 +0530
+Date: Sat, 14 Nov 2026 08:03:28 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Tomasz Bojanowski <tomasz@bojanowski.me>
+Cc: linux-hwmon@vger.kernel.org,
+	Hamza Mahfooz <someguy@effective-light.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] hwmon: (nct6683) Make the fan curves of NCT6687D-R
+ writable
+Message-ID: <6ca20e71-bcfd-4f60-9471-08c39da1a4ee@roeck-us.net>
+References: <20261109223442.509238-1-tomasz@bojanowski.me>
+ <20261109223442.509238-3-tomasz@bojanowski.me>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,56 +87,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109223442.509238-3-tomasz@bojanowski.me>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xSGDx-000000001VK-0hDI
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:33236
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 9
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfFj8nynO7KC+mQbdek1M/jDAswNX0JyoaDF0i2WsnoFtQ8yzv8SWnIk7FB0E9K7YmeazQUfZwYcvPYjVIJbnxdWj/7cDeSORpouTdy7mfSYGG7OSEjKH
+ QCbfkxX1Bawl2DIqMQSwYhCR2yXeDD1TjmvxlUrFtrUT33eLuINVRtDj8bxtUDg2olEs8OXro14pxZly0glpGzOUxq554clXog4VekkyqGh2FsWqR4DPHobv
 
-Hi Fuwei,
+On Mon, Nov 09, 2026 at 11:34:42PM +0100, Tomasz Bojanowski wrote:
+> Allow writing pwmN_auto_point[1-7]_temp and pwmN_auto_point[1-7]_pwm in
+> manual and in automatic mode. The points are writable if, when the driver
+> is loaded, the temperatures and the duty cycles of the curve do not
+> decrease and the temperatures are at most 127 degrees Celsius. The EC
+> firmware is not documented and does not take a curve whose duty cycles
+> decrease, so only curves like those set by the BIOS are written. The
+> limit of 127 degrees Celsius reads the same whether the EC treats the
+> temperature registers as signed or unsigned.
+> 
+> Temperatures and duty cycles are clamped to those of the adjacent points,
+> temperatures also to 0-127 degrees Celsius and duty cycles to 0-255. The
+> whole curve is written in one configuration phase and read back, to check
+> that the EC uses it as written. If that fails while the EC responds, the
+> previous curve is written again.
+> 
+> The BIOS may restore its own settings when resuming from suspend, so
+> restore the curves written through sysfs on resume, before manual mode.
+> 
+> Tested on an MSI MAG B850M MORTAR WIFI (MS-7E61) with pwm16: writing and
+> clamping of curve points, the written curve after suspend to RAM, and
+> manual mode after resume.
+> 
+> Signed-off-by: Tomasz Bojanowski <tomasz@bojanowski.me>
 
-I tested this series on a HUAWEI MateBook 16 (AMD Ryzen 7 5800H), DMI
-product name "CREM-WXX9", BIOS 2.32. Its firmware has the same \GTUB and
-\STUB behind WMI commands 0x0e04/0x0f04 and sends the same 0x2a0/0x2a1
-events, so with one extra DMI entry the series works there as well:
-
-=09{
-=09=09.ident =3D "Huawei MateBook 16 CREM-WXX9 (BIOS 2.32)",
-=09=09.matches =3D {
-=09=09=09DMI_EXACT_MATCH(DMI_SYS_VENDOR, "HUAWEI"),
-=09=09=09DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "CREM-WXX9"),
-=09=09=09DMI_EXACT_MATCH(DMI_BIOS_VERSION, "2.32"),
-=09=09},
-=09},
-
-I applied both patches and this entry to the driver from pdx86 for-next
-and built it as a module for a 7.2.15 kernel:
-
-- platform_profile_choices is "balanced performance", and writing either
-  value switches the firmware mode (checked by reading \GTUB back).
-- GNOME's Power Mode menu (tuned-ppd) switches between the two.
-- Fn+P updates platform_profile, and 0x2a0/0x2a1 are no longer logged
-  as "Unknown key pressed".
-- On battery, writing "performance" fails and the mode stays balanced.
-
-A few details of this firmware that may be useful:
-
-- \STUB only checks for AC power here, not the battery level. When it
-  refuses, it still returns status 0 and sends 0x2a6, so the read-back
-  after the set is what catches the refusal.
-- When the charger is unplugged in performance mode, the EC turns Turbo
-  off by itself and sends no 0x2a0 event. The power supply notifier
-  picked this up correctly in my test.
-- After \STUB, the EC also runs its own Fn+P handler (_Q71/_Q72), which
-  sets the SMU power limits through ALIB. Switching through
-  platform_profile therefore has the same effect as Fn+P: the STAPM
-  limit in the SMU PM table goes from 45 W to about 50-52 W. Each \STUB
-  call produces two 0x2a1 (or 0x2a0) events about 35 ms apart, which
-  the refresh work handles fine.
-
-Tested-by: Eren =C3=96zen <erenozen@protonmail.com> # MateBook 16 CREM-WXX9=
-, with the DMI entry above
-
-Would you be OK with adding this entry in the next version? If you
-prefer, I can send it as a separate patch once the series is merged.
+Applied.
 
 Thanks,
-Eren
-
+Guenter
