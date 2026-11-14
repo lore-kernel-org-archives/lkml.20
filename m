@@ -1,79 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794658676;
-	b=nzJZlKN7a2/UHFMOlnD38SZJQpS2hUO9PW9StJIzs9ITjoTE/dVPAQaVwyO96ANxU4WG
-	 peZQX39MECTCodgQ/Q/TkmRdYvasS0l+GDKB4aECB8zeXFvwNh9leZ7mfJXJPf+oxlEzg
-	 a/Z2aCwmHo5YpYr0y/MqbX1nShZKt3MUW+0lfH765WQenKjKsJ4ksDPB4nwUNfrvY6fwH
-	 MnCey6+ND9nA3hi5dw1O2WqpfHXs4YoKTEzYhbWq6MVMuSKAz2jD6A6MjFqBJb1thD7MO
-	 GipS+638pnGtMC7TYi+TRV1bEbFG2tyR69WSK8DU0Q+h03AMJptgEouP/P+f97Cq3Hw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794658676;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=JyrMizB/h1su0FHvJptd3wPmMjqGExSS4FUHtj3sDcA=;
-	b=iFnxm5a3HUKN/trckeXvvPWDpbjsEBUPdo6cySpvIKPu+BWEU36NgIXLbUGHZ8wdrKY0
-	 cUgyNvVhl+kYxyNk3zg8U1SuOsYHvU9r1TObl+DY7Y+qCFv9jOCNhQHRKkhy0rlW0zajL
-	 ClefQvUN63RYU6aUnx6Zpj7i6iVNYcJUvNRtJTSPH6AoAGPU5NGFelMFPaUvGp8nikKay
-	 MGBmtzq0HqS/YkBLK16jfinraNShJm+XXAgWEWrXZ6+Myx6WxaAHKjjwoHGm0zg7dfUgF
-	 3uCYQsXjB6nUU++I/CiNs/Z7npUFtnjbf5taWmEicjTZB4LuuEEr1lKJczROv78azKg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ut6XQpsu;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EB43606A323;
-	Sat, 14 Nov 2026 12:17:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ut6XQpsu
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794658675;
-	b=TTOX/XPyREjnGkuN00zrfr2DjKXoSmVxcyAq+UCvrHsFQ98wZx1UJz0nYBdEOCjUTg7/
-	 TYoPq4F5MkAPmAlC7WVUjqmziTPRCvu822a/ETYDU+JvtqHraP+lF/1TjB6yhrKmogyjm
-	 00zjZnihgxlfo2DY2Ix4VpvkaghZVcZV9JqiA3DLLkDKVsl6D82c9D5ievdFmqgKL221a
-	 UUliG6H9f7rEl6hNwh40o3N0/9TvsXRvEvlwX4e+Yy4ZW6XuN80QHKfwLabmYvgeIWhw0
-	 mVzzPFPCf0ZjShWgfShjjrrpOfbeP6PH1NO7ZFR+j5ZNUhUM6+MRqCuwR3N8zG5N+5Q==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794658675;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=JyrMizB/h1su0FHvJptd3wPmMjqGExSS4FUHtj3sDcA=;
-	b=TGiBC588vXGzZ7HkNDDh6+JcCPxbusvc6n3+Yp5pT7kuMYYAlHxSd3iYTDTC41f+eR3i
-	 9/CWCV5DovK8l6f3qvuNqSE3JRTN108vXP/+rBT8Pxr1ywCVsA+8g4854k9OEqLxComCO
-	 GtL2ZkWECp8MuUbtFs0qKGsqX7Fb5qRtvfZ7q94irtA1/uS+D5AWm8tR68BcoOJ/jqL/N
-	 QaACkq/u/Zw+7TO4A+9fnvPcd4JX8OybV3boVd3YajVmImzYM+7qPvCCY/f93mGOB9FeZ
-	 etpQ/Hd+iTZoRqiFUHvicbgVqxZosT+G7VkTUUvqdsT1vmnUqUVU/5gFLMPK82in+Hw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.175
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794658726;
+	b=pjWi3PgIoUr7biTyB2LZo3Q4jNLGZqBLR7HrFrKIRjAe5Q/zxHFh3PEUF7kksBAYNKBd
+	 37cJr5jP/n6QKotw+AdJ+nTUZPa3EU44PIFA8GN7hV1JSniub2Q1BIAEca2laU+zubfk3
+	 B6aDctY2Z8PAG6SvHqOC+IQmXa2mRYSNEKGBEWF+s1MJY74pdHNC3RKChUeI83BPuOo9q
+	 cYA74a2PQPhGuSMMeWKMqD8dIw/h9nGfVMYMRc/jCWP/s0A6GRWaRHIuMevP20dkmTgOB
+	 H4XKX/EosyFwR2BryBo+I8s2Tjwi1kw4pqvvl8Cx8ew7wlO8dAwJZks338v8ZUDwKgQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794658726;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=8NrM0xFPX4px6sKB2nNjTHnyc3ev7qGMfm1STuc51nU=;
+	b=M9FAW1oT6lmV6vtRPzGpd+O9jHf5FbGYBJGyT23kZVx0BjjZxCbGnNb4krFUtLEDjVOK
+	 kIrN1iUqb4tWZFDEy32+PJZ/5pZ5qWo7WJPl7D7LZ7CLk8U9IqOyxeKztVAVCa5+z2+2v
+	 QcOy9c5QSUUlYpMP3KoWohtlcEmHzozc09TkzSoLHVkR1Fmh+lTdLW0sK5wZktxN0BZBT
+	 fHl/v5K5q08kMyowZ7W3CVUQlw1dviNqQk70QAe7bjD12y/DHe2kTGoa6/uV5RdtHJhh2
+	 n/9BIcFrV3lz5A6pqCx0w8MJM+1LZVm62HrT38JodBfSkMy7okN96MjKpXNhobe2ISA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=myHe1jKa;
+	arc=none smtp.remote-ip=209.85.210.175
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0E0D11F000C4;
-	Sat, 14 Nov 2026 12:17:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794658675;
-	bh=JyrMizB/h1su0FHvJptd3wPmMjqGExSS4FUHtj3sDcA=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=Ut6XQpsuMVVniQjB5YGpn+KZpCOkzj6WQ/3uVhx8Ywss4U8VDOyfcrc77mNWK+A4w
-	 ZH6s7ESFUfBUPF+trYorxk3S09RLTsUmo2646mdNmiGXyrnmyuuh1iuk0s3mDBS5Yy
-	 S6NjAqS85yd/Wa5dC/nxU0/XaHgcBLIJ+UCPyMcz9L6BPqxAh8a9GX3KGxKCgwHh2r
-	 ZlSjFa8wYelTYuXfhsGeZGfp3P4RX3xF8YXR3Yc/3YKcjNb+AdQVwvRzqRRuxdp179
-	 wNrfGxAig+VSU8JGADBzxCc1Npa2IQVBxSGwUabarWmvyxZ1PsFPllLjaTUAZgZoWY
-	 48mXCrbBpT1gA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 7BAB449D73;
-	Sat, 14 Nov 2026 12:17:54 +0000 (UTC)
-From: Adolf Hirthe via B4 Relay <devnull+ohirthe.proton.me@kernel.org>
-Date: Sat, 14 Nov 2026 13:17:49 +0100
-Subject: [PATCH] HID: microsoft: normalize Xbox Series X|S controller axes
- over Bluetooth
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F394E606A331
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 12:18:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F394E606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=myHe1jKa
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8a07078200fso822036b3a.2
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 04:18:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794658725; x=1795263525; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=8NrM0xFPX4px6sKB2nNjTHnyc3ev7qGMfm1STuc51nU=;
+        b=myHe1jKawmPJVBFYBlRZoyr12FwQ2uXBiQFKGIDQLzObXAC1i6zVlqBg7D7UC88BA6
+         v8XNB+/oX3t9euHqJvEQK/XBkobPxXtJ6T7CbvR79lMscA9yCvuRLPMBtEgCWOvXq3dL
+         AjLm8rlI7L88Ju049KX1UcKSpHfuJF3yCpqIdTKFpa11CY1X9AZCYizyAvLCcnL9mSvo
+         i4IS0sxNw10sml92RygzlGxkPZjcJ0vL1zsXsLGqWHee+/ciRdqoOwM7yR17zTWPEs9d
+         xZdGNukqiiabx25VHjbLENPANUrjW5OISBk6Qi7WZ/5kVTJcIQ+PuWfzvSMuR2sl7x9g
+         Ffdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794658725; x=1795263525;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=8NrM0xFPX4px6sKB2nNjTHnyc3ev7qGMfm1STuc51nU=;
+        b=0cXUp7/K7t7dTflyGXeOMuK7F7lzV7O4fHfHRESnjQtPDGZpP+Js7RZZtOfs1T6k0K
+         0Ru4C1qqIsMrU9bPeepo7jkduaC68D2yVEPRRkWRv6V1DYubDPIRil16MUtvCSlKNDQm
+         qnL+rY+m2Z3n88Xuz1l0MgvDomKxlqZ5UGaPHo/dmAiD8QinUn1E2lOFLyZoJSZeABsW
+         SPv5MifhuJnA2QKjy+l5SM/9D7RR57iJ3BNzpEbKf0L6iSPfMicAr8Fwi2jyX+0pxuz4
+         38Ml6b0mZ2VcE3lxRbctyNzwkenVIyxLTI/EdKbE/wNT159iYS9jgwKI7fGFOv/fGmca
+         itvA==
+X-Forwarded-Encrypted: i=1; AL+hErEjruyU48AJj64qg9lo3rkTAGUug2KU3SQfmo89C1IweLtUcsQ9Oz1SW9x6dhfdikDJl1FmP4UV0O+SuuI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/i6VqttC+p2VgflkPXB42FLDWMmemoHM2Cf9lohDCWw+8FNEI9
+	jCR5AD1w7u3hmaRW+kjiUgf65vX4KWAgX0LW3jyz6NWkkkMHW0XPZsB2
+X-Gm-Gg: AYBFou3XdETTp76Q5anx8+e8zpvWhhG3LrIzeR5bfM4YxYXC6KVF/vh8843Q7qdYuGH
+	mq30RKCMvcMN5dzaUE7BS9TFeIkgIK2spFIn7S1EYkixCDyrTcBqG61XL04kRWql8mSY2hXyxp+
+	65Vw9CfQroWObAzqqqjS6HVkrQ2pr0VEudpKBwh3gswF8kcKcXxVoetX0oilatH0GHOziHt7gHN
+	mwtYT/Lbc8DVPp8GBaVMD4dveh3lqv8tLc7rdB97NTwcGCV/kRp2WedaJIBALjpJEq/izoDXERj
+	zhlyESEutZ3gt5SZaFtmbf0cBoeeo7JPIgxq8RvdXmQ+jSba0Twj0fa+j0RPjVB+dVmaIaar9DV
+	tpC8nr55nXD8ur0v6OqZIeeL4Vq17hMAuGQjDC0BbJDXIaNEPLDyQ5tI9JSCxwtrUbAR2AT0Afa
+	suVoGitJJdxMVOCjlzh9oeg+EXn/w2CXSCSVJ0q7Try5MZ+N7KtoOhQRRCYH9I3weHmTUoKBrtQ
+	3lepbTMLhjPhUJE2zBJPiarrKP0eo+KFNqEz95lJ2VkchV119pLKtISdWB5wPYZPrSOcYbMnX59
+	/vWdPmDlnSqKOxP8bjTaFKz0qeCo+Vfy4Gs0Dvz7Nw86a12Ai0VZdE9agr6mvNjgnruuYE/qXfR
+	DNIpMyPfZ3p9YiDgfvNjoPO4AhURCmbkudhk04Tzxg4Uca1di+OZvXUMP
+X-Received: by 2002:a05:6a21:66c4:b0:3fa:ab6:387a with SMTP id adf61e73a8af0-3fa0ab63ff3mr129233637.43.1794658725241;
+        Sat, 14 Nov 2026 04:18:45 -0800 (PST)
+Received: from [169.254.3.1] ([143.248.188.96])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bececcca19sm2094389b3a.4.2026.11.14.04.18.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 04:18:44 -0800 (PST)
+From: SeungJong Ha <engineer.jjhama@gmail.com>
+Subject: [PATCH net-next v2 0/3] rust: net: phy: soft_reset may run without
+ phy_device->lock
+Date: Sat, 14 Nov 2026 21:18:22 +0900
+Message-Id: <20261114-exp-phy-rs-maybelocked-v2-0-19a4dd658b6b@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,185 +94,86 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261114-hid-ms-xbox-ble-v1-1-0b114dc5dcf3@proton.me>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBG4avIrDvQEZHqVUoXSfytU6yWjC0B8
- e6muvwW761kiAqjtlgp4qem85Qhl4LC4KYnWLtsKq9lLSIVD9rx2zj5ObEfwU6qpscNrvGOcvW
- J6DUdx/vjtH39C2H5b2jbdmBj81RzAAAA
-X-Change-ID: 20261114-hid-ms-xbox-ble-a149fe8ea9ba
-To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Adolf Hirthe <ohirthe@proton.me>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794658674; l=6231;
- i=ohirthe@proton.me; s=20261114; h=from:subject:message-id;
- bh=3KqYch9IC5KkG2VI5FWUeMfB/Y98raE9CsBxJbtB8cw=;
- b=OMPzsDF7Oz8RyR0R4c4uGU6xiefdA1aFmRFpk8jkOSmTslOY/bwCTCoqw0MDeip3NclDs71ih
- DUEoIO3A3PdBaXTib9VVgS7TIb2BSXcYU5WSauYLzg/LUdRGPz7NsNI
-X-Developer-Key: i=ohirthe@proton.me; a=ed25519;
- pk=hZO8S9i4hCOzd2Whf3iGt3z8Wqt/A0bO/LLX2i7jWGs=
-X-Endpoint-Received: by B4 Relay for ohirthe@proton.me/20261114 with
- auth_id=1523
-X-Original-From: Adolf Hirthe <ohirthe@proton.me>
-Reply-To: ohirthe@proton.me
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAI5R+GoC/4WOQQ6DIBREr2L+ur8BjE3oqvdoXCB8lVaBADUa4
+ 92r9gBdTmbezKyQKFpKcC9WiDTZZL3bhbgUoHvlOkJrdg2CiRvnnCHNAUO/YEw4qqWhwes3GTR
+ GV1LKktpGwQ6HSK2dz+InOMroaM5Q/5z0aV6k89F7ZHubso/L+WHiJ/FvbuLIsGSi1FqyqiL56
+ EZlh6v2I9Tbtn0B2MjwSdgAAAA=
+X-Change-ID: 20261110-exp-phy-rs-maybelocked-ddc59993efba
+To: FUJITA Tomonori <fujita.tomonori@gmail.com>, 
+ Trevor Gross <tmgross@umich.edu>, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>
+Cc: netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, SeungJong Ha <engineer.jjhama@gmail.com>
+X-Mailer: b4 0.15.2
 
-From: Adolf Hirthe <ohirthe@proton.me>
+The Rust PHY abstraction tells `soft_reset` that PHYLIB holds
+`phy_device->lock`, but phy_init_hw() calls it both with and without the
+lock. This was found while auditing the SAFETY comments of Rust
+abstractions against their C callers, and confirmed with Clang's context
+analysis [1].
 
-When an Xbox Series X|S controller (045e:0b13) is connected over Bluetooth
-LE, its report descriptor exposes the right stick as Z/Rz and the analog
-triggers as Simulation Accelerator/Brake, with the sticks reported as
-unsigned 0..65535 values centered on 32767. hid-input maps this 1:1, so
-evdev consumers see:
+Patch 1 drops `read_mmd` and `write_mmd`, which make the same claim, run
+under the MDIO bus lock instead, and have no users. Patch 2 makes
+`Device` generic over a lock context, and patch 3 gives `soft_reset` the
+`MaybeLocked` one.
 
-  ABS_X/ABS_Y        left stick,  0..65535, idle ~32767
-  ABS_Z/ABS_RZ       right stick, 0..65535, idle ~32767
-  ABS_GAS/ABS_BRAKE  triggers,    0..1023
+`match_phy_device` is left as it is. It runs on devices that may be
+unbound or bound to another driver, which is a binding question rather
+than a locking one; I think it fits better with moving `phy::Device`
+onto `device::DeviceContext`, as `pci::Device` does.
 
-while the same controller over USB (xpad) reports the usual layout:
-sticks on ABS_X/ABS_Y and ABS_RX/ABS_RY in -32767..32767 around 0,
-triggers on ABS_Z/ABS_RZ. Software reading the plain evdev device therefore
-picks up the right stick as triggers, finds no right stick, and sees the
-sticks permanently deflected (characters walking in one direction).
+No in-tree driver is affected, so if this is not worth doing before
+there is a real user, I am happy to drop it.
 
-Add a quirk that remaps these usages to the xpad-style layout and recenters
-the stick values, and enable it for the Series X|S controller.
+The audit, the patches and their changelogs were done with an AI coding
+assistant (Claude Code, Claude Opus 5.5) and reviewed line by line by
+me. Compile-tested only.
 
-Tested by replaying reports through uhid with the report descriptor
-captured from a real controller (firmware 5.09): before the change the
-sticks idle at 32768 and the right stick/trigger axes are wrong, after the
-change all axes match the xpad layout (sticks -32767..32767 centered on 0,
-triggers 0..1023 on ABS_Z/ABS_RZ). Also checked with the real controller
-over Bluetooth (buttons and stick values around center).
+Changes in v2:
+- Keep `&mut self` on the moved methods, so that `match_phy_device` does
+  not gain register access (netdev AI review)
+- Give only `soft_reset` the `MaybeLocked` context
+- Drop `read_mmd` and `write_mmd` instead of leaving them `Locked`
+- Document how PHYLIB calls the `Locked` callbacks, and fix the
+  `from_raw()`, `phy_id()` and `genphy_soft_reset()` SAFETY comments
+- Link to v1: https://lore.kernel.org/r/20261110-exp-phy-rs-maybelocked-v1-0-3023cc9055e9@gmail.com
 
-Note: this changes the evdev axis layout for this device. Userspace that
-already special-cases the Bluetooth layout (e.g. SDL mappings for the
-evdev backend) would need to follow; if a HID-BPF fixup is preferred over
-an in-kernel quirk, I'm happy to rework it that way.
-
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=222266
-Assisted-by: LLM
-Signed-off-by: Adolf Hirthe <ohirthe@proton.me>
----
-Bug report with full analysis and the uhid replay test:
-https://bugzilla.kernel.org/show_bug.cgi?id=222266
-
-The replay test (Python, uses /dev/uhid with the report descriptor captured
-from the real controller) is available on request or from the bugzilla
-entry; 6 of 7 checks fail on the current driver, all pass with this patch.
----
- drivers/hid/hid-microsoft.c | 64 ++++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 63 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/hid/hid-microsoft.c b/drivers/hid/hid-microsoft.c
-index a7d3493..0879602 100644
---- a/drivers/hid/hid-microsoft.c
-+++ b/drivers/hid/hid-microsoft.c
-@@ -27,6 +27,7 @@
- #define MS_DUPLICATE_USAGES	BIT(5)
- #define MS_SURFACE_DIAL		BIT(6)
- #define MS_QUIRK_FF		BIT(7)
-+#define MS_QUIRK_BLE_XBOX_AXES	BIT(8)
- 
- struct ms_data {
- 	unsigned long quirks;
-@@ -186,6 +187,41 @@ static int ms_input_mapping(struct hid_device *hdev, struct hid_input *hi,
- 	struct ms_data *ms = hid_get_drvdata(hdev);
- 	unsigned long quirks = ms->quirks;
- 
-+	/*
-+	 * Xbox controllers over Bluetooth report the right stick as Z/Rz and
-+	 * the analog triggers as Accelerator/Brake (ABS_GAS/ABS_BRAKE), and
-+	 * expose the sticks in the 0..65535 range centered on 32767 instead
-+	 * of the usual +-32767 around 0. Remap everything to the xpad-style
-+	 * layout so that consumers get the same axes regardless of the
-+	 * connection type.
-+	 */
-+	if (quirks & MS_QUIRK_BLE_XBOX_AXES) {
-+		switch (usage->hid) {
-+		case HID_GD_X:
-+			hid_map_usage(hi, usage, bit, max, EV_ABS, ABS_X);
-+			return 1;
-+		case HID_GD_Y:
-+			hid_map_usage(hi, usage, bit, max, EV_ABS, ABS_Y);
-+			return 1;
-+		case HID_GD_Z:
-+			hid_map_usage(hi, usage, bit, max, EV_ABS, ABS_RX);
-+			return 1;
-+		case HID_GD_RZ:
-+			hid_map_usage(hi, usage, bit, max, EV_ABS, ABS_RY);
-+			return 1;
-+		}
-+		if ((usage->hid & HID_USAGE_PAGE) == HID_UP_SIMULATION) {
-+			switch (usage->hid & HID_USAGE) {
-+			case 0xc5: /* Brake -> right trigger */
-+				hid_map_usage(hi, usage, bit, max, EV_ABS, ABS_RZ);
-+				return 1;
-+			case 0xc4: /* Accelerator -> left trigger */
-+				hid_map_usage(hi, usage, bit, max, EV_ABS, ABS_Z);
-+				return 1;
-+			}
-+		}
-+	}
-+
- 	if (quirks & MS_ERGONOMY) {
- 		int ret = ms_ergonomy_kb_quirk(hi, usage, bit, max);
- 		if (ret)
-@@ -232,6 +268,22 @@ static int ms_event(struct hid_device *hdev, struct hid_field *field,
- 
- 	input = field->hidinput->input;
- 
-+	/*
-+	 * The sticks are reported as unsigned 0..65535 values centered on
-+	 * 32767; convert them to the +-32767 range we advertise.
-+	 */
-+	if (quirks & MS_QUIRK_BLE_XBOX_AXES && usage->type == EV_ABS) {
-+		switch (usage->code) {
-+		case ABS_X:
-+		case ABS_Y:
-+		case ABS_RX:
-+		case ABS_RY:
-+			input_report_abs(input, usage->code,
-+					 clamp(value - 32768, -32767, 32767));
-+			return 1;
-+		}
-+	}
-+
- 	/* Handling MS keyboards special buttons */
- 	if (quirks & MS_ERGONOMY && usage->hid == (HID_UP_MSVENDOR | 0xff00)) {
- 		/* Special keypad keys */
-@@ -328,6 +380,16 @@ static int ms_input_configured(struct hid_device *hdev, struct hid_input *hidinp
- 	struct ms_data *ms = hid_get_drvdata(hdev);
- 	struct input_dev *input_dev = hidinput->input;
- 
-+	if (ms->quirks & MS_QUIRK_BLE_XBOX_AXES) {
-+		static const unsigned int sticks[] = { ABS_X, ABS_Y, ABS_RX, ABS_RY };
-+		int i;
-+
-+		for (i = 0; i < ARRAY_SIZE(sticks); i++)
-+			if (test_bit(sticks[i], input_dev->absbit))
-+				input_set_abs_params(input_dev, sticks[i],
-+						     -32767, 32767, 255, 4095);
-+	}
-+
- 	if (!(ms->quirks & MS_QUIRK_FF))
- 		return 0;
- 
-@@ -429,7 +491,7 @@ static const struct hid_device_id ms_devices[] = {
- 	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_MICROSOFT, USB_DEVICE_ID_MS_XBOX_CONTROLLER_MODEL_1708_BLE),
- 		.driver_data = MS_QUIRK_FF },
- 	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_MICROSOFT, USB_DEVICE_ID_MS_XBOX_CONTROLLER_MODEL_1914),
--		.driver_data = MS_QUIRK_FF },
-+		.driver_data = MS_QUIRK_FF | MS_QUIRK_BLE_XBOX_AXES },
- 	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_MICROSOFT, USB_DEVICE_ID_MS_XBOX_CONTROLLER_MODEL_1797),
- 		.driver_data = MS_QUIRK_FF },
- 	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_MICROSOFT, USB_DEVICE_ID_MS_XBOX_CONTROLLER_MODEL_1797_BLE),
+[1] https://docs.kernel.org/dev-tools/context-analysis.html
 
 ---
-base-commit: b29833c4841e0ed8870a227c9a7c468b0cbfc906
-change-id: 20261114-hid-ms-xbox-ble-a149fe8ea9ba
+Changes in v2:
+- EDITME: describe what is new in this series revision.
+- EDITME: use bulletpoints and terse descriptions.
+- Link to v1: https://patch.msgid.link/20261110-exp-phy-rs-maybelocked-v1-0-3023cc9055e9@gmail.com
+
+---
+SeungJong Ha (3):
+      rust: net: phy: drop read_mmd and write_mmd from Driver
+      rust: net: phy: make Device generic over a lock context
+      rust: net: phy: pass a MaybeLocked device to soft_reset
+
+ drivers/net/phy/ax88796b_rust.rs |   8 +-
+ rust/kernel/net/phy.rs           | 206 +++++++++++++++++++--------------------
+ rust/kernel/net/phy/reg.rs       |  17 ++--
+ 3 files changed, 112 insertions(+), 119 deletions(-)
+---
+base-commit: 573af801552999954caa8347e4490b04cf4763f0
+change-id: 20261110-exp-phy-rs-maybelocked-ddc59993efba
 
 Best regards,
 --  
-Adolf Hirthe <ohirthe@proton.me>
-
+SeungJong Ha <engineer.jjhama@gmail.com>
 
