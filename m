@@ -1,114 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794686859;
-	b=5S+wydNd8q+ivQpmAH3yes6y1aMZrYZvP+PQ4PIezxgoBZnsC/c7mM+K+2Vxn/QQUQkf
-	 mc00uda2CQdAU/FO6ITS8I7S432po3jQ33roVMh4dEsEzTi6bKPU/PzGfVAqN9WvQtyI2
-	 T2PEHhX8Sd7wJqRKHSSaZJOQg6WSsD2kH/StfE+T9TScpFISLBRBAbZAQsK7Iumso+i3p
-	 EpJ+yRP8clRx89ymS58lUnUm6vxpIHWnmAa2cTbqyRIHVQxzGDgoai/rGDE/XbzJwfyDJ
-	 Y8BtdW5vIro00BlpHLMaIsqLxU8nkXdJlIzQe3Pt1jHCj8mjzHsHSQ/tMCANQ7tWkkQ==
+	t=1794686864;
+	b=0Ey3ryPpudmpZWtXdFuc0fJl1zCXcOB74z2CIwEQE3HBBM0k5gK7EuFJtFSyzbNkKbnC
+	 yR2vBw+xo7vq2t8DaTzaMsUvDdxuSQ4bb5nqlGuCrd87tTJ/1MNxydIl34uOtv9L2vmUl
+	 lMFz+5zddHYnwJNfy1LjQbd5kFSjxVnGEt0QtFu3yl44qnhgVwUh0Rbilsw8y1WJlg+xK
+	 pQtap+mU4PM4m303rMwQ8yRpQT59CVujD4waSy225fEs5Zw8MflQvkLa0bHufTRL5arp7
+	 iK29RyukO8f9ndQpnJILdfzvgIYj3YV2EpzEOs7uxoWZVa2oSZUvdAV1m4w53/iLS4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794686859;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=R7dtlKbfcr0G/r1hntPJsms+e0JAvg0N9xC2Og7VBO4=;
-	b=0uB++1qw5/UFH4lzCnhsEHwq7uUv907YMPZyxJFepgYoX76VWBbme+0Onv5CKUW05Q+j
-	 RrwuQ1ssG/Nz2Op3MNy0M95Hc19Q2ghQrmBAtZ0jcyGJGcUvsoWn93slvmvgaHN8xbJgc
-	 L48XXP6x4fij/4zGVhnxCttj61igJJ84nzR2WGb5UyO0H1HpyhasUrgMsMZbQeOaHwWtT
-	 AuiIo9AtWUwNz0cHMcws961wZ22O1dswJh/sviJC8WQvDt27rS5CK7J1FmPwFsHvh+vjC
-	 G9+fcazfqbegZQB5GriU6EC4Tcr9o393rmTnvUoDuGzDmwyzMFI1tRLe42ttXmTkEvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794686864;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=3+Mi+0As9yWa1QIgih8IQJVUI4B5Rpv+6dy+sgBCLxs=;
+	b=ftIHSQPr3jUea1C2hWMKU7OUVTddkDA70p1BZ/S3RRztV43V/0+kreaSRRYeLf+HCn6C
+	 BnK1V8bsjU0cBdC+dXbTS2q6mgR1nAsJecpLipsXeNxQJFIiRWF7ZWa6wccdpaVs2F1J/
+	 PktK88XpEqGEmvIxA9b+ga4Q7yLgxdh3wxAce6ucKwebslIkaxWheDj0vcIhYN6aUvbdo
+	 SgpZOQAKyMDHcl8he1Qi+gxH3Fc3uYV1wRZoM9fQp/Uu14GM74xpuQJDbwNwxJGxNrDPr
+	 o61JWXktG7G3Ae6Ws7MzMCsD5Ut3t5tI79BQTs7LsHj/bLPWN4Y1eBL6WH4zQWa6E1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IvfAUSKj;
-	arc=none smtp.remote-ip=209.85.208.173
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=ragnatech.se;
+	spf=pass smtp.mailfrom=ragnatech.se;
+	dkim=pass header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm2 header.b=ru8Z3QhX;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=1rmPxW23;
+	arc=none smtp.remote-ip=103.168.172.151
+Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5B94606A327
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 20:07:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5B94606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1C2A606A335
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 20:07:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1C2A606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IvfAUSKj
-Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3adff684a52so25841961fa.1
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 12:07:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794686857; x=1795291657; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=R7dtlKbfcr0G/r1hntPJsms+e0JAvg0N9xC2Og7VBO4=;
-        b=IvfAUSKjFe+lIwItADASVZx37xao2k+85nJ7ppGs3A/dDclCCLxikwEy6Z3VdsHaZV
-         y9AzJxLa4EF8tWxeEZvG9ctnIzRUHMr7egjQ1jQpf3UIsUn7rE0n/xAGz88CIiYO6n8p
-         +DMsf7/3OhbEjupQ3Hjkw2ttPFTiA2tcMg4VHaRDB+GCFLGtvqPxWNvgd8lsMkTG0KMP
-         Gyo8ViqfJqR3w7O6JUHJvw4Ue6e9PmGssyG7kTpaw6pbbrjnV14RA7P2uRGP4RpiMRKX
-         3LpndelVu8Fgd5VzWtgGaG5iSmiynimUFYvU2CvXekRyEzQ11JlDoIxzreJZoBwz58FY
-         Osnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794686857; x=1795291657;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=R7dtlKbfcr0G/r1hntPJsms+e0JAvg0N9xC2Og7VBO4=;
-        b=SwtoCFrSjcTRxYi2OGGrGYPALEEuLIEMO9JZicNI6lt+J5Cj0Bf71Coa0WYJo78b/P
-         eUg62A8htyCo2NeINsMlD3X2fR04gqx+5jMvD1kz86EMhocv+2gvfZSXXOPBr7kkMlc4
-         TDVP4wJxRnEG23wnDKv6vu7Elmh6mqqV74lFE7f82KSinbqWtuQguSMw9oYOtrGsjUCC
-         mpd8kgRWjeAOi+JDFA9JFj7LhI/gBwqyKKpiQg5Gr0945bj8IaGhoSn1OEIYvJ7mD7jy
-         3NnPL2O58UswYcIfycbXl7f04idzlf6bY4kv56P+Q7XyW1kKjRNr8fInrDnYJTluJjPF
-         mGpg==
-X-Forwarded-Encrypted: i=1; AL+hErHIrBN3TaOKvLGH59M2j/+YE6rwhz/8E86JKD+AWPltW27wMlMCRhxxm0eY/suX7RNuYOs49VE2Dk8EJ4I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/GVHQe9CN5ev0kIsbBE3OfasyGQEoco8cyWFqsbcBiLAWI1xhs
-	WxuTjAH/u8P3nX67NUKr9zLftETCKmBaggjweljbkdG7/MxCEUFEwz7i
-X-Gm-Gg: AYBFou2HIj3BX4WiFOQ4OhlSoiy5yCmJ6yUVNlRvp2QLKmV1h5piuG7gYl46SOqVAAC
-	W5Wcr3gwiNxfLam7QKLoYCuPvvZmbyOamQYpLpJJKBVQDX5WaBbv1TqvD0VontX3yZhq2936NJN
-	bkMR/mHy3eVS9CI2lt47vqoDP+K7OGoEsAgMHnOCWdV4K14LafjXqJoBMxVKy1nPZVp5TTI9Z18
-	k8co9HZCZLKgS44Ra5olNN4+4pLTD815/U7qhvex+7NLU6qSyqnYEDoJWkbLGvrKwpMTxfX53qh
-	HwXG7nEG0oS+Lpzv3WwBrHXpY2OSZlNNsr4vPjIhTOMeDsYXyqrLK8L4P7TaDJ+dRkdKzp3c/5h
-	9kUTR0KqcZa7mI8Aqeu9wDNcTeZxa2mRj071eXxEyHAVUjHXlMj4bRBC1yMX8hA5njIZbe7XmIR
-	mXUTYyiXZeoRgAqyudC0dvXQO6Ygu1BT/0B2LNvg2VcrQxtPWDQ6umM2SUHndRHZgd1KKCLI6m9
-	lZ678OpumB6VgsvNbOWXQzVqCnZbWbj6rFAZl4QKOklfTTApf3dibHLAAPyB2md1UI49wHKhKBY
-	XZQN4uFNgS1hkzuqGhjNn0EKIq33afQrl4rE3O8=
-X-Received: by 2002:a2e:be24:0:b0:3ab:4e70:6959 with SMTP id 38308e7fff4ca-3ae1c0008bdmr24199811fa.19.1794686857016;
-        Sat, 14 Nov 2026 12:07:37 -0800 (PST)
-Received: from IuseArchBTW ([194.28.181.64])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1712da125sm1891070e87.1.2026.11.14.12.07.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 12:07:36 -0800 (PST)
-From: Ivan Tverdokhleb <mbkchelofficialdev@gmail.com>
-To: rust-for-linux@vger.kernel.org
-Cc: Danilo Krummrich <dakr@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Matthew Auld <matthew.auld@intel.com>,
-	Arun Pravin <arunpravin.paneerselvam@amd.com>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Will Deacon <will@kernel.org>,
-	Waiman Long <longman@redhat.com>,
-	Lyude Paul <lyude@redhat.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] rust: sync: lock: allow fallible initializers in Lock::new
-Date: Sat, 14 Nov 2026 22:07:00 +0200
-Message-ID: <20261114200703.33229-2-mbkchelofficialdev@gmail.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261114200703.33229-1-mbkchelofficialdev@gmail.com>
-References: <20261114200703.33229-1-mbkchelofficialdev@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm2 header.b=ru8Z3QhX;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=1rmPxW23
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfout.phl.internal (Postfix) with ESMTP id 16ED9EC016E
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 15:07:43 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Sat, 14 Nov 2026 15:07:43 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794686863;
+	 x=1794773263; bh=3+Mi+0As9yWa1QIgih8IQJVUI4B5Rpv+6dy+sgBCLxs=; b=
+	ru8Z3QhXQr4BSmwXp1XUdTurm+rLlX+4G8JXr+9Lia6LyV1BDrQH+1VymgBGDy0J
+	k9noBHZUkIwijSTLPmZINEfKL9hWMz0Cc+sr62RAUcvMM6LhM4/LcOqF99vocAX+
+	jadTfKSBB8fDhjUhWNqbPkxsa5/pXXSVh7rspFbLQIDGunzgYP4XmOjbwwXujSCn
+	QmBmlaN+ztLXiWfiWPYtrQCJj5Q2GJpDX3tUcma95GcRGaErq3fBbaDY3ZZIvHmH
+	5qkENrgRcljCqpDU3tUDbSsYdWeD5FSEfU9s7xacXAGu0MJIj8STYBFVmEPdfkR2
+	8ucvQIJGO/Vf3XlA0bxJnw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794686863; x=
+	1794773263; bh=3+Mi+0As9yWa1QIgih8IQJVUI4B5Rpv+6dy+sgBCLxs=; b=1
+	rmPxW23/GqRX2v75fni2jpkGwsQjoSRxwh/u5MQ+7kV5rkHrNTynrmcbCprBwxJb
+	sajSsQGCRAfyO0pL/bp12F1LGkKwxDOsnSAkuVQcCVSXlDyrYoXJOQH6ohNVXxWC
+	5ad7vW6v3uBHXqzze5gd3Bhu5P9NqvK4TQnWDbibP2uelGvdnxjYVbZkKoPxYHOd
+	+SL6uZ20u58Uxfz58pbxTmtLo1uUIWoQZEvudLPIrCnOI4Rb4fc9Wvkxr3GE6wCL
+	4H3RAWeSkV/W9C6/zZGUbcICl917sCDfZbPQcHmWnMpE4nycOLTWltjmGMNL6CJX
+	2OaSM91AMclQdv7CgWbIg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=ragnatech.se a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794686863; d=ragnatech.se;
+	mf=PG5pa2xhcy5zb2Rlcmx1bmQrcmVuZXNhc0ByYWduYXRlY2guc2U+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:Y9pj/QCfeEStxX28KadChEEfhpJ3qWKE4g2EP/ZHjbcd9Ft
+	nCWy+9huHmFyfVZE2vBZTUbQioBBN0mQr1oZ6TN83oyxjSJj6hyxGmmzQbsCYu0Z
+	CkBdK3Ru75QQG4iVnjFqq/BPA2DGRKPtvDOVbVNYlnV+CKNap/VQywI8J5/vzo4H
+	BhqeCDRpqZQeoXtsiC5qpIxvayJXPLlsSsWvFmWcUzC3fGFWERbpKPYV4y5qsNq8
+	M3FVKzrMqJErG7XT8xkuAxRuKBdla25ij+BzASf3Gd05bOAjDuHQPqUQjBUTfnbo
+	K5GdIcZ0Vq6Sth0kVWE+uwwVolZR1zNt82xikWQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-disposition,content-transfer-encoding,
+	content-type,date,feedback-id,from,in-reply-to,message-id,
+	mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:VwWjgyrvrnrgGpsVe/hZZBQ2gB2KX7jOmUca8xTCb2c=:qttev0S1MJ1EQmoFvMzMbrGGrmjy+hX+stB9+wWwIsU=;
+X-ME-Sender: <xms:jr_4avPiQmSVteFSXjtBBMqPtbb-Iww7qgTQ68ym2RNzvOEhibhsaQ>
+    <xme:jr_4ai5NYb7z6dv7j6r8adgdBKexzVVi5ZDx13fYMdpO135fFO9VXSnhdJOrlog-_
+    7L-m2LKi10yBDkKzvZVeMuJJDvFhPAgcnFctjpQogKZfrD1g3SwsxrU>
+X-ME-Received: <xmr:jr_4ap14ZtuKQi9vguWZCbmvPm2Wi4fOD-gt8a8t8ub-RKMjiYU7EA_ZkVvn2pXWED--Fh6JMSSO-dE9YUwEjNIgRiBGLho>
+X-ME-Proxy-Cause: dmFkZTFJZ09NiyEOWjGCVTwEXFzWX3cT9HqLsMYv1xQ14iGJSSU5dVnMKEhFD8/R7frVU8
+    xvZtdnKqFeL/BK5+vxo2WR8fMiNZudGxBiutxOf7v8LQkf2O6lJHWNHu4b6g4nYCqwvINn
+    bYreZnk+Shixp8CtyUq9zhbf5xKUTr/3/eY5RvCHGKHhoIEbmH5ekGIKj/s6GJJ3rn8Uhz
+    Zz4B9zcFLsgf5aaIjExAn2OCQwDQNHUrX+YzyWTVpz5NY0GiTvb4Kwxmg1BENxH2HY4We4
+    qcXlaqahPLgq0DQcenbJjmix6SAzsH+Fep9sLA0OK+UFwuQBTGjRUYrj9dmIoreopFcGWh
+    n1jPrW30lX7W4A1TCbnCAmkKOIDUfxp6v/1TKiJ+qZHSAp3jUxXcxuALDsPEve/iH58U0F
+    g8KM5J6NUMEmeGOGwe5U0hK7Y5Gc4M9XuVi+l0LuoMgwNBy2ysNn9AJJNR9vW8nJAtM5Rh
+    WyLTQBIQU7JXx4eUWcHWSWooIOTTiefLzYEmkO/Ocq3+hHWDIpnkoAdLnYZAGeK0PlEjFE
+    nQ6euMLpcMp04vGRD2UPGF4o8GKbzBEVCvD78KJvQPSjkjC61O7EXkdk3GB1UAlkf7LMte
+    QZLqbJX95vIxluCE76iqpAbHD13pje3g9X3F3ZTk9diQTaJoTkX6e6kg6/qQ
+X-ME-Proxy: <xmx:jr_4ajyqK8lDlX9_ROoF_xDTNnFSXCHepUvBkbNwwBPBy6TC15iAww>
+    <xmx:j7_4aju-nCJBzt3CQcG7WrlmE2aG7YWJXR-9twjp9_K_S1ZlSymQuQ>
+    <xmx:j7_4atxw9_sn8u07TP8AGDX5QKnl31EAOPGsQf-WTDqF2NYrY0h5iw>
+    <xmx:j7_4auCEBtHHnErCxfcGLH0teSrXmXFR1YUEVV27IUoF7jt2awEXSg>
+    <xmx:j7_4alSpPsDvyBhTj60AOLpbdIg3P4qEGLZ6Vr6JgcB8qGSWyouu3qMA>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 14 Nov 2026 15:07:42 -0500 (EST)
+Date: Sat, 14 Nov 2026 21:07:41 +0100
+From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH 0/3] media: uapi: videodev2: Add 20-, 24- and 28-bit
+ bayer pixel formats
+Message-ID: <20261114200741.GE938627@ragnatech.se>
+References: <20260910-v4l2-add-raw-pix-v1-0-80a8e855b41b@ragnatech.se>
+ <avWRlfslqUKfANte@zed>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,53 +127,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <avWRlfslqUKfANte@zed>
 
-Currently Lock::new() only accepts an infallible initializer for the
-protected data, because impl PinInit<T> defaults the error type to
-Infallible. This prevents wrapping a fallible initializer, such as
-Opaque::try_ffi_init(), in a Mutex or SpinLock.
+Hi Jacopo,
 
-Make Lock::new() generic over the error type E, so that it accepts any
-impl PinInit<T, E> and returns impl PinInit<Self, E>. E must implement
-From<Infallible>, since initializing the lock state itself cannot fail.
+Thanks for your review.
 
-This is needed, for example, by the GPU buddy allocator, which has a
-TODO to move its gpu_buddy structure inside the mutex.
+On 2026-11-12 11:16:09 +0100, Jacopo Mondi wrote:
+> Hi Niklas,
+> 
+> On Thu, Sep 10, 2026 at 07:22:30PM +0200, Niklas Söderlund wrote:
+> > Hello,
+> >
+> > This series adds the pixel formats and documentation for the 20-, 24-
+> > and 28-bit Bayer formats. This is done in preparation of work on the
+> > Renesas R-Car video capture pipeline which will support these pixel
+> > formats in multiple drivers. For this reason it is posted as a separate
+> > series before the driver work.
+> >
+> > Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+> > ---
+> > Niklas Söderlund (3):
+> >       media: uapi: videodev2: Add 20-bit Bayer formats
+> >       media: uapi: videodev2: Add 24-bit Bayer formats
+> >       media: uapi: videodev2: Add 28-bit Bayer formats
+> >
+> >  .../userspace-api/media/v4l/pixfmt-bayer.rst       |   3 +
+> >  .../userspace-api/media/v4l/pixfmt-srggb20.rst     | 102 +++++++++++++++++++++
+> >  .../userspace-api/media/v4l/pixfmt-srggb24.rst     | 102 +++++++++++++++++++++
+> >  .../userspace-api/media/v4l/pixfmt-srggb28.rst     | 102 +++++++++++++++++++++
+> >  drivers/media/v4l2-core/v4l2-ioctl.c               |  12 +++
+> >  include/uapi/linux/videodev2.h                     |  12 +++
+> 
+> Have you forgot to add the new formats to the table in
+> v4l2_format_info() in drivers/media/v4l2-core/v4l2-common.c ?
 
-Signed-off-by: Ivan Tverdokhleb <mbkchelofficialdev@gmail.com>
----
- rust/kernel/sync/lock.rs | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Yes I have, thanks for catching this. Will fix.
 
-diff --git a/rust/kernel/sync/lock.rs b/rust/kernel/sync/lock.rs
-index 10b6b5e9b024..26c071088b02 100644
---- a/rust/kernel/sync/lock.rs
-+++ b/rust/kernel/sync/lock.rs
-@@ -128,11 +128,11 @@ unsafe impl<T: ?Sized + Send, B: Backend> Sync for Lock<T, B> {}
- 
- impl<T, B: Backend> Lock<T, B> {
-     /// Constructs a new lock initialiser.
--    pub fn new(
--        t: impl PinInit<T>,
-+    pub fn new<E: core::convert::From<core::convert::Infallible>>(
-+        t: impl PinInit<T, E>,
-         name: &'static CStr,
-         key: Pin<&'static LockClassKey>,
--    ) -> impl PinInit<Self> {
-+    ) -> impl PinInit<Self, E> {
-         pin_init!(Self {
-             data <- UnsafeCell::pin_init(t),
-             _pin: PhantomPinned,
-@@ -141,7 +141,7 @@ pub fn new(
-             state <- Opaque::ffi_init(|slot| unsafe {
-                 B::init(slot, name.as_char_ptr(), key.as_ptr())
-             }),
--        })
-+        }? E)
-     }
- }
- 
+> 
+> 
+> 
+> >  6 files changed, 333 insertions(+)
+> > ---
+> > base-commit: f9536a8065d9eed0d9114878c56ffc4e5a18bdfc
+> > change-id: 20260908-v4l2-add-raw-pix-50ca1182ccd2
+> >
+> > Best regards,
+> > --
+> > Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+> >
+> >
+
 -- 
-2.56.1
-
+Kind Regards,
+Niklas Söderlund
