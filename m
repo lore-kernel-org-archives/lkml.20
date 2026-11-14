@@ -1,99 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794637283;
-	b=KzuKqPS3wKMMVH79hDHuVpxnNUOGYOZ58EIxOoyRm7p+2eHKgO5LriF2rHwNakP++GVq
-	 A/YMsuWVEa6hpfqUcTKVpJBGlAXhBuRETosRcY0ZEZOzX0zy1D5kCMl7174oy/V3sCv4+
-	 NJwMwq0OaRWnHFFKWSqk4EaLuOoHISoMvsv9wrR6967DpcLVCee+FTDm2yWVXaCwkeAia
-	 E8mU/CzhiT9STBFFp2+yIYQkBLjqaF490QPb4sZwIQ7nNBxN9XJ4QtV5eD0FBtZ+HuSGf
-	 p30iILo6fzCtEB1JsSJbOeGnXSjI9wtJ/CDa7mnNqHkV4lQBWWT1F+wPTmNKtKscTlQ==
+	t=1794637297;
+	b=RbWQns5BVtaf+az3kX94xU2ne3t7iG4vnw9uEQrgNfwvATfpU2f0DL8Cmht6k90fGYY3
+	 /gTj4X/AGlDG1+RgvN/NBqrB7XWJdqzVnboMpKcK0MVujNC9vvOrjkV0Tio7WOP+t4AMY
+	 NAiRe0QR0xbGj6+XX0Ebwa934gmQ/HVDRHVn13herobqy2vrHl18pk8IeaBkXBm7UiGO/
+	 HT838w4dOXaVuWXZa6yzU4vp+K62sOCmRpdFT6AdsPWfCca+mVgTLRGzoVL3FqAT23t6d
+	 Qv+99ivexQta1xcg5aevXMT1pH/M8UkzTnllNAYnufQ+LUm03jfTad0X1DIiemYB9Gw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794637283;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=abVHe5Yq8xpjvjNcf4nXdIo33DFUomEvkrSWJnINeGU=;
-	b=J1KLpSp8bE3aqEKRTDUu6zzn8+u8/frfzk1bxtreF9jODydzV/T5a6knwvEneRMWXhXo
-	 qGEkzbW1Thcbbn1nbpPVCNI/zXoZLz9O8Rv2etq+Fn/UrWqFyaqzpSDiqADatZBd6B758
-	 cis8A2qCgXLVTZyGiDcJEJkhwJxIo1TafpwTUlLc717NuqyKrmu8JcpgGf8OrFBkMo7M4
-	 jPRxfT3NRSrXVoBX+bhvLSWQVaHs3sXrAxFWdxXT3o/xBXKQGtYdt9X0LUek4ZJ61sQ2c
-	 NxAuJii8PixXz6T9cG4eM0k2ujtm79fHh6PO/nB0nWnFiGxk0Qn57fzMRxWCB2jNNaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794637297;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:User-Agent;
+	bh=yclnK7W7WsLcuUpbRv0WiOB3Y94it+U5d6PyonnZY7s=;
+	b=XToZ7f/Qzflg0veVDOsDgt8K5dBUBmWenvfQ/Lfiqgc90e25NLkqRKu7ewnWitZBnzbO
+	 r9o+84WysIDZxnbAnFfuQQVScdUEpZDVfyPGp9CM2PGbkozl0LtizaVU5xBYhIRgERT/f
+	 Ipqi0OKv8xnwNpbdep1hjNMJewKyBm+PhiUkBGMFmuuCWypQ8WWrtw2qsy0ecYgTZ5yT8
+	 cuo40GM51ssMES5vXGcrh9yX8bx1P/ld72a6R6KPyrsr6OcgWY3TChAdtUU47gVcOj7Tz
+	 0EGsLaJ2dcrXSa21grVly+63qY2uu3bq5Y8tXi1ba1FvUvudnCukCRqiy6Kc9YWKudQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FMrelVvG;
-	arc=none smtp.remote-ip=74.125.82.43
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XRH0Bm4h;
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24B99606A323
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:21:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24B99606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8955F606A323
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:21:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8955F606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FMrelVvG
-Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1aefd1bf74aso1269272c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:21:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794637282; x=1795242082; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=abVHe5Yq8xpjvjNcf4nXdIo33DFUomEvkrSWJnINeGU=;
-        b=FMrelVvGEGRP9SrqMgasxA/KJYJ+/JFNu+5AbzinUjZAP+nbyaLR9aiDX+md5Sdrsd
-         Wi8Xqw6tVdzsLFP3SVg/U73LtR3JsN6AIR/NFrraNGV3XkRlzseGQqVCjT795A0etIfb
-         FTQRXG+bKfIVWPnI3VDSygtCKvvE+B1nPcBKLYUq4O08dmdgQqOiPU6eJADwLq2itgMH
-         yunKcMQGgfTtCA3giaRuWaNJoOpdJ7I5fc7+NrB4YKBINky0c5rnrRZK8Iv5HMAEehUt
-         P9YN4KIQrsPRoT5sAuc9Dw10TPCWZoHvt5h/lUamhw/DPXMtg4w0dMcdp69EN7/Q88HH
-         GMtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794637282; x=1795242082;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=abVHe5Yq8xpjvjNcf4nXdIo33DFUomEvkrSWJnINeGU=;
-        b=ZOtot7+hDoD8imLzUColK/8R+l3Z+9DfdpUUubSRWJXbK5iPjyGWVVwxBi5iqSTkbv
-         ikBcl7W0OofudhGTZmZ8GbUXUB2dac6LsMj0GhGziLGZ7paN0r2QKeQx4cmNttLIRh1j
-         TlPPq3Y3Hj4XQ/KAEhKdnC/AEMfsAC2FKMk9PLnIjUdVolms1WOFbyU9j9QAfFbIpT4T
-         c/ROFiwmgrVZXXNsv3nTuRX53MT5gU84f1ifqtlv7ve/CFi299vEBZ+rL7IR/e2GZEzU
-         e6jbHkGKClGOi1gBZ+amZnJj2Oo/C6lEIorZTSP7NeQ+9uTT4TP6G5vFUO4n1n/w1n6o
-         zLvw==
-X-Forwarded-Encrypted: i=1; AL+hErGSuNmwYS8wykKpg5DyPYUzd0YOH0T+lpA5L6jJvqVMBHo4ym0l0kj9b+IYcxeV0wgG1fGRpfZUl80Q8NI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Z+FuqSxWsB3hbohcDMgXJpEQcNGfzROMqNho8TIxEDQCkPDoP
-	rLUxrKrP7L6WOFM0UunaOIH1Zfch3WytV3CIF+xfAk1fCx9hnlKRWnUZ
-X-Gm-Gg: AYBFou0VfDtZoNTmvyGvvJHh8QHQhem6P2trFJFGMjnsgYll4XXIGf7MHc6pA1um9Th
-	Z2R3onGdoJDkkNx+s/b9spYbEz80FWlFl1ZPCVM/UTFr3YCIsRdbJEEjWBY5tFVdj7D2lB+vdvu
-	FjvRoGIKJH/Kv5YbDLQL7lFrh9r/pWc3D5tETNsovXgG7b0i542LFRaRyumTN3IiHfTSwaW5e7C
-	u54HMk4+U6TJ0J1UAe0fl/TxCXDvROrYLlcoV2zU5Z51hReZef5OfGothKvuW9sjk5j0QRz9JcL
-	sibZ+9M/7EHKDjdqO5pV51SytT+dIBMATiqA4ODnu0M3p0vyY0I22Rf02T4WcEISB54R0hNp+UO
-	cXs6wIGn9xi/8L9CqFZo9FjQ78MOpGSCVGLirpJtv7vbw5CgBqHSFGHQ/H76KbVLaZ3BpXjFDTG
-	LbXG8P+Sf4txXArNsSauAz28jbhxS2mcEljPbKkErh3NsFafc65Cqe32W8J8PL89XmIeKy0tlzm
-	I7M1bHtdTf70ucAigcKUN+jpfWSbGGydDdQU/hs/ZeISOx7segirg9T3UWyWvmeI4KPgdmAPSyA
-	qPIzOGUGoKqKjpfPRITduld8UMNDj+GVZjLOQEHMigNTMkmoueg6VPbJj3ea0/Yz6vEWT9cgHi6
-	WD/I0lw==
-X-Received: by 2002:a05:7022:7e84:b0:1b2:6b17:28e6 with SMTP id a92af1059eb24-1b505b6c46fmr3635557c88.9.1794637282100;
-        Fri, 13 Nov 2026 22:21:22 -0800 (PST)
-Received: from kdev ([131.179.133.114])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50313d990sm15468809c88.4.2026.11.13.22.21.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 22:21:21 -0800 (PST)
-From: Niloy Meharchandani <niloymeharchandani@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	linux@analog.com,
-	linux-iio@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Niloy Meharchandani <niloymeharchandani@gmail.com>
-Subject: [PATCH] staging: iio: frequency: ad9834: use devm_mutex_init()
-Date: Fri, 13 Nov 2026 22:20:21 -0800
-Message-ID: <20261114062021.142296-1-niloymeharchandani@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XRH0Bm4h
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794637296; x=1826173296;
+  h=date:from:to:cc:subject:message-id;
+  bh=xwCI00d9oW5hCsTj74wA4hsJA8xI5cxsC25gj/6ihXo=;
+  b=XRH0Bm4hhlevPOOkY34wiObHsAPWUHRwGsQN7jFXJbaARSxQz3IO6xOr
+   VqVyUS5NVXfJxZsa8eVQYmpqj4rqwe5vNZmHBiUPbquRlI3I3Q8Lc5A4P
+   q92+CJbmfhNSpVNVMrS1zaQHudpKGQYaGnBXNVuT0EZGgsw4QFCSb2n19
+   JzJ5cMry0ZKwAolRpcK/7CuLBxlbYGcxgdLSamV8F8ksBCVDXQDfhxzQE
+   pso3L6iu+JaA8DNAclvZGUfR5j7UVh1623HhhHSvxKUp5LMPMjszFF3jK
+   D/WEPHrRhVNhdnpnjJ0GtbzrhpcI2lf3Sk5z1hU6BOJlG63vK8xpb4Xjc
+   Q==;
+X-CSE-ConnectionGUID: ryh9ubc7QLuCbxzbikxWig==
+X-CSE-MsgGUID: wzJ7XIGlSHW4m8MPXVXRlQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3440189"
+X-IronPort-AV: E=Sophos;i="6.27,213,1787036400"; 
+   d="scan'208";a="3440189"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 22:21:36 -0800
+X-CSE-ConnectionGUID: Jsg0blbER6KIvZwiMVYSdw==
+X-CSE-MsgGUID: 997ehH7oTzSQ5nXO+eeICQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,213,1787036400"; 
+   d="scan'208";a="9531278"
+Received: from igk-lkp-server01.igk.intel.com (HELO 1073a420ae3a) ([10.211.93.152])
+  by fmviesa007.fm.intel.com with ESMTP; 13 Nov 2026 22:21:34 -0800
+Received: from kbuild by 1073a420ae3a with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xS78m-000000001Vx-1IE1;
+	Sat, 14 Nov 2026 06:21:32 +0000
+Date: Sat, 14 Nov 2026 07:20:42 +0100
+From: kernel test robot <lkp@intel.com>
+To: Vitaly Prosyak <vitaly.prosyak@amd.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Alex Deucher <alexander.deucher@amd.com>
+Subject: main.c:(.init.text+0x74): relocation truncated to fit:
+ R_ARC_S25W_PCREL against symbol `__st_r13_to_r15' defined in .text section in
+ ../lib/gcc/arc-linux/11.5.0/hs38/libgcc.a(_millicodethunk_st.o)
+Message-ID: <202611140726.L91HtnSf-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,40 +81,26 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Initialize st->lock via devm_mutex_init() instead of mutex_init() in
-ad9834_probe() and propagate any initialization error. Since ad9834
-already manages its remaining resources with devm_* helpers and defines
-no remove() callback, using devm_mutex_init() ensures proper mutex
-cleanup on probe failure or device removal when CONFIG_DEBUG_MUTEXES is
-enabled.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   97d73c8251226cf27cc6656b4c542869bb8c69fa
+commit: 1d0a26cf37c1b2e9928d2b61af6f282232b5daea drm/amdgpu: add CONFIG_GCOV_PROFILE_AMDGPU Kconfig option
+date:   8 months ago
+config: arc-randconfig-2002-20261114 (https://download.01.org/0day-ci/archive/20261114/202611140726.L91HtnSf-lkp@intel.com/config)
+compiler: arc-linux-gcc (GCC) 11.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261114/202611140726.L91HtnSf-lkp@intel.com/reproduce)
 
-No functional change intended. Compile-tested only.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 1d0a26cf37c1 ("drm/amdgpu: add CONFIG_GCOV_PROFILE_AMDGPU Kconfig option")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611140726.L91HtnSf-lkp@intel.com/
 
-Signed-off-by: Niloy Meharchandani <niloymeharchandani@gmail.com>
----
- drivers/staging/iio/frequency/ad9834.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+All errors (new ones prefixed by >>):
 
-diff --git a/drivers/staging/iio/frequency/ad9834.c b/drivers/staging/iio/frequency/ad9834.c
-index 3d97502d5909..9cb1fcbcb1ba 100644
---- a/drivers/staging/iio/frequency/ad9834.c
-+++ b/drivers/staging/iio/frequency/ad9834.c
-@@ -412,7 +412,11 @@ static int ad9834_probe(struct spi_device *spi)
- 	if (!indio_dev)
- 		return -ENOMEM;
- 	st = iio_priv(indio_dev);
--	mutex_init(&st->lock);
-+
-+	ret = devm_mutex_init(&spi->dev, &st->lock);
-+	if (ret)
-+		return ret;
-+
- 	st->mclk = devm_clk_get_enabled(&spi->dev, NULL);
- 	if (IS_ERR(st->mclk))
- 		return dev_err_probe(&spi->dev, PTR_ERR(st->mclk),
--- 
-2.53.0
+   init/main.o: in function `do_early_param':
+>> main.c:(.init.text+0x74): relocation truncated to fit: R_ARC_S25W_PCREL against symbol `__st_r13_to_r15' defined in .text section in ../lib/gcc/arc-linux/11.5.0/hs38/libgcc.a(_millicodethunk_st.o)
 
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
