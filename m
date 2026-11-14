@@ -1,89 +1,142 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.180
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794634204;
-	b=fjManC0phSOROCgVv5sRbxuLQejZMyaGqqak/prUus/WisAR1IguyYsKoYG8QSBrRY1u
-	 8YGwUISGqvsLvjB7hwqxYURnudH/BTe9Y7MUaCEmg9WYDOmT7kA6n7D2SkGLpYT0z+I9F
-	 8y/suVFM7/5gDjirS8vhpYX/DT0UvRMz74Nchiezrf/K9JiA1chhotaEinsOfpRUqYVK8
-	 35Nhds0S7H+h8QPFcAM9SP+Em30/fHx3h+0mnxvc6gBhYw3ZFa1YPd17sIFDfiaSIr5K6
-	 WgOW1KqjljmjtwT/wX0OeInEaUKuE+x5WJwTtFwPFueYIxe9fowgWuRXHlJoE4tEg1w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794634204;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=feB30mQrQhZDK7EQi84IVLLPpSeQhnjihIk10tU2imU=;
-	b=uC9MYTxZUmbu9M3zMew9CBkdj0PqmCf2IQ8BnSY5MR17EBVnmIrgJvXBnERLRaVY/vR0
-	 zn6GWmZU1YfsFMwVXEkv/i34Sjyjf9nOcbvX5JDbbtl/YlKs7XRz6v7Z6h7CGLr1Y8kNw
-	 U/zAD0AIGgCe7T3tfUUanQQn8lm86rNrDsnqPOozcHYGt6y5rGOXSVuo6XAOF8wQrQKLc
-	 gux6eAJaHTTjPsqFssPiFnCwaUQKnCCCl9C/GPWQVABaqF0m7rUgWMEekHTp3wFJHD0Lp
-	 MKq26DJkQcmK2PXcRCeMGHQsLntrAo7cnt13BqCvNgevcdhaGQTnpH/DK9gXe9Odb/g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xKNP8Rq3;
-	arc=none smtp.remote-ip=209.85.214.180
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.20
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794634768;
+	b=5mL1sVmRrnTzJbHLDOKnPh6W4CrZHccm9cmwAmBcyjV2y2uH2PeB6WaPXrfy2RQz+2aE
+	 S6lw5m7iv86hWz1+Zj9ckyz8vtTJUkoolASomqD90ke2xIR2X5Nim0t0BzPlJEowV412X
+	 SPNwCG3zFWIutCshq/sGOpQ8ATV7qPCKwJM9IUBUZt5bHp6+EszMb38Oy7NzvM6+64ols
+	 TW9pZljUzw0CcGADWgnIRxes8Q67o27O1Kwk2H+uh7YRlvtEGW9Gng0PMicCfos1hcBcd
+	 D637wgetPxrhiokiSTe6+E80fpo4tYsVIAZ5qNkqtSzim3ugprtSLk1MsbjWnLPkadg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794634768;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:DKIM-Signature:Received:Received:Message-ID:Date:User-Agent:
+	 Subject:To:CC:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=66UaRVS9teJM1xSCIXzi2VOl3r2uXhaB1SlGyHwM+5o=;
+	b=TfIlcFn6gAqY6+SxJTxKWXgUzgPSl3cSxEwsM1fh5JBRYZggmbpAiTUs4bFnG7yAEf/3
+	 XchMXGsQcMLPUxp3y2U31h+G/CrYxl1eqs320swsFSPIP4WIzUpFXmMpZgrjPccQOUlE1
+	 Tok5y95r+sfPWO6lznQshMvCo/H20QWB6g4bofsPvmg85O1/kLILeRAMcxqiaAA0dOlO/
+	 3FsCJolz0EOIqaFRB8ao6jwR3EC2XkMxudDmXUIlB+MkXAg1fFqrt2LiR+ZzoKqwYKbjU
+	 AXrg33KP9nTRPCWJOETWNEAtkWLH0RIKvfxpy9Jy88rX2h/BUg1uNccHo0/OANHny2A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QdKkcY8c;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b="INDR/7Ts";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A473A606A8A5
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 05:30:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A473A606A8A5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10A62606A323;
+	Sat, 14 Nov 2026 05:39:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10A62606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xKNP8Rq3
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2ed0890476fso19131645ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 21:30:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794634203; x=1795239003; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=feB30mQrQhZDK7EQi84IVLLPpSeQhnjihIk10tU2imU=;
-        b=xKNP8Rq3c5MhKwI76Wuq+fTw/7dLuwchlW/ggx+qwxVm0T/odp+ptsW4DyOxF13nlt
-         +MdQmi7potl4/GHSLHcJdAaVSbdHye+8iG0paTR8VVFnHqTioAEsn+2U+TG3onvubptx
-         jEtx9dPm1P+1Ypgvw+NiEaZhif8tAT6Z6+YYngDfmsd4KMrSOmJEta+XYEJOYncJ/3Xi
-         zaOhZNPBBoeCWyn7RkFj0Z/k/uotvh3zcMF0PsQm6mH4kMf/Pobw/JY7QMofY09+/psi
-         2UGzWPRk6NGGkqdWf3W17uc7p8pHP6hUV4RH8EIZG7kEjyoJu8gZBUg+0zSbPaWyvuTX
-         lAZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794634203; x=1795239003;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=feB30mQrQhZDK7EQi84IVLLPpSeQhnjihIk10tU2imU=;
-        b=vcJpvGn6mmrj+H996piw4zV4bjojWFjok3jPvN9EiQwGLrX4CXyjX0RsrIokb7zmO0
-         5mrB9escCf3xS7pN/llCQ8OefgZlevyiZIZ7yDLrTQsUJ6PkUmVntnWFieKez+NDv4Jq
-         OyZwL4KkBt3LZhYvRl4TINd/ZDMbAJ8gHcZ3NWG/CHfHUrUA3MJyp85QylpHCqY6Ez3u
-         TEbtEIOkxVtVZXyTI8obIsnwxpJb1lLlImQjGRto0VuSPQP4XEhXs4cVCcRI7jnfNaV0
-         HpNDKMG8E8iejGJHS5Wz3fBNhr9ncr/60u/mlOGaHXFx2QMo5SJ5nOp6eu5RCcD7mnXG
-         Jfcg==
-X-Gm-Message-State: APuU4Z/rqj10Oiie6rqxWfgKcOsINQdFvdqlUpVsULtjWSbd9F2cBl9b
-	XzHMSS51MwI24lEQmq13NKVrhRElkRq5yqeMbL05bECmtdrkUV0LHMdZIdyukwaX
-X-Gm-Gg: AYBFou2uC0XPJdCKrEofwshZF3OZ9h406npuokFFto6/2uvymAfxnSQrN1o5UsTSDnK
-	DrPTCuTn6qZxMhfGtf0Qo7UB8kA1Uopvn/0aEou0+EjQsXoq7M/3xMt+aUt2Hqq2v1aUhuEd/fx
-	VGn+8pLdrPU0mDubkikmH0DXfbhlMUhXvmN8TJHhgSwgVHGzr7MQF5CeWO1z/rNLHIne73Hxmgp
-	u4LQn1HFBxX31QRdI5sRxqtx+hpvO99yBqxZyZSrjFHbq5OZTO0tL1lTVmnX25oVgv76cXh7wtE
-	oXhtg4Ddl9rFXxwJGdHr3/9KSharXF/DiCqPevdlFWRFa6wD97sbrrLEmfI1jXXGFZ6ekgBGya7
-	JbniJiSQR42HRMd7sKssGdHIheTMyrKFuU6kzJDq37Iary9Ol1spy6mK9pRPrduf2OHtUuE6LnD
-	2HfclgvnJOQesndll+L8DQT9bhYt+nIpvynElSzduEPcdH/PkSp8Q0xSGQH/I/SLJ7IWJyP0f4/
-	v8d4SX1y627XpZzJAEVlysibe73dMjo5bequV0dkFnkqK8UkCAabTwIYgyMwLPq5a80uUtZ6GuD
-	r4BJl6a+XWN/+mJjzE9BsqtUVBmNmBkWm5eutL4DoFDn31mJLMawrn6gMXrF7YBf4avs4BvHErJ
-	cMSaPChcZzmk8GJhiw/157fUV775bddKSMmwMgWZD8BT8+oKQHPAMZCA=
-X-Received: by 2002:a17:902:d2c5:b0:2e3:1d30:8654 with SMTP id d9443c01a7336-2ee0dd2f0c1mr50807015ad.10.1794634202540;
-        Fri, 13 Nov 2026 21:30:02 -0800 (PST)
-Received: from 1.0.0.127.in-addr.arpa ([2001:f40:90e:5ed4:d53:b5f5:a144:fe4f])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f874871sm17760225ad.54.2026.11.13.21.29.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 21:30:01 -0800 (PST)
-From: Izaac Chong <izaacchong934@gmail.com>
-Date: Sat, 14 Nov 2026 13:29:47 +0800
-Subject: [PATCH v2 2/2] configfs: pin symlink target against rmdir before
- ->allow_link()
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QdKkcY8c;
+	dkim=pass (1024-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=selector1 header.b=INDR/7Ts
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794634767; x=1826170767;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=YsEdB0DicvGojg05Qaz8F+EsbkWQy5wuzObmzp/5P8o=;
+  b=QdKkcY8cQwMD78B9HYKStdiJHvOLPUPVumTOrohW00l+b4KrXh/gU3vs
+   spuCqDNSZSpSYfgOmxxXFGv7M8yVzS5z/a7G0/2cKjw0zfkC2aMvWicRZ
+   QB1kXeXZGSZLEd5ZBRebabhTWdjYRpVaQjOndt7PdjZSNjz0on/ZzMyis
+   VkN5PBoswc8YSnBhDAXJlwlrO1lODBOrEpEU9pngSF+yjc5v1AjNNJLvx
+   ib9aTilWzMIX1eZCiqJcRYM0ZM1wbOo52pWabZ8s43jjm8ggjXE/UK+1d
+   I9lIu81egnvwQrzmqd/DnbRVkT/onm5d/vs6FppkCjQlMwW4dHoxQ8FL2
+   g==;
+X-CSE-ConnectionGUID: nAzBHG50RFCIwhhf4aZpVw==
+X-CSE-MsgGUID: NSZz8uRbScKGYy2EGkKaWg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11965"; a="3479348"
+X-IronPort-AV: E=Sophos;i="6.27,213,1787036400"; 
+   d="scan'208";a="3479348"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 21:39:26 -0800
+X-CSE-ConnectionGUID: gQcP54sGT3u4cp5DZyKFjg==
+X-CSE-MsgGUID: rXtE3y3aQ/mHyXVJTTWBeA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,213,1787036400"; 
+   d="scan'208";a="9099184"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+  by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Nov 2026 21:39:27 -0800
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 13 Nov 2026 21:39:26 -0800
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Fri, 13 Nov 2026 21:39:26 -0800
+Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.52) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 13 Nov 2026 21:39:26 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=el2zuYjtmDHsTU8UH2c0xp1S52/ZmcgE/Y2M2HkNo6zWgUUTNcaJK1NXDxIGHpKIftJ2nUt9RqIbLS8Bm1x0iXLiS0vl9+x2NvhJadcI1T+Aoo3H9OBHpiTvpzPSAnCku2ieWgSeX7pG/NCcJ440yXfYNEex16MNWg6uwBOquyGu0JLSwUG6EzZR61vaO6+PikUqvgqUbLbbrZvDk1YlT5LQQtAgu/RRtfs/3lkV5tUqEj1EYrPpjHN8Rc6KHBLkdcFa4bvpk3oixe+EWBc1V82Uk8Z63vHP7CDKOZoNRXGS+i8wEZa7lhVsWJl6fJhXe4Zpr6zNUqGnwSE04s0F4g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=66UaRVS9teJM1xSCIXzi2VOl3r2uXhaB1SlGyHwM+5o=;
+ b=vQqd7fm4h5wkd1YUBzSCXB5SV9hmqgOUHnOvvQa7ZJDR3hjIhTDVQ6Jul8iQmbX8ApFsnVN+tE4vy9rWPJuqxTgfY+nNLyMNgXQnZ06HX8SCi9PeRqD0XICr5N8HxAeIJgTkAD+K0k4axauf7TsBUqbd7BrFJbxS6HPP/QvMuR84yRRG82QzUXTHtO1vaFMye7VyYRZ+AfI5bUf/humCIebjxMxy69ax+8tqghLoMr8pG2l8MMDW3HiscJxWYFwajZqgiz3gX6uBcif68bx7vPX4/eeZ5wO1cBB1vtEL4QpLH1JiGqa9UiKbDM2db9L37oXQsiTKfCYvZXsOkseIMA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=66UaRVS9teJM1xSCIXzi2VOl3r2uXhaB1SlGyHwM+5o=;
+ b=INDR/7Tsdhe1YBT0oX7vvlAGYzA3T9hL2pXjPKs37MNNQfKP8hStPUFQT5rRCxyL1RMHz/QzVqtNzQN0/Vv+cIkfggpVe26JrdtIoPN7U//Eg34iqJW2Paq/icA9mjMaR+07W6k6FeWSWj672RtnCDxn51/iLh9v1wRnG8SLA2I=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA1PR11MB7198.namprd11.prod.outlook.com (2603:10b6:208:419::15)
+ by PH0PR11MB9522.namprd11.prod.outlook.com (2603:10b6:510:3b0::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Sat, 14 Nov
+ 2026 05:37:19 +0000
+Received: from IA1PR11MB7198.namprd11.prod.outlook.com
+ ([fe80::2c4e:e92a:4fa:a456]) by IA1PR11MB7198.namprd11.prod.outlook.com
+ ([fe80::2c4e:e92a:4fa:a456%3]) with mapi id 15.21.0615.009; Sat, 14 Nov 2026
+ 05:37:19 +0000
+Message-ID: <02d67da9-13a5-4e38-89aa-30de10df85f4@intel.com>
+Date: Sat, 14 Nov 2026 07:37:16 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] scsi: ufs: ufs-pci: Check hba->vops in system PM
+ callbacks
+To: Stanley Jhu <stanleyjhu@google.com>, "Martin K . Petersen"
+	<mkp@kernel.org>, "James E . J . Bottomley"
+	<James.Bottomley@HansenPartnership.com>
+CC: Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche
+	<bvanassche@acm.org>, Bean Huo <beanhuo@micron.com>, sangram kumar yerra
+	<sangram.k.y@intel.com>, Rajeshkumar Sambandham
+	<Rajeshkumar.Sambandham@amd.com>, <linux-scsi@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+References: <20261111084853.3530107-1-stanleyjhu@google.com>
+Content-Language: en-US
+From: Adrian Hunter <adrian.hunter@intel.com>
+In-Reply-To: <20261111084853.3530107-1-stanleyjhu@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR03CA0181.namprd03.prod.outlook.com
+ (2603:10b6:a03:2ef::6) To IA1PR11MB7198.namprd11.prod.outlook.com
+ (2603:10b6:208:419::15)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,135 +146,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261114-configfs-symlink-uaf-v2-2-48c9cf068a91@gmail.com>
-References: <20261114-configfs-symlink-uaf-v2-0-48c9cf068a91@gmail.com>
-In-Reply-To: <20261114-configfs-symlink-uaf-v2-0-48c9cf068a91@gmail.com>
-To: Breno Leitao <leitao@debian.org>, 
- Andreas Hindborg <a.hindborg@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>
-Cc: linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
- Izaac Chong <izaacchong934@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794634192; l=4170;
- i=izaacchong934@gmail.com; s=20261114; h=from:subject:message-id;
- bh=UIE5mUHlEZhN2q27XJYyysbnwCRZpYvfHe5txtUgaYY=;
- b=nKNzeaQuUVFb4bZ02va2E/wyA2bAbqTpbF218DU8yauUBpyJp/ViJGGH/6nQdW0uvi1/DkasR
- NsB5smgDYncDTvXZvgHXEKJIrO5MErQ+CRPo5tRPxJGu/Yc0dRroXGF
-X-Developer-Key: i=izaacchong934@gmail.com; a=ed25519;
- pk=IFfOWcK2ZRkDtCqaNggolAwpvIidYMt3Oar3NEnvqzY=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA1PR11MB7198:EE_|PH0PR11MB9522:EE_
+X-MS-Office365-Filtering-Correlation-Id: ceacc6ee-6259-437e-6182-08df4211593f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|6133799003|18002099003|261009223027099003|22082099003|11063799006|56012099006|10067099003|261102123227099003|261021123027099003|261021121427099003;
+X-Microsoft-Antispam-Message-Info: MEEeeDRaxrTK+2xqRMIjWk9GxeJgOAjBqjCe9hTaCOsS9/PnpzrIKN0YvJK2hiGkKLImE090mAWor10OS2pnBEZg5HDBf+1Ve+f/Usgf5B6a3EESvt+tOfC75DnfR/y/o2gZEUjNahuUCFaovIqqEbMJR8X82Y+aEYEwZTOJ0nkEVfqxPeMUG1skMsY5Hz01fVjDrRQ6fZHfxRPA0toUoJ5J0+tf4gwJTsV9OVS7y4nWEDJwvw6GntgPVYu98euIEN8rFWOPQHjZZO4TwJEPBAxX9TI33nSEOZnpj03K4oZEXH9LH+PddnNMUoKW8AGuSdC0ovgQBe0bMf5asB/3ikx84+QLy7u2gozNbu4Iko7ZG0ZDkGBzVRa/xBKv8nHFGRVjT276k/iZNt1HutSUaDtML/6gAIweBLLtDfH47UUIZYJU8DItJtF4JZacjM0ItCqJ4LfuMWT21fsXkYRn8UJusKeoNVQEWpyr4fq/9epkeykKJekgT/8SXuCFEmRJKOZ9wZCsVt2mLQHKjzj/GXz7iwbknEzH7Rb4LmxGjfhnNLJjlhgOmbs+9P5cDow3gJQXGZNVxzOmBWWwX0pxhuJ0yIJIZI11aTqzgBjYRdaci5oyS8wSPN4bsJmGym9Cp8CXEKoOTLNhMvnIS+nrTiw+PNRYk2RjKRbTsigw7dk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR11MB7198.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(6133799003)(18002099003)(261009223027099003)(22082099003)(11063799006)(56012099006)(10067099003)(261102123227099003)(261021123027099003)(261021121427099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aGFTS3pLUlAzUzJQVmJRbDRHemd3eEVZS3BZdzRKbWlVckxLU2dZTG8xSU54?=
+ =?utf-8?B?dHh6VHhzbVF6TUdMVWpyNDgyTnZDM0UrQ3kxY00rUUxMUzkyeDJDREVkNXVv?=
+ =?utf-8?B?bGVoODY4MVExT3h2aW8rUlorVFZvaEtlZXlXa3liam9GMXVKbExDY0dpN3ZR?=
+ =?utf-8?B?M3BpTjdWT3ZoZk1LTG9oWDZqUTdoeFdZSEJaSnY2UThiQ3k4OUp6cjlTUi9K?=
+ =?utf-8?B?bEcwU05iMzE4RWZET0c4clh4NVRxY3ZUUWNqOWR4cGxYaTg2UTB1UElzdWVR?=
+ =?utf-8?B?MkNlWGwrUzR0VExQSkIvMnlGS0lhSGVQVVZUQkc2dGJrSG5OeXQvRFQycGdP?=
+ =?utf-8?B?TFNneHNQVm9rU3prZVdzSFVrbG5MZ1RIRWFQTzJlVjhuUXhoc3hNY2NYRXlR?=
+ =?utf-8?B?VGpna1ZtZklFeU42NmlLci9zQXVKRmFuUk53TjVIOVNIRDBjVmxtMkhuOWFk?=
+ =?utf-8?B?S0hIZnhhNmMwQ25XNVdUMEVrcnllZHgwRDVseURUbEJmY3ZMRkYwTXFJSHBz?=
+ =?utf-8?B?SUJZeUJVcHNUSEt5bklEbnpJcWJ0U3B0YWxqL2U4Z1hKWkdoV3JhUGpsTVZC?=
+ =?utf-8?B?UEhYQkhqT0o5b3o1VW9nS204dEdadFlFaW9MSGFWZStWWkFiLzdscjhtcnJD?=
+ =?utf-8?B?KzFjR2xldEhPQWVWTWZLUW1iTXpOeWNWcncweUlxai9uWG5SVlpNbmNzdi90?=
+ =?utf-8?B?c0RXQWR1eUV2MnRrWjRyeXhDY01nbEMrbTVHNE5jQ2VNUkI2UmhSQWQ0Sm1Q?=
+ =?utf-8?B?NHpuUkcvdkxROTNTdGlYMElRMUFieDBBNk9nUENUSmk2UGVSQWo1ekNEclRX?=
+ =?utf-8?B?Z0ZLcGVxUUUreGlYMzdLMkIxSUF5Zm56WXVxL3ZJcnd4OVI1MFpoYUFqaGVL?=
+ =?utf-8?B?dUdhS2w1bWFYZXhma0ZtVURzdWVzOWdIbzBqbnZiQ3JsRi9uZC9yVHJjcWhL?=
+ =?utf-8?B?cW85azZqL2NEQUpzT3JFNVV3ZjFSQ0VDTFNNd3lSejhNU0NXWmx6UUZDNVd5?=
+ =?utf-8?B?WVNtaVlhaXpiNFk1bDZwNW11ZityL25FN1Z5NGc2cXFJUGZlbEsrYytZNEF5?=
+ =?utf-8?B?NXRPcWRIdncrWU9zcW1PR2dKNkFGS2tsaEt1QnBlN1pFNFJRRDUzNnJ6QWxV?=
+ =?utf-8?B?MEhCSHFXUDd0ZlhlclhBR2RjbHgxaTFnb3pKNFp3TzltQmJidlEycnN1Q3hp?=
+ =?utf-8?B?RGlOWGV0MzhiSEVqd1dWTDV3NGoraUpSdUxVRWdKNktRaXlESW0rZjRRSkF5?=
+ =?utf-8?B?Q29sZ2NDNG56T3ZHd2tpMjVZOC9TMVBqYWl0SmJ5cVJteERudGI2UFc3ZlVn?=
+ =?utf-8?B?d2ZLSHVqd1ArT2hzKzNTVjZtc2dvNFBCR2FxaXk3T1M0ZEV6TDV2Z2RFRmRs?=
+ =?utf-8?B?NUFjMTgwemczaUdHaGlIdk5UVTNFaGY3Z2d1eTJyb2Y3YWJ6bjVURXlDR1Vm?=
+ =?utf-8?B?Q2NJaGNVdFZhS0hwcGc5UzN6MDFVaHVpWjMvU3lHUUtCRkwyRmhFeFNuUDVZ?=
+ =?utf-8?B?SFZUejljUmh6Z0RhcGF5RmxtNVkxaFRRQ0pJdXhQOEtlckRZNW9QS1BKWTRK?=
+ =?utf-8?B?bDJYOUhCOXVBK0paT0xZNGl1c01IT2t6QUJTbE9NYUxXSG1UK1pTVC8rdjM0?=
+ =?utf-8?B?dHhZclkzSk9WMmUyVnJKYm9NOVVtVUZVczFUMnp0bW5DSTJ3NUE1STFQa2tn?=
+ =?utf-8?B?cXlTZjA3QklOdm9ld1hzSnNiNEtZTE90ZTY0WWwxVU00YWRWRjBVYjljdVp6?=
+ =?utf-8?B?U3hvZ05CVGxPQ0JhOXByYVFSNWo5THhJdUl0VFQySlZKZ3kvN3BkVGdWeStR?=
+ =?utf-8?B?UDUwSGlPNDlWRHlwTTF6MTJzR1Vabk1ZRW1xZngvK25xRWpUN25oTSt5L2lm?=
+ =?utf-8?B?OXBlZXkxUjB1QUh5Ui84cGY1TmVGMmsvb3dReVowbVd4enowd1hkT0F3b1Z3?=
+ =?utf-8?B?TGhBMm5VWUtQZVE0bTlERkhKMFVvVnNBU1VNUUc5NEd6dzVnVlZmVytxOFJM?=
+ =?utf-8?B?QVFlaytiaHdzSlozTnc1NlV2SnZkWmg1MWlMQUJwUUFTUGR0ejkvOVFVU3dS?=
+ =?utf-8?B?TGNseW5jd3A5aUlGYkxTNU9YK3gybzBBSTVTQ2hWZ3V5QjZMQmJwdmlVdlZ3?=
+ =?utf-8?B?bC9iRVNlOFRLdjZvQ1BGM3UzQXhrODZjZnhtUnhsa2dMV2RVRDNNL0dxZTAy?=
+ =?utf-8?B?VCtISnVrZEwyN04wT1VZY2hTRXduVEdBMTIrUWQ2UFFWMG13T0wzNVg5djJ6?=
+ =?utf-8?B?YWVSN0tHQXRRTW1zakxzRWVlZHVPRTF6VWN2L0tDSHhLT1ErNVZoTmtTVDYy?=
+ =?utf-8?B?UXJYT24yQkFQdDVoNnlzRXNXcHRWTVdHSVFUM214a1RnREcwd2Z1Zz09?=
+X-Exchange-RoutingPolicyChecked: vl4h7UN2U9f91s21RdBe/DKTvjFCEYpfvAMQ9yW6CWihIvGsqs4xj2rB+m+I/6Dn47nloJThEvyV8NtjYRQZSAnPbDFV+AfwT/EtkiuONkGwQVOSFqAe8KlNJDUbwU5T1/NR1MjdSIAxiBdMir/9kqKxyHiBNJu3nxI8glkErjpWHfLNsWusgnJVcBQG62quIP/qWub8kQnpcLIuDDLHQeDmU3pKn/v+Ff2ILrlJn6mww/4udlgg070p+XW45Nuliwma/IJFWKUaq9yLlBxY8OfIOkOMdLrcRB42PPghninPmz6ZMjPuPsChMpwzNF/H+xgsLZQK5vqApQ1lngQV5w==
+X-MS-Exchange-CrossTenant-Network-Message-Id: ceacc6ee-6259-437e-6182-08df4211593f
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR11MB7198.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2026 05:37:19.1715
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0KyTn4Ir+IFflNnXydbZhNpu0VhoVflQbDgjk31H4nKYTWV8EcSz+B2blLzO6kke/8j8Iq57LJZQGv6HhfQvew==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB9522
+X-OriginatorOrg: intel.com
 
-configfs_symlink() looks up the link target with get_target(), which
-takes references on the target item and dirent but does not stop the
-target from being removed. The target is only pinned (target_sd->s_links
-incremented, refusing CONFIGFS_USET_DROPPING) later, in create_link(),
-after ->allow_link() has run.
+On 11/11/2026 10:48, Stanley Jhu wrote:
+> ufshcd_pci_tbl[] defines the Samsung 0xC00C and AMD 0x1B29 PCI IDs
+> with .driver_data set to 0, so ufshcd_pci_probe() leaves hba->vops
+> NULL. Both ufshcd_pci_suspend_prepare() and
+> ufshcd_pci_resume_complete() dereference hba->vops->name without
+> checking hba->vops:
+> 
+> 1. System suspend on an AMD 0x1B29 or Samsung 0xC00C host enters the
+>     PM prepare phase and calls ufshcd_pci_suspend_prepare().
+> 2. ufshcd_pci_suspend_prepare() evaluates
+>     strcmp(hba->vops->name, "intel-pci"), dereferences NULL, and
+>     triggers a kernel oops in the suspending task.
+> 
+> Check that hba->vops is non-NULL before reading hba->vops->name in
+> both callbacks so hosts without variant operations use the generic
+> ufshcd_suspend_prepare() and ufshcd_resume_complete() paths.
+> 
+> Fixes: bb44826c3bdb ("scsi: ufs: ufs-pci: Fix S0ix/S3 for Intel controllers")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
 
-A concurrent rmdir of the target can therefore complete in between.
-unlink_obj() then clears target->ci_parent and ->ci_group, and
-->allow_link() implementations that walk the target's parents
-dereference NULL. With the USB gadget UVC function:
+Reviewed-by: Adrian Hunter <adrian.hunter@intel.com>
 
-  BUG: KASAN: null-ptr-deref in uvcg_streaming_header_allow_link+0xc3/0x270
-  Read of size 8 at addr 0000000000000030
-  Call Trace:
-   uvcg_streaming_header_allow_link
-   configfs_symlink
-   vfs_symlink
-   filename_symlinkat
-   __x64_sys_symlink
-
-target_fabric_mappedlun_link() also walks the target's ->ci_parent.
-
-Take the s_links pin before calling ->allow_link() instead, under
-configfs_dirent_lock and only if the target is not being dropped, as
-create_link() did. configfs_detach_prep() sets CONFIGFS_USET_DROPPING
-before checking s_links under the same lock, so the target either fails
-to pin (-ENOENT) or rmdir sees the pin and returns -EBUSY. On success the
-link keeps the count and configfs_unlink() drops it as before; on failure
-it is dropped again.
-
-Fixes: 4768e9b18dc6 ("[PATCH] configfs: Fix symlink() to a removing item")
-Link: https://sashiko.dev/#/bug/linux-df6ae898-b1a6-4091-be3b-fbe4c177763f
-Signed-off-by: Izaac Chong <izaacchong934@gmail.com>
----
- fs/configfs/symlink.c | 42 ++++++++++++++++++++++++++++--------------
- 1 file changed, 28 insertions(+), 14 deletions(-)
-
-diff --git a/fs/configfs/symlink.c b/fs/configfs/symlink.c
-index 1b2c9048a920..52f0f3a6cd7e 100644
---- a/fs/configfs/symlink.c
-+++ b/fs/configfs/symlink.c
-@@ -90,23 +90,11 @@ static int create_link(struct config_item *parent_item,
- 		return -ENOMEM;
- 
- 	configfs_get(target_sd);
--	spin_lock(&configfs_dirent_lock);
--	if (target_sd->s_type & CONFIGFS_USET_DROPPING) {
--		spin_unlock(&configfs_dirent_lock);
--		configfs_put(target_sd);
--		kfree(body);
--		return -ENOENT;
--	}
--	target_sd->s_links++;
--	spin_unlock(&configfs_dirent_lock);
- 	ret = configfs_get_target_path(parent_item, item, body);
- 	if (!ret)
- 		ret = configfs_create_link(target_sd, parent_item->ci_dentry,
- 					   dentry, body);
- 	if (ret) {
--		spin_lock(&configfs_dirent_lock);
--		target_sd->s_links--;
--		spin_unlock(&configfs_dirent_lock);
- 		configfs_put(target_sd);
- 		kfree(body);
- 	}
-@@ -220,8 +208,28 @@ int configfs_symlink(const struct mnt_idmap *idmap, struct inode *dir,
- 	else
- 		ret = inode_permission(&nop_mnt_idmap, dir,
- 				       MAY_WRITE | MAY_EXEC);
--	if (!ret)
--		ret = type->ct_item_ops->allow_link(parent_item, target_item);
-+	if (ret)
-+		goto out_put_parent;
-+
-+	/*
-+	 * Pin the target against rmdir before calling ->allow_link().
-+	 * configfs_detach_prep() refuses to remove a dirent with s_links
-+	 * set, and sets CONFIGFS_USET_DROPPING (under configfs_dirent_lock)
-+	 * before it checks s_links.  Without the pin, a concurrent rmdir can
-+	 * unlink the target (clearing ->ci_parent and ->ci_group) while
-+	 * ->allow_link() looks at it.  On success the link owns the count,
-+	 * which configfs_unlink() drops.
-+	 */
-+	spin_lock(&configfs_dirent_lock);
-+	if (target_sd->s_type & CONFIGFS_USET_DROPPING)
-+		ret = -ENOENT;
-+	else
-+		target_sd->s_links++;
-+	spin_unlock(&configfs_dirent_lock);
-+	if (ret)
-+		goto out_put_parent;
-+
-+	ret = type->ct_item_ops->allow_link(parent_item, target_item);
- 	if (!ret) {
- 		mutex_lock(&configfs_symlink_mutex);
- 		ret = create_link(parent_item, target_item, target_sd, dentry);
-@@ -230,7 +238,13 @@ int configfs_symlink(const struct mnt_idmap *idmap, struct inode *dir,
- 			type->ct_item_ops->drop_link(parent_item,
- 						     target_item);
- 	}
-+	if (ret) {
-+		spin_lock(&configfs_dirent_lock);
-+		target_sd->s_links--;
-+		spin_unlock(&configfs_dirent_lock);
-+	}
- 
-+out_put_parent:
- 	config_item_put(parent_item);
- out_put_target:
- 	configfs_put(target_sd);
-
--- 
-Git-143)
+> ---
+>   drivers/ufs/host/ufshcd-pci.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/ufs/host/ufshcd-pci.c b/drivers/ufs/host/ufshcd-pci.c
+> index 668b57403e62..f9abbbc436f4 100644
+> --- a/drivers/ufs/host/ufshcd-pci.c
+> +++ b/drivers/ufs/host/ufshcd-pci.c
+> @@ -644,7 +644,7 @@ static int ufshcd_pci_suspend_prepare(struct device *dev)
+>   {
+>   	struct ufs_hba *hba = dev_get_drvdata(dev);
+>   
+> -	if (!strcmp(hba->vops->name, "intel-pci"))
+> +	if (hba->vops && !strcmp(hba->vops->name, "intel-pci"))
+>   		return ufs_intel_suspend_prepare(dev);
+>   
+>   	return ufshcd_suspend_prepare(dev);
+> @@ -654,7 +654,7 @@ static void ufshcd_pci_resume_complete(struct device *dev)
+>   {
+>   	struct ufs_hba *hba = dev_get_drvdata(dev);
+>   
+> -	if (!strcmp(hba->vops->name, "intel-pci")) {
+> +	if (hba->vops && !strcmp(hba->vops->name, "intel-pci")) {
+>   		ufs_intel_resume_complete(dev);
+>   		return;
+>   	}
 
