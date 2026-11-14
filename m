@@ -1,78 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.171
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794625444;
-	b=GUacEMOlh4Oy6RL4PPqKgDeKPhJkyzn2HK/K/IyTyc3BkH2A8nlCcpvNCQgieCbjnBgr
-	 HBSBTHDDJIK1oB61gn+2n3JaPz2buaAZCEPzUQX15e2x8tQshmaDdYzPvyz4KqWwLH103
-	 hiWY2PWwMWQX2thsGjemJN5AAzDyIuzqLLbOMZCa7IZwQzycljcfBlKyIly00vmtzK69j
-	 uSbHEhHFK5rvEF03mSx9ZXVGPcOEHUlwDEdya+PRingA56qdtKZtdQrg2CkMcqbMzlKfS
-	 QxYQezRZNKFRF+2qgeANETAqxf6+kcmBpluG/wJOm/gBVPPGWqu/9ZPoaZ0ZE82UzEw==
+	b=EeRTstT4pFPS+h9HtVg/aPEbEx2vYhSomuNHXzXocmCpSq5hyYN8DXQ3+7B42FHKT58z
+	 PJkYljJRDMyMogr9YkYBy5YHrznEqIJda9t8YJtL5PMhfmdBUSlLqmt6rOIsAVA5Z0cg9
+	 Yur7mx8w1hFgbr9axBzj2Y2Hoogcnwo2jCGxhcZ1hUhhy2hkloIu/x0TapvDVw8rG9Ddb
+	 gkizowRMkLJgENrGmcNbxPSvVxbc+qYJGnskWFsB/Rokn2g/QsUgLyU88UAYtalUeP9Qi
+	 inTEJcnHGVcmgCZwxJvGwk7I3NHm2uZrJaf4IJ2IWlLPHVvLn+/sS4flupkCc6GsPag==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794625444;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=w9Dp/BExVuYBhie14zpKuAXc3M5SmXjuDTI3gzH/v2Q=;
-	b=XbcLa35eocZ1KYR7teT4ldubBj1dOYMGZhed4yYVNLwY7GzVqDESmfnsQbRSKfVn1czK
-	 7piqk183wQOGSXySBzNK8aqMdLN/f3+voGeSA/O/VKKI98pS1/T2q6hfUuQ3ZNDHGPI72
-	 aU4rxJNkPPBfqUwZ838V7AB8UN9/UpE/W4fLvovUp6U9yTo3Pm04ptoh5zeBAbCfBc4/V
-	 5gDwoZazXrZnvJKwdQg0EZMN7SYUwikGVFjAZnEBFIWPupIM8NWA4I67c7D77O07zbRWM
-	 lrklZLHU8eew6867X7dBZI/cCF3V8wm0qYZHDYdpf7eCv0XowgBI3VD5OhwrC9aYA6Q==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=XWwADe8GLoNoLjF/oyz1/OFei2FLfxnSw0Wa2LHuGjY=;
+	b=Wmp1jkUJl25kUJgkXU25/3/IpYFQPSf9SUYtwBuCT4sVbJpoOJwhZVidlKn0udPIIVBX
+	 t5svPSAGE6Lza5tsqzsz98ReTamc9t/NsUwAQRHoDaZOId6V+obEqv55XyqSu291PdjWd
+	 z0IUZsG/dVgXA0UonurjprbKppguSS7Xg1EDRQ/uYVHbXjhhU8Lj8+qEVoMapGKqEWRq8
+	 pJE4kjpVZz7ekXkLGZywWvYCMH2RKce33amVlsLhh0uloUVnBjH1FARB0CwfHWKeRWa28
+	 Dz7qpjhjvLmbHiTYchxHQo4/VBW5qiJBlvScp6cU0OISURpais2bFb0kNgWA6Z4tzfA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d8WtbF5Z;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B621606A32E
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:04:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d8WtbF5Z
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794625443;
-	b=uFxuo+cJtVSQDiLfnwaZ0k2gLX8Xer4SOGmzlrB6w5W/emuBuPl60F3GJbBuBdWDYG2g
-	 hLcFjJ9uvC1Y4O/tJyIhI5eRJTAMR3KiwDmmtL0fkMPB8vKgTzf/qgmaGHBdmpua8V4Ai
-	 UB6qRKEvLdwwkUpPwWHujSBFeV5xCodm8/W7qzwojOekZZNlbYZi/f5e7XDxRaQN2LBYJ
-	 0PZtGjRs/MM6Dzyb0JWGrFfz8gASlwB+lijdWZ+fkj44Z8UD+Kb+eTcuFgo5mzT4dSu+J
-	 e62EfMaDjJIkVqkIN4SDVi5cYwB+s8f5E93fhcCQiD6pZSGFuCd6b7wHHDOSl6/ajnw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794625443;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=w9Dp/BExVuYBhie14zpKuAXc3M5SmXjuDTI3gzH/v2Q=;
-	b=nywQYUdRLfA05Ykq78bj1/yfeSBnWLJrO8UcuhwFV9jE9dzvSktDdvy6lkznrAIYYoob
-	 jovuLEIEC+nnK6NpLAUCSCQ6ojk+9JW1kaULUU2wrcmmDlivfzyHPZZdiPL1M7ce+Xhsr
-	 ezgZRnMYfj2vEshtuxU1JObGJtfKR4Betv5jp6no6tGifAvrWtx6yfQGDpSkPsjDXEYVB
-	 87UiMkCFRTtQ6t2kxftGWUNbKwZYWbLi/LKUytGeSoOpAb2JHXMQsHyDns0v7wMtG+COw
-	 wjHzIVVLLPkduOriBqjMeNFzXZb+e7rFkG9QkzQD8T7doBCMbg3BwoNWNFRXDR/dysw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rPIZp877;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.171
+Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com [209.85.221.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 3E7441F000C6;
-	Sat, 14 Nov 2026 03:04:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794625443;
-	bh=w9Dp/BExVuYBhie14zpKuAXc3M5SmXjuDTI3gzH/v2Q=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=d8WtbF5Z701xaEolUVeAeUVqS047OelK9z1lzm8Ed6Vej12yN80PYPABT1Kf1+w2Q
-	 8NPCKyKy9k843aqgr8tSVgb8Yxh1TrkOJBDqBkl54dRBIXtNQ04Uvtp3/314LEYyrU
-	 MWxAjnFrO9/Ig3bpFu37iKCWWmACHAklCc9JnUqT9flz7kO+FosDAWKbiG3cxBtg8Z
-	 6qJB7hALib9c6bWuZBfDSWnVo6nJZ2OVxGKJQKlYXxcj8Qi1wLvpVMjF812XNB4Wgq
-	 0CzAqlCaWUyZWGBRKgOqp1jURSbHLajEDlUzy7+7CWgHIqaXdhbjaQsk8rvuQmLTMi
-	 bgrS1d8jYRNTA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id BB6CB49C55;
-	Sat, 14 Nov 2026 03:04:02 +0000 (UTC)
-From: Joshua Horne via B4 Relay <devnull+hornejd.etsu.edu@kernel.org>
-Date: Fri, 13 Nov 2026 22:03:22 -0500
-Subject: [PATCH 2/5] drm/amd/pm: move smu8_populate_umdpstate_clocks() up
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C137606A329
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:04:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C137606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rPIZp877
+Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-5ec20398b05so2131034e0c.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:04:04 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794625443; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Te+bwWHtC1C6A2OkacVibh7RCUUo38Fsfyn+a3xMN6FUD1yxfXLd9Ehx5lKja6lCNh
+         h+/AHJ1K9MjwhDZYIHy06PhUiE32WQ42w8cq/kRVZNfP+3tFHCIfIdsHwjtKLKpieUSh
+         U0S2KkRR5gr0AtqNzPS3kz6T9Kfq7QrE3NDd18eI/j3t98IhlnolK5crRna2lVdlGNQC
+         lrXf+BUQFzFR3vncEJVHu9eb0/4ulJNJlo98rsB5UWEwZH2Ia5aF0ZJVM8X5CXlrdQ3f
+         GnT8/DgiMVdCBkBjODUleiDslcOOUtDCZLIpACG84GmvioLKpg2yxaBdhZqmuJen0n4q
+         eE0A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=XWwADe8GLoNoLjF/oyz1/OFei2FLfxnSw0Wa2LHuGjY=;
+        fh=tmxTm2mFz8W0ec4b2Y820j8xxtRgQrbvN5zpwiJOOfk=;
+        b=Yfzab8GjFbvnrMHHqBv8B8N7CGePk0wKaaa/0btnWg3yGJUceg1kcHbGouHBDES5c0
+         JtvGtz7hnieeRNd5xCtfkTclcerohlddeWyH2KKCgUetamQbJYmJ+KRTfER3XVTPnzIG
+         lCAJw72g8iX1OVkoTNBmBhjGl81HMNuYWjhQQXGG4mlZHWtrMIlTInhCIZ9Bql27r6QA
+         mClZN2WZEi4s156KW2iOWt5/RNlnMROLG/v+9jfOGT/VrfDywSERrsEUfe0Mr0swRqz7
+         R1MkCekMlCQcarTUNkZs7ocjvYf852Z0bV/WvLX0vNAdZ30lCGDyB4mUMewKJnoZNuEQ
+         dbNA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794625443; x=1795230243; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XWwADe8GLoNoLjF/oyz1/OFei2FLfxnSw0Wa2LHuGjY=;
+        b=rPIZp877tbQadrv2K4Vdny2mnTvgojabbH0pC89G2N2VXWK2UblCcwVNZnefVmWrsh
+         qi8EocyWwaeNwOMdyUWP+CMR+ku25SIAled6uR8iy9DP4MHF9U5TCuPjhrRzqbwjStN8
+         GI3bvyaEYihscGofjMcWbaNmgumQwpVRxWrz4qHFkL5tDUvP31SR66hWFe1cjadhMbF/
+         PXus2w3cNWiXDNJyZU+rTznOBnwZNnJmrf7JieXiAiuPR7kcwwfZYPSu08DxR7LYMTlI
+         ogsqbdxph1x2Ux63+q5OdhjCFUQQdY3KwtXvW5PQCaQFRT4erJTdDyehBBT2tVJTj1jw
+         KuXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794625443; x=1795230243;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=XWwADe8GLoNoLjF/oyz1/OFei2FLfxnSw0Wa2LHuGjY=;
+        b=Thz5h7LItgHuJWSoeyrKoZaZmntxu3F4cFt2yoDDTwFX3iR3GUXVgZzetBl9te6g2T
+         E+eNDSGHn4etyosaYiqpeqMokc2mT0pZt8m0qpj4x50Dd/WNhjJStn9gltmHlpS9mIr+
+         NsA8kZmq7SwdqCs+GFupiTxCu1ajJlkGXGHvU+DiWBrzjFAxrlWPdrpix6qj2Fpy4cyc
+         O98f15JGVgvKKDBmZZVizXgwXQqa9QUyXUhGHKMh6RIbzbCeRoZqIJ5lZmzCW8kbVkXP
+         DxZBl0gJ8MG3Wngs56p2gey3z8pzQz8j1kAXLQgxYW5VUSPXaAjc2MPw+WzxST+R59QV
+         vSRA==
+X-Forwarded-Encrypted: i=1; AL+hErHIG7nFUUovsdY2PC3Q9mcwDqtdHqpradICl/UhqgcR0KdwAdInX10vKdSIogSPrG7xy+WoD2yW+XFNuZ8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9VFD3yIsJbXV3hdvVlDIEmghtXI0h6bR0vvYf/iDxc2DZzK408
+	2lzOe2PatCBlG7HpAs83U7faETgwOxxw5VIpM1mKckRBVWWkWXNbF8kEWWaLkoGeft5nk4qSO1Q
+	NQcIWoTY5qqZJRi7Y0eNHzZ3VwPaX83k=
+X-Gm-Gg: AYBFou2m4xGxUBx65uym/x7vCugHrDLpoRi7uk7LFIZLPJSsyrzhxHlMSrffSFB1h4E
+	OK7mb5NW5Se+22mIrJG6s1XfTj1TmkxoiwNCnQEtbBmKqFIObsXw8TEDQd71DIGlo3Q9Kq4g5zj
+	hEYpeIT+LLgDqJcciPNOIJIbLeIKr7O0P3MaIDNkM0Qko8hW94WHuaa7CCu84+pwdltwX8jbCjM
+	dv3rU/s/bks9Dv1YDQgFoTNONuRWnRVo6ZefGJYpB/hujXeWdzHRe8x3Q1wSacjZ1jjvbl2zdQ4
+	iHvlOiqswu+BdhRtqzNeoRK4hJjEzsP9h0rc74s5JKrLnBIT1uEDNDEJ5DOhqsT5ByZr+R0b8kt
+	8Jt8KUaZ7D139kXKDIqWViPdKI43Sgne8poU=
+X-Received: by 2002:a05:6122:62a6:b0:5e5:1be6:e12c with SMTP id
+ 71dfb90a1353d-5ee34adabf7mr1759772e0c.21.1794625443218; Fri, 13 Nov 2026
+ 19:04:03 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,89 +103,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261113-smu8-overdrive-v1-2-763f07bdfca9@etsu.edu>
-References: <20261113-smu8-overdrive-v1-0-763f07bdfca9@etsu.edu>
-In-Reply-To: <20261113-smu8-overdrive-v1-0-763f07bdfca9@etsu.edu>
-To: Alex Deucher <alexander.deucher@amd.com>, 
- Kenneth Feng <kenneth.feng@amd.com>
-Cc: =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- =?utf-8?q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
- Lijo Lazar <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Joshua Horne <hornejd@etsu.edu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794625442; l=1905;
- i=hornejd@etsu.edu; s=20261109; h=from:subject:message-id;
- bh=icmV43/CUmi9JTSvBavBf9yqPU75EIUiWd54ROphH10=;
- b=7Di0r+wjCP88MGByT7D4MXRavnJh4bNqjOFbaUoSgaCDch4WZ/lYVHmpV4AlPtegHbAyqs9YC
- bFjztJvP1A2CPkaFkUKWJi1cFIqRBQpjFNqP7hHj9gGt1QGB25odhi1
-X-Developer-Key: i=hornejd@etsu.edu; a=ed25519;
- pk=HNOtiwerBbrJhfhzLHLxj3GDsUH9udRXflqnaI8sQmQ=
-X-Endpoint-Received: by B4 Relay for hornejd@etsu.edu/20261109 with
- auth_id=1469
-X-Original-From: Joshua Horne <hornejd@etsu.edu>
-Reply-To: hornejd@etsu.edu
-Content-Transfer-Encoding: 7bit
+References: <20260827201611.99825-1-tchatard@gmail.com> <be6f70a3-5792-4a4b-9f03-591869fb9786@uni-koeln.de>
+In-Reply-To: <be6f70a3-5792-4a4b-9f03-591869fb9786@uni-koeln.de>
+From: Thierry Chatard <tchatard@gmail.com>
+Date: Fri, 13 Nov 2026 19:03:52 -0800
+X-Gm-Features: AclHuK_QHGedDaTSz4ALKjerOXJxyF7FrgwajFWtVN2oN2T1srpeliyS_lJ87qM
+Message-ID: <CAB9TEqztrZ5TqRd3-iJpYiHBzK2rCh-jC9=XkTut1OV+Jf4Qag@mail.gmail.com>
+Subject: Re: [PATCH v9 0/6] Enable cameras on Dell Latitude 5285 2-in-1
+To: meisena2@uni-koeln.de
+Cc: andriy.shevchenko@intel.com, djrscally@gmail.com, hansg@kernel.org, 
+	ilpo.jarvinen@linux.intel.com, jacopo.mondi@ideasonboard.com, lee@kernel.org, 
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, mchehab@kernel.org, 
+	nicholas@rothemail.net, platform-driver-x86@vger.kernel.org, 
+	sakari.ailus@linux.intel.com, v.vitovt@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: Joshua Horne <hornejd@etsu.edu>
+Hi Matthias,
 
-The overdrive support added next updates the UMD pstate clocks from a
-new helper placed before smu8_set_power_state_tasks(). Move the function
-above it, so that no forward declaration is needed.
+Thanks a lot for testing on the 5290 and for the detailed report - great
+that the front camera already comes up.
 
-No functional change.
+One thing worth flagging: the 5285 series has since been merged upstream
+(mainline as of 7.4-rc1 - the mfd quirks via Lee's tree, the int3472 board
+data and the media bits via the media tree). So there's no open series to
+extend anymore; 5290 support would be a small follow-up on top of mainline
+rather than an addition to this thread.
 
-Signed-off-by: Joshua Horne <hornejd@etsu.edu>
----
- .../gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c    | 24 +++++++++++-----------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+From your report the 5290 needs the same two pieces the 5285 did, so I
+suggest two short patches:
 
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
-index f17894b5301f..77ab96bae4b0 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu8_hwmgr.c
-@@ -848,6 +848,18 @@ static int smu8_update_low_mem_pstate(struct pp_hwmgr *hwmgr, const void *input)
- 	return 0;
- }
- 
-+static void smu8_populate_umdpstate_clocks(struct pp_hwmgr *hwmgr)
-+{
-+	struct phm_clock_voltage_dependency_table *table =
-+				hwmgr->dyn_state.vddc_dependency_on_sclk;
-+
-+	hwmgr->pstate_sclk = table->entries[0].clk / 100;
-+	hwmgr->pstate_mclk = 0;
-+
-+	hwmgr->pstate_sclk_peak = table->entries[table->count - 1].clk / 100;
-+	hwmgr->pstate_mclk_peak = 0;
-+}
-+
- static int smu8_set_power_state_tasks(struct pp_hwmgr *hwmgr, const void *input)
- {
- 	int ret = 0;
-@@ -988,18 +1000,6 @@ static void smu8_reset_acp_boot_level(struct pp_hwmgr *hwmgr)
- 	data->acp_boot_level = 0xff;
- }
- 
--static void smu8_populate_umdpstate_clocks(struct pp_hwmgr *hwmgr)
--{
--	struct phm_clock_voltage_dependency_table *table =
--				hwmgr->dyn_state.vddc_dependency_on_sclk;
--
--	hwmgr->pstate_sclk = table->entries[0].clk / 100;
--	hwmgr->pstate_mclk = 0;
--
--	hwmgr->pstate_sclk_peak = table->entries[table->count - 1].clk / 100;
--	hwmgr->pstate_mclk_peak = 0;
--}
--
- static int smu8_enable_dpm_tasks(struct pp_hwmgr *hwmgr)
- {
- 	smu8_program_voting_clients(hwmgr);
+1) mfd: intel-lpss: add Dell Latitude 5290 to the resource conflict quirk
+- just another DMI entry in intel_lpss_quirk_dmi[]. This replaces the
+acpi_enforce_resources=lax stand-in you used, so please test with the
+real quirk entry rather than the boot parameter. Goes via Lee's tree.
+Template: the 7275 commit that did exactly this,
+495d5f41a6161dffafe61ac458459c62d440344a.
 
--- 
-2.56.0
+2) platform/x86: int3472: tps68470: add board data for Dell Latitude 5290
+- a DMI entry in int3472_tps68470_board_data_table plus the board data.
+Template: the 5285 board-data commit e605a094ff7a.
 
+Two suggestions before sending:
 
+- Please coordinate with Vitalii Tytskyi (CC'd) - his 5290 tree already
+has 5290 board data and covers the rear camera (OV8858), so it is
+better to reuse/validate that than to reuse the 7212 data. That also
+gets the rear camera tested, which I think is still open on your side.
+
+- Since you have the hardware, it is best that the patches come from you
+(and/or Vitalii) with a Tested-by on the actual 5290 - board-data and
+quirk patches really want to be tested on the machine, and I cannot do
+that for the 5290.
+
+I'm happy to review and give a Reviewed-by on the mfd quirk.
+
+Thanks again,
+Thierry
+
+On Fri, Nov 13, 2026 04:04 PM, Matthias Eisenacher
+<meisena2@uni-koeln.de> wrote:
+>
+> Hi Thierry,
+>
+> Thanks for this work. A short report from a Dell Latitude 5290 2-in-1
+> (same platform as the 5285), in case it helps to extend this series
+> to the 5290.
+>
+> I did not apply this series. Instead I tested the minimal changes
+> needed for the front camera on the 5290:
+>
+> - Linux Mint 22 (Ubuntu 24.04 base), kernel 7.0.0-43-generic (HWE)
+> - Added a DMI entry for "Latitude 5290 2-in-1" to
+>    int3472_tps68470_board_data_table, reusing
+>    dell_7212_tps68470_board_data
+> - Booted with acpi_enforce_resources=lax as a stand-in for your
+>    intel-lpss quirk. Without it I get the same I2C4 conflict as on
+>    the 5285:
+>
+>    ACPI Warning: SystemMemory range 0x00000000FE028000-0x00000000FE0281FF
+>    conflicts with OpRegion 0x00000000FE028000-0x00000000FE028207
+>    (\_SB.PCI0.GEXP.BAR0)
+>    intel-lpss INT3446:00: probe with driver intel-lpss failed with error -16
+>
+> With both changes the front camera (OV5670/INT3479) works: cam -l
+> lists "Internal front camera (\_SB_.PCI0.LNK0)", and I get video via
+> libcamerasrc/GStreamer and in Zoom (via libcamerify). The rear camera
+> was not tested.
+>
+> DMI: sys_vendor "Dell Inc.", product_name "Latitude 5290 2-in-1",
+> board 09WJPW.
+>
+> So the 5290 seems to need the same intel-lpss quirk plus board data.
+> Vitalii's tree has 5290 board data; would it make sense to add the
+> 5290 DMI matches to this series or to a follow-up? I'm happy to test
+> patches on the 5290.
+>
+> Thanks,
+> Matthias
