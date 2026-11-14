@@ -1,45 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794664506;
-	b=dFULKUlpSf6cJv8vlLSA8J7ZIzQqdqmTQM89l2Dxy1Hdqn2C/+y0hyVCTCExk9u3ifMy
-	 SRcOGcq1Sjb24iQYd/xjD3KjPHOmmbH/SeZ5CQ4cg3KcgajoYKbFwIQjLIiprAtMsVq8P
-	 5YQB+5Lw5+zF0o+RO15yPOCdagSBHmfewN5BZ7UKQVtpkGVNknEUnufq0sT+FH2ew7yWn
-	 xUswKFVmpu0VGjR9fJR5s+KLT161L8WOy9h7xnp/go9ONgoWpYF4KoZUOO9RONxNtCj+m
-	 TFExwtRuNAcQhKPB+JgFCQnMMfhk9qz9yMpiQVKc8QZt7f6JpshEULhsu2tNE9ZZ1Ew==
+	t=1794664670;
+	b=txJVBf4aY8yRfS+FPsdxgnZCN/lAtjeR8JR6ANclP6LAPrZN2zQCpa7nauiDtit2u0B7
+	 5Ci/+3CmTybOv6bkXgs8D5Rif9//7Dey+15YdL9h1UU1I3zilTPzxOW3rWVXu7TuXboRA
+	 azgozf2RUGZl23sJeaEK1zagfMIU4eLjHaK/XtWkj35e4aa8LrKUZfTK+ki4JSS8s953v
+	 PMR2mpjFt9Qx+ixSgifezvecsBBAr0j5+2Qjltxv5xxJXhA7dKv1fynEh8XmNkaQobvkr
+	 iRY5xSZ4BZsS5sZ6ii4h7BhUHnkhDyI50Uh7KgFov/3uVqAnJn1z6+vQlh5HuTn8q8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794664506;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=gZCOg3PYW5/XzYktPPO7fZbRJ9jC/nh9/3WC5LHdP9k=;
-	b=hXY0DqmenbfI+3T5ge4+EoX9i3cpPrl44Pw2sJDk/0UpqdvK6T1+RR8S39nxUDw94uxp
-	 FH4aL0rBYG6dBDMrQwEu4o2SLO7PnNWrmbIgRHaCZ0JPM2DoeBzR1r+3dkLJg967QJMJh
-	 IIXiLxd84C+ycGsOHCX/KP/IlY8wMI+QGF2Xk3w/IEBzq2GEqFvaVxrFMPCx2KLPXKUtg
-	 2ImZkYNaybwMrMH8ujZhShTb6OQtP2mtWbqXWUzCSdKr8lJxiIgY+GacAT7gokXY+yCzL
-	 PpkvAkEWlurTRdRtHvD903r3rOq8kW+5Ha0oaySWWfG+dK08Fo98Oc+aZA4QJjuRb1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794664670;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=I1BkrDs+HovYsgHM3nZ2gQpbCc0PGvvE+im9VACCnKE=;
+	b=lcz2lFjkboYXMsKx7AlLZCPXXDSggNqFvQXfKzShDEebOVEVNLOlDE+kmBKK2MtsV5bk
+	 mqBZCFMNk37QF3+Z8mM+u2vgURxgw8jcrjRPuADws3OtGHBPm4/YWggS30CB25bKuNMXR
+	 4YCbc4rH6FfDMTx5eQGiulxX9JlHJ9gMrGSJ6vnjPHYF9hIOcVBy0A38JMYB+ElNZ2WC5
+	 eH/Nwc/HV7CkYJr7iHtt1n2X78wQuKmJcyH0fa8wkggqFGqLTrjimulNueU3UWU1M7gOe
+	 L2UxV3hhvDPoeFpfTm4aWnnyxhD/miIdmRK+BmL9T9rHxAQq18hC4CYmve5bmCCY6dA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lC1rRmz7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ODZBRGN2;
+	arc=none smtp.remote-ip=209.85.208.46
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87187606A338;
-	Sat, 14 Nov 2026 13:55:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 153A1606A323
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 13:57:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 153A1606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lC1rRmz7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E73891F000C5;
-	Sat, 14 Nov 2026 13:55:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794664506;
-	bh=gZCOg3PYW5/XzYktPPO7fZbRJ9jC/nh9/3WC5LHdP9k=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=lC1rRmz7ahj/srEYA2ijCYwgAqxvBpBEiZzJTz1BT/wrTEWhRCAJRjIQUg90ualPp
-	 8fNiGIog6yGBq7jcPWwPg3KTZ4hhP7wzOgQinag8fVT+8JrN/YD10tUBIHBk4t50YO
-	 lVbRqj+kObH/VFAULApyIEa7KJo13ikHhn4sjSYyAVLzN15VB21GTINJSJZ5zSjoJ2
-	 SqbEpuE67Y8c73FjyTC9QAtGI69lnMt18W/xx4/7c8YFqB+lo9IQTij1vjYC2G1yJC
-	 gbXcz8wGq7FFvOpMP/hQpyy359bbb1860T3yz8/mr3WEBUyRt+SVvwAJEu6hB8hDoE
-	 Jru9mkTF+Jtaw==
-Content-Type: multipart/mixed; boundary="===============0802335019258284520=="
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ODZBRGN2
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b7245ab5e2so5268386a12.1
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 05:57:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794664668; x=1795269468; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=I1BkrDs+HovYsgHM3nZ2gQpbCc0PGvvE+im9VACCnKE=;
+        b=ODZBRGN2FprQzu3c4Fa/CalY7wA9KYLODUXU9OLsokrB0totNBG30WAaZILVCl9O8u
+         Y6F8Lb39oIFv2dFHavPGjvuS2vLXraqWa2g+LMlzd6OiKLlQNZDpnpQ0Nwig2fWEstlI
+         NZZPZkzOZhVNL/s+of2QF6JSeJ0EoWwILb+7QCM2H4OOu24NX5+0zLXoJUf57uPOQO0M
+         Aj0CklSgL7oi2dysnTYJfMnCpRXBBQG3E+w3uRFpOC2CvTkIYVVw23w3MnqlrbX1lFto
+         IsLRmvi4belyZGwclDEuEkBQqVth/Y5JrnE2QeoI9f1KZcrBnVpRuvT1kicYVbabfcaU
+         tdhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794664668; x=1795269468;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=I1BkrDs+HovYsgHM3nZ2gQpbCc0PGvvE+im9VACCnKE=;
+        b=22NlMH2cNyCdsh4K2gEwZkqgHczPP+2xL29r+/PfJz0u7qqxv3c1MIpNUuWFPCn4xo
+         V8fCA8kWQs/We8EI6NoA/m8pRXsj2qp7ob6My/UasWmXcGNtbgc3G+sOdw7P67DVkd+w
+         ydHIEYpjW95qfOji91/1rpbORJMrbaHxYE4KFVSbIHo6PJqaTfRZCpOf8m6FjIEPVA9m
+         WpgoQufztsigPhdknnxu0TZKmomTvvSdF3diR0s2NGR3rwObniL6t438zAu+qmFK6ZVb
+         /dEky4AP97yLtYRrn2qgelyqjTLcqx08IjHRBy11E5MTLaWiIQLqoiELXBGOUthsToxX
+         zm2A==
+X-Forwarded-Encrypted: i=1; AL+hErFFmpiSl+tJZuydBxfmOKbysszmFUGMcYIPVG2YgxjfyeZk4v2b9pyiR6xidchLvZs7kE6lIKabqN0il6Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9AYDHIdxH9NzDseSB/2aXYmV/fms//4LbGWfYX03uKPppti+Jk
+	WcrnNFcylNFyNuKfEgulvp+9ucUP3ulk7Hnvbo0uo8UtdR5z86zQ/t5H
+X-Gm-Gg: AYBFou1ctKQ3Njcqp5vfZgZ+eltnb8aGItpW/jP4DDz9XPjmJIPMugk/t8tx3q+gqvj
+	4S4nN08feL4YnjUyUinyH/90SnCMrQzzxBljgVthFG9cBNsIDaZIQnbJWi32ifesbfF2h8YZnAy
+	Ro+KNqSjoSrKQDTKHzT9EauI8emNwokHqrBeCX9KfCI/oij97ncliUiE9xYdlXeVmftMB6erUQf
+	fW81IXQCeFezqSYnaOvGZeIi8SmaSI4EcjIHBO9wZiPjHzuX+QWRXdf6NUkMbQDU7RM//nOjf9l
+	N56UFlm0wAuLcdpI2Olx7PgmmQNd12D4r0nc7umCcjMo9ExYNnF28D4wejQl98m3uQi/LUkA4Du
+	kWMDxC8/j7NF88ATFixXxXHBTN9nVrbWwmUEngOjgwB6fIsAdSbg0lnPTwfFn0JSzWu1qPE0TLI
+	Afvic/iXAQxHE6lTzZqa9LlRVeSYXgEmldUpZJPv3jHgAby/KTIZLkMFWD2C1ct9maFYro64gV/
+	i/85SySS0b+5uwDmRRK+2MU34Ie+p6mHP413T4BKTWx0L2g3a2keuoB0MM1M6Q9NfVMkcMuUhL1
+	fsZQ4SFquNZUBHL/EvxACdn3HZCnpsVll/LtxL7UX4W/8DRulzHVmcVy9MEnf+RAx7d9JCQu3tO
+	gZV7yrhrruw==
+X-Received: by 2002:a05:6402:5412:b0:6b7:d189:6041 with SMTP id 4fb4d7f45d1cf-6b7d18963c2mr3488558a12.2.1794664668038;
+        Sat, 14 Nov 2026 05:57:48 -0800 (PST)
+Received: from xeon ([188.163.112.62])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c23db711sm2231929a12.24.2026.11.14.05.57.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 05:57:46 -0800 (PST)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v1] drm/panel: panel-lg-ld070wx3: Add support for get_orientation() op
+Date: Sat, 14 Nov 2026 15:57:17 +0200
+Message-ID: <20261114135717.142047-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,97 +102,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <91e245da9f3df6d6e61808e72a4ad0213a9a6b838f594d0be74dd70ab228422f@mail.kernel.org>
-In-Reply-To: <20261114-work-loop-pseudo-v2-33-98639a2286fb@kernel.org>
-References: <20261114-work-loop-pseudo-v2-33-98639a2286fb@kernel.org>
-Subject: Re: [PATCH RFC v2 33/42] fs: add file_check_backing()
-From: bot+bpf-ci@kernel.org
-To: brauner@kernel.org,linux-fsdevel@vger.kernel.org
-Cc: jannh@google.com,mason@kernel.org,josef@toxicpanda.com,hch@lst.de,linux-block@vger.kernel.org,linux-kernel@vger.kernel.org,linux-nvme@lists.infradead.org,viro@zeniv.linux.org.uk,jack@suse.cz,linux-scsi@vger.kernel.org,target-devel@vger.kernel.org,driver-core@lists.linux.dev,linux-mm@kvack.org,bpf@vger.kernel.org,linux-security-module@vger.kernel.org,selinux@vger.kernel.org,apparmor@lists.ubuntu.com,linux-nfs@vger.kernel.org,netdev@vger.kernel.org,fuse-devel@lists.linux.dev,linux-efi@vger.kernel.org,xen-devel@lists.xenproject.org,ocfs2-devel@lists.linux.dev,linux-s390@vger.kernel.org,linuxppc-dev@lists.ozlabs.org,linux-usb@vger.kernel.org,amir73il@gmail.com,linux-erofs@lists.ozlabs.org,linux-kselftest@vger.kernel.org,brauner@kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Sat, 14 Nov 2026 13:55:02 +0000 (UTC)
+Content-Transfer-Encoding: 8bit
 
---===============0802335019258284520==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Implement the get_orientation() operation using a standard helper. The
+Nvidia Tegra Note 7, which uses this panel, has it mounted with a
+180-degree rotation, making this change essential for the device correct
+work.
 
-> fs: add file_check_backing()
-
-TL;DR: file_check_backing() may call d_real_inode() on O_PATH overlayfs files,
-which could hit WARN in ovl_d_real() (panic with panic_on_warn) and let the
-pseudo-fs check pass wrongly; reachable via fuse backing open, needs
-CAP_SYS_ADMIN.
-
-> diff --git a/fs/read_write.c b/fs/read_write.c
-> --- a/fs/read_write.c
-> +++ b/fs/read_write.c
-
-[ ... ]
-
-> +int file_check_backing(const struct file *file, fmode_t mode, umode_t type)
-> +{
-
-[ ... ]
-
-> +	/* Look through stacking filesystems at the inode with the data. */
-> +	if (d_real_inode(file->f_path.dentry)->i_sb->s_iflags & SB_I_PSEUDO)
-> +		return -EINVAL;
-
-With FMODE_PATH accepted, can d_real_inode() be reached for an O_PATH file
-here?  No ->open() has run on such a file.
-
-For an overlayfs metacopy file whose data is in a data-only lower layer,
-the lowerdata redirect is only resolved lazily, by ovl_open() via
-ovl_verify_lowerdata() or by ovl_d_real().  For an O_PATH file this means
-d_real_inode() goes into ovl_d_real(), which does the lookup and verity
-check itself:
-
-    err = ovl_verify_lowerdata(dentry);
-    if (err)
-        goto bug;
-    ...
-bug:
-    WARN(1, "%s(%pd4, %d): real dentry not found\n", __func__, dentry, type);
-    return dentry;
-
-ovl_maybe_lookup_lowerdata() treats a failed lookup as a normal runtime
-event (pr_warn_ratelimited("lazy lowerdata lookup failed ...")).  It can
-also return -EINTR from ovl_inode_lock_interruptible(), and
-ovl_maybe_validate_verity() returns -EIO for a missing or wrong digest with
-verity=require.  Each of these would hit WARN(1) when reached through this
-helper, which panics with panic_on_warn.
-
-In that case ovl_d_real() returns the overlayfs dentry, so the SB_I_PSEUDO
-test looks at the overlayfs superblock and passes.  Does the check fail
-open there?
-
-Nothing calls the helper in this commit, but later in the series
-f79b9e79484f ("fuse: refuse files on pseudo filesystems as passthrough
-backing files") adds file_check_backing(file, FMODE_PATH, 0) to
-fuse_backing_open_file().  That gets its fd via CLASS(fd_raw), which
-accepts O_PATH:
-
-FUSE_DEV_IOC_BACKING_OPEN
-  fuse_backing_new()
-    fuse_backing_open_file()
-      file_check_backing()
-        d_real_inode()
-          ovl_d_real()
-            ovl_verify_lowerdata() fails -> WARN
-
-This needs CAP_SYS_ADMIN and an overlayfs with data-only layers where the
-data file is missing, the digest check fails, or the inode lock is
-contended while a signal is pending.  No fix for this was found later in
-the series.
-
-Could the pseudo filesystem check avoid forcing the lazy lowerdata lookup
-on O_PATH files, or should ovl_d_real() stop warning on lookup failures now
-that it has callers besides trace_uprobe?
-
-
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+ drivers/gpu/drm/panel/panel-lg-ld070wx3.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/43599461726
---===============0802335019258284520==--
+diff --git a/drivers/gpu/drm/panel/panel-lg-ld070wx3.c b/drivers/gpu/drm/panel/panel-lg-ld070wx3.c
+index 0280addb6500d..eed1dc1e1bc31 100644
+--- a/drivers/gpu/drm/panel/panel-lg-ld070wx3.c
++++ b/drivers/gpu/drm/panel/panel-lg-ld070wx3.c
+@@ -11,6 +11,7 @@
+ #include <video/mipi_display.h>
+ 
+ #include <drm/drm_mipi_dsi.h>
++#include <drm/drm_of.h>
+ #include <drm/drm_modes.h>
+ #include <drm/drm_panel.h>
+ #include <drm/drm_probe_helper.h>
+@@ -24,6 +25,7 @@ struct lg_ld070wx3 {
+ 	struct mipi_dsi_device *dsi;
+ 
+ 	struct regulator_bulk_data *supplies;
++	enum drm_panel_orientation orientation;
+ };
+ 
+ static inline struct lg_ld070wx3 *to_lg_ld070wx3(struct drm_panel *panel)
+@@ -110,10 +112,18 @@ static int lg_ld070wx3_get_modes(struct drm_panel *panel,
+ 	return drm_connector_helper_get_modes_fixed(connector, &lg_ld070wx3_mode);
+ }
+ 
++static enum drm_panel_orientation lg_ld070wx3_get_orientation(struct drm_panel *panel)
++{
++	struct lg_ld070wx3 *priv = to_lg_ld070wx3(panel);
++
++	return priv->orientation;
++}
++
+ static const struct drm_panel_funcs lg_ld070wx3_panel_funcs = {
+ 	.prepare = lg_ld070wx3_prepare,
+ 	.unprepare = lg_ld070wx3_unprepare,
+ 	.get_modes = lg_ld070wx3_get_modes,
++	.get_orientation = lg_ld070wx3_get_orientation,
+ };
+ 
+ static int lg_ld070wx3_probe(struct mipi_dsi_device *dsi)
+@@ -133,6 +143,10 @@ static int lg_ld070wx3_probe(struct mipi_dsi_device *dsi)
+ 	if (ret < 0)
+ 		return dev_err_probe(dev, ret, "failed to get supplies\n");
+ 
++	ret = drm_of_get_panel_orientation(dev->of_node, &priv->orientation);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to get orientation\n");
++
+ 	priv->dsi = dsi;
+ 	mipi_dsi_set_drvdata(dsi, priv);
+ 
+-- 
+2.53.0
+
