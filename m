@@ -1,80 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.39
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794672815;
-	b=FPHgq3E2SWswEMsJxlTayxZ8AcMq07wdRIFHD+cWOar1I0QFDbcTv0GKHEqn1RLkUDtp
-	 py4Lu6egt/vJUqYqFCPgLQtjKZWjzpj+v9XVOg0dafgMG6TTMD5gxE3jZ4e1IlY9KkKWd
-	 /kkhvMnCN2EaT6r+VPJTfCS8eA93aHiQrhAI6P4v0UhB6PWLz0HOwNdmPEZn0+Qmcou3H
-	 rjIW9IeSZmMfuQaah7dBqehgJH5gvaWA3EaK+BulwaT6FNbF6CxpyFroewsdyi/QIv4tE
-	 4G6skuo4HJzD7UfUZVEbyR6QzQnmvsIk9Ua5EUBxBuQRDcYiYRFHxTI8quAg8VIR4xQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794672815;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=mbytoUa3tRKFqWhM1UcVL4cxUggurP+uHf5s9LyN1+8=;
-	b=Ivb30PLrnhTUjQXrhHSjwxFPaAycNsO/e1yU2n0b4XcSbu0C43F7PzY6S5KRjcVpkPLj
-	 L4Erm819dUK82QdxA89nUynkuz+ibYZ9XfDjXJ4XoJDiDCVrXdcdZJw1VaKPeid/JGhhj
-	 q7Tju4ir/B334+O1H9CQ2uo9bITtfNyOGnhTNdkWuYuLaXGn5dNa+hwZvYHDzz0tW48+r
-	 4VL5tMEgeHeNzIcCr9YJoC4UzkDYqUnheyQYmkEJue8+WQRaSTVylIetuN8CLcnUExnAF
-	 V3lF041Yp0PPiY7ASH3LQMQiyTkJ6EPpJhTgBufyWsKqAbIFp0dEnKqST+DwYlZVOxQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b="idl/s72I";
-	arc=none smtp.remote-ip=35.89.44.39
-Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.181
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794672832;
+	b=xYtV+G1jl0Es44Lo0G18Jrc3+UYQsDIqy1DXSfiL6os1ub4dS5IEs5HV+OZLHjiD357F
+	 PaMMoKOJGnzi8ZoJVW+QwF2v/i5ote0ugpnmNtsbIQ1xb2bAY6dk9zSmFxp/KIclwgv4o
+	 qcewhu0izJbIvwo+KRWvji0eMjwVhiaGSWtabMDKHCszLTx/gRmOuI2h3KvCiEaGnsxDJ
+	 LZ+feAIhbl1nLO4+mpK2HkHtmiO5lsFEfLwWyxfZuUVmDqbS+8k22ozl14wdQYWabSRc2
+	 dLEFm9RKvSWQaVMDnKnVHX0hDRdaLSK2W5UM2Z9py0HwG/rFl/nebNMu6o7XD7u6WCA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794672832;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=8Tl9o8/ajPwx7BAy1yOh5VYBJUvFApl5E8YYkNIIX5Q=;
+	b=LwBzzf8OLSa/NLbE/uGJgv4fBjXRVpbzatTiwSjD3tgYmpKnO4oQz9i1GH+SMR40fgcF
+	 huwCVg+eAjapJ/YZiKYCvAgcPOu+04lTV9p/6YoQhrLlPVMjPVX6Xg3epGUSh5YJiofSO
+	 YvvdaY3R6VVhZmg3eNgLLBh3AosT3KqgcaO+rgZW/eVQSiLt16crT3UcmNrIcCOLWWfXw
+	 8vkosWR98Zfj86dbSm4eosEL+mgSXHoMAAxV7nl7qhfi81V+sri1W2CYL8YR63p1uEqXH
+	 ei3yaQqFKvvhvkaqx6d3dfxIoRqWLmsjGZVio5Iqzc7x/7+J1miuRC0JK2GVkaJvNgA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fWYykvaf;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.181
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60BD8606A323
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:13:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60BD8606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23387606A329
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:13:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23387606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=idl/s72I
-Received: from eig-obgw-6003b.ext.cloudfilter.net ([10.0.30.175])
-	by cmsmtp with ESMTPS
-	id SEIVxfN7lyb4YSGNjxgAzS; Sat, 14 Nov 2026 16:13:35 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id SGNixk0GWGh2BSGNixpCAa; Sat, 14 Nov 2026 16:13:34 +0000
-X-Authority-Analysis: v=2.4 cv=Aszu3P9P c=1 sm=1 tr=0 ts=6af888ae
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=pGLkceISAAAA:8
- a=0nlnqQntNI7bdpd6a1oA:9 a=CjuIK1q_8ugA:10 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=mbytoUa3tRKFqWhM1UcVL4cxUggurP+uHf5s9LyN1+8=; b=idl/s72Ih7T5blQkDjxSONfflW
-	V7NAGQOQ8VFhC36M+LC1EkC+GYOF6JK3WVp7gJl83Jry/XsnFZY0tGeBK48s54xM5K2DbEmzA/SBv
-	d4o9KE1EPiumNOi0kNdw7FxraKIoznfm2/BY7Flko6HZzDF5acymV8tElLqPdHj+QYq/WEZ4AsaW7
-	Sdc5UV2Ba0aMMAngewRn9HK+GZjXWW9PMDGklyaMH+RnyevJGd9i0oMFr03ArmbZzgaxdjlPPfz8O
-	NLDlKOiQ/oDH8uFyp8yUYeC2uDDznN/5GvxUray86HM2vGY/Fct2BdR9ivu2lYynwj3SDrzSQzNdl
-	MmjlsRrw==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:35394 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xSGNi-000000006CK-0Ui3;
-	Sat, 14 Nov 2026 21:43:34 +0530
-Date: Sat, 14 Nov 2026 08:13:33 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Johan Dahlin <jdahlin@gmail.com>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Alwyn Kik <alwyn@kik.pw>, Fabio Baltieri <fabio.baltieri@gmail.com>,
-	Hamza Mahfooz <someguy@effective-light.com>
-Subject: Re: [PATCH v2 4/7] hwmon: (nct6683) Enable fan control on ASRock
- BC-250
-Message-ID: <9e51a722-b1eb-43f3-8fcc-358811ec7fd2@roeck-us.net>
-References: <20261111082838.1418051-1-jdahlin@gmail.com>
- <20261111082838.1418051-5-jdahlin@gmail.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fWYykvaf
+Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-55c7445cf85so114761cf.1
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:13:51 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794672831; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TIvZaKglnWpUXnSttPkFjGJvHOrAToOPouqjyRzlA4DqAoB6uDJTfSzZthX7eGwHDN
+         DtUsaQlYhmNx+u8+xxOwQGaS6WwA+w+5n5dkdocActVw/ajDQL854t3/YuO/tH3ZNwLB
+         4tZx0TiDOQ+IId3++5avyyLHkcrI3P35ITVrcBSsvqhxvbzLLsp/aS0lS/xcGTggLlMC
+         JkaGboWx6ZODUQ4xEG5xBXzQkL9IQ+xKvbUK0KYk9zjh4Z4Utymc9vKT43gkk3ARJrM1
+         M/n0ISjezXqnh6UhJuiUtq/YDQ3bHDfu55SpJYwvJa6Uhvf3ZMQINnUbJ3vPKJiliR5C
+         fJTw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=8Tl9o8/ajPwx7BAy1yOh5VYBJUvFApl5E8YYkNIIX5Q=;
+        fh=QGrkye3uGmDCLe/3zE1kPt9tC0sXB7L2u6b+UZrvGYQ=;
+        b=cO7UqHS9r8bPmPEWoDb0O0qTlkpPv4+at+8wtxOws1LZog59NjtNRD/SiBW53ehU1J
+         +mRiC+NuO5THpj4MTM2v2IxVnCvCVSIKf8dCv7Dvy27//Y2qjw/P8+bE7mtZbKjkKjGP
+         LLG/X7MNyoxBAmRHhJdala0GF3sGzxY9zunzdC08jxq3ff8SQu5mcNNB03AQ8oR0e2Zj
+         gYEgB2aN0O+t3tVdP9MVWImOZy4a+R/PHXO9dB28q2cl/XWZ1JpTbyjvluQCn6A48ywj
+         ZLTSMA3NN8luduNqvjKTu0CksFu052b1wN8uuMly8VWuci4ayRdCHRI7rwqqzPPDJlxz
+         MFkA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794672831; x=1795277631; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8Tl9o8/ajPwx7BAy1yOh5VYBJUvFApl5E8YYkNIIX5Q=;
+        b=fWYykvafZEoWUCoWkp7dZs1CDSFqWz95hiQCzldSRaPDAmnUc0YgkC/SZtmGv2c30P
+         1nDiyPcFjnWek1jFrBaj9qVb8aLW1fzi4iNqW+MTldpKCfvjsv+HGc6ddi9lHpOkz5F/
+         UFE1AbyPMHE3tiY8F7wdlXNnOrAzbUcMOYkiGKDtR/qKYz2+fXhSkFdsXCjLntFYfx9Z
+         d2EDrsDG7UGMeJvyXA2LEh7hLf0POdeXeWGPUXff3tXibHM1m2KAJo0r8vd10EP5sdb0
+         GXc7WopONhL1DFJ9Vm7Pfb6y8jfg93Nmnr4C7x/Cqy0nKyguWvbp7eBJzqROWn1htufV
+         pgXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794672831; x=1795277631;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8Tl9o8/ajPwx7BAy1yOh5VYBJUvFApl5E8YYkNIIX5Q=;
+        b=UjR3rIq6M8b3m6ukG9fa/kzxupXORi5i/Wn8gQgxGcUcVL0IuuxndtK6wFZWWLCkop
+         T0nYDPGWlmOZzmOkJ6HzZbPmHwaRpytdVu5rzTogCdFi4CM7vjIU/eHT20a3ADsay1KZ
+         rwxj4JSm7jeDUTNteW+NWZrQhoT0+3VSiVWnIJUY4VgxPxWy1Uqe8TSJoIgN3xBHjBAn
+         2D3MdhfFRqCzaWc4MoZjwijoH+hJNqzNCIj5sB0WlKohfBcLfdXKHuE1Cc00+mOvmT87
+         wv0SfWX+gZLjftKBVjTLvLe7eOPxCZKi6nQVNjtixCqQjr/AhoKNrnHQd5vmqRe5YITK
+         V14Q==
+X-Forwarded-Encrypted: i=1; AL+hErE6p/PDLl9k7rHbsQEedLPJ9BexYl4NJYqd+S4F0KXysS3ZozbtrFGLmxEkS3mWCPuk/BwxPppqLDP3T2o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9S5nQ0J8HPqNpInSNzb0AT4rws+hoR2ygfoMb5E0On+ZYw814b
+	LmycnT5Iq7cMM25v1Vr4PbqCZlmCnQ5f8ayY4dRhRtTwRxXShInH6Rd/HJXAx9DlcvmgMVNydd4
+	ETK2iTDNpei45qQoIQXCxSIWushssFsprNu/Rf/n/
+X-Gm-Gg: AYBFou2SvuSVat9qmu2FE+ZOIsZQF6vLiKVT08ads6InCQudTF7boA3J16DbwWt2XVw
+	WzF49XrqgZA5OXt03Rg7K+6rDgR344UpL/Zlt7lZlLHaOsN5/LNrz1K6QJKobar8IM3xj9ytghE
+	qDW9UPEGcC3ySue3YpcwT5lcK/aaaRclCGNCCxqEjXze7rA9bfjWN0JsJqq2/KFLHq4NGTEKls0
+	k9jkncfn5n8ebMT7s9jLbpdu4scdrxCr+rUrL55eah1uIptsj22pCIGWwCWi77dVY4Ow8j+zVHM
+	xifCzcyY/OpwBG7JrtsooRy9HVarXBovEsLBwH7tNEp5YHUcw6cIXBrx77I6pqdC/pKlJAjr1B7
+	l8HTVfZHJaqa+NwyREoIIdUJs/Rqtc2S+/MoDQNxxovhTcGht2yIEuzdB5HWr1EJZnYWP1HiFvO
+	rkATgB7cJ2NuZOCeKftGIbYL4oPD8=
+X-Received: by 2002:a05:622a:1f13:b0:536:353e:8d2a with SMTP id
+ d75a77b69052e-55c420acbb5mr16418791cf.1.1794672830375; Sat, 14 Nov 2026
+ 08:13:50 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,41 +105,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111082838.1418051-5-jdahlin@gmail.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xSGNi-000000006CK-0Ui3
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:35394
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 44
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfNgJVYOsK1Yvd8D/BWn2hM5AcW7eyufJFILqteOU+G2JiAH+6NbVFv8htlvXfWIeYkuMJOej4lfr3HDwCVJHGpF384HFDUZD8hIGLWq/mOMVxbYoIDjS
- tUN47RWHJ8/9SjDanNLCuMwBITZuv+KnvmWJmUmIDOHi7o3qeqXjoa+MOVOyChGIRXIzg/bp4KMdDdYGtQ95G6ePtTZet8uBTZujQZK0S/HemzESHy6goXJW
+References: <20261111-mtu-probing-series-v4-0-6f2e484ca8ea@gmail.com> <20261111-mtu-probing-series-v4-3-6f2e484ca8ea@gmail.com>
+In-Reply-To: <20261111-mtu-probing-series-v4-3-6f2e484ca8ea@gmail.com>
+From: Neal Cardwell <ncardwell@google.com>
+Date: Sat, 14 Nov 2026 11:13:32 -0500
+X-Gm-Features: AclHuK-5_dHag13CLSttPyHmBa-mJPoWFf4s1lkgb_n0rEIb8AR91foWfJLHYLk
+Message-ID: <CADVnQymoQEy_Qg8NciVFBO857-ks7vsBXYeaBGuLQepBkMD=OA@mail.gmail.com>
+Subject: Re: [PATCH net-next v4 3/4] selftests/net: packetdrill: add TCP black
+ hole detection tests
+To: echoowall@gmail.com
+Cc: pabeni@redhat.com, kuba@kernel.org, shuah@kernel.org, edumazet@kernel.org, 
+	horms@kernel.org, kuniyu@google.com, davem@davemloft.net, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	netdev@vger.kernel.org, panweiping3@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 11, 2026 at 09:28:35AM +0100, Johan Dahlin wrote:
-> The ASRock BC-250 (customer ID 0x162b) has an NCT6686D with the same fan
-> control registers as the B850 Steel Legend WiFi, and manual fan control
-> was reported to work there.
-> 
-> Enable fan control for channels 0 to 7 on this board as well.
-> 
-> Suggested-by: Fabio Baltieri <fabio.baltieri@gmail.com>
-> Signed-off-by: Johan Dahlin <jdahlin@gmail.com>
+On Tue, Nov 10, 2026 at 11:46=E2=80=AFAM Yongjian Wang via B4 Relay
+<devnull+echoowall.gmail.com@kernel.org> wrote:
+>
+> From: Yongjian Wang <echoowall@gmail.com>
+>
+> Black hole detection (net.ipv4.tcp_mtu_probing=3D1) has no selftest
+> coverage.
+>
+> Add a test that only sets tcp_mtu_probing=3D1 on top of the default
+> settings. A full-sized segment keeps timing out without any ICMP
+> feedback. Check that the MSS drops to tcp_base_mss once tcp_retries1
+> is exceeded, and that the smaller MSS is also used for new data after
+> the retransmission is acknowledged.
+>
+> Add a shorter variant with tcp_retries1=3D1 and TLP disabled, so that
+> every retransmission comes from the RTO timer, which is what
+> tcp_write_timeout() counts.
+>
+> Signed-off-by: Yongjian Wang <echoowall@gmail.com>
+> ---
 
-Applied.
+Reviewed-by: Neal Cardwell <ncardwell@google.com>
 
-Thanks,
-Guenter
+Thanks!
+neal
