@@ -1,52 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794648934;
-	b=Sb8GaDVRLGADWdOskuQ/5kwg2o/rMGxTe7oCYa+bKRHKv3dlEe8Rc4YEq+/DAZYRs6iy
-	 WwTK4oSzUVUwxXoGlmClXXiO0m2REmcJ1O6NqH2NE3dZHYfYZRSVTivIsBuNEd1Yk7VyY
-	 Omkl6QyuvKOg8s6azc2MJOy2coGurjUusIvnyZLfRxZA1CtQj0WAm9yGyQB6evn7MWEyG
-	 q/p/Ie8WP7YgAq1pH9bthUqgbkDvBsF5jE0jKbt5+LeLJIdIWo0g124gwFLE5RHF1WXWX
-	 9BqACx/uPNN8oxDvvkfUtYQgUtI+WiVnaZ6CiYq63GmeKaymlGLFoMZ1STxeW/DH8sA==
+	t=1794649001;
+	b=qRD1PCgQrTKhKD0WWOf4ePuC5FCPebfn9ru+CjMs7BlMBod85nnn6dRDJs35SNxAA8h2
+	 +Lkzhme92rU+0rt3wHE7toFiV3D3bRFqnFdRwD+uUpoRKi7eF9wFnJOOC3YD9hOZqj7Xc
+	 Eq8nfVBSKAHc16udv9wycz0LkPmsnrLt8SlYpbXMWNxTNzHTr7Togbz4IKo8As6CKdlit
+	 K9oVYECJv9T7j6lCvOG+dRnXz4Pew0YJUPt8ElRr+eFxVSEYPspr4/M04D5Rn3hQUo09q
+	 RcIxZvzgTWDG/bYCnA71UNPHH54qGrBDVEGX/8PKpVhlSFk+lNzmR3Npqscfh7OxbQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794648934;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=R3SHNzEG8PZRl+89SIxHaUlLOou0v8iJQFJkz7hZ9JM=;
-	b=NL4nA2Lx29u7RL1KlJgH8kFBIYoBV3eWQfdM1BExlHlyC1x78m/zXRGbb7GxZ0FKn2wx
-	 ENAssVcD8s5NFJY7anQo2ybMG66A21mM0ca0GQOnuvB1wj7Uqqy/fuJrb3bHX75J/5q7R
-	 zffl+Q7e69xV/k9oBzapfvS3iaDCNl8FGv+oZKEsbq5vMpU8Dxwj5S3xBeSTXL+fC/Pjd
-	 2RNiPf/npBTITgBZLQPLEkokEFUo2pROiEjaIlKtu/3z/AUWeLBY4v47E/HAADDk6r6SL
-	 7ypOQO6NOm31fjQAF8i92IfLXrwPxbsVVHKDHBt+rdql0zgL2jOxrTf7tnwa8DNYeuA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794649001;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=26oxNda2Jbu3cIX63Z4R9RMnAS+/vo2GCsCa7CBvDvE=;
+	b=F4nZxSdRYePbruG33pHohWOjThKYSjAgcr/YuGVVMqa2t9AVUZk+PikkY+wXh16P/rwT
+	 pD2d61p9rkuY1FPRv3CFx0bql6Qx/zBb+C6CacfE7qScknW94AjjeA+jOAFZuSIiZ6bd4
+	 Pkvw0tZMiSNA9sOT2cWqC3e31OvZmZdJtHoDrzmng9ubhyfKrMZ5SjFvpL0/bTfb3QnO9
+	 5n0Myr0kOJAUUaTrPa1ncEcOUszEzxiEybFpuZxq8vFx3NbJOYZ6sAqE/vSsX7/OBE6mA
+	 k3Bc9/3PRHQ54TX1DPsqEEjA+qRvTvr9gu+rs7UZQgfiJVTld9euWOIwBT+rT/UIhHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Uvfc/e8b";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=EP1ghp76;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=FDCDyhPL;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAB94606A327;
-	Sat, 14 Nov 2026 09:35:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 428B1606A327
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 09:36:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 428B1606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uvfc/e8b
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 277FF1F000C4;
-	Sat, 14 Nov 2026 09:35:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794648933;
-	bh=R3SHNzEG8PZRl+89SIxHaUlLOou0v8iJQFJkz7hZ9JM=;
-	h=Date:From:To:Cc:Subject;
-	b=Uvfc/e8bUSIWz+2yFggtoHWkEr+ffxhKYH6vkR49oM2nss5jWUMeF1/NEMgjSSapo
-	 N98CYT8jcSDaccm0KVoS+/8rABjn1vJGlxDYqjFqUah1708/hi9wyg507fFdNSlI8l
-	 fWPu1yEraCJcMuqC1vutS+3c6CU+0wZ0yndqYgIUb+vjkSFMC0iuKauIcmcZMeKGqC
-	 92nDpl56ckvD3vC4kB8Q9XQC3h5bzYHtHpeikz7LQ12cPzFzWGD2s7jbd9MX7B5fJV
-	 Ii5TnCdI4vEnlC39oLEUTCOR/7LcG0rxncpgCv+QUCRGKlb8YoTct7pEoCQnbMkcEC
-	 G89OzKr4fHBGg==
-Date: Sat, 14 Nov 2026 10:35:28 +0100
-From: Christian Brauner <brauner@kernel.org>
-To: Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>
-Cc: NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, 
-	Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, Jan Kara <jack@suse.cz>, 
-	linux-nfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: nfsd: delegated timestamps get written to frozen filesystems
-Message-ID: <20261114-abdrehen-mahnwache-farbpalette-9c31774145cc@brauner>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=EP1ghp76;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=FDCDyhPL
+Date: Sat, 14 Nov 2026 10:36:36 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794648998;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=26oxNda2Jbu3cIX63Z4R9RMnAS+/vo2GCsCa7CBvDvE=;
+	b=EP1ghp76E7fkW7ZcMG/KnkpNGMrAXuNWemC6+/fjBeEOPtkBBpbC/RsqgCYyD3m5+E0p0B
+	0HCIdgjMzCu04LnAnNlPli7q1Ah0LvU7J/ATYLdTQ1O/mfo8zu6V3m0OnG2pHzboIU0iqR
+	bu00CUKO0qkgcrhKy/cnEYRw8zNDljEkyOBjA6rHIiibLQqJvDxIFR8brCnn8GgXu3jId3
+	QNAZlYZhBSmcxqef8YxYbx2DeI2Blq04hhKqq4zIB3C8ASKgeew7kmCnX/rMCqvDIxsY0q
+	oJOL8TqH2l8M2TufzbNq+WMk7W5O0/HBU4zOOQRmQ5JaWmsmQusBlHp5L1fkxQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794648998;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=26oxNda2Jbu3cIX63Z4R9RMnAS+/vo2GCsCa7CBvDvE=;
+	b=FDCDyhPL8YiXrkcibEM2ZGGZh0iOW1G4ezZonzYCx5ldQpmUFBsxOZqa7dyMF5/pzOkxG3
+	o10umt1MWPiNC2Cw==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: John Ogness <john.ogness@linutronix.de>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+	Kees Cook <kees+treewide@kernel.org>,
+	Vlastimil Babka <vbabka@suse.cz>
+Subject: Re: [PATCH] powerpc/smp: parse_thread_groups() return error on
+ missing property
+Message-ID: <20261114093636.mDmlSOhU@linutronix.de>
+References: <87mrrbrhf2.fsf@jogness.linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,73 +83,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <87mrrbrhf2.fsf@jogness.linutronix.de>
 
-Hey,
++ Kees, Vlastimil
 
-I'm working on a freeze protection series. This fell out of it and I
-can't just fix it myself.
+On 2026-11-14 08:44:57 [+0106], John Ogness wrote:
+> parse_thread_groups() is supposed to return -EINVAL if the property
+> does not exist and -ENODATA if property does not have a value.
+> However, it is currently assuming it exists and blindly calling
+> kzalloc_objs() with whatever of_property_count_u32_elems() returns.
+>=20
+> Since of_property_count_u32_elems() returns exactly these same error
+> values in those cases, simply return with the returned error value.
+>=20
+> Signed-off-by: John Ogness <john.ogness@linutronix.de>
 
-Can I leave you with fixing this?
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Fixes: 0af298e62e5cf ("treewide: refresh kmalloc_obj() conversions")
 
-cb_getattr_update_times() and nfsd_update_cmtime_attr() call
-notify_change() under inode_lock() but nothing takes freeze protection
-for the export. So they modify filesystems that are frozen. On ext4 that
-trips the WARN_ON() in ext4_journal_check_start().
+But=E2=80=A6 The difference in the commit was:
 
-Reproduced on v7.4-rc1 with two NFSv4.2 clients, the second one in its
-own network namespace:
+|-       thread_group_array =3D kcalloc(count, sizeof(u32), GFP_KERNEL);
+|+       thread_group_array =3D kzalloc_objs(u32, count);
+|        if (!thread_group_array)
+|                return -ENOMEM;
 
-- client A opens a file O_RDWR and gets a write delegation
-- the export gets frozen
-- client A writes 64k into the file and keeps it open, so the data
-  stays in its page cache
-- client B runs stat on the file
+kcalloc() returned NULL on an overflow and did not continue with the
+allocation. So the check below worked.
 
-nfsd sends CB_GETATTR to client A, sees the file was modified and
-updates the timestamps on the frozen filesystem:
+kzalloc_objs() on the other hand returns for the overflow SIZE_MAX and
+passes this down to the allocator. We still get a NULL pointer but with
+a warning (from ___kmalloc_large_node()).
 
-  WARNING: fs/ext4/ext4_jbd2.c:90 at ext4_journal_check_start+0x1f6/0x2d0, CPU#0: nfsd/444
-  Call Trace:
-   __ext4_journal_start_sb+0x7a/0x470
-   ext4_dirty_inode+0xa1/0x120
-   __mark_inode_dirty+0x154/0x1110
-   ext4_setattr+0x2bd/0x24e0
-   notify_change+0x81c/0xee0
-   nfsd4_deleg_getattr_conflict+0x7f0/0x1370
-   nfsd4_encode_fattr4+0x3c3/0x1290
-   nfsd4_encode_getattr+0xd1/0x1d0
-   nfsd4_encode_operation+0x285/0xf80
-   nfsd4_proc_compound+0x5e2/0x23c0
-   nfsd_dispatch+0x26d/0x870
-   svc_process_common+0xfed/0x19a0
-   svc_process+0x600/0xb90
-   svc_recv+0x1969/0x2650
-   nfsd+0x2f8/0xcd0
+Is the warning on purpose now?
 
-The inode's mtime and ctime on the server change while it is frozen.
-That was with delegated timestamps turned off, the
-cb_getattr_update_times() path with them on is the same.
-
-I think nfsd_update_cmtime_attr() has the same problem
-but I haven't reproduced that variant. It runs from:
-
-- nfsd4_copy(), nfsd4_do_async_copy(), nfsd4_clone()
-- nfsd4_finalize_deleg_timestamps() <- nfs4_unlock_deleg_lease() <-
-  destroy_unhashed_deleg(), which is reached from DELEGRETURN,
-  nfs4_open_delegation(), the laundromat via revoke_delegation(), admin
-  revocation, client teardown and nfs4_state_shutdown_net()
-
-mnt_want_write_file() on the delegation's file before inode_lock() would
-do for GETATTR, COPY, CLONE and DELEGRETURN.
-
-But the laundromat and nfs4_state_shutdown_net() shouldn't block on a
-frozen export, I think? Lease expiry for the whole net would stall and
-nfsd shutdown would hang until the thaw. Those probably want
-sb_start_write_trylock() and skip the timestamp update while frozen.
-
-The OPEN with truncate path in nfsd4_truncate() had the same problem.
-I've got a fix for that one in my series.
-
-This goes back to 7e8ae8486e44 ("fs/nfsd: fix update of inode attrs in
-CB_GETATTR") and e5e9b24ab8fa ("nfsd: freeze c/mtime updates with
-outstanding WRITE_ATTRS delegation").
+Sebastian
