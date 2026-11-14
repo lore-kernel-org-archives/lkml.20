@@ -1,99 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.47
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794654664;
-	b=PVMp327mPmkEamJFzYOGj0oHSibKpdOH1Dc91lLLvk88Hi7g0pDQFsELurdUN36gtKYl
-	 qAXcnuP4kDr3hclmD0I00AHNBFzoRr4m+HjMRf1n2bVugGkmRWsd7I4CQ+qfmg2v+XwUx
-	 jjJ/+p4T0oivH0Ef0rt8+eKbpP14sOiNyHT7X1fszSreUI0GPk7I/qFXGKg2ec2GW26Q3
-	 iV7Vdu0jQCBuOtpYOA/ZjrGxLxfpMThXrhTVkBYBXRtww456IfQ0pN1Me+Tij7KxlBjNC
-	 IRJo+FIIu0XMvXaOWdBnU/1es7bnXa7vcn4I1UP097I1lB0bpLnxX4WEJrKsA//JoMg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794654664;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=YMHXKhTk0ecNKUt9XV/VlNwdmNNg447P8iuKMev7L7k=;
-	b=G9zpJTkro0qE44EtvdrJHQgc5AqOEE+/EtIs17F4JeY/8cx6oGWPDzeL7Dc6A7QyhcuR
-	 Xfs+/O4wMxBpMtZ4r9U7JBUHMnY9yHPGrTuwoIkbUcJpx7b+UgAcld3v0EaVgzg7zRxlp
-	 BDFXxx6xpnxf6G2JjwC/eXgqQZRmAy0VEXSN2k86MN4G4ME6Uxs/l7O9EtXIoTPRRFzKb
-	 GSyTNcU+55CM7ptUr5x2LfBLCA7GgkwiFszn7vQzyzKjrDdfydplBgshbfp6J21cQG7ZP
-	 ZzIDyTI9KRLAzTlZE+sJhSeBTMZqXme1GvTSUR7vGiKAYESGcOkfruOyGacxrUzy0CA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YhrPvSP9;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.47
-Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794654718;
+	b=ZxVFjhVcgJe4wTmwwyzdWnNJWGO+Pp5Kg57rChDHlhmTFtqacgpUSKec1UQedS4g5aoS
+	 v1eywFZ+w1pnIs04IKlri7kidiBCW7lBIgXnV8uJ7wh94Z27DDoafwd19cz88+yKkf4Uq
+	 5OcLzxc9QzAygUtwvMCfJCNe3HexOlN9shge90JDlTbbjpvItZXqYsOBc4C1b4kd8MWnE
+	 /0qCtl0ZtHMFLGepTZ/kDN18keOuf+zW6N26fj3sLlkYQAHnYjlWGVOaIgp6njtC1sxnm
+	 +4HYEdHW+Wka4N1Dv7MK5t2LzE1pp847dDRrWqxmNVjtAUFyMPzDCXrq876Naj4SkfQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794654718;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=9u58OC7k56Oh2FJNigWfAleT6Lj20pexcyKsyjL6XiE=;
+	b=losDwgydGmtiLLtZulQOE9zz+1BhYX+xF6hFTNILKjf0ekrU1wqKo59Whim28BkkVqo8
+	 Sj02M8xhCjWHaSh5r/wOaOXRclF0HNlhEKpxbAzlG6gPQg082zgmfrQsLEhfcKPzk9lyG
+	 m51zpVjvOzQF76oKycdFRnxDseWCO/dcxNBsfltVV/I20k1nHabcAJJMJQdNybpIBojxY
+	 mjGIcWtN9+4nTCGbzq4AEv5ejsW321yIxFj0QOKgsmqij2aPiqxCH9x7J/rMFQLsL8kkj
+	 /YiaSUd5TcHtai8ra0kPSqMKFJ6LWhl2C4IeickEP1PfbaBDGMPIHbLSrvHx5WhuUtw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Co09+6WR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 356A0606A8B3
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 11:11:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 356A0606A8B3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F671606A884;
+	Sat, 14 Nov 2026 11:11:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YhrPvSP9
-Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-91c11468b5fso28823606d6.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:11:04 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794654663; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fR8QgmhTRPElENmScWal4zvcksMgFzIuNuNJBR5j70gzyCr4rCwdWA0nt4AihRHXy7
-         5c+jghvebe5gWGSIQtDAQJkcmDNak0DX74i6VckZGwUraMCmjTgDa5GDK+KbPvCyZ3Yr
-         sOEHDAfWXnEDXtCfrUcjw6dPjJI2xNboiFo+RPCCGChWr+QIWZLmeUoyRxAbs6OHr6Eb
-         DxifIEMO4k8nxG6C4n9x7i8HCm0NmJ1db1HhM1p4lnYnXu9PY53rDl9lRqOJQ0Oq7/2F
-         OS6exGnVKpqJ5Hpb+rZ5v/gG8ohT5PXtM4L/A0UERQewZngeoxTEGRqo8jopqcAuVBh6
-         kkRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=YMHXKhTk0ecNKUt9XV/VlNwdmNNg447P8iuKMev7L7k=;
-        fh=PcLm222uBEdPBM4buLkezgHL55mZ7JuuqEYlhstLAs8=;
-        b=MUi0HKmF/5Hl/y/ohifGcXtYjX4l1FPQLHqJ28UGOvOwCtexImDBN3TdBCl+Gv4iNQ
-         3zs4V22msHV+xc+hbAGNbC4zgBQvUC5SNWD8jr08ZFWcTQGYZRhEGBuJOjuOCue7fd7z
-         XA8sH76ic3pTh2thtiq57w0cvyfirkdmsuYr11gPyVMIOqfpI1XY3oBs7FfX4nf5yBmv
-         /HqGoIREGvmuQ8qZVALGJgbOTbNq6iD3HYz3xyboCndwjdPCjBTVZgbXfpEmMGs0WZJy
-         LlKU+xTbCvg6eW8wz0estFSAMBqAqrzzj3XCacWSJfcBP68qXRSH+U7qHLUewnHQrdv0
-         lstg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794654663; x=1795259463; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YMHXKhTk0ecNKUt9XV/VlNwdmNNg447P8iuKMev7L7k=;
-        b=YhrPvSP98/TIXdSq+2gSHi25603ROCU47V1RiiVXIuPJGl17SKyEh10+azRpevyPGt
-         ZfB1ArJKjOIa2pIdoobLk70yPPv+L685WFl41xIQQHaAWJgMAtl/iQBv7PAL2d1A1a3X
-         llpLGPmw2p7eIGOtOlOBbiLaiqp+7ppyYBEZ99dpeBfospdTTgIPEGzRj5XAL83dLYyT
-         aDoPrRlTyzIGtPM8GjLEEH0iVCsq+mhMmXGeLZAwggTL3wf2YLqzEkpw3fg8K+QUbrs4
-         hekYS/16RdXqKk+2Q0Cu028migvIAyrPBufXfr2KnDBkAusRrU5R7wHUQumclY6P4qbn
-         9YMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794654663; x=1795259463;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=YMHXKhTk0ecNKUt9XV/VlNwdmNNg447P8iuKMev7L7k=;
-        b=0S8c+LiqLfte/fFP253ceLIt8uwwYkKoO5Zk3zCR3ZYXHDnCM6fd92U4VzeDEIZqX7
-         44OGhB6F3BOuAz6JKV+ZBhQA78QPscd2Fu2mlOAo2uu3bfdYoQ98UeY2K1nKG7zrYvTG
-         btuH/MNzCPK2YffmDBjeacYIv3QjiSlG0WUFazVxp+abp0fPz5bdEAqUcH14BjVE+rcD
-         rS0N+pds8XDK/u3cSPUHxjG32j1EbV9bQaNgPcTem3bSOJENvig72Fk+fgQQISf0iFV0
-         tD9bt7vwUvwOknhutdB3dwymZkDnQ8nfEEX/OTdUgzU/R19OcXtRngFFZ/8Tdtz9cA1A
-         XTcA==
-X-Forwarded-Encrypted: i=1; AL+hErGE5xNZQB/pA1ADyqs5Vw8Y5Jb6zCNVNPC/z1Akyzi35xWaCmhTUF0VLbFXq+5FgdQMTH1vQyyhugiTyF8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Tw0uB//efHfIGXIUTrATnW/NDoaGQ4cLBOqmVd7+DGGQuLDGa
-	PQloOZkHLZr2NojyJI+yidcPxxqFuB4Mg2tGzgV7wIjlFScJCRZqrQ8uBuWI7q9cDHWqkCfVn9J
-	BuqXUg6YEv5mMUJo/MWCAVjGVTpg4nO0=
-X-Gm-Gg: AYBFou1VPdxi/uQTXpdCLzwUyydalnauni8DhCSbyg61cf8O1BI03FvyoPOc5XdG7Lm
-	fF7d3Q4apt0pu1QYCLa3eWlC8YLlB37/0bLFNtnQjC0SjYrph1dA6wIOdcGvwjqdQvrYL5vX96K
-	Tkbno/BotiBKzpZdJgsA1MWuekDXojjK2u6TZ55EMzzFa/zfXLWz9m2nyHWt8YLWOEYTHAzQ7wf
-	rAsSb4wC9NdfvgjpX9WjhbRJ8UYssdvagvoh919XD/CWg2oShVxZLc5rO6ulEAHlSbpWrigDhfd
-	wkMSKCg9tJOMg1FYUrzaMfjTOrYnR15qyU9L1kIp2m2CcUIQChqGhewS7AycHJdgLXiJCECrZm1
-	4VoIZerytgAl/ztqRiT39Q6ruMyF3hwEAx3vFluPKwSiG2PklDATXAP8C/t5btJJFfNxdw9E=
-X-Received: by 2002:a05:620a:28c9:b0:93e:9627:533c with SMTP id
- af79cd13be357-9494bc31abdmr847560285a.50.1794654662952; Sat, 14 Nov 2026
- 03:11:02 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Co09+6WR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E9A41F000C4;
+	Sat, 14 Nov 2026 11:11:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794654717;
+	bh=9u58OC7k56Oh2FJNigWfAleT6Lj20pexcyKsyjL6XiE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Co09+6WRFlcwqsospnar4EGcys3raTpikkCYP/B/3HB4f81ufpt1wUl9dRZRvIZhq
+	 ir9DClZF0v02mvrLjG9ac+WLlrQLJ4v/Ei8y5zMBqTwZyMio8zGaL4DQ+7GCMKbNYP
+	 +m5AJzrCkD1hAIKSGungpJeChB2QdIrqVgvAvybVKHuwIYRe19veAKs+sA1zOFUnMD
+	 A8233TBM8kmwt1KsvmtXp8Y8SOtsARfV+MqjRICLQpPBKKuXxKXE9MB7e81VPPWguK
+	 JnGY8FJwND+KWuRYoChlKmFe4bS+T84Ec4sSLI+RBqKRoojRyIAsbWdwFmHNT7G44M
+	 CsbRtU5TnN0wg==
+Message-ID: <2fc85df3-cffc-4786-a7a8-0f0a6347fd59@kernel.org>
+Date: Sat, 14 Nov 2026 12:11:49 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,359 +51,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103041134.33310-1-physicalmtea@gmail.com>
- <20261103041134.33310-4-physicalmtea@gmail.com> <auxDWISLHB8Ln1x7@sgarzare-redhat>
- <CAJwVaMJbzzK8Sj8DvLjiAyqS8TNgRQ3tjRpGcBNC+anQECg5yw@mail.gmail.com>
- <avXn6E8y5OPtdikQ@sgarzare-redhat> <CAJwVaM+SEhbFtORYgVYNayiQED63sCLO5ibwgkcjBRVvMd=KsA@mail.gmail.com>
- <avdAV2RholA4ana_@sgarzare-redhat>
-In-Reply-To: <avdAV2RholA4ana_@sgarzare-redhat>
-From: Jia Jia <physicalmtea@gmail.com>
-Date: Sat, 14 Nov 2026 19:10:26 +0800
-X-Gm-Features: AclHuK9wAWefZkkrHQ6F3DNTtK7nFasUK7nAlyv7TR_puAUfZnwoD7ycVAO-sXk
-Message-ID: <CAJwVaMLtt1iKCWbhz2T4BbjqseTxjOb8S7vbvX3845LL8GHEBQ@mail.gmail.com>
-Subject: Re: [PATCH net-next v5 3/5] vsock/virtio: amortize RX socket locking
- for stream packets
-To: Stefano Garzarella <sgarzare@redhat.com>
-Cc: netdev@vger.kernel.org, stefanha@redhat.com, bobbyeshleman@gmail.com, 
-	mst@redhat.com, jasowangio@gmail.com, eperezma@redhat.com, 
-	xuanzhuo@linux.alibaba.com, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, kvm@vger.kernel.org, 
-	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/hmm: reject shadow-stack mappings
+To: "Gregory Price (Meta)" <gourry@gourry.net>,
+ Jason Gunthorpe <jgg@nvidia.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ leon@kernel.org, akpm@linux-foundation.org, kas@kernel.org,
+ dave.hansen@linux.intel.com, bp@alien8.de, rppt@kernel.org,
+ stable@vger.kernel.org, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+References: <20261113195536.2660763-1-gourry@gourry.net>
+ <20261113200303.GA395967@nvidia.com>
+ <179460249376.482102.14669935557901467762.b4-reply@b4>
+ <20261114002027.GE3706007@nvidia.com>
+ <179464112539.482102.8723246686117488051.b4-reply@b4>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <179464112539.482102.8723246686117488051.b4-reply@b4>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
->
-> On Fri, Nov 13, 2026 at 04:09:48PM +0800, Jia Jia wrote:
-> > >
-> > > On Fri, Nov 06, 2026 at 08:27:51PM +0800, Jia Jia wrote:
-> > > >>
-> > > >> On Tue, Nov 03, 2026 at 12:11:32PM +0800, Jia Jia wrote:
->
-> [...]
->
-> > > >> >+
-> > > >> >+/* The caller holds sk's socket lock. */
-> > > >> >+static bool
-> > > >> >+virtio_transport_rx_batch_can_continue(struct virtio_transport *t,
-> > > >> >+                                     struct sock *sk, u32 len)
-> > > >> >+{
-> > > >> >+      struct virtio_vsock_sock *vvs;
-> > > >> >+      struct vsock_sock *vsk;
-> > > >> >+
-> > > >> >+      vsk = vsock_sk(sk);
-> > > >> >+      vvs = vsk->trans;
-> > > >> >+
-> > > >> >+      /*
-> > > >> >+       * Keep a connected lookup reference only for the native, established
-> > > >> >+       * STREAM path. Sockets outside ESTABLISHED can change table membership;
-> > > >> >+       * a completed or reassigned socket must resume the per-packet path.
-> > > >> >+       */
-> > > >> >+      if (sk->sk_state != TCP_ESTABLISHED ||
-> > > >> >+          sk->sk_type != SOCK_STREAM ||
-> > > >> >+          sock_flag(sk, SOCK_DONE) ||
-> > > >> >+          vsk->transport != &t->transport || !vvs)
-> > > >> >+              return false;
-> > > >> >+
-> > > >> >+      /*
-> > > >> >+       * Do not admit a packet that would hit an existing RX limit while the
-> > > >> >+       * worker owns the socket lock. The caller holds that lock, so no reader can
-> > > >> >+       * dequeue until the batch is released.
-> > > >> >+       */
-> > > >> >+      return (u64)vvs->buf_used + len <= vvs->buf_alloc &&
-> > > >> >+             !virtio_transport_rx_buf_full(vvs);
-> > > >>
-> > > >
-> > > >Hi Stefano,
-> > > >
-> > > >> I don't understand this. We recently introduce the collapse, so when we
-> > > >> will call virtio_transport_recv_enqueue(), all the queue will be
-> > > >> collapsed, including packets in the batch.
-> > > >>
-> > > >> Or am I missing something?
-> > > >>
-> > > >
-> > > >Yes, collapse operates on the same receive queue, which also contains
-> > > >skbs queued earlier in the current batch.
-> > > >
-> > > >The rx_buf_full() check is not intended to bypass collapse. It prevents
-> > > >the batch from retaining the socket lock while processing a packet when
-> > > >there is no metadata room for another skb. Collapse is best effort:
-> > > >some skbs cannot be merged, and allocation of a replacement skb can
-> > >
-> > > IIUC batches are enabled only for SOCK_STREAM, so, which skbs can't be
-> > > merged?
-> >
-> > My wording in the previous reply may not have been precise. What I meant
-> > is that collapse is not guaranteed to free the skb slot needed for the
-> > incoming packet for every valid receive-buffer configuration.
-> >
-> > With the default 256K receive buffer, a queue of small STREAM skbs will
-> > normally contain multiple collapse candidates by the time it reaches
-> > the metadata limit, so collapse will normally make room.
-> >
-> > However, SO_VM_SOCKETS_BUFFER_SIZE is configurable through setsockopt().
-> > A sufficiently small but valid receive buffer can make queue_max equal
-> > to one. After the first small packet has been queued, that skb is
-> > eligible for collapse, but there is no adjacent skb to merge it with.
-> > virtio_transport_collapse_size() therefore returns only that skb's own
-> > length, and the skb is kept unchanged.
-> >
-> > The incoming second skb is not in rx_queue yet. Provided that the two
-> > packets combined payload still fits within buf_alloc, the payload check
-> > passes, but virtio_transport_inc_rx_pkt() rejects the second packet on
-> > the metadata check. This happens before the later tail-copy optimization
-> > is reached.
->
-> I'm lost to be honest, why the secondo skb is not collapsed?
->
+On 11/14/26 08:25, Gregory Price (Meta) wrote:
+> On 2026-11-13 20:20 -0400, Jason Gunthorpe wrote:
+>> On Fri, Nov 13, 2026 at 03:41:33PM -0500, Gregory Price (Meta) wrote:
+>>>
+>>> Some of the context is here:
+>>> https://lore.kernel.org/all/20261111-mason-migrate-et-al-fixes-v1-10-3d2454362e8d@kernel.org/
+>>>
+>>> We had a similar issue with migration, but this should handle the DMA
+>>> case as well.
+>>>
+>>> It's "technically writable" but the kernel is supposed to prevent that.
+>>
+>> Bah, it's not writable at all. The CPU PTE has write disabled and
+>> someone thought it was a good idea to make pte_write() return true
+>> because the CPU allows writes through a special instruction on this
+>> special PTE? So now all the places like this think its writable, when
+>> it really isn't.
+>>
+> 
+> I completely missed this, that will teach me to trust pte_write() I
+> guess... what a bizarre design choice.  I'm sure there's "reasons".
+> 
+>> You could also fix this by having something like pte_real_write() or
+>> whatever that doesn't lie about the write bit in the PTE :|
+>>
+> 
+> or rename pte_write() to pte_fake_write() instead and restore
+> pte_write() to its former truthful glory
 
-The second skb triggers the collapse, but it is not itself an input to
-that collapse.
+It's writable by the hardware, that's what matters to core-mm, for example, when
+it comes to things like fork(), mproetect() etc.
 
-The concrete case is a valid receive-buffer configuration where setting
-SO_VM_SOCKETS_BUFFER_SIZE makes:
+*nobody* besides selected core-mm code should ever write to random PTEs. They
+shouldn't ever even care about pte_write().
 
-      queue_max = vvs->buf_alloc / SKB_TRUESIZE(0);
+We have GUP for that, which takes care of that oddity properly when deciding
+whether we can *actually* write to a mapped page.
 
-equal to one. Assume that rx_queue is initially empty and that two small
-STREAM/RW packets for the same flow are available in the same RX
-virtqueue drain. Their combined payload still fits within buf_alloc.
+Well, and we have HMM that reimplements part of GUP in ugly ways (sorry) that we
+missed.
 
-The first packet passes the metadata check:
+-- 
+Cheers,
 
-      u64 skb_overhead =
-              (skb_queue_len(&vvs->rx_queue) + 1) * SKB_TRUESIZE(0);
-
-It is then queued, so rx_queue contains one skb.
-
-When the second packet enters virtio_transport_recv_enqueue(), the
-relevant order is:
-
-      queue_len = skb_queue_len(&vvs->rx_queue);
-      if (queue_len >= queue_max)
-              virtio_transport_collapse_rx_queue(vvs, ...);
-
-      can_enqueue = virtio_transport_inc_rx_pkt(vvs, len);
-      if (!can_enqueue)
-              goto out;
-
-      /* tail-copy is attempted here */
-
-At the point where virtio_transport_collapse_rx_queue() runs, the second
-skb is still only the skb argument passed to
-virtio_transport_recv_enqueue(). It has not been linked into
-vvs->rx_queue, so the collapse sees only the first skb.
-
-For that skb, virtio_transport_collapse_size() cannot find a next queue
-element:
-
-      while ((skb = skb_peek_next(skb, queue)) &&
-             virtio_transport_can_collapse(skb))
-              ...
-
-It therefore returns only the length of the first skb, and the collapse
-code keeps it unchanged:
-
-      if (alloc_size <= src_len) {
-              keep = true;
-              goto next;
-      }
-
-The queue length remains one. virtio_transport_inc_rx_pkt() then
-accounts for the existing skb plus the incoming one:
-
-      (skb_queue_len(&vvs->rx_queue) + 1) * SKB_TRUESIZE(0)
-
-With queue_max == 1, this exceeds the metadata budget and returns false.
-This check happens before the tail-copy code, so the second skb cannot
-be copied into the first skb even if the first skb has sufficient
-tailroom.
-
-virtio_transport_recv_enqueue() then returns false, and the existing
-error path resets the connection and sets ENOBUFS:
-
-      if (!virtio_transport_recv_enqueue(vsk, skb)) {
-              virtio_transport_reset(vsk, skb);
-              virtio_transport_do_close(vsk, true);
-              sk->sk_err = ENOBUFS;
-              ...
-      }
-
-> >
-> > Therefore, this case does not require an ineligible STREAM skb or an
-> > allocation failure. Collapse simply cannot reduce a one-element queue.
-> >
-> > If my understanding is wrong, please correct me. Thanks.
-> >
-> > >
-> > > If allocation fails, I guess we have other issues, no?
-> > >
-> >
-> > Yes. I thought about that again, and allocation failure is not the
-> > reason for this check. Thanks
-> >
-> > > >fail. If the packet remained in the batch and collapse did not make
-> > > >enough room, virtio_transport_inc_rx_pkt() would fail and
-> > > >virtio_transport_recv_connected() would reset the socket with ENOBUFS
-> > > >while a waiting reader was still unable to drain the queue.
-> > > >
-> > > >When the check makes can_continue() return false before the current
-> > > >packet has been handled, the caller releases the socket lock and passes
-> > > >the packet to virtio_transport_recv_pkt(). This gives a waiting reader a
-> > > >chance to make progress. If the queue is still at the metadata limit,
-> > > >the normal enqueue path attempts collapse. If that still cannot make
-> > > >enough room, the existing ENOBUFS reset occurs.
-> > >
-> > > I really don't see the difference without batching :-(
-> > >
-> > > I may be missing something.
-> > >
-> >
-> > The difference is the release_sock() boundary between packets.
-> >
-> > In the regular per-packet path, the socket lock is released after the
-> > first packet. A reader woken by that packet can compete for the lock and
-> > fully dequeue the only skb before RX locks the socket for the second
-> > packet. If it succeeds, the second packet can be accepted. If it does
-> > not acquire the lock in time, or only partially consumes the skb, the
-> > queue length remains one and the regular path can still reach the
-> > existing ENOBUFS reset.
-> >
-> > Without the rx_buf_full() check, two same-flow packets processed in the
-> > same active batch remain under one uninterrupted socket-lock ownership
-> > interval. Once the first packet leaves the only skb in the queue, the
-> > reader cannot dequeue it before the second packet is processed.
->
-> Why?
->
-
-Because an active RX batch retains the socket lock across the two
-packets:
-
-      lock_sock(sk);
-      ...
-      batch->sk = sk;
-      virtio_transport_rx_batch_process(...);
-
-The lock is released only when the batch is finished:
-
-      void virtio_transport_rx_batch_finish(...)
-      {
-              ...
-              release_sock(sk);
-              sock_put(sk);
-      }
-
-The receive side needs the same socket lock before it can call
-stream_dequeue():
-
-      lock_sock(sk);
-      ...
-      read = transport->stream_dequeue(...);
-      ...
-      release_sock(sk);
-
-Waking the reader after the first packet does not allow it to dequeue
-while the RX batch still owns that lock. Without the rx_buf_full()
-boundary, and assuming the other batch-continuation conditions remain
-true, RX processes the second packet under the same uninterrupted lock
-ownership.
-
-> > Collapse cannot reduce that one-element queue, so the second packet
-> > fails the metadata check and resets the connection.
->
-> What is unclear to me is why this is not happening without batching.
->
-
-It can also happen without batching. The difference is that it is not
-unavoidable there.
-
-The regular per-packet path executes this sequence for every packet:
-
-      lock_sock(sk);
-      virtio_transport_recv_pkt_locked(...);
-      release_sock(sk);
-
-Therefore, even when both packets come from the same virtqueue drain,
-the first packet is followed by release_sock(). A waiting reader can
-compete for the lock and fully dequeue the first skb before RX locks the
-socket for the second packet.
-
-If the reader wins, the second packet sees an empty queue and can be
-accepted. If RX wins the race, or the reader consumes only part of the
-skb, the regular path can still reach the same ENOBUFS reset.
-
-Without the rx_buf_full() check, the post-processing check after the
-first packet only sees that the payload limit has not been exceeded:
-
-      return (u64)vvs->buf_used + len <= vvs->buf_alloc;
-
-At this point len is zero, so the batch continues to hold the socket
-lock and processes the second packet immediately. Under the conditions
-described above, the reader cannot intervene and the metadata failure
-is deterministic.
-
-With the current check:
-
-      return (u64)vvs->buf_used + len <= vvs->buf_alloc &&
-             !virtio_transport_rx_buf_full(vvs);
-
-the metadata slot is already exhausted after the first packet. The
-post-processing check returns false,
-virtio_transport_rx_batch_finish() releases the socket lock, and the
-next packet returns to the regular per-packet path.
-
-This restores the lock-acquisition opportunity. It does not guarantee
-that the reader wins it.
-
-> And, why we can't collapse the batch it self...
->
-
-I am not sure whether I understood your suggestion. Do you mean
-changing the enqueue order so that the incoming skb can participate in
-tail-copy or collapse before the metadata check?
-
-The current implementation does not attempt that change. Its purpose
-here is only to preserve the behavior of the existing per-packet path
-in this boundary case.
-
-The earlier targeted A/B test also illustrates why I added the
-rx_buf_full() check. On a 2-vCPU guest with queue_max == 1, I ran 100
-trials in which two STREAM/RW packets for the same flow were available
-in the same RX virtqueue drain. With the rx_buf_full() boundary, the
-connection continued in 22 trials and reached ENOBUFS in the other 78.
-Without the boundary, all 100 trials reached ENOBUFS.
-
-The check does not guarantee that the reader wins the lock race. It
-preserves the opportunity that exists in the per-packet path. Without
-it, batching removes that opportunity and turns a case that could
-previously continue into a deterministic reset when both packets are
-processed in the same uninterrupted batch. I consider that a functional
-regression from the existing behavior.
-
-Thanks,
-Jia
-
-> Thanks,
-> Stefano
->
-> >
-> > The check detects this metadata boundary after the first packet and
-> > finishes the batch. It therefore restores the lock-release opportunity
-> > that the regular per-packet path had at the same point. It does not
-> > guarantee that the reader acquires the lock first; it preserves the
-> > original opportunity to do so.
-> >
-> > Without this check, batching would remove a successful interleaving
-> > available to the regular path. For this valid receive-buffer
-> > configuration, when both packets are processed in the same uninterrupted
-> > batch, an otherwise avoidable reset would become unavoidable. That
-> > would be a functional regression introduced by batching.
-> >
-> > Thanks,
-> > Jia
-> >
-> > > Thanks,
-> > > Stefano
-> > >
-> >
->
+David
