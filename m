@@ -1,85 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.42.129.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794676931;
-	b=xlDgIMRiX+Ca0eVNPD7yKLm7/DGmFQyzgAdCQ0t0eVDPV/1/YYoXPg3pZZPxEL3ktoMG
-	 sbTBThomb7Ssbe29VLtvAnPf8YBclGPqGmVy0I/k1KGQT1QXq31S4VZLk7vcV88IQFw8R
-	 tUBiqukSiqmsSXyuYWDF1A2tgF2cjJ3JQkcEuEwOh/qvZUCWlmahZKv8auGaw25cOApJ6
-	 EyrdDvj8ULQCJ2kAW22UwBo1Z9BO4Rna3JNz3l9IvY7T+ruGq4RlQ1ugldkmyrJWB3LKX
-	 oZlP2w8znGMwTbSgukItzP/dpLU6fVfm5QUDzSm44JH0byx6aO8YCRZYP5zg1J8EbEw==
+	t=1794676934;
+	b=ZY05dGBoT89LxzrtUGewuplstugKQJFOfkH4MsOO5/esBULBphc6LoS/zLAeBJFMYHmk
+	 mEXPTqsUsjPPE2s/5OYVMRzA9GsReuJ+mTk+K9wHZw3CVs2m7xCoi8GZdLZlC7dI+/7FH
+	 weQqYC8dXvoKmaWFvw+7YGXIte9XaKqrnbkmvY0l+9Nq6MyNu7r/n/w1D6VOWkaKnnnnE
+	 vLja8B4yzS0kLcG0e90AZf+VEImx9EMSbzyDr0X7EsiPEXfX2KwTTTXpHBlS1GqepUpoq
+	 vLq8pWW3w6GOCi5Tu5C9yCgUmidDGgUDoqYLBM0rSaW3moJYZEbiygOH6uoG8N7IfcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794676931;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=5rHSD3+ZQwKzYQnxgJEPwedfPYdnuIPpqgShWvy752w=;
-	b=IETcccQXZc0a/mimvUfZcJiZTlVHT+NCBA2nx7KS3BvMndeZ+nvZam1dWq6syvG6OAVG
-	 ORpzRu0D4DujSt5hn5ti2pIVdJ7NLAaUg0GLvvimQjbg4MgKc9Pgd2QUU8JC3it4r8MN+
-	 LqikLVlBwBY5UfK/U37FRmNvhq4dM7JsqTav6XMPRCWI/e7S55GMkmevpN3oxmWb4gjb7
-	 L7SJpqAk7Sy38WCHsKyYcMX3evgOJvdZbbZf5oNdOcDcTc3eBYA1PehKUqTPv3cazNrh+
-	 KJH3aapPoanh+z77CDrTs4a7azaKKSBnwuP7JsPcUUzw5UCcc72BFlu567iUBvlWVoQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794676934;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=BPiy0lLCJ8iWqqQCCroxJX3A23hBl0zH+7ur43sCkxE=;
+	b=OhZHPcQdtOxvNo2cGgY2FN4gXQU+Dh6xW6eEYXrohWdubhFXV3lENi0vtKpkSWU3j/HK
+	 oe5KzR+AfgcbcJ0eP8F1PwKpVqCOWIobK/zIZIGCyGXuWfDtdTm8b9f9C0cfPmaTIn92Q
+	 4jeImOgYuWWyYjMj11dugLUW9kvOvsUR9QMr3GbngLbzoY0gaot5ZQDZCIRgYsw32pbTV
+	 KMwi4obmocSjYIZMOUrLNhxWO7YEm+0msaWnrw5ZUJd/fYZcdC1LhFa+IxyT7HEaE4M7h
+	 nLzF73CuH9/Tn8rg5wmYptsDO1oe+MxAc1AheLfMGozo0ADXO8ry/VxWac8bQwf9E1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=M3dO9xIM;
-	arc=none smtp.remote-ip=209.85.219.50
-Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=ixit.cz;
+	spf=pass smtp.mailfrom=ixit.cz;
+	dkim=pass header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b="tXr9G/Wj";
+	arc=none smtp.remote-ip=84.42.129.46
+Received: from ixit.cz (ixit.cz [84.42.129.46])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61285606A32E
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:22:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61285606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C117606A88A;
+	Sat, 14 Nov 2026 17:22:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C117606A88A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=M3dO9xIM
-Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-91f332a4b2eso9323386d6.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 09:22:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1794676930; x=1795281730; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=5rHSD3+ZQwKzYQnxgJEPwedfPYdnuIPpqgShWvy752w=;
-        b=M3dO9xIMIoKOnSnY2bPPCeRzDdaqWK0koUHopx51iQpTcL5qZDdVMjrpau4qXjCHZx
-         0aqVEF7JmZwgkfZ1M/1iegCnfNHx8yU5lqQw1LEdQ3LTGmmxSCdgVXCuHbuHlbAO91wc
-         CkKhJY2D9fg65YvvUmXNRAaPm1a/DfRrFiyjaQzSZOlRb62XcaTxkeILljWSoLP+ZyqT
-         vo0F3rbVU6rDmpNA/DIZn7r1b2RlPg6T3JDYWQPnFAXpVYelQC76bmqaz3Ld9cuDboJj
-         8QYZBb/STklP5hQ/c1TlXQ4QjluIGkqOnx3IPF4S3E630p8juWmdCNrQB8L7mMQ6sp6O
-         N68w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794676930; x=1795281730;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5rHSD3+ZQwKzYQnxgJEPwedfPYdnuIPpqgShWvy752w=;
-        b=SapvZGD5EquhK91YToHL8Wdz3/I6V89/BPogxIom/I3emsCeqEbOjc32xC+b01N3FH
-         GzR720h/UKr7oyipCCNdGSAltrG3Y/Sxfqq3NJkbMeNqRcxkq1HgMg+Krip6nrOzPkbM
-         VoDDqf4cgnCIzPChC07mYbiSky7OsNteP4EmJEhPJu0J7xOFNQ3L/E9GgoZ4StQP4VVL
-         h8kCuciKQyAO808A1jMF6L8JB0EotuyiJGsOcqxJ01iQmM5ZLpbY7fZhPB+Qw3Ikn1S/
-         wrKG8uBziQ6tbtlZsDnaFE4s0cmE6xo4FDP+G/K+5DZfkh2h9Vvc3+Y5PqdpKOe8aLqw
-         w7Sg==
-X-Forwarded-Encrypted: i=1; AL+hErGv2yohABAy/dfYKYCiKpbiIgaGsJg1PszjI8gfGmgosuYTqkVJMGVOtz5cm7x3uvmiH0Tgabn2SCQgsPU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+qsGtedR0S+2smDhwxs+6Spn1GQvddPVrLsaBPEiQS3jFfEo79
-	Be95RRj+gDHqD+Whnp4N98kXME2MqRQJg2Ea1j3i1MXgslnMGQJs6s55Px4wX4hhdOI=
-X-Gm-Gg: AYBFou0e1JxT7nzbm8r0Bxc1HRSzp5x53LnSpaol4ox1zpE2Ap/r1M2gj0pjUyEHc+y
-	VBAAgQrZZqpUF3qK1vLPbtZE0wu7h2F+Hnvjb0NiEKbf98wsiii59FZSf0z498EbTSQDE/+xHN4
-	32pMo0XxatieGIR6KvtVvvltHGtCp+ScHToLDXBUonRMHaIU2WKYgjwX/Xti4b/OhDaRO6UHUxv
-	/yB69MlE2yjQI/oAm+o4XKhVEOsOtGqNWNP3e46v8nFgJieM6v1eS1+iCW2Akg8HVasXuhOW5lF
-	s9YVcEH3dy6ZqsfLcht7gSYGs23ZoDcQK80UoeYDgJGBi8S4NUub9FB5ZmJ19IQ+RJpcJ59xObk
-	9EXwgK44lmXE5FYXWs5fe7Jo0VKxAxsYKz2FirepUYaFwq4D35xqLGYhhFtbuk/ndoz+56eQRhG
-	PFbt+lfVx57jLzxPWYtZR5DGJmCyfDI9eTZlj7Qp8VXBcE8vmAvfBOw6tAMc2zNPuB01zMAK0nd
-	4fNOdnk2uTH8RduLDFhPtlmQXGpplX6ic1Lh1CJhbQ5qoSq6o19nIRfzhQTjHmpHKH8qiIohksx
-	in4iaqd7PYlI/ZTxIS/vZW8IXt9Jlhti/PCqGAg6RQ8FBUI0T20U4oWAJ3ry99EF7/zJNZoJ18f
-	7PWOeSGU=
-X-Received: by 2002:ad4:5ce8:0:b0:91f:2e4a:7993 with SMTP id 6a1803df08f44-91f2e4a79e8mr70102936d6.14.1794676930211;
-        Sat, 14 Nov 2026 09:22:10 -0800 (PST)
-Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23d6193esm47177926d6.19.2026.11.14.09.22.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 09:22:09 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=tXr9G/Wj
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 808AE534028C;
+	Sat, 14 Nov 2026 18:22:10 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1794676930;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=BPiy0lLCJ8iWqqQCCroxJX3A23hBl0zH+7ur43sCkxE=;
+	b=tXr9G/WjLzNmrPPWDoj2y2MoTRjSo0nmDnMEuOvXmLO2+ahSxTjsfKXq+VudCICr7YmHIO
+	Ds64L7vMsCfU3QZZxG+H2WraHNGQ7wab86XxTMs+UkJGC0geRYC4obyTCwwcDO6Z37kWWc
+	3cx3D3o/gJ1Vcvsk4HKRjvWdBnft3ow=
+Message-ID: <5b31dcc8-8fc4-40ad-8c09-aad8d77965f0@ixit.cz>
+Date: Sat, 14 Nov 2026 18:22:10 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,67 +60,128 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v3 2/2] nfc: s3fwrn5: i2c: Enable the pvdd supply
+To: korryasdlerto@gmail.com, Krzysztof Kozlowski <krzk@kernel.org>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20261112-m52xq-nfc-netdev-v3-0-725a61ce4148@gmail.com>
+ <20261112-m52xq-nfc-netdev-v3-2-725a61ce4148@gmail.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20261112-m52xq-nfc-netdev-v3-2-725a61ce4148@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 1/2] mm/mempolicy: merge adjacent shared policy ranges
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Hugh Dickins <hughd@google.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
-In-Reply-To: <20261113-mempolicy_limit-v1-1-16688b2644dc@kernel.org>
-References: <20261113-mempolicy_limit-v1-0-16688b2644dc@kernel.org>
- <20261113-mempolicy_limit-v1-1-16688b2644dc@kernel.org>
-Date: Sat, 14 Nov 2026 12:22:08 -0500
-Message-Id: <179467692882.482102.17918264505505182751.b4-reply@b4>
-X-Mailer: b4 0.17-dev
 
-On 2026-11-13 22:36 +0100, David Hildenbrand (Arm) wrote:
-> Shared policies can retain separate tree nodes for adjacent ranges with
-> identical policies. This can create unnecessary policy ranges especially
-> when individual VMAs cover individual file ranges, and user space sets
-> the policy on these VMAs independently.
+On 12/11/2026 18:25, Asdlerto Korry via B4 Relay wrote:
+> From: Asdlerto Korry <korryasdlerto@gmail.com>
 > 
-> Extend the existing replacement handling to merge ranges with equal policy
-> at either boundary. The existing replacement loop will then remove the old
-> nodes and installs a single node for the combined range. This also avoids
-> splitting an existing node when setting the same policy on a subrange.
+> Get and enable the optional PVDD supply before the enable GPIO is
+> driven. Boards that switch this supply from the SoC no longer have to
+> mark the regulator always-on.
 > 
-> Extending either boundary rules out splitting an existing node, so the
-> allocation retry can only occur with the originally requested range.
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Asdlerto Korry <korryasdlerto@gmail.com>
+> ---
+>   drivers/nfc/s3fwrn5/i2c.c | 7 +++++++
+>   1 file changed, 7 insertions(+)
 > 
-> This change will make it easier to cap the number of shared policy
-> ranges per inode.
+
+Hello!
+
+I found out about [1], which indicates there are likely additional pins, such as
+
+C6	PVDD
+D1	VBAT
+C1	AVDD
+A4	DVDD
+B4	PLLVDD
+E1	TVDD
+
+would you be interested to look which of those are used with your HW and add and 
+wire these too?
+
+My guess would be AVDD and DVDD are most likely required once, we just don't 
+document those.
+
+Thank you for working on improving the NFC support!
+David
+
+
+[1] https://manualmachine.com/samsung/smg130hn/24414506-schematics/
+
+> diff --git a/drivers/nfc/s3fwrn5/i2c.c b/drivers/nfc/s3fwrn5/i2c.c
+> index 4ba762611711..eaa9a1f75533 100644
+> --- a/drivers/nfc/s3fwrn5/i2c.c
+> +++ b/drivers/nfc/s3fwrn5/i2c.c
+> @@ -11,6 +11,7 @@
+>   #include <linux/gpio/consumer.h>
+>   #include <linux/delay.h>
+>   #include <linux/module.h>
+> +#include <linux/regulator/consumer.h>
+>   
+>   #include <net/nfc/nfc.h>
+>   
+> @@ -160,6 +161,12 @@ static int s3fwrn5_i2c_probe(struct i2c_client *client)
+>   	phy->i2c_dev = client;
+>   	i2c_set_clientdata(client, phy);
+>   
+> +	/* The chip has to be powered before EN is driven */
+> +	ret = devm_regulator_get_enable_optional(&client->dev, "pvdd");
+> +	if (ret && ret != -ENODEV)
+> +		return dev_err_probe(&client->dev, ret,
+> +				     "failed to enable pvdd supply\n");
+> +
+>   	phy->common.gpio_en = devm_gpiod_get(&client->dev, "en", GPIOD_OUT_HIGH);
+>   	if (IS_ERR(phy->common.gpio_en))
+>   		return PTR_ERR(phy->common.gpio_en);
 > 
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-
-Reproduced some bad effects by setting a policy on every other page
-shm policy across millions of pages - then setting a bunch of pages
-individually to the same policy.
-
-Base: merge never occurs, 1 range per page.
-Patch: They all collapse back to a single range.
-
-I was also able to reproduce a "BUG: soft lockup" when a file is freed
-after creating millions of shm policies (absolutely not realistic).
-
-I think this commit is probably fine to backport, but I agree it
-doesn't seem worth it.
-
-Have some thoughts about the limit in patch 2, but otherwise
-
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-
--- 
-~Gregory
 
