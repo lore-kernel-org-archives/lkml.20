@@ -1,103 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794681403;
-	b=x4ymJhJ4Zc/55UiHS7mkTGLmCgnDjebm1LD82LxjisdrXpk4H0XyyLH2xOl67X5I0a4I
-	 jfCi1BTJSpApcjYL8e0V8OfFKm74gP5zdpDvUzJHneVCk9laSw44LxnLjidNm5AzMs4b0
-	 O+XdPB+6/VvhwKSkXSBVQf8xQ61oNXdpSAZcydUm5SDQSQCh3GmRk23iO+MqCShokA/YM
-	 uJQc27dLIBq6MdhC8T5W/+peglk/Wysn0lKkOddNDOAIFfgIUd+Bh/32XFng5tOQGSjQM
-	 deS1WCtEe+YowBthiY8zJw3xUWSbO83WyJPfKe6+zGiDE+pfsa0q8bq0WIdzOc9dIiQ==
+	t=1794681574;
+	b=4aHivfd9rH+eJERy0hJ8/Zd+BmwzNLv1Xtv4KEBxW0yvBsLErR2QuXbrwhDvDLNHc6G9
+	 LiaSbQ1uPEiPWkVAe0GDPWzYrla9QWIOzAG1Bo3cYIP7QLioyMCJYON+sKObMxNdXzayZ
+	 twIi4ckbCy+DV2GXSFGC2V2et44QwhZB2JoZKCBexWEtNvT74sGweNsz2nXJw94Tf/fgk
+	 ERhGGTGQPD55v+MKvOVSY9Ml9RersPopKgUAZpQHzp9cilGHtn0+jMAL2VVHmTvob37w3
+	 Y3Tyzi9zhl7PHZ0253d1WIgslkP1LdHd6p1bcA2S6NViodoCuyINMDztLyuVr90585Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794681403;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=2V2xBQvmo7ss6uvRVL8EHtUlkPPaUKe2Ps9ruTZ9eXk=;
-	b=NJhpUpgH41Q3iNnLN34WYD1DCLtrRrIF2WSlFoPRowyjK/WSBbPGhxdkJvyvmmgS3MAs
-	 PNy/qfO7MkKuQptGkmK5ih5XV4cp5tBptReU4F/UZBHcpUft4TWZiOktFFtG0qr0szJnx
-	 +iLnVr93QkhyNFMaVXANtO5BFr659vi//IwBkC06cSmSku3XWb+Ua55N2mDX/GOhHQYXu
-	 P8zVdFsY3Xo9dvjzljQyOgY5UuE0SvcQm+H4DKi2lR2qwZH0t3R87yljkg2l8E0c/+1ii
-	 8WIU2or4kVVdAG3fohE3RslwsFOvtGUSDa9XcfjteVPyk6fuPGFnHhIsslFZ3wqEDtQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794681574;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Debian-User;
+	bh=0a7lhnldFz0T0GEwHuWehG3KpmUCgohOG9LPG15ZKyw=;
+	b=1bG/aAp0DPe9pXZyYbOZ0oaPvj84Gh2P/vJlvKGkMqqLuFA8vFNeHa/djgybcfgmiyba
+	 oAyzfdamYfj31BznBqsNtREcXOcpE25niWUYmq36duzSY7Wdl/E8nyRmn6zxq5CJVx0Hf
+	 1UPBs17D3E+N48EgNZ95NAZ7jSkcjhBoqwTDkdgjOoLopl0bFadTmrSR1OTVUSAHh7ds8
+	 LrfDNi2QTmzQJIEqms6BUPCpVmumwqah0fc90PC77W5EMYbPSDrxodpQ10DwuZH+8Y4iG
+	 q7KC+JZoPsKDPxfZvtfVMqNMY7fXmLluExwI7Wr/dqlykNzExAkxjv02fu+9RE7JSbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R41vpFJi;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=a2Trb5N5;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B15606A327
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 18:36:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85B15606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DED6606A327;
+	Sat, 14 Nov 2026 18:39:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DED6606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R41vpFJi
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4bb66245c51so339685e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 10:36:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794681401; x=1795286201; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2V2xBQvmo7ss6uvRVL8EHtUlkPPaUKe2Ps9ruTZ9eXk=;
-        b=R41vpFJiQdc0PDk8ieweZXHgdHHtgMZivH9PPi3Y3b2UmwppVpZh8WXRIZ7FOU9h9S
-         lvYE9Shrnax+jyFWUq685uqrvXFBhroGBCsW8TRobUasuUKVfjn1Q90PLw17McKqKS7Y
-         l0nhH0PB2BuG1euDgpD9e1q4mi/iRSIUDakUKeKEBOqN2VJP/HnFYb6RkzKj49bVg5QB
-         MfzvMV1FtOUs+xF3DMvfAYTGkMMY2Qw2Zab9N+F01k4TkByIbYsMGpFIvEUeDRjOGR6X
-         1V+mKMqHsoa85mA3SJsIRME7mdN6sKhOkGV8hWDehbzi/gKExqkAFDS5g13Ovc+bKZ7b
-         NDqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794681401; x=1795286201;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2V2xBQvmo7ss6uvRVL8EHtUlkPPaUKe2Ps9ruTZ9eXk=;
-        b=hKaIwn2mtMe9sZHll5yegZc1UKsCU3TMzgiRPSuR0Pv4g0yjpzGDWwirR609dmXLZA
-         nzDsVdKaFv5hbXCQ4lfSmRqksDTV8GN5WJcf/S6Xm9G/1xk0EXnCqi0a60734e/Ii3rj
-         KV8f7YZeq/+VvQPVCdzP0vV+5sxrrf3NeF3JP2omtxLDMPmjPbG3J89+mU6z6QnCBn0o
-         UtBChXOmOka4Of4AZjeI5u1yyDkoybLPDLnN3e7gEqvn6qNw3FLe5VIiFvK3xG+CR+Fd
-         +S36JpUzZg703j1hBWRqaBrgbc7ZTSaVMDRkpfjoqyYuRw3SDmUk7XI8F8hTEh5Pqoya
-         YxCA==
-X-Forwarded-Encrypted: i=1; AL+hErEU6WYmYHAjypqpfrkqq5thm0XkA8til+AKAEcg3cENalo52H6fULaSyh75UfCf08XQfPP97uGXBUZ3gc8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+hIPtXaY1jsDBqmrxHyi5fkRHzjWHNUP5tLHP1QstkxdMLJxa+
-	LHhNIWvlAnnuKeiRVrEIOgwbBDAIXgyr7vzn2U3YbvYnVAA2mm2ebVEb
-X-Gm-Gg: AYBFou2KljPRYBaZWU+FoN3TA6+hzgzgOo/bPF2lHThly8d+jVUpa8fLAtFwTKmqD7+
-	kc34I1AFqvRq49SvjF9oh+XcN3stQbPE1X3fxHXj7MkHY++Iw37ruJ8zkLzqpC6VO2VupIbH14A
-	JmE5b0xAn6mdBawyKGipLjbZL8gCiqmES9c42rX7kFTVb28+mJ+KOJk5/umUDHRdrIX6KqMk1kj
-	n7mMQPjETXXJ/sVle02NxnLfqojYKkq7vMLbuuCBdGJxkHDlJgKH+eGISzDCVE+qvsy96HcZEQg
-	R64eIEbUHquKqiuLVJwd1crZvRChX+NpZ61VASmrAuFCwG9M0NS5GkKuK444vXAsuc1q326Atz5
-	gRRUw6FtSuwuwVA+VRx+FR4OaDRIEBoQ01RbJnaIbo0zio3oiXMCvxu6uvDE+JdoPsM7Ql0Wfyi
-	WZrdKYjK/2g+stMYTZ9hopHliod9I+i+57D6KWC/WD1MLx943LMzlx70po5TjE7Fr/fKZLHZIQ2
-	/fMYl488aQ78ihDhoNNm6m6daoNNa96OyZL9Ki/R6W0VhR/BJHTjz5OINs6koaswGWhtSrI9y7e
-	Gi0FrzPvFjW/oabYRT7r7/4ey+W/fkAfbnsYtcB6fONTQnNoZk8=
-X-Received: by 2002:a05:600d:8654:20b0:4a0:13d8:cd0c with SMTP id 5b1f17b1804b1-4bb55a40159mr100887715e9.2.1794681400654;
-        Sat, 14 Nov 2026 10:36:40 -0800 (PST)
-Received: from lima-kdev.local ([88.243.154.19])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e2adf53sm256300075e9.15.2026.11.14.10.36.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 10:36:40 -0800 (PST)
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: corbet@lwn.net,
-	peterz@infradead.org,
-	mingo@redhat.com,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>
-Cc: dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Kayra Cizmeci <kayracizmeci@gmail.com>
-Subject: [PATCH] sched/docs: Rewrite sched-eevdf.rst
-Date: Sat, 14 Nov 2026 21:36:17 +0300
-Message-ID: <20261114183618.56111-1-kayracizmeci@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=a2Trb5N5
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Content-Transfer-Encoding:MIME-Version
+	:Message-ID:Date:Subject:Cc:To:From:Reply-To:Content-Type:Content-ID:
+	Content-Description:In-Reply-To:References;
+	bh=0a7lhnldFz0T0GEwHuWehG3KpmUCgohOG9LPG15ZKyw=; b=a2Trb5N5I/QTtOd8+pyYiatNsG
+	JrKV1w4JMFNnpDhvP75GcUeEoqyuf8aw8CL12CYkfcb5atdTjulX9ynMBSORYPhTNfNknjJ0ZTFX3
+	ifcgW9CF1ibUMkwYJIVJqrUcviB+Q7CHECIrkAjwVFkqY/2QPAipPwImQyLfCzwtyhRr2R1TnXFep
+	UjbcpWN3ZlhIODviLCjgRojeRgXm88s8vFz0bz+8LwBlsVpH9hcrQ57mPaK9QzwGbGFjZJqJPL8z7
+	05dK5YPhcUkARe4TZ7wKa5hnGpo/6zc0IKBNoJNI+AX3wjaDFCvyVh9jf+mVaoCgSjxFtLXTnMSHj
+	8U5sGkVQ==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <emfox@debian.org>)
+	id 1xSIet-00FkA3-1F;
+	Sat, 14 Nov 2026 18:39:28 +0000
+From: Emfox Zhou <emfox@debian.org>
+To: Even Xu <even.xu@intel.com>,
+	Xinpeng Sun <xinpeng.sun@intel.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/5] HID: intel-thc-hid: intel-ipts: support THC IPTS ports
+Date: Sun, 15 Nov 2026 02:36:19 +0800
+Message-ID: <20261114183624.2379573-1-emfox@debian.org>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,233 +70,161 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Debian-User: emfox
 
-The current sched-eevdf.rst doesn't explain most of
-the concepts in EEVDF.
+The THC ports on Tiger Lake, Lakefield, Alder Lake and Raptor Lake run in
+IPTS mode: plain SPI with a private framing instead of HIDSPI, which is
+all intel-thc-hid handles today. This adds a backend for them next to
+intel-quickspi and intel-quicki2c, on top of the same core, and is based
+on v7.4-rc2, the first tag with the hid_safe_input_report() it uses.
 
-Describe the concepts (V, vruntime, deadline, eligibility,
-lag, etc.).
+Register, DMA and interrupt work goes through the exported intel-thc API,
+except in four places where the core has no call for it: the reset,
+port-supported and quiesce-state bits of THC_M_PRT_CONTROL are accessed
+directly. Nothing outside the new directory changes except Kconfig and
+Makefile.
 
-Signed-off-by: Kayra Cizmeci <kayracizmeci@gmail.com>
----
-Hi!
+The hardware facts - port IDs, configuration block layout, frame codes
+and header sizes - come from the ithc driver linux-surface ships, at
+https://github.com/quo/ithc-linux 6d53c9c (dual licensed GPL-2.0 /
+BSD-2-Clause); no code is taken from it. The layout, the frame format and
+the ordering between quiesce, interrupt configuration and the DMA engines
+are the parts most likely to need scrutiny; each is argued in the commit
+message that relies on it. All of it was confirmed on a Surface Pro 8 with
+a 045e:0c37 controller.
 
-I tried to rewrite this whole sched-eevdf.rst thing.
+The first four patches each leave a state that builds and loads: port
+bring-up, DMA and interrupts, HID registration, system sleep. The fifth
+documents the controller behaviour the driver relies on, none of which is
+written down anywhere else.
 
-The current sched-eevdf.rst doesn't explain most of the concepts as
-the commit says too.
+On that machine the touchscreen and the pen work through hidraw and iptsd
+after patch 3, and three suspend/resume cycles (pm_test=devices) bring
+them back after patch 4, with the daemon restarting on its own.
 
-There are some other little issues too, like the second link shows a
-random reply instead of the cover letter.
+The interrupt is the legacy pin: these ports put requester ID 01:05.0 in
+their MSI messages, which is neither their own function nor expressible
+as a DMA alias, so with interrupt remapping on the MSI is rejected and the
+port stays silent. The pin is shared on the PCH, hence IRQF_SHARED; MSI
+is the fallback where no pin is routed.
 
-Hope I did not miss anything :-).
+Ports are matched by PCI ID. These four generations are not in the HIDSPI
+ID table, so nothing else claims them, and a port that firmware drives as
+HIDSPI has no driver today: this driver gives up with -EIO when the $TIC
+tag never appears.
 
- Documentation/scheduler/sched-eevdf.rst | 194 +++++++++++++++++++-----
- 1 file changed, 155 insertions(+), 39 deletions(-)
+Report handling stops at HID core on purpose: the controller is the one
+declaring itself a HID device, so the descriptor comes from it, Windows
+exposes the same port the same way, and turning the heatmap into contacts
+is user space work that already exists.
 
-diff --git a/Documentation/scheduler/sched-eevdf.rst b/Documentation/scheduler/sched-eevdf.rst
-index 83efe7c0a30d..5c74e3b5672a 100644
---- a/Documentation/scheduler/sched-eevdf.rst
-+++ b/Documentation/scheduler/sched-eevdf.rst
-@@ -1,43 +1,159 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
- ===============
- EEVDF Scheduler
- ===============
- 
--The "Earliest Eligible Virtual Deadline First" (EEVDF) was first introduced
--in a scientific publication in 1995 [1]. The Linux kernel began
--transitioning to EEVDF in version 6.6 (as a new option in 2024), moving
--away from the earlier Completely Fair Scheduler (CFS) in favor of a version
--of EEVDF proposed by Peter Zijlstra in 2023 [2-4]. More information
--regarding CFS can be found in
--Documentation/scheduler/sched-design-CFS.rst.
--
--Similarly to CFS, EEVDF aims to distribute CPU time equally among all
--runnable tasks with the same priority. To do so, it assigns a virtual run
--time to each task, creating a "lag" value that can be used to determine
--whether a task has received its fair share of CPU time. In this way, a task
--with a positive lag is owed CPU time, while a negative lag means the task
--has exceeded its portion. EEVDF picks tasks with lag greater or equal to
--zero and calculates a virtual deadline (VD) for each, selecting the task
--with the earliest VD to execute next. It's important to note that this
--allows latency-sensitive tasks with shorter time slices to be prioritized,
--which helps with their responsiveness.
--
--There are ongoing discussions on how to manage lag, especially for sleeping
--tasks; but at the time of writing EEVDF uses a "decaying" mechanism based
--on virtual run time (VRT). This prevents tasks from exploiting the system
--by sleeping briefly to reset their negative lag: when a task sleeps, it
--remains on the run queue but marked for "deferred dequeue," allowing its
--lag to decay over VRT. Hence, long-sleeping tasks eventually have their lag
--reset. Finally, tasks can preempt others if their VD is earlier, and tasks
--can request specific time slices using the new sched_setattr() system call,
--which further facilitates the job of latency-sensitive applications.
--
--REFERENCES
--==========
--
--[1] https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=805acf7726282721504c8f00575d91ebfd750564
--
--[2] https://lore.kernel.org/lkml/a79014e6-ea83-b316-1e12-2ae056bda6fa@linux.vnet.ibm.com/
--
--[3] https://lwn.net/Articles/969062/
--
--[4] https://lwn.net/Articles/925371/
-+Earliest Eligible Virtual Deadline First, or EEVDF for short, was
-+first introduced in a scientific article that was written by Ion Stoica
-+and Hussein Abdel-Wahab in 1995 [1]_.
-+
-+Then Peter Zijlstra suggested it as a replacement for CFS
-+(Completely Fair Scheduler) [2]_. First parts of it got merged into Linux in 6.6.
-+
-+Our objective is to select the task with the earliest
-+deadline from the tasks that are eligible.
-+
-+
-+Core Basics
-+============
-+
-+Every task has its own *weight*, derived from its nice value.
-+
-+The bigger the *weight*, the slower the *vruntime* increases.
-+The slower the *vruntime* increases, the easier it is for a task to be eligible.
-+
-+
-+Formula for virtual runtime is::
-+
-+   (delta * NICE_0_LOAD) / weight
-+
-+*delta* is calculated by this formula::
-+
-+    now - exec_start
-+
-+*exec_start* is the last time that we accounted the task.
-+
-+And every runqueue has its own average virtual runtime. We'll call it *V*.
-+
-+Formula for *V* is::
-+
-+     Sum(weight * vruntime) / Sum(weight)
-+
-+
-+Eligibility
-+~~~~~~~~~~~~
-+
-+For a task to be considered eligible, its vruntime must be smaller than or
-+equal to *V*.
-+
-+
-+Deadline
-+~~~~~~~~~~~~
-+
-+Deadline is like a point on vruntime. We calculate it by::
-+
-+    vruntime + ((slice * NICE_0_LOAD) / weight)
-+
-+*slice* is usually equal to sysctl_sched_base_slice,
-+which is 0.70 ms by default. It's the time the task requested to run.
-+
-+However, a task doesn't have to run exactly as its *slice* says.
-+It can get preempted, it can sleep, etc.
-+But we will reschedule when the task's *vruntime* gets equal to its *deadline*,
-+or passes it. Or at least when we realize it did.
-+
-+Examples
-+~~~~~~~~
-+
-+==== ====== ======== ========
-+Task weight vruntime deadline
-+==== ====== ======== ========
-+TA    1     7        8
-+TB    2     5        10
-+TC    3     6        9
-+==== ====== ======== ========
-+
-+Here, *V* is equal to 5.83.
-+
-+The only task that is eligible is TB. It has the farthest deadline
-+but the other competitors T{A,C} are not eligible, so TB gets picked.
-+
-+Sleep Handling
-+==============
-+
-+The problem with sleeping tasks is that their runqueue's *V* continues to increase/decrease
-+while they are sleeping. Normally, sleeping tasks leave the runqueue, so we need
-+to save their *vruntime*'s position relative to *V* in order to place them correctly.
-+
-+(Delayed Dequeue is an exception to that, as explained below.)
-+
-+We call that *lag*::
-+
-+    V - vruntime
-+
-+Example:
-+
-+==== ====== ========
-+Task weight vruntime
-+==== ====== ========
-+TA    1     1
-+TB    1     3
-+==== ====== ========
-+
-+Right now, *V* is 2, TA's *lag* is 1, TB's *lag* is -1.
-+
-+Now let's say TB sleeps and in the meantime TA's *vruntime* gets to 12.
-+If we try to place TB with::
-+
-+    V - lag
-+
-+It equals 13, so *V* gets to 12.5. So now TB's *lag* is -0.5 instead of -1.
-+
-+So to fix this, we use a formula while placing lag::
-+
-+    ((Sum(weight) + weight) * lag) / Sum(weight)
-+
-+
-+Here, *weight* is our own weight, and Sum(weight) is the sum of all of the tasks weights in the runqueue,
-+in our case both are equal to 1.
-+
-+Now let's try the same case with this formula:
-+
-+*lag* equals -2, *vruntime* of TB equals 14, so now *V* equals 13
-+and both TB's lag and TA's *lag* are correct.
-+
-+Delayed Dequeue
-+~~~~~~~~~~~~~~~~
-+
-+Negative *lag* means that the task is in debt to its runqueue.
-+We don't want to carry a task's negative *lag* until eternity.
-+
-+Because while a task sleeps, the other tasks in the runqueue work.
-+And if the task were not sleeping its *lag* would increase since
-+it was paying its debt by not working.
-+
-+Sleep is similar to this, the only problem is that normally while sleeping
-+we wouldn't be on the runqueue. Since we are sleeping and we don't want
-+to be chosen. So our debt wouldn't be paid.
-+
-+With Delayed Dequeue, if a task has a negative lag and if it's going to sleep,
-+we don't immediately dequeue it.
-+
-+It stays in the runqueue, as if it's not sleeping. However, because it has negative lag
-+it's not eligible.
-+
-+A delayed dequeue of a task can end in 2 ways:
-+
-+1. When the task's debt is paid fully, (*lag* >= 0) it becomes eligible. So it can get picked.
-+   When a delayed task gets picked, we really remove it from the runqueue.
-+
-+2. If the delayed task wakes up before it gets picked, we just clear the delayed
-+   status and the task stays in the runqueue.
-+
-+
-+References
-+============
-+
-+.. [1] https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=805acf7726282721504c8f00575d91ebfd750564
-+.. [2] https://lore.kernel.org/lkml/20230328092622.062917921@infradead.org/
--- 
-2.53.0
+Some concerns:
 
+  - Runtime PM is not implemented, and only the Tiger Lake ports were
+    tested; Lakefield, Alder Lake and Raptor Lake share the code path but
+    have not been run. LTR configuration comes with runtime PM.
+
+  - The SPI clock is one of ten gears the core can program, 7.8 to
+    50 MHz, and the core rounds the request down. A controller that asks
+    for less than the slowest gear is raised to 7.8 MHz, warned about
+    once and carried on with.
+
+  - System sleep takes the HID device down and brings it back, so the
+    daemon restarts and asks for the report stream again: the controller
+    does not keep that state, and replaying one set feature would not
+    cover the several the daemon sends. It also means the touchscreen
+    cannot wake the machine.
+
+Link to v2:
+https://lore.kernel.org/r/20261114170740.2068179-1-emfox@debian.org
+
+Link to v1:
+https://lore.kernel.org/r/20261114154611.1683519-1-emfox@debian.org
+
+
+Changes in v3, from the automated review of v2:
+
+  - The running flag is set where the touch engine is enabled, in the
+    patch that enables it. Patch 1 read the flag on teardown but only
+    patch 2 assigned it, so a bisect landed on a kernel that reset the
+    controller with the touch engine still powered.
+
+  - A recovery in flight is device state now, not a local variable in
+    the threaded handler. An interrupt from another function on the
+    shared line woke a second handler that read frames while the work
+    item was rewriting the ring, and unmasked the port mid-reset.
+
+  - The shared line is requested with IRQF_COND_ONESHOT instead of
+    IRQF_ONESHOT. A shared line only accepts handlers that agree on
+    oneshot, and the other functions on this pin do not use it, so the
+    request failed with -EBUSY as soon as one of them had probed first.
+
+  - An interrupt with no cause of ours is reported as not handled: from
+    the thread when the status is empty, and from the hardirq while the
+    port is stopping or has no DMA. Both only after the port has been
+    masked, so the spurious detector cannot see a storm from here.
+
+  - The drain loop stopped one pass short: thc_interrupt_handler()
+    returns early on four causes and the data path is a fifth call, and a
+    cause that arrives while frames are read adds one more. The bound is
+    now a pass per cause plus the one that reports none.
+
+  - The feature reply is taken under a lock shared with the sender. A
+    request that timed out is dropped, and the sender may already be
+    asking for another report: checking the flags and copying the answer
+    has to be one step, or the new request completes with the old one.
+
+  - Teardown takes req_lock before masking the line and resetting the
+    controller. A request already inside thc_dma_write still needs the
+    interrupt that completes it, and with the line masked first it waited
+    out its timeout holding the bus lock.
+
+Changes in v2, from the automated review of v1:
+
+  - The recovery work item is initialised where it is introduced.
+    Patch 2 used it and only patch 3 initialised it, which breaks the
+    bisect.
+
+  - A frame read that finds the ring empty no longer passes an
+    uninitialised length to the frame decoder.
+
+  - The port stays masked while the recovery item resets the engine,
+    and the handler keeps draining the status registers after an error,
+    so a queued transmit completion is acknowledged instead of timing
+    out under the bus lock.
+
+  - Teardown stops and quiesces the controller before the DMA memory is
+    released, and takes req_lock around the release: a send already
+    inside thc_dma_write finishes, later ones fail on ->stopping.
+
+  - SET_REPORT returns the byte count, as hidraw expects; zero was
+    returned before.
+
+  - A late or empty report descriptor no longer overwrites the buffer
+    being parsed, and an empty one is retried instead of registered.
+
+  - Feature reports: empty answers are rejected, and the report ID in
+    an answer is checked against the request. Verified on hardware,
+    where GET_FEATURE for reports 5, 6, 9 and 17 echoes its own ID.
+
+
+Emfox Zhou (5):
+  HID: intel-thc-hid: intel-ipts: bring up the port
+  HID: intel-thc-hid: intel-ipts: receive reports
+  HID: intel-thc-hid: intel-ipts: register the HID device
+  HID: intel-thc-hid: intel-ipts: handle system sleep
+  HID: intel-thc-hid: intel-ipts: document the IPTS mode
+
+ Documentation/hid/intel-thc-hid.rst           |  95 ++-
+ drivers/hid/intel-thc-hid/Kconfig             |  14 +
+ drivers/hid/intel-thc-hid/Makefile            |   4 +
+ drivers/hid/intel-thc-hid/intel-ipts/ipts.c   | 776 ++++++++++++++++++
+ drivers/hid/intel-thc-hid/intel-ipts/ipts.h   | 196 +++++
+ .../hid/intel-thc-hid/intel-ipts/pci-ipts.c   | 203 +++++
+ 6 files changed, 1287 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/hid/intel-thc-hid/intel-ipts/ipts.c
+ create mode 100644 drivers/hid/intel-thc-hid/intel-ipts/ipts.h
+ create mode 100644 drivers/hid/intel-thc-hid/intel-ipts/pci-ipts.c
+
+
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
