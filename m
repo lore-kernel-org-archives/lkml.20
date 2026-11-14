@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794697720;
-	b=nLYlKrHIuVcl+M+7MvIZ4WyCnmHShpDTpBHZCHlr+Do454stf91WbESJSmNLN9mQLjrm
-	 ToCJ2EsbClw9i10DaygZ7HjWZGNVBG6oAW4DrGk5BNMjUS2Yx0YPlfoFpSn1r3Ip5r0VA
-	 OcMZFL0f8lflqQ3YK6ROiLEi1ZvBSEtt+3O0hInmoXamsmLDpLR9dSzhpiKobr/Ui+5d1
-	 T6bZEX8uKHNfatC5Ljb6bzvE0nAmXRzt1HXBWDmWoWbX/gcDLap/c7elxuUNd7xboi6WA
-	 6JIIT2pAsIn8onGHwM1XZ7Kblr4vvbV7aHDkkw9R+KYBWmDsplUIheBSGz8mTva28zw==
+	t=1794697722;
+	b=YTcn2yWefnldQVARuLT7Exff/CnbsWRHrH3MXTbCEXsAiv42gCCU43SNZwDKcV9Up2MN
+	 CzmHAA2fEw/P5n1tpqJ1BZZzJjKNv/LpQn6NjlRt5dryx8J3qkOCpjwkvnOJOCGkocSam
+	 YSzH/J1Akg9c61XQRD+cHoVnRr1KbG84RKiqgzhouiuBfUqKPl0xLFJUkUy2evPItGVse
+	 /bSiw83jB0bKEZMTfwL3crDgPqHqiUVI+RcwjCnMUd2RWibv80TOCP/SJQLRTkcNmz6LV
+	 EERM3Sc9zM0RnPijaFk6pC30jjxpWzzpK2HzaDD6hT8YV3TD9/Ixnu/XOmknxZIjyMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794697720;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794697722;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=6gQE3IU+t2cIqdtVZhrTpEEYl5O5vhKOK1Q7R6X/tsg=;
-	b=GGBAcs9pRWkEJXmot3SSEi6BzzY8zg8cMaQXAz82JhBEjcvIVxP5yD+asuBGP9Cercss
-	 8JqRc7sj080XHIhtixGukLNYL4Zuk9kQ5uR5wUhICG7ppV0yquw8qOvCuTrLBTp4GBf/t
-	 hqqjXwDx9N+jEydUZzlXcI4Vf4/Hu8MqgGPtRjzBXIFm6ewHQqB4a1EjSLv7JUILMKW0q
-	 jUfYtmLradquwABDQw52dDnHZDsV8InpAWSwyX4kSmw/Zbf3WPcosaRidVwzzomxwQ+Xz
-	 Bn79HcHN91XP0MWd1jAS6SJIylNLrpc/xboBGjn/7LevwIcJ1g+HmmQx1fnvmW72l/w==
+	bh=OWq1ZPhXVsQ8TnLGQfYbZB9MhFN53DcQmkdOU8DAzLM=;
+	b=ZQWgF3EqFdJsLOF7g7M7pnIYAvxDAzh+IKb5owmlnICagL5piSddUwuNx3Xxo3DtI3n/
+	 LHc9t4w3aUUOYBgR73apZN9rF7jYBx+bauymdTEeH6tBgB7b5CSZ08tmUG9702aUasfmm
+	 MuxzodhU2SiobzpcL7YN0HYja7qXm0baYjxVnrhjHaaPb1BsQPM0ISbdukT6QtDMydjGQ
+	 GF7x8GjBGpaddKGCkuEI1xUJSAlbGFp7bdTrFoZJwmmqdchrB4cbbXodeaNc3h1VzRrXd
+	 SmcOfE6Kzwvpuz+E8catYcw/HxIPqSvrGpJ/t8V11gc9dnjC/eVgfBeMe0NNv96j7QA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DzSqjZd2;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j2x4AYJG;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 350DA60A263D
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 23:08:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 350DA60A263D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C24460A3811
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 23:08:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C24460A3811
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DzSqjZd2
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so22395985e9.1
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 15:08:40 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j2x4AYJG
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-491846221ffso2063265f8f.3
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 15:08:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794697719; x=1795302519; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794697721; x=1795302521; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6gQE3IU+t2cIqdtVZhrTpEEYl5O5vhKOK1Q7R6X/tsg=;
-        b=DzSqjZd223Xa2elVAQbBkL6ejqVgE4nK5Yshf20ooHKziJQK2mgAEAXDKFgmVWyiSO
-         nvKfNG6QmenzeaFXtWwoRLOAaH9ZcSxrlIAwL8mkpCirGe2nAx3S7j0x9qHIY8iv93o1
-         udRKrfiuqFz7gRZ4sSRBLO382WKomnZYUdKJv7cpxeec3qzeQjF+vE8TP9VC81m0w0kn
-         2OocJCXx2gFPpO3GS5le07hQKTb3fpdDiOO659DvFBekV3WFLiJ6x/ywAgBxzaGHB9dE
-         rfINzOwENIrjTD/n8Jtc1ev1zXxRmQmhqX91w+Fj0XAi7H7sgTXrMEz1XR9KeKjaDQor
-         DINQ==
+        bh=OWq1ZPhXVsQ8TnLGQfYbZB9MhFN53DcQmkdOU8DAzLM=;
+        b=j2x4AYJG6n6Db9GW977oMzXHN7UsiOwbhnKGYzeeISR1q9eapPvmbYFZYhSzsWSPuW
+         p1CKAdFyMmXR+i3GSjxLKah+pfHWNHAS9AVTE4YwlG6Micg5x5ZVyN4gbg6Kp3PAKKZv
+         RzkhOdlAZm/ViIGOuyuRIBKJtuqDkTeiNG3UOPwme14HPlkPi8XkATuf/Jg+Vp/9lui8
+         As6cgonNIYPmg7jk291hVSLs53wjow5UAgAsiCtE0R3w9ZrzBQOfV2D3ODiru6nL92AI
+         9+bfz8dH04ZlrE6UNSmasbmJTfoPeWfRVD89xFcz/X9xZc5CAtzZQIX+mGVLKmCGu6uJ
+         qXww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794697719; x=1795302519;
+        d=1e100.net; s=20260707; t=1794697721; x=1795302521;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6gQE3IU+t2cIqdtVZhrTpEEYl5O5vhKOK1Q7R6X/tsg=;
-        b=IGwbt6nNLBbofSs6nDJFruo+6wZrLOf8zamYjW+ujIqs4qjeKvqjZlgQvf8RnJyG8m
-         U+QiP95RcFaFZAwB0Q4/GCkWLRslVFSLIzrm9/pRR+rQQzge0VFa1mhrBlktMk0scg63
-         1MdzDc8myIOnm58kwNELSA8Cjc0NU/5t+8oZyuYJmimSDI3Jjt84xmTzLpX/SAKiMOXz
-         buLi27vpUz2RH1mrnBWYqOryUXxryT4g59x/X1fQFhYTyeyVz02479pUOu58FgE6Vzq0
-         3Q7btGzDiA1U6SGvzxu3MlXep4sGwW70o2JqFY31m4JI2pmDHLDdkrn3lTyc7yj5uFVt
-         pKrw==
-X-Forwarded-Encrypted: i=1; AL+hErGOGQgo4Yi+/UGn2VJzVVJpGvFtPzvd0hCuB9d6749xP7AxpQfy9oiJhH67aCT5yutwQkWDKlgIDK4LGAk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z874sLc92ql8tkif5gDT9Isfwm+U8kJaO0BGmcv3aCGwcouxj9Q
-	OW220m67kZjFxxDhFl5Us2ztQzJsb2Kz8pfz64nBSM/jB04JVk9UHIR9
-X-Gm-Gg: AYBFou2WV61hvbFN13zYQXagzbRZkDQAd7nyixbyEmPk7ROh+5jcwxBd7aKZZa1oaZw
-	n6RKiZqd2wtbm2+QuhoW1epvR+cSMZuHE7zz9hpmnO3Dz+jwkDnN7Zpgp17rbOmY3u9tCCOYgTc
-	vFtjy/hlWnsHUr7KWRftNOXXoAI1dz6ZE9+rJHugE9S95svZjoTTw8ackQPCwN/DIqihC3TDAAa
-	eC8F6U6qUctOQAItS7VC9SbaT2OO/oSxgJj9DbTpYMV4UtxCpNRwLE+sn86KkYV+c0yriBVas+l
-	3WQZM2khDsS3yhLJvpQ8LhdLG7viQ7qYcc6AxJv736HH1aPrkYW5snwKO5ZGSd6HSCTaXs61KRP
-	XjpWbQypJthcc6AMk+1Xvv5PiW96Wlv4L4ypvl1q3/VeX3AL92414/Zsqf/H0jnBi+MpHH4GFxb
-	d508b2KAjBgtYGKJZ+O76fkKawoa4MFTzzPE5DwDZ2Fw6w+Dr81s7QqNgsC4RRs/wcjINrG5qCW
-	BBRv7WOxwlFQa/LXSb8N3Ae+tOJt24f4ntvtkH59arLye9Nz9+00HHhw5evW5TEQqj1n+HTyQWt
-	wbKlgIhapktoeaMLPy452JBzuVDg
-X-Received: by 2002:a05:600c:588b:b0:4bb:643e:3b8a with SMTP id 5b1f17b1804b1-4bb643e3bd6mr54723335e9.17.1794697718472;
-        Sat, 14 Nov 2026 15:08:38 -0800 (PST)
+        bh=OWq1ZPhXVsQ8TnLGQfYbZB9MhFN53DcQmkdOU8DAzLM=;
+        b=BjcEMrIF0rAm60CTHAdcdIoQ5zqgGnRMfGlL7H2l6c5m1KzA8pgPuzdZx/sqzFGmLh
+         dULTObknzOi/7DA8op+cx+uxnPnwfrxmb61SOavdr356n2vFAoH3kocGClN0hdI77Glz
+         imWKInxaUEbhwPalSqYwmJkZSUKgTFwrIX0JteVSgyXmbjk40U6WMGUGEAi9GMDHGJ4w
+         Y/ONPPC1iKzRlx4kSnDyn7x3kop/LWoxQJKPi/svldSEwrqaI6vfXK6pldSe38Y0zDno
+         POKlzQtF9pVLyRmklnLVnI7TT6FthKCd85vRFUezPfz6PHw8qecNLONUjmvHV1vHu8D0
+         ET3A==
+X-Forwarded-Encrypted: i=1; AL+hErFQg8l73VZgmoZZMy9JzyWHcHCjx8VYIRZgaFIbvpRApdZRQ0gDSOepDgc2OJOgNgW4vyvF2bg95AyVxi4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9EoaCMkmkODPHvlMePtA1yvCsUxGf5uozJm+VDJFipnrS842kP
+	CRhwXZAvii8+9I9Mca3109Hc0IBGMtNuGMfw5g9pQaEn5NLIschT5oqm
+X-Gm-Gg: AYBFou2ikrSyqDF6CHuOrhHmRoi7WC0UFFso68xsjOAQU+lYgKmujqWfqpXHQLW77LP
+	3Ajm+5YdJ3tf76BOYglE1MprZikqwYwK7iU9llicuyAeGnMkMyBhVfD3PDD57M3SCyoPDc1vMUd
+	iVqA7BkMZhP07H2dy2DNkfgI3Sbj1fnrJMjefdqLooVTghDzxASYRqDO/v26R4vULiL0cgx4EFY
+	7X0u2ZV9loNI9XkH8yTyTkY+D552B91/dU6YhC0Ay7I5tzCRUMD8MBHYScWYQmdP8JCV5G+dNsL
+	TN/BNDxpzYpI5qyRZuPktb7XkR5h5IMj5OAK3/LDt19dpIN5QIJ4cpLe8k2xUP7GApHMoQOnX9C
+	Q7Kb2FCejKI/2Albs6Ie+UPi6jJXqJXjEpKHSKEhFSPjlJ8jXb7tMEYBO5OziSqcz16hRz/CWtg
+	+fZJMWdL0Yauwf7rjAqc1o1ywsVA3FdJ3rdFNPbF5rqk0widPyXqujo33LBwzBEXdtthIpHh617
+	c+n5efUXQBxDmLhhIg6P1ARZgFjdM470ikKFlMozTBOyQMDc9pc48jVczgugq2U6I6d5KpintUx
+	n343fVcwk09O/ZD0hluQMqXusWLz
+X-Received: by 2002:a05:6000:2586:b0:48e:2f7e:bdbb with SMTP id ffacd0b85a97d-49c72c9c8b4mr15192826f8f.50.1794697720582;
+        Sat, 14 Nov 2026 15:08:40 -0800 (PST)
 Received: from m2.. ([37.142.149.161])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-49c5d03b10fsm14910018f8f.1.2026.11.14.15.08.36
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-49c5d03b10fsm14910018f8f.1.2026.11.14.15.08.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 15:08:37 -0800 (PST)
+        Sat, 14 Nov 2026 15:08:40 -0800 (PST)
 From: Michael Zaidman <michael.zaidman@gmail.com>
 To: Jiri Kosina <jikos@kernel.org>,
 	Benjamin Tissoires <bentiss@kernel.org>
@@ -96,9 +96,9 @@ Cc: Linus Walleij <linusw@kernel.org>,
 	linux-i2c@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Michael Zaidman <michael.zaidman@gmail.com>
-Subject: [PATCH v3 06/16] HID: ft260: i2c: reduce bus-error message severity
-Date: Sun, 15 Nov 2026 01:07:50 +0200
-Message-ID: <20261114230800.1344401-7-michael.zaidman@gmail.com>
+Subject: [PATCH v3 07/16] HID: ft260: uart: enable flow control
+Date: Sun, 15 Nov 2026 01:07:51 +0200
+Message-ID: <20261114230800.1344401-8-michael.zaidman@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261114230800.1344401-1-michael.zaidman@gmail.com>
 References: <20261114230800.1344401-1-michael.zaidman@gmail.com>
@@ -113,87 +113,51 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The driver logged errors when the FT260 reported an I2C bus error or
-when ft260_i2c_write / ft260_smbus_write failed after such a status.
-That was meant to flag unexpected failures, but bus scans (i2cdetect,
-HWMON discovery, transceiver monitoring, and similar) hit missing
-devices routinely and should not fill dmesg with lines such as:
+The FT260 is a full-speed USB device. Interrupt transfers poll at 1 ms
+with a 64-byte max packet size, so the theoretical UART payload ceiling
+is about 60 kB/s (~600 kbaud in 8N1). The chip advertises baud rates
+above 1M and small transfers can work there, but large transfers are not
+reliable above 460800 baud without flow control.
 
-  ft260 0003:0403:6030.0001: ft260_i2c_write: failed with -5
+Stop forcing FT260_UART_CFG_FLOW_CTRL_NONE after termios setup. Honor
+CRTSCTS (RTS/CTS) and IXON/IXOFF (XON/XOFF) when configuring the UART.
 
-Keep returning -EIO, but print those via ft260_dbg. Still use hid_err in
-ft260_hid_output_report_check_status for actual HID/USB transport
-failures, which are genuine errors.
-
-Drop the extra __func__ from the write-path ft260_dbg calls; the helper
-already prints the function name.
+Tested at 1500000 baud both directions against an FT2232H with XON/XOFF
+and with RTS/CTS (~2.9 MB transfers, no data corruption).
 
 Signed-off-by: Michael Zaidman <michael.zaidman@gmail.com>
-
 ---
-v2:
-Fix for the issue reported by Sashiko: the write-path messages
-printed the function name twice, because ft260_dbg() already prints it.
----
- drivers/hid/hid-ft260.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/hid/hid-ft260.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/hid/hid-ft260.c b/drivers/hid/hid-ft260.c
-index 13dbff661fab..270481766e2c 100644
+index 270481766e2c..75ba68e2e8fc 100644
 --- a/drivers/hid/hid-ft260.c
 +++ b/drivers/hid/hid-ft260.c
-@@ -577,7 +577,7 @@ static int ft260_xfer_status(struct ft260_device *dev, u8 bus_busy)
- 	 * to 1, bit 1 is also set to 1.
- 	 */
- 	if (report.bus_status & FT260_I2C_STATUS_ERROR) {
--		hid_err(hdev, "i2c bus error: %#02x\n", report.bus_status);
-+		ft260_dbg("i2c bus error: %#02x\n", report.bus_status);
- 		return -EIO;
- 	}
+@@ -1903,8 +1903,12 @@ static int ft260_uart_change_speed(struct ft260_device *port,
  
-@@ -611,6 +611,7 @@ static int ft260_hid_output_report_check_status(struct ft260_device *dev,
+ 	if (termios->c_cflag & CRTSCTS)
+ 		req.flow_ctrl = FT260_UART_CFG_FLOW_CTRL_RTS_CTS;
++	else if (termios->c_iflag & (IXON | IXOFF))
++		req.flow_ctrl = FT260_UART_CFG_FLOW_CTRL_XON_XOFF;
+ 	else
+-		req.flow_ctrl = FT260_UART_CFG_FLOW_CTRL_OFF;
++		req.flow_ctrl = FT260_UART_CFG_FLOW_CTRL_NONE;
++
++	req.breaking = FT260_UART_CFG_BREAKING_NO;
  
- 	ret = ft260_hid_output_report(hdev, data, len);
- 	if (ret < 0) {
-+		hid_err(hdev, "%s: failed with %d\n", __func__, ret);
- 		ft260_i2c_reset(hdev);
- 		return ret;
- 	}
-@@ -650,7 +651,6 @@ static int ft260_i2c_write(struct ft260_device *dev, u8 addr, u8 *data,
- 			   int len, u8 flag)
- {
- 	int ret, wr_len, idx = 0;
--	struct hid_device *hdev = dev->hdev;
- 	struct ft260_i2c_write_request_report *rep =
- 		(struct ft260_i2c_write_request_report *)dev->i2c_wr_buf;
+ 	ft260_dbg("configured termios: flow control: %d, baudrate: %d, ",
+ 		  req.flow_ctrl, baud);
+@@ -1912,9 +1916,6 @@ static int ft260_uart_change_speed(struct ft260_device *port,
+ 		  req.data_bit, req.parity,
+ 		  req.stop_bit, req.breaking);
  
-@@ -681,7 +681,7 @@ static int ft260_i2c_write(struct ft260_device *dev, u8 addr, u8 *data,
- 		ret = ft260_hid_output_report_check_status(dev, (u8 *)rep,
- 							   wr_len + 4);
- 		if (ret < 0) {
--			hid_err(hdev, "%s: failed with %d\n", __func__, ret);
-+			ft260_dbg("failed with %d\n", ret);
- 			return ret;
- 		}
+-	req.flow_ctrl = FT260_UART_CFG_FLOW_CTRL_NONE;
+-	req.breaking = FT260_UART_CFG_BREAKING_NO;
+-
+ 	mutex_lock(&port->lock);
  
-@@ -697,7 +697,7 @@ static int ft260_i2c_write(struct ft260_device *dev, u8 addr, u8 *data,
- static int ft260_smbus_write(struct ft260_device *dev, u8 addr, u8 cmd,
- 			     u8 *data, u8 data_len, u8 flag)
- {
--	int ret = 0;
-+	int ret;
- 	int len = 4;
- 
- 	struct ft260_i2c_write_request_report *rep =
-@@ -722,7 +722,7 @@ static int ft260_smbus_write(struct ft260_device *dev, u8 addr, u8 cmd,
- 
- 	ret = ft260_hid_output_report_check_status(dev, (u8 *)rep, len);
- 	if (ret < 0)
--		hid_err(dev->hdev, "%s: failed with %d\n", __func__, ret);
-+		ft260_dbg("failed with %d\n", ret);
- 
- 	return ret;
- }
+ 	ret = ft260_hid_feature_report_set(hdev, (u8 *)&req, sizeof(req));
 -- 
 2.43.0
 
