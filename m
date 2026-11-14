@@ -1,49 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794660192;
-	b=WAOzuJTbZRyKDhYLbxO5x9OFtQmaeBWwZksN/e6JDomZTnTRuqemgE6iAjLO7xq0cXPy
-	 xSjeXsvTHeqnYc3v5ilcT/5HkKjD/C7C0mEb37UPEO9uHvFLxygFT1JX+z7Svkm3ZKltB
-	 ymVsxgvkwkNUkLUAsoD96ekfH3ilRfB2IwQaVtVkwSikXowPJ838bZUpmFADuX+cNA3kx
-	 xemCf01Ei8xf7jH282RLBzVdBhD+DMlHKsnOeaiP/BFSxU2TMeCWHriL1UGUOpPhZ2Ijm
-	 GJL/5qt4cm1OYD5naKHu/RIG09C05DOSk6FKMXQQHtzjWrLfTHWSBln5pXU/42uvBGQ==
+	t=1794660358;
+	b=zSnXXCGnOpPE7iGLpcivMoPzg9d6+16HeW4BAu7V5nug+bQBe80YFt8R3xcbXH+0KnWL
+	 miJT4VUeIrfRLhgxX0Myx6dsoVmLYtwwCj8atMAWasFuK08JcCfbknNpwAQ7b+8dLFWJ/
+	 yo5rYmh9R5T35XmB/+WP54lhfO9G76/Ok4o5lcgR3cIRlJXXR4vDWkpwRxxGT1yQFV5jt
+	 ZexOZfRREdlvntEbZVlmHa/E13Zo9dcwr+PIeCrsSbDaSi8Z0rBqbL7uJDXZMfXu8VQJ1
+	 mN9M5Fp5uaVIp9IYnOK4fjYNEU+uRDz1HtIP6jwdK2F6G6vkmDUvDqXKO0NGNA9lIJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794660192;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=nLUYkZP6o3sE/c6t39+tiUT1HGJzvTdIPDTkJDNa1dk=;
-	b=IEnvcfTsUI7LbkhyQxBsDjDb2vN4JKffTa7uC9MOG+kLytjSkRBzqbdwlG//DbG0Zb6C
-	 lSe0QGo3DfYGST39ay714JSSYZ+mOK9YcOunqxcSRIiHdpkSv5eFGDSdLHEJeVqfC8zKL
-	 RDXSTvgzyMGpvIbvhUBWK3NLu4r4u7b3EQrI0AwL2DucTEPjeIojZNEbD5pN+vZdEdAGq
-	 6LB4enw8CPe1DK4zQ28VfkxEkY4mjCz29NNm2+/NRfMPteHeLGMbRowcsCPC01Ga68Bml
-	 1oeDOraDUVBgInWnpOr4EeQro4Cn42kJ9gTj7pAIjX2NYPSJp5q8rZVBykuDIYmbDRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794660358;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=lJm6O1l+2+nef1rFR0DXw+S4bSDJ6mFyNgYeSHA3MUE=;
+	b=OlrUSJr8cHqyUL7ItiZOYvI5Zbq83rDbtK2SO53rLWz1ucygnT9yGbXVSaOLBXtfHuwW
+	 ostGBGAGiaFoKBQmJi7/tI5r558eI7YXFhpnXYS2vOlHpVUS/GOhP3nJYw8kF7M/kAv72
+	 Ssnam08PKp/L7YlBgvFOvhFn67qsMgLZUCIqe7hcYSn2sJo0Iot3PZK42E8uuZPAz+MNx
+	 +VSoc7wAJ69vANArAXrEEjX42zoh+7jbhe96eiyCwxHQoR11Wx3tSO6wPCxmlqyEaxB6B
+	 o+svZm1z7qvo+Oaox+W84QDPVAvMQCNkxgd5+o2sx+wzM7Qdl8Z83BZEY74aEkGEhYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ii+NLzoq;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 22429606A323;
-	Sat, 14 Nov 2026 12:43:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22429606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z0CMBATD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67B0B606A32D;
+	Sat, 14 Nov 2026 12:45:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ii+NLzoq
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0F0171516;
-	Sat, 14 Nov 2026 04:43:07 -0800 (PST)
-Received: from [10.163.159.227] (unknown [10.163.159.227])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 710D83F632;
-	Sat, 14 Nov 2026 04:43:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794660190; bh=UwozEJCLQAVoo0F8fItA/0T+tAX/hvIaLGcjA9Tmh10=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ii+NLzoqD8TWzkMaJ2vfWwCsnMLk/rchkW0O6KzWRKMDiXNGOjgpdl7+w/qnG84kO
-	 Irl9yb3tWZrzUFOcZ+3zjZeuZWkeaauZrDFVu+J1/en8ohB+gCiZCDOy10ir3R9IpY
-	 SRBHhLHb9B1wMIU18DhxaC02Cu28LnoCGTSiweJc=
-Message-ID: <acbbc219-0b6a-4ec5-8047-af4b4b695212@arm.com>
-Date: Sat, 14 Nov 2026 18:13:00 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z0CMBATD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 784C71F000C4;
+	Sat, 14 Nov 2026 12:45:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794660357;
+	bh=lJm6O1l+2+nef1rFR0DXw+S4bSDJ6mFyNgYeSHA3MUE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Z0CMBATDY7IW+0FJ85+7bR93J+Pnm4OVI3wt1/WuFbLl/YMAWhpfRciQDRpStjDnV
+	 095ZkW5EGy2wp40YeVV99WR6RadljFBEqwAPHg0kK0DjfjT700EpuMaP17DgnQtqvl
+	 llt7pcMH3EELBfw3n54lP8sIHHi5QERwxinsATrOwn626BaISNigHMynXzSaTaxx+9
+	 WCxpGG7Z2MIHkKsREgEbxiwWXEdynobYEw3KrGqVFH8KRLmd1ucak65F+vU/HlFWkg
+	 7hEG/Ns/QmQl7/SVAL49JBGZOQTrpcGrOVjlbsTw3O/F1ar8+TcTXun3I6/ZGeRRrN
+	 bHHmNtqtn7FbA==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Miguel Ojeda <ojeda@kernel.org>
+Subject: Re: [PATCH 6.18 000/686] 6.18.64-rc1 review
+Date: Sat, 14 Nov 2026 13:45:47 +0100
+Message-ID: <20261114124547.114207-1-ojeda@kernel.org>
+In-Reply-To: <20261113153820.902362109@linuxfoundation.org>
+References: <20261113153820.902362109@linuxfoundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,79 +75,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] selftests/mm: replace transhuge-stress with a THP
- compaction selftest
-To: Sarthak Sharma <sarthak.sharma@arm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Shuah Khan <shuah@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Anshuman Khandual <anshuman.khandual@arm.com>, Barry Song
- <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261112090250.334344-1-sarthak.sharma@arm.com>
-Content-Language: en-US
-From: Dev Jain <dev.jain@arm.com>
-In-Reply-To: <20261112090250.334344-1-sarthak.sharma@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+On Fri, 13 Nov 2026 10:42:13 -0500 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 6.18.64 release.
+> There are 686 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Sun, 15 Nov 2026 15:36:17 +0000.
+> Anything received after that time might be too late.
 
+Boot-tested under QEMU for Rust x86_64, arm64 and riscv64; built-tested
+for loongarch64 and arm32:
 
-On 12/11/26 2:32 pm, Sarthak Sharma wrote:
-> transhuge-stress is a stressor tool that repeatedly
-> allocates and splits THPs till a specified duration. If the
-> duration elapses, the test passes and fails only if a setup or
-> system call fails.
-> 
-> This is not how a test residing in selftests/mm is supposed to
-> behave. So remove it and add a new functional test called
-> thp-compaction.c, that allocates THPs as much as it can,
-> splits those THPs keeping one page retained and discarding
-> others, and then retries allocating THPs, which will test
-> if THP compaction is working fine. If we are able to recover
-> more than half of the initial THPs, the test passes. Otherwise
-> it fails.
-> 
-> This was suggested by David earlier [1].
-> 
+Tested-by: Miguel Ojeda <ojeda@kernel.org>
 
-Isn't compaction_test.c already sort-of doing what you are trying to
-do here?
+I noticed in UML the following, though:
 
+  https://lore.kernel.org/stable/20261114003912.82206-1-ojeda@kernel.org/
 
-> Patch 1 removes the current transhuge-stress. Patch 2 adds a check to see
-> if PFNs are being masked due to no CAP_SYS_ADMIN in the initial user namespace.
-> Patch 3 factors out THP split helpers from split_huge_page_test.c to vm_util.c.
-> Patch 4 adds the
-> new test.
-> 
-> [1] https://lore.kernel.org/all/94ace42d-8d60-4475-953e-74fb3dc23774@kernel.org/
-> 
-> Sarthak Sharma (4):
->   selftests/mm: remove transhuge-stress
->   selftests/mm: detect masked PFNs in allocate_transhuge()
->   selftests/mm: factor out THP split helpers
->   selftests/mm: add a THP compaction selftest
-> 
->  MAINTAINERS                                   |   2 +-
->  tools/testing/selftests/mm/Makefile           |   2 +-
->  tools/testing/selftests/mm/ksm_tests.c        |  26 ++-
->  tools/testing/selftests/mm/run_vmtests.sh     |   2 +-
->  .../selftests/mm/split_huge_page_test.c       |  45 +---
->  tools/testing/selftests/mm/thp-compaction.c   | 215 ++++++++++++++++++
->  tools/testing/selftests/mm/transhuge-stress.c | 146 ------------
->  tools/testing/selftests/mm/vm_util.c          |  65 ++++++
->  tools/testing/selftests/mm/vm_util.h          |   6 +
->  9 files changed, 313 insertions(+), 196 deletions(-)
->  create mode 100644 tools/testing/selftests/mm/thp-compaction.c
->  delete mode 100644 tools/testing/selftests/mm/transhuge-stress.c
-> 
+Thanks!
 
+Cheers,
+Miguel
