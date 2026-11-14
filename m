@@ -1,117 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794672685;
-	b=1u22WPYPuC72m+jRkIlijqYjJp0hVFwK2mCRU6vd61xk5znuqiyVp3odqixESfN+uhuc
-	 F5yUbtonDItkgI0CKC4BAmjN7VHdBOWyWeIY2iCKy1MCgcd3jfxO+ufo6dlMIiSyq+oJ/
-	 5pcxLI+CGyKE5R7vs06z372/pNCJF+Tk6au/V7mu0zvgyLtfV/qXEiWr7bQYg/RMATiKR
-	 6vGoHs6EvreVGCSqn1HfGD8gA7y+1FbQ2MxLvHWYNwgaqHdDFAnwrwcZk/SRy49X4jicz
-	 qSGU4jyvLItW9Q4GRTeNeccfDsqlkhGH3lPKodpM3lXZJ7KcUiGiMov4w1oqWO/by1g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794672685;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.179
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794672720;
+	b=iOlYpeiP+aeldhroMjXJO/4sjFivWl/9VGI0JcoQ1f/flYSjjN4+vkdtQrPmIS3xbj+B
+	 Ko10mWYoqklIE2e2p/+B14xnN5RiDA+kSCscOQf6tjWjSZsni5y5ghf2ryjQpGXfzmBkK
+	 l6bOnO/TE8XL7b98KCaH505o5dVD8xwxazHrZkQFhE45DbuiTm0IJ17BWpFwJ3JDgkOSG
+	 Sqj4iQSxl+StFfSVJw27xPcXh2UW3owx5mXvSsB3K3nhMnOUQd3phNeApE0D+FZ9zJjvV
+	 jBUM8iuUb6YvxpgRtiG8mn91KbTw90CmiOV2thFbe9XkyHJoJHcdv9AVBsg08HiOl4Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794672720;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=kYhEGps0UomI4ThdCaZM/6xhr977LUTH98N7MCn1AQg=;
-	b=F5o8V1naljLNc7xsGlQc5Pg9TLmz6D1n7z3tzE8iH3/GthmDdLBgfMhWzY5GIndAc/F9
-	 iipY7EawfX70/9Prn6EHeKZjc/VclSyy66ZjBLnluM8dBIxuTpw1gFlz2czXVDGBI/uM2
-	 IJFIUfhkaxHb0ra+ZD+l591wf2lTk6y2lA9KziIY+6gU/vjy8a1JhkQAlEQgLAyBH7A2C
-	 JypshMLi1TlQkoeLW9kEtiWe1WsvzQ+z3lW4NTTogeqSW0iHnU03zU2tcYVU+yIiyLoyq
-	 TrNYlBPBMmqHDXszQQKYsIwdnvOEIgBsb2JNQIpIGRRUKW4qmBnVwMRf89YkI+cywww==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=woZHVd2i;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=rAXOsiY7dgF8E9nvWQfWLqo1mF0hHpyBG3jPK7/IHMQ=;
+	b=YGQnBGPg8NLNmcQpK7WQwGteQgUXrJC4syJjGzVkMVfDHj1dxj7DeL5pk+c6tB6/6qeG
+	 Wp2KD2J4Sq8FVNJZMyPNGFHL7HT1E3EHYLYtgnm8dJrWu/vQYlP9nSVHUl9kTDZ1ST3Vx
+	 xFFeRfmLEIPZ4a/uLYAGIxXM/SlDmeAxk7JTn3vpxmbGgKF1WMn8TxOCZ/Ktc7vUZNb4e
+	 gQO+CgKCjc4Sp3YN1G3ngR8bIjYn/g/o/k1zWtNaC/G3uxx4TelsRdtv7pdySaLEcZ+0A
+	 uJwMCLKkmLo1i88bEIVOBhEpfiQXluDB3Q0KucTEleFqPpRf7BIVG1FfegXO64xM6qg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=bCmLBMrs;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.179
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06AF3606A332
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:11:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06AF3606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79C74606A32E
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 16:11:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79C74606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=woZHVd2i
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-36fc0a3fe93so3783678eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:11:23 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=bCmLBMrs
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-55c7445cf85so114581cf.1
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 08:11:59 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794672718; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Wr0yo+qe5rVSbbIeVuM9fm0kunv3yr6Wmdh6IN3HZM4PqUoG1ERfZKy/QwieAoRiLd
+         2gjVfszXOI+OcWAvyG550k+jjOui9LPeU0fvOJvEino8cWKr/jebNP2oHlg/3oopuP8A
+         sIhDs1/od2vugtu0ReX4ovZen78HwrQCvFJrjpXZzo2OyHf9QN0nIZ8viRjLYmrHpVgF
+         ESceNmh9lDZ29P4+dxKAZXP5s/+tHx7dAoASALmCGNzTPjl8PfBa0y3FE7YaQ0jHoG0N
+         qs4TMC3qbcVpvbvDyC7hZT8K8IxlJpnhpsBm/MJd2FMlwQhO66hspNT7m7BHv9FDMw6U
+         bQKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=rAXOsiY7dgF8E9nvWQfWLqo1mF0hHpyBG3jPK7/IHMQ=;
+        fh=kZIP6oT63m3KwzQC0/X3z/mmtoJCxnDN5X7PaBJ5qY4=;
+        b=YPVzmwvq+iu6+tpPmQGzlJ9pkVQxo5ggk1pyTsD7NQxew4BonNQ2zUX8jtsrZquAE0
+         y03oGN6NsJQq41rsSx72i1kTdKtKDofst3M0Nbvssa+h3ULF5AwycQYgyT5cn4oaouCU
+         FwhQRR8jRkHSza1KjkN6H22VdwamKkuKBZDTiTsoGyaqxTdDmexYXMJiwy4pZf9Rx0/0
+         +WAXFtJ8oPOZepz555RK4kfcK9VguVxWslHk3tO9cVjBkUvCel3aEMfW9j8osHaGdt+s
+         W4KjEEA0oKOit7sUR/VK7ni5oeGovnmDNq6U9HdhvoQ4BYYsnZ5viFu+0//W2CMbHlqR
+         bvSw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794672683; x=1795277483; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kYhEGps0UomI4ThdCaZM/6xhr977LUTH98N7MCn1AQg=;
-        b=woZHVd2iT20k8onAr2nEkXQnRJzo+gE+XboKYFuhp+KmzrYT6SgzU1/w8CLaRyxH7W
-         MG7hnoPZP1hoTDWDHF7hpqsnitZ7bgNjWJPRhDKjaswZGCPLZJTbE+SgOSioqSU56i8m
-         KaPJgYraiHigKrQF2TJpzcvdZ7ubfJ1rUoVZ+CvWKGnTNEhjHVGk2NFp9sE9OBY+umOz
-         6R+imaKPsGgejASGmM9w0fbxB3Ec6Z6TOitLqyHmr5StObSyx0wRx3uFLRFJrAg1pEmU
-         tEEXbqpH9J7fHogpX2xqUr9KTuElLmDAhnv8DcF4GOeM6dILd93+CZ8fHQyJuMqi91Iq
-         HJQA==
+        d=google.com; s=20260707; t=1794672718; x=1795277518; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rAXOsiY7dgF8E9nvWQfWLqo1mF0hHpyBG3jPK7/IHMQ=;
+        b=bCmLBMrsoS+E3FJJS14wew7hWIzp/cpZA9aiKnclbK84765KkPFQee3u3wA/T/u+/e
+         Bo+/LU+J7yY8R5ef1Nk0gTxuxnjUT3vuIwzINP7WEWgIvcBUSnN3GuU9dvzsUq2dGtks
+         jfWz63UG9DdqOtOTHwd6lGqOm4Z6zzPdtdOY8pJtf3Knv3LM3yUHrl2mjfZ0HAlH83Hn
+         iQt9L5+xs99sc4ist1nJ0zfTFqgYoaM/OBm4uKtKqkM3oKRhTX8oc3YgJ2p7w/TYVTBy
+         FjZ+qy2L1c+ZWy9ooKdoCo7qlx3z2rkDAbdEeK+OYnBqX4vOqo7PRBjSocymbAgDnw0R
+         B07Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794672683; x=1795277483;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kYhEGps0UomI4ThdCaZM/6xhr977LUTH98N7MCn1AQg=;
-        b=XR7Zg14trCKgwAIxdunjBZGm9knZj9EL2jsabGREvE0LL0zr4SzQdTLHDG0LB8l9E/
-         T9ORfZ6YZtKGn01WbTp5Okm8Yk0dgoMb6VLsgYH/t61G5t32uoM8MyEtxK0rCkERtV7f
-         sS3dlIxhl6cPIov71Qrrkfd/XErB+10P5cdFqpzKQCrkvtEQabNbTx2kRi+zvQuHZX1B
-         OOYj4ZNzQ6ChFD73sPGy8J+fH1TUsswHrvA5IooZd/WqUST5rSL5fsr1WDAJ21A+/+CL
-         SITdXriRJW/lLMdbHxAbh/J9osLvLdBzMsT6yzZBfmjgegC9FXXnrZ7Qgtmy1LuzK4cB
-         0z1A==
-X-Forwarded-Encrypted: i=1; AL+hErG6jblYoQ8OPADFUgGuKxSpFG0SkYy7XRG3GOOxDMKDrTh2BwjirHSimfEn8tsyH2bDrTg/QGODJRxxKaE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8BzQt1ZRakrYLdQPJgR7n6kp74OB6QHluzZeVxNS09fTxE4YFZ
-	FOB+Cp/ux+tJvKtHmqSWhJcySQ3JL1dkcCiIgOsM1Rb3kJo0jZ97nzE=
-X-Gm-Gg: AYBFou1u4Svk+zpGxZD4pp4f2cNXLgV+Kaebes01klMUoB5fYKPpdLKctoQIawiQTIC
-	Wn49jgSbNPF+QX1G7LkY8HtoGHLKH6+TkF/9PTurglEG7Aa8TT0c+ZPxLj86a9Mm+dDbR2zkpX/
-	uonMvSPwtLaKqJsyJNxqng5upPeAjV1Ukg4voDjEjh/ilXSqSVsJMxx9P/ZfvO1BHTsc4tIGkOE
-	G7NalEF6gup4abw4Ym6Ywde02JzNUc5yr5TaGo4xAFPnxCDIyLhksjGC/L9QVgeiemWvyxhyrpJ
-	mYIn4E58ENCYfi5s15D41SZistAp30JlQhYhWfGrKStyV0VqGyckoxTpboJzoKfjUEzrY/izc/C
-	YSaQEyppTPHCwPMa3m1AxmvDA/NtIwuHkePukAaDZJRhL4xeBBBRfp0VZqbKMap8kWQJKaqm2uf
-	KHyFimGY5bx4RlkDHDTjtXJzAdW84hnqo3Zd5vJq1wJkDYtjnwvGl/zL6wHPJRAeuHbVnaALZKf
-	t54/LDrdGKYFxXKJRWsnTUcfecwhOtGj2QGptqDhqDCEWe8HfQPysQyQbm+e7qGHFuK/XOxNQs6
-	8jnbLOM+U9uQ9pJ2qGztfoBqiBGjATZwo0ihPwPVoAGBzIKG1TnH7aTxFa0ya+CtZg==
-X-Received: by 2002:a05:693c:8115:b0:36a:1008:5815 with SMTP id 5a478bee46e88-37963372d85mr5904580eec.5.1794672683015;
-        Sat, 14 Nov 2026 08:11:23 -0800 (PST)
-Received: from at-Standard-PC-Q35-ICH9-2009 ([106.202.127.108])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37956bb0919sm17567582eec.29.2026.11.14.08.11.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 08:11:22 -0800 (PST)
-From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-To: 
-Cc: Andre Eikmeyer <dev@deq.rocks>,
-	Sebastian Zygadlo <szgit@icloud.com>,
-	Yossef Osman <yossef.osman@proton.me>,
-	Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org (maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)),
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Harry Wentland <harry.wentland@amd.com>,
-	Leo Li <sunpeng.li@amd.com>,
-	Rodrigo Siqueira <siqueira@igalia.com>,
-	Kenneth Feng <kenneth.feng@amd.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	linux-pci@vger.kernel.org (open list:PCI SUBSYSTEM),
-	linux-kernel@vger.kernel.org (open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)),
-	amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
-	dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
-	platform-driver-x86@vger.kernel.org (open list:X86 PLATFORM DRIVERS)
-Subject: [PATCH v2 12/12] drm/amd/display: Skip panel power savings on eDP links without a panel
-Date: Sat, 14 Nov 2026 11:06:36 -0500
-Message-ID: <20261114160731.3756-13-atharvatiwarilinuxdev@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261114160731.3756-1-atharvatiwarilinuxdev@gmail.com>
-References: <20261114160731.3756-1-atharvatiwarilinuxdev@gmail.com>
+        d=1e100.net; s=20260707; t=1794672718; x=1795277518;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rAXOsiY7dgF8E9nvWQfWLqo1mF0hHpyBG3jPK7/IHMQ=;
+        b=FNKTu8ziEtUWNQWtPQlYr7J3r+LA70dTtEqhyMLgHZ+xvzg+mN3TYAfbVipOPZdCug
+         rCIk7q4vZnCGA1in42jX8XV2bBF+tLlG7aEWv6kA3UtDmJpb18LfDAcmPTOkVO8rCARQ
+         Eks3a+9WFAh3L5IGL7BPQZFyWWTsVawEHZ81/8V4+BEu4/OjF5KlbxZCClTJoBKExEdQ
+         t3KWyVE0mQLrzdMpu6K7TYZ9LCDiT4oIiX1m99QCWsJW8ZgHaRqHRPKVdj2q0psAynWj
+         nIlyRmu90ZX6UEIqTjFCxVIhC3NSmiYPvwvncRJGauDLdaTMw1RAWdf7jmOFCmhjlMCW
+         e5hw==
+X-Forwarded-Encrypted: i=1; AL+hErFk4JEuUOMyy7p1a12IauWkEkUvCvrHwe24TEv6lbI9loKiWhLvHnUrrFC/JcFc4U4BJ8A050nTG4NIU/0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ASAoBKjDSHQ1mZ2jLbJxFMlXQ/5uF8dPGv8M7ZFU+wetTTqq1
+	MbUuNkJF0UM0AasJR8AchwSOAZc/o4u/dAkkKfzLSZzCvgMSUxxlFgyq4iG2L1DFQ8a8Ss4IiBr
+	ZUYrY/uOj9CMOIvtGcAIrYYODuRgWP4JHhgRDF4Lr
+X-Gm-Gg: AYBFou1fCrPJmNKywY8sFdx6gLO/SFKYxyFnxf1o82jatiZIsbLJtEYlC/tDGI/N955
+	+w2cNLlMMr7XjY6sZguouFEPBHe3u8ccOY3xP2QJWcFcYVfr0OrhV2XcP/Mli4YCeKsIobUtPdC
+	o/DyuC6MZT+CVryvLj7BVj937zs6bbZDZQ3KtrLtzbTruvRZ9VhqyVfRJ4oKamGH+sAhfkiNe+5
+	rSkKWTwLG6mDIZRo07rejMnpgt7kBy25y2BGCBJl7//x7gTu8yYOKPQ+o8XxtJELMSs4czcXivc
+	wv0418HPgAPYFjMbrbKrrMKa9UcvIIcVHnVs44RpAnN0V+kl0OBBh4IQ8NuEvYWVXzS8l1AnHQ2
+	UsSg4eQsTu7KAiNMTeG+W/kyVRvugpfr1rn71Oxsil8LA69gnvLDF+7iqgiu7ljo9jTsta6cA5B
+	75pk5rng1LinRHbisFigyUpAYlWSo=
+X-Received: by 2002:a05:622a:1f13:b0:536:353e:8d2a with SMTP id
+ d75a77b69052e-55c420acbb5mr16403621cf.1.1794672717702; Sat, 14 Nov 2026
+ 08:11:57 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -121,52 +105,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261111-mtu-probing-series-v4-0-6f2e484ca8ea@gmail.com> <20261111-mtu-probing-series-v4-1-6f2e484ca8ea@gmail.com>
+In-Reply-To: <20261111-mtu-probing-series-v4-1-6f2e484ca8ea@gmail.com>
+From: Neal Cardwell <ncardwell@google.com>
+Date: Sat, 14 Nov 2026 11:11:39 -0500
+X-Gm-Features: AclHuK_-nV7pf1PB8PO4ykYtxVbAD9myD3UdJz53eZ7VZY4ZOzGRrnnpG944peE
+Message-ID: <CADVnQymNTE-Etw4hhAgCAz9B86qzpFye9vZPkE_W62c2hY4Q8A@mail.gmail.com>
+Subject: Re: [PATCH net-next v4 1/4] tcp: initialize MTU probing before
+ syncing MSS at connection setup
+To: echoowall@gmail.com
+Cc: pabeni@redhat.com, kuba@kernel.org, shuah@kernel.org, edumazet@kernel.org, 
+	horms@kernel.org, kuniyu@google.com, davem@davemloft.net, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	netdev@vger.kernel.org, panweiping3@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Andre Eikmeyer <dev@deq.rocks>
+On Tue, Nov 10, 2026 at 11:46=E2=80=AFAM Yongjian Wang via B4 Relay
+<devnull+echoowall.gmail.com@kernel.org> wrote:
+>
+> From: Yongjian Wang <echoowall@gmail.com>
+>
+> With tcp_mtu_probing=3D2, a passive connection starts at the full MSS
+> rather than tcp_base_mss. The IPv4 and IPv6 syn_recv_sock() paths
+> call tcp_sync_mss() before tcp_init_transfer() enables MTU probing.
+> With tcp_base_mss=3D1024, the first successful probe can therefore lower
+> the MSS from 1460 to 1242. On a black hole path, the first reduction
+> skips 1024 and goes straight to 512.
+>
+> The issue surfaced while developing packetdrill coverage for MTU
+> probing and comparing the initial send MSS on active and passive
+> IPv4 connections.
+>
+> Commit 4d83e1773031 ("tcp: delete redundant calls of tcp_mtup_init()")
+> removed tcp_mtup_init() from the passive setup paths.
+> Commit 27204aaa9dc6
+> ("tcp: uniform the set up of sockets after successful connection")
+> later moved MTU probing initialization into tcp_init_transfer(),
+> away from tcp_sync_mss().
+>
+> Initialize MTU probing immediately before the existing tcp_sync_mss()
+> calls in the IPv4 and IPv6 passive setup paths and when processing
+> a SYN-ACK for an active connection. Remove the late initialization
+> from tcp_init_transfer(). This lets tcp_sync_mss() apply tcp_base_mss
+> without adding another MSS calculation to connection setup. The
+> crossed-SYN path already uses this order.
+>
+> Fixes: 4d83e1773031 ("tcp: delete redundant calls of tcp_mtup_init()")
+> Suggested-by: Kuniyuki Iwashima <kuniyu@google.com>
+> Suggested-by: Neal Cardwell <ncardwell@google.com>
+> Signed-off-by: Yongjian Wang <echoowall@gmail.com>
+> Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+> ---
 
-When GMUX routes the internal panel to the integrated GPU, the eDP link
-of the AMD GPU has no sink. It still exposed panel_power_savings, and
-tuned writes it on every switch between AC and battery. Each write sends
-a hotplug event and the following connector probe runtime resumes the
-GPU that GMUX had powered off. Only create the attribute when the link
-has a panel.
+Reviewed-by: Neal Cardwell <ncardwell@google.com>
 
-Tested-by: Sebastian Zygadlo <szgit@icloud.com>
-Tested-by: Yossef Osman <yossef.osman@proton.me>
-Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
-Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c    | 3 +++
- .../drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c | 1 +
- 2 files changed, 4 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-index 703d0617d..c8fbd2167 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-@@ -761,6 +761,9 @@ amdgpu_dm_should_create_sysfs(struct amdgpu_dm_connector *amdgpu_dm_connector)
- 	if (amdgpu_dm_connector->base.connector_type != DRM_MODE_CONNECTOR_eDP)
- 		return false;
- 
-+	if (!amdgpu_dm_connector->dc_link->edp_sink_present)
-+		return false;
-+
- 	if (link->panel_type != PANEL_TYPE_LCD && !link->panel_config.cacp.cacp_supported)
- 		return false;
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-index 7ca17f803..d71f5e5da 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-@@ -52,6 +52,7 @@ static void setup_test_connector(struct kunit *test,
- 	fixture->aconnector->dc_link = fixture->link;
- 	fixture->aconnector->base.dev = &fixture->adev->ddev;
- 	fixture->link->connector_signal = signal;
-+	fixture->link->edp_sink_present = true;
- }
- 
- static void setup_test_dm_ddev(struct kunit *test, struct amdgpu_display_manager *dm)
--- 
-2.55.0
-
+Thanks!
+neal
