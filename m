@@ -1,61 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794632463;
-	b=zmNf+zdGPdPOKMC3Q3h/oDT17dlfSeRDlrsnIvyQcYKLSXaNqRB5GiE+K+TKuTBJEzdn
-	 T0fLBkOvUwI66Tj7RiSLi2Za+K7M7wx7GH48tjWr6so64yZ6IeSP9Rriqr4ZYNPk+R8kX
-	 XMlkJJIrLZg8quaeOJu+vit1g0c8gU7ZIVJ+nxX31TROXv3hsElLOYLv7lFDaoxxpGCMS
-	 apuVMAHluAWBwNsno7Q3JJiVuS6Kw3+fEvUZ9lFgzVrmzqS6vrB37bS6Q/1FtTT1g9D7i
-	 WS1qVOE82giCU+EWP15F4qmiLl41iVcQlhhTP//C30naJD1iq2Ccb0ebqb+cdKNtInw==
+	t=1794632459;
+	b=ZNQGYkjw4u4zB+4ylDGZPGNJkTTr/IJANVq1IiJX0TlQn2lWYNQ3Ota3PkUyfmwGjeAM
+	 sj1hl3G4MSOqkJJ4X3x6DwteQp6/NELHyMuVymbD+8MxWe8meCrRgkd/9b5rBa5uZGcGP
+	 D5i4Gjww6MKaXSAGQdsnaRSgLhITt2p0ax8Bpll1pm73gwCRKatOHxX95nJNFxazJP/te
+	 rdE8p75Igq1AfiUPNpTvWTEmFLcJie1fGBqNzKQcBUgbPL3t5XWU+qhaj2Mg482cS2dDE
+	 B6V/HXhpbPmBgQD/cKjKXCn+StbtVvVYHyVx8Rp97ne9v4PiD3yXz4AIkvDirEXDoEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794632463;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794632459;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=Hep7RWQNpmLDtzTa8u9SOSCEbv6fAMG/njo1vSX4wa4=;
-	b=FysJsse4HmfsVzTXzNQmC85772Yqqp+i6q0jwSxxeSci2CnPSidoHXcIJL87/bl07phT
-	 r5wAdk2NP/8fFGsZBMFNZ+K5wMRFMk3aUa9X7nMC5JJakvUZwSU7cc4c7NHKtq7Pdnweo
-	 2izgJdvJb+Twqiat6d/Dni7RxDjJVtIuXSfa9TTUqs+XTlEUPNVtQzpbZsmPknvNnUWiJ
-	 y2gM7KJ10CPvvFYDgK5XWgMTZgEVWfoKub17uXEc3U7kbM3qgwJtBeYXzgcADUz+lGfTR
-	 kOamiS8GcwzmmK4J73mdWron72mqiQMoN/13279TdkaRDg7qV9qZWCtlgo+Gw+Yibxw==
+	bh=LVLhWiEdWHFBJHnv0Cs5kHL4UQUBxd0+XsO4PKT1bxI=;
+	b=uSU+gmsTD/J7Td4ipSwSLurB5SyEhc9SCQKlhwLLkAyu9iiVgAu7z6FmpaNLtyVnEcTD
+	 HFRwhEvMbRhX3azPNtv/Jl+9/3eaeiFKFEk2qbLmKwshH2Gd0hd5OPWIyrzkB2kRGonzV
+	 FwXIhfBbgeBAFxvTp0Y3sCvQG75BaRznwkWke0yr2tYTB2WVifx1nwTCZ9yk2miQF9PIF
+	 9HC7gZGLzfsTy4HQhF7jCJGIchbEtK40tw7SWsDVxMEIiT09W3xP/d04U5TeEge2FCRgK
+	 PdsWE3QbBHtKHM5I83iZFL31aLBHH7Ple/lpFvCrkYvBWTgzn7ceJFo+RHhz/JWsr6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b="Ar/jc+Up";
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=b8kh5x41;
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E48C960A381F;
-	Sat, 14 Nov 2026 05:01:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E48C960A381F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C646B606A331;
+	Sat, 14 Nov 2026 05:00:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C646B606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Ar/jc+Up
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=b8kh5x41
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794632457;
-	bh=45boCezNlmhhziUm1FzEEYt43rJYJ/1/7ikuYa1yghs=;
+	s=mail; t=1794632456;
+	bh=+ipPs8iD7ik+cdrCA73kGnVQQYgDC9VIvxWxUzjPh04=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=Ar/jc+UpSFh0F7Z/zALXxHoNTyNx8NdTni49RhLmIZr6IJrWnFjKzgjbZdQZSnsXg
-	 yHEMITid2W09sa29SIdOTPTzaQ2aTsmbHJ7V+7y0K8pVVBASzF8NiY7/2nxzBgV9O0
-	 IlgsSDuROa5PWq4hTqqC7y39OX7fhvnztf8/eZOXZaPadqkEpuW3OXzThj38FTsS5F
-	 ytlQkrmWxRk0xArdnkC2VgCS8AtUyO8vbQVlauV4wSOJ5d7x2aSGTvHouDHN0GXGGp
-	 cV+cbE/2Fqe9Sui3KwfiNawhEbjrj6EPIRl2cRlGiq4lutjrIu7y+qoLvXfs0zRFxK
-	 +4fnpw7lwjlAQ==
+	b=b8kh5x41JLpSguDJy4r8QnLUG0iiSO/rvbmTrAAdPiTUZrYY+cVB/8WveSfb2c3A9
+	 luG9bc/SLNBnVh+V5LBruwu9TNOkSiJElSMSYiyhJufWdc5FuLwtwd/PTYrP81Qdjp
+	 5+qNoIBxeZprSeVgkMKpffjMn6EHFCByZF9k6qJYsvANrST5zS2ZKAZiByBhzHFyR2
+	 uX6Kx5xOLfkZVVCf1Zyve5A0cYZIT+WF8jlixrvP7zeh5hpt3+H511FWmaWEzE+lvj
+	 vo9FzmfG0WtGie4hot9d5tw1HgWKvEARpXM7/Q8ryeRAZ6L8wOe6ySg1C4GJhAOSja
+	 npro4v7HOnscg==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 058D817E3BF6;
-	Sat, 14 Nov 2026 06:00:57 +0100 (CET)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5635517E0FCC;
+	Sat, 14 Nov 2026 06:00:56 +0100 (CET)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 23AB1480062; Sat, 14 Nov 2026 06:00:56 +0100 (CET)
+	id 0F562480031; Sat, 14 Nov 2026 06:00:56 +0100 (CET)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Sat, 14 Nov 2026 06:00:49 +0100
-Subject: [PATCH v12 16/23] drm/rockchip: dw_dp: Add system PM support
+Date: Sat, 14 Nov 2026 06:00:36 +0100
+Subject: [PATCH v12 03/23] drm/bridge: synopsys: dw-dp: Fix error handling
+ for DP link enablement
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,7 +68,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261114-synopsys-dw-dp-improvements-v12-16-d42d3dc5bdd4@collabora.com>
+Message-Id: <20261114-synopsys-dw-dp-improvements-v12-3-d42d3dc5bdd4@collabora.com>
 References: <20261114-synopsys-dw-dp-improvements-v12-0-d42d3dc5bdd4@collabora.com>
 In-Reply-To: <20261114-synopsys-dw-dp-improvements-v12-0-d42d3dc5bdd4@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -91,47 +92,104 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
  devicetree@vger.kernel.org, kernel@collabora.com, 
  linux-arm-kernel@lists.infradead.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Sashiko <sashiko-bot@kernel.org>, Igor Paunovic <royalnet026@gmail.com>, 
+ Andy Yan <andyshrk@163.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1010;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2443;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=45boCezNlmhhziUm1FzEEYt43rJYJ/1/7ikuYa1yghs=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr36weEWcInHZA679Yj1StCqOFPYLhDNHZLM
- vbi3xG9n43o14kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq9+sHAAoJENju1/PI
- O/qaHF4P/jVBIVmlo/DZ5M7ZQqryNZoQ03JqP8zliw6mRVyQBiGyuwo+6lQRA7vd1nKW97Eretf
- n/CWVYj8b79IxBUwYe9gjAX66suftDI90MsHUNFwUCO7dYqh64a9RqwwczocasmQ+aK2kFh6bEf
- lw9SmBaMuF/0Y69SUKY5cW2ClZlAscf4YbAL9jGN+4iC6GL8FfZMYHNe664Rp3EYUBBQen0UntD
- 3SkQwWHvpTreN0B/ahxMQN9HFmtTJ1j2vgLQAi2Tg2pB11/qPT8leRBenFbMRmO7szL7o5nNYjT
- w2Mf7LqteW4KHfihXAfA4/SeU8mQPalm+BGQ0IM+B+2YtSb60wOUgsUI1D4YSQ1qAexQ9RGoQzx
- umlqz+RJEkm9cLDfaR7YaHDoyi1hWTa0/t69L7eF/58wP/ceqrslxPLoiWb3ONZEAmY5re89SGy
- l4Uvi4IDcY6/mGP2DUKuHP+iesKqDw2zGYgGtvnfSz1mp9yx9TTGRsmuVNxCXQVbS/oEK5C8GBj
- zo+Fl6HdUBxytK1WnO10nvSRSWpZAf0vx/6bg940/LIsrBZTDYcg0HIc5uYBr75ufQjGHh39IGj
- feQntBTSgYCci+GVGIebCCG9N78y9SefKt+93ZQ3xl230Qt+xV5u/I/iuBBYMvTZHP4FVTpRy87
- i3GUbhbZAQt1BB3TpuE4tpQ==
+ bh=+ipPs8iD7ik+cdrCA73kGnVQQYgDC9VIvxWxUzjPh04=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr36wdd3JvJi7rqgp4TIhL8Rvs6fdfh68P70
+ byH4rls6kajaYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq9+sHAAoJENju1/PI
+ O/qaNl4P/jX9GCiNXGi1JymflyfKjzQexCMwNr1/NXkljmhRk+Z21RIdksrqb39NQ5fD3S3/d5M
+ rAhnt2EKYJhcLqD8D4mzX0xJSK4xzMEBObmM0cOupbxISPehkeLttbgxvvcM9tm64o1LVG6lZjK
+ gbPCvvhA6HLbnjkxt123wfd0Lp8OtA7lO9w/Ymw84jZHICzl1cythe8DIZGHxNnqprGqAwhCHmI
+ DgXmlnS+DboHrEJla8397ZfayXZ+6XvoERJ9Ry0c70Rt23Fs1AZf6Z77PN5i8MNyt22gSMOPO5s
+ KSIyHNm3IdDFBGKa1b5Xfn46RT5znhjg/IpfavXdV7X4IvWYeIO7R8pFwH0FU53Gy0h2lIDNu8p
+ e2TI8QycyWekacDwG7ywDNT2F7vy/ONfj0tDkWx/VKmSlqHJj80uabvY7yeUs6g2sL0g69r4qEV
+ QVjtILTm3NyqzY1kwlzyjrquit3qleKdjB47SDV24yxXuAJdGWldSrbEF5xQox6GdSsvA3akvtG
+ fGxJrewU0cPwtTSl7rdvlkIsU1SAg8gZZXa4CpW37HpWV96d7nQtsJWFLoGrVSTyYXD4Ufh1uKE
+ w7PhnN4CRDGwQ2kNll36TVWD37FnuBLKtH1ALv2k9j6G1bxo/CJUzmIWN6Is2Q4Nh141cl/L9yB
+ 5ZikOVgX9/mo+vFgTyn8ykg==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Explicitly suspend the DP controller when the system goes to sleep and
-more importantly resume it properly after system sleep exit to recover
-USB-C HPD register state, which is lost when the system goes to sleep.
+dw_dp_link_disable() may be called in atomic mode disable even when
+dw_dp_link_enable() (or an earlier step) failed during atomic mode
+enable as there is no error tracking. This would result in broken PHY
+power state.
 
+This is fixed by introducing a new enabled state in the link structure
+to ensure the link disabling only happens if it has been properly
+enabled in the first place.
+
+The patch also adds missing error handling in dw_dp_link_enable()
+itself to ensure the link enablement becomes an atomic operation.
+
+Fixes: 86eecc3a9c2e ("drm/bridge: synopsys: Add DW DPTX Controller support library")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Acked-by: Andy Yan <andy.yan@rock-chips.com>
+Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5+
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_dp-rockchip.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 20 +++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-index 99d948a7c51f..4cfb40494379 100644
---- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-@@ -269,6 +269,7 @@ static int dw_dp_rockchip_runtime_resume(struct device *dev)
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+index ac16d290d49b..93d52a76044f 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+@@ -279,6 +279,7 @@ struct dw_dp_link {
+ 	unsigned char revision;
+ 	unsigned int rate;
+ 	unsigned int lanes;
++	bool enabled;
+ 	u8 sink_count;
+ 	u8 vsc_sdp_supported;
+ 	struct dw_dp_link_caps caps;
+@@ -1614,6 +1615,9 @@ static void dw_dp_link_disable(struct dw_dp *dp)
+ {
+ 	struct dw_dp_link *link = &dp->link;
  
- static const struct dev_pm_ops dw_dp_pm_ops = {
- 	RUNTIME_PM_OPS(dw_dp_rockchip_runtime_suspend, dw_dp_rockchip_runtime_resume, NULL)
-+	LATE_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
- };
++	if (!link->enabled)
++		return;
++
+ 	if (dw_dp_hpd_detect(dp))
+ 		drm_dp_link_power_down(&dp->aux, dp->link.revision);
  
- static const struct rockchip_dw_dp_plat_data rk3588_dp_plat_data = {
+@@ -1623,6 +1627,7 @@ static void dw_dp_link_disable(struct dw_dp *dp)
+ 
+ 	link->train.clock_recovered = false;
+ 	link->train.channel_equalized = false;
++	link->enabled = false;
+ }
+ 
+ static int dw_dp_link_enable(struct dw_dp *dp)
+@@ -1635,10 +1640,23 @@ static int dw_dp_link_enable(struct dw_dp *dp)
+ 
+ 	ret = drm_dp_link_power_up(&dp->aux, dp->link.revision);
+ 	if (ret < 0)
+-		return ret;
++		goto err_phy_power_off;
+ 
+ 	ret = dw_dp_link_train(dp);
++	if (ret < 0)
++		goto err_link_power_down;
++
++	dp->link.enabled = true;
++
++	return 0;
++
++err_link_power_down:
++	if (dw_dp_hpd_detect(dp))
++		drm_dp_link_power_down(&dp->aux, dp->link.revision);
++	dw_dp_phy_xmit_enable(dp, 0);
+ 
++err_phy_power_off:
++	phy_power_off(dp->phy);
+ 	return ret;
+ }
+ 
 
 -- 
 2.53.0
