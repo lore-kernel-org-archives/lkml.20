@@ -1,116 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.67.36.65
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794676006;
-	b=3IbWWe3qkRTnEbkc1g6QPdmLZ1aYkecZJYfy6dKs4z8ur4jO1Teqf7NOlMma3VyUMUr2
-	 72I4OJKHK1vipljlnxFERSnb0X8NW208i894baJ+5292RipfF7u9Dsbdb7Pphl4utaqA8
-	 FczYE/fSGbqj/q1HMUlAXKN8wRKOSe/WoF7m9/1eJoFJLdLiAkWzk5+ryfO/ZrJDNkqJV
-	 ty/YG852f5IoAakydHbthkGQDxAyfcjidmh7NEHJVw6P+Fz+WLqcMMNC5awYmNB2rd00r
-	 W4cXwc4+PZtk1NgmiO6Fdg43hxKyY9B2emMD6q9rbm1LWTAQRVYCYx7esnX5BbIXVIg==
+	t=1794676083;
+	b=H85nNVowp+4QGaEnJXE7ed0d4gfBZmX3TNZfUeJisZHhHed2+W+qfZi87w+1ssERy+jl
+	 9vEUKPvr91HAE+13tx2mLTrFzr3Kr7zTlM/cgEVX2Z2BNM5dmHLcy5ybyxFLIVd4uVxi3
+	 9b/I0iOoYDiPjR+Wci2wMVMJvU6aIj2cVUmOXL+pjn3dhOrMM6RrMVnxZgpr/5g/lxuQF
+	 TameAOt+g70dw+2o0RQlSzfv79QjbdY/o8yJMbHWPlAp2uWdoutI/dt+xP7KHNh0WAsVc
+	 nFgQHdVRuv/H7GfaNIkJWQKTiP1NvNrxRzjZk2Tr1kzB9G5UsxBwZXRkny4S145y31g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794676006;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Autocrypt:Content-Type:
-	 MIME-Version:OpenPGP;
-	bh=bZSuAPjJ+v3XkKNzimjkiEXtH8QqSAUW7r+KOR1UNck=;
-	b=gNRlv5Z8RkJU3OdVms5O0fLe4FjzU122SJ22hAkaI2zfEoefE+V+T2l+EH5hvwZnEHNP
-	 mRngFZ9ppKA8Ah923pJDn5dTjewMIjzofDa7+WmYbEy6N9hay03tEbM0EOSqbZ/SIEXd6
-	 he+qZGfM/G2jyzBVxulO+gtfDYA2yUYD/y5n/27oSpcvPoomXyFjeyhGThyRnxHGyobnc
-	 mUkS0wA3VAtIkqQn26yV2jJMRLTFFuD8BML3D3QCiCcljDKxrAgN85Pk9CLxloIw4tfo1
-	 nVNbn+xv5T73SUaJTM/jZYAyDLsfBJH2avqGl8DTd/B+ULIRC/4aUce/T1CgTWrmXeQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794676083;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Debian-User;
+	bh=M8UQAAYwxMPO/N35yFrmI3Jk91luWX5cEKDle2vhHtI=;
+	b=mMog2EtixDBlfKLXJt9IC+BiwBpBey7do1MyiAsiMoD830ZBsoCjjY/ns5sKfgmsHNI9
+	 Hy5v9x5r86LBI2d42HTepCE8CPZzWSX04Hn2CTH0qkA5CUqySitVGDaEvL4iq+nI2KxxF
+	 KecWrlsJMavXs9Y9MFY013QFr5/38rHUdg7LRf32DFurXyBKN86OoeLkcHFzkUKbMUAzQ
+	 9/HtZsUT6AHl1Cs8/ADqtLtARGSiL0LONdIfwluDK2BuxgSMEGRdBJVUKdH9Sta8EWdKr
+	 e+iTZrhoBYeTAbPwPeq1NakWaIflMBg4FQjY6bHL2rtb77hUet+xBgdYdWGNsWvhgZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=posteo.de;
-	spf=pass smtp.mailfrom=posteo.de;
-	dkim=pass header.d=posteo.de header.i=@posteo.de header.a=rsa-sha256 header.s=1984.8680eb header.b=SyohQEom;
-	arc=none smtp.remote-ip=185.67.36.65
-Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=AAV+duFV;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 814BF606A334
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:06:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 814BF606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD33D606A330;
+	Sat, 14 Nov 2026 17:08:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD33D606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.a=rsa-sha256 header.s=1984.8680eb header.b=SyohQEom
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout01.posteo.de (Postfix) with ESMTPS id BFE1C24002A
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 18:06:37 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
-	s=1984.8680eb; t=1794675997;
-	bh=bZSuAPjJ+v3XkKNzimjkiEXtH8QqSAUW7r+KOR1UNck=;
-	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
-	 MIME-Version:OpenPGP:From;
-	b=SyohQEomfPbKxQQTxZA1xxZuZfKgxDnij1Cx+/FcptINrcPxH84phY9S3OLo5zDvv
-	 QyFR8J26RyiC+fdrKBwZsBuTjSGh7Kn1iyLsZyN84bQiAJ6tu3HbjQY/8Edvcd4i3c
-	 dxE4gLARWHv2QRjQvI9TczQQPaH72FPtixvSWYi4ydneVBn6cu4rdXmWuz/LozCwZ5
-	 iReniHrWwE2iaOSR7dG/WgI4OP9ksNaAjzGvHa/AGJm/2D7Y84dLe3IhMPj3f8O6jG
-	 Gmy9kHM9n4qjtBcpnVtGXbKQlf6/g9WVHsz+sAacweKn9h7rW8gr9f43fZ5fFfAGw4
-	 tRCXhSwXrVI/w==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4jRgWv2qdFz6tsb;
-	Sat, 14 Nov 2026 18:06:35 +0100 (CET)
-Message-ID: <fc05ed7435e2fa282a163f99110048f6cfe56b6a.camel@posteo.de>
-Subject: Re: [PATCH 0/1] Bluetooth: hci_mrvl: Fix duplicate serdev open/close
-From: Markus Probst <markus.probst@posteo.de>
-To: Michael McAllister <me@michaelmcallister.org>, luiz.dentz@gmail.com, 
-	marcel@holtmann.org, Loic Poulain <loic.poulain@oss.qualcomm.com>, Sascha
- Hauer	 <s.hauer@pengutronix.de>, Stefan Eichenberger
- <stefan.eichenberger@toradex.com>,  Gongwei Li <ligongwei@kylinos.cn>,
- Marcel Ziswiler <marcel.ziswiler@toradex.com>, Vitor Soares	
- <vitor.soares@toradex.com>, Hiago De Franco <hiago.franco@toradex.com>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Sat, 14 Nov 2026 17:06:37 +0000
-In-Reply-To: <179467295518.97469.12346516231160594592.marvell-serdev-v1-0@michaelmcallister.org>
-References: <341e56b1ff7d8a5b109e26e30dfed61faa54d603.camel@posteo.de>
-	 <179467295518.97469.12346516231160594592.marvell-serdev-v1-0@michaelmcallister.org>
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- jfGillcaQOqFZ3WwVqyzG1BUfTow==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-RNNjEGgBFzqiQk7v4Asd"
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=AAV+duFV
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Content-Transfer-Encoding:MIME-Version
+	:Message-ID:Date:Subject:Cc:To:From:Reply-To:Content-Type:Content-ID:
+	Content-Description:In-Reply-To:References;
+	bh=M8UQAAYwxMPO/N35yFrmI3Jk91luWX5cEKDle2vhHtI=; b=AAV+duFVyzC7eApCpNvheUmw6y
+	FK7IoNUgu+5zTKhc3K40MyQFQ2Ews9Y6D5vU7DOi2F6n8z1ZPNdF4ymUcDXRYk2r8YczFuJdoZLxg
+	SQPgmDy68qeXbzjTJBhNek1jNhudyBLt/m2ziOBO4kif1v7pB63efoAyFfwwH4NdRLCRWiUsV4LPi
+	IClPk2kAQ9IO3EdBswWlok9vnRZvTYldOooz+wY4i975i5xaKnO4tqeerQ4+GJQnP6jh5QmXU1d29
+	XnrIO4Y+0o86dUF7AMtHo6BMgDnzvYoA4bUESKhFjIfQ5vFhN+O0W/UvX1d5CuGkWBiz438GvwfkU
+	07+mWuxg==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <emfox@debian.org>)
+	id 1xSHEK-00FgWX-0g;
+	Sat, 14 Nov 2026 17:07:56 +0000
+From: Emfox Zhou <emfox@debian.org>
+To: Even Xu <even.xu@intel.com>,
+	Xinpeng Sun <xinpeng.sun@intel.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/5] HID: intel-thc-hid: intel-ipts: support THC IPTS ports
+Date: Sun, 15 Nov 2026 01:07:35 +0800
+Message-ID: <20261114170740.2068179-1-emfox@debian.org>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,60 +69,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
+Content-Transfer-Encoding: 8bit
+X-Debian-User: emfox
+
+The THC ports on Tiger Lake, Lakefield, Alder Lake and Raptor Lake run in
+IPTS mode: plain SPI with a private framing instead of HIDSPI, which is
+all intel-thc-hid handles today. This adds a backend for them next to
+intel-quickspi and intel-quicki2c, on top of the same core, and is based
+on v7.4-rc2, the first tag with the hid_safe_input_report() it uses.
+
+Register, DMA and interrupt work goes through the exported intel-thc API,
+except in four places where the core has no call for it: the reset,
+port-supported and quiesce-state bits of THC_M_PRT_CONTROL are accessed
+directly. Nothing outside the new directory changes except Kconfig and
+Makefile.
+
+The hardware facts - port IDs, configuration block layout, frame codes
+and header sizes - come from the ithc driver linux-surface ships, at
+https://github.com/quo/ithc-linux 6d53c9c (dual licensed GPL-2.0 /
+BSD-2-Clause); no code is taken from it. The layout, the frame format and
+the ordering between quiesce, interrupt configuration and the DMA engines
+are the parts most likely to need scrutiny; each is argued in the commit
+message that relies on it. All of it was confirmed on a Surface Pro 8 with
+a 045e:0c37 controller.
+
+The first four patches each leave a state that builds and loads: port
+bring-up, DMA and interrupts, HID registration, system sleep. The fifth
+documents the controller behaviour the driver relies on, none of which is
+written down anywhere else.
+
+On that machine the touchscreen and the pen work through hidraw and iptsd
+after patch 3, and three suspend/resume cycles (pm_test=devices) bring
+them back after patch 4, with the daemon restarting on its own.
+
+The interrupt is the legacy pin: these ports put requester ID 01:05.0 in
+their MSI messages, which is neither their own function nor expressible
+as a DMA alias, so with interrupt remapping on the MSI is rejected and the
+port stays silent. The pin is shared on the PCH, hence IRQF_SHARED; MSI
+stays as a fallback where no pin is routed.
+
+Ports are matched by PCI ID. These four generations are not in the HIDSPI
+ID table, so nothing else claims them, and a port that firmware drives as
+HIDSPI has no driver today: this driver gives up with -EIO when the $TIC
+tag never appears.
+
+Report handling stops at HID core on purpose: the controller is the one
+declaring itself a HID device, so the descriptor comes from it, Windows
+exposes the same port the same way, and turning the heatmap into contacts
+is user space work that already exists.
+
+Some concerns:
+
+  - Runtime PM is not implemented, and only the Tiger Lake ports were
+    tested; Lakefield, Alder Lake and Raptor Lake share the code path but
+    have not been run. LTR configuration comes with runtime PM.
+
+  - The SPI clock is one of ten gears the core can program, 7.8 to
+    50 MHz, and the core rounds the request down. A controller that asks
+    for less than the slowest gear is raised to 7.8 MHz, warned about
+    once and carried on with.
+
+  - System sleep takes the HID device down and brings it back, so the
+    daemon restarts and asks for the report stream again: the controller
+    does not keep that state, and replaying one set feature would not
+    cover the several the daemon sends. It also means the touchscreen
+    cannot wake the machine.
 
 
---=-RNNjEGgBFzqiQk7v4Asd
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Link to v1:
+https://lore.kernel.org/r/20261114154611.1683519-1-emfox@debian.org
 
-On Sat, 2026-11-14 at 16:15 +0000, Michael McAllister wrote:
-> Hi Markus, thanks for flagging this!
->=20
-> You're right, hci_serdev already opens and closes the port, so the extra
-> calls in the Marvell driver aren't needed. This removes them as a
-> separate fix.
->=20
-> I've build-tested it and checked that the duplicate-open reproducer
-> passes with the fix, but I don't have Marvell hardware to test on.
->=20
-> Thanks,
-> Michael
+Changes in v2, from the automated review of v1:
 
-Hi,
+  - The recovery work item is initialised where it is introduced.
+    Patch 2 used it and only patch 3 initialised it, which breaks the
+    bisect.
 
-Thanks for the patch!
+  - A frame read that finds the ring empty no longer passes an
+    uninitialised length to the frame decoder.
 
-I added some more people from the git history (incl. from existing
-device trees that have this hardware) to CC here in the hope that they
-can test it.
+  - The port stays masked while the recovery item resets the engine,
+    and the handler keeps draining the status registers after an error,
+    so a queued transmit completion is acknowledged instead of timing
+    out under the bus lock.
 
-If nobody tests it, there is still be linux-next. But its generally
-better if it gets tested once before that.
+  - Teardown stops and quiesces the controller before the DMA memory is
+    released, and takes req_lock around the release: a send already
+    inside thc_dma_write finishes, later ones fail on ->stopping.
 
-Thanks
-- Markus Probst
+  - SET_REPORT returns the byte count, as hidraw expects; zero was
+    returned before.
 
---=-RNNjEGgBFzqiQk7v4Asd
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+  - A late or empty report descriptor no longer overwrites the buffer
+    being parsed, and an empty one is retried instead of registered.
 
------BEGIN PGP SIGNATURE-----
+  - Feature reports: empty answers are rejected, and the report ID in
+    an answer is checked against the request. Verified on hardware,
+    where GET_FEATURE for reports 5, 6, 9 and 17 echoes its own ID.
 
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmr4lRUbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSezoP/15HddtPh5s0xtRmwOIH
-HO6Alam6NRspxv2Cm8w7W0IdS0V/u/Krq+kCnCUHkiOZYgu6zzdeEVojPZ2TO5My
-XcMeCBcEvECy6rf2D28D2JaAh2kc+44XGeA5mfak5rTNY22SrV7xRsjlo4Z4JSFq
-kQQLlvalZgdn76/PKZjckFxurFiJwP40u+xmIQMqz9qu8kqeE6Cdm6Ars+sH0TCQ
-B0YnMFWNZ5ZhDZa02RAKKU+IsIZaSWE+BDur9NmHFJW2MeVNuIVFdWpmMnRyzfcQ
-i3DlwKY9dJvLauSVlsQqWo9Ajbnv5Vo3UXPSdIfSeP5nXq+PtuCxTJCIh5VyFjr3
-aPzp5P0UHjnRkmPTrbBp59fSRZYHubvzRt6TtkVg+Zw86BXRC9A5yLIyObBz3Vfc
-OZ37sCEksO988toNsB+5zVP9tGnZTLOW9u9NKB2+L/aY5ujYoZcIS5sUgZ2TA+SN
-/8gnRxg8zboTkikXOS1fnD/KsinX/7umogR9kB6wCXCeHCrM+bQuqpAHsp/Q403W
-Kg4HPPfQqJ3vzMUOqdDkYsbq4wEJ7w94GO1CWkwMQ0ZEy5tIWtRrHLUdSdzEdhuB
-73XK5KocJMJEiGauz87RcxYznJHlAtlaSAKcc3YxbBgyfbchlz4xrkRn608UDYVk
-0vbwWmlOtais7onDKnwUM8T+
-=dMnd
------END PGP SIGNATURE-----
+  - Unchanged: the shared interrupt is still claimed unconditionally.
+    The cause can only be read from the threaded handler, and returning
+    IRQ_NONE while this port is masked would let the spurious detector
+    disable a line that other functions share.
 
---=-RNNjEGgBFzqiQk7v4Asd--
+
+Emfox Zhou (5):
+  HID: intel-thc-hid: intel-ipts: bring up the port
+  HID: intel-thc-hid: intel-ipts: receive reports
+  HID: intel-thc-hid: intel-ipts: register the HID device
+  HID: intel-thc-hid: intel-ipts: handle system sleep
+  HID: intel-thc-hid: intel-ipts: document the IPTS mode
+
+ Documentation/hid/intel-thc-hid.rst           |  95 ++-
+ drivers/hid/intel-thc-hid/Kconfig             |  14 +
+ drivers/hid/intel-thc-hid/Makefile            |   4 +
+ drivers/hid/intel-thc-hid/intel-ipts/ipts.c   | 740 ++++++++++++++++++
+ drivers/hid/intel-thc-hid/intel-ipts/ipts.h   | 191 +++++
+ .../hid/intel-thc-hid/intel-ipts/pci-ipts.c   | 198 +++++
+ 6 files changed, 1241 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/hid/intel-thc-hid/intel-ipts/ipts.c
+ create mode 100644 drivers/hid/intel-thc-hid/intel-ipts/ipts.h
+ create mode 100644 drivers/hid/intel-thc-hid/intel-ipts/pci-ipts.c
+
+
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
