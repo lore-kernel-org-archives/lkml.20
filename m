@@ -1,120 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.226
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794642525;
-	b=n5X+CclwS8BMWexp3g1qABoAk2ASk9ME3v02VvmNp5ephn7Dbq8tOCcj+0dqe6juNF21
-	 cWC9QRqcEjzklfloSCBdnAyo+SIPQPytNcRllZHiYG9zlZpR9RUPrnOGkipG5M5KlbJF3
-	 wRFGanuuSueOri3cyh+GsYm5kUQsxTv5Is4OkOnKunvsZsyhLsp9HoGJe5rF4EyKkB/Lq
-	 Y7RFLYmxo44hBbBzkm9omxBh8BSvlx9uo5ESZvWXAS97qMrgbhoaq20pzvgg/Ao2NfCUq
-	 ZATRi2A42ujD8mFWF0Kgg/znfBFAOCSurBct1dZYwaJEYsuSBwYE479i2QDU9D+yFyg==
+	t=1794642803;
+	b=PL91xqB1d1W80iHQjLPm6BkeiG3aLG8S3rcPbD5LVJeAnimFp2NnftxOOXOXp1jBnfB3
+	 Fn06mRfwbltLZmJswokM4M1Q85LJzOpJzEkWvQDNdJqQIN5SL02WRLKQ6Tb457JTMgbU9
+	 lmrXu+teDigPdNQu7E2MmxNYrjVqFyExlME7hXfsCwOOlnhGtmLx+bJbsfupOCwj+WhpV
+	 ZjtB5k/4Tm2OuzWE5Xlaud4jm92f8lX9gp1eG8QiGPbs9l8ldClvyoQfKDZMwztlJMX9c
+	 XXnriHqyzP6qdduSqR0DtlJ7DRQXWNqzKlRRHKXp8XnNCNmvZ1cAfWxFmSkNr4P1POw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794642525;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=AFLD8qeOfF4/XZhDAXnxGtQHll5PoYM/2uBoFdcbwtg=;
-	b=M4X+HQ507wnsNPDV2dkRWjltwAN3O/TPoHzSK4aage4MzBY7kaGexBkEiSg12IL5pWVP
-	 jU8DmuaXdWW5Rew0jW1gqSrafgWIUjnovpjvS6OEcZHtCQ85uxLKWbPd5aiga3as1sDel
-	 2HBVoZphL4FzgTxhR9mjFtATJfr5B0yUkIo6FfVtX+RDmfNAROuj4c9xh2TnRnTgI+S/l
-	 JPbCPBLj/p9zrKVlQTxGsUr7qZelPbdeAV11LpsInn9+/2fTMNMuZSos8qkOmSdmoX1N9
-	 MwOvbhxTwgeR/GaTjKq5OCOaq8oNSUbIkfnqPRANnQBgE9eBTsodvzV0Qv2aR7tTM0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794642803;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=Oh/mhrRlY1hzHfSankT6HJSljxVCxzPE9l8vrGjjWKk=;
+	b=IOOxxLYKjDRiT72IDXKcDOohwBQiHOxevlro7ANkeNangE0jw03NmtS6x3BlRmNRpq82
+	 dexl77Newl0cRhH8Rq4q6BqQICIziwQKUDYF4g4fPZhbfgokhakWI8LnrCKhUq15MKqdt
+	 +rJr7ULnHYsFYzQtNcOmSxrzi80dl4al+/0bDQkqbZWBSf1wiT//rw2ZENFoyu8yIluGB
+	 72BDBiTn5/bORQtDV3kKrOVEKnKCAQn/0fB5pPga4FGTc/zIJxRuCA9vmG8Kr916W4V/f
+	 MdwCU8GKsxHqeOqr0+ODGLsjUf9ABsVl9lpwpw2wfkWqiG5T3wCW06cq5S2vArdj1Rg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=UTvbitmP;
-	arc=none smtp.remote-ip=209.85.215.226
-Received: from mail-pg1-f226.google.com (mail-pg1-f226.google.com [209.85.215.226])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="XXTjm8U/";
+	arc=none smtp.remote-ip=209.85.210.199
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D405D606A8B0
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 07:48:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D405D606A8B0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C797606A331
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 07:53:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C797606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=UTvbitmP
-Received: by mail-pg1-f226.google.com with SMTP id 41be03b00d2f7-cd69954c755so1899893a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 23:48:44 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794642524; x=1795247324;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AFLD8qeOfF4/XZhDAXnxGtQHll5PoYM/2uBoFdcbwtg=;
-        b=vavrD8NcSOGGc5jplQD90ck0qhWs8/Fxvr0XzFU/p/HZvrcYP+eplQuoT/E5HLL3xU
-         O1HuiFxxr4lQZ8RYx2wHTqKQA/dkl3Kuia527VnwztWuCmZJNuHj1vaQAwIjS7XXZSbo
-         w4C18O/XLgqS91XhTtej6FAqm/2/basNAP1S8OHB/bbg7ZTqBxEqHMnuPWPpezehkg7Q
-         mQ79K7JIUPui5rQR9t7FPOOzGuE/0afc/d0U6qpgww4XWRdIxQdOWuafzbnZpKMIiIbl
-         O5YzXp94PS+LbmLsRtgQiqoPB+sPfMxvojE+PqhBGFdpiRmSpngHzZnzx26EeirxtJw2
-         k6NQ==
-X-Forwarded-Encrypted: i=1; AL+hErFk4Gm/DvxxNzoccEo61+XuC5MtgAj3WOQoSoGEwK0X2jxr7ExCEEA1CusQZFaBttXo/L8CCOxqiflwCEY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8wI2Zs/lec9t6e6QOHeFK6ojZ+oFPh7Nzw8gfK+e4G7U8NkyZm
-	DZYUVH9NKDQvUmvkIy+PFiypEFDn1XWMl8P2Puenm/W32Ir3du9g0+vw9oNWTUxZQEKqgjrshTQ
-	j9beMGQ+dYGI+3loSLhQvhmYAwW9Dq9nRkeTxbII1OSYuUonlGO0Cz3Wx3pUFoFZLB5WxscZwXt
-	hnvX8RZFVf97cc9/H5Vf6/b4p9B5YnvdstwRwebzZdWcNfZaJKoK+hJUPn2NoMzvA+yZQhAN8+a
-	KxSM6tn/uhzjS+wtA==
-X-Gm-Gg: AYBFou0mdSZbAO4VwTh++GIIodFOovRZ2dqIzG3T7CR73UohpBMcpm2EA9XkAA2ub8e
-	UjJkZWgkJ8FFNn4s3c2WxDUMmNdKISRFhAXhRAZmURoxgnaIeWJbRn5oU60BKRxTpN0SUuWIMj/
-	7YotZhhggaVINAvnTKtf05LW7AxHLtsMenpyus0/nTdSnzrDDK9XeMYwcwu/xReDQI+K8W9VOVg
-	YVN+Sx1iq7plRJxKc3MPm2BYO+y7LuH/hDzDX9lBDOOPVa8hgDMMaP1v+thLRz7uSZ0gDJNX8aC
-	gx9wQlDjhpJzbmR+aODTk9qwmhqgwxZy85bchFp/UWlLJUSgyIXTGrjpgvxLutRDyTIMz75Y1hf
-	A7sBI7o0p6RweouAGf5ND/ZbFPoqSLykDBh/5xKeQ3JkEZsXTC70UQOIYD42Hw5cdHN7El3+BBC
-	O/Dj93OjQTTI2lidIXjrObwoQPUPOSrRIkGQ==
-X-Received: by 2002:a17:90b:53d0:b0:3ac:b2e6:317d with SMTP id 98e67ed59e1d1-3b1b0a10840mr5087197a91.35.1794642524152;
-        Fri, 13 Nov 2026 23:48:44 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-26.dlp.protect.broadcom.com. [144.49.247.26])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b1ae9bbffcsm6821762a91.8.2026.11.13.23.48.43
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 13 Nov 2026 23:48:44 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-341eff9e381so2666936eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 23:48:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XXTjm8U/
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8a073778890so1334698b3a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 23:53:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794642522; x=1795247322; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=google.com; s=20260707; t=1794642802; x=1795247602; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Oh/mhrRlY1hzHfSankT6HJSljxVCxzPE9l8vrGjjWKk=;
+        b=XXTjm8U/Il4amLefYiHinEsmVLvaOPlCq2n7QQBBZizEiY/IGQza0/A0AsD0+zHxGP
+         Bc6vvr6RoWdi4WysHssqdeWuh7RS5/o539LQfJhey+CelhbA7fsR4ajTWHOXhe/ZrNEE
+         PY7XqzaUxcUgrI3OAt3bt4OMM06s352Ri8h7G/TupYFri1pXJ1K5qj9tJI2oulzHnJ0z
+         2aFqgBnjB+/PJoUC+g7/qD41D1f+Iusb8YIjZuE6gcx0qA+aWEWwK86rPiDPe8HqMPH/
+         7I5HYBu3lK55bAraS2DEsa1MSwH2qr+hbzbnDP+Zb4w1OMF65+y298hgVXqOtF3URiqe
+         3b6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794642802; x=1795247602;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AFLD8qeOfF4/XZhDAXnxGtQHll5PoYM/2uBoFdcbwtg=;
-        b=UTvbitmPWMp+HKq3rbKQP0XIUJTlrRFYebofIJCgEmgljKAkk4KuJhyTmpRVDf49Fb
-         jc2pwXOEQ+LaRRyCr8Pf4oCgYYu5AWaPRYqQXto96/9mvIqWE2ialoWiORONU5zVqtHx
-         ai/s3yfq5YfHwBEd9kiIfOS65GVuVQxsPvYdk=
-X-Forwarded-Encrypted: i=1; AL+hErE7hNZMMU0qPuSR5MixHUgpIu0Kh4S6ovWLehhQk6PdAzYZT9jyJyg13PSEjh6FKCjJMkYr6pT/Z5P7tCQ=@vger.kernel.org
-X-Received: by 2002:a05:7300:d115:b0:36f:29bf:4326 with SMTP id 5a478bee46e88-37960384a9amr4085881eec.0.1794642521754;
-        Fri, 13 Nov 2026 23:48:41 -0800 (PST)
-X-Received: by 2002:a05:7300:d115:b0:36f:29bf:4326 with SMTP id 5a478bee46e88-37960384a9amr4085844eec.0.1794642521030;
-        Fri, 13 Nov 2026 23:48:41 -0800 (PST)
-Received: from H5-S1 ([192.19.203.250])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563e6b6dsm23620914eec.21.2026.11.13.23.48.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 23:48:40 -0800 (PST)
-From: Vikas Gupta <vikas.gupta@broadcom.com>
-To: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	andrew+netdev@lunn.ch,
-	horms@kernel.org
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bhargava.marreddy@broadcom.com,
-	rahul-rg.gupta@broadcom.com,
-	vsrama-krishna.nemani@broadcom.com,
-	rajashekar.hudumula@broadcom.com,
-	dharmender.garg@broadcom.com,
-	ajit.khaparde@broadcom.com,
-	Vikas Gupta <vikas.gupta@broadcom.com>
-Subject: [PATCH net-next v7 10/10] bnge: add cpu_rmap support for IRQ affinity
-Date: Sat, 14 Nov 2026 13:17:42 +0530
-Message-ID: <20261114074742.1484603-11-vikas.gupta@broadcom.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20261114074742.1484603-1-vikas.gupta@broadcom.com>
-References: <20261114074742.1484603-1-vikas.gupta@broadcom.com>
+        bh=Oh/mhrRlY1hzHfSankT6HJSljxVCxzPE9l8vrGjjWKk=;
+        b=sZgH2B3XIpBsOH2uJicz2F2senBTNUSjspdZEcpelByRzauKQ/QH8+4M143PQJENcY
+         5WElmEjbl2do56W+dzjicco4ddNMjmV7AiGZ5tn9VaJ+vXdh5C7TYzZeLgqxRBzsnyIX
+         R+RFsJ6S9vAdmsmgJAGZGeCRvt9s+z0LIGscPo1A2GumslrWPbSZ46kUa4P+YJiO2/m4
+         NiF3nc86gFjDjb8968B8uoXobewaGpolN9POxCU3k9+Ic5lTMSqeZCVwhSP60+vT4uM9
+         LtJdxC4efbW9RNE0sG7M0XEOilSWNyQ3h3PwhJWqnb5xLgm6W+NeAhp4jY09OoUDd9rQ
+         QaKw==
+X-Forwarded-Encrypted: i=1; AL+hErGhEfeLTme1VSrFwDSVbMrA4vO77NYxNgHDjxmSdztE9JpO//XC8XjsGcnrTYVXRCcvpluAG3xzlJJkOaQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8qyLV94NCDV4WJSj9W4WoG1Nbpcl6V7ak3IKfcLo2vfIsJWUQj
+	2EPu0anwc77cfFmNstWVVQxiHbuLqtxiLMWzQQjV4MNlHc9mkfCZTk2fTPrd0MsAvO+pqcMux/R
+	wn9PmzQ==
+X-Received: from pgij15.prod.google.com ([2002:a05:6a02:840f:b0:cca:d82:90fc])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:a382:b0:3f9:9114:8045
+ with SMTP id adf61e73a8af0-3f99114b75bmr595819637.43.1794642801339; Fri, 13
+ Nov 2026 23:53:21 -0800 (PST)
+Date: Sat, 14 Nov 2026 07:53:20 +0000
+In-Reply-To: <20261111225148.88506-3-sidchintamaneni@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,140 +77,131 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Mime-Version: 1.0
+References: <20261111225148.88506-1-sidchintamaneni@gmail.com> <20261111225148.88506-3-sidchintamaneni@gmail.com>
+Message-ID: <avgQgQeWDfQMQgvl@google.com>
+Subject: Re: [PATCH net v2 2/2] selftest: af_unix: Test scm_fds on dgram disconnect.
+From: Kuniyuki Iwashima <kuniyu@google.com>
+To: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+Cc: "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Shuah Khan <shuah@kernel.org>, Kirill Tkhai <tkhai@ya.ru>, apais@microsoft.com, 
+	hargar@linux.microsoft.com, rlmenge@gmail.com, egoriluk@gmail.com, 
+	netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-When CONFIG_RFS_ACCEL is enabled, allocate and populate a cpu_rmap
-for the RX IRQ vectors so that the kernel's aRFS infrastructure can
-correctly map flows to the RX queues serviced by the nearest CPU.
+On Wed, 11 Nov 2026 22:51:48 +0000, Siddharth Chintamaneni wrote:
+> Add dgram_disconnect_fdinfo in scm_rights.c verifying that scm_fds in
+> /proc/self/fdinfo/<fd> returns to 0 when a connected SOCK_DGRAM socket
+> with queued SCM_RIGHTS datagrams disconnects via connect(AF_UNSPEC) or
+> observes a dead peer in send().
+> 
+> Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+> ---
+>  .../selftests/net/af_unix/scm_rights.c        | 79 +++++++++++++++++++
+>  1 file changed, 79 insertions(+)
+> 
+> diff --git a/tools/testing/selftests/net/af_unix/scm_rights.c b/tools/testing/selftests/net/af_unix/scm_rights.c
+> index c165f250220a..ced83d3173b7 100644
+> --- a/tools/testing/selftests/net/af_unix/scm_rights.c
+> +++ b/tools/testing/selftests/net/af_unix/scm_rights.c
+> @@ -395,4 +395,83 @@ TEST_F(scm_rights, mixed_lowpoint)
+>  	close_sockets(6);
+>  }
+>  
+> +static int count_scm_fds(struct __test_metadata *_metadata, int fd)
+> +{
+> +	char path[64], *line = NULL;
+> +	int scm_fds = -1, ret;
+> +	size_t unused = 0;
+> +	FILE *f;
+> +
+> +	snprintf(path, sizeof(path), "/proc/self/fdinfo/%d", fd);
+> +
+> +	f = fopen(path, "r");
+> +	ASSERT_NE(NULL, f);
+> +
+> +	while (getline(&line, &unused, f) != -1) {
+> +		if (strncmp(line, "scm_fds:", 8))
+> +			continue;
+> +
+> +		ret = sscanf(line + 8, "%d", &scm_fds);
+> +		ASSERT_EQ(1, ret);
+> +
+> +		break;
+> +	}
+> +
+> +	free(line);
+> +
+> +	ret = fclose(f);
+> +	ASSERT_EQ(0, ret);
+> +
+> +	return scm_fds;
+> +}
+> +
+> +TEST(dgram_disconnect_fdinfo)
+> +{
+> +	const FIXTURE_VARIANT(scm_rights) variant = {
+> +		.name = "UNIX ",
+> +		.type = SOCK_DGRAM,
+> +	};
+> +	FIXTURE_DATA(scm_rights) self = {};
+> +	struct sockaddr addr = {
+> +		.sa_family = AF_UNSPEC,
+> +	};
+> +	int ret;
+> +
+> +	ret = unshare(CLONE_NEWNET);
+> +	ASSERT_EQ(0, ret);
+> +	ASSERT_EQ(0, count_sockets(_metadata, &variant));
 
-This ensures that NTUPLE rules created by the kernel steer packets
-to the optimal queue based on CPU/IRQ affinity.
+nit: count_sockets() is not needed.
 
-Also, This is the patch that turns aRFS on. Before it dev->rx_cpu_rmap
-was never set, so set_rps_cpu() took its early exit and
-bnge_rx_flow_steer() from the previous patch was never called.
-A failed rmap allocation does not fail the open; aRFS stays off.
-If adding an IRQ to the rmap fails for one ring, aRFS is turned off
-for all rings, because a later ring would otherwise take the free slot
-and map to the wrong RX queue.
 
-Signed-off-by: Vikas Gupta <vikas.gupta@broadcom.com>
-Reviewed-by: Dharmender Garg <dharmender.garg@broadcom.com>
----
- .../net/ethernet/broadcom/bnge/bnge_netdev.c  | 57 ++++++++++++++++++-
- 1 file changed, 56 insertions(+), 1 deletion(-)
+> +
+> +	create_socketpairs(_metadata, &self, &variant, 2);
+> +
+> +	/* 1. Disconnect via connect(AF_UNSPEC) */
+> +	__send_fd(_metadata, &self, &variant, 0, 0);
+> +	ASSERT_EQ(2, count_scm_fds(_metadata, self.fd[0]));
+> +
+> +	ret = connect(self.fd[0], &addr, sizeof(addr.sa_family));
+> +	ASSERT_EQ(0, ret);
+> +	ASSERT_EQ(0, count_scm_fds(_metadata, self.fd[0]));
+> +
+> +	/* 2. Dead-peer disconnect via send() */
+> +	__send_fd(_metadata, &self, &variant, 1, 1);
+> +	ASSERT_EQ(2, count_scm_fds(_metadata, self.fd[2]));
+> +
+> +	ret = close(self.fd[3]);
+> +	ASSERT_EQ(0, ret);
+> +
+> +	ret = send(self.fd[2], "x", 1, 0);
+> +	ASSERT_EQ(-1, ret);
+> +	ASSERT_EQ(ECONNREFUSED, errno);
+> +	ASSERT_EQ(0, count_scm_fds(_metadata, self.fd[2]));
+> +
+> +	ret = close(self.fd[0]);
+> +	ASSERT_EQ(0, ret);
+> +	ret = close(self.fd[1]);
+> +	ASSERT_EQ(0, ret);
+> +	ret = close(self.fd[2]);
+> +	ASSERT_EQ(0, ret);
+> +
+> +	sleep(1);
+> +	ASSERT_EQ(0, count_sockets(_metadata, &variant));
 
-diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
-index 4a6df8cd9067..f55a2f18cbb7 100644
---- a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
-+++ b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
-@@ -18,6 +18,7 @@
- #include <net/ip.h>
- #include <linux/skbuff.h>
- #include <net/page_pool/helpers.h>
-+#include <linux/cpu_rmap.h>
- 
- #include "bnge.h"
- #include "bnge_hwrm.h"
-@@ -2483,10 +2484,23 @@ static int bnge_setup_interrupts(struct bnge_net *bn)
- {
- 	struct net_device *dev = bn->netdev;
- 	struct bnge_dev *bd = bn->bd;
-+	int rc;
- 
- 	bnge_setup_msix(bn);
- 
--	return netif_set_real_num_queues(dev, bd->tx_nr_rings, bd->rx_nr_rings);
-+	rc = netif_set_real_num_queues(dev, bd->tx_nr_rings, bd->rx_nr_rings);
-+	if (rc)
-+		return rc;
-+
-+#ifdef CONFIG_RFS_ACCEL
-+	if (bn->priv_flags & BNGE_NET_EN_NTUPLE) {
-+		dev->rx_cpu_rmap = alloc_irq_cpu_rmap(bd->rx_nr_rings);
-+		if (!dev->rx_cpu_rmap)
-+			netdev_warn(dev, "Unable to allocate the CPU rmap, aRFS disabled\n");
-+	}
-+#endif
-+
-+	return rc;
- }
- 
- static void bnge_hwrm_resource_free(struct bnge_net *bn, bool close_path)
-@@ -2496,12 +2510,35 @@ static void bnge_hwrm_resource_free(struct bnge_net *bn, bool close_path)
- 	bnge_hwrm_stat_ctx_free(bn);
- }
- 
-+#ifdef CONFIG_RFS_ACCEL
-+/* set_rps_cpu() reads rx_cpu_rmap under rcu_read_lock(). Hide the pointer and
-+ * wait for readers that already loaded it before the rmap is freed.
-+ */
-+static void bnge_free_cpu_rmap(struct bnge_net *bn)
-+{
-+	struct cpu_rmap *rmap = bn->netdev->rx_cpu_rmap;
-+
-+	if (!rmap)
-+		return;
-+
-+	WRITE_ONCE(bn->netdev->rx_cpu_rmap, NULL);
-+	synchronize_net();
-+	free_irq_cpu_rmap(rmap);
-+}
-+#else
-+static void bnge_free_cpu_rmap(struct bnge_net *bn)
-+{
-+}
-+#endif
-+
- static void bnge_free_irq(struct bnge_net *bn)
- {
- 	struct bnge_dev *bd = bn->bd;
- 	struct bnge_irq *irq;
- 	int i;
- 
-+	bnge_free_cpu_rmap(bn);
-+
- 	for (i = 0; i < bd->nq_nr_rings; i++) {
- 		int map_idx = bnge_cp_num_to_irq_num(bn, i);
- 
-@@ -2521,6 +2558,7 @@ static void bnge_free_irq(struct bnge_net *bn)
- 
- static int bnge_request_irq(struct bnge_net *bn)
- {
-+	struct cpu_rmap *rmap = NULL;
- 	struct bnge_dev *bd = bn->bd;
- 	int i, rc;
- 
-@@ -2529,10 +2567,27 @@ static int bnge_request_irq(struct bnge_net *bn)
- 		netdev_err(bn->netdev, "bnge_setup_interrupts err: %d\n", rc);
- 		return rc;
- 	}
-+
-+#ifdef CONFIG_RFS_ACCEL
-+	rmap = bn->netdev->rx_cpu_rmap;
-+#endif
-+
- 	for (i = 0; i < bd->nq_nr_rings; i++) {
- 		int map_idx = bnge_cp_num_to_irq_num(bn, i);
- 		struct bnge_irq *irq = &bd->irq_tbl[map_idx];
- 
-+		if (IS_ENABLED(CONFIG_RFS_ACCEL) &&
-+		    rmap && bn->bnapi[i]->rx_ring) {
-+			rc = irq_cpu_rmap_add(rmap, irq->vector);
-+			if (rc) {
-+				netdev_warn(bn->netdev,
-+					    "failed adding irq rmap for ring %d, disabling aRFS\n",
-+					    i);
-+				bnge_free_cpu_rmap(bn);
-+				rmap = NULL;
-+			}
-+		}
-+
- 		rc = request_irq(irq->vector, irq->handler, 0, irq->name,
- 				 bn->bnapi[i]);
- 		if (rc)
--- 
-2.52.0
+Same, these two lines are unnecessary.
 
+sleep() and count_sockets() in FIXTURE_TEARDOWN(scm_rights)
+were to wait GC to purge cyclic references, but this test does
+not create that.
+
+
+> +}
+> +
+>  TEST_HARNESS_MAIN
+> -- 
+> 2.43.0
+> 
