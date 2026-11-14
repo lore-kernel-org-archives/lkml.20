@@ -1,92 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794657476;
-	b=BCF00QJTmA/pKITIrdE2jmUqIBDyMQd8nGnbCgX0vcQ2YQ/2uC1sHkVPiexSCa8s8gtt
-	 aBYkYSAFD2vP8voUsu/tuULAPvOfAzzX4t5vR8cUYK8CLPhhvhPXzgQvf+HF3N13FcKMT
-	 5J4d94AiUqK86hO+tzynNibeR9XZia2tepFrS9vpFy2UvHtW1pv+8nkm94agGtT7M41oV
-	 QrlNKLZETT6WBe9a7iuvqeVDvGZOqT8/l92dcprvI3CAos1Z3KNf3HnFBGTdflh/pN10a
-	 VGxbbZFQ/56MLSHYXqfq1pIKKGIeLoBr1B7PHuZKGGC7dFsyWDaNHBBoIL6IwzWYREQ==
+	t=1794657492;
+	b=N1c40mXTrwAveAvYAo7gWis6AUcvCL7ATYQ/1jeEoPojYvF7pAhyLxZvGXL6DNQW+IEJ
+	 2CxAV4Ok2hMyf0CihyVptj6Q//CEppNrv1uhcJg7v4u55+0m7L+k67zHT4bzcEpEfB+VI
+	 DAQHMI2B7K33h+TfFMDJ9jENMaEG9U5A4tP/0m8FYwizW+lsGgyHq1niOFja9IRO952D3
+	 vJWhwemlBs7IpZ9SpUEL3GwUCnHDUNqW4nNq8aN73auUFX+Hud7sRsQnFpMmjK72FybGq
+	 U20rF6caia8ZsOR24Nv9uZljlyMcIpXwDjBTtdyxyT6vmTIyJAu41B7hF5LG6RvOhpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794657476;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794657492;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=TBc3FAJWiEoUIU9L+YPFWNtaRtKrauEafmCqOuSZDio=;
-	b=Wh/iPG3gxi3KA02iAhc8wTTgXFhEiQG0noZt0YmJvuUcNJlca1L5n/XGMLejxa279TJR
-	 J2ptCqQkkG5ixY69R/leeoBRxbt7dEweG+G9gP74xMVR97+qHQ5rhjsgdHMeCE4i8qb5l
-	 IQpjHok8ExjG47SuSTP/J9rQ3tGXZqAgnMU2HYPH8nUyAyvzgWbk92tWy7nbDaWosgvHE
-	 vBOnjv3h7O21Fn/bD5Iwup3rj3ZGgfkC/8zB2Xw6dXGvkt4THOCCI1ewIz5L47iDtknba
-	 J6B/BQKXaswBsreSJrarCDOaespbSjaqrPQ+leh0r3H8NrN/JUYJ4PDJNKLygobEvWw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=biJ9EAFLEA1rR//T+aJGjeK6yGVa5a+nAsg2mX8Jh6g=;
+	b=FqQFzev0+aFANOY4lmrMNlL936TriIESpESfhZC8/nzB7bzRONOXDMcugKmJIB1fHFav
+	 AQ2wzcQiZquRLofx4lpP5ImkSxEM4pgs7G5jmCwveG8UoqecmtCLtQrH6KCeKsbFlbm30
+	 h/wtT5c9siFdGOv0uH8gFvtmyBevf8/KpfLfT1emyyYPDthuEoWzUW7D6N4hxFhmFUAD7
+	 V+UZRjjjf7zELZcwvMBlBCUrFuWbFk/eLeUpbZcl/RO8KYF/v0choSwwXodKrcIOKf4Rb
+	 gw6PY/bG/3v0LYjvzTPme7qiTS9vTL2eznEGpIdmeml2htD6EP9zwVvVPlzcGZs41PQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sZTh8j8t;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jKHVAcOC;
+	arc=none smtp.remote-ip=209.85.167.43
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D276606A327
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 11:57:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D276606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99A93606A329
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 11:58:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99A93606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sZTh8j8t
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-37000e7234bso3255966eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:57:56 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jKHVAcOC
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5be3d5927ceso2738064e87.3
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:58:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794657475; x=1795262275; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TBc3FAJWiEoUIU9L+YPFWNtaRtKrauEafmCqOuSZDio=;
-        b=sZTh8j8t2qsr0POjskK9rv4f36J6KGFonk3SGZ9eG3HpY6QHjz1XfueYesojQtYQLl
-         LJjbAtZ9wmPGsOqcwmNFdolbsWxSSk19cWnKgfU1px5PGp+uX1Yj13Oxb3Y/hix8+8vG
-         hVLErqgLFROIX7X3biqa6z5+4xiqGMaTbC+tk5B69VSRuIVqmU8QCbKo3rShTr20EoUr
-         yv1JW7N1asiL40WgtNiKfozH5xojJ83TO2OXXfCx3LGIdZ1zHLmOwMITScmlasGUmmXd
-         3MuzmfkDjK3X8MlHMpW/puxbe5oGsbd1X9hik6AvzNHlcHk5RkhzKhZneqpFA0frdCpx
-         WZWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794657475; x=1795262275;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794657490; x=1795262290; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=TBc3FAJWiEoUIU9L+YPFWNtaRtKrauEafmCqOuSZDio=;
-        b=oKcOSU424NKNaciMjEKzeYsfdHTUmdQQqW5hVHSuXZl5ATZmASuCSpiEolLLTIj/Uy
-         z8xu2c6QiJGhTZa4LYqVkgrP3P3MSGBM+lF3qR0KBgTDp5dKOrH5930LfyKG9QyWsy+f
-         Ij6ZtCpAgtZ/oKLoepjAoEaIHXYCm/3+S2X52kKaTbf4f1TGUByJVVDGNmfX+gpCnBn/
-         IFms1Epfqf1yzKn3O6eI6ROLHtAAd4RdX6VN2gxDJscYWEhb2WNBEfGMqshna9cmg2cz
-         we1jg7hV/CkMnuHKfZXUZ54cUxKf5qxhNjgN9Xz00MioQmOExvrSAOBgIbWb2uR0ApdF
-         cryg==
-X-Forwarded-Encrypted: i=1; AL+hErHcKni6u/p+C9LEJlrnBsJahod8r9kfH5D01kuI13RGVqNqJeMztbJ9PVEnVTisTkgPfOOxMj+1iLtfOHI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+1zHdINt/X1uLNGx4bD24+dECyOzwqeFZllQtMNNa5uO62OXHD
-	aMWxEAF0ElbcS+5IS5aSwfh0goLx+5e2JXjRxsasTMtRsQD5lpYAJ9eI
-X-Gm-Gg: AYBFou0/fWmiDebumpI3bqCes8br5WIZlxLK8yJY70vLLGUaNkXoXKhIrjO1VDsoAXf
-	7Vj4r/h6xHDvcfSaONS7+PnEsxbCV5txaRT4AgXBoNRwWfgm4rfUsUA+Z4fJR3djRXuiSi3gPd5
-	m6FgGj2Q3HRne52EYI+y26x3/tVCtcd9hrujO6klsVriH5hgMfhomTWdOid+w2TQ4vkfo+R+gOJ
-	DKieNNg24LgOVCxWYbIdkYiqH1oiwj8KGJyNVzUSxsk7oK/DSok0R2YPnBWPnLZ0hPa71tYb+l8
-	HeAbKq42+Qvqzb4dTf/XX7ynXb8+VrbQq/Y9W/mLD83iljnQKbVHiBKGOCX16yWD5goXFHCVspG
-	F/FR/vCr9iCB1HHfoB6r/3rfjiLBKxA9PhmmxvyKANONu4m2QehIcJqkcqdq2DVD5VEcb9Zd547
-	InFQdHyNH8sTTiKI2oYuBVxMkvVRM/iiTCBv2ICp5MBpwVIKc+Rk+H9At2G7WQeZ8H0eczic1y5
-	X/6PQWb9pr7FSEliD/hrgleCDmCOxX64IHVHum6JUemWd5oFGlnrbT4UMjAm3nNBzbQL5XJFNop
-	urU9XxhDW7+r04JcIAm53/bvaMkOYw==
-X-Received: by 2002:a05:693c:3e0a:b0:36b:d3dd:2e9d with SMTP id 5a478bee46e88-37966192e10mr4859293eec.19.1794657475379;
-        Sat, 14 Nov 2026 03:57:55 -0800 (PST)
-Received: from gentoo ([49.204.145.8])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3795378c2fesm16275945eec.1.2026.11.14.03.57.52
+        bh=biJ9EAFLEA1rR//T+aJGjeK6yGVa5a+nAsg2mX8Jh6g=;
+        b=jKHVAcOCtl0g3TbME2TVA8rBXQlEpflGEVNVnIu8kkRI5VOx8kaxiHhfwPDIO6LDSN
+         8PliQDEjRwUhhPY9pLFLX1VJCV+dZra1+K56u+DxkRa+PG4pvRAIcQMeR4mL7K2TF8/r
+         d2dHkwnRQEfHTw2mD/w8VsBULvHZ0MP1M/2IzPLfj3Z5SyIlVvLW4xz6ilftQu8yVdBZ
+         JLc6cTJsOHmku+brJT0yxgp2PJJ4bKk6NT2MCQgZmYBIf6XbxGOXIDERe6V8nkIhKOO9
+         VgmyAZd4C1NTszBkb6wphO5xC/8wPMS8WjD3NKLHj8nTim2zvxbOnjJKBjei2qxK8wHs
+         leew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794657490; x=1795262290;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=biJ9EAFLEA1rR//T+aJGjeK6yGVa5a+nAsg2mX8Jh6g=;
+        b=tJtuBawmkWDnN/Hccf+iGJWSwQmd8rauZWPL894aaIMaCfau0sTk8yjYDU+A9SDBAC
+         /d7FK06XTiLd8ky9RMa/wx8YEIMI1xjvxvB2kNFwHH/WTkezG0zMCoNw9hqQ/uvlmLV7
+         Q0E8XZans4za4HU8uNg0wG8yK1pKF/wDcZTrg8p3+qmc8ie3DkXjogKiHXBuBO11NAsh
+         1RXJ1Bk6wgXy0qXAXDl2kNx4bDJVKlUIlv2yHcv+3xKkZBvP/MMBTMzJQk+qOzFUUltX
+         YEr/rpP4c1E+skFcFy1xewFAEuj9fm1notrREgWDapwN9CP69hS8yP6bNWbkyIBijjBR
+         kCEA==
+X-Forwarded-Encrypted: i=1; AL+hErGkh4MZqw5Gjj/HZrRE7qzAeIQAi+UrKLoVeG9pq8heeg7gVnujy/Dn2iPTBb/FsCuTHVPUmnO7YumcXzs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9/isY6jzH6Id8+85FHOBbV2Bn1rLaK/owr6nInF5/sjdEEnO9M
+	CZr5HeirlHhq1N+aKt+C6EzXOs7btNGFZNB8h4O2P5MOin0AaLnwxc1R
+X-Gm-Gg: AYBFou09fuNi0qcUTDSAEsFv0lezgSviwAntPgqZHfshBpkKh7YRJCSX0ouBCwOiy1z
+	+mnToI/4tQAjgjQH/c+/uYwUpZMa9+KmeIPHEHpTeGhaI9ymjuS58JjsrgiiwHgAqDHdSz/noch
+	Z/Zvcp1oJQxSHd9YMi1d0fP4AsaV9y/8zklvE7fXGnSJdvKifFCFZB6YxnFBwQ5EZPumXIwW5g5
+	tK3myODm3cX6vFH+8ETWUv1pXjsR/btWw5uVuT8iLbE/+oRUFb3UI1FGL4cPVfXStYXnV81VKjz
+	iDAAgMN5nH+DGU+ZQ2WcFF8kYABVCoiyeBNR2E4DQd5Chc7tE5GPGqwMbHfOxUYiURVZL1R9wNo
+	d4KLo537ZcolviPh8mODA4+BTnlubDJ8hp+2SpzO664mBy4P2VXJAK9mx15t7hVuLzNAilqF2S4
+	BRIFzK4okkZDkd1oOR6iiXvnSyrtL/jHPVZeHNOpj5OH2pUd5TYK8S/GRjjD2hrc2iGx/E5Kp21
+	FeLejG5EDAOuE8F7HFXTnuyZul/lj8qO8GHgW9L0YGlR6myvuCIqpp/BuMFOj0TUMSfySZx6A2X
+	whBtC/TNe6myktT3Pc24Usxn3K+08yAIVgtIoHwEKf2x9+og8KVFHStXeG4cGzG5jsLXM6uXI6c
+	/s0Rr8IwZFE6pKleJtf+pd8TDs5OrEDtNOVhmL+c=
+X-Received: by 2002:a05:6512:1048:b0:5c1:5958:a7e4 with SMTP id 2adb3069b0e04-5c17077eaaemr1886702e87.15.1794657489552;
+        Sat, 14 Nov 2026 03:58:09 -0800 (PST)
+Received: from yantra.. (nekmmqusxj170dz200l-1.v6.elisa-laajakaista.fi. [2001:99a:d7d:c300:b551:8edb:536d:8395])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c17133c9d3sm1606436e87.38.2026.11.14.03.58.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 03:57:54 -0800 (PST)
-From: Shreesh Adiga <16567adigashreesh@gmail.com>
-To: Eric Biggers <ebiggers@kernel.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Demian Shulhan <demyansh@gmail.com>
-Cc: linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] lib/crc: arm64: Add NEON PMULL+EOR3 crc64_nvme implementation
-Date: Sat, 14 Nov 2026 17:27:45 +0530
-Message-ID: <20261114115749.1061233-1-16567adigashreesh@gmail.com>
-X-Mailer: git-send-email 2.56.1
+        Sat, 14 Nov 2026 03:58:09 -0800 (PST)
+From: Rupesh Majhi <zoone.rupert@gmail.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Andy Shevchenko <andy@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Eddie James <eajames@linux.ibm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Paulius Zaleckas <paulius.zaleckas@gmail.com>
+Subject: Re: [PATCH v2 2/2] iio: pressure: dps310: add a data-ready trigger
+Date: Sat, 14 Nov 2026 13:58:01 +0200
+Message-ID: <20261114115801.57701-1-zoone.rupert@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <sashiko-outbox-214316@kernel.org>
+References: <20261114083828.18059-1-zoone.rupert@gmail.com> <20261114083828.18059-3-zoone.rupert@gmail.com> <sashiko-outbox-214316@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,138 +110,18 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a 4x-folding implementation for CPUs with FEAT_SHA3 which benefits
-newer ARMv9 CPUs like Cortex-X925.
-Usage of EOR3 from SHA3 extension improves performance by 20% compared
-to the regular PMULL without EOR3 on Cortex-X925 measure in userspace
-application via libbenchmark for 512 byte input size.
-Measured about 3x speedup for 512 byte input compared with the existing
-NEON single fold implementation on Cortex-X925 in userspace.
+On Sat, 14 Nov 2026 08:59:52 +0000
+sashiko-bot@kernel.org wrote:
 
-Signed-off-by: Shreesh Adiga <16567adigashreesh@gmail.com>
----
- lib/crc/arm64/crc64.h |  6 +++-
- lib/crc/crc64-neon.c  | 79 +++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 84 insertions(+), 1 deletion(-)
+> Does triggering on DPS310_INT_PRS block in dps310_fill_channels() waiting
+> for DPS310_TMP_RDY whenever the pressure rate exceeds the temperature rate?
 
-diff --git a/lib/crc/arm64/crc64.h b/lib/crc/arm64/crc64.h
-index c7a69e1f3d8f..003fd452aca3 100644
---- a/lib/crc/arm64/crc64.h
-+++ b/lib/crc/arm64/crc64.h
-@@ -9,6 +9,7 @@
- #include <linux/sizes.h>
- 
- u64 crc64_nvme_neon(u64 crc, const u8 *p, size_t len);
-+u64 crc64_nvme_neon_pmull_eor3(u64 crc, const u8 *p, size_t len);
- 
- #define crc64_be_arch crc64_be_generic
- 
-@@ -19,7 +20,10 @@ static inline u64 crc64_nvme_arch(u64 crc, const u8 *p, size_t len)
- 		size_t chunk = len & ~15;
- 
- 		scoped_ksimd()
--			crc = crc64_nvme_neon(crc, p, chunk);
-+			if (cpu_have_named_feature(SHA3))
-+				crc = crc64_nvme_neon_pmull_eor3(crc, p, chunk);
-+			else
-+				crc = crc64_nvme_neon(crc, p, chunk);
- 
- 		p += chunk;
- 		len &= 15;
-diff --git a/lib/crc/crc64-neon.c b/lib/crc/crc64-neon.c
-index 4753fb94a4be..6c589b23ed06 100644
---- a/lib/crc/crc64-neon.c
-+++ b/lib/crc/crc64-neon.c
-@@ -10,6 +10,14 @@
- 
- u64 crc64_nvme_neon(u64 crc, const u8 *p, size_t len);
- 
-+#ifdef CONFIG_ARM64
-+u64 crc64_nvme_neon_pmull_eor3(u64 crc, const u8 *p, size_t len);
-+
-+/* x^575 mod G, x^511 mod G */
-+static const u64 fold_consts_4x_val[2] = { 0x0c32cdb31e18a84aULL,
-+					   0x62242240ace5045aULL };
-+#endif
-+
- /* x^191 mod G, x^127 mod G */
- static const u64 fold_consts_val[2] = { 0xeadc41fd2ba3d420ULL,
- 					0x21e9761e252621acULL };
-@@ -45,3 +53,74 @@ u64 crc64_nvme_neon(u64 crc, const u8 *p, size_t len)
- 
- 	return vgetq_lane_u64(v0, 1);
- }
-+
-+#ifdef CONFIG_ARM64
-+#define SHA3_TARGET __attribute__((target("arch=armv8.2-a+crypto+sha3")))
-+
-+SHA3_TARGET
-+static inline uint64x2_t fold_single_round(uint64x2_t fold,
-+					   uint64x2_t temp,
-+					   uint64x2_t consts)
-+{
-+	uint64x2_t temp1 = pmull64(consts, fold);
-+	uint64x2_t temp2 = pmull64_high(consts, fold);
-+
-+	return veor3q_u64(temp, temp1, temp2);
-+}
-+
-+SHA3_TARGET
-+u64 crc64_nvme_neon_pmull_eor3(u64 crc, const u8 *p, size_t len)
-+{
-+	/* Assumes len >= 64. */
-+	uint64x2_t fold_consts = vld1q_u64(fold_consts_val);
-+	uint64x2_t fold_consts_4x = vld1q_u64(fold_consts_4x_val);
-+	uint64x2_t v0 = { crc, 0 };
-+	uint64x2_t zero = { };
-+	uint64x2_t v1, v2, v3;
-+
-+	v0 ^= vreinterpretq_u64_u8(vld1q_u8(p));
-+	v1  = vreinterpretq_u64_u8(vld1q_u8(p + 16));
-+	v2  = vreinterpretq_u64_u8(vld1q_u8(p + 32));
-+	v3  = vreinterpretq_u64_u8(vld1q_u8(p + 48));
-+
-+	p += 64;
-+	len -= 64;
-+	while (len >= 64) {
-+		uint64x2_t t0 = vreinterpretq_u64_u8(vld1q_u8(p +  0));
-+		uint64x2_t t1 = vreinterpretq_u64_u8(vld1q_u8(p + 16));
-+		uint64x2_t t2 = vreinterpretq_u64_u8(vld1q_u8(p + 32));
-+		uint64x2_t t3 = vreinterpretq_u64_u8(vld1q_u8(p + 48));
-+
-+		v0 = fold_single_round(v0, t0, fold_consts_4x);
-+		v1 = fold_single_round(v1, t1, fold_consts_4x);
-+		v2 = fold_single_round(v2, t2, fold_consts_4x);
-+		v3 = fold_single_round(v3, t3, fold_consts_4x);
-+		p += 64;
-+		len -= 64;
-+	}
-+
-+	v0 = fold_single_round(v0, v1, fold_consts);
-+	v0 = fold_single_round(v0, v2, fold_consts);
-+	v0 = fold_single_round(v0, v3, fold_consts);
-+
-+	while (len >= 16) {
-+		uint64x2_t t0 = vreinterpretq_u64_u8(vld1q_u8(p));
-+
-+		v0 = fold_single_round(v0, t0, fold_consts);
-+		p += 16;
-+		len -= 16;
-+	}
-+
-+	/* Multiply the 128-bit value by x^64 and reduce it back to 128 bits. */
-+	v0 = vextq_u64(v0, zero, 1) ^ pmull64_hi_lo(fold_consts, v0);
-+
-+	/* Final Barrett reduction */
-+	uint64x2_t bconsts = vld1q_u64(bconsts_val);
-+	uint64x2_t final = pmull64(bconsts, v0);
-+
-+	v0 = veor3q_u64(v0, vextq_u64(zero, final, 1),
-+			pmull64_hi_lo(bconsts, final));
-+
-+	return vgetq_lane_u64(v0, 1);
-+}
-+#endif
--- 
-2.56.1
+Yes, without the trigger handler fix the cover letter points to:
 
+https://lore.kernel.org/linux-iio/20261113230241.82046-1-zoone.rupert@gmail.com/
+
+It is against the fixes branch, so this base does not have it. With it
+applied the handler does not wait: 32 scans in 4 s with pressure at
+8 Hz and temperature at 1 Hz, 5 without.
+
+Rupesh
