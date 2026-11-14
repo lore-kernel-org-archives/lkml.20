@@ -1,112 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794678900;
-	b=pHYRp0Ty9D4N6GSWrLubwjnFRIa9ASX7DnokN8OdkD+Qd5E0C2BoAv4iQ5FgNwez6l0a
-	 Pk7Le2g6kcOO+mLQE9WquCg0r0GtMQr4vm3/OBzkhi/gEV/8nOeHk0sw9f27YV5cqB9wo
-	 fiJiPRFsSdHukeZRzqEvCgMZ6KilfuP2Q+zni9fg4g0dlpmCDSmahJx2s7mWQAv3nfAOG
-	 /39vLbm5Tqa9538/YC3zgaaSNf7CaxwQOqnjniw9VJCu2XZ3PbVRkgBnEXyHkjgI5b6BE
-	 LsgViYTcMf/BHIPtuV4puF9Hed+lwFAIR3HVbiFJfLLzl/QTH/AKUni8a6LQcrmffkw==
+	t=1794678906;
+	b=N4GCyYVQJ/gkv4IU1Pk9gAVgZ/DEEkdB7LynCVIzqMRWiRSA6j6NYObjg+qfUXbPiB4h
+	 TX59QrrwFp4fjZfZItlsHngUXolKspA7jed6woH783cOiZ+cF7fxs8Hs9MszWHcSrceLy
+	 EeJylO99hKd+iSyeOJgka0b7nmZ8fSdkoud/t7lm4e0ZIgzxhFs5jPQMIL7bF/fpxHWx8
+	 gD4VqFUAj6phODL7Nx6u+YvKa6cGa7Ze32MYmjH+CJSyMp6Qe/Sv5O/rJFrO5xtOApRfK
+	 GG6fsxqFwahtTy+3LxvbNSHPTs4jd0wc1UDDrVp2m+F6qhC3XxOukozxu9E5P7Vli6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794678900;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794678906;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=SWPuKJ/V2DaQHllZzOMnN6QFel9q0m/5M9pFHMBY898=;
-	b=J3nwNUxdDEM4kzJ5zVoMnrE/xfLvbhLhzXus8tIlUG3jGvm92L38tV55r8UhbQng8ZU7
-	 kXiaNMZqbn0Vqb1LNJDkj0LTwySQhRGJu6IZtO6CNJSYzOFnZXklC/rrgx9ysw718BeCk
-	 Dh+gGmPh4qoL1+K3CtFFWAsWXGfHxRPSkEWXzNgfpAaNDVtL2O+YFXEE8kyRui6g5/rY7
-	 YvwKj0gxTqHZfXwElEg1ACzdszRdaMUVP1Dk4T4sWveUCpZKQE+2sxC9CbPnMiKPuMa7F
-	 CWJWCTlO1aP+lStF6NOo7nmyoiEIFLlTrtdlCHMxEQhpPFLKj2Xx3uhZM0OZ86GzuNw==
+	bh=O36e3BTqEKtoNvH+7wELePth3zZkQjYEsXxTSfuW3pY=;
+	b=txprmRiRdx+KuYSozJndm6S7llu78bsL5wa+tVhoSk5MqwP+FdzJ/tjU/8H/3/bdCZTb
+	 g7HZjVvtBnBZ3Q2IwqSA3SIqpElPaFs6rUjShfkwapmJSWlxrAiquBVB+5+3OPzf8phfG
+	 kMG+jsBxgcwDKlhQWReygKHaJOOxCUOti429ByQEgiX9eKtFRf2GONT/LyuJ4aWEdrdYM
+	 Irs1uCPwVUJGDZhaADSAfW9NBY70futh5Wcloupoqc+cbRrLpTty/4eoEHZZDQ9LZb3CY
+	 MFw2A4cpCOgxVMeF35Vi5ypwErIEPHbnOa2z37bxntSEY5QXu8RX7bq9CwFZd4RY+vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=m9BOlHNI;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ESLBgVka;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=JZeG8d6M;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KkIf2bAc;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19BAD606A8AB
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:55:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19BAD606A8AB
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D200A606A889
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:55:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D200A606A889
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=m9BOlHNI;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ESLBgVka
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AEHp69N426034
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:54:59 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=JZeG8d6M;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KkIf2bAc
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AEHqcAW1149295
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:55:03 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	SWPuKJ/V2DaQHllZzOMnN6QFel9q0m/5M9pFHMBY898=; b=m9BOlHNIqLAo1BZK
-	6OuVEt8QYlY6rUtJOAJ8jJaNRaffF37q004zZkVKHyEKHQKfYkod1Ozvsx6G1Prb
-	g1+6ZGHsR4YcpyeotoK2oGK3AtuZKUz9nZR4/AFivYrRkLuk7yL5755gX6J6vMdg
-	8zYFDChPoAk5jBKCbHrQxL40nFm6K/MLGZ+BlzeE9+d5xRm9+ybUVTf7p1dmwkGC
-	FhxdFxiDtHu6tcrhTTX9sLEAOZHrTSv1WoOiyHFPuPe3M3Pr3EfPCGdggLdiE6vN
-	xUp3k0pRZ0oWB/LZegj39KbOgcdteIlVX6JKIor/R025kuByI4McSI+GfhY07gqy
-	Cx7ZQw==
+	O36e3BTqEKtoNvH+7wELePth3zZkQjYEsXxTSfuW3pY=; b=JZeG8d6MQCKI7uMa
+	xFUT/8rUcM18n+4B0fFgJ78jFuDt4VXTRGnD92KCDsq+ZUTk4rF+uwBu678+hq7O
+	5svL2HEL9UYJbGC+24DlGf8aYTKyecfph872ldiy/gmUWrRr4F38skizS/iC/0SY
+	iCEmWdCy+14bwvJtDL8oNXjISTIA3LKd0XXt305xFRhpmhhNKekEdchlygaiZveU
+	bMN4Ghi2A2XFB5imI/LfXtICJ5lMJfef9rkdyWylulRzZDXDBqCwJDy0YSWeXe1m
+	dAUzmbHOuauSnEZN3JGzGDBukPuSPA3YLz3l85q0PVtHeslx8ZlDRaLx6HXaMcMM
+	xmlklA==
 Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hxhhjsewd-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hxhmahbee-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:54:59 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93cb93c874bso611595985a.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 09:54:59 -0800 (PST)
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:55:03 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f2373e9b4so228888085a.1
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 09:55:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794678899; x=1795283699; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1794678903; x=1795283703; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SWPuKJ/V2DaQHllZzOMnN6QFel9q0m/5M9pFHMBY898=;
-        b=ESLBgVkaRBGAzGxByioeXJ2ie99bqLotTvvTnfBBAEE8ZKZk8rMIZZqP0py8qnTZe7
-         rPPYtFeFpDTmb35WQEFDTLz68o+uw/FU80mg+T/n9MnbfULkthKf9IcohbIZpQQpYA5E
-         /CFGbu9BOripM3p87AcCG2SHcv99zhKSHCYrAglgdNFoZo8uBmXlD9R/n//vTijisdhB
-         pxbIUMaSeYENQyojt+4+4BYvC9rLhTPnsYJi0iZ925VSFdpewosRmed6bsed7L6cL0Ml
-         HvIRoUhn3Hx2ucHuZmOA/CJfwaTdsD/+fjaoKw+s5r7eQpwnTPBz/XEXJPgYw2AmSUIk
-         MqeQ==
+        bh=O36e3BTqEKtoNvH+7wELePth3zZkQjYEsXxTSfuW3pY=;
+        b=KkIf2bAcQCvv4HBNmgArJlL1Z79RQHp3EpfJssojB51s185HxOq94Xr3tMPWcX1yEh
+         p06rZE4MbTqs91t0OLpV9pW3lyA5Lh7WCuuJrFr51ySASz+ChLkxWpVFNE4X23X0pHMX
+         IBhYXMTcNAL3zCe1fFSRSnmKkSFftwYjoBB9LAeo2RdW5gxJut1m18ozu1+dnHq5uAy4
+         FOLxv8qtFpH1OUtdNRIaOiuVjhvMjthUt5CEXfJQmwh4URXBYayxm1jdlkD4S9nbiIy1
+         vvdsIyaK14kejc0L0CSOIbMPCVv6z5zBLIL1vmfoPcjEkui1X8xM5+aikqntBeNAdAPJ
+         TNWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794678899; x=1795283699;
+        d=1e100.net; s=20260707; t=1794678903; x=1795283703;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SWPuKJ/V2DaQHllZzOMnN6QFel9q0m/5M9pFHMBY898=;
-        b=vpk8uHw8GnQ1dNI2EAbTHUk/q7lSa5wEAt626nmBviDe58etpqHGSEPcMv1IltjLNf
-         h3cwq1XlLm69zBoiBYHUSx9+K3oPzXeOlVWCkpYkrDzVj5bbjjLBTQdn764OpLG3EKXI
-         EAbPyjJGdo34BkLUatJ15VNyuV156omx16VBFXmojqZCLX/ofMK9JEv2DF5SRf2GQhh9
-         BQHBAAMgRWHA7fT25QZJ0bXyOCwpNUap1wWT7qxN1+uRd9CH4X21uag5BG3BRHhTQoYk
-         qpGkW1NXFDHfg0qLBYUzzmqvAlKRjqLdCytcLI/B2QY5uDHNftfhRyEt8FUiixesySyY
-         yHNg==
-X-Forwarded-Encrypted: i=1; AL+hErFqBLgEUoJvPZXlH89vP8Kk5jgPvLADFPqSq2m9vLli4XZ2dyP2LfWX2Sx2ATuBkRUOkeRI+CfEvDL1N4k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8PUAfhOfuSD/DWaYI627I1CUzSxRXUh77BAiAaADmDy080WRw1
-	HWtVS7zBfGfgAp5lavsp5IajlaywopZi8c2JEvUg6cp0jI2HPxX768yJsXRp7z8A8OTIyq064tR
-	3HXB82zK+6iGPAP+bxSBGNRDsfGJhY95r7DG/8v36GYYZqqdJ53+E5U+ZcjFYEHeWovo=
-X-Gm-Gg: AYBFou215mg1C6TGGlbDSJE9WpbhsRsgnkUWmt0FizZw/UUBO+KlSCXgYPSUPH2FYP9
-	MRRDRLtv9wc3beY3JPINk5p0FJqTgN0YvfjRzKA4xF/jLgMpLqkzPoIrk3mfaiQkTYhJVTPh38D
-	37QESZuwp8mReJ6g1sVZZSOZTiblH0A0MOrXYQ4Wajlk34lFlSP2P/hRVffsVdFkPaDAp+wczjY
-	W9Sr55Ff+6RJBOXMkESso038KscAufp3k55B85dOY/9o5xOjicvbl5xnJhm3LxTb+qbUKiuFnKK
-	VfVzSXYkHaXVjN0xEH4iMgukhOk/k/7toMRqPastmWgKrv5+9HqCEDuYHzG7gZFZGLpIH77FS7f
-	Vd/awG+2Z3i4LD9OPVZL9q1r3yjYmWmB6DPgZQ221KMNmMY0LojFjPKfCuJvI37co39Ct5Q==
-X-Received: by 2002:a05:620a:1727:b0:949:6e10:b8dc with SMTP id af79cd13be357-9496e10bae6mr196350385a.13.1794678898560;
-        Sat, 14 Nov 2026 09:54:58 -0800 (PST)
-X-Received: by 2002:a05:620a:1727:b0:949:6e10:b8dc with SMTP id af79cd13be357-9496e10bae6mr196347485a.13.1794678898148;
-        Sat, 14 Nov 2026 09:54:58 -0800 (PST)
+        bh=O36e3BTqEKtoNvH+7wELePth3zZkQjYEsXxTSfuW3pY=;
+        b=pMDfF9PWdVoHrAMBNa4o1zHgXbNJvJg2nj2dHWYnwgElCa864FthNmOm6yxFlzt9M6
+         WXHLoxMNVew91X+I+CTEJ83Eh9NyAQNgrBsburYcaIbqhSz33qdPosraJeCh12lSXd8e
+         hnC+SMOWfK8RFEqNPjkH2bcRjH6KOrfUZIhPlKrHlCyJBy8x3Udj3frRkmhm7oH11gB/
+         142i01WbTmPn96V/q5yDyu3LIYnnmMR1slvvtfx/oNg471jK3HnZl2bs0K5rbrj5rBia
+         TJFth9mDtF2y9RsAgbTNCU29Wv7QZqOgh/OuU1zoyYlBxMIoZIldfYWQGIgfBazieoRr
+         tYqQ==
+X-Forwarded-Encrypted: i=1; AL+hErElON64x34HA6BV0K7GLEkzOxW2TqlJ6ZBFlZBXRU+93rNRq3yANKkw1bgKjwIE1gN+nI4kxHI5hFJRkbg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z91RK9rJVRloIX+e87KrON2snLCUVl95rNGI3zVmyeahacjaGs3
+	xdqDB0zDyfmtUJ3s1+ln19J73wYLTptK5uFRjIOsjawYKMOafGlYSEt+qVQiSYwMvL5RuxLsnaA
+	ifYbiMJLzfK20qzJ1f/q6DdpnN1NpOelzhuVvcERzNlBJiTRfbHId5shZs+r7WtuM2ps=
+X-Gm-Gg: AYBFou22F4y3jD/VtWuIxojIOqmsSpVOJPCpY1j+1sI/Ha8tGpq0SdcQ33u1ZioWNEy
+	3YggN5KvxY4wrG7n9cs4lcQxg0ZC4mgJSVywyJqGIDca7sKll4WI8L+a0n2XBka3f31koRbXWr+
+	68rX6grxVzq8hy/anU+j7XYgBXGKEKESnC7f9n28+wVcOBrefUtZkgZbxtGeGkrz+T+AmIqyl1W
+	yECL9c2KQZDR3cQ8+0ulodewS7Tg/iZdAVqiISGIPTDlALUZLHHIVVP4UcNFchMsBOmYFauOIgj
+	xxE8UBXIhhXpVdVVG5SQWBWxXdrUPaxm7Jvc+C/h1u9VIm1hmBd3aHJnZtwfnhBdHV7u7KtRYt/
+	wAtghHqZfBJhOKeTExfllnY/v1dbkF775/fPSDjaSvIKg9xWfBW6D4ZAo2iwNjuJSC2+fFQ==
+X-Received: by 2002:a05:620a:4386:b0:949:727a:b921 with SMTP id af79cd13be357-949727abab0mr87086085a.83.1794678902504;
+        Sat, 14 Nov 2026 09:55:02 -0800 (PST)
+X-Received: by 2002:a05:620a:4386:b0:949:727a:b921 with SMTP id af79cd13be357-949727abab0mr87083385a.83.1794678901959;
+        Sat, 14 Nov 2026 09:55:01 -0800 (PST)
 Received: from [127.0.1.1] ([178.197.218.7])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c888b90d4sm11060292f8f.9.2026.11.14.09.54.55
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c888b90d4sm11060292f8f.9.2026.11.14.09.54.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 09:54:57 -0800 (PST)
+        Sat, 14 Nov 2026 09:55:01 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Date: Sat, 14 Nov 2026 18:54:38 +0100
-Subject: [PATCH v4 3/4] arm64: dts: qcom: msm8996pro-scorpio: Disable
- disconnected DSI
+Date: Sat, 14 Nov 2026 18:54:39 +0100
+Subject: [PATCH v4 4/4] dt-bindings: display/msm: Require DSI graph
+ endpoint
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,7 +118,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261114-display-msm-of-graph-v4-3-b8de044c6c1b@oss.qualcomm.com>
+Message-Id: <20261114-display-msm-of-graph-v4-4-b8de044c6c1b@oss.qualcomm.com>
 References: <20261114-display-msm-of-graph-v4-0-b8de044c6c1b@oss.qualcomm.com>
 In-Reply-To: <20261114-display-msm-of-graph-v4-0-b8de044c6c1b@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
@@ -148,87 +148,510 @@ To: Bjorn Andersson <andersson@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
         linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
         dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
         Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1022;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=21078;
  i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
- bh=VAmAuSw5Qrz1Gz52ayox0A7+zqwBb2WXC/d4EpaIHcI=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq+KBj/U1se/9pEQcrSLEYidME6fGqzdtTKxEP5
- iEtUNZ/oN2JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCavigYwAKCRDBN2bmhouD
- 1zcaEACaJZx/cwNuCU2I2yLeRQN/WGPPfc4u8o0xMi6NoozUyadyvLWur+AT63rJg7Xw8u8cuui
- AoYR0BBQFOdWpcr1x2hX0ac8pV7dUwYmXY47jM8jAOsLSoSvN5UGfgVOqOteZYasSVljSl08Ybj
- 0yIsNi8N8ymmL7UcLsTMhtXl6huA6FilsIK4R3BLnmjLRl/0ZmfIHoMvvuITVpNDYeMXoQt/3BM
- oOmF2X6JpFlvl1uKgwcDTgFoXWvsjheno1mUfGfA6qsaNpjvE1DffppmOOrTvq3eqhmI9Kzs0G8
- eQ74Jx/iF71PNPFclYYe+HZIZgOTHOYV0ChKNMrxITNKIYFXX7kJt2QzZsSD9AqhTPd3wOF7YRE
- THGN4sIQd+2FuY2dmljTugwUit2WwLrkNhkjfpXdh3I81TZ8FNCbWGbBhv/I3+cXoE4/iA076ie
- 1snmX0yGZhbs0w5zSR80fUMPHpXJE6kkNoV+31jzps/06/7os/JDVbDMKrLn8+WaUeweqRtF8uV
- Dz2CALqkARo4wW0tbU49Tgw4AfxNstsO3kE/o/8bkI/sqK6VmPcPs+KLF9siaI0z2cAGtBInhJ7
- vWmSEOp4jngAmQUo6IFVKcZqwt2zJhwu3kHTlz2MdoP13I+fpv4JbGcUKDCqCfmvIpwDI5bgt2i
- 69WvE6DuXNryRow==
+ bh=NL0plrh7w2HxOlnYr/tSIGos13UC6nNPIfZjpVBqr1A=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq+KBkQqIwB3WzJMBD0v/4YZ3fQJgz74YQYHXcz
+ Z6bsCgviy6JAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCavigZAAKCRDBN2bmhouD
+ 1/kwD/9L3C7HuLzathEicY4dXyL8t5hINJkAXAkeLQ2LUeMOKF6bqP8suemm2Li0TNhYNa6vMnk
+ wn0ihOWLk6PiXv5qOi6oFYBKJh2RPdoOPID7g2oDCtmpGBozJ6uj/4LfXuNztl6YWDM/NS1HeIN
+ 8h8jVCIHxloW4tqfqSlENplrVWI/OZXLkl17YXFu/W6frlZtNfvOrEhxHxIOXiUNjTYqYWWxksX
+ yQpoEZ/bMtB8MgndWBpbgI705pzML0e0gKCUpJDj/FlL0vNzdpFJIHiJZVvHrikmqOuzhT17dda
+ 5nk5/yYW3kuuTNDTadSPlwPXDhRDwX7+/NUoutCp4TF5ZuE8uZjEvlUTKnCe45kLHGmY3P/isfg
+ aDkMa4tHO9nbnBKUslvH4UpFGImiQCN6NPB7CruwHSxhdgYF0dG58Gomp3yy4PNGENTIWO7oSQu
+ hHpxMVeVXR+0yn/sAlpny1498RwhUOuhr800V80rSVxDj9m+aacxzencOk1kG9YNaFkp0OUCo0H
+ gYx4BEnB8LuHabhfZRwEknU8/2EXiHIguGiCI/Z9/Ak0Muf9Nxzhvm7cltGKHowwSd3FD3ZXO2D
+ pZRRDt1PT9Eu0WVicPGvczz1sLqvuMRunb2268+KtbvV6LcRYFZsICmvQYA5py0VJ12Dk2aC85C
+ DbLGLbGfBbRiOrQ==
 X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE0MDA3MSBTYWx0ZWRfX3TX2s8eB/3t/
- Ykbm3e3FlSD+yyDsdadYn3eUKDx/JCnSKE7Hf7r2NvT6+pAluw7f2r3eqanzre9Mnmh/AAXXIOh
- NrlfXwCjtLl52DkETixL8/0fWUWy/cQeXEy5Cgt/qPp/4C575ZidW5NOGnZ4A8d0pFwGSCRL2H2
- dl3m29fy1+ylQOePpbGe43jCxqXGGzvJn2zlzfJMTwHeFuypzFb7npPRflxRKhHxxvA6hscX5Lw
- ZLtxcGgNQLRZLPfBDrr+BhIrtAQuzlkZqxWsA2itRrXfyJ1iVXL5X/FFTiGwvcGIKQyk/p8dX0Y
- jRR/GMcFemwEt5EYWI80Dz1kh7P8KCMIa4jRlUAig98xKklPdBkuyNhHS5z1KCQlJgHJw3oF1FA
- j/TzBjB7HKK9pkuIspu46e9+9S//dXJ+Qbq/4zAlVaRLHQ4g4VCpOa4agO5rE29arjyeKhrwuaB
- aSPUnit3LQm8v1pD2XA==
-X-Proofpoint-ORIG-GUID: yxXzgu79iO5on06lg_CAzINevk96W-Nr
-X-Proofpoint-GUID: yxXzgu79iO5on06lg_CAzINevk96W-Nr
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE0MDA3MSBTYWx0ZWRfX7XGuT9SgV1cO
- S+qXLozoZck/wytfLE+F+Mduq1lk75LxvdG7DIhX3rz+YtjoZSmD3Z9VDqPO4W2k9ckoU9bbUql
- vdU0TzPpIMY+57M7catijiOw0A4rmwk=
-X-Authority-Analysis: v=2.4 cv=X9rHu2Te c=1 sm=1 tr=0 ts=6af8a073 cx=c_pps
+X-Proofpoint-ORIG-GUID: 9hPCSmqNoRWxB8FLmnRwO3YpOEjEGn6w
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE0MDA3MSBTYWx0ZWRfX2KLIiQyTKMev
+ tr/5RZtNx/xFDfXf3nN0nl1XLFcsGzJNbjiDPu4w8zlz1h17PX/CFCtY66d+T+weqb5J1gOMGqR
+ +9TIKSdfSUIyrZuVKr3o46ljIvyrP2ZahYWtZkp67HNRTXYKBI7BYHmO950peMQZbRcQvr9IxmW
+ 06L0bzkVJQb8mMu2sLaCVrM/z+tFCRP9h0Xx+DkLRHOT9nqLfgJiGLds91/330z43waNVSTvUTo
+ WQTsTIGEqPRFctqmeKp1Q/cTHTxOjygmtGqRYaBq8amwmVcS21IuYem3AtWbItGwBZuydpif272
+ dFakYoS3SafIQuIKgUmK0xNBMyQ9HuqA6ht+Gck0kqrP91SKLVtbMBubMStZShOUKHCmQ6g0l4f
+ ZBrGRJGvLcFVu8pSHKHdlqco0u66XQnQQSNgzfhBVtdKAOtwUoYQI4Nq6S3RAYtWF+DK9bGAUte
+ 9nWd5lxHIqW+iPKgo3Q==
+X-Authority-Analysis: v=2.4 cv=NdhzRGD4 c=1 sm=1 tr=0 ts=6af8a077 cx=c_pps
  a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=F6vqezskldl5T9wOwfQA:9 a=4tUkUnfIpJ8A:10 a=QEXdDO2ut3YA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Cjt56oMJJs6jdj95yyUA:9 a=QEXdDO2ut3YA:10
  a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-GUID: 9hPCSmqNoRWxB8FLmnRwO3YpOEjEGn6w
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE0MDA3MSBTYWx0ZWRfX/3Dt1DSXC5k3
+ RTVE7vI17Z2NeI4srYCpHu8pomi5RC79bAHDYvY8+JbCW9uRht+XDw0e4yGjj38LnlDmUxedjWq
+ 1ceT2ZhRjbnE97r9sV1qJCNQlKSPpuQ=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-14_05,2026-11-11_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 impostorscore=0 bulkscore=0 clxscore=1015 priorityscore=1501
- adultscore=0 malwarescore=0 lowpriorityscore=0 suspectscore=0 spamscore=0
+ phishscore=0 suspectscore=0 clxscore=1015 adultscore=0 lowpriorityscore=0
+ spamscore=0 impostorscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611140071
 
-MDSS DSI and DSI PHY are useless, when nothing is attached (no panel
-description in DTS) and MDSS being disabled as well, thus should be
-disabled in DTS: no bridge will be registered and no component device
-will be bound.
+Technically, DSI controllers do not need OF graphs with endpoint to the
+panel and could rely directly on their child node (when panel is the
+child of DSI).
 
+However Linux Qualcomm MSM DRM DSI driver never implemented such
+approach and it requires a valid graph endpoint pointing to the panel.
+If it is missing, the drivers will silently accept such DTS in
+dsi_host_parse_dt(), but later fail on dsi_host_attach() because number
+of lanes is not initialized.  The number of lanes is initialized to safe
+default only when there is a valid endpoint which is missing data-lanes.
+
+Extend the bindings to validate existing DTS to match expected ABI.
+
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
 ---
-
-Changes in v4:
-1. New patch
+Please apply after Qualcomm Soc takes DTS changes to next.
 ---
- arch/arm64/boot/dts/qcom/msm8996pro-xiaomi-scorpio.dts | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ .../devicetree/bindings/display/msm/dsi-controller-main.yaml      | 6 ++++++
+ .../devicetree/bindings/display/msm/qcom,milos-mdss.yaml          | 1 +
+ .../devicetree/bindings/display/msm/qcom,msm8998-mdss.yaml        | 2 ++
+ .../devicetree/bindings/display/msm/qcom,qcm2290-mdss.yaml        | 1 +
+ .../devicetree/bindings/display/msm/qcom,qcs8300-mdss.yaml        | 4 +++-
+ .../devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml        | 8 ++++++--
+ .../devicetree/bindings/display/msm/qcom,sar2130p-mdss.yaml       | 2 ++
+ .../devicetree/bindings/display/msm/qcom,sc7180-mdss.yaml         | 1 +
+ .../devicetree/bindings/display/msm/qcom,sc7280-mdss.yaml         | 1 +
+ .../devicetree/bindings/display/msm/qcom,sc8180x-mdss.yaml        | 2 ++
+ .../devicetree/bindings/display/msm/qcom,sdm670-mdss.yaml         | 2 ++
+ .../devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml         | 2 ++
+ .../devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml         | 1 +
+ .../devicetree/bindings/display/msm/qcom,sm6125-mdss.yaml         | 1 +
+ .../devicetree/bindings/display/msm/qcom,sm6150-mdss.yaml         | 1 +
+ .../devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml         | 1 +
+ .../devicetree/bindings/display/msm/qcom,sm6375-mdss.yaml         | 1 +
+ .../devicetree/bindings/display/msm/qcom,sm7150-mdss.yaml         | 2 ++
+ .../devicetree/bindings/display/msm/qcom,sm8150-mdss.yaml         | 2 ++
+ .../devicetree/bindings/display/msm/qcom,sm8250-mdss.yaml         | 2 ++
+ .../devicetree/bindings/display/msm/qcom,sm8350-mdss.yaml         | 1 +
+ .../devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml         | 2 ++
+ .../devicetree/bindings/display/msm/qcom,sm8550-mdss.yaml         | 2 ++
+ .../devicetree/bindings/display/msm/qcom,sm8650-mdss.yaml         | 2 ++
+ .../devicetree/bindings/display/msm/qcom,sm8750-mdss.yaml         | 1 +
+ 25 files changed, 48 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/msm8996pro-xiaomi-scorpio.dts b/arch/arm64/boot/dts/qcom/msm8996pro-xiaomi-scorpio.dts
-index 1cc33c3123a4..85c542328d96 100644
---- a/arch/arm64/boot/dts/qcom/msm8996pro-xiaomi-scorpio.dts
-+++ b/arch/arm64/boot/dts/qcom/msm8996pro-xiaomi-scorpio.dts
-@@ -111,6 +111,14 @@ &mdss {
- 	status = "disabled";
- };
+diff --git a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+index e4fd1cbbd4e0..e9446a333fa1 100644
+--- a/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
++++ b/Documentation/devicetree/bindings/display/msm/dsi-controller-main.yaml
+@@ -201,6 +201,12 @@ properties:
+                   - timer3
+                   - timer4
  
-+&mdss_dsi0 {
-+	status = "disabled";
-+};
++            required:
++              - remote-endpoint
 +
-+&mdss_dsi0_phy {
-+	status = "disabled";
-+};
++        required:
++          - endpoint
 +
- &mss_pil {
- 	firmware-name = "qcom/msm8996/scorpio/mba.mbn",
- 			"qcom/msm8996/scorpio/modem.mbn";
+     required:
+       - port@0
+       - port@1
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.yaml
+index 7010ffa0ae35..8b9f54f189e8 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,milos-mdss.yaml
+@@ -241,6 +241,7 @@ examples:
+                     reg = <1>;
+ 
+                     mdss_dsi0_out: endpoint {
++                        remote-endpoint = <&panel0_in>;
+                     };
+                 };
+             };
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,msm8998-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,msm8998-mdss.yaml
+index 2d9edab5a30d..dafe5c5d4b75 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,msm8998-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,msm8998-mdss.yaml
+@@ -181,6 +181,7 @@ examples:
+                 port@1 {
+                     reg = <1>;
+                     dsi0_out: endpoint {
++                        remote-endpoint = <&panel0_in>;
+                     };
+                 };
+             };
+@@ -251,6 +252,7 @@ examples:
+                 port@1 {
+                     reg = <1>;
+                     dsi1_out: endpoint {
++                        remote-endpoint = <&panel1_in>;
+                     };
+                 };
+             };
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-mdss.yaml
+index 49a7b5c4c678..60ba466382b8 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,qcm2290-mdss.yaml
+@@ -194,6 +194,7 @@ examples:
+                 port@1 {
+                     reg = <1>;
+                     dsi0_out: endpoint {
++                        remote-endpoint = <&panel0_in>;
+                     };
+                 };
+             };
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,qcs8300-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,qcs8300-mdss.yaml
+index 287cce4dbddc..c00c4d5dd918 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,qcs8300-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,qcs8300-mdss.yaml
+@@ -235,7 +235,9 @@ examples:
+ 
+                 port@1 {
+                     reg = <1>;
+-                    mdss0_dsi0_out: endpoint { };
++                    mdss0_dsi0_out: endpoint {
++                        remote-endpoint = <&panel0_in>;
++                    };
+                 };
+             };
+ 
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
+index b68e7efbc189..48dd897d5d5b 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sa8775p-mdss.yaml
+@@ -258,7 +258,9 @@ examples:
+ 
+                 port@1 {
+                     reg = <1>;
+-                    mdss0_dsi0_out: endpoint { };
++                    mdss0_dsi0_out: endpoint {
++                        remote-endpoint = <&panel0_in>;
++                    };
+                 };
+             };
+ 
+@@ -335,7 +337,9 @@ examples:
+ 
+                 port@1 {
+                     reg = <1>;
+-                    mdss0_dsi1_out: endpoint { };
++                    mdss0_dsi1_out: endpoint {
++                        remote-endpoint = <&panel1_in>;
++                    };
+                 };
+             };
+ 
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sar2130p-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sar2130p-mdss.yaml
+index fb3d24bbac7d..3e4a25a217cc 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,sar2130p-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sar2130p-mdss.yaml
+@@ -326,6 +326,7 @@ examples:
+                     reg = <1>;
+ 
+                     mdss_dsi0_out: endpoint {
++                        remote-endpoint = <&panel0_in>;
+                     };
+                 };
+             };
+@@ -418,6 +419,7 @@ examples:
+                     reg = <1>;
+ 
+                     mdss_dsi1_out: endpoint {
++                        remote-endpoint = <&panel1_in>;
+                     };
+                 };
+             };
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.yaml
+index 7a0555b15ddf..16ebd5d701d0 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sc7180-mdss.yaml
+@@ -206,6 +206,7 @@ examples:
+                 port@1 {
+                     reg = <1>;
+                     dsi0_out: endpoint {
++                        remote-endpoint = <&panel0_in>;
+                     };
+                 };
+             };
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.yaml
+index b643d3adf669..9f84ba248a83 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sc7280-mdss.yaml
+@@ -230,6 +230,7 @@ examples:
+                 port@1 {
+                     reg = <1>;
+                     dsi0_out: endpoint {
++                        remote-endpoint = <&panel0_in>;
+                     };
+                 };
+             };
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sc8180x-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sc8180x-mdss.yaml
+index 00e82bdbbcc7..7e653552fdfe 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,sc8180x-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sc8180x-mdss.yaml
+@@ -242,6 +242,7 @@ examples:
+                 port@1 {
+                     reg = <1>;
+                     dsi0_out: endpoint {
++                        remote-endpoint = <&panel0_in>;
+                     };
+                 };
+             };
+@@ -333,6 +334,7 @@ examples:
+                 port@1 {
+                     reg = <1>;
+                     dsi1_out: endpoint {
++                        remote-endpoint = <&panel1_in>;
+                     };
+                 };
+             };
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sdm670-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sdm670-mdss.yaml
+index 7dc269322b8e..4430baecfd99 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,sdm670-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sdm670-mdss.yaml
+@@ -196,6 +196,7 @@ examples:
+                 port@1 {
+                     reg = <1>;
+                     mdss_dsi0_out: endpoint {
++                        remote-endpoint = <&panel0_in>;
+                     };
+                 };
+             };
+@@ -266,6 +267,7 @@ examples:
+                 port@1 {
+                     reg = <1>;
+                     mdss_dsi1_out: endpoint {
++                        remote-endpoint = <&panel1_in>;
+                     };
+                 };
+             };
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml
+index 6e8b69e5ec62..1330a5f80e3b 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sdm845-mdss.yaml
+@@ -192,6 +192,7 @@ examples:
+                 port@1 {
+                     reg = <1>;
+                     dsi0_out: endpoint {
++                        remote-endpoint = <&panel0_in>;
+                     };
+                 };
+             };
+@@ -262,6 +263,7 @@ examples:
+                 port@1 {
+                     reg = <1>;
+                     dsi1_out: endpoint {
++                        remote-endpoint = <&panel1_in>;
+                     };
+                 };
+             };
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
+index 309de1953c88..2993fc1eafe6 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6115-mdss.yaml
+@@ -179,6 +179,7 @@ examples:
+                 port@1 {
+                     reg = <1>;
+                     dsi0_out: endpoint {
++                        remote-endpoint = <&panel0_in>;
+                     };
+                 };
+             };
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm6125-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm6125-mdss.yaml
+index 3deb9dc81c9c..a942a479a440 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,sm6125-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6125-mdss.yaml
+@@ -194,6 +194,7 @@ examples:
+                 port@1 {
+                     reg = <1>;
+                     mdss_dsi0_out: endpoint {
++                        remote-endpoint = <&panel0_in>;
+                     };
+                 };
+             };
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm6150-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm6150-mdss.yaml
+index 46e9335f849f..62920c8fba0c 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,sm6150-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6150-mdss.yaml
+@@ -221,6 +221,7 @@ examples:
+                 port@1 {
+                     reg = <1>;
+                     mdss_dsi0_out: endpoint {
++                        remote-endpoint = <&panel0_in>;
+                     };
+                 };
+             };
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml
+index bba666bdffe5..faafc451633c 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6350-mdss.yaml
+@@ -201,6 +201,7 @@ examples:
+                 port@1 {
+                     reg = <1>;
+                     dsi0_out: endpoint {
++                        remote-endpoint = <&panel0_in>;
+                     };
+                 };
+             };
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm6375-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm6375-mdss.yaml
+index e22b4c433fd0..46a8539308c8 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,sm6375-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sm6375-mdss.yaml
+@@ -193,6 +193,7 @@ examples:
+                 port@1 {
+                     reg = <1>;
+                     dsi0_out: endpoint {
++                        remote-endpoint = <&panel0_in>;
+                     };
+                 };
+             };
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.yaml
+index 9b0621d88d50..5ae181bc4fbf 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sm7150-mdss.yaml
+@@ -263,6 +263,7 @@ examples:
+                 port@1 {
+                     reg = <1>;
+                     mdss_dsi0_out: endpoint {
++                        remote-endpoint = <&panel0_in>;
+                     };
+                 };
+             };
+@@ -355,6 +356,7 @@ examples:
+                 port@1 {
+                     reg = <1>;
+                     mdss_dsi1_out: endpoint {
++                        remote-endpoint = <&panel1_in>;
+                     };
+                 };
+             };
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.yaml
+index e6dc5494baee..7edf4ee9e52d 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8150-mdss.yaml
+@@ -231,6 +231,7 @@ examples:
+                 port@1 {
+                     reg = <1>;
+                     dsi0_out: endpoint {
++                        remote-endpoint = <&panel0_in>;
+                     };
+                 };
+             };
+@@ -321,6 +322,7 @@ examples:
+                 port@1 {
+                     reg = <1>;
+                     dsi1_out: endpoint {
++                        remote-endpoint = <&panel1_in>;
+                     };
+                 };
+             };
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.yaml
+index 51368cda7b2f..bce5ab069324 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8250-mdss.yaml
+@@ -234,6 +234,7 @@ examples:
+                 port@1 {
+                     reg = <1>;
+                     dsi0_out: endpoint {
++                        remote-endpoint = <&panel0_in>;
+                     };
+                 };
+             };
+@@ -324,6 +325,7 @@ examples:
+                 port@1 {
+                     reg = <1>;
+                     dsi1_out: endpoint {
++                        remote-endpoint = <&panel1_in>;
+                     };
+                 };
+             };
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.yaml
+index f5acf528d0e4..b9087a06198c 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8350-mdss.yaml
+@@ -236,6 +236,7 @@ examples:
+                 port@1 {
+                     reg = <1>;
+                     dsi0_out: endpoint {
++                        remote-endpoint = <&panel0_in>;
+                     };
+                 };
+             };
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml
+index 747a2e9665f4..800144f1c7e2 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8450-mdss.yaml
+@@ -243,6 +243,7 @@ examples:
+                 port@1 {
+                     reg = <1>;
+                     dsi0_out: endpoint {
++                        remote-endpoint = <&panel0_in>;
+                     };
+                 };
+             };
+@@ -338,6 +339,7 @@ examples:
+                 port@1 {
+                     reg = <1>;
+                     dsi1_out: endpoint {
++                        remote-endpoint = <&panel1_in>;
+                     };
+                 };
+             };
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.yaml
+index 59192c59ddb9..977c2fb1595c 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8550-mdss.yaml
+@@ -239,6 +239,7 @@ examples:
+                 port@1 {
+                     reg = <1>;
+                     dsi0_out: endpoint {
++                        remote-endpoint = <&panel0_in>;
+                     };
+                 };
+             };
+@@ -328,6 +329,7 @@ examples:
+                 port@1 {
+                     reg = <1>;
+                     dsi1_out: endpoint {
++                        remote-endpoint = <&panel1_in>;
+                     };
+                 };
+             };
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8650-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8650-mdss.yaml
+index 0f7f79527748..05cc2f9753ce 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,sm8650-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8650-mdss.yaml
+@@ -227,6 +227,7 @@ examples:
+                 port@1 {
+                     reg = <1>;
+                     dsi0_out: endpoint {
++                        remote-endpoint = <&panel0_in>;
+                     };
+                 };
+             };
+@@ -316,6 +317,7 @@ examples:
+                 port@1 {
+                     reg = <1>;
+                     dsi1_out: endpoint {
++                        remote-endpoint = <&panel1_in>;
+                     };
+                 };
+             };
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8750-mdss.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8750-mdss.yaml
+index 46dc0d28da29..0a8010f4d9d5 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,sm8750-mdss.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8750-mdss.yaml
+@@ -364,6 +364,7 @@ examples:
+                         reg = <1>;
+ 
+                         mdss_dsi1_out: endpoint {
++                            remote-endpoint = <&panel1_in>;
+                         };
+                     };
+                 };
 
 -- 
 2.53.0
