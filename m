@@ -1,72 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.192
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794618205;
-	b=wSQAQXSC2rMvb4jLyC5pPQPJQlFPdBWEeeMaUAtrto/GJDJeq5GKigzB70BPxHtgJYmB
-	 dbT6MewL1lrCTLfvpYMXotF5SdSnpyrHZCXWFAk2klLzjBmRp0zPNnPml3ygqBlRPGutl
-	 DHbdGrrL+jj9HZkC5+XEz96SrtRI43vfu1bDihxj+o49hi3z3q15jLyl6pAUqw3OT0YI4
-	 JY0azwpKIwQYidWDl0nQp1DmCBrnVXCaZ5Wtl6oKpsM2zKr3NMEYN3Ihp1QFmr/sCV13+
-	 F2DCAx9NNTdySmLVFYITNOrXXckxlKXgGEKkVr2F3O+2TZLAWXIfdFFIga0tJRZPIDg==
+	t=1794618318;
+	b=zNI5BgpqolIuEcnbiX+iHmZQCsitbhe8EJBzkZ/p9vYLHhx+dOSXTzwdSZVkiq29KVZO
+	 FKuJHSDOWj5q3aqLsC6OprpqerME5fRM10Q609Up1IrLiO/4rLvwSTEtaxF4UxflLlHIa
+	 F+e1v5o4PT61MRBDbJt6KTyWr9xjAhUfb9aMU2vtIsBA5bBfSegxlmxVySK6/K3qq9rV/
+	 DYZ1x7QM9BWcXxORgPt7si8TVpGZDHKu7kNK7tr0Y/JPHuH3W7l36FpP4YzWvUbJ1x6cO
+	 h3aVIqsclFFpISptvAtSdW8tD0Zgemhws3+Yui6+tlOe46VtsiownROnujnxOwZkAAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794618205;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=QpwB0ZIIopDZ7bOpYzdGymZfwxeUUgl1Dluep8tBvuI=;
-	b=leX2sClfRAIVOpsiQA0HmZYLpcWYDo9wYNWl8MEMe8vOehxHnJijSE1+CnughlAC6EX5
-	 bB0NOy2c/11RbBYWLGNOM3XHl6J/rD4oOFxQG+WCaLyjCN74o4Ggp1wqAMa+D3Zf60jDe
-	 w48GYIgPjLG8GkM9D8u8LZpGjEGksLOjusFw4azISqEpiBO0DIGvUo/xMuObEaCcM+p7G
-	 cEj9OmUmCsAqH/Q+4ZC4bugaUI/qyuO2CjEjw2q1D7wJTQWL/PWn3hDZ0Sf6oJ0j/lTMu
-	 FX3jOrEZEJm2dHWFMri/S0r+Ovup3/HXXxdtkzim1SWhj+BaQvkmbWTPiVkVpSjSCVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794618318;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=Eg1aWZgHvhHXiees9Lk2jDCP70jKX8ALjN7+QJls73Y=;
+	b=1wtD7VziKa/QnjeSwBX2efjVHUkRGZN2aMBsQv7/Zj7gcPZHYweUdv6+xxwV0PFi5lF1
+	 AKG2M1QOPiQ3Ljn41rOeQAcydvb9E/RL+UZFpEaA5Nq1k2xHPT10yN/EH+dMwkcHbaRNW
+	 VaDSf8vzZJuS8g7HXeO/2t3qYTZhwQcMOj40v5677eGe0BnKPFoH2KvapB73zwzImf4tG
+	 2UNQKYpfqh8ed9fy5JQBToVjmHKDf5vzZAf3t40ZhwdJ9mc9z2D8OGe3i5GB82kH+OW97
+	 8+Y0hdDvO8m2h2uJ28l5X6wXPEYFL9qx2k14FdxoDkYWlVaAwUlEqSzIoRMKnyUPELA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=LAvBks23;
-	arc=none smtp.remote-ip=35.89.44.39
-Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=wI5jNPdm;
+	arc=none smtp.remote-ip=203.205.221.192
+Received: from out203-205-221-192.mail.qq.com (out203-205-221-192.mail.qq.com [203.205.221.192])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A86D606A339
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 01:03:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A86D606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECA58606A32D;
+	Sat, 14 Nov 2026 01:05:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECA58606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=LAvBks23
-Received: from eig-obgw-5007b.ext.cloudfilter.net ([10.0.29.167])
-	by cmsmtp with ESMTPS
-	id RctaxW7y9yb4YS2ApxcpCI; Sat, 14 Nov 2026 01:03:19 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id S2AoxigjvxqjjS2AoxhOjG; Sat, 14 Nov 2026 01:03:19 +0000
-X-Authority-Analysis: v=2.4 cv=bZxrUPPB c=1 sm=1 tr=0 ts=6af7b357
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10
- a=OXwR1HB4QsiTIq7gI9QA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=QpwB0ZIIopDZ7bOpYzdGymZfwxeUUgl1Dluep8tBvuI=; b=LAvBks23t1dF
-	bRptP54JuCH6zp0SmBEhFSX6Pnzh6Gsg/ajRJptbjC2Eq9oeXMRq85p7UPnwXg3xHySkGXJ2zE+lp
-	GCMtd6K27ehxBZYY6IYqezxJvL+gZZzpGiadukLFhxdp/TdTOF1WmLwLOda1xmwwOq+YxGUTImuJd
-	txLn+SVX38+sqZk3rxnjBxf02myNP40XovrhK1F1ZYHFcrWqlSY3Qc13w0h3lzanCQJBJ2lTNk70w
-	xm5sArhf/QqfVKfC6RdgzBsXuvjIZrZ+9uLwNkhZYjMZwkT7Cmx0lSWu+Zu83Qxr8ScsauvLA7vsq
-	lEUNLEh0aZys3+S7F/8InA==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:55080)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xS2Am-00000001svq-2CaA;
-	Sat, 14 Nov 2026 06:33:16 +0530
-Message-ID: <02d8986f-64ef-42ee-a440-7c66a48f5801@roeck-us.net>
-Date: Fri, 13 Nov 2026 17:03:15 -0800
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=wI5jNPdm
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794618307; bh=Eg1aWZgHvhHXiees9Lk2jDCP70jKX8ALjN7+QJls73Y=;
+	h=From:To:Cc:Subject:Date;
+	b=wI5jNPdmWIkNmLo2oIa8g4NmR1hS9q2f99kar2pFfrKbUdL+DAKBn2O1LUJJbe/Kd
+	 20Ez/IpgVHaM9atVhCINn3W78NW5Iur2N0/VLQ0lnjqSrM7sQcoRFWUBXEVrhrzfDg
+	 eAGkPZJ8BH32qAHfHoPO/iUcAlcljGw3Z8IuEsdU=
+Received: from shuai-VMware-Virtual-Platform.. ([117.158.156.199])
+	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
+	id 14537450; Sat, 14 Nov 2026 09:05:05 +0800
+X-QQ-mid: xmsmtpt1794618305t09ygcrex
+Message-ID: <tencent_5FBF490F375F4C66A2C8DD421A8E8542FE05@qq.com>
+X-QQ-XMAILINFO: MRMtjO3A6C9XbXZ2D+oNSNEDFiFEBNtznPWKIx1ZWVpKJrivKl0LSRXCHyk1VB
+	 pk33VVrkhL5ua1yOnw3ZuhdxLSA7WyuejaXnkI+iUn7rhLvro6OnoHdwXk0WDhTGTduUDMtLwxp0
+	 o/vHBCcFhEwTMlodL+XsvFzQVq8Q1VL9cY9urKg2YHAgNrAtv7yawKDT3vce4hzhP+5zLUwQwHrH
+	 ABZ8KeyLMMKR4br1sWWWOXa8KG7I0qJatqCaDpDLRuOaHu2l7k/xOqA6fB79X21scLURSz7se/6I
+	 1BmSxhdu0dwIG1PrNPXyOCawjLBNcaf3PHX5Z9myyWZgWWtL19j0CJ7SnHh4MzfA3HiLPp9HfGRx
+	 Dzm1I71arlDqol3MM0PtBjo4rioE+lffjKmebEFNH3gwStp9QZ2Uquqg3hPb3x2enqfBeJ02tyzz
+	 Ze3qrWJBzTYvwi6fzJRB7cauYEoNhCHCesIey9GAx2Vs89tsHsVpJFxGrHMpUqoRdNthLMrlcdeX
+	 mZfJgIhhOSDtknuq9el470VoGXrrL6nSUkuxh67OWtC+o4Cd+pX7iJVG4pl8RlQneQQhjrEG6REw
+	 caKwmloI0pxfoIFQS4cBbAP4tC4vPUmkWO1gUNOYBSaxoPKLQ3CWyc2gbEm/PjVh+mBry12jdUYT
+	 q1S+dF7JQ91r5HRBIIpTX2n4x6rSD1RlhdC9yGIExlli3HsfKH/p4cuaR1VLidx13AqKUkSBrMQU
+	 pHq+cFwpLlfu1RpWzR2mN8hFY0ajbH6pft1hL5nn1JqhRX0424t+i1GxbKYJqkXWddhVRtgQJYI9
+	 ox9NW6qemPDbjUUAiStRhMWStlZet7tre4YXVmFkNLpNkvte7rO/hhyM+RnpZWgO7wF3sD/fhoEL
+	 r+VjJsaFGMU12eAJF0506kvVPVDj5m9UV3VS8EZjHMKlIx4tmLbLpYv43XQ3QOG/qoQAIl8oHisB
+	 UXtXVHoqkjf4w03jv8OSjMcIi4F3mKTzfPo9sRl5eX/39pdE3YY+tu2Uk3ZOhjtirZRInHLEom7N
+	 OrD6zasPq3M8ek8WCbwcupH6QzA5pLMLu/OW4xv8OJInYAFpEIAw2B2hpT18J+GgCajwfi5g==
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+From: Shuai Liu <847807867@qq.com>
+To: linux-spi@vger.kernel.org
+Cc: rust-for-linux@vger.kernel.org,
+	Mark Brown <broonie@kernel.org>,
+	ojeda@kernel.org,
+	dakr@kernel.org,
+	linux-kernel@vger.kernel.org,
+	847807867@qq.com
+Subject: [PATCH v8 0/3] rust: spi: add SPI driver abstractions
+Date: Sat, 14 Nov 2026 09:05:04 +0800
+X-OQ-MSGID: <20261114010505.81436-1-847807867@qq.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,103 +80,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] hwmon: (adt7475) Add thermal sensor and PWM provider
- support
-To: =?UTF-8?Q?Dav=C3=AD=C3=B0_Steinn_Geirsson?= <david@dsg.is>,
- Jean Delvare <jdelvare@suse.com>, linux-hwmon@vger.kernel.org
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- linux-pwm@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261114004110.328050-1-david@dsg.is>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20261114004110.328050-1-david@dsg.is>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xS2Am-00000001svq-2CaA
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:55080
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 1
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfLm4ugwg6b4Hz22FbJHGfhkS1wxrJIwENZREdnndHbOi5rG5Enqb2h4CXfExTz1tRkMyHGnSFBFfsLrqt/27D8EQq29vWd3dg37l1Pt8f2j5LX/6HMx+
- 3I1Hsi4TGBFMepwS9026a5oSh9nBESu2MRRzqWLNl3xDuEbNrguEekrgNTdF6GoldjFB3VKGiuOC9DcWtK65F4MyZrguVvyD8F+Im3tiYAgxfkZat58JjT7n
 
-On 11/13/26 16:41, Davíð Steinn Geirsson wrote:
-> 
-> This series lets boards use the temperature channels of the ADT7473,
-> ADT7475, ADT7476 and ADT7490 as thermal zone sensors, and drive their
-> PWM outputs with a PWM consumer such as pwm-fan. The kernel thermal
-> framework can then control the fans. It follows the ADT7470 series [1],
-> merged for v7.3.
-> 
+Add the Rust abstractions for the SPI driver subsystem, allowing SPI
+drivers to be written in Rust.
 
-I am getting flooded with patches, and I have no time to review them all.
+Changes in v8:
+- Rebase onto linux-next (next-20261113); the v7 patches no longer
+  applied, per Mark Brown's review.
+- Send as a fresh thread rather than as a reply to the previous series,
+  per Mark Brown's review.
 
-Rule change: Functional changes for any hardware monitoring driver which
-does not already implement it will have to include conversion to the
-with_info hardware monitoring API.
+Changes in v7:
+- Rework device I/O around a `transfer()` primitive that maps onto
+  spi_sync(), per Mark Brown's review.
+- Drop the spi_write()/spi_read() helpers; add
+  spi_message_init()/spi_message_add_tail() helpers instead.
 
-Thanks,
-Guenter
+Shuai Liu (3):
+  rust: helpers: add SPI helpers
+  rust: spi: add SPI driver abstractions
+  samples: rust: add SPI driver sample
+
+ rust/bindings/bindings_helper.h |   1 +
+ rust/helpers/helpers.c          |   1 +
+ rust/helpers/spi.c              |  26 ++
+ rust/kernel/Kconfig.test        |  11 +
+ rust/kernel/lib.rs              |   2 +
+ rust/kernel/spi.rs              | 673 ++++++++++++++++++++++++++++++++
+ samples/rust/Kconfig            |  11 +
+ samples/rust/Makefile           |   1 +
+ samples/rust/rust_driver_spi.rs |  66 ++++
+ 9 files changed, 792 insertions(+)
+ create mode 100644 rust/helpers/spi.c
+ create mode 100644 rust/kernel/spi.rs
+ create mode 100644 samples/rust/rust_driver_spi.rs
+
+
+Base-commit: 84abb955b1015f216d794566ed3c4fdd4bbd0f14
+-- 
+2.43.0
 
