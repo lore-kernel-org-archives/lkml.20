@@ -1,54 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794622093;
-	b=3c6y4jvEeZBpdJ6bhh4NrD+TmvmLkFIyRxUxt6vngukyNIWWoX0/kUEojqRYqtiZ+IN9
-	 8MNLkFAo0LFMeKrEYCCU85BQ3qPnx3wPzzN7Ahf2hFoypd+sDBce2yFavMtnrpmwi3UdP
-	 myNIYCduzOknGoIKNxYLkNQ6J9UjM905/qw3/PQVVcuWlIStL86Zs376sVSEk26iHv1M2
-	 6UtWj4kj/8pDFxmTz+UDucdKpeVTcHpWMHizdkVzbW0maydJbG8gvY4bOursd8ZkRwUsC
-	 phzLCQknTwoRr4PS9tWUASi8fV+gizNdSleLwQM7r1jZiWod056B8izicDUTcvjFYQA==
+	t=1794622110;
+	b=oih7Dxefo+alen2D6qhMnB2gpFCkz9VppTVaOLpnwDNs/xDD12pxxRTzKifIkzaiCpVB
+	 NDlcqlHlSCZ9xUvZeC8I3KEc+AwrGR3CdDWxDZPNa5GadnNQMhQXMHgxgnwSlxchEUNfo
+	 gQiXIjBLHOTTOftDPti2mbh1kwJ9M4EsTFaNn6POJAiF4geqyOwUrvuLxRSuLoDBJXysS
+	 KO4jSIZluJr0biQAAhvZxlUDpuosDZefS+GMNkTNBWnrh1VYl6q/LH5bHRnHFBxUlFqR0
+	 Dr2LV6zN6MrJ/WxSHHXEEBnLdCeYwSHtyUc8J+xrcpoEeoAsUhDHcVcsQslpEbTPbTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794622093;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Cc:Content-Type;
-	bh=ZX3hv8Xu6gI8ftkTSINp/a2fIZMdPBfuTiZKelaDOTc=;
-	b=iGYlS2sSgb03iZ5Ov9wi7pDE1pClHeuX7n+j1ULjyYzq2XounxArKL6630qJwwDfsgCv
-	 PO+CRkB8S+pP7zbKgutKf84FmJHVzl7SzeVR2nIjgx927RnDgjhwsEZu6ODeuuy8RP4cX
-	 Lucl04kD1gUYK/EX1Eo5sc2VM657DB4qHKFxJj4GdChBqpH1YuLD3ILoD0amgBXMBDQPQ
-	 mZM7B4KIwTKatQtYxZdD/QiG9K/cr5PnUTmfgmbXN2fFyEXZiEoVnHJbpYPyMietn0qi4
-	 q8aGDAB5v8s5/Pk3KRAniFMB0bs4TyQeN4k/lt0XoQb8GPEJCyvnCDJv+GdYGykRSJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794622110;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=XeTY8NwbUCIb5XggB4uHl0AKr+krf2v/zuQTgZl5q1I=;
+	b=ULyp26JwPITqngXILRoGiZFVgHF5Ji0ZWlRaWx6LTS6NnGtp+XNUZDwOMBoFTGbs2Bnz
+	 KXZZzXl4kgElyIi0NnU7APF5jSDFPTx8+XUWc7er5cqdkTHgS8mRo7I73W3ufDDWo34JO
+	 c25Bx9S2m9M+8KPISNuYNGDY+ZyVOlRu3/yTje9yVhEu5jhOehI3nyyLO7HEFn1HOkoDN
+	 JbTX8pVfDMiilmifZhrgHYp4nvzYXjyB3KLxBlvQtUNMmeGqTeHSdjJqf7slheP02ICH7
+	 C+z0xuGhbyejUA/fyj4+5ixmITPYqKf91JjKN4KGrnwdWRseUsPpRIAOMBWcXsXjNxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.200
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uuOZEsG8;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23587606A331
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 02:08:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23587606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4a41f46d629so2793249b6e.3
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:08:12 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 776E7606A89C
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 02:08:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 776E7606A89C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uuOZEsG8
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-37071c0f42aso2389076eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 18:08:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794622108; x=1795226908; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XeTY8NwbUCIb5XggB4uHl0AKr+krf2v/zuQTgZl5q1I=;
+        b=uuOZEsG8WWZxqYAyLJEbOteJLzRbKeB1yMqlQVeytRpsEwgTVKMITpypNt3OnidQoh
+         pZCQk0AvcA4scQvJEQ47GwY1deGsW3iMJea2R/8w9RkuFQfsJHfbOn1jpzO/wskJ9ule
+         B7tJFz2W/txKyLhqx3l1uCgrgj0XHPur6PYwJHuFOlt1py3U3+H8XizQeUzZGEPuqWMj
+         iPG6MenxfXP8YXrFUG9WCRk0OEsXbFgKJSVeXHmaLQEH6LhmJGOSXBKkg2kVEDGaMHVa
+         AWT3UjUM9aoW6kZsophhX16E+Ked4761jH6+GYO0zxj6eE89xCJulsQf0MIVTL9/+9Z6
+         xGEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794622092; x=1795226892;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ZX3hv8Xu6gI8ftkTSINp/a2fIZMdPBfuTiZKelaDOTc=;
-        b=Md4Ol96QTjZd4hzx6wftRuSvY2eeajJE/Ksix3SZtaIujT4Q/DhuVG0GjW1/Zktvli
-         XhTb5dreKxXkoTpAVd8tvSfb921R+NPWzLizxuVCBVzGyENvTA1wjmDAwzTsJdwe0IMn
-         o/ap94mOxcfF1it5Swa1g4RigEkYM08/KFaOjL4fRZWiNU88zQAJzcizHLNSk7963Sb5
-         cBUrDs9CrfRha4wQdyuaMHJthK58f/OGTWjYurSqGbTOpIGkfK1AWBg1vz0qrgjcKEj0
-         JTsbAGfPxl0v6+Y3Ro47jgg/zw5xbv8u9HrCa3LAwdgBpX6xS1kVXdJk/I6AXG8z0lfj
-         vgHQ==
-X-Forwarded-Encrypted: i=1; AL+hErHJbUlno5a249yUEgu6Dxfp/gphUfJudbMNRUM0lVYhJdO4J9al6hzztuZN2RaIYvKSKBV7UzsAyq038BU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/YAOkCxpVKQORc6OzRKUG160afLUiVtDt61uYU35GiHBvlmRad
-	vzrhvViQ1IE4QADf1Id+ic1/yrNgyC/tjLhF+yxAiAU1gJQ/2cBEczsA6XSbdbTAt0FmVj9dvOH
-	T+BNGPZWZE3R/u4G7qS4E0c1h628hw6i8vkLB0+jVCOKs+klwY1cUCY+tWmw=
+        d=1e100.net; s=20260707; t=1794622108; x=1795226908;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XeTY8NwbUCIb5XggB4uHl0AKr+krf2v/zuQTgZl5q1I=;
+        b=h6YiXqdHRCr1Twpy66dtWoZPhRUIag96hMjuqvGfi4Ze27iEVKbJEPeSedcNa1tMsC
+         1hazZX8HL8b0R4A4OJ2672wwtQQc8MTQNxHnqZISBdwTa7GOu/q/2h6jiSFfWLkRkyEP
+         nybaYzlX/Co41VrEIFg96u9HO8jv94sCLGbX30N3ELmQ83XuWnC86yKfAIQJMhI5Oh1Y
+         IYJTGJcGT9bMMPgO3lDkwxgWUE0Ukm5jDyfm55/PSnx/qgY769BwPY+/VQ/Eyod5U+qN
+         q9QefVpNuig0p7jkFsDksgVrMQA9gZSlCCvlsSinp8La9GPBtpZlu3+ipTUZBqVyX26L
+         8Pmg==
+X-Forwarded-Encrypted: i=1; AL+hErGBaOMzGwiecVqclJqe6K2KKBFhAafnJlbIwoR9BHEci8/kNzTZcvsRO8Qe7uvd1jj3YfTvMbAX8riBeFc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/8tNIm/fEBeUCBDb6/Q90X7IgJJP3bOOHDg5XO7bKgoImiRQ7C
+	RhQl0s6Iq3YdWVsrx4l4mbPoP7gPH9VO5jhjkpYDU4SzcpDTZFHhcdwx
+X-Gm-Gg: AYBFou0YjK2aeyVp5TrSC3cPK9ytNaag60o1Z2l4Wo+mpS50s5VGojVZajFReKtK3Eq
+	imXG5+T85Rj767fPlW9vGbzeN14ajdbAMEXQwT1qhCmBSt7QYXuigG2ZieG+QfiYol3J+OEyTbp
+	V3D1dR8Wc0qnlWJePre50GrnqgSWa3G+vye7xmW3iPR/Qh0B7MlXYOry0eA3BqU7Iapi9bgJDb7
+	qm+M6gOb0yr9R5YiugkylCJTBVHvAf71umSpU/7qJScTVm648KjrkdCgRmLGWzO3dki9ApKL0ph
+	ZV58F2Eg46RsLYPqXznVDK15+raTSafx3rC8OMv5yFYAdUMht9emYezGhHRM4H+7cbPd/6BBkHf
+	rYjXj1FgJa36Z4vXBW23FLO6qwGlz5ombxMWCwQuB3ksArpdI+lAzSprQMzmODAZRG/UY/nHlSY
+	uD++IiFXbgqTB3a4DXQSwVU4OUXpusFTnVs+6tEE0qiK22i5lpMZB0CV5qOEMNmqgvPGqY/StPs
+	r0zMXhYp3Roxsh3eBJ79F7J8un4cTj09miidIplExUnrQfl0kTx4bf9/DGz9LKlA3AXJWtgFaXK
+	sTP22dcMUf4SVsiftjIavFrAeUqoKLT+McHX2MjZgNnUPcHQO86t5skKSbBgNL+4TRxdqGZlSwB
+	VXTwesihNjMutUIr9m34nia8BSR2O8900nPlFiIrf+Qzmtmrl5XjEMuEEXjFY8dY6rcMOrP8/0G
+	FqyHg=
+X-Received: by 2002:a05:7300:f544:b0:36a:1788:3d1c with SMTP id 5a478bee46e88-3796879f0bemr4131136eec.34.1794622108507;
+        Fri, 13 Nov 2026 18:08:28 -0800 (PST)
+Received: from ryzen.lan ([2601:644:8000:37f::e34])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563e6b6dsm18875218eec.21.2026.11.13.18.08.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 13 Nov 2026 18:08:27 -0800 (PST)
+From: Rosen Penev <rosenp@gmail.com>
+To: Jonathan Corbet <corbet@lwn.net>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Stuart Hayes <stuart.w.hayes@gmail.com>
+Cc: Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org
+Subject: [PATCH v2 0/2] platform/x86: dell_rbu: make usable
+Date: Fri, 13 Nov 2026 18:08:13 -0800
+Message-ID: <20261114020815.75539-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,111 +102,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1590:b0:4b9:e65b:8c36 with SMTP id
- 5614622812f47-56e648eb2b4mr3859324b6e.36.1794622092112; Fri, 13 Nov 2026
- 18:08:12 -0800 (PST)
-Date: Fri, 13 Nov 2026 18:08:12 -0800
-In-Reply-To: <20261114020731.49877-1-izaacchong934@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af7c28c.0a97acdb.ae7e9.000b.GAE@google.com>
-Subject: Re: [PATCH] configfs: fix use-after-free of default group in configfs_symlink()
-From: syzbot <syzbot+b0996ac2197dd7420c3e@syzkaller.appspotmail.com>
-To: izaacchong934@gmail.com
-Cc: izaacchong934@gmail.com, linux-nvme@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-> #syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+First commit updates the API to one not disabled by default on many distros.
 
-Patch testing via #syz test is temporarily disabled.
-See https://github.com/google/syzkaller/issues/8122 for details.
+Second commit fixes upload of firmware more than 4MB in size, which is most
+modern ones,
 
->
-> configfs_symlink() drops the parent directory's inode lock while it
-> resolves the link target, and keeps a reference to parent_item across
-> that window. When the parent is a default group, such as
-> ports/<n>/subsystems/ in the NVMe target, parent_item is embedded in
-> the containing object (struct nvmet_port). A reference on the embedded
-> item does not keep the containing object alive, so a concurrent rmdir of
-> the port can free it. allow_link() and the final config_item_put() then
-> touch freed memory:
->
->   BUG: KASAN: slab-use-after-free in nvmet_port_subsys_allow_link+0x41/0x2e0
->   Call Trace:
->    nvmet_port_subsys_allow_link+0x41/0x2e0 drivers/nvme/target/configfs.c:1059
->    configfs_symlink+0x59a/0x1030 fs/configfs/symlink.c:196
->    vfs_symlink+0x18b/0x330 fs/namei.c:5794
->
-> detach_groups() marks a default group's directory S_DEAD while holding
-> that directory's inode lock, before the containing object can be freed.
-> So drop the parent_item reference before unlocking dir, and after
-> re-taking the lock return -ENOENT if dir is dead. Otherwise look
-> parent_item up again, which is safe while dir is locked and alive.
->
-> Fixes: 351e5d869e5a ("configfs: fix a deadlock in configfs_symlink()")
-> Reported-by: syzbot+b0996ac2197dd7420c3e@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=b0996ac2197dd7420c3e
-> Cc: linux-nvme@lists.infradead.org
-> Signed-off-by: Izaac Chong <izaacchong934@gmail.com>
-> ---
->  fs/configfs/symlink.c | 24 ++++++++++++++++++------
->  1 file changed, 18 insertions(+), 6 deletions(-)
->
-> diff --git a/fs/configfs/symlink.c b/fs/configfs/symlink.c
-> index 89178f5d371a..1b2c9048a920 100644
-> --- a/fs/configfs/symlink.c
-> +++ b/fs/configfs/symlink.c
-> @@ -166,11 +166,11 @@ int configfs_symlink(const struct mnt_idmap *idmap, struct inode *dir,
->  
->  	parent_item = configfs_get_config_item(dentry->d_parent);
->  	type = parent_item->ci_type;
-> +	config_item_put(parent_item);
->  
-> -	ret = -EPERM;
->  	if (!type || !type->ct_item_ops ||
->  	    !type->ct_item_ops->allow_link)
-> -		goto out_put;
-> +		return -EPERM;
->  
->  	/*
->  	 * This is really sick.  What they wanted was a hybrid of
-> @@ -200,7 +200,20 @@ int configfs_symlink(const struct mnt_idmap *idmap, struct inode *dir,
->  	ret = get_target(symname, &target_item, &target_sd, dentry->d_sb);
->  	inode_lock(dir);
->  	if (ret)
-> -		goto out_put;
-> +		return ret;
-> +
-> +	/*
-> +	 * parent_item may be a default group embedded in an object that a
-> +	 * concurrent rmdir freed while dir was unlocked, so we dropped our
-> +	 * reference above.  detach_groups() marks dir S_DEAD under its inode
-> +	 * lock before the containing object can go away, so it is safe to
-> +	 * look parent_item up again only if dir is still alive.
-> +	 */
-> +	if (IS_DEADDIR(dir)) {
-> +		ret = -ENOENT;
-> +		goto out_put_target;
-> +	}
-> +	parent_item = configfs_get_config_item(dentry->d_parent);
->  
->  	if (dentry->d_inode || d_unhashed(dentry))
->  		ret = -EEXIST;
-> @@ -218,11 +231,10 @@ int configfs_symlink(const struct mnt_idmap *idmap, struct inode *dir,
->  						     target_item);
->  	}
->  
-> +	config_item_put(parent_item);
-> +out_put_target:
->  	configfs_put(target_sd);
->  	config_item_put(target_item);
-> -
-> -out_put:
-> -	config_item_put(parent_item);
->  	return ret;
->  }
->  
-> -- 
-> 2.39.2 (Apple Git-143)
->
+v2: remove Co-Authored-By: tags
+
+Rosen Penev (2):
+  platform/x86: dell_rbu: Use the firmware upload API
+  platform/x86: dell_rbu: Allocate large monolithic images contiguously
+
+ Documentation/admin-guide/dell_rbu.rst |  25 ++--
+ drivers/platform/x86/dell/Kconfig      |   2 +-
+ drivers/platform/x86/dell/dell_rbu.c   | 161 ++++++++++++++++++-------
+ 3 files changed, 131 insertions(+), 57 deletions(-)
+
+--
+2.56.1
+
