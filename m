@@ -1,100 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794665007;
-	b=IjVDnsLrGaspbVPkmDl86Hl2uj8UGvqwNbiH2LWXb8QUQ8wCaCh/gteo2aYXnf9JznrF
-	 FMB3qPLGnqH80acpCEngMFwKfR1OtlSXimR5vWHIE6NG/LtXfF5CY3pANcNyAXPyLVVtx
-	 jPpczr+ZlphH8g1YTVjymaEK/m8nP5wigI4FTmYpyT7jJ3eJia6FeXO04VXgAATtjiy7R
-	 MRntL4CAzSOi0pVKgeLmKtzZ1BCOZEHLN1p/wAqek1qcZMKbPK6sZ1awKVSmIZQBnK9Oe
-	 BjVfkUupXr4NUyoF9Gw88wekHvdjgRLU+UjLh/gBgZpZkqNwtPnyFAfDrqDKrzdrDXw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794665007;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=OSOm1VnaNdiNsetCoXxjItFeFoAmwJ/tc+GsokdfVbA=;
-	b=IQ86FhGYCsjXNK7hy3YSeOYG5tSV0groL5TtP+Sj5iys1wj9hGzWTvWLIFnMTf/5O16T
-	 RSAndAwAVUGNOhec7zDY/+4TX8ezQ88u1Hlxi67GvkmzdQcKCLqEuPnVBF/FF2UIypuZS
-	 TLYzce5FeqhGZEhnTrBEbRHzAPfhMXIonuW8nrH+xcPy6f87gaaf4Xz4h00cn7uFN+EK5
-	 JpR6GObYc1atkd0A530e+Ef8mg8M3lz4KE0jxNq0L+swo1xgTgss5NnFUKB/hHKcJK72M
-	 cM+ANW3vpHPcqO57/KgB4qIEVszL/OJKP1WYnrQluyhnMuDbJrsXbwJW4bD3DV9rlTw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WJMc1EBs;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.46
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.2.82.16
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794665090;
+	b=oV7mmbFGmEgDDzs0hl0pP4KmiJHtajLYbmtwSXU+IhvFuUdJhKTleAHbi+QHgtj5wRBd
+	 JxDpaSdSgzEdqsjE2Uk0CK/J1GjuRFYGQYpBFh5Fp26O4VLpy7D3ZAIxXMzIbAZq0xxur
+	 cP8iISTQb/xjDreju2IXQcPSGzq1MveeHtNFhD0470bpkusGtFMoUp15aE31hGxuZYYF1
+	 K0Y2ug3sb2k24DSO16ApiWIZAPGPAvHrJ+ALZz9nO/KOnU48rEL/+kirpo/BYNlLx1yyU
+	 Cv+2UHHV6cIETMjMKev7p+Jbhmmf0Pj9Fd3GargfYxJYc+TfpgRtWH/0h5kU9KsCKgg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794665090;
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 References;
+	bh=LArHksXx882LvxvjREY6QLDBRLeXNNSTIylaOqhXQaM=;
+	b=ytA2to9N0Q8RU2JzY+NDmYcIxM0VZ4tOiJr+OTRMMFVWx7n/IOsvd5LBMFPUl/7Ehz9S
+	 TSia8hAy8xuZK3wEE0KsDwXAzfIGCTJmepCza1cl0EdoHO/AIxfv0SRlMgK+PC30oSr9t
+	 APQncANPhP2rBi+JJIJ8UKxx1H4jh6C2OwkQ6N+Ux2Cl/cbm2epGSf0ae+bQGK+gEOP7M
+	 oRu4AlUY9d2T3Y4g7IxnWMmhzxIrJDZUanIJQEHZZUtgRrBgwV+/lcqfwPAoY9tYH6C4E
+	 nU2+R1e/tPSMWh80q9GlnIVmFYdPXa3Oy2Jz9vxr0O6bOJNpqKRxxpKMVab1SAJfbOg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=yahoo.pl;
+	spf=pass smtp.mailfrom=yahoo.pl;
+	dkim=pass header.d=yahoo.pl header.i=@yahoo.pl header.a=rsa-sha256 header.s=s2048 header.b=KhTMtRM2;
+	arc=none smtp.remote-ip=34.2.82.16
+Received: from sonic.asd.mail.yahoo.com (sonic-euwe1-0017.asd.mail.yahoo.com [34.2.82.16])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 250AE606A323
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 14:03:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 250AE606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEB3C606A329
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 14:04:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEB3C606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WJMc1EBs
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1a2af4c8d00so4092095c88.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:03:25 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794665005; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Q7bV6qrmRqdvMfTmYgKlsamqtl8ULJOwPmcmGU0S4o42fO1sA4m0vETdQ+0plzDnSR
-         8KIP9/tV/BgyoEftwUPpGPWR6eTaz2CgCSFJ61jOx3o79E/i4+7Lm3QP2Y9aUAGDKFLq
-         Z2c46Z1189o3ql3RaOAsSesfIF++P8vSG/p8RJn+gSRNwQXz+djcSFAOS9RlKkiaMYbj
-         WWYIVP4MPrVqgtiGvZ1IVd8TYr0Nhcn5EalgYk7ky0bu6XjV1MgHs4iYoHVRXd3vHbmq
-         X+NcQw/tNNo3RhyX0DqCpbliVTdsaaoKVIoDiqNdRG9ZexRcqURUjIwnFgolsBtRlquJ
-         3Mpw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=OSOm1VnaNdiNsetCoXxjItFeFoAmwJ/tc+GsokdfVbA=;
-        fh=lfZywHrYzf3yN/t6ya3fWcFpEfT+C7y6fau63o45Cwg=;
-        b=GGVv2XjW4iROEwlNB55cJmWHRRp1CJASYJ1gnUMhZ46VohV9nl5z3pgjsj3s+UVUz0
-         L9hpjMGystc8jvyYbJEjXrzBOhTBdHRyVDx4xmz5yuZH+YiK6ZrOwD9RkTaSvoQaDIt3
-         epkktFz3VMuphFJFnHREM7/agPrpNh6c7ZMtHdHy5NFKgU0X52iA/F8pDgDKVh4Y3FBo
-         MJzb5TMG/dTgwo3rtgJHG7vzFqB9VD76WWx/BzWP80IjmVmMHCzMnE2+WeNiTMgPkgna
-         D2KYqjX3Yg1sRyDseskOa+zfAaStsVkuLLuCO1smBLY+NHz0YPOF6FVprP0wQWzEXg4v
-         0E4g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794665005; x=1795269805; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=OSOm1VnaNdiNsetCoXxjItFeFoAmwJ/tc+GsokdfVbA=;
-        b=WJMc1EBsFUP1PDerk2ZEdXZ2gqlC93hrWcWh2jIxSb6nMPLkCcgrpBdRYfMkS9Ojgl
-         Im6cJwele/ak2ABAEbU2hKn/juSxmoKaZKl2HnhmF7Hdz3Yh64kQy/tL2ktCvg7aaroQ
-         6SrwtCECpMoQxCDoqF7ZASytjzIiMCg72Y+JQl69jThDpEJ81q4xY4aPQ6Kihyu6KfWJ
-         FlqveiaUEKRUSm8rsR8ioL06zR7JEvYRXaTC7npbNzX0gzMC+e17ABAUTNEmGZ5xdQN/
-         RBtxxglH8f0skIgsx1JySuG5jsnzEN4jQ7HMCH2n9QwN0/6lw225JO1nh8vf1UtbAdFF
-         SJbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794665005; x=1795269805;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OSOm1VnaNdiNsetCoXxjItFeFoAmwJ/tc+GsokdfVbA=;
-        b=z4RqqcI/GQr5tRuCVPecmOfRyqP6cG764zzfMjxD6LjUaGtbdLWPbkL2TezbQqSaMR
-         14Z+HEkQSX1vEZ2h+P03foIhJaXon6Vi998+tD2dqt66AXMP8htQrgC/4Q5pKssgb8BH
-         TtMt41+x+svm3qhat3tDIBO4eWL0QWHpw5rPTB+HhuQwL6Q7VUTpvBYBTFmFv3xa3PY7
-         qIY9s3RJnBSlPA3RqOVkJEYzoPtQEyzMUmPk6/7j5PJf7/XW7+JcC9VdJpDVO0tFdL4L
-         dAsJxHPqvCf1oifCjKjNbtB+EPDvFTnd1nZd6j2T2/SFpJ1OKeG3Vq+bDoymDMmKejka
-         ZrDw==
-X-Forwarded-Encrypted: i=1; AL+hErHbBPrGlXSGnVO7eA9DvElbbJnFusc7SbqM1jg+mmfn1bk74CAjBgjQ+GNq7RsrSt+8lpXGtTol5yKxYN4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+mx7tx/+xiFQu5Tb30/OIB8lQCczyloo8AOPc2XHKsupe7jY05
-	iD3LzaberzJi96O4YRSJrlfr95mVeZBserM9zF57bckj8TN9SVRpnGrAEkQd/y4MQf2Dc8rcYrA
-	OrxLf99+f80ikVNPCAoCopMiYF+8U7sg=
-X-Gm-Gg: AYBFou1Umdpb70gW8Gnn107dNISMOKUv70MziNUI7WMGV5XKeDmlUlqCKvXgzvc9JAQ
-	xX5+k2IzWvQ7HlLs4lxVNIct0sRTdDxBaXEYryyLXS39Oolnq2z0T/aUQlXfSp+BqB7uhy7nAAZ
-	d9Qrclfki9OiiPorNCHSCvaSWzt9yEaP8uZG/AQivRPlnhlZAkPNKmla0PGsRwQpHHDEroeZ0Jm
-	WZbXJTVH7/piJ7hgcEIqZ4OktY5vF4LoiSwEYbvv8jpS8gtfxVXFW/AnrnM+oLA8TRvLMyOJBO9
-	L2JWqoWkCTFw7EZk7+FBHhUvq52Zea7So3OYvHElznW4pvENRRL+T6geYEOtzfol42XN8yY0cog
-	nKCj6FzjZv+8UlVBkONxTFmTugD7M4EeZHEieWLWLpdRJKtO94P2HEuSknOHoDYp5BM0MAn0=
-X-Received: by 2002:a05:701b:4208:10b0:1a7:979f:ecc0 with SMTP id
- a92af1059eb24-1b50311d009mr5819252c88.27.1794665004802; Sat, 14 Nov 2026
- 06:03:24 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=yahoo.pl header.i=@yahoo.pl header.a=rsa-sha256 header.s=s2048 header.b=KhTMtRM2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.pl; s=s2048; t=1794665087; bh=LArHksXx882LvxvjREY6QLDBRLeXNNSTIylaOqhXQaM=; h=From:Date:Subject:Content-Type:To:Cc:References:From:Subject:Reply-To:Content-Type; b=KhTMtRM2bwwNdd6lgu0V+1ySGpmlqwbxNe+Tp2epGyYfDJONj6qu4clAETZffxPav7ev2xXqs9cMtrMmVB+5emOY/P23qVgZqoqYAHIdGoTGIDYACeyU6aXMvw3o27QM1D7jj6PVxHVZTGDMG7Nd/t/eko9oSEJVuHxndsxWDYqg7jT9ISZB870QYrSGYsxEyqlWmJw4l21iiU75OrpbsPCfX3B1audnoNaMO+Z/fEHYgKYXatOavQfwwiV8FsfLjAnLgyjh1ek/i9z7QznwG8UDeEBFK6tGuOC7jIi80QvhtUFXGlIWCX2/4vp5zvByeWvcgFB2JF+IrTO/QSiNkw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794665087; bh=nja7FquGY0bVxl6cGwjrnXL3GPFDzIRUnUyDyk3v0Hg=; h=X-Sonic-MF:From:Date:Subject:To:From:Subject; b=Xx4BoLNtxJ+eKbJWpu+z4zdKZoj08+eTPUyhRbjcqT/yMRvqlOzLrw+xJ6VSLbTC4ArpBmra32g9K9vRDMhymtjqeu+8uLIzxyoREnqZj3y56Wb4Nhc4dP7WdwxX/Zo1k8dSTo+m/i4bFxaNt6RyYveJ5i8NJ/A42lfvAZPYT7n6+NFXW0c4x4bfZ0zHSnf7w7VII+z1xxNTLzikN37C5tk3JaF0v8XT26RddFOUih3mNiktJnFisaw7qOKsmsK8SgruNgTf3UL2ryBpj+LSWqtz9AY6BMoOKBh+2h4S4FOCVkjdj3vVyTElOM3Ej6slr+3hXW1JVMy905vwEyqbNw==
+X-YMail-OSG: NxudaJ4VM1nJnKdLE5.aAHPU1R9vlfucBKMZrYLzxN4nT.f.wxmDZ.vl8nbkH4.
+ BgZ2ZLMKGPoKseFLvIVpXUEWO7bGKkdgJ8B7crHJCoGlrhdXZXjzJgGmEkmdxsnl0CBsYzrO.Jpb
+ ZbctTNhVrnsl6wglpxkpLQfTq.tbNjtkQhyA7TtXc7Vaofsqa6nmkYY0xdzb9tPB0PKtARpB55b4
+ 3dHwxxz8T6um5Gpxtlb1zMzPcQcVkQzpT3NeTjdr06Tm2j0UwDXd_6yT6w_bxnmGB1d05ZRsfX6y
+ p9.qWyOgljzma.nIdwMTA2bSDkJKZw.WFiWnJpsMnYXIyXCtBY_KRV85i_cg85e5dOSQT9VvFyG2
+ ozI6mpNivN2T.IG.eMCmsNbjpZ.Xwo1wtGE.IpiqkqYKWgSp5txjEYtSfzsjp3XyrAaMwwFlm_jP
+ SCMCFmJHeEfERUKoPBRyOoIizTm8ayrLcCzu6V86bmNRmOsekal8KWf20lyTAJhpyO.Ag0kj5MIX
+ gKk47eNfx26bTUFiGQRG4vw9c6HA.jxMz.9xEZc3maxsg7HEl9HHdxXcqKLfs2sPho4pJLsmYTes
+ KVMee2N87uCowovwhEYInMPPbHvlF5KbOFp4UzqyWKSnGfnY2n39yKSefDeNC76GhHbLXpuTsRLg
+ sUFJYve5IEiPcxWHAlNUHoxwQm9U.vbuDWojw5ElB_OS8mxv2Fc43qZutM8vOmlJLB8z9GU.UAjU
+ PonH.GSDaiDeYA57L8fgA4WYo2C7qezO0PTV5c0seHa4jQexRKOsLncCncOTHl8iquylDpfZvBKF
+ umkP1Sz9ytFwh10eg12R1bokiYZAQtAVhaSeQ4KE.xwjfpbKUYwl4MxzsFpr7qC1_pV5_uTNFCam
+ VG1aX4Zs.xL6S_NmVYqbOM76nnuNFpIpiaW8KnC2rZbt8Y3DiNuhcoAV51ckyZrewifi4Rze_le6
+ 3XbzRl8p0P4AQTC3NWd..np9dXEe_0yGUROP7QWv4HAVh6SRKsY7T.WM8xf6l_cYZqAqnBbC70XM
+ EcJQ4GJ0qz367sSf_s16jAPtBVPetXxFhs8Jn4REVAOqIcZjOUbXtFaLgMyEkDS1BNUmihGbRwnv
+ Ci2xfESmjwq50SxIVkUc92V7DzpKJKtYg81QrbOlAlEO9yzZ01ogiTyDjvSnQjZowaosYUL12hJv
+ DiVWp16BSnzhQucPwkqOZadxIni.Ba_MKaKWvSpfu.XzpndoUJib_MjLDz5Gt66oQFKSvSUmwcys
+ 6ffGbPpC8hReaVlhwT_oeLCdu08c6.7SKOEt07tekhjkrCZVpbndANup8oFcSVoBkeax2qSFWIV9
+ nMAAC5w2UDU_UG.RGN7o3pYUMpuGdhzyYiK9OTzQFWanjpYJ0yQGdxZZHRHsSb3fR1qz8.VTA5zq
+ bcnYvgGq.1Y.ihx5YqI0J8wiFeRuAHJEzs73a0KnH4lzn7ZiMxQ5Ovw0ye8ZgzYPch0Mqxhj6nBD
+ XuNyS14qxuoyyOgeFfMfIrXIRihvf0TzKiy6hSV2bUpnrdQoq9q3koSp7xOgcEqpYBKCvSpqaRgf
+ Cs1H3KBrMY3D9JyFbNNcjm9ymX_8pnghigELzzL4HfF6PlQKtJElp2eQJ4D9Kx3K80GPDlA1skR6
+ NMnGoTJ.1_S14kUKthM6KZlsR0pjgVpg3f2vt_bEOcdeFBBWDfET4BItXKppeTugLUT.yY0LopN0
+ hX5BRhZnraUIWC7jHUne1S0ql_ZfSWJbS1S3PQmgP0thkkFZyAxRtBYFGXp1HFZjWFfcz3PrdyGj
+ nXn9GFjPT4WXcHDv.2JlzejJ0WOnx6es.QoYKAZ1O6BIiqAyqSGU7TcccPDjELoSfpitvJIrPOku
+ cWiA7JYymNx_TTkZWZvVuZKWWcFWD3g1w5DbyO99dq3yoKe2NJ_to8nQRZWyku17dRk8ItSoRZFH
+ OoiQxuu.1vXUlQEComp1wCYrQFpadDOFQYZM.zgYQZd0kqGgMwPkJJp8c.SrQCfqCZGZ22DMzzHL
+ 94lB7dMxCF1QSoJ9oNtVqwQPF1hQEEpnieFiBYqw-
+X-Sonic-MF: <tomasz.unger@yahoo.pl>
+X-Sonic-ID: d54309e1-8636-4d48-b2d0-538bedfe1ee3
+Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-euwe1-prod-sonicconsumer-svc-104 with HTTP; Sat, 14 Nov 2026 14:04:47 +0000
+Received: from dip46.lsn.ir2.yahoo.com ([87.248.99.55])
+          by hello (SMTP) with SMTP ID 83da8b2aca0211a601e704a13be817fa;
+          Sat, 14 Nov 2026 14:04:43 +0000 (UTC)
+From: Tomasz Unger <tomasz.unger@yahoo.pl>
+Date: Sat, 14 Nov 2026 15:04:41 +0100
+Subject: [PATCH v2] platform/raspberrypi: vchiq: Stop kthreads on
+ vchiq_platform_init() failure
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,204 +84,165 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261114115749.1061233-1-16567adigashreesh@gmail.com>
-In-Reply-To: <20261114115749.1061233-1-16567adigashreesh@gmail.com>
-From: Demian Shulhan <demyansh@gmail.com>
-Date: Sat, 14 Nov 2026 16:03:14 +0200
-X-Gm-Features: AclHuK9gEd2vLkYSuKbXY90F1i3WqtHAO8j3tGJYv9uq-Ye2rOWXIUnL9CGQyC4
-Message-ID: <CAOLeWCudnTKsmK8cM8x=O8U_7FAd_M27bFLtR_hG1MCmoAadLw@mail.gmail.com>
-Subject: Re: [PATCH] lib/crc: arm64: Add NEON PMULL+EOR3 crc64_nvme implementation
-To: Shreesh Adiga <16567adigashreesh@gmail.com>
-Cc: Eric Biggers <ebiggers@kernel.org>, Ard Biesheuvel <ardb@kernel.org>, linux-crypto@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261114-vchiq-probe-kthread-leak-v2-1-72735334a731@yahoo.pl>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42NQQ6CMBBFr0Jm7RimSEVX3sOwaGGwFUKxxUZCu
+ LuAF3D5kvffnyGwtxzgmszgOdpgXb+COCRQGdU/GG29MohUSCI6YayMfeHgnWZsR+NZ1dixarF
+ oJJ0LeclVlsE6Hzw39rOn7+WPw1s/uRq33mYYG0bnp/070ub9cRMJCbXUoiHORJqnt0kZ545DB
+ +WyLF/JUZg00QAAAA==
+X-Change-ID: 20261114-vchiq-probe-kthread-leak-8f6178695a33
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Umang Jain <uajain@igalia.com>, Stefan Wahren <wahrenst@gmx.net>, 
+ Jai Luthra <jai.luthra@ideasonboard.com>, 
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Tomasz Unger <tomasz.unger@yahoo.pl>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794665082; l=5445;
+ i=tomasz.unger@yahoo.pl; s=20260311; h=from:subject:message-id;
+ bh=nFskL7sdI0QtBpVIAxqrSqNa+hu6nhp1HW6ukvKlzhI=;
+ b=jY67Lg5Pk/Tla8gXiL+D1BEYX1mbVtEAvhg8VE4uBs2DRWo34SRtTsMCLOwaUBtP+/t33cL0u
+ vWVc+XS3KcZDoGTsC+LjzudZ5DTKRMOGntf18iI8QeOG4aqhoHd/qSh
+X-Developer-Key: i=tomasz.unger@yahoo.pl; a=ed25519;
+ pk=EPPsO91uz/0J2cTQ6ol+dgxYaieEc9dKSXWUb51n46c=
+References: <20261114-vchiq-probe-kthread-leak-v2-1-72735334a731.ref@yahoo.pl>
 
-Hi Shreesh,
+vchiq_init_state() creates and wakes the slot handler, recycle and sync
+kthreads. If a later step in vchiq_platform_init() fails, the function
+returns without stopping them and vchiq_probe() only propagates the
+error. devres then frees what probe allocated, including the driver
+data and the slot memory the kthreads operate on.
 
-> @@ -19,7 +20,10 @@ static inline u64 crc64_nvme_arch(u64 crc, const u8 *p=
-, size_t len)
->   size_t chunk =3D len & ~15;
->
->   scoped_ksimd()
-> - crc =3D crc64_nvme_neon(crc, p, chunk);
-> + if (cpu_have_named_feature(SHA3))
-> + crc =3D crc64_nvme_neon_pmull_eor3(crc, p, chunk);
-> + else
-> + crc =3D crc64_nvme_neon(crc, p, chunk);
+Forcing the devm_request_irq() error path on a Raspberry Pi 4 Model B
+makes all three kthreads fault right after the failed probe:
 
-Please add braces around the multi-line if/else inside scoped_ksimd().
+ bcm2835_vchiq fe00b840.mailbox: failed to register irq=34
+ bcm2835_vchiq fe00b840.mailbox: arm: Could not initialize vchiq platform
+ Unable to handle kernel paging request at virtual address ffff800080ba402c
+ Internal error: Oops: 0000000096000007 [#1]  SMP
+ CPU: 1 UID: 0 PID: 370 Comm: vchiq-sync/0 Not tainted 7.4.0-rc1-trace #1
+ pc : sync_func+0x44/0x3a8 [vchiq]
+ Call trace:
+  sync_func+0x44/0x3a8 [vchiq] (P)
+  kthread+0x128/0x150
+  ret_from_fork+0x10/0x20
 
-A few performance suggestions:
+If the kthreads are asleep at that point they are left behind instead,
+three per failed probe, still pointing at the freed memory.
 
-On arm64, cpu_have_named_feature() calls out-of-line cpu_have_feature()
-and loads elf_hwcap. Doing that a second time inside scoped_ksimd() adds
-overhead. Using static keys, like in arm64/crc-t10dif.h, avoids the
-extra calls on the hot path.
+Map the registers and look up the interrupt before vchiq_init_state().
+Neither depends on the VCHIQ state, so these two failures need no
+unwinding. On the remaining failures stop the kthreads with
+vchiq_platform_uninit(), as is already done when registering the
+character device fails. Add a forward declaration of
+vchiq_platform_uninit() for that.
 
-> + v0 =3D fold_single_round(v0, v1, fold_consts);
-> + v0 =3D fold_single_round(v0, v2, fold_consts);
-> + v0 =3D fold_single_round(v0, v3, fold_consts);
+The missing unwind is older than the commit named below, but the
+kthreads could not be stopped before it, so it is the earliest point
+this fix applies to.
 
-Here all three folds are serialized on v0, so each pmull/pmull2 pair has
-to wait for the previous eor3 to complete.
+The bug was found and the fix drafted with the help of an AI coding
+assistant (Claude).
 
-Could you try folding (v0, v2) and (v1, v3) in parallel using 2x constants
-(x^319 mod G, x^255 mod G) and then folding v0 with v1?
+Fixes: 863a756aaf49 ("staging: vc04_services: vchiq_core: Stop kthreads on vchiq module unload")
+Assisted-by: Claude:claude-fable-5-2
+Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
+---
+Verified on a Raspberry Pi 4 Model B with a test-only one-line change
+that forces the devm_request_irq() error path. Without this patch the
+kthreads either oops as shown above or, as in the test run for v2, are
+left behind: 12 of them after four failed probe attempts. With it probe
+fails cleanly, no vchiq kthreads remain after four failed attempts and
+the module unloads. Without the forced error the driver probes normally
+and audio playback over VCHIQ works.
+---
+Changes in v2 (per Stefan Wahren's review):
+- Use a forward declaration of vchiq_platform_uninit() instead of
+  moving it and vchiq_platform_get_arm_state() above
+  vchiq_platform_init(). vchiq_platform_get_arm_state() needs no
+  declaration, all its callers are below its definition.
+- Link to v1: https://patch.msgid.link/20261114-vchiq-probe-kthread-leak-v1-1-b6b2f1e32050@yahoo.pl
+---
+ .../raspberrypi/vchiq-interface/vchiq_arm.c         | 21 ++++++++++++++-------
+ 1 file changed, 14 insertions(+), 7 deletions(-)
 
-/* x^319 mod G, x^255 mod G */
-static const u64 fold_consts_2x_val[2] =3D { 0xb0bc2e589204f500ULL,
-  0xe1e0bb9d45d7a44cULL };
-...
-v0 =3D fold_single_round(v0, v2, fold_consts_2x);
-v1 =3D fold_single_round(v1, v3, fold_consts_2x);
-v0 =3D fold_single_round(v0, v1, fold_consts);
+diff --git a/drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c b/drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c
+index e78641703252..3e5c10039b4e 100644
+--- a/drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c
++++ b/drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c
+@@ -187,6 +187,8 @@ void vchiq_add_connected_callback(struct vchiq_device *device, void (*callback)(
+ }
+ EXPORT_SYMBOL(vchiq_add_connected_callback);
+ 
++static void vchiq_platform_uninit(struct vchiq_drv_mgmt *mgmt);
++
+ static int vchiq_platform_init(struct platform_device *pdev, struct vchiq_state *state)
+ {
+ 	struct device *dev = &pdev->dev;
+@@ -243,10 +245,6 @@ static int vchiq_platform_init(struct platform_device *pdev, struct vchiq_state
+ 	sema_init(&drv_mgmt->free_fragments_sema, MAX_FRAGMENTS);
+ 	sema_init(&drv_mgmt->free_fragments_mutex, 1);
+ 
+-	err = vchiq_init_state(state, vchiq_slot_zero, dev);
+-	if (err)
+-		return err;
+-
+ 	drv_mgmt->regs = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(drv_mgmt->regs))
+ 		return PTR_ERR(drv_mgmt->regs);
+@@ -255,11 +253,15 @@ static int vchiq_platform_init(struct platform_device *pdev, struct vchiq_state
+ 	if (irq <= 0)
+ 		return irq;
+ 
++	err = vchiq_init_state(state, vchiq_slot_zero, dev);
++	if (err)
++		return err;
++
+ 	err = devm_request_irq(dev, irq, vchiq_doorbell_irq, IRQF_IRQPOLL,
+ 			       "VCHIQ doorbell", state);
+ 	if (err) {
+ 		dev_err(dev, "failed to register irq=%d\n", irq);
+-		return err;
++		goto err_stop_threads;
+ 	}
+ 
+ 	/* Send the base address of the slots to VideoCore */
+@@ -268,13 +270,14 @@ static int vchiq_platform_init(struct platform_device *pdev, struct vchiq_state
+ 				    &channelbase, sizeof(channelbase));
+ 	if (err) {
+ 		dev_err(dev, "failed to send firmware property: %d\n", err);
+-		return err;
++		goto err_stop_threads;
+ 	}
+ 
+ 	if (channelbase) {
+ 		dev_err(dev, "failed to set channelbase (response: %x)\n",
+ 			channelbase);
+-		return -ENXIO;
++		err = -ENXIO;
++		goto err_stop_threads;
+ 	}
+ 
+ 	dev_dbg(&pdev->dev, "arm: vchiq_init - done (slots %p, phys %pad)\n",
+@@ -284,6 +287,10 @@ static int vchiq_platform_init(struct platform_device *pdev, struct vchiq_state
+ 	vchiq_call_connected_callbacks(drv_mgmt);
+ 
+ 	return 0;
++
++err_stop_threads:
++	vchiq_platform_uninit(drv_mgmt);
++	return err;
+ }
+ 
+ int
 
-This breaks the dependency chain between the first two folds and should
-help shorter inputs it would be interesting to see how it behaves.
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261114-vchiq-probe-kthread-leak-8f6178695a33
 
-Thanks,
-Demian
+Best regards,
+--  
+Tomasz Unger <tomasz.unger@yahoo.pl>
 
-=D1=81=D0=B1, 14 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 13:5=
-7 Shreesh Adiga <16567adigashreesh@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> Add a 4x-folding implementation for CPUs with FEAT_SHA3 which benefits
-> newer ARMv9 CPUs like Cortex-X925.
-> Usage of EOR3 from SHA3 extension improves performance by 20% compared
-> to the regular PMULL without EOR3 on Cortex-X925 measure in userspace
-> application via libbenchmark for 512 byte input size.
-> Measured about 3x speedup for 512 byte input compared with the existing
-> NEON single fold implementation on Cortex-X925 in userspace.
->
-> Signed-off-by: Shreesh Adiga <16567adigashreesh@gmail.com>
-> ---
->  lib/crc/arm64/crc64.h |  6 +++-
->  lib/crc/crc64-neon.c  | 79 +++++++++++++++++++++++++++++++++++++++++++
->  2 files changed, 84 insertions(+), 1 deletion(-)
->
-> diff --git a/lib/crc/arm64/crc64.h b/lib/crc/arm64/crc64.h
-> index c7a69e1f3d8f..003fd452aca3 100644
-> --- a/lib/crc/arm64/crc64.h
-> +++ b/lib/crc/arm64/crc64.h
-> @@ -9,6 +9,7 @@
->  #include <linux/sizes.h>
->
->  u64 crc64_nvme_neon(u64 crc, const u8 *p, size_t len);
-> +u64 crc64_nvme_neon_pmull_eor3(u64 crc, const u8 *p, size_t len);
->
->  #define crc64_be_arch crc64_be_generic
->
-> @@ -19,7 +20,10 @@ static inline u64 crc64_nvme_arch(u64 crc, const u8 *p=
-, size_t len)
->                 size_t chunk =3D len & ~15;
->
->                 scoped_ksimd()
-> -                       crc =3D crc64_nvme_neon(crc, p, chunk);
-> +                       if (cpu_have_named_feature(SHA3))
-> +                               crc =3D crc64_nvme_neon_pmull_eor3(crc, p=
-, chunk);
-> +                       else
-> +                               crc =3D crc64_nvme_neon(crc, p, chunk);
->
->                 p +=3D chunk;
->                 len &=3D 15;
-> diff --git a/lib/crc/crc64-neon.c b/lib/crc/crc64-neon.c
-> index 4753fb94a4be..6c589b23ed06 100644
-> --- a/lib/crc/crc64-neon.c
-> +++ b/lib/crc/crc64-neon.c
-> @@ -10,6 +10,14 @@
->
->  u64 crc64_nvme_neon(u64 crc, const u8 *p, size_t len);
->
-> +#ifdef CONFIG_ARM64
-> +u64 crc64_nvme_neon_pmull_eor3(u64 crc, const u8 *p, size_t len);
-> +
-> +/* x^575 mod G, x^511 mod G */
-> +static const u64 fold_consts_4x_val[2] =3D { 0x0c32cdb31e18a84aULL,
-> +                                          0x62242240ace5045aULL };
-> +#endif
-> +
->  /* x^191 mod G, x^127 mod G */
->  static const u64 fold_consts_val[2] =3D { 0xeadc41fd2ba3d420ULL,
->                                         0x21e9761e252621acULL };
-> @@ -45,3 +53,74 @@ u64 crc64_nvme_neon(u64 crc, const u8 *p, size_t len)
->
->         return vgetq_lane_u64(v0, 1);
->  }
-> +
-> +#ifdef CONFIG_ARM64
-> +#define SHA3_TARGET __attribute__((target("arch=3Darmv8.2-a+crypto+sha3"=
-)))
-> +
-> +SHA3_TARGET
-> +static inline uint64x2_t fold_single_round(uint64x2_t fold,
-> +                                          uint64x2_t temp,
-> +                                          uint64x2_t consts)
-> +{
-> +       uint64x2_t temp1 =3D pmull64(consts, fold);
-> +       uint64x2_t temp2 =3D pmull64_high(consts, fold);
-> +
-> +       return veor3q_u64(temp, temp1, temp2);
-> +}
-> +
-> +SHA3_TARGET
-> +u64 crc64_nvme_neon_pmull_eor3(u64 crc, const u8 *p, size_t len)
-> +{
-> +       /* Assumes len >=3D 64. */
-> +       uint64x2_t fold_consts =3D vld1q_u64(fold_consts_val);
-> +       uint64x2_t fold_consts_4x =3D vld1q_u64(fold_consts_4x_val);
-> +       uint64x2_t v0 =3D { crc, 0 };
-> +       uint64x2_t zero =3D { };
-> +       uint64x2_t v1, v2, v3;
-> +
-> +       v0 ^=3D vreinterpretq_u64_u8(vld1q_u8(p));
-> +       v1  =3D vreinterpretq_u64_u8(vld1q_u8(p + 16));
-> +       v2  =3D vreinterpretq_u64_u8(vld1q_u8(p + 32));
-> +       v3  =3D vreinterpretq_u64_u8(vld1q_u8(p + 48));
-> +
-> +       p +=3D 64;
-> +       len -=3D 64;
-> +       while (len >=3D 64) {
-> +               uint64x2_t t0 =3D vreinterpretq_u64_u8(vld1q_u8(p +  0));
-> +               uint64x2_t t1 =3D vreinterpretq_u64_u8(vld1q_u8(p + 16));
-> +               uint64x2_t t2 =3D vreinterpretq_u64_u8(vld1q_u8(p + 32));
-> +               uint64x2_t t3 =3D vreinterpretq_u64_u8(vld1q_u8(p + 48));
-> +
-> +               v0 =3D fold_single_round(v0, t0, fold_consts_4x);
-> +               v1 =3D fold_single_round(v1, t1, fold_consts_4x);
-> +               v2 =3D fold_single_round(v2, t2, fold_consts_4x);
-> +               v3 =3D fold_single_round(v3, t3, fold_consts_4x);
-> +               p +=3D 64;
-> +               len -=3D 64;
-> +       }
-> +
-> +       v0 =3D fold_single_round(v0, v1, fold_consts);
-> +       v0 =3D fold_single_round(v0, v2, fold_consts);
-> +       v0 =3D fold_single_round(v0, v3, fold_consts);
-> +
-> +       while (len >=3D 16) {
-> +               uint64x2_t t0 =3D vreinterpretq_u64_u8(vld1q_u8(p));
-> +
-> +               v0 =3D fold_single_round(v0, t0, fold_consts);
-> +               p +=3D 16;
-> +               len -=3D 16;
-> +       }
-> +
-> +       /* Multiply the 128-bit value by x^64 and reduce it back to 128 b=
-its. */
-> +       v0 =3D vextq_u64(v0, zero, 1) ^ pmull64_hi_lo(fold_consts, v0);
-> +
-> +       /* Final Barrett reduction */
-> +       uint64x2_t bconsts =3D vld1q_u64(bconsts_val);
-> +       uint64x2_t final =3D pmull64(bconsts, v0);
-> +
-> +       v0 =3D veor3q_u64(v0, vextq_u64(zero, final, 1),
-> +                       pmull64_hi_lo(bconsts, final));
-> +
-> +       return vgetq_lane_u64(v0, 1);
-> +}
-> +#endif
-> --
-> 2.56.1
->
