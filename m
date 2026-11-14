@@ -1,101 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794627617;
-	b=xQKz9+zMfmFpVfy7lQ/j8T7MhCL+/d1eAw2FzPVA49KBpf6QnnkZNTVGkACpZHWxJfYx
-	 h/YIj2v3yIbngKtwLUda/7WibQgwfyI+njkwxYeeaZs1KAWPpUiO8bAPX96HppNbdqsrJ
-	 TlFWwWS3XSEVmlWWQ2RcDTuJ3EbEU6bdYbGusxdkLD79m2blh2AnoNt03W3F5Wz9L2P2L
-	 5E+gYTfXsFOpcrw7R1HJ7BSO+yUv1gUNRkpfrGKBuf0o3cg6Z+RKzH/W1NvoighpA0ImN
-	 8ifRCOrparMUfEXV6sbwZ+GvakcD6wB/TOyY3Pep1mJNJzIwa6ViZyce4aVwnBehAnQ==
+	t=1794627639;
+	b=otUB8WrtkcYRgQI3q3/Pb2gRrL+EBQoqy/T7YJ9the/DB/HtY4a790klBwCj7YuXYFQ2
+	 GMLtT7ORgDa4+90c2wubfCQ/eSfawUa0jzPZtX21NWAuTOSP2MWbHrOPMd5I+wO0qjvee
+	 QRUbXF/tb0OFfCFUAon90rlU1VgCAfDEWEcklcpOIj+4zV7n2d295ce3yUJzNkcl/7/uT
+	 kNpbjMARDZyf/Aqbq5VlGqmZSn7kBwYDeUWMp0DtN4h1/2T64BwGVzESY9yOa6/nmRGmu
+	 BwmSp2yNNztCjK7c4V1uPTzgkmkIcqUyXqHygAkfw1psuA7jSyIz+GjDBpgstkLNoeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794627617;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794627639;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=E/QJ/KMx5WyVj2J4TdNqaAQXU0rL7hIGOlDe9g33IzE=;
-	b=cEEna+MwgtVnTwWp5IFMhM/fr0L2YTg4vfDEHnaYJzD6PKXnaz5G/saxkzEUOJEv0SBb
-	 77BDI8E2lk7A7vSZgC5/HRLyoA0xOMl2Bc0UevwKIp0tLOXRg8EbT7pSUrTULfcZQJsn7
-	 Wl2JlshUbRJvXWDli07NxntREfQL6DmApyoBVAtOjdu7DK3GTo9e2uchsNznpU+Uw85WT
-	 bzbMb5ZYVV6+Phl31373nMYyL3YTMqxM6CM5FMWy6AckqKjkTbbvb5fPCTX6GZ3hQY9uW
-	 ltrj0fSIfah35qp7EHmcgMz2IIi/FWAFvBX4z3dHg6fbKhEkcfLwEegTBRcN20x/3TA==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=9lfiTmTTwOsXaOAg6UD5myto87YZ73nIULewOuV0cPI=;
+	b=pSlEh3xVDuhlrhrdzCtPKX0K50wFwFOm4L1/qKF1uv0c8C7X1XWiWWQvML1RO1QZtNio
+	 1J54i1zOOwqIjIMe1CGiHEIlkyBQEAeASRW2v3dAqpMsRKkRLwxtKu70MR56HtD+ACPtE
+	 S87U1/z2Fi/ymZzMH/tYCsAGYnbvd25dljtOSzpR3grBTR5nrpJBq2WF4DrWEMS7RaG0x
+	 PusRyaaEMSegLtjtTIwcw+t22T1VffX5RhaYmgsbT+37eoPtnG+ptp+lQK19Yr2GtJY1G
+	 1xKJF/UO8Oa7CsaOxRiERXIoRJVlpy3m77EZU3oAyx6ZHSZTVWGpP6QHhHjDtlDB89Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=isslab.korea.ac.kr;
-	spf=none smtp.mailfrom=isslab.korea.ac.kr;
-	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Swbm8bhZ;
-	arc=none smtp.remote-ip=209.85.210.181
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	dmarc=pass header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=wtimMCrM;
+	arc=none smtp.remote-ip=209.85.222.179
+Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FC6D606A327
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:40:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FC6D606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D709606A32E
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:40:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D709606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Swbm8bhZ
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8a05b210703so758714b3a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:40:17 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=wtimMCrM
+Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-9496400270fso30054385a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:40:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1794627617; x=1795232417; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=rowland.harvard.edu; s=google; t=1794627638; x=1795232438; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=E/QJ/KMx5WyVj2J4TdNqaAQXU0rL7hIGOlDe9g33IzE=;
-        b=Swbm8bhZoLVt463haIQp+R3/P1wcnkOFskVWDfwhp0AZfE6Lxuem+EtPdpusnoeQH/
-         8UoqDEMI0SE7yJDpFCdUfDgFebiZL4vQMVax+1ZFiCivI9JJUgP6SYwRueJ4F/i2roat
-         jsOhxPQ5dkrwm8pm87hdstcKmZPXz3MRilSiLkAQlC2529WYAKjtDkdkT9zeLd52WX8I
-         QA18p6gOIHq32OxypSxxTV8xkTYdzzuTLFKeiBURfrVblVnDKJ7T8dG/eIerAe8d3Ziu
-         568M9oQF/MXiyFbArVgE/fl39OQELrkco+txj1RRz+5YiBOiBrmwNy28OQOQzGEISnNP
-         mp0w==
+        bh=9lfiTmTTwOsXaOAg6UD5myto87YZ73nIULewOuV0cPI=;
+        b=wtimMCrMvYIMRdde/PNMpOaHC8qTxk8XBZpiAcCBnmfuVKHWqVsrHRTlWcJbDsBayI
+         kMac6vluRy+qgsg4Z74I25x3laRgAKSM+PyKPrO+fiN6QIiH/l7Jn6jf0Z7kAqiwZcrW
+         LdItXH/FC/+XQ8tFS3GqOg+i+OAxqXAmDp0+9VbkIEyYE28kExx6KFohZKqDHhOc0+OD
+         yla4LnCrtTrXJEe45VlN5pmxy7yzom44ReYse++ObV8ZkrUu/0W6W+cBV6MtgiayJpzU
+         ZGVPNgI8mLXf1PLYMHXockb+EYVuzXYkaXthwUVBViNipfxkRNWhfhZnE+6qi74j5sWo
+         a41Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794627617; x=1795232417;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1794627638; x=1795232438;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=E/QJ/KMx5WyVj2J4TdNqaAQXU0rL7hIGOlDe9g33IzE=;
-        b=tULoraAD/H5m5pkHfl44TiQn0vP96jjLnB530eXysL5QLhPun2ksyk8uMci1SKEcao
-         BRkrrgqAJGjZx4ErJnt2KRCs0hVli3m79G3VYHsHHknSi52SMwMCQfhPzz4j610X9LDE
-         WyAJ7LCXiMJy7/GXm0oPNMXwGVDLvGnVOMsVwmCxdKUaJHGJ5juTv9Ugj24CBp/OtYNW
-         QW9ds1y4g2XGD/Gnomhc8r040zez6avB17N2VmT4xkSilGObUM+M+jd0HaA3tsbqhb47
-         Q/IBiJjeidQTDRy8aGg1DSSrsek3O29dU2JNB1neZdR/eVdDU5INvl6kMEhmwlPt7823
-         h/Xw==
-X-Forwarded-Encrypted: i=1; AL+hErGCvHLSpD8u7d8tG5xwWc2y8dO4nY4Qs4jNXreALnNTe5ZHW5oNYja7Wd1glKa0Hx3fvFnmww6kDaA9198=@vger.kernel.org
-X-Gm-Message-State: APuU4Z80R2PhEpCtLDgPi+PlOt2J44dSlt1obMBMFiboS75OejQGlWcD
-	1ofvt/wmZKvhiZ/xhaMnoeNGtrrvZrjO7Km8eYP/lNpc54UUde95A4qR6wKWQP3CX8I=
-X-Gm-Gg: AYBFou3iPBFQINlEjqOz+sehxgHps+so1hTW0eI1wHRR/vNXxpAzDN23iNxeuuBsNQZ
-	J+JBQCQT4BtVto6pHXqCImw2FrMuHxX8MD8e/7PmP2941roL5nMb826LjShvy4tNZFOMcdzs3Rf
-	dPdInGQPUIY6WiGVyEGs7zl6LRosgJO5jPd90ozIkcQvaqrbLLRtXo/NbXl/PtWfvSVALvMM2FP
-	3DE5jQmisfFFGAn/ozH86k9MSAtguVmXnpssP6FTZMrqo2vE7wcqAvYhPIDSlWoVbYlKirA873f
-	a8i9rI/EI1a91GMv2I/KxyZb2Upg49uJ06Gs2M1H5D4PWdDURr8uUKYwEe1mEtmFDlacDB8+hF7
-	H27tEqDzk9jwp3M26+bBLn3NxytancUpwNQMaVXr7qrs5Tz82wfO8m6dh9eFLacM4Dyap2OX2RJ
-	qBWW0DxtPMYjxd5UZ8ikhQyb3QgfUeCCSW11ATUa5wJ9ii1R4nJePtXVyAfA3lx5Ri5fzm5bXjx
-	0RIO3efMt9QyhScJiQpG+8+JAAXuUp7ZEejqoiAJKDNeAZcvLeNpysqXBij8SapULxDvDIDmqGQ
-	6wOXyTnREssZbsmp6UbO+0BgMllG2TcS4fx3FHRaTeD7AGv9wYHtb2jBuyIM3lNQ8gshkpXdZ33
-	54H7w0O6vmvWGuNfmprZe5rHKVDVgkhmtZUA6vg==
-X-Received: by 2002:a05:6a00:1995:b0:8b6:d2f:72ae with SMTP id d2e1a72fcca58-8beb53d9ea2mr4567673b3a.18.1794627616742;
-        Fri, 13 Nov 2026 19:40:16 -0800 (PST)
-Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:f861:b117:6318:c068])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed263b648sm1705244b3a.46.2026.11.13.19.40.12
+        bh=9lfiTmTTwOsXaOAg6UD5myto87YZ73nIULewOuV0cPI=;
+        b=Z/ZJ3GLctrC6gJJdtILQ4Fq6gWXyi+iPWOcjU90zgSYxN1xrG+GfzQZeQxrhDzgY0Z
+         XeA5v8lQpbXx4qyAnA3sYJM8pbBHAEi+0xWwBHQ/E/qHy4GLfu5o5Q1yEojvIX5Tbp38
+         5bD5JGq+PQBVHS5kgXkEIqN/7W1DFtzFthE58jQm0+R3+XobLww2iXsRyCfzjBe5lFRU
+         fxeTbZrH9Se8h9m2KGJOv9LBbA0EUNjq0YeGty1usss0TD1cFd5QRJ0wGF1z+Xiaj5Wn
+         Q+F1H4rfWOrN2n+Lc37ZemqbwcgzMYggFdaHsDJBRVI9u8V90gZBPhLCb3ROLou1tm0t
+         uGVw==
+X-Forwarded-Encrypted: i=1; AL+hErGp8pWvMUxqxof/sd5joWQSZTjwWVYfdOdZTXs/SdJS0LDWQwOzx0gGslLAihgu+Ze52Gh/0TWYYPgg0nQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+NTGlBGsaqn8JLsPvUxNsbgY4KgfyRHOHJjTR5HVRfVaXnrA18
+	FNErGD+6zAa1axgLNjdKE1VyjjqaVD/iCb7kUBHwRIcxo72DtRNWs75W2fS0tfHBgw==
+X-Gm-Gg: AYBFou20BXVKcCK7A1usApy0E1km0RHqHisJFJL3van55ISTQfv/4JExRTG0OjYAcZ1
+	61EY3RqERgKiMpLBLV9PLCfRRxexH6/dvtLb3IyehLCMw9XleiVKXIBVsPH5rUhMslV6YbHQNgK
+	ssc3eEB5smikn6C25YDdE7Ovn51SNJytT0/fid3S+jsm45kpG7cZvkavLaxTK+ROZXxfTXjgKAx
+	C3rLrSlgioKFTTQAmqtN4RXoh7+1N+dXMNHTX5W7/QTJCNdrIYlzQQXMJRduBvDbBEMF1LyePaQ
+	G0AxFoDFJmdRyppiQHpvq38Wpkz7aQH66vyZ232z6FukMATUyVvZenXJb1HWg0xzMHPYtvgiUoi
+	u504lmPw7SvuEVs8mDEet+D7uZRSuV+IVno5OWuGNnU0AV79drVaw+A3Q53LQyJSf0WnlLl9z4O
+	M97GNecbzSEjLlo35OE+/ArHZ1RMkUba61BdZlIMDD0F7qtwhevIscEt2QKGJMNzpO99E0IyTHm
+	jW0RzgCPrzcIJ8k/EAMOBPWJQ9G3qee4IXwvauG0BCzIbBRB/V1PV9vj4gBlDN54srnEoTQAcbY
+	tkw64rRiwE4CYUYSAoV199m5FNlhVLX8TZKUbFZfwck07pMqmS0=
+X-Received: by 2002:a05:620a:25c6:b0:93e:f97f:f245 with SMTP id af79cd13be357-9494bc260a0mr686194885a.30.1794627638105;
+        Fri, 13 Nov 2026 19:40:38 -0800 (PST)
+Received: from rowland.harvard.edu ([2601:19b:d00:161a::d398])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23c9cba8sm34619686d6.1.2026.11.13.19.40.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 19:40:15 -0800 (PST)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: ching2048@areca.com.tw,
-	mkp@kernel.org,
-	James.Bottomley@HansenPartnership.com
-Cc: linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	thenzl@redhat.com,
-	erich@areca.com.tw,
-	yhlee@isslab.korea.ac.kr
-Subject: Re: [PATCH v3 0/3] scsi: arcmsr: bound adapter-supplied completion indices and message lengths
-Date: Sat, 14 Nov 2026 12:40:02 +0900
-Message-ID: <20261114034002.549899-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1791803953.git.yhlee@isslab.korea.ac.kr>
-References: <cover.1791803953.git.yhlee@isslab.korea.ac.kr>
+        Fri, 13 Nov 2026 19:40:37 -0800 (PST)
+Date: Fri, 13 Nov 2026 22:40:34 -0500
+From: Alan Stern <stern@rowland.harvard.edu>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Linux PM <linux-pm@vger.kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	Brian Norris <briannorris@chromium.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Subject: Re: [PATCH v1] PM: runtime: Update last_busy before calling
+ rpm_suspend() in rpm_idle()
+Message-ID: <3430548f-6871-452f-80c1-a25613a53575@rowland.harvard.edu>
+References: <4789427.LvFx2qVVIh@rafael.j.wysocki>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,12 +100,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4789427.LvFx2qVVIh@rafael.j.wysocki>
 
-This is superseded by v4:
+On Fri, Nov 13, 2026 at 02:27:23PM +0100, Rafael J. Wysocki wrote:
+> From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+> 
+> When rpm_idle() is about to call rpm_suspend(), there are no reasons
+> preventing the device from being suspended, but if the device uses an
+> autosuspend delay, it needs to be taken into account.
+> 
+> For this purpose, rpm_idle() adds RPM_AUTO to the flags passed to
+> rpm_suspend(), but doing that alone is insufficient because the point
+> in time from which the autosuspend delay is counted may be too early.
+> 
+> For example, if the device has children (or consumers) and the last
+> of them goes into runtime suspend, the parent may now become eligible
+> for suspending, but it may not be worthwhile for it to suspend until
+> a certain time later.
+> 
+> Quoting Alan Stern [1]:
+> 
+>  Let's say the last remaining active child goes into runtime suspend at
+>  time T.  Let's also say that the parent expects none of the children
+>  will need to resume until time T + D.  Is D sufficiently large to make
+>  it worthwhile for the parent to suspend and then resume?  If not, the
+>  parent should remain active.  If yes, the parent should autosuspend --
+>  and the length of time the parent should wait before autosuspending is
+>  on the order of the value of D (let's call it D*) that corresponds to
+>  this crossover point.  Thus the parent's autosuspend delay should be
+>  set to D*, or something close to it, in order to achieve both
+>  objectives.
+> 
+> Moreover, if the parent's autosuspend delay is set to D*, it should be
+> counted from time T at which the last child has suspended, but that does
+> not happen because the parent's last_busy timestamp is not updated at
+> time T.  That leads to undesirable parent suspends occurring between
+> child suspend and resume [2].
+> 
+> To address this issue, make rpm_idle() update the last_busy timestamp
+> of the device when it is about to call rpm_suspend() which most often
+> is right after the device's last child (or consumer) has gone into
+> runtime suspend.
+> 
+> Updating the last_busy timestamp when rpm_idle() returns an error
+> without calling rpm_suspend() is not useful because the device is then
+> going to remain active for an unknown amount of time and its autosuspend
+> delay needs to take effect later.
+> 
+> Link: https://lore.kernel.org/linux-pm/fc43eb13-816b-4cd0-9711-848fdab605ef@rowland.harvard.edu/ [1]
+> Link: https://lore.kernel.org/linux-pm/CAJZ5v0hKpjMsGQm8Cpa89x5wkNxqkggDNbp+eQ0S-E52DETWjQ@mail.gmail.com/ [2]
+> Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+> ---
 
-  https://lore.kernel.org/all/20261114033810.549787-1-yhlee@isslab.korea.ac.kr/
+Acked-by: Alan Stern <stern@rowland.harvard.edu>
 
-Best regards,
-Yehyeong Lee
+>  drivers/base/power/runtime.c |    6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> --- a/drivers/base/power/runtime.c
+> +++ b/drivers/base/power/runtime.c
+> @@ -560,7 +560,11 @@ static int rpm_idle(struct device *dev,
+>  
+>   out:
+>  	trace_rpm_return_int(dev, _THIS_IP_, retval);
+> -	return retval ? retval : rpm_suspend(dev, rpmflags | RPM_AUTO);
+> +	if (retval)
+> +		return retval;
+> +
+> +	pm_runtime_mark_last_busy(dev);
+> +	return rpm_suspend(dev, rpmflags | RPM_AUTO);
+>  }
+>  
+>  /**
