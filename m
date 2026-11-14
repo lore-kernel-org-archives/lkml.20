@@ -1,105 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794665944;
-	b=ZwjCDlv50kGYq1s/5pZMJ6SCLCwKS3a3Cccfr7+hRaHhVd+ZbdPwc8OzdzGx+/wGDU57
-	 TeOvv+d0SSB5oVr/pUoGb6zef9mRXlUDeg5yLQnmUpnzfTyNNDsWh5H+HZ5+mbDOARsFP
-	 yDffgfAZvTBQRQY3q3NEzDBzV7XJ3bpdik6T74u49yOCpka9T4sucaCxFB6bd6yEhCI9v
-	 rN8LF9iXuABr3IaiPUE7i7H+fdzIGW/obN8nQKwYOYphprmPMNoG1NTUvBoUuctqqc6gm
-	 Tb2wEIwpU6AjNdRHyPJ+OPwsHAfDWo84u4EVCLisnIVjiZv7Qj1jsXZkM+c1MMQrpcQ==
+	t=1794665976;
+	b=DjflCxVJFyeeVY4053yuuU9Svpamt5NlikCyb8fseFxpQ8UdYaCOaJxRSdgee8n8dvvh
+	 Zd0cIokht7Mp/Z6qzWyCRcP3wvk5FYphDeCSQv6vsqR/Ou005BTJpGEHXRILbNYfi80h3
+	 5RZViK9ZNeX4iBax/x73M6kd7U/YKvNy6+P7rUtV4pImgoFSE6Ze8lJOVa+HiVolMn9YD
+	 +AZIkodGDRlGLa8rDoYDtLsrRAEdX+tH4yMYEJEBDiC7bYOY08bu8fXlwrRVP1etEsaKw
+	 Z8+1KNAtuUq+RgjTgzXsjMaisG+ZHuNn+4cpp7K9HidCXZZ2MmR7fwnaVvwgR3OKKQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794665944;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794665976;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=994O5G9ZxUQ8jqNBdTBnXMOuXg5Iwc5e9f/ldhdma60=;
-	b=Ma9QkSunyHtuXXnSwTYZ7EUPHWK2/1OGHJF2zgj97wru7axj3O5yv8A49HKikJPFo+YO
-	 Fle2tn8hCvPQRBKMjWMcE6RWrwovL5/CzDqn5rJM4zSePz8dCOusLQ+LIU4AiyKnf8Emm
-	 vmdJwukLQ8t3BsTeYknFBEe++v1Uvh3ePltP8YXBK33dDN5Kki0OqcN7KC9GuI4vhYhc1
-	 TaNKVfOBV9RRZxuAHXU99eQs8qH9vdoyjdGz9NusMaFHmPM+D6tIT5pyUk7FXUvl1nWKk
-	 BNl05VGJe+UjiEaiW+bFsoVx3At73GWg3GGuXg9s2ZgH+v5tFj6bhjl9Rw7z4NZGxJg==
+	bh=KF5ZCESgsZSVu0B3wdeuocQ2u5naY2csnCKAhixwvPc=;
+	b=EWtOot3Tbf7m/7mMltVjS+D/QpTxToV+p6qT+KyUqonwzeWXUgP/cfBPkvI3y88at6wz
+	 zrss73lwXFm+NJqRa098flY8D177rDpE1eYar5w7IAycs5bunGwOfiF4XWt5nNbpKP2rV
+	 3w2msyLwhObApJY4wkVlFM044GTFO4D/S2aOGVBkf9gAtPG2H3ujA2uTPtQDKH9ZuHlS5
+	 VMH2EBxb6RC4u+++4D9N+zDcFRD5JTuq1SkyhyL2Uw2JzZKTBD/tY3kR5/kPDvxz4J3Be
+	 AWwr2CpEFQ3SQkNZMl1TdZ36AGlZ0It+7SRyYSd3aT+C3+zzs2NT/vpJofOWwqZEyuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="U/UIVKlY";
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E7BN5Xp7;
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C845A606A331
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 14:19:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C845A606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D1CC606A333
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 14:19:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D1CC606A333
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U/UIVKlY
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3719e3cb82bso228724eec.3
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:19:03 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E7BN5Xp7
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48e47347279so748178f8f.1
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:19:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794665943; x=1795270743; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794665974; x=1795270774; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=994O5G9ZxUQ8jqNBdTBnXMOuXg5Iwc5e9f/ldhdma60=;
-        b=U/UIVKlYNtUJHaFeYSNk1Squ9DtUOMUNBXdocSmtTNj3Rh8h2BTlPE023tj183unzW
-         6rk73stKj5FvDnaZsppNJ9tBZS7Gx8wAgNd0R7kTSE4yXgLBYi/4V8IZP1vINPyc0Ixk
-         byUHLZUWhxbwe5kOoRV6Hh0Jon41ww9LO97285jbq0ZSNshA8tYyd7HNDyi1spBFf5x7
-         c5XrIarqjsLqUU8nU7V5Xz26PL1+5FrLzjRD55NgdkwW3IgFGkVc8DTedWn9Vx66GYr8
-         F96fSBLB9mekI/6Q7p6I3gzZCo/VgzyqGat0jF4onF4ELPVN2nuzwIn6YaNE9g+05VcD
-         GiKQ==
+        bh=KF5ZCESgsZSVu0B3wdeuocQ2u5naY2csnCKAhixwvPc=;
+        b=E7BN5Xp7ZgmyEc1SRkozN87GIKu+yfvY6gFgmsOD3nxKdlkgZTITwN9STA2JT09JeJ
+         qMFNOAUPlhJKp/E0BX+/n6ZFRabrZtbvbntf8j5I4z7vGJxk59Yqt73e/EC24guM1Dq/
+         mN2Q/k3tft4cBm8JWyL0noLPiGqVU+7Xxo7rDz7u+fUHNCLxNxtIN6FL+musezQJFGZb
+         X+VBC8cnCXQsbYMqCdLYMf/MI8/jrgdTy521AB1MpGfVC2OeZaZZDOBnDxL2XRrLN845
+         /TAcY5QPmHHFYoLQIl7yVuygL0V14DQvvf9D5l5ZaHE5xN5NKuN0y8/W/foIclAyIPUL
+         yN4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794665943; x=1795270743;
+        d=1e100.net; s=20260707; t=1794665974; x=1795270774;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=994O5G9ZxUQ8jqNBdTBnXMOuXg5Iwc5e9f/ldhdma60=;
-        b=J6Rt3+ok+0Jwbiho53hlwjLTBUfHyldchWf+2jBmuq1m7LSD6iOrSZ5NuwrXvxYwDr
-         PzsdsSwcB2LElnmP0v+Z84dV+/5mB7LuqXgnUaT7dEPPEN/LxikG7+VKH8N5jqLw1Pap
-         VAdyPuV8TjoJ5nbO0mz4ol/X5+az5o8nKW6Bz46oSRXFT+XuTb7OucNMr+T8O4UoEUGM
-         a5b1H64yIfxCNvQ981JjGZgaGx9tciYCC1w/vovE7R3DxgS+zarrxfh+fEChrbeulEIP
-         43Q/8vLnngrp1C2WsLXc+jczGkBOYeytFMBm8OW83pYX5+IxZgCan6YnBsI+k72oC4FU
-         pr8g==
-X-Forwarded-Encrypted: i=1; AL+hErG8qMPGr/QTgR1xTYwv1K9UZ1r9Vgw3cxTZMWdZQ7vLbjZ576/9Z91hmxivWlzVPFibI1a0oL/e5W3VgPo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9BsMEV3cl03Bk963OW4/Hdx1OvjQ6i/Iia7eQNb1Acq/10h4sZ
-	m5caWikCDVDfARho5QAcvPjbESSUKF2ihpfQ4Zp5YX1YLS9By63VAWN0
-X-Gm-Gg: AYBFou1d90Q2DOXEv30zjCRVA5p5RUmG+l7iQGRn5pZeti0iK2G2Zds0S3VStNOOnZu
-	NYXpxPObksxE6CNWAVag+Q3iYAFYQJZF2v5SiqQvlaNrIcM8VQ5NyX5foSSE1bJuWQdkKuTVwFE
-	FnNI6qAIVsnUEDKkLIWIp4orKs9uS3MlSWlrHIfUnomZ3hlwIZTyYKTSwR+6xXq2hxDgPnH/scW
-	G0Xc6B6nUc+kkzIbm1t269Z0uY/9RM0xCkhg0EraINrJir0J2ngo2OnIsfFuBckUqPFtutBg9TZ
-	QtzI4expJD1+6CpbelVrmKOnhZ1C0PkgFVBIxTevEo86wuDwl4wRByYvJDOgRaGtL4vp3orsREp
-	g+jHsSKZBB7mn5/QGTRzhexu8bLGcRSyEHUy57z0Q0aUmiUE02dTQbw74EcAUQPa8uf8r/F7WXO
-	HwuMVf6x6OFu+lweWNCCDI+kIijGR1xQtWZnuU2jwOtdyjekcAhLXQAg9c88gEgKMCEnr+fOE+A
-	jbU/gF2r2hJaL2qlV9/iQm8jVjLi520dhQr0N+O1FHp7vb8XvOCvOh99RfvZOiaeKUdwHwtSXKw
-	5BpSAZLUrRTlagkMBAhFSXBvHcdyMEMMbVSndb2iZ41GeCnefdggKYX2LEcTuydEX0Ew7WrQwVU
-	vE4s=
-X-Received: by 2002:a05:7022:158e:b0:183:d275:cf76 with SMTP id a92af1059eb24-1b5030dcb27mr9272048c88.2.1794665942684;
-        Sat, 14 Nov 2026 06:19:02 -0800 (PST)
-Received: from DESKTOP-CJ1L666.localdomain ([211.198.99.62])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031b2519sm14745032c88.13.2026.11.14.06.18.58
+        bh=KF5ZCESgsZSVu0B3wdeuocQ2u5naY2csnCKAhixwvPc=;
+        b=ZqvVRxHAP5f+VefYM39gsus0dvuFaDNBsQubAPZantSV7XsYNo2LvjlaUW1lXLS64N
+         1MMbSweDqtFohiZyBSsRB7d5spbsdLMy3c0HXWfGQeikcAzsTLf9P7aasBKdAWdTaKFn
+         4W3Cjcl1JJwSeCLZtxtO7VbEDyRHjho1OAIQ763rXFFJsBJQocZjXPMaqLbeynMrHYQF
+         vzzvYbnIbpNVV0vzTJe5uYcor2AUWR9llzGN/WxafDZJVNnH2Ue7zwrpPr1BLvjoY2bd
+         cAF2jW9QolK0r8eGlJpHXmg2aFxnLk3VyTOK85hKanvKBEChJna/wbTsROnalMsQTerv
+         A0hg==
+X-Forwarded-Encrypted: i=1; AL+hErFOSpZd1reCXxwNdTaPiP+gFyiF6zOFnCmTjROn5QsC5vXbyIW/A9TjhaRV+o5XtXisKQziylThS3+sB2Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8k1uE5ZBqXZWQfeWUHThqwX6bfCop0vnRst7WT77yvSR1MrR55
+	ahLGGOsp5fWMW5WXHBU+3V0gw+KwQV953NZqBAdU3HD3BA6yPqwXVzkI
+X-Gm-Gg: AYBFou2M4tHRgNgmRdDyJ24D7RoGuNlgqRkPJy/oarjga5B5IzOdQCts0a0M66DZ0S3
+	vTge8GnE6xtPsVdNRllM+eR+s5O/6WR/xhdmCNlEsr1Akai4hHTwoKUUjjcT3UWwbLZ5GwhbD+q
+	OdNUYyAWkAW7vlWdO2P7BnRWo9cQOjPVLLVFecQFyRlqUW6a0tDRaVjRlQXJKCThIU/Rf3+oQaq
+	GKtMnEE/BMW2ys207jRLnMLymF1qyEX2e6fiiy0ZnsLYVfkKJX46tBmZboAyKYpz6TGycmENyy4
+	ZAUH4uRSLs1najwelpWMmbcwDv98GmKzfgAqboeASdGNlRZvQPasEuzWA3+kx21SKSutIwra9Da
+	6qE/uBcxqXmVtdaD04GnQYAuUyin9Y9Tiac/BK2D3N6i4fZbWq2Xb8YFF1H7+iJh8LMRpq4HiFD
+	iwbWJkfhriq2G33WpwJFJT3X10GcgBM1Loyt0KkX0o2Da3Ye8IkgKAkIsrUSPaVKpTmf16vm+Xg
+	fhLFOWfV9jybTV5TVjWVAbfnkX5clpHWQGgyaLSVBXuiqCamiTTxr5Qn1uLYhBG55aSQNj61SDw
+	E3YobAfgX6evA1y6ZA==
+X-Received: by 2002:a05:6000:41c7:b0:490:2033:1477 with SMTP id ffacd0b85a97d-49c7390fb4emr11166402f8f.56.1794665973648;
+        Sat, 14 Nov 2026 06:19:33 -0800 (PST)
+Received: from averion.play.pl ([2a02:a313:21ec:9380::e204])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c60f8d615sm11205737f8f.56.2026.11.14.06.19.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 06:19:02 -0800 (PST)
-From: Jiwoo Kim <arpe1618@gmail.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>
-Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Anna Maniscalco <anna.maniscalco2000@gmail.com>,
-	Julius Bairaktaris <julius@bairaktaris.de>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
+        Sat, 14 Nov 2026 06:19:31 -0800 (PST)
+From: Daniil Demakov <t3127430@gmail.com>
+To: linux-leds@vger.kernel.org
+Cc: lee@kernel.org,
+	pavel@kernel.org,
+	linusw@kernel.org,
+	riku.voipio@iki.fi,
+	brgl@kernel.org,
+	griffin@kroah.com,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v3 0/3] drm/msm: Fix VM_BIND job, queue and entity lifetimes
-Date: Sat, 14 Nov 2026 23:18:48 +0900
-Message-ID: <20261114141851.134290-1-arpe1618@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	linux-gpio@vger.kernel.org,
+	Daniil Demakov <t3127430@gmail.com>
+Subject: [PATCH] leds: pca9532: Propagate I2C errors
+Date: Sat, 14 Nov 2026 14:19:26 +0000
+Message-ID: <20261114141926.92737-1-t3127430@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,47 +103,396 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-These fix what happens to VM_BIND jobs, queues and entities when the
-file or a VM_BIND queue is closed while jobs are still pending.
+Check return values from SMBus read and write operations and
+propagate errors through LED, PWM, blink and GPIO operations.
 
-Patch 1 makes a VM_BIND job that the scheduler kills before it runs
-apply its queued unmaps before it drops the references that keep the
-unmapped pages alive, release its BO pins, and mark the VM unusable,
-as the VM no longer matches its pgtables. Patch 2 destroys the VM_BIND
-entity when its queue is closed, instead of on the final put, which can
-come after the VM's scheduler has been torn down. Patch 3 puts the
-queue last when a job is freed, as the queue may hold the last
-reference to the VM.
+Also check register writes during device initialization and
+report failures instead of continuing with an incorrectly
+configured device.
 
-Changes in v3:
-- Patch 1: only apply the queued ops of a job that the scheduler frees
-  after killing it, once its dependencies and the previous job of its
-  entity are done. The error path of msm_ioctl_vm_bind() frees the job
-  right away, so v2 could apply its unmaps too early and out of order
-  (Sashiko). That path is left as it is in mainline, and the title now
-  says which jobs the patch is about.
-- Patch 3: rebased on patch 1, title adjusted.
+Signed-off-by: Daniil Demakov <t3127430@gmail.com>
+---
+ drivers/leds/leds-pca9532.c | 185 +++++++++++++++++++++++++++---------
+ 1 file changed, 139 insertions(+), 46 deletions(-)
 
-Changes in v2:
-- New patch 1, for an issue that Sashiko reported on v1 patch 1, which
-  that patch makes easier to hit.
-- Patch 2: changelog refers to patch 1.
-
-v2: https://lore.kernel.org/r/20261114081902.1669-1-arpe1618@gmail.com
-v1: https://lore.kernel.org/r/20261114062541.2001-1-arpe1618@gmail.com
-
-Jiwoo Kim (3):
-  drm/msm: Release the pins and ops of a killed VM_BIND job
-  drm/msm: Destroy the VM_BIND entity when its queue is closed
-  drm/msm: Put the VM_BIND queue last when freeing a VM_BIND job
-
- drivers/gpu/drm/msm/msm_gem_vma.c     | 99 +++++++++++++++++++++++----
- drivers/gpu/drm/msm/msm_gpu.h         |  6 ++
- drivers/gpu/drm/msm/msm_submitqueue.c | 50 ++++++++++----
- 3 files changed, 128 insertions(+), 27 deletions(-)
-
-
-base-commit: 1e59855738454b14021b64115f0090eafc7526ae
+diff --git a/drivers/leds/leds-pca9532.c b/drivers/leds/leds-pca9532.c
+index c8085427696f..335795520490 100644
+--- a/drivers/leds/leds-pca9532.c
++++ b/drivers/leds/leds-pca9532.c
+@@ -148,32 +148,66 @@ static int pca9532_setpwm(struct i2c_client *client, int pwm)
+ {
+ 	struct pca9532_data *data = i2c_get_clientdata(client);
+ 	u8 maxleds = data->chip_info->num_leds;
++	int ret;
++
++	if (pwm < 0 || pwm > 1)
++		return -EINVAL;
+ 
+ 	mutex_lock(&data->update_lock);
+-	i2c_smbus_write_byte_data(client, PCA9532_REG_PWM(maxleds, pwm),
++	ret = i2c_smbus_write_byte_data(client, PCA9532_REG_PWM(maxleds, pwm),
+ 		data->pwm[pwm]);
+-	i2c_smbus_write_byte_data(client, PCA9532_REG_PSC(maxleds, pwm),
++
++	if (ret < 0) {
++		dev_warn(&client->dev, "Failed to write PWM register: %d\n", ret);
++		goto out;
++	}
++
++	ret = i2c_smbus_write_byte_data(client, PCA9532_REG_PSC(maxleds, pwm),
+ 		data->psc[pwm]);
++
++	if (ret < 0) {
++		dev_warn(&client->dev, "Failed to write PSC register: %d\n", ret);
++		goto out;
++	}
++
++out:
+ 	mutex_unlock(&data->update_lock);
+-	return 0;
++	return ret;
+ }
+ 
+ /* Set LED routing */
+-static void pca9532_setled(struct pca9532_led *led)
++static int pca9532_setled(struct pca9532_led *led)
+ {
+ 	struct i2c_client *client = led->client;
+ 	struct pca9532_data *data = i2c_get_clientdata(client);
+ 	u8 maxleds = data->chip_info->num_leds;
+-	char reg;
+-
++	int reg;
++	int ret;
+ 	mutex_lock(&data->update_lock);
++
+ 	reg = i2c_smbus_read_byte_data(client, LED_REG(maxleds, led->id));
++	if (reg < 0) {
++		ret = reg;
++		dev_warn(&client->dev, "Failed to read LED register: %d\n", ret);
++		goto out;
++	}
++
+ 	/* zero led bits */
+-	reg = reg & ~LED_MASK(led->id);
++	reg &= ~LED_MASK(led->id);
++
+ 	/* set the new value */
+-	reg = reg | (led->state << LED_SHIFT(led->id));
+-	i2c_smbus_write_byte_data(client, LED_REG(maxleds, led->id), reg);
++	reg |= led->state << LED_SHIFT(led->id);
++
++	ret = i2c_smbus_write_byte_data(client, LED_REG(maxleds, led->id), reg);
++
++	if (ret < 0) {
++		dev_warn(&client->dev, "Failed to write LED register: %d\n", ret);
++		goto out;
++	}
++
++out:
+ 	mutex_unlock(&data->update_lock);
++	return ret;
+ }
+ 
+ static int pca9532_set_brightness(struct led_classdev *led_cdev,
+@@ -194,9 +228,13 @@ static int pca9532_set_brightness(struct led_classdev *led_cdev,
+ 		if (err)
+ 			return err;
+ 	}
+-	if (led->state == PCA9532_PWM0)
+-		pca9532_setpwm(led->client, PCA9532_PWM_ID_0);
+-	pca9532_setled(led);
++
++	if (led->state == PCA9532_PWM0) {
++		err = pca9532_setpwm(led->client, PCA9532_PWM_ID_0);
++		if (err < 0)
++			return err;
++	}
++	err = pca9532_setled(led);
+ 	return err;
+ }
+ 
+@@ -205,6 +243,7 @@ static int pca9532_update_hw_blink(struct pca9532_led *led,
+ {
+ 	struct pca9532_data *data = i2c_get_clientdata(led->client);
+ 	unsigned int psc;
++	unsigned long period;
+ 	int i;
+ 
+ 	/* Look for others LEDs that already use PWM1 */
+@@ -223,15 +262,28 @@ static int pca9532_update_hw_blink(struct pca9532_led *led,
+ 		}
+ 	}
+ 
+-	psc = ((delay_on + delay_off) * PCA9532_PWM_PERIOD_DIV - 1) / 1000;
+-	if (psc > U8_MAX) {
+-		/* Blink period too long to be handled by hardware */
++	if (delay_on > ULONG_MAX - delay_off)
++		return -EINVAL;
++
++	period = delay_on + delay_off;
++
++	if (!period)
++		return -EINVAL;
++
++	if (period > ((U8_MAX + 1) * 1000) /
++		     PCA9532_PWM_PERIOD_DIV) {
++		dev_warn(&led->client->dev,
++			 "Blink period too long: %lu ms on, %lu ms off\n",
++			 delay_on, delay_off);
+ 		return -EINVAL;
+ 	}
+ 
++	psc = (period * PCA9532_PWM_PERIOD_DIV - 1) / 1000;
++
+ 	led->state = PCA9532_PWM1;
+ 	data->psc[PCA9532_PWM_ID_1] = psc;
+-	data->pwm[PCA9532_PWM_ID_1] = (delay_on * PCA9532_PWM_DUTY_DIV) / (delay_on + delay_off);
++	data->pwm[PCA9532_PWM_ID_1] =
++		(delay_on * PCA9532_PWM_DUTY_DIV) / period;
+ 
+ 	return pca9532_setpwm(data->client, PCA9532_PWM_ID_1);
+ }
+@@ -244,8 +296,10 @@ static int pca9532_set_blink(struct led_classdev *led_cdev,
+ 	struct pca9532_data *data = i2c_get_clientdata(client);
+ 	int err;
+ 
+-	if (!data->hw_blink)
++	if (!data->hw_blink) {
++		dev_warn(&client->dev, "Blinking not supported on this device\n");
+ 		return -EINVAL;
++	}
+ 
+ 	if (*delay_on == 0 && *delay_off == 0) {
+ 		/* led subsystem ask us for a blink rate */
+@@ -254,19 +308,18 @@ static int pca9532_set_blink(struct led_classdev *led_cdev,
+ 	}
+ 
+ 	err = pca9532_update_hw_blink(led, *delay_on, *delay_off);
+-	if (err)
++	if (err) {
++		dev_warn(&client->dev, "Failed to set blink: %d\n", err);
+ 		return err;
++	}
+ 
+-	pca9532_setled(led);
+-
+-	return 0;
++	return pca9532_setled(led);
+ }
+ 
+ static int pca9532_event(struct input_dev *dev, unsigned int type,
+ 	unsigned int code, int value)
+ {
+ 	struct pca9532_data *data = input_get_drvdata(dev);
+-
+ 	if (!(type == EV_SND && (code == SND_BELL || code == SND_TONE)))
+ 		return -1;
+ 
+@@ -286,27 +339,34 @@ static void pca9532_input_work(struct work_struct *work)
+ 	struct pca9532_data *data =
+ 		container_of(work, struct pca9532_data, work);
+ 	u8 maxleds = data->chip_info->num_leds;
++	int ret;
+ 
+ 	mutex_lock(&data->update_lock);
+-	i2c_smbus_write_byte_data(data->client, PCA9532_REG_PWM(maxleds, 1),
++	ret = i2c_smbus_write_byte_data(data->client, PCA9532_REG_PWM(maxleds, 1),
+ 		data->pwm[PCA9532_PWM_ID_1]);
++	if (ret < 0)
++		dev_warn(&data->client->dev, "Failed to write PWM register: %d\n", ret);
++
+ 	mutex_unlock(&data->update_lock);
+ }
+ 
+-static enum pca9532_state pca9532_getled(struct pca9532_led *led)
++static int pca9532_getled(struct pca9532_led *led)
+ {
+ 	struct i2c_client *client = led->client;
+ 	struct pca9532_data *data = i2c_get_clientdata(client);
+ 	u8 maxleds = data->chip_info->num_leds;
+ 	int reg;
+-	enum pca9532_state ret = PCA9532_OFF;
++	int ret;
+ 
+ 	mutex_lock(&data->update_lock);
+ 	reg = i2c_smbus_read_byte_data(client, LED_REG(maxleds, led->id));
+-	if (reg >= 0)
++
++	if (reg >= 0) {
+ 		ret = (reg & LED_MASK(led->id)) >> LED_SHIFT(led->id);
+-	else
+-		dev_warn(&client->dev, "failed to read LED register: %d\n", reg);
++	} else {
++		ret = reg;
++		dev_warn(&client->dev, "Failed to read LED register: %d\n", ret);
++	}
+ 	mutex_unlock(&data->update_lock);
+ 	return ret;
+ }
+@@ -334,27 +394,25 @@ static int pca9532_gpio_set_value(struct gpio_chip *gc, unsigned int offset,
+ 	else
+ 		led->state = PCA9532_ON;
+ 
+-	pca9532_setled(led);
+-
+-	return 0;
++	return pca9532_setled(led);
+ }
+ 
+ static int pca9532_gpio_get_value(struct gpio_chip *gc, unsigned offset)
+ {
+ 	struct pca9532_data *data = gpiochip_get_data(gc);
+-	unsigned char reg;
++	int reg;
+ 
+ 	reg = i2c_smbus_read_byte_data(data->client, PCA9532_REG_INPUT(offset));
+ 
++	if (reg < 0)
++		return reg;
++
+ 	return !!(reg & (1 << (offset % 8)));
+ }
+ 
+ static int pca9532_gpio_direction_input(struct gpio_chip *gc, unsigned offset)
+ {
+-	/* To use as input ensure pin is not driven */
+-	pca9532_gpio_set_value(gc, offset, 1);
+-
+-	return 0;
++	return pca9532_gpio_set_value(gc, offset, 1);
+ }
+ 
+ static int pca9532_gpio_direction_output(struct gpio_chip *gc, unsigned offset, int val)
+@@ -394,40 +452,57 @@ static int pca9532_configure(struct i2c_client *client,
+ 	struct pca9532_data *data, struct pca9532_platform_data *pdata)
+ {
+ 	int i, err = 0;
++#ifdef CONFIG_LEDS_PCA9532_GPIO
+ 	int gpios = 0;
++#endif
+ 	u8 maxleds = data->chip_info->num_leds;
+ 
+-	for (i = 0; i < 2; i++)	{
++	for (i = 0; i < 2; i++) {
+ 		data->pwm[i] = pdata->pwm[i];
+ 		data->psc[i] = pdata->psc[i];
+-		err = i2c_smbus_write_byte_data(client, PCA9532_REG_PWM(maxleds, i),
++
++		err = i2c_smbus_write_byte_data(client,
++						PCA9532_REG_PWM(maxleds, i),
+ 						data->pwm[i]);
+ 		if (err < 0)
+ 			return err;
+-		err = i2c_smbus_write_byte_data(client, PCA9532_REG_PSC(maxleds, i),
++
++		err = i2c_smbus_write_byte_data(client,
++						PCA9532_REG_PSC(maxleds, i),
+ 						data->psc[i]);
+ 		if (err < 0)
+ 			return err;
+ 	}
+ 
+ 	data->hw_blink = true;
++
+ 	for (i = 0; i < data->chip_info->num_leds; i++) {
+ 		struct pca9532_led *led = &data->leds[i];
+ 		struct pca9532_led *pled = &pdata->leds[i];
++
+ 		led->client = client;
+ 		led->id = i;
+ 		led->type = pled->type;
++
+ 		switch (led->type) {
+ 		case PCA9532_TYPE_NONE:
+ 			break;
+ 		case PCA9532_TYPE_GPIO:
++#ifdef CONFIG_LEDS_PCA9532_GPIO
+ 			gpios++;
++#endif
+ 			break;
+ 		case PCA9532_TYPE_LED:
+-			if (pled->state == PCA9532_KEEP)
+-				led->state = pca9532_getled(led);
+-			else
++			if (pled->state == PCA9532_KEEP) {
++				err = pca9532_getled(led);
++				if (err < 0)
++					goto exit;
++
++				led->state = err;
++			} else {
+ 				led->state = pled->state;
++			}
++
+ 			led->name = pled->name;
+ 			led->ldev.name = led->name;
+ 			led->ldev.default_trigger = pled->default_trigger;
+@@ -435,6 +510,7 @@ static int pca9532_configure(struct i2c_client *client,
+ 			led->ldev.brightness_set_blocking =
+ 						pca9532_set_brightness;
+ 			led->ldev.blink_set = pca9532_set_blink;
++
+ 			err = led_classdev_register(&client->dev, &led->ldev);
+ 			if (err < 0) {
+ 				dev_err(&client->dev,
+@@ -442,19 +518,35 @@ static int pca9532_configure(struct i2c_client *client,
+ 					led->name);
+ 				goto exit;
+ 			}
+-			pca9532_setled(led);
++
++			err = pca9532_setled(led);
++			if (err < 0) {
++				dev_err(&client->dev,
++					"couldn't set LED %s state\n",
++					led->name);
++				led_classdev_unregister(&led->ldev);
++				goto exit;
++			}
+ 			break;
+ 		case PCA9532_TYPE_N2100_BEEP:
+ 			/* PWM1 is reserved for beeper so blink will not use hardware */
+ 			data->hw_blink = false;
+ 			BUG_ON(data->idev);
++
+ 			led->state = PCA9532_PWM1;
+-			pca9532_setled(led);
++			err = pca9532_setled(led);
++			if (err < 0) {
++				dev_err(&client->dev,
++					"couldn't set beeper state\n");
++				goto exit;
++			}
++
+ 			data->idev = devm_input_allocate_device(&client->dev);
+ 			if (data->idev == NULL) {
+ 				err = -ENOMEM;
+ 				goto exit;
+ 			}
++
+ 			data->idev->name = pled->name;
+ 			data->idev->phys = "i2c/pca9532";
+ 			data->idev->id.bustype = BUS_HOST;
+@@ -467,6 +559,7 @@ static int pca9532_configure(struct i2c_client *client,
+ 			data->idev->event = pca9532_event;
+ 			input_set_drvdata(data->idev, data);
+ 			INIT_WORK(&data->work, pca9532_input_work);
++
+ 			err = input_register_device(data->idev);
+ 			if (err) {
+ 				cancel_work_sync(&data->work);
+@@ -498,8 +591,8 @@ static int pca9532_configure(struct i2c_client *client,
+ 			dev_warn(&client->dev, "could not add gpiochip\n");
+ 		} else {
+ 			dev_info(&client->dev, "gpios %i...%i\n",
+-				data->gpio.base, data->gpio.base +
+-				data->gpio.ngpio - 1);
++				 data->gpio.base, data->gpio.base +
++				 data->gpio.ngpio - 1);
+ 		}
+ 	}
+ #endif
 -- 
-2.43.0
+2.56.0
 
