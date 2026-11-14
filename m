@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794640222;
-	b=d2vmbT5FrmE4m/akRZ4zuyWI5e5l9HfSaXn3/wsc/gS5HpxHbBbs4pg2f9dLaFDxBvlx
-	 TYaZt8k5lJAu4jn3p6LjPhgqBjI3dy9OCLMuDnvZkGjJCzt7V5zpj5pgecaTTLPZHbILj
-	 /GHHtEkQetPEw9wPua16Z+RI4HNqpfXVe7pA3HVpLxJUxCev9CBgRzHrJQAcHHVN77PTR
-	 SQjWqCYNNjWz6NVyRlMrtRSrGqf/d5bPM33thB8tG/1yZTCiy8d/kXgwKkuGw/KA0eI+Z
-	 az55yX2ARp1XDB4SYj8bFaMN1+pCRI8lP+WqparVHxCdXQ2hSXWnn+7VSlAk7AvVb0w==
+	t=1794640224;
+	b=ibwkgrNjitXGpfHjo9Aj9NbrAAnovzFMxp2yZvW2tKTx4RUXi24gGFYhEseEBtQPi4Qi
+	 7xjSEpB+RJwApmxm6Sd1jWkzpQ4RoJQMwHoL4ROrDnYZjEHjAcTutrtxFPokKlyjfQRYI
+	 IhOeHe+rC0gfWhprnR6HUJhOS8EvG3VXlfCn7+X1m1ulSfUKtqr77gO81AKEEuI26dvVu
+	 KHpuewakW7Y4PIkYhNjkhZsDsUYHH2M49FwF4Zr1vULpWl9gylJFlH/iBPCazYKD+XDnl
+	 BscspP4v6idAvD5jgk3BJyjfGwbizGnFl5iUBCfrz3AW0Grnhrk7k20VTzivAt7XUXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794640222;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794640224;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=DOXRgiF+CNyVqkJbhOIwPMg67CTmwFoCbwz1N9b8GHg=;
-	b=kXiKzFI7T1Bz9rkKnIdmlFd+t/g8FiK0YW0AypCty9rJ/TEBYApkVwdSsDIr3aoRyBxM
-	 TPg/i3ONJ3STCd22kp3jVFWInDVNtp/87dKmksNy4Ed2Pqf9zBxyiWtVK9r2OMrbLdsFd
-	 jYtDsRwUbSXx6xMb9TsfrESjD5geKEyGWuPXcEdqj2OaIL53SDCtQ2XbvZ5h3wFjUsDts
-	 PpMIlJFJi+Wqwm9Aes73Sixh3R1AOUlGk0Abksnzm6x1ln1zKHdmLcJxDuihJ7NSObmGu
-	 OPaetUNrjAEu1HgFm8nmfPji1bKouTeRVyj3IMRhf+PhD3FFtPGJml5rIEpOg7wxHnw==
+	bh=Y6oxwUC9/qQIZVXuymnHKur3Vt67CPiMCpmdjljurXM=;
+	b=qY9VdxCx7DeiveNjD/WipXloY54i/kDtj9z0678CilbvCplx8JyM3uEtUeooKeOvI49a
+	 D83A9M/AlH/6wvR9cr/0Zz4Ue8WVaZoSwJHEDlmX+HKj/XDdcWUZ+hBs769UftCkehLMh
+	 nnCKVhKdWTUVep7Fof/582j2qrKSYZWvqUolP2786v8WpCpHaHyV+uuEHrbMp1bYiOWg+
+	 zZKzS3JuL6/1hb3QGzAULbTxBGk2dhIqeDuQ3NJuPzeJPdmU2aXOC7mbNQD16F5xamXAV
+	 6H/ufBE7VOZ1SWS8vFn+eSwcodZDkf5w8LHwyC9WQCuec105GAghNWIIeYCxG9ZR1fA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=gourry.net;
 	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=dn8aPYjq;
-	arc=none smtp.remote-ip=209.85.219.43
-Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=XlayBPV+;
+	arc=none smtp.remote-ip=209.85.219.42
+Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A7EC60A382E
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 07:10:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A7EC60A382E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2763A60A5BCB
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 07:10:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2763A60A5BCB
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=dn8aPYjq
-Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-91ec396c93dso42906266d6.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 23:10:21 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=XlayBPV+
+Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-91ea2e29d90so38112026d6.1
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 23:10:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1794640221; x=1795245021; darn=vger.kernel.org;
+        d=gourry.net; s=google; t=1794640223; x=1795245023; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=DOXRgiF+CNyVqkJbhOIwPMg67CTmwFoCbwz1N9b8GHg=;
-        b=dn8aPYjqsKhZwsk82BdbxjEFSE/vMaBbe+cox5m/7Df2gkmp44jLmMvpjtlgfZpehZ
-         8VtDuumfxKQgTiwQyA44zpz1VpN8VYZrXf//xLpygTlh/mmCOZUUriWdYQcivo3a6L8c
-         pSLy+otkzSzeQbpqiCjEhw6ybrSDAS0wwtWIYAPCdN3t4w0SHwGCt9z5OPI431nT9Bi8
-         d01uBHt/f2gRMxcffnVFJlRyMNQJXgPKkXXTca1su0yl/rgRpd+kzFKuE5dh3T9Fb0zS
-         4a847RJn2X8B2/ph4+ebCG/EDKFe2shPGmqiKw/sYMfZOB+DZUFZhAVD4emTOAPr5BYM
-         1JpA==
+        bh=Y6oxwUC9/qQIZVXuymnHKur3Vt67CPiMCpmdjljurXM=;
+        b=XlayBPV+6O94G4EvOv/apyiTo3m5/u93nKnLcvDMZ5IZPd0h+zJdRRruMsVEzi3WoC
+         z+Si2hEa+Ua87rapVuCjiDYM3x1e6qBeqGGKaT+0sgS14MzxbWyx2Ucw9pF8mizmV1OF
+         i/t/Oeuq2KCow2Q0aWnwaQcVV2jadem/GeVnEOD0NFZfkI+oaWFfXNpjKd+lsCUarnli
+         6377+lF8LMdQhAtCoZ7vh4YMKQp23DrTIh9X0RMqS66GPLHgLk13lDoRAz5VubUIW3tN
+         IQtaAGEJaTre22tDiHAkUzUrRrP/waHscFQx+6pylgrnkPGeI2Z6Qg3IFhDHNBbaaDlL
+         nLIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794640221; x=1795245021;
+        d=1e100.net; s=20260707; t=1794640223; x=1795245023;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DOXRgiF+CNyVqkJbhOIwPMg67CTmwFoCbwz1N9b8GHg=;
-        b=nap7nsHuwBsRA/S20TfmackptDzTVADjV2tm84ORloYBdveyNBXqx+2YlhTce1tOYi
-         94Pk4uTQY544tMKZ414WIlbJlo1YV+9r/GkHMaWN6R4bCPKaH1mQJAcoMzcLlvq38LEy
-         sbxDnjj4CaHuAlEAemNG1JjupR3hBA8bYPj/ElV7KfQ9WZXo2Rgk3w9L2xt0W+EIdGSD
-         4y/991WHThT2zejB1yFf7m/ZI7RBAlyJmc9GDMVll6WVENSYbzpmDFZbJDO2kE9t+aca
-         y1P0f2eWL0y2FT6DxmMRScVThjCcVlNYL5rA5JcqqI9kROaLpoWR4d+gG8PYvkO/Ktfp
-         zu3Q==
-X-Gm-Message-State: APuU4Z/qnRkvUoyhhlMjmTWOvMhyvpBXiJSqzabRGFlvRqVvDRilk0tU
-	vzg0dvdA60qUuTpUcMa8oH3CR7wmMpClZKuBMvbslxn0VTKvo7p6iXY2jxb9FI1KwaI=
-X-Gm-Gg: AYBFou3MM7O9wCpsOHrXxFL0dulaKt8cJma+7LpM9I6y3MEaZh6OJWJIgBOzBMuaIMZ
-	LGr6gMAGNZ+c2ytgIPtJzzvp0ZRVivQimnDi+N7TIfDzyKMLDl+USY8++64OlRWf2SMfCfDgG7o
-	/4IigWoVpjwNJ7L30rBmROct8V90b1tPRO9IeDDIZdAXUiMUorcmTHClQea3LwnzSfL8P3KqOLT
-	Bm5m2xb8Ld5hd6CG09EHI5/AFE7IQakv8tEeKMrx15+MduXhTUBAH8fQz0p0K/zVwDzwV1mHgG2
-	yUg4YNKYKjd30C0Swvri08yh+D3wzhES/91xQICF8cHqp2Z33iZyrzGIPnxgYmMIwL/L1VQ8gT3
-	HWrS/VVP/taJKliLJIMVKDrse2mtSV6UrvdZmbs46mWB0su1mObRZh/ttkupmEKzWlKZ3Z4fP5z
-	2/JOYpHYkHujJ638SmUpdGnc812YXYQJKsgoRDTaK3f3rbhgVKpZGJx55XMOepsYogjnFF56OWL
-	mXOIgwXaZwrl9QOK8YlFeNQfsTliIPBnlACuIGmL0LydM8n9RlSEOC8cqB5U1fatJFShNZ4c/cn
-	78JMoAu7mESO8ug+QSnp+Zcn+AhTeu1bgOuLMl3q+qGAqWRL4wEgElsqceY4HMSKQTYwE5WoN/y
-	14KNtcC9wapbBlEM=
-X-Received: by 2002:a05:6214:3905:b0:91e:7f01:f95a with SMTP id 6a1803df08f44-91f24229457mr72251376d6.46.1794640221033;
-        Fri, 13 Nov 2026 23:10:21 -0800 (PST)
+        bh=Y6oxwUC9/qQIZVXuymnHKur3Vt67CPiMCpmdjljurXM=;
+        b=UruxlOga3AKC7MHDA2bjTXKVG3B/5ShWQYEcLAB/HND/We0QFxiOLC9Tug5+Y3iSAk
+         ODJuH1IV9JSW5R3EchX0lCuOpbDGueeU1Tlf2k4Ka/MAI5k4wAW0ffuznSL/2kHADiKy
+         wpKlILacBB0NYFT305oZ3m0qyxV0o7Fa7ueQjWVfBFBvZGcHckgyG8vGkpRZ8LlkMVFO
+         fM2FTamSFYJv3RqJc2GOoEjjfntHu+Kq9WsfovFj+eNhDFWIO+aJIHDP9CQWLCPS/4ip
+         GTyv6Lxmx04AZKN3p3flo+W5w4gz7AkWrCHZ1MhMqjwxjOk6r2473fKuTyeZ+2R+ONDd
+         ILxQ==
+X-Gm-Message-State: APuU4Z++qy+WMq/VeIMhXi4JUv2koEswDxCVT5OzHa3PK370BuJFRT1E
+	QQd0itqZIoRxotdEwVWY6ulXtqhm8Os/NxwhVyJKyjlMR46zVfj/BeIJ5O4m3XPlpYs=
+X-Gm-Gg: AYBFou2qNUIFJpfftudQX/6qICfpDCA3/g9M1hypm5704TDnwlx64PoXZUHvkEwr1gX
+	3YQFQVgw6Rt4PAwCQ5g1goTWUoxoGMO7Jpy11fzf5FMPFcI77FVIHnYXojuKgkoQfMiObMDUrUa
+	AEGLoGkjqi/TZEiAATQSF8+Dr8GiKn3qHeLNZFDmQjmlvbC7dWIUUK7mGXqlQ39ERHXDDWk6r81
+	N81pUkrdOEO7ElyjT+L/nxh/0YZeThMgFt5rS7kfTEMrPUPaP/Kis8aA44uQqZhf0VNhuKKarOA
+	tWfHtljB0A/9LKkCS/BGJNqY9LX9EtHk5FJLeyQRVPDKGhbvX7RKk8Jq+WnLkCaku3VWPieqF2B
+	/r0l0UhdN60JdO1iRqIpBL6moqo9Vw9qLuurW73pw8hWPgLYbx/GvFyyg9haI6RTlvUDSRi5FrW
+	ooFUBgR9LTY2eBIPNdLjA9OvfnAb1n2DOj9A6LT09QO+JMPb6Wels89NYSST125Nh18rJNJJuBn
+	iusqpMTkeeb0EgCUIjxNr4AI4g0FEe6BO/o4Or1+YcwxEOeZtE5H1Z2KacGJlkc6q+KxErPReAK
+	W+vBbTwuPNpkuZhE1DO1sQtSCDsLiZrgcpXbSHI688ESriy7MQHmfLuRGlCj6mFksZhrGU592kh
+	Hwyc/W5HP9bIQco8=
+X-Received: by 2002:a05:6214:2462:b0:91f:3182:e94e with SMTP id 6a1803df08f44-91f3182ea72mr35908656d6.8.1794640223087;
+        Fri, 13 Nov 2026 23:10:23 -0800 (PST)
 Received: from gourry-fedora-PF4VCD3F (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23db3a99sm37730986d6.40.2026.11.13.23.10.19
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23db3a99sm37730986d6.40.2026.11.13.23.10.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 23:10:20 -0800 (PST)
+        Fri, 13 Nov 2026 23:10:22 -0800 (PST)
 From: "Gregory Price (Meta)" <gourry@gourry.net>
 To: linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org,
@@ -138,9 +138,9 @@ Cc: linux-kernel@vger.kernel.org,
 	byungchul@sk.com,
 	apopple@nvidia.com,
 	rientjes@google.com
-Subject: [PATCH 08/22] mm/memory-tiers: restrict demotion topology to common memory
-Date: Sat, 14 Nov 2026 02:09:45 -0500
-Message-ID: <20261114070959.3490008-9-gourry@gourry.net>
+Subject: [PATCH 09/22] mm/ksm: restrict merging to common memory
+Date: Sat, 14 Nov 2026 02:09:46 -0500
+Message-ID: <20261114070959.3490008-10-gourry@gourry.net>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261114070959.3490008-1-gourry@gourry.net>
 References: <20261114070959.3490008-1-gourry@gourry.net>
@@ -155,113 +155,51 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Memory outside N_MEMORY_COMMON is outside the ordinary allocation pool
-and cannot be a generic demotion source or destination.
+KSM is an opportunistic MM service and should leave memory outside
+the ordinary memory pool alone - as it already does for ZONE_DEVICE
+folios at each acquisition point.
 
-Build demotion paths and the default DRAM performance reference from
-N_MEMORY_COMMON rather than every node that has memory, and do not
-assign other nodes to a memory tier through the generic hotplug path.
-
-Removing a node's memory already resets its demotion targets, so a node
-that unplugs and returns outside N_MEMORY_COMMON keeps none.
-
-All memory nodes currently carry N_MEMORY_COMMON, behavior is unchanged.
+Use folio_is_common_memory() at those same sites, which still rejects
+ZONE_DEVICE folios.
 
 Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 ---
- mm/memory-tiers.c | 23 ++++++++++++-----------
- 1 file changed, 12 insertions(+), 11 deletions(-)
+ mm/ksm.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/mm/memory-tiers.c b/mm/memory-tiers.c
-index 7fc56a8c66518..97d5ecefd89f3 100644
---- a/mm/memory-tiers.c
-+++ b/mm/memory-tiers.c
-@@ -370,7 +370,8 @@ int next_demotion_node(int node, const nodemask_t *allowed_mask)
- 	 * closest demotion target.
- 	 */
- 	nodes_complement(mask, *allowed_mask);
--	return find_next_best_node_in(node, &mask, &node_states[N_MEMORY]);
-+	return find_next_best_node_in(node, &mask,
-+				      &node_states[N_MEMORY_COMMON]);
- }
+diff --git a/mm/ksm.c b/mm/ksm.c
+index 623a2cdb39242..25b2c2f944862 100644
+--- a/mm/ksm.c
++++ b/mm/ksm.c
+@@ -831,7 +831,7 @@ static struct page *get_mergeable_page(struct ksm_rmap_item *rmap_item)
  
- static void disable_all_demotion_targets(void)
-@@ -405,7 +406,7 @@ static void dump_demotion_targets(void)
- {
- 	int node;
+ 	folio = folio_walk_start(&fw, vma, addr, 0);
+ 	if (folio) {
+-		if (!folio_is_zone_device(folio) &&
++		if (folio_is_common_memory(folio) &&
+ 		    folio_test_anon(folio)) {
+ 			folio_get(folio);
+ 			page = fw.page;
+@@ -2571,7 +2571,8 @@ static int ksm_next_page_pmd_entry(pmd_t *pmdp, unsigned long addr, unsigned lon
+ 				goto not_found_unlock;
+ 			folio = page_folio(page);
  
--	for_each_node_state(node, N_MEMORY) {
-+	for_each_node_state(node, N_MEMORY_COMMON) {
- 		struct memory_tier *memtier = __node_get_memory_tier(node);
- 		nodemask_t preferred = node_demotion[node].preferred;
+-			if (folio_is_zone_device(folio) || !folio_test_anon(folio))
++			if (!folio_is_common_memory(folio) ||
++			    !folio_test_anon(folio))
+ 				goto not_found_unlock;
  
-@@ -441,7 +442,7 @@ static void establish_demotion_targets(void)
+ 			page += ((addr & (PMD_SIZE - 1)) >> PAGE_SHIFT);
+@@ -2595,7 +2596,8 @@ static int ksm_next_page_pmd_entry(pmd_t *pmdp, unsigned long addr, unsigned lon
+ 			continue;
+ 		folio = page_folio(page);
  
- 	disable_all_demotion_targets();
- 
--	for_each_node_state(node, N_MEMORY) {
-+	for_each_node_state(node, N_MEMORY_COMMON) {
- 		best_distance = -1;
- 		nd = &node_demotion[node];
- 
-@@ -459,7 +460,7 @@ static void establish_demotion_targets(void)
- 		 * nodelist to skip list so that we find the best node from the
- 		 * memtier nodelist.
- 		 */
--		nodes_andnot(tier_nodes, node_states[N_MEMORY], tier_nodes);
-+		nodes_andnot(tier_nodes, node_states[N_MEMORY_COMMON], tier_nodes);
- 
- 		/*
- 		 * Find all the nodes in the memory tier node list of same best distance.
-@@ -468,7 +469,7 @@ static void establish_demotion_targets(void)
- 		 */
- 		do {
- 			target = find_next_best_node_in(node, &tier_nodes,
--							&node_states[N_MEMORY]);
-+							&node_states[N_MEMORY_COMMON]);
- 			if (target == NUMA_NO_NODE)
- 				break;
- 
-@@ -507,7 +508,7 @@ static void establish_demotion_targets(void)
- 	 * allocation to a set of nodes that is closer the above selected
- 	 * preferred node.
- 	 */
--	lower_tier = node_states[N_MEMORY];
-+	lower_tier = node_states[N_MEMORY_COMMON];
- 	list_for_each_entry(memtier, &memory_tiers, list) {
- 		/*
- 		 * Keep removing current tier from lower_tier nodes,
-@@ -554,7 +555,7 @@ static struct memory_tier *set_node_memory_tier(int node)
- 
- 	lockdep_assert_held_once(&memory_tier_lock);
- 
--	if (!node_state(node, N_MEMORY))
-+	if (!node_state(node, N_MEMORY_COMMON))
- 		return ERR_PTR(-EINVAL);
- 
- 	mt_calc_adistance(node, &adist);
-@@ -706,8 +707,8 @@ static int __init memory_tier_late_init(void)
- 	get_online_mems();
- 	guard(mutex)(&memory_tier_lock);
- 
--	/* Assign each uninitialized N_MEMORY node to a memory tier. */
--	for_each_node_state(nid, N_MEMORY) {
-+	/* Assign each uninitialized common memory node to a memory tier. */
-+	for_each_node_state(nid, N_MEMORY_COMMON) {
- 		/*
- 		 * Some device drivers may have initialized
- 		 * memory tiers, potentially bringing memory nodes
-@@ -929,8 +930,8 @@ static int __init memory_tier_init(void)
- 	if (IS_ERR(default_dram_type))
- 		panic("%s() failed to allocate default DRAM tier\n", __func__);
- 
--	/* Record nodes with memory and CPU to set default DRAM performance. */
--	nodes_and(default_dram_nodes, node_states[N_MEMORY],
-+	/* Record common-memory nodes with CPUs for default DRAM performance. */
-+	nodes_and(default_dram_nodes, node_states[N_MEMORY_COMMON],
- 		  node_states[N_CPU]);
- 
- 	hotplug_node_notifier(memtier_hotplug_callback, MEMTIER_HOTPLUG_PRI);
+-		if (folio_is_zone_device(folio) || !folio_test_anon(folio))
++		if (!folio_is_common_memory(folio) ||
++		    !folio_test_anon(folio))
+ 			continue;
+ 		goto found_unlock;
+ 	}
 -- 
 2.53.1-Meta
 
