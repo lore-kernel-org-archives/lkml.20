@@ -1,66 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794677296;
-	b=CECTBAlfmgc/TaVmr0zmviHtHUFHC9B0b2isK8sJsuWz6MB9gihByICmO8D+UnXEzONL
-	 Zi86qPHOffhNwNH9N5t1SjQguSsLnN6+xTs/RpZRw8UBi8OR9zN5lcnub/7UE3PLNYtF/
-	 lz3aQ7xRXF1k6KE4FiRQl04iNJqHiR2VVZxg71v8PLVX+SkjEnlfIaTG85iQEojYt0+9V
-	 IPPkjN8/vDmD2IKaE+IIKEAU4mAka2/Gz//ngoC8Vct/gY0Bx8zkESaOGgqeAwJuN5sOV
-	 qssovUmzJgrnCONor/tlo+O/+Ys4mycvFtjfZC4VrL1hheUOKxLVZ5tuyTW5kgiJk7Q==
+	t=1794677321;
+	b=lN/cdv9SgvcEzHEXqWoX8W8w+bP8Mp/9svMqyXo0LBoc7dCbz6ITPBCTC5d8lJXb4XWZ
+	 3iWXLYyWmtgLbP0RHvtfxFHmHx+WJxAz8fwZDSaMMc4HKHQ1I2W7FyyGk2uZcbJv/JRIK
+	 w4eF3MJVjWIM3LWjmMYJ7f50R9Ki7fi7pfYuy2SbazJkb9XvXsiNTBh8dCBoiuxp0jDNm
+	 JL65zqJ27eCCZgYb/HsjOJy919sHETSu+c6+MCZFeX+sycAXu0SQY2AHFPkOXr/vIaYoB
+	 BJb/BxnRa/sW6XmQkc4e7WtGnl71ssTcEE0FjYByAoUCdD34jedyKf5OTaMwJxjibpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794677296;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
-	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=/zJvyhXVmWQ8n6ulJrzTmjWsDytDY/8DsGllw13TDE8=;
-	b=2CByWQlm7wK2NnzhPm5J3mg9ESkGURqbVBr5LaprX3YjZqsCI4GvZmQX4bJAdLYpyHpB
-	 euy6jpZWFmIoPszOmxjUIdYJJH6WCglbu1uscoZOrEAlDjVoCNUmJSGWONSlQpWgFAWqQ
-	 NRllroaMcvU4E7BpNifU5R4vd1HoAiVz3lEX5fsRL4d5uKpvcu5/Y8V+a6moi8XEkoHX3
-	 MWtxIYCTgAdEPY7hPigGDczHm2RJIGn/H/VcswzyoS8RJtgm7RwQc/lNCHwaCaEANjcSw
-	 5tkae1TfI8sFRU90NDJDwqKSkN7h1H8AKuRqP59HtHnzTWd03zMvD9wPxqcL7yd82mA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794677321;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=IvazhbLjPs/GbfIjGW8+LFCBhSwb1LGY5YDPG8bfv0w=;
+	b=V6vxV0TtWRn1E6d41C3zIJCa+zG5jy4iTVT0k4tFTUFhhlpt/IrkKJkuO2KqABBbNrOm
+	 EKWcwYpfY1Uc8vFuO7R6GLUh/oERIFL45RevVHYYeXHn9qz617NU7rGBiLz+uajTpEAa3
+	 83JBVCJwxo0ohTANeTbwtZnHQQr0dMfUHis23jqKo1fSuwZCjZIfBouA6J0cVda/ZafNU
+	 A0maAm/gnCEDr5LHTL5OG1jAtJ6nKs6pACh7iD1Dytl0VTcMqWx3K7whmS53uSQkzn+ij
+	 7NBn7VwhQNl7pgq8qOkWrvtoWkZZrtCXVepXBRS+S+6tcdlfR7MVzw8gEbVCiAKZu2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=Z2KfI1FV;
-	arc=none smtp.remote-ip=160.30.148.35
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+	dmarc=pass header.from=becholey.ch;
+	spf=pass smtp.mailfrom=becholey.ch;
+	dkim=pass header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=rqRCVAXX;
+	arc=none smtp.remote-ip=79.135.106.25
+Received: from mail-10625.protonmail.ch (mail-10625.protonmail.ch [79.135.106.25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF444606A33B;
-	Sat, 14 Nov 2026 17:28:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF444606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC39606A327;
+	Sat, 14 Nov 2026 17:28:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CC39606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=becholey.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=becholey.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=Z2KfI1FV
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jRh0t2Pk1z8XrrM;
-	Sun, 15 Nov 2026 01:28:14 +0800 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794677294;
-	bh=g2Pv6nwAGtwV6QX8+pn88NBhcXvjxGhcFYlL9Fzu+Io=;
-	h=Date:From:To:Cc:Subject;
-	b=Z2KfI1FVzaXNz+uvodFMcTb0jg19SG14R/i4Hzol3FnybUFkK2pDiijjhD8wLGOHF
-	 CRdOZ3cH2I2U7jdqLKqBgHD4wriLUD6/PL6DPAp+P1WgoEYqjoAsLLkubIFBmBQu2a
-	 fEvr3vY81IHj+Ij0Ku7RsOQrXHHamdksF5VZPcu9W2ZXapYatQiv0xKIhyosrJOpm+
-	 SqLSUl5aISWsRkk0Lp2VpT4JMvYV1cmZ0CprZKKRNFp0nX+6JjJm5lcS6MVq3cVQ9+
-	 R6Wcl5GD0p5Os+kb4jrY8wjz8gDWP+6UmZNWEg826w3e62zO1TCxrKholdDcQW3x78
-	 mkgi9mFDLK2kw==
-Received: from xaxapp01.zte.com.cn ([10.88.99.176])
-	by mse-fl2.zte.com.cn with SMTP id 6AEHS5kp016868;
-	Sun, 15 Nov 2026 01:28:05 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp02[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Sun, 15 Nov 2026 01:28:09 +0800 (CST)
-X-Zmail-TransId: 2afa6af89a29b80-55b2b
-X-Mailer: Zmail v1.0
-Message-ID: <20261115012809000VXL8NL9lZ4gQEKv-NNqUP@zte.com.cn>
-Date: Sun, 15 Nov 2026 01:28:09 +0800 (CST)
+	dkim=pass (2048-bit key, unprotected) header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=rqRCVAXX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=becholey.ch;
+	s=protonmail; t=1794677316; x=1794936516;
+	bh=IvazhbLjPs/GbfIjGW8+LFCBhSwb1LGY5YDPG8bfv0w=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=rqRCVAXXtvvbzAvWbBv1wG6zaTQ+dlLOBJBOBg3tLm1rODFiL32fizlnSSqGc5QAQ
+	 8V4m9GK9rL4AoGnJnEGR1MJZsy4EY7nqrWpzWNYrXIasO1WU/C1yC71s/F4ySZ5xSE
+	 CGHFuZka9REIyDdCdAbSjvijfAEmEzCC+OGD0qiBSBBvEPGXvRbEZLm8cPwVRfgg3s
+	 uCvV0OffnTwwcGenk/XBoDz/Mz5lKjmI83XpftYWwKuZ2Dn4NCU+if0JW/65yGu5Hi
+	 IJmXskgpYriVik5CirDoCFwJ61arev7uVB5XvKchexWR/F5hn2n1YJa6wtR0Em9HeC
+	 shrdKt6V85OrA==
+Date: Sat, 14 Nov 2026 17:28:30 +0000
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+From: Alexandre Becholey <alex@becholey.ch>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, Hanxiang Xu <xuhx@hust.edu.cn>, =?utf-8?Q?=C5=A0erif_Rami?= <ramiserifpersia@gmail.com>, Alexandre Becholey <alex@becholey.ch>
+Subject: [PATCH 0/5] ALSA: usx2y: us144mkii: fix PCM stream lifetime bugs
+Message-ID: <20261114172806.88710-1-alex@becholey.ch>
+Feedback-ID: 60743817:user:proton
+X-Pm-Message-ID: 1280f624f32e71b5dba707abf93d8c00631ceb77
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,100 +60,69 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <kbusch@kernel.org>, <axboe@kernel.dk>, <hch@lst.de>, <sagi@grimberg.me>,
-        <linux-nvme@lists.infradead.org>
-Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>,
-        <justin.tee@broadcom.com>, <nareshgottumukkala83@gmail.com>,
-        <paul.ely@broadcom.com>
-Subject: =?UTF-8?B?W1BBVENIXSBudm1lLWZjOiBpbml0aWFsaXplIEkvTyBxdWV1ZXMgYWRkZWQgZHVyaW5nIHJlY29ubmVjdA==?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6AEHS5kp016868
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Sun, 15 Nov 2026 01:28:14 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF89A2E.000/4jRh0t2Pk1z8XrrM
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+Hi,
 
-nvme_fc_alloc_ctrl() initializes only the admin queue and leaves the
-other nvme_fc_queue entries zeroed.  The initial connect path calls
-nvme_fc_init_io_queues() before creating the tag set, but reconnects go
-through nvme_fc_recreate_io_queues(), which does not initialize the
-queues it adds when the controller grants more I/O queues than the
-previous connection.
+Five bugs in the snd-usb-us144mkii PCM code, all reproduced with an
+emulated US-144MKII under KASAN on torvalds/master and v7.3.1:
 
-blk_mq_update_nr_hw_queues() then publishes the new hardware contexts
-while the corresponding queue entries still have qnum == 0 and
-ctrl == NULL.  nvme_fc_connect_io_queues() builds Create Connection
-commands from qnum, so the new queues are connected with queue ID 0
-(the admin queue), and __nvme_fc_init_request() also classifies their
-requests as admin commands.  Worse, nvme_fc_queue_rq() dereferences
-queue->ctrl, so any request dispatched to a new hardware context before
-the queue is initialized crashes.  This includes the connect requests
-themselves, since connect_q belongs to the same tag set.
+ 1/5 stop_pcm_work calls snd_pcm_stop() on a substream that is being
+     closed (use-after-free of the runtime); the device can schedule
+     the work at any time by sending bad feedback.
+ 2/5 capture_work keeps using the capture runtime after the capture
+     PCM is closed while playback is running (use-after-free).
+ 3/5 the capture work and the playback URB completion use the buffer
+     of a substream that was never started (NULL dma_area), because
+     the URBs of both directions always run together.
+ 4/5 the playback and feedback URB completions use the substream
+     runtime and buffer without waiting for close (use-after-free).
+ 5/5 a START retried while stop_work runs submits URBs that are still
+     in flight (URB submitted while active, anchor list corruption).
 
-Initialize the newly added queues before growing the tag set, matching
-what the initial connect path does.  Existing queues are left alone so
-their connection state is preserved, as required by
-nvme_fc_recreate_io_queues().
+The patches depend on each other and are meant to be applied in this
+order: 2/5 builds on the close callback of 1/5, the check added in 3/5
+is only safe once 2/5 guarantees that the capture work does not outlive
+the substream, and 4/5 and 5/5 apply on top of the first three. In
+testing, 3/5 without 2/5 crashed in the new check, and 1/5 + 2/5
+without 3/5 still crashed on the NULL dma_area. Each patch has its
+testing notes below its '---' line.
 
-Fixes: 3e493c00cedb ("nvme-fc: fix nulling of queue data on reconnect")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
----
-Tested on 7.3.0-next-20261030 with nvmet-fcloop in a single QEMU/TCG
-guest (2 vCPUs); no FC or network hardware is involved.
+Hanxiang Xu reported the bugs fixed by 1/5, 2/5 and 4/5 on this list
+on 2026-11-13, from source inspection and without a patch; we found
+them independently with emulated devices. This series is sent as a
+reply to that report, and 1/5, 2/5 and 4/5 carry Closes: tags for the
+two messages. The reports also mention close racing with disconnect:
+that concerns a fix that kills URBs in .close, which this series does
+not do (the .close callbacks only touch the card private data), so
+nothing is changed for it.
 
-The controller is created with one I/O queue (attr_qid_max=1), then
-attr_qid_max=2 deletes it and forces a reconnect that grants two
-queues, so nvme_fc_recreate_io_queues() grows the tag set from 1 to 2:
+How we found it: the bugs were found, and the reproducers and these
+patches were written, by AI agents (Claude Mythos and Claude Opus
+models), in QEMU with emulated USB devices (raw-gadget/dummy_hcd,
+emulated xHCI, USB/IP).
+A human reviewed the analysis and the patches. The reproducers are
+available on request.
 
-  unpatched                              patched
-  nvme0: reconnect: revising io queue    same
-    count from 1 to 2
-  Oops: 0000 [#1] SMP NOPTI              no oops, 6/6 cycles
-  Workqueue: nvme-wq
-    nvme_fc_connect_ctrl_work
-  RIP: nvme_fc_queue_rq+0x21/0x190       queue_count=3
-  CR2: 0000000000000020                  I/O from cpu1, ret=0
-  Kernel panic - not syncing
+Thanks,
+Alexandre Becholey
 
-The NULL dereference is the Create Connection for the new queue: it
-goes through ctrl->connect_q, which shares the tag set, and is
-dispatched to the new hctx whose queue->ctrl is still NULL.  CR2 is
-0x20, the offset nvme_check_ready() reads.  The target also warns about
-a duplicate queue id on the same reconnect, because the new queue is
-connected with queue ID 0 instead of 2.
+Alexandre Becholey (5):
+  ALSA: usx2y: us144mkii: fix stop_pcm_work race with PCM close
+  ALSA: usx2y: us144mkii: wait for the capture work on capture close
+  ALSA: usx2y: us144mkii: only touch the buffer of a running PCM stream
+  ALSA: usx2y: us144mkii: wait for the URB completion handlers on stop and =
+close
+  ALSA: usx2y: us144mkii: do not restart the stream while stop_work runs
 
- drivers/nvme/host/fc.c |    4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ sound/usb/usx2y/us144mkii.c          |   5 +-
+ sound/usb/usx2y/us144mkii.h          |   2 +
+ sound/usb/usx2y/us144mkii_capture.c  |  22 ++++-
+ sound/usb/usx2y/us144mkii_pcm.c      | 162 +++++++++++++++++++------------=
+----
+ sound/usb/usx2y/us144mkii_pcm.h      |   8 ++
+ sound/usb/usx2y/us144mkii_playback.c |  65 ++++++++++----
+ 6 files changed, 170 insertions(+), 94 deletions(-)
 
-diff --git a/drivers/nvme/host/fc.c b/drivers/nvme/host/fc.c
-index 0b9ff50d26ff..f3603c793ede 100644
---- a/drivers/nvme/host/fc.c
-+++ b/drivers/nvme/host/fc.c
-@@ -2932,7 +2932,7 @@ nvme_fc_recreate_io_queues(struct nvme_fc_ctrl *ctrl)
- 	struct nvmf_ctrl_options *opts = ctrl->ctrl.opts;
- 	u32 prior_ioq_cnt = ctrl->ctrl.queue_count - 1;
- 	unsigned int nr_io_queues;
--	int ret;
-+	int ret, i;
- 
- 	nr_io_queues = min3(opts->nr_io_queues, num_online_cpus(),
- 				ctrl->lport->ops->max_hw_queues);
-@@ -2959,6 +2959,8 @@ nvme_fc_recreate_io_queues(struct nvme_fc_ctrl *ctrl)
- 		dev_info(ctrl->ctrl.device,
- 			"reconnect: revising io queue count from %d to %d\n",
- 			prior_ioq_cnt, nr_io_queues);
-+		for (i = prior_ioq_cnt + 1; i <= nr_io_queues; i++)
-+			nvme_fc_init_queue(ctrl, i);
- 		blk_mq_update_nr_hw_queues(&ctrl->tag_set, nr_io_queues);
- 	}
- 
--- 
-2.43.0
