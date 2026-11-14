@@ -1,105 +1,150 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794625560;
-	b=OWhwAsQpPIkTBLBBOsAAbk2DkTQ4s7JPvNQKII2gn2LQ7IIYLwCUX5l9dAu1wPNvcUEu
-	 mMCSVPVI2pErL4o16/+aybXG0CuGOMgk8H/vTiu1eb0U++qu7g7QRfXu46tW1YBIKebA/
-	 TatZJhyqfNsLDBE96LIENuBJCoKFOBqX9z//CQKMIyx18hqOiqUK0nN48owZ0pavDsa4r
-	 yeQJ4T3MzhzhUVq/p9iOmHdH7XepS0f4W+80uXWMSSn2tS2xG0aHdAadiFazk6+LS8Spx
-	 k8v+mMZ5A2y99RG82GXE+f2pBaDCJuKxKk763MQ/xTXL9o5HPciyPs0j1nQOHM9yhWA==
+	t=1794625565;
+	b=Q+x/aj0/64T/lq6tf29n7KMnNifZscEXhxxjsL+2tuXQ0gckSkuEt9jMikWLB44qoHjh
+	 fDWYG/W+mnFu33dIgGbxaNPGsDD3pYtwxTtRdiIYLX0DEGKfqaCFekMZ6prVbksgkQQuI
+	 o2YYKQq65vNQFY0Cc+bsyk6bHsFScG585wjBKD2IMmGy1mhbUZ2VXJgI06Ax73N+i9cVC
+	 pWCgVr18VdOPwkw+zbgHCYfQUPb3J3TAhuAzGjURrYMhIfc7TOU7XSQIGoJXaEB1lmtVj
+	 0Dl/CVMLvZVRx9QEKaNqQMNYLWq2hJbf0e/cS6Ldhx8Mg5b6TgmSlO0+bXabCaJqTsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794625560;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=wSUXvDC3JpdgMCqnkPNeUW4Ct+22Vkllsjv4sxasVtM=;
-	b=USOj2V4Ii8GulPg7Jia+q2zLTycj9hsCkGLmHc469momfOoxrTsmva51BEr5OX9rV3iy
-	 cBfkx3TSnrB4aUXmXQVdYr1tZyKpblj9y7RQR7mdbb9gx+nt5DoeK79TbEDnjke0VtZf4
-	 Syd1Y2UX+/822Gb7F1D4jLbdgcxUgAlqRYmbWNnHGGzKolf08QADJKnjBILHy+ApjUbuo
-	 B02hReGl0O5pjEcnKfJkq/SL1JerI7LeXvhMLcfC4lK3Xs43FTh1Yb8nSh3baFwWN3QGa
-	 lNc2d4QES76QXSQ1YSNSUvB3WJnyaGV5xM4DRvnmB4szqcULdPVgIPBil1BDFqljlGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794625565;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=jLe41rxtvqSNao2UIdbEczdLg1Uh1yqAQx73nNAS2+o=;
+	b=xyiTD57vgtHc5SJrBcdna1L/LLR5CeSatuSCbgcOsGfHdCH+Ua+f+jaw2TSgnYnt+hdi
+	 a0Thc3ry+T8YG5y+soJwQGGMoLXVlPqNwckPgYbHWT+45OdgmVNyMV6+b/48dVNWzjq0h
+	 qnOrBmnO19fkNVKhqMW2WoLVYVaW3CDZs9s0lgg7WGdZUSiyv6AfqjQsvL7gUvZkDpSWh
+	 0GvtQH2bENpGoIpcwAxdXH8KyXEt5/3+UZsws6+2HEy12H0Q3En3vkevm993sgCE7Rr4r
+	 g52kQDRvV9b20lGO6HGrEbKwfZWeHGc8gCJIdcGgZsPM+p4zPZ2tTY5r3X9yJId5lmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=purestorage.com;
-	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=bk26EAJb;
-	arc=none smtp.remote-ip=74.125.82.50
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gahingwoo.com;
+	spf=pass smtp.mailfrom=gahingwoo.com;
+	dkim=pass header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=Q2bis67B;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="B4vCN7n/";
+	arc=none smtp.remote-ip=103.168.172.139
+Received: from flow-a4-smtp.messagingengine.com (flow-a4-smtp.messagingengine.com [103.168.172.139])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AAFB60A382F
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:06:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AAFB60A382F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9037A60A5BE3
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:06:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9037A60A5BE3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=bk26EAJb
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1b244fb7fffso1860737c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:06:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1794625559; x=1795230359; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wSUXvDC3JpdgMCqnkPNeUW4Ct+22Vkllsjv4sxasVtM=;
-        b=bk26EAJbaASC7qQu8F5w/kbqLY8JMDxg5uxFyseosLbVkNuF4oahjRNS6lWpStT8tW
-         NLMGXlLFZTxDWxU074emaI1w1DXmbyn2Yw8MpS6WxWtdG3ppqzQdAYZEjbTZARpZBuQ/
-         n9gG7B/Kw0JRd8MTQKbXQr34MQFXdqpr8tFRfeSBymr9YYgvov8MSSZ7YVTp4NvgTELS
-         rTUvJDSdKmqCiNe++tLoE1u8xjpChVtNLpRYrlhp9wOn1+oXpjOyLM7cR49U6XlPjlve
-         4G5AdgyHYITVIdglEseOGD8jfsYqomojiyFnWFUiVi8Z7aE1menNbaToYw6Q0/0c+Hbs
-         JICg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794625559; x=1795230359;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wSUXvDC3JpdgMCqnkPNeUW4Ct+22Vkllsjv4sxasVtM=;
-        b=tdCOJaSSBAsftjXYAAQnkd4Ajncy+uoYI29SSFYy11IbEqgTzgy2rgbDhJMgosEN8R
-         q4J4wD/jlTlJfv+RtZM8PYU6G7p1wlpvHzVvpCH0wMhi4RvEGUMBIl0mli9POcRSLwxY
-         rARIJZD0j7zMw9TXsO464N+PthuD9nGA4ZPqXVriVGjYPhLivLop+CV3CwRTbdyWgmcp
-         zl67u3dV9TWkHJM4Z2ZRn2dOP8ZFLmsFucZ8WsnjLwtYrBfEvD9edpdvvN0vZoVepSkg
-         pctTtGQvXRP/f7ydVUvfZMQ7o1IF6xeQmw7wocF+KJ/vRwSZ9+/D6ouSMdwD2U0MaS8F
-         kryQ==
-X-Forwarded-Encrypted: i=1; AL+hErF7k23fQQjX7ZCGU/KfEnblOXSkAGeclCNeDHuPZTjjPTjvbsKGbdyJ77fU7TQSliR0XAOnBRnm98rIm1M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+dso3jIoOpCdhQac6Nko2puzkZfOr5aoXK55v1uxNWTNGzEvf5
-	gHrRfRNzn2n+XUo3tvT5puYDMA7vi11kUmFsher7daFzAEWr3bXtVGjO47bKzEdLMt0=
-X-Gm-Gg: AYBFou3c4MiVGCzK7y0C3akN72V9InCPNmvFdbaiye/FDh/FCskv4uCEz1exCruqNU5
-	lMzAxk5fTt2bTaiWC9Icnwkz4QjjCvukSYbHgUtMmeObTCSwYVUjAs3ijBiupLQx3X/A+mkPoc3
-	3o5tg8GueOLs3XcIkVHO7nXDgo38CwTFjA7k0rwHAWOBB9S0A0ihAmAYKi/H8AwtTquVu2Qp098
-	T8Ri8mpY1HNH4rbgoDF7AQEJHGd08VNkpHxYGfncYtHyvdo7HVjKeo2j+BC4LBmI4C7UC4U0NlX
-	wn2IV0mQ2bPE1T4pPgmf1P5+stTwukKzi2ycSQzi+mEwueJLUcxoyKarhwmYweWRCc+BCRD4rYb
-	x/CPKjObqS/OPBiOW5NIpQxMpgmvNf+REkmsgwhmPNOqJoNPYyaCQjqpTgyj4YrBH9+SXh6Xc87
-	F1bcEvkMpcTsDST5bxyIXoEKmT7EBg8wIDh2gnN2ocGl2yrfOdjpqzGMYEnKdyXUQIrCkw2gMIY
-	fnEGRxCnO8srrZ0eJFGcBD0Z7AB7C5e5hpx/b2Rd+lQk+kGQ0jcFNIIdPnG7BMzTtwq+QRBUFYL
-	zvZ+0Fnk7rbbw+RPO9qLu3iW6wi8020t0LjdLoITv3WxgtVgv6ft
-X-Received: by 2002:a05:7022:ea8a:b0:1b5:1a7a:2ebc with SMTP id a92af1059eb24-1b51a7a2ff9mr432861c88.16.1794625558632;
-        Fri, 13 Nov 2026 19:05:58 -0800 (PST)
-Received: from apollo.purestorage.com ([208.88.152.253])
-        by smtp.googlemail.com with ESMTPSA id a92af1059eb24-1b50316e008sm10829382c88.6.2026.11.13.19.05.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 19:05:58 -0800 (PST)
-From: Mohamed Khalfella <mkhalfella@purestorage.com>
-To: Keith Busch <kbusch@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>
-Cc: Justin Tee <justin.tee@broadcom.com>,
-	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
-	Paul Ely <paul.ely@broadcom.com>,
-	Hannes Reinecke <hare@kernel.org>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	James Smart <jsmart833426@gmail.com>,
-	Randy Jennings <randyj@purestorage.com>,
-	Mohamed Khalfella <mkhalfella@purestorage.com>,
-	Daniel Wagner <dwagner@suse.de>,
-	linux-nvme@lists.infradead.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=Q2bis67B;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=B4vCN7n/
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailflow.phl.internal (Postfix) with ESMTP id C84441381A57
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:06:03 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Fri, 13 Nov 2026 22:06:03 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm1; t=1794625563; x=
+	1794632763; bh=jLe41rxtvqSNao2UIdbEczdLg1Uh1yqAQx73nNAS2+o=; b=Q
+	2bis67BhJj54JWwFsmK/fPB8oUBjT61R0xXvk39k4dEQ/ED0y7bEKTXQMV8iig//
+	3y8LnPHtsV8rnufqemKOGZDs5NaF/dq5j4k+sru2mPc7mjG1ejfcrBDJ6+QUnV2n
+	Oy/LARV7p96A6se7uOBgYURdC0I+6kvJnRnGgVOEz74Jn/M2ojUP8tG+joaSuxBP
+	2VOakmQ5dgP5C/NtfvjJGLTeaP1nMzS3REmWHQ7K2k19cjvFZgOJgu7wchOYKyQb
+	2/UlX/GTY6iWwT1iZVu0IrKpLJc72jej7SH6Sar7pcJkiCUpTO2WRYM5Z8/FH6vC
+	sHUqP1TYbpqOP50YarJTg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm3; t=1794625563; x=1794632763; bh=j
+	Le41rxtvqSNao2UIdbEczdLg1Uh1yqAQx73nNAS2+o=; b=B4vCN7n/WzyEO7hNX
+	rzQ0pKADmvpvu3gLLsXUGnytSEF658SWm1+tAJkrxi7L7tB8xSRdxbAQrIPTzHme
+	klxZEhcJee0Nz3nhGNVkAfzDOJedaWZzoQPjJsXUOi+ZueuTtOc3koCLDtR9yTLc
+	G8fqkDixoPC5e9zCW9S43iNMPqpGsfbqvEmsdF5Jrli09Dp9XAZqXeStaQEHmWgC
+	zDugmbEa2Aux1cM8S8DNpRXDmgB8TNPF2vc2iseRheCl2phZhhC+vZOu3RWLxJUi
+	0hoIoX0gWrHhLabLCd/mWeEGPVUPpWTHZxxNz+m95QuJe/zyN5ktcOLTgk3ilQK9
+	32v0w==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=gahingwoo.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794625563; d=gahingwoo.com;
+	mf=PGdhaGluZ0BnYWhpbmd3b28uY29tPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:j4dxzCHrdIJtu8po7K63dGmzbFZtWAMTV7cDRAH8MqP5n48
+	JyN+89iemWt7+S6VbxPscsKQQfpxnMGMXwWdFA5my29m8sGufe1/CDOGQ4oMo1AZ
+	4hL938XEMkw74JSs159IkrhrL5Jyfhtcx+3rnX+1sTVmGMrHQgKU9cwprdTkOQxI
+	qMpLda333iYhR+6SUBkO0ZEKwJlIEYJb6NP9iubrfdhBVpPNH0f1s8XwlBMYmKxB
+	zAoLJ8BbLPsN5uo1olr0HgzL3O2Ly6yEzJtZzecUnhgE1OSUPhrgGcImshGCKD3p
+	WEWhxljUkRGUBpSIlEKoFWwKzJ0JaDzA7ExvyuQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=11;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:KkU9OItywWMXa8xCxJXvpsCUuVVYeELHJ3ZywXHw29k=:7oH1PnecAoj3OHP3QYcSMmdKkLdmCJWxLcqrSSziT3Y=;
+X-ME-Sender: <xms:G9D3aoSLjEKSjs0QnKzQZxIP6-1_QH3SZvtWjCxW5jZ4lavCL_FpGQ>
+    <xme:G9D3aiOAb5Tdj7A3IpUIelKXn8T3Yj0CumWmHOcP1r8afC5npJEsTe7fVryhWgiMG
+    lqO47uLsWHuXu4dYYqmRr2YU7AAedGCvblygfz3nKGZ73xMcyiVdP4>
+X-ME-Received: <xmr:G9D3atFLu-VezKaxS5G_SCUZwFk9xOuQinha3XV4xVq12sYK-7dFJD7TyF559-jCzI8cRDJT>
+X-ME-Proxy-Cause: dmFkZTENh3Cq6bNtRDDqH//naJpK03OGhXB8Cp3eHHX2EpHYf2oBjZ1/43ruyqVDLzR5bI
+    q7gV+k53czH7SJj0JMNaMvWBGkaUqaereb01ifHpul1q14DobEKJC2mDvQQE3HzqoOU9gl
+    QO0UnCSJOnNpWmY1qWdj/IivEZ+5eJmA8XcRYmqsfPBSZaKqk9zCnQvCGUQuYFJdsYZGP5
+    L8zECb373LU+oefpY9jKwOjkFDiU4CWxV3iExHL3zPnpeZwM1wkFJxhm/yJk+2AJ3ju4OO
+    RXCknd9xSS299sQU1FiikwzYfEAyF9m0XTBIDoIn2qfRRJDU3uzKkImCFIAQPMS5Q++UYK
+    QT1oghQMiLOEEDqc0qJ2Gei+8zpQ5h9f1GYvfROcAztvhWDSYxYdo7YMX5wTM18aoSALCm
+    5wmJdp6uvygPFmK2xbqZJXBBZNVNDur6w2x2R+bjTrWRDzbVjqipo8zxlImtnjuEE2Axc7
+    ItcGzHZc78kbodAWVyQNpFeV2lkhDDCBF9t//GsvyG9IzF3/sIS52PfJEVWqLlmwMsV53K
+    EL/8bvqplcZ8FBIW3bT38f5Tl9LDGu+Jq1EYTJ9OPScIzc3/mocusb9PEy8pvTlTds4dJq
+    769cqL/rDifX+Q8SPEOIgG1wgVJEnt2qDoXmVrFsx+prKT7w1Ok45BQYUvJg
+X-ME-Proxy: <xmx:G9D3aigq3vbtqueHcg0UsqjvBJRwNtI4s75DY3xgp5q9zKbcCgwSHQ>
+    <xmx:G9D3ahxIO5dRfxtiOQbhCQ1vw4P4ZraV2l8EoGdD2osR-4nivWdfuA>
+    <xmx:G9D3aurSVr-PJOhlMIHENeO7J5-BcCe-lyq2nJBVoES5EcV0sF6FXw>
+    <xmx:G9D3anX-D6pijwhcb6qgMYEHOZwUHOGnlmQWdLjm60KDC4oUovc4dQ>
+    <xmx:G9D3ajV36tZGG6rr-HBXMH2F8KK2KwTCPBxXcodFKRJ7ZNBER7416FpB>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 13 Nov 2026 22:05:54 -0500 (EST)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: tomeu@tomeuvizoso.net,
+	heiko@sntech.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	p.zabel@pengutronix.de,
+	ogabbay@kernel.org,
+	zhangqing@rock-chips.com
+Cc: royalnet026@gmail.com,
+	ulf.hansson@oss.qualcomm.com,
+	abel.vesa@oss.qualcomm.com,
+	sebastian.reichel@collabora.com,
+	sidong.yang@furiosa.ai,
+	u.kleine-koenig@baylibre.com,
+	chaoyi.chen@rock-chips.com,
+	shawn.lin@rock-chips.com,
+	finley.xiao@rock-chips.com,
+	diederik@cknow-tech.com,
+	alchark@flipper.net,
+	leonard@lausen.nl,
+	vlwwwwww@gmail.com,
+	jeff.hugo@oss.qualcomm.com,
+	rfoss@kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	iommu@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v7 09/17] nvme: Implement cross-controller reset completion
-Date: Fri, 13 Nov 2026 19:04:23 -0800
-Message-ID: <20261114030454.2836543-10-mkhalfella@purestorage.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261114030454.2836543-1-mkhalfella@purestorage.com>
-References: <20261114030454.2836543-1-mkhalfella@purestorage.com>
+Subject: [PATCH v17 02/12] accel/rocket: take the completion register writes under job_lock
+Date: Sat, 14 Nov 2026 16:05:19 +1300
+Message-ID: <1adbff3238fd312e23daab83ed936ad13d7f223f.1794615323.git.gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1794615324.git.gahing@gahingwoo.com>
+References: <cover.1794615324.git.gahing@gahingwoo.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,127 +156,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-An nvme source controller that issues CCR command expects to receive an
-NVME_AER_NOTICE_CCR_COMPLETED when pending CCR succeeds or fails. Add
-ctrl->ccr_work to read NVME_LOG_CCR logpage and wake up threads waiting
-on CCR completion.
+The IRQ handler writes OPERATION_ENABLE and INTERRUPT_CLEAR before it
+takes job_lock, while rocket_job_hw_submit() sets OPERATION_ENABLE to 1
+under that lock.
 
-Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
-Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
+If the two run at the same time, the 0 written by the IRQ handler can
+overwrite the 1 written for a new task and stop a task that has just
+started.
+
+Move both writes into the existing scoped_guard(), so they are under the
+same lock as the submit.
+
+Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
+Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588, three cores, induced reset, JOB_TIMEOUT_MS=2
+Reviewed-by: Heiko Stuebner <heiko@sntech.de>
 ---
- drivers/nvme/host/core.c | 51 +++++++++++++++++++++++++++++++++++++++-
- drivers/nvme/host/nvme.h |  1 +
- 2 files changed, 51 insertions(+), 1 deletion(-)
+ drivers/accel/rocket/rocket_job.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-index 27c33dc49175..54b83092a9e8 100644
---- a/drivers/nvme/host/core.c
-+++ b/drivers/nvme/host/core.c
-@@ -1961,7 +1961,8 @@ EXPORT_SYMBOL_GPL(nvme_set_queue_count);
- 
- #define NVME_AEN_SUPPORTED \
- 	(NVME_AEN_CFG_NS_ATTR | NVME_AEN_CFG_FW_ACT | \
--	 NVME_AEN_CFG_ANA_CHANGE | NVME_AEN_CFG_DISC_CHANGE)
-+	 NVME_AEN_CFG_ANA_CHANGE | NVME_AEN_CFG_CCR_COMPLETE | \
-+	 NVME_AEN_CFG_DISC_CHANGE)
- 
- static void nvme_enable_aen(struct nvme_ctrl *ctrl)
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index b2a00992c889..b61bb4d242ce 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -371,10 +371,15 @@ static void rocket_job_handle_irq(struct rocket_core *core)
  {
-@@ -5060,6 +5061,48 @@ static void nvme_get_fw_slot_info(struct nvme_ctrl *ctrl)
- 	kfree(log);
- }
+ 	pm_runtime_mark_last_busy(core->dev);
  
-+static void nvme_ccr_work(struct work_struct *work)
-+{
-+	struct nvme_ctrl *ctrl = container_of(work, struct nvme_ctrl, ccr_work);
-+	struct nvme_ccr_entry *ccr;
-+	struct nvme_ccr_log_entry *entry;
-+	struct nvme_ccr_log *log;
-+	int num_entries, ret, i;
-+	unsigned long flags;
-+
-+	log = kmalloc_obj(*log);
-+	if (!log)
-+		return;
-+
-+	ret = nvme_get_log(ctrl, 0, NVME_LOG_CCR, 0x01,
-+			   0x00, log, sizeof(*log), 0);
-+	if (ret)
-+		goto out;
-+
-+	spin_lock_irqsave(&ctrl->lock, flags);
-+	num_entries = min(le16_to_cpu(log->ne), NVMF_CCR_PER_PAGE);
-+	for (i = 0; i < num_entries; i++) {
-+		entry = &log->entries[i];
-+		if (entry->ccrs == NVME_CCR_STATUS_IN_PROGRESS)
-+			continue;
-+
-+		list_for_each_entry(ccr, &ctrl->ccr_list, list) {
-+			struct nvme_ctrl *ictrl = ccr->ictrl;
-+
-+			if (ictrl->cntlid != le16_to_cpu(entry->icid) ||
-+			    ictrl->ciu != entry->ciu)
-+				continue;
-+
-+			/* Complete matching entry */
-+			ccr->ccrs = entry->ccrs;
-+			complete(&ccr->complete);
-+		}
+-	rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
+-	rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
++	scoped_guard(mutex, &core->job_lock) {
++		/*
++		 * Stopping the block belongs under the lock. hw_submit() writes
++		 * OPERATION_ENABLE too, and outside the lock this zero can land
++		 * after that one and stop a task that has only just started.
++		 */
++		rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
++		rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
+ 
+-	scoped_guard(mutex, &core->job_lock)
+ 		if (core->in_flight_job) {
+ 			if (core->in_flight_job->next_task_idx < core->in_flight_job->task_count) {
+ 				rocket_job_hw_submit(core, core->in_flight_job);
+@@ -386,6 +391,7 @@ static void rocket_job_handle_irq(struct rocket_core *core)
+ 			pm_runtime_put_autosuspend(core->dev);
+ 			core->in_flight_job = NULL;
+ 		}
 +	}
-+	spin_unlock_irqrestore(&ctrl->lock, flags);
-+out:
-+	kfree(log);
-+}
-+
- static void nvme_fw_act_work(struct work_struct *work)
- {
- 	struct nvme_ctrl *ctrl = container_of(work,
-@@ -5136,6 +5179,9 @@ static bool nvme_handle_aen_notice(struct nvme_ctrl *ctrl, u32 result)
- 	case NVME_AER_NOTICE_DISC_CHANGED:
- 		ctrl->aen_result = result;
- 		break;
-+	case NVME_AER_NOTICE_CCR_COMPLETED:
-+		queue_work(nvme_wq, &ctrl->ccr_work);
-+		break;
- 	default:
- 		dev_warn(ctrl->device, "async event result %08x\n", result);
- 	}
-@@ -5324,6 +5370,7 @@ void nvme_stop_ctrl(struct nvme_ctrl *ctrl)
- 	nvme_stop_failfast_work(ctrl);
- 	flush_work(&ctrl->async_event_work);
- 	cancel_work_sync(&ctrl->fw_act_work);
-+	cancel_work_sync(&ctrl->ccr_work);
- 	if (ctrl->ops->stop_ctrl)
- 		ctrl->ops->stop_ctrl(ctrl);
  }
-@@ -5362,6 +5409,7 @@ EXPORT_SYMBOL_GPL(nvme_start_ctrl);
  
- void nvme_uninit_ctrl(struct nvme_ctrl *ctrl)
- {
-+	cancel_work_sync(&ctrl->ccr_work);
- 	nvme_stop_keep_alive(ctrl);
- 	nvme_hwmon_exit(ctrl);
- 	nvme_fault_inject_fini(&ctrl->fault_inject);
-@@ -5434,6 +5482,7 @@ int nvme_init_ctrl(struct nvme_ctrl *ctrl, struct device *dev,
- 	ctrl->quirks = quirks;
- 	ctrl->numa_node = NUMA_NO_NODE;
- 	INIT_WORK(&ctrl->scan_work, nvme_scan_work);
-+	INIT_WORK(&ctrl->ccr_work, nvme_ccr_work);
- 	INIT_WORK(&ctrl->async_event_work, nvme_async_event_work);
- 	INIT_WORK(&ctrl->fw_act_work, nvme_fw_act_work);
- 	INIT_WORK(&ctrl->delete_work, nvme_delete_ctrl_work);
-diff --git a/drivers/nvme/host/nvme.h b/drivers/nvme/host/nvme.h
-index 261955538efe..884541644240 100644
---- a/drivers/nvme/host/nvme.h
-+++ b/drivers/nvme/host/nvme.h
-@@ -438,6 +438,7 @@ struct nvme_ctrl {
- 	struct nvme_id_power_state psd[32];
- 	struct nvme_effects_log *effects;
- 	struct work_struct scan_work;
-+	struct work_struct ccr_work;
- 	struct work_struct async_event_work;
- 	struct delayed_work ka_work;
- 	struct delayed_work failfast_work;
+ static void
 -- 
-2.56.0
+2.43.0
 
