@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794620641;
-	b=xoBxA+ZubGxYgKEIxKn8bnbOcAOodZm9jpFEgY65kPmaAiZKuXeI4stUYxrGJqXzRnwl
-	 UQR6otTFWX2eMAVpNtA0WwA7VUwfDNB2bF2S9VtDA0iewng4qv4siAvzOCwt9Ze+aHQY+
-	 2duJMd2TeSJgPbj2oyyHH8HFC6OSQ7EXdKuXJJvIRPx3OqFIP3s8mirLndZdSL6S5XpeA
-	 KluREaqEhco0gXlZHjUvqKkk0tV9rb6bgWkfbMMtJPDH76tfZX3FEgVOuEMI+caLP8fak
-	 7bpKkKC94rpvqUm8LEXJrYdhkDLVpYirbFTAMVHJkRD8lDr72pBj92PBM+updQIfDlA==
+	t=1794620642;
+	b=28wH3Dj4tsqU4q7qthv+Qnh3rhZKxyGlDPsKaqaRM/MS1rp8QRdYYgGRQuyT0pItQFTo
+	 HJ38K5+zuSCBkKneGmEQhJxpgBeH7rSteyn1YPDFnGJ2yxfAkLADnrqIIDFj6e7L0in1S
+	 6I5QhlP+xGWNx4PtUYNzihM4RMfx+xT5mRzFv2oE0rR6XLqG3gPYhZ3wBVo74aQLw+Vbo
+	 TiqpHiWr808rfBUHuNFvm+xuwRNHm5KnzTjm8YjF/D1Owj9UVyC7lBgV47cH033s/hf2l
+	 BG/UiyaS3FJyU4r4I866wkTJ4uweisRu/fPelmmcv5+7bLcnXZvIQqrdmwIt2GqAF2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794620641;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794620642;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Z5fnz0J6vpb3Ewmw43nxWynz3ZbXtBhlPwMnvHWjbog=;
-	b=0RLHeRea7U+Bd20pWAVF7+jK9ZJHcfBEiTgDiIzW2UZv7BHV7zH/SoqnL4VbBT+F3dtM
-	 /UwsyBDhuSDM3OF4n4qJKaHJ4wRBm9zSPFeVy/6fx/e/9tIR8c8JP7BT4uv4NDNE6kd1f
-	 YPxtguc+rIHPc7FOESBAnpqP80mwkw2QxtqAzyFrEU1+7A+avIToXuKJX467B7TyK7mXh
-	 v8JNJ8GNlatmCQbBW2iM8rW9VrD76RsiYSCYz7ZjhWpL7EUcoGCHLvZuLYPfl32nNIKVX
-	 4i67ho2GrY0RA2v80tif2ICgqmhGHFWanfPF1WdidHUL7llgVEX88grBm4BHuJXJYIA==
+	bh=tn87j8WCS61Gao2LJeMNy/CQlTMoWJ0AG+YUO7C/2pc=;
+	b=pz32LiYIakGXjPeHR2V3dEUA3qmO7QTd12zVWkb0DD0oCyu64pIQ3u42otftW/IsBtEI
+	 uXSOGPR9bbgAS7cWfQCJGkgnHVAbOaYi+Dss3gbmvt/YFVie+Q+aTrI6x1FW8g+RxfrsC
+	 n4aJOG8vkK/+ZQpb+z5veHW6ml6CkY4F2bxNVrkWEQNa31f/f4YMZ6Ub9KUBYjSmCmlEf
+	 2qt8JoFA+PZmKEZQjFZYn3owyjcGtjtK98NZwv2+QfUThrkAx60P0/R0ehQEIhGe2BABv
+	 H9khZDF969SKNZXzIusb3CEijj7bY/VUFrGO1OYbApYd2bz9qjWztb0c0pYEQP3t9Dg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dzSqDX3C;
-	arc=none smtp.remote-ip=209.85.218.42
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U6elsQCx;
+	arc=none smtp.remote-ip=209.85.218.53
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 468A6606A885
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 01:44:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 468A6606A885
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61158606A329
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 01:44:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61158606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dzSqDX3C
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c4d30639709so282019966b.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:44:01 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U6elsQCx
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c5067a2411bso291399666b.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 17:44:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794620639; x=1795225439; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794620641; x=1795225441; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Z5fnz0J6vpb3Ewmw43nxWynz3ZbXtBhlPwMnvHWjbog=;
-        b=dzSqDX3Cs7BLrqqyl+mDnFdk6XVcYqk075Mh1zgRbnkLHYBA+bAbzx3tX2xLuklLXn
-         onvu/V1hW9Wxpe5jsk2rGPU1QS0Gu4xNZZAhGKd8DsDrPAGpVhOqMRbLJFEk7GwEeHZf
-         68lDaB5JLkeejylrwcLmmmRcyLWtpR9UElYAV6uDXXVrHvd01BkQFZXMJEV8vciMpxJK
-         VJE4+/d+QK2UlQm373Fah915FmysSI/VjzzvENbEpeWClqDah1ao5vLQAYvhMjBVeIG0
-         X53bzdGk0jIY/1ULNxEvQg1aEHHkgtQ9FBowVWDqw87kwtjGCGFV9MFyz0v6GU1NJBBh
-         bVcw==
+        bh=tn87j8WCS61Gao2LJeMNy/CQlTMoWJ0AG+YUO7C/2pc=;
+        b=U6elsQCx54tNWEWdX0ILQWoyLjaPcHkodhUl2tRnHSVdK81u0gn+vVHPX8hd9YPKl9
+         e3ePlqYdLbGTlq2EkntgQZnnusRg2OWwxKZpaAH1eqET9F7U60kkUI0gnNaTMOb2BiDi
+         i09eL7Ex+eu9xjUwjv02vhvHSUsB448Se/7wOxUEiwsc26jcYPVbIHsuEBbFIqvxA2Z/
+         eYHmThFJA4/+rVfpKtQZ00gPPQXAhx3xgccaBsnVeD+8sQM+6OoALiIGzXEkRdH198NJ
+         9r7eRw+CxaYc/UwWhreqAIbspbPoszYZ+dH/0U8/U4m7ctdAM2Ov3cn4dyaj1a/Bzpbz
+         M8qA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794620639; x=1795225439;
+        d=1e100.net; s=20260707; t=1794620641; x=1795225441;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Z5fnz0J6vpb3Ewmw43nxWynz3ZbXtBhlPwMnvHWjbog=;
-        b=GXGH4d7gn+Cw/dknroR8ZClQGeSwKYOki9snoMisvkFIedV9715ukxgh1D/T7ksnZG
-         F7mMdkQX++JOkobC1ugf1TEPxPDxLvtMjieWrILc3HQzWry3h6M2P3BTrms2kOLm1j/H
-         TMW3R68uCf5f7i2XGiKYDdDOs/Rb6XuXSWtG1vajHkhtGLuwS3HHH8yYlCUHc6dGf/5m
-         QcSBHBoGGNGPAqdpzINOo7AWfb+6UTiNs4pLk1oBlDPD8YanF1EPnJvWfX57hObKei9j
-         LD7xjp4KH+N/5BjFQVZ/cncOYxEcJSQWnFkZgRu8rZkEue0gMKD31hOhTSKoMvMbeewR
-         4ZGA==
-X-Forwarded-Encrypted: i=1; AL+hErHJESxaK6ZCqzZdQ0LbOC+zP3lLt8gcYTtjoDfZwuVuCNk0izGgAKFtHGH7Yw5o0o3LzuuH6M5anKJx094=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+CocmqiWHa9ETpm/EM92uGdMnXzH8cF4OHNfe/kXfhJp+RxmxS
-	Cbbtq+mn8UyX7MDLQu13+TTe+LB1qWVpyNruN+Sgd0IHhnav8jtlfvj+
-X-Gm-Gg: AYBFou1UJuZMq0F36vIFNdRwEnaX7wZlcd9/TmYezOU8C/UG0i6PXAmk7CiHnfKlQwM
-	baSMPDm3lm6nLfnJqtEJCITicRI0ypb4fIrdaYrxpwtMnnlOPMT4kVhj8niWW8lDuewLsPnhNQi
-	XK8P46TDWG0MNYiiRjCQN7TZQFeXs2R078celDZhREdkNNidaNV+b6LUazqYANjHosN8WTEJqPo
-	oPfIn/ewGMfYgm8OeAMb/Uu/96U/seMaP2NkRl8cwLuwXw0SrnzoURmiWtGL6SzQCXQrklAzwPV
-	FC04xuLwqffwaZ0iWaO2fGaU8aCR3l9gHyO8AD8muQDt0L3i/HbswB+lRoa6SO0GIYgQeHR+KwO
-	8B8zOb2Y82So6xJNqMRnbrX7NAhXOh0+zNwl05e4iap+KRt8yEsgBjnrk/JlkhD5xQiwBOC2xX5
-	1TO/anvSUfdTsoWIyYJdSalxdOeUGRl+pRIx/GJd68Mhi12IBjhdi+pYxNBY1kzZypzfYOOFaa8
-	ShcraMEXTTUlfuUPyGME1R5+Scw1TwqZK/NAh2FzbPBpRhDoMbKhVeBOK/6jB6Apkk5FEb57e/O
-	EDvLvKzZ2j9p9uS7C4MH2Cz2k/LPplq8EeS0ZqvdCpnRnbbU+tT7A9ZPWhzufeIKdKh6kRTOJba
-	FXshFxqSmte32UwaFSIHEIzQYPkENNoSuNfAAPGorotL5
-X-Received: by 2002:a17:907:9305:b0:c2e:4e08:19ab with SMTP id a640c23a62f3a-c50963d50e5mr364215466b.16.1794620639602;
-        Fri, 13 Nov 2026 17:43:59 -0800 (PST)
+        bh=tn87j8WCS61Gao2LJeMNy/CQlTMoWJ0AG+YUO7C/2pc=;
+        b=jIKX24THk7LshC99GxMTqOmEgPe8J0638mypGVTaYSGM8vXA9IML3Z3uXpkk+I5SZH
+         PosrJRbANBS8Ckp2C64MdPwmQrO3pWtJJy5ybStZv2+U/oO2jMlCHb0ghb4aFO13EuBK
+         5yJpn5t8DL4H+fBLi14YYWOu0VmEr4vnM5Lnjl5O79b4ZGVgJQbKZIzK6BRBAXrxcbU2
+         uM8zsimxYNm95N0yYeTdibpMSFGtVLZiFSUAfRvtMbuhkNj4w9Pr4bDmGRvzCSBb06Zs
+         gmWmxcWmRI4Q5G/6Shb0aQbsNcHVqq1Cr2lQCn/A73vb4qqIyw7vcbbjTPftQASsgnS/
+         fYcw==
+X-Forwarded-Encrypted: i=1; AL+hErE7N5l2Eo+rP/D8o2iKRvJ2l//IgtJI8KstU4uEqNBJ5ef5GTxSeX4icohBiLTe76EC6ELdKCrNrLm7FoU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/GY0GuxY/xPC82v9RPjSivh7OLrMUKWRln5t1hD1/eE/KlunTD
+	BTIN57QnqufhHNQdNELG96yr63ZoW46e+MjvqNbQVUBFZvVLXDr1/pMu
+X-Gm-Gg: AYBFou3vpUQuamey7GUg9DERCRUAfo8CCF790DmXXEvcpO6uitRNHuqWQpt/ehqElYy
+	XReQFvTjTpJLkKxf4UBg9F3TUY0XQC3u+MzjrMG+6UbGaxBDUKQrBMiTuoqyXiJy7aT7w6mmCgK
+	RejylIxaJ9Qk9hBYgsCkNwB6FB3kyoxg4o33abDLSHLznu7q/ndog+1d4jvlp2PavSv8d2dn9yc
+	yhuS1BOYTdN6O8EmTTWcu6L0aolYblHrkoeousPcLM2PJ2nRH9xussfTkBpvMw5my0ifefBQ7io
+	w+OoBityGfjseSLX61Awd9jQBO9SvxlWfpkjMu+2X/Np8bs8YvgxSigZ8jJbmktpFW80KVIyFAS
+	+Ud3ymNv9/pTmY3V0Iiv3V9EKmFNVBjSJf3pxcgU6s9viVuO8Zl0+J6fuD03x5V0EaGwnp61S8l
+	QRlxwz4O1nBafVOx3o15g6I8q41mzLkc9mE1y/mPn8eUpziF6WQyrQBEJGvGVnEEZoYoIGb/Umr
+	TQ/yPZgdXUVleqbAQXMyp3K4wAOpqHUc97vCTbmRR/vkKKC6/4FH3rzWrrj4y6OdoFYvAQR7+DG
+	3AERM/PI/ImYM4dMjdB0UTtdIfB7FLyleLMTUWLjsaUn6cYKz56cXP14wJHWK0MMnJxdN6vzTWM
+	arEeH+CiZrpndB2Fj0q/c+wE=
+X-Received: by 2002:a17:906:9f92:b0:c40:9e84:942a with SMTP id a640c23a62f3a-c509684d88cmr391927766b.48.1794620640864;
+        Fri, 13 Nov 2026 17:44:00 -0800 (PST)
 Received: from SMOK.angora-ide.ts.net (mm-156-219-126-178.vitebsk.dynamic.pppoe.byfly.by. [178.126.219.156])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b5a4c1sm161402666b.48.2026.11.13.17.43.58
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b5a4c1sm161402666b.48.2026.11.13.17.43.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 17:43:59 -0800 (PST)
+        Fri, 13 Nov 2026 17:44:00 -0800 (PST)
 From: ElXreno <elxreno@gmail.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
@@ -94,9 +94,9 @@ Cc: jani.nikula@linux.intel.com,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	ElXreno <elxreno@gmail.com>
-Subject: [PATCH 3/7] drm/i915/vrr: Leave the transcoder to the joiner primary
-Date: Sat, 14 Nov 2026 04:43:31 +0300
-Message-ID: <20261114014335.2132756-4-elxreno@gmail.com>
+Subject: [PATCH 4/7] drm/i915: Split intel_update_crtc() into its stages
+Date: Sat, 14 Nov 2026 04:43:32 +0300
+Message-ID: <20261114014335.2132756-5-elxreno@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261114014335.2132756-1-elxreno@gmail.com>
 References: <20261114014335.2132756-1-elxreno@gmail.com>
@@ -111,135 +111,127 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-All joined pipes run off the transcoder of the primary, and the crtc
-states of the secondaries are copies of the primary's state, the VRR
-state included. The commit therefore reaches the transcoder level VRR
-functions for every joined pipe: intel_pre_update_crtc() calls
-intel_vrr_set_transcoder_timings() for each crtc whose VRR parameters
-changed, intel_pre_plane_update() and commit_pipe_post_planes() call
-intel_vrr_disable() and intel_vrr_enable(), and both commit paths
-call intel_vrr_send_push() and intel_vrr_check_push_sent() per crtc.
+Pull the arming of a pipe on the MMIO path and the bookkeeping that
+follows the commit of a pipe out of intel_update_crtc(), into
+commit_pipe_arm() and intel_post_update_crtc(). The next patch arms
+several joined pipes inside one vblank evasion critical section and
+needs them separately.
 
-Do these once, from the primary. When disabling VRR also switch the
-active timings of all joined pipes as soon as the transcoder has left
-VRR mode, rather than leaving the secondaries on the VRR timings
-until their own turn comes.
+No functional change.
 
-The check in intel_vrr_set_transcoder_timings() drops the second,
-identical programming of the transcoder that a joined fixed refresh
-rate configuration gets today. Everything else depends on vrr.enable,
-which is never set with the joiner yet, so there is no other
-functional change. In particular the push a secondary sends for the
-PSR and Panel Replay frame change is left as it is.
-
-The checks in intel_vrr_set_transcoder_timings(), intel_vrr_send_push(),
-intel_vrr_enable() and intel_vrr_disable() are the ones Ankit Nautiyal
-posted in "drm/i915/vrr: Handle joiner with vrr", last in [1].
-
-[1] https://lore.kernel.org/intel-gfx/20250224061717.1095226-14-ankit.k.nautiyal@intel.com/
-
-Suggested-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 Signed-off-by: ElXreno <elxreno@gmail.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 15 ++++++++++++--
- drivers/gpu/drm/i915/display/intel_vrr.c     | 21 ++++++++++++++++++++
- 2 files changed, 34 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 82 ++++++++++++--------
+ 1 file changed, 50 insertions(+), 32 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 9a503b25ae47..20b1103e3de4 100644
+index 20b1103e3de4..aa03f674d93b 100644
 --- a/drivers/gpu/drm/i915/display/intel_display.c
 +++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -1237,10 +1237,21 @@ static void intel_pre_plane_update(struct intel_atomic_state *state,
+@@ -7087,46 +7087,29 @@ static void intel_pre_update_crtc(struct intel_atomic_state *state,
+ 	}
+ }
  
- 	intel_psr_pre_plane_update(state, crtc);
+-static void intel_update_crtc(struct intel_atomic_state *state,
+-			      struct intel_crtc *crtc)
++static void commit_pipe_arm(struct intel_atomic_state *state,
++			    struct intel_crtc *crtc)
+ {
+-	const struct intel_crtc_state *old_crtc_state =
+-		intel_atomic_get_old_crtc_state(state, crtc);
+-	struct intel_crtc_state *new_crtc_state =
++	const struct intel_crtc_state *new_crtc_state =
+ 		intel_atomic_get_new_crtc_state(state, crtc);
  
--	if (intel_crtc_vrr_disabling(state, crtc)) {
-+	/* The joined pipes are handled in one go from the primary */
-+	if (intel_crtc_vrr_disabling(state, crtc) &&
-+	    !intel_crtc_is_joiner_secondary(old_crtc_state)) {
-+		struct intel_crtc *pipe_crtc;
-+
- 		intel_vrr_disable(old_crtc_state);
- 		intel_vrr_dcb_reset(old_crtc_state, crtc);
--		intel_crtc_update_active_timings(old_crtc_state, false);
-+
-+		for_each_intel_crtc_in_pipe_mask(display, pipe_crtc,
-+						 intel_crtc_joined_pipe_mask(old_crtc_state)) {
-+			const struct intel_crtc_state *old_pipe_crtc_state =
-+				intel_atomic_get_old_crtc_state(state, pipe_crtc);
-+
-+			intel_crtc_update_active_timings(old_pipe_crtc_state, false);
-+		}
+-	switch (new_crtc_state->commit_type) {
+-	case INTEL_COMMIT_FLIPQ:
+-		intel_flipq_enable(new_crtc_state);
+-
+-		intel_crtc_prepare_vblank_event(new_crtc_state, &crtc->flipq_event);
+-
+-		intel_flipq_add(crtc, INTEL_FLIPQ_PLANE_1, 0, INTEL_DSB_0,
+-				new_crtc_state->dsb_commit);
+-		break;
+-
+-	case INTEL_COMMIT_DSB:
+-		intel_crtc_prepare_vblank_event(new_crtc_state, &crtc->dsb_event);
+-
++	if (new_crtc_state->dsb_commit)
+ 		intel_dsb_commit(new_crtc_state->dsb_commit);
+-		break;
  
- 		/*
- 		 * VRR is being disabled seamlessly (no modeset, Panel Replay
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index a5a5d11380a4..668c495e7407 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -19,6 +19,7 @@
- #include "intel_de.h"
- #include "intel_dip.h"
- #include "intel_dip_regs.h"
-+#include "intel_display.h"
- #include "intel_display_limits.h"
- #include "intel_display_regs.h"
- #include "intel_display_types.h"
-@@ -674,6 +675,10 @@ void intel_vrr_set_transcoder_timings(const struct intel_crtc_state *crtc_state)
- 	if (!HAS_VRR(display))
- 		return;
+-	case INTEL_COMMIT_MMIO:
+-		/* Perform vblank evasion around commit operation */
+-		intel_pipe_update_start(state, crtc);
+-
+-		if (new_crtc_state->dsb_commit)
+-			intel_dsb_commit(new_crtc_state->dsb_commit);
++	commit_pipe_pre_planes(state, crtc);
  
-+	/* The joined pipes drive one transcoder, so program it once. */
-+	if (intel_crtc_is_joiner_secondary(crtc_state))
-+		return;
-+
+-		commit_pipe_pre_planes(state, crtc);
++	intel_crtc_planes_update_arm(NULL, state, crtc);
+ 
+-		intel_crtc_planes_update_arm(NULL, state, crtc);
+-
+-		commit_pipe_post_planes(state, crtc);
++	commit_pipe_post_planes(state, crtc);
++}
+ 
+-		intel_pipe_update_end(state, crtc);
+-		break;
+-	}
++static void intel_post_update_crtc(struct intel_atomic_state *state,
++				   struct intel_crtc *crtc)
++{
++	const struct intel_crtc_state *old_crtc_state =
++		intel_atomic_get_old_crtc_state(state, crtc);
++	struct intel_crtc_state *new_crtc_state =
++		intel_atomic_get_new_crtc_state(state, crtc);
+ 
  	/*
- 	 * Bspec says:
- 	 * "(note: VRR needs to be programmed after
-@@ -773,6 +778,13 @@ void intel_vrr_send_push(struct intel_dsb *dsb,
- 	if (!crtc_state->vrr.enable && !intel_psr_use_trans_push(crtc_state))
- 		return;
+ 	 * VRR/Seamless M/N update may need to update frame timings.
+@@ -7168,6 +7151,41 @@ static void intel_update_crtc(struct intel_atomic_state *state,
+ 	}
+ }
  
-+	/*
-+	 * A VRR push latches all joined pipes at once, it is up to the
-+	 * primary to send it once every one of them has been armed.
-+	 */
-+	if (crtc_state->vrr.enable && intel_crtc_is_joiner_secondary(crtc_state))
-+		return;
++static void intel_update_crtc(struct intel_atomic_state *state,
++			      struct intel_crtc *crtc)
++{
++	struct intel_crtc_state *new_crtc_state =
++		intel_atomic_get_new_crtc_state(state, crtc);
 +
- 	if (dsb)
- 		intel_dsb_nonpost_start(dsb);
- 
-@@ -793,6 +805,9 @@ void intel_vrr_check_push_sent(struct intel_dsb *dsb,
- 	if (!crtc_state->vrr.enable)
- 		return;
- 
-+	if (intel_crtc_is_joiner_secondary(crtc_state))
-+		return;
++	switch (new_crtc_state->commit_type) {
++	case INTEL_COMMIT_FLIPQ:
++		intel_flipq_enable(new_crtc_state);
 +
- 	/*
- 	 * Make sure the push send bit has cleared. This should
- 	 * already be the case as long as the caller makes sure
-@@ -1005,6 +1020,9 @@ void intel_vrr_enable(const struct intel_crtc_state *crtc_state)
- 	if (!crtc_state->vrr.enable)
- 		return;
- 
-+	if (intel_crtc_is_joiner_secondary(crtc_state))
-+		return;
++		intel_crtc_prepare_vblank_event(new_crtc_state, &crtc->flipq_event);
 +
- 	intel_vrr_set_vrr_timings(crtc_state);
- 	intel_vrr_enable_dc_balancing(crtc_state);
- 
-@@ -1019,6 +1037,9 @@ void intel_vrr_disable(const struct intel_crtc_state *old_crtc_state)
- 	if (!old_crtc_state->vrr.enable)
- 		return;
- 
-+	if (intel_crtc_is_joiner_secondary(old_crtc_state))
-+		return;
++		intel_flipq_add(crtc, INTEL_FLIPQ_PLANE_1, 0, INTEL_DSB_0,
++				new_crtc_state->dsb_commit);
++		break;
 +
- 	if (!intel_vrr_always_use_vrr_tg(display))
- 		intel_vrr_tg_disable(old_crtc_state);
- 
++	case INTEL_COMMIT_DSB:
++		intel_crtc_prepare_vblank_event(new_crtc_state, &crtc->dsb_event);
++
++		intel_dsb_commit(new_crtc_state->dsb_commit);
++		break;
++
++	case INTEL_COMMIT_MMIO:
++		/* Perform vblank evasion around commit operation */
++		intel_pipe_update_start(state, crtc);
++
++		commit_pipe_arm(state, crtc);
++
++		intel_pipe_update_end(state, crtc);
++		break;
++	}
++
++	intel_post_update_crtc(state, crtc);
++}
++
+ static void intel_old_crtc_state_disables(struct intel_atomic_state *state,
+ 					  struct intel_crtc *crtc)
+ {
 -- 
 2.56.0
 
