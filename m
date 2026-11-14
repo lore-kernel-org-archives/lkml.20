@@ -1,55 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794669295;
-	b=FHd8rzN7TLgdfpeO6WOo4C4zMw5gKniIdQr0SyBxBWfOFZeI4o9Nrju2Tyd28jZ8r9+U
-	 7hjKwDeAw1ITdXZvoCPDYB+WClyX2+GLKsBxCVCpqbaHsFio5rQIdpf6obEkvwpY/0VLI
-	 Y0++0/itO+CQiOAdu9aJ/BJ8MyjtqXjCyZnQ08RhNbK8BowD6mwE9Fr4UNNyc9EBwemUV
-	 Wm2FPUeH7207T5t1g6hXdPvTzktcPzol8qbbDYJvq6DeFiIYc6Zwu21vpUKVLgqPEXY6/
-	 GFbS9VPDYixbvxfSMjtfdk16DA7ILgGoft828ZHEegKm9qiGpjia3PhxMZeGqU3Ur7Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794669295;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=2Os4f9WdWDGemUXCp5xc3FrN8m+AVPs5CTPpzaiqx+M=;
-	b=of2A29mkpGuw15FapHxZ9JGd5nABVykhwJt8DouipsxJlDYQZCl6IWbA+B0sLIMF8Ust
-	 ME2sQtcRd2WwrxjeiDN9h1Da2eTuaUybnAwcTkYUARZlHO7xkhXBinG97aLq9wFU7rbn7
-	 tsuUsSSQmI3boq83CtUrVx+HI9baC1HW2DraF/dJAB46nS7eyfhFQW9RyDe1ZTIWsH8GY
-	 9TzIwiA5RE85hTSsL2MiEuxldNp5no6on9b9IdBzJoVNsj5dO0Rx76bdf6MnIrPQsVP0m
-	 b9q0vFPjsC4TlDSQ3Cl94RCgnlizCJ6Lh1dOaYdvJ4MPM0I3pzL/Mm5AkeL/s2ktd1A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GPt7aSvR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794669477;
+	b=IuXg+onytnAixTyOe/WHNdq18b9qOf7TxNFBWnmxSh+I/iyzAEsHhwk6dzsmRBBfWg5/
+	 nKm7QK4eeE+n+zrDmpGAtxwjtBIDKq7GnaxWJu2dy6Ka82YN1MYABiL/TW4U11elUcNou
+	 iXI0oxdHZIYbSO2QtSDhVNDVIR4KO3COTXOM5iuDlmJBg01Vj7zsJ49HI8siecb8dfSTj
+	 YgM+89v31ADABraO3b5Z3KlZA0KWrc3W9trdx66sJw/8Cgox5QB+uyt1EEWPQ6FAk3vgb
+	 aa+NIRYmC+VzKt/vMR5beTUJejo/wZy83zwYrgDCq9zuNGFuMALBnDS4IKqqX8JcUVw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794669477;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=gTNNffNGrezd2iT3OgWcAGNlhXiNqaOanyiqoANbC80=;
+	b=KIfS6YG9ABPqsnekw12mEnIlzB+FVBDlGpf+hBw1hoKyHB6nwQsj38S3OR4rdjFEBJ2o
+	 ufELp/3rgQiS6LhI/sEsUIuk6TxDqldXriFvrkOlZeDtDrHNZOu18i4ZAXFaYkWdST2MH
+	 BSIe6H8gyu3ivNsgZFQsTtypep6g9mDogm6YW69Oh/kW7nehkHFd1IpD8HKiZoApEfB33
+	 zqXiRdS6+Z7TVoGB8Qm0AbPXdaLVHRRjf0J1nPXy0fGCsk/Mk/NbVydoaXOYJ8wjl/9Z1
+	 UXvfb/l0wlBA9JMRgwO4Q67V2skKa9deShUzPSgPlhR2BQGNVOY3meJlwvncZ1q1dKQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=gYbNRuD9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B2B1606A329
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 15:14:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90418606A331;
+	Sat, 14 Nov 2026 15:17:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90418606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GPt7aSvR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E51761F000C4
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 15:14:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794669294;
-	bh=2Os4f9WdWDGemUXCp5xc3FrN8m+AVPs5CTPpzaiqx+M=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=GPt7aSvR+RTwgecOmi0uXpsQw8UO+v/066c/K0rey5QeZF3O3l5wKD+dUE0HNFJ0T
-	 xDN9ChD5thvQIX5dNEHSpL8Xog2miHIQLcKWY9qNZthB5c84nC2AprGsyXHfKQoU2e
-	 xNhssF3RcF4Hmo0Oa+pGWOyoV18bFGJjanM5jn6kDsgv2drXq2dLUvZRje4KUNqSKZ
-	 J36ORolhUsRKYNm5wZHr5PBwxdj37J0IvM36eFmkqnZlhle9r+WL6E2YCo85E+CqgC
-	 /hFxMY1ptDTpESibu9IhGuoTUD8a80mbXHPnpQkTTiJ5zdazFg9y0zxed4KCIsRT4U
-	 78bkYdMmpLsJA==
-Received: by mail-oa1-f45.google.com with SMTP id 586e51a60fabf-4ad587ba293so1996835fac.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 07:14:54 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEEJmFJ2uzVeHEB++Zj7pnU2X+zFB6z4BQaay99AG+Z0qEDxyylbh86nCRLa/XamZ3ZhmfPF/JbTKAme9M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9LpdOpn9xNmTi+WDj/7iCs+JJgGBDSn36tXA3oSUw7lVIEjVR6
-	OaOg9BO4YP5m8FN8NVZgKsgE8hhS5CN2beZBVoNwLG1y+AnLaUUZtixguFcQkNImO28hQtjdk6L
-	7SfXhQDZBWy47QzQE9TPF0/KDoQVQuJ8=
-X-Received: by 2002:a05:6870:c087:b0:485:d31b:7761 with SMTP id
- 586e51a60fabf-4afdf4316e8mr5067496fac.31.1794669294220; Sat, 14 Nov 2026
- 07:14:54 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=gYbNRuD9
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 4DFD82022D4;
+	Sat, 14 Nov 2026 16:17:54 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794669474;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gTNNffNGrezd2iT3OgWcAGNlhXiNqaOanyiqoANbC80=;
+	b=gYbNRuD95/7q+wlxNnPP7ZR23LkSxF33SJ0R8ctrzcBgoQxCBQf6aAPHsKnkV0ufwPmAwe
+	l3AxOPRxWNRPcbQXzWDWIWndE/95TUMbGZWwQAVMKZfzNkhYyjyzsLZygA/vAVqcyyZWbW
+	F1/l6QUmbSfdZGtwlKjqSZILvexYlO/XCgfJCozqQiJj8lmLZMR5XP4/C6Ha27i7eEtRvE
+	CdYwslwYBeyXt20mryNk6VTrNhqNRYocLtJucjx1akAvYRAY7Dv6y3abg6DNsgJdfvn45j
+	FAzieuhnQ2r0Ztf1KZJ34bVmY9ufFJmN/0TNg0fPoiHIIwLAiLdc1aCnlXBsJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794669474;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gTNNffNGrezd2iT3OgWcAGNlhXiNqaOanyiqoANbC80=;
+	b=E3aAbuq0oyobSD2mSSgs2ZIDaigNrfqY8FpQbcuf/pTiM5G+fTstRHZI7FJMPiWe8W5Ysq
+	CwctenLlLFtQzROUuXgFUXGPPC9DDEk2EiJ5ihnRjIAj5Jyg+NJWNvAtfEvue93O8b69XE
+	t7TwGW3YnG62PMrZppT3CVHPXOfg8ESLK9EyobpqZAavnZn/1f6Ex0jDXuk888MVM+OjX8
+	srlRscEUOgAOERrlaHa8NV6ir1oByS/GegnC41zEpeO0dZy/YXe+e1xxyoMR4IMrJGdAw7
+	ws4xBAojLBRNQjDfSX/4OAPi9Kp0SK5JWvyRtQMuhYISWo7Kmj91IzxOpiCucA==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794669474; a=rsa-sha256;
+	cv=none;
+	b=gynzhQFcirNcLGRSFrLMT0nZl9ijPjX3YlKkSNp8rDUWt0+nW4l856XpbO8ujz3TRVO6iP
+	/xOVVBRl7EJrW/qj62Yd/4eoklzJhq3b4/fZmlav40PuK2rwXTPN9axwBASU1Vl3ej9R7O
+	67X28SGqnnjtJjUSDI+moYJf6/odX9PAFO/F/SlKH0no3URB9DjWNo3KVLWNpxOmbz/gSW
+	ufZyotJxdz3lTLZZ3zXhNNQDGAoqeSUjbwUHtgF9hfqBF/+O7Seuyt6/3IS3PGq7NMKHLs
+	99MndjLqWCMCOSZKgNRLOFALgPFgMXPKKap+gpfjsyfmGhOsfE/WpW2uJCDrkA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xSFVq-0049oC-0b;
+	Sat, 14 Nov 2026 16:17:54 +0100
+Received: from hardanger.blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id E13DC5EBB2F;
+	Sat, 14 Nov 2026 15:17:53 +0000 (UTC)
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Sat, 14 Nov 2026 16:17:40 +0100
+Subject: [PATCH can-next v7 1/6] can: gs_usb: gs_make_candev(): check
+ can_rx_offload_add_manual() return value
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,237 +98,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261113195553.2220562-1-joshwash@google.com>
-In-Reply-To: <20261113195553.2220562-1-joshwash@google.com>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Sat, 14 Nov 2026 16:14:42 +0100
-X-Gmail-Original-Message-ID: <CAL4WiioeNVQwPnZjJLh-Tcev8f-pm5z2dRrJ0k8ZStg5bWt9uA@mail.gmail.com>
-X-Gm-Features: AclHuK-1gN5WyFopKS6Ic6W_qMT25iT5u41cEHbc6BqYNpQg0DlCIbZIgmKDK70
-Message-ID: <CAL4WiioeNVQwPnZjJLh-Tcev8f-pm5z2dRrJ0k8ZStg5bWt9uA@mail.gmail.com>
-Subject: Re: [PATCH net] gve: fix checksum state and gso_segs of HW-GRO packets
-To: Joshua Washington <joshwash@google.com>
-Cc: netdev@vger.kernel.org, Harshitha Ramamurthy <hramamurthy@google.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Jordan Rhee <jordanrhee@google.com>, 
-	Ankit Garg <nktgrg@google.com>, Tim Hostetler <thostet@google.com>, 
-	Willem de Bruijn <willemb@google.com>, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Praveen Kaligineedi <pkaligineedi@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261114-gs_usb-fixes-v7-1-58b6341b1c08@pengutronix.de>
+References: <20261114-gs_usb-fixes-v7-0-58b6341b1c08@pengutronix.de>
+In-Reply-To: <20261114-gs_usb-fixes-v7-0-58b6341b1c08@pengutronix.de>
+To: Vincent Mailhol <mailhol@kernel.org>, Peter Fink <pfink@christ-es.de>, 
+ Eric Evenchick <eric@evenchick.com>, 
+ Maximilian Schneider <max@schneidersoft.net>, 
+ Wolfgang Grandegger <wg@grandegger.com>
+Cc: kernel@pengutronix.de, linux-can@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Marc Kleine-Budde <mkl@pengutronix.de>, 
+ Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
+X-Mailer: b4 0.17-dev-d7211
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1219; i=mkl@pengutronix.de;
+ h=from:subject:message-id; bh=HrJ42yGVaRq800QIonNvQZfBfXcR2a54KKUkfxyenH8=;
+ b=owGbwMvMwCV2xirl17qZay8xnlZLYsj6UT2rKUC1b9lMezYGg3/L5hjYXv263TfepfyJcrd2z
+ eIz018v7ihlYRDjYpAVU2RZ+uOEokCgQ2nvy4RJMHNYmUCGMHBxCsBErMMZGball3/y/8Q09a2G
+ ZWe99PWVUgoHr1z2mT57tnT2sox5Z1Yx/HeXXDhrkc3/vtuJU+Suvw0ycPT9PUF66Wur/9rbTq3
+ 5+oYRAA==
+X-Developer-Key: i=mkl@pengutronix.de; a=openpgp;
+ fpr=C1400BA0B3989E6FBC7D5B5C2B5EE211C58AEA54
 
-Le ven. 13 nov. 2026 =C3=A0 20:56, Joshua Washington <joshwash@google.com> =
-a =C3=A9crit :
->
-> From: Ankit Garg <nktgrg@google.com>
->
-> With HW-GRO enabled, gve_rx_complete_rsc() turns a coalesced packet into
-> a GSO skb by setting gso_size, gso_segs and gso_type, but leaves it
-> CHECKSUM_UNNECESSARY with th->check as the device wrote it. Unlike
-> tcp4_gro_complete() and tcp6_gro_complete() for a SW-GRO packet, it does
-> not seed th->check with the TCP pseudo-header checksum or set
-> CHECKSUM_PARTIAL.
->
-> The GRO stack completes a HW-GRO skb itself only if it holds the skb for
-> merging (since commit 5eddb24901ee ("gro: add support of (hw)gro packets
-> to gro stack")). Otherwise the skb is delivered as is, e.g. with rx-gro
-> off or for a packet that is flushed immediately (e.g. with PSH set). If
-> such an skb is forwarded out of a TSO-capable device, netif_needs_gso()
-> accepts it as CHECKSUM_UNNECESSARY and the device segments it with a
-> bogus checksum seed, so every segment is dropped by the receiver. This
-> blackholes forwarded TCP traffic on VMs acting as routers or NAT
-> gateways and was observed on VMs in real use.
->
-> Fix it in a manner consistent with other drivers with HW-GRO: set the
-> network and transport headers and, for packets whose checksum the device
-> verified, seed th->check with the pseudo-header checksum and call
-> tcp_gro_complete(), passing gso_segs through NAPI_GRO_CB(skb)->count.
-> skb->data points at the Ethernet header on the napi_gro_frags() path and
-> at the IP header on the header-split and copybreak paths, so account for
-> that when setting the network header. Since the header layout now
-> matters, tell IPv4 from IPv6 by the EtherType, as qede and bnx2x do,
-> rather than by the packet type.
->
-> Also compute gso_segs from the TCP payload length. It was computed from
-> skb->data_len, which is 0 for a packet that rx_copybreak copied whole
-> into the linear part, leaving such packets with gso_segs 0 and a
-> non-zero gso_size.
->
-> Fixes: e637c244b954 ("gve: Advertise NETIF_F_GRO_HW instead of NETIF_F_LR=
-O")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Joshua Washington <joshwash@google.com>
-> Reviewed-by: Jordan Rhee <jordanrhee@google.com>
-> Reviewed-by: Praveen Kaligineedi <pkaligineedi@google.com>
-> Signed-off-by: Ankit Garg <nktgrg@google.com>
-> ---
->  drivers/net/ethernet/google/gve/gve_rx_dqo.c | 69 +++++++++++++++-----
->  1 file changed, 53 insertions(+), 16 deletions(-)
->
-> diff --git a/drivers/net/ethernet/google/gve/gve_rx_dqo.c b/drivers/net/e=
-thernet/google/gve/gve_rx_dqo.c
-> index 82ed5e48b00a..58696d26c698 100644
-> --- a/drivers/net/ethernet/google/gve/gve_rx_dqo.c
-> +++ b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
-> @@ -13,6 +13,7 @@
->  #include <linux/ipv6.h>
->  #include <linux/skbuff.h>
->  #include <linux/slab.h>
-> +#include <net/gro.h>
->  #include <net/ip6_checksum.h>
->  #include <net/ipv6.h>
->  #include <net/tcp.h>
-> @@ -1000,13 +1001,34 @@ static int gve_rx_dqo(struct napi_struct *napi, s=
-truct gve_rx_ring *rx,
->         return -ENOMEM;
->  }
->
-> +/* Prepare a HW-GRO packet the way tcp4/6_gro_complete() prepare a SW-GR=
-O
-> + * packet, so that it can be resegmented by GSO or TSO if it is forwarde=
-d:
-> + * seed th->check with the TCP pseudo-header checksum and set CHECKSUM_P=
-ARTIAL.
-> + */
-> +static void gve_rx_fixup_gro_checksum(struct sk_buff *skb)
-> +{
-> +       int len =3D skb->len - skb_transport_offset(skb);
-> +       struct tcphdr *th =3D tcp_hdr(skb);
-> +
-> +       if (skb_shinfo(skb)->gso_type & SKB_GSO_TCPV4)
-> +               th->check =3D ~tcp_v4_check(len, ip_hdr(skb)->saddr,
-> +                                         ip_hdr(skb)->daddr, 0);
-> +       else
-> +               th->check =3D ~tcp_v6_check(len, &ipv6_hdr(skb)->saddr,
-> +                                         &ipv6_hdr(skb)->daddr, 0);
-> +
-> +       NAPI_GRO_CB(skb)->count =3D skb_shinfo(skb)->gso_segs;
-> +       tcp_gro_complete(skb);
-> +}
-> +
->  static int gve_rx_complete_rsc(struct sk_buff *skb,
->                                const struct gve_rx_compl_desc_dqo *desc,
->                                struct gve_ptype ptype)
->  {
->         struct skb_shared_info *shinfo =3D skb_shinfo(skb);
-> -       int rsc_segments, rsc_seg_len, hdr_len;
-> +       int rsc_seg_len, hdr_len, nhoff, thoff;
->         skb_frag_t *frag;
-> +       __be16 proto;
->         void *va;
->
->         /* HW-GRO only coalesces TCP. */
-> @@ -1017,20 +1039,11 @@ static int gve_rx_complete_rsc(struct sk_buff *sk=
-b,
->         if (!rsc_seg_len)
->                 return 0;
->
-> -       switch (ptype.l3_type) {
-> -       case GVE_L3_TYPE_IPV4:
-> -               shinfo->gso_type =3D SKB_GSO_TCPV4;
-> -               break;
-> -       case GVE_L3_TYPE_IPV6:
-> -               shinfo->gso_type =3D SKB_GSO_TCPV6;
-> -               break;
-> -       default:
-> -               return -EINVAL;
+From: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
 
-Before this patch the L3 type came from ptype.l3_type, now it comes from
-the EtherType. A VLAN tagged frame (gve does not strip tags) would have
-been accepted before, and is now dropped and accounted in
-rx_desc_err_dropped_pkt. nhoff =3D ETH_HLEN has the same assumption.
+gs_make_candev() ignores the return value of can_rx_offload_add_manual().
+In an upcoming series can_rx_offload will be improved and
+can_rx_offload_add_manual() can fail.
 
-Can the device coalesce VLAN tagged frames ?
+Check the return value and exit via the existing free_candev() on error
+path.
 
-If not, please say so in the changelog. Otherwise this needs to be
-handled, like idpf_rx_rsc() does with eth_type_vlan().
+Signed-off-by: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
+Link: https://patch.msgid.link/20260907104942.17089-4-ciprianmarian.costea@oss.nxp.com
+[mkl: update patch description]
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ drivers/net/can/usb/gs_usb.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-> -       }
-> -
->         if (skb_headlen(skb)) {
-> -               /* With header-split, payload is in the non-linear part *=
-/
-> -               rsc_segments =3D DIV_ROUND_UP(skb->data_len, rsc_seg_len)=
-;
-> +               /* With header-split or copybreak, eth_type_trans() has a=
-lready
-> +                * pulled the Ethernet header.
-> +                */
-> +               nhoff =3D 0;
->         } else {
->                 /* HW-GRO packets are guaranteed to have complete TCP/IP
->                  * headers in frag[0] when header-split is not enabled.
-> @@ -1039,7 +1052,6 @@ static int gve_rx_complete_rsc(struct sk_buff *skb,
->                 va =3D skb_frag_address(frag);
->                 hdr_len =3D
->                         eth_get_headlen(skb->dev, va, skb_frag_size(frag)=
-);
-> -               rsc_segments =3D DIV_ROUND_UP(skb->len - hdr_len, rsc_seg=
-_len);
->                 skb_copy_to_linear_data(skb, va, hdr_len);
->                 skb_frag_size_sub(frag, hdr_len);
->                 /* Verify we didn't empty the fragment completely as that=
- could
-> @@ -1049,10 +1061,35 @@ static int gve_rx_complete_rsc(struct sk_buff *sk=
-b,
->                 skb_frag_off_add(frag, hdr_len);
->                 skb->data_len -=3D hdr_len;
->                 skb->tail +=3D hdr_len;
-> +               /* napi_gro_frags() pulls the Ethernet header later. */
-> +               nhoff =3D ETH_HLEN;
->         }
-> +
-> +       skb_set_network_header(skb, nhoff);
-> +       proto =3D nhoff ? ((struct ethhdr *)skb->data)->h_proto : skb->pr=
-otocol;
-> +       switch (proto) {
-> +       case htons(ETH_P_IP):
-> +               shinfo->gso_type =3D SKB_GSO_TCPV4;
-> +               thoff =3D nhoff + ip_hdrlen(skb);
-> +               break;
-> +       case htons(ETH_P_IPV6):
-> +               shinfo->gso_type =3D SKB_GSO_TCPV6;
-> +               thoff =3D nhoff + sizeof(struct ipv6hdr);
-> +               break;
-> +       default:
-> +               return -EINVAL;
-> +       }
-> +       skb_set_transport_header(skb, thoff);
-> +
->         shinfo->gso_size =3D rsc_seg_len;
-> -       shinfo->gso_segs =3D rsc_segments;
-> +       shinfo->gso_segs =3D DIV_ROUND_UP(skb->len - thoff - tcp_hdrlen(s=
-kb),
-> +                                       rsc_seg_len);
-> +
-> +       if (!IS_ENABLED(CONFIG_INET) ||
-> +           unlikely(skb->ip_summed !=3D CHECKSUM_UNNECESSARY))
-> +               return 0;
->
-> +       gve_rx_fixup_gro_checksum(skb);
+diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
+index 3b9b2f104d86..cac4ce323a1d 100644
+--- a/drivers/net/can/usb/gs_usb.c
++++ b/drivers/net/can/usb/gs_usb.c
+@@ -1487,7 +1487,10 @@ static struct gs_can *gs_make_candev(unsigned int channel,
+ 		dev->can.fd.data_bittiming_const = &dev->data_bt_const;
+ 	}
+ 
+-	can_rx_offload_add_manual(netdev, &dev->offload, GS_NAPI_WEIGHT);
++	rc = can_rx_offload_add_manual(netdev, &dev->offload, GS_NAPI_WEIGHT);
++	if (rc)
++		goto out_free_candev;
++
+ 	SET_NETDEV_DEV(netdev, &intf->dev);
+ 
+ 	rc = register_candev(dev->netdev);
 
-thoff is derived from iph->ihl, and tcp_hdrlen() from th->doff, both read
-from the packet, and nothing checks that the TCP header is actually in
-the linear part before we read th->doff and write th->check.
+-- 
+2.53.0
 
-On the copybreak path the head was allocated by napi_alloc_skb(buf_len),
-so a short frame with desc->rsc set and a large ihl ends up reading and
-writing past the copied data. Same thing on the napi_get_frags() path if
-eth_get_headlen() returned less than the full headers.
-
-The old code was trusting the device as well, but it was not writing
-into the headers.
-
-I think we want something like this, before using tcp_hdr(skb):
-
-        if (unlikely(thoff + sizeof(struct tcphdr) > skb_headlen(skb)))
-                return -EINVAL;
-
-        if (unlikely(skb->len < thoff + tcp_hdrlen(skb)))
-                return -EINVAL;
-
-(skb_headlen() is hdr_len on the napi_get_frags() path at this point,
-so one check covers both cases.)
-
-This also makes sure gso_segs can not be computed from a negative length.
-
-Thanks.
