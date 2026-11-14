@@ -1,111 +1,111 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794625631;
-	b=PvW7g4/wJ4DiOJZraH3ki1lRqFOZQe20Qk864UU2s7NjN7SwRMeidCSEoYjQxOvIRo6n
-	 olL9g6BsiNIuK7kzqPtVG5KflaTupekxIKwuFbljyqZXtg65IDYC7VfP5ksQSq/FHYzgf
-	 NlpSsDRZscf3fBT3hlXHSRvAVUGbJfYhNO0HidiA4xwDZhya41XZzXe66MttC0DF8sLnD
-	 QyGpFl8Hh0UVyyNBdfVvfnHMHhOP60QKsmBxn/Oa2kli7fisDWyJsOuszgnfN6CAdbdbm
-	 pzyzIdCCCLo9xz9i/mDZ6q9IkOOlxgsQWKK5dKoU+LdNVs30I3Oixd0c+Kg3Z0t5usg==
+	t=1794625642;
+	b=lnzvdJboqnfZJqMBfjbDqQd52yJWJ3chnXDqDUgYDuH/LeDF0jvmI+8AFSYATT+nPmI/
+	 dqsbfT49/txQUp7O8v0Iw5PMle4lJMwDxuljUv423UbBhUgTIgw1W1QFu7lg1pv8ThAnI
+	 OAGUiZ2XkcU6gUIyF9oSRwceRft3NrksSWr2EGbOgcUjQ+TMCevYfTohA/d5sTi0SwdCY
+	 A7cCS8Gs3qRVzq3UZCbIzKN11uv7USqz7Y/Q6N/R/HOz2muz1wBD1ivkk1MTaGViZ+C9J
+	 nIxB+KZ/sDy4MmSUtvgat8QpBnecYyTg/oLpzVd5nurhtStFA2iN2MY07/0TNEjDvKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794625631;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794625642;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
 	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
 	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
 	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=iGWIXFPBAskkErhFkKBy4iJxNdoQOpKT8TAJDBnwcSA=;
-	b=1lSLaCZ08L/o7VTZUNUhi6NvVpHBjd429JYgRAKP+dBpYgWlw10+0MA2yn4VDgLnGa6i
-	 FfkoFnA/5jCaRPZSWVJtdqY5gfzwsovSRyk8GHd83LXBWOlOU6YRRiwhtWeJZAVOB9lUw
-	 YDTGxnQY4xrHmzgSo9dnUcUFCVJgBmttej45FlxVJ2SAo4P36YVd6aNq3belvaC5r/3Ov
-	 3tnP3ebxqWvhpMNUGhaRXJw0/IHha+xGDAvAqMBXGZOqNN0Or5LTGhke++EGZwt+eweH5
-	 zGH2oXyU5GbdmqHN/dQn1OmXtY8BLL5d6WLH5vTrfBJtOKWpBV+fFfOUR7wcKxRNCDA==
+	bh=ZxUyROuDthVLtFanIfBp0sfv7UFu/s7kRd8U8ZoQom8=;
+	b=xNSSWN4J31B/kEXNdrZPyMzmv6hVq/BqV2kamm66E3pg1nueySE9fPqGkB/6k5VCYnhr
+	 eInsbkcgj5V5RIo1bxx5yihGjemn5wXI//Y0BqK0zHYvOtSokUykCi5sCTC0ynPxt4uAn
+	 jt0qvbqtYOlpoCrvDFX69nvj4o3FwoyIWZWV17cjhbAg58XDDEwAKYxuWkh14wXAt9Fso
+	 L7mXAiT7FI7TlMPTe64qJemDVVbMBDNcRlFbAUo0qjzIA3ax9KcZWxKP5NsuJkocxtoKl
+	 fqbEElF1BQmIAcMYIQdTSRrA6tWfjkwJCw70AT0sbuQWZ57MQebSsRJ127l263rjztw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gahingwoo.com;
 	spf=pass smtp.mailfrom=gahingwoo.com;
-	dkim=pass header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=FZGMFB4T;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=56+s65Ft;
+	dkim=pass header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=BCjYoXHC;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="oDAt/bYZ";
 	arc=none smtp.remote-ip=103.168.172.139
 Received: from flow-a4-smtp.messagingengine.com (flow-a4-smtp.messagingengine.com [103.168.172.139])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5FF5606A884
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:07:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5FF5606A884
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E519160A2613
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:07:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E519160A2613
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=FZGMFB4T;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=56+s65Ft
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailflow.phl.internal (Postfix) with ESMTP id 18DAF1381A4D
-	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:07:10 -0500 (EST)
+	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=BCjYoXHC;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=oDAt/bYZ
+Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
+	by mailflow.phl.internal (Postfix) with ESMTP id 49AFA1381A4E
+	for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:07:21 -0500 (EST)
 Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Fri, 13 Nov 2026 22:07:10 -0500
+  by phl-compute-07.internal (MEProxy); Fri, 13 Nov 2026 22:07:21 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
 	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
 	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1794625629; x=
-	1794632829; bh=iGWIXFPBAskkErhFkKBy4iJxNdoQOpKT8TAJDBnwcSA=; b=F
-	ZGMFB4TJG7xtiYFo4Hk522Tz/pXGIXgNF3EZtaYoj0kJICfwSCEsieSlXjBGlnqd
-	q8w1YzQ5QKEMNBqhNRK3HOkXrgHFwy/GhNXGH9/yFZ6GbKxl31RbQJYWGBf6fRGC
-	JVJd70cCUXJy8hXy+ih2R9R0lUUI0BmyhgTpLap0d4CG0TFFN1VDQCCvtvrCWqJN
-	84q9mvVVaTHxnDht1iXZcXooovdJIdQTMWR+fxnUieulkUOhhqhQlt/jZm8icjpE
-	fLuUCqZaznPeu39dkw04pUVVQQZxMq9yMqEmvO+0ypBC/+QarjflxzhDpt8nl9Mn
-	aXlgRZ1XmhB/WR14yWZPg==
+	:reply-to:subject:subject:to:to; s=fm1; t=1794625641; x=
+	1794632841; bh=ZxUyROuDthVLtFanIfBp0sfv7UFu/s7kRd8U8ZoQom8=; b=B
+	CjYoXHC60d7oK4R4g7YqMcyUqG6Dy1AoKYQE6F0y0chzDx1+LDxcGXvkgHLoRWtd
+	7d5p6vApXNbn4BPPK4WArEyZ3L+Kmcv994SgZnhI6Z6F4IX7co2N48IrW53YC+ip
+	4ozpgeUw+/C3X9pn0t6ggdxlC6Q/wey86HuiOi//ul52Pqx9j8xWu7di0NoBFhBO
+	5wSXp3a3F2HyOSFJtLlh6bgtdjLXS6pG4VhKrIu5QDBX6ajtuR+HVSJLGd0OAAUS
+	6o77X8A5GDvW0uq0l46XMuaHF3U9ee+DxMMT926O/45bTcZ8u41NVCDKW/Zwuh2h
+	sSvLKAZmXQNtMrg3G7rfQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
 	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1794625629; x=1794632829; bh=i
-	GWIXFPBAskkErhFkKBy4iJxNdoQOpKT8TAJDBnwcSA=; b=56+s65FtBOsj2iBOp
-	bcoT6NTmYYMd2cIKkw6LjvFGnkQrLiEOwBfXTr/9HK7T3hhtU8SZTabkAgmovtaw
-	rC4yNIVqG9lfSbFCqoSDnV9Wyg8Qe3P8hsv6gM+hU4ttaqJKeqUq+5D+oxXiixFs
-	HhRu47wsFQMGNT6PiFFER/6OHtk8VpilHvWDUoI9HK3qWYBkB0svRlSxHmq1U15I
-	t/jkg5cYOCgtfN88NPYGGnqB5vPxyzjb9NjfoH15iwaVsgJX5qSp22WcXJdvutt1
-	lX+8d8uJI41O+A4C7Sx9kTabZ2ZkzIy+z+uK7tZle4Su40yNVZnQLasBCbpajw8U
-	vUjbQ==
+	:x-me-sender:x-sasl-enc; s=fm3; t=1794625641; x=1794632841; bh=Z
+	xUyROuDthVLtFanIfBp0sfv7UFu/s7kRd8U8ZoQom8=; b=oDAt/bYZmpRtxNBkX
+	rsikVhlCHC0YpYN6JfJHAQbUYYrY0B5yLtr0fwYXRUgxIhJKXrT+uCGwV+OsIdRG
+	dhqRE//cBrJeR29Y8qkCgRGhjUMws3V3QR3Vff8oPT7jHqJTQfNGJmG1mZ0GUPgU
+	5S7DX0bwZaREhQ3MsuyU4nlxHu1KS71diIHsDI1tm+/yqSDC4s8ZxPBO8gU6kv3v
+	cG8SkGViY+EDpVTIOUFLQjqSWCzl+dil8TFrY804TcD4yhRekE6mVv6uoHJbcob8
+	mig3efvaEta/CC39oRPP6TBYT9I8bpFBGwAGPx/q3UVrshjb7H0Vd90d2Lvba+OY
+	JZyDg==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
 	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
 	action=sign d=gahingwoo.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794625629; d=gahingwoo.com;
+DKIM2-Signature: i=1; m=1; t=1794625641; d=gahingwoo.com;
 	mf=PGdhaGluZ0BnYWhpbmd3b28uY29tPg==;
 	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:aUCtrpv200VVIVZBouwPTli2mbua1R7GuWXDhpG2Reo6Klh
-	+SGsXkgGB3Sb6Mx+mjcHO0RgMjQ45Np+tSZfQASk0sJ8kRN3+1hlmLXEf/ZHDgt4
-	f4rS93f6vqnhHEBqOG0yZBiz9C5IXS3ZFXe5QJF57RXOzRzj0P0z7qMJUbShGqsx
-	Yagqa1ILkycpshLjSswn7xg5LBdaghMhS4O1dRco3IuUBhdqSEyMi4OUpwMmKzl/
-	Of9G9CYYof7nu2PyThpC1GfhpFEpN6FBgXd4bivj+6eBHdqLKsGClIDc3wSlqCQO
-	3ME0W0HmlX45L5qbuGR139hh5aqPmyqUivzpLwg==;
+	s=fm1:rsa-sha256:OY3KVkSw/R1FER072AHOGkDL8tBxyLU7VNUWBQyAAu9UA3E
+	qabVmrjgL/4Kygb4l2vHgBhpG12vrQcYBZi/IPHedcsvT/NNI6sfIUkb8w7n0JaV
+	lPEHH1NaYCiiyX5c+pZVz++KWw2RycgYZHvCdhcrBmtmKJh6x1L11z6U7wUPHRke
+	CkEf6icCch00pxaNwQGXZbmh4KTkfofQWOIxI5uXYQUOapcrN9l/0l7ncd+w75Qz
+	/+SvKLVP5Nuu07wIQeynR+pl/QVTZR3DUoM0oIBRhSJVbAmGMX1LmylYOThr0G9h
+	R9W/sg1QsGs0dRgePruDFD9lM4FM6rVym11Kp0w==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
 	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
 	action=mi-m=1; hc=11;
 	hn=cc,content-transfer-encoding,date,feedback-id,from,
 	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:zjek7cGZpIn7UJ/Qd1CE+tQiN0Lcz846LffH7xYq27M=:t4XZljyf4r49w/JA52om5qZZDmnryD7F5+35Gs6wz74=;
-X-ME-Sender: <xms:XdD3akv7y4amK4DwtcUqZIOQfDzKiPQ96A6-yJPNd7lwwXBloG4mSA>
-    <xme:XdD3at7hUj_Ze6uxtYZAoJ00Suh3GH6MN--C6MFgkaO2z3G9heDTOGDOMadsCuYuQ
-    7apJVpm8C4GmFbSJ2TJXSAF8Ekny27IzUhwgbrgSf9rTkelZBXHt1z5>
-X-ME-Received: <xmr:XdD3anDqvTTAwuPXBxvhzkQhD-7fxgRNBb7ZQEUywbzvIbkbS0sE9yq5FYvYj-lFev5XjUBZ>
-X-ME-Proxy-Cause: dmFkZTENh3Cq6bNtRDDqH//naJpK03OGhXB8Cp3eHHX2EpHYf2oBjZ1/43ruyqVDLzR5bI
-    q7gV+k53czH7SJj0JMNaMvWBGkaUqaereb01ifHpul1q14DobEKJC2mDvQQE3HzqoOU9gl
-    QO0UnCSJOnNpWmY1qWdj/IivEZ+5eJmA8XcRYmqsfPBSZaKqk9zCnQvCGUQuYFJdsYZGP5
-    L8zECb373LU+oefpY9jKwOjkFDiU4CWxV3iExHL3zPnpeZwM1wkFJxhm/yJk+2AJ3ju4OO
-    RXCknd9xSS299sQU1FiikwzYfEAyF9m0XTBIDoIn2qfRRJDU3uzKkImCFIAQPMS5Q++UsR
-    Pj8WGhog14V2oPv0Cbbor+mzw6PegcxRpm5myXv4LDEhkE1PkXw4sxqyUJNO/+Ym/WoTtY
-    tb+wGIzcEdR5gpJ/co3yvFnixhD41GzrC5cwFRLMOkoJNUefiqpzYTvbF89mCOgpXHkcbt
-    /SC0IgYaKIaxYmpKCKFIa6XINF/BgHg5SpjhwJdNmQtEtkQyf3c6uXdmAEvJL/O0Mgt6hP
-    QQitoEWPB/NvR+jtz/GGnwYE+plZ1G01Db2y81F9XGpwZrv85P5crk/n0P2JQ7Anh//hJX
-    XAhJDMWz6XDQ1NvCq46aIxmrDJB3gDVfUyllQ4UGMusM2kK3B9Yu8sPy8rJQ
-X-ME-Proxy: <xmx:XdD3atuNEhIGL-RLMV9DqXQuLYStSLCB57ORfDyf-pbwYJqZTbQUqQ>
-    <xmx:XdD3alONIGHGzzjoAqtndtXanGV0sVV-ngLB6FW6iv3I0fHANXBGnA>
-    <xmx:XdD3alW12DKdSgnpska55ukpVd_c5dGD2jngsXmPMyy8czpNn8au_A>
-    <xmx:XdD3agSIbQ4bpjHMTdIqY5wHBADZNtDhLpZg10Rdd9dGgzQEWmDxxQ>
-    <xmx:XdD3auVlcDyYiSpXx4E2a3hOfdLwpDAvEbSimxIhGQ5-xJ-sWIuuwURm>
+Message-Instance: m=1; h=sha256:X5ESKhpGyixR+D89Fb0Ja8nTlYtS8VLcsQwSjmxxrXM=:ebLMyHUtp2h/cZGBOQS5t6ujg1UFzw5hcjwxzwQhJYU=;
+X-ME-Sender: <xms:aND3ak4iaLvrt7-F119nkCWV4U4gVayzbXvNtJGNPQYIyo7Zz0J7Qw>
+    <xme:aND3aiUwoIG6dnhreqaa0CEHFSuKG4aOIPVyTUWbuep1kha5aZg3RuBKt6yQ9KCGD
+    qi7KCjt5EV2IYHVZMKHTk_IxzbKSRRSBHtKSm7ZuTEE5zqxLuJKlygm>
+X-ME-Received: <xmr:aND3aqsIcJ8eldb4Etughh2F0-BEWpzdKZkDypk5ZeQeYQSl385DDWeYrEdYWG8u0PDMsa8_>
+X-ME-Proxy-Cause: dmFkZTGLv1hz09a3Z3EXCwmORUpwC+Cy72ChFuKnGtX6ZU8GGLHgxpuX6WqGXEA/YZrryv
+    vv0prpdLfBwpQpLWmeD6AMfy7KlCfIGstcy+mENKkf07iojtVvEya/NHDu3GuWT4c2rhqI
+    ZONNY3wWPMjfN9lDAHW9TqItupPiJk+3wyJf0nnsl70tYmnvYemNXYszDru2blGoT8EQgR
+    h1/Ss5vi/yXiM3iowxUh2VDtjNJEl9yaMnp9yw432jsGdApevC/sGgaH7cyYWyAVXTJw6p
+    6LHSFyjkbDMd9Mymm1VF44oN6b4dfIstLoOUWpNdcumuV3L/vQ1Ryv1ZYSCAHCK+wZoelk
+    iMYij8HqJFVdFvx8k/yzupStm23xdFlZBIJmaIwJpUMFeufkNaUnN/Y6ihJE3Wobfo5362
+    DP9ip92GHJlA3oHxsh3fz6s8OIUZBC+a4/GAp5GFYfdJgmy0/b7hSf17wiplKi+DGYI2ve
+    6UrA145QYBwQgXzX8bGm89lB/ZdAZMPnUvqu9zkMyRtKtQKg/s1RyOl8Q+96cnD4oHRBkh
+    R7FAwIyhLW9GAILzcPrdQUqjO6fyA/K4tW1OiTU+OLmfc4mcCFf8e2EUGGvvcFnfQDjF+Q
+    kyfRqSKRpw98aojJhZzBVXsrwA4SAZbMvviKHTPGH+Q5MxF86dpPHH54uC4w
+X-ME-Proxy: <xmx:aND3avpudo-sP_8_CdJ-WFMQB6aculeBDsg5kLiImq3MZxYHVqN9cw>
+    <xmx:aND3aoZBfesLwIxXgoG5aUKXFfDqoYdIkl73pCficBgziTLzNML5jg>
+    <xmx:aND3agxBO79eN31h2yX4EynXdU9fU5ynla1X7lMqKeRNe8lrk76FmQ>
+    <xmx:aND3au9undxGOqnW8gup2TQpxubP7hN7sZy-y-jDWxM3nMtBv2KZOQ>
+    <xmx:adD3avtPqcdm1iifGHlgumTTqOyGdfsaeAWBSfR0rAEav9rnAQl90kk7>
 Feedback-ID: i7a5e4b5f:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 13 Nov 2026 22:07:00 -0500 (EST)
+ 13 Nov 2026 22:07:12 -0500 (EST)
 From: Jiaxing Hu <gahing@gahingwoo.com>
 To: tomeu@tomeuvizoso.net,
 	heiko@sntech.de,
@@ -139,9 +139,9 @@ Cc: royalnet026@gmail.com,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v17 08/12] accel/rocket: select the per-core clock and reset counts from match data
-Date: Sat, 14 Nov 2026 16:05:25 +1300
-Message-ID: <fcdd7117d3d7fe99ea1658c39b6d1a05428823f4.1794615323.git.gahing@gahingwoo.com>
+Subject: [PATCH v17 09/12] accel/rocket: add RK3576 NPU (RKNN) support
+Date: Sat, 14 Nov 2026 16:05:26 +1300
+Message-ID: <57874e7459ed84ad47b2e31a62871ff535da249b.1794615323.git.gahing@gahingwoo.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1794615324.git.gahing@gahingwoo.com>
 References: <cover.1794615324.git.gahing@gahingwoo.com>
@@ -156,137 +156,178 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The RK3576 and the RK3588 use the same NPU block, but with different
-numbers of clocks and resets.
+Add support for the RK3576 NPU. It has two cores; each core needs six
+clocks and one reset, with aclk_cbuf and hclk_cbuf on top of what the
+RK3588 has.
 
-Take the number of clocks and resets for each core from soc_data in the
-match data, so the driver uses the right count on each SoC.
+The task number in PC_TASK_CON is 16 bits wide, not 12. BIT16, BIT17 and
+BIT18 are pp_en, count_clear and last_layer_clear. Chaoyi Chen confirmed
+this layout on the list:
 
-The RK3588 keeps four clocks and two resets.
+  https://lore.kernel.org/all/4f300b78-d96d-4d98-8819-dc292b0c9b97@rock-chips.com/
 
-A device without match data fails before any resource is allocated.
+The number of NPU cores is taken from the driver's own match table.
 
 Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+
+# Conflicts:
+#	drivers/accel/rocket/rocket_core.c
+#	drivers/accel/rocket/rocket_core.h
 ---
- drivers/accel/rocket/rocket_core.c |  8 ++++----
- drivers/accel/rocket/rocket_core.h |  6 ++++++
- drivers/accel/rocket/rocket_drv.c  | 18 +++++++++++++++---
- 3 files changed, 25 insertions(+), 7 deletions(-)
+ drivers/accel/rocket/rocket_core.c   |  2 ++
+ drivers/accel/rocket/rocket_core.h   |  3 +++
+ drivers/accel/rocket/rocket_device.c |  3 ++-
+ drivers/accel/rocket/rocket_drv.c    | 14 +++++++++++---
+ drivers/accel/rocket/rocket_drv.h    |  2 ++
+ drivers/accel/rocket/rocket_job.c    | 20 ++++++++++++++++----
+ 6 files changed, 36 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/rocket_core.c
-index c1458423cb69..040272573a72 100644
+index 040272573a72..638061a97bf3 100644
 --- a/drivers/accel/rocket/rocket_core.c
 +++ b/drivers/accel/rocket/rocket_core.c
-@@ -23,7 +23,7 @@ int rocket_core_init(struct rocket_core *core)
- 
- 	core->resets[0].id = "srst_a";
- 	core->resets[1].id = "srst_h";
--	err = devm_reset_control_bulk_get_exclusive(&pdev->dev, ARRAY_SIZE(core->resets),
-+	err = devm_reset_control_bulk_get_exclusive(&pdev->dev, core->soc->num_resets,
- 						    core->resets);
- 	if (err)
- 		return dev_err_probe(dev, err, "failed to get resets for core %d\n", core->index);
-@@ -32,7 +32,7 @@ int rocket_core_init(struct rocket_core *core)
+@@ -32,6 +32,8 @@ int rocket_core_init(struct rocket_core *core)
  	core->clks[ROCKET_CLK_HCLK].id = "hclk";
  	core->clks[ROCKET_CLK_NPU].id = "npu";
  	core->clks[ROCKET_CLK_PCLK].id = "pclk";
--	err = devm_clk_bulk_get(dev, ARRAY_SIZE(core->clks), core->clks);
-+	err = devm_clk_bulk_get(dev, core->soc->num_clks, core->clks);
++	core->clks[ROCKET_CLK_ACLK_CBUF].id = "aclk_cbuf";
++	core->clks[ROCKET_CLK_HCLK_CBUF].id = "hclk_cbuf";
+ 	err = devm_clk_bulk_get(dev, core->soc->num_clks, core->clks);
  	if (err)
  		return dev_err_probe(dev, err, "failed to get clocks for core %d\n", core->index);
- 
-@@ -106,9 +106,9 @@ void rocket_core_fini(struct rocket_core *core)
- 
- void rocket_core_reset(struct rocket_core *core)
- {
--	reset_control_bulk_assert(ARRAY_SIZE(core->resets), core->resets);
-+	reset_control_bulk_assert(core->soc->num_resets, core->resets);
- 
- 	udelay(10);
- 
--	reset_control_bulk_deassert(ARRAY_SIZE(core->resets), core->resets);
-+	reset_control_bulk_deassert(core->soc->num_resets, core->resets);
- }
 diff --git a/drivers/accel/rocket/rocket_core.h b/drivers/accel/rocket/rocket_core.h
-index 01a12664566c..05d34e538e36 100644
+index 05d34e538e36..ef7043046bc6 100644
 --- a/drivers/accel/rocket/rocket_core.h
 +++ b/drivers/accel/rocket/rocket_core.h
-@@ -35,9 +35,15 @@ enum rocket_clk {
+@@ -32,12 +32,15 @@ enum rocket_clk {
+ 	ROCKET_CLK_HCLK,
+ 	ROCKET_CLK_NPU,
+ 	ROCKET_CLK_PCLK,
++	ROCKET_CLK_ACLK_CBUF,
++	ROCKET_CLK_HCLK_CBUF,
  	ROCKET_CLK_MAX,
  };
  
-+struct rocket_soc_data {
-+	unsigned int num_clks;
-+	unsigned int num_resets;
-+};
-+
- struct rocket_core {
- 	struct device *dev;
- 	struct rocket_device *rdev;
-+	const struct rocket_soc_data *soc;
- 	unsigned int index;
+ struct rocket_soc_data {
+ 	unsigned int num_clks;
+ 	unsigned int num_resets;
++	bool task_con_16bit;
+ };
  
- 	int irq;
+ struct rocket_core {
+diff --git a/drivers/accel/rocket/rocket_device.c b/drivers/accel/rocket/rocket_device.c
+index db137e2ec15e..868af86d00ce 100644
+--- a/drivers/accel/rocket/rocket_device.c
++++ b/drivers/accel/rocket/rocket_device.c
+@@ -9,6 +9,7 @@
+ #include <linux/of.h>
+ 
+ #include "rocket_device.h"
++#include "rocket_drv.h"
+ 
+ struct rocket_device *rocket_device_init(struct platform_device *pdev,
+ 					 const struct drm_driver *rocket_drm_driver)
+@@ -27,7 +28,7 @@ struct rocket_device *rocket_device_init(struct platform_device *pdev,
+ 	ddev = &rdev->ddev;
+ 	dev_set_drvdata(dev, rdev);
+ 
+-	for_each_compatible_node(core_node, NULL, "rockchip,rk3588-rknn-core")
++	for_each_matching_node(core_node, rocket_dt_match)
+ 		if (of_device_is_available(core_node))
+ 			num_cores++;
+ 
 diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/rocket_drv.c
-index 5d7805c41dc3..1030d8407b78 100644
+index 1030d8407b78..fff31c1ebe52 100644
 --- a/drivers/accel/rocket/rocket_drv.c
 +++ b/drivers/accel/rocket/rocket_drv.c
-@@ -159,8 +159,14 @@ static const struct drm_driver rocket_drm_driver = {
+@@ -226,13 +226,21 @@ static void rocket_remove(struct platform_device *pdev)
+ static const struct rocket_soc_data rk3588_soc_data = {
+ 	.num_clks = 4,
+ 	.num_resets = 2,
++	.task_con_16bit = false,
+ };
  
- static int rocket_probe(struct platform_device *pdev)
- {
-+	const struct rocket_soc_data *soc = of_device_get_match_data(&pdev->dev);
- 	int ret;
- 
-+	if (!soc) {
-+		dev_err(&pdev->dev, "no match data for this device\n");
-+		return -ENODEV;
-+	}
-+
- 	if (rdev == NULL) {
- 		/* First core probing, initialize DRM device. */
- 		rdev = rocket_device_init(drm_dev, &rocket_drm_driver);
-@@ -179,6 +185,7 @@ static int rocket_probe(struct platform_device *pdev)
- 
- 	rdev->cores[core].rdev = rdev;
- 	rdev->cores[core].dev = &pdev->dev;
-+	rdev->cores[core].soc = soc;
- 	rdev->cores[core].index = core;
- 
- 	rdev->num_cores++;
-@@ -216,8 +223,13 @@ static void rocket_remove(struct platform_device *pdev)
- 	}
- }
- 
-+static const struct rocket_soc_data rk3588_soc_data = {
-+	.num_clks = 4,
-+	.num_resets = 2,
+-static const struct of_device_id dt_match[] = {
++static const struct rocket_soc_data rk3576_soc_data = {
++	.num_clks = 6,
++	.num_resets = 1,
++	.task_con_16bit = true,
 +};
 +
- static const struct of_device_id dt_match[] = {
--	{ .compatible = "rockchip,rk3588-rknn-core" },
-+	{ .compatible = "rockchip,rk3588-rknn-core", .data = &rk3588_soc_data },
++const struct of_device_id rocket_dt_match[] = {
+ 	{ .compatible = "rockchip,rk3588-rknn-core", .data = &rk3588_soc_data },
++	{ .compatible = "rockchip,rk3576-rknn-core", .data = &rk3576_soc_data },
  	{}
  };
- MODULE_DEVICE_TABLE(of, dt_match);
-@@ -243,7 +255,7 @@ static int rocket_device_runtime_resume(struct device *dev)
- 	if (core < 0)
- 		return -ENODEV;
+-MODULE_DEVICE_TABLE(of, dt_match);
++MODULE_DEVICE_TABLE(of, rocket_dt_match);
  
--	err = clk_bulk_prepare_enable(ARRAY_SIZE(rdev->cores[core].clks), rdev->cores[core].clks);
-+	err = clk_bulk_prepare_enable(rdev->cores[core].soc->num_clks, rdev->cores[core].clks);
- 	if (err) {
- 		dev_err(dev, "failed to enable (%d) clocks for core %d\n", err, core);
- 		return err;
-@@ -263,7 +275,7 @@ static int rocket_device_runtime_suspend(struct device *dev)
- 	if (!rocket_job_is_idle(&rdev->cores[core]))
- 		return -EBUSY;
+ static int find_core_for_dev(struct device *dev)
+ {
+@@ -291,7 +299,7 @@ static struct platform_driver rocket_driver = {
+ 	.driver	 = {
+ 		.name = "rocket",
+ 		.pm = pm_ptr(&rocket_pm_ops),
+-		.of_match_table = dt_match,
++		.of_match_table = rocket_dt_match,
+ 	},
+ };
  
--	clk_bulk_disable_unprepare(ARRAY_SIZE(rdev->cores[core].clks), rdev->cores[core].clks);
-+	clk_bulk_disable_unprepare(rdev->cores[core].soc->num_clks, rdev->cores[core].clks);
+diff --git a/drivers/accel/rocket/rocket_drv.h b/drivers/accel/rocket/rocket_drv.h
+index 9421e48ec5d8..eb1e243ff75a 100644
+--- a/drivers/accel/rocket/rocket_drv.h
++++ b/drivers/accel/rocket/rocket_drv.h
+@@ -6,10 +6,12 @@
  
- 	return 0;
- }
+ #include <drm/drm_mm.h>
+ #include <drm/gpu_scheduler.h>
++#include <linux/device-id/of.h>
+ 
+ #include "rocket_device.h"
+ 
+ extern const struct dev_pm_ops rocket_pm_ops;
++extern const struct of_device_id rocket_dt_match[];
+ 
+ struct rocket_iommu_domain {
+ 	struct iommu_domain *domain;
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index 68df1596014e..59a6f548e108 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -31,6 +31,11 @@
+ /* Bits 3:0 of PC_BASE_ADDRESS hold the mode selection bit and reserved bits */
+ #define ROCKET_REGCMD_ALIGN	16
+ 
++#define RK3576_PC_TASK_CON_TASK_NUMBER(n)	((n) & 0xffff)
++#define RK3576_PC_TASK_CON_PP_EN		BIT(16)
++#define RK3576_PC_TASK_CON_COUNT_CLEAR		BIT(17)
++#define RK3576_PC_TASK_CON_LAST_LAYER_CLEAR	BIT(18)
++
+ static struct rocket_job *
+ to_rocket_job(struct drm_sched_job *sched_job)
+ {
+@@ -166,10 +171,17 @@ static void rocket_job_hw_submit(struct rocket_core *core, struct rocket_job *jo
+ 	rocket_pc_writel(core, INTERRUPT_MASK, PC_INTERRUPT_MASK_DPU_0 | PC_INTERRUPT_MASK_DPU_1);
+ 	rocket_pc_writel(core, INTERRUPT_CLEAR, PC_INTERRUPT_CLEAR_DPU_0 | PC_INTERRUPT_CLEAR_DPU_1);
+ 
+-	rocket_pc_writel(core, TASK_CON, PC_TASK_CON_RESERVED_0(1) |
+-					 PC_TASK_CON_TASK_COUNT_CLEAR(1) |
+-					 PC_TASK_CON_TASK_NUMBER(1) |
+-					 PC_TASK_CON_TASK_PP_EN(1));
++	if (core->soc->task_con_16bit)
++		rocket_pc_writel(core, TASK_CON,
++				 RK3576_PC_TASK_CON_LAST_LAYER_CLEAR |
++				 RK3576_PC_TASK_CON_COUNT_CLEAR |
++				 RK3576_PC_TASK_CON_PP_EN |
++				 RK3576_PC_TASK_CON_TASK_NUMBER(1));
++	else
++		rocket_pc_writel(core, TASK_CON, PC_TASK_CON_RESERVED_0(1) |
++						 PC_TASK_CON_TASK_COUNT_CLEAR(1) |
++						 PC_TASK_CON_TASK_NUMBER(1) |
++						 PC_TASK_CON_TASK_PP_EN(1));
+ 
+ 	rocket_pc_writel(core, TASK_DMA_BASE_ADDR, PC_TASK_DMA_BASE_ADDR_DMA_BASE_ADDR(0x0));
+ 
 -- 
 2.43.0
 
