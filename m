@@ -1,65 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794650794;
-	b=dq+08zu7XDic2eI0us/Q/r4xiZJHWIZyb2VHJ3hDXU0RD9qqWi0Z+t+uB1M5F8fMN7fu
-	 s8rbhVucO2CcTXRbOZHaQHq4nIJnYmpwEAXlW1iFMAzPxaJj4dqH1J1ygWxr7pNYZO0uy
-	 fFDTg6+UX43lBwQxIadTJSk9Tm33zN2tnp6eQJ0+XlxgCjao0YHgvpfKw/0WuuXQr3gwb
-	 s+gy0XW+JvgPyNjTTYWDkEyRHkPpg27cltk3JSBxpA6PGdxatFt45+uo1581MYeC71c1L
-	 JtzlH1qfzVqzFjaw2lM++yEVRCSxuWuVNDJ6avJytw5i+jstvko+b6bmOJnTwkWRp9Q==
+	t=1794650818;
+	b=yZzOC8axm6D968Fw3bXEM8GX21AL8yZDxxtuu+CGx4wXwbPXSE3H68R6j3b9euKbgMZX
+	 gJyLCyQqDW6WIEmUdAVk+wmpzTNh6xlwrElF66BB7TLQskAzJTu0klMcE1xA7+ozxbFV1
+	 KgHEk+SxzP2NuR0gSejoy2hTlWnYKmrCX0kFClGFr9dnuFhPuu7dD8UZdMefZmmzXzePT
+	 J38IdADP9Eq1JTikBFCH84TqPRnvH+AawNhYeuH+phlHsd0Ot2ScLKDhcH3WEgJn3JaNu
+	 RpGYBAILye7W47Rt0sAAQD2RDo3wdiFO8sgSChR/dSd0pqWw6nu4AhpzqJu0oORw9yQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794650794;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=oXmeAcj2Cbh5Zp/iYk5hJGCEEYfod4GPg4Tedmnx2Ts=;
-	b=NYX00/DcDM1cVlnF8AjofvbC9qra4UrdocNpyl4Rm/jgiwYwCe9K3cb1yCrD3bWjtmCT
-	 mLdiETL2mLBpWNAs7s2Mg3TxuFC2RDGj90RNbQ1ptzIzjad1hqwgystKpbkK1AwMSaVJY
-	 cbk+tN1EsjxTXJPR4VKYsrzEIxCPv3yU7GVPEFbxxoMcQqCe8xRDVLsu4xtAYCf7aObOn
-	 J2P7U2YQG4ai5S5YpvFX8HUz3VG6V+Q+3YIOnWhkeJeFWAz0Lxg7wsAp+QFi8hXSoIcNI
-	 B+7j9Jmk+LbR9/kDZ9AWQ0ym3Cy+qizASJeDiUQ9gObj09W/S9bTub2tPnwpT/AUlEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794650818;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=nA9uVd9Z0U/OOJAJirWA9SKPkRY0C9MO6GKy6l0PlO8=;
+	b=UBE7zTkPPM7gerlJsFE2Vj8ImBaItNGZkfsEap43lWONRX4lDWI4rg3Db6iqA+UyJvyr
+	 yMLb2Ihutt4xTmgRqumDF9ENpU3qUdz5AVei7p1SJ7Lgi1TnV1D7JJsI8i91F4IIgwKmW
+	 fJAoXMr6WDcKfQTPH/RfItd/JQ3gPz/MTaK/nvxzWV9fbV/NfJ76Orq7qQlbD1BNiY6dG
+	 p4yMqoQ+jbRZMCwdpbnMSHBv1PFhmHy96hsow1yrVWC4eUVE4oa2bfjMdoSDKxNRyy3qK
+	 KtVWhzTld6SxXNfBlr40nDV4JR07iImolWEkMBmIVGKzRJVsiZDSdLiymoNjl2eQ56w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WeN8HijB;
-	arc=none smtp.remote-ip=95.215.58.35
-Received: from mta1.migadu.com (out-35.mta1.migadu.com [95.215.58.35])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=free.fr;
+	spf=pass smtp.mailfrom=free.fr;
+	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=AQuAO0+L;
+	arc=none smtp.remote-ip=212.27.42.4
+Received: from smtp4-g21.free.fr (smtp4-g21.free.fr [212.27.42.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADE83606A331
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 10:06:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADE83606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15FA5606A331;
+	Sat, 14 Nov 2026 10:06:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15FA5606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WeN8HijB
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=/rhGLw24meU+sMkUbuZ7gPKxmb5Uk4Es+hJtvlY0H8Y=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794650790; v=1; x=1795255590;
- b=WeN8HijB/DA4gW+tCs0wBdxpiQLK4rHPdj7cM/J6TpsG3hqXQ9gw51ZnAskb8qqzoDYangCr
- 8mm4t+T7hwVNRZAaGaAGLBzSwv+0oKyQ8msr6bKZjKlb/MqS8LaplyN5bldrsThRGHhGAaUP4Qu
- dnF+74PkhsOotYdk79bg4APU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 05fe01e8574924a4;
-	Sat, 14 Nov 2026 10:06:30 +0000
-X-Mizu-Trace-ID: 05fe01e8574924a4
-X-Migadu-Flow: FLOW_OUT
-From: Ridong Chen <ridong.chen@linux.dev>
-To: Waiman Long <longman@redhat.com>,
-	Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>
-Cc: Ridong Chen <ridong.chen@linux.dev>,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>,
-	Ridong Chen <chenridong@xiaomi.com>
-Subject: [PATCH for-7.4-fixes] cgroup/cpuset: Remove redundant WARN_ON_ONCE() in remote_cpus_update()
-Date: Sat, 14 Nov 2026 18:06:12 +0800
-Message-Id: <20261114100612.1380464-1-ridong.chen@linux.dev>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=AQuAO0+L
+Received: from L30177.local (unknown [78.241.242.250])
+	(Authenticated sender: vjardin@free.fr)
+	by smtp4-g21.free.fr (Postfix) with ESMTPSA id BBAB619F57E;
+	Sat, 14 Nov 2026 11:06:23 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1794650809;
+	bh=g0Aj3QD5cJIwmcGFVWYqEOdOoEhMM0NOddv6KOjkgb8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=AQuAO0+LZLEF/gQfONel9daJSQ5G+M95vDYtU9EaA81yx0jCh7xMnXqRLFgMJBU9K
+	 jeOuqebH4GbanWCKhqhNViberAirFwC36UCWL77DI4wzGunWvC5L7kd1A0VyS2kvzv
+	 q1ANqthOBT7i5HnPa6QJVVK1pWT8laUcldqzv5BvOYFdmwEkhliKxq6HWuLnNMJnJc
+	 J8eEOBvLyLi+Grsj+LX16XZw2uVEhzq42HFUCJbHMBREzYGMMPbyL5n5bG1NIAiQIT
+	 vS8liQaaogXWcElLIw2rjPZBVMty3c9qR5g6YqYGv9+CHx13rwb+N4Vuk3Kbvb3lis
+	 Dt0bnTZBHj5YA==
+Date: Sat, 14 Nov 2026 11:06:22 +0100
+From: Vincent Jardin <vjardin@free.fr>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	NXP S32 Linux Team <s32@nxp.com>, Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>, linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+	imx@lists.linux.dev, Vladimir Oltean <vladimir.oltean@nxp.com>,
+	Ioana Ciornei <ioana.ciornei@nxp.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+Subject: Re: [PATCH v4 3/5] soc: fsl: guts: add the RCW override of any RCWSR
+Message-ID: <avgynp6NS1u2-2Qv@L30177.local>
+References: <20261114-for-upstream-lx2160a-rcw-pinmux-v1-v4-0-eefcea066a55@free.fr>
+ <20261114-for-upstream-lx2160a-rcw-pinmux-v1-v4-3-eefcea066a55@free.fr>
+ <d0f781bf-a325-4eee-9431-7eb387279934@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,56 +77,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <d0f781bf-a325-4eee-9431-7eb387279934@kernel.org>
 
-From: Ridong Chen <chenridong@xiaomi.com>
+Hi Linus,
 
-remote_cpus_update() warns if the CPUs to be added to a remote partition
-intersect subpartitions_cpus, and then checks the very same condition
-right below to set PERR_NOCPUS and invalidate the partition:
+> Acked-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
 
-	WARN_ON_ONCE(cpumask_intersects(tmp->addmask, subpartitions_cpus));
-	if (!capable(CAP_SYS_ADMIN))
-		WRITE_ONCE(cs->prs_err, PERR_ACCESS);
-	else if (cpumask_intersects(tmp->addmask, subpartitions_cpus) ||
-		 cpumask_subset(top_cpuset.effective_cpus, tmp->addmask))
-		WRITE_ONCE(cs->prs_err, PERR_NOCPUS);
+With this ack and the reviews from Rob and Frank, my understanding it
+that the patches 1 to 4 can go into the pinctrl tree, while the
+patch 5 can go into Frank's tree once the driver is in.
 
-Sashiko reported that the warning could be triggered by a write to a
-cpuset control file, before the CAP_SYS_ADMIN check, which would panic a
-system with panic_on_warn set.
+Am I correct ?
 
-The warning was added by commit 86888c7bd117 ("cgroup/cpuset: Add
-warnings to catch inconsistency in exclusive CPUs") as an assertion that
-such CPUs have been filtered out before. No way to trigger it with the
-current interfaces has been found, as these CPUs are rejected when
-cpuset.cpus.exclusive is written. But the warning is redundant, as the
-conflict is handled right below anyway.
-
-Remove the warning and rely on the PERR_NOCPUS check, the same as
-remote_partition_enable() already does for this conflict.
-
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20261114083124.1340140-1-ridong.chen%40linux.dev?part=6
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
----
- kernel/cgroup/cpuset.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index 7e374210c123..0be0d26c442b 100644
---- a/kernel/cgroup/cpuset.c
-+++ b/kernel/cgroup/cpuset.c
-@@ -1833,7 +1833,6 @@ static void remote_cpus_update(struct cpuset *cs, struct cpumask *xcpus,
- 	 * left in the top cpuset.
- 	 */
- 	if (adding) {
--		WARN_ON_ONCE(cpumask_intersects(tmp->addmask, subpartitions_cpus));
- 		if (!capable(CAP_SYS_ADMIN))
- 			WRITE_ONCE(cs->prs_err, PERR_ACCESS);
- 		else if (cpumask_intersects(tmp->addmask, subpartitions_cpus) ||
-
-base-commit: e234ed1bb82c96a5643fd70784f16cf3d72eeed3
--- 
-2.34.1
-
+Thank you,
+  Vincent
