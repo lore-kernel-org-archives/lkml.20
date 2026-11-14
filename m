@@ -1,84 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794637776;
-	b=vLzSwiSwljurMZ6bhEbMGmORvR+KNbgZjK7hhYWuDpouHsW9eJT7YzSFqRBsQI1Qr8uJ
-	 ghscVnHAyLzyN9NGop8QRkaRnV+cBYgSGL03caVkeFeJ/3gOBxY6Iy+qvUU/jwLxmcxZy
-	 mARHnu2VWphfykRUq2Njm3jDNX8uvPrlwkVyex7b/jYGerXpxItrQUVTR31/MHqzkvQh6
-	 UxXlVgGtaDmW56qiUOKeGWGgPA3fAmq9rDDiqVLuvXWTau15BJavolk4vnJ6Mbrxny5Ug
-	 2VAYNx8hayAmdPEzj6bOx4NTTm6ftpLnX6v7ogSJLa28hZWjrhT6RiWmDbjuP8qyzKw==
+	t=1794637777;
+	b=tgVnYVk9mayE1cDvW94x7DcBEfdx5Ftu/q5128mvrPqylDxen+Y9k9VEDW/tBAec2p2A
+	 Sh61Wj8CcajmsMdqcag+CRI+Ex5jasiYsZeZ61+ypWdyKs58QlMHWN5OeWsmyLVnYdrpk
+	 Ueh5tzyqtW/IRZiFradVckMlv7SMs3opPacKXQYg3KF44O5EFW+3t57+9IsjzLDtyGkhf
+	 zJgL3JhRPIWg90+0bn6doQsn8jsxNfUVNxtwpnWnHST0pI7zDJMmuuFkqkso63XXznorv
+	 MoEGg+IgWF62tPevmn9EpNarzimGFoLUkH4gJTZ+NeblCqbeYxCrXM1MnpMbJ5oKPRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794637776;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794637777;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=i9+suZUiW2w1H/nLvdwr8UFe/AqgIN0hpaBbLaNfQrY=;
-	b=LfyG2Ptu4/WyGbV7MGCS64C53xbplj8DIqexLK59HDSO9citza6bi4K7Ww3ufZAhl3wR
-	 6wq4MDLxF+oNQtkA0PCKaIh/PPRYVRDOuqFyfvirc8Oy23gv40L1/O5GklGdOcCwfFpQd
-	 5iYzchhUrF4J6TmzaYvUqEtpmpZbIpJrZVuDQ2cDrne2gpXF8/Nn5P2bb7HQXceQcKvXG
-	 iTfC9R+K16GV7AwYrxcxDV7Z4gYL1ayGsfuxIY6WcWcWIc1Gf222yG3IzDHyBSXpXoWNW
-	 RMp5uxBjK5JRRlQuPDa9FBlpJXHm2Dis4kp8l/Y8hwdmGz69LQrgzWyOY4Oipub+yuQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=TAAl5CNNTXUKmSgFHLqbBt/nHXYu22WHSPe7j/27ncs=;
+	b=3NiANP1jZfH2FgzfVs6rK8FpEe8zmk529okdUZy6j+nMTS8Xe91dE24/3aSymFmmPq9/
+	 T1GuEodDRbXqzz321lAYb8AjbKAh9/vfh12z2DEFykNd6F7nOxwmXrySLnDM54aA9YXrl
+	 sbZz1LFjkDncbBThnvwVOgY6QinhBt9A8eKFI3cIlWcHx9HtN5EluXdNxKYcQFqt5uwJN
+	 2r5Xu36MLNa4P8JLTNlmMjG1/8obAfvFpqXHwPFm3d3cFRBT39hw4Xz2bqjJ5xQIM+zuK
+	 pz11xL8CIlLqqzD9JpzW51ssaM9HeRV2bvXHkh+sryQc/YuP8Mzfsp+wXfrWO+R3EBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wdakY2AI;
-	arc=none smtp.remote-ip=209.85.214.178
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Uq/3bbw/";
+	arc=none smtp.remote-ip=209.85.214.177
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E31F8606A327
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:29:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E31F8606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8132606A336
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 06:29:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8132606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wdakY2AI
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2e95bd1c14cso27778055ad.2
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:29:35 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Uq/3bbw/
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e99b1e5b4cso9790705ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 22:29:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794637775; x=1795242575; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=i9+suZUiW2w1H/nLvdwr8UFe/AqgIN0hpaBbLaNfQrY=;
-        b=wdakY2AIl5dU8gPIjU7P1qXU7P8hQIaIlWiyB6RVVH61maO+QZli+X7JbADKU/T3Xp
-         rKQd1H6/6pb8zkAQg3shBm+UkilFvFahy+IeKa/ixDcE/oA70rgmQ6elP/E/0tqnzEOZ
-         KfbjS0fH6qTekJXB3Mu2Ewp75BgLqUHpYzBr/9ZNRFdEyFlscqlnLHlqBp/onsXC2XDp
-         t2jT/IHOLZ7OjK0SiLCFfh4nxGVGEvHHQJlEbwXHzmXgS2WBMNPP1ffIO06WOMjmGNoR
-         02VHm3oOWmRXL3iAOCnyvR85hXKxXDafrJMW4l8RH+mFvhCnNYW+xSA+o/gPN0WGE0KG
-         ZY+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794637775; x=1795242575;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794637776; x=1795242576; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=i9+suZUiW2w1H/nLvdwr8UFe/AqgIN0hpaBbLaNfQrY=;
-        b=fotpLnHL94MGFZoLaJjvJ9tABpBIpF94MiHpyO4S26BDF3GkwJpvEJNzhqyJZJcyPN
-         102Y9u3EeBnII/tdoScWhXBJPMWIDDqNj17x4fBHvMt0tsiHk/Lb0NQxRfBSB4H3H6eP
-         aC/9ReGX1q1R4/mmfPRpAi5geTrOrJczRbEem0t/DiHrUwBE0xbUWqduMI9AAIGeJEPA
-         QUbltmmBuIWi5EBJEiLsi5ggiO/xawpQLX5HulNBOTy+mXCBMXL1A13QFRdZK2KMsZjs
-         2A7u2zPxRfmHrG5ADizcMINufmGUvk3yfzz+ooliHgbY40xD9IDsSJUKi1YT9q7yT4M9
-         +Nqg==
-X-Forwarded-Encrypted: i=1; AL+hErGT4fFll+7W+lkX299lCUhb6SdfRu+aKLlxD6JY14cSRsoKhX1lLZAmDBC/2S97AzR5xXB5z7duovx7hTs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+CQJuca5dGoB5JwbaakGJ139YFrOdmY6W3Pu4s4/f0Hr3baEBr
-	ZmV/GS/2o+h//jrlfJA4UUGjj2JHs0qdhNmrbb8psXk+edm+tiCO3IGg
-X-Gm-Gg: AYBFou0y5wm4iuxQitONludkY3NKJjH68C3ZimMuuwmTazbCSPkQliI83wauFsfPhwJ
-	jM9YccxwhLuKShjThqRQcEo+fuykmf/rktG3TguCEfhVezWWBlZlxKTLTrwQzxqPWy7itY45jKp
-	9TnI25V8okmHZLA+voL1qHTSaxNO8ftlq8buszZUrW3UNElrKaeEF6x/Q4qUo+E0AIgdqUMGcnF
-	alzc7MRQmE2xTdj9AOqUOvp8fOIEFzx6f3Ljq68qdccXjY7Ves3HqScWwVIqcYA8A2tagaZhaQP
-	CbCpQaMssHcHwLDk9sDL6+PY8lEEgxbH7NUkGtIAzbb7kqKHT8LfS9b7n+a5abGgPqseEWiM1in
-	PcoHHYyiEg0xVWgf2jb52pYcwe7SqwtRaoFdBCyl2Ry/v1fIOKL3T3Efy+KGfuaX6GprWbgb+Sd
-	Om7xjyQYldtyNzCD2IVv7SrGRNSWJrD+YuybiwJ9WbjcNA7kxLJiThglnmevz0PeqMCBe7NYkQs
-	5vw/NGJZbz3GkDAr9yS2eDodDXJic2qwScgcFIzyLIbbRebsw3agAdLGXlN8IkB5pg5XTNrWuFW
-	DREmrRNn01hy99T08KMylNnlfl0zbJLPQB1xAwdsh24aoAsV+z9W2SX6rNNkP4g7bI5QP4qJz8f
-	lat8ZnQ9du8eaICUcdOvBY1is1fjFweBm3vovo8fuX1bEdmVNDFBdcMArPfSE4Dn+pwgXeGFUnV
-	r2Eg==
-X-Received: by 2002:a17:903:1aab:b0:2ed:3ca1:848d with SMTP id d9443c01a7336-2ee0ddb1fc5mr52433425ad.25.1794637775107;
-        Fri, 13 Nov 2026 22:29:35 -0800 (PST)
+        bh=TAAl5CNNTXUKmSgFHLqbBt/nHXYu22WHSPe7j/27ncs=;
+        b=Uq/3bbw/qzoz6hbxTMnleDcxSW0G5sSSD8mUXr50KS93ihDh0ecdKjjenQeSYt79x6
+         v+jfmE2mVqN5xgUX+B70L5+rdzRv91WnRnJ4lODc/fxWi7vBsFaFbDPuMQF4+5c1IzJo
+         /IX6nXCaARq2Sgf0Z9n4Eks2XDwpLocqYQaC1hm5e6AcqeRXzBtt3GPJ6VVaYl72SjdM
+         92VBag9LvPdU4xF9yza6EOAAc6upi/UTFAHqatHjfeVCrZZqSMfw8xwpGj9rtNL6CpsL
+         5xRfIvT5c0jfhfDovVdD9+4XDU2o1Eyr7qmx69T4i7ZMuas5Qy6t9arlGSNBFBJBmkWh
+         +dDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794637776; x=1795242576;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TAAl5CNNTXUKmSgFHLqbBt/nHXYu22WHSPe7j/27ncs=;
+        b=IXbJAl1cZeznueNHt8e4gELqpRmAE8GK/QXu1Xblu0yXrVVSKYgCqrHwV0/w3BiwSS
+         NGbPjYDiGgZrOgJouFX7kpWkw0hXrCcZwaov392YYNJfz8UpguLpGPo14WNAEEzTiGyb
+         EX6i2g5tsbl+NX51d42Xk6BJF4VmPz9cHW+sLPYKgC08w6Wzxo/4H6Xs9YMQj17odbf4
+         7VgL4ctkBl3Bdguv7daVTP3cxQL9axqQlKP5SQm4dabfZphZ1vyw9r2TGs/4nFG/5BHT
+         /WqUi/hMoXoHHZI2zOYGxfOPOU7Jgzx90iEgLQj6p94YtutNhjJATQgzn5v3iOaktR1J
+         sWSA==
+X-Forwarded-Encrypted: i=1; AL+hErEbrEujAdRX7+rSEhOuAPCQqNAMjwFF1edYTAC0qhx7z1EtyNBhEkftes1dG4W3zRppwDMHVY8mu+XXwwI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/v33JqbYDrqdZT/23quanRZEW3muPLn2amufCnSgC3//4DXzSO
+	KgQ/jJlZpyvApFVB76gS7Npq1W/LVBRFpZ8TpY1bbK5L0VNGpaTKvcd1yk5dLGZp
+X-Gm-Gg: AYBFou36PHDgvWfoydKF1SlbYblW+U6E4aQXWPveOTWJ00FcS3k5VgbOx4ac5PqGAjE
+	Z20L3U1B5Pr/RoTvCm51J5DfIRD8tk/dKuPFwOWxXJF6zHt26CJ9WYxP08FUm/DhzuODHhE9Ogf
+	48zepmFnQxHRMx0kdj5BPlqWRlmSrlBJkIuk3t6cOrOkbJfllhuYfB02GXPtmCfRXdgUevwZwoQ
+	920HOu4n/Y0PTSc/P5YXklRLJLfAG41yyl4kAzgfejUKiQRZ4bkFPSaWtwJAWUwDRe/QzFvXt31
+	2naMlQ3LX23GghjOlWLbA4XrZ/CZNVSVpmWD+DsQW2O3D8TdEQkSmtEE3ApV1ZWcNHKGbQO8GPu
+	SyEkW2ftQEzKTAuXkZ1+jHWbC+BQeaXrid6+0Y4vE089Q+uR6n9723dpotGXJ9KzA6JK1GxNE+E
+	1/FLtpBmt4uM65FYwoB0ZNopiH34Qy1waPp7piuRTRMWOCVPhuQXWcT5rJh7CuD+kvD09piA2rv
+	/5DE43ozueab5U9FL/EAwv424R4lvvgsSQYXwK8j7wN7I1zz/emgV+mWhcIxsF51+kRCGuQdUvt
+	3db+maid6oiFssBYaeEGTWmhs0u3MCpgRo1NyG/H9Ve1EzKtg+M2BtBUqWq5rIVMyLmiqRkyal8
+	dWwipZuf6ljo27dUf4Jvm9LsjvTsYywJs5D8d3Gb2yc32talaXDCdCzYDYHgD+RbbeSkmhEEwsl
+	ORPA==
+X-Received: by 2002:a17:903:228e:b0:2e8:18ca:5f46 with SMTP id d9443c01a7336-2ee0da7bf97mr45567495ad.14.1794637776350;
+        Fri, 13 Nov 2026 22:29:36 -0800 (PST)
 Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f224370sm18382465ad.0.2026.11.13.22.29.33
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ee0f224370sm18382465ad.0.2026.11.13.22.29.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 13 Nov 2026 22:29:34 -0800 (PST)
+        Fri, 13 Nov 2026 22:29:35 -0800 (PST)
 From: Rosen Penev <rosenp@gmail.com>
 To: Matthew Garrett <mjg59@srcf.ucam.org>,
 	=?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
@@ -88,10 +89,12 @@ To: Matthew Garrett <mjg59@srcf.ucam.org>,
 	Gabriele Mazzotta <gabriele.mzt@gmail.com>
 Cc: platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/3] platform/x86: dell-laptop: Fix keyboard backlight and charge threshold handling
-Date: Fri, 13 Nov 2026 22:29:24 -0800
-Message-ID: <cover.1794633179.git.rosenp@gmail.com>
+Subject: [PATCH 1/3] platform/x86: dell-laptop: Reject keyboard backlight timeouts that overflow
+Date: Fri, 13 Nov 2026 22:29:25 -0800
+Message-ID: <1e1cc5a497ca95a0b34e45738f81a4be681675fd.1794633179.git.rosenp@gmail.com>
 X-Mailer: git-send-email 2.56.1
+In-Reply-To: <cover.1794633179.git.rosenp@gmail.com>
+References: <cover.1794633179.git.rosenp@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,39 +105,72 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID: <20261114062924.U1xfNKsGHFfGPsOYd4Tu6FhUdx7NwG7U3zHEnt1wBUQ@z>
 
-Three fixes for dell-laptop: keyboard backlight timeouts that overflow
-during unit conversion were silently accepted, an unread keyboard state
-was used at init when the SMBIOS call failed, and the charge end
-threshold was parsed as unsigned into an int.
+kbd_led_timeout_store() converts a timeout that is too large for its
+unit to seconds with plain int multiplication. A large enough value
+wraps, and if the wrapped number happens to be a valid timeout it is
+accepted. On a Precision M4800, writing "4424214d" (over 12000 years)
+to stop_timeout sets the timeout to 4 minutes, and "18989323d" sets it
+to 2 minutes.
 
-These patches were developed with the help of an AI coding assistant
-(Claude Opus 5.5): it reviewed the drivers, found the issues and drafted
-the fixes and changelogs. I reviewed every change and I am responsible
-for them.
+Convert with check_mul_overflow() and return -EINVAL on overflow.
 
-All patches build cleanly with W=1.
+Fixes: 02b2aaaa57ab ("platform: x86: dell-laptop: Add support for keyboard backlight")
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/platform/x86/dell/dell-laptop.c | 21 +++++++++++++++------
+ 1 file changed, 15 insertions(+), 6 deletions(-)
 
-Tested on a Dell Precision M4800 running v7.2.15, using the equivalent
-backports built as out-of-tree modules:
- - writing 4424214d / 18989323d to stop_timeout set 4m / 2m before
-   patch 1 and is rejected with -EINVAL after it; 5m still works
- - charge_control_end_threshold rejects -1 and 101, accepts 85
-The kbd_get_state() failure path of patch 2 was not triggered.
-
-
-Rosen Penev (3):
-  platform/x86: dell-laptop: Reject keyboard backlight timeouts that
-    overflow
-  platform/x86: dell-laptop: Don't use an unread keyboard state at init
-  platform/x86: dell-laptop: Parse the charge end threshold as an int
-
- drivers/platform/x86/dell/dell-laptop.c | 30 ++++++++++++++++++-------
- 1 file changed, 22 insertions(+), 8 deletions(-)
-
-
-base-commit: 2800868f63227c8237d70c41e70d441c919620d6
+diff --git a/drivers/platform/x86/dell/dell-laptop.c b/drivers/platform/x86/dell/dell-laptop.c
+index 89e85c7f7132..bee347e1d60c 100644
+--- a/drivers/platform/x86/dell/dell-laptop.c
++++ b/drivers/platform/x86/dell/dell-laptop.c
+@@ -25,6 +25,7 @@
+ #include <linux/sysfs.h>
+ #include <linux/acpi.h>
+ #include <linux/mm.h>
++#include <linux/overflow.h>
+ #include <linux/i8042.h>
+ #include <linux/debugfs.h>
+ #include <linux/seq_file.h>
+@@ -1554,6 +1555,7 @@ static ssize_t kbd_led_timeout_store(struct device *dev,
+ 	struct kbd_state state;
+ 	bool convert;
+ 	int value;
++	int mult;
+ 	int ret;
+ 	char ch;
+ 	u8 unit;
+@@ -1602,16 +1604,23 @@ static ssize_t kbd_led_timeout_store(struct device *dev,
+ 		/* Convert value from current units to seconds */
+ 		switch (unit) {
+ 		case KBD_TIMEOUT_DAYS:
+-			value *= 24;
+-			fallthrough;
++			mult = 24 * 60 * 60;
++			break;
+ 		case KBD_TIMEOUT_HOURS:
+-			value *= 60;
+-			fallthrough;
++			mult = 60 * 60;
++			break;
+ 		case KBD_TIMEOUT_MINUTES:
+-			value *= 60;
+-			unit = KBD_TIMEOUT_SECONDS;
++			mult = 60;
++			break;
++		default:
++			mult = 1;
++			break;
+ 		}
+ 
++		if (check_mul_overflow(value, mult, &value))
++			return -EINVAL;
++		unit = KBD_TIMEOUT_SECONDS;
++
+ 		if (quirks && quirks->needs_kbd_timeouts) {
+ 			for (i = 0; quirks->kbd_timeouts[i] != -1; i++) {
+ 				if (value <= quirks->kbd_timeouts[i]) {
 -- 
 2.56.0
 
