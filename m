@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794694553;
-	b=ihB5lA4lDlgDhPxZ3g4A+AdFCP5a9kLk7urYHhCremC5o8vuO1Ze3ZYEqOZxRQWCZMhY
-	 r9hUj39CTIJMoKEoeRI9GMxq7v6JGrOKEh7FrktwyCTHCELP0kB/q0hxOujzcWLwLcC6E
-	 +C4iXmIm3IPROWVGRQhUWMWa6Avqp9hfbr0EtoWnFq72S7b7iKXULj6tauIBZ5NtItsAU
-	 dkTgPPIO6TGW9huc9VElcTHw/Bea2wV+oitXecAgMCBvA3zQzox6DO+JdQdyhPRrlnt33
-	 FRRHPEKkSfR7GrGypKsyTwIuXI4aOaPyK/GC7bqqeL0kXTmCrJSK3n0XuR/BcG08/bQ==
+	t=1794694557;
+	b=wKGos06qoGzGiOf34lID76oSlrEUu57OD4vm9D7SH6+Mh84Qk7aqjPyWV5zGUqV4ocaZ
+	 Jcya470EDcuogdUa2GTJ+COBBnBs3NQzkcvfeHX4de47JyQ753UjGHcxhuQXtP8J4Wi8S
+	 Y1fSCNwBqK1XuvcLcMItkAKpi6xQzRPbf7qC7N01UeoNvfdNMwx8GqGAFnngYLSq6EOdg
+	 T8s7+6gzkdQDF5XG9mvW96N8mlvSB81oTUY5DCm4RIfhRZSs05DFx/MQ6zR+S3q361S16
+	 EsxcZkrJmj4fouC9EfLp0k/x2U7x/wNJHrij/f/LzgU3zJRIBFxiFhnImfLRPldooAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794694553;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794694557;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=yoG65OXiXkWQCJFS12NP3/OMELZGoJucnTHxc+Moicc=;
-	b=lnN0AAPjF/++cQgj0beZHcdYp4TfbKQvwhS0nIybqrKSw9yn+wwlDRShAUcnF8WMyO94
-	 Q3QI4Jw+pFPK7aztpMIamHBwjg1ykHRavHcjOVqTwQoDGa9Vn7QzJMxx5/9L1XQp48qTn
-	 ypzCAAMpMORdyTSBP7ZeWzEY0Y/JhYumfHmTgZbn0Of0sylYz5/ZYcM0ZJhJ4MFAQkQRK
-	 jGXWr4SAwDROQx9WXRT2qKWUvb27PeggpRXukqjZ+Cziajr1s/RqEC8SPY1ql5bTwHmUw
-	 6hPnhr4SKDC1QTlLHT+T2AZ+OlhDfzqoGbJwewpI/W8dNE5pxqY8wPrpAMdkc+MiZlQ==
+	bh=AfZ+R41jbnx6/vCBIHq3Nny5JbDDXrlk8KKrMZ2JwfU=;
+	b=w/u3lBBPLwtAnvcmYws0ui9P16QBSN+4o7VSdgWRVSvpRzwoNnyWmzcMAKOvaBCO+WDK
+	 ovCz2yeRN7k+NVnuf3ZSdBsjZwYzd0lHnTro0HcfLpRnJI4SqYBCFDoFGiQ79b7G2L+UC
+	 F+FdcFB7EoBcUfn59/kVRgv8FCijz0SgSsml5IrjQpRq1+wEZ9Pf+TKFKejgZ43jOv74A
+	 0Cy3G5E9Tzm8YlhbwKU9dPNEXX4WPg/dKZAjXLXfnUz8//N2NKvpCVipzskNkYCt9sKIw
+	 c1D4RjINpXzoBAWgy9FESwz7urOa0wjRiZbAGk+38nXJ4TPCMIPcs9AFg/ll2j1Y9Uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UMImx1uh;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CXC+evaW;
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48D58606A896
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 22:15:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48D58606A896
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E26F6606A8A8
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 22:15:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E26F6606A8A8
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UMImx1uh
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4bb666304fdso3418635e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 14:15:53 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=CXC+evaW
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-49412eb1474so1022115f8f.3
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 14:15:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794694552; x=1795299352; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794694555; x=1795299355; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yoG65OXiXkWQCJFS12NP3/OMELZGoJucnTHxc+Moicc=;
-        b=UMImx1uhnpPgZWwJXeXprNt+VqJnEZ9kx4WELoHGjviyYMtFHwBPhkFgV8S3GKm9IZ
-         oN3iCp90hHlJaHunHPOxVMa5BHrqf3xXxOaiWaNJFchIsM2/eW9u6x2KyCu0S99PMiaf
-         T3GaZFBs9U2UdOw5TWVm7ECrMS/iy9FV4NW3pAnCIYsBTdvSRs0JtYyZBZjaSSrnqIGG
-         Y/GANUc6yHIRHGVjvUeozGTkQxB9Ioote1JuQA6AIRybLNuh9DxILvXotbhhwLVGVRMr
-         /oKYNyMha/YdSL+pDwP943wZ7Tj5FjCFCuBJGJllLRXSeo6VUMavaHsv6YIYXzQiV/9h
-         8hzQ==
+        bh=AfZ+R41jbnx6/vCBIHq3Nny5JbDDXrlk8KKrMZ2JwfU=;
+        b=CXC+evaW+pF1+nYaQ09Xf6bZlRmH0/9DhCiZv5Os7XAeX6mDVGrVgtp/CpY7p9A1rM
+         SPgIrHuQ4QKNYsxarlqzEdpR3JwPjo1I08vFzCQYxoxoFpVOMykK+OvxtsUsFuyyNCsQ
+         iQ5H85LnBW+5BOTLACn1HKp2MQKkkZREtslFwz/bO5pZ8ClyCTEmZ5IIKGDEc18DOTH2
+         eqtFar1Pia0Z295+tAenecm0ge3iBirvlh7YlTWhABdu7VZ5VNxzkUk/GpboE3PLjuCX
+         rr+Fk6zJTv6XfE9Mih600sQXIznSE5xPz4C1hWJXdC3Awb2mdrzCw26EvqZTZPvmclSP
+         kRhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794694552; x=1795299352;
+        d=1e100.net; s=20260707; t=1794694555; x=1795299355;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yoG65OXiXkWQCJFS12NP3/OMELZGoJucnTHxc+Moicc=;
-        b=p9T1SJrNNMlQyFSg6TrNjy1GwOg2RqmHVAmF2SUwfs8cEz13PWsU/BvdiksDyWgbeS
-         1ruRznDCnHD9mgOrkgflCytHqXsrhNBUwDqTl4BZsqvprw4w0f5P8+ZtBiucZMgyAqCG
-         fkQCDNLJUR6+EGhcOcNSyTj9IDaiblZ1TY09CldO45v1x/YHYR5KGEp1fT6WNDSXIt1s
-         Py6UgeWXa3wG1I62WwXLjzDs3YE9A1XAujsshMjNSaiVYOYnUkds/zmx5ajmqevQNaCf
-         d6cPcsAkueavpRTl08fnGppXbzVwlx1X+KziQUkUG5orK1Z46uQrkLZVxaE19pZ8+OnO
-         /3Tg==
-X-Forwarded-Encrypted: i=1; AL+hErGBopuvXDkibMMGqdGgZYWNY/jKm2A0+DbZXHIZvg8RjRHLh6ZUqnuW8bQgDD+WNmgV9gFq5Cj8Gs3+MeE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/b4J1F5S+xz9yABKgZIn+iwRh3MH58oMCiknIQ1APEQTYMbNHa
-	OiPv2Cppmtg0cQ2rslgDWkzgmPvSGxPUj8NEnxvpoWL7J6zHwL+2PRo2
-X-Gm-Gg: AYBFou3eIW25XgSwLzFaC4FQeriOhDysWvcYUiO1oISpaduM1zBACC4G26S/TuhIhnH
-	35iGNhnpbE8P+wT4G+cBDbILsFIF9mAJ/4A3FG4l6zNGlhtpYzhE5skKuZg2uSR+a3ocztUipgA
-	v5KjZ32aTAXLIGc/dO0L9eDiw11abEjkhIIVHE38fzN2S3UiKhQ02b5oP2juBweMpjnKxY4C1ul
-	UtoSmPQZZU7yTWRlAlDNp3dw9LlFiCoKasu7cNE8lkE+wzlHIak27KAow0EzJSqTOtJpZTH1+3B
-	0djFSFuJ95y2r7zJ97yTxbkzy5P4EdW7OZrdv1pCsHrHqgiZAL6SeY+3ICLwyaVHluxMpvTSMq+
-	FZUbzFNStlVfpDdxnYVQsEY0IIQb2XX/Z1JEXXwhcT2YzRsIHVUazQz68b6HL1lcNL/xlIIIH9N
-	jZlRvlqBOAn+8S47BHvtC1jmN18FV2aQrNqO2eb34TiSw1hWc7ILrwscT0TRrqVBx9h4Di5zmPy
-	jsJ6vqUN6miq62zQmKMh5BBCviSvqZEwL0kzO6ykRmRxoEeBGGO9i4uZ4bmFi73XvdVeWld4CNP
-	jNUWhR5AJoubfyqcXTzNPuc=
-X-Received: by 2002:a05:600c:2784:b0:4a1:d49e:9ce with SMTP id 5b1f17b1804b1-4bb4e2918b1mr188363445e9.2.1794694551566;
-        Sat, 14 Nov 2026 14:15:51 -0800 (PST)
+        bh=AfZ+R41jbnx6/vCBIHq3Nny5JbDDXrlk8KKrMZ2JwfU=;
+        b=vkauuJAIBY3oTYszen+wz7m76f3nVeDj8Ki/q0qlB+uElebTbjG0K8+w71nGuNkga4
+         LsNIWf4SikOkSV57H4MFq1C9A1O4D+J5bJIkhHY+woIhy/q01DMHcrKGZ68E6iKzz/83
+         C414n8YgFb/2AyygGojWzEXDMOkyVRkeRbehtWKjBRT1FjYxV2YdXSAiLAw9sZCZHndw
+         kJq0dZD8cu/jPATJylOse+TQHvi8Wwq3wmeMhMG2nJ4h5Kfxhr22cKlsToT0jNFlUZVe
+         2OBQH0g5CJLZNv/1PJ+RcFZa+DDIc8MRr1+ffMb063UXFKzT7cfb185bTmR2mBh0LFt2
+         f51Q==
+X-Forwarded-Encrypted: i=1; AL+hErFhwA/r6gnKIIqFwhGBHqtBs3G7Hf2MoV988DEIml0EFXQuvYnTMHgUMhYb+dE7guJDCzEQCXUUVr+NBAg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/pdpXGmu/ruYkSw25CH9gSz1nZvcggHh3bgxtbz5KhACHyvqa0
+	7HnB+owiuOZR+sEXDP5c2m0Su14FNdZafK5sXVHSLLwXsEc+7lRkx9aG
+X-Gm-Gg: AYBFou0YK3RJqk6XPF8PGYUNFk0iXdiXaT4wrwuenBtS+m3EnEC7/iiZKLkSznDA4g3
+	iCeCNtC3X/HMbnJVYikbAPpKPbhLx5TtNi/4B1aIYDjzIS9TjBGPZWfsPyXld79UQauUvn38d70
+	I10xtlMTd6W6rlCGqiZpnlfZObeiVd3Qv1juenE/EeiPirZQANZwvBXPOhOzE03eQi3qaElhv6l
+	7t2BgYKwCBIWt8getTUlSMAa/HxtpIz4txTX5B2Cp0Zpi5NYZ7dLrQrnA8o5P9aG5dmJA3p0QGP
+	qOLgAmF40PXUxhG8/gtTBd5PjqWq5GYalOAm7a3r3Eiy1x/uzjA+p2dN/Y2k5BTW5p9OGbtszOy
+	YuCBsd7PO2MP790l/DMIZxaU/Y2WG16SZz11mnZQU464qzrP6jeD7q3CpNgQwzIyjg+bEANAdQo
+	Tyl5wEcDlmCNVY4CkxVDF8TGz2EVy4v82FzZ0AlKXpecPKKQCyCcAzkE7B96kkGWnN8z3Y5MXM3
+	OaPxmdgDYWCeyB/vdoqFjXMx4bN4qUxHK/O0BIiyxPES7rFixEx5MZxAVveE6UYx3wrkLN6BRf9
+	dLOY2uSyB+WAG5LY5C6fNEc=
+X-Received: by 2002:a05:6000:40db:b0:48c:6fa4:fc89 with SMTP id ffacd0b85a97d-49c71e3e248mr14788058f8f.12.1794694555141;
+        Sat, 14 Nov 2026 14:15:55 -0800 (PST)
 Received: from kali ([169.224.126.250])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d223a29sm13514941f8f.8.2026.11.14.14.15.47
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5d223a29sm13514941f8f.8.2026.11.14.14.15.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 14:15:51 -0800 (PST)
+        Sat, 14 Nov 2026 14:15:54 -0800 (PST)
 From: Ali Firas <alishmery18@gmail.com>
 To: netdev@vger.kernel.org,
 	idosch@nvidia.com
@@ -95,12 +95,10 @@ Cc: kuba@kernel.org,
 	shuah@kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Ali Firas <alishmery18@gmail.com>,
-	Weiming Shi <bestswngs@gmail.com>,
-	Xiang Mei <xmei5@asu.edu>
-Subject: [PATCH net-next v5 6/8] vxlan: vnifilter: roll back a VNI add that fails
-Date: Sun, 15 Nov 2026 01:14:10 +0300
-Message-ID: <20261114221412.255825-7-alishmery18@gmail.com>
+	Ali Firas <alishmery18@gmail.com>
+Subject: [PATCH net-next v5 7/8] vxlan: vnifilter: account the default FDB entry to memcg
+Date: Sun, 15 Nov 2026 01:14:11 +0300
+Message-ID: <20261114221412.255825-8-alishmery18@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261114221412.255825-1-alishmery18@gmail.com>
 References: <20261114221412.255825-1-alishmery18@gmail.com>
@@ -115,185 +113,371 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-vxlan_vni_add() publishes a new VNI before the steps that can still
-fail: the node goes into the VNI rhashtable, the VNI list and, when the
-device is up, the per-socket VNI hash. Only then does
-vxlan_vni_update_group() install the VNI's default FDB entry and join
-its multicast group. If either fails, nothing is undone and
-RTM_NEWTUNNEL is sent anyway, so a request that returns an error leaves
-behind a VNI that is listed, notified and accepts unicast VXLAN frames,
-but has no default entry or no membership. A retry of a VNI that
-inherits the device remote, or of one whose join failed, does not repair
-it: vxlan_vni_add() then takes the update path, which finds the stored
-remote equal to the requested one and returns 0.
+A VNI added through the vnifilter interface with a group or remote
+installs a default FDB entry for that VNI: vxlan_vni_update_group()
+calls vxlan_update_default_fdb_entry(), which calls vxlan_fdb_update()
+and vxlan_fdb_create(). The entry allocates a struct vxlan_fdb and, per
+remote, a struct vxlan_rdst plus its per-CPU dst cache, all with
+GFP_ATOMIC and none charged to a memory cgroup.
 
-Both failures are reachable without memory pressure. Installing the
-entry fails with -ENOSPC once the device holds maxaddress FDB entries.
-The join fails with -ENOBUFS once the socket holds
-net.ipv4.igmp_max_memberships groups (20 by default).
+"vxlan: vnifilter: account per-VNI memory to memcg" accounts the per-VNI
+node and its stats; these FDB objects are the rest of what one vnifilter
+request allocates per VNI. Charge them to the caller, as
+commit c948f51c1654 ("memcg: enable accounting for net_device and Tx/Rx
+queues") and commit e2c8d550a973 ("netfilter: ebtables: account
+ebt_table_info to kmemcg") do: the lifetime of this memory is the net
+namespace, not the allocating task, so the OOM killer cannot reclaim it
+and it must be charged to the cgroup of the task whose request
+allocates it.
 
-Make installing the entry the last step that can fail, then undo the
-publication when it does. On create, vxlan_vni_update_group() now joins
-the group first and leaves it again if the entry cannot be installed.
-The membership is given back only if this join took it, not when
--EADDRINUSE says the socket already held it. Installing the entry
-either succeeds or leaves no FDB state behind: vxlan_fdb_create() frees
-what it allocated, and "vxlan: leave FDB state and flags unchanged
-when an update fails" covers an append to an existing entry. That leaves
-vxlan_vni_add() only the VNI itself to unpublish. It does so with the
-helpers vxlan_vni_del() uses, in reverse order of publication. It frees
-the node through the same call_rcu(), so an RX or TX lookup that still
-holds it under RCU does not see it freed. RTM_NEWTUNNEL is now sent
-only on success. Commit aa6ca1c5c338 ("vxlan: vnifilter: send
-notification on VNI add") sent it on failure too, because the VNI then
-stayed installed; a VNI added without a group or remote still gets it,
-as that commit intended.
+Thread a gfp argument through vxlan_fdb_update() to
+vxlan_fdb_alloc()/vxlan_fdb_append() on both paths it can take -- the
+create path (vxlan_fdb_update_create() -> vxlan_fdb_create()) and the
+path that changes an existing entry's remote
+(vxlan_fdb_update_existing()) -- and a second gfp through
+vxlan_update_default_fdb_entry(), so each caller chooses it. Every
+non-vnifilter caller of vxlan_fdb_update() -- vxlan_fdb_add(),
+vxlan_snoop(), vxlan_dev_create(), vxlan_changelink() and the switchdev
+vxlan_fdb_external_learn_add() -- keeps plain GFP_ATOMIC, so the data
+path and unrelated callers are unchanged. dst_cache_init() already takes
+a gfp argument, so no change outside the driver is needed.
 
-vxlan_vni_delete_group() is not reused here. Its guard also fires when
-only the device has a remote, so on such a device it deletes a default
-entry even when installing that entry is what failed. Since
-vxlan_fdb_parse() accepts any NDA_SRC_VNI, that entry can be one
-installed out of band.
+A per-request add or change of a VNI's remote (RTM_NEWTUNNEL, via
+vxlan_vni_update_group()) passes GFP_NOWAIT | __GFP_ACCOUNT. These
+allocations run under the hash spinlock and cannot sleep, but a
+configuration path does not need the atomic reserves GFP_ATOMIC grants,
+and GFP_NOWAIT makes the memcg charge hard-bounded rather than
+force-charged: a cgroup at its limit fails the add or change there with
+-ENOMEM instead of pushing memory.current past memory.max. That makes
+the failure routine, which the two preceding patches prepare for:
+"vxlan: vnifilter: roll back a VNI add that fails" unpublishes a VNI
+whose create fails, and a failed change keeps the existing entry,
+because the new remote is allocated before the old one is freed and
+"vxlan: leave FDB state and flags unchanged when an update fails"
+leaves the rest untouched. The per-CPU dst cache of a new remote is
+charged too, but as before vxlan_fdb_append() does not treat its
+allocation failing as fatal, so at the limit a remote can instead be
+installed without one.
+Measured on production builds in an 8 MiB cgroup at 2 and 8 vCPU: at the
+limit a create or a remote change fails here with -ENOMEM, leaving the
+VNI or its entry as it was, and nothing on this path was charged past
+memory.max; at 2 vCPU some remotes were also installed without a dst
+cache.
 
-Ido raised the missing rollback in review of a vxlan_igmp_join() fix
-(Links below), and the automated review of v4 of this series raised it
-again. Both failures were triggered in QEMU on net-next with the limits
-above, without modifying the kernel or injecting errors, and showed each
-symptom described above.
+The device-wide default-remote change (RTM_NEWLINK, via
+vxlan_vnilist_update_group()) passes GFP_ATOMIC | __GFP_ACCOUNT. Nothing
+on that walk was charged before this patch; it is now charged to the
+task issuing the RTM_NEWLINK, but force-charged, not hard-bounded. The
+walk touches every VNI inheriting the device default in one message,
+outside the per-request cap, and its error unwind re-installs entries
+without checking whether that succeeded, so hard-bounding it would turn
+a cgroup limit into a mid-walk failure the unwind cannot cleanly
+reverse. Bounding that walk, and its unwind, are left to a separate
+change. The vxlan_changelink() rollback of the device's own default
+entry keeps plain GFP_ATOMIC, like the forward vxlan_fdb_update() call
+it reverses.
 
-Tested in QEMU: test_vxlan_vnifiltering.sh gains a case for each failure
-later in this series; both fail on net-next and pass on this series,
-with and without KASAN and lockdep.
+This adds no new failure path on the data or learning paths: their
+allocations already existed and keep GFP_ATOMIC; only the vnifilter
+configuration path gains an -ENOMEM return, which its callers already
+propagate.
 
-Changing the group of an existing VNI is left as it is. It leaves the
-old group before joining the new one, which lets a swap succeed at the
-membership limit, so a join that fails there still has the new group
-recorded. Fixing that needs a transaction.
+Raised during the automated review of v3; Paolo Abeni agreed it required
+fixing. In QEMU (production builds, 2 vCPU), 4000 inheriting VNIs charge
+their cgroup 1101 B each before this patch, 1551 B with it.
 
-This is ordered before "vxlan: vnifilter: account the default FDB entry
-to memcg", which makes installing the entry fail routinely at a memory
-cgroup limit. It targets net-next, as Jakub suggested in review of the
-earlier posting.
-
-Fixes: f9c4bb0b245c ("vxlan: vni filtering support on collect metadata device")
-Link: https://lore.kernel.org/netdev/20260323095544.3311285-4-bestswngs@gmail.com/
-Link: https://lore.kernel.org/netdev/20260324133449.GA460138@shredder/
-Suggested-by: Ido Schimmel <idosch@nvidia.com>
-Cc: Weiming Shi <bestswngs@gmail.com>
-Cc: Xiang Mei <xmei5@asu.edu>
 Signed-off-by: Ali Firas <alishmery18@gmail.com>
 ---
-v5: new patch, ordered before the FDB accounting patch that makes the
-failure routine (review of v4 6/7). The missing rollback was noted in
-Weiming Shi's vxlan_igmp_join() fix and raised by Ido in its review
-(Links); the changelog says what it did in QEMU (sinfo bot). It
-supersedes the separately posted rollback series:
-https://lore.kernel.org/netdev/20260911215203.3054653-1-alishmery18@gmail.com/
-Unlike that posting it carries a Fixes tag, which maintainer-netdev.rst
-requires for fixes regardless of the tree.
+v5: the vxlan_changelink() rollback keeps plain GFP_ATOMIC, like the
+call it reverses; the changelog says the RTM_NEWLINK walk was not
+charged before this patch, relies on the two new patches before it for a
+clean failure instead of claiming one (review of v4), and says that at
+the limit a remote can be installed without its dst cache; says what the
+patch changes in QEMU (sinfo bot); re-measured; lines wrapped to 80
+columns. v4: new patch.
 
- drivers/net/vxlan/vxlan_vnifilter.c | 50 +++++++++++++++++++++++------
- 1 file changed, 40 insertions(+), 10 deletions(-)
+ drivers/net/vxlan/vxlan_core.c      | 47 ++++++++++++++++-------------
+ drivers/net/vxlan/vxlan_private.h   |  7 +++--
+ drivers/net/vxlan/vxlan_vnifilter.c | 14 ++++++---
+ 3 files changed, 39 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/net/vxlan/vxlan_vnifilter.c b/drivers/net/vxlan/vxlan_vnifilter.c
-index 07aa641f16e8..6e896ddf658c 100644
---- a/drivers/net/vxlan/vxlan_vnifilter.c
-+++ b/drivers/net/vxlan/vxlan_vnifilter.c
-@@ -606,6 +606,7 @@ static int vxlan_vni_update_group(struct vxlan_dev *vxlan,
- 	const struct vxlan_config *cfg = rtnl_dereference(vxlan->cfg);
- 	const union vxlan_addr *newrip = NULL, *oldrip = NULL;
- 	union vxlan_addr old_remote_ip;
-+	bool joined = false;
- 	int ret = 0;
+diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
+index 2303d652d396..1f91d50accdc 100644
+--- a/drivers/net/vxlan/vxlan_core.c
++++ b/drivers/net/vxlan/vxlan_core.c
+@@ -577,7 +577,7 @@ static int vxlan_fdb_replace(struct vxlan_fdb *f,
+ /* Add/update destinations for multicast */
+ static int vxlan_fdb_append(struct vxlan_fdb *f,
+ 			    union vxlan_addr *ip, __be16 port, __be32 vni,
+-			    __u32 ifindex, struct vxlan_rdst **rdp)
++			    __u32 ifindex, struct vxlan_rdst **rdp, gfp_t gfp)
+ {
+ 	struct vxlan_rdst *rd;
  
- 	memcpy(&old_remote_ip, &vninode->remote_ip, sizeof(old_remote_ip));
-@@ -633,13 +634,31 @@ static int vxlan_vni_update_group(struct vxlan_dev *vxlan,
- 	if (!create && oldrip && newrip && vxlan_addr_equal(oldrip, newrip))
+@@ -585,14 +585,14 @@ static int vxlan_fdb_append(struct vxlan_fdb *f,
+ 	if (rd)
  		return 0;
  
-+	/* A new VNI joins its group before its default FDB entry is installed,
-+	 * so that installing the entry is the last step that can fail, and a
-+	 * failure leaves vxlan_vni_add() only the VNI itself to undo.
-+	 */
-+	if (create && group && (vxlan->dev->flags & IFF_UP) &&
-+	    vxlan_addr_multicast(group)) {
-+		ret = vxlan_igmp_join(vxlan, group, 0);
-+		if (ret == -EADDRINUSE)
-+			ret = 0;
-+		else if (!ret)
-+			joined = true;
-+		if (ret)
-+			goto out;
-+	}
-+
- 	ret = vxlan_update_default_fdb_entry(vxlan, vninode->vni,
+-	rd = kmalloc_obj(*rd, GFP_ATOMIC);
++	rd = kmalloc_obj(*rd, gfp);
+ 	if (rd == NULL)
+ 		return -ENOMEM;
+ 
+ 	/* The driver can work correctly without a dst cache, so do not treat
+ 	 * dst cache initialization errors as fatal.
+ 	 */
+-	dst_cache_init(&rd->dst_cache, GFP_ATOMIC | __GFP_NOWARN);
++	dst_cache_init(&rd->dst_cache, gfp | __GFP_NOWARN);
+ 
+ 	rd->remote_ip = *ip;
+ 	rd->remote_port = port;
+@@ -779,11 +779,11 @@ static int vxlan_gpe_gro_complete(struct sock *sk, struct sk_buff *skb, int nhof
+ 
+ static struct vxlan_fdb *vxlan_fdb_alloc(struct vxlan_dev *vxlan, const u8 *mac,
+ 					 __u16 state, __be32 src_vni,
+-					 __u16 ndm_flags)
++					 __u16 ndm_flags, gfp_t gfp)
+ {
+ 	struct vxlan_fdb *f;
+ 
+-	f = kmalloc_obj(*f, GFP_ATOMIC);
++	f = kmalloc_obj(*f, gfp);
+ 	if (!f)
+ 		return NULL;
+ 	memset(&f->key, 0, sizeof(f->key));
+@@ -869,7 +869,7 @@ int vxlan_fdb_create(struct vxlan_dev *vxlan,
+ 		     __u16 state, __be16 port, __be32 src_vni,
+ 		     __be32 vni, __u32 ifindex, __u16 ndm_flags,
+ 		     u32 nhid, struct vxlan_fdb **fdb,
+-		     struct netlink_ext_ack *extack)
++		     struct netlink_ext_ack *extack, gfp_t gfp)
+ {
+ 	const struct vxlan_config *cfg = rcu_dereference_rtnl(vxlan->cfg);
+ 	struct vxlan_rdst *rd = NULL;
+@@ -881,14 +881,14 @@ int vxlan_fdb_create(struct vxlan_dev *vxlan,
+ 		return -ENOSPC;
+ 
+ 	netdev_dbg(vxlan->dev, "add %pM -> %pIS\n", mac, ip);
+-	f = vxlan_fdb_alloc(vxlan, mac, state, src_vni, ndm_flags);
++	f = vxlan_fdb_alloc(vxlan, mac, state, src_vni, ndm_flags, gfp);
+ 	if (!f)
+ 		return -ENOMEM;
+ 
+ 	if (nhid)
+ 		rc = vxlan_fdb_nh_update(vxlan, f, nhid, extack);
+ 	else
+-		rc = vxlan_fdb_append(f, ip, port, vni, ifindex, &rd);
++		rc = vxlan_fdb_append(f, ip, port, vni, ifindex, &rd, gfp);
+ 	if (rc < 0)
+ 		goto errout;
+ 
+@@ -984,7 +984,7 @@ static int vxlan_fdb_update_existing(struct vxlan_dev *vxlan,
+ 				     __u32 ifindex, __u16 ndm_flags,
+ 				     struct vxlan_fdb *f, u32 nhid,
+ 				     bool swdev_notify,
+-				     struct netlink_ext_ack *extack)
++				     struct netlink_ext_ack *extack, gfp_t gfp)
+ {
+ 	__u16 fdb_flags = (ndm_flags & ~NTF_USE);
+ 	__u16 old_flags = f->flags;
+@@ -1028,7 +1028,8 @@ static int vxlan_fdb_update_existing(struct vxlan_dev *vxlan,
+ 	if ((flags & NLM_F_APPEND) &&
+ 	    (is_multicast_ether_addr(f->key.eth_addr) ||
+ 	     is_zero_ether_addr(f->key.eth_addr))) {
+-		rc = vxlan_fdb_append(f, ip, port, vni, ifindex, &rd);
++		rc = vxlan_fdb_append(f, ip, port, vni, ifindex, &rd,
++				      gfp);
+ 
+ 		if (rc < 0)
+ 			return rc;
+@@ -1090,7 +1091,7 @@ static int vxlan_fdb_update_create(struct vxlan_dev *vxlan,
+ 				   __be16 port, __be32 src_vni, __be32 vni,
+ 				   __u32 ifindex, __u16 ndm_flags, u32 nhid,
+ 				   bool swdev_notify,
+-				   struct netlink_ext_ack *extack)
++				   struct netlink_ext_ack *extack, gfp_t gfp)
+ {
+ 	__u16 fdb_flags = (ndm_flags & ~NTF_USE);
+ 	struct vxlan_fdb *f;
+@@ -1103,7 +1104,7 @@ static int vxlan_fdb_update_create(struct vxlan_dev *vxlan,
+ 
+ 	netdev_dbg(vxlan->dev, "add %pM -> %pIS\n", mac, ip);
+ 	rc = vxlan_fdb_create(vxlan, mac, ip, state, port, src_vni,
+-			      vni, ifindex, fdb_flags, nhid, &f, extack);
++			      vni, ifindex, fdb_flags, nhid, &f, extack, gfp);
+ 	if (rc < 0)
+ 		return rc;
+ 
+@@ -1126,7 +1127,7 @@ int vxlan_fdb_update(struct vxlan_dev *vxlan,
+ 		     __be16 port, __be32 src_vni, __be32 vni,
+ 		     __u32 ifindex, __u16 ndm_flags, u32 nhid,
+ 		     bool swdev_notify,
+-		     struct netlink_ext_ack *extack)
++		     struct netlink_ext_ack *extack, gfp_t gfp)
+ {
+ 	struct vxlan_fdb *f;
+ 
+@@ -1140,7 +1141,8 @@ int vxlan_fdb_update(struct vxlan_dev *vxlan,
+ 
+ 		return vxlan_fdb_update_existing(vxlan, ip, state, flags, port,
+ 						 vni, ifindex, ndm_flags, f,
+-						 nhid, swdev_notify, extack);
++						 nhid, swdev_notify, extack,
++						 gfp);
+ 	} else {
+ 		if (!(flags & NLM_F_CREATE))
+ 			return -ENOENT;
+@@ -1148,7 +1150,7 @@ int vxlan_fdb_update(struct vxlan_dev *vxlan,
+ 		return vxlan_fdb_update_create(vxlan, mac, ip, state, flags,
+ 					       port, src_vni, vni, ifindex,
+ 					       ndm_flags, nhid, swdev_notify,
+-					       extack);
++					       extack, gfp);
+ 	}
+ }
+ 
+@@ -1284,7 +1286,7 @@ static int vxlan_fdb_add(struct ndmsg *ndm, struct nlattr *tb[],
+ 	err = vxlan_fdb_update(vxlan, addr, &ip, ndm->ndm_state, flags,
+ 			       port, src_vni, vni, ifindex,
+ 			       ndm->ndm_flags | NTF_VXLAN_ADDED_BY_USER,
+-			       nhid, true, extack);
++			       nhid, true, extack, GFP_ATOMIC);
+ 	spin_unlock_bh(&vxlan->hash_lock);
+ 
+ 	if (!err)
+@@ -1504,7 +1506,8 @@ static enum skb_drop_reason vxlan_snoop(struct net_device *dev,
+ 					 cfg->dst_port,
+ 					 vni,
+ 					 cfg->vni,
+-					 ifindex, NTF_SELF, 0, true, NULL);
++					 ifindex, NTF_SELF, 0, true, NULL,
++					 GFP_ATOMIC);
+ 		spin_unlock(&vxlan->hash_lock);
+ 	}
+ 
+@@ -4154,7 +4157,7 @@ static int vxlan_dev_create(struct net *net, struct net_device *dev,
+ 				       cfg->vni,
+ 				       cfg->vni,
+ 				       cfg->remote_ifindex,
+-				       NTF_SELF, 0, true, extack);
++				       NTF_SELF, 0, true, extack, GFP_ATOMIC);
+ 		spin_unlock_bh(&vxlan->hash_lock);
+ 		if (err)
+ 			goto unlink;
+@@ -4617,7 +4620,8 @@ static int vxlan_changelink(struct net_device *dev, struct nlattr *tb[],
+ 					       cfg->dst_port,
+ 					       conf.vni, conf.vni,
+ 					       conf.remote_ifindex,
+-					       NTF_SELF, 0, true, extack);
++					       NTF_SELF, 0, true, extack,
++					       GFP_ATOMIC);
+ 			if (err) {
+ 				spin_unlock_bh(&vxlan->hash_lock);
+ 				if (lowerdev_changed)
+@@ -4652,7 +4656,8 @@ static int vxlan_changelink(struct net_device *dev, struct nlattr *tb[],
+ 							       &cfg->remote_ip,
+ 							       conf.remote_ifindex,
+ 							       cfg->remote_ifindex,
+-							       NULL);
++							       NULL,
++							       GFP_ATOMIC);
+ 				if (lowerdev_changed)
+ 					netdev_adjacent_change_abort(vxlan->lowerdev,
+ 								     lowerdev, dev);
+@@ -4972,7 +4977,7 @@ vxlan_fdb_external_learn_add(struct net_device *dev,
+ 			       fdb_info->remote_vni,
+ 			       fdb_info->remote_ifindex,
+ 			       NTF_USE | NTF_SELF | NTF_EXT_LEARNED,
+-			       0, false, extack);
++			       0, false, extack, GFP_ATOMIC);
+ 	spin_unlock_bh(&vxlan->hash_lock);
+ 
+ 	return err;
+diff --git a/drivers/net/vxlan/vxlan_private.h b/drivers/net/vxlan/vxlan_private.h
+index f0ee85f83732..b5a80ed3eff2 100644
+--- a/drivers/net/vxlan/vxlan_private.h
++++ b/drivers/net/vxlan/vxlan_private.h
+@@ -192,7 +192,7 @@ int vxlan_fdb_create(struct vxlan_dev *vxlan,
+ 		     __u16 state, __be16 port, __be32 src_vni,
+ 		     __be32 vni, __u32 ifindex, __u16 ndm_flags,
+ 		     u32 nhid, struct vxlan_fdb **fdb,
+-		     struct netlink_ext_ack *extack);
++		     struct netlink_ext_ack *extack, gfp_t gfp);
+ int __vxlan_fdb_delete(struct vxlan_dev *vxlan,
+ 		       const unsigned char *addr, union vxlan_addr ip,
+ 		       __be16 port, __be32 src_vni, __be32 vni,
+@@ -202,7 +202,8 @@ int vxlan_fdb_update(struct vxlan_dev *vxlan,
+ 		     __u16 state, __u16 flags,
+ 		     __be16 port, __be32 src_vni, __be32 vni,
+ 		     __u32 ifindex, __u16 ndm_flags, u32 nhid,
+-		     bool swdev_notify, struct netlink_ext_ack *extack);
++		     bool swdev_notify, struct netlink_ext_ack *extack,
++		     gfp_t gfp);
+ void vxlan_xmit_one(struct sk_buff *skb, struct net_device *dev,
+ 		    const struct vxlan_config *cfg,
+ 		    __be32 default_vni, struct vxlan_rdst *rdst, bool did_rsc);
+@@ -229,7 +230,7 @@ int vxlan_update_default_fdb_entry(struct vxlan_dev *vxlan, __be32 vni,
+ 				   const union vxlan_addr *old_remote_ip,
+ 				   const union vxlan_addr *remote_ip,
+ 				   u32 old_ifindex, u32 new_ifindex,
+-				   struct netlink_ext_ack *extack);
++				   struct netlink_ext_ack *extack, gfp_t gfp);
+ int vxlan_vnilist_update_group(struct vxlan_dev *vxlan,
+ 			       const union vxlan_addr *old_remote_ip,
+ 			       const union vxlan_addr *new_remote_ip,
+diff --git a/drivers/net/vxlan/vxlan_vnifilter.c b/drivers/net/vxlan/vxlan_vnifilter.c
+index 6e896ddf658c..23e9b06e3c02 100644
+--- a/drivers/net/vxlan/vxlan_vnifilter.c
++++ b/drivers/net/vxlan/vxlan_vnifilter.c
+@@ -554,7 +554,7 @@ int vxlan_update_default_fdb_entry(struct vxlan_dev *vxlan, __be32 vni,
+ 				   const union vxlan_addr *old_remote_ip,
+ 				   const union vxlan_addr *remote_ip,
+ 				   u32 old_ifindex, u32 new_ifindex,
+-				   struct netlink_ext_ack *extack)
++				   struct netlink_ext_ack *extack, gfp_t gfp)
+ {
+ 	const struct vxlan_config *cfg = rtnl_dereference(vxlan->cfg);
+ 	int err = 0;
+@@ -576,7 +576,8 @@ int vxlan_update_default_fdb_entry(struct vxlan_dev *vxlan, __be32 vni,
+ 				       vni,
+ 				       vni,
+ 				       new_ifindex,
+-				       NTF_SELF, 0, true, extack);
++				       NTF_SELF, 0, true, extack,
++				       gfp);
+ 		if (err && extack) {
+ 			spin_unlock_bh(&vxlan->hash_lock);
+ 			return err;
+@@ -653,7 +654,8 @@ static int vxlan_vni_update_group(struct vxlan_dev *vxlan,
  					     oldrip, newrip,
  					     cfg->remote_ifindex,
  					     cfg->remote_ifindex,
- 					     extack);
--	if (ret)
-+	if (ret) {
-+		if (joined)
-+			vxlan_igmp_leave(vxlan, group, 0);
- 		goto out;
-+	}
- 
- 	if (group) {
- 		memcpy(&vninode->remote_ip, group, sizeof(vninode->remote_ip));
-@@ -647,7 +666,7 @@ static int vxlan_vni_update_group(struct vxlan_dev *vxlan,
- 			vxlan_vnifilter_seq_inc(dev_net(vxlan->dev));
+-					     extack);
++					     extack,
++					     GFP_NOWAIT | __GFP_ACCOUNT);
+ 	if (ret) {
+ 		if (joined)
+ 			vxlan_igmp_leave(vxlan, group, 0);
+@@ -727,7 +729,8 @@ int vxlan_vnilist_update_group(struct vxlan_dev *vxlan,
+ 		ret = vxlan_update_default_fdb_entry(vxlan, vent->vni,
+ 						     oldrip, newrip,
+ 						     old_ifindex, new_ifindex,
+-						     extack);
++						     extack, GFP_ATOMIC |
++						     __GFP_ACCOUNT);
+ 		if (ret)
+ 			goto err_unwind;
  	}
- 
--	if (vxlan->dev->flags & IFF_UP) {
-+	if (!create && (vxlan->dev->flags & IFF_UP)) {
- 		if (vxlan_addr_multicast(&old_remote_ip) &&
- 		    !vxlan_group_used(vn, vxlan, vninode->vni,
- 				      &old_remote_ip,
-@@ -850,6 +869,14 @@ static void vxlan_vni_free(struct vxlan_vni_node *vninode)
- 	kfree(vninode);
+@@ -749,7 +752,8 @@ int vxlan_vnilist_update_group(struct vxlan_dev *vxlan,
+ 		vxlan_update_default_fdb_entry(vxlan, vent->vni,
+ 					       newrip, oldrip,
+ 					       new_ifindex, old_ifindex,
+-					       NULL);
++					       NULL,
++					       GFP_ATOMIC | __GFP_ACCOUNT);
+ 	}
+ 	return ret;
  }
- 
-+static void vxlan_vni_node_rcu_free(struct rcu_head *rcu)
-+{
-+	struct vxlan_vni_node *v;
-+
-+	v = container_of(rcu, struct vxlan_vni_node, rcu);
-+	vxlan_vni_free(v);
-+}
-+
- static int vxlan_vni_add(struct vxlan_dev *vxlan,
- 			 struct vxlan_vni_group *vg,
- 			 u32 vni, union vxlan_addr *group,
-@@ -889,18 +916,21 @@ static int vxlan_vni_add(struct vxlan_dev *vxlan,
- 
- 	err = vxlan_vni_update_group(vxlan, vninode, group, true, &changed,
- 				     extack);
-+	if (err)
-+		goto err_unpublish;
- 
- 	vxlan_vnifilter_notify(vxlan, vninode, RTM_NEWTUNNEL);
- 
--	return err;
--}
--
--static void vxlan_vni_node_rcu_free(struct rcu_head *rcu)
--{
--	struct vxlan_vni_node *v;
-+	return 0;
- 
--	v = container_of(rcu, struct vxlan_vni_node, rcu);
--	vxlan_vni_free(v);
-+err_unpublish:
-+	if (vxlan->dev->flags & IFF_UP)
-+		vxlan_vs_add_del_vninode(vxlan, vninode, true);
-+	__vxlan_vni_del_list(vxlan, vg, vninode);
-+	rhashtable_remove_fast(&vg->vni_hash, &vninode->vnode,
-+			       vxlan_vni_rht_params);
-+	call_rcu(&vninode->rcu, vxlan_vni_node_rcu_free);
-+	return err;
- }
- 
- static int vxlan_vni_del(struct vxlan_dev *vxlan,
 -- 
 2.53.0
 
