@@ -1,83 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.37
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794668823;
-	b=0FuVUTNjyAZIjDcvQN8dFn2c8tmACY8u0jmc+1AmX4H8XaRTv0lr41IzMH7pAX7tadp1
-	 hVrRwi7ulZn1jNLeLfwOIJWkwGnrrkJTuqFYuDWDIZqYS+gB2bYve/tQeZ1hsA5FScdsv
-	 UCZbdjlAP8kL9U82agjsp85R/ZFzwLR5I55vhrttXXVT6/hog6klwi5yg7btZ7gtyxpvo
-	 mB7OQ8ttHVWQvQQjZrNQuvULCmQxm6Z3bY0Vfrp8SQzA6jSg9yZF9KYExdrDU8JwyLEIk
-	 cXY8PI2LOV3OOtkI8H5YM4vkW0qHJTgjUebGnQPJYkCXj90fmz/AkG7Md0CBfgZdGoA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794668823;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=DGLR2g+grGDFA6mww683bNHbdliifZC2jNLizybLrBc=;
-	b=Ju0CVPWZNme4uJsOI6NJddmUjxLXtJj3BCHQBp2YKqB+fic0cCL4F8ZpreRewqwu0AZN
-	 EvztsNYCUJYxd94wkQyvVGpF1m3hIqVr2fSSY3C9lDYjzSFFXINZi1AG6vRLmHBZ7hcLG
-	 IbeiW/cs8HxrUJO/httY0aTbBBue0JauMLjt3QOtYWlpRKex1q+RosefiFPvjvSj2J1a+
-	 kIWD+DeN4qMTTWIvHVZAaP2xO1S5UHmbK3NK4faNdmO5v+ZlBceL8pJ56THhmTxjR17so
-	 QMGuNOBBQXrxWYGKehdpR/y+HZ+HH7UmZ1K9s6Bcb70dIdcnaJVSVuKbVLzUD2poR8w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=kJkdcOe7;
-	arc=none smtp.remote-ip=91.218.175.37
-Received: from mta0.migadu.com (out-37.mta0.migadu.com [91.218.175.37])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794668831;
+	b=5spp866e0ri/nJJAgyOtwHt+oh0jZid3YPI3mLxjyMMTOxiQrpB+LvQ0yyBey4cgsb39
+	 l2L22yYfRkISqIVZuFAH3rVJLkk1GM/cNxHBFd4yCOLz/O+Fi8J4xei6wENtwqCcU3Ct0
+	 3C2mpCD5cR+TCEPFSiU8nGOW0m0UWya2qpzTx9BZUex+hgJPRq1+4X7+eBzJ2w5aQCnev
+	 ySh+ukUz3WThxQRnHk5Wvh+PtJNQlYi6BnlxCS7XWwO4ArMwUQTU9y+ZfQCPxGuWgBm+x
+	 guR9gABY633ah13wChKP92PO6O/F1TYFlkjCmF6bASQOyij52+H4YqTy5Ca57jo2XfQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794668831;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=T70LPbqwjTquBXMKAl/WRAP8aX7L0BcLFYclaMsQMj4=;
+	b=drF/DWJHQG80elTHFgYT6NAoLpCrwlJ0mT2YAzGWI8k0ImpxfL5YiI6EWVBiLtTU6o6H
+	 8qNu2A33E/SgKUF3waXNlxQw/z0wsCgfm05bDeu+f5Qf+eIBrnV9OUd6ttIstklaVAfz7
+	 7L4B3oOE4fc+H9csDjPVQFkVy3CIidfCApLxn//NLyfpAmB1Yi0rkC1kezjkN8pttf0yt
+	 0YSU6lq/v7HAJ4yomi0E6YLFD0jgLoKkC92oZItTYOToFtAk8HTyc1dM3RRKZH+bRH2Jj
+	 jHS6OLnjF0kUfCamiYhNwSmkAuiO1vn1HKvuD51pjPVDsj4kYip8a7uKEre8uDB3a/Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I9pPhS0l;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C79A606A32E
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 15:07:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I9pPhS0l
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794668831;
+	b=qg58YAgJLiaOey5c23T/cBWL+XHgTuu6m6SJwz6J/dqcXJ43tfR7si8cUtQ83+xOmzFf
+	 oN5wwfpb6XR8nEz/REU/jtUphu9Pohfn1Q4KewxoqxR4XVqpDfH0lg9r5KfhW/xGUizYr
+	 DCru5/4+j27J9fztQr7CkNEA5BNehiv1D3cCUIS7FrPmYyuiABFpygprDQmYikJO5mhOf
+	 BzEL3D5KeqPU8mAClcjNqaoQzqLn6FEI+12nNPl+UND5M551hj5QfJ4sxFED+WDPtIfHl
+	 6rwfqGoqVEE3OuZzjp6Owml1uK+LOXCdWDImBIfo7pLWnqIxxRpfMOB802haTJ01PAQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794668831;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=T70LPbqwjTquBXMKAl/WRAP8aX7L0BcLFYclaMsQMj4=;
+	b=C+cvxf9RFEZw6xeWc+cWp+yeKZGdtP0/s50I+CEKbTxj+EE616RcREu5kpEeB+wEysLR
+	 eWFjeStb+xCvFYRMwvV6x0FuapKJRu3apxBDqhWzvnKB54080D5QrWUbKHVe94dHrx/oH
+	 BSp9UIOHluDEPTsh4OUVhSfOnmLoRFQeZGmVw1qqiCCRvZv2GO8ei5r5UxeD4Zz30hdUI
+	 9ZzPNMZHrWRwEDu5HJEgd8BwrXqF94o0wC14CeMD8ae7Eeld8Pnwi1ydM/67QvEVG6DMZ
+	 4a7b0RJQg93Y5VOn2Hk31fNbEY6CLsNJ9CiYNUCYfcrNPCsZGbC7wmvPH5lDvNL1f4g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2627606A32E
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 15:07:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2627606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=kJkdcOe7
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=OsDn2NgZcK7uFq2CWRqSYfWahg+jy8jfQ3EupV12pRc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794668819; v=1; x=1795273619;
- b=kJkdcOe7uQdcYWZBfEt300ds4ayajLhwAnGg5OHqelC1ftCxPVhx1I/9ha9nJrHSh5iCoRTh
- iyt38uURhdsPFFsuJT0SYmwHLFTR8RY3m9LhIRUm4F9kxjU5Kbv5Xm8GIBRE/kUvqW83lJ/5MZu
- sRw6Q8VPGYRiHn7eyYSBZEs4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f7b48eee75fc4284;
-	Sat, 14 Nov 2026 15:06:59 +0000
-X-Mizu-Trace-ID: f7b48eee75fc4284
-X-Migadu-Flow: FLOW_OUT
-From: Leon Hwang <leon.hwang@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	KP Singh <kpsingh@kernel.org>,
-	Matt Bobrowski <matt@bobrowski.net>,
-	Shuah Khan <shuah@kernel.org>,
-	Leon Hwang <leon.hwang@linux.dev>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: [PATCH bpf-next v2 4/9] bpf: Add log support for cgroup prog link_create
-Date: Sat, 14 Nov 2026 23:06:05 +0800
-Message-ID: <20261114150610.84507-5-leon.hwang@linux.dev>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261114150610.84507-1-leon.hwang@linux.dev>
-References: <20261114150610.84507-1-leon.hwang@linux.dev>
+	by smtp.kernel.org (Postfix) with ESMTPS id 7B7021F000C7;
+	Sat, 14 Nov 2026 15:07:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794668831;
+	bh=T70LPbqwjTquBXMKAl/WRAP8aX7L0BcLFYclaMsQMj4=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=I9pPhS0l3XzoPyD90EKB9deLshbJ4wEBS+7WuPuhXihNznM8UF4AZaiEeVisHJnA3
+	 CraHFY+areC54mQ2fIregymgC/gyg+Qun/FwrISGVTPp3hnygG7IJdsXpgDUe37dAR
+	 I9UuXb4z/N2TJwAWGubQdfiW9glp/ju6YOUnRfwtBT7rL3Lj1XIJHV8mx9o+Ewi6SO
+	 h9SgBHJ05rVkTlBmr70GglqxuUrKomm7+kFG/EfifqSF4Ln7fpM9Te3sWfZ7in1ZxD
+	 PTTJDiYZVGpKMgc+Hm86Jrga+565Mz3i+y1F+qxQQTukG9IWJ3u15zK21ZYLUaK2DK
+	 xum4pAMHbCanA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id D07DB49DDA;
+	Sat, 14 Nov 2026 15:07:09 +0000 (UTC)
+From: Alexis Calin via B4 Relay <devnull+alexiscalin.protonmail.com@kernel.org>
+Date: Sat, 14 Nov 2026 16:06:32 +0100
+Subject: [PATCH] drm/i915/backlight: Keep ACPI brightness requests while
+ the display is off
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,288 +83,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261114-i915-acpi-backlight-display-off-v1-1-9306f19d605a@protonmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2NSwqEMBAFryK9tsH2B85VBhcxdvShaEiGQRHvb
+ nBZUFRdFDVAI32yi4L+EbFvCSTPyM5mm5QxJqayKFsRqRmdNGysBw/GLium+ccjol/Nybtz3Fq
+ pNIlD0TlKFR/U4XgP3/6+H987PfFxAAAA
+X-Change-ID: 20261114-i915-acpi-backlight-display-off-6c13e114b09f
+To: intel-gfx@lists.freedesktop.org, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jesse Barnes <jbarnes@virtuousgeek.org>, intel-xe@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Alexis Calin <alexiscalin@protonmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794668829; l=3928;
+ i=alexiscalin@protonmail.com; s=20261114; h=from:subject:message-id;
+ bh=yfV5siqoHW/ZsYrHAiTnfqWhV+mA/En7svlIUOMAlGQ=;
+ b=R1pN8mDR1lCIq9lN2N09YjigxDNNUkgL6X2/m8UmvRxMuUpITR3BCsjacT8gMmKWXYeQ58TYV
+ 1gUs380NXXdD9iVWIbXJql5Qj7Q4QQsDbVEW87+PetIbKG0a/+6M/eN
+X-Developer-Key: i=alexiscalin@protonmail.com; a=ed25519;
+ pk=oNYBG1X8+3bGmJMn0tnt+BbJC1vI7dgqomx4pGPM+4c=
+X-Endpoint-Received: by B4 Relay for alexiscalin@protonmail.com/20261114
+ with auth_id=1528
+X-Original-From: Alexis Calin <alexiscalin@protonmail.com>
+Reply-To: alexiscalin@protonmail.com
+Content-Transfer-Encoding: 7bit
 
-Cgroup prog BPF_LINK_CREATE returns errors without explaining invalid
-flags, target FDs, or relative attachment parameters. Revision mismatches,
-cgroup hierarchy restrictions, conflicting attachment flags, and the
-per-cgroup program limit can also cause unexplained failures.
+From: Alexis Calin <alexiscalin@protonmail.com>
 
-Pass the BPF_LINK_CREATE log through the cgroup attachment helpers and
-report these failures at the checks that reject the attachment. Diagnose
-relative link attachments that omit BPF_F_LINK.
+intel_backlight_set_acpi() returns early when the connector has no
+crtc. This is meant for requests that the BIOS sends during driver init,
+but the connector also has no crtc while the display is turned off, e.g.
+when the desktop blanks the screen. A brightness request received then
+is dropped, while asle_set_backlight() still reports it as done in CBLV.
+When the display is turned on again, the backlight is enabled with the
+old level.
 
-Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
+With the ACPI video backlight interface, this happens on the GNOME idle
+path: the screen is dimmed, then blanked, and on wake-up GNOME restores
+the previous level while the display is still off. The panel then comes
+back at the dimmed level, while the backlight class device and CBLV
+report the restored one.
+
+The crtc is only needed to program the hardware, as vlv_set_backlight()
+gets the pipe from it. Store the new level in all cases, like
+intel_panel_set_backlight() does for the native backlight interface, and
+only program it when the backlight is enabled and there is a crtc. The
+next backlight enable then uses the new level.
+
+Fixes: 752aa88a1e78 ("drm/i915: make backlight functions take a connector")
+Assisted-by: LLM
+Signed-off-by: Alexis Calin <alexiscalin@protonmail.com>
 ---
- include/linux/bpf-cgroup.h |  6 ++-
- kernel/bpf/cgroup.c        | 76 +++++++++++++++++++++++++++-----------
- kernel/bpf/syscall.c       |  4 +-
- 3 files changed, 60 insertions(+), 26 deletions(-)
+Tested on a ThinkPad T480s (Kaby Lake-R) with coreboot firmware, which
+makes Linux use the ACPI video backlight. With the display turned off
+through Mutter's PowerSaveMode, a level written to acpi_video0 is
+reported in CBLV, but without this patch the panel comes back at the
+previous level (40 instead of 75 on 6.12.117). With this patch on
+drm-tip, it comes back at the new level (75). The GNOME idle path was
+also tested: after the idle dim (31) and blank, wake-up now restores the
+level (74) instead of staying at 31. Brightness changes with the display
+on and S3 suspend/resume behave as before. Not tested on VLV/CHV, where
+programming the level needs the crtc.
 
-diff --git a/include/linux/bpf-cgroup.h b/include/linux/bpf-cgroup.h
-index 02ef7f899b3d..684bd2cfda6f 100644
---- a/include/linux/bpf-cgroup.h
-+++ b/include/linux/bpf-cgroup.h
-@@ -425,7 +425,8 @@ int cgroup_bpf_prog_attach(const union bpf_attr *attr,
- 			   enum bpf_prog_type ptype, struct bpf_prog *prog);
- int cgroup_bpf_prog_detach(const union bpf_attr *attr,
- 			   enum bpf_prog_type ptype);
--int cgroup_bpf_link_attach(const union bpf_attr *attr, struct bpf_prog *prog);
-+int cgroup_bpf_link_attach(const union bpf_attr *attr, struct bpf_prog *prog,
-+			   struct bpf_verifier_log *log);
- int cgroup_bpf_prog_query(const union bpf_attr *attr,
- 			  union bpf_attr __user *uattr, u32 uattr_size);
+checkpatch.pl in drm-tip reports the Assisted-by tag, as it predates
+commit 816d9992d9ed ("coding-assistants: simplify attribution").
+---
+ drivers/gpu/drm/i915/display/intel_backlight.c | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c b/drivers/gpu/drm/i915/display/intel_backlight.c
+index b128896cb1c2..3f2c75b249ed 100644
+--- a/drivers/gpu/drm/i915/display/intel_backlight.c
++++ b/drivers/gpu/drm/i915/display/intel_backlight.c
+@@ -310,13 +310,7 @@ void intel_backlight_set_acpi(const struct drm_connector_state *conn_state,
+ 	struct intel_panel *panel = &connector->panel;
+ 	u32 hw_level;
  
-@@ -452,7 +453,8 @@ static inline int cgroup_bpf_prog_detach(const union bpf_attr *attr,
- }
+-	/*
+-	 * Lack of crtc may occur during driver init because
+-	 * connection_mutex isn't held across the entire backlight
+-	 * setup + modeset readout, and the BIOS can issue the
+-	 * requests at any time.
+-	 */
+-	if (!panel->backlight.present || !conn_state->crtc)
++	if (!panel->backlight.present)
+ 		return;
  
- static inline int cgroup_bpf_link_attach(const union bpf_attr *attr,
--					 struct bpf_prog *prog)
-+					 struct bpf_prog *prog,
-+					 struct bpf_verifier_log *log)
- {
- 	return -EINVAL;
- }
-diff --git a/kernel/bpf/cgroup.c b/kernel/bpf/cgroup.c
-index 57a785241d42..a4d49c4df712 100644
---- a/kernel/bpf/cgroup.c
-+++ b/kernel/bpf/cgroup.c
-@@ -854,7 +854,8 @@ static struct bpf_prog *bpf_get_anchor_prog(u32 flags, u32 id_or_fd)
- }
+ 	mutex_lock(&display->backlight.lock);
+@@ -332,7 +326,15 @@ void intel_backlight_set_acpi(const struct drm_connector_state *conn_state,
+ 					 panel->backlight.level,
+ 					 panel->backlight.device->props.max_brightness);
  
- static struct bpf_prog_list *get_prog_list(struct hlist_head *progs, struct bpf_prog *prog,
--					   struct bpf_cgroup_link *link, u32 flags, u32 id_or_fd)
-+					   struct bpf_cgroup_link *link, u32 flags, u32 id_or_fd,
-+					   struct bpf_verifier_log *log)
- {
- 	bool is_link = flags & BPF_F_LINK, is_id = flags & BPF_F_ID;
- 	struct bpf_prog_list *pltmp, *pl = ERR_PTR(-EINVAL);
-@@ -867,20 +868,30 @@ static struct bpf_prog_list *get_prog_list(struct hlist_head *progs, struct bpf_
- 	is_after = flags & BPF_F_AFTER;
- 	if (is_link || is_id || id_or_fd) {
- 		/* flags must have either BPF_F_BEFORE or BPF_F_AFTER */
--		if (is_before == is_after)
-+		if (is_before == is_after) {
-+			bpf_log(log, "Specify exactly one of BPF_F_BEFORE or BPF_F_AFTER.\n");
- 			return ERR_PTR(-EINVAL);
--		if ((is_link && !link) || (!is_link && !prog))
-+		}
-+		if (is_link && !link)
-+			return ERR_PTR(-EINVAL);
-+		if (!is_link && !prog) {
-+			bpf_log(log, "BPF_F_LINK is required for relative link attachment.\n");
- 			return ERR_PTR(-EINVAL);
-+		}
- 	} else if (!hlist_empty(progs)) {
- 		/* flags cannot have both BPF_F_BEFORE and BPF_F_AFTER */
--		if (is_before && is_after)
-+		if (is_before && is_after) {
-+			bpf_log(log, "BPF_F_BEFORE and BPF_F_AFTER are mutually exclusive.\n");
- 			return ERR_PTR(-EINVAL);
-+		}
- 	}
+-	if (panel->backlight.enabled)
++	/*
++	 * Lack of crtc may occur during driver init because
++	 * connection_mutex isn't held across the entire backlight
++	 * setup + modeset readout, and the BIOS can issue the
++	 * requests at any time. There is no crtc either while the
++	 * display is off. Keep the new level for the next backlight
++	 * enable, but only program it with a crtc.
++	 */
++	if (panel->backlight.enabled && conn_state->crtc)
+ 		intel_panel_actually_set_backlight(conn_state, hw_level);
  
- 	if (is_link) {
- 		anchor_link = bpf_get_anchor_link(flags, id_or_fd);
--		if (IS_ERR(anchor_link))
-+		if (IS_ERR(anchor_link)) {
-+			bpf_log(log, "Invalid relative link %s.\n", is_id ? "ID" : "FD");
- 			return ERR_CAST(anchor_link);
-+		}
- 	} else if (is_id || id_or_fd) {
- 		anchor_prog = bpf_get_anchor_prog(flags, id_or_fd);
- 		if (IS_ERR(anchor_prog))
-@@ -905,13 +916,16 @@ static struct bpf_prog_list *get_prog_list(struct hlist_head *progs, struct bpf_
- 	hlist_for_each_entry(pltmp, progs, node) {
- 		if ((anchor_prog && anchor_prog == pltmp->prog) ||
- 		    (anchor_link && anchor_link == &pltmp->link->link)) {
--			if (!!(pltmp->flags & BPF_F_PREORDER) != preorder)
-+			if (!!(pltmp->flags & BPF_F_PREORDER) != preorder) {
-+				bpf_log(log, "Relative attachment BPF_F_PREORDER mismatch.\n");
- 				goto out;
-+			}
- 			pl = pltmp;
- 			goto out;
- 		}
- 	}
- 
-+	bpf_log(log, "Relative attachment not found in target cgroup.\n");
- 	pl = ERR_PTR(-ENOENT);
- out:
- 	if (anchor_link)
-@@ -923,11 +937,11 @@ static struct bpf_prog_list *get_prog_list(struct hlist_head *progs, struct bpf_
- 
- static int insert_pl_to_hlist(struct bpf_prog_list *pl, struct hlist_head *progs,
- 			      struct bpf_prog *prog, struct bpf_cgroup_link *link,
--			      u32 flags, u32 id_or_fd)
-+			      u32 flags, u32 id_or_fd, struct bpf_verifier_log *log)
- {
- 	struct bpf_prog_list *pltmp;
- 
--	pltmp = get_prog_list(progs, prog, link, flags, id_or_fd);
-+	pltmp = get_prog_list(progs, prog, link, flags, id_or_fd, log);
- 	if (IS_ERR(pltmp))
- 		return PTR_ERR(pltmp);
- 
-@@ -952,6 +966,7 @@ static int insert_pl_to_hlist(struct bpf_prog_list *pl, struct hlist_head *progs
-  * @flags: Option flags
-  * @id_or_fd: Relative prog id or fd
-  * @revision: bpf_prog_list revision
-+ * @log: Optional log for attachment errors
-  *
-  * Exactly one of @prog or @link can be non-null.
-  * Must be called with cgroup_mutex held.
-@@ -960,7 +975,7 @@ static int __cgroup_bpf_attach(struct cgroup *cgrp,
- 			       struct bpf_prog *prog, struct bpf_prog *replace_prog,
- 			       struct bpf_cgroup_link *link,
- 			       enum bpf_attach_type type, u32 flags, u32 id_or_fd,
--			       u64 revision)
-+			       u64 revision, struct bpf_verifier_log *log)
- {
- 	u32 saved_flags = (flags & (BPF_F_ALLOW_OVERRIDE | BPF_F_ALLOW_MULTI));
- 	struct bpf_prog *old_prog = NULL;
-@@ -991,23 +1006,33 @@ static int __cgroup_bpf_attach(struct cgroup *cgrp,
- 	atype = bpf_cgroup_atype_find(type, new_prog->aux->attach_btf_id);
- 	if (atype < 0)
- 		return -EINVAL;
--	if (revision && revision != cgrp->bpf.revisions[atype])
-+	if (revision && revision != cgrp->bpf.revisions[atype]) {
-+		bpf_log(log, "Cgroup revision mismatch: expected %llu, actual %llu.\n",
-+			revision, cgrp->bpf.revisions[atype]);
- 		return -ESTALE;
-+	}
- 
- 	progs = &cgrp->bpf.progs[atype];
- 
--	if (!hierarchy_allows_attach(cgrp, atype))
-+	if (!hierarchy_allows_attach(cgrp, atype)) {
-+		bpf_log(log, "Cgroup hierarchy does not allow attachment.\n");
- 		return -EPERM;
-+	}
- 
--	if (!hlist_empty(progs) && cgrp->bpf.flags[atype] != saved_flags)
-+	if (!hlist_empty(progs) && cgrp->bpf.flags[atype] != saved_flags) {
- 		/* Disallow attaching non-overridable on top
- 		 * of existing overridable in this cgroup.
- 		 * Disallow attaching multi-prog if overridable or none
- 		 */
-+		bpf_log(log, "Attachment flags conflict with existing flags.\n");
- 		return -EPERM;
-+	}
- 
--	if (prog_list_length(progs, NULL) >= BPF_CGROUP_MAX_PROGS)
-+	if (prog_list_length(progs, NULL) >= BPF_CGROUP_MAX_PROGS) {
-+		bpf_log(log, "Too many programs attached to cgroup (limit %u).\n",
-+			BPF_CGROUP_MAX_PROGS);
- 		return -E2BIG;
-+	}
- 
- 	pl = find_attach_entry(progs, prog, link, replace_prog,
- 			       flags & BPF_F_ALLOW_MULTI);
-@@ -1029,7 +1054,7 @@ static int __cgroup_bpf_attach(struct cgroup *cgrp,
- 			return -ENOMEM;
- 		}
- 
--		err = insert_pl_to_hlist(pl, progs, prog, link, flags, id_or_fd);
-+		err = insert_pl_to_hlist(pl, progs, prog, link, flags, id_or_fd, log);
- 		if (err) {
- 			kfree(pl);
- 			bpf_cgroup_storages_free(new_storage);
-@@ -1089,13 +1114,14 @@ static int cgroup_bpf_attach(struct cgroup *cgrp,
- 			     struct bpf_prog *prog, struct bpf_prog *replace_prog,
- 			     struct bpf_cgroup_link *link,
- 			     enum bpf_attach_type type,
--			     u32 flags, u32 id_or_fd, u64 revision)
-+			     u32 flags, u32 id_or_fd, u64 revision,
-+			     struct bpf_verifier_log *log)
- {
- 	int ret;
- 
- 	cgroup_lock();
- 	ret = __cgroup_bpf_attach(cgrp, prog, replace_prog, link, type, flags,
--				  id_or_fd, revision);
-+				  id_or_fd, revision, log);
- 	cgroup_unlock();
- 	return ret;
- }
-@@ -1572,7 +1598,7 @@ int cgroup_bpf_prog_attach(const union bpf_attr *attr,
- 
- 	ret = cgroup_bpf_attach(cgrp, prog, replace_prog, NULL,
- 				attr->attach_type, attr->attach_flags,
--				attr->relative_fd, attr->expected_revision);
-+				attr->relative_fd, attr->expected_revision, NULL);
- 
- 	if (replace_prog)
- 		bpf_prog_put(replace_prog);
-@@ -1702,19 +1728,24 @@ static const struct bpf_link_ops bpf_cgroup_link_lops = {
- 	 BPF_F_PREORDER |	\
- 	 BPF_F_LINK)
- 
--int cgroup_bpf_link_attach(const union bpf_attr *attr, struct bpf_prog *prog)
-+int cgroup_bpf_link_attach(const union bpf_attr *attr, struct bpf_prog *prog,
-+			   struct bpf_verifier_log *log)
- {
- 	struct bpf_link_primer link_primer;
- 	struct bpf_cgroup_link *link;
- 	struct cgroup *cgrp;
- 	int err;
- 
--	if (attr->link_create.flags & (~BPF_F_LINK_ATTACH_MASK))
-+	if (attr->link_create.flags & (~BPF_F_LINK_ATTACH_MASK)) {
-+		bpf_log(log, "Invalid flags.\n");
- 		return -EINVAL;
-+	}
- 
- 	cgrp = cgroup_get_from_fd(attr->link_create.target_fd);
--	if (IS_ERR(cgrp))
-+	if (IS_ERR(cgrp)) {
-+		bpf_log(log, "Invalid target_fd.\n");
- 		return PTR_ERR(cgrp);
-+	}
- 
- 	link = kzalloc_obj(*link, GFP_USER);
- 	if (!link) {
-@@ -1734,7 +1765,7 @@ int cgroup_bpf_link_attach(const union bpf_attr *attr, struct bpf_prog *prog)
- 	err = cgroup_bpf_attach(cgrp, NULL, NULL, link,
- 				link->link.attach_type, BPF_F_ALLOW_MULTI | attr->link_create.flags,
- 				attr->link_create.cgroup.relative_fd,
--				attr->link_create.cgroup.expected_revision);
-+				attr->link_create.cgroup.expected_revision, log);
- 	if (err) {
- 		bpf_link_cleanup(&link_primer);
- 		goto out_put_cgroup;
-@@ -3184,7 +3215,8 @@ int cgroup_bpf_struct_ops_attach(struct bpf_map *map, const union bpf_attr *attr
- 	cgrp->bpf.flags[atype] = BPF_F_ALLOW_MULTI;
- 
- 	err = insert_pl_to_hlist(pl, progs, NULL, link,
--				 flags | BPF_F_ALLOW_MULTI, attr->link_create.cgroup.relative_fd);
-+				 flags | BPF_F_ALLOW_MULTI,
-+				 attr->link_create.cgroup.relative_fd, NULL);
- 	if (err)
- 		goto unlock;
- 
-diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
-index 9627dfc982ff..35f8a71b5786 100644
---- a/kernel/bpf/syscall.c
-+++ b/kernel/bpf/syscall.c
-@@ -5908,7 +5908,7 @@ static int link_create(union bpf_attr *attr, bpfptr_t uattr, struct bpf_common_a
- 	case BPF_PROG_TYPE_CGROUP_DEVICE:
- 	case BPF_PROG_TYPE_CGROUP_SYSCTL:
- 	case BPF_PROG_TYPE_CGROUP_SOCKOPT:
--		ret = cgroup_bpf_link_attach(attr, prog);
-+		ret = cgroup_bpf_link_attach(attr, prog, log);
- 		break;
- 	case BPF_PROG_TYPE_EXT:
- 		ret = bpf_tracing_prog_attach(prog,
-@@ -5931,7 +5931,7 @@ static int link_create(union bpf_attr *attr, bpfptr_t uattr, struct bpf_common_a
- 		else if (prog->expected_attach_type == BPF_TRACE_ITER)
- 			ret = bpf_iter_link_attach(attr, uattr, prog, log);
- 		else if (prog->expected_attach_type == BPF_LSM_CGROUP)
--			ret = cgroup_bpf_link_attach(attr, prog);
-+			ret = cgroup_bpf_link_attach(attr, prog, log);
- 		else if (is_tracing_multi(prog->expected_attach_type))
- 			ret = bpf_tracing_multi_attach(prog, attr, log);
- 		else
+ 	mutex_unlock(&display->backlight.lock);
+
+---
+base-commit: 419bb0e4cadd214a0847010c02ade95e5fc511f7
+change-id: 20261114-i915-acpi-backlight-display-off-6c13e114b09f
+
+Best regards,
 -- 
-2.55.0
+Alexis Calin <alexiscalin@protonmail.com>
+
 
