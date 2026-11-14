@@ -1,67 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794692479;
-	b=YWCpvCF6OH4QBrzD/LHVwm5a7NidrNDJVKJDzC0+QouJsdYQLoydhA1ykFb2vV01ZXfX
-	 OSiYsKk0COLwX7i81LN9AW9Ank4jo7kglgE94FESm+MgoKvqtEFq1ayOpeFj3iFojTNoH
-	 2z3wdygjbNkKkWAwDJ1rg6nJzF2gdyv3pg4nMoAHlEy3Bwhsu/bTKH3Sl3jy6MzwdhiUC
-	 rGyWsA0FjzyKQaOajH4wmb1YdZiAYBaIHAL7UEInbOzaFyLrYt4N+4SfF1yDE0Fifv5Ec
-	 05qTppxoTIogVgPy09+NQoSjlkZ9UTGe4oO8yxUlajRxq2TFSvBW2ayD3PSV0Bg2yoQ==
+	t=1794692606;
+	b=NlmZA6AJB34vlqks9slZbSD+gxII44LVZ4s+WNdY1ecensAFPeHcuRFjzJ40TtzCWVgF
+	 0/OgHXzzUQGZ02d5twpNU76s4vAFlQPIrAF5SYxGvRIvLeOrtnvQlp59fIMG4pIGPi7Nd
+	 hbIjE+BljaSVrhyepr2yH6rCEB6KJeLGnfXqpY4nJKiTnCZbNE9DnoE8BProO1kWIreCk
+	 Dx7HuAL13d+ECg0QrICY0dKFZ50i+TQfog5UvDVvFkgWJk4UCUZbV3lGekikdhcYN1tEB
+	 GR30Up98ph8P47wM2l6GQqLU4dGE6bwrMPII6lKv+ehh9igK+vWhCROF3zKcvIipYeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794692479;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Debian-User;
-	bh=PFIGH9xbJu42gTzhSh+10H3tdpe8wRFXEMg195TmgLw=;
-	b=KJUpVpXwEf/2RMDJJHtZlanX8hHEmQO8ZI+CKAx+PcGnUUER5ioPJJ51IkcVfb8JWypV
-	 RGGxEbVY1psaBOMdGHxrSiC0uZWAPb6wA4e/TPaM1QNqlmdIRceM5yT321Y7b70H2KCrj
-	 9Ug9QIFpZACdAMWIr10FIZKaBHOyK2s2a0goQs7SqNUZJjCuJuEvcTbvY2ChSDjMiH/16
-	 YRbw7ACFJ8s7IcrW2/IxttIncPtlH30CPFIf3fMU1ybMhSxofnbm/3sqI2sJkL5oSg/fs
-	 dEb8GNyNbO12vtii2jshh3aZD2bhTPfJH/cCb/uoWBrQaoXeWTx9UuXVUWPh3IDysQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794692606;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=cH6JbwG5VdVbgmYxnv5oVF/9GrHOQI+8CfDJ0kv7PUA=;
+	b=kHWpPkjJLU3gJZ5x9sl1Ll+14lmhu1i4qCgb3eRBowxotKzPdUK14QIZTe3x5y5Pb8iA
+	 uMqQjFveN5G4ZA7w4DmfxGg3yQhyEmP63JXyYXEdhZ8cxq2/xS5KsSpqJUb8ueyLVlw8y
+	 3WblMyZW87ncY/TYpYDizgE4TTTRlyr7ZM0ebRX1qZ4jeZ7Om/opVMoXI6W/hvehWFr8B
+	 QS248SakbC5kd7Vozt4pTVDGKJyAiNP6b883IiwS7VFCdFqoknoj1n6PEX+yDFHQ2m5v3
+	 kzgGIQiT6APUGL0oMg4S7pMigAoqa7AzEPKuML/FlhCNxjd1u/685kai/zTJE8qInsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=rHh6XbQA;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=xSx5SLpv;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F215C606A329;
-	Sat, 14 Nov 2026 21:41:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F215C606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41D3E606A327;
+	Sat, 14 Nov 2026 21:43:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41D3E606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=rHh6XbQA
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Content-Transfer-Encoding:MIME-Version
-	:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To:
-	Content-Type:Content-ID:Content-Description;
-	bh=PFIGH9xbJu42gTzhSh+10H3tdpe8wRFXEMg195TmgLw=; b=rHh6XbQA/RI5TDfB4ANIAVU99T
-	8SxOdgQ2Xrc2FMfFd/zOaPXTgxuog1XjZfZT89i2fknHAMFZLEuC0tcrSvIsU1yo4HjIG5fqiO28r
-	eVB5RJ2vFnoENGOI3z1pvrm4lPSMfKHMjto1tqqQT+yler4WpVroRE0H0c931hvLDayMOI0NmptRr
-	0WilUyDpg/w9DMVZs+pGDxAIZBdVWPNfa5BiiQ90ZidgECuey0iXr3WMCHFahxXXAFUPPFLopdx56
-	CTDnpo1qVetoihoPaU4r+SF4Pb4+B/rViiFA13C2W88gbq88qCcxksfffFDndXdl+lWZQM0HPGKjG
-	Dopb5BjQ==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <emfox@debian.org>)
-	id 1xSLUo-00FqAY-0N;
-	Sat, 14 Nov 2026 21:41:14 +0000
-From: Emfox Zhou <emfox@debian.org>
-To: Even Xu <even.xu@intel.com>,
-	Xinpeng Sun <xinpeng.sun@intel.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 5/5] HID: intel-thc-hid: intel-ipts: document the IPTS mode
-Date: Sun, 15 Nov 2026 05:40:26 +0800
-Message-ID: <20261114214026.2809740-6-emfox@debian.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261114214026.2809740-1-emfox@debian.org>
-References: <20261114214026.2809740-1-emfox@debian.org>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=xSx5SLpv
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=cH6JbwG5VdVbgmYxnv5oVF/9GrHOQI+8CfDJ0kv7PUA=; b=xS
+	x5SLpvGAqlh1hwZaJmIRl+4srILdtM9vk9LXzX9xFmbtBhtg2w/EVOdekoFG7M7lHkaczM8gY/Whh
+	Bq/Uzntm7EL+Fy3IUijezIUy0cWXs5G/KB81U3+anUYS26P97QDiBldTIAo1ILh1HVntdfvXyKVWE
+	u9V7HK9VF2yfhVI=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xSLWh-00GXUs-DW; Sat, 14 Nov 2026 22:43:11 +0100
+Date: Sat, 14 Nov 2026 22:43:11 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: "Neeli, Srinivas" <srneeli@amd.com>
+Cc: Srinivas Neeli <srinivas.neeli@amd.com>,
+	Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Michal Simek <michal.simek@amd.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Eric Dumazet <edumazet@kernel.org>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rt-devel@lists.linux.dev, git@amd.com,
+	neelisrinivas18@gmail.com
+Subject: Re: [PATCH net-next v4 1/8] dt-bindings: net: add Xilinx TSN
+ Endpoint Ethernet MAC
+Message-ID: <ff25f481-3ea3-441c-826e-75c22b47fac3@lunn.ch>
+References: <20261113-patches_v2_external-v4-0-56bb26f042a4@amd.com>
+ <20261113-patches_v2_external-v4-1-56bb26f042a4@amd.com>
+ <13864fbe-6cd1-4d70-afee-bd3d3be163f3@lunn.ch>
+ <4254be1a-f80e-4389-b04d-9fd10c1b77b7@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,126 +82,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Debian-User: emfox
+In-Reply-To: <4254be1a-f80e-4389-b04d-9fd10c1b77b7@amd.com>
 
-The THC documentation only covers HIDSPI and HIDI2C. Ports from before
-Meteor Lake run in a third mode, and the intel-ipts driver is
-written against behaviour that is not described anywhere in tree.
+> > Is this a synthesis parameter? No other switch that i know of has it
+> > in DT. The driver hard codes the value based on the compatible. Why
+> > does that not work for you?
 
-Record what the driver depends on: the layout of the configuration
-block, the frame codes and header sizes, the bulk data window, and the
-order in which quiesce, interrupt configuration and the DMA engines
-have to be set up.
+>   Yes, MAX_LEARNING_ENTRIES is a Vivado synthesis parameter of the IP
+>   (256 to 1920), and no register reports it
 
-Signed-off-by: Emfox Zhou <emfox@debian.org>
----
- Documentation/hid/intel-thc-hid.rst | 95 ++++++++++++++++++++++++++++-
- 1 file changed, 94 insertions(+), 1 deletion(-)
+I assume that will be fixed in the next version of the IP?
 
-diff --git a/Documentation/hid/intel-thc-hid.rst b/Documentation/hid/intel-thc-hid.rst
-index 8b378c57..0f6328aa 100644
---- a/Documentation/hid/intel-thc-hid.rst
-+++ b/Documentation/hid/intel-thc-hid.rst
-@@ -590,7 +590,100 @@ To debug THC, event tracing mechanism is used. To enable debug logs::
-   echo 1 > /sys/kernel/debug/tracing/events/intel_thc/enable
-   cat /sys/kernel/debug/tracing/trace
- 
--7. Reference
-+7. IPTS Mode
-+============
-+
-+THC also supports IPTS mode, the private Intel Precise Touch and Stylus
-+protocol. The port drives the touch controller over plain SPI and moves the
-+data through the same DMA engines, but the framing is private and the
-+parameters come from the controller itself instead of ACPI. The
-+``intel-ipts`` module handles ports in that mode, which is what Tiger Lake,
-+Lakefield, Alder Lake and Raptor Lake hardware use.
-+
-+This section describes how the driver uses those ports. It is not a
-+specification: everything below comes from observing the controller and is
-+limited to what this driver relies on.
-+
-+7.1 Configuration Block
-+-----------------------
-+
-+At SPI address 0 the controller exposes a 64 byte block. The driver reads it
-+over the PIO path after releasing the controller from reset, and retries
-+until the tag ``$TIC`` (``0x43495424``) appears, because the block is only
-+partially filled while the controller is still starting.
-+
-+Fields the driver uses:
-+
-+======  ==========================================================
-+Offset  Meaning
-+======  ==========================================================
-+0x00    pending interrupt causes
-+0x08    buffer sizes, ``(size / 64) - 1``; Rx bits 13:0, Tx 23:14
-+0x0c    touch engine control, writable
-+0x14    controller tag, ``$TIC``
-+0x18    SPI timing the controller asks for
-+0x1c    vendor and product ID reported to HID
-+0x20    product revision
-+0x24    firmware version word
-+======  ==========================================================
-+
-+The touch engine control word carries an enable bit, a bit asking for HID
-+reports instead of raw data, and a three bit power state. The driver enables
-+it with reports and full power, and clears it again when the port is shut
-+down.
-+
-+7.2 Frames
-+----------
-+
-+Both directions carry a code and a length in front of the payload. Frames
-+from the controller use a 64 byte header, frames to it an 8 byte header, and
-+only the latter has the payload padded to a four byte boundary.
-+
-+==== ========================== =======================
-+Code Received from controller   Sent to controller
-+==== ========================== =======================
-+3    input report               set feature
-+4    feature report             get feature
-+5    report descriptor          output report
-+7    reset request              get report descriptor
-+==== ========================== =======================
-+
-+A report descriptor comes back with eight bytes of preamble that the driver
-+skips.
-+
-+7.3 Data Window
-+---------------
-+
-+Bulk transfers go through address ``0x1000`` of the controller, not through
-+address 0. The DMA engines have to be pointed there explicitly, otherwise
-+they write into the configuration block and the controller drops the frames
-+without reporting an error. The input header address is zero: that is where
-+the controller writes the interrupt cause word, at the start of the
-+configuration block.
-+
-+7.4 Enabling and Flow Control
-+-----------------------------
-+
-+The port has to be released from quiesce before the controller will send
-+anything: quiescing gates the whole data path, not just the interrupt. The
-+interrupt configuration programs the interrupt type field in the device to
-+the invalid value, and starting the receive engine then replaces that field
-+with the type it expects, so the two have to happen in that order.
-+
-+The controller starts streaming once user space asks for it, through a set
-+feature request on report 5. The driver does not do that on its own; the
-+daemon that opens hidraw sends it.
-+
-+7.5 What Is Left to User Space
-+------------------------------
-+
-+The reports carry heatmap data, and turning that into contacts is a
-+substantial image-processing job that already exists in user space. The
-+driver therefore stops at the HID layer: the report descriptor comes from
-+the controller and is not written by the driver, the report stream is
-+available through hidraw, and ``iptsd`` decodes it into input events.
-+
-+8. Reference
- ============
- - HIDSPI: https://download.microsoft.com/download/c/a/0/ca07aef3-3e10-4022-b1e9-c98cea99465d/HidSpiProtocolSpec.pdf
- - HIDI2C: https://download.microsoft.com/download/7/d/d/7dd44bb7-2a7a-4505-ac1c-7227d3d96d5b/hid-over-i2c-protocol-spec-v1-0.docx
+Are there many other synthesis parameter which are not exported in
+registers? I just want to get an idea if this is a one off, or you are
+going to add lots of DT parameters in the next set of patches.
+
+>   The number of ports is fixed by the IP. The switch always has two
+>   external MAC ports and one internal endpoint port, and no configuration
+>   has more external MACs, so the binding never needs to grow another port.
+
+And that is signed off by top management? The next switch you design
+will be a fresh design, no reuse of the existing IP and will require a
+whole new DSA driver?
+
+>   The switch node follows the IP's register map. The switch fabric and the
+>   two MAC blocks are separate register windows of the switch IP, and each
+>   MAC window also holds that MAC's MDIO controller and PTP block. The PTP
+>   timer interrupt is shared by the whole switch, not owned by one port.
+> 
+>   For these reasons I would prefer to keep the per-MAC resources on the
+>   switch node
+> 
+> > 
+> > > +        switch@38000 {
+> > > +            compatible = "xlnx,tsn-switch";
+> > > +            reg = <0x38000 0x8000>,
+> > > +                  <0x00000 0x14000>,
+> > > +                  <0x20000 0x14000>;
+> > > +            reg-names = "switch", "mac1", "mac2";
+
+I ask, because it would not be too hard to swap this address map
+around, put the switch registers first, and then the port registers,
+and you could have as many ports as you want.
+
+Back to what you just said:
+
+> each
+> MAC window also holds that MAC's MDIO controller and PTP block.
+
+So the MDIO controller and the PTP block are MAC properties, so should
+be inside the MAC node.
+
+> The PTP
+> timer interrupt is shared by the whole switch
+
+So that should be at the switch level.
+
+	Andrew
