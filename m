@@ -1,13 +1,13 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794626919;
-	b=cErR9vY8BHaxWw5xQ9cUd2FzIqzDz8iMbeKYXifj6xL7kRB5R+fhqwAX9ZPeoB91kOaH
-	 azN1Lga3O5UDg80eM//D5oLXi3Yq8DERMMCG1NuPqGkfnHFXn1yww7h/Y9Tm29XUE/55/
-	 nyERLBiOFmk6x/FA8jfuSsumwP4IBlVCipAWOtjbEs7F1owyfzzt8bjQ6Fk5R+iOwtKkT
-	 An3Il9Ou9FDC5Wj5VZ8oLer9k4TrZRZcPu3UpljTr5IvjCIEMM0LCV/armPDBzH2v6XGP
-	 iK7c59NdVW5ggaxE4720892vPRmWoTCZtn+J4qIhsSsAugrvLRuQKDohlM5vvgWFx9Q==
+	t=1794626934;
+	b=nMozIKbFe8fgs9ImuDOaZ5bMd5jM9+ZHJz+DlVbtCmbs+DCtWMmWkw2E7NErwlMGvF2z
+	 qopipzsxNMMoHxcX4SJAYklBe/NZIrvFrJ8YGkAJPL6hxCkk+IHUyq1Ios7EKVXTXFLUt
+	 uW6LXByEQ1fYlZnns7PXgQiT7KdJRtpZw4oUO/h+e+FmqfEezaWOSIewU/8ShVIra7JLt
+	 04hrpFyKNHngah31Z05ZXbZ8jnXD5zq4rujHn8oa8vaXwW7Q6PwMrlni3oKJIGZYJNgZV
+	 0Alk4U9SMIWjI9+9DRdk293jqXBD8wi5DRNLRH0Se4Fsc3KOksNDab6X1lk+slP0AnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794626919;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794626934;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
 	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
@@ -15,88 +15,88 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
 	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
 	 X-DetectorID-Processed;
-	bh=0aFiTUHaLTX8K/bOcttDkw3JirpRVRPGu7AleeYbx/A=;
-	b=LJkOV+MIDneYE4IsehIHLCfiNjnZ7ZZJ+Qx31KGb1mdf0mGij7mENeTFlwmAsbXaAoBL
-	 JKyjq0kUMGMRoksub7rG4vEh0XWnR2NXSG0WboHnRE3XdqLZgbg39tkoOUOfvPubzZFnQ
-	 ObWrgDW2uMQT4Y6BtFMspOGOF2ljmgzf+8q08nPHa1YJL+KkDqzAfyHEaRbQ3b5wkjqKt
-	 CVKVQug6s2GDY84LYH8xvq1X5izoVw870bh4J3LEJ15/NSN6VwJwK4KVpkAWFVwFYa8ao
-	 fcjJg8vfE73Gineb27yBMNBaAG9up9m+OhFB+4G8D4tHyxMs8p7RJYQVBYIMDsPYlcw==
+	bh=G905XYAjc6fuP5+esWv3pY8cINFOYDYWIQYBCDdTSIM=;
+	b=YnCPL8O1CrDi2xJ2LPIaM/guO2DqZPgYAKozQ896LlEV8ck95HF8sYBhy8nKCGj6yXP6
+	 1XJH1REfx59D/uzkw6NzguSRuXmO5bWO50O7NHU+ujQyJGQnIC8dPdvqw/xcpjLg0bFW7
+	 PM28zKnstpCN3SUIN1HtEX5cgOM2uveQNXSdBIKs0jLhMus4VHBprlU/kg92Xy5Pc1avd
+	 TJbZA2wK48rn/fvkaex4NyY9p3JBoAXWOi72IHd4Z+76zhLjax4dEfWHnVQ+0ij1IgpuO
+	 CJvGIIgvV/bxGbfdtTE7WoKqEaT/u70bFMwPasWdKL/03T7CzQKkHnMiUslABbG9KNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=broadcom.com;
 	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=HHTW2NCS;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b="dKt/qZ+P";
 	arc=none smtp.remote-ip=209.85.216.97
 Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com [209.85.216.97])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5B89606A330
-	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:28:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5B89606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9811C606A894
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:28:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9811C606A894
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=HHTW2NCS
-Received: by mail-pj1-f97.google.com with SMTP id 98e67ed59e1d1-3b0b3754f57so1281753a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:28:37 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=dKt/qZ+P
+Received: by mail-pj1-f97.google.com with SMTP id 98e67ed59e1d1-3ae7626d14aso852092a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:28:53 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794626917; x=1795231717;
+        d=1e100.net; s=20260707; t=1794626933; x=1795231733;
         h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=0aFiTUHaLTX8K/bOcttDkw3JirpRVRPGu7AleeYbx/A=;
-        b=tkep9p07oUqlXkh416wFwNMlkxfuk8HUq6MV0QCJcjQwe5J1JFfYUKeUTIAUhUavO5
-         6orgTZLNNhbAK6jASMAXJDScDNHtxUC0bQ3RdcSeg0sIU5O0EMAY+b8VgT+tGGScvL/M
-         XYdeyxC6Go8JqaxEg+NwY0UsS7DOzLrKPWcolq0DgHN8w7a2qI/1/kRKhOAXrwi2LxIG
-         SkmVgeeZTAGrDziWROGtCrsOhwv/5Pg4nnGutYws8nv5lCQ5WICyyIyyj3CvWxoh6i5D
-         OAH8l3eDqqig8QAPQAbWLWEqEwC8pDMpanAY2ak6s0yL1iyseaxJg7f+EtEs4r1F8ZOg
-         hkYA==
-X-Forwarded-Encrypted: i=1; AL+hErEwyyKK29H0nfgQ2dtsLHsJwVfFKepOP1o0oDHbtuxRQ769IYWKCC32tv8vLde3U36/FyxbKb1rnURJWec=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9HZ/ksSJseBD2cY2d4X9D1bbTo4LnFSWxS9oybtUAeIXKA680p
-	fCoce0C7VnxEElV/InBLZDJfbyuh1/P0jsfH4JdbVHImnfj1feIrXYbRErmnB4m+xPiUS1xWfyW
-	n45FqraYYcU7HD7mq6b0N/Rb2m0YLNwAGLRcfhr8VSPAoXB8nGiUb37zh0lWewN763UrjI0YA5+
-	dLC3KIjE0jl/vWCrQUC+zhIZbTvhoAbX/ZH2PjAMNk6aspG+TzURQ1aY8jlHU0rt0+R+4sRGFnM
-	qBbanCnFvkZsQSCZn8qj0Qd
-X-Gm-Gg: AYBFou20vNI8aFU6SCC8Y/WJGRsNgdOnA0L/yAGQ2nB/33ztOZqy/ZvMGMrF5+ol9hp
-	985stLyk8H6c9Iy8Wv0aRvFQyJqpVP2MQ1hYQJ9w/5oGLj6W/b8MtXgnbYwVE1Pqq69D4p13zPr
-	GcmCgfCacVI74m2ogSZthPxvk0K1hWJ9aRw6DQl3JJ3rxRW4awr0e5i3XeLY/4Y8M09m4LIiAT1
-	i6yO/+xVPwsJ6QaawdWJVXx0ldKxKZYbNt6IRC/tjnmONOIzjpUGjCw3lgQ8L3rJnH21rpYzY9V
-	0nNr8gzvDMkpYUPsJIREwfjyFs0iwiQXL4p5gri1ny98+fYBA0qR2XRwAIoem1ekwfhNmCj8uCO
-	5pYEsO2BnJh1eha5C7Z9CqSP4Z/fNDAQv5vQ4U01InBnewDKx71s5gM0z8+oLXnrSJVUhOjoxAl
-	96YjXcYxHyc6HoxsqokEdVZd0tI1BkhwAMnixXVd/o
-X-Received: by 2002:a17:90b:8c6:b0:3b1:b66a:c05 with SMTP id 98e67ed59e1d1-3b1b66a0d23mr2332160a91.14.1794626917355;
-        Fri, 13 Nov 2026 19:28:37 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b197cca680sm9266309a91.6.2026.11.13.19.28.35
+        bh=G905XYAjc6fuP5+esWv3pY8cINFOYDYWIQYBCDdTSIM=;
+        b=kUcKBqWzxB+ogm81duN3fWcl4nOpvRQYeVtsAtVsQaPObLoXzjhGZOpnccnfExdviJ
+         euGkSTqJapqJ+OHTlBspjLD4aAW7jUbj0DAURrrxU363qKEotv7nFTuT1DogPrEslVbR
+         C5FoihNkj4DkH2g1N13XJ5ccM5m4WfpQtT01M+sz4jg3RiRllcfd4bpFGX40+Ww9dSPn
+         FPsRbyTfgXNkfQkY9FHAadXuM6FDWhhcJubFJv4FP3ZJrcdA2Bq5AFYrdkGAmLs4v13C
+         erGFuW9/86Cfk/STg7ljBHt9kxKWKt4cU5LMN3qyH0ydqlRxnUSnNuExDUgOcpz0v3fG
+         xSOA==
+X-Forwarded-Encrypted: i=1; AL+hErEe+HTKqj3j+RPA6jvlDGSrIKZBz7YPrEOr+IlHzNnHDbCmX5NdcGy0UDDis5evCCmioz27mEI9R26caR0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+/pCoQQrr9Sw10FMreW0Wgfpo5WJJXQAKHk65JQjGPwlst7kvQ
+	elrPcWsIEFPfcxCm2pdqkVI0I2zTpCCcp3RXLLO3Nt4NwJ84Pf72cFW/JglKoUOX3bVJXHZ/XH/
+	65D10/GK0eGqnXxfaLqv4KdmP4FkWysFNXjxMZwPviT/t1wJ2aOSUsz7A/ukIsL1mlODr/a54bU
+	PvY6GYjC2nv89O/HqLqIGG1nq6qT/IgbDLrM73vuwZUFtNizwdOOXncUfil8QYaPAQkvH+p7RWn
+	QxremZydOy95TGP+UzaqWjo
+X-Gm-Gg: AYBFou0/WHbDOPOSgIJjopEHelLwfJBvishNjg6QkyJAzid75i/DwMaJDlIKRWvi0rd
+	0fcja5h6rwtVHPjd793KuGkOvYLudAKC2KsWrV3Kj0ejicXcAKU+KaSaMW2uZaxScyFu8CJGkiL
+	9xQcLgmrJEA+tFBICqDX1DHXJfPuodrarIbSKk1VXRYZbnPeviV4qYws3Ajec4enizzZFb+5FdE
+	BhKNiayqGBPcxz2ZEk6MVKQGYo5DHVZRiFIc1aYto9JXD2gT9mZqXtkfgNxSRMhQzl7E1RYQVri
+	HO5NfaFrr/Xk1yBwcl9Rkwk+EeKu4xhPAmg4jtXz6237BmORIYbYyigMNApElzamVkbg3+zIEsx
+	nv+F14+DzNbE5VC8gqpHJgs5SA08ovX1p8oVt7sYHzl6Hqyd7gkk4TxMVoo9OiyOlbeUWJgaCDP
+	2WPkd+F/tbqpb1UnFFuEKKZTGlanyOWx4IE9l73r5t
+X-Received: by 2002:a17:90b:52c5:b0:3b0:d551:ab2 with SMTP id 98e67ed59e1d1-3b1b0b5d61cmr4406872a91.51.1794626932911;
+        Fri, 13 Nov 2026 19:28:52 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-26.dlp.protect.broadcom.com. [144.49.247.26])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b1b24cf7ecsm3083310a91.2.2026.11.13.19.28.52
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 13 Nov 2026 19:28:37 -0800 (PST)
+        Fri, 13 Nov 2026 19:28:52 -0800 (PST)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-36fa5673fccso3801928eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:28:35 -0800 (PST)
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-1383723dfddso1827963c88.0
+        for <linux-kernel@vger.kernel.org>; Fri, 13 Nov 2026 19:28:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794626914; x=1795231714; darn=vger.kernel.org;
+        d=broadcom.com; s=google; t=1794626931; x=1795231731; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0aFiTUHaLTX8K/bOcttDkw3JirpRVRPGu7AleeYbx/A=;
-        b=HHTW2NCSYd6mZpdRblwRPNGaZqpLzXept186dMoenx9TsxKrupMqDKUCKAYhWjRFbm
-         7T6esF2TJbfiDoX8k3ZsiRp6cWiL4rj7mcJ7x6TiPX2BjgGkr7TuRvyfUzhn1naYBBLV
-         5nQQP+WgTZPsK4j9G7eqEcrRTr+Y5OwjVFplU=
-X-Forwarded-Encrypted: i=1; AL+hErFO4I341vhcRqZinkdK9JyxOpgMwWzn3dA6jQYfgK3wLXTeHLy/Wp0PiE3mm/AP1mE5ku/+O3k9wtfKJnk=@vger.kernel.org
-X-Received: by 2002:a05:7301:4d16:b0:36a:1d6a:596b with SMTP id 5a478bee46e88-379675feb32mr4186736eec.29.1794626914330;
-        Fri, 13 Nov 2026 19:28:34 -0800 (PST)
-X-Received: by 2002:a05:7301:4d16:b0:36a:1d6a:596b with SMTP id 5a478bee46e88-379675feb32mr4186687eec.29.1794626913548;
-        Fri, 13 Nov 2026 19:28:33 -0800 (PST)
+        bh=G905XYAjc6fuP5+esWv3pY8cINFOYDYWIQYBCDdTSIM=;
+        b=dKt/qZ+PwIgUmb8M4r9pGTfb6iaeSmZIMyxtuaDYwxdLiSQWnJZ2SIsmsmeDEck+rM
+         BrDwIuJILXQv2iJxEiMXa/q0tTgX7X7qLw2oNgVXLpeGgKqVSnZCb//6dci+ndzyGPYc
+         x63LDZz81NAn2v9WZRNGKN1cauP4KwtkkZgs4=
+X-Forwarded-Encrypted: i=1; AL+hErGNHYo48UMpQLF2KBaZJzSgL2vwy4yvyhz0sdh2AbtxifGDi4xy0ds7UZYRw200Vw+bfvoKEFjrNkHJqNc=@vger.kernel.org
+X-Received: by 2002:a05:701b:208d:b0:136:c443:80e5 with SMTP id a92af1059eb24-1b5030555a6mr3611164c88.6.1794626930875;
+        Fri, 13 Nov 2026 19:28:50 -0800 (PST)
+X-Received: by 2002:a05:701b:208d:b0:136:c443:80e5 with SMTP id a92af1059eb24-1b5030555a6mr3611139c88.6.1794626930062;
+        Fri, 13 Nov 2026 19:28:50 -0800 (PST)
 Received: from [192.168.10.3] (ip70-187-214-22.oc.oc.cox.net. [70.187.214.22])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955332ae7sm19491820eec.8.2026.11.13.19.28.31
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d07b3sm11190793eec.22.2026.11.13.19.28.48
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 13 Nov 2026 19:28:32 -0800 (PST)
-Message-ID: <ae30799e-e027-4664-863d-aa0ebeeb05ff@broadcom.com>
-Date: Fri, 13 Nov 2026 19:28:31 -0800
+        Fri, 13 Nov 2026 19:28:49 -0800 (PST)
+Message-ID: <425e74b9-11a6-45b7-8bd6-c3fa6c66076e@broadcom.com>
+Date: Fri, 13 Nov 2026 19:28:46 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,8 +107,8 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 02/11] platform/raspberrypi: vchiq: Store audio device
- in driver management struct
+Subject: Re: [PATCH v5 03/11] platform/raspberrypi: Add VideoCore shared
+ memory support
 To: Jai Luthra <jai.luthra@ideasonboard.com>, Stefan Wahren
  <wahrenst@gmx.net>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
  Phil Elwell <phil@raspberrypi.com>,
@@ -119,9 +119,12 @@ Cc: Martin Wetterwald <martin@wetterwald.eu>,
  Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  Kieran Bingham <kieran.bingham@ideasonboard.com>,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, linux-media@vger.kernel.org
+ linux-rpi-kernel@lists.infradead.org, linux-media@vger.kernel.org,
+ Dom Cobley <popcornmix@gmail.com>,
+ Alexander Winkowski <dereference23@outlook.com>,
+ Juerg Haefliger <juerg.haefliger@canonical.com>
 References: <20261112-b4-vc-sm-cma-v5-0-d25e3b687e71@ideasonboard.com>
- <20261112-b4-vc-sm-cma-v5-2-d25e3b687e71@ideasonboard.com>
+ <20261112-b4-vc-sm-cma-v5-3-d25e3b687e71@ideasonboard.com>
 Content-Language: en-US
 From: Florian Fainelli <florian.fainelli@broadcom.com>
 Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
@@ -156,7 +159,7 @@ Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
  MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
  7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
  95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20261112-b4-vc-sm-cma-v5-2-d25e3b687e71@ideasonboard.com>
+In-Reply-To: <20261112-b4-vc-sm-cma-v5-3-d25e3b687e71@ideasonboard.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
@@ -164,17 +167,38 @@ X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
 
 On 11/12/2026 3:18 AM, Jai Luthra wrote:
-> The VCHIQ firmware devices are not discoverable, so they must be tracked
-> manually by the driver. Previously, the bcm2835 audio device was stored
-> in a static global pointer.
+> From: Dave Stevenson <dave.stevenson@raspberrypi.com>
 > 
-> Move the audio device pointer into struct vchiq_drv_mgmt instead, so it
-> is properly associated with the driver instance and lifecycle. This
-> avoids global state and makes device registration and removal follow the
-> platform device more cleanly.
+> Add support for the vc-sm-cma driver, to enable sharing of contiguous
+> CMA memory allocations with the VideoCore VPU on Raspberry Pi. The
+> driver allocates CMA-backed buffers, imports external dmabufs, and
+> manages their lifetime via VCHIQ messaging to the VPU service, ensuring
+> buffers are not released until both the linux userspace and the VPU
+> confirm completion.
 > 
-> No functional change intended.
+> VC4 can only physically address the lower 1GB of RAM and requires
+> buffers to be mapped through specific uncached address aliases
+> (0xC0000000). Thus, standard CMA could not be used as it has no
+> mechanism to ensure allocations are visible and valid to VideoCore
+> firmware, or handle cache flushes as VC4 can't see ARM's cache state.
 > 
+> The vc-sm-cma driver bridges this gap by allocating memory via CMA on
+> the ARM side and explicitly importing it into VideoCore via VCHI.
+> 
+> This driver is primarily used by the wrapper V4L2 drivers for codec and
+> ISP, where firmware running on VC4 does the actual video and image
+> processing, while the linux userspace interacts with standard V4L2
+> driver interfaces. For example, the ISP driver populates large
+> lens-shading related tables for a particular camera setup, and uses
+> vc-sm-cma to share this buffer with VC4.
+> 
+> Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> Signed-off-by: Dom Cobley <popcornmix@gmail.com>
+> Signed-off-by: Phil Elwell <phil@raspberrypi.com>
+> Signed-off-by: Alexander Winkowski <dereference23@outlook.com>
+> Signed-off-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
+> Signed-off-by: Juerg Haefliger <juerg.haefliger@canonical.com>
+> [clean-up for mainline and switch to xarray instead of idr]
 > Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
 > ---
 
