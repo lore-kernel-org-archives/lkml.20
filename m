@@ -1,62 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794655539;
-	b=Y95IwmWbZUMLev0C517UCBHs6FBH0qTupKKGpB5/dYa7r3NaSNZMlgl8OnhHIEzzm+0W
-	 tiPPAuNjulGl4MDL1qKQyNjy5l+9ziW7f3h6FQtarqUUYnNzCubtLJXvk07stO2iQHh/G
-	 yd9xh5b+tkS1Hd5YB4gTt8gz8IziARdvVqS25NiLN3a6eLEsNsQYNXKIgN1B+VPcd83lR
-	 ggH4F+hOLJTIruKKWuFjXe8/d0YRfGDXuVyJLb6ssWRhI7FnP7nq7GWljXBErDDryZpae
-	 cJov8XRrIroUWaqFcupq3F3zqovktylCzNhqTJrn2bWtbtqaNn9BoMVgoj8HcdYcVng==
+	t=1794655551;
+	b=vFqCkmnVdMawm3VMjbBaHDkdA42GcxtVTuJ1/yh1+3eb7Gb7ER3l2QO/XQVZEcLCeCpw
+	 /8La2pwqtcLJblQIL+DEfW3UdX9/fAkbMHTLXhE7KyyGbPEj0ZtJNKJSpu6TXQBnEfHH6
+	 VKAkL62D8FbwMW/OU//1vLh1k3nmBQ1ohACESy3jXE7NfTdm+zdbKqettHX9Pl+lly7bI
+	 FPfwvA+1QLxX7hB1Eep4yB36+Yv5a9bMcAprEBNghehkcNbHoxOmjwNAXbJyB4c7HlmhI
+	 Vg3gBHLLHqb4DV3Nlcl3fQxytAiecc5hQbWjaZUCtiVBhYBwjstG+AOw7w7ALp63kXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794655539;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=4eKOGVbqcbO2J+lZ/HT16uw5nka7xe8u+7fHYo1uQRQ=;
-	b=c9dNphCbhCfdZhWVVNk7XcIp2sXYIYnc04lvSkytIHGiRPxWGKg3wRdxusdfR3UXNvIi
-	 jRGYJhmpXUMIc7pP9gJ1xF3aNA93XmkAhhuO/Htm+PiBPrv2BAnX1WezhT3J0MV3Q3shq
-	 S0i3T4jTAVUjdVy08mFMiIUrkT0id4vi/JsciWZGg81uFavT2cX3McBn9dk/c5OJC9e4i
-	 9jY94iMQy2MHMgRIjIMjDQVoWdWuBqUj6bmlUYg2QWyEoKYuJE8z9RfKx31wdJ6/Lc227
-	 sWc6J+LBdQh4pHToNlgYMUf+8bzUYEePw9VqezpvMGXqz7uwJcqvEnM2RW4DBJOcyuw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794655551;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=YbMVc5P0tRqN8v0ioLIphiBpTqOVDwdaBT3lngdtRCc=;
+	b=oP8FyYyKHand86TuwRlGjQ32bU7OKiX9UVIa8T0qqbZYCdvRhxI73c7prr1w+hIlFeQH
+	 C7kzxn6sOOTQd8IG0iQl1DZ7decen+Kd0mL/dHCJoC8iOePtQ0CcMNJH57kYzDNSKuWul
+	 b/6TO9FT1WSwDVbPYTOA+tOzVHA0ssH1/vRMLm9r8u/p0uWFV05k6o2wfig7/Hqvvhnpt
+	 lvKcn+vnr+hlInFaRjj2hETYL2wkFzs4a7V4dtkmBgy7Zfk4sdCgrDkBmT1L9TPZyBkjO
+	 IKqaPiaiMhCVfiRkQCthmOj0FTz+Ebgk2Yj3gqV5dZKGDutnyLGxOporQCIp1JSE8AQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ftop1jhn;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=ewPmq7Yh;
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC7B8606A33B;
-	Sat, 14 Nov 2026 11:25:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71F2E606A329
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 11:25:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71F2E606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ftop1jhn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D71A1F000C4;
-	Sat, 14 Nov 2026 11:25:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794655539;
-	bh=4eKOGVbqcbO2J+lZ/HT16uw5nka7xe8u+7fHYo1uQRQ=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ftop1jhnfpGxoXOk5SafmD7l5cno+NOfBuh2yQnjhuUFaLB7KH0iYmilpAkHVnRyj
-	 i5zW+d9+caDvJ7dRwAmcsbwX3ajSem669v/yJlIjieGxsiM16tSkCh8FSodQ5A6cki
-	 +VRVFP0jsLYyZK8kV81+PcHk5dd6a6PHNYlWXlFB5VMJom1fY0pNqaCzQtjmFN1tF3
-	 JP1/dzoeGDd3MnviR7hmeFiMAs/EauKrCw90xAWoz1WY74g6H6z8O0jOJ7QXbiR2Jh
-	 0CWfWovMbsmEsy86MKABMupkxti2yALrS49ZZ/l5ThcfYHi+Jl0JTN0dP7SooTTLdV
-	 KjiuJ8bS5A3eg==
-Subject: Re: [PATCH net-next v4 4/4] net: phy: dp83867: support setting
- output-impedance
-From: netdev-bot+sashiko@kernel.org
-To: s.trumtrar@pengutronix.de
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
- pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- afd@ti.com, andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
- michal.simek@amd.com, edumazet@kernel.org, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Date: Sat, 14 Nov 2026 11:25:38 +0000
-Message-ID: <179465553811.2199510.12732274072788992215@kernel.org>
-In-Reply-To: <20261110-v7-2-topic-dp83867-v4-4-a268f83b1ec1@pengutronix.de>
-References: <20261110-v7-2-topic-dp83867-v4-4-a268f83b1ec1@pengutronix.de>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=ewPmq7Yh
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-36e99cf7bb3so2409322eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 03:25:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1794655549; x=1795260349; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YbMVc5P0tRqN8v0ioLIphiBpTqOVDwdaBT3lngdtRCc=;
+        b=ewPmq7Yhcjfu9vTvSkbroSm5qRgQMtxC6fGTEPdh0bkglUhtjTf+XHzHUhhlRF9Y2W
+         eoAmu+LX/PBi3rov2JlDMkkY2UMKq+0PR4aR/qkTewuqz0jouuObsSuOydr/0hQZizQG
+         hpPNIhiK9YfeaKwpi4DK4EZj9uj73yuebsBX0MW769mUw+OoQS2y8m7MCUpnlfPYqsBV
+         msWWwPah+ejLcAcLS5zM53sfDlOXNn49ewL9vOdjG/EvW8A4Qf+0JwJwqH9oL6NbSIbj
+         CmrKBOONCryJGDHPiF7cUD6ubHVEEU3BEZ56cC8Q1af5sjwFX2ryYXp3flDN3FyjRB/U
+         BrWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794655549; x=1795260349;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YbMVc5P0tRqN8v0ioLIphiBpTqOVDwdaBT3lngdtRCc=;
+        b=y/SkZTHsPo7aCq5QWDIirN658GXSVuAyFl0kDQFq2tN0tdY+h30Kv0VreCDHby3Tha
+         mWfSYWfYRpiiXmiuS7MkrUjI2L1l+FguKtu64QamRhOFTsK0CiTnQBc15RUbVqqahX75
+         L52xnXT4sfK2VakGFyz+JgUePY/gv02a6agr8HRU4AD3c8caJuXgpnxME2CxKEqlYdUw
+         d10jZHqYDA2ZgLAOTApyJdIzCMFbqQj5wkCscy46UIQIXihtJpQD5eVun8UBOheE8nF0
+         oPZeVl4Ig6jgc9D7TKgsSoLuMqhb12kTiCvdygqkafiG76v8JxK0Ne7CwA/VSPOwDqG7
+         Wtzw==
+X-Forwarded-Encrypted: i=1; AL+hErEKfN+xp0kmI0vslBscX4bwu5SfjUW/V2bSSZGzUvcOVXTt+ntNCC2PFUwIkCeUyJ8CKg5nm6AmqWO3AC8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ZG9eSqMthrtD1n9EFXn16ecIQSU8i7HmNGWWifXdZTYPcTcul
+	ECjbEl+TK/KJEa7slQo7ZUXTqPjo3y8dbYv02Sr3t5y68H6pQEXVhmBys4FPHOjb5LQ=
+X-Gm-Gg: AYBFou0Hhoo9beWWStZVoDVvIopFGff6VMXqUJ7An2EsIfbw7peLMTqjPnNWdOXZdJv
+	lP0TxHT24HC13gU/uXaMjfFNEIoaYwLA2hurJl8AUWlQt3PXWXUKzrjSrgzXo1pDyyakuB+ulvY
+	zlxwbGCjCJeIcjMVO1YgUIY525kwP36MA7b743GZqQkI9XFMThS6ii3CWZjtdjQ2ANLwuKXjfVv
+	DScMq5rEtmKAPBl5t96gY8l8XGZtp8pbz7f/RXY5Jn4wa+P4Xqj4zGnJorbizzYRolPWRU+NiQ9
+	ffzetP6GJHJFumbEezvhvN/NvComx4iNpSaeaxkdT0eG7tRfeQgjN8sWU1uO1By4K2Fa4ok9l//
+	rWnJL5ysw6EWvysHiWOtHTwebK2a4uY45Hb30N8ftOWQrUXI0UoDHgDTNus97H5PGScrSpvAzzp
+	Iqu7ARj8W0YcJUDpih0EDjq29t0rBu34bIBqDAFPl4Y9oDhVrjX/Yjpz8GB2bzpIgy0PGEPwFaj
+	fHaoTbJsADhV78G1QSg4sgDWY35XLNI/X48qlG8Hl/nZIi/Z0zwDwbtOWSlnWXkEOkdzeEZNzIh
+	ByyuQV1VbEcCsbgsbEzYBrlyQFgTHwZbyoCeJFROAPThSi4hSNhAQiivBhNXttq3X7I2By54wSe
+	f1IpZ/Q==
+X-Received: by 2002:a05:7301:90b:b0:34d:755b:d60b with SMTP id 5a478bee46e88-37968b8a031mr4631308eec.34.1794655549376;
+        Sat, 14 Nov 2026 03:25:49 -0800 (PST)
+Received: from G6L4RL2QG9 ([2409:8a00:1832:6900:9d36:3b30:f4a3:7b5f])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379553316fdsm16190627eec.5.2026.11.14.03.25.39
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 14 Nov 2026 03:25:48 -0800 (PST)
+From: Muchun Song <songmuchun@bytedance.com>
+To: Oscar Salvador <osalvador@suse.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Miaohe Lin <linmiaohe@huawei.com>
+Cc: Muchun Song <muchun.song@linux.dev>,
+	David Hildenbrand <david@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Joao Martins <joao.m.martins@oracle.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Jiaqi Yan <jiaqiyan@google.com>,
+	"Jose A . Perez de Azpillaga" <azpijr@gmail.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Muchun Song <songmuchun@bytedance.com>
+Subject: [PATCH v3 0/3] mm/hugetlb_vmemmap: Fix HVO races and deadlock
+Date: Sat, 14 Nov 2026 19:25:20 +0800
+Message-ID: <20261114112523.75208-1-songmuchun@bytedance.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,136 +108,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+This series fixes three HVO issues reported by Sashiko.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 2
+The first patch serializes HWPoison updates and removal against HVO
+remapping so raw_hwp_page state cannot be lost or freed while a
+replacement vmemmap head page is being installed. The second patch uses
+an HVO-private rwsem to prevent deferred PMD splits from racing with PTE
+remapping before the TLB flush. The last patch switches the vmemmap walk
+to the lockless walker so a PMD split allocation cannot recurse into
+init_mm.mmap_lock through reclaim.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+v3:
+- Serialize unpoison_memory() against HVO head remapping.
+- Update the first patch subject and description for the unpoison race.
+- Collect Reviewed-by tags from Jiaqi Yan and
+  Jose A. Perez de Azpillaga.
+- Rebase onto mm/mm-new.
 
-- [Medium] The new 'ti,output-impedance-ohms' property turns an absolute
-  ohm value into a fixed IO_IMPEDANCE_CTRL code with a straight line: 70…
-- [Low] After this patch dp83867.c holds two conflicting descriptions of
-  the same IO_IMPEDANCE_CTRL field.
-- [Low] In dp83867_of_init_io_impedance(), the comment '/* If no nvmem
-  cell, check for the boolean properties.
+v2: https://lore.kernel.org/20261111093747.50048-1-songmuchun@bytedance.com/
+- Add the HWPoison serialization fix reported by Sashiko.
+- Use an HVO-private rwsem for deferred PMD split serialization.
+- Add the lockless page-table walk fix for the PMD split deadlock.
 
---
+v1: https://lore.kernel.org/20261110112456.62827-1-songmuchun@bytedance.com/
 
-net: phy: dp83867: support setting output-impedance
+Muchun Song (3):
+  mm/hugetlb_vmemmap: fix HWPoison state races during optimization
+  mm/hugetlb_vmemmap: fix PMD split TLB flush race
+  mm/hugetlb_vmemmap: fix deadlock during PMD split
 
-This commit adds support for a ti,output-impedance-ohms devicetree
-property to the dp83867 driver. A value in the range 35..70 ohms is mapped
-linearly onto the 32 IO_IMPEDANCE_CTRL codes, and values outside that
-range fail with -ERANGE.
+ mm/hugetlb_vmemmap.c | 28 +++++++++++++++++++++++-----
+ mm/hugetlb_vmemmap.h | 24 ++++++++++++++++++++++++
+ mm/memory-failure.c  |  3 +++
+ 3 files changed, 50 insertions(+), 5 deletions(-)
 
-> diff --git a/drivers/net/phy/dp83867.c b/drivers/net/phy/dp83867.c
-> index a3cd5cb11ea0a..ca668e75f0c99 100644
-> --- a/drivers/net/phy/dp83867.c
-> +++ b/drivers/net/phy/dp83867.c
 
-[ ... ]
-
-> @@ -553,12 +557,29 @@ static int dp83867_of_init_io_impedance(struct phy_device *phydev)
->  						"failed to get nvmem cell io_impedance_ctrl\n");
->  
->  		/* If no nvmem cell, check for the boolean properties. */
-> -		if (of_property_read_bool(of_node, "ti,max-output-impedance"))
-> +		if (of_property_read_bool(of_node, "ti,max-output-impedance")) {
->  			dp83867->io_impedance = DP83867_IO_MUX_CFG_IO_IMPEDANCE_MAX;
-> -		else if (of_property_read_bool(of_node, "ti,min-output-impedance"))
-> +		} else if (of_property_read_bool(of_node, "ti,min-output-impedance")) {
->  			dp83867->io_impedance = DP83867_IO_MUX_CFG_IO_IMPEDANCE_MIN;
-> -		else
-> +		} else if (of_property_read_u32(of_node, "ti,output-impedance-ohms", &val) == 0) {
-
-[Severity: Low]
-This isn't a bug, but the comment above still says "check for the boolean
-properties". The block now also reads the u32 ti,output-impedance-ohms
-property and can return -ERANGE. Could the comment be updated to match?
-
-> +			if (val < DP83867_IO_IMPEDANCE_MIN_OHMS ||
-> +			    val > DP83867_IO_IMPEDANCE_MAX_OHMS) {
-> +				phydev_err(phydev, "'ti,output-impedance-ohms' contents out of range\n");
-> +				return -ERANGE;
-> +			}
-> +			/*
-> +			 * 0x00 = 70 ohms ... 0x1f = 35 ohms. The datasheet
-> +			 * does not specify the settings in between, map the
-> +			 * range linearly to the nearest one.
-> +			 */
-
-[Severity: Low]
-With this mapping, 50 ohms becomes 0x12 and 0x0f is about 53 ohms. The
-non-OF dp83867_of_init() in the same file still says something different:
-
-	/* Per datasheet, IO impedance is default to 50-ohm, so we set the
-	 * same here or else the default '0' means highest IO impedance
-	 * which is wrong.
-	 */
-	dp83867->io_impedance = DP83867_IO_MUX_CFG_IO_IMPEDANCE_MIN / 2;
-
-So after this patch the driver has two descriptions of the same field. A
-nominal 50 ohms programs a different code depending on whether
-CONFIG_OF_MDIO is enabled.
-
-The commit message mentions this mismatch, but both the comment and the
-two values are left as they are. Should the two paths agree, or should one
-of the comments say that its value is only approximate?
-
-> +			dp83867->io_impedance =
-> +				DIV_ROUND_CLOSEST((DP83867_IO_IMPEDANCE_MAX_OHMS - val) *
-> +						  DP83867_IO_MUX_CFG_IO_IMPEDANCE_MASK,
-> +						  DP83867_IO_IMPEDANCE_MAX_OHMS -
-> +						  DP83867_IO_IMPEDANCE_MIN_OHMS);
-
-[Severity: Medium]
-Can a fixed linear formula give the requested impedance on a given chip?
-
-Commit ab1e9de84aff ("dt-bindings: dp83867: add binding for
-io_impedance_ctrl nvmem cell") says the IO_IMPEDANCE_CTRL reset value is
-"factory calibrated to a value corresponding to approximately 50 ohms".
-It also says:
-
-  There is no fixed mapping from register values to values in the range
-  35-70 ohms; it varies from chip to chip, and even that target range is
-  approximate.
-
-That is why a per-board nvmem cell was added then, rather than an ohms
-property.
-
-With this patch, ti,output-impedance-ohms = <50> computes 0x12 on every
-part. dp83867_config_init() then writes that code over the factory-trimmed
-value on each probe, resume and soft reset:
-
-	/* If specified, set io impedance */
-	if (dp83867->io_impedance >= 0)
-		phy_modify_mmd(phydev, DP83867_DEVADDR, DP83867_IO_MUX_CFG,
-			       DP83867_IO_MUX_CFG_IO_IMPEDANCE_MASK,
-			       dp83867->io_impedance);
-
-As a result, the RGMII output impedance can differ from the requested ohms
-from one chip to the next, and no error is reported.
-
-If the binding description for ti,output-impedance-ohms also documents
-this linear mapping, the ohm semantics become DT ABI that the hardware
-cannot guarantee.
-
-Would a raw register code property work better here? Another option would
-be to document the ohm value as approximate and keep the reset value as
-the 50 ohm point.
-
-> +		} else {
->  			dp83867->io_impedance = -1; /* leave at default */
-> +		}
->  
->  		return 0;
->  	}
-
+base-commit: 6ec534d64f85e949a5d58070678dcd7711875a7c
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261110-v7-2-topic-dp83867-v4-0-a268f83b1ec1%40pengutronix.de
+2.54.0
+
