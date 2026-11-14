@@ -1,47 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794679074;
-	b=JKpV6doA43/CWhvaF1cB/2OF9Dq1LhNxaahkQLhXA5GETQaezH2+uA7JEI3EBZXu+reW
-	 If7Tku2JunQJBX/7wnthi9wNmXTDsuKPKjUGHlYY7OaO6f8flQ9LWsbTXsP4GHuZsNoYR
-	 oTTz0M2sUVgND3UvMZ5N5coHOk0zXLqU0Zzpov6Unc6906kPKxBcL0/tRU5lLcQgNikg8
-	 JTz9mwAY/AwxmTmE/bpe4AXzm8icvLEH9K+nNbhA5yY2u0rblAnJKffWGkarzn3eP8dr9
-	 +COTf1jtwvGD5yV0oZYx2AZVLoQ3hkSLPJeu8Qj87cUSdFCeS/LYH1pE/I9+g816ceA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794679074;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=qFHfirH5vChjL8wVOpZRT6SwMpXMf+RApUPlogONKaE=;
-	b=cLSCAYiv5sWnfQC+oUpfcK/hCl5fd7L2/XCvkEWaLQqmDF97nolnUw3PKJF5oLC3O7dY
-	 y+nVPLrUdtM5h91Jhj0GOLJ5AW3O8LxdJsprPgt35LbnqFKSWWiwPzQWmYSWxeS9UMPsW
-	 GZFEb+xO8C322l+fQqroy7OO34wHf06qw74s6gYsJBqdjZI+HYEvJ4r1Pz2/o4UIv1jAs
-	 jDB9N+gS/swp9OzYY1yxLV8si9nFPkC3SmOZPE+6MwViE8B08buGsC9QEDpqEnvC96OKt
-	 3mT+Qafc90lOCCj70UXg05x7N0g3B6ezw+VCSxZq0f1ECdR2ouOY9JfgcLHXuVixd9w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jMtLVM9h;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794679073;
+	b=CYlcXJQ9cCP2E8/t00aXx4shBGAm1FbV5ICm53cfCf4FdR1/Bn2jPGSRduuAYHq1eXKo
+	 XR2t2+jhcFqmtq+1ZBQyFpzvMqu5iCh4dAUy86JM5WlXMNVZThNsE0TIXaEFSDRxQrODm
+	 ytl0UGlqYDCJWY6CpFI8dP0MM1rPHKkoNCfuahh9r9Hz0AsMh3xpZJCn0166yh22BKKa9
+	 2DohKWK89EizOlk+qAovYhX+NwIX3AzFJPeS6AgAfEJTtuTuFKMeWNCbkRiHSGUL31f8C
+	 RhRr3jcOyjGbeSm6DTlv4I6avfZQzQVdh+wTOo6AEeQqS81YmD2PhyEFF0TMG6byLIw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794679073;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=bylSQ/tfgEhydnCX+X6ude5kn1WgMfGriStlC3xv4iw=;
+	b=V9MsaFmpIg8Qap5nfYF9Hd3I4Q0/Pv4CtagevRJHkaOJPzTu5/YQtPe7kAcg8gBdvvxi
+	 Md0Co0MoDurUeDeKd355rsYbrSNUjS1s9GU7/eY9vfW+7L3Y43b0+NA+TTMFEfFNomuWF
+	 RjiqL5gD6XrF2Qa5NmhC3nbHu26J/2+SLngFTTk0K3vOnbBw649j1kPQkAwQX4Kl8bV6R
+	 MWqY5FuOM9M4lrDphiqST5Prop1EcoglX+NK5oPrHmSqMHm38RfksyAWplGwCziZ8Ha+H
+	 8C45KfvfVjJL4TJPky/G/eC1Mpy6Jd8zHWDmEGr8upk5RmSeUDp4oObn2HiMh15oA2Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aNXyHTQu;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6F98606A88F;
-	Sat, 14 Nov 2026 17:57:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF8E7606A884
+	for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 17:57:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF8E7606A884
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jMtLVM9h
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77AC11F000C6;
-	Sat, 14 Nov 2026 17:57:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794679074;
-	bh=qFHfirH5vChjL8wVOpZRT6SwMpXMf+RApUPlogONKaE=;
-	h=Date:Subject:To:References:From:In-Reply-To;
-	b=jMtLVM9hF5qvIFJ1wFC288HB7lswk+NBuqc6nhfyd9qGG7Ke0jNb+zXx+PMopFDbr
-	 Zf9BXU6maqkNYL+JJe3Ujg2Tu4+Oh5x28k9LkVpfE7mR91MMsdvI6q+H/rJDgxhzTa
-	 2M0JjSlpRUMnm8eMnuYGB6NMHzgIwZrkQtrCE0e/z7nH4kbzlcRKXAaRQWFeAmWPhY
-	 229+2zd17p1Hv1hERAhHToWrMH+z8M9PozzfPUi1p78A8deOGrEsm0wC2AgJVRw7mW
-	 zuAUTVNjTCnA13kGWxhiIzS2hrQdZlZJwW6+2ygV1Db9Ij4vv6foLkScOsFAts+JA+
-	 HB7oAwyUbS8jQ==
-Message-ID: <b4d6cc36-e986-41ce-a887-d7d9076cabd4@kernel.org>
-Date: Sat, 14 Nov 2026 18:57:46 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aNXyHTQu
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c468bd799ecso334610066b.1
+        for <linux-kernel@vger.kernel.org>; Sat, 14 Nov 2026 09:57:52 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794679071; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MYxcbF99fdSA8zkFc2RAw8zKwv4Cbj6JNT8Kj4FygOXZU2GgAQkhOwA5oAFfUI0+ed
+         aSjJzyzn/Ev9ASUDNj6qZGItpV20PsBjv4IyOScVcsQqJd+qVXp0kk3eU3pC70PktGLS
+         i8ftRAUaq7zIqbXHkRFuo9DbeAEg8fZnJ6vc+ehjLFKe7E4wyC52rwUbosJjkH22SG+X
+         3/mMv6tvGmIY/xl/7GvrRMrYcJctng7G3+5Mz/WmmfcLLr+rZezh/8qyThoiS8E2o/eD
+         rSOp3CuDKGVl7u8v9SyduNRNCEuyqw5TZnw658i7N8g7VUk+NEMv5aJVKOVOl72yGNci
+         hp5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bylSQ/tfgEhydnCX+X6ude5kn1WgMfGriStlC3xv4iw=;
+        fh=0uCBO8OaMrZ9VvOgJzgNZwidAXrntiaEBCkud7AB5n4=;
+        b=iRCLtU/hv6Bw8KVJv0Xu9YKTuOmhHmQOxpKWgAxLWBMdn3XrcCk1xX/FTYYm1olh+w
+         vQzVAc4UfMhxJ9rRjVYqma1zh75KOc7XIhpJtFrZKogO/JZdEeXKBGELDXl7qLPyxiqi
+         qYWm2jI/FGXDUldXglxarZgPDGWPJsdEeDUTUodK6UHC2017duo3U9OPb5S6Wv9dojor
+         5kCjb5EmpUZLAV2H1vT1FSksZB6lTw2/atJ8tTFl53bGHzUKzf5NFFI68eQAa6Wb/yQG
+         Ca1bCbkP22ivcdp7/gTyWYJW+P30e5E8duAZMIeeKtR9i7obqq5dhoZlUrEQyRbMaXrA
+         96dA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794679071; x=1795283871; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bylSQ/tfgEhydnCX+X6ude5kn1WgMfGriStlC3xv4iw=;
+        b=aNXyHTQu0XVIPDtw2+6infeuTnYgsNRkhhJk+4G5vLn8JDnGxv0j1NnEKTcUuhgWdP
+         z1QAyIAuUo5ANxptdASsos8FTW5PA2ZpwprXhGv7R/cNJ3xvoOJBQijq6TFCu89JFias
+         wDdRaQNHvQnKJWCgBEwujSH5C1SJxpSVCT5295VRIaE2PTk795xw+5ZP2ALW1KSTHCwN
+         e7y1q/RxAE/gDg0Xs/ELBHL6/O8ZMsvwbLFNPqeAgCKMcpzTkNpHFBsOOB80G3tVyjbI
+         hvD1m8Hs5l3dU0ufNxVoB9SCFbLKprhh9aCzDjKnvP1r4v8ogUoOTcHso8Pgq8MXj+P2
+         TEmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794679071; x=1795283871;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bylSQ/tfgEhydnCX+X6ude5kn1WgMfGriStlC3xv4iw=;
+        b=kqDVAQXIeTGSPePu5mftGfBY2+Gcb9EYT58SOcNsmJaZSN5tWh8O/j1Famk0wwPO73
+         BHnAVPWWm2oSV4IQevEKzvcwcm/hCvI0DmbbxtQQ3H+fAWIet4fH8v3QqGB9uzoWTTrW
+         o0NiNttfv5dY/rUF7mBD6D8a5MXmmYO9AkdRga0beSw9hm3RJWjhNlWexueubPu/L4AJ
+         RLFonLz3z0Ig0OrV2HxoTrdNIkZvJio7lFQvSeRm8yeUIdbu/XTY9yHcyiTadd/9YPWr
+         FsZdJJuJBbguKvCTz5KC03ggGzcYQon3GD8A85qNqHJvMjJuoE6igJ4KPSIhvHNv19Av
+         ZDeA==
+X-Forwarded-Encrypted: i=1; AL+hErHoyOA947rgalCo2PbLi4JWaq7ApOIbD6segNPd7Bj13wPDXdR1EVvCOOjUGDWLyfeL00tSQ9MGLXse6yY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8dmfG8w6wigD89IQwJ/Vxyri1NQO20OC7l5Syt/5mn/uopymjv
+	EO5+BofWSCwfU1JGZiVJsdVH9J7u2efDOPV7NhFGeh6+XxznBiAdYqs39/LuwKm4mwnn2wCuf8y
+	Egj11LZpveOUdk/7JcbtMB6VOSLbUlSE=
+X-Gm-Gg: AYBFou1p/Hf7tpUZximYj0O7u6IM65BANUCx6nW/gmGiDmG+jQWLhMltvIqv8VhRXLo
+	0TLoHu7LdHJTgr9MlbWYrwsHHxWoQi7eSn0rzEJ6iWyXfUQxbs5g6+fCtfISsffLIUEyYbur2g5
+	24McqVfk7/d8CJfmu06TJ09AgN62IKNbbhryxDs8KHCOFVju2k79kev7erLuos1JLtmp0gIeJC9
+	v6gwvohWZoCceJWvBcrqcKkt/He75zECVWXqcC9C9Eed/Vs5oBZA0KLQJOHKefUoVeu8lBKu69h
+	hVuCJqlHFI3dgpZbk4zZbKap8ZlsvoK442+pU6sI8mz5KiVfq0L79pSL8BMKjBsxhJQvqw5p2M+
+	z/O4Wi7snpg2ihS5jXSxvKoN2kAE6agbx+4SoEPcYnA2DQnNe8HNSEX2nDUdSWW84ZDSzKEGKvI
+	V01b9zbuT/gYfcEEDT
+X-Received: by 2002:a17:907:d0a:b0:c2d:d408:5d9c with SMTP id
+ a640c23a62f3a-c509684ba8emr445498366b.48.1794679070813; Sat, 14 Nov 2026
+ 09:57:50 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,88 +105,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/7] media: dt-bindings: rockchip: Add RK3568 Video
- Decoder bindings
-To: Daniel Golle <daniel@makrotopia.org>,
- Detlev Casanova <detlev.casanova@collabora.com>,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Shawn Lin <shawn.lin@rock-chips.com>,
- Michael Riesch <michael.riesch@collabora.com>,
- David Heidelberg <david@ixit.cz>,
- Christian Hewitt <christianshewitt@gmail.com>, Marc Zyngier
- <maz@kernel.org>, linux-media@vger.kernel.org,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <cover.1794654074.git.daniel@makrotopia.org>
- <90878fc566a9752eb582a82d1324d811ebb324e7.1794654074.git.daniel@makrotopia.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <90878fc566a9752eb582a82d1324d811ebb324e7.1794654074.git.daniel@makrotopia.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261113185541.70203-1-baohua@kernel.org> <20261113185541.70203-11-baohua@kernel.org>
+In-Reply-To: <20261113185541.70203-11-baohua@kernel.org>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Sun, 15 Nov 2026 01:57:12 +0800
+X-Gm-Features: AclHuK9E1krSsTGkkXWgcbJbCojCN75Kmg6w82e28JfpuFnCTTb1-n0fzU9ZEEM
+Message-ID: <CAMgjq7C1A2axrGiQzo2_9d6N9MQNP6Lg+ZqcHsac+qGvt8OL4A@mail.gmail.com>
+Subject: Re: [PATCH v8 10/16] mm/mglru: Run aging when pages are rare outside
+ the youngest gen
+To: "Barry Song (Xiaomi)" <baohua@kernel.org>
+Cc: akpm@linux-foundation.org, linux-mm@kvack.org, axelrasmussen@google.com, 
+	baolin.wang@linux.alibaba.com, baoquan.he@linux.dev, hannes@cmpxchg.org, 
+	hui.zhu@linux.dev, kunwu.chan@gmail.com, liam@infradead.org, 
+	lianux.mm@gmail.com, linux-kernel@vger.kernel.org, liuxiang.277@bytedance.com, 
+	lyugaofei@xiaomi.com, mhocko@kernel.org, mhocko@suse.com, qi.zheng@linux.dev, 
+	ridong.chen@linux.dev, rppt@kernel.org, shakeel.butt@linux.dev, 
+	surenb@google.com, wangzicheng@honor.com, weixugc@google.com, 
+	yuanchu@google.com, zhangbo56@xiaomi.com, zhuhui@kylinos.cn, 
+	sidchintamaneni@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 14/11/2026 12:09, Daniel Golle wrote:
-> From: Christian Hewitt <christianshewitt@gmail.com>
-> 
-> The video decoder in RK356X (vdpu346) is described in the same way as
-> the one in RK3588 (vdpu381). A new compatible is added as the decoder
-> capabilities are a subset of the vdpu381 capabilities.
-> 
-> Signed-off-by: Christian Hewitt <christianshewitt@gmail.com>
-> Acked-by: Rob Herring (Arm) <robh@kernel.org>
+On Sat, Nov 14, 2026 at 2:56=E2=80=AFAM Barry Song (Xiaomi) <baohua@kernel.=
+org> wrote:
+>
+> From: Gaofei Lyu <lyugaofei@xiaomi.com>
+>
+> Run aging when the total number of pages outside the youngest
 
-> Tested-by: Diederik de Haas <diederik@cknow-tech.com> # PineTab2, Quartz64-A, NanoPi R5S
+Huge thanks for this!
 
-How v1 could get it?
+I really like the imbalance detection idea, as skewed distributions
+are very common in real workloads, and this significantly improves
+accuracy.
 
-Anyway, drop, not applicable here. You cannot test a binding on PineTab2.
+A few trivial nits though:
 
-Best regards,
-Krzysztof
+>
+> +static bool lru_gen_imbalanced(struct lruvec *lruvec, struct scan_contro=
+l *sc,
+> +               int swappiness)
+> +{
+> +       unsigned long youngest[ANON_AND_FILE] =3D {0}, old[ANON_AND_FILE]=
+ =3D {0};
+> +       struct lru_gen_folio *lrugen =3D &lruvec->lrugen;
+> +       DEFINE_MAX_SEQ(lruvec);
+> +       DEFINE_MIN_SEQ(lruvec);
+> +       int type;
+> +
+> +       if (sc->priority > DEF_PRIORITY / 2)
+> +               return false;
+
+We have been using "DEF_PRIORITY / 2" so many times in this series
+maybe we can introduce a macro like "AGING_PRIORITY" for this later?
+And is this condition too hard to trigger?
+
+> +
+> +       for_each_evictable_type(type, swappiness) {
+> +               unsigned long seq;
+> +
+> +               youngest[type] =3D lruvec_gen_size(lrugen, type, max_seq)=
+;
+> +               for (seq =3D min_seq[type]; seq < max_seq; seq++)
+> +                       old[type] +=3D lruvec_gen_size(lrugen, type, seq)=
+;
+> +       }
+> +
+> +       /* the vast majority of pages sit in the youngest gen */
+> +       if (youngest[LRU_GEN_ANON] + youngest[LRU_GEN_FILE] >
+> +           (old[LRU_GEN_ANON] + old[LRU_GEN_FILE]) * MAX_NR_GENS)
+> +               return true;
+
+We may increase MAX_NR_GENS aggressively in the future (e.g. 64 is
+what I have in mind), will MIN_NR_GENS work here? Like what we had
+before 798c0330c2ca.
+
+Also counting only the youngest will cause it to drop to 0 very
+frequently, as each aging starts with an empty youngest generation.
+Perhaps we should look at the yougest MIN_NR_GENS gens (still just
+like what we had in 798c0330c2ca).
+
+> +
+> +       /* Swappiness extremes: the corresponding type matters */
+> +       if (swappiness =3D=3D MIN_SWAPPINESS + 1)
+> +               return youngest[LRU_GEN_FILE] > old[LRU_GEN_FILE] * MAX_N=
+R_GENS;
+> +
+> +       if (swappiness =3D=3D MAX_SWAPPINESS)
+> +               return youngest[LRU_GEN_ANON] > old[LRU_GEN_ANON] * MAX_N=
+R_GENS;
+
+Maybe we can do a "round up / down" for swappiness so the two explicit
+check can be unified, by reading the right type in the for loop above
+directly?
+
+Like doing this before the for_each_evictable_type:
+
+    /* Round up or down corner swappiness, to balance the heavy biased
+type better */
+    if (swappiness =3D=3D MIN_SWAPPINESS + 1)
+        swappiness =3D MIN_SWAPPINESS;
+    else if (swappiness =3D=3D MAX_SWAPPINESS)
+        swappiness =3D MAX_SWAPPINESS + 1;
+
+> +
+> +       return false;
+> +}
+
+And BTW I tested this with FG on top of this using zipf and the result
+is even better than before:
+
+IOPS (zipf 1.1, 40G workingset, 16G memcg, mmap access, 3 test runs
+for each setup):
+mainline: 2,215,641 IOPS
+mainline with FG: 2,705,460 IOPS
+after this series: 2,182,625 IOPS
+after this series with FG: 2,772,968 IOPS
+
+One thing I observed before is that when testing FG, if the generation
+number is low, the accuracy drops by a lot since we are trying to
+distribute the folios among gens by the frequenecy, so we have a
+compressed frequency space. This patch addresses that well so the
+performance gain should be larger now.
